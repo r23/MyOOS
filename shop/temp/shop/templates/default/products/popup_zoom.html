@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html {$smarty.const.html_params}>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$smarty.const.CHARSET}">
+<title>{$products_name}</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!--
+*** Vielen Dank fuer Ihr Interesse am Quellcode ***
+Copyright: OOS [OSIS Online Shop] 
+Web:       www.oos-shop.de
+eMail:     info@oos-shop.de
+-->
+
+<base href="{$oos_base}">
+{literal}
+<style type='text/css'>
+BODY {color: #d0ffd0; background: #333333;
+          font-family: Helvetica, sans-serif;
+          font-size: 14pt; margin: 4%; }
+H2       {color: #d0ffd0;}
+TABLE    {text-align: center; margin-left: auto; margin-right: auto;}
+a:link    { color: #b3b3b3; }
+a:visited { color: #b3b3b3; }
+</style>
+{/literal}
+</head>
+<body>
+
+<div align=center><h2>{$products_name}</h2></div>
+
+
+<table align="center" cellpadding="0" cellspacing="0">
+<tbody><tr><td height="15"></td></tr>
+<tr><td>
+	<OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" CODEBASE="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" WIDTH="750" HEIGHT="434" ID="theMovie">
+	<PARAM NAME="FlashVars" VALUE="{$zoomify}">
+	<param name=Menu VALUE="FALSE">
+	<PARAM NAME="src" VALUE="{$oos_base}swf/zoomifyViewer87-withRotate.swf">
+	<EMBED FlashVars="{$zoomify}" SRC="{$oos_base}swf/zoomifyViewer87-withRotate.swf" MENU="false" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"  WIDTH="750" HEIGHT="434" NAME="theMovie"></EMBED>
+	</OBJECT>
+</td></tr>
+
+<tr><td height="70"></td></tr>
+</tbody></table>
+
+</body>
+</html>
+

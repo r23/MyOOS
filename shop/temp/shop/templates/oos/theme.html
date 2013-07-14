@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if IE 6 ]><html class="xp ie ielt9 ielt8 ielt7 ie6" lang="{$smarty.const.LANG}"><![endif]-->
+<!--[if IE 7 ]><html class="xp ie ielt9 ielt8 ie7" lang="{$smarty.const.LANG}"><![endif]-->
+<!--[if IE 8 ]><html class="xp ie ielt9 ie8" lang="{$smarty.const.LANG}"><![endif]-->
+<!--[if IE 9 ]><html class="xp ie ie9" lang="{$smarty.const.LANG}"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="{$smarty.const.LANG}"><!--<![endif]-->
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>{$pagetitle}</title>
+		<meta name="description" content="{$meta_description}" />
+		<meta name="keywords" content="{$meta_keywords}" />
+		<meta name="author" content="{$smarty.const.OOS_META_AUTHOR}" />
+		<meta name="copyright" content="Copyright (c) {$smarty.now|date_format:"%Y"} by {$smarty.const.OOS_META_COPYRIGHT}" />	
+		{*
+			DO NOT REMOVE THE FOLLOWING - FAILURE TO COMPLY IS A DIRECT VIOLATION
+			OF THE GNU GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
+		*}
+		<meta name="Generator" content="{$smarty.const.OOS_FULL_NAME} - {$smarty.const.OOS_HOME}  All rights reserved.">
+		{*
+			END OF COPYRIGHT
+		*}	
+		<meta name="viewport" content="width=device-width">
+
+		<meta name="Language" content="{$smarty.session.languages_name}">
+		<meta name="Content-Language" content="{$smarty.session.iso_639_1}">
+	
+		<link rel="canonical" href="{$canonical}" />
+		<meta name="robots" content="noodp,noydir"/>		
+		
+		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	
+		<link rel="stylesheet" href="{$theme}/css/normalize.css" />
+		<link rel="stylesheet" href="{$theme}/css/foundation.css" />
+		
+		<script src="{$theme}/js/vendor/custom.modernizr.js"></script>
+		
+		<link rel="top" type="text/html" href="{$oos_base}">
+		<link rel="contents" type="text/html" href="{html_href_link content=$contents.info_sitemap}">
+		<link rel="search" type="text/html" href="{html_href_link content=$contents.advanced_search}">
+		<link rel="bookmark" type="text/html" href="{html_href_link content=$content_file oos_get=$get_params connection='NONSSL' add_session_id='false' search_engine_safe='false'}">
+
+		<!-- IE Fix for HTML5 Tags -->
+		<!--[if lt IE 9]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+{if $oos_info_warning}
+	{foreach item=warning from=$oos_info_warning}
+		{include file="default/system/warning.html"}
+	{/foreach}
+{/if}
+<!-- header //-->
+<table width="870" align="center" cellpadding="0" cellspacing="0">
+   <tr>
+      <td class="block_head"><a href="{html_href_link content=$contents.main}"><img src="{$theme_image}/logo.gif" border="0" width="140" height="179" alt="{$smarty.const.STORE_NAME}" title=" {$smarty.const.STORE_NAME} "></a></td>
+   </tr>
+</table>
+
+
+<table width="870" border="0" align="center" cellspacing="0" cellpadding="1">
+  <tr class="oos-HeadNavi">
+    <td class="oos-HeadNavi">&nbsp;&nbsp;{$oos_breadcrumb}</td>
+    <td align="right" class="oos-HeadNavi">
+
+{if (isset($smarty.session.customer_id)) }
+<a href="{html_href_link content=$contents.logoff connection=SSL}" class="headerNavigation">{$lang.header_title_logoff}</a>&nbsp;
+{else}
+<a href="{html_href_link content=$contents.login connection=SSL}" class="headerNavigation">{$lang.header_title_login}</a>&nbsp;
+{/if}
+|&nbsp;<a href="{html_href_link content=$contents.account connection=SSL}" class="headerNavigation">{$lang.header_title_my_account}</a>&nbsp;
+|&nbsp;<a href="{html_href_link content=$contents.main_shopping_cart}" class="headerNavigation">{$lang.header_title_cart_contents}</a>&nbsp;
+|&nbsp;<a href="{html_href_link content=$contents.checkout_payment connection=SSL}" class="headerNavigation">{$lang.header_title_checkout}</a>&nbsp;&nbsp;
+
+    </td>
+  </tr>
+</table>
+
+
+{foreach item=error from=$oos_error_message}
+   {include file="myoos/system/error_message.html"}
+{/foreach}
+{foreach item=info from=$oos_info_message}
+   {include file="myoos/system/info_message.html"}
+{/foreach}
+<!-- header_eof //-->
+
+<!-- body //-->
+<table width="870" border="0" align="center" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
+{foreach item=block from=$oos_blockleft}
+   {include file="myoos/system/block.html"}
+{/foreach}
+    </table></td>
+    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
+    <td width="100%" valign="top">{$myoos_contents}</td>
+    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
+    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
+{foreach item=block from=$oos_blockright}
+   {include file="myoos/system/block.html"}
+{/foreach}
+    </table></td>
+  </tr>
+</table>
+<!-- body_eof //-->
+
+<table width="870" border="0" align="center" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="right" class="footer_navigation_background" nowrap="nowrap"></td>
+    <td width="5" class="footer_navigation_background"><img src="{$theme_image}/footer_navigation_right.gif" alt=" " width="5" height="19" ></td>
+  </tr>
+</table>
+
+<br>
+<br>
+
+{*
+			GERMAN:
+			Diese Rueckverlinkung darf nur entfernt werden,
+			wenn Sie eine MyOOS Lizenz besitzen.
+			:: Lizenzbedingungen: 
+			http://www.myoos.de/Projektbezogene-Gebuehr-p-38.html
+
+			ENGLISH:
+			This back linking maybe only removed,
+			if you possess a MyOOS Lizenz license.
+			:: License conditions: 
+			http://www.myoos.de/Projektbezogene-Gebuehr-p-38.html
+*}
+<div class="footer" align="center">
+<div align="center" class="smallText">Copyright &copy; 2003 - {$smarty.now|date_format:"%Y"} <a href="{$smarty.const.OOS_HOME}" target="_blank">OOS [OSIS Online Shop]</a>.  All rights reserved.</div>
+<div align="center" class="smallText"><a href="{$smarty.const.OOS_HOME}" target="_blank">OOS [OSIS Online Shop]</a> is Free Software released under the <a href="http://www.gnu.org" target="_blank">GNU/GPL License.</a></div>
+</div>
+
+
+    </body>
+</html>

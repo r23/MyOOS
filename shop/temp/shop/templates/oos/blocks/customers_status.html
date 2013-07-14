@@ -1,0 +1,58 @@
+{if $customers_status_block eq 'true'}
+<table width="154" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="19" class="block_head_background"><img src="{$theme_image}/table_head_arrow.gif" alt=" " width="21" height="19"></td>
+    <td width="130" class="block_head_background">{$block_heading_customers_status_box}</td>
+    <td width="5" class="block_head_background"><img src="{$theme_image}/table_head_right.gif" alt=" " width="5" height="19"></td>
+  </tr>
+  <tr>
+    <td colspan="3"><table width="154" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="2" class="block_content_backgr_left"></td>
+        <td width="150"><table width="150" border="0" cellspacing="0" cellpadding="3">
+          <tr>
+            <td class="block_content">{$lang.text_info_csname}<br><center>{$smarty.session.member->group.text}</center></td>
+          </tr>
+{if ($smarty.session.member->group.discount > 0 ) && ($smarty.session.member->group.ot_discount_flag eq 1 ) }
+          <tr>
+            <td class="block_content">{$lang.table_heading_discount}: {$smarty.session.member->group.discount|number:"2"}%.<br>
+            {$lang.sub_title_ot_discount}<br>
+            {$lang.text_info_minimum_amount} : {$customers_discount}<br>
+            {$lang.table_heading_discount} : {$smarty.session.member->group.ot_discount} %</td>
+          </tr>
+  {elseif $smarty.session.member->group.discount > 0 }
+          <tr>
+            <td class="block_content">{$lang.table_heading_discount}: {$smarty.session.member->group.discount|number:"2"}%.<br></td>
+          </tr>
+{/if}
+{if $smarty.session.member->group.show_price eq 1 }
+    {if $smarty.session.member->group.show_price_tax eq 1 }
+          <tr>
+            <td class="block_content">{$lang.text_info_show_price_with_tax_yes}</td>
+          </tr>
+    {else}
+          <tr>
+            <td class="block_content">{$lang.text_info_show_price_with_tax_no}</td>
+          </tr>
+    {/if}
+  {else}
+          <tr>
+            <td class="block_content">{$lang.text_info_show_price_no}</td>
+          </tr>
+{/if}
+        </table></td>
+        <td width="2" class="block_content_backgr_right"></td>
+      </tr>
+      <tr>
+        <td><img src="{$theme_image}/table_butt_left.gif" alt=" " width="2" height="8"></td>
+        <td></td>
+
+        <td><img src="{$theme_image}/table_butt_right.gif" alt=" " width="2" height="8"></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="3"><img src="{$theme_image}/pixel.gif" alt=" " width="3" height="3"></td>
+  </tr>
+</table>
+{/if}

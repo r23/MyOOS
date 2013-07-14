@@ -1,0 +1,38 @@
+{if $notifications_block eq 'true'}
+<table width="154" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="19" class="block_head_background"><img src="{$theme_image}/table_head_arrow.gif" alt=" " width="21" height="19"></td>
+    <td width="115" class="block_head_background">{$block_heading_notifications}</td>
+    <td width="20" class="block_head_background" nowrap="nowrap"><a href="{html_href_link content=$contents.product_notifications connection=SSL}"><img src="{$theme_image}/infobox/more.gif" border="0" alt="{$lang.icon_arrow_right}" width="15" height="19"></a><img src="{$theme_image}/table_head_right.gif" alt=" " width="5" height="19"></td>
+  </tr>
+  <tr>
+    <td colspan="3"><table width="154" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="2" class="block_content_backgr_left"></td>
+        <td width="150"><table width="150" border="0" cellspacing="0" cellpadding="3">
+          <tr>
+ {if $notification_exists}
+            <td class="block_content"><a href="{html_href_link content=$content_file oos_get=$get_params action=notify_remove connection=$request_type}">{html_oos_image basedir=$smarty.const.OOS_IMAGES image="box_products_notifications_remove.gif" alt=$lang.button_remove_notifications}</a></td>
+            <td class="block_content"><a href="{html_href_link content=$content_file oos_get=$get_params action=notify_remove connection=$request_type}">{$products_name|string_format:$lang.block_notifications_notify_remove}</a></td>
+ {else}
+            <td class="block_content"><a href="{html_href_link content=$content_file oos_get=$get_params action=notify connection=$request_type}">{html_oos_image basedir=$smarty.const.OOS_IMAGES image="box_products_notifications.gif" alt=$lang.button_notifications}</a></td>
+            <td class="block_content"><a href="{html_href_link content=$content_file oos_get=$get_params action=notify connection=$request_type}">{$products_name|string_format:$lang.block_notifications_notify}</a></td>
+ {/if}
+
+          </tr>
+        </table></td>
+        <td width="2" class="block_content_backgr_right"></td>
+      </tr>
+      <tr>
+        <td><img src="{$theme_image}/table_butt_left.gif" alt=" " width="2" height="8"></td>
+        <td></td>
+
+        <td><img src="{$theme_image}/table_butt_right.gif" alt=" " width="2" height="8"></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="3"><img src="{$theme_image}/pixel.gif" alt=" " width="3" height="3"></td>
+  </tr>
+</table>
+{/if}

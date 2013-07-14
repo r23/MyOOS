@@ -1,0 +1,14 @@
+# $Id: robots.txt 414 2013-06-14 00:01:38Z r23 $
+# www.robotstxt.org/
+# www.google.com/support/webmasters/bin/answer.py?hl=en&answer=156449
+
+User-agent: *
+Disallow: /admin/
+Disallow: /images/
+Disallow: /includes/
+Disallow: /js/
+Disallow: /media/
+Disallow: /pub/
+Disallow: /themes/
+Disallow: /*OOSSID
+Disallow: /*OOSADMINSID

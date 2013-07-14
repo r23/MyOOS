@@ -6,7 +6,6 @@
 .project
 .metadata
 bin/
-tmp/
 *.tmp
 *.bak
 *.swp
@@ -75,7 +74,6 @@ build/
 *.vssscc
 .builds
 *.pidb
-*.log
 *.scc
 
 # Visual C++ cache files

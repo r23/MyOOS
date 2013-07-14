@@ -1,0 +1,571 @@
+/*!
+ * MyOOS v2.0.5
+ *
+ * Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+ * Released under the GNU General Public License
+ */
+
+/* 1. General 
+================================ */
+body {
+	font-weight:300;
+	line-height:1.6em;
+	color:#656565;
+}
+
+a:active { outline:0; }
+
+/* Lists */
+ul,ol { list-style:none; }
+
+/* Price*/
+.regular-price {float:left; display:block;}
+.regular-price .price { font-weight:bold; font-size:20px; line-height:22px; color:#F03C02;}
+.old-price{}
+.old-price .price {font-weight:bold; white-space:nowrap; text-decoration:line-through; }
+.special-price{}
+.special-price .price{font-weight:bold; font-size:20px; line-height:22px; color:#F03C02;}
+
+/* layout 
+================================ */
+.container {
+	padding:0 20px 0 20px;
+	position:relative;
+}
+
+
+
+#wrapper{ width:100%; margin:0; padding:0; }
+
+#wrapper.boxed{
+	width:90%;
+	overflow:hidden;
+	margin:0 auto;	
+	padding:0;
+	background:#fff;
+}
+
+.row {
+	margin-bottom:30px;
+}
+
+.row .row{
+	margin-bottom:30px;
+}
+
+.row.nomargin {
+	margin-bottom:0;
+}
+ 
+ 
+/* Header
+================================ */
+
+header{
+	background: #fff;
+	margin:0;
+	padding:0;
+	position:relative;
+}
+
+header .logo {
+	margin:-10px 0 0 0;
+	float:left;
+}
+
+header .logo img {
+	margin-bottom:10px;
+}
+header .logo h1 {
+	font-size:14px;
+	margin:0;
+}
+
+
+/*  headnav menu */
+.headnav {
+	float:right;
+	margin:35px 0 0 0;
+	border-bottom:1px dotted #e6e6e6;
+}
+
+.headnav ul {
+	margin-left:0;
+	list-style:none;
+}
+
+.headnav ul li {
+	display:inline;
+	margin-left:10px;
+}
+.headnav ul li a {
+	outline:0;
+	font-size:12px;
+	font-weight:600;
+}
+
+.headnav ul li a:hover,.headnav ul li a:focus,.headnav ul li a:active {
+	outline:0;
+}
+
+
+
+/*  Footer 
+================================ */
+
+footer{
+	background:#111;
+	padding:50px 0 0 0;
+	color:#bbb;
+}
+
+footer a {
+	color:#eee;
+}
+
+footer h1, footer h2, footer h3, footer h4, footer h5, footer h6 {
+	color:#eee;
+}
+
+footer h5 {
+	font-size: 24px
+}
+
+.widget h4,.widget h5 {
+	font-weight:300;
+	margin-bottom:20px;
+}
+
+footer address {
+	line-height:1.6em;
+}
+
+footer h5 a:hover, footer a:hover {
+	text-decoration:none;
+}
+
+footer .widgetheading {
+	position: relative;
+}
+
+footer .widget .social-network {
+	position:relative;
+}
+
+ul.social-network {
+	list-style:none;
+	margin:0;
+}
+
+ul.social-network li {
+	display:inline;
+}
+
+#sub-footer{
+	background:#0a0a0a;
+	text-shadow:none;
+	color:#5d5d5d;
+	padding:0;
+	padding-top:30px;
+	margin:20px 0 0 0;
+}
+
+#sub-footer p{
+	margin:0;
+	padding:0;
+}
+
+#sub-footer span{
+	color:#c7c7c7;
+}
+
+.copyright {
+	text-align:left;
+	font-size:12px;
+}
+
+#sub-footer ul.social-network {
+	float:right;
+}
+
+/* scroll to top */
+.scrollup {
+    position:fixed;
+	width:32px;
+	height:32px;
+    bottom:0px;
+    right:20px;
+}
+
+a.scrollup {
+	outline:0;
+}
+
+a.scrollup:hover, a.scrollup:active, a.scrollup:focus {
+	opacity:1;
+	text-decoration:none;
+}
+a.scrollup i:hover {
+	text-decoration:none;
+}
+
+
+/* --- list style --- */
+
+ul.general {
+	list-style:none;
+	margin-left:0;
+}
+
+ul.link-list{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+
+ul.link-list li{
+	margin:0;
+	padding:2px 0 2px 0;
+	list-style:none;
+}
+
+footer ul.link-list li a{
+	color:#919191;
+}
+
+/*!
+ * jQuery Nivo Slider v3.2
+ * http://nivo.dev7studios.com
+ *
+ * Copyright 2012, Dev7studios
+ * Free to use and abuse under the MIT license.
+ * http://www.opensource.org/licenses/mit-license.php
+ */
+ 
+/* The Nivo Slider styles */
+#nivo-slider { 
+	position: relative; 
+}
+
+#featured #nivo-slider .row, #featured #nivo-slider .row-fluid  {
+	margin-bottom:0;
+}
+
+.nivo-slider { 
+	background: #fbfbfb; 
+}
+
+.slides { margin: 0; overflow: hidden; }
+.slides li { list-style-type: none; }
+
+.nivoSlider {
+	position:relative;
+	width:100%;
+	height:auto;
+	overflow: hidden;
+	margin:0;
+}
+.nivoSlider img {
+	position:absolute;
+	top:0px;
+	left:0px;
+	max-width: none;
+}
+.nivo-main-image {
+	display: block !important;
+	position: relative !important; 
+	width: 100% !important;
+}
+
+/* If an image is wrapped in a link */
+.nivoSlider a.nivo-imageLink {
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	border:0;
+	padding:0;
+	margin:0;
+	z-index:6;
+	display:none;
+	background:white; 
+	filter:alpha(opacity=0); 
+	opacity:0;
+}
+/* The slices and boxes in the Slider */
+.nivo-slice {
+	display:block;
+	position:absolute;
+	z-index:5;
+	height:100%;
+	top:0;
+}
+.nivo-box {
+	display:block;
+	position:absolute;
+	z-index:5;
+	overflow:hidden;
+}
+.nivo-box img { display:block; }
+
+/* Caption styles */
+.nivo-caption {
+	position:absolute;
+	left:80px;
+	bottom:20px;
+	background:#000;
+	color:#fff;
+	width:30%;
+	z-index:8;
+	padding: 20px;
+	opacity: 0.8;
+	overflow: hidden;
+	display: none;
+	-moz-opacity: 0.8;
+	filter:alpha(opacity=8);
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+.nivo-caption  h2 {
+	color:#fff;
+	font-size:26px;
+	line-height:1em;
+}
+.nivo-caption  p {
+	margin-bottom:20px;
+}
+.nivo-caption a {
+	display:inline !important;
+}
+.nivo-html-caption {
+    display:none;
+}
+/* Direction nav styles (e.g. Next & Prev) */
+.nivo-directionNav a {
+	position:absolute;
+	bottom:0px;
+	z-index:9;
+	cursor:pointer;
+}
+.nivo-prevNav {
+	right:0px;
+}
+.nivo-nextNav {
+	right:0px;
+}
+/* Control nav styles (e.g. 1,2,3...) */
+
+.nivo-controlNav {
+	text-align: center;
+	padding: 20px 0;
+}
+
+.nivo-controlNav a.active {
+	background-position:0 -22px;
+}
+
+.nivo-directionNav a {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+
+  /* sprites.less reset */
+  display: inline;
+  width: auto;
+  height: auto;
+  line-height: normal;
+  vertical-align: baseline;
+  background-image: none;
+  background-position: 0% 0%;
+  background-repeat: repeat;
+  margin-top: 0;
+      margin: 0;
+    display: inline-block !important;
+    text-align: center !important;
+    color: #fff;
+    width: 18px;
+    height: 18px;
+	padding:3px;
+    font-size: 12px;
+    line-height: 18px;
+    text-shadow:none;
+    cursor: pointer;
+    background-color: #444;
+	right:15px;
+}
+.nivo-directionNav a { opacity: 1; }
+a.nivo-nextNav {
+	right:0px;
+}
+a.nivo-nextNav:before {
+	content: "\f105"; 
+    color: #fff;
+}
+
+a.nivo-prevNav {
+	right:25px;
+}
+a.nivo-prevNav:before {
+	content: "\f104"; 
+    color: #fff;
+}
+
+
+.nivo-controlNav.nivo-thumbs-enabled {
+	width: 100%;
+}
+.nivo-controlNav.nivo-thumbs-enabled a {
+	width: auto;
+	height: auto;
+	background: none;
+	margin-bottom: 5px;
+}
+.nivo-controlNav.nivo-thumbs-enabled img {
+	display: block;
+	width: 120px;
+	height: auto;
+}
+
+.nivo-controlNav a {
+	display:inline-block;
+	width:22px;
+	height:22px;
+	background:url(../imgages/nivo-bullets.png) no-repeat;
+	text-indent:-9999px;
+	border:0;
+	margin: 0 2px;
+
+}
+.nivo-control.active { background-position: 0 0; }
+
+/* new products 
+================================ */
+.products-grid {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.products-grid li.item {
+    float: left;
+    border: 1px solid #e0e0e0;
+    padding: 18px;
+    -moz-box-sizing: border-box;
+}
+
+.products-grid li.item {
+	float: left;
+	border: 1px solid #e0e0e0;
+	padding: 18px;
+	-moz-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+}
+
+.products-grid li.item:hover {
+	box-shadow:0 0px 13px rgba(0,0,0,0.13);
+	-moz-box-shadow:0 0px 13px rgba(0,0,0,0.13);
+	-webkit-box-shadow:0 0px 13px rgba(0,0,0,0.13);
+}
+
+
+
+.products-grid .product-image {
+    display: block;
+    max-width: 242px;
+    height: auto;
+    margin: 0px auto 15px;
+}
+
+.products-grid .price-box {
+    color: #3a3a3a;
+    overflow: hidden;
+	font-size: 13px;
+    margin: 12px 0px;
+    width: 100%;
+}
+
+/*  Section: call action 
+================================ */
+
+section.callaction {
+	background:#f9f9f9;
+	padding:50px 0 0 0;
+}
+
+/* --- Call to action --- */
+
+.cta-text {
+	float:left;
+	margin-top:10px;
+}
+
+
+.big-cta .cta {
+	margin-top:10px;
+}
+
+
+/*  Position & alignment
+============================= */
+
+.absolute{
+	position:absolute;
+}
+
+.relative{
+	position:relative;
+}
+
+.aligncenter{
+	text-align:center;
+}
+
+.aligncenter span{
+	margin-left:0;
+}
+
+.floatright {
+	float:right;
+}
+
+.floatleft {
+	float:left;
+}
+
+.floatnone {
+	float:none;
+}
+
+.aligncenter {
+	text-align:center;
+}
+
+/* === color === */
+
+
+h3 a, h3 a:hover,a:focus,a:active  {  
+	color:#656565;
+}
+
+
+a, a:hover,a:focus,a:active, strike, span.highlight, footer ul.link-list li a:hover  { 
+	color:#F03C02;
+}
+
+/* fontawesome icons */
+.icon-square:hover,
+.icon-rounded:hover,
+.icon-circled:hover {
+    background-color: #F03C02;
+}
+[class^="icon-"].active,
+[class*=" icon-"].active {
+    background-color: #F03C02;
+}
+

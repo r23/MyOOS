@@ -1,0 +1,34 @@
+<!--  $Id: user_create_account.html 452 2013-06-28 15:49:00Z r23 $ -->
+
+<form name="account_edit" action="{html_get_link connection=SSL}" method="post" onSubmit="return check_form();">
+	<input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
+	<input type="hidden" name="formid" value="{$formid}">
+	<input type="hidden" name="action" value="process">
+	<input type="hidden" name="content" value="{$contents.create_account_process}">
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>{$oosPageHeading}</td>
+      </tr>
+{if $snapshot > 0 }
+      <tr>
+        <td class="smallText"><br>{$login_orgin_text}</td>
+      </tr>
+{/if}
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td>
+{include file="$oos/modules/user_account_details.html"}
+        </td>
+      </tr>
+      <tr>
+        <td align="right" class="main"><br>{html_image_submit image="continue.gif" alt=$lang.button_continue}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+    </table>
+    </form>

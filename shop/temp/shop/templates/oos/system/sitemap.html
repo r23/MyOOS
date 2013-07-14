@@ -1,0 +1,50 @@
+    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td width="50%" class="main" valign="top">{$sitemap}</td>
+            <td width="50%" class="main" valign="top">
+              <ul>
+<li><a href="{html_href_link content=$contents.main_shopping_cart}">{$lang.page_shopping_cart}</a></li>
+<li><a href="{html_href_link content=$contents.checkout_shipping}">{$lang.page_checkout_shipping}</a></li>
+<li><a href="{html_href_link content=$contents.advanced_search}">{$lang.page_advanced_search}</a></li>
+<li><a href="{html_href_link content=$contents.products_new}">{$lang.page_products_new}</a></li>
+<li><a href="{html_href_link content=$contents.specials}">{$lang.page_specials}</a></li>
+{if $oEvent->installed_plugin('reviews')}
+<li><a href="{html_href_link content=$contents.reviews_reviews}">{$lang.page_reviews}</a></li>
+{/if}
+
+                <li>{$lang.page_service}
+                  <ul>
+
+{if $smarty.const.MODULE_ORDER_TOTAL_GV_STATUS eq 'true'}
+                    <li><a href="{html_href_link content=$contents.gv_faq}">{$lang.block_service_gv}</a></li>
+{/if}
+                    <li><a href="{html_href_link content=$contents.info_sitemap}">{$lang.block_service_sitemap}</a></li>
+                  </ul>
+                </li>
+
+                </li>{$lang.heading_information}
+                  <ul>
+
+{foreach item=info from=$information}
+                    <li><a href="{html_href_link content=$contents.information information_id=$info.information_id}">{$info.information_name}</a></li>
+{/foreach}
+                    <li><a href="{html_href_link content=$contents.contact_us}">{$lang.block_information_contact}</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+    </table>

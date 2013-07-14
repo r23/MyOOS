@@ -1,0 +1,92 @@
+<table width="154" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="31" class="block_cart_background"><a href="{html_href_link content=$contents.main_shopping_cart}"><img src="{$theme_image}/block_cart_arrow.gif" border="0" alt="{$block_heading_shopping_cart}" width="31" height="32"></a></td>
+    <td width="101" class="block_cart_background">{$block_heading_shopping_cart}</td>
+    <td width="22" class="block_cart_background" align="right"><a href="{html_href_link content=$contents.main_shopping_cart}"><img src="{$theme_image}/block_cart_more.gif" border="0" alt="{$lang.icon_arrow_right}" width="22" height="32"></a></td>
+  </tr>
+</table>
+
+<table border="0" width="151" cellspacing="0" cellpadding="3">
+
+  <tr>
+    <td class="block_content">
+
+  {if $cart_count_contents > 0}
+    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+   {foreach item=products from=$cart_products}
+      <tr><td align="right" valign="top" class="oos-BlockContent">
+
+      {if (( $smarty.session.new_products_id_in_cart ) && ($smarty.session.new_products_id_in_cart eq $products.id ))}
+        <span class="newItemInCart">
+      {else}
+        <span class="oos-BlockContent">
+      {/if}
+
+      {$products.quantity|quantity}&nbsp;x&nbsp;</span></td>
+
+      <td valign="top" class="oos-BlockContent"><a href="{product_info_link products_id=$products.id}">
+
+      {if (( $smarty.session.new_products_id_in_cart ) && ($smarty.session.new_products_id_in_cart eq $products.id ))}
+        <span class="newItemInCart">
+      {else}
+        <span class="oos-BlockContent">
+      {/if}
+
+      {$products.name|truncate:25:"...":true|close_tags}</span></a></td>
+     </tr>
+
+    {/foreach}
+    </table>
+  {else}
+    {$lang.block_shopping_cart_empty}
+  {/if}
+    </td>
+  </tr>
+
+{if $cart_count_contents > 0}
+  <tr>
+    <td><img src="{$theme_image}/red.gif" border="0" alt=" " width="151" height="1"></td>
+   </tr>
+  <tr>
+    <td align="right" class="boxText">{$cart_show_total}</td>
+  </tr>
+{/if}
+
+{if $gv_amount_show > 0}
+   <tr>
+    <td><img src="{$theme_image}/red.gif" border="0" alt=" " width="151" height="1"></td>
+   </tr>
+   <tr>
+    <td align="left" class="boxText"><table cellpadding="0" width="151" cellspacing="0" border="0"><tr><td class="smalltext">{$lang.voucher_balance}</td><td class="smalltext" align="right" valign="bottom">{$gv_amount_show}</td></tr></table></td>
+   </tr>
+  <tr>
+    <td align="left" class="boxText"><table cellpadding="0" width="151" cellspacing="0" border="0"><tr><td class="smalltext"><a href="{html_href_link content=$contents.gv_send}">{$lang.gv_send_to_friend}</a></td></tr></table></td>
+  </tr>
+{/if}
+
+{if $smarty.session.gv_id}
+   <tr>
+    <td><img src="{$theme_image}/red.gif" border="0" alt=" " width="151" height="1"></td>
+   </tr>
+   <tr>
+    <td align="left" class="boxText"><table cellpadding="0" width="151" cellspacing="0" border="0"><tr><td class="smalltext">{$lang.voucher_redeemed}</td><td class="smalltext" align="right" valign="bottom">{$gv_coupon_show}</td></tr></table></td>
+   </tr>
+{/if}
+
+{if $smarty.session.cc_id}
+   <tr>
+    <td><img src="{$theme_image}/red.gif" border="0" alt=" " width="151" height="1"></td>
+   </tr>
+   <tr>
+    <td align="left" class="boxText"><table cellpadding="0" width="151" cellspacing="0" border="0"><tr><td class="smalltext">{$lang.cart_coupon}</td><td class="smalltext" align="right" valign="bottom">
+<script language="javascript"><!--
+document.write('<a href="javascript:couponpopupWindow(\'{html_href_link content=$contents.popup_coupon_help cID=$smarty.session.cc_id}\')">{$lang.cart_coupon_info}</a>');
+//--></script>
+<noscript>{$lang.cart_coupon_info}</noscript></td></tr></table></td>
+   </tr>
+{/if}
+
+  <tr>
+    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="151" height="1"></td>
+  </tr>
+</table>
