@@ -1,0 +1,871 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP phpBB Bridge\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-09 17:38+0200\n"
+"PO-Revision-Date: 2012-01-09 17:38+0200\n"
+"Last-Translator: Merianos Nikos <info@web-resources.eu>\n"
+"Language-Team: Chico Gois <chicogois@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e;_ex;_n;_n_noop;_nx;_nx_noop;_x\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n == 1);\n"
+"X-Poedit-Language: Portuguese\n"
+"X-Poedit-Country: BRAZIL\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../wp_phpbb_bridge.php:500
+msgid "Warning"
+msgstr "Aviso"
+
+#: ../wp_phpbb_bridge.php:503
+#, php-format
+msgid "WP phpBB Bridge is no yet enabled. Please click <a href=\"%s\">here</a> to configure and enable it."
+msgstr "WP phpBB Bridge ainda não está habilitado. Por favor, clique <a href=\"%s\">aqui</a> para configurar e habilitá-lo."
+
+#: ../inc/wpbb_admin.php:25
+msgid "settings"
+msgstr "configurações"
+
+#: ../inc/wpbb_admin.php:26
+#: ../inc/admin_pages/settings.php:7
+msgid "Settings"
+msgstr "Configurações"
+
+#: ../inc/wpbb_admin.php:37
+msgid "forum assign"
+msgstr "atribuir fórum"
+
+#: ../inc/wpbb_admin.php:38
+#: ../inc/admin_pages/forum_assign.php:4
+msgid "Assign Forum"
+msgstr "Atribuir fórum"
+
+#: ../inc/wpbb_admin.php:49
+msgid "authors assign"
+msgstr "atribuir autores"
+
+#: ../inc/wpbb_admin.php:50
+#: ../inc/admin_pages/authors_assign.php:4
+msgid "Assign authors"
+msgstr "Atribuir autores"
+
+#: ../inc/wpbb_admin.php:61
+msgid "donators"
+msgstr "doadores"
+
+#: ../inc/wpbb_admin.php:62
+#: ../inc/admin_pages/donators.php:3
+msgid "Donators"
+msgstr "Doadores"
+
+#: ../inc/wpbb_admin.php:89
+msgid "You submition does not meet the WordPress security level."
+msgstr "Sua submiisão não atende o nível de segurança WordPress."
+
+#: ../inc/wpbb_admin.php:97
+msgid "The file config.php does not exists in the path you have enter"
+msgstr "O arquivo config.php não existe no caminho que você digitou"
+
+#: ../inc/wpbb_admin.php:103
+msgid "The file ucp.php does not exists in the url you have enter"
+msgstr "O arquivo ucp.php não existe na url que você digitou"
+
+#: ../inc/wpbb_admin.php:139
+msgid "Auto"
+msgstr ""
+
+#: ../inc/admin_pages/authors_assign.php:4
+#: ../inc/admin_pages/dashboard.php:3
+#: ../inc/admin_pages/donators.php:3
+#: ../inc/admin_pages/forum_assign.php:4
+#: ../inc/admin_pages/settings.php:7
+msgid "WP phpBB Bridge"
+msgstr "WP phpBB Bridge"
+
+#: ../inc/admin_pages/authors_assign.php:8
+msgid "Please specify witch authors posts will be published in phpBB forums"
+msgstr "Especificar quais posts autores serão publicados em fóruns phpBB"
+
+#: ../inc/admin_pages/authors_assign.php:18
+#: ../inc/admin_pages/forum_assign.php:18
+msgid "You must enable the \"New forum posts on post creation\" option in order to use that feature. Please click <a href=\"/wp-admin/admin.php?page=wpbb_settings\">here</a> to enable that feature."
+msgstr ""
+
+#: ../inc/admin_pages/authors_assign.php:27
+#: ../inc/admin_pages/authors_assign.php:86
+#: ../inc/admin_pages/forum_assign.php:27
+#: ../inc/admin_pages/forum_assign.php:56
+#: ../inc/admin_pages/settings.php:283
+msgid "Save options"
+msgstr "Salvar opções"
+
+#: ../inc/admin_pages/authors_assign.php:43
+msgid "Username"
+msgstr "Nome de Usuário"
+
+#: ../inc/admin_pages/dashboard.php:12
+#: ../inc/admin_pages/dashboard.php:161
+#: ../inc/admin_pages/dashboard.php:192
+#: ../inc/admin_pages/dashboard.php:325
+#: ../inc/admin_pages/dashboard.php:405
+msgid "Toggle"
+msgstr "Alternar"
+
+#: ../inc/admin_pages/dashboard.php:15
+msgid "WP phpBB Bridge status"
+msgstr "WP phpBB Bridge status"
+
+#: ../inc/admin_pages/dashboard.php:21
+msgid "Fast preview of WP phpBB Bridge status &amp; configuration"
+msgstr "Pré-visualização rápida de WP phpBB Bridge e configuração"
+
+#: ../inc/admin_pages/dashboard.php:27
+msgid "phpBB config.php location"
+msgstr "localização do config.php do  phpBB"
+
+#: ../inc/admin_pages/dashboard.php:34
+msgid "The path to config.php is not set yet"
+msgstr "O caminho para config.php não está definido ainda"
+
+#: ../inc/admin_pages/dashboard.php:44
+msgid "phpBB ucp.php url"
+msgstr "Url phpBB ucp.php"
+
+#: ../inc/admin_pages/dashboard.php:51
+msgid "The path to ucp.php is not set yet"
+msgstr "O caminho para ucp.php não está definido ainda"
+
+#: ../inc/admin_pages/dashboard.php:61
+msgid "Avatar integration"
+msgstr "Integração Avatar"
+
+#: ../inc/admin_pages/dashboard.php:66
+#: ../inc/admin_pages/dashboard.php:136
+#: ../inc/admin_pages/dashboard.php:150
+#: ../inc/admin_pages/settings.php:223
+#: ../inc/admin_pages/settings.php:244
+msgid "No"
+msgstr "Não"
+
+#: ../inc/admin_pages/dashboard.php:66
+#: ../inc/admin_pages/dashboard.php:136
+#: ../inc/admin_pages/dashboard.php:150
+#: ../inc/admin_pages/settings.php:220
+#: ../inc/admin_pages/settings.php:241
+msgid "Yes"
+msgstr "Sim"
+
+#: ../inc/admin_pages/dashboard.php:75
+msgid "Plugin status"
+msgstr "Plugin status"
+
+#: ../inc/admin_pages/dashboard.php:80
+#: ../inc/admin_pages/dashboard.php:221
+#: ../inc/admin_pages/dashboard.php:230
+msgid "Disabled"
+msgstr "Desativado"
+
+#: ../inc/admin_pages/dashboard.php:80
+#: ../inc/admin_pages/dashboard.php:217
+#: ../inc/admin_pages/dashboard.php:226
+msgid "Enabled"
+msgstr "Ativado"
+
+#: ../inc/admin_pages/dashboard.php:89
+#: ../inc/admin_pages/settings.php:176
+msgid "phpBB database encoding"
+msgstr "Codificação de dados phpBB"
+
+#: ../inc/admin_pages/dashboard.php:103
+msgid "Plugin deactivation URL"
+msgstr "URL desativação Plugin"
+
+#: ../inc/admin_pages/dashboard.php:108
+msgid "Your Password is not yet set"
+msgstr "Sua senha ainda não está definido"
+
+#: ../inc/admin_pages/dashboard.php:117
+msgid "Reset retries"
+msgstr "Redefinir tentativas"
+
+#: ../inc/admin_pages/dashboard.php:122
+msgid "(Total available / Tries)"
+msgstr "(Total / Tentativas disponíveis)"
+
+#: ../inc/admin_pages/dashboard.php:131
+msgid "Autocreate forum topics"
+msgstr "Auto criar tópicos no fórum"
+
+#: ../inc/admin_pages/dashboard.php:145
+msgid "Autocreate forum topics on locked forums"
+msgstr "Auto criar tópicos no fórum em fóruns bloqueado"
+
+#: ../inc/admin_pages/dashboard.php:164
+msgid "eXtnd.it latest news"
+msgstr "eXtnd.it últimas notícias"
+
+#: ../inc/admin_pages/dashboard.php:184
+#, php-format
+msgid "%1$d months old"
+msgstr "%1$d meses atrás"
+
+#: ../inc/admin_pages/dashboard.php:184
+#, php-format
+msgid "%1$d month old"
+msgstr "%1$d mês atás"
+
+#: ../inc/admin_pages/dashboard.php:195
+msgid "Server info"
+msgstr "Informação do servidor"
+
+#: ../inc/admin_pages/dashboard.php:212
+msgid "Is not set"
+msgstr "Não está definido"
+
+#: ../inc/admin_pages/dashboard.php:240
+#: ../inc/admin_pages/dashboard.php:249
+#: ../inc/admin_pages/dashboard.php:258
+#: ../inc/admin_pages/dashboard.php:267
+msgid "Not Available"
+msgstr "Não disponível"
+
+#: ../inc/admin_pages/dashboard.php:272
+msgid "Supported"
+msgstr "Suportados"
+
+#: ../inc/admin_pages/dashboard.php:276
+msgid "Not supported"
+msgstr "Não é suportado"
+
+#: ../inc/admin_pages/dashboard.php:281
+msgid "Operating system"
+msgstr "Sistema operacional"
+
+#: ../inc/admin_pages/dashboard.php:283
+msgid "Server"
+msgstr "Servidor"
+
+#: ../inc/admin_pages/dashboard.php:287
+msgid "Memory usage"
+msgstr "Uso de memória"
+
+#: ../inc/admin_pages/dashboard.php:289
+msgid "MYSQL Version"
+msgstr "Versão MYSQL"
+
+#: ../inc/admin_pages/dashboard.php:293
+msgid "SQL Mode"
+msgstr "Modo SQL"
+
+#: ../inc/admin_pages/dashboard.php:295
+msgid "PHP Version"
+msgstr "Versão PHP"
+
+#: ../inc/admin_pages/dashboard.php:299
+msgid "PHP Safe Mode"
+msgstr "PHP Safe Mode"
+
+#: ../inc/admin_pages/dashboard.php:301
+msgid "PHP Allow URL fopen"
+msgstr "PHP Allow URL fopen"
+
+#: ../inc/admin_pages/dashboard.php:305
+msgid "PHP Max Upload Size"
+msgstr "PHP Max Upload Size"
+
+#: ../inc/admin_pages/dashboard.php:307
+msgid "PHP Max Post Size"
+msgstr "PHP Max Post Size"
+
+#: ../inc/admin_pages/dashboard.php:311
+msgid "PHP Max Script Execute Time"
+msgstr "PHP Max Script Execute Time"
+
+#: ../inc/admin_pages/dashboard.php:313
+msgid "PHP XML support"
+msgstr "PHP XML support"
+
+#: ../inc/admin_pages/dashboard.php:330
+msgid "Do you like WP phpBB Bridge?"
+msgstr "Você gosta do WP phpBB Bridge?"
+
+#: ../inc/admin_pages/dashboard.php:336
+msgid "The WP phpBB Bridge is the development of «WordPress to phpBB3 Bridge» which is written by Jason Sanborn."
+msgstr "A WP phpBB Bridge é o desenvolvimento de «WordPress to phpBB3 Bridge» que é escrito por Jason Sanborn."
+
+#: ../inc/admin_pages/dashboard.php:341
+msgid "The first version of the plugin was designed to synchronize users of phpBB users to WordPress so that the user is once in phpBB and be simultaneously connected and WordPress."
+msgstr "A primeira versão do plugin foi projetado para sincronizar os usuários do phpBB com usuários do WordPress para que o usuário do phpBB e Wordpress possam ser conectados simultaneamente."
+
+#: ../inc/admin_pages/dashboard.php:346
+msgid "In now days the plugin is re-writed from scratch, to fix errors from the past, and add new functionality in case to make the usage of phpBB in compination with WordPress a peace of cake."
+msgstr "O plugin está reeditado a partir do zero, para corrigir os erros do passado, e adicionar uma nova funcionalidade no caso de fazer o uso do phpBB em combinação com o WordPress."
+
+#: ../inc/admin_pages/dashboard.php:350
+msgid "Do you like to help us?"
+msgstr "Você gosta de ajudar-nos?"
+
+#: ../inc/admin_pages/dashboard.php:354
+msgid "Give a possitive rating"
+msgstr "Dê uma classificação positiva"
+
+#: ../inc/admin_pages/dashboard.php:355
+msgid "Give it a good rating on WordPress.org"
+msgstr "Dar-lhe uma boa classificação em WordPress.org"
+
+#: ../inc/admin_pages/dashboard.php:359
+#: ../inc/admin_pages/dashboard.php:468
+msgid "Donate us"
+msgstr "Doar-nos"
+
+#: ../inc/admin_pages/dashboard.php:360
+msgid "Donate the work via paypal"
+msgstr "Doar o trabalho via paypal"
+
+#: ../inc/admin_pages/dashboard.php:364
+msgid "Donate us, get a serial number and remove the backlink"
+msgstr "Doar-nos, obter um número de série e remover o backlink"
+
+#: ../inc/admin_pages/dashboard.php:365
+msgid "Remove backlink with donation"
+msgstr "Remover backlink com doação"
+
+#: ../inc/admin_pages/dashboard.php:377
+msgid "Translation"
+msgstr "Tradução"
+
+#: ../inc/admin_pages/dashboard.php:384
+msgid "If you cannot find the plugin in your native language, you may like to translated and send the translation back to us. Then a new plugin version will be available in a few days with your language package installed"
+msgstr "Se você não pode encontrar o plugin na sua língua nativa, você pode gostar de traduzir e enviar a tradução de volta para nós. Em seguida, uma versão novo plugin estará disponível em poucos dias com o seu pacote de idioma instalado"
+
+#: ../inc/admin_pages/dashboard.php:392
+msgid "Click the download button below to get the latest English translation file. Use the poEdit, save the file in the form of wpbb-YourLocale.po and send us the *.po and *.mo files with e-mail here: support@wordpress-gr.org"
+msgstr "Clique no botão de download abaixo para obter o arquivo mais recente tradução em Inglês. Use o poEdit, salve o arquivo na forma de wpbb-YourLocale.po e envie-nos o *. po e *. mo para e-mail aqui: support@wordpress-gr.org"
+
+#: ../inc/admin_pages/dashboard.php:398
+msgid "Translation file"
+msgstr "Arquivo de tradução"
+
+#: ../inc/admin_pages/dashboard.php:399
+msgid "Download"
+msgstr "Download"
+
+#: ../inc/admin_pages/dashboard.php:410
+msgid "Recent donators"
+msgstr "Doações recentes"
+
+#: ../inc/admin_pages/dashboard.php:432
+#: ../inc/admin_pages/donators.php:23
+msgid "Donation date : "
+msgstr "Data de doação:"
+
+#: ../inc/admin_pages/dashboard.php:441
+#: ../inc/admin_pages/donators.php:32
+msgid "There are no donations yet"
+msgstr "Não há ainda doações"
+
+#: ../inc/admin_pages/dashboard.php:443
+#: ../inc/admin_pages/donators.php:34
+msgid "Be the first to make a donation"
+msgstr "Seja o primeiro a fazer uma doação"
+
+#: ../inc/admin_pages/dashboard.php:456
+msgid "View all"
+msgstr "Ver todos"
+
+#: ../inc/admin_pages/donators.php:6
+#, php-format
+msgid "Here is the list of WP phpBB Bridge donators. If you like to see your web site link here you can donate us with an amount from <a href=\"%s\">here</a>"
+msgstr "Aqui está a lista de doadores WP phpBB Bridge. Se você gostaria de ver o link do seu site aqui você pode doar-nos com uma quantidade de <a href=\"%s\">aqui</a>"
+
+#: ../inc/admin_pages/forum_assign.php:8
+msgid "Here you can select from witch WordPress categories new assigned posts will auto submited in relevant phpBB forums."
+msgstr "Aqui você pode selecionar a partir de categorias do WordPress os novos posts que será automaticamente submetidos nos fóruns pertinentes phpBB."
+
+#: ../inc/admin_pages/forum_assign.php:40
+msgid "Available forums"
+msgstr "Fóruns disponíveis"
+
+#: ../inc/admin_pages/settings.php:33
+msgid "Files options"
+msgstr "Opções de arquivo"
+
+#: ../inc/admin_pages/settings.php:44
+msgid "config.php path"
+msgstr "Caminho config.php"
+
+#: ../inc/admin_pages/settings.php:52
+msgid "Enter the full path to phpBB config.php file"
+msgstr "Digite o caminho completo para o arquivo config.php phpBB"
+
+#: ../inc/admin_pages/settings.php:60
+msgid "ucp.php url"
+msgstr "Url ucp.php"
+
+#: ../inc/admin_pages/settings.php:68
+msgid "Enter the url to phpBB ucp.php file"
+msgstr "Digite o url para o arquivo ucp.php phpBB"
+
+#: ../inc/admin_pages/settings.php:76
+msgid "Security options"
+msgstr "Opções de segurança"
+
+#: ../inc/admin_pages/settings.php:85
+msgid "Deactivation password"
+msgstr "Desativação de senha"
+
+#: ../inc/admin_pages/settings.php:93
+msgid "Enter a password you will use to diactivate the plugin in case you are locked out"
+msgstr "Digite uma senha que você usará para desativar o plugin, caso você esteja bloqueado"
+
+#: ../inc/admin_pages/settings.php:97
+#, php-format
+msgid "Your reset url is the following : <strong id=\"resetCode\">%1$s<span class=\"red\">%2$s</span></strong>"
+msgstr "Este é o caminho para resetar : <strong id=\"resetCode\">%1$s<span class=\"red\">%2$s</span></strong>"
+
+#: ../inc/admin_pages/settings.php:109
+msgid "Maximum reset retries"
+msgstr "Redefinir o máximo de tentativas"
+
+#: ../inc/admin_pages/settings.php:118
+msgid "Enter the maximum retries for plugin diactivation.<br /><strong>WARNING</strong> : A very large amount of retries can make the plugin diactivation vulnerable on brute force attacks"
+msgstr "Digite o máximo de tentativas para desativar o Plugin.<br /><strong>AVISO</ strong>:. A grande quantidade de tentativas pode fazer a desativação do plugin estará vulneráveis ​aataques de força bruta"
+
+#: ../inc/admin_pages/settings.php:128
+msgid "Forum posts options"
+msgstr "Opções de posts do fórum"
+
+#: ../inc/admin_pages/settings.php:138
+msgid "New forum posts on post creation"
+msgstr "Novos posts do fórum sobre a criação de pós"
+
+#: ../inc/admin_pages/settings.php:145
+#: ../inc/admin_pages/settings.php:164
+msgid "Enable"
+msgstr "Ativar"
+
+#: ../inc/admin_pages/settings.php:149
+msgid "Check that option if you like to enable the posting of new WordPress posts on specific forums."
+msgstr "Verifique a opção se você gosta de permitir a postagem de novas mensagens WordPress em fóruns específicos."
+
+#: ../inc/admin_pages/settings.php:157
+msgid "Post on locked forums"
+msgstr "Postar em fóruns bloqueado"
+
+#: ../inc/admin_pages/settings.php:168
+msgid "By checking that option you will be able to choose locked posts on witch the plugin will posting."
+msgstr "Marcando esta opção você será capaz de escolher as mensagens bloqueadas em bruxa o plugin irá postagem."
+
+#: ../inc/admin_pages/settings.php:195
+msgid "Select the database connection character set for phpBB"
+msgstr "Selecione o conjunto de caracteres de conexão do banco de dados para phpBB"
+
+#: ../inc/admin_pages/settings.php:204
+msgid "Plugin options"
+msgstr "Opções do plugin"
+
+#: ../inc/admin_pages/settings.php:214
+msgid "Integrate phpBB avatars"
+msgstr "Integrar avatares phpBB"
+
+#: ../inc/admin_pages/settings.php:227
+msgid "Choose if you like to integrate phpBB user avatars on WordPress."
+msgstr "Escolha se você gostaria de integrar avatares de usuário do phpBB no WordPress."
+
+#: ../inc/admin_pages/settings.php:235
+msgid "Activate phpBB bridge"
+msgstr "Ativar phpBB bridge"
+
+#: ../inc/admin_pages/settings.php:248
+msgid "Choose if you like to activate the plugin. <br /><div class=\"red\"><strong>WARNING</strong> : Be sure you have already isntalled the WP phpBB Bridge Users widget.</div>"
+msgstr "Escolha se você deseja ativar o plugin. <br /><div class=\"red\"><strong>AVISO</ strong> : Tenha certeza que você tenha instalado o WP phpBB Bridge Users widget.</ div>"
+
+#: ../inc/admin_pages/settings.php:257
+msgid "WP phpBB Bridge Users Widget settings"
+msgstr ""
+
+#: ../inc/admin_pages/settings.php:267
+msgid "Form elements width"
+msgstr ""
+
+#: ../inc/admin_pages/settings.php:275
+msgid "Enter the WP phpBB Bridge Users widget form elements width"
+msgstr ""
+
+#: ../inc/admin_pages/settings.php:317
+msgid "Support options"
+msgstr "Opções de suporte"
+
+#: ../inc/admin_pages/settings.php:323
+msgid "While this plugin is free, we need your support in order to extend it and make it more famous."
+msgstr "Enquanto este plugin é livre, precisamos do seu apoio, a fim de estendê-lo e torná-lo mais famoso."
+
+#: ../inc/admin_pages/settings.php:328
+msgid "The available options are the following : "
+msgstr "As opções disponíveis são as seguintes:"
+
+#: ../inc/admin_pages/settings.php:333
+msgid "You can leave the link of our web site at the bottom of the WP phpBB Bridge Users"
+msgstr "Você pode deixar o link do nosso site na parte inferior do WP phpBB Bridge Users"
+
+#: ../inc/admin_pages/settings.php:338
+msgid "You can donate us with one of the following amounts and then paste the serial number we will send you with <strong>email</strong> in serial number field bellow"
+msgstr "Você pode doar-nos com um dos seguintes montantes e cole o número de série, nós lhe enviaremos com <strong>e-mail</ strong> no campo abaixo do número de série"
+
+#: ../inc/admin_pages/settings.php:344
+msgid "Donate 5,00 &euro;"
+msgstr "Doar 5,00 €;"
+
+#: ../inc/admin_pages/settings.php:346
+msgid "Donate 10,00 &euro;"
+msgstr "Doar 10,00 €;"
+
+#: ../inc/admin_pages/settings.php:348
+msgid "Donate 25,00 &euro;"
+msgstr "Doar 25,00 €;"
+
+#: ../inc/admin_pages/settings.php:350
+msgid "Donate 50,00 &euro;"
+msgstr "Doar 50,00 €;"
+
+#: ../inc/admin_pages/settings.php:352
+msgid "Donate 100,00 &euro;"
+msgstr "Doar 100,00 €;"
+
+#: ../inc/admin_pages/settings.php:358
+msgid "Back link removal"
+msgstr "Remoção do backlink"
+
+#: ../inc/admin_pages/settings.php:368
+msgid "Serial number"
+msgstr "Número de série"
+
+#: ../inc/admin_pages/settings.php:376
+msgid "Enter here the serial number we produce for you in order to remove our web site link from WP phpBB Bridge Users widget."
+msgstr "Digite aqui o número de série que produzimos para você, a fim de remover o nosso link do site da web widget WP phpBB Bridge Users"
+
+#: ../inc/admin_pages/settings.php:383
+msgid "Remove backlink"
+msgstr "Remover backlink"
+
+#: ../inc/widgets/wpbb_links_widget.php:9
+msgid "Allows you to display a list of usefull links to your phpBB."
+msgstr "Permite que você exiba uma lista de links úteis para o seu phpBB."
+
+#: ../inc/widgets/wpbb_links_widget.php:29
+msgid "Forum Links"
+msgstr "Links do Fórum"
+
+#: ../inc/widgets/wpbb_links_widget.php:54
+#: ../inc/widgets/wpbb_meta_widget.php:45
+#: ../inc/widgets/wpbb_topics_widget.php:51
+msgid "Title:"
+msgstr "Título:"
+
+#: ../inc/widgets/wpbb_links_widget.php:64
+msgid "Display Forum Index Link"
+msgstr "Exibir link Índice do Fórum"
+
+#: ../inc/widgets/wpbb_links_widget.php:73
+msgid "Display FAQ Link"
+msgstr "Exibir link FAQ"
+
+#: ../inc/widgets/wpbb_links_widget.php:82
+msgid "Display Forum Search Link"
+msgstr "Exibir link Pesquisar no Fórum"
+
+#: ../inc/widgets/wpbb_links_widget.php:90
+msgid "Display View Active Topics Link"
+msgstr "Exibir link Tópicos Ativos"
+
+#: ../inc/widgets/wpbb_links_widget.php:98
+msgid "Display View Unanswered Posts Link"
+msgstr "Exibir link Mostrar Mensagens sem Resposta"
+
+#: ../inc/widgets/wpbb_links_widget.php:106
+msgid "Display View Your Posts Link"
+msgstr "Exibir link Ver suas Mensagens"
+
+#: ../inc/widgets/wpbb_links_widget.php:114
+msgid "Display View New Posts Link"
+msgstr "Exibir link Novas Mensagens"
+
+#: ../inc/widgets/wpbb_links_widget.php:122
+msgid "Display Private Messages Link"
+msgstr "Exibir link Mensgem Privada"
+
+#: ../inc/widgets/wpbb_links_widget.php:130
+msgid "Display Send Private Message Link"
+msgstr "Exibir link Enviar Mensagem Privada"
+
+#: ../inc/widgets/wpbb_links_widget.php:138
+msgid "Display Member List Link"
+msgstr "Exibir link Lista de Membros"
+
+#: ../inc/widgets/wpbb_links_widget.php:146
+msgid "Display The Team Link"
+msgstr "Exibir link A Equipe"
+
+#: ../inc/widgets/wpbb_links_widget.php:154
+msgid "Display Who is Online Link"
+msgstr "Exibir link Quem está Online"
+
+#: ../inc/widgets/wpbb_links_widget.php:212
+msgid "Forum index"
+msgstr "Índice do fórum"
+
+#: ../inc/widgets/wpbb_links_widget.php:219
+msgid "FAQ"
+msgstr "FAQ"
+
+#: ../inc/widgets/wpbb_links_widget.php:226
+msgid "Forum search"
+msgstr "Pesquisar no fórum"
+
+#: ../inc/widgets/wpbb_links_widget.php:233
+msgid "View active topics"
+msgstr "Ver tópicos ativos"
+
+#: ../inc/widgets/wpbb_links_widget.php:240
+msgid "View unanswered posts"
+msgstr "Ver as mensagens sem resposta"
+
+#: ../inc/widgets/wpbb_links_widget.php:249
+msgid "View your posts"
+msgstr "Ver suas mensagens"
+
+#: ../inc/widgets/wpbb_links_widget.php:256
+msgid "View new posts"
+msgstr "Ver novas mensagens"
+
+#: ../inc/widgets/wpbb_links_widget.php:263
+msgid "Private messages"
+msgstr "Mensagens privadas"
+
+#: ../inc/widgets/wpbb_links_widget.php:270
+msgid "Send private message"
+msgstr "Enviar mensagem privada"
+
+#: ../inc/widgets/wpbb_links_widget.php:277
+msgid "Member list"
+msgstr "Lista de membros"
+
+#: ../inc/widgets/wpbb_links_widget.php:284
+msgid "The team"
+msgstr "A equipe"
+
+#: ../inc/widgets/wpbb_links_widget.php:291
+msgid "Who is online"
+msgstr "Quem está online"
+
+#: ../inc/widgets/wpbb_meta_widget.php:10
+msgid "Allows you to display several usefull informations about the user."
+msgstr "Permite exibir várias informações úteis sobre o usuário."
+
+#: ../inc/widgets/wpbb_meta_widget.php:32
+msgid "Forum Meta"
+msgstr "Fórum Meta"
+
+#: ../inc/widgets/wpbb_meta_widget.php:90
+#: ../inc/widgets/wpbb_users_widget.php:246
+msgid "Blog control panel"
+msgstr "Painel de controle do Blog"
+
+#: ../inc/widgets/wpbb_meta_widget.php:97
+#: ../inc/widgets/wpbb_users_widget.php:191
+#: ../inc/widgets/wpbb_users_widget.php:253
+msgid "User control panel"
+msgstr "Painel de Controle do Usuário"
+
+#: ../inc/widgets/wpbb_meta_widget.php:108
+#: ../inc/widgets/wpbb_users_widget.php:264
+msgid "Moderator control panel"
+msgstr "Painel de Controle do Moderador"
+
+#: ../inc/widgets/wpbb_meta_widget.php:121
+#: ../inc/widgets/wpbb_users_widget.php:232
+msgid "Forum administration"
+msgstr "Administração do Fórum"
+
+#: ../inc/widgets/wpbb_meta_widget.php:134
+#: ../inc/widgets/wpbb_users_widget.php:277
+msgid "Restore permissions"
+msgstr "Restaurar as permissões"
+
+#: ../inc/widgets/wpbb_meta_widget.php:145
+#: ../inc/widgets/wpbb_users_widget.php:287
+msgid "Log out"
+msgstr "Sair"
+
+#: ../inc/widgets/wpbb_meta_widget.php:158
+#: ../inc/widgets/wpbb_users_widget.php:164
+#: ../inc/widgets/wpbb_users_widget.php:299
+msgid "I forgot my password"
+msgstr "Esqueci minha senha"
+
+#: ../inc/widgets/wpbb_meta_widget.php:165
+#: ../inc/widgets/wpbb_users_widget.php:306
+msgid "Resend activation email"
+msgstr "Reenviar email de ativação"
+
+#: ../inc/widgets/wpbb_meta_widget.php:172
+#: ../inc/widgets/wpbb_users_widget.php:170
+#: ../inc/widgets/wpbb_users_widget.php:313
+msgid "Register new account"
+msgstr "Registrar nova conta"
+
+#: ../inc/widgets/wpbb_meta_widget.php:182
+msgid "Delete site cookies"
+msgstr "Excluir os cookies do site"
+
+#: ../inc/widgets/wpbb_topics_widget.php:10
+msgid "Allows you to display a list of recent topics within a specific forum id's."
+msgstr "Permite-lhe visualizar uma lista de tópicos recentes dentro de um específico forum id."
+
+#: ../inc/widgets/wpbb_topics_widget.php:32
+msgid "Latest posts"
+msgstr "Últimas mensagens"
+
+#: ../inc/widgets/wpbb_topics_widget.php:58
+msgid "Forums:"
+msgstr "Fóruns:"
+
+#: ../inc/widgets/wpbb_topics_widget.php:61
+msgid "Enter the id of the forum you like to get topics from. You can get topics from more than one forums by seperating the forums id with commas. ex: 3,5,6,12"
+msgstr "Digite o ID do fórum que você gostaria de obter a partir de tópicos. Você pode obter tópicos de mais de uma fóruns, separando o id fóruns com vírgulas. ex: 3,5,6,12"
+
+#: ../inc/widgets/wpbb_topics_widget.php:66
+msgid "Total posts:"
+msgstr "Total de mensagens:"
+
+#: ../inc/widgets/wpbb_topics_widget.php:75
+msgid "Display forum name"
+msgstr "Mostrar nome do fórum"
+
+#: ../inc/widgets/wpbb_topics_widget.php:83
+msgid "Display author name"
+msgstr "Mostrar nome do autor"
+
+#: ../inc/widgets/wpbb_topics_widget.php:91
+msgid "Display total replies"
+msgstr "Mostrar total de respostas"
+
+#: ../inc/widgets/wpbb_topics_widget.php:99
+msgid "Display total views"
+msgstr "Mostrar total de visualizações"
+
+#: ../inc/widgets/wpbb_topics_widget.php:175
+msgid "View post"
+msgstr "Ver mensagem"
+
+#: ../inc/widgets/wpbb_topics_widget.php:185
+msgid "Forum:"
+msgstr "Fórum:"
+
+#: ../inc/widgets/wpbb_topics_widget.php:187
+msgid "Go to forum"
+msgstr "Ir ao fórum"
+
+#: ../inc/widgets/wpbb_topics_widget.php:202
+msgid "By:"
+msgstr "Por:"
+
+#: ../inc/widgets/wpbb_topics_widget.php:204
+msgid "View user info"
+msgstr "Ver informação do usuário"
+
+#: ../inc/widgets/wpbb_topics_widget.php:219
+msgid "Views:"
+msgstr "Visitas:"
+
+#: ../inc/widgets/wpbb_topics_widget.php:240
+msgid "Replies:"
+msgstr "Respostas:"
+
+#: ../inc/widgets/wpbb_users_widget.php:9
+msgid "Use that widget to allow user login on phpBB and WordPress from the WordPress side"
+msgstr "Use esse widget para permitir o login do usuário em phpBB e WordPress a partir do lado WordPress"
+
+#: ../inc/widgets/wpbb_users_widget.php:21
+msgid "Users"
+msgstr "Usuários"
+
+#: ../inc/widgets/wpbb_users_widget.php:30
+#: ../inc/widgets/wpbb_users_widget.php:156
+msgid "Login"
+msgstr "Login"
+
+#: ../inc/widgets/wpbb_users_widget.php:44
+msgid "Login box title:"
+msgstr "Título da caixa de login:"
+
+#: ../inc/widgets/wpbb_users_widget.php:49
+msgid "The widget title before the user login"
+msgstr "O título widget antes do login do usuário"
+
+#: ../inc/widgets/wpbb_users_widget.php:55
+msgid "User info title:"
+msgstr "Título de informação do usuário:"
+
+#: ../inc/widgets/wpbb_users_widget.php:60
+msgid "The widget title after the user login.<br /><br /><strong>NOTE</strong>: You can use the keyword {USERNAME} to display the current username. In exmple: Welcome {USERNAME}"
+msgstr "O título widget após o login do usuário <br /> <br /> <strong>NOTA</ strong>: Você pode usar a palavra-chave {USERNAME} para exibir o nome do usuário atual. Exemplo: Welcome {USERNAME}"
+
+#: ../inc/widgets/wpbb_users_widget.php:66
+msgid "Display user meta info"
+msgstr "Mostrar informações do usuário"
+
+#: ../inc/widgets/wpbb_users_widget.php:127
+msgid "Username:"
+msgstr "Nome de usuário:"
+
+#: ../inc/widgets/wpbb_users_widget.php:135
+msgid "Password:"
+msgstr "Senha:"
+
+#: ../inc/widgets/wpbb_users_widget.php:144
+msgid "Remember me"
+msgstr "Lembrar-me"
+
+#: ../inc/widgets/wpbb_users_widget.php:151
+msgid "Login as hidden"
+msgstr "Entrar como oculto"
+
+#: ../inc/widgets/wpbb_users_widget.php:192
+#, php-format
+msgid "Avatar for %s"
+msgstr "Avatar para %s"
+
+#: ../inc/widgets/wpbb_users_widget.php:200
+msgid "Total posts"
+msgstr "Total de Mensagens"
+
+#: ../inc/widgets/wpbb_users_widget.php:208
+msgid "New PM's"
+msgstr "Nova MP's"
+
+#: ../inc/widgets/wpbb_users_widget.php:216
+msgid "Unread PMs"
+msgstr "MPs não lidas"
+
+#: ../inc/wpbbreset/wpbbreset.php:7
+msgid "WP phpBB Bridge reset page"
+msgstr "WP phpBB Bridge redefinir página"
+
+#: ../inc/wpbbreset/wpbbreset.php:13
+msgid "WP phpBB Bridge plugin diactivate"
+msgstr "WP phpBB Bridge desativado"
+
+#: ../inc/wpbbreset/wpbbreset.php:29
+#, php-format
+msgid "WP phpBB Bridge is now disabled. You can click <a href=\"%1$s\">here</a> to login with WordPress."
+msgstr "WP phpBB Bridge agora está desativado. Você pode clicar <a href=\"%1$s\">aqui</ a> para entrar com o WordPress."
+
+#: ../inc/wpbbreset/wpbbreset.php:43
+msgid "You already have exceed the maximum amount of times to reset the WP phpBB Bridge. You are not allowed anymore to try reset the plugin this way for security reasons. Try diactivate the plugin from database."
+msgstr "Você excedeu o montante máximo de vezes para repor a WP phpBB Bridge. Você não tem permissão para tentar repor mais o plugin desta forma por razões de segurança. Tente desativar o plugin do banco de dados."
+

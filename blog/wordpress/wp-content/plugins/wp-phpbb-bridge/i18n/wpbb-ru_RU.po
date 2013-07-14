@@ -1,0 +1,871 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP phpBB Bridge\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-09 17:35+0200\n"
+"PO-Revision-Date: 2012-05-18 12:28+0300\n"
+"Last-Translator: Александр <san8383@gmail.com>\n"
+"Language-Team: Xtnd.it Group <info@xtnd.it>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e;_ex;_n;_n_noop;_nx;_nx_noop;_x\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n == 1);\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED KINGDOM\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../wp_phpbb_bridge.php:500
+msgid "Warning"
+msgstr "Внимание"
+
+#: ../wp_phpbb_bridge.php:503
+#, php-format
+msgid "WP phpBB Bridge is no yet enabled. Please click <a href=\"%s\">here</a> to configure and enable it."
+msgstr "WP phpBB Bridge еще не активирован. Пожалуйста нажмите  <a href=\"%s\">тут</a> для настройки и активации плагина."
+
+#: ../inc/wpbb_admin.php:25
+msgid "settings"
+msgstr "настройки"
+
+#: ../inc/wpbb_admin.php:26
+#: ../inc/admin_pages/settings.php:7
+msgid "Settings"
+msgstr "Настройки"
+
+#: ../inc/wpbb_admin.php:37
+msgid "forum assign"
+msgstr "форумные связи"
+
+#: ../inc/wpbb_admin.php:38
+#: ../inc/admin_pages/forum_assign.php:4
+msgid "Assign Forum"
+msgstr "Связь с форумом"
+
+#: ../inc/wpbb_admin.php:49
+msgid "authors assign"
+msgstr "связанные авторы"
+
+#: ../inc/wpbb_admin.php:50
+#: ../inc/admin_pages/authors_assign.php:4
+msgid "Assign authors"
+msgstr "Связать авторов"
+
+#: ../inc/wpbb_admin.php:61
+msgid "donators"
+msgstr "кто пожертвовал"
+
+#: ../inc/wpbb_admin.php:62
+#: ../inc/admin_pages/donators.php:3
+msgid "Donators"
+msgstr "Кто пожертвовал"
+
+#: ../inc/wpbb_admin.php:89
+msgid "You submition does not meet the WordPress security level."
+msgstr "Ваши настройки не подходят по уровню безопасности WordPress."
+
+#: ../inc/wpbb_admin.php:97
+msgid "The file config.php does not exists in the path you have enter"
+msgstr "Файл config.php не существует по пути, указанному вами."
+
+#: ../inc/wpbb_admin.php:103
+msgid "The file ucp.php does not exists in the url you have enter"
+msgstr "Файл ucp.php не существует по пути, указанному вами."
+
+#: ../inc/wpbb_admin.php:139
+msgid "Auto"
+msgstr "Автоматически"
+
+#: ../inc/admin_pages/authors_assign.php:4
+#: ../inc/admin_pages/dashboard.php:3
+#: ../inc/admin_pages/donators.php:3
+#: ../inc/admin_pages/forum_assign.php:4
+#: ../inc/admin_pages/settings.php:7
+msgid "WP phpBB Bridge"
+msgstr "WP phpBB Bridge"
+
+#: ../inc/admin_pages/authors_assign.php:8
+msgid "Please specify witch authors posts will be published in phpBB forums"
+msgstr "Пожалуйста укажите авторов, чьи статьи разрешены для публикации в форумах phpbb"
+
+#: ../inc/admin_pages/authors_assign.php:18
+#: ../inc/admin_pages/forum_assign.php:18
+msgid "You must enable the \"New forum posts on post creation\" option in order to use that feature. Please click <a href=\"/wp-admin/admin.php?page=wpbb_settings\">here</a> to enable that feature."
+msgstr "Вы должны активировать функцию \"Новые записи на форуме при создании записей\" для использования данной возможности. Пожалуйста нажмите <a href=\"/wp-admin/admin.php?page=wpbb_settings\">тут</a> для включения данной возможности."
+
+#: ../inc/admin_pages/authors_assign.php:27
+#: ../inc/admin_pages/authors_assign.php:86
+#: ../inc/admin_pages/forum_assign.php:27
+#: ../inc/admin_pages/forum_assign.php:56
+#: ../inc/admin_pages/settings.php:283
+msgid "Save options"
+msgstr "Сохранить настройки"
+
+#: ../inc/admin_pages/authors_assign.php:43
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: ../inc/admin_pages/dashboard.php:12
+#: ../inc/admin_pages/dashboard.php:161
+#: ../inc/admin_pages/dashboard.php:192
+#: ../inc/admin_pages/dashboard.php:325
+#: ../inc/admin_pages/dashboard.php:405
+msgid "Toggle"
+msgstr "Переключить"
+
+#: ../inc/admin_pages/dashboard.php:15
+msgid "WP phpBB Bridge status"
+msgstr "Состояние WP phpBB Bridge"
+
+#: ../inc/admin_pages/dashboard.php:21
+msgid "Fast preview of WP phpBB Bridge status &amp; configuration"
+msgstr "Быстрый предпросмотр сосотяния WP phpBB Bridge &amp; configuration"
+
+#: ../inc/admin_pages/dashboard.php:27
+msgid "phpBB config.php location"
+msgstr "phpBB config.php расположение"
+
+#: ../inc/admin_pages/dashboard.php:34
+msgid "The path to config.php is not set yet"
+msgstr "Путь к config.php еще не указан"
+
+#: ../inc/admin_pages/dashboard.php:44
+msgid "phpBB ucp.php url"
+msgstr "phpBB ucp.php путь"
+
+#: ../inc/admin_pages/dashboard.php:51
+msgid "The path to ucp.php is not set yet"
+msgstr "Путь к ucp.php еще не указан"
+
+#: ../inc/admin_pages/dashboard.php:61
+msgid "Avatar integration"
+msgstr "Интеграция аватаров"
+
+#: ../inc/admin_pages/dashboard.php:66
+#: ../inc/admin_pages/dashboard.php:136
+#: ../inc/admin_pages/dashboard.php:150
+#: ../inc/admin_pages/settings.php:223
+#: ../inc/admin_pages/settings.php:244
+msgid "No"
+msgstr "Нет"
+
+#: ../inc/admin_pages/dashboard.php:66
+#: ../inc/admin_pages/dashboard.php:136
+#: ../inc/admin_pages/dashboard.php:150
+#: ../inc/admin_pages/settings.php:220
+#: ../inc/admin_pages/settings.php:241
+msgid "Yes"
+msgstr "Да"
+
+#: ../inc/admin_pages/dashboard.php:75
+msgid "Plugin status"
+msgstr "Состояние плагина"
+
+#: ../inc/admin_pages/dashboard.php:80
+#: ../inc/admin_pages/dashboard.php:221
+#: ../inc/admin_pages/dashboard.php:230
+msgid "Disabled"
+msgstr "Неактивен"
+
+#: ../inc/admin_pages/dashboard.php:80
+#: ../inc/admin_pages/dashboard.php:217
+#: ../inc/admin_pages/dashboard.php:226
+msgid "Enabled"
+msgstr "Активен"
+
+#: ../inc/admin_pages/dashboard.php:89
+#: ../inc/admin_pages/settings.php:176
+msgid "phpBB database encoding"
+msgstr "кодировка phpBB базы данных"
+
+#: ../inc/admin_pages/dashboard.php:103
+msgid "Plugin deactivation URL"
+msgstr "Ссылка деактивации плагина"
+
+#: ../inc/admin_pages/dashboard.php:108
+msgid "Your Password is not yet set"
+msgstr "Паш пароль еще не указан"
+
+#: ../inc/admin_pages/dashboard.php:117
+msgid "Reset retries"
+msgstr "Попытки входа до сброса"
+
+#: ../inc/admin_pages/dashboard.php:122
+msgid "(Total available / Tries)"
+msgstr "(Общее доступное / Попытки)"
+
+#: ../inc/admin_pages/dashboard.php:131
+msgid "Autocreate forum topics"
+msgstr "Автосоздание тем форума"
+
+#: ../inc/admin_pages/dashboard.php:145
+msgid "Autocreate forum topics on locked forums"
+msgstr "Автосоздание тем форума на закрытых форумах"
+
+#: ../inc/admin_pages/dashboard.php:164
+msgid "eXtnd.it latest news"
+msgstr "eXtnd.it последние новости"
+
+#: ../inc/admin_pages/dashboard.php:184
+#, php-format
+msgid "%1$d months old"
+msgstr "%1$d месяцев назад"
+
+#: ../inc/admin_pages/dashboard.php:184
+#, php-format
+msgid "%1$d month old"
+msgstr "%1$d месяц назад"
+
+#: ../inc/admin_pages/dashboard.php:195
+msgid "Server info"
+msgstr "Информация о сервере"
+
+#: ../inc/admin_pages/dashboard.php:212
+msgid "Is not set"
+msgstr "Не настроен"
+
+#: ../inc/admin_pages/dashboard.php:240
+#: ../inc/admin_pages/dashboard.php:249
+#: ../inc/admin_pages/dashboard.php:258
+#: ../inc/admin_pages/dashboard.php:267
+msgid "Not Available"
+msgstr "Не Доступен"
+
+#: ../inc/admin_pages/dashboard.php:272
+msgid "Supported"
+msgstr "Поддерживается"
+
+#: ../inc/admin_pages/dashboard.php:276
+msgid "Not supported"
+msgstr "Не поддерживается"
+
+#: ../inc/admin_pages/dashboard.php:281
+msgid "Operating system"
+msgstr "Операционная система"
+
+#: ../inc/admin_pages/dashboard.php:283
+msgid "Server"
+msgstr "Сервер"
+
+#: ../inc/admin_pages/dashboard.php:287
+msgid "Memory usage"
+msgstr "Использование памяти"
+
+#: ../inc/admin_pages/dashboard.php:289
+msgid "MYSQL Version"
+msgstr "MYSQL Версия"
+
+#: ../inc/admin_pages/dashboard.php:293
+msgid "SQL Mode"
+msgstr "SQL Режим"
+
+#: ../inc/admin_pages/dashboard.php:295
+msgid "PHP Version"
+msgstr "PHP Версия"
+
+#: ../inc/admin_pages/dashboard.php:299
+msgid "PHP Safe Mode"
+msgstr "PHP Безопасный Режим"
+
+#: ../inc/admin_pages/dashboard.php:301
+msgid "PHP Allow URL fopen"
+msgstr "PHP Allow URL fopen"
+
+#: ../inc/admin_pages/dashboard.php:305
+msgid "PHP Max Upload Size"
+msgstr "PHP Максимальный размер загрузки"
+
+#: ../inc/admin_pages/dashboard.php:307
+msgid "PHP Max Post Size"
+msgstr "PHP Максимальный размер поста"
+
+#: ../inc/admin_pages/dashboard.php:311
+msgid "PHP Max Script Execute Time"
+msgstr "PHP Максимальное время выполнения скрипта"
+
+#: ../inc/admin_pages/dashboard.php:313
+msgid "PHP XML support"
+msgstr "PHP XML поддржка"
+
+#: ../inc/admin_pages/dashboard.php:330
+msgid "Do you like WP phpBB Bridge?"
+msgstr "Вам нравится WP phpBB Bridge?"
+
+#: ../inc/admin_pages/dashboard.php:336
+msgid "The WP phpBB Bridge is the development of «WordPress to phpBB3 Bridge» which is written by Jason Sanborn."
+msgstr "WP phpBB Bridge разработка «WordPress to phpBB3 Bridge», написанная Jason Sanborn (Джейсоном Сенборном)."
+
+#: ../inc/admin_pages/dashboard.php:341
+msgid "The first version of the plugin was designed to synchronize users of phpBB users to WordPress so that the user is once in phpBB and be simultaneously connected and WordPress."
+msgstr "Первая версия плагина была написана для синхронизации пользователей из phpbb-форума и пользователей WordPress, для того чтобы зарегистрированные пользователи из форума автоматически заходили на блог WordPress."
+
+#: ../inc/admin_pages/dashboard.php:346
+msgid "In now days the plugin is re-writed from scratch, to fix errors from the past, and add new functionality in case to make the usage of phpBB in compination with WordPress a peace of cake."
+msgstr "Теперь плагин переписан, исправлены старые ошибки, добавлены новые функции, для того чтобы сделать использование phpBB совместно с WordPress наиболее удобным и приятным."
+
+#: ../inc/admin_pages/dashboard.php:350
+msgid "Do you like to help us?"
+msgstr "Вы хотите нам помочь?"
+
+#: ../inc/admin_pages/dashboard.php:354
+msgid "Give a possitive rating"
+msgstr "Дайте положительную оценку"
+
+#: ../inc/admin_pages/dashboard.php:355
+msgid "Give it a good rating on WordPress.org"
+msgstr "Дайте положительную оценку на WordPress.org"
+
+#: ../inc/admin_pages/dashboard.php:359
+#: ../inc/admin_pages/dashboard.php:468
+msgid "Donate us"
+msgstr "Сделайте пожертвование"
+
+#: ../inc/admin_pages/dashboard.php:360
+msgid "Donate the work via paypal"
+msgstr "Сделайте пожертвование через paypal"
+
+#: ../inc/admin_pages/dashboard.php:364
+msgid "Donate us, get a serial number and remove the backlink"
+msgstr "Сделайте пожертвование, получите серийный номер и уберите ссылку на виджете."
+
+#: ../inc/admin_pages/dashboard.php:365
+msgid "Remove backlink with donation"
+msgstr "Уберите ссылку через пожертвование"
+
+#: ../inc/admin_pages/dashboard.php:377
+msgid "Translation"
+msgstr "Перевод"
+
+#: ../inc/admin_pages/dashboard.php:384
+msgid "If you cannot find the plugin in your native language, you may like to translated and send the translation back to us. Then a new plugin version will be available in a few days with your language package installed"
+msgstr "Если вы не можете найти плагин на вашем родном языке, вы можете перевести его самостоятельно и выслать нам файл перевода. В этом случае выйдет новая версия плагина через некоторое время с вашим установленным языковым пакетом."
+
+#: ../inc/admin_pages/dashboard.php:392
+msgid "Click the download button below to get the latest English translation file. Use the poEdit, save the file in the form of wpbb-YourLocale.po and send us the *.po and *.mo files with e-mail here: support@wordpress-gr.org"
+msgstr "Нажмите кнопку \"Скачать\" ниже для того, чтобы скачать последнюю английскую версию языкового файла. Используйте poEdit, сохраните файл в виде wpbb-ваша локация.po и вышлите нам *.po и *.mo файлы через (е-мейл)e-mail сюда: support@wordpress-gr.org"
+
+#: ../inc/admin_pages/dashboard.php:398
+msgid "Translation file"
+msgstr "Файл перевода"
+
+#: ../inc/admin_pages/dashboard.php:399
+msgid "Download"
+msgstr "Скачать"
+
+#: ../inc/admin_pages/dashboard.php:410
+msgid "Recent donators"
+msgstr "Последние пожертвования"
+
+#: ../inc/admin_pages/dashboard.php:432
+#: ../inc/admin_pages/donators.php:23
+msgid "Donation date : "
+msgstr "Дата перечисления : "
+
+#: ../inc/admin_pages/dashboard.php:441
+#: ../inc/admin_pages/donators.php:32
+msgid "There are no donations yet"
+msgstr "Еще нет пожертвований"
+
+#: ../inc/admin_pages/dashboard.php:443
+#: ../inc/admin_pages/donators.php:34
+msgid "Be the first to make a donation"
+msgstr "Будь первым, кто сделает пожертвование"
+
+#: ../inc/admin_pages/dashboard.php:456
+msgid "View all"
+msgstr "Посмотреть всех"
+
+#: ../inc/admin_pages/donators.php:6
+#, php-format
+msgid "Here is the list of WP phpBB Bridge donators. If you like to see your web site link here you can donate us with an amount from <a href=\"%s\">here</a>"
+msgstr "Это перечень тех, кто сделал пожертвование для WP phpBB Bridge. Если вы хотите увидеть ссылку на свой веб-сайт тут, вы можете сделать небольшое пожертвование <a href=\"%s\">сюда</a>"
+
+#: ../inc/admin_pages/forum_assign.php:8
+msgid "Here you can select from witch WordPress categories new assigned posts will auto submited in relevant phpBB forums."
+msgstr "Здесь вы можете выбрать из каких категорий WordPress связанные записи будут атоматически размещены в соответствующих ветках phpBB форумов."
+
+#: ../inc/admin_pages/forum_assign.php:40
+msgid "Available forums"
+msgstr "Доступные форумы"
+
+#: ../inc/admin_pages/settings.php:33
+msgid "Files options"
+msgstr "Настройки файлов"
+
+#: ../inc/admin_pages/settings.php:44
+msgid "config.php path"
+msgstr "путь к config.php"
+
+#: ../inc/admin_pages/settings.php:52
+msgid "Enter the full path to phpBB config.php file"
+msgstr "Введите полный путь к файлу phpBB config.php"
+
+#: ../inc/admin_pages/settings.php:60
+msgid "ucp.php url"
+msgstr "Путь к ucp.php"
+
+#: ../inc/admin_pages/settings.php:68
+msgid "Enter the url to phpBB ucp.php file"
+msgstr "Введите путь к файлу phpBB ucp.php"
+
+#: ../inc/admin_pages/settings.php:76
+msgid "Security options"
+msgstr "Настройки безопасности"
+
+#: ../inc/admin_pages/settings.php:85
+msgid "Deactivation password"
+msgstr "Пароль деактивации"
+
+#: ../inc/admin_pages/settings.php:93
+msgid "Enter a password you will use to diactivate the plugin in case you are locked out"
+msgstr "Введите пароль, который вы собираетесь использовать для деактивации плагина в случае вышей блокировки"
+
+#: ../inc/admin_pages/settings.php:97
+#, php-format
+msgid "Your reset url is the following : <strong id=\"resetCode\">%1$s<span class=\"red\">%2$s</span></strong>"
+msgstr "Ваш пароль сброса следующий : <strong id=\"resetCode\">%1$s<span class=\"red\">%2$s</span></strong>"
+
+#: ../inc/admin_pages/settings.php:109
+msgid "Maximum reset retries"
+msgstr "Максимальное число попыток входа до сброса"
+
+#: ../inc/admin_pages/settings.php:118
+msgid "Enter the maximum retries for plugin diactivation.<br /><strong>WARNING</strong> : A very large amount of retries can make the plugin diactivation vulnerable on brute force attacks"
+msgstr "Введите максимальное количество попыток входа до деактивации плагина.<br /><strong>ВНИМАНИЕ</strong> : Большое количество попыток входа до деактивации плагина, может сделать плагин уязвимым для брутфорс атак"
+
+#: ../inc/admin_pages/settings.php:128
+msgid "Forum posts options"
+msgstr "Настройки записей форума"
+
+#: ../inc/admin_pages/settings.php:138
+msgid "New forum posts on post creation"
+msgstr "Новые записи на форуме при создании записей"
+
+#: ../inc/admin_pages/settings.php:145
+#: ../inc/admin_pages/settings.php:164
+msgid "Enable"
+msgstr "Активировать"
+
+#: ../inc/admin_pages/settings.php:149
+msgid "Check that option if you like to enable the posting of new WordPress posts on specific forums."
+msgstr "Отметьте эту опцию если вы хотите активировать функцию создания записей в соответствующих ветках форума при создании новых записей в WordPress"
+
+#: ../inc/admin_pages/settings.php:157
+msgid "Post on locked forums"
+msgstr "Создавать записи на закрытых форумах"
+
+#: ../inc/admin_pages/settings.php:168
+msgid "By checking that option you will be able to choose locked posts on witch the plugin will posting."
+msgstr "При активации этой опции вы сможете выбирать закрытые ветки, на которых плагин сможет создавать записи"
+
+#: ../inc/admin_pages/settings.php:195
+msgid "Select the database connection character set for phpBB"
+msgstr "Выберите кодировку базы данных для форума phpBB"
+
+#: ../inc/admin_pages/settings.php:204
+msgid "Plugin options"
+msgstr "Настройки плагина"
+
+#: ../inc/admin_pages/settings.php:214
+msgid "Integrate phpBB avatars"
+msgstr "Интегрировать аватары phpBB"
+
+#: ../inc/admin_pages/settings.php:227
+msgid "Choose if you like to integrate phpBB user avatars on WordPress."
+msgstr "Отметьте, если вы хотите интегрировать аватары пользователей phpBB на WordPress."
+
+#: ../inc/admin_pages/settings.php:235
+msgid "Activate phpBB bridge"
+msgstr "Активировать phpBB bridge"
+
+#: ../inc/admin_pages/settings.php:248
+msgid "Choose if you like to activate the plugin. <br /><div class=\"red\"><strong>WARNING</strong> : Be sure you have already isntalled the WP phpBB Bridge Users widget.</div>"
+msgstr "Отметьте, если вы хотите активировать плагин. <br /><div class=\"red\"><strong>ВНИМАНИЕ</strong> : Проверьте, помещен ли виджет WP phpBB Bridge Users на страницу вашего сайта.</div>"
+
+#: ../inc/admin_pages/settings.php:257
+msgid "WP phpBB Bridge Users Widget settings"
+msgstr "Настройки виджета WP phpBB Bridge Users"
+
+#: ../inc/admin_pages/settings.php:267
+msgid "Form elements width"
+msgstr "Настройка ширины элементов формы"
+
+#: ../inc/admin_pages/settings.php:275
+msgid "Enter the WP phpBB Bridge Users widget form elements width"
+msgstr "Введите ширину для элементов формы виджета WP phpBB Bridge Users"
+
+#: ../inc/admin_pages/settings.php:317
+msgid "Support options"
+msgstr "Поддержка"
+
+#: ../inc/admin_pages/settings.php:323
+msgid "While this plugin is free, we need your support in order to extend it and make it more famous."
+msgstr "Так как этот плагин бесплатен, мы нуждаемся в вашей поддержке для того, чтобы его расширить и сделать более популярным."
+
+#: ../inc/admin_pages/settings.php:328
+msgid "The available options are the following : "
+msgstr "Доступные способы таковы:"
+
+#: ../inc/admin_pages/settings.php:333
+msgid "You can leave the link of our web site at the bottom of the WP phpBB Bridge Users"
+msgstr "Вы можете оставить ссылку на наш сайт внизу виджета WP phpBB Bridge Users"
+
+#: ../inc/admin_pages/settings.php:338
+msgid "You can donate us with one of the following amounts and then paste the serial number we will send you with <strong>email</strong> in serial number field bellow"
+msgstr "Вы можете сделать пожертвование нам в одном из количеств, приведенных ниже и вставить серыйный номер, который мы вышлем вам по <strong>email</strong> в поле ниже"
+
+#: ../inc/admin_pages/settings.php:344
+msgid "Donate 5,00 &euro;"
+msgstr "Пожертвовать 5,00 &euro;"
+
+#: ../inc/admin_pages/settings.php:346
+msgid "Donate 10,00 &euro;"
+msgstr "Пожертвовать 10,00 &euro;"
+
+#: ../inc/admin_pages/settings.php:348
+msgid "Donate 25,00 &euro;"
+msgstr "Пожертвовать 25,00 &euro;"
+
+#: ../inc/admin_pages/settings.php:350
+msgid "Donate 50,00 &euro;"
+msgstr "Пожертвовать 50,00 &euro;"
+
+#: ../inc/admin_pages/settings.php:352
+msgid "Donate 100,00 &euro;"
+msgstr "Пожертвовать 100,00 &euro;"
+
+#: ../inc/admin_pages/settings.php:358
+msgid "Back link removal"
+msgstr "Удаление ссылки"
+
+#: ../inc/admin_pages/settings.php:368
+msgid "Serial number"
+msgstr "Серийный номер"
+
+#: ../inc/admin_pages/settings.php:376
+msgid "Enter here the serial number we produce for you in order to remove our web site link from WP phpBB Bridge Users widget."
+msgstr "Введите сюда серийный номер, который мы выслали вам, чтобы убрать ссылку внизу виджета WP phpBB Bridge Users"
+
+#: ../inc/admin_pages/settings.php:383
+msgid "Remove backlink"
+msgstr "Убрать ссылку"
+
+#: ../inc/widgets/wpbb_links_widget.php:9
+msgid "Allows you to display a list of usefull links to your phpBB."
+msgstr "Позволяет вам ввыводить перечень полезных ссылок на ваш форум phpBB."
+
+#: ../inc/widgets/wpbb_links_widget.php:29
+msgid "Forum Links"
+msgstr "Ссылки форума"
+
+#: ../inc/widgets/wpbb_links_widget.php:54
+#: ../inc/widgets/wpbb_meta_widget.php:45
+#: ../inc/widgets/wpbb_topics_widget.php:51
+msgid "Title:"
+msgstr "Название:"
+
+#: ../inc/widgets/wpbb_links_widget.php:64
+msgid "Display Forum Index Link"
+msgstr "Показать ссылку на список форумов"
+
+#: ../inc/widgets/wpbb_links_widget.php:73
+msgid "Display FAQ Link"
+msgstr "Показать ссылку на Помощь"
+
+#: ../inc/widgets/wpbb_links_widget.php:82
+msgid "Display Forum Search Link"
+msgstr "Показать ссылку на поиск по форуму"
+
+#: ../inc/widgets/wpbb_links_widget.php:90
+msgid "Display View Active Topics Link"
+msgstr "Показать ссылку Активные ветки форума"
+
+#: ../inc/widgets/wpbb_links_widget.php:98
+msgid "Display View Unanswered Posts Link"
+msgstr "Показать ссылку на неотвеченные записи"
+
+#: ../inc/widgets/wpbb_links_widget.php:106
+msgid "Display View Your Posts Link"
+msgstr "Показать ссылку на ваши записи"
+
+#: ../inc/widgets/wpbb_links_widget.php:114
+msgid "Display View New Posts Link"
+msgstr "Показать ссылку на новые записи"
+
+#: ../inc/widgets/wpbb_links_widget.php:122
+msgid "Display Private Messages Link"
+msgstr "Показать ссылку на личные сообщения"
+
+#: ../inc/widgets/wpbb_links_widget.php:130
+msgid "Display Send Private Message Link"
+msgstr "Показать ссылку на послать личное сообщение"
+
+#: ../inc/widgets/wpbb_links_widget.php:138
+msgid "Display Member List Link"
+msgstr "Показать ссылку на перечень пользователей"
+
+#: ../inc/widgets/wpbb_links_widget.php:146
+msgid "Display The Team Link"
+msgstr "Показать ссылку на команду форума"
+
+#: ../inc/widgets/wpbb_links_widget.php:154
+msgid "Display Who is Online Link"
+msgstr "Показать ссылку на Кто на сайте"
+
+#: ../inc/widgets/wpbb_links_widget.php:212
+msgid "Forum index"
+msgstr "Список форумов"
+
+#: ../inc/widgets/wpbb_links_widget.php:219
+msgid "FAQ"
+msgstr "Помощь"
+
+#: ../inc/widgets/wpbb_links_widget.php:226
+msgid "Forum search"
+msgstr "Поиск по форуму"
+
+#: ../inc/widgets/wpbb_links_widget.php:233
+msgid "View active topics"
+msgstr "Показать активные ветки"
+
+#: ../inc/widgets/wpbb_links_widget.php:240
+msgid "View unanswered posts"
+msgstr "Показать неотвеченные записи"
+
+#: ../inc/widgets/wpbb_links_widget.php:249
+msgid "View your posts"
+msgstr "Показать мои записи"
+
+#: ../inc/widgets/wpbb_links_widget.php:256
+msgid "View new posts"
+msgstr "Показать новые записи"
+
+#: ../inc/widgets/wpbb_links_widget.php:263
+msgid "Private messages"
+msgstr "Личные сообщения"
+
+#: ../inc/widgets/wpbb_links_widget.php:270
+msgid "Send private message"
+msgstr "Послать личное сообщение"
+
+#: ../inc/widgets/wpbb_links_widget.php:277
+msgid "Member list"
+msgstr "Список пользователей"
+
+#: ../inc/widgets/wpbb_links_widget.php:284
+msgid "The team"
+msgstr "Команда форума"
+
+#: ../inc/widgets/wpbb_links_widget.php:291
+msgid "Who is online"
+msgstr "Кто на сайте"
+
+#: ../inc/widgets/wpbb_meta_widget.php:10
+msgid "Allows you to display several usefull informations about the user."
+msgstr "Позволяет вам выводить некоторую полезную информацию о пользователе."
+
+#: ../inc/widgets/wpbb_meta_widget.php:32
+msgid "Forum Meta"
+msgstr "Форум Meta"
+
+#: ../inc/widgets/wpbb_meta_widget.php:90
+#: ../inc/widgets/wpbb_users_widget.php:246
+msgid "Blog control panel"
+msgstr "Панель управления сайтом"
+
+#: ../inc/widgets/wpbb_meta_widget.php:97
+#: ../inc/widgets/wpbb_users_widget.php:191
+#: ../inc/widgets/wpbb_users_widget.php:253
+msgid "User control panel"
+msgstr "Панель управления пользователя"
+
+#: ../inc/widgets/wpbb_meta_widget.php:108
+#: ../inc/widgets/wpbb_users_widget.php:264
+msgid "Moderator control panel"
+msgstr "Панель управления модератора"
+
+#: ../inc/widgets/wpbb_meta_widget.php:121
+#: ../inc/widgets/wpbb_users_widget.php:232
+msgid "Forum administration"
+msgstr "Администрирование форума"
+
+#: ../inc/widgets/wpbb_meta_widget.php:134
+#: ../inc/widgets/wpbb_users_widget.php:277
+msgid "Restore permissions"
+msgstr "Восстановить разрешения"
+
+#: ../inc/widgets/wpbb_meta_widget.php:145
+#: ../inc/widgets/wpbb_users_widget.php:287
+msgid "Log out"
+msgstr "Выход"
+
+#: ../inc/widgets/wpbb_meta_widget.php:158
+#: ../inc/widgets/wpbb_users_widget.php:164
+#: ../inc/widgets/wpbb_users_widget.php:299
+msgid "I forgot my password"
+msgstr "Я забыл свой пароль"
+
+#: ../inc/widgets/wpbb_meta_widget.php:165
+#: ../inc/widgets/wpbb_users_widget.php:306
+msgid "Resend activation email"
+msgstr "Выслать письмо с активацией"
+
+#: ../inc/widgets/wpbb_meta_widget.php:172
+#: ../inc/widgets/wpbb_users_widget.php:170
+#: ../inc/widgets/wpbb_users_widget.php:313
+msgid "Register new account"
+msgstr "Зарегистрироваться"
+
+#: ../inc/widgets/wpbb_meta_widget.php:182
+msgid "Delete site cookies"
+msgstr "Очистить кеш сайта"
+
+#: ../inc/widgets/wpbb_topics_widget.php:10
+msgid "Allows you to display a list of recent topics within a specific forum id's."
+msgstr "Позволяет вам выводить перечень тем в соответствии со специфическими id форума"
+
+#: ../inc/widgets/wpbb_topics_widget.php:32
+msgid "Latest posts"
+msgstr "Последние записи"
+
+#: ../inc/widgets/wpbb_topics_widget.php:58
+msgid "Forums:"
+msgstr "Форумы:"
+
+#: ../inc/widgets/wpbb_topics_widget.php:61
+msgid "Enter the id of the forum you like to get topics from. You can get topics from more than one forums by seperating the forums id with commas. ex: 3,5,6,12"
+msgstr "Введите id форумов, записи из которых вы хотите видеть в списке. Для указания нескольких форумов, введите их id, отделяя запятой, например: 3,5,6,12"
+
+#: ../inc/widgets/wpbb_topics_widget.php:66
+msgid "Total posts:"
+msgstr "Количество записей:"
+
+#: ../inc/widgets/wpbb_topics_widget.php:75
+msgid "Display forum name"
+msgstr "Показать название форума"
+
+#: ../inc/widgets/wpbb_topics_widget.php:83
+msgid "Display author name"
+msgstr "Показать имя автора"
+
+#: ../inc/widgets/wpbb_topics_widget.php:91
+msgid "Display total replies"
+msgstr "Показать количество ответов"
+
+#: ../inc/widgets/wpbb_topics_widget.php:99
+msgid "Display total views"
+msgstr "Показать количество просмотров"
+
+#: ../inc/widgets/wpbb_topics_widget.php:175
+msgid "View post"
+msgstr "Посотреть запись"
+
+#: ../inc/widgets/wpbb_topics_widget.php:185
+msgid "Forum:"
+msgstr "Форум:"
+
+#: ../inc/widgets/wpbb_topics_widget.php:187
+msgid "Go to forum"
+msgstr "На форум"
+
+#: ../inc/widgets/wpbb_topics_widget.php:202
+msgid "By:"
+msgstr "Написал:"
+
+#: ../inc/widgets/wpbb_topics_widget.php:204
+msgid "View user info"
+msgstr "Посмотреть информацию о пользователе"
+
+#: ../inc/widgets/wpbb_topics_widget.php:219
+msgid "Views:"
+msgstr "Просмотры:"
+
+#: ../inc/widgets/wpbb_topics_widget.php:240
+msgid "Replies:"
+msgstr "Ответы:"
+
+#: ../inc/widgets/wpbb_users_widget.php:9
+msgid "Use that widget to allow user login on phpBB and WordPress from the WordPress side"
+msgstr "Использование этого виджета позволяет пользователям заходить на форум phpBB и на WordPress со страницы сайта"
+
+#: ../inc/widgets/wpbb_users_widget.php:21
+msgid "Users"
+msgstr "Пользователи"
+
+#: ../inc/widgets/wpbb_users_widget.php:30
+#: ../inc/widgets/wpbb_users_widget.php:156
+msgid "Login"
+msgstr "Логин"
+
+#: ../inc/widgets/wpbb_users_widget.php:44
+msgid "Login box title:"
+msgstr "Название панели входа"
+
+#: ../inc/widgets/wpbb_users_widget.php:49
+msgid "The widget title before the user login"
+msgstr "Название панели до входа пользователя"
+
+#: ../inc/widgets/wpbb_users_widget.php:55
+msgid "User info title:"
+msgstr "Название панели пользователя:"
+
+#: ../inc/widgets/wpbb_users_widget.php:60
+msgid "The widget title after the user login.<br /><br /><strong>NOTE</strong>: You can use the keyword {USERNAME} to display the current username. In exmple: Welcome {USERNAME}"
+msgstr "Название панели виджета после входа пользователя.<br /><br /><strong>Помните</strong>:Вы можете использовать ключ {USERNAME} для вывода текущего имени пользователя. Например: Добро пожаловать {USERNAME}"
+
+#: ../inc/widgets/wpbb_users_widget.php:66
+msgid "Display user meta info"
+msgstr "Показывать сведения пользователя"
+
+#: ../inc/widgets/wpbb_users_widget.php:127
+msgid "Username:"
+msgstr "Имя пользователя:"
+
+#: ../inc/widgets/wpbb_users_widget.php:135
+msgid "Password:"
+msgstr "Пароль:"
+
+#: ../inc/widgets/wpbb_users_widget.php:144
+msgid "Remember me"
+msgstr "Запомнить меня"
+
+#: ../inc/widgets/wpbb_users_widget.php:151
+msgid "Login as hidden"
+msgstr "Войти как скрытый"
+
+#: ../inc/widgets/wpbb_users_widget.php:192
+#, php-format
+msgid "Avatar for %s"
+msgstr "Аватар для %s"
+
+#: ../inc/widgets/wpbb_users_widget.php:200
+msgid "Total posts"
+msgstr "Всего записей"
+
+#: ../inc/widgets/wpbb_users_widget.php:208
+msgid "New PM's"
+msgstr "Новые ЛС"
+
+#: ../inc/widgets/wpbb_users_widget.php:216
+msgid "Unread PMs"
+msgstr "Непрочитанные ЛС"
+
+#: ../inc/wpbbreset/wpbbreset.php:7
+msgid "WP phpBB Bridge reset page"
+msgstr "страница сброса настроек WP phpBB Bridge"
+
+#: ../inc/wpbbreset/wpbbreset.php:13
+msgid "WP phpBB Bridge plugin diactivate"
+msgstr "Деактивация плагина WP phpBB Bridge"
+
+#: ../inc/wpbbreset/wpbbreset.php:29
+#, php-format
+msgid "WP phpBB Bridge is now disabled. You can click <a href=\"%1$s\">here</a> to login with WordPress."
+msgstr "WP phpBB Bridge сейчас неактивен. Вы можете нажать <a href=\"%1$s\">тут</a> чтобы войти через WordPress."
+
+#: ../inc/wpbbreset/wpbbreset.php:43
+msgid "You already have exceed the maximum amount of times to reset the WP phpBB Bridge. You are not allowed anymore to try reset the plugin this way for security reasons. Try diactivate the plugin from database."
+msgstr "Вы превысили максимальное количество попаток деактивации плагина WP phpBB Bridge. Вы не можете теперь деактивировать его этим способом. Попробуйте деактивировать плагин из базы данных."
+

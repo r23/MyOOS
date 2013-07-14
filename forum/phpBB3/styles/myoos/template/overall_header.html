@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="{S_CONTENT_DIRECTION}" lang="{S_USER_LANG}" xml:lang="{S_USER_LANG}">
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset={S_CONTENT_ENCODING}" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="content-language" content="{S_USER_LANG}" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+{META}
+<title>{SITENAME} &bull; <!-- IF S_IN_MCP -->{L_MCP} &bull; <!-- ELSEIF S_IN_UCP -->{L_UCP} &bull; <!-- ENDIF -->{PAGE_TITLE}</title>
+
+<!-- IF S_ENABLE_FEEDS -->
+	<!-- IF S_ENABLE_FEEDS_OVERALL --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {SITENAME}" href="{U_FEED}" /><!-- ENDIF -->
+	<!-- IF S_ENABLE_FEEDS_NEWS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FEED_NEWS}" href="{U_FEED}?mode=news" /><!-- ENDIF -->
+	<!-- IF S_ENABLE_FEEDS_FORUMS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_ALL_FORUMS}" href="{U_FEED}?mode=forums" /><!-- ENDIF -->
+	<!-- IF S_ENABLE_FEEDS_TOPICS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FEED_TOPICS_NEW}" href="{U_FEED}?mode=topics" /><!-- ENDIF -->
+	<!-- IF S_ENABLE_FEEDS_TOPICS_ACTIVE --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FEED_TOPICS_ACTIVE}" href="{U_FEED}?mode=topics_active" /><!-- ENDIF -->
+	<!-- IF S_ENABLE_FEEDS_FORUM and S_FORUM_ID --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FORUM} - {FORUM_NAME}" href="{U_FEED}?f={S_FORUM_ID}" /><!-- ENDIF -->
+	<!-- IF S_ENABLE_FEEDS_TOPIC and S_TOPIC_ID --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_TOPIC} - {TOPIC_TITLE}" href="{U_FEED}?f={S_FORUM_ID}&amp;t={S_TOPIC_ID}" /><!-- ENDIF -->
+<!-- ENDIF -->
+
+<!--
+	phpBB style name: prosilver
+	Based on style:   prosilver (this is the default phpBB3 style)
+	Original author:  Tom Beddard ( http://www.subBlue.com/ )
+	Modified by:
+-->
+
+<script type="text/javascript">
+// <![CDATA[
+	var jump_page = '{LA_JUMP_PAGE}:';
+	var on_page = '{ON_PAGE}';
+	var per_page = '{PER_PAGE}';
+	var base_url = '{A_BASE_URL}';
+	var style_cookie = 'phpBBstyle';
+	var style_cookie_settings = '{A_COOKIE_SETTINGS}';
+	var onload_functions = new Array();
+	var onunload_functions = new Array();
+
+	<!-- IF S_USER_PM_POPUP and S_NEW_PM -->
+		var url = '{UA_POPUP_PM}';
+		window.open(url.replace(/&amp;/g, '&'), '_phpbbprivmsg', 'height=225,resizable=yes,scrollbars=yes, width=400');
+	<!-- ENDIF -->
+
+	/**
+	* Find a member
+	*/
+	function find_username(url)
+	{
+		popup(url, 760, 570, '_usersearch');
+		return false;
+	}
+
+	/**
+	* New function for handling multiple calls to window.onload and window.unload by pentapenguin
+	*/
+	window.onload = function()
+	{
+		for (var i = 0; i < onload_functions.length; i++)
+		{
+			eval(onload_functions[i]);
+		}
+	};
+
+	window.onunload = function()
+	{
+		for (var i = 0; i < onunload_functions.length; i++)
+		{
+			eval(onunload_functions[i]);
+		}
+	};
+
+// ]]>
+</script>
+<script type="text/javascript" src="{T_SUPER_TEMPLATE_PATH}/styleswitcher.js"></script>
+<script type="text/javascript" src="{T_SUPER_TEMPLATE_PATH}/forum_fn.js"></script>
+
+<link href="{T_THEME_PATH}/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
+<link href="{T_STYLESHEET_LINK}" rel="stylesheet" type="text/css" media="screen, projection" />
+
+<link href="{T_THEME_PATH}/normal.css" rel="stylesheet" type="text/css" title="A" />
+<link href="{T_THEME_PATH}/medium.css" rel="alternate stylesheet" type="text/css" title="A+" />
+<link href="{T_THEME_PATH}/large.css" rel="alternate stylesheet" type="text/css" title="A++" />
+
+<!-- IF S_CONTENT_DIRECTION eq 'rtl' -->
+	<link href="{T_THEME_PATH}/bidi.css" rel="stylesheet" type="text/css" media="screen, projection" />
+<!-- ENDIF -->
+
+</head>
+
+<body id="phpbb" class="section-{SCRIPT_NAME} {S_CONTENT_DIRECTION}">
+
+<div class="container-fluid">
+	<a id="top" accesskey="t"></a>
+	<div id="page-header">
+		<div class="headerbar ">
+			<div class="row-fluid">
+			
+
+			<div id="site-description">
+				<a href="{U_INDEX}" title="{L_INDEX}" id="logo">{SITE_LOGO_IMG}</a>
+				<h1>{SITENAME}</h1>
+				<p>{SITE_DESCRIPTION}</p>
+				<p class="skiplink"><a href="#start_here">{L_SKIP}</a></p>
+			</div>
+			
+		
+
+			
+		</div>
+
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container-fluid">
+				<a class="brand" href="{U_INDEX}">{SITENAME}</a>
+				<ul class="linklist nav" style="width: 50%;">
+				
+				
+				<!-- IF S_DISPLAY_SEARCH and not S_IN_SEARCH -->
+				<li class="divider-vertical"></li>
+				<a class="pull-left" id="adv-search" href="{U_SEARCH}" title="{L_SEARCH_ADV_EXPLAIN}"><i class="icon-plus-sign"></i>&nbsp;</a>
+				<form action="{U_SEARCH}" method="get" id="search" class="navbar-search ">
+				
+				<fieldset>
+				
+					<input name="keywords" id="keywords" type="text" maxlength="128" title="{L_SEARCH_KEYWORDS}" class="inputbox search search-query" value="<!-- IF SEARCH_WORDS-->{SEARCH_WORDS}<!-- ELSE -->{L_SEARCH_MINI}<!-- ENDIF -->" onclick="if(this.value=='{LA_SEARCH_MINI}')this.value='';" onblur="if(this.value=='')this.value='{LA_SEARCH_MINI}';" />
+					 {S_SEARCH_HIDDEN_FIELDS}
+				</fieldset>
+				</form>
+				
+		<!-- ENDIF -->
+				
+							
+
+			<!-- IF not S_IS_BOT and S_USER_LOGGED_IN -->
+			<li class="divider-vertical"></li>
+				
+				<li class="bb-faq"><a href="{U_FAQ}" title="{L_FAQ_EXPLAIN}"><i class="icon-question-sign "></i> {L_FAQ}</a></li>
+				<!-- IF not S_IS_BOT -->
+					<!-- IF S_DISPLAY_MEMBERLIST -->
+					<li class="divider-vertical"></li>
+					<li class="bb-members"><a href="{U_MEMBERLIST}" title="{L_MEMBERLIST_EXPLAIN}"><i class="icon-user "></i> {L_MEMBERLIST}</a></li><!-- ENDIF -->
+					
+					
+					
+					
+					
+						
+					
+					<!-- IF U_RESTORE_PERMISSIONS -->
+					<li class="divider-vertical"></li>
+					<a href="{U_RESTORE_PERMISSIONS}">{L_RESTORE_PERMISSIONS}</a>
+					<!-- ENDIF -->
+				</li>
+			
+					<!-- ENDIF -->
+			
+			<!-- ENDIF -->
+				
+			<!-- IF not S_USER_LOGGED_IN and S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) -->
+					<li class="divider-vertical"></li>
+					<li class="bb-register"><a href="{U_REGISTER}"><i class="icon-user "></i> {L_REGISTER}</a></li>
+					<li class="divider-vertical"></li>
+					<li class="bb-logout"><a href="{U_LOGIN_LOGOUT}" title="{L_LOGIN_LOGOUT}" accesskey="x"><i class="icon-minus-sign "></i> {L_LOGIN_LOGOUT}</a></li>
+<!-- ENDIF -->
+					
+			</ul><!-- ul -->
+			
+			<div class="btn-group pull-right">
+  <a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#">
+    {S_USERNAME}
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <!-- IF not S_IS_BOT and S_USER_LOGGED_IN -->
+    
+    	<!-- IF S_DISPLAY_PM --> 
+				
+				<li>		
+						<a href="{U_PRIVATEMSGS}"><i class="icon-envelope "></i> <span class="label label-important">{PRIVATE_MESSAGE_INFO}</span><!-- IF PRIVATE_MESSAGE_INFO_UNREAD -->, {PRIVATE_MESSAGE_INFO_UNREAD}<!-- ENDIF --></a></li><!-- ENDIF -->
+
+    <!-- IF S_DISPLAY_SEARCH --> 
+					
+					<li>
+					<a href="{U_SEARCH_SELF}"><i class="icon-file "></i> {L_SEARCH_SELF}</a>
+					</li>
+					<!-- ENDIF -->
+    <li class="bb-ucp">
+					<a href="{U_PROFILE}" title="{L_PROFILE}" accesskey="e"><i class="icon-wrench "></i> {L_PROFILE}</a>
+					</li>
+	<li class="divider"></li>
+	<!-- ENDIF -->				
+	<li class="bb-logout"><a href="{U_LOGIN_LOGOUT}" title="{L_LOGIN_LOGOUT}" accesskey="x"><i class="icon-minus-sign "></i> {L_LOGIN_LOGOUT}</a></li>
+	<!-- IF not S_USER_LOGGED_IN and S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) -->
+					
+					<li class="bb-register"><a href="{U_REGISTER}"><i class="icon-user "></i> {L_REGISTER}</a></li>
+					
+					<!-- ENDIF -->
+  </ul>
+</div><!--btn group-->
+
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+	<a id="start_here"></a>
+	<div id="page-body">
+	
+	<ul class="breadcrumb">
+		<li>
+	<a href="{U_INDEX}">{L_INDEX}</a><!-- BEGIN navlinks --> <strong>&#8249;</strong> <a href="{navlinks.U_VIEW_FORUM}">{navlinks.FORUM_NAME}</a><!-- END navlinks -->
+		</li>
+	</ul>
+		<!-- IF S_BOARD_DISABLED and S_USER_LOGGED_IN and (U_MCP or U_ACP) -->
+		<div id="information" class=" row-fluid rules">
+			<div class="well">
+				<strong>{L_INFORMATION}:</strong> {L_BOARD_DISABLED}
+			</div>
+		</div>
+		<!-- ENDIF -->

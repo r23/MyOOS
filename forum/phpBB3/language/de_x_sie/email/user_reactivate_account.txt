@@ -1,0 +1,19 @@
+Subject: Reaktivieren Sie Ihr Benutzerkonto „{SITENAME}“
+
+Ein Board-Administrator hat eine erneute Aktivierung Ihres Benutzerkontos erzwungen. Ihr Benutzerkonto ist derzeit inaktiv.
+Bitte folgen Sie den Anweisungen, um Ihr Konto wieder zu aktivieren.
+
+Bitte bewahren Sie diese E-Mail in Ihren Unterlagen auf. Die Daten Ihres Benutzerkontos lauten:
+
+----------------------------
+Benutzername: {USERNAME}
+----------------------------
+
+Ihr Passwort wurde sicher in unserer Datenbank gespeichert und kann nicht wiederhergestellt werden. Falls es vergessen werden sollte, können Sie es über die E-Mail-Adresse, die Ihrem Account zugeordnet ist, zurücksetzen lassen.
+
+Bitte besuchen Sie folgenden Link, um Ihr Benutzerkonto zu reaktivieren:
+
+{U_ACTIVATE}
+
+
+{EMAIL_SIG}

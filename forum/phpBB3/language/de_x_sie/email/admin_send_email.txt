@@ -1,0 +1,14 @@
+
+Die folgende Nachricht wurde Ihnen von einem Administrator von „{SITENAME}“ gesendet. Wenn diese Nachricht Werbung, Beleidigungen oder anderen anstößigen Inhalt enthält, können Sie die Board-Administration unter folgender Adresse erreichen:
+
+{CONTACT_EMAIL}
+
+Fügen Sie Ihrer Nachricht bitte die vollständige E-Mail (insbesondere die Nachrichtenkopfzeilen) bei. 
+
+Es folgt die an Sie gesendete Nachricht
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+{MESSAGE}
+
+
+{EMAIL_SIG}

@@ -1,0 +1,10 @@
+Subject: Dein Mitgliedsantrag wurde bestätigt
+
+Herzlichen Glückwunsch,
+
+dein Antrag auf Mitgliedschaft in der Benutzergruppe „{GROUP_NAME}“ auf „{SITENAME}“ wurde bestätigt.
+Besuche folgenden Link, um deine Mitgliedschaft anzuzeigen:
+
+{U_GROUP}
+
+{EMAIL_SIG}

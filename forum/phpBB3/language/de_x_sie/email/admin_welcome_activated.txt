@@ -1,0 +1,9 @@
+Subject: Benutzerkonto aktiviert
+
+Guten Tag {USERNAME},
+
+Ihr Benutzerkonto auf „{SITENAME}“ wurde von einem Administrator aktiviert. Sie können sich nun anmelden.
+
+Ihr Passwort wurde sicher in unserer Datenbank gespeichert und kann nicht wiederhergestellt werden. Falls es vergessen werden sollte, können Sie es über die E-Mail-Adresse, die Ihrem Account zugeordnet ist, zurücksetzen lassen.
+
+{EMAIL_SIG}

@@ -1,0 +1,873 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP phpBB Bridge\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-09 17:32+0200\n"
+"PO-Revision-Date: 2012-01-09 17:34+0200\n"
+"Last-Translator: Merianos Nikos <info@web-resources.eu>\n"
+"Language-Team: Xtnd.it Group <info@xtnd.it>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e;_ex;_n;_n_noop;_nx;_nx_noop;_x\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n == 1);\n"
+"X-Poedit-Language: Greek\n"
+"X-Poedit-Country: GREECE\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../wp_phpbb_bridge.php:500
+msgid "Warning"
+msgstr "Προειδοποίηση"
+
+#: ../wp_phpbb_bridge.php:503
+#, php-format
+msgid "WP phpBB Bridge is no yet enabled. Please click <a href=\"%s\">here</a> to configure and enable it."
+msgstr "Το WP phpBB Bridge δεν είναι ακόμα ενεργοποιημένο. Παρακαλώ κάντε κλικ <a href=\"%s\">εδώ</a> για να το ρυθμίσετε και να το ενεργοποιήσετε."
+
+#: ../inc/wpbb_admin.php:25
+msgid "settings"
+msgstr "ρυθμίσεις"
+
+#: ../inc/wpbb_admin.php:26
+#: ../inc/admin_pages/settings.php:7
+msgid "Settings"
+msgstr "Ρυθμίσεις"
+
+#: ../inc/wpbb_admin.php:37
+msgid "forum assign"
+msgstr "ανάθεση φόρουμ"
+
+#: ../inc/wpbb_admin.php:38
+#: ../inc/admin_pages/forum_assign.php:4
+msgid "Assign Forum"
+msgstr "Ανάθεση φόρουμ"
+
+#: ../inc/wpbb_admin.php:49
+msgid "authors assign"
+msgstr "ανάθεση χρηστών"
+
+#: ../inc/wpbb_admin.php:50
+#: ../inc/admin_pages/authors_assign.php:4
+msgid "Assign authors"
+msgstr "Ανάθεση χρηστών"
+
+#: ../inc/wpbb_admin.php:61
+msgid "donators"
+msgstr "δωρητές"
+
+#: ../inc/wpbb_admin.php:62
+#: ../inc/admin_pages/donators.php:3
+msgid "Donators"
+msgstr "Δωρητές"
+
+#: ../inc/wpbb_admin.php:89
+msgid "You submition does not meet the WordPress security level."
+msgstr "Η υποβολή σας δεν πληρεί τα επίπεδα ασφαλείας του WordPress"
+
+#: ../inc/wpbb_admin.php:97
+msgid "The file config.php does not exists in the path you have enter"
+msgstr "Το αρχειο config.php δεν υπάρχει στη διαδρομή που έχετε ορίσει"
+
+#: ../inc/wpbb_admin.php:103
+msgid "The file ucp.php does not exists in the url you have enter"
+msgstr "Το αρχείο ucp.php δεν υπάρχει στο URL που έχετε εισάγει"
+
+#: ../inc/wpbb_admin.php:139
+msgid "Auto"
+msgstr "Αυτόματο"
+
+#: ../inc/admin_pages/authors_assign.php:4
+#: ../inc/admin_pages/dashboard.php:3
+#: ../inc/admin_pages/donators.php:3
+#: ../inc/admin_pages/forum_assign.php:4
+#: ../inc/admin_pages/settings.php:7
+msgid "WP phpBB Bridge"
+msgstr "WP phpBB Bridge"
+
+#: ../inc/admin_pages/authors_assign.php:8
+msgid "Please specify witch authors posts will be published in phpBB forums"
+msgstr "Παρακαλώ καθορίστε τα άρθρα ποιών χρηστών θα δημοσιεύονται στο phpBB φόρουμ"
+
+#: ../inc/admin_pages/authors_assign.php:18
+#: ../inc/admin_pages/forum_assign.php:18
+msgid "You must enable the \"New forum posts on post creation\" option in order to use that feature. Please click <a href=\"/wp-admin/admin.php?page=wpbb_settings\">here</a> to enable that feature."
+msgstr "Θα πρέπει να ενεργοποιήσετε την επιλογή \"Δημιουργία νέων θεμάτων στο φόρουμ κατά τη δημιουργία νέου άρθρου\" για να χρησιμοποιήσετε αυτό το χαρακτηριστικό. Παρακαλώ κάντε κλικ <a href=\"/wp-admin/admin.php?page=wpbb_settings\">εδώ</a> για να ενεργοποιήσετε αυτό το χαρακτηριστικό."
+
+#: ../inc/admin_pages/authors_assign.php:27
+#: ../inc/admin_pages/authors_assign.php:86
+#: ../inc/admin_pages/forum_assign.php:27
+#: ../inc/admin_pages/forum_assign.php:56
+#: ../inc/admin_pages/settings.php:283
+msgid "Save options"
+msgstr "Αποθήκευση επιλογών"
+
+#: ../inc/admin_pages/authors_assign.php:43
+msgid "Username"
+msgstr "Όνομα χρήστη"
+
+#: ../inc/admin_pages/dashboard.php:12
+#: ../inc/admin_pages/dashboard.php:161
+#: ../inc/admin_pages/dashboard.php:192
+#: ../inc/admin_pages/dashboard.php:325
+#: ../inc/admin_pages/dashboard.php:405
+msgid "Toggle"
+msgstr "Εναλλαγή"
+
+#: ../inc/admin_pages/dashboard.php:15
+msgid "WP phpBB Bridge status"
+msgstr "Κατάσταση του WP phpBB Bridge"
+
+#: ../inc/admin_pages/dashboard.php:21
+msgid "Fast preview of WP phpBB Bridge status &amp; configuration"
+msgstr "Γρήγορη προεπισκόπηση της κατάστασης &amp; των ρυθμίσεων του WP phpBB Bridge"
+
+#: ../inc/admin_pages/dashboard.php:27
+msgid "phpBB config.php location"
+msgstr "Θέση του αρχείου config.php του phpBB"
+
+#: ../inc/admin_pages/dashboard.php:34
+msgid "The path to config.php is not set yet"
+msgstr "Η διαδρομή για το αρχείο config.php δεν έχει οριστεί ακόμα"
+
+#: ../inc/admin_pages/dashboard.php:44
+msgid "phpBB ucp.php url"
+msgstr "Το URL για το αρχείο ucp.php του phpBB"
+
+#: ../inc/admin_pages/dashboard.php:51
+msgid "The path to ucp.php is not set yet"
+msgstr "Η διαδρομή για το αρχείο ucp.php δεν έχει οριστεί ακόμα"
+
+#: ../inc/admin_pages/dashboard.php:61
+msgid "Avatar integration"
+msgstr "Ενοποίηση  εικόνας προφίλ χρήστη"
+
+#: ../inc/admin_pages/dashboard.php:66
+#: ../inc/admin_pages/dashboard.php:136
+#: ../inc/admin_pages/dashboard.php:150
+#: ../inc/admin_pages/settings.php:223
+#: ../inc/admin_pages/settings.php:244
+msgid "No"
+msgstr "Όχι"
+
+#: ../inc/admin_pages/dashboard.php:66
+#: ../inc/admin_pages/dashboard.php:136
+#: ../inc/admin_pages/dashboard.php:150
+#: ../inc/admin_pages/settings.php:220
+#: ../inc/admin_pages/settings.php:241
+msgid "Yes"
+msgstr "Ναι"
+
+#: ../inc/admin_pages/dashboard.php:75
+msgid "Plugin status"
+msgstr "Κατάσταση πρόσθετου"
+
+#: ../inc/admin_pages/dashboard.php:80
+#: ../inc/admin_pages/dashboard.php:221
+#: ../inc/admin_pages/dashboard.php:230
+msgid "Disabled"
+msgstr "Απενεργοποιημένο"
+
+#: ../inc/admin_pages/dashboard.php:80
+#: ../inc/admin_pages/dashboard.php:217
+#: ../inc/admin_pages/dashboard.php:226
+msgid "Enabled"
+msgstr "Ενεργοποιημένο"
+
+#: ../inc/admin_pages/dashboard.php:89
+#: ../inc/admin_pages/settings.php:176
+msgid "phpBB database encoding"
+msgstr "Κωδικοποίηση βάσης δεδομένων του phpBB"
+
+#: ../inc/admin_pages/dashboard.php:103
+msgid "Plugin deactivation URL"
+msgstr "URL απενεργοποίησης του πρόσθετου"
+
+#: ../inc/admin_pages/dashboard.php:108
+msgid "Your Password is not yet set"
+msgstr "Δεν έχετε ορίσει ακόμα κωδικό πρόσβασης"
+
+#: ../inc/admin_pages/dashboard.php:117
+msgid "Reset retries"
+msgstr "Προσπάθειες επαναφοράς"
+
+#: ../inc/admin_pages/dashboard.php:122
+msgid "(Total available / Tries)"
+msgstr "(Συνολικά διαθέσιμες / Προσπάθειες)"
+
+#: ../inc/admin_pages/dashboard.php:131
+msgid "Autocreate forum topics"
+msgstr "Αυτόματη δημιουργία θεμάτων στο φόρουμ"
+
+#: ../inc/admin_pages/dashboard.php:145
+msgid "Autocreate forum topics on locked forums"
+msgstr "Αυτόματη δημιουργία θεμάτων σε κλειδωμένα φόρουμ"
+
+#: ../inc/admin_pages/dashboard.php:164
+msgid "eXtnd.it latest news"
+msgstr "Τελευταία νέα από την eXtnd.it"
+
+#: ../inc/admin_pages/dashboard.php:184
+#, php-format
+msgid "%1$d months old"
+msgstr "Πριν %1$d μήνες"
+
+#: ../inc/admin_pages/dashboard.php:184
+#, php-format
+msgid "%1$d month old"
+msgstr "Πριν %1$d μήνα"
+
+#: ../inc/admin_pages/dashboard.php:195
+msgid "Server info"
+msgstr "Πληροφορίες για τον εξυπηρετητή"
+
+#: ../inc/admin_pages/dashboard.php:212
+msgid "Is not set"
+msgstr "Δεν έχει οριστεί"
+
+#: ../inc/admin_pages/dashboard.php:240
+#: ../inc/admin_pages/dashboard.php:249
+#: ../inc/admin_pages/dashboard.php:258
+#: ../inc/admin_pages/dashboard.php:267
+msgid "Not Available"
+msgstr "Μη Διαθέσιμο"
+
+#: ../inc/admin_pages/dashboard.php:272
+msgid "Supported"
+msgstr "Υποστηρίζεται"
+
+#: ../inc/admin_pages/dashboard.php:276
+msgid "Not supported"
+msgstr "Δεν υποστηρίζεται"
+
+#: ../inc/admin_pages/dashboard.php:281
+msgid "Operating system"
+msgstr "Λειτουργικό σύστημα"
+
+#: ../inc/admin_pages/dashboard.php:283
+msgid "Server"
+msgstr "Εξυπηρετητής"
+
+#: ../inc/admin_pages/dashboard.php:287
+msgid "Memory usage"
+msgstr "Χρήση μνήμης"
+
+#: ../inc/admin_pages/dashboard.php:289
+msgid "MYSQL Version"
+msgstr "Έκδοση MySQL"
+
+#: ../inc/admin_pages/dashboard.php:293
+msgid "SQL Mode"
+msgstr "SQL Mode"
+
+#: ../inc/admin_pages/dashboard.php:295
+msgid "PHP Version"
+msgstr "Έκδοση PHP"
+
+#: ../inc/admin_pages/dashboard.php:299
+msgid "PHP Safe Mode"
+msgstr "PHP σε ασφαλή λειτουργία"
+
+#: ../inc/admin_pages/dashboard.php:301
+msgid "PHP Allow URL fopen"
+msgstr "Επιτρέπεται η fopen της PHP για URL"
+
+#: ../inc/admin_pages/dashboard.php:305
+msgid "PHP Max Upload Size"
+msgstr "Μέγιστο όριο μεταφόρτωσης PHP"
+
+#: ../inc/admin_pages/dashboard.php:307
+msgid "PHP Max Post Size"
+msgstr "Μέγιστο όριο δημοσίευσης"
+
+#: ../inc/admin_pages/dashboard.php:311
+msgid "PHP Max Script Execute Time"
+msgstr "Μέγιστος χρόνος εκτέλεσης της PHP"
+
+#: ../inc/admin_pages/dashboard.php:313
+msgid "PHP XML support"
+msgstr "Υποστήριξη PHP XML"
+
+#: ../inc/admin_pages/dashboard.php:330
+msgid "Do you like WP phpBB Bridge?"
+msgstr "Σας αρέσει το WP phpBB Bridge;"
+
+#: ../inc/admin_pages/dashboard.php:336
+msgid "The WP phpBB Bridge is the development of «WordPress to phpBB3 Bridge» which is written by Jason Sanborn."
+msgstr "Το WP phpBB Bridge αποτελεί την ολοκληρωτική αναβάθμιση του «WordPress to phpBB3 Bridge» το οποίο είχε γραφτεί από τον Jason Sanborn"
+
+#: ../inc/admin_pages/dashboard.php:341
+msgid "The first version of the plugin was designed to synchronize users of phpBB users to WordPress so that the user is once in phpBB and be simultaneously connected and WordPress."
+msgstr "Η πρώτη έκδοση του πρόσθετου είχε σχεδιαστεί για συγχρονισμό των χρηστών του phpBB με το WordPress, έτσι ώστε οι χρήστες να συνδέονται στο phpBB και αυτόματα να συνδέονται και στο WordPress"
+
+#: ../inc/admin_pages/dashboard.php:346
+msgid "In now days the plugin is re-writed from scratch, to fix errors from the past, and add new functionality in case to make the usage of phpBB in compination with WordPress a peace of cake."
+msgstr "Σήμερα το πρόσθετο είναι γραμμένο εξ ολοκλήρου από την αρχή, για να βελτιώσει σφάλματα του παρελθόντος, και να προσθέσει νέα χαρακτηριστικά που θα κάνουν τη χρήση του phpBB και του WordPress παιχνιδάκι"
+
+#: ../inc/admin_pages/dashboard.php:350
+msgid "Do you like to help us?"
+msgstr "Θέλετε να μας βοηθήσετε;"
+
+#: ../inc/admin_pages/dashboard.php:354
+msgid "Give a possitive rating"
+msgstr "Βαθμολογήστε μας θετικά"
+
+#: ../inc/admin_pages/dashboard.php:355
+msgid "Give it a good rating on WordPress.org"
+msgstr "Βαθμολογήστε το θετικά στο WordPress.org"
+
+#: ../inc/admin_pages/dashboard.php:359
+#: ../inc/admin_pages/dashboard.php:468
+msgid "Donate us"
+msgstr "Κάντε μια δωρεά"
+
+#: ../inc/admin_pages/dashboard.php:360
+msgid "Donate the work via paypal"
+msgstr "Κάντε μια δωρεά για το πρόσθετο μέσω PayPal"
+
+#: ../inc/admin_pages/dashboard.php:364
+msgid "Donate us, get a serial number and remove the backlink"
+msgstr "Κάντε μια δωρεά, πάρτε ένα σειριακό αριθμό και αφαιρέστε το σύνδεσμο προς την ιστοσελίδα μας"
+
+#: ../inc/admin_pages/dashboard.php:365
+msgid "Remove backlink with donation"
+msgstr "Αφαιρέστε το σύνδεσμο προς την ιστοσελίδα μας με μια δωρεά"
+
+#: ../inc/admin_pages/dashboard.php:377
+msgid "Translation"
+msgstr "Μετάφραση"
+
+#: ../inc/admin_pages/dashboard.php:384
+msgid "If you cannot find the plugin in your native language, you may like to translated and send the translation back to us. Then a new plugin version will be available in a few days with your language package installed"
+msgstr "Αν δεν μπορείτε να βρείτε το πρόσθετο στην μητρική σας γλώσσα, ίσως να θέλετε να το μεταφράσετε και να μας στείλετε πίσω τη μετάφραση. Αφού μας δώσετε τη μετάφραση, τότε εμείς θα δημοσιεύσουμε μια νέα έκδοση του πρόσθετου μέσα σε λίγες ημέρες από την παραλαβή με τη μετάφραση σας ενσωματωμένη."
+
+#: ../inc/admin_pages/dashboard.php:392
+msgid "Click the download button below to get the latest English translation file. Use the poEdit, save the file in the form of wpbb-YourLocale.po and send us the *.po and *.mo files with e-mail here: support@wordpress-gr.org"
+msgstr "Κάντε κλικ στο κουμπί μεταφόρτωσης παρακάτω για να πάρετε την ποιο πρόσφατη αγγλική μετάφραση. Χρησιμοποιήστε το poEdit, υποθηκεύστε το αρχείο με τη μορφή wpbb-YourLocale.po και κάντε αποστολή του αρχείου *.po και *.mo μέσω e-mail στη διεύθυνση : support@wordpress-gr.org"
+
+#: ../inc/admin_pages/dashboard.php:398
+msgid "Translation file"
+msgstr "Αρχείο μετάφρασης"
+
+#: ../inc/admin_pages/dashboard.php:399
+msgid "Download"
+msgstr "Μεταφόρτωση"
+
+#: ../inc/admin_pages/dashboard.php:410
+msgid "Recent donators"
+msgstr "Πρόσφατοι δωρητές"
+
+#: ../inc/admin_pages/dashboard.php:432
+#: ../inc/admin_pages/donators.php:23
+msgid "Donation date : "
+msgstr "Ημερομηνία δωρεάς : "
+
+#: ../inc/admin_pages/dashboard.php:441
+#: ../inc/admin_pages/donators.php:32
+msgid "There are no donations yet"
+msgstr "Δεν υπάρχουν δωρεές ακόμα"
+
+#: ../inc/admin_pages/dashboard.php:443
+#: ../inc/admin_pages/donators.php:34
+msgid "Be the first to make a donation"
+msgstr "Γίνε ο πρώτος που θα κάνει μια δωρεά"
+
+#: ../inc/admin_pages/dashboard.php:456
+msgid "View all"
+msgstr "Προβολή όλων"
+
+#: ../inc/admin_pages/donators.php:6
+#, php-format
+msgid "Here is the list of WP phpBB Bridge donators. If you like to see your web site link here you can donate us with an amount from <a href=\"%s\">here</a>"
+msgstr "Εδώ είναι η λίστα με τους δωρητές του WP phpBB Bridge. Αν θέλετε να δείτε και τη δική σας ιστοσελίδα εδώ μπορείτε να κάνετε μια δωρεά με ένα από τα ποσά <a href=\"%s\">εδώ</a>"
+
+#: ../inc/admin_pages/forum_assign.php:8
+msgid "Here you can select from witch WordPress categories new assigned posts will auto submited in relevant phpBB forums."
+msgstr "Εδώ μπορείτε να επιλέξετε τις κατηγορίες, στις οποίες όταν θα δημοσιεύεται ένα άρθρο στο WordPress, αυτόματα θα δημοσιεύεται και στα σχετικά φόρουμ."
+
+#: ../inc/admin_pages/forum_assign.php:40
+msgid "Available forums"
+msgstr "Διαθέσιμα φόρουμ"
+
+#: ../inc/admin_pages/settings.php:33
+msgid "Files options"
+msgstr "Επιλογές αρχείων"
+
+#: ../inc/admin_pages/settings.php:44
+msgid "config.php path"
+msgstr "Διαδρομή για το config.php"
+
+#: ../inc/admin_pages/settings.php:52
+msgid "Enter the full path to phpBB config.php file"
+msgstr "Εισάγετε την πλήρη διαδρομή για το αρχείο config.php του phpBB"
+
+#: ../inc/admin_pages/settings.php:60
+msgid "ucp.php url"
+msgstr "URL για το ucp.php"
+
+#: ../inc/admin_pages/settings.php:68
+msgid "Enter the url to phpBB ucp.php file"
+msgstr "Εισάγετε το url προς το αρχείο ucp.php του phpBB"
+
+#: ../inc/admin_pages/settings.php:76
+msgid "Security options"
+msgstr "Επιλογές ασφαλείας"
+
+#: ../inc/admin_pages/settings.php:85
+msgid "Deactivation password"
+msgstr "Κωδικός απενεργοποίησης"
+
+#: ../inc/admin_pages/settings.php:93
+msgid "Enter a password you will use to diactivate the plugin in case you are locked out"
+msgstr "Εισάγετε ένα κωδικό πρόσβασης που θα τον χρησιμοποιήσετε για να απενεργοποιήσετε το πρόσθετο για την περίπτωση που θα κλειδωθείτε εκτός του WordPress"
+
+#: ../inc/admin_pages/settings.php:97
+#, php-format
+msgid "Your reset url is the following : <strong id=\"resetCode\">%1$s<span class=\"red\">%2$s</span></strong>"
+msgstr "Το url απενεργοποίησης είναι το ακόλουθο : <strong id=\"resetCode\">%1$s<span class=\"red\">%2$s</span></strong>"
+
+#: ../inc/admin_pages/settings.php:109
+msgid "Maximum reset retries"
+msgstr "Μέγιστος αριθμός προσπαθειών απενεργοποίησης"
+
+#: ../inc/admin_pages/settings.php:118
+msgid "Enter the maximum retries for plugin diactivation.<br /><strong>WARNING</strong> : A very large amount of retries can make the plugin diactivation vulnerable on brute force attacks"
+msgstr "Εισάγετε τον μέγιστο αριθμό προσπαθειών για την απενεργοποίηση του πρόσθετου.<br /><strong>ΠΡΟΕΙΔΟΠΟΙΗΣΗ</strong> : Αν ορίσετε ένα πολύ μεγάλο αριθμό προσπαθειών, μπορεί να κάνετε ευάλωτη την απενεργοποίηση του πρόσθετου από τρίτους σε επιθέσεις brute force attacks"
+
+#: ../inc/admin_pages/settings.php:128
+msgid "Forum posts options"
+msgstr "Επιλογές θεμάτων φόρουμ"
+
+#: ../inc/admin_pages/settings.php:138
+msgid "New forum posts on post creation"
+msgstr "Δημιουργία νέων θεμάτων στο φόρουμ κατά τη δημιουργία νέου άρθρου"
+
+#: ../inc/admin_pages/settings.php:145
+#: ../inc/admin_pages/settings.php:164
+msgid "Enable"
+msgstr "Ενεργοποίηση"
+
+#: ../inc/admin_pages/settings.php:149
+msgid "Check that option if you like to enable the posting of new WordPress posts on specific forums."
+msgstr "Επιλέξτε αυτή την επιλογή αν θέλετε να ενεργοποιήσετε τη δημιουργία νέων θεμάτων στο φόρουμ κατά τη δημοσίευση άρθρων στο WordPress."
+
+#: ../inc/admin_pages/settings.php:157
+msgid "Post on locked forums"
+msgstr "Δημιουργία νέων θεμάτων σε κλειδωμένα φόρουμ"
+
+#: ../inc/admin_pages/settings.php:168
+msgid "By checking that option you will be able to choose locked posts on witch the plugin will posting."
+msgstr "Αν επιλέξετε αυτή την επιλογή θα μπορείτε να επιλέξετε ανάμεσα στα κλειδωμένα φόρουμ στα οποία θα μπορεί να δημιουργήσει θέματα το WordPress αυτόματα"
+
+#: ../inc/admin_pages/settings.php:195
+msgid "Select the database connection character set for phpBB"
+msgstr "Επιλέξτε το σύνολο χαρακτήρων για σύνδεση στη βάση δεδομένων του phpBB"
+
+#: ../inc/admin_pages/settings.php:204
+msgid "Plugin options"
+msgstr "Επιλογές πρόσθετου"
+
+#: ../inc/admin_pages/settings.php:214
+msgid "Integrate phpBB avatars"
+msgstr "Ενοποίηση εικόνας προφίλ των χρηστών στο phpBB"
+
+#: ../inc/admin_pages/settings.php:227
+msgid "Choose if you like to integrate phpBB user avatars on WordPress."
+msgstr "Επιλέξτε αν επιθυμείτε την ενοποίηση της προσωποποιημένης εικόνας προφίλ των χρηστών μεταξύ phpBB και WordPress"
+
+#: ../inc/admin_pages/settings.php:235
+msgid "Activate phpBB bridge"
+msgstr "Ενεργοποίηση της γέφυρας phpBB"
+
+#: ../inc/admin_pages/settings.php:248
+msgid "Choose if you like to activate the plugin. <br /><div class=\"red\"><strong>WARNING</strong> : Be sure you have already isntalled the WP phpBB Bridge Users widget.</div>"
+msgstr "Επιλέξτε αν θέλετε να ενεργοποιήσετε το πρόσθετο. <br /><div class=\"red\"><strong>ΠΡΟΕΙΔΟΠΟΙΗΣΗ</strong> : Βεβαιωθείτε πως έχετε εγκαταστήσει τη μονάδα WP phpBB Bridge User.</div>"
+
+#: ../inc/admin_pages/settings.php:257
+msgid "WP phpBB Bridge Users Widget settings"
+msgstr "Ρυθμίσεις WP phpBB Bridge Users Widget"
+
+#: ../inc/admin_pages/settings.php:267
+msgid "Form elements width"
+msgstr "Πλάτος στοιχείων φόρμας"
+
+#: ../inc/admin_pages/settings.php:275
+msgid "Enter the WP phpBB Bridge Users widget form elements width"
+msgstr "Εισάγετε το πλάτος τον στοιχείων της φόρμας WP phpBB Bridge Users"
+
+#: ../inc/admin_pages/settings.php:317
+msgid "Support options"
+msgstr "Επιλογές υποστήριξης"
+
+#: ../inc/admin_pages/settings.php:323
+msgid "While this plugin is free, we need your support in order to extend it and make it more famous."
+msgstr "Ενώ αυτό το πρόσθετο είναι δωρεάν, χρειαζόμαστε την υποστήριξη σας για να το επεκτείνουμε και να το κάνουμε ποιο δημοφιλές"
+
+#: ../inc/admin_pages/settings.php:328
+msgid "The available options are the following : "
+msgstr "Οι διαθέσιμες επιλογές υποστήριξης είναι οι ακόλουθες : "
+
+#: ../inc/admin_pages/settings.php:333
+msgid "You can leave the link of our web site at the bottom of the WP phpBB Bridge Users"
+msgstr "Μπορείτε να διατηρήσετε το σύνδεσμο που οδηγεί στην ιστοσελίδα μας κάτω από τη μονάδα WP phpBB Bridge Users"
+
+#: ../inc/admin_pages/settings.php:338
+msgid "You can donate us with one of the following amounts and then paste the serial number we will send you with <strong>email</strong> in serial number field bellow"
+msgstr "Μπορείτε να κάνετε μια δωρεά με ένα από τα ακόλουθα ποσά και να κάνετε επικόλληση το σειριακό αριθμό που θα σας στείλουμε με <strong>email</strong> στο πεδίο σειριακού αριθμού που ακολουθεί"
+
+#: ../inc/admin_pages/settings.php:344
+msgid "Donate 5,00 &euro;"
+msgstr "Δωρίστε 5,00 &euro;"
+
+#: ../inc/admin_pages/settings.php:346
+msgid "Donate 10,00 &euro;"
+msgstr "Δωρίστε 10,00 &euro;"
+
+#: ../inc/admin_pages/settings.php:348
+msgid "Donate 25,00 &euro;"
+msgstr "Δωρίστε 25,00 &euro;"
+
+#: ../inc/admin_pages/settings.php:350
+msgid "Donate 50,00 &euro;"
+msgstr "Δωρίστε 50,00 &euro;"
+
+#: ../inc/admin_pages/settings.php:352
+msgid "Donate 100,00 &euro;"
+msgstr "Δωρίστε 100,00 &euro;"
+
+#: ../inc/admin_pages/settings.php:358
+msgid "Back link removal"
+msgstr "Απομάκρυνση του συνδέσμου"
+
+#: ../inc/admin_pages/settings.php:368
+msgid "Serial number"
+msgstr "Σειριακός αριθμός"
+
+#: ../inc/admin_pages/settings.php:376
+msgid "Enter here the serial number we produce for you in order to remove our web site link from WP phpBB Bridge Users widget."
+msgstr "Εισάγετε εδώ το σειριακό αριθμό που παρήγαμε για εσάς, ώστε να είστε σε θέση να απομακρύνετε το σύνδεσμο προς την ιστοσελίδα μας από τη μονάδα WP phpBB Bridge Users"
+
+#: ../inc/admin_pages/settings.php:383
+msgid "Remove backlink"
+msgstr "Απομάκρυνση του συνδέσμου"
+
+#: ../inc/widgets/wpbb_links_widget.php:9
+msgid "Allows you to display a list of usefull links to your phpBB."
+msgstr "Σας επιτρέπει να προβάλετε μια λίστα με χρήσιμους συνδέσμους για το phpBB"
+
+#: ../inc/widgets/wpbb_links_widget.php:29
+msgid "Forum Links"
+msgstr "Σύνδεσμοι φόρουμ"
+
+#: ../inc/widgets/wpbb_links_widget.php:54
+#: ../inc/widgets/wpbb_meta_widget.php:45
+#: ../inc/widgets/wpbb_topics_widget.php:51
+msgid "Title:"
+msgstr "Τίτλος:"
+
+#: ../inc/widgets/wpbb_links_widget.php:64
+msgid "Display Forum Index Link"
+msgstr "Προβολή συνδέσμου για την αρχική σελίδα του φόρουμ"
+
+#: ../inc/widgets/wpbb_links_widget.php:73
+msgid "Display FAQ Link"
+msgstr "Προβολή συνδέσμου προς τις συχνές ερωτήσεις"
+
+#: ../inc/widgets/wpbb_links_widget.php:82
+msgid "Display Forum Search Link"
+msgstr "Προβολή συνδέσμου για αναζήτηση στο φόρουμ"
+
+#: ../inc/widgets/wpbb_links_widget.php:90
+msgid "Display View Active Topics Link"
+msgstr "Προβολή συνδέσμου για τα ενεργά θέματα"
+
+#: ../inc/widgets/wpbb_links_widget.php:98
+msgid "Display View Unanswered Posts Link"
+msgstr "Προβολή συνδέσμου για τα αναπάντητα θέματα"
+
+#: ../inc/widgets/wpbb_links_widget.php:106
+msgid "Display View Your Posts Link"
+msgstr "Προβολή συνδέσουμ για τα θέματα του χρήστη"
+
+#: ../inc/widgets/wpbb_links_widget.php:114
+msgid "Display View New Posts Link"
+msgstr "Προβολή συνδέσμου για τα νέα θέματα"
+
+#: ../inc/widgets/wpbb_links_widget.php:122
+msgid "Display Private Messages Link"
+msgstr "Προβολή συνδέσμου για τα ιδιωτικά μηνύματα"
+
+#: ../inc/widgets/wpbb_links_widget.php:130
+msgid "Display Send Private Message Link"
+msgstr "Προβολή συνδέσμου για αποστολή ιδιωτικού μυνήματος"
+
+#: ../inc/widgets/wpbb_links_widget.php:138
+msgid "Display Member List Link"
+msgstr "Προβολή συνδέσμου για τη λίστα μελών"
+
+#: ../inc/widgets/wpbb_links_widget.php:146
+msgid "Display The Team Link"
+msgstr "Προβολή συνδέσμου για την ομάδα"
+
+#: ../inc/widgets/wpbb_links_widget.php:154
+msgid "Display Who is Online Link"
+msgstr "Προβολή συνδέσμου για τα συνδεδεμένα μέλη"
+
+#: ../inc/widgets/wpbb_links_widget.php:212
+msgid "Forum index"
+msgstr "Αρχική σελίδα του φόρουμ"
+
+#: ../inc/widgets/wpbb_links_widget.php:219
+msgid "FAQ"
+msgstr "Συχνές ερωτήσεις"
+
+#: ../inc/widgets/wpbb_links_widget.php:226
+msgid "Forum search"
+msgstr "Αναζήτηση στο φόρουμ"
+
+#: ../inc/widgets/wpbb_links_widget.php:233
+msgid "View active topics"
+msgstr "Προβολή ενεργών θεμάτων"
+
+#: ../inc/widgets/wpbb_links_widget.php:240
+msgid "View unanswered posts"
+msgstr "Προβολή μη αναγνωσμένων θεμάτων"
+
+#: ../inc/widgets/wpbb_links_widget.php:249
+msgid "View your posts"
+msgstr "Προβολή των θεμάτων σας"
+
+#: ../inc/widgets/wpbb_links_widget.php:256
+msgid "View new posts"
+msgstr "Προβολή νέων θεμάτων"
+
+#: ../inc/widgets/wpbb_links_widget.php:263
+msgid "Private messages"
+msgstr "Προσωπικά μηνύματα"
+
+#: ../inc/widgets/wpbb_links_widget.php:270
+msgid "Send private message"
+msgstr "Αποστολή προσωπικού μυνήματος"
+
+#: ../inc/widgets/wpbb_links_widget.php:277
+msgid "Member list"
+msgstr "Λίστα μελών"
+
+#: ../inc/widgets/wpbb_links_widget.php:284
+msgid "The team"
+msgstr "Η ομάδα"
+
+#: ../inc/widgets/wpbb_links_widget.php:291
+msgid "Who is online"
+msgstr "Συνδεδεμένα μέλη"
+
+#: ../inc/widgets/wpbb_meta_widget.php:10
+msgid "Allows you to display several usefull informations about the user."
+msgstr "Σας επιτρέπει να προβάλετε διάφορες χρήσιμες πληροφορίες για το χρήστη"
+
+#: ../inc/widgets/wpbb_meta_widget.php:32
+msgid "Forum Meta"
+msgstr "Πληροφορίες για το φόρουμ"
+
+#: ../inc/widgets/wpbb_meta_widget.php:90
+#: ../inc/widgets/wpbb_users_widget.php:246
+msgid "Blog control panel"
+msgstr "Πίνακας ελέγχου ιστολογίου"
+
+#: ../inc/widgets/wpbb_meta_widget.php:97
+#: ../inc/widgets/wpbb_users_widget.php:191
+#: ../inc/widgets/wpbb_users_widget.php:253
+msgid "User control panel"
+msgstr "Πίνακας ελέγχου μέλους"
+
+#: ../inc/widgets/wpbb_meta_widget.php:108
+#: ../inc/widgets/wpbb_users_widget.php:264
+msgid "Moderator control panel"
+msgstr "Πίνακας ελέγχου συντονιστή"
+
+#: ../inc/widgets/wpbb_meta_widget.php:121
+#: ../inc/widgets/wpbb_users_widget.php:232
+msgid "Forum administration"
+msgstr "Διαχείριση φόρουμ"
+
+#: ../inc/widgets/wpbb_meta_widget.php:134
+#: ../inc/widgets/wpbb_users_widget.php:277
+msgid "Restore permissions"
+msgstr "Επαναφορά δικαιωμάτων"
+
+#: ../inc/widgets/wpbb_meta_widget.php:145
+#: ../inc/widgets/wpbb_users_widget.php:287
+msgid "Log out"
+msgstr "Αποσύνδεση"
+
+#: ../inc/widgets/wpbb_meta_widget.php:158
+#: ../inc/widgets/wpbb_users_widget.php:164
+#: ../inc/widgets/wpbb_users_widget.php:299
+msgid "I forgot my password"
+msgstr "Ξέχασα των κωδικό μου"
+
+#: ../inc/widgets/wpbb_meta_widget.php:165
+#: ../inc/widgets/wpbb_users_widget.php:306
+msgid "Resend activation email"
+msgstr "Αποστολή ξανά του email ενεργοποίησης"
+
+#: ../inc/widgets/wpbb_meta_widget.php:172
+#: ../inc/widgets/wpbb_users_widget.php:170
+#: ../inc/widgets/wpbb_users_widget.php:313
+msgid "Register new account"
+msgstr "Δημιουργία λογαριασμού"
+
+#: ../inc/widgets/wpbb_meta_widget.php:182
+msgid "Delete site cookies"
+msgstr "Διαγραφή των Cookies"
+
+#: ../inc/widgets/wpbb_topics_widget.php:10
+msgid "Allows you to display a list of recent topics within a specific forum id's."
+msgstr "Σας επιτρέπει να προβάλετε μια λίστα με πρόσφατα άρθρα από συγκεκριμένα φόρουμ."
+
+#: ../inc/widgets/wpbb_topics_widget.php:32
+msgid "Latest posts"
+msgstr "Πρόσφατα θέματα"
+
+#: ../inc/widgets/wpbb_topics_widget.php:58
+msgid "Forums:"
+msgstr "Φόρουμ:"
+
+#: ../inc/widgets/wpbb_topics_widget.php:61
+msgid "Enter the id of the forum you like to get topics from. You can get topics from more than one forums by seperating the forums id with commas. ex: 3,5,6,12"
+msgstr "Πληκτρολογήστε το id του φόρουμ που θέλετε εμφανίσετε θέματα. Μπορείτε να εμφανίσετε θέματα από περισσότερα του ενός χρησιμοποιώντας ως διαχωριστικό το κόμmα, για παράδειγμα: 3,5,6,12"
+
+#: ../inc/widgets/wpbb_topics_widget.php:66
+msgid "Total posts:"
+msgstr "Συνολικές δημοσιεύσεις:"
+
+#: ../inc/widgets/wpbb_topics_widget.php:75
+msgid "Display forum name"
+msgstr "Εμφάνιση ονόματος φόρουμ"
+
+#: ../inc/widgets/wpbb_topics_widget.php:83
+msgid "Display author name"
+msgstr "Εμφάνιση ονόματος συντάκτη"
+
+#: ../inc/widgets/wpbb_topics_widget.php:91
+msgid "Display total replies"
+msgstr "Εμφάνιση συνολικών απαντήσεων"
+
+#: ../inc/widgets/wpbb_topics_widget.php:99
+msgid "Display total views"
+msgstr "Εμφάνιση συνολικών θεάσεων"
+
+#: ../inc/widgets/wpbb_topics_widget.php:175
+msgid "View post"
+msgstr "Εμφάνιση δημοσίευσης"
+
+#: ../inc/widgets/wpbb_topics_widget.php:185
+msgid "Forum:"
+msgstr "Φόρουμ:"
+
+#: ../inc/widgets/wpbb_topics_widget.php:187
+msgid "Go to forum"
+msgstr "Πηγαίνετε στο φόρουμ"
+
+#: ../inc/widgets/wpbb_topics_widget.php:202
+msgid "By:"
+msgstr "Aπό:"
+
+#: ../inc/widgets/wpbb_topics_widget.php:204
+msgid "View user info"
+msgstr "Εμφάνιση πληροφοριών μέλους"
+
+#: ../inc/widgets/wpbb_topics_widget.php:219
+msgid "Views:"
+msgstr "Προβολές:"
+
+#: ../inc/widgets/wpbb_topics_widget.php:240
+msgid "Replies:"
+msgstr "Απαντήσεις:"
+
+#: ../inc/widgets/wpbb_users_widget.php:9
+msgid "Use that widget to allow user login on phpBB and WordPress from the WordPress side"
+msgstr "Χρησιμοποιήστε αυτή τη μονάδα για να επιτρέψετε τη σύνδεση του χρήστη στο phpBB και στο WordPress μέσα από το WordPress"
+
+#: ../inc/widgets/wpbb_users_widget.php:21
+msgid "Users"
+msgstr "Μέλη"
+
+#: ../inc/widgets/wpbb_users_widget.php:30
+#: ../inc/widgets/wpbb_users_widget.php:156
+msgid "Login"
+msgstr "Σύνδεση"
+
+#: ../inc/widgets/wpbb_users_widget.php:44
+msgid "Login box title:"
+msgstr "Τίτλος πεδίου σύνδεσης:"
+
+#: ../inc/widgets/wpbb_users_widget.php:49
+msgid "The widget title before the user login"
+msgstr "Ο τίτλος της μονάδες πριν συνδεθεί ο χρήστης"
+
+#: ../inc/widgets/wpbb_users_widget.php:55
+msgid "User info title:"
+msgstr "Tίτλος μέλους:"
+
+#: ../inc/widgets/wpbb_users_widget.php:60
+msgid "The widget title after the user login.<br /><br /><strong>NOTE</strong>: You can use the keyword {USERNAME} to display the current username. In exmple: Welcome {USERNAME}"
+msgstr "O τίτλος της μονάδας μετά την σύνδεση του μέλους.<br /><br /><strong>ΣΗΜΕΙΩΣΗ</strong>: Μπορείτε να χρησιμοποιήσετε τη φράση κλειδι  {USERNAME} ώστε να εμφανίζει το παρών όνομα χρήστη, π.χ.: Καλωσήρθες  {USERNAME}"
+
+#: ../inc/widgets/wpbb_users_widget.php:66
+msgid "Display user meta info"
+msgstr "Εμφάνιση meta στοιχείων του μέλους"
+
+#: ../inc/widgets/wpbb_users_widget.php:127
+msgid "Username:"
+msgstr "Όνομα χρήστη:"
+
+#: ../inc/widgets/wpbb_users_widget.php:135
+msgid "Password:"
+msgstr "Kωδικός πρόσβασης"
+
+#: ../inc/widgets/wpbb_users_widget.php:144
+msgid "Remember me"
+msgstr "Απομνημόνευση"
+
+#: ../inc/widgets/wpbb_users_widget.php:151
+msgid "Login as hidden"
+msgstr "Σύνδεση ως κρυφός χρήστης"
+
+#: ../inc/widgets/wpbb_users_widget.php:192
+#, php-format
+msgid "Avatar for %s"
+msgstr "Εικόνα προφίλ για %s"
+
+#: ../inc/widgets/wpbb_users_widget.php:200
+msgid "Total posts"
+msgstr "Συνολικές δημοσιεύσεις"
+
+#: ../inc/widgets/wpbb_users_widget.php:208
+msgid "New PM's"
+msgstr "Νέα Προσωπικά μηνύματα"
+
+#: ../inc/widgets/wpbb_users_widget.php:216
+msgid "Unread PMs"
+msgstr "Αδιάβαστα προσωπικά μηνύματα"
+
+#: ../inc/wpbbreset/wpbbreset.php:7
+msgid "WP phpBB Bridge reset page"
+msgstr "Σελίδα επαναφοράς του WP phpBB Bridge "
+
+#: ../inc/wpbbreset/wpbbreset.php:13
+msgid "WP phpBB Bridge plugin diactivate"
+msgstr "Απεργοποίηση του πρόσθετου WP phpBB Bridge "
+
+#: ../inc/wpbbreset/wpbbreset.php:29
+#, php-format
+msgid "WP phpBB Bridge is now disabled. You can click <a href=\"%1$s\">here</a> to login with WordPress."
+msgstr "Το WP phpBB Bridge είναι πλέον απενεργοποιημένο. Μπορείτε να κάνετε κλικ  <a href=\"%1$s\">εδώ</a> για να συνδεθείτε στο WordPress"
+
+#: ../inc/wpbbreset/wpbbreset.php:43
+msgid "You already have exceed the maximum amount of times to reset the WP phpBB Bridge. You are not allowed anymore to try reset the plugin this way for security reasons. Try diactivate the plugin from database."
+msgstr "Έχετε ήδη ξεπεράσει τον μέγιστο επιτρεπόμενο αριθμό για την επαναφορά του WP phpBB Bridge. Δεν σας επιτρέπονται περεταίρω προσπάθειες επαναφοράς του πρόσθετου για λόγους ασφαλέιας. Προσπαθήστε να το απενεργοποιήσετε από την βάση δεδομένων."
+
+#~ msgid "no"
+#~ msgstr "όχι"

@@ -1,0 +1,71 @@
+
+<div class="panel">
+	<div class="inner">
+	<!-- IF not S_AVATARS_ENABLED -->
+		<p>{L_AVATAR_FEATURES_DISABLED}</p>
+	<!-- ENDIF -->
+
+	<fieldset>
+	<!-- IF ERROR --><p class="error">{ERROR}</p><!-- ENDIF -->
+	<dl>
+		<dt><label>{L_CURRENT_IMAGE}:</label><br /><span>{L_AVATAR_EXPLAIN}</span></dt>
+		<dd><!-- IF AVATAR -->{AVATAR}<!-- ELSE --><img src="{T_THEME_PATH}/images/no_avatar.gif" alt="" /><!-- ENDIF --></dd>
+		<dd><label for="delete"><input type="checkbox" name="delete" id="delete" /> {L_DELETE_AVATAR}</label></dd>
+	</dl>
+
+	<!-- IF S_UPLOAD_AVATAR_FILE -->
+		<dl>
+			<dt><label for="uploadfile">{L_UPLOAD_AVATAR_FILE}:</label></dt>
+			<dd><input type="hidden" name="MAX_FILE_SIZE" value="{AVATAR_SIZE}" /><input type="file" name="uploadfile" id="uploadfile" class="inputbox autowidth" /></dd>
+		</dl>
+	<!-- ENDIF -->
+
+	<!-- IF S_UPLOAD_AVATAR_URL -->
+		<dl>
+			<dt><label for="uploadurl">{L_UPLOAD_AVATAR_URL}:</label><br /><span>{L_UPLOAD_AVATAR_URL_EXPLAIN}</span></dt>
+			<dd><input type="text" name="uploadurl" id="uploadurl" value="{AVATAR_URL}" class="inputbox" /></dd>
+		</dl>
+	<!-- ENDIF -->
+
+	<!-- IF S_LINK_AVATAR -->
+		<dl>
+			<dt><label for="remotelink">{L_LINK_REMOTE_AVATAR}:</label><br /><span>{L_LINK_REMOTE_AVATAR_EXPLAIN}</span></dt>
+			<dd><input type="text" name="remotelink" id="remotelink" value="{AVATAR_REMOTE}" class="inputbox" /></dd>
+		</dl>
+		<dl>
+			<dt><label for="width">{L_LINK_REMOTE_SIZE}:</label><br /><span>{L_LINK_REMOTE_SIZE_EXPLAIN}</span></dt>
+			<dd>
+				<label for="width"><div class="input-prepend input-append"><span class="add-on">Width</span><input type="text" name="width" id="width" size="3" value="{AVATAR_WIDTH}" class="input-small autowidth" /><span class="add-on">{L_PIXEL}</span></div>&nbsp; </label>
+				
+				<label for="height"><div class="input-prepend input-append "><span class="add-on">Height</span><input type="text" name="height" id="height" size="3" value="{AVATAR_HEIGHT}" class="input-small autowidth" /><span class="add-on">{L_PIXEL}</span></label>
+			</dd>
+		</dl>
+	<!-- ENDIF -->
+	</fieldset>
+
+	<!-- IF S_IN_AVATAR_GALLERY -->
+		</div>
+	</div>
+
+	<div class="panel">
+		<div class="inner">
+
+		<h3>{L_AVATAR_GALLERY}</h3>
+
+		<fieldset>
+			<label for="category">{L_AVATAR_CATEGORY}: <select name="category" id="category">{S_CAT_OPTIONS}</select></label>
+			<input type="submit" value="{L_GO}" name="display_gallery" class="btn btn-small" />
+			<input type="submit" name="cancel" value="{L_CANCEL}" class="btn btn-small" />
+		</fieldset>
+
+		<div id="gallery">
+		<!-- BEGIN avatar_row --><!-- BEGIN avatar_column -->
+			<label for="av-{avatar_row.S_ROW_COUNT}-{avatar_row.avatar_column.S_ROW_COUNT}"><img src="{avatar_row.avatar_column.AVATAR_IMAGE}" alt="" /><br />
+				<input type="radio" name="avatar_select" id="av-{avatar_row.S_ROW_COUNT}-{avatar_row.avatar_column.S_ROW_COUNT}" value="{avatar_row.avatar_column.AVATAR_FILE}" /></label>
+		<!-- END avatar_column --><!-- END avatar_row -->
+		</div>
+
+	<!-- ENDIF -->
+
+	</div>
+</div>
