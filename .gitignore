@@ -6,7 +6,6 @@
 .project
 .metadata
 bin/
-*.tmp
 *.bak
 *.swp
 *~.nib
@@ -67,7 +66,6 @@ build/
 *.tlb
 *.tli
 *.tlh
-*.tmp
 *.tmp_proj
 *.log
 *.vspscc
@@ -211,3 +209,9 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+
+# Ignore configuration files that may contain sensitive information.
+blog/wordpress/wp-config.php
+shop/includes/local/configure.php
+forum/phpBB3/config.php
