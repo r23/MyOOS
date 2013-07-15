@@ -215,3 +215,7 @@ pip-log.txt
 blog/wordpress/wp-config.php
 shop/includes/local/configure.php
 forum/phpBB3/config.php
+
+shop/themes/myoos/less/font-awesome.min.less
+shop/themes/myoos/less/bootstrap.min.less
+shop/themes/myoos/less/bootstrap-responsive.min.less
