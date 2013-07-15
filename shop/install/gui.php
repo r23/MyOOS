@@ -855,6 +855,11 @@ function print_Start() {
 
 }
 
+function print_ServerTmpHidden() {
+   echo '<input type="hidden" name="tmpsession" value="' . $_POST['tmpsession'] . '">' . "\n" .
+        '<input type="hidden" name="tmp_session_crypt" value="' . $_POST['tmp_session_crypt'] . '">' . "\n" .
+        '<input type="hidden" name="enable_ssl" value="' . $_POST['enable_ssl'] . '">' . "\n";
+}
 
 function print_ChangeInfo() {
    global $dbhost, $dbuname, $dbpass, $dbname, $prefix_table ;
