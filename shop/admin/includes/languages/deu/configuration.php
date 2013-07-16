@@ -49,7 +49,7 @@ define('STORE_ADDRESS_POSTCODE_DESC', 'Die Kontaktinformationen des Shops, welch
 define('STORE_ADDRESS_CITY_TITLE', 'Adressinformation: Stadt des Shops');
 define('STORE_ADDRESS_CITY_DESC', 'Die Kontaktinformationen des Shops, welche sowohl in Dokumenten als auch Online ausgegeben werden');
 
-define('STORE_ADDRESS_TELEPHONE_NUMBER_TITLE', 'Adressinformation: Telepfone des Shops');
+define('STORE_ADDRESS_TELEPHONE_NUMBER_TITLE', 'Adressinformation: Telefone des Shops');
 define('STORE_ADDRESS_TELEPHONE_NUMBER_DESC', 'Die Kontaktinformationen des Shops, welche sowohl in Dokumenten als auch Online ausgegeben werden');
 
 define('STORE_ADDRESS_EMAIL_TITLE', 'Adressinformation: Die E-Mail Adresse des Shops');
