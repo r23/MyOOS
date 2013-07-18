@@ -651,29 +651,6 @@ function oos_get_products_short_description($product_id, $lang_id = '') {
     }
   }
 
-  function oos_duplicate_product_subimage_check($image) {
-
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
-
-    $productstable = $oostable['products'];
-    $query = "SELECT COUNT(*) AS total
-              FROM $productstable
-              WHERE products_subimage1 = '" . oos_db_input($image) . "' OR
-                    products_subimage2 = '" . oos_db_input($image) . "' OR
-                    products_subimage3 = '" . oos_db_input($image) . "' OR
-                    products_subimage4 = '" . oos_db_input($image) . "' OR
-                    products_subimage5 = '" . oos_db_input($image) . "' OR
-                    products_subimage6 = '" . oos_db_input($image) . "'";
-    $result = $dbconn->Execute($query);
-
-    if ($result->fields['total'] == 1) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   function oos_remove_product_image($image) {
     if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . $image)) {
@@ -684,12 +661,4 @@ function oos_get_products_short_description($product_id, $lang_id = '') {
     }
   }
 
-  function oos_remove_product_subimage($image) {
-    if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . $image)) {
-      @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . $image);
-    }
-    if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . OOS_POPUP_IMAGES . $image)) {
-      @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . OOS_POPUP_IMAGES . $image);
-    }
-  }
 

@@ -101,6 +101,12 @@ $aKeys = array('EMAIL_FROM',
                'AFFILIATE_OWNER_DESC',
 			   'OOS_META_KEYWORDS',
 			   'STORE_NAME_ADDRESS',
+			   'OOS_IMAGE_SWF',
+			   'OOS_SWF_MOVIECLIP',
+			   'OOS_SWF_BGCOLOUR_R',
+			   'OOS_SWF_BGCOLOUR_G',
+			   'OOS_SWF_BGCOLOUR_B',
+			   'OOS_RANDOM_PICTURE_NAME',
                'GZIP_LEVEL');
 $db->Execute("DELETE FROM " . $table . " WHERE configuration_key in ('" . implode("', '", $aKeys) . "')");
 
@@ -411,5 +417,4 @@ if ($result === false) {
 
 require 'lang_upgrade.php';
 require 'configuration_upgrade.php';
-
 

@@ -684,12 +684,9 @@ function oos_output_string($sStr, $aTranslate = null)
     $productstable = $oostable['products'];
     $product_image_query = "SELECT products_image
                             FROM $productstable
-                            WHERE products_id = '" . oos_db_input($product_id) . "'";
+                            WHERE products_id = '" . intval($product_id) . "'";
     $product_image_result = $dbconn->Execute($product_image_query);
     $product_image = $product_image_result->fields;
-
-    // Close result set
-    $product_image_result->Close();
 
     $productstable = $oostable['products'];
     $duplicate_query = "SELECT COUNT(*) AS total
@@ -704,39 +701,29 @@ function oos_output_string($sStr, $aTranslate = null)
       if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . OOS_POPUP_IMAGES . $product_image['products_image'])) {
         @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . OOS_POPUP_IMAGES . $product_image['products_image']);
       }
-      if (OOS_IMAGE_SWF == 'true') {
-        $filename = explode("[/\\.]", $product_image['products_image']);
-        if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . $filename[0] . '.jpg')) {
-          @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . $filename[0] . '.jpg');
-        }
-        if (file_exists(OOS_ABSOLUTE_PATH_SWF . $filename[0] . '.swf')) {
-    @unlink(OOS_ABSOLUTE_PATH_SWF . $filename[0] . '.swf');
-        }
-      }
     }
 
-    // Close result set
-    $duplicate_result->Close();
 
-    $dbconn->Execute("DELETE FROM " . $oostable['specials'] . " WHERE products_id = '" . oos_db_input($product_id) . "'");
-    $dbconn->Execute("DELETE FROM " . $oostable['products'] . " WHERE products_id = '" . oos_db_input($product_id) . "'");
-    $dbconn->Execute("DELETE FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . oos_db_input($product_id) . "'");
-    $dbconn->Execute("DELETE FROM " . $oostable['products_description'] . " WHERE products_id = '" . oos_db_input($product_id) . "'");
-    $dbconn->Execute("DELETE FROM " . $oostable['products_attributes'] . " WHERE products_id = '" . oos_db_input($product_id) . "'");
-    $dbconn->Execute("DELETE FROM " . $oostable['customers_basket'] . " WHERE products_id = '" . oos_db_input($product_id) . "'");
-    $dbconn->Execute("DELETE FROM " . $oostable['customers_basket_attributes'] . " WHERE products_id = '" . oos_db_input($product_id) . "'");
-    $dbconn->Execute("DELETE FROM " . $oostable['customers_wishlist'] . " WHERE products_id = '" . oos_db_input($product_id) . "'");
-    $dbconn->Execute("DELETE FROM " . $oostable['customers_wishlist_attributes'] . " WHERE products_id = '" . oos_db_input($product_id) . "'");
-    $dbconn->Execute("DELETE FROM " . $oostable['products_to_master'] . " WHERE master_id = '" . oos_db_input($product_id) . "' OR slave_id = '" . oos_db_input($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['specials'] . " WHERE products_id = '" . intval($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['products'] . " WHERE products_id = '" . intval($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . intval($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['products_description'] . " WHERE products_id = '" . intval($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['products_attributes'] . " WHERE products_id = '" . intval($product_id) . "'");
+	$dbconn->Execute("DELETE FROM " . $oostable['products_images'] . " WHERE products_id = '" . intval($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['customers_basket'] . " WHERE products_id = '" . intval($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['customers_basket_attributes'] . " WHERE products_id = '" . intval($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['customers_wishlist'] . " WHERE products_id = '" . intval($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['customers_wishlist_attributes'] . " WHERE products_id = '" . intval($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['products_to_master'] . " WHERE master_id = '" . intval($product_id) . "' OR slave_id = '" . intval($product_id) . "'");
 
     $reviewstable = $oostable['reviews'];
     $reviews_query = "SELECT reviews_id
                       FROM $reviewstable
-                      WHERE products_id = '" . oos_db_input($product_id) . "'";
+                      WHERE products_id = '" . intval($product_id) . "'";
     $reviews_result = $dbconn->Execute($reviews_query);
 
     while ($product_reviews = $reviews_result->fields) {
-      $dbconn->Execute("DELETE FROM " . $oostable['reviews_description'] . " WHERE reviews_id = '" . $product_reviews['reviews_id'] . "'");
+      $dbconn->Execute("DELETE FROM " . $oostable['reviews_description'] . " WHERE reviews_id = '" . intval($product_reviews['reviews_id']) . "'");
 
       // Move that ADOdb pointer!
       $reviews_result->MoveNext();
@@ -745,7 +732,7 @@ function oos_output_string($sStr, $aTranslate = null)
     // Close result set
     $reviews_result->Close();
 
-    $dbconn->Execute("DELETE FROM " . $oostable['reviews'] . " WHERE products_id = '" . oos_db_input($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['reviews'] . " WHERE products_id = '" . intval($product_id) . "'");
 
   }
 

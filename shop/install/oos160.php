@@ -65,6 +65,12 @@ $aKeys = array('EMAIL_FROM',
                'MAX_DISPLAY_MANUFACTURERS_IN_A_LIST',
                'MAX_MANUFACTURERS_LIST',
 			   'STORE_NAME_ADDRESS',
+			   'OOS_IMAGE_SWF',
+			   'OOS_SWF_MOVIECLIP',
+			   'OOS_SWF_BGCOLOUR_R',
+			   'OOS_SWF_BGCOLOUR_G',
+			   'OOS_SWF_BGCOLOUR_B',
+			   'OOS_RANDOM_PICTURE_NAME',
                'MAX_DISPLAY_MANUFACTURER_NAME_LEN');
 
 $db->Execute("DELETE FROM " . $table . " WHERE configuration_key in ('" . implode("', '", $aKeys) . "')");
@@ -304,8 +310,6 @@ if ($result === false) {
 } else {
   echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
-
-
 
 require 'configuration_upgrade.php';
 

@@ -456,5 +456,4 @@ define('ORDERS_STATUS_UPDATED_VALUE','4'); // set to the Updated status to updat
 
 // Quantity Definitions
 require('includes/languages/eng/quantity_control.php');
-require('includes/languages/eng/mo_pics.php');
 

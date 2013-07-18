@@ -90,6 +90,14 @@ $flds = "
 ";
 dosql($table, $flds);
 
+$table = $prefix_table . 'products_images';
+$flds = "
+  image_id I NOTNULL AUTO PRIMARY,
+  products_id I NOTNULL,
+  image_nr I2 NOTNULL,
+  image_name C(250) NULL
+";
+dosql($table, $flds);
 
 $table = $prefix_table . 'products_units';
 $flds = "

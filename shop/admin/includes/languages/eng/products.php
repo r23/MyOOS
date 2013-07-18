@@ -48,7 +48,6 @@ define('TEXT_PRODUCTS_UNIT', 'Product Unit');
 
 define('TEXT_PRODUCTS_IMAGE_REMOVE', '<b>Remove</b> this Image from this Product?');
 define('TEXT_PRODUCTS_IMAGE_DELETE', '<b>Delete</b> this Image from the Server?');
-define('TEXT_PRODUCTS_ZOOMIFY', 'Zoomify');
 
 define('TEXT_PRODUCTS_STATUS', 'Products Status:');
 define('TEXT_CATEGORIES', 'Categories:');
@@ -73,4 +72,4 @@ define('TEXT_PRODUCTS_SORT_ORDER', 'Sort Order:');
 define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Error: Can not link products in the same category.');
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Error: Catalog images directory is not writeable: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
 define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Error: Catalog images directory does not exist: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
-?>
+
