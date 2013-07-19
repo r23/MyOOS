@@ -244,7 +244,7 @@
   $javascript = ob_get_contents();
   ob_end_clean();
 
-  $aOption['template_main'] = $sTheme . '/modules/address_book_process.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/address_book_process.tpl';
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
@@ -339,4 +339,4 @@
 
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);

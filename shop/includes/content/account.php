@@ -59,7 +59,7 @@
   // links breadcrumb
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['account'], '', 'SSL'));
 
-  $aOption['template_main'] = $sTheme . '/modules/user_account.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/user_account.tpl';
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
@@ -85,4 +85,4 @@
 
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);

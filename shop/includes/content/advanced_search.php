@@ -118,7 +118,7 @@
 */
   $options_box .= '</table>';
 
-  $aOption['template_main'] = $sTheme . '/modules/advanced_search.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/advanced_search.tpl';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
 
@@ -143,4 +143,4 @@
 
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);

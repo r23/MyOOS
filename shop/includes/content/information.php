@@ -22,7 +22,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  $aOption['template_main'] = $sTheme . '/modules/information.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/information.tpl';
 
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
@@ -71,4 +71,4 @@
   $smarty->setCaching(false);
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);

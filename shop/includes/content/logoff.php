@@ -54,7 +54,7 @@
   $_SESSION['cart']->reset();
   $_SESSION['member']->default_member();
 
-  $aOption['template_main'] = $sTheme . '/system/success.tpl';
+  $aTemplate['page'] = $sTheme . '/system/success.tpl';
 
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
@@ -75,4 +75,4 @@
 
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);

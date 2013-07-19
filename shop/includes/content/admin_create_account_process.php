@@ -241,7 +241,7 @@
     $javascript = ob_get_contents();
     ob_end_clean();
 
-    $aOption['template_main'] = $sTheme . '/modules/create_account_admin_process.tpl';
+    $aTemplate['page'] = $sTheme . '/modules/create_account_admin_process.tpl';
 
     $nPageType = OOS_PAGE_TYPE_SERVICE;
 
@@ -337,7 +337,7 @@
     $smarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));
 
 	// display the template
-	$smarty->display($aOption['template_main']);
+	$smarty->display($aTemplate['page']);
   } else {
     $customer_max_order = DEFAULT_MAX_ORDER;
     $customers_status = DEFAULT_CUSTOMERS_STATUS_ID;

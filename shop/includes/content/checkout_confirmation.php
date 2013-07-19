@@ -129,7 +129,7 @@
   $oBreadcrumb->add(decode($aLang['navbar_title_1']), oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
   $oBreadcrumb->add(decode($aLang['navbar_title_2']));
 
-  $aOption['template_main'] = $sTheme . '/modules/checkout_confirmation.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/checkout_confirmation.tpl';
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
 
@@ -175,5 +175,5 @@
   $smarty->assign('order', $oOrder);
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);
 

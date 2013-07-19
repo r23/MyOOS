@@ -30,12 +30,12 @@ $heading_title = $aLang['heading_title'];
 $current_domain = (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP;
   
 // default
-$aOption['template_main'] = $sTheme . '/page/main.tpl';
-if ($oEvent->installed_plugin('spezials')) $aOption['new_spezials'] = $sTheme . '/modules/products/new_spezials.tpl';
-if ($oEvent->installed_plugin('featured')) $aOption['featured'] = $sTheme . '/modules/products/featured.tpl';
-if ($oEvent->installed_plugin('manufacturers')) $aOption['mod_manufacturers'] = $sTheme . '/modules/products/manufacturers.tpl';
-$aOption['new_products'] = $sTheme . '/modules/products/new_products.tpl';
-$aOption['upcoming_products'] = $sTheme . '/modules/products/upcoming_products.tpl';
+$aTemplate['page'] = $sTheme . '/page/main.tpl';
+if ($oEvent->installed_plugin('spezials')) $aTemplate['new_spezials'] = $sTheme . '/modules/products/new_spezials.tpl';
+if ($oEvent->installed_plugin('featured')) $aTemplate['featured'] = $sTheme . '/modules/products/featured.tpl';
+if ($oEvent->installed_plugin('manufacturers')) $aTemplate['mod_manufacturers'] = $sTheme . '/modules/products/manufacturers.tpl';
+$aTemplate['new_products'] = $sTheme . '/modules/products/new_products.tpl';
+$aTemplate['upcoming_products'] = $sTheme . '/modules/products/upcoming_products.tpl';
 
 $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
@@ -62,43 +62,43 @@ if ( (USE_CACHE == 'true') && (!SID) && (!isset($_SESSION['customer_id'])) ){
 
 
 if ($oEvent->installed_plugin('spezials')) {
-  if (!$smarty->isCached($aOption['new_spezials'], $oos_modules_cache_id)) {
+  if (!$smarty->isCached($aTemplate['new_spezials'], $oos_modules_cache_id)) {
       require_once MYOOS_INCLUDE_PATH . '/includes/modules/new_spezials.php';
     }
-  $smarty->assign('new_spezials', $smarty->fetch($aOption['new_spezials'], $oos_modules_cache_id));
+  $smarty->assign('new_spezials', $smarty->fetch($aTemplate['new_spezials'], $oos_modules_cache_id));
   }
 
 if ($oEvent->installed_plugin('featured')) {
-  if (!$smarty->isCached($aOption['featured'], $oos_modules_cache_id)) {
+  if (!$smarty->isCached($aTemplate['featured'], $oos_modules_cache_id)) {
       require_once MYOOS_INCLUDE_PATH . '/includes/modules/featured.php';
     }
-  $smarty->assign('featured', $smarty->fetch($aOption['featured'], $oos_modules_cache_id));
+  $smarty->assign('featured', $smarty->fetch($aTemplate['featured'], $oos_modules_cache_id));
   }
 
 */
 
-if (!$smarty->isCached($aOption['new_products'], $oos_modules_cache_id)) {
+if (!$smarty->isCached($aTemplate['new_products'], $oos_modules_cache_id)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/modules/new_products.php';
 }
-$smarty->assign('new_products', $smarty->fetch($aOption['new_products'], $oos_modules_cache_id));
+$smarty->assign('new_products', $smarty->fetch($aTemplate['new_products'], $oos_modules_cache_id));
 
 /*
 if ($oEvent->installed_plugin('manufacturers')) {
-  if (!$smarty->isCached($aOption['mod_manufacturers'], $oos_modules_cache_id)) {
+  if (!$smarty->isCached($aTemplate['mod_manufacturers'], $oos_modules_cache_id)) {
       require_once MYOOS_INCLUDE_PATH . '/includes/modules/mod_manufacturers.php';
     }
-  $smarty->assign('mod_manufacturers', $smarty->fetch($aOption['mod_manufacturers'], $oos_modules_cache_id));
+  $smarty->assign('mod_manufacturers', $smarty->fetch($aTemplate['mod_manufacturers'], $oos_modules_cache_id));
   }
 
 
-if (!$smarty->isCached($aOption['upcoming_products'], $oos_modules_cache_id)) {
+if (!$smarty->isCached($aTemplate['upcoming_products'], $oos_modules_cache_id)) {
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/upcoming_products.php';
   }
-$smarty->assign('upcoming_products', $smarty->fetch($aOption['upcoming_products'], $oos_modules_cache_id));
+$smarty->assign('upcoming_products', $smarty->fetch($aTemplate['upcoming_products'], $oos_modules_cache_id));
 $smarty->setCaching(false);
 */
 
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);
 

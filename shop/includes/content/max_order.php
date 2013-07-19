@@ -29,7 +29,7 @@
   // links breadcrumb
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['info_max_order']));
 
-  $aOption['template_main'] = $sTheme .  '/system/info.tpl';
+  $aTemplate['page'] = $sTheme .  '/system/info.tpl';
 
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
@@ -49,4 +49,4 @@
   );
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);

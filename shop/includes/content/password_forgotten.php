@@ -54,7 +54,7 @@
     $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['login'], '', 'SSL'));
     $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['password_forgotten'], '', 'SSL'));
 
-    $aOption['template_main'] = $sTheme . '/modules/user_password_forgotten.tpl';
+    $aTemplate['page'] = $sTheme . '/modules/user_password_forgotten.tpl';
 
     $nPageType = OOS_PAGE_TYPE_SERVICE;
 
@@ -74,6 +74,6 @@
     );
 
 	// display the template
-	$smarty->display($aOption['template_main']);
+	$smarty->display($aTemplate['page']);
 
   }

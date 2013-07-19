@@ -105,7 +105,7 @@
       }
       $account['entry_country_id'] = STORE_COUNTRY;
 
-      $aOption['template_main'] = $sTheme . '/modules/create_account_admin.tpl';
+      $aTemplate['page'] = $sTheme . '/modules/create_account_admin.tpl';
 
       $nPageType = OOS_PAGE_TYPE_SERVICE;
       $read = 'false';
@@ -139,6 +139,6 @@
       $smarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));
 
 		// display the template
-		$smarty->display($aOption['template_main']);
+		$smarty->display($aTemplate['page']);
     }
   }

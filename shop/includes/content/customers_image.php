@@ -120,7 +120,7 @@
   $oBreadcrumb->add($aLang['text_yourstore'], oos_href_link($aContents['yourstore']));
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['customers_image']));
 
-  $aOption['template_main'] = $sTheme .  '/modules/customers_image.tpl';
+  $aTemplate['page'] = $sTheme .  '/modules/customers_image.tpl';
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
@@ -146,4 +146,4 @@
 
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);

@@ -267,7 +267,7 @@
   $javascript = ob_get_contents();
   ob_end_clean();
 
-  $aOption['template_main'] = $sTheme . '/modules/payment_address.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/payment_address.tpl';
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
 
@@ -340,5 +340,5 @@
   $smarty->assign('state', $state);
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);
 

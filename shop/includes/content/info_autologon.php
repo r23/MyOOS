@@ -21,7 +21,7 @@
    ---------------------------------------------------------------------- */
 
 
-  $aOption['info_autologon'] = $sTheme . '/system/info_autologon.tpl';
+  $aTemplate['info_autologon'] = $sTheme . '/system/info_autologon.tpl';
 
   //smarty
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
@@ -30,7 +30,7 @@
   $smarty->setCaching(true);
   $info_autologon_id = $sTheme . '|info_autologon|' . $sLanguage;
 
-  if (!$smarty->isCached($aOption['info_autologon'], $info_autologon_id )) {
+  if (!$smarty->isCached($aTemplate['info_autologon'], $info_autologon_id )) {
     require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/main_info_autologon.php';
 
     // assign Smarty variables;
@@ -41,5 +41,5 @@
   }
 
 // display the template
-  $smarty->display($aOption['info_autologon'], $info_autologon_id);
+  $smarty->display($aTemplate['info_autologon'], $info_autologon_id);
 ?>

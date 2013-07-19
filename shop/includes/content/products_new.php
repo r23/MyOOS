@@ -26,8 +26,8 @@
   // split-page-results
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
 
-  $aOption['template_main'] = $sTheme . '/products/products_new.tpl';
-  $aOption['page_navigation'] = $sTheme . '/heading/page_navigation.tpl';
+  $aTemplate['page'] = $sTheme . '/products/products_new.tpl';
+  $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.tpl';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
 
@@ -46,7 +46,7 @@
     $smarty->setCacheLifetime(6 * 3600);
   }
 
-  if (!$smarty->isCached($aOption['template_main'], $contents_cache_id)) {
+  if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
     require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_new.php';
 
     $productstable  = $oostable['products'];
@@ -128,8 +128,8 @@
     );
   }
 
-  $smarty->assign('oosPageNavigation', $smarty->fetch($aOption['page_navigation'], $contents_cache_id));
+  $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation'], $contents_cache_id));
   $smarty->setCaching(false);
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);

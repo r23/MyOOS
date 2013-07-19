@@ -175,7 +175,7 @@
   $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
   $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
 
-  $aOption['template_main'] = $sTheme . '/modules/checkout_shipping.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/checkout_shipping.tpl';
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
 
@@ -228,5 +228,5 @@
 
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);
 

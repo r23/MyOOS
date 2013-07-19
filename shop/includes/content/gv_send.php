@@ -166,7 +166,7 @@
   // links breadcrumb
   $oBreadcrumb->add($aLang['navbar_title']);
 
-  $aOption['template_main'] = $sTheme . '/modules/send.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/send.tpl';
 
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
@@ -200,5 +200,5 @@
   );
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);
 

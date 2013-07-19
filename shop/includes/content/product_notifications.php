@@ -80,7 +80,7 @@
   $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], '', 'SSL'));
   $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['product_notifications'], '', 'SSL'));
 
-  $aOption['template_main'] = $sTheme . '/modules/user_product_notifications.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/user_product_notifications.tpl';
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
@@ -120,4 +120,4 @@
 
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);

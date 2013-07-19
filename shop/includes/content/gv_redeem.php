@@ -90,7 +90,7 @@
     $sMessage = $aLang['text_invalid_gv'];
   }
 
-  $aOption['template_main'] = $sTheme . '/modules/redeem.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/redeem.tpl';
 
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
@@ -113,5 +113,5 @@
 
   
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);
 

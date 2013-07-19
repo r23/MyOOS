@@ -34,7 +34,7 @@
     $origin_href = oos_href_link($aContents['main']);
   }
 
-  $aOption['template_main'] = $sTheme . '/modules/user_create_account_success.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/user_create_account_success.tpl';
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
@@ -56,4 +56,4 @@
   );
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);

@@ -133,8 +133,8 @@
   // links breadcrumb
   $oBreadcrumb->add($customer. $aLang['navbar_title'], oos_href_link($aContents['main_wishlist']));
 
-  $aOption['template_main'] = $sTheme . '/modules/wishlist.tpl';
-  $aOption['page_navigation'] = $sTheme . '/heading/page_navigation.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/wishlist.tpl';
+  $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.tpl';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
 
@@ -161,5 +161,5 @@
 
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);
 

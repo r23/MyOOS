@@ -37,7 +37,7 @@
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
 
-  $aOption['popup_image'] = $sTheme . '/products/popup_image.tpl';
+  $aTemplate['popup_image'] = $sTheme . '/products/popup_image.tpl';
 
   //smarty
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
@@ -52,7 +52,7 @@
 
   $popup_cache_id = $sTheme . '|popup_image|' . $pID . '|' . $image . '|' . $sLanguage;
 
-  if (!$smarty->isCached($aOption['popup_image'], $popup_cache_id )) {
+  if (!$smarty->isCached($aTemplate['popup_image'], $popup_cache_id )) {
     $productstable = $oostable['products'];
     $products_descriptiontable = $oostable['products_description'];
     $sql = "SELECT pd.products_name, p.products_image, p.products_subimage1, p.products_subimage2,
@@ -135,4 +135,4 @@
   }
 
 // display the template
-$smarty->display($aOption['popup_image'], $popup_cache_id);
+$smarty->display($aTemplate['popup_image'], $popup_cache_id);

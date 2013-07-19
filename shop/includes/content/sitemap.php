@@ -24,7 +24,7 @@
 
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/info_sitemap.php';
 
-  $aOption['template_main'] = $sTheme . '/system/sitemap.tpl';
+  $aTemplate['page'] = $sTheme . '/system/sitemap.tpl';
 
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
@@ -42,7 +42,7 @@
     $smarty->setCacheLifetime(24 * 3600);
   }
 
-  if (!$smarty->isCached($aOption['template_main'], $contents_cache_id)) {
+  if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
 
     $oSitemap = new oosCategoryTree;
     $oSitemap->setShowCategoryProductCount(false);
@@ -64,5 +64,5 @@
   $smarty->setCaching(false);
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);
 

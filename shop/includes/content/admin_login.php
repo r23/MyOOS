@@ -154,7 +154,7 @@
     $info_message = $aLang['text_visitors_cart'];
   }
 
-  $aOption['template_main'] = $sTheme . '/modules/login_admin.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/login_admin.tpl';
 
   $nPageType = OOS_PAGE_TYPE_SERVICE;
 
@@ -193,5 +193,5 @@
 
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);
 

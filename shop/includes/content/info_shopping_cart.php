@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
 
-  $aOption['info_shopping_cart'] = $sTheme . '/system/info_shopping_cart.tpl';
+  $aTemplate['info_shopping_cart'] = $sTheme . '/system/info_shopping_cart.tpl';
 
   //smarty
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
@@ -29,7 +29,7 @@
   $smarty->setCaching(true);
   $info_shopping_cart_id = $sTheme . '|info_shopping_cart|' . $sLanguage;
 
-  if (!$smarty->isCached($aOption['info_shopping_cart'], $info_shopping_cart_id )) {
+  if (!$smarty->isCached($aTemplate['info_shopping_cart'], $info_shopping_cart_id )) {
     require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/main_info_shopping_cart.php';
 
     // assign Smarty variables;
@@ -40,5 +40,5 @@
   }
 
 // display the template
-  $smarty->display($aOption['info_shopping_cart'], $info_shopping_cart_id);
+  $smarty->display($aTemplate['info_shopping_cart'], $info_shopping_cart_id);
 ?>

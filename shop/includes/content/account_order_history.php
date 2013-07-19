@@ -32,8 +32,8 @@
 
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_order_history.php';
 
-  $aOption['template_main'] = $sTheme . '/modules/account_order_history.tpl';
-  $aOption['page_navigation'] = $sTheme . '/heading/page_navigation.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/account_order_history.tpl';
+  $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.tpl';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
 
@@ -157,8 +157,8 @@
   );
 
 
-  $smarty->assign('oosPageNavigation', $smarty->fetch($aOption['page_navigation']));
-  $smarty->assign('myoos_contents', $smarty->fetch($aOption['template_main']));
+  $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation']));
+  $smarty->assign('myoos_contents', $smarty->fetch($aTemplate['page']));
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);

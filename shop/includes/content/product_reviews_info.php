@@ -71,7 +71,7 @@
   }
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['product_reviews'], $get_parameters));
 
-  $aOption['template_main'] = $sTheme . '/modules/product_reviews_info.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/product_reviews_info.tpl';
 
   $nPageType = OOS_PAGE_TYPE_REVIEWS;
 
@@ -92,4 +92,4 @@
   );
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);

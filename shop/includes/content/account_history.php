@@ -74,7 +74,7 @@
   $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], '', 'SSL'));
   $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_history'], '', 'SSL'));
 
-  $aOption['template_main'] = $sTheme . '/modules/account_history.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/account_history.tpl';
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
@@ -100,4 +100,4 @@
   );
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);

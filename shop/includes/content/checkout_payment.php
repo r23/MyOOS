@@ -120,7 +120,7 @@
   $javascript = ob_get_contents();
   ob_end_clean();
 
-  $aOption['template_main'] = $sTheme . '/modules/checkout_payment.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/checkout_payment.tpl';
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
 
@@ -180,5 +180,5 @@
   $smarty->assign('oos_js', $javascript);
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);
 

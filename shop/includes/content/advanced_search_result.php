@@ -353,8 +353,8 @@ $errorno = 0;
 
     $listing_sql = $select_str . $from_str . $where_str . $order_str;
 
-    $aOption['template_main'] = $sTheme . '/modules/advanced_search_result.tpl';
-    $aOption['page_navigation'] = $sTheme . '/heading/page_navigation.tpl';
+    $aTemplate['page'] = $sTheme . '/modules/advanced_search_result.tpl';
+    $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.tpl';
 
     $nPageType = OOS_PAGE_TYPE_CATALOG;
 
@@ -379,9 +379,9 @@ $errorno = 0;
 
     $smarty->assign('oos_get_all_get_params', oos_get_all_get_parameters(array('sort', 'page')));
 
-    $smarty->assign('oosPageNavigation', $smarty->fetch($aOption['page_navigation']));
+    $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation']));
 
 	// display the template
-	$smarty->display($aOption['template_main']);
+	$smarty->display($aTemplate['page']);
   }
 

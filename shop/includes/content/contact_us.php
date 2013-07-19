@@ -37,7 +37,7 @@
   // links breadcrumb
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['contact_us']));
 
-  $aOption['template_main'] = $sTheme . '/system/contact_us.tpl';
+  $aTemplate['page'] = $sTheme . '/system/contact_us.tpl';
 
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
@@ -59,5 +59,5 @@
   );
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);
 

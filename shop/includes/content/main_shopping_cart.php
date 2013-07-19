@@ -94,7 +94,7 @@
   // links breadcrumb
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['main_shopping_cart']));
 
-  $aOption['template_main'] = $sTheme . '/system/shopping_cart.tpl';
+  $aTemplate['page'] = $sTheme . '/system/shopping_cart.tpl';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
 
@@ -126,5 +126,5 @@
 
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);
 

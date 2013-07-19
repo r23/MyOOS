@@ -25,7 +25,7 @@
 
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/info_down_for_maintenance.php';
 
-  $aOption['template_main'] = $sTheme . '/system/info.tpl';
+  $aTemplate['page'] = $sTheme . '/system/info.tpl';
 
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
   $contents_cache_id = $sTheme . '|down_for_maintenance|' . $sLanguage;
@@ -41,7 +41,7 @@
     $smarty->setCacheLifetime (3600);
   }
 
-  if (!$smarty->isCached($aOption['template_main'], $contents_cache_id)) {
+  if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
 
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['info_down_for_maintenance']));
@@ -59,5 +59,5 @@
   $smarty->setCaching(false);
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);
 

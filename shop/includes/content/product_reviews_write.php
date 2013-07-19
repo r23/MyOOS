@@ -149,7 +149,7 @@
   $javascript = ob_get_contents();
   ob_end_clean();
 
-  $aOption['template_main'] = $sTheme . '/modules/product_reviews_write.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/product_reviews_write.tpl';
 
   $nPageType = OOS_PAGE_TYPE_REVIEWS;
 
@@ -175,4 +175,4 @@
 
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);

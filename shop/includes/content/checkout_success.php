@@ -92,7 +92,7 @@
     $products_result->Close();
   }
 
-  $aOption['template_main'] = $sTheme . '/modules/checkout_success.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/checkout_success.tpl';
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
 
@@ -139,5 +139,5 @@
   );
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);
 

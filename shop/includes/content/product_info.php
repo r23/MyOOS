@@ -55,7 +55,7 @@
     // product not found
     $aLang['text_information'] = $aLang['text_product_not_found'];
 
-    $aOption['template_main'] = $sTheme . '/system/info.tpl';
+    $aTemplate['page'] = $sTheme . '/system/info.tpl';
 
     $nPageType = OOS_PAGE_TYPE_PRODUCTS;
 
@@ -97,11 +97,11 @@
     $oos_meta_description = $product_info['products_description_meta'];
 
 	
-    $aOption['template_main'] = $sTheme . '/products/product_info.tpl';
-    $aOption['also_purchased_products'] = $sTheme . '/products/also_purchased_products.tpl';
-    $aOption['xsell_products'] = $sTheme . '/products/xsell_products.tpl';
-    $aOption['up_sell_products'] = $sTheme . '/products/up_sell_products.tpl';
-    $aOption['page_heading'] = $sTheme . '/products/product_heading.tpl';
+    $aTemplate['page'] = $sTheme . '/products/product_info.tpl';
+    $aTemplate['also_purchased_products'] = $sTheme . '/products/also_purchased_products.tpl';
+    $aTemplate['xsell_products'] = $sTheme . '/products/xsell_products.tpl';
+    $aTemplate['up_sell_products'] = $sTheme . '/products/up_sell_products.tpl';
+    $aTemplate['page_heading'] = $sTheme . '/products/product_heading.tpl';
 
     $nPageType = OOS_PAGE_TYPE_PRODUCTS;
 
@@ -209,27 +209,27 @@
     if ( (USE_CACHE == 'true') && (!SID) ) {
       $smarty->setCaching(true);
     }
-    if (!$smarty->isCached($aOption['xsell_products'], $oos_products_info_cache_id)) {
+    if (!$smarty->isCached($aTemplate['xsell_products'], $oos_products_info_cache_id)) {
       require_once MYOOS_INCLUDE_PATH . '/includes/modules/xsell_products.php';
     }
-    $smarty->assign('xsell_products', $smarty->fetch($aOption['xsell_products'], $oos_products_info_cache_id));
+    $smarty->assign('xsell_products', $smarty->fetch($aTemplate['xsell_products'], $oos_products_info_cache_id));
 
-    if (!$smarty->isCached($aOption['up_sell_products'], $oos_products_info_cache_id)) {
+    if (!$smarty->isCached($aTemplate['up_sell_products'], $oos_products_info_cache_id)) {
       require_once MYOOS_INCLUDE_PATH . '/includes/modules/up_sell_products.php';
     }
-    $smarty->assign('up_sell_products', $smarty->fetch($aOption['up_sell_products'], $oos_products_info_cache_id));
+    $smarty->assign('up_sell_products', $smarty->fetch($aTemplate['up_sell_products'], $oos_products_info_cache_id));
 
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/slavery_products.php';
 
-    if (!$smarty->isCached($aOption['also_purchased_products'], $oos_products_info_cache_id)) {
+    if (!$smarty->isCached($aTemplate['also_purchased_products'], $oos_products_info_cache_id)) {
       require_once MYOOS_INCLUDE_PATH . '/includes/modules/also_purchased_products.php';
       $smarty->assign('oos_also_purchased_array', $aPurchased);
     }
-    $smarty->assign('also_purchased_products', $smarty->fetch($aOption['also_purchased_products'], $oos_products_info_cache_id));
+    $smarty->assign('also_purchased_products', $smarty->fetch($aTemplate['also_purchased_products'], $oos_products_info_cache_id));
 
     $smarty->setCaching(false);
   }
 
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);

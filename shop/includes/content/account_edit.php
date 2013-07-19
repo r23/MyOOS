@@ -58,7 +58,7 @@
   $javascript = ob_get_contents();
   ob_end_clean();
 
-  $aOption['template_main'] = $sTheme . '/modules/user_account_edit.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/user_account_edit.tpl';
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
@@ -89,4 +89,4 @@
   $smarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);

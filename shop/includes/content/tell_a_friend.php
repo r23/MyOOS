@@ -134,7 +134,7 @@
   // links breadcrumb
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['tell_a_friend'], 'send_to=' . $friendemail . '&amp;products_id=' . $_GET['products_id']));
 
-  $aOption['template_main'] = $sTheme . '/modules/tell_a_friend.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/tell_a_friend.tpl';
 
   $nPageType = OOS_PAGE_TYPE_PRODUCTS;
 
@@ -169,4 +169,4 @@
   );
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);

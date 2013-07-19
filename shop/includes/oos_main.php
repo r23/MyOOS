@@ -210,5 +210,5 @@ if ( isset($_GET['action'])
   $products_units = $dbconn->GetAssoc($query);
 
 
-  $aOption = array();
+  $aTemplate = array();
 

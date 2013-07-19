@@ -56,7 +56,7 @@
 
   if ($category_depth == 'nested') {
 
-    $aOption['template_main'] = $sTheme . '/system/nested.tpl';
+    $aTemplate['page'] = $sTheme . '/system/nested.tpl';
 
     $nPageType = OOS_PAGE_TYPE_CATALOG;
 
@@ -76,7 +76,7 @@
 
     $smarty->assign('oos_breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
 
-    if (!$smarty->isCached($aOption['template_main'], $contents_cache_id)) {
+    if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
       $categoriestable = $oostable['categories'];
       $categories_descriptiontable = $oostable['categories_description'];
       $sql = "SELECT cd.categories_name, cd.categories_heading_title, cd.categories_description,
@@ -176,12 +176,12 @@
       );
     }
     $smarty->setCaching(false);
-	$smarty->display($aOption['template_main']);
+	$smarty->display($aTemplate['page']);
 	
   } elseif ($category_depth == 'products' || isset($_GET['manufacturers_id'])) {
 
-    $aOption['template_main'] = $sTheme . '/system/products.tpl';
-    $aOption['page_navigation'] = $sTheme . '/heading/page_navigation.tpl';
+    $aTemplate['page'] = $sTheme . '/system/products.tpl';
+    $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.tpl';
 
     $nPageType = OOS_PAGE_TYPE_CATALOG;
 
@@ -226,7 +226,7 @@
 
     $smarty->assign('oos_breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
 
-    if (!$smarty->isCached($aOption['template_main'], $contents_cache_id)) {
+    if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
 
 // create column list
       $define_list = array('PRODUCT_LIST_MODEL' => PRODUCT_LIST_MODEL,
@@ -562,7 +562,7 @@
         require_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
       }
     }
-    $smarty->assign('oosPageNavigation', $smarty->fetch($aOption['page_navigation'], $contents_cache_id));
+    $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation'], $contents_cache_id));
     $smarty->setCaching(false);
   } else {
     // $category_depth = 'top';
@@ -570,5 +570,5 @@
   }
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);
 

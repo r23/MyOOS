@@ -52,10 +52,10 @@
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
   $oOrder = new order($_GET['order_id']);
 
-  $aOption['template_main'] = $sTheme . '/modules/account_history_info.tpl';
+  $aTemplate['page'] = $sTheme . '/modules/account_history_info.tpl';
 
   if (DOWNLOAD_ENABLED == 'true') {
-    $aOption['download'] = $sTheme . '/modules/download.tpl';
+    $aTemplate['download'] = $sTheme . '/modules/download.tpl';
   }
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
@@ -91,8 +91,8 @@
 
   if (DOWNLOAD_ENABLED == 'true') {
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/downloads.php';
-    $smarty->assign('download', $smarty->fetch($aOption['download']));
+    $smarty->assign('download', $smarty->fetch($aTemplate['download']));
   }
 
 // display the template
-$smarty->display($aOption['template_main']);
+$smarty->display($aTemplate['page']);
