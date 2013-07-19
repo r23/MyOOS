@@ -93,25 +93,15 @@
 
 
     // $oos_pagetitle = OOS_META_TITLE . ' // ' . $oBreadcrumb->trail_title(' &raquo; ');
-    $oos_pagetitle = OOS_META_TITLE . ' - ' . $product_info['products_name'];
+    $oos_pagetitle =  $product_info['products_name'] . ' - ' . OOS_META_TITLE ;
+    $oos_meta_description = $product_info['products_description_meta'];
 
-
-    // todo multilanguage support
-    if (OOS_META_PRODUKT == "description tag by article description replace") {
-      $oos_meta_description = substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '',$product_info['products_description'])),0 , 250);
-    } elseif (OOS_META_PRODUKT == "Meta Tag with article edit") {
-      $oos_meta_description = $product_info['products_description_meta'];
-    }
-
+	
     $aOption['template_main'] = $sTheme . '/products/product_info.tpl';
     $aOption['also_purchased_products'] = $sTheme . '/products/also_purchased_products.tpl';
     $aOption['xsell_products'] = $sTheme . '/products/xsell_products.tpl';
     $aOption['up_sell_products'] = $sTheme . '/products/up_sell_products.tpl';
     $aOption['page_heading'] = $sTheme . '/products/product_heading.tpl';
-
-    if (SOCIAL_BOOKMARKS == 'true') {
-      $aOption['social_bookmarks'] = 'default/products/social_bookmarks.tpl';
-    }
 
     $nPageType = OOS_PAGE_TYPE_PRODUCTS;
 
@@ -214,20 +204,6 @@
 
     $oSmarty->assign('redirect', oos_href_link($aContents['redirect'], 'action=url&amp;goto=' . urlencode($product_info['products_url']), 'NONSSL', false, false));
     $oSmarty->assign('oosDate', date('Y-m-d H:i:s'));
-
-    if (SOCIAL_BOOKMARKS == 'true') {
-      $oSmarty->setCaching(true);
-
-      $oos_social_bookmarks_cache_id = '|social_bookmarks|' . $sLanguage . '|' . intval($nProductsId);
-      if (!$oSmarty->isCached($aOption['social_bookmarks'], $oos_social_bookmarks_cache_id)) {
-        $oSmarty->assign('bookmark', oos_href_link($aContents['product_info'], 'products_id=' . intval($nProductsId), 'NONSSL', false));
-        $oSmarty->assign('bookmarktitle', STORE_NAME . ' - ' . $product_info['products_name']);
-      }
-      $oSmarty->assign('social_bookmarks', $oSmarty->fetch($aOption['social_bookmarks'], $oos_social_bookmarks_cache_id));
-
-      $oSmarty->setCaching(false);
-    }
-
 
 
     if ( (USE_CACHE == 'true') && (!SID) ) {
