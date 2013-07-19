@@ -69,6 +69,11 @@
       }
     }
   }
+
+require_once '/includes/classes/class_template.php';
+$smarty = new myOOS_Smarty;
+
+
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
