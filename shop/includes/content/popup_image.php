@@ -41,18 +41,18 @@
 
   //smarty
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
-  $oSmarty = new myOOS_Smarty;
+  $smarty = new myOOS_Smarty;
 
 
-  $oSmarty->setCaching(true);
-  $oSmarty->setCacheLifetime (24 * 3600);
+  $smarty->setCaching(true);
+  $smarty->setCacheLifetime (24 * 3600);
 
   $image = (isset($_GET['image']) && is_numeric($_GET['image']) ? $_GET['image'] : 0);
   $pID = intval($_GET['pID']);
 
   $popup_cache_id = $sTheme . '|popup_image|' . $pID . '|' . $image . '|' . $sLanguage;
 
-  if (!$oSmarty->isCached($aOption['popup_image'], $popup_cache_id )) {
+  if (!$smarty->isCached($aOption['popup_image'], $popup_cache_id )) {
     $productstable = $oostable['products'];
     $products_descriptiontable = $oostable['products_description'];
     $sql = "SELECT pd.products_name, p.products_image, p.products_subimage1, p.products_subimage2,
@@ -127,12 +127,12 @@
     $size = @GetImageSize($picture);
 
     // assign Smarty variables;
-    $oSmarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
-    $oSmarty->assign('products_name', $products_info['products_name']);
-    $oSmarty->assign('picture', $picture);
-    $oSmarty->assign('size', $size);
+    $smarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
+    $smarty->assign('products_name', $products_info['products_name']);
+    $smarty->assign('picture', $picture);
+    $smarty->assign('size', $size);
 
   }
 
 // display the template
-$oSmarty->display($aOption['popup_image'], $popup_cache_id);
+$smarty->display($aOption['popup_image'], $popup_cache_id);

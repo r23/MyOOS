@@ -38,11 +38,11 @@
   }
 
   if ( (USE_CACHE == 'true') && (!SID) ) {
-    $oSmarty->setCaching(true);
-    $oSmarty->setCacheLifetime(24 * 3600);
+    $smarty->setCaching(true);
+    $smarty->setCacheLifetime(24 * 3600);
   }
 
-  if (!$oSmarty->isCached($aOption['template_main'], $contents_cache_id)) {
+  if (!$smarty->isCached($aOption['template_main'], $contents_cache_id)) {
 
     $oSitemap = new oosCategoryTree;
     $oSitemap->setShowCategoryProductCount(false);
@@ -51,7 +51,7 @@
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['info_sitemap']));
 
     // assign Smarty variables;
-    $oSmarty->assign(
+    $smarty->assign(
         array(
             'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'oos_heading_title' => $aLang['heading_title'],
@@ -59,10 +59,10 @@
         )
     );
 
-    $oSmarty->assign('sitemap', $oSitemap->buildTree());
+    $smarty->assign('sitemap', $oSitemap->buildTree());
   }
-  $oSmarty->setCaching(false);
+  $smarty->setCaching(false);
 
 // display the template
-$oSmarty->display($aOption['template_main']);
+$smarty->display($aOption['template_main']);
 

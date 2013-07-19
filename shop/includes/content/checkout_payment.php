@@ -131,7 +131,7 @@
   }
 
   // assign Smarty variables;
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'oos_breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'oos_heading_title' => $aLang['heading_title'],
@@ -140,15 +140,15 @@
   );
 
   if (isset($_GET['payment_error']) && is_object(${$_GET['payment_error']}) && ($error = ${$_GET['payment_error']}->get_error())) {
-    $oSmarty->assign(
+    $smarty->assign(
         array(
             'oos_payment_error' => 'true',
             'error' => $error
         )
     );
   }
-  $oSmarty->assign('condition_link', $condition_link);
-  $oSmarty->assign(
+  $smarty->assign('condition_link', $condition_link);
+  $smarty->assign(
       array(
           'selection' => $selection,
           'credit_selection' => $credit_selection
@@ -160,12 +160,12 @@
   $sql = "SELECT campaigns_id FROM $campaignstable WHERE campaigns_languages_id = '" . intval($_SESSION['language_id']) . "'";
   $campaigns_result = $dbconn->Execute($sql);
   if ($campaigns_result->RecordCount()) {
-    $oSmarty->assign('campaigns', 'true');
+    $smarty->assign('campaigns', 'true');
 
     if (isset($_SESSION['campaigns_id']) && is_numeric($_SESSION['campaigns_id'])) {
-      $oSmarty->assign('campaigns_id', $_SESSION['campaigns_id']);
+      $smarty->assign('campaigns_id', $_SESSION['campaigns_id']);
     } else {
-      $oSmarty->assign('campaigns_id', DEFAULT_CAMPAIGNS_ID);
+      $smarty->assign('campaigns_id', DEFAULT_CAMPAIGNS_ID);
     }
 
     $campaignstable = $oostable['campaigns'];
@@ -173,12 +173,12 @@
                       FROM $campaignstable
                       WHERE campaigns_languages_id = '" . intval($_SESSION['language_id']) . "'
                       ORDER BY campaigns_id";
-    $oSmarty->assign('campaigns_radios', $dbconn->getAssoc($campaigns_sql));
+    $smarty->assign('campaigns_radios', $dbconn->getAssoc($campaigns_sql));
   }
 
   // JavaScript
-  $oSmarty->assign('oos_js', $javascript);
+  $smarty->assign('oos_js', $javascript);
 
 // display the template
-$oSmarty->display($aOption['template_main']);
+$smarty->display($aOption['template_main']);
 

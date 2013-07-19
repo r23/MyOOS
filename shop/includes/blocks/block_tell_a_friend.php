@@ -28,7 +28,7 @@
       if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
       $tell_products_id = intval($nProductsId);
       $tell_a_friend_block = 'true';
-      $oSmarty->assign(
+      $smarty->assign(
           array(
               'tell_products_id' => $tell_products_id,
               'block_heading_tell_a_friend' => $block_heading
@@ -36,6 +36,6 @@
       );
     }
   }
-  $oSmarty->assign('tell_a_friend_block', $tell_a_friend_block);
+  $smarty->assign('tell_a_friend_block', $tell_a_friend_block);
 
 ?>

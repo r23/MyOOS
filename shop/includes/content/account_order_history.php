@@ -130,7 +130,7 @@
     }
 
     // assign Smarty variables;
-    $oSmarty->assign(
+    $smarty->assign(
         array(
            'oos_page_split'          => $order_history_split->display_count($order_history_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], $aLang['text_display_number_of_products']),
            'oos_display_links'       => $order_history_split->display_links($order_history_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),
@@ -148,7 +148,7 @@
 
 
   // assign Smarty variables;
-  $oSmarty->assign(
+  $smarty->assign(
       array(
          'oos_breadcrumb'         => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
          'oos_heading_title'      => $aLang['heading_title'],
@@ -157,8 +157,8 @@
   );
 
 
-  $oSmarty->assign('oosPageNavigation', $oSmarty->fetch($aOption['page_navigation']));
-  $oSmarty->assign('myoos_contents', $oSmarty->fetch($aOption['template_main']));
+  $smarty->assign('oosPageNavigation', $smarty->fetch($aOption['page_navigation']));
+  $smarty->assign('myoos_contents', $smarty->fetch($aOption['template_main']));
 
 // display the template
-$oSmarty->display($aOption['template_main']);
+$smarty->display($aOption['template_main']);

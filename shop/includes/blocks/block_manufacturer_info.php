@@ -47,7 +47,7 @@
       $manufacturer = $manufacturer_result->fields;
       $manufacturer_info_block = 'true';
 
-      $oSmarty->assign(
+      $smarty->assign(
           array(
               'manufacturer' => $manufacturer,
               'block_heading_manufacturer_info' => $block_heading
@@ -55,6 +55,6 @@
       );
     }
   }
-  $oSmarty->assign('manufacturer_info_block', $manufacturer_info_block);
+  $smarty->assign('manufacturer_info_block', $manufacturer_info_block);
 
 ?>

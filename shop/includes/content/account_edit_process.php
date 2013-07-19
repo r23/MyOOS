@@ -230,8 +230,8 @@
       require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
     }
 
-    $oSmarty->assign('oos_js', $javascript);
-    $oSmarty->assign(array('error' => $error,
+    $smarty->assign('oos_js', $javascript);
+    $smarty->assign(array('error' => $error,
                           'gender_error' => $gender_error,
                           'firstname_error' => $firstname_error,
                           'lastname_error' => $lastname_error,
@@ -248,7 +248,7 @@
                           'state_has_zones' => $state_has_zones,
                           'telephone_error' => $telephone_error,
                           'password_error' => $password_error));
-    $oSmarty->assign(array('gender' => $gender,
+    $smarty->assign(array('gender' => $gender,
                           'firstname' => $firstname,
                           'lastname' => $lastname,
                           'dob' => $dob,
@@ -280,23 +280,23 @@
         $zones_values[] = $zones['zone_name'];
         $zones_result->MoveNext();
       }
-      $oSmarty->assign('zones_names', $zones_names);
-      $oSmarty->assign('zones_values', $zones_values);
+      $smarty->assign('zones_names', $zones_names);
+      $smarty->assign('zones_values', $zones_values);
     } else {
       $state = oos_get_zone_name($country, $zone_id, $state);
-      $oSmarty->assign('state', $state);
-      $oSmarty->assign('zone_id', $zone_id);
+      $smarty->assign('state', $state);
+      $smarty->assign('zone_id', $zone_id);
     }
     $country_name = oos_get_country_name($country);
-    $oSmarty->assign('country_name', $country_name);
+    $smarty->assign('country_name', $country_name);
     if ($newsletter == '1') {
       $news = $aLang['entry_newsletter_yes'];
     } else {
       $news = $aLang['entry_newsletter_no'];
     }
-    $oSmarty->assign('news', $news);
+    $smarty->assign('news', $news);
 
-    $oSmarty->assign(
+    $smarty->assign(
         array(
             'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'oos_heading_title' => $aLang['heading_title'],
@@ -308,11 +308,11 @@
         )
     );
 
-    $oSmarty->assign('newsletter_ids', array(0,1));
-    $oSmarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));
+    $smarty->assign('newsletter_ids', array(0,1));
+    $smarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));
 
 	// display the template
-	$oSmarty->display($aOption['template_main']);
+	$smarty->display($aOption['template_main']);
 
 	} else {
     $new_encrypted_password = oos_encrypt_password($password);

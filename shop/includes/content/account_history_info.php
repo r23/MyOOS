@@ -67,7 +67,7 @@
   }
 
 // assign Smarty variables;
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'oos_heading_title' => $aLang['heading_title'],
@@ -75,8 +75,8 @@
       )
   );
 
-  $oSmarty->assign('order', $oOrder);
-  $oSmarty->assign('currencies', $oCurrencies);
+  $smarty->assign('order', $oOrder);
+  $smarty->assign('currencies', $oCurrencies);
 
   $orders_statustable = $oostable['orders_status'];
   $orders_status_historytable = $oostable['orders_status_history'];
@@ -87,12 +87,12 @@
             AND osh.orders_status_id = os.orders_status_id
             AND os.orders_languages_id = '" . intval($nLanguageID) . "'
           ORDER BY osh.date_added";
-  $oSmarty->assign('statuses_array', $dbconn->GetAll($sql));
+  $smarty->assign('statuses_array', $dbconn->GetAll($sql));
 
   if (DOWNLOAD_ENABLED == 'true') {
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/downloads.php';
-    $oSmarty->assign('download', $oSmarty->fetch($aOption['download']));
+    $smarty->assign('download', $smarty->fetch($aOption['download']));
   }
 
 // display the template
-$oSmarty->display($aOption['template_main']);
+$smarty->display($aOption['template_main']);

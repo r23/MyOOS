@@ -64,19 +64,19 @@
                        WHERE products_id IN ($product_ids)
                          AND products_languages_id = '" .  intval($nLanguageID) . "'
                        ORDER BY products_name";
-      $oSmarty->assign('order_history', $dbconn->GetAll($products_sql));
+      $smarty->assign('order_history', $dbconn->GetAll($products_sql));
 
       if (!isset($block_get_parameters)) {
         $block_get_parameters = oos_get_all_get_parameters(array('action'));
         $block_get_parameters = oos_remove_trailing($block_get_parameters);
-        $oSmarty->assign('get_params', $block_get_parameters);
+        $smarty->assign('get_params', $block_get_parameters);
       }
 
-      $oSmarty->assign('block_heading_customer_orders', $block_heading);
+      $smarty->assign('block_heading_customer_orders', $block_heading);
 
     }
 
   }
-  $oSmarty->assign('order_history_block', $order_history_block);
+  $smarty->assign('order_history_block', $order_history_block);
 
 ?>

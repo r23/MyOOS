@@ -61,7 +61,7 @@
         }
       }
 
-      $oSmarty->assign(
+      $smarty->assign(
           array(
               'specials_random_product'                    => $specials_random_product,
               'specials_random_product_price'              => $specials_random_product_price,
@@ -70,10 +70,10 @@
               'specials_random_base_product_special_price' => $specials_random_base_product_special_price
           )
       );
-      $oSmarty->assign(array('block_heading_specials' => $block_heading));
+      $smarty->assign(array('block_heading_specials' => $block_heading));
 
     }
   }
 
-  $oSmarty->assign('specials_block', $specials_block);
+  $smarty->assign('specials_block', $specials_block);
 ?>

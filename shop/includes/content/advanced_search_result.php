@@ -365,7 +365,7 @@ $errorno = 0;
     }
 
     // assign Smarty variables;
-    $oSmarty->assign(
+    $smarty->assign(
         array(
             'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'oos_heading_title' => $aLang['heading_title'],
@@ -377,11 +377,11 @@ $errorno = 0;
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
 
 
-    $oSmarty->assign('oos_get_all_get_params', oos_get_all_get_parameters(array('sort', 'page')));
+    $smarty->assign('oos_get_all_get_params', oos_get_all_get_parameters(array('sort', 'page')));
 
-    $oSmarty->assign('oosPageNavigation', $oSmarty->fetch($aOption['page_navigation']));
+    $smarty->assign('oosPageNavigation', $smarty->fetch($aOption['page_navigation']));
 
 	// display the template
-	$oSmarty->display($aOption['template_main']);
+	$smarty->display($aOption['template_main']);
   }
 

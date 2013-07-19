@@ -96,16 +96,16 @@
   for ($i = 0; $i < count($aInfoMessage); $i++) {
      switch ($aInfoMessage[$i]['type']) {
        case 'warning':
-         $oSmarty->append('oos_info_warning', array('text' => $aInfoMessage[$i]['text']));
+         $smarty->append('oos_info_warning', array('text' => $aInfoMessage[$i]['text']));
          break;
 
        case 'error':
-         $oSmarty->append('oos_error_message', array('text' => $aInfoMessage[$i]['text']));
+         $smarty->append('oos_error_message', array('text' => $aInfoMessage[$i]['text']));
          break;
 
        case 'info':
        case 'success':
-         $oSmarty->append('oos_info_message', array('text' => $aInfoMessage[$i]['text']));
+         $smarty->append('oos_info_message', array('text' => $aInfoMessage[$i]['text']));
          break;
      }
   }

@@ -145,7 +145,7 @@
   }
 
   // assign Smarty variables;
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'oos_heading_title' => $customer . $aLang['heading_title'],
@@ -161,5 +161,5 @@
 
 
 // display the template
-$oSmarty->display($aOption['template_main']);
+$smarty->display($aOption['template_main']);
 

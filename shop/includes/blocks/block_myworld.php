@@ -46,7 +46,7 @@
     $sAccountCreated = oos_date_short($myworld['date_account_created']);
 
     // assign Smarty variables;
-    $oSmarty->assign(
+    $smarty->assign(
         array(
             'myworld'         => $myworld,
             'myworld_gender'  => $myworld_gender,
@@ -56,7 +56,7 @@
     );
   }
 
-  $oSmarty->assign('block_heading_myworld', $block_heading);
-  $oSmarty->assign('myworld_block', $myworld_block);
+  $smarty->assign('block_heading_myworld', $block_heading);
+  $smarty->assign('myworld_block', $myworld_block);
 
 ?>

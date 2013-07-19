@@ -60,7 +60,7 @@
         }
       }
     }
-    $oSmarty->assign(
+    $smarty->assign(
         array(
             'whats_new_product_price'              => $whats_new_product_price,
             'whats_new_product_special_price'      => $whats_new_product_special_price,
@@ -73,5 +73,5 @@
         )
     );
   }
-  $oSmarty->assign('whats_new_block', $whats_new_block);
+  $smarty->assign('whats_new_block', $whats_new_block);
 

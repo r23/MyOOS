@@ -108,7 +108,7 @@
           FROM $coupon_gv_customertable
           WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'";
   $gv_amount = $dbconn->GetOne($sql);
-  $oSmarty->assign('gv_amount', $gv_amount);
+  $smarty->assign('gv_amount', $gv_amount);
 
 
   $products_notify = '';
@@ -128,7 +128,7 @@
   }
 
   // assign Smarty variables;
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'oos_heading_title' => $aLang['heading_title'],
@@ -139,5 +139,5 @@
   );
 
 // display the template
-$oSmarty->display($aOption['template_main']);
+$smarty->display($aOption['template_main']);
 

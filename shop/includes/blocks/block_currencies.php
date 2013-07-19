@@ -41,7 +41,7 @@
 
     $oos_pull_down_menu = oos_draw_pull_down_menu('currency', $aCurrencies, $_SESSION['currency'], 'onChange="this.form.submit();" style="width: 100%"') . $hidden_get_variables . oos_hide_session_id();
 
-    $oSmarty->assign(
+    $smarty->assign(
         array(
             'oos_pull_down_menu' => $oos_pull_down_menu,
             'block_heading_currencies' => $block_heading

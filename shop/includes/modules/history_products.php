@@ -30,7 +30,7 @@
                        AND p.products_id = pd.products_id
                        AND pd.products_languages_id = '" .  intval($nLanguageID) . "'
                      ORDER BY products_name";
-    $oSmarty->assign('history_products', $dbconn->GetAll($products_sql));
+    $smarty->assign('history_products', $dbconn->GetAll($products_sql));
   }
 
-  $oSmarty->assign('products_history_block', $products_history_block);
+  $smarty->assign('products_history_block', $products_history_block);

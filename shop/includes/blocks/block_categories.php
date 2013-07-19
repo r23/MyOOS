@@ -235,7 +235,7 @@
     }
 
 
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'block_heading_categories' => $block_heading,
           'categories_contents' => $aCategories

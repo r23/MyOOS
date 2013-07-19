@@ -170,6 +170,6 @@
 
   include_once MYOOS_INCLUDE_PATH . '/includes/modules/slavery_listing.php';
 
-  $oSmarty->assign('slavery_products', $oSmarty->fetch($aOption['slavery_products']));
-  $oSmarty->assign('oosPageHeading', $oSmarty->fetch($aOption['page_heading']));
+  $smarty->assign('slavery_products', $smarty->fetch($aOption['slavery_products']));
+  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
 

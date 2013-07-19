@@ -59,6 +59,6 @@
 
   $expected_result = $dbconn->SelectLimit($sql, MAX_DISPLAY_UPCOMING_PRODUCTS);
   if ($expected_result->RecordCount() > 0) {
-    $oSmarty->assign('expected_array', $expected_result->GetArray());
+    $smarty->assign('expected_array', $expected_result->GetArray());
   }
 

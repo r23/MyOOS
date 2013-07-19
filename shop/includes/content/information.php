@@ -37,8 +37,8 @@
   }
 
   if ( (USE_CACHE == 'true') && (!SID) ) {
-    $oSmarty->setCaching(true);
-    $oSmarty->setCacheLifetime(3600);
+    $smarty->setCaching(true);
+    $smarty->setCacheLifetime(3600);
   }
 
     $informationtable = $oostable['information'];
@@ -57,7 +57,7 @@
     $oBreadcrumb->add($information['information_heading_title'], oos_href_link($aContents['information'], 'information_id=' . intval($nInformationsID)));
 
     // assign Smarty variables;
-    $oSmarty->assign(
+    $smarty->assign(
         array(
             'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'oos_heading_title' => $information['information_heading_title'],
@@ -68,7 +68,7 @@
         )
     );
 
-  $oSmarty->setCaching(false);
+  $smarty->setCaching(false);
 
 // display the template
-$oSmarty->display($aOption['template_main']);
+$smarty->display($aOption['template_main']);

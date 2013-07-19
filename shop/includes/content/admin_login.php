@@ -166,7 +166,7 @@
 
 
 // assign Smarty variables;
-  $oSmarty->assign(
+  $smarty->assign(
       array('oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'oos_heading_title' => $aLang['heading_title'],
             'oos_heading_image' => 'login.gif',
@@ -182,7 +182,7 @@
     $login_query = "SELECT man_key2, man_key3, status FROM $manual_infotable WHERE man_key = '" . oos_db_input($verif_key) . "' AND status = '1'";
     $login_result_values = $dbconn->GetRow($login_query);
 
-    $oSmarty->assign(
+    $smarty->assign(
         array('newkey2'             => $newkey2,
               'email_address'       => $email_address,
               'verif_key'           => $verif_key,
@@ -193,5 +193,5 @@
 
 
 // display the template
-$oSmarty->display($aOption['template_main']);
+$smarty->display($aOption['template_main']);
 

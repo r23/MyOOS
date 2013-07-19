@@ -50,7 +50,7 @@
     $gv_coupon_show = $oCurrencies->format($coupon['coupon_amount']);
   }
 
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'block_heading_shopping_cart' => $block_heading,
           'cart_products'  => $cart_products,

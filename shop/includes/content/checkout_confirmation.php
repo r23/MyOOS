@@ -140,7 +140,7 @@
   }
 
   // assign Smarty variables;
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'oos_breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'oos_heading_title' => $aLang['heading_title'],
@@ -151,12 +151,12 @@
   if (MODULE_ORDER_TOTAL_INSTALLED) {
     $order_total_modules->process();
     $order_total_output = $order_total_modules->output();
-    $oSmarty->assign('order_total_output', $order_total_output);
+    $smarty->assign('order_total_output', $order_total_output);
   }
 
   if (is_array($payment_modules->modules)) {
     if ($confirmation = $payment_modules->confirmation()) {
-      $oSmarty->assign('confirmation', $confirmation);
+      $smarty->assign('confirmation', $confirmation);
     }
   }
 
@@ -165,15 +165,15 @@
   } else {
     $form_action_url = oos_href_link($aContents['checkout_process'], '', 'SSL');
   }
-  $oSmarty->assign('form_action_url', $form_action_url);
+  $smarty->assign('form_action_url', $form_action_url);
 
   if (is_array($payment_modules->modules)) {
     $payment_modules_process_button =  $payment_modules->process_button();
   }
 
-  $oSmarty->assign('payment_modules_process_button', $payment_modules_process_button);
-  $oSmarty->assign('order', $oOrder);
+  $smarty->assign('payment_modules_process_button', $payment_modules_process_button);
+  $smarty->assign('order', $oOrder);
 
 // display the template
-$oSmarty->display($aOption['template_main']);
+$smarty->display($aOption['template_main']);
 

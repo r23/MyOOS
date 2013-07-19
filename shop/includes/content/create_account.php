@@ -47,11 +47,11 @@
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
   $read = 'false';
-  $oSmarty->assign('read', $read);
-  $oSmarty->assign('oos_js', $javascript);
+  $smarty->assign('read', $read);
+  $smarty->assign('oos_js', $javascript);
 
   // assign Smarty variables;
-  $oSmarty->assign(
+  $smarty->assign(
       array(
          'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
          'oos_heading_title' => $aLang['heading_title'],
@@ -59,22 +59,22 @@
 
          ));
 
-  $oSmarty->assign('account', $account);
-  $oSmarty->assign('email_address', $email_address);
+  $smarty->assign('account', $account);
+  $smarty->assign('email_address', $email_address);
 
   if ((CUSTOMER_NOT_LOGIN == 'true') or (MAKE_PASSWORD == 'true')) {
     $show_password = false;
   } else {
     $show_password = 'true';
   }
-  $oSmarty->assign('show_password', $show_password);
+  $smarty->assign('show_password', $show_password);
 
-  $oSmarty->assign('snapshot', $snapshot);
-  $oSmarty->assign('login_orgin_text', sprintf($aLang['text_origin_login'], oos_href_link($aContents['login'], oos_get_all_get_parameters(), 'SSL')));
+  $smarty->assign('snapshot', $snapshot);
+  $smarty->assign('login_orgin_text', sprintf($aLang['text_origin_login'], oos_href_link($aContents['login'], oos_get_all_get_parameters(), 'SSL')));
 
-  $oSmarty->assign('newsletter_ids', array(0,1));
-  $oSmarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));
+  $smarty->assign('newsletter_ids', array(0,1));
+  $smarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));
 
 
 // display the template
-$oSmarty->display($aOption['template_main']);
+$smarty->display($aOption['template_main']);

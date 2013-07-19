@@ -98,9 +98,9 @@
 
 // clear cache
       require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
-      $oSmarty =& new Template;
+      $smarty =& new Template;
 
-      $sLocaleDir = $oSmarty->template_dir;
+      $sLocaleDir = $smarty->template_dir;
       $aSkins = array();
 
       if (is_dir($sLocaleDir)) {
@@ -118,7 +118,7 @@
       sort($aSkins);
 
       foreach ($aSkins as $sName) {
-        $oSmarty->clear_cache(null, $sName.'|products|reviews');
+        $smarty->clear_cache(null, $sName.'|products|reviews');
       }
 
     }
@@ -159,7 +159,7 @@
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'oos_breadcrumb'   => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'oos_heading_title' => $aLang['heading_title'],
@@ -175,4 +175,4 @@
 
 
 // display the template
-$oSmarty->display($aOption['template_main']);
+$smarty->display($aOption['template_main']);

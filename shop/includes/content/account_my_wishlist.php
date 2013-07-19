@@ -152,7 +152,7 @@
   }
 
 // assign Smarty variables;
-  $oSmarty->assign(
+  $smarty->assign(
        array(
            'oos_breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
            'oos_heading_title' => $aLang['heading_title'],
@@ -165,7 +165,7 @@
            'wishlist_array' => $aWishlist
        )
   );
-  $oSmarty->assign('oosPageNavigation', $oSmarty->fetch($aOption['page_navigation']));
+  $smarty->assign('oosPageNavigation', $smarty->fetch($aOption['page_navigation']));
 
 // display the template
-$oSmarty->display($aOption['template_main']);
+$smarty->display($aOption['template_main']);

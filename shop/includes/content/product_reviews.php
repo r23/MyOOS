@@ -86,7 +86,7 @@
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'oos_heading_title' => sprintf($aLang['heading_title'], $product_info['products_name']),
@@ -97,4 +97,4 @@
   );
 
 // display the template
-$oSmarty->display($aOption['template_main']);
+$smarty->display($aOption['template_main']);

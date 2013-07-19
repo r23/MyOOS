@@ -22,6 +22,6 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  $oSmarty->assign('block_heading_search', $block_heading);
+  $smarty->assign('block_heading_search', $block_heading);
 
 

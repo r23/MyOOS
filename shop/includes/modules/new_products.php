@@ -113,7 +113,7 @@
   $new_products_result->Close();
 
   // assign Smarty variables;
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'block_heading_new_products' => $aLang['table_heading_new_products'],
           'new_products' => $new_products_array

@@ -70,13 +70,13 @@
     }
 
     if ( (USE_CACHE == 'true') && (!SID) ) {
-      $oSmarty->setCaching(true);
-      $oSmarty->setCacheLifetime(24 * 3600);
+      $smarty->setCaching(true);
+      $smarty->setCacheLifetime(24 * 3600);
     }
 
-    $oSmarty->assign('oos_breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
+    $smarty->assign('oos_breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
 
-    if (!$oSmarty->isCached($aOption['template_main'], $contents_cache_id)) {
+    if (!$smarty->isCached($aOption['template_main'], $contents_cache_id)) {
       $categoriestable = $oostable['categories'];
       $categories_descriptiontable = $oostable['categories_description'];
       $sql = "SELECT cd.categories_name, cd.categories_heading_title, cd.categories_description,
@@ -89,7 +89,7 @@
       $category = $dbconn->GetRow($sql);
 
 // todo multilanguage support
-      $oSmarty->assign('oos_meta_description', $category['categories_description_meta']);
+      $smarty->assign('oos_meta_description', $category['categories_description_meta']);
 
       if (isset($category) && preg_match('/_/', $category)) {
         // check to see if there are deeper categories within the current category
@@ -164,19 +164,19 @@
 
       // assign Smarty variables;
       if ( (ALLOW_CATEGORY_DESCRIPTIONS == 'true') && (oos_is_not_null($category['categories_heading_title'])) ) {
-        $oSmarty->assign('oos_heading_title', $category['categories_heading_title']);
+        $smarty->assign('oos_heading_title', $category['categories_heading_title']);
       } else {
-        $oSmarty->assign('oos_heading_title', $aLang['heading_title']);
+        $smarty->assign('oos_heading_title', $aLang['heading_title']);
       }
-      $oSmarty->assign(
+      $smarty->assign(
           array(
               'category'       => $category,
               'categories_box' => $categories_box
           )
       );
     }
-    $oSmarty->setCaching(false);
-	$oSmarty->display($aOption['template_main']);
+    $smarty->setCaching(false);
+	$smarty->display($aOption['template_main']);
 	
   } elseif ($category_depth == 'products' || isset($_GET['manufacturers_id'])) {
 
@@ -212,21 +212,21 @@
       $category = $dbconn->GetRow($sql);
 
       if (oos_is_not_null($category['categories_heading_title'])) {
-        $oSmarty->assign('oos_heading_title', $category['categories_heading_title']);
+        $smarty->assign('oos_heading_title', $category['categories_heading_title']);
       } else {
-        $oSmarty->assign('oos_heading_title', $aLang['heading_title']);
+        $smarty->assign('oos_heading_title', $aLang['heading_title']);
       }
-      $oSmarty->assign('oos_meta_description', $category['categories_description_meta']);
+      $smarty->assign('oos_meta_description', $category['categories_description_meta']);
     }
 
     if ( (USE_CACHE == 'true') && (!SID) ) {
-      $oSmarty->setCaching(true);
-      $oSmarty->setCacheLifetime(24 * 3600);
+      $smarty->setCaching(true);
+      $smarty->setCacheLifetime(24 * 3600);
     }
 
-    $oSmarty->assign('oos_breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
+    $smarty->assign('oos_breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
 
-    if (!$oSmarty->isCached($aOption['template_main'], $contents_cache_id)) {
+    if (!$smarty->isCached($aOption['template_main'], $contents_cache_id)) {
 
 // create column list
       $define_list = array('PRODUCT_LIST_MODEL' => PRODUCT_LIST_MODEL,
@@ -549,7 +549,7 @@
       }
 
       // assign Smarty variables;
-      $oSmarty->assign(
+      $smarty->assign(
           array(
               'product_filter_select' => $product_filter_select,
               'image' => $image,
@@ -562,13 +562,13 @@
         require_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
       }
     }
-    $oSmarty->assign('oosPageNavigation', $oSmarty->fetch($aOption['page_navigation'], $contents_cache_id));
-    $oSmarty->setCaching(false);
+    $smarty->assign('oosPageNavigation', $smarty->fetch($aOption['page_navigation'], $contents_cache_id));
+    $smarty->setCaching(false);
   } else {
     // $category_depth = 'top';
     oos_redirect(oos_href_link($aContents['main']));
   }
 
 // display the template
-$oSmarty->display($aOption['template_main']);
+$smarty->display($aOption['template_main']);
 

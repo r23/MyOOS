@@ -255,7 +255,7 @@
   }
 
 // assign Smarty variables;
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'oos_breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
 
@@ -268,14 +268,14 @@
   );
 
   if (isset($_GET['action']) && $_GET['action'] == 'modify') {
-    $oSmarty->assign(
+    $smarty->assign(
         array(
             'oos_heading_title' => $aLang['heading_title_modify_entry'],
             'oos_heading_image' => 'address_book.gif'
         )
     );
   } else {
-    $oSmarty->assign(
+    $smarty->assign(
         array(
             'oos_heading_title' => $aLang['heading_title_add_entry'],
             'oos_heading_image' => 'address_book.gif'
@@ -283,7 +283,7 @@
     );
   }
 
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'gender'         => $gender,
           'firstname'      => $firstname,
@@ -297,7 +297,7 @@
       )
   );
 
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'error'                => $error,
           'gender_error'         => $gender_error,
@@ -325,18 +325,18 @@
        $aZonesValues[] = $zones['zone_name'];
        $zones_result->MoveNext();
      }
-     $oSmarty->assign('zones_names', $aZonesNames);
-     $oSmarty->assign('zones_values', $aZonesValues);
+     $smarty->assign('zones_names', $aZonesNames);
+     $smarty->assign('zones_values', $aZonesValues);
    } else {
      $state = oos_get_zone_name($country, $zone_id, $state);
-     $oSmarty->assign('state', $state);
-     $oSmarty->assign('zone_id', $zone_id);
+     $smarty->assign('state', $state);
+     $smarty->assign('zone_id', $zone_id);
    }
    $country_name = oos_get_country_name($country);
-   $oSmarty->assign('country_name', $country_name);
+   $smarty->assign('country_name', $country_name);
 
-   $oSmarty->assign('entry', $entry);
+   $smarty->assign('entry', $entry);
 
 
 // display the template
-$oSmarty->display($aOption['template_main']);
+$smarty->display($aOption['template_main']);

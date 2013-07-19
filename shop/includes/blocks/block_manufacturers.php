@@ -58,7 +58,7 @@
     // Close result set
     $manufacturers_result->Close();
 
-    $oSmarty->assign('manufacturers_list', $manufacturers_list);
+    $smarty->assign('manufacturers_list', $manufacturers_list);
   } else {
     // Display a drop-down
     $manufacturers_block = 'true';
@@ -80,7 +80,7 @@
     // Close result set
     $manufacturers_result->Close();
 
-    $oSmarty->assign(
+    $smarty->assign(
         array(
             'manufacturers_values' => $manufacturers_values,
             'manufacturers_names' => $manufacturers_names
@@ -88,12 +88,12 @@
     );
 
     if (isset($_GET['manufacturers_id'])) {
-      $oSmarty->assign('select_manufacturers', intval($_GET['manufacturers_id']));
+      $smarty->assign('select_manufacturers', intval($_GET['manufacturers_id']));
     }
 
   }
 
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'block_heading_manufacturers' => $block_heading,
           'manufacturers_block' => $manufacturers_block,

@@ -57,22 +57,22 @@ foreach ($block_result as $block) {
 	
 	if ( (!empty($block['block_cache'])) && (!empty($block_side)) ) {
 		if ( (USE_CACHE == 'true') && (!SID) ) {
-			$oSmarty->setCaching(true);
+			$smarty->setCaching(true);
 		}
 		$bid = trim('oos_' . $block['block_cache'] . '_cache_id');
 
-		if (!$oSmarty->isCached($block_tpl, ${$bid})) {
+		if (!$smarty->isCached($block_tpl, ${$bid})) {
 			require_once MYOOS_INCLUDE_PATH . '/includes/blocks/block_' . $block_file . '.php';
 		}
 		if (!empty($block_side)) {
-			$block_content = $oSmarty->fetch($block_tpl, ${$bid});
+			$block_content = $smarty->fetch($block_tpl, ${$bid});
 		}
 	} else {
 
-		$oSmarty->setCaching(false);
+		$smarty->setCaching(false);
 		require_once MYOOS_INCLUDE_PATH . '/includes/blocks/block_' . $block_file . '.php';
 		if (!empty($block_side)) {
-			$block_content = $oSmarty->fetch($block_tpl);
+			$block_content = $smarty->fetch($block_tpl);
 		}
 	}
 
@@ -88,14 +88,14 @@ for ($i = 0, $n = count($aContentBlock); $i < $n; $i++) {
 	switch ($aContentBlock[$i]['side']) {
 
 	case 'left':
-		$oSmarty->append('oos_blockleft', array('content' => $aContentBlock[$i]['block_content']));
+		$smarty->append('oos_blockleft', array('content' => $aContentBlock[$i]['block_content']));
 		break;
 
 	case 'right':
-		$oSmarty->append('oos_blockright', array('content' => $aContentBlock[$i]['block_content']));
+		$smarty->append('oos_blockright', array('content' => $aContentBlock[$i]['block_content']));
 		break;
 
      }
 }
 
-$oSmarty->setCaching(false);
+$smarty->setCaching(false);

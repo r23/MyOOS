@@ -91,7 +91,7 @@
   }
 
   // assign Smarty variables;
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'oos_breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'oos_heading_title' => $aLang['heading_title'],
@@ -105,7 +105,7 @@
           WHERE customers_info_id = '" . intval($_SESSION['customer_id']) . "'";
   $global_status_result = $dbconn->Execute($sql);
   $global_status = $global_status_result->fields;
-  $oSmarty->assign('global_status', $global_status);
+  $smarty->assign('global_status', $global_status);
 
   $products_descriptionstable  = $oostable['products_description'];
   $products_notificationstable = $oostable['products_notifications'];
@@ -116,8 +116,8 @@
             AND pn.products_id = pd.products_id
             AND pd.products_languages_id = '" . intval($nLanguageID) . "'
           ORDER BY pd.products_name";
-  $oSmarty->assign('products_array', $dbconn->GetAll($sql));
+  $smarty->assign('products_array', $dbconn->GetAll($sql));
 
 
 // display the template
-$oSmarty->display($aOption['template_main']);
+$smarty->display($aOption['template_main']);

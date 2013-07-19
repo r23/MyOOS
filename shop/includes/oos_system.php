@@ -22,21 +22,21 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 
 //smarty
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
-$oSmarty = new myOOS_Smarty;
+$smarty = new myOOS_Smarty;
 
 
 //debug
 if ($debug == 'true')
 {
-	$oSmarty->force_compile   = true;
-	$oSmarty->debugging       = true;
-	$oSmarty->clearAllCache();
-	$oSmarty->clearCompiledTemplate();
+	$smarty->force_compile   = true;
+	$smarty->debugging       = true;
+	$smarty->clearAllCache();
+	$smarty->clearCompiledTemplate();
 }
 
 // object register
-$oSmarty->registerObject("cart", $_SESSION['cart'],array('count_contents', 'get_products'));
-$oSmarty->assignByRef("oEvent", $oEvent);
+$smarty->registerObject("cart", $_SESSION['cart'],array('count_contents', 'get_products'));
+$smarty->assignByRef("oEvent", $oEvent);
 
 
 // cache_id
@@ -77,7 +77,7 @@ $_SESSION['formid'] = $sFormid;
 $cart_count_contents = $_SESSION['cart']->count_contents();
 $cart_show_total = $oCurrencies->format($_SESSION['cart']->show_total());
 
-$oSmarty->assign(
+$smarty->assign(
       array(
           'contents'               => $aContents,
           'content_file'           => $sContent,
@@ -107,10 +107,5 @@ $oSmarty->assign(
       )
 );
 
-$oSmarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
-
-?>
-
-
-
+$smarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
 

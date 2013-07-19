@@ -131,23 +131,23 @@
 
   //smarty
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
-  $oSmarty = new Template;
+  $smarty = new Template;
 
-  $oSmarty->setCaching(true);
+  $smarty->setCaching(true);
   $cid += 0;
   $help_cache_id = $sTheme . '|popup|coupon|' . $cid . '|' . $sLanguage;
 
-  if (!$oSmarty->isCached($aOption['popup_help'], $help_cache_id )) {
+  if (!$smarty->isCached($aOption['popup_help'], $help_cache_id )) {
 
     // assign Smarty variables;
-    $oSmarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
-    $oSmarty->assign('lang', $aLang);
-    $oSmarty->assign('heading_titel', $aLang['heading_coupon_help']);
-    $oSmarty->assign('help_text', $text_coupon_help);
-    $oSmarty->assign('theme_image', 'themes/' . $sTheme . '/images');
-    $oSmarty->assign('theme_css', 'themes/' . $sTheme);
+    $smarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
+    $smarty->assign('lang', $aLang);
+    $smarty->assign('heading_titel', $aLang['heading_coupon_help']);
+    $smarty->assign('help_text', $text_coupon_help);
+    $smarty->assign('theme_image', 'themes/' . $sTheme . '/images');
+    $smarty->assign('theme_css', 'themes/' . $sTheme);
   }
 
 // display the template
-$oSmarty->display($aOption['popup_help'], $help_cache_id);
+$smarty->display($aOption['popup_help'], $help_cache_id);
 

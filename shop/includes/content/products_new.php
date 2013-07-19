@@ -42,11 +42,11 @@
   }
 
   if ( (USE_CACHE == 'true') && (!SID) ) {
-    $oSmarty->setCaching(true);
-    $oSmarty->setCacheLifetime(6 * 3600);
+    $smarty->setCaching(true);
+    $smarty->setCacheLifetime(6 * 3600);
   }
 
-  if (!$oSmarty->isCached($aOption['template_main'], $contents_cache_id)) {
+  if (!$smarty->isCached($aOption['template_main'], $contents_cache_id)) {
     require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_new.php';
 
     $productstable  = $oostable['products'];
@@ -112,7 +112,7 @@
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['products_new']));
 
     // assign Smarty variables;
-    $oSmarty->assign(
+    $smarty->assign(
         array(
            'oos_breadcrumb'         => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
            'oos_heading_title'      => $aLang['heading_title'],
@@ -128,8 +128,8 @@
     );
   }
 
-  $oSmarty->assign('oosPageNavigation', $oSmarty->fetch($aOption['page_navigation'], $contents_cache_id));
-  $oSmarty->setCaching(false);
+  $smarty->assign('oosPageNavigation', $smarty->fetch($aOption['page_navigation'], $contents_cache_id));
+  $smarty->setCaching(false);
 
 // display the template
-$oSmarty->display($aOption['template_main']);
+$smarty->display($aOption['template_main']);

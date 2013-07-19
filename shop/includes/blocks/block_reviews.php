@@ -51,7 +51,7 @@
     $random_select .= " ORDER BY r.reviews_id DESC";
     $random_product = oos_random_select($random_select, MAX_RANDOM_SELECT_REVIEWS);
 
-    $oSmarty->assign(
+    $smarty->assign(
         array(
             'block_heading_reviews' => $block_heading,
             'random_product' => $random_product
