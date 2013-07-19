@@ -34,7 +34,7 @@
 
 <!-- IE Fix for HTML5 Tags -->
 <!--[if lt IE 9]>
-	<script src="/js/html5.js"></script>
+	<script src="js/html5shiv.js"></script>
 <![endif]-->
 </head>
 <body>

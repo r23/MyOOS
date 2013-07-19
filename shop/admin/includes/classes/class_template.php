@@ -52,9 +52,10 @@ class myOOS_Smarty extends Smarty
 			$dir = $dir."/";
 		}
 
-		$this->setTemplateDir($dir . 'themes/')
-			->setCompileDir( $dir . 'temp/templates_c/')
-			->setCacheDir($dir . 'temp/cache/');
+        $this->setTemplateDir($dir . 'themes/');
+        $this->setCompileDir($dir . 'temp/templates_c/');
+        $this->setCacheDir($dir . 'temp/cache/');
+		
 
 		// set multiple directoríes where plugins are stored
 		$this->setPluginsDir(array(

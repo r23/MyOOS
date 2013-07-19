@@ -7,6 +7,15 @@ shop/themes/myoos/less/font-awesome.min.less
 shop/themes/myoos/less/bootstrap.min.less
 shop/themes/myoos/less/bootstrap-responsive.min.less
 
+shop/admin/less/less/bootstrap.min.less
+shop/admin/less/less/bootstrap-responsive.min.less
+
+shop/admin/temp/cache/*
+shop/admin/temp/templates_c/*
+
+shop/temp/shop/tcache/*
+shop/temp/shop/ttemplates_c/*
+
 cache/*
 templates_c/*
 tmp/*
