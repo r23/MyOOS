@@ -1,13 +1,28 @@
 <?php
 /*
-Plugin Name: WP phpBB Bridge
-Plugin URI: http://www.e-xtnd.it/wp-phpbb-bridge/
-Description: Used to synchronize the users in WordPress and phpBB 3.0.x. New features, allowing the plugin to auto create threads on public and locked forums. Another feature is the ability of the manager, choose the users that their articles will be published automatically in phpBB. 
-Version: 2.0.7
-Author: Xtnd.it Group
-Author URI: http://www.e-xtnd.it
-License: GPLv3
+Plugin Name: MyOOS Wordpress phpBB3 Bridge
+Plugin URI: http://oos-shop.de
+Description: Used to synchronize the users in WordPress and phpBB 3.0.x. New features, allowing the plugin to auto create threads on public and locked forums. Another feature is the ability of the manager, choose the users that their articles will be published automatically in phpBB. Based on: <a a href="http://www.e-xtnd.it/wp-phpbb-bridge/">http://www.e-xtnd.it/wp-phpbb-bridge/</a> von <a a href="http://www.e-xtnd.it">Xtnd.it Group</a>
+Version: 2.0.11
+Author: MyOOS 
+Author URI: http://oos-shop.de
+
+This plugin was originally written by Xtnd.it Group.
+The plugin info listed below is from the last release by them:
+
+- Plugin Name: WP phpBB Bridge
+- Plugin URI: http://www.e-xtnd.it/wp-phpbb-bridge/
+- Description: Used to synchronize the users in WordPress and phpBB 3.0.x. New features, allowing the plugin to auto create threads on public and locked forums. Another feature is the ability of the manager, choose the users that their articles will be published automatically in phpBB. 
+- Version: 2.0.7
+- Author: Xtnd.it Group
+- Author URI: http://www.e-xtnd.it
+- License: GPLv3
 */
+
+if ( !defined( 'DB_NAME' ) ) {
+	header( 'HTTP/1.0 403 Forbidden' );
+	die;
+}
 
 class WpPhpBB
 {
@@ -19,7 +34,7 @@ class WpPhpBB
     /**
      * @var strung Plugin name
      */
-    var $name = "WP phpBB Bridge";
+    var $name = "MyOOS Wordpress phpBB3 Bridge";
     
     /**
      * This method is the class constructor.
@@ -109,13 +124,13 @@ class WpPhpBB
             
             if(strlen(get_option('wpb_path','')) > 0)
             {
-                update_option('wpbb_config_path', get_option('wpb_path', ABSPATH . '/phpbb3/config.php'));
+                update_option('wpbb_config_path', get_option('wpb_path', ABSPATH . '/forum/phpBB3/config.php'));
                 delete_option('wpb_path');
             }
             
             if(strlen(get_option('wpb_url', '')) > 0)
             {
-                update_option('wpbb_ucp_path', get_option('wpb_url', get_bloginfo('home') . '/phpbb3/ucp.php'));
+                update_option('wpbb_ucp_path', get_option('wpb_url', get_bloginfo('home') . '/forum/ucp.php'));
                 delete_option('wpb_url');
             }
         }
@@ -675,4 +690,3 @@ register_activation_hook(__FILE__, array($wpbb, 'activate'));
 register_deactivation_hook(__FILE__, array($wpbb, 'deactivate'));
 register_uninstall_hook(__FILE__, array($wpbb, 'uninstall'));
 
-?>

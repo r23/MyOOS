@@ -346,4 +346,3 @@ class wpbb_users_widget extends WP_Widget
 	}
 }
 
-?>

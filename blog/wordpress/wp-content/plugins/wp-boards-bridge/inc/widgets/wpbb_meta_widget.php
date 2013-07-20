@@ -190,4 +190,3 @@ class wpbb_meta_widget extends WP_Widget
     }
 }
 
-?>

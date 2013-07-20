@@ -770,4 +770,3 @@ if(!function_exists('censor_text'))
     }
 }
 
-?>

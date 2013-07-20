@@ -260,4 +260,3 @@ class wpbb_topics_widget extends WP_Widget
     }
 }
 
-?>

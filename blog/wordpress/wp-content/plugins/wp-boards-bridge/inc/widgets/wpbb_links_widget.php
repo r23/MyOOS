@@ -297,4 +297,3 @@ class wpbb_links_widget extends WP_Widget
     }
 }
 
-?>
