@@ -23,11 +23,11 @@
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
 // debug
-  $debug = 'true';
+$debug = 'true';
 
 
 // for debug set the level of error reporting
-   error_reporting(E_ALL & ~E_NOTICE);
+error_reporting(E_ALL & ~E_NOTICE);
 //   error_reporting(0);
 
 
@@ -37,10 +37,10 @@
   }
 
 // Set the local configuration parameters - mainly for developers
-  if (file_exists('../includes/local/configure.php')) include('../includes/local/configure.php');
+if (file_exists('../includes/local/configure.php')) include('../includes/local/configure.php');
 
 // Include application configuration parameters
-  require '../includes/configure.php';
+require '../includes/configure.php';
   require 'includes/oos_define.php';
 
 // Used in the "Backup Manager" to compress backups
@@ -132,27 +132,28 @@
 // some code to solve compatibility issues
   require 'includes/functions/function_compatibility.php';
 
- // language
-  if (!isset($_SESSION['language']) || isset($_GET['language'])) {
-    // require the language class
-   require '../includes/classes/class_language.php';
-   $oLang = new language;
+// language
+if (!isset($_SESSION['language']) || isset($_GET['language'])) {
+	// require the language class
+	require '../includes/classes/class_language.php';
+	$oLang = new language;
 
-   if (isset($_GET['language']) && oos_is_not_null($_GET['language'])) {
-     $oLang->set($_GET['language']);
-   } else {
-     $oLang->get_browser_language();
-   }
- }
+	if (isset($_GET['language']) && oos_is_not_null($_GET['language'])) {
+		$oLang->set($_GET['language']);
+	} else {
+		$oLang->get_browser_language();
+	}
+}
 
+ 
 
 // require the language translations
-  require 'includes/languages/' . $_SESSION['language'] . '.php';
-  $current_page = basename($_SERVER['PHP_SELF']);
-  if (file_exists('includes/languages/' . $_SESSION['language'] . '/' . $current_page)) {
-    require 'includes/languages/' . $_SESSION['language'] . '/' . $current_page;
-  }
-
+$sLanguage = oos_var_prep_for_os($_SESSION['language']);
+require 'includes/languages/' . $sLanguage . '.php';
+$current_page = basename($_SERVER['SCRIPT_FILENAME']);
+if (file_exists('includes/languages/' . $sLanguage . '/' . $current_page)) {
+	require 'includes/languages/' . $sLanguage . '/' . $current_page;
+}
 
 
 // define our general functions used application-wide
@@ -208,8 +209,9 @@
   require 'includes/functions/function_added.php';
 
 
-  if (basename($_SERVER['PHP_SELF']) != $aFilename['login'] 
-   && basename($_SERVER['PHP_SELF']) != $aFilename['password_forgotten']) { 
+if (basename($_SERVER['SCRIPT_FILENAME']) != $aFilename['login'] 
+   && basename($_SERVER['SCRIPT_FILENAME']) != $aFilename['password_forgotten']) { 
     oos_admin_check_login(); 
-  }
+}
 
+$aLang = array();

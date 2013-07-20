@@ -4,15 +4,7 @@
 <meta charset="utf-8" />
 <title>{$pagetitle}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />	
-{*
-	DO NOT REMOVE THE FOLLOWING - FAILURE TO COMPLY IS A DIRECT VIOLATION
-	OF THE GNU GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
-*}
-<meta name="Generator" content="{$smarty.const.OOS_FULL_NAME} - {$smarty.const.OOS_HOME}  All rights reserved.">
-{*
-	END OF COPYRIGHT
-*}	
-<meta name="robots" content="noindex,nofollow">		
+<meta name="robots" content="noindex, nofollow">		
 <!-- Bootstrap style  --> 
 <link href="css/bootstrap.min.css" rel="stylesheet" />
 <link href="css/style.css" rel="stylesheet" />

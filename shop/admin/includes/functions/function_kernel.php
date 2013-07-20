@@ -44,7 +44,7 @@
     if (!isset($_SESSION['login_id'])) {
       oos_redirect_admin(oos_href_link_admin($aFilename['login'], '', 'SSL'));
     } else {
-      $filename = explode('\?', basename($_SERVER['PHP_SELF']));
+      $filename = preg_split('/\?/', basename($_SERVER['SCRIPT_FILENAME']));
       $filename = $filename[0];
       $page_key = array_search($filename, $aFilename);
 
