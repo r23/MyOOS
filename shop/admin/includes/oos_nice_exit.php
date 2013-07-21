@@ -19,8 +19,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
 /*
   echo '<pre>';
@@ -33,11 +33,5 @@
 */
 
 // close session (store variables)
-  oos_session_close();
+oos_session_close();
 
-  if (STORE_PAGE_PARSE_TIME == 'true') {
-    if (!is_object($logger)) $logger = new logger;
-    echo $logger->timer_stop(DISPLAY_PAGE_PARSE_TIME);
-  }
-
-?>
