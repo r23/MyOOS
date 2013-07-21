@@ -47,17 +47,7 @@
     }
 
     function add($message, $type = 'error') {
-      if ($type == 'error') {
-        $this->errors[] = array('params' => 'class="messageStackError"', 'text' => oos_image(OOS_IMAGES . 'icons/error.gif', ICON_ERROR) . '&nbsp;' . $message);
-      } elseif ($type == 'warning') {
-        $this->errors[] = array('params' => 'class="messageStackWarning"', 'text' => oos_image(OOS_IMAGES . 'icons/warning.gif', ICON_WARNING) . '&nbsp;' . $message);
-      } elseif ($type == 'success') {
-        $this->errors[] = array('params' => 'class="messageStackSuccess"', 'text' => oos_image(OOS_IMAGES . 'icons/success.gif', ICON_SUCCESS) . '&nbsp;' . $message);
-      } else {
-        $this->errors[] = array('params' => 'class="messageStackError"', 'text' => $message);
-      }
-
-      $this->size++;
+      $this->errors[] = array('type' => $type, 'text' => $message);
     }
 
     function add_session($message, $type = 'error') {
@@ -73,13 +63,29 @@
 
     function reset() {
       $this->errors = array();
-      $this->size = 0;
     }
 
-    function output() {
-      $this->table_data_parameters = 'class="messageBox"';
-      return $this->tableBlock($this->errors);
+    function output($type) {
+      $output = array();
+      for ($i=0, $n=count($this->errors); $i<$n; $i++) {
+        if ($this->errors[$i]['type'] == $type) {
+          $output[] = $this->errors[$i];
+        }
+      }
+
+      return $output;
+    }
+	
+    function size($type) {
+      $count = 0;
+
+      for ($i=0, $n=count($this->errors); $i<$n; $i++) {
+        if ($this->errors[$i]['type'] == $type) {
+          $count++;
+        }
+      }
+
+      return $count;
     }
   }
 
-?>

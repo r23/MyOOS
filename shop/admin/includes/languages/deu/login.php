@@ -5,7 +5,6 @@
    OOS [OSIS Online Shop]
    http://www.oos-shop.de/
    
-   
    Copyright (c) 2003 - 2013 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -20,24 +19,23 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('HEADING_RETURNING_ADMIN', 'Anmeldebereich:');
+$aLang['heading_title'] = 'Anmeldebereich';
+$aLang['text_returning_admin'] = 'Nur für Mitarbeiter!';
+$aLang['entry_email_address'] = 'E-Mail-Adresse:';
+$aLang['placeholder_email_address'] = 'Ihre E-Mail-Adresse:';
+$aLang['entry_password'] = 'Passwort:';
+$aLang['entry_firstname'] = 'Vorname:';
+$aLang['button_login'] = 'Anmelden';
 
-define('TEXT_RETURNING_ADMIN', 'Nur f&uuml;r Mitarbeiter!');
-define('ENTRY_EMAIL_ADDRESS', 'E-Mail-Adresse:');
-define('ENTRY_PASSWORD', 'Passwort:');
-define('ENTRY_FIRSTNAME', 'Vorname:');
-define('IMAGE_BUTTON_LOGIN', '�ertragen');
+$aLang['text_password_forgotten'] = 'Passwort vergessen?';
 
-define('SECURITYCODE', 'Sicherheitscode:');
-define('TEXT_PASSWORD_FORGOTTEN', 'Passwort vergessen?');
+$aLang['text_welcome'] = '<h4>Willkommen bei MyOOS!</h4>Verwenden Sie eine gültige E-Mail und Passwort, um Zugriff auf die Administrationskonsole zu erhalten.';
 
-define('TEXT_WELCOME', ' Willkommen bei OOS <br />OOS [OSIS Online Shop]!</p><p>Use a valid eMail and password to gain access to the administration console.');
+$aLang['text_login_error'] = '<strong>FEHLER:</strong> Falscher Benutzername oder Passwort!';
+$aLang['text_forgotten_error'] = '<strong>FEHLER:</strong> Vorname und Passwort sind nicht hinterlegt!';
+$aLang['text_forgotten_fail'] = 'Sie haben es mehr als 3x versucht. Aus Sicherheitsgründen kontaktieren Sie bitte Ihren Administrator um ein neues Passwort zu erhalten.';
+$aLang['text_forgotten_success'] = 'Das neue Passwort wurde an Ihre E-Mail-Adresse gesendet. Überprüfen Sie Ihren E-Mail-Eingang und klicken Sie zurück um sich anzumelden.';
 
-define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>ERROR:</b></font> Falscher Benutzername oder Passwort!');
-define('TEXT_FORGOTTEN_ERROR', '<font color="#ff0000"><b>FEHLER:</b></font> Vorname und Passwort sind nicht hinterlegt!');
-define('TEXT_FORGOTTEN_FAIL', 'Sie haben es mehr als 3x versucht. Aus Sicherheitsgrnden kontaktieren Sie bitte Ihren Administrator um ein neues Passwort zu erhalten.');
-define('TEXT_FORGOTTEN_SUCCESS', 'Das neue Passwort wurde an Ihre E-Mail-Adresse gesendet. �erprfen Sie Ihren E-Mail-Eingang und klicken Sie zurck um sich anzumelden.');
-
-define('ADMIN_EMAIL_SUBJECT', 'Neues Passwort'); 
-define('ADMIN_EMAIL_TEXT', 'Hi %s,' . "\n\n" . 'Sie k�nen den redaktionellen Bereich mit folgenden Passwort betreten. Nach erfolgtem Login, �dern Sie bitte aus Sicherheitsgrnden Ihr Passwort!' . "\n\n" . 'Website : %s' . "\n" . 'Benutzername: %s' . "\n" . 'Passwort: %s' . "\n\n" . 'Danke!' . "\n" . '%s' . "\n\n" . 'Dies ist eine automatisierte Antwortmail. Bitte beantworten Sie diese nicht!'); 
-?>
+$aLang['admin_email_subject'] = 'Neues Passwort'; 
+$aLang['admin_email_text'] = 'Hallo %s,' . "\n\n" . 'Sie können den redaktionellen Bereich mit folgenden Passwort betreten. Nach erfolgtem Login, ändern Sie bitte aus Sicherheitsgründen Ihr Passwort!' . "\n\n" . 'Website : %s' . "\n" . 'Benutzername: %s' . "\n" . 'Passwort: %s' . "\n\n" . 'Danke!' . "\n" . '%s' . "\n\n" . 'Dies ist eine automatisierte Antwortmail. Bitte beantworten Sie diese nicht!';
+ 
