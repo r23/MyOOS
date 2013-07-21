@@ -165,11 +165,6 @@
 
     header('Location: ' . $url);
 
-    if (STORE_PAGE_PARSE_TIME == 'true') {
-      if (!is_object($logger)) $logger = new logger;
-      $logger->timer_stop();
-    }
-
     exit;
   }
 
