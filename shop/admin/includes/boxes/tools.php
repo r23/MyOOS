@@ -35,7 +35,6 @@
                                    oos_admin_files_boxes('define_language', BOX_TOOLS_DEFINE_LANGUAGE) .
                                    oos_admin_files_boxes('mail', BOX_TOOLS_MAIL) .
                                    oos_admin_files_boxes('newsletters', BOX_TOOLS_NEWSLETTER_MANAGER) .
-                                   oos_admin_files_boxes('server_info', BOX_TOOLS_SERVER_INFO) .
                                    oos_admin_files_boxes('whos_online', BOX_TOOLS_WHOS_ONLINE) .
                                    oos_admin_files_boxes('recover_cart_sales', BOX_TOOLS_RECOVER_CART));
   }

@@ -168,7 +168,6 @@ define('BOX_TOOLS_FILE_MANAGER', 'Datei-Manager');
 define('BOX_EXPORT_PREISSUCHMASCHINE', 'Export preissuchmaschine.de');
 define('BOX_TOOLS_MAIL', 'eMail versenden');
 define('BOX_TOOLS_NEWSLETTER_MANAGER', 'Rundschreiben Manager');
-define('BOX_TOOLS_SERVER_INFO', 'Server Info');
 define('BOX_TOOLS_WHOS_ONLINE', 'Wer ist Online');
 define('BOX_TOOLS_KEYWORD_SHOW', 'Keyword Show');
 define('BOX_HEADING_ADMINISTRATORS', 'Administrators');

@@ -88,7 +88,6 @@
   $aFilename['quick_stockupdate'] = $prefix_filename . 'quick_stockupdate.php';
   $aFilename['recover_cart_sales'] = $prefix_filename . 'recover_cart_sales.php';
   $aFilename['reviews'] = $prefix_filename . 'reviews.php';
-  $aFilename['server_info'] = $prefix_filename . 'server_info.php';
   $aFilename['shipping_modules'] = $prefix_filename . 'shipping_modules.php';
   $aFilename['specials'] = $prefix_filename . 'specials.php';
   $aFilename['stats_customers'] = $prefix_filename . 'stats_customers.php';
