@@ -2,7 +2,7 @@
 /* ----------------------------------------------------------------------
    $Id: admin_files.php 437 2013-06-22 15:33:30Z r23 $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
