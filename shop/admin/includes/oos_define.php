@@ -26,15 +26,27 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  define('OOS_PRICE_IS_BRUTTO', 'true');  // Price with Tax
-  define('OOS_BASE_PRICE', 'true');
-  define('DECIMAL_CART_QUANTITY', 'false');
+if(!defined('MYOOS_INCLUDE_PATH'))
+{
+	define('MYOOS_INCLUDE_PATH', OOS_ABSOLUTE_PATH);
+}
 
-  define('NEW_PRODUCT_PREVIEW', 'false');
+define('OOS_PRICE_IS_BRUTTO', 'true');  // Price with Tax
+define('OOS_BASE_PRICE', 'true');
+define('DECIMAL_CART_QUANTITY', 'false');
 
-  define('IMGSWAP', 'true');
-  define('IMGLENS', 'true');
+define('NEW_PRODUCT_PREVIEW', 'false');
 
+define('IMGSWAP', 'true');
+define('IMGLENS', 'true');
+
+// customization for the design layout
+define('BOX_WIDTH', 125);
+
+// Define how do we update currency exchange rates
+// Possible values are 'oanda' 'xe' or ''
+define('CURRENCY_SERVER_PRIMARY', 'oanda');
+define('CURRENCY_SERVER_BACKUP', 'xe');
