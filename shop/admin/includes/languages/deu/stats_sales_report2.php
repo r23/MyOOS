@@ -2,7 +2,7 @@
 /* ----------------------------------------------------------------------
    $Id: stats_sales_report2.php 475 2013-07-13 08:22:26Z r23 $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    

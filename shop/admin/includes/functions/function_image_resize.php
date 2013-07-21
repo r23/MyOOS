@@ -2,7 +2,7 @@
 /* ----------------------------------------------------------------------
    $Id: function_image_resize.php 442 2013-06-27 00:04:01Z r23 $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
    Copyright (c) 2003 - 2013 by the MyOOS Development Team.
