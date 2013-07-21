@@ -2,7 +2,7 @@
 /* ----------------------------------------------------------------------
    $Id: customers.php 436 2013-06-22 14:39:19Z r23 $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
    Copyright (c) 2003 - 2013 by the MyOOS Development Team.

@@ -2,7 +2,7 @@
 /* ----------------------------------------------------------------------
    $Id: deu.php 475 2013-07-13 08:22:26Z r23 $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
    Copyright (c) 2003 - 2013 by the MyOOS Development Team.
