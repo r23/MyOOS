@@ -79,9 +79,6 @@ $db->Execute("DELETE FROM " . $table . " WHERE configuration_key in ('" . implod
 $table = $prefix_table . 'admin_files';
 $result = $db->Execute("DELETE FROM " . $table . " WHERE admin_files_name = 'backup'");
 
-// popup_google_map.php
-$result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('popup_google_map', 0, 6, 1)") or die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
-
 // campaigns
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('campaigns', 0, 6, 1)") or die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 

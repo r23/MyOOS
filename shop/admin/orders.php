@@ -227,17 +227,6 @@
   $no_js_general = true;
   require 'includes/oos_header.php';
 ?>
-<?php
-  if (defined('GOOGLE_MAP_API_KEY')) {
-?>
-<script language="javascript"><!--
-function popupGoogleMap(url) {
-  window.open(url,'popupImageWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=yes,copyhistory=no,width=550,height=400,screenX=150,screenY=150,top=150,left=150')
-}
-//--></script>
-<?php
-  }
-?>
 <!-- body //-->
 <table border="0" width="100%" cellspacing="2" cellpadding="2">
   <tr>
@@ -282,19 +271,6 @@ function popupGoogleMap(url) {
               <tr>
                 <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '5'); ?></td>
               </tr>
-<?php
-      if (defined('GOOGLE_MAP_API_KEY')) {
-?>
-              <tr>
-                <td class="main" valign="top"><b>Google Map</b></td>
-                <td class="main"><?php echo '<a href="javascript:popupGoogleMap(\'' . $aFilename['popup_google_map'] . '?query=' . rawurlencode($order->customer['city']. ', '.$order->customer['country']) . '\')">' . oos_image(OOS_IMAGES . 'icon_popup.gif', 'View Google Map'); ?></a></td>
-              </tr>
-              <tr>
-                <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '5'); ?></td>
-              </tr>
-<?php
-      }
-?>
               <tr>
                 <td class="main"><b><?php echo ENTRY_TELEPHONE; ?></b></td>
                 <td class="main"><?php echo $order->customer['telephone']; ?></td>
@@ -313,39 +289,12 @@ function popupGoogleMap(url) {
                 <td class="main" valign="top"><b><?php echo ENTRY_SHIPPING_ADDRESS; ?></b></td>
                 <td class="main"><?php echo oos_address_format($order->delivery['format_id'], $order->delivery, 1, '&nbsp;', '<br />'); ?></td>
               </tr>
-<?php
-      if (defined('GOOGLE_MAP_API_KEY')) {
-?>
-              <tr>
-                <td class="main" valign="top"><b>Google Map</b></td>
-                <td class="main"><?php echo '<a href="javascript:popupGoogleMap(\'' . $aFilename['popup_google_map'] . '?query=' . rawurlencode($order->delivery['city']. ', '.$order->delivery['country']) . '\')">' . oos_image(OOS_IMAGES . 'icon_popup.gif', 'View Google Map'); ?></a></td>
-              </tr>
-              <tr>
-                <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '5'); ?></td>
-              </tr>
-<?php
-      }
-?>
-
             </table></td>
             <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
               <tr>
                 <td class="main" valign="top"><b><?php echo ENTRY_BILLING_ADDRESS; ?></b></td>
                 <td class="main"><?php echo oos_address_format($order->billing['format_id'], $order->billing, 1, '&nbsp;', '<br />'); ?></td>
               </tr>
-<?php
-      if (defined('GOOGLE_MAP_API_KEY')) {
-?>
-              <tr>
-                <td class="main" valign="top"><b>Google Map</b></td>
-                <td class="main"><?php echo '<a href="javascript:popupGoogleMap(\'' . $aFilename['popup_google_map'] . '?query=' . rawurlencode($order->billing['city']. ', '.$order->billing['country']) . '\')">' . oos_image(OOS_IMAGES . 'icon_popup.gif', 'View Google Map'); ?></a></td>
-              </tr>
-              <tr>
-                <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '5'); ?></td>
-              </tr>
-<?php
-      }
-?>
             </table></td>
           </tr>
         </table></td>

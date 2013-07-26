@@ -670,13 +670,6 @@ function popupGoogleMap(url) {
                 <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_FIRSTNAME; ?></td>
                 <td class="dataTableHeadingContent" align="left"><?php echo HEADING_TITLE_STATUS; ?></td>
                 <td class="dataTableHeadingContent" align="center"><?php echo HEADING_TITLE_LOGIN; ?></td>
-<?php
-      if (defined('GOOGLE_MAP_API_KEY')) {
-?>
-                <td class="dataTableHeadingContent" align="center">Google Map</td>
-<?php
-      }
-?>
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACCOUNT_CREATED; ?></td>
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
@@ -752,14 +745,7 @@ function popupGoogleMap(url) {
         echo '<a href="' . oos_href_link_admin($aFilename['customers'], 'selected_box=customers&page=' . $_GET['page'] . '&action=setflag&loginflag=1&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
       }
 
-      if (defined('GOOGLE_MAP_API_KEY')) {
 ?>
-                <td class="dataTableContent" align="center"><?php echo '<a href="javascript:popupGoogleMap(\'' . $aFilename['popup_google_map'] . '?query=' . rawurlencode($customers['entry_city']) . '\')">' . oos_image(OOS_IMAGES . 'icon_popup.gif', 'View Google Map'); ?></a>&nbsp;</td>
-<?php
-      }
-?>
-
-
                 <td class="dataTableContent" align="right"><?php echo oos_date_short($info['date_account_created']); ?></td>
                 <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . oos_href_link_admin($aFilename['customers'], oos_get_all_get_params(array('cID')) . 'cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
