@@ -79,6 +79,7 @@ $oostable['orders_products_download'] = $prefix_table . 'orders_products_downloa
 $oostable['orders_status'] = $prefix_table . 'orders_status';
 $oostable['orders_status_history'] = $prefix_table . 'orders_status_history';
 $oostable['orders_total'] = $prefix_table . 'orders_total';
+$oostable['order_transactions'] = $prefix_table . 'order_transactions';
 $oostable['page_type'] = $prefix_table . 'page_type';
 $oostable['products'] = $prefix_table . 'products';
 $oostable['products_attributes'] = $prefix_table . 'products_attributes';
@@ -108,3 +109,4 @@ $oostable['geo_zones'] = $prefix_table . 'geo_zones';
 $oostable['zones_to_geo_zones'] = $prefix_table . 'zones_to_geo_zones';
 $oostable['whos_online'] = $prefix_table . 'whos_online';
 $oostable['zones'] = $prefix_table . 'zones';
+

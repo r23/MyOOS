@@ -838,6 +838,25 @@ idxsql($idxname, $table, $idxflds);
 
 
 
+$table = $prefix_table . 'order_transactions';
+$flds = "
+  orders_id I NOTNULL AUTO PRIMARY,
+  content_type C(94),
+  shipping_id C(94),
+  amount N '15.2' NOTNULL DEFAULT '0.00',
+  shipping N '15.2' DEFAULT '0.00',
+  tax N '7.2' NOTNULL DEFAULT '0.00'
+";
+dosql($table, $flds);
+
+
+$idxname = 'idx_orders_id'; 
+$idxflds = 'orders_id';
+idxsql($idxname, $table, $idxflds);	  
+
+
+	  
+
 $table = $prefix_table . 'page_type';
 $flds = "
   page_type_id I DEFAULT '0' NOTNULL PRIMARY,
