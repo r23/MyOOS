@@ -96,7 +96,7 @@
                                                'access' => oos_admin_check_boxes('stats_products_purchased', 'sub_boxes')),
                                          array('title' => REPORTS_ORDERS, 'link' => oos_href_link_admin($aFilename['stats_customers'], 'selected_box=reports'),              
                                                'access' => oos_admin_check_boxes('stats_customers', 'sub_boxes')))),
-
+);
 
 			
   $languages = oos_get_languages();

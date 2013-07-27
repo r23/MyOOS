@@ -11,9 +11,6 @@
 <link href="css/font-awesome.min.css" rel="stylesheet" />
 <!-- Included Custom CSS Files -->
 
-<!-- Bootstrap style responsive -->	
-<link href="css/bootstrap-responsive.min.css" rel="stylesheet"/>
-
 <!-- Place favicon.ico and apple-touch-icon.png -->
 <link rel="shortcut icon" href="/images/ico/favicon.ico">
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
@@ -24,10 +21,12 @@
 <!-- Google fonts -->
 <link href='http://fonts.googleapis.com/css?family=Noto+Serif:400,400italic,700|Open+Sans:300,400,600,700' rel='stylesheet' type='text/css' />
 
-<!-- IE Fix for HTML5 Tags -->
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
-	<script src="js/html5shiv.js"></script>
+  <script src="js/html5shiv.js"></script>
+  <script src="js/respond.min.js"></script>
 <![endif]-->
+
 <script src="js/jquery.min.js"></script>
 </head>
 <body class="{$body}">
