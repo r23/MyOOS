@@ -93,7 +93,6 @@
 </div>
 <a href="#" class="scrollup"><i class="icon-chevron-up icon-square icon-32 active"></i></a>
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="{$theme}/js/jquery.min.js"></script>
 <script src="{$theme}/js/bootstrap.min.js"></script>
 <script src="{$theme}/js/jquery.nivo.slider.pack.js"></script>
 
