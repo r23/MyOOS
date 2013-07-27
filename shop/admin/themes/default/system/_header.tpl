@@ -28,6 +28,7 @@
 <!--[if lt IE 9]>
 	<script src="js/html5shiv.js"></script>
 <![endif]-->
+<script src="js/jquery.min.js"></script>
 </head>
 <body class="{$body}">
 <!--[if lt IE 7]>
