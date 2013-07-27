@@ -37,7 +37,6 @@ $aFilename['categories'] = $prefix_filename . 'categories.php';
 $aFilename['configuration'] = $prefix_filename . 'configuration.php';
 $aFilename['content_block'] = $prefix_filename . 'content_block.php';
 $aFilename['content_information'] = $prefix_filename . 'content_information.php';
-$aFilename['content_news'] = $prefix_filename . 'content_news.php';
 $aFilename['content_page_type'] = $prefix_filename . 'content_page_type.php';
 $aFilename['countries'] = $prefix_filename . 'countries.php';
 $aFilename['currencies'] = $prefix_filename . 'currencies.php';

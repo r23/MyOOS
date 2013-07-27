@@ -96,26 +96,8 @@
                                                'access' => oos_admin_check_boxes('stats_products_purchased', 'sub_boxes')),
                                          array('title' => REPORTS_ORDERS, 'link' => oos_href_link_admin($aFilename['stats_customers'], 'selected_box=reports'),              
                                                'access' => oos_admin_check_boxes('stats_customers', 'sub_boxes')))),
-               array('title' => BOX_HEADING_CONTENT,
-                     'access' => oos_admin_check_boxes('content.php'),
-                     'image' => 'content.gif',
-                     'href' => oos_href_link_admin($aFilename['content_news'], 'selected_box=content'),
-                     'children' => array(array('title' => BOX_CONTENT_BLOCK, 'link' => oos_href_link_admin($aFilename['content_block'], 'selected_box=content'),
-                                               'access' => oos_admin_check_boxes('content_block', 'sub_boxes')),
-                                         array('title' => BOX_CONTENT_NEWS, 'link' => oos_href_link_admin($aFilename['content_news'], 'selected_box=content'),
-                                               'access' => oos_admin_check_boxes('content_news', 'sub_boxes')))));
-/*
-               array('title' => BOX_HEADING_TOOLS,
-                     'access' => oos_admin_check_boxes('tools.php'),
-                     'image' => 'tools.gif',
-                     'href' => oos_href_link_admin(oos_selected_file('tools.php'), 'selected_box=tools'),
-                     'children' => array(array('title' => TOOLS_BACKUP, 'link' => oos_href_link_admin($aFilename['backup'], 'selected_box=tools'),
-                                               'access' => oos_admin_check_boxes('backup', 'sub_boxes')),
-                                         array('title' => TOOLS_BANNERS, 'link' => oos_href_link_admin($aFilename['banner_manager'], 'selected_box=tools'),
-                                               'access' => oos_admin_check_boxes('banner_manager', 'sub_boxes')),
-                                         array('title' => TOOLS_FILES, 'link' => oos_href_link_admin($aFilename['file_manager'], 'selected_box=tools'),
-                                               'access' => oos_admin_check_boxes('file_manager', 'sub_boxes')))));
-*/
+
+
 			
   $languages = oos_get_languages();
   $languages_array = array();

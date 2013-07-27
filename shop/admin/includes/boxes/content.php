@@ -29,7 +29,6 @@
 
   if ($_SESSION['selected_box'] == 'content' ) {
     $contents[] = array('text'  => oos_admin_files_boxes('content_block', BOX_CONTENT_BLOCK) .
-                                   oos_admin_files_boxes('content_news', BOX_CONTENT_NEWS) .
                                    oos_admin_files_boxes('content_page_type', BOX_CONTENT_PAGE_TYPE));
   }
 

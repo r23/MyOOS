@@ -124,7 +124,6 @@ define('BOX_CATALOG_QUICK_STOCKUPDATE', 'Quick Stock Update');
 // categories box text in includes/boxes/content.php
 define('BOX_HEADING_CONTENT', 'Content Manager');
 define('BOX_CONTENT_BLOCK', 'Block Manager');
-define('BOX_CONTENT_NEWS', 'News');
 define('BOX_CONTENT_INFORMATION', 'Information');
 define('BOX_CONTENT_PAGE_TYPE', 'Conten Page Type');
 
