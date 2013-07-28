@@ -34,11 +34,11 @@ define('TEXT_MESSAGE', 'Mitteilung:');
 define('TEXT_SELECT_CUSTOMER', 'Kunde ausw&auml;hlen');
 define('TEXT_ALL_CUSTOMERS', 'Alle Kunden');
 define('TEXT_NEWSLETTER_CUSTOMERS', 'An alle Newsletter Abonnenten');
-define('TEXT_CONFIRM_DELETE', 'Sind Sie sicher, dass Sie diesen Gutschein l&ouml;schen m&ouml;chten?');
-define('TEXT_TO_REDEEM', 'Sie k&ouml;nnen den Gutschein bei Ihrer Bestellung einl&ouml;sen. Geben Sie daf&uuml;r Ihren Gutschein-Nummer in das Feld Gutscheine ein.');
+define('TEXT_CONFIRM_DELETE', 'Sind Sie sicher, dass Sie diesen Gutschein löschen möchten?');
+define('TEXT_TO_REDEEM', 'Sie können den Gutschein bei Ihrer Bestellung einlösen. Geben Sie daf&uuml;r Ihren Gutschein-Nummer in das Feld Gutscheine ein.');
 define('TEXT_IN_CASE', ' im Falle dass Sie Probleme haben.');
 define('TEXT_VOUCHER_IS', 'Ihre Gutschein-Nummer lautet: ');
-define('TEXT_REMEMBER', 'Heben Sie Ihre Gutschein-Nummer gut auf, nur so k&ouml;nnen Sie von diesem Angebot profitieren!');
+define('TEXT_REMEMBER', 'Heben Sie Ihre Gutschein-Nummer gut auf, nur so können Sie von diesem Angebot profitieren!');
 define('TEXT_VISIT', 'Besuchen Sie unsere Seite: ' . OOS_HTTP_SERVER . OOS_SHOP);
 define('TEXT_ENTER_CODE', ' und geben Sie die Gutschein-Nummer ein.');
 
@@ -46,10 +46,10 @@ define('TABLE_HEADING_ACTION', 'Aktion');
 
 define('CUSTOMER_ID', 'Kunden-Nummer');
 define('CUSTOMER_NAME', 'Kunden Name');
-define('REDEEM_DATE', 'Einl&ouml;sedatum');
+define('REDEEM_DATE', 'Einlösedatum');
 define('IP_ADDRESS', 'IP Adresse');
 
-define('TEXT_REDEMPTIONS', 'Einl&ouml;seoptionen');
+define('TEXT_REDEMPTIONS', 'Einlöseoptionen');
 define('TEXT_REDEMPTIONS_TOTAL', 'Gesamtsumme');
 define('TEXT_REDEMPTIONS_CUSTOMER', 'F&uuml;r diesen Kunden');
 define('TEXT_NO_FREE_SHIPPING', 'Nicht versandkostenfrei.');
@@ -65,7 +65,7 @@ define('COUPON_FINISHDATE', 'Enddatum');
 define('COUPON_FREE_SHIP', 'Versandkostenfrei');
 define('COUPON_DESC', 'Gutscheinbeschreibung');
 define('COUPON_MIN_ORDER', 'Gutschein Mindestbestellwert');
-define('COUPON_USES_COUPON', 'Gutschein wie oft einl&ouml;sbar?');
+define('COUPON_USES_COUPON', 'Gutschein wie oft einlösbar?');
 define('COUPON_USES_USER', 'Gutschein je Kunde?');
 define('COUPON_PRODUCTS', 'Zul&auml;ssige Produkte');
 define('COUPON_CATEGORIES', 'Zul&auml;ssige Kategorien');
@@ -82,14 +82,14 @@ define('TEXT_FROM_MAIL', 'Absender eMail:');
 
 define('COUPON_NAME_HELP', 'Ein kurzer Name f&uuml;r den Gutschein.');
 define('COUPON_AMOUNT_HELP', 'Geben Sie einen Gutscheinwert an. Entweder einen bestimmten Betrag oder ein Prozentzeichen (%) am Ende f&uuml;r einen prozentualen Nachla&szlig;');
-define('COUPON_CODE_HELP', 'Sie k&ouml;nnen hier einen Gutscheincode eingeben, oder das Feld leer lassen. Es wird dann ein automatisch erzeugter Gutscheincode verwendet.');
+define('COUPON_CODE_HELP', 'Sie können hier einen Gutscheincode eingeben, oder das Feld leer lassen. Es wird dann ein automatisch erzeugter Gutscheincode verwendet.');
 define('COUPON_STARTDATE_HELP', 'Ab wann ist der Gutschein g&uuml;ltig? ');
 define('COUPON_FINISHDATE_HELP', 'Bis wann ist der Gutschein g&uuml;ltig? ');
 define('COUPON_FREE_SHIP_HELP', 'F&uuml;r diesen Gutschein kann der Kunde versandkostenfrei bestellen! Bitte beachten Sie: Diese Auswahl berschreibt den Warenwert, ber&uuml;cksichtigt jedoch den Mindestbestellwert!');
 define('COUPON_DESC_HELP', 'Eine Gutscheinbeschreibung f&uuml;r den Kunden');
-define('COUPON_MIN_ORDER_HELP', 'Einen Mindestbestellwert eingeben. Unterhalb dieses Wertes wird der Gutschein nicht eingel&ouml;st!');
-define('COUPON_USES_COUPON_HELP', 'Wie oft kann der Gutschein benutzt werden? Soll die Anzahl unlimitiert m&ouml;glich sein, lassen Sie das Feld leer.');
-define('COUPON_USES_USER_HELP', 'Wie oft kann ein Kunde den Gutschein benutzen? Soll die Anzahl unlimitiert m&ouml;glich sein, lassen Sie das Feld leer.');
+define('COUPON_MIN_ORDER_HELP', 'Einen Mindestbestellwert eingeben. Unterhalb dieses Wertes wird der Gutschein nicht eingelöst!');
+define('COUPON_USES_COUPON_HELP', 'Wie oft kann der Gutschein benutzt werden? Soll die Anzahl unlimitiert möglich sein, lassen Sie das Feld leer.');
+define('COUPON_USES_USER_HELP', 'Wie oft kann ein Kunde den Gutschein benutzen? Soll die Anzahl unlimitiert möglich sein, lassen Sie das Feld leer.');
 define('COUPON_PRODUCTS_HELP', 'Ein Liste von erlaubten Produkt-IDs (mit Komma getrennt). Lassen Sie dieses Feld leer, falls Sie keine Beschr&auml;nkungen machen wollen.');
 define('COUPON_CATEGORIES_HELP', 'Eine Liste von erlaubten Kategorien (mit Komma getrennt). Lassen Sie dieses Feld leer, falls Sie keine Beschr&auml;nkungen machen wollen.');
 ?>

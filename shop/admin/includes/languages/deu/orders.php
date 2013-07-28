@@ -84,8 +84,8 @@ define('ENTRY_NOTIFY_CUSTOMER', 'Kunde benachrichtigen:');
 define('ENTRY_NOTIFY_COMMENTS', 'Kommentare mitsenden:');
 define('ENTRY_PRINTABLE', 'Rechnung drucken');
 
-define('TEXT_INFO_HEADING_DELETE_ORDER', 'Bestellung l&ouml;schen');
-define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, das Sie diese Bestellung l&ouml;schen m&ouml;chten?');
+define('TEXT_INFO_HEADING_DELETE_ORDER', 'Bestellung löschen');
+define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, das Sie diese Bestellung löschen möchten?');
 define('TEXT_INFO_RESTOCK_PRODUCT_QUANTITY', 'Artikelanzahl dem Lager gutschreiben');
 define('TEXT_DATE_ORDER_CREATED', 'erstellt am:');
 define('TEXT_DATE_ORDER_LAST_MODIFIED', 'letzte &Auml;nderung:');

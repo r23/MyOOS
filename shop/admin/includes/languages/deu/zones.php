@@ -5,7 +5,6 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
-   
    Copyright (c) 2003 - 2013 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -20,20 +19,19 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('HEADING_TITLE', 'Bundesl&auml;nder');
+$aLang['heading_title'] = 'Bundesländer';
 
-define('TABLE_HEADING_COUNTRY_NAME', 'Land');
-define('TABLE_HEADING_ZONE_NAME', 'Bundesland');
-define('TABLE_HEADING_ZONE_CODE', 'Code');
-define('TABLE_HEADING_ACTION', 'Aktion');
+$aLang['table_heading_country_name'] = 'Land';
+$aLang['table_heading_zone_name'] = 'Bundesland';
+$aLang['table_heading_zone_code'] = 'Code';
+$aLang['table_heading_action'] = 'Aktion';
 
-define('TEXT_INFO_EDIT_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nderungen durch');
-define('TEXT_INFO_ZONES_NAME', 'Name des Bundeslandes:');
-define('TEXT_INFO_ZONES_CODE', 'Code des Bundeslandes:');
-define('TEXT_INFO_COUNTRY_NAME', 'Land:');
-define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie das neue Bundesland mit allen relevanten Daten ein');
-define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie dieses Bundesland l&ouml;schen wollen?');
-define('TEXT_INFO_HEADING_NEW_ZONE', 'neues Bundesland');
-define('TEXT_INFO_HEADING_EDIT_ZONE', 'Bundesland bearbeiten');
-define('TEXT_INFO_HEADING_DELETE_ZONE', 'Bundesland l&ouml;schen');
-?>
+$aLang['text_info_edit_intro'] = 'Bitte führen Sie alle notwendigen Änderungen durch';
+$aLang['text_info_zones_name'] = 'Name des Bundeslandes:';
+$aLang['text_info_zones_code'] = 'Code des Bundeslandes:';
+$aLang['text_info_country_name'] = 'Land:';
+$aLang['text_info_insert_intro'] = 'Bitte geben Sie das neue Bundesland mit allen relevanten Daten ein';
+$aLang['text_info_delete_intro'] = 'Sind Sie sicher, dass Sie dieses Bundesland löschen wollen?';
+$aLang['text_info_heading_new_zone'] = 'neues Bundesland';
+$aLang['text_info_heading_edit_zone'] = 'Bundesland bearbeiten';
+$aLang['text_info_heading_delete_zone'] = 'Bundesland löschen';

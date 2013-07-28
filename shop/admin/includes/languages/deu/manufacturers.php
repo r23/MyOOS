@@ -27,7 +27,7 @@ define('TABLE_HEADING_ACTION', 'Aktion');
 
 define('TEXT_HEADING_NEW_MANUFACTURER', 'Neuer Hersteller');
 define('TEXT_HEADING_EDIT_MANUFACTURER', 'Hersteller bearbeiten');
-define('TEXT_HEADING_DELETE_MANUFACTURER', 'Hersteller l&ouml;schen');
+define('TEXT_HEADING_DELETE_MANUFACTURER', 'Hersteller löschen');
 
 define('TEXT_MANUFACTURERS', 'Hersteller:');
 define('TEXT_DATE_ADDED', 'hinzugef&uuml;gt am:');
@@ -42,9 +42,9 @@ define('TEXT_MANUFACTURERS_NAME', 'Herstellername:');
 define('TEXT_MANUFACTURERS_IMAGE', 'Herstellerbild:');
 define('TEXT_MANUFACTURERS_URL', 'Hersteller URL:');
 
-define('TEXT_DELETE_INTRO', 'Sind Sie sicher, dass Sie diesen Hersteller l&ouml;schen m&ouml;chten?');
-define('TEXT_DELETE_IMAGE', 'Hersteller Image l&ouml;schen?');
-define('TEXT_DELETE_PRODUCTS', 'Alle Artikel von diesem Hersteller l&ouml;schen? (inkl. Bewertungen, Angebote und Neuerscheinungen)');
+define('TEXT_DELETE_INTRO', 'Sind Sie sicher, dass Sie diesen Hersteller löschen möchten?');
+define('TEXT_DELETE_IMAGE', 'Hersteller Image löschen?');
+define('TEXT_DELETE_PRODUCTS', 'Alle Artikel von diesem Hersteller löschen? (inkl. Bewertungen, Angebote und Neuerscheinungen)');
 define('TEXT_DELETE_WARNING_PRODUCTS', '<b>WARNUNG:</b> Es existieren noch %s Artikel, welche mit diesem Hersteller verbunden sind!');
 
 define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis %s ist schreibgesch&uuml;tzt. Bitte korrigieren Sie die Zugriffsrechte zu diesem Verzeichnis!');

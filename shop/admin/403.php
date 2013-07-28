@@ -41,7 +41,7 @@ $smarty->assign(
 );
 $smarty->assign('body', 'error-page');
 $smarty->assign('default', oos_href_link_admin($aFilename['default']));
-$smarty->assign('catalog_link', oos_catalog_link($oosCatalogFilename['default']));
+$smarty->assign('catalog_link', oos_catalog_link($aCatalogFilename['default']));
 
 header("HTTP/1.0 403 Forbidden");
 // display the template

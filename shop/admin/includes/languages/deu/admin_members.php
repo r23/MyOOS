@@ -48,13 +48,13 @@ define('TABLE_HEADING_GROUPS_CATEGORIES', 'Kategorie Erlaubnis');
 
 
 define('TEXT_INFO_HEADING_DEFAULT', 'Redaktionsmitglieder ');
-define('TEXT_INFO_HEADING_DELETE', ' Genehmigung zum L&ouml;schen');
+define('TEXT_INFO_HEADING_DELETE', ' Genehmigung zum Löschen');
 define('TEXT_INFO_HEADING_EDIT', 'Editiere Kategorie / ');
 define('TEXT_INFO_HEADING_NEW', 'Neues Redaktionsmitglied ');
 
 define('TEXT_INFO_DEFAULT_INTRO', 'Mitarbeitergruppe');
 define('TEXT_INFO_DELETE_INTRO', 'Soll <nobr><b>%s</b></nobr> jetzt als <nobr>Redaktionsmitglied<br /> gel�cht werden?</nobr>');
-define('TEXT_INFO_DELETE_INTRO_NOT', 'Sie k&ouml;nnen <nobr>%s Gruppe nicht L&ouml;schen !</nobr>');
+define('TEXT_INFO_DELETE_INTRO_NOT', 'Sie können <nobr>%s Gruppe nicht Löschen !</nobr>');
 define('TEXT_INFO_EDIT_INTRO', 'Legen Sie hier die Erlaubnisstufe an: ');
 
 define('TEXT_INFO_FULLNAME', 'Name: ');
@@ -81,11 +81,11 @@ define('ADMIN_EMAIL_SUBJECT', 'Neues Redaktionsmitglied');
 define('ADMIN_EMAIL_TEXT', 'Hallo %s,' . "\n\n" . 'Sie koennen auf den Redaktionsbereich mit dem folgenden Passwort ' . "\n" . 'zugreifen. Wenn Sie einmal auf den Redaktionsbereich zugegriffen haben,' . "\n" . ' aendern Sie bitte Ihr Passwort!' . "\n\n" . 'Website : %s' . "\n" . 'Benutzername: %s' . "\n" . 'Passwort: %s' . "\n\n" . 'Danke!' . "\n" . '%s' . "\n\n" . 'Bitte nicht auf diese Nachricht antworten, da sie automatisch generiert wurde und nur Ihrer Information dient.'); 
 
 define('TEXT_INFO_HEADING_DEFAULT_GROUPS', 'Redaktionsgruppe ');
-define('TEXT_INFO_HEADING_DELETE_GROUPS', 'L&ouml;sche Gruppe ');
+define('TEXT_INFO_HEADING_DELETE_GROUPS', 'Lösche Gruppe ');
 
-define('TEXT_INFO_DEFAULT_GROUPS_INTRO', '<b>HINWEIS:</b><li><b>bearbeiten:</b> bearbeite Gruppenname.</li><li><b>L&ouml;schen:</b> Gruppe L&ouml;schen.</li><li><b>Definieren:</b> Definieren Sie die Gruppenzugriffsrechte.</li>');
-define('TEXT_INFO_DELETE_GROUPS_INTRO', 'Es wird auch s&auml;mtliche Mitglieder dieser Gruppe L&ouml;schen. Sind Sie sicher das Sie diese <nobr><b>%s</b> Gruppe L&ouml;schen wollen?</nobr>');
-define('TEXT_INFO_DELETE_GROUPS_INTRO_NOT', 'Sie k&ouml;nnen diese Gruppe nicht L&ouml;schen!');
+define('TEXT_INFO_DEFAULT_GROUPS_INTRO', '<b>HINWEIS:</b><li><b>bearbeiten:</b> bearbeite Gruppenname.</li><li><b>Löschen:</b> Gruppe Löschen.</li><li><b>Definieren:</b> Definieren Sie die Gruppenzugriffsrechte.</li>');
+define('TEXT_INFO_DELETE_GROUPS_INTRO', 'Es wird auch s&auml;mtliche Mitglieder dieser Gruppe Löschen. Sind Sie sicher das Sie diese <nobr><b>%s</b> Gruppe Löschen wollen?</nobr>');
+define('TEXT_INFO_DELETE_GROUPS_INTRO_NOT', 'Sie können diese Gruppe nicht Löschen!');
 define('TEXT_INFO_GROUPS_INTRO', 'Vergeben Sie einen einmaligen Gruppennamen. Klicken Sie weiter zur �ertragung.');
 
 define('TEXT_INFO_HEADING_GROUPS', 'Neue Gruppe');
@@ -100,7 +100,7 @@ define('TEXT_INFO_GROUPS_BOXES_INCLUDE', 'Beinhaltet gespeicherte Daten in: ');
 
 define('TEXT_INFO_HEADING_DEFINE', 'Definiere Gruppe');
 if ($_GET['gPath'] == 1) {
-  define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br />Sie k&ouml;nnen nicht die Zugriffsberechtigungen f&uuml;r diese Gruppe vergeben.<br /><br />');
+  define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br />Sie können nicht die Zugriffsberechtigungen f&uuml;r diese Gruppe vergeben.<br /><br />');
 } else {
   define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br />�&auml;ndern Sie die Zugriffsberechtigungen f&uuml;r diese Gruppe und die darin befindlichen Dateien, indem Sie die Bereiche ausw&auml;hlen/abw&auml;hlen. Klicken Sie <b>speichern</b> um die &Auml;nderungen zu sichern.<br /><br />');
 }

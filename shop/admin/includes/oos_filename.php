@@ -109,14 +109,14 @@ $aFilename['zones'] = $prefix_filename . 'zones.php';
 $prefix_catalog_filename = '';
 if (!$prefix_catalog_filename == '') $prefix_catalog_filename = $prefix_catalog_filename . '_';
 
-$oosCatalogFilename = array();
-$oosCatalogFilename['account_history_info'] = $prefix_catalog_filename . 'history_info';
-$oosCatalogFilename['advanced_search_result'] = $prefix_catalog_filename . 'advanced_result';
-$oosCatalogFilename['default'] = $prefix_catalog_filename . 'main';
-$oosCatalogFilename['gv_redeem'] = $prefix_catalog_filename . 'redeem';
-$oosCatalogFilename['product_info'] = $prefix_catalog_filename . 'info'; 
-$oosCatalogFilename['login_admin'] = $prefix_catalog_filename . 'login';
-$oosCatalogFilename['create_account_admin'] = $prefix_catalog_filename . 'create_account';
-$oosCatalogFilename['wishlist'] = $prefix_catalog_filename . 'wishlist'; 
-$oosCatalogFilename['user_login'] = $prefix_catalog_filename . 'login';
+$aCatalogFilename = array();
+$aCatalogFilename['account_history_info'] = $prefix_catalog_filename . 'history_info';
+$aCatalogFilename['advanced_search_result'] = $prefix_catalog_filename . 'advanced_result';
+$aCatalogFilename['default'] = $prefix_catalog_filename . 'main';
+$aCatalogFilename['gv_redeem'] = $prefix_catalog_filename . 'redeem';
+$aCatalogFilename['product_info'] = $prefix_catalog_filename . 'info'; 
+$aCatalogFilename['login_admin'] = $prefix_catalog_filename . 'login';
+$aCatalogFilename['create_account_admin'] = $prefix_catalog_filename . 'create_account';
+$aCatalogFilename['wishlist'] = $prefix_catalog_filename . 'wishlist'; 
+$aCatalogFilename['user_login'] = $prefix_catalog_filename . 'login';
 

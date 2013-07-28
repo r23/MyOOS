@@ -38,7 +38,7 @@ define('TEXT_PRODUCTS_LIST_PRICE', 'empf VK:');
 define('TEXT_PRODUCTS_DISCOUNT_ALLOWED', 'Discountmaximum:');
 
 define('TEXT_PRODUCTS_BASE_PRICE', 'Grundpreis ');
-define('TEXT_PRODUCTS_BASE_UNIT', 'Grundgr&ouml;&szlig;e:');
+define('TEXT_PRODUCTS_BASE_UNIT', 'Grundgrö&szlig;e:');
 define('TEXT_PRODUCTS_BASE_PRICE_FACTOR', 'Faktor zum Berechnen des Grundpreis:');
 define('TEXT_PRODUCTS_BASE_QUANTITY', 'Basismenge:');
 define('TEXT_PRODUCTS_PRODUCT_QUANTITY', 'Artikelmenge:');
@@ -46,7 +46,7 @@ define('TEXT_PRODUCTS_DECIMAL_QUANTITY', 'Bestellmengen in Dezimalzahlen');
 define('TEXT_PRODUCTS_UNIT', 'Verpackungseinheit');
 
 define('TEXT_PRODUCTS_IMAGE_REMOVE', '<b>Entfernen</b> des Bildes vom Artikel?');
-define('TEXT_PRODUCTS_IMAGE_DELETE', '<b>L&ouml;schen</b> des Bildes vom Server?');
+define('TEXT_PRODUCTS_IMAGE_DELETE', '<b>Löschen</b> des Bildes vom Server?');
 
 define('TEXT_PRODUCTS_STATUS', 'Produktstatus:');
 define('TEXT_CATEGORIES', 'Kategorien:');
@@ -68,7 +68,7 @@ define('TEXT_PRODUCTS_PRICE', 'Artikelpreis:');
 define('TEXT_PRODUCTS_WEIGHT', 'Artikelgewicht:');
 define('TEXT_PRODUCTS_SORT_ORDER', 'Sort Order:');
 
-define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Fehler: Produkte k&ouml;nnen nicht in der gleichen Kategorie verlinkt werden.');
+define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Fehler: Produkte können nicht in der gleichen Kategorie verlinkt werden.');
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis \'images\' im Katalogverzeichnis ist schreibgesch&uuml;tzt: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
 define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Verzeichnis \'images\' im Katalogverzeichnis ist nicht vorhanden: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
 

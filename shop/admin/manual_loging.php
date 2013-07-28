@@ -190,7 +190,7 @@
       if ($login['status'] != '0') {
         $email_address = ""; 
 ?>
-       <tr><td width="100%" align="center"><br /><?php echo oos_draw_login_form('login', $oosModules['admin'], $oosCatalogFilename['login_admin'], 'action=login_admin','POST', 'target=_blank'); ?>
+       <tr><td width="100%" align="center"><br /><?php echo oos_draw_login_form('login', $oosModules['admin'], $aCatalogFilename['login_admin'], 'action=login_admin','POST', 'target=_blank'); ?>
           <table border="0" cellspacing="0" cellpadding="2" width="70%">
           <tr class="dataTableHeadingRowa">
           <td class="dataTableHeadingContenta" colspan="2" align="left"><?php echo HEADING_LOGIN_ADMIN; ?></td>
@@ -225,7 +225,7 @@
         </tr> 
         <tr><td width="100%" align="center"><br />
 <?php
-    echo oos_draw_login_form('login', $oosModules['admin'], $oosCatalogFilename['create_account_admin'], 'action=login_admin','POST', 'target=_blank');
+    echo oos_draw_login_form('login', $oosModules['admin'], $aCatalogFilename['create_account_admin'], 'action=login_admin','POST', 'target=_blank');
     echo oos_draw_hidden_field('verif_key', $newkey);
 ?>
          <table border="0" cellspacing="0" cellpadding="2" width="70%">

@@ -60,10 +60,13 @@
 define('HTML_PARAMS','dir="ltr" lang="en"');
 
 // charset for web pages and emails
-define('CHARSET', 'iso-8859-1');
+define('CHARSET', 'UTF-8');
 
 // page title
-define('TITLE', 'OSIS Online Shop');
+define('TITLE', ' MyOOS [Shopsystem]');
+
+$aLang['page_title'] = 'MyOOS';
+$aLang['page_headline'] = 'free, intuitive, simple';
 
 // header text in includes/header.php
 define('HEADER_TITLE_TOP', 'Administration');
@@ -78,6 +81,8 @@ $aLang['header_title_online_catalog'] = 'Online Catalog';
 $aLang['header_title_administration'] = 'Administration';
 $aLang['header_title_account'] = 'My Account';
 $aLang['header_title_logoff'] = 'Logoff';
+
+$aLang['collapse_menu'] = 'On/Off Menu';
 
 // text for gender
 define('MALE', 'Male');
@@ -162,7 +167,6 @@ define('BOX_HEADING_TOOLS', 'Tools');
 define('BOX_TOOLS_BACKUP', 'Database Backup');
 define('BOX_TOOLS_BANNER_MANAGER', 'Banner Manager');
 define('BOX_TOOLS_DEFINE_LANGUAGE', 'Define Languages');
-define('BOX_TOOLS_FILE_MANAGER', 'File Manager');
 define('BOX_TOOLS_MAIL', 'Send Email');
 define('BOX_TOOLS_NEWSLETTER_MANAGER', 'Newsletter Manager');
 define('BOX_TOOLS_WHOS_ONLINE', 'Who\'s Online');
@@ -177,20 +181,7 @@ define('BOX_LOCALIZATION_LANGUAGES', 'Languages');
 define('BOX_LOCALIZATION_CUSTOMERS_STATUS', 'Customers Status');
 define('BOX_LOCALIZATION_ORDERS_STATUS', 'Orders Status');
 
-// links box text in includes/boxes/links.php
-define('BOX_HEADING_LINKS', 'Links Manager');
-define('BOX_CONTENT_LINKS', 'Links');
-define('BOX_CONTENT_LINK_CATEGORIES', 'Link Categories');
-define('BOX_CONTENT_LINKS_CONTACT', 'Links Contact');
 
-// export
-define('BOX_HEADING_EXPORT', 'Export');
-define('BOX_EXPORT_PREISSUCHMASCHINE', 'Export preissuchmaschine.de');
-define('BOX_EXPORT_GOOGLEBASE', 'Googlebase');
-
-//rss
-define('BOX_HEADING_RSS', 'RSS');
-define('BOX_RSS_CONF', 'RSS');
 
 //information
 define('BOX_HEADING_INFORMATION', 'Information');

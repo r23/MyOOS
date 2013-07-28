@@ -29,7 +29,7 @@ define('HEADING_TITLE', 'Datenbanksicherung');
 
 define('TABLE_HEADING_TITLE', 'Titel');
 define('TABLE_HEADING_FILE_DATE', 'Datum');
-define('TABLE_HEADING_FILE_SIZE', 'Gr&ouml;sse');
+define('TABLE_HEADING_FILE_SIZE', 'Grösse');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
 define('TEXT_INFO_HEADING_NEW_BACKUP', 'Neue Sicherung');
@@ -37,7 +37,7 @@ define('TEXT_INFO_HEADING_RESTORE_LOCAL', 'Lokal wiederherstellen');
 define('TEXT_INFO_NEW_BACKUP', 'Bitte den Sicherungsprozess AUF KEINEN FALL unterbrechen. Dieser kann einige Minuten in Anspruch nehmen.');
 define('TEXT_INFO_UNPACK', '<br /><br />(nach dem die Dateien aus dem Archiv extrahiert wurden)');
 define('TEXT_INFO_DATE', 'Datum:');
-define('TEXT_INFO_SIZE', 'Gr&ouml;sse:');
+define('TEXT_INFO_SIZE', 'Grösse:');
 define('TEXT_INFO_COMPRESSION', 'Komprimieren:');
 define('TEXT_INFO_USE_GZIP', 'Mit GZIP');
 define('TEXT_INFO_USE_ZIP', 'Mit ZIP');
@@ -47,7 +47,7 @@ define('TEXT_INFO_BEST_THROUGH_HTTPS', 'Sichere HTTPS Verbindung verwenden!');
 define('TEXT_NO_EXTENSION', 'Keine');
 define('TEXT_EXPORT_DIRECTORY', 'Sicherungsverzeichnis:');
 define('TEXT_FORGET', '(<u> vergessen</u>)');
-define('TEXT_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Sicherung l&ouml;schen m&ouml;chten?');
+define('TEXT_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Sicherung löschen möchten?');
 
 define('ERROR_EXPORT_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Sicherungsverzeichnis ist nicht vorhanden.');
 define('ERROR_EXPORT_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Sicherungsverzeichnis ist schreibgesch&uuml;tzt.');
@@ -55,5 +55,5 @@ define('ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE', 'Fehler: Download Link nicht akzept
 
 define('SUCCESS_DATABASE_SAVED', 'Erfolg: Die Datenbank wurde gesichert.');
 define('SUCCESS_DATABASE_RESTORED', 'Erfolg: Die Datenbank wurde wiederhergestellt.');
-define('SUCCESS_EXPORT_DELETED', 'Erfolg: Die Sicherungsdatei wurde gel&ouml;scht.');
+define('SUCCESS_EXPORT_DELETED', 'Erfolg: Die Sicherungsdatei wurde gelöscht.');
 ?>

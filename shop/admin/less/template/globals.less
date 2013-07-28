@@ -1,0 +1,57 @@
+//
+// myoos global styles
+// --------------------------------------------------
+
+
+html,
+body {
+	height: 100%;
+}
+body {
+	padding: 0;
+	text-rendering: optimizelegibility;
+	background-position: 0 0;
+	background-image: url("@{bodyBackgroundImage}");
+	background-repeat: repeat-y;
+}
+
+// Fixed layout
+&.fixed-layout {
+	background-image: none;
+	.container,
+	.container-fluid {
+		min-height: 100%;
+		height: auto !important;
+		height: 100%;
+		background-position: 0 0;
+		background-image: url("@{bodyBackgroundImageFixed940}");
+		background-repeat: repeat-y;
+		.content-block {
+			padding-left: @fluidGridGutterWidth - 4;
+			background-color: transparent;
+			& > .row-fluid {
+				max-width: none;
+			}
+		}
+	}
+}
+
+// Layouts
+.container,
+.container-fluid {
+	padding: 0;
+}
+.navigation-block {
+	width: @navigationWidth;
+	float: left;
+	padding: 0;
+	color: @navigationColor;
+	position: absolute;
+}
+.content-block {
+	height: 100%;
+	background-color: @contentBackground;
+	margin-left: @navigationWidth + 1;
+	padding: @baseMargin;
+	color: @textColor;
+}

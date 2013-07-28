@@ -44,7 +44,7 @@ define('TEXT_INFO_INTRO_CONFIRM_PASSWORD_ERROR', '<font color="red"><b>FEHLER:</
 define('TEXT_INFO_INTRO_DEFAULT', 'Klicken Sie den <b>Bearbeiten Button</b> unten um das Konto zu &auml;ndern.');
 define('TEXT_INFO_INTRO_DEFAULT_FIRST_TIME', '<br /><b>WARNUNG:</b><br />Hallo <b>%s</b>, sie haben sich hier zum ersten mal angemeldet. Wir empfehlen Ihnen Ihr Passwort zu &auml;ndern!');
 define('TEXT_INFO_INTRO_DEFAULT_FIRST', '<br /><b>WARNUNG:</b><br />Hallo <b>%s</b>, wir empfehlen Ihnen Ihre E-Mail Adresse zu �&auml;nderndern (<font color="red">admin@localhost</font>) und das Passwort!');
-define('TEXT_INFO_INTRO_EDIT_PROCESS', 'S&auml;mtliche Felder werden ben&ouml;tigt. Klicken sie sichern zur Datenbertragung.');
+define('TEXT_INFO_INTRO_EDIT_PROCESS', 'S&auml;mtliche Felder werden benötigt. Klicken sie sichern zur Datenbertragung.');
 
 define('JS_ALERT_FIRSTNAME',        '- Benötigt: Vorname \n');
 define('JS_ALERT_LASTNAME',         '- Benötigt: Nachname \n');

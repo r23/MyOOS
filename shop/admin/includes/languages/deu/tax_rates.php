@@ -39,8 +39,8 @@ define('TEXT_INFO_TAX_RATE', 'Steuersatz (%):');
 define('TEXT_INFO_TAX_RATE_PRIORITY', 'Priorit&auml;t:');
 define('TEXT_INFO_RATE_DESCRIPTION', 'Beschreibung:');
 define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie den neuen Steuersatz mit allen relevanten Daten ein');
-define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diesen Steuersatz l&ouml;schen m&ouml;chten?');
+define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diesen Steuersatz löschen möchten?');
 define('TEXT_INFO_HEADING_NEW_TAX_RATE', 'Neuer Steuersatz');
 define('TEXT_INFO_HEADING_EDIT_TAX_RATE', 'Steuersatz bearbeiten');
-define('TEXT_INFO_HEADING_DELETE_TAX_RATE', 'Steuersatz l&ouml;schen');
+define('TEXT_INFO_HEADING_DELETE_TAX_RATE', 'Steuersatz löschen');
 ?>

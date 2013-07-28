@@ -60,10 +60,12 @@
 define('HTML_PARAMS','dir="ltr" lang="de"');
 
 // charset for web pages and emails
-define('CHARSET', 'iso-8859-1');
+define('CHARSET', 'UTF-8');
 
 // page title
-define('TITLE', 'OSIS Online Shop');
+define('TITLE', 'MyOOS [Shopsystem]');
+$aLang['page_title'] = 'MyOOS';
+$aLang['page_headline'] = 'kostenlos, intuitiv, einfach';
 
 // header text in includes/header.php
 define('HEADER_TITLE_TOP', 'Administration');
@@ -78,6 +80,10 @@ $aLang['header_title_online_catalog'] = 'Online Shop';
 $aLang['header_title_administration'] = 'Administration';
 $aLang['header_title_account'] = 'Mein Konto';
 $aLang['header_title_logoff'] = 'Abmelden';
+
+$aLang['collapse_menu'] = 'Menue ein/ausklappen';
+
+
 
 // text for gender
 define('MALE', 'Herr');
@@ -161,14 +167,10 @@ define('BOX_REPORTS_REFERER' , 'HTTP Referers');
 // tools text in includes/boxes/tools.php
 define('BOX_HEADING_TOOLS', 'Hilfsprogramme');
 define('BOX_TOOLS_BACKUP', 'Datenbanksicherung');
-define('BOX_TOOLS_BANNER_MANAGER', 'Banner Manager');
 define('BOX_TOOLS_DEFINE_LANGUAGE', 'Sprachen definieren');
-define('BOX_TOOLS_FILE_MANAGER', 'Datei-Manager');
-define('BOX_EXPORT_PREISSUCHMASCHINE', 'Export preissuchmaschine.de');
 define('BOX_TOOLS_MAIL', 'eMail versenden');
 define('BOX_TOOLS_NEWSLETTER_MANAGER', 'Rundschreiben Manager');
 define('BOX_TOOLS_WHOS_ONLINE', 'Wer ist Online');
-define('BOX_TOOLS_KEYWORD_SHOW', 'Keyword Show');
 define('BOX_HEADING_ADMINISTRATORS', 'Administrators');
 define('BOX_ADMINISTRATORS_SETUP', 'Set Up');
 
@@ -178,19 +180,6 @@ define('BOX_LOCALIZATION_CURRENCIES', 'Währungen');
 define('BOX_LOCALIZATION_LANGUAGES', 'Sprachen');
 define('BOX_LOCALIZATION_CUSTOMERS_STATUS', 'Kundengruppen');
 define('BOX_LOCALIZATION_ORDERS_STATUS', 'Bestellstatus');
-
-// links box text in includes/boxes/links.php
-define('BOX_HEADING_LINKS', 'Links Manager');
-define('BOX_CONTENT_LINKS', 'Links');
-define('BOX_CONTENT_LINK_CATEGORIES', 'Link Kategorien');
-define('BOX_CONTENT_LINKS_CONTACT', 'Kontakt Linkpartner');
-
-// export
-define('BOX_HEADING_EXPORT', 'Export');
-define('BOX_EXPORT_PREISSUCHMASCHINE', 'Export preissuchmaschine.de');
-define('BOX_EXPORT_GOOGLEBASE', 'Googlebase');
-
-
 
 //rss
 define('BOX_HEADING_RSS', 'RSS');
@@ -445,7 +434,7 @@ define('IMAGE_INSERT_FILE', 'Datei einfgen');
 define('IMAGE_MEMBERS', 'Gruppenliste');
 define('IMAGE_NEW_GROUP', 'Neue Gruppe');
 define('IMAGE_NEW_MEMBER', 'Neues Mitglied');
-define('IMAGE_NEXT', 'N?hster');
+define('IMAGE_NEXT', 'Nächster');
 
 // constants for use in oosPrevNextDisplay function
 define('TEXT_DISPLAY_NUMBER_OF_FILENAMES', 'Zeige an <b>%d</b> bis <b>%d</b> (von <b>%d</b> Dateinamen)');

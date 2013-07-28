@@ -39,10 +39,10 @@ define('TEXT_INFO_CURRENCY_LAST_UPDATED', 'letzte &Auml;nderung:');
 define('TEXT_INFO_CURRENCY_VALUE', 'Wert:');
 define('TEXT_INFO_CURRENCY_EXAMPLE', 'Beispiel:');
 define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie die neue W&auml;hrung mit allen relevanten Daten ein');
-define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese W&auml;hrung l&ouml;schen m&ouml;chten?');
+define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese W&auml;hrung löschen möchten?');
 define('TEXT_INFO_HEADING_NEW_CURRENCY', 'neue W&auml;hrung');
 define('TEXT_INFO_HEADING_EDIT_CURRENCY', 'W&auml;hrung bearbeiten');
-define('TEXT_INFO_HEADING_DELETE_CURRENCY', 'W&auml;hrung l&ouml;schen');
+define('TEXT_INFO_HEADING_DELETE_CURRENCY', 'W&auml;hrung löschen');
 define('TEXT_INFO_SET_AS_DEFAULT', TEXT_SET_DEFAULT . ' (manuelles Aktualisieren der Wechselkurse erforderlich.)');
-define('ERROR_REMOVE_DEFAULT_CURRENCY', 'Fehler: Die Standardw&auml;hrung darf nicht gel&ouml;scht werden. Bitte definieren Sie eine neue Standardw&auml;hrung und wiederholen Sie den Vorgang.');
+define('ERROR_REMOVE_DEFAULT_CURRENCY', 'Fehler: Die Standardw&auml;hrung darf nicht gelöscht werden. Bitte definieren Sie eine neue Standardw&auml;hrung und wiederholen Sie den Vorgang.');
 ?>

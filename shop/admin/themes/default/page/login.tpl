@@ -15,7 +15,7 @@
 				</div>		
 {foreach item=error from=$oos_error_message}
 				<div class="alert alert-error alert-block fade in">
-					<button class="close" data-dismiss="alert">&times;</button>
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
 					{$error.text}
 				</div>
 {/foreach}
@@ -27,21 +27,15 @@
 					<input type="hidden" name="formid" value="{$formid}">
 					<input type="hidden" name="action" value="process">
 					<fieldset>
-						<div class="control-group">
+						<div class="form-group">
 							<label class="control-label" for="email_address">{$lang.entry_email_address}</label>
-							<div class="controls">
-								<input id="icon" type="text" placeholder="{$lang.placeholder_email_address}" name="email_address">
-							</div>
+							<input id="icon" type="text" class="form-control" placeholder="{$lang.placeholder_email_address}" name="email_address">
 						</div>
-						<div class="control-group">
+						<div class="form-group">
 							<label class="control-label" for="password">{$lang.entry_password}</label>
-							<div class="controls">
-								<input id="password" type="password" placeholder="{$lang.entry_password}" name="password">
-							</div>
+							<input id="password" type="password" class="form-control" placeholder="{$lang.entry_password}" name="password">
 						</div>
-						<div class="form-actions">
 							<button class="btn btn-primary btn-alt" type="submit"><span class="icon-signin"></span> {$lang.button_login}</button>
-						</div>
 					</fieldset>
 				</form>
 				<!-- /Login form -->

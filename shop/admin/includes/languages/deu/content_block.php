@@ -29,7 +29,7 @@ define('TABLE_HEADING_ACTION', 'Aktion');
 
 define('TEXT_HEADING_NEW_BLOCK', 'Neue Block');
 define('TEXT_HEADING_EDIT_BLOCK', 'Block bearbeiten');
-define('TEXT_HEADING_DELETE_BLOCK', 'Block l&ouml;schen');
+define('TEXT_HEADING_DELETE_BLOCK', 'Block löschen');
 
 define('TEXT_DATE_ADDED', 'hinzugef&uuml;gt am:');
 define('TEXT_LAST_MODIFIED', 'letzte &Auml;nderung am:');
@@ -43,5 +43,5 @@ define('TEXT_BLOCK_LOGIN', 'Login');
 define('TEXT_BLOCK_NAME', 'Block - Name');
 define('TEXT_BLOCK_PAGE', 'Seite');
 
-define('TEXT_DELETE_INTRO', 'Sind Sie sicher, dass Sie diesen Block l&ouml;schen m&ouml;chten?');
+define('TEXT_DELETE_INTRO', 'Sind Sie sicher, dass Sie diesen Block löschen möchten?');
 ?>

@@ -40,10 +40,10 @@ define('TEXT_INFO_LANGUAGE_IMAGE', 'Symbol:');
 define('TEXT_INFO_LANGUAGE_DIRECTORY', 'Verzeichnis:');
 define('TEXT_INFO_LANGUAGE_SORT_ORDER', 'Sortierreihenfolge:');
 define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie die neue Sprache mit allen relevanten Daten ein');
-define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie die Sprache l&ouml;schen m&ouml;chten?');
+define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie die Sprache löschen möchten?');
 define('TEXT_INFO_HEADING_NEW_LANGUAGE', 'Neue Sprache');
 define('TEXT_INFO_HEADING_EDIT_LANGUAGE', 'Sprache bearbeiten');
-define('TEXT_INFO_HEADING_DELETE_LANGUAGE', 'Sprache l&ouml;schen');
+define('TEXT_INFO_HEADING_DELETE_LANGUAGE', 'Sprache löschen');
 
-define('ERROR_REMOVE_DEFAULT_LANGUAGE', 'Fehler: Die Standardsprache darf nicht gel&ouml;scht werden. Bitte definieren Sie eine neue Standardsprache und wiederholen Sie den Vorgang.');
+define('ERROR_REMOVE_DEFAULT_LANGUAGE', 'Fehler: Die Standardsprache darf nicht gelöscht werden. Bitte definieren Sie eine neue Standardsprache und wiederholen Sie den Vorgang.');
 ?>

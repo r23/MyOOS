@@ -64,25 +64,25 @@ define('TEXT_PRODUCTS_LIST_PRICE', 'empf VK:');
 define('TEXT_PRODUCTS_DISCOUNT_ALLOWED', 'Discountmaximum:');
 
 
-define('TEXT_INFO_COPY_TO_INTRO', 'Bitte w&auml;hlen Sie eine neue Kategorie aus, in die Sie den Artikel kopieren m&ouml;chten:');
+define('TEXT_INFO_COPY_TO_INTRO', 'Bitte w&auml;hlen Sie eine neue Kategorie aus, in die Sie den Artikel kopieren möchten:');
 define('TEXT_INFO_CURRENT_CATEGORIES', 'aktuelle Kategorien:');
 
 define('TEXT_INFO_HEADING_NEW_CATEGORY', 'Neue Kategorie');
 define('TEXT_INFO_HEADING_EDIT_CATEGORY', 'Kategorie bearbeiten');
-define('TEXT_INFO_HEADING_DELETE_CATEGORY', 'Kategorie l&ouml;schen');
+define('TEXT_INFO_HEADING_DELETE_CATEGORY', 'Kategorie löschen');
 define('TEXT_INFO_HEADING_MOVE_CATEGORY', 'Kategorie verschieben');
-define('TEXT_INFO_HEADING_DELETE_PRODUCT', 'Artikel l&ouml;schen');
+define('TEXT_INFO_HEADING_DELETE_PRODUCT', 'Artikel löschen');
 define('TEXT_INFO_HEADING_MOVE_PRODUCT', 'Artikel verschieben');
 define('TEXT_INFO_HEADING_COPY_TO', 'Kopieren nach');
 
-define('TEXT_DELETE_CATEGORY_INTRO', 'Sind Sie sicher, dass Sie diese Kategorie l&ouml;schen m&ouml;chten?');
-define('TEXT_DELETE_PRODUCT_INTRO', 'Sind Sie sicher, dass Sie diesen Artikel l&ouml;schen m&ouml;chten?');
+define('TEXT_DELETE_CATEGORY_INTRO', 'Sind Sie sicher, dass Sie diese Kategorie löschen möchten?');
+define('TEXT_DELETE_PRODUCT_INTRO', 'Sind Sie sicher, dass Sie diesen Artikel löschen möchten?');
 
 define('TEXT_DELETE_WARNING_CHILDS', '<b>WARNUNG:</b> Es existieren noch %s (Unter-)Kategorien, die mit dieser Kategorie verbunden sind!');
 define('TEXT_DELETE_WARNING_PRODUCTS', '<b>WARNING:</b> Es existieren noch %s Artikel, die mit dieser Kategorie verbunden sind!');
 
-define('TEXT_MOVE_PRODUCTS_INTRO', 'Bitte w&auml;hlen Sie die &uuml;bergordnete Kategorie, in die Sie <b>%s</b> verschieben m&ouml;chten');
-define('TEXT_MOVE_CATEGORIES_INTRO', 'Bitte w&auml;hlen Sie die &uuml;bergordnete Kategorie, in die Sie <b>%s</b> verschieben m&ouml;chten');
+define('TEXT_MOVE_PRODUCTS_INTRO', 'Bitte w&auml;hlen Sie die &uuml;bergordnete Kategorie, in die Sie <b>%s</b> verschieben möchten');
+define('TEXT_MOVE_CATEGORIES_INTRO', 'Bitte w&auml;hlen Sie die &uuml;bergordnete Kategorie, in die Sie <b>%s</b> verschieben möchten');
 define('TEXT_MOVE', 'Verschiebe <b>%s</b> nach:');
 
 define('TEXT_NEW_CATEGORY_INTRO', 'Bitte geben Sie die neue Kategorie mit allen relevanten Daten ein.');
@@ -113,7 +113,7 @@ define('TEXT_HOW_TO_COPY', 'Kopiermethode:');
 define('TEXT_COPY_AS_LINK', 'Produkt verlinken');
 define('TEXT_COPY_AS_DUPLICATE', 'Produkt duplizieren');
 
-define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Fehler: Produkte k&ouml;nnen nicht in der gleichen Kategorie verlinkt werden.');
+define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Fehler: Produkte können nicht in der gleichen Kategorie verlinkt werden.');
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis \'images\' im Katalogverzeichnis ist schreibgesch&uuml;tzt: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
 define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Verzeichnis \'images\' im Katalogverzeichnis ist nicht vorhanden: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
 

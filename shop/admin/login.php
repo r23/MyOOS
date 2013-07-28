@@ -90,7 +90,7 @@ $smarty->assign(
 $smarty->assign('body', 'login-page');
 $smarty->assign('form_action', oos_draw_form('login', $aFilename['login'], ''));
 $smarty->assign('password_forgotten', oos_href_link_admin($aFilename['password_forgotten'], '', 'SSL'));
-$smarty->assign('catalog_link', oos_catalog_link($oosCatalogFilename['default']));
+$smarty->assign('catalog_link', oos_catalog_link($aCatalogFilename['default']));
 
 // display the template
 $smarty->display($aTemplate['page']);

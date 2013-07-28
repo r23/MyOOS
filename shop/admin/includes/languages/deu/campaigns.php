@@ -33,12 +33,12 @@ define('TABLE_HEADING_ACTION', 'Aktion');
 define('TEXT_INFO_EDIT_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nderungen durch');
 define('TEXT_INFO_CAMPAIGNS_NAME', 'Kampagnen:');
 define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie die neue Kampagne mit allen relevanten Daten ein');
-define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Kampagne l&ouml;schen m&ouml;chten?');
+define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Kampagne löschen möchten?');
 define('TEXT_INFO_HEADING_NEW_CAMPAIGNS', 'Neue Kampagne');
 define('TEXT_INFO_HEADING_EDIT_CAMPAIGNS', 'Kampagne bearbeiten');
-define('TEXT_INFO_HEADING_DELETE_CAMPAIGNS', 'Kampagne l&ouml;schen');
+define('TEXT_INFO_HEADING_DELETE_CAMPAIGNS', 'Kampagne löschen');
 
-define('ERROR_REMOVE_DEFAULT_CAMPAIGNS', 'Fehler: Die Standard-Kampagne kann nicht gel&ouml;scht werden. Bitte definieren Sie einen neue Standard-Kampagne und wiederholen Sie den Vorgang.');
+define('ERROR_REMOVE_DEFAULT_CAMPAIGNS', 'Fehler: Die Standard-Kampagne kann nicht gelöscht werden. Bitte definieren Sie einen neue Standard-Kampagne und wiederholen Sie den Vorgang.');
 define('TEXT_DISPLAY_NUMBER_OF_CAMPAIGNS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Kampagnen)');
 
 ?>
