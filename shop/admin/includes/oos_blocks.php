@@ -80,7 +80,7 @@ if(defined('NEW_MYOOS'))
     $admin_filestable = $oostable['admin_files'];
     $query = "SELECT admin_files_id, admin_files_name, admin_files_is_boxes, admin_files_to_boxes
               FROM $admin_filestable
-              WHERE = admin_groups_id = '" . intval($_SESSION['login_groups_id']) . "'";
+              WHERE FIND_IN_SET( '" . intval($_SESSION['login_groups_id']) . "', admin_groups_id)";
 	$aFilesResults = array();			
 	$aFilesResults = $dbconn->GetAll($query);
 
