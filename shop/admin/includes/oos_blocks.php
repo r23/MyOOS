@@ -19,9 +19,11 @@
    Released under the GNU General Public License
    ----------------------------------------------------------------------  */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
+if(defined('NEW_MYOOS'))
+{
 
   if (oos_admin_check_boxes('administrator.php') == true) {
     include 'includes/boxes/administrator.php';
@@ -73,3 +75,14 @@
   if (oos_admin_check_boxes('information.php') == true) {
     include 'includes/boxes/information.php';
   }
+} else {
+	$aFilesResults = array();
+    $admin_filestable = $oostable['admin_files'];
+    $query = "SELECT admin_files_id, admin_files_name, admin_files_is_boxes, admin_files_to_boxes
+              FROM $admin_filestable
+              WHERE = admin_groups_id = '" . intval($_SESSION['login_groups_id']) . "'";
+	$aFilesResults = array();			
+	$aFilesResults = $dbconn->GetAll($query);
+
+    $smarty->assign('admin_files_name', $aFilesResults);
+}
