@@ -309,8 +309,62 @@ define('IMAGE_UPDATE_CURRENCIES', 'Wechselkurse aktualisieren');
 define('IMAGE_UPLOAD', 'Hochladen');
 define('IMAGE_WISHLIST', 'Wunschzettel');
 
-$aLang['image_new_tax_rate'] = 'Neuen Steuersatz anlegen';
-$aLang['image_new_zone'] = 'Neues Bundesland einfügen';
+$aLang['button_ani_send_email'] = 'eMail versenden';
+$aLang['button_back'] = 'Zurück';
+$aLang['button_backup'] = 'Datensicherung';
+$aLang['button_cancel'] = 'Abbruch';
+$aLang['button_confirm'] = 'Bestätigen';
+$aLang['button_copy'] = 'Kopieren';
+$aLang['button_copy_to'] = 'Kopieren nach';
+$aLang['button_define'] = 'Definieren';
+$aLang['button_delete'] = 'Löschen';
+$aLang['button_edit'] = 'Bearbeiten';
+$aLang['button_email'] = 'eMail versenden';
+$aLang['button_featured'] = 'Top-Angebote';
+$aLang['button_file_manager'] = 'Datei-Manager';
+$aLang['button_icon_status_green'] = 'aktiv';
+$aLang['button_icon_status_green_light'] = 'aktivieren';
+$aLang['button_icon_status_red'] = 'inaktiv';
+$aLang['button_icon_status_red_light'] = 'deaktivieren';
+$aLang['button_icon_info'] = 'Information';
+$aLang['button_insert'] = 'Einfügen';
+$aLang['button_lock'] = 'Sperren';
+$aLang['button_move'] = 'Verschieben';
+$aLang['button_new_category'] = 'Neue Kategorie erstellen';
+$aLang['button_new_country'] = 'Neues Land aufnehmen';
+$aLang['button_new_currency'] = 'Neue Währung einfügen';
+$aLang['button_new_file'] = 'Neue Datei';
+$aLang['button_new_folder'] = 'Neues Verzeichnis';
+$aLang['button_new_language'] = 'Neue Sprache anlegen';
+$aLang['button_new_news'] = 'Neue News erstellen';
+$aLang['button_new_newsletter'] = 'Neues Rundschreiben';
+$aLang['button_new_product'] = 'Neuen Artikel aufnehmen';
+$aLang['button_new_tax_class'] = 'Neue Steuerklasse erstellen';
+$aLang['button_new_tax_rate'] = 'Neuen Steuersatz anlegen';
+$aLang['button_new_tax_zone'] = 'Neue Steuerzone erstellen';
+$aLang['button_orders'] = 'Bestellungen';
+$aLang['button_orders_invoice'] = 'Rechnung';
+$aLang['button_orders_packingslip'] = 'Lieferschein';
+$aLang['button_orders_webprinter'] = 'WebPrinter';
+$aLang['button_plugins_install'] = 'Plugins Installieren';
+$aLang['button_plugins_remove'] = 'Plugins Entfernen';
+$aLang['button_preview'] = 'Vorschau';
+$aLang['button_reset'] = 'Zurücksetzen';
+$aLang['button_restore'] = 'Zurücksichern';
+$aLang['button_save'] = 'Speichern';
+$aLang['button_search'] = 'Suchen';
+$aLang['button_select'] = 'Auswählen';
+$aLang['button_send'] = 'Versenden';
+$aLang['button_send_email'] = 'eMail versenden';
+$aLang['button_specials'] = 'Sonderangebot';
+$aLang['button_status'] = 'Kundengruppe';
+$aLang['button_unlock'] = 'Entsperren';
+$aLang['button_update'] = 'Aktualisieren';
+$aLang['button_update_currencies'] = 'Wechselkurse aktualisieren';
+$aLang['button_upload'] = 'Hochladen';
+$aLang['button_wishlist'] = 'Wunschzettel';
+$aLang['button_new_tax_rate'] = 'Neuen Steuersatz anlegen';
+$aLang['button_new_zone'] = 'Neues Bundesland einfügen';
 
 
 define('ICON_CROSS', 'Falsch');
@@ -359,6 +413,19 @@ define('TEXT_DISPLAY_NUMBER_OF_INFORMATION', 'Angezeigt werden <b>%d</b> bis <b>
 
 define('PREVNEXT_BUTTON_PREV', '&lt;&lt;');
 define('PREVNEXT_BUTTON_NEXT', '&gt;&gt;');
+
+$aLang['prevnext_title_first_page'] = 'erste Seite';
+$aLang['prevnext_title_previous_page'] = 'vorherige Seite';
+$aLang['prevnext_title_next_page'] = 'nächste Seite';
+$aLang['prevnext_title_last_page'] = 'letzte Seite';
+$aLang['prevnext_title_page_no'] = 'Seite %d';
+$aLang['prevnext_title_prev_set_of_no_page'] = 'Vorhergehende %d Seiten';
+$aLang['prevnext_title_next_set_of_no_page'] = 'Nächste %d Seiten';
+$aLang['prevnext_button_first'] = '&lt;&lt;ERSTE';
+$aLang['prevnext_button_prev'] = '&lt;&lt;&nbsp;vorherige';
+$aLang['prevnext_button_next'] = 'nächste&nbsp;&gt;&gt;';
+$aLang['prevnext_button_last'] = 'LETZTE&gt;&gt;';
+
 
 define('TEXT_DEFAULT', 'Standard');
 define('TEXT_SET_DEFAULT', 'als Standard definieren');
@@ -442,6 +509,7 @@ define('TEXT_DISPLAY_NUMBER_OF_MEMBERS', 'Zeige an <b>%d</b> bis <b>%d</b> (von 
 
 
 define('PULL_DOWN_DEFAULT', 'Bitte wählen');
+$aLang['bulk_actions'] = 'Aktion wählen';
 
 define('BOX_REPORTS_RECOVER_CART_SALES', 'Warenkorbabbrüche');
 define('BOX_TOOLS_RECOVER_CART', 'Warenkorbabbrüche');
