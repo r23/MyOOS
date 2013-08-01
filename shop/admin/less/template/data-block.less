@@ -1,0 +1,87 @@
+//
+// myoos data blocks
+// --------------------------------------------------
+
+
+.data-block {
+	position: relative;
+	margin-bottom: @fluidGridGutterWidth;
+	.data-container {
+		box-sizing: border-box;
+		& + .data-block {
+			margin-top: @baseMargin;
+		}
+	}
+	&.nested {
+		padding: @baseMargin;
+		color: @dataNestedTextColor;
+		background-color: @dataNestedBackgroundColor;
+		box-shadow: 0 0 3px #ababab inset;
+		border-radius: @baseBorderRadius;
+		header,
+		footer {
+			border-color: @dataNestedBorderColor;
+		}
+	}
+}
+
+/* Data block header */
+.data-block header {
+	border-bottom: 3px solid @bodyBackground;
+	padding-bottom: @baseMargin / 2 - 3;
+	margin-bottom: @baseMargin;
+	h2 {
+		margin: 0;
+		display: inline-block;
+		line-height: normal;
+		font-size: @baseFontSize + 9;
+		text-shadow: 0 1px 1px rgba(0,0,0,0.25);
+	}
+
+	
+}
+
+
+
+
+/* Data block footer */
+.data-block footer {
+	border-top: 1px solid @bodyBackground;
+	margin-top: @baseMargin;
+	padding-top: @baseMargin / 2;
+	color: @grayLight;
+	font-size: @fontSizeSmall;
+	&.info p,
+	&.warning p {
+		padding-left: 22px;
+		background-position: left center;
+		background-repeat: no-repeat;
+		background-image: url("@{dataBlockFooterInfo}");
+	}
+	&.warning p {
+		background-image: url("@{dataBlockFooterWarning}");
+	}
+	p {
+		line-height: normal;
+		margin: 0;
+	}
+}
+
+.data-header-actions {
+	float: right;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.dataTables_paginate {
+		margin: 0;
+		float: right;
+}
+
+.dataTables_info {
+	p {
+		line-height: normal;
+		margin: 0;
+	}
+}

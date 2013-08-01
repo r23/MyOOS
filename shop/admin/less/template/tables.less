@@ -1,0 +1,92 @@
+//
+// myoos tables
+// --------------------------------------------------
+
+
+.table {
+	border-top: 1px solid @tableBorder;
+	border-bottom: 1px solid @tableBorder;
+	margin-bottom: @baseMargin;
+	.btn-group {
+		float: left;
+		margin: 0;
+	}
+	th {
+		text-align: left;
+	}
+	td,
+	th {
+		&.toolbar {
+			text-align: right;
+			padding: 4px;
+			.btn-flat {
+				padding: 4px 8px;
+			}
+			& > a span {
+				margin-top: 4px;
+			}
+		}
+	}
+}
+.nested {
+	table {
+		background-color: transparent;
+		&.table {
+			border-color: @dataNestedBorderColor;
+			th {
+				color: @dataNestedTextColor;
+			}
+			tbody tr {
+				background-color: darken(@white, 7%);
+			}
+			th,
+			td {
+				border-color: @dataNestedBorderColor;
+			}
+		}
+		&.table-striped {
+			tbody {
+				tr:nth-child(odd) td,
+				tr:nth-child(odd) th {
+					background-color: darken(@white, 13%);
+				}
+			}
+		}
+	}
+}
+.table-bordered {
+	border-color: @tableBorder;
+	th,
+	td {
+		border-color: @tableBorder;
+	}
+}
+.table-media {
+	tr td {
+		vertical-align: middle;
+	}
+	tr td:first-child,
+	tr th:first-child {
+		width: 20px;
+		text-align: center;
+	}
+	.thumbnail {
+		display: table-cell;
+		width: 45px;
+		border-right: none;
+		border-bottom: none;
+		border-radius: 0;
+		box-shadow: none;
+	}
+	input[type="checkbox"] {
+		margin-top: 0;
+	}
+}
+.table-hover {
+	tbody {
+		tr:hover td,
+		tr:hover th {
+			background-color: @tableBackgroundHover;
+		}
+	}
+}
