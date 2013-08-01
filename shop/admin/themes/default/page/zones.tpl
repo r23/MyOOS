@@ -33,11 +33,15 @@
 
 				<!-- Grid row -->
 				<div class="row">
+					<div class="col-6 col-lg-6">
+					</div>
+					<div class="col-6 col-lg-6">
 						<div class="data-header-actions">
 							<ul>
 								<li><a class="btn btn-primary" href="{$new_zone}" title="{$lang.button_new_zone}">{$lang.button_new_zone}</a></li>
 							</ul>
 						</div>
+					</div>
 					<!-- Data block -->
 					<article class="col-lg-12 data-block">
 						<div class="data-container">
@@ -157,7 +161,7 @@
 				})
 				
 			});
-		</script>		
+		</script>	
 {/literal}
 
 {include file="default/system/_footer.tpl"}

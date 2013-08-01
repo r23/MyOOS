@@ -32,6 +32,6 @@ $aLang['text_info_zones_code'] = 'Code des Bundeslandes:';
 $aLang['text_info_country_name'] = 'Land:';
 $aLang['text_info_insert_intro'] = 'Bitte geben Sie das neue Bundesland mit allen relevanten Daten ein';
 $aLang['text_info_delete_intro'] = 'Sind Sie sicher, dass Sie dieses Bundesland löschen wollen?';
-$aLang['text_info_heading_new_zone'] = 'neues Bundesland';
+$aLang['text_info_heading_new_zone'] = 'Neues Bundesland';
 $aLang['text_info_heading_edit_zone'] = 'Bundesland bearbeiten';
 $aLang['text_info_heading_delete_zone'] = 'Bundesland löschen';

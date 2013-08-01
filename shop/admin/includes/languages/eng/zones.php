@@ -3,8 +3,7 @@
    $Id: zones.php 437 2013-06-22 15:33:30Z r23 $
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
-   
+   http://www.oos-shop.de/  
    
    Copyright (c) 2003 - 2013 by the MyOOS Development Team.
    ----------------------------------------------------------------------
@@ -20,21 +19,19 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+$aLang['heading_title'] = 'Zones';
 
-define('HEADING_TITLE', 'Zones');
+$aLang['table_heading_country_name'] = 'Country';
+$aLang['table_heading_zone_name'] = 'Zones';
+$aLang['table_heading_zone_code'] = 'Code';
+$aLang['table_heading_action'] = 'Action';
 
-define('TABLE_HEADING_COUNTRY_NAME', 'Country');
-define('TABLE_HEADING_ZONE_NAME', 'Zones');
-define('TABLE_HEADING_ZONE_CODE', 'Code');
-define('TABLE_HEADING_ACTION', 'Action');
-
-define('TEXT_INFO_EDIT_INTRO', 'Please make any necessary changes');
-define('TEXT_INFO_ZONES_NAME', 'Zones Name:');
-define('TEXT_INFO_ZONES_CODE', 'Zones Code:');
-define('TEXT_INFO_COUNTRY_NAME', 'Country:');
-define('TEXT_INFO_INSERT_INTRO', 'Please enter the new zone with its related data');
-define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this zone?');
-define('TEXT_INFO_HEADING_NEW_ZONE', 'New Zone');
-define('TEXT_INFO_HEADING_EDIT_ZONE', 'Edit Zone');
-define('TEXT_INFO_HEADING_DELETE_ZONE', 'Delete Zone');
-?>
+$aLang['text_info_edit_intro'] = 'Please make any necessary changes';
+$aLang['text_info_zones_name'] = 'Zones Name:';
+$aLang['text_info_zones_code'] = 'Zones Code:';
+$aLang['text_info_country_name'] = 'Country:';
+$aLang['text_info_insert_intro'] = 'Please enter the new zone with its related data';
+$aLang['text_info_delete_intro'] = 'Are you sure you want to delete this zone?';
+$aLang['text_info_heading_new_zone'] = 'New Zone';
+$aLang['text_info_heading_edit_zone'] = 'Edit Zone';
+$aLang['text_info_heading_delete_zone'] = 'Delete Zone';
