@@ -18,7 +18,7 @@
 				<!-- Breadcrumbs -->
 				<ul class="breadcrumb">
 					<li><a href="{$home}"><span class="icon-home"></span> Home</a></li>
-					<li><a href="#">Chromatron template</a></li>
+					<li><a href="#">{$lang.box_heading_location_and_taxes}</a></li>
 					<li class="active">{$lang.heading_title}</li>
 				</ul>
 				<!-- Breadcrumbs -->
@@ -45,12 +45,12 @@
 					<!-- Data block -->
 					<article class="col-lg-12 data-block">
 						<div class="data-container">
-
+<form method="post" action="" >
 							<section>
 								<table class="table table-striped table-bordered table-condensed table-hover table-media">
 								<thead>
 									<tr>
-										<th><input id="optionsCheckbox" type="checkbox" value="option1"></th>
+										<th><input type="checkbox" name="checkme" onclick="checkAll(this.form, 'zone[]', this.checked)" /></th>
 										<th>{$lang.table_heading_country_name}</th>
 										<th>{$lang.table_heading_zone_name}</th>
 										<th>{$lang.table_heading_zone_code}</th>
@@ -80,7 +80,7 @@
 								</tbody>
 								<thead>
 									<tr>
-										<th><input id="optionsCheckbox" type="checkbox" value="option1"></th>
+										<th><input type="checkbox" name="checkme" onclick="checkAll(this.form, 'zone[]', this.checked)" /></th>
 										<th>{$lang.table_heading_country_name}</th>
 										<th>{$lang.table_heading_zone_name}</th>
 										<th>{$lang.table_heading_zone_code}</th>
@@ -89,7 +89,7 @@
 								</thead>
 							</table>
 							</section>
-
+</form>
 
 
 						</div>
@@ -126,19 +126,7 @@
 
 {literal}
 		<script>
-			$(document).ready(function(){
-			
-				$('table th input:checkbox').on('click' , function(){
-					var that = this;
-					$(this).closest('table').find('tr > td:first-child input:checkbox')
-					.each(function(){
-						this.checked = that.checked;
-						$(this).closest('tr').toggleClass('selected');
-					});
-						
-				});
-	
-			
+			$(document).ready(function(){			
 				
 				// Tooltips for brand & nav toggle button
 				$('.nav-toggle, .brand').tooltip({

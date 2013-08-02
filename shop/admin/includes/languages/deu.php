@@ -147,6 +147,7 @@ define('BOX_CAMPAIGNS', 'Kampagnen');
 define('BOX_ADMIN_LOGIN', 'Admin login');
 
 // taxes box text in includes/boxes/taxes.php
+$aLang['box_heading_location_and_taxes'] = 'Land / Steuer';
 define('BOX_HEADING_LOCATION_AND_TAXES', 'Land / Steuer');
 define('BOX_TAXES_COUNTRIES', 'Land');
 define('BOX_TAXES_ZONES', 'Bundesländer');
