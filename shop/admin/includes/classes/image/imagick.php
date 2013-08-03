@@ -1,4 +1,20 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php
+/* ----------------------------------------------------------------------
+   $Id:$
+
+   MyOOS [Shopsystem]
+   http://www.oos-shop.de/
+
+   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   ----------------------------------------------------------------------
+   Based on:
+
+   Kohana/Image
+   ---------------------------------------------------------------------- */
+
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+
 /**
  * Support for image manipulation using [Imagick](http://php.net/Imagick).
  *
