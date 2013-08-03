@@ -64,29 +64,7 @@ if (!empty($action)) {
 
 $aTemplate['page'] = 'default/page/zones.tpl';
 
-require_once '/includes/classes/class_template.php';
-$smarty = new myOOS_Smarty;
-
-if (empty($oos_pagetitle)) $oos_pagetitle = $aLang['heading_title'] . ' &lsaquo; ' . STORE_NAME . ' &#8212; MyOOS';
-
-$sFormid = md5(uniqid(rand(), true));
-$_SESSION['formid'] = $sFormid;
-
-require_once '/includes/info_message.php';
-
-$smarty->assign(
-      array(
-          'formid'            => $sFormid,
-
-          'lang'              => $aLang,
-          'language'          => $sLanguage,
-
-          'oos_session_name'  => oos_session_name(),
-          'oos_session_id'    => oos_session_id(),
-
-          'pagetitle'         => $oos_pagetitle,
-      )
-);
+require_once 'includes/oos_system.php';
 
 
 
@@ -121,16 +99,9 @@ $smarty->assign(
 
     $smarty->assign('zones', $aZones);
 
- 
-
 
 $smarty->assign('body', 'zones');
 $smarty->assign('form_action', oos_draw_form('zones', $aFilename['zones'], 'page=' . $nPage));
-$smarty->assign('home', oos_href_link_admin($aFilename['default']));
-$smarty->assign('catalog_link', oos_catalog_link($aCatalogFilename['default']));
-$smarty->assign('support_site', 'http://www.oos-shop.de/');
-$smarty->assign('logoff', oos_href_link_admin($aFilename['logoff']));
-
 $smarty->assign('new_zone', oos_href_link_admin($aFilename['zones'], 'page=' . $nPage . '&amp;action=new'));
 $smarty->assign('display_count', $zones_split->display_count($zones_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_ZONES));
 $smarty->assign('display_links', $zones_split->display_pagination($zones_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage, '', $aFilename['zones']));
