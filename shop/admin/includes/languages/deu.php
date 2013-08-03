@@ -58,6 +58,7 @@
 
 // Global entries for the <html> tag
 define('HTML_PARAMS','dir="ltr" lang="de"');
+define('LANG', 'de');
 
 // charset for web pages and emails
 define('CHARSET', 'UTF-8');

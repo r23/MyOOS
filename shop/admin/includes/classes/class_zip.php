@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: zip.lib.php,v 1.7 2002/10/23 04:17:26 robbat2 Exp 
+   File: zip.lib.php 
    ----------------------------------------------------------------------
    phpMyAdmin
 
@@ -21,29 +21,24 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
 /**
  * Zip file creation class.
  * Makes zip files.
  *
- * Based on :
- *
- *  http://www.zend.com/codex.php?id=535&single=1
- *  By Eric Mueller <eric@themepark.com>
- *
- *  http://www.zend.com/codex.php?id=470&single=1
- *  by Denis125 <webmaster@atlant.ru>
- *
- *  a patch from Peter Listiak <mlady@users.sourceforge.net> for last modified
- *  date and time of the compressed file
- *
- * Official ZIP file format: http://www.pkware.com/appnote.txt
- *
  * @access  public
+ * @see     Official ZIP file format: http://www.pkware.com/support/zip-app-note
  */
-class zipfile {
+class ZipFile
+{
+    /**
+     * Whether to echo zip as it's built or return as string from -> file
+     *
+     * @var  boolean  $doWrite
+     */
+    var $doWrite      = false;
 
     /**
      * Array to store compressed data
@@ -75,46 +70,71 @@ class zipfile {
 
 
     /**
+     * Sets member variable this -> doWrite to true
+     * - Should be called immediately after class instantiantion
+     * - If set to true, then ZIP archive are echo'ed to STDOUT as each
+     *   file is added via this -> addfile(), and central directories are
+     *   echoed to STDOUT on final call to this -> file().  Also,
+     *   this -> file() returns an empty string so it is safe to issue a
+     *   "echo $zipfile;" command
+     *
+     * @access public
+     *
+     * @return void
+     */
+    function setDoWrite()
+    {
+        $this -> doWrite = true;
+    } // end of the 'setDoWrite()' method
+
+    /**
      * Converts an Unix timestamp to a four byte DOS date and time format (date
      * in high two bytes, time in low two bytes allowing magnitude comparison).
      *
-     * @param  integer  the current Unix timestamp
+     * @param integer $unixtime the current Unix timestamp
      *
-     * @return integer  the current date in a four byte DOS format
+     * @return integer the current date in a four byte DOS format
      *
      * @access private
      */
-    function unix2DosTime($unixtime = 0) {
+    function unix2DosTime($unixtime = 0)
+    {
         $timearray = ($unixtime == 0) ? getdate() : getdate($unixtime);
 
         if ($timearray['year'] < 1980) {
-        	$timearray['year']    = 1980;
-        	$timearray['mon']     = 1;
-        	$timearray['mday']    = 1;
-        	$timearray['hours']   = 0;
-        	$timearray['minutes'] = 0;
-        	$timearray['seconds'] = 0;
-        } 
+            $timearray['year']    = 1980;
+            $timearray['mon']     = 1;
+            $timearray['mday']    = 1;
+            $timearray['hours']   = 0;
+            $timearray['minutes'] = 0;
+            $timearray['seconds'] = 0;
+        } // end if
 
-        return (($timearray['year'] - 1980) << 25) | ($timearray['mon'] << 21) | ($timearray['mday'] << 16) |
-                ($timearray['hours'] << 11) | ($timearray['minutes'] << 5) | ($timearray['seconds'] >> 1);
-    } 
+        return (($timearray['year'] - 1980) << 25)
+            | ($timearray['mon'] << 21)
+            | ($timearray['mday'] << 16)
+            | ($timearray['hours'] << 11)
+            | ($timearray['minutes'] << 5)
+            | ($timearray['seconds'] >> 1);
+    } // end of the 'unix2DosTime()' method
 
 
     /**
      * Adds "file" to archive
      *
-     * @param  string   file contents
-     * @param  string   name of the file in the archive (may contains the path)
-     * @param  integer  the current timestamp
+     * @param string  $data file contents
+     * @param string  $name name of the file in the archive (may contains the path)
+     * @param integer $time the current timestamp
      *
      * @access public
+     *
+     * @return void
      */
-    function addFile($data, $name, $time = 0) {
-
+    function addFile($data, $name, $time = 0)
+    {
         $name     = str_replace('\\', '/', $name);
 
-        $dtime    = dechex($this->unix2DosTime($time));
+        $dtime    = substr("00000000" . dechex($this->unix2DosTime($time)), -8);
         $hexdtime = '\x' . $dtime[6] . $dtime[7]
                   . '\x' . $dtime[4] . $dtime[5]
                   . '\x' . $dtime[2] . $dtime[3]
@@ -143,15 +163,12 @@ class zipfile {
         // "file data" segment
         $fr .= $zdata;
 
-        // "data descriptor" segment (optional but necessary if archive is not
-        // served as file)
-        $fr .= pack('V', $crc);                 // crc32
-        $fr .= pack('V', $c_len);               // compressed filesize
-        $fr .= pack('V', $unc_len);             // uncompressed filesize
-
-        // add this entry to array
-        $this -> datasec[] = $fr;
-        $new_offset        = strlen(implode('', $this->datasec));
+        // echo this entry on the fly, ...
+        if ( $this -> doWrite) {
+            echo $fr;
+        } else {                     // ... OR add this entry to array
+            $this -> datasec[] = $fr;
+        }
 
         // now add to central directory record
         $cdrec = "\x50\x4b\x01\x02";
@@ -163,46 +180,51 @@ class zipfile {
         $cdrec .= pack('V', $crc);           // crc32
         $cdrec .= pack('V', $c_len);         // compressed filesize
         $cdrec .= pack('V', $unc_len);       // uncompressed filesize
-        $cdrec .= pack('v', strlen($name) ); // length of filename
-        $cdrec .= pack('v', 0 );             // extra field length
-        $cdrec .= pack('v', 0 );             // file comment length
-        $cdrec .= pack('v', 0 );             // disk number start
-        $cdrec .= pack('v', 0 );             // internal file attributes
-        $cdrec .= pack('V', 32 );            // external file attributes - 'archive' bit set
+        $cdrec .= pack('v', strlen($name)); // length of filename
+        $cdrec .= pack('v', 0);             // extra field length
+        $cdrec .= pack('v', 0);             // file comment length
+        $cdrec .= pack('v', 0);             // disk number start
+        $cdrec .= pack('v', 0);             // internal file attributes
+        $cdrec .= pack('V', 32);            // external file attributes
+                                            // - 'archive' bit set
 
-        $cdrec .= pack('V', $this -> old_offset ); // relative offset of local header
-        $this -> old_offset = $new_offset;
+        $cdrec .= pack('V', $this -> old_offset); // relative offset of local header
+        $this -> old_offset += strlen($fr);
 
         $cdrec .= $name;
 
         // optional extra field, file comment goes here
         // save to central directory
         $this -> ctrl_dir[] = $cdrec;
-    } 
+    } // end of the 'addFile()' method
+
 
     /**
-     * Dumps out file
+     * Echo central dir if ->doWrite==true, else build string to return
      *
-     * @return  string  the zipped file
+     * @return string  if ->doWrite {empty string} else the ZIP file contents
      *
      * @access public
      */
-    function file() {
-
-        $data    = implode('', $this -> datasec);
+    function file()
+    {
         $ctrldir = implode('', $this -> ctrl_dir);
-
-        return
-            $data .
-            $ctrldir .
+        $header = $ctrldir .
             $this -> eof_ctrl_dir .
-            pack('v', count($this -> ctrl_dir)) .  // total # of entries "on this disk"
-            pack('v', count($this -> ctrl_dir)) .  // total # of entries overall
-            pack('V', strlen($ctrldir)) .           // size of central dir
-            pack('V', strlen($data)) .              // offset to start of central dir
-            "\x00\x00";                             // .zip file comment length
-    }
+            pack('v', sizeof($this -> ctrl_dir)) . //total #of entries "on this disk"
+            pack('v', sizeof($this -> ctrl_dir)) . //total #of entries overall
+            pack('V', strlen($ctrldir)) .          //size of central dir
+            pack('V', $this -> old_offset) .       //offset to start of central dir
+            "\x00\x00";                            //.zip file comment length
 
-}
+        if ( $this -> doWrite ) { // Send central directory & end ctrl dir to STDOUT
+            echo $header;
+            return "";            // Return empty string
+        } else {                  // Return entire ZIP archive as string
+            $data = implode('', $this -> datasec);
+            return $data . $header;
+        }
+    } // end of the 'file()' method
 
-?>
+} // end of the 'ZipFile' class
+

@@ -22,7 +22,6 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/oos_main.php';
 
-$action = (isset($_GET['action']) ? $_GET['action'] : '');
 
 if (isset($_GET['page']) && is_numeric($_GET['page'])) {
     $nPage =  intval($_GET['page']);

@@ -30,10 +30,21 @@
 				</article>
 				<!-- /Page header -->
 				
-
+				{$form_action}
+				<input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
+				<input type="hidden" name="formid" value="{$formid}">
+				
 				<!-- Grid row -->
 				<div class="row">
 					<div class="col-6 col-lg-6">
+					Anzeige
+						<select name="pagination" onchange="submit()">
+							
+															<option value="20">20</option>
+															<option value="50">50</option>
+															<option value="100" selected="selected" >100</option>
+															<option value="300">300</option>
+													</select>
 					</div>
 					<div class="col-6 col-lg-6">
 						<div class="data-header-actions">
@@ -45,7 +56,6 @@
 					<!-- Data block -->
 					<article class="col-lg-12 data-block">
 						<div class="data-container">
-<form method="post" action="" >
 							<section>
 								<table class="table table-striped table-bordered table-condensed table-hover table-media">
 								<thead>
@@ -58,7 +68,7 @@
 									</tr>
 								</thead>
 								<tbody>
-{foreach $zones as $zone}
+								{foreach $zones as $zone}
 									<tr>
 									    <td>
 											<label>
@@ -76,7 +86,7 @@
 											</div>
 										</td>
 									</tr>
-{/foreach}
+								{/foreach}
 								</tbody>
 								<thead>
 									<tr>
@@ -89,13 +99,11 @@
 								</thead>
 							</table>
 							</section>
-</form>
-
 
 						</div>
 					</article>
 					<!-- /Data block -->
-
+					
 				</div>
 				<!-- /Grid row -->
 
@@ -104,6 +112,11 @@
 				<div class="row">
 					<div class="col-6 col-sm-4 col-lg-4">
 						<div class="dataTables_info">
+			<select name='action'>
+<option value='-1' selected='selected'>Aktion wählen</option>
+	<option value='trash'>In den Papierkorb legen</option>
+</select>
+<input type="submit" name="" id="doaction" class="button action" value="Übernehmen"  />
 							<p>{$display_count}</p>
 						</div>
 					</div>
@@ -111,7 +124,7 @@
 						<div class="dataTables_paginate">{$display_links}</div>
 					</div>
 				</div>
-					
+				</form>					
 				
 			</section>
 			<!-- /Right (content) side -->
