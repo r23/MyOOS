@@ -64,35 +64,15 @@ if ( (isset($_POST['action']) && ($_POST['action'] == 'process')) && (isset($_SE
   
 $aTemplate['page'] = 'default/page/login.tpl';
 
-require_once '/includes/classes/class_template.php';
-$smarty = new myOOS_Smarty;
+require_once 'includes/oos_system.php';
 
-if (empty($oos_pagetitle)) $oos_pagetitle = $aLang['heading_title'] . ' &lsaquo; ' . STORE_NAME . ' &#8212; MyOOS';
-
-$sFormid = md5(uniqid(rand(), true));
-$_SESSION['formid'] = $sFormid;
-
-require_once '/includes/info_message.php';
-
-$smarty->assign(
-      array(
-          'formid'            => $sFormid,
-
-          'lang'              => $aLang,
-          'language'          => $sLanguage,
-
-          'oos_session_name'  => oos_session_name(),
-          'oos_session_id'    => oos_session_id(),
-
-          'pagetitle'         => $oos_pagetitle,
-      )
-);
 $smarty->assign('body', 'login-page');
 $smarty->assign('form_action', oos_draw_form('login', $aFilename['login'], ''));
-$smarty->assign('password_forgotten', oos_href_link_admin($aFilename['password_forgotten'], '', 'SSL'));
-$smarty->assign('catalog_link', oos_catalog_link($aCatalogFilename['default']));
+$smarty->assign('password_forgotten', oos_href_link_admin($aFilename['password_forgotten']));
+
 
 // display the template
 $smarty->display($aTemplate['page']);
 
 require 'includes/oos_nice_exit.php'; 
+
