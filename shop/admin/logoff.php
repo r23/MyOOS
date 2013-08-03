@@ -19,51 +19,23 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/oos_main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/oos_main.php';
 
-  require('includes/languages/' . $_SESSION['language'] . '/' . $aFilename['logoff']);
+unset($_SESSION['login_id']);
+unset($_SESSION['login_firstname']);
+unset($_SESSION['login_groups_id']);
+  
+$aTemplate['page'] = 'default/page/logoff.tpl';
 
-  unset($_SESSION['login_id']);
-  unset($_SESSION['login_firstname']);
-  unset($_SESSION['login_groups_id']);
-?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?> - Administration [OOS]</title>
-<style type="text/css">
-@import url(includes/admin_login.css);
-</style>
-</head>
-<body>
+require_once 'includes/oos_system.php';
 
-<div id="ctr" align="center">
-	<div class="login">
-		<div class="login-form">
-			<img src="images/login.gif" alt="<?php echo HEADING_PASSWORD_FORGOTTEN; ?>" />
-			<div class="form-block">
-			<div class="clr"></div>
-			<div class="smallText"><?php echo TEXT_MAIN; ?></div>
-			<div id="break"></div>
-			<div align="left"><a href="<?php echo oos_href_link_admin($aFilename['login'], '', 'SSL') . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK); ?></a></div> 
+$smarty->assign('body', 'login-page');
+$smarty->assign('form_action', oos_draw_form('login', $aFilename['login'], ''));
+$smarty->assign('login_link', oos_href_link_admin($aFilename['login']));
 
 
-		</div>
-	</div>
-		<div class="login-text">
+// display the template
+$smarty->display($aTemplate['page']);
 
-			<div class="ctr"><img src="images/security.gif" width="64" height="64" alt="security" /></div>
-			<p><?php echo HEADING_TITLE; ?></p>
-
-		</div>
-		<div class="clr"></div>
-	</div>
-</div>
-<div id="break"></div>
-
-
-</body>
-</html>
-<?php require 'includes/oos_nice_exit.php'; ?>
+require 'includes/oos_nice_exit.php';   

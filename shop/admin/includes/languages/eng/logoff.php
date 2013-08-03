@@ -19,8 +19,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('HEADING_TITLE', 'Log Off');
-define('NAVBAR_TITLE', 'Log Off');
-define('TEXT_MAIN', 'You have been logged-off from <b>Admin</b> area. It is safe to leave the computer now. Click back to relogin');
-define('TEXT_RELOGIN', 're-login');
-?>
+$aLang['heading_title'] = 'Log Off';
+$aLang['navbar_title'] = 'Log Off';
+$aLang['text_main'] = 'You have been logged-off from <b>Admin</b> area. It is safe to leave the computer now. Click back to relogin';
+$aLang['text_relogin'] = 're-login';
+
