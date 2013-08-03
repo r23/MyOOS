@@ -5,7 +5,7 @@ ini_set('mssql.datetimeconvert',0);
 function tmssql()
 {
 	print "<h3>mssql</h3>";
-	$db = mssql_connect('JAGUAR\vsdotnet','adodb','natsoft') or die('No Connection');
+	$db = mssql_connect('JAGUAR\vsdotnet','adodb','natsoft') OR die('No Connection');
 	mssql_select_db('northwind',$db);
 	
 	$rs = mssql_query('select getdate() as date',$db);

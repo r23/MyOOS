@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being require d by a parent file */
-defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 // debug
 $debug = 'false';

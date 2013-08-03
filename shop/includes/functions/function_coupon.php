@@ -32,7 +32,7 @@
   */
 
   /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
  /**
   * Create a Coupon Code. length may be between 1 and 16 Characters

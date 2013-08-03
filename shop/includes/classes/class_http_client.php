@@ -21,7 +21,7 @@
    Minimal Example:
 
    $http = new httpClient();
-   $http->Connect("somehost", 80) or die("Connect problem");
+   $http->Connect("somehost", 80) OR die("Connect problem");
    $status = $http->Get("/index.html");
    if ($status != 200) {
      die("Problem : " . $http->getStatusMessage());

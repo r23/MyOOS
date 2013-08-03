@@ -672,8 +672,8 @@
 	 * compatibility with databases that do not support prepare:
 	 *
 	 *   $stmt = $db->Prepare("insert into table (id, name) values (?,?)");
-	 *   $db->Execute($stmt,array(1,'Jill')) or die('insert failed');
-	 *   $db->Execute($stmt,array(2,'Joe')) or die('insert failed');
+	 *   $db->Execute($stmt,array(1,'Jill')) OR die('insert failed');
+	 *   $db->Execute($stmt,array(2,'Joe')) OR die('insert failed');
 	 *
 	 * @param sql	SQL to send to database
 	 *

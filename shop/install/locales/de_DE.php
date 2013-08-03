@@ -128,7 +128,7 @@ define('MODIFY_FILE_1', 'Error: unable to open for read:');
 
 define('MODIFY_FILE_2', 'Error: unable to open for write:');
 define('MODIFY_FILE_3', 'Error: lines changed, did nothing');
-define('SHOW_ERROR_INFO', 'Fehler:</b> OOS [OSIS Online Shop] Installation konnte nicht in die \'configure.php\' Datei  schreiben. <br /> Sie k&ouml;nnen mit einem Editor diese Datei selbst &auml;ndern. <br />Hier die Informationen  die Sie eintragen sollten:');
+define('SHOW_ERROR_INFO', 'Fehler:</b> OOS [OSIS Online Shop] Installation konnte nicht in die \'configure.php\' Datei  schreiben. <br /> Sie k&ouml;nnen mit einem EditOR diese Datei selbst &auml;ndern. <br />Hier die Informationen  die Sie eintragen sollten:');
 
 define('VIRTUAL_1', 'Web Server');
 define('VIRTUAL_2', 'Legen Sie nun die WebServer Umgebung f&uuml;r OOS [OSIS Online Shop] fest.');

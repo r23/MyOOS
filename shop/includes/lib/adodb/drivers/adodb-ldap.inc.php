@@ -149,7 +149,7 @@ class ADODB_ldap extends ADOConnection {
 	function _inject_bind_options( $options ) {
 		foreach( $options as $option ) {
 			ldap_set_option( $this->_connectionID, $option["OPTION_NAME"], $option["OPTION_VALUE"] )
-				or die( "Unable to set server option: " . $option["OPTION_NAME"] );
+				OR die( "Unable to set server option: " . $option["OPTION_NAME"] );
 		}
 	}
 	

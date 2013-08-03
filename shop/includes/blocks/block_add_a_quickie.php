@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
   if (!isset($block_get_parameters)) {
     $block_get_parameters = oos_get_all_get_parameters(array('action'));

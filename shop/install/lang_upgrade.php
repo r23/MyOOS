@@ -507,12 +507,12 @@ idxsql($idxname, $table, $idxflds);
 
 
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (1, 'Deutsch', 'deu', 'de', 1, 1)") or die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (2, 'English', 'eng', 'en', 1, 2)") or die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (3, 'Nederlands', 'nld', 'nl', 1, 3)") or die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (4, 'Polski', 'pol', 'pl', 0, 4)") or die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (5, 'Russian', 'rus', 'ru', 0, 5)") or die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (6, 'Spanish', 'spa', 'es', 0, 6)") or die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (1, 'Deutsch', 'deu', 'de', 1, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (2, 'English', 'eng', 'en', 1, 2)") OR die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (3, 'Nederlands', 'nld', 'nl', 1, 3)") OR die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (4, 'Polski', 'pol', 'pl', 0, 4)") OR die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (5, 'Russian', 'rus', 'ru', 0, 5)") OR die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (6, 'Spanish', 'spa', 'es', 0, 6)") OR die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
 
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "languages " . UPDATED .'</font>';

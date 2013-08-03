@@ -40,7 +40,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 
 function oosDoUpgrade140 ($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype) {
