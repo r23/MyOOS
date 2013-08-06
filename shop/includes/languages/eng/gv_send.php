@@ -50,6 +50,7 @@ $aLang['email_gv_link'] = 'To redeem please click ';
 $aLang['email_gv_visit'] = ' or visit ';
 $aLang['email_gv_enter'] = ' and enter the code ';
 $aLang['email_gv_fixed_footer'] = 'If you are have problems redeeming the Gift Voucher using the automated link above, ' . "\n" . 
-                                'you can also enter the Gift Voucher code during the checkout process at our store.' . "\n\n");
+                                'you can also enter the Gift Voucher code during the checkout process at our store.' . "\n\n";
+
 $aLang['email_gv_shop_footer'] = '';
-?>
+
