@@ -68,11 +68,10 @@ $aLang['module_payment_eu_banktransfer_text_description'] = '<br />Please use th
 
 
 $aLang['module_payment_eu_banktransfer_email_footer'] = 'Please use the following details to transfer your total order value:' . "\n\n" .
-                                                        'Bank Name: ' .  MODULE_PAYMENT_EU_BANKTRANSFER_BANKNAME .. "\n" .
+                                                        'Bank Name: ' .  MODULE_PAYMENT_EU_BANKTRANSFER_BANKNAME . "\n" .
                                                         'Account Name: ' . MMODULE_PAYMENT_EU_BANKTRANSFER_KONTONAME . "\n" .
                                                         'Account No.: ' .  MODULE_PAYMENT_EU_BANKTRANSFER_KONTONUM . "\n" .
                                                         'IBAN: ' . MODULE_PAYMENT_EU_BANKTRANSFER_IBAN . "\n" .
                                                         'BIC/SWIFT: ' . MODULE_PAYMENT_EU_BANKTRANSFER_BIC . "\n\n" .
                                                         'Your order will not ship until we receive payment in the above account.';
 
-?>
