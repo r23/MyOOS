@@ -28,15 +28,15 @@ define('TEXT_FROM', 'Absender:');
 define('TEXT_TO', 'eMail an:');
 define('TEXT_AMOUNT', 'Betrag:');
 define('TEXT_MESSAGE', 'Nachricht:');
-define('TEXT_SELECT_CUSTOMER', 'Kunden ausw&auml;hlen');
+define('TEXT_SELECT_CUSTOMER', 'Kunden auswählen');
 define('TEXT_ALL_CUSTOMERS', 'Alle Kunden');
 define('TEXT_NEWSLETTER_CUSTOMERS', 'An alle Newsletter-Abonnenten');
 define('TEXT_FROM_NAME', 'Absender Name:');
 define('TEXT_FROM_MAIL', 'Absender eMail:');
 
 define('NOTICE_EMAIL_SENT_TO', 'Hinweis: eMail wurde versendet an: %s');
-define('ERROR_NO_CUSTOMER_SELECTED', 'Fehler: Es wurde kein Kunde ausgew&auml;hlt.');
-define('ERROR_NO_AMOUNT_SELECTED', 'Fehler: Sie haben keinen Betrag f&uuml;r den Gutschein eingegeben.');
+define('ERROR_NO_CUSTOMER_SELECTED', 'Fehler: Es wurde kein Kunde ausgewählt.');
+define('ERROR_NO_AMOUNT_SELECTED', 'Fehler: Sie haben keinen Betrag für den Gutschein eingegeben.');
 
 define('TEXT_GV_WORTH', 'Gutscheinwert ');
 define('TEXT_TO_REDEEM', 'Um den Gutschein einzul�en, klicken Sie auf den unten stehenden Link. Bitte notieren Sie sich den Gutschein-Code.');

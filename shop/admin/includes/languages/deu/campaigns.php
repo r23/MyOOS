@@ -25,12 +25,12 @@
    the translated file.
    ---------------------------------------------------------------------- */
 
-define('HEADING_TITLE', 'Gegenw&auml;rtige Kampagnen');
+define('HEADING_TITLE', 'Gegenwärtige Kampagnen');
 
-define('TABLE_HEADING_CAMPAIGNS', 'Gegenw&auml;rtige Kampagnen');
+define('TABLE_HEADING_CAMPAIGNS', 'Gegenwärtige Kampagnen');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
-define('TEXT_INFO_EDIT_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nderungen durch');
+define('TEXT_INFO_EDIT_INTRO', 'Bitte führen Sie alle notwendigen Änderungen durch');
 define('TEXT_INFO_CAMPAIGNS_NAME', 'Kampagnen:');
 define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie die neue Kampagne mit allen relevanten Daten ein');
 define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Kampagne löschen möchten?');

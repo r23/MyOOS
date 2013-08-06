@@ -26,5 +26,5 @@ define('TABLE_HEADING_NUMBER', 'Nr.');
 define('TABLE_HEADING_PRODUCTS', 'Artikel');
 define('TABLE_HEADING_VIEWED', 'Besucher');
 
-define('TEXT_VIEWS_RESET', 'Die Z&auml;hler wurden zur&uuml;ckgestellt!');
+define('TEXT_VIEWS_RESET', 'Die Zähler wurden zurückgestellt!');
 ?>

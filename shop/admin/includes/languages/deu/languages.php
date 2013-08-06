@@ -32,7 +32,7 @@ define('TABLE_HEADING_LANGUAGE_ISO_639_1', 'iso 639_1');
 define('TABLE_HEADING_LANGUAGE_STATUS', 'Status');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
-define('TEXT_INFO_EDIT_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nderungen durch');
+define('TEXT_INFO_EDIT_INTRO', 'Bitte führen Sie alle notwendigen Änderungen durch');
 define('TEXT_INFO_LANGUAGE_NAME', 'Name:');
 define('TEXT_INFO_LANGUAGE_ISO_639_2', 'iso 639_2');
 define('TEXT_INFO_LANGUAGE_ISO_639_1', 'iso 639_1');

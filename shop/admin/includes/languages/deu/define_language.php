@@ -24,5 +24,5 @@ define('HEADING_TITLE', 'Sprache definieren');
 
 define('TEXT_FILE_DOES_NOT_EXIST', 'Datei nicht vorhanden.');
 
-define('ERROR_FILE_NOT_WRITEABLE', 'Fehler: Die Datei ist schreibgesch&uuml;tzt. Bitte korrigieren Sie die Zugriffsrechte f&uuml;r: %s');
+define('ERROR_FILE_NOT_WRITEABLE', 'Fehler: Die Datei ist schreibgeschützt. Bitte korrigieren Sie die Zugriffsrechte für: %s');
 ?>

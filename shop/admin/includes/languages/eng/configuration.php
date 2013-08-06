@@ -233,7 +233,7 @@ define('IMAGE_REQUIRED_TITLE', 'Image Required');
 define('IMAGE_REQUIRED_DESC', 'Enable to display broken images. Good for development.');
 
 define('CUSTOMER_NOT_LOGIN_TITLE', 'Zugangsberechtigung');
-define('CUSTOMER_NOT_LOGIN_DESC', 'Die Zugangsberechtigung wird durch den Administrator nach Pr&uuml;fung der Kundendaten erteilt');
+define('CUSTOMER_NOT_LOGIN_DESC', 'Die Zugangsberechtigung wird durch den Administrator nach Prüfung der Kundendaten erteilt');
 
 define('SEND_CUSTOMER_EDIT_EMAILS_TITLE', 'Kundendaten per Mail');
 define('SEND_CUSTOMER_EDIT_EMAILS_DESC', 'Die Kundendaten werden an den Shopbetreiber per eMail gesandt');
@@ -417,7 +417,7 @@ define('SHOW_SPECIALS_PRICE_TITLE', 'Sonderangebote');
 define('SHOW_SPECIALS_PRICE_DESC', 'M&ouml;chten Sie den Angebotspreis anzeigen?');
 
 define('SHOW_SPECIALS_PRICE_EXPIRES_TITLE', 'Datum Sonderangebote');
-define('SHOW_SPECIALS_PRICE_EXPIRES_DESC', 'M&ouml;chten Sie das G&uuml;ltigkeitsdatum der Angebotspreise anzeigen?');
+define('SHOW_SPECIALS_PRICE_EXPIRES_DESC', 'M&ouml;chten Sie das Gültigkeitsdatum der Angebotspreise anzeigen?');
 
 define('SHOW_TAX_CLASS_ID_TITLE', 'Steuersatz');
 define('SHOW_TAX_CLASS_ID_DESC', 'M&ouml;chten Sie den Steuersatz anzeigen?');
@@ -480,13 +480,13 @@ define('SHOW_COUNTS_TITLE', 'Artikelanzahl in den jeweiligen Kategorien');
 define('SHOW_COUNTS_DESC', 'Anzeigen, wieviele Produkte in jeder Kategorie vorhanden sind');
 
 define('CATEGORIES_SCROLL_BOX_LEN_TITLE', 'Kategorie-Menge');
-define('CATEGORIES_SCROLL_BOX_LEN_DESC', 'Wenn Sie die Kategorien als Auswahlliste anzeigen wollen, legen Sie hier die L&auml;nge fest');
+define('CATEGORIES_SCROLL_BOX_LEN_DESC', 'Wenn Sie die Kategorien als Auswahlliste anzeigen wollen, legen Sie hier die Länge fest');
 
 define('SHOPPING_CART_IMAGE_ON_TITLE', 'Bild im Warenkorbinhalt');
 define('SHOPPING_CART_IMAGE_ON_DESC', 'M&ouml;chten Sie in der Detailansicht vom Warenkorb das Porduktbild anzeigen?');
 
 define('SHOPPING_CART_MINI_IMAGE_TITLE', 'Bildverkleinerung');
-define('SHOPPING_CART_MINI_IMAGE_DESC', 'Wert f&uuml;r die Verkleinerung in der Detailansicht vom Warenkorb');
+define('SHOPPING_CART_MINI_IMAGE_DESC', 'Wert für die Verkleinerung in der Detailansicht vom Warenkorb');
 
 define('DISPLAY_CART_TITLE', 'Display Cart After Adding Product');
 define('DISPLAY_CART_DESC', 'Display the shopping cart after adding a product (or return back to their origin)');
@@ -495,10 +495,10 @@ define('ALLOW_GUEST_TO_TELL_A_FRIEND_TITLE', 'Allow Guest To Tell A Friend');
 define('ALLOW_GUEST_TO_TELL_A_FRIEND_DESC', 'Allow guests to tell a friend about a product');
 
 define('ALLOW_CATEGORY_DESCRIPTIONS_TITLE', 'Erlaube Kategorienbeschreibung');
-define('ALLOW_CATEGORY_DESCRIPTIONS_DESC', 'Erlaubt eine ausf&uuml;hrliche Beschreibung der einzelnen Kategorien');
+define('ALLOW_CATEGORY_DESCRIPTIONS_DESC', 'Erlaubt eine ausführliche Beschreibung der einzelnen Kategorien');
 
 define('ALLOW_NEWS_CATEGORY_DESCRIPTIONS_TITLE', 'Erlaube News-Kategorienbeschreibung');
-define('ALLOW_NEWS_CATEGORY_DESCRIPTIONS_DESC', 'Erlaubt eine ausf&uuml;hrliche Beschreibung der einzelnen News-Kategorien');
+define('ALLOW_NEWS_CATEGORY_DESCRIPTIONS_DESC', 'Erlaubt eine ausführliche Beschreibung der einzelnen News-Kategorien');
 
 define('SHOW_PRODUCTS_MODEL_TITLE', 'Navigation mit Bestellummer');
 define('SHOW_PRODUCTS_MODEL_DESC', 'M&ouml;chten Sie die auf der Produkt-Informations-Seite die Bestellnummer in der Navation anzeigen?');
@@ -519,7 +519,7 @@ define('BLOCK_XSELL_PRODUCTS_IMAGE_TITLE', 'Bild im Block �nliche Produkte');
 define('BLOCK_XSELL_PRODUCTS_IMAGE_DESC', 'Bild im Content-Block �nliche Produkte anzeigen?');
 
 define('OOS_SMALLIMAGE_WAY_OF_RESIZE_TITLE', 'Bildbearbeitung kleines Bild');
-define('OOS_SMALLIMAGE_WAY_OF_RESIZE_DESC', '0: proportionale Verkleinerung; Breite oder H&ouml;he ist die maximale Gr&ouml;&szlig;e<br> 1: Bild wird proportional in das neue Bild kopiert. Die Hintergrundfarbe wird  ber&uuml;cksichtigt.<br> 2: ein Ausschnitt wird in das neue Bild kopiert');
+define('OOS_SMALLIMAGE_WAY_OF_RESIZE_DESC', '0: proportionale Verkleinerung; Breite oder H&ouml;he ist die maximale Gr&ouml;ße<br> 1: Bild wird proportional in das neue Bild kopiert. Die Hintergrundfarbe wird  berücksichtigt.<br> 2: ein Ausschnitt wird in das neue Bild kopiert');
 
 define('OOS_SMALL_IMAGE_WIDTH_TITLE', 'Small Image Width');
 define('OOS_SMALL_IMAGE_WIDTH_DESC', 'The pixel width of small images');
@@ -528,16 +528,16 @@ define('OOS_SMALL_IMAGE_HEIGHT_TITLE', 'Small Image Height');
 define('OOS_SMALL_IMAGE_HEIGHT_DESC', 'The pixel height of small images');
 
 define('OOS_IMAGE_BGCOLOUR_R_TITLE', 'Hintergrund kleines Bild R');
-define('OOS_IMAGE_BGCOLOUR_R_DESC', 'Rot Wert f&uuml;r kleines Produktbild');
+define('OOS_IMAGE_BGCOLOUR_R_DESC', 'Rot Wert für kleines Produktbild');
 
 define('OOS_IMAGE_BGCOLOUR_G_TITLE', 'Hintergrund kleines Bild G');
-define('OOS_IMAGE_BGCOLOUR_G_DESC', 'Gr&uuml;n Wert f&uuml;r kleines Produktbild');
+define('OOS_IMAGE_BGCOLOUR_G_DESC', 'Grün Wert für kleines Produktbild');
 
 define('OOS_IMAGE_BGCOLOUR_B_TITLE', 'Hintergrund kleines Bild B');
-define('OOS_IMAGE_BGCOLOUR_B_DESC', 'Blau Wert f&uuml;r kleines Produktbild');
+define('OOS_IMAGE_BGCOLOUR_B_DESC', 'Blau Wert für kleines Produktbild');
 
 define('OOS_BIGIMAGE_WAY_OF_RESIZE_TITLE', 'Bildbearbeitung grosses Bild');
-define('OOS_BIGIMAGE_WAY_OF_RESIZE_DESC', '0: proportionale Verkleinerung; Breite oder H&ouml;he ist die maximale Gr&ouml;&szlig;e<br> 1: Bild wird proportional in das neue Bild kopiert. Die Hintergrundfarbe wird  ber&uuml;cksichtigt.<br> 2: ein Ausschnitt wird in das neue Bild kopiert');
+define('OOS_BIGIMAGE_WAY_OF_RESIZE_DESC', '0: proportionale Verkleinerung; Breite oder H&ouml;he ist die maximale Gr&ouml;ße<br> 1: Bild wird proportional in das neue Bild kopiert. Die Hintergrundfarbe wird  berücksichtigt.<br> 2: ein Ausschnitt wird in das neue Bild kopiert');
 
 define('OOS_BIGIMAGE_WIDTH_TITLE', 'Breite grosses Bild');
 define('OOS_BIGIMAGE_WIDTH_DESC', 'Breite vom grossen Bild in Pixel');
@@ -546,19 +546,19 @@ define('OOS_BIGIMAGE_HEIGHT_TITLE', 'H&ouml;he grosses Bild');
 define('OOS_BIGIMAGE_HEIGHT_DESC', 'H&ouml;he vom grossen Bild in Pixel');
 
 define('OOS_WATERMARK_TITLE', 'Wasserzeichen');
-define('OOS_WATERMARK_DESC', 'M&ouml;chten Sie im grossen Bild ein Wasserzeichen einf&uuml;gen?');
+define('OOS_WATERMARK_DESC', 'M&ouml;chten Sie im grossen Bild ein Wasserzeichen einfügen?');
 
-define('OOS_WATERMARK_QUALITY_TITLE', 'Qualit&auml;t vom Wasserzeichen');
-define('OOS_WATERMARK_QUALITY_DESC', 'Hier legen Sie die Qualit&auml;t vom Wasserzeichen fest');
+define('OOS_WATERMARK_QUALITY_TITLE', 'Qualität vom Wasserzeichen');
+define('OOS_WATERMARK_QUALITY_DESC', 'Hier legen Sie die Qualität vom Wasserzeichen fest');
 
 define('PSM_TITLE', 'Preissuchmaschine');
-define('PSM_DESC', 'M&ouml;chten Sie Die Schnittstelle zur Preissuchmaschine verwenden? Hierf&uuml;r ist eine Anmeldung bei <A HREF=\"http://www.preissuchmaschine.de/psm_frontend/main.asp?content=mitmachenreissuchmaschine\" TARGET=\"_blank\">http://www.preissuchmaschine.de</A> n');
+define('PSM_DESC', 'M&ouml;chten Sie Die Schnittstelle zur Preissuchmaschine verwenden? Hierfür ist eine Anmeldung bei <A HREF=\"http://www.preissuchmaschine.de/psm_frontend/main.asp?content=mitmachenreissuchmaschine\" TARGET=\"_blank\">http://www.preissuchmaschine.de</A> n');
 
 define('OOS_PSM_DIR_TITLE', 'Verzeichnis Preissuchmaschine');
-define('OOS_PSM_DIR_DESC', 'Die Datei f&uuml;r die Preissuchmaschine soll in diesem Shop-Verzeichnis gespeichert werden.');
+define('OOS_PSM_DIR_DESC', 'Die Datei für die Preissuchmaschine soll in diesem Shop-Verzeichnis gespeichert werden.');
 
 define('OOS_PSM_FILE_TITLE', 'Dateiname');
-define('OOS_PSM_FILE_DESC', 'Die Datei f&uuml;r die Preissuchmaschine');
+define('OOS_PSM_FILE_DESC', 'Die Datei für die Preissuchmaschine');
 
 define('OOS_META_TITLE_TITLE', 'Shop Titel');
 define('OOS_META_TITLE_DESC', 'Der Titel');

@@ -20,9 +20,10 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('ADMIN_PASSWORD_SUBJECT', STORE_NAME . ' - Ihr neues Passwort.');
-define('ADMIN_EMAIL_TEXT', '�er die Adresse ' . oos_server_get_var('REMOTE_ADDR') . ' haben wir eine Anfrage zur Passworterneuerung erhalten.' . "\n\n" . 'Ihr neues Passwort f&uuml;r \'' . STORE_NAME . '\' lautet ab sofort:' . "\n\n" . '   %s' . "\n\n");
+$aLang['admin_password_subject'] =  STORE_NAME . ' - Ihr neues Passwort.';
+$aLang['admin_email_text'] = 'Über die Adresse ' . oos_server_get_var('REMOTE_ADDR') . ' haben wir eine Anfrage zur Passworterneuerung erhalten.' . "\n\n" . 'Ihr neues Passwort für &quot;%s&quot;\'' . STORE_NAME . '\' lautet ab sofort:' . "\n\n" . '   %s' . "\n\n");
 
-define('HEADING_PASSWORD_FORGOTTEN', 'Passwort vergessen');
-define('TEXT_PASSWORD_INFO', 'Bitte geben Sie Ihren Vornamen und Ihre E-Mail Adresse ein und klicken Sie auf Passwort senden. <br />In Krze erhalten Sie ein neues Passwort. Verwenden Sie dieses Passwort, um sich anzumelden.');
-?>
+$aLang['heading_password_forgotten'] = 'Passwort vergessen';
+$aLang['text_password_info'] = 'Bitte geben Sie Ihren Vornamen und Ihre E-Mail Adresse ein und klicken Sie auf Passwort senden. <br />In Kürze erhalten Sie ein neues Passwort. Verwenden Sie dieses Passwort, um sich anzumelden.';
+
+

@@ -27,20 +27,20 @@ define('EMAIL_TEXT_LOGIN', 'Login to your account here:');
 define('EMAIL_SEPARATOR', '------------------------------------------------------');
 define('EMAIL_TEXT_SUBJECT', 'Anfrage von '.  STORE_NAME );
 define('EMAIL_TEXT_SALUTATION', 'Dear ' );
-define('EMAIL_TEXT_NEWCUST_INTRO', "\n\n" . 'Vielen Dank f&uuml;r Ihren Besuch bei ' . STORE_NAME .
+define('EMAIL_TEXT_NEWCUST_INTRO', "\n\n" . 'Vielen Dank für Ihren Besuch bei ' . STORE_NAME .
                                    ' und Ihr uns entgegengebrachtes Vertrauen.  ');
-define('EMAIL_TEXT_CURCUST_INTRO', "\n\n" . 'Vielen Dank f&uuml;r Ihren erneuten Besuch bei ' .
+define('EMAIL_TEXT_CURCUST_INTRO', "\n\n" . 'Vielen Dank für Ihren erneuten Besuch bei ' .
                                    STORE_NAME . ' und Ihr wiederholtes uns entgegengebrachtes Vertrauen.  ');
 define('EMAIL_TEXT_BODY_HEADER', 'Wir haben gesehen, da�Sie bei Ihrem Besuch in unserem Onlineshop den Warenkorb mit folgenden ' .
                                  'Artikeln gefllt haben aber den Einkauf nicht vollst�dig durchgefhrt haben. ' .
                                  "\n\n" . 'Inhalt Ihres Warenkorbes:' . "\n\n");
 define('EMAIL_TEXT_BODY_FOOTER', 'Wir sind immer bemht unseren Service ' .
                                  'im Interesse unserer Kunden zu verbessern. Aus diesem Grund interessiert es uns natrlich, was die ' .
-                                 'Ursachen daf&uuml;r waren, Ihren Einkauf dieses Mal nicht bei '. STORE_NAME . ' zu t�igen. Wir w�en Ihnen ' .
+                                 'Ursachen dafür waren, Ihren Einkauf dieses Mal nicht bei '. STORE_NAME . ' zu t�igen. Wir w�en Ihnen ' .
                                  'daher sehr dankbar, wenn Sie uns mitteilen wrden, ob Sie bei Ihrem Besuch in unsererm Onlineshop ' .
                                  'Probleme oder Bedenken hatten ' . 'den Einkauf erfolgreich abzuschlie�n. Unser Ziel ist es Ihnen und ' .
                                  ' anderen Kunden den Einkauf bei ' . STORE_NAME . ' leichter und besser zu gestalten. ' .
-                                 "\n\n" . 'Nochmals, vielen Dank f&uuml;r Ihre Zeit und Ihre Hilfe ' .
+                                 "\n\n" . 'Nochmals, vielen Dank für Ihre Zeit und Ihre Hilfe ' .
                                  'den Onlineshop von ' . STORE_NAME . ' zu verbessern.' . "\n\n" .
                                  'Mit freundlichen Gr�n' . "\n". 'Ihr Team von ');
 define('DAYS_FIELD_PREFIX', 'Zeige letzen ');

@@ -28,12 +28,12 @@ define('TEXT_HEADING_EDIT_RSS', 'Newsfeed bearbeiten');
 define('TEXT_HEADING_DELETE_RSS', 'Newsfeed löschen');
 
 define('TEXT_RSS', 'RDS/RSS Newsfeed:');
-define('TEXT_DATE_ADDED', 'hinzugef&uuml;gt am:');
-define('TEXT_LAST_MODIFIED', 'letzte &Auml;nderung am:');
+define('TEXT_DATE_ADDED', 'hinzugefügt am:');
+define('TEXT_LAST_MODIFIED', 'letzte Änderung am:');
 define('TEXT_IMAGE_NONEXISTENT', 'BILD NICHT VORHANDEN');
 
 define('TEXT_NEW_INTRO', 'Bitte geben Sie alle relevanten Daten ein.');
-define('TEXT_EDIT_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nderungen durch');
+define('TEXT_EDIT_INTRO', 'Bitte führen Sie alle notwendigen Änderungen durch');
 
 define('TEXT_RSS_NAME', 'Newsfeed Name:');
 define('TEXT_RSS_IMAGE', 'Newsfeed Logo:');
@@ -43,6 +43,6 @@ define('TEXT_RSS_DESCRIPTION', 'Newsfeed Beschreibung:');
 define('TEXT_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese RDS/RSS Newsfeed löschen möchten?');
 define('TEXT_DELETE_IMAGE', 'Newsfeed Logo löschen?');
 
-define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis %s ist schreibgesch&uuml;tzt. Bitte korrigieren Sie die Zugriffsrechte zu diesem Verzeichnis!');
+define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis %s ist schreibgeschützt. Bitte korrigieren Sie die Zugriffsrechte zu diesem Verzeichnis!');
 define('ERROR_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Verzeichnis %s existiert nicht!');
 ?>

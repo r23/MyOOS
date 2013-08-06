@@ -17,6 +17,6 @@ define('TABLE_HEADING_FREQUENCY', 'Besucher');
 define('TABLE_HEADING_URL', 'URL');
 define('TABLE_HEADING_PER_CENT', '%');
 
-define('TEXT_HTTP_REFERERS_RESET', 'HTTP referers wurden zur&uuml;ck gestellt!');
+define('TEXT_HTTP_REFERERS_RESET', 'HTTP referers wurden zurück gestellt!');
 
 ?>

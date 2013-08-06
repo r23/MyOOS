@@ -35,7 +35,7 @@ define('TEXT_URL', 'URL:');
 define('TEXT_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Datei löschen möchten?');
 
 define('ERROR_EXPORT_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Googel Base-Verzeichnis ist nicht vorhanden.');
-define('ERROR_EXPORT_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Googel Base-Verzeichnis ist schreibgesch&uuml;tzt.');
+define('ERROR_EXPORT_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Googel Base-Verzeichnis ist schreibgeschützt.');
 define('ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE', 'Fehler: Download Link nicht akzeptabel.');
 
 define('SUCCESS_EXPORT_DATABASE_SAVED', 'Erfolg: Die Datei wurde gesichert.');

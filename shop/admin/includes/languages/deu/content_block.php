@@ -31,11 +31,11 @@ define('TEXT_HEADING_NEW_BLOCK', 'Neue Block');
 define('TEXT_HEADING_EDIT_BLOCK', 'Block bearbeiten');
 define('TEXT_HEADING_DELETE_BLOCK', 'Block löschen');
 
-define('TEXT_DATE_ADDED', 'hinzugef&uuml;gt am:');
-define('TEXT_LAST_MODIFIED', 'letzte &Auml;nderung am:');
+define('TEXT_DATE_ADDED', 'hinzugefügt am:');
+define('TEXT_LAST_MODIFIED', 'letzte Änderung am:');
 
 define('TEXT_NEW_INTRO', 'Bitte geben Sie den neuen Block mit allen relevanten Daten ein.');
-define('TEXT_EDIT_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nderungen durch');
+define('TEXT_EDIT_INTRO', 'Bitte führen Sie alle notwendigen Änderungen durch');
 
 define('TEXT_BLOCK_FUNCTION', 'Funktion');
 define('TEXT_BLOCK_CACHE', 'cache id');

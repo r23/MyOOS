@@ -30,7 +30,7 @@ define('TEXT_INFO_HEADING_NEW_ZONE', 'Neue Steuerzone');
 define('TEXT_INFO_NEW_ZONE_INTRO', 'Bitte geben Sie die neue Steuerzone mit allen relevanten Daten ein');
 
 define('TEXT_INFO_HEADING_EDIT_ZONE', 'Steuerzone bearbeiten');
-define('TEXT_INFO_EDIT_ZONE_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nderungen durch.');
+define('TEXT_INFO_EDIT_ZONE_INTRO', 'Bitte führen Sie alle notwendigen Änderungen durch.');
 
 define('TEXT_INFO_HEADING_DELETE_ZONE', 'Steuerzone löschen');
 define('TEXT_INFO_DELETE_ZONE_INTRO', 'Sind Sie sicher, dass Sie diese Steuerzone löschen wollen?');
@@ -39,19 +39,19 @@ define('TEXT_INFO_HEADING_NEW_SUB_ZONE', 'Neue Unterzone');
 define('TEXT_INFO_NEW_SUB_ZONE_INTRO', 'Bitte geben Sie die neue Unterzone mit allen relevanten Daten ein');
 
 define('TEXT_INFO_HEADING_EDIT_SUB_ZONE', 'Unterzone bearbeiten');
-define('TEXT_INFO_EDIT_SUB_ZONE_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nderungen durch.');
+define('TEXT_INFO_EDIT_SUB_ZONE_INTRO', 'Bitte führen Sie alle notwendigen Änderungen durch.');
 
 define('TEXT_INFO_HEADING_DELETE_SUB_ZONE', 'Unterzone löschen');
 define('TEXT_INFO_DELETE_SUB_ZONE_INTRO', 'Sind Sie sicher, dass Sie diese Unterzone löschen wollen?');
 
-define('TEXT_INFO_DATE_ADDED', 'hinzugef&uuml;gt am:');
-define('TEXT_INFO_LAST_MODIFIED', 'letzte &Auml;nderung:');
+define('TEXT_INFO_DATE_ADDED', 'hinzugefügt am:');
+define('TEXT_INFO_LAST_MODIFIED', 'letzte Änderung:');
 define('TEXT_INFO_ZONE_NAME', 'Name der Steuerzone:');
 define('TEXT_INFO_ZONE_DESCRIPTION', 'Beschreibung:');
 define('TEXT_INFO_COUNTRY', 'Land:');
 define('TEXT_INFO_COUNTRY_ZONE', 'Bundesland:');
-define('TYPE_BELOW', 'Alle Bundesl&auml;nder');
-define('PLEASE_SELECT', 'Alle Bundesl&auml;nder');
-define('TEXT_ALL_COUNTRIES', 'Alle L&auml;nder');
+define('TYPE_BELOW', 'Alle Bundesländer');
+define('PLEASE_SELECT', 'Alle Bundesländer');
+define('TEXT_ALL_COUNTRIES', 'Alle Länder');
 
 ?>

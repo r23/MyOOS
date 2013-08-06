@@ -25,7 +25,7 @@ define('HEADING_TITLE', 'Bestellstatus');
 define('TABLE_HEADING_ORDERS_STATUS', 'Bestellstatus');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
-define('TEXT_INFO_EDIT_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nderungen durch');
+define('TEXT_INFO_EDIT_INTRO', 'Bitte führen Sie alle notwendigen Änderungen durch');
 define('TEXT_INFO_ORDERS_STATUS_NAME', 'Bestellstatus:');
 define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie den neuen Bestellstatus mit allen relevanten Daten ein');
 define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diesen Bestellstatus löschen möchten?');

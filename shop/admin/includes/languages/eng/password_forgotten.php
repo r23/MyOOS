@@ -20,9 +20,10 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('ADMIN_PASSWORD_SUBJECT', STORE_NAME . ' - New Password');
-define('ADMIN_EMAIL_TEXT', 'A new password was requested from ' . oos_server_get_var('REMOTE_ADDR') . '.' . "\n\n" . 'Your new password to \'' . STORE_NAME . '\' is:' . "\n\n" . '   %s' . "\n\n");
+$aLang['admin_password_subject'] =  STORE_NAME . ' - New Password';
+$aLang['admin_email_text'] = 'A new password was requested from ' . oos_server_get_var('REMOTE_ADDR') . '.' . "\n\n" . 'Your new password to  \'' . STORE_NAME . '\' is:' . "\n\n" . '   %s' . "\n\n");
 
-define('HEADING_PASSWORD_FORGOTTEN', 'Password Forgotten:');
-define('TEXT_PASSWORD_INFO', 'Please enter your Username and e-mail address then click on the Send Password button.<br />You will receive a new password shortly. Use this new password to access the site.');
-?>
+$aLang['heading_password_forgotten'] = 'Password Forgotten:';
+$aLang['text_password_info'] = 'Please enter your Username and e-mail address then click on the Send Password button.<br />You will receive a new password shortly. Use this new password to access the site.';
+
+

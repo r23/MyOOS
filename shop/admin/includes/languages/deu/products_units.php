@@ -24,7 +24,7 @@ define('HEADING_TITLE', 'Verpackungseinheit');
 define('TABLE_HEADING_PRODUCTS_UNITS', 'Verpackungseinheit');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
-define('TEXT_INFO_EDIT_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nderungen durch');
+define('TEXT_INFO_EDIT_INTRO', 'Bitte führen Sie alle notwendigen Änderungen durch');
 define('TEXT_INFO_PRODUCTS_UNITS_NAME', 'Verpackungseinheit:');
 define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie die neue Verpackungseinheit mit allen relevanten Daten ein');
 define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Verpackungseinheit löschen möchten?');

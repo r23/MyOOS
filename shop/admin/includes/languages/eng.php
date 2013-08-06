@@ -428,7 +428,7 @@ define('TEXT_SET_DEFAULT', 'Set as default');
 define('TEXT_FIELD_REQUIRED', '&nbsp;<span class="fieldRequired">* Required</span>');
 
 define('ERROR_NO_DEFAULT_CURRENCY_DEFINED', 'Error: There is currently no default currency set. Please set one at: Administration Tool->Localization->Currencies');
-define('ERROR_USER_FOR_THIS_PAGE', 'Fehler: Sie haben f&uuml;r diesen Bereich keine Zugangsrechte.');
+define('ERROR_USER_FOR_THIS_PAGE', 'Fehler: Sie haben für diesen Bereich keine Zugangsrechte.');
 
 define('TEXT_INFO_USER_NAME', 'UserName:');
 define('TEXT_INFO_PASSWORD', 'Password:');

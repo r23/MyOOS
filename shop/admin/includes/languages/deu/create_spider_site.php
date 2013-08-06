@@ -18,7 +18,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('HEADING_TITLE', 'Artikelbersicht f&uuml;r Suchmaschinen');
+define('HEADING_TITLE', 'Artikelbersicht für Suchmaschinen');
 define('TABLE_HEADING_ALL', 'Anzahl Artikel');
 define('TABLE_HEADING_EX', 'Exportiert');
 define('TABLE_HEADING_FILTER', 'Ignoriert wegen Filter');

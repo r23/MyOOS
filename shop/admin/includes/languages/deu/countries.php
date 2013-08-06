@@ -19,13 +19,13 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-define('HEADING_TITLE', 'L&auml;nder');
+define('HEADING_TITLE', 'Länder');
 
 define('TABLE_HEADING_COUNTRY_NAME', 'Land');
 define('TABLE_HEADING_COUNTRY_CODES', 'ISO Codes');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
-define('TEXT_INFO_EDIT_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nderungen durch');
+define('TEXT_INFO_EDIT_INTRO', 'Bitte führen Sie alle notwendigen Änderungen durch');
 define('TEXT_INFO_COUNTRY_NAME', 'Name:');
 define('TEXT_INFO_COUNTRY_CODE_2', 'ISO Code (2):');
 define('TEXT_INFO_COUNTRY_CODE_3', 'ISO Code (3):');
