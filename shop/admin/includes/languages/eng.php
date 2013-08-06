@@ -84,6 +84,7 @@ $aLang['header_title_account'] = 'My Account';
 $aLang['header_title_logoff'] = 'Logoff';
 
 $aLang['collapse_menu'] = 'On/Off Menu';
+$aLang['login'] = 'Login';
 
 // text for gender
 define('MALE', 'Male');
@@ -356,6 +357,7 @@ $aLang['button_search'] = 'Search';
 $aLang['button_select'] = 'Select';
 $aLang['button_send'] = 'Send';
 $aLang['button_send_email'] = 'Send Email';
+$aLang['button_send_password]' = 'Send Password';
 $aLang['button_specials'] = 'Specials';
 $aLang['button_status'] = 'Customers Status';
 $aLang['button_unlock'] = 'Unlock';

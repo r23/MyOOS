@@ -22,19 +22,16 @@
 $aLang['heading_title'] = 'Anmeldebereich';
 $aLang['text_returning_admin'] = 'Nur für Mitarbeiter!';
 $aLang['entry_email_address'] = 'E-Mail-Adresse:';
-$aLang['placeholder_email_address'] = 'Ihre E-Mail-Adresse:';
+$aLang['placeholder_email_address'] = 'Ihre E-Mail-Adresse';
 $aLang['entry_password'] = 'Passwort:';
-$aLang['entry_firstname'] = 'Vorname:';
+
 $aLang['button_login'] = 'Anmelden';
-
 $aLang['text_password_forgotten'] = 'Passwort vergessen?';
-
 $aLang['text_welcome'] = '<h4>Willkommen bei MyOOS!</h4>Verwenden Sie eine gültige E-Mail und Passwort, um Zugriff auf die Administrationskonsole zu erhalten.';
-
 $aLang['text_login_error'] = '<strong>FEHLER:</strong> Falscher Benutzername oder Passwort!';
-$aLang['text_forgotten_error'] = '<strong>FEHLER:</strong> Vorname und Passwort sind nicht hinterlegt!';
+
 $aLang['text_forgotten_fail'] = 'Sie haben es mehr als 3x versucht. Aus Sicherheitsgründen kontaktieren Sie bitte Ihren Administrator um ein neues Passwort zu erhalten.';
-$aLang['text_forgotten_success'] = 'Das neue Passwort wurde an Ihre E-Mail-Adresse gesendet. Überprüfen Sie Ihren E-Mail-Eingang und klicken Sie zurück um sich anzumelden.';
+$aLang['text_forgotten_success'] = 'Das neue Passwort wurde an Ihre E-Mail-Adresse gesendet. Überprüfen Sie Ihren E-Mail-Eingang um sich anzumelden.';
 
 $aLang['admin_email_subject'] = 'Neues Passwort'; 
 $aLang['admin_email_text'] = 'Hallo %s,' . "\n\n" . 'Sie können den redaktionellen Bereich mit folgenden Passwort betreten. Nach erfolgtem Login, ändern Sie bitte aus Sicherheitsgründen Ihr Passwort!' . "\n\n" . 'Website : %s' . "\n" . 'Benutzername: %s' . "\n" . 'Passwort: %s' . "\n\n" . 'Danke!' . "\n" . '%s' . "\n\n" . 'Dies ist eine automatisierte Antwortmail. Bitte beantworten Sie diese nicht!';

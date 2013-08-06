@@ -83,7 +83,7 @@ $aLang['header_title_account'] = 'Mein Konto';
 $aLang['header_title_logoff'] = 'Abmelden';
 
 $aLang['collapse_menu'] = 'Menue ein/ausklappen';
-
+$aLang['login'] = 'Anmelden';
 
 
 // text for gender
@@ -358,6 +358,7 @@ $aLang['button_search'] = 'Suchen';
 $aLang['button_select'] = 'Auswählen';
 $aLang['button_send'] = 'Versenden';
 $aLang['button_send_email'] = 'eMail versenden';
+$aLang['button_send_password'] = 'Passwort senden';
 $aLang['button_specials'] = 'Sonderangebot';
 $aLang['button_status'] = 'Kundengruppe';
 $aLang['button_unlock'] = 'Entsperren';

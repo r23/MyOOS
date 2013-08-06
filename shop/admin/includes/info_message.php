@@ -28,6 +28,13 @@ if ($messageStack->size('error') > 0) {
     $aInfoMessage = array_merge ($aInfoMessage, $messageStack->output('error') );
 }
 
+if (isset($_SESSION['success_new_password']) && ($_SESSION['success_new_password'] == true)) {
+	$aInfoMessage[] = array('type' => 'success',
+                            'text' => $aLang['text_forgotten_success']);
+	$_SESSION['success_new_password'] = false;
+}
+
+
 for ($i = 0; $i < count($aInfoMessage); $i++) {
      switch ($aInfoMessage[$i]['type']) {
        case 'warning':
