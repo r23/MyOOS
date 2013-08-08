@@ -65,7 +65,7 @@ if (!empty($action)) {
 $aTemplate['page'] = 'default/page/zones.tpl';
 
 require_once 'includes/oos_system.php';
-
+require_once 'includes/oos_blocks.php';
 
 
 	$zonestable = $oostable['zones'];

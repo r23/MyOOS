@@ -489,6 +489,8 @@ define('BOX_ADMINISTRATOR_MEMBERS', 'Member Groups');
 define('BOX_ADMINISTRATOR_MEMBER', 'Members');
 define('BOX_ADMINISTRATOR_BOXES', 'File Access');
 
+$aLang['box_heading_administrator'] = 'Administrator';
+
 // images
 define('IMAGE_FILE_PERMISSION', 'File Permission');
 define('IMAGE_GROUPS', 'Groups List');

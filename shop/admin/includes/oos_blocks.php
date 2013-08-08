@@ -77,12 +77,36 @@ if(defined('NEW_MYOOS'))
   }
 } else {
 	$aFilesResults = array();
+	$aContentBlock  = array();
     $admin_filestable = $oostable['admin_files'];
     $query = "SELECT admin_files_id, admin_files_name, admin_files_is_boxes, admin_files_to_boxes
               FROM $admin_filestable
-              WHERE FIND_IN_SET( '" . intval($_SESSION['login_groups_id']) . "', admin_groups_id)";
+              WHERE FIND_IN_SET( '" . intval($_SESSION['login_groups_id']) . "', admin_groups_id) 
+			  AND admin_files_is_boxes = '1'";
 	$aFilesResults = array();			
 	$aFilesResults = $dbconn->GetAll($query);
 
-    $smarty->assign('admin_files_name', $aFilesResults);
+	foreach ($aFilesResults as $block) {
+		$block_file = substr($block['admin_files_name'], 0, -4);
+
+		if (empty($block_file)) {
+			continue;
+		}
+
+		include '/includes/blocks/block_' . $block_file . '.php';	
+		
+ 		$block_tpl = 'default/blocks/' . $block_file . '.tpl';
+		$block_content = $smarty->fetch($block_tpl);
+
+
+		$aContentBlock[] = array('block_content' => $block_content );
+	}								 
+
+
+	for ($i = 0, $n = count($aContentBlock); $i < $n; $i++) {
+		$smarty->append('oos_block', array('content' => $aContentBlock[$i]['block_content']));
+
+	}
+
+
 }

@@ -174,6 +174,7 @@ define('BOX_TOOLS_MAIL', 'eMail versenden');
 define('BOX_TOOLS_NEWSLETTER_MANAGER', 'Rundschreiben Manager');
 define('BOX_TOOLS_WHOS_ONLINE', 'Wer ist Online');
 define('BOX_HEADING_ADMINISTRATORS', 'Administrators');
+
 define('BOX_ADMINISTRATORS_SETUP', 'Set Up');
 
 // localizaion box text in includes/boxes/localization.php
@@ -496,6 +497,8 @@ define('BOX_HEADING_ADMINISTRATOR', 'Redakteure');
 define('BOX_ADMINISTRATOR_MEMBERS', 'Gruppenmitglieder');
 define('BOX_ADMINISTRATOR_MEMBER', 'Mitglieder');
 define('BOX_ADMINISTRATOR_BOXES', 'Dateizugriff');
+
+$aLang['box_heading_administrator'] = 'Redakteure';
 
 // images
 define('IMAGE_FILE_PERMISSION', 'Dateizugriffs-Erlaubnis');

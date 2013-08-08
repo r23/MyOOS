@@ -449,20 +449,19 @@
 
 // Creates a wrapper for a series of columns
 .make-row() {
-
   // Then clear the floated columns
   .clearfix();
+
   @media (min-width: @screen-small) {
     margin-left:  (@grid-gutter-width / -2);
     margin-right: (@grid-gutter-width / -2);
   }
- 
- // Negative margin nested rows out to align the content of columns
+
+  // Negative margin nested rows out to align the content of columns
   .row {
     margin-left:  (@grid-gutter-width / -2);
     margin-right: (@grid-gutter-width / -2);
-  } 
-
+  }
 }
 
 // Generate the columns

@@ -1,0 +1,118 @@
+//
+// MyOOS responsive style
+// --------------------------------------------------
+
+
+// Portrait tablet to default desktop
+@media (min-width: 768px) and (max-width: 979px) {
+	body,
+	.fixed-layout {
+		background-image: url("@{bodyBackgroundImage}");
+		.container,
+		.container-fluid {
+			background-image: none;
+		}
+		
+	}
+	.container,
+	.container-fluid {
+		width: 100%;
+	}
+	.data-block[class*="span"] {
+		float: none;
+		width: 100%;
+		margin: 0 0 20px 0;
+	}
+
+
+	.dataTables_wrapper > .row > [class*="span"],
+	.dataTables_wrapper> .row-fluid > [class*="span"] {
+		width: 100%;
+	}
+
+	.dataTables_wrapper .dataTables_paginate,
+	.dataTables_wrapper div.dataTables_filter label,
+	.dataTables_wrapper div.dataTables_length label {
+		float: none;
+	}
+}
+
+// Landscape phone to small desktop and portrait tablet
+@media (max-width: 767px) {
+	body {
+		background-image: none;
+	}
+	.fixed-layout {
+		.container,
+		.container-fluid {
+			background-image: none;
+			.content-block {
+				background: @white;
+			}
+		}
+		
+	}
+	.navigation-block {
+		float: none;
+		width: 100%;
+		position: static;
+		border-bottom: 1px solid #d1d1d1;
+		.btn-navbar {
+			display: block;
+			margin: 0 20px;
+			text-align: left;
+			font-weight: bold;
+			[class^="fam-"],
+			[class*=" fam-"] {
+				vertical-align: top;
+			}
+		}
+		.nav-collapse.in {
+			margin-top: 20px;
+		}
+	}
+	a.nav-toggle {
+		display: none;
+	}
+	.content-block {
+		margin: 0;
+		background: @white;
+	}
+	.user-profile img {
+		float: left;
+	}
+	.user-profile figcaption {
+		float: none;
+		margin-left: 75px;
+		width: auto;
+		min-width: 180px;
+	}
+	.main-navigation > ul > li.current > a {
+		background-image: none;
+		margin-right: 0;
+		.badge {
+			margin-right: 0;
+		}
+	}
+	.side-note img {
+		width: 100%;
+		height: auto;
+	}
+	.nav-collapse,
+	.nav-collapse.collapse {
+		height: 0;
+		overflow: hidden;
+	}
+	.btn-toolbar {
+		.btn-group {
+			margin: @baseMargin / 4 0 0;
+			display: block;
+		}
+	}
+	.dataTables_wrapper .dataTables_paginate,
+	.dataTables_wrapper div.dataTables_filter label,
+	.dataTables_wrapper div.dataTables_length label {
+		float: none;
+	}
+}
+

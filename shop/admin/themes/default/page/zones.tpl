@@ -7,9 +7,7 @@
 			<a href="#" class="nav-toggle" title="{$lang.collapse_menu}"><span class="icon-chevron-left"></span></a>
 			
 			<!-- Left (navigation) side -->
-			<section class="navigation-block">
-{$navigation-block}			
-			</section>
+			{include file="default/system/_block.tpl"}
 			<!-- /Left (navigation) side -->
 			
 			<!-- Right (content) side -->
