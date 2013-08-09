@@ -110,6 +110,7 @@ define('BOX_HEADING_PLUGINS', 'Plugins');
 define('BOX_PLUGINS_EVENT', 'Event Plugins');
 
 // categories box text in includes/boxes/catalog.php
+$aLang['box_heading_catalog'] = 'Artikelkatalog';
 define('BOX_HEADING_CATALOG', 'Artikelkatalog');
 define('BOX_CATALOG_CATEGORIES_PRODUCTS', 'Kategorien / Artikel');
 define('BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES', 'Produktmerkmale');

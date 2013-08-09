@@ -17,6 +17,16 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 require_once '/includes/classes/class_template.php';
 $smarty = new myOOS_Smarty;
 
+//debug
+if ($debug == 'true')
+{
+	$smarty->force_compile   = true;
+	$smarty->debugging       = true;
+	$smarty->clearAllCache();
+	$smarty->clearCompiledTemplate();
+}
+
+
 if (empty($oos_pagetitle)) $oos_pagetitle = $aLang['heading_title'] . ' &lsaquo; ' . STORE_NAME . ' &#8212; MyOOS';
 
 $sFormid = md5(uniqid(rand(), true));
