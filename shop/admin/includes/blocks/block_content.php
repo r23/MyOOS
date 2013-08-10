@@ -16,25 +16,12 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-?>
-<!-- content //-->
-          <tr>
-            <td>
-<?php
-  $heading = array();
-  $contents = array();
+   
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  $heading[] = array('text'  => BOX_HEADING_CONTENT,
-                     'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=content'));
+$smarty->assign('heading_content', oos_href_link_admin($aFilename['content_block'], 'selected_box=content'));  
 
-  if ($_SESSION['selected_box'] == 'content' ) {
-    $contents[] = array('text'  => oos_admin_files_boxes('content_block', BOX_CONTENT_BLOCK) .
-                                   oos_admin_files_boxes('content_page_type', BOX_CONTENT_PAGE_TYPE));
-  }
+$smarty->assign('content_block',  oos_admin_files_boxes('content_block', BOX_CONTENT_BLOCK));
+$smarty->assign('content_page_type',  oos_admin_files_boxes('content_page_type', BOX_CONTENT_PAGE_TYPE));
 
-  $box = new box;
-  echo $box->menuBox($heading, $contents);
-?>
-            </td>
-          </tr>
-<!-- content_eof //-->

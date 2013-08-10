@@ -130,6 +130,7 @@ define('BOX_CATALOG_UP_SELL_PRODUCTS', 'UP Sell Products');
 define('BOX_CATALOG_QUICK_STOCKUPDATE', 'Quick Stock Update');
 
 // categories box text in includes/boxes/content.php
+$aLang['box_heading_content'] = 'Content Manager';
 define('BOX_HEADING_CONTENT', 'Content Manager');
 define('BOX_CONTENT_BLOCK', 'Block Manager');
 define('BOX_CONTENT_INFORMATION', 'Informationen');
