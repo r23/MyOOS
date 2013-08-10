@@ -143,6 +143,7 @@ define('BOX_NEWSFEED_CATEGORIES', 'News Feed Kategorien');
 
 
 // customers box text in includes/boxes/customers.php
+$aLang['box_heading_customers'] = 'Kunden';
 define('BOX_HEADING_CUSTOMERS', 'Kunden');
 define('BOX_CUSTOMERS_CUSTOMERS', 'Kunden');
 define('BOX_CUSTOMERS_ORDERS', 'Bestellungen');
