@@ -192,6 +192,7 @@ function wpcf7_l10n() {
 		'he_IL' => __( 'Hebrew', 'wpcf7' ),
 		'hi_IN' => __( 'Hindi', 'wpcf7' ),
 		'hu_HU' => __( 'Hungarian', 'wpcf7' ),
+		'bn_IN' => __( 'Indian Bengali', 'wpcf7' ),
 		'id_ID' => __( 'Indonesian', 'wpcf7' ),
 		'ga_IE' => __( 'Irish', 'wpcf7' ),
 		'it_IT' => __( 'Italian', 'wpcf7' ),
@@ -284,6 +285,16 @@ function wpcf7_array_flatten( $input ) {
 		$output = array_merge( $output, wpcf7_array_flatten( $value ) );
 
 	return $output;
+}
+
+function wpcf7_flat_join( $input ) {
+	$input = wpcf7_array_flatten( $input );
+	$output = array();
+
+	foreach ( (array) $input as $value )
+		$output[] = trim( (string) $value );
+
+	return implode( ', ', $output );
 }
 
 function wpcf7_support_html5() {
