@@ -89,17 +89,20 @@ if(defined('NEW_MYOOS'))
 	foreach ($aFilesResults as $block) {
 		$block_file = substr($block['admin_files_name'], 0, -4);
 
-		if (empty($block_file)) {
+		if (empty($block_file))
+		{
 			continue;
 		}
 
-		include '/includes/blocks/block_' . $block_file . '.php';	
-		
- 		$block_tpl = 'default/blocks/' . $block_file . '.tpl';
-		$block_content = $smarty->fetch($block_tpl);
+		if (is_readable('includes/blocks/block_' . $block_file . '.php'))
+		{
+			include '/includes/blocks/block_' . $block_file . '.php';	
 
+			$block_tpl = 'default/blocks/' . $block_file . '.tpl';
+			$block_content = $smarty->fetch($block_tpl);
 
-		$aContentBlock[] = array('block_content' => $block_content );
+			$aContentBlock[] = array('block_content' => $block_content );
+		}
 	}								 
 
 
@@ -107,6 +110,5 @@ if(defined('NEW_MYOOS'))
 		$smarty->append('oos_block', array('content' => $aContentBlock[$i]['block_content']));
 
 	}
-
 
 }

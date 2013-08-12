@@ -22,27 +22,14 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-?>
-<!-- gv_admin //-->
-          <tr>
-            <td>
-<?php
-  $heading = array();
-  $contents = array();
 
-  $heading[] = array('text'  => BOX_HEADING_GV_ADMIN,
-                     'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=gv_admin'));
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if ($_SESSION['selected_box'] == 'gv_admin' ) {
-    $contents[] = array('text'  => oos_admin_files_boxes('coupon_admin', BOX_COUPON_ADMIN) .
-                                   oos_admin_files_boxes('gv_queue', BOX_GV_ADMIN_QUEUE) .
-                                   oos_admin_files_boxes('gv_mail', BOX_GV_ADMIN_MAIL) . 
-                                   oos_admin_files_boxes('gv_sent', BOX_GV_ADMIN_SENT));
-  }
+$smarty->assign('heading_coupon_admin', oos_href_link_admin($aFilename['coupon_admin'], 'selected_box=gv_admin'));  
 
-  $box = new box;
-  echo $box->menuBox($heading, $contents);
-?>
-            </td>
-          </tr>
-<!-- gv_admin_eof //-->
+$smarty->assign('coupon_admin', oos_admin_files_boxes('coupon_admin', BOX_COUPON_ADMIN));
+$smarty->assign('gv_queue', oos_admin_files_boxes('gv_queue', BOX_GV_ADMIN_QUEUE));
+$smarty->assign('gv_mail', oos_admin_files_boxes('gv_mail', BOX_GV_ADMIN_MAIL));
+$smarty->assign('gv_sent', oos_admin_files_boxes('gv_sent', BOX_GV_ADMIN_SENT));
+

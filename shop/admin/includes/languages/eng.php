@@ -136,11 +136,6 @@ define('BOX_CONTENT_BLOCK', 'Block Manager');
 define('BOX_CONTENT_INFORMATION', 'Information');
 define('BOX_CONTENT_PAGE_TYPE', 'Conten Page Type');
 
-// categories box text in includes/boxes/newsfeed.php
-define('BOX_HEADING_NEWSFEED', 'News Feed');
-define('BOX_NEWSFEED_MANAGER', 'News Feed Manager');
-define('BOX_NEWSFEED_CATEGORIES', 'News Feed Categories');
-
 // customers box text in includes/boxes/customers.php
 $aLang['box_heading_customers'] = 'Kunden';
 define('BOX_HEADING_CUSTOMERS', 'Customers');
@@ -186,8 +181,6 @@ define('BOX_LOCALIZATION_CURRENCIES', 'Currencies');
 define('BOX_LOCALIZATION_LANGUAGES', 'Languages');
 define('BOX_LOCALIZATION_CUSTOMERS_STATUS', 'Customers Status');
 define('BOX_LOCALIZATION_ORDERS_STATUS', 'Orders Status');
-
-
 
 //information
 define('BOX_HEADING_INFORMATION', 'Information');

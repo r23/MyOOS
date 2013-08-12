@@ -136,12 +136,6 @@ define('BOX_CONTENT_BLOCK', 'Block Manager');
 define('BOX_CONTENT_INFORMATION', 'Informationen');
 define('BOX_CONTENT_PAGE_TYPE', 'Content Seiten Type');
 
-// categories box text in includes/boxes/newsfeed.php
-define('BOX_HEADING_NEWSFEED', 'News Feed');
-define('BOX_NEWSFEED_MANAGER', 'News Feed Manager');
-define('BOX_NEWSFEED_CATEGORIES', 'News Feed Kategorien');
-
-
 // customers box text in includes/boxes/customers.php
 $aLang['box_heading_customers'] = 'Kunden';
 define('BOX_HEADING_CUSTOMERS', 'Kunden');
@@ -149,6 +143,15 @@ define('BOX_CUSTOMERS_CUSTOMERS', 'Kunden');
 define('BOX_CUSTOMERS_ORDERS', 'Bestellungen');
 define('BOX_CAMPAIGNS', 'Kampagnen');
 define('BOX_ADMIN_LOGIN', 'Admin login');
+
+// gv_admin
+$aLang['box_heading_gv_admin'] = 'Gutscheine';
+define('BOX_HEADING_GV_ADMIN', 'Gutscheine');
+define('BOX_GV_ADMIN_QUEUE', 'Gutschein Queue');
+define('BOX_GV_ADMIN_MAIL', 'Gutschein eMail');
+define('BOX_GV_ADMIN_SENT', 'Gutscheine versandt');
+define('BOX_HEADING_COUPON_ADMIN','Rabattkupons');
+define('BOX_COUPON_ADMIN','Kupon Administrator');
 
 // taxes box text in includes/boxes/taxes.php
 $aLang['box_heading_location_and_taxes'] = 'Land / Steuer';
@@ -186,10 +189,6 @@ define('BOX_LOCALIZATION_CURRENCIES', 'Währungen');
 define('BOX_LOCALIZATION_LANGUAGES', 'Sprachen');
 define('BOX_LOCALIZATION_CUSTOMERS_STATUS', 'Kundengruppen');
 define('BOX_LOCALIZATION_ORDERS_STATUS', 'Bestellstatus');
-
-//rss
-define('BOX_HEADING_RSS', 'RSS');
-define('BOX_RSS_CONF', 'RSS');
 
 //information
 define('BOX_HEADING_INFORMATION', 'Information');
@@ -450,12 +449,6 @@ define('TEXT_TOP', 'Top');
 define('ENTRY_YES','ja');
 define('ENTRY_NO','nein');
 
-define('BOX_HEADING_GV_ADMIN', 'Gutscheine');
-define('BOX_GV_ADMIN_QUEUE', 'Gutschein Queue');
-define('BOX_GV_ADMIN_MAIL', 'Gutschein eMail');
-define('BOX_GV_ADMIN_SENT', 'Gutscheine versandt');
-define('BOX_HEADING_COUPON_ADMIN','Rabattkupons');
-define('BOX_COUPON_ADMIN','Kupon Administrator');
 
 define('IMAGE_RELEASE', 'Gutschein einlösen');
 
