@@ -107,6 +107,7 @@ define('BOX_MODULES_SHIPPING', 'Shipping');
 define('BOX_MODULES_ORDER_TOTAL', 'Order Total');
 
 // plugins box text in includes/boxes/plugins.php
+$aLang['box_heading_plugins'] = 'Event Plugins';
 define('BOX_HEADING_PLUGINS', 'Plugins');
 define('BOX_PLUGINS_EVENT', 'Event Plugins');
 

@@ -9,24 +9,9 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-?>
-<!-- plugins //-->
-          <tr>
-            <td>
-<?php
-  $heading = array();
-  $contents = array();
 
-  $heading[] = array('text'  => BOX_HEADING_PLUGINS,
-                     'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=plugins'));
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if ($_SESSION['selected_box'] == 'plugins' ) {
-    $contents[] = array('text'  => '<a href="' . oos_href_link_admin($aFilename['plugins'], '', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_PLUGINS_EVENT . '</a>');
-  }
+$smarty->assign('heading_plugins', oos_href_link_admin($aFilename['plugins'], 'selected_box=plugins'));  
 
-  $box = new box;
-  echo $box->menuBox($heading, $contents);
-?>
-            </td>
-          </tr>
-<!-- plugins_eof //-->
