@@ -184,6 +184,7 @@ define('BOX_HEADING_ADMINISTRATORS', 'Administrators');
 define('BOX_ADMINISTRATORS_SETUP', 'Set Up');
 
 // localizaion box text in includes/boxes/localization.php
+$aLang['box_heading_localization'] = 'Sprachen/Währungen';
 define('BOX_HEADING_LOCALIZATION', 'Localization');
 define('BOX_LOCALIZATION_CURRENCIES', 'Currencies');
 define('BOX_LOCALIZATION_LANGUAGES', 'Languages');

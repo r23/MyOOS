@@ -18,25 +18,12 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-?>
-<!-- localization //-->
-          <tr>
-            <td>
-<?php
-  $heading = array();
-  $contents = array();
 
-  $heading[] = array('text'  => BOX_HEADING_LOCALIZATION,
-                     'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=localization'));
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if ($_SESSION['selected_box'] == 'localization' ) {
-    $contents[] = array('text'  => oos_admin_files_boxes('currencies', BOX_LOCALIZATION_CURRENCIES) .
-                                   oos_admin_files_boxes('languages', BOX_LOCALIZATION_LANGUAGES));
-  }
+$smarty->assign('heading_currencies', oos_href_link_admin($aFilename['currencies'], 'selected_box=localization')); 
 
-  $box = new box;
-  echo $box->menuBox($heading, $contents);
-?>
-            </td>
-          </tr>
-<!-- localization_eof //-->
+$smarty->assign('currencies', oos_admin_files_boxes('currencies', BOX_LOCALIZATION_CURRENCIES));
+$smarty->assign('languages', oos_admin_files_boxes('languages', BOX_LOCALIZATION_LANGUAGES));
+
