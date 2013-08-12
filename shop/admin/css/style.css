@@ -147,7 +147,7 @@ a.scrollup i:hover {
   text-shadow: 0 1px 1px #ffffff;
 }
 .login-page .login-container nav ul li a:hover {
-  color: #ae432e;
+  color: #428bca;
   text-decoration: none;
 }
 .error-page {
@@ -203,7 +203,7 @@ a.scrollup i:hover {
   letter-spacing: 0.3px;
 }
 .main-navigation > ul > li > a:hover {
-  color: #ae432e;
+  color: #428bca;
   text-decoration: none;
 }
 .main-navigation > ul > li > a:focus {
@@ -218,7 +218,7 @@ a.scrollup i:hover {
   margin: 0 0 10px 42px;
   padding: 0;
   list-style: disc;
-  color: #ae432e;
+  color: #428bca;
 }
 .main-navigation > ul > li ul a {
   line-height: 22px;
@@ -228,21 +228,21 @@ a.scrollup i:hover {
 }
 .main-navigation > ul > li ul a.current,
 .main-navigation > ul > li ul a:hover {
-  color: #ae432e;
+  color: #428bca;
   text-decoration: none;
 }
 .main-navigation > ul > li.current {
   margin-right: 1px;
 }
 .main-navigation > ul > li.current > a {
-  color: #ae432e;
+  color: #428bca;
   background-image: url("../images/assets/bg_navigation_current.png");
   background-repeat: no-repeat;
   background-position: right 10px;
   margin-right: -22px;
 }
 .main-navigation > ul > li.current > a:hover {
-  color: #ae432e;
+  color: #428bca;
   background-color: transparent;
 }
 .main-navigation > ul > li.current > a + ul {
@@ -296,7 +296,7 @@ body.no-sidebar a.nav-toggle {
   margin: 7px 0 0 10px;
   font-size: 11.049999999999999px;
   color: #ffffff;
-  background-color: #ae432e;
+  background-color: #428bca;
   cursor: help;
 }
 .main-navigation .current .badge {

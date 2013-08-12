@@ -18,30 +18,15 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-?>
-<!-- tools //-->
-          <tr>
-            <td>
-<?php
-  $heading = array();
-  $contents = array();
 
-  $heading[] = array('text'  => BOX_HEADING_TOOLS,
-                     'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=tools'));
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if ($_SESSION['selected_box'] == 'tools' ) {
-    $contents[] = array('text'  => '<a href="' . OOS_HTTP_SERVER . OOS_SHOP . 'administrator/mysqldumper/index.php' . '" class="menuBoxContentLink">' . BOX_TOOLS_BACKUP . '</a><br />' .
-                                   oos_admin_files_boxes('box_content', BOX_TOOLS_CONTENT) .
-                                   oos_admin_files_boxes('define_language', BOX_TOOLS_DEFINE_LANGUAGE) .
-                                   oos_admin_files_boxes('mail', BOX_TOOLS_MAIL) .
-                                   oos_admin_files_boxes('newsletters', BOX_TOOLS_NEWSLETTER_MANAGER) .
-                                   oos_admin_files_boxes('whos_online', BOX_TOOLS_WHOS_ONLINE) .
-                                   oos_admin_files_boxes('recover_cart_sales', BOX_TOOLS_RECOVER_CART));
-  }
+$smarty->assign('heading_tools', oos_href_link_admin($aFilename['recover_cart_sales'], 'selected_box=tools'));  
 
-  $box = new box;
-  echo $box->menuBox($heading, $contents);
-?>
-            </td>
-          </tr>
-<!-- tools_eof //-->
+// Todo: $smarty->assign('mysqldumper', '<a href="'/mysqldumper/index.php' . '" >' . BOX_TOOLS_BACKUP . '</a>' .
+$smarty->assign('mail', oos_admin_files_boxes('mail', BOX_TOOLS_MAIL));
+$smarty->assign('newsletters', oos_admin_files_boxes('newsletters', BOX_TOOLS_NEWSLETTER_MANAGER));
+$smarty->assign('whos_online', oos_admin_files_boxes('whos_online', BOX_TOOLS_WHOS_ONLINE));
+$smarty->assign('recover_cart_sales', oos_admin_files_boxes('recover_cart_sales', BOX_TOOLS_RECOVER_CART));
+

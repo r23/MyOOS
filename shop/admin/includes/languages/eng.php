@@ -175,6 +175,7 @@ define('BOX_REPORTS_KEYWORDS', 'Keyword Manager');
 define('BOX_REPORTS_REFERER' , 'HTTP Referers');
 
 // tools text in includes/boxes/tools.php
+$aLang['box_heading_tools'] = 'Tools';
 define('BOX_HEADING_TOOLS', 'Tools');
 define('BOX_TOOLS_BACKUP', 'Database Backup');
 define('BOX_TOOLS_BANNER_MANAGER', 'Banner Manager');
