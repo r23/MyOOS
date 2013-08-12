@@ -165,6 +165,7 @@ define('BOX_TAXES_TAX_CLASSES', 'Steuerklassen');
 define('BOX_TAXES_TAX_RATES', 'Steuersätze');
 
 // reports box text in includes/boxes/reports.php
+$aLang['box_heading_reports'] = 'Berichte';
 define('BOX_HEADING_REPORTS', 'Berichte');
 define('BOX_REPORTS_PRODUCTS_VIEWED', 'besuchte Artikel');
 define('BOX_REPORTS_PRODUCTS_PURCHASED', 'gekaufte Artikel');
