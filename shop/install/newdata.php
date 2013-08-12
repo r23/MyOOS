@@ -88,7 +88,6 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_file
 
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('reports.php', 1, 0, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('tools.php', 1, 0, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('export.php', 1, 0, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('information.php', 1, 0, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 
 
@@ -185,7 +184,6 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_file
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('recover_cart_sales', 0, 17, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 
 //export.php
-$result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('export_excel', 0, 18, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 
 
 //information.php
