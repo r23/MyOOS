@@ -16,24 +16,10 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-?>
-<!-- information //-->
-          <tr>
-            <td>
-<?php
-  $heading = array();
-  $contents = array();
 
-  $heading[] = array('text'  => BOX_HEADING_INFORMATION,
-                     'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=information'));
+   
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if ($_SESSION['selected_box'] == 'information' ) {
-    $contents[] = array('text'  => oos_admin_files_boxes('information', BOX_INFORMATION));
-  }
+$smarty->assign('heading_information', oos_href_link_admin($aFilename['information'], 'selected_box=information'));  
 
-  $box = new box;
-  echo $box->menuBox($heading, $contents);
-?>
-            </td>
-          </tr>
-<!-- information //-->

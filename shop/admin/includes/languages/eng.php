@@ -144,6 +144,14 @@ define('BOX_CUSTOMERS_ORDERS', 'Orders');
 define('BOX_CAMPAIGNS', 'Campaigns');
 define('BOX_ADMIN_LOGIN', 'Admin login');
 
+// gv_admin
+$aLang['box_heading_gv_admin'] = 'Vouchers/Coupons';
+define('BOX_HEADING_GV_ADMIN', 'Vouchers/Coupons');
+define('BOX_GV_ADMIN_QUEUE', 'Gift Voucher Queue');
+define('BOX_GV_ADMIN_MAIL', 'Mail Gift Voucher');
+define('BOX_GV_ADMIN_SENT', 'Gift Vouchers sent');
+define('BOX_COUPON_ADMIN','Coupon Admin');
+
 // taxes box text in includes/boxes/taxes.php
 $aLang['box_heading_location_and_taxes'] = 'Locations / Taxes';
 define('BOX_HEADING_LOCATION_AND_TAXES', 'Locations / Taxes');
@@ -183,6 +191,7 @@ define('BOX_LOCALIZATION_CUSTOMERS_STATUS', 'Customers Status');
 define('BOX_LOCALIZATION_ORDERS_STATUS', 'Orders Status');
 
 //information
+$aLang['box_heading_information'] = 'Information';
 define('BOX_HEADING_INFORMATION', 'Information');
 define('BOX_INFORMATION', 'Information');
 
@@ -438,11 +447,6 @@ define('ENTRY_TAX_YES','Yes');
 define('ENTRY_TAX_NO','No');
 
 
-define('BOX_HEADING_GV_ADMIN', 'Vouchers/Coupons');
-define('BOX_GV_ADMIN_QUEUE', 'Gift Voucher Queue');
-define('BOX_GV_ADMIN_MAIL', 'Mail Gift Voucher');
-define('BOX_GV_ADMIN_SENT', 'Gift Vouchers sent');
-define('BOX_COUPON_ADMIN','Coupon Admin');
 
 define('IMAGE_RELEASE', 'Redeem Gift Voucher');
 

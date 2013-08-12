@@ -191,6 +191,7 @@ define('BOX_LOCALIZATION_CUSTOMERS_STATUS', 'Kundengruppen');
 define('BOX_LOCALIZATION_ORDERS_STATUS', 'Bestellstatus');
 
 //information
+$aLang['box_heading_information'] = 'Information';
 define('BOX_HEADING_INFORMATION', 'Information');
 define('BOX_INFORMATION', 'Information');
 
