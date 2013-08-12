@@ -18,26 +18,13 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-?>
-<!-- modules //-->
-          <tr>
-            <td>
-<?php
-  $heading = array();
-  $contents = array();
 
-  $heading[] = array('text'  => BOX_HEADING_MODULES,
-                     'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=modules'));
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if ($_SESSION['selected_box'] == 'modules' ) {
-    $contents[] = array('text'  => '<a href="' . oos_href_link_admin($aFilename['modules'], 'set=payment', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_MODULES_PAYMENT . '</a><br />' .
-                                   '<a href="' . oos_href_link_admin($aFilename['modules'], 'set=shipping', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_MODULES_SHIPPING . '</a><br />' .
-                                   '<a href="' . oos_href_link_admin($aFilename['modules'], 'set=ordertotal', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_MODULES_ORDER_TOTAL . '</a>');
-  }
+$smarty->assign('heading_modules', oos_href_link_admin($aFilename['modules'], 'set=payment&amp;selected_box=modules'));  
 
-  $box = new box;
-  echo $box->menuBox($heading, $contents);
-?>
-            </td>
-          </tr>
-<!-- modules_eof //-->
+$smarty->assign('payment', '<a href="' . oos_href_link_admin($aFilename['modules'], 'set=payment', 'NONSSL') . '">' . BOX_MODULES_PAYMENT . '</a>');
+$smarty->assign('shipping', '<a href="' . oos_href_link_admin($aFilename['modules'], 'set=shipping', 'NONSSL') . '">' . BOX_MODULES_SHIPPING . '</a>');
+$smarty->assign('ordertotal', '<a href="' . oos_href_link_admin($aFilename['modules'], 'set=ordertotal', 'NONSSL') . '">' . BOX_MODULES_ORDER_TOTAL . '</a>');
+

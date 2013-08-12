@@ -100,6 +100,7 @@ define('BOX_CONFIGURATION_LOGGING', 'Logging');
 define('BOX_CONFIGURATION_CACHE', 'Cache');
 
 // modules box text in includes/boxes/modules.php
+$aLang['box_heading_modules'] = 'Modules';
 define('BOX_HEADING_MODULES', 'Modules');
 define('BOX_MODULES_PAYMENT', 'Payment');
 define('BOX_MODULES_SHIPPING', 'Shipping');
