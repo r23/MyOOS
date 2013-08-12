@@ -1,4 +1,4 @@
-{if $smarty.get.selected_box eq localization}
+{if $smarty.session.selected_box eq localization}
 						<li class="current">
 {else}
 						<li>

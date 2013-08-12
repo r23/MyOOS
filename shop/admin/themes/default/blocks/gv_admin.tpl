@@ -1,4 +1,4 @@
-{if $smarty.get.selected_box eq gv_admin}
+{if $smarty.session.selected_box eq gv_admin}
 						<li class="current">
 {else}
 						<li>

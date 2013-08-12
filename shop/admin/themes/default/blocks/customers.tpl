@@ -1,4 +1,4 @@
-{if $smarty.get.selected_box eq customers}
+{if $smarty.session.selected_box eq customers}
 						<li class="current">
 {else}
 						<li>

@@ -1,4 +1,4 @@
-{if $smarty.get.selected_box eq administrator}
+{if $smarty.session.selected_box eq administrator}
 						<li class="current">
 {else}
 						<li>

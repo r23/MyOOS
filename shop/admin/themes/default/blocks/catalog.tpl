@@ -1,4 +1,4 @@
-{if $smarty.get.selected_box eq catalog}
+{if $smarty.session.selected_box eq catalog}
 						<li class="current">
 {else}
 						<li>

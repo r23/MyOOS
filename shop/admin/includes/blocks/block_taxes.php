@@ -18,28 +18,15 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-?>
-<!-- taxes //-->
-          <tr>
-            <td>
-<?php
-  $heading = array();
-  $contents = array();
 
-  $heading[] = array('text'  => BOX_HEADING_LOCATION_AND_TAXES,
-                     'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=taxes'));
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if ($_SESSION['selected_box'] == 'taxes' ) {
-    $contents[] = array('text'  => oos_admin_files_boxes('countries', BOX_TAXES_COUNTRIES) .
-                                   oos_admin_files_boxes('zones', BOX_TAXES_ZONES) .
-                                   oos_admin_files_boxes('geo_zones', BOX_TAXES_GEO_ZONES) .
-                                   oos_admin_files_boxes('tax_classes', BOX_TAXES_TAX_CLASSES) .
-                                   oos_admin_files_boxes('tax_rates', BOX_TAXES_TAX_RATES));
-  }
+$smarty->assign('heading_taxes', oos_href_link_admin($aFilename['countries'], 'selected_box=taxes'));  
 
-  $box = new box;
-  echo $box->menuBox($heading, $contents);
-?>
-            </td>
-          </tr>
-<!-- taxes_eof //-->
+$smarty->assign('countries', oos_admin_files_boxes('countries', BOX_TAXES_COUNTRIES));
+$smarty->assign('zones', oos_admin_files_boxes('zones', BOX_TAXES_ZONES));
+$smarty->assign('geo_zones', oos_admin_files_boxes('geo_zones', BOX_TAXES_GEO_ZONES));
+$smarty->assign('tax_classes', oos_admin_files_boxes('tax_classes', BOX_TAXES_TAX_CLASSES));
+$smarty->assign('tax_rates', oos_admin_files_boxes('tax_rates', BOX_TAXES_TAX_RATES));
+
