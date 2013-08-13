@@ -94,6 +94,7 @@ define('FEMALE', 'Female');
 define('DOB_FORMAT_STRING', 'mm/dd/yyyy');
 
 // configuration box text in includes/boxes/configuration.php
+$aLang['box_heading_configuration'] = 'Configuration';
 define('BOX_HEADING_CONFIGURATION', 'Configuration');
 define('BOX_CONFIGURATION_MYSTORE', 'My Store');
 define('BOX_CONFIGURATION_LOGGING', 'Logging');
