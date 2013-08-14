@@ -270,15 +270,9 @@
       }
       $num_country++;
 
-      // Close result set
-      $states_result->Close();
-
       // Move that ADOdb pointer!
       $countries_result->MoveNext();
     }
-
-    // Close result set
-    $countries_result->Close();
 
     $output_string .= '  } else {' . "\n" .
                       '    ' . $form . '.' . $field . '.options[0] = new Option("' . TYPE_BELOW . '", "");' . "\n" .
@@ -390,7 +384,7 @@
       $selection .= ' value="' . $value . '"';
     }
     if ( ($checked == true) || ($GLOBALS[$name] == 'on') || ($value && ($GLOBALS[$name] == $value)) || ($value && ($value == $compare)) ) {
-      $selection .= ' CHECKED';
+      $selection .= ' checked="checked"';
     }
     if ($parameter != '') {
       $selection .= ' ' . $parameter;
@@ -577,4 +571,3 @@
     return $field;
   }
 
-?>

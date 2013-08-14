@@ -157,7 +157,7 @@
     for ($i = 0, $n = count($select_array); $i < $n; $i++) {
       $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
       $string .= '<br /><input type="radio" name="' . $name . '" value="' . $select_array[$i] . '"';
-      if ($key_value == $select_array[$i]) $string .= ' CHECKED';
+      if ($key_value == $select_array[$i]) $string .= ' checked="checked"';
       $string .= '> ' . $select_array[$i];
     }
 

@@ -112,4 +112,3 @@
     return isset($products_options_types_list[$opt_type]) ? $products_options_types_list[$opt_type] : 'Error ' . $opt_type;
   }
 
- ?>

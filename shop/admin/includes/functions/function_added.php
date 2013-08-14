@@ -50,81 +50,8 @@
 
     $manufacturers_name = $result->fields['manufacturers_name'];
 
-    // Close result set
-    $result->Close();
-
     return $manufacturers_name;
   }
-
-
-
- /**
-  * Return a product's 'base price' - the lowest attribute price is the 'base price'
-  *
-  * @param $products_id
-  * @return string
-  */
-  function oos_get_products_base_price($products_id) {
-
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =&oosDBGetTables();
-
-    $products_attributestable = $oostable['products_attributes'];
-    $query = "SELECT options_id, price_prefix, options_values_price
-              FROM $products_attributestable
-              WHERE products_id = '" . (int)$products_id . "'
-              ORDER BY options_id,price_prefix,options_values_price";
-    $result = $dbconn->Execute($query);
-
-    $count1 = 0;
-    $the_options_id = 'x';
-    $the_base_price = 0;
-
-    while ( $product_att = $result->fields) {
-      if ( $the_options_id != $product_att['options_id']){
-        $the_options_id = $product_att['options_id'];
-        $the_base_price += $product_att['options_values_price'];
-      }
-      $count1++;
-
-      // Move that ADOdb pointer!
-      $result->MoveNext();
-    }
-
-    // Close result set
-    $result->Close();
-
-    return $the_base_price;
-  }
-
-
- /**
-  * Return the base price plus the special price
-  *
-  * @param $products_id
-  * @return string
-  */
-   function oos_get_products_base_price_special_total($products_id) {
-     if ( oos_get_products_special_price($products_id) > 0 ) { 
-       $the_final_price = ( (oos_get_products_special_price($products_id) + oos_get_products_base_price($products_id)) );
-     } else {
-       $the_final_price = 0;
-     }
-     return $the_final_price;
-   }
-
-
- /**
-  * Return the base price plus the normal price
-  *
-  * @param $products_id
-  * @return string
-  */
-   function oos_get_products_base_price_normal_total($products_id) {
-     $the_final_price = ( (oosGetProductsNormalPrice($products_id) + oos_get_products_base_price($products_id)) );
-     return $the_final_price;
-   }
 
 
  /**
@@ -171,10 +98,6 @@
 
     $categories_name = $result->fields['categories_name'];
 
-    // Close result set
-    $result->Close();
-
     return $categories_name;
   }
 
-?>

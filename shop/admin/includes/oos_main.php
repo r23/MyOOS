@@ -193,4 +193,3 @@ if (basename($_SERVER['SCRIPT_FILENAME']) != $aFilename['login']
     oos_admin_check_login(); 
 }
 
-
