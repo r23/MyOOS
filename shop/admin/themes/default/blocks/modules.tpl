@@ -3,7 +3,7 @@
 {else}
 						<li>
 {/if}
-							<a href="{$heading_modules}"><span class="fam-picture"></span>{$lang.box_heading_modules}</a>
+							<a href="{$heading_modules}"><span class="cus-plugin-edit"></span>{$lang.box_heading_modules}</a>
 							<ul>
 								<li>{$payment}</li>
 								<li>{$shipping}</li>

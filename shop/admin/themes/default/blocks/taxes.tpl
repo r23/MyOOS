@@ -3,7 +3,7 @@
 {else}
 						<li>
 {/if}
-							<a href="{$heading_taxes}"><span class="fam-picture"></span>{$lang.box_heading_location_and_taxes}</a>
+							<a href="{$heading_taxes}"><span class="cus-world-go"></span>{$lang.box_heading_location_and_taxes}</a>
 							<ul>
 								<li>{$countries}</li>
 								<li>{$zones}</li>

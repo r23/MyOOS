@@ -3,7 +3,7 @@
 {else}
 						<li>
 {/if}
-							<a href="{$heading_customers}"><span class="fam-picture"></span>{$lang.box_heading_customers}</a>
+							<a href="{$heading_customers}"><span class="cus-cart"></span>{$lang.box_heading_customers}</a>
 							<ul>							
 								<li>{$customers}</li>
 								<li>{$orders}</li>

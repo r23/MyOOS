@@ -3,5 +3,5 @@
 {else}
 						<li>
 {/if}
-							<a href="{$heading_plugins}" class="no-submenu"><span class="fam-picture"></span>{$lang.box_heading_plugins}</a>
+							<a href="{$heading_plugins}" class="no-submenu"><span class="cus-plugin"></span>{$lang.box_heading_plugins}</a>
 						</li>

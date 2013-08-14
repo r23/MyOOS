@@ -3,7 +3,7 @@
 {else}
 						<li>
 {/if}
-							<a href="{$heading_catalog}"><span class="fam-picture"></span>{$lang.box_heading_catalog}</a>
+							<a href="{$heading_catalog}"><span class="cus-tag-blue-add"></span>{$lang.box_heading_catalog}</a>
 							<ul>
 								<li>{$categories}</li>
 								<li>{$new_product}</li>

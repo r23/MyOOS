@@ -3,7 +3,7 @@
 {else}
 						<li>
 {/if}
-							<a href="{$heading_administrator}"><span class="fam-picture"></span>{$lang.box_heading_administrator}</a>
+							<a href="{$heading_administrator}"><span class="cus-user-edit"></span>{$lang.box_heading_administrator}</a>
 							<ul>
 								<li>{$admin_members}</li>
 								<li>{$admin_files}</li>

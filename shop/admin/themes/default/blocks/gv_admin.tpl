@@ -3,7 +3,7 @@
 {else}
 						<li>
 {/if}
-							<a href="{$heading_coupon_admin}"><span class="fam-picture"></span>{$lang.box_heading_gv_admin}</a>
+							<a href="{$heading_coupon_admin}"><span class="cus-page-white-medal"></span>{$lang.box_heading_gv_admin}</a>
 							<ul>
 								<li>{$coupon_admin}</li>
 								<li>{$gv_queue}</li>

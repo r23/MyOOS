@@ -25,7 +25,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 $smarty->assign('heading_catalog', oos_href_link_admin($aFilename['categories'], 'selected_box=catalog'));  
 
 $smarty->assign('categories', oos_admin_files_boxes('categories', BOX_CATALOG_CATEGORIES_PRODUCTS));  
-$smarty->assign('new_product', '<a href="' . oos_href_link_admin($aFilename['products'], 'action=new_product', 'NONSSL') . '" title="' . BOX_CATALOG_QADD_PRODUCT . '">' . BOX_CATALOG_QADD_PRODUCT . '</a>');  
+$smarty->assign('new_product', '<a href="' . oos_href_link_admin($aFilename['products'], 'action=new_product', 'NONSSL') . '">' . BOX_CATALOG_QADD_PRODUCT . '</a>');  
 $smarty->assign('specials', oos_admin_files_boxes('specials', BOX_CATALOG_SPECIALS));  
 $smarty->assign('products_expected', oos_admin_files_boxes('products_expected', BOX_CATALOG_PRODUCTS_EXPECTED));  
 $smarty->assign('featured', oos_admin_files_boxes('featured', BOX_CATALOG_PRODUCTS_FEATURED));  

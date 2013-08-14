@@ -3,7 +3,7 @@
 {else}
 						<li>
 {/if}
-							<a href="{$heading_tools}"><span class="fam-picture"></span>{$lang.box_heading_tools}</a>
+							<a href="{$heading_tools}"><span class="cus-wrench"></span>{$lang.box_heading_tools}</a>
 							<ul>
 								<li>{$mail}</li>
 								<li>{$newsletters}</li>

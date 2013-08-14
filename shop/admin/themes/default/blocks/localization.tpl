@@ -3,7 +3,7 @@
 {else}
 						<li>
 {/if}
-							<a href="{$heading_currencies}"><span class="fam-picture"></span>{$lang.box_heading_localization}</a>
+							<a href="{$heading_currencies}"><span class="cus-map"></span>{$lang.box_heading_localization}</a>
 							<ul>
 								<li>{$currencies}</li>
 								<li>{$languages}</li>
