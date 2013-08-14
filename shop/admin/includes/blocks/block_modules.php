@@ -24,7 +24,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 $smarty->assign('heading_modules', oos_href_link_admin($aFilename['modules'], 'set=payment&amp;selected_box=modules'));  
 
-$smarty->assign('payment', '<a href="' . oos_href_link_admin($aFilename['modules'], 'set=payment', 'NONSSL') . '">' . BOX_MODULES_PAYMENT . '</a>');
-$smarty->assign('shipping', '<a href="' . oos_href_link_admin($aFilename['modules'], 'set=shipping', 'NONSSL') . '">' . BOX_MODULES_SHIPPING . '</a>');
-$smarty->assign('ordertotal', '<a href="' . oos_href_link_admin($aFilename['modules'], 'set=ordertotal', 'NONSSL') . '">' . BOX_MODULES_ORDER_TOTAL . '</a>');
+$smarty->assign('payment', '<a href="' . oos_href_link_admin($aFilename['modules'], 'set=payment&amp;selected_box=modules', 'NONSSL') . '" title="' . BOX_MODULES_PAYMENT . '">' . BOX_MODULES_PAYMENT . '</a>');
+$smarty->assign('shipping', '<a href="' . oos_href_link_admin($aFilename['modules'], 'set=shipping&amp;selected_box=modules', 'NONSSL') . '" title="' . BOX_MODULES_SHIPPING . '">' . BOX_MODULES_SHIPPING . '</a>');
+$smarty->assign('ordertotal', '<a href="' . oos_href_link_admin($aFilename['modules'], 'set=ordertotal&amp;selected_box=modules', 'NONSSL') . '" title="' . BOX_MODULES_ORDER_TOTAL . '">' . BOX_MODULES_ORDER_TOTAL . '</a>');
 

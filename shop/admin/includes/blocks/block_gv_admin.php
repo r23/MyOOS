@@ -28,8 +28,8 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 $smarty->assign('heading_coupon_admin', oos_href_link_admin($aFilename['coupon_admin'], 'selected_box=gv_admin'));  
 
-$smarty->assign('coupon_admin', oos_admin_files_boxes('coupon_admin', BOX_COUPON_ADMIN));
-$smarty->assign('gv_queue', oos_admin_files_boxes('gv_queue', BOX_GV_ADMIN_QUEUE));
-$smarty->assign('gv_mail', oos_admin_files_boxes('gv_mail', BOX_GV_ADMIN_MAIL));
-$smarty->assign('gv_sent', oos_admin_files_boxes('gv_sent', BOX_GV_ADMIN_SENT));
+$smarty->assign('coupon_admin', oos_admin_files_boxes('coupon_admin', 'selected_box=gv_admin', BOX_COUPON_ADMIN));
+$smarty->assign('gv_queue', oos_admin_files_boxes('gv_queue', 'selected_box=gv_admin', BOX_GV_ADMIN_QUEUE));
+$smarty->assign('gv_mail', oos_admin_files_boxes('gv_mail', 'selected_box=gv_admin', BOX_GV_ADMIN_MAIL));
+$smarty->assign('gv_sent', oos_admin_files_boxes('gv_sent', 'selected_box=gv_admin', BOX_GV_ADMIN_SENT));
 

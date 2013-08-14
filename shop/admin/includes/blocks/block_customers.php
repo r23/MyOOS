@@ -24,10 +24,10 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 $smarty->assign('heading_customers', oos_href_link_admin($aFilename['customers'], 'selected_box=customers'));  
 
-$smarty->assign('customers', oos_admin_files_boxes('customers', BOX_CUSTOMERS_CUSTOMERS));
-$smarty->assign('orders', oos_admin_files_boxes('orders', BOX_CUSTOMERS_ORDERS));
-$smarty->assign('customers_status', oos_admin_files_boxes('customers_status', BOX_LOCALIZATION_CUSTOMERS_STATUS));
-$smarty->assign('orders_status', oos_admin_files_boxes('orders_status', BOX_LOCALIZATION_ORDERS_STATUS));
-$smarty->assign('campaigns', oos_admin_files_boxes('campaigns', BOX_CAMPAIGNS));
-$smarty->assign('manual_loging', oos_admin_files_boxes('manual_loging', BOX_ADMIN_LOGIN));
+$smarty->assign('customers', oos_admin_files_boxes('customers', 'selected_box=customers', BOX_CUSTOMERS_CUSTOMERS));
+$smarty->assign('orders', oos_admin_files_boxes('orders', 'selected_box=customers', BOX_CUSTOMERS_ORDERS));
+$smarty->assign('customers_status', oos_admin_files_boxes('customers_status', 'selected_box=customers', BOX_LOCALIZATION_CUSTOMERS_STATUS));
+$smarty->assign('orders_status', oos_admin_files_boxes('orders_status', 'selected_box=customers', BOX_LOCALIZATION_ORDERS_STATUS));
+$smarty->assign('campaigns', oos_admin_files_boxes('campaigns', 'selected_box=customers', BOX_CAMPAIGNS));
+$smarty->assign('manual_loging', oos_admin_files_boxes('manual_loging', 'selected_box=customers', BOX_ADMIN_LOGIN));
 

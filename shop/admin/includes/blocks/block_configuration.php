@@ -33,7 +33,8 @@ $smarty->assign('heading_configuration', oos_href_link_admin($aFilename['configu
 $aCfgGroups = array(); 
 $configuration_groups_result = $dbconn->Execute("SELECT configuration_group_id as cgID FROM " . $oostable['configuration_group'] . " where visible = '1' ORDER BY sort_order");
 while ($configuration_groups = $configuration_groups_result->fields) {
-    $sLink = '<a href="' . oos_href_link_admin($aFilename['configuration'], 'gID=' . $configuration_groups['cgID']) . '">' . constant(strtoupper($configuration_groups['cgID'] . '_TITLE')) . '</a>';
+    $sTitle = constant(strtoupper($configuration_groups['cgID'] . '_TITLE'));
+    $sLink = '<a href="' . oos_href_link_admin($aFilename['configuration'], 'gID=' . $configuration_groups['cgID']. '&amp;selected_box=configuration') . '" title="' . $sTitle . '">' . $sTitle . '</a>';
 	$aCfgGroups[] = array('link' => $sLink);
 
 	// Move that ADOdb pointer!

@@ -24,6 +24,6 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 $smarty->assign('heading_currencies', oos_href_link_admin($aFilename['currencies'], 'selected_box=localization')); 
 
-$smarty->assign('currencies', oos_admin_files_boxes('currencies', BOX_LOCALIZATION_CURRENCIES));
-$smarty->assign('languages', oos_admin_files_boxes('languages', BOX_LOCALIZATION_LANGUAGES));
+$smarty->assign('currencies', oos_admin_files_boxes('currencies', 'selected_box=localization', BOX_LOCALIZATION_CURRENCIES));
+$smarty->assign('languages', oos_admin_files_boxes('languages', 'selected_box=localization', BOX_LOCALIZATION_LANGUAGES));
 

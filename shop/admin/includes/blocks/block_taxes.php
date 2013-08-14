@@ -24,9 +24,9 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 $smarty->assign('heading_taxes', oos_href_link_admin($aFilename['countries'], 'selected_box=taxes'));  
 
-$smarty->assign('countries', oos_admin_files_boxes('countries', BOX_TAXES_COUNTRIES));
-$smarty->assign('zones', oos_admin_files_boxes('zones', BOX_TAXES_ZONES));
-$smarty->assign('geo_zones', oos_admin_files_boxes('geo_zones', BOX_TAXES_GEO_ZONES));
-$smarty->assign('tax_classes', oos_admin_files_boxes('tax_classes', BOX_TAXES_TAX_CLASSES));
-$smarty->assign('tax_rates', oos_admin_files_boxes('tax_rates', BOX_TAXES_TAX_RATES));
+$smarty->assign('countries', oos_admin_files_boxes('countries', 'selected_box=taxes', BOX_TAXES_COUNTRIES));
+$smarty->assign('zones', oos_admin_files_boxes('zones', 'selected_box=taxes', BOX_TAXES_ZONES));
+$smarty->assign('geo_zones', oos_admin_files_boxes('geo_zones', 'selected_box=taxes', BOX_TAXES_GEO_ZONES));
+$smarty->assign('tax_classes', oos_admin_files_boxes('tax_classes', 'selected_box=taxes', BOX_TAXES_TAX_CLASSES));
+$smarty->assign('tax_rates', oos_admin_files_boxes('tax_rates', 'selected_box=taxes', BOX_TAXES_TAX_RATES));
 

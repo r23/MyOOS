@@ -94,7 +94,7 @@
   }
 
 
-function oos_admin_files_boxes($filename, $sub_box_name)
+function oos_admin_files_boxes($filename, $parameters, $sub_box_name)
 {
 
 	$sub_boxes = '';
@@ -119,7 +119,7 @@ function oos_admin_files_boxes($filename, $sub_box_name)
 		{
 			$sub_boxes = '<a href="' . oos_href_link_admin($aFilename[$filename]) . '" class="menuBoxContentLink">' . $sub_box_name . '</a><br />';
 		} else {
-			$sub_boxes = '<a href="' . oos_href_link_admin($aFilename[$filename]) . '">' . $sub_box_name . '</a>';
+			$sub_boxes = '<a href="' . oos_href_link_admin($aFilename[$filename], $parameters) . '" title="' . $sub_box_name . '">' . $sub_box_name . '</a>';
 		}
     }
 

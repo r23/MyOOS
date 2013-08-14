@@ -24,10 +24,10 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 $smarty->assign('heading_reports', oos_href_link_admin($aFilename['admin_members'], 'selected_box=reports'));  
 
-$smarty->assign('stats_products_viewed', oos_admin_files_boxes('stats_products_viewed', BOX_REPORTS_PRODUCTS_VIEWED));
-$smarty->assign('stats_products_purchased', oos_admin_files_boxes('stats_products_purchased', BOX_REPORTS_PRODUCTS_PURCHASED));
-$smarty->assign('stats_low_stock', oos_admin_files_boxes('stats_low_stock', BOX_REPORTS_STOCK_LEVEL));
-$smarty->assign('stats_customers', oos_admin_files_boxes('stats_customers', BOX_REPORTS_ORDERS_TOTAL));
-$smarty->assign('stats_sales_report2', oos_admin_files_boxes('stats_sales_report2', BOX_REPORTS_SALES_REPORT2));
-$smarty->assign('stats_recover_cart_sales', oos_admin_files_boxes('stats_recover_cart_sales', BOX_REPORTS_RECOVER_CART_SALES));
+$smarty->assign('stats_products_viewed', oos_admin_files_boxes('stats_products_viewed', 'selected_box=reports', BOX_REPORTS_PRODUCTS_VIEWED));
+$smarty->assign('stats_products_purchased', oos_admin_files_boxes('stats_products_purchased', 'selected_box=reports', BOX_REPORTS_PRODUCTS_PURCHASED));
+$smarty->assign('stats_low_stock', oos_admin_files_boxes('stats_low_stock', 'selected_box=reports', BOX_REPORTS_STOCK_LEVEL));
+$smarty->assign('stats_customers', oos_admin_files_boxes('stats_customers', 'selected_box=reports', BOX_REPORTS_ORDERS_TOTAL));
+$smarty->assign('stats_sales_report2', oos_admin_files_boxes('stats_sales_report2', 'selected_box=reports', BOX_REPORTS_SALES_REPORT2));
+$smarty->assign('stats_recover_cart_sales', oos_admin_files_boxes('stats_recover_cart_sales', 'selected_box=reports', BOX_REPORTS_RECOVER_CART_SALES));
 

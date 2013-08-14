@@ -28,7 +28,9 @@ if (isset($_GET['page']) && is_numeric($_GET['page'])) {
 } else {
 	$nPage = 1; 
 }
-  
+
+$action = (isset($_GET['action']) ? $_GET['action'] : '');
+
 if (!empty($action)) {
 	switch ($action) {
 		case 'insert':

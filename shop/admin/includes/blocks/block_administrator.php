@@ -24,5 +24,5 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 $smarty->assign('heading_administrator', oos_href_link_admin($aFilename['admin_members'], 'selected_box=administrator'));  
 
-$smarty->assign('admin_members', oos_admin_files_boxes('admin_members', BOX_ADMINISTRATOR_MEMBERS));
-$smarty->assign('admin_files', oos_admin_files_boxes('admin_files', BOX_ADMINISTRATOR_BOXES));
+$smarty->assign('admin_members', oos_admin_files_boxes('admin_members', 'selected_box=administrator', BOX_ADMINISTRATOR_MEMBERS));
+$smarty->assign('admin_files', oos_admin_files_boxes('admin_files', 'selected_box=administrator', BOX_ADMINISTRATOR_BOXES));

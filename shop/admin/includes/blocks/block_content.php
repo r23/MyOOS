@@ -22,6 +22,6 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 $smarty->assign('heading_content', oos_href_link_admin($aFilename['content_block'], 'selected_box=content'));  
 
-$smarty->assign('content_block',  oos_admin_files_boxes('content_block', BOX_CONTENT_BLOCK));
-$smarty->assign('content_page_type',  oos_admin_files_boxes('content_page_type', BOX_CONTENT_PAGE_TYPE));
+$smarty->assign('content_block',  oos_admin_files_boxes('content_block', 'selected_box=content', BOX_CONTENT_BLOCK));
+$smarty->assign('content_page_type',  oos_admin_files_boxes('content_page_type', 'selected_box=content', BOX_CONTENT_PAGE_TYPE));
 
