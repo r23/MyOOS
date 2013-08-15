@@ -51,4 +51,5 @@ $smarty->assign(
 $smarty->assign('home', oos_href_link_admin($aFilename['default']));
 $smarty->assign('catalog_link', oos_catalog_link($aCatalogFilename['default']));
 $smarty->assign('support_site', 'http://www.oos-shop.de/'); 
+$smarty->assign('admin_account', oos_href_link_admin($aFilename['admin_account']));
 $smarty->assign('logoff', oos_href_link_admin($aFilename['logoff']));

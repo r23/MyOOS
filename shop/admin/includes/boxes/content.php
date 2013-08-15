@@ -28,8 +28,8 @@
                      'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=content'));
 
   if ($_SESSION['selected_box'] == 'content' ) {
-    $contents[] = array('text'  => oos_admin_files_boxes('content_block', BOX_CONTENT_BLOCK) .
-                                   oos_admin_files_boxes('content_page_type', BOX_CONTENT_PAGE_TYPE));
+    $contents[] = array('text'  => oos_admin_files_boxes('content_block', 'selected_box=content', BOX_CONTENT_BLOCK) .
+                                   oos_admin_files_boxes('content_page_type', 'selected_box=content', BOX_CONTENT_PAGE_TYPE));
   }
 
   $box = new box;

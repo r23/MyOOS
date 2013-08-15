@@ -28,8 +28,8 @@
                      'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=export'));
 
   if ($_SESSION['selected_box'] == 'export' ) {
-    $contents[] = array('text'  => oos_admin_files_boxes('export_googlebase', BOX_EXPORT_GOOGLEBASE) .
-                                   oos_admin_files_boxes('export_preissuchmaschine', BOX_EXPORT_PREISSUCHMASCHINE));
+    $contents[] = array('text'  => oos_admin_files_boxes('export_googlebase', 'selected_box=export', BOX_EXPORT_GOOGLEBASE) .
+                                   oos_admin_files_boxes('export_preissuchmaschine', 'selected_box=export', BOX_EXPORT_PREISSUCHMASCHINE));
   }
 
   $box = new box;

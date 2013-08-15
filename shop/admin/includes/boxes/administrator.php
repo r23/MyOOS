@@ -30,8 +30,8 @@
                      'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=administrator'));
 
   if ($_SESSION['selected_box'] == 'administrator' ) {
-    $contents[] = array('text'  => oos_admin_files_boxes('admin_members', BOX_ADMINISTRATOR_MEMBERS) .
-                                   oos_admin_files_boxes('admin_files', BOX_ADMINISTRATOR_BOXES));
+    $contents[] = array('text'  => oos_admin_files_boxes('admin_members', 'selected_box=administrator', BOX_ADMINISTRATOR_MEMBERS) .
+                                   oos_admin_files_boxes('admin_files', 'selected_box=administrator', BOX_ADMINISTRATOR_BOXES));
   }
 
   $box = new box;

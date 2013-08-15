@@ -28,7 +28,7 @@
                      'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=information'));
 
   if ($_SESSION['selected_box'] == 'information' ) {
-    $contents[] = array('text'  => oos_admin_files_boxes('information', BOX_INFORMATION));
+    $contents[] = array('text'  => oos_admin_files_boxes('information', 'selected_box=information', BOX_INFORMATION));
   }
 
   $box = new box;

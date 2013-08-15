@@ -34,10 +34,10 @@
                      'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=gv_admin'));
 
   if ($_SESSION['selected_box'] == 'gv_admin' ) {
-    $contents[] = array('text'  => oos_admin_files_boxes('coupon_admin', BOX_COUPON_ADMIN) .
-                                   oos_admin_files_boxes('gv_queue', BOX_GV_ADMIN_QUEUE) .
-                                   oos_admin_files_boxes('gv_mail', BOX_GV_ADMIN_MAIL) . 
-                                   oos_admin_files_boxes('gv_sent', BOX_GV_ADMIN_SENT));
+    $contents[] = array('text'  => oos_admin_files_boxes('coupon_admin', 'selected_box=gv_admin', BOX_COUPON_ADMIN) .
+                                   oos_admin_files_boxes('gv_queue', 'selected_box=gv_admin', BOX_GV_ADMIN_QUEUE) .
+                                   oos_admin_files_boxes('gv_mail', 'selected_box=gv_admin', BOX_GV_ADMIN_MAIL) . 
+                                   oos_admin_files_boxes('gv_sent', 'selected_box=gv_admin', BOX_GV_ADMIN_SENT));
   }
 
   $box = new box;

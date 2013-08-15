@@ -30,12 +30,12 @@
                      'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=customers'));
 
   if ($_SESSION['selected_box'] == 'customers' ) {
-    $contents[] = array('text'  => oos_admin_files_boxes('customers', BOX_CUSTOMERS_CUSTOMERS) .
-                                   oos_admin_files_boxes('orders', BOX_CUSTOMERS_ORDERS) .
-                                   oos_admin_files_boxes('customers_status', BOX_LOCALIZATION_CUSTOMERS_STATUS) .
-                                   oos_admin_files_boxes('orders_status', BOX_LOCALIZATION_ORDERS_STATUS) .
-                                   oos_admin_files_boxes('campaigns', BOX_CAMPAIGNS) .
-                                   oos_admin_files_boxes('manual_loging', BOX_ADMIN_LOGIN));
+    $contents[] = array('text'  => oos_admin_files_boxes('customers', 'selected_box=customers', BOX_CUSTOMERS_CUSTOMERS) .
+                                   oos_admin_files_boxes('orders', 'selected_box=customers', BOX_CUSTOMERS_ORDERS) .
+                                   oos_admin_files_boxes('customers_status','selected_box=customers', BOX_LOCALIZATION_CUSTOMERS_STATUS) .
+                                   oos_admin_files_boxes('orders_status', 'selected_box=customers', BOX_LOCALIZATION_ORDERS_STATUS) .
+                                   oos_admin_files_boxes('campaigns', 'selected_box=customers', BOX_CAMPAIGNS) .
+                                   oos_admin_files_boxes('manual_loging', 'selected_box=customers', BOX_ADMIN_LOGIN));
   }
 
   $box = new box;

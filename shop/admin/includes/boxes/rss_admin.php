@@ -28,7 +28,7 @@
                      'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=rss_admin'));
 
   if ($_SESSION['selected_box'] == 'rss_admin' ) {
-    $contents[] = array('text'  => oos_admin_files_boxes('rss_conf', BOX_RSS_CONF));
+    $contents[] = array('text'  => oos_admin_files_boxes('rss_conf', 'selected_box=rss_admin', BOX_RSS_CONF));
   }
 
   $box = new box;

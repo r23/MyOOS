@@ -28,8 +28,8 @@
                      'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=newsfeed'));
 
   if ($_SESSION['selected_box'] == 'newsfeed' ) { 
-    $contents[] = array('text'  => oos_admin_files_boxes('newsfeed_manager', BOX_NEWSFEED_MANAGER) .
-                                   oos_admin_files_boxes('newsfeed_categories', BOX_NEWSFEED_CATEGORIES));
+    $contents[] = array('text'  => oos_admin_files_boxes('newsfeed_manager', 'selected_box=newsfeed', BOX_NEWSFEED_MANAGER) .
+                                   oos_admin_files_boxes('newsfeed_categories', 'selected_box=newsfeed', BOX_NEWSFEED_CATEGORIES));
   }
 
   $box = new box;

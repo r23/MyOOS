@@ -31,37 +31,37 @@
 
   if ($_SESSION['selected_box'] == 'catalog' ) {
     if (STOCK_CHECK == 'true') {
-      $contents[] = array('text'  => oos_admin_files_boxes('categories', BOX_CATALOG_CATEGORIES_PRODUCTS) .
+      $contents[] = array('text'  => oos_admin_files_boxes('categories', 'selected_box=catalog', BOX_CATALOG_CATEGORIES_PRODUCTS) .
                                      '<a href="' . oos_href_link_admin($aFilename['products'], 'action=new_product', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_CATALOG_QADD_PRODUCT . '</a><br />'.
-                                     oos_admin_files_boxes('specials', BOX_CATALOG_SPECIALS) .
-                                     oos_admin_files_boxes('products_expected', BOX_CATALOG_PRODUCTS_EXPECTED) .
-                                     oos_admin_files_boxes('featured', BOX_CATALOG_PRODUCTS_FEATURED) .
-                                     oos_admin_files_boxes('products_attributes', BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES) .
-                                     oos_admin_files_boxes('products_status', BOX_CATALOG_PRODUCTS_STATUS) .
-                                     oos_admin_files_boxes('products_units', BOX_CATALOG_PRODUCTS_UNITS) .
-                                     oos_admin_files_boxes('xsell_products', BOX_CATALOG_XSELL_PRODUCTS) .
-                                     oos_admin_files_boxes('up_sell_products', BOX_CATALOG_UP_SELL_PRODUCTS) .
-                                     oos_admin_files_boxes('easypopulate', BOX_CATALOG_EASYPOPULATE) .
-                                     oos_admin_files_boxes('export_excel', BOX_CATALOG_EXPORT_EXCEL) .
-                                     oos_admin_files_boxes('import_excel', BOX_CATALOG_IMPORT_EXCEL) .
-                                     oos_admin_files_boxes('manufacturers', BOX_CATALOG_MANUFACTURERS) .
-                                     oos_admin_files_boxes('reviews', BOX_CATALOG_REVIEWS) .
-                                     oos_admin_files_boxes('quick_stockupdate', BOX_CATALOG_QUICK_STOCKUPDATE));
+                                     oos_admin_files_boxes('specials', 'selected_box=catalog', BOX_CATALOG_SPECIALS) .
+                                     oos_admin_files_boxes('products_expected', 'selected_box=catalog', BOX_CATALOG_PRODUCTS_EXPECTED) .
+                                     oos_admin_files_boxes('featured', 'selected_box=catalog', BOX_CATALOG_PRODUCTS_FEATURED) .
+                                     oos_admin_files_boxes('products_attributes', 'selected_box=catalog', BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES) .
+                                     oos_admin_files_boxes('products_status', 'selected_box=catalog', BOX_CATALOG_PRODUCTS_STATUS) .
+                                     oos_admin_files_boxes('products_units', 'selected_box=catalog', BOX_CATALOG_PRODUCTS_UNITS) .
+                                     oos_admin_files_boxes('xsell_products', 'selected_box=catalog', BOX_CATALOG_XSELL_PRODUCTS) .
+                                     oos_admin_files_boxes('up_sell_products', 'selected_box=catalog', BOX_CATALOG_UP_SELL_PRODUCTS) .
+                                     oos_admin_files_boxes('easypopulate','selected_box=catalog',  BOX_CATALOG_EASYPOPULATE) .
+                                     oos_admin_files_boxes('export_excel', 'selected_box=catalog', BOX_CATALOG_EXPORT_EXCEL) .
+                                     oos_admin_files_boxes('import_excel', 'selected_box=catalog', BOX_CATALOG_IMPORT_EXCEL) .
+                                     oos_admin_files_boxes('manufacturers', 'selected_box=catalog', BOX_CATALOG_MANUFACTURERS) .
+                                     oos_admin_files_boxes('reviews', 'selected_box=catalog', BOX_CATALOG_REVIEWS) .
+                                     oos_admin_files_boxes('quick_stockupdate', 'selected_box=catalog', BOX_CATALOG_QUICK_STOCKUPDATE));
     } else {
-      $contents[] = array('text'  => oos_admin_files_boxes('categories', BOX_CATALOG_CATEGORIES_PRODUCTS) .
+      $contents[] = array('text'  => oos_admin_files_boxes('categories', 'selected_box=catalog', BOX_CATALOG_CATEGORIES_PRODUCTS) .
                                      '<a href="' . oos_href_link_admin($aFilename['products'], 'action=new_product', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_CATALOG_QADD_PRODUCT . '</a><br />'.
-                                     oos_admin_files_boxes('specials', BOX_CATALOG_SPECIALS) .
-                                     oos_admin_files_boxes('products_expected', BOX_CATALOG_PRODUCTS_EXPECTED) .
-                                     oos_admin_files_boxes('featured', BOX_CATALOG_PRODUCTS_FEATURED) .
-                                     oos_admin_files_boxes('products_units', BOX_CATALOG_PRODUCTS_UNITS) .
-                                     oos_admin_files_boxes('products_attributes', BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES) .
-                                     oos_admin_files_boxes('xsell_products', BOX_CATALOG_XSELL_PRODUCTS) . 
-                                     oos_admin_files_boxes('up_sell_products', BOX_CATALOG_UP_SELL_PRODUCTS) .
-                                     oos_admin_files_boxes('easypopulate', BOX_CATALOG_EASYPOPULATE) .
-                                     oos_admin_files_boxes('export_excel', BOX_CATALOG_EXPORT_EXCEL) .
-                                     oos_admin_files_boxes('import_excel', BOX_CATALOG_IMPORT_EXCEL) .
-                                     oos_admin_files_boxes('manufacturers', BOX_CATALOG_MANUFACTURERS) .
-                                     oos_admin_files_boxes('reviews', BOX_CATALOG_REVIEWS));
+                                     oos_admin_files_boxes('specials', 'selected_box=catalog', BOX_CATALOG_SPECIALS) .
+                                     oos_admin_files_boxes('products_expected', 'selected_box=catalog', BOX_CATALOG_PRODUCTS_EXPECTED) .
+                                     oos_admin_files_boxes('featured', 'selected_box=catalog', BOX_CATALOG_PRODUCTS_FEATURED) .
+                                     oos_admin_files_boxes('products_units', 'selected_box=catalog', BOX_CATALOG_PRODUCTS_UNITS) .
+                                     oos_admin_files_boxes('products_attributes', 'selected_box=catalog', BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES) .
+                                     oos_admin_files_boxes('xsell_products', 'selected_box=catalog', BOX_CATALOG_XSELL_PRODUCTS) . 
+                                     oos_admin_files_boxes('up_sell_products', 'selected_box=catalog', BOX_CATALOG_UP_SELL_PRODUCTS) .
+                                     oos_admin_files_boxes('easypopulate', 'selected_box=catalog', BOX_CATALOG_EASYPOPULATE) .
+                                     oos_admin_files_boxes('export_excel', 'selected_box=catalog', BOX_CATALOG_EXPORT_EXCEL) .
+                                     oos_admin_files_boxes('import_excel', 'selected_box=catalog', BOX_CATALOG_IMPORT_EXCEL) .
+                                     oos_admin_files_boxes('manufacturers', 'selected_box=catalog', BOX_CATALOG_MANUFACTURERS) .
+                                     oos_admin_files_boxes('reviews', 'selected_box=catalog', BOX_CATALOG_REVIEWS));
 
     }
   }

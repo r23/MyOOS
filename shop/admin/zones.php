@@ -23,8 +23,9 @@ define('OOS_VALID_MOD', 'yes');
 require 'includes/oos_main.php';
 
 
-if (isset($_GET['page']) && is_numeric($_GET['page'])) {
-    $nPage =  intval($_GET['page']);
+if (isset($_GET['page']) && is_numeric($_GET['page']))
+{
+	$nPage =  intval($_GET['page']);
 } else {
 	$nPage = 1; 
 }

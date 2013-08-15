@@ -16,7 +16,7 @@
 				<!-- Breadcrumbs -->
 				<ul class="breadcrumb">
 					<li><a href="{$home}"><span class="icon-home"></span> Home</a></li>
-					<li><a href="#">{$lang.box_heading_location_and_taxes}</a></li>
+					<li><a href="{$heading_taxes}">{$lang.box_heading_location_and_taxes}</a></li>
 					<li class="active">{$lang.heading_title}</li>
 				</ul>
 				<!-- Breadcrumbs -->

@@ -30,8 +30,8 @@
                      'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=localization'));
 
   if ($_SESSION['selected_box'] == 'localization' ) {
-    $contents[] = array('text'  => oos_admin_files_boxes('currencies', BOX_LOCALIZATION_CURRENCIES) .
-                                   oos_admin_files_boxes('languages', BOX_LOCALIZATION_LANGUAGES));
+    $contents[] = array('text'  => oos_admin_files_boxes('currencies', 'selected_box=localization', BOX_LOCALIZATION_CURRENCIES) .
+                                   oos_admin_files_boxes('languages', 'selected_box=localization', BOX_LOCALIZATION_LANGUAGES));
   }
 
   $box = new box;
