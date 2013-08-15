@@ -54,7 +54,6 @@
 					<!-- Data block -->
 					<article class="col-lg-12 data-block">
 						<div class="data-container">
-							<section>
 								<table class="table table-striped table-bordered table-condensed table-hover table-media">
 								<thead>
 									<tr>
@@ -96,7 +95,6 @@
 									</tr>
 								</thead>
 							</table>
-							</section>
 
 						</div>
 					</article>
