@@ -4,7 +4,7 @@ Plugin Name: Really Simple CAPTCHA
 Plugin URI: http://contactform7.com/captcha/
 Description: Really Simple CAPTCHA is a CAPTCHA module intended to be called from other plugins. It is originally created for my Contact Form 7 plugin.
 Author: Takayuki Miyoshi
-Version: 1.6
+Version: 1.7
 Author URI: http://ideasilo.wordpress.com/
 */
 
@@ -25,7 +25,7 @@ Author URI: http://ideasilo.wordpress.com/
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-define( 'REALLYSIMPLECAPTCHA_VERSION', '1.6' );
+define( 'REALLYSIMPLECAPTCHA_VERSION', '1.7' );
 
 class ReallySimpleCaptcha {
 
@@ -184,6 +184,7 @@ class ReallySimpleCaptcha {
 	 * @return bool Return true if the two match, otherwise return false.
 	 */
 	function check( $prefix, $response ) {
+		$response = str_replace( array( " ", "\t" ), '', $response );
 		$response = strtoupper( $response );
 
 		$dir = trailingslashit( $this->tmp_dir );
