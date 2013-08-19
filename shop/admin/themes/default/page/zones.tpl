@@ -47,10 +47,14 @@
 					<div class="col-6 col-lg-6">
 						<div class="data-header-actions">
 							<ul>
-								<li><a class="btn btn-primary" href="{$new_zone}" title="{$lang.button_new_zone}">{$lang.button_new_zone}</a></li>
+								<li>
+									<a class="btn btn-primary" href="{$new_zone}" title="{$lang.button_new_zone}">{$lang.button_new_zone}</a>
+								</li>
 							</ul>
 						</div>
 					</div>
+				</div>
+				<div class="row">					
 					<!-- Data block -->
 					<article class="col-lg-12 data-block">
 						<div class="data-container">
@@ -101,21 +105,22 @@
 					<!-- /Data block -->
 					
 				</div>
-				<!-- /Grid row -->
-
-
 				
 				<div class="row">
-					<div class="col-6 col-sm-4 col-lg-4">
-						<div class="dataTables_info">
+					<div class="col-6 col-lg-6">
+					<p>{$display_count}</p>
 			<select name='action'>
 <option value='-1' selected='selected'>Aktion wählen</option>
 	<option value='trash'>In den Papierkorb legen</option>
 </select>
 <input type="submit" name="" id="doaction" class="button action" value="Übernehmen"  />
-							<p>{$display_count}</p>
-						</div>
+						
 					</div>
+					<div class="col-6 col-lg-6"></div>
+				</div>
+				<!-- /Grid row -->
+				
+				<div class="row">				
 					<div class="col-12 col-sm-8 col-lg-8">
 						<div class="dataTables_paginate">{$display_links}</div>
 					</div>
@@ -124,8 +129,7 @@
 				
 			</section>
 			<!-- /Right (content) side -->
-
-			
+	
 
 			
 		</div>
@@ -136,7 +140,7 @@
 {literal}
 		<script>
 			$(document).ready(function(){			
-				
+			
 				// Tooltips for brand & nav toggle button
 				$('.nav-toggle, .brand').tooltip({
 					placement: 'bottom',
