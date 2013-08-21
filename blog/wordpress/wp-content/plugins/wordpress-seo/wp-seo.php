@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WordPress SEO
-Version: 1.4.13
+Version: 1.4.14
 Plugin URI: http://yoast.com/wordpress/seo/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=wpseoplugin
 Description: The first true all-in-one SEO solution for WordPress, including on-page content analysis, XML sitemaps and much more.
 Author: Joost de Valk
@@ -34,7 +34,7 @@ if ( !defined( 'DB_NAME' ) ) {
 }
 
 if ( !defined( 'WPSEO_URL' ) )
-	define( 'WPSEO_URL', plugins_url() . '/' . basename( dirname(__FILE__) ) . '/' );
+	define( 'WPSEO_URL', plugin_dir_url( __FILE__ ) );
 if ( !defined( 'WPSEO_PATH' ) )
 	define( 'WPSEO_PATH', plugin_dir_path( __FILE__ ) );
 if ( !defined( 'WPSEO_BASENAME' ) )
@@ -57,11 +57,11 @@ if ( version_compare( PHP_VERSION, '5.2', '<' ) ) {
 	}
 }
 
-define( 'WPSEO_VERSION', '1.4.13' );
+define( 'WPSEO_VERSION', '1.4.14' );
 
 $pluginurl = plugin_dir_url( __FILE__ );
-if ( preg_match( '/^https/', $pluginurl ) && !preg_match( '/^https/', get_bloginfo( 'url' ) ) )
-	$pluginurl = preg_replace( '/^https/', 'http', $pluginurl );
+if ( strpos( $pluginurl, 'https' ) === 0 && strpos( get_bloginfo( 'url' ), 'https' ) !== 0 )
+	$pluginurl = substr_replace( $pluginurl, 'http', 0, 5 );
 define( 'WPSEO_FRONT_URL', $pluginurl );
 unset( $pluginurl );
 
