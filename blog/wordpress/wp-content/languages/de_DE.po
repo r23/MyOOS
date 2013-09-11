@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the 3.6.x package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-08-01 22:50:02+0000\n"
+"PO-Revision-Date: 2013-09-11 21:13:34+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -89,7 +89,7 @@ msgstr "Aktiviere deinen Akismet Account"
 
 #: wp-content/plugins/akismet/admin.php:396
 msgid "<strong>Almost done</strong> - activate your account and say goodbye to comment spam"
-msgstr "<strong>Fast geschafft</strong>  - aktiviere dein Benutzerkonto und sage \"Auf Wiedersehen\" zu Kommentar-Spam"
+msgstr "<strong>Fast geschafft</strong>  - aktiviere dein Benutzerkonto und sage \"Auf Nimmer-Wiedersehen\" zu Kommentar-Spam"
 
 #: wp-includes/formatting.php:2159
 msgid "%s week"
@@ -3028,7 +3028,7 @@ msgstr "Kategorien"
 
 #: wp-signup.php:564
 msgid "Sorry, new registrations are not allowed at this time."
-msgstr "Entschuldigung, aber Registrierungen sind zurzeit nicht möglich."
+msgstr "Bedaure, Registrierungen sind derzeit nicht möglich."
 
 #: wp-signup.php:397 wp-signup.php:498
 msgid "Check your inbox at <strong>%s</strong> and click the link given."
@@ -3205,7 +3205,7 @@ msgstr "Neue Registrierung einer Seite: %s"
 
 #: wp-includes/ms-functions.php:566
 msgid "Sorry, site names may not contain the character &#8220;_&#8221;!"
-msgstr "Entschuldigung, Seitenadressen dürfen keinen Unterstrich im Namen haben."
+msgstr "Bedaure, Seitenadressen dürfen keinen Unterstrich im Namen haben!"
 
 #: wp-includes/ms-functions.php:1243
 msgid "New %1$s Site: %2$s"
@@ -5972,8 +5972,8 @@ msgstr "Ausstehend"
 #: wp-includes/post.php:134
 msgid "Pending <span class=\"count\">(%s)</span>"
 msgid_plural "Pending <span class=\"count\">(%s)</span>"
-msgstr[0] "Austehend <span class=\"count\">(%s)</span>"
-msgstr[1] "Austehend <span class=\"count\">(%s)</span>"
+msgstr[0] "Ausstehend <span class=\"count\">(%s)</span>"
+msgstr[1] "Ausstehend <span class=\"count\">(%s)</span>"
 
 #: wp-includes/post.php:138
 msgctxt "post"

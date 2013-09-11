@@ -433,7 +433,7 @@ class WpPhpBB
         do_action('wpbb_before_return_username');               // Run any action after get user id
         global $user;
         
-        $new_username = ereg_replace("[^A-Za-z0-9]", "", $user->data['username']);
+        $new_username = preg_replace("/[^A-Za-z0-9]/", "", $user->data['username']);
         $new_username = strtolower($new_username);
         
         if($count > 0)
