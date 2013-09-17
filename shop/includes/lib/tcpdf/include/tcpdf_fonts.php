@@ -1,9 +1,9 @@
 <?php
 //============================================================+
 // File name   : tcpdf_fonts.php
-// Version     : 1.0.008
+// Version     : 1.0.009
 // Begin       : 2008-01-01
-// Last Update : 2013-07-18
+// Last Update : 2013-09-04
 // Author      : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
 // License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
 // -------------------------------------------------------------------
@@ -42,7 +42,7 @@
  * @class TCPDF_FONTS
  * Font methods for TCPDF library.
  * @package com.tecnick.tcpdf
- * @version 1.0.008
+ * @version 1.0.009
  * @author Nicola Asuni - info@tecnick.com
  */
 class TCPDF_FONTS {
@@ -1685,6 +1685,28 @@ class TCPDF_FONTS {
 	}
 
 	/**
+	 * Return font full path
+	 * @param $file (string) Font file name.
+	 * @param $fontdir (string) Font directory (set to false fto search on default directories)
+	 * @return string Font full path or empty string
+	 * @author Nicola Asuni
+	 * @since 6.0.025
+	 * @public static
+	 */
+	public static function getFontFullPath($file, $fontdir=false) {
+		$fontfile = '';
+		// search files on various directories
+		if (($fontdir !== false) AND @file_exists($fontdir.$file)) {
+			$fontfile = $fontdir.$file;
+		} elseif (@file_exists(self::_getfontpath().$file)) {
+			$fontfile = self::_getfontpath().$file;
+		} elseif (@file_exists($file)) {
+			$fontfile = $file;
+		}
+		return $fontfile;
+	}
+
+	/**
 	 * Converts UTF-8 characters array to array of Latin1 characters array<br>
 	 * @param $unicode (array) array containing UTF-8 unicode values
 	 * @return array
@@ -2533,7 +2555,7 @@ class TCPDF_FONTS {
 		return $size;
 	}
 
-} // --- END OF CLASS ---
+} // END OF TCPDF_FONTS CLASS
 
 //============================================================+
 // END OF FILE
