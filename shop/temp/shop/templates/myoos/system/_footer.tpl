@@ -1,7 +1,7 @@
 	<footer>
 	<div class="container">
 		<div class="row">
-			<div class="span3">
+			<div class="col-md-3">
 				<div class="widget">
 					<h5 class="widgetheading">{$lang.header_title_my_account}</h5>
 					<ul class="link-list">
@@ -13,7 +13,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="span3">
+			<div class="col-md-3">
 				<div class="widget">
 					<h5 class="widgetheading">{$block_heading_information}</h5>			
 					<ul class="link-list">
@@ -23,7 +23,7 @@
 					</ul>					
 				</div>
 			</div>
-			<div class="span3">
+			<div class="col-md-3">
 				<div class="widget">
 					<h5 class="widgetheading">{$lang.header_title_service}</h5>			
 					<ul class="link-list">
@@ -39,7 +39,7 @@
 					</ul>					
 				</div>
 			</div>
-			<div class="span3">
+			<div class="col-md-3">
 				<div class="widget">
 					<h5 class="widgetheading">{$lang.get_in_touch_with_us}</h5>
 					<address>
@@ -57,7 +57,7 @@
 	<div id="sub-footer">
 		<div class="container">
 			<div class="row">
-				<div class="span6">
+				<div class="col-md-6">
 					<div class="copyright">	
 						<p>
 						{*
@@ -77,7 +77,7 @@
 						</p>
 					</div>
 				</div>
-				<div class="span6">
+				<div class="col-md-6">
 					<ul class="social-network">
 						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="icon-facebook icon-square"></i></a></li>
 						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="icon-twitter icon-square"></i></a></li>
