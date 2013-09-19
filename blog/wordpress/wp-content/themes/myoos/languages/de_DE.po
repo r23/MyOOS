@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: myoos v1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-09-19 01:26:41+0000\n"
+"PO-Revision-Date: 2013-09-19 16:43:00+0000\n"
 "Last-Translator: admin <info@r23.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -370,7 +370,7 @@ msgstr ""
 #: inc/myoos-customizer.php:212
 #@ myoos
 msgid "Show Social Icons?"
-msgstr ""
+msgstr "Social Media Icons anzeigen?"
 
 #: inc/myoos-customizer.php:226
 #@ myoos

@@ -77,9 +77,9 @@
 					</div>
 				</div>
 				<div class="col-md-4">
-				<?php if ( get_theme_mod( 'strapvert_social_visibility' ) != 0 ) { ?>
+				<?php if ( get_theme_mod( 'myoos_social_visibility' ) != 0 ) { ?>
 					<?php get_template_part( 'social-icons' ); ?>
-				<?php } ?>					
+				<?php } ?>			
 				</div>
 			</div>
 		</div>

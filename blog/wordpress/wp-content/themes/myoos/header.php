@@ -44,11 +44,7 @@
 		</div>
 		
 		<?php endif; ?>
-		
-	    <?php if ( get_theme_mod( 'myoos_social_visibility' ) != 0 ) { ?>
-		    <?php get_template_part( 'social-icons' ); ?>
-		<?php } ?>
-		
+				
 		
 	</div>
 	<!-- Start of Main Nav Menu section -->
