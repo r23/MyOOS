@@ -5,6 +5,9 @@
  * @package myoos
  */
 
+define( 'MYOOS_THEME_URL', get_template_directory_uri() );
+define( 'MYOOS_THEME_TEMPLATE', get_template_directory() ); 
+ 
 /**
  * Set the content width based on the theme's design and stylesheet.
  */
@@ -27,7 +30,7 @@ function myoos_setup() {
 	 * If you're building a theme based on myoos, use a find and replace
 	 * to change 'myoos' to the name of your theme in all the template files
 	 */
-	load_theme_textdomain( 'myoos', get_template_directory() . '/languages' );
+	load_theme_textdomain( 'myoos', MYOOS_THEME_TEMPLATE . '/languages' );
 
 	/**
 	 * Add default posts and comments RSS feed links to head
@@ -39,7 +42,7 @@ function myoos_setup() {
 	 *
 	 * @link http://codex.wordpress.org/Function_Reference/add_theme_support#Post_Thumbnails
 	 */
-	//add_theme_support( 'post-thumbnails' );
+	add_theme_support( 'post-thumbnails' );
 
 	/**
 	 * This theme uses wp_nav_menu() in one location.
@@ -83,18 +86,24 @@ add_action( 'widgets_init', 'myoos_widgets_init' );
  * Enqueue scripts and styles
  */
 function myoos_scripts() {
-	wp_enqueue_style( 'myoos-style', get_stylesheet_uri() );
+	wp_enqueue_style( 'myoos-style', get_stylesheet_uri(), false, null);
+	wp_enqueue_style( 'myoos-bootstrap', MYOOS_THEME_URL . '/css/bootstrap.min.css', false ,'3.0.0', 'all' );
+	wp_enqueue_style( 'myoos-custom', MYOOS_THEME_URL . '/css/custom.css', false ,'1.0.0', 'all' );
+	wp_enqueue_style( 'font-awesome', MYOOS_THEME_URL . '/css/font-awesome.min.css', false ,'3.2.0', 'all' );
 
-	wp_enqueue_script( 'myoos-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
+	wp_enqueue_script( 'myoos-bootstrap', MYOOS_THEME_URL . '/js/bootstrap.min.js', array(), '20130821', true );
+	wp_enqueue_script( 'myoos-application', MYOOS_THEME_URL . '/js/application.js', array(), '20130821', true );	
+	
+	wp_enqueue_script( 'myoos-navigation', MYOOS_THEME_URL . '/js/navigation.js', array(), '20120206', true );
 
-	wp_enqueue_script( 'myoos-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
+	wp_enqueue_script( 'myoos-skip-link-focus-fix', MYOOS_THEME_URL . '/js/skip-link-focus-fix.js', array(), '20130115', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 
 	if ( is_singular() && wp_attachment_is_image() ) {
-		wp_enqueue_script( 'myoos-keyboard-image-navigation', get_template_directory_uri() . '/js/keyboard-image-navigation.js', array( 'jquery' ), '20120202' );
+		wp_enqueue_script( 'myoos-keyboard-image-navigation', MYOOS_THEME_URL . '/js/keyboard-image-navigation.js', array( 'jquery' ), '20120202' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'myoos_scripts' );
@@ -102,24 +111,29 @@ add_action( 'wp_enqueue_scripts', 'myoos_scripts' );
 /**
  * Implement the Custom Header feature.
  */
-//require get_template_directory() . '/inc/custom-header.php';
+//require MYOOS_THEME_TEMPLATE . '/inc/custom-header.php';
 
 /**
  * Custom template tags for this theme.
  */
-require get_template_directory() . '/inc/template-tags.php';
+require MYOOS_THEME_TEMPLATE . '/inc/template-tags.php';
 
 /**
  * Custom functions that act independently of the theme templates.
  */
-require get_template_directory() . '/inc/extras.php';
+require MYOOS_THEME_TEMPLATE . '/inc/extras.php';
 
 /**
  * Customizer additions.
  */
-require get_template_directory() . '/inc/customizer.php';
+require MYOOS_THEME_TEMPLATE . '/inc/customizer.php';
+require MYOOS_THEME_TEMPLATE . '/inc/myoos-customizer.php';
+
 
 /**
  * Load Jetpack compatibility file.
  */
-require get_template_directory() . '/inc/jetpack.php';
+require MYOOS_THEME_TEMPLATE . '/inc/jetpack.php';
+
+
+remove_action('wp_head', 'wp_generator');

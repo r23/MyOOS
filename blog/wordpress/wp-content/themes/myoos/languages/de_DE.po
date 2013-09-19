@@ -1,0 +1,512 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: myoos v1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2013-09-19 01:26:41+0000\n"
+"Last-Translator: admin <info@r23.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: 404.php:15
+#@ myoos
+msgid "Oops! That page can&rsquo;t be found."
+msgstr ""
+
+#: 404.php:19
+#@ myoos
+msgid "It looks like nothing was found at this location. Maybe try one of the links below or a search?"
+msgstr ""
+
+#: 404.php:27
+#@ myoos
+msgid "Most Used Categories"
+msgstr ""
+
+#. translators: %1$s: smiley
+#: 404.php:44
+#, php-format
+#@ myoos
+msgid "Try looking in the monthly archives. %1$s"
+msgstr ""
+
+#: archive.php:31
+#, php-format
+#@ myoos
+msgid "Author: %s"
+msgstr ""
+
+#: archive.php:39
+#, php-format
+#@ myoos
+msgid "Day: %s"
+msgstr ""
+
+#: archive.php:42
+#, php-format
+#@ myoos
+msgid "Month: %s"
+msgstr ""
+
+#: archive.php:45
+#, php-format
+#@ myoos
+msgid "Year: %s"
+msgstr ""
+
+#: archive.php:48
+#@ myoos
+msgid "Asides"
+msgstr ""
+
+#: archive.php:51
+#@ myoos
+msgid "Images"
+msgstr ""
+
+#: archive.php:54
+#@ myoos
+msgid "Videos"
+msgstr ""
+
+#: archive.php:57
+#@ myoos
+msgid "Quotes"
+msgstr ""
+
+#: archive.php:60
+#@ myoos
+msgid "Links"
+msgstr ""
+
+#: archive.php:63
+#: sidebar.php:17
+#@ myoos
+msgid "Archives"
+msgstr ""
+
+#: comments.php:29
+#, php-format
+#@ myoos
+msgctxt "comments title"
+msgid "One thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] ""
+msgstr[1] ""
+
+#: comments.php:36
+#: comments.php:56
+#@ myoos
+msgid "Comment navigation"
+msgstr ""
+
+#: comments.php:37
+#: comments.php:57
+#@ myoos
+msgid "&larr; Older Comments"
+msgstr ""
+
+#: comments.php:38
+#: comments.php:58
+#@ myoos
+msgid "Newer Comments &rarr;"
+msgstr ""
+
+#: comments.php:68
+#@ myoos
+msgid "Comments are closed."
+msgstr ""
+
+#: content-page.php:18
+#: content-single.php:20
+#: content.php:27
+#: image.php:59
+#@ myoos
+msgid "Pages:"
+msgstr ""
+
+#: content-page.php:23
+#: content-single.php:61
+#: content.php:61
+#: image.php:33
+#: image.php:65
+#: inc/template-tags.php:71
+#: inc/template-tags.php:90
+#@ myoos
+msgid "Edit"
+msgstr ""
+
+#. translators: used between list items, there is a space after the comma
+#: content-single.php:29
+#: content-single.php:32
+#: content.php:38
+#: content.php:48
+#@ myoos
+msgid ", "
+msgstr ""
+
+#: content-single.php:37
+#, php-format
+#@ myoos
+msgid "This entry was tagged %2$s. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr ""
+
+#: content-single.php:39
+#, php-format
+#@ myoos
+msgid "Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr ""
+
+#: content-single.php:45
+#, php-format
+#@ myoos
+msgid "This entry was posted in %1$s and tagged %2$s. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr ""
+
+#: content-single.php:47
+#, php-format
+#@ myoos
+msgid "This entry was posted in %1$s. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr ""
+
+#: content.php:24
+#@ myoos
+msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: content.php:42
+#, php-format
+#@ myoos
+msgid "Posted in %1$s"
+msgstr ""
+
+#: content.php:52
+#, php-format
+#@ myoos
+msgid "Tagged %1$s"
+msgstr ""
+
+#: content.php:58
+#@ myoos
+msgid "Leave a comment"
+msgstr ""
+
+#: content.php:58
+#@ myoos
+msgid "1 Comment"
+msgstr ""
+
+#: content.php:58
+#@ myoos
+msgid "% Comments"
+msgstr ""
+
+#: footer.php:16
+#@ myoos
+msgid "A Semantic Personal Publishing Platform"
+msgstr ""
+
+#: footer.php:16
+#, php-format
+#@ myoos
+msgid "Proudly powered by %s"
+msgstr ""
+
+#: footer.php:18
+#, php-format
+#@ myoos
+msgid "Theme: %1$s by %2$s."
+msgstr ""
+
+#: functions.php:51
+#@ myoos
+msgid "Primary Menu"
+msgstr ""
+
+#: functions.php:75
+#@ myoos
+msgid "Sidebar"
+msgstr ""
+
+#: header.php:31
+#@ myoos
+msgid "Menu"
+msgstr ""
+
+#: header.php:32
+#@ myoos
+msgid "Skip to content"
+msgstr ""
+
+#: image.php:22
+#, php-format
+#@ myoos
+msgid "Published <span class=\"entry-date\"><time class=\"entry-date\" datetime=\"%1$s\">%2$s</time></span> at <a href=\"%3$s\" title=\"Link to full-size image\">%4$s &times; %5$s</a> in <a href=\"%6$s\" title=\"Return to %7$s\" rel=\"gallery\">%8$s</a>"
+msgstr ""
+
+#: image.php:38
+#@ myoos
+msgid "<span class=\"meta-nav\">&larr;</span> Previous"
+msgstr ""
+
+#: image.php:39
+#@ myoos
+msgid "Next <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: inc/extras.php:66
+#, php-format
+#@ myoos
+msgid "Page %s"
+msgstr ""
+
+#: inc/myoos-customizer.php:7
+#@ myoos
+msgid "Sitewide General Options"
+msgstr ""
+
+#: inc/myoos-customizer.php:12
+#@ myoos
+msgid "Logo Options"
+msgstr "Logo hochladen"
+
+#: inc/myoos-customizer.php:17
+#@ myoos
+msgid "Front Page Content Options"
+msgstr ""
+
+#: inc/myoos-customizer.php:23
+#@ myoos
+msgid "Social Options"
+msgstr "Social Icons"
+
+#: inc/myoos-customizer.php:28
+#@ myoos
+msgid "Footer Options"
+msgstr ""
+
+#: inc/myoos-customizer.php:47
+#@ myoos
+msgid "Hide Thumbnails On Single Post?"
+msgstr ""
+
+#: inc/myoos-customizer.php:61
+#@ myoos
+msgid "Hide Comment Form on the Attachment page"
+msgstr ""
+
+#: inc/myoos-customizer.php:77
+#@ myoos
+msgid "Header Logo Image"
+msgstr "Standardlogo ersetzen oder entfernen?"
+
+#: inc/myoos-customizer.php:94
+#@ myoos
+msgid "Hide The Entire Featured Section?"
+msgstr ""
+
+#: inc/myoos-customizer.php:108
+#@ myoos
+msgid "Hide The Top Featured Section Only?"
+msgstr ""
+
+#: inc/myoos-customizer.php:122
+#@ myoos
+msgid "Hide Secondary Featured Section Only?"
+msgstr ""
+
+#: inc/myoos-customizer.php:136
+#@ myoos
+msgid "Hide Page Content on front? Default is \"Show\" - This will also hide the sidebar"
+msgstr ""
+
+#: inc/myoos-customizer.php:150
+#@ myoos
+msgid "Hide Featured Banner On Main Featured Post? (Refresh required)"
+msgstr ""
+
+#: inc/myoos-customizer.php:164
+#@ myoos
+msgid "Hide Featured Banner On Secondary Rows? (Refresh required)"
+msgstr ""
+
+#: inc/myoos-customizer.php:179
+#@ myoos
+msgid "Number of Featured posts i.e 9, 13, 17"
+msgstr ""
+
+#: inc/myoos-customizer.php:191
+#@ myoos
+msgid "Featured Content Order By"
+msgstr ""
+
+#: inc/myoos-customizer.php:196
+#@ myoos
+msgid "Oldest First"
+msgstr ""
+
+#: inc/myoos-customizer.php:197
+#@ myoos
+msgid "Random Sticky Posts"
+msgstr ""
+
+#: inc/myoos-customizer.php:198
+#@ myoos
+msgid "Order By Date - Newest First"
+msgstr ""
+
+#: inc/myoos-customizer.php:212
+#@ myoos
+msgid "Show Social Icons?"
+msgstr ""
+
+#: inc/myoos-customizer.php:226
+#@ myoos
+msgid "Facebook URL"
+msgstr "Facebook URL eingeben"
+
+#: inc/myoos-customizer.php:241
+#@ myoos
+msgid "Google+ URL"
+msgstr "Google+ URL eingeben"
+
+#: inc/myoos-customizer.php:256
+#@ myoos
+msgid "Twitter URL"
+msgstr "Twitter URL eingeben"
+
+#: inc/myoos-customizer.php:271
+#@ myoos
+msgid "Pinterest URL"
+msgstr "Pinterest URL eingeben"
+
+#: inc/myoos-customizer.php:286
+#@ myoos
+msgid "LinkedIn URL"
+msgstr "LinkedIn URL eingeben"
+
+#: inc/template-tags.php:34
+#@ myoos
+msgid "Post navigation"
+msgstr ""
+
+#: inc/template-tags.php:38
+#@ myoos
+msgctxt "Previous post link"
+msgid "&larr;"
+msgstr ""
+
+#: inc/template-tags.php:39
+#@ myoos
+msgctxt "Next post link"
+msgid "&rarr;"
+msgstr ""
+
+#: inc/template-tags.php:44
+#@ myoos
+msgid "<span class=\"meta-nav\">&larr;</span> Older posts"
+msgstr ""
+
+#: inc/template-tags.php:48
+#@ myoos
+msgid "Newer posts <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: inc/template-tags.php:71
+#@ myoos
+msgid "Pingback:"
+msgstr ""
+
+#: inc/template-tags.php:81
+#, php-format
+#@ myoos
+msgid "%s <span class=\"says\">says:</span>"
+msgstr ""
+
+#: inc/template-tags.php:87
+#, php-format
+#@ myoos
+msgctxt "1: date, 2: time"
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: inc/template-tags.php:94
+#@ myoos
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: inc/template-tags.php:186
+#, php-format
+#@ myoos
+msgid "<span class=\"posted-on\">Posted on %1$s</span><span class=\"byline\"> by %2$s</span>"
+msgstr ""
+
+#: inc/template-tags.php:194
+#, php-format
+#@ myoos
+msgid "View all posts by %s"
+msgstr ""
+
+#: no-results.php:13
+#@ myoos
+msgid "Nothing Found"
+msgstr ""
+
+#: no-results.php:19
+#, php-format
+#@ myoos
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+
+#: no-results.php:23
+#@ myoos
+msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgstr ""
+
+#: no-results.php:28
+#@ myoos
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgstr ""
+
+#: search.php:16
+#, php-format
+#@ myoos
+msgid "Search Results for: %s"
+msgstr ""
+
+#: searchform.php:10
+#: searchform.php:11
+#@ myoos
+msgctxt "label"
+msgid "Search for:"
+msgstr ""
+
+#: searchform.php:11
+#@ myoos
+msgctxt "placeholder"
+msgid "Search &hellip;"
+msgstr ""
+
+#: searchform.php:13
+#@ myoos
+msgctxt "submit button"
+msgid "Search"
+msgstr ""
+
+#: sidebar.php:24
+#@ myoos
+msgid "Meta"
+msgstr ""
+

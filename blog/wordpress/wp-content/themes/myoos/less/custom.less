@@ -1,0 +1,316 @@
+/*!
+ * MyOOS v2.0.5
+ *
+ * Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+ * Released under the GNU General Public License
+ */
+
+/* 1. General 
+================================ */
+body {
+	font-weight:300;
+	line-height:1.6em;
+	color:#656565;
+}
+
+a:active { outline:0; }
+
+/* Lists */
+ul,ol { list-style:none; }
+
+/* Price*/
+.regular-price {float:left; display:block;}
+.regular-price .price { font-weight:bold; font-size:20px; line-height:22px; color:#F03C02;}
+.old-price{}
+.old-price .price {font-weight:bold; white-space:nowrap; text-decoration:line-through; }
+.special-price{}
+.special-price .price{font-weight:bold; font-size:20px; line-height:22px; color:#F03C02;}
+
+/* layout 
+================================ */
+.container {
+	padding:0 20px 0 20px;
+	position:relative;
+}
+
+
+
+#wrapper{ width:100%; margin:0; padding:0; }
+
+#wrapper.boxed{
+	width:90%;
+	overflow:hidden;
+	margin:0 auto;	
+	padding:0;
+	background:#fff;
+}
+
+.row {
+	margin-bottom:30px;
+}
+
+.row .row{
+	margin-bottom:30px;
+}
+
+.row.nomargin {
+	margin-bottom:0;
+}
+ 
+ 
+/* Header
+================================ */
+
+header{
+	background: #fff;
+	margin:0;
+	padding:0;
+	position:relative;
+}
+
+header .logo {
+	margin:-10px 0 0 0;
+	float:left;
+}
+
+header .logo img {
+	margin-bottom:10px;
+}
+header .logo h1 {
+	font-size:14px;
+	margin:0;
+}
+
+
+/*  headnav menu */
+.headnav {
+	float:right;
+	margin:35px 0 0 0;
+	border-bottom:1px dotted #e6e6e6;
+}
+
+.headnav ul {
+	margin-left:0;
+	list-style:none;
+}
+
+.headnav ul li {
+	display:inline;
+	margin-left:10px;
+}
+.headnav ul li a {
+	outline:0;
+	font-size:12px;
+	font-weight:600;
+}
+
+.headnav ul li a:hover,.headnav ul li a:focus,.headnav ul li a:active {
+	outline:0;
+}
+
+
+
+/*  Footer 
+================================ */
+
+footer{
+	background:#111;
+	padding:50px 0 0 0;
+	color:#bbb;
+}
+
+footer a {
+	color:#eee;
+}
+
+footer h1, footer h2, footer h3, footer h4, footer h5, footer h6 {
+	color:#eee;
+}
+
+footer h5 {
+	font-size: 24px
+}
+
+.widget h4,.widget h5 {
+	font-weight:300;
+	margin-bottom:20px;
+}
+
+footer address {
+	line-height:1.6em;
+}
+
+footer h5 a:hover, footer a:hover {
+	text-decoration:none;
+}
+
+footer .widgetheading {
+	position: relative;
+}
+
+footer .widget .social-network {
+	position:relative;
+}
+
+ul.social-network {
+	list-style:none;
+	margin:0;
+}
+
+ul.social-network li {
+	display:inline;
+}
+
+#sub-footer{
+	background:#0a0a0a;
+	text-shadow:none;
+	color:#5d5d5d;
+	padding:0;
+	padding-top:30px;
+	margin:20px 0 0 0;
+}
+
+#sub-footer p{
+	margin:0;
+	padding:0;
+}
+
+#sub-footer span{
+	color:#c7c7c7;
+}
+
+.copyright {
+	text-align:left;
+	font-size:12px;
+}
+
+#sub-footer ul.social-network {
+	float:right;
+}
+
+/* scroll to top */
+.scrollup {
+    position:fixed;
+	width:32px;
+	height:32px;
+    bottom:0px;
+    right:20px;
+}
+
+a.scrollup {
+	outline:0;
+}
+
+a.scrollup:hover, a.scrollup:active, a.scrollup:focus {
+	opacity:1;
+	text-decoration:none;
+}
+a.scrollup i:hover {
+	text-decoration:none;
+}
+
+
+/* --- list style --- */
+
+ul.general {
+	list-style:none;
+	margin-left:0;
+}
+
+ul.link-list{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+
+ul.link-list li{
+	margin:0;
+	padding:2px 0 2px 0;
+	list-style:none;
+}
+
+footer ul.link-list li a{
+	color:#919191;
+}
+
+
+
+/*  Section: call action 
+================================ */
+
+section.callaction {
+	background:#f9f9f9;
+	padding:50px 0 0 0;
+}
+
+/* --- Call to action --- */
+
+.cta-text {
+	float:left;
+	margin-top:10px;
+}
+
+
+.big-cta .cta {
+	margin-top:10px;
+}
+
+
+/*  Position & alignment
+============================= */
+
+.absolute{
+	position:absolute;
+}
+
+.relative{
+	position:relative;
+}
+
+.aligncenter{
+	text-align:center;
+}
+
+.aligncenter span{
+	margin-left:0;
+}
+
+.floatright {
+	float:right;
+}
+
+.floatleft {
+	float:left;
+}
+
+.floatnone {
+	float:none;
+}
+
+.aligncenter {
+	text-align:center;
+}
+
+/* === color === */
+
+
+h3 a, h3 a:hover,a:focus,a:active  {  
+	color:#656565;
+}
+
+
+a, a:hover,a:focus,a:active, strike, span.highlight, footer ul.link-list li a:hover  { 
+	color:#F03C02;
+}
+
+/* fontawesome icons */
+.icon-square:hover,
+.icon-rounded:hover,
+.icon-circled:hover {
+    background-color: #F03C02;
+}
+[class^="icon-"].active,
+[class*=" icon-"].active {
+    background-color: #F03C02;
+}
+
