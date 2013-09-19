@@ -557,8 +557,7 @@ class Jetpack_Likes {
 			if ( defined( 'IS_WPCOM' ) && IS_WPCOM ) {
 				$blog_id = get_current_blog_id();
 			} else {
-				$jetpack = Jetpack::init();
-				$blog_id = $jetpack->get_option( 'id' );
+				$blog_id = Jetpack_Options::get_option( 'id' );
 			}
 
 			$permalink = get_permalink( get_the_ID() ); ?>
@@ -596,8 +595,7 @@ class Jetpack_Likes {
 			$bloginfo = get_blog_details( (int) $blog_id );
 			$domain = $bloginfo->domain;
 		} else {
-			$jetpack = Jetpack::init();
-			$blog_id = $jetpack->get_option( 'id' );
+			$blog_id = Jetpack_Options::get_option( 'id' );
 			$url = home_url();
 			$url_parts = parse_url( $url );
 			$domain = $url_parts['host'];
@@ -639,8 +637,7 @@ class Jetpack_Likes {
 			$bloginfo = get_blog_details( (int) $blog_id );
 			$domain = $bloginfo->domain;
 		} else {
-			$jetpack = Jetpack::init();
-			$blog_id = $jetpack->get_option( 'id' );
+			$blog_id = Jetpack_Options::get_option( 'id' );
 			$url = home_url();
 			$url_parts = parse_url( $url );
 			$domain = $url_parts['host'];
@@ -679,8 +676,7 @@ class Jetpack_Likes {
 			$bloginfo = get_blog_details( (int) $blog_id );
 			$domain = $bloginfo->domain;
 		} else {
-			$jetpack = Jetpack::init();
-			$blog_id = $jetpack->get_option( 'id' );
+			$blog_id = Jetpack_Options::get_option( 'id' );
 			$url = home_url();
 			$url_parts = parse_url( $url );
 			$domain = $url_parts['host'];
@@ -1028,6 +1024,11 @@ class Jetpack_Likes {
 					$enabled = false;
 				}
 			}
+		}
+
+		// Check that the post is a public, published post.
+		if ( 'publish' != $post->post_status ) {
+			$enabled = false;
 		}
 
 		// Run through the sharing filters

@@ -128,7 +128,7 @@ require MYOOS_THEME_TEMPLATE . '/inc/extras.php';
  */
 require MYOOS_THEME_TEMPLATE . '/inc/customizer.php';
 require MYOOS_THEME_TEMPLATE . '/inc/myoos-customizer.php';
-
+require MYOOS_THEME_TEMPLATE . '/inc/nav-menu-walker.php';
 
 /**
  * Load Jetpack compatibility file.

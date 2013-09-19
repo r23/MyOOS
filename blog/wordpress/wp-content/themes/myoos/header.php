@@ -16,9 +16,69 @@
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 
 <?php wp_head(); ?>
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="<?php echo MYOOS_THEME_URL; ?>/js/html5shiv.js"></script>
+<script src="<?php echo MYOOS_THEME_URL; ?>/js/respond.min.js"></script>
+<![endif]-->
 </head>
 
 <body <?php body_class(); ?>>
+<!--[if lt IE 7]>
+	<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+#
+<div id="page" class="hfeed site">
+<div class="container">
+	<?php do_action( 'before' ); ?>
+	<div class="row" id="top-bar">
+		<?php if (get_theme_mod( 'header_logo_image' )) : ?>
+		<div class="col-md-6 logo">
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo get_theme_mod( 'header_logo_image' ); ?>"></a>
+		</div>
+		<?php else : ?>
+		<div class="col-md-6 logo">
+			<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+			<h3 class="site-description"><?php bloginfo( 'description' ); ?></h3>
+		</div>
+		
+		<?php endif; ?>
+		
+	    <?php if ( get_theme_mod( 'myoos_social_visibility' ) != 0 ) { ?>
+		    <?php get_template_part( 'social-icons' ); ?>
+		<?php } ?>
+		
+		
+	</div>
+	<!-- Start of Main Nav Menu section -->
+    <div class="navbar navbar-inverse" id="main-menu">
+        <div class="container">
+		<div class="navbar-inner">
+            <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+            <!-- Our menu needs to go here -->
+			<?php wp_nav_menu( array(
+	           'theme_location'		 => 'primary',
+			   'container_class' => 'nav-collapse',
+	           'menu_class'		=>	'nav',
+	           'depth'				=>	0,
+	           'fallback_cb'		=>	false,
+	           'walker'			=>	new MyOOS_Nav_Walker,
+	           )); 
+            ?>
+		  </div><!-- /.navbar-inner -->
+		  </div>
+    </div><!-- /.navbar -->
+    <!-- End Main Nav section -->
+</div>
+	<div id="main" class="site-main">
+
+#
 <div id="page" class="hfeed site">
 	<?php do_action( 'before' ); ?>
 	<header id="masthead" class="site-header" role="banner">

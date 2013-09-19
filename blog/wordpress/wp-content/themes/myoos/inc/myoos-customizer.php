@@ -13,10 +13,6 @@ function myoos_custom_customize_register($wp_customize) {
     'priority'   => 31,
    ) );
    
-   $wp_customize->add_section( 'myoos_featured_options' , array(
-    'title'      => __('Front Page Content Options','myoos'),
-    'priority'   => 32,
-   ) );
       
    // Setting group for social icons
    $wp_customize->add_section( 'myoos_social_options' , array(
@@ -68,7 +64,7 @@ function myoos_custom_customize_register($wp_customize) {
 	
     //  Logo Image Upload
     $wp_customize->add_setting('header_logo_image', array(
-        'default-image'  => get_template_directory_uri() . '/images/logo.png',
+        'default-image'  => MYOOS_THEME_URL . '/images/logo.png',
 		'type'           => 'theme_mod',
         'capability'     => 'edit_theme_options',
     ));
@@ -80,125 +76,7 @@ function myoos_custom_customize_register($wp_customize) {
         'settings' => 'header_logo_image',
     )));
 	
-	
-	
-	// Begin Front Page Content Section
-	$wp_customize->add_setting(
-    'myoos_featured_visibility'
-    );
-
-    $wp_customize->add_control(
-    'myoos_featured_visibility',
-    array(
-        'type' => 'checkbox',
-        'label' => __('Hide The Entire Featured Section?', 'myoos'),
-        'section' => 'myoos_featured_options',
-		'priority' => 1,
-        )
-    );
-	
-	$wp_customize->add_setting(
-    'myoos_top_featured_visibility'
-    );
-
-    $wp_customize->add_control(
-    'myoos_top_featured_visibility',
-    array(
-        'type' => 'checkbox',
-        'label' => __('Hide The Top Featured Section Only?', 'myoos'),
-        'section' => 'myoos_featured_options',
-		'priority' => 2,
-        )
-    );
-	
-	$wp_customize->add_setting(
-    'myoos_secondary_featured_visibility'
-    );
-
-    $wp_customize->add_control(
-    'myoos_secondary_featured_visibility',
-    array(
-        'type' => 'checkbox',
-        'label' => __('Hide Secondary Featured Section Only?', 'myoos'),
-        'section' => 'myoos_featured_options',
-		'priority' => 3,
-        )
-    );
-	
-	$wp_customize->add_setting(
-    'myoos_home_content_visibility'
-    );
-
-    $wp_customize->add_control(
-    'myoos_home_content_visibility',
-    array(
-        'type'     => 'checkbox',
-        'label'    => __('Hide Page Content on front? Default is "Show" - This will also hide the sidebar', 'myoos'),
-        'section'  => 'myoos_featured_options',
-		'priority' => 4,
-        )
-    );
-	
-	$wp_customize->add_setting(
-    'myoos_featured_first_banner_visibility'
-    );
-
-    $wp_customize->add_control(
-    'myoos_featured_first_banner_visibility',
-    array(
-        'type' => 'checkbox',
-        'label' => __('Hide Featured Banner On Main Featured Post? (Refresh required)', 'myoos'),
-        'section' => 'myoos_featured_options',
-		'priority' => 5,
-        )
-    );
-	
-	$wp_customize->add_setting(
-    'myoos_featured_secondary_banner_visibility'
-    );
-
-    $wp_customize->add_control(
-    'myoos_featured_secondary_banner_visibility',
-    array(
-        'type' => 'checkbox',
-        'label' => __('Hide Featured Banner On Secondary Rows? (Refresh required)', 'myoos'),
-        'section' => 'myoos_featured_options',
-		'priority' => 6,
-        )
-    );
-	
-	$wp_customize->add_setting(
-    'myoos_featured_number',
-    array(
-        'default' => '5',
-    ));
-	
-	$wp_customize->add_control(
-    'myoos_featured_number',
-    array(
-        'label' => __('Number of Featured posts i.e 9, 13, 17','myoos'),
-        'section' => 'myoos_featured_options',
-		'priority' => 7,
-        'type' => 'text',
-    ));
-	
-	// Featured Section Order By.
-	$wp_customize->add_setting( 'myoos_featured_orderby', array(
-		'default' => 'none',
-	) );
-	
-	$wp_customize->add_control( 'myoos_featured_orderby', array(
-    'label'   => __( 'Featured Content Order By', 'myoos' ),
-    'section' => 'myoos_featured_options',
-	'priority' => 8,
-    'type'    => 'radio',
-        'choices' => array(
-            'none'             => __( 'Oldest First', 'myoos' ),
-			'rand'             => __( 'Random Sticky Posts', 'myoos' ),
-			'date'             => __( 'Order By Date - Newest First', 'myoos' ),
-        ),
-    ));
-	    		
+		    		
 	// == Social Links Icons Section == //
     // Begin Header Social Icons	
 	$wp_customize->add_setting(
@@ -297,46 +175,3 @@ function myoos_custom_customize_register($wp_customize) {
 }
 add_action( 'customize_register', 'myoos_custom_customize_register' );
 
-if ( get_theme_mod( 'myoos_featured_first_banner_visibility' ) != 0 ) { 
-function myoos_featured_first_custom_css() {
-?>             
-<style>
-.featured-content .has-post-thumbnail .entry-thumbnail:before {
-   display: none;
-}
-</style>
-<?php }
- 
-} else {
-function myoos_featured_first_custom_css() { ?>             
-<style>
-.featured-content .has-post-thumbnail .entry-thumbnail:before {
-  background: url( get_template_directory() . '/images/featured.png' ) center center no-repeat;
-  z-index: 999;
-}
-</style>
-<?php }
-}
-add_action('wp_head', 'myoos_featured_first_custom_css');
-
-if ( get_theme_mod( 'myoos_featured_secondary_banner_visibility' ) != 0 ) { 
-function myoos_featured_secondary_custom_css() {
-?>             
-<style>
-.featured-content-secondary .has-post-thumbnail .entry-thumbnail:before {
-   display: none;
-}
-</style>
-<?php }
- 
-} else {
-function myoos_featured_secondary_custom_css() { ?>             
-<style>
-.featured-content-secondary .has-post-thumbnail .entry-thumbnail:before {
-  background: url( get_template_directory() . '/images/featured.png' ) center center no-repeat;
-  z-index: 999;
-}
-</style>
-<?php }
-}
-add_action('wp_head', 'myoos_featured_secondary_custom_css');

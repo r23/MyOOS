@@ -11,16 +11,6 @@
 	</div><!-- #content -->
 
 	<footer id="colophon" class="site-footer" role="contentinfo">
-		<div class="site-info">
-			<?php do_action( 'myoos_credits' ); ?>
-			<a href="http://wordpress.org/" title="<?php esc_attr_e( 'A Semantic Personal Publishing Platform', 'myoos' ); ?>" rel="generator"><?php printf( __( 'Proudly powered by %s', 'myoos' ), 'WordPress' ); ?></a>
-			<span class="sep"> | </span>
-			<?php printf( __( 'Theme: %1$s by %2$s.', 'myoos' ), 'myoos', '<a href="http://underscores.me/" rel="designer">Underscores.me</a>' ); ?>
-		</div><!-- .site-info -->
-	</footer><!-- #colophon -->
-</div><!-- #page -->
-
-	<footer>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
@@ -87,23 +77,18 @@
 					</div>
 				</div>
 				<div class="col-md-4">
-					<ul class="social-network">
-						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="icon-facebook icon-square"></i></a></li>
-						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="icon-twitter icon-square"></i></a></li>
-						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Linkedin"><i class="icon-linkedin icon-square"></i></a></li>
-						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i class="icon-pinterest icon-square"></i></a></li>
-						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Google plus"><i class="icon-google-plus icon-square"></i></a></li>
-					</ul>
+				<?php if ( get_theme_mod( 'strapvert_social_visibility' ) != 0 ) { ?>
+					<?php get_template_part( 'social-icons' ); ?>
+				<?php } ?>					
 				</div>
 			</div>
 		</div>
 	</div>
-	</footer>
-</div>
+	</footer><!-- #colophon -->
+</div><!-- #page -->
 <a href="#" class="scrollup"><i class="icon-chevron-up icon-square icon-32 active"></i></a>
+
 <!-- Placed at the end of the document so the pages load faster -->
-
-
 <?php wp_footer(); ?>
 
 </body>

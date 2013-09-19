@@ -777,6 +777,32 @@ function jetpack_likes_more_link() {
 add_action( 'jetpack_learn_more_button_likes', 'jetpack_likes_more_link' );
 // Likes: STOP
 
+// Google+ Profile: START
+function jetpack_gplus_authorship_more_info() { ?>
+
+	<div class="jp-info-img">
+		<a href="http://jetpack.me/support/google-plus/">
+			<img class="jp-info-img" src="<?php echo plugins_url( basename( dirname( dirname( __FILE__ ) ) ) . '/_inc/images/screenshots/google-plus.png' ) ?>" alt="<?php esc_attr_e( 'Google+ Profile', 'jetpack' ) ?>" width="350" height="33" />
+		</a>
+	</div>
+
+	<h4><?php esc_html_e( 'Google+ Profile' , 'jetpack' ); ?></h4>
+
+	<p><?php esc_html_e( 'The Google+ profile module allows you to connect your blog and Google+ accounts.', 'jetpack' ) ?></p>
+	<p><?php esc_html_e( 'Displayed below your posts will be a link back to your Google+ profile and a Google+ follow button. A link will also be added to your Google+ profile.', 'jetpack' ); ?></p>
+
+	<p>&rarr; <a href="http://jetpack.me/support/google-plus/"><?php esc_html_e( 'More information on using Google+ Profile.', 'jetpack' ); ?></a></p>
+
+<?php
+}
+add_action( 'jetpack_module_more_info_gplus-authorship', 'jetpack_gplus_authorship_more_info' );
+
+function jetpack_gplus_authorship_more_link() {
+	echo '<a class="button-secondary more-info-link" href="#">' . __( 'Learn More', 'jetpack' ) . '</a>';
+}
+add_action( 'jetpack_learn_more_button_gplus-authorship', 'jetpack_gplus_authorship_more_link' );
+// Google+ Profile: STOP
+
 // Omnisearch: START
 function jetpack_omnisearch_more_info() {
 	?>
@@ -839,3 +865,18 @@ function jetpack_wpcc_more_link() {
 add_action( 'jetpack_module_more_info_wpcc',  'jetpack_wpcc_more_info' );
 add_action( 'jetpack_learn_more_button_wpcc', 'jetpack_wpcc_more_link' );
 // WordPress.com Connect: STOP
+
+// VideoPress: START
+function jetpack_videopress_more_info() {
+	?>
+	<h4><?php esc_html_e( 'VideoPress', 'jetpack' ); ?></h4>
+	<p><?php _e( 'With the VideoPress module you can easily upload videos to your WordPress site and embed them in your posts and pages. This module requires a WordPress.com account with an active <a href="http://store.wordpress.com/premium-upgrades/videopress/" target="_blank">VideoPress subscription</a>.', 'jetpack' ); ?></p>
+	<?php
+}
+add_action( 'jetpack_module_more_info_videopress', 'jetpack_videopress_more_info' );
+
+function jetpack_videopress_more_link() {
+	echo '<a class="button-secondary more-info-link" href="#">' . __( 'Learn More', 'jetpack' ) . '</a>';
+}
+add_action( 'jetpack_learn_more_button_videopress', 'jetpack_videopress_more_link' );
+// VideoPress: STOP
