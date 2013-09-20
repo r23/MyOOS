@@ -5,6 +5,7 @@
  * @package myoos
  */
 
+define( 'MYOOS_VERSION', '2.0.14' );
 define( 'MYOOS_THEME_URL', get_template_directory_uri() );
 define( 'MYOOS_THEME_TEMPLATE', get_template_directory() ); 
  

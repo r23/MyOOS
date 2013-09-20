@@ -7,6 +7,11 @@
  * @package myoos
  */
 
+if ( !defined( 'MYOOS_VERSION' ) ) {
+	header( 'HTTP/1.0 403 Forbidden' );
+	die;
+} 
+ 
 if ( ! function_exists( 'myoos_content_nav' ) ) :
 /**
  * Display navigation to next/previous pages when applicable

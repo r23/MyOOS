@@ -6,7 +6,11 @@
  *
  * @package myoos
  */
-
+if ( !defined( 'MYOOS_VERSION' ) ) {
+	header( 'HTTP/1.0 403 Forbidden' );
+	die;
+}
+ 
 /**
  * Get our wp_nav_menu() fallback, wp_page_menu(), to show a home link.
  */

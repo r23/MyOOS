@@ -5,6 +5,10 @@
  *
  * @package myoos
  */
+if ( !defined( 'MYOOS_VERSION' ) ) {
+	header( 'HTTP/1.0 403 Forbidden' );
+	die;
+}
 
 /**
  * Add theme support for Infinite Scroll.
