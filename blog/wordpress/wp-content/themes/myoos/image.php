@@ -7,8 +7,10 @@
 
 get_header(); ?>
 
-	<div id="primary" class="content-area image-attachment">
-		<main id="main" class="site-main" role="main">
+
+<div class="container">
+	<div class="row" role="main">
+		<div class="col-md-8">
 
 		<?php while ( have_posts() ) : the_post(); ?>
 
@@ -72,8 +74,11 @@ get_header(); ?>
 			?>
 
 		<?php endwhile; // end of the loop. ?>
-
-		</main><!-- #main -->
-	</div><!-- #primary -->
+        </div>
+		<div class="col-md-4">
+            <?php get_sidebar(); ?>
+        </div>
+	</div><!-- #content -->
+</div><!-- #primary -->
 
 <?php get_footer(); ?>

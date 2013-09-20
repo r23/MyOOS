@@ -9,8 +9,9 @@
 
 get_header(); ?>
 
-	<section id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
+<div class="container">
+	<div class="row" role="main">
+        <div class="span8">
 
 		<?php if ( have_posts() ) : ?>
 
@@ -94,9 +95,10 @@ get_header(); ?>
 			<?php get_template_part( 'no-results', 'archive' ); ?>
 
 		<?php endif; ?>
-
-		</main><!-- #main -->
-	</section><!-- #primary -->
-
-<?php get_sidebar(); ?>
+    </div>
+		<div class="span4">
+            <?php get_sidebar(); ?>
+        </div>
+	</div><!-- #content -->
+</div><!-- #primary -->
 <?php get_footer(); ?>

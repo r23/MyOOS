@@ -524,3 +524,7 @@ Options -Indexes
 </IfModule>
 
 
+
+# BEGIN WordPress
+
+# END WordPress
