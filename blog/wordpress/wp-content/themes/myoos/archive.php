@@ -11,7 +11,7 @@ get_header(); ?>
 
 <div class="container">
 	<div class="row" role="main">
-        <div class="span8">
+        <div class="col-md-8">
 
 		<?php if ( have_posts() ) : ?>
 
@@ -95,8 +95,8 @@ get_header(); ?>
 			<?php get_template_part( 'no-results', 'archive' ); ?>
 
 		<?php endif; ?>
-    </div>
-		<div class="span4">
+		</div>
+		<div class="col-md-4">
             <?php get_sidebar(); ?>
         </div>
 	</div><!-- #content -->
