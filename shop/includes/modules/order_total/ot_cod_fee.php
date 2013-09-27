@@ -73,7 +73,7 @@
           if ($_SESSION['shipping']['id'] == 'chp_URG') $cod_zones = explode("[:,]", MODULE_ORDER_TOTAL_COD_FEE_CHP);
 
             for ($i = 0; $i < count($cod_zones); $i++) {
-            if ($cod_zones[$i] == $oOrder->billing['country']['iso_code_2']) {
+            if ($cod_zones[$i] == $oOrder->delivery['country']['iso_code_2']) {
                   $cod_cost = $cod_zones[$i + 1];
                   $cod_country = true;
                   //print('match' . $i . ': ' . $cod_cost);
@@ -93,9 +93,9 @@
           }
         if ($cod_country) {
           if (MODULE_ORDER_TOTAL_COD_TAX_CLASS > 0) {
-            $cod_tax = oos_get_tax_rate(MODULE_ORDER_TOTAL_COD_TAX_CLASS, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
-            // $cod_tax_description = oos_get_tax_description(MODULE_ORDER_TOTAL_COD_TAX_CLASS, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
-            $cod_tax_description = oos_get_tax_rate(MODULE_ORDER_TOTAL_COD_TAX_CLASS, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
+            $cod_tax = oos_get_tax_rate(MODULE_ORDER_TOTAL_COD_TAX_CLASS, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
+            // $cod_tax_description = oos_get_tax_description(MODULE_ORDER_TOTAL_COD_TAX_CLASS, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
+            $cod_tax_description = oos_get_tax_rate(MODULE_ORDER_TOTAL_COD_TAX_CLASS, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
 
 
             $oOrder->info['tax'] += oos_calculate_tax($cod_cost, $cod_tax);
