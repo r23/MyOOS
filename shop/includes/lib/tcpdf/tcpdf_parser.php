@@ -1,9 +1,9 @@
 <?php
 //============================================================+
 // File name   : tcpdf_parser.php
-// Version     : 1.0.007
+// Version     : 1.0.010
 // Begin       : 2011-05-23
-// Last Update : 2013-09-15
+// Last Update : 2013-09-25
 // Author      : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
 // License     : http://www.tecnick.com/pagefiles/tcpdf/LICENSE.TXT GNU-LGPLv3
 // -------------------------------------------------------------------
@@ -37,7 +37,7 @@
  * This is a PHP class for parsing PDF documents.<br>
  * @package com.tecnick.tcpdf
  * @author Nicola Asuni
- * @version 1.0.007
+ * @version 1.0.010
  */
 
 // include class for decoding filters
@@ -48,7 +48,7 @@ require_once(dirname(__FILE__).'/include/tcpdf_filters.php');
  * This is a PHP class for parsing PDF documents.<br>
  * @package com.tecnick.tcpdf
  * @brief This is a PHP class for parsing PDF documents..
- * @version 1.0.005
+ * @version 1.0.010
  * @author Nicola Asuni - info@tecnick.com
  */
 class TCPDF_PARSER {
@@ -104,6 +104,35 @@ class TCPDF_PARSER {
 			$this->Error('Empty PDF data.');
 		}
 		// set configuration parameters
+		$this->setConfig($cfg);
+		// get PDF content string
+		$this->pdfdata = $data;
+		// get length
+		$pdflen = strlen($this->pdfdata);
+		// get xref and trailer data
+		$this->xref = $this->getXrefData();
+		// parse all document objects
+		$this->objects = array();
+		foreach ($this->xref['xref'] as $obj => $offset) {
+			if (!isset($this->objects[$obj]) AND ($offset > 0)) {
+				// decode objects with positive offset
+				$this->objects[$obj] = $this->getIndirectObject($obj, $offset, true);
+			}
+		}
+		// release some memory
+		unset($this->pdfdata);
+		$this->pdfdata = '';
+	}
+
+	/**
+	 * Set the configuration parameters.
+	 * @param $cfg (array) Array of configuration parameters:
+	 * 			'die_for_errors' : if true termitate the program execution in case of error, otherwise thows an exception;
+	 * 			'ignore_filter_decoding_errors' : if true ignore filter decoding errors;
+	 * 			'ignore_missing_filter_decoders' : if true ignore missing filter decoding errors.
+	 * @public
+	 */
+	protected function setConfig($cfg) {
 		if (isset($cfg['die_for_errors'])) {
 			$this->cfg['die_for_errors'] = !!$cfg['die_for_errors'];
 		}
@@ -113,25 +142,6 @@ class TCPDF_PARSER {
 		if (isset($cfg['ignore_missing_filter_decoders'])) {
 			$this->cfg['ignore_missing_filter_decoders'] = !!$cfg['ignore_missing_filter_decoders'];
 		}
-		// get PDF content string
-		$this->pdfdata = $data;
-		// get length
-		$pdflen = strlen($this->pdfdata);
-		// initialize class for decoding filters
-		$this->FilterDecoders = new TCPDF_FILTERS();
-		// get xref and trailer data
-		$this->xref = $this->getXrefData();
-		// parse all document objects
-		$this->objects = array();
-		foreach ($this->xref['xref'] as $obj => $offset) {
-			if (!isset($this->objects[$obj]) AND ($offset > 0)) {
-				// decode only objects with positive offset
-				$this->objects[$obj] = $this->getIndirectObject($obj, $offset, true);
-			}
-		}
-		// release some memory
-		unset($this->pdfdata);
-		$this->pdfdata = '';
 	}
 
 	/**
@@ -188,20 +198,25 @@ class TCPDF_PARSER {
 
 	/**
 	 * Decode the Cross-Reference section
-	 * @param $startxref (int) Offset at which the xref section starts.
+	 * @param $startxref (int) Offset at which the xref section starts (position of the 'xref' keyword).
 	 * @param $xref (array) Previous xref array (if any).
 	 * @return Array containing xref and trailer data.
 	 * @protected
 	 * @since 1.0.000 (2011-06-20)
 	 */
 	protected function decodeXref($startxref, $xref=array()) {
-		// extract xref data (object indexes and offsets)
-		$xoffset = $startxref + 5;
+		$startxref += 4; // 4 is the lenght of the word 'xref'
+		// skip initial white space chars: \x00 null (NUL), \x09 horizontal tab (HT), \x0A line feed (LF), \x0C form feed (FF), \x0D carriage return (CR), \x20 space (SP)
+		$offset = $startxref + strspn($this->pdfdata, "\x00\x09\x0a\x0c\x0d\x20", $startxref);
 		// initialize object number
 		$obj_num = 0;
-		$offset = $xoffset;
-		while (preg_match('/^([0-9]+)[\s]([0-9]+)[\s]?([nf]?)/im', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $offset) > 0) {
-			$offset = (strlen($matches[0][0]) + $matches[0][1]);
+		// search for cross-reference entries or subsection
+		while (preg_match('/([0-9]+)[\x20]([0-9]+)[\x20]?([nf]?)(\r\n|[\x20]?[\r\n])/', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $offset) > 0) {
+			if ($matches[0][1] != $offset) {
+				// we are on another section
+				break;
+			}
+			$offset += strlen($matches[0][0]);
 			if ($matches[3][0] == 'n') {
 				// create unique object index: [object number]_[generation number]
 				$index = $obj_num.'_'.intval($matches[2][0]);
@@ -211,17 +226,15 @@ class TCPDF_PARSER {
 					$xref['xref'][$index] = intval($matches[1][0]);
 				}
 				++$obj_num;
-				$offset += 2;
 			} elseif ($matches[3][0] == 'f') {
 				++$obj_num;
-				$offset += 2;
 			} else {
 				// object number (index)
 				$obj_num = intval($matches[1][0]);
 			}
 		}
 		// get trailer data
-		if (preg_match('/trailer[\s]*<<(.*)>>[\s]*[\r\n]+startxref[\s]*[\r\n]+/isU', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $xoffset) > 0) {
+		if (preg_match('/trailer[\s]*<<(.*)>>[\s]*[\r\n]+startxref[\s]*[\r\n]+/isU', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $offset) > 0) {
 			$trailer_data = $matches[1][0];
 			if (!isset($xref['trailer']) OR empty($xref['trailer'])) {
 				// get only the last updated version
@@ -605,7 +618,7 @@ class TCPDF_PARSER {
 					$offset += 6;
 					if (preg_match('/^([\r]?[\n])/isU', substr($this->pdfdata, $offset), $matches) == 1) {
 						$offset += strlen($matches[0]);
-						if (preg_match('/([\r]?[\n])(endstream)/isU', substr($this->pdfdata, $offset), $matches, PREG_OFFSET_CAPTURE) == 1) {
+						if (preg_match('/([\r]?[\n])?(endstream)[\x09\x0a\x0c\x0d\x20]/isU', substr($this->pdfdata, $offset), $matches, PREG_OFFSET_CAPTURE) == 1) {
 							$objval = substr($this->pdfdata, $offset, $matches[0][1]);
 							$offset += $matches[2][1];
 						}
@@ -744,13 +757,13 @@ class TCPDF_PARSER {
 		// decode the stream
 		$remaining_filters = array();
 		foreach ($filters as $filter) {
-			if (in_array($filter, $this->FilterDecoders->getAvailableFilters())) {
+			if (in_array($filter, TCPDF_FILTERS::getAvailableFilters())) {
 				try {
-					$stream = $this->FilterDecoders->decodeFilter($filter, $stream);
+					$stream = TCPDF_FILTERS::decodeFilter($filter, $stream);
 				} catch (Exception $e) {
 					$emsg = $e->getMessage();
 					if ((($emsg[0] == '~') AND !$this->cfg['ignore_missing_filter_decoders'])
-					OR (($emsg[0] != '~') AND !$this->cfg['ignore_filter_decoding_errors'])) {
+						OR (($emsg[0] != '~') AND !$this->cfg['ignore_filter_decoding_errors'])) {
 						$this->Error($e->getMessage());
 					}
 				}
