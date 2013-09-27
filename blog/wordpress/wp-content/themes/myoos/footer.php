@@ -7,8 +7,7 @@
  * @package myoos
  */
 ?>
-
-	</div><!-- #content -->
+	</section>
 
 	<footer id="colophon" class="site-footer" role="contentinfo">
 	<div class="container">

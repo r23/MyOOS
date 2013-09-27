@@ -7,8 +7,9 @@
 
 get_header(); ?>
 
-	<section id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
+<div class="container">
+	<div class="row" role="main">
+        <div class="col-md-8">
 
 		<?php if ( have_posts() ) : ?>
 
@@ -30,9 +31,12 @@ get_header(); ?>
 			<?php get_template_part( 'no-results', 'search' ); ?>
 
 		<?php endif; ?>
+        </div>
+		<div class="col-md-4">
+			<?php get_sidebar(); ?>
+		</div>		
+		
+	</div><!-- #content -->
+</div><!-- #primary -->
 
-		</main><!-- #main -->
-	</section><!-- #primary -->
-
-<?php get_sidebar(); ?>
 <?php get_footer(); ?>

@@ -16,7 +16,8 @@
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 
 <?php wp_head(); ?>
-
+<!-- Google fonts -->
+<link href="http://fonts.googleapis.com/css?family=Noto+Serif:400,400italic,700|Open+Sans:300,400,600,700" rel="stylesheet" type="text/css">
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
 <script src="<?php echo MYOOS_THEME_URL; ?>/js/html5shiv.js"></script>
@@ -28,16 +29,16 @@
 <!--[if lt IE 7]>
 	<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 <![endif]-->
-
-<div id="page" class="hfeed site">
+<div id="wrapper">
 	<!-- start header -->
 	<header>
 	<div class="container">
-		<?php do_action( 'before' ); ?>
-		<div class="row" id="top-bar">
+		<?php do_action( 'before' ); ?>	
+		<div class="row">
 			<?php if (get_theme_mod( 'header_logo_image' )) : ?>
 			<div class="col-md-6 logo">
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo get_theme_mod( 'header_logo_image' ); ?>"></a>
+				<h1><?php bloginfo( 'description' ); ?></h1>
 			</div>
 			<?php else : ?>
 			<div class="col-md-6 logo">
@@ -93,6 +94,5 @@
 	</div>
 	</section>
 
-
-	<div id="main" class="site-main">
+	<section id="content">
 
