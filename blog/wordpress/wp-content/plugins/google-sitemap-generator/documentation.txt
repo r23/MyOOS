@@ -241,6 +241,8 @@
                         Removed ASK ping since they shut down their service.
                         Exclude post_format taxonomy from custom taxonomy list
  2013-01-11     3.2.9   Fixed security issue with change frequencies and filename of sitemap file. Exploit was only possible for admin accounts.
+ 2013-09-28     3.3     Fixed problem with file permission checking
+                        Filter out hashs (#) in URLs
 
  Maybe Todo:
  ==============================================================================

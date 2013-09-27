@@ -1,7 +1,7 @@
 <?php
 /*
 
- $Id: sitemap-core.php 651444 2013-01-11 19:54:39Z arnee $
+ $Id: sitemap-core.php 779425 2013-09-27 22:49:51Z arnee $
 
 */
 
@@ -696,7 +696,7 @@ class GoogleSitemapGenerator {
 	/**
 	 * @var Version of the generator in SVN
 	*/
-	var $_svnVersion = '$Id: sitemap-core.php 651444 2013-01-11 19:54:39Z arnee $';
+	var $_svnVersion = '$Id: sitemap-core.php 779425 2013-09-27 22:49:51Z arnee $';
 
 	/**
 	 * @var array The unserialized array with the stored options
@@ -1494,6 +1494,12 @@ class GoogleSitemapGenerator {
 	function AddUrl($loc, $lastMod = 0, $changeFreq = "monthly", $priority = 0.5) {
 		//Strip out the last modification time if activated
 		if($this->GetOption('in_lastmod')===false) $lastMod = 0;
+
+		if(($hashPosition = strpos($loc, '#')) !== false) {
+			if($hashPosition == 0) return;
+			else $loc = substr($loc, 0, $hashPosition);
+		}
+
 		$page = new GoogleSitemapGeneratorPage($loc, $priority, $changeFreq, $lastMod);
 
 		$this->AddElement($page);
@@ -1538,7 +1544,7 @@ class GoogleSitemapGenerator {
 				//Lets check if parent directory is writable.
 				if(!is_writable($pathtofilename)) {
 					//it's not writeable too.
-					if(!@chmod($pathtoffilename, 0666)) {
+					if(!@chmod($pathtofilename, 0666)) {
 						//darn couldn't fix up parrent directory this hosting is foobar.
 						//Lets error because of the permissions problems.
 						return false;

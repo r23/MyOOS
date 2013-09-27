@@ -3,8 +3,8 @@ Contributors: arnee
 Donate link: http://www.arnebrachhold.de/redir/sitemap-paypal
 Tags: seo, google, sitemaps, google sitemaps, yahoo, msn, ask, live, xml sitemap, xml
 Requires at least: 2.1
-Tested up to: 3.5
-Stable tag: 3.2.8
+Tested up to: 3.6
+Stable tag: 3.2.9
 
 This plugin will generate a special XML sitemap which will help search engines to better index your blog.
 
@@ -31,7 +31,7 @@ Related Links:
 5. Open the plugin configuration page, which is located under Options -> XML-Sitemap and build the sitemap the first time. If you get a permission error, check the file permissions of the newly created files.
 6. The plugin will automatically update your sitemap of you publish a post, so theres nothing more to do :)
 
-== Frequently Asked Questions == 
+== Frequently Asked Questions ==
 
 = There are no comments yet (or I've disabled them) and all my postings have a priority of zero! =
 
