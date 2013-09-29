@@ -701,6 +701,9 @@ $table = $prefix_table . 'orders';
 $flds = "
   orders_id I NOTNULL AUTO PRIMARY,
   customers_id I NOTNULL,
+  customers_cid I NOTNULL,
+  customers_firstname C(32) NOTNULL,
+  customers_lastname C(32) NOTNULL,
   customers_name C(64) NOTNULL,
   customers_company C(32),
   customers_street_address C(64) NOTNULL,

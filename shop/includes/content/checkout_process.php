@@ -73,6 +73,8 @@
   $order_totals = $order_total_modules->process();
 
   $sql_data_array = array('customers_id' => $_SESSION['customer_id'],
+						  'customers_firstname' => $oOrder->customer['firstname'],
+						  'customers_lastname' => $oOrder->customer['lastname'],
                           'customers_name' => $oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'],
                           'customers_company' => $oOrder->customer['company'],
                           'customers_street_address' => $oOrder->customer['street_address'],
