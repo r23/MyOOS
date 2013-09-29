@@ -23,14 +23,16 @@ define ('FAKTURAMA_CONNECTOR_VERSION','1.5');
  * 
  * Contributors:
  *     Gerd Bartelt - initial API and implementation
+ *     Ralf 23		- update for MyOOS
  */
-
+define('OOS_VALID_MOD', 'yes');
 
 // Define Shop system. Allowed values are:
 // 'OSCOMMERCE'		// osCommerce	2.3.1			www.oscommerce.com
 // 'XTCOMMERCE'		// xt:Commerce	3.04 SP2.1		www.xt-commerce.com
 // 'XTCMODIFIED'	// xtcModified	1.04			www.xtc-modified.org
-define ('FAKTURAMA_WEBSHOP','XTCMODIFIED');	
+// 'MYOOS'			// myoos 2.x					www.oos-shop.de
+define ('FAKTURAMA_WEBSHOP', 'MYOOS');	
 
 // Character Set of the web shop. This is used to send notification comments.
 define ('FAKTURAMA_WEBSHOP_CHARSET','ISO-8859-1'); 
@@ -44,35 +46,31 @@ define ('FAKTURAMA_WEBSHOP_CHARSET','ISO-8859-1');
 header("Content-Type: text/html; charset=utf-8" );
 
 // Some shop systems are based on osCommerce, some on xtCommerce
-if (FAKTURAMA_WEBSHOP == OSCOMMERCE) {
-	define ('FAKTURAMA_WEBSHOP_BASE','OSCOMMERCE');	
+if (FAKTURAMA_WEBSHOP == 'OSCOMMERCE') {
+	define ('FAKTURAMA_WEBSHOP_BASE', 'OSCOMMERCE');	
 } 
-else if (FAKTURAMA_WEBSHOP == XTCOMMERCE) {
-	define ('FAKTURAMA_WEBSHOP_BASE','XTCOMMERCE');	
+elseif (FAKTURAMA_WEBSHOP == 'XTCOMMERCE') {
+	define ('FAKTURAMA_WEBSHOP_BASE', 'XTCOMMERCE');	
 }
-else if (FAKTURAMA_WEBSHOP == XTCMODIFIED) {
-	define ('FAKTURAMA_WEBSHOP_BASE','XTCOMMERCE');	
+elseif (FAKTURAMA_WEBSHOP == 'XTCMODIFIED') {
+	define ('FAKTURAMA_WEBSHOP_BASE', 'XTCOMMERCE');	
 }
-
+elseif (FAKTURAMA_WEBSHOP == 'MYOOS') {
+	define ('FAKTURAMA_WEBSHOP_BASE', 'MYOOS');	
+}
 
 
 // Set the level of error reporting
 error_reporting(E_ALL & ~E_NOTICE);
 
-// check support for register_globals
-if (function_exists('ini_get') && (ini_get('register_globals') == false) && (PHP_VERSION < 4.3) ) {
-	exit('Server Requirement Error: register_globals is disabled in your PHP configuration. This can be enabled in your php.ini configuration file or in the .htaccess file in your catalog directory. Please use PHP 4.3+ if register_globals cannot be enabled on the server.');
-}
+// Set the local configuration parameters - mainly for developers
+if (file_exists('../includes/local/configure.php')) include('../includes/local/configure.php');
 
-// Use $HTTP_POST_VARS instead of $_POST in older environments
-if (PHP_VERSION < 4.1) {
-	$_POST   = $HTTP_POST_VARS;
-}
 
 // Include application configuration parameters
-require('includes/configure.php');
+require '../includes/configure.php';
 
-if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE) {
+if (FAKTURAMA_WEBSHOP_BASE == 'OSCOMMERCE') {
 	
 	// Define the project version
 	define('PROJECT_VERSION', 'osCommerce Online Merchant v2.x');
@@ -95,7 +93,7 @@ if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE) {
 
 }
 
-if (FAKTURAMA_WEBSHOP_BASE == XTCOMMERCE) {
+if (FAKTURAMA_WEBSHOP_BASE == 'XTCOMMERCE') {
   // security
   define('_VALID_XTC',true);
 
@@ -133,7 +131,7 @@ if (FAKTURAMA_WEBSHOP_BASE == XTCOMMERCE) {
   if (file_exists(DIR_FS_CATALOG.DIR_WS_CLASSES . 'Smarty_2.6.26/Smarty.class.php')) {
     require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'Smarty_2.6.26/Smarty.class.php');
   }
-  else if (file_exists(DIR_FS_CATALOG.DIR_WS_CLASSES . 'Smarty_2.6.14/Smarty.class.php')) {
+  elseif (file_exists(DIR_FS_CATALOG.DIR_WS_CLASSES . 'Smarty_2.6.14/Smarty.class.php')) {
       require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'Smarty_2.6.14/Smarty.class.php');
   }
   else
@@ -144,61 +142,83 @@ if (FAKTURAMA_WEBSHOP_BASE == XTCOMMERCE) {
 
 }
 
+if (FAKTURAMA_WEBSHOP_BASE == MYOOS) {
+	// security
+	define('OOS_VALID_MOD', 'yes');
 
+	// Set the level of error reporting
+	error_reporting(E_ALL & ~E_NOTICE);
+
+	define('LANG_DIR',	'/includes/languages/');
+
+	// Define the project version
+	define('PROJECT_VERSION', 'MyOOS 2.x');
+
+	require 'includes/oos_define.php';
+
+	require_once MYOOS_INCLUDE_PATH . 'includes/oos_tables.php';
+
+	require_once MYOOS_INCLUDE_PATH . 'includes/functions/function_global.php';
+	require_once MYOOS_INCLUDE_PATH . 'includes/lib/adodb/toexport.inc.php';
+	require_once MYOOS_INCLUDE_PATH . 'includes/lib/adodb/adodb-errorhandler.inc.php';
+	require_once MYOOS_INCLUDE_PATH . 'includes/lib/adodb/adodb.inc.php';
+	require_once MYOOS_INCLUDE_PATH . 'includes/lib/adodb/tohtml.inc.php';
+	require_once MYOOS_INCLUDE_PATH . 'includes/functions/function_db.php';
+}
 
 
 function sbf_not_null($p) {
-	if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE) return tep_not_null($p);
-	if (FAKTURAMA_WEBSHOP_BASE == XTCOMMERCE) return xtc_not_null($p);
+	if (FAKTURAMA_WEBSHOP_BASE == 'OSCOMMERCE') return tep_not_null($p);
+	if (FAKTURAMA_WEBSHOP_BASE == 'XTCOMMERCE') return xtc_not_null($p);
 }
 
 function sbf_db_connect() {
-	if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE) return tep_db_connect();
-	if (FAKTURAMA_WEBSHOP_BASE == XTCOMMERCE) return xtc_db_connect();
+	if (FAKTURAMA_WEBSHOP_BASE == 'OSCOMMERCE') return tep_db_connect();
+	if (FAKTURAMA_WEBSHOP_BASE == 'XTCOMMERCE') return xtc_db_connect();
 }
 
 function sbf_db_query($p) {
-	if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE) return tep_db_query($p);
-	if (FAKTURAMA_WEBSHOP_BASE == XTCOMMERCE) return xtc_db_query($p);
+	if (FAKTURAMA_WEBSHOP_BASE == 'OSCOMMERCE') return tep_db_query($p);
+	if (FAKTURAMA_WEBSHOP_BASE == 'XTCOMMERCE') return xtc_db_query($p);
 }
 
 function sbf_db_fetch_array($p) {
-	if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE) return tep_db_fetch_array($p);
-	if (FAKTURAMA_WEBSHOP_BASE == XTCOMMERCE) return xtc_db_fetch_array($p);
+	if (FAKTURAMA_WEBSHOP_BASE == 'OSCOMMERCE') return tep_db_fetch_array($p);
+	if (FAKTURAMA_WEBSHOP_BASE == 'XTCOMMERCE') return xtc_db_fetch_array($p);
 }
 
 function sbf_db_prepare_input($p) {
-	if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE) return tep_db_prepare_input($p);
-	if (FAKTURAMA_WEBSHOP_BASE == XTCOMMERCE) return xtc_db_prepare_input($p);
+	if (FAKTURAMA_WEBSHOP_BASE == 'OSCOMMERCE') return tep_db_prepare_input($p);
+	if (FAKTURAMA_WEBSHOP_BASE == 'XTCOMMERCE') return xtc_db_prepare_input($p);
 }
 
 function sbf_db_input($p) {
-	if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE) return tep_db_input($p);
-	if (FAKTURAMA_WEBSHOP_BASE == XTCOMMERCE) return xtc_db_input($p);
+	if (FAKTURAMA_WEBSHOP_BASE == 'OSCOMMERCE') return tep_db_input($p);
+	if (FAKTURAMA_WEBSHOP_BASE == 'XTCOMMERCE') return xtc_db_input($p);
 }
 
 function sbf_db_output($p) {
-	if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE) return tep_db_output($p);
-	if (FAKTURAMA_WEBSHOP_BASE == XTCOMMERCE) return xtc_db_output($p);
+	if (FAKTURAMA_WEBSHOP_BASE == 'OSCOMMERCE') return tep_db_output($p);
+	if (FAKTURAMA_WEBSHOP_BASE == 'XTCOMMERCE') return xtc_db_output($p);
 }
 
 function sbf_db_num_rows($p) {
-	if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE) return tep_db_num_rows($p);
-	if (FAKTURAMA_WEBSHOP_BASE == XTCOMMERCE) return xtc_db_num_rows($p);
+	if (FAKTURAMA_WEBSHOP_BASE == 'OSCOMMERCE') return tep_db_num_rows($p);
+	if (FAKTURAMA_WEBSHOP_BASE == 'XTCOMMERCE') return xtc_db_num_rows($p);
 }
 
 // Use the ean code or not
-if (FAKTURAMA_WEBSHOP == OSCOMMERCE) {
-  $use_ean_code = false;
+if (FAKTURAMA_WEBSHOP == 'OSCOMMERCE') {
+	$use_ean_code = false;
 } else {
-  $use_ean_code = true;
+	$use_ean_code = true;
 } 
      
 
 if ($use_ean_code) {
-  $ean_query_string = ", prod.products_ean";
+	$ean_query_string = ", prod.products_ean";
 } else {
-  $ean_query_string = "";
+	$ean_query_string = "";
 } 
 
 
@@ -322,13 +342,9 @@ $mailsmarty->compile_dir = DIR_FS_DOCUMENT_ROOT.'templates_c';
 	return "";
 }
 
-
-
-
-
 // Output a raw date string in the selected locale date format
 // $raw_date needs to be in this format: YYYY-MM-DD HH:MM:SS
-  function sbf_date_long($raw_date) {
+function sbf_date_long($raw_date) {
     if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return false;
 
     $year = (int)substr($raw_date, 0, 4);
@@ -340,29 +356,34 @@ $mailsmarty->compile_dir = DIR_FS_DOCUMENT_ROOT.'templates_c';
 
     return strftime('%A, %d. %B %Y', mktime($hour,$minute,$second,$month,$day,$year));
 
-  }
-
-// make a connection to the database... now
-sbf_db_connect() or die('Unable to connect to database server!');
-
-
-
-
-// set application wide parameters
-$configuration_query = sbf_db_query("SELECT
-										configuration_key AS cfgKey, configuration_value AS cfgValue
-									 FROM
-									 	 configuration");
-									 	 
-while ($configuration = sbf_db_fetch_array($configuration_query)) {
-	$configuration_array[$configuration['cfgKey']] = $configuration['cfgValue'];
-	define($configuration['cfgKey'], $configuration['cfgValue']);
 }
 
 
-// Define our general functions used application-wide
-require(DIR_WS_FUNCTIONS . 'general.php');
-require(DIR_WS_FUNCTIONS . 'html_output.php');
+// make a connection to the database... now
+if (!oosDBInit()) {
+	die('Unable to connect to database server!');
+}
+
+$dbconn =& oosDBGetConn();
+oosDB_importTables($oostable);
+
+// set application wide parameters
+$configurationtable = $oostable['configuration'];
+$configuration_query = "SELECT configuration_key AS cfg_key, configuration_value AS cfg_value
+                        FROM $configurationtable";
+$configuration_result = $dbconn->Execute($configuration_query);
+
+
+while ($configuration = $configuration_result->fields) {
+	$configuration_array[$configuration['cfg_key']] = $configuration['cfg_value'];
+	define($configuration['cfg_key'], $configuration['cfg_value']);
+
+    // Move that ADOdb pointer!
+	$configuration_result->MoveNext();
+}
+echo 'jeep';
+exit;
+
 
 // Return true if $str ends with $sub
 function endsWith( $str, $sub ) {
@@ -492,80 +513,50 @@ class order {
 
     function query($order_id) {
     
-	if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE) {
-		$order_query_payment_class = "";
-		$customers_cid_shs = '';
-		$language_shs = '';
-		$ean_query_string_order = "";
-		$vpe_query_string_A ="";
-		$vpe_query_string_B ="";
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
 
-	}
-	else {
-	      	$order_query_payment_class = ",payment_class";
-		$customers_cid_shs = ', customers_cid';
-		$language_shs = ',language';
-		$ean_query_string_order = ", prod.products_ean";
-		$vpe_query_string_A =",	p_vpe.products_vpe_name";
-		$vpe_query_string_B ="LEFT JOIN products_vpe p_vpe ON (prod.products_vpe = p_vpe.products_vpe_id) AND (p_vpe.language_id = langu.languages_id)";
-	}
+		$orderstable = $oostable['orders'];
+		$sql = "SELECT customers_id, customers_cid, customers_firstname, customers_lastname, customers_name, customers_company, customers_street_address,
+						customers_suburb, customers_city, customers_postcode, customers_state,
+						customers_country, customers_telephone, customers_email_address,
+						customers_address_format_id, delivery_name, delivery_company,
+						delivery_firstname, delivery_lastname, delivery_street_address, delivery_suburb, delivery_city, delivery_postcode,
+						delivery_state, delivery_country, delivery_address_format_id, billing_name,
+						billing_firstname, billing_lastname, billing_company, billing_street_address, billing_suburb, billing_city,
+						billing_postcode, billing_state, billing_country, billing_address_format_id,
+						payment_method, cc_type, cc_owner, cc_number, cc_expires, currency, currency_value,
+						date_purchased, campaigns, orders_status, last_modified, orders_language
+				FROM $orderstable
+				WHERE orders_id = '" . intval($order_id) . "'";
+		$order = $dbconn->GetRow($sql);
+
+		$orders_totaltable = $oostable['orders_total'];
+		$sql = "SELECT title, text
+				FROM $orders_totaltable
+				WHERE orders_id = '" . intval($order_id) . "'
+				ORDER BY sort_order";
+		$this->totals = $dbconn->GetAll($sql);
 
 
-      $order_query = sbf_db_query("SELECT
-      									customers_id " . $customers_cid_shs . ", customers_name, customers_company, customers_street_address,
-      									customers_suburb, customers_city, customers_postcode, customers_state,
-      									customers_country, customers_telephone, customers_email_address, customers_address_format_id,
-      									delivery_name, delivery_company, delivery_street_address, delivery_suburb, delivery_city,
-      									delivery_postcode, delivery_state, delivery_country, delivery_address_format_id,
-      									billing_name, billing_company, billing_street_address, billing_suburb, billing_city, billing_postcode,
-      									billing_state, billing_country, billing_address_format_id, payment_method" . $order_query_payment_class . ",
-      									cc_type, cc_owner, cc_number, cc_expires, currency, currency_value, date_purchased,
-      									orders_status, last_modified" . $language_shs . "
-      								FROM
-      									orders
-      								WHERE
-      									orders_id = '" . (int)$order_id . "'
-      								");
-      								
-      $order = sbf_db_fetch_array($order_query);
-
-      $totals_query = sbf_db_query("SELECT
-      									title, text
-      								FROM 
-      									orders_total
-      								WHERE
-      									orders_id = '" . (int)$order_id . "'
-      								ORDER BY
-      									sort_order
-      								");
-      								
-      while ($totals = sbf_db_fetch_array($totals_query)) {
-        $this->totals[] = array('title' => $totals['title'],
-                                'text' => $totals['text']);
-      }
-
-      $this->info = array('currency' => $order['currency'],
-                          'currency_value' => $order['currency_value'],
-                          'payment_method' => $order['payment_method'],
-                          'payment_class' => $order['payment_class'],
-                          'cc_type' => $order['cc_type'],
-                          'cc_owner' => $order['cc_owner'],
-                          'cc_number' => $order['cc_number'],
-                          'cc_expires' => $order['cc_expires'],
-                          'date_purchased' => $order['date_purchased'],
-                          'orders_status' => $order['orders_status'],
-                          'language' => $order['language'],
-                          'last_modified' => $order['last_modified']);
-
-	if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE) {
-	     $this->info['language'] = FAKTURAMA_LANGUAGE;
-	}
-
-      $this->customer = array(
-      						  'id' => $order['customers_id'],
+		$this->info = array('currency' => $order['currency'],
+							'currency_value' => $order['currency_value'],
+							'payment_method' => $order['payment_method'],
+							'payment_class' => $order['payment_class'],
+							'cc_type' => $order['cc_type'],
+							'cc_owner' => $order['cc_owner'],
+							'cc_number' => $order['cc_number'],
+							'cc_expires' => $order['cc_expires'],
+							'date_purchased' => $order['date_purchased'],
+							'orders_status' => $order['orders_status'],
+							'language' => $order['orders_language'],
+							'last_modified' => $order['last_modified']);
+							
+      $this->customer = array('id' => $order['customers_id'],
       						  'cid' => $order['customers_cid'],
-      						  'firstname' => "",
-      						  'lastname' => $order['customers_name'],
+      						  'firstname' => $order['customers_firstname'],
+      						  'lastname' => $order['customers_lastname'],
       						  'name' => $order['customers_name'],
                               'company' => $order['customers_company'],
                               'street_address' => $order['customers_street_address'],
@@ -579,8 +570,8 @@ class order {
                               'email_address' => $order['customers_email_address']);
 
       $this->delivery = array('name' => $order['delivery_name'],
-      						  'firstname' => "",
-      						  'lastname' => $order['delivery_name'],
+      						  'firstname' => $order['delivery_firstname'],
+      						  'lastname' => $order['delivery_lastname'],
       						  'gender' => "",
                               'company' => $order['delivery_company'],
                               'street_address' => $order['delivery_street_address'],
@@ -592,8 +583,8 @@ class order {
                               'format_id' => $order['delivery_address_format_id']);
 
       $this->billing = array('name' => $order['billing_name'],
-      						 'firstname' => "",
-      						 'lastname' => $order['billing_name'],
+      						 'firstname' => $order['billing_firstname'],
+      						 'lastname' => $order['billing_lastname'],
       						 'gender' => "",
                              'company' => $order['billing_company'],
                              'street_address' => $order['billing_street_address'],
@@ -606,34 +597,6 @@ class order {
                              
       $customers_id = $this->customer['id'];
       $firstandlastname = $this->customer['firstname'] . " " . $this->customer['lastname'] . "-";                       
-
-
-      $orders_address_query = sbf_db_query("SELECT
-      											customers_id, entry_gender, entry_firstname, entry_lastname, entry_country_id, entry_zone_id
-      										FROM
-      											address_book
-      										WHERE
-      											customers_id = '" . (int)$customers_id . "'
-      										");
-
-     while ($orders_address = sbf_db_fetch_array($orders_address_query)) {
-		$firstandlastname = $orders_address['entry_firstname'] . " " . $orders_address['entry_lastname'];  
-
-		$customer_entry_country_id = $orders_address['entry_country_id'];
-		$customer_entry_zone_id = $orders_address['entry_zone_id'];
-
-		if ($firstandlastname == $this->billing['name']) {
-			$this->billing['firstname'] = $orders_address['entry_firstname'];
-			$this->billing['lastname'] = $orders_address['entry_lastname'];
-			$this->billing['gender'] = $orders_address['entry_gender'];
-			
-		}             
-		if ($firstandlastname == $this->delivery['name']) {
-			$this->delivery['firstname'] = $orders_address['entry_firstname'];
-			$this->delivery['lastname'] = $orders_address['entry_lastname'];
-			$this->delivery['gender'] = $orders_address['entry_gender'];
-		}             
-     }
 
                                          
      //start with a default value
@@ -829,9 +792,9 @@ while ($languages = sbf_db_fetch_array($languages_query)) {
 					$paymenttext = substr ( $paymenttext, 0, strrpos($paymenttext, "'") );
 					$paymenttext = trim ($paymenttext);
 					if ($paymenttext) {
-						if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE)
+						if (FAKTURAMA_WEBSHOP_BASE == 'OSCOMMERCE')
 							$paymentsynonym[$paymenttext] = $include_modules_payment[$i]['class'];
-						if (FAKTURAMA_WEBSHOP_BASE == XTCOMMERCE)
+						if (FAKTURAMA_WEBSHOP_BASE == 'XTCOMMERCE')
 							$paymentsynonym[$include_modules_payment[$i]['class']] = $paymenttext;
 					}
 				}
@@ -897,11 +860,11 @@ echo (phpversion());
 echo ("</phpversion>\n");
 echo ("<webshop ");
 
-if (FAKTURAMA_WEBSHOP == OSCOMMERCE)
+if (FAKTURAMA_WEBSHOP == 'OSCOMMERCE')
 	echo ("shop=\"osCommerce\" ");
-else if (FAKTURAMA_WEBSHOP == XTCOMMERCE)
+elseif (FAKTURAMA_WEBSHOP == 'XTCOMMERCE')
 	echo ("shop=\"xt:Commerce\" ");
-else if (FAKTURAMA_WEBSHOP == XTCMODIFIED)
+elseif (FAKTURAMA_WEBSHOP == XTCMODIFIED)
 	echo ("shop=\"xtcModified\" ");
 else
 	echo ("shop=\"???\" ");
@@ -955,7 +918,7 @@ if (sbf_db_num_rows($language_query) != 1)
 
 
 // include the language translations
-if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE) {
+if (FAKTURAMA_WEBSHOP_BASE == 'OSCOMMERCE') {
 	require_once(DIR_WS_LANGUAGES . $languages['directory'] . '.php');
 	require_once(DIR_WS_LANGUAGES . $languages['directory'] . '/orders.php');  
 }
@@ -965,7 +928,7 @@ if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE) {
 $admin_valid = 0;
 
 // Get the admins from the database
-if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE) {
+if (FAKTURAMA_WEBSHOP_BASE == 'OSCOMMERCE') {
 
 	require('includes/functions/password_funcs.php');
 	$admin_query = sbf_db_query('
@@ -983,7 +946,8 @@ if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE) {
 	}
 }
 
-if (FAKTURAMA_WEBSHOP_BASE == XTCOMMERCE) {
+
+if (FAKTURAMA_WEBSHOP_BASE == 'XTCOMMERCE') {
 	$admin_query = sbf_db_query('
 		SELECT customers_id
 		FROM customers
@@ -1071,7 +1035,7 @@ if ($admin_valid != 1)
 			$email_valid = 0;
 
 
-	    if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE) {
+	    if (FAKTURAMA_WEBSHOP_BASE == 'OSCOMMERCE') {
 
 			if (!empty($notify_comments_mail))
 				$notify_comments_mail .= "\n\n";
@@ -1148,7 +1112,7 @@ if ($admin_valid != 1)
 		// generate list of all products
 		if ($action_getproducts) {
 			
-			if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE){
+			if (FAKTURAMA_WEBSHOP_BASE == 'OSCOMMERCE'){
 				$imagepath = DIR_WS_CATALOG_IMAGES;
 				$fs_imagepath = DIR_FS_CATALOG_IMAGES;
 			}
@@ -1162,7 +1126,7 @@ if ($admin_valid != 1)
 			echo (" <products imagepath=\"" . my_encrypt($imagepath) . "\">\n");
 
 			
-			if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE) {
+			if (FAKTURAMA_WEBSHOP_BASE == 'OSCOMMERCE') {
 				$products_short_description_query = '';
 				$vpe_query_string_A ="";
 				$vpe_query_string_B ="";
@@ -1228,7 +1192,7 @@ if ($admin_valid != 1)
 				
 				if ($last_products_model_name != $products_model_name) 
 				{
-				if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE)
+				if (FAKTURAMA_WEBSHOP_BASE == 'OSCOMMERCE')
 					$products['products_short_description'] = $products['products_description'];
 
 				echo ("  <product ");
@@ -1289,11 +1253,11 @@ if ($admin_valid != 1)
 				$order = new order($oID);
 
 				
-				if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE) {
+				if (FAKTURAMA_WEBSHOP_BASE == 'OSCOMMERCE') {
 					$payment_class = $paymentsynonym[ $order->info['payment_method'] ];
 					
 				}
-				if (FAKTURAMA_WEBSHOP_BASE == XTCOMMERCE) {
+				if (FAKTURAMA_WEBSHOP_BASE == 'XTCOMMERCE') {
 					$payment_class = $order->info['payment_class'];
 					$order->info['payment_method'] = $paymentsynonym[ $order->info['payment_class'] ];
 				}
@@ -1424,9 +1388,9 @@ if ($admin_valid != 1)
 					echo ("productid=\"".my_encode($product['products_id'])."\" ");
 					echo ("quantity=\"".my_encrypt($product['qty'])."\" ");
 					
-					if (FAKTURAMA_WEBSHOP_BASE == OSCOMMERCE)
+					if (FAKTURAMA_WEBSHOP_BASE == 'OSCOMMERCE')
 						echo ("gross=\"".my_encrypt(number_format( $product['price'] * (1+ $product['tax']/100), 2)) ."\" ");
-					if (FAKTURAMA_WEBSHOP_BASE == XTCOMMERCE)
+					if (FAKTURAMA_WEBSHOP_BASE == 'XTCOMMERCE')
 						echo ("gross=\"".my_encrypt(number_format( $product['price'], 2)) ."\" ");
 
 					echo ("vatpercent=\"". my_encrypt(number_format($product['tax'],2)) . "\">\n");
@@ -1569,5 +1533,3 @@ if ($admin_valid != 1)
 
 echo ("</webshopexport>\n");
 
-
-?>

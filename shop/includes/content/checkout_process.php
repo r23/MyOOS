@@ -73,6 +73,7 @@
   $order_totals = $order_total_modules->process();
 
   $sql_data_array = array('customers_id' => $_SESSION['customer_id'],
+						  'customers_cid' => 
 						  'customers_firstname' => $oOrder->customer['firstname'],
 						  'customers_lastname' => $oOrder->customer['lastname'],
                           'customers_name' => $oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'],
@@ -86,6 +87,8 @@
                           'customers_telephone' => $oOrder->customer['telephone'],
                           'customers_email_address' => $oOrder->customer['email_address'],
                           'customers_address_format_id' => $oOrder->customer['format_id'],
+                          'delivery_firstname' => $oOrder->delivery['firstname'],
+                          'delivery_lastname' => $oOrder->delivery['lastname'],
                           'delivery_name' => $oOrder->delivery['firstname'] . ' ' . $oOrder->delivery['lastname'],
                           'delivery_company' => $oOrder->delivery['company'],
                           'delivery_street_address' => $oOrder->delivery['street_address'],
@@ -95,6 +98,8 @@
                           'delivery_state' => $oOrder->delivery['state'],
                           'delivery_country' => $oOrder->delivery['country']['title'],
                           'delivery_address_format_id' => $oOrder->delivery['format_id'],
+                          'billing_firstname' => $oOrder->billing['firstname'],
+                          'billing_lastname' => $oOrder->billing['lastname'],			  
                           'billing_name' => $oOrder->billing['firstname'] . ' ' . $oOrder->billing['lastname'],
                           'billing_company' => $oOrder->billing['company'],
                           'billing_street_address' => $oOrder->billing['street_address'],
