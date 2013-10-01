@@ -79,4 +79,3 @@
   }
   $smarty->assign('order_history_block', $order_history_block);
 
-?>

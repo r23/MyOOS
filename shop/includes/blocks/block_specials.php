@@ -76,4 +76,4 @@
   }
 
   $smarty->assign('specials_block', $specials_block);
-?>
+

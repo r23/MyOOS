@@ -38,4 +38,3 @@
   }
   $smarty->assign('tell_a_friend_block', $tell_a_friend_block);
 
-?>

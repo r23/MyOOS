@@ -15,4 +15,3 @@
 
   $smarty->assign('block_heading_newsletter', $block_heading);
 
-?>

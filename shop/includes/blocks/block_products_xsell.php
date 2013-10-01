@@ -43,4 +43,4 @@
 
   $smarty->assign('xsell_block', $xsell_block);
 
-?>
+

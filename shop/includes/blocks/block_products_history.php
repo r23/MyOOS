@@ -35,4 +35,4 @@
 
   $smarty->assign('products_history_block', $products_history_block);
 
-?>
+

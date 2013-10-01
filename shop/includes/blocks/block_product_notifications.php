@@ -61,4 +61,3 @@
 
   $smarty->assign('notifications_block', $notifications_block);
 
-?>

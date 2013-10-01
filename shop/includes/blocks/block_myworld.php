@@ -59,4 +59,3 @@
   $smarty->assign('block_heading_myworld', $block_heading);
   $smarty->assign('myworld_block', $myworld_block);
 
-?>

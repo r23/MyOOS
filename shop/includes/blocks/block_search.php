@@ -23,5 +23,3 @@
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
   $smarty->assign('block_heading_search', $block_heading);
-
-
