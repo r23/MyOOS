@@ -514,6 +514,33 @@ Options -Indexes
   deny from all
 </files> 
 
+# BEGINN CACHIFY
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+ 
+# <IfModule mod_mime.c>
+#   RewriteCond %{REQUEST_URI} /$
+#   RewriteCond %{REQUEST_URI} !^/wp-admin/.*
+#   RewriteCond %{REQUEST_METHOD} !=POST
+#   RewriteCond %{QUERY_STRING} =""
+#   RewriteCond %{HTTP_COOKIE} !(wp-postpass|wordpress_logged_in|comment_author)_
+#   RewriteCond %{HTTP:Accept-Encoding} gzip
+#   RewriteCond %{DOCUMENT_ROOT}/wp-content/cache/cachify/%{HTTP_HOST}%{REQUEST_URI}/index.html.gz -f
+#   RewriteRule ^(.*) /wp-content/cache/cachify/%{HTTP_HOST}/$1/index.html.gz [L]
+ 
+#   AddType text/html .gz
+#   AddEncoding gzip .gz
+# </IfModule>	
+ 
+#  RewriteCond %{REQUEST_URI} /$
+#  RewriteCond %{REQUEST_URI} !^/wp-admin/.*
+#  RewriteCond %{REQUEST_METHOD} !=POST
+#  RewriteCond %{QUERY_STRING} =""
+#  RewriteCond %{HTTP_COOKIE} !(wp-postpass|wordpress_logged_in|comment_author)_
+#  RewriteCond %{DOCUMENT_ROOT}/wp-content/cache/cachify/%{HTTP_HOST}%{REQUEST_URI}/index.html -f
+#  RewriteRule ^(.*) /wp-content/cache/cachify/%{HTTP_HOST}/$1/index.html [L]
+# </IfModule>
+
 # Block the include-only files. 
 <IfModule mod_rewrite.c>
   RewriteRule ^wp-admin/includes/ - [F,L] 
@@ -522,8 +549,6 @@ Options -Indexes
   RewriteRule ^wp-includes/js/tinymce/langs/.+\.php - [F,L] 
   RewriteRule ^wp-includes/theme-compat/ - [F,L]
 </IfModule>
-
-
 
 # BEGIN WordPress
 

@@ -1,0 +1,122 @@
+
+/* @group Adminbar Icons */
+
+@font-face {
+	font-family: 'CachifyIcons';
+	src: url('../font/icons.woff') format('woff');
+}
+
+#wp-admin-bar-cachify a.ab-item:before,
+#icon-cachify:before {
+	position: relative;
+	font-family: CachifyIcons !important;
+	font-weight: normal;
+	-webkit-font-smoothing: antialiased;
+}
+
+body:not(.mp6) #wp-admin-bar-cachify a.ab-item span {
+	display: none;
+}
+#wp-admin-bar-cachify a.ab-item:before {
+	top: 1px;
+	content: '\e800';
+	font-size: 18px;
+	line-height: 22px;
+	display: inline-block;
+}
+#icon-cachify {
+	padding-right: 8px;
+}
+#icon-cachify:before {
+	top: -6px;
+	color: #494949;
+	content: '\e801';
+	font-size: 42px;
+	line-height: 42px;
+}
+
+/* @end group */
+
+
+/* @group GUI */
+
+#cachify_main .table {
+	width: 460px;
+	height: 1%;
+	margin: 20px 0 0;
+	padding: 0 0 5px;
+	overflow: hidden;
+	border: 1px solid #DFDFDF;
+}
+#cachify_main .form-table {
+	margin: 0;
+}
+#cachify_main .form-table th {
+	width: 230px;
+	vertical-align: middle;
+}
+#cachify_main .form-table th small {
+	color: #8F8F8F;
+	display: block;
+	text-shadow: none;
+}
+#cachify_main .form-table caption {
+	width: 100%;
+	color: #8F8F8F;
+	margin: 0 0 5px;
+	background: whiteSmoke;
+	line-height: 20px;
+	text-shadow: 1px 1px #FFF;
+}
+#cachify_main .rounded {
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+#cachify_main input,
+#cachify_main select {
+	width: 172px;
+}
+#cachify_main input.small {
+	width: 50px;
+}
+#cachify_main .submit {
+	width: 460px;
+	height: 1%;
+	overflow: hidden;
+}
+#cachify_main .submit > p {
+	float: right;
+	margin: 0;
+	height: 24px;
+}
+#cachify_main .submit > p > a {
+	float: left;
+	line-height: 24px;
+}
+#cachify_main .submit > p > a:before {
+	margin: 0 4px;
+	content: '|';
+	display: inline-block;
+}
+#cachify_main .submit > p > a:first-child:before {
+	margin: 0;
+	content: '';
+}
+
+/* @end group */
+
+
+/* @group Dashboard */
+
+#dashboard_right_now .table_cachify {
+	margin-top: 36px;
+	border-top: #ececec 1px solid;
+}
+#dashboard_right_now .table_cachify .b {
+	font-size: 18px;
+	padding-top: 0;
+}
+
+/* @end group */
