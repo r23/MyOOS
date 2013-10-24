@@ -159,11 +159,13 @@ if (FAKTURAMA_WEBSHOP_BASE == MYOOS) {
 	require_once MYOOS_INCLUDE_PATH . 'includes/oos_tables.php';
 
 	require_once MYOOS_INCLUDE_PATH . 'includes/functions/function_global.php';
+	require_once MYOOS_INCLUDE_PATH . 'admin/includes/functions/function_kernel.php';
 	require_once MYOOS_INCLUDE_PATH . 'includes/lib/adodb/toexport.inc.php';
 	require_once MYOOS_INCLUDE_PATH . 'includes/lib/adodb/adodb-errorhandler.inc.php';
 	require_once MYOOS_INCLUDE_PATH . 'includes/lib/adodb/adodb.inc.php';
 	require_once MYOOS_INCLUDE_PATH . 'includes/lib/adodb/tohtml.inc.php';
 	require_once MYOOS_INCLUDE_PATH . 'includes/functions/function_db.php';
+	require_once MYOOS_INCLUDE_PATH . 'includes/functions/function_password.php';
 }
 
 
@@ -268,8 +270,6 @@ $mailsmarty->compile_dir = DIR_FS_DOCUMENT_ROOT.'templates_c';
 	$txt_signatur = '';
   }
 
-//**********************************************************************************************
-
 	$mail = new PHPMailer();
 	$mail->PluginDir = DIR_FS_DOCUMENT_ROOT.'includes/classes/';
 
@@ -294,20 +294,23 @@ $mailsmarty->compile_dir = DIR_FS_DOCUMENT_ROOT.'templates_c';
 	if (EMAIL_TRANSPORT == 'smtp') {
 		$mail->IsSMTP();
 		$mail->SMTPKeepAlive = true; // set mailer to use SMTP
-		$mail->SMTPAuth = SMTP_AUTH; // turn on SMTP authentication true/false
-		$mail->Username = SMTP_USERNAME; // SMTP username
-		$mail->Password = SMTP_PASSWORD; // SMTP password
-		$mail->Host = SMTP_MAIN_SERVER.';'.SMTP_Backup_Server; // specify main and backup server "smtp1.example.com;smtp2.example.com"
+		$mail->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
+		$mail->Username = OOS_SMTPUSER; // SMTP username
+		$mail->Password = OOS_SMTPPASS; // SMTP password
+		$mail->Host     = OOS_SMTPHOST; // specify main and backup server
 	}
 
 	if (EMAIL_TRANSPORT == 'sendmail') { // set mailer to use SMTP
+		$mail->Sendmail = OOS_SENDMAIL;
 		$mail->IsSendmail();
-		$mail->Sendmail = SENDMAIL_PATH;
 	}
+
 	if (EMAIL_TRANSPORT == 'mail') {
 		$mail->IsMail();
 	}
-
+	
+	
+	
 	if (EMAIL_USE_HTML == 'true') // set email format to HTML
 		{
 		$mail->IsHTML(true);
@@ -381,8 +384,7 @@ while ($configuration = $configuration_result->fields) {
     // Move that ADOdb pointer!
 	$configuration_result->MoveNext();
 }
-echo 'jeep';
-exit;
+
 
 
 // Return true if $str ends with $sub
@@ -478,8 +480,11 @@ function my_encode($s) {
 
 // Exit with error message
 function exit_with_error($err) {
-	echo (" <error>" . $err . "</error>\n");
-	echo ("</webshopexport>\n");
+
+	$schema = '<error>'  . $err . '</error>' . "\n" .
+              '</webshopexport>' . "\n";
+	echo $schema;
+	
 	exit(); 
 }
 
@@ -658,7 +663,23 @@ class order {
   										languages_id ASC
         							");
         							
- 
+ 					$products_sql = "select products_id, products_model, products_ean, products_name, products_price, final_price, products_tax, products_quantity from " . $oostable['orders_products'] . " where orders_id = '" . $orders['orders_id'] . "' order by products_model";
+					$products_result = $dbconn->Execute($products_sql);
+					while ($products = $products_result->fields) {
+						$schema .= '<PRODUCT>' . "\n" .
+									'<PRODUCTS_ID>' . $products['products_id'] . '</PRODUCTS_ID>' . "\n" .
+									'<PRODUCTS_QUANTITY>' . $products['products_quantity'] . '</PRODUCTS_QUANTITY>' . "\n" .
+									'<PRODUCTS_MODEL>' . my_encrypt($products['products_model']) . '</PRODUCTS_MODEL>' . "\n" .
+									'<PRODUCTS_NAME>' . my_encrypt($products['products_name']) . '</PRODUCTS_NAME>' . "\n" .
+									'<PRODUCTS_PRICE>' . $products['products_price'] . '</PRODUCTS_PRICE>' . "\n" .
+									'<PRODUCTS_FINAL_PRICE>' . $products['final_price'] . '</PRODUCTS_FINAL_PRICE>' . "\n" .
+									'<PRODUCTS_TAX>' . $products['products_tax'] . '</PRODUCTS_TAX>' . "\n";
+
+						// todo: attributes			
+						$schema .=  '</PRODUCT>' . "\n";
+						// Move that ADOdb pointer!
+						$products_result->MoveNext();
+					}
       
       while ($orders_products = sbf_db_fetch_array($orders_products_query)) {
         $this->products[$index] = array(
@@ -725,7 +746,7 @@ class order {
 }
   
   
-
+/*
 
 
 // load the installed payment module
@@ -833,7 +854,7 @@ while ($languages = sbf_db_fetch_array($languages_query)) {
 		}
 	}
 }
-
+*/
 
 // parse POST parameters
 $getshipped = (isset($_POST['getshipped']) ? $_POST['getshipped'] : '');
@@ -847,13 +868,16 @@ $orderstosync = substr($orderstosync, 0, -1);
 $orderstosync = substr($orderstosync, 1);
 $orderstosync = explode(",", $orderstosync);
 
-$username = sbf_db_prepare_input($_POST['username']);
-$password = sbf_db_prepare_input($_POST['password']);
+$username = oos_prepare_input($_POST['username']);
+$password = oos_prepare_input($_POST['password']);
 
+// todo security if ($username != '' and $password != '') {
 
 // generate header of response
-echo ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-echo ("<webshopexport version=\"". FAKTURAMA_CONNECTOR_VERSION . "\" >\n");
+$schema = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
+			'<webshopexport version=' . FAKTURAMA_CONNECTOR_VERSION . '>' . "\n";
+echo $schema;
+
 
 echo ("<phpversion>");
 echo (phpversion());
@@ -874,10 +898,10 @@ echo ("></webshop>\n");
 
 // does action start with "get" ?
 if (strncmp($action, "get", 3) == 0) {
-  // does the action contains one of the following keys:
-  $action_getproducts = strpos($action,"products");
-  $action_getorders = strpos($action,"orders");
-  $action_getcontacts = strpos($action,"contacts");
+	// does the action contains one of the following keys:
+	$action_getproducts = strpos($action,"products");
+	$action_getorders = strpos($action,"orders");
+	$action_getcontacts = strpos($action,"contacts");
 }
 
 
@@ -902,20 +926,16 @@ if ($getshipped_datetype == 'ever')
 if (!defined('DEFAULT_LANGUAGE'))
 	exit_with_error('DEFAULT_LANGUAGE not defined');
 
-$language_query = sbf_db_query('SELECT
-   					code, directory
-   				FROM
-					languages
-				WHERE
-					code = "'. DEFAULT_LANGUAGE . '"
-       				');
+	
+$languagestable = $oostable['languages'];
+$languages_sql = "SELECT languages_id, name, iso_639_2, iso_639_1
+					FROM $languagestable
+					WHERE iso_639_2 = '". DEFAULT_LANGUAGE . "'";;
+$languages_result = $dbconn->Execute($languages_sql);	
 
-$languages = sbf_db_fetch_array($language_query);
-
-// The language must be in the database
-if (sbf_db_num_rows($language_query) != 1)
+if (!$languages_result->RecordCount()) {
 	exit_with_error('Language ' . DEFAULT_LANGUAGE . ' not found');
-
+}
 
 // include the language translations
 if (FAKTURAMA_WEBSHOP_BASE == 'OSCOMMERCE') {
@@ -965,11 +985,32 @@ if (FAKTURAMA_WEBSHOP_BASE == 'XTCOMMERCE') {
 }
 
 
+// Get the admins from the database
+if (FAKTURAMA_WEBSHOP_BASE == 'MYOOS') {
 
-// No admin with valid password found
-if ($admin_valid != 1)
-	exit_with_error('Invalid username or password');
+    if ( empty( $username ) || !is_string( $username ) ) {
+		exit_with_error ("Wrong user: ".$username);
+    }
 
+	// Check if email exists
+	$check_admin_result = $dbconn->Execute("SELECT admin_id, admin_password FROM " . $oostable['admin'] . " WHERE admin_email_address = '" . oos_db_input($username) . "'");
+	if (!$check_admin_result->RecordCount()) {
+		exit_with_error ("Wrong user: ".$username);
+	} else {
+		$check_admin = $check_admin_result->fields;
+		// Check that password is good
+		if (!oos_validate_password($password, $check_admin['admin_password'])) {
+			exit_with_error ("Wrong password: ".$password);
+		} else {
+			$admin_valid = 1;
+		}
+	}
+}
+
+
+
+
+if ($admin_valid == 1) {
 
 	// update the shop values
 	foreach ($orderstosync as $ordertosync) {
@@ -1230,7 +1271,7 @@ if ($admin_valid != 1)
 
 
 		// generate list of all orders
-		if ($action_getorders){
+		if ($action_getorders) {
 			$check_orders_query = sbf_db_query("SELECT
 													o.orders_id, o.orders_status, ot.text AS order_total
 												FROM
@@ -1506,7 +1547,7 @@ if ($admin_valid != 1)
 
 				// Workaround: add the COD fee to the shipping value
 				$shipping_value += $cod_fee_value;
-
+/*
 				echo ("   <shipping ");
 				echo ("gross=\"".my_encrypt(number_format( $shipping_value , 2))."\" ");
 //				echo ("net=\"" .number_format( $shipping_value / ( 1 + $shipping_tax/100), 2)."\" ");
@@ -1514,22 +1555,30 @@ if ($admin_valid != 1)
 				echo ("    <name>".my_encode($shipping_title)."</name>\n");
 				echo ("    <vatname>". my_encode($shipping_tax_name) . "</vatname>\n");
 				echo ("   </shipping>\n");
-				
-				
-				
+*/			
+				$schema .= '<shipping gross="' . my_encrypt(number_format( $shipping_value , 2)) . '" vatpercent="' . my_encrypt(number_format($shipping_tax,2)). '">' . "\n" .
+                           '<name>' . my_encode($shipping_title) . '</name>' . "\n" . 
+                           '<vatname>' . my_encode($shipping_tax_name) . '</vatname>' . "\n" . 
+                           '</shipping>' . "\n";			
+		
+/*				
 				echo ("   <payment ");
 				echo ("type=\"". my_encode($payment_text) ."\" ");
 				echo ("total=\"".my_encrypt(number_format($total,2))."\">\n");
 				echo ("    <name>".my_encode($order->info['payment_method'])."</name>\n");
 				echo ("   </payment>\n");
-				
+*/
+				$schema .= '<payment type="' . my_encode($payment_text) . '" total="' . my_encrypt(number_format($total,2)). '">' . "\n" .
+                           '<name>' . my_encode($order->info['payment_method']) . '</name>' . "\n" . 
+                           '</payment>' . "\n";				
 
-
-				echo ("  </order>\n\n");
+				$schema .= '</order>' . "\n";
+				echo $schema;
 			}
-			echo (" </orders>\n");
+			$schema = '</orders>' . "\n";
+			echo $schema;
+			
 		}	
-
-
-echo ("</webshopexport>\n");
-
+	}
+$schema = '</webshopexport>' . "\n\n";        
+echo $schema;
