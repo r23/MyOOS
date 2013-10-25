@@ -1,19 +1,60 @@
-# Translation of 3.6.x in German
-# This file is distributed under the same license as the 3.6.x package.
+# Translation of Development (trunk) in German
+# This file is distributed under the same license as the Development (trunk) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-09-11 21:13:34+0000\n"
+"PO-Revision-Date: 2013-10-18 14:46:46+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/0.1\n"
-"Project-Id-Version: 3.6.x\n"
+"Project-Id-Version: Development (trunk)\n"
 
 #: wp-includes/locale.php:184
 msgctxt "text direction"
 msgid "ltr"
 msgstr "ltr"
+
+#: wp-includes/update.php:483
+msgid "Translation Updates"
+msgstr "Aktualisierungen der Übersetzung "
+
+#: wp-login.php:495
+msgid "Sorry, that key has expired. Please try again."
+msgstr "Bedaure, dieser Schlüssel ist abgelaufen. Bitte erneut versuchen."
+
+#: wp-includes/class-wp-theme.php:209
+msgid "The theme directory \"%s\" does not exist."
+msgstr "Das Theme-Verzeichnis \"%s\" existiert nicht. "
+
+#: wp-includes/query.php:721
+msgid "In <code>%1$s</code>, use the <code>%2$s</code> method, not the <code>%3$s</code> function. See %4$s."
+msgstr "In <code>%1$s</code>, benutze die <code>%2$s</code>-Methode und nicht die <code>%3$s</code>-Funktion. Siehe %4$s."
+
+#: wp-includes/functions.php:1038
+msgid "ERROR: This is not a valid feed template."
+msgstr "FEHLER: Dies ist keine gültige Feed-Vorlage. "
+
+#: wp-includes/post-template.php:1250
+msgid "This content is password protected. To view it please enter your password below:"
+msgstr "Dieser Inhalt ist passwortgeschützt. Um ihn anzuschauen, gib bitte dein Passwort unten ein:"
+
+#: wp-includes/query.php:722
+msgid "http://codex.wordpress.org/Function_Reference/is_main_query"
+msgstr "http://codex.wordpress.org/Function_Reference/is_main_query"
+
+#: wp-includes/query.php:2017
+msgctxt "Comma-separated list of search stopwords in your language"
+msgid "about,an,are,as,at,be,by,com,for,from,how,in,is,it,of,on,or,that,the,this,to,was,what,when,where,who,will,with,www"
+msgstr "ein,eine,einer,der,die,das,und,oder,doch,sind,ist,war,für,von,in,an,zu,über,mit,dies,diese,diesen,dieser,wer,wo,wie,was,www,nicht"
+
+#: wp-includes/class-http.php:887 wp-includes/class-http.php:1262
+msgid "Failed to write request to temporary file."
+msgstr "Konnte Anfrage nicht in die temporäre Datei schreiben."
+
+#: wp-includes/class-http.php:793 wp-includes/class-http.php:801
+msgid "The SSL certificate for the host could not be verified."
+msgstr "Das SSL-Zertifikat für den Host konnte nicht verifiziert werden."
 
 #: wp-includes/media-template.php:302
 msgid "Embed Media Player"
@@ -35,35 +76,35 @@ msgstr "Mediendatei verlinken"
 msgid "Link to Attachment Page"
 msgstr "Anhangseite verlinken"
 
-#: wp-includes/script-loader.php:290
+#: wp-includes/script-loader.php:296
 msgid "Download File"
 msgstr "Datei herunterladen"
 
-#: wp-includes/script-loader.php:291
+#: wp-includes/script-loader.php:297
 msgid "Download Video"
 msgstr "Video herunterladen"
 
-#: wp-includes/script-loader.php:292
+#: wp-includes/script-loader.php:298
 msgid "Play/Pause"
 msgstr "Abspielen / Pause"
 
-#: wp-includes/script-loader.php:293
+#: wp-includes/script-loader.php:299
 msgid "Mute Toggle"
 msgstr "Stumm schalten"
 
-#: wp-includes/script-loader.php:295
+#: wp-includes/script-loader.php:301
 msgid "Turn off Fullscreen"
 msgstr "Vollbild ausschalten"
 
-#: wp-includes/script-loader.php:296
+#: wp-includes/script-loader.php:302
 msgid "Go Fullscreen"
 msgstr "Vollbild einschalten"
 
-#: wp-includes/script-loader.php:297
+#: wp-includes/script-loader.php:303
 msgid "Unmute"
 msgstr "Laut schalten"
 
-#: wp-includes/script-loader.php:299
+#: wp-includes/script-loader.php:305
 msgid "Captions/Subtitles"
 msgstr "Bildunterschriften / Untertitel"
 
@@ -91,29 +132,29 @@ msgstr "Aktiviere deinen Akismet Account"
 msgid "<strong>Almost done</strong> - activate your account and say goodbye to comment spam"
 msgstr "<strong>Fast geschafft</strong>  - aktiviere dein Benutzerkonto und sage \"Auf Nimmer-Wiedersehen\" zu Kommentar-Spam"
 
-#: wp-includes/formatting.php:2159
+#: wp-includes/formatting.php:2160
 msgid "%s week"
 msgid_plural "%s weeks"
 msgstr[0] "%s Woche"
 msgstr[1] "%s Wochen"
 
-#: wp-includes/formatting.php:2164
+#: wp-includes/formatting.php:2165
 msgid "%s month"
 msgid_plural "%s months"
 msgstr[0] "%s Monat"
 msgstr[1] "%s Monate"
 
-#: wp-includes/formatting.php:2169
+#: wp-includes/formatting.php:2170
 msgid "%s year"
 msgid_plural "%s years"
 msgstr[0] "%s Jahr"
 msgstr[1] "%s Jahre"
 
-#: wp-includes/nav-menu.php:645 wp-includes/post-template.php:1060
+#: wp-includes/nav-menu.php:643 wp-includes/post-template.php:1072
 msgid "#%d (no title)"
 msgstr "#%d (kein Titel)"
 
-#: wp-includes/post-template.php:1427
+#: wp-includes/post-template.php:1440
 msgid "JavaScript must be enabled to use this feature."
 msgstr "Um dieses Feature zu nutzen muss JavaScript aktiviert sein. "
 
@@ -214,66 +255,62 @@ msgstr "Der Web-Browser auf deinem Gerät kann leider nicht zum Hochladen von Da
 msgid "(more&hellip;)"
 msgstr "(mehr&hellip;)"
 
-#: wp-login.php:267
+#: wp-login.php:388
 msgid "Possible reason: your host may have disabled the mail() function."
 msgstr "Mögliche Ursache: Ihr Host könnte die Funktion mail() deaktiviert haben."
 
-#: wp-login.php:357
+#: wp-includes/user.php:1702
 msgid "<strong>ERROR</strong>: Couldn&#8217;t register you&hellip; please contact the <a href=\"mailto:%s\">webmaster</a> !"
 msgstr "<strong>FEHLER</strong>: Du konntest nicht registriert werden, bitte kontaktiere den <a href=\"mailto:%s\">Webmaster</a>"
 
-#: wp-includes/post-template.php:1317
+#: wp-includes/post-template.php:1330
 msgctxt "post revision title extra"
 msgid "%1$s [Autosave]"
 msgstr "%1$s [Automatische Speicherung]"
 
-#: wp-includes/post-template.php:1319
+#: wp-includes/post-template.php:1332
 msgctxt "post revision title extra"
 msgid "%1$s [Current Revision]"
 msgstr "%1$s [Aktuelle Revision]"
 
-#: wp-includes/post-template.php:1446
-msgid "Previously restored by %1$s %2$s, %3$s ago (%4$s)"
-msgstr "Wiederhergestellt von %1$s %2$s, vor %3$s (%4$s)"
-
-#: wp-includes/script-loader.php:115
+#: wp-includes/script-loader.php:121
 msgid "Your session has expired. You can log in again from this page or go to the login page."
 msgstr "Deine Session ist abgelaufen. Du kannst dich erneut einloggen oder zur Login-Seite gehen."
 
-#: wp-includes/script-loader.php:417
+#: wp-includes/script-loader.php:423
 msgid "%1$s %2$s, %3$s @ %4$s : %5$s"
 msgstr "%2$s %1$s %3$s, %4$s : %5$s"
 
-#: wp-login.php:664
+#: wp-login.php:797
 msgid "Session expired. Please log in again. You will not move away from this page."
 msgstr "Session abgelaufen. Bitte melde dich an. Du wirst diese Seite nicht verlassen."
 
-#: wp-signup.php:506
+#: wp-signup.php:641
 msgid "Have you entered your email correctly? You have entered %s, if it&#8217;s incorrect, you will not receive your email."
 msgstr "Hast du deine E-Mail richtig eingegeben? Du hast %s eingegeben, wenn diese nicht korrekt ist, erhältst du keine E-Mail."
 
-#: wp-signup.php:572
+#: wp-signup.php:718
 msgid "The site you were looking for, <strong>%s</strong>, does not exist, but you can create it now!"
 msgstr "Die Seite, die du gesucht hast, <strong>%s</strong>, existiert nicht, aber du kannst sie jetzt erstellen!"
 
-#: wp-signup.php:574
+#: wp-signup.php:720
 msgid "The site you were looking for, <strong>%s</strong>, does not exist."
 msgstr "Die Seite die du gesucht hast, <strong>%s</strong>, existiert nicht."
 
-#: wp-includes/functions.php:3984
+#: wp-includes/functions.php:4096
 msgid "The login page will open in a new window. After logging in you can close it and return to this page."
 msgstr "Die Login-Seite wird sich in einem neuen Fenster öffnen. Nach dem Einloggen kannst du das Fenster schließen und zu dieser Seite zurückkehren."
 
-#: wp-includes/post-template.php:1365
+#: wp-includes/post-template.php:1378
 msgctxt "post revision title"
 msgid "%1$s %2$s, %3$s ago (%4$s)"
 msgstr "%1$s %2$s, vor %3$s (%4$s)"
 
-#: wp-includes/comment-template.php:1449
+#: wp-includes/comment-template.php:1743
 msgid "%s <span class=\"says\">says:</span>"
 msgstr "%s <span class=\"says\">sagt:</span>"
 
-#: wp-includes/comment-template.php:1455
+#: wp-includes/comment-template.php:1749
 msgctxt "1: date, 2: time"
 msgid "%1$s at %2$s"
 msgstr "%1$s um %2$s"
@@ -294,16 +331,16 @@ msgctxt "submit button"
 msgid "Search"
 msgstr "Suche"
 
-#: wp-includes/post-template.php:1355 wp-includes/post-template.php:1437
+#: wp-includes/post-template.php:1368
 msgctxt "revision date format"
 msgid "j F, Y @ G:i:s"
 msgstr "j. F Y @ G:i:s"
 
-#: wp-includes/functions.php:3982
+#: wp-includes/functions.php:4094
 msgid "Session expired"
 msgstr "Sitzung abgelaufen"
 
-#: wp-includes/taxonomy.php:447
+#: wp-includes/taxonomy.php:476
 msgid "No tags found."
 msgstr "Keine Tags gefunden."
 
@@ -312,7 +349,7 @@ msgctxt "meta widget link text"
 msgid "WordPress.org"
 msgstr "WordPress.org"
 
-#: wp-includes/functions.wp-scripts.php:127
+#: wp-includes/functions.wp-scripts.php:161
 msgid "Do not deregister the %1$s script in the administration area. To target the frontend theme, use the %2$s hook."
 msgstr "Deaktiviere nicht das %1$s Skript im Administrationsbereich. Um das Frontend zu erreichen, benutze den %2$s Hook."
 
@@ -324,11 +361,11 @@ msgstr "WordPress-Adresse (URL)"
 msgid "Site Address (URL)"
 msgstr "Seiten-Adresse (URL)"
 
-#: wp-includes/user.php:1452
+#: wp-includes/user.php:1473
 msgid "Invalid user ID."
 msgstr "Ungültige Benutzer-ID."
 
-#: wp-includes/media-template.php:401
+#: wp-includes/media-template.php:402
 msgid "Random Order"
 msgstr "Zufällige Sortierung"
 
@@ -336,15 +373,15 @@ msgstr "Zufällige Sortierung"
 msgid "Caption this image&hellip;"
 msgstr "Beschreibe dieses Bild"
 
-#: wp-includes/media.php:1833
+#: wp-includes/media.php:1895
 msgid "%d selected"
 msgstr "%d ausgewählt"
 
-#: wp-includes/media.php:1852
+#: wp-includes/media.php:1914
 msgid "Insert from URL"
 msgstr "Von URL einfügen"
 
-#: wp-includes/media.php:1855
+#: wp-includes/media.php:1917
 msgid "Set Featured Image"
 msgstr "Beitragsbild festlegen"
 
@@ -353,19 +390,19 @@ msgctxt "Links widget"
 msgid "Random"
 msgstr "Zufällig"
 
-#: wp-includes/media.php:1846
+#: wp-includes/media.php:1908
 msgid "No items found."
 msgstr "Keine Elemente gefunden."
 
-#: wp-includes/media.php:1865
+#: wp-includes/media.php:1927
 msgid "Add to Gallery"
 msgstr "Zur Galerie hinzufügen"
 
-#: wp-includes/media.php:1866
+#: wp-includes/media.php:1928
 msgid "Reverse order"
 msgstr "Sortierung umkehren"
 
-#: wp-includes/media.php:1856
+#: wp-includes/media.php:1918
 msgid "Set featured image"
 msgstr "Beitragsbild festlegen"
 
@@ -373,8 +410,8 @@ msgstr "Beitragsbild festlegen"
 msgid "Deselect"
 msgstr "Abwählen"
 
-#: wp-includes/class-wp-xmlrpc-server.php:3839
-#: wp-includes/class-wp-xmlrpc-server.php:3849
+#: wp-includes/class-wp-xmlrpc-server.php:3842
+#: wp-includes/class-wp-xmlrpc-server.php:3852
 msgid "Sorry, that file cannot be edited."
 msgstr "Diese Datei kann leider nicht bearbeitet werden."
 
@@ -382,7 +419,7 @@ msgstr "Diese Datei kann leider nicht bearbeitet werden."
 msgid "Your browser has some limitations uploading large files with the multi-file uploader. Please use the <a href=\"%1$s\" target=\"%2$s\">browser uploader</a> for files over 100MB."
 msgstr "Dein Browser hat eine Uploadbegrenzung für große Dateien im Multi-Dateien-Uploader. Bitte nutze den <a href=\"%1$s\" target=\"%2$s\">Browser-Uploader</a> für Dateien größer als 100MB."
 
-#: wp-includes/media.php:1849
+#: wp-includes/media.php:1911
 msgid ""
 "You are about to permanently delete this item.\n"
 "  'Cancel' to stop, 'OK' to delete."
@@ -410,7 +447,7 @@ msgstr "Fehler verwerfen"
 msgid "Error"
 msgstr "Fehler"
 
-#: wp-includes/media.php:1509
+#: wp-includes/media.php:1570
 msgid "No editor could be selected."
 msgstr "Es konnte kein Editor ausgewählt werden."
 
@@ -418,65 +455,65 @@ msgstr "Es konnte kein Editor ausgewählt werden."
 msgid "Uploading"
 msgstr "Hochladen"
 
-#: wp-includes/post.php:2122
+#: wp-includes/post.php:2179
 msgid "Manage Images"
 msgstr "Bilder verwalten"
 
-#: wp-includes/post.php:2122
+#: wp-includes/post.php:2179
 msgid "Image <span class=\"count\">(%s)</span>"
 msgid_plural "Images <span class=\"count\">(%s)</span>"
 msgstr[0] "Bild <span class=\"count\">(%s)</span>"
 msgstr[1] "Bilder <span class=\"count\">(%s)</span>"
 
-#: wp-includes/post.php:2123
+#: wp-includes/post.php:2180
 msgid "Manage Audio"
 msgstr "Audio verwalten"
 
-#: wp-includes/post.php:2123
+#: wp-includes/post.php:2180
 msgid "Audio <span class=\"count\">(%s)</span>"
 msgid_plural "Audio <span class=\"count\">(%s)</span>"
 msgstr[0] "Audio <span class=\"count\">(%s)</span>"
 msgstr[1] "Audio <span class=\"count\">(%s)</span>"
 
-#: wp-includes/post.php:2124
+#: wp-includes/post.php:2181
 msgid "Video"
 msgstr "Video"
 
-#: wp-includes/post.php:2124
+#: wp-includes/post.php:2181
 msgid "Manage Video"
 msgstr "Video verwalten"
 
-#: wp-includes/post.php:2124
+#: wp-includes/post.php:2181
 msgid "Video <span class=\"count\">(%s)</span>"
 msgid_plural "Video <span class=\"count\">(%s)</span>"
 msgstr[0] "Video <span class=\"count\">(%s)</span>"
 msgstr[1] "Videos <span class=\"count\">(%s)</span>"
 
-#: wp-includes/media.php:1847
+#: wp-includes/media.php:1909
 msgid "Insert into page"
 msgstr "In die Seite einfügen"
 
-#: wp-includes/media.php:1848
+#: wp-includes/media.php:1910
 msgid "Uploaded to this page"
 msgstr "Zu dieser Seite hochgeladen"
 
-#: wp-includes/media.php:1845
+#: wp-includes/media.php:1907
 msgid "All media items"
 msgstr "Alle Medien"
 
-#: wp-includes/media.php:1848
+#: wp-includes/media.php:1910
 msgid "Uploaded to this post"
 msgstr "Zu diesem Beitrag hochgeladen"
 
-#: wp-includes/post.php:2123
+#: wp-includes/post.php:2180
 msgid "Audio"
 msgstr "Audio"
 
-#: wp-includes/media.php:1844
+#: wp-includes/media.php:1906
 msgid "&#8592; Return to library"
 msgstr "&#8592; Zurück zur Bibliothek"
 
-#: wp-includes/media-template.php:323 wp-includes/media-template.php:455
+#: wp-includes/media-template.php:323 wp-includes/media-template.php:456
 msgid "Custom URL"
 msgstr "Benutzerdefinierte URL"
 
@@ -484,19 +521,19 @@ msgstr "Benutzerdefinierte URL"
 msgid "Attachment Details"
 msgstr "Dateianhang-Details"
 
-#: wp-includes/media-template.php:235 wp-includes/media-template.php:426
+#: wp-includes/media-template.php:235 wp-includes/media-template.php:427
 msgid "Alt Text"
 msgstr "Alternativtext"
 
-#: wp-includes/media-template.php:389
+#: wp-includes/media-template.php:390
 msgid "Columns"
 msgstr "Spalten"
 
-#: wp-includes/media.php:1834
+#: wp-includes/media.php:1896
 msgid "Drag and drop to reorder images."
 msgstr "Die Bilder per Drag and Drop ordnen."
 
-#: wp-includes/media-template.php:347 wp-includes/media.php:1689
+#: wp-includes/media-template.php:348 wp-includes/media.php:1751
 msgid "Large"
 msgstr "Groß"
 
@@ -504,19 +541,19 @@ msgstr "Groß"
 msgid "Attachment Display Settings"
 msgstr "Dateianhang Anzeigeneinstellung"
 
-#: wp-includes/media-template.php:366
+#: wp-includes/media-template.php:367
 msgid "Gallery Settings"
 msgstr "Galerie-Einstellungen"
 
-#: wp-includes/media.php:1838
+#: wp-includes/media.php:1900
 msgid "Upload Images"
 msgstr "Bilder hochladen"
 
-#: wp-includes/media.php:1861
+#: wp-includes/media.php:1923
 msgid "&#8592; Cancel Gallery"
 msgstr "&#8592; Galerie abbrechen"
 
-#: wp-includes/ms-functions.php:1647
+#: wp-includes/ms-functions.php:1657
 msgid "WordPress &rsaquo; Success"
 msgstr "WordPress &rsaquo; Erfolg"
 
@@ -524,11 +561,11 @@ msgstr "WordPress &rsaquo; Erfolg"
 msgid "Drop files anywhere to upload"
 msgstr "Drag & Drop die Dateien hierher für den Upload"
 
-#: wp-includes/media.php:1837
+#: wp-includes/media.php:1899
 msgid "Upload Files"
 msgstr "Dateien hochladen"
 
-#: wp-includes/media.php:1862
+#: wp-includes/media.php:1924
 msgid "Insert gallery"
 msgstr "Galerie einfügen"
 
@@ -536,15 +573,15 @@ msgstr "Galerie einfügen"
 msgid "Drop files to upload"
 msgstr "Dateien für den Upload bereitstellen"
 
-#: wp-includes/media.php:1841
+#: wp-includes/media.php:1903
 msgid "Media Library"
 msgstr "Mediathek"
 
-#: wp-includes/media.php:1859
+#: wp-includes/media.php:1921
 msgid "Create Gallery"
 msgstr "Galerie erstellen"
 
-#: wp-includes/ms-functions.php:780
+#: wp-includes/ms-functions.php:784
 msgid ""
 "To activate your user, please click the following link:\n"
 "\n"
@@ -556,19 +593,19 @@ msgstr ""
 "%s \n"
 "Nach dem Aktivieren erhältst du *eine neue E-Mail* mit deinen Zugangsdaten. "
 
-#: wp-includes/ms-functions.php:1127
+#: wp-includes/ms-functions.php:1135
 msgid "Already Installed"
 msgstr "Bereits installiert"
 
-#: wp-includes/ms-functions.php:1127
+#: wp-includes/ms-functions.php:1135
 msgid "You appear to have already installed WordPress. To reinstall please clear your old database tables first."
 msgstr "WordPress ist bereits installiert. Für eine Neuinstallation lösche bitte zuerst deine alte Datenbank."
 
-#: wp-includes/taxonomy.php:336
+#: wp-includes/taxonomy.php:347
 msgid "Taxonomies cannot exceed 32 characters in length"
 msgstr "Taxonomien können nicht mehr als 32 Zeichen lang sein"
 
-#: wp-includes/ms-functions.php:1011
+#: wp-includes/ms-functions.php:1016
 msgid ""
 "New Site: %1$s\n"
 "URL: %2$s\n"
@@ -582,7 +619,7 @@ msgstr ""
 "\n"
 "Deaktiviere diese Meldungen: %4$s"
 
-#: wp-includes/ms-functions.php:1046
+#: wp-includes/ms-functions.php:1051
 msgid ""
 "New User: %1$s\n"
 "Remote IP: %2$s\n"
@@ -594,16 +631,16 @@ msgstr ""
 "\n"
 "Deaktiviere diese Mitteilungen: %3$s\n"
 
-#: wp-includes/media-template.php:291 wp-includes/media-template.php:369
-#: wp-includes/media-template.php:449
+#: wp-includes/media-template.php:291 wp-includes/media-template.php:370
+#: wp-includes/media-template.php:450
 msgid "Link To"
 msgstr "Link zur"
 
-#: wp-includes/media-template.php:318 wp-includes/media-template.php:377
+#: wp-includes/media-template.php:318 wp-includes/media-template.php:378
 msgid "Attachment Page"
 msgstr "Anhang-Seite"
 
-#: wp-includes/media-template.php:311 wp-includes/media-template.php:380
+#: wp-includes/media-template.php:311 wp-includes/media-template.php:381
 msgid "Media File"
 msgstr "Medien-Datei"
 
@@ -619,19 +656,19 @@ msgstr "Beschreibe diese Audiodatei&hellip;"
 msgid "Describe this media file&hellip;"
 msgstr "Beschreibe diese Mediendatei&hellip;"
 
-#: wp-includes/media.php:1863
+#: wp-includes/media.php:1925
 msgid "Update gallery"
 msgstr "Galerie aktualisieren"
 
-#: wp-includes/ms-functions.php:185
+#: wp-includes/ms-functions.php:186
 msgid "The requested user does not exist."
 msgstr "Der angeforderte Benutzer existiert nicht."
 
-#: wp-includes/ms-functions.php:467
+#: wp-includes/ms-functions.php:471
 msgid "Please enter a valid email address."
 msgstr "Bitte gib eine gültige E-Mail-Adresse ein."
 
-#: wp-login.php:334
+#: wp-includes/user.php:1679
 msgid "<strong>ERROR</strong>: This username is already registered. Please choose another one."
 msgstr "<strong>ERROR</strong>: Dieser Benutzername ist bereits registriert. Bitte wähle einen anderen."
 
@@ -654,22 +691,22 @@ msgstr "Bildgröße nicht lesbar."
 msgid "Image resize failed."
 msgstr "Änderung der Bildgröße fehlgeschlagen."
 
-#: wp-includes/class-wp-image-editor-gd.php:263
+#: wp-includes/class-wp-image-editor-gd.php:267
 msgid "Image crop failed."
 msgstr "Zuschneiden des Bildes fehlgeschlagen."
 
-#: wp-includes/class-wp-image-editor-gd.php:287
+#: wp-includes/class-wp-image-editor-gd.php:291
 msgid "Image rotate failed."
 msgstr "Drehung des Bildes fehlgeschlagen."
 
-#: wp-includes/class-wp-image-editor-gd.php:317
+#: wp-includes/class-wp-image-editor-gd.php:321
 msgid "Image flip failed."
 msgstr "Spiegeln des Bildes fehlgeschlagen."
 
-#: wp-includes/class-wp-image-editor-gd.php:349
-#: wp-includes/class-wp-image-editor-gd.php:357
+#: wp-includes/class-wp-image-editor-gd.php:353
 #: wp-includes/class-wp-image-editor-gd.php:361
-#: wp-includes/class-wp-image-editor-gd.php:364
+#: wp-includes/class-wp-image-editor-gd.php:365
+#: wp-includes/class-wp-image-editor-gd.php:368
 msgid "Image Editor Save Failed"
 msgstr "Das Speichern der Bildbearbeitung ist fehlgeschlagen"
 
@@ -687,43 +724,43 @@ msgstr "Erstellen"
 msgid "View Attachment Page"
 msgstr "Zeige Anhangseite"
 
-#: wp-includes/post.php:2729
+#: wp-includes/post.php:2800
 msgid "Whoops, the provided date is invalid."
 msgstr "Ups, das eingegebene Datum ist ungültig."
 
-#: wp-includes/media.php:1842
+#: wp-includes/media.php:1904
 msgid "Insert Media"
 msgstr "Medien hinzufügen"
 
-#: wp-includes/media.php:1843
+#: wp-includes/media.php:1905
 msgid "Create a new gallery"
 msgstr "Erstelle eine neue Galerie"
 
-#: wp-includes/media.php:1847
+#: wp-includes/media.php:1909
 msgid "Insert into post"
 msgstr "In den Beitrag einfügen"
 
-#: wp-includes/media.php:1864
+#: wp-includes/media.php:1926
 msgid "Add to gallery"
 msgstr "Zur Galerie hinzufügen"
 
-#: wp-includes/media-template.php:252 wp-includes/script-loader.php:475
+#: wp-includes/media-template.php:252 wp-includes/script-loader.php:481
 msgid "Clear"
 msgstr "Leeren"
 
-#: wp-includes/script-loader.php:477
+#: wp-includes/script-loader.php:483
 msgid "Select Color"
 msgstr "Farbe wählen"
 
-#: wp-includes/script-loader.php:478
+#: wp-includes/script-loader.php:484
 msgid "Current Color"
 msgstr "Aktuelle Farbe"
 
-#: wp-includes/taxonomy.php:2242
+#: wp-includes/taxonomy.php:2310
 msgid "Could not insert term relationship into the database"
 msgstr "Konnte keine Begriffsbeziehung in die Datenbank einfügen."
 
-#: wp-includes/user.php:1346
+#: wp-includes/user.php:1367
 msgctxt "Display name based on first name and last name"
 msgid "%1$s %2$s"
 msgstr "%1$s %2$s"
@@ -736,11 +773,11 @@ msgstr "Benutzer oder Passwort falsch."
 msgid "XML-RPC services are disabled on this site."
 msgstr "Der XML-RPC Service wurde auf dieser Seite deaktiviert."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1267
+#: wp-includes/class-wp-xmlrpc-server.php:1270
 msgid "There is a revision of this post that is more recent."
 msgstr "Es existiert eine aktuellere Revision dieses Beitrags."
 
-#: wp-includes/general-template.php:1668
+#: wp-includes/general-template.php:1687
 msgid "%1$s %2$s %3$s Feed"
 msgstr "%1$s %2$s %3$s Feed"
 
@@ -748,48 +785,48 @@ msgstr "%1$s %2$s %3$s Feed"
 msgid "Display post date?"
 msgstr "Veröffentlichungsdatum anzeigen?"
 
-#: wp-includes/class-wp-xmlrpc-server.php:4133
+#: wp-includes/class-wp-xmlrpc-server.php:4136
 msgid "You are not allowed to create pages as this user."
 msgstr "Du darfst als dieser Benutzer keine Seiten anlegen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:3537
-#: wp-includes/class-wp-xmlrpc-server.php:3598
+#: wp-includes/class-wp-xmlrpc-server.php:3540
 #: wp-includes/class-wp-xmlrpc-server.php:3601
 #: wp-includes/class-wp-xmlrpc-server.php:3604
+#: wp-includes/class-wp-xmlrpc-server.php:3607
 msgid "Invalid post ID"
 msgstr "Ungültige Beitrags-ID"
 
-#: wp-includes/class-wp-xmlrpc-server.php:2038
+#: wp-includes/class-wp-xmlrpc-server.php:2041
 msgid "Sorry, you cannot edit users."
 msgstr "Verzeihung, du kannst keine Benutzer bearbeiten."
 
-#: wp-includes/class-wp-xmlrpc-server.php:2043
+#: wp-includes/class-wp-xmlrpc-server.php:2046
 msgid "Invalid user ID"
 msgstr "Ungültige Benutzer-ID"
 
-#: wp-includes/class-wp-xmlrpc-server.php:2091
+#: wp-includes/class-wp-xmlrpc-server.php:2094
 msgid "Sorry, you cannot list users."
 msgstr "Verzeihung, du kannst keine Benutzer auflisten."
 
-#: wp-includes/class-wp-xmlrpc-server.php:2107
+#: wp-includes/class-wp-xmlrpc-server.php:2110
 msgid "The role specified is not valid"
 msgstr "Die gewählte Benutzerrolle ist nicht gültig."
 
-#: wp-includes/class-wp-xmlrpc-server.php:2158
-#: wp-includes/class-wp-xmlrpc-server.php:2201
+#: wp-includes/class-wp-xmlrpc-server.php:2161
+#: wp-includes/class-wp-xmlrpc-server.php:2204
 msgid "Sorry, you cannot edit your profile."
 msgstr "Bedaure, du kannst dein Profil nicht bearbeiten."
 
-#: wp-includes/class-wp-xmlrpc-server.php:2235
+#: wp-includes/class-wp-xmlrpc-server.php:2238
 msgid "Sorry, the user cannot be updated."
 msgstr "Bedaure, dieser Benutzer kann nicht aktualisiert werden."
 
-#: wp-includes/class-wp-xmlrpc-server.php:3540
+#: wp-includes/class-wp-xmlrpc-server.php:3543
 msgid "Sorry, you are not allowed to edit posts."
 msgstr "Bedaure, dir ist nicht erlaubt, Beiträge zu bearbeiten."
 
-#: wp-includes/class-wp-xmlrpc-server.php:3544
-#: wp-includes/class-wp-xmlrpc-server.php:3611
+#: wp-includes/class-wp-xmlrpc-server.php:3547
+#: wp-includes/class-wp-xmlrpc-server.php:3614
 msgid "Sorry, revisions are disabled."
 msgstr "Bedaure, Revisionen sind deaktiviert."
 
@@ -837,11 +874,11 @@ msgstr "Editor-Breite im freien Schreibmodus"
 msgid "QuickTime options"
 msgstr "QuickTime-Einstellungen"
 
-#: wp-includes/class-wp-admin-bar.php:351
+#: wp-includes/class-wp-admin-bar.php:360
 msgid "Skip to toolbar"
 msgstr "Springe zur Werkzeugleiste"
 
-#: wp-includes/class-wp-admin-bar.php:352
+#: wp-includes/class-wp-admin-bar.php:361
 msgid "Top navigation toolbar."
 msgstr "Obere Navigationswerkzeugleiste"
 
@@ -870,19 +907,19 @@ msgstr "Textfarbe in der Kopfzeile"
 msgid "Colors"
 msgstr "Farben"
 
-#: wp-includes/script-loader.php:355
+#: wp-includes/script-loader.php:368
 msgid "Save &amp; Activate"
 msgstr "Speichern &amp; Aktivieren"
 
-#: wp-includes/script-loader.php:357
+#: wp-includes/script-loader.php:370
 msgid "Saved"
 msgstr "Gespeichert"
 
-#: wp-login.php:678
+#: wp-login.php:811
 msgid "<strong>You have successfully updated WordPress!</strong> Please log back in to experience the awesomeness."
 msgstr "<strong>Du hast WordPress erfolgreich aktualisiert!</strong> Logge dich wieder ein um die Updates genießen zu können."
 
-#: wp-includes/script-loader.php:356
+#: wp-includes/script-loader.php:369
 msgid "Save &amp; Publish"
 msgstr "Speichern &amp; Publizieren"
 
@@ -890,7 +927,7 @@ msgstr "Speichern &amp; Publizieren"
 msgid "Select File"
 msgstr "Datei auswählen"
 
-#: wp-includes/admin-bar.php:589
+#: wp-includes/admin-bar.php:613
 msgid "Customize"
 msgstr "Anpassen"
 
@@ -898,7 +935,7 @@ msgstr "Anpassen"
 msgid "Insufficient arguments passed to this XML-RPC method."
 msgstr "Es wurden zu wenig Argumente an diese XML-RPC-Methode gesendet."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1086
+#: wp-includes/class-wp-xmlrpc-server.php:1089
 msgid "Sorry, you cannot stick a private post."
 msgstr "Private Beiträge können leider nicht oben gehalten werden."
 
@@ -958,49 +995,45 @@ msgstr "Kopfbild"
 msgid "Post Thumbnail"
 msgstr "Beitrag-Miniaturbild"
 
-#: wp-includes/script-loader.php:85
+#: wp-includes/script-loader.php:91
 msgid "text direction"
 msgstr "Textrichtung"
 
-#: wp-includes/script-loader.php:86
+#: wp-includes/script-loader.php:92
 msgid "Toggle Editor Text Direction"
 msgstr "Textrichtung umschalten"
 
-#: wp-includes/ms-functions.php:563
+#: wp-includes/ms-functions.php:567
 msgid "Site name must be at least 4 characters."
 msgstr "Der Seitenname muss mindestens 4 Zeichen lang sein."
 
-#: wp-includes/ms-functions.php:554
+#: wp-includes/ms-functions.php:558
 msgid "Please enter a site name."
 msgstr "Bitte gib einen Seitennamen ein."
 
-#: wp-includes/ms-functions.php:451
+#: wp-includes/ms-functions.php:455
 msgid "That username is not allowed."
 msgstr "Dieser Benutzername ist nicht erlaubt."
 
-#: wp-includes/ms-functions.php:443
+#: wp-includes/ms-functions.php:447
 msgid "Please enter a username."
 msgstr "Bitte gib einen Benutzernamen ein."
 
-#: wp-includes/ms-functions.php:581
+#: wp-includes/ms-functions.php:585
 msgid "Please enter a site title."
 msgstr "Bitte gib einen Seitentitel ein."
 
-#: wp-includes/ms-functions.php:560
+#: wp-includes/ms-functions.php:564
 msgid "That name is not allowed."
 msgstr "Dieser Name ist nicht erlaubt."
 
-#: wp-includes/ms-functions.php:457
+#: wp-includes/ms-functions.php:461
 msgid "Username must be at least 4 characters."
 msgstr "Der Benutzername muss mindestens aus 4 Zeichen bestehen."
 
 #: wp-includes/class-wp-customize-manager.php:945
 msgid "A static page"
 msgstr "Eine statische Seite"
-
-#: wp-includes/class-wp-theme.php:209
-msgid "The theme directory does not exist."
-msgstr "Das Themeverzeichnis existiert nicht."
 
 #: wp-includes/class-wp-customize-manager.php:764
 msgid "Display Header Text"
@@ -1039,7 +1072,7 @@ msgstr "Hinzufügen"
 msgid "Remove Image"
 msgstr "Kein Bild verwenden"
 
-#: wp-includes/class-wp-xmlrpc-server.php:3442
+#: wp-includes/class-wp-xmlrpc-server.php:3445
 msgid "Sorry, you are not allowed to edit this post type."
 msgstr "Bedaure, dir ist nicht erlaubt, diesen Inhaltstyp zu bearbeiten."
 
@@ -1084,55 +1117,55 @@ msgstr "Hochladen"
 msgid "Remove"
 msgstr "Entfernen"
 
-#: wp-includes/media.php:1586 wp-includes/script-loader.php:363
+#: wp-includes/media.php:1647 wp-includes/script-loader.php:376
 msgid "Allowed Files"
 msgstr "Erlaubte Dateien"
 
-#: wp-includes/class-wp-xmlrpc-server.php:1560
-#: wp-includes/class-wp-xmlrpc-server.php:1658
+#: wp-includes/class-wp-xmlrpc-server.php:1563
+#: wp-includes/class-wp-xmlrpc-server.php:1661
 msgid "The term name cannot be empty."
 msgstr "Der Begriffname darf nicht leer sein."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1551
+#: wp-includes/class-wp-xmlrpc-server.php:1554
 msgid "You are not allowed to create terms in this taxonomy."
 msgstr "Dir ist nicht erlaubt, Begriffe in dieser Taxonomie zu erstellen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1564
+#: wp-includes/class-wp-xmlrpc-server.php:1567
 msgid "This taxonomy is not hierarchical."
 msgstr "Diese Taxonomie ist nicht hierarchisch."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1573
-#: wp-includes/class-wp-xmlrpc-server.php:1672
+#: wp-includes/class-wp-xmlrpc-server.php:1576
+#: wp-includes/class-wp-xmlrpc-server.php:1675
 msgid "Parent term does not exist."
 msgstr "Eltern-Begriff existiert nicht."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1590
+#: wp-includes/class-wp-xmlrpc-server.php:1593
 msgid "Sorry, your term could not be created. Something wrong happened."
 msgstr "Leider konnte dein Begriff nicht erstellt werden. Etwas ist falsch gelaufen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1639
+#: wp-includes/class-wp-xmlrpc-server.php:1642
 msgid "You are not allowed to edit terms in this taxonomy."
 msgstr "Dir ist nicht erlaubt, Begriffe in dieser Taxonomie zu bearbeiten."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1663
+#: wp-includes/class-wp-xmlrpc-server.php:1666
 msgid "This taxonomy is not hierarchical so you can't set a parent."
 msgstr "Diese Taxonomie ist nicht hierarchisch, daher kannst du keine Eltern-Begriffe erstellen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1689
+#: wp-includes/class-wp-xmlrpc-server.php:1692
 msgid "Sorry, editing the term failed."
 msgstr "Bedaure, die Bearbeitung des Begriffs ist fehlgeschlagen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1731
+#: wp-includes/class-wp-xmlrpc-server.php:1734
 msgid "You are not allowed to delete terms in this taxonomy."
 msgstr "Dir ist nicht erlaubt, Begriffe in dieser Taxonomie zu löschen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1747
+#: wp-includes/class-wp-xmlrpc-server.php:1750
 msgid "Sorry, deleting the term failed."
 msgstr "Bedaure, das Löschen des Begriffs ist fehlgeschlagen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1798
-#: wp-includes/class-wp-xmlrpc-server.php:1851
-#: wp-includes/class-wp-xmlrpc-server.php:1930
+#: wp-includes/class-wp-xmlrpc-server.php:1801
+#: wp-includes/class-wp-xmlrpc-server.php:1854
+#: wp-includes/class-wp-xmlrpc-server.php:1933
 msgid "You are not allowed to assign terms in this taxonomy."
 msgstr "Dir ist nicht erlaubt, Begriffe dieser Taxonomie zuzuweisen."
 
@@ -1227,13 +1260,13 @@ msgstr "Styles"
 msgid "Use left and right arrows to navigate."
 msgstr "Verwende die linke und rechte Pfeiltaste zum Navigieren."
 
-#: wp-includes/formatting.php:2227 wp-includes/script-loader.php:343
+#: wp-includes/formatting.php:2228 wp-includes/script-loader.php:356
 msgctxt "word count: words or characters?"
 msgid "words"
 msgstr "words"
 
-#: wp-includes/class-wp-xmlrpc-server.php:1017
-#: wp-includes/class-wp-xmlrpc-server.php:4390
+#: wp-includes/class-wp-xmlrpc-server.php:1020
+#: wp-includes/class-wp-xmlrpc-server.php:4393
 msgid "The post type may not be changed."
 msgstr "Dieser Inhaltstyp kann nicht geändert werden."
 
@@ -1249,86 +1282,86 @@ msgstr "Standard-Bildlink"
 msgid "Image default align"
 msgstr "Standard Bildausrichtung"
 
-#: wp-includes/class-wp-xmlrpc-server.php:1015
+#: wp-includes/class-wp-xmlrpc-server.php:1018
 msgid "Sorry, you are not allowed to edit this post."
 msgstr "Bedaure, du hast keine Berechtigung, um diesen Beitrag zu editieren."
 
-#: wp-includes/post.php:3164 wp-includes/script-loader.php:431
-#: wp-includes/script-loader.php:456
+#: wp-includes/post.php:3237 wp-includes/script-loader.php:437
+#: wp-includes/script-loader.php:462
 msgctxt "tag delimiter"
 msgid ","
 msgstr ","
 
-#: wp-includes/admin-bar.php:255
+#: wp-includes/admin-bar.php:263
 msgid "Edit Site"
 msgstr "Seite bearbeiten"
 
-#: wp-includes/class-wp-xmlrpc-server.php:1467
+#: wp-includes/class-wp-xmlrpc-server.php:1470
 msgid "Sorry, you are not allowed to edit posts in this post type"
 msgstr "Bedaure, du hast keine Berechtigung, um diesen Inhaltstyp zu editieren."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1053
-#: wp-includes/class-wp-xmlrpc-server.php:4141
+#: wp-includes/class-wp-xmlrpc-server.php:1056
+#: wp-includes/class-wp-xmlrpc-server.php:4144
 msgid "Invalid author ID."
 msgstr "Ungültige Autoren-ID."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1325
+#: wp-includes/class-wp-xmlrpc-server.php:1328
 msgid "Sorry, you are not allowed to delete this post."
 msgstr "Bedaure, du hast keine Berechtigung, um diesen Beitrag zu löschen. "
 
-#: wp-includes/class-wp-xmlrpc-server.php:1170
+#: wp-includes/class-wp-xmlrpc-server.php:1173
 msgid "Ambiguous term name used in a hierarchical taxonomy. Please use term ID instead."
 msgstr "Der Term ist in der hierarchischen Taxonomie mehrdeutig. Bitte stattdessen die Term-ID nutzen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1177
+#: wp-includes/class-wp-xmlrpc-server.php:1180
 msgid "Sorry, you are not allowed to add a term to one of the given taxonomies."
 msgstr "Leider bist du nicht berechtigt, einen Begriff in eine der gegebenen Taxonomien hinzuzufügen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1330
+#: wp-includes/class-wp-xmlrpc-server.php:1333
 msgid "The post cannot be deleted."
 msgstr "Der Beitrag kann nicht gelöscht werden."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1461
+#: wp-includes/class-wp-xmlrpc-server.php:1464
 msgid "The post type specified is not valid"
 msgstr "Der angegebene Inhaltstyp ist ungültig"
 
-#: wp-includes/class-wp-xmlrpc-server.php:1007
-#: wp-includes/class-wp-xmlrpc-server.php:3437
-#: wp-includes/class-wp-xmlrpc-server.php:4078
-#: wp-includes/class-wp-xmlrpc-server.php:4136
-#: wp-includes/class-wp-xmlrpc-server.php:4386
-#: wp-includes/class-wp-xmlrpc-server.php:4438
+#: wp-includes/class-wp-xmlrpc-server.php:1010
+#: wp-includes/class-wp-xmlrpc-server.php:3440
+#: wp-includes/class-wp-xmlrpc-server.php:4081
+#: wp-includes/class-wp-xmlrpc-server.php:4139
+#: wp-includes/class-wp-xmlrpc-server.php:4389
+#: wp-includes/class-wp-xmlrpc-server.php:4441
 msgid "Invalid post type"
 msgstr "Ungültiger Inhaltstyp"
 
-#: wp-includes/class-wp-xmlrpc-server.php:1043
+#: wp-includes/class-wp-xmlrpc-server.php:1046
 msgid "Sorry, you are not allowed to create password protected posts in this post type"
 msgstr "Leider bist du nicht berechtigt, einen passwortgeschützten Beitrag mit diesem Inhaltstyp zu erstellen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1048
-#: wp-includes/class-wp-xmlrpc-server.php:4129
+#: wp-includes/class-wp-xmlrpc-server.php:1051
+#: wp-includes/class-wp-xmlrpc-server.php:4132
 msgid "You are not allowed to create posts as this user."
 msgstr "Du bist nicht berechtigt, als dieser Benutzer Beiträge zu erstellen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1029
+#: wp-includes/class-wp-xmlrpc-server.php:1032
 msgid "Sorry, you are not allowed to create private posts in this post type"
 msgstr "Leider bist du nicht berechtigt, einen privaten Beitrag mit diesem Inhaltstyp zu erstellen"
 
-#: wp-includes/class-wp-xmlrpc-server.php:1034
+#: wp-includes/class-wp-xmlrpc-server.php:1037
 msgid "Sorry, you are not allowed to publish posts in this post type"
 msgstr "Leider bist du nicht berechtigt, einen Beitrag mit diesem Inhaltstyp zu veröffentlichen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1128
-#: wp-includes/class-wp-xmlrpc-server.php:1151
+#: wp-includes/class-wp-xmlrpc-server.php:1131
+#: wp-includes/class-wp-xmlrpc-server.php:1154
 msgid "Sorry, you are not allowed to assign a term to one of the given taxonomies."
 msgstr "Leider bist du nicht berechtigt, einen Begriff einer der gegebenen Taxonomien zuzuordnen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1125
-#: wp-includes/class-wp-xmlrpc-server.php:1148
+#: wp-includes/class-wp-xmlrpc-server.php:1128
+#: wp-includes/class-wp-xmlrpc-server.php:1151
 msgid "Sorry, one of the given taxonomies is not supported by the post type."
 msgstr "Leider wird eine der vorgegebenen Taxonomien nicht von diesem Inhaltstyp unterstützt."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1091
+#: wp-includes/class-wp-xmlrpc-server.php:1094
 msgid "Sorry, you are not allowed to stick this post."
 msgstr "Leider bist du nicht berechtigt, diesen Beitrag oben zu halten."
 
@@ -1336,7 +1369,7 @@ msgstr "Leider bist du nicht berechtigt, diesen Beitrag oben zu halten."
 msgid "English=en,Danish=da,Dutch=nl,Finnish=fi,French=fr,German=de,Italian=it,Polish=pl,Portuguese=pt,Spanish=es,Swedish=sv"
 msgstr "Deutsch=de,Englisch=en,Dänisch=da,Holländisch=nl,Finnisch=fi,Französisch=fr,Italienisch=it,Polnisch=pl,Portugiesisch=pt,Spanisch=es,Schwedisch=sv"
 
-#: wp-includes/formatting.php:37 wp-includes/formatting.php:3334
+#: wp-includes/formatting.php:37 wp-includes/formatting.php:3335
 msgctxt "opening curly double quote"
 msgid "&#8220;"
 msgstr "&#8220;"
@@ -1371,83 +1404,83 @@ msgctxt "closing curly single quote"
 msgid "&#8217;"
 msgstr "&#8217;"
 
-#: wp-signup.php:117
+#: wp-signup.php:127
 msgid "Allow search engines to index this site."
 msgstr "Suchmaschinen dürfen diese Webseite indexieren."
 
-#: wp-load.php:57
+#: wp-load.php:56
 msgid "There doesn't seem to be a <code>wp-config.php</code> file. I need this before we can get started."
 msgstr "Es scheint so, als ob die Datei <code>wp-config.php</code> nicht existiert. Ich brauche diese Datei, bevor wir starten können."
 
-#: wp-load.php:58
+#: wp-load.php:57
 msgid "Need more help? <a href='http://codex.wordpress.org/Editing_wp-config.php'>We got it</a>."
 msgstr "Brauchst du Hilfe? <a href='http://codex.wordpress.org/Editing_wp-config.php'>Hier gibt es die englischsprachige Anleitung</a>."
 
-#: wp-load.php:59
+#: wp-load.php:58
 msgid "You can create a <code>wp-config.php</code> file through a web interface, but this doesn't work for all server setups. The safest way is to manually create the file."
 msgstr "Du kannst die Datei <code>wp-config.php</code> durch das Webinterface erstellen, aber das funktioniert nicht mit allen Serverkonfigurationen. Der sicherste Weg ist, die Datei manuell zu erstellen."
 
-#: wp-load.php:60
+#: wp-load.php:59
 msgid "Create a Configuration File"
 msgstr "Erstelle die Konfigurationsdatei"
 
-#: wp-includes/admin-bar.php:101 wp-includes/default-widgets.php:319
-#: wp-login.php:87
+#: wp-includes/admin-bar.php:103 wp-includes/default-widgets.php:319
+#: wp-login.php:95
 msgid "http://wordpress.org/"
 msgstr "http://wordpress.org/"
 
-#: wp-includes/admin-bar.php:109
+#: wp-includes/admin-bar.php:111
 msgid "http://codex.wordpress.org/"
 msgstr "http://codex.wordpress.org/"
 
-#: wp-activate.php:85
+#: wp-activate.php:98
 msgid "Your site at <a href=\"%1$s\">%2$s</a> is active. You may now log in to your site using your chosen username of &#8220;%3$s&#8221;. Please check your email inbox at %4$s for your password and login instructions. If you do not receive an email, please check your junk or spam folder. If you still do not receive an email within an hour, you can <a href=\"%5$s\">reset your password</a>."
 msgstr "Deine Seite <a href=\"%1$s\">%2$s</a> ist aktiviert. Du kannst dich nun mit dem gewählten Benutzername &#8220;%3$s&#8221; einloggen. Bitte überprüfe deinen E-Mail-Posteingang %4$s für dein Passwort und die Login-Instruktionen. Falls du keine E-Mail erhalten hast, überprüfe bitte auch deinen Spam-Ordner. Solltest du nicht innerhalb von einer Stunde eine E-Mail erhalten haben, kannst du dein <a href=\"%5$s\">Passwort zurücksetzen</a> lassen."
 
-#: wp-signup.php:297
+#: wp-signup.php:376
 msgid "<a href=\"http://%1$s\">http://%2$s</a> is your new site. <a href=\"%3$s\">Log in</a> as &#8220;%4$s&#8221; using your existing password."
 msgstr "<a href=\"http://%1$s\">http://%2$s</a> ist deine neue Webseite. <a href=\"%3$s\">Melde dich an </a> als &#8220;%4$s&#8221; und verwende dein existierendes Passwort."
 
-#: wp-activate.php:83
+#: wp-activate.php:96
 msgid "Your account has been activated. You may now <a href=\"%1$s\">log in</a> to the site using your chosen username of &#8220;%2$s&#8221;. Please check your email inbox at %3$s for your password and login instructions. If you do not receive an email, please check your junk or spam folder. If you still do not receive an email within an hour, you can <a href=\"%4$s\">reset your password</a>."
 msgstr "Dein Benutzerkonto wurde aktiviert. Du kannst dich nun mit dem gewählten Benutzername &#8220;%2$s&#8221; <a href=\"%1$s\">anmelden</a>. Bitte überprüfe deinen E-Mail-Posteingang %3$s für dein Passwort und die Login-Instruktionen. Falls du keine E-Mail erhalten hast, überprüfe bitte auch deinen Spam-Ordner. Solltest du nicht innerhalb von einer Stunde eine E-Mail erhalten haben, kannst du dein <a href=\"%4$s\">Passwort zurücksetzen</a>."
 
-#: wp-includes/functions.php:1153
+#: wp-includes/functions.php:1180
 msgid "One or more database tables are unavailable. The database may need to be <a href=\"%s\">repaired</a>."
 msgstr "Eine oder mehrere Datenbanktabellen sind nicht erreichbar. Die Datenbank muss eventuell <a href=\"%s\">repariert</a> werden."
 
-#: wp-mail.php:225
+#: wp-mail.php:226
 msgid "Mission complete. Message <strong>%s</strong> deleted."
 msgstr "Mission erfüllt. Nachricht <strong>%s</strong> gelöscht."
 
-#: wp-includes/comment.php:740 wp-includes/comment.php:742
+#: wp-includes/comment.php:752 wp-includes/comment.php:754
 msgid "You are posting comments too quickly. Slow down."
 msgstr "Du schreibst die Kommentare zu schnell. Mach mal langsam."
 
-#: wp-includes/admin-bar.php:524
+#: wp-includes/admin-bar.php:544
 msgctxt "admin bar menu group label"
 msgid "New"
 msgstr "Neu"
 
-#: wp-includes/admin-bar.php:558
+#: wp-includes/admin-bar.php:580
 msgid "%s comment awaiting moderation"
 msgid_plural "%s comments awaiting moderation"
 msgstr[0] "%s Kommentar wartet auf Moderation"
 msgstr[1] "%s Kommentare warten auf Moderation"
 
-#: wp-includes/ms-load.php:247
+#: wp-includes/ms-load.php:253
 msgid "What do I do now?"
 msgstr "Was mache ich jetzt?"
 
-#: wp-includes/script-loader.php:229
+#: wp-includes/script-loader.php:235
 msgid "%s exceeds the maximum upload size for the multi-file uploader when used in your browser."
 msgstr "%s übersteigt das Upload-Limit für den Mehrdateien-Uploader."
 
-#: wp-includes/script-loader.php:228
+#: wp-includes/script-loader.php:234
 msgid "Please try uploading this file with the %1$sbrowser uploader%2$s."
 msgstr "Bitte versuche diese Datei mit dem %1$sBrowser-Uploader%2$s hochzuladen."
 
-#: wp-includes/script-loader.php:237
+#: wp-includes/script-loader.php:243
 msgid "&#8220;%s&#8221; has failed to upload."
 msgstr "&#8220;%s&#8221; konnte nicht hochgeladen werden."
 
@@ -1519,39 +1552,35 @@ msgctxt "em dash"
 msgid "&#8212;"
 msgstr "&#8212;"
 
-#: wp-includes/class-wp-admin-bar.php:96
+#: wp-includes/class-wp-admin-bar.php:105
 msgid "The menu ID should not be empty."
 msgstr "Die Menü-ID darf nicht leer sein. "
 
-#: wp-includes/admin-bar.php:82 wp-includes/admin-bar.php:91
+#: wp-includes/admin-bar.php:84 wp-includes/admin-bar.php:93
 msgid "About WordPress"
 msgstr "Über WordPress"
 
-#: wp-includes/admin-bar.php:330
-msgid "Visit Network"
-msgstr "Zum Netzwerk gehen"
-
-#: wp-includes/admin-bar.php:117
+#: wp-includes/admin-bar.php:119
 msgid "http://wordpress.org/support/"
-msgstr "http://wordpress.org/support/"
+msgstr "http://forum.wpde.org"
 
-#: wp-includes/admin-bar.php:125
+#: wp-includes/admin-bar.php:127
 msgid "http://wordpress.org/support/forum/requests-and-feedback"
 msgstr "http://wordpress.org/support/forum/requests-and-feedback"
 
-#: wp-includes/script-loader.php:217
+#: wp-includes/script-loader.php:223
 msgid "%s exceeds the maximum upload size for this site."
 msgstr "%s überschreitet das Upload-Limit."
 
-#: wp-includes/functions.php:3011
+#: wp-includes/functions.php:3059
 msgid "Please see <a href=\"http://codex.wordpress.org/Debugging_in_WordPress\">Debugging in WordPress</a> for more information."
 msgstr "Schau Dir <a href=\"http://codex.wordpress.org/Debugging_in_WordPress\">Debugging in WordPress</a> an, um mehr darüber zu erfahren."
 
-#: wp-includes/admin-bar.php:124
+#: wp-includes/admin-bar.php:126
 msgid "Feedback"
 msgstr "Feedback"
 
-#: wp-includes/ms-functions.php:1207
+#: wp-includes/ms-functions.php:1215
 msgid ""
 "Dear User,\n"
 "\n"
@@ -1581,15 +1610,15 @@ msgstr ""
 "\n"
 "--Das Team von SITE_NAME"
 
-#: wp-comments-post.php:84
+#: wp-comments-post.php:122
 msgid "<strong>ERROR</strong>: please type a comment."
 msgstr "<strong>FEHLER</strong>: Bitte gib einen Kommentar ein."
 
-#: wp-comments-post.php:80
+#: wp-comments-post.php:118
 msgid "<strong>ERROR</strong>: please enter a valid email address."
 msgstr "<strong>FEHLER</strong>: Bitte gib eine gültige E-Mail-Adresse an."
 
-#: wp-comments-post.php:78
+#: wp-comments-post.php:116
 msgid "<strong>ERROR</strong>: please fill the required fields (name, email)."
 msgstr "<strong>FEHLER</strong>: Bitte fülle die erforderlichen Felder aus (Name, E-Mail-Adresse).\t"
 
@@ -1597,15 +1626,15 @@ msgstr "<strong>FEHLER</strong>: Bitte fülle die erforderlichen Felder aus (Nam
 msgid "ERROR: Invalid values entered, these are marked in red."
 msgstr "FEHLER: Es wurden ungültige Werte eingegeben, sie wurden rot gekennzeichnet."
 
-#: wp-includes/script-loader.php:489
+#: wp-includes/script-loader.php:495
 msgid "Could not load the preview image. Please reload the page and try again."
 msgstr "Konnte das Vorschaubild nicht laden. Bitte lade die Seite neu und probiere es erneut. "
 
-#: wp-includes/ms-functions.php:287
+#: wp-includes/ms-functions.php:288
 msgid "<strong>ERROR</strong>: Site URL already taken."
 msgstr "<strong>FEHLER</strong>: Seiten-Adresse ist schon vergeben."
 
-#: wp-includes/ms-functions.php:294
+#: wp-includes/ms-functions.php:295
 msgid "<strong>ERROR</strong>: problem creating site entry."
 msgstr "<strong>FEHLER</strong>: Problem beim Erstellen der Seiten."
 
@@ -1753,62 +1782,62 @@ msgstr "Passwort:"
 msgid "Activate"
 msgstr "Aktivieren"
 
-#: wp-includes/admin-bar.php:108
+#: wp-includes/admin-bar.php:110
 msgid "Documentation"
 msgstr "Dokumentation"
 
-#: wp-includes/admin-bar.php:116
+#: wp-includes/admin-bar.php:118
 msgid "Support Forums"
 msgstr "Support-Foren"
 
-#: wp-includes/formatting.php:2222 wp-includes/general-template.php:2011
+#: wp-includes/formatting.php:2223 wp-includes/general-template.php:2044
 msgid "&hellip;"
 msgstr "&hellip;"
 
-#: wp-includes/functions.php:2780
+#: wp-includes/functions.php:2828
 msgid "Database Error"
 msgstr "Datenbankfehler"
 
-#: wp-includes/functions.php:2784 wp-includes/ms-load.php:237
+#: wp-includes/functions.php:2832 wp-includes/ms-load.php:243
 msgid "Error establishing a database connection"
 msgstr "Fehler beim Aufbau einer Datenbankverbindung"
 
-#: wp-includes/admin-bar.php:100
+#: wp-includes/admin-bar.php:102
 msgid "WordPress.org"
 msgstr "WordPress.org"
 
-#: wp-includes/admin-bar.php:229
+#: wp-includes/admin-bar.php:237
 msgid "Global Dashboard: %s"
 msgstr "Globales Dashboard: %s"
 
-#: wp-includes/admin-bar.php:227
+#: wp-includes/admin-bar.php:235
 msgid "Network Admin: %s"
 msgstr "Netzwerkverwaltung: %s"
 
-#: wp-includes/taxonomy.php:432
+#: wp-includes/taxonomy.php:461
 msgctxt "taxonomy general name"
 msgid "Tags"
 msgstr "Schlagworte"
 
-#: wp-includes/taxonomy.php:433
+#: wp-includes/taxonomy.php:462
 msgctxt "taxonomy singular name"
 msgid "Tag"
 msgstr "Schlagwort"
 
-#: wp-includes/functions.wp-scripts.php:29
-#: wp-includes/functions.wp-scripts.php:56
-#: wp-includes/functions.wp-scripts.php:90
-#: wp-includes/functions.wp-scripts.php:109
-#: wp-includes/functions.wp-scripts.php:149
-#: wp-includes/functions.wp-scripts.php:173
-#: wp-includes/functions.wp-scripts.php:199
-#: wp-includes/functions.wp-styles.php:30
-#: wp-includes/functions.wp-styles.php:57
-#: wp-includes/functions.wp-styles.php:85
-#: wp-includes/functions.wp-styles.php:106
-#: wp-includes/functions.wp-styles.php:137
+#: wp-includes/functions.wp-scripts.php:35
+#: wp-includes/functions.wp-scripts.php:72
+#: wp-includes/functions.wp-scripts.php:112
+#: wp-includes/functions.wp-scripts.php:138
+#: wp-includes/functions.wp-scripts.php:194
+#: wp-includes/functions.wp-scripts.php:222
+#: wp-includes/functions.wp-scripts.php:247
+#: wp-includes/functions.wp-styles.php:36
+#: wp-includes/functions.wp-styles.php:69
+#: wp-includes/functions.wp-styles.php:104
+#: wp-includes/functions.wp-styles.php:126
 #: wp-includes/functions.wp-styles.php:159
-#: wp-includes/functions.wp-styles.php:186
+#: wp-includes/functions.wp-styles.php:185
+#: wp-includes/functions.wp-styles.php:209
 msgid "Scripts and styles should not be registered or enqueued until the %1$s, %2$s, or %3$s hooks."
 msgstr "Skripte und Styles sollten nicht vor den Hooks %1$s, %2$s oder %3$s registriert oder eingebunden werden."
 
@@ -1816,42 +1845,42 @@ msgstr "Skripte und Styles sollten nicht vor den Hooks %1$s, %2$s oder %3$s regi
 msgid "Allow link notifications from other blogs (pingbacks and trackbacks)"
 msgstr "Erlaube Link-Benachrichtigungen von anderen Weblogs (Pingbacks und Trackbacks)\t"
 
-#: wp-includes/capabilities.php:592 wp-includes/capabilities.php:612
-#: wp-includes/capabilities.php:638
+#: wp-includes/capabilities.php:595 wp-includes/capabilities.php:615
+#: wp-includes/capabilities.php:641
 msgid "Use <code>WP_User->ID</code> instead."
 msgstr "Benutze stattdessen <code>WP_User->ID</code>."
 
-#: wp-includes/ms-functions.php:1647
+#: wp-includes/ms-functions.php:1657
 msgid "You have been added to this site. Please visit the <a href=\"%s\">homepage</a> or <a href=\"%s\">log in</a> using your username and password."
 msgstr "Du wurdest zu dieser Seite hinzugefügt. Du kannst nun die <a href=\"%s\">Startseite</a> besuchen oder dich mit deinem Benutzernamen und Passwort <a href=\"%s\">anmelden</a>."
 
-#: wp-includes/script-loader.php:221
+#: wp-includes/script-loader.php:227
 msgid "Memory exceeded. Please try another smaller file."
 msgstr "Der Arbeitsspeicher reicht nicht aus. Bitte versuche eine kleinere Datei."
 
-#: wp-includes/script-loader.php:222
+#: wp-includes/script-loader.php:228
 msgid "This is larger than the maximum size. Please try another."
 msgstr "Die Datei ist größer als die Maximalgröße. Bitte verwende eine kleinere Datei."
 
-#: wp-includes/script-loader.php:220
+#: wp-includes/script-loader.php:226
 msgid "This file is not an image. Please try another."
 msgstr "Diese Datei ist keine Bilddatei. Bitte probiere eine andere Datei."
 
-#: wp-includes/link-template.php:1152
+#: wp-includes/link-template.php:1154
 msgid "Use commas instead of %s to separate excluded categories."
 msgstr "Benutze Kommas anstelle von %s um ausgeschlossene Kategorien zu trennen."
 
-#: wp-includes/general-template.php:2073
+#: wp-includes/general-template.php:2106
 msgctxt "admin color scheme"
 msgid "Gray"
 msgstr "Grau"
 
-#: wp-includes/general-template.php:2071
+#: wp-includes/general-template.php:2104
 msgctxt "admin color scheme"
 msgid "Blue"
 msgstr "Blau"
 
-#: wp-includes/formatting.php:2954
+#: wp-includes/formatting.php:2950
 msgid "The timezone you have entered is not valid. Please select a valid timezone."
 msgstr "Die von dir eingegebene Zeitzone ist ungültig. Bitte wähle eine gültige Zeitzone aus."
 
@@ -1880,25 +1909,25 @@ msgctxt "add new from admin bar"
 msgid "Media"
 msgstr "Datei"
 
-#: wp-includes/admin-bar.php:499
+#: wp-includes/admin-bar.php:519
 msgctxt "add new from admin bar"
 msgid "Link"
 msgstr "Link"
 
-#: wp-includes/admin-bar.php:519
+#: wp-includes/admin-bar.php:539
 msgctxt "add new from admin bar"
 msgid "User"
 msgstr "Benutzer"
 
-#: wp-includes/pluggable.php:806
+#: wp-includes/pluggable.php:809
 msgid "You should specify a nonce action to be verified by using the first parameter."
 msgstr "Um verifiziert zu werden, gib bitte eine vorläufige Aktion als ersten Parameter an."
 
-#: wp-includes/taxonomy.php:440
+#: wp-includes/taxonomy.php:469
 msgid "View Tag"
 msgstr "Schlagwort ansehen"
 
-#: wp-includes/taxonomy.php:440
+#: wp-includes/taxonomy.php:469
 msgid "View Category"
 msgstr "Kategorie ansehen"
 
@@ -1918,11 +1947,11 @@ msgstr "Standardbreite"
 msgid "Word count: %s"
 msgstr "Wörteranzahl: %s"
 
-#: wp-activate.php:109
+#: wp-activate.php:122
 msgid "Your account is now activated. <a href=\"%1$s\">Log in</a> or go back to the <a href=\"%2$s\">homepage</a>."
 msgstr "Dein Benutzerkonto ist jetzt aktiviert. <a href=\"%1$s\">Melde dich an</a> oder gehe zurück <a href=\"%2$s\">zur Startseite.</a>."
 
-#: wp-activate.php:107
+#: wp-activate.php:120
 msgid "Your account is now activated. <a href=\"%1$s\">View your site</a> or <a href=\"%2$s\">Log in</a>"
 msgstr "Dein Benutzerkonto ist jetzt aktiviert. <a href=\"%1$s\">Besuche deine Seite</a> oder <a href=\"%2$s\">melde dich an</a>."
 
@@ -1931,7 +1960,7 @@ msgstr "Dein Benutzerkonto ist jetzt aktiviert. <a href=\"%1$s\">Besuche deine S
 msgid "Help (Alt + Shift + H)"
 msgstr "Hilfe (ALT + Großschreibung + H)"
 
-#: wp-includes/admin-bar.php:143
+#: wp-includes/admin-bar.php:147
 msgid "Howdy, %1$s"
 msgstr "Willkommen, %1$s"
 
@@ -1943,15 +1972,15 @@ msgstr "Vollbild schließen"
 msgid "Just write."
 msgstr "Einfach schreiben."
 
-#: wp-includes/script-loader.php:401
+#: wp-includes/script-loader.php:407
 msgid "Approve and Reply"
 msgstr "Genehmigen und Antworten"
 
-#: wp-includes/post.php:1448
+#: wp-includes/post.php:1493
 msgid "All Posts"
 msgstr "Alle Beiträge"
 
-#: wp-includes/post.php:1448
+#: wp-includes/post.php:1493
 msgid "All Pages"
 msgstr "Alle Seiten"
 
@@ -1959,7 +1988,7 @@ msgstr "Alle Seiten"
 msgid "Updated."
 msgstr "Aktualisiert."
 
-#: wp-includes/script-loader.php:83
+#: wp-includes/script-loader.php:89
 msgid "fullscreen"
 msgstr "Vollbild"
 
@@ -1998,7 +2027,7 @@ msgstr "Link einfügen/bearbeiten (ALT + Großschreibung + A)"
 msgid "Unlink (Alt + Shift + S)"
 msgstr "Link entfernen (ALT + Großschreibung + S)"
 
-#: wp-includes/comment-template.php:1380
+#: wp-includes/comment-template.php:1670
 msgid "Pingback:"
 msgstr "Pingback:"
 
@@ -2228,11 +2257,11 @@ msgstr "Blasses Zyan"
 msgid "Grayish blue"
 msgstr "Graublau"
 
-#: wp-includes/class-http.php:154
+#: wp-includes/class-http.php:141
 msgid "Destination directory for file streaming does not exist or is not writable."
 msgstr "Das Zielverzeichnis für das Datei-Streaming existiert nicht oder ist nicht beschreibbar."
 
-#: wp-includes/class-http.php:255
+#: wp-includes/class-http.php:260
 msgid "There are no HTTP transports available which can complete the requested request."
 msgstr "Es sind keine HTTP-Transports verfügbar, welche die gewünschte Abfrage ausführen könnte."
 
@@ -2282,47 +2311,47 @@ msgstr "Zurzeit befindet sich nichts in der <a href='%1$s'>Spam-Warteschlange</a
 msgid "Cleared by Akismet"
 msgstr "Gesäubert durch Akismet"
 
-#: wp-includes/class-wp-editor.php:839
+#: wp-includes/class-wp-editor.php:871
 msgid "Enter the destination URL"
 msgstr "Gib die Ziel-Adresse ein"
 
-#: wp-includes/class-wp-editor.php:851
+#: wp-includes/class-wp-editor.php:883
 msgid "Or link to existing content"
 msgstr "Oder verlinke auf bestehende Inhalte"
 
-#: wp-includes/query.php:143 wp-includes/query.php:164
-#: wp-includes/query.php:184 wp-includes/query.php:208
-#: wp-includes/query.php:232 wp-includes/query.php:256
-#: wp-includes/query.php:285 wp-includes/query.php:305
-#: wp-includes/query.php:325 wp-includes/query.php:345
-#: wp-includes/query.php:366 wp-includes/query.php:386
-#: wp-includes/query.php:416 wp-includes/query.php:445
-#: wp-includes/query.php:465 wp-includes/query.php:492
-#: wp-includes/query.php:512 wp-includes/query.php:532
-#: wp-includes/query.php:552 wp-includes/query.php:572
-#: wp-includes/query.php:601 wp-includes/query.php:628
-#: wp-includes/query.php:648 wp-includes/query.php:668
-#: wp-includes/query.php:688 wp-includes/query.php:708
+#: wp-includes/query.php:140 wp-includes/query.php:161
+#: wp-includes/query.php:181 wp-includes/query.php:205
+#: wp-includes/query.php:229 wp-includes/query.php:253
+#: wp-includes/query.php:282 wp-includes/query.php:302
+#: wp-includes/query.php:322 wp-includes/query.php:342
+#: wp-includes/query.php:363 wp-includes/query.php:383
+#: wp-includes/query.php:413 wp-includes/query.php:442
+#: wp-includes/query.php:462 wp-includes/query.php:489
+#: wp-includes/query.php:509 wp-includes/query.php:529
+#: wp-includes/query.php:549 wp-includes/query.php:569
+#: wp-includes/query.php:598 wp-includes/query.php:625
+#: wp-includes/query.php:645 wp-includes/query.php:665
+#: wp-includes/query.php:685 wp-includes/query.php:705
 msgid "Conditional query tags do not work before the query is run. Before then, they always return false."
 msgstr "Bedingungsabfragen (Conditional Tags) funktionieren nicht, wenn die Beitrag-Abfrage (query_posts) noch nicht durchgeführt wurde. Sie geben dann immer 'false' zurück."
 
-#: wp-includes/ms-functions.php:827
+#: wp-includes/ms-functions.php:831
 msgid "The user is already active."
 msgstr "Der Benutzer ist bereits aktiviert."
 
-#: wp-includes/functions.php:3012
+#: wp-includes/functions.php:3060
 msgid "%1$s was called <strong>incorrectly</strong>. %2$s %3$s"
 msgstr "%1$s wurde <strong>fehlerhaft aufgerufen</strong>. %2$s %3$s"
 
-#: wp-includes/functions.php:3010
+#: wp-includes/functions.php:3058
 msgid "(This message was added in version %s.)"
 msgstr "(Diese Meldung wurde in Version %s hinzugefügt.)"
 
-#: wp-includes/user.php:110
+#: wp-includes/user.php:100
 msgid "<strong>ERROR</strong>: The password you entered for the username <strong>%1$s</strong> is incorrect. <a href=\"%2$s\" title=\"Password Lost and Found\">Lost your password</a>?"
 msgstr "<strong>FEHLER:</strong>: Das von dir für den Benutzer <strong>%1$s</strong> eingegebene Passwort ist falsch. Hast du dein <a href=\"%2$s\" title=\"Passwort zurücksetzen\">Passwort vergessen</a>?"
 
-#: wp-includes/class-wp-xmlrpc-server.php:5279
+#: wp-includes/class-wp-xmlrpc-server.php:5282
 msgid "Sorry, you cannot publish this post."
 msgstr "Bedaure, aber du kannst diesen Beitrag nicht veröffentlichen."
 
@@ -2401,7 +2430,7 @@ msgstr "Server erreichbar"
 msgid "Akismet was unable to check this comment (response: %s), will automatically retry again later."
 msgstr "Akismet war es nicht möglich, diesen Kommentar zu überprüfen (Antwort: %s). Akismet wird später eine erneute Überprüfung durchführen."
 
-#: wp-includes/pluggable.php:1047
+#: wp-includes/pluggable.php:1077
 msgid "Permalink: %s"
 msgstr "Permalink: %s"
 
@@ -2410,19 +2439,19 @@ msgctxt "Post format"
 msgid "Standard"
 msgstr "Standard"
 
-#: wp-includes/post.php:1179
+#: wp-includes/post.php:1219
 msgid "Post types cannot exceed 20 characters in length"
 msgstr "Namen von Inhaltstypen dürfen maximal 20 Zeichen lang sein"
 
-#: wp-signup.php:102
+#: wp-signup.php:112
 msgid "Your address will be %s."
 msgstr "Deine Seiten-Adresse wird %s lauten."
 
-#: wp-signup.php:101
+#: wp-signup.php:111
 msgid "domain"
 msgstr "Domain"
 
-#: wp-includes/admin-bar.php:531
+#: wp-includes/admin-bar.php:551
 msgctxt "admin bar menu group label"
 msgid "Add New"
 msgstr "Hinzufügen"
@@ -2432,28 +2461,28 @@ msgctxt "Post format"
 msgid "Audio"
 msgstr "Audio"
 
-#: wp-includes/class-wp-xmlrpc-server.php:4100
-#: wp-includes/class-wp-xmlrpc-server.php:4396
+#: wp-includes/class-wp-xmlrpc-server.php:4103
+#: wp-includes/class-wp-xmlrpc-server.php:4399
 msgid "Invalid post format"
 msgstr "Ungültige Formatvorlage"
 
-#: wp-includes/pluggable.php:1022 wp-includes/pluggable.php:1138
+#: wp-includes/pluggable.php:1052 wp-includes/pluggable.php:1173
 msgid "Whois  : http://whois.arin.net/rest/ip/%s"
 msgstr "Whois: http://whois.arin.net/rest/ip/%s"
 
-#: wp-includes/class-wp-editor.php:847
+#: wp-includes/class-wp-editor.php:879
 msgid "Open link in a new window/tab"
 msgstr "Link in neuem Fenster oder Tab öffnen"
 
-#: wp-includes/class-wp-editor.php:867
+#: wp-includes/class-wp-editor.php:899
 msgid "No search term specified. Showing recent items."
 msgstr "Es wurde kein Suchbegriff angegeben. Es werden die aktuellsten Inhalte angezeigt."
 
-#: wp-includes/plugin.php:680
+#: wp-includes/plugin.php:700
 msgid "Only a static class method or function can be used in an uninstall hook."
 msgstr "Nur eine Methode oder Funktion einer statischen Klasse kann in einem <em>uninstall hook</em> verwendet werden."
 
-#: wp-includes/post.php:2561
+#: wp-includes/post.php:2632
 msgid "Passing an integer number of posts is deprecated. Pass an array of arguments instead."
 msgstr "Eine Anzahl von Beiträgen als integer-Zahl an die Abfrage zu übergeben, ist veraltet. Nutze stattdessen ein Array mit Parametern."
 
@@ -2497,26 +2526,26 @@ msgctxt "Post format"
 msgid "Video"
 msgstr "Video"
 
-#: wp-includes/post.php:1446
+#: wp-includes/post.php:1491
 msgid "No pages found in Trash."
 msgstr "Keine Seiten im Papierkorb gefunden."
 
-#: wp-includes/post.php:1445
+#: wp-includes/post.php:1490
 msgid "No pages found."
 msgstr "Keine Seiten gefunden."
 
-#: wp-includes/post.php:1446
+#: wp-includes/post.php:1491
 msgid "No posts found in Trash."
 msgstr "Keine Beiträge im Papierkorb gefunden."
 
-#: wp-includes/admin-bar.php:411
+#: wp-includes/admin-bar.php:427
 msgid "Shortlink"
 msgstr "Kurzlink"
 
-#: wp-includes/class-wp-xmlrpc-server.php:1104
-#: wp-includes/class-wp-xmlrpc-server.php:3288
-#: wp-includes/class-wp-xmlrpc-server.php:4283
-#: wp-includes/class-wp-xmlrpc-server.php:4598
+#: wp-includes/class-wp-xmlrpc-server.php:1107
+#: wp-includes/class-wp-xmlrpc-server.php:3291
+#: wp-includes/class-wp-xmlrpc-server.php:4286
+#: wp-includes/class-wp-xmlrpc-server.php:4601
 msgid "Invalid attachment ID."
 msgstr "Ungültige Anhang-ID."
 
@@ -2524,7 +2553,7 @@ msgstr "Ungültige Anhang-ID."
 msgid "This file no longer needs to be included."
 msgstr "Diese Datei muss nicht mehr per include() oder require() eingebunden werden."
 
-#: wp-login.php:447
+#: wp-login.php:515
 msgid "Please enter your username or email address. You will receive a link to create a new password via email."
 msgstr "Bitte gib deinen Benutzernamen oder deine E-Mail-Adresse hier ein. Du bekommst eine E-Mail zugesandt, mit deren Hilfe du ein neues Passwort erstellen kannst."
 
@@ -2560,47 +2589,47 @@ msgstr "Höhe Vorschaubild"
 msgid "Thumbnail Width"
 msgstr "Breite Vorschaubild"
 
-#: wp-includes/script-loader.php:332
+#: wp-includes/script-loader.php:345
 msgid "No matches found."
 msgstr "Keine Übereinstimmungen gefunden."
 
-#: wp-login.php:507
+#: wp-login.php:602
 msgid "New password"
 msgstr "Neues Passwort"
 
-#: wp-login.php:511
+#: wp-login.php:606
 msgid "Confirm new password"
 msgstr "Neues Passwort bestätigen"
 
-#: wp-login.php:251
+#: wp-login.php:357
 msgid "To reset your password, visit the following address:"
 msgstr "Um dein Passwort zurückzusetzen, besuche folgende Adresse:"
 
-#: wp-login.php:500 wp-login.php:519
+#: wp-login.php:595 wp-login.php:614
 msgid "Reset Password"
 msgstr "Passwort zurücksetzen"
 
-#: wp-login.php:486
+#: wp-login.php:573
 msgid "The passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein."
 
-#: wp-login.php:492
+#: wp-login.php:587
 msgid "Password Reset"
 msgstr "Passwort zurücksetzen"
 
-#: wp-login.php:492
+#: wp-login.php:587
 msgid "Your password has been reset."
 msgstr "Dein Passwort wurde zurückgesetzt."
 
-#: wp-login.php:247
+#: wp-login.php:353
 msgid "Someone requested that the password be reset for the following account:"
 msgstr "Jemand hat das Zurücksetzen des Passworts für folgendes Benutzerkonto angefordert:"
 
-#: wp-login.php:250
+#: wp-login.php:356
 msgid "If this was a mistake, just ignore this email and nothing will happen."
 msgstr "Falls dies nicht beabsichtigt war, ignoriere einfach diese E-Mail. Es wird dann nichts passieren."
 
-#: wp-login.php:500
+#: wp-login.php:595
 msgid "Enter your new password below."
 msgstr "Gib bitte hier dein neues Passwort ein."
 
@@ -2608,15 +2637,15 @@ msgstr "Gib bitte hier dein neues Passwort ein."
 msgid "Invalid post"
 msgstr "Ungültiger Beitrag"
 
-#: wp-includes/admin-bar.php:194
+#: wp-includes/admin-bar.php:200
 msgid "Edit My Profile"
 msgstr "Profil bearbeiten"
 
-#: wp-includes/admin-bar.php:153
+#: wp-includes/admin-bar.php:157
 msgid "My Account"
 msgstr "Mein Benutzerprofil"
 
-#: wp-includes/admin-bar.php:379
+#: wp-includes/admin-bar.php:393
 msgid "Manage Comments"
 msgstr "Kommentare verwalten"
 
@@ -2656,11 +2685,11 @@ msgstr "Als spamfrei markiert von %s"
 msgid "Akismet re-checked and cleared this comment"
 msgstr "Akismet hat diesen Kommentar erneut überprüft und keinen Spam erkannt"
 
-#: wp-includes/ms-functions.php:436 wp-includes/ms-functions.php:557
+#: wp-includes/ms-functions.php:440 wp-includes/ms-functions.php:561
 msgid "Only lowercase letters (a-z) and numbers are allowed."
 msgstr "Es sind nur Kleinbuchstaben und Ziffern erlaubt."
 
-#: wp-includes/query.php:1958
+#: wp-includes/query.php:2173
 msgid "\"caller_get_posts\" is deprecated. Use \"ignore_sticky_posts\" instead."
 msgstr "\"caller_get_posts\" ist veraltet. Bitte nutze stattdessen \"ignore_sticky_posts\"."
 
@@ -2688,7 +2717,7 @@ msgstr "Linkkategorien suchen"
 msgid "Link Category"
 msgstr "Linkkategorie"
 
-#: wp-includes/admin-bar.php:305
+#: wp-includes/admin-bar.php:313
 msgid "Network Admin"
 msgstr "Netzwerkverwaltung"
 
@@ -2712,17 +2741,17 @@ msgstr ""
 "</ul>\n"
 "<p>Wenn du nicht weißt, wie du die Datenbank einrichtest, <strong>kontaktiere deinen Provider</strong>. Wenn du gar nicht weiterkommst, findest du im <a href=\"http://wordpress.org/support/\">englischsprachigen</a> und <a href=\"http://forum.wpde.org/\">deutschsprachigen Support-Forum</a> Hilfe.</p>"
 
-#: wp-includes/ms-load.php:248
+#: wp-includes/ms-load.php:254
 msgid "Read the <a target=\"_blank\" href=\"http://codex.wordpress.org/Debugging_a_WordPress_Network\">bug report</a> page. Some of the guidelines there may help you figure out what went wrong."
 msgstr ""
 "Lese die <a target=\"_blank\" href=\"http://codex.wordpress.org/Debugging_a_WordPress_Network\">Fehler-Report</a>-Seite. \n"
 "Einige der Richtlinien können dir helfen herauszufinden, was falsch gelaufen ist."
 
-#: wp-includes/ms-functions.php:737 wp-includes/ms-functions.php:788
+#: wp-includes/ms-functions.php:741 wp-includes/ms-functions.php:792
 msgid "[%1$s] Activate %2$s"
 msgstr "[%1$s] Aktivieren %2$s"
 
-#: wp-includes/ms-load.php:221
+#: wp-includes/ms-load.php:227
 msgid "No site defined on this host. If you are the owner of this site, please check <a href=\"http://codex.wordpress.org/Debugging_a_WordPress_Network\">Debugging a WordPress Network</a> for help."
 msgstr "Auf diesem Host sind keine Seiten definiert. Wenn du der Besitzer dieser Seite bist, findest du Hilfe auf der Seite <a href=\"http://codex.wordpress.org/Debugging_a_WordPress_Network\">Debugging a WordPress Network (engl.)</a>."
 
@@ -2742,15 +2771,15 @@ msgstr "Akismet-API-Schlüssel"
 msgid "Your server is running PHP version %1$s but WordPress %2$s requires at least %3$s."
 msgstr "Dein Server läuft mit der PHP-Version %1$s, aber WordPress %2$s benötigt mindestens die Version %3$s."
 
-#: wp-includes/pluggable.php:1119
+#: wp-includes/pluggable.php:1154
 msgid "A new trackback on the post \"%s\" is waiting for your approval"
 msgstr "Ein neuer Trackback zum Beitrag \"%s\" wartet auf Freigabe"
 
-#: wp-includes/ms-load.php:242
+#: wp-includes/ms-load.php:248
 msgid "If you are the owner of this network please check that MySQL is running properly and all tables are error free."
 msgstr "Wenn du der Besitzer dieses Netzwerks bist, überprüfe bitte, dass MySQL störungsfrei läuft und alle Tabellen fehlerfrei sind."
 
-#: wp-includes/ms-load.php:241
+#: wp-includes/ms-load.php:247
 msgid "If your site does not display, please contact the owner of this network."
 msgstr "Wenn deine Seite nicht angezeigt wird, nimm bitte Kontakt zum Betreiber des Netzwerks auf."
 
@@ -2760,55 +2789,55 @@ msgid_plural "%1$s Responses to %2$s"
 msgstr[0] "Ein Kommentar zu %2$s"
 msgstr[1] "%1$s Kommentare zu %2$s"
 
-#: wp-signup.php:524
+#: wp-signup.php:665
 msgctxt "Multisite active signup type"
 msgid "user"
 msgstr "Benutzern"
 
-#: wp-signup.php:523
+#: wp-signup.php:664
 msgctxt "Multisite active signup type"
 msgid "blog"
 msgstr "Seiten"
 
-#: wp-signup.php:522
+#: wp-signup.php:663
 msgctxt "Multisite active signup type"
 msgid "none"
 msgstr "keinen neuen Seiten oder Benutzern"
 
-#: wp-signup.php:521
+#: wp-signup.php:662
 msgctxt "Multisite active signup type"
 msgid "all"
 msgstr "Benutzern und Seiten"
 
-#: wp-includes/default-widgets.php:1103
+#: wp-includes/default-widgets.php:1104
 msgid "Custom Menu"
 msgstr "Individuelles Menü"
 
-#: wp-includes/default-widgets.php:1102
+#: wp-includes/default-widgets.php:1103
 msgid "Use this widget to add one of your custom menus as a widget."
 msgstr "Nutze dieses Widget, um eines deiner selbsterstellten Navigationsmenüs anzuzeigen. Über den Menüpunkt \"Design\" &gt; \"Menüs\" kannst du ein individuelles Menü erstellen."
 
-#: wp-includes/pluggable.php:1037
+#: wp-includes/pluggable.php:1067
 msgid "New pingback on your post \"%s\""
 msgstr "Neuer Pingback zum Beitrag \"%s\""
 
-#: wp-includes/pluggable.php:1126
+#: wp-includes/pluggable.php:1161
 msgid "A new pingback on the post \"%s\" is waiting for your approval"
 msgstr "Ein neuer Pingback zum Beitrag \"%s\" wartet auf deine Freigabe."
 
-#: wp-includes/pluggable.php:1133
+#: wp-includes/pluggable.php:1168
 msgid "A new comment on the post \"%s\" is waiting for your approval"
 msgstr "Ein neuer Kommentar zum Beitrag \"%s\" wartet auf deine Freigabe."
 
-#: wp-includes/pluggable.php:1028
+#: wp-includes/pluggable.php:1058
 msgid "New trackback on your post \"%s\""
 msgstr "Neuer Trackback zum Beitrag \"%s\""
 
-#: wp-includes/pluggable.php:1017
+#: wp-includes/pluggable.php:1047
 msgid "New comment on your post \"%s\""
 msgstr "Neue Kommentare zu deinem Beitrag \"%s\""
 
-#: wp-includes/taxonomy.php:2108
+#: wp-includes/taxonomy.php:2176
 msgid "A term with the name provided already exists."
 msgstr "Es existiert bereits ein Schlagwort mit diesem Namen."
 
@@ -2968,128 +2997,128 @@ msgstr "von %1$s &#8212; %2$s zu <a href=\"#comment-%3$s\">%4$s</a>"
 msgid "Leave a comment"
 msgstr "Hinterlasse einen Kommentar"
 
-#: wp-includes/taxonomy.php:446
+#: wp-includes/taxonomy.php:475
 msgid "Choose from the most used tags"
 msgstr "Wähle aus den häufig genutzten Schlagwörtern"
 
-#: wp-includes/comment-template.php:1631
+#: wp-includes/comment-template.php:1978
 msgid "You may use these <abbr title=\"HyperText Markup Language\">HTML</abbr> tags and attributes: %s"
 msgstr "Du kannst folgende <abbr title=\"HyperText Markup Language\">HTML</abbr>-Tags benutzen: %s"
 
-#: wp-includes/taxonomy.php:433
+#: wp-includes/taxonomy.php:462
 msgctxt "taxonomy singular name"
 msgid "Category"
 msgstr "Kategorie"
 
-#: wp-includes/taxonomy.php:434
+#: wp-includes/taxonomy.php:463
 msgid "Search Tags"
 msgstr "Schlagwörter suchen"
 
-#: wp-includes/taxonomy.php:435
+#: wp-includes/taxonomy.php:464
 msgid "Popular Tags"
 msgstr "Beliebte Schlagwörter"
 
-#: wp-includes/taxonomy.php:443
+#: wp-includes/taxonomy.php:472
 msgid "New Category Name"
 msgstr "Neuer Kategoriename"
 
-#: wp-includes/taxonomy.php:443
+#: wp-includes/taxonomy.php:472
 msgid "New Tag Name"
 msgstr "Neuer Schlagwortname"
 
-#: wp-includes/taxonomy.php:442
+#: wp-includes/taxonomy.php:471
 msgid "Add New Category"
 msgstr "Neue Kategorie erstellen"
 
-#: wp-includes/taxonomy.php:442
+#: wp-includes/taxonomy.php:471
 msgid "Add New Tag"
 msgstr "Neues Schlagwort erstellen"
 
-#: wp-includes/taxonomy.php:441
+#: wp-includes/taxonomy.php:470
 msgid "Update Tag"
 msgstr "Schlagwort aktualisieren"
 
-#: wp-includes/taxonomy.php:438
+#: wp-includes/taxonomy.php:467
 msgid "Parent Category:"
 msgstr "Übergeordnete Kategorie:"
 
-#: wp-includes/taxonomy.php:437
+#: wp-includes/taxonomy.php:466
 msgid "Parent Category"
 msgstr "Übergeordnete Kategorie"
 
-#: wp-includes/taxonomy.php:436
+#: wp-includes/taxonomy.php:465
 msgid "All Tags"
 msgstr "Alle Schlagwörter"
 
-#: wp-includes/taxonomy.php:432
+#: wp-includes/taxonomy.php:461
 msgctxt "taxonomy general name"
 msgid "Categories"
 msgstr "Kategorien"
 
-#: wp-signup.php:564
+#: wp-signup.php:710
 msgid "Sorry, new registrations are not allowed at this time."
 msgstr "Bedaure, Registrierungen sind derzeit nicht möglich."
 
-#: wp-signup.php:397 wp-signup.php:498
+#: wp-signup.php:503 wp-signup.php:633
 msgid "Check your inbox at <strong>%s</strong> and click the link given."
 msgstr "Prüfe deine E-Mails der Adresse <strong>%s</strong> und klicke in der E-Mail auf den enthaltenen Link."
 
-#: wp-signup.php:504
+#: wp-signup.php:639
 msgid "Wait a little longer. Sometimes delivery of email can be delayed by processes outside of our control."
 msgstr "Bitte warte noch ein bisschen. Manchmal verzögert sich die Zustellung von E-Mails, ohne dass wir etwas dagegen tun können."
 
-#: wp-signup.php:505
+#: wp-signup.php:640
 msgid "Check the junk or spam folder of your email client. Sometime emails wind up there by mistake."
 msgstr "Überprüfe deinen Junk/SPAM-Ordner deines E-Mail-Postfachs, da E-Mails manchmal fälschlicherweise als SPAM erkannt werden."
 
-#: wp-signup.php:527
+#: wp-signup.php:668
 msgid "Greetings Site Administrator! You are currently allowing &#8220;%s&#8221; registrations. To change or disable registration go to your <a href=\"%s\">Options page</a>."
 msgstr "Hallo, Administrator! Du hast zurzeit das Registrieren von %s erlaubt. Um diese Einstellungen zu ändern, öffne die <a href=\"%s\">Einstellungen</a>."
 
-#: wp-signup.php:174
+#: wp-signup.php:191
 msgid "We send your registration email to this address. (Double-check your email address before continuing.)"
 msgstr "Wir verschicken deine Registrierungs-E-Mail an diese Adresse. (Überprüfe also nochmal deine E-Mail-Adresse, bevor du fortfährst.)"
 
-#: wp-includes/post.php:1444
+#: wp-includes/post.php:1489
 msgid "Search Pages"
 msgstr "Seiten durchsuchen"
 
-#: wp-includes/post.php:1440
+#: wp-includes/post.php:1485
 msgid "Add New Post"
 msgstr "Neuen Beitrag erstellen"
 
-#: wp-includes/post.php:1447
+#: wp-includes/post.php:1492
 msgid "Parent Page:"
 msgstr "Übergeordnete Seite:"
 
-#: wp-includes/post.php:1437
+#: wp-includes/post.php:1482
 msgctxt "post type general name"
 msgid "Posts"
 msgstr "Beiträge"
 
-#: wp-includes/post.php:1441
+#: wp-includes/post.php:1486
 msgid "Edit Page"
 msgstr "Seite bearbeiten"
 
-#: wp-includes/post.php:1444
+#: wp-includes/post.php:1489
 msgid "Search Posts"
 msgstr "Beiträge duchsuchen"
 
-#: wp-includes/post.php:1440
+#: wp-includes/post.php:1485
 msgid "Add New Page"
 msgstr "Neue Seite erstellen"
 
-#: wp-includes/post.php:1437
+#: wp-includes/post.php:1482
 msgctxt "post type general name"
 msgid "Pages"
 msgstr "Seiten"
 
-#: wp-includes/post.php:1438
+#: wp-includes/post.php:1483
 msgctxt "post type singular name"
 msgid "Page"
 msgstr "Seite"
 
-#: wp-includes/post.php:1438
+#: wp-includes/post.php:1483
 msgctxt "post type singular name"
 msgid "Post"
 msgstr "Beitrag"
@@ -3102,11 +3131,11 @@ msgstr "Die Konstante <code>VHOST</code> <strong>ist veraltet</strong>. Nutze di
 msgid "<strong>Conflicting values for the constants VHOST and SUBDOMAIN_INSTALL.</strong> The value of SUBDOMAIN_INSTALL will be assumed to be your subdomain configuration setting."
 msgstr "<strong>Widersprüchliche Angaben für die Konstanten VHOST und SUBDOMAIN_INSTALL.</strong> Es wird der Wert von SUBDOMAIN_INSTALL für die Konfigurationseinstellungen von Subdomains übernommen."
 
-#: wp-login.php:331
+#: wp-includes/user.php:1676
 msgid "<strong>ERROR</strong>: This username is invalid because it uses illegal characters. Please enter a valid username."
 msgstr "<strong>Fehler:</strong> Dieser Benutzername kann nicht verwendet werden, da er ungültige Zeichen enthält. Bitte gib einen gültigen Benutzernamen an."
 
-#: wp-includes/comment-template.php:1624
+#: wp-includes/comment-template.php:1962
 msgid "Required fields are marked %s"
 msgstr "Erforderliche Felder sind markiert %s"
 
@@ -3126,7 +3155,7 @@ msgstr "Bitte statte dein Theme mit einer %1$s-Datei aus, damit es auch in zukü
 msgid "Theme without %1$s"
 msgstr "Theme ohne %1$s"
 
-#: wp-includes/ms-load.php:246
+#: wp-includes/ms-load.php:252
 msgid "<strong>Could not find site <code>%1$s</code>.</strong> Searched for table <code>%2$s</code> in database <code>%3$s</code>. Is that right?"
 msgstr "<strong>Konnte die Webseite nicht finden. <code>%1$s</code>.</strong> Suche nach Tabelle <code>%2$s</code> in der Datenbank <code>%3$s</code>. Ist das richtig?"
 
@@ -3146,39 +3175,39 @@ msgstr "Die Seiten deiner WordPress-Webseite"
 msgid "Your web host or server administrator has disabled PHP's <code>fsockopen</code> or <code>gethostbynamel</code> functions.  <strong>Akismet cannot work correctly until this is fixed.</strong>  Please contact your web host or firewall administrator and give them <a href=\"%s\" target=\"_blank\">this information about Akismet's system requirements</a>."
 msgstr "Dein Webhoster oder Serveradministrator hat die PHP-Funktionen <code>fsockopen</code> oder <code>gethostbynamel</code> deaktiviert. <strong>Akismet funktioniert unter diesen Umständen nicht korrekt.</strong> Kontaktiere deinen Webhoster oder Serveradministrator und <a href=\"%s\" target=\"_blank\">informiere ihn über die technischen Vorraussetzungen von Akismet</a>."
 
-#: wp-includes/ms-load.php:244
+#: wp-includes/ms-load.php:250
 msgid "<strong>Database tables are missing.</strong> This means that MySQL is not running, WordPress was not installed properly, or someone deleted <code>%s</code>. You really should look at your database now."
 msgstr "<strong>Es fehlen Datenbanktabellen.</strong> Das bedeutet, dass MySQL nicht läuft, dass WordPress nicht richtig installiert wurde oder dass <code>%s</code> gelöscht wurde. Du solltest dir jetzt deine Datenbank anschauen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:3709
+#: wp-includes/class-wp-xmlrpc-server.php:3712
 msgid "Sorry, you do not have access to user data on this site."
 msgstr "Du hast keinen Zugriff auf die Benutzerdaten dieser Seite."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1020
-#: wp-includes/class-wp-xmlrpc-server.php:3877
+#: wp-includes/class-wp-xmlrpc-server.php:1023
+#: wp-includes/class-wp-xmlrpc-server.php:3880
 msgid "Sorry, you are not allowed to post on this site."
 msgstr "Du verfügst nicht über ausreichende Rechte, um Beiträge auf dieser Seite zu veröffentlichen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:4074
-#: wp-includes/class-wp-xmlrpc-server.php:4087
-#: wp-includes/class-wp-xmlrpc-server.php:4092
+#: wp-includes/class-wp-xmlrpc-server.php:4077
+#: wp-includes/class-wp-xmlrpc-server.php:4090
+#: wp-includes/class-wp-xmlrpc-server.php:4095
 msgid "Sorry, you are not allowed to publish posts on this site."
 msgstr "Bedaure, aber du darfst keine Beiträge auf dieser Seite veröffentlichen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:4881
-#: wp-includes/class-wp-xmlrpc-server.php:5080
+#: wp-includes/class-wp-xmlrpc-server.php:4884
+#: wp-includes/class-wp-xmlrpc-server.php:5083
 msgid "Sorry, you must be able to edit posts on this site in order to view categories."
 msgstr "Bedaure, aber du musst Beiträge bearbeiten können, um Kategorien zu betrachten."
 
-#: wp-includes/class-wp-xmlrpc-server.php:4063
+#: wp-includes/class-wp-xmlrpc-server.php:4066
 msgid "Sorry, you are not allowed to publish pages on this site."
 msgstr "Sorry, aber du darfst keine Seiten veröffentlichen."
 
-#: wp-includes/ms-functions.php:592 wp-includes/ms-functions.php:952
+#: wp-includes/ms-functions.php:596 wp-includes/ms-functions.php:957
 msgid "Sorry, that site already exists!"
 msgstr "Diese Webseite existiert bereits."
 
-#: wp-includes/ms-functions.php:727
+#: wp-includes/ms-functions.php:731
 msgid ""
 "To activate your blog, please click the following link:\n"
 "\n"
@@ -3199,41 +3228,41 @@ msgstr ""
 "Nach der Aktivierung kannst du deine Webseite unter der folgenden URL aufrufen:\n"
 "%s"
 
-#: wp-includes/ms-functions.php:1018
+#: wp-includes/ms-functions.php:1023
 msgid "New Site Registration: %s"
 msgstr "Neue Registrierung einer Seite: %s"
 
-#: wp-includes/ms-functions.php:566
+#: wp-includes/ms-functions.php:570
 msgid "Sorry, site names may not contain the character &#8220;_&#8221;!"
 msgstr "Bedaure, Seitenadressen dürfen keinen Unterstrich im Namen haben!"
 
-#: wp-includes/ms-functions.php:1243
+#: wp-includes/ms-functions.php:1251
 msgid "New %1$s Site: %2$s"
 msgstr "Neue %1$s Seite: %2$s"
 
-#: wp-includes/ms-functions.php:829
+#: wp-includes/ms-functions.php:833
 msgid "The site is already active."
 msgstr "Diese Seite ist bereits aktiv."
 
-#: wp-includes/class-wp-xmlrpc-server.php:2518
-#: wp-includes/class-wp-xmlrpc-server.php:3793
-#: wp-includes/class-wp-xmlrpc-server.php:4767
+#: wp-includes/class-wp-xmlrpc-server.php:2521
+#: wp-includes/class-wp-xmlrpc-server.php:3796
+#: wp-includes/class-wp-xmlrpc-server.php:4770
 msgid "Sorry, you cannot edit posts on this site."
 msgstr "Du verfügst nicht über ausreichende Rechte, um auf dieser Seite Beiträge zu bearbeiten."
 
-#: wp-includes/class-wp-xmlrpc-server.php:2689
+#: wp-includes/class-wp-xmlrpc-server.php:2692
 msgid "Sorry, you must be able to edit posts to this site in order to view categories."
 msgstr "Du musst berechtigt sein Beiträge zu bearbeiten, um Kategorien sehen zu können."
 
-#: wp-includes/class-wp-xmlrpc-server.php:3041
-#: wp-includes/class-wp-xmlrpc-server.php:3100
-#: wp-includes/class-wp-xmlrpc-server.php:3126
-#: wp-includes/class-wp-xmlrpc-server.php:3152
-#: wp-includes/class-wp-xmlrpc-server.php:3369
+#: wp-includes/class-wp-xmlrpc-server.php:3044
+#: wp-includes/class-wp-xmlrpc-server.php:3103
+#: wp-includes/class-wp-xmlrpc-server.php:3129
+#: wp-includes/class-wp-xmlrpc-server.php:3155
+#: wp-includes/class-wp-xmlrpc-server.php:3372
 msgid "You are not allowed access to details about this site."
 msgstr "Du bist nicht berechtigt, Details dieser Website einzusehen."
 
-#: wp-includes/ms-functions.php:958
+#: wp-includes/ms-functions.php:963
 msgid "Could not create site."
 msgstr "Seite konnte nicht angelegt werden."
 
@@ -3245,11 +3274,11 @@ msgstr "Die letzten Beiträge deiner Seite"
 msgid "A calendar of your site&#8217;s posts"
 msgstr "Ein Kalender der Beiträge"
 
-#: wp-includes/ms-functions.php:574
+#: wp-includes/ms-functions.php:578
 msgid "Sorry, site names must have letters too!"
 msgstr "Entschuldige, Seitennamen müssen auch Buchstaben enthalten!"
 
-#: wp-includes/ms-functions.php:570
+#: wp-includes/ms-functions.php:574
 msgid "Sorry, you may not use that site name."
 msgstr "Dieser Seitename darf leider nicht verwendet werden."
 
@@ -3261,31 +3290,27 @@ msgstr "Ein Monatsarchiv deiner Beiträge"
 msgid "A search form for your site"
 msgstr "Ein Suchformular für deine Website"
 
-#: wp-includes/ms-functions.php:596
+#: wp-includes/ms-functions.php:600
 msgid "Sorry, that site is reserved!"
 msgstr "Entschuldige, aber diese Seite wurde bereits reserviert!"
 
-#: wp-includes/ms-functions.php:607
+#: wp-includes/ms-functions.php:611
 msgid "That site is currently reserved but may be available in a couple days."
 msgstr "Diese Seite wurde bereits reserviert, ist aber eventuell in ein paar Tagen wieder verfügbar."
 
-#: wp-includes/pluggable.php:1205
+#: wp-includes/pluggable.php:1242
 msgid "New user registration on your site %s:"
 msgstr "Neue Benutzerregistrierung auf deiner Seite %s:"
 
-#: wp-includes/user.php:101
-msgid "Site Suspended."
-msgstr "Seite deaktiviert."
-
-#: wp-includes/class-wp-xmlrpc-server.php:2725
-#: wp-includes/class-wp-xmlrpc-server.php:2826
-#: wp-includes/class-wp-xmlrpc-server.php:2832
-#: wp-includes/class-wp-xmlrpc-server.php:2881
-#: wp-includes/class-wp-xmlrpc-server.php:2887
+#: wp-includes/class-wp-xmlrpc-server.php:2728
+#: wp-includes/class-wp-xmlrpc-server.php:2829
+#: wp-includes/class-wp-xmlrpc-server.php:2835
+#: wp-includes/class-wp-xmlrpc-server.php:2884
+#: wp-includes/class-wp-xmlrpc-server.php:2890
 msgid "You are not allowed to moderate comments on this site."
 msgstr "Es ist dir nicht erlaubt, auf diesem Blog Kommentare zu moderieren."
 
-#: wp-includes/class-wp-xmlrpc-server.php:2553
+#: wp-includes/class-wp-xmlrpc-server.php:2556
 msgid "Sorry, you must be able to edit posts on this site in order to view tags."
 msgstr "Du musst das Recht haben, Beiträge bearbeiten zu können, damit du Schlagwörter sehen kannst."
 
@@ -3293,7 +3318,7 @@ msgstr "Du musst das Recht haben, Beiträge bearbeiten zu können, damit du Schl
 msgid "Site Tagline"
 msgstr "Blogbeschreibung"
 
-#: wp-includes/ms-load.php:103
+#: wp-includes/ms-load.php:109
 msgid "This site has been archived or suspended."
 msgstr "Dieser Blog wurde deaktiviert oder archiviert."
 
@@ -3301,15 +3326,15 @@ msgstr "Dieser Blog wurde deaktiviert oder archiviert."
 msgid "No site by that name on this system."
 msgstr "In diesem System gibt es keinen Blog mit diesem Namen."
 
-#: wp-includes/ms-load.php:219
+#: wp-includes/ms-load.php:225
 msgid "That site does not exist. Please try <a href=\"%s\">%s</a>."
 msgstr "Diese Webseite existiert nicht. Bitte versuche <a href=\"%s\">%s</a>."
 
-#: wp-includes/load.php:426
+#: wp-includes/load.php:446
 msgid "The site you have requested is not installed properly. Please contact the system administrator."
 msgstr "Die Webseite, die du aufrufen möchtest, wurde nicht korrekt installiert. Bitte kontaktiere den Administrator."
 
-#: wp-includes/script-loader.php:503
+#: wp-includes/script-loader.php:509
 msgctxt "search results"
 msgid "No results found."
 msgstr "Es wurden keine Ergebnisse gefunden."
@@ -3322,27 +3347,27 @@ msgstr "Der Menüname <strong>%s</strong> wird bereits verwendet. Bitte probiere
 msgid "The given object ID is not that of a menu item."
 msgstr "Die übergebene ID gehört zu keinem Menüelement."
 
-#: wp-includes/formatting.php:2816
+#: wp-includes/formatting.php:2812
 msgid "The email address entered did not appear to be a valid email address. Please enter a valid email address."
 msgstr "Diese E-Mail-Adresse scheint keine gültige E-Mail-Adresse zu sein. Bitte gib eine gültige E-Mail-Adresse an."
 
-#: wp-includes/formatting.php:2903
+#: wp-includes/formatting.php:2899
 msgid "The WordPress address you entered did not appear to be a valid URL. Please enter a valid URL."
 msgstr "Die angegebene WordPress-Adresse scheint keine gültige URL zu sein. Bitte gib eine gültige URL an."
 
-#: wp-includes/formatting.php:2913
+#: wp-includes/formatting.php:2909
 msgid "The Site address you entered did not appear to be a valid URL. Please enter a valid URL."
 msgstr "Die Webseiten-Adresse die du eingegeben hast, scheint keine gültige URL zu sein. Bitte gebe eine gültige URL ein."
 
-#: wp-includes/taxonomy.php:2093
+#: wp-includes/taxonomy.php:2161
 msgid "A term with the name provided already exists with this parent."
 msgstr "Dieses Schlagwort mit dem gleichen übergeordneten Schlagwort gibt es bereits."
 
-#: wp-includes/ms-functions.php:1645
+#: wp-includes/ms-functions.php:1655
 msgid "An error occurred adding you to this site. Back to the <a href=\"%s\">homepage</a>."
 msgstr "Es trat ein Fehler beim Versuch auf, dich zu dieser Webseite hinzufügen. Hier geht's <a href=\"%s\">zurück</a>."
 
-#: wp-includes/ms-functions.php:1569
+#: wp-includes/ms-functions.php:1580
 msgid "This file is too big. Files must be less than %d KB in size."
 msgstr "Die Datei ist zu groß. Dateien dürfen nicht größer als %d KB sein."
 
@@ -3350,15 +3375,15 @@ msgstr "Die Datei ist zu groß. Dateien dürfen nicht größer als %d KB sein."
 msgid "number_format_decimal_point"
 msgstr ","
 
-#: wp-includes/comment-template.php:1630
+#: wp-includes/comment-template.php:1977
 msgid "Your email address will not be published."
 msgstr "Deine E-Mail-Adresse wird nicht veröffentlicht."
 
-#: wp-includes/class-http.php:131 wp-includes/class-wp-xmlrpc-server.php:5323
+#: wp-includes/class-http.php:118 wp-includes/class-wp-xmlrpc-server.php:5326
 msgid "A valid URL was not provided."
 msgstr "Es wurde keine gültige URL übermittelt."
 
-#: wp-includes/comment-template.php:1629
+#: wp-includes/comment-template.php:1976
 msgid "Logged in as <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\" title=\"Log out of this account\">Log out?</a>"
 msgstr "Angemeldet als <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\" title=\"Vom Benutzerkonto ausloggen\">Abmelden?</a>"
 
@@ -3367,43 +3392,43 @@ msgstr "Angemeldet als <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\" title=\"Vom B
 msgid "Could not calculate resized image dimensions"
 msgstr "Die Abmessungen des größenveränderten Bildes konnten nicht berechnet werden."
 
-#: wp-signup.php:102
+#: wp-signup.php:112
 msgid "Must be at least 4 characters, letters and numbers only. It cannot be changed, so choose carefully!"
 msgstr "Sie muss aus mindestens vier Zeichen bestehen, wobei du bitte nur Zahlen und Buchstaben verwenden solltest. Prüfe deine Eingabe sorgfältig, da diese Angabe später nicht mehr geändert werden kann."
 
-#: wp-signup.php:536
+#: wp-signup.php:677
 msgid "You must first <a href=\"%s\">log in</a>, and then you can create a new site."
 msgstr "Du musst dich zuerst <a href=\"%s\">einloggen</a>, um eine Webseite anlegen zu können."
 
-#: wp-signup.php:566
+#: wp-signup.php:712
 msgid "You are logged in already. No need to register again!"
 msgstr "Du bist bereits angemeldet und brauchst dich nicht erneut zu registrieren!"
 
-#: wp-includes/comment-template.php:726
+#: wp-includes/comment-template.php:883
 msgid "Use <code>get_trackback_url()</code> instead if you do not want the value echoed."
 msgstr "Wenn du den Wert nicht ausgegeben bekommen möchtest, verwende stattdessen <code>get_trackback_url()</code>."
 
-#: wp-mail.php:14
+#: wp-mail.php:15
 msgid "This action has been disabled by the administrator."
 msgstr "Diese Aktion wurde vom Administrator deaktiviert."
 
-#: wp-signup.php:224
+#: wp-signup.php:267
 msgid "Welcome back, %s. By filling out the form below, you can <strong>add another site to your account</strong>. There is no limit to the number of sites you can have, so create to your heart&#8217;s content, but write responsibly!"
 msgstr "Willkommen zurück, %s. In dem du dieses Formular ausfüllst, kannst du eine <strong>weitere Webseite</strong> für dein Benutzerkonto anlegen. Es gibt hierfür keine Begrenzung, also zögere nicht."
 
-#: wp-includes/ms-functions.php:460
+#: wp-includes/ms-functions.php:464
 msgid "Sorry, usernames may not contain the character &#8220;_&#8221;!"
 msgstr "Benutzernamen dürfen keinen Unterstrich enthalten."
 
-#: wp-signup.php:502
+#: wp-signup.php:637
 msgid "If you haven&#8217;t received your email yet, there are a number of things you can do:"
 msgstr "Falls du deine E-Mail noch nicht erhalten hast, kannst du folgende Dinge tun:"
 
-#: wp-includes/author-template.php:55
+#: wp-includes/author-template.php:62
 msgid "Use <code>get_the_author()</code> instead if you do not want the value echoed."
 msgstr "Wenn du den Wert nicht ausgegeben bekommen möchtest, verwende stattdessen <code>get_the_author()</code>."
 
-#: wp-includes/ms-load.php:249
+#: wp-includes/ms-load.php:255
 msgid "If you&#8217;re still stuck with this message, then check that your database contains the following tables:"
 msgstr "Wenn diese Nachricht weiterhin angezeigt wird, dann stelle sicher dass die Datenbank die folgenden Tabellen enthält:"
 
@@ -3411,15 +3436,15 @@ msgstr "Wenn diese Nachricht weiterhin angezeigt wird, dann stelle sicher dass d
 msgid "Enter title here"
 msgstr "Gib hier den Titel an"
 
-#: wp-includes/script-loader.php:467
+#: wp-includes/script-loader.php:473
 msgid "Are you sure you want to install this plugin?"
 msgstr "Bist du sicher, dass du dieses Plugin installieren möchtest?"
 
-#: wp-includes/script-loader.php:494
+#: wp-includes/script-loader.php:500
 msgid "Use as featured image"
 msgstr "Als Beitragsbild nutzen"
 
-#: wp-includes/script-loader.php:317
+#: wp-includes/script-loader.php:328
 msgid "Mismatch"
 msgstr "Keine Übereinstimmung"
 
@@ -3451,105 +3476,105 @@ msgstr "Multisite funktioniert nur ohne die Port-Nummer in der URL."
 msgid "Links for %s"
 msgstr "Links für %s"
 
-#: wp-includes/nav-menu.php:620
+#: wp-includes/nav-menu.php:618
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
-#: wp-includes/default-widgets.php:1140
+#: wp-includes/default-widgets.php:1141
 msgid "No menus have been created yet. <a href=\"%s\">Create some</a>."
 msgstr "Es wurden noch keine Menüs erstellt. <a href=\"%s\">Erstelle welche</a>."
 
-#: wp-includes/script-loader.php:504
+#: wp-includes/script-loader.php:510
 msgid ""
 "You are about to permanently delete this menu. \n"
 " 'Cancel' to stop, 'OK' to delete."
 msgstr "Du bist dabei dieses Menü endgültig zu löschen. Klicke auf \"Abbrechen\", um den Vorgang zu beenden, oder auf \"OK\", um das Menü zu löschen."
 
-#: wp-includes/link-template.php:2430
+#: wp-includes/link-template.php:2494
 msgid "This is the short link."
 msgstr "Dies ist der Kurzlink."
 
-#: wp-includes/update.php:357
+#: wp-includes/update.php:477
 msgid "%d WordPress Update"
 msgstr "%d WordPress-Aktualisierung"
 
-#: wp-includes/update.php:361
+#: wp-includes/update.php:481
 msgid "%d Theme Update"
 msgid_plural "%d Theme Updates"
 msgstr[0] "%d Theme-Aktualisierung"
 msgstr[1] "%d Theme-Aktualisierungen"
 
-#: wp-includes/update.php:359
+#: wp-includes/update.php:479
 msgid "%d Plugin Update"
 msgid_plural "%d Plugin Updates"
 msgstr[0] "%d Plugin-Update"
 msgstr[1] "%d Plugin-Updates"
 
-#: wp-signup.php:295
+#: wp-signup.php:374
 msgid "The site %s is yours."
 msgstr "Diese Webseite %s ist deine."
 
-#: wp-signup.php:244
+#: wp-signup.php:297
 msgid "Create Site"
 msgstr "Webseite erstellen"
 
-#: wp-signup.php:239
+#: wp-signup.php:282
 msgid "If you&#8217;re not going to use a great site domain, leave it for a new user. Now have at it!"
 msgstr "Suche dir nun einen weiteren Webseiten-Namen und Webseiten-Titel aus."
 
-#: wp-signup.php:230
+#: wp-signup.php:273
 msgid "Sites you are already a member of:"
 msgstr "Du bist bereits Mitglied der folgenden Seiten:"
 
-#: wp-includes/ms-load.php:96
+#: wp-includes/ms-load.php:102
 msgid "This site has not been activated yet. If you are having problems activating your site, please contact <a href=\"mailto:%1$s\">%1$s</a>."
 msgstr "Diese Seite wurde noch nicht aktiviert. Wenn du Probleme mit der Aktivierung hast, kontaktiere bitte <a href=\"mailto:%1$s\">%1$s</a>."
 
-#: wp-includes/script-loader.php:232
+#: wp-includes/script-loader.php:238
 msgid "File canceled."
 msgstr "Datei abgebrochen."
 
-#: wp-signup.php:107
+#: wp-signup.php:117
 msgid "Site Title:"
 msgstr "Seiten-Titel:"
 
-#: wp-signup.php:86
+#: wp-signup.php:96
 msgid "Site Domain:"
 msgstr "Seiten-Domain:"
 
-#: wp-signup.php:84
+#: wp-signup.php:94
 msgid "Site Name:"
 msgstr "Name der Seite:"
 
-#: wp-signup.php:99
+#: wp-signup.php:109
 msgid "sitename"
 msgstr "Seitenname"
 
-#: wp-signup.php:218
+#: wp-signup.php:261
 msgid "Get <em>another</em> %s site in seconds"
 msgstr "Erstelle eine <em>weitere</em> %s Webseite in Sekunden"
 
-#: wp-signup.php:495
+#: wp-signup.php:630
 msgid "Congratulations! Your new site, %s, is almost ready."
 msgstr "Herzlichen Glückwunsch! Deine neue Webseite – %s – ist beinahe fertig."
 
-#: wp-signup.php:550
+#: wp-signup.php:691
 msgid "Site registration has been disabled."
 msgstr "Das Registrieren von Seiten ist deaktiviert."
 
-#: wp-signup.php:343
+#: wp-signup.php:448
 msgid "Gimme a site!"
 msgstr "Gib mir eine Webseite!"
 
-#: wp-signup.php:497
+#: wp-signup.php:632
 msgid "But, before you can start using your site, <strong>you must activate it</strong>."
 msgstr "Doch bevor du deine Seite nutzen kannst, musst du sie erst <strong>aktivieren</strong>."
 
-#: wp-signup.php:499
+#: wp-signup.php:634
 msgid "If you do not activate your site within two days, you will have to sign up again."
 msgstr "Falls du deine Seite nicht innerhalb von zwei Tagen aktivierst, musst du sie von neuem registrieren."
 
-#: wp-includes/default-widgets.php:1149
+#: wp-includes/default-widgets.php:1150
 msgid "Select Menu:"
 msgstr "Wähle ein Menü:"
 
@@ -3557,11 +3582,11 @@ msgstr "Wähle ein Menü:"
 msgid "Navigation Menu"
 msgstr "Individuelles Menü"
 
-#: wp-includes/default-widgets.php:1074
+#: wp-includes/default-widgets.php:1075
 msgid "Taxonomy:"
 msgstr "Taxonomie"
 
-#: wp-includes/admin-bar.php:601
+#: wp-includes/admin-bar.php:625
 msgid "Menus"
 msgstr "Menüs"
 
@@ -3581,187 +3606,187 @@ msgstr "Zeitzone"
 msgid "Allow new users to sign up"
 msgstr "Erlaube neuen Benutzern die Registrierung"
 
-#: wp-includes/class-wp-xmlrpc-server.php:2269
+#: wp-includes/class-wp-xmlrpc-server.php:2272
 msgid "Sorry, you cannot edit this page."
 msgstr "Tut mir leid, du kannst diese Seite nicht bearbeiten."
 
-#: wp-includes/class-wp-xmlrpc-server.php:2279
-#: wp-includes/class-wp-xmlrpc-server.php:2383
-#: wp-includes/class-wp-xmlrpc-server.php:2424
+#: wp-includes/class-wp-xmlrpc-server.php:2282
+#: wp-includes/class-wp-xmlrpc-server.php:2386
+#: wp-includes/class-wp-xmlrpc-server.php:2427
 msgid "Sorry, no such page."
 msgstr "Diese Seite gibt es leider nicht."
 
-#: wp-includes/class-wp-xmlrpc-server.php:2307
-#: wp-includes/class-wp-xmlrpc-server.php:2467
+#: wp-includes/class-wp-xmlrpc-server.php:2310
+#: wp-includes/class-wp-xmlrpc-server.php:2470
 msgid "Sorry, you cannot edit pages."
 msgstr "Tut mir leid, du kannst keine Seiten bearbeiten."
 
-#: wp-includes/class-wp-xmlrpc-server.php:2387
+#: wp-includes/class-wp-xmlrpc-server.php:2390
 msgid "Sorry, you do not have the right to delete this page."
 msgstr "Du verfügst nicht über ausreichende Rechte, um diese Seite zu löschen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:2392
+#: wp-includes/class-wp-xmlrpc-server.php:2395
 msgid "Failed to delete the page."
 msgstr "Die Seite konnte nicht gelöscht werden."
 
-#: wp-includes/class-wp-xmlrpc-server.php:2428
+#: wp-includes/class-wp-xmlrpc-server.php:2431
 msgid "Sorry, you do not have the right to edit this page."
 msgstr "Du verfügst nicht über ausreichende Rechte, um diese Seite zu bearbeiten."
 
-#: wp-includes/class-wp-xmlrpc-server.php:2598
+#: wp-includes/class-wp-xmlrpc-server.php:2601
 msgid "Sorry, you do not have the right to add a category."
 msgstr "Du verfügst nicht über ausreichende Rechte, um eine Kategorie hinzuzufügen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:2626
-#: wp-includes/class-wp-xmlrpc-server.php:2628
+#: wp-includes/class-wp-xmlrpc-server.php:2629
+#: wp-includes/class-wp-xmlrpc-server.php:2631
 msgid "Sorry, the new category failed."
 msgstr "Die neue Kategorie konnte leider nicht erstellt werden."
 
-#: wp-includes/class-wp-xmlrpc-server.php:2658
+#: wp-includes/class-wp-xmlrpc-server.php:2661
 msgid "Sorry, you do not have the right to delete a category."
 msgstr "Du hast leider nicht die nötigen Rechte, um eine Kategorie zu löschen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:2730
-#: wp-includes/class-wp-xmlrpc-server.php:2829
-#: wp-includes/class-wp-xmlrpc-server.php:2884
+#: wp-includes/class-wp-xmlrpc-server.php:2733
+#: wp-includes/class-wp-xmlrpc-server.php:2832
+#: wp-includes/class-wp-xmlrpc-server.php:2887
 msgid "Invalid comment ID."
 msgstr "Ungültige Kommentar-ID."
 
-#: wp-includes/class-wp-xmlrpc-server.php:2766
+#: wp-includes/class-wp-xmlrpc-server.php:2769
 msgid "Sorry, you cannot edit comments."
 msgstr "Tut mir leid, du kannst keine Kommentare bearbeiten."
 
-#: wp-includes/class-wp-xmlrpc-server.php:2896
+#: wp-includes/class-wp-xmlrpc-server.php:2899
 msgid "Invalid comment status."
 msgstr "Ungültiger Kommentarstatus."
 
-#: wp-includes/class-wp-xmlrpc-server.php:2928
+#: wp-includes/class-wp-xmlrpc-server.php:2931
 msgid "Sorry, the comment could not be edited. Something wrong happened."
 msgstr "Der Beitrag konnte leider nicht bearbeitet werden. Irgendetwas ging schief."
 
-#: wp-includes/class-wp-xmlrpc-server.php:2961
+#: wp-includes/class-wp-xmlrpc-server.php:2964
 msgid "You must be registered to comment"
 msgstr "Um einen Kommentar zu hinterlassen, musst du angemeldet sein."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1013
-#: wp-includes/class-wp-xmlrpc-server.php:1262
-#: wp-includes/class-wp-xmlrpc-server.php:1322
-#: wp-includes/class-wp-xmlrpc-server.php:1403
-#: wp-includes/class-wp-xmlrpc-server.php:2266
-#: wp-includes/class-wp-xmlrpc-server.php:2974
+#: wp-includes/class-wp-xmlrpc-server.php:1016
+#: wp-includes/class-wp-xmlrpc-server.php:1265
+#: wp-includes/class-wp-xmlrpc-server.php:1325
+#: wp-includes/class-wp-xmlrpc-server.php:1406
+#: wp-includes/class-wp-xmlrpc-server.php:2269
 #: wp-includes/class-wp-xmlrpc-server.php:2977
-#: wp-includes/class-wp-xmlrpc-server.php:3745
-#: wp-includes/class-wp-xmlrpc-server.php:4379
-#: wp-includes/class-wp-xmlrpc-server.php:4640
-#: wp-includes/class-wp-xmlrpc-server.php:5118
-#: wp-includes/class-wp-xmlrpc-server.php:5164
-#: wp-includes/class-wp-xmlrpc-server.php:5276 wp-includes/post.php:2657
-#: wp-includes/post.php:2912
+#: wp-includes/class-wp-xmlrpc-server.php:2980
+#: wp-includes/class-wp-xmlrpc-server.php:3748
+#: wp-includes/class-wp-xmlrpc-server.php:4382
+#: wp-includes/class-wp-xmlrpc-server.php:4643
+#: wp-includes/class-wp-xmlrpc-server.php:5121
+#: wp-includes/class-wp-xmlrpc-server.php:5167
+#: wp-includes/class-wp-xmlrpc-server.php:5279 wp-includes/post.php:2728
+#: wp-includes/post.php:2984
 msgid "Invalid post ID."
 msgstr "Ungültige Beitrags-ID."
 
-#: wp-includes/class-wp-xmlrpc-server.php:3003
+#: wp-includes/class-wp-xmlrpc-server.php:3006
 msgid "Comment author name and email are required"
 msgstr "Name und E-Mail-Adresse des Autoren sind erforderlich."
 
-#: wp-includes/class-wp-xmlrpc-server.php:3005
+#: wp-includes/class-wp-xmlrpc-server.php:3008
 msgid "A valid email address is required"
 msgstr "Eine gültige E-Mail-Adresse ist erforderlich"
 
-#: wp-includes/class-wp-xmlrpc-server.php:3068
+#: wp-includes/class-wp-xmlrpc-server.php:3071
 msgid "You are not allowed access to details about comments."
 msgstr "Du darfst nicht auf Details von Kommentaren zugreifen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:3234
+#: wp-includes/class-wp-xmlrpc-server.php:3237
 msgid "You are not allowed to update options."
 msgstr "Du darfst die Einstellungen nicht ändern."
 
-#: wp-includes/class-wp-xmlrpc-server.php:1406
-#: wp-includes/class-wp-xmlrpc-server.php:3607
-#: wp-includes/class-wp-xmlrpc-server.php:3748
-#: wp-includes/class-wp-xmlrpc-server.php:4643
-#: wp-includes/class-wp-xmlrpc-server.php:4970
-#: wp-includes/class-wp-xmlrpc-server.php:5167
+#: wp-includes/class-wp-xmlrpc-server.php:1409
+#: wp-includes/class-wp-xmlrpc-server.php:3610
+#: wp-includes/class-wp-xmlrpc-server.php:3751
+#: wp-includes/class-wp-xmlrpc-server.php:4646
+#: wp-includes/class-wp-xmlrpc-server.php:4973
+#: wp-includes/class-wp-xmlrpc-server.php:5170
 msgid "Sorry, you cannot edit this post."
 msgstr "Bedaure, du kannst diesen Beitrag nicht bearbeiten."
 
-#: wp-includes/class-wp-xmlrpc-server.php:3800
-#: wp-includes/class-wp-xmlrpc-server.php:5028
+#: wp-includes/class-wp-xmlrpc-server.php:3803
+#: wp-includes/class-wp-xmlrpc-server.php:5031
 msgid "Either there are no posts, or something went wrong."
 msgstr "Entweder gibt es keine Beiträge oder es ging etwas schief."
 
-#: wp-includes/class-wp-xmlrpc-server.php:3932
-#: wp-includes/class-wp-xmlrpc-server.php:3986
-#: wp-includes/class-wp-xmlrpc-server.php:4739
-#: wp-includes/class-wp-xmlrpc-server.php:5230
+#: wp-includes/class-wp-xmlrpc-server.php:3935
+#: wp-includes/class-wp-xmlrpc-server.php:3989
+#: wp-includes/class-wp-xmlrpc-server.php:4742
+#: wp-includes/class-wp-xmlrpc-server.php:5233
 msgid "Sorry, no such post."
 msgstr "Diesen Beitrag gibt es leider nicht."
 
-#: wp-includes/class-wp-xmlrpc-server.php:3942
-#: wp-includes/class-wp-xmlrpc-server.php:4543
+#: wp-includes/class-wp-xmlrpc-server.php:3945
+#: wp-includes/class-wp-xmlrpc-server.php:4546
 msgid "Sorry, you do not have the right to publish this post."
 msgstr "Du verfügst nicht über ausreichende Rechte, um diesen Beitrag zu veröffentlichen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:4431
+#: wp-includes/class-wp-xmlrpc-server.php:4434
 msgid "You are not allowed to change the post author as this user."
 msgstr "Dieser Benutzer darf den Autor des Beitrags nicht verändern."
 
-#: wp-includes/class-wp-xmlrpc-server.php:4435
+#: wp-includes/class-wp-xmlrpc-server.php:4438
 msgid "You are not allowed to change the page author as this user."
 msgstr "Dieser Benutzer darf den Autor der Seite nicht verändern."
 
-#: wp-includes/class-wp-xmlrpc-server.php:4541
+#: wp-includes/class-wp-xmlrpc-server.php:4544
 msgid "Sorry, you do not have the right to publish this page."
 msgstr "Du verfügst nicht über ausreichende Rechte, um diese Seite zu veröffentlichen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:4579
+#: wp-includes/class-wp-xmlrpc-server.php:4582
 msgid "Sorry, your entry could not be edited. Something wrong happened."
 msgstr "Der Beitrag konnte leider nicht bearbeitet werden. Irgendetwas ging schief."
 
-#: wp-includes/class-wp-xmlrpc-server.php:4961
+#: wp-includes/class-wp-xmlrpc-server.php:4964
 msgid "Could not write file %1$s (%2$s)"
 msgstr "Konnte folgende Datei nicht schreiben %1$s (%2$s)"
 
-#: wp-includes/class-wp-xmlrpc-server.php:5121
+#: wp-includes/class-wp-xmlrpc-server.php:5124
 msgid "Sorry, you can not edit this post."
 msgstr "Du verfügst nicht über ausreichende Rechte, um diesen Beitrag zu bearbeiten."
 
-#: wp-includes/class-wp-xmlrpc-server.php:5328
+#: wp-includes/class-wp-xmlrpc-server.php:5331
 msgid "Is there no link to us?"
 msgstr "Gibt es keinen Link zu uns?"
 
-#: wp-includes/class-wp-xmlrpc-server.php:5368
-#: wp-includes/class-wp-xmlrpc-server.php:5375
-#: wp-includes/class-wp-xmlrpc-server.php:5382
-#: wp-includes/class-wp-xmlrpc-server.php:5495
+#: wp-includes/class-wp-xmlrpc-server.php:5371
+#: wp-includes/class-wp-xmlrpc-server.php:5378
+#: wp-includes/class-wp-xmlrpc-server.php:5385
+#: wp-includes/class-wp-xmlrpc-server.php:5498
 msgid "The specified target URL cannot be used as a target. It either doesn&#8217;t exist, or it is not a pingback-enabled resource."
 msgstr "Die angegebene URL kann nicht als Ziel verwendet werden. Entweder existiert sie nicht oder der Empfänger erlaubt keine Pingbacks."
 
-#: wp-includes/class-wp-xmlrpc-server.php:5378
+#: wp-includes/class-wp-xmlrpc-server.php:5381
 msgid "The source URL and the target URL cannot both point to the same resource."
 msgstr "Die Quell-URL und die Ziel-URL können nicht gleichzeitig auf den gleichen Punkt zeigen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:5386
+#: wp-includes/class-wp-xmlrpc-server.php:5389
 msgid "The pingback has already been registered."
 msgstr "Der Pingback wurde schon registriert."
 
-#: wp-includes/class-wp-xmlrpc-server.php:5400
+#: wp-includes/class-wp-xmlrpc-server.php:5403
 msgid "The source URL does not exist."
 msgstr "Die angegebene Quell-URL existiert nicht."
 
-#: wp-includes/class-wp-xmlrpc-server.php:5412
+#: wp-includes/class-wp-xmlrpc-server.php:5415
 msgid "We cannot find a title on that page."
 msgstr "Wir können auf dieser Seite keinen Titel finden."
 
-#: wp-includes/class-wp-xmlrpc-server.php:5448
+#: wp-includes/class-wp-xmlrpc-server.php:5451
 msgid "The source URL does not contain a link to the target URL, and so cannot be used as a source."
 msgstr "Die Quell-URL enthält keinen Link zur Ziel-URL und kann deshalb nicht als Quelle genutzt werden."
 
-#: wp-includes/class-wp-xmlrpc-server.php:5469
+#: wp-includes/class-wp-xmlrpc-server.php:5472
 msgid "Pingback from %1$s to %2$s registered. Keep the web talking! :-)"
 msgstr "Pingback von %1$s zu %2$s registriert. Keep the web talking! :-)"
 
-#: wp-includes/class-wp-xmlrpc-server.php:5502
+#: wp-includes/class-wp-xmlrpc-server.php:5505
 msgid "The specified target URL does not exist."
 msgstr "Die angegebene Ziel-URL existiert nicht."
 
@@ -3802,23 +3827,23 @@ msgstr "WordPress-Datenbank-Fehler %1$s für Abfrage %2$s von %3$s"
 msgid "WordPress database error %1$s for query %2$s"
 msgstr "WordPress-Datenbank-Fehler %1$s für die Abfrage %2$s"
 
-#: wp-includes/comment-template.php:1636
+#: wp-includes/comment-template.php:1983
 msgid "Cancel reply"
 msgstr "Antworten abbrechen"
 
-#: wp-includes/comment-template.php:1637
+#: wp-includes/comment-template.php:1984
 msgid "Post Comment"
 msgstr "Kommentar abschicken"
 
-#: wp-includes/comment.php:422
+#: wp-includes/comment.php:434
 msgid "Unapproved"
 msgstr "Nicht genehmigt"
 
-#: wp-includes/comment.php:681 wp-includes/comment.php:683
+#: wp-includes/comment.php:693 wp-includes/comment.php:695
 msgid "Duplicate comment detected; it looks as though you&#8217;ve already said that!"
 msgstr "Doppelter Kommentar wurde entdeckt. Es sieht stark danach aus, dass du das schon einmal gesagt hast!"
 
-#: wp-includes/comment.php:1459
+#: wp-includes/comment.php:1474
 msgid "Could not update comment status"
 msgstr "Der Kommentarstatus konnte nicht aktualisiert werden"
 
@@ -3942,56 +3967,56 @@ msgstr "Anzahl der Beiträge, die angezeigt werden:"
 msgid "The most recent comments"
 msgstr "Die letzten Kommentare"
 
-#: wp-includes/default-widgets.php:699
+#: wp-includes/default-widgets.php:700
 msgctxt "widgets"
 msgid "%1$s on %2$s"
 msgstr "%1$s bei %2$s"
 
-#: wp-includes/default-widgets.php:744
+#: wp-includes/default-widgets.php:745
 msgid "Entries from any RSS or Atom feed"
 msgstr "Externe RSS- oder Atom-Feeds"
 
-#: wp-includes/default-widgets.php:788
+#: wp-includes/default-widgets.php:789
 msgid "Syndicate this content"
 msgstr "Den Inhalt auslesen"
 
-#: wp-includes/default-widgets.php:866
+#: wp-includes/default-widgets.php:867
 msgid "Untitled"
 msgstr "Ohne Titel"
 
-#: wp-includes/default-widgets.php:944
+#: wp-includes/default-widgets.php:945
 msgid "RSS Error: %s"
 msgstr "RSS-Fehler: %s"
 
-#: wp-includes/default-widgets.php:948
+#: wp-includes/default-widgets.php:949
 msgid "Enter the RSS feed URL here:"
 msgstr "Gib die URL des RSS-Feeds hier ein:"
 
-#: wp-includes/default-widgets.php:951
+#: wp-includes/default-widgets.php:952
 msgid "Give the feed a title (optional):"
 msgstr "Gib dem Feed einen Titel (optional):"
 
-#: wp-includes/default-widgets.php:954
+#: wp-includes/default-widgets.php:955
 msgid "How many items would you like to display?"
 msgstr "Wie viele Einträge sollen angezeigt werden?"
 
-#: wp-includes/default-widgets.php:963
+#: wp-includes/default-widgets.php:964
 msgid "Display item content?"
 msgstr "Beitrags-Inhalt anzeigen?"
 
-#: wp-includes/default-widgets.php:966
+#: wp-includes/default-widgets.php:967
 msgid "Display item author if available?"
 msgstr "Beitrags-Autor anzeigen, wenn verfügbar?"
 
-#: wp-includes/default-widgets.php:969
+#: wp-includes/default-widgets.php:970
 msgid "Display item date?"
 msgstr "Beitrags-Datum anzeigen?"
 
-#: wp-includes/default-widgets.php:1035
+#: wp-includes/default-widgets.php:1036
 msgid "Your most used tags in cloud format"
 msgstr "Deine Schlagworte in einer Wolke"
 
-#: wp-includes/default-widgets.php:1036
+#: wp-includes/default-widgets.php:1037
 msgid "Tag Cloud"
 msgstr "Schlagwörter-Wolke"
 
@@ -4003,61 +4028,61 @@ msgstr "Neuer WordPress-Loop"
 msgid "Last updated"
 msgstr "Zuletzt aktualisiert"
 
-#: wp-includes/deprecated.php:1884 wp-includes/post-template.php:1177
+#: wp-includes/deprecated.php:1884 wp-includes/post-template.php:1190
 msgid "Missing Attachment"
 msgstr "Anlage fehlt"
 
-#: wp-includes/feed-atom-comments.php:21 wp-includes/feed-rss2-comments.php:24
+#: wp-includes/feed-atom-comments.php:21 wp-includes/feed-rss2-comments.php:36
 msgid "Comments for %1$s searching on %2$s"
 msgstr "Kommentare für %1$s in %2$s gesucht"
 
-#: wp-includes/feed-atom-comments.php:23 wp-includes/feed-rss2-comments.php:26
+#: wp-includes/feed-atom-comments.php:23 wp-includes/feed-rss2-comments.php:38
 msgid "Comments for %s"
 msgstr "Kommentare für %s"
 
-#: wp-includes/feed-atom-comments.php:52 wp-includes/feed-rss2-comments.php:44
+#: wp-includes/feed-atom-comments.php:53 wp-includes/feed-rss2-comments.php:65
 msgid "Comment on %1$s by %2$s"
 msgstr "Kommentar zu %1$s von %2$s"
 
-#: wp-includes/feed-atom-comments.php:54 wp-includes/feed-rss2-comments.php:46
+#: wp-includes/feed-atom-comments.php:55 wp-includes/feed-rss2-comments.php:67
 msgid "By: %s"
 msgstr "Von: %s"
 
-#: wp-includes/feed-rss2-comments.php:22
+#: wp-includes/feed-rss2-comments.php:34
 msgid "Comments on: %s"
 msgstr "Kommentare zu: %s"
 
-#: wp-includes/feed-rss2-comments.php:54
+#: wp-includes/feed-rss2-comments.php:75
 msgid "Protected Comments: Please enter your password to view comments."
 msgstr "Auch die Kommentare sind durch das Passwort geschützt."
 
-#: wp-includes/formatting.php:2144
+#: wp-includes/formatting.php:2145
 msgid "%s min"
 msgid_plural "%s mins"
 msgstr[0] "%s Minute"
 msgstr[1] "%s Minuten"
 
-#: wp-includes/formatting.php:2149
+#: wp-includes/formatting.php:2150
 msgid "%s hour"
 msgid_plural "%s hours"
 msgstr[0] "%s Stunde"
 msgstr[1] "%s Stunden"
 
-#: wp-includes/formatting.php:2154
+#: wp-includes/formatting.php:2155
 msgid "%s day"
 msgid_plural "%s days"
 msgstr[0] "%s Tag"
 msgstr[1] "%s Tagen"
 
-#: wp-includes/class-wp-theme.php:664 wp-includes/formatting.php:3107
+#: wp-includes/class-wp-theme.php:664 wp-includes/formatting.php:3108
 msgid ", "
 msgstr ", "
 
-#: wp-includes/formatting.php:3109
+#: wp-includes/formatting.php:3110
 msgid ", and "
 msgstr ", und "
 
-#: wp-includes/formatting.php:3111
+#: wp-includes/formatting.php:3112
 msgid " and "
 msgstr " und "
 
@@ -4065,76 +4090,72 @@ msgstr " und "
 msgid "%s is a protected WP option and may not be modified"
 msgstr "%s ist eine geschützte WP-Option und sollte nicht verändert werden"
 
-#: wp-includes/functions.php:1009
-msgid "ERROR: %s is not a valid feed template."
-msgstr "FEHLER: %s ist kein gültiges Feed-Template"
-
-#: wp-includes/functions.php:1624 wp-includes/functions.php:1747
+#: wp-includes/functions.php:1657 wp-includes/functions.php:1780
 msgid "Unable to create directory %s. Is its parent directory writable by the server?"
 msgstr "Das Verzeichnis %s kann nicht angelegt werden. Ist das übergeordnete Verzeichnis durch den Server beschreibbar?"
 
-#: wp-includes/functions.php:1721
+#: wp-includes/functions.php:1754
 msgid "Empty filename"
 msgstr "Leerer Dateiname"
 
-#: wp-includes/functions.php:1753
+#: wp-includes/functions.php:1786
 msgid "Could not write file %s"
 msgstr "Konnte folgende Datei nicht schreiben %s"
 
-#: wp-includes/functions.php:2030
+#: wp-includes/functions.php:2078
 msgid "You are attempting to log out of %s"
 msgstr "Du hast vor, dich von der Website %s abzumelden"
 
-#: wp-includes/functions.php:2028
+#: wp-includes/functions.php:2076
 msgid "WordPress Failure Notice"
 msgstr "WordPress-Fehlermeldung"
 
-#: wp-includes/functions.php:2031
+#: wp-includes/functions.php:2079
 msgid "Do you really want to <a href='%s'>log out</a>?"
 msgstr "Willst du dich wirklich <a href='%s'>abmelden</a>?"
 
-#: wp-includes/functions.php:2035 wp-includes/ms-functions.php:1600
+#: wp-includes/functions.php:2083 wp-includes/ms-functions.php:1611
 msgid "Please try again."
 msgstr "Bitte noch mal versuchen."
 
-#: wp-includes/functions.php:2109
+#: wp-includes/functions.php:2157
 msgid "&laquo; Back"
 msgstr "&laquo; Zurück"
 
-#: wp-includes/functions.php:2121 wp-load.php:62
+#: wp-includes/functions.php:2169 wp-load.php:61
 msgid "WordPress &rsaquo; Error"
 msgstr "WordPress &rsaquo; Fehler"
 
-#: wp-includes/functions.php:2871 wp-includes/functions.php:2918
+#: wp-includes/functions.php:2919 wp-includes/functions.php:2966
 msgid "%1$s is <strong>deprecated</strong> since version %2$s! Use %3$s instead."
 msgstr "%1$s ist seit Version %2$s <strong>veraltet</strong>! Benutze stattdessen %3$s."
 
-#: wp-includes/functions.php:2873 wp-includes/functions.php:2920
+#: wp-includes/functions.php:2921 wp-includes/functions.php:2968
 msgid "%1$s is <strong>deprecated</strong> since version %2$s with no alternative available."
 msgstr "%1$s ist seit Version %2$s <strong>veraltet</strong>. Es ist keine Alternative erhältlich."
 
-#: wp-includes/functions.php:2969
+#: wp-includes/functions.php:3017
 msgid "%1$s was called with an argument that is <strong>deprecated</strong> since version %2$s! %3$s"
 msgstr "%1$s wurde mit einem Parameter oder Argument aufgerufen, der seit Version %2$s <strong>veraltet ist</strong>! %3$s"
 
-#: wp-includes/functions.php:2971
+#: wp-includes/functions.php:3019
 msgid "%1$s was called with an argument that is <strong>deprecated</strong> since version %2$s with no alternative available."
 msgstr "%1$s wurde mit einem Parameter oder Argument aufgerufen, der seit Version %2$s <strong>veraltet ist</strong>! Es gibt jedoch keine alternative Möglichkeit."
 
-#: wp-includes/functions.php:3411
+#: wp-includes/functions.php:3523
 msgid "Select a city"
 msgstr "Wähle eine Stadt"
 
-#: wp-includes/functions.php:3456 wp-includes/functions.php:3460
+#: wp-includes/functions.php:3568 wp-includes/functions.php:3572
 msgid "UTC"
 msgstr "UTC"
 
-#: wp-includes/functions.php:3464
+#: wp-includes/functions.php:3576
 msgid "Manual Offsets"
 msgstr "Manueller Zeitabstand"
 
-#: wp-includes/general-template.php:215 wp-login.php:464 wp-login.php:492
-#: wp-login.php:523 wp-login.php:579
+#: wp-includes/general-template.php:215 wp-login.php:538 wp-login.php:587
+#: wp-login.php:618 wp-login.php:700
 msgid "Log in"
 msgstr "Anmelden"
 
@@ -4142,12 +4163,12 @@ msgstr "Anmelden"
 msgid "Log out"
 msgstr "Abmelden"
 
-#: wp-includes/general-template.php:305 wp-login.php:704
+#: wp-includes/general-template.php:305 wp-login.php:852
 msgid "Remember Me"
 msgstr "Erinnere dich an mich"
 
-#: wp-includes/general-template.php:383 wp-login.php:466 wp-login.php:525
-#: wp-login.php:575 wp-login.php:723
+#: wp-includes/general-template.php:383 wp-login.php:541 wp-login.php:621
+#: wp-login.php:696 wp-login.php:871
 msgid "Register"
 msgstr "Registrieren"
 
@@ -4155,65 +4176,65 @@ msgstr "Registrieren"
 msgid "Site Admin"
 msgstr "Administration"
 
-#: wp-includes/general-template.php:622
+#: wp-includes/general-template.php:635
 msgid "Search Results %1$s %2$s"
 msgstr "Suchergebnisse %1$s %2$s"
 
-#: wp-includes/general-template.php:627
+#: wp-includes/general-template.php:640
 msgid "Page not found"
 msgstr "Seite nicht gefunden"
 
-#: wp-includes/general-template.php:981
+#: wp-includes/general-template.php:997
 msgid "%1$s %2$d"
 msgstr "%1$s %2$d"
 
-#: wp-includes/general-template.php:1179
+#: wp-includes/general-template.php:1197
 msgctxt "calendar caption"
 msgid "%1$s %2$s"
 msgstr "%1$s %2$s"
 
-#: wp-includes/general-template.php:1205 wp-includes/general-template.php:1213
+#: wp-includes/general-template.php:1223 wp-includes/general-template.php:1231
 msgid "View posts for %1$s %2$s"
 msgstr "Zeige Beiträge für %1$s %2$s"
 
-#: wp-includes/general-template.php:1633 wp-includes/general-template.php:1656
+#: wp-includes/general-template.php:1652 wp-includes/general-template.php:1675
 msgctxt "feed link"
 msgid "&raquo;"
 msgstr "&raquo;"
 
-#: wp-includes/general-template.php:1635
+#: wp-includes/general-template.php:1654
 msgid "%1$s %2$s Feed"
 msgstr "%1$s %2$s Feed"
 
-#: wp-includes/general-template.php:1637
+#: wp-includes/general-template.php:1656
 msgid "%1$s %2$s Comments Feed"
 msgstr "%1$s %2$s Kommentar-Feed"
 
-#: wp-includes/general-template.php:1658
+#: wp-includes/general-template.php:1677
 msgid "%1$s %2$s %3$s Comments Feed"
 msgstr "%1$s %2$s %3$s Kommentar-Feed"
 
-#: wp-includes/general-template.php:1660
+#: wp-includes/general-template.php:1679
 msgid "%1$s %2$s %3$s Category Feed"
 msgstr "%1$s %2$s %3$s Kategorie-Feed"
 
-#: wp-includes/general-template.php:1662
+#: wp-includes/general-template.php:1681
 msgid "%1$s %2$s %3$s Tag Feed"
 msgstr "%1$s %2$s %3$s Schlagwort-Feed"
 
-#: wp-includes/general-template.php:1664
+#: wp-includes/general-template.php:1683
 msgid "%1$s %2$s Posts by %3$s Feed"
 msgstr "%1$s %2$s Beiträge nach %3$s Feed"
 
-#: wp-includes/general-template.php:1666
+#: wp-includes/general-template.php:1685
 msgid "%1$s %2$s Search Results for &#8220;%3$s&#8221; Feed"
 msgstr "%1$s %2$s Suchergebnisse für &#8220;%3$s&#8221; Feed"
 
-#: wp-includes/general-template.php:1963
+#: wp-includes/general-template.php:1996
 msgid "&laquo; Previous"
 msgstr "&laquo; Zurück"
 
-#: wp-includes/general-template.php:1964
+#: wp-includes/general-template.php:1997
 msgid "Next &raquo;"
 msgstr "Weiter &raquo;"
 
@@ -4221,22 +4242,16 @@ msgstr "Weiter &raquo;"
 msgid "Gray"
 msgstr "Grau"
 
-#: wp-includes/class-http.php:134
+#: wp-includes/class-http.php:121
 msgid "User has blocked requests through HTTP."
 msgstr "Der Benutzer hat Anfragen über HTTP blockiert."
 
-#: wp-includes/class-http.php:812 wp-includes/class-http.php:1002
-#: wp-includes/class-http.php:1230 wp-includes/class-http.php:1252
+#: wp-includes/class-http.php:615 wp-includes/class-http.php:1242
 #: wp-includes/class-http.php:1270
 msgid "Too many redirects."
 msgstr "Zu viele Weiterleitungen."
 
-#: wp-includes/class-http.php:899
-msgid "Malformed URL: %s"
-msgstr "Fehlerhafte URL: %s"
-
-#: wp-includes/class-http.php:757 wp-includes/class-http.php:958
-#: wp-includes/class-http.php:978 wp-includes/class-http.php:1197
+#: wp-includes/class-http.php:861 wp-includes/class-http.php:1209
 msgid "Could not open handle for fopen() to %s"
 msgstr "Konnte Verbindung zu %s über fopen() nicht öffnen"
 
@@ -4537,7 +4552,7 @@ msgstr "Bild einfügen/ändern"
 
 #: wp-includes/js/tinymce/langs/wp-langs.php:152
 #: wp-includes/js/tinymce/langs/wp-langs.php:377
-#: wp-includes/script-loader.php:328
+#: wp-includes/script-loader.php:341
 msgid "Insert/edit link"
 msgstr "Link einfügen/ändern"
 
@@ -4667,11 +4682,11 @@ msgid "Cell"
 msgstr "Zelle"
 
 #: wp-includes/js/tinymce/langs/wp-langs.php:206
-#: wp-includes/script-loader.php:505 wp-includes/script-loader.php:621
+#: wp-includes/script-loader.php:511 wp-includes/script-loader.php:631
 msgid "The changes you made will be lost if you navigate away from this page."
 msgstr "Beim Verlassen der Seite werden deine Änderungen verworfen."
 
-#: wp-includes/script-loader.php:84
+#: wp-includes/script-loader.php:90
 msgid "Toggle fullscreen mode"
 msgstr "Vollbildmodus ein/aus"
 
@@ -5108,7 +5123,7 @@ msgid "Quality"
 msgstr "Qualität"
 
 #: wp-includes/js/tinymce/langs/wp-langs.php:410
-#: wp-includes/media-template.php:431
+#: wp-includes/media-template.php:432
 msgid "Align"
 msgstr "Ausrichtung"
 
@@ -5120,7 +5135,7 @@ msgstr "S-Ausrichtung"
 msgid "WMode"
 msgstr "W-Modus"
 
-#: wp-includes/admin-bar.php:604 wp-includes/js/tinymce/langs/wp-langs.php:413
+#: wp-includes/admin-bar.php:628 wp-includes/js/tinymce/langs/wp-langs.php:413
 msgid "Background"
 msgstr "Hintergrund"
 
@@ -5199,7 +5214,7 @@ msgid "Auto start"
 msgstr "Automatisch starten"
 
 #: wp-includes/js/tinymce/langs/wp-langs.php:434
-#: wp-includes/script-loader.php:289
+#: wp-includes/script-loader.php:295
 msgid "Fullscreen"
 msgstr "Vollbild"
 
@@ -5208,7 +5223,7 @@ msgid "Invoke URLs"
 msgstr "URLs aufrufen"
 
 #: wp-includes/js/tinymce/langs/wp-langs.php:436
-#: wp-includes/script-loader.php:298
+#: wp-includes/script-loader.php:304
 msgid "Mute"
 msgstr "Stumm"
 
@@ -5404,7 +5419,7 @@ msgstr "Weiterlesen …"
 msgid "Next page..."
 msgstr "Nächste Seite …"
 
-#: wp-includes/js/tinymce/langs/wp-langs.php:511 wp-includes/media.php:1860
+#: wp-includes/js/tinymce/langs/wp-langs.php:511 wp-includes/media.php:1922
 msgid "Edit Gallery"
 msgstr "Galerie bearbeiten"
 
@@ -5609,11 +5624,11 @@ msgstr "Hast Du Moxie?"
 msgid "Comments Feed"
 msgstr "RSS-Kommentare"
 
-#: wp-includes/link-template.php:1226 wp-includes/link-template.php:1391
+#: wp-includes/link-template.php:1228 wp-includes/link-template.php:1426
 msgid "Previous Post"
 msgstr "Vorheriger Beitrag"
 
-#: wp-includes/link-template.php:1226 wp-includes/link-template.php:1391
+#: wp-includes/link-template.php:1228 wp-includes/link-template.php:1426
 msgid "Next Post"
 msgstr "Nächster Beitrag"
 
@@ -5621,11 +5636,11 @@ msgstr "Nächster Beitrag"
 msgid "Last Post"
 msgstr "Letzter Beitrag"
 
-#: wp-includes/link-template.php:1746
+#: wp-includes/link-template.php:1801
 msgid "Newer Comments &raquo;"
 msgstr "Neuere Kommentare &raquo;"
 
-#: wp-includes/link-template.php:1783
+#: wp-includes/link-template.php:1838
 msgid "&laquo; Older Comments"
 msgstr "&laquo; Ältere Kommentare"
 
@@ -5681,59 +5696,59 @@ msgstr "."
 msgid "Could not read image size"
 msgstr "Die Bildgröße konnte nicht gelesen werden."
 
-#: wp-includes/ms-functions.php:247
+#: wp-includes/ms-functions.php:248
 msgid "That user does not exist."
 msgstr "Dieser Benutzer existiert nicht."
 
-#: wp-includes/ms-functions.php:454
+#: wp-includes/ms-functions.php:458
 msgid "You cannot use that email address to signup. We are having problems with them blocking some of our email. Please use another email provider."
 msgstr "Du kannst dich leider nicht mit dieser E-Mail-Adresse registrieren, da dein E-Mail-Anbieter einen Teil unserer E-Mails blockiert. Nutze bitte eine E-Mailadresse eines anderen E-Mail-Anbieters."
 
-#: wp-includes/ms-functions.php:464
+#: wp-includes/ms-functions.php:468
 msgid "Sorry, usernames must have letters too!"
 msgstr "Entschuldige, aber Benutzernamen müssen auch Buchstaben enthalten!"
 
-#: wp-includes/ms-functions.php:473
+#: wp-includes/ms-functions.php:477
 msgid "Sorry, that email address is not allowed!"
 msgstr "Diese E-Mail-Adresse ist nicht erlaubt!"
 
-#: wp-includes/ms-functions.php:478 wp-includes/user.php:1312
+#: wp-includes/ms-functions.php:482 wp-includes/user.php:1333
 msgid "Sorry, that username already exists!"
 msgstr "Entschuldige, aber der Benutzername existiert bereits!"
 
-#: wp-includes/ms-functions.php:482 wp-includes/user.php:1327
+#: wp-includes/ms-functions.php:486 wp-includes/user.php:1348
 msgid "Sorry, that email address is already used!"
 msgstr "Entschuldige, aber diese Email-Adresse wird bereits verwendet!"
 
-#: wp-includes/ms-functions.php:494
+#: wp-includes/ms-functions.php:498
 msgid "That username is currently reserved but may be available in a couple of days."
 msgstr "Dieser Benutzername ist derzeit reserviert, ist aber möglicherweise in den nächsten Tagen verfügbar."
 
-#: wp-includes/ms-functions.php:504
+#: wp-includes/ms-functions.php:508
 msgid "That email address has already been used. Please check your inbox for an activation email. It will become available in a couple of days if you do nothing."
 msgstr "Diese E-Mail-Adresse wurde bereits verwendet. Bitte schau in deinem Postfach nach der Aktivierungsmail. Falls du keine bekommen oder die Mail bereits gelöscht hast, kannst du dich in ein paar Tagen erneut mit dieser E-Mail-Adresse registrieren."
 
-#: wp-includes/ms-functions.php:823
+#: wp-includes/ms-functions.php:827
 msgid "Invalid activation key."
 msgstr "Ungültiger Aktivierungsschlüssel."
 
-#: wp-includes/ms-functions.php:843
+#: wp-includes/ms-functions.php:847
 msgid "Could not create user"
 msgstr "Der Benutzer konnte nicht erstellt werden"
 
-#: wp-includes/ms-functions.php:851
+#: wp-includes/ms-functions.php:855
 msgid "That username is already activated."
 msgstr "Dieser Benutzername wurde bereits aktiviert."
 
-#: wp-includes/ms-functions.php:1052
+#: wp-includes/ms-functions.php:1057
 msgid "New User Registration: %s"
 msgstr "Neue Benutzerregistrierung: %s"
 
-#: wp-includes/ms-functions.php:1291
+#: wp-includes/ms-functions.php:1299
 msgid "New %1$s User: %2$s"
 msgstr "Neuer %1$s Benutzer: %2$s"
 
-#: wp-includes/ms-functions.php:1807
+#: wp-includes/ms-functions.php:1805
 msgid ""
 "Dear User,\n"
 "\n"
@@ -5761,7 +5776,7 @@ msgstr ""
 "\n"
 "--Das Team von SITE_NAME"
 
-#: wp-includes/ms-load.php:89
+#: wp-includes/ms-load.php:95
 msgid "This user has elected to delete their account and the content is no longer available."
 msgstr "Der Nutzer hat sich entschieden, seinen Account zu löschen – damit sind die Inhalte nicht länger verfügbar."
 
@@ -5773,116 +5788,116 @@ msgstr "Es werden Datenbank-Tabellen vermisst."
 msgid "<strong>ERROR</strong>: Invalid username or incorrect password."
 msgstr "<strong>Fehler:</strong> Falscher Benutzername oder E-Mail-Adresse."
 
-#: wp-includes/pluggable.php:1019 wp-includes/pluggable.php:1135
+#: wp-includes/pluggable.php:1049 wp-includes/pluggable.php:1170
 msgid "Author : %1$s (IP: %2$s , %3$s)"
 msgstr "Autor: %1$s (IP: %2$s , %3$s)"
 
-#: wp-includes/pluggable.php:1020 wp-includes/pluggable.php:1136
+#: wp-includes/pluggable.php:1050 wp-includes/pluggable.php:1171
 msgid "E-mail : %s"
 msgstr "E-Mail : %s"
 
-#: wp-includes/pluggable.php:1021 wp-includes/pluggable.php:1031
-#: wp-includes/pluggable.php:1040 wp-includes/pluggable.php:1122
-#: wp-includes/pluggable.php:1129 wp-includes/pluggable.php:1137
+#: wp-includes/pluggable.php:1051 wp-includes/pluggable.php:1061
+#: wp-includes/pluggable.php:1070 wp-includes/pluggable.php:1157
+#: wp-includes/pluggable.php:1164 wp-includes/pluggable.php:1172
 msgid "URL    : %s"
 msgstr "URL: %s"
 
-#: wp-includes/pluggable.php:1023 wp-includes/pluggable.php:1139
+#: wp-includes/pluggable.php:1053 wp-includes/pluggable.php:1174
 msgid "Comment: "
 msgstr "Kommentar: "
 
-#: wp-includes/pluggable.php:1024
+#: wp-includes/pluggable.php:1054
 msgid "You can see all comments on this post here: "
 msgstr "Du kannst alle Kommentare zu diesem Beitrag hier sehen:"
 
-#: wp-includes/pluggable.php:1026
+#: wp-includes/pluggable.php:1056
 msgid "[%1$s] Comment: \"%2$s\""
 msgstr "[%1$s] Kommentar: \"%2$s\""
 
-#: wp-includes/pluggable.php:1030 wp-includes/pluggable.php:1039
+#: wp-includes/pluggable.php:1060 wp-includes/pluggable.php:1069
 msgid "Website: %1$s (IP: %2$s , %3$s)"
 msgstr "Website: %1$s (IP: %2$s , %3$s)"
 
-#: wp-includes/pluggable.php:1032 wp-includes/pluggable.php:1041
+#: wp-includes/pluggable.php:1062 wp-includes/pluggable.php:1071
 msgid "Excerpt: "
 msgstr "Kurzfassung: "
 
-#: wp-includes/pluggable.php:1033
+#: wp-includes/pluggable.php:1063
 msgid "You can see all trackbacks on this post here: "
 msgstr "Du kannst alle Trackbacks zu diesem Beitrag hier sehen: "
 
-#: wp-includes/pluggable.php:1035
+#: wp-includes/pluggable.php:1065
 msgid "[%1$s] Trackback: \"%2$s\""
 msgstr "[%1$s] Trackback: \"%2$s\""
 
-#: wp-includes/pluggable.php:1042
+#: wp-includes/pluggable.php:1072
 msgid "You can see all pingbacks on this post here: "
 msgstr "Du kannst alle Pingbacks zu diesem Beitrag hier sehen: "
 
-#: wp-includes/pluggable.php:1044
+#: wp-includes/pluggable.php:1074
 msgid "[%1$s] Pingback: \"%2$s\""
 msgstr "[%1$s] Pingback: \"%2$s\""
 
-#: wp-includes/pluggable.php:1051 wp-includes/pluggable.php:1145
+#: wp-includes/pluggable.php:1081 wp-includes/pluggable.php:1180
 msgid "Trash it: %s"
 msgstr "In den Papierkorb legen: %s"
 
-#: wp-includes/pluggable.php:1053 wp-includes/pluggable.php:1147
+#: wp-includes/pluggable.php:1083 wp-includes/pluggable.php:1182
 msgid "Delete it: %s"
 msgstr "Lösche %s"
 
-#: wp-includes/pluggable.php:1054 wp-includes/pluggable.php:1148
+#: wp-includes/pluggable.php:1084 wp-includes/pluggable.php:1183
 msgid "Spam it: %s"
 msgstr "Spam: %s"
 
-#: wp-includes/pluggable.php:1121 wp-includes/pluggable.php:1128
+#: wp-includes/pluggable.php:1156 wp-includes/pluggable.php:1163
 msgid "Website : %1$s (IP: %2$s , %3$s)"
 msgstr "Website: %1$s (IP: %2$s , %3$s)"
 
-#: wp-includes/pluggable.php:1123
+#: wp-includes/pluggable.php:1158
 msgid "Trackback excerpt: "
 msgstr "Trackback (Kurzfassung):"
 
-#: wp-includes/pluggable.php:1130
+#: wp-includes/pluggable.php:1165
 msgid "Pingback excerpt: "
 msgstr "Pingback (Kurzfassung):"
 
-#: wp-includes/pluggable.php:1143
+#: wp-includes/pluggable.php:1178
 msgid "Approve it: %s"
 msgstr "Genehmige %s"
 
-#: wp-includes/pluggable.php:1150
+#: wp-includes/pluggable.php:1185
 msgid "Currently %s comment is waiting for approval. Please visit the moderation panel:"
 msgid_plural "Currently %s comments are waiting for approval. Please visit the moderation panel:"
 msgstr[0] "Zurzeit wartet %s Kommentar auf Freigabe. Bitte gehe zur Moderationsansicht:"
 msgstr[1] "Zurzeit warten %s Kommentare auf Freigabe. Bitte gehe zur Moderationsansicht:"
 
-#: wp-includes/pluggable.php:1154
+#: wp-includes/pluggable.php:1189
 msgid "[%1$s] Please moderate: \"%2$s\""
 msgstr "[%1$s] Bitte moderiere: \"%2$s\""
 
-#: wp-includes/pluggable.php:1180
+#: wp-includes/pluggable.php:1217
 msgid "Password Lost and Changed for user: %s"
 msgstr "Passwort verloren und geändert für Benutzer: %s"
 
-#: wp-includes/pluggable.php:1184
+#: wp-includes/pluggable.php:1221
 msgid "[%s] Password Lost/Changed"
 msgstr "[%s] Passwort verloren/ändern"
 
-#: wp-includes/pluggable.php:1206 wp-includes/pluggable.php:1214
-#: wp-login.php:249
+#: wp-includes/pluggable.php:1243 wp-includes/pluggable.php:1251
+#: wp-login.php:355
 msgid "Username: %s"
 msgstr "Benutzername: %s"
 
-#: wp-includes/pluggable.php:1209
+#: wp-includes/pluggable.php:1246
 msgid "[%s] New User Registration"
 msgstr "[%s] Registrierung eines neuen Benutzers"
 
-#: wp-includes/pluggable.php:1215
+#: wp-includes/pluggable.php:1252
 msgid "Password: %s"
 msgstr "Passwort: %s"
 
-#: wp-includes/pluggable.php:1218
+#: wp-includes/pluggable.php:1255
 msgid "[%s] Your username and password"
 msgstr "[%s] Dein Benutzername und Passwort"
 
@@ -5898,32 +5913,28 @@ msgstr "Privat: %s"
 msgid "There is no excerpt because this is a protected post."
 msgstr "Es gibt keine Kurzfassung, da dies ein geschützter Beitrag ist."
 
-#: wp-includes/post-template.php:643
+#: wp-includes/post-template.php:646
 msgid "Next page"
 msgstr "Nächste Seite"
 
-#: wp-includes/post-template.php:644
+#: wp-includes/post-template.php:647
 msgid "Previous page"
 msgstr "Vorherige Seite"
 
-#: wp-includes/post-template.php:907
+#: wp-includes/post-template.php:910
 msgid "Home"
 msgstr "Home"
 
-#: wp-includes/post-template.php:1237
-msgid "This post is password protected. To view it please enter your password below:"
-msgstr "Dieser Beitrag ist passwortgeschützt. Um ihn anzusehen, trage das Passwort bitte hier ein:"
-
-#: wp-includes/post-template.php:1315
+#: wp-includes/post-template.php:1328
 msgctxt "revision date format"
 msgid "j F, Y @ G:i"
 msgstr "j. F Y @ G:i"
 
-#: wp-includes/post-template.php:1372
+#: wp-includes/post-template.php:1385
 msgid "%1$s [Autosave]"
 msgstr "%1$s [Automatische Speicherung]"
 
-#: wp-includes/post-template.php:1373
+#: wp-includes/post-template.php:1386
 msgid "%1$s [Current Revision]"
 msgstr "%1$s [Aktuelle Überarbeitung]"
 
@@ -5997,19 +6008,19 @@ msgid_plural "Trash <span class=\"count\">(%s)</span>"
 msgstr[0] "Papierkorb <span class=\"count\">(%s)</span>"
 msgstr[1] "Papierkorb <span class=\"count\">(%s)</span>"
 
-#: wp-includes/post.php:2672
+#: wp-includes/post.php:2743
 msgid "Content, title, and excerpt are empty."
 msgstr "Inhalt, Titel und Auszug sind leer."
 
-#: wp-includes/post.php:2804
+#: wp-includes/post.php:2875
 msgid "Could not update post in the database"
 msgstr "Der Beitrag konnte nicht in der Datenbank aktualisiert werden"
 
-#: wp-includes/post.php:2820
+#: wp-includes/post.php:2891
 msgid "Could not insert post into the database"
 msgstr "Der Beitrag konnte nicht in die Datenbank eingefügt werden"
 
-#: wp-includes/post.php:2867
+#: wp-includes/post.php:2938
 msgid "The page template is invalid."
 msgstr "Das Seitentemplate ist ungültig."
 
@@ -6021,226 +6032,222 @@ msgstr "Kann keine Überarbeitung einer Überarbeitung erstellen."
 msgid "You do not have permission to preview drafts."
 msgstr "Du hast nicht die erforderlichen Rechte, um die Entwurfsvorschau zu sehen."
 
-#: wp-includes/user.php:1309
+#: wp-includes/user.php:1330
 msgid "Cannot create a user with an empty login name."
 msgstr "Ohne Benutzername kann kein neuer Benutzer angelegt werden."
 
-#: wp-includes/user.php:1540
+#: wp-includes/user.php:1560
 msgid "AIM"
 msgstr "AIM"
 
-#: wp-includes/user.php:1541
+#: wp-includes/user.php:1561
 msgid "Yahoo IM"
 msgstr "Yahoo IM"
 
-#: wp-includes/user.php:1542
+#: wp-includes/user.php:1562
 msgid "Jabber / Google Talk"
 msgstr "Jabber / Google Talk"
 
-#: wp-includes/default-widgets.php:852 wp-includes/rss.php:895
+#: wp-includes/default-widgets.php:853 wp-includes/rss.php:899
 msgid "An error has occurred, which probably means the feed is down. Try again later."
 msgstr "Ein Fehler ist aufgetreten – der Feed funktioniert zur Zeit nicht. Probiere es später noch einmal."
 
-#: wp-includes/script-loader.php:71
+#: wp-includes/script-loader.php:77
 msgid ""
 "You are about to permanently delete the selected items.\n"
 "  'Cancel' to stop, 'OK' to delete."
 msgstr "Du bist dabei, die ausgewählten Punkte endültig zu löschen. Drücke 'Abbrechen' zum Stoppen, 'OK' zum Löschen."
 
-#: wp-includes/script-loader.php:78
+#: wp-includes/script-loader.php:84
 msgid "Close all open tags"
 msgstr "Alle offenen Tags schließen"
 
-#: wp-includes/script-loader.php:79
+#: wp-includes/script-loader.php:85
 msgid "close tags"
 msgstr "Tags schließen"
 
-#: wp-includes/script-loader.php:80
+#: wp-includes/script-loader.php:86
 msgid "Enter the URL"
 msgstr "Gib eine URL an"
 
-#: wp-includes/script-loader.php:81
+#: wp-includes/script-loader.php:87
 msgid "Enter the URL of the image"
 msgstr "Gib die URL des Bildes an"
 
-#: wp-includes/script-loader.php:82
+#: wp-includes/script-loader.php:88
 msgid "Enter a description of the image"
 msgstr "Gib eine Beschreibung des Bildes an"
 
-#: wp-includes/script-loader.php:97 wp-includes/script-loader.php:393
+#: wp-includes/script-loader.php:103 wp-includes/script-loader.php:399
 msgid "You do not have permission to do that."
 msgstr "Du hast nicht die erforderlichen Rechte, um diese Aktion auszuführen."
 
-#: wp-includes/script-loader.php:98 wp-includes/script-loader.php:394
+#: wp-includes/script-loader.php:104 wp-includes/script-loader.php:400
 msgid "An unidentified error has occurred."
 msgstr "Ein unbekannter Fehler ist aufgetreten."
 
-#: wp-includes/script-loader.php:194
+#: wp-includes/script-loader.php:200
 msgid "Next &gt;"
 msgstr "Nächste &gt;"
 
-#: wp-includes/script-loader.php:195
+#: wp-includes/script-loader.php:201
 msgid "&lt; Prev"
 msgstr "&lt; Vorherige"
 
-#: wp-includes/script-loader.php:196
+#: wp-includes/script-loader.php:202
 msgid "Image"
 msgstr "Bild"
 
-#: wp-includes/script-loader.php:197
+#: wp-includes/script-loader.php:203
 msgid "of"
 msgstr "von"
 
-#: wp-includes/script-loader.php:199
+#: wp-includes/script-loader.php:205
 msgid "This feature requires inline frames. You have iframes disabled or your browser does not support them."
 msgstr "Diese Funktion benötigt iframes. Du hast jedoch iframes deaktiviert oder dein Browser unterstützt diese nicht."
 
-#: wp-includes/script-loader.php:212
+#: wp-includes/script-loader.php:218
 msgid "not configured"
 msgstr "nicht konfiguriert"
 
-#: wp-includes/script-loader.php:216
+#: wp-includes/script-loader.php:222
 msgid "You have attempted to queue too many files."
 msgstr "Du hast versucht, zu viele Dateien in die Warteschlange zu stellen."
 
-#: wp-includes/script-loader.php:218
+#: wp-includes/script-loader.php:224
 msgid "This file is empty. Please try another."
 msgstr "Die ausgewählte Datei ist leer. Bitte versuch es mit einer anderen."
 
-#: wp-includes/script-loader.php:219
+#: wp-includes/script-loader.php:225
 msgid "This file type is not allowed. Please try another."
 msgstr "Der gewählte Dateityp ist nicht zulässig."
 
-#: wp-includes/script-loader.php:223
+#: wp-includes/script-loader.php:229
 msgid "An error occurred in the upload. Please try again later."
 msgstr "Bei dem Upload ist ein Fehler aufgetaucht. Probiere es später noch einmal."
 
-#: wp-includes/script-loader.php:224
+#: wp-includes/script-loader.php:230
 msgid "There was a configuration error. Please contact the server administrator."
 msgstr "Die Konfiguration ist fehlerhaft. Bitte wende dich an deinen Serveradministrator."
 
-#: wp-includes/script-loader.php:225
+#: wp-includes/script-loader.php:231
 msgid "You may only upload 1 file."
 msgstr "Du möchtest nur 1 Datei hochladen."
 
-#: wp-includes/script-loader.php:226
+#: wp-includes/script-loader.php:232
 msgid "HTTP error."
 msgstr "HTTP-Fehler."
 
-#: wp-includes/script-loader.php:227
+#: wp-includes/script-loader.php:233
 msgid "Upload failed."
 msgstr "Upload fehlgeschlagen."
 
-#: wp-includes/script-loader.php:230
+#: wp-includes/script-loader.php:236
 msgid "IO error."
 msgstr "IO-Fehler."
 
-#: wp-includes/script-loader.php:231
+#: wp-includes/script-loader.php:237
 msgid "Security error."
 msgstr "Sicherheitsfehler."
 
-#: wp-includes/script-loader.php:233
+#: wp-includes/script-loader.php:239
 msgid "Upload stopped."
 msgstr "Upload gestoppt."
 
-#: wp-includes/script-loader.php:235
+#: wp-includes/script-loader.php:241
 msgid "Crunching&hellip;"
 msgstr "Verarbeiten&hellip;"
 
-#: wp-includes/script-loader.php:236
+#: wp-includes/script-loader.php:242
 msgid "moved to the trash."
 msgstr "in den Papierkorb gelegt."
 
-#: wp-includes/script-loader.php:388
-msgid "Separate multiple categories with commas."
-msgstr "Mehrere Kategorien durch Kommas trennen."
-
-#: wp-includes/script-loader.php:315
+#: wp-includes/script-loader.php:326
 msgctxt "password strength"
 msgid "Medium"
 msgstr "Mittelgroß"
 
-#: wp-includes/script-loader.php:413
+#: wp-includes/script-loader.php:419
 msgid "Publish on:"
 msgstr "Veröffentlichen am:"
 
-#: wp-includes/script-loader.php:414
+#: wp-includes/script-loader.php:420
 msgid "Schedule for:"
 msgstr "Geplant für:"
 
-#: wp-includes/script-loader.php:415
+#: wp-includes/script-loader.php:421
 msgid "Published on:"
 msgstr "Veröffentlicht am:"
 
-#: wp-includes/script-loader.php:418
+#: wp-includes/script-loader.php:424
 msgid "Show more comments"
 msgstr "Mehr Kommentare zeigen"
 
-#: wp-includes/script-loader.php:419
+#: wp-includes/script-loader.php:425
 msgid "No more comments found."
 msgstr "Es wurden keine weiteren Kommentare gefunden."
 
-#: wp-includes/script-loader.php:428
+#: wp-includes/script-loader.php:434
 msgid "Password Protected"
 msgstr "Passwortgeschützt"
 
-#: wp-includes/script-loader.php:439
+#: wp-includes/script-loader.php:445
 msgid "Submitted on:"
 msgstr "Eingereicht am:"
 
-#: wp-includes/script-loader.php:453 wp-includes/script-loader.php:461
+#: wp-includes/script-loader.php:459 wp-includes/script-loader.php:467
 msgid "Error while saving the changes."
 msgstr "Fehler beim Speichern der Änderungen."
 
-#: wp-includes/script-loader.php:454
+#: wp-includes/script-loader.php:460
 msgid "Remove From Bulk Edit"
 msgstr "Aus der Massenbearbeitung entfernen"
 
-#: wp-includes/script-loader.php:466
+#: wp-includes/script-loader.php:472
 msgid "Plugin Information:"
 msgstr "Plugin-Information:"
 
-#: wp-includes/script-loader.php:495
+#: wp-includes/script-loader.php:501
 msgid "Saving..."
 msgstr "Speichere …"
 
-#: wp-includes/script-loader.php:496
+#: wp-includes/script-loader.php:502
 msgid "Could not set that as the thumbnail image. Try a different attachment."
 msgstr "Das Bild konnte nicht als Miniaturbild gesetzt werden. Versuche es mit einem anderen."
 
-#: wp-includes/script-loader.php:620
+#: wp-includes/script-loader.php:630
 msgid "Saving Draft&#8230;"
 msgstr "Entwurf wird gespeichert&#8230;"
 
-#: wp-includes/taxonomy.php:2290
+#: wp-includes/taxonomy.php:2358
 msgid "Invalid Taxonomy"
 msgstr "Ungültige Taxonomie"
 
-#: wp-includes/taxonomy.php:881 wp-includes/taxonomy.php:3086
+#: wp-includes/taxonomy.php:936 wp-includes/taxonomy.php:3154
 msgid "Empty Term"
 msgstr "Leerer Ausdruck"
 
-#: wp-includes/class-wp-xmlrpc-server.php:1135
-#: wp-includes/class-wp-xmlrpc-server.php:1652
-#: wp-includes/class-wp-xmlrpc-server.php:1739
-#: wp-includes/class-wp-xmlrpc-server.php:1806 wp-includes/taxonomy.php:2052
+#: wp-includes/class-wp-xmlrpc-server.php:1138
+#: wp-includes/class-wp-xmlrpc-server.php:1655
+#: wp-includes/class-wp-xmlrpc-server.php:1742
+#: wp-includes/class-wp-xmlrpc-server.php:1809 wp-includes/taxonomy.php:2120
 msgid "Invalid term ID"
 msgstr "Ungültige Begriffs-ID."
 
-#: wp-includes/taxonomy.php:2055 wp-includes/taxonomy.php:2463
+#: wp-includes/taxonomy.php:2123 wp-includes/taxonomy.php:2531
 msgid "A name is required for this term"
 msgstr "Für diesen Begriff ist ein Name erforderlich"
 
-#: wp-includes/taxonomy.php:2097 wp-includes/taxonomy.php:2104
-#: wp-includes/taxonomy.php:2114
+#: wp-includes/taxonomy.php:2165 wp-includes/taxonomy.php:2172
+#: wp-includes/taxonomy.php:2182
 msgid "Could not insert term into the database"
 msgstr "Der Begriff konnte nicht in die Datenbank eingefügt werden"
 
-#: wp-includes/taxonomy.php:2496
+#: wp-includes/taxonomy.php:2564
 msgid "The slug &#8220;%s&#8221; is already in use by another term"
 msgstr "Die Titelform &#8220;%s&#8221; wird bereits verwendet"
 
-#: wp-includes/taxonomy.php:3247
+#: wp-includes/taxonomy.php:3315
 msgid "Invalid object ID"
 msgstr "Ungültige Objekt-ID"
 
@@ -6256,23 +6263,23 @@ msgstr "Das Übergeordnete Theme fehlt. Bitte installiere das übergeordnete The
 msgid "Stylesheet is missing."
 msgstr "Es fehlt ein Stylesheet."
 
-#: wp-includes/user.php:79
+#: wp-includes/user.php:82
 msgid "<strong>ERROR</strong>: The username field is empty."
 msgstr "<strong>Fehler:</strong> Das Benutzerfeld ist leer."
 
-#: wp-includes/user.php:82
+#: wp-includes/user.php:85
 msgid "<strong>ERROR</strong>: The password field is empty."
 msgstr "<strong>Fehler:</strong> Das Passwortfeld ist leer."
 
-#: wp-includes/user.php:90
+#: wp-includes/user.php:93
 msgid "<strong>ERROR</strong>: Invalid username. <a href=\"%s\" title=\"Password Lost and Found\">Lost your password</a>?"
 msgstr "<strong>Fehler:</strong> Falscher Benutzername. <a href=\"%s\" title=\"Passwort zurücksetzen\">Passwort vergessen</a>?"
 
-#: wp-includes/user.php:95
+#: wp-includes/user.php:144
 msgid "<strong>ERROR</strong>: Your account has been marked as a spammer."
 msgstr "<strong>Fehler:</strong> Dein Account wurde als Spam markiert."
 
-#: wp-includes/functions.php:3983 wp-includes/user.php:135
+#: wp-includes/functions.php:4095 wp-includes/user.php:125
 msgid "Please log in again."
 msgstr "Bitte melde dich nochmal an."
 
@@ -6280,199 +6287,201 @@ msgstr "Bitte melde dich nochmal an."
 msgid "Sidebar %d"
 msgstr "Sidebar %d"
 
-#: wp-includes/wp-db.php:1661
+#: wp-includes/wp-db.php:1667
 msgid "<strong>ERROR</strong>: WordPress %1$s requires MySQL %2$s or higher"
 msgstr "<strong>Fehler:</strong> WordPress %1$s benötigt mindestens MySQL %2$s"
 
-#: wp-login.php:88
+#: wp-login.php:96
 msgid "Powered by WordPress"
 msgstr "Powered by WordPress"
 
-#: wp-login.php:205
+#: wp-login.php:270
 msgid "<strong>ERROR</strong>: Enter a username or e-mail address."
 msgstr "<strong>Fehler:</strong> Benutzername oder E-Mail-Adresse eingeben"
 
-#: wp-login.php:209
+#: wp-login.php:274
 msgid "<strong>ERROR</strong>: There is no user registered with that email address."
 msgstr "<strong>Fehler:</strong> Es existiert kein Benutzer mit dieser E-Mail-Adresse"
 
-#: wp-login.php:221
+#: wp-login.php:291
 msgid "<strong>ERROR</strong>: Invalid username or e-mail."
 msgstr "<strong>Fehler:</strong> Falscher Benutzername oder E-Mail-Adresse."
 
-#: wp-login.php:235
+#: wp-login.php:328
 msgid "Password reset is not allowed for this user"
 msgstr "Für diesen Benutzer ist es nicht erlaubt, das Passwort zurückzusetzen."
 
-#: wp-login.php:261
+#: wp-login.php:367
 msgid "[%s] Password Reset"
 msgstr "[%s] Passwort zurücksetzen"
 
-#: wp-login.php:267
+#: wp-login.php:388
 msgid "The e-mail could not be sent."
 msgstr "Die E-Mail konnte nicht gesendet werden."
 
-#: wp-login.php:287 wp-login.php:290 wp-login.php:295
+#: wp-includes/user.php:1607 wp-includes/user.php:1610
+#: wp-includes/user.php:1614 wp-includes/user.php:1625
+#: wp-includes/user.php:1641
 msgid "Invalid key"
 msgstr "Ungültiger Schlüssel"
 
-#: wp-login.php:339
+#: wp-includes/user.php:1684
 msgid "<strong>ERROR</strong>: Please type your e-mail address."
 msgstr "<strong>Fehler:</strong> Bitte gib deine E-Mail-Adresse ein."
 
-#: wp-login.php:341
+#: wp-includes/user.php:1686
 msgid "<strong>ERROR</strong>: The email address isn&#8217;t correct."
 msgstr "<strong>Fehler:</strong> Die E-Mail-Adresse ist ungültig."
 
-#: wp-login.php:443
+#: wp-login.php:493
 msgid "Sorry, that key does not appear to be valid."
 msgstr "Dieser Schlüssel scheint leider falsch zu sein."
 
-#: wp-login.php:447
+#: wp-login.php:515
 msgid "Lost Password"
 msgstr "Passwort verloren"
 
-#: wp-login.php:455
+#: wp-login.php:523
 msgid "Username or E-mail:"
 msgstr "Benutzername oder E-Mail-Adresse:"
 
-#: wp-login.php:460
+#: wp-login.php:534
 msgid "Get New Password"
 msgstr "Neues Passwort"
 
-#: wp-login.php:159
+#: wp-login.php:212
 msgid "Are you lost?"
 msgstr "Verlaufen?"
 
-#: wp-login.php:159
+#: wp-login.php:212
 msgid "&larr; Back to %s"
 msgstr "&larr; Zurück zu %s"
 
-#: wp-login.php:559
+#: wp-login.php:673
 msgid "Registration Form"
 msgstr "Registrierungsformular"
 
-#: wp-login.php:559
+#: wp-login.php:673
 msgid "Register For This Site"
 msgstr "Für diese Seite registrieren"
 
-#: wp-login.php:572
+#: wp-login.php:693
 msgid "A password will be e-mailed to you."
 msgstr "Ein Passwort wird dir zugesendet."
 
-#: wp-login.php:580 wp-login.php:725
+#: wp-login.php:701 wp-login.php:876
 msgid "Password Lost and Found"
 msgstr "Passwortfundbüro"
 
-#: wp-login.php:580 wp-login.php:725
+#: wp-login.php:701 wp-login.php:876
 msgid "Lost your password?"
 msgstr "Passwort vergessen?"
 
-#: wp-login.php:628
+#: wp-login.php:763
 msgid "You have logged in successfully."
 msgstr "Du hast dich erfolgreich angemeldet."
 
-#: wp-login.php:660
+#: wp-login.php:745
 msgid "<strong>ERROR</strong>: Cookies are blocked or not supported by your browser. You must <a href='http://www.google.com/cookies.html'>enable cookies</a> to use WordPress."
 msgstr "<strong>Fehler:</strong> Cookies werden von deinem Browser blockiert oder nicht unterstützt. Um WordPress zu benutzen, musst du <a href='http://www.google.com/cookies.html'>Cookies erlauben</a>."
 
-#: wp-login.php:668
+#: wp-login.php:801
 msgid "You are now logged out."
 msgstr "Du hast dich erfolgreich abgemeldet."
 
-#: wp-login.php:670
+#: wp-login.php:803
 msgid "User registration is currently not allowed."
 msgstr "Zurzeit ist die Benutzer-Registrierung nicht erlaubt."
 
-#: wp-login.php:672
+#: wp-login.php:805
 msgid "Check your e-mail for the confirmation link."
 msgstr "Überprüfe dein E-Mail-Konto für den Bestätigungslink."
 
-#: wp-login.php:674
+#: wp-login.php:807
 msgid "Check your e-mail for your new password."
 msgstr "Überprüfe dein E-Mail-Konto für dein neues Passwort."
 
-#: wp-login.php:676
+#: wp-login.php:809
 msgid "Registration complete. Please check your e-mail."
 msgstr "Registrierung vollständig. Bitte schau in dein E-Mail-Postfach."
 
-#: wp-mail.php:29
+#: wp-mail.php:30
 msgid "Slow down cowboy, no need to check for new mails so often!"
 msgstr "Ruhe bewahren, es gibt keinen Grund so oft nach neuen Mails zu schauen."
 
-#: wp-mail.php:49
+#: wp-mail.php:50
 msgid "There doesn&#8217;t seem to be any new mail."
 msgstr "Da scheint keine neue E-Mail zu sein."
 
-#: wp-mail.php:115
+#: wp-mail.php:116
 msgid "Author is %s"
 msgstr "Der Autor ist %s"
 
-#: wp-mail.php:217
+#: wp-mail.php:218
 msgid "<strong>Author:</strong> %s"
 msgstr "<strong>Autor:</strong> %s"
 
-#: wp-mail.php:218
+#: wp-mail.php:219
 msgid "<strong>Posted title:</strong> %s"
 msgstr "<strong>Vergebener Titel:</strong> %s"
 
-#: wp-mail.php:221
+#: wp-mail.php:222
 msgid "Oops: %s"
 msgstr "Oops: %s"
 
-#: wp-signup.php:116
+#: wp-signup.php:126
 msgid "Privacy:"
 msgstr "Datenschutz:"
 
-#: wp-signup.php:167
+#: wp-signup.php:184
 msgid "(Must be at least 4 characters, letters and numbers only.)"
 msgstr "(Es müssen mindestens 4 Zeichen sein, bitte nur Buchstaben und Zahlen.)"
 
-#: wp-signup.php:170
+#: wp-signup.php:187
 msgid "Email&nbsp;Address:"
 msgstr "E-Mail-Addresse:"
 
-#: wp-signup.php:221
+#: wp-signup.php:264
 msgid "There was a problem, please correct the form below and try again."
 msgstr "Es trat ein Fehler auf. Bitte korrigiere die Eingaben und versuche es noch einmal."
 
-#: wp-signup.php:330
+#: wp-signup.php:432
 msgid "Get your own %s account in seconds"
 msgstr "Registriere dich in nur wenigen Sekunden bei %s."
 
-#: wp-signup.php:346
+#: wp-signup.php:451
 msgid "Just a username, please."
 msgstr "Ich möche nur einen Benutzernamen, keine Seite."
 
-#: wp-signup.php:350
+#: wp-signup.php:455
 msgid "Next"
 msgstr "Nächster Schritt"
 
-#: wp-signup.php:395
+#: wp-signup.php:501
 msgid "%s is your new username"
 msgstr "%s ist dein neuer Benutzername"
 
-#: wp-signup.php:396
+#: wp-signup.php:502
 msgid "But, before you can start using your new username, <strong>you must activate it</strong>."
 msgstr "Bevor du jedoch loslegen und ihn nutzen kannst, musst du ihn erst <strong>aktivieren</strong>."
 
-#: wp-signup.php:398
+#: wp-signup.php:504
 msgid "If you do not activate your username within two days, you will have to sign up again."
 msgstr "Wenn du deinen Benutzernamen nicht innerhalb von zwei Tagen aktivierst, musst du dich erneut registrieren."
 
-#: wp-signup.php:437
+#: wp-signup.php:570
 msgid "Signup"
 msgstr "Registrieren"
 
-#: wp-signup.php:500
+#: wp-signup.php:635
 msgid "Still waiting for your email?"
 msgstr "Wartest du noch auf deine Email?"
 
-#: wp-signup.php:533
+#: wp-signup.php:674
 msgid "Registration has been disabled."
 msgstr "Die Registrierung wurde deaktiviert."
 
-#: wp-signup.php:544
+#: wp-signup.php:685
 msgid "User registration has been disabled."
 msgstr "Die Benutzerregistrierung wurde deaktiviert."
 
@@ -6535,11 +6544,11 @@ msgstr "Breite"
 msgid "About"
 msgstr "Über"
 
-#: wp-login.php:329
+#: wp-includes/user.php:1674
 msgid "<strong>ERROR</strong>: Please enter a username."
 msgstr "<strong>Fehler:</strong> Bitte gib einen Benutzernamen ein."
 
-#: wp-login.php:344
+#: wp-includes/user.php:1689
 msgid "<strong>ERROR</strong>: This email is already registered, please choose another one."
 msgstr "<strong>Fehler:</strong> Diese E-Mail-Adresse wurde bereits registriert, bitte wähle eine andere."
 
@@ -6547,35 +6556,31 @@ msgstr "<strong>Fehler:</strong> Diese E-Mail-Adresse wurde bereits registriert,
 msgid "There are no options for this widget."
 msgstr "Für dieses Widget gibt es keine weiteren Einstellungen."
 
-#: wp-includes/script-loader.php:311 wp-login.php:515
+#: wp-includes/script-loader.php:322 wp-login.php:610
 msgid "Strength indicator"
 msgstr "Passwortstärke"
 
-#: wp-login.php:516
+#: wp-login.php:611
 msgid "Hint: The password should be at least seven characters long. To make it stronger, use upper and lower case letters, numbers and symbols like ! \" ? $ % ^ &amp; )."
 msgstr "Hinweis: Dein Passwort sollte mind. 7 Zeichen lang sein. Um es sicherer zu machen, nutze die Groß- und Kleinschreibung, Ziffern und Symbole wie ! \" ? $ % ^ &amp; )."
 
-#: wp-includes/script-loader.php:312
+#: wp-includes/script-loader.php:323
 msgid "Very weak"
 msgstr "Ganz schwach"
 
-#: wp-includes/script-loader.php:313
+#: wp-includes/script-loader.php:324
 msgid "Weak"
 msgstr "Schwach"
 
-#: wp-includes/script-loader.php:316
+#: wp-includes/script-loader.php:327
 msgid "Strong"
 msgstr "Stark"
 
-#: wp-includes/taxonomy.php:439
+#: wp-includes/taxonomy.php:468
 msgid "Edit Category"
 msgstr "Kategorie bearbeiten"
 
-#: wp-includes/link-template.php:1053
-msgid "Edit Link"
-msgstr "Link bearbeiten"
-
-#: wp-includes/post.php:1439
+#: wp-includes/post.php:1484
 msgctxt "page"
 msgid "Add New"
 msgstr "Erstellen"
@@ -6614,7 +6619,7 @@ msgstr "Höhe"
 #: wp-includes/class-wp-customize-control.php:737
 #: wp-includes/class-wp-customize-control.php:766
 #: wp-includes/js/tinymce/langs/wp-langs.php:249
-#: wp-includes/script-loader.php:476
+#: wp-includes/script-loader.php:482
 msgid "Default"
 msgstr "Standard"
 
@@ -6634,12 +6639,12 @@ msgstr "Visuell"
 #: wp-includes/default-widgets.php:215 wp-includes/default-widgets.php:281
 #: wp-includes/default-widgets.php:340 wp-includes/default-widgets.php:380
 #: wp-includes/default-widgets.php:426 wp-includes/default-widgets.php:512
-#: wp-includes/default-widgets.php:618 wp-includes/default-widgets.php:727
-#: wp-includes/default-widgets.php:1072 wp-includes/default-widgets.php:1145
+#: wp-includes/default-widgets.php:618 wp-includes/default-widgets.php:728
+#: wp-includes/default-widgets.php:1073 wp-includes/default-widgets.php:1146
 msgid "Title:"
 msgstr "Titel:"
 
-#: wp-includes/taxonomy.php:444
+#: wp-includes/taxonomy.php:473
 msgid "Separate tags with commas"
 msgstr "Trenne Schlagwörter durch Kommas"
 
@@ -6652,43 +6657,43 @@ msgstr "Alle auswählen"
 msgid "(required)"
 msgstr "(erforderlich)"
 
-#: wp-includes/comment-template.php:1620
+#: wp-includes/comment-template.php:1958
 #: wp-includes/theme-compat/comments.php:83
 msgid "Website"
 msgstr "Website"
 
-#: wp-includes/admin-bar.php:598 wp-includes/functions.php:2722
+#: wp-includes/admin-bar.php:622 wp-includes/functions.php:2770
 msgid "Widgets"
 msgstr "Widgets"
 
-#: wp-includes/class-wp-xmlrpc-server.php:1221
-#: wp-includes/class-wp-xmlrpc-server.php:3897
-#: wp-includes/class-wp-xmlrpc-server.php:4304
+#: wp-includes/class-wp-xmlrpc-server.php:1224
+#: wp-includes/class-wp-xmlrpc-server.php:3900
+#: wp-includes/class-wp-xmlrpc-server.php:4307
 msgid "Sorry, your entry could not be posted. Something wrong happened."
 msgstr "Dein Beitrag konnte leider nicht veröffentlicht werden. Irgendetwas ging schief."
 
-#: wp-includes/class-wp-xmlrpc-server.php:3937
-#: wp-includes/class-wp-xmlrpc-server.php:4382
+#: wp-includes/class-wp-xmlrpc-server.php:3940
+#: wp-includes/class-wp-xmlrpc-server.php:4385
 msgid "Sorry, you do not have the right to edit this post."
 msgstr "Du verfügst nicht über ausreichende Rechte, um diesen Beitrag zu bearbeiten."
 
-#: wp-includes/class-wp-xmlrpc-server.php:3953
+#: wp-includes/class-wp-xmlrpc-server.php:3956
 msgid "For some strange yet very annoying reason, this post could not be edited."
 msgstr "Aus einem seltsam unerfreulichen Grund kann dieser Beitrag nicht bearbeitet werden."
 
-#: wp-includes/class-wp-xmlrpc-server.php:3989
+#: wp-includes/class-wp-xmlrpc-server.php:3992
 msgid "Sorry, you do not have the right to delete this post."
 msgstr "Du verfügst nicht über ausreichende Rechte, um diesen Beitrag zu löschen."
 
-#: wp-includes/class-wp-xmlrpc-server.php:3994
+#: wp-includes/class-wp-xmlrpc-server.php:3997
 msgid "For some strange yet very annoying reason, this post could not be deleted."
 msgstr "Aus einem seltsam unerfreulichen Grund kann dieser Beitrag nicht gelöscht werden."
 
-#: wp-comments-post.php:36
+#: wp-comments-post.php:48
 msgid "Sorry, comments are closed for this item."
 msgstr "Die Kommentarfunktion wurde für diesen Beitrag deaktiviert."
 
-#: wp-comments-post.php:71
+#: wp-comments-post.php:109
 msgid "Sorry, you must be logged in to post a comment."
 msgstr "Um einen Kommentar zu hinterlassen, musst du angemeldet sein."
 
@@ -6835,14 +6840,14 @@ msgid "Search Spam &raquo;"
 msgstr "Spam durchsuchen &raquo;"
 
 #: wp-content/plugins/akismet/legacy.php:239
-#: wp-content/plugins/akismet/legacy.php:306 wp-includes/link-template.php:1608
-#: wp-includes/link-template.php:1644
+#: wp-content/plugins/akismet/legacy.php:306 wp-includes/link-template.php:1663
+#: wp-includes/link-template.php:1699
 msgid "&laquo; Previous Page"
 msgstr "&laquo; Vorherige Seite"
 
 #: wp-content/plugins/akismet/legacy.php:260
-#: wp-content/plugins/akismet/legacy.php:327 wp-includes/link-template.php:1537
-#: wp-includes/link-template.php:1645
+#: wp-content/plugins/akismet/legacy.php:327 wp-includes/link-template.php:1592
+#: wp-includes/link-template.php:1700
 msgid "Next Page &raquo;"
 msgstr "Nächste Seite &raquo;"
 
@@ -6884,37 +6889,37 @@ msgstr "Kommentare zu %s"
 msgid "Powered by WordPress, state-of-the-art semantic personal publishing platform."
 msgstr "Powered by WordPress, state-of-the-art semantic personal publishing platform."
 
-#: wp-includes/comment-template.php:986
+#: wp-includes/comment-template.php:1165
 msgid "Enter your password to view comments."
 msgstr "Auch die Kommentare sind durch das Passwort geschützt."
 
-#: wp-includes/comment-template.php:582 wp-includes/comment-template.php:973
+#: wp-includes/comment-template.php:690 wp-includes/comment-template.php:1152
 msgid "No Comments"
 msgstr "Keine Kommentare"
 
-#: wp-includes/comment-template.php:584 wp-includes/comment-template.php:974
+#: wp-includes/comment-template.php:692 wp-includes/comment-template.php:1153
 msgid "1 Comment"
 msgstr "1 Kommentar"
 
-#: wp-includes/comment-template.php:580 wp-includes/comment-template.php:975
+#: wp-includes/comment-template.php:688 wp-includes/comment-template.php:1154
 msgid "% Comments"
 msgstr "% Kommentare"
 
-#: wp-includes/link-template.php:725 wp-includes/link-template.php:935
-#: wp-includes/link-template.php:1010 wp-includes/link-template.php:1051
+#: wp-includes/link-template.php:727 wp-includes/link-template.php:937
+#: wp-includes/link-template.php:1012 wp-includes/link-template.php:1053
 msgid "Edit This"
 msgstr "Bearbeiten"
 
-#: wp-includes/comment-template.php:1628
+#: wp-includes/comment-template.php:1975
 #: wp-includes/theme-compat/comments.php:65
 msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
 msgstr "Du musst <a href=\"%s\">angemeldet</a> sein, um einen Kommentar abzugeben."
 
-#: wp-includes/category-template.php:1016
+#: wp-includes/category-template.php:1035
 msgid "Tags: "
 msgstr "Schlagwörter: "
 
-#: wp-includes/post-template.php:637
+#: wp-includes/post-template.php:640
 msgid "Pages:"
 msgstr "Seiten:"
 
@@ -6926,19 +6931,19 @@ msgstr "Die neuesten Kommentare zu allen Beiträgen als RSS"
 msgid "Comments <abbr title=\"Really Simple Syndication\">RSS</abbr>"
 msgstr "Kommentare als <abbr title=\"Really Simple Syndication\">RSS</abbr>"
 
-#: wp-includes/comment-template.php:1408
+#: wp-includes/comment-template.php:1700
 msgid "<cite class=\"fn\">%s</cite> <span class=\"says\">says:</span>"
 msgstr "<cite class=\"fn\">%s</cite> <span class=\"says\">sagt:</span>"
 
-#: wp-includes/comment-template.php:1411 wp-includes/comment-template.php:1462
+#: wp-includes/comment-template.php:1703 wp-includes/comment-template.php:1756
 msgid "Your comment is awaiting moderation."
 msgstr "Dein Kommentar wartet auf Freischaltung."
 
-#: wp-includes/comment-template.php:1418
+#: wp-includes/comment-template.php:1710
 msgid "%1$s at %2$s"
 msgstr "%1$s um %2$s"
 
-#: wp-includes/comment-template.php:1418
+#: wp-includes/comment-template.php:1710
 msgid "(Edit)"
 msgstr "(Bearbeiten)"
 
@@ -6958,11 +6963,11 @@ msgstr "Meta"
 msgid "XML error: %s at line %d"
 msgstr "XML-Fehler: %s in der Zeile %d"
 
-#: wp-includes/author-template.php:137
+#: wp-includes/author-template.php:174
 msgid "Visit %s&#8217;s website"
 msgstr "Besuche %ss Website"
 
-#: wp-includes/author-template.php:204 wp-includes/author-template.php:318
+#: wp-includes/author-template.php:241 wp-includes/author-template.php:372
 msgid "Posts by %s"
 msgstr "Beiträge von %s"
 
@@ -6974,15 +6979,15 @@ msgstr "Zuletzt aktualisiert: %s"
 msgid "Bookmarks"
 msgstr "Lesezeichen"
 
-#: wp-includes/capabilities.php:923
+#: wp-includes/capabilities.php:930
 msgid "Usage of user levels by plugins and themes is deprecated. Use roles and capabilities instead."
 msgstr "Die Benutzung von <code>user_level</code> in Plugins und Themes ist veraltet. Nutze stattdessen das Abfragen von <code>roles</code> oder <code>capabilities</code>."
 
-#: wp-includes/category-template.php:414
+#: wp-includes/category-template.php:412
 msgid "No categories"
 msgstr "Keine Kategorien"
 
-#: wp-includes/category-template.php:563
+#: wp-includes/category-template.php:561
 msgid "%s topic"
 msgid_plural "%s topics"
 msgstr[0] "%s Thema"
@@ -7061,44 +7066,44 @@ msgstr "Es wurde keine msg-Nummer übertragen"
 msgid "Command failed "
 msgstr "Der Befehl wurde nicht angenommen"
 
-#: wp-includes/category-template.php:830
+#: wp-includes/category-template.php:844
 msgid "View all posts filed under %s"
 msgstr "Alle unter %s abgelegten Beiträge ansehen"
 
-#: wp-includes/category-template.php:845
+#: wp-includes/category-template.php:859
 msgid "Feed for all posts filed under %s"
 msgstr "Feed für alle unter %s abgelegten Beiträge"
 
-#: wp-includes/comment-template.php:976
+#: wp-includes/comment-template.php:1155
 msgid "Comments Off"
 msgstr "Kommentare deaktiviert"
 
-#: wp-includes/comment-template.php:1013
+#: wp-includes/comment-template.php:1200
 msgid "Comment on %s"
 msgstr "Kommentiere %s"
 
-#: wp-includes/comment-template.php:1039
+#: wp-includes/comment-template.php:1236
 msgid "Log in to Reply"
 msgstr "Zum Antworten anmelden"
 
-#: wp-includes/comment-template.php:1099
+#: wp-includes/comment-template.php:1318
 msgid "Leave a Comment"
 msgstr "Hinterlasse einen Kommentar"
 
-#: wp-includes/comment-template.php:1100
+#: wp-includes/comment-template.php:1319
 msgid "Log in to leave a Comment"
 msgstr "Melde dich an, um einen Kommentar zu hinterlassen"
 
-#: wp-includes/comment-template.php:1139
+#: wp-includes/comment-template.php:1370
 msgid "Click here to cancel reply."
 msgstr "Hier klicken, um die Antwort abzubrechen."
 
-#: wp-includes/comment-template.php:1196 wp-includes/comment-template.php:1634
+#: wp-includes/comment-template.php:1453 wp-includes/comment-template.php:1981
 #: wp-includes/theme-compat/comments.php:58
 msgid "Leave a Reply"
 msgstr "Hinterlasse eine Antwort"
 
-#: wp-includes/comment-template.php:1197 wp-includes/comment-template.php:1635
+#: wp-includes/comment-template.php:1454 wp-includes/comment-template.php:1982
 #: wp-includes/theme-compat/comments.php:58
 msgid "Leave a Reply to %s"
 msgstr "Hinterlasse einen Kommentar zu %s"
@@ -7108,20 +7113,20 @@ msgstr "Hinterlasse einen Kommentar zu %s"
 msgid "Author"
 msgstr "Autor"
 
-#: wp-includes/class-wp-editor.php:841 wp-includes/media.php:1824
+#: wp-includes/class-wp-editor.php:873 wp-includes/media.php:1886
 msgid "URL"
 msgstr "URL"
 
-#: wp-includes/comment-template.php:678 wp-includes/comment-template.php:1627
+#: wp-includes/comment-template.php:830 wp-includes/comment-template.php:1974
 msgctxt "noun"
 msgid "Comment"
 msgstr "Kommentar"
 
-#: wp-includes/deprecated.php:3161 wp-includes/functions.php:2033
+#: wp-includes/deprecated.php:3161 wp-includes/functions.php:2081
 msgid "Are you sure you want to do this?"
 msgstr "Bist du sicher, dass du das tun möchtest?"
 
-#: wp-includes/comment-template.php:1380 wp-includes/comment-template.php:1458
+#: wp-includes/comment-template.php:1670 wp-includes/comment-template.php:1752
 #: wp-includes/media-template.php:249
 msgid "Edit"
 msgstr "Bearbeiten"
@@ -7148,7 +7153,7 @@ msgstr "Übernehmen"
 msgid "Comments"
 msgstr "Kommentare"
 
-#: wp-includes/script-loader.php:420
+#: wp-includes/script-loader.php:426
 msgid "Publish"
 msgstr "Veröffentlichen"
 
@@ -7160,12 +7165,12 @@ msgstr "Auszug"
 msgid "Revisions"
 msgstr "Revisionen"
 
-#: wp-includes/comment.php:424
+#: wp-includes/comment.php:436
 msgctxt "adjective"
 msgid "Approved"
 msgstr "Genehmigt"
 
-#: wp-includes/comment.php:426
+#: wp-includes/comment.php:438
 msgctxt "adjective"
 msgid "Spam"
 msgstr "Spam"
@@ -7174,7 +7179,7 @@ msgstr "Spam"
 msgid "Link Categories"
 msgstr "Kategorien"
 
-#: wp-includes/taxonomy.php:434
+#: wp-includes/taxonomy.php:463
 msgid "Search Categories"
 msgstr "Kategorien suchen"
 
@@ -7182,11 +7187,11 @@ msgstr "Kategorien suchen"
 msgid "Edit Link Category"
 msgstr "Linkkategorie bearbeiten"
 
-#: wp-includes/taxonomy.php:441
+#: wp-includes/taxonomy.php:470
 msgid "Update Category"
 msgstr "Kategorie aktualisieren"
 
-#: wp-includes/class-wp-editor.php:877 wp-includes/script-loader.php:330
+#: wp-includes/class-wp-editor.php:909 wp-includes/script-loader.php:343
 msgid "Add Link"
 msgstr "Link hinzufügen"
 
@@ -7195,7 +7200,7 @@ msgstr "Link hinzufügen"
 msgid "Save"
 msgstr "Speichern"
 
-#: wp-includes/category-template.php:422 wp-includes/default-widgets.php:445
+#: wp-includes/category-template.php:420 wp-includes/default-widgets.php:445
 #: wp-includes/default-widgets.php:451 wp-includes/theme-compat/sidebar.php:63
 msgid "Categories"
 msgstr "Kategorien"
@@ -7216,58 +7221,58 @@ msgstr "Beschreibung"
 
 #: wp-includes/deprecated.php:707 wp-includes/js/tinymce/langs/wp-langs.php:520
 #: wp-includes/media-template.php:280 wp-includes/media-template.php:326
-#: wp-includes/media-template.php:383 wp-includes/media-template.php:443
-#: wp-includes/media-template.php:458 wp-includes/script-loader.php:294
+#: wp-includes/media-template.php:384 wp-includes/media-template.php:444
+#: wp-includes/media-template.php:459 wp-includes/script-loader.php:300
 msgid "None"
 msgstr "Keine"
 
-#: wp-includes/class-wp-xmlrpc-server.php:1546
-#: wp-includes/class-wp-xmlrpc-server.php:1634
-#: wp-includes/class-wp-xmlrpc-server.php:1726
-#: wp-includes/class-wp-xmlrpc-server.php:1793
-#: wp-includes/class-wp-xmlrpc-server.php:1846
-#: wp-includes/class-wp-xmlrpc-server.php:1925 wp-includes/taxonomy.php:524
-#: wp-includes/taxonomy.php:886 wp-includes/taxonomy.php:1015
-#: wp-includes/taxonomy.php:1203 wp-includes/taxonomy.php:1901
-#: wp-includes/taxonomy.php:2045 wp-includes/taxonomy.php:2176
-#: wp-includes/taxonomy.php:2437
+#: wp-includes/class-wp-xmlrpc-server.php:1549
+#: wp-includes/class-wp-xmlrpc-server.php:1637
+#: wp-includes/class-wp-xmlrpc-server.php:1729
+#: wp-includes/class-wp-xmlrpc-server.php:1796
+#: wp-includes/class-wp-xmlrpc-server.php:1849
+#: wp-includes/class-wp-xmlrpc-server.php:1928 wp-includes/taxonomy.php:579
+#: wp-includes/taxonomy.php:941 wp-includes/taxonomy.php:1073
+#: wp-includes/taxonomy.php:1264 wp-includes/taxonomy.php:1977
+#: wp-includes/taxonomy.php:2113 wp-includes/taxonomy.php:2244
+#: wp-includes/taxonomy.php:2505
 msgid "Invalid taxonomy"
 msgstr "Ungültige Taxonomie"
 
-#: wp-includes/taxonomy.php:439
+#: wp-includes/taxonomy.php:468
 msgid "Edit Tag"
 msgstr "Schlagwort bearbeiten"
 
-#: wp-includes/post.php:1439
+#: wp-includes/post.php:1484
 msgctxt "post"
 msgid "Add New"
 msgstr "Erstellen"
 
-#: wp-content/plugins/akismet/legacy.php:294 wp-includes/post.php:1443
+#: wp-content/plugins/akismet/legacy.php:294 wp-includes/post.php:1488
 msgid "View Post"
 msgstr "Beitrag ansehen"
 
-#: wp-includes/post.php:1441
+#: wp-includes/post.php:1486
 msgid "Edit Post"
 msgstr "Beitrag bearbeiten"
 
-#: wp-includes/script-loader.php:497
+#: wp-includes/script-loader.php:503
 msgid "Done"
 msgstr "Fertig"
 
-#: wp-includes/class-wp-theme.php:657 wp-includes/comment-template.php:30
+#: wp-includes/class-wp-theme.php:657 wp-includes/comment-template.php:29
 msgid "Anonymous"
 msgstr "Anonymous"
 
-#: wp-includes/post-template.php:1238
+#: wp-includes/post-template.php:1251
 msgid "Submit"
 msgstr "Senden"
 
-#: wp-includes/default-widgets.php:746
+#: wp-includes/default-widgets.php:747
 msgid "RSS"
 msgstr "RSS"
 
-#: wp-includes/functions.php:1725
+#: wp-includes/functions.php:1758
 msgid "Invalid file type"
 msgstr "Ungültiger Dateityp"
 
@@ -7276,13 +7281,13 @@ msgstr "Ungültiger Dateityp"
 msgid "Preview"
 msgstr "Vorschau"
 
-#: wp-includes/default-widgets.php:639 wp-includes/default-widgets.php:681
+#: wp-includes/default-widgets.php:639 wp-includes/default-widgets.php:682
 msgid "Recent Comments"
 msgstr "Letzte Kommentare"
 
-#: wp-includes/class-wp-editor.php:880
-#: wp-includes/js/tinymce/langs/wp-langs.php:22 wp-includes/media.php:1828
-#: wp-includes/script-loader.php:358 wp-includes/script-loader.php:412
+#: wp-includes/class-wp-editor.php:912
+#: wp-includes/js/tinymce/langs/wp-langs.php:22 wp-includes/media.php:1890
+#: wp-includes/script-loader.php:371 wp-includes/script-loader.php:418
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -7290,11 +7295,11 @@ msgstr "Abbrechen"
 msgid "Content"
 msgstr "Inhalt"
 
-#: wp-includes/default-widgets.php:1046
+#: wp-includes/default-widgets.php:1047
 msgid "Tags"
 msgstr "Schlagwörter"
 
-#: wp-includes/script-loader.php:424
+#: wp-includes/script-loader.php:430
 msgid "Save Draft"
 msgstr "Speichern"
 
@@ -7302,35 +7307,31 @@ msgstr "Speichern"
 msgid "No comments yet."
 msgstr "Noch keine Kommentare"
 
-#: wp-includes/link-template.php:1012
-msgid "Edit comment"
-msgstr "Kommentar bearbeiten"
-
-#: wp-includes/comment-template.php:1038 wp-includes/script-loader.php:402
+#: wp-includes/comment-template.php:1235 wp-includes/script-loader.php:408
 msgid "Reply"
 msgstr "Antworten"
 
-#: wp-includes/comment-template.php:680
+#: wp-includes/comment-template.php:832
 msgid "Pingback"
 msgstr "Pingback"
 
-#: wp-includes/comment-template.php:679
+#: wp-includes/comment-template.php:831
 msgid "Trackback"
 msgstr "Trackback"
 
-#: wp-includes/default-widgets.php:730
+#: wp-includes/default-widgets.php:731
 msgid "Number of comments to show:"
 msgstr "Wieviele Kommentare sollen angezeigt werden:"
 
-#: wp-includes/default-widgets.php:836
+#: wp-includes/default-widgets.php:837
 msgid "<strong>RSS Error</strong>: %s"
 msgstr "<strong>RSS-Fehler</strong>: %s"
 
-#: wp-includes/default-widgets.php:782
+#: wp-includes/default-widgets.php:783
 msgid "Unknown Feed"
 msgstr "Unbekannter Feed"
 
-#: wp-includes/admin-bar.php:607
+#: wp-includes/admin-bar.php:631
 msgid "Header"
 msgstr "Kopfzeile"
 
@@ -7343,7 +7344,7 @@ msgstr "Sidebar"
 msgid "Archives"
 msgstr "Archive"
 
-#: wp-includes/general-template.php:304 wp-login.php:700
+#: wp-includes/general-template.php:304 wp-login.php:841
 msgid "Password"
 msgstr "Passwort"
 
@@ -7356,7 +7357,7 @@ msgid "Scale"
 msgstr "Skalierung"
 
 #: wp-includes/js/tinymce/langs/wp-langs.php:522
-#: wp-includes/media-template.php:345 wp-includes/media.php:1687
+#: wp-includes/media-template.php:346 wp-includes/media.php:1749
 msgid "Thumbnail"
 msgstr "Miniaturbild"
 
@@ -7372,7 +7373,7 @@ msgstr "Die GD Image Library ist nicht installiert."
 msgid "File &#8220;%s&#8221; is not an image."
 msgstr "Die Datei &#8220;%s&#8221; ist kein Bild."
 
-#: wp-includes/js/tinymce/langs/wp-langs.php:507 wp-includes/media.php:1825
+#: wp-includes/js/tinymce/langs/wp-langs.php:507 wp-includes/media.php:1887
 msgid "Add Media"
 msgstr "Dateien hinzufügen"
 
@@ -7396,7 +7397,7 @@ msgstr "Gespeichert."
 #: wp-includes/js/tinymce/langs/wp-langs.php:82
 #: wp-includes/js/tinymce/langs/wp-langs.php:375
 #: wp-includes/js/tinymce/langs/wp-langs.php:474
-#: wp-includes/media-template.php:271 wp-includes/media-template.php:434
+#: wp-includes/media-template.php:271 wp-includes/media-template.php:435
 msgid "Left"
 msgstr "Links"
 
@@ -7404,7 +7405,7 @@ msgstr "Links"
 #: wp-includes/js/tinymce/langs/wp-langs.php:83
 #: wp-includes/js/tinymce/langs/wp-langs.php:454
 #: wp-includes/js/tinymce/langs/wp-langs.php:475
-#: wp-includes/media-template.php:274 wp-includes/media-template.php:437
+#: wp-includes/media-template.php:274 wp-includes/media-template.php:438
 msgid "Center"
 msgstr "Zentriert"
 
@@ -7412,17 +7413,17 @@ msgstr "Zentriert"
 #: wp-includes/js/tinymce/langs/wp-langs.php:84
 #: wp-includes/js/tinymce/langs/wp-langs.php:376
 #: wp-includes/js/tinymce/langs/wp-langs.php:472
-#: wp-includes/media-template.php:277 wp-includes/media-template.php:440
+#: wp-includes/media-template.php:277 wp-includes/media-template.php:441
 msgid "Right"
 msgstr "Rechts"
 
 #: wp-includes/js/tinymce/langs/wp-langs.php:523
-#: wp-includes/media-template.php:346 wp-includes/media.php:1688
+#: wp-includes/media-template.php:347 wp-includes/media.php:1750
 msgid "Medium"
 msgstr "Mittelgroß"
 
 #: wp-includes/js/tinymce/langs/wp-langs.php:524
-#: wp-includes/media-template.php:348 wp-includes/media.php:1690
+#: wp-includes/media-template.php:349 wp-includes/media.php:1752
 msgid "Full Size"
 msgstr "Vollständige Größe"
 
@@ -7438,7 +7439,7 @@ msgid "Alignment"
 msgstr "Ausrichtung"
 
 #: wp-includes/js/tinymce/langs/wp-langs.php:548
-#: wp-includes/media-template.php:230 wp-includes/media-template.php:420
+#: wp-includes/media-template.php:230 wp-includes/media-template.php:421
 msgid "Caption"
 msgstr "Beschriftung"
 
@@ -7461,54 +7462,50 @@ msgid "Actions"
 msgstr "Aktionen"
 
 #: wp-includes/js/tinymce/langs/wp-langs.php:361
-#: wp-includes/media-template.php:452
+#: wp-includes/media-template.php:453
 msgid "Image URL"
 msgstr "Bild-URL"
 
-#: wp-includes/script-loader.php:423
+#: wp-includes/script-loader.php:429
 msgid "Save as Pending"
 msgstr "Als unerledigt speichern"
 
-#: wp-includes/script-loader.php:429
+#: wp-includes/script-loader.php:435
 msgid "Privately Published"
 msgstr "Privat veröffentlicht"
 
-#: wp-includes/script-loader.php:411
+#: wp-includes/script-loader.php:417
 msgid "OK"
 msgstr "OK"
 
-#: wp-includes/post.php:811 wp-includes/post.php:831
-#: wp-includes/script-loader.php:425
+#: wp-includes/post.php:833 wp-includes/post.php:853
+#: wp-includes/script-loader.php:431
 msgid "Private"
 msgstr "Privat"
 
-#: wp-includes/script-loader.php:427
+#: wp-includes/script-loader.php:433
 msgid "Public, Sticky"
 msgstr "Öffentlich, Oben gehalten"
 
-#: wp-includes/script-loader.php:421
+#: wp-includes/script-loader.php:427
 msgid "Schedule"
 msgstr "Planen"
 
-#: wp-includes/taxonomy.php:445
+#: wp-includes/taxonomy.php:474
 msgid "Add or remove tags"
 msgstr "Schlagworte hinzufügen oder entfernen"
 
-#: wp-includes/script-loader.php:387
-msgid "Add"
-msgstr "Hinzu"
-
-#: wp-includes/taxonomy.php:436
+#: wp-includes/taxonomy.php:465
 msgid "All Categories"
 msgstr "Alle Kategorien"
 
-#: wp-includes/script-loader.php:103 wp-includes/script-loader.php:234
+#: wp-includes/script-loader.php:109 wp-includes/script-loader.php:240
 msgid "Dismiss"
 msgstr "Verwerfen"
 
-#: wp-content/plugins/akismet/legacy.php:176 wp-includes/admin-bar.php:646
-#: wp-includes/class-wp-editor.php:855 wp-includes/default-widgets.php:194
-#: wp-includes/media.php:1826
+#: wp-content/plugins/akismet/legacy.php:176 wp-includes/admin-bar.php:674
+#: wp-includes/class-wp-editor.php:887 wp-includes/default-widgets.php:194
+#: wp-includes/media.php:1888
 msgid "Search"
 msgstr "Suchen"
 
@@ -7524,11 +7521,11 @@ msgstr "Version:"
 msgid "Visit author homepage"
 msgstr "Besuche die Homepage des Autors"
 
-#: wp-includes/post.php:2122
+#: wp-includes/post.php:2179
 msgid "Images"
 msgstr "Bilder"
 
-#: wp-includes/post.php:1443
+#: wp-includes/post.php:1488
 msgid "View Page"
 msgstr "Seite ansehen"
 
@@ -7540,27 +7537,27 @@ msgstr "Links"
 msgid "Uncategorized"
 msgstr "Allgemein"
 
-#: wp-includes/pluggable.php:1207
+#: wp-includes/pluggable.php:1244
 msgid "E-mail: %s"
 msgstr "E-Mail: %s"
 
 #: wp-includes/default-widgets.php:18 wp-includes/default-widgets.php:24
-#: wp-includes/post-template.php:826 wp-includes/theme-compat/sidebar.php:55
+#: wp-includes/post-template.php:829 wp-includes/theme-compat/sidebar.php:55
 msgid "Pages"
 msgstr "Seiten"
 
-#: wp-includes/functions.php:3971 wp-includes/js/tinymce/langs/wp-langs.php:23
+#: wp-includes/functions.php:4083 wp-includes/js/tinymce/langs/wp-langs.php:23
 #: wp-includes/js/tinymce/wp-mce-help.php:245 wp-includes/media-template.php:32
-#: wp-includes/script-loader.php:198 wp-includes/script-loader.php:288
-#: wp-includes/script-loader.php:359
+#: wp-includes/script-loader.php:204 wp-includes/script-loader.php:294
+#: wp-includes/script-loader.php:372
 msgid "Close"
 msgstr "Schließen"
 
-#: wp-includes/media.php:1827
+#: wp-includes/media.php:1889
 msgid "Select"
 msgstr "- Wähle -"
 
-#: wp-includes/post.php:1442
+#: wp-includes/post.php:1487
 msgid "New Page"
 msgstr "Neue Seite"
 
@@ -7568,66 +7565,66 @@ msgstr "Neue Seite"
 msgid "Edit Media"
 msgstr "Medien bearbeiten"
 
-#: wp-includes/admin-bar.php:370 wp-includes/post.php:1442
+#: wp-includes/admin-bar.php:384 wp-includes/post.php:1487
 msgid "New Post"
 msgstr "Neuer Beitrag"
 
-#: wp-includes/script-loader.php:331 wp-includes/script-loader.php:455
+#: wp-includes/script-loader.php:344 wp-includes/script-loader.php:461
 msgid "(no title)"
 msgstr "(kein Titel)"
 
-#: wp-activate.php:60
+#: wp-activate.php:73
 msgid "Activation Key Required"
 msgstr "Der Aktivierungsschlüssel wird benötigt"
 
-#: wp-activate.php:63
+#: wp-activate.php:76
 msgid "Activation Key:"
 msgstr "Aktivierungsschlüssel"
 
-#: wp-activate.php:79 wp-activate.php:99
+#: wp-activate.php:92 wp-activate.php:112
 msgid "Your account is now active!"
 msgstr "Dein Benutzerkonto ist nun aktiviert!"
 
-#: wp-activate.php:90
+#: wp-activate.php:103
 msgid "An error occurred during the activation"
 msgstr "Ein Fehler ist während der Anmeldung aufgetreten."
 
-#: wp-activate.php:102 wp-signup.php:162
+#: wp-activate.php:115 wp-signup.php:179
 msgid "Username:"
 msgstr "Benutzername:"
 
-#: wp-includes/post.php:1445
+#: wp-includes/post.php:1490
 msgid "No posts found."
 msgstr "Keine Beiträge gefunden."
 
-#: wp-includes/post.php:812 wp-includes/post.php:832
-#: wp-includes/script-loader.php:430
+#: wp-includes/post.php:834 wp-includes/post.php:854
+#: wp-includes/script-loader.php:436
 msgid "Published"
 msgstr "Veröffentlicht"
 
-#: wp-includes/post.php:810
+#: wp-includes/post.php:832
 msgid "Pending Review"
 msgstr "Ausstehender Review"
 
-#: wp-includes/post.php:809 wp-includes/post.php:830
+#: wp-includes/post.php:831 wp-includes/post.php:852
 msgid "Draft"
 msgstr "Entwurf"
 
-#: wp-includes/class-wp-editor.php:812
+#: wp-includes/class-wp-editor.php:825
 msgid "Y/m/d"
 msgstr "d.m.Y"
 
-#: wp-includes/admin-bar.php:247 wp-includes/admin-bar.php:387
+#: wp-includes/admin-bar.php:255 wp-includes/admin-bar.php:401
 #: wp-includes/deprecated.php:2833
 msgid "Visit Site"
 msgstr "Zur Seite"
 
-#: wp-includes/admin-bar.php:200 wp-includes/class-wp-admin-bar.php:358
+#: wp-includes/admin-bar.php:206 wp-includes/class-wp-admin-bar.php:367
 msgid "Log Out"
 msgstr "Abmelden"
 
-#: wp-includes/class-wp-xmlrpc-server.php:3283
-#: wp-includes/class-wp-xmlrpc-server.php:3328
-#: wp-includes/class-wp-xmlrpc-server.php:4934
+#: wp-includes/class-wp-xmlrpc-server.php:3286
+#: wp-includes/class-wp-xmlrpc-server.php:3331
+#: wp-includes/class-wp-xmlrpc-server.php:4937
 msgid "You do not have permission to upload files."
 msgstr "Du hast nicht die erforderlichen Rechte, um Dateien hochzuladen."
