@@ -32,7 +32,7 @@ class WPSEO_Metabox {
 	 */
 	function __construct() {
 		if ( ! class_exists( 'Yoast_TextStatistics' ) && apply_filters( 'wpseo_use_page_analysis', true ) === true )
-			require_once( WPSEO_PATH . "/admin/TextStatistics.php" );
+			require_once( WPSEO_PATH . 'admin/TextStatistics.php' );
 
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
 		add_action( 'admin_print_styles-post-new.php', array( $this, 'enqueue' ) );
@@ -520,7 +520,7 @@ class WPSEO_Metabox {
 
 		$help = '';
 		if ( isset( $meta_box['help'] ) && $meta_box['help'] )
-			$help = '<img src="' . WPSEO_URL . 'images/question-mark.png" class="alignright yoast_help" id="' . $meta_box['name'] . 'help" alt="' . esc_attr( $meta_box['help'] ) . '" />';
+			$help = '<img src="' . plugins_url( 'images/question-mark.png', dirname( __FILE__ ) ) . '" class="alignright yoast_help" id="' . $meta_box['name'] . 'help" alt="' . esc_attr( $meta_box['help'] ) . '" />';
 
 		$content .= '<tr>';
 		$content .= '<th scope="row"><label for="yoast_wpseo_' . $meta_box['name'] . '">' . $meta_box['title'] . ':</label>' . $help . '</th>';
@@ -577,6 +577,14 @@ class WPSEO_Metabox {
 						$selected = 'checked="checked"';
 					$content .= '<input type="radio" ' . $selected . ' id="yoast_wpseo_' . $meta_box['name'] . '_' . esc_attr( $val ) . '" name="yoast_wpseo_' . $meta_box['name'] . '" value="' . esc_attr( $val ) . '"/> <label for="yoast_wpseo_' . $meta_box['name'] . '_' . $val . '">' . $option . '</label> ';
 				}
+				break;
+			case "upload":
+				if ( $meta_box_value == '' )
+					$meta_box_value = $meta_box['std'];
+				$content .= '<label for="upload_image">';
+				$content .= '<input id="yoast_wpseo_'.$meta_box['name'].'" type="text" size="36" name="yoast_wpseo_'.$meta_box['name'].'" value="' . $meta_box_value . '" />';
+				$content .= '<input id="yoast_wpseo_'.$meta_box['name'].'_button" class="wpseo_image_upload_button button" type="button" value="Upload Image" />';
+				$content .= '</label>';
 				break;
 			case "divtext":
 				$content .= '<p>' . $meta_box['description'] . '</p>';
@@ -641,7 +649,7 @@ class WPSEO_Metabox {
 			<a class="title" href="#">' . esc_html( $title ) . '</a><br/>';
 
 //		if ( isset( $options['breadcrumbs-enable'] ) && $options['breadcrumbs-enable'] == 'on' ) {
-//			require_once WPSEO_PATH . '/frontend/class-breadcrumbs.php';
+//			require_once( WPSEO_PATH . 'frontend/class-breadcrumbs.php' );
 //			$content .= '<span href="#" style="font-size: 13px; color: #282; line-height: 15px;" class="breadcrumb">' . yoast_breadcrumb('','',false) . '</span>';
 //		} else {
 		$content .= '<a href="#" style="font-size: 13px; color: #282; line-height: 15px;" class="url">' . str_replace( 'http://', '', get_bloginfo( 'url' ) ) . '/' . esc_html( $slug ) . '/</a>';
@@ -774,33 +782,35 @@ class WPSEO_Metabox {
 
 	/**
 	 * Enqueues all the needed JS and CSS.
+	 * @todo create css/metabox-mp6.css file and add it to the below allowed colors array when done
 	 */
 	public function enqueue() {
 		$color = get_user_meta( get_current_user_id(), 'admin_color', true );
-		if ( '' == $color )
+		if ( '' == $color || in_array( $color, array( 'classic', 'fresh' ), true ) === false )
 			$color = 'fresh';
 
 		global $pagenow;
 		if ( $pagenow == 'edit.php' ) {
-			wp_enqueue_style( 'edit-page', WPSEO_URL . 'css/edit-page.css', array(), WPSEO_VERSION );
+			wp_enqueue_style( 'edit-page', plugins_url( 'css/edit-page.css', dirname( __FILE__ ) ), array(), WPSEO_VERSION );
 		}
 		else {
-			wp_enqueue_style( 'metabox-tabs', WPSEO_URL . 'css/metabox-tabs.css', array(), WPSEO_VERSION );
-			wp_enqueue_style( "metabox-$color", WPSEO_URL . 'css/metabox-' . esc_attr( $color ) . '.css', array(), WPSEO_VERSION );
+			wp_enqueue_style( 'metabox-tabs', plugins_url( 'css/metabox-tabs.css', dirname( __FILE__ ) ), array(), WPSEO_VERSION );
+			wp_enqueue_style( "metabox-$color", plugins_url( 'css/metabox-' . esc_attr( $color ) . '.css', dirname( __FILE__ ) ), array(), WPSEO_VERSION );
 
 			wp_enqueue_script( 'jquery-ui-autocomplete' );
 
-			wp_enqueue_script( 'jquery-qtip', WPSEO_URL . 'js/jquery.qtip.min.js', array( 'jquery' ), '1.0.0-RC3', true );
-			wp_enqueue_script( 'wp-seo-metabox', WPSEO_URL . 'js/wp-seo-metabox.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-autocomplete' ), WPSEO_VERSION, true );
+			wp_enqueue_script( 'jquery-qtip', plugins_url( 'js/jquery.qtip.min.js', dirname( __FILE__ ) ), array( 'jquery' ), '1.0.0-RC3', true );
+			wp_enqueue_script( 'wp-seo-metabox', plugins_url( 'js/wp-seo-metabox.js', dirname( __FILE__ ) ), array( 'jquery', 'jquery-ui-core', 'jquery-ui-autocomplete' ), WPSEO_VERSION, true );
 
 			// Text strings to pass to metabox for keyword analysis
-			wp_localize_script( 'wp-seo-metabox', 'objectL10n', array(
+			wp_localize_script( 'wp-seo-metabox', 'wpseoMetaboxL10n', array(
 				'keyword_header'        => __( 'Your focus keyword was found in:', 'wordpress-seo' ),
 				'article_header_text'   => __( 'Article Heading: ', 'wordpress-seo' ),
 				'page_title_text'       => __( 'Page title: ', 'wordpress-seo' ),
 				'page_url_text'         => __( 'Page URL: ', 'wordpress-seo' ),
 				'content_text'          => __( 'Content: ', 'wordpress-seo' ),
 				'meta_description_text' => __( 'Meta description: ', 'wordpress-seo' ),
+				'choose_image'          => __( 'Use Image', 'wordpress-seo' )
 			) );
 		}
 	}
@@ -1130,6 +1140,7 @@ class WPSEO_Metabox {
 		$job["keyword"]        = trim( wpseo_get_value( 'focuskw' ) );
 		$job["keyword_folded"] = $this->strip_separators_and_fold( $job["keyword"] );
 		$job["post_id"]        = $post->ID;
+		$job["post_type"]      = $post->post_type;
 
 		$dom                      = new domDocument;
 		$dom->strictErrorChecking = false;
@@ -1137,6 +1148,7 @@ class WPSEO_Metabox {
 		@$dom->loadHTML( apply_filters( 'wpseo_pre_analysis_post_content', $post->post_content, $post ) );
 		$xpath = new DOMXPath( $dom );
 
+		global $statistics;
 		$statistics = new Yoast_TextStatistics;
 
 		// Check if this focus keyword has been used already.
@@ -1156,7 +1168,7 @@ class WPSEO_Metabox {
 				$title_template = '%%title%% - %%sitename%%';
 			$job['title'] = wpseo_replace_vars( $title_template, (array) $post );
 		}
-		$this->score_title( $job, $results, $statistics );
+		$this->score_title( $job, $results );
 
 		// Meta description
 		$description = '';
@@ -1170,17 +1182,17 @@ class WPSEO_Metabox {
 
 		$meta_length = apply_filters( 'wpseo_metadesc_length', 156, $post );
 
-		$this->score_description( $job, $results, $description, $statistics, $meta_length );
+		$this->score_description( $job, $results, $description, $meta_length );
 		unset( $description );
 
 		// Body
 		$body   = $this->get_body( $post );
 		$firstp = $this->get_first_paragraph( $body );
-		$this->score_body( $job, $results, $body, $firstp, $statistics );
+		$this->score_body( $job, $results, $body, $firstp );
 		unset( $firstp );
 
 		// URL
-		$this->score_url( $job, $results, $statistics );
+		$this->score_url( $job, $results );
 
 		// Headings
 		$headings = $this->get_headings( $body );
@@ -1323,12 +1335,11 @@ class WPSEO_Metabox {
 	/**
 	 * Check whether the keyword is contained in the URL.
 	 *
-	 * @param array  $job        The job array holding both the keyword and the URLs.
-	 * @param array  $results    The results array.
-	 * @param object $statistics Object of class Yoast_TextStatistics used to calculate lengths.
+	 * @param array $job        The job array holding both the keyword and the URLs.
+	 * @param array $results    The results array.
 	 */
-	function score_url( $job, &$results, $statistics ) {
-		global $wpseo_admin;
+	function score_url( $job, &$results ) {
+		global $statistics, $wpseo_admin;
 
 		$urlGood      = __( "The keyword / phrase appears in the URL for this page.", 'wordpress-seo' );
 		$urlMedium    = __( "The keyword / phrase does not appear in the URL for this page. If you decide to rename the URL be sure to check the old URL 301 redirects to the new one!", 'wordpress-seo' );
@@ -1356,11 +1367,12 @@ class WPSEO_Metabox {
 	/**
 	 * Check whether the keyword is contained in the title.
 	 *
-	 * @param array  $job        The job array holding both the keyword versions.
-	 * @param array  $results    The results array.
-	 * @param object $statistics Object of class Yoast_TextStatistics used to calculate lengths.
+	 * @param array $job        The job array holding both the keyword versions.
+	 * @param array $results    The results array.
 	 */
-	function score_title( $job, &$results, $statistics ) {
+	function score_title( $job, &$results ) {
+		global $statistics;
+
 		$scoreTitleMinLength    = 40;
 		$scoreTitleMaxLength    = 70;
 		$scoreTitleKeywordLimit = 0;
@@ -1620,7 +1632,7 @@ class WPSEO_Metabox {
 		$headings = array();
 
 		preg_match_all( '`<h([1-6])(?:[^>]+)?>(.*?)</h\\1>`i', $postcontent, $matches );
-		if( isset( $matches ) && isset( $matches[2] ) ) {
+		if ( isset( $matches ) && isset( $matches[2] ) ) {
 			foreach ( $matches[2] as $heading ) {
 				$headings[] = $this->strtolower_utf8( $heading );
 			}
@@ -1635,10 +1647,11 @@ class WPSEO_Metabox {
 	 * @param array  $job         The array holding the keywords.
 	 * @param array  $results     The results array.
 	 * @param string $description The meta description.
-	 * @param object $statistics  Object of class Yoast_TextStatistics used to calculate lengths.
 	 * @param int    $maxlength   The maximum length of the meta description.
 	 */
-	function score_description( $job, &$results, $description, $statistics, $maxlength = 155 ) {
+	function score_description( $job, &$results, $description, $maxlength = 155 ) {
+		global $statistics;
+
 		$scoreDescriptionMinLength      = 120;
 		$scoreDescriptionCorrectLength  = __( "In the specified meta description, consider: How does it compare to the competition? Could it be made more appealing?", 'wordpress-seo' );
 		$scoreDescriptionTooShort       = __( "The meta description is under 120 characters, however up to %s characters are available. %s", 'wordpress-seo' );
@@ -1681,17 +1694,23 @@ class WPSEO_Metabox {
 	 * @param array  $results     The results array.
 	 * @param string $body        The body.
 	 * @param string $firstp      The first paragraph.
-	 * @param object $statistics  Object of class Yoast_TextStatistics used to calculate lengths.
 	 */
-	function score_body( $job, &$results, $body, $firstp, $statistics ) {
-		$scoreBodyGoodLimit = 300;
-		$scoreBodyOKLimit   = 250;
-		$scoreBodyPoorLimit = 200;
-		$scoreBodyBadLimit  = 100;
+	function score_body( $job, &$results, $body, $firstp ) {
+		global $statistics;
 
-		$scoreBodyGoodLength = __( "There are %d words contained in the body copy, this is more than the 300 word recommended minimum.", 'wordpress-seo' );
-		$scoreBodyPoorLength = __( "There are %d words contained in the body copy, this is below the 300 word recommended minimum. Add more useful content on this topic for readers.", 'wordpress-seo' );
-		$scoreBodyOKLength   = __( "There are %d words contained in the body copy, this is slightly below the 300 word recommended minimum, add a bit more copy.", 'wordpress-seo' );
+		$lengthScore = apply_filters( 'wpseo_body_length_score',
+			array(
+				'good' => 300,
+				'ok'   => 250,
+				'poor' => 200,
+				'bad'  => 100
+			),
+			$job
+		);
+
+		$scoreBodyGoodLength = __( "There are %d words contained in the body copy, this is more than the %d word recommended minimum.", 'wordpress-seo' );
+		$scoreBodyPoorLength = __( "There are %d words contained in the body copy, this is below the %d word recommended minimum. Add more useful content on this topic for readers.", 'wordpress-seo' );
+		$scoreBodyOKLength   = __( "There are %d words contained in the body copy, this is slightly below the %d word recommended minimum, add a bit more copy.", 'wordpress-seo' );
 		$scoreBodyBadLength  = __( "There are %d words contained in the body copy. This is far too low and should be increased.", 'wordpress-seo' );
 
 		$scoreKeywordDensityLow  = __( "The keyword density is %s%%, which is a bit low, the keyword was found %s times.", 'wordpress-seo' );
@@ -1711,16 +1730,16 @@ class WPSEO_Metabox {
 		// Copy length check
 		$wordCount = $statistics->word_count( $body );
 
-		if ( $wordCount < $scoreBodyBadLimit )
-			$this->save_score_result( $results, - 20, sprintf( $scoreBodyBadLength, $wordCount ), 'body_length', $wordCount );
-		else if ( $wordCount < $scoreBodyPoorLimit )
-			$this->save_score_result( $results, - 10, sprintf( $scoreBodyPoorLength, $wordCount ), 'body_length', $wordCount );
-		else if ( $wordCount < $scoreBodyOKLimit )
-			$this->save_score_result( $results, 5, sprintf( $scoreBodyPoorLength, $wordCount ), 'body_length', $wordCount );
-		else if ( $wordCount < $scoreBodyGoodLimit )
-			$this->save_score_result( $results, 7, sprintf( $scoreBodyOKLength, $wordCount ), 'body_length', $wordCount );
+		if ( $wordCount < $lengthScore['bad'] )
+			$this->save_score_result( $results, - 20, sprintf( $scoreBodyBadLength, $wordCount, $lengthScore['good'] ), 'body_length', $wordCount );
+		else if ( $wordCount < $lengthScore['poor'] )
+			$this->save_score_result( $results, - 10, sprintf( $scoreBodyPoorLength, $wordCount, $lengthScore['good'] ), 'body_length', $wordCount );
+		else if ( $wordCount < $lengthScore['ok'] )
+			$this->save_score_result( $results, 5, sprintf( $scoreBodyPoorLength, $wordCount, $lengthScore['good'] ), 'body_length', $wordCount );
+		else if ( $wordCount < $lengthScore['good'] )
+			$this->save_score_result( $results, 7, sprintf( $scoreBodyOKLength, $wordCount, $lengthScore['good'] ), 'body_length', $wordCount );
 		else
-			$this->save_score_result( $results, 9, sprintf( $scoreBodyGoodLength, $wordCount ), 'body_length', $wordCount );
+			$this->save_score_result( $results, 9, sprintf( $scoreBodyGoodLength, $wordCount, $lengthScore['good'] ), 'body_length', $wordCount );
 
 		$body           = $this->strtolower_utf8( $body );
 		$job["keyword"] = $this->strtolower_utf8( $job["keyword"] );

@@ -3,7 +3,7 @@
  * @package Internals
  */
 
-include 'class-sitemap-walker.php';
+require_once( WPSEO_PATH . 'inc/class-sitemap-walker.php' );
 
 if ( ! defined( 'WPSEO_VERSION' ) ) {
 	header( 'HTTP/1.0 403 Forbidden' );
@@ -237,8 +237,12 @@ function wpseo_description_test() {
 
 add_filter( 'after_switch_theme', 'wpseo_description_test', 0 );
 
-if ( version_compare( $GLOBALS['wp_version'], '3.5.99', '>' ) ) {
-	// Use the new action hook
+if ( version_compare( $GLOBALS['wp_version'], '3.6.99', '>' ) ) {
+	// Use the new and *sigh* adjusted action hook WP 3.7+
+	add_action( 'upgrader_process_complete', 'wpseo_upgrader_process_complete', 10, 2 );
+}
+else if ( version_compare( $GLOBALS['wp_version'], '3.5.99', '>' ) ) {
+	// Use the new action hook WP 3.6+
 	add_action( 'upgrader_process_complete', 'wpseo_upgrader_process_complete', 10, 3 );
 }
 else {
@@ -256,7 +260,7 @@ else {
  *
  * @return  void
  */
-function wpseo_upgrader_process_complete( $upgrader_object, $context_array, $themes ) {
+function wpseo_upgrader_process_complete( $upgrader_object, $context_array, $themes = null ) {
 	$options = get_option( 'wpseo' );
 
 	// Break if admin_notice already in place
@@ -269,6 +273,16 @@ function wpseo_upgrader_process_complete( $upgrader_object, $context_array, $the
 	}
 
 	$theme = get_stylesheet();
+	if ( ! isset( $themes ) ) {
+		// WP 3.7+
+		$themes = array();
+		if ( isset( $context_array['themes'] ) && $context_array['themes'] !== array() ) {
+			$themes = $context_array['themes'];
+		}
+		else if ( isset( $context_array['theme'] ) && $context_array['theme'] !== '' ){
+			$themes = $context_array['theme'];
+		}
+	}
 
 	if ( ( isset( $context_array['bulk'] ) && $context_array['bulk'] === true ) && ( is_array( $themes ) && count( $themes ) > 0 ) ) {
 
@@ -276,7 +290,7 @@ function wpseo_upgrader_process_complete( $upgrader_object, $context_array, $the
 			wpseo_description_test();
 		}
 	}
-	else if ( $themes === $theme ) {
+	else if ( is_string( $themes ) && $themes === $theme ) {
 		wpseo_description_test();
 	}
 	return;
@@ -454,7 +468,7 @@ add_action( 'admin_bar_menu', 'wpseo_admin_bar_menu', 95 );
  */
 function wpseo_admin_bar_css() {
 	if ( is_admin_bar_showing() && is_singular() )
-		wp_enqueue_style( 'boxes', WPSEO_URL . 'css/adminbar.css', array(), WPSEO_VERSION );
+		wp_enqueue_style( 'boxes', plugins_url( 'css/adminbar.css', dirname( __FILE__ ) ), array(), WPSEO_VERSION );
 }
 
 add_action( 'wp_enqueue_scripts', 'wpseo_admin_bar_css' );

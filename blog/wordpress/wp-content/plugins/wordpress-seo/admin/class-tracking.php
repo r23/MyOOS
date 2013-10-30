@@ -89,7 +89,7 @@ if ( !class_exists( 'Yoast_Tracking' ) ) {
 				$plugins = array();
 				foreach ( get_option( 'active_plugins' ) as $plugin_path ) {
 					if ( !function_exists( 'get_plugin_data' ) )
-						require_once ABSPATH . 'wp-admin/includes/admin.php';
+						require_once( ABSPATH . 'wp-admin/includes/admin.php' );
 
 					$plugin_info = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin_path );
 
@@ -126,7 +126,7 @@ if ( !class_exists( 'Yoast_Tracking' ) ) {
 				$args = array(
 					'body' => $data
 				);
-				// wp_remote_post( 'https://tracking.yoast.com/', $args );
+				wp_remote_post( 'https://tracking.yoast.com/', $args );
 
 				// Store for a week, then push data again.
 				set_transient( 'yoast_tracking_cache', true, 7 * 60 * 60 * 24 );
