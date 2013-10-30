@@ -21,7 +21,7 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 
 <h1><?php printf( __( 'Welcome to WordPress %s' ), $display_version ); ?></h1>
 
-<div class="about-text"><?php printf( __( 'Thank you for updating to WordPress 3.7! You might not notice a thing, and we&#8217;re okay with that.' ), $display_version ); ?></div>
+<div class="about-text"><?php echo str_replace( '3.7', $display_version, __( 'Thank you for updating to WordPress 3.7! You might not notice a thing, and we&#8217;re okay with that.' ) ); ?></div>
 
 <div class="wp-badge"><?php printf( __( 'Version %s' ), $display_version ); ?></div>
 
@@ -34,6 +34,14 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 		<?php _e( 'Freedoms' ); ?>
 	</a>
 </h2>
+
+<div class="changelog point-releases">
+	<h3><?php echo _n( 'Maintenance Release', 'Maintenance Releases', 1 ); ?></h3>
+	<p><?php printf( _n( '<strong>Version %1$s</strong> addressed %2$s bug.',
+		'<strong>Version %1$s</strong> addressed %2$s bugs.', 11 ), '3.7.1', number_format_i18n( 11 ) ); ?>
+		<?php printf( __( 'For more information, see <a href="%s">the release notes</a>.' ), 'http://codex.wordpress.org/Version_3.7.1' ); ?>
+ 	</p>
+</div>
 
 <div class="changelog">
 	<h3><?php _e( 'Background Updates' ); ?></h3>
@@ -61,7 +69,7 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 			);
 			require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 			$updater = new WP_Automatic_Updater;
-			$can_auto_update = wp_http_supports( 'ssl' ) && $updater->should_update( 'core', $future_minor_update, ABSPATH );
+			$can_auto_update = wp_http_supports( array( 'ssl' ) ) && $updater->should_update( 'core', $future_minor_update, ABSPATH );
 
 			if ( $can_auto_update ) {
 				echo '<p class="about-auto-update cool">' . __( 'This site <strong>is</strong> able to apply these updates automatically. Cool!' ). '</p>';
