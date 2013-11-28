@@ -69,8 +69,14 @@ jQuery( function( $ ) {
 					}
 
 					$.post( ajaxurl, 'action=publicize_'+ service + '_options_save&connection=' + connection + '&selected_id=' + id + '&token=' + token + '&type=' + type + '&_wpnonce=' + nonce + '&global=' + global_conn + '&global_nonce=' + global_nonce, function( response ) {
+						var frameNonce;
 						tb_remove();
-						top.location = 'options-general.php?page=sharing';
+						frameNonce = document.location.search.match( /frame-nonce=([^&]+)/ );
+						if ( /inside-newdash=1/.test( document.location.search ) && frameNonce ) {
+							document.location = 'options-general.php?page=sharing&inside-newdash=1&frame-nonce' + frameNonce[1];
+						} else {
+							top.location = 'options-general.php?page=sharing';
+						}
 					} );
 
 				} );
@@ -105,4 +111,70 @@ jQuery( function( $ ) {
 		var connection = $(this).data( 'connection' );
 		showOptionsPage.call( this, service, nonce, connection, blogId );
 	});
+
+	/**
+	  * Kicks off tests for all connections
+	  */
+	publicizeConnTestStart = function() {
+		$( '.pub-connection-test' )
+			.addClass( 'test-in-progress' );
+		$.post( ajaxurl, { action: 'test_publicize_conns' }, publicizeConnTestComplete );
+	}
+
+	publicizeConnRefreshClick = function( event ) {
+		event.preventDefault();
+		var popupURL = event.currentTarget.href;
+		var popupTitle = event.currentTarget.title;
+		// open a popup window
+		// when it is closed, kick off the tests again
+		var popupWin = window.open( popupURL, popupTitle, '' );
+		var popupWinTimer= window.setInterval( function() {
+			if ( popupWin.closed !== false ) {
+				window.clearInterval( popupWinTimer );
+				publicizeConnTestStart();
+			}
+		}, 500 );
+	}
+
+	publicizeConnTestComplete = function( response ) {
+		$( '.pub-connection-test' ).removeClass( 'test-in-progress' );
+		
+		$.each( response.data, function( index, testResult ) {
+			// find the li for this connection
+			var testSelector = '#pub-connection-test-' + testResult.connectionID;
+			if ( testResult.connectionTestPassed ) {
+				$( testSelector )
+					.addClass( 'test-passed' )
+					.html( '' )
+					.removeClass( 'test-failed' );
+			} else {
+				$( testSelector )
+					.addClass( 'test-failed' )
+					.html( '<p><span class="pub-connection-error">' + testResult.connectionTestMessage + '</span></p>' )
+					.removeClass( 'test-passed' );
+
+				if ( testResult.userCanRefresh ) {
+					$( testSelector )
+						.append( '<br/>' );
+					$( '<a/>', {
+						'class'  : 'pub-refresh-button button',
+						'title'  : testResult.refreshText,
+						'href'   : testResult.refreshURL,
+						'text'   : testResult.refreshText,
+						'target' : '_refresh_' + testResult.serviceName
+					} )
+						.appendTo( testSelector )
+						.click( publicizeConnRefreshClick );
+				}
+			}
+		} );
+	}
+
+	$( document ).ready( function() {
+		// If we have at least one .pub-connection-test div present, kick off the connection test
+		if ( $( '.pub-connection-test' ).length ) {
+			publicizeConnTestStart();
+		}
+	} );
+
 } );

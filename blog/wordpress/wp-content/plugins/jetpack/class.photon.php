@@ -58,9 +58,6 @@ class Jetpack_Photon {
 		// Core image retrieval
 		add_filter( 'image_downsize', array( $this, 'filter_image_downsize' ), 10, 3 );
 
-		// og:image URL
-		add_filter( 'jetpack_open_graph_tags', array( $this, 'filter_open_graph_tags' ), 10, 2 );
-
 		// Helpers for maniuplated images
 		add_action( 'wp_enqueue_scripts', array( $this, 'action_wp_enqueue_scripts' ), 9 );
 	}
@@ -359,13 +356,14 @@ class Jetpack_Photon {
 				// To ensure filter receives consistent data regardless of requested size, `$image_args` is overridden with dimensions of original image.
 				if ( 'full' == $size ) {
 					$image_meta = wp_get_attachment_metadata( $attachment_id );
-
-					// 'crop' is true so Photon's `resize` method is used
-					$image_args = array(
-						'width'  => $image_meta['width'],
-						'height' => $image_meta['height'],
-						'crop'   => true
-					);
+					if ( isset( $image_meta['width'], $image_meta['height'] ) ) {
+						// 'crop' is true so Photon's `resize` method is used
+						$image_args = array(
+							'width'  => $image_meta['width'],
+							'height' => $image_meta['height'],
+							'crop'   => true
+						);
+					}
 				}
 
 				// Expose determined arguments to a filter before passing to Photon

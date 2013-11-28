@@ -6,6 +6,7 @@
  * First Introduced: 1.1
  * Requires Connection: Yes
  * Auto Activate: Yes
+ * Module Tags: WordPress.com Stats
  */
 
 if ( defined( 'STATS_VERSION' ) ) {
@@ -340,9 +341,6 @@ function stats_reports_page() {
 
 	if ( !isset( $_GET['noheader'] ) && empty( $_GET['nojs'] ) && empty( $_COOKIE['stnojs'] ) ) {
 		$nojs_url = add_query_arg( 'nojs', '1' );
-		if ( 'classic' != $color = get_user_option( 'admin_color' ) ) {
-			$color = 'fresh';
-		}
 		$http = is_ssl() ? 'https' : 'http';
 		// Loading message
 		// No JS fallback message
@@ -353,7 +351,7 @@ function stats_reports_page() {
 }
 </style>
 <div id="stats-loading-wrap" class="wrap">
-<p class="hide-if-no-js"><img class="wpcom-loading-64" alt="<?php esc_attr_e( 'Loading&hellip;', 'jetpack' ); ?>" src="<?php echo esc_url( "$http://" . STATS_DASHBOARD_SERVER . "/i/loading/$color-64.gif" ); ?>" /></p>
+<p class="hide-if-no-js"><img class="wpcom-loading-64" alt="<?php esc_attr_e( 'Loading&hellip;', 'jetpack' ); ?>" src="<?php echo esc_url( apply_filters( 'jetpack_static_url', is_ssl() ? 'https' : 'http' . '://en.wordpress.com/i/loading/loading-64.gif' ) ); ?>" /></p>
 <p class="hide-if-js"><?php esc_html_e( 'Your Site Stats work better with Javascript enabled.', 'jetpack' ); ?><br />
 <a href="<?php echo esc_url( $nojs_url ); ?>"><?php esc_html_e( 'View Site Stats without Javascript', 'jetpack' ); ?></a>.</p>
 </div>
@@ -666,7 +664,25 @@ function stats_get_blog() {
 	);
 	$blog = array_merge( stats_get_options(), $blog );
 	unset( $blog['roles'], $blog['blog_id'] );
-	return array_map( 'esc_html', $blog );
+	return stats_esc_html_deep( $blog );
+}
+
+/**
+ * Modified from stripslashes_deep()
+ */
+function stats_esc_html_deep( $value ) {
+	if ( is_array( $value ) ) {
+		$value = array_map( 'stats_esc_html_deep', $value );
+	} elseif ( is_object( $value ) ) {
+		$vars = get_object_vars( $value );
+		foreach ( $vars as $key => $data ) {
+			$value->{$key} = stats_esc_html_deep( $data );
+		}
+	} elseif ( is_string( $value ) ) {
+		$value = esc_html( $value );
+	}
+
+	return $value;
 }
 
 function stats_xmlrpc_methods( $methods ) {
@@ -780,14 +796,21 @@ function stats_dashboard_head() { ?>
 /* <![CDATA[ */
 jQuery(window).load( function() {
 	jQuery( function($) {
-		var dashStats = $( '#dashboard_stats.postbox div.inside' );
+		resizeChart();
+		jQuery(window).resize( _.debounce( function(){
+			resizeChart();
+		}, 100) );
+	} );
+	
+	function resizeChart() {
+		var dashStats = jQuery( '#dashboard_stats.postbox div.inside' );
 
-		if ( dashStats.find( '.dashboard-widget-control-form' ).size() ) {
+		if ( dashStats.find( '.dashboard-widget-control-form' ).length ) {
 			return;
 		}
 
-		if ( ! dashStats.size() ) {
-			dashStats = $( '#dashboard_stats div.dashboard-widget-content' );
+		if ( ! dashStats.length ) {
+			dashStats = jQuery( '#dashboard_stats div.dashboard-widget-content' );
 			var h = parseInt( dashStats.parent().height() ) - parseInt( dashStats.prev().height() );
 			var args = 'width=' + dashStats.width() + '&height=' + h.toString();
 		} else {
@@ -795,7 +818,7 @@ jQuery(window).load( function() {
 		}
 
 		dashStats.not( '.dashboard-widget-control' ).load( 'admin.php?page=stats&noheader&dashboard&' + args );
-	} );
+	}
 } );
 /* ]]> */
 </script>

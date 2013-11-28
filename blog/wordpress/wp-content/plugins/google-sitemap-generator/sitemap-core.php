@@ -1,7 +1,7 @@
 <?php
 /*
 
- $Id: sitemap-core.php 779425 2013-09-27 22:49:51Z arnee $
+ $Id: sitemap-core.php 809741 2013-11-24 18:32:07Z arnee $
 
 */
 
@@ -36,7 +36,7 @@ class GoogleSitemapGeneratorStatus {
 	 *
 	 * @return GoogleSitemapGeneratorStatus
 	 */
-	function &Load() {
+	static function &Load() {
 		$status = @get_option("sm_status");
 		if(is_a($status,"GoogleSitemapGeneratorStatus")) return $status;
 		else return null;
@@ -409,7 +409,7 @@ class GoogleSitemapGeneratorPrioProviderBase {
 	 * @author Arne Brachhold
 	 * @return string The translated name
 	*/
-	function GetName() {
+	static function GetName() {
 		return "";
 	}
 
@@ -421,7 +421,7 @@ class GoogleSitemapGeneratorPrioProviderBase {
 	 * @author Arne Brachhold
 	 * @return string The translated description
 	*/
-	function GetDescription() {
+	static function GetDescription() {
 		return "";
 	}
 
@@ -471,7 +471,7 @@ class GoogleSitemapGeneratorPrioByCountProvider extends GoogleSitemapGeneratorPr
 	 * @author Arne Brachhold
 	 * @return string The translated name
 	*/
-	function GetName() {
+	static function GetName() {
 		return __("Comment Count",'sitemap');
 	}
 
@@ -483,7 +483,7 @@ class GoogleSitemapGeneratorPrioByCountProvider extends GoogleSitemapGeneratorPr
 	 * @author Arne Brachhold
 	 * @return string The translated description
 	*/
-	function GetDescription() {
+	static function GetDescription() {
 		return __("Uses the number of comments of the post to calculate the priority",'sitemap');
 	}
 
@@ -543,7 +543,7 @@ class GoogleSitemapGeneratorPrioByAverageProvider extends GoogleSitemapGenerator
 	 * @author Arne Brachhold
 	 * @return string The translated name
 	*/
-	function GetName() {
+	static function GetName() {
 		return __("Comment Average",'sitemap');
 	}
 
@@ -555,7 +555,7 @@ class GoogleSitemapGeneratorPrioByAverageProvider extends GoogleSitemapGenerator
 	 * @author Arne Brachhold
 	 * @return string The translated description
 	*/
-	function GetDescription() {
+	static function GetDescription() {
 		return __("Uses the average comment count to calculate the priority",'sitemap');
 	}
 
@@ -618,7 +618,7 @@ class GoogleSitemapGeneratorPrioByPopularityContestProvider extends GoogleSitema
 	 * @author Arne Brachhold
 	 * @return string The translated name
 	*/
-	function GetName() {
+	static function GetName() {
 		return __("Popularity Contest",'sitemap');
 	}
 
@@ -630,7 +630,7 @@ class GoogleSitemapGeneratorPrioByPopularityContestProvider extends GoogleSitema
 	 * @author Arne Brachhold
 	 * @return string The translated description
 	*/
-	function GetDescription() {
+	static function GetDescription() {
 		return str_replace("%4","index.php?page=popularity-contest.php",str_replace("%3","options-general.php?page=popularity-contest.php",str_replace("%2","http://www.alexking.org/",str_replace("%1","http://www.alexking.org/index.php?content=software/wordpress/content.php",__("Uses the activated <a href=\"%1\">Popularity Contest Plugin</a> from <a href=\"%2\">Alex King</a>. See <a href=\"%3\">Settings</a> and <a href=\"%4\">Most Popular Posts</a>",'sitemap')))));
 	}
 
@@ -696,7 +696,7 @@ class GoogleSitemapGenerator {
 	/**
 	 * @var Version of the generator in SVN
 	*/
-	var $_svnVersion = '$Id: sitemap-core.php 779425 2013-09-27 22:49:51Z arnee $';
+	var $_svnVersion = '$Id: sitemap-core.php 809741 2013-11-24 18:32:07Z arnee $';
 
 	/**
 	 * @var array The unserialized array with the stored options
@@ -1065,7 +1065,7 @@ class GoogleSitemapGenerator {
 	 * @return GoogleSitemapGenerator The instance or null if not available.
 	 * @author Arne Brachhold
 	*/
-	function &GetInstance() {
+	static function &GetInstance() {
 		if(isset($GLOBALS["sm_instance"])) {
 			return $GLOBALS["sm_instance"];
 		} else return null;
@@ -1079,7 +1079,7 @@ class GoogleSitemapGenerator {
 	 * @return bool true if active
 	 * @author Arne Brachhold
 	*/
-	function IsActive() {
+	static function IsActive() {
 		$inst = &GoogleSitemapGenerator::GetInstance();
 		return ($inst != null && $inst->_isActive);
 	}
@@ -1152,7 +1152,7 @@ class GoogleSitemapGenerator {
 	 * @access public
 	 * @author Arne Brachhold
 	*/
-	function Enable() {
+	static function Enable() {
 		if(!isset($GLOBALS["sm_instance"])) {
 			$GLOBALS["sm_instance"]=new GoogleSitemapGenerator();
 		}

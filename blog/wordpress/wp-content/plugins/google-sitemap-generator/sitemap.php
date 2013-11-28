@@ -1,7 +1,7 @@
 <?php
 
 /*
- $Id: sitemap.php 779425 2013-09-27 22:49:51Z arnee $
+ $Id: sitemap.php 809744 2013-11-24 18:44:57Z arnee $
 
  Google XML Sitemaps Generator for WordPress
  ==============================================================================
@@ -25,7 +25,7 @@
  Plugin Name: Google XML Sitemaps
  Plugin URI: http://www.arnebrachhold.de/redir/sitemap-home/
  Description: This plugin will generate a special XML sitemap which will help search engines like Google, Yahoo, Bing and Ask.com to better index your blog.
- Version: 3.3
+ Version: 3.4
  Author: Arne Brachhold
  Author URI: http://www.arnebrachhold.de/
  Text Domain: sitemap
@@ -46,7 +46,7 @@ class GoogleSitemapGeneratorLoader {
 	 *
 	 * If the sm_command and sm_key GET params are given, the function will init the generator to rebuild the sitemap.
 	 */
-	function Enable() {
+	static function Enable() {
 
 		//Check for 3.0 multisite, NOT supported yet!
 		if((defined('WP_ALLOW_MULTISITE') && WP_ALLOW_MULTISITE) || (function_exists('is_multisite') && is_multisite())) {
@@ -101,28 +101,28 @@ class GoogleSitemapGeneratorLoader {
 	/**
 	 * Outputs the warning bar if multisite mode is activated
 	 */
-	function AddMultisiteWarning() {
+	static function AddMultisiteWarning() {
 		echo "<div id='sm-multisite-warning' class='error fade'><p><strong>".__('This version of Google XML Sitemaps is not multisite compatible.','sitemap')."</strong><br /> ".sprintf(__('Unfortunately this version of the Google XML Sitemaps plugin was not tested with the multisite feature of WordPress 3.0 yet. <br />The plugin will not be active until you disable the multisite mode. <br />Or you can <a href="%1$s">try the new beta</a> which supports all the new WordPress features!','sitemap'), "http://www.arnebrachhold.de/redir/sitemap-info-beta/")."</p></div>";
 	}
 
 	/**
 	 * Registers the plugin in the admin menu system
 	 */
-	function RegisterAdminPage() {
-
+	static function RegisterAdminPage() {
 		if (function_exists('add_options_page')) {
-			add_options_page(__('XML-Sitemap Generator','sitemap'), __('XML-Sitemap','sitemap'), 'level_10', GoogleSitemapGeneratorLoader::GetBaseName(), array('GoogleSitemapGeneratorLoader','CallHtmlShowOptionsPage'));
+			$slug = GoogleSitemapGeneratorLoader::GetBaseName();
+			add_options_page(__('XML-Sitemap Generator','sitemap'), __('XML-Sitemap','sitemap'), 'level_10', $slug, array('GoogleSitemapGeneratorLoader','CallHtmlShowOptionsPage'));
 		}
 	}
 
-	function RegisterAdminIcon($hook) {
+	static function RegisterAdminIcon($hook) {
 		if ( $hook == GoogleSitemapGeneratorLoader::GetBaseName() && function_exists('plugins_url')) {
 			return plugins_url('img/icon-arne.gif',GoogleSitemapGeneratorLoader::GetBaseName());
 		}
 		return $hook;
 	}
 
-	function RegisterPluginLinks($links, $file) {
+	static function RegisterPluginLinks($links, $file) {
 		$base = GoogleSitemapGeneratorLoader::GetBaseName();
 		if ($file == $base) {
 			$links[] = '<a href="options-general.php?page=' . GoogleSitemapGeneratorLoader::GetBaseName() .'">' . __('Settings','sitemap') . '</a>';
@@ -136,7 +136,7 @@ class GoogleSitemapGeneratorLoader {
 	/**
 	 * Invokes the HtmlShowOptionsPage method of the generator
 	 */
-	function CallHtmlShowOptionsPage() {
+	static function CallHtmlShowOptionsPage() {
 		if(GoogleSitemapGeneratorLoader::LoadPlugin()) {
 			$gs = &GoogleSitemapGenerator::GetInstance();
 			$gs->HtmlShowOptionsPage();
@@ -146,7 +146,7 @@ class GoogleSitemapGeneratorLoader {
 	/**
 	 * Invokes the CheckForAutoBuild method of the generator
 	 */
-	function CallCheckForAutoBuild($args) {
+	static function CallCheckForAutoBuild($args) {
 		if(GoogleSitemapGeneratorLoader::LoadPlugin()) {
 			$gs = &GoogleSitemapGenerator::GetInstance();
 			$gs->CheckForAutoBuild($args);
@@ -156,7 +156,7 @@ class GoogleSitemapGeneratorLoader {
 	/**
 	 * Invokes the CheckForAutoBuild method of the generator
 	 */
-	function CallBuildNowRequest() {
+	static function CallBuildNowRequest() {
 		if(GoogleSitemapGeneratorLoader::LoadPlugin()) {
 			$gs = &GoogleSitemapGenerator::GetInstance();
 			$gs->BuildNowRequest();
@@ -166,7 +166,7 @@ class GoogleSitemapGeneratorLoader {
 	/**
 	 * Invokes the BuildSitemap method of the generator
 	 */
-	function CallBuildSitemap() {
+	static function CallBuildSitemap() {
 		if(GoogleSitemapGeneratorLoader::LoadPlugin()) {
 			$gs = &GoogleSitemapGenerator::GetInstance();
 			$gs->BuildSitemap();
@@ -176,7 +176,7 @@ class GoogleSitemapGeneratorLoader {
 	/**
 	 * Invokes the CheckForManualBuild method of the generator
 	 */
-	function CallCheckForManualBuild() {
+	static function CallCheckForManualBuild() {
 		if(GoogleSitemapGeneratorLoader::LoadPlugin()) {
 			$gs = &GoogleSitemapGenerator::GetInstance();
 			$gs->CheckForManualBuild();
@@ -186,7 +186,7 @@ class GoogleSitemapGeneratorLoader {
 	/**
 	 * Invokes the ShowPingResult method of the generator
 	 */
-	function CallShowPingResult() {
+	static function CallShowPingResult() {
 		if(GoogleSitemapGeneratorLoader::LoadPlugin()) {
 			$gs = &GoogleSitemapGenerator::GetInstance();
 			$gs->ShowPingResult();
@@ -194,7 +194,7 @@ class GoogleSitemapGeneratorLoader {
 	}
 
 
-	function CallHtmlShowHelpList($filterVal,$screen) {
+	static function CallHtmlShowHelpList($filterVal,$screen) {
 
 		$id = get_plugin_page_hookname(GoogleSitemapGeneratorLoader::GetBaseName(),'options-general.php');
 
@@ -215,7 +215,7 @@ class GoogleSitemapGeneratorLoader {
 		return $filterVal;
 	}
 
-	function CallDoRobots() {
+	static function CallDoRobots() {
 		if(GoogleSitemapGeneratorLoader::LoadPlugin()) {
 			$gs = &GoogleSitemapGenerator::GetInstance();
 			$gs->DoRobots();
@@ -227,7 +227,7 @@ class GoogleSitemapGeneratorLoader {
 	 *
 	 * @return boolean true if run successfully
 	 */
-	function LoadPlugin() {
+	static function LoadPlugin() {
 
 		$mem = abs(intval(@ini_get('memory_limit')));
 		if($mem && $mem < 64) {
@@ -256,7 +256,8 @@ class GoogleSitemapGeneratorLoader {
 	 *
 	 * @return string The plugin basename, "sitemap" for example
 	 */
-	function GetBaseName() {
+	static function GetBaseName() {
+		//return "sitemap.php";
 		return plugin_basename(__FILE__);
 	}
 
@@ -265,7 +266,7 @@ class GoogleSitemapGeneratorLoader {
 	 *
 	 * @return string The __FILE__ value of this loader script
 	 */
-	function GetPluginFile() {
+	static function GetPluginFile() {
 		return __FILE__;
 	}
 
@@ -276,7 +277,7 @@ class GoogleSitemapGeneratorLoader {
 	 *
 	 * @return string The version like 3.1.1
 	 */
-	function GetVersion() {
+	static function GetVersion() {
 		if(!isset($GLOBALS["sm_version"])) {
 			if(!function_exists('get_plugin_data')) {
 				if(file_exists(ABSPATH . 'wp-admin/includes/plugin.php')) require_once(ABSPATH . 'wp-admin/includes/plugin.php'); //2.3+
@@ -294,4 +295,3 @@ class GoogleSitemapGeneratorLoader {
 if(defined('ABSPATH') && defined('WPINC')) {
 	add_action("init",array("GoogleSitemapGeneratorLoader","Enable"),1000,0);
 }
-?>

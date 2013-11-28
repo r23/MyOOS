@@ -62,7 +62,7 @@ function jetpack_og_tags() {
 		$tags['og:title']       = empty( $data->post_title ) ? ' ' : wp_kses( $data->post_title, array() ) ;
 		$tags['og:url']         = get_permalink( $data->ID );
 		if ( !post_password_required() )
-			$tags['og:description'] = ! empty( $data->post_excerpt ) ? strip_shortcodes( wp_kses( $data->post_excerpt, array() ) ) : wp_trim_words( strip_shortcodes( wp_kses( $data->post_content, array() ) ) );
+			$tags['og:description'] = ! empty( $data->post_excerpt ) ? preg_replace( '@https?://[\S]+@', '', strip_shortcodes( wp_kses( $data->post_excerpt, array() ) ) ): wp_trim_words( preg_replace( '@https?://[\S]+@', '', strip_shortcodes( wp_kses( $data->post_content, array() ) ) ) );
 		$tags['og:description'] = empty( $tags['og:description'] ) ? ' ' : $tags['og:description'];
 	}
 
@@ -86,6 +86,11 @@ function jetpack_og_tags() {
 	// Add any additional tags here, or modify what we've come up with
 	$tags = apply_filters( 'jetpack_open_graph_tags', $tags, compact( 'image_width', 'image_height' ) );
 
+	// secure_urls need to go right after each og:image to work properly so we will abstract them here
+	$secure = $tags['og:image:secure_url'] = ( empty( $tags['og:image:secure_url'] ) ) ? '' : $tags['og:image:secure_url'];
+	unset( $tags['og:image:secure_url'] );
+	$secure_image_num = 0;
+
 	foreach ( (array) $tags as $tag_property => $tag_content ) {
 		// to accomodate multiple images
 		$tag_content = (array) $tag_content;
@@ -97,6 +102,19 @@ function jetpack_og_tags() {
 			$og_tag = sprintf( '<meta property="%s" content="%s" />', esc_attr( $tag_property ), esc_attr( $tag_content_single ) );
 			$og_output .= apply_filters( 'jetpack_open_graph_output', $og_tag );
 			$og_output .= "\n";
+
+			if ( 'og:image' == $tag_property ) {
+				if ( is_array( $secure ) && !empty( $secure[$secure_image_num] ) ) {
+					$og_tag = sprintf( '<meta property="og:image:secure_url" content="%s" />', esc_url( $secure[ $secure_image_num ] ) );
+					$og_output .= apply_filters( 'jetpack_open_graph_output', $og_tag );
+					$og_output .= "\n";
+				} else if ( !is_array( $secure ) && !empty( $secure ) ) {
+					$og_tag = sprintf( '<meta property="og:image:secure_url" content="%s" />', esc_url( $secure ) );
+					$og_output .= apply_filters( 'jetpack_open_graph_output', $og_tag );
+					$og_output .= "\n";
+				}
+				$secure_image_num++;
+			}
 		}
 	}
 
@@ -149,11 +167,56 @@ function jetpack_og_get_image( $width = 200, $height = 200, $max_images = 4 ) { 
 		}
 	}
 
-	// Fallback to Blavatar if available
-	if ( function_exists( 'blavatar_domain' ) ) {
+	if ( empty( $image ) )
+		$image = array();
+	else if ( !is_array( $image ) )
+		$image = array( $image );
+
+	// First fall back, blavatar
+	if ( empty( $image ) && function_exists( 'blavatar_domain' ) ) {
 		$blavatar_domain = blavatar_domain( site_url() );
-		if ( empty( $image ) && blavatar_exists( $blavatar_domain ) )
-			$image = blavatar_url( $blavatar_domain, 'img', $width );
+		if ( blavatar_exists( $blavatar_domain ) )
+			$image[] = blavatar_url( $blavatar_domain, 'img', $width );
+	}
+
+	// Second fall back, blank image
+	if ( empty( $image ) ) {
+		$image[] = "http://wordpress.com/i/blank.jpg";
+	}
+
+	return $image;
+}
+
+/**
+* @param $email
+* @param $width
+* @return array|bool|mixed|string
+*/
+function jetpack_og_get_image_gravatar( $email, $width ) {
+	$image = '';
+	if ( function_exists( 'get_avatar_url' ) ) {
+		$avatar = get_avatar_url($email, $width);
+		if ( ! empty( $avatar ) ) {
+			if ( is_array( $avatar ) )
+				$image = $avatar[0];
+			else
+				$image = $avatar;
+		}
+	} else {
+		$has_filter = has_filter( 'pre_option_show_avatars', '__return_true' );
+		if ( !$has_filter ) {
+			add_filter( 'pre_option_show_avatars', '__return_true' );
+		}
+		$avatar = get_avatar( $email, $width );
+
+		if ( !$has_filter ) {
+			remove_filter( 'pre_option_show_avatars', '__return_true' );
+		}
+
+		if ( !empty( $avatar ) && !is_wp_error( $avatar ) ) {
+			if ( preg_match( '/src=["\']([^"\']+)["\']/', $avatar, $matches ) )
+				$image = wp_specialchars_decode($matches[1], ENT_QUOTES);
+		}
 	}
 
 	return $image;

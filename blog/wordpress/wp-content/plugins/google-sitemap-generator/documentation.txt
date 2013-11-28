@@ -243,6 +243,7 @@
  2013-01-11     3.2.9   Fixed security issue with change frequencies and filename of sitemap file. Exploit was only possible for admin accounts.
  2013-09-28     3.3     Fixed problem with file permission checking
                         Filter out hashs (#) in URLs
+ 2013-11-24     3.4     Fixed deprecation warnings in PHP 5.4, thanks to Dion Hulse!
 
  Maybe Todo:
  ==============================================================================
@@ -251,7 +252,7 @@
 
  License:
  ==============================================================================
- Copyright 2005 - 2012 ARNE BRACHHOLD  (email : himself - arnebrachhold - de)
+ Copyright 2005 - 2013 ARNE BRACHHOLD  (email : himself - arnebrachhold - de)
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
