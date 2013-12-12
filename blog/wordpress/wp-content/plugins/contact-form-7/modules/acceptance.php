@@ -5,7 +5,7 @@
 
 /* Shortcode handler */
 
-add_action( 'init', 'wpcf7_add_shortcode_acceptance', 5 );
+add_action( 'wpcf7_init', 'wpcf7_add_shortcode_acceptance' );
 
 function wpcf7_add_shortcode_acceptance() {
 	wpcf7_add_shortcode( 'acceptance',
@@ -36,6 +36,8 @@ function wpcf7_acceptance_shortcode_handler( $tag ) {
 
 	if ( $tag->has_option( 'default:on' ) )
 		$atts['checked'] = 'checked';
+
+	$atts['aria-invalid'] = $validation_error ? 'true' : 'false';
 
 	$atts['type'] = 'checkbox';
 	$atts['name'] = $tag->name;
@@ -135,7 +137,7 @@ function wpcf7_add_tag_generator_acceptance() {
 	if ( ! function_exists( 'wpcf7_add_tag_generator' ) )
 		return;
 
-	wpcf7_add_tag_generator( 'acceptance', __( 'Acceptance', 'wpcf7' ),
+	wpcf7_add_tag_generator( 'acceptance', __( 'Acceptance', 'contact-form-7' ),
 		'wpcf7-tg-pane-acceptance', 'wpcf7_tg_pane_acceptance' );
 }
 
@@ -144,28 +146,28 @@ function wpcf7_tg_pane_acceptance( &$contact_form ) {
 <div id="wpcf7-tg-pane-acceptance" class="hidden">
 <form action="">
 <table>
-<tr><td><?php echo esc_html( __( 'Name', 'wpcf7' ) ); ?><br /><input type="text" name="name" class="tg-name oneline" /></td><td></td></tr>
+<tr><td><?php echo esc_html( __( 'Name', 'contact-form-7' ) ); ?><br /><input type="text" name="name" class="tg-name oneline" /></td><td></td></tr>
 </table>
 
 <table>
 <tr>
-<td><code>id</code> (<?php echo esc_html( __( 'optional', 'wpcf7' ) ); ?>)<br />
+<td><code>id</code> (<?php echo esc_html( __( 'optional', 'contact-form-7' ) ); ?>)<br />
 <input type="text" name="id" class="idvalue oneline option" /></td>
 
-<td><code>class</code> (<?php echo esc_html( __( 'optional', 'wpcf7' ) ); ?>)<br />
+<td><code>class</code> (<?php echo esc_html( __( 'optional', 'contact-form-7' ) ); ?>)<br />
 <input type="text" name="class" class="classvalue oneline option" /></td>
 </tr>
 
 <tr>
 <td colspan="2">
-<br /><input type="checkbox" name="default:on" class="option" />&nbsp;<?php echo esc_html( __( "Make this checkbox checked by default?", 'wpcf7' ) ); ?>
-<br /><input type="checkbox" name="invert" class="option" />&nbsp;<?php echo esc_html( __( "Make this checkbox work inversely?", 'wpcf7' ) ); ?>
-<br /><span style="font-size: smaller;"><?php echo esc_html( __( "* That means visitor who accepts the term unchecks it.", 'wpcf7' ) ); ?></span>
+<br /><input type="checkbox" name="default:on" class="option" />&nbsp;<?php echo esc_html( __( "Make this checkbox checked by default?", 'contact-form-7' ) ); ?>
+<br /><input type="checkbox" name="invert" class="option" />&nbsp;<?php echo esc_html( __( "Make this checkbox work inversely?", 'contact-form-7' ) ); ?>
+<br /><span style="font-size: smaller;"><?php echo esc_html( __( "* That means visitor who accepts the term unchecks it.", 'contact-form-7' ) ); ?></span>
 </td>
 </tr>
 </table>
 
-<div class="tg-tag"><?php echo esc_html( __( "Copy this code and paste it into the form left.", 'wpcf7' ) ); ?><br /><input type="text" name="acceptance" class="tag" readonly="readonly" onfocus="this.select()" /></div>
+<div class="tg-tag"><?php echo esc_html( __( "Copy this code and paste it into the form left.", 'contact-form-7' ) ); ?><br /><input type="text" name="acceptance" class="tag" readonly="readonly" onfocus="this.select()" /></div>
 </form>
 </div>
 <?php

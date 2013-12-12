@@ -2,9 +2,9 @@
 Contributors: takayukister
 Donate link: http://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
-Requires at least: 3.5
-Tested up to: 3.7.1
-Stable tag: 3.5.4
+Requires at least: 3.6
+Tested up to: 3.8
+Stable tag: 3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,7 +41,7 @@ The following are other recommended plugins by the author of Contact Form 7.
 * Basque (Euskara; eu) - [karrikas](http://blog.karrikas.com/)
 * Belarusian (be_BY) - [Igor Dubilei](http://www.iflexion.com/)
 * Bosnian (bs) - [Vedran](http://www.seorabbit.com/)
-* Brazilian Portuguese (pt_BR) - [Leonardo Pinheiro](http://www.eletrikabarbarella.com.br/), [Henrique Vianna](http://henriquevianna.com/), [Caciano Gabriel Batista](http://www.gn10.com.br/), [Gervásio Antônio](http://twitter.com/gervasioantonio)
+* Brazilian Portuguese (pt_BR) - [Leonardo Pinheiro](http://www.eletrikabarbarella.com.br/), [Henrique Vianna](http://henriquevianna.com/), [Caciano Gabriel Batista](http://www.gn10.com.br/), [Gervásio Antônio](http://twitter.com/gervasioantonio), Gilvanilson Santos
 * Bulgarian (bg_BG) - [Iliyan Darganov](http://www.darganov.com/)
 * Catalan (ca) - [Jordi Sancho](http://www.qasolutions.net/blog), Robert Buj, Jaume Aragay Badia
 * Central Kurdish (ckb) - Mahr Hassan
@@ -54,7 +54,7 @@ The following are other recommended plugins by the author of Contact Form 7.
 * Esperanto (eo_EO) - Arkadiusz Zychewicz
 * Estonian (et) - [Peeter Rahuvarm](http://www.kraabus.ee), Egon Elbre
 * Finnish (fi) - [Miika Turunen](http://www.webwork.fi/), [Mediajalostamo](http://www.mediajalostamo.fi/), [Jani Alha](http://www.wysiwyg.fi/)
-* French (fr_FR) - [Jillij](http://www.jillij.com/), [Oncle Tom](http://case.oncle-tom.net/), [Maître Mô](http://maitremo.fr/), Hédi Sellami
+* French (fr_FR) - [Jillij](http://www.jillij.com/), [Oncle Tom](http://case.oncle-tom.net/), [Maître Mô](http://maitremo.fr/), Emmanuel Simond, Hédi Sellami
 * Galician (gl_ES) - [Arume Desenvolvementos Informáticos](http://www.arumeinformatica.es/)
 * Georgian (ka_GE) - [Nodar Rocko Davituri](http://davituri.com/)
 * German (de_DE) - [Marcel Spitau](http://blog.spitau.de), [Ivan Graf](http://blog.bildergallery.com/)
@@ -80,7 +80,7 @@ The following are other recommended plugins by the author of Contact Form 7.
 * Polish (pl_PL) - [Zbigniew Czernik](http://zibik.jogger.pl/), [Daniel Fruzynski](http://www.poradnik-webmastera.com), [RafalDesign](http://www.rafaldesign.pl/), [Bartosz Arendt](http://digitalfactory.pl/)
 * Portuguese (pt_PT) - [Hugo Baeta](http://hugobaeta.com), [Pedro Nave](http://pedronave.com/)
 * Russian (ru_RU) - Dmitry Volotovich, [Denis Voituk](http://artprima.cz/), [kg69design](http://kg69design.com/)
-* Romanian (ro_RO) - [Stas Sushkov](http://stas.nerd.ro/), [Anunturi Jibo](http://www.jibo.ro/), [Marius Olar](http://webdudes.ro/), [Flo Bejgu](http://inboxtranslation.com/)
+* Romanian (ro_RO) - [Stas Sushkov](http://stas.nerd.ro/), [Anunturi Jibo](http://www.jibo.ro/), [Marius Olar](http://webdudes.ro/), [Inbox Translation](http://inboxtranslation.com/)
 * Serbian (sr_RS) - [Vedran](http://www.seorabbit.com/), [Aleksandar Urošević](http://blog.urosevic.net/)
 * Sinhala (si_LK) - [Nitin Aggarwal](http://offshoreally.com/)
 * Slovak (sk_SK) - [Patrik Bóna](http://www.mrhead.sk/), [WordPress Slovakia](http://wp.sk/)
@@ -121,45 +121,18 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 
 == Changelog ==
 
-= 3.5.4 =
+= 3.6 =
 
-* Fixed: Strip slashes from some text inputs before validating them.
-* The jQuery Form Plugin (jquery.form.js) has been updated to 3.45.0.
-* Translations for German, French, Persian and Romanian have been updated.
-
-= 3.5.3 =
-
-* Checking of file extension when uploading has been enhanced.
-* The jQuery Form Plugin (jquery.form.js) has been updated to 3.44.0.
-* Translation for Central Kurdish (ckb) has been created.
-* Translations for German, Hungarian and Japanese have been updated.
-
-= 3.5.2 =
-
-* Fixed: Strip newlines to prevent mail header injection.
-* The jQuery Form Plugin (jquery.form.js) has been updated to 3.40.0.
-* Translations for Spanish and Dutch have been updated.
-
-= 3.5.1 =
-
-* Fixed: Submissions with array value cause PHP error.
-* Translation for Indian Bengali (bn_IN) has been created.
-* Translations for Spanish, Tagalog and Japanese have been updated.
-
-= 3.5 =
-
-* Added: Support of local file attachment.
-* Added: first_as_label option to drop-down menu (select) tag.
-* Added: Support of jQuery UI fallback for non-HTML5 browsers.
-* Show error message from jquery.form.js in a hidden element.
-* Make ajax-loader image have https URL when the page is https.
-* Use win_is_writable() to avoid file system issues on Windows server.
-* Save locale information when generating a contact form.
-* The jQuery Form Plugin (jquery.form.js) has been updated to 3.39.0.
-* Translations for Finnish, German and Turkish have been updated.
-
-== Upgrade Notice ==
-
-= 3.5.2 =
-
-This version fixes a security related bug. Upgrade immediately.
+* Accessibility: Apply role="alert" to response message and validation errors.
+* Accessibility: Apply aria-invalid="true" to input fields in which validation errors occuring.
+* Accessibility: Stop using floating-style validation error messages (not-valid-tip) which disappear with mouse-over, as it is not accessible.
+* Text domain has been changed from "wpcf7" to "contact-form-7" according with the standard of WordPress.org language packs.
+* Admin: "Add New" submenu has been added.
+* Flamingo: Sub-channel support.
+* Flamingo: Pass data to Flamingo in cases of spam detected, in addition to cases of mail sent.
+* Flamingo: Support flamingo_email, flamingo_name and flamingo_subject additional settings which allow to alter values passed to Flamingo.
+* New: Date format in mail.
+* New: wpcf7_submit action hook.
+* New: wpcf7_flamingo_submit_if and wpcf7_flamingo_get_value filter hooks.
+* The jQuery Form Plugin (jquery.form.js) has been updated to 3.46.0.
+* Translations for Brazilian Portuguese and French have been updated.

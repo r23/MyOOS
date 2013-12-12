@@ -5,7 +5,7 @@
 
 /* Shortcode handler */
 
-add_action( 'init', 'wpcf7_add_shortcode_quiz', 5 );
+add_action( 'wpcf7_init', 'wpcf7_add_shortcode_quiz' );
 
 function wpcf7_add_shortcode_quiz() {
 	wpcf7_add_shortcode( 'quiz', 'wpcf7_quiz_shortcode_handler', true );
@@ -32,6 +32,7 @@ function wpcf7_quiz_shortcode_handler( $tag ) {
 	$atts['id'] = $tag->get_option( 'id', 'id', true );
 	$atts['tabindex'] = $tag->get_option( 'tabindex', 'int', true );
 	$atts['aria-required'] = 'true';
+	$atts['aria-invalid'] = $validation_error ? 'true' : 'false';
 
 	$pipes = $tag->pipes;
 
@@ -139,8 +140,8 @@ add_filter( 'wpcf7_messages', 'wpcf7_quiz_messages' );
 
 function wpcf7_quiz_messages( $messages ) {
 	return array_merge( $messages, array( 'quiz_answer_not_correct' => array(
-		'description' => __( "Sender doesn't enter the correct answer to the quiz", 'wpcf7' ),
-		'default' => __( 'Your answer is not correct.', 'wpcf7' )
+		'description' => __( "Sender doesn't enter the correct answer to the quiz", 'contact-form-7' ),
+		'default' => __( 'Your answer is not correct.', 'contact-form-7' )
 	) ) );
 }
 
@@ -153,7 +154,7 @@ function wpcf7_add_tag_generator_quiz() {
 	if ( ! function_exists( 'wpcf7_add_tag_generator' ) )
 		return;
 
-	wpcf7_add_tag_generator( 'quiz', __( 'Quiz', 'wpcf7' ),
+	wpcf7_add_tag_generator( 'quiz', __( 'Quiz', 'contact-form-7' ),
 		'wpcf7-tg-pane-quiz', 'wpcf7_tg_pane_quiz' );
 }
 
@@ -162,35 +163,35 @@ function wpcf7_tg_pane_quiz( &$contact_form ) {
 <div id="wpcf7-tg-pane-quiz" class="hidden">
 <form action="">
 <table>
-<tr><td><?php echo esc_html( __( 'Name', 'wpcf7' ) ); ?><br /><input type="text" name="name" class="tg-name oneline" /></td><td></td></tr>
+<tr><td><?php echo esc_html( __( 'Name', 'contact-form-7' ) ); ?><br /><input type="text" name="name" class="tg-name oneline" /></td><td></td></tr>
 </table>
 
 <table>
 <tr>
-<td><code>id</code> (<?php echo esc_html( __( 'optional', 'wpcf7' ) ); ?>)<br />
+<td><code>id</code> (<?php echo esc_html( __( 'optional', 'contact-form-7' ) ); ?>)<br />
 <input type="text" name="id" class="idvalue oneline option" /></td>
 
-<td><code>class</code> (<?php echo esc_html( __( 'optional', 'wpcf7' ) ); ?>)<br />
+<td><code>class</code> (<?php echo esc_html( __( 'optional', 'contact-form-7' ) ); ?>)<br />
 <input type="text" name="class" class="classvalue oneline option" /></td>
 </tr>
 
 <tr>
-<td><code>size</code> (<?php echo esc_html( __( 'optional', 'wpcf7' ) ); ?>)<br />
+<td><code>size</code> (<?php echo esc_html( __( 'optional', 'contact-form-7' ) ); ?>)<br />
 <input type="number" name="size" class="numeric oneline option" min="1" /></td>
 
-<td><code>maxlength</code> (<?php echo esc_html( __( 'optional', 'wpcf7' ) ); ?>)<br />
+<td><code>maxlength</code> (<?php echo esc_html( __( 'optional', 'contact-form-7' ) ); ?>)<br />
 <input type="number" name="maxlength" class="numeric oneline option" min="1" /></td>
 </tr>
 
 <tr>
-<td><?php echo esc_html( __( 'Quizzes', 'wpcf7' ) ); ?><br />
+<td><?php echo esc_html( __( 'Quizzes', 'contact-form-7' ) ); ?><br />
 <textarea name="values"></textarea><br />
-<span style="font-size: smaller"><?php echo esc_html( __( "* quiz|answer (e.g. 1+1=?|2)", 'wpcf7' ) ); ?></span>
+<span style="font-size: smaller"><?php echo esc_html( __( "* quiz|answer (e.g. 1+1=?|2)", 'contact-form-7' ) ); ?></span>
 </td>
 </tr>
 </table>
 
-<div class="tg-tag"><?php echo esc_html( __( "Copy this code and paste it into the form left.", 'wpcf7' ) ); ?><br /><input type="text" name="quiz" class="tag" readonly="readonly" onfocus="this.select()" /></div>
+<div class="tg-tag"><?php echo esc_html( __( "Copy this code and paste it into the form left.", 'contact-form-7' ) ); ?><br /><input type="text" name="quiz" class="tag" readonly="readonly" onfocus="this.select()" /></div>
 </form>
 </div>
 <?php

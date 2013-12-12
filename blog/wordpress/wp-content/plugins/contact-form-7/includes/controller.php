@@ -161,7 +161,7 @@ function wpcf7_widget_text_filter( $content ) {
 
 /* Shortcodes */
 
-add_action( 'plugins_loaded', 'wpcf7_add_shortcodes', 1 );
+add_action( 'plugins_loaded', 'wpcf7_add_shortcodes' );
 
 function wpcf7_add_shortcodes() {
 	add_shortcode( 'contact-form-7', 'wpcf7_contact_form_tag_func' );
@@ -228,7 +228,7 @@ function wpcf7_enqueue_scripts() {
 	wp_deregister_script( 'jquery-form' );
 	wp_register_script( 'jquery-form',
 		wpcf7_plugin_url( 'includes/js/jquery.form.min.js' ),
-		array( 'jquery' ), '3.45.0-2013.10.17', true );
+		array( 'jquery' ), '3.46.0-2013.11.21', true );
 
 	$in_footer = true;
 	if ( 'header' === WPCF7_LOAD_JS )
@@ -240,7 +240,7 @@ function wpcf7_enqueue_scripts() {
 
 	$_wpcf7 = array(
 		'loaderUrl' => wpcf7_ajax_loader(),
-		'sending' => __( 'Sending ...', 'wpcf7' ) );
+		'sending' => __( 'Sending ...', 'contact-form-7' ) );
 
 	if ( defined( 'WP_CACHE' ) && WP_CACHE )
 		$_wpcf7['cached'] = 1;

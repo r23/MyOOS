@@ -1,9 +1,9 @@
-=== Jetpack by WordPress.com === 
+=== Jetpack by WordPress.com ===
 Contributors: automattic, alternatekev, andy, apeatling, azaozz, barry, beaulebens, blobaugh, cfinke, chellycat, danielbachhuber, daniloercoli, designsimply, eoigal, ethitter, gibrown, georgestephanis, hew, hugobaeta, iammattthomas, jblz, jeherve, jkudish, Joen, johnjamesjacoby, jshreve, lancewillett, martinremy, matt, matveb, mcsf, mdawaffe, migueluy, nickmomrik, obenland, pento, richardmtl, stephdau, tmoorewp, Viper007Bond, westi, yoavf
-Tags: WordPress.com, statistics, stats, views, tweets, twitter, widget, gravatar, hovercards, profile, equations, latex, math, maths, youtube, shortcode, archives, audio, blip, bliptv, dailymotion, digg, flickr, googlevideo, google, googlemaps, kyte, kytetv, livevideo, redlasso, rockyou, rss, scribd, slide, slideshare, soundcloud, vimeo, shortlinks, wp.me, subscriptions, notifications, notes, json, api, rest, mosaic, gallery, slideshow
-Requires at least: 3.5
-Tested up to: 3.6
-Stable tag: 2.6
+Tags: WordPress.com, statistics, stats, views, tweets, twitter, widget, gravatar, hovercards, profile, equations, latex, math, maths, youtube, shortcode, archives, audio, blip, bliptv, dailymotion, digg, flickr, googlevideo, google, googlemaps, kyte, kytetv, livevideo, redlasso, rockyou, rss, scribd, slide, slideshare, soundcloud, vimeo, shortlinks, wp.me, subscriptions, notifications, notes, json, api, rest, mosaic, gallery, slideshow, videopress, monitor, search, omnisearch, sso, jet pack
+Requires at least: 3.6
+Tested up to: 3.8
+Stable tag: 2.7
 
 Supercharge your WordPress site with powerful features previously only available to WordPress.com users.
 
@@ -37,7 +37,12 @@ Features include:
 * The ability to allow applications to securely authenticate and access your site with your permission.
 * Creative formats for your image galleries: mosaic, circles, squares, and a slideshow view.
 * Add post sliders and other highlights to your theme with Featured Content.
-* Search once, get results from everything! A single search box that lets you search posts, pages, comments, media, and plugins
+* Search once, get results from everything! A single search box that lets you search posts, pages, comments, media, and plugins.
+* Configure widgets to appear only on certain pages with the [Widget Visibility module](http://jetpack.me/support/widget-visibility/).
+* Upload and insert videos into your posts thanks to [VideoPress](http://jetpack.me/support/videopress/).
+* [Link Jetpack and your Google+ Profile](http://jetpack.me/support/google-plus/) to add mutliple Google features to your site.
+* Sign in to your self-hosted WordPress site using your WordPress.com log-in credentials.
+* Jetpack Monitor will keep tabs on your site, and alert you the moment that downtime is detected.
 * and *many* more to come!
 
 Note: The stats portion of Jetpack uses Quantcast to enhance its data.
@@ -82,6 +87,38 @@ Learn more (and get detailed instructions) in our [contribute guide](http://jetp
 8. Mobile Theme
 
 == Changelog ==
+
+= 2.7 =
+* Enhancement: Google+ Publicize
+* Enhancement: Add Cloudup as an oEmbed provider
+* Enhancement: Subscriptions: Add subscribe_field_id filter to allow updated ids when using multiple widgets
+* Enhancement: Infinite Scroll: TwentyFourteen Support
+* Bug Fix: Contact Form: Fix warning when form is called outside the loop
+* Bug Fix: Featured Content: Moving Settings to Customizer, provide option to set default tag as fallback, specify all supported post-types rather than just additional ones. Description Updates
+* Bug Fix: Featured Content: Compat with 'additional_post_types' theme support argument. Comment updates
+* Bug Fix: Featured Content: Make sure $term is an object before we treat it as one
+* Bug Fix: GlotPress: Merge with latest GlotPress
+* Bug Fix: Infinite Scroll: prevent Undefined index notice that can cause IS to fail when user has WP_DEBUG set to true
+* Bug Fix: Infinite Scroll: Improved compatibility with Carousel, Tiled Galleries, VideoPress, and the `[audio]` and `[video]` shortcodes
+* Bug Fix: Likes: Stop manually including version.php and trust the global. Some whitespace fixes, and if it's an attachment, follow the post_status of the parent post
+* Bug Fix: Mobile Theme: Display password field for Gallery format protected posts
+* Bug Fix: Sharing: Add new translation width for share button, and Google Plus icons
+* Bug Fix: Shortcodes: Support Ineternational Google domains for maps
+* Bug Fix: Shortcodes: Facebook Embeds: Register alternate permalink.php URL for posts
+* Bug Fix: Subscriptions: Moved inline styles from widget email input to seperate css file
+* Bug Fix: Theme Tools: Fix glitch where random-redirect.php also showed as a plugin being deleted if you were deleting Jetpack
+* Bug Fix: Misc: Internationalization & RTL updates
+* Bug Fix: Misc: Prevent collisions with 'Facebook Featured Image & OG Meta Tags' plugin
+
+= 2.6.1 =
+* Bug Fix: minor styling fix in pre- and post-MP6/3.8 UI changes.
+* Bug Fix: Stats: spinner gif url fix when the user is viewing it over https.
+* Bug Fix: Stats: Switch to esc_html from htmlspecialchars in error message -- better to be native
+* Bug Fix: Media Extractor: some hosts don't compile unicode for preg_match_all, so we temporarily removed the block that depended on it.
+* Bug Fix: Media Extractor: Add in some error handling for malformed URLs.
+* Bug Fix: Twitter Cards: treat single-image galleries as a photo-type.
+* Bug Fix: Update conflicting plugins for OG tags and Twitter Cards.
+* Bug Fix: Correct max supported version number -- had been 3.6, update to 3.7.1
 
 = 2.6 =
 * Enhancement: WPCC / now called [SSO](http://jetpack.me/support/sso/): refactored.

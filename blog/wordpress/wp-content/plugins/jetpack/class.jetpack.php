@@ -28,15 +28,21 @@ class Jetpack {
 	var $HTTP_RAW_POST_DATA = null; // copy of $GLOBALS['HTTP_RAW_POST_DATA']
 
 	var $plugins_to_deactivate = array(
-		'stats'              => array( 'stats/stats.php', 'WordPress.com Stats' ),
-		'shortlinks'         => array( 'stats/stats.php', 'WordPress.com Stats' ),
-		'sharedaddy'         => array( 'sharedaddy/sharedaddy.php', 'Sharedaddy' ),
-		'twitter-widget'     => array( 'wickett-twitter-widget/wickett-twitter-widget.php', 'Wickett Twitter Widget' ),
-		'after-the-deadline' => array( 'after-the-deadline/after-the-deadline.php', 'After The Deadline' ),
-		'contact-form'       => array( 'grunion-contact-form/grunion-contact-form.php', 'Grunion Contact Form' ),
-		'custom-css'         => array( 'safecss/safecss.php', 'WordPress.com Custom CSS' ),
-		'random-redirect'    => array( 'random-redirect/random-redirect.php', 'Random Redirect' ),
-		'videopress'         => array( 'video/video.php', 'VideoPress' ),
+		'stats'              	 => array( 'stats/stats.php', 'WordPress.com Stats' ),
+		'shortlinks'         	 => array( 'stats/stats.php', 'WordPress.com Stats' ),
+		'sharedaddy'         	 => array( 'sharedaddy/sharedaddy.php', 'Sharedaddy' ),
+		'twitter-widget'     	 => array( 'wickett-twitter-widget/wickett-twitter-widget.php', 'Wickett Twitter Widget' ),
+		'after-the-deadline'	 => array( 'after-the-deadline/after-the-deadline.php', 'After The Deadline' ),
+		'contact-form'		 => array( 'grunion-contact-form/grunion-contact-form.php', 'Grunion Contact Form' ),
+		'custom-css'		 => array( 'safecss/safecss.php', 'WordPress.com Custom CSS' ),
+		'random-redirect'	 => array( 'random-redirect/random-redirect.php', 'Random Redirect' ),
+		'videopress'		 => array( 'video/video.php', 'VideoPress' ),
+		'widget-visibility'	 => array( 'jetpack-widget-visibility/widget-visibility.php', 'Jetpack Widget Visibility' ),
+		'widget-visibility'	 => array( 'widget-visibility-without-jetpack/widget-visibility-without-jetpack.php', 'Widget Visibility Without Jetpack' ),
+		'sharedaddy'		 => array( 'jetpack-sharing/sharedaddy.php', 'Jetpack Sharing' ),
+		'omnisearch'		 => array( 'jetpack-omnisearch/omnisearch.php', 'Jetpack Omnisearch' ),
+		'gravatar-hovercards'	 => array( 'jetpack-gravatar-hovercards/gravatar-hovercards.php', 'Jetpack Gravatar Hovercards' ),
+		'latex'			 => array( 'wp-latex/wp-latex.php', 'WP LaTeX' ),
 	);
 
 	var $capability_translations = array(
@@ -63,30 +69,38 @@ class Jetpack {
 	 */
 	private $conflicting_plugins = array(
 		'comments'          => array(
-			'Intense Debate'      => 'intensedebate/intensedebate.php',
-			'Disqus'              => 'disqus-comment-system/disqus.php',
+			'Intense Debate'	  => 'intensedebate/intensedebate.php',
+			'Disqus'		  => 'disqus-comment-system/disqus.php',
 		),
 		'contact-form'      => array(
-			'Contact Form 7'      => 'contact-form-7/wp-contact-form-7.php',
-			'Gravity Forms'       => 'gravityforms/gravityforms.php',
-			'Contact Form Plugin' => 'contact-form-plugin/contact_form.php',
-			'Easy Contact Forms'  => 'easy-contact-forms/easy-contact-forms.php',
+			'Contact Form 7'	  => 'contact-form-7/wp-contact-form-7.php',
+			'Gravity Forms'		  => 'gravityforms/gravityforms.php',
+			'Contact Form Plugin'	  => 'contact-form-plugin/contact_form.php',
+			'Easy Contact Forms'	  => 'easy-contact-forms/easy-contact-forms.php',
 		),
 		'gplus-authorship'  => array(
-			'WP SEO by Yoast'     => 'wordpress-seo/wp-seo.php',
+			'WP SEO by Yoast'	  => 'wordpress-seo/wp-seo.php',
 		),
 		'minileven'         => array(
-			'WPtouch'             => 'wptouch/wptouch.php',
+			'WPtouch'		  => 'wptouch/wptouch.php',
+		),
+		'latex'		    => array(
+			'LaTeX for WordPress'	  => 'latex/latex.php',
+			'Youngwhans Simple Latex' => 'youngwhans-simple-latex/yw-latex.php',
+			'Easy WP LaTeX'		  => 'easy-wp-latex-lite/easy-wp-latex-lite.php',
+			'MathJax-LaTeX'		  => 'mathjax-latex/mathjax-latex.php',
+			'Enable Latex'		  => 'enable-latex/enable-latex.php',
+			'WP QuickLaTeX'		  => 'wp-quicklatex/wp-quicklatex.php',
 		),
 		'sharedaddy'        => array(
-			'AddThis'             => 'addthis/addthis_social_widget.php',
-			'Add To Any'          => 'add-to-any/add-to-any.php',
-			'ShareThis'           => 'share-this/sharethis.php',
-			'Shareaholic'         => 'shareaholic/shareaholic.php',
+			'AddThis'		  => 'addthis/addthis_social_widget.php',
+			'Add To Any'		  => 'add-to-any/add-to-any.php',
+			'ShareThis'		  => 'share-this/sharethis.php',
+			'Shareaholic'		  => 'shareaholic/shareaholic.php',
 		),
 		'widget-visibility' => array(
-			'Widget Logic'        => 'widget-logic/widget_logic.php',
-			'Dynamic Widgets'     => 'dynamic-widgets/dynamic-widgets.php',
+			'Widget Logic'		  => 'widget-logic/widget_logic.php',
+			'Dynamic Widgets'	  => 'dynamic-widgets/dynamic-widgets.php',
 		),
 		'random-redirect' => array(
 			'Random Redirect 2'	  => 'random-redirect-2/random-redirect.php',
@@ -278,6 +292,8 @@ class Jetpack {
 
 		add_action( 'jetpack_activate_module', array( $this, 'activate_module_actions' ) );
 
+		add_action( 'plugins_loaded', array( $this, 'extra_oembed_providers' ) );
+
 		/**
 		 * These actions run checks to load additional files.
 		 * They check for external files or plugins, so they need to run as late as possible.
@@ -417,8 +433,16 @@ class Jetpack {
 	}
 
 	/**
-	* Synchronize connected user role changes
-	*/
+	 * Add any extra oEmbed providers that we know about and use on wpcom for feature parity.
+	 */
+	function extra_oembed_providers() {
+		// Cloudup: https://dev.cloudup.com/#oembed
+		wp_oembed_add_provider( 'https://cloudup.com/*' , 'https://cloudup.com/oembed' );
+	}
+
+	/**
+	 * Synchronize connected user role changes
+	 */
 	function user_role_change( $user_id ) {
 		if ( Jetpack::is_active() && Jetpack::is_user_connected( $user_id ) ) {
 			$current_user_id = get_current_user_id();
@@ -590,6 +614,9 @@ class Jetpack {
 			'wp-facebook-like-send-open-graph-meta/wp-facebook-like-send-open-graph-meta.php',	// WP Facebook Like Send & Open Graph Meta
 			'network-publisher/networkpub.php',							// Network Publisher
 			'wp-ogp/wp-ogp.php',									// WP-OGP
+			'open-graph-protocol-framework/open-graph-protocol-framework.php',			// Open Graph Protocol Framework
+			'all-in-one-seo-pack/all_in_one_seo_pack.php',						// All in One SEO Pack
+			'facebook-featured-image-and-open-graph-meta-tags/fb-featured-image.php',		// Facebook Featured Image & OG Meta Tags
 		);
 
 		foreach ( $conflicting_plugins as $plugin ) {
@@ -1883,6 +1910,9 @@ p {
 					font-family: 'Jetpack' !important;
 					content: '\\e600';
 				}
+				#toplevel_page_jetpack .wp-menu-image {
+					background-repeat: no-repeat;
+				}
 				#menu-posts-feedback .wp-menu-image:before {
 					font-family: dashicons !important;
 					content: '\\f175';
@@ -2266,7 +2296,7 @@ p {
 				$this->error .= '  ' . sprintf( __( 'This module can only be altered by %s, the user who initiated the Jetpack connection on this site.' , 'jetpack' ), esc_html( $master_userdata->display_name ) );
 
 			} else {
-				$this->error = sprintf( __( 'Only the user who initiated the Jetpack connection on this site can toggle %s, but that user no longer exists. This should not happen.' ), $module_name );
+				$this->error = sprintf( __( 'Only the user who initiated the Jetpack connection on this site can toggle %s, but that user no longer exists. This should not happen.', 'jetpack' ), $module_name );
 			}
 			break;
 		case 'not_public' :

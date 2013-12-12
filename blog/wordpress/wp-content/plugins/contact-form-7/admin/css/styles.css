@@ -5,7 +5,7 @@
 div.wrap div.cf7com-links {
 	text-align: right;
 	font-size: .9em;
-	margin: -2em 1em 1em 0;
+	margin: -20px 1em 1em 0;
 }
 
 div.wrap div.cf7com-links a {
@@ -46,6 +46,7 @@ div.wrap div.donation p a.button {
 	position: relative;
 	border: 1px solid #c7c7c7;
 	padding: 6px;
+	background-color: #fff;
 }
 
 div.save-contact-form {
@@ -84,14 +85,16 @@ input#wpcf7-title {
 	font: bold 20px serif;
 	cursor: pointer;
 	background-color: transparent;
+	box-shadow: none;
 }
 
 input#wpcf7-title.focus {
 	color: #333;
-	border: 1px solid #777;
+	border: 1px solid #aaa;
 	font: normal 13px Verdana, Arial, Helvetica, sans-serif;
 	cursor: text;
 	background-color: transparent;
+	box-shadow: inset 0 1px 2px rgba(0,0,0,0.07);
 }
 
 input#wpcf7-title.mouseover {
@@ -264,4 +267,18 @@ div.tg-panetitle {
 input.shortcode-in-list-table {
 	width: 100%;
 	border: none;
+}
+
+/* welcome panel */
+.welcome-panel p.message {
+	line-height: 1.4em;
+	margin-right: 25px;
+}
+
+.welcome-panel li {
+	margin-bottom: 12px;
+}
+
+.welcome-panel-close {
+	z-index: 2;
 }

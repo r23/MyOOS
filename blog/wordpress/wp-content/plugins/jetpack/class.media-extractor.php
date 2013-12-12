@@ -106,7 +106,8 @@ class Jetpack_Media_Meta_Extractor {
 		}
 
 		// ----------------------------------- HASHTAGS ------------------------------
-
+/* Some hosts may not compile with --enable-unicode-properties and kick a warning
+	Warning: preg_match_all() [function.preg-match-all]: Compilation failed: support for \P, \p, and \X has not been compiled
 		if ( self::HASHTAGS & $what_to_extract ) {
 			//This regex does not exactly match Twitter's
 			// if there are problems/complaints we should implement this:
@@ -120,7 +121,7 @@ class Jetpack_Media_Meta_Extractor {
 				$extracted['has']['hashtag'] = count( $hashtags );
 			}
 		}
-
+*/
 		// ----------------------------------- SHORTCODES ------------------------------
 
 		// Always look for shortcodes.
@@ -206,7 +207,7 @@ class Jetpack_Media_Meta_Extractor {
 					$url = parse_url( $link_raw );
 
 					// Build a simple form of the URL so we can compare it to ones we found in IMAGES or SHORTCODES and exclude those
-					$simple_url = $url['scheme'] . '://' . $url['host'] . ( isset( $url['path'] ) ? $url['path'] : '' );
+					$simple_url = $url['scheme'] . '://' . $url['host'] . ( ! empty( $url['path'] ) ? $url['path'] : '' );
 					if ( isset( $extracted['image']['url'] ) ) {
 						if ( in_array( $simple_url, (array) $extracted['image']['url'] ) )
 							continue;
@@ -376,10 +377,20 @@ class Jetpack_Media_Meta_Extractor {
 		if ( !empty( $from_html ) ) {
 			$srcs = wp_list_pluck( $from_html, 'src' );
 			foreach( $srcs as $image_url ) {
-				$src = parse_url( $image_url );
-				$queryless = $src['scheme'] . '://' . $src['host'] . $src['path']; // strip off any query strings
-				if ( !in_array( $queryless, $image_list ) )
+				if ( $src = parse_url( $image_url ) ) {
+					// Rebuild the URL without the query string
+					$queryless = $src['scheme'] . '://' . $src['host'] . $src['path'];
+				} elseif ( $length = strpos( $image_url, '?' ) ) {
+					// If parse_url() didn't work, strip off theh query string the old fashioned way
+					$queryless = substr( $image_url, 0, $length );
+				} else {
+					// Failing that, there was no spoon! Err ... query string!
+					$queryless = $image_url;
+				}
+
+				if ( ! in_array( $queryless, $image_list ) ) {
 					$image_list[] = $queryless;
+				}
 			}
 		}
 		return $image_list;
@@ -393,5 +404,3 @@ class Jetpack_Media_Meta_Extractor {
 		return $clean_content;
 	}
 }
-
-?>

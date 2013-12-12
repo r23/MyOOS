@@ -5,9 +5,9 @@ Plugin URI: http://contactform7.com/
 Description: Just another contact form plugin. Simple but flexible.
 Author: Takayuki Miyoshi
 Author URI: http://ideasilo.wordpress.com/
-Text Domain: wpcf7
+Text Domain: contact-form-7
 Domain Path: /languages/
-Version: 3.5.4
+Version: 3.6
 */
 
 /*  Copyright 2007-2013 Takayuki Miyoshi (email: takayukister at gmail.com)
@@ -27,9 +27,9 @@ Version: 3.5.4
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-define( 'WPCF7_VERSION', '3.5.4' );
+define( 'WPCF7_VERSION', '3.6' );
 
-define( 'WPCF7_REQUIRED_WP_VERSION', '3.5' );
+define( 'WPCF7_REQUIRED_WP_VERSION', '3.6' );
 
 if ( ! defined( 'WPCF7_PLUGIN_BASENAME' ) )
 	define( 'WPCF7_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
@@ -57,10 +57,6 @@ if ( ! defined( 'WPCF7_AUTOP' ) )
 
 if ( ! defined( 'WPCF7_USE_PIPE' ) )
 	define( 'WPCF7_USE_PIPE', true );
-
-/* If you or your client hate to see about donation, set this value false. */
-if ( ! defined( 'WPCF7_SHOW_DONATION_LINK' ) )
-	define( 'WPCF7_SHOW_DONATION_LINK', true );
 
 if ( ! defined( 'WPCF7_ADMIN_READ_CAPABILITY' ) )
 	define( 'WPCF7_ADMIN_READ_CAPABILITY', 'edit_posts' );
