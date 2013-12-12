@@ -28,6 +28,20 @@ final class Cachify_DB {
 
 
 	/**
+	* Caching method as string
+	*
+	* @since   2.1.2
+	* @change  2.1.2
+	*
+	* @return  string  Caching method
+	*/
+
+	public static function stringify‎_method() {
+		return 'DB';
+	}
+
+
+	/**
 	* Speicherung im Cache
 	*
 	* @since   2.0
@@ -118,7 +132,7 @@ final class Cachify_DB {
 		global $wpdb;
 
 		/* Löschen */
-		$wpdb->query("DELETE FROM `" .$wpdb->options. "` WHERE `option_name` LIKE ('_transient%.cachify')");
+		$wpdb->query("DELETE FROM `" .$wpdb->options. "` WHERE `option_name` LIKE ('\_transient%.cachify')");
 
 		/* Optimieren */
 		$wpdb->query("OPTIMIZE TABLE `" .$wpdb->options. "`");
@@ -170,7 +184,7 @@ final class Cachify_DB {
 
 		/* Auslesen */
 		return $wpdb->get_var(
-			"SELECT SUM( CHAR_LENGTH(option_value) ) FROM `" .$wpdb->options. "` WHERE `option_name` LIKE ('_transient%.cachify')"
+			"SELECT SUM( CHAR_LENGTH(option_value) ) FROM `" .$wpdb->options. "` WHERE `option_name` LIKE ('\_transient%.cachify')"
 		);
 	}
 

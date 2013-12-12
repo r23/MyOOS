@@ -74,12 +74,12 @@ final class Cachify {
 	* Konstruktor der Klasse
 	*
 	* @since   1.0.0
-	* @change  2.0.8
+	* @change  2.1.2
 	*/
 
 	public function __construct()
-  	{
-  		/* Filter */
+	{
+		/* Filter */
 		if ( ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) OR ( defined('DONOTCACHEPAGE') && DONOTCACHEPAGE ) ) {
 			return;
 		}
@@ -152,7 +152,7 @@ final class Cachify {
 				)
 			);
 			add_action(
-				'admin_print_styles',
+				'admin_enqueue_scripts',
 				array(
 					__CLASS__,
 					'add_css'
@@ -184,7 +184,7 @@ final class Cachify {
 				90
 			);
 			add_action(
-				'right_now_content_table_end',
+				'dashboard_glance_items',
 				array(
 					__CLASS__,
 					'add_count'
@@ -492,7 +492,7 @@ final class Cachify {
 	* Rückgabe der Optionen
 	*
 	* @since   2.0
-	* @change  2.0.9
+	* @change  2.1.2
 	*
 	* @return  array  $diff  Array mit Werten
 	*/
@@ -502,12 +502,13 @@ final class Cachify {
 		return wp_parse_args(
 			get_option('cachify'),
 			array(
-				'only_guests'	 => 1,
-				'compress_html'	 => self::MINIFY_DISABLED,
-				'cache_expires'	 => 12,
-				'without_ids'	 => '',
-				'without_agents' => '',
-				'use_apc'		 => self::METHOD_DB
+				'only_guests'	 	=> 1,
+				'compress_html'	 	=> self::MINIFY_DISABLED,
+				'cache_expires'	 	=> 12,
+				'without_ids'	 	=> '',
+				'without_agents' 	=> '',
+				'use_apc'		 	=> self::METHOD_DB,
+				'reset_on_comment'  => 0
 			)
 		);
 	}
@@ -611,7 +612,7 @@ final class Cachify {
 	* Hinzufügen eines Admin-Bar-Menüs
 	*
 	* @since   1.2
-	* @change  2.1.1
+	* @change  2.1.2
 	*
 	* @param   object  Objekt mit Menü-Eigenschaften
 	*/
@@ -627,9 +628,10 @@ final class Cachify {
 		$wp_admin_bar->add_menu(
 			array(
 				'id' 	 => 'cachify',
-				'title'  => '<span>Cache leeren</span>',
 				'href'   => add_query_arg('_cachify', 'flush'),
-				'parent' => 'top-secondary'
+				'parent' => 'top-secondary',
+				'title'	 => '<span class="ab-icon dashicons dashicons-trash" style="top:2px;margin:0"></span>',
+				'meta'   => array( 'title' => 'Cachify-Cache leeren' )
 			)
 		);
 	}
@@ -639,34 +641,38 @@ final class Cachify {
 	* Anzeige des Spam-Counters auf dem Dashboard
 	*
 	* @since   2.0.0
-	* @change  2.0.6
+	* @change  2.1.2
 	*/
 
 	public static function add_count()
 	{
-		/* Größe */
+		/* Cache size */
 		$size = self::get_cache_size();
 
-		/* Formatierung */
-		$format = ( empty($size) ? array(0, 'Bytes') : explode(' ', size_format($size)) );
+		/* Caching method */
+		$method = call_user_func(
+			array(
+				self::$method,
+				'stringify‎_method'
+			)
+		);
 
-		/* Ausgabe */
+		/* Print the link */
 		echo sprintf(
-			'<tr>
-				<td colspan="2">
-					<div class="table table_cachify">
-						<p class="sub">Cache</p>
-						<table>
-							<tr>
-								<td class="b">%s</td>
-								<td class="last t">%s</td>
-							</tr>
-						</table>
-					</div>
-				</td>
-			</tr>',
-			(int)$format[0],
-			$format[1]
+			'<li>
+				<a href="%s" class="cachify-icon cachify-icon--%s" title="Caching-Methode: %s">
+					%s Cache
+				</a>
+			</li>',
+			add_query_arg(
+				array(
+					'page' => 'cachify'
+				),
+				admin_url('options-general.php')
+			),
+			esc_attr(strtolower($method)),
+			esc_attr($method),
+			( empty($size) ? 'Leerer' : size_format($size) )
 		);
 	}
 
@@ -693,10 +699,10 @@ final class Cachify {
 
 			/* Speichern */
 			set_transient(
-		      'cachify_cache_size',
-		      $size,
-		      60 * 15
-		    );
+			  'cachify_cache_size',
+			  $size,
+			  60 * 15
+			);
 		}
 
 		return $size;
@@ -784,19 +790,23 @@ final class Cachify {
 	/**
 	* Löschung des Cache beim Kommentar-Editieren
 	*
-	* @since   0.1
-	* @change  0.4
+	* @since   0.1.0
+	* @change  2.1.2
 	*
 	* @param   integer  $id  ID des Kommentars
 	*/
 
 	public static function edit_comment($id)
 	{
-		self::_delete_cache(
-			get_permalink(
-				get_comment($id)->comment_post_ID
-			)
-		);
+		if ( self::$options['reset_on_comment'] ) {
+			self::flush_cache();
+		} else {
+			self::_delete_cache(
+				get_permalink(
+					get_comment($id)->comment_post_ID
+				)
+			);
+		}
 	}
 
 
@@ -804,7 +814,7 @@ final class Cachify {
 	* Löschung des Cache beim neuen Kommentar
 	*
 	* @since   0.1.0
-	* @change  2.0.6
+	* @change  2.1.2
 	*
 	* @param   mixed  $approved  Kommentar-Status
 	* @param   array  $comment   Array mit Eigenschaften
@@ -815,9 +825,13 @@ final class Cachify {
 	{
 		/* Approved comment? */
 		if ( $approved === 1 ) {
-			self::_delete_cache(
-				get_permalink($comment['comment_post_ID'])
-			);
+			if ( self::$options['reset_on_comment'] ) {
+				self::flush_cache();
+			} else {
+				self::_delete_cache(
+					get_permalink($comment['comment_post_ID'])
+				);
+			}
 		}
 
 		return $approved;
@@ -828,7 +842,7 @@ final class Cachify {
 	* Löschung des Cache beim Editieren der Kommentare
 	*
 	* @since   0.1
-	* @change  0.4
+	* @change  2.1.2
 	*
 	* @param   string  $new_status  Neuer Status
 	* @param   string  $old_status  Alter Status
@@ -838,9 +852,13 @@ final class Cachify {
 	public static function touch_comment($new_status, $old_status, $comment)
 	{
 		if ( $new_status != $old_status ) {
-			self::_delete_cache(
-				get_permalink($comment->comment_post_ID)
-			);
+			if ( self::$options['reset_on_comment'] ) {
+				self::flush_cache();
+			} else {
+				self::_delete_cache(
+					get_permalink($comment->comment_post_ID)
+				);
+			}
 		}
 	}
 
@@ -894,7 +912,7 @@ final class Cachify {
 	* @return  string        Cachify-Hash-Wert
 	*/
 
-  	private static function _cache_hash($url = '')
+	private static function _cache_hash($url = '')
 	{
 		return md5(
 			empty($url) ? ( $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ) : ( parse_url($url, PHP_URL_HOST) . parse_url($url, PHP_URL_PATH) )
@@ -915,25 +933,6 @@ final class Cachify {
 	private static function _preg_split($input)
 	{
 		return (array)preg_split('/,/', $input, -1, PREG_SPLIT_NO_EMPTY);
-	}
-
-
-	/**
-	* Prüfung der WordPress-Version
-	*
-	* @since  2.0
-	* @change 2.0
-	*
-	* @param	integer  $version  Gesuchte WP-Version
-	* @return	boolean            TRUE, wenn mindestens gesuchte
-	*/
-
-	private static function _is_wp($version) {
-		return version_compare(
-			$GLOBALS['wp_version'],
-			$version. 'alpha',
-			'>='
-		);
 	}
 
 
@@ -1020,13 +1019,13 @@ final class Cachify {
 			return true;
 		}
 
-		/* Request vars */
-		if ( !empty($_POST) or (!empty($_GET) && get_option('permalink_structure')) ) {
-			return true;
-		}
-
 		/* Plugin options */
 		$options = self::$options;
+
+		/* Request vars */
+		if ( !empty($_POST) OR (!empty($_GET) && get_option('permalink_structure')) ) {
+			return true;
+		}
 
 		/* Logged in */
 		if ( $options['only_guests'] && self::_is_logged_in() ) {
@@ -1242,15 +1241,20 @@ final class Cachify {
 	* Einbindung von CSS
 	*
 	* @since   1.0
-	* @change  2.0
+	* @change  2.1.2
 	*/
 
-	public static function add_css()
+	public static function add_css($hook)
 	{
-		/* Infos auslesen */
+		/* Hook check */
+		if ( $hook !== 'index.php' ) {
+			return;
+		}
+
+		/* Get plugin data */
 		$data = get_plugin_data(CACHIFY_FILE);
 
-		/* CSS registrieren */
+		/* Register css */
 		wp_register_style(
 			'cachify_css',
 			plugins_url('css/styles.min.css', CACHIFY_FILE),
@@ -1258,7 +1262,7 @@ final class Cachify {
 			$data['Version']
 		);
 
-		/* CSS einbinden */
+		/* Enable css */
 		wp_enqueue_style('cachify_css');
 	}
 
@@ -1298,7 +1302,7 @@ final class Cachify {
 	{
 		/* Defaults */
 		$methods = array(
-			self::METHOD_DB => 'Datenbank',
+			self::METHOD_DB  => 'Datenbank',
 			self::METHOD_APC => 'APC',
 			self::METHOD_HDD => 'Festplatte',
 			self::METHOD_MMC => 'Memcached'
@@ -1327,7 +1331,7 @@ final class Cachify {
 	{
 		return array(
 			self::MINIFY_DISABLED  => 'Keine',
-			self::MINIFY_HTML_ONLY => 'Nur HTML',
+			self::MINIFY_HTML_ONLY => 'HTML',
 			self::MINIFY_HTML_JS   => 'HTML und JavaScript'
 		);
 	}
@@ -1357,7 +1361,7 @@ final class Cachify {
 	* Valisierung der Optionsseite
 	*
 	* @since   1.0.0
-	* @change  2.0.5
+	* @change  2.1.2
 	*
 	* @param   array  $data  Array mit Formularwerten
 	* @return  array         Array mit geprüften Werten
@@ -1380,12 +1384,13 @@ final class Cachify {
 
 		/* Rückgabe */
 		return array(
-			'only_guests'	 => (int)(!empty($data['only_guests'])),
-			'compress_html'	 => (int)$data['compress_html'],
-			'cache_expires'	 => (int)(@$data['cache_expires']),
-			'without_ids'	 => (string)sanitize_text_field(@$data['without_ids']),
-			'without_agents' => (string)sanitize_text_field(@$data['without_agents']),
-			'use_apc'	 	 => (int)$data['use_apc']
+			'only_guests'	 	=> (int)(!empty($data['only_guests'])),
+			'compress_html'	 	=> (int)$data['compress_html'],
+			'cache_expires'	 	=> (int)(@$data['cache_expires']),
+			'without_ids'	 	=> (string)sanitize_text_field(@$data['without_ids']),
+			'without_agents' 	=> (string)sanitize_text_field(@$data['without_agents']),
+			'use_apc'	 	 	=> (int)$data['use_apc'],
+			'reset_on_comment'  => (int)(!empty($data['reset_on_comment']))
 		);
 	}
 
@@ -1394,14 +1399,19 @@ final class Cachify {
 	* Darstellung der Optionsseite
 	*
 	* @since   1.0
-	* @change  2.0.9
+	* @change  2.1.2
 	*/
 
 	public static function options_page()
 	{ ?>
-		<div class="wrap" id="cachify_main">
-			<?php screen_icon('cachify') ?>
+		<style>
+			#cachify_settings input[type="text"],
+			#cachify_settings input[type="number"] {
+				height: 30px;
+			}
+		</style>
 
+		<div class="wrap" id="cachify_settings">
 			<h2>
 				Cachify
 			</h2>
@@ -1411,95 +1421,102 @@ final class Cachify {
 
 				<?php $options = self::_get_options() ?>
 
-				<div class="table rounded">
-					<table class="form-table">
-						<caption class="rounded">Methode</caption>
-
-						<tr>
-							<th>
-								Aufbewahrungsort für Cache
-							</th>
-							<td>
-								<select name="cachify[use_apc]">
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row">
+							Cache-Aufbewahrungsort
+						</th>
+						<td>
+							<label for="cachify_cache_method">
+								<select name="cachify[use_apc]" id="cachify_cache_method">
 									<?php foreach( self::_method_select() as $k => $v ) { ?>
 										<option value="<?php echo esc_attr($k) ?>" <?php selected($options['use_apc'], $k); ?>><?php echo esc_html($v) ?></option>
 									<?php } ?>
 								</select>
-							</td>
-						</tr>
+							</label>
+						</td>
+					</tr>
 
-						<tr>
-							<th>
-								Cache-Gültigkeit in Stunden
-							</th>
-							<td>
-								<input type="text" name="cachify[cache_expires]" value="<?php echo $options['cache_expires'] ?>" class="small" />
-							</td>
-						</tr>
-					</table>
-				</div>
+					<tr valign="top">
+						<th scope="row">
+							Cache-Gültigkeit
+						</th>
+						<td>
+							<label for="cachify_cache_expires">
+								<input type="number" min="0" step="1" name="cachify[cache_expires]" id="cachify_cache_expires" value="<?php echo $options['cache_expires'] ?>" class="small-text" />
+								Stunden
+							</label>
+						</td>
+					</tr>
 
+					<tr valign="top">
+						<th scope="row">
+							Cache-Generierung
+						</th>
+						<td>
+							<fieldset>
+								<label for="cachify_only_guests">
+									<input type="checkbox" name="cachify[only_guests]" id="cachify_only_guests" value="1" <?php checked('1', $options['only_guests']); ?> />
+									Kein Cache-Aufbau durch eingeloggte Nutzer
+								</label>
 
-				<div class="table rounded">
-					<table class="form-table">
-						<caption class="rounded">Minimierung</caption>
+								<br />
 
-						<tr>
-							<th>
-								Anwendungsbereich im Quelltext
-							</th>
-							<td>
-								<select name="cachify[compress_html]">
+								<label for="cachify_reset_on_comment">
+									<input type="checkbox" name="cachify[reset_on_comment]" id="cachify_reset_on_comment" value="1" <?php checked('1', $options['reset_on_comment']); ?> />
+									Neue Kommentare leeren den Cache
+								</label>
+							</fieldset>
+						</td>
+					</tr>
+
+					<tr valign="top">
+						<th scope="row">
+							Cache-Ausnahmen
+						</th>
+						<td>
+							<fieldset>
+								<label for="cachify_without_ids">
+									<input type="text" name="cachify[without_ids]" id="cachify_without_ids" value="<?php echo $options['without_ids'] ?>" />
+									Post/Pages-IDs
+								</label>
+
+								<br />
+
+								<label for="cachify_without_agents">
+									<input type="text" name="cachify[without_agents]" id="cachify_without_agents" value="<?php echo $options['without_agents'] ?>" />
+									Browser User-Agents
+								</label>
+							</fieldset>
+						</td>
+					</tr>
+
+					<tr valign="top">
+						<th scope="row">
+							Quelltext-Minimierung
+						</th>
+						<td>
+							<label for="cachify_compress_html">
+								<select name="cachify[compress_html]" id="cachify_compress_html">
 									<?php foreach( self::_minify_select() as $k => $v ) { ?>
-										<option value="<?php echo esc_attr($k) ?>" <?php selected($options['compress_html'], $k); ?>><?php echo esc_html($v) ?></option>
+										<option value="<?php echo esc_attr($k) ?>" <?php selected($options['compress_html'], $k); ?>>
+											<?php echo esc_html($v) ?>
+										</option>
 									<?php } ?>
 								</select>
-							</td>
-						</tr>
-					</table>
-				</div>
+							</label>
+						</td>
+					</tr>
 
-
-				<div class="table rounded">
-					<table class="form-table">
-						<caption class="rounded">Filter</caption>
-
-						<tr>
-							<th>
-								Ausnahme für (Post/Pages) IDs
-							</th>
-							<td>
-								<input type="text" name="cachify[without_ids]" value="<?php echo $options['without_ids'] ?>" />
-							</td>
-						</tr>
-
-						<tr>
-							<th>
-								Ausnahme für User Agents
-							</th>
-							<td>
-								<input type="text" name="cachify[without_agents]" value="<?php echo $options['without_agents'] ?>" />
-							</td>
-						</tr>
-
-						<tr>
-							<th>
-								Kein Cache für eingeloggte<br />bzw. kommentierende Nutzer
-							</th>
-							<td>
-								<input type="checkbox" name="cachify[only_guests]" value="1" <?php checked('1', $options['only_guests']); ?> />
-							</td>
-						</tr>
-					</table>
-				</div>
-
-				<div class="submit">
-					<p>
-						<a href="http://playground.ebiene.de/cachify-wordpress-cache/" target="_blank">Dokumentation</a><a href="http://playground.ebiene.de/cachify-wordpress-cache/#book" target="_blank">Handbücher</a><a href="https://flattr.com/t/1327625" target="_blank">Flattr</a><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>
-					</p>
-
-					<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
-				</div>
+					<tr valign="top">
+						<th scope="row">
+							<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+						</th>
+						<td>
+							<a href="http://playground.ebiene.de/cachify-wordpress-cache/" target="_blank">Dokumentation</a> &bull; <a href="http://playground.ebiene.de/cachify-wordpress-cache/#book" target="_blank">Handbücher</a> &bull; <a href="https://flattr.com/t/1327625" target="_blank">Flattr</a> &bull; <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>
+						</td>
+					</tr>
+				</table>
 			</form>
 		</div><?php
 	}

@@ -2,8 +2,8 @@
 Contributors: sergej.mueller
 Tags: apc, cache, caching, performance
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5RDDW9FEHGLG6
-Requires at least: 3.4
-Tested up to: 3.6
+Requires at least: 3.8
+Tested up to: 3.8
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -46,7 +46,7 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 
 = Systemvoraussetzungen =
-* WordPress ab 3.4
+* WordPress ab 3.8
 * PHP ab 5.2.4
 * APC ab 3.1.4 (optional, falls installiert)
 * Memcached unter Nginx (optional)
@@ -74,6 +74,10 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 
 == Changelog ==
+
+= 2.1.2 =
+* Optimierung für WordPress 3.8
+* Option hinzugefügt: Neue Kommentare lösen einen Cache-Reset aus
 
 = 2.1.1 =
 * Hook `cachify_skip_cache` für die Steuerung der Cache-Generierung
@@ -206,6 +210,4 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 == Screenshots ==
 
-1. Cachify Optionen
-
-2. Cachegröße auf dem Dashboard
+1. Cachify auf dem Dashboard

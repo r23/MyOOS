@@ -38,6 +38,20 @@ final class Cachify_MEMCACHED {
 
 
 	/**
+	* Caching method as string
+	*
+	* @since   2.1.2
+	* @change  2.1.2
+	*
+	* @return  string  Caching method
+	*/
+
+	public static function stringify‎_method() {
+		return 'Memcached';
+	}
+
+
+	/**
 	* Speicherung im Cache
 	*
 	* @since   2.0.7
@@ -245,41 +259,41 @@ final class Cachify_MEMCACHED {
 	*/
 
 	private static function _connect_server()
-  	{
-  		/* Not enabled? */
-  		if ( ! self::is_available() ) {
-  			return false;
-  		}
+	{
+		/* Not enabled? */
+		if ( ! self::is_available() ) {
+			return false;
+		}
 
-  		/* Already connected */
-  		if ( is_object(self::$_memcached) ) {
-  			return true;
-  		}
+		/* Already connected */
+		if ( is_object(self::$_memcached) ) {
+			return true;
+		}
 
-  		/* Init */
-  		self::$_memcached = new Memcached();
+		/* Init */
+		self::$_memcached = new Memcached();
 
-  		/* Options */
-  		self::$_memcached->setOptions(
-  			array(
-  				Memcached::OPT_COMPRESSION => false,
-  				Memcached::OPT_BINARY_PROTOCOL => true
-  			)
-  		);
+		/* Options */
+		self::$_memcached->setOptions(
+			array(
+				Memcached::OPT_COMPRESSION => false,
+				Memcached::OPT_BINARY_PROTOCOL => true
+			)
+		);
 
-  		/* Connect */
-  		self::$_memcached->addServers(
-  			(array)apply_filters(
-  				'cachify_memcached_servers',
-	  			array(
-		  		    array(
-		  		    	'127.0.0.1',
-		  		    	11211
-		  		    )
-	  			)
-	  		)
-  		);
+		/* Connect */
+		self::$_memcached->addServers(
+			(array)apply_filters(
+				'cachify_memcached_servers',
+				array(
+					array(
+						'127.0.0.1',
+						11211
+					)
+				)
+			)
+		);
 
-  		return true;
-  	}
+		return true;
+	}
 }
