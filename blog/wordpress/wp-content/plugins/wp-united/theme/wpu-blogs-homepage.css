@@ -1,0 +1,79 @@
+/*************************************
+*	WPU-BLOGS-HOMEPAGE
+*	---------------------------------
+*
+*	This file sets the styles for the list of users'
+*	blogs on the WordPress index page.
+*	
+*	Once you have these styles set as you wish, you will
+*	probably want to cut them from here and paste them in your
+*	wordpress stylesheet. 
+*	Then you can turn off blog list styling in the WP-United Setup Wizard
+*
+*	(c) WP-United, John Wells 2007-2009
+***************************************/
+
+/*
+These are the boxes around each blog. There are two classes so you can have alternating styles
+*/
+.wpubl0, .wpubl1 {
+	clear: left; 
+	margin: 10px 0px;
+	border: 1px solid #a2a2a2;
+	padding: 3px;
+}
+
+.wpubl1 {
+	background: #cccccc;
+}
+
+.wpubl0 {
+	background: #ffffff;
+}
+
+/*
+Avatars
+*/
+.wpubl0 img, .wpubl1 img {
+	border: 0; 
+	float: right;
+	margin: 7px 7px 7px 10px;
+}
+
+/*
+The main heading links
+*/
+.wpublsubject {
+	margin-top: 0px;
+}
+
+.wpublsubject a, .wpublsubject a:visited {
+	color: #006699;
+}
+
+.wpublsubject a:hover {
+	color: #114477;
+	text-decoration: underline;
+}
+
+/*
+The cl;earing paragraph at the bottom of the div, to ensure the avatar doesn't overlap the edge
+*/
+.wpublclr {
+	clear: all; 
+	height: 1px; 
+	line-height: 1px; 
+	margin: 0; 
+	padding: 0;
+}
+/*
+Links in the opening introduction
+*/
+.entry .wpuintro a:visited {
+	color: #006699;
+}
+
+/*
+Other classes you can set:
+.wpubl, .wpubl p : The text displayed when no bloga can be found
+.wpublpages : The Prev/Nect/Pages links at the bottom when the listing is paged.

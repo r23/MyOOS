@@ -1,0 +1,2190 @@
+# Serbian translation for wp-united
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the wp-united package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: wp-united\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-01-22 23:54+0800\n"
+"PO-Revision-Date: 2013-03-26 15:59+0800\n"
+"Last-Translator: Uros Gavric <urosgavric@gmail.com>\n"
+"Language-Team: Serbian <sr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-03-26 07:52+0000\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: base-classes.php:433 settings-panel.php:365
+#, php-format
+msgid "%1$sClick here%2$s to download the modification package. "
+msgstr "%1$sKliknuti ovde%2$s za preuzimanje paketa za modifikaciju. "
+
+#: base-classes.php:434 settings-panel.php:365
+#, php-format
+msgid ""
+"You can apply it using %1$sAutoMod%2$s (recommended), or manually by reading "
+"the install.xml file and following %3$sthese instructions%4$s. When done, "
+"click &quot;Connect&quot; to try again."
+msgstr ""
+"Metodi postavke su korišćenjem opcije %1$sAutoMod%2$s (preporučeno) ili "
+"ručno korišćenjem fajla install.xml i praćenjem  %3$sOvih instrukcija%4$s. "
+"Po završetku kliknuti &quot;Connect&quot; za ponovno uspostavljanje "
+"konekcije."
+
+#: base-classes.php:435
+#, php-format
+msgid ""
+"Find the %1$s file inside the %2$s folder and open it in your browser. Then "
+"follow the instructions to upgrade. Don't forget to copy over the new files "
+"to your phpBB forum."
+msgstr ""
+"Pronaći %1$s fajl unutar %2$s foldera i otvoriti ga u pretraživaču. Pratiti "
+"uputstva za ažuriranje. Obavezno kopirati nove fajlove u phpBB forum."
+
+#: base-classes.php:436
+msgid ""
+"You can just copy over the files from the /root folder to your phpBB forum."
+msgstr ""
+"Dovoljno je samo iskopirati fajlove u osnovni /root folder u phpBB forumu."
+
+#: base-classes.php:438
+#, php-format
+msgid ""
+"You are running WP-United version %1$s, but the WP-United phpBB MOD version "
+"you have installed is version %2$s."
+msgstr ""
+"Koristite WP-United verzije %1$s, a WP-United phpBB MOD verzija je %2$s."
+
+#: base-classes.php:446
+msgid "The location to phpBB is not set."
+msgstr "Lokacija phpBB nije podešena."
+
+#: base-classes.php:455 settings-panel.php:365
+msgid "You need to install the WP-United phpBB MOD."
+msgstr "Neophodno je instalirati WP-United phpBB MOD."
+
+#: base-classes.php:864
+msgid "WP-United is already disabled"
+msgstr "WP-United je već isključen."
+
+#: base-classes.php:873
+msgid ""
+"WP-United could not find phpBB at the selected path. WP-United is not "
+"connected."
+msgstr ""
+"WP-United ne može da pronađe phpBB na navedenoj putanji. WP-United nije "
+"povezan."
+
+#: base-classes.php:876
+msgid ""
+"WP-United could not successfully run phpBB at the selected path. WP-United "
+"is halted."
+msgstr ""
+"WP-United ne može da uspešno pokrene phpBB na navedenoj putanji. WP-United "
+"je stopiran."
+
+#: base-classes.php:880
+msgid ""
+"WP-United could not successfully run phpBB without errors. WP-United has "
+"been disconnected."
+msgstr ""
+"WP-United ne može da se pokrene zbog grešaka. WP-United je diskonektovan."
+
+#: base-classes.php:887
+msgid "WP-United Disabled Successfully"
+msgstr "WP-United je uspešno isključen"
+
+#: base-classes.php:890
+msgid "WP-United Disabled"
+msgstr "WP-United je isključen"
+
+#: settings-panel.php:133
+msgid "WP-United"
+msgstr "WP-United"
+
+#: settings-panel.php:134
+msgid "WP-United Setup"
+msgstr "WP-United postavke"
+
+#: settings-panel.php:134
+msgid "Setup / Status"
+msgstr "Postavke / status"
+
+#: settings-panel.php:139 settings-panel.php:1149
+msgid "WP-United Settings"
+msgstr "WP-United podešavanja"
+
+#: settings-panel.php:139
+msgid "Settings"
+msgstr "Podešavanja"
+
+#: settings-panel.php:142
+msgid "WP-United User Mapping"
+msgstr "WP-United mapiranje korisnika"
+
+#: settings-panel.php:142 settings-panel.php:493
+msgid "User Mapping"
+msgstr "Mapiranje korisnika"
+
+#: settings-panel.php:144 settings-panel.php:186
+msgid "WP-United Advanced Options"
+msgstr "WP-United napredne opcije"
+
+#: settings-panel.php:144
+msgid "Advanced Options"
+msgstr "Napredne opcije"
+
+#: settings-panel.php:145
+msgid "Visit phpBB ACP"
+msgstr "Posetiti phpBB AKP"
+
+#: settings-panel.php:148
+msgid "Get Help"
+msgstr "Potražite pomoć"
+
+#: settings-panel.php:148
+msgid "Get help"
+msgstr "Potražite pomoć"
+
+#: settings-panel.php:149
+msgid "Please Help Support WP-United!"
+msgstr "Molimo vas da podržite WP-United!"
+
+#: settings-panel.php:149
+msgid "Support WP-United"
+msgstr "Podržite WP-United"
+
+#: settings-panel.php:187
+#, php-format
+msgid ""
+"Some additional options can be set in the included file, %s. These do not "
+"normally need to be changed. However, to review and change these options, "
+"please open the file in a text editor."
+msgstr ""
+"Neke dodatne opcije se mogu podesiti u priloženom fajlu, %s. Uobičajeno, "
+"nema potrebe da se menjaju. Da bi se pregledale i podesile ove opcije "
+"koristiti tekst editor."
+
+#: settings-panel.php:207
+msgid "Get help or support"
+msgstr "Potražiti pomoć ili podršku"
+
+#: settings-panel.php:208
+msgid "Community support &amp; bug reporting"
+msgstr "Podrška zajednice &amp; prijava grešaka"
+
+#: settings-panel.php:209
+msgid ""
+"Free community support is available from the WP-United forum. Please search "
+"there for any other users who may be experiencing the same problem, and "
+"discuss any issues with fellow users."
+msgstr ""
+"Besplatna podrška zajednice se nalazi an WP-United forumu. Tamo možete "
+"potražiti druge korisnike koji imaju isti problem i raspravljati o "
+"zajedničkim temama."
+
+#: settings-panel.php:210
+msgid ""
+"Please copy and paste the following information into a new topic post when "
+"you are seeking support. This will help us understand your setup at a "
+"glance. It is sanitized to protect your private server information and "
+"contains BBCode formatting."
+msgstr ""
+"Potrebno je iskopirate sledeće podatke u novu temu kada se traži podrška. To "
+"će pomoći da se odmah pregledaju podešavanja sajta. Modifikovan je tako da "
+"ne otkriva privatne i serverske podatke. Sadrži BBCode formatiranja."
+
+#: settings-panel.php:214
+msgid "Hide sensitive information"
+msgstr "Sakriti poverljive podatke"
+
+#: settings-panel.php:214
+msgid "Show sensitive information"
+msgstr "Prikazati poverljive podatke"
+
+#: settings-panel.php:230
+msgid "Please Help Support WP-United"
+msgstr "Molimo vas da podržite WP-United"
+
+#: settings-panel.php:231
+msgid ""
+"WP-United is free software, and we hope you find it useful. If you do, "
+"please support us by making a donation here! Any amount, however small, is "
+"much appreciated. Thank you!"
+msgstr ""
+"WP-United je besplatan softver i nadamo se da vam je koristan. Ukoliko vam "
+"jeste koristan, zamolili bi smo vas da nas podržite donacijom. Bilo koja "
+"vrednost, ma koliko mala je veoma korisna. Hvala!"
+
+#: settings-panel.php:232
+msgid ""
+"The PayPal link will take you to a donation page for our PayPal business "
+"account, 'Pet Pirates'"
+msgstr ""
+"The PayPal link će vas poslati na stranicu sa donacijama za naš PayPal "
+"poslovni nalog, 'Pet Pirates'"
+
+#: settings-panel.php:242
+msgid "Other ways to support the WP-United project"
+msgstr "Ostali načini da se podrži WP-United projekat"
+
+#: settings-panel.php:243
+msgid ""
+"If you cannot donate, please consider helping support the WP-United project "
+"in another way. For example, you could help:"
+msgstr ""
+"Ukoliko niste u mogućnosti da donirate, razmislite o pomoći projektu WP-"
+"United na drugi način. Na primer:"
+
+#: settings-panel.php:245
+msgid "Contributing to the WP-United documentation"
+msgstr "Dorađujući WP-United dokumentaciju"
+
+#: settings-panel.php:246
+msgid "Providing a translation"
+msgstr "Pravljenjem prevoda"
+
+#: settings-panel.php:247
+msgid "Recommending WP-United or our paid installation services"
+msgstr "Preporučivanjem WP-United ili naše komercijalne usluge instalacije"
+
+#: settings-panel.php:248
+msgid "Writing a review"
+msgstr "Pisanjem recenzije"
+
+#: settings-panel.php:249
+msgid ""
+"Linking back to www.wp-united.com, or posting about WP-United on your blog."
+msgstr ""
+"Linkovanjem na www.wp-united.com ili postovanjem o projektu WP-United na "
+"vašem blogu."
+
+#: settings-panel.php:252
+#, php-format
+msgid "For more information, please visit the %1$sWP-United forums%2$s."
+msgstr "Za više informacija pogledati %1$sWP-United forums%2$s."
+
+#: settings-panel.php:281
+msgid "Performing final processing... Please wait..."
+msgstr "Izvršavanje finalnih podešavanja... Molimo sačekajte..."
+
+#: settings-panel.php:292
+msgid ""
+"Please stay on this page for a few more moments until processing is "
+"complete. Stay on this page?"
+msgstr ""
+"Molimo vas da ostanete na ovoj stranici dok se završe podešavanja. Ostati na "
+"ovoj stranici?"
+
+#: settings-panel.php:317
+msgid "WP-United Setup / Status"
+msgstr "WP-United postavke / status"
+
+#: settings-panel.php:318
+msgid ""
+"WP-United needs to connect to phpBB in order to work. On this screen you can "
+"set up or disable the connection."
+msgstr ""
+"WP-United mora da se konektuje na  phpBB kako bi radio. Na ovom ekranu je "
+"moguće uspostaviti ili onemogučiti konekciju."
+
+#: settings-panel.php:320
+msgid "Communicating with phpBB..."
+msgstr "Komuniciranje sa phpBB..."
+
+#: settings-panel.php:320
+msgid "Please Wait..."
+msgstr "Molimo sačekajte..."
+
+#: settings-panel.php:339 settings-panel.php:346 settings-panel.php:1265
+msgid "Disabled"
+msgstr "Onemogućeno"
+
+#: settings-panel.php:348
+msgid ""
+"WP-United is disabled. Select your forum location below and then click &quot;"
+"Connect&quot;"
+msgstr ""
+"WP-United je onemogućen. Selektovati lokaciju foruma i kliknuti na &quot;"
+"Connect&quot;"
+
+#: settings-panel.php:348 settings-panel.php:371
+msgid "You can't change any other settings until WP-United is connected."
+msgstr "Nije moguće vršiti dalja podešavanja dok je  WP-United konektovan."
+
+#: settings-panel.php:355
+msgid "OK"
+msgstr "OK"
+
+#: settings-panel.php:357
+msgid "WP-United is connected and working."
+msgstr "WP-United je konektovan i radi."
+
+#: settings-panel.php:357
+msgid ""
+"If you ever need to uninstall WP-United, disable it here first before "
+"disabling the plugin, so that it can be removed from phpBB."
+msgstr ""
+"Ukoliko je potrebno deinstalirati WP-United, onemogučiti ga ovde pre nego "
+"što se onemoguči sam plagin,  kako bi se odradila neophodna podešavanja na "
+"phpBB."
+
+#: settings-panel.php:361
+msgid "Connected, but not ready or disabled due to errors"
+msgstr "Konektovan, ali nekativan ili onemogučen zbog grešaka"
+
+#: settings-panel.php:365
+msgid ""
+"WP-United is connected but your phpBB forum is either producing errors, or "
+"is not set up properly."
+msgstr ""
+"WP-United je konektovan, ali phpBB forum prijavljuje grešku ili nije dobro "
+"postavljen."
+
+#: settings-panel.php:365
+msgid "You can't change any other settings until the problem is fixed."
+msgstr "Nije moguće vršiti dalja podešavanja dok se problem ne reši."
+
+#: settings-panel.php:369
+msgid "Not Connected"
+msgstr "Nije konektovan"
+
+#: settings-panel.php:371
+msgid ""
+"WP-United is not connected yet. Select your forum location below and then "
+"click &quot;Connect&quot;"
+msgstr ""
+"WP-United nije konektovan. Selektovati lokaciju foruma i kliknuti na &quot;"
+"Connect&quot;"
+
+#: settings-panel.php:379
+#, php-format
+msgid "Current Status: %s"
+msgstr "Trenutni status: %s"
+
+#: settings-panel.php:381
+msgid "Disable"
+msgstr "Onemogući"
+
+#: settings-panel.php:385
+msgid "The server returned the following information:"
+msgstr "Server je vratio sledeću informaciju:"
+
+#: settings-panel.php:394
+msgid "phpBB Location"
+msgstr "Lokacija phpBB"
+
+#: settings-panel.php:398
+msgid "WP-United needs to know where phpBB is installed on your server."
+msgstr "WP-United mora da zna gde je phpBB instaliran na serveru."
+
+#: settings-panel.php:398
+msgid "Find and select your phpBB's config.php below."
+msgstr "Pronaći i selektovati phpBB's config.php u polju ispod."
+
+#: settings-panel.php:398
+msgid "Click &quot;Change Location&quot; to change the stored location."
+msgstr "Kliknuti &quot;Change Location&quot; za promenu sačuvane lokacije."
+
+#: settings-panel.php:416 settings-panel.php:440
+msgid "I want to type the path manually"
+msgstr "Želim da putanju unesem ručno"
+
+#: settings-panel.php:418 settings-panel.php:1202
+msgid "Path selected: "
+msgstr "Selektovana putanja: "
+
+#: settings-panel.php:418 settings-panel.php:1202
+msgid "Not selected"
+msgstr "Neselektovano"
+
+#: settings-panel.php:418 settings-panel.php:1202
+msgid "Change Location &raquo;"
+msgstr "Promena lokacije &raquo;"
+
+#: settings-panel.php:418
+msgid "Cancel Change"
+msgstr "Odbaciti promene"
+
+#: settings-panel.php:422
+msgid "Connect"
+msgstr "Uspostavi vezu"
+
+#: settings-panel.php:436 settings-panel.php:1446
+msgid "Blank page received: check your error log."
+msgstr "Primljena prazna stranica: proveriti dnevnik sa greškama"
+
+#: settings-panel.php:438 settings-panel.php:719 settings-panel.php:778
+msgid "Loading..."
+msgstr "Učitavanje..."
+
+#: settings-panel.php:439 settings-panel.php:776
+msgid "Connecting..."
+msgstr "Povezivanje..."
+
+#: settings-panel.php:441
+msgid "Show me the file chooser"
+msgstr "Prikazati opciju za izbor fajlova"
+
+#: settings-panel.php:460
+#, php-format
+msgid ""
+"ERROR: Your cache folder, (%s) is not writable by the web server. You must "
+"make this folder writable for WP-United to work properly!"
+msgstr ""
+"GREŠKA: U keš folder, (%s) na serveru nije moguć unos. Na ovom folderu mora "
+"biti omogućen upis kako bi WP-United radio pravilno!"
+
+#: settings-panel.php:464
+msgid ""
+"WARNING: Another plugin is overriding WordPress login. WP-United user "
+"integration is unavailable."
+msgstr ""
+"UPOZORENJE: neki Dodatak (plugin) onemogućava WordPress logovanje. WP-United "
+"integracija korisnika nije moguća."
+
+#: settings-panel.php:467
+msgid ""
+"WARNING: phpBB Debug is set. To prevent notices from showing due to "
+"switching between phpBB and WordPress, delete or comment out the two DEBUG "
+"lines from your phpBB's config.php. If this is a live site, debug MUST be "
+"disabled."
+msgstr ""
+"UPOZORENJE: phpBB debug je uključen. Kako bi se sprečilo prikazivanje "
+"upozorenja prilikom prebacivanja između phpBB-a i Wordpress-a potrebno je "
+"obrisati 2 DEBUG linije iz phpBB fajla config.php. Ukoliko se radi o "
+"produkcionom sajt, debug opcija mora biti isključena."
+
+#: settings-panel.php:471
+msgid ""
+"WARNING: phpBB and WordPress cookie domains do not match! For user "
+"integration to work properly, please edit the cookie domain in phpBB or set "
+"the WordPress COOKIE_DOMAIN so that both phpBB &amp; WordPress can set "
+"cookies for each other."
+msgstr ""
+"UPOZORENJE: phpBB i WordPress cookie domeni se razlikuju! Kako bi pravilno "
+"radila integracija korisnika, potrebno je ažurirati cookie domen u phpBB ili "
+"podesiti WordPress COOKIE_DOMAIN opciju tako da WordPress i phpBB mogu "
+"međusobno podešavati cookies."
+
+#: settings-panel.php:482
+msgid "WP-United User Integration Mapping"
+msgstr "WP-United mapiranje integracije korisnika"
+
+#: settings-panel.php:483
+msgid ""
+"Integrated users have an account both in WordPress and phpBB. The user "
+"mapper tool allows you to manually control which accounts are mapped "
+"together."
+msgstr ""
+"Integrisani korisnici imaju korisnički nalog i u WordPress-u i u phpBB-ju. "
+"Alatka za mapiranje korisnika omogućava manuelna podešavanja koji nalozi su "
+"mapirani zajedno."
+
+#: settings-panel.php:486
+msgid ""
+"In addition, you need to tell WP-United how to allocate WordPress roles to "
+"users when WordPress accounts are automatically given to them."
+msgstr ""
+"Dodatno, potrebno je podesiti WP-United kako da alocira WordPress uloga u "
+"slučaju kada su im automatski dodati WordPress nalozi."
+
+#: settings-panel.php:487
+msgid "Select a tab below to get started."
+msgstr "Slektovati tab za početak."
+
+#: settings-panel.php:494
+msgid "New User Permissions"
+msgstr "Dozvole novog korisnika"
+
+#: settings-panel.php:500
+msgid ""
+"Unintegrated phpBB users are automatically given accounts if they have WP-"
+"United permissions. These can be set in the phpBB Administration Control "
+"Panel, but this tool makes them easier to set and visualise."
+msgstr ""
+"Neintegrisani phpBB korisnici automatski dobijaju naloge ukoliko imaju "
+"dozvole u WP-United. Ovo se može podesiti u phpBB administracionom "
+"kontrolnom panelu, ali ova opcija čini podešavanjima lakšim i vizuelnim."
+
+#: settings-panel.php:501
+msgid ""
+"phpBB groups are linked to WordPress roles by dragging connections. Blue "
+"connections grant permissions. However, since phpBB users can belong to more "
+"than one group, you may want to apply &quot;Never&quot; connections. These "
+"red connections take priority over blue connections and mean that this "
+"mapping can NEVER occur."
+msgstr ""
+"phpBB groupe su povezane sa WordPress ulogama prevlačenjem konekcija. Plave "
+"linije su dozvole odobrenja prava. Međutim, pošto phpBB korisnici mogu biti "
+"u više od jedne grupe može se koristiti &quot;Nikad&quot; konekcija. Crvene "
+"konekcije imaju prioritet nad plavim i označavaju da mapiranje ne može da se "
+"ostvari."
+
+#: settings-panel.php:502
+msgid ""
+"This gives you complete control over who does what in WordPress. For some "
+"example permissions recipes, visit wp-united.com "
+msgstr ""
+"Ova opcija daje potpuno kotrolu nad ulogama u WordPress-u. Za primere "
+"dozvolapogledati wp-united.com "
+
+#: settings-panel.php:503
+msgid ""
+"Remember that these mappings only affect users who don't have WordPress "
+"accounts yet. You should map existing accounts together using the User "
+"Mapping tool."
+msgstr ""
+"Voditi računa da mapiranja utiču samo na korisnike koji još uvek nemaju "
+"WordPress nalog. Mapiranje postojećih naloga se vrši alatkom za Mapiranje "
+"korisnika."
+
+#: settings-panel.php:506
+msgid ""
+" Connect a phpBB group on the left to an appropriate WordPress role by "
+"dragging the blue dots. Connect the red squares if you want to ensure a "
+"mapping <em>never</em> happens.When happy, click &quot;Apply&quot;"
+msgstr ""
+" Povezati a phpBB grupu sa leve strane sa odgovarajućom WordPress ulogom "
+"prevlačenjem plavih tačkica. Povezati  crvene kockice da se mapiranje "
+"<em>nikad</em> ne dogodi. Na kraju, kliknuti na &quot;Primeni&quot;"
+
+#: settings-panel.php:511 settings-panel.php:540 settings-panel.php:577
+msgid "Built-In"
+msgstr "Ugrađeno"
+
+#: settings-panel.php:511 settings-panel.php:540 settings-panel.php:547
+msgid "User-Defined"
+msgstr "Definisano od strane korisnika"
+
+#: settings-panel.php:559
+msgid "phpBB Group"
+msgstr "phpBB grupa"
+
+#: settings-panel.php:560
+msgid "WordPress Role"
+msgstr "WordPress uloga"
+
+#: settings-panel.php:588
+msgid "No. of members: "
+msgstr "Broj članova "
+
+#: settings-panel.php:589
+msgid "Group type: "
+msgstr "Tip grupe: "
+
+#: settings-panel.php:625
+msgid "Default new user group for new phpBB users"
+msgstr "Podrazumevana grupa za nove phpBB korisnike"
+
+#: settings-panel.php:627
+msgid "Apply"
+msgstr "Primeni"
+
+#: settings-panel.php:628
+msgid "Reset"
+msgstr "Poništi"
+
+#: settings-panel.php:675
+msgid ""
+"All your WordPress or phpBB users are shown on the left below, together with "
+"their integration status. On the right, you can see their corresponding "
+"integrated user, or &ndash; if they are not integrated &ndash; some "
+"suggestions for users they could integrate to."
+msgstr ""
+"Svi WordPress ili phpBB users su prikazani dole levo, zajedno sa statusom "
+"integracije. Desno mogu se videti odgovorajući integrisani korisnici ili "
+"&ndash; ukoliko nisu integrisani &ndash; predlozi gde mogu da se integrišu."
+
+#: settings-panel.php:676
+msgid ""
+"Choose the actions you wish to take, and then click &quot;Process "
+"Actions&quot; in the pop-up panel to apply them.."
+msgstr ""
+"Odabrati željenu akciju i kliknuti &quot;Procesiranje&quot; u padajućem "
+"meniju kako bi se promenili..."
+
+#: settings-panel.php:680
+msgid "Show on left: "
+msgstr "Prikazati levo: "
+
+#: settings-panel.php:682
+msgid "WordPress users"
+msgstr "WordPress korisnici"
+
+#: settings-panel.php:683
+msgid "phpBB users"
+msgstr "phpBB korisnici"
+
+#: settings-panel.php:685
+msgid "Number to show: "
+msgstr "Broj za prikaz: "
+
+#: settings-panel.php:697
+msgid "Show: "
+msgstr "Prikaži: "
+
+#: settings-panel.php:699
+msgid "All"
+msgstr "Sve"
+
+#: settings-panel.php:700
+msgid "All Integrated"
+msgstr "Svi integrisani"
+
+#: settings-panel.php:701
+msgid "All Unintegrated"
+msgstr "Svi neintegrisani"
+
+#: settings-panel.php:702
+msgid "All With Posts"
+msgstr "Svi sa postovima"
+
+#: settings-panel.php:703
+msgid "All Without Posts"
+msgstr "Svi bez postova"
+
+#: settings-panel.php:706
+msgid "or search for user: "
+msgstr "ili tražiti korisnika: "
+
+#: settings-panel.php:724
+msgid "Actions to process"
+msgstr "Akcije za procesiranje"
+
+#: settings-panel.php:729
+msgid "Process actions"
+msgstr "Procesirati akcije"
+
+#: settings-panel.php:730
+msgid "Clear all"
+msgstr "Obriši sve"
+
+#: settings-panel.php:757 settings-panel.php:874
+msgid "WordPress"
+msgstr "WordPress"
+
+#: settings-panel.php:758 settings-panel.php:874
+msgid "phpBB"
+msgstr "phpBB"
+
+#: settings-panel.php:759
+msgid "Editing user. When you are finished, close this screen."
+msgstr "Ažuriranje korisnika. Po završetku zatvoriti ovaj ekran."
+
+#: settings-panel.php:760
+msgid "Viewing user profile. When you are finished, close this screen."
+msgstr "Pregled korisničkog profila. Po završetku zatvoriti ovaj ekran."
+
+#: settings-panel.php:761
+msgid "Break integration"
+msgstr "Isključiti integraciju"
+
+#: settings-panel.php:762 settings-panel.php:764
+#, php-format
+msgid "between %1$s and %2$s"
+msgstr "između %1$s i %2$s"
+
+#: settings-panel.php:763
+msgid "Synchronize profiles"
+msgstr "Sinhronizacija profila"
+
+#: settings-panel.php:765 settings-panel.php:767
+msgid "Delete "
+msgstr "Obrisati "
+
+#: settings-panel.php:766
+#, php-format
+msgid "%1$s from %2$s and %3$s from %4$s"
+msgstr "%1$s od %2$s i %3$s od %4$s"
+
+#: settings-panel.php:768
+#, php-format
+msgid "%1$s from %2$s"
+msgstr "%1$s od %2$s"
+
+#: settings-panel.php:769
+msgid "Create "
+msgstr "Kreirati "
+
+#: settings-panel.php:770
+#, php-format
+msgid "integrated counterpart for %1$s in %2$s"
+msgstr "integrisani par za %1$s u %2$s"
+
+#: settings-panel.php:771
+msgid "Integrate "
+msgstr "Integrisati "
+
+#: settings-panel.php:772
+#, php-format
+msgid "%1$s user %2$s to %3$s user %4$s"
+msgstr "%1$s korisnik %2$s ka %3$s korisnik %4$s"
+
+#: settings-panel.php:774
+msgid "Processing permission mappings..."
+msgstr "Procesiranje mapiranja dozvola..."
+
+#: settings-panel.php:775 settings-panel.php:1151
+msgid "Please wait..."
+msgstr "Molim, sačekajte..."
+
+#: settings-panel.php:777
+msgid "Clearing changes"
+msgstr "Brisanje izmena"
+
+#: settings-panel.php:779
+msgid "Reloading settings from phpBB..."
+msgstr "Ponovo učitanje podešavanja iz phpBB..."
+
+#: settings-panel.php:781
+msgid ""
+"phpBB Administration Panel. After saving your settings, close this window to "
+"return to WP-United."
+msgstr ""
+"phpBB Administracioni Panel. Posle primene podešavanja zatvoriti ovaj ekran "
+"za povratak u WP-United."
+
+#: settings-panel.php:875
+#, php-format
+msgid "%s users"
+msgstr "%s korisnika"
+
+#: settings-panel.php:875
+#, php-format
+msgid "%s user"
+msgstr "%s korisnik"
+
+#: settings-panel.php:877
+#, php-format
+msgid "Showing %1$d to %2$d of %3$d %4$s."
+msgstr "Prikaz %1$d kroz %2$d od %3$d %4$s."
+
+#: settings-panel.php:885
+msgid "There are no users to show that match your criteria"
+msgstr "Ne postoje korisnici koji odgovaraju zadatom kriterijumu"
+
+#: settings-panel.php:898 settings-panel.php:916
+msgid "Status: "
+msgstr "Status: "
+
+#: settings-panel.php:898
+msgid "Not Integrated"
+msgstr "Nije integrisan"
+
+#: settings-panel.php:906
+msgid "Integrate to a suggested match"
+msgstr "Integrisanje po predloženom šablonu"
+
+#: settings-panel.php:910
+msgid "Or, type a name"
+msgstr "Ili uneti ime"
+
+#: settings-panel.php:911
+msgid "Integrate"
+msgstr "Integrisati"
+
+#: settings-panel.php:916
+msgid "Integrated"
+msgstr "Integrisano"
+
+#: settings-panel.php:940
+msgid "Bulk actions"
+msgstr "Višestruke akcije"
+
+#: settings-panel.php:942
+msgid "Delete all unintegrated"
+msgstr "Obrisati sve neintegrisane"
+
+#: settings-panel.php:945
+msgid "Break all integrated"
+msgstr "Prekinuti sve integrisane"
+
+#: settings-panel.php:946
+msgid "Sync all integrated profiles"
+msgstr "Sinhronizovati sve integrisane profile"
+
+#: settings-panel.php:949
+msgid "Create users for all unintegrated"
+msgstr "Kreirati korisnike za sve neintegrisane"
+
+#: settings-panel.php:951
+msgid "Add"
+msgstr "Dodaj"
+
+#: settings-panel.php:1054
+msgid "Could not add user to phpBB"
+msgstr "Nije moguće dodati korisnika u phpBB"
+
+#: settings-panel.php:1056
+msgid "A suitable username could not be found in phpBB"
+msgstr "Ne postoji odgovarajuće korisničko ime  u phpBB"
+
+#: settings-panel.php:1068
+msgid ""
+"Cannot create integrated user, as they would have no integration permissions."
+msgstr ""
+"Nije mogući kreirati integrisanog korisnika pošto ne bi imali integracione "
+"dozvole."
+
+#: settings-panel.php:1084
+msgid "Could not add user to WordPress"
+msgstr "Nije moguće dodati korisnika u WordPress"
+
+#: settings-panel.php:1151
+msgid "Sending settings to phpBB..."
+msgstr "Slanje podešavanja u phpBB..."
+
+#: settings-panel.php:1158
+msgid "Settings applied successfully."
+msgstr "Podešavanja su uspešno primenjena."
+
+#: settings-panel.php:1163
+msgid ""
+"An error occurred. The error details are below. Please check your settings "
+"or try disabling plugins."
+msgstr ""
+"Došlo je do greške. Detalji greške su navedeni ispod. Proveriti podešavanja "
+"ili probati sa isključivanjem plaginova."
+
+#: settings-panel.php:1182
+msgid ""
+"WP-United is modular; You can enable or disable any of the four major "
+"features below: User Integration, Theme Integration, Behaviour Integration "
+"and User Blogs."
+msgstr ""
+"WP-United je modularan. Moguće je uključiti ili isključiti bilo koju od "
+"četiri glavne funkcije: Integracija korisnika, Integracija teme, Integracija "
+"opcija and Korisnički blogovi."
+
+#: settings-panel.php:1183
+msgid ""
+"Visit each of the tabs to select the settings, then hit Submit when done."
+msgstr "Pregledati svaki od tabova i po završetku kliknuti na Primeni."
+
+#: settings-panel.php:1189
+msgid "Basic Settings"
+msgstr "Osnovna podešavanja"
+
+#: settings-panel.php:1191
+msgid "User Integration"
+msgstr "Integracija korisnika"
+
+#: settings-panel.php:1193
+msgid "Theme Integration"
+msgstr "Integracija vizuelne teme"
+
+#: settings-panel.php:1194
+msgid "Behaviour Integration"
+msgstr "Integracija opcija"
+
+#: settings-panel.php:1199
+msgid "Path to phpBB3"
+msgstr "Putanja ka phpBB3"
+
+#: settings-panel.php:1200
+msgid ""
+"WP-United needs to know where phpBB is installed on your server. You can "
+"change the location on the &quot;Setup / Status&quot; page."
+msgstr ""
+"WP-United mora da zna gde je phpBB instaliran na serveru. Lokaciju je moguće "
+"promeniti &quot;Podešavanja / Status&quot; strani."
+
+#: settings-panel.php:1204
+msgid "Forum Page"
+msgstr "Forum stranica"
+
+#: settings-panel.php:1205
+msgid ""
+"Create a WordPress forum page? If you enable this option, WP-United will "
+"create a blank page in your WordPress installation, so that 'Forum' links "
+"appear in your blog. These links will automatically direct to your forum."
+msgstr ""
+"Kreirati  WordPress forum stranicu? Ukoliko se uključi ova opcija, WP-United "
+"će kreirati praznu stranicu u WordPress instalaciji tako da će se 'Forum' "
+"linkovi pojaviti na blogu. Linkovi će automatski pokazivati na forum."
+
+#: settings-panel.php:1206
+msgid "Enable Forum Page"
+msgstr "Omogućiti Forum stranicu"
+
+#: settings-panel.php:1211
+msgid "Integrate logins?"
+msgstr "Integrisati prijavljivanje?"
+
+#: settings-panel.php:1212
+msgid ""
+"This will enable some or all of your users to have a seamless session across "
+"both phpBB and WordPress. If they are logged in to one, they will be logged "
+"in to the other. Accounts will be created in the respective part of the site "
+"as needed. Note that you will need to set permissions in the User Mapper "
+"section that will appear once this option is enabled. Otherwise, by default, "
+"only the phpBB founder user is integrated."
+msgstr ""
+"Ova opcija omogućava nekim ili svim korisnicima neometanu sesiju između "
+"phpBB i WordPress. Ukoliko se uloguju u bilo koji biće automatski ulogovani "
+"i u drugi. Nalozi se kreiraju automatski u odgovarajućem delu sajta. Voditi "
+"računa da je potrebno podesiti dozvole u odeljku sa mapiranjem korisnika "
+"koji će se pojaviti kada bude aktiviran. U suprotnom samo će phpBB vlasnik "
+"biti integrisan u WordPress."
+
+#: settings-panel.php:1215
+msgid "Enable Login Integration?"
+msgstr "Omogućiti integraciju logovanja?"
+
+#: settings-panel.php:1219
+msgid "Auto-create WordPress accounts when needed?"
+msgstr "Automatsko kreiranje WordPress naloga kada se zahteva?"
+
+#: settings-panel.php:1220
+msgid ""
+"Create WordPress accounts for unintegrated phpBB users with appropriate "
+"permissions when they visit or register?"
+msgstr ""
+"Kreirati WordPress naloge za neintegrisane phpBB korisnike sa odgovarajućim "
+"dozvolama pri poseti ili registraciji?"
+
+#: settings-panel.php:1221
+msgid "Auto-create WordPress accounts?"
+msgstr "Automatsko kreiranje WordPress naloga?"
+
+#: settings-panel.php:1223
+msgid "Auto-create phpBB accounts when needed?"
+msgstr "Automatsko kreiranje phpBB naloga kada zatreba?"
+
+#: settings-panel.php:1224
+msgid ""
+"Create phpBB accounts for unintegrated WordPress users when they visit or "
+"register?"
+msgstr ""
+"Kreirati phpBB naloge za neintegrisane WordPress korisnike pri poseti ili "
+"registraciji?"
+
+#: settings-panel.php:1225
+msgid "Auto-create phpBB accounts?"
+msgstr "Automatsko kreiranje phpBB naloga?"
+
+#: settings-panel.php:1227 settings-panel.php:1230
+msgid "Sync avatars?"
+msgstr "Sinhronizacija avatara?"
+
+#: settings-panel.php:1228
+msgid ""
+"Avatars will be synced between phpBB &amp; WordPress. If a user has an "
+"avatar in phpBB, it will show in WordPress. If they have a Gravatar, it will "
+"show in phpBB."
+msgstr ""
+"Avatari će biti sinhronizovani između phpBB &amp; WordPress. Ako korisnik "
+"ima avatar u phpBB prikazaće se i u WordPress. Ukoliko koristi Gravatar, "
+"prikazaće se i u WordPress."
+
+#: settings-panel.php:1229
+msgid ""
+"Enabling this option requires that the &quot;Allow avatars&quot; and &quot;"
+"Remote avatar linking&quot; options is enabled in phpBB, so WP-United will "
+"automatically enable those options for you if they are disabled."
+msgstr ""
+"Uključivanje ove opcije zahteva da  &quot;Omogući avatare&quot; and &quot;"
+"Ukloni linkovanje avatara&quot; budu omogućene u phpBB tako da će WP-United "
+"automatski uključiti ove opcije ukoliko su isključene."
+
+#: settings-panel.php:1234
+msgid "Enable cross-posting?"
+msgstr "Omogućiti unakrsno postovanje?"
+
+#: settings-panel.php:1235
+msgid ""
+"If you enable this option, users will be able to elect to have their blog "
+"entry copied to a forum when writing a blog post. To set which forums the "
+"user can cross-post to, visit the phpBB forum permissions panel, and enable "
+"the &quot;can cross-post&quot; permission for the users/groups/forums "
+"combinations you need."
+msgstr ""
+"Ukoliko se omogući ova opcija, korisnici će moći da biraju da li će njihov "
+"post u blogu biti kopiran i u forum. Za podešavanje koje postove korisnik "
+"može da ukrsti proveriti phpBB forum panel sa dozvolama i omogućiti &quot;"
+"može da postuje unakrst&quot; za kombinaciju korisnik/grupa/forum."
+
+#: settings-panel.php:1236
+msgid "Enable Cross-Posting?"
+msgstr "Omogući unakrsno postovanje?"
+
+#: settings-panel.php:1240
+msgid "Type of cross-posting?"
+msgstr "Tip unakrsnog postovanja?"
+
+#: settings-panel.php:1241
+msgid ""
+"Choose how the post should appear in phpBB. WP-United can post an excerpt, "
+"the full post, or give you an option to select when posting each post."
+msgstr ""
+"Selektovati kako će post izgledati u phpBB. WP-United može da prikaže samo "
+"isečak, ceo post ili da prikaže opciju pri postavljanju svakog posta posebno."
+
+#: settings-panel.php:1242
+msgid "Excerpt"
+msgstr "Isečak"
+
+#: settings-panel.php:1243
+msgid "Full Post"
+msgstr "Ceo post"
+
+#: settings-panel.php:1244
+msgid "Ask Me"
+msgstr "Pitaj me"
+
+#: settings-panel.php:1246
+msgid "phpBB manages comments on crossed posts?"
+msgstr "Da li phpBB upravlja komentarima na unakrsnim postovima?"
+
+#: settings-panel.php:1247
+msgid ""
+"Choose this option to have WordPress comments replaced by forum replies for "
+"cross-posted blog posts. In addition, comments posted by integrated users "
+"via the WordPress comment form will be cross-posted as replies to the forum "
+"topic."
+msgstr ""
+"Selektovati opciju da se WordPress komentari zamene odgovorima na forumu za "
+"unakrsne postove. Komentari kreirani od strane integrisanih korisnika kao "
+"WordPress komentari će biti unakrsno postovani kao odgovori na temi u forumu."
+
+#: settings-panel.php:1248
+msgid ""
+"Note that for users to be able to comment from WordPress, you need to assign "
+"them the &quot;Can reply to blog posts&quot; permission in phpBB."
+msgstr ""
+"Kako bi korisnici mogli da kreiraju komentare iz WordPress potrebno im je "
+"dodeliti &quot;Može odgovarati na blog post&quot; dozvolu u phpBB."
+
+#: settings-panel.php:1249
+msgid "phpBB manages comments"
+msgstr "phpBB upravlja komentarima"
+
+#: settings-panel.php:1253
+msgid "Use WordPress spam filters for guest comments?"
+msgstr "Koristiti WordPress spam filtere za komentare gostiju?"
+
+#: settings-panel.php:1254
+msgid ""
+"To prevent forum spam from comments posted by guests, turn this option on. "
+"Comments will then be passed through WordPress spam filters (e.g. Akismet) "
+"before being sent to the forum. This only applies to posts made by guests."
+msgstr ""
+"Kako bi se sprečili spam komentari od strane gostiju uključiti ovu opciju. "
+"Komentari će biti provereni sa WordPress spam filterima (npr. Akismet) pre "
+"slanja na forum. Ovo se odnosi samo na komentare od strane gostiju."
+
+#: settings-panel.php:1256
+msgid ""
+"Yes, and override phpBB post approval requirements if the comment passes "
+"WordPress checks"
+msgstr ""
+"Da, ali nadjačati phpBB odobrenja za postove ukoliko komentar prođe "
+"WordPress provere"
+
+#: settings-panel.php:1257
+msgid ""
+"Yes, but still honour phpBB post approval requirements even if the comment "
+"passes"
+msgstr ""
+"Da, ali i dalje ispoštovati phpBB odobrenja za postove ukoliko komentar "
+"prođe WordPress provere"
+
+#: settings-panel.php:1258
+msgid "No, I will rely on phpBB settings."
+msgstr "Ne, koristiću phpBB podešavanja."
+
+#: settings-panel.php:1262
+msgid "Force all blog posts to be cross-posted?"
+msgstr "Naterati sve blog postove da budu unakrsni."
+
+#: settings-panel.php:1263
+msgid ""
+"Setting this option will force all blog posts to be cross-posted to a "
+"specific forum. You can select the forum here. Note that users must have the "
+"&quot;can cross-post&quot; WP-United permission under phpBB Forum "
+"Permissions, or the cross-posting will not take place."
+msgstr ""
+"Uključivanje ove opcije će izforsirati sve posove na blogu da budu unakrsno "
+"postovani na odgovarajući forum. Ovde se može selektovati forum. Obratiti "
+"pažnju da korisnici moraju imati &quot;može unakrsno postovati&quot; dozvolu "
+"u WP-United pod opcijom phpBB dozvolama foruma. U suprotnom unakrsno "
+"postovanje neće raditi."
+
+#: settings-panel.php:1288
+msgid "Cross-post prefix"
+msgstr "Prefiks za unakrsno postovanje"
+
+#: settings-panel.php:1289
+msgid ""
+"This will be prepended to the post title when cross-posted. Leave it blank "
+"to disable."
+msgstr ""
+"Ovo će biti dodato u naslov posta pri unakrsnom postovanju. Ostaviti prazno "
+"za isljučivanje opcije."
+
+#: settings-panel.php:1294 settings-panel.php:1618 settings-panel.php:1642
+msgid "[BLOG] "
+msgstr "[BLOG] "
+
+#: settings-panel.php:1297
+msgid "Cross-post prefix: "
+msgstr "Prefiks za unakrsno postovanje: "
+
+#: settings-panel.php:1305
+msgid "Integrate themes?"
+msgstr "Integrisati temu?"
+
+#: settings-panel.php:1306
+msgid "WP-United can integrate your phpBB &amp; WordPress templates."
+msgstr "WP-United može da integriše phpBB &amp; i WordPress temu."
+
+#: settings-panel.php:1307
+msgid "Enable Theme Integration"
+msgstr "Uključiti integraciju teme"
+
+#: settings-panel.php:1309
+msgid "Integration Mode"
+msgstr "Mod integracije"
+
+#: settings-panel.php:1310
+msgid ""
+"Do you want WordPress to appear inside your phpBB template, or phpBB to "
+"appear inside your WordPress template?"
+msgstr ""
+"Da li WordPress treba da bude unutar phpBB teme ili da phpBB bude unutar "
+"WordPress teme?"
+
+#: settings-panel.php:1312
+msgid "phpBB inside WordPress"
+msgstr "phpBB unutar WordPress"
+
+#: settings-panel.php:1313
+msgid "WordPress inside phpBB"
+msgstr "WordPress unutar phpBB"
+
+#: settings-panel.php:1316
+msgid "Automatic CSS Integration"
+msgstr "Automatska CSS integracija"
+
+#: settings-panel.php:1318
+msgid ""
+"WP-United can automatically fix CSS conflicts between your phpBB and "
+"WordPress templates. Set the slider to \"maximum compatibility\" to fix most "
+"problems. If you prefer to fix CSS conflicts by hand, or if the automatic "
+"changes cause problems, try reducing the level."
+msgstr ""
+"WP-United može automatski da rešava CSS konflikte između phpBB i WordPress "
+"tema. Podešavanje klizača na \"maksimalnu kompatibilnost\" rešava većinu "
+"problema. Ukoliko treba ručno rešavati CSS konflikte ili automatska "
+"podešavanje dovode do problema, potrebno je smanjiti nivo podešavanja."
+
+#: settings-panel.php:1321 settings-panel.php:1450
+msgid "Off"
+msgstr "Isključeno"
+
+#: settings-panel.php:1321
+msgid "Maximum Compatibility (Recommended)"
+msgstr "Maksimalna kompatibilnost (preporučeno)"
+
+#: settings-panel.php:1323
+msgid "Current Level: "
+msgstr "Trenutni nivo: "
+
+#: settings-panel.php:1326
+msgid "Show Advanced Settings &raquo;"
+msgstr "Prikazati napredna podešavanja &raquo;"
+
+#: settings-panel.php:1326
+msgid "&laquo; Hide Advanced Settings"
+msgstr "&laquo; Sakriti napredna podešavanja"
+
+#: settings-panel.php:1329
+msgid "Advanced Settings"
+msgstr "Napredna podešavanja"
+
+#: settings-panel.php:1333
+msgid "Use full page?"
+msgstr "Koristiti celu stranicu?"
+
+#: settings-panel.php:1334
+msgid ""
+"Do you want phpBB to simply appear inside your WordPress header and footer, "
+"or do you want it to show up in a fully featured WordPress page? Simple "
+"header and footer will work best for most WordPress themes – it is faster "
+"and less resource-intensive, but cannot display dynamic content on the forum "
+"page. However, if you want the WordPress sidebar to show up, or use other "
+"WordPress features on the integrated page, you could try 'full page'. This "
+"option could be a little slower."
+msgstr ""
+"Da li potrebno da se phpBB samo prikaže u hederu i futeru ili je potreno da "
+"se prikaže kao kompletna WordPress stranica? Jednostavni heder i futer će "
+"odlično raditi za većinu WordPress tema jer je brže i manje zahtevno. "
+"Ukoliko je potrebno da se prikaže WordPress sajdbar ili da se koriste druge "
+"opcije na integrisanoj stranici može se koristiti opcija Cela strana. Ova "
+"opcija je malo sporija."
+
+#: settings-panel.php:1334 settings-panel.php:1365 settings-panel.php:1406
+msgid "What is this?"
+msgstr "Šta je ovo?"
+
+#: settings-panel.php:1338
+msgid "Statically Cached Simple Header &amp; Footer"
+msgstr "Statički keširani jednostavni heder &amp; futer"
+
+#: settings-panel.php:1343
+msgid "Fall back to page.php"
+msgstr "Prebaciti se na page.php"
+
+#: settings-panel.php:1346
+msgid "Fall back to index.php"
+msgstr "Prebaciti se na index.php"
+
+#: settings-panel.php:1355
+msgid "Full Page: "
+msgstr "Cela strana: "
+
+#: settings-panel.php:1362
+msgid "Padding around phpBB"
+msgstr "Prazan prostor oko phpBB"
+
+#: settings-panel.php:1365
+msgid ""
+"phpBB is inserted on the WordPress page inside a DIV. Here you can set the "
+"padding of that DIV. This is useful because otherwise the phpBB content may "
+"not line up properly on the page. The defaults here are good for most "
+"WordPress templates. If you would prefer set this yourself, just leave these "
+"boxes blank (not '0'), and style it in your stylesheet instead."
+msgstr ""
+"phpBB je postavljen unutar WordPress strane unutar DIV. Ovde je moguće "
+"podesiti prazan prostor oko tog DIV. Ovo je korisno jer phpBB sadržaj može "
+"da ostane neporavnat na stranici. Podrazumevana podešavanja će biti "
+"odgovoarajuća za večinu stranica. Ukoliko su potrebna ručna podešavanja, "
+"dovoljno je ostaviti ova polja prazna (ne '0') i uneti podešavanja u "
+"stilovima (CSS)."
+
+#: settings-panel.php:1370
+msgid "Top:"
+msgstr "Vrh:"
+
+#: settings-panel.php:1378
+msgid "Right:"
+msgstr "Desno:"
+
+#: settings-panel.php:1386
+msgid "Bottom:"
+msgstr "Dole:"
+
+#: settings-panel.php:1394
+msgid "Left:"
+msgstr "Levo:"
+
+#: settings-panel.php:1401
+msgid "Reset to defaults"
+msgstr "Vrati na podrazumevane vrednosti"
+
+#: settings-panel.php:1405
+msgid "Use WordPress' Document Type Declaration?"
+msgstr "Koristiti WordPress deklaraciju tipa dokumenta?"
+
+#: settings-panel.php:1406
+msgid ""
+"The Document Type Declaration, or DTD, is provided at the top of all web "
+"pages to let the browser know what type of markup language is being used. "
+"phpBB3's prosilver uses an XHTML 1.0 Strict DTD by default. Most WordPress "
+"templates, however, use an XHTML 1 transitional  or HTML 5 DTD. In most "
+"cases, this doesn't matter -- however, If you want to use WordPress' DTD on "
+"pages where WordPress is inside phpBB, then you can turn this option on. "
+"This should prevent browsers from going into quirks mode, and will ensure "
+"that even more WordPress templates display as designed."
+msgstr ""
+"Deklaracija tipa dokumenta (Document Type Declaration, DTD) se nalazi na "
+"početku svih Internet stranica kako bi pretraživač znao koji se programski "
+"jezik koristi. phpBB3 prosilver koristi XHTML 1.0 Strict DTD kao "
+"podrazumevani. Većina WordPress tema, ipak, koristi XHTML 1 transitional  "
+"ili HTML 5 DTD. U većini slučajeva to ne pravi razliku, međutim, ukoliko je "
+"potrebno koristiti WordPress DTD na stranicama gde je WordPress unutar phpBB "
+"moguće je uključiti ovu opciju. Ovo treba da onemogući pretraživač da se "
+"neplanirano ponaša i da se WordPress teme prikažu kako bi trebalo."
+
+#: settings-panel.php:1415
+msgid "Use phpBB Word Censor?"
+msgstr "Uključiti phpBB cenzuru reči?"
+
+#: settings-panel.php:1416
+msgid ""
+"Turn this option on if you want WordPress posts to be passed through the "
+"phpBB word censor."
+msgstr ""
+"Uključiti ovu opciju ukoliko je potrebna da se WordPress postovi filtriraju "
+"kroz phpBB cenzuru reči."
+
+#: settings-panel.php:1417
+msgid "Enable word censoring in WordPress"
+msgstr "Uključiti cenzuru reči u WordPress"
+
+#: settings-panel.php:1419
+msgid "Use phpBB smilies?"
+msgstr "Koristiti phpBB smajlije?"
+
+#: settings-panel.php:1420
+msgid ""
+"Turn this option on if you want to use phpBB smilies in WordPress comments "
+"and posts."
+msgstr ""
+"Uključiti ovu opciju ukoliko se koriste phpBB smajliji u WordPress "
+"komentarima i postovima."
+
+#: settings-panel.php:1421
+msgid "Use phpBB smilies in WordPress"
+msgstr "Koristiti phpBB smajlije u WordPress"
+
+#: settings-panel.php:1431
+msgid "Submit"
+msgstr "Pošalji"
+
+#: settings-panel.php:1451
+msgid "All automatic CSS integration is disabled"
+msgstr "Sva automatska CSS integracija je isključena"
+
+#: settings-panel.php:1452
+msgid "Medium"
+msgstr "Medijum"
+
+#: settings-panel.php:1453
+#, php-format
+msgid ""
+"%1$sStyles are reset to stop outer styles applying to the inner part of the "
+"page.%2$sInner CSS is made more specific so it does not affect the outer "
+"portion of the page.%2$sSome HTML IDs and class names may be duplicated.%3$s"
+msgstr ""
+"%1$sStilovi su resetovani kako bi se sprečili spoljašnji stilovi da se "
+"primene na unutrašnje.%2$sUnutrašnji CSS je drugačije kreiran kako ne bi "
+"uticao na spoljašnji deo stranice.%2$sNeki HTML IDs i imena klasa mogu biti "
+"duplirani.%3$s"
+
+#: settings-panel.php:1454
+msgid "Full"
+msgstr "Pun"
+
+#: settings-panel.php:1455
+#, php-format
+msgid ""
+"%1$sStyles are reset to stop outer styles applying to the inner part of the "
+"page.%2$sInner CSS is made more specific so it does not affect the outer "
+"portion of the page.%2$sHTML IDs and class names that are duplicated in the "
+"inner and outer parts of the page are fixed.%3$s"
+msgstr ""
+"%1$sStilovi su resetovani kako bi se sprečili spoljašnji stilovi da se "
+"primene na unutrašnje.%2$sUnutrašnji CSS je drugačije kreiran kako ne bi "
+"uticao na spoljašnji deo stranice.%2$sNeki HTML IDs i imena klasa koji su "
+"duplirani u unutrašnjem i spoljašnjem dalu stranice su popravljeni.%3$s"
+
+#: settings-panel.php:1509
+msgid "ERROR: You must specify a valid path for phpBB's config.php"
+msgstr "GREŠKA: Potrebno je podesiti putanju do phpBB config.php"
+
+#: settings-panel.php:1515
+msgid "ERROR:The path you selected for phpBB's config.php is not valid"
+msgstr "GREŠKA: Odabrana putanja za phpBB's config.php nije ispravna"
+
+#: settings-panel.php:1519
+msgid "ERROR: phpBB's config.php could not be found at the location you chose"
+msgstr "GREŠKA: phpBB's config.php nije pronađen na selektovanoj putanji"
+
+#: settings-panel.php:1537
+msgid "Forum"
+msgstr "Forum"
+
+#: settings-panel.php:1751
+msgid "Save"
+msgstr "Sačuvaj"
+
+#: user-mapper.php:336 user-mapper.php:343
+msgid "n/a"
+msgstr "Nije omogućeno"
+
+#: user-mapper.php:417
+msgid "Already integrated"
+msgstr "Već integrisan"
+
+#: user-mapper.php:417
+msgid "Available"
+msgstr "Dostupno"
+
+#: phpbb.php:154
+msgid ""
+"The WP-United phpBB hook file, hook_wp-united.php, was not loaded. Either it "
+"is missing, or you need to clear the phpBB cache. <br /><br />Attempted to "
+"automatically clear the phpBB cache. Try <a href=\"#\" onclick=\"document."
+"location.reload(); return false;\">refreshing the page</a> to see if it "
+"worked. <br /><br />If this error persists, check that includes/hooks/"
+"hook_wp-united.php exists, and try manually purging your phpBB cache."
+msgstr ""
+"WP-United phpBB fajl za povezivanje (hook_wp-united.php) nije učitan. Ili "
+"nepostoji ili je potrebno obnoviti phpBB keš. <br /><br />Pokušano "
+"automatsko brisanje phpBB keša. Probati <a href=\"#\" onclick=\"document."
+"location.reload(); return false;\">osvežavanje strane</a> kako bi se "
+"proverili. <br /><br />Ukoliko se ova greška ponovi, proveriti da li "
+"postoji: includes/hooks/hook_wp-united.php i onda ručno obrisati phpBB keš."
+
+#: phpbb.php:527 phpbb.php:621 phpbb.php:678
+msgid "Could not access the database."
+msgstr "Nije moguć pristup bazi"
+
+#: phpbb.php:964
+msgid "More smilies"
+msgstr "Još smajlija"
+
+#: phpbb.php:1109
+msgid "Receiving settings from WP-United..."
+msgstr "Prijem podešavanja iz WP-United..."
+
+#: phpbb.php:1122
+msgid "Modified USERS Table (Integration ID)"
+msgstr "Tabela modifikovanih korisnika (Integration ID)"
+
+#: phpbb.php:1129
+msgid "Modified USERS Table (Blog ID)"
+msgstr "Tabela modifikovanih korisnika (Blog ID)"
+
+#: phpbb.php:1152
+msgid "Modified TOPICS and POSTS Tables (Cross-Posting ability)"
+msgstr "Tabele modifikovanih tema i postova (opcija unakrsnog postovanja)"
+
+#: phpbb.php:1158
+msgid "Adding WP-United Permissions"
+msgstr "Dodavanje WP-United dozvola"
+
+#: phpbb.php:1170
+msgid "Storing the new WP-United settings"
+msgstr "Skladištenje novih podešavanja WP-United"
+
+#: phpbb.php:1198
+msgid "Updating avatar settings"
+msgstr "Ažuriranje podešavanja avatara"
+
+#: phpbb.php:1211
+msgid "Purging the WP-United cache"
+msgstr "Čišćenje WP-United keša"
+
+#: phpbb.php:1216
+msgid "Completed successfully"
+msgstr "Uspešno završeno"
+
+#: phpbb.php:1247
+msgid "Changed WP-United Settings (click for details)"
+msgstr "Promenjena podešavanja WP-United (kliknuti za detalje)"
+
+#: template-tags.php:300
+#, php-format
+msgid "Forum Posts: %s"
+msgstr "Forum postovi: %s"
+
+#: template-tags.php:301
+#, php-format
+msgid "Forum Threads: %s"
+msgstr "Forum teme: %s"
+
+#: template-tags.php:302
+#, php-format
+msgid "Registered Users: %s"
+msgstr "Registrovani korisnici: %s"
+
+#: template-tags.php:303
+#, php-format
+msgid " Newest User: %s"
+msgstr " Najnoviji korisnik: %s"
+
+#: template-tags.php:326
+msgid "posts since last visit"
+msgstr "postova od poslednje posete"
+
+#: template-tags.php:381
+#, php-format
+msgid "%1$s, posted by %2$s on %3$s"
+msgstr "%1$s, postovano od %2$s na %3$s"
+
+#: template-tags.php:385 template-tags.php:429
+msgid "Nothing found."
+msgstr "Nije pronađeno."
+
+#: template-tags.php:425
+#, php-format
+msgid "%1$s, posted by %2$s in %3$s"
+msgstr "%1$s, postovan od %2$s u %3$s"
+
+#: template-tags.php:662
+msgid "Write a Post"
+msgstr "Napisati post"
+
+#: template-tags.php:667
+msgid "Dashboard"
+msgstr "Komandna tabla"
+
+#: template-tags.php:683
+msgid "Remember me"
+msgstr "Zapamti me"
+
+#: template-tags.php:685
+msgid "Login"
+msgstr "Prijava"
+
+#: template-tags.php:686
+msgid "Register"
+msgstr "Registracija"
+
+#: template-tags.php:687
+msgid "Forgot Password?"
+msgstr "Izgubljena šifra?"
+
+#: plugin-main.php:466
+msgid ""
+"phpBB integration by <a href=\"http://www.wp-united.com/\">WP-United</a>."
+msgstr ""
+"phpBB integracija pomoću <a href=\"http://www.wp-united.com/\">WP-United</a>."
+
+#: plugin-main.php:527
+msgid "Error accessing the phpBB database when updating Blog ID"
+msgstr "Greška pri pristupu phpBB bazi podataka pri ažuriranju Blog ID"
+
+#: plugin-main.php:614
+msgid "Avatar image"
+msgstr "Avatar slika"
+
+#: plugin-main.php:715
+msgid "Less smilies"
+msgstr "Manje smajlija"
+
+#: plugin-main.php:716
+#, php-format
+msgid ""
+"Your smiley could not be inserted. You can add it manually by typing this "
+"code: %s"
+msgstr "Smajliji se ne mogu dodati. Mogu se dodati ručno unosom koda: %s"
+
+#: plugin-main.php:843
+msgid "Error:"
+msgstr "Greška:"
+
+#: plugin-main.php:845
+msgid ""
+"Please go back and try again, or contact an administrator if you keep seeing "
+"this error."
+msgstr ""
+"Probajte ponovo ili kontaktirajte administratora ukoliko ponovo vidite ovu "
+"grešku."
+
+#: plugin-main.php:971
+msgid "Visit wp-united.com"
+msgstr "Poseti wp-united.com"
+
+#: plugin-main.php:994 plugin-main.php:998
+msgid "Visit Forum"
+msgstr "Poseti forum"
+
+#: plugin-main.php:1028
+msgid "Search Site"
+msgstr "Pretraga sajta"
+
+#: plugin-main.php:1033
+msgid "Search Forum"
+msgstr "Pretraga foruma"
+
+#: widgets.php:28
+msgid ""
+"Displays the logged-in user's details, such as username, avatar, and number "
+"of posts since last visit, together with varius meta links. If the user is "
+"logged out, displays a phpBB login form."
+msgstr ""
+"Prikazuje podatke ulogovanih korisnika, kao što su korisničko ime, avatar i "
+"broj postova od poslednje posete, kao i razne meta linkove. Ako je korisnik "
+"izlogovan, prikazuje phpBB ekran za logovanje."
+
+#: widgets.php:29
+msgid "WP-United Login / User Info Box"
+msgstr "WP-United Login / podaci o korisniku"
+
+#: widgets.php:78 widgets.php:97
+msgid "You are logged in as:"
+msgstr "Ulogovani ste kao:"
+
+#: widgets.php:79 widgets.php:98
+msgid "You are not logged in."
+msgstr "Niste prijavljeni."
+
+#: widgets.php:99
+msgid "Show rank title &amp; image?"
+msgstr "Prikazati naslov ranga &amp; sliku?"
+
+#: widgets.php:100 widgets.php:466
+msgid "Show new posts?"
+msgstr "Prikazati nove postove?"
+
+#: widgets.php:101
+msgid "Show write post link?"
+msgstr "Prikazati link za pisanje postova?"
+
+#: widgets.php:102 widgets.php:469
+msgid "Show Admin link?"
+msgstr "Prikazati admin link?"
+
+#: widgets.php:103
+msgid "Show phpBB login form if logged out?"
+msgstr "Prikazati phpBB ekran za logovanje ukoliko je korisnik izlogovan?"
+
+#: widgets.php:117
+msgid "Shows the latest topics posted in the phpBB forum."
+msgstr "Prikazati najnovije teme postovane u phpBB forumu."
+
+#: widgets.php:118
+msgid "WP-United Latest phpBB Topics"
+msgstr "WP-United najnovije phpBB teme"
+
+#: widgets.php:152
+msgid "Recent Forum Topics"
+msgstr "Nove teme na forumu"
+
+#: widgets.php:160 widgets.php:217 widgets.php:265 widgets.php:330
+#: widgets.php:460 widgets.php:667 extras/quickpoll/widget.php:126
+msgid "Title: "
+msgstr "Naslov: "
+
+#: widgets.php:161
+msgid "Maximum Entries:"
+msgstr "Maksimum unosa:"
+
+#: widgets.php:174
+msgid "Shows the latest posts posted in the phpBB forum."
+msgstr "Prikazuje najnovije postove na phpBB forumu."
+
+#: widgets.php:175
+msgid "WP-United Latest Forum Posts"
+msgstr "WP-United najnoviji forum postovi"
+
+#: widgets.php:209
+msgid "Recent Forum Posts"
+msgstr "Novi postovni na forumu"
+
+#: widgets.php:218
+msgid "Maximum Entries: "
+msgstr "Maksimum unosa: "
+
+#: widgets.php:226
+msgid "Show key forum statistics and information."
+msgstr "Prikazati glavne statistike i informacije foruma."
+
+#: widgets.php:227
+msgid "WP-United Forum Statistics"
+msgstr "WP-United statistike foruma"
+
+#: widgets.php:259
+msgid "Forum Stats"
+msgstr "Statistike foruma"
+
+#: widgets.php:276
+msgid ""
+"Show information about users that are currently online, in the usual phpBB "
+"format."
+msgstr ""
+"Prikazati informacije o trenutno aktivnim korisnicima pomoću klasičnog phpBB "
+"formata."
+
+#: widgets.php:277
+msgid "WP-United Users Online"
+msgstr "WP-United ulogovani korisnici"
+
+#: widgets.php:316
+msgid "Users Online"
+msgstr "Ulogovani korisnici"
+
+#: widgets.php:331
+msgid "Show a breakdown of user types?"
+msgstr "Prikazati šematski tipove korisnika?"
+
+#: widgets.php:332
+msgid "Show record number of users?"
+msgstr "Prikazati redni bbroj korisnika?"
+
+#: widgets.php:333
+msgid "Show legend?"
+msgstr "Prikazati legendu?"
+
+#: widgets.php:350
+msgid "Useful Forum Links"
+msgstr "Korisni linkovi foruma"
+
+#: widgets.php:363
+msgid "Useful customizable links to forum features"
+msgstr "Korisni modifikovani linkovi do opcija foruma"
+
+#: widgets.php:364
+msgid "WP-United Useful Forum Links"
+msgstr "WP-United korisni linkovi foruma"
+
+#: widgets.php:461
+msgid "Show forum index link?"
+msgstr "Prikazati linkove indeksa foruma?"
+
+#: widgets.php:462
+msgid "Show search link?"
+msgstr "Prikazati link pretrage?"
+
+#: widgets.php:463
+msgid "Show unanswered posts link?"
+msgstr "Prikazati linkove neodgovorenih postova?"
+
+#: widgets.php:464
+msgid "Show active topics link?"
+msgstr "Prikazati linkove aktivnih tema?"
+
+#: widgets.php:465
+msgid "Show my posts link?"
+msgstr "Prikazati linkove mojih postova?"
+
+#: widgets.php:467
+msgid "Show User Control Panel link?"
+msgstr "Prikazati link za korisnička podešavanja?"
+
+#: widgets.php:468
+msgid "Show PMs?"
+msgstr "Prikazati lične poruke?"
+
+#: widgets.php:480
+msgid ""
+"Shows the top phpBB prosilver forum navigation / breadcrumb bar. If you have "
+"template integration turned on, this will only appear on non-forum pages. "
+"Your forum must be using a prosilver-based theme for this to work."
+msgstr ""
+"Prikazuje phpBB prosilver forum navigaciju / putanju. Ukoliko je uključena "
+"integracija teme, biće prikazan samo na ne furumskim stranicama. Forum mora "
+"da koristi temu beziranu prosilver temi kako bi ova opcija funkcionisala."
+
+#: widgets.php:481
+msgid "WP-United Forum Navigation Bar"
+msgstr "WP-United forum navigaciona traka"
+
+#: widgets.php:539 widgets.php:603
+msgid "Show forum index as home breadcrumb?"
+msgstr "Prikazati forum indeks kao putanju?"
+
+#: widgets.php:540
+msgid "Show member list?"
+msgstr "Prikazati listu članova?"
+
+#: widgets.php:541
+msgid "Show register link?"
+msgstr "Prikazati link za registraciju?"
+
+#: widgets.php:542 widgets.php:604 extras/quickpoll/widget.php:154
+msgid "Don't add CSS, I will style this myself"
+msgstr "Ne dodavati CSS, stilovi će biti dodati ručno"
+
+#: widgets.php:554
+msgid ""
+"Shows the bottom phpBB prosilver forum footer bar. If you have template "
+"integration turned on, this will only appear on non-forum pages. Your forum "
+"must be using a prosilver-based theme for this to work."
+msgstr ""
+"Prikazuje phpBB prosilver futer na dnu. Ako je uključena integracija teme "
+"biće prikazan samo na ne forumskim stranicama. Forum mora da koristi temu "
+"zasnovanu na prosilver temi kako bi ova opcija funkcionisala."
+
+#: widgets.php:555
+msgid "WP-United Forum Navigation Footer Bar"
+msgstr "WP-United forum futer traka za navigaciju"
+
+#: widgets.php:614
+msgid ""
+"Shows a list of users whose birthday it is today. Note that users must be "
+"logged in to phpBB and birthday entry must be activated on your forum for "
+"this to work."
+msgstr ""
+"Prikazuje spisak korisnika čiji je danas rođendan. Korisnik mora biti "
+"ulogovan na phpBB i opcija rođendana mora biti aktivirana."
+
+#: widgets.php:615
+msgid "WP-United User Birthdays"
+msgstr "WP-United rođendani korisnika"
+
+#: widgets.php:633
+msgid "No users have birthdays today"
+msgstr "Danas nema rođendana korisnika"
+
+#: widgets.php:658
+msgid "Happy Birthday To: "
+msgstr "Srećan rođendan korisniku: "
+
+#: widgets.php:668
+msgid "Hide widget if there is nothing to show?"
+msgstr "Sakriti dodatke ukoliko su prazni?"
+
+#: user-integrator.php:340
+msgid "The username contains invalid characters"
+msgstr "Korisničko ime sadrži nedozvoljene karaktere"
+
+#: user-integrator.php:344
+msgid "The username is already taken"
+msgstr "Korisničko ime je već zauzeto"
+
+#: user-integrator.php:349
+msgid "The username you chose is not allowed"
+msgstr "Odabrano korisničko ime nije dozvoljeno"
+
+#: user-integrator.php:358
+msgid "The email address does not appear to exist (No MX record)"
+msgstr "Email adresa nije postojeća (nema MX zapis)"
+
+#: user-integrator.php:362
+msgid "The e-mail address is banned"
+msgstr "Email adresa je blokirana"
+
+#: user-integrator.php:366
+msgid "The e-mail address is already taken"
+msgstr "Email adresa je već zauzeta"
+
+#: user-integrator.php:370
+msgid "The email address is invalid"
+msgstr "Email adresa je neispravna"
+
+#: user-integrator.php:859
+msgid ""
+"WP-United could not update your integration ID in phpBB, due to a database "
+"access error. Please contact an administrator and inform them of this error."
+msgstr ""
+"WP-United ne može da ažurira integracioni ID u phpBB zbog greške u bezi "
+"podataka. Kontaktirajte administratora u vezi ove greške."
+
+#: user-integrator.php:867
+msgid ""
+"Could not update integration data: WP-United could not update your "
+"integration ID in phpBB, due to an unknown error. Please contact an "
+"administrator and inform them of this error."
+msgstr ""
+"Nije moguće ažurirati podatke za integraciju: WP-United ne može da ažurira "
+"integracioni ID in phpBB zbog npoznate greške. Kontaktirajte administratora "
+"u vezi ove greške."
+
+#: mapped-users.php:100
+msgid "Break Integration"
+msgstr "Isključiti integraciju"
+
+#: mapped-users.php:115
+#, php-format
+msgid "Create user in %s"
+msgstr "Kreirati korisnika u %s"
+
+#: mapped-users.php:128
+msgid "Delete user from both phpBB and WordPress"
+msgstr "Izbrisati korisnika iz phpBB i WordPress"
+
+#: mapped-users.php:142
+#, php-format
+msgid "Delete user from %s"
+msgstr "Izbrisati korisnika iz %s"
+
+#: mapped-users.php:155
+msgid "Synchronize profiles between phpBB and WordPress"
+msgstr "Sinzonizacija profila između phpBB i WordPress"
+
+#: mapped-users.php:212
+msgid "Display name:"
+msgstr "Ime za prikaz:"
+
+#: mapped-users.php:213 mapped-users.php:357
+msgid "E-mail:"
+msgstr "E-mail:"
+
+#: mapped-users.php:214
+msgid "Website:"
+msgstr "Veb sajt:"
+
+#: mapped-users.php:217 mapped-users.php:359
+msgid "Posts:"
+msgstr "Postovi:"
+
+#: mapped-users.php:218
+msgid "Comments:"
+msgstr "Komentari:"
+
+#: mapped-users.php:219 mapped-users.php:360
+msgid "Registered:"
+msgstr "Registrovan:"
+
+#: mapped-users.php:251
+msgid "Roles:"
+msgstr "Uloge:"
+
+#: mapped-users.php:251
+msgid "Role:"
+msgstr "Uloga:"
+
+#: mapped-users.php:260 mapped-users.php:430
+msgid "Edit user"
+msgstr "Ažurirati korisnika"
+
+#: mapped-users.php:276 mapped-users.php:473
+msgid "No suggested matches found."
+msgstr "Nije pronađena sugestija."
+
+#: mapped-users.php:305 mapped-users.php:521
+msgid "Cannot integrate (already integrated)"
+msgstr "Integracija nije moguća (već integrisan)"
+
+#: mapped-users.php:356
+msgid "Default group:"
+msgstr "Podrazumevana grupa:"
+
+#: mapped-users.php:358
+msgid "Rank:"
+msgstr "Rang:"
+
+#: mapped-users.php:361
+msgid "Last visited:"
+msgstr "Poslednja poseta:"
+
+#: cross-posting.php:86
+msgid "View in forum"
+msgstr "Pogledati u forumu"
+
+#: cross-posting.php:93
+msgid "Edit forum post"
+msgstr "Ažurirati post u forumu"
+
+#: cross-posting.php:99
+msgid "Approve"
+msgstr "Odobriti"
+
+#: cross-posting.php:105
+msgid "Delete forum post"
+msgstr "Obrisati post u forumu"
+
+#: cross-posting.php:220
+msgid "Show only cross-posted"
+msgstr "Prikazati samo unakrsno postovane"
+
+#: cross-posting.php:221
+msgid "Show only not cross-posted"
+msgstr "Prikazati samo neunakrsno postovane"
+
+#: cross-posting.php:303
+msgid "Forum Posting"
+msgstr "Postovanje u forumu"
+
+#: cross-posting.php:314 cross-posting.php:333
+msgid "Cross-post to Forums?"
+msgstr "Unakrsno postovanje u forumu?"
+
+#: cross-posting.php:330
+#, php-format
+msgid "Already cross-posted (Topic ID = %s)"
+msgstr "Već unakrsno postovano (tema ID = %s)"
+
+#: cross-posting.php:359 cross-posting.php:388
+msgid "Post Excerpt"
+msgstr "Isečak posta"
+
+#: cross-posting.php:360 cross-posting.php:389
+msgid "Post Full Post"
+msgstr "Prikazati ceo post"
+
+#: cross-posting.php:373
+#, php-format
+msgid "This post is already cross-posted. It will be edited in forum '%s'"
+msgstr "Ovaj post je već unakrsno postovan. Biće ažuriran u forumu '%s'"
+
+#: cross-posting.php:373
+#, php-format
+msgid "This post will be cross-posted to the forum: '%s'"
+msgstr "Ovaj post će biti unakrsno postovan u forumu: '%s'"
+
+#: cross-posting.php:621
+msgid "You do not have permission required to edit global announcements"
+msgstr "Nemate dozvolu da ažurirate globalne najave"
+
+#: cross-posting.php:625
+msgid "You do not have the permission required to edit this announcement"
+msgstr "Nemate dozvolu da ažurirate ovu najavu"
+
+#: cross-posting.php:628
+msgid "You do not have the permission required to edit stickies"
+msgstr "Nemate dozvolu da ažurirate lepljive"
+
+#: cross-posting.php:632
+msgid "You do not have the permission required to edit posts in this forum"
+msgstr "Nemate dozvolu da ažurirate postove u ovom forumu"
+
+#: cross-posting.php:684
+msgid "No tags defined."
+msgstr "Nisu definisane etikete."
+
+#: cross-posting.php:687
+msgid "Tags: "
+msgstr "Etikete: "
+
+#: cross-posting.php:688
+msgid "Posted under: "
+msgstr "Postovano pod: "
+
+#: cross-posting.php:691
+#, php-format
+msgid ""
+"This is a %1$sblog post%2$s. To read the original post, please %3$sclick "
+"here &raquo;%4$s"
+msgstr ""
+"Ovo je %1$sblog post%2$s. Za pregled originalnog posta %3$skliknuti ovde "
+"&raquo;%4$s"
+
+#: cross-posting.php:744
+msgid ""
+"Could not access the WP-United database fields. Please ensure WP-United is "
+"installed correctly. "
+msgstr ""
+"Nije moguće pristupiti WP-United poljima u bazi podataka. Proveriti da li je "
+"WP-United pravilno instaliran. "
+
+#: cross-posting.php:822
+msgid "You do not have permission to respond to this announcement"
+msgstr "Nemate dozvolu da odgovorite na ovu najavu"
+
+#: cross-posting.php:827
+msgid "You do not have permission to comment in this forum"
+msgstr "Nemate dozvolu da komentarišete na ovom forumu"
+
+#: cross-posting.php:834
+msgid "Error: Please type a comment!"
+msgstr "Greška: unesite komentar."
+
+#: cross-posting.php:840
+msgid ""
+"<strong>ERROR</strong>: please fill in the required fields (name, email)."
+msgstr ""
+"<strong>GREŠKA</strong>: potrebno je popuniti zahtevana polja (ime, email)."
+
+#: cross-posting.php:842
+msgid "<strong>ERROR</strong>: please enter a valid email address."
+msgstr "<strong>GREŠKA</strong>: potrebno je uneti ispravnu email adresu."
+
+#: languages/phpbb_language_stubs.php:23
+msgid "WordPress Blog"
+msgstr "WordPress blog"
+
+#: languages/phpbb_language_stubs.php:24
+msgid "Visit User's Blog"
+msgstr "Posetiti korisnički blog"
+
+#: languages/phpbb_language_stubs.php:25
+msgid ""
+"ERROR: Duplicated function name detected. Please visit www.wp-united.com to "
+"report the error."
+msgstr ""
+"GREŠKA: detektovana je greška duplog imena funkcije. Posetiti www.wp-united."
+"com za prijavu greške."
+
+#: languages/phpbb_language_stubs.php:26
+#, php-format
+msgid "Integration by %sWP-United%s"
+msgstr "Integracija sa %sWP-United%s"
+
+#: languages/phpbb_language_stubs.php:29
+msgid ""
+"Can integrate as a WordPress subscriber (can view profile, write comments)"
+msgstr ""
+"Moguća integracija kao WordPress pretplatnik (može da gleda profil, može da "
+"piše komentare)"
+
+#: languages/phpbb_language_stubs.php:30
+msgid ""
+"Can integrate as a WordPress contributor (can write but not publish posts)"
+msgstr ""
+"Moguća integracija kao WordPress saradnik (može da piše postove, ali ne i da "
+"ih objavi)"
+
+#: languages/phpbb_language_stubs.php:31
+msgid "Can integrate as a WordPress author (can write blog posts)"
+msgstr "Moguća integracija kao WordPress autor(može da piše blog postove)"
+
+#: languages/phpbb_language_stubs.php:32
+msgid "Can integrate as a WordPress editor (can edit others' posts)"
+msgstr ""
+"Moguća integracija kao WordPress urednik (može da ažurira postove drugih)"
+
+#: languages/phpbb_language_stubs.php:33
+msgid "Can integrate as a WordPress administrator"
+msgstr "Moguća integracija kao WordPress administrator"
+
+#: languages/phpbb_language_stubs.php:34
+msgid "Can post blog posts to this forum"
+msgstr "Može da postuje blog postove na ovom forumu"
+
+#: languages/phpbb_language_stubs.php:35
+msgid "Can reply to blog posts cross-posted to this forum from WordPress"
+msgstr "Može da odgovara na unakrsne postove na forumu iz WordPress"
+
+#: extras/quickpoll/widget.php:30
+msgid ""
+"Displays a selected poll from your forum. Users must have the relevant "
+"permissions to view and/or vote on the poll."
+msgstr ""
+"Prikazuje odabranu anketu iz foruma. Korisnici moraju da imaju odgovarajuću "
+"dozvolu da pregledaju i/ili glasaju na anketi."
+
+#: extras/quickpoll/widget.php:31
+msgid "WP-United Forum Quick Poll"
+msgstr "WP-United forum kratka anketa"
+
+#: extras/quickpoll/widget.php:62
+msgid "You do not have permission to view this poll"
+msgstr "Nemate dozvolu da vidite ovu anketu"
+
+#: extras/quickpoll/widget.php:69
+msgid "Loading."
+msgstr "Učitavanje."
+
+#: extras/quickpoll/widget.php:102
+msgid "Quick Poll"
+msgstr "Kratka anketa"
+
+#: extras/quickpoll/widget.php:129
+msgid "Select a poll: "
+msgstr "Selektovati anketu: "
+
+#: extras/quickpoll/widget.php:131
+msgid "No poll selected"
+msgstr "Nije selektovana anketa"
+
+#: extras/quickpoll/widget.php:135
+#, php-format
+msgid "'%1$s', in topic: '%2$s'"
+msgstr "'%1$s', u temi: '%2$s'"
+
+#: extras/quickpoll/widget.php:142
+msgid "Hide widget if the user has no permissions to view this poll?"
+msgstr "Sakriti dodatak ako korisnik nema dozvolu da vidi ovu anketu?"
+
+#: extras/quickpoll/widget.php:143
+msgid "Show a link to the poll topic?"
+msgstr "Prikazati link ka temi ankete?"
+
+#: extras/quickpoll/widget.php:146
+msgid "Use template: "
+msgstr "Koristiti šablon: "
+
+#: extras/quickpoll/widget.php:148
+msgid "Make best guess for user"
+msgstr "Napraviti najbolji izbor za korisnika"
+
+#: extras/quickpoll/widget.php:149
+msgid "Force prosilver"
+msgstr "Forsirati prosilver"
+
+#: extras/quickpoll/widget.php:150
+msgid "Force subsilver2"
+msgstr "Forsirati subsilver2"
+
+#: extras/quickpoll/main.php:375
+msgid "View poll in forum"
+msgstr "Pregledati anketu na forumu"

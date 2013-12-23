@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml-stylesheet type="text/xsl" href="../../modx.prosilver.en.xsl"?>
+<!--For security purposes, please check: http
+://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd">
+  <header>
+    <license>WP-United is licensed under the http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2. However, the text of this translation is licensed under the BSD license.</license>
+    <title lang="en-gb">WP-UNITED [French User-Facing Translation]</title>
+    <description lang="en-gb">Tightly integrates phpBB3 and WordPress.</description>
+    <author-notes lang="en-gb">THIS TRANSLATION HAS BEEN KINDLY PROVIDED BY VALBUENA72
+    
+    Make sure you follow the instructions in the main install.xml file!
+	
+	The WordPress portion of WP-United will display in French automatically.
+</author-notes>
+    <author-group>
+      <author>
+        <realname>John Wells</realname>
+        <email>admin@wp-united.com</email>
+        <username>Jhong</username>
+        <homepage>www.wp-united.com</homepage>
+        <contributions />
+      </author>
+    </author-group>
+    <mod-version>0.9.2.0</mod-version>
+    <installation>
+      <level>easy</level>
+      <time>60</time>
+      <target-version>3.0.11</target-version>
+    </installation>
+  <link-group>
+			<link type="parent" href="../../install.xml" lang="en">Main install file</link>
+  </link-group>  
+  </header>
+ 
+  
+  <action-group>
+    <copy>
+      <file from="/root/language/fr/mods/wp-united.php" to="/language/fr/mods/wp-united.php" />
+      <file from="/root/language/fr/mods/permissions_wp-united.php" to="/language/fr/mods/permissions_wp-united.php" />
+    </copy>
+  </action-group>
+</mod>

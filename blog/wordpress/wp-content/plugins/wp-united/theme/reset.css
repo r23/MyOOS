@@ -1,0 +1,82 @@
+#wpucssmagic, #wpucssmagic * { font-family: inherit; letter-spacing: normal; height: auto; text-decoration: none; padding: 0; margin: 0;  float: none; clear: none; position: static; line-height: inherit; text-shadow: none; box-shadow: none; max-width: none; max-height: none;}
+#wpucssmagic, #wpucssmagic * :not(#wpucssmagic #colour_palette table tr) { background: none repeat scroll 0 0 transparent;}
+#wpucssmagic {font-size: large;  height: auto; color: #000; text-align: left; font-size-adjust: none;letter-spacing: normal; padding: 0; margin: 0; vertical-align: baseline;background: inherit; font-style: normal;text-align: left;}
+.wpucssmagic {text-align: inherit;}
+.wpucssmagic * {color: inherit; font-size: inherit; font-weight: inherit;}
+.wpucssmagic * {height: auto; }
+.wpucssmagic p, .wpucssmagic dl, .wpucssmagic dt, #wpucssmagic a  { font-weight: inherit;}
+.wpucssmagic b, .wpucssmagic h1, .wpucssmagic h2, .wpucssmagic h3, .wpucssmagic strong, #wpucssmagic strong a, #wpucssmagic strong p {font-weight: bold;}
+#wpucssmagic u, #wpucssmagic a {text-decoration: underline;}
+#wpucssmagic  { line-height: normal;}
+#wpucssmagic ol, #wpucssmagic ul {height: auto; list-style: none; display: list-item;list-style-position: outside;}
+#wpucssmagic blockquote, q {quotes: none;}
+#wpucssmagic blockquote:before, #wpucssmagic blockquote:after, #wpucssmagic q:before, #wpucssmagic q:after {content: '';content: none;}
+#wpucssmagic :focus {outline: 0;}
+#wpucssmagic ins {text-decoration: none;}
+#wpucssmagic del {text-decoration: line-through;}
+#wpucssmagic table {border-collapse: collapse;border-spacing: 0;}
+
+#wpucssmagic address,
+#wpucssmagic blockquote,
+#wpucssmagic body, #wpucssmagic dd, #wpucssmagic div,
+#wpucssmagic dl, #wpucssmagic dt, #wpucssmagic fieldset, #wpucssmagic form,
+#wpucssmagic h1, #wpucssmagic h2, #wpucssmagic h3, #wpucssmagic h4,
+#wpucssmagic h5, #wpucssmagic h6, 
+#wpucssmagic ol, #wpucssmagic p, #wpucssmagic ul, #wpucssmagic center,
+#wpucssmagic dir, #wpucssmagic menu, #wpucssmagic pre   { display: block; border: 0;}
+#wpucssmafic hr {display: block;}
+#wpucssmagic li              { display: list-item; }
+#wpucssmagic table           { display: table; border-width: 0; }
+#wpucssmagic table *	{ border-width: 0;}
+#wpucssmagic tr              { display: table-row }
+#wpucssmagic thead           { display: table-header-group }
+#wpucssmagic tbody           { display: table-row-group }
+#wpucssmagic tfoot           { display: table-footer-group }
+#wpucssmagic col             { display: table-column }
+#wpucssmagic colgroup        { display: table-column-group }
+#wpucssmagic td, #wpucssmagic th          { display: table-cell }
+#wpucssmagic caption         { display: table-caption }
+#wpucssmagic th              { font-weight: bolder; text-align: center }
+#wpucssmagic caption         { text-align: center }
+#wpucssmagic h1              { font-size: 2em; margin: .67em 0 }
+#wpucssmagic h2              { font-size: 1.5em; margin: .75em 0 }
+#wpucssmagic h3              { font-size: 1.17em; margin: .83em 0 }
+#wpucssmagic h4, #wpucssmagic p,
+#wpucssmagic blockquote, #wpucssmagic ul,
+#wpucssmagic fieldset, #wpucssmagic form,
+#wpucssmagic ol, #wpucssmagic dl, #wpucssmagic dir,
+#wpucssmagic menu            { margin: 1.12em 0 }
+#wpucssmagic h5              { font-size: .83em; margin: 1.5em 0 }
+#wpucssmagic h6              { font-size: .75em; margin: 1.67em 0 }
+#wpucssmagic h1, #wpucssmagic h2, #wpucssmagic h3, #wpucssmagic h4,
+#wpucssmagic h5, #wpucssmagic h6, #wpucssmagic b,
+#wpucssmagic strong          { font-weight: bolder }
+#wpucssmagic blockquote      { margin-left: 40px; margin-right: 40px }
+#wpucssmagic i, #wpucssmagic cite, #wpucssmagic em,
+#wpucssmagic var, #wpucssmagic address    { font-style: italic }
+#wpucssmagic pre, #wpucssmagic tt, #wpucssmagic code,
+#wpucssmagic kbd, #wpucssmagic samp       { font-family: monospace }
+#wpucssmagic pre             { white-space: pre }
+#wpucssmagic button, #wpucssmagic textarea,
+#wpucssmagic input, #wpucssmagic select, #wpucssmagic label   { display: inline-block; width: auto; }
+#wpucssmagic big             { font-size: 1.17em }
+#wpucssmagic small, #wpucssmagic sub, #wpucssmagic sup { font-size: .83em }
+#wpucssmagic sub             { vertical-align: sub }
+#wpucssmagic sup             { vertical-align: super }
+#wpucssmagic table           { border-spacing: 2px; }
+#wpucssmagic thead, #wpucssmagic tbody,
+#wpucssmagic tfoot           { vertical-align: middle }
+#wpucssmagic td, #wpucssmagic th, #wpucssmagic tr      { vertical-align: inherit }
+#wpucssmagic s, #wpucssmagic strike, #wpucssmagic del  { text-decoration: line-through }
+#wpucssmagic hr              { border: 1px inset }
+#wpucssmagic ol, #wpucssmagic ul, #wpucssmagic dir,
+#wpucssmagic menu, #wpucssmagic dd        { margin-left: 40px }
+#wpucssmagic ol              { list-style-type: decimal }
+#wpucssmagic ol #wpucssmagic ul, #wpucssmagic ul #wpucssmagic ol,
+#wpucssmagic ul #wpucssmagic ul, #wpucssmagic ol #wpucssmagic ol    { margin-top: 0; margin-bottom: 0 }
+#wpucssmagic u, #wpucssmagic ins          { text-decoration: underline }
+#wpucssmagic center          { text-align: center }
+#wpucssmagic :link, #wpucssmagic :visited { text-decoration: underline }
+#wpucssmagic :focus          { outline: thin dotted invert }
+
+* html #wpucssmagic .wpucssmagic ul.navlinks li a {font-weight: inherit;}

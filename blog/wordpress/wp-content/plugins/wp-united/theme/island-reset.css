@@ -1,0 +1,89 @@
+.textwidget.wpuisle, .textwidget.wpuisle * {font-family: inherit; letter-spacing: normal; height: auto; text-decoration: none; padding: 0; margin: 0;  float: none; clear: none; position: static; line-height: inherit; text-shadow: none; background: none repeat scroll 0 0 transparent;box-shadow: none; max-width: none; max-height: none;}
+.textwidget.wpuisle {font-size: large;  height: auto; color: #000; text-align: left; font-size-adjust: none;letter-spacing: normal; padding: 0; margin: 0; vertical-align: baseline;background: inherit; font-style: normal;text-align: left;}
+.wpuisle2 {text-align: inherit;}
+.wpuisle2 * {color: inherit; font-size: inherit; font-weight: inherit;}
+.wpuisle2 * {height: auto; }
+.wpuisle2 p, .wpuisle2 dl, .wpuisle2 dt, .textwidget.wpuisle a  { font-weight: inherit;}
+.wpuisle2 b, .wpuisle2 h1, .wpuisle2 h2, .wpuisle2 h3, .wpuisle2 strong, .textwidget.wpuisle strong a, .textwidget.wpuisle strong p {font-weight: bold;}
+.textwidget.wpuisle u, .textwidget.wpuisle a {text-decoration: underline;}
+.textwidget.wpuisle  { line-height: normal;}
+.textwidget.wpuisle ol, .textwidget.wpuisle ul {height: auto; list-style: none; display: list-item;list-style-position: outside;}
+.textwidget.wpuisle blockquote, q {quotes: none;}
+.textwidget.wpuisle blockquote:before, .textwidget.wpuisle blockquote:after, .textwidget.wpuisle q:before, .textwidget.wpuisle q:after {content: '';content: none;}
+.textwidget.wpuisle :focus {outline: 0;}
+.textwidget.wpuisle ins {text-decoration: none;}
+.textwidget.wpuisle del {text-decoration: line-through;}
+.textwidget.wpuisle table {border-collapse: collapse;border-spacing: 0;}
+
+.textwidget.wpuisle address,
+.textwidget.wpuisle blockquote,
+.textwidget.wpuisle body, .textwidget.wpuisle dd, .textwidget.wpuisle div,
+.textwidget.wpuisle dl, .textwidget.wpuisle dt, .textwidget.wpuisle fieldset, .textwidget.wpuisle form,
+.textwidget.wpuisle h1, .textwidget.wpuisle h2, .textwidget.wpuisle h3, .textwidget.wpuisle h4,
+.textwidget.wpuisle h5, .textwidget.wpuisle h6, 
+.textwidget.wpuisle ol, .textwidget.wpuisle p, .textwidget.wpuisle ul, .textwidget.wpuisle center,
+.textwidget.wpuisle dir, .textwidget.wpuisle menu, .textwidget.wpuisle pre   { display: block; border: 0;}
+#wpucssmafic hr {display: block;}
+.textwidget.wpuisle li              { display: list-item; }
+.textwidget.wpuisle table           { display: table; border-width: 0; }
+.textwidget.wpuisle table *	{ border-width: 0;}
+.textwidget.wpuisle tr              { display: table-row }
+.textwidget.wpuisle thead           { display: table-header-group }
+.textwidget.wpuisle tbody           { display: table-row-group }
+.textwidget.wpuisle tfoot           { display: table-footer-group }
+.textwidget.wpuisle col             { display: table-column }
+.textwidget.wpuisle colgroup        { display: table-column-group }
+.textwidget.wpuisle td, .textwidget.wpuisle th          { display: table-cell }
+.textwidget.wpuisle caption         { display: table-caption }
+.textwidget.wpuisle th              { font-weight: bolder; text-align: center }
+.textwidget.wpuisle caption         { text-align: center }
+.textwidget.wpuisle h1              { font-size: 2em; margin: .67em 0 }
+.textwidget.wpuisle h2              { font-size: 1.5em; margin: .75em 0 }
+.textwidget.wpuisle h3              { font-size: 1.17em; margin: .83em 0 }
+.textwidget.wpuisle h4, .textwidget.wpuisle p,
+.textwidget.wpuisle blockquote, .textwidget.wpuisle ul,
+.textwidget.wpuisle fieldset, .textwidget.wpuisle form,
+.textwidget.wpuisle ol, .textwidget.wpuisle dl, .textwidget.wpuisle dir,
+.textwidget.wpuisle menu            { margin: 1.12em 0 }
+.textwidget.wpuisle h5              { font-size: .83em; margin: 1.5em 0 }
+.textwidget.wpuisle h6              { font-size: .75em; margin: 1.67em 0 }
+.textwidget.wpuisle h1, .textwidget.wpuisle h2, .textwidget.wpuisle h3, .textwidget.wpuisle h4,
+.textwidget.wpuisle h5, .textwidget.wpuisle h6, .textwidget.wpuisle b,
+.textwidget.wpuisle strong          { font-weight: bolder }
+.textwidget.wpuisle blockquote      { margin-left: 40px; margin-right: 40px }
+.textwidget.wpuisle i, .textwidget.wpuisle cite, .textwidget.wpuisle em,
+.textwidget.wpuisle var, .textwidget.wpuisle address    { font-style: italic }
+.textwidget.wpuisle pre, .textwidget.wpuisle tt, .textwidget.wpuisle code,
+.textwidget.wpuisle kbd, .textwidget.wpuisle samp       { font-family: monospace }
+.textwidget.wpuisle pre             { white-space: pre }
+.textwidget.wpuisle button, .textwidget.wpuisle textarea,
+.textwidget.wpuisle input, .textwidget.wpuisle select, #wpucssmagic label    { display: inline-block; width: auto;}
+.textwidget.wpuisle big             { font-size: 1.17em }
+.textwidget.wpuisle small, .textwidget.wpuisle sub, .textwidget.wpuisle sup { font-size: .83em }
+.textwidget.wpuisle sub             { vertical-align: sub }
+.textwidget.wpuisle sup             { vertical-align: super }
+.textwidget.wpuisle table           { border-spacing: 2px; }
+.textwidget.wpuisle thead, .textwidget.wpuisle tbody,
+.textwidget.wpuisle tfoot           { vertical-align: middle }
+.textwidget.wpuisle td, .textwidget.wpuisle th, .textwidget.wpuisle tr      { vertical-align: inherit }
+.textwidget.wpuisle s, .textwidget.wpuisle strike, .textwidget.wpuisle del  { text-decoration: line-through }
+.textwidget.wpuisle hr              { border: 1px inset }
+.textwidget.wpuisle ol, .textwidget.wpuisle ul, .textwidget.wpuisle dir,
+.textwidget.wpuisle menu, .textwidget.wpuisle dd        { margin-left: 40px }
+.textwidget.wpuisle ol              { list-style-type: decimal }
+.textwidget.wpuisle ol .textwidget.wpuisle ul, .textwidget.wpuisle ul .textwidget.wpuisle ol,
+.textwidget.wpuisle ul .textwidget.wpuisle ul, .textwidget.wpuisle ol .textwidget.wpuisle ol    { margin-top: 0; margin-bottom: 0 }
+.textwidget.wpuisle u, .textwidget.wpuisle ins          { text-decoration: underline }
+.textwidget.wpuisle center          { text-align: center }
+.textwidget.wpuisle :link, .textwidget.wpuisle :visited { text-decoration: underline }
+.textwidget.wpuisle :focus          { outline: thin dotted invert }
+
+* html .textwidget.wpuisle .wpuisle2 ul.navlinks li a {font-weight: inherit;}
+
+.textwidget.wpuisle .wpuisle2 p.author {margin: 0;}
+.textwidget.wpuisle .wpuisle2 fieldset.polls dd {width: auto;}
+.textwidget.wpuisle .wpuisle2 li.icon-home {font-weight: bold !important;}
+.textwidget.wpuisle .wpuisle2  .navbar li a {display: inline; text-decoration: none !important;}
+.textwidget.wpuisle .wpuisle2  .navbar a, .wpuisle .wpuisle2 .navbar a:link  {margin: 0; padding: 0;text-decoration: none;}
+.textwidget.wpuisle .wpuisle2 a.print, .textwidget.wpuisle .wpuisle2 a.sendemail, .textwidget.wpuisle .wpuisle2 a.fontsize {display: block !important; text-indent: -5000px !important; overflow: hidden !important;}
+.textwidget.wpuisle .wpuisle2 tr td img {height: 12px !important; margin: 0 !important; border-left: 0 !important; border-right: 0 !important; padding: 0 !important;}

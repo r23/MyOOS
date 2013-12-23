@@ -1,0 +1,1824 @@
+# Chinese (Simplified) translation for wp-united
+# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# This file is distributed under the same license as the wp-united package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: wp-united\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-01-22 11:38+0800\n"
+"PO-Revision-Date: 2013-01-22 23:52+0800\n"
+"Last-Translator: John Wells <solutions@wp-united.com>\n"
+"Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-01-22 15:41+0000\n"
+"X-Generator: Launchpad (build 16430)\n"
+
+#: base-classes.php:433
+#: settings-panel.php:365
+#, php-format
+msgid "%1$sClick here%2$s to download the modification package. "
+msgstr "%1$s点击这里%2$s下载更新包. "
+
+#: base-classes.php:434
+#: settings-panel.php:365
+#, php-format
+msgid "You can apply it using %1$sAutoMod%2$s (recommended), or manually by reading the install.xml file and following %3$sthese instructions%4$s. When done, click &quot;Connect&quot; to try again."
+msgstr "您可以应用%1$s自动模式%2$s(推荐),或手动打开install.xml文件，并根据%3$s指南%4$s操作.完成后,点击&quot;连接&quot;来重试."
+
+#: base-classes.php:435
+#, php-format
+msgid "Find the %1$s file inside the %2$s folder and open it in your browser. Then follow the instructions to upgrade. Don't forget to copy over the new files to your phpBB forum."
+msgstr "在文件夹%2$s中寻找文件%1$s并在浏览器中打开.并根据指示来升级. 将新文件拷贝到您的phpBB论坛."
+
+#: base-classes.php:436
+msgid "You can just copy over the files from the /root folder to your phpBB forum."
+msgstr "您仅需要将文件从根文件夹中拷贝到phpBB论坛"
+
+#: base-classes.php:438
+#, php-format
+msgid "You are running WP-United version %1$s, but the WP-United phpBB MOD version you have installed is version %2$s."
+msgstr "您正在运行WP-United 版本%1$s，但您先行安装的WP-United phpBB MOD的版本为%2$s."
+
+#: base-classes.php:446
+msgid "The location to phpBB is not set."
+msgstr "phpBB的位置未设置."
+
+#: base-classes.php:455
+#: settings-panel.php:365
+msgid "You need to install the WP-United phpBB MOD."
+msgstr "您需要安装WP-United phpBB MOD"
+
+#: base-classes.php:864
+msgid "WP-United is already disabled"
+msgstr "WP-United未使用"
+
+#: base-classes.php:873
+msgid "WP-United could not find phpBB at the selected path. WP-United is not connected."
+msgstr "WP-United无法在现有通道与phpBB匹配.WP-United已断开."
+
+#: base-classes.php:876
+msgid "WP-United could not successfully run phpBB at the selected path. WP-United is halted."
+msgstr "WP-United无法在所选通道成功运行phpBB. WP-United已停止."
+
+#: base-classes.php:880
+msgid "WP-United could not successfully run phpBB without errors. WP-United has been disconnected."
+msgstr "WP-United运行phpBB出错. WP-United已断开."
+
+#: base-classes.php:887
+msgid "WP-United Disabled Successfully"
+msgstr "WP-United成功禁用"
+
+#: base-classes.php:890
+msgid "WP-United Disabled"
+msgstr "WP-United被禁用"
+
+#: cross-posting.php:86
+msgid "View in forum"
+msgstr "来论坛中查看"
+
+#: cross-posting.php:93
+msgid "Edit forum post"
+msgstr "编辑论坛帖子"
+
+#: cross-posting.php:99
+msgid "Approve"
+msgstr "已审核"
+
+#: cross-posting.php:105
+msgid "Delete forum post"
+msgstr "删除论坛帖子"
+
+#: cross-posting.php:220
+msgid "Show only cross-posted"
+msgstr "仅显示交叉发出的帖子"
+
+#: cross-posting.php:221
+msgid "Show only not cross-posted"
+msgstr "仅显示未交叉发帖的"
+
+#: cross-posting.php:303
+msgid "Forum Posting"
+msgstr "论坛发贴"
+
+#: cross-posting.php:314
+#: cross-posting.php:333
+msgid "Cross-post to Forums?"
+msgstr "同时发贴至论坛？"
+
+#: cross-posting.php:330
+#, php-format
+msgid "Already cross-posted (Topic ID = %s)"
+msgstr "已转贴（Topic ID=%s)"
+
+#: cross-posting.php:359
+#: cross-posting.php:388
+msgid "Post Excerpt"
+msgstr "贴摘要"
+
+#: cross-posting.php:360
+#: cross-posting.php:389
+msgid "Post Full Post"
+msgstr "转发全贴内容"
+
+#: cross-posting.php:373
+#, php-format
+msgid "This post is already cross-posted. It will be edited in forum '%s'"
+msgstr "此贴已全贴发布.可于论坛上编辑'%s'"
+
+#: cross-posting.php:373
+#, php-format
+msgid "This post will be cross-posted to the forum: '%s'"
+msgstr "此贴将会被转贴至论坛：'%s'"
+
+#: cross-posting.php:621
+msgid "You do not have permission required to edit global announcements"
+msgstr "无权限修改全球通知"
+
+#: cross-posting.php:625
+msgid "You do not have the permission required to edit this announcement"
+msgstr "无权限修改此通知"
+
+#: cross-posting.php:628
+msgid "You do not have the permission required to edit stickies"
+msgstr "无权限修改置顶贴"
+
+#: cross-posting.php:632
+msgid "You do not have the permission required to edit posts in this forum"
+msgstr "无权限在此论坛修改发贴"
+
+#: cross-posting.php:684
+msgid "No tags defined."
+msgstr "无法定义标签"
+
+#: cross-posting.php:687
+msgid "Tags: "
+msgstr "标签： "
+
+#: cross-posting.php:688
+msgid "Posted under: "
+msgstr "发贴于： "
+
+#: cross-posting.php:691
+#, php-format
+msgid "This is a %1$sblog post%2$s. To read the original post, please %3$sclick here &raquo;%4$s"
+msgstr "此为%1$s博客发贴%2$s. 阅读原始贴,请点击 %3$s请按此处 &raquo;%4$s"
+
+#: cross-posting.php:744
+msgid "Could not access the WP-United database fields. Please ensure WP-United is installed correctly. "
+msgstr "无法链接至 WP-United数据库字段.请确认WP-United安装正确. "
+
+#: cross-posting.php:822
+msgid "You do not have permission to respond to this announcement"
+msgstr "您无权限回复此通知"
+
+#: cross-posting.php:827
+msgid "You do not have permission to comment in this forum"
+msgstr "您无权限在此论坛发表评论"
+
+#: cross-posting.php:834
+msgid "Error: Please type a comment!"
+msgstr "错误: 请输入评论！"
+
+#: cross-posting.php:840
+msgid "<strong>ERROR</strong>: please fill in the required fields (name, email)."
+msgstr "<strong>错误</strong>: 请填入正确的信息(姓名, 邮件)."
+
+#: cross-posting.php:842
+msgid "<strong>ERROR</strong>: please enter a valid email address."
+msgstr "<strong>错误</strong>: 请键入有效的邮件地址."
+
+#: mapped-users.php:100
+msgid "Break Integration"
+msgstr "打破集成"
+
+#: mapped-users.php:112
+#: mapped-users.php:140
+#: settings-panel.php:758
+#: settings-panel.php:872
+msgid "phpBB"
+msgstr "phpBB"
+
+#: mapped-users.php:112
+#: mapped-users.php:140
+#: settings-panel.php:757
+#: settings-panel.php:872
+msgid "WordPress"
+msgstr "WordPress"
+
+#: mapped-users.php:115
+#, php-format
+msgid "Create user in %s"
+msgstr "在 %s建立用户"
+
+#: mapped-users.php:128
+msgid "Delete user from both phpBB and WordPress"
+msgstr "从phpBB和WordPress删除用户"
+
+#: mapped-users.php:142
+#, php-format
+msgid "Delete user from %s"
+msgstr "从%s删除用户"
+
+#: mapped-users.php:155
+msgid "Synchronize profiles between phpBB and WordPress"
+msgstr "在phpBB和WordPress同步用户资料"
+
+#: mapped-users.php:212
+msgid "Display name:"
+msgstr "显示名："
+
+#: mapped-users.php:213
+#: mapped-users.php:357
+msgid "E-mail:"
+msgstr "电子邮件："
+
+#: mapped-users.php:214
+msgid "Website:"
+msgstr "网站："
+
+#: mapped-users.php:217
+#: mapped-users.php:359
+msgid "Posts:"
+msgstr "文章数："
+
+#: mapped-users.php:218
+msgid "Comments:"
+msgstr "评论："
+
+#: mapped-users.php:219
+#: mapped-users.php:360
+msgid "Registered:"
+msgstr "注册："
+
+#: mapped-users.php:249
+#: user-mapper.php:336
+#: user-mapper.php:343
+msgid "n/a"
+msgstr "不可用"
+
+#: mapped-users.php:251
+msgid "Roles:"
+msgstr "角色："
+
+#: mapped-users.php:251
+msgid "Role:"
+msgstr "作用："
+
+#: mapped-users.php:260
+#: mapped-users.php:430
+msgid "Edit user"
+msgstr "编辑用户"
+
+#: mapped-users.php:276
+#: mapped-users.php:473
+msgid "No suggested matches found."
+msgstr "无法找到匹配项"
+
+#: mapped-users.php:305
+#: mapped-users.php:521
+#: user-mapper.php:417
+msgid "Available"
+msgstr "可用"
+
+#: mapped-users.php:305
+#: mapped-users.php:521
+msgid "Cannot integrate (already integrated)"
+msgstr "无法整合"
+
+#: mapped-users.php:307
+#: mapped-users.php:523
+#: settings-panel.php:909
+msgid "Integrate"
+msgstr "整合"
+
+#: mapped-users.php:356
+msgid "Default group:"
+msgstr "默认组："
+
+#: mapped-users.php:358
+msgid "Rank:"
+msgstr "等级："
+
+#: mapped-users.php:361
+msgid "Last visited:"
+msgstr "上次访问："
+
+#: phpbb.php:154
+msgid "The WP-United phpBB hook file, hook_wp-united.php, was not loaded. Either it is missing, or you need to clear the phpBB cache. <br /><br />Attempted to automatically clear the phpBB cache. Try <a href=\"#\" onclick=\"document.location.reload(); return false;\">refreshing the page</a> to see if it worked. <br /><br />If this error persists, check that includes/hooks/hook_wp-united.php exists, and try manually purging your phpBB cache."
+msgstr "WP-United和phpBB挂钩文件, hook_wp-united.php, 无法载入. 文件丢失,或您需要清理phpBB缓存. <br /><br />试图自动清理phpBB缓存.尝试 <a href=\"#\" onclick=\"document.location.reload(); return false;\">刷新页面</a> 查看是否正常工作. <br /><br />如此错误依然存在, 查看是否 includes/hooks/hook_wp-united.php,比尝试手动清楚您的phpBB缓存."
+
+#: phpbb.php:527
+#: phpbb.php:621
+#: phpbb.php:678
+#: extras/quickpoll/main.php:63
+#: extras/quickpoll/main.php:153
+msgid "Could not access the database."
+msgstr "无法进入数据库"
+
+#: phpbb.php:964
+#: plugin-main.php:714
+msgid "More smilies"
+msgstr "更多笑脸符号"
+
+#: phpbb.php:1109
+msgid "Receiving settings from WP-United..."
+msgstr "从 WP-United获取设置"
+
+#: phpbb.php:1122
+msgid "Modified USERS Table (Integration ID)"
+msgstr "修改后的用户列表(整合ID)"
+
+#: phpbb.php:1129
+msgid "Modified USERS Table (Blog ID)"
+msgstr "修改后的用户列表(博客ID)"
+
+#: phpbb.php:1152
+msgid "Modified TOPICS and POSTS Tables (Cross-Posting ability)"
+msgstr "修改的主题和帖子表格 （交叉发帖）"
+
+#: phpbb.php:1158
+msgid "Adding WP-United Permissions"
+msgstr "增加WP-United权限"
+
+#: phpbb.php:1170
+msgid "Storing the new WP-United settings"
+msgstr "储存新WP-United设置"
+
+#: phpbb.php:1198
+msgid "Updating avatar settings"
+msgstr "更新头像设置"
+
+#: phpbb.php:1211
+msgid "Purging the WP-United cache"
+msgstr "清除WP-United 缓存"
+
+#: phpbb.php:1216
+msgid "Completed successfully"
+msgstr "成功完成"
+
+#: phpbb.php:1247
+msgid "Changed WP-United Settings (click for details)"
+msgstr "改变WP-United 的设置(点击获知细节）"
+
+#: plugin-main.php:374
+#: settings-panel.php:134
+msgid "Setup / Status"
+msgstr "设置/状态"
+
+#: plugin-main.php:466
+msgid "phpBB integration by <a href=\"http://www.wp-united.com/\">WP-United</a>."
+msgstr "phpBB 与<a href=\"http://www.wp-united.com/\">WP-United</a>整合."
+
+#: plugin-main.php:527
+msgid "Error accessing the phpBB database when updating Blog ID"
+msgstr "更新博客帐号时错误访问phpBB数据库"
+
+#: plugin-main.php:614
+msgid "Avatar image"
+msgstr "头像图片"
+
+#: plugin-main.php:715
+msgid "Less smilies"
+msgstr "少笑脸"
+
+#: plugin-main.php:716
+#, php-format
+msgid "Your smiley could not be inserted. You can add it manually by typing this code: %s"
+msgstr "您的笑脸无法被插入.您可以手动打入次代码: %s"
+
+#: plugin-main.php:843
+msgid "Error:"
+msgstr "错误："
+
+#: plugin-main.php:845
+msgid "Please go back and try again, or contact an administrator if you keep seeing this error."
+msgstr "请退回后重新尝试，如问题仍存在，请联系管理员"
+
+#: plugin-main.php:971
+msgid "Visit wp-united.com"
+msgstr "访问wp-united.com"
+
+#: plugin-main.php:977
+#: plugin-main.php:981
+#: settings-panel.php:133
+msgid "WP-United"
+msgstr "WP-United"
+
+#: plugin-main.php:994
+#: plugin-main.php:998
+msgid "Visit Forum"
+msgstr "访问论坛"
+
+#: plugin-main.php:1008
+#: plugin-main.php:1012
+#: settings-panel.php:145
+msgid "Visit phpBB ACP"
+msgstr "访问phpBB ACP"
+
+#: plugin-main.php:1028
+msgid "Search Site"
+msgstr "搜索网站"
+
+#: plugin-main.php:1033
+msgid "Search Forum"
+msgstr "搜索论坛"
+
+#: settings-panel.php:134
+msgid "WP-United Setup"
+msgstr "WP-United创建"
+
+#: settings-panel.php:139
+#: settings-panel.php:1147
+msgid "WP-United Settings"
+msgstr "WP-United设置"
+
+#: settings-panel.php:139
+msgid "Settings"
+msgstr "设置"
+
+#: settings-panel.php:142
+msgid "WP-United User Mapping"
+msgstr "WP-United 用户映射"
+
+#: settings-panel.php:142
+#: settings-panel.php:493
+msgid "User Mapping"
+msgstr "用户映射"
+
+#: settings-panel.php:144
+#: settings-panel.php:186
+msgid "WP-United Advanced Options"
+msgstr "WP-United 高级选项"
+
+#: settings-panel.php:144
+msgid "Advanced Options"
+msgstr "高级选项"
+
+#: settings-panel.php:148
+msgid "Get Help"
+msgstr "获得帮助"
+
+#: settings-panel.php:148
+msgid "Get help"
+msgstr "获得帮助"
+
+#: settings-panel.php:149
+msgid "Please Help Support WP-United!"
+msgstr "请支持WP-United!"
+
+#: settings-panel.php:149
+msgid "Support WP-United"
+msgstr "支持WP-United"
+
+#: settings-panel.php:187
+#, php-format
+msgid "Some additional options can be set in the included file, %s. These do not normally need to be changed. However, to review and change these options, please open the file in a text editor."
+msgstr "可于所附文件中设置更多选项，%s. 这些通常无需改变但可通过文本编辑器打开文件后查看并修改这些选项"
+
+#: settings-panel.php:207
+msgid "Get help or support"
+msgstr "获取帮助"
+
+#: settings-panel.php:208
+msgid "Community support &amp; bug reporting"
+msgstr "社区支持&amp; 错误报告"
+
+#: settings-panel.php:209
+msgid "Free community support is available from the WP-United forum. Please search there for any other users who may be experiencing the same problem, and discuss any issues with fellow users."
+msgstr "WP-United 论坛上提供免费的社区支持.您可搜索是否有其他用户遇到同样问题，并共同讨论如何解决."
+
+#: settings-panel.php:210
+msgid "Please copy and paste the following information into a new topic post when you are seeking support. This will help us understand your setup at a glance. It is sanitized to protect your private server information and contains BBCode formatting."
+msgstr "如需帮助，请复制黏贴一下信息到新发贴的主题.这些能帮助我们建立浏览。这些有BBCode模式，不会干扰您的私人服务器信息"
+
+#: settings-panel.php:214
+msgid "Hide sensitive information"
+msgstr "隐蔽敏感信息"
+
+#: settings-panel.php:214
+msgid "Show sensitive information"
+msgstr "显示敏感信息"
+
+#: settings-panel.php:230
+msgid "Please Help Support WP-United"
+msgstr "请帮助支持WP-United"
+
+#: settings-panel.php:231
+msgid "WP-United is free software, and we hope you find it useful. If you do, please support us by making a donation here! Any amount, however small, is much appreciated. Thank you!"
+msgstr "WP-United是免费软件，我们希望您觉得它有用.如它帮助到您，请支持我们予以捐款!任何微小的数额都是对我们的支持和肯定. 谢谢！"
+
+#: settings-panel.php:232
+msgid "The PayPal link will take you to a donation page for our PayPal business account, 'Pet Pirates'"
+msgstr "PayPal的链接会连至我们的PayPal账户"
+
+#: settings-panel.php:242
+msgid "Other ways to support the WP-United project"
+msgstr "其他方式支持WP-United"
+
+#: settings-panel.php:243
+msgid "If you cannot donate, please consider helping support the WP-United project in another way. For example, you could help:"
+msgstr "如果您无法捐款，请考虑以其他方式帮助WP-United，例如："
+
+#: settings-panel.php:245
+msgid "Contributing to the WP-United documentation"
+msgstr "帮助WP-United 的文件建立"
+
+#: settings-panel.php:246
+msgid "Providing a translation"
+msgstr "提供翻译"
+
+#: settings-panel.php:247
+msgid "Recommending WP-United or our paid installation services"
+msgstr "推荐使用WP-United 或我们其他的付费服务"
+
+#: settings-panel.php:248
+msgid "Writing a review"
+msgstr "发布评论"
+
+#: settings-panel.php:249
+msgid "Linking back to www.wp-united.com, or posting about WP-United on your blog."
+msgstr "在您的博客中链接www.wp-united.com"
+
+#: settings-panel.php:252
+#, php-format
+msgid "For more information, please visit the %1$sWP-United forums%2$s."
+msgstr "欲知更多详情，请访问%1$sWP-United forums%2$s"
+
+#: settings-panel.php:281
+msgid "Performing final processing... Please wait..."
+msgstr "最后进程中...请等待..."
+
+#: settings-panel.php:292
+msgid "Please stay on this page for a few more moments until processing is complete. Stay on this page?"
+msgstr "运行中，请在此页面等待.是否停留在此页面"
+
+#: settings-panel.php:317
+msgid "WP-United Setup / Status"
+msgstr "WP-United 建立/状态"
+
+#: settings-panel.php:318
+msgid "WP-United needs to connect to phpBB in order to work. On this screen you can set up or disable the connection."
+msgstr "WP-United需要与phpBB建立链接来运行.在此窗口下，您可以创建或终止连接"
+
+#: settings-panel.php:320
+msgid "Communicating with phpBB..."
+msgstr "与phpBB对话中..."
+
+#: settings-panel.php:320
+msgid "Please Wait..."
+msgstr "请稍候..."
+
+#: settings-panel.php:339
+#: settings-panel.php:346
+#: settings-panel.php:1263
+msgid "Disabled"
+msgstr "禁用"
+
+#: settings-panel.php:348
+msgid "WP-United is disabled. Select your forum location below and then click &quot;Connect&quot;"
+msgstr "WP-United被禁用.请于下方选择您论坛的所在区域并按&quot;连接&quot;"
+
+#: settings-panel.php:348
+#: settings-panel.php:371
+msgid "You can't change any other settings until WP-United is connected."
+msgstr "直至WP-United连接成功，您无法更改任何设置"
+
+#: settings-panel.php:355
+msgid "OK"
+msgstr "确定"
+
+#: settings-panel.php:357
+msgid "WP-United is connected and working."
+msgstr "WP-United 已连接并开始运行"
+
+#: settings-panel.php:357
+msgid "If you ever need to uninstall WP-United, disable it here first before disabling the plugin, so that it can be removed from phpBB."
+msgstr "如您需要卸载WP-United，禁用插件前，请先在此禁用，之后可从phpBB中移除"
+
+#: settings-panel.php:361
+msgid "Connected, but not ready or disabled due to errors"
+msgstr "已连接，但由于出错被禁用"
+
+#: settings-panel.php:365
+msgid "WP-United is connected but your phpBB forum is either producing errors, or is not set up properly."
+msgstr "WP-United已连接但您的phpBB论坛出现错误，或为正确设置"
+
+#: settings-panel.php:365
+msgid "You can't change any other settings until the problem is fixed."
+msgstr "您无法更改其他设置直至问题解决"
+
+#: settings-panel.php:369
+msgid "Not Connected"
+msgstr "未连接"
+
+#: settings-panel.php:371
+msgid "WP-United is not connected yet. Select your forum location below and then click &quot;Connect&quot;"
+msgstr "WP-United未连接.选择您的论坛地址并点击&quot;连接&quot;"
+
+#: settings-panel.php:379
+#, php-format
+msgid "Current Status: %s"
+msgstr "目前状态: %s"
+
+#: settings-panel.php:381
+msgid "Disable"
+msgstr "禁用"
+
+#: settings-panel.php:385
+msgid "The server returned the following information:"
+msgstr "服务器回复一下信息:"
+
+#: settings-panel.php:394
+msgid "phpBB Location"
+msgstr "phpBB位置"
+
+#: settings-panel.php:398
+msgid "WP-United needs to know where phpBB is installed on your server."
+msgstr "WP-United需要获知您phpBB在您服务器上的安装地址"
+
+#: settings-panel.php:398
+msgid "Find and select your phpBB's config.php below."
+msgstr "寻找并选择您phpBB的config.php."
+
+#: settings-panel.php:398
+msgid "Click &quot;Change Location&quot; to change the stored location."
+msgstr "点击&quot;更改地址quot;来改变存储位置."
+
+#: settings-panel.php:416
+#: settings-panel.php:440
+msgid "I want to type the path manually"
+msgstr "我想自动键入路径"
+
+#: settings-panel.php:418
+#: settings-panel.php:1200
+msgid "Path selected: "
+msgstr "路径选择: "
+
+#: settings-panel.php:418
+#: settings-panel.php:1200
+msgid "Not selected"
+msgstr "未选择"
+
+#: settings-panel.php:418
+#: settings-panel.php:1200
+msgid "Change Location &raquo;"
+msgstr "改变位置&raquo;"
+
+#: settings-panel.php:418
+msgid "Cancel Change"
+msgstr "取消改变"
+
+#: settings-panel.php:422
+msgid "Connect"
+msgstr "连接"
+
+#: settings-panel.php:436
+#: settings-panel.php:1444
+msgid "Blank page received: check your error log."
+msgstr "收到空白页:查询您的错误日志."
+
+#: settings-panel.php:438
+#: settings-panel.php:719
+msgid "Loading..."
+msgstr "正在载入..."
+
+#: settings-panel.php:439
+#: settings-panel.php:776
+msgid "Connecting..."
+msgstr "连接中..."
+
+#: settings-panel.php:441
+msgid "Show me the file chooser"
+msgstr "显示文件选择"
+
+#: settings-panel.php:464
+msgid "WARNING: Another plugin is overriding WordPress login. WP-United user integration is unavailable."
+msgstr "警告：另一插件覆盖WordPress的登录.WP-United用户整合无法使用"
+
+#: settings-panel.php:467
+msgid "WARNING: phpBB Debug is set. To prevent notices from showing due to switching between phpBB and WordPress, delete or comment out the two DEBUG lines from your phpBB's config.php. If this is a live site, debug MUST be disabled."
+msgstr "警告：phpBB调试也设置.避免phpBB和WordPress切换时的提示，请从您phpBB's config.php删除或注释掉两个调试行.如果是现行网站，务必关闭调试."
+
+#: settings-panel.php:471
+msgid "WARNING: phpBB and WordPress cookie domains do not match! For user integration to work properly, please edit the cookie domain in phpBB or set the WordPress COOKIE_DOMAIN so that both phpBB &amp; WordPress can set cookies for each other."
+msgstr "警告:phpBB和WordPress的代码域不匹配！为用户集成的正常工作，请于phpBB编辑代码域或设置WordPress COOKIE_DOMAIN以至phpBB &amp; WordPress可相互设置代码"
+
+#: settings-panel.php:482
+msgid "WP-United User Integration Mapping"
+msgstr "WP-United 用户整合映射"
+
+#: settings-panel.php:483
+msgid "Integrated users have an account both in WordPress and phpBB. The user mapper tool allows you to manually control which accounts are mapped together."
+msgstr "整合后的用户在WordPress和phpBB同时拥有账号.用户映射工具允许您手动控制哪些账户需要相互映射"
+
+#: settings-panel.php:486
+msgid "In addition, you need to tell WP-United how to allocate WordPress roles to users when WordPress accounts are automatically given to them."
+msgstr "此外，当WordPress的账户自动给出时，您需要通知WP-United如何分配WordPress用户权限"
+
+#: settings-panel.php:487
+msgid "Select a tab below to get started."
+msgstr "选择以下选项卡开始"
+
+#: settings-panel.php:494
+msgid "New User Permissions"
+msgstr "新用户权限"
+
+#: settings-panel.php:500
+msgid "Unintegrated phpBB users are automatically given accounts if they have WP-United permissions. These can be set in the phpBB Administration Control Panel, but this tool makes them easier to set and visualise."
+msgstr "为被整合的phpBB用户如有WP-United的权限可以自动寄予账户.此可以在phpBB的管理员控制面板中设置，但此工具使设置更可视化并更简易"
+
+#: settings-panel.php:501
+msgid "phpBB groups are linked to WordPress roles by dragging connections. Blue connections grant permissions. However, since phpBB users can belong to more than one group, you may want to apply &quot;Never&quot; connections. These red connections take priority over blue connections and mean that this mapping can NEVER occur."
+msgstr "phpBB的群组可以通过视图话建立线性关系来连接至WordPress的权限.蓝色连接表示权限获准.然而，phpBB的用户可能归属多组，您可能需要应用&quot;从不&quot;连接.红色连接的优先权高于蓝色连接，同时表示映射从未发生."
+
+#: settings-panel.php:502
+msgid "This gives you complete control over who does what in WordPress. For some example permissions recipes, visit wp-united.com "
+msgstr "让您全权掌控WordPress中个人的权限和职责.某些权限接受的例子，可以访问wp-united.com "
+
+#: settings-panel.php:503
+msgid "Remember that these mappings only affect users who don't have WordPress accounts yet. You should map existing accounts together using the User Mapping tool."
+msgstr "此映射仅反应出未拥有WordPress的用户.您需要对现有账号同时使用用户映射工具"
+
+#: settings-panel.php:506
+msgid " Connect a phpBB group on the left to an appropriate WordPress role by dragging the blue dots. Connect the red squares if you want to ensure a mapping <em>never</em> happens.When happy, click &quot;Apply&quot;"
+msgstr " 将左侧phpBB的群组拉一根蓝色的电线来连接至合适的WordPress职能.连接红色方块，如果您需要确保一个映射 <em>从未</em> 发生.确认后, 点击&quot;应用&quot;"
+
+#: settings-panel.php:511
+#: settings-panel.php:540
+#: settings-panel.php:577
+msgid "Built-In"
+msgstr "嵌入"
+
+#: settings-panel.php:511
+#: settings-panel.php:540
+#: settings-panel.php:547
+msgid "User-Defined"
+msgstr "用户定义"
+
+#: settings-panel.php:559
+msgid "phpBB Group"
+msgstr "phpBB群组"
+
+#: settings-panel.php:560
+msgid "WordPress Role"
+msgstr "WordPress职能"
+
+#: settings-panel.php:588
+msgid "No. of members: "
+msgstr "成员数量： "
+
+#: settings-panel.php:589
+msgid "Group type: "
+msgstr "群组类型： "
+
+#: settings-panel.php:625
+msgid "Default new user group for new phpBB users"
+msgstr "对新phpBB用户默认加入新用户群"
+
+#: settings-panel.php:627
+msgid "Apply"
+msgstr "应用"
+
+#: settings-panel.php:628
+msgid "Reset"
+msgstr "重置"
+
+#: settings-panel.php:675
+msgid "All your WordPress or phpBB users are shown on the left below, together with their integration status. On the right, you can see their corresponding integrated user, or &ndash; if they are not integrated &ndash; some suggestions for users they could integrate to."
+msgstr "所有您WordPress或phpBB的用户已经整合的状态显示在左侧.右侧显示相应已被整合的用户；如果他们未被整合&ndash；对于一起可被集成用户的建议"
+
+#: settings-panel.php:676
+msgid "Choose the actions you wish to take, and then click &quot;Process Actions&quot; in the pop-up panel to apply them.."
+msgstr "选择您要的步骤，并点击&quot;步骤&quot;于跳出的对话框中应用他们"
+
+#: settings-panel.php:680
+msgid "Show on left: "
+msgstr "左侧显示： "
+
+#: settings-panel.php:682
+msgid "WordPress users"
+msgstr "WordPress用户"
+
+#: settings-panel.php:683
+msgid "phpBB users"
+msgstr "phpBB用户"
+
+#: settings-panel.php:685
+msgid "Number to show: "
+msgstr "显示数目: "
+
+#: settings-panel.php:697
+msgid "Show: "
+msgstr "显示: "
+
+#: settings-panel.php:699
+msgid "All"
+msgstr "所有"
+
+#: settings-panel.php:700
+msgid "All Integrated"
+msgstr "所有被整合"
+
+#: settings-panel.php:701
+msgid "All Unintegrated"
+msgstr "所有未被整合"
+
+#: settings-panel.php:702
+msgid "All With Posts"
+msgstr "所有发帖者"
+
+#: settings-panel.php:703
+msgid "All Without Posts"
+msgstr "所有未发帖者"
+
+#: settings-panel.php:706
+msgid "or search for user: "
+msgstr "搜索用户： "
+
+#: settings-panel.php:724
+msgid "Actions to process"
+msgstr "需运行操作"
+
+#: settings-panel.php:729
+msgid "Process actions"
+msgstr "运行操作"
+
+#: settings-panel.php:730
+msgid "Clear all"
+msgstr "全部清除"
+
+#: settings-panel.php:759
+msgid "Editing user. When you are finished, close this screen."
+msgstr "编辑用户.完成后，关闭屏幕"
+
+#: settings-panel.php:760
+msgid "Viewing user profile. When you are finished, close this screen."
+msgstr "查看用户资料.完成后，关闭屏幕"
+
+#: settings-panel.php:761
+msgid "Break integration"
+msgstr "破坏整合"
+
+#: settings-panel.php:762
+#: settings-panel.php:764
+#, php-format
+msgid "between %1$s and %2$s"
+msgstr "在%1$s和 %2$s之间"
+
+#: settings-panel.php:763
+msgid "Synchronize profiles"
+msgstr "同步资料"
+
+#: settings-panel.php:765
+#: settings-panel.php:767
+msgid "Delete "
+msgstr "删除 "
+
+#: settings-panel.php:766
+#, php-format
+msgid "%1$s from %2$s and %3$s from %4$s"
+msgstr "%1$s 从 %2$s 以及 %3$s 从 %4$s"
+
+#: settings-panel.php:768
+#, php-format
+msgid "%1$s from %2$s"
+msgstr "%1$s 从 %2$s"
+
+#: settings-panel.php:769
+msgid "Create "
+msgstr "创建 "
+
+#: settings-panel.php:770
+#, php-format
+msgid "integrated counterpart for %1$s in %2$s"
+msgstr "在 %2$s创建 %1$s的对应项"
+
+#: settings-panel.php:771
+msgid "Integrate "
+msgstr "整合 "
+
+#: settings-panel.php:772
+#, php-format
+msgid "%1$s user %2$s to %3$s user %4$s"
+msgstr "%1$s 用户 %2$s 至 %3$s 用户 %4$s"
+
+#: settings-panel.php:774
+msgid "Processing permission mappings..."
+msgstr "运行权限映射"
+
+#: settings-panel.php:775
+#: settings-panel.php:1149
+#: extras/quickpoll/widget.php:69
+msgid "Please wait..."
+msgstr "请稍候..."
+
+#: settings-panel.php:777
+msgid "Clearing changes"
+msgstr "清除改变"
+
+#: settings-panel.php:779
+msgid "phpBB Administration Panel. After saving your settings, close this window to return to WP-United."
+msgstr "phpBB管理员面板. 保存设置后,关闭此窗口并返回WP-United"
+
+#: settings-panel.php:873
+#, php-format
+msgid "%s users"
+msgstr "%s 多用户"
+
+#: settings-panel.php:873
+#, php-format
+msgid "%s user"
+msgstr "%s 用户"
+
+#: settings-panel.php:875
+#, php-format
+msgid "Showing %1$d to %2$d of %3$d %4$s."
+msgstr "将%1$d 显示至%3$d %4$s 的 %2$d"
+
+#: settings-panel.php:883
+msgid "There are no users to show that match your criteria"
+msgstr "无用户符合您的要求"
+
+#: settings-panel.php:896
+#: settings-panel.php:914
+msgid "Status: "
+msgstr "状态 "
+
+#: settings-panel.php:896
+msgid "Not Integrated"
+msgstr "未整合"
+
+#: settings-panel.php:904
+msgid "Integrate to a suggested match"
+msgstr "整合至建议匹配"
+
+#: settings-panel.php:908
+msgid "Or, type a name"
+msgstr "或，键入一名字"
+
+#: settings-panel.php:914
+msgid "Integrated"
+msgstr "整合"
+
+#: settings-panel.php:938
+msgid "Bulk actions"
+msgstr "批量操作"
+
+#: settings-panel.php:940
+msgid "Delete all unintegrated"
+msgstr "删除所有未整合"
+
+#: settings-panel.php:943
+msgid "Break all integrated"
+msgstr "打破所有整合"
+
+#: settings-panel.php:944
+msgid "Sync all integrated profiles"
+msgstr "同步所有整合资料"
+
+#: settings-panel.php:947
+msgid "Create users for all unintegrated"
+msgstr "为所有未整合者创建新用户"
+
+#: settings-panel.php:949
+msgid "Add"
+msgstr "添加"
+
+#: settings-panel.php:1052
+msgid "Could not add user to phpBB"
+msgstr "无法添加用户至phpBB"
+
+#: settings-panel.php:1054
+msgid "A suitable username could not be found in phpBB"
+msgstr "无法phpBB寻找到合适的用户名"
+
+#: settings-panel.php:1066
+msgid "Cannot create integrated user, as they would have no integration permissions."
+msgstr "由于无集成权限，无法创建集成用户"
+
+#: settings-panel.php:1082
+msgid "Could not add user to WordPress"
+msgstr "无法添加用户至WordPress"
+
+#: settings-panel.php:1149
+msgid "Sending settings to phpBB..."
+msgstr "将设置发送至phpBB..."
+
+#: settings-panel.php:1156
+msgid "Settings applied successfully."
+msgstr "设置成功应用"
+
+#: settings-panel.php:1161
+msgid "An error occurred. The error details are below. Please check your settings or try disabling plugins."
+msgstr "出错.错误信息如下.请检查设置或尝试禁用插件"
+
+#: settings-panel.php:1180
+msgid "WP-United is modular; You can enable or disable any of the four major features below: User Integration, Theme Integration, Behaviour Integration and User Blogs."
+msgstr "WP-United已模块化;您可以使用或禁用四个主要功能的任一个：用户集成，主题集成，行为集成和用户博客."
+
+#: settings-panel.php:1181
+msgid "Visit each of the tabs to select the settings, then hit Submit when done."
+msgstr "访问任一标签来选择设置，结束后点击提交"
+
+#: settings-panel.php:1187
+msgid "Basic Settings"
+msgstr "基本设置"
+
+#: settings-panel.php:1189
+msgid "User Integration"
+msgstr "用户集成"
+
+#: settings-panel.php:1191
+msgid "Theme Integration"
+msgstr "主题集成"
+
+#: settings-panel.php:1192
+msgid "Behaviour Integration"
+msgstr "行为集成"
+
+#: settings-panel.php:1197
+msgid "Path to phpBB3"
+msgstr "phpBB3的路径"
+
+#: settings-panel.php:1198
+msgid "WP-United needs to know where phpBB is installed on your server. You can change the location on the &quot;Setup / Status&quot; page."
+msgstr "WP-United 需要获知phpBB 在您服务器上安装位置. 您可以在&quot;Setup / Status&quot; 页面上改变存储位置"
+
+#: settings-panel.php:1202
+msgid "Forum Page"
+msgstr "论坛页面"
+
+#: settings-panel.php:1203
+msgid "Create a WordPress forum page? If you enable this option, WP-United will create a blank page in your WordPress installation, so that 'Forum' links appear in your blog. These links will automatically direct to your forum."
+msgstr "创建一个WordPress 论坛页面?如果您需要使用此选项，WP-United 会在您WordPress安装时创建一个空白页面，所以论坛的链接会出现在您博客中.这些链接会自己链接到您的论坛"
+
+#: settings-panel.php:1204
+msgid "Enable Forum Page"
+msgstr "启用论坛页"
+
+#: settings-panel.php:1209
+msgid "Integrate logins?"
+msgstr "集成登陆？"
+
+#: settings-panel.php:1210
+msgid "This will enable some or all of your users to have a seamless session across both phpBB and WordPress. If they are logged in to one, they will be logged in to the other. Accounts will be created in the respective part of the site as needed. Note that you will need to set permissions in the User Mapper section that will appear once this option is enabled. Otherwise, by default, only the phpBB founder user is integrated."
+msgstr "这能是您的用户在phpBB和WordPress顺畅操作.如果他们在其中一处登陆，就自动在另外一处登陆.账户会在相应的地方创建.您需要在用户集成板块设置权限来使用此功能.否则默认仅phpBB用户会被集成"
+
+#: settings-panel.php:1213
+msgid "Enable Login Integration?"
+msgstr "使用登陆集成？"
+
+#: settings-panel.php:1217
+msgid "Auto-create WordPress accounts when needed?"
+msgstr "需要时自动创建WordPress账户？"
+
+#: settings-panel.php:1218
+msgid "Create WordPress accounts for unintegrated phpBB users with appropriate permissions when they visit or register?"
+msgstr "当未集成的phpBB用户访问或注册WordPress时为他们创建WordPress账户？"
+
+#: settings-panel.php:1219
+msgid "Auto-create WordPress accounts?"
+msgstr "自动创建WordPress帐户?"
+
+#: settings-panel.php:1221
+msgid "Auto-create phpBB accounts when needed?"
+msgstr "需要时自动创建phpBB账户？"
+
+#: settings-panel.php:1222
+msgid "Create phpBB accounts for unintegrated WordPress users when they visit or register?"
+msgstr "当未集成的WordPress用户访问或注册phpBB时为他们创建phpBB账户？"
+
+#: settings-panel.php:1223
+msgid "Auto-create phpBB accounts?"
+msgstr "自动创建phpBB账户？"
+
+#: settings-panel.php:1225
+#: settings-panel.php:1228
+msgid "Sync avatars?"
+msgstr "同步头像？"
+
+#: settings-panel.php:1226
+msgid "Avatars will be synced between phpBB &amp; WordPress. If a user has an avatar in phpBB, it will show in WordPress. If they have a Gravatar, it will show in phpBB."
+msgstr "头像会在phpBB &amp; WordPress之间同步.如果一个用户在phpBB中有头像，会在WordPress中显示。反之亦然"
+
+#: settings-panel.php:1227
+msgid "Enabling this option requires that the &quot;Allow avatars&quot; and &quot;Remote avatar linking&quot; options is enabled in phpBB, so WP-United will automatically enable those options for you if they are disabled."
+msgstr "启用此选项需要quot;允许头像&quot;以及&quot;远程头像链接&quot;选项在phpBB中应用，如此选项未启用WP-United会自动为您启用"
+
+#: settings-panel.php:1232
+msgid "Enable cross-posting?"
+msgstr "启用交叉发帖？"
+
+#: settings-panel.php:1233
+msgid "If you enable this option, users will be able to elect to have their blog entry copied to a forum when writing a blog post. To set which forums the user can cross-post to, visit the phpBB forum permissions panel, and enable the &quot;can cross-post&quot; permission for the users/groups/forums combinations you need."
+msgstr "如果您启用此选项，当用户发布博客时可以选择自动发帖到论坛.可在phpBB论坛权限设置里，设置交叉发帖至哪个论坛，同时需要启用&quot;可以交叉发帖&quot;权限设置您可以根据需要进行用户、群组、论坛的组合."
+
+#: settings-panel.php:1234
+msgid "Enable Cross-Posting?"
+msgstr "启用交叉发帖"
+
+#: settings-panel.php:1238
+msgid "Type of cross-posting?"
+msgstr "键入交叉发帖？"
+
+#: settings-panel.php:1239
+msgid "Choose how the post should appear in phpBB. WP-United can post an excerpt, the full post, or give you an option to select when posting each post."
+msgstr "选择在phpBB中的显示方式.WP-United可以发布摘要、全贴或者每次发帖时进行选择"
+
+#: settings-panel.php:1240
+msgid "Excerpt"
+msgstr "摘要"
+
+#: settings-panel.php:1241
+msgid "Full Post"
+msgstr "全贴"
+
+#: settings-panel.php:1242
+msgid "Ask Me"
+msgstr "在此询问"
+
+#: settings-panel.php:1244
+msgid "phpBB manages comments on crossed posts?"
+msgstr "phpBB 对交叉发帖的评论进行管理?"
+
+#: settings-panel.php:1245
+msgid "Choose this option to have WordPress comments replaced by forum replies for cross-posted blog posts. In addition, comments posted by integrated users via the WordPress comment form will be cross-posted as replies to the forum topic."
+msgstr "选择此选项，使WordPress的评论被来自论坛中交叉发帖的回复替代.此外，集成用户在WordPress上的回复会自动贴到论坛上"
+
+#: settings-panel.php:1246
+msgid "Note that for users to be able to comment from WordPress, you need to assign them the &quot;Can reply to blog posts&quot; permission in phpBB."
+msgstr "WordPress的可以评论的用户，您需要在phpBB将他们权限设为&quot;可以对博客进行评论&quot;"
+
+#: settings-panel.php:1247
+msgid "phpBB manages comments"
+msgstr "phpBB 管理评论"
+
+#: settings-panel.php:1251
+msgid "Use WordPress spam filters for guest comments?"
+msgstr "是否使用WordPress的垃圾过滤器来筛选访客的评论"
+
+#: settings-panel.php:1252
+msgid "To prevent forum spam from comments posted by guests, turn this option on. Comments will then be passed through WordPress spam filters (e.g. Akismet) before being sent to the forum. This only applies to posts made by guests."
+msgstr "要避免访客的垃圾评论，请选择此选项。评论在论坛显示前将通过WordPress的垃圾过虑器（例如Akismet)。 次选项仅限于访客。"
+
+#: settings-panel.php:1254
+msgid "Yes, and override phpBB post approval requirements if the comment passes WordPress checks"
+msgstr "是，如果评论通过WordPress的审核，phpBB发帖认可"
+
+#: settings-panel.php:1255
+msgid "Yes, but still honour phpBB post approval requirements even if the comment passes"
+msgstr "是，但仍遵从phpBB发帖通过的要求"
+
+#: settings-panel.php:1256
+msgid "No, I will rely on phpBB settings."
+msgstr "不，我会回复phpBb的设置"
+
+#: settings-panel.php:1260
+msgid "Force all blog posts to be cross-posted?"
+msgstr "强制所有博客都交叉发帖"
+
+#: settings-panel.php:1261
+msgid "Setting this option will force all blog posts to be cross-posted to a specific forum. You can select the forum here. Note that users must have the &quot;can cross-post&quot; WP-United permission under phpBB Forum Permissions, or the cross-posting will not take place."
+msgstr "设置此选项将强制所有博客贴都发帖到论坛.您可以在此选择论坛.注意用户必须有&quot;能交叉发帖&quot的权限;WP-United在 phpBB论坛下的权限，否则交叉发帖无法进行"
+
+#: settings-panel.php:1286
+msgid "Cross-post prefix"
+msgstr "交叉发帖是显示在前面"
+
+#: settings-panel.php:1287
+msgid "This will be prepended to the post title when cross-posted. Leave it blank to disable."
+msgstr "当交叉发帖时，这个会发在前面.留白来不启用"
+
+#: settings-panel.php:1292
+#: settings-panel.php:1616
+#: settings-panel.php:1640
+msgid "[BLOG] "
+msgstr "[博客] "
+
+#: settings-panel.php:1295
+msgid "Cross-post prefix: "
+msgstr "交叉发帖于前面 "
+
+#: settings-panel.php:1303
+msgid "Integrate themes?"
+msgstr "集成主题?"
+
+#: settings-panel.php:1304
+msgid "WP-United can integrate your phpBB &amp; WordPress templates."
+msgstr "WP-United能集成您的phpBB &amp; WordPress 模板"
+
+#: settings-panel.php:1305
+msgid "Enable Theme Integration"
+msgstr "启用主题集成"
+
+#: settings-panel.php:1307
+msgid "Integration Mode"
+msgstr "集成模式"
+
+#: settings-panel.php:1308
+msgid "Do you want WordPress to appear inside your phpBB template, or phpBB to appear inside your WordPress template?"
+msgstr "您希望WordPress出现在您phpBB的模板里,或phpBB出现在WordPress的模板里"
+
+#: settings-panel.php:1310
+msgid "phpBB inside WordPress"
+msgstr "phpBB在WordPress中"
+
+#: settings-panel.php:1311
+msgid "WordPress inside phpBB"
+msgstr "WordPress在phpBB中"
+
+#: settings-panel.php:1314
+msgid "Automatic CSS Integration"
+msgstr "自动CSS集成"
+
+#: settings-panel.php:1316
+msgid "WP-United can automatically fix CSS conflicts between your phpBB and WordPress templates. Set the slider to \"maximum compatibility\" to fix most problems. If you prefer to fix CSS conflicts by hand, or if the automatic changes cause problems, try reducing the level."
+msgstr "WP-United能自动修复您phpBB和WordPress模板CSS冲突。选择\"最大兼容性\"来解决大多数问题.如果您倾向手动解决CSS冲突，或自动调整出错，尝试调低选择"
+
+#: settings-panel.php:1319
+#: settings-panel.php:1448
+msgid "Off"
+msgstr "关闭"
+
+#: settings-panel.php:1319
+msgid "Maximum Compatibility (Recommended)"
+msgstr "最大兼容性（推荐）"
+
+#: settings-panel.php:1321
+msgid "Current Level: "
+msgstr "现级别： "
+
+#: settings-panel.php:1324
+msgid "Show Advanced Settings &raquo;"
+msgstr "显示高级选项&raquo;"
+
+#: settings-panel.php:1324
+msgid "&laquo; Hide Advanced Settings"
+msgstr "&laquo; 隐藏高级选项"
+
+#: settings-panel.php:1327
+msgid "Advanced Settings"
+msgstr "高级选项"
+
+#: settings-panel.php:1331
+msgid "Use full page?"
+msgstr "用全页"
+
+#: settings-panel.php:1332
+msgid "Do you want phpBB to simply appear inside your WordPress header and footer, or do you want it to show up in a fully featured WordPress page? Simple header and footer will work best for most WordPress themes – it is faster and less resource-intensive, but cannot display dynamic content on the forum page. However, if you want the WordPress sidebar to show up, or use other WordPress features on the integrated page, you could try 'full page'. This option could be a little slower."
+msgstr "您是否想phpBB简单显示在您WordPress的页眉页脚，还是想显示完整的WordPress页面？简单页眉页脚的显示对大多数WordPress的主题适用-更快同时更少资源需求，但是无法选择论坛页面上的动态内容.然而您要WordPress的侧边栏显示，或在集成页面上显示WordPress的其他功能，您可以尝试\"全页面\".此选项会运行稍慢"
+
+#: settings-panel.php:1332
+#: settings-panel.php:1363
+#: settings-panel.php:1404
+msgid "What is this?"
+msgstr "这个是什么?"
+
+#: settings-panel.php:1336
+msgid "Statically Cached Simple Header &amp; Footer"
+msgstr "静态缓存简单的页眉&amp;页脚"
+
+#: settings-panel.php:1341
+msgid "Fall back to page.php"
+msgstr "使用page.php"
+
+#: settings-panel.php:1344
+msgid "Fall back to index.php"
+msgstr "使用index.php"
+
+#: settings-panel.php:1353
+msgid "Full Page: "
+msgstr "全页面: "
+
+#: settings-panel.php:1360
+msgid "Padding around phpBB"
+msgstr "填充phpBB"
+
+#: settings-panel.php:1363
+msgid "phpBB is inserted on the WordPress page inside a DIV. Here you can set the padding of that DIV. This is useful because otherwise the phpBB content may not line up properly on the page. The defaults here are good for most WordPress templates. If you would prefer set this yourself, just leave these boxes blank (not '0'), and style it in your stylesheet instead."
+msgstr "phpBB在WordPress 页面内部插入DIV.您可以设置对那个DIV的填充.这比较有用，否则phpBB的内容可能在页面无法正确显示.这在大多数的WordPress模板都能很好应用.如果您倾向自己设置，仅需留白（不是\"0\"),并自己设置风格"
+
+#: settings-panel.php:1368
+msgid "Top:"
+msgstr "顶部："
+
+#: settings-panel.php:1376
+msgid "Right:"
+msgstr "右："
+
+#: settings-panel.php:1384
+msgid "Bottom:"
+msgstr "底部："
+
+#: settings-panel.php:1392
+msgid "Left:"
+msgstr "左："
+
+#: settings-panel.php:1399
+msgid "Reset to defaults"
+msgstr "恢复默认值"
+
+#: settings-panel.php:1403
+msgid "Use WordPress' Document Type Declaration?"
+msgstr "使用WordPress的文档类型声明"
+
+#: settings-panel.php:1404
+msgid "The Document Type Declaration, or DTD, is provided at the top of all web pages to let the browser know what type of markup language is being used. phpBB3's prosilver uses an XHTML 1.0 Strict DTD by default. Most WordPress templates, however, use an XHTML 1 transitional  or HTML 5 DTD. In most cases, this doesn't matter -- however, If you want to use WordPress' DTD on pages where WordPress is inside phpBB, then you can turn this option on. This should prevent browsers from going into quirks mode, and will ensure that even more WordPress templates display as designed."
+msgstr "此文档类型声明在所有网页上都有提供，以使浏览着直到使用哪个语言。PhpBB'3默认使用XHTML 1.0 Strict DTD .大多数WordPress的模板使用XHTML 1 transitional 或 HTML 5 DTD.在大多数情况下，这没有问题.然而，如果您想在内嵌在phpBB的WordPress使用WordPress' DTD,您需要启用此选项。此会避免浏览着金融向后兼容模式，并确保更多wordpress地模板显示正常"
+
+#: settings-panel.php:1413
+msgid "Use phpBB Word Censor?"
+msgstr "使用phpBB 文字检查？"
+
+#: settings-panel.php:1414
+msgid "Turn this option on if you want WordPress posts to be passed through the phpBB word censor."
+msgstr "如您需要将WordPress的发贴送至PhpBB文字检查，启用此选项"
+
+#: settings-panel.php:1415
+msgid "Enable word censoring in WordPress"
+msgstr "在WordPress中启用文字检测"
+
+#: settings-panel.php:1417
+msgid "Use phpBB smilies?"
+msgstr "使用phpBB笑脸？"
+
+#: settings-panel.php:1418
+msgid "Turn this option on if you want to use phpBB smilies in WordPress comments and posts."
+msgstr "如您需要在WordPress的发帖和评论中使用phpBB的笑脸，请启用此选项"
+
+#: settings-panel.php:1419
+msgid "Use phpBB smilies in WordPress"
+msgstr "在WordPress中使用phpBB笑脸符号"
+
+#: settings-panel.php:1429
+msgid "Submit"
+msgstr "提交"
+
+#: settings-panel.php:1449
+msgid "All automatic CSS integration is disabled"
+msgstr "所有CSS的自动集成未启用"
+
+#: settings-panel.php:1450
+msgid "Medium"
+msgstr "中等"
+
+#: settings-panel.php:1451
+#, php-format
+msgid "%1$sStyles are reset to stop outer styles applying to the inner part of the page.%2$sInner CSS is made more specific so it does not affect the outer portion of the page.%2$sSome HTML IDs and class names may be duplicated.%3$s"
+msgstr "%1$s风格重置来阻止外部风格应用到网页内部。%2$s内部CSS更具体所以它不会影响网页外部.%2$s某些HTML账号和名字可能重叠%3$s"
+
+#: settings-panel.php:1452
+msgid "Full"
+msgstr "全部"
+
+#: settings-panel.php:1453
+#, php-format
+msgid "%1$sStyles are reset to stop outer styles applying to the inner part of the page.%2$sInner CSS is made more specific so it does not affect the outer portion of the page.%2$sHTML IDs and class names that are duplicated in the inner and outer parts of the page are fixed.%3$s"
+msgstr "%1$s风格重置来阻止外部风格应用到网页内部。%2$s内部CSS更具体所以它不会影响网页外部.%2$s某些内部和外部HTML账号和名字可能重叠已解决%3$s"
+
+#: settings-panel.php:1507
+msgid "ERROR: You must specify a valid path for phpBB's config.php"
+msgstr "出错:您必须为phpBB的config.php指定有效路径"
+
+#: settings-panel.php:1513
+msgid "ERROR:The path you selected for phpBB's config.php is not valid"
+msgstr "出错：您为phpBB的config.php指定的路径无效"
+
+#: settings-panel.php:1517
+msgid "ERROR: phpBB's config.php could not be found at the location you chose"
+msgstr "出错：phpBB的config.php无法找到您选择的位置"
+
+#: settings-panel.php:1535
+msgid "Forum"
+msgstr "论坛"
+
+#: settings-panel.php:1749
+msgid "Save"
+msgstr "保存"
+
+#: template-tags.php:300
+#, php-format
+msgid "Forum Posts: %s"
+msgstr "论坛发帖: %s"
+
+#: template-tags.php:301
+#, php-format
+msgid "Forum Threads: %s"
+msgstr "论坛主题: %s"
+
+#: template-tags.php:302
+#, php-format
+msgid "Registered Users: %s"
+msgstr "注册用户: %s"
+
+#: template-tags.php:303
+#, php-format
+msgid " Newest User: %s"
+msgstr " 新用户: %s"
+
+#: template-tags.php:326
+msgid "posts since last visit"
+msgstr "从上次访问后的发帖"
+
+#: template-tags.php:381
+#, php-format
+msgid "%1$s, posted by %2$s on %3$s"
+msgstr "%1$s, 由%2$s于%3$s发帖"
+
+#: template-tags.php:385
+#: template-tags.php:429
+msgid "Nothing found."
+msgstr "未找到"
+
+#: template-tags.php:425
+#, php-format
+msgid "%1$s, posted by %2$s in %3$s"
+msgstr "%1$s, 由%2$s在%3$s发帖"
+
+#: template-tags.php:662
+msgid "Write a Post"
+msgstr "发贴"
+
+#: template-tags.php:667
+msgid "Dashboard"
+msgstr "状态显示器"
+
+#: template-tags.php:683
+msgid "Remember me"
+msgstr "记住登陆信息"
+
+#: template-tags.php:685
+msgid "Login"
+msgstr "登录"
+
+#: template-tags.php:686
+msgid "Register"
+msgstr "注册"
+
+#: template-tags.php:687
+msgid "Forgot Password?"
+msgstr "忘记密码?"
+
+#: user-integrator.php:340
+msgid "The username contains invalid characters"
+msgstr "用户名含无效字符"
+
+#: user-integrator.php:344
+msgid "The username is already taken"
+msgstr "用户名已被注册"
+
+#: user-integrator.php:349
+msgid "The username you chose is not allowed"
+msgstr "所选用户名不允许"
+
+#: user-integrator.php:358
+msgid "The email address does not appear to exist (No MX record)"
+msgstr "此邮箱地址不存在(无MX记录)"
+
+#: user-integrator.php:362
+msgid "The e-mail address is banned"
+msgstr "邮件地址被阻止"
+
+#: user-integrator.php:366
+msgid "The e-mail address is already taken"
+msgstr "邮件地址已用"
+
+#: user-integrator.php:370
+msgid "The email address is invalid"
+msgstr "邮件地址无效"
+
+#: user-integrator.php:859
+msgid "WP-United could not update your integration ID in phpBB, due to a database access error. Please contact an administrator and inform them of this error."
+msgstr "由于数据库连接出错，WP-United无法在phpBB中跟新您的集成账号。请联系管理员并告知错误."
+
+#: user-integrator.php:867
+msgid "Could not update integration data: WP-United could not update your integration ID in phpBB, due to an unknown error. Please contact an administrator and inform them of this error."
+msgstr "无法更新集成数据：由于无知错误，WP-United无法在phpBB中跟新您的集成账号.请联系管理员并告知错误."
+
+#: user-mapper.php:417
+msgid "Already integrated"
+msgstr "已经集成"
+
+#: widgets.php:28
+msgid "Displays the logged-in user's details, such as username, avatar, and number of posts since last visit, together with varius meta links. If the user is logged out, displays a phpBB login form."
+msgstr "显示登录的用户具体信息，例如：用户名，头像，共发帖树，以及各种meta links.如果用户推出登录，显示phpBB登录界面."
+
+#: widgets.php:29
+msgid "WP-United Login / User Info Box"
+msgstr "WP-United 登录 / 用户信息框"
+
+#: widgets.php:78
+#: widgets.php:97
+msgid "You are logged in as:"
+msgstr "您已登录为："
+
+#: widgets.php:79
+#: widgets.php:98
+msgid "You are not logged in."
+msgstr "您尚未登录"
+
+#: widgets.php:99
+msgid "Show rank title &amp; image?"
+msgstr "显示 title &amp; image阶级?"
+
+#: widgets.php:100
+#: widgets.php:466
+msgid "Show new posts?"
+msgstr "显示新帖?"
+
+#: widgets.php:101
+msgid "Show write post link?"
+msgstr "显示发帖链接?"
+
+#: widgets.php:102
+#: widgets.php:469
+msgid "Show Admin link?"
+msgstr "显示管理链接?"
+
+#: widgets.php:103
+msgid "Show phpBB login form if logged out?"
+msgstr "退出登录后显示phpBB登录界面？"
+
+#: widgets.php:117
+msgid "Shows the latest topics posted in the phpBB forum."
+msgstr "显示phpBB论坛中的最新主题"
+
+#: widgets.php:118
+msgid "WP-United Latest phpBB Topics"
+msgstr "WP-United 最新phpBB主题"
+
+#: widgets.php:152
+msgid "Recent Forum Topics"
+msgstr "重置论坛主题"
+
+#: widgets.php:160
+#: widgets.php:217
+#: widgets.php:265
+#: widgets.php:330
+#: widgets.php:460
+#: widgets.php:667
+#: extras/quickpoll/widget.php:126
+msgid "Title: "
+msgstr "标题： "
+
+#: widgets.php:161
+msgid "Maximum Entries:"
+msgstr "最大键入："
+
+#: widgets.php:174
+msgid "Shows the latest posts posted in the phpBB forum."
+msgstr "显示phpBB论坛中的最新发帖"
+
+#: widgets.php:175
+msgid "WP-United Latest Forum Posts"
+msgstr "WP-United 最新论坛发帖"
+
+#: widgets.php:209
+msgid "Recent Forum Posts"
+msgstr "最近的帖子"
+
+#: widgets.php:218
+msgid "Maximum Entries: "
+msgstr "最大键入: "
+
+#: widgets.php:226
+msgid "Show key forum statistics and information."
+msgstr "显示主要论坛的数据和信息"
+
+#: widgets.php:227
+msgid "WP-United Forum Statistics"
+msgstr "WP-United论坛数据"
+
+#: widgets.php:259
+msgid "Forum Stats"
+msgstr "论坛数据"
+
+#: widgets.php:276
+msgid "Show information about users that are currently online, in the usual phpBB format."
+msgstr "在常规phpBB格式中，显示当前在线的用户信息"
+
+#: widgets.php:277
+msgid "WP-United Users Online"
+msgstr "WP-United 在线用户"
+
+#: widgets.php:316
+msgid "Users Online"
+msgstr "在线用户"
+
+#: widgets.php:331
+msgid "Show a breakdown of user types?"
+msgstr "显示用户类型的细分"
+
+#: widgets.php:332
+msgid "Show record number of users?"
+msgstr "显示用户数的记录?"
+
+#: widgets.php:333
+msgid "Show legend?"
+msgstr "显示图例?"
+
+#: widgets.php:350
+msgid "Useful Forum Links"
+msgstr "论坛链接"
+
+#: widgets.php:363
+msgid "Useful customizable links to forum features"
+msgstr "论坛功能的有用链接"
+
+#: widgets.php:364
+msgid "WP-United Useful Forum Links"
+msgstr "WP-United 有用的论坛链接"
+
+#: widgets.php:461
+msgid "Show forum index link?"
+msgstr "显示论坛指数链接?"
+
+#: widgets.php:462
+msgid "Show search link?"
+msgstr "显示搜索链接?"
+
+#: widgets.php:463
+msgid "Show unanswered posts link?"
+msgstr "显示未回复发帖链接?"
+
+#: widgets.php:464
+msgid "Show active topics link?"
+msgstr "显示热贴链接?"
+
+#: widgets.php:465
+msgid "Show my posts link?"
+msgstr "显示我的论坛链接？"
+
+#: widgets.php:467
+msgid "Show User Control Panel link?"
+msgstr "显示用户控制面板链接？"
+
+#: widgets.php:468
+msgid "Show PMs?"
+msgstr "显示PMs?"
+
+#: widgets.php:480
+msgid "Shows the top phpBB prosilver forum navigation / breadcrumb bar. If you have template integration turned on, this will only appear on non-forum pages. Your forum must be using a prosilver-based theme for this to work."
+msgstr "显示phpBB顶部的导航条. 如果您启用了模板集成，这会出现在非论坛的页面. 您的论坛必须使用基于prosilver的主题来使此运行"
+
+#: widgets.php:481
+msgid "WP-United Forum Navigation Bar"
+msgstr "WP-United论坛导航栏"
+
+#: widgets.php:539
+#: widgets.php:603
+msgid "Show forum index as home breadcrumb?"
+msgstr "现实论坛分类作为链接导览？"
+
+#: widgets.php:540
+msgid "Show member list?"
+msgstr "显示用户列表?"
+
+#: widgets.php:541
+msgid "Show register link?"
+msgstr "显示注册链接？"
+
+#: widgets.php:542
+#: widgets.php:604
+#: extras/quickpoll/widget.php:154
+msgid "Don't add CSS, I will style this myself"
+msgstr "无需添加CSS,我会自己调整"
+
+#: widgets.php:554
+msgid "Shows the bottom phpBB prosilver forum footer bar. If you have template integration turned on, this will only appear on non-forum pages. Your forum must be using a prosilver-based theme for this to work."
+msgstr "显示phpBB论坛的prosilver页脚导航栏。如果您的模板整合被启用，此仅会出现在非论坛的页面。您的论坛必须使用基于prosilver的模板来启用"
+
+#: widgets.php:555
+msgid "WP-United Forum Navigation Footer Bar"
+msgstr "WP-United 页脚论坛导航栏"
+
+#: widgets.php:614
+msgid "Shows a list of users whose birthday it is today. Note that users must be logged in to phpBB and birthday entry must be activated on your forum for this to work."
+msgstr "显示今天生日的用户列表。注意用户必须登录到phpBB同时生日键入必须在论坛上被启用"
+
+#: widgets.php:615
+msgid "WP-United User Birthdays"
+msgstr "WP-United用户生日"
+
+#: widgets.php:633
+msgid "No users have birthdays today"
+msgstr "无用户今天生日"
+
+#: widgets.php:658
+msgid "Happy Birthday To: "
+msgstr "生日快乐: "
+
+#: widgets.php:668
+msgid "Hide widget if there is nothing to show?"
+msgstr "如果无内容显示隐藏小工具？"
+
+#: extras/quickpoll/main.php:375
+msgid "View poll in forum"
+msgstr "在论坛中查看投票"
+
+#: extras/quickpoll/widget.php:30
+msgid "Displays a selected poll from your forum. Users must have the relevant permissions to view and/or vote on the poll."
+msgstr "显示您论坛上的投票.用户必须有相应的查看或投票的权限"
+
+#: extras/quickpoll/widget.php:31
+msgid "WP-United Forum Quick Poll"
+msgstr "WP-United 论坛快速投票"
+
+#: extras/quickpoll/widget.php:62
+msgid "You do not have permission to view this poll"
+msgstr "您无权限查看此投票"
+
+#: extras/quickpoll/widget.php:69
+msgid "Loading."
+msgstr "载入中"
+
+#: extras/quickpoll/widget.php:102
+msgid "Quick Poll"
+msgstr "快速投票"
+
+#: extras/quickpoll/widget.php:129
+msgid "Select a poll: "
+msgstr "选择一投票： "
+
+#: extras/quickpoll/widget.php:131
+msgid "No poll selected"
+msgstr "未选择投票"
+
+#: extras/quickpoll/widget.php:135
+#, php-format
+msgid "'%1$s', in topic: '%2$s'"
+msgstr "'%1$s', 在主题: '%2$s'"
+
+#: extras/quickpoll/widget.php:142
+msgid "Hide widget if the user has no permissions to view this poll?"
+msgstr "如果此用户无权限查看投票选择隐藏工具?"
+
+#: extras/quickpoll/widget.php:143
+msgid "Show a link to the poll topic?"
+msgstr "显示投票主题的链接?"
+
+#: extras/quickpoll/widget.php:146
+msgid "Use template: "
+msgstr "使用模板： "
+
+#: extras/quickpoll/widget.php:148
+msgid "Make best guess for user"
+msgstr "为用户预测最佳选择"
+
+#: extras/quickpoll/widget.php:149
+msgid "Force prosilver"
+msgstr "强制使用prosilver主题"
+
+#: extras/quickpoll/widget.php:150
+msgid "Force subsilver2"
+msgstr "强制使用subsilver2主题"
+
+#: languages/phpbb_language_stubs.php:23
+msgid "WordPress Blog"
+msgstr "WordPress博客"
+
+#: languages/phpbb_language_stubs.php:24
+msgid "Visit User's Blog"
+msgstr "访问用户博客"
+
+#: languages/phpbb_language_stubs.php:25
+msgid "ERROR: Duplicated function name detected. Please visit www.wp-united.com to report the error."
+msgstr "出错：重复的功能名.请登录www.wp-united.com报告此错误."
+
+#: languages/phpbb_language_stubs.php:26
+#, php-format
+msgid "Integration by %sWP-United%s"
+msgstr "由%sWP-United%s集成"
+
+#: languages/phpbb_language_stubs.php:29
+msgid "Can integrate as a WordPress subscriber (can view profile, write comments)"
+msgstr "可以集成为WordPress的用户（可以查看资料，编辑评论）"
+
+#: languages/phpbb_language_stubs.php:30
+msgid "Can integrate as a WordPress contributor (can write but not publish posts)"
+msgstr "可以集成为WordPress的编写者（可以编写但不可以发帖）"
+
+#: languages/phpbb_language_stubs.php:31
+msgid "Can integrate as a WordPress author (can write blog posts)"
+msgstr "可以集成为WordPress的作者（可以发帖）"
+
+#: languages/phpbb_language_stubs.php:32
+msgid "Can integrate as a WordPress editor (can edit others' posts)"
+msgstr "可以集成为WordPress的编辑(可以编辑他人的发帖)"
+
+#: languages/phpbb_language_stubs.php:33
+msgid "Can integrate as a WordPress administrator"
+msgstr "可以编辑为WordPress管理员"
+
+#: languages/phpbb_language_stubs.php:34
+msgid "Can post blog posts to this forum"
+msgstr "可以在此论坛发帖"
+
+#: languages/phpbb_language_stubs.php:35
+msgid "Can reply to blog posts cross-posted to this forum from WordPress"
+msgstr "可以回复此论坛中从WordPress交叉发帖过来的"
+

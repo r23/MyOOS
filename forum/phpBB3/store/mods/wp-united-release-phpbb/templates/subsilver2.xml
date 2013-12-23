@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.3.xsd">
+	<header>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2</license>
+	<title lang="en-gb">WP-UNITED [subSilver2 template edits]</title>
+	<description lang="en-gb">Tightly integrates phpBB3 and WordPress.</description>
+	<author-notes lang="en-gb">Make sure you follow the instructions in the DIY INSTRUCTIONS section, in order for this MOD to work properly!
+Visit http://www.wp-united.com for more help or information.
+</author-notes>
+	<author-group>
+	  <author>
+		<realname>John Wells</realname>
+		<email>admin@wp-united.com</email>
+		<username>Jhong</username>
+		<homepage>www.wp-united.com</homepage>
+		<contributions />
+	  </author>
+	</author-group>
+	<mod-version>0.9.1.0</mod-version>
+	<installation>
+	  <level>intermediate</level>
+	  <time>912</time>
+	  <target-version>3.0.6</target-version>
+	</installation>
+  <link-group>
+	<link type="parent" href="../install.xml" lang="en">Main install file</link>
+  </link-group>
+  </header>
+
+  
+  <action-group>
+	  <copy>
+	  <file from="/root/styles/subsilver2/template/blog.html" to="/styles/subsilver2/template/blog.html" />
+	</copy>
+	<open src="styles/subsilver2/template/overall_header.html">
+	  <edit>
+		<find><![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">]]></find>
+		<action type="replace-with"><![CDATA[<!-- IF WP_DTD -->{WP_DTD}<!-- ELSE --><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!-- ENDIF -->]]></action>
+	  </edit>
+	  <edit>
+		<find><![CDATA[<title>{SITENAME} &bull; <!-- IF S_IN_MCP -->{L_MCP} &bull; <!-- ELSEIF S_IN_UCP -->{L_UCP} &bull; <!-- ENDIF -->{PAGE_TITLE}</title>]]></find>
+		<action type="after-add"><![CDATA[<!-- IF PHPBB_BASE --><base href="{PHPBB_BASE}" /><!-- ENDIF -->
+]]></action>
+	  </edit>
+	  <edit>
+		<find><![CDATA[<link rel="stylesheet" href="{T_STYLESHEET_LINK}" type="text/css" />]]></find>
+		<action type="before-add"><![CDATA[<!-- IF WP_HEADERINFO_EARLY -->{WP_HEADERINFO_EARLY}<!-- ENDIF -->]]></action>
+	  </edit>
+	  <edit>
+		<find><![CDATA[</head>]]></find>
+		<action type="before-add"><![CDATA[<!-- IF WP_HEADERINFO_LATE -->{WP_HEADERINFO_LATE}<!-- ENDIF -->
+]]></action>
+	  </edit>
+	  <edit>
+		<find><![CDATA[			<td class="genmed" align="{S_CONTENT_FLOW_END}">]]></find>
+		<action type="after-add"><![CDATA[<!-- IF S_BLOG --><a href="{U_BLOG}"><img src="{T_THEME_PATH}/images/icon_mini_profile.gif" width="12" height="13" alt="{L_BLOG}" />{L_BLOG} </a>&nbsp;<!-- ENDIF -->]]></action>
+	  </edit>
+	</open>
+	<open src="styles/subsilver2/template/overall_footer.html">
+	  <edit>
+		<find><![CDATA[	<!-- IF TRANSLATION_INFO --><br />{TRANSLATION_INFO}<!-- ENDIF -->]]></find>
+		<action type="after-add"><![CDATA[	<!-- IF WP_CREDIT --><br />{WP_CREDIT}<!-- ENDIF -->	]]></action>
+	  </edit>
+	</open>
+	<open src="styles/subsilver2/template/memberlist_view.html">
+	  <edit>
+		<find><![CDATA[					<td><b class="genmed">{PROFILE_FIELD1_VALUE}</b></td>
+				</tr>
+			<!-- ENDIF -->]]></find>
+		<action type="after-add"><![CDATA[			<!-- IF U_BLOG_LINK -->
+				<tr>
+					<td class="gen" align="{S_CONTENT_FLOW_END}" nowrap="nowrap">{L_BLOG}: </td>
+					<td><b class="genmed"><a href="{U_BLOG_LINK}" title="{L_VISIT_BLOG}" >{L_VISIT_BLOG}</a></b></td>
+				</tr>		
+			<!-- ENDIF -->]]></action>
+	  </edit>
+	</open>
+	<open src="styles/subsilver2/template/viewtopic_body.html">
+	  <edit>
+		<find><![CDATA[						<br /><b>{postrow.PROFILE_FIELD1_NAME}:</b> {postrow.PROFILE_FIELD1_VALUE}
+					<!-- ENDIF -->]]></find>
+		<action type="after-add"><![CDATA[					<!-- IF postrow.U_BLOG_LINK -->
+						<br /><b>{L_BLOG}:</b> <a href="{postrow.U_BLOG_LINK}" title="{L_VISIT_BLOG}" >{L_VISIT_BLOG}</a>
+					<!-- ENDIF -->
+]]></action>
+	  </edit>
+	</open>
+	    <open src="styles/prosilver/template/editor.js">
+      <edit>
+        <find><![CDATA[				document.write('<td bgcolor="#' + color + '" style="width: ' + width + 'px; height: ' + height + 'px;">');]]></find>
+        <action type="replace-with"><![CDATA[				document.write('<td bgcolor="#' + color + '" style="width: ' + width + 'px; height: ' + height + 'px; background-color: #' + color + ;">');]]></action>
+      </edit>
+    </open>   
+
+	 <diy-instructions lang="en-gb">Remember to purge the phpBB template cache, and refresh your themes after making these changes.
+	
+Please rememer to follow the DIY instructions in the main MOD install file.</diy-instructions>
+  </action-group>
+</mod>

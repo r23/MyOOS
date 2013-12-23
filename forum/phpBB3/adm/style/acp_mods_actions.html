@@ -1,0 +1,233 @@
+<!-- IF S_DISPLAY_DETAILS -->
+
+	<!-- IF S_NEW_FILES -->
+	<fieldset>
+		<legend>{L_NEW_FILES}</legend>
+		<table cellspacing="1">
+			<col class="row1" /><col class="row1" /><col class="row2" />
+		<thead>
+			<tr>
+				<th style="width:40%">{L_SOURCE}</th>
+				<th style="width:40%">{L_TARGET}</th>
+				<th style="width:20%">{L_STATUS}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- BEGIN new_files -->
+			<tr>
+				<td>
+					<strong>{new_files.SOURCE}
+					<!-- IF new_files.S_MISSING_FILE -->&nbsp;&nbsp;&nbsp;
+					<font color="red">({L_FILE_MISSING})</font>
+					<!-- ENDIF -->
+					</strong>
+				</td>
+				<td>{new_files.TARGET}</td>
+				<td>
+					<!-- IF S_INSTALL -->
+						<!-- IF new_files.S_SUCCESS --><font color="green">{L_SUCCESS}</font>
+						<!-- ELSEIF new_files.S_NO_COPY_ATTEMPT -->{L_MANUAL_COPY}
+						<!-- ELSE --><font color="red">{L_ERROR}</font><!-- ENDIF -->
+					<!-- ENDIF -->
+				</td>
+			</tr>
+			<!-- END new_files -->
+		</tbody>
+		</table>
+	</fieldset>
+	<!-- ENDIF -->
+
+
+	<!-- IF S_REMOVING_FILES -->
+	<fieldset>
+		<legend>{L_REMOVING_FILES}</legend>
+		<table cellspacing="1">
+			<col class="row1" /><col class="row2" />
+		<thead>
+			<tr>
+				<th style="width:70%">{L_SOURCE}</th>
+				<th style="width:30%">{L_STATUS}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- BEGIN removing_files -->
+			<tr>
+				<td>
+					<strong>{removing_files.FILENAME}
+					<!-- IF removing_files.S_MISSING_FILE -->&nbsp;&nbsp;&nbsp;
+					<font color="red">({L_FILE_MISSING})</font>&nbsp;
+					<!-- ENDIF -->
+					</strong>
+				</td>
+				<td>
+					<!-- IF S_UNINSTALL -->
+						<!-- IF removing_files.S_SUCCESS --><font color="green">{L_SUCCESS}</font>
+						<!-- ELSEIF removing_files.S_NO_DELETE_ATTEMPT -->{L_NO_ATTEMPT}
+						<!-- ELSE --><font color="red">{L_ERROR}</font><!-- ENDIF -->
+					<!-- ENDIF -->
+				</td>
+			</tr>
+			<!-- END removing_files -->
+		</tbody>
+		</table>
+	</fieldset>
+	<!-- ENDIF -->
+
+
+	<!-- IF S_SQL -->
+	<fieldset>
+		<legend>{L_SQL_QUERIES}</legend>
+		<!-- BEGIN sql_queries -->
+		<!-- IF S_PRE_UNINSTALL -->
+		<table cellspacing="1">
+			<col class="row1" /><col class="row2" />
+		<thead>
+		<tr>
+			<th style="width:50%">{L_ORIGINAL}</th>
+			<th style="width:50%">{L_REVERSE}</th>
+		</tr>
+		</thead>
+		<tbody>
+			<!-- BEGIN sql_queries -->
+			<tr>
+				<td><strong>{sql_queries.ORIGINAL_QUERY}</strong></td>
+				<td>
+					<!-- IF sql_queries.S_UNKNOWN_REVERSE -->
+					&nbsp;&nbsp;&nbsp;<font color="red">{L_UNKNOWN_QUERY_REVERSE}!</font>
+					<!-- ELSE --><strong>{sql_queries.REVERSE_QUERY}</strong><!-- ENDIF -->
+				</td>
+			</tr>
+			<!-- END sql_queries -->
+		</tbody>
+		</table>
+		<!-- ELSE -->
+		<fieldset>
+			<strong>{sql_queries.QUERY}</strong>
+			<!-- IF S_CHANGE_FILES -->
+				<!-- IF sql_queries.S_SUCCESS --><font color="green">{L_SUCCESS}:</font><br />
+				<!-- ELSE --><font color="red">{L_ERROR}:</font>{sql_queries.ERROR_MSG}<br />
+				<!-- ENDIF -->
+			<!-- ENDIF -->
+		</fieldset>
+		<!-- ENDIF -->
+		<!-- END sql_queries -->
+	</fieldset>
+	<!-- ENDIF -->
+
+
+	<!-- IF S_EDITS -->
+	<h2>{L_FILE_EDITS}</h2>
+
+    <!-- IF S_INSTALL or S_UNINSTALL -->
+	<script type="text/javascript">
+		// <![CDATA[
+		function toggle_files()
+		{
+			var hide_files = document.getElementsByName('hide-file');
+
+			for (var i = 0; i < hide_files.length; i++)
+			{
+				hide_files[i].style.display = (hide_files[i].style.display == 'none') ? 'block' : 'none';
+			}
+
+			if (document.getElementById('hide-files').innerHTML == '{LA_CLICK_HIDE_FILES}')
+			{
+				document.getElementById('hide-files').innerHTML = '{LA_CLICK_SHOW_FILES}';
+			}
+			else
+			{
+				document.getElementById('hide-files').innerHTML = '{LA_CLICK_HIDE_FILES}';
+			}
+		}
+
+		function toggle_edits()
+		{
+			var hide_edits = document.getElementsByName('hide-edit');
+
+			for (var i = 0; i < hide_edits.length; i++)
+			{
+				hide_edits[i].style.display = (hide_edits[i].style.display == 'none') ? 'block' : 'none';
+			}
+
+			if (document.getElementById('hide-edits').innerHTML == '{LA_CLICK_HIDE_EDITS}')
+			{
+				document.getElementById('hide-edits').innerHTML = '{LA_CLICK_SHOW_EDITS}';
+			}
+			else
+			{
+				document.getElementById('hide-edits').innerHTML = '{LA_CLICK_HIDE_EDITS}';
+			}
+		}
+		// ]]>
+	</script>
+	<p>
+		<a href="#" onclick="toggle_files(); return false;" id="hide-files">{L_CLICK_HIDE_FILES}</a> &bull; 
+		<a href="#" onclick="toggle_edits(); return false;" id="hide-edits">{L_CLICK_HIDE_EDITS}</a>
+	</p>
+    <!-- ENDIF -->
+
+	<!--	// Per Ticket #40635, the only workaround found to get overflow(-x) working cross-browser is "fake fieldset".
+			// It would be best, for XHTML Validation purposes, to put this CSS (and the javascript above) before the </head>
+			// tag, but as of phpBB-3.0.8, dynamic linking of css/js in adm/style/overall_header is not yet possible (fixme) -->
+	<style type="text/css">
+		.fake_fieldset {
+			margin: 15px 0;
+			padding: 10px;
+			border: 1px solid #D7D7D7;
+			background: #fff;
+			position: relative;
+		}
+
+		.fake_fieldset h5 {
+			font-family: Tahoma,arial,Verdana,Sans-serif;
+			font-size: 0.9em;
+			font-weight: bold;
+			color: #115098;
+		}
+
+		.fake_fieldset h5 span {
+			padding: 2px 4px;
+			border: 1px solid #ddd;
+			background: #fff;
+			position: relative;
+			top: -1.4em;
+		}
+	</style>
+
+	<!-- BEGIN edit_files -->
+	<div<!-- IF edit_files.S_SUCCESS --> name="hide-file"<!-- ENDIF --> class="fake_fieldset">
+		<h5><span>{edit_files.FILENAME}</span></h5>
+		<!-- IF edit_files.S_MISSING_FILE --><strong><font color="red">{L_FILE_MISSING}</font></strong>
+		<!-- ELSEIF edit_files.INHERIT_MSG --><strong>{edit_files.INHERIT_MSG}</strong><!-- ENDIF -->
+		<!-- BEGIN finds -->
+		<div<!-- IF edit_files.finds.S_SUCCESS --> name="hide-edit"<!-- ENDIF --> class="fake_fieldset">
+			<h4 style="margin: 0; padding:0;">{L_FIND}</h4>
+			<!-- IF edit_files.finds.COMMENT --><p><strong>{L_COMMENT}</strong>: {edit_files.finds.COMMENT}</p><!-- ENDIF -->
+			<pre style="overflow-x: scroll;">{edit_files.finds.FIND_STRING}</pre>
+			<!-- IF edit_files.finds.S_MISSING_FIND --><strong><font color="red">{L_FIND_MISSING}</font></strong><!-- ENDIF -->
+			<!-- BEGIN actions -->
+				<hr style="padding-top: 10px; margin-top: 10px;" />
+				<h4 style="margin: 0; padding:0;">{edit_files.finds.actions.NAME}</h4>
+				<pre style="overflow-x: scroll;">{edit_files.finds.actions.COMMAND}</pre>
+				<!-- BEGIN inline -->
+					<hr style="padding-top: 10px; margin-top: 10px;" />
+					<h4 style="margin: 0; padding:0;">{edit_files.finds.actions.inline.NAME}</h4>
+					<!-- IF edit_files.finds.actions.inline.COMMENT -->
+					<p><strong>{L_COMMENT}</strong>:<p>{edit_files.finds.actions.inline.COMMENT}</p>
+					<!-- ENDIF -->
+					<pre style="overflow-x: scroll;">{edit_files.finds.actions.inline.COMMAND}</pre>
+					<!-- IF S_CHANGE_FILES and not edit_files.finds.actions.inline.S_SUCCESS -->
+					<span>{L_INLINE_FIND_MISSING}</span>
+					<!-- ENDIF -->
+				<!-- END inline -->
+				<!-- IF S_CHANGE_FILES -->
+					<!-- IF edit_files.finds.actions.S_SUCCESS --><font color="green">{L_SUCCESS}</font>
+					<!-- ELSE --><font color="red">{L_FIND_MISSING}</font><!-- ENDIF -->
+				<!-- ENDIF -->
+			<!-- END actions -->
+		</div>
+		<!-- END finds -->
+	</div>
+	<!-- END edit_files -->
+	<!-- ENDIF -->
+<!-- ENDIF -->
