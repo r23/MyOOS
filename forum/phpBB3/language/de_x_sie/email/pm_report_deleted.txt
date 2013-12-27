@@ -1,8 +1,0 @@
-Subject: Meldung gelöscht — „{PM_SUBJECT}“
-
-Hallo {USERNAME},
-
-Sie erhalten diese Nachricht, weil Ihre Meldung zur Privaten Nachricht „{PM_SUBJECT}“ auf „{SITENAME}“ von einem Moderator oder Administrator gelöscht wurde.
-
-
-{EMAIL_SIG}

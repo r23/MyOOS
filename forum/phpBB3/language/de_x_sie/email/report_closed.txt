@@ -1,8 +1,0 @@
-Subject: Meldung geschlossen — „{POST_SUBJECT}“
-
-Guten Tag {USERNAME},
-
-Sie erhalten diese Nachricht, weil Ihre Meldung zum Beitrag „{POST_SUBJECT}“ in „{TOPIC_TITLE}“ auf „{SITENAME}“ von einem Moderator oder Administrator bearbeitet wurde. Die Meldung wurde anschließend geschlossen. Wenn Sie weitere Fragen dazu haben, können Sie {CLOSER_NAME} mit einer Privaten Nachricht kontaktieren.
-
-
-{EMAIL_SIG}
