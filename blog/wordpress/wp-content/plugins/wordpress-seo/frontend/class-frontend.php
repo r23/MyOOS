@@ -156,7 +156,8 @@ class WPSEO_Frontend {
 		if ( ! empty( $title ) )
 			return wpseo_replace_vars( $title, (array) $object );
 
-		return $this->get_title_from_options( 'title-' . $object->post_type, $object );
+		$post_type = ( isset( $object->post_type ) ? $object->post_type : $object->query_var );
+		return $this->get_title_from_options( 'title-' . $post_type, $object );
 	}
 
 	/**
@@ -196,8 +197,8 @@ class WPSEO_Frontend {
 	 *
 	 * All titles pulled from options will be run through the wpseo_replace_vars function.
 	 *
-	 * @param string       $index         name of the page to get the title from the settings for.
-	 * @param object|array $var_source    possible object to pul variables from.
+	 * @param string       $index      name of the page to get the title from the settings for.
+	 * @param object|array $var_source possible object to pul variables from.
 	 *
 	 * @return string
 	 */
@@ -436,6 +437,9 @@ class WPSEO_Frontend {
 		if ( ( $modified_title && empty( $title ) ) || ! empty( $title_part ) )
 			$title = $this->get_default_title( $sep, $seplocation, $title_part );
 
+		if ( defined( 'ICL_LANGUAGE_CODE' ) && false !== strpos( $title, ICL_LANGUAGE_CODE ) )
+			$title = str_replace( ' @' . ICL_LANGUAGE_CODE, '', $title );
+
 		return esc_html( strip_tags( stripslashes( apply_filters( 'wpseo_title', $title ) ) ) );
 	}
 
@@ -547,10 +551,8 @@ class WPSEO_Frontend {
 			global $post;
 			if ( isset( $this->options['noindex-' . $post->post_type] ) && $this->options['noindex-' . $post->post_type] )
 				$robots['index'] = 'noindex';
-			if ( wpseo_get_value( 'meta-robots-noindex' ) == 1 )
+			if ( (int) wpseo_get_value( 'meta-robots-noindex' ) === 1 )
 				$robots['index'] = 'noindex';
-			if ( wpseo_get_value( 'meta-robots-noindex' ) == 2 )
-				$robots['index'] = 'index';
 			if ( wpseo_get_value( 'meta-robots-nofollow' ) )
 				$robots['follow'] = 'nofollow';
 			if ( wpseo_get_value( 'meta-robots-adv' ) && wpseo_get_value( 'meta-robots-adv' ) != 'none' ) {
@@ -571,7 +573,7 @@ class WPSEO_Frontend {
 				// Three possible values, index, noindex and default, do nothing for default
 				$term_meta = wpseo_get_term_meta( $term, $term->taxonomy, 'noindex' );
 				if ( 'noindex' == $term_meta || 'on' == $term_meta ) // on is for backwards compatibility
-				$robots['index'] = 'noindex';
+					$robots['index'] = 'noindex';
 
 				if ( 'index' == $term_meta )
 					$robots['index'] = 'index';
@@ -621,19 +623,21 @@ class WPSEO_Frontend {
 	 * for the current page.
 	 *
 	 * @param bool $echo    Whether or not to output the canonical element.
-	 * @param bool $unpaged Whether or not to return the canonical with or without pagination added to the URL.
+	 * @param bool $un_paged Whether or not to return the canonical with or without pagination added to the URL.
+	 * @param bool $no_override Whether or not to return a manually overridden canonical
 	 *
 	 * @return string $canonical
 	 */
-	public function canonical( $echo = true, $unpaged = false ) {
+	public function canonical( $echo = true, $un_paged = false, $no_override = false ) {
 		$canonical = false;
+		$skip_pagination = false;
 
 		// Set decent canonicals for homepage, singulars and taxonomy pages
 		if ( is_singular() ) {
-			if ( wpseo_get_value( 'canonical' ) && wpseo_get_value( 'canonical' ) != '' ) {
+			if ( ! $no_override && wpseo_get_value( 'canonical' ) && wpseo_get_value( 'canonical' ) != '' ) {
 				$canonical = wpseo_get_value( 'canonical' );
-			}
-			else {
+				$skip_pagination = true;
+			} else {
 				$obj       = get_queried_object();
 				$canonical = get_permalink( $obj->ID );
 
@@ -664,7 +668,11 @@ class WPSEO_Frontend {
 			}
 			else if ( is_tax() || is_tag() || is_category() ) {
 				$term      = get_queried_object();
-				$canonical = wpseo_get_term_meta( $term, $term->taxonomy, 'canonical' );
+				if ( ! $no_override ) {
+					$canonical = wpseo_get_term_meta( $term, $term->taxonomy, 'canonical' );
+					if ( $canonical )
+						$skip_pagination = true;
+				}
 				if ( ! $canonical )
 					$canonical = get_term_link( $term, $term->taxonomy );
 			}
@@ -688,10 +696,10 @@ class WPSEO_Frontend {
 				}
 			}
 
-			if ( $canonical && $unpaged )
+			if ( $canonical && $un_paged )
 				return $canonical;
 
-			if ( $canonical && get_query_var( 'paged' ) > 1 ) {
+			if ( $canonical && ! $skip_pagination && get_query_var( 'paged' ) > 1 ) {
 				global $wp_rewrite;
 				if ( ! $wp_rewrite->using_permalinks() ) {
 					$canonical = add_query_arg( 'paged', get_query_var( 'paged' ), $canonical );
@@ -734,7 +742,7 @@ class WPSEO_Frontend {
 		global $wp_query;
 
 		if ( ! is_singular() ) {
-			$url = $this->canonical( false, true );
+			$url = $this->canonical( false, true, true );
 
 			if ( $url ) {
 				$paged = get_query_var( 'paged' );
@@ -1249,16 +1257,26 @@ class WPSEO_Frontend {
 	function rss_replace_vars( $content ) {
 		global $post;
 
-		$authorlink   = '<a rel="author" href="' . get_author_posts_url( $post->post_author ) . '">' . get_the_author() . '</a>';
-		$postlink     = '<a href="' . get_permalink() . '">' . get_the_title() . "</a>";
-		$bloglink     = '<a href="' . get_bloginfo( 'url' ) . '">' . get_bloginfo( 'name' ) . '</a>';
-		$blogdesclink = '<a href="' . get_bloginfo( 'url' ) . '">' . get_bloginfo( 'name' ) . ' - ' . get_bloginfo( 'description' ) . '</a>';
+		/**
+		 * @param bool $unsigned Whether or not to follow the links in RSS feed, defaults to true.
+		 *
+		 * @since 1.4.20
+		 */
+		$no_follow      = apply_filters( 'nofollow_rss_links', true );
+		$no_follow_attr = '';
+		if ( $no_follow )
+			$no_follow_attr = 'rel="nofollow" ';
+
+		$author_link   = '<a rel="' . ( ( $no_follow ) ? 'nofollow ' : '' ) . 'author" href="' . get_author_posts_url( $post->post_author ) . '">' . get_the_author() . '</a>';
+		$post_link     = '<a ' . $no_follow_attr . 'href="' . get_permalink() . '">' . get_the_title() . "</a>";
+		$blog_link     = '<a ' . $no_follow_attr . 'href="' . get_bloginfo( 'url' ) . '">' . get_bloginfo( 'name' ) . '</a>';
+		$blog_desc_link = '<a ' . $no_follow_attr . 'href="' . get_bloginfo( 'url' ) . '">' . get_bloginfo( 'name' ) . ' - ' . get_bloginfo( 'description' ) . '</a>';
 
 		$content = stripslashes( trim( $content ) );
-		$content = str_replace( "%%AUTHORLINK%%", $authorlink, $content );
-		$content = str_replace( "%%POSTLINK%%", $postlink, $content );
-		$content = str_replace( "%%BLOGLINK%%", $bloglink, $content );
-		$content = str_replace( "%%BLOGDESCLINK%%", $blogdesclink, $content );
+		$content = str_replace( "%%AUTHORLINK%%", $author_link, $content );
+		$content = str_replace( "%%POSTLINK%%", $post_link, $content );
+		$content = str_replace( "%%BLOGLINK%%", $blog_link, $content );
+		$content = str_replace( "%%BLOGDESCLINK%%", $blog_desc_link, $content );
 		return $content;
 	}
 
@@ -1380,6 +1398,16 @@ class WPSEO_Frontend {
 	 * @return string
 	 */
 	function title_test_helper( $title ) {
+		$this->options['title_test']++;
+		update_option( 'wpseo_titles', $this->options );
+
+		// Prevent this setting from being on forever when something breaks, as it breaks caching.
+		if ( $this->options['title_test'] > 10 ) {
+			unset( $this->options['title_test'] );
+			update_option( 'wpseo_titles', $this->options );
+			return $title;
+		}
+
 		if ( ! defined( 'DONOTCACHEPAGE' ) )
 			define( 'DONOTCACHEPAGE', true );
 

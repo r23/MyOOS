@@ -104,7 +104,7 @@ class WPSEO_Metabox {
 	public function publish_box() {
 		echo '<div class="misc-pub-section misc-yoast misc-pub-section-last">';
 
-		if ( wpseo_get_value( 'meta-robots-noindex' ) == 1 ) {
+		if ( (int) wpseo_get_value( 'meta-robots-noindex' ) === 1 ) {
 			$score_label = 'noindex';
 			$title       = __( 'Post is set to noindex.', 'wordpress-seo' );
 		}
@@ -772,7 +772,10 @@ class WPSEO_Metabox {
 					continue;
 			}
 
-			wpseo_set_value( $meta_box['name'], sanitize_text_field( $data ), $post_id );
+			// Prevent saving "empty" values.
+			if ( ! in_array( $data, array( '', '0', 'none', '-', 'index,follow' ) ) ) {
+				wpseo_set_value( $meta_box['name'], sanitize_text_field( $data ), $post_id );
+			}
 		}
 
 		$this->calculate_results( $post );
@@ -862,11 +865,10 @@ class WPSEO_Metabox {
 	 */
 	function column_content( $column_name, $post_id ) {
 		if ( $column_name == 'wpseo-score' ) {
-			if ( wpseo_get_value( 'meta-robots-noindex', $post_id ) == 1 ) {
+			if ( (int) wpseo_get_value( 'meta-robots-noindex', $post_id ) === 1 ) {
 				$score_label = 'noindex';
 				$title       = __( 'Post is set to noindex.', 'wordpress-seo' );
-				if ( wpseo_get_value( 'meta-robots-noindex', $post_id ) !== 0 )
-					wpseo_set_value( 'linkdex', 0, $post_id );
+				wpseo_set_value( 'linkdex', 0, $post_id );
 			}
 			else if ( $score = wpseo_get_value( 'linkdex', $post_id ) ) {
 				$score_label = wpseo_translate_score( round( $score / 10 ) );
