@@ -1,0 +1,19 @@
+Subject: Benachrichtigung über neue Antwort — „{FORUM_NAME}“
+
+Hallo {USERNAME},
+
+du erhältst diese Benachrichtigung, weil du das Forum „{FORUM_NAME}“ auf „{SITENAME}“ beobachtest. Seit deinem letzten Besuch wurde in diesem Forum eine neue Antwort auf das Thema „{TOPIC_TITLE}“<!-- IF AUTHOR_NAME !== '' --> von {AUTHOR_NAME}<!-- ENDIF --> erstellt. Du kannst den folgenden Link benutzen, um den ersten ungelesenen Beitrag anzusehen. Du erhältst keine weitere Benachrichtigung, bis du das Thema besucht hast.
+
+{U_NEWEST_POST}
+
+Wenn du das Thema ansehen möchtest, verwende folgenden Link:
+{U_TOPIC}
+
+Wenn du das Forum ansehen möchtest, verwende folgenden Link:
+{U_FORUM}
+
+Wenn du das Forum nicht länger beobachten möchtest, verwende entweder den Link „Forum nicht mehr beobachten“ in dem entsprechenden Forum oder besuche folgenden Link:
+
+{U_STOP_WATCHING_FORUM}
+
+{EMAIL_SIG}

@@ -1,0 +1,14 @@
+Subject: Beitrag freigegeben — „{POST_SUBJECT}“
+
+Hallo {USERNAME},
+
+du erhältst diese Nachricht, weil dein Beitrag „{POST_SUBJECT}“ auf „{SITENAME}“ durch einen Moderator oder Administrator freigegeben wurde.
+
+Wenn du den Beitrag ansehen möchtest, verwende folgenden Link:
+{U_VIEW_POST}
+
+Wenn du das Thema ansehen möchtest, verwende folgenden Link:
+{U_VIEW_TOPIC}
+
+
+{EMAIL_SIG}

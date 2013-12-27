@@ -1,0 +1,9 @@
+Subject: Reaktivieren Sie Ihr Benutzerkonto
+
+Guten Tag {USERNAME},
+
+Ihr Benutzerkonto auf „{SITENAME}“ wurde deaktiviert; vermutlich, weil Sie Änderungen an Ihrem Profil vorgenommen haben. Um Ihr Benutzerkonto wieder zu aktivieren, müssen Sie den folgenden Link besuchen:
+
+{U_ACTIVATE}
+
+{EMAIL_SIG}

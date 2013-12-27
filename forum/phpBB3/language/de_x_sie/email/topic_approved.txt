@@ -1,0 +1,11 @@
+Subject: Thema freigegeben — „{TOPIC_TITLE}“
+
+Guten Tag {USERNAME},
+
+Sie erhalten diese Benachrichtigung, weil Ihr Thema „{TOPIC_TITLE}“ auf „{SITENAME}“ durch einen Moderator oder Administrator freigegeben wurde.
+
+Wenn Sie das Thema ansehen möchten, verwenden Sie folgenden Link:
+{U_VIEW_TOPIC}
+
+
+{EMAIL_SIG}

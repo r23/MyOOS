@@ -1,0 +1,13 @@
+Subject: Benachrichtigung über neues Thema — „{FORUM_NAME}“
+
+Hallo {USERNAME},
+
+du erhältst diese Benachrichtigung, weil du das Forum „{FORUM_NAME}“ auf „{SITENAME}“ beobachtest. Seit deinem letzten Besuch wurde in diesem Forum ein neues Thema<!-- IF AUTHOR_NAME !== '' --> von {AUTHOR_NAME}<!-- ENDIF --> erstellt: „{TOPIC_TITLE}“. Du kannst den folgenden Link benutzen, um das Forum anzusehen. Du erhältst keine weitere Benachrichtigung, bis du das Forum besucht hast.
+
+{U_FORUM}
+
+Wenn du das Forum nicht länger beobachten möchtest, verwende entweder den Link „Forum nicht mehr beobachten“ in dem entsprechenden Forum oder besuche folgenden Link:
+
+{U_STOP_WATCHING_FORUM}
+
+{EMAIL_SIG}

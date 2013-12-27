@@ -1,0 +1,13 @@
+
+Guten Tag {TO_USERNAME},
+
+die folgende Nachricht wurde Ihnen von {FROM_USERNAME} über Ihr Benutzerkonto auf „{SITENAME}“ geschickt. Wenn diese Nachricht Werbung, Beleidigungen oder anderen anstößigen Inhalt enthält, können Sie die Board-Administration unter folgender Adresse erreichen:
+
+{BOARD_CONTACT}
+
+Fügen Sie Ihrer Nachricht bitte diese vollständige Nachricht bei. Bitte beachten Sie, dass als Antwortadresse das Instant Messaging-Konto des Boards angegeben wurde.
+
+Es folgt die an Sie gesendete Nachricht
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+{MESSAGE}
