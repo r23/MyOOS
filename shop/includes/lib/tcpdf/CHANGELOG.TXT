@@ -1,6 +1,44 @@
+6.0.052 (2013-12-12)
+	- Bug #871 "Datamatrix coding" was fixed.
+
+6.0.051 (2013-12-02)
+	- cbbox array values in addTTFfont() were converted to integers.
+
+6.0.050 (2013-12-01)
+	- The method getNumLines() was extended to support hyphenation.
+	- The CSS property line-height now supports non percentage values.
+
+6.0.050 (2013-11-27)
+	- A bug related to PNG images was fixed.
+
+6.0.048 (2013-11-24)
+	- SVG vars are now reset in ImageSVG() method.
+
+6.0.047 (2013-11-19)
+	- SVG support was extended to support some nested defs.
+
+6.0.046 (2013-11-17)
+	- preg_replace_callback functions were replaced to improve memory performances.
+
+6.0.045 (2013-11-17)
+	- Bug #862 "Parsing error on flate filter" was fixed.
+
+6.0.044 (2013-11-10)
+	- Bug #857 "Undefined offset error" was fixed.
+	- The uniord method now uses a static cache to improve performances (thanks to Mathieu Masseboeuf for the sugegstion).
+	- Two bugs in the TCPDF_FONTS class were fixed.
+
+6.0.043 (2013-10-29)
+	- Bug #854 "CSS instruction display" was fixed.
+
+6.0.042 (2013-10-25)
+	- Bug #852 "CMYK Colors Bug" was fixed.
+
+6.0.041 (2013-10-21)
+	- Bug #851 "Problem with images in PDF. PHP timing out" was fixed.
+
 6.0.040 (2013-10-20)
 	- Bug #849 "SVG import bug" was fixed.
-	- Bug #851 "Problem with images in PDF. PHP timing out" was fixed.
 
 6.0.039 (2013-10-13)
 	- Bug #843 "Wrong call in parser" was fixed.
