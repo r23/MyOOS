@@ -1,20 +1,15 @@
 # Ignore configuration files that may contain sensitive information.
 blog/wordpress/wp-config.php
 shop/includes/local/
-forum/phpBB3/config.php
 
-shop/themes/myoos/less/font-awesome.min.less
 shop/themes/myoos/less/bootstrap.min.less
-shop/themes/myoos/less/bootstrap-responsive.min.less
 
-shop/admin/less/less/bootstrap.min.less
-shop/admin/less/less/bootstrap-responsive.min.less
+shop/admin/less/bootstrap.min.less
 
 shop/admin/temp/cache/
 shop/admin/temp/templates_c/
 
 shop/temp/shop/cache/
 shop/temp/shop/templates_c/
-
 
 /nbproject/private/
