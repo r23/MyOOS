@@ -6,12 +6,12 @@ Plugin URI: http://wordpress.org/extend/plugins/wp-piwik/
 
 Description: Adds Piwik stats to your dashboard menu and Piwik code to your wordpress header.
 
-Version: 0.9.9.6
+Version: 0.9.9.7
 Author: Andr&eacute; Br&auml;kling
 Author URI: http://www.braekling.de
 
 ****************************************************************************************** 
-	Copyright (C) 2009-2013 Andre Braekling (email: webmaster@braekling.de)
+	Copyright (C) 2009-2014 Andre Braekling (email: webmaster@braekling.de)
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -42,8 +42,8 @@ if (!class_exists('wp_piwik')) {
 class wp_piwik {
 
 	private static
-		$intRevisionId = 90961,
-		$strVersion = '0.9.9.6',
+		$intRevisionId = 90971,
+		$strVersion = '0.9.9.7',
 		$blog_id,
 		$intDashboardID = 30,
 		$strPluginBasename = NULL,
@@ -108,6 +108,9 @@ class wp_piwik {
 			add_action('wp_head', array($this, 'site_header'));
 			// Add <noscript> code if enabled
 			if (self::$settings->getGlobalOption('track_noscript')) add_action('wp_footer', array($this, 'site_footer'));
+			// Add tracking code to admin page header if enabled
+			if (self::$settings->getGlobalOption('track_admin'))
+				add_action('admin_head', array($this, 'addAdminHeaderTracking'));
 		}
 		self::$settings->save();
 	}
@@ -172,7 +175,9 @@ class wp_piwik {
         	self::includeFile('update/90940');
         if (self::$settings->getGlobalOption('revision') < 90961)
         	self::includeFile('update/90961');
-
+        if (self::$settings->getGlobalOption('revision') < 90971)
+        	self::includeFile('update/90971');
+        	
         // Install new version
         $this->installPlugin();      
     }
@@ -257,7 +262,7 @@ class wp_piwik {
 				if (!empty($strMetaKey) && !empty($strMetaVal))
 					$strCustomVars .= "_paq.push(['setCustomVariable',".$i.", '".$strMetaKey."', '".$strMetaVal."', 'page']);\n";
 			}
-			if (!empty($strMetaKey)) $strTrackingCode = str_replace("_paq.push(['trackPageView']);", $strCustomVars."_paq.push(['trackPageView']);", $strTrackingCode);
+			if (!empty($strCustomVars)) $strTrackingCode = str_replace("_paq.push(['trackPageView']);", $strCustomVars."_paq.push(['trackPageView']);", $strTrackingCode);
 		}
 		echo $strTrackingCode;
 		echo '<!-- *** /WP-Piwik *********************************************************** -->'."\n";
@@ -640,6 +645,13 @@ class wp_piwik {
 	}
 
 	/**
+	 * Add tracking code to admin header
+	 */
+	function addAdminHeaderTracking() {
+		$this->site_header();	
+	}
+
+	/**
 	 * Add required header tags to stats page
 	 */
 	function addAdminHeaderStats() {
@@ -688,11 +700,12 @@ class wp_piwik {
 			curl_setopt($c, CURLOPT_HEADER, 0);
 			// Set cURL timeout
 			curl_setopt($c, CURLOPT_TIMEOUT, self::$settings->getGlobalOption('connection_timeout'));
-			if (WP_HTTP_Proxy::is_enabled() && WP_HTTP_Proxy::send_through_proxy($strURL)) {
-				curl_setopt($c, CURLOPT_PROXY, WP_HTTP_Proxy::host());
-				curl_setopt($c, CURLOPT_PROXYPORT, WP_HTTP_Proxy::port());
-				if (WP_HTTP_Proxy::use_authentication())
-					curl_setopt($c, CURLOPT_PROXYUSERPWD, WP_HTTP_Proxy::username().':'.WP_HTTP_Proxy::password());
+			$httpProxyClass = new WP_HTTP_Proxy();
+			if ($httpProxyClass->is_enabled() && $httpProxyClass->send_through_proxy($strURL)) {
+				curl_setopt($c, CURLOPT_PROXY, $httpProxyClass->host());
+				curl_setopt($c, CURLOPT_PROXYPORT, $httpProxyClass->port());
+				if ($httpProxyClass->use_authentication())
+					curl_setopt($c, CURLOPT_PROXYUSERPWD, $httpProxyClass->username().':'.$httpProxyClass->password());
 			}
 			// Get result
 			$strResult = curl_exec($c);
@@ -830,6 +843,7 @@ class wp_piwik {
 			$strURL = str_replace('http://', '://', $strURL);
 			$strProxy = str_replace('https://', '://', plugins_url('wp-piwik'));
 			$strProxy = str_replace('http://', '://', $strProxy);
+			$strProxy .= '/';
 			$strCode = str_replace($strURL, $strProxy, $strCode);
 		}
 		$strCode = str_replace('//";','/"',$strCode);
@@ -883,10 +897,13 @@ class wp_piwik {
 	 */
 	function callPiwikAPI($strMethod, $strPeriod='', $strDate='', $intLimit='',$bolExpanded=false, $intId = false, $strFormat = 'PHP', $strPageURL = '') {
 		// Create unique cache key
-		$strKey = 'wp-piwik'.md5($strMethod.'_'.$strPeriod.'_'.$strDate.'_'.$intLimit);
+		$strKey = 'wp-piwik_'.md5($strMethod.'_'.$strPeriod.'_'.$strDate.'_'.$intLimit.'_'.self::$settings->getGlobalOption('piwik_token').'_'.self::$settings->getGlobalOption('piwik_url'));
 		// Call API if data not cached
-		$result = (self::$settings->getGlobalOption('cache')?get_transient($strKey):false);
-		if (false === $result) {
+		if (self::$settings->getGlobalOption('cache')) {
+			$result = get_transient($strKey);
+			self::$logger->log('API method: '.$strMethod.' Fetch call from cache: '.$strKey);
+		} else $result = false;
+		if ($strMethod == "SitesManager.getSitesWithAtLeastViewAccess" || false === $result) {
 			$strToken = self::$settings->getGlobalOption('piwik_token');
 			// If multisite stats are shown, maybe the super admin wants to show other blog's stats.
 			if (is_plugin_active_for_network('wp-piwik/wp-piwik.php') && function_exists('is_super_admin') && function_exists('wp_get_current_user') && is_super_admin() && isset($_GET['wpmu_show_stats'])) {
@@ -933,7 +950,8 @@ class wp_piwik {
 					$strMethod != 'SitesManager.getJavascriptTag' &&
 					$strDate != 'today' && $strDate != date('Ymd') && substr($strDate, 0, 4) != 'last' &&
 					self::$settings->getGlobalOption('cache') &&
-					!(isset($result['result']) && $result['result'] == 'error')
+					!(isset($result['result']) && $result['result'] == 'error')&&
+					!empty($result)
 				) set_transient($strKey, $result, WEEK_IN_SECONDS);
 		}	
 		return $result;	
@@ -1160,6 +1178,7 @@ class wp_piwik {
 				self::$settings->setGlobalOption('disable_timelimit', (isset($_POST['wp-piwik_disabletimelimit'])?$_POST['wp-piwik_disabletimelimit']:false));
 				self::$settings->setGlobalOption('toolbar', (isset($_POST['wp-piwik_toolbar'])?$_POST['wp-piwik_toolbar']:false));
 				self::$settings->setGlobalOption('shortcodes', (isset($_POST['wp-piwik_shortcodes'])?$_POST['wp-piwik_shortcodes']:false));
+				self::$settings->setGlobalOption('perpost_stats', (isset($_POST['wp-piwik_perpost'])?$_POST['wp-piwik_perpost']:false));
 			break;
 			case 'tracking':
 				self::$settings->setGlobalOption('add_tracking_code', (isset($_POST['wp-piwik_addjs'])?$_POST['wp-piwik_addjs']:false));
@@ -1172,8 +1191,8 @@ class wp_piwik {
 				self::$settings->setGlobalOption('track_cdnurlssl', trim(isset($_POST['wp-piwik_cdnurlssl'])?$_POST['wp-piwik_cdnurlssl']:self::$settings->getGlobalOption('track_cdnurl')));
 				self::$settings->setGlobalOption('track_noscript', (isset($_POST['wp-piwik_noscript'])?$_POST['wp-piwik_noscript']:false));
 				self::$settings->setGlobalOption('track_nojavascript', (isset($_POST['wp-piwik_nojavascript'])?$_POST['wp-piwik_nojavascript']:false));
+				self::$settings->setGlobalOption('track_admin', (isset($_POST['wp-piwik_trackadmin'])?$_POST['wp-piwik_trackadmin']:false));
 				self::$settings->setGlobalOption('capability_stealth', (isset($_POST['wp-piwik_filter'])?$_POST['wp-piwik_filter']:array()));
-				self::$settings->setGlobalOption('cache', (isset($_POST['wp-piwik_cache'])?$_POST['wp-piwik_cache']:false));
 				self::$settings->setGlobalOption('disable_cookies', (isset($_POST['wp-piwik_disable_cookies'])?$_POST['wp-piwik_disable_cookies']:false));
 				self::$settings->setOption('tracking_code', $this->callPiwikAPI('SitesManager.getJavascriptTag'));
 			break;
@@ -1181,6 +1200,7 @@ class wp_piwik {
 				self::$settings->setGlobalOption('piwik_token', (isset($_POST['wp-piwik_token'])?$_POST['wp-piwik_token']:''));
 				self::$settings->setGlobalOption('piwik_url', self::checkURL((isset($_POST['wp-piwik_url'])?$_POST['wp-piwik_url']:'')));
 				self::$settings->setGlobalOption('piwik_path', (isset($_POST['wp-piwik_path']) && !empty($_POST['wp-piwik_path'])?realpath($_POST['wp-piwik_path']):''));
+				self::$settings->setGlobalOption('cache', (isset($_POST['wp-piwik_cache'])?$_POST['wp-piwik_cache']:false));
 				self::$settings->setGlobalOption('piwik_mode', (isset($_POST['wp-piwik_mode'])?$_POST['wp-piwik_mode']:'http'));
 				self::$settings->setGlobalOption('piwik_useragent', (isset($_POST['wp-piwik_useragent'])?$_POST['wp-piwik_useragent']:'php'));
 				self::$settings->setGlobalOption('connection_timeout', (isset($_POST['wp-piwik_timeout'])?(int)$_POST['wp-piwik_timeout']:5));

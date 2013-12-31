@@ -54,6 +54,10 @@ if (!$bolFOpen && !$bolCURL) {
 	<input type="checkbox" value="1" id="wp-piwik_disabletimelimit" name="wp-piwik_disabletimelimit"<?php echo (self::$settings->getGlobalOption('disable_timelimit')?' checked="checked"':''); ?> />
 	<label for="wp-piwik_disabletimelimit"><?php echo _e('Use set_time_limit(0) if stats page causes a time out.', 'wp-piwik'); ?></label>
 </td></tr>
+<tr><th><?php _e('Show per post stats', 'wp-piwik'); ?>:</th><td>
+	<input type="checkbox" value="1" id="wp-piwik_perpost" name="wp-piwik_perpost"<?php echo (self::$settings->getGlobalOption('perpost_stats')?' checked="checked"':''); ?> />
+	<label for="wp-piwik_shortcodes"><?php echo _e('Show stats about single posts at the post edit admin page.', 'wp-piwik'); ?></label>
+</td></tr>
 <tr><th><?php _e('Enable shortcodes', 'wp-piwik'); ?>:</th><td>
 	<input type="checkbox" value="1" id="wp-piwik_shortcodes" name="wp-piwik_shortcodes"<?php echo (self::$settings->getGlobalOption('shortcodes')?' checked="checked"':''); ?> />
 	<label for="wp-piwik_shortcodes"><?php echo _e('Enable shortcodes in post or page content.', 'wp-piwik'); ?></label>

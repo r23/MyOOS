@@ -1,9 +1,9 @@
 === WP-Piwik ===
 
 Contributors: Braekling
-Requires at least: 3.5
-Tested up to: 3.5.1
-Stable tag: 0.9.9.6
+Requires at least: 3.8
+Tested up to: 3.8
+Stable tag: 0.9.9.7
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6046779
 Tags: statistics, stats, analytics, piwik, wpmu
 
@@ -13,7 +13,7 @@ This plugin adds a Piwik stats site to your WordPress or WordPress multisite das
 
 This plugin adds a Piwik stats site to your WordPress dashboard. It's also able to add the Piwik tracking code to your blog using wp_footer.
 
-**You need a running Piwik (at least 1.11) installation** and at least view access to your stats. Also PHP 5 or higher is strictly required.
+**You need a running Piwik (at least 2.0.2) installation** and at least view access to your stats. Also PHP 5 or higher is strictly required.
 
 Look at the [Piwik website](http://piwik.org/) to get further information about Piwik.
 
@@ -71,6 +71,9 @@ Try to enable the "avoid mod_security" option (WP-Piwik settings, Tracking tab) 
 
 See [this support thread](http://wordpress.org/support/topic/plugin-wp-piwik-https-ssl-support?replies=3).
 
+= Overview shortcode shows no unique visitors using a yearly range. =
+See [Piwik FAQ](http://piwik.org/faq/how-to/#faq_113).
+
 == Installation ==
 
 = Install WP-Piwik on a simple WordPress blog =
@@ -113,6 +116,12 @@ Add WP-Piwik to your /wp-content/plugins folder and enable it as [Network Plugin
 Please update Piwik if not done yet (Piwik 1.11 or higher is recommended)!
 
 == Changelog ==
+
+= 0.9.9.7 =
+* Bugfix: Error messages won't by cached anymore
+* Bugfix: Custom vars will now be added properly
+* Bugfix: Missing slash in proxy mode added
+* Feature: Track users on admin pages
 
 = 0.9.9.6 =
 * Bugfix: Proxy script will work again

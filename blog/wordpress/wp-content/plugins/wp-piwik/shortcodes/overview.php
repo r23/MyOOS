@@ -8,7 +8,7 @@ $aryData = $this->callPiwikAPI('VisitsSummary.get',
 	$this->aryAttributes['limit']
 );
 
-$this->strResult = '<table><tr><th>'.__('Overview', 'wp-piwik').($this->aryAttributes['title']?' '.$this->aryAttributes['title']:'').'</th></tr>';
+$this->strResult = '<table><tr><th colspan="2">'.__('Overview', 'wp-piwik').($this->aryAttributes['title']?' '.$this->aryAttributes['title']:'').'</th></tr>';
 
 function summize($aryData) {
 	$aryTmp = array();

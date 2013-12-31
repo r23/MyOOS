@@ -7,7 +7,7 @@ if (!$bolFOpen && !$bolCURL) {
 		<strong><?php _e('Error: cURL is not enabled and fopen is not allowed to open URLs. WP-Piwik won\'t be able to connect to Piwik.'); ?></strong>
 	</td>
 </tr><?php } else { ?><tr>
-	<th colspan="2">
+	<td colspan="2">
 		<?php _e('To enable Piwik statistics, please enter', 'wp-piwik'); ?>:
 		<ol>
 			<li><?php _e('your Piwik base URL (like http://mydomain.com/piwik) or your Piwik server path (like /var/www/mydomain.com/httpdocs/piwik/)', 'wp-piwik'); ?></li>
@@ -17,7 +17,7 @@ if (!$bolFOpen && !$bolCURL) {
 	<?php if (!is_plugin_active_for_network('wp-piwik/wp-piwik.php')) { ?>
 		<p><?php _e('<strong>Important note:</strong> If you do not host this blog on your own, your site admin is able to get your auth token from the database.', 'wp-piwik'); ?></p>
 	<?php } ?>
-	</th>
+	</td>
 </tr><tr>
 	<th><?php _e('Piwik URL', 'wp-piwik'); ?> (REST API):</th>
 	<td>
@@ -42,7 +42,12 @@ if (!$bolFOpen && !$bolCURL) {
 		<input name="wp-piwik_token" id="wp-piwik_token" type="text" value="<?php echo self::$settings->getGlobalOption('piwik_token'); ?>" />
 		<label for="wp-piwik_token"></label>
 	</td>
-</tr><?php if (!is_plugin_active_for_network('wp-piwik/wp-piwik.php')) { ?><tr>
+</tr><tr><th><?php _e('Enable cache', 'wp-piwik'); ?>:</th><td>
+	<input type="checkbox" value="1" id="wp-piwik_cache" name="wp-piwik_cache"<?php echo (self::$settings->getGlobalOption('cache')?' checked="checked"':''); ?> />
+	<label for="wp-piwik_cache"><?php _e('Cache API calls, which not contain today\'s values, for a week', 'wp-piwik'); ?>.</label>
+</td></tr>
+
+<?php if (!is_plugin_active_for_network('wp-piwik/wp-piwik.php')) { ?><tr>
 	<th><?php _e('Auto config', 'wp-piwik'); ?>:</th>
 	<td>
 		<input name="wp-piwik_auto_site_config" id="wp-piwik_auto_site_config" value="1" type="checkbox"<?php echo (self::$settings->getGlobalOption('auto_site_config')?' checked="checked"':'') ?>/>
