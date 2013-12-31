@@ -74,7 +74,7 @@ final class Cachify {
 	* Konstruktor der Klasse
 	*
 	* @since   1.0.0
-	* @change  2.1.2
+	* @change  2.1.3
 	*/
 
 	public function __construct()
@@ -85,31 +85,31 @@ final class Cachify {
 		}
 
 		/* Set defaults */
-		self::_set_defaults();
+		self::_set_default_vars();
 
 		/* Publish-Hooks */
-		self::_publish_hooks();
+		self::_register_publish_hooks();
 
 		/* Flush Hook */
 		add_action(
 			'cachify_flush_cache',
 			array(
 				__CLASS__,
-				'flush_cache'
+				'flush_total_cache'
 			)
 		);
 		add_action(
 			'_core_updated_successfully',
 			array(
 				__CLASS__,
-				'flush_cache'
+				'flush_total_cache'
 			)
 		);
 		add_action(
 			'switch_theme',
 			array(
 				__CLASS__,
-				'flush_cache'
+				'flush_total_cache'
 			)
 		);
 
@@ -134,6 +134,13 @@ final class Cachify {
 				'admin_init',
 				array(
 					__CLASS__,
+					'register_textdomain'
+				)
+			);
+			add_action(
+				'admin_init',
+				array(
+					__CLASS__,
 					'register_settings'
 				)
 			);
@@ -141,7 +148,7 @@ final class Cachify {
 				'admin_init',
 				array(
 					__CLASS__,
-					'receive_flush'
+					'process_flush_request'
 				)
 			);
 			add_action(
@@ -155,7 +162,7 @@ final class Cachify {
 				'admin_enqueue_scripts',
 				array(
 					__CLASS__,
-					'add_css'
+					'add_admin_resources'
 				)
 			);
 
@@ -179,7 +186,7 @@ final class Cachify {
 				'admin_bar_menu',
 				array(
 					__CLASS__,
-					'add_menu'
+					'add_flush_icon'
 				),
 				90
 			);
@@ -187,7 +194,14 @@ final class Cachify {
 				'dashboard_glance_items',
 				array(
 					__CLASS__,
-					'add_count'
+					'add_dashboard_count'
+				)
+			);
+			add_action(
+				'post_submitbox_misc_actions',
+				array(
+					__CLASS__,
+					'print_flush_dropdown'
 				)
 			);
 
@@ -247,7 +261,7 @@ final class Cachify {
 
 	public static function on_deactivation()
 	{
-		self::flush_cache();
+		self::flush_total_cache();
 	}
 
 
@@ -319,7 +333,7 @@ final class Cachify {
 		);
 
 		/* Flush */
-		self::flush_cache();
+		self::flush_total_cache();
 	}
 
 
@@ -395,7 +409,7 @@ final class Cachify {
 		delete_option('cachify');
 
 		/* Cache leeren */
-		self::flush_cache();
+		self::flush_total_cache();
 	}
 
 
@@ -424,7 +438,7 @@ final class Cachify {
 	* @change  2.0.7
 	*/
 
-	private static function _set_defaults()
+	private static function _set_default_vars()
 	{
 		/* Optionen */
 		self::$options = self::_get_options();
@@ -444,46 +458,6 @@ final class Cachify {
 		/* DB */
 		} else {
 			self::$method = new Cachify_DB;
-		}
-	}
-
-
-	/**
-	* Generierung von Publish-Hooks für Custom Post Types
-	*
-	* @since   2.0.3
-	* @change  2.0.3
-	*/
-
-	private static function _publish_hooks() {
-		/* Verfügbare CPT */
-		$available_cpt = get_post_types(
-			array('public' => true)
-		);
-
-		/* Leer? */
-		if ( empty($available_cpt) ) {
-			return;
-		}
-
-		/* Loopen */
-		foreach ( $available_cpt as $cpt ) {
-			add_action(
-				'publish_' .$cpt,
-				array(
-					__CLASS__,
-					'publish_cpt'
-				),
-				10,
-				2
-			);
-			add_action(
-				'publish_future_' .$cpt,
-				array(
-					__CLASS__,
-					'publish_cpt'
-				)
-			);
 		}
 	}
 
@@ -612,12 +586,12 @@ final class Cachify {
 	* Hinzufügen eines Admin-Bar-Menüs
 	*
 	* @since   1.2
-	* @change  2.1.2
+	* @change  2.1.3
 	*
 	* @param   object  Objekt mit Menü-Eigenschaften
 	*/
 
-	public static function add_menu($wp_admin_bar)
+	public static function add_flush_icon($wp_admin_bar)
 	{
 		/* Aussteigen */
 		if ( ! is_admin_bar_showing() OR ! is_super_admin() ) {
@@ -631,7 +605,7 @@ final class Cachify {
 				'href'   => add_query_arg('_cachify', 'flush'),
 				'parent' => 'top-secondary',
 				'title'	 => '<span class="ab-icon dashicons dashicons-trash" style="top:2px;margin:0"></span>',
-				'meta'   => array( 'title' => 'Cachify-Cache leeren' )
+				'meta'   => array( 'title' => __('Flush the cachify cache', 'cachify') )
 			)
 		);
 	}
@@ -641,10 +615,10 @@ final class Cachify {
 	* Anzeige des Spam-Counters auf dem Dashboard
 	*
 	* @since   2.0.0
-	* @change  2.1.2
+	* @change  2.1.3
 	*/
 
-	public static function add_count()
+	public static function add_dashboard_count()
 	{
 		/* Cache size */
 		$size = self::get_cache_size();
@@ -660,7 +634,7 @@ final class Cachify {
 		/* Print the link */
 		echo sprintf(
 			'<li>
-				<a href="%s" class="cachify-icon cachify-icon--%s" title="Caching-Methode: %s">
+				<a href="%s" class="cachify-icon cachify-icon--%s" title="%s: %s">
 					%s Cache
 				</a>
 			</li>',
@@ -671,8 +645,9 @@ final class Cachify {
 				admin_url('options-general.php')
 			),
 			esc_attr(strtolower($method)),
+			__('Caching method', 'cachify'),
 			esc_attr($method),
-			( empty($size) ? 'Leerer' : size_format($size) )
+			( empty($size) ? __('Empty', 'cachify') : size_format($size) )
 		);
 	}
 
@@ -713,15 +688,15 @@ final class Cachify {
 	* Verarbeitung der Plugin-Meta-Aktionen
 	*
 	* @since   0.5
-	* @change  1.2
+	* @change  2.1.3
 	*
 	* @param   array  $data  Metadaten der Plugins
 	*/
 
-	public static function receive_flush($data)
+	public static function process_flush_request($data)
 	{
 		/* Leer? */
-		if ( empty($_GET['_cachify']) or $_GET['_cachify'] !== 'flush' ) {
+		if ( empty($_GET['_cachify']) OR $_GET['_cachify'] !== 'flush' OR ! is_super_admin() ) {
 			return;
 		}
 
@@ -739,7 +714,7 @@ final class Cachify {
 			/* Loopen */
 			foreach ($ids as $id) {
 				switch_to_blog($id);
-				self::flush_cache();
+				self::flush_total_cache();
 			}
 
 			/* Wechsel zurück */
@@ -755,7 +730,7 @@ final class Cachify {
 			);
 		} else {
 			/* Leeren */
-			self::flush_cache();
+			self::flush_total_cache();
 
 			/* Notiz */
 			add_action(
@@ -773,7 +748,7 @@ final class Cachify {
 	* Hinweis nach erfolgreichem Cache-Leeren
 	*
 	* @since   1.2
-	* @change  1.2
+	* @change  2.1.3
 	*/
 
 	public static function flush_notice()
@@ -783,7 +758,10 @@ final class Cachify {
 			return false;
 		}
 
-		echo '<div id="message" class="updated"><p><strong>Cachify-Cache geleert.</strong></p></div>';
+		echo sprintf(
+			'<div id="message" class="updated"><p><strong>%s</strong></p></div>',
+			__('Cachify cache is flushed.', 'cachify')
+		);
 	}
 
 
@@ -799,12 +777,10 @@ final class Cachify {
 	public static function edit_comment($id)
 	{
 		if ( self::$options['reset_on_comment'] ) {
-			self::flush_cache();
+			self::flush_total_cache();
 		} else {
-			self::_delete_cache(
-				get_permalink(
-					get_comment($id)->comment_post_ID
-				)
+			self::remove_page_cache_by_post_id(
+				get_comment($id)->comment_post_ID
 			);
 		}
 	}
@@ -826,11 +802,9 @@ final class Cachify {
 		/* Approved comment? */
 		if ( $approved === 1 ) {
 			if ( self::$options['reset_on_comment'] ) {
-				self::flush_cache();
+				self::flush_total_cache();
 			} else {
-				self::_delete_cache(
-					get_permalink($comment['comment_post_ID'])
-				);
+				self::remove_page_cache_by_post_id( $comment['comment_post_ID'] );
 			}
 		}
 
@@ -853,37 +827,137 @@ final class Cachify {
 	{
 		if ( $new_status != $old_status ) {
 			if ( self::$options['reset_on_comment'] ) {
-				self::flush_cache();
+				self::flush_total_cache();
 			} else {
-				self::_delete_cache(
-					get_permalink($comment->comment_post_ID)
-				);
+				self::remove_page_cache_by_post_id( $comment->comment_post_ID );
 			}
 		}
 	}
 
 
 	/**
-	* Leerung des Cache bei neuen CPTs
+	* Generierung von Publish-Hooks für Custom Post Types
 	*
 	* @since   2.0.3
-	* @change  2.0.3
-	*
-	* @param   integer  $id    PostID
-	* @param   object   $post  Object mit CPT-Metadaten [optional]
+	* @change  2.1.3
 	*/
 
-	public static function publish_cpt($id, $post = false)
-	{
-		/* Leer? */
-		if ( empty($post) ) {
+	private static function _register_publish_hooks() {
+		/* Available post types */
+		$post_types = get_post_types(
+			array('public' => true)
+		);
+
+		/* Empty data? */
+		if ( empty($post_types) ) {
 			return;
 		}
 
-		/* Status */
-		if ( in_array( $post->post_status, array('publish', 'future') ) ) {
-			self::flush_cache();
+		/* Loopen */
+		foreach ( $post_types as $post_type ) {
+			add_action(
+				'publish_' .$post_type,
+				array(
+					__CLASS__,
+					'publish_post_types'
+				),
+				10,
+				2
+			);
+			add_action(
+				'publish_future_' .$post_type,
+				array(
+					__CLASS__,
+					'flush_total_cache'
+				)
+			);
 		}
+	}
+
+
+	/**
+	* Removes the post type cache on updates
+	*
+	* @since   2.0.3
+	* @change  2.1.3
+	*
+	* @param   integer  $post_ID  Post ID
+	*/
+
+	public static function publish_post_types($post_ID, $post) {
+		/* No Post_ID? */
+		if ( empty($post_ID) OR empty($post) ) {
+			return;
+		}
+
+		/* Post status check */
+		if ( ! in_array( $post->post_status, array('publish', 'future') ) ) {
+			return;
+		}
+
+		/* Check for post var AND flush */
+		if ( ! isset($_POST['_cachify_remove_post_type_cache_on_update']) ) {
+			return self::flush_total_cache();
+		}
+
+		/* Security */
+		check_admin_referer(CACHIFY_BASE, '_cachify_status_nonce');
+
+		/* Save as var */
+		$remove_post_type_cache = (int)$_POST['_cachify_remove_post_type_cache_on_update'];
+
+		/* Save as user meta */
+		update_user_meta(
+			get_current_user_id(),
+			'_cachify_remove_post_type_cache_on_update',
+			$remove_post_type_cache
+		);
+
+		/* Remove cache OR flush */
+		if ( $remove_post_type_cache ) {
+			self::remove_page_cache_by_post_id( $post_ID );
+		} else {
+			self::flush_total_cache();
+		}
+	}
+
+
+	/**
+	* Removes a page id from cache
+	*
+	* @since   2.0.3
+	* @change  2.1.3
+	*
+	* @param   integer  $post_ID  Post ID
+	*/
+
+	public static function remove_page_cache_by_post_id($post_ID)
+	{
+		self::remove_page_cache_by_url(
+			get_permalink( $post_ID )
+		);
+	}
+
+
+	/**
+	* Removes a page url from cache
+	*
+	* @since   0.1
+	* @change  2.1.3
+	*
+	* @param  string  $url  Page URL
+	*/
+
+	public static function remove_page_cache_by_url($url)
+	{
+		call_user_func(
+			array(
+				self::$method,
+				'delete_item'
+			),
+			self::_cache_hash( $url ),
+			$url
+		);
 	}
 
 
@@ -1118,35 +1192,13 @@ final class Cachify {
 
 
 	/**
-	* Löschung des Cache für eine URL
-	*
-	* @since   0.1
-	* @change  2.0
-	*
-	* @param  string  $url  URL für den Hash-Wert
-	*/
-
-	private static function _delete_cache($url)
-	{
-		call_user_func(
-			array(
-				self::$method,
-				'delete_item'
-			),
-			self::_cache_hash($url),
-			$url
-		);
-	}
-
-
-	/**
 	* Zurücksetzen des kompletten Cache
 	*
 	* @since   0.1
 	* @change  2.0
 	*/
 
-	public static function flush_cache()
+	public static function flush_total_cache()
 	{
 		/* DB */
 		Cachify_DB::clear_cache();
@@ -1241,29 +1293,113 @@ final class Cachify {
 	* Einbindung von CSS
 	*
 	* @since   1.0
-	* @change  2.1.2
+	* @change  2.1.3
 	*/
 
-	public static function add_css($hook)
+	public static function add_admin_resources($hook)
 	{
-		/* Hook check */
-		if ( $hook !== 'index.php' ) {
+		/* Hooks check */
+		if ( $hook !== 'index.php' AND $hook !== 'post.php' ) {
 			return;
 		}
 
-		/* Get plugin data */
-		$data = get_plugin_data(CACHIFY_FILE);
+		/* Plugin data */
+		$plugin_data = get_plugin_data(CACHIFY_FILE);
 
 		/* Register css */
-		wp_register_style(
-			'cachify_css',
-			plugins_url('css/styles.min.css', CACHIFY_FILE),
-			array(),
-			$data['Version']
+		switch($hook) {
+			case 'index.php':
+				wp_enqueue_style(
+					'cachify-dashboard',
+					plugins_url('css/dashboard.min.css', CACHIFY_FILE),
+					array(),
+					$plugin_data['Version']
+				);
+			break;
+
+			case 'post.php':
+				wp_enqueue_script(
+					'cachify-post',
+					plugins_url('js/post.min.js', CACHIFY_FILE),
+					array('jquery'),
+					$plugin_data['Version'],
+					true
+				);
+			break;
+
+			default:
+			break;
+		}
+	}
+
+
+	/**
+	* Display a combo select on post publish box
+	*
+	* @since   2.1.3
+	* @change  2.1.3
+	*/
+
+	public static function print_flush_dropdown()
+	{
+		/* Post page only */
+		if ( empty($GLOBALS['pagenow']) OR $GLOBALS['pagenow'] !== 'post.php' ) {
+			return;
+		}
+
+		/* Published posts only */
+		if ( empty($GLOBALS['post']) OR ! is_object($GLOBALS['post']) OR $GLOBALS['post']->post_status !== 'publish' ) {
+			return;
+		}
+
+		/* Security */
+		wp_nonce_field(CACHIFY_BASE, '_cachify_status_nonce');
+
+		/* Already saved? */
+		$current_action = (int)get_user_meta(
+			get_current_user_id(),
+			'_cachify_remove_post_type_cache_on_update',
+			true
 		);
 
-		/* Enable css */
-		wp_enqueue_style('cachify_css');
+		/* Init vars */
+		$dropdown_options = '';
+		$available_options = array(__('Total cache', 'cachify'), __('Page cache', 'cachify'));
+
+		/* Select options */
+		foreach( $available_options as $key => $value ) {
+			$dropdown_options .= sprintf(
+				'<option value="%1$d" %3$s>%2$s</option>',
+				$key,
+				$value,
+				selected($key, $current_action, false)
+			);
+		}
+
+		/* Output */
+		echo sprintf(
+			'<div class="misc-pub-section" style="border-top:1px solid #eee">
+				<label for="cachify_status">
+					%1$s: <span id="output-cachify-status">%2$s</span>
+				</label>
+				<a href="#" class="edit-cachify-status hide-if-no-js">%3$s</a>
+
+				<div class="hide-if-js">
+					<select name="_cachify_remove_post_type_cache_on_update" id="cachify_status">
+						%4$s
+					</select>
+
+					<a href="#" class="save-cachify-status hide-if-no-js button">%5$s</a>
+	 				<a href="#" class="cancel-cachify-status hide-if-no-js button-cancel">%6$s</a>
+	 			</div>
+			</div>',
+			__('Remove', 'cachify'),
+			$available_options[$current_action],
+			__('Edit'),
+			$dropdown_options,
+			__('OK'),
+			__('Cancel')
+		);
 	}
 
 
@@ -1293,7 +1429,7 @@ final class Cachify {
 	* Verfügbare Cache-Methoden
 	*
 	* @since  2.0.0
-	* @change 2.0.9
+	* @change 2.1.3
 	*
 	* @param  array  $methods  Array mit verfügbaren Arten
 	*/
@@ -1302,9 +1438,9 @@ final class Cachify {
 	{
 		/* Defaults */
 		$methods = array(
-			self::METHOD_DB  => 'Datenbank',
+			self::METHOD_DB  => __('Database', 'cachify'),
 			self::METHOD_APC => 'APC',
-			self::METHOD_HDD => 'Festplatte',
+			self::METHOD_HDD => __('Hard disk', 'cachify'),
 			self::METHOD_MMC => 'Memcached'
 		);
 
@@ -1327,12 +1463,38 @@ final class Cachify {
 	}
 
 
+	/**
+	* Minify cache dropdown
+	*
+	* @since   2.1.3
+	* @change  2.1.3
+	*
+	* @return  array    Key => value array
+	*/
+
 	private static function _minify_select()
 	{
 		return array(
-			self::MINIFY_DISABLED  => 'Keine',
+			self::MINIFY_DISABLED  => __('No minify', 'cachify'),
 			self::MINIFY_HTML_ONLY => 'HTML',
-			self::MINIFY_HTML_JS   => 'HTML und JavaScript'
+			self::MINIFY_HTML_JS   => 'HTML + JavaScript'
+		);
+	}
+
+
+	/**
+	* Register the language file
+	*
+	* @since   2.1.3
+	* @change  2.1.3
+	*/
+
+	public static function register_textdomain()
+	{
+		load_plugin_textdomain(
+			'cachify',
+			false,
+			'cachify/lang'
 		);
 	}
 
@@ -1361,7 +1523,7 @@ final class Cachify {
 	* Valisierung der Optionsseite
 	*
 	* @since   1.0.0
-	* @change  2.1.2
+	* @change  2.1.3
 	*
 	* @param   array  $data  Array mit Formularwerten
 	* @return  array         Array mit geprüften Werten
@@ -1370,14 +1532,17 @@ final class Cachify {
 	public static function validate_options($data)
 	{
 		/* Cache leeren */
-		self::flush_cache();
+		self::flush_total_cache();
 
 		/* Hinweis */
 		if ( self::$options['use_apc'] != $data['use_apc'] && $data['use_apc'] >= self::METHOD_APC ) {
 			add_settings_error(
 				'cachify_method_tip',
 				'cachify_method_tip',
-				'Die Server-Konfigurationsdatei (z.B. .htaccess) muss jetzt erweitert werden [<a href="http://playground.ebiene.de/cachify-wordpress-cache/" target="_blank">?</a>]',
+				sprintf(
+					'%s [<a href="http://playground.ebiene.de/cachify-wordpress-cache/" target="_blank">?</a>]',
+					__('The server configuration file (e.g. .htaccess) needs to be adjusted', 'cachify')
+				),
 				'updated'
 			);
 		}
@@ -1399,7 +1564,7 @@ final class Cachify {
 	* Darstellung der Optionsseite
 	*
 	* @since   1.0
-	* @change  2.1.2
+	* @change  2.1.3
 	*/
 
 	public static function options_page()
@@ -1424,7 +1589,7 @@ final class Cachify {
 				<table class="form-table">
 					<tr valign="top">
 						<th scope="row">
-							Cache-Aufbewahrungsort
+							<?php _e('Cache method', 'cachify') ?>
 						</th>
 						<td>
 							<label for="cachify_cache_method">
@@ -1439,32 +1604,32 @@ final class Cachify {
 
 					<tr valign="top">
 						<th scope="row">
-							Cache-Gültigkeit
+							<?php _e('Cache validity', 'cachify') ?>
 						</th>
 						<td>
 							<label for="cachify_cache_expires">
 								<input type="number" min="0" step="1" name="cachify[cache_expires]" id="cachify_cache_expires" value="<?php echo $options['cache_expires'] ?>" class="small-text" />
-								Stunden
+								<?php _e('Hours', 'cachify') ?>
 							</label>
 						</td>
 					</tr>
 
 					<tr valign="top">
 						<th scope="row">
-							Cache-Generierung
+							<?php _e('Cache generation', 'cachify') ?>
 						</th>
 						<td>
 							<fieldset>
 								<label for="cachify_only_guests">
 									<input type="checkbox" name="cachify[only_guests]" id="cachify_only_guests" value="1" <?php checked('1', $options['only_guests']); ?> />
-									Kein Cache-Aufbau durch eingeloggte Nutzer
+									<?php _e('No cache generation by logged in users', 'cachify') ?>
 								</label>
 
 								<br />
 
 								<label for="cachify_reset_on_comment">
 									<input type="checkbox" name="cachify[reset_on_comment]" id="cachify_reset_on_comment" value="1" <?php checked('1', $options['reset_on_comment']); ?> />
-									Neue Kommentare leeren den Cache
+									<?php _e('Flush the cache at new comments', 'cachify') ?>
 								</label>
 							</fieldset>
 						</td>
@@ -1472,7 +1637,7 @@ final class Cachify {
 
 					<tr valign="top">
 						<th scope="row">
-							Cache-Ausnahmen
+							<?php _e('Cache exceptions', 'cachify') ?>
 						</th>
 						<td>
 							<fieldset>
@@ -1493,7 +1658,7 @@ final class Cachify {
 
 					<tr valign="top">
 						<th scope="row">
-							Quelltext-Minimierung
+							<?php _e('Cache minify', 'cachify') ?>
 						</th>
 						<td>
 							<label for="cachify_compress_html">
@@ -1513,7 +1678,7 @@ final class Cachify {
 							<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
 						</th>
 						<td>
-							<a href="http://playground.ebiene.de/cachify-wordpress-cache/" target="_blank">Dokumentation</a> &bull; <a href="http://playground.ebiene.de/cachify-wordpress-cache/#book" target="_blank">Handbücher</a> &bull; <a href="https://flattr.com/t/1327625" target="_blank">Flattr</a> &bull; <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>
+							<a href="http://playground.ebiene.de/cachify-wordpress-cache/" target="_blank"><?php _e('Manual', 'cachify') ?></a> &bull; <a href="http://playground.ebiene.de/cachify-wordpress-cache/#book" target="_blank"><?php _e('Books', 'cachify') ?></a> &bull; <a href="https://flattr.com/t/1327625" target="_blank">Flattr</a> &bull; <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>
 						</td>
 					</tr>
 				</table>

@@ -1,11 +1,13 @@
 <?php
 /*
 Plugin Name: Cachify
-Description: Smarter Cache für WordPress. Reduziert die Ladezeit der Blogseiten, indem Inhalte in statischer Form abgelegt und ausgeliefert werden.
+Text Domain: cachify
+Domain Path: /lang
+Description: Easy to use WordPress cache plugin with static file serving in the database, hard disc, memcached and apc.
 Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://cachify.de
-Version: 2.1.2
+Version: 2.1.3
 */
 
 

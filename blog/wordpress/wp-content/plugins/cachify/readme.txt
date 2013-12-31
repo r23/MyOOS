@@ -75,6 +75,12 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 == Changelog ==
 
+= 2.1.3 =
+* Manuelle Auswahl: Beim Artikel-Update nur den Seitencache löschen
+* Lokalisierung der Plugin-Dateien
+* Umbauten am Plugin-Core
+* Detaillierter auf [Google+](https://plus.google.com/+SergejMüller/posts/By2PEtRMk8g)
+
 = 2.1.2 =
 * Optimierung für WordPress 3.8
 * Option hinzugefügt: Neue Kommentare lösen einen Cache-Reset aus
