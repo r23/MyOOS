@@ -1,0 +1,9 @@
+{
+    "DBStats": {
+        "DatabaseUsage": "Andmebaasi kasutus",
+        "DataSize": "Andmemaht",
+        "IndexSize": "Indeksi maht",
+        "MainDescription": "Piwik salvestab kõik veebianalüütika andmed Mysql andmebaasi. Hetkel, Piwiki tabelid kasutavad %s.",
+        "Table": "Tabel"
+    }
+}
