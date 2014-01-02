@@ -1781,6 +1781,8 @@ if (empty($_REQUEST['t']) && !empty($topic_id))
 // Output the page
 page_header($user->lang['VIEW_TOPIC'] . ' - ' . $topic_data['topic_title'], true, $forum_id);
 
+$template->assign_var('U_CANONICAL', generate_board_url() . '/' . append_sid("viewtopic.$phpEx", "f=$forum_id&amp;t=$topic_id" . (($start) ? "&amp;start=$start" : ''), true, ''));
+
 $template->set_filenames(array(
 	'body' => ($view == 'print') ? 'viewtopic_print.html' : 'viewtopic_body.html')
 );
