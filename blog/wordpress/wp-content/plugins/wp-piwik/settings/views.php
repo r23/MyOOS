@@ -56,7 +56,7 @@ if (!$bolFOpen && !$bolCURL) {
 </td></tr>
 <tr><th><?php _e('Show per post stats', 'wp-piwik'); ?>:</th><td>
 	<input type="checkbox" value="1" id="wp-piwik_perpost" name="wp-piwik_perpost"<?php echo (self::$settings->getGlobalOption('perpost_stats')?' checked="checked"':''); ?> />
-	<label for="wp-piwik_shortcodes"><?php echo _e('Show stats about single posts at the post edit admin page.', 'wp-piwik'); ?></label>
+	<label for="wp-piwik_perpost"><?php echo _e('Show stats about single posts at the post edit admin page.', 'wp-piwik'); ?></label>
 </td></tr>
 <tr><th><?php _e('Enable shortcodes', 'wp-piwik'); ?>:</th><td>
 	<input type="checkbox" value="1" id="wp-piwik_shortcodes" name="wp-piwik_shortcodes"<?php echo (self::$settings->getGlobalOption('shortcodes')?' checked="checked"':''); ?> />

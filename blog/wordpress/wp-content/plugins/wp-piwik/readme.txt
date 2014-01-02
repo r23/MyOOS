@@ -3,7 +3,7 @@
 Contributors: Braekling
 Requires at least: 3.8
 Tested up to: 3.8
-Stable tag: 0.9.9.7
+Stable tag: 0.9.9.8
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6046779
 Tags: statistics, stats, analytics, piwik, wpmu
 
@@ -19,7 +19,7 @@ Look at the [Piwik website](http://piwik.org/) to get further information about 
 
 *This plugin is not created or provided by the Piwik project team.*
 
-Languages: English, German, Albanian, Azerbaijani, Belorussian, Dutch, French, Greek, Italian, Lithuanian, Norwegian, Persian, Romanian, Russian, Spanish, Swedish, Ukrainian
+Languages: English, German, Albanian, Azerbaijani, Belorussian, Chinese (simplified), Dutch, French, Greek, Italian, Lithuanian, Norwegian, Persian, Romanian, Russian, Spanish, Swedish, Ukrainian
 
 *Note: If you vote "It's broken", please tell me about your problem. It's hard to fix a bug I don't know about! ;-)*
 
@@ -116,6 +116,10 @@ Add WP-Piwik to your /wp-content/plugins folder and enable it as [Network Plugin
 Please update Piwik if not done yet (Piwik 1.11 or higher is recommended)!
 
 == Changelog ==
+
+= 0.9.9.8 =
+* Feature: Per post stats (shown at the edit post page)
+* Feature: Track RSS views using a measurement pixel
 
 = 0.9.9.7 =
 * Bugfix: Error messages won't by cached anymore

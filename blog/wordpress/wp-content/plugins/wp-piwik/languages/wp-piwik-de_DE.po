@@ -687,3 +687,27 @@ msgstr "Cache alle API-Aufrufe, die keine heutigen Daten enthalten, f&uuml;r ein
 
 msgid "Enable cache"
 msgstr "Cache einschalten"
+
+msgid "This will add Piwik campaign parameters to the RSS feed links."
+msgstr "Dadurch werden Piwik Kampagnen-Parameter an die Links des RSS-Feeds angehangen."
+
+msgid "Campaign"
+msgstr "Kampagne"
+
+msgid "Keyword: post name."
+msgstr "Schl&uuml;sselwort: Name des Beitrags."
+
+msgid "Enable to track posts in feeds via tracking pixel."
+msgstr "Aktivieren, um Beir&auml;ge im Feed via Tracking-Pixel zu z&auml;hlen."
+
+msgid "Enable to track users on admin pages (remember to configure the tracking filter appropriately)."
+msgstr "Aktivieren, um Nutzer auf Admin-Seiten zu z&auml;hlen (bitte den Tracking Filter entsprechend konfigurieren)."
+
+msgid "Track RSS feed links as campaign"
+msgstr "Links in RSS-Feeds als Kampagne tracken"
+
+msgid "Show stats about single posts at the post edit admin page."
+msgstr "Zeige Statistiken zu einzelnen Beitr&auml;gen auf der Bearbeiten-Seite."
+
+msgid "Show per post stats"
+msgstr "Zeige Beitrags-Statistiken"

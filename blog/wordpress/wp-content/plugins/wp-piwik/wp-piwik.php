@@ -6,7 +6,7 @@ Plugin URI: http://wordpress.org/extend/plugins/wp-piwik/
 
 Description: Adds Piwik stats to your dashboard menu and Piwik code to your wordpress header.
 
-Version: 0.9.9.7
+Version: 0.9.9.8
 Author: Andr&eacute; Br&auml;kling
 Author URI: http://www.braekling.de
 
@@ -42,8 +42,8 @@ if (!class_exists('wp_piwik')) {
 class wp_piwik {
 
 	private static
-		$intRevisionId = 90971,
-		$strVersion = '0.9.9.7',
+		$intRevisionId = 90983,
+		$strVersion = '0.9.9.8',
 		$blog_id,
 		$intDashboardID = 30,
 		$strPluginBasename = NULL,
@@ -111,6 +111,13 @@ class wp_piwik {
 			// Add tracking code to admin page header if enabled
 			if (self::$settings->getGlobalOption('track_admin'))
 				add_action('admin_head', array($this, 'addAdminHeaderTracking'));
+			// Add tracking image to feed if enabled
+			if (self::$settings->getGlobalOption('track_feed')) {
+				add_filter('the_excerpt_rss', array(&$this, 'addFeedTracking'));
+				add_filter('the_content', array(&$this, 'addFeedTracking'));
+			}
+			if (self::$settings->getGlobalOption('track_feed_addcampaign'))
+				add_filter('post_link', array(&$this, 'addFeedCampaign'));
 		}
 		self::$settings->save();
 	}
@@ -177,6 +184,8 @@ class wp_piwik {
         	self::includeFile('update/90961');
         if (self::$settings->getGlobalOption('revision') < 90971)
         	self::includeFile('update/90971');
+        if (self::$settings->getGlobalOption('revision') < 90983)
+        	self::includeFile('update/90980');
         	
         // Install new version
         $this->installPlugin();      
@@ -322,6 +331,11 @@ class wp_piwik {
 	function postMetaboxes() {
 		add_action('add_meta_boxes', array(&$this, 'postAddMetaboxes'));
 		add_action('save_post', array(&$this, 'postCustomvarsSave'), 10, 2);
+		// Show per post stats if enabled
+		if (self::$settings->getGlobalOption('perpost_stats')) {
+			$this->includeFile('classes/WP_Piwik_MetaBox_PerPost_Stats');
+			add_action('add_meta_boxes', array(new WP_Piwik_MetaBox_PerPost_Stats($this->subClassConfig()), 'addMetabox'));
+		}
 	}
 
 	/**
@@ -652,6 +666,44 @@ class wp_piwik {
 	}
 
 	/**
+	 * Add tracking image to feeds
+	 **/
+	function addFeedTracking($content) {
+		global $post;
+		if(is_feed()) {
+			self::$logger->log('Add tracking image to feed entry.');
+			if (!self::$settings->getOption('site_id'))
+				self::addPiwikSite();
+			$title = the_title(null,null,false);
+			$posturl = get_permalink($post->ID);
+			$urlref = get_bloginfo('rss2_url');
+			$url = self::$settings->getGlobalOption('piwik_url');
+			if (substr($url, -10, 10) == '/index.php')
+				$url = str_replace('/index.php', '/piwik.php', $url);
+			else $url .= 'piwik.php';
+			$trackingImage = $url.'?idsite='.self::$settings->getOption('site_id').'&amp;rec=1'.
+				'&amp;url='.urlencode($posturl).
+				'&amp;action_name='.urlencode($title).
+				'&amp;urlref='.urlencode($urlref);
+			$content .= '<img src="'.$trackingImage.'" style="border:0;width:0;height:0" width="0" height="0" alt="" />';
+		}
+		return $content;
+	}
+
+	/**
+	 * Add tracking image to feeds
+	 **/
+	function addFeedCampaign($permalink) {
+		global $post;
+		if(is_feed()) {
+			self::$logger->log('Add campaign to feed permalink.');
+			$sep = (strpos($permalink, '?') === false?'?':'&');
+			$permalink .= $sep.'pk_campaign='.urlencode(self::$settings->getGlobalOption('track_feed_campaign')).'&pk_kwd='.urlencode($post->post_name);
+		}
+		return $permalink;
+	}
+
+	/**
 	 * Add required header tags to stats page
 	 */
 	function addAdminHeaderStats() {
@@ -895,11 +947,11 @@ class wp_piwik {
 	/**
 	 * Call Piwik's API
 	 */
-	function callPiwikAPI($strMethod, $strPeriod='', $strDate='', $intLimit='',$bolExpanded=false, $intId = false, $strFormat = 'PHP', $strPageURL = '') {
+	function callPiwikAPI($strMethod, $strPeriod='', $strDate='', $intLimit='',$bolExpanded=false, $intId = false, $strFormat = 'PHP', $strPageURL = '', $useCache = true) {
 		// Create unique cache key
-		$strKey = 'wp-piwik_'.md5($strMethod.'_'.$strPeriod.'_'.$strDate.'_'.$intLimit.'_'.self::$settings->getGlobalOption('piwik_token').'_'.self::$settings->getGlobalOption('piwik_url'));
+		$strKey = 'wp-piwik_'.md5($strMethod.'_'.$strPeriod.'_'.$strDate.'_'.$intLimit.'_'.self::$settings->getGlobalOption('piwik_token').'_'.self::$settings->getGlobalOption('piwik_url').'_'.$intId.'_'.$strPageURL);
 		// Call API if data not cached
-		if (self::$settings->getGlobalOption('cache')) {
+		if (self::$settings->getGlobalOption('cache') && $useCache) {
 			$result = get_transient($strKey);
 			self::$logger->log('API method: '.$strMethod.' Fetch call from cache: '.$strKey);
 		} else $result = false;
@@ -1192,6 +1244,11 @@ class wp_piwik {
 				self::$settings->setGlobalOption('track_noscript', (isset($_POST['wp-piwik_noscript'])?$_POST['wp-piwik_noscript']:false));
 				self::$settings->setGlobalOption('track_nojavascript', (isset($_POST['wp-piwik_nojavascript'])?$_POST['wp-piwik_nojavascript']:false));
 				self::$settings->setGlobalOption('track_admin', (isset($_POST['wp-piwik_trackadmin'])?$_POST['wp-piwik_trackadmin']:false));
+				self::$settings->setGlobalOption('track_feed', (isset($_POST['wp-piwik_trackfeed'])?$_POST['wp-piwik_trackfeed']:false));
+				self::$settings->setGlobalOption('track_feed_goal', (isset($_POST['wp-piwik_trackfeed_goal'])&&!empty($_POST['wp-piwik_trackfeed_goal'])?(int)$_POST['wp-piwik_trackfeed_goal']:''));
+				self::$settings->setGlobalOption('track_feed_revenue', (isset($_POST['wp-piwik_trackfeed_revenue'])&&!empty($_POST['wp-piwik_trackfeed_revenue'])?(int)$_POST['wp-piwik_trackfeed_revenue']:''));
+				self::$settings->setGlobalOption('track_feed_campaign', (isset($_POST['wp-piwik_trackfeed_campaign'])?$_POST['wp-piwik_trackfeed_campaign']:'feed'));
+				self::$settings->setGlobalOption('track_feed_addcampaign', (isset($_POST['wp-piwik_trackfeed_addcampaign'])?$_POST['wp-piwik_trackfeed_addcampaign']:false));
 				self::$settings->setGlobalOption('capability_stealth', (isset($_POST['wp-piwik_filter'])?$_POST['wp-piwik_filter']:array()));
 				self::$settings->setGlobalOption('disable_cookies', (isset($_POST['wp-piwik_disable_cookies'])?$_POST['wp-piwik_disable_cookies']:false));
 				self::$settings->setOption('tracking_code', $this->callPiwikAPI('SitesManager.getJavascriptTag'));
@@ -1390,6 +1447,13 @@ class wp_piwik {
 		self::$settings = new WP_Piwik_Settings(self::$logger);
 	}
 
+	private function subClassConfig() {
+		return array(
+			'wp_piwik' => $this,
+			'logger' => self::$logger,
+			'settings' => self::$settings
+		);
+	}
 }
 
 }
