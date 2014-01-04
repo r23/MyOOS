@@ -77,17 +77,7 @@ function wpseo_init() {
  */
 function wpseo_frontend_init() {
 	$options = get_wpseo_options();
-
-	global $pagenow;
-	if ( in_array( $pagenow, array( 'viewforum.php', 'viewtopic.php', 'memberlist.php' ) ) ) {
-		remove_action( 'wp_head', 'rel_canonical' );
-		remove_action( 'wp_head', 'index_rel_link' );
-		remove_action( 'wp_head', 'start_post_rel_link' );
-		remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head' );
-		remove_action( 'wp_head', 'wp_shortlink_wp_head');
-		return;
-	}
-
+	
 	require_once( WPSEO_PATH . 'frontend/class-frontend.php' );
 	if ( isset( $options['breadcrumbs-enable'] ) && $options['breadcrumbs-enable'] )
 		require_once( WPSEO_PATH . 'frontend/class-breadcrumbs.php' );
@@ -148,6 +138,8 @@ if ( is_admin() ) {
 	register_activation_hook( __FILE__, 'wpseo_activate' );
 	register_deactivation_hook( __FILE__, 'wpseo_deactivate' );
 } else {
-	 add_action( 'plugins_loaded', 'wpseo_frontend_init', 15 );
+
+	add_action( 'plugins_loaded', 'wpseo_frontend_init', 15 );
+
 }
 unset( $options );
