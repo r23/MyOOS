@@ -32,7 +32,7 @@ class WPSEO_Frontend {
 		$this->options = get_wpseo_options();
 
 		add_action( 'wp_head', array( $this, 'head' ), 1 );
-	
+
 		// The head function here calls action wpseo_head, to which we hook all our functionality
 		add_action( 'wpseo_head', array( $this, 'debug_marker' ), 2 );
 		add_action( 'wpseo_head', array( $this, 'robots' ), 6 );
@@ -517,22 +517,13 @@ class WPSEO_Frontend {
 	public function head() {
 		global $wp_query;
 
-	
-		/* remove  WordPress SEO from phpbb 3 header */
-		$forum_page_ID = get_option('wpu_set_forum');
-		if ( $forum_page_ID && is_singular() ) {
-			if ( $GLOBALS['wp_query']->get_queried_object_id() == $forum_page_ID ) {
-				return true;
-			}
-		}		
-		
 		$old_wp_query = null;
-		
+
 		if ( ! $wp_query->is_main_query() ) {
 			$old_wp_query = $wp_query;
 			wp_reset_query();
 		}
-		
+
 		do_action( 'wpseo_head' );
 
 		echo "<!-- / Yoast WordPress SEO plugin. -->\n\n";
@@ -638,7 +629,6 @@ class WPSEO_Frontend {
 	 * @return string $canonical
 	 */
 	public function canonical( $echo = true, $un_paged = false, $no_override = false ) {
-
 		$canonical = false;
 		$skip_pagination = false;
 
@@ -1148,7 +1138,7 @@ class WPSEO_Frontend {
 			$cururl .= "s";
 		}
 		$cururl .= "://";
-		if ( $_SERVER["SERVER_PORT"] != "80" )
+		if ( $_SERVER["SERVER_PORT"] != "80" && $_SERVER["SERVER_PORT"] != "443")
 			$cururl .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
 		else
 			$cururl .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
