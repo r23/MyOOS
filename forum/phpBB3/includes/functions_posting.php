@@ -1647,6 +1647,10 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll, &$data, $u
 {
 	global $db, $auth, $user, $config, $phpEx, $template, $phpbb_root_path;
 
+	//Define the minimum number of posts for "good" users
+	//Users below this threshold are considered potential spammers
+	$user_posts_threshold = 3;	
+	
 	// We do not handle erasing posts here
 	if ($mode == 'delete')
 	{
@@ -1675,6 +1679,16 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll, &$data, $u
 	$subject = truncate_string($subject);
 	$data['topic_title'] = truncate_string($data['topic_title']);
 
+	$sTopicTitle = $data['topic_title'];
+	
+	if (strpos($sTopicTitle, 'http://') !== FALSE ||
+		strpos($sTopicTitle, 'ftp://') !== FALSE ||
+		strpos($sTopicTitle, 'www.') !== FALSE ||
+		strpos($sTopicTitle, '[url') !== FALSE) {
+			trigger_error("You are not allowed to post URLs!");
+	}
+
+	
 	// Collect some basic information about which tables and which rows to update/insert
 	$sql_data = $topic_row = array();
 	$poster_id = ($mode == 'edit') ? $data['poster_id'] : (int) $user->data['user_id'];
@@ -1715,6 +1729,28 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll, &$data, $u
 	// Start the transaction here
 	$db->sql_transaction('begin');
 
+	/* anti-spam measures for phpBB 3.0
+	  http://www.michel-kraemer.com/anti-spam-phpbb3
+	*/
+	//strip whitespace characters in the post body
+	$msgwows = $data['message'];
+	$msgwows = str_replace(" ", "", $msgwows);
+	$msgwows = str_replace("\n", "", $msgwows);
+	$msgwows = str_replace("\r", "", $msgwows);
+	$msgwows = str_replace("\t", "", $msgwows);
+ 
+	if (!$user->data['is_registered'] ||
+		$user->data['user_posts'] < $user_posts_threshold) {
+		if (strpos($msgwows, 'http://') !== FALSE ||
+			strpos($msgwows, 'ftp://') !== FALSE ||
+			strpos($msgwows, 'www.') !== FALSE ||
+			strpos($msgwows, '[url') !== FALSE) {
+			trigger_error("You are not allowed to post URLs!");
+		}
+	}
+
+	
+	
 	// Collect Information
 	switch ($post_mode)
 	{
