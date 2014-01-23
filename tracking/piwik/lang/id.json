@@ -82,9 +82,6 @@
         "ViewAndAddAnnotations": "Tampilkan dan tambahkan penjelasan untuk %s...",
         "YouCannotModifyThisNote": "Anda tidak dapat mengubah penjelasan ini, sebab Anda bukan yang membuat ini, atau Anda tidak memiliki akses pengelola untuk situs ini."
     },
-    "AnonymizeIP": {
-        "PluginDescription": "Anonimasi bita terakhir dari alamat IP pengunjung sesuai dengan peraturan privasi\/panduan setempat Anda."
-    },
     "API": {
         "GenerateVisits": "Bila Anda tidak memiliki data untuk hari ini, Anda dapat membuat beberapa menggunakan pengaya %s. Anda dapat mengaktifkan pengaya %s, lalu klik menu 'Pembangkit Kunjungan' di halaman Pengurus Piwik.",
         "KeepTokenSecret": "token_auth ini merupakan hal yang rahasia sebagaimana nama-id dan sandi Anda, %s sehingga jangan memberitahukannya%s!",
@@ -960,7 +957,6 @@
         "SystemCheckExtensions": "Ekstensi lain dibutuhkan",
         "SystemCheckFileIntegrity": "Integritas berkas",
         "SystemCheckFunctions": "Fungsi yang dibutuhkan",
-        "SystemCheckGD": "GD > 2.x (grafik)",
         "SystemCheckGDHelp": "Bagan garis (grafik kecil) tak bekerja.",
         "SystemCheckGlobHelp": "Fungsi bawaan ini telah dimatikan dalam inang Anda. Piwik akan mencoba untuk meniru fungsi ini namun mungkin menghadapi pembatasan keamanan lebih lanjut. Fungsionalitas mungkin terkena dampak.",
         "SystemCheckGzcompressHelp": "Anda dapat mengaktifkan ekstensi zlib dan fungsi gzcompress.",
@@ -1167,6 +1163,7 @@
     },
     "PrivacyManager": {
         "AnonymizeIpDescription": "Pilih \"Ya\" jika Anda ingin Piwik tidak melacak Alamat IP sepenuhnya.",
+        "AnonymizeIpInlineHelp": "Anonimasi bita terakhir dari alamat IP pengunjung sesuai dengan peraturan privasi\/panduan setempat Anda.",
         "AnonymizeIpMaskLengtDescription": "Pilih berapa banyak bita dari IP pengunjung harus ditutupi.",
         "AnonymizeIpMaskLength": "%s bita - misalnya %s",
         "CannotLockSoDeleteLogActions": "Tabel log_action tidak akan dibersihakan: harap memberi hak LOCK TABLES terhadap pengguna MySQL '%s'.",
@@ -1825,7 +1822,6 @@
         "Longitude": "Bujur",
         "NoDataForGeoIPReport1": "Tidak ada data untuk laporan ini sebab tidak ada data lokasi yang tersedia atau alamat IP tidak dikenali lokasi-geo.",
         "NoDataForGeoIPReport2": "Untuk mengaktifkan lokasi-geo teliti, ganti pengaturan %1$sdi sini%2$s dan gunakan sebuah %3$sbasisdata tingkat kota%4$s.",
-        "OldGeoIPWarning": "Kami mendeteksi pengaya GeoIP lama. Pemaduan GeoIP sekarang di inti Piwik dan pengaya ini dianggap usang. Laporan kota dan wilayah tidak akan tampil ketika pengaya ini dimuat. %1$sHarap mematika pengaya tersebut%2$s dan %3$smengatur GeoIP%4$s. Bila Anda ingin data lokasi untuk kunjungan lama Anda, gunakan sekrip yang dijelaskan %5$sdi sini%6$s lalu %7$sproses ulang laporan Anda%8$s.",
         "Organization": "Organisasi",
         "OrgDatabase": "Basisdata Organisasi",
         "PeclGeoIPNoDBDir": "Modul PECL sedang mencari basisdata di %1$s, tapi direktori ini tidak tersedia. Harap memperbaiki ini dan menambah basisdata GeoIP di dalamnya. Atau Anda dapat mengatur %2$s ke direktori yang sesuai dalam berkas php.ini Anda.",
@@ -2081,7 +2077,6 @@
         "WidgetBrowserVersion": "Versi Peramban",
         "WidgetGlobalVisitors": "Pengaturan pengunjung umum",
         "WidgetGlobalVisitorsDocumentation": "Laporan ini menunjukkan pengaturan paling umum yang pengunjung miliki. Subuah pengaturan terdiri atas sistem operasi, jenis peramban, dan resolusi layar.",
-        "WidgetOperatingSystemFamily": "Keluarga Sistem Operasi",
         "WidgetOperatingSystems": "Sistem Operasi",
         "WidgetPlugins": "Daftar Pengaya",
         "WidgetPluginsDocumentation": "Laporan ini menunjukkan pengaya peramban yang diaktifkan oleh pengunjung. Informasi yang tersedia kemungkinan penting untuk memilih cara terbaik untuk menyampaikan konten Anda.",

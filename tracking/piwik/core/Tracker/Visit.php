@@ -94,7 +94,7 @@ class Visit implements VisitInterface
          * Triggered after visits are tested for exclusion so plugins can modify the IP address
          * persisted with a visit.
          * 
-         * This event is primarily used by the **AnonymizeIP** plugin to anonymize IP addresses.
+         * This event is primarily used by the **PrivacyManager** plugin to anonymize IP addresses.
          * 
          * @param string &$ip The visitor's IP address.
          */
@@ -609,7 +609,7 @@ class Visit implements VisitInterface
         $os = UserAgentParser::getOperatingSystem($userAgent);
         $os = $os === false ? 'UNK' : $os['id'];
 
-        $browserLang = $this->request->getBrowserLanguage();
+        $browserLang = substr($this->request->getBrowserLanguage(), 0, 20); // limit the length of this string to match db
         $configurationHash = $this->getConfigHash(
             $os,
             $browserName,

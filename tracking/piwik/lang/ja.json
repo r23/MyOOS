@@ -80,9 +80,6 @@
         "ViewAndAddAnnotations": "%sの注釈の表示と追加",
         "YouCannotModifyThisNote": "この注釈は変更できません。あなたが生成した注釈ではないか、このサイトの管理者権限がないからです"
     },
-    "AnonymizeIP": {
-        "PluginDescription": "ローカルプライバシー規則やガイドラインに応じて、ビジターの IP アドレスの最終バイトを匿名化します。"
-    },
     "API": {
         "GenerateVisits": "今日のデータがない場合は、%s プラグインを使用して、はじめに若干のデータを生成することができます。 これを行うには、%s プラグインを有効にし、管理エリアで 'ビジタージェネレータ' メニューをクリックします。",
         "KeepTokenSecret": "token_auth は、ログイン名とパスワードのように秘密にし、%s絶対に共有しないでください%s！",
@@ -821,7 +818,6 @@
         "SystemCheckExtensions": "その他の必須エクステンション",
         "SystemCheckFileIntegrity": "ファイルの整合性",
         "SystemCheckFunctions": "必須関数",
-        "SystemCheckGD": "GD > 2.x （グラフィック）",
         "SystemCheckGDHelp": "スパークライン（小さなグラフ）は動作しません。",
         "SystemCheckGlobHelp": "この組み込み関数はホストで無効化されています。 Piwik はこの関数のエミュレートを試みますが、さらなるセキュリティ制限に遭遇する場合があります。 また、機能性にも影響を与える場合があります。",
         "SystemCheckGzcompressHelp": "zlib エクステンションと gzcompress() 関数を有効にする必要があります。",
@@ -919,6 +915,7 @@
     },
     "PrivacyManager": {
         "AnonymizeIpDescription": "完全に特定されたIPアドレスを追跡しないようにするには「はい」を選んでください。",
+        "AnonymizeIpInlineHelp": "ローカルプライバシー規則やガイドラインに応じて、ビジターの IP アドレスの最終バイトを匿名化します。",
         "AnonymizeIpMaskLengtDescription": "ビジターのIPアドレスから何バイトマスクするか選択してください。",
         "AnonymizeIpMaskLength": "%s バイト- 例. %s",
         "ClickHereSettings": "%s 設定はこちらをクリック",

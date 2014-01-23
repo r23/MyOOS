@@ -70,9 +70,6 @@
         "NoAnnotations": "Nu există notiţe pentru acest interval",
         "ViewAndAddAnnotations": "Vezi şi adaugă notiţe pentru %s..."
     },
-    "AnonymizeIP": {
-        "PluginDescription": "Ascunde ultimele cifre ale IP-ului vizitatorilor pentru a fi în conformitate cu legile privind protecţia datelor personale."
-    },
     "API": {
         "LoadedAPIs": "%s API-uri încarcate cu succes",
         "QuickDocumentationTitle": "Demonstrare rapida API",
@@ -706,7 +703,6 @@
         "SuperUserLogin": "login utilizator privilegiat",
         "SuperUserSetupSuccess": "Utilizator privilegiat creat cu succes!",
         "SystemCheck": "System check",
-        "SystemCheckGD": "GD > 2.x (graphics)",
         "SystemCheckMemoryLimit": "Memory limit",
         "SystemCheckOtherExtensions": "Alte extensii",
         "SystemCheckOtherFunctions": "Alte Funcţionalităţi",
@@ -794,6 +790,7 @@
         "OneClick": "1 click"
     },
     "PrivacyManager": {
+        "AnonymizeIpInlineHelp": "Ascunde ultimele cifre ale IP-ului vizitatorilor pentru a fi în conformitate cu legile privind protecţia datelor personale.",
         "ClickHereSettings": "Dă click aici pentru a accesa setările %s.",
         "DeleteDataInterval": "Şterge datele vechi fiecare",
         "DeleteDataSettings": "Şterge înregistrări şi raportare vechi",
@@ -1428,7 +1425,6 @@
         "WidgetBrowsers": "Browsere vizitatori",
         "WidgetBrowserVersion": "Versiunea browser-ului",
         "WidgetGlobalVisitors": "Configurare vizitatori globala",
-        "WidgetOperatingSystemFamily": "Sisteme de operare dup@ familie",
         "WidgetOperatingSystems": "Sisteme operare",
         "WidgetPlugins": "Lista pluginurilor",
         "WidgetResolutions": "Rezolutii ecran",

@@ -74,7 +74,7 @@
                 return false;
             });
 
-            $element.on('click', '.visitor-profile-pages-visited,.visitor-profile-more-info', function (e) {
+            $element.on('click', '.visitor-profile-more-info>a', function (e) {
                 e.preventDefault();
                 self._loadMoreVisits();
                 return false;
@@ -86,8 +86,8 @@
                 return false;
             });
 
-            $element.on('click', '.visitor-profile-visit-title', function () {
-                self._loadIndividualVisitDetails($(this));
+            $element.on('click', '.visitor-profile-visit-title-row', function () {
+                self._loadIndividualVisitDetails($('h2', this));
             });
 
             $element.on('click', '.visitor-profile-prev-visitor', function (e) {
@@ -127,10 +127,10 @@
             // on hover, show export link (chrome won't let me do this via css :( )
             $element.on('mouseenter mouseleave', '.visitor-profile-id', function (e) {
                 var $exportLink = $(this).find('.visitor-profile-export');
-                if ($exportLink.is(':hidden')) {
-                    $exportLink.css('display', 'inline-block');
+                if ($exportLink.css('visibility') == 'hidden') {
+                    $exportLink.css('visibility', 'visible');
                 } else {
-                    $exportLink.hide();
+                    $exportLink.css('visibility', 'hidden');
                 }
             });
         },

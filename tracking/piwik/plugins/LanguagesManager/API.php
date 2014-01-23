@@ -79,11 +79,30 @@ class API extends \Piwik\Plugin\API
     {
         $data = file_get_contents(PIWIK_INCLUDE_PATH . '/lang/en.json');
         $englishTranslation = json_decode($data, true);
+
+        // merge with plugin translations if any
+        $pluginFiles = glob(sprintf('%s/plugins/*/lang/en.json', PIWIK_INCLUDE_PATH));
+        foreach ($pluginFiles AS $file) {
+
+            $data = file_get_contents($file);
+            $pluginTranslations = json_decode($data, true);
+            $englishTranslation = array_merge_recursive($englishTranslation, $pluginTranslations);
+        }
+
         $filenames = $this->getAvailableLanguages();
         $languagesInfo = array();
         foreach ($filenames as $filename) {
             $data = file_get_contents(sprintf('%s/lang/%s.json', PIWIK_INCLUDE_PATH, $filename));
             $translations = json_decode($data, true);
+
+            // merge with plugin translations if any
+            $pluginFiles = glob(sprintf('%s/plugins/*/lang/%s.json', PIWIK_INCLUDE_PATH, $filename));
+            foreach ($pluginFiles AS $file) {
+
+                $data = file_get_contents($file);
+                $pluginTranslations = json_decode($data, true);
+                $translations = array_merge_recursive($translations, $pluginTranslations);
+            }
 
             $intersect = function ($array, $array2) {
                 $res = $array;
@@ -205,8 +224,10 @@ class API extends \Piwik\Plugin\API
      */
     public function getLanguageForUser($login)
     {
+        if($login == 'anonymous') {
+            return false;
+        }
         Piwik::checkUserIsSuperUserOrTheUser($login);
-        Piwik::checkUserIsNotAnonymous();
         return Db::fetchOne('SELECT language FROM ' . Common::prefixTable('user_language') .
             ' WHERE login = ? ', array($login));
     }

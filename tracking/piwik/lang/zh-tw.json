@@ -38,9 +38,6 @@
         "Annotations": "註解",
         "CreateNewAnnotation": "建立新註解"
     },
-    "AnonymizeIP": {
-        "PluginDescription": "隱藏訪客IP位址最後一個字元以符合你的當地隱私條例\/政策。"
-    },
     "API": {
         "GenerateVisits": "如果你今天還沒有任何資料，你可以先使用 %s 外掛來產生一些數據。你可以啟用 %s 外掛，然後點擊在 Piwik 管理員區域裡的'產生訪客'選單。",
         "KeepTokenSecret": "token_auth 如你的帳號和密碼般重要，%s請不要公開它%s！",
@@ -533,7 +530,6 @@
         "SystemCheckExtensions": "其他需要的擴充元件",
         "SystemCheckFileIntegrity": "檔案完整性",
         "SystemCheckFunctions": "必須函式",
-        "SystemCheckGD": "GD > 2.x (繪圖函式庫)",
         "SystemCheckGDHelp": "Sparklines (小圖) 將無法運作。",
         "SystemCheckGlobHelp": "這個內建的函式已被你的主機商停用。Piwik 將嘗試模擬這個功能，但可能會遇到更多安全限制。功能可能受到影響。",
         "SystemCheckIconvHelp": "你需要設定及重建 PHP, 然後啟用\"iconv\"支援, --with-iconv.",
@@ -607,6 +603,9 @@
     "MultiSites": {
         "Evolution": "發展趨勢",
         "PluginDescription": "顯示多個網站的摘要 \/ 統計。目前為 Piwik 的核心外掛。"
+    },
+    "PrivacyManager": {
+        "AnonymizeIpInlineHelp": "隱藏訪客IP位址最後一個字元以符合你的當地隱私條例\/政策。"
     },
     "Provider": {
         "ColumnProvider": "供應商",
@@ -1191,6 +1190,7 @@
         "Language_zh": "中文",
         "Language_zu": "祖鲁文",
         "LanguageCode": "語系代碼",
+        "OperatingSystemFamily": "作業系統家族",
         "OperatingSystems": "作業系統",
         "PluginDescription": "各個用戶設定報表：瀏覽器、瀏覽器家族、作業系統、外掛、解析度、全域設定。",
         "PluginDetectionDoesNotWorkInIE": "注意：外掛偵測無法在 Internet Explorer 上運作。這個報告僅提供非 IE 瀏覽器。",
@@ -1202,7 +1202,6 @@
         "WidgetBrowserVersion": "瀏覽器版本",
         "WidgetGlobalVisitors": "全域訪客配置",
         "WidgetGlobalVisitorsDocumentation": "此報表列出貴站訪客最常見的設定配置。設定配置包含作業系統、瀏覽器、螢幕解析度等資訊。",
-        "WidgetOperatingSystemFamily": "作業系統家族",
         "WidgetOperatingSystems": "作業系統",
         "WidgetPlugins": "瀏覽器外掛清單",
         "WidgetResolutions": "畫面解析度",

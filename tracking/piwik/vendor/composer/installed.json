@@ -44,18 +44,18 @@
     },
     {
         "name": "symfony/console",
-        "version": "v2.4.0",
-        "version_normalized": "2.4.0.0",
+        "version": "v2.4.1",
+        "version_normalized": "2.4.1.0",
         "target-dir": "Symfony/Component/Console",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/Console.git",
-            "reference": "3c1496ae96d24ccc6c340fcc25f71d7a1ab4c12c"
+            "reference": "4c1ed2ff514bd85ee186eebb010ccbdeeab05af7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/Console/zipball/3c1496ae96d24ccc6c340fcc25f71d7a1ab4c12c",
-            "reference": "3c1496ae96d24ccc6c340fcc25f71d7a1ab4c12c",
+            "url": "https://api.github.com/repos/symfony/Console/zipball/4c1ed2ff514bd85ee186eebb010ccbdeeab05af7",
+            "reference": "4c1ed2ff514bd85ee186eebb010ccbdeeab05af7",
             "shasum": ""
         },
         "require": {
@@ -67,7 +67,7 @@
         "suggest": {
             "symfony/event-dispatcher": ""
         },
-        "time": "2013-11-27 09:10:40",
+        "time": "2014-01-01 08:14:50",
         "type": "library",
         "extra": {
             "branch-alias": {

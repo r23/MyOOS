@@ -32,6 +32,7 @@
         "ExitPageTitles": "Títols de les pàgines de sortida",
         "ExitPageTitlesReportDocumentation": "Aquest informe conté els títols de les pàgins de sortida que s'han utiltizat durant el període especificat.",
         "LearnMoreAboutSiteSearchLink": "Apren més sobre com els teus visitants utiltizent el motor de cerca del teu lloc web.",
+        "OneSearch": "1 cerca",
         "OutlinkDocumentation": "Un enllaç de sortida es un enllaç que porta el visitant fora del teu lloc web (a un altre domini)",
         "OutlinksReportDocumentation": "Aquest informe mostra una lista jeràrquica de les URL de sortida que han estat clicades pels vostres visitants.",
         "PagesReportDocumentation": "Aquest informe conté les URL de les pàgines que s'han visitat. %s La taula s'organitza jerarquicament, i les URL es mostren amb estructura de directoris.",
@@ -78,9 +79,6 @@
         "PluginDescription": "Permet afegir notes als diferents dies perquè pogueu recordar perquè la vostra inforamció es mostra d'una determinada forma.",
         "ViewAndAddAnnotations": "Mostra i afegeix anotacions per %s...",
         "YouCannotModifyThisNote": "No podeu modificar aquesta nota perquè o bé no l'heu creada vosatres, o no teni accès d'administrador per aquest lloc web."
-    },
-    "AnonymizeIP": {
-        "PluginDescription": "Anonimitzar el(s) últim(s) de la IP de les adreces dels visitants per complir amb la vostra política de privacitat\/llei."
     },
     "API": {
         "GenerateVisits": "Si no disposeu d'informació d'avui podeu generar informació utilitzant l'extensió: %s. Heu d'activar l'extensió %s i desprès anar al menú 'Generador de visites' de l'espai d'administració del Piwik.",
@@ -173,10 +171,13 @@
         "YouAreUsingTheLatestVersion": "Esteu fent servir l'última versió de Piwik!"
     },
     "CorePluginsAdmin": {
+        "ActionInstall": "Instal·la",
         "Activate": "Activa",
         "Activated": "Actiu",
         "Active": "Actiu",
+        "Activity": "Activitat",
         "AuthorHomepage": "Pàgina de l'autor",
+        "Authors": "Autors",
         "Deactivate": "Desactiva",
         "Inactive": "Inactiu",
         "LicenseHomepage": "Pàgina de la llicència",
@@ -862,7 +863,6 @@
         "SystemCheckExtensions": "Altres extensions necessàries",
         "SystemCheckFileIntegrity": "Integritat dels fitxers",
         "SystemCheckFunctions": "Funcions necessàries",
-        "SystemCheckGD": "GD > 2.x (gràfics)",
         "SystemCheckGDHelp": "Els gràfics petits no funcionaran.",
         "SystemCheckGlobHelp": "Aquesta funció s'ha deshabilitat al vostre host. El Piwik probarà d'emular aquesta funció però pot trobar-se amb altres restriccions de seguretat. Això impactarà a la funcionalitat.",
         "SystemCheckGzcompressHelp": "Heu d'activar l'extensió zlib i la funció gzcompress.",
@@ -1049,6 +1049,7 @@
     },
     "PrivacyManager": {
         "AnonymizeIpDescription": "Seleccioneu \"Sí\" si voleu que el Piwik no registri l'adreça IP complerta.",
+        "AnonymizeIpInlineHelp": "Anonimitzar el(s) últim(s) de la IP de les adreces dels visitants per complir amb la vostra política de privacitat\/llei.",
         "AnonymizeIpMaskLengtDescription": "Seleccioneu quans bytes de l'adreça IP del visitant voleu enmascarar.",
         "AnonymizeIpMaskLength": "%s byte(s) - p.e. %s",
         "CannotLockSoDeleteLogActions": "La taula log_action no es purgarà: siusplau doneu el privilegi LOCK TABLES a l'ususair de MySQL '%s'.",
@@ -1665,7 +1666,6 @@
         "Longitude": "Longitud",
         "NoDataForGeoIPReport1": "No hi ha informació per aquest informe perquè la informació de localització no esta disponible o l'adreça IP del visitant no pot ser geolocalitzada.",
         "NoDataForGeoIPReport2": "Per activar la geolocalització acurada, canvieu les preferències %1$saquí%2$s i utilitzeu una %3$sbase de dades a nivell de ciutat%4$s.",
-        "OldGeoIPWarning": "Em detectat la extensió antiga de Geolocalització. La integració amb GeoIP es ara una funcionalitat del nucli de Piwik i aquesta extensió es considera obsoleta. Els nous informes de ciutat i regió no es mostraran mentre aquesta extensió estigui carregada. %1$sDeshabiliteu la extensió%2$s i %3$sconfigureu la Geolocalització%4$s. Si voleu la inforamció de localització de les vistes anterior, utilizeu el script descrit %5$saquí%6$s i desprès %7$sreproseseu els vostres informes%8$s.",
         "Organization": "Organització",
         "OrgDatabase": "Base de dades d'Organització",
         "PeclGeoIPNoDBDir": "El mòdul de PECL està cercant la base de dades a %1$s, però aquest directori no existeix. Sisplau, creu-lo i afegiu bases de dades de Geolocalització allí. Alternativament, podeu modificar el paràmetre %2$s del vostre fitxer php.ini per utilizar el directori correcte.",
@@ -1896,7 +1896,6 @@
         "WidgetBrowserVersion": "Versió del navegador",
         "WidgetGlobalVisitors": "Configuracions globals dels visitants",
         "WidgetGlobalVisitorsDocumentation": "Aquest informe mostra les configuracions més comuns que tenen els vostres visitants. Una configuració es la combinació de Sistema Operatiu, tipus de navegador i resolució de pantalla.",
-        "WidgetOperatingSystemFamily": "Família del Sistema Operatiu",
         "WidgetOperatingSystems": "Sistemes operatius",
         "WidgetPlugins": "Llistat de connectors",
         "WidgetPluginsDocumentation": "Aquest informe mostra quines extensions tenen els vostres visitants activades. Aquesta informació pot ser important per determinar la forma correcta de mostrar el contingut.",

@@ -64,7 +64,10 @@ class BatchInsert
         $filePath = PIWIK_USER_PATH . '/tmp/assets/' . $tableName . '-' . Common::generateUniqId() . '.csv';
         $filePath = SettingsPiwik::rewriteTmpPathWithHostname($filePath);
 
-        if (Db::get()->hasBulkLoader()) {
+        $loadDataInfileEnabled = Config::getInstance()->General['enable_load_data_infile'];
+
+        if ($loadDataInfileEnabled
+            && Db::get()->hasBulkLoader()) {
             try {
                 $fileSpec = array(
                     'delim'            => "\t",
@@ -121,6 +124,12 @@ class BatchInsert
      */
     public static function createTableFromCSVFile($tableName, $fields, $filePath, $fileSpec)
     {
+        // Chroot environment: prefix the path with the absolute chroot path
+        $chrootPath = Config::getInstance()->General['absolute_chroot_path'];
+        if(!empty($chrootPath)) {
+            $filePath = $chrootPath . $filePath;
+        }
+
         // On Windows, MySQL expects forward slashes as directory separators
         if (SettingsServer::isWindows()) {
             $filePath = str_replace('\\', '/', $filePath);

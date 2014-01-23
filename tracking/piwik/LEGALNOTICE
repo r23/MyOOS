@@ -7,7 +7,7 @@ COPYRIGHT
 		Copyright (C) 2013  Matthieu Aubry
 
 	Individual contributions, components, and libraries are copyright
-	their respective authors.
+	of their respective authors.
 
 
 SOFTWARE LICENSE
@@ -203,6 +203,15 @@ THIRD-PARTY COMPONENTS AND LIBRARIES
 	Name: Raphaël - JavaScript Vector Library
 	Link: http://raphaeljs.com/
 	License: MIT
+
+	Name: lessphp
+	Link: http://leafo.net/lessphp
+	License: GPL3/MIT
+
+	Name: Symfony Console Component
+	Link: https://github.com/symfony/Console
+	License: MIT
+
 
 THIRD-PARTY CONTENT
 

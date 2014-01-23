@@ -15,8 +15,8 @@ body {
     font-family: Verdana, sans-serif;
 }
 
-#logo {
-    img {
+#logo  {
+    img.default-piwik-logo {
         height: 21px;
         width: 82px;
         margin-top: 14px;
@@ -128,7 +128,7 @@ table.entityTable tr td a:hover {
             margin: 0;
             a {
                .font-default(18px, 22px);
-               padding: 14px 27px 11px;
+               padding: 14px 28px 11px;
             }
             > li {
                 .border-radius(0px);
@@ -143,6 +143,7 @@ table.entityTable tr td a:hover {
                         a {
                             color: @silver-40;
                             .font-default(15px, 18px);
+                            padding: 14px 22px 11px;
                         }
 
                         &.sfHover {
@@ -530,14 +531,18 @@ div.sparkline {
             margin: 0;
             float: none;
             .font-default(10px, 12px) !important;
-            padding: 8px !important;
+            padding: 0px !important;
             position: relative;
-            right: 41px;
-            background: no-repeat 9px 7px url('plugins/Zeitgeist/images/search_ico.png') !important;
+            right: 33px;
+            background: no-repeat 0px 7px url('plugins/Zeitgeist/images/search_ico.png') !important;
             text-indent: 999999px;
-            width: 35px !important;
+            width: 17px !important;
         }
     }
+}
+
+.dataTable .searchReset>img {
+    left: -45px;
 }
 
 .visitor-profile a {
@@ -589,7 +594,7 @@ div.sparkline {
 
     ol.visitor-profile-visits {
         > li {
-            padding: 10px 0 0 !important;
+            padding: 0 0 0 !important;
             span {
                 color: @silver-40;
                 .font-default(13px, 18px);
@@ -618,6 +623,14 @@ div.sparkline {
             }
         }
     } 
+}
+
+.visitor-profile-visit-title-row {
+  padding-top:10px;
+
+  &:hover {
+    background-color: @silver-90;
+  }
 }
 
 .widget .visitor-profile .visitor-profile-info > div > div {
@@ -709,7 +722,7 @@ div.sparkline {
     }  
 
     .visitor-profile-avatar > div:nth-child(2n) {
-        min-width: 360px;
+        width: 376px;
     }
 
     .visitor-profile-latest-visit {
@@ -719,11 +732,13 @@ div.sparkline {
         }      
 
         .visitor-profile-latest-visit-column:first-child {
-            width: 48%;
+            width: 50%;
+            margin-right:-4px;
         }
 
         .visitor-profile-latest-visit-column:last-child {
             width: 50%;
+            margin-right:-4px;
         }
     }
 }

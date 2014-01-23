@@ -31,9 +31,6 @@
         "SubmenuPagesExit": "Utgangssider",
         "SubmenuPageTitles": "Sidetitlar"
     },
-    "AnonymizeIP": {
-        "PluginDescription": "Anonymiser siste del av IPen til vitjarane for å overhalda lokale lovar og retningsliner for personvern."
-    },
     "API": {
         "LoadedAPIs": "Lasta vellykka %s APIar"
     },
@@ -647,7 +644,6 @@
         "SystemCheckExtensions": "Andre påkravde utvidingar",
         "SystemCheckFileIntegrity": "Filintegritet",
         "SystemCheckFunctions": "Påkravde funksjonar",
-        "SystemCheckGD": "GD > 2.x (biletehandsaming)",
         "SystemCheckGDHelp": "Gnistlinjene (små bilete) og biletgrafane (i e-postrapportar og i mobilappen til Piwik) vil ikkje fungera.",
         "SystemCheckIconvHelp": "Du må konfigurera og byggja PHP med \"iconv\"-støtte påslegen, --with-iconv.",
         "SystemCheckMailHelp": "Attendemeldingar og 'Tapt Passord'-meldingar vil ikkje sendast uten mail().",
@@ -714,6 +710,7 @@
         "Evolution": "Evolusjon"
     },
     "PrivacyManager": {
+        "AnonymizeIpInlineHelp": "Anonymiser siste del av IPen til vitjarane for å overhalda lokale lovar og retningsliner for personvern.",
         "KeepBasicMetrics": "Behald standardverdiar (vitjingar, sidevisningar, hoppfrekvens, målkonverteringar, netthandelkonverteringar, osb)",
         "KeepDataFor": "Behald all data for:"
     },

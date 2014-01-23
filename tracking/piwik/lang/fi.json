@@ -56,9 +56,6 @@
         "WidgetSearchKeywords": "Sivuhaun hakusanat",
         "WidgetSearchNoResultKeywords": "Hakusanat ilman tuloksia"
     },
-    "AnonymizeIP": {
-        "PluginDescription": "Poistaa viimeisen tavun vierailijoiden IP-osoitteista, mikäli paikalliset yksityiseensuojalait\/-ohjeistukset vaativat."
-    },
     "API": {
         "GenerateVisits": "Jos sinulla ei ole yhtään tietoja tälle päivälle, voit generoida satunnaisia tietoja käyttämällä lisäosaa %s. Voit ottaa käyttöön %s-lisäosan ja painaa 'Vierailijoiden luominen'-linkkiä Piwikin ylläpitosivulla.",
         "KeepTokenSecret": "Tämä token_auth on yhtä salainen kuin salasanasi, %s älä jaa sitä%s!",
@@ -877,7 +874,6 @@
         "SystemCheckExtensions": "Muut vaaditut lisäosat",
         "SystemCheckFileIntegrity": "Tiedoston eheys",
         "SystemCheckFunctions": "Vaaditut funktiot",
-        "SystemCheckGD": "GD > 2.x (grafiikat)",
         "SystemCheckGDHelp": "Pienet graafit eivät toimi.",
         "SystemCheckGlobHelp": "Tämä sisäänrakennettu toiminnallisuus on poistettu käytöstä palvelimellasi. Piwik yrittää emuloida toimintoa, mutta saattaa törmätä uusiin turvallisuusrajoituksiin. Suorituskyky heikkenee.",
         "SystemCheckGzcompressHelp": "zlib-laajennus ja gzcompress-funktio täytyy olla käytössä.",
@@ -1065,6 +1061,7 @@
     },
     "PrivacyManager": {
         "AnonymizeIpDescription": "Valitse \"Kyllä\", jos et halua, että Piwik seuraa kokonaisia IP-osoitteita.",
+        "AnonymizeIpInlineHelp": "Poistaa viimeisen tavun vierailijoiden IP-osoitteista, mikäli paikalliset yksityiseensuojalait\/-ohjeistukset vaativat.",
         "AnonymizeIpMaskLengtDescription": "Valitse, montako tavua käyttäjien IP-osoitteista piilotetaan.",
         "AnonymizeIpMaskLength": "%s tavua - esim. %s",
         "CannotLockSoDeleteLogActions": "log_action-taulua ei ole tyhjätty. Lisää \"LOCK TABLES\"-oikeus käyttäjälle %s.",
@@ -1860,7 +1857,6 @@
         "WidgetBrowserVersion": "Selaimen versio",
         "WidgetGlobalVisitors": "Kaikkien kävijöiden asetukset",
         "WidgetGlobalVisitorsDocumentation": "Tämä raportti näyttää yleiskuvan eri käyttäjien asetuksista. Asetukset on yhdistelmä käyttöjärjestelmästä, selaimen tyypistä ja näytön resoluutiosta.",
-        "WidgetOperatingSystemFamily": "Käyttöjärjestelmä",
         "WidgetOperatingSystems": "Käyttöjärjestelmät",
         "WidgetPlugins": "Lista lisäosista",
         "WidgetPluginsDocumentation": "Tämä raportti näyttää, mitä selainlisäosia vierailijoillasi oli käytössä. Tästä tiedosta voi olla hyötyä, kun joudut valitsemaan, miten tietoa esitetään ja välitetään vierailijoille.",
