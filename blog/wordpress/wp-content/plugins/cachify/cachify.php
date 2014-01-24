@@ -7,7 +7,7 @@ Description: Easy to use WordPress cache plugin with static file serving in the 
 Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://cachify.de
-Version: 2.1.3
+Version: 2.1.4
 */
 
 

@@ -586,7 +586,7 @@ final class Cachify {
 	* Hinzufügen eines Admin-Bar-Menüs
 	*
 	* @since   1.2
-	* @change  2.1.3
+	* @change  2.1.4
 	*
 	* @param   object  Objekt mit Menü-Eigenschaften
 	*/
@@ -604,7 +604,7 @@ final class Cachify {
 				'id' 	 => 'cachify',
 				'href'   => add_query_arg('_cachify', 'flush'),
 				'parent' => 'top-secondary',
-				'title'	 => '<span class="ab-icon dashicons dashicons-trash" style="top:2px;margin:0"></span>',
+				'title'	 => '<span class="ab-icon dashicons dashicons-post-trash" style="top:2px;margin:0"></span>',
 				'meta'   => array( 'title' => __('Flush the cachify cache', 'cachify') )
 			)
 		);

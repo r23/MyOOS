@@ -277,6 +277,7 @@ final class Cachify_MEMCACHED {
 		self::$_memcached->setOptions(
 			array(
 				Memcached::OPT_COMPRESSION => false,
+				Memcached::OPT_BUFFER_WRITES => true,
 				Memcached::OPT_BINARY_PROTOCOL => true
 			)
 		);
