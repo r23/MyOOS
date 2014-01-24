@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Development (trunk) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-12-11 23:03:52+0000\n"
+"PO-Revision-Date: 2013-12-17 22:21:23+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1882,7 +1882,7 @@ msgstr "Meine Seiten"
 #: wp-includes/class-wp-xmlrpc-server.php:316 wp-admin/options-general.php:96
 #: wp-admin/install.php:97
 msgid "Site Title"
-msgstr "Blogtitel"
+msgstr "Seitentitel"
 
 #: wp-includes/deprecated.php:2728
 msgid "First Post"
@@ -6586,7 +6586,7 @@ msgstr "Silber"
 
 #: wp-includes/js/tinymce/langs/wp-langs.php:77
 msgid "White"
-msgstr "Weiss"
+msgstr "Weiß"
 
 #: wp-includes/js/tinymce/langs/wp-langs.php:64
 msgid "Yellow"
@@ -6717,7 +6717,7 @@ msgstr "(erforderlich)"
 #: wp-includes/comment-template.php:1982
 #: wp-includes/theme-compat/comments.php:83
 msgid "Website"
-msgstr "Website"
+msgstr "Webseite"
 
 #: wp-includes/admin-bar.php:667 wp-includes/functions.php:2759
 msgid "Widgets"
@@ -7022,7 +7022,7 @@ msgstr "XML-Fehler: %s in der Zeile %d"
 
 #: wp-includes/author-template.php:174
 msgid "Visit %s&#8217;s website"
-msgstr "Besuche %ss Website"
+msgstr "Besuche %ss Webseite"
 
 #: wp-includes/author-template.php:241 wp-includes/author-template.php:372
 msgid "Posts by %s"

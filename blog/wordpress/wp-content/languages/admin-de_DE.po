@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-12-11 18:01:02+0000\n"
+"PO-Revision-Date: 2014-01-04 12:07:39+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -182,8 +182,8 @@ msgstr[1] "%s Kommentare"
 msgctxt "comments"
 msgid "%s in moderation"
 msgid_plural "%s in moderation"
-msgstr[0] "%s wird moderiert"
-msgstr[1] "%s werden moderiert"
+msgstr[0] "%s in Moderation"
+msgstr[1] "%s in Moderation"
 
 #: wp-admin/includes/dashboard.php:609
 msgid "M jS"
@@ -481,7 +481,7 @@ msgstr "Bisher keine Aktivitäten!"
 
 #: wp-admin/includes/dashboard.php:588
 msgid "See %s more&hellip;"
-msgstr "Mehr %s anzeigen&hellip;"
+msgstr "%s Weitere anzeigen&hellip;"
 
 #: wp-admin/includes/dashboard.php:604
 msgid "Today"
@@ -1431,7 +1431,7 @@ msgstr "Neue Seiten der ersten Ebene automatisch zum Menü hinzufügen"
 
 #: wp-admin/nav-menus.php:747
 msgid "Theme locations"
-msgstr "Seiten automatisch hinzufügen"
+msgstr "Position im Theme"
 
 #: wp-admin/nav-menus.php:752
 msgid "(Currently set to: %s)"
@@ -6680,7 +6680,7 @@ msgstr "jemand einen Kommentar schreibt."
 
 #: wp-admin/options-discussion.php:135
 msgid "A comment is held for moderation"
-msgstr "ein Kommentar auf Freischaltung wartet."
+msgstr "Ein Kommentar wartet auf Freischaltung."
 
 #: wp-admin/options-discussion.php:139 wp-admin/options-discussion.php:140
 msgid "Before a comment appears"
