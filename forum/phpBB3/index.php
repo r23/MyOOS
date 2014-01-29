@@ -136,6 +136,7 @@ $template->assign_vars(array(
 );
 
 // Output page
+$template->assign_var('U_CANONICAL', generate_board_url() . '/' . append_sid('', false, true, ''));
 page_header($user->lang['INDEX']);
 
 $template->set_filenames(array(

@@ -1739,6 +1739,7 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll, &$data, $u
 	$msgwows = str_replace("\r", "", $msgwows);
 	$msgwows = str_replace("\t", "", $msgwows);
  
+
 	if (!$user->data['is_registered'] ||
 		$user->data['user_posts'] < $user_posts_threshold) {
 		if (strpos($msgwows, 'http://') !== FALSE ||
