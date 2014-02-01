@@ -19,7 +19,10 @@ function jetpack_load_theme_tools() {
 add_action( 'init', 'jetpack_load_theme_tools', 30 );
 
 // Featured Content has an internal check for theme support in the constructor.
-require_once( JETPACK__PLUGIN_DIR . 'modules/theme-tools/featured-content.php' );
+// This could already be defined by Twenty Fourteen if it's loaded first.
+if ( ! class_exists( 'Featured_Content' ) ) {
+	require_once( JETPACK__PLUGIN_DIR . 'modules/theme-tools/featured-content.php' );
+}
 
 /**
  * INFINITE SCROLL
@@ -74,3 +77,41 @@ require_once( JETPACK__PLUGIN_DIR . 'modules/custom-post-types/comics.php' );
 require_once( JETPACK__PLUGIN_DIR . 'modules/custom-post-types/testimonial.php' );
 require_once( JETPACK__PLUGIN_DIR . 'modules/custom-post-types/nova.php' );
 
+/**
+ * Load theme compat file if it exists.
+ *
+ * A theme could add its own compat files here if they like. For example:
+ *
+ * add_filter( 'jetpack_theme_compat_files', 'mytheme_jetpack_compat_file' );
+ * function mytheme_jetpack_compat_file( $files ) {
+ *     $files['mytheme'] = locate_template( 'jetpack-compat.php' );
+ *     return $files;
+ * }
+ */
+function jetpack_load_theme_compat() {
+	$compat_files = apply_filters( 'jetpack_theme_compat_files', array(
+		'twentyfourteen' => JETPACK__PLUGIN_DIR . 'modules/theme-tools/compat/twentyfourteen.php',
+	) );
+
+	_jetpack_require_compat_file( get_stylesheet(), $compat_files );
+
+	if ( is_child_theme() ) {
+		_jetpack_require_compat_file( get_template(), $compat_files );
+	}
+}
+add_action( 'after_setup_theme', 'jetpack_load_theme_compat', -1 );
+
+
+/**
+ * Requires a file once, if the passed key exists in the files array.
+ *
+ * @access private
+ * @param string $key
+ * @param array $files
+ * @return void
+ */
+function _jetpack_require_compat_file( $key, $files ) {
+	if ( array_key_exists( $key, $files ) && is_readable( $files[ $key ] ) ) {
+		require_once $files[ $key ];
+	}
+}

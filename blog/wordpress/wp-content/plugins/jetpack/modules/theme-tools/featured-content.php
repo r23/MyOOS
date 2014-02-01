@@ -403,9 +403,7 @@ class Featured_Content {
 		) );
 
 		// Add Featured Content settings.
-		$term = get_term_by( 'id', self::get_setting( 'tag-id' ), 'post_tag' );
 		$wp_customize->add_setting( 'featured-content[tag-name]', array(
-			'default'              => $term ? $term->name : 'featured',
 			'type'                 => 'option',
 			'sanitize_js_callback' => array( __CLASS__, 'delete_transient' ),
 		) );
@@ -435,7 +433,7 @@ class Featured_Content {
 	 * Enqueue the tag suggestion script.
 	 */
 	public static function enqueue_scripts() {
-		wp_enqueue_script( 'featured-content-suggest', plugins_url( 'featured-content-admin.js', __FILE__ ), array( 'suggest' ), '20131022', true );
+		wp_enqueue_script( 'featured-content-suggest', plugins_url( 'js/suggest.js', __FILE__ ), array( 'suggest' ), '20131022', true );
 	}
 
 	/**

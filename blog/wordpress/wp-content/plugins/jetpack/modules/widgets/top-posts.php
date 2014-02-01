@@ -190,7 +190,7 @@ class Jetpack_Top_Posts_Widget extends WP_Widget {
 				foreach ( $posts as $post ) :
 				?>
 					<div class="widget-grid-view-image">
-						<a href="<?php echo esc_url( $post['permalink'] ); ?>" title="<?php echo esc_attr( wp_kses( $post['title'], array() ) ); ?>" class="bump-view" data-bump-view="tp"><img src="<?php echo esc_url( $post['image'] ); ?>" /></a>
+						<a href="<?php echo esc_url( $post['permalink'] ); ?>" title="<?php echo esc_attr( wp_kses( $post['title'], array() ) ); ?>" class="bump-view" data-bump-view="tp"><img src="<?php echo esc_url( $post['image'] ); ?>" alt="<?php echo esc_attr( wp_kses( $post['title'], array() ) ); ?>" /></a>
 					</div>
 
 				<?php
@@ -201,7 +201,7 @@ class Jetpack_Top_Posts_Widget extends WP_Widget {
 				foreach ( $posts as $post ) :
 				?>
 					<li>
-						<img src="<?php echo esc_url( $post['image'] ); ?>" class='widgets-list-layout-blavatar' />
+						<img src="<?php echo esc_url( $post['image'] ); ?>" class='widgets-list-layout-blavatar' alt="<?php echo esc_attr( wp_kses( $post['title'], array() ) ); ?>" />
 						<div class="widgets-list-layout-links"><a href="<?php echo esc_url( $post['permalink'] ); ?>" class="bump-view" data-bump-view="tp"><?php echo esc_html( wp_kses( $post['title'], array() ) ); ?></a></div>
 					</li>
 				<?php
@@ -221,7 +221,17 @@ class Jetpack_Top_Posts_Widget extends WP_Widget {
 	}
 
 	function get_by_views( $count ) {
-		$post_view_posts = stats_get_csv( 'postviews', array( 'days' => 2, 'limit' => 11 ) );
+		$days = (int) apply_filters( 'jetpack_top_posts_days', 2 );
+
+		if ( $days < 1 ) {
+			$days = 2;
+		}
+
+		if ( $days > 10 ) {
+			$days = 10;
+		}
+
+		$post_view_posts = stats_get_csv( 'postviews', array( 'days' => absint( $days ), 'limit' => 11 ) );
 		if ( !$post_view_posts ) {
 			return array();
 		}
