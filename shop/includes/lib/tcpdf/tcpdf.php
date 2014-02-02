@@ -1,13 +1,13 @@
 <?php
 //============================================================+
 // File name   : tcpdf.php
-// Version     : 6.0.052
+// Version     : 6.0.058
 // Begin       : 2002-08-03
-// Last Update : 2013-12-12
+// Last Update : 2014-01-31
 // Author      : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
 // License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
 // -------------------------------------------------------------------
-// Copyright (C) 2002-2013 Nicola Asuni - Tecnick.com LTD
+// Copyright (C) 2002-2014 Nicola Asuni - Tecnick.com LTD
 //
 // This file is part of TCPDF software library.
 //
@@ -104,7 +104,7 @@
  * Tools to encode your unicode fonts are on fonts/utils directory.</p>
  * @package com.tecnick.tcpdf
  * @author Nicola Asuni
- * @version 6.0.052
+ * @version 6.0.058
  */
 
 // TCPDF configuration
@@ -128,7 +128,7 @@ require_once(dirname(__FILE__).'/include/tcpdf_static.php');
  * TCPDF project (http://www.tcpdf.org) has been originally derived in 2002 from the Public Domain FPDF class by Olivier Plathey (http://www.fpdf.org), but now is almost entirely rewritten.<br>
  * @package com.tecnick.tcpdf
  * @brief PHP class for generating PDF documents without requiring external extensions.
- * @version 6.0.052
+ * @version 6.0.058
  * @author Nicola Asuni - info@tecnick.com
  */
 class TCPDF {
@@ -2406,10 +2406,15 @@ class TCPDF {
 	/**
 	 * Return the cell height
 	 * @param $fontsize (int) Font size in internal units
+	 * @param $padding (boolean) If true add cell padding
 	 * @public
 	 */
-	public function getCellHeight($fontsize) {
-		return round((($fontsize * $this->cell_height_ratio) + $this->cell_padding['T'] + $this->cell_padding['B']), 3);
+	public function getCellHeight($fontsize, $padding=TRUE) {
+		$height = ($fontsize * $this->cell_height_ratio);
+		if ($padding) {
+			$height += ($this->cell_padding['T'] + $this->cell_padding['B']);
+		}
+		return round($height, 3);
 	}
 
 	/**
@@ -3630,8 +3635,16 @@ class TCPDF {
 					$this->x += $this->cell_padding['L'];
 				}
 			}
+			$gvars = $this->getGraphicVars();
+			if (!empty($this->theadMargins['gvars'])) {
+				// set the correct graphic style
+				$this->setGraphicVars($this->theadMargins['gvars']);
+				$this->rMargin = $gvars['rMargin'];
+				$this->lMargin = $gvars['lMargin'];
+			}
 			// print table header
 			$this->writeHTML($this->thead, false, false, false, false, '');
+			$this->setGraphicVars($gvars);
 			// set new top margin to skip the table headers
 			if (!isset($this->theadMargins['top'])) {
 				$this->theadMargins['top'] = $this->tMargin;
@@ -6221,11 +6234,7 @@ class TCPDF {
 		}
 		$this->adjustCellPadding($border);
 		$lines = $this->getNumLines($txt, $w, $reseth, $autopadding, $cellpadding, $border);
-		$height = $lines * $this->getCellHeight($this->FontSize);
-		if ($autopadding) {
-			// add top and bottom padding
-			$height += ($this->cell_padding['T'] + $this->cell_padding['B']);
-		}
+		$height = $this->getCellHeight(($lines * $this->FontSize), $autopadding);
 		$this->cell_padding = $prev_cell_padding;
 		$this->lasth = $prev_lasth;
 		return $height;
@@ -7729,7 +7738,7 @@ class TCPDF {
 			// remove buffer file from cache
 			unlink($this->buffer);
 		}
-		if ($destroyall AND isset($this->cached_files) AND !empty($this->cached_files)) {
+		if ($destroyall AND !empty($this->cached_files)) {
 			// remove cached files
 			foreach ($this->cached_files as $cachefile) {
 				if (is_file($cachefile)) {
@@ -11428,7 +11437,7 @@ class TCPDF {
 	}
 
 	/**
-	 * Append a cubic B\E9zier curve to the current path. The curve shall extend from the current point to the point (x3, y3), using (x1, y1) and (x2, y2) as the B\E9zier control points.
+	 * Append a cubic Bezier curve to the current path. The curve shall extend from the current point to the point (x3, y3), using (x1, y1) and (x2, y2) as the Bezier control points.
 	 * The new current point shall be (x3, y3).
 	 * @param $x1 (float) Abscissa of control point 1.
 	 * @param $y1 (float) Ordinate of control point 1.
@@ -11446,7 +11455,7 @@ class TCPDF {
 	}
 
 	/**
-	 * Append a cubic B\E9zier curve to the current path. The curve shall extend from the current point to the point (x3, y3), using the current point and (x2, y2) as the B\E9zier control points.
+	 * Append a cubic Bezier curve to the current path. The curve shall extend from the current point to the point (x3, y3), using the current point and (x2, y2) as the Bezier control points.
 	 * The new current point shall be (x3, y3).
 	 * @param $x2 (float) Abscissa of control point 2.
 	 * @param $y2 (float) Ordinate of control point 2.
@@ -11462,7 +11471,7 @@ class TCPDF {
 	}
 
 	/**
-	 * Append a cubic B\E9zier curve to the current path. The curve shall extend from the current point to the point (x3, y3), using (x1, y1) and (x3, y3) as the B\E9zier control points.
+	 * Append a cubic Bezier curve to the current path. The curve shall extend from the current point to the point (x3, y3), using (x1, y1) and (x3, y3) as the Bezier control points.
 	 * The new current point shall be (x3, y3).
 	 * @param $x1 (float) Abscissa of control point 1.
 	 * @param $y1 (float) Ordinate of control point 1.
@@ -16360,6 +16369,7 @@ class TCPDF {
 		$dom[$key]['align'] = '';
 		$dom[$key]['listtype'] = '';
 		$dom[$key]['text-indent'] = 0;
+		$dom[$key]['text-transform'] = '';
 		$dom[$key]['border'] = array();
 		$dom[$key]['dir'] = $this->rtl?'rtl':'ltr';
 		$thead = false; // true when we are inside the THEAD tag
@@ -16412,6 +16422,7 @@ class TCPDF {
 					$dom[$key]['fgcolor'] = $dom[($dom[($dom[$key]['parent'])]['parent'])]['fgcolor'];
 					$dom[$key]['strokecolor'] = $dom[($dom[($dom[$key]['parent'])]['parent'])]['strokecolor'];
 					$dom[$key]['align'] = $dom[($dom[($dom[$key]['parent'])]['parent'])]['align'];
+					$dom[$key]['text-transform'] = $dom[($dom[($dom[$key]['parent'])]['parent'])]['text-transform'];
 					$dom[$key]['dir'] = $dom[($dom[($dom[$key]['parent'])]['parent'])]['dir'];
 					if (isset($dom[($dom[($dom[$key]['parent'])]['parent'])]['listtype'])) {
 						$dom[$key]['listtype'] = $dom[($dom[($dom[$key]['parent'])]['parent'])]['listtype'];
@@ -16483,6 +16494,7 @@ class TCPDF {
 						$dom[$key]['align'] = $dom[$parentkey]['align'];
 						$dom[$key]['listtype'] = $dom[$parentkey]['listtype'];
 						$dom[$key]['text-indent'] = $dom[$parentkey]['text-indent'];
+						$dom[$key]['text-transform'] = $dom[$parentkey]['text-transform'];
 						$dom[$key]['border'] = array();
 						$dom[$key]['dir'] = $dom[$parentkey]['dir'];
 					}
@@ -16532,6 +16544,10 @@ class TCPDF {
 							if ($dom[$key]['text-indent'] == 'inherit') {
 								$dom[$key]['text-indent'] = $dom[$parentkey]['text-indent'];
 							}
+						}
+						// text-transform
+						if (isset($dom[$key]['style']['text-transform'])) {
+							$dom[$key]['text-transform'] = $dom[$key]['style']['text-transform'];
 						}
 						// font size
 						if (isset($dom[$key]['style']['font-size'])) {
@@ -16832,7 +16848,7 @@ class TCPDF {
 					if (($dom[$key]['value'] == 'pre') OR ($dom[$key]['value'] == 'tt')) {
 						$dom[$key]['fontname'] = $this->default_monospaced_font;
 					}
-					if (($dom[$key]['value']{0} == 'h') AND (intval($dom[$key]['value']{1}) > 0) AND (intval($dom[$key]['value']{1}) < 7)) {
+					if (!empty($dom[$key]['value']) AND ($dom[$key]['value']{0} == 'h') AND (intval($dom[$key]['value']{1}) > 0) AND (intval($dom[$key]['value']{1}) < 7)) {
 						// headings h1, h2, h3, h4, h5, h6
 						if (!isset($dom[$key]['attribute']['size']) AND !isset($dom[$key]['style']['font-size'])) {
 							$headsize = (4 - intval($dom[$key]['value']{1})) * 2;
@@ -16925,10 +16941,33 @@ class TCPDF {
 				// text
 				$dom[$key]['tag'] = false;
 				$dom[$key]['block'] = false;
-				//$element = str_replace('&nbsp;', TCPDF_FONTS::unichr(160, $this->isunicode), $element);
-				$dom[$key]['value'] = stripslashes($this->unhtmlentities($element));
 				$dom[$key]['parent'] = end($level);
 				$dom[$key]['dir'] = $dom[$dom[$key]['parent']]['dir'];
+				if (!empty($dom[$dom[$key]['parent']]['text-transform'])) {
+					// text-transform for unicode requires mb_convert_case (Multibyte String Functions)
+					if (function_exists('mb_convert_case')) {
+						$ttm = array('capitalize' => MB_CASE_TITLE, 'uppercase' => MB_CASE_UPPER, 'lowercase' => MB_CASE_LOWER);
+						if (isset($ttm[$dom[$dom[$key]['parent']]['text-transform']])) {
+							$element = mb_convert_case($element, $ttm[$dom[$dom[$key]['parent']]['text-transform']], $this->encoding);
+						}
+					} elseif (!$this->isunicode) {
+						switch ($dom[$dom[$key]['parent']]['text-transform']) {
+							case 'capitalize': {
+								$element = ucwords(strtolower($element));
+								break;
+							}
+							case 'uppercase': {
+								$element = strtoupper($element);
+								break;
+							}
+							case 'lowercase': {
+								$element = strtolower($element);
+								break;
+							}
+						}
+					}
+				}
+				$dom[$key]['value'] = stripslashes($this->unhtmlentities($element));
 			}
 			++$elkey;
 			++$key;
@@ -17767,14 +17806,20 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 										$spacew /= ($this->font_stretching / 100);
 									}
 									// escape special characters
+									$pos = 0;
 									$pmid = preg_replace('/[\\\][\(]/x', '\\#!#OP#!#', $pmid);
 									$pmid = preg_replace('/[\\\][\)]/x', '\\#!#CP#!#', $pmid);
 									if (preg_match_all('/\[\(([^\)]*)\)\]/x', $pmid, $pamatch) > 0) {
 										foreach($pamatch[0] as $pk => $pmatch) {
-											$pmatch = str_replace('#!#OP#!#', '(', $pmatch);
-											$pmatch = str_replace('#!#CP#!#', ')', $pmatch);
-											$newpmid = '[('.str_replace(chr(0).chr(32), ') '.sprintf('%F', $spacew).' (', $pamatch[1][$pk]).')]';
-											$pmid = str_replace($pmatch, $newpmid, $pmid);
+											$replace = $pamatch[1][$pk];
+											$replace = str_replace('#!#OP#!#', '(', $replace);
+											$replace = str_replace('#!#CP#!#', ')', $replace);
+											$newpmid = '[('.str_replace(chr(0).chr(32), ') '.sprintf('%F', $spacew).' (', $replace).')]';
+											$pos = strpos($pmid, $pmatch, $pos);
+											if ($pos !== FALSE) {
+												$pmid = substr_replace($pmid, $newpmid, $pos, strlen($pmatch));
+											}
+											++$pos;
 										}
 										unset($pamatch);
 									}
@@ -18609,6 +18654,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 							$this->theadMargins['rmargin'] = $this->rMargin;
 							$this->theadMargins['page'] = $this->page;
 							$this->theadMargins['cell'] = $cell;
+							$this->theadMargins['gvars'] = $this->getGraphicVars();
 						}
 					}
 				}
@@ -18670,7 +18716,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				break;
 			}
 			case 'img': {
-				if (isset($tag['attribute']['src'])) {
+				if (!empty($tag['attribute']['src'])) {
 					if ($tag['attribute']['src']{0} === '@') {
 						// data stream
 						$tag['attribute']['src'] = '@'.base64_decode(substr($tag['attribute']['src'], 1));
@@ -23399,7 +23445,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 					}
 					break;
 				}
-				case 'Q': { // quadratic B\E9zier curveto
+				case 'Q': { // quadratic Bezier curveto
 					foreach ($params as $ck => $cp) {
 						$params[$ck] = $cp;
 						if ((($ck + 1) % 4) == 0) {
@@ -23425,7 +23471,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 					}
 					break;
 				}
-				case 'T': { // shorthand/smooth quadratic B\E9zier curveto
+				case 'T': { // shorthand/smooth quadratic Bezier curveto
 					foreach ($params as $ck => $cp) {
 						$params[$ck] = $cp;
 						if (($ck % 2) != 0) {
@@ -24107,6 +24153,9 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				if (empty($child_element['attribs']['closing_tag'])) {
 					$this->startSVGElementHandler('child-tag', $child_element['name'], $child_element['attribs']);
 				} else {
+					if (isset($child_element['attribs']['content'])) {
+						$this->svgtext = $child_element['attribs']['content'];
+					}
 					$this->endSVGElementHandler('child-tag', $child_element['name']);
 				}
 			}
@@ -24128,12 +24177,12 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				if (isset($this->svgdefs[$last_svgdefs_id]['attribs']['child_elements'])) {
 					foreach($this->svgdefs[$last_svgdefs_id]['attribs']['child_elements'] as $child_element) {
 						if (isset($child_element['attribs']['id']) AND ($child_element['name'] == $name)) {
-							$this->svgdefs[$last_svgdefs_id]['attribs']['child_elements'][$child_element['attribs']['id'].'_CLOSE'] = array('name' => $name, 'attribs' => array('closing_tag' => TRUE));
+							$this->svgdefs[$last_svgdefs_id]['attribs']['child_elements'][$child_element['attribs']['id'].'_CLOSE'] = array('name' => $name, 'attribs' => array('closing_tag' => TRUE, 'content' => $this->svgtext));
 							return;
 						}
 					}
 					if ($this->svgdefs[$last_svgdefs_id]['name'] == $name) {
-						$this->svgdefs[$last_svgdefs_id]['attribs']['child_elements'][$last_svgdefs_id.'_CLOSE'] = array('name' => $name, 'attribs' => array('closing_tag' => TRUE));
+						$this->svgdefs[$last_svgdefs_id]['attribs']['child_elements'][$last_svgdefs_id.'_CLOSE'] = array('name' => $name, 'attribs' => array('closing_tag' => TRUE, 'content' => $this->svgtext));
 						return;
 					}
 				}
