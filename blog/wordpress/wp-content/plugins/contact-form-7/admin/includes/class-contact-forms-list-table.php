@@ -56,7 +56,7 @@ class WPCF7_Contact_Form_List_Table extends WP_List_Table {
 
 		$this->items = WPCF7_ContactForm::find( $args );
 
-		$total_items = WPCF7_ContactForm::$found_items;
+		$total_items = WPCF7_ContactForm::count();
 		$total_pages = ceil( $total_items / $per_page );
 
 		$this->set_pagination_args( array(
@@ -138,8 +138,10 @@ class WPCF7_Contact_Form_List_Table extends WP_List_Table {
 		$output = '';
 
 		foreach ( $shortcodes as $shortcode ) {
-			$output .= "\n" . '<input type="text" onfocus="this.select();" readonly="readonly"
-				value="' . esc_attr( $shortcode ) . '" class="shortcode-in-list-table" />';
+			$output .= "\n" . '<input type="text"'
+				. ' onfocus="this.select();" readonly="readonly"'
+				. ' value="' . esc_attr( $shortcode ) . '"'
+				. ' class="shortcode-in-list-table wp-ui-text-highlight code" />';
 		}
 
 		return trim( $output );

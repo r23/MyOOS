@@ -254,9 +254,9 @@ function wpcf7_tg_pane_file( &$contact_form ) {
 </tr>
 </table>
 
-<div class="tg-tag"><?php echo esc_html( __( "Copy this code and paste it into the form left.", 'contact-form-7' ) ); ?><br /><input type="text" name="file" class="tag" readonly="readonly" onfocus="this.select()" /></div>
+<div class="tg-tag"><?php echo esc_html( __( "Copy this code and paste it into the form left.", 'contact-form-7' ) ); ?><br /><input type="text" name="file" class="tag wp-ui-text-highlight code" readonly="readonly" onfocus="this.select()" /></div>
 
-<div class="tg-mail-tag"><?php echo esc_html( __( "And, put this code into the File Attachments field below.", 'contact-form-7' ) ); ?><br /><span class="arrow">&#11015;</span>&nbsp;<input type="text" class="mail-tag" readonly="readonly" onfocus="this.select()" /></div>
+<div class="tg-mail-tag"><?php echo esc_html( __( "And, put this code into the File Attachments field below.", 'contact-form-7' ) ); ?><br /><input type="text" class="mail-tag wp-ui-text-highlight code" readonly="readonly" onfocus="this.select()" /></div>
 </form>
 </div>
 <?php
@@ -268,8 +268,9 @@ function wpcf7_tg_pane_file( &$contact_form ) {
 add_action( 'wpcf7_admin_notices', 'wpcf7_file_display_warning_message' );
 
 function wpcf7_file_display_warning_message() {
-	if ( empty( $_GET['post'] ) || ! $contact_form = wpcf7_contact_form( $_GET['post'] ) )
+	if ( ! $contact_form = wpcf7_get_current_contact_form() ) {
 		return;
+	}
 
 	$has_tags = (bool) $contact_form->form_scan_shortcode(
 		array( 'type' => array( 'file', 'file*' ) ) );

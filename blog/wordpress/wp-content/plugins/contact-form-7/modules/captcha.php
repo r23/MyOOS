@@ -53,7 +53,7 @@ function wpcf7_captcha_shortcode_handler( $tag ) {
 		}
 
 		$atts['alt'] = 'captcha';
-		$atts['src'] = trailingslashit( wpcf7_captcha_tmp_url() ) . $filename;
+		$atts['src'] = wpcf7_captcha_url( $filename );
 
 		$atts = wpcf7_format_atts( $atts );
 
@@ -157,7 +157,7 @@ function wpcf7_captcha_ajax_refill( $items ) {
 
 		$op = wpcf7_captchac_options( $options );
 		if ( $filename = wpcf7_generate_captcha( $op ) ) {
-			$captcha_url = trailingslashit( wpcf7_captcha_tmp_url() ) . $filename;
+			$captcha_url = wpcf7_captcha_url( $filename );
 			$refill[$name] = $captcha_url;
 		}
 	}
@@ -254,9 +254,9 @@ function wpcf7_tg_pane_captcha( &$contact_form ) {
 
 <div class="tg-tag"><?php echo esc_html( __( "Copy this code and paste it into the form left.", 'contact-form-7' ) ); ?>
 <br />1) <?php echo esc_html( __( "For image", 'contact-form-7' ) ); ?>
-<input type="text" name="captchac" class="tag" readonly="readonly" onfocus="this.select()" />
+<input type="text" name="captchac" class="tag wp-ui-text-highlight code" readonly="readonly" onfocus="this.select()" />
 <br />2) <?php echo esc_html( __( "For input field", 'contact-form-7' ) ); ?>
-<input type="text" name="captchar" class="tag" readonly="readonly" onfocus="this.select()" />
+<input type="text" name="captchar" class="tag wp-ui-text-highlight code" readonly="readonly" onfocus="this.select()" />
 </div>
 </form>
 </div>
@@ -269,8 +269,9 @@ function wpcf7_tg_pane_captcha( &$contact_form ) {
 add_action( 'wpcf7_admin_notices', 'wpcf7_captcha_display_warning_message' );
 
 function wpcf7_captcha_display_warning_message() {
-	if ( empty( $_GET['post'] ) || ! $contact_form = wpcf7_contact_form( $_GET['post'] ) )
+	if ( ! $contact_form = wpcf7_get_current_contact_form() ) {
 		return;
+	}
 
 	$has_tags = (bool) $contact_form->form_scan_shortcode(
 		array( 'type' => array( 'captchac' ) ) );
@@ -301,39 +302,52 @@ function wpcf7_captcha_display_warning_message() {
 /* CAPTCHA functions */
 
 function wpcf7_init_captcha() {
-	global $wpcf7_captcha;
+	static $captcha = null;
 
-	if ( ! class_exists( 'ReallySimpleCaptcha' ) )
+	if ( $captcha ) {
+		return $captcha;
+	}
+
+	if ( class_exists( 'ReallySimpleCaptcha' ) ) {
+		$captcha = new ReallySimpleCaptcha();
+	} else {
 		return false;
-
-	if ( ! is_object( $wpcf7_captcha ) )
-		$wpcf7_captcha = new ReallySimpleCaptcha();
+	}
 
 	$dir = trailingslashit( wpcf7_captcha_tmp_dir() );
 
-	$wpcf7_captcha->tmp_dir = $dir;
+	$captcha->tmp_dir = $dir;
 
-	if ( is_callable( array( $wpcf7_captcha, 'make_tmp_dir' ) ) )
-		return $wpcf7_captcha->make_tmp_dir();
+	if ( is_callable( array( $captcha, 'make_tmp_dir' ) ) ) {
+		$result = $captcha->make_tmp_dir();
 
-	if ( ! wp_mkdir_p( $dir ) )
-		return false;
+		if ( ! $result ) {
+			return false;
+		}
 
-	$htaccess_file = $dir . '.htaccess';
-
-	if ( file_exists( $htaccess_file ) )
-		return true;
-
-	if ( $handle = @fopen( $htaccess_file, 'w' ) ) {
-		fwrite( $handle, 'Order deny,allow' . "\n" );
-		fwrite( $handle, 'Deny from all' . "\n" );
-		fwrite( $handle, '<Files ~ "^[0-9A-Za-z]+\\.(jpeg|gif|png)$">' . "\n" );
-		fwrite( $handle, '    Allow from all' . "\n" );
-		fwrite( $handle, '</Files>' . "\n" );
-		fclose( $handle );
+		return $captcha;
 	}
 
-	return true;
+	if ( wp_mkdir_p( $dir ) ) {
+		$htaccess_file = $dir . '.htaccess';
+
+		if ( file_exists( $htaccess_file ) ) {
+			return $captcha;
+		}
+
+		if ( $handle = @fopen( $htaccess_file, 'w' ) ) {
+			fwrite( $handle, 'Order deny,allow' . "\n" );
+			fwrite( $handle, 'Deny from all' . "\n" );
+			fwrite( $handle, '<Files ~ "^[0-9A-Za-z]+\\.(jpeg|gif|png)$">' . "\n" );
+			fwrite( $handle, '    Allow from all' . "\n" );
+			fwrite( $handle, '</Files>' . "\n" );
+			fclose( $handle );
+		}
+	} else {
+		return false;
+	}
+
+	return $captcha;
 }
 
 function wpcf7_captcha_tmp_dir() {
@@ -350,74 +364,80 @@ function wpcf7_captcha_tmp_url() {
 		return wpcf7_upload_dir( 'url' ) . '/wpcf7_captcha';
 }
 
+function wpcf7_captcha_url( $filename ) {
+	$url = trailingslashit( wpcf7_captcha_tmp_url() ) . $filename;
+
+	if ( is_ssl() && 'http:' == substr( $url, 0, 5 ) ) {
+		$url = 'https:' . substr( $url, 5 );
+	}
+
+	return apply_filters( 'wpcf7_captcha_url', esc_url_raw( $url ) );
+}
+
 function wpcf7_generate_captcha( $options = null ) {
-	global $wpcf7_captcha;
-
-	if ( ! wpcf7_init_captcha() )
+	if ( ! $captcha = wpcf7_init_captcha() ) {
 		return false;
+	}
 
-	if ( ! is_dir( $wpcf7_captcha->tmp_dir ) || ! wp_is_writable( $wpcf7_captcha->tmp_dir ) )
+	if ( ! is_dir( $captcha->tmp_dir ) || ! wp_is_writable( $captcha->tmp_dir ) )
 		return false;
 
 	$img_type = imagetypes();
 	if ( $img_type & IMG_PNG )
-		$wpcf7_captcha->img_type = 'png';
+		$captcha->img_type = 'png';
 	elseif ( $img_type & IMG_GIF )
-		$wpcf7_captcha->img_type = 'gif';
+		$captcha->img_type = 'gif';
 	elseif ( $img_type & IMG_JPG )
-		$wpcf7_captcha->img_type = 'jpeg';
+		$captcha->img_type = 'jpeg';
 	else
 		return false;
 
 	if ( is_array( $options ) ) {
 		if ( isset( $options['img_size'] ) )
-			$wpcf7_captcha->img_size = $options['img_size'];
+			$captcha->img_size = $options['img_size'];
 		if ( isset( $options['base'] ) )
-			$wpcf7_captcha->base = $options['base'];
+			$captcha->base = $options['base'];
 		if ( isset( $options['font_size'] ) )
-			$wpcf7_captcha->font_size = $options['font_size'];
+			$captcha->font_size = $options['font_size'];
 		if ( isset( $options['font_char_width'] ) )
-			$wpcf7_captcha->font_char_width = $options['font_char_width'];
+			$captcha->font_char_width = $options['font_char_width'];
 		if ( isset( $options['fg'] ) )
-			$wpcf7_captcha->fg = $options['fg'];
+			$captcha->fg = $options['fg'];
 		if ( isset( $options['bg'] ) )
-			$wpcf7_captcha->bg = $options['bg'];
+			$captcha->bg = $options['bg'];
 	}
 
 	$prefix = mt_rand();
-	$captcha_word = $wpcf7_captcha->generate_random_word();
-	return $wpcf7_captcha->generate_image( $prefix, $captcha_word );
+	$captcha_word = $captcha->generate_random_word();
+	return $captcha->generate_image( $prefix, $captcha_word );
 }
 
 function wpcf7_check_captcha( $prefix, $response ) {
-	global $wpcf7_captcha;
-
-	if ( ! wpcf7_init_captcha() )
+	if ( ! $captcha = wpcf7_init_captcha() ) {
 		return false;
+	}
 
-	return $wpcf7_captcha->check( $prefix, $response );
+	return $captcha->check( $prefix, $response );
 }
 
 function wpcf7_remove_captcha( $prefix ) {
-	global $wpcf7_captcha;
-
-	if ( ! wpcf7_init_captcha() )
+	if ( ! $captcha = wpcf7_init_captcha() ) {
 		return false;
+	}
 
 	if ( preg_match( '/[^0-9]/', $prefix ) ) // Contact Form 7 generates $prefix with mt_rand()
 		return false;
 
-	$wpcf7_captcha->remove( $prefix );
+	$captcha->remove( $prefix );
 }
 
 function wpcf7_cleanup_captcha_files() {
-	global $wpcf7_captcha;
-
-	if ( ! wpcf7_init_captcha() )
+	if ( ! $captcha = wpcf7_init_captcha() ) {
 		return false;
+	}
 
-	if ( is_callable( array( $wpcf7_captcha, 'cleanup' ) ) )
-		return $wpcf7_captcha->cleanup();
+	if ( is_callable( array( $captcha, 'cleanup' ) ) )
+		return $captcha->cleanup();
 
 	$dir = trailingslashit( wpcf7_captcha_tmp_dir() );
 
@@ -505,7 +525,5 @@ function wpcf7_captchac_options( $options ) {
 
 	return $op;
 }
-
-$wpcf7_captcha = null;
 
 ?>

@@ -46,6 +46,8 @@
 
 		this.find('.wpcf7-exclusive-checkbox').wpcf7ExclusiveCheckbox();
 
+		this.find('.wpcf7-list-item.has-free-text').wpcf7ToggleCheckboxFreetext();
+
 		this.find('[placeholder]').wpcf7Placeholder();
 
 		if (_wpcf7.jqueryUi && ! _wpcf7.supportHtml5.date) {
@@ -199,10 +201,53 @@
 		});
 	};
 
+	$.fn.wpcf7ToggleCheckboxFreetext = function() {
+		return this.each(function() {
+			var $wrap = $(this).closest('.wpcf7-form-control');
+
+			if ($(this).find(':checkbox, :radio').is(':checked')) {
+				$(this).find(':input.wpcf7-free-text').prop('disabled', false);
+			} else {
+				$(this).find(':input.wpcf7-free-text').prop('disabled', true);
+			}
+
+			$wrap.find(':checkbox, :radio').change(function() {
+				var $cb = $('.has-free-text', $wrap).find(':checkbox, :radio');
+				var $freetext = $(':input.wpcf7-free-text', $wrap);
+
+				if ($cb.is(':checked')) {
+					$freetext.prop('disabled', false).focus();
+				} else {
+					$freetext.prop('disabled', true);
+				}
+			});
+		});
+	};
+
 	$.fn.wpcf7NotValidTip = function(message) {
 		return this.each(function() {
-			var into = $(this);
-			into.hide().append('<span role="alert" class="wpcf7-not-valid-tip">' + message + '</span>').slideDown('fast');
+			var $into = $(this);
+			$into.hide().append('<span role="alert" class="wpcf7-not-valid-tip">' + message + '</span>').slideDown('fast');
+
+			if ($into.is('.use-floating-validation-tip *')) {
+				$('.wpcf7-not-valid-tip', $into).mouseover(function() {
+					$(this).wpcf7FadeOut();
+				});
+
+				$(':input', $into).focus(function() {
+					$('.wpcf7-not-valid-tip', $into).not(':hidden').wpcf7FadeOut();
+				});
+			}
+		});
+	};
+
+	$.fn.wpcf7FadeOut = function() {
+		return this.each(function() {
+			$(this).animate({
+				opacity: 0
+			}, 'fast', function() {
+				$(this).css({'z-index': -100});
+			});
 		});
 	};
 

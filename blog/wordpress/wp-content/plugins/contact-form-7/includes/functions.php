@@ -144,22 +144,13 @@ function wpcf7_upload_dir( $type = false ) {
 	return $uploads;
 }
 
-if ( ! function_exists( 'wp_is_writable' ) ) {
-/*
- * wp_is_writable exists in WordPress 3.6+
- * http://core.trac.wordpress.org/browser/tags/3.6/wp-includes/functions.php#L1437
- * We will be able to remove this function definition
- * after moving required WordPress version up to 3.6.
- */
-function wp_is_writable( $path ) {
-	if ( 'WIN' === strtoupper( substr( PHP_OS, 0, 3 ) ) )
-		return win_is_writable( $path );
-	else
-		return @is_writable( $path );
-}
-}
-
 function wpcf7_l10n() {
+	static $l10n = array();
+
+	if ( ! empty( $l10n ) ) {
+		return $l10n;
+	}
+
 	$l10n = array(
 		'af' => __( 'Afrikaans', 'contact-form-7' ),
 		'sq' => __( 'Albanian', 'contact-form-7' ),
@@ -190,6 +181,7 @@ function wpcf7_l10n() {
 		'ka_GE' => __( 'Georgian', 'contact-form-7' ),
 		'de_DE' => __( 'German', 'contact-form-7' ),
 		'el' => __( 'Greek', 'contact-form-7' ),
+		'ht' => __( 'Haitian', 'contact-form-7' ),
 		'he_IL' => __( 'Hebrew', 'contact-form-7' ),
 		'hi_IN' => __( 'Hindi', 'contact-form-7' ),
 		'hu_HU' => __( 'Hungarian', 'contact-form-7' ),
@@ -389,9 +381,13 @@ function wpcf7_load_modules() {
 }
 
 function wpcf7_get_request_uri() {
-	global $wpcf7;
+	static $request_uri = '';
 
-	return (string) $wpcf7->request_uri;
+	if ( empty( $request_uri ) ) {
+		$request_uri = add_query_arg( array() );
+	}
+
+	return esc_url_raw( $request_uri );
 }
 
 function wpcf7_register_post_types() {

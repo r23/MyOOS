@@ -118,14 +118,7 @@ function wpcf7_acceptance_as_validation() {
 	if ( ! $contact_form = wpcf7_get_current_contact_form() )
 		return false;
 
-	$settings = $contact_form->additional_setting( 'acceptance_as_validation', false );
-
-	foreach ( $settings as $setting ) {
-		if ( in_array( $setting, array( 'on', 'true', '1' ) ) )
-			return true;
-	}
-
-	return false;
+	return $contact_form->is_true( 'acceptance_as_validation' );
 }
 
 
@@ -167,7 +160,7 @@ function wpcf7_tg_pane_acceptance( &$contact_form ) {
 </tr>
 </table>
 
-<div class="tg-tag"><?php echo esc_html( __( "Copy this code and paste it into the form left.", 'contact-form-7' ) ); ?><br /><input type="text" name="acceptance" class="tag" readonly="readonly" onfocus="this.select()" /></div>
+<div class="tg-tag"><?php echo esc_html( __( "Copy this code and paste it into the form left.", 'contact-form-7' ) ); ?><br /><input type="text" name="acceptance" class="tag wp-ui-text-highlight code" readonly="readonly" onfocus="this.select()" /></div>
 </form>
 </div>
 <?php

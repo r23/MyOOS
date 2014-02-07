@@ -54,24 +54,8 @@ function wpcf7_text_shortcode_handler( $tag ) {
 	if ( $tag->has_option( 'placeholder' ) || $tag->has_option( 'watermark' ) ) {
 		$atts['placeholder'] = $value;
 		$value = '';
-	} elseif ( empty( $value ) && is_user_logged_in() ) {
-		$user = wp_get_current_user();
-
-		$user_options = array(
-			'default:user_login' => 'user_login',
-			'default:user_email' => 'user_email',
-			'default:user_url' => 'user_url',
-			'default:user_first_name' => 'first_name',
-			'default:user_last_name' => 'last_name',
-			'default:user_nickname' => 'nickname',
-			'default:user_display_name' => 'display_name' );
-
-		foreach ( $user_options as $option => $prop ) {
-			if ( $tag->has_option( $option ) ) {
-				$value = $user->{$prop};
-				break;
-			}
-		}
+	} elseif ( empty( $value ) ) {
+		$value = $tag->get_default_option();
 	}
 
 	if ( wpcf7_is_posted() && isset( $_POST[$tag->name] ) )
@@ -270,9 +254,9 @@ function wpcf7_tg_pane_text_and_relatives( $type = 'text' ) {
 </tr>
 </table>
 
-<div class="tg-tag"><?php echo esc_html( __( "Copy this code and paste it into the form left.", 'contact-form-7' ) ); ?><br /><input type="text" name="<?php echo $type; ?>" class="tag" readonly="readonly" onfocus="this.select()" /></div>
+<div class="tg-tag"><?php echo esc_html( __( "Copy this code and paste it into the form left.", 'contact-form-7' ) ); ?><br /><input type="text" name="<?php echo $type; ?>" class="tag wp-ui-text-highlight code" readonly="readonly" onfocus="this.select()" /></div>
 
-<div class="tg-mail-tag"><?php echo esc_html( __( "And, put this code into the Mail fields below.", 'contact-form-7' ) ); ?><br /><span class="arrow">&#11015;</span>&nbsp;<input type="text" class="mail-tag" readonly="readonly" onfocus="this.select()" /></div>
+<div class="tg-mail-tag"><?php echo esc_html( __( "And, put this code into the Mail fields below.", 'contact-form-7' ) ); ?><br /><input type="text" class="mail-tag wp-ui-text-highlight code" readonly="readonly" onfocus="this.select()" /></div>
 </form>
 </div>
 <?php

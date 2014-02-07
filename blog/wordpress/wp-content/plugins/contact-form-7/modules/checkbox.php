@@ -28,6 +28,7 @@ function wpcf7_checkbox_shortcode_handler( $tag ) {
 	$label_first = $tag->has_option( 'label_first' );
 	$use_label_element = $tag->has_option( 'use_label_element' );
 	$exclusive = $tag->has_option( 'exclusive' );
+	$free_text = $tag->has_option( 'free_text' );
 	$multiple = false;
 
 	if ( 'checkbox' == $tag->basetype )
@@ -61,8 +62,11 @@ function wpcf7_checkbox_shortcode_handler( $tag ) {
 	$is_posted = wpcf7_is_posted();
 
 	$html = '';
+	$count = 0;
 
 	foreach ( (array) $tag->values as $key => $value ) {
+		$class = 'wpcf7-list-item';
+
 		$checked = false;
 
 		if ( $is_posted && ! empty( $post ) ) {
@@ -102,11 +106,42 @@ function wpcf7_checkbox_shortcode_handler( $tag ) {
 		if ( $use_label_element )
 			$item = '<label>' . $item . '</label>';
 
-		$item = '<span class="wpcf7-list-item">' . $item . '</span>';
-		$html .= $item;
-
 		if ( false !== $tabindex )
 			$tabindex += 1;
+
+		$count += 1;
+
+		if ( 1 == $count ) {
+			$class .= ' first';
+		}
+
+		if ( count( $tag->values ) == $count ) { // last round
+			$class .= ' last';
+
+			if ( $free_text ) {
+				$free_text_name = sprintf(
+					'_wpcf7_%1$s_free_text_%2$s', $tag->basetype, $tag->name );
+
+				$free_text_atts = array(
+					'name' => $free_text_name,
+					'class' => 'wpcf7-free-text',
+					'tabindex' => $tabindex ? $tabindex : '' );
+
+				if ( wpcf7_is_posted() && isset( $_POST[$free_text_name] ) ) {
+					$free_text_atts['value'] = stripslashes_deep(
+						$_POST[$free_text_name] );
+				}
+
+				$free_text_atts = wpcf7_format_atts( $free_text_atts );
+
+				$item .= sprintf( ' <input type="text" %s />', $free_text_atts );
+
+				$class .= ' has-free-text';
+			}
+		}
+
+		$item = '<span class="' . esc_attr( $class ) . '">' . $item . '</span>';
+		$html .= $item;
 	}
 
 	$atts = wpcf7_format_atts( $atts );
@@ -141,6 +176,59 @@ function wpcf7_checkbox_validation_filter( $result, $tag ) {
 	}
 
 	return $result;
+}
+
+
+/* Adding free text field */
+
+add_filter( 'wpcf7_posted_data', 'wpcf7_checkbox_posted_data' );
+
+function wpcf7_checkbox_posted_data( $posted_data ) {
+	$tags = wpcf7_scan_shortcode(
+		array( 'type' => array( 'checkbox', 'checkbox*', 'radio' ) ) );
+
+	if ( empty( $tags ) ) {
+		return $posted_data;
+	}
+
+	foreach ( $tags as $tag ) {
+		$tag = new WPCF7_Shortcode( $tag );
+
+		if ( ! isset( $posted_data[$tag->name] ) ) {
+			continue;
+		}
+
+		$posted_items = (array) $posted_data[$tag->name];
+
+		if ( $tag->has_option( 'free_text' ) ) {
+			if ( WPCF7_USE_PIPE ) {
+				$values = $tag->pipes->collect_afters();
+			} else {
+				$values = $tag->values;
+			}
+
+			$last = array_pop( $values );
+
+			if ( in_array( $last, $posted_items ) ) {
+				$posted_items = array_diff( $posted_items, array( $last ) );
+
+				$free_text_name = sprintf(
+					'_wpcf7_%1$s_free_text_%2$s', $tag->basetype, $tag->name );
+
+				$free_text = $posted_data[$free_text_name];
+
+				if ( ! empty( $free_text ) ) {
+					$posted_items[] = trim( $last . ' ' . $free_text );
+				} else {
+					$posted_items[] = $last;
+				}
+			}
+		}
+
+		$posted_data[$tag->name] = $posted_items;
+	}
+
+	return $posted_data;
 }
 
 
@@ -207,9 +295,9 @@ function wpcf7_tg_pane_checkbox_and_radio( $type = 'checkbox' ) {
 </tr>
 </table>
 
-<div class="tg-tag"><?php echo esc_html( __( "Copy this code and paste it into the form left.", 'contact-form-7' ) ); ?><br /><input type="text" name="<?php echo $type; ?>" class="tag" readonly="readonly" onfocus="this.select()" /></div>
+<div class="tg-tag"><?php echo esc_html( __( "Copy this code and paste it into the form left.", 'contact-form-7' ) ); ?><br /><input type="text" name="<?php echo $type; ?>" class="tag wp-ui-text-highlight code" readonly="readonly" onfocus="this.select()" /></div>
 
-<div class="tg-mail-tag"><?php echo esc_html( __( "And, put this code into the Mail fields below.", 'contact-form-7' ) ); ?><br /><span class="arrow">&#11015;</span>&nbsp;<input type="text" class="mail-tag" readonly="readonly" onfocus="this.select()" /></div>
+<div class="tg-mail-tag"><?php echo esc_html( __( "And, put this code into the Mail fields below.", 'contact-form-7' ) ); ?><br /><input type="text" class="mail-tag wp-ui-text-highlight code" readonly="readonly" onfocus="this.select()" /></div>
 </form>
 </div>
 <?php

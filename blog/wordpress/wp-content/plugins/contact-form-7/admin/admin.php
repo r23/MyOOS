@@ -47,7 +47,7 @@ function wpcf7_set_screen_options( $result, $option, $value ) {
 }
 
 function wpcf7_load_contact_form_admin() {
-	global $wpcf7_contact_form, $plugin_page;
+	global $plugin_page;
 
 	$action = wpcf7_current_action();
 
@@ -139,8 +139,6 @@ function wpcf7_load_contact_form_admin() {
 
 			$query['post'] = $new_contact_form->id;
 			$query['message'] = 'created';
-		} else {
-			$query['post'] = $contact_form->id;
 		}
 
 		$redirect_to = add_query_arg( $query, menu_page_url( 'wpcf7', false ) );
@@ -218,7 +216,9 @@ function wpcf7_load_contact_form_admin() {
 			'option' => 'cfseven_contact_forms_per_page' ) );
 	}
 
-	$wpcf7_contact_form = $post;
+	if ( $post ) {
+		WPCF7_ContactForm::set_current( $post );
+	}
 }
 
 add_action( 'admin_enqueue_scripts', 'wpcf7_admin_enqueue_scripts' );
@@ -256,10 +256,7 @@ function wpcf7_admin_enqueue_scripts( $hook_suffix ) {
 }
 
 function wpcf7_admin_management_page() {
-	global $wpcf7_contact_form;
-
-	if ( $wpcf7_contact_form ) {
-		$post =& $wpcf7_contact_form;
+	if ( $post = wpcf7_get_current_contact_form() ) {
 		$post_id = $post->initial ? -1 : $post->id;
 
 		require_once WPCF7_PLUGIN_DIR . '/admin/includes/meta-boxes.php';
@@ -299,10 +296,7 @@ function wpcf7_admin_management_page() {
 }
 
 function wpcf7_admin_add_new_page() {
-	global $wpcf7_contact_form;
-
-	if ( $wpcf7_contact_form ) {
-		$post =& $wpcf7_contact_form;
+	if ( $post = wpcf7_get_current_contact_form() ) {
 		$post_id = -1;
 
 		require_once WPCF7_PLUGIN_DIR . '/admin/includes/meta-boxes.php';
@@ -368,22 +362,6 @@ function wpcf7_add_meta_boxes( $post_id ) {
 }
 
 /* Misc */
-
-add_action( 'wpcf7_admin_notices', 'wpcf7_admin_before_subsubsub' );
-
-function wpcf7_admin_before_subsubsub() {
-	// wpcf7_admin_before_subsubsub is deprecated. Use wpcf7_admin_notices instead.
-
-	$current_screen = get_current_screen();
-
-	if ( 'toplevel_page_wpcf7' != $current_screen->id )
-		return;
-
-	if ( empty( $_GET['post'] ) || ! $contact_form = wpcf7_contact_form( $_GET['post'] ) )
-		return;
-
-	do_action_ref_array( 'wpcf7_admin_before_subsubsub', array( &$contact_form ) );
-}
 
 add_action( 'wpcf7_admin_notices', 'wpcf7_admin_updated_message' );
 
