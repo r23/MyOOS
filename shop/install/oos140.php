@@ -108,6 +108,7 @@ $aKeys = array('EMAIL_FROM',
 			   'OOS_SWF_BGCOLOUR_B',
 			   'OOS_RANDOM_PICTURE_NAME',
                'GZIP_LEVEL',
+			   'CATEGORIES_SCROLL_BOX_LEN',
 			   'DISPLAY_CONDITIONS_ON_CHECKOUT');
 $db->Execute("DELETE FROM " . $table . " WHERE configuration_key in ('" . implode("', '", $aKeys) . "')");
 

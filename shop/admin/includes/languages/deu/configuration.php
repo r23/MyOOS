@@ -468,9 +468,6 @@ define('SHOW_DATE_ADDED_AVAILABLE_DESC', 'Möchten Sie im Shop das Datum von der
 define('SHOW_COUNTS_TITLE', 'Artikelanzahl hinter den Kategorienamen');
 define('SHOW_COUNTS_DESC', 'Anzeigen, wieviele Produkte in jeder Kategorie vorhanden sind');
 
-define('CATEGORIES_SCROLL_BOX_LEN_TITLE', 'Kategorie-Menge');
-define('CATEGORIES_SCROLL_BOX_LEN_DESC', 'Wenn Sie die Kategorien als Auswahlliste anzeigen wollen, legen Sie hier die Länge fest');
-
 define('SHOPPING_CART_IMAGE_ON_TITLE', 'Bild im Warenkorbinhalt');
 define('SHOPPING_CART_IMAGE_ON_DESC', 'Möchten Sie in der Detailansicht vom Warenkorb das Porduktbild anzeigen?');
 
