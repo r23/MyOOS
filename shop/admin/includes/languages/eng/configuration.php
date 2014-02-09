@@ -91,9 +91,6 @@ define('DISPLAY_PRICE_WITH_TAX_DESC', 'Display prices with tax included (true) o
 define('PRODUCTS_OPTIONS_SORT_BY_PRICE_TITLE', 'Sortierung Produktoptionen');
 define('PRODUCTS_OPTIONS_SORT_BY_PRICE_DESC', 'M&ouml;chten Sie die Produktopionen nach Preisen sortieren?');
 
-define('WEB_SEARCH_GOOGLE_KEY_TITLE', 'Google API license key');
-define('WEB_SEARCH_GOOGLE_KEY_DESC', 'Google API license key (for free!) <A HREF=\"http://www.google.com/apis\" TARGET=\"_blank\">http://www.google.com/apis</A>.');
-
 define('ENTRY_FIRST_NAME_MIN_LENGTH_TITLE', 'First Name');
 define('ENTRY_FIRST_NAME_MIN_LENGTH_DESC', 'Minimum length of first name');
 
