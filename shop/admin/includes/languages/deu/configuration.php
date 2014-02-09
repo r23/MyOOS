@@ -483,9 +483,6 @@ define('ALLOW_GUEST_TO_TELL_A_FRIEND_DESC', 'Gästen erlauben, ein Produkt zu em
 define('ALLOW_CATEGORY_DESCRIPTIONS_TITLE', 'Erlaube Kategorienbeschreibung');
 define('ALLOW_CATEGORY_DESCRIPTIONS_DESC', 'Erlaubt eine ausführliche Beschreibung der einzelnen Kategorien');
 
-define('ALLOW_NEWS_CATEGORY_DESCRIPTIONS_TITLE', 'Erlaube News-Kategorienbeschreibung');
-define('ALLOW_NEWS_CATEGORY_DESCRIPTIONS_DESC', 'Erlaubt eine ausführliche Beschreibung der einzelnen News-Kategorien');
-
 define('SHOW_PRODUCTS_MODEL_TITLE', 'Navigation mit Bestellnummer');
 define('SHOW_PRODUCTS_MODEL_DESC', 'Möchten Sie die auf der Produkt-Informations-Seite die Bestellnummer in der Navation anzeigen?');
 
