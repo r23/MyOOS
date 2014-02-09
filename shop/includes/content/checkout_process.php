@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -74,7 +74,7 @@
 
   $sql_data_array = array('customers_id' => $_SESSION['customer_id'],
                           'customers_firstname' => $oOrder->customer['firstname'],
-	                  'customers_lastname' => $oOrder->customer['lastname'],
+	                      'customers_lastname' => $oOrder->customer['lastname'],
                           'customers_name' => $oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'],
                           'customers_company' => $oOrder->customer['company'],
                           'customers_street_address' => $oOrder->customer['street_address'],
@@ -390,9 +390,6 @@
 
 // load the after_process function from the payment modules
   $payment_modules->after_process();
-
-  $order_total_modules->sendFax();
-  $order_total_modules->sendSMS();
 
   $_SESSION['cart']->reset(true);
 
