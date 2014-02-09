@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -87,9 +87,6 @@ define('TAX_DECIMAL_PLACES_DESC', 'Pad the tax value this amount of decimal plac
 
 define('DISPLAY_PRICE_WITH_TAX_TITLE', 'Display Prices with Tax');
 define('DISPLAY_PRICE_WITH_TAX_DESC', 'Display prices with tax included (true) or add the tax at the end (false)');
-
-define('DISPLAY_CONDITIONS_ON_CHECKOUT_TITLE', 'Conditions on checkout');
-define('DISPLAY_CONDITIONS_ON_CHECKOUT_DESC', 'Display the conditions on the checkout confirmation page before process.');
 
 define('PRODUCTS_OPTIONS_SORT_BY_PRICE_TITLE', 'Sortierung Produktoptionen');
 define('PRODUCTS_OPTIONS_SORT_BY_PRICE_DESC', 'M&ouml;chten Sie die Produktopionen nach Preisen sortieren?');

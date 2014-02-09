@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -118,13 +118,6 @@
           if ($GLOBALS[$class]->enabled) {
             $js .= $GLOBALS[$class]->javascript_validation();
           }
-        }
-
-        if (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') {
-          $js .= "\n" . '  if (!document.getElementById("1").checked) {' . "\n" .
-                 '    error_message = error_message + unescape("' . decode($aLang['error_conditions_not_accepted']) . '");' . "\n" .
-                 '    error = 1;' . "\n" .
-                 '  }' . "\n\n";
         }
 
         $js .= "\n" . '  if (payment_value == null && submitter != 1) {' . "\n" . // ICW CREDIT CLASS Gift Voucher System

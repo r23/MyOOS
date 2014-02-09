@@ -2,11 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: newconfigdata.php 476 2013-07-13 08:22:48Z r23 $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -69,7 +68,6 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configur
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('ADVANCED_SEARCH_DEFAULT_OPERATOR', 'and', 1, 16, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'and\', \'or\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('TAX_DECIMAL_PLACES', '2', 1, 17, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('DISPLAY_PRICE_WITH_TAX', 'true', 1, 18, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('DISPLAY_CONDITIONS_ON_CHECKOUT', 'true', 1, 19, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('PRODUCTS_OPTIONS_SORT_BY_PRICE', 'false', 1, 20, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 
 //2

@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: oos140.php 476 2013-07-13 08:22:48Z r23 $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -107,7 +107,8 @@ $aKeys = array('EMAIL_FROM',
 			   'OOS_SWF_BGCOLOUR_G',
 			   'OOS_SWF_BGCOLOUR_B',
 			   'OOS_RANDOM_PICTURE_NAME',
-               'GZIP_LEVEL');
+               'GZIP_LEVEL',
+			   'DISPLAY_CONDITIONS_ON_CHECKOUT');
 $db->Execute("DELETE FROM " . $table . " WHERE configuration_key in ('" . implode("', '", $aKeys) . "')");
 
 $table = $prefix_table . 'admin_files';
