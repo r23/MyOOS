@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -30,8 +30,7 @@
                      'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=tools'));
 
   if ($_SESSION['selected_box'] == 'tools' ) {
-    $contents[] = array('text'  => '<a href="' . OOS_HTTP_SERVER . OOS_SHOP . 'administrator/mysqldumper/index.php' . '" class="menuBoxContentLink">' . BOX_TOOLS_BACKUP . '</a><br />' .
-                                   oos_admin_files_boxes('mail', 'selected_box=tools', BOX_TOOLS_MAIL) .
+    $contents[] = array('text'  => oos_admin_files_boxes('mail', 'selected_box=tools', BOX_TOOLS_MAIL) .
                                    oos_admin_files_boxes('newsletters', 'selected_box=tools', BOX_TOOLS_NEWSLETTER_MANAGER) .
                                    oos_admin_files_boxes('whos_online', 'selected_box=tools', BOX_TOOLS_WHOS_ONLINE) .
                                    oos_admin_files_boxes('recover_cart_sales', 'selected_box=tools', BOX_TOOLS_RECOVER_CART));
