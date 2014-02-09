@@ -123,12 +123,7 @@ $aLang['block_information_imprint'] = 'Imprint';
 $aLang['block_information_privacy'] = 'Privacy Notice';
 $aLang['block_information_conditions'] = 'Conditions of Use';
 $aLang['block_information_shipping'] = 'Shipping & Returns';
-$aLang['block_information_v_card'] = 'vCard';
-$aLang['block_information_mapquest'] = 'Map This Location';
-$aLang['block_skype_me'] = 'Skype Me';
 $aLang['block_information_gv'] = 'Gift Voucher FAQ';
-$aLang['block_information_gallery'] = 'Gallery';
-
 
 // login
 $aLang['entry_email_address'] = 'E-Mail Address:';

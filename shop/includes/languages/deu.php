@@ -123,11 +123,7 @@ $aLang['block_information_imprint'] = 'Impressum';
 $aLang['block_information_privacy'] = 'Privatsphäre&nbsp;und Datenschutz';
 $aLang['block_information_conditions'] = 'Unsere AGB';
 $aLang['block_information_shipping'] = 'Liefer- und&nbsp;Versandkosten';
-$aLang['block_information_v_card'] = 'vCard';
-$aLang['block_information_mapquest'] = 'Wegbeschreibung';
-$aLang['block_skype_me'] = 'Skype Me';
 $aLang['block_information_gv'] = 'Gutschein einlösen';
-$aLang['block_information_gallery'] = 'Gallery';
 
 //login
 $aLang['entry_email_address'] = 'eMail Adresse:';
