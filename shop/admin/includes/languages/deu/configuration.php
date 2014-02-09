@@ -55,10 +55,6 @@ define('STORE_ADDRESS_TELEPHONE_NUMBER_DESC', 'Die Kontaktinformationen des Shop
 define('STORE_ADDRESS_EMAIL_TITLE', 'Adressinformation: Die E-Mail Adresse des Shops');
 define('STORE_ADDRESS_EMAIL_DESC', 'Die E-Mail Adresse des Shops, welche sowohl in Dokumenten als auch Online ausgegeben werden');
 
-
-define('SKYPE_ME_TITLE', 'Skype-Name');
-define('SKYPE_ME_DESC', 'Wenn Sie noch keinen Skype-Namen haben, können Sie <a href="http://www.skype.com/go/download" target="_blank">Skype herunterladen</a>, um einen Skype-Namen zu erstellen.');
-
 define('STORE_COUNTRY_TITLE', 'Land');
 define('STORE_COUNTRY_DESC', 'In welchem Land wird der Shop betrieben <br><br><b>Hinweis: Bitte vergessen Sie nicht, das Bundesland zu aktualisieren</b>');
 

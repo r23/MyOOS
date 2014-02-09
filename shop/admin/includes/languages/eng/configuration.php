@@ -61,9 +61,6 @@ define('STORE_ADDRESS_TELEPHONE_NUMBER_DESC', 'This is the Phone used on printab
 define('STORE_ADDRESS_EMAIL_TITLE', 'Store Address: E-Mail Address');
 define('STORE_ADDRESS_EMAIL_DESC', 'This is the e-mail address of my store ');
 
-define('SKYPE_ME_TITLE', 'Skype-Name');
-define('SKYPE_ME_DESC', 'If you don\'t have a Skype Name, please <a href=\"http://www.skype.com/go/download\" target=\"_blank\">download Skype</a> to create one, and visit this page again.');
-
 define('STORE_COUNTRY_TITLE', 'Country');
 define('STORE_COUNTRY_DESC', 'The country my store is located in <br><br><b>Note: Please remember to update the store zone.</b>');
 
