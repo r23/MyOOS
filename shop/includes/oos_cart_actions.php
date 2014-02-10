@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -51,47 +51,47 @@ if (DISPLAY_CART == 'true') {
     $goto_file = $sContent;
 
     if (isset($aData['manufacturers_id']) && is_numeric($aData['manufacturers_id'])) {
-       $parameters .= 'manufacturers_id=' .  intval($aData['manufacturers_id']) . '&amp;';
+       $parameters .= '&amp;manufacturers_id=' .  intval($aData['manufacturers_id']);
     }
     if (isset($aData['nv']) && is_numeric($aData['nv'])) { 
-       $parameters .= 'nv=' .  intval($aData['nv']) . '&amp;';
+       $parameters .= '&amp;nv=' .  intval($aData['nv']);
     }
     if (isset($aData['filter_id']) && is_numeric($aData['filter_id'])) { 
-       $parameters .= 'filter_id=' .  intval($aData['filter_id']) . '&amp;';
+       $parameters .= '&amp;filter_id=' .  intval($aData['filter_id']);
     } 
     if (isset($aData['categories']) && is_string($aData['categories']))  {
-       $parameters .= 'categories=' .  rawurlencode(oos_var_prep_for_os($aData['categories'])) . '&amp;';
+       $parameters .= '&amp;categories=' .  rawurlencode(oos_var_prep_for_os($aData['categories']));
     }
     if (isset($aData['sort']) && is_string($aData['sort'])) { 
-       $parameters .= 'sort=' .  rawurlencode(oos_var_prep_for_os($aData['sort'])) . '&amp;';
+       $parameters .= '&amp;sort=' .  rawurlencode(oos_var_prep_for_os($aData['sort']));
     }   
     if (isset($aData['dfrom']) && !empty($aData['dfrom']))  {
         $dfrom = (($aData['dfrom'] == DOB_FORMAT_STRING) ? '' : oos_prepare_input($aData['dfrom']));
-        $parameters .= 'dfrom=' . rawurlencode($dfrom) . '&amp;';
+        $parameters .= '&amp;dfrom=' . rawurlencode($dfrom);
     }
     if (isset($aData['dto']) && !empty($aData['dto']))  {
-        $dto = (($aData['dto'] == DOB_FORMAT_STRING) ? '' : oos_prepare_input($_GET['dto']));
-        $parameters .= 'dto=' . rawurlencode($dto) . '&amp;'; 
+        $dto = (($aData['dto'] == DOB_FORMAT_STRING) ? '' : oos_prepare_input($aData['dto']));
+        $parameters .= '&amp;dto=' . rawurlencode($dto); 
     }
     if (isset($aData['pfrom']) && !empty($aData['pfrom']))  {
         $pfrom = oos_prepare_input($aData['pfrom']);
-        $parameters .= 'pfrom=' . rawurlencode($pfrom) . '&amp;';
+        $parameters .= '&amp;pfrom=' . rawurlencode($pfrom);
     }
     if (isset($aData['pto']) && !empty($aData['pto']))  {
         $pto = oos_prepare_input($aData['pto']);
-        $parameters .= 'pfrom=' . rawurlencode($pto) . '&amp;';
+        $parameters .= '&amp;pfrom=' . rawurlencode($pto);
     }
     if (isset($aData['keywords']) && !empty($aData['keywords']))  {
         $sKeywords = oos_prepare_input($aData['keywords']);
 
         if ( isset( $sKeywords ) || is_string( $sKeywords ) )	{ 	     
-            $parameters .= 'keywords=' . rawurlencode($sKeywords) . '&amp;';
+            $parameters .= '&amp;keywords=' . rawurlencode($sKeywords);
 		}
     }
 
     if (isset($aData['categories_id']) && is_numeric($aData['categories_id'])) {
         if (isset($aData['inc_subcat']) && ($aData['inc_subcat'] == '1')) {
-            $parameters .= 'inc_subcat=1&amp;';
+            $parameters .= '&amp;inc_subcat=1';
         }
     }    
 }
@@ -122,10 +122,10 @@ if (isset($aData['action'])) {
               $attributes = ($_POST['id'][$_POST['products_id'][$i]]) ? $_POST['id'][$_POST['products_id'][$i]] : '';
               $_SESSION['cart']->add_cart($_POST['products_id'][$i], $_POST['cart_quantity'][$i], $attributes, false, $_POST['to_wl_id'][$i]);
             } else {
-              $_SESSION['error_cart_msg'] = trim($_SESSION['error_cart_msg']) . '<br />' . trim(oos_image(OOS_IMAGES . 'pixel_trans.gif','', '11', '10') . $aLang['error_products_quantity_order_min_text'] . ' ' . oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_units_invalid'] . ' ' . $_POST['cart_quantity'][$i] . ' - ' . $aLang['products_order_qty_unit_text_cart'] . ' ' . $products_order_units);
+              $_SESSION['error_cart_msg'] = $aLang['error_products_quantity_order_min_text'] . ' ' . oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_units_invalid'] . ' ' . $_POST['cart_quantity'][$i] . ' - ' . $aLang['products_order_qty_unit_text_cart'] . ' ' . $products_order_units);
             }
           } else {
-            $_SESSION['error_cart_msg'] = trim($_SESSION['error_cart_msg']) . '<br />' . trim(oos_image(OOS_IMAGES . 'pixel_trans.gif','', '11', '10') . $aLang['error_products_quantity_order_min_text'] . ' ' . oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_quantity_invalid'] . ' ' . $_POST['cart_quantity'][$i] . ' - ' . $aLang['products_order_qty_min_text_cart'] . ' ' . $products_order_min);
+            $_SESSION['error_cart_msg'] =  $aLang['error_products_quantity_order_min_text'] . ' ' . oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_quantity_invalid'] . ' ' . $_POST['cart_quantity'][$i] . ' - ' . $aLang['products_order_qty_min_text_cart'] . ' ' . $products_order_min);
           }
         }
       }
@@ -192,7 +192,6 @@ if (isset($aData['action'])) {
             $contents = array();
             $contents[] = array($wishlist_products_id);
 
-            $customers_wishlisttable = $oostable['customers_wishlist'];
             $dbconn->Execute("INSERT INTO $customers_wishlisttable 
                           (customers_id, customers_wishlist_link_id, products_id, 
                            customers_wishlist_date_added) VALUES (" . $dbconn->qstr($_SESSION['customer_id']) . ','
