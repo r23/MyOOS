@@ -51,15 +51,12 @@ function oos_copy_uploaded_file($filename, $target) {
 
   // Resize Big image
   $target_big .= $picture_name;
-  if (OOS_WATERMARK == 'true') {
-    oos_watermark ($filename['tmp_name'], $target_big, OOS_WATERMARK_QUALITY);
-  } else {
     if (OOS_BIGIMAGE_WIDTH || OOS_BIGIMAGE_HEIGHT ) {
       oos_resize_image($filename['tmp_name'], $target_big, OOS_BIGIMAGE_WIDTH, OOS_BIGIMAGE_HEIGHT, OOS_BIGIMAGE_WAY_OF_RESIZE);
     } else {
       copy($filename['tmp_name'], $target_big);
     }
-  }
+
 
   $target_small = $target . $picture_name;
   oos_resize_image($filename['tmp_name'], $target_small, OOS_SMALL_IMAGE_WIDTH, OOS_SMALL_IMAGE_HEIGHT, OOS_SMALLIMAGE_WAY_OF_RESIZE);
@@ -297,72 +294,4 @@ function oos_alpha_image($pic, $image_new, $new_width, $new_height) {
 }
 
 
-
-
-
-
-function oos_watermark($pic, $image_new, $quality = '100') {
-   $dst_img = '';
-   $imageInfo = GetImageSize($pic);
-   $width = $imageInfo[0];
-   $height = $imageInfo[1];
-   $logoinfo = getimagesize(OOS_WATERMARK_LOGO);
-   $logowidth = $logoinfo[0];
-   $logoheight = $logoinfo[1];
-   if (function_exists('imagecreatefromjpeg')) {   // check if php with gd-lib-support is installed
-     if ($imageInfo[2]==1) {
-       if (function_exists('imagecreatefromgif')) {
-         $src_img = imagecreatefromgif($pic);
-       }
-     }
-     if ($imageInfo[2]==2) {
-       if (function_exists('imagecreatefromjpeg')) {
-         $src_img = imagecreatefromjpeg($pic);
-       }
-     }
-     if ($imageInfo[2]==3) {
-       if (function_exists('imagecreatefrompng')) {
-         $src_img = imagecreatefrompng($pic);
-       }
-     }
-
-     if ($src_img) {
-       if (OOS_BIGIMAGE_WIDTH || OOS_BIGIMAGE_HEIGHT) {
-         // proportionaler resize; width oder height ist die maximale Größe
-         $x = OOS_BIGIMAGE_WIDTH/$width;
-         $y = OOS_BIGIMAGE_HEIGHT/$height;
-         if (($y>0 && $y<$x) || $x==0) $x=$y;
-         $width_big = $width*$x;
-         $height_big = $height*$x;
-         $width = $width_big;
-         $height= $height_big;
-         $dst_img = imagecreatetruecolor($width_big, $height_big);
-         imagecopyresampled($dst_img, $src_img, 0, 0, 0 , 0 , $width_big, $height_big, imagesx($src_img), imagesy($src_img));
-       } else {
-         $dst_img = $src_img;
-       }
-       $hori = $width - $logowidth;
-       $vert = $height - $logoheight;
-       $horizmargin =  round($hori / 2);
-       $vertmargin =  round($vert / 2);
-       ImageAlphaBlending($dst_img, true);
-       $logoImage = ImageCreateFromPNG(OOS_WATERMARK_LOGO);
-       $logoW = ImageSX($logoImage);
-       $logoH = ImageSY($logoImage);
-       ImageCopy($dst_img, $logoImage, $horizmargin, $vertmargin, 0, 0, $logoW, $logoH);
-
-
-       // Copy Picture
-       $fh = fopen($image_new,'w');
-       fclose($fh);
-       if ($imageInfo[2]==1) imagegif($dst_img, $image_new);
-       if ($imageInfo[2]==2) imagejpeg($dst_img, $image_new, $quality);
-       if ($imageInfo[2]==3 )imagepng($dst_img, $image_new);
-       return true;
-     }
-   }
-   // pic couldn't be resized, so copy original
-   copy ($pic,$image_new);
-   return false;
- }
 
