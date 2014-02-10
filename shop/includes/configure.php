@@ -52,7 +52,6 @@ define('OOS_EXPORT_PATH', OOS_ABSOLUTE_PATH . 'admin/export/');
 define('OOS_FEEDS_EXPORT_PATH', OOS_ABSOLUTE_PATH . 'feed/');
 
 define('OOS_UPLOADS', OOS_ABSOLUTE_PATH . OOS_IMAGES . 'uploads/');
-define('OOS_WATERMARK_LOGO', OOS_ABSOLUTE_PATH . OOS_IMAGES . 'watermark.png');
 
 
 define('OOS_TEMP_PATH', '');
