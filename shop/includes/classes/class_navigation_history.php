@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -53,42 +53,6 @@ class oosNavigationHistory
      }
 
 
-     function add_current_page()
-     {
-          global $sContent, $request_type;
-
-          $get_all = '';
-          if (isset($_GET)) {
-              $get_all = oos_get_all_get_parameters();
-              $get_all = oos_remove_trailing($get_all);
-          }
-          $this->path[] = array('content' => $sContent,
-                                'mode' => $request_type,
-                                'get' => $get_all);
-
-    }
-
-
-    function remove_current_page()
-    {
-        global $sContent;
-
-        $last_entry_position = count($this->path) - 1;
-        if ( ($this->path[$last_entry_position]['content'] == $sContent) ) {
-            unset($this->path[$last_entry_position]);
-        }
-    }
-
-
-    function remove_last_page()
-    {
-
-        $last_entry_position = count($this->path) - 1;
-        if ($last_entry_position > 0) {
-            unset($this->path[$last_entry_position]);
-        }
-    }
-
 
     function set_snapshot($aSetPage = '')
     {
@@ -123,16 +87,6 @@ class oosNavigationHistory
         $this->snapshot = array('content' => $this->path[$pos]['content'],
                                 'mode' => $this->path[$pos]['mode'],
                                 'get' => $this->path[$pos]['get']);
-    }
-
-
-    function unserialize($broken)
-    {
-        for(reset($broken);$kv=each($broken);) {
-            $key=$kv['key'];
-            if (gettype($this->$key)!="user function")
-            $this->$key=$kv['value'];
-        }
     }
 
 }

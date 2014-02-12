@@ -47,14 +47,15 @@ foreach ($block_result as $block) {
 	$block_heading = $block['block_name'];
 	$block_file = trim($block['block_file']);
 	$block_side = $block['block_side'];
-
+echo $block_file;
+        
 	if (empty($block_file)) {
 		continue;
 	}
 	if (!empty($block_side)) {
-		$block_tpl = $sTheme . '/blocks/' . $block_file . '.html';
+		$block_tpl = $sTheme . '/blocks/' . $block_file . '.tpl';
 	}
-	
+
 	if ( (!empty($block['block_cache'])) && (!empty($block_side)) ) {
 		if ( (USE_CACHE == 'true') && (!SID) ) {
 			$smarty->setCaching(true);
@@ -62,7 +63,10 @@ foreach ($block_result as $block) {
 		$bid = trim('oos_' . $block['block_cache'] . '_cache_id');
 
 		if (!$smarty->isCached($block_tpl, ${$bid})) {
-			require_once MYOOS_INCLUDE_PATH . '/includes/blocks/block_' . $block_file . '.php';
+			if (is_readable('/includes/blocks/block_' . $block_file . '.php'))
+			{
+				require_once MYOOS_INCLUDE_PATH . '/includes/blocks/block_' . $block_file . '.php';
+			}
 		}
 		if (!empty($block_side)) {
 			$block_content = $smarty->fetch($block_tpl, ${$bid});
@@ -72,15 +76,14 @@ foreach ($block_result as $block) {
 		$smarty->setCaching(false);
 		require_once MYOOS_INCLUDE_PATH . '/includes/blocks/block_' . $block_file . '.php';
 		if (!empty($block_side)) {
-			$block_content = $smarty->fetch($block_tpl);
+			 $block_content = $smarty->fetch($block_tpl);
 		}
 	}
 
 	if (!empty($block_side)) {
 		$aContentBlock[] = array('side' => $block_side,
 								 'block_content' => $block_content );
-	}								 
-
+	}
 }
 
 $nContentBlock = count($aContentBlock);

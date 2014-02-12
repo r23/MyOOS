@@ -20,11 +20,13 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/main.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
+
 
 $heading_title = $aLang['heading_title'];
 $current_domain = (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP;
@@ -40,10 +42,12 @@ $aTemplate['upcoming_products'] = $sTheme . '/modules/products/upcoming_products
 $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+
 if (!isset($option)) {
     require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
 }
+
 
 // assign Smarty variables;
 $smarty->assign(
@@ -53,6 +57,7 @@ $smarty->assign(
           'canonical' => $current_domain
       )
   );
+
 
 
 /*
