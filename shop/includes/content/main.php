@@ -30,7 +30,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
 
 $heading_title = $aLang['heading_title'];
 $current_domain = (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP;
-  
+
 // default
 $aTemplate['page'] = $sTheme . '/page/main.tpl';
 if ($oEvent->installed_plugin('spezials')) $aTemplate['new_spezials'] = $sTheme . '/modules/products/new_spezials.tpl';

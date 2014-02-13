@@ -136,8 +136,7 @@ while ($configuration = $configuration_result->fields) {
     // Move that ADOdb pointer!
     $configuration_result->MoveNext();
 }
-// Close result set
-$configuration_result->Close();
+
 
 
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_plugin_event.php';
@@ -209,4 +208,4 @@ if ( isset($_GET['action'])
 
 
   $aTemplate = array();
-
+ 

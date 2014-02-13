@@ -69,14 +69,14 @@ echo $block_file;
 			}
 		}
 		if (!empty($block_side)) {
-			$block_content = $smarty->fetch($block_tpl, ${$bid});
+		#	$block_content = $smarty->fetch($block_tpl, ${$bid});
 		}
 	} else {
 
 		$smarty->setCaching(false);
 		require_once MYOOS_INCLUDE_PATH . '/includes/blocks/block_' . $block_file . '.php';
 		if (!empty($block_side)) {
-			 $block_content = $smarty->fetch($block_tpl);
+		#	 $block_content = $smarty->fetch($block_tpl);
 		}
 	}
 
