@@ -440,7 +440,7 @@ function calcBasePriceFactor() {
 ?>
           <tr>
             <td class="main"><?php if ($i == 0) echo TEXT_PRODUCTS_NAME; ?></td>
-            <td class="main"><?php echo oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('products_name[' . $languages[$i]['id'] . ']', (($products_name[$languages[$i]['id']]) ? stripslashes($products_name[$languages[$i]['id']]) : oos_get_products_name($pInfo->products_id, $languages[$i]['id']))); ?></td>
+            <td class="main"><?php echo oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('products_name[' . $languages[$i]['id'] . ']', (($products_name[$languages[$i]['id']]) ? stripslashes($products_name[$languages[$i]['id']]) : oos_get_products_name($pInfo->products_id, $languages[$i]['id']))); ?></td>
           </tr>
 <?php
     }
@@ -455,7 +455,7 @@ function calcBasePriceFactor() {
             <td class="main" valign="top"><?php if ($i == 0) echo TEXT_PRODUCTS_DESCRIPTION; ?></td>
             <td><table border="0" cellspacing="0" cellpadding="0">
               <tr>
-                <td class="main" valign="top"><?php echo oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']); ?>&nbsp;</td>
+                <td class="main" valign="top"><?php echo oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']); ?>&nbsp;</td>
                 <td class="main">
 
 <?php
@@ -494,7 +494,7 @@ function calcBasePriceFactor() {
               <td class="main" width="100" valign="top"><?php if ($i == 0) echo 'wesentliche Merkmale der Ware';; ?></td>
               <td><table border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td class="main" valign="top"><?php echo oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']); ?>&nbsp;</td>
+                  <td class="main" valign="top"><?php echo oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']); ?>&nbsp;</td>
                   <td class="main"><?php echo oos_draw_textarea_field('products_short_description_' . $languages[$i]['id'], 'soft', '70', '4', ($_POST['products_short_description_' .$languages[$i]['id']] ? stripslashes($_POST['products_short_description_' .$languages[$i]['id']]) : oos_get_products_short_description($pInfo->products_id, $languages[$i]['id'])));
 ?></td>
                 </tr>
@@ -513,7 +513,7 @@ function calcBasePriceFactor() {
               <td class="main" width="100" valign="top"><?php if ($i == 0) echo TEXT_PRODUCTS_DESCRIPTION_META; ?></td>
               <td><table border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td class="main" valign="top"><?php echo oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']); ?>&nbsp;</td>
+                  <td class="main" valign="top"><?php echo oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']); ?>&nbsp;</td>
                   <td class="main"><?php echo oos_draw_textarea_field('products_description_meta_' . $languages[$i]['id'], 'soft', '70', '4', ($_POST['products_description_meta_' .$languages[$i]['id']] ? stripslashes($_POST['products_description_meta_' .$languages[$i]['id']]) : oos_get_products_description_meta($pInfo->products_id, $languages[$i]['id'])));
 ?></td>
                 </tr>
@@ -527,7 +527,7 @@ function calcBasePriceFactor() {
               <td class="main" width="100" valign="top"><?php if ($i == 0) echo TEXT_PRODUCTS_KEYWORDS_META; ?></td>
               <td><table border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td class="main" valign="top"><?php echo oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']); ?>&nbsp;</td>
+                  <td class="main" valign="top"><?php echo oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']); ?>&nbsp;</td>
                   <td class="main"><?php echo oos_draw_textarea_field('products_keywords_meta_' . $languages[$i]['id'], 'soft', '70', '4', ($_POST['products_keywords_meta_' .$languages[$i]['id']] ? stripslashes($_POST['products_keywords_meta_' .$languages[$i]['id']]) : oos_get_products_keywords_meta($pInfo->products_id, $languages[$i]['id'])));
 ?></td>
                 </tr>
@@ -585,7 +585,7 @@ function calcBasePriceFactor() {
 ?>
           <tr>
             <td class="main"><?php if ($i == 0) echo TEXT_PRODUCTS_URL . '<br /><small>' . TEXT_PRODUCTS_URL_WITHOUT_HTTP . '</small>'; ?></td>
-            <td class="main"><?php echo oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('products_url[' . $languages[$i]['id'] . ']', (($products_url[$languages[$i]['iso_639_2']]) ? stripslashes($products_url[$languages[$i]['id']]) : oos_get_products_url($pInfo->products_id, $languages[$i]['id']))); ?></td>
+            <td class="main"><?php echo oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('products_url[' . $languages[$i]['id'] . ']', (($products_url[$languages[$i]['iso_639_2']]) ? stripslashes($products_url[$languages[$i]['id']]) : oos_get_products_url($pInfo->products_id, $languages[$i]['id']))); ?></td>
           </tr>
 <?php
     }
@@ -813,7 +813,7 @@ function calcBasePriceFactor() {
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading"><?php echo oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . $pInfo->products_name; ?></td>
+            <td class="pageHeading"><?php echo oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . $pInfo->products_name; ?></td>
 <?php
   $oosPrice = $pInfo->products_price;
   if (OOS_PRICE_IS_BRUTTO == 'true' && ($_GET['read'] == 'only' || $action != 'new_product_preview') ){

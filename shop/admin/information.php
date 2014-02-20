@@ -243,10 +243,10 @@
       $informations_heading_title_inputs_string = '';
       $languages = oos_get_languages();
       for ($i = 0, $n = count($languages); $i < $n; $i++) {
-        $informations_name_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('information_name[' . $languages[$i]['id'] . ']');
-        $informations_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('information_url[' . $languages[$i]['id'] . ']');
-        $informations_heading_title_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('information_heading_title[' . $languages[$i]['id'] . ']');
-        $informations_description_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_textarea_field('information_description[' . $languages[$i]['id'] . ']' , 'soft', '100', '10' );
+        $informations_name_inputs_string .= '<br />' . oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('information_name[' . $languages[$i]['id'] . ']');
+        $informations_inputs_string .= '<br />' . oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('information_url[' . $languages[$i]['id'] . ']');
+        $informations_heading_title_inputs_string .= '<br />' . oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('information_heading_title[' . $languages[$i]['id'] . ']');
+        $informations_description_inputs_string .= '<br />' . oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_textarea_field('information_description[' . $languages[$i]['id'] . ']' , 'soft', '100', '10' );
       }
 
       $contents[] = array('text' => '<br />' . TEXT_INFORMATION_NAME . $informations_name_inputs_string);
@@ -276,10 +276,10 @@
 
       $languages = oos_get_languages();
       for ($i = 0, $n = count($languages); $i < $n; $i++) {
-        $informations_name_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('information_name[' . $languages[$i]['id'] . ']', oos_get_informations_name($mInfo->information_id, $languages[$i]['id']));
-        $informations_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('information_url[' . $languages[$i]['id'] . ']', oos_get_informations_url($mInfo->information_id, $languages[$i]['id']));
-        $informations_heading_title_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('information_heading_title[' . $languages[$i]['id'] . ']', oos_get_informations_heading_title($mInfo->information_id, $languages[$i]['id']));
-        $informations_description_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_textarea_field('information_description[' . $languages[$i]['id'] . ']', 'soft', '100', '10',  oos_get_informations_description($mInfo->information_id, $languages[$i]['id']));
+        $informations_name_inputs_string .= '<br />' . oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('information_name[' . $languages[$i]['id'] . ']', oos_get_informations_name($mInfo->information_id, $languages[$i]['id']));
+        $informations_inputs_string .= '<br />' . oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('information_url[' . $languages[$i]['id'] . ']', oos_get_informations_url($mInfo->information_id, $languages[$i]['id']));
+        $informations_heading_title_inputs_string .= '<br />' . oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('information_heading_title[' . $languages[$i]['id'] . ']', oos_get_informations_heading_title($mInfo->information_id, $languages[$i]['id']));
+        $informations_description_inputs_string .= '<br />' . oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_textarea_field('information_description[' . $languages[$i]['id'] . ']', 'soft', '100', '10',  oos_get_informations_description($mInfo->information_id, $languages[$i]['id']));
      }
 
       $contents[] = array('text' => '<br />' . TEXT_INFORMATION_NAME . $informations_name_inputs_string);

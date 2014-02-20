@@ -489,7 +489,7 @@ function popupImageWindow(url) {
 ?>
             <tr>
               <td class="main"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_NAME; ?></td>
-              <td class="main"><?php echo oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('categories_name[' . $languages[$i]['id'] . ']', (($categories_name[$languages[$i]['id']]) ? stripslashes($categories_name[$languages[$i]['id']]) : oos_get_category_name($cInfo->categories_id, $languages[$i]['id']))); ?></td>
+              <td class="main"><?php echo oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('categories_name[' . $languages[$i]['id'] . ']', (($categories_name[$languages[$i]['id']]) ? stripslashes($categories_name[$languages[$i]['id']]) : oos_get_category_name($cInfo->categories_id, $languages[$i]['id']))); ?></td>
             </tr>
 <?php
       }
@@ -502,7 +502,7 @@ function popupImageWindow(url) {
 ?>
             <tr>
               <td class="main"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_HEADING_TITLE; ?></td>
-              <td class="main"><?php echo oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('categories_heading_title[' . $languages[$i]['id'] . ']', (($categories_heading_title[$languages[$i]['id']]) ? stripslashes($categories_heading_title[$languages[$i]['id']]) : oos_get_category_heading_title($cInfo->categories_id, $languages[$i]['id']))); ?></td>
+              <td class="main"><?php echo oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('categories_heading_title[' . $languages[$i]['id'] . ']', (($categories_heading_title[$languages[$i]['id']]) ? stripslashes($categories_heading_title[$languages[$i]['id']]) : oos_get_category_heading_title($cInfo->categories_id, $languages[$i]['id']))); ?></td>
             </tr>
 <?php
       }
@@ -517,7 +517,7 @@ function popupImageWindow(url) {
               <td class="main" valign="top"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_DESCRIPTION; ?></td>
               <td><table border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td class="main" valign="top"><?php echo oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']); ?>&nbsp;</td>
+                  <td class="main" valign="top"><?php echo oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']); ?>&nbsp;</td>
                   <td class="main"><?php echo oos_draw_textarea_field('categories_description[' . $languages[$i]['id'] . ']', 'soft', '70', '15', (($categories_description[$languages[$i]['id']]) ? stripslashes($categories_description[$languages[$i]['id']]) : oos_get_category_description($cInfo->categories_id, $languages[$i]['id']))); ?></td>
                 </tr>
               </table></td>
@@ -531,7 +531,7 @@ function popupImageWindow(url) {
               <td class="main" width="33%" valign="top"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_DESCRIPTION_META; ?></td>
               <td><table border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td class="main" valign="top"><?php echo oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']); ?>&nbsp;</td>
+                  <td class="main" valign="top"><?php echo oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']); ?>&nbsp;</td>
                   <td class="main"><?php echo oos_draw_textarea_field('categories_description_meta[' . $languages[$i]['id'] . ']', 'soft', '70', '4', (($categories_description_meta[$languages[$i]['id']]) ? stripslashes($categories_description_meta[$languages[$i]['id']]) : oos_get_category_description_meta($cInfo->categories_id, $languages[$i]['id']))); ?></td>
                 </tr>
               </table></td>
@@ -544,7 +544,7 @@ function popupImageWindow(url) {
               <td class="main" width="33%" valign="top"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_KEYWORDS_META; ?></td>
               <td><table border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td class="main" valign="top"><?php echo oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']); ?>&nbsp;</td>
+                  <td class="main" valign="top"><?php echo oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']); ?>&nbsp;</td>
                   <td class="main"><?php echo oos_draw_textarea_field('categories_keywords_meta[' . $languages[$i]['id'] . ']', 'soft', '70', '4', (($categories_keywords_meta[$languages[$i]['id']]) ? stripslashes($categories_keywords_meta[$languages[$i]['id']]) : oos_get_category_keywords_meta($cInfo->categories_id, $languages[$i]['id']))); ?></td>
                 </tr>
               </table></td>
@@ -641,7 +641,7 @@ function popupImageWindow(url) {
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading"><?php echo oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . $cInfo->categories_heading_title; ?></td>
+            <td class="pageHeading"><?php echo oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . $cInfo->categories_heading_title; ?></td>
           </tr>
         </table></td>
       </tr>
@@ -954,7 +954,7 @@ function popupImageWindow(url) {
         $category_inputs_string = '';
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $category_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('categories_name[' . $languages[$i]['id'] . ']');
+          $category_inputs_string .= '<br />' . oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('categories_name[' . $languages[$i]['id'] . ']');
         }
 
         $contents[] = array('text' => '<br />' . TEXT_CATEGORIES_NAME . $category_inputs_string);
@@ -972,7 +972,7 @@ function popupImageWindow(url) {
         $category_inputs_string = '';
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $category_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('categories_name[' . $languages[$i]['id'] . ']', oos_get_category_name($cInfo->categories_id, $languages[$i]['id']));
+          $category_inputs_string .= '<br />' . oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('categories_name[' . $languages[$i]['id'] . ']', oos_get_category_name($cInfo->categories_id, $languages[$i]['id']));
         }
 
         $contents[] = array('text' => '<br />' . TEXT_EDIT_CATEGORIES_NAME . $category_inputs_string);

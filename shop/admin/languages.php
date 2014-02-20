@@ -545,7 +545,7 @@
         $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_NAME . ' ' . $lInfo->name);
         $contents[] = array('text' => TEXT_INFO_LANGUAGE_ISO_639_2 . ' ' . $lInfo->iso_639_2);
         $contents[] = array('text' => TEXT_INFO_LANGUAGE_ISO_639_1 . ' ' . $lInfo->iso_639_1);
-        $contents[] = array('text' => '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $lInfo->iso_639_2 . '.gif', $lInfo->name));
+        $contents[] = array('text' => '<br />' . oos_image(OOS_IMAGES . 'flags/' . $lInfo->iso_639_2 . '.gif', $lInfo->name));
         $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_DIRECTORY . '<br />' . OOS_SHOP . 'includes/languages/<b>' . $lInfo->iso_639_2 . '</b>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_SORT_ORDER . ' ' . $lInfo->sort_order);
 

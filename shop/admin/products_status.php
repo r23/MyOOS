@@ -202,7 +202,7 @@
       $products_status_inputs_string = '';
       $languages = oos_get_languages();
       for ($i = 0, $n = count($languages); $i < $n; $i++) {
-        $products_status_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('products_status_name[' . $languages[$i]['id'] . ']');
+        $products_status_inputs_string .= '<br />' . oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('products_status_name[' . $languages[$i]['id'] . ']');
       }
 
       $contents[] = array('text' => '<br />' . TEXT_INFO_ORDERS_STATUS_NAME . $products_status_inputs_string);
@@ -219,7 +219,7 @@
       $products_status_inputs_string = '';
       $languages = oos_get_languages();
       for ($i = 0, $n = count($languages); $i < $n; $i++) {
-        $products_status_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('products_status_name[' . $languages[$i]['id'] . ']', oos_get_products_status_name($psInfo->products_status_id, $languages[$i]['id']));
+        $products_status_inputs_string .= '<br />' . oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('products_status_name[' . $languages[$i]['id'] . ']', oos_get_products_status_name($psInfo->products_status_id, $languages[$i]['id']));
       }
 
       $contents[] = array('text' => '<br />' . TEXT_INFO_ORDERS_STATUS_NAME . $products_status_inputs_string);
@@ -245,7 +245,7 @@
         $products_status_inputs_string = '';
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $products_status_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_get_products_status_name($psInfo->products_status_id, $languages[$i]['id']);
+          $products_status_inputs_string .= '<br />' . oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_get_products_status_name($psInfo->products_status_id, $languages[$i]['id']);
         }
 
         $contents[] = array('text' => $products_status_inputs_string);

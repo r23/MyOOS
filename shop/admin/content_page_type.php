@@ -227,7 +227,7 @@
       $page_type_inputs_string = '';
       $languages = oos_get_languages();
       for ($i = 0, $n = count($languages); $i < $n; $i++) {
-        $page_type_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('page_type_name[' . $languages[$i]['id'] . ']');
+        $page_type_inputs_string .= '<br />' . oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('page_type_name[' . $languages[$i]['id'] . ']');
       }
 
       $contents[] = array('text' => '<br />' . TEXT_INFO_PAGE_TYPE_NAME . $page_type_inputs_string);
@@ -242,7 +242,7 @@
       $page_type_inputs_string = '';
       $languages = oos_get_languages();
       for ($i = 0, $n = count($languages); $i < $n; $i++) {
-        $page_type_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('page_type_name[' . $languages[$i]['id'] . ']', oosGetPageTypeName($oInfo->page_type_id, $languages[$i]['id']));
+        $page_type_inputs_string .= '<br />' . oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('page_type_name[' . $languages[$i]['id'] . ']', oosGetPageTypeName($oInfo->page_type_id, $languages[$i]['id']));
       }
 
       $contents[] = array('text' => '<br />' . TEXT_INFO_PAGE_TYPE_NAME . $page_type_inputs_string);
@@ -267,7 +267,7 @@
         $page_type_inputs_string = '';
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $page_type_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oosGetPageTypeName($oInfo->page_type_id, $languages[$i]['id']);
+          $page_type_inputs_string .= '<br />' . oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oosGetPageTypeName($oInfo->page_type_id, $languages[$i]['id']);
         }
 
         $contents[] = array('text' => $page_type_inputs_string);

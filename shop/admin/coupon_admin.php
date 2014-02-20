@@ -719,7 +719,7 @@
 ?>
       <tr>
         <td align="left" class="main"><?php if ($i==0) echo COUPON_NAME; ?></td>
-        <td align="left"><?php echo oos_draw_input_field('coupon_name[' . $languages[$i]['id'] . ']', $coupon_name[$lang_id]) . '&nbsp;' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']); ?></td>
+        <td align="left"><?php echo oos_draw_input_field('coupon_name[' . $languages[$i]['id'] . ']', $coupon_name[$lang_id]) . '&nbsp;' . oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']); ?></td>
         <td align="left" class="main" width="40%"><?php if ($i==0) echo COUPON_NAME_HELP; ?></td>
       </tr>
 <?php
@@ -733,7 +733,7 @@
 
       <tr>
         <td align="left" valign="top" class="main"><?php if ($i==0) echo COUPON_DESC; ?></td>
-        <td align="left" valign="top"><?php echo oos_draw_textarea_field('coupon_desc[' . $languages[$i]['id'] . ']','physical','24','3', $coupon_desc[$lang_id]) . '&nbsp;' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']); ?></td>
+        <td align="left" valign="top"><?php echo oos_draw_textarea_field('coupon_desc[' . $languages[$i]['id'] . ']','physical','24','3', $coupon_desc[$lang_id]) . '&nbsp;' . oos_image(OOS_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']); ?></td>
         <td align="left" valign="top" class="main"><?php if ($i==0) echo COUPON_DESC_HELP; ?></td>
       </tr>
 <?php
