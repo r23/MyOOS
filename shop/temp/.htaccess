@@ -1,4 +1,3 @@
-# $Id: .htaccess 432 2013-06-21 22:30:28Z r23 $
 <Files "*">
 <IfModule mod_access.c>
 Deny from all

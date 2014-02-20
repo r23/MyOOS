@@ -1,5 +1,4 @@
-# Protect file 
 <Files *.php>
-  Order Deny,Allow
-  Deny from all
+Order Deny,Allow
+Deny from all
 </Files>

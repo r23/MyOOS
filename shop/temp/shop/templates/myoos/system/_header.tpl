@@ -59,7 +59,7 @@
 						<li class="last"><a href="{html_href_link content=$contents.login connection=SSL}" title="{$lang.header_title_login}"><i class="icon-signin"></i> {$lang.header_title_login}</a></li>
 {/if}
 					</ul>		
-				</div>
+				</div>                                       
 			</div>
 		</div>			
 		<div class="row">
