@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -20,6 +20,10 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
 
   $aTemplate['info_autologon'] = $sTheme . '/system/info_autologon.tpl';
 
@@ -42,4 +46,5 @@
 
 // display the template
   $smarty->display($aTemplate['info_autologon'], $info_autologon_id);
-?>
+
+  

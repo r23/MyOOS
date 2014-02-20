@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -31,6 +31,7 @@
     oos_redirect(oos_href_link($aContents['account_edit'], '', 'SSL'));
   }
 
+  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_account_edit_process.php';
   require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
 

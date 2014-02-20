@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -91,7 +91,7 @@
 
         if ($manufacturers->RecordCount() > 0) {
           $oBreadcrumb->add($aLang['header_title_catalog'], oos_href_link($aContents['shop']));
-          $oBreadcrumb->add($manufacturers->fields['manufacturers_name'], oos_href_link($aContents['shop'], 'manufacturers_id=' . $_GET['manufacturers_id']));
+          $oBreadcrumb->add($manufacturers->fields['manufacturers_name'], oos_href_link($aContents['shop'], 'manufacturers_id=' . $manufacturers_id));
         }
       }
 

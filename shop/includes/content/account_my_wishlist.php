@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -28,6 +28,7 @@
   }
   // split-page-results
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_my_wishlist.php';
 
   $customers_wishlisttable = $oostable['customers_wishlist'];

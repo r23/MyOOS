@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -20,11 +20,12 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being required by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being required by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/main_shop.php';
-  require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/main_shop.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
 
 // the following category references come from oos_main.php
   $category_depth = 'top';

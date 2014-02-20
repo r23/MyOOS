@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -20,12 +20,14 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  // split-page-results
-  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
-
+// split-page-results
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_new.php';
+	
   $aTemplate['page'] = $sTheme . '/products/products_new.tpl';
   $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.tpl';
 
@@ -47,8 +49,6 @@
   }
 
   if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_new.php';
-
     $productstable  = $oostable['products'];
     $specialsstable = $oostable['specials'];
     $manufacturersstable = $oostable['manufacturers'];

@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -19,15 +19,17 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
   if (!$oEvent->installed_plugin('reviews')) {
     oos_redirect(oos_href_link($aContents['main']));
   }
 
-  // split-page-results
-  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
+// split-page-results
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/reviews_reviews.php';
 
  /**
   * Get the number of times a word/character is present in a string
@@ -63,7 +65,6 @@
   }
 
   if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/reviews_reviews.php';
 
     $reviewstable  = $oostable['reviews'];
     $productstable = $oostable['products'];

@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -89,8 +89,8 @@
     }
   }
 
-
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_customers_image.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_customers_image.php';
 
   $customerstable = $oostable['customers'];
   $address_bookstable = $oostable['address_book'];

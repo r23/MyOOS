@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -18,7 +18,8 @@
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
   }
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_yourstore.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php'; 
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_yourstore.php';
 
   $customerstable = $oostable['customers'];
   $sql = "SELECT customers_gender, customers_firstname, customers_lastname,

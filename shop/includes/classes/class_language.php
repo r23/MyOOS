@@ -1,27 +1,27 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: class_language.php 296 2013-04-13 14:48:55Z r23 $
+$Id: class_language.php 296 2013-04-13 14:48:55Z r23 $
 
-   MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+MyOOS [Shopsystem]
+http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
-   ----------------------------------------------------------------------
-   Based on:
+Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+----------------------------------------------------------------------
+Based on:
 
-   browser language detection logic
-   Copyright phpMyAdmin (select_lang.lib.php3 v1.24 04/19/2002)
-   Copyright Stephane Garin <sgarin@sgarin.com> (detect_language.php v0.1 04/02/2002)
+browser language detection logic
+Copyright phpMyAdmin (select_lang.lib.php3 v1.24 04/19/2002)
+Copyright Stephane Garin <sgarin@sgarin.com> (detect_language.php v0.1 04/02/2002)
 
-   File: language.php,v 1.6 2003/06/28 16:53:09 dgw_
-   ----------------------------------------------------------------------
-   osCommerce, Open Source E-Commerce Solutions
-   http://www.oscommerce.com
+File: language.php,v 1.6 2003/06/28 16:53:09 dgw_
+----------------------------------------------------------------------
+osCommerce, Open Source E-Commerce Solutions
+http://www.oscommerce.com
 
-   Copyright (c) 2003 osCommerce
-   ----------------------------------------------------------------------
-   Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+Copyright (c) 2003 osCommerce
+----------------------------------------------------------------------
+Released under the GNU General Public License
+---------------------------------------------------------------------- */
 
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
@@ -38,9 +38,9 @@
 
         $languagestable = $oostable['languages'];
         $languages_sql = "SELECT languages_id, name, iso_639_2, iso_639_1
-                          FROM $languagestable
-                          WHERE status = '1'
-                          ORDER BY sort_order";
+FROM $languagestable
+WHERE status = '1'
+ORDER BY sort_order";
         if (USE_DB_CACHE == 'true') {
           $languages_result = $dbconn->CacheExecute(3600*24, $languages_sql);
         } else {
@@ -65,9 +65,9 @@
         $this->language = $this->get(DEFAULT_LANGUAGE);
       }
 /*
-        if (!isset($_COOKIE['language']) || (isset($_COOKIE['language']) && ($_COOKIE['language'] != $this->language['iso_639_2']))) {
-          oos_setcookie('language', $this->language['iso_639_2'], time()+60*60*24*90);
-        }
+if (!isset($_COOKIE['language']) || (isset($_COOKIE['language']) && ($_COOKIE['language'] != $this->language['iso_639_2']))) {
+oos_setcookie('language', $this->language['iso_639_2'], time()+60*60*24*90);
+}
 */
 
        $_SESSION['language'] = $this->language['iso_639_2'];
