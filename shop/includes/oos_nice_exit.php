@@ -33,16 +33,19 @@ if ($debug == 'true')
     echo '</pre>';
 }
 
-
-// shopping_cart
-if (isset($_SESSION['new_products_id_in_cart']))
+if (isset($_SESSION))
 {
-	unset($_SESSION['new_products_id_in_cart']);
-}
-$_SESSION['error_cart_msg'] = '';
 
-// close session (store variables)
-oos_session_close();
+	// shopping_cart
+	if (isset($_SESSION['new_products_id_in_cart']))
+	{
+		unset($_SESSION['new_products_id_in_cart']);
+	}
+	$_SESSION['error_cart_msg'] = '';
+
+	// close session (store variables)
+	oos_session_close();
+}
 
 if (OOS_LOG_SQL == 'true')
 {

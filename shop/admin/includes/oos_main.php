@@ -69,7 +69,7 @@ if (isset($_POST[oos_session_name()])) {
 }
 
 oos_session_name('OOSADMINSID');
-oos_session_start();
+session_start();
 
 if (!isset($_SESSION)) {
 	$_SESSION = array();

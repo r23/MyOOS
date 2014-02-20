@@ -84,9 +84,6 @@ $smarty->assign(
           'lang'                => $aLang,
           'language'            => $sLanguage,
 
-          'pangv'               => $sPAngV,
-          'products_units'      => $products_units,
-
           'pagetitle'           => htmlspecialchars($oos_pagetitle),
           'meta_description'    => htmlspecialchars($oos_meta_description)
       )
@@ -94,22 +91,24 @@ $smarty->assign(
 
 $smarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
 
-if (!isset($_SESSION))
+$cart_count_contents = 0;
+$cart_show_total = 0;
+
+if (isset($_SESSION))
 {
-    
+   
     $sFormid = md5(uniqid(rand(), true));
     $_SESSION['formid'] = $sFormid;
- 
-    $smarty->registerObject("cart", $_SESSION['cart'],array('count_contents', 'get_products')); 
+
+    if (is_object($_SESSION['cart']))
+    {	
+        $smarty->registerObject("cart", $_SESSION['cart'],array('count_contents', 'get_products')); 
     
-    $cart_count_contents = $_SESSION['cart']->count_contents();
-    $cart_show_total = $oCurrencies->format($_SESSION['cart']->show_total()); 
-    
+	$cart_count_contents = $_SESSION['cart']->count_contents();
+	$cart_show_total = $oCurrencies->format($_SESSION['cart']->show_total()); 
+    }
     $smarty->assign(
         array(
-            'contents'          => $aContents,
-            'content_file'      => $sContent,
-
             'formid'            => $sFormid,
 
             'oos_session_name'  => oos_session_name(),
@@ -117,22 +116,42 @@ if (!isset($_SESSION))
 
         )
     );
-    
-    
 }
-else
-{
-    $cart_count_contents = 0;
-    $cart_show_total = 0;
 
-    $smarty->assign(
-            array(
+$smarty->assign(
+    array(
+	'cart_show_total'     => $cart_show_total,
+        'cart_count_contents' => $cart_count_contents
+    )
+);
+
+
+$products_unitstable = $oostable['products_units'];
+$query = "SELECT products_units_id, products_unit_name
+          FROM $products_unitstable
+          WHERE languages_id = '" . intval($nLanguageID) . "'";
+$products_units = $dbconn->GetAssoc($query);
+
+  // PAngV
+  if ($_SESSION['member']->group['show_price'] == 1) {
+    if ($_SESSION['member']->group['show_price_tax'] == 1) {
+      $sPAngV = $aLang['text_taxt_incl'];
+    } else {
+      $sPAngV = $aLang['text_taxt_add'];
+    }
+
+    if (isset($_SESSION['customers_vat_id_status']) && ($_SESSION['customers_vat_id_status'] == 1)) {
+      $sPAngV = $aLang['tax_info_excl'];
+    }
+
+    $sPAngV .= ', <br />';
+    $sPAngV .= sprintf($aLang['text_shipping'], oos_href_link($aContents['information'], 'information_id=1'));
+  }
   
-                'cart_show_total'     => $cart_show_total,
-                'cart_count_contents' => $cart_count_contents
+  $smarty->assign(
+      array(
+          'pangv'               => $sPAngV,
+          'products_units'      => $products_units,
 
-         )
-    );
-    
-    
-}
+      )
+);

@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -88,9 +88,133 @@
   *
   * @private
   */
-  function oos_session_start() {
-     return session_start();
-  }
+function oos_session_start() {
+
+	// Session
+	$user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+	$spider_flag = false;
+	$spider_kill_sid = 'false';
+
+	// set the top level domains
+	$http_domain = oos_server_get_top_level_domain(OOS_HTTP_SERVER);
+	$https_domain = oos_server_get_top_level_domain(OOS_HTTPS_SERVER);
+	$current_domain = (($request_type == 'NONSSL') ? $http_domain : $https_domain);
+
+	// set the session cookie parameters
+	if (function_exists('session_set_cookie_params'))
+	{
+		session_set_cookie_params(0, '/', (oos_is_not_null($current_domain) ? '.' . $current_domain : ''));
+	} 
+		elseif (function_exists('ini_set')) 
+	{
+		ini_set('session.cookie_lifetime', '0');
+		ini_set('session.cookie_path', '/');
+		ini_set('session.cookie_domain', (oos_is_not_null($current_domain) ? '.' . $current_domain : ''));
+	}
+
+	// set the session ID if it exists
+	if (isset($_POST[oos_session_name()]))
+	{
+		oos_session_id($_POST[oos_session_name()]);
+	} 
+	elseif (isset($_GET[oos_session_name()]))
+	{
+		oos_session_id($_GET[oos_session_name()]);
+	}
+
+
+	if (empty($user_agent) === false)
+	{
+		$spider_agent = @parse_ini_file('includes/ini/spiders.ini');
+
+		foreach ($spider_agent as $spider)
+		{
+			if (empty($spider) === false)
+			{
+				if (strpos($user_agent, trim($spider)) !== false)
+				{
+					$spider_kill_sid = 'true';
+					$spider_flag = true;
+					break;
+				}
+			}
+		}
+	}
+
+	if ($spider_flag === false)
+	{
+		// set the session name and save path
+		oos_session_name('OOSSID');
+
+		// lets start our session
+		session_start();
+	}
+
+	if (!isset($_SESSION))
+	{
+		$_SESSION = array();
+	}
+
+	// create the shopping cart
+	if (!isset($_SESSION['cart']))
+	{
+		$_SESSION['cart'] = new shoppingCart();
+	}
+
+	// navigation history
+	if (!isset($_SESSION['navigation']))
+	{
+		$_SESSION['navigation'] = new oosNavigationHistory();
+	}
+
+	// products history
+	if (!isset($_SESSION['products_history']))
+	{
+		$_SESSION['products_history'] = new oosProductsHistory();
+	}
+
+	if (!isset($_SESSION['member']))
+	{
+		$_SESSION['member'] = new oosMember();
+		$_SESSION['member']->default_member();
+	}
+	  
+	if (!isset($_SESSION['error_cart_msg']))
+	{
+		$_SESSION['error_cart_msg'] = '';
+	}
+
+
+
+	$aContents = oos_get_content();
+	
+	// verify the browser user agent
+	$http_user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+
+	if (!isset($_SESSION['session_user_agent']))
+	{
+		$_SESSION['session_user_agent'] = $http_user_agent;
+	}
+
+	if ($_SESSION['session_user_agent'] != $http_user_agent)
+	{
+		session_destroy();
+		oos_redirect(oos_link($aContents['login'], '', 'SSL'));
+	}
+
+	// verify the IP address
+	if (!isset($_SESSION['session_ip_address']))
+	{
+		$_SESSION['session_ip_address'] = oos_server_get_remote();
+	}
+
+	if ($_SESSION['session_ip_address'] != oos_server_get_remote())
+	{
+		session_destroy();
+		oos_redirect(oos_link($aContents['login'], '', 'SSL'));
+	}
+
+}
 
 
  /**

@@ -141,137 +141,17 @@ while ($configuration = $configuration_result->fields)
 }
 
 
-// Session
-$user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
-$spider_flag = false;
-$spider_kill_sid = 'false';
-
-// set the top level domains
-$http_domain = oos_server_get_top_level_domain(OOS_HTTP_SERVER);
-$https_domain = oos_server_get_top_level_domain(OOS_HTTPS_SERVER);
-$current_domain = (($request_type == 'NONSSL') ? $http_domain : $https_domain);
-
-// set the session cookie parameters
-if (function_exists('session_set_cookie_params'))
-{
-	session_set_cookie_params(0, '/', (oos_is_not_null($current_domain) ? '.' . $current_domain : ''));
-} 
-elseif (function_exists('ini_set')) 
-{
-	ini_set('session.cookie_lifetime', '0');
-	ini_set('session.cookie_path', '/');
-	ini_set('session.cookie_domain', (oos_is_not_null($current_domain) ? '.' . $current_domain : ''));
-}
-
-// set the session ID if it exists
-if (isset($_POST[oos_session_name()]))
-{
-	oos_session_id($_POST[oos_session_name()]);
-} 
-elseif (isset($_GET[oos_session_name()]))
-{
-	oos_session_id($_GET[oos_session_name()]);
-}
-
-
-if (empty($user_agent) === false)
-{
-	$spider_agent = @parse_ini_file('includes/ini/spiders.ini');
-
-	foreach ($spider_agent as $spider)
-	{
-		if (empty($spider) === false)
-		{
-			if (strpos($user_agent, trim($spider)) !== false)
-			{
-				$spider_kill_sid = 'true';
-				$spider_flag = true;
-				break;
-            }
-		}
-	}
-}
-
-if ($spider_flag === false)
-{
-	// set the session name and save path
-	oos_session_name('OOSSID');
-
-	// lets start our session
-	oos_session_start();
-}
-
-if (!isset($_SESSION))
-{
-	$_SESSION = array();
-}
-
-// create the shopping cart
-if (!isset($_SESSION['cart']))
-{
-	$_SESSION['cart'] = new shoppingCart();
-}
-
-// navigation history
-if (!isset($_SESSION['navigation']))
-{
-	$_SESSION['navigation'] = new oosNavigationHistory();
-}
-
-// products history
-if (!isset($_SESSION['products_history']))
-{
-	$_SESSION['products_history'] = new oosProductsHistory();
-}
-
-if (!isset($_SESSION['member']))
-{
-	$_SESSION['member'] = new oosMember();
-	$_SESSION['member']->default_member();
-}
-	  
-if (!isset($_SESSION['error_cart_msg']))
-{
-	$_SESSION['error_cart_msg'] = '';
-}
-
-
-
-$aContents = oos_get_content();
-// verify the browser user agent
-$http_user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
-
-if (!isset($_SESSION['session_user_agent']))
-{
-	$_SESSION['session_user_agent'] = $http_user_agent;
-}
-
-if ($_SESSION['session_user_agent'] != $http_user_agent)
-{
-	session_destroy();
-	oos_redirect(oos_link($aContents['login'], '', 'SSL'));
-}
-
-// verify the IP address
-if (!isset($_SESSION['session_ip_address']))
-{
-	$_SESSION['session_ip_address'] = oos_server_get_remote();
-}
-
-if ($_SESSION['session_ip_address'] != oos_server_get_remote())
-{
-	session_destroy();
-	oos_redirect(oos_link($aContents['login'], '', 'SSL'));
-}
 
 
 // set the language
+$sLanguage = DEFAULT_LANGUAGE;
+$nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_CUSTOMERS_STATUS_ID;
 if (!isset($_SESSION['language']) || isset($_GET['language'])) {
 	// include the language class
 	include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_language.php';
 	$oLang = new language();
 
-	if (isset($_GET['language']) && oos_is_not_null($_GET['language'])) {
+	if (isset($_GET['language']) && is_string($_GET['language'])) {
 		// $oLang->set_language($_GET['language']);
 		$oLang->set($_GET['language']);
 	} else {
@@ -281,15 +161,28 @@ if (!isset($_SESSION['language']) || isset($_GET['language'])) {
 	/*  todo
 	$language = $lng->language['directory'];
     $languages_id = $lng->language['id'];
-	*/
+
+     [language] => deu
+    [language_id] => 1
+    [iso_639_1] => de
+    [languages_name] => Deutsch
+    [currency] => EUR 
+        */
 }
 
-	
-// set the language
-$nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_CUSTOMERS_STATUS_ID;
-$sLanguage = oos_var_prep_for_os($_SESSION['language']);
 
+include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_currencies.php';
+$oCurrencies = new currencies();
+$sCurrency = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
 
+      // currency
+      if (!isset($_SESSION['currency']) || isset($_GET['currency']) || ( (USE_DEFAULT_LANGUAGE_CURRENCY == 'true') && (LANGUAGE_CURRENCY != $_SESSION['currency']) ) ) {
+        if (isset($_GET['currency']) && oos_currency_exits($_GET['currency'])) {
+          $_SESSION['currency'] = oos_var_prep_for_os($_GET['currency']);
+        } else {
+          $_SESSION['currency'] = (USE_DEFAULT_LANGUAGE_CURRENCY == 'true') ? LANGUAGE_CURRENCY : DEFAULT_CURRENCY;
+        }
+      }
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_plugin_event.php';
 $oEvent = new plugin_event;
 $oEvent->getInstance();
@@ -322,22 +215,7 @@ $oMessage = new messageStack;
 
 // templates selection
 $sTheme = STORE_TEMPLATES;
-
-  // PAngV
-  if ($_SESSION['member']->group['show_price'] == 1) {
-    if ($_SESSION['member']->group['show_price_tax'] == 1) {
-      $sPAngV = $aLang['text_taxt_incl'];
-    } else {
-      $sPAngV = $aLang['text_taxt_add'];
-    }
-
-    if (isset($_SESSION['customers_vat_id_status']) && ($_SESSION['customers_vat_id_status'] == 1)) {
-      $sPAngV = $aLang['tax_info_excl'];
-    }
-
-    $sPAngV .= ', <br />';
-    $sPAngV .= sprintf($aLang['text_shipping'], oos_href_link($aContents['information'], 'information_id=1'));
-  }
+$aTemplate = array();
 
 
 // Shopping cart actions
@@ -348,12 +226,7 @@ if ( isset($_GET['action'])
 
 
 
-  $products_unitstable = $oostable['products_units'];
-  $query = "SELECT products_units_id, products_unit_name
-            FROM $products_unitstable
-            WHERE languages_id = '" . intval($nLanguageID) . "'";
-  $products_units = $dbconn->GetAssoc($query);
 
 
-  $aTemplate = array();
- 
+
+  

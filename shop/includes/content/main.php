@@ -50,6 +50,7 @@ if (!isset($option)) {
 }
 
 
+
 // assign Smarty variables;
 $smarty->assign(
       array(
