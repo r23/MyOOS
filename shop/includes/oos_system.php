@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -35,7 +35,6 @@ if ($debug == 'true')
 }
 
 // object register
-$smarty->registerObject("cart", $_SESSION['cart'],array('count_contents', 'get_products'));
 $smarty->assignByRef("oEvent", $oEvent);
 
 
@@ -43,7 +42,7 @@ $smarty->assignByRef("oEvent", $oEvent);
 $oos_cache_id                   = $sTheme . '|block|' . $sLanguage;
 $oos_system_cache_id            = $sTheme . '|block|' . $sLanguage;
 $oos_categories_cache_id        = $sTheme . '|block|categories|' . $sLanguage . '|' . $category;
-$oos_modules_cache_id           = $sTheme . '|modules|' . $sLanguage . '|' . $_SESSION['currency'];
+$oos_modules_cache_id           = $sTheme . '|modules|' . $sLanguage . '|' . $sCurrency;
 $oos_news_cache_id              = $sTheme . '|modules|news|' . $sLanguage;
 
 if (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) 
@@ -71,36 +70,22 @@ if (empty($oos_pagetitle)) $oos_pagetitle = OOS_META_TITLE;
 if (empty($oos_meta_description)) $oos_meta_description = OOS_META_DESCRIPTION;
 
 
-$sFormid = md5(uniqid(rand(), true));
-$_SESSION['formid'] = $sFormid;
-
-$cart_count_contents = $_SESSION['cart']->count_contents();
-$cart_show_total = $oCurrencies->format($_SESSION['cart']->show_total());
-
 $smarty->assign(
       array(
-          'contents'               => $aContents,
-          'content_file'           => $sContent,
-
-          'formid'              => $sFormid,
+          'contents'            => $aContents,
+          'content_file'        => $sContent,
 
           'request_type'        => $request_type,
 
-          'cart_show_total'     => $cart_show_total,
-          'cart_count_contents' => $cart_count_contents,
+          'theme_set'           => $sTheme,
+          'theme_image'         => 'themes/' . $sTheme . '/images',
+          'theme'               => 'themes/' . $sTheme,
 
-          'theme_set'         => $sTheme,
-          'theme_image'       => 'themes/' . $sTheme . '/images',
-          'theme'         		=> 'themes/' . $sTheme,
+          'lang'                => $aLang,
+          'language'            => $sLanguage,
 
-          'lang'              => $aLang,
-          'language'          => $sLanguage,
-
-          'pangv'             => $sPAngV,
-          'products_units'    => $products_units,
-
-          'oos_session_name'  => oos_session_name(),
-          'oos_session_id'    => oos_session_id(),
+          'pangv'               => $sPAngV,
+          'products_units'      => $products_units,
 
           'pagetitle'           => htmlspecialchars($oos_pagetitle),
           'meta_description'    => htmlspecialchars($oos_meta_description)
@@ -109,3 +94,45 @@ $smarty->assign(
 
 $smarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
 
+if (!isset($_SESSION))
+{
+    
+    $sFormid = md5(uniqid(rand(), true));
+    $_SESSION['formid'] = $sFormid;
+ 
+    $smarty->registerObject("cart", $_SESSION['cart'],array('count_contents', 'get_products')); 
+    
+    $cart_count_contents = $_SESSION['cart']->count_contents();
+    $cart_show_total = $oCurrencies->format($_SESSION['cart']->show_total()); 
+    
+    $smarty->assign(
+        array(
+            'contents'          => $aContents,
+            'content_file'      => $sContent,
+
+            'formid'            => $sFormid,
+
+            'oos_session_name'  => oos_session_name(),
+            'oos_session_id'    => oos_session_id()
+
+        )
+    );
+    
+    
+}
+else
+{
+    $cart_count_contents = 0;
+    $cart_show_total = 0;
+
+    $smarty->assign(
+            array(
+  
+                'cart_show_total'     => $cart_show_total,
+                'cart_count_contents' => $cart_count_contents
+
+         )
+    );
+    
+    
+}
