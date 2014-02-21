@@ -73,6 +73,7 @@ $aKeys = array('EMAIL_FROM',
 			   'OOS_RANDOM_PICTURE_NAME',
                'MAX_DISPLAY_MANUFACTURER_NAME_LEN',
 			   'CATEGORIES_SCROLL_BOX_LEN',
+			   'USE_DEFAULT_LANGUAGE_CURRENCY',
 			   'DISPLAY_CONDITIONS_ON_CHECKOUT');
 
 $db->Execute("DELETE FROM " . $table . " WHERE configuration_key in ('" . implode("', '", $aKeys) . "')");

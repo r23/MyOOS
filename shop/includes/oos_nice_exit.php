@@ -45,6 +45,13 @@ if (isset($_SESSION))
 
 	// close session (store variables)
 	oos_session_close();
+} 
+else
+{
+	if ($debug == 'true')
+	{
+		echo 'no session';
+	}
 }
 
 if (OOS_LOG_SQL == 'true')

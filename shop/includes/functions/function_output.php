@@ -42,28 +42,39 @@
   * @param $search_engine_safe
   * @return string
   */
-  function oos_href_link($sContent = '', $parameters = null, $connection = 'NONSSL', $add_session_id = true, $search_engine_safe = true) {
+function oos_href_link($sContent = '', $parameters = null, $connection = 'NONSSL', $add_session_id = true, $search_engine_safe = true)
+{
     global $oEvent, $spider_flag;
 
 
-    if ($connection == 'NONSSL') {
-      $link = OOS_HTTP_SERVER . OOS_SHOP;
-    } elseif ($connection == 'SSL') {
-      if (ENABLE_SSL == 'true') {
-        $link = OOS_HTTPS_SERVER . OOS_SHOP;
-      } else {
-        $link = OOS_HTTP_SERVER . OOS_SHOP;
-      }
-    } else {
-      die('</td></tr></table></td></tr></table><br /><br /><font color="#ff0000"><b>Error!</b></font><br /><br /><b>Unable to determine connection method on a link!<br /><br />Known methods: NONSSL SSL</b><br /><br />');
+    if ($connection == 'NONSSL')
+	{
+		$link = OOS_HTTP_SERVER . OOS_SHOP;
+    } 
+	elseif ($connection == 'SSL')
+	{
+		if (ENABLE_SSL == 'true')
+		{
+			$link = OOS_HTTPS_SERVER . OOS_SHOP;
+		}
+		else
+		{
+			$link = OOS_HTTP_SERVER . OOS_SHOP;
+		}
+    } 
+	else
+	{
+		die('</td></tr></table></td></tr></table><br /><br /><font color="#ff0000"><b>Error!</b></font><br /><br /><b>Unable to determine connection method on a link!<br /><br />Known methods: NONSSL SSL</b><br /><br />');
     }
 
-    if (!empty($parameters)) {
-        $link .= 'index.php?content=' . oos_output_string($sContent) . '&amp;' . oos_output_string($parameters);
-    } else {
-        $link .= 'index.php?content=' . oos_output_string($sContent);
+    if (!empty($parameters))
+	{
+		$link .= 'index.php?content=' . oos_output_string($sContent) . '&amp;' . oos_output_string($parameters);
     }
-	
+	else
+	{
+		$link .= 'index.php?content=' . oos_output_string($sContent);
+    }
     $separator = '&amp;';
 
     while ( (substr($link, -5) == '&amp;') || (substr($link, -1) == '?') ) {
@@ -74,34 +85,44 @@
       }
     }
 
-    // Add the session ID when moving from HTTP and HTTPS servers or when SID is defined
-    if ( (ENABLE_SSL == 'true' ) && ($connection == 'SSL') && ($add_session_id == true) ) {
-      $_sid = oos_session_name() . '=' . oos_session_id();
-    } elseif ( ($add_session_id == true) && (oos_is_not_null(SID)) ) {
-      $_sid = SID;
+    if (isset($_SESSION))
+    {	
+	
+		// Add the session ID when moving from HTTP and HTTPS servers or when SID is defined
+		if ( (ENABLE_SSL == 'true' ) && ($connection == 'SSL') && ($add_session_id == true) )
+		{
+			$_sid = oos_session_name() . '=' . oos_session_id();
+		} 
+		elseif ( ($add_session_id == true) && (oos_is_not_null(SID)) )
+		{
+			$_sid = SID;
+		}
+
+		if ( $spider_flag === false) $_sid = NULL;
+	}
+
+
+    if ( ($search_engine_safe == true) &&  $oEvent->installed_plugin('sefu') )
+	{
+		$link = str_replace(array('?', '&amp;', '='), '/', $link);
+
+		$separator = '?';
+
+		$pos = strpos ($link, 'action');
+		if ($pos === false)
+		{
+			$url_rewrite = new url_rewrite();
+			$link = $url_rewrite->transform_uri($link);
+		}
     }
 
-    if ( $spider_flag === false) $_sid = NULL;
-
-    if ( ($search_engine_safe == true) &&  $oEvent->installed_plugin('sefu') ) {
-      $link = str_replace(array('?', '&amp;', '='), '/', $link);
-
-      $separator = '?';
-
-      $pos = strpos ($link, 'action');
-      if ($pos === false) {
-        $url_rewrite = new url_rewrite;
-        $link = $url_rewrite->transform_uri($link);
-      }
-
-    }
-
-    if (isset($_sid)) {
-      $link .= $separator . oos_output_string($_sid);
+    if (isset($_sid))
+	{
+		$link .= $separator . oos_output_string($_sid);
     }
 
     return $link;
-  }
+}
 
 
  /**

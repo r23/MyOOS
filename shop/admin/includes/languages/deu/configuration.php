@@ -67,9 +67,6 @@ define('EXPECTED_PRODUCTS_SORT_DESC', 'Sortierreihenfolge, die im \'erwartete Pr
 define('EXPECTED_PRODUCTS_FIELD_TITLE', 'Sortierspalte erwartete Produkte');
 define('EXPECTED_PRODUCTS_FIELD_DESC', 'Die Spalte, nach der im \'erwartete Produkte\'-Block sortiert wird.');
 
-define('USE_DEFAULT_LANGUAGE_CURRENCY_TITLE', 'Währung automatisch wechseln');
-define('USE_DEFAULT_LANGUAGE_CURRENCY_DESC', 'Wechselt automatisch die Währung anhand der eingestellten Sprache');
-
 define('ADVANCED_SEARCH_DEFAULT_OPERATOR_TITLE', 'Standardoperator für Suchfunktionen');
 define('ADVANCED_SEARCH_DEFAULT_OPERATOR_DESC', 'Die Standardverknüpfung, mit der mehrere Suchbegriffe verknüpft werden');
 

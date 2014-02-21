@@ -73,9 +73,6 @@ define('EXPECTED_PRODUCTS_SORT_DESC', 'This is the sort order used in the expect
 define('EXPECTED_PRODUCTS_FIELD_TITLE', 'Expected Sort Field');
 define('EXPECTED_PRODUCTS_FIELD_DESC', 'The column to sort by in the expected products box.');
 
-define('USE_DEFAULT_LANGUAGE_CURRENCY_TITLE', 'Switch To Default Language Currency');
-define('USE_DEFAULT_LANGUAGE_CURRENCY_DESC', 'Automatically switch to the language\'s currency when it is changed');
-
 define('ADVANCED_SEARCH_DEFAULT_OPERATOR_TITLE', 'Default Search Operator');
 define('ADVANCED_SEARCH_DEFAULT_OPERATOR_DESC', 'Default search operators');
 

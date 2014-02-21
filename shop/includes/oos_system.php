@@ -22,7 +22,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 //smarty
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
-$smarty = new myOOS_Smarty;
+$smarty = new myOOS_Smarty();
 
 
 //debug
@@ -58,10 +58,10 @@ $oos_manufacturer_info_cache_id = $sTheme . '|block|manufacturer_info|' . $sLang
 
 if (isset($_GET['products_id']))
 {
-    if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
-    $oos_manufacturer_info_cache_id = $sTheme . '|block|manufacturer_info|' . $sLanguage . '|' . intval($nProductsId);
-    $oos_products_info_cache_id     = $sTheme . '|products_info|' . $sLanguage . '|' . intval($nProductsId);
-    $oos_xsell_products_cache_id    = $sTheme . '|block|products|' . $sLanguage . '|' . intval($nProductsId);
+	if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
+	$oos_manufacturer_info_cache_id = $sTheme . '|block|manufacturer_info|' . $sLanguage . '|' . intval($nProductsId);
+	$oos_products_info_cache_id     = $sTheme . '|products_info|' . $sLanguage . '|' . intval($nProductsId);
+	$oos_xsell_products_cache_id    = $sTheme . '|block|products|' . $sLanguage . '|' . intval($nProductsId);
 }
 
 
@@ -100,19 +100,19 @@ if (isset($_SESSION))
     $sFormid = md5(uniqid(rand(), true));
     $_SESSION['formid'] = $sFormid;
 
-    if (is_object($_SESSION['cart']))
-    {	
-        $smarty->registerObject("cart", $_SESSION['cart'],array('count_contents', 'get_products')); 
-    
-	$cart_count_contents = $_SESSION['cart']->count_contents();
-	$cart_show_total = $oCurrencies->format($_SESSION['cart']->show_total()); 
-    }
-    $smarty->assign(
-        array(
-            'formid'            => $sFormid,
+	if (is_object($_SESSION['cart']))
+	{
+		$smarty->registerObject("cart", $_SESSION['cart'],array('count_contents', 'get_products')); 
 
-            'oos_session_name'  => oos_session_name(),
-            'oos_session_id'    => oos_session_id()
+		$cart_count_contents = $_SESSION['cart']->count_contents();
+		$cart_show_total = $oCurrencies->format($_SESSION['cart']->show_total()); 
+	}
+	$smarty->assign(
+		array(
+			'formid'            => $sFormid,
+
+			'oos_session_name'  => oos_session_name(),
+			'oos_session_id'    => oos_session_id()
 
         )
     );
@@ -120,8 +120,8 @@ if (isset($_SESSION))
 
 $smarty->assign(
     array(
-	'cart_show_total'     => $cart_show_total,
-        'cart_count_contents' => $cart_count_contents
+		'cart_show_total'     => $cart_show_total,
+		'cart_count_contents' => $cart_count_contents
     )
 );
 

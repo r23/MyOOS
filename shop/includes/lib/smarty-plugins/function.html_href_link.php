@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -120,14 +120,21 @@ function smarty_function_html_href_link($params, &$smarty)
       }
     }
 
+    if (isset($_SESSION))
+    {	
+		// Add the session ID when moving from HTTP and HTTPS servers or when SID is defined
+		if ( (ENABLE_SSL == 'true' ) && ($connection == 'SSL') && ($add_session_id == true) )
+		{
+			$_sid = oos_session_name() . '=' . oos_session_id();
+		} 
+		elseif ( ($add_session_id == true) && (oos_is_not_null(SID)) )
+		{
+			$_sid = SID;
+		}
 
-// Add the session ID when moving from HTTP and HTTPS servers or when SID is defined
-    if ( (ENABLE_SSL == 'true' ) && ($connection == 'SSL') && ($add_session_id == 'true') ) {
-      $_sid = oos_session_name() . '=' . oos_session_id();
-    } elseif ( ($add_session_id == 'true') && (oos_is_not_null(SID)) ) {
-      $_sid = SID;
-    }
-
+		if ( $spider_flag === false) $_sid = NULL;
+	}
+	
     if ( $spider_kill_sid == 'true') $_sid = NULL;
 
 
@@ -138,7 +145,7 @@ function smarty_function_html_href_link($params, &$smarty)
 
       $pos = strpos ($sLink, 'action');
       if ($pos === false) {
-        $url_rewrite = new url_rewrite;
+        $url_rewrite = new url_rewrite();
         $sLink = $url_rewrite->transform_uri($sLink);
       }
     }
