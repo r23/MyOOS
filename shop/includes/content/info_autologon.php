@@ -31,7 +31,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
   $smarty =& new Template;
 
-  $smarty->setCaching(true);
+  $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
   $info_autologon_id = $sTheme . '|info_autologon|' . $sLanguage;
 
   if (!$smarty->isCached($aTemplate['info_autologon'], $info_autologon_id )) {

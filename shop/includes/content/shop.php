@@ -70,8 +70,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
       require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
     }
 
-    if ( (USE_CACHE == 'true') && (!SID) ) {
-      $smarty->setCaching(true);
+    if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
+      $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
       $smarty->setCacheLifetime(24 * 3600);
     }
 
@@ -176,7 +176,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
           )
       );
     }
-    $smarty->setCaching(false);
+    
 	$smarty->display($aTemplate['page']);
 	
   } elseif ($category_depth == 'products' || isset($_GET['manufacturers_id'])) {
@@ -220,8 +220,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
       $smarty->assign('oos_meta_description', $category['categories_description_meta']);
     }
 
-    if ( (USE_CACHE == 'true') && (!SID) ) {
-      $smarty->setCaching(true);
+    if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
+      $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
       $smarty->setCacheLifetime(24 * 3600);
     }
 
@@ -564,7 +564,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
       }
     }
     $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation'], $contents_cache_id));
-    $smarty->setCaching(false);
+    
   } else {
     // $category_depth = 'top';
     oos_redirect(oos_href_link($aContents['main']));

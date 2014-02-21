@@ -19,33 +19,47 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
-  
-  $aTemplate['page'] = $sTheme . '/modules/information.tpl';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
 
-  $nPageType = OOS_PAGE_TYPE_MAINPAGE;
+$aTemplate['page'] = $sTheme . '/modules/information.tpl';
 
-  $nInformationsID = isset($_GET['information_id']) ? $_GET['information_id']+0 : 1;
-  $sGroup = trim($_SESSION['member']->group['text']);
-  $contents_cache_id = $sTheme . '|info|' . $sGroup . '|information|' . $nInformationsID . '|' . $sLanguage;
+$nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
-  if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
-  }
+$nInformationsID = isset($_GET['information_id']) ? $_GET['information_id']+0 : 1;
+$contents_cache_id = $sTheme . 'information|' . $nInformationsID . '|' . $sLanguage;
 
-  if ( (USE_CACHE == 'true') && (!SID) ) {
-    $smarty->setCaching(true);
-    $smarty->setCacheLifetime(3600);
-  }
+require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+if (!isset($option))
+{
+	require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+}
 
-    $informationtable = $oostable['information'];
-    $information_descriptiontable = $oostable['information_description'];
-    $sql = "SELECT i.information_id, i.information_image, id.information_name,
+if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
+	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
+	$smarty->setCacheLifetime(3600);
+}
+
+
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
+
+$my_cache_id = $_GET['article_id'];
+
+if(!$smarty->isCached('index.tpl',$my_cache_id)) {
+    // No cache available, do variable assignments here.
+    $contents = get_database_contents();
+    $smarty->assign($contents);
+}
+
+$smarty->display('index.tpl',$my_cache_id);
+
+
+$informationtable = $oostable['information'];
+$information_descriptiontable = $oostable['information_description'];
+$sql = "SELECT i.information_id, i.information_image, id.information_name,
                    id.information_description, id.information_heading_title,
                    id.information_url
             FROM $informationtable i,
@@ -53,13 +67,13 @@
             WHERE i.information_id = '" . intval($nInformationsID) . "'
               AND id.information_id = i.information_id
               AND id.information_languages_id = '" .  intval($nLanguageID) . "'";
-    $information = $dbconn->GetRow($sql);
+$information = $dbconn->GetRow($sql);
 
-    // links breadcrumb
-    $oBreadcrumb->add($information['information_heading_title'], oos_href_link($aContents['information'], 'information_id=' . intval($nInformationsID)));
+// links breadcrumb
+$oBreadcrumb->add($information['information_heading_title'], oos_href_link($aContents['information'], 'information_id=' . intval($nInformationsID)));
 
-    // assign Smarty variables;
-    $smarty->assign(
+// assign Smarty variables;
+$smarty->assign(
         array(
             'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'oos_heading_title' => $information['information_heading_title'],
@@ -70,7 +84,7 @@
         )
     );
 
-  $smarty->setCaching(false);
+
 
 // display the template
 $smarty->display($aTemplate['page']);

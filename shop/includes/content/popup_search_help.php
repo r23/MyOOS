@@ -31,7 +31,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/search
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
   $smarty = new myOOS_Smarty;
 
-  $smarty->setCaching(true);
+  $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
   $help_cache_id = $sTheme . '|popup|search|' . $sLanguage;
 
   if (!$smarty->isCached($aTemplate['popup_help'], $help_cache_id )) {

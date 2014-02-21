@@ -19,33 +19,33 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/info_sitemap.php';
 
-  $aTemplate['page'] = $sTheme . '/system/sitemap.tpl';
+$aTemplate['page'] = $sTheme . '/system/sitemap.tpl';
 
-  $nPageType = OOS_PAGE_TYPE_MAINPAGE;
+$nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
-  $sGroup = trim($_SESSION['member']->group['text']);
-  $contents_cache_id = $sTheme . '|info|' . $sGroup . '|sitemap|' . $sLanguage;
+$contents_cache_id = $sTheme . '|sitemap|' . $sLanguage;
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
-  if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
-  }
+require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+if (!isset($option)) {
+	require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+}
 
-  if ( (USE_CACHE == 'true') && (!SID) ) {
-    $smarty->setCaching(true);
-    $smarty->setCacheLifetime(24 * 3600);
-  }
+if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
+	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
+	$smarty->setCacheLifetime(24 * 3600);
+}
 
-  if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
+if (!$smarty->isCached($aTemplate['page'], $contents_cache_id))
+{
 
-    $oSitemap = new oosCategoryTree;
+    $oSitemap = new oosCategoryTree();
     $oSitemap->setShowCategoryProductCount(false);
 
     // links breadcrumb
@@ -61,9 +61,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/info_s
     );
 
     $smarty->assign('sitemap', $oSitemap->buildTree());
-  }
-  $smarty->setCaching(false);
+}
 
 // display the template
-$smarty->display($aTemplate['page']);
+$smarty->display($aTemplate['page'], $contents_cache_id);
 

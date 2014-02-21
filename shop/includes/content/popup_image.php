@@ -44,7 +44,7 @@
   $smarty = new myOOS_Smarty;
 
 
-  $smarty->setCaching(true);
+  $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
   $smarty->setCacheLifetime (24 * 3600);
 
   $image = (isset($_GET['image']) && is_numeric($_GET['image']) ? $_GET['image'] : 0);

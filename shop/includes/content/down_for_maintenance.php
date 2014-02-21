@@ -37,8 +37,8 @@
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
-  if ( (USE_CACHE == 'true') && (!SID) ) {
-    $smarty->setCaching(true);
+  if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
+    $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
     $smarty->setCacheLifetime (3600);
   }
 
@@ -57,7 +57,7 @@
     );
   }
 
-  $smarty->setCaching(false);
+  
 
 // display the template
 $smarty->display($aTemplate['page']);

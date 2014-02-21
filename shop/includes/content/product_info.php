@@ -207,8 +207,8 @@
     $smarty->assign('oosDate', date('Y-m-d H:i:s'));
 
 
-    if ( (USE_CACHE == 'true') && (!SID) ) {
-      $smarty->setCaching(true);
+    if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
+      $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
     }
     if (!$smarty->isCached($aTemplate['xsell_products'], $oos_products_info_cache_id)) {
       require_once MYOOS_INCLUDE_PATH . '/includes/modules/xsell_products.php';
@@ -228,7 +228,7 @@
     }
     $smarty->assign('also_purchased_products', $smarty->fetch($aTemplate['also_purchased_products'], $oos_products_info_cache_id));
 
-    $smarty->setCaching(false);
+    
   }
 
 

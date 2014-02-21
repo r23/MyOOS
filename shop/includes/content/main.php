@@ -63,8 +63,8 @@ $smarty->assign(
 
 
 /*
-if ( (USE_CACHE == 'true') && (!SID) && (!isset($_SESSION['customer_id'])) ){
-  $smarty->setCaching(true);
+if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
+  $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
   }
 
 
@@ -102,7 +102,7 @@ if (!$smarty->isCached($aTemplate['upcoming_products'], $oos_modules_cache_id)) 
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/upcoming_products.php';
   }
 $smarty->assign('upcoming_products', $smarty->fetch($aTemplate['upcoming_products'], $oos_modules_cache_id));
-$smarty->setCaching(false);
+
 */
 
 

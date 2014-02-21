@@ -30,7 +30,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
   $smarty =& new Template;
 
-  $smarty->setCaching(true);
+  $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
   $info_shopping_cart_id = $sTheme . '|info_shopping_cart|' . $sLanguage;
 
   if (!$smarty->isCached($aTemplate['info_shopping_cart'], $info_shopping_cart_id )) {

@@ -137,7 +137,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_pop
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
   $smarty = new Template;
 
-  $smarty->setCaching(true);
+  $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
   $cid += 0;
   $help_cache_id = $sTheme . '|popup|coupon|' . $cid . '|' . $sLanguage;
 

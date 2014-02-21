@@ -28,14 +28,13 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_new.php';
 	
-  $aTemplate['page'] = $sTheme . '/products/products_new.tpl';
-  $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.tpl';
+$aTemplate['page'] = $sTheme . '/products/products_new.tpl';
+$aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.tpl';
 
-  $nPageType = OOS_PAGE_TYPE_CATALOG;
+$nPageType = OOS_PAGE_TYPE_CATALOG;
 
-  $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
-  $sGroup = trim($_SESSION['member']->group['text']);
-  $contents_cache_id = $sTheme . '|products_new|' . $nPage. '|' . $sGroup . '|' . $sLanguage;
+$nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
+$contents_cache_id = $sTheme . '|products_new|' . $nPage . '|' . $sLanguage;
 
   require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
@@ -43,8 +42,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/produc
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
-  if ( (USE_CACHE == 'true') && (!SID) ) {
-    $smarty->setCaching(true);
+  if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
+    $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
     $smarty->setCacheLifetime(6 * 3600);
   }
 
@@ -129,7 +128,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/produc
   }
 
   $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation'], $contents_cache_id));
-  $smarty->setCaching(false);
+  
 
 // display the template
 $smarty->display($aTemplate['page']);
