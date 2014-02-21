@@ -22,21 +22,33 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
+
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+
+// if there is nothing in the customers cart, redirect them to the shopping cart page
+if ($_SESSION['cart']->count_contents() < 1) {
+	oos_redirect(oos_href_link($aContents['main_shopping_cart']));
+}
+
+// if the customer is not logged on, redirect them to the login page
+if (!isset($_SESSION['customer_id']))
+{
+	if (!isset($_SESSION))
+	{
+		oos_session_start();
+	}
+    $_SESSION['navigation']->set_snapshot();
+    oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
+}
+
+
+
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_shipping_address.php';
   require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
-
-// if the customer is not logged on, redirect them to the login page
-  if (!isset($_SESSION['customer_id'])) {
-    $_SESSION['navigation']->set_snapshot();
-    oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
-  }
-
-// if there is nothing in the customers cart, redirect them to the shopping cart page
-  if ($_SESSION['cart']->count_contents() < 1) {
-    oos_redirect(oos_href_link($aContents['main_shopping_cart']));
-  }
-
+  
+  
 // if the order contains only virtual products, forward the customer to the billing page as
 // a shipping address is not needed
   if ($oOrder->content_type == 'virtual') {

@@ -26,10 +26,16 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
     oos_redirect(oos_href_link($aContents['main']));
   }
 
-  if (!isset($_SESSION['customer_id'])) {
+// if the customer is not logged on, redirect them to the login page
+if (!isset($_SESSION['customer_id']))
+{
+	if (!isset($_SESSION))
+	{
+		oos_session_start();
+	}
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
-  }
+}
 
   if (isset($_GET['products_id'])) {
     if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);

@@ -19,24 +19,31 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
-
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_payment_address.php';
-  require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
-
-// if the customer is not logged on, redirect them to the login page
-  if (!isset($_SESSION['customer_id'])) {
-    $_SESSION['navigation']->set_snapshot();
-    oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
-  }
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 // if there is nothing in the customers cart, redirect them to the shopping cart page
-  if ($_SESSION['cart']->count_contents() < 1) {
-    oos_redirect(oos_href_link($aContents['main_shopping_cart']));
-  }
+if ($_SESSION['cart']->count_contents() < 1)
+{
+	oos_redirect(oos_href_link($aContents['main_shopping_cart']));
+}
 
+// if the customer is not logged on, redirect them to the login page
+if (!isset($_SESSION['customer_id']))
+{
+	if (!isset($_SESSION))
+	{
+		oos_session_start();
+	}
+    $_SESSION['navigation']->set_snapshot();
+    oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
+}
+
+
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_payment_address.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php'; 
+  
   $error = false;
   $process = 'false';
   if (isset($_POST['action']) && ($_POST['action'] == 'submit')) {

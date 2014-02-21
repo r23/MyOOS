@@ -23,13 +23,19 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if (!isset($_SESSION['customer_id'])) {
+// if the customer is not logged on, redirect them to the login page
+if (!isset($_SESSION['customer_id']))
+{
+	if (!isset($_SESSION))
+	{
+		oos_session_start();
+	}
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
-  }
+}
   
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_redeem.php';

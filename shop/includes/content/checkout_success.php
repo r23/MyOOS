@@ -20,16 +20,17 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 // if the customer is not logged on, redirect them to the shopping cart page
-  if (!isset($_SESSION['customer_id'])) {
-    oos_redirect(oos_href_link($aContents['main_shopping_cart']));
-  }
+if (!isset($_SESSION['customer_id']))
+{
+	oos_redirect(oos_href_link($aContents['main_shopping_cart']));
+}
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_success.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_success.php';
 
   if (isset($_GET['action']) && ($_GET['action'] == 'update')) {
     if (isset($_POST['notify']) && !empty($_POST['notify'])) {

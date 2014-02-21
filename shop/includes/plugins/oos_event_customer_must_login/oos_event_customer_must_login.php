@@ -57,6 +57,12 @@
         
 
         if ( isset($_GET['content']) && ($_GET['content'] != $aContents['login']) ) {
+
+			if (!isset($_SESSION))
+			{
+				oos_session_start();
+			}
+		
           $_SESSION['navigation']->set_snapshot();
           oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
         }
