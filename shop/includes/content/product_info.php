@@ -71,8 +71,8 @@
             'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'heading_title' => $aLang['text_product_not_found'],
 
-            'pagetitle'         => htmlspecialchars($sPagetitle),
-            'canonical'         => $sCanonical,
+            'pagetitle' 	=> htmlspecialchars($sPagetitle),
+            'canonical'		=> $sCanonical
         )
     );
 

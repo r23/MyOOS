@@ -65,8 +65,6 @@ if (isset($_GET['products_id']))
 }
 
 
-// Meta-Tags
-if (empty($oos_pagetitle)) $oos_pagetitle = OOS_META_TITLE;
 if (empty($oos_meta_description)) $oos_meta_description = OOS_META_DESCRIPTION;
 
 
@@ -84,7 +82,6 @@ $smarty->assign(
           'lang'                => $aLang,
           'language'            => $sLanguage,
 
-          'pagetitle'           => htmlspecialchars($oos_pagetitle),
           'meta_description'    => htmlspecialchars($oos_meta_description)
       )
 );

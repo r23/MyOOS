@@ -2,7 +2,7 @@
 <html lang="{$smarty.const.LANG}">
 <head>
 <meta charset="utf-8" />
-<title>{$pagetitle}</title>
+<title>{$pagetitle} {$smarty.const.OOS_META_TITLE}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />	
 <meta name="description" content="{$meta_description}" />
 <meta name="author" content="{$smarty.const.OOS_META_AUTHOR}" />

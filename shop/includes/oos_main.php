@@ -28,9 +28,9 @@ $debug = 'true';
 
 // Set the local configuration parameters - mainly for developers
 if (is_readable('includes/local/configure.php')) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/local/configure.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/local/configure.php';
 } else {
-	require_once MYOOS_INCLUDE_PATH . '/includes/configure.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/configure.php';
 }
 
 // Version information
@@ -49,31 +49,31 @@ require_once MYOOS_INCLUDE_PATH . '/includes/oos_debug.php';
 
 // redirect to the installation module if DB_SERVER is empty
 if (strlen(OOS_DB_TYPE) < 1) {
-	if (is_dir('install')) {
-		header('Location: install/step.php');
-		exit;
+if (is_dir('install')) {
+header('Location: install/step.php');
+exit;
     }
 }
 
 // set the type of request (secure or not)
 $request_type = 'NONSSL';
 if (ENABLE_SSL == 'true') {
-	$request_type = (((isset($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) == 'on' || $_SERVER['HTTPS'] == '1'))) ||
-					(isset($_SERVER['HTTP_X_FORWARDED_BY']) && strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_BY']), 'SSL') !== false) ||
-					(isset($_SERVER['HTTP_X_FORWARDED_HOST']) && (strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_HOST']), 'SSL') !== false || strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_HOST']), str_replace('https://', '', HTTPS_SERVER)) !== false)) ||
-					(isset($_SERVER['SCRIPT_URI']) && strtolower(substr($_SERVER['SCRIPT_URI'], 0, 6)) == 'https:') ||
-					(isset($_SERVER['HTTP_X_FORWARDED_SSL']) && ($_SERVER['HTTP_X_FORWARDED_SSL'] == '1' || strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) == 'on')) ||
-					(isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && (strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'ssl' || strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https')) ||
-					(isset($_SERVER['HTTP_SSLSESSIONID']) && $_SERVER['HTTP_SSLSESSIONID'] != '') ||
-					(isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == '443')) ? 'SSL' : 'NONSSL';
+$request_type = (((isset($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) == 'on' || $_SERVER['HTTPS'] == '1'))) ||
+(isset($_SERVER['HTTP_X_FORWARDED_BY']) && strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_BY']), 'SSL') !== false) ||
+(isset($_SERVER['HTTP_X_FORWARDED_HOST']) && (strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_HOST']), 'SSL') !== false || strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_HOST']), str_replace('https://', '', HTTPS_SERVER)) !== false)) ||
+(isset($_SERVER['SCRIPT_URI']) && strtolower(substr($_SERVER['SCRIPT_URI'], 0, 6)) == 'https:') ||
+(isset($_SERVER['HTTP_X_FORWARDED_SSL']) && ($_SERVER['HTTP_X_FORWARDED_SSL'] == '1' || strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) == 'on')) ||
+(isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && (strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'ssl' || strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https')) ||
+(isset($_SERVER['HTTP_SSLSESSIONID']) && $_SERVER['HTTP_SSLSESSIONID'] != '') ||
+(isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == '443')) ? 'SSL' : 'NONSSL';
 }
 
  
   
-// require  the list of project filenames
+// require the list of project filenames
 require_once MYOOS_INCLUDE_PATH . '/includes/oos_filename.php';
 
-// require  the list of project database tables
+// require the list of project database tables
 require_once MYOOS_INCLUDE_PATH . '/includes/oos_tables.php';
 
 // define general functions used application-wide
@@ -84,10 +84,10 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_output.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_encoded.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_coupon.php';
 
-// require  the password crypto functions
+// require the password crypto functions
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 
-// require  validation functions (right now only email address)
+// require validation functions (right now only email address)
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
 
 // initialize the logger class
@@ -96,13 +96,13 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_products_history.php'
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shopping_cart.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_navigation_history.php';
 
-// require  the mail classes
+// require the mail classes
 require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.phpmailer.php';
 
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_session.php';
 
 
-// require  the database functions
+// require the database functions
 $adodb_logsqltable = $oostable['adodb_logsql'];
 if (!defined('ADODB_LOGSQL_TABLE')) {
     define('ADODB_LOGSQL_TABLE', $adodb_logsqltable);
@@ -122,11 +122,11 @@ oosDB_importTables($oostable);
 // set the application parameters
 $configurationtable = $oostable['configuration'];
 $configuration_query = "SELECT configuration_key AS cfg_key, configuration_value AS cfg_value
-                          FROM $configurationtable";
+FROM $configurationtable";
 if (USE_DB_CACHE == 'true')
 {
     $configuration_result = $dbconn->CacheExecute(3600, $configuration_query);
-} 
+}
 else
 {
     $configuration_result = $dbconn->Execute($configuration_query);
@@ -157,18 +157,18 @@ if (!isset($_SESSION['language']) || isset($_GET['language']))
     } else {
         $oLang->get_browser_language();
     }
-	
+
     $sLanguage = $oLang->language['iso_639_2'];
     $nLanguageID = $oLang->language['id'];
-		
+
     if (isset($_SESSION))
     {
         $_SESSION['language'] = $oLang->language['iso_639_2'];
         $_SESSION['language_id'] = $oLang->language['id'];
         $_SESSION['iso_639_1'] = $oLang->language['iso_639_1'];
         $_SESSION['languages_name'] = $oLang->language['name'];
-    }		
-		
+    }	
+
 }
 include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
 
@@ -186,8 +186,8 @@ if (!isset($_SESSION['currency']) || isset($_GET['currency']))
             oos_session_start();
         }
         $sCurrency = oos_var_prep_for_os($_GET['currency']);
-    } 
-	
+    }
+
     if (isset($_SESSION))
     {
         $_SESSION['currency'] = $sCurrency;
@@ -231,6 +231,7 @@ $aTemplate = array();
 // Shopping cart actions
 if ( isset($_GET['action'])
    || ( isset($_POST['action']) && isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){
-		require_once MYOOS_INCLUDE_PATH . '/includes/oos_cart_actions.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/oos_cart_actions.php';
 }
+
 
