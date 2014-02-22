@@ -149,10 +149,10 @@ if (!isset($_SESSION['language']) || isset($_GET['language']))
     $oLang = new language();
 
     if (isset($_GET['language']) && is_string($_GET['language'])) {
-		if (!isset($_SESSION))
-		{
-			oos_session_start();
-		}
+        if (!isset($_SESSION))
+        {
+            oos_session_start();
+        }
         $oLang->set_language($_GET['language']);
     } else {
         $oLang->get_browser_language();
@@ -163,10 +163,10 @@ if (!isset($_SESSION['language']) || isset($_GET['language']))
 		
     if (isset($_SESSION))
     {
-		$_SESSION['language'] = $oLang->language['iso_639_2'];
-		$_SESSION['language_id'] = $oLang->language['id'];
-		$_SESSION['iso_639_1'] = $oLang->language['iso_639_1'];
-		$_SESSION['languages_name'] = $oLang->language['name'];
+        $_SESSION['language'] = $oLang->language['iso_639_2'];
+        $_SESSION['language_id'] = $oLang->language['id'];
+        $_SESSION['iso_639_1'] = $oLang->language['iso_639_1'];
+        $_SESSION['languages_name'] = $oLang->language['name'];
     }		
 		
 }
@@ -181,10 +181,10 @@ if (!isset($_SESSION['currency']) || isset($_GET['currency']))
 {
     if (isset($_GET['currency']) && oos_currency_exits($_GET['currency']))
     {
-		if (!isset($_SESSION))
-		{
-			oos_session_start();
-		}
+        if (!isset($_SESSION))
+        {
+            oos_session_start();
+        }
         $sCurrency = oos_var_prep_for_os($_GET['currency']);
     } 
 	

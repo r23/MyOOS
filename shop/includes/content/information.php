@@ -22,20 +22,19 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
-
-$aTemplate['page'] = $sTheme . '/modules/information.tpl';
+$aTemplate['page'] = $sTheme . '/page/information.tpl';
 
 $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
 $nInformationsID = isset($_GET['information_id']) ? $_GET['information_id']+0 : 1;
 $contents_cache_id = $sTheme . 'information|' . $nInformationsID . '|' . $sLanguage;
+$sCanonical = oos_href_link($aContents['information'], 'information_id=' . intval($nInformationsID), 'NONSSL', FALSE, TRUE);
 
 require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
 if (!isset($option))
 {
-	require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
-	require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
 }
 
 if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
@@ -44,18 +43,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 }
 
 
-$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
-
-$my_cache_id = $_GET['article_id'];
-
-if(!$smarty->isCached('index.tpl',$my_cache_id)) {
-    // No cache available, do variable assignments here.
-    $contents = get_database_contents();
-    $smarty->assign($contents);
-}
-
-$smarty->display('index.tpl',$my_cache_id);
-
+if(!$smarty->isCached($aTemplate['page'], $contents_cache_id )) {
 
 $informationtable = $oostable['information'];
 $information_descriptiontable = $oostable['information_description'];
@@ -70,21 +58,24 @@ $sql = "SELECT i.information_id, i.information_image, id.information_name,
 $information = $dbconn->GetRow($sql);
 
 // links breadcrumb
-$oBreadcrumb->add($information['information_heading_title'], oos_href_link($aContents['information'], 'information_id=' . intval($nInformationsID)));
+$oBreadcrumb->add($information['information_heading_title']);
+$sPagetitle = $information['information_heading_title'] . ' ' . OOS_META_TITLE;
 
 // assign Smarty variables;
 $smarty->assign(
         array(
-            'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-            'oos_heading_title' => $information['information_heading_title'],
-            'oos_heading_image' => $information['information_image'],
-
-            'informations'       => $information,
-            'get_params'         => 'information_id=' . intval($nInformationsID)
+            'breadcrumb'        => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+            'heading_title'     => $information['information_heading_title'],
+            'heading_image'     => $information['information_image'],
+			'pagetitle'			=> htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
+            
+            'informations'      => $information,
+            'get_params'        => 'information_id=' . intval($nInformationsID)
         )
     );
 
-
+}
 
 // display the template
-$smarty->display($aTemplate['page']);
+$smarty->display($aTemplate['page'], $contents_cache_id);
