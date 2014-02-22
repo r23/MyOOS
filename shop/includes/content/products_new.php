@@ -118,7 +118,6 @@ $contents_cache_id = $sTheme . '|products_new|' . $nPage . '|' . $sLanguage;
         array(
            'breadcrumb'         => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
            'heading_title'      => $aLang['heading_title'],
-           'heading_image'      => 'products_new.gif',
 
             'pagetitle'         => htmlspecialchars($sPagetitle),
             'canonical'         => $sCanonical,

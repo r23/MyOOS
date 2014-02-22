@@ -109,7 +109,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/produc
         array(
             'breadcrumb'     => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'heading_title'  => $aLang['heading_title'],
-            'heading_image'  => 'specials.gif',
+
             'pagetitle'         => htmlspecialchars($sPagetitle),
             'canonical'         => $sCanonical,
             'oos_page_split'     => $specials_split->display_count($specials_numrows, MAX_DISPLAY_SPECIAL_PRODUCTS, $_GET['page'], $aLang['text_display_number_of_specials']),

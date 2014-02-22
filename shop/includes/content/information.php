@@ -59,14 +59,14 @@ $information = $dbconn->GetRow($sql);
 
 // links breadcrumb
 $oBreadcrumb->add($information['information_heading_title']);
-$sPagetitle = $information['information_heading_title'] . ' ' . OOS_META_TITLE;
+$sPagetitle = $information['information_heading_title'];
 
 // assign Smarty variables;
 $smarty->assign(
         array(
             'breadcrumb'        => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'heading_title'     => $information['information_heading_title'],
-            'heading_image'     => $information['information_image'],
+
             'pagetitle'         => htmlspecialchars($sPagetitle),
             'canonical'         => $sCanonical,
             
