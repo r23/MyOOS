@@ -25,10 +25,10 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id']))
 {
-	if (!isset($_SESSION))
-	{
-		oos_session_start();
-	}
+    if (!isset($_SESSION))
+    {
+        oos_session_start();
+    }
     $_SESSION['navigation']->set_snapshot(array('mode' => 'SSL', 'content' => $aContents['account_edit']));
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
@@ -220,8 +220,11 @@ if (!isset($_SESSION['customer_id']))
 
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], '', 'SSL'));
-    $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_edit'], '', 'SSL'));
+    $oBreadcrumb->add($aLang['navbar_title_2']);
 
+    $sCanonical = oos_href_link($aContents['account_edit'], '', 'SSL', FALSE, TRUE);
+    $sPagetitle = $aLang['heading_title'];
+    
     ob_start();
     require 'js/form_check.js.php';
     $javascript = ob_get_contents();
@@ -308,6 +311,9 @@ if (!isset($_SESSION['customer_id']))
             'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'heading_title' => $aLang['heading_title'],
             'heading_image' => 'account.gif',
+
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
 
             'email_address'     => $email_address,
             'show_password'     => $show_password

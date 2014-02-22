@@ -30,8 +30,12 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id']))
 {
-	$_SESSION['navigation']->set_snapshot();
-	oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
+    if (!isset($_SESSION))
+    {
+        oos_session_start();
+    }
+    $_SESSION['navigation']->set_snapshot();
+    oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
 
 if (oos_empty($_SESSION['member']->group['payment']))
@@ -111,6 +115,8 @@ if (!isset($_SESSION['shipping']))
   // links breadcrumb
   $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
   $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['checkout_payment'], '', 'SSL'));
+$sCanonical = oos_href_link($aContents['checkout_payment'], '', 'SSL', FALSE, TRUE);
+$sPagetitle = $aLang['heading_title']; 
 
   if (ENABLE_SSL == 'true') {
     $condition_link = OOS_HTTPS_SERVER;
@@ -140,7 +146,9 @@ if (!isset($_SESSION['shipping']))
       array(
           'breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'heading_title' => $aLang['heading_title'],
-          'heading_image' => 'payment.gif'
+          'heading_image' => 'payment.gif',
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical
       )
   );
 

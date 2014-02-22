@@ -236,6 +236,8 @@
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['admin_create_account']));
     $oBreadcrumb->add($aLang['navbar_title_2']);
+    $sCanonical = oos_href_link($aContents['admin_create_account'], '', 'SSL', FALSE, TRUE);
+    $sPagetitle = $aLang['heading_title'];
 
     ob_start();
     require 'js/form_check.js.php';
@@ -257,7 +259,9 @@
       array('breadcrumb'      => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'heading_title'   => $aLang['heading_title'],
             'heading_image'   => 'account.gif',
-
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
+          
             'oos_js'              => $javascript,
 
             'error'               => $error,

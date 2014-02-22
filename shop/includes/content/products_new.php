@@ -110,12 +110,19 @@ $contents_cache_id = $sTheme . '|products_new|' . $nPage . '|' . $sLanguage;
     $oBreadcrumb->add($aLang['header_title_catalog'], oos_href_link($aContents['shop']));
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['products_new']));
 
+    $sCanonical = oos_href_link($aContents['products_new'], '', 'NONSSL', FALSE, TRUE);
+    $sPagetitle = $aLang['heading_title'];
+    
     // assign Smarty variables;
     $smarty->assign(
         array(
            'breadcrumb'         => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
            'heading_title'      => $aLang['heading_title'],
            'heading_image'      => 'products_new.gif',
+
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
+ 
 
            'oos_page_split'         => $products_new_split->display_count($products_new_numrows, MAX_DISPLAY_PRODUCTS_NEW, $_GET['page'], $aLang['text_display_number_of_products_new']),
            'oos_display_links'      => $products_new_split->display_links($products_new_numrows, MAX_DISPLAY_PRODUCTS_NEW, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),

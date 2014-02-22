@@ -27,6 +27,9 @@
 
   $oBreadcrumb->add($aLang['navbar_title_1']);
   $oBreadcrumb->add($aLang['navbar_title_2']);
+$sCanonical = oos_href_link($aContents['create_account_success'], '', 'SSL', FALSE, TRUE);
+$sPagetitle = $aLang['heading_title'];
+
 
   if (count($_SESSION['navigation']->snapshot) > 0) {
     $origin_href = oos_href_link($_SESSION['navigation']->snapshot['content'], $_SESSION['navigation']->snapshot['get'], $_SESSION['navigation']->snapshot['mode']);
@@ -51,7 +54,8 @@
           'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'heading_title' => $aLang['heading_title'],
           'heading_image' => 'man_on_board.gif',
-
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
           'origin_href' => $origin_href
       )
   );

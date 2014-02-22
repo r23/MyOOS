@@ -49,14 +49,18 @@ if (!$smarty->isCached($aTemplate['page'], $contents_cache_id))
     $oSitemap->setShowCategoryProductCount(false);
 
     // links breadcrumb
-    $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['info_sitemap']));
-
+    $oBreadcrumb->add($aLang['navbar_title']);
+    $sCanonical = oos_href_link($aContents['info_sitemap'], '', 'NONSSL', FALSE, TRUE);
+    $sPagetitle = $aLang['heading_title'];
+    
     // assign Smarty variables;
     $smarty->assign(
         array(
             'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'heading_title' => $aLang['heading_title'],
-            'heading_image' => 'specials.gif'
+            'heading_image' => 'specials.gif',
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical
         )
     );
 

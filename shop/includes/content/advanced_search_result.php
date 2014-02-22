@@ -107,9 +107,11 @@ $errorno = 0;
   } else {
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title1'], oos_href_link($aContents['advanced_search']));
-    $oBreadcrumb->add($aLang['navbar_title2'], oos_href_link($aContents['advanced_search_result'], 'keywords=' . $_GET['keywords'] . '&search_in_description=' . $_GET['search_in_description'] . '&categories_id=' . $_GET['categories_id'] . '&inc_subcat=' . $_GET['inc_subcat'] . '&manufacturers_id=' . $_GET['manufacturers_id'] . '&pfrom=' . $_GET['pfrom'] . '&pto=' . $_GET['pto'] . '&dfrom=' . $dfrom  . '&dto=' . $dto ));
+ //   $oBreadcrumb->add($aLang['navbar_title2'], oos_href_link($aContents['advanced_search_result'], 'keywords=' . $_GET['keywords'] . '&search_in_description=' . $_GET['search_in_description'] . '&categories_id=' . $_GET['categories_id'] . '&inc_subcat=' . $_GET['inc_subcat'] . '&manufacturers_id=' . $_GET['manufacturers_id'] . '&pfrom=' . $_GET['pfrom'] . '&pto=' . $_GET['pto'] . '&dfrom=' . $dfrom  . '&dto=' . $dto ));
+     $oBreadcrumb->add($aLang['navbar_title2']);
 
-
+$sCanonical = oos_href_link($aContents['advanced_search'], '', 'NONSSL', FALSE, TRUE);
+$sPagetitle = $aLang['heading_title']; 
 
     // create column list
     $define_list = array('PRODUCT_LIST_MODEL' => PRODUCT_LIST_MODEL,
@@ -370,7 +372,9 @@ $errorno = 0;
         array(
             'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'heading_title' => $aLang['heading_title'],
-            'heading_image' => 'browse.gif'
+            'heading_image' => 'browse.gif',
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
         )
     );
 

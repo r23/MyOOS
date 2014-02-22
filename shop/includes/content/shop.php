@@ -76,7 +76,11 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
     }
 
     $smarty->assign('breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
-
+/*
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
+ 
+ */
     if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
       $categoriestable = $oostable['categories'];
       $categories_descriptiontable = $oostable['categories_description'];
@@ -226,7 +230,11 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
     }
 
     $smarty->assign('breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
-
+/*
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
+ 
+ */
     if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
 
 // create column list

@@ -25,10 +25,10 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id']))
 {
-	if (!isset($_SESSION))
-	{
-		oos_session_start();
-	}
+    if (!isset($_SESSION))
+    {
+        oos_session_start();
+    }
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
@@ -232,10 +232,20 @@ if (!isset($_SESSION['customer_id']))
 
   if ( (isset($_GET['action']) && ($_GET['action'] == 'modify')) || (isset($_POST['action']) && ($_POST['action'] == 'update') && oos_is_not_null($_POST['entry_id'])) ) {
     $oBreadcrumb->add($aLang['navbar_title_modify_entry'], oos_href_link($aContents['account_address_book_process'], 'action=modify&amp;entry_id=' . ((isset($_GET['entry_id'])) ? $_GET['entry_id'] : $_POST['entry_id']), 'SSL'));
+    $sPagetitle = $aLang['navbar_title_modify_entry'];
+    
+    
   } else {
     $oBreadcrumb->add($aLang['navbar_title_add_entry'], oos_href_link($aContents['account_address_book_process'], '', 'SSL'));
-  }
+    $sPagetitle = $aLang['navbar_title_modify_entry'] . ' ' . OOS_META_TITLE;
+}
 
+$sCanonical = oos_href_link($aContents['account_address_book_process'], '', 'SSL', FALSE, TRUE);
+$sPagetitle = $aLang['heading_title'];
+  
+  
+  
+  
   if (count($_SESSION['navigation']->snapshot) > 0) {
     $back_link = oos_href_link($_SESSION['navigation']->snapshot['content'], $_SESSION['navigation']->snapshot['get'], $_SESSION['navigation']->snapshot['mode']);
   } else {
@@ -262,15 +272,17 @@ if (!isset($_SESSION['customer_id']))
   }
 
 // assign Smarty variables;
-  $smarty->assign(
+$smarty->assign(
       array(
-          'breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+            'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+            'pagetitle'     => htmlspecialchars($sPagetitle),
+            'canonical'     => $sCanonical,
+          
+            'back_link'      => $back_link,
+            'entry_id'       => $entry_id,
+            'process'        => $process,
 
-          'back_link'      => $back_link,
-          'entry_id'       => $entry_id,
-          'process'        => $process,
-
-          'oos_js'         => $javascript
+            'oos_js'         => $javascript
       )
   );
 

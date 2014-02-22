@@ -25,10 +25,10 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id']))
 {
-	if (!isset($_SESSION))
-	{
-		oos_session_start();
-	}
+    if (!isset($_SESSION))
+    {
+        oos_session_start();
+    }
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
@@ -56,9 +56,12 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_a
   $no_edit = true;
   $show_password = true;
 
-  // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], '', 'SSL'));
-  $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_edit'], '', 'SSL'));
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], '', 'SSL'));
+$oBreadcrumb->add($aLang['navbar_title_2']);
+  
+$sCanonical = oos_href_link($aContents['account_edit'], '', 'SSL', FALSE, TRUE);
+$sPagetitle = $aLang['heading_title']; 
 
   ob_start();
   require 'js/form_check.js.php';
@@ -76,15 +79,17 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_a
   }
 
   // assign Smarty variables;
-  $smarty->assign(
-      array(
-          'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-          'heading_title' => $aLang['heading_title'],
-          'heading_image' => 'account.gif',
+$smarty->assign(
+    array(
+        'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+        'heading_title' => $aLang['heading_title'],
+        'heading_image' => 'account.gif',
+        'pagetitle'         => htmlspecialchars($sPagetitle),
+        'canonical'         => $sCanonical,
 
-          'account'           => $account,
-          'email_address'     => $email_address,
-          'show_password'     => $show_password
+        'account'           => $account,
+        'email_address'     => $email_address,
+        'show_password'     => $show_password
 
       )
   );

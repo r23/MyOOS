@@ -26,7 +26,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 // if the customer is not logged on, redirect them to the shopping cart page
 if (!isset($_SESSION['customer_id']))
 {
-	oos_redirect(oos_href_link($aContents['main_shopping_cart']));
+    oos_redirect(oos_href_link($aContents['main_shopping_cart']));
 }
 
 
@@ -134,7 +134,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checko
       array(
           'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'heading_title' => $aLang['heading_title'],
-
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
           'products_notify' => $products_notify,
           'heading_image' => 'man_on_board.gif'
       )

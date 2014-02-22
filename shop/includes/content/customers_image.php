@@ -16,10 +16,10 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id']))
 {
-	if (!isset($_SESSION))
-	{
-		oos_session_start();
-	}
+    if (!isset($_SESSION))
+    {
+        oos_session_start();
+    }
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
@@ -125,7 +125,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_c
 
   // links breadcrumb
   $oBreadcrumb->add($aLang['text_yourstore'], oos_href_link($aContents['yourstore']));
-  $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['customers_image']));
+  $oBreadcrumb->add($aLang['navbar_title']);
+$sCanonical = oos_href_link($aContents['customers_image'], '', 'SSL', FALSE, TRUE);
+$sPagetitle = $aLang['heading_title'];
 
   $aTemplate['page'] = $sTheme .  '/modules/customers_image.tpl';
 
@@ -143,7 +145,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_c
           'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'heading_title' => $aLang['heading_title'],
           'heading_image' => 'contact_us.gif',
-
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
           'customer'        => $customer,
           'gender'          => $gender,
           'country_name'    => $sCountryName,

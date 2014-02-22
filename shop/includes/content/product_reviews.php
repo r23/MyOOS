@@ -92,7 +92,8 @@
           'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'heading_title' => sprintf($aLang['heading_title'], $product_info['products_name']),
           'heading_image' => 'reviews.gif',
-
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
           'oos_reviews_array' => $aReviews
       )
   );

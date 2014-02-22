@@ -99,13 +99,19 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/review
     }
 
     // links breadcrumb
-    $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['reviews_reviews']));
-
+    $oBreadcrumb->add($aLang['navbar_title']);
+    $sCanonical = oos_href_link($aContents['reviews_reviews'], '', 'NONSSL', FALSE, TRUE);
+    $sPagetitle = $aLang['heading_title'];
+    
     $smarty->assign(
         array(
             'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'heading_title' => $aLang['heading_title'],
             'heading_image' => 'specials.gif',
+
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
+ 
 
             'oos_page_split'    => $reviews_split->display_count($reviews_numrows, MAX_DISPLAY_NEW_REVIEWS, $_GET['page'], $aLang['text_display_number_of_reviews']),
             'oos_display_links' => $reviews_split->display_links($reviews_numrows, MAX_DISPLAY_NEW_REVIEWS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),

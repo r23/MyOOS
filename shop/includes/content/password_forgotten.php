@@ -53,8 +53,10 @@
 
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['login'], '', 'SSL'));
-    $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['password_forgotten'], '', 'SSL'));
-
+    $oBreadcrumb->add($aLang['navbar_title_2']);
+    $sCanonical = oos_href_link($aContents['password_forgotten'], '', 'SSL', FALSE, TRUE);
+    $sPagetitle = $aLang['heading_title'];
+    
     $aTemplate['page'] = $sTheme . '/modules/user_password_forgotten.tpl';
 
     $nPageType = OOS_PAGE_TYPE_SERVICE;
@@ -70,7 +72,9 @@
         array(
             'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'heading_title' => $aLang['heading_title'],
-            'heading_image' => 'password_forgotten.gif'
+            'heading_image' => 'password_forgotten.gif',
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
         )
     );
 

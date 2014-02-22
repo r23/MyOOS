@@ -24,10 +24,10 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 if (!isset($_SESSION['customer_id']))
 {
-	if (!isset($_SESSION))
-	{
-		oos_session_start();
-	}
+    if (!isset($_SESSION))
+    {
+        oos_session_start();
+    }
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
@@ -148,17 +148,20 @@ if (!isset($_SESSION['customer_id']))
     );
   }
 
-  // links breadcrumb
-  $oBreadcrumb->add($aLang['header_title_catalog'], oos_href_link($aContents['shop']));
-  $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['account_order_history']));
-
+// links breadcrumb
+$oBreadcrumb->add($aLang['header_title_catalog'], oos_href_link($aContents['shop']));
+$oBreadcrumb->add($aLang['navbar_title']);
+$sCanonical = oos_href_link($aContents['account_order_history'], '', 'SSL', FALSE, TRUE);
+$sPagetitle = $aLang['heading_title']; 
 
   // assign Smarty variables;
   $smarty->assign(
       array(
          'breadcrumb'         => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
          'heading_title'      => $aLang['heading_title'],
-         'heading_image'      => 'products_new.gif'
+         'heading_image'      => 'products_new.gif',
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical
      )
   );
 

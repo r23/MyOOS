@@ -45,20 +45,22 @@
   if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
 
     // links breadcrumb
-    $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['info_down_for_maintenance']));
-
+    $oBreadcrumb->add($aLang['navbar_title']);
+    $sCanonical = oos_href_link($aContents['info_down_for_maintenance'], '', 'NONSSL', FALSE, TRUE);
+    $sPagetitle = $aLang['heading_title'];
+    
     // assign Smarty variables;
     $smarty->assign(
         array(
             'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'heading_title' => $aLang['heading_title'],
-            'heading_image' => 'specials.gif'
+            'heading_image' => 'specials.gif',
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical
         )
     );
   }
 
-  
-
 // display the template
-$smarty->display($aTemplate['page']);
+$smarty->display($aTemplate['page'], $contents_cache_id);
 

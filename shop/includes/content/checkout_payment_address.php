@@ -31,10 +31,10 @@ if ($_SESSION['cart']->count_contents() < 1)
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id']))
 {
-	if (!isset($_SESSION))
-	{
-		oos_session_start();
-	}
+    if (!isset($_SESSION))
+    {
+        oos_session_start();
+    }
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
@@ -266,9 +266,11 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
   }
   if (!isset($process)) $process = 'false';
 
-  // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_payment'], '', 'SSL'));
-  $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['checkout_payment_address'], '', 'SSL'));
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_payment'], '', 'SSL'));
+$oBreadcrumb->add($aLang['navbar_title_2']);
+$sCanonical = oos_href_link($aContents['checkout_payment_address'], '', 'SSL', FALSE, TRUE);
+$sPagetitle = $aLang['heading_title']; 
 
   ob_start();
   require 'js/checkout_payment_address.js.php';

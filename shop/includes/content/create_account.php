@@ -26,7 +26,9 @@
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account.php';
 
   // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['create_account']));
+  $oBreadcrumb->add($aLang['navbar_title']);
+$sCanonical = oos_href_link($aContents['create_account'], '', 'SSL', FALSE, TRUE);
+$sPagetitle = $aLang['heading_title'];
 
   $snapshot = count($_SESSION['navigation']->snapshot);
   if (isset($_GET['email_address'])) {
@@ -57,6 +59,8 @@
          'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
          'heading_title' => $aLang['heading_title'],
          'heading_image' => 'account.gif',
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical
 
          ));
 

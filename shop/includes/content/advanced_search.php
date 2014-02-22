@@ -40,8 +40,10 @@
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/search_advanced.php';
 
-  // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['advanced_search']));
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title']);
+$sCanonical = oos_href_link($aContents['advanced_search'], '', 'NONSSL', FALSE, TRUE);
+$sPagetitle = $aLang['heading_title']; 
 
   ob_start();
   require 'js/advanced_search.js.php';
@@ -135,7 +137,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/search
           'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'heading_title' => $aLang['heading_title'],
           'heading_image' => 'browse.gif',
-
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
           'info_message'      => $info_message,
           'options_box'       => $options_box,
           'oos_js'            => $javascript

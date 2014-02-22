@@ -70,8 +70,12 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/review
   } else {
     $oBreadcrumb->add($reviews['products_name'], oos_href_link($aContents['product_info'], 'category=' . $category . '&amp;products_id=' . $reviews['products_id']));
   }
-  $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['product_reviews'], $get_parameters));
-
+  $oBreadcrumb->add($aLang['navbar_title']);
+  
+  $sCanonical = oos_href_link($aContents['product_reviews'], $get_parameters, 'NONSSL', FALSE, TRUE);
+  $sPagetitle = $aLang['heading_title'];
+  
+  
   $aTemplate['page'] = $sTheme . '/modules/product_reviews_info.tpl';
 
   $nPageType = OOS_PAGE_TYPE_REVIEWS;
@@ -87,7 +91,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/review
            'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
            'heading_title' => sprintf($aLang['heading_title'], $reviews['products_name']),
            'heading_image' => 'reviews.gif',
-
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
            'reviews' => $reviews
        )
   );

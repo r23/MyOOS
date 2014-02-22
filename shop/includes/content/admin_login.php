@@ -143,9 +143,12 @@
     }
   }
 
-  // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['login'], '', 'SSL'));
-
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['login'], '', 'SSL'));
+$sCanonical = oos_href_link($aContents['admin_create_account'], '', 'SSL', FALSE, TRUE);
+$sPagetitle = $aLang['heading_title'];
+  
+  
   $info_message = '';
   if (isset($_GET['login']) && ($_GET['login'] == 'fail')) {
     $info_message = $aLang['text_login_error'];
@@ -171,7 +174,8 @@
       array('breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'heading_title' => $aLang['heading_title'],
             'heading_image' => 'login.gif',
-
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
             'info_message'      => $info_message
       )
   );

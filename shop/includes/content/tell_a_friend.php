@@ -133,8 +133,11 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/tell_a
   }
 
   // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['tell_a_friend'], 'send_to=' . $friendemail . '&amp;products_id=' . $_GET['products_id']));
+  $oBreadcrumb->add($aLang['navbar_title']);
 
+$sCanonical = oos_href_link($aContents['tell_a_friend'], '', 'SSL', FALSE, TRUE);
+$sPagetitle = $aLang['heading_title'];  
+  
   $aTemplate['page'] = $sTheme . '/modules/tell_a_friend.tpl';
 
   $nPageType = OOS_PAGE_TYPE_PRODUCTS;
@@ -151,6 +154,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/tell_a
           'heading_title' => sprintf($aLang['heading_title'], $product_info['products_name']),
           'heading_image' => 'specials.gif',
 
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
+          
           'valid_product'             => $valid_product,
           'product_info'              => $product_info,
           'action'                    => $action,

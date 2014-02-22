@@ -25,10 +25,10 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id']))
 {
-	if (!isset($_SESSION))
-	{
-		oos_session_start();
-	}
+    if (!isset($_SESSION))
+    {
+        oos_session_start();
+    }
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
@@ -63,12 +63,15 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_a
     $newsletter = $aLang['entry_newsletter_no'];
   }
 
-  // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['account'], '', 'SSL'));
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title']);
+$sCanonical = oos_href_link($aContents['account'], '', 'SSL', FALSE, TRUE);
+$sPagetitle = $aLang['heading_title'];
 
-  $aTemplate['page'] = $sTheme . '/modules/user_account.tpl';
 
-  $nPageType = OOS_PAGE_TYPE_ACCOUNT;
+$aTemplate['page'] = $sTheme . '/modules/user_account.tpl';
+
+$nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
   require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
@@ -76,17 +79,19 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_a
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
-  // assign Smarty variables;
-  $smarty->assign(
+// assign Smarty variables;
+$smarty->assign(
       array(
-          'breadcrumb'       => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-          'heading_title'    => $aLang['heading_title'],
-          'heading_image'    => 'account.gif',
+            'breadcrumb'       => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+            'heading_title'    => $aLang['heading_title'],
+            'heading_image'    => 'account.gif',
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
 
-          'account'              => $account,
-          'gender'               => $gender,
-          'oos_get_country_name' => $sCountryName,
-          'newsletter'           => $newsletter
+            'account'              => $account,
+            'gender'               => $gender,
+            'oos_get_country_name' => $sCountryName,
+            'newsletter'           => $newsletter
       )
   );
 

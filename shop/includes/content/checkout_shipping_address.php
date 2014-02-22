@@ -34,10 +34,10 @@ if ($_SESSION['cart']->count_contents() < 1) {
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id']))
 {
-	if (!isset($_SESSION))
-	{
-		oos_session_start();
-	}
+    if (!isset($_SESSION))
+    {
+        oos_session_start();
+    }
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
@@ -280,8 +280,9 @@ if (!isset($_SESSION['customer_id']))
 
   // links breadcrumb
   $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
-  $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['checkout_shipping_address'], '', 'SSL'));
-
+  $oBreadcrumb->add($aLang['navbar_title_2']);
+  $sCanonical = oos_href_link($aContents['checkout_shipping_address'], '', 'SSL', FALSE, TRUE);
+  $sPagetitle = $aLang['heading_title'];
   ob_start();
   require 'js/checkout_shipping_address.js.php';
   $javascript = ob_get_contents();
@@ -303,7 +304,8 @@ if (!isset($_SESSION['customer_id']))
           'breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'heading_title' => $aLang['heading_title'],
           'heading_image' => 'delivery.gif',
-
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
           'process' => $process,
           'addresses_count' => $addresses_count,
 

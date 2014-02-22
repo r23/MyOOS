@@ -35,8 +35,10 @@
     }
   }
 
-  // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['contact_us']));
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title']);
+$sCanonical = oos_href_link($aContents['contact_us'], '', 'SSL', FALSE, TRUE);
+$sPagetitle = $aLang['heading_title'];
 
   $aTemplate['page'] = $sTheme . '/system/contact_us.tpl';
 
@@ -54,7 +56,8 @@
           'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'heading_title' => $aLang['heading_title'],
           'heading_image' => 'contact_us.gif',
-
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
           'error'             => $error
       )
   );

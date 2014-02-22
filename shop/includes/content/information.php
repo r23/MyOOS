@@ -67,7 +67,7 @@ $smarty->assign(
             'breadcrumb'        => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'heading_title'     => $information['information_heading_title'],
             'heading_image'     => $information['information_image'],
-			'pagetitle'			=> htmlspecialchars($sPagetitle),
+            'pagetitle'         => htmlspecialchars($sPagetitle),
             'canonical'         => $sCanonical,
             
             'informations'      => $information,

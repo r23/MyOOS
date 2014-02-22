@@ -29,10 +29,10 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id']))
 {
-	if (!isset($_SESSION))
-	{
-		oos_session_start();
-	}
+    if (!isset($_SESSION))
+    {
+        oos_session_start();
+    }
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
@@ -142,8 +142,12 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/review
     $get_parameters_back = $get_parameters;
   }
 
-  $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['product_reviews'], $get_parameters));
-
+  $oBreadcrumb->add($aLang['navbar_title']);
+  
+  $sCanonical = oos_href_link($aContents['product_reviews'], $get_parameters, 'NONSSL', FALSE, TRUE);
+  $sPagetitle = $aLang['heading_title'];
+  
+  
   $customerstable = $oostable['customers'];
   $sql = "SELECT customers_firstname, customers_lastname
           FROM $customerstable
@@ -172,6 +176,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/review
           'heading_title' => $aLang['heading_title'],
           'heading_image' => 'reviews.gif',
 
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
+          
           'oos_js'            => $javascript,
 
           'valid_product'     => $valid_product,

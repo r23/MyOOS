@@ -20,14 +20,16 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
   
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_logoff.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_logoff.php';
 
-  // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title']);
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title']);
+$sCanonical = oos_href_link($aContents['logoff'], '', 'SSL', FALSE, TRUE);
+$sPagetitle = $aLang['heading_title'];
 
   $cookie_url_array = parse_url((ENABLE_SSL == true ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . substr(OOS_SHOP, 0, -1));
   $cookie_path = $cookie_url_array['path'];
@@ -70,7 +72,9 @@
       array(
           'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'heading_title' => $aLang['heading_title'],
-          'heading_image' => 'man_on_board.gif'
+          'heading_image' => 'man_on_board.gif',
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
       )
   );
 

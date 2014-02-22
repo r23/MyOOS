@@ -25,10 +25,10 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id']))
 {
-	if (!isset($_SESSION))
-	{
-		oos_session_start();
-	}
+    if (!isset($_SESSION))
+    {
+        oos_session_start();
+    }
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
@@ -54,8 +54,12 @@ if (!isset($_SESSION['customer_id']))
   // links breadcrumb
   $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], '', 'SSL'));
   $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_history'], '', 'SSL'));
-  $oBreadcrumb->add($aLang['navbar_title_3'], oos_href_link($aContents['account_history_info'], 'order_id=' . $_GET['order_id'], 'SSL'));
+  $oBreadcrumb->add($aLang['navbar_title_3']);
 
+$sCanonical = oos_href_link($aContents['account_history'], '', 'SSL', FALSE, TRUE);
+$sPagetitle = $aLang['heading_title'];
+  
+  
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
   $oOrder = new order($_GET['order_id']);
 
@@ -76,9 +80,11 @@ if (!isset($_SESSION['customer_id']))
 // assign Smarty variables;
   $smarty->assign(
       array(
-          'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-          'heading_title' => $aLang['heading_title'],
-          'heading_image' => 'history.gif'
+            'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+            'heading_title' => $aLang['heading_title'],
+            'heading_image' => 'history.gif',
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical
       )
   );
 

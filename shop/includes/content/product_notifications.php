@@ -22,20 +22,18 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-
 if (!$oEvent->installed_plugin('notify'))
 {
-	oos_redirect(oos_href_link($aContents['main']));
+    oos_redirect(oos_href_link($aContents['main']));
 }
-
 
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id']))
 {
-	if (!isset($_SESSION))
-	{
-		oos_session_start();
-	}
+    if (!isset($_SESSION))
+    {
+        oos_session_start();
+    }
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
@@ -87,8 +85,10 @@ if (!isset($_SESSION['customer_id']))
 
   // links breadcrumb
   $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], '', 'SSL'));
-  $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['product_notifications'], '', 'SSL'));
-
+  $oBreadcrumb->add($aLang['navbar_title_2']);
+  $sCanonical = oos_href_link($aContents['product_notifications'], '', 'SSL', FALSE, TRUE);
+  $sPagetitle = $aLang['heading_title'];
+  
   $aTemplate['page'] = $sTheme . '/modules/user_product_notifications.tpl';
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
@@ -104,7 +104,9 @@ if (!isset($_SESSION['customer_id']))
       array(
           'breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'heading_title' => $aLang['heading_title'],
-          'heading_image' => 'account.gif'
+          'heading_image' => 'account.gif',
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
       )
   );
 

@@ -70,7 +70,9 @@
         array(
             'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'heading_title' => $aLang['text_product_not_found'],
-            'heading_image' => 'specials.gif'
+            'heading_image' => 'specials.gif',
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
         )
     );
 
@@ -190,8 +192,11 @@
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/products_options.php';
 
     // assign Smarty variables;
-    $smarty->assign(array('breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-                           'discounts_price' =>  $discounts_price));
+    $smarty->assign(
+            array('breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
+            'discounts_price' =>  $discounts_price));
 
     if (!isset($block_get_parameters)) {
       $block_get_parameters = oos_get_all_get_parameters(array('action'));

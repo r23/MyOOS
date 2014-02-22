@@ -25,10 +25,10 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id']))
 {
-	if (!isset($_SESSION))
-	{
-		oos_session_start();
-	}
+    if (!isset($_SESSION))
+    {
+        oos_session_start();
+    }
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
@@ -144,8 +144,10 @@ if (!isset($_SESSION['customer_id']))
   // Close result set
   $wishlist_result->Close();
 
-  // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['account_my_wishlist']));
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title']);
+$sCanonical = oos_href_link($aContents['account_my_wishlist'], '', 'SSL', FALSE, TRUE);
+$sPagetitle = $aLang['heading_title']; 
 
   $aTemplate['page'] = $sTheme . '/modules/my_wishlist.tpl';
   $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.tpl';
@@ -161,9 +163,11 @@ if (!isset($_SESSION['customer_id']))
 // assign Smarty variables;
   $smarty->assign(
        array(
-           'breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-           'heading_title' => $aLang['heading_title'],
-           'heading_image' => 'wishlist.gif',
+            'breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+            'heading_title' => $aLang['heading_title'],
+            'heading_image' => 'wishlist.gif',
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
 
            'oos_page_split' => $wishlist_split->display_count($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, $_GET['page'], $aLang['text_display_number_of_wishlist']),
            'oos_display_links' => $wishlist_split->display_links($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),

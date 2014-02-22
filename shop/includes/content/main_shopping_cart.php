@@ -118,7 +118,9 @@ $smarty->assign(
           'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'heading_title' => $aLang['heading_title'],
           'heading_image' => 'cart.gif',
-
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
+          
           'hidden_field'         => $hidden_field,
           'shopping_cart_detail' => $shopping_cart_detail,
           'oos_cart_total'       => $oCurrencies->format($_SESSION['cart']->show_total()),

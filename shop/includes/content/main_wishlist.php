@@ -133,6 +133,8 @@
 
   // links breadcrumb
   $oBreadcrumb->add($customer. $aLang['navbar_title'], oos_href_link($aContents['main_wishlist']));
+$sCanonical = oos_href_link($aContents['main_wishlist'], '', 'SSL', FALSE, TRUE);
+$sPagetitle = $aLang['heading_title'];
 
   $aTemplate['page'] = $sTheme . '/modules/wishlist.tpl';
   $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.tpl';
@@ -151,7 +153,9 @@
           'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'heading_title' => $customer . $aLang['heading_title'],
           'heading_image' => 'wishlist.gif',
-
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
+          
           'oos_page_split'    => $wishlist_split->display_count($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, $_GET['page'], $aLang['text_display_number_of_wishlist']),
           'oos_display_links' => $wishlist_split->display_links($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),
           'oos_page_numrows'  => $wishlist_numrows,

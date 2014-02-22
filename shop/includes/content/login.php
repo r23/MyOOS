@@ -110,7 +110,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_l
   }
 
   // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['login'], '', 'SSL'));
+  $oBreadcrumb->add($aLang['navbar_title']);
+$sCanonical = oos_href_link($aContents['login'], '', 'SSL', FALSE, TRUE);
+$sPagetitle = $aLang['heading_title'];
 
   $info_message = '';
   if (isset($_GET['login']) && ($_GET['login'] == 'fail')) {
@@ -135,6 +137,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_l
           'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'heading_title' => $aLang['heading_title'],
           'heading_image' => 'login.gif',
+            'pagetitle'         => htmlspecialchars($sPagetitle),
+            'canonical'         => $sCanonical,
           'info_message' => $info_message
       )
   );
