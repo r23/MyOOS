@@ -33,12 +33,13 @@ $oBreadcrumb->add($aLang['navbar_title']);
 $sCanonical = oos_href_link($aContents['gv_faq'], '', 'NONSSL', FALSE, TRUE);
 $sPagetitle = $aLang['heading_title'];
 
-$aTemplate['page'] = $sTheme . '/system/info.tpl';
+$aTemplate['page'] = $sTheme . '/page/info.tpl';
 
 $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
-  if (!isset($option)) {
+if (!isset($option))
+{
     require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
 }

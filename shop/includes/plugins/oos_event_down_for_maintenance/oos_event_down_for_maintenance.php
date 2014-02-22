@@ -52,12 +52,11 @@
 
     function create_plugin_instance() {
 
-      $aContents = oos_get_content();
-      
-
-      if ($_GET['file'] != $aFilename['info_down_for_maintenance']) {
-        oos_redirect(oos_href_link($aContents['info_down_for_maintenance'], '', 'NONSSL', true, false));
-      }
+		$aContents = oos_get_content();
+ 
+		if (!isset($_GET['content']) || ($_GET['content'] != $aContents['info_down_for_maintenance'])) {
+			oos_redirect(oos_href_link($aContents['info_down_for_maintenance'], '', 'NONSSL', FALSE, TRUE));
+		}
 
       return true;
     }
@@ -75,4 +74,3 @@
     }
   }
 
-?>

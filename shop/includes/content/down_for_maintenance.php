@@ -16,33 +16,33 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if (!$oEvent->installed_plugin('down_for_maintenance')) {
+if (!$oEvent->installed_plugin('down_for_maintenance'))
+{
     oos_redirect(oos_href_link($aContents['main']));
-  }
+}
 
-  
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/info_down_for_maintenance.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/info_down_for_maintenance.php';
 
-  $aTemplate['page'] = $sTheme . '/system/info.tpl';
+$aTemplate['page'] = $sTheme . '/page/info.tpl';
 
-  $nPageType = OOS_PAGE_TYPE_MAINPAGE;
-  $contents_cache_id = $sTheme . '|down_for_maintenance|' . $sLanguage;
+$nPageType = OOS_PAGE_TYPE_MAINPAGE;
+$contents_cache_id = $sTheme . '|down_for_maintenance|' . $sLanguage;
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
-  if (!isset($option)) {
+require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+if (!isset($option)) {
     require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
-  }
+}
 
-  if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
+if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
     $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
     $smarty->setCacheLifetime (3600);
-  }
+}
 
-  if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
+if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
 
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title']);
@@ -58,7 +58,7 @@
             'canonical'         => $sCanonical
         )
     );
-  }
+}
 
 // display the template
 $smarty->display($aTemplate['page'], $contents_cache_id);
