@@ -307,8 +307,7 @@
         array(
             'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'heading_title' => $aLang['heading_title'],
-            'heading_image' => 'account.gif',
-
+ 
             'email_address'     => $email_address,
             'show_password'     => $show_password
 

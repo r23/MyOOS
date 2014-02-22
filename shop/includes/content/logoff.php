@@ -72,7 +72,7 @@ $sPagetitle = $aLang['heading_title'];
       array(
           'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'heading_title' => $aLang['heading_title'],
-          'heading_image' => 'man_on_board.gif',
+
             'pagetitle'         => htmlspecialchars($sPagetitle),
             'canonical'         => $sCanonical,
       )

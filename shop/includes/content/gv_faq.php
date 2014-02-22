@@ -48,7 +48,7 @@ $smarty->assign(
     array(
           'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'heading_title' => $aLang['heading_title'],
-          'heading_image' => 'specials.gif',
+
             'pagetitle'         => htmlspecialchars($sPagetitle),
             'canonical'         => $sCanonical
     )

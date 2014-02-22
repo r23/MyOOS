@@ -173,7 +173,6 @@ $sPagetitle = $aLang['heading_title'];
   $smarty->assign(
       array('breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'heading_title' => $aLang['heading_title'],
-            'heading_image' => 'login.gif',
             'pagetitle'         => htmlspecialchars($sPagetitle),
             'canonical'         => $sCanonical,
             'info_message'      => $info_message

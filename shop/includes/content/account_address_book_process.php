@@ -289,15 +289,13 @@ $smarty->assign(
   if (isset($_GET['action']) && $_GET['action'] == 'modify') {
     $smarty->assign(
         array(
-            'heading_title' => $aLang['heading_title_modify_entry'],
-            'heading_image' => 'address_book.gif'
+            'heading_title' => $aLang['heading_title_modify_entry']
         )
     );
   } else {
     $smarty->assign(
         array(
-            'heading_title' => $aLang['heading_title_add_entry'],
-            'heading_image' => 'address_book.gif'
+            'heading_title' => $aLang['heading_title_add_entry']
         )
     );
   }

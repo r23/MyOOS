@@ -70,7 +70,7 @@
         array(
             'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'heading_title' => $aLang['text_product_not_found'],
-            'heading_image' => 'specials.gif',
+
             'pagetitle'         => htmlspecialchars($sPagetitle),
             'canonical'         => $sCanonical,
         )

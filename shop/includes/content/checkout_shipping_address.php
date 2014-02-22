@@ -303,7 +303,7 @@ if (!isset($_SESSION['customer_id']))
       array(
           'breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'heading_title' => $aLang['heading_title'],
-          'heading_image' => 'delivery.gif',
+
             'pagetitle'         => htmlspecialchars($sPagetitle),
             'canonical'         => $sCanonical,
           'process' => $process,

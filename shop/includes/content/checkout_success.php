@@ -136,8 +136,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checko
           'heading_title' => $aLang['heading_title'],
             'pagetitle'         => htmlspecialchars($sPagetitle),
             'canonical'         => $sCanonical,
-          'products_notify' => $products_notify,
-          'heading_image' => 'man_on_board.gif'
+          'products_notify' => $products_notify
       )
   );
 

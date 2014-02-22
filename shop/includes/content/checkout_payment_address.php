@@ -292,7 +292,6 @@ $sPagetitle = $aLang['heading_title'];
       array(
           'breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'heading_title' => $aLang['heading_title'],
-          'heading_image' => 'payment.gif',
 
           'process' => $process,
           'addresses_count' => $addresses_count,

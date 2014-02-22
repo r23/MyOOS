@@ -136,7 +136,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/tell_a
   $oBreadcrumb->add($aLang['navbar_title']);
 
 $sCanonical = oos_href_link($aContents['tell_a_friend'], '', 'SSL', FALSE, TRUE);
-$sPagetitle = $aLang['heading_title'];  
+$sPagetitle = sprintf($aLang['heading_title'], $product_info['products_name']);  
   
   $aTemplate['page'] = $sTheme . '/modules/tell_a_friend.tpl';
 
@@ -152,7 +152,6 @@ $sPagetitle = $aLang['heading_title'];
       array(
           'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'heading_title' => sprintf($aLang['heading_title'], $product_info['products_name']),
-          'heading_image' => 'specials.gif',
 
             'pagetitle'         => htmlspecialchars($sPagetitle),
             'canonical'         => $sCanonical,

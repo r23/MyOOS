@@ -22,9 +22,9 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if (!$oEvent->installed_plugin('reviews')) {
+if (!$oEvent->installed_plugin('reviews')) {
     oos_redirect(oos_href_link($aContents['main']));
-  }
+}
 
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id']))
@@ -37,11 +37,11 @@ if (!isset($_SESSION['customer_id']))
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
 
-  if (isset($_GET['products_id'])) {
+if (isset($_GET['products_id'])) {
     if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
-  } else {
+} else {
     oos_redirect(oos_href_link($aContents['main']));
-  }
+}
 
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/reviews_product_write.php';
@@ -174,7 +174,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/review
       array(
           'breadcrumb'   => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'heading_title' => $aLang['heading_title'],
-          'heading_image' => 'reviews.gif',
 
             'pagetitle'         => htmlspecialchars($sPagetitle),
             'canonical'         => $sCanonical,

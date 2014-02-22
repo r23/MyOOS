@@ -155,7 +155,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
       array(
           'breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'heading_title' => $aLang['heading_title'],
-          'heading_image' => 'confirmation.gif',
+
             'pagetitle'         => htmlspecialchars($sPagetitle),
             'canonical'         => $sCanonical,
       )
