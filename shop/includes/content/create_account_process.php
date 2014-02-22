@@ -27,7 +27,7 @@
     oos_redirect(oos_href_link($aContents['create_account']));
   }
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+  
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account_process.php';
   require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
 
@@ -305,9 +305,9 @@
 
     $smarty->assign(
         array(
-            'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-            'oos_heading_title' => $aLang['heading_title'],
-            'oos_heading_image' => 'account.gif',
+            'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+            'heading_title' => $aLang['heading_title'],
+            'heading_image' => 'account.gif',
 
             'email_address'     => $email_address,
             'show_password'     => $show_password

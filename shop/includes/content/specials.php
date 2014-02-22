@@ -26,7 +26,7 @@
     oos_redirect(oos_href_link($aContents['main'], 'history_back=true'));
   }
 
-require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_specials.php';
 
   $aTemplate['page'] = $sTheme . '/products/specials.tpl';
@@ -105,9 +105,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/produc
     // assign Smarty variables;
     $smarty->assign(
         array(
-            'oos_breadcrumb'     => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-            'oos_heading_title'  => $aLang['heading_title'],
-            'oos_heading_image'  => 'specials.gif',
+            'breadcrumb'     => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+            'heading_title'  => $aLang['heading_title'],
+            'heading_image'  => 'specials.gif',
 
             'oos_page_split'     => $specials_split->display_count($specials_numrows, MAX_DISPLAY_SPECIAL_PRODUCTS, $_GET['page'], $aLang['text_display_number_of_specials']),
             'oos_display_links'  => $specials_split->display_links($specials_numrows, MAX_DISPLAY_SPECIAL_PRODUCTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),

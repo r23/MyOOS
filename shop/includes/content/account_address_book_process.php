@@ -37,7 +37,7 @@ if (!isset($_SESSION['customer_id']))
     $_SESSION['navigation']->set_path_as_snapshot(1);
   }
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+  
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_address_book_process.php';
 
   if (isset($_GET['action']) && ($_GET['action'] == 'remove') && oos_is_not_null($_GET['entry_id']) ) {
@@ -264,7 +264,7 @@ if (!isset($_SESSION['customer_id']))
 // assign Smarty variables;
   $smarty->assign(
       array(
-          'oos_breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+          'breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
 
           'back_link'      => $back_link,
           'entry_id'       => $entry_id,
@@ -277,15 +277,15 @@ if (!isset($_SESSION['customer_id']))
   if (isset($_GET['action']) && $_GET['action'] == 'modify') {
     $smarty->assign(
         array(
-            'oos_heading_title' => $aLang['heading_title_modify_entry'],
-            'oos_heading_image' => 'address_book.gif'
+            'heading_title' => $aLang['heading_title_modify_entry'],
+            'heading_image' => 'address_book.gif'
         )
     );
   } else {
     $smarty->assign(
         array(
-            'oos_heading_title' => $aLang['heading_title_add_entry'],
-            'oos_heading_image' => 'address_book.gif'
+            'heading_title' => $aLang['heading_title_add_entry'],
+            'heading_image' => 'address_book.gif'
         )
     );
   }

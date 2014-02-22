@@ -37,7 +37,7 @@ if (!isset($_SESSION['customer_id']))
     oos_redirect(oos_href_link($aContents['account_history'], '', 'SSL'));
   }
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+  
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_history_info.php';
   require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 
@@ -76,9 +76,9 @@ if (!isset($_SESSION['customer_id']))
 // assign Smarty variables;
   $smarty->assign(
       array(
-          'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-          'oos_heading_title' => $aLang['heading_title'],
-          'oos_heading_image' => 'history.gif'
+          'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+          'heading_title' => $aLang['heading_title'],
+          'heading_image' => 'history.gif'
       )
   );
 

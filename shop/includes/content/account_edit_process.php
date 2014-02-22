@@ -37,7 +37,7 @@ if (!isset($_SESSION['customer_id']))
     oos_redirect(oos_href_link($aContents['account_edit'], '', 'SSL'));
   }
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+  
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_account_edit_process.php';
   require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
 
@@ -305,9 +305,9 @@ if (!isset($_SESSION['customer_id']))
 
     $smarty->assign(
         array(
-            'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-            'oos_heading_title' => $aLang['heading_title'],
-            'oos_heading_image' => 'account.gif',
+            'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+            'heading_title' => $aLang['heading_title'],
+            'heading_image' => 'account.gif',
 
             'email_address'     => $email_address,
             'show_password'     => $show_password

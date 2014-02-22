@@ -24,7 +24,7 @@ if (!isset($_SESSION['customer_id']))
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
 
-require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php'; 
+ 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_yourstore.php';
 
   $customerstable = $oostable['customers'];
@@ -58,9 +58,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_y
   // assign Smarty variables;
   $smarty->assign(
       array(
-          'oos_breadcrumb'       => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-          'oos_heading_title'    => $aLang['heading_title'],
-          'oos_heading_image'    => 'account.gif',
+          'breadcrumb'       => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+          'heading_title'    => $aLang['heading_title'],
+          'heading_image'    => 'account.gif',
 
           'account'              => $account,
           'gender'               => $gender

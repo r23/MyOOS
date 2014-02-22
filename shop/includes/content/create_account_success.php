@@ -22,7 +22,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+  
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account_success.php';
 
   $oBreadcrumb->add($aLang['navbar_title_1']);
@@ -48,9 +48,9 @@
   // assign Smarty variables;
   $smarty->assign(
       array(
-          'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-          'oos_heading_title' => $aLang['heading_title'],
-          'oos_heading_image' => 'man_on_board.gif',
+          'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+          'heading_title' => $aLang['heading_title'],
+          'heading_image' => 'man_on_board.gif',
 
           'origin_href' => $origin_href
       )

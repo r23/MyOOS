@@ -35,7 +35,7 @@
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
   }
 
-require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/tell_a_friend_tell_a_friend.php';
 
   $action = '';
@@ -147,9 +147,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/tell_a
 
   $smarty->assign(
       array(
-          'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-          'oos_heading_title' => sprintf($aLang['heading_title'], $product_info['products_name']),
-          'oos_heading_image' => 'specials.gif',
+          'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+          'heading_title' => sprintf($aLang['heading_title'], $product_info['products_name']),
+          'heading_image' => 'specials.gif',
 
           'valid_product'             => $valid_product,
           'product_info'              => $product_info,

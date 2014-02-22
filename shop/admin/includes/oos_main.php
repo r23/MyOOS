@@ -125,6 +125,31 @@ if (!isset($_SESSION['language']) || isset($_GET['language'])) {
 	}
 }
 
+// set the language
+$sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
+$nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_CUSTOMERS_STATUS_ID;
+if (!isset($_SESSION['language']) || isset($_GET['language']))
+{
+    // include the language class
+    include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_language.php';
+    $oLang = new language();
+
+    if (isset($_GET['language']) && is_string($_GET['language'])) {
+        $oLang->set_language($_GET['language']);
+    } else {
+        $oLang->get_browser_language();
+    }
+	
+    $sLanguage = $oLang->language['iso_639_2'];
+    $nLanguageID = $oLang->language['id'];
+		$_SESSION['language'] = $oLang->language['iso_639_2'];
+		$_SESSION['language_id'] = $oLang->language['id'];
+		$_SESSION['iso_639_1'] = $oLang->language['iso_639_1'];
+		$_SESSION['languages_name'] = $oLang->language['name'];
+		
+}
+
+
  
 
 // require the language translations

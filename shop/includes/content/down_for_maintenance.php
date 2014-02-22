@@ -23,7 +23,7 @@
     oos_redirect(oos_href_link($aContents['main']));
   }
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+  
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/info_down_for_maintenance.php';
 
   $aTemplate['page'] = $sTheme . '/system/info.tpl';
@@ -50,9 +50,9 @@
     // assign Smarty variables;
     $smarty->assign(
         array(
-            'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-            'oos_heading_title' => $aLang['heading_title'],
-            'oos_heading_image' => 'specials.gif'
+            'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+            'heading_title' => $aLang['heading_title'],
+            'heading_image' => 'specials.gif'
         )
     );
   }

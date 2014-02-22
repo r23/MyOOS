@@ -140,7 +140,7 @@ while ($configuration = $configuration_result->fields)
 }
 
 // set the language
-$sLanguage = DEFAULT_LANGUAGE;
+$sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
 $nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_CUSTOMERS_STATUS_ID;
 if (!isset($_SESSION['language']) || isset($_GET['language']))
 {
@@ -158,7 +158,7 @@ if (!isset($_SESSION['language']) || isset($_GET['language']))
         $oLang->get_browser_language();
     }
 	
-	$sLanguage = $oLang->language['iso_639_2'];
+    $sLanguage = $oLang->language['iso_639_2'];
     $nLanguageID = $oLang->language['id'];
 		
     if (isset($_SESSION))
@@ -170,6 +170,7 @@ if (!isset($_SESSION['language']) || isset($_GET['language']))
     }		
 		
 }
+include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
 
 include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_currencies.php';
 $oCurrencies = new currencies();

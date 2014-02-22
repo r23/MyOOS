@@ -28,7 +28,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 // split-page-results
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
-require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/reviews_reviews.php';
 
  /**
@@ -103,9 +103,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/review
 
     $smarty->assign(
         array(
-            'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-            'oos_heading_title' => $aLang['heading_title'],
-            'oos_heading_image' => 'specials.gif',
+            'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+            'heading_title' => $aLang['heading_title'],
+            'heading_image' => 'specials.gif',
 
             'oos_page_split'    => $reviews_split->display_count($reviews_numrows, MAX_DISPLAY_NEW_REVIEWS, $_GET['page'], $aLang['text_display_number_of_reviews']),
             'oos_display_links' => $reviews_split->display_links($reviews_numrows, MAX_DISPLAY_NEW_REVIEWS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),

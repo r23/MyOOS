@@ -110,6 +110,17 @@ header .logo h1 {
 .headnav ul li a:active {
   outline: 0;
 }
+#inner-headline {
+  background: #252525;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  color: #fefefe;
+}
+#inner-headline .inner-heading h2 {
+  color: #fff;
+  margin: 20px 0 0 0;
+}
 /*  Footer 
 ================================ */
 footer {

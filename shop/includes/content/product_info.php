@@ -31,7 +31,7 @@
     oos_redirect(oos_href_link($aContents['main']));
   }
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+  
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_info.php';
 
   $productstable = $oostable['products'];
@@ -68,9 +68,9 @@
 
     $smarty->assign(
         array(
-            'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-            'oos_heading_title' => $aLang['text_product_not_found'],
-            'oos_heading_image' => 'specials.gif'
+            'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+            'heading_title' => $aLang['text_product_not_found'],
+            'heading_image' => 'specials.gif'
         )
     );
 
@@ -93,7 +93,6 @@
     }
 
 
-    // $oos_pagetitle = OOS_META_TITLE . ' // ' . $oBreadcrumb->trail_title(' &raquo; ');
     $oos_pagetitle =  $product_info['products_name'] . ' - ' . OOS_META_TITLE ;
     $oos_meta_description = $product_info['products_description_meta'];
 
@@ -191,7 +190,7 @@
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/products_options.php';
 
     // assign Smarty variables;
-    $smarty->assign(array('oos_breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+    $smarty->assign(array('breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
                            'discounts_price' =>  $discounts_price));
 
     if (!isset($block_get_parameters)) {

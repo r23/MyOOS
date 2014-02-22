@@ -22,7 +22,7 @@
 /** ensure this file is being required by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_popup_coupon_help.php';
 
 

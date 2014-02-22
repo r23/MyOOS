@@ -29,7 +29,7 @@
 
   // split-page-results
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+  
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_history.php';
 
   $orderstable = $oostable['orders'];
@@ -88,9 +88,9 @@
 // assign Smarty variables;
   $smarty->assign(
       array(
-          'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-          'oos_heading_title' => $aLang['heading_title'],
-          'oos_heading_image' => 'history.gif',
+          'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+          'heading_title' => $aLang['heading_title'],
+          'heading_image' => 'history.gif',
 
           'oos_page_split'    => $history_split->display_count($history_numrows, MAX_DISPLAY_ORDER_HISTORY, $_GET['page'], $aLang['text_display_number_of_orders']),
           'oos_display_links' => $history_split->display_links($history_numrows, MAX_DISPLAY_ORDER_HISTORY, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),

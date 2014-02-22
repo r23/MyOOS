@@ -29,7 +29,7 @@ if (!isset($_SESSION['customer_id']))
 	oos_redirect(oos_href_link($aContents['main_shopping_cart']));
 }
 
-require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_success.php';
 
   if (isset($_GET['action']) && ($_GET['action'] == 'update')) {
@@ -132,11 +132,11 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checko
   // assign Smarty variables;
   $smarty->assign(
       array(
-          'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-          'oos_heading_title' => $aLang['heading_title'],
+          'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+          'heading_title' => $aLang['heading_title'],
 
           'products_notify' => $products_notify,
-          'oos_heading_image' => 'man_on_board.gif'
+          'heading_image' => 'man_on_board.gif'
       )
   );
 

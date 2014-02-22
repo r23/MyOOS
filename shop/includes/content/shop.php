@@ -23,7 +23,7 @@
 /** ensure this file is being required by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/main_shop.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
 
@@ -75,7 +75,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
       $smarty->setCacheLifetime(24 * 3600);
     }
 
-    $smarty->assign('oos_breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
+    $smarty->assign('breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
 
     if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
       $categoriestable = $oostable['categories'];
@@ -165,9 +165,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
 
       // assign Smarty variables;
       if ( (ALLOW_CATEGORY_DESCRIPTIONS == 'true') && (oos_is_not_null($category['categories_heading_title'])) ) {
-        $smarty->assign('oos_heading_title', $category['categories_heading_title']);
+        $smarty->assign('heading_title', $category['categories_heading_title']);
       } else {
-        $smarty->assign('oos_heading_title', $aLang['heading_title']);
+        $smarty->assign('heading_title', $aLang['heading_title']);
       }
       $smarty->assign(
           array(
@@ -213,9 +213,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
       $category = $dbconn->GetRow($sql);
 
       if (oos_is_not_null($category['categories_heading_title'])) {
-        $smarty->assign('oos_heading_title', $category['categories_heading_title']);
+        $smarty->assign('heading_title', $category['categories_heading_title']);
       } else {
-        $smarty->assign('oos_heading_title', $aLang['heading_title']);
+        $smarty->assign('heading_title', $aLang['heading_title']);
       }
       $smarty->assign('oos_meta_description', $category['categories_description_meta']);
     }
@@ -225,7 +225,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
       $smarty->setCacheLifetime(24 * 3600);
     }
 
-    $smarty->assign('oos_breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
+    $smarty->assign('breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
 
     if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
 

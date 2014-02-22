@@ -34,7 +34,7 @@ if (!isset($_SESSION['customer_id']))
 }
   // split-page-results
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+  
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_my_wishlist.php';
 
   $customers_wishlisttable = $oostable['customers_wishlist'];
@@ -161,9 +161,9 @@ if (!isset($_SESSION['customer_id']))
 // assign Smarty variables;
   $smarty->assign(
        array(
-           'oos_breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-           'oos_heading_title' => $aLang['heading_title'],
-           'oos_heading_image' => 'wishlist.gif',
+           'breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+           'heading_title' => $aLang['heading_title'],
+           'heading_image' => 'wishlist.gif',
 
            'oos_page_split' => $wishlist_split->display_count($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, $_GET['page'], $aLang['text_display_number_of_wishlist']),
            'oos_display_links' => $wishlist_split->display_links($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),

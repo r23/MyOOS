@@ -340,12 +340,14 @@ $aLang['text_unknown_tax_rate'] = 'Unbekannter Steuersatz';
 $aLang['text_required'] = 'erforderlich';
 $aLang['error_oos_mail'] = '<small>Fehler:</small> Die eMail kann nicht über den angegebenen SMTP-Server verschickt werden. Bitte kontrollieren Sie die Einstellungen in der php.ini Datei und führen Sie notwendige Korrekturen durch!';
 
+/*
 $aLang['warning_install_directory_exists'] = 'Warnung: Das Installationverzeichnis ist noch vorhanden auf: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/install. Bitte löschen Sie das Verzeichnis aus Gründen der Sicherheit!';
 $aLang['warning_config_file_writeable'] = 'Warnung: MyOOS [Shopsystem] kann in die Konfigurationsdatei schreiben: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php. Das stellt ein mögliches Sicherheitsrisiko dar - bitte korrigieren Sie die Benutzerberechtigungen zu dieser Datei!';
 $aLang['warning_session_auto_start'] = 'Warnung: session.auto_start ist enabled - Bitte disablen Sie dieses PHP Feature in der php.ini und starten Sie den WEB-Server neu!';
 $aLang['warning_download_directory_non_existent'] = 'Warnung: Das Verzeichnis für den Artikel Download existiert nicht: ' . OOS_DOWNLOAD_PATH . '. Diese Funktion wird nicht funktionieren bis das Verzeichnis erstellt wurde!';
 $aLang['warning_session_directory_non_existent'] = 'Warnung: Das Verzeichnis für die Sessions existiert nicht: ' . oos_session_save_path() . '. Die Sessions werden nicht funktionieren bis das Verzeichnis erstellt wurde!';
 $aLang['warning_session_directory_not_writeable'] = 'Warnung: MyOOS [Shopsystem] kann nicht in das Sessions Verzeichnis schreiben: ' . oos_session_save_path() . '. Die Sessions werden nicht funktionieren bis die richtigen Benutzerberechtigungen gesetzt wurden!';
+*/
 
 $aLang['text_ccval_error_invalid_date'] = 'Das \'Gültig bis\' Datum ist ungültig.<br>Bitte korrigieren Sie Ihre Angaben.';
 $aLang['text_ccval_error_invalid_number'] = 'Die \'KreditkarteNummer\', die Sie angegeben haben, ist ungültig.<br>Bitte korrigieren Sie Ihre Angaben.';
@@ -460,6 +462,6 @@ $aLang['text_shipping'] = 'zzgl. <a href="%s"><u>Versandkosten</u></a>.';
 $aLang['price'] = 'Preis';
 $aLang['price_from'] = 'Ab';
 
-$aLang['price_info'] = 'Alle Preise pro Stück in &euro; inkl. der gesetzlichen Mehrwertsteuer, zzgl. <a href="' . oos_href_link($aContents['information'], 'information_id=1') . '">Versandkostenpauschale</a>.';
+# $aLang['price_info'] = 'Alle Preise pro Stück in &euro; inkl. der gesetzlichen Mehrwertsteuer, zzgl. <a href="' . oos_href_link($aContents['information'], 'information_id=1') . '">Versandkostenpauschale</a>.';
 $aLang['support_info'] = 'Haben Sie noch Fragen? Sie erreichen uns über unser Kontaktformular.';
 

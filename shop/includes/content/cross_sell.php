@@ -19,7 +19,7 @@
     oos_redirect(oos_href_link($aContents['main']));
   }
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+  
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_cross_sell.php';
 
   $productstable = $oostable['products'];
@@ -51,9 +51,9 @@
     // assign Smarty variables;
     $smarty->assign(
         array(
-            'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-            'oos_heading_title' => $aLang['text_product_not_found'],
-            'oos_heading_image' => 'specials.gif'
+            'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+            'heading_title' => $aLang['text_product_not_found'],
+            'heading_image' => 'specials.gif'
         )
     );
 
@@ -82,7 +82,7 @@
       require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
     }
 
-    $smarty->assign('oos_breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
+    $smarty->assign('breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
 
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/slavery_products.php';
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/history_products.php';

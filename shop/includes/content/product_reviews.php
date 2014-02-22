@@ -32,7 +32,7 @@
     oos_redirect(oos_href_link($aContents['reviews_reviews']));
   }
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+  
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/reviews_product.php';
 
   // lets retrieve all $_GET keys and values..
@@ -89,9 +89,9 @@
 
   $smarty->assign(
       array(
-          'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-          'oos_heading_title' => sprintf($aLang['heading_title'], $product_info['products_name']),
-          'oos_heading_image' => 'reviews.gif',
+          'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+          'heading_title' => sprintf($aLang['heading_title'], $product_info['products_name']),
+          'heading_image' => 'reviews.gif',
 
           'oos_reviews_array' => $aReviews
       )

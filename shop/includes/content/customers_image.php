@@ -96,7 +96,7 @@ if (!isset($_SESSION['customer_id']))
     }
   }
 
-require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_customers_image.php';
 
   $customerstable = $oostable['customers'];
@@ -140,9 +140,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_c
   // assign Smarty variables;
   $smarty->assign(
       array(
-          'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-          'oos_heading_title' => $aLang['heading_title'],
-          'oos_heading_image' => 'contact_us.gif',
+          'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+          'heading_title' => $aLang['heading_title'],
+          'heading_image' => 'contact_us.gif',
 
           'customer'        => $customer,
           'gender'          => $gender,
