@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -28,4 +28,4 @@ define('MODULE_ORDER_TOTAL_SUBTOTAL_SORT_ORDER_DESC', 'Sort order of display.');
 
 $aLang['module_order_total_subtotal_title'] = 'Sub-Total';
 $aLang['module_order_total_subtotal_description'] = 'Order Sub-Total';
-?>
+

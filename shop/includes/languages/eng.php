@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -459,6 +459,6 @@ $aLang['text_shipping'] = 'excl. <a href="%s"><u>Shipping cost</u></a>.';
 
 $aLang['price'] = 'Preis';
 $aLang['price_from'] = 'from';
-$aLang['price_info'] = 'Alle Preise pro St&uuml;ck in &euro; inkl. der gesetzlichen Mehrwertsteuer, zzgl. <a href="' . oos_href_link($aContents['information'], 'information_id=1') . '">Versandkostenpauschale</a>.';
+$aLang['price_info'] = 'Alle Preise pro Stück in &euro; inkl. der gesetzlichen Mehrwertsteuer, zzgl. <a href="' . oos_href_link($aContents['information'], 'information_id=1') . '">Versandkostenpauschale</a>.';
 
 

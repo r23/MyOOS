@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -37,4 +37,4 @@ $aLang['text_no_products2'] = '<br /><span style="font-size:11px;">Your search -
 $aLang['text_buy'] = 'Buy 1 \'';
 $aLang['text_now'] = '\' now';
 $aLang['text_replacement_suggestion'] = 'You could also try: ';
-?>
+

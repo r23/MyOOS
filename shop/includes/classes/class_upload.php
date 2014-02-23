@@ -24,8 +24,8 @@
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
   class upload {
-    var $file;
-    var $filename;
+    var $sContent;
+    var $sContentname;
     var $destination;
     var $permissions;
     var $extensions;
@@ -33,8 +33,8 @@
     var $message_location;
 
 
-    function upload($file = '', $destination = '', $permissions = '644', $extensions = array('jpg', 'jpeg', 'gif', 'png', 'eps', 'cdr', 'ai', 'pdf', 'tif', 'tiff', 'bmp')) {
-      $this->set_file($file);
+    function upload($sContent = '', $destination = '', $permissions = '644', $extensions = array('jpg', 'jpeg', 'gif', 'png', 'eps', 'cdr', 'ai', 'pdf', 'tif', 'tiff', 'bmp')) {
+      $this->set_file($sContent);
       $this->set_destination($destination);
       $this->set_permissions($permissions);
       $this->set_extensions($extensions);
@@ -58,12 +58,12 @@
 
       if (isset($_FILES[$this->file])) {
         if (oos_is_not_null($key)) {
-          $file = array('name' => $_FILES[$this->file]['name'][$key],
+          $sContent = array('name' => $_FILES[$this->file]['name'][$key],
                         'type' => $_FILES[$this->file]['type'][$key],
                         'size' => $_FILES[$this->file]['size'][$key],
                         'tmp_name' => $_FILES[$this->file]['tmp_name'][$key]);
         } else {
-          $file = array('name' => $_FILES[$this->file]['name'],
+          $sContent = array('name' => $_FILES[$this->file]['name'],
                         'type' => $_FILES[$this->file]['type'],
                         'size' => $_FILES[$this->file]['size'],
                         'tmp_name' => $_FILES[$this->file]['tmp_name']);
@@ -71,21 +71,21 @@
       } elseif (isset($GLOBALS['HTTP_POST_FILES'][$this->file])) {
         global $HTTP_POST_FILES;
 
-        $file = array('name' => $HTTP_POST_FILES[$this->file]['name'],
+        $sContent = array('name' => $HTTP_POST_FILES[$this->file]['name'],
                       'type' => $HTTP_POST_FILES[$this->file]['type'],
                       'size' => $HTTP_POST_FILES[$this->file]['size'],
                       'tmp_name' => $HTTP_POST_FILES[$this->file]['tmp_name']);
       } else {
-        $file = array('name' => (isset($GLOBALS[$this->file . '_name']) ? $GLOBALS[$this->file . '_name'] : ''),
+        $sContent = array('name' => (isset($GLOBALS[$this->file . '_name']) ? $GLOBALS[$this->file . '_name'] : ''),
                       'type' => (isset($GLOBALS[$this->file . '_type']) ? $GLOBALS[$this->file . '_type'] : ''),
                       'size' => (isset($GLOBALS[$this->file . '_size']) ? $GLOBALS[$this->file . '_size'] : ''),
                       'tmp_name' => (isset($GLOBALS[$this->file]) ? $GLOBALS[$this->file] : ''));
       }
 
 
-      if ( oos_is_not_null($file['tmp_name']) && ($file['tmp_name'] != 'none') && is_uploaded_file($file['tmp_name']) ) {
+      if ( oos_is_not_null($sContent['tmp_name']) && ($sContent['tmp_name'] != 'none') && is_uploaded_file($sContent['tmp_name']) ) {
 
-        if (oos_is_not_null($file['size']) and ($file['size'] > 2048000)) {
+        if (oos_is_not_null($sContent['size']) and ($sContent['size'] > 2048000)) {
           if ($this->message_location == 'direct') {
             $oMessage->add('upload', $aLang['error_file_too_big'], 'error');
           } else {
@@ -95,7 +95,7 @@
         }
 
         if (sizeof($this->extensions) > 0) {
-          if (!in_array(strtolower(substr($file['name'], strrpos($file['name'], '.')+1)), $this->extensions)) {
+          if (!in_array(strtolower(substr($sContent['name'], strrpos($sContent['name'], '.')+1)), $this->extensions)) {
             if ($this->message_location == 'direct') {
               $oMessage->add('upload', $aLang['error_filetype_not_allowed'], 'error');
             } else {
@@ -105,9 +105,9 @@
           }
         }
 
-        $this->set_file($file);
-        $this->set_filename($file['name']);
-        $this->set_tmp_filename($file['tmp_name']);
+        $this->set_file($sContent);
+        $this->set_filename($sContent['name']);
+        $this->set_tmp_filename($sContent['tmp_name']);
 
         return $this->check_destination();
       } else {
@@ -142,8 +142,8 @@
       }
     }
 
-    function set_file($file) {
-      $this->file = $file;
+    function set_file($sContent) {
+      $this->file = $sContent;
     }
 
     function set_destination($destination) {
@@ -154,12 +154,12 @@
       $this->permissions = octdec($permissions);
     }
 
-    function set_filename($filename) {
-      $this->filename = $filename;
+    function set_filename($sContentname) {
+      $this->filename = $sContentname;
     }
 
-    function set_tmp_filename($filename) {
-      $this->tmp_filename = $filename;
+    function set_tmp_filename($sContentname) {
+      $this->tmp_filename = $sContentname;
     }
 
     function set_extensions($extensions) {

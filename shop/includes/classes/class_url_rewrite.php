@@ -39,7 +39,7 @@
       $aContents = oos_get_content();
       
 
-      if ( (in_array('category', $url_array)) || (in_array($aFilename['product_info'], $url_array)) ) {
+      if ( (in_array('category', $url_array)) || (in_array($aContents['product_info'], $url_array)) ) {
 
         $_filter = array( $aContents['shop'], oos_session_name(), oos_session_id());
 

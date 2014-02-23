@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -40,4 +40,4 @@ $aLang['text_email_subject'] = 'Your friend %s has recommended this great produc
 $aLang['text_email_intro'] = 'Hi %s!' . "\n\n" . 'Your friend, %s, thought that you would be interested in %s from %s.';
 $aLang['text_email_link'] = 'To view the product click on the link below or copy and paste the link into your web browser:' . "\n\n" . '%s';
 $aLang['text_email_signature'] = 'Regards,' . "\n\n" . '%s';
-?>
+

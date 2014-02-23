@@ -244,9 +244,9 @@
  * @return string response status code 201 (Created) if ok
  * @see RFC2518 "HTTP Extensions for Distributed Authoring WEBDAV"
  **/
-    function Put($uri, $filecontent) {
+    function Put($uri, $sContentcontent) {
       $uri = $this->makeUri($uri);
-      $this->requestBody = $filecontent;
+      $this->requestBody = $sContentcontent;
 
       if ($this->sendCommand('PUT ' . $uri . ' HTTP/' . $this->protocolVersion)) {
         $this->processReply();

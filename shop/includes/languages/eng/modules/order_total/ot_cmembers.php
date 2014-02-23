@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -45,4 +45,4 @@ $aLang['module_cmembers_title'] = 'Members Qty Discount';
 $aLang['module_cmembers_description'] = 'Members Qty Discount';
 $aLang['shipping_not_included'] = ' [Shipping not included]';
 $aLang['tax_not_included'] = ' [Tax not included]';
-?>
+

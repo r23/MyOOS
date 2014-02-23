@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -29,4 +29,4 @@ $aLang['sub_heading_text_1'] = 'To avoid having to sign in with every visit to %
 $aLang['sub_heading_text_2'] = 'Your password is only sent over the Internet using a secure link (SSL). Because of this secure link, the transmission of your password cannot be intercepted. Your password is stored on your computer in a Cookie. If your computer is accessible by others than yourself, we advise you <b>not</b> to use this feature.';
 $aLang['sub_heading_text_3'] = 'The use of the \'Automatic Sign In\' is optional. If you choose not to use this feature, you will need to login manually with each visit to %s.';
 $aLang['text_close_window'] = '[ close window ]';
-?>
+

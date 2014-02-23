@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -34,4 +34,4 @@ $aLang['text_order_cost'] = 'Order Cost:';
 $aLang['text_view_order'] = 'View Order';
 
 $aLang['text_no_purchases'] = 'You have not yet made any purchases.';
-?>
+

@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -93,4 +93,4 @@ $aLang['owner_email_newsletter_yes'] = 'Subscribed';
 $aLang['owner_email_newsletter_no'] = 'Unsubscribed';
 $aLang['email_separator'] = '------------------------------------------------------';
 
-?>
+

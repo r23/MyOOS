@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -29,4 +29,4 @@ $aLang['table_heading_quantity'] = 'Quantity';
 $aLang['table_heading_price'] = 'Price';
 $aLang['table_heading_weight'] = 'Weight';
 $aLang['table_heading_buy_now'] = 'Buy Now';
-?>
+

@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -30,4 +30,4 @@ $aLang['text_no_html'] = '<small><font color="#ff0000"><b>NOTE:</b></font></smal
 $aLang['text_bad'] = '<small><font color="#ff0000"><b>BAD</b></font></small>';
 $aLang['text_good'] = '<small><font color="#ff0000"><b>GOOD</b></font></small>';
 $aLang['error_invalid_product'] = 'That product is no longer available. Please try again.';
-?>
+

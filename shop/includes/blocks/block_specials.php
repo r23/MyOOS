@@ -26,7 +26,7 @@
 
   $specials_block = 'false';
 
-  if ($file != $aFilename['specials']) {
+  if ($sContent != $aContents['specials']) {
 
     $productstable = $oostable['products'];
     $products_descriptiontable = $oostable['products_description'];

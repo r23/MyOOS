@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -20,16 +20,16 @@
    ---------------------------------------------------------------------- */
 
 define('MODULE_SHIPPING_FLAT_STATUS_TITLE', 'Pauschale Versandkosten aktivieren');
-define('MODULE_SHIPPING_FLAT_STATUS_DESC', 'M&ouml;chten Sie Pauschale Versandkosten anbieten?');
+define('MODULE_SHIPPING_FLAT_STATUS_DESC', 'Möchten Sie Pauschale Versandkosten anbieten?');
 
 define('MODULE_SHIPPING_FLAT_COST_TITLE', 'Versandkosten');
-define('MODULE_SHIPPING_FLAT_COST_DESC', 'Versandkosten f&uuml;r alle Bestellungen unter dieser Versandmethode.');
+define('MODULE_SHIPPING_FLAT_COST_DESC', 'Versandkosten für alle Bestellungen unter dieser Versandmethode.');
 
 define('MODULE_SHIPPING_FLAT_TAX_CLASS_TITLE', 'Steuerklasse');
 define('MODULE_SHIPPING_FLAT_TAX_CLASS_DESC', 'Folgende Steuerklasse an Versandkosten anwenden.');
 
 define('MODULE_SHIPPING_FLAT_ZONE_TITLE', 'Erlaubte Versandzonen');
-define('MODULE_SHIPPING_FLAT_ZONE_DESC', 'Geben Sie <b>einzeln</b> die Zonen an, in welche ein Versand m&ouml;glich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
+define('MODULE_SHIPPING_FLAT_ZONE_DESC', 'Geben Sie <b>einzeln</b> die Zonen an, in welche ein Versand möglich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
 
 define('MODULE_SHIPPING_FLAT_SORT_ORDER_TITLE', 'Sortierreihenfolge');
 define('MODULE_SHIPPING_FLAT_SORT_ORDER_DESC', 'Reihenfolge der Anzeige');
@@ -37,4 +37,4 @@ define('MODULE_SHIPPING_FLAT_SORT_ORDER_DESC', 'Reihenfolge der Anzeige');
 $aLang['module_shipping_flat_text_title'] = 'Pauschale Versandkosten';
 $aLang['module_shipping_flat_text_description'] = 'Pauschale Versandkosten';
 $aLang['module_shipping_flat_text_way'] = '';
-?>
+

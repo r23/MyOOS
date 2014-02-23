@@ -112,10 +112,10 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/review
 
       if (is_dir($sLocaleDir)) {
         if ($dh = opendir($sLocaleDir)) {
-          while (($file = readdir($dh)) !== false) {
-            if ($file == '.' || $file == '..' || $file == 'CVS' || $file == 'default' || filetype($sLocaleDir . $file) == 'file' ) continue;
-            if (filetype(realpath($sLocaleDir . $file)) == 'dir') {
-              $aSkins[] = $file;
+          while (($sContent = readdir($dh)) !== false) {
+            if ($sContent == '.' || $sContent == '..' || $sContent == 'CVS' || $sContent == 'default' || filetype($sLocaleDir . $sContent) == 'file' ) continue;
+            if (filetype(realpath($sLocaleDir . $sContent)) == 'dir') {
+              $aSkins[] = $sContent;
             }
           }
           closedir($dh);

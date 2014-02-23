@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -44,4 +44,4 @@ define('MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS_DESC', 'Use the following tax c
 
 $aLang['module_order_total_loworderfee_title'] = 'Low Order Fee';
 $aLang['module_order_total_loworderfee_description'] = 'Low Order Fee';
-?>
+

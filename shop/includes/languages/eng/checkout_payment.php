@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -42,4 +42,4 @@ $aLang['text_continue_checkout_procedure'] = 'to confirm this order.';
 $aLang['heading_conditions_information'] = 'Conditions of Use';
 $aLang['text_conditions_confirm'] = 'I accept your conditions of use';
 $aLang['text_conditions_download'] = 'Download Conditions';
-?>
+

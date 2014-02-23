@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
 define('MODULE_ORDER_TOTAL_TOTAL_STATUS_TITLE', 'Summe anzeigen');
-define('MODULE_ORDER_TOTAL_TOTAL_STATUS_DESC', 'M&ouml;chten Sie die Gesamtbestellsumme anzeigen?');
+define('MODULE_ORDER_TOTAL_TOTAL_STATUS_DESC', 'Möchten Sie die Gesamtbestellsumme anzeigen?');
 
 define('MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER_TITLE', 'Sortierreihenfolge');
 define('MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kleinste Ziffer wird zuerst angezeigt.');
@@ -28,4 +28,3 @@ define('MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kle
 $aLang['module_order_total_total_title'] = '<b>Summe</b>';
 $aLang['module_order_total_total_description'] = 'Summe der Bestellung';
 
-?>

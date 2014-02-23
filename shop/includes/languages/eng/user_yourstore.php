@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -19,4 +19,4 @@ $aLang['text_up_sell_products'] = 'Best Value:';
 $aLang['table_heading_featured_products'] = 'Featured Products';
 $aLang['table_heading_products_history'] = 'Products History';
 
-?>
+

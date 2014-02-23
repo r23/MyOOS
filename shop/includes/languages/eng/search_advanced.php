@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -51,4 +51,4 @@ $aLang['js_price_from_must_be_num'] = '* Price From must be a number\n';
 $aLang['js_price_to_must_be_num'] = '* Price To must be a number\n';
 $aLang['js_price_to_less_than_price_from'] = '* Price To must be greater than or equal to Price From\n';
 $aLang['js_invalid_keywords'] = '* Invalid keywords\n';
-?>
+

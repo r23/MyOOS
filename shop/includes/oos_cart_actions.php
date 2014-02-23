@@ -146,13 +146,13 @@ if (isset($aData['action'])) {
 
               $products_options_file = new upload('id');
               $products_options_file->set_destination(OOS_UPLOADS);
-              $files_uploadedtable = $oostable['files_uploaded'];
+              $sContents_uploadedtable = $oostable['files_uploaded'];
 
               if ($products_options_file->parse(TEXT_PREFIX . $_POST[UPLOAD_PREFIX . $i])) {
                 if (isset($_SESSION['customer_id'])) {
-                  $dbconn->Execute("INSERT INTO " . $files_uploadedtable . " (sesskey, customers_id, files_uploaded_name) VALUES ('" . oos_session_id() . "', '" . intval($_SESSION['customer_id']) . "', '" . oos_db_input($products_options_file->filename) . "')");
+                  $dbconn->Execute("INSERT INTO " . $sContents_uploadedtable . " (sesskey, customers_id, files_uploaded_name) VALUES ('" . oos_session_id() . "', '" . intval($_SESSION['customer_id']) . "', '" . oos_db_input($products_options_file->filename) . "')");
                 } else {
-                  $dbconn->Execute("INSERT INTO " . $files_uploadedtable . " (sesskey, files_uploaded_name) VALUES ('" . oos_session_id() . "', '" . oos_db_input($products_options_file->filename) . "')");
+                  $dbconn->Execute("INSERT INTO " . $sContents_uploadedtable . " (sesskey, files_uploaded_name) VALUES ('" . oos_session_id() . "', '" . oos_db_input($products_options_file->filename) . "')");
                 }
                 $insert_id = $dbconn->Insert_ID();
                 $real_ids[TEXT_PREFIX . $_POST[UPLOAD_PREFIX . $i]] = $insert_id . ". " . $products_options_file->filename;

@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -82,4 +82,4 @@ $aLang['js_bank_name'] = 'Please enter the name of your bank!\n';
 $aLang['js_bank_number'] = 'Please enter your account number!\n';
 $aLang['js_bank_owner'] = 'Please enter the account holders name!\n';
 
-?>
+

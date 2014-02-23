@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -45,4 +45,4 @@ $aLang['module_payment_cc_text_credit_card_expires'] = 'Credit Card Expiry Date:
 $aLang['module_payment_cc_text_js_cc_owner'] = '* The owner\'s name of the credit card must be at least ' . CC_OWNER_MIN_LENGTH . ' characters.\n';
 $aLang['module_payment_cc_text_js_cc_number'] = '* The credit card number must be at least ' . CC_NUMBER_MIN_LENGTH . ' characters.\n';
 $aLang['module_payment_cc_text_error'] = 'Credit Card Error!';
-?>
+

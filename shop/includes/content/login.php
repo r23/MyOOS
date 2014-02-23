@@ -33,11 +33,11 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_l
 	$password = oos_prepare_input($_POST['password']);
 	
     if ( empty( $email_address ) || !is_string( $email_address ) ) {
-		oos_redirect_admin(oos_href_link_admin($aFilename['forbiden']));
+		oos_redirect_admin(oos_href_link_admin($aContents['forbiden']));
     }
 
     if ( empty( $password ) || !is_string( $password ) ) {
-		oos_redirect_admin(oos_href_link_admin($aFilename['forbiden']));
+		oos_redirect_admin(oos_href_link_admin($aContents['forbiden']));
     }
   
   

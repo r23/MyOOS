@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -22,4 +22,4 @@ This is how you can add items to your shopping list:<br>
 Every time you purchase products from our shop all items are added automatically to your shopping list.';
 
 
-?>
+

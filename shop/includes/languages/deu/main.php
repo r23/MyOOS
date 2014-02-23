@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -22,7 +22,7 @@
 
 $aLang['text_main'] = '';
 $aLang['table_heading_new_products'] = 'Neue Produkte';
-$aLang['table_heading_upcoming_products'] = 'Wann ist was verf&uuml;gbar';
+$aLang['table_heading_upcoming_products'] = 'Wann ist was verfügbar';
 $aLang['table_heading_date_expected'] = 'Datum';
 $aLang['table_heading_featured_products'] = 'Top-Angebote';
 $aLang['table_heading_featured_products_category'] = 'Top-Angebote';

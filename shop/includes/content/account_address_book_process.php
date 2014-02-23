@@ -33,7 +33,7 @@ if (!isset($_SESSION['customer_id']))
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
 
-  if ($_SESSION['navigation']->snapshot['file'] != $aFilename['account_address_book']) {
+  if ($_SESSION['navigation']->snapshot['file'] != $aContents['account_address_book']) {
     $_SESSION['navigation']->set_path_as_snapshot(1);
   }
 

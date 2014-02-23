@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -40,4 +40,4 @@ define('MODULE_PAYMENT_MONEYORDER_ORDER_STATUS_ID_DESC', 'Set the status of orde
 $aLang['module_payment_moneyorder_text_title'] = 'Check/Money Order';
 $aLang['module_payment_moneyorder_text_description'] = 'Make Payable To:&nbsp;' . MODULE_PAYMENT_MONEYORDER_PAYTO . '<br /><br />Send To:<br />' . nl2br(STORE_NAME . '<br />' . STORE_ADDRESS_STREET. '<br />' .  STORE_ADDRESS_POSTCODE . ' ' . STORE_ADDRESS_CITY) . '<br /><br />' . 'Your order will not ship until we receive payment.';
 $aLang['module_payment_moneyorder_text_email_footer'] = "Make Payable To: ". MODULE_PAYMENT_MONEYORDER_PAYTO . "\n\nSend To:\n" . STORE_NAME . '<br />' . STORE_ADDRESS_STREET. '<br />' .  STORE_ADDRESS_POSTCODE . ' ' . STORE_ADDRESS_CITY . "\n\n" . 'Your order will not ship until we receive payment.';
-?>
+

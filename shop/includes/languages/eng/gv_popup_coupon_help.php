@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -32,4 +32,4 @@ $aLang['text_coupon_help_date'] = '<br /><br />The coupon is valid between %s an
 $aLang['text_coupon_help_restrict'] = '<br /><br />Product/Category Restrictions';
 $aLang['text_coupon_help_categories'] = 'Category';
 $aLang['text_coupon_help_products'] = 'Product';
-?>
+

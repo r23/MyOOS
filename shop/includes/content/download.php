@@ -67,9 +67,9 @@
 
        // Loop and unlink files in subdirectory
        $h2 = opendir($dir . $subdir);
-       while ($file = readdir($h2)) {
-         if ($file == '.' || $file == '..') continue;
-         @unlink($dir . $subdir . '/' . $file);
+       while ($sContent = readdir($h2)) {
+         if ($sContent == '.' || $sContent == '..') continue;
+         @unlink($dir . $subdir . '/' . $sContent);
        }
 
        closedir($h2); 

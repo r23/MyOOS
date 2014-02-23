@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -21,9 +21,9 @@
    ---------------------------------------------------------------------- */
 
 $aLang['navbar_title_1'] = 'Ihr Konto';
-$aLang['navbar_title_2'] = 'Ihre get&auml;tigten Bestellungen';
+$aLang['navbar_title_2'] = 'Ihre getätigten Bestellungen';
 
-$aLang['heading_title'] = 'Ihre get&auml;tigten Bestellungen';
+$aLang['heading_title'] = 'Ihre getätigten Bestellungen';
 
 $aLang['text_order_number'] = 'Bestellnummer:';
 $aLang['text_order_status'] = 'Bestellstatus:';
@@ -33,5 +33,5 @@ $aLang['text_order_products'] = 'Artikel:';
 $aLang['text_order_cost'] = 'Summe:';
 $aLang['text_view_order'] = 'Bestellung ansehen';
 
-$aLang['text_no_purchases'] = 'Sie haben noch keine Bestellungen get&auml;tigt.';
-?>
+$aLang['text_no_purchases'] = 'Sie haben noch keine Bestellungen getätigt.';
+

@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -41,4 +41,4 @@ $aLang['text_new_payment_address_problem'] = 'Please check the new billing addre
 
 $aLang['title_continue_checkout_procedure'] = 'Continue Checkout Procedure';
 $aLang['text_continue_checkout_procedure'] = 'to select the preferred payment method.';
-?>
+

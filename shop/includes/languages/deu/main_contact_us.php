@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -25,7 +25,7 @@ $aLang['navbar_title'] = 'Kontakt';
 $aLang['text_success'] = 'Ihre Anfrage wurde erfolgreich an den Vertrieb gesendet.';
 $aLang['email_subject'] = 'Anfrage von ' . STORE_NAME;
 
-$aLang['entry_name'] = 'Vollst&auml;ndiger Name:';
+$aLang['entry_name'] = 'Vollständiger Name:';
 $aLang['entry_email'] = 'eMail-Adresse:';
 $aLang['entry_enquiry'] = 'Anfrage:';
-?>
+

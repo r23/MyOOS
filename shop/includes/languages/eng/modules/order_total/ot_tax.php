@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -31,4 +31,4 @@ $aLang['module_order_total_tax_title'] = 'Tax';
 $aLang['module_order_total_tax_description'] = 'Order Tax';
 $aLang['module_order_total_included_tax'] = 'inc ';
 $aLang['module_order_total_ex_tax'] = '+ ';  
-?>
+

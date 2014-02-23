@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -42,4 +42,3 @@ define('MODULE_PAYMENT_YELLOWPAY_ORDER_STATUS_ID_DESC', 'Set the status of order
 
 $aLang['module_payment_yellowpay_text_title'] = 'PostFinance';
 $aLang['module_payment_yellowpay_text_description'] = 'PostFinance';
-?>

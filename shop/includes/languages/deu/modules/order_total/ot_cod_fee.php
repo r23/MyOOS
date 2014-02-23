@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -42,40 +42,39 @@
    ---------------------------------------------------------------------- */
 
 
-define('MODULE_ORDER_TOTAL_COD_STATUS_TITLE',  'Nachnahmegeb&uuml;hr');
-define('MODULE_ORDER_TOTAL_COD_STATUS_DESC', 'Berechnung der Nachnahmegeb&uuml;hr');
+define('MODULE_ORDER_TOTAL_COD_STATUS_TITLE',  'Nachnahmegebühr');
+define('MODULE_ORDER_TOTAL_COD_STATUS_DESC', 'Berechnung der Nachnahmegebühr');
 
 define('MODULE_ORDER_TOTAL_COD_SORT_ORDER_TITLE', 'Sortierreihenfolge');
 define('MODULE_ORDER_TOTAL_COD_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kleinste Ziffer wird zuerst angezeigt.');
 
 define('MODULE_ORDER_TOTAL_COD_FEE_FLAT_TITLE', 'Pauschale Versandkosten');
-define('MODULE_ORDER_TOTAL_COD_FEE_FLAT_DESC', 'Pauschale Versandkosten: &lt;ISO2-Code&gt;:&lt;Preis&gt;, ....<br />00 als ISO2-Code erm&ouml;glicht den Nachnahmeversand in alle L&auml;nder. Wenn 00 verwendet wird, muss dieses als letztes Argument eingetragen werden. Wenn kein 00:9.99 eingetragen ist, wird der Nachnahmeversand ins Ausland nicht berechnet (nicht m&ouml;glich).');
+define('MODULE_ORDER_TOTAL_COD_FEE_FLAT_DESC', 'Pauschale Versandkosten: &lt;ISO2-Code&gt;:&lt;Preis&gt;, ....<br />00 als ISO2-Code ermöglicht den Nachnahmeversand in alle Länder. Wenn 00 verwendet wird, muss dieses als letztes Argument eingetragen werden. Wenn kein 00:9.99 eingetragen ist, wird der Nachnahmeversand ins Ausland nicht berechnet (nicht möglich).');
 
-define('MODULE_ORDER_TOTAL_COD_FEE_ITEM_TITLE', 'Versandkosten pro St&uuml;ck');
-define('MODULE_ORDER_TOTAL_COD_FEE_ITEM_DESC', 'Versandkosten pro St&uuml;ck: &lt;ISO2-Code&gt;:&lt;Preis&gt;, ....<br />00 als ISO2-Code erm&ouml;glicht den Nachnahmeversand in alle L&auml;nder. Wenn 00 verwendet wird, muss dieses als letztes Argument eingetragen werden. Wenn kein 00:9.99 eingetragen ist, wird der Nachnahmeversand ins Ausland nicht berechnet (nicht m&ouml;glich).');
+define('MODULE_ORDER_TOTAL_COD_FEE_ITEM_TITLE', 'Versandkosten pro Stück');
+define('MODULE_ORDER_TOTAL_COD_FEE_ITEM_DESC', 'Versandkosten pro Stück: &lt;ISO2-Code&gt;:&lt;Preis&gt;, ....<br />00 als ISO2-Code ermöglicht den Nachnahmeversand in alle Länder. Wenn 00 verwendet wird, muss dieses als letztes Argument eingetragen werden. Wenn kein 00:9.99 eingetragen ist, wird der Nachnahmeversand ins Ausland nicht berechnet (nicht möglich).');
 
 
 define('MODULE_ORDER_TOTAL_COD_FEE_TABLE_TITLE', 'Tabellarische Versandkosten');
-define('MODULE_ORDER_TOTAL_COD_FEE_TABLE_DESC', 'Tabellarische Versandkosten: &lt;ISO2-Code&gt;:&lt;Preis&gt;, ....<br />00 als ISO2-Code erm&ouml;glicht den Nachnahmeversand in alle L&auml;nder. Wenn 00 verwendet wird, muss dieses als letztes Argument eingetragen werden. Wenn kein 00:9.99 eingetragen ist, wird der Nachnahmeversand ins Ausland nicht berechnet (nicht m&ouml;glich).');
+define('MODULE_ORDER_TOTAL_COD_FEE_TABLE_DESC', 'Tabellarische Versandkosten: &lt;ISO2-Code&gt;:&lt;Preis&gt;, ....<br />00 als ISO2-Code ermöglicht den Nachnahmeversand in alle Länder. Wenn 00 verwendet wird, muss dieses als letztes Argument eingetragen werden. Wenn kein 00:9.99 eingetragen ist, wird der Nachnahmeversand ins Ausland nicht berechnet (nicht möglich).');
 
 define('MODULE_ORDER_TOTAL_COD_FEE_ZONES_TITLE', 'Versandkosten nach Zonen');
-define('MODULE_ORDER_TOTAL_COD_FEE_ZONES_DESC', 'Versandkosten nach Zonen: &lt;ISO2-Code&gt;:&lt;Preis&gt;, ....<br />00 als ISO2-Code erm&ouml;glicht den Nachnahmeversand in alle L&auml;nder. Wenn 00 verwendet wird, muss dieses als letztes Argument eingetragen werden. Wenn kein 00:9.99 eingetragen ist, wird der Nachnahmeversand ins Ausland nicht berechnet (nicht m&ouml;glich).');
+define('MODULE_ORDER_TOTAL_COD_FEE_ZONES_DESC', 'Versandkosten nach Zonen: &lt;ISO2-Code&gt;:&lt;Preis&gt;, ....<br />00 als ISO2-Code ermöglicht den Nachnahmeversand in alle Länder. Wenn 00 verwendet wird, muss dieses als letztes Argument eingetragen werden. Wenn kein 00:9.99 eingetragen ist, wird der Nachnahmeversand ins Ausland nicht berechnet (nicht möglich).');
 
-define('MODULE_ORDER_TOTAL_COD_FEE_AP_TITLE', '&Ouml;sterreichische Post AG');
-define('MODULE_ORDER_TOTAL_COD_FEE_AP_DESC', '&Ouml;sterreichische Post AG: &lt;ISO2-Code&gt;:&lt;Preis&gt;, ....<br />00 als ISO2-Code erm&ouml;glicht den Nachnahmeversand in alle L&auml;nder. Wenn 00 verwendet wird, muss dieses als letztes Argument eingetragen werden. Wenn kein 00:9.99 eingetragen ist, wird der Nachnahmeversand ins Ausland nicht berechnet (nicht m&ouml;glich).');
+define('MODULE_ORDER_TOTAL_COD_FEE_AP_TITLE', 'Österreichische Post AG');
+define('MODULE_ORDER_TOTAL_COD_FEE_AP_DESC', 'Österreichische Post AG: &lt;ISO2-Code&gt;:&lt;Preis&gt;, ....<br />00 als ISO2-Code ermöglicht den Nachnahmeversand in alle Länder. Wenn 00 verwendet wird, muss dieses als letztes Argument eingetragen werden. Wenn kein 00:9.99 eingetragen ist, wird der Nachnahmeversand ins Ausland nicht berechnet (nicht möglich).');
 
 define('MODULE_ORDER_TOTAL_COD_FEE_CHP_TITLE', 'The Swiss Post');
-define('MODULE_ORDER_TOTAL_COD_FEE_CHP_DESC', 'The Swiss Post: &lt;ISO2-Code&gt;:&lt;Preis&gt;, ....<br />00 als ISO2-Code erm&ouml;glicht den Nachnahmeversand in alle L&auml;nder. Wenn 00 verwendet wird, muss dieses als letztes Argument eingetragen werden. Wenn kein 00:9.99 eingetragen ist, wird der Nachnahmeversand ins Ausland nicht berechnet (nicht m&ouml;glich).');
+define('MODULE_ORDER_TOTAL_COD_FEE_CHP_DESC', 'The Swiss Post: &lt;ISO2-Code&gt;:&lt;Preis&gt;, ....<br />00 als ISO2-Code ermöglicht den Nachnahmeversand in alle Länder. Wenn 00 verwendet wird, muss dieses als letztes Argument eingetragen werden. Wenn kein 00:9.99 eingetragen ist, wird der Nachnahmeversand ins Ausland nicht berechnet (nicht möglich).');
 
 
 define('MODULE_ORDER_TOTAL_COD_FEE_DP_TITLE', 'Deutsche Post AG');
-define('MODULE_ORDER_TOTAL_COD_FEE_DP_DESC', 'Deutsche Post AG: &lt;ISO2-Code&gt;:&lt;Preis&gt;, ....<br />00 als ISO2-Code erm&ouml;glicht den Nachnahmeversand in alle L&auml;nder. Wenn 00 verwendet wird, muss dieses als letztes Argument eingetragen werden. Wenn kein 00:9.99 eingetragen ist, wird der Nachnahmeversand ins Ausland nicht berechnet (nicht m&ouml;glich).');
+define('MODULE_ORDER_TOTAL_COD_FEE_DP_DESC', 'Deutsche Post AG: &lt;ISO2-Code&gt;:&lt;Preis&gt;, ....<br />00 als ISO2-Code ermöglicht den Nachnahmeversand in alle Länder. Wenn 00 verwendet wird, muss dieses als letztes Argument eingetragen werden. Wenn kein 00:9.99 eingetragen ist, wird der Nachnahmeversand ins Ausland nicht berechnet (nicht möglich).');
 
 define('MODULE_ORDER_TOTAL_COD_TAX_CLASS_TITLE', 'Steuerklasse');
-define('MODULE_ORDER_TOTAL_COD_TAX_CLASS_DESC', 'W&auml;hlen Sie eine Steuerklasse.');
+define('MODULE_ORDER_TOTAL_COD_TAX_CLASS_DESC', 'Wählen Sie eine Steuerklasse.');
 
-$aLang['module_order_total_cod_title'] = 'Nachnahmegeb&uuml;hr';
-$aLang['module_order_total_cod_description'] = 'Nachnahmegeb&uuml;hr';
+$aLang['module_order_total_cod_title'] = 'Nachnahmegebühr';
+$aLang['module_order_total_cod_description'] = 'Nachnahmegebühr';
 
 
-?>

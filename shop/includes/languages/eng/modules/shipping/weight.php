@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -49,4 +49,4 @@ $aLang['module_shipping_weight_text_description'] = 'Weight-dependent Shipping C
 $aLang['module_shipping_weight_text_way'] = 'Shipping Cost';
 $aLang['module_shipping_weight_text_weight'] = 'Weight';
 $aLang['module_shipping_weight_text_amount'] = 'Amount';
-?>
+

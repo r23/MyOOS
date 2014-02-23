@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -35,4 +35,4 @@ $aLang['table_heading_download_date'] = 'Expiry date: ';
 $aLang['table_heading_download_count'] = ' downloads remain.';
 $aLang['heading_download'] = 'Download your products here:';
 $aLang['footer_download'] = 'You can also download your products at a later time at \'%s\'';
-?>
+

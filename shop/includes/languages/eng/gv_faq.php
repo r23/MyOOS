@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -82,4 +82,4 @@ validated and added to your Gift Voucher account. You Can then use the amount to
   by email at '. STORE_OWNER_EMAIL_ADDRESS . '. Please make sure you give 
   as much information as possible in the email. ';
 
-?>
+

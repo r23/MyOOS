@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -44,14 +44,14 @@
 define('MODULE_SHIPPING_CHP_STATUS_TITLE', 'Schweizerische Post');
 define('MODULE_SHIPPING_CHP_STATUS_DESC', 'Wollen Sie den Versand ber die schweizerische Post anbieten?');
 
-define('MODULE_SHIPPING_CHP_HANDLING_TITLE', 'Handling Geb&uuml;hr');
+define('MODULE_SHIPPING_CHP_HANDLING_TITLE', 'Handling Gebühr');
 define('MODULE_SHIPPING_CHP_HANDLING_DESC', 'Bearbeitungsgebhr fr diese Versandart in CHF');
 
 define('MODULE_SHIPPING_CHP_TAX_CLASS_TITLE', 'Steuersatz');
-define('MODULE_SHIPPING_CHP_TAX_CLASS_DESC', 'W&uuml;hlen Sie den MwSt.-Satz f&uuml;r diese Versandart aus.');
+define('MODULE_SHIPPING_CHP_TAX_CLASS_DESC', 'Wühlen Sie den MwSt.-Satz für diese Versandart aus.');
 
 define('MODULE_SHIPPING_CHP_ZONE_TITLE', 'Versand Zone');
-define('MODULE_SHIPPING_CHP_ZONE_DESC', 'Geben Sie <b>einzeln</b> die Zonen an, in welche ein Versand m&ouml;glich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
+define('MODULE_SHIPPING_CHP_ZONE_DESC', 'Geben Sie <b>einzeln</b> die Zonen an, in welche ein Versand möglich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
 
 define('MODULE_SHIPPING_CHP_SORT_ORDER_TITLE', 'Reihenfolge der Anzeige');
 define('MODULE_SHIPPING_CHP_SORT_ORDER_DESC', 'Niedrigste wird zuerst angezeigt.');
@@ -145,6 +145,6 @@ $aLang['module_shipping_chp_text_title'] = 'Schweizerische Post';
 $aLang['module_shipping_chp_text_description'] = 'Die Schweizerische Post';
 $aLang['module_shipping_chp_text_way'] = 'Versand nach';
 $aLang['module_shipping_chp_text_units'] = 'kg';
-$aLang['module_shipping_chp_invalid_zone'] = 'Es ist leider kein Versand in dieses Land m&ouml;glich';
-$aLang['module_shipping_chp_undefined_rate'] = 'Die Versandkosten k&ouml;nnen im Moment nicht errechnet werden';
-?>
+$aLang['module_shipping_chp_invalid_zone'] = 'Es ist leider kein Versand in dieses Land möglich';
+$aLang['module_shipping_chp_undefined_rate'] = 'Die Versandkosten können im Moment nicht errechnet werden';
+

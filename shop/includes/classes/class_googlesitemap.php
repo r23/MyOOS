@@ -42,11 +42,11 @@
    class GoogleSitemap{
 
     /**
-     * $filename is the base name of the feeds (i.e. - 'sitemap')
+     * $sContentname is the base name of the feeds (i.e. - 'sitemap')
      *
      * @var string
      */
-     var $filename;
+     var $sContentname;
 
     /**
      * $savepath is the path where the feeds will be saved - store root
@@ -90,34 +90,34 @@
      * @return boolean
      */
      function SaveFile($data, $type){
-       $filename = $this->savepath . $this->filename . $type;
+       $sContentname = $this->savepath . $this->filename . $type;
        $compress = defined('GOOGLE_SITEMAP_COMPRESS') ? GOOGLE_SITEMAP_COMPRESS : 'false';
        if ($type == 'index') $compress = 'false';
        switch($compress){
          case 'true':
-           $filename .= '.xml.gz';
-           if ($gz = gzopen($filename,'wb9')){
+           $sContentname .= '.xml.gz';
+           if ($gz = gzopen($sContentname,'wb9')){
              gzwrite($gz, $data);
              gzclose($gz);
-             $this->debug['SAVE_FILE_COMPRESS'][] = array('file' => $filename, 'status' => 'success', 'file_exists' => 'true');
+             $this->debug['SAVE_FILE_COMPRESS'][] = array('file' => $sContentname, 'status' => 'success', 'file_exists' => 'true');
              return true;
            } else {
-             $file_check = file_exists($filename) ? 'true' : 'false';
-             $this->debug['SAVE_FILE_COMPRESS'][] = array('file' => $filename, 'status' => 'failure', 'file_exists' => $file_check);
+             $sContent_check = file_exists($sContentname) ? 'true' : 'false';
+             $this->debug['SAVE_FILE_COMPRESS'][] = array('file' => $sContentname, 'status' => 'failure', 'file_exists' => $sContent_check);
              return false;
            }
            break;
 
          default:
-           $filename .= '.xml';
-           if ($fp = fopen($filename, 'w+')){
+           $sContentname .= '.xml';
+           if ($fp = fopen($sContentname, 'w+')){
              fwrite($fp, $data);
              fclose($fp);
-             $this->debug['SAVE_FILE_XML'][] = array('file' => $filename, 'status' => 'success', 'file_exists' => 'true');
+             $this->debug['SAVE_FILE_XML'][] = array('file' => $sContentname, 'status' => 'success', 'file_exists' => 'true');
              return true;
            } else {
-            $file_check = file_exists($filename) ? 'true' : 'false';
-            $this->debug['SAVE_FILE_XML'][] = array('file' => $filename, 'status' => 'failure', 'file_exists' => $file_check);
+            $sContent_check = file_exists($sContentname) ? 'true' : 'false';
+            $this->debug['SAVE_FILE_XML'][] = array('file' => $sContentname, 'status' => 'failure', 'file_exists' => $sContent_check);
             return false;
            }
            break;
@@ -129,14 +129,14 @@
     /**
      * Function to compress a normal file
      *
-     * @param string $file
+     * @param string $sContent
      * @return boolean
      */
-     function CompressFile($file){
-       $source = $this->savepath . $file . '.xml';
-       $filename = $this->savepath . $file . '.xml.gz';
+     function CompressFile($sContent){
+       $source = $this->savepath . $sContent . '.xml';
+       $sContentname = $this->savepath . $sContent . '.xml.gz';
        $error_encountered = false;
-       if ( $gz_out = gzopen($filename, 'wb9') ){
+       if ( $gz_out = gzopen($sContentname, 'wb9') ){
          if ($fp_in = fopen($source,'rb')){
            while (!feof($fp_in)) gzwrite($gz_out, fread($fp_in, 1024*512));
              fclose($fp_in);
@@ -159,9 +159,9 @@
      * Function to generate sitemap file from data
      *
      * @param array $data
-     * @param string $file
+     * @param string $sContent
      */
-     function GenerateSitemap($data, $file) {
+     function GenerateSitemap($data, $sContent) {
        $content = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
        $content .= '<urlset xmlns="http://www.google.com/schemas/sitemap/0.84">' . "\n";
        foreach ($data as $url){
@@ -173,7 +173,7 @@
          $content .= "\t" . '</url>' . "\n";
        }
        $content .= '</urlset>';
-       return $this->SaveFile($content, $file);
+       return $this->SaveFile($content, $sContent);
     }
 
 
@@ -190,11 +190,11 @@
                   ? "{sitemap*.xml.gz}"
                     : "{sitemap*.xml}"
                     : "{sitemap*.xml}";
-       foreach ( glob($this->savepath . $pattern, GLOB_BRACE) as $filename ) {
-         if ( preg_match('/index/', $filename) ) continue;
+       foreach ( glob($this->savepath . $pattern, GLOB_BRACE) as $sContentname ) {
+         if ( preg_match('/index/', $sContentname) ) continue;
          $content .= "\t" . '<sitemap>' . "\n";
-         $content .= "\t\t" . '<loc>'.$this->base_url . basename($filename).'</loc>' . "\n";
-         $content .= "\t\t" . '<lastmod>'.date ("Y-m-d", filemtime($filename)).'</lastmod>' . "\n";
+         $content .= "\t\t" . '<loc>'.$this->base_url . basename($sContentname).'</loc>' . "\n";
+         $content .= "\t\t" . '<lastmod>'.date ("Y-m-d", filemtime($sContentname)).'</lastmod>' . "\n";
          $content .= "\t" . '</sitemap>' . "\n";
        }
        $content .= '</sitemapindex>';
@@ -370,12 +370,12 @@
     /**
      * Utility function to read and return the contents of a GZ formatted file
      *
-     * @param string $file File to open
+     * @param string $sContent File to open
      * @return string
      */
-     function ReadGZ( $file ){
-       $file = $this->savepath . $file;
-       $lines = gzfile($file);
+     function ReadGZ( $sContent ){
+       $sContent = $this->savepath . $sContent;
+       $lines = gzfile($sContent);
        return implode('', $lines);
     }
 

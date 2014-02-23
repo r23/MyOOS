@@ -24,7 +24,7 @@
 
   if (!$oEvent->installed_plugin('reviews')) return false;
 
-  if ($sFile != $aFilename['product_reviews_write']) {
+  if ($sContent != $aContents['product_reviews_write']) {
     $reviews_block = 'true';
 
     $reviewstable  = $oostable['reviews'];

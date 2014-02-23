@@ -123,7 +123,7 @@ $sPagetitle = $aLang['heading_title'];
   } else {
     $condition_link = OOS_HTTP_SERVER;
   }
-  $condition_link .= OOS_SHOP . OOS_MEDIA . $sLanguage . '/' . $aFilename['conditions_download'];
+  $condition_link .= OOS_SHOP . OOS_MEDIA . $sLanguage . '/' . $aContents['conditions_download'];
 
   ob_start();
   require 'js/checkout_payment.js.php';

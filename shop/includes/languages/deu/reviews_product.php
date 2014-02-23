@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -28,4 +28,4 @@ $aLang['table_heading_rating'] = 'Bewertung';
 $aLang['table_heading_read'] = 'Gelesen';
 $aLang['table_heading_date_added'] = 'Datum';
 $aLang['text_of_5_stars'] = '%s von 5 Sternen!';
-?>
+

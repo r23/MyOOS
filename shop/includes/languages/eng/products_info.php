@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -46,4 +46,4 @@ $aLang['table_heading_buy_now'] = 'Buy Now';
 // modules/slavery_listing.php
 $aLang['text_buy'] = 'Buy 1 \'';
 $aLang['text_now'] = '\' now';
-?>
+

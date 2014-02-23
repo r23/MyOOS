@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -35,4 +35,4 @@ $aLang['text_no_web_search_results'] = 'Sorry! Your search returned no matches.'
 
 $aLang['error_at_least_one_input'] = 'At least one of the fields in the search form must be entered.';
 $aLang['error_invalid_keywords'] = 'Invalid keywords.';
-?>
+

@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -22,14 +22,14 @@
 
 $aLang['heading_coupon_help'] = 'Rabatt Coupon Hilfe';
 $aLang['text_close_window'] = 'Fenster schliessen [x]';
-$aLang['text_coupon_help_header'] = 'Herzlichen Gl&uml;ckwunsch, sie haben ein Rabatt Coupon eingel&ouml;st.';
+$aLang['text_coupon_help_header'] = 'Herzlichen Gl&uml;ckwunsch, sie haben ein Rabatt Coupon eingelöst.';
 $aLang['text_coupon_help_name'] = '<br /><br />Coupon Name : %s';
 $aLang['text_coupon_help_fixed'] = '<br /><br />Mit diesem Coupon erhalten Sie %s Rabatt auf Ihre Bestellung';
-$aLang['text_coupon_help_minorder'] = '<br /><br />Sie m&uml;ssen %s ausgeben um den Coupon einzul&ouml;sen';
+$aLang['text_coupon_help_minorder'] = '<br /><br />Sie m&uml;ssen %s ausgeben um den Coupon einzulösen';
 $aLang['text_coupon_help_freeship'] = '<br /><br />Mit diesem Coupon bezahlen Sie keine Versandkosten bei dieser Bestellung';
 $aLang['text_coupon_help_desc'] = '<br /><br />Coupon Beschreibung : %s';
-$aLang['text_coupon_help_date'] = '<br /><br />Der Coupon ist g&uuml;ltig zwischen %s und %s';
-$aLang['text_coupon_help_restrict'] = '<br /><br />Produkte/Kategorie Einschr&auml;nkungen';
+$aLang['text_coupon_help_date'] = '<br /><br />Der Coupon ist gültig zwischen %s und %s';
+$aLang['text_coupon_help_restrict'] = '<br /><br />Produkte/Kategorie Einschränkungen';
 $aLang['text_coupon_help_categories'] = 'Kategorie';
 $aLang['text_coupon_help_products'] = 'Produkt';
-?>
+

@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -28,14 +28,14 @@ define('MODULE_SHIPPING_TABLE_COST_DESC', 'The shipping cost is based on the tot
 define('MODULE_SHIPPING_TABLE_MODE_TITLE', 'Table Method');
 define('MODULE_SHIPPING_TABLE_MODE_DESC', 'The shipping cost is based on the order total or the total weight of the items ordered.');
 
-define('MODULE_SHIPPING_TABLE_HANDLING_TITLE', 'Handling Geb&uuml;hr');
-define('MODULE_SHIPPING_TABLE_HANDLING_DESC', 'Handling Geb&uuml;hr f&uuml;r diese Versandart.');
+define('MODULE_SHIPPING_TABLE_HANDLING_TITLE', 'Handling Gebühr');
+define('MODULE_SHIPPING_TABLE_HANDLING_DESC', 'Handling Gebühr für diese Versandart.');
 
 define('MODULE_SHIPPING_TABLE_TAX_CLASS_TITLE', 'Steuerklasse');
 define('MODULE_SHIPPING_TABLE_TAX_CLASS_DESC', 'Folgende Steuerklasse an Versandkosten anwenden.');
 
 define('MODULE_SHIPPING_TABLE_ZONE_TITLE', 'Erlaubte Versandzonen');
-define('MODULE_SHIPPING_TABLE_ZONE_DESC', 'Geben Sie <b>einzeln</b> die Zonen an, in welche ein Versand m&ouml;glich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
+define('MODULE_SHIPPING_TABLE_ZONE_DESC', 'Geben Sie <b>einzeln</b> die Zonen an, in welche ein Versand möglich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
 
 define('MODULE_SHIPPING_TABLE_SORT_ORDER_TITLE', 'Sortierreihenfolge');
 define('MODULE_SHIPPING_TABLE_SORT_ORDER_DESC', 'Reihenfolge der Anzeige');
@@ -45,4 +45,4 @@ $aLang['module_shipping_table_text_description'] = 'Tabellarische Versandkosten'
 $aLang['module_shipping_table_text_way'] = '';
 $aLang['module_shipping_table_text_weight'] = 'Gewicht';
 $aLang['module_shipping_table_text_amount'] = 'Menge';
-?>
+

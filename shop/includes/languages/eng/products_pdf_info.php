@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
   
@@ -29,4 +29,4 @@ $aLang['text_products_price'] = 'Price : ';
 $aLang['text_products_specials_price'] = 'Special price : ';
 $aLang['text_products_specials_price_expires'] = '! The Offer Expires on : ';
 $aLang['text_page'] = 'Page';
-?>
+

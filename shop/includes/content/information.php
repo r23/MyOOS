@@ -39,7 +39,7 @@ if (!isset($option))
 
 if ( (USE_CACHE == 'true') && (!isset($_SESSION)) )
 {
-    $smarty->setCachingsetCaching(Smarty::CACHING_LIFETIME_CURRENT);
+    $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
     $smarty->setCacheLifetime(3600);
 }
 

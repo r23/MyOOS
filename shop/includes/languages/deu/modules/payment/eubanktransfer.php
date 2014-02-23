@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -47,7 +47,7 @@ define('MODULE_PAYMENT_EU_BANKTRANSFER_BIC_TITLE', 'Your account BIC / SWIFT cod
 define('MODULE_PAYMENT_EU_BANKTRANSFER_BIC_DESC', 'International bank id.<br />(ask your bank if you don\'t know it)');
 
 define('MODULE_PAYMENT_EU_BANKTRANSFER_ZONE_TITLE', 'Zahlungszone');
-define('MODULE_PAYMENT_EU_BANKTRANSFER_ZONE_DESC',  'Wenn eine Zone ausgew&auml;hlt ist, gilt die Zahlungsmethode nur f&uuml;r diese Zone.');
+define('MODULE_PAYMENT_EU_BANKTRANSFER_ZONE_DESC',  'Wenn eine Zone ausgewählt ist, gilt die Zahlungsmethode nur für diese Zone.');
 
 define('MODULE_PAYMENT_EU_BANKTRANSFER_SORT_ORDER_TITLE', 'Anzeigereihenfolge');
 define('MODULE_PAYMENT_EU_BANKTRANSFER_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kleinste Ziffer wird zuerst angezeigt.');
@@ -58,7 +58,7 @@ define('MODULE_PAYMENT_EU_BANKTRANSFER_ORDER_STATUS_ID_DESC', 'Bestellungen, wel
 
 $aLang['module_payment_eu_banktransfer_text_title'] = 'European Bank Transfer';
 $aLang['module_payment_eu_banktransfer_text_description'] = '<br />Die einfachste Zahlungsmethode innerhalb der EU ist die &Uuml;berweisung mittels IBAN und BIC.' .
-                                                            '<br />Bitte verwenden Sie folgende Daten f&uuml;r die &Uuml;berweisung des Gesamtbetrages:<br />' .
+                                                            '<br />Bitte verwenden Sie folgende Daten für die &Uuml;berweisung des Gesamtbetrages:<br />' .
                                                             '<br />Name der Bank: ' . MODULE_PAYMENT_EU_BANKTRANSFER_BANKNAME .
                                                             '<br />Kontoname: ' . MODULE_PAYMENT_EU_BANKTRANSFER_KONTONAME .
                                                             '<br />Kontonummer: ' . MODULE_PAYMENT_EU_BANKTRANSFER_KONTONUM .
@@ -77,4 +77,3 @@ $aLang['module_payment_eu_banktransfer_email_footer'] = 'Die einfachste Zahlungs
                                                         'Die Ware wird ausgeliefert wenn der Betrag auf unserem Konto eingegangen ist.';
 
 
-?>

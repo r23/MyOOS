@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
 define('MODULE_CMEMBERS_STATUS_TITLE', 'Kundenrabatt nach Menge');
-define('MODULE_CMEMBERS_STATUS_DESC', 'M&ouml;chten Sie Kundenrabatt nach Menge verwenden?');
+define('MODULE_CMEMBERS_STATUS_DESC', 'Möchten Sie Kundenrabatt nach Menge verwenden?');
 
 define('MODULE_CMEMBERS_SORT_ORDER_TITLE', 'Sortierreihenfolge');
 define('MODULE_CMEMBERS_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kleinste Ziffer wird zuerst angezeigt.');
@@ -45,4 +45,3 @@ $aLang['module_cmembers_description'] = 'Kundenrabatt nach Menge';
 $aLang['shipping_not_included'] = ' [Versandkosten nicht enthalten]';
 $aLang['tax_not_included'] = ' [MwSt. nicht enthalten]';
 
-?>

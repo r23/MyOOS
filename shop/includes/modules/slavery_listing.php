@@ -262,8 +262,7 @@
                  $lc_text = '<form name="buy_slave" action="' . OOS_HTTP_SERVER . OOS_SHOP . 'index.php" method="post">';
                  $lc_text .= '<input type="hidden" name="action" value="buy_slave">';
                  $lc_text .= '<input type="hidden" name="slave_id" value="' . $listing['products_id'] .'">';
-                 $lc_text .= '<input type="hidden" name="mp" value="' . $sMp .'">';
-                 $lc_text .= '<input type="hidden" name="file" value="' . $sFile .'">';
+                 $lc_text .= '<input type="hidden" name="content" value="' . $sContent .'">';
                  $lc_text .= '<input type="hidden" name="category" value="' . $category .'">';
                  $lc_text .= '<input type="hidden" name="products_id" value="' . $nProductsId .'">';
                  $lc_text .= oos_hide_session_id();

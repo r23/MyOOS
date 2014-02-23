@@ -49,7 +49,7 @@
 
   $shopping_cart_detail .= '    <td class="tableHeading">' . $aLang['table_heading_products'] . '</td>' . "\n";
 
-  if ($sFile != $aFilename['main_shopping_cart']) {
+  if ($sContent != $aContents['main_shopping_cart']) {
     $colspan++;
     $shopping_cart_detail .= '    <td align="center" class="tableHeading">' . $aLang['table_heading_tax'] . '</td>' . "\n";
   }
@@ -135,12 +135,12 @@
     $shopping_cart_detail .= '</td>' . "\n";
 
     // Tax (not in shopping cart, tax rate may be unknown)
-    if ($sFile != $aFilename['main_shopping_cart']) {
+    if ($sContent != $aContents['main_shopping_cart']) {
       $shopping_cart_detail .= '    <td align="center" valign="top" class="main">' . number_format($products[$i]['tax'], TAX_DECIMAL_PLACES) . '%</td>' . "\n";
     }
 
     // Product price 
-    if ($sFile != $aFilename['account_history_info']) {
+    if ($sContent != $aContents['account_history_info']) {
       $shopping_cart_detail .= '    <td align="right" valign="top" class="main"><b>' . $oCurrencies->display_price($products[$i]['price'], oos_get_tax_rate($products[$i]['tax_class_id']), $products[$i]['quantity']) . '</b>';
     } else {
       $shopping_cart_detail .= '    <td align="right" valign="top" class="main"><b>' . $oCurrencies->display_price($products[$i]['price'], $products[$i]['tax'], $products[$i]['quantity']) . '</b>';
@@ -151,7 +151,7 @@
       reset($products[$i]['attributes']);
       while (list($option, $value) = each($products[$i]['attributes'])) {
         if ($products[$i][$option]['options_values_price'] != 0) {
-          if ($sFile != $aFilename['account_history_info']) {
+          if ($sContent != $aContents['account_history_info']) {
             $shopping_cart_detail .= '<br /><small><i>' . $products[$i][$option]['price_prefix'] . $oCurrencies->display_price($products[$i][$option]['options_values_price'], oos_get_tax_rate($products[$i]['tax_class_id']), $products[$i]['quantity']) . '</i></small>';
           } else {
             $shopping_cart_detail .= '<br /><small><i>' . $products[$i][$option]['price_prefix'] . $oCurrencies->display_price($products[$i][$option]['options_values_price'], $products[$i]['tax'], $products[$i]['quantity']) . '</i></small>';

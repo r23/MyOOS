@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -50,4 +50,4 @@ $aLang['OWNER_EMAIL_NEWSLETTER_YES'] = 'Subscribed';
 $aLang['OWNER_EMAIL_NEWSLETTER_NO'] = 'Unsubscribed';
 $aLang['EMAIL_SEPARATOR'] = '------------------------------------------------------';
 
-?>
+

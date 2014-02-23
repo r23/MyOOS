@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -22,4 +22,4 @@
 
 $aLang['navbar_title'] = 'Specials';
 $aLang['heading_title'] = 'Get Them While They\'re Hot!';
-?>
+

@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -39,4 +39,4 @@ $aLang['heading_order_comments'] = 'Comments About Your Order';
 $aLang['text_edit'] = 'Edit';
 $aLang['heading_conditions_information'] = 'Right of revocation';
 $aLang['heading_conditions_text'] = 'Put here your information about the right of revocation.';
-?>
+

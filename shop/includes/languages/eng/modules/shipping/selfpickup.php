@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -31,4 +31,4 @@ define('MODULE_SHIPPING_SELFPICKUP_SORT_ORDER_DESC', 'Sort order of display.');
 $aLang['module_shipping_selfpickup_text_title'] = 'Self Pickup';
 $aLang['module_shipping_selfpickup_text_description'] = 'Pickup By The Customer';
 $aLang['module_shipping_selfpickup_text_way'] = 'Self Pickup at our Company.';
-?>
+

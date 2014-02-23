@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on: 
    
@@ -31,4 +31,4 @@ $aLang['table_heading_location'] = 'Location';
 $aLang['text_no_entries_in_address_book'] = 'You have no entries in your address book!';
 $aLang['text_maximum_entries'] = '<font color="#ff0000"><b>NOTE:</b></font> A maximum of %s address book entries allowed.';
 $aLang['text_maximum_entries_reached'] = '<font color="#ff0000"><b>NOTE:</b></font> Maximum of %s address book entries reached.';
-?>
+

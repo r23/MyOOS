@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -28,4 +28,4 @@ $aLang['email_subject'] = 'Enquiry from ' . STORE_NAME;
 $aLang['entry_name'] = 'Full Name:';
 $aLang['entry_email'] = 'E-Mail Address:';
 $aLang['entry_enquiry'] = 'Enquiry:';
-?>
+

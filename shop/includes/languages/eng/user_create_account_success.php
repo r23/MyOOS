@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -25,4 +25,4 @@ $aLang['navbar_title_2'] = 'Success';
 $aLang['heading_title'] = 'Your Account Has Been Created!';
 $aLang['text_main'] = 'Congratulations! Your new account has been successfully created! You can now take advantage of member priviledges to enhance your online shopping experience with us. If you have <small><b>ANY</b></small> questions about the operation of this online shop, please email the <a href="' . oos_href_link($aContents['contact_us']) . '">store owner</a>.<br /><br />A confirmation has been sent to the provided email address. If you have not received it within the hour, please <a href="' . oos_href_link($aContents['contact_us']) . '">contact us</a>.';
 $aLang['text_information'] = '';
-?>
+

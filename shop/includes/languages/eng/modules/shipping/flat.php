@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -38,4 +38,4 @@ define('MODULE_SHIPPING_FLAT_SORT_ORDER_DESC', 'Sort order of display.');
 $aLang['module_shipping_flat_text_title'] = 'Flat Rate';
 $aLang['module_shipping_flat_text_description'] = 'Flat Rate';
 $aLang['module_shipping_flat_text_way'] = 'Best Way';
-?>
+

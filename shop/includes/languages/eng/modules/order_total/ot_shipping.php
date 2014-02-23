@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -40,4 +40,4 @@ $aLang['module_order_total_shipping_description'] = 'Order Shipping Cost';
 
 $aLang['free_shipping_title'] = 'Free Shipping';
 $aLang['free_shipping_description'] = 'Free shipping for orders over %s';
-?>
+
