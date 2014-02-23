@@ -54,7 +54,10 @@
 
 		$aContents = oos_get_content();
  
-		if (!isset($_GET['content']) || ($_GET['content'] != $aContents['info_down_for_maintenance'])) {
+		if (!isset($_GET['content']) 
+			|| ($_GET['content'] != $aContents['info_down_for_maintenance']) 
+			&& ($_GET['content'] != $aContents['information'])) 
+		{
 			oos_redirect(oos_href_link($aContents['info_down_for_maintenance'], '', 'NONSSL', FALSE, TRUE));
 		}
 
