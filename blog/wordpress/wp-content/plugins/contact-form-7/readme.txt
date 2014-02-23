@@ -4,7 +4,7 @@ Donate link: http://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 3.6
 Tested up to: 3.8.1
-Stable tag: 3.7
+Stable tag: 3.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,7 +60,7 @@ The following are other recommended plugins by the author of Contact Form 7.
 * German (de_DE) - [Marcel Spitau](http://blog.spitau.de), [Ivan Graf](http://blog.bildergallery.com/)
 * Greek (el) - [Nick Mouratidis](http://www.kepik.gr/), [Pr. friedlich](http://friedlich.wordpress.com/)
 * Gujarati (gu_IN) - [Apoto](http://www.apoto.com/)
-* Haitian (ht) - Biz.O
+* Haitian (ht) - [Lam Tu Do](http://bizover.net/)
 * Hebrew (he_IL) - [Yaron Ofer](http://www.gadgetguru.co.il/), [Arik Galansky](http://www.arikg.co.il/)
 * Hindi (hi_IN) - [Tarun Joshi](http://www.readers-cafe.net/), [Ashish](http://outshinesolutions.com/)
 * Hungarian (hu_HU) - [Andras Hirschler](http://hia.itblog.hu/), [János Csárdi-Braunstein](http://blogocska.org/), [Farkas Győző](http://www.sakraft.hu/)
@@ -69,7 +69,7 @@ The following are other recommended plugins by the author of Contact Form 7.
 * Irish (ga_IE) - [Vikas Arora](http://www.wiznicworld.com/)
 * Italian (it_IT) - [Bruno](http://www.brunosalzano.com), [Gianni Diurno](http://gidibao.net/)
 * Japanese (ja) - [Takayuki Miyoshi](http://ideasilo.wordpress.com)
-* Korean (ko_KR) - Seong Eun Lee, [Jong-In Kim](http://incommunity.codex.kr/wordpress/)
+* Korean (ko_KR) - Seong Eun Lee, [Jong-In Kim](http://incommunity.codex.kr/wordpress/), [martian36](http://martian36.tistory.com/)
 * Latvian (lv) - [Sandis Veinbergs](http://www.kleofass.lv/)
 * Lithuanian (lt_LT) - [Ernestas Kardzys](http://www.ernestas.info/), [Vincent G](http://www.host1free.com/), [Mantas Malcius](http://mantas.malcius.lt/)
 * Macedonian (mk_MK) - [Darko](http://www.findermind.com/)
@@ -95,7 +95,7 @@ The following are other recommended plugins by the author of Contact Form 7.
 * Ukrainian (uk) - [Andrey Kovba](http://myserver.com.ua/), [Ukrainian WordPress localization team](http://wordpress.co.ua/plugins/contact-form-7.html)
 * Vietnamese (vi) - Thanh Hải, Hà, [Khang Minh](http://betterwp.net/)
 
-If you have created your own language pack, or have an update of an existing one, you can send [gettext PO and MO files](http://codex.wordpress.org/Translating_WordPress) to [me](http://ideasilo.wordpress.com/about/) so that I can bundle it into Contact Form 7. You can download the latest [POT file](http://plugins.svn.wordpress.org/contact-form-7/trunk/languages/wpcf7.pot), and [PO files in each language](http://plugins.svn.wordpress.org/contact-form-7/branches/languages/).
+If you have created your own language pack, or have an update of an existing one, you can send [gettext PO and MO files](http://codex.wordpress.org/Translating_WordPress) to [me](http://ideasilo.wordpress.com/about/) so that I can bundle it into Contact Form 7. You can download the latest [POT file](http://plugins.svn.wordpress.org/contact-form-7/trunk/languages/contact-form-7.pot), and [PO files in each language](http://plugins.svn.wordpress.org/contact-form-7/branches/languages/).
 
 == Installation ==
 
@@ -121,6 +121,12 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 1. screenshot-1.png 
 
 == Changelog ==
+
+= 3.7.1 =
+
+* The jQuery Form Plugin (jquery.form.js) has been updated to 3.49.0.
+* Fixed a bug of auto-p formatting around [response].
+* Translations for Russian, Korean, Hungarian, and German have been updated.
 
 = 3.7 =
 
