@@ -28,7 +28,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
  *
  * @category   MyOOS [Shopsystem]
  * @package    Navigation History
- * @copyright  Copyright (c) 2003 - 2013 by the MyOOS Development Team. (http://www.oos-shop.de/)
+ * @copyright  Copyright (c) 2003 - 2014 by the MyOOS Development Team. (http://www.oos-shop.de/)
  * @license    http://www.gnu.org/licenses/gpl.html GNU General Public License
  */
 class oosNavigationHistory
