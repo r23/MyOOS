@@ -22,8 +22,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if (!$oEvent->installed_plugin('manufacturers')) return false;
-
+  if (!$oEvent->installed_plugin('manufacturers')) return FALSE;
   $manufacturer_info_block = 'false';
 
   if (isset($_GET['products_id'])) {

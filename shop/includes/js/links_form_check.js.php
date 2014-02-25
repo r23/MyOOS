@@ -36,7 +36,7 @@ function check_input(field_name, field_size, message) {
 
     if (field_value == '' || field_value.length < field_size) {
       error_message = error_message + "* " + message + "\n";
-      error = true;
+      error = TRUE;
     }
   }
 }
@@ -44,8 +44,7 @@ function check_input(field_name, field_size, message) {
 function check_form(form_name) {
   if (submitted == true) {
     alert("<?php echo $aLang['js_error_submitted']; ?>");
-    return false;
-  }
+    return FALSE;  }
 
   error = false;
   form = form_name;
@@ -60,9 +59,8 @@ function check_form(form_name) {
 
   if (error == true) {
     alert(error_message);
-    return false;
-  } else {
-    submitted = true;
+    return FALSE;  } else {
+    submitted = TRUE;
     return true;
   }
 }

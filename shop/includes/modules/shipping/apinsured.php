@@ -42,7 +42,7 @@
    ---------------------------------------------------------------------- */
 
   class apinsured {
-    var $code, $title, $description, $icon, $num_ap_insured, $enabled = false;
+    var $code, $title, $description, $icon, $num_ap_insured, $enabled = FALSE;
 
 // class constructor
     function apinsured() {
@@ -54,10 +54,10 @@
       $this->sort_order = (defined('MODULE_SHIPPING_AP_INSURED_SORT_ORDER') ? MODULE_SHIPPING_AP_INSURED_SORT_ORDER : null);
       $this->icon = OOS_ICONS . 'shipping_ap.gif';
       $this->tax_class = (defined('MODULE_SHIPPING_AP_INSURED_TAX_CLASS') ? MODULE_SHIPPING_AP_INSURED_TAX_CLASS : null);
-      $this->enabled = (defined('MODULE_SHIPPING_AP_INSURED_STATUS') && (MODULE_SHIPPING_AP_INSURED_STATUS == 'True') ? true : false);
+      $this->enabled = (defined('MODULE_SHIPPING_AP_INSURED_STATUS') && (MODULE_SHIPPING_AP_INSURED_STATUS == 'True') ? TRUE : FALSE);
 
       if ( ($this->enabled == true) && ((int)MODULE_SHIPPING_AP_INSURED_ZONE > 0) ) {
-        $check_flag = false;
+        $check_flag = FALSE;
 
         // Get database information
         $dbconn =& oosDBGetConn();
@@ -67,10 +67,10 @@
         $check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_SHIPPING_AP_INSURED_ZONE . "' AND zone_country_id = '" . $oOrder->delivery['country']['id'] . "' ORDER BY zone_id");
         while ($check = $check_result->fields) {
           if ($check['zone_id'] < 1) {
-            $check_flag = true;
+            $check_flag = TRUE;
             break;
           } elseif ($check['zone_id'] == $oOrder->delivery['zone_id']) {
-            $check_flag = true;
+            $check_flag = TRUE;
             break;
           }
 
@@ -81,8 +81,8 @@
         // Close result set
         $check_result->Close();
 
-        if ($check_flag == false) {
-          $this->enabled = false;
+        if ($check_flag == FALSE) {
+          $this->enabled = FALSE;
         }
       }
 
@@ -96,7 +96,7 @@
 
       $dest_country = $oOrder->delivery['country']['iso_code_2'];
       $dest_zone = 0;
-      $error = false;
+      $error = FALSE;
 
       for ($i=1; $i<=$this->num_ap_insured; $i++) {
         $countries_table = constant('MODULE_SHIPPING_AP_INSURED_COUNTRIES_' . $i);
@@ -108,7 +108,7 @@
       }
 
       if ($dest_zone == 0) {
-        $error = true;
+        $error = TRUE;
       } else {
         $shipping = -1;
         $ap_insured_cost = constant('MODULE_SHIPPING_AP_INSURED_COST_' . $i);

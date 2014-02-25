@@ -44,7 +44,7 @@ if (!isset($_SESSION['customer_id']))
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_payment_address.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php'; 
   
-  $error = false;
+  $error = FALSE;
   $process = 'false';
   if (isset($_POST['action']) && ($_POST['action'] == 'submit')) {
 // process a new billing address
@@ -148,7 +148,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
         }
       }
 
-      if ($error == false) {
+      if ($error == FALSE) {
         $address_booktable = $oostable['address_book'];
         $sql = "SELECT max(address_book_id) AS address_book_id
                 FROM $address_booktable
@@ -193,11 +193,11 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
       }
 // process the selected billing destination
     } elseif (isset($_POST['address'])) {
-      $reset_payment = false;
+      $reset_payment = FALSE;
       if (isset($_SESSION['billto'])) {
         if ($_SESSION['billto'] != $_POST['address']) {
           if (isset($_SESSION['payment'])) {
-            $reset_payment = true;
+            $reset_payment = TRUE;
           }
         }
       }

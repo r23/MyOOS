@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   class ot_subtotal {
-    var $title, $output, $enabled = false;
+    var $title, $output, $enabled = FALSE;
 
     function ot_subtotal() {
       global $aLang;
@@ -28,7 +28,7 @@
       $this->code = 'ot_subtotal';
       $this->title = $aLang['module_order_total_subtotal_title'];
       $this->description = $aLang['module_order_total_subtotal_description'];
-      $this->enabled = (defined('MODULE_ORDER_TOTAL_SUBTOTAL_STATUS') && (MODULE_ORDER_TOTAL_SUBTOTAL_STATUS == 'true') ? true : false);
+      $this->enabled = (defined('MODULE_ORDER_TOTAL_SUBTOTAL_STATUS') && (MODULE_ORDER_TOTAL_SUBTOTAL_STATUS == 'true') ? TRUE : FALSE);
       $this->sort_order = (defined('MODULE_ORDER_TOTAL_SUBTOTAL_SORT_ORDER') ? MODULE_ORDER_TOTAL_SUBTOTAL_SORT_ORDER : null);
 
       $this->output = array();

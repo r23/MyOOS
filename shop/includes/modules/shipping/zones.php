@@ -102,7 +102,7 @@
    ---------------------------------------------------------------------- */
 
   class zones {
-    var $code, $title, $description, $num_zones, $enabled = false;
+    var $code, $title, $description, $num_zones, $enabled = FALSE;
 
 // class constructor
     function zones() {
@@ -114,9 +114,9 @@
       $this->sort_order = (defined('MODULE_SHIPPING_ZONES_SORT_ORDER') ? MODULE_SHIPPING_ZONES_SORT_ORDER : null);
       $this->icon = '';
       $this->tax_class = (defined('MODULE_SHIPPING_ZONES_TAX_CLASS') ? MODULE_SHIPPING_ZONES_TAX_CLASS : null);
-      $this->enabled = (defined('MODULE_SHIPPING_ZONES_STATUS') && (MODULE_SHIPPING_ZONES_STATUS == 'True') ? true : false);
+      $this->enabled = (defined('MODULE_SHIPPING_ZONES_STATUS') && (MODULE_SHIPPING_ZONES_STATUS == 'True') ? TRUE : FALSE);
 
-      $this->enabled = ((MODULE_SHIPPING_ZONES_STATUS == 'True') ? true : false);
+      $this->enabled = ((MODULE_SHIPPING_ZONES_STATUS == 'True') ? TRUE : FALSE);
 
       // CUSTOMIZE THIS SETTING FOR THE NUMBER OF ZONES NEEDED
       $this->num_zones = 2;
@@ -128,7 +128,7 @@
 
       $dest_country = $oOrder->delivery['country']['iso_code_2'];
       $dest_zone = 0;
-      $error = false;
+      $error = FALSE;
 
       for ($i=1; $i<=$this->num_zones; $i++) {
         $countries_table = constant('MODULE_SHIPPING_ZONES_COUNTRIES_' . $i);
@@ -140,7 +140,7 @@
       }
 
       if ($dest_zone == 0) {
-        $error = true;
+        $error = TRUE;
       } else {
         $shipping = -1;
         $zones_cost = constant('MODULE_SHIPPING_ZONES_COST_' . $dest_zone);

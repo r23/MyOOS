@@ -65,14 +65,14 @@ function processChange() {
 }
 
 function getObject(name) {
-   var ns4 = (document.layers) ? true : false;
-   var w3c = (document.getElementById) ? true : false;
-   var ie4 = (document.all) ? true : false;
+   var ns4 = (document.layers) ? TRUE : FALSE;
+   var w3c = (document.getElementById) ? TRUE : FALSE;
+   var ie4 = (document.all) ? TRUE : FALSE;
 
    if (ns4) return eval('document.' + name);
    if (w3c) return document.getElementById(name);
    if (ie4) return eval('document.all.' + name);
-   return false; 
+   return FALSE 
 }
 
 
@@ -104,7 +104,7 @@ function check_form() {
   if ( ((keywords == '') || (keywords.length < 1)) && ((dfrom == '') || (dfrom == '<?php echo DOB_FORMAT_STRING; ?>') || (dfrom.length < 1)) && ((dto == '') || (dto == '<?php echo DOB_FORMAT_STRING; ?>') || (dto.length < 1)) && ((pfrom == '') || (pfrom.length < 1)) && ((pto == '') || (pto.length < 1)) ) {
     error_message = error_message + "<?php echo decode($aLang['js_at_least_one_input']); ?>";
     error_field = document.advanced_search.keywords;
-    error_found = true;
+    error_found = TRUE;
   }
 <?php
   } else {
@@ -112,7 +112,7 @@ function check_form() {
   if ( ((keywords == '') || (keywords.length < 1)) && ((dfrom.length < 1)) && ((dto == '') || (dto == '<?php echo DOB_FORMAT_STRING; ?>') || (dto.length < 1))  && ((pto == '') || (pto.length < 1)) ) {
     error_message = error_message + "<?php echo decode($aLang['js_at_least_one_input']); ?>";
     error_field = document.advanced_search.keywords;
-    error_found = true;
+    error_found = TRUE;
   }
 <?php
   }
@@ -121,7 +121,7 @@ function check_form() {
     if (!IsValidDate(dfrom, '<?php echo DOB_FORMAT_STRING; ?>')) {
       error_message = error_message + "<?php echo decode($aLang['js_invalid_from_date']); ?>";
       error_field = document.advanced_search.dfrom;
-      error_found = true;
+      error_found = TRUE;
     }
   }
 
@@ -129,7 +129,7 @@ function check_form() {
     if (!IsValidDate(dto, '<?php echo DOB_FORMAT_STRING; ?>')) {
       error_message = error_message + "<?php echo decode($aLang['js_invalid_to_date']); ?>";
       error_field = document.advanced_search.dto;
-      error_found = true;
+      error_found = TRUE;
     }
   }
 
@@ -137,7 +137,7 @@ function check_form() {
     if (!CheckDateRange(document.advanced_search.dfrom, document.advanced_search.dto)) {
       error_message = error_message + "<?php echo decode($aLang['js_to_date_less_than_from_date']); ?>";
       error_field = document.advanced_search.dto;
-      error_found = true;
+      error_found = TRUE;
     }
   }
 <?php
@@ -148,7 +148,7 @@ function check_form() {
     if (isNaN(pfrom_float)) {
       error_message = error_message + "<?php echo decode($aLang['js_price_to_must_be_num']); ?>";
       error_field = document.advanced_search.pfrom;
-      error_found = true;
+      error_found = TRUE;
     }
   } else {
     pfrom_float = 0;
@@ -159,7 +159,7 @@ function check_form() {
     if (isNaN(pto_float)) {
       error_message = error_message + "<?php echo decode($aLang['js_price_to_must_be_num']); ?>";
       error_field = document.advanced_search.pto;
-      error_found = true;
+      error_found = TRUE;
     }
   } else {
     pto_float = 0;
@@ -169,7 +169,7 @@ function check_form() {
     if ( (!isNaN(pfrom_float)) && (!isNaN(pto_float)) && (pto_float < pfrom_float) ) {
       error_message = error_message + "<?php echo decode($aLang['js_price_to_less_than_price_from']); ?>";
       error_field = document.advanced_search.pto;
-      error_found = true;
+      error_found = TRUE;
     }
   }
 <?php
@@ -178,8 +178,7 @@ function check_form() {
   if (error_found == true) {
     alert(error_message);
     error_field.focus();
-    return false;
-  } else {
+    return FALSE;  } else {
 <?php
   if ($_SESSION['member']->group['show_price'] == 1 ) {
 ?>

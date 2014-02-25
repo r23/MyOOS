@@ -39,7 +39,7 @@
 
       $this->name          = PLUGIN_EVENT_MAIL_NAME;
       $this->description   = PLUGIN_EVENT_MAIL_DESC;
-      $this->uninstallable = true;
+      $this->uninstallable = TRUE;
       $this->preceeds      = 'session';
       $this->author        = 'OOS Development Team';
       $this->version       = '1.0';

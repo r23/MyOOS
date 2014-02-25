@@ -40,7 +40,7 @@ if (!isset($_SESSION['customer_id']))
   
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_redeem.php';
 
-  $bError = true;
+  $bError = TRUE;
 // check for a voucher number in the url
   if ( (isset($_GET['gv_no']) && !empty($_GET['gv_no'])) ) {
     $couponstable = $oostable['coupons'];
@@ -61,7 +61,7 @@ if (!isset($_SESSION['customer_id']))
       if ($redeem_result->RecordCount() == 0 ) {
         // check for require_onced session variables
         $_SESSION['gv_id'] = $coupon['coupon_id'];
-        $bError = false;
+        $bError = FALSE;
       }
     }
   } else {

@@ -40,8 +40,7 @@ function checkForm() {
 
   if (error == 1) {
     alert(error_message);
-    return false;
-  } else {
+    return FALSE;  } else {
     return true;
   }
 }

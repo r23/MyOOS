@@ -22,8 +22,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if (!is_numeric(MAX_DISPLAY_WISHLIST_BOX)) return false;
-
+  if (!is_numeric(MAX_DISPLAY_WISHLIST_BOX)) return FALSE;
   $wishlist_block = 'false';
 
   if ($sContent != $aContents['account_my_wishlist']) {

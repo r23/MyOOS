@@ -23,8 +23,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if (!is_numeric(MAX_DISPLAY_NEW_PRODUCTS)) return false;
-
+  if (!is_numeric(MAX_DISPLAY_NEW_PRODUCTS)) return FALSE;
   if ( (!isset($new_products_category_id)) || ($new_products_category_id == '0') ) {
     $productstable = $oostable['products'];
     $products_descriptiontable = $oostable['products_description'];

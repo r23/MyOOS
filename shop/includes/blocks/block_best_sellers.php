@@ -22,8 +22,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if (!is_numeric(MAX_DISPLAY_BESTSELLERS)) return false;
-
+  if (!is_numeric(MAX_DISPLAY_BESTSELLERS)) return FALSE;
   $best_sellers_block = 'false';
 
   if (isset($nCurrentCategoryId) && ($nCurrentCategoryId > 0)) {

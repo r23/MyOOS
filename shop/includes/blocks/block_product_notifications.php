@@ -22,8 +22,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if (!$oEvent->installed_plugin('notify')) return false;
-
+  if (!$oEvent->installed_plugin('notify')) return FALSE;
   $notifications_block = 'false';
 
   if (isset($_GET['products_id'])) {
@@ -43,9 +42,9 @@
                 WHERE products_id = '" . intval($nProductsId) . "'
                   AND customers_id = '" . intval($_SESSION['customer_id']) . "'";
       $check = $dbconn->Execute($query);
-      $notification_exists = (($check->fields['total'] > 0) ? true : false);
+      $notification_exists = (($check->fields['total'] > 0) ? TRUE : FALSE);
     } else {
-      $notification_exists = false;
+      $notification_exists = FALSE;
     }
 
     $products_name = oos_get_products_name($nProductsId);

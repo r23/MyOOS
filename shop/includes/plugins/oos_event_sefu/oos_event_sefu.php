@@ -39,7 +39,7 @@
 
       $this->name          = PLUGIN_EVENT_SEFU_NAME;
       $this->description   = PLUGIN_EVENT_SEFU_DESC;
-      $this->uninstallable = true;
+      $this->uninstallable = TRUE;
       $this->preceeds      = 'session';
       $this->author        = 'OOS Development Team';
       $this->version       = '1.0';
@@ -152,8 +152,7 @@
       $template = 'htaccess' . $htaccess_cgi . '_rewrite.tpl';
 
       if (!($a = file(OOS_TEMP_PATH . 'htaccess/' . $template, 1))) {
-        return false;
-      }
+        return FALSE;      }
 
       $content = str_replace(
                    array(
@@ -174,8 +173,7 @@
                 );
       $fp = @fopen(OOS_ABSOLUTE_PATH . '.htaccess', 'w');
       if (!$fp) {
-        return false;
-      } else {
+        return FALSE;      } else {
         // Check if an old htaccess file existed and try to preserve its contents. Otherwise completely wipe the file.
         if ($htaccess != '' && preg_match('@^(.*)#\s+BEGIN\s+OOS.*#\s+END\s+OOS(.*)$@isU', $htaccess, $match)) {
           // Code outside from oos-code was found.
@@ -235,8 +233,7 @@
       }
 
       if (!($a = file(OOS_TEMP_PATH . 'htaccess/' . $template, 1))) {
-        return false;
-      }
+        return FALSE;      }
 
       $content = str_replace(
                    array(
@@ -257,8 +254,7 @@
                 );
       $fp = @fopen(OOS_ABSOLUTE_PATH . '.htaccess', 'w');
       if (!$fp) {
-        return false;
-      } else {
+        return FALSE;      } else {
         // Check if an old htaccess file existed and try to preserve its contents. Otherwise completely wipe the file.
         if ($htaccess != '' && preg_match('@^(.*)#\s+BEGIN\s+OOS.*#\s+END\s+OOS(.*)$@isU', $htaccess, $match)) {
           // Code outside from oos-code was found.
@@ -273,8 +269,7 @@
     }
 
     function config_item() {
-      return false;
-    }
+      return FALSE;    }
   }
 
 

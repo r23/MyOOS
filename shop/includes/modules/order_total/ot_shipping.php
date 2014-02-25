@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   class ot_shipping {
-    var $title, $output, $enabled = false;
+    var $title, $output, $enabled = FALSE;
 
     function ot_shipping() {
       global $aLang;
@@ -28,7 +28,7 @@
       $this->code = 'ot_shipping';
       $this->title = $aLang['module_order_total_shipping_title'];
       $this->description = $aLang['module_order_total_shipping_description'];
-      $this->enabled = (defined('MODULE_ORDER_TOTAL_SHIPPING_STATUS') && (MODULE_ORDER_TOTAL_SHIPPING_STATUS == 'true') ? true : false);
+      $this->enabled = (defined('MODULE_ORDER_TOTAL_SHIPPING_STATUS') && (MODULE_ORDER_TOTAL_SHIPPING_STATUS == 'true') ? TRUE : FALSE);
       $this->sort_order = (defined('MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER') ? MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER : null);
 
       $this->output = array();
@@ -40,13 +40,13 @@
       if (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') {
         switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
           case 'national':
-            if ($oOrder->delivery['country_id'] == STORE_COUNTRY) $pass = true; break;
+            if ($oOrder->delivery['country_id'] == STORE_COUNTRY) $pass = TRUE; break;
           case 'international':
-            if ($oOrder->delivery['country_id'] != STORE_COUNTRY) $pass = true; break;
+            if ($oOrder->delivery['country_id'] != STORE_COUNTRY) $pass = TRUE; break;
           case 'both':
-            $pass = true; break;
+            $pass = TRUE; break;
           default:
-            $pass = false; break;
+            $pass = FALSE; break;
         }
 
         if ( ($pass == true) && ( ($oOrder->info['total'] - $oOrder->info['shipping_cost']) >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {

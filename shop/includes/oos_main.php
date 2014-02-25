@@ -59,8 +59,8 @@ exit;
 $request_type = 'NONSSL';
 if (ENABLE_SSL == 'true') {
 $request_type = (((isset($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) == 'on' || $_SERVER['HTTPS'] == '1'))) ||
-(isset($_SERVER['HTTP_X_FORWARDED_BY']) && strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_BY']), 'SSL') !== false) ||
-(isset($_SERVER['HTTP_X_FORWARDED_HOST']) && (strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_HOST']), 'SSL') !== false || strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_HOST']), str_replace('https://', '', HTTPS_SERVER)) !== false)) ||
+(isset($_SERVER['HTTP_X_FORWARDED_BY']) && strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_BY']), 'SSL') !== FALSE) ||
+(isset($_SERVER['HTTP_X_FORWARDED_HOST']) && (strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_HOST']), 'SSL') !== FALSE || strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_HOST']), str_replace('https://', '', HTTPS_SERVER)) !== FALSE)) ||
 (isset($_SERVER['SCRIPT_URI']) && strtolower(substr($_SERVER['SCRIPT_URI'], 0, 6)) == 'https:') ||
 (isset($_SERVER['HTTP_X_FORWARDED_SSL']) && ($_SERVER['HTTP_X_FORWARDED_SSL'] == '1' || strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) == 'on')) ||
 (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && (strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'ssl' || strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https')) ||
@@ -102,6 +102,45 @@ require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.phpmailer.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_session.php';
 
 
+// set the session name and save path
+session_name('OOSSID');
+
+// set the top level domains
+$http_domain = oos_server_get_top_level_domain(OOS_HTTP_SERVER);
+$https_domain = oos_server_get_top_level_domain(OOS_HTTPS_SERVER);
+$current_domain = (($request_type == 'NONSSL') ? $http_domain : $https_domain);
+
+// set the session cookie parameters
+if (function_exists('session_set_cookie_params')) {
+    session_set_cookie_params(0, '/', (oos_is_not_null($current_domain) ? '.' . $current_domain : ''));
+} elseif (function_exists('ini_set')) {
+    ini_set('session.cookie_lifetime', '0');
+    ini_set('session.cookie_path', '/');
+    ini_set('session.cookie_domain', (oos_is_not_null($current_domain) ? '.' . $current_domain : ''));
+}
+
+// set the session ID if it exists
+if (isset($_POST[session_name()])) {
+    session_id($_POST[session_name()]);
+    oos_session_start();
+/*
+} elseif (isset($_COOKIE[session_name()])) {
+  session_id($_COOKIE[session_name()]);
+   oos_session_start();
+ */
+} elseif (isset($_GET[session_name()])) {
+    session_id($_GET[session_name()]);
+    oos_session_start();
+}
+
+if ( is_session_started() === TRUE ) {
+    if (!(preg_match('/^[a-z0-9]{26}$/i', session_id()) || preg_match('/^[a-z0-9]{32}$/i', session_id()))) {
+		session_regenerate_id(true);
+   }
+}   
+
+
+        
 // require the database functions
 $adodb_logsqltable = $oostable['adodb_logsql'];
 if (!defined('ADODB_LOGSQL_TABLE')) {
@@ -123,12 +162,9 @@ oosDB_importTables($oostable);
 $configurationtable = $oostable['configuration'];
 $configuration_query = "SELECT configuration_key AS cfg_key, configuration_value AS cfg_value
 FROM $configurationtable";
-if (USE_DB_CACHE == 'true')
-{
+if (USE_DB_CACHE == 'true') {
     $configuration_result = $dbconn->CacheExecute(3600, $configuration_query);
-}
-else
-{
+} else {
     $configuration_result = $dbconn->Execute($configuration_query);
 }
 
@@ -142,15 +178,13 @@ while ($configuration = $configuration_result->fields)
 // set the language
 $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
 $nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_CUSTOMERS_STATUS_ID;
-if (!isset($_SESSION['language']) || isset($_GET['language']))
-{
+if (!isset($_SESSION['language']) || isset($_GET['language'])) {
     // include the language class
     include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_language.php';
     $oLang = new language();
 
     if (isset($_GET['language']) && is_string($_GET['language'])) {
-        if (!isset($_SESSION))
-        {
+        if (!isset($_SESSION)) {
             oos_session_start();
         }
         $oLang->set_language($_GET['language']);
@@ -161,8 +195,7 @@ if (!isset($_SESSION['language']) || isset($_GET['language']))
     $sLanguage = $oLang->language['iso_639_2'];
     $nLanguageID = $oLang->language['id'];
 
-    if (isset($_SESSION))
-    {
+    if (isset($_SESSION)) {
         $_SESSION['language'] = $oLang->language['iso_639_2'];
         $_SESSION['language_id'] = $oLang->language['id'];
         $_SESSION['iso_639_1'] = $oLang->language['iso_639_1'];
@@ -170,26 +203,24 @@ if (!isset($_SESSION['language']) || isset($_GET['language']))
     }	
 
 }
+
 include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
 
 include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_currencies.php';
 $oCurrencies = new currencies();
 $sCurrency = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
 
+
 // currency
-if (!isset($_SESSION['currency']) || isset($_GET['currency']))
-{
-    if (isset($_GET['currency']) && oos_currency_exits($_GET['currency']))
-    {
-        if (!isset($_SESSION))
-        {
+if (!isset($_SESSION['currency']) || isset($_GET['currency'])) {
+    if (isset($_GET['currency']) && oos_currency_exits($_GET['currency']))  {
+        if (!isset($_SESSION)) {
             oos_session_start();
         }
         $sCurrency = oos_var_prep_for_os($_GET['currency']);
     }
 
-    if (isset($_SESSION))
-    {
+    if (isset($_SESSION)) {
         $_SESSION['currency'] = $sCurrency;
     }
 }
@@ -197,7 +228,6 @@ if (!isset($_SESSION['currency']) || isset($_GET['currency']))
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_plugin_event.php';
 $oEvent = new plugin_event;
 $oEvent->getInstance();
-
 
 // set the Group
 $nGroupID = isset($_SESSION['member']) ? $_SESSION['member']->group['id']+0 : 1;
@@ -219,6 +249,8 @@ if ( empty( $sContent ) || !is_string( $sContent ) ) {
     $sContent = $aContents['main'];
 }
 
+
+
 // initialize the message stack for output messages
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_message_stack.php';
 $oMessage = new messageStack();
@@ -231,7 +263,7 @@ $aTemplate = array();
 // Shopping cart actions
 if ( isset($_GET['action'])
    || ( isset($_POST['action']) && isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){
-require_once MYOOS_INCLUDE_PATH . '/includes/oos_cart_actions.php';
+           require_once MYOOS_INCLUDE_PATH . '/includes/oos_cart_actions.php';
 }
 
 

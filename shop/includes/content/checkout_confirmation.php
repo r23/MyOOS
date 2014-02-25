@@ -72,7 +72,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 
 // if conditions are not accepted, redirect the customer to the payment method selection page
   if (empty($_POST['gv_redeem_code'])) {
-    if ($_POST['conditions'] == false) {
+    if ($_POST['conditions'] == FALSE) {
 
       oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode(decode($aLang['error_conditions_not_accepted'])), 'SSL', true, false));
     }
@@ -120,11 +120,11 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 
 
 // Stock Check
-  $any_out_of_stock = false;
+  $any_out_of_stock = FALSE;
   if (STOCK_CHECK == 'true') {
     for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
       if (oos_check_stock($oOrder->products[$i]['id'], $oOrder->products[$i]['qty'])) {
-        $any_out_of_stock = true;
+        $any_out_of_stock = TRUE;
       }
     }
     // Out of Stock

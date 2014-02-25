@@ -82,8 +82,8 @@ if (!isset($_SESSION['customer_id']))
 // if the order contains only virtual products, forward the customer to the billing page as
 // a shipping address is not needed
   if (($oOrder->content_type == 'virtual') || ($_SESSION['cart']->show_total() == 0) ) {
-    $_SESSION['shipping'] = false;
-    $_SESSION['sendto'] = false;
+    $_SESSION['shipping'] = FALSE;
+    $_SESSION['sendto'] = FALSE;
     oos_redirect(oos_href_link($aContents['checkout_payment'], '', 'SSL'));
   }
 
@@ -97,26 +97,26 @@ if (!isset($_SESSION['customer_id']))
   if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
     switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
       case 'national':
-        if ($oOrder->delivery['country_id'] == STORE_COUNTRY) $pass = true; break;
+        if ($oOrder->delivery['country_id'] == STORE_COUNTRY) $pass = TRUE; break;
 
       case 'international':
-        if ($oOrder->delivery['country_id'] != STORE_COUNTRY) $pass = true; break;
+        if ($oOrder->delivery['country_id'] != STORE_COUNTRY) $pass = TRUE; break;
 
       case 'both':
-        $pass = true; break;
+        $pass = TRUE; break;
 
       default:
-        $pass = false; break;
+        $pass = FALSE; break;
     }
 
-    $free_shipping = false;
+    $free_shipping = FALSE;
     if ( ($pass == true) && ($oOrder->info['subtotal'] >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
-      $free_shipping = true;
+      $free_shipping = TRUE;
 
       require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/ot_shipping.php';
     }
   } else {
-    $free_shipping = false;
+    $free_shipping = FALSE;
   }
 
 
@@ -161,7 +161,7 @@ if (!isset($_SESSION['customer_id']))
         }
       }
     } else {
-      $_SESSION['shipping'] = false;
+      $_SESSION['shipping'] = FALSE;
 
       oos_redirect(oos_href_link($aContents['checkout_payment'], '', 'SSL'));
     }
@@ -174,7 +174,7 @@ if (!isset($_SESSION['customer_id']))
 // if the modules status was changed when none were available, to save on implementing
 // a javascript force-selection method, also automatically select the cheapest shipping
 // method if more than one module is now enabled
-  if ( !isset($_SESSION['shipping']) || ( isset($_SESSION['shipping']) && ($_SESSION['shipping'] == false) && (oos_count_shipping_modules() > 1) ) ) $_SESSION['shipping'] = $shipping_modules->cheapest();
+  if ( !isset($_SESSION['shipping']) || ( isset($_SESSION['shipping']) && ($_SESSION['shipping'] == FALSE) && (oos_count_shipping_modules() > 1) ) ) $_SESSION['shipping'] = $shipping_modules->cheapest();
   list ($sess_class, $sess_method) = explode ('_', $_SESSION['shipping']['id']);
 
   // links breadcrumb

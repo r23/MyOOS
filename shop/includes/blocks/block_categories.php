@@ -29,7 +29,7 @@
   * @param $include_inactive
   * @return string
   */
-  function oos_count_products_in_category($category_id, $include_inactive = false) {
+  function oos_count_products_in_category($category_id, $include_inactive = FALSE) {
 
     $products_count = 0;
 

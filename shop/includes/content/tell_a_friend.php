@@ -43,7 +43,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/tell_a
     $action = 'process';
   }
 
-  $valid_product = false;
+  $valid_product = FALSE;
   if (isset($_GET['products_id'])) {
     if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
     $productstable = $oostable['products'];
@@ -59,7 +59,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/tell_a
     $valid_product = ($product_info_result->RecordCount() > 0);
   }
 
-  if ($valid_product != false) {
+  if ($valid_product != FALSE) {
     $product_info = $product_info_result->fields;
     $error = 'false';
 

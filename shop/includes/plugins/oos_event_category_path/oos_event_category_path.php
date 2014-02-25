@@ -39,7 +39,7 @@
 
       $this->name          = PLUGIN_EVENT_CATEGORY_PATH_NAME;
       $this->description   = PLUGIN_EVENT_CATEGORY_PATH_DESC;
-      $this->uninstallable = false;
+      $this->uninstallable = FALSE;
       $this->author        = 'OOS Development Team';
       $this->version       = '1.0';
       $this->requirements  = array(
@@ -76,16 +76,13 @@
     }
 
     function install() {
-      return false;
-    }
+      return FALSE;    }
 
     function remove() {
-      return false;
-    }
+      return FALSE;    }
 
     function config_item() {
-      return false;
-    }
+      return FALSE;    }
   }
 
 ?>

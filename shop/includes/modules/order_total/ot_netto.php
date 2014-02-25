@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   class ot_netto {
-    var $title, $output, $enabled = false;
+    var $title, $output, $enabled = FALSE;
 
     function ot_netto() {
       global $aLang;
@@ -28,7 +28,7 @@
       $this->code = 'ot_netto';
       $this->title = $aLang['module_order_total_netto_title'];
       $this->description = $aLang['module_order_total_netto_description'];
-      $this->enabled = (defined('MODULE_ORDER_TOTAL_NETTO_STATUS') && (MODULE_ORDER_TOTAL_NETTO_STATUS == 'true') ? true : false);
+      $this->enabled = (defined('MODULE_ORDER_TOTAL_NETTO_STATUS') && (MODULE_ORDER_TOTAL_NETTO_STATUS == 'true') ? TRUE : FALSE);
       $this->sort_order = (defined('MODULE_ORDER_TOTAL_NETTO_SORT_ORDER') ? MODULE_ORDER_TOTAL_NETTO_SORT_ORDER : null);
 
       $this->output = array();

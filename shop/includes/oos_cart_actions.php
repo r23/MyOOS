@@ -22,7 +22,7 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-$bInfoMessage = false;
+$bInfoMessage = FALSE;
 $parameters = '';
 
 if (DISPLAY_CART == 'true') {

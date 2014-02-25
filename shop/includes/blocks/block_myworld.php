@@ -13,9 +13,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if ($oEvent->installed_plugin('down_for_maintenance')) return false;
-  if ($sContent == $aContents['customers_image']) return false;
-
+  if ($oEvent->installed_plugin('down_for_maintenance')) return FALSE;  if ($sContent == $aContents['customers_image']) return FALSE;
   $myworld_block = 'false';
 
   if (isset($_SESSION['customer_id'])) {

@@ -52,12 +52,12 @@ if (!isset($_SESSION['customer_id']))
 // if the order contains only virtual products, forward the customer to the billing page as
 // a shipping address is not needed
   if ($oOrder->content_type == 'virtual') {
-    $_SESSION['shipping'] = false;
-    $_SESSION['sendto'] = false;
+    $_SESSION['shipping'] = FALSE;
+    $_SESSION['sendto'] = FALSE;
     oos_redirect(oos_href_link($aContents['checkout_payment'], '', 'SSL'));
   }
 
-  $error = false;
+  $error = FALSE;
   $process = 'false';
   if (isset($_POST['action']) && ($_POST['action'] == 'submit')) {
 // process a new shipping address
@@ -161,7 +161,7 @@ if (!isset($_SESSION['customer_id']))
         }
       }
 
-      if ($error == false) {
+      if ($error == FALSE) {
         $address_booktable = $oostable['address_book'];
         $sql = "SELECT max(address_book_id) AS address_book_id
                 FROM $address_booktable
@@ -205,11 +205,11 @@ if (!isset($_SESSION['customer_id']))
       }
 // process the selected shipping destination
     } elseif (isset($_POST['address'])) {
-      $reset_shipping = false;
+      $reset_shipping = FALSE;
       if (isset($_SESSION['sendto'])) {
         if ($_SESSION['sendto'] != $_POST['address']) {
           if (isset($_SESSION['shipping'])) {
-            $reset_shipping = true;
+            $reset_shipping = TRUE;
           }
         }
       }

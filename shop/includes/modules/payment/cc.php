@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   class cc {
-    var $code, $title, $description, $enabled = false;
+    var $code, $title, $description, $enabled = FALSE;
 
 // class constructor
     function cc() {
@@ -29,7 +29,7 @@
       $this->code = 'cc';
       $this->title = $aLang['module_payment_cc_text_title'];
       $this->description = $aLang['module_payment_cc_text_description'];
-      $this->enabled = (defined('MODULE_PAYMENT_CC_STATUS') && (MODULE_PAYMENT_CC_STATUS == 'True') ? true : false);
+      $this->enabled = (defined('MODULE_PAYMENT_CC_STATUS') && (MODULE_PAYMENT_CC_STATUS == 'True') ? TRUE : FALSE);
       $this->sort_order = (defined('MODULE_PAYMENT_CC_SORT_ORDER') ? MODULE_PAYMENT_CC_SORT_ORDER : null);
 
       if ((int)MODULE_PAYMENT_CC_ORDER_STATUS_ID > 0) {
@@ -44,11 +44,11 @@
       global $oOrder;
 
       if ($_SESSION['shipping']['id'] == 'selfpickup_selfpickup') {
-        $this->enabled = false;
+        $this->enabled = FALSE;
       }
 
       if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_CC_ZONE > 0) ) {
-        $check_flag = false;
+        $check_flag = FALSE;
 
         // Get database information
         $dbconn =& oosDBGetConn();
@@ -58,10 +58,10 @@
         $check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_PAYMENT_CC_ZONE . "' AND zone_country_id = '" . $oOrder->billing['country']['id'] . "' ORDER BY zone_id");
         while ($check = $check_result->fields) {
           if ($check['zone_id'] < 1) {
-            $check_flag = true;
+            $check_flag = TRUE;
             break;
           } elseif ($check['zone_id'] == $oOrder->billing['zone_id']) {
-            $check_flag = true;
+            $check_flag = TRUE;
             break;
           }
 
@@ -72,8 +72,8 @@
         // Close result set
         $check_result->Close();
 
-        if ($check_flag == false) {
-          $this->enabled = false;
+        if ($check_flag == FALSE) {
+          $this->enabled = FALSE;
         }
       }
     }
@@ -146,7 +146,7 @@
           break;
       }
 
-      if ( ($result == false) || ($result < 1) ) {
+      if ( ($result == FALSE) || ($result < 1) ) {
         $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&cc_owner=' . urlencode($_POST['cc_owner']) . '&cc_expires_month=' . $_POST['cc_expires_month'] . '&cc_expires_year=' . $_POST['cc_expires_year'];
         $aContents = oos_get_content();
         

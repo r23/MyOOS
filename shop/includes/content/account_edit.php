@@ -53,8 +53,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_a
   $email_address = $account['customers_email_address'];
   $number = $account['customers_number'];
 
-  $no_edit = true;
-  $show_password = true;
+  $no_edit = TRUE;
+  $show_password = TRUE;
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], '', 'SSL'));

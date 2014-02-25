@@ -34,7 +34,7 @@
       $this->code = 'banktransfer';
       $this->title = $aLang['module_payment_banktransfer_text_title'];
       $this->description = $aLang['module_payment_banktransfer_text_description'];
-      $this->enabled = (defined('MODULE_PAYMENT_BANKTRANSFER_STATUS') && (MODULE_PAYMENT_BANKTRANSFER_STATUS == 'True') ? true : false);
+      $this->enabled = (defined('MODULE_PAYMENT_BANKTRANSFER_STATUS') && (MODULE_PAYMENT_BANKTRANSFER_STATUS == 'True') ? TRUE : FALSE);
       $this->sort_order = (defined('MODULE_PAYMENT_BANKTRANSFER_SORT_ORDER') ? MODULE_PAYMENT_BANKTRANSFER_SORT_ORDER : null);
 
       if ((int)MODULE_PAYMENT_BANKTRANSFER_ORDER_STATUS_ID > 0) {
@@ -52,7 +52,7 @@
       global $oOrder, $oCurrencies;
 
       if ($_SESSION['shipping']['id'] == 'selfpickup_selfpickup') {
-        $this->enabled = false;
+        $this->enabled = FALSE;
       }
 
       $my_currency = $_SESSION['currency'];
@@ -63,11 +63,11 @@
       $nAmount = number_format(($oOrder->info['total'] - $oOrder->info['shipping_cost']) * $oCurrencies->get_value($my_currency), $oCurrencies->get_decimal_places($my_currency));
 
       if ($nAmount > (int)MODULE_PAYMENT_BANKTRANSFER_MAX_ORDER) {
-        $this->enabled = false;
+        $this->enabled = FALSE;
       }
 
       if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_BANKTRANSFER_ZONE > 0) ) {
-        $check_flag = false;
+        $check_flag = FALSE;
 
         // Get database information
         $dbconn =& oosDBGetConn();
@@ -77,11 +77,11 @@
         $check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_PAYMENT_BANKTRANSFER_ZONE . "' AND zone_country_id = '" . $oOrder->billing['country']['id'] . "' ORDER BY zone_id");
         while ($check = $check_result->fields) {
           if ($check['zone_id'] < 1) {
-            $check_flag = true;
+            $check_flag = TRUE;
             break;
 
           } elseif ($check['zone_id'] == $oOrder->billing['zone_id']) {
-            $check_flag = true;
+            $check_flag = TRUE;
             break;
           }
 
@@ -92,14 +92,14 @@
         // Close result set
         $check_result->Close();
 
-        if ($check_flag == false) {
-          $this->enabled = false;
+        if ($check_flag == FALSE) {
+          $this->enabled = FALSE;
         }
       }
     // disable the module if the order only contains virtual products
       if ($this->enabled == true) {
         if ($oOrder->content_type == 'virtual') {
-          $this->enabled = false;
+          $this->enabled = FALSE;
         }
       }
     }
@@ -114,7 +114,7 @@
 
       if (MODULE_PAYMENT_BANKTRANSFER_FAX_CONFIRMATION == 'true'){
         $js .= '  var banktransfer_fax = document.checkout_payment.banktransfer_fax.checked;' . "\n" .
-               '  if (banktransfer_fax == false) {' . "\n";
+               '  if (banktransfer_fax == FALSE) {' . "\n";
       }
 
       $js .= '    if (banktransfer_owner == "") {' . "\n" .
@@ -172,7 +172,7 @@
     function pre_confirmation_check(){
       global $banktransfer_number, $banktransfer_blz, $aLang;
 
-      if ($_POST['banktransfer_fax'] == false) {
+      if ($_POST['banktransfer_fax'] == FALSE) {
         include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_banktransfer_validation.php';
 
         $banktransfer_validation = new AccountCheck;
@@ -267,8 +267,7 @@
     }
 
     function before_process() {
-      return false;
-    }
+      return FALSE;    }
 
     function after_process() {
       global $insert_id, $banktransfer_val, $banktransfer_owner, $banktransfer_bankname, $banktransfer_blz, $banktransfer_number, $banktransfer_status, $banktransfer_prz, $banktransfer_fax, $checkout_form_action, $checkout_form_submit;

@@ -10,6 +10,6 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('PLUGIN_EVENT_DOWN_FOR_MAINTENANCE_NAME', 'Shop abschalten');
+define('PLUGIN_EVENT_DOWN_FOR_MAINTENANCE_NAME', 'Shop abschalten für Wartungsarbeiten');
 define('PLUGIN_EVENT_DOWN_FOR_MAINTENANCE_DESC', 'Möchten Sie den Shop abschalten?');
 

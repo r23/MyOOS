@@ -28,8 +28,8 @@ $smarty = new myOOS_Smarty();
 //debug
 if ($debug == 'true')
 {
-	$smarty->force_compile   = true;
-	$smarty->debugging       = true;
+	$smarty->force_compile   = TRUE;
+	$smarty->debugging       = TRUE;
 	$smarty->clearAllCache();
 	$smarty->clearCompiledTemplate();
 }

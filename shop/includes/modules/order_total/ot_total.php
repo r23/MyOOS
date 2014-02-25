@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   class ot_total {
-    var $title, $output, $enabled = false;
+    var $title, $output, $enabled = FALSE;
 
     function ot_total() {
       global $aLang;
@@ -28,7 +28,7 @@
       $this->code = 'ot_total';
       $this->title = $aLang['module_order_total_total_title'];
       $this->description = $aLang['module_order_total_total_description'];
-      $this->enabled = (defined('MODULE_ORDER_TOTAL_TOTAL_STATUS') && (MODULE_ORDER_TOTAL_TOTAL_STATUS == 'true') ? true : false);
+      $this->enabled = (defined('MODULE_ORDER_TOTAL_TOTAL_STATUS') && (MODULE_ORDER_TOTAL_TOTAL_STATUS == 'true') ? TRUE : FALSE);
       $this->sort_order = (defined('MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER') ? MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER : null);
 
       $this->output = array();

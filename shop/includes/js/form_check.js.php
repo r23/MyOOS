@@ -30,8 +30,7 @@ function check_form() {
 
   if (submitted == true) {
     alert("<?php echo decode($aLang['js_error_submitted']); ?>");
-    return false;
-  }
+    return FALSE;  }
 
   var first_name = document.account_edit.firstname.value;
   var last_name = document.account_edit.lastname.value;
@@ -163,9 +162,8 @@ function check_form() {
 
   if (error == 1) {
     alert(error_message);
-    return false;
-  } else {
-    submitted = true;
+    return FALSE;  } else {
+    submitted = TRUE;
     return true;
   }
 }

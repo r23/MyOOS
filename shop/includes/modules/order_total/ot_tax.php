@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   class ot_tax {
-    var $title, $output, $enabled = false;
+    var $title, $output, $enabled = FALSE;
 
     function ot_tax() {
       global $aLang;
@@ -28,7 +28,7 @@
       $this->code = 'ot_tax';
       $this->title = $aLang['module_order_total_tax_title'];
       $this->description = $aLang['module_order_total_tax_description'];
-      $this->enabled = (defined('MODULE_ORDER_TOTAL_TAX_STATUS') && (MODULE_ORDER_TOTAL_TAX_STATUS == 'true') ? true : false);
+      $this->enabled = (defined('MODULE_ORDER_TOTAL_TAX_STATUS') && (MODULE_ORDER_TOTAL_TAX_STATUS == 'true') ? TRUE : FALSE);
       $this->sort_order = (defined('MODULE_ORDER_TOTAL_TAX_SORT_ORDER') ? MODULE_ORDER_TOTAL_TAX_SORT_ORDER : null);
 
       $this->output = array();

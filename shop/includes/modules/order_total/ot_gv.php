@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   class ot_gv {
-    var $title, $output, $enabled = false;
+    var $title, $output, $enabled = FALSE;
 
     function ot_gv() {
       global $aLang;
@@ -30,7 +30,7 @@
       $this->header = $aLang['module_order_total_gv_header'];
       $this->description = $aLang['module_order_total_gv_description'];
       $this->user_prompt = $aLang['module_order_total_gv_user_prompt'];
-      $this->enabled = (defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true') ? true : false);
+      $this->enabled = (defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true') ? TRUE : FALSE);
       $this->sort_order = (defined('MODULE_ORDER_TOTAL_GV_SORT_ORDER') ? MODULE_ORDER_TOTAL_GV_SORT_ORDER : null);
       $this->include_shipping = (defined('MODULE_ORDER_TOTAL_GV_INC_SHIPPING') ? MODULE_ORDER_TOTAL_GV_INC_SHIPPING : null);
       $this->include_tax = (defined('MODULE_ORDER_TOTAL_GV_INC_TAX') ? MODULE_ORDER_TOTAL_GV_INC_TAX : null);
@@ -38,7 +38,7 @@
       $this->credit_tax = (defined('MODULE_ORDER_TOTAL_GV_CREDIT_TAX') ? MODULE_ORDER_TOTAL_GV_CREDIT_TAX : null);
       $this->tax_class  = (defined('MODULE_ORDER_TOTAL_GV_TAX_CLASS') ? MODULE_ORDER_TOTAL_GV_TAX_CLASS : null);
       $this->show_redeem_box = (defined('MODULE_ORDER_TOTAL_GV_REDEEM_BOX') ? MODULE_ORDER_TOTAL_GV_REDEEM_BOX : null);
-      $this->credit_class = true;
+      $this->credit_class = TRUE;
       $this->checkbox = $this->user_prompt . '<input type="checkbox" onClick="submitFunction()" name="' . 'c' . $this->code . '">';
 
       $this->output = array();
@@ -69,8 +69,7 @@
       if ($this->user_has_gv_account($_SESSION['customer_id'])) {
         return true;
       } else {
-        return false;
-      }
+        return FALSE;      }
     }
 
     function pre_confirmation_check($order_total) {
@@ -80,7 +79,7 @@
     }
 
     function use_credit_amount() {
-      $_SESSION['cot_gv'] = false;
+      $_SESSION['cot_gv'] = FALSE;
       $output_string = '';
       if ($this->selection_test()) {
         $output_string .=  '    <td colspan="2" align="right" class="main">';
@@ -105,12 +104,12 @@
 
           $coupon_gv_customertable = $oostable['coupon_gv_customer'];
           $gv_query = $dbconn->Execute("SELECT amount FROM $coupon_gv_customertable WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'");
-          $customer_gv = false;
+          $customer_gv = FALSE;
           $total_gv_amount = 0;
 
           if ($gv_result = $gv_query->fields) {
             $total_gv_amount = $gv_result['amount'];
-            $customer_gv = true;
+            $customer_gv = TRUE;
           }
           $total_gv_amount = $total_gv_amount + $gv_order_amount;
           if ($customer_gv) {
@@ -225,11 +224,11 @@
 
           $coupon_gv_customertable = $oostable['coupon_gv_customer'];
           $gv_amount_query = $dbconn->Execute("SELECT amount FROM $coupon_gv_customertable WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'");
-          $customer_gv = false;
+          $customer_gv = FALSE;
           $total_gv_amount = $gv_amount;
           if ($gv_amount_result = $gv_amount_query->fields) {
             $total_gv_amount = $gv_amount_result['amount'] + $gv_amount;
-            $customer_gv = true;
+            $customer_gv = TRUE;
           }
 
           $couponstable = $oostable['coupons'];
@@ -349,8 +348,7 @@
       if ($gv_result->fields['amount']>0) {
         return true;
       }
-      return false;
-    }
+      return FALSE;    }
 
     function get_order_total() {
       global $oOrder;

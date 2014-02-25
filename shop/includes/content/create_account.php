@@ -68,7 +68,7 @@ $sPagetitle = $aLang['heading_title'];
   $smarty->assign('email_address', $email_address);
 
   if ((CUSTOMER_NOT_LOGIN == 'true') or (MAKE_PASSWORD == 'true')) {
-    $show_password = false;
+    $show_password = FALSE;
   } else {
     $show_password = 'true';
   }
