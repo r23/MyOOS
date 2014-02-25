@@ -26,22 +26,23 @@ if (!$oEvent->installed_plugin('reviews')) {
     oos_redirect(oos_href_link($aContents['main']));
 }
 
-// if the customer is not logged on, redirect them to the login page
-if (!isset($_SESSION['customer_id']))
-{
-    if (!isset($_SESSION))
-    {
-        oos_session_start();
-    }
-    $_SESSION['navigation']->set_snapshot();
-    oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
-}
-
 if (isset($_GET['products_id'])) {
     if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
 } else {
     oos_redirect(oos_href_link($aContents['main']));
 }
+
+// start the session
+if ( is_session_started() === FALSE ) oos_session_start();
+
+// if the customer is not logged on, redirect them to the login page
+if (!isset($_SESSION['customer_id'])) {
+
+    $_SESSION['navigation']->set_snapshot();
+    oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
+}
+
+
 
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/reviews_product_write.php';

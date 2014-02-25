@@ -22,13 +22,12 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
+// start the session
+if ( is_session_started() === FALSE ) oos_session_start();
+
 // if the customer is not logged on, redirect them to the login page
-if (!isset($_SESSION['customer_id']))
-{
-    if (!isset($_SESSION))
-    {
-        oos_session_start();
-    }
+if (!isset($_SESSION['customer_id'])) {
+
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
