@@ -56,7 +56,7 @@
       include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_featured.php';
       oos_expire_featured();
 
-      return true;
+      return TRUE;
     }
 
     function install() {
@@ -74,7 +74,7 @@
       $configurationtable = $oostable['configuration'];
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MAX_DISPLAY_FEATURED_PRODUCTS', '6', 6, 1, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");
 
-      return true;
+      return TRUE;
     }
 
     function remove() {
@@ -85,7 +85,7 @@
       $configurationtable = $oostable['configuration'];
       $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->config_item()) . "')");
 
-      return true;
+      return TRUE;
     }
 
     function config_item() {

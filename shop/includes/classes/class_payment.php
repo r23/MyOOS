@@ -126,9 +126,9 @@
                '  }' . "\n\n" .
                '  if (error == 1 && submitter != 1) {' . "\n" .
                '    alert(error_message);' . "\n" .
-               '    return false;' . "\n" .
+               '    return FALSE;' . "\n" .
                '  } else {' . "\n" .
-               '    return true;' . "\n" .
+               '    return TRUE;' . "\n" .
                '  }' . "\n" .
                '}' . "\n" .
                '//--></script>' . "\n";
@@ -161,7 +161,7 @@
         if (is_object($GLOBALS[$this->selected_module]) && ($GLOBALS[$this->selected_module]->enabled) ) {
 
           if ($credit_covers) {
-            $GLOBALS[$this->selected_module]->enabled = false;
+            $GLOBALS[$this->selected_module]->enabled = FALSE;
             $GLOBALS[$this->selected_module] = NULL;
             $payment_modules = '';
           } else {

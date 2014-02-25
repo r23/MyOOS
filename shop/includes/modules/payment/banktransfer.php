@@ -66,7 +66,7 @@
         $this->enabled = FALSE;
       }
 
-      if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_BANKTRANSFER_ZONE > 0) ) {
+      if ( ($this->enabled == TRUE) && ((int)MODULE_PAYMENT_BANKTRANSFER_ZONE > 0) ) {
         $check_flag = FALSE;
 
         // Get database information
@@ -97,7 +97,7 @@
         }
       }
     // disable the module if the order only contains virtual products
-      if ($this->enabled == true) {
+      if ($this->enabled == TRUE) {
         if ($oOrder->content_type == 'virtual') {
           $this->enabled = FALSE;
         }

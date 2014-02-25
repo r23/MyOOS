@@ -105,13 +105,13 @@
         }
 
         $pos = strpos ($path, "-p-");
-        if ($pos === false) {
+        if ($pos === FALSE) {
           // $remove = array('-c-');
         } else {
           $remove = array('-m-', '-c-');
         }
         $path = str_replace($remove, '', $path);
-        if (strpos($path, '//') !== false) $path = str_replace('//', '/', $path);
+        if (strpos($path, '//') !== FALSE) $path = str_replace('//', '/', $path);
         if (substr($path, -1) == '/') $path = substr($path, 0, -1);
 
         $url = $base . $path . $extention;

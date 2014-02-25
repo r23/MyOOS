@@ -92,7 +92,7 @@ function oos_session_start() {
 
 	// Session
 	$user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
-	$spider_flag = false;
+	$spider_flag = FALSE;
 	$spider_kill_sid = 'false';
 
 	// set the top level domains
@@ -123,25 +123,25 @@ function oos_session_start() {
 	}
 
 
-	if (empty($user_agent) === false)
+	if (empty($user_agent) === FALSE)
 	{
 		$spider_agent = @parse_ini_file('includes/ini/spiders.ini');
 
 		foreach ($spider_agent as $spider)
 		{
-			if (empty($spider) === false)
+			if (empty($spider) === FALSE)
 			{
-				if (strpos($user_agent, trim($spider)) !== false)
+				if (strpos($user_agent, trim($spider)) !== FALSE)
 				{
 					$spider_kill_sid = 'true';
-					$spider_flag = true;
+					$spider_flag = TRUE;
 					break;
 				}
 			}
 		}
 	}
 
-	if ($spider_flag === false)
+	if ($spider_flag === FALSE)
 	{
 		// set the session name and save path
 		oos_session_name('OOSSID');

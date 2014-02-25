@@ -47,7 +47,7 @@
         $this->enabled = FALSE;
       }
 
-      if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_CC_ZONE > 0) ) {
+      if ( ($this->enabled == TRUE) && ((int)MODULE_PAYMENT_CC_ZONE > 0) ) {
         $check_flag = FALSE;
 
         // Get database information

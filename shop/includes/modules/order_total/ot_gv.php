@@ -47,7 +47,7 @@
     function process() {
       global $oOrder, $oCurrencies;
 
-      if (isset ($_SESSION['cot_gv']) && $_SESSION['cot_gv'] == true) {
+      if (isset ($_SESSION['cot_gv']) && $_SESSION['cot_gv'] == TRUE) {
 
         $order_total = $this->get_order_total();
         $od_amount = $this->calculate_credit($order_total);
@@ -174,7 +174,7 @@
       $dbconn =& oosDBGetConn();
       $oostable =& oosDBGetTables();
 
-      if (isset ($_SESSION['cot_gv']) && $_SESSION['cot_gv'] == true) {
+      if (isset ($_SESSION['cot_gv']) && $_SESSION['cot_gv'] == TRUE) {
 
         $coupon_gv_customertable = $oostable['coupon_gv_customer'];
         $gv_query = $dbconn->Execute("SELECT amount FROM $coupon_gv_customertable WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'");

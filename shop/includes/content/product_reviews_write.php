@@ -61,7 +61,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/review
   $product_info = $product_result->fields;
 
   if (isset($_GET['action']) && $_GET['action'] == 'process') {
-    if ($valid_product == true) { // We got to the process but it is an illegal product, don't write
+    if ($valid_product == TRUE) { // We got to the process but it is an illegal product, don't write
       $customersstable = $oostable['customers'];
       $sql = "SELECT customers_firstname, customers_lastname
               FROM $customersstable

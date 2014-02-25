@@ -49,7 +49,7 @@
             $pass = FALSE; break;
         }
 
-        if ( ($pass == true) && ( ($oOrder->info['total'] - $oOrder->info['shipping_cost']) >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
+        if ( ($pass == TRUE) && ( ($oOrder->info['total'] - $oOrder->info['shipping_cost']) >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
           $oOrder->info['shipping_method'] = $this->title;
           $oOrder->info['total'] -= $oOrder->info['shipping_cost'];
           $oOrder->info['shipping_cost'] = 0;

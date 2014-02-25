@@ -108,7 +108,7 @@ if (!isset($_SESSION['customer_id'])) {
     }
 
     $free_shipping = FALSE;
-    if ( ($pass == true) && ($oOrder->info['subtotal'] >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
+    if ( ($pass == TRUE) && ($oOrder->info['subtotal'] >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
       $free_shipping = TRUE;
 
       require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/ot_shipping.php';
@@ -131,7 +131,7 @@ if (!isset($_SESSION['customer_id'])) {
       $_SESSION['campaigns_id'] = intval($_POST['campaign_id']);
     }
 
-    if ( (oos_count_shipping_modules() > 0) || ($free_shipping == true) ) {
+    if ( (oos_count_shipping_modules() > 0) || ($free_shipping == TRUE) ) {
       if ( (isset($_POST['shipping'])) && (strpos($_POST['shipping'], '_')) ) {
         $_SESSION['shipping'] = $_POST['shipping'];
 
@@ -148,7 +148,7 @@ if (!isset($_SESSION['customer_id'])) {
           } else {
             if ( (isset($quote[0]['methods'][0]['title'])) && (isset($quote[0]['methods'][0]['cost'])) ) {
               $_SESSION['shipping'] = array('id' => $_SESSION['shipping'],
-                                            'title' => (($free_shipping == true) ?  $quote[0]['methods'][0]['title'] : $quote[0]['module'] . ' (' . $quote[0]['methods'][0]['title'] . ')'),
+                                            'title' => (($free_shipping == TRUE) ?  $quote[0]['methods'][0]['title'] : $quote[0]['module'] . ' (' . $quote[0]['methods'][0]['title'] . ')'),
                                             'cost' => $quote[0]['methods'][0]['cost']);
 
               oos_redirect(oos_href_link($aContents['checkout_payment'], '', 'SSL'));

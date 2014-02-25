@@ -44,10 +44,10 @@
       if (oos_is_not_null($this->file) && oos_is_not_null($this->destination)) {
         $this->set_output_messages('session');
 
-        if ( ($this->parse() == true) && ($this->save() == true) ) {
-          return true;
+        if ( ($this->parse() == TRUE) && ($this->save() == TRUE) ) {
+          return TRUE;
         } else {
-          return false;
+          return FALSE;
         }
       }
     }
@@ -91,7 +91,7 @@
           } else {
             $oMessage->add_session('upload', $aLang['error_file_too_big'], 'error');
           }
-          return false;
+          return FALSE;
         }
 
         if (sizeof($this->extensions) > 0) {
@@ -101,7 +101,7 @@
             } else {
               $oMessage->add_session('upload', $aLang['error_filetype_not_allowed'], 'error');
             }
-            return false;
+            return FALSE;
           }
         }
 
@@ -116,7 +116,7 @@
         } else {
           $oMessage->add_session('upload', $aLang['warning_no_file_uploaded'], 'warning');
         }
-        return false;
+        return FALSE;
       }
     }
 
@@ -130,7 +130,7 @@
 
         $oMessage->add_session('upload', $aLang['success_file_saved_successfully'], 'success');
 
-        return true;
+        return TRUE;
       } else {
         if ($this->message_location == 'direct') {
           $oMessage->add('upload', $aLang['error_file_not_saved'], 'error');
@@ -138,7 +138,7 @@
           $oMessage->add_session('upload', $aLang['error_file_not_saved'], 'error');
         }
 
-        return false;
+        return FALSE;
       }
     }
 
@@ -192,9 +192,9 @@
           }
         }
 
-        return false;
+        return FALSE;
       } else {
-        return true;
+        return TRUE;
       }
     }
 

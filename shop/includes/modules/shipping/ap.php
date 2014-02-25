@@ -56,7 +56,7 @@
       $this->tax_class = (defined('MODULE_SHIPPING_AP_TAX_CLASS') ? MODULE_SHIPPING_AP_TAX_CLASS : null);
       $this->enabled = (defined('MODULE_SHIPPING_AP_STATUS') && (MODULE_SHIPPING_AP_STATUS == 'True') ? TRUE : FALSE);
 
-      if ( ($this->enabled == true) && ((int)MODULE_SHIPPING_AP_ZONE > 0) ) {
+      if ( ($this->enabled == TRUE) && ((int)MODULE_SHIPPING_AP_ZONE > 0) ) {
         $check_flag = FALSE;
 
         // Get database information
@@ -142,7 +142,7 @@
 
       if (oos_is_not_null($this->icon)) $this->quotes['icon'] = oos_image($this->icon, $this->title);
 
-      if ($error == true) $this->quotes['error'] = $aLang['module_shipping_ap_invalid_zone'];
+      if ($error == TRUE) $this->quotes['error'] = $aLang['module_shipping_ap_invalid_zone'];
 
       return $this->quotes;
     }

@@ -95,7 +95,7 @@
         }
       }
 
-      return true;
+      return TRUE;
     }
 
 
@@ -184,7 +184,7 @@
         fclose($fp);
       }
 
-      return true;
+      return TRUE;
     }
 
 
@@ -265,7 +265,7 @@
         fclose($fp);
       }
 
-      return true;
+      return TRUE;
     }
 
     function config_item() {

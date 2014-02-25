@@ -209,7 +209,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
       $check_address = $check_address_result->fields;
 
       if ($check_address['total'] == '1') {
-        if ($reset_payment == true)   unset($_SESSION['payment']);
+        if ($reset_payment == TRUE)   unset($_SESSION['payment']);
         oos_redirect(oos_href_link($aContents['checkout_payment'], '', 'SSL'));
       } else {
         unset($_SESSION['billto']);

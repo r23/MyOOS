@@ -68,15 +68,15 @@
         }
       }
 
-      return true;
+      return TRUE;
     }
 
     function install() {
-      return true;
+      return TRUE;
     }
 
     function remove() {
-      return true;
+      return TRUE;
     }
 
     function config_item() {

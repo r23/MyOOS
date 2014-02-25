@@ -64,7 +64,7 @@
         }
 
         if (!class_exists($sName)) {
-          return false;
+          return FALSE;
         }
       }
 
@@ -72,7 +72,7 @@
         $this->aPlugins[] = $sName;
       }
 
-      return true;
+      return TRUE;
     }
 
 

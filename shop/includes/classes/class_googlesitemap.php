@@ -100,11 +100,11 @@
              gzwrite($gz, $data);
              gzclose($gz);
              $this->debug['SAVE_FILE_COMPRESS'][] = array('file' => $sContentname, 'status' => 'success', 'file_exists' => 'true');
-             return true;
+             return TRUE;
            } else {
              $sContent_check = file_exists($sContentname) ? 'true' : 'false';
              $this->debug['SAVE_FILE_COMPRESS'][] = array('file' => $sContentname, 'status' => 'failure', 'file_exists' => $sContent_check);
-             return false;
+             return FALSE;
            }
            break;
 
@@ -114,11 +114,11 @@
              fwrite($fp, $data);
              fclose($fp);
              $this->debug['SAVE_FILE_XML'][] = array('file' => $sContentname, 'status' => 'success', 'file_exists' => 'true');
-             return true;
+             return TRUE;
            } else {
             $sContent_check = file_exists($sContentname) ? 'true' : 'false';
             $this->debug['SAVE_FILE_XML'][] = array('file' => $sContentname, 'status' => 'failure', 'file_exists' => $sContent_check);
-            return false;
+            return FALSE;
            }
            break;
 
@@ -135,22 +135,22 @@
      function CompressFile($sContent){
        $source = $this->savepath . $sContent . '.xml';
        $sContentname = $this->savepath . $sContent . '.xml.gz';
-       $error_encountered = false;
+       $error_encountered = FALSE;
        if ( $gz_out = gzopen($sContentname, 'wb9') ){
          if ($fp_in = fopen($source,'rb')){
            while (!feof($fp_in)) gzwrite($gz_out, fread($fp_in, 1024*512));
              fclose($fp_in);
          } else {
-           $error_encountered = true;
+           $error_encountered = TRUE;
          }
          gzclose($gz_out);
        } else {
-         $error_encountered = true;
+         $error_encountered = TRUE;
        }
        if ($error_encountered){
-         return false;
+         return FALSE;
        } else {
-         return true;
+         return TRUE;
        }
      }
 
@@ -229,7 +229,7 @@
          while ( $result = $products_query->fields ) {
 
            $top = max($top, $result['products_ordered']);
-           $location = oos_href_link($aContents['product_info'], 'products_id=' . $result['pID'], 'NONSSL', false, true);
+           $location = oos_href_link($aContents['product_info'], 'products_id=' . $result['pID'], 'NONSSL', FALSE, TRUE);
            $lastmod = oos_is_not_null($result['last_mod']) ? $result['last_mod'] : $result['date_added'];
            $changefreq = GOOGLE_SITEMAP_PROD_CHANGE_FREQ;
            $ratio = $top > 0 ? $result['products_ordered']/$top : 0;
@@ -285,7 +285,7 @@
          $container = array();
          $number = 0;
          while( $result = $categories_query->fields ) {
-           $location = oos_href_link($aContents['shop'], 'category=' . $this->GetFullcategory($result['cID']), 'NONSSL', false, true);
+           $location = oos_href_link($aContents['shop'], 'category=' . $this->GetFullcategory($result['cID']), 'NONSSL', FALSE, TRUE);
            $lastmod = oos_is_not_null($result['last_mod']) ? $result['last_mod'] : $result['date_added'];
 
            $changefreq = GOOGLE_SITEMAP_CAT_CHANGE_FREQ;
@@ -354,7 +354,7 @@
 
        $parent_categories_query =  $dbconn->Execute($sql);
        while ($parent_categories = $parent_categories_query->fields) {
-         if ($parent_categories['parent_id'] == 0) return true;
+         if ($parent_categories['parent_id'] == 0) return TRUE;
          $categories[sizeof($categories)] = $parent_categories['parent_id'];
          if ($parent_categories['parent_id'] != $categories_id) {
            $this->GetParentCategories($categories, $parent_categories['parent_id']);

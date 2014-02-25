@@ -165,7 +165,7 @@
   }
 
   if (ACCOUNT_STATE == 'true') {
-    if ($country_error == true) {
+    if ($country_error == TRUE) {
       $state_error = TRUE;
     } else {
       $zone_id = 0;
@@ -177,7 +177,7 @@
       $check_result = $dbconn->Execute($sql);
       $check_value = $check_result->fields;
       $state_has_zones = ($check_value['total'] > 0);
-      if ($state_has_zones == true) {
+      if ($state_has_zones == TRUE) {
         $zonestable = $oostable['zones'];
         $sql = "SELECT zone_id
                 FROM $zonestable
@@ -230,7 +230,7 @@
     $email_address_exists = FALSE;
   }
 
-  if ($error == true) {
+  if ($error == TRUE) {
     $processed = TRUE;
 
     // links breadcrumb

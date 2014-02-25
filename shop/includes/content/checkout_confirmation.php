@@ -126,7 +126,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
       }
     }
     // Out of Stock
-    if ( (STOCK_ALLOW_CHECKOUT != 'true') && ($any_out_of_stock == true) ) {
+    if ( (STOCK_ALLOW_CHECKOUT != 'true') && ($any_out_of_stock == TRUE) ) {
       oos_redirect(oos_href_link($aContents['main_shopping_cart']));
     }
   }

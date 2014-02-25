@@ -107,15 +107,15 @@
                                              '" . oos_db_input($wo_last_page_url) . "')");
       }
 
-      return true;
+      return TRUE;
     }
 
     function install() {
-      return true;
+      return TRUE;
     }
 
     function remove() {
-      return true;
+      return TRUE;
     }
 
     function config_item() {

@@ -175,7 +175,7 @@
 
       if (oos_is_not_null($this->icon)) $this->quotes['icon'] = oos_image($this->icon, $this->title);
 
-      if ($error == true) $this->quotes['error'] = $aLang['module_shipping_zones_invalid_zone'];
+      if ($error == TRUE) $this->quotes['error'] = $aLang['module_shipping_zones_invalid_zone'];
 
       return $this->quotes;
     }

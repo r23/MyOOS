@@ -42,7 +42,7 @@
   * @param $search_engine_safe
   * @return string
   */
-function oos_href_link($sContent = '', $parameters = null, $connection = 'NONSSL', $add_session_id = true, $search_engine_safe = true)
+function oos_href_link($sContent = '', $parameters = null, $connection = 'NONSSL', $add_session_id = TRUE, $search_engine_safe = TRUE)
 {
     global $oEvent, $spider_flag;
 
@@ -89,27 +89,27 @@ function oos_href_link($sContent = '', $parameters = null, $connection = 'NONSSL
     {	
 	
 		// Add the session ID when moving from HTTP and HTTPS servers or when SID is defined
-		if ( (ENABLE_SSL == 'true' ) && ($connection == 'SSL') && ($add_session_id == true) )
+		if ( (ENABLE_SSL == 'true' ) && ($connection == 'SSL') && ($add_session_id == TRUE) )
 		{
 			$_sid = oos_session_name() . '=' . oos_session_id();
 		} 
-		elseif ( ($add_session_id == true) && (oos_is_not_null(SID)) )
+		elseif ( ($add_session_id == TRUE) && (oos_is_not_null(SID)) )
 		{
 			$_sid = SID;
 		}
 
-		if ( $spider_flag === false) $_sid = NULL;
+		if ( $spider_flag === FALSE) $_sid = NULL;
 	}
 
 
-    if ( ($search_engine_safe == true) &&  $oEvent->installed_plugin('sefu') )
+    if ( ($search_engine_safe == TRUE) &&  $oEvent->installed_plugin('sefu') )
 	{
 		$link = str_replace(array('?', '&amp;', '='), '/', $link);
 
 		$separator = '?';
 
 		$pos = strpos ($link, 'action');
-		if ($pos === false)
+		if ($pos === FALSE)
 		{
 			$url_rewrite = new url_rewrite();
 			$link = $url_rewrite->transform_uri($link);
@@ -137,7 +137,7 @@ function oos_href_link($sContent = '', $parameters = null, $connection = 'NONSSL
   */
   function oos_image($src, $title = null, $width = 0, $height = 0, $parameters = null) {
     if ( (empty($src) || ($src == OOS_IMAGES)) && (IMAGE_REQUIRED == 'false') ) {
-      return false;
+      return FALSE;
     }
 
     if (!is_numeric($width)) {
@@ -267,13 +267,13 @@ function oos_href_link($sContent = '', $parameters = null, $connection = 'NONSSL
   * @param $reinsert_value
   * @return string
   */
-  function oos_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true) {
+  function oos_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = TRUE) {
 
     $field_value = $value;
 
     $field = '<input type="' . oos_output_string($type) . '" name="' . oos_output_string($name) . '"';
 
-    if ($reinsert_value === true) {
+    if ($reinsert_value === TRUE) {
       if (isset($_GET[$name])) {
         $field_value = $_GET[$name];
       } elseif (isset($_POST[$name])) {
@@ -306,14 +306,14 @@ function oos_href_link($sContent = '', $parameters = null, $connection = 'NONSSL
  * @param $parameters
  * @return string
  */
-function oos_draw_select_field($name, $type, $value = null, $checked = false, $parameters = null)
+function oos_draw_select_field($name, $type, $value = null, $checked = FALSE, $parameters = null)
 {
 
     $selection = '<input type="' . oos_output_string($type) . '" name="' . oos_output_string($name) . '"';
 
     if (!empty( $value )) $selection .= ' value="' . oos_output_string($value) . '"';
 
-    if ( ($checked === true) || ( isset($GLOBALS[$name]) && is_string($GLOBALS[$name]) && ( ($GLOBALS[$name] == 'on') || (isset($value) && (stripslashes($GLOBALS[$name]) == $value)) ) ) ) {
+    if ( ($checked === TRUE) || ( isset($GLOBALS[$name]) && is_string($GLOBALS[$name]) && ( ($GLOBALS[$name] == 'on') || (isset($value) && (stripslashes($GLOBALS[$name]) == $value)) ) ) ) {
         $selection .= ' checked="checked"';
     }
 
@@ -336,7 +336,7 @@ function oos_draw_select_field($name, $type, $value = null, $checked = false, $p
   * @param $checked
   * @param $parameters
   */
-  function oos_draw_checkbox_field($name, $value = '', $checked = false, $parameters = '') {
+  function oos_draw_checkbox_field($name, $value = '', $checked = FALSE, $parameters = '') {
     return oos_draw_select_field($name, 'checkbox', $value, $checked, $parameters);
   }
 
@@ -349,7 +349,7 @@ function oos_draw_select_field($name, $type, $value = null, $checked = false, $p
   * @param $checked
   * @param $parameters
   */
-  function oos_draw_radio_field($name, $value = '', $checked = false, $parameters = '') {
+  function oos_draw_radio_field($name, $value = '', $checked = FALSE, $parameters = '') {
     return oos_draw_select_field($name, 'radio', $value, $checked, $parameters);
   }
 
@@ -425,7 +425,7 @@ function oos_hide_session_id() {
  * @param $parameters
  * @param $required
  */
-function oos_draw_pull_down_menu($name, $values, $default = null, $parameters = null, $required = false)
+function oos_draw_pull_down_menu($name, $values, $default = null, $parameters = null, $required = FALSE)
 {
 
     $field = '<select name="' . oos_output_string($name) . '"';
@@ -446,15 +446,15 @@ function oos_draw_pull_down_menu($name, $values, $default = null, $parameters = 
     }
     $field .= '</select>';
 
-    if ($required == true) $field .= TEXT_FIELD_REQUIRED;
+    if ($required == TRUE) $field .= TEXT_FIELD_REQUIRED;
 
     return $field;
 }
 
 
-  function decode(&$data, $force = true) {
+  function decode(&$data, $force = TRUE) {
 
-    if ($force === false && (CHARSET == 'ISO-8859-15' || CHARSET == 'UTF-8')) {
+    if ($force === FALSE && (CHARSET == 'ISO-8859-15' || CHARSET == 'UTF-8')) {
       return $data;
     }
 

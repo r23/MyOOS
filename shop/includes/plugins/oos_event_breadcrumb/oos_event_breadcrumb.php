@@ -95,7 +95,7 @@
         }
       }
 
-      return true;
+      return TRUE;
     }
 
     function install() {

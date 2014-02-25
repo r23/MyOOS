@@ -37,7 +37,7 @@
     function update_status() {
       global $order;
 
-      if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_YELLOWPAY_ZONE > 0) ) {
+      if ( ($this->enabled == TRUE) && ((int)MODULE_PAYMENT_YELLOWPAY_ZONE > 0) ) {
         $check_flag = FALSE;
 
         $db =& oosDBGetConn();

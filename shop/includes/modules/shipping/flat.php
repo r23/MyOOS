@@ -34,7 +34,7 @@
       $this->tax_class = (defined('MODULE_SHIPPING_FLAT_TAX_CLASS') ? MODULE_SHIPPING_FLAT_TAX_CLASS : null);
       $this->enabled = (defined('MODULE_SHIPPING_FLAT_STATUS') && (MODULE_SHIPPING_FLAT_STATUS == 'True') ? TRUE : FALSE);
 
-      if ( ($this->enabled == true) && ((int)MODULE_SHIPPING_FLAT_ZONE > 0) ) {
+      if ( ($this->enabled == TRUE) && ((int)MODULE_SHIPPING_FLAT_ZONE > 0) ) {
         $check_flag = FALSE;
 
         // Get database information

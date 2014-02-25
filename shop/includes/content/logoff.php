@@ -31,7 +31,7 @@ $oBreadcrumb->add($aLang['navbar_title']);
 $sCanonical = oos_href_link($aContents['logoff'], '', 'SSL', FALSE, TRUE);
 $sPagetitle = $aLang['heading_title'];
 
-  $cookie_url_array = parse_url((ENABLE_SSL == true ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . substr(OOS_SHOP, 0, -1));
+  $cookie_url_array = parse_url((ENABLE_SSL == TRUE ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . substr(OOS_SHOP, 0, -1));
   $cookie_path = $cookie_url_array['path'];
   setcookie("email_address", "", time() - 3600, $cookie_path);
   setcookie("password", "", time() - 3600, $cookie_path);

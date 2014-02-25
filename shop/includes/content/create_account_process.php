@@ -137,7 +137,7 @@
 
       $entry_state_has_zones = ($country_check->fields['total'] > 0);
 
-      if ($entry_state_has_zones === true) {
+      if ($entry_state_has_zones === TRUE) {
         $state_has_zones = 'true';
 
         $zonestable = $oostable['zones'];
@@ -210,7 +210,7 @@
     $email_address_exists = FALSE;
   }
 
-  if ($error == true) {
+  if ($error == TRUE) {
 
     $processed = TRUE;
     if ((CUSTOMER_NOT_LOGIN == 'true') or (MAKE_PASSWORD == 'true')) {

@@ -36,20 +36,20 @@
       // split apart the hash / salt
       $aStack = explode(':', $sEncrypted);
 
-      if (count($aStack) != 2) return false;
+      if (count($aStack) != 2) return FALSE;
 
       if (md5($aStack[1] . $sPlain) == $aStack[0]) {
-        return true;
+        return TRUE;
       }
     }
 
     if (oos_is_not_null($_COOKIE['password']) && oos_is_not_null($sEncrypted)) {
       if ($_COOKIE['password'] == $sEncrypted) {
-        return true;
+        return TRUE;
       }
     }
 
-    return false;
+    return FALSE;
   }
 
 

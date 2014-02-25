@@ -33,7 +33,7 @@
       $this->icon = '';
       $this->enabled = (defined('MODULE_SHIPPING_SELFPICKUP_STATUS') && (MODULE_SHIPPING_SELFPICKUP_STATUS == 'True') ? TRUE : FALSE);
 
-      if ( ($this->enabled == true) && ((int)MODULE_SHIPPING_SELFPICKUP_ZONE > 0) ) {
+      if ( ($this->enabled == TRUE) && ((int)MODULE_SHIPPING_SELFPICKUP_ZONE > 0) ) {
         $check_flag = FALSE;
 
         // Get database information

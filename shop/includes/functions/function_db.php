@@ -100,10 +100,10 @@
     }
 
     if (function_exists('memcache_pconnect')) {
-      $dbconn->memCache = true; // should we use memCache instead of caching in files
+      $dbconn->memCache = TRUE; // should we use memCache instead of caching in files
       $dbconn->memCacheHost = '126.0.1.1'; // $db->memCacheHost = array($ip1, $ip2, $ip3); // $db->memCacheHost = $ip1; still works
       $dbconn->memCachePort = '11211'; // this is default memCache port
-      $dbconn->memCacheCompress = false; // Use 'true' to store the item compressed (uses zlib)
+      $dbconn->memCacheCompress = FALSE; // Use 'true' to store the item compressed (uses zlib)
     }
 
 
@@ -114,7 +114,7 @@
     if (strcmp($dbtype, 'oci8') == 0) {
         $dbconn->Execute("alter session set NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS'");
     }
-    //$dbconn->debug = true;
+    //$dbconn->debug = TRUE;
     if (OOS_LOG_SQL == 'true') {
       include_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/adodb-perf.inc.php';
       adodb_perf::table(ADODB_LOGSQL_TABLE);
@@ -125,7 +125,7 @@
     $GLOBALS['oosDB_connections'][0] = $dbconn;
     $GLOBALS['oosDB_tables'] = array();
 
-    return true;
+    return TRUE;
   }
 
  /**

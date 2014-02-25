@@ -57,8 +57,8 @@
     }
 
     // clean URL
-    if (strpos($sUrl, '&amp;') !== false) $sUrl = str_replace('&amp;', '&', $sUrl);
-    if (strpos($sUrl, '&&') !== false) $sUrl = str_replace('&&', '&', $sUrl);
+    if (strpos($sUrl, '&amp;') !== FALSE) $sUrl = str_replace('&amp;', '&', $sUrl);
+    if (strpos($sUrl, '&&') !== FALSE) $sUrl = str_replace('&&', '&', $sUrl);
 
     header('Location: ' . $sUrl);
     oos_exit();
@@ -404,7 +404,7 @@
   * @param $current_price
   * @return string
   */
-  function oos_get_products_price_quantity_discount($product_id, $qty, $current_price = false) {
+  function oos_get_products_price_quantity_discount($product_id, $qty, $current_price = FALSE) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -497,7 +497,7 @@
 		foreach($_GET as $key => $value)
 		{
 			if(empty($value)
-				|| $value === false)
+				|| $value === FALSE)
 			{
 				continue;
 			}
@@ -557,7 +557,7 @@
   * @param $bWithIsoCodes
   * @return array
   */
-  function oos_get_countries($countries_id = '', $bWithIsoCodes = false) {
+  function oos_get_countries($countries_id = '', $bWithIsoCodes = FALSE) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -565,7 +565,7 @@
 
     $aCountries = array();
     if (!empty($countries_id)) {
-        if ($bWithIsoCodes == true) {
+        if ($bWithIsoCodes == TRUE) {
             $countriestable = $oostable['countries'];
             $query = "SELECT countries_name, countries_iso_code_2, countries_iso_code_3
                       FROM $countriestable
@@ -882,7 +882,7 @@
     $result = $dbconn->Execute($query);
 
     while ($parent_categories = $result->fields) {
-      if ($parent_categories['parent_id'] == 0) return true;
+      if ($parent_categories['parent_id'] == 0) return TRUE;
       $categories[count($categories)] = $parent_categories['parent_id'];
       if ($parent_categories['parent_id'] != $categories_id) {
         oos_get_parent_categories($categories, $parent_categories['parent_id']);
@@ -969,7 +969,7 @@
       $uprid = $prid;
 
       if (is_array($parameters) && (count($parameters) > 0)) {
-        $attributes_check = true;
+        $attributes_check = TRUE;
         $attributes_ids = '';
 
         reset($parameters);
@@ -983,7 +983,7 @@
           }
         }
 
-        if ($attributes_check == true) {
+        if ($attributes_check == TRUE) {
           $uprid .= $attributes_ids;
         }
       }
@@ -991,8 +991,8 @@
       $uprid = oos_get_product_id($prid);
 
       if (is_numeric($uprid)) {
-        if (strpos($prid, '{') !== false) {
-          $attributes_check = true;
+        if (strpos($prid, '{') !== FALSE) {
+          $attributes_check = TRUE;
           $attributes_ids = '';
 
           // strpos()+1 to remove up to and including the first { which would create an empty array element in explode()
@@ -1004,17 +1004,17 @@
             if (is_numeric($pair[0]) && is_numeric($pair[1])) {
               $attributes_ids .= '{' . intval($pair[0]) . '}' . intval($pair[1]);
             } else {
-              $attributes_check = false;
+              $attributes_check = FALSE;
               break;
             }
           }
 
-          if ($attributes_check == true) {
+          if ($attributes_check == TRUE) {
             $uprid .= $attributes_ids;
           }
         }
       } else {
-        return false;
+        return FALSE;
       }
     }
 
@@ -1042,9 +1042,9 @@
               WHERE products_id = '" . intval($products_id) . "'";
     $attributes = $dbconn->Execute($query);
     if ($attributes->fields['total'] > 0) {
-      return true;
+      return TRUE;
     } else {
-      return false;
+      return FALSE;
     }
   }
 
@@ -1142,7 +1142,7 @@ function oos_output_string($sStr, $aTranslate = null)
     if ($result->RecordCount() > 0) {
       return $code;
     } else {
-      return false;
+      return FALSE;
     }
   }
 
@@ -1231,13 +1231,13 @@ function oos_output_string($sStr, $aTranslate = null)
 
     global $oEvent;
 
-    if (!$oEvent->installed_plugin('mail')) return false;
+    if (!$oEvent->installed_plugin('mail')) return FALSE;
 
-    if (preg_match('~[\r\n]~', $to_name)) return false;
-    if (preg_match('~[\r\n]~', $to_email_address)) return false;
-    if (preg_match('~[\r\n]~', $email_subject)) return false;
-    if (preg_match('~[\r\n]~', $from_email_name)) return false;
-    if (preg_match('~[\r\n]~', $from_email_address)) return false;
+    if (preg_match('~[\r\n]~', $to_name)) return FALSE;
+    if (preg_match('~[\r\n]~', $to_email_address)) return FALSE;
+    if (preg_match('~[\r\n]~', $email_subject)) return FALSE;
+    if (preg_match('~[\r\n]~', $from_email_name)) return FALSE;
+    if (preg_match('~[\r\n]~', $from_email_address)) return FALSE;
 
     $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : 'en');
 

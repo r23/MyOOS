@@ -43,7 +43,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
  */
 function oos_validate_is_email($value) {
  
-    if (!is_string($value)) return false;
+    if (!is_string($value)) return FALSE;
  
     // in case value is several addresses separated by newlines
     $_addresses = preg_split('![\n\r]+!', $value);
@@ -53,9 +53,9 @@ function oos_validate_is_email($value) {
 	        !preg_match('!^.+\@(\[?)[a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$!', $_address));
         
         if(!$_is_valid)
-            return false;
+            return FALSE;
     }
-    return true;
+    return TRUE;
 }
 
 
@@ -66,7 +66,7 @@ function oos_validate_is_email($value) {
  */
 function oos_validate_is_url($sUrl) {
    if (strlen($sUrl) == 0) {
-     return false;
+     return FALSE;
    }
 
    return preg_match('!^http(s)?://[\w-]+\.[\w-]+(\S+)?$!i', $sUrl);

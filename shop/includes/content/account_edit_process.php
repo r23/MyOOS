@@ -144,7 +144,7 @@ if (!isset($_SESSION['customer_id'])) {
 
       $entry_state_has_zones = ($country_check->fields['total'] > 0);
 
-      if ($entry_state_has_zones === true) {
+      if ($entry_state_has_zones === TRUE) {
         $state_has_zones = 'true';
 
         $zonestable = $oostable['zones'];
@@ -211,7 +211,7 @@ if (!isset($_SESSION['customer_id'])) {
     $email_address_exists = FALSE;
   }
 
-  if ($error == true) {
+  if ($error == TRUE) {
 
     $processed = TRUE;
     $no_edit = TRUE;
@@ -349,7 +349,7 @@ if (!isset($_SESSION['customer_id'])) {
     oos_db_perform($oostable['customers'], $sql_data_array, 'update', "customers_id = '" . intval($_SESSION['customer_id']) . "'");
 
     if (oos_is_not_null($_COOKIE['password'])) {
-      $cookie_url_array = parse_url((ENABLE_SSL == true ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . substr(OOS_SHOP, 0, -1));
+      $cookie_url_array = parse_url((ENABLE_SSL == TRUE ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . substr(OOS_SHOP, 0, -1));
       $cookie_path = $cookie_url_array['path'];
       setcookie('email_address', $email_address, time()+ (365 * 24 * 3600), $cookie_path, '', ((getenv('HTTPS') == 'on') ? 1 : 0));
       setcookie('password', $new_encrypted_password, time()+ (365 * 24 * 3600), $cookie_path, '', ((getenv('HTTPS') == 'on') ? 1 : 0));

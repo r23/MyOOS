@@ -217,7 +217,7 @@ if ($_SESSION['cart']->count_contents() < 1) {
       $check_address = $check_address_result->fields;
 
       if ($check_address['total'] == '1') {
-        if ($reset_shipping == true) unset($_SESSION['shipping']);
+        if ($reset_shipping == TRUE) unset($_SESSION['shipping']);
         oos_redirect(oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
       } else {
         unset($_SESSION['sendto']);

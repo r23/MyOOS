@@ -90,7 +90,7 @@ if (get_magic_quotes_gpc()) {
  * Fix for PHP as CGI hosts that set SCRIPT_FILENAME to
  * something ending in php.cgi for all requests
  */
-if (strpos(php_sapi_name(), 'cgi') !== false) {
+if (strpos(php_sapi_name(), 'cgi') !== FALSE) {
 //   $_SERVER['SCRIPT_FILENAME'] = $_SERVER['PATH_TRANSLATED'];
 }
 
@@ -98,7 +98,7 @@ if (strpos(php_sapi_name(), 'cgi') !== false) {
 /**
  * Fix for Dreamhost and other PHP as CGI hosts
  */
-if (strpos($_SERVER['SCRIPT_NAME'], 'php.cgi') !== false) {
+if (strpos($_SERVER['SCRIPT_NAME'], 'php.cgi') !== FALSE) {
     unset($_SERVER['PATH_INFO']);
 }
 
@@ -115,10 +115,10 @@ if (strpos($_SERVER['SCRIPT_NAME'], 'php.cgi') !== false) {
  * @since       PHP 5
  */
 if (!function_exists('file_get_contents')) {
-    function file_get_contents($filename, $incategory = false, $resource_context = null) {
+    function file_get_contents($filename, $incategory = FALSE, $resource_context = null) {
         if (false === $fh = fopen($filename, 'rb', $incategory)) {
             user_error('file_get_contents() failed to open stream: No such file or directory', E_USER_WARNING);
-            return false;
+            return FALSE;
         }
 
         clearstatcache();
@@ -147,12 +147,12 @@ if (!function_exists('checkdnsrr')) {
 
           foreach ($output as $k => $line) {
               if(preg_match('/^' . $host . '/i', $line)) {
-                  return true;
+                  return TRUE;
               }
           }
       }
 
-      return false;
+      return FALSE;
     }
 }
 
