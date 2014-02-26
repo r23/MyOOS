@@ -72,15 +72,32 @@
 	</div>
 	</header>
 	<!-- end header -->
-			
+
+	<div class="container">
+		<div class="row nomargin">
+			<div class="col-md-12">	
 {if $oos_info_warning}
 	{foreach item=warning from=$oos_info_warning}
-		{include file="myoos/system/warning.tpl"}
+		{include file="myoos/system/_warning.tpl"}
 	{/foreach}
 {/if}
-{foreach item=error from=$oos_error_message}
-	{include file="myoos/system/error_message.tpl"}
-{/foreach}
-{foreach item=info from=$oos_info_message}
-	{include file="myoos/system/info_message.tpl"}
-{/foreach}
+{if $oos_error_message}
+	{foreach item=error from=$oos_error_message}
+		{include file="myoos/system/_error_message.tpl"}
+	{/foreach}
+{/if}
+{if $oos_info_message}
+	{foreach item=info from=$oos_info_message}
+		{include file="myoos/system/_info_message.tpl"}
+	{/foreach}
+{/if}
+
+{if $message}
+	{foreach item=info from=$message}
+		{include file="myoos/system/_message.tpl"}
+	{/foreach}
+{/if}
+			</div>
+
+		</div>
+	</div>

@@ -42,5 +42,5 @@ $aLang['module_payment_cc_text_credit_card_number'] = 'Kreditkarten-Nr.:';
 $aLang['module_payment_cc_text_credit_card_expires'] = 'Gültig bis:';
 $aLang['module_payment_cc_text_js_cc_owner'] = '* Der \'Name des Inhabers\' muss mindestens aus ' . CC_OWNER_MIN_LENGTH . ' Buchstaben bestehen.\n';
 $aLang['module_payment_cc_text_js_cc_number'] = '* Die \'Kreditkarten-Nr.\' muss mindestens aus ' . CC_NUMBER_MIN_LENGTH . ' Zahlen bestehen.\n';
-$aLang['module_payment_cc_text_error'] = 'Fehler bei der &Uuml;berpüfung der Kreditkarte!';
+$aLang['module_payment_cc_text_error'] = 'Fehler bei der Überpüfung der Kreditkarte!';
 

@@ -57,8 +57,8 @@ define('MODULE_PAYMENT_EU_BANKTRANSFER_ORDER_STATUS_ID_DESC', 'Bestellungen, wel
 
 
 $aLang['module_payment_eu_banktransfer_text_title'] = 'European Bank Transfer';
-$aLang['module_payment_eu_banktransfer_text_description'] = '<br />Die einfachste Zahlungsmethode innerhalb der EU ist die &Uuml;berweisung mittels IBAN und BIC.' .
-                                                            '<br />Bitte verwenden Sie folgende Daten für die &Uuml;berweisung des Gesamtbetrages:<br />' .
+$aLang['module_payment_eu_banktransfer_text_description'] = '<br />Die einfachste Zahlungsmethode innerhalb der EU ist die Überweisung mittels IBAN und BIC.' .
+                                                            '<br />Bitte verwenden Sie folgende Daten für die Überweisung des Gesamtbetrages:<br />' .
                                                             '<br />Name der Bank: ' . MODULE_PAYMENT_EU_BANKTRANSFER_BANKNAME .
                                                             '<br />Kontoname: ' . MODULE_PAYMENT_EU_BANKTRANSFER_KONTONAME .
                                                             '<br />Kontonummer: ' . MODULE_PAYMENT_EU_BANKTRANSFER_KONTONUM .

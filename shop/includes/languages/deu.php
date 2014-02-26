@@ -61,6 +61,9 @@ define('LANG','de');
 
 $aLang['welcome_msg'] = 'VIELE PRODUKTE 40% REDUZIERT';
 $aLang['welcome_msg_title'] = '';
+$aLang['danger'] = 'Oh nein! Es ist ein Fehler aufgetreten!';
+$aLang['warning'] = 'Warnung!';
+
 
 //text in oos_temp/templates/oos/system/user_navigation.html
 $aLang['header_title_create_account'] = 'Neues Konto';

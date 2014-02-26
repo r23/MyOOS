@@ -43,32 +43,25 @@ class breadcrumb
 
     function trail($separator = ' - ')
 	{
-		$trail_string = '<ul class="breadcrumb">';
+		$trail_string = '<ol class="breadcrumb">';
 
 		$n = sizeof($this->_trail);
 		for ($i=0, $n; $i<$n; $i++)
 		{
-			if (isset($this->_trail[$i]['link']) && !empty($this->_trail[$i]['link']))
-			{
+			if (isset($this->_trail[$i]['link']) && !empty($this->_trail[$i]['link'])) {
 				$trail_string .= '<li><a title="' . $this->_trail[$i]['title'] . '" href="' . $this->_trail[$i]['link'] . '">';
-			} 
-			else
-			{
+			} else {
 				$trail_string .= '<li class="active">';
 			}
 			
 			
-			if (isset($this->_trail[$i]['icon']) && !empty($this->_trail[$i]['icon']))
-			{
+			if (isset($this->_trail[$i]['icon']) && !empty($this->_trail[$i]['icon']))	{
 				$trail_string .= '<i class="icon-' . $this->_trail[$i]['icon'] . '"></i>';
-			}
-			else
-			{
+			} else {
 				$trail_string .= $this->_trail[$i]['title'];
 			}
 			
-			if (isset($this->_trail[$i]['link']) && !empty($this->_trail[$i]['link']))
-			{
+			if (isset($this->_trail[$i]['link']) && !empty($this->_trail[$i]['link'])) {
 				$trail_string .= '</a>';
 			} 
 			
@@ -77,7 +70,7 @@ class breadcrumb
 			$trail_string .= '</li>';
 		}
 
-		$trail_string .= '</ul>';
+		$trail_string .= '</ol>';
 		return $trail_string;
     }
 
