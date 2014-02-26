@@ -4,7 +4,7 @@ Donate link: http://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 3.6
 Tested up to: 3.8.1
-Stable tag: 3.7.1
+Stable tag: 3.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,7 +50,7 @@ The following are other recommended plugins by the author of Contact Form 7.
 * Croatian (hr) - [tolingo Translation Services](http://www.tolingo.com)
 * Czech (cs_CZ) - Korry, [Radovan Fiser](http://algymsa.cz/), [Tomas Vesely](http://www.mcmotylek.cz/), [Pavel Bilek](http://chcistranky.eu/zdarma/), Vladislav Šenk
 * Danish (da_DK) - [Jens Griebel](http://www.kompas-it.dk/), [Georg S. Adamsen](http://wordpress.blogos.dk/)
-* Dutch (nl_NL) - [Chris Devriese](http://www.100it.be/), [Martin Hein](http://www.split-a-pixel.nl/), [Rene](http://wpwebshop.com/), [TenSheep](http://tensheep.nl/)
+* Dutch (nl_NL) - [Chris Devriese](http://www.100it.be/), [Martin Hein](http://www.split-a-pixel.nl/), [Rene](http://wpwebshop.com/), [TenSheep](http://tensheep.nl/), [Tim de Hoog](http://www.ecommany.com/)
 * Esperanto (eo_EO) - Arkadiusz Zychewicz
 * Estonian (et) - [Peeter Rahuvarm](http://www.kraabus.ee), Egon Elbre
 * Finnish (fi) - [Miika Turunen](http://www.webwork.fi/), [Mediajalostamo](http://www.mediajalostamo.fi/), [Jani Alha](http://www.wysiwyg.fi/)
@@ -121,6 +121,14 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 1. screenshot-1.png 
 
 == Changelog ==
+
+For more information, see [Releases](http://contactform7.com/category/releases/).
+
+= 3.7.2 =
+
+* Fixed a bug that allowed to avoid CAPTCHA validation.
+* The jQuery Form Plugin (jquery.form.js) has been updated to 3.50.0.
+* Translation for Dutch has been updated.
 
 = 3.7.1 =
 

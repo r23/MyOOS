@@ -110,15 +110,25 @@ function jetpack_shortcodes_more_info_connected() { ?>
 	<?php
 	$codes = array( 'archives' => 'http://support.wordpress.com/archives-shortcode/',
 		'audio' => 'http://support.wordpress.com/audio/',
+		'bandcamp' => 'http://en.support.wordpress.com/audio/bandcamp/',
 		'blip.tv' => 'http://support.wordpress.com/videos/bliptv/',
 		'dailymotion' => 'http://support.wordpress.com/videos/dailymotion/',
+		'facebook' => 'http://en.support.wordpress.com/facebook-integration/facebook-embeds/',
 		'flickr' => 'http://support.wordpress.com/videos/flickr-video/',
+		'googlemaps' => 'http://support.wordpress.com/google-maps/',
+		'jetpack_subscription_form' => 'http://jetpack.me/support/subscriptions/#display',
+		'polldaddy' => 'http://support.polldaddy.com/wordpress-shortcodes/',
+		'presentation' => 'http://en.support.wordpress.com/presentations/',
 		'scribd' => 'http://support.wordpress.com/scribd/',
 		'slideshare' => 'http://support.wordpress.com/slideshows/slideshare/',
+		'slideshow' => 'http://en.support.wordpress.com/slideshows/',
 		'soundcloud' => 'http://support.wordpress.com/audio/soundcloud-audio-player/',
+		'ted' => 'http://en.support.wordpress.com/videos/ted-talks/',
+		'twitter-timeline' => 'http://en.support.wordpress.com/widgets/twitter-timeline-widget/#embedding-with-a-shortcode',
+		'upcomingevents' => 'http://en.support.wordpress.com/widgets/upcoming-events/#events-list-shortcode',
 		'vimeo' => 'http://support.wordpress.com/videos/vimeo/',
+		'vine' => 'http://en.support.wordpress.com/videos/vine/',
 		'youtube' => 'http://support.wordpress.com/videos/youtube/',
-		'polldaddy' => 'http://support.polldaddy.com/wordpress-shortcodes/',
 	);
 
 	$codes['wpvideo (VideoPress)'] = 'http://en.support.wordpress.com/videopress/';
@@ -407,6 +417,11 @@ function jetpack_widgets_more_info_connected() { ?>
 	<p><strong><?php esc_html_e( 'The Twitter Widget', 'jetpack' ); ?></strong> <?php esc_html_e( 'shows your latest tweets within a sidebar on your theme.', 'jetpack' ) ?></p>
 	<p><strong><?php esc_html_e( 'The Facebook Like Box Widget', 'jetpack' ); ?></strong> <?php esc_html_e( 'shows your Facebook Like Box within a sidebar on your theme.', 'jetpack' ) ?></p>
 	<p><strong><?php esc_html_e( 'The Image Widget', 'jetpack' ); ?></strong> <?php esc_html_e( 'lets you easily add images to a sidebar on your theme.', 'jetpack' ) ?></p>
+	<p><strong><?php esc_html_e( 'The Gravatar Widget', 'jetpack' ); ?></strong> <?php esc_html_e( 'allows you to pull in your Gravatar image along with some of your Gravatar profile data.', 'jetpack' ) ?></p>
+	<p><strong><?php esc_html_e( 'The Gallery Widget', 'jetpack' ); ?></strong> <?php esc_html_e( 'provides you with a simple way to display a photo gallery or slideshow in your blog’s sidebar.', 'jetpack' ) ?></p>
+	<p><strong><?php esc_html_e( 'The Display WordPress Posts Widget', 'jetpack' ); ?></strong> <?php esc_html_e( 'lets you display up to ten recent posts from another WordPress.com blog, or a self-hosted WordPress site with Jetpack enabled.', 'jetpack' ) ?></p>
+	<p><strong><?php esc_html_e( 'The Readmill Widget', 'jetpack' ); ?></strong> <?php esc_html_e( 'allows your readers to send a book to their device with one click.', 'jetpack' ) ?></p>
+	<p><strong><?php esc_html_e( 'The Upcoming Events Widget', 'jetpack' ); ?></strong> <?php esc_html_e( 'allows you to use an iCalendar link to display a list of events on your site.', 'jetpack' ) ?></p>
 
 	<p><?php esc_html_e( 'Each of these widgets has a number of customization options.', 'jetpack' ); ?>  <?php printf( __( 'To use the widgets, go to Appearance &#8594; <a href="%s">Widgets</a>. Drag them into one of your sidebars and configure away.', 'jetpack' ), admin_url( 'widgets.php' ) ); ?></p>
 <?php
