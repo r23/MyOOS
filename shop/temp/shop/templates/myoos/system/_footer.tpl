@@ -27,14 +27,14 @@
 				<div class="widget">
 					<h5 class="widgetheading">{$lang.header_title_service}</h5>			
 					<ul class="link-list">
-						<li><a href="{html_href_link content=$contents.products_new}" title="{$lang.block_service_new}"><i class="icon-bullhorn"></i> {$lang.block_service_new}</a></li>
-						<li><a href="{html_href_link content=$contents.specials}" title="{$lang.block_service_specials}"><i class="icon-star"></i> {$lang.block_service_specials}</a></li>
-						<li><a href="{html_href_link content=$contents.info_sitemap}" title="{$lang.block_service_sitemap}"><i class="icon-sitemap"></i> {$lang.block_service_sitemap}</a></li>
-						<li><a href="{html_href_link content=$contents.advanced_search}" title="{$lang.block_service_advanced_search}"><i class="icon-search"></i> {$lang.block_service_advanced_search}</a></li>
+						<li><a href="{html_href_link content=$contents.products_new}" title="{$lang.block_service_new}"><i class="fa fa-bullhorn"></i> {$lang.block_service_new}</a></li>
+						<li><a href="{html_href_link content=$contents.specials}" title="{$lang.block_service_specials}"><i class="fa fa-star"></i> {$lang.block_service_specials}</a></li>
+						<li><a href="{html_href_link content=$contents.info_sitemap}" title="{$lang.block_service_sitemap}"><i class="fa fa-sitemap"></i> {$lang.block_service_sitemap}</a></li>
+						<li><a href="{html_href_link content=$contents.advanced_search}" title="{$lang.block_service_advanced_search}"><i class="fa fa-search"></i> {$lang.block_service_advanced_search}</a></li>
 {if $oEvent->installed_plugin('reviews')}
-						<li><a href="{html_href_link content=$contents.reviews_reviews}" title="{$lang.block_service_reviews}"><i class="icon-comments"></i> {$lang.block_service_reviews}</a></li>
+						<li><a href="{html_href_link content=$contents.reviews_reviews}" title="{$lang.block_service_reviews}"><i class="fa fa-comments"></i> {$lang.block_service_reviews}</a></li>
 {else}
-						<li><a href="{html_href_link content=$contents.main_shopping_cart}" title="{$lang.block_service_shopping_cart}"><i class="icon-shopping-cart"></i> {$lang.block_service_shopping_cart}</a></li>
+						<li><a href="{html_href_link content=$contents.main_shopping_cart}" title="{$lang.block_service_shopping_cart}"><i class="fa fa-shopping-cart"></i> {$lang.block_service_shopping_cart}</a></li>
 {/if}
 					</ul>					
 				</div>
@@ -43,12 +43,12 @@
 				<div class="widget">
 					<h5 class="widgetheading">{$lang.get_in_touch_with_us}</h5>
 					<address>
-					<strong>{$smarty.const.STORE_NAME}</strong><br>
+					<strong><i class="fa fa-map-marker"></i> {$smarty.const.STORE_NAME}</strong><br>
 					 {$smarty.const.STORE_ADDRESS_STREET}<br>
 					 {$smarty.const.STORE_ADDRESS_POSTCODE} {$smarty.const.STORE_ADDRESS_CITY} </address>
 					<p>
-						<i class="icon-phone"></i> {$smarty.const.STORE_ADDRESS_TELEPHONE_NUMBER} <br>
-						<a href="{html_href_link content=$contents.contact_us}" title="{$lang.block_service_contact}"><i class="icon-envelope-alt"></i> {$smarty.const.STORE_ADDRESS_EMAIL}</a>
+						<i class="fa fa-phone"></i> {$smarty.const.STORE_ADDRESS_TELEPHONE_NUMBER} <br>
+						<a href="{html_href_link content=$contents.contact_us}" title="{$lang.block_service_contact}"><i class="fa fa-envelope-o"></i> {$smarty.const.STORE_ADDRESS_EMAIL}</a>
 					</p>
 				</div>
 			</div>
@@ -79,11 +79,11 @@
 				</div>
 				<div class="col-md-6">
 					<ul class="social-network">
-						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="icon-facebook icon-square"></i></a></li>
-						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="icon-twitter icon-square"></i></a></li>
-						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Linkedin"><i class="icon-linkedin icon-square"></i></a></li>
-						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i class="icon-pinterest icon-square"></i></a></li>
-						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Google plus"><i class="icon-google-plus icon-square"></i></a></li>
+						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook-square"></i></a></li>
+						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter-square"></i></a></li>
+						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Linkedin"><i class="fa fa-linkedin-square"></i></a></li>
+						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i class="fa fa-pinterest-square"></i></a></li>
+						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Google plus"><i class="fa fa-google-plus"></i></a></li>
 					</ul>
 				</div>
 			</div>
@@ -91,10 +91,11 @@
 	</div>
 	</footer>
 </div>
-<a href="#" class="scrollup"><i class="icon-chevron-up icon-square icon-32 active"></i></a>
+
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="{$theme}/js/bootstrap.min.js"></script>
 <script src="{$theme}/js/jquery.nivo.slider.pack.js"></script>
+<script src="{$theme}/js/scrolltopcontrol.js"></script>
 
 <script src="{$theme}/js/application.js"></script>
 
