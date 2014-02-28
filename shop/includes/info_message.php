@@ -118,6 +118,14 @@ if (isset($sInfoMessage) && !empty($sInfoMessage)) {
                             'text' => $sInfoMessage );
 }
 
+if (isset($_SESSION['success_message']) && !empty($_SESSION['success_message'])) {
+    $aInfoMessage[] = array('type' => 'success',
+                            'title' => $aLang['success'],
+                            'text' => (string)$_SESSION['success_message']);
+    $_SESSION['success_message'] = '';
+}
+
+
 if ($oMessage->size('upload') > 0) {
     $aInfoMessage = array_merge ($aInfoMessage, $oMessage->output('upload') );
 }

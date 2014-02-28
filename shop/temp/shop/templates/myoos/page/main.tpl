@@ -1,30 +1,43 @@
 {include file="myoos/system/_header.tpl"}
-
-    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td>{$oosPageHeading}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-{if $customer_greeting}
-         <tr>
-           <td class="main">{$customer_greeting}</td>
-         </tr>
+	<section id="featured">
+		{$featured}
+	</section>	
+	
+{if $message}
+	{foreach item=info from=$message}
+		{include file="myoos/system/_message.tpl"}
+	{/foreach}
 {/if}
-          <tr>
-            <td class="main"><br>{$lang.text_main}</td>
-          </tr>
+
+	<section class="callaction">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10">
+				<h2 class="text-color">Jemand musste Josef K. verleumdet haben.!</h2>
+				<p class="text-muted">Jemand musste Josef K. verleumdet haben, denn ohne dass er etwas Böses getan hätte, wurde er eines Morgens verhaftet. »Wie ein Hund! « sagte er, es war, als sollte die Scham ihn überleben.</p>
+			</div>
+			<div class="col-md-2">
+				<div class="cta floatright">
+					<a href="#" class="btn btn-color btn-lg">Buy Now!</a>
+				</div>
+		  </div>			
+		</div>
+	</div>
+	</section>
+
+    <section id="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {$lang.text_main}
+            </div>
+        </div>
+    </div>
+    </section>	
+
 {$new_spezials}
-{$featured}
 {$new_products}
 {$upcoming_products}
 
-
-        </table></td>
-      </tr>
-    </table>
 
 {include file="myoos/system/_footer.tpl"}

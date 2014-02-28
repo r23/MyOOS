@@ -78,24 +78,26 @@
 					</div>
 				</div>
 				<div class="col-md-6">
-					<ul class="social-network">
-						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook-square"></i></a></li>
-						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter-square"></i></a></li>
-						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Linkedin"><i class="fa fa-linkedin-square"></i></a></li>
-						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i class="fa fa-pinterest-square"></i></a></li>
-						<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Google plus"><i class="fa fa-google-plus"></i></a></li>
+					<div class="social-network">
+					<ul class="list-inline">
+						<li><a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook-square"></i></a></li>
+						<li><a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter-square"></i></a></li>
+						<li><a href="#" data-toggle="tooltip" data-placement="top" title="Linkedin"><i class="fa fa-linkedin-square"></i></a></li>
+						<li><a href="#" data-toggle="tooltip" data-placement="top" title="Pinterest"><i class="fa fa-pinterest-square"></i></a></li>
+						<li><a href="#" data-toggle="tooltip" data-placement="top" title="Google plus"><i class="fa fa-google-plus"></i></a></li>
 					</ul>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	</footer>
-</div>
 
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="{$theme}/js/bootstrap.min.js"></script>
 <script src="{$theme}/js/jquery.nivo.slider.pack.js"></script>
 <script src="{$theme}/js/scrolltopcontrol.js"></script>
+<script src="{$theme}/js/jquery.sticky.js"></script>
 
 <script src="{$theme}/js/application.js"></script>
 

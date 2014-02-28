@@ -24,10 +24,10 @@
 
 <!-- Place favicon.ico and apple-touch-icon.png -->
 <link rel="shortcut icon" href="{$theme}/images/ico/favicon.ico">
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{$theme}/images/ico/apple-touch-icon-144-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{$theme}/images/ico/apple-touch-icon-114-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{$theme}/images/ico/apple-touch-icon-72-precomposed.png">
-<link rel="apple-touch-icon-precomposed" href="{$theme}/images/ico/apple-touch-icon-57-precomposed.png">
+<link rel="apple-touch-fa fa-precomposed" sizes="144x144" href="{$theme}/images/ico/apple-touch-fa fa-144-precomposed.png">
+<link rel="apple-touch-fa fa-precomposed" sizes="114x114" href="{$theme}/images/ico/apple-touch-fa fa-114-precomposed.png">
+<link rel="apple-touch-fa fa-precomposed" sizes="72x72" href="{$theme}/images/ico/apple-touch-fa fa-72-precomposed.png">
+<link rel="apple-touch-fa fa-precomposed" href="{$theme}/images/ico/apple-touch-fa fa-57-precomposed.png">
 
 <!-- Google fonts -->
 <link href='http://fonts.googleapis.com/css?family=Noto+Serif:400,400italic,700|Open+Sans:300,400,600,700' rel='stylesheet' type='text/css' />
@@ -42,7 +42,7 @@
 <!--[if lt IE 7]>
 	<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 <![endif]-->
-<div id="wrapper">
+
 	<!-- start header -->
 	<header>
 	<div class="container">
@@ -50,13 +50,13 @@
 			<div class="col-md-12">				
 				<div class="headnav">
 					<ul>
-						<li class="first"><a href="{html_href_link content=$contents.account connection=SSL}" title="{$lang.header_title_my_account}"><i class="icon-user"></i> {$lang.header_title_my_account}</a></li>
-						<li><a href="{html_href_link content=$contents.main_shopping_cart}" title="{$lang.header_title_cart_contents}"><i class="icon-shopping-cart"></i> {$lang.header_title_cart_contents}</a></li>
-						<li><a href="{html_href_link content=$contents.checkout_payment connection=SSL}" title="{$lang.header_title_checkout}"><i class="icon-folder-open"></i> {$lang.header_title_checkout}</a></li>
+						<li class="first"><a href="{html_href_link content=$contents.account connection=SSL}" title="{$lang.header_title_my_account}"><i class="fa fa-user"></i> {$lang.header_title_my_account}</a></li>
+						<li><a href="{html_href_link content=$contents.main_shopping_cart}" title="{$lang.header_title_cart_contents}"><i class="fa fa-shopping-cart"></i> {$lang.header_title_cart_contents}</a></li>
+						<li><a href="{html_href_link content=$contents.checkout_payment connection=SSL}" title="{$lang.header_title_checkout}"><i class="fa fa-folder-open"></i> {$lang.header_title_checkout}</a></li>
 {if (isset($smarty.session.customer_id)) }
-						<li class="last"><a href="{html_href_link content=$contents.logoff connection=SSL}" title="{$lang.header_title_logoff}"><i class="icon-signout"></i> {$lang.header_title_logoff}</a></li>
+						<li class="last"><a href="{html_href_link content=$contents.logoff connection=SSL}" title="{$lang.header_title_logoff}"><i class="fa fa-sign-out"></i> {$lang.header_title_logoff}</a></li>
 {else}
-						<li class="last"><a href="{html_href_link content=$contents.login connection=SSL}" title="{$lang.header_title_login}"><i class="icon-signin"></i> {$lang.header_title_login}</a></li>
+						<li class="last"><a href="{html_href_link content=$contents.login connection=SSL}" title="{$lang.header_title_login}"><i class="fa fa-sign-in"></i> {$lang.header_title_login}</a></li>
 {/if}
 					</ul>		
 				</div>                                       
@@ -72,32 +72,3 @@
 	</div>
 	</header>
 	<!-- end header -->
-
-	<div class="container">
-		<div class="row nomargin">
-			<div class="col-md-12">	
-{if $oos_info_warning}
-	{foreach item=warning from=$oos_info_warning}
-		{include file="myoos/system/_warning.tpl"}
-	{/foreach}
-{/if}
-{if $oos_error_message}
-	{foreach item=error from=$oos_error_message}
-		{include file="myoos/system/_error_message.tpl"}
-	{/foreach}
-{/if}
-{if $oos_info_message}
-	{foreach item=info from=$oos_info_message}
-		{include file="myoos/system/_info_message.tpl"}
-	{/foreach}
-{/if}
-
-{if $message}
-	{foreach item=info from=$message}
-		{include file="myoos/system/_message.tpl"}
-	{/foreach}
-{/if}
-			</div>
-
-		</div>
-	</div>

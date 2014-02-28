@@ -43,7 +43,7 @@ class breadcrumb
 
     function trail($separator = ' - ')
 	{
-		$trail_string = '<ol class="breadcrumb">';
+		$trail_string = '<ol class="breadcrumb pull-right hidden-xs">';
 
 		$n = sizeof($this->_trail);
 		for ($i=0, $n; $i<$n; $i++)
@@ -56,7 +56,7 @@ class breadcrumb
 			
 			
 			if (isset($this->_trail[$i]['icon']) && !empty($this->_trail[$i]['icon']))	{
-				$trail_string .= '<i class="icon-' . $this->_trail[$i]['icon'] . '"></i>';
+				$trail_string .= '<i class="fa fa-' . $this->_trail[$i]['icon'] . '"></i>';
 			} else {
 				$trail_string .= $this->_trail[$i]['title'];
 			}

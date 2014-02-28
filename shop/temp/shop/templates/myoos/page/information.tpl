@@ -1,4 +1,6 @@
 {include file="myoos/system/_header.tpl"}
+	<!-- Wrapper -->
+	<div class="wrapper">
     <section id="inner-headline">
     <div class="container">
         <div class="row">
@@ -22,4 +24,5 @@
         </div>
     </div>
     </section>
+	</div> <!-- / .wrapper -->
 {include file="myoos/system/_footer.tpl"}
