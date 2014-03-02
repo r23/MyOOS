@@ -340,14 +340,14 @@ $aLang['text_no_new_products'] = 'There are currently no products.';
 $aLang['text_unknown_tax_rate'] = 'Unknown tax rate';
 $aLang['text_required'] = 'Required';
 $aLang['error_oos_mail'] = '<small>OOS ERROR:</small> Cannot send the email through the specified SMTP server. Please check your php.ini setting and correct the SMTP server if necessary.';
-
+/*
 $aLang['warning_install_directory_exists'] = 'Warning: Installation directory exists at: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/install. Please remove this directory for security reasons.';
 $aLang['warning_config_file_writeable'] = 'Warning: I am able to write to the configuration file: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php. This is a potential security risk - please set the right user permissions on this file.';
 $aLang['warning_session_auto_start'] = 'Warning: session.auto_start is enabled - please disable this php feature in php.ini and restart the web server.';
 $aLang['warning_download_directory_non_existent'] = 'Warning: The downloadable products directory does not exist: ' . OOS_DOWNLOAD_PATH . '. Downloadable products will not work until this directory is valid.';
 $aLang['warning_session_directory_non_existent'] = 'Warning: The sessions directory does not exist: ' . oos_session_save_path() . '. Sessions will not work until this directory is created.';
 $aLang['warning_session_directory_not_writeable'] = 'Warning: I am not able to write to the sessions directory: ' . oos_session_save_path() . '. Sessions will not work until the right user permissions are set.';
-
+*/
 $aLang['text_ccval_error_invalid_date'] = 'The expiry date entered for the credit card is invalid.<br>Please check the date and try again.';
 $aLang['text_ccval_error_invalid_number'] = 'The credit card number entered is invalid.<br>Please check the number and try again.';
 $aLang['text_ccval_error_unknown_card'] = 'The first four digits of the number entered are: %s<br>If that number is correct, we do not accept that type of credit card.<br>If it is wrong, please try again.';
@@ -448,10 +448,6 @@ $aLang['text_new_customer_ip'] = 'This account has been created by this computer
 $aLang['text_customer_account_password_security'] = 'For you\'r own security we are not able to know or retrieve this password. If you forgot it, you can request a new one.';
 $aLang['text_login_need_upgrade_csnewsletter'] = '<font color="#ff0000"><b>NOTE:</b></font>You have already subscribed to an account for &quot;Newsletter &quot;. You need to upgade this account to be able to buy.';
 
-// use TimeBasedGreeting
-$aLang['good_morning'] = 'Good morning!';
-$aLang['good_afternoon'] = 'Good afternoon!';
-$aLang['good_evening'] = 'Good evening!';
 
 $aLang['text_taxt_incl'] = 'incl. Tax';
 $aLang['text_taxt_add'] = 'plus. Tax';
@@ -460,6 +456,6 @@ $aLang['text_shipping'] = 'excl. <a href="%s"><u>Shipping cost</u></a>.';
 
 $aLang['price'] = 'Preis';
 $aLang['price_from'] = 'from';
-$aLang['price_info'] = 'Alle Preise pro Stück in &euro; inkl. der gesetzlichen Mehrwertsteuer, zzgl. <a href="' . oos_href_link($aContents['information'], 'information_id=1') . '">Versandkostenpauschale</a>.';
+# $aLang['price_info'] = 'Alle Preise pro Stück in &euro; inkl. der gesetzlichen Mehrwertsteuer, zzgl. <a href="' . oos_href_link($aContents['information'], 'information_id=1') . '">Versandkostenpauschale</a>.';
 
 

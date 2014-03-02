@@ -453,9 +453,6 @@ $aLang['text_customer_account_password_security'] = 'For you\'r own security we 
 $aLang['text_login_need_upgrade_csnewsletter'] = '<font color="#ff0000"><b>NOTE:</b></font>You have already subscribed to an account for &quot;Newsletter &quot;. You need to upgade this account to be able to buy.';
 
 // use TimeBasedGreeting
-$aLang['good_morning'] = 'Guten Morgen!';
-$aLang['good_afternoon'] = 'Guten Tag!';
-$aLang['good_evening'] = 'Guten Abend!';
 
 $aLang['text_taxt_incl'] = 'inkl. gesetzl. MwSt.';
 $aLang['text_taxt_add'] = 'zzgl. gesetzl. MwSt.';

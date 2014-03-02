@@ -45,12 +45,9 @@ $oos_categories_cache_id        = $sTheme . '|block|categories|' . $sLanguage . 
 $oos_modules_cache_id           = $sTheme . '|modules|' . $sLanguage . '|' . $sCurrency;
 $oos_news_cache_id              = $sTheme . '|modules|news|' . $sLanguage;
 
-if (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) 
-{
+if (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
 	$nManufacturersId = intval($_GET['manufacturers_id']);
-}
-else
-{
+} else {
 	$nManufacturersId  = 0;
 }
 $oos_manufacturers_cache_id     = $sTheme . '|block|manufacturers|' . $sLanguage . '|' . $nManufacturersId;
@@ -73,6 +70,8 @@ $smarty->assign(
           'contents'            => $aContents,
           'content_file'        => $sContent,
 
+		  'currency'			=> $sCurrency,
+		  
           'request_type'        => $request_type,
 
           'theme_set'           => $sTheme,
@@ -91,14 +90,12 @@ $smarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_H
 $cart_count_contents = 0;
 $cart_show_total = 0;
 
-if (isset($_SESSION))
-{
+if (isset($_SESSION)) {
    
     $sFormid = md5(uniqid(rand(), true));
     $_SESSION['formid'] = $sFormid;
 
-	if (is_object($_SESSION['cart']))
-	{
+	if (is_object($_SESSION['cart'])) {
 		$smarty->registerObject("cart", $_SESSION['cart'],array('count_contents', 'get_products')); 
 
 		$cart_count_contents = $_SESSION['cart']->count_contents();

@@ -43,23 +43,69 @@
 	<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 <![endif]-->
 
+	<!-- start top --> 
+	<div class="top">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<ul class="list-unstyled top-contacts">
+						<li>
+							<a href="mailto:{$smarty.const.STORE_ADDRESS_EMAIL}" class="first-child"><i class="fa fa-envelope"></i> Email<span class="hidden-sm">: {$smarty.const.STORE_ADDRESS_EMAIL}</span></a>
+						</li>
+						<li>
+							<i class="fa fa-phone-square"></i> Hotline: {$smarty.const.STORE_ADDRESS_TELEPHONE_NUMBER}
+						</li>
+					</ul>
+				</div><!--/top-contacts-->
+
+				<div class="col-md-8">
+					<div class="header-buttons">
+						<ul class="nav navbar-nav navbar-right">
+						{if $languages_block eq 'true'}		
+							<li id="language-menu" class="dropdown">
+								<a href="#" id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown">{$language} <b class="caret"></b></a>
+								<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+							{foreach item=languages from=$languages_contents}
+									<li role="presentation"><a role="menuitem" tabindex="-1" href="{html_href_link content=$content_file oos_get=$lang_get_parameters language=$languages.iso_639_2 connection=$request_type}" title="{$languages.iso_639_2}" >{$languages.name} {if $languages.iso_639_2 == $language}<i class="fa fa-check"></i>{/if}</a></li>
+							{/foreach}
+								</ul>
+							</li>
+						{/if}	
+
+						{if $currency_block eq 'true'}		
+							<li id="fat-menu" class="dropdown">
+								<a href="#" id="drop2" role="button" class="dropdown-toggle" data-toggle="dropdown">{$currency} <b class="caret"></b></a>
+								<ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
+							{foreach item=currencies from=$currencies_contents}
+									<li role="presentation"><a role="menuitem" tabindex="-1" href="{html_href_link content=$content_file oos_get=$currency_get_parameters currency=$currencies.id connection=$request_type}" title="{$currencies.iso_639_2}" >{$currencies.text} {if $currencies.id == $currency}<i class="fa fa-check"></i>{/if}</a></li>
+							{/foreach}
+								</ul>
+							</li>
+						{/if}	
+						</ul>
+					</div>
+					<ul class="list-unstyled quick-access">
+						<li class="first"><a href="{html_href_link content=$contents.account connection=SSL}" title="{$lang.header_title_my_account}"><i class="fa fa-user"></i> {$lang.header_title_my_account}</a></li>
+						<li><a href="{html_href_link content=$contents.main_shopping_cart}" title="{$lang.header_title_cart_contents}"><i class="fa fa-shopping-cart"></i> {$lang.header_title_cart_contents}</a></li>
+						<li><a href="{html_href_link content=$contents.checkout_payment connection=SSL}" title="{$lang.header_title_checkout}"><i class="fa fa-folder-open"></i> {$lang.header_title_checkout}</a></li>
+					{if (isset($smarty.session.customer_id)) }
+						<li class="last"><a href="{html_href_link content=$contents.logoff connection=SSL}" title="{$lang.header_title_logoff}"><i class="fa fa-sign-out"></i> {$lang.header_title_logoff}</a></li>
+					{else}
+						<li class="last"><a href="{html_href_link content=$contents.login connection=SSL}" title="{$lang.header_title_login}"><i class="fa fa-sign-in"></i> {$lang.header_title_login}</a></li>
+					{/if}
+					</ul>
+				</div>
+			</div>        
+		</div>
+	</div><!--/top-->
+	<!-- end top -->
+
 	<!-- start header -->
 	<header>
 	<div class="container">
 		<div class="row nomargin">
 			<div class="col-md-12">				
-				<div class="headnav">
-					<ul>
-						<li class="first"><a href="{html_href_link content=$contents.account connection=SSL}" title="{$lang.header_title_my_account}"><i class="fa fa-user"></i> {$lang.header_title_my_account}</a></li>
-						<li><a href="{html_href_link content=$contents.main_shopping_cart}" title="{$lang.header_title_cart_contents}"><i class="fa fa-shopping-cart"></i> {$lang.header_title_cart_contents}</a></li>
-						<li><a href="{html_href_link content=$contents.checkout_payment connection=SSL}" title="{$lang.header_title_checkout}"><i class="fa fa-folder-open"></i> {$lang.header_title_checkout}</a></li>
-{if (isset($smarty.session.customer_id)) }
-						<li class="last"><a href="{html_href_link content=$contents.logoff connection=SSL}" title="{$lang.header_title_logoff}"><i class="fa fa-sign-out"></i> {$lang.header_title_logoff}</a></li>
-{else}
-						<li class="last"><a href="{html_href_link content=$contents.login connection=SSL}" title="{$lang.header_title_login}"><i class="fa fa-sign-in"></i> {$lang.header_title_login}</a></li>
-{/if}
-					</ul>		
-				</div>                                       
+                                       
 			</div>
 		</div>			
 		<div class="row">
