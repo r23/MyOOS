@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package MultiSites
  */
 namespace Piwik\Plugins\MultiSites;
 
@@ -135,7 +133,7 @@ class API extends \Piwik\Plugin\API
 
     /**
      * Same as getAll but for a unique Piwik site
-     * @see Piwik_MultiSites_API::getAll()
+     * @see Piwik\Plugins\MultiSites\API::getAll()
      *
      * @param int $idSite Id of the Piwik site
      * @param string $period The period type to get data for.
@@ -167,7 +165,7 @@ class API extends \Piwik\Plugin\API
             // First clear cache
             Site::clearCache();
             // Then, warm the cache with only the data we should have access to
-            if (Piwik::isUserIsSuperUser()
+            if (Piwik::hasUserSuperUserAccess()
                 // Hack: when this API function is called as a Scheduled Task, Super User status is enforced.
                 // This means this function would return ALL websites in all cases.
                 // Instead, we make sure that only the right set of data is returned

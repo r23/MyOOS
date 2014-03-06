@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package ScheduledReports
  */
 namespace Piwik\Plugins\ScheduledReports;
 
@@ -14,9 +12,11 @@ use Exception;
 use Piwik\Common;
 use Piwik\Date;
 use Piwik\Db;
+use Piwik\NoAccessException;
 use Piwik\Piwik;
 use Piwik\Plugins\LanguagesManager\LanguagesManager;
 use Piwik\Plugins\SegmentEditor\API as APISegmentEditor;
+use Piwik\Plugins\SitesManager\API as SitesManagerApi;
 use Piwik\ReportRenderer;
 use Piwik\ReportRenderer\Html;
 use Piwik\Site;
@@ -33,7 +33,6 @@ use Zend_Mime;
  * or manage existing reports with "updateReport" and "deleteReport".
  * See also the documentation about <a href='http://piwik.org/docs/email-reports/' target='_blank'>Scheduled Email reports</a> in Piwik.
  *
- * @package ScheduledReports
  * @method static \Piwik\Plugins\ScheduledReports\API getInstance()
  */
 class API extends \Piwik\Plugin\API
@@ -173,7 +172,7 @@ class API extends \Piwik\Plugin\API
     {
         $APIScheduledReports = $this->getReports($idSite = false, $periodSearch = false, $idReport);
         $report = reset($APIScheduledReports);
-        Piwik::checkUserIsSuperUserOrTheUser($report['login']);
+        Piwik::checkUserHasSuperUserAccessOrIsTheUser($report['login']);
 
         Db::get()->update(Common::prefixTable('report'),
             array(
@@ -210,7 +209,7 @@ class API extends \Piwik\Plugin\API
         $bind = array();
 
         // Super user gets all reports back, other users only their own
-        if (!Piwik::isUserIsSuperUser()
+        if (!Piwik::hasUserSuperUserAccess()
             || $ifSuperUserReturnOnlySuperUserReports
         ) {
             $sqlWhere .= "AND login = ?";
@@ -291,7 +290,10 @@ class API extends \Piwik\Plugin\API
         $report = reset($reports);
 
         $idSite = $report['idsite'];
+        $login  = $report['login'];
         $reportType = $report['type'];
+
+        $this->checkUserHasViewPermission($login, $idSite);
 
         // override report period
         if (empty($period)) {
@@ -353,7 +355,7 @@ class API extends \Piwik\Plugin\API
                     // is enforced in Scheduled tasks, and ensure Multisites.getAll only return the websites that this user can access
                     $userLogin = $report['login'];
                     if (!empty($userLogin)
-                        && $userLogin != Piwik::getSuperUserLogin()
+                        && !Piwik::hasTheUserSuperUserAccess($userLogin)
                     ) {
                         $_GET['_restrictSitesToLogin'] = $userLogin;
                     }
@@ -937,5 +939,20 @@ class API extends \Piwik\Plugin\API
         $additionalFile['encoding'] = Zend_Mime::ENCODING_BASE64;
 
         return $additionalFile;
+    }
+
+    private function checkUserHasViewPermission($login, $idSite)
+    {
+        if (empty($idSite)) {
+            return;
+        }
+
+        $idSitesUserHasAccess = SitesManagerApi::getInstance()->getSitesIdWithAtLeastViewAccess($login);
+
+        if (empty($idSitesUserHasAccess)
+            || !in_array($idSite, $idSitesUserHasAccess)
+        ) {
+            throw new NoAccessException(Piwik::translate('General_ExceptionPrivilege', array("'view'")));
+        }
     }
 }

@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package Installation
  */
 namespace Piwik\Plugins\Installation;
 
@@ -23,7 +21,9 @@ use Piwik\DbHelper;
 use Piwik\Filechecks;
 use Piwik\Filesystem;
 use Piwik\Http;
+use Piwik\Option;
 use Piwik\Piwik;
+use Piwik\Plugins\CoreUpdater\CoreUpdater;
 use Piwik\Plugins\LanguagesManager\LanguagesManager;
 use Piwik\Plugins\SitesManager\API as APISitesManager;
 use Piwik\Plugins\UserCountry\LocationProvider;
@@ -32,6 +32,7 @@ use Piwik\ProxyHeaders;
 use Piwik\Session\SessionNamespace;
 use Piwik\SettingsServer;
 use Piwik\Updater;
+use Piwik\UpdaterErrorException;
 use Piwik\Url;
 use Piwik\Version;
 use Zend_Db_Adapter_Exception;
@@ -39,7 +40,6 @@ use Zend_Db_Adapter_Exception;
 /**
  * Installation controller
  *
- * @package Installation
  */
 class Controller extends \Piwik\Plugin\ControllerAdmin
 {
@@ -111,8 +111,8 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             $this->getInstallationSteps(),
             __FUNCTION__
         );
-        $isConfigFileFound = file_exists(Config::getLocalConfigPath());
-        $view->newInstall = !$isConfigFileFound;
+
+        $view->newInstall = !$this->isFinishedInstallation();
         $view->errorMessage = $message;
         $this->skipThisStep(__FUNCTION__);
         $view->showNextStep = $view->newInstall;
@@ -138,6 +138,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
 
         $this->setupSystemCheckView($view);
         $this->session->general_infos = $view->infos['general_infos'];
+        $this->session->general_infos['salt'] = Common::generateUniqId();
 
         // make sure DB sessions are used if the filesystem is NFS
         if ($view->infos['is_nfs']) {
@@ -171,12 +172,13 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             'trackingCode'      => false,
         );
 
+        $this->skipThisStep(__FUNCTION__);
+
         $view = new View(
             '@Installation/databaseSetup',
             $this->getInstallationSteps(),
             __FUNCTION__
         );
-        $this->skipThisStep(__FUNCTION__);
 
         $view->showNextStep = false;
 
@@ -190,7 +192,8 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
                 DbHelper::checkDatabaseVersion();
                 $this->session->databaseVersionOk = true;
 
-                $this->session->db_infos = $dbInfos;
+                $this->createConfigFileIfNeeded($dbInfos);
+
                 $this->redirectToNextStep(__FUNCTION__);
             } catch (Exception $e) {
                 $view->errorMessage = Common::sanitizeInputValue($e->getMessage());
@@ -227,14 +230,12 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         if (isset($this->session->databaseCreated)
             && $this->session->databaseCreated === true
         ) {
-            $dbInfos = $this->session->db_infos;
-            $view->databaseName = $dbInfos['dbname'];
+            $view->databaseName = Config::getInstance()->database['dbname'];
             $view->databaseCreated = true;
         } else {
             $error = true;
         }
 
-        $this->createDbFromSessionInformation();
         $db = Db::get();
 
         try {
@@ -245,9 +246,8 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         }
 
         if (!DbHelper::isDatabaseConnectionUTF8()) {
-            $dbInfos = $this->session->db_infos;
-            $dbInfos['charset'] = 'utf8';
-            $this->session->db_infos = $dbInfos;
+            Config::getInstance()->database['charset'] = 'utf8';
+            Config::getInstance()->forceSave();
         }
 
         $view->showNextStep = true;
@@ -272,7 +272,6 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             __FUNCTION__
         );
         $this->skipThisStep(__FUNCTION__);
-        $this->createDbFromSessionInformation();
 
         if (Common::getRequestVar('deleteTables', 0, 'int') == 1) {
             DbHelper::dropTables();
@@ -288,19 +287,16 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
 
         $tablesInstalled = DbHelper::getTablesInstalled();
         $view->tablesInstalled = '';
+
         if (count($tablesInstalled) > 0) {
+
             // we have existing tables
-            $view->tablesInstalled = implode(', ', $tablesInstalled);
+            $view->tablesInstalled     = implode(', ', $tablesInstalled);
             $view->someTablesInstalled = true;
 
-            // remove monthly archive tables
-            $archiveTables = ArchiveTableCreator::getTablesArchivesInstalled();
-            $baseTablesInstalled = count($tablesInstalled) - count($archiveTables);
-            $minimumCountPiwikTables = 17;
-
             Access::getInstance();
-            Piwik::setUserIsSuperUser();
-            if ($baseTablesInstalled >= $minimumCountPiwikTables &&
+            Piwik::setUserHasSuperUserAccess();
+            if ($this->hasEnoughTablesToReuseDb($tablesInstalled) &&
                 count(APISitesManager::getInstance()->getAllSitesId()) > 0 &&
                 count(APIUsersManager::getInstance()->getUsers()) > 0
             ) {
@@ -325,6 +321,48 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         return $view->render();
     }
 
+    function reuseTables()
+    {
+        $this->checkPreviousStepIsValid(__FUNCTION__);
+
+        $steps = $this->getInstallationSteps();
+        $steps['tablesCreation'] = 'Installation_ReusingTables';
+
+        $view = new View(
+            '@Installation/reuseTables',
+            $steps,
+            'tablesCreation'
+        );
+
+        Access::getInstance();
+        Piwik::setUserHasSuperUserAccess();
+
+        $updater = new Updater();
+        $componentsWithUpdateFile = CoreUpdater::getComponentUpdates($updater);
+
+        if (empty($componentsWithUpdateFile)) {
+            $this->session->currentStepDone = 'tablesCreation';
+            $this->redirectToNextStep('tablesCreation');
+            return '';
+        }
+
+        $oldVersion = Option::get('version_core');
+
+        $result = CoreUpdater::updateComponents($updater, $componentsWithUpdateFile);
+
+        $view->coreError       = $result['coreError'];
+        $view->warningMessages = $result['warnings'];
+        $view->errorMessages   = $result['errors'];
+        $view->deactivatedPlugins = $result['deactivatedPlugins'];
+        $view->currentVersion  = Version::VERSION;
+        $view->oldVersion  = $oldVersion;
+        $view->showNextStep = true;
+
+        $this->session->currentStepDone = 'tablesCreation';
+
+        return $view->render();
+    }
+
     /**
      * Installation Step 6: General Set-up (superuser login/password/email and subscriptions)
      */
@@ -342,41 +380,43 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         $form = new FormGeneralSetup();
 
         if ($form->validate()) {
-            $superUserInfos = array(
-                'login'    => $form->getSubmitValue('login'),
-                'password' => md5($form->getSubmitValue('password')),
-                'email'    => $form->getSubmitValue('email'),
-                'salt'     => Common::generateUniqId(),
-            );
 
-            $this->session->superuser_infos = $superUserInfos;
+            try {
+                $this->createSuperUser($form->getSubmitValue('login'),
+                                       $form->getSubmitValue('password'),
+                                       $form->getSubmitValue('email'));
 
-            $url = Config::getInstance()->General['api_service_url'];
-            $url .= '/1.0/subscribeNewsletter/';
-            $params = array(
-                'email'     => $form->getSubmitValue('email'),
-                'security'  => $form->getSubmitValue('subscribe_newsletter_security'),
-                'community' => $form->getSubmitValue('subscribe_newsletter_community'),
-                'url'       => Url::getCurrentUrlWithoutQueryString(),
-            );
-            if ($params['security'] == '1'
-                || $params['community'] == '1'
-            ) {
-                if (!isset($params['security'])) {
-                    $params['security'] = '0';
+                $url  = Config::getInstance()->General['api_service_url'];
+                $url .= '/1.0/subscribeNewsletter/';
+                $params = array(
+                    'email'     => $form->getSubmitValue('email'),
+                    'security'  => $form->getSubmitValue('subscribe_newsletter_security'),
+                    'community' => $form->getSubmitValue('subscribe_newsletter_community'),
+                    'url'       => Url::getCurrentUrlWithoutQueryString(),
+                );
+                if ($params['security'] == '1'
+                    || $params['community'] == '1'
+                ) {
+                    if (!isset($params['security'])) {
+                        $params['security'] = '0';
+                    }
+                    if (!isset($params['community'])) {
+                        $params['community'] = '0';
+                    }
+                    $url .= '?' . http_build_query($params, '', '&');
+                    try {
+                        Http::sendHttpRequest($url, $timeout = 2);
+                    } catch (Exception $e) {
+                        // e.g., disable_functions = fsockopen; allow_url_open = Off
+                    }
                 }
-                if (!isset($params['community'])) {
-                    $params['community'] = '0';
-                }
-                $url .= '?' . http_build_query($params, '', '&');
-                try {
-                    Http::sendHttpRequest($url, $timeout = 2);
-                } catch (Exception $e) {
-                    // e.g., disable_functions = fsockopen; allow_url_open = Off
-                }
+                $this->redirectToNextStep(__FUNCTION__);
+
+            } catch (Exception $e) {
+                $view->errorMessage = $e->getMessage();
             }
-            $this->redirectToNextStep(__FUNCTION__);
         }
+
         $view->addForm($form);
 
         return $view->render();
@@ -408,16 +448,8 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             $url = Common::unsanitizeInputValue($form->getSubmitValue('url'));
             $ecommerce = (int)$form->getSubmitValue('ecommerce');
 
-            $request = new Request("
-							method=SitesManager.addSite
-							&siteName=$name
-							&urls=$url
-							&ecommerce=$ecommerce
-							&format=original
-						");
-
             try {
-                $result = $request->process();
+                $result = APISitesManager::getInstance()->addSite($name, $url, $ecommerce);
                 $this->session->site_idSite = $result;
                 $this->session->site_name = $name;
                 $this->session->site_url = $url;
@@ -482,10 +514,9 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         );
         $this->skipThisStep(__FUNCTION__);
 
-        $configPath = Config::getLocalConfigPath();
-        if (!file_exists($configPath)) {
+        if (!$this->isFinishedInstallation()) {
             $this->addTrustedHosts();
-            $this->writeConfigFileFromSession();
+            $this->markInstallationAsCompleted();
         }
 
         $view->showNextStep = false;
@@ -503,11 +534,11 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
      * system check, so people can see if there are any issues w/ their running
      * Piwik installation.
      *
-     * This admin tab is only viewable by the super user.
+     * This admin tab is only viewable by the Super User.
      */
     public function systemCheckPage()
     {
-        Piwik::checkUserIsSuperUser();
+        Piwik::checkUserHasSuperUserAccess();
 
         $view = new View(
             '@Installation/systemCheckPage',
@@ -532,51 +563,42 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
      */
     protected function initObjectsToCallAPI()
     {
-        // connect to the database using the DB infos currently in the session
-        $this->createDbFromSessionInformation();
-
-        Piwik::setUserIsSuperUser();
-    }
-
-    /**
-     * Create database connection from session-store
-     */
-    protected function createDbFromSessionInformation()
-    {
-        $dbInfos = $this->session->db_infos;
-        Config::getInstance()->database = $dbInfos;
-        Db::createDatabaseObject($dbInfos);
+        Piwik::setUserHasSuperUserAccess();
     }
 
     /**
      * Write configuration file from session-store
      */
-    protected function writeConfigFileFromSession()
+    protected function createConfigFileIfNeeded($dbInfos)
     {
-        if (!isset($this->session->superuser_infos)
-            || !isset($this->session->db_infos)
-        ) {
-            return;
-        }
-
         $config = Config::getInstance();
+
         try {
             // expect exception since config.ini.php doesn't exist yet
             $config->checkLocalConfigFound();
+
         } catch (Exception $e) {
-            $config->superuser = $this->session->superuser_infos;
-            $config->database = $this->session->db_infos;
 
             if (!empty($this->session->general_infos)) {
                 $config->General = $this->session->general_infos;
             }
-
-            $config->forceSave();
         }
 
-        unset($this->session->superuser_infos);
-        unset($this->session->db_infos);
+        $config->General['installation_in_progress'] = 1;
+        $config->database = $dbInfos;
+        $config->forceSave();
+
         unset($this->session->general_infos);
+    }
+
+    /**
+     * Write configuration file from session-store
+     */
+    protected function markInstallationAsCompleted()
+    {
+        $config = Config::getInstance();
+        unset($config->General['installation_in_progress']);
+        $config->forceSave();
     }
 
     /**
@@ -618,8 +640,10 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             $error = true;
         } else if ($currentStep == 'finished' && $this->session->currentStepDone == 'finished') {
             // ok to refresh this page or use language selector
+        } else if ($currentStep == 'reuseTables' && in_array($this->session->currentStepDone, array('tablesCreation', 'reuseTables'))) {
+            // this is ok, we cannot add 'reuseTables' to steps as it would appear in the menu otherwise
         } else {
-            if (file_exists(Config::getLocalConfigPath())) {
+            if ($this->isFinishedInstallation()) {
                 $error = true;
             }
 
@@ -711,7 +735,12 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
 
         $trustedHosts = array_unique($trustedHosts);
         if (count($trustedHosts)) {
-            $this->session->general_infos['trusted_hosts'] = $trustedHosts;
+
+            $general = Config::getInstance()->General;
+            $general['trusted_hosts'] = $trustedHosts;
+            Config::getInstance()->General = $general;
+
+            Config::getInstance()->forceSave();
         }
     }
 
@@ -727,23 +756,24 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
 
         $infos['general_infos'] = array();
 
-        $directoriesToCheck = array();
+
+
+        $directoriesToCheck = array(
+                                '/tmp/',
+                                '/tmp/assets/',
+                                '/tmp/cache/',
+                                '/tmp/climulti/',
+                                '/tmp/latest/',
+                                '/tmp/logs/',
+                                '/tmp/sessions/',
+                                '/tmp/tcpdf/',
+                                '/tmp/templates_c/',
+        );
 
         if (!DbHelper::isInstalled()) {
             // at install, need /config to be writable (so we can create config.ini.php)
             $directoriesToCheck[] = '/config/';
         }
-
-        $directoriesToCheck = array_merge($directoriesToCheck, array(
-                                                                    '/tmp/',
-                                                                    '/tmp/assets/',
-                                                                    '/tmp/cache/',
-                                                                    '/tmp/latest/',
-                                                                    '/tmp/logs/',
-                                                                    '/tmp/sessions/',
-                                                                    '/tmp/tcpdf/',
-                                                                    '/tmp/templates_c/',
-                                                               ));
 
         $infos['directories'] = Filechecks::checkDirectoriesWritable($directoriesToCheck);
 
@@ -907,8 +937,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             $infos['has_errors'] = true;
         }
 
-        if (!$infos['can_auto_update']
-            || !empty($infos['missing_desired_extensions'])
+        if (   !empty($infos['missing_desired_extensions'])
             || !$infos['gd_ok']
             || !$infos['multibyte_ok']
             || !$infos['registerGlobals_ok']
@@ -1044,6 +1073,48 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
 
         // delete the temporary rows that were created
         Db::exec("DELETE FROM `$optionTable` WHERE option_name IN ('" . implode("','", $testOptionNames) . "')");
+    }
+
+    private function createSuperUser($login, $password, $email)
+    {
+        $this->initObjectsToCallAPI();
+
+        $api = APIUsersManager::getInstance();
+        $api->addUser($login, $password, $email);
+
+        $this->initObjectsToCallAPI();
+        $api->setSuperUserAccess($login, true);
+    }
+
+    private function isFinishedInstallation()
+    {
+        $isConfigFileFound = file_exists(Config::getLocalConfigPath());
+
+        if (!$isConfigFileFound) {
+            return false;
+        }
+
+        $general = Config::getInstance()->General;
+
+        $isInstallationInProgress = false;
+        if (array_key_exists('installation_in_progress', $general)) {
+            $isInstallationInProgress = (bool) $general['installation_in_progress'];
+        }
+
+        return !$isInstallationInProgress;
+    }
+
+    private function hasEnoughTablesToReuseDb($tablesInstalled)
+    {
+        if (empty($tablesInstalled) || !is_array($tablesInstalled)) {
+            return false;
+        }
+
+        $archiveTables       = ArchiveTableCreator::getTablesArchivesInstalled();
+        $baseTablesInstalled = count($tablesInstalled) - count($archiveTables);
+        $minimumCountPiwikTables = 12;
+
+        return $baseTablesInstalled >= $minimumCountPiwikTables;
     }
 
 }

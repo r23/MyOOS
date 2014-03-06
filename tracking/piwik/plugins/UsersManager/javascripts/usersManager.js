@@ -98,6 +98,60 @@ function launchAjaxRequest(self, successCallback) {
     );
 }
 
+function updateSuperUserAccess(login, hasSuperUserAccess)
+{
+    var parameters = {};
+    parameters.userLogin = login;
+    parameters.hasSuperUserAccess = hasSuperUserAccess ? 1: 0;
+
+    var ajaxHandler = new ajaxHelper();
+    ajaxHandler.addParams({
+        module: 'API',
+        format: 'json',
+        method: 'UsersManager.setSuperUserAccess'
+    }, 'GET');
+    ajaxHandler.addParams(parameters, 'POST');
+    ajaxHandler.setCallback(function () {
+
+        var UI = require('piwik/UI');
+        var notification = new UI.Notification();
+        notification.show(_pk_translate('General_Done'), {
+            placeat: '#superUserAccessUpdated',
+            context: 'success',
+            noclear: true,
+            type: 'toast',
+            style: {display: 'inline-block', marginTop: '10px', marginBottom: '30px'},
+            id: 'usersManagerSuperUserAccessUpdated'
+        });
+        notification.scrollToNotification();
+        piwikHelper.redirect();
+    });
+    ajaxHandler.setLoadingElement('#ajaxErrorSuperUsersManagement');
+    ajaxHandler.setErrorElement('#ajaxErrorSuperUsersManagement');
+    ajaxHandler.send(true);
+}
+
+function bindUpdateSuperUserAccess() {
+    var login     = $(this).parents('td').data('login');
+    var hasAccess = parseInt($(this).data('hasaccess'), 10);
+
+    var message = 'UsersManager_ConfirmGrantSuperUserAccess';
+    if (hasAccess && login == piwik.userLogin) {
+        message = 'UsersManager_ConfirmProhibitMySuperUserAccess';
+    } else if (hasAccess) {
+        message = 'UsersManager_ConfirmProhibitOtherUsersSuperUserAccess';
+    }
+
+    message = _pk_translate(message);
+    message = message.replace('%s', login)
+
+    $('#superUserAccessConfirm h2').text(message);
+
+    piwikHelper.modalConfirm('#superUserAccessConfirm', {yes: function () {
+        updateSuperUserAccess(login, !hasAccess);
+    }});
+}
+
 function bindUpdateAccess() {
     var self = this;
     // callback called when the ajax request Update the user permissions is successful
@@ -233,8 +287,10 @@ $(document).ready(function () {
         });
     });
 
-    $('.updateAccess')
+    $('#access .updateAccess')
         .click(bindUpdateAccess);
+
+    $('#superUserAccess .accessGranted, #superUserAccess .updateAccess').click(bindUpdateSuperUserAccess);
 
     // when a site is selected, reload the page w/o showing the ajax loading element
     $('#usersManagerSiteSelect').bind('piwik:siteSelected', function (e, site) {

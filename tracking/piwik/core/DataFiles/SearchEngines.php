@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik
- * @package DataFiles
  */
 
 /**
@@ -1032,11 +1030,4 @@ if (!isset($GLOBALS['Piwik_SearchEngines'])) {
         // Zoznam
         'www.zoznam.sk'                  => array('Zoznam', 's', 'hladaj.fcgi?s={k}&co=svet'),
     );
-
-    $GLOBALS['Piwik_SearchEngines_NameToUrl'] = array();
-    foreach ($GLOBALS['Piwik_SearchEngines'] as $url => $info) {
-        if (!isset($GLOBALS['Piwik_SearchEngines_NameToUrl'][$info[0]])) {
-            $GLOBALS['Piwik_SearchEngines_NameToUrl'][$info[0]] = $url;
-        }
-    }
 }

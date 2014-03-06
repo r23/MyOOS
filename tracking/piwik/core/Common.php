@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik
- * @package Piwik
  */
 namespace Piwik;
 
@@ -19,8 +17,6 @@ use Piwik\Tracker\Cache;
  * Contains helper methods used by both Piwik Core and the Piwik Tracking engine.
  *
  * This is the only non-Tracker class loaded by the **\/piwik.php** file.
- *
- * @package Piwik
  */
 class Common
 {
@@ -32,6 +28,8 @@ class Common
 
     // Flag used with htmlspecialchar. See php.net/htmlspecialchars.
     const HTML_ENCODING_QUOTE_STYLE = ENT_QUOTES;
+
+    public static $isCliMode = null;
 
 
     /*
@@ -121,11 +119,27 @@ class Common
      */
     public static function isPhpCliMode()
     {
+        if (is_bool(self::$isCliMode)) {
+            return self::$isCliMode;
+        }
+
         $remoteAddr = @$_SERVER['REMOTE_ADDR'];
         return PHP_SAPI == 'cli' ||
         (!strncmp(PHP_SAPI, 'cgi', 3) && empty($remoteAddr));
     }
 
+    /**
+     * Returns true if the current request is a console command, eg. ./console xx:yy
+     * @return bool
+     */
+    public static function isRunningConsoleCommand()
+    {
+        $searched = '/console';
+        $consolePos = strpos($_SERVER['SCRIPT_NAME'], $searched);
+        $expectedConsolePos = strlen($_SERVER['SCRIPT_NAME']) - strlen($searched);
+        $isScriptIsConsole = $consolePos == $expectedConsolePos;
+        return self::isPhpCliMode() && $isScriptIsConsole;
+    }
 
     /*
      * String operations
@@ -731,6 +745,9 @@ class Common
         require_once PIWIK_INCLUDE_PATH . '/core/DataFiles/SearchEngines.php';
 
         $searchEngines = $GLOBALS['Piwik_SearchEngines'];
+
+        Piwik::postEvent('Referrer.addSearchEngineUrls', array(&$searchEngines));
+
         return $searchEngines;
     }
 
@@ -743,10 +760,34 @@ class Common
      */
     public static function getSearchEngineNames()
     {
-        require_once PIWIK_INCLUDE_PATH . '/core/DataFiles/SearchEngines.php';
+        $searchEngines = self::getSearchEngineUrls();
 
-        $searchEngines = $GLOBALS['Piwik_SearchEngines_NameToUrl'];
-        return $searchEngines;
+        $nameToUrl = array();
+        foreach ($searchEngines as $url => $info) {
+            if (!isset($nameToUrl[$info[0]])) {
+                $nameToUrl[$info[0]] = $url;
+            }
+        }
+
+        return $nameToUrl;
+    }
+
+    /**
+     * Returns list of social networks by URL
+     *
+     * @see core/DataFiles/Socials.php
+     *
+     * @return array  Array of ( URL => Social Network Name )
+     */
+    public static function getSocialUrls()
+    {
+        require_once PIWIK_INCLUDE_PATH . '/core/DataFiles/Socials.php';
+
+        $socialUrls = $GLOBALS['Piwik_socialUrl'];
+
+        Piwik::postEvent('Referrer.addSocialUrls', array(&$socialUrls));
+
+        return $socialUrls;
     }
 
     /**
@@ -937,9 +978,9 @@ class Common
             } else {
                 $list = array($list);
             }
+            $list = array_map('trim', $list);
         }
 
-        array_walk_recursive($return, 'trim');
         return $return;
     }
 

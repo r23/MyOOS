@@ -13,6 +13,17 @@
         "BrowserVersions": "Browser versions",
         "DeviceType": "Device type",
         "DeviceBrand": "Device brand",
-        "DeviceModel": "Device model"
+        "DeviceModel": "Device model",
+        "DeviceDetection": "Device detection",
+        "Device": "Device",
+        "UserAgent": "User-Agent",
+        "Smartphone": "Smartphone",
+        "CarBrowser": "Car browser",
+        "Camera": "Camera",
+        "Tablet": "Tablet",
+        "SmartDisplay": "Smart display",
+        "FeaturePhone": "Feature phone",
+        "TV": "Tv",
+        "Console": "Console"
     }
 }

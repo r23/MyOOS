@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package ExampleUI
  */
 namespace Piwik\Plugins\ExampleUI;
 
@@ -17,7 +15,6 @@ use Piwik\View;
 use Piwik\ViewDataTable\Factory as ViewDataTableFactory;
 
 /**
- * @package ExampleUI
  */
 class Controller extends \Piwik\Plugin\Controller
 {
@@ -49,7 +46,7 @@ class Controller extends \Piwik\Plugin\Controller
         $view = new View('@ExampleUI/evolutiongraph');
 
         $this->setPeriodVariablesView($view);
-        $view->evolutionGraph = $this->getEvolutionGraph(true, array('server1', 'server2'));
+        $view->evolutionGraph = $this->getEvolutionGraph(array('server1', 'server2'));
 
         return $view->render();
     }
@@ -81,7 +78,7 @@ class Controller extends \Piwik\Plugin\Controller
         return $view->render();
     }
 
-    public function getEvolutionGraph($fetch = false, array $columns = array())
+    public function getEvolutionGraph(array $columns = array())
     {
         if (empty($columns)) {
             $columns = Common::getRequestVar('columns');

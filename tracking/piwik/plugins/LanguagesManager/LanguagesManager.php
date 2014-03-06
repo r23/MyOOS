@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package LanguagesManager
  *
  */
 namespace Piwik\Plugins\LanguagesManager;
@@ -17,6 +15,7 @@ use Piwik\Config;
 
 use Piwik\Cookie;
 use Piwik\Db;
+use Piwik\DbHelper;
 use Piwik\Menu\MenuTop;
 use Piwik\Piwik;
 use Piwik\Translate;
@@ -24,12 +23,11 @@ use Piwik\View;
 
 /**
  *
- * @package LanguagesManager
  */
 class LanguagesManager extends \Piwik\Plugin
 {
     /**
-     * @see Piwik_Plugin::getListHooksRegistered
+     * @see Piwik\Plugin::getListHooksRegistered
      */
     public function getListHooksRegistered()
     {
@@ -117,21 +115,10 @@ class LanguagesManager extends \Piwik\Plugin
      */
     public function install()
     {
-        // we catch the exception
-        try {
-            $sql = "CREATE TABLE " . Common::prefixTable('user_language') . " (
-					login VARCHAR( 100 ) NOT NULL ,
-					language VARCHAR( 10 ) NOT NULL ,
-					PRIMARY KEY ( login )
-					)  DEFAULT CHARSET=utf8 ";
-            Db::exec($sql);
-        } catch (Exception $e) {
-            // mysql code error 1050:table already exists
-            // see bug #153 http://dev.piwik.org/trac/ticket/153
-            if (!Db::get()->isErrNo($e, '1050')) {
-                throw $e;
-            }
-        }
+        $userLanguage = "login VARCHAR( 100 ) NOT NULL ,
+					     language VARCHAR( 10 ) NOT NULL ,
+					     PRIMARY KEY ( login )";
+        DbHelper::createTable('user_language', $userLanguage);
     }
 
     /**

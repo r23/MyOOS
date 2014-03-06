@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package Goals
  */
 namespace Piwik\Plugins\Goals;
 
@@ -24,7 +22,6 @@ use Piwik\ViewDataTable\Factory;
 
 /**
  *
- * @package Goals
  */
 class Controller extends \Piwik\Plugin\Controller
 {
@@ -143,7 +140,7 @@ class Controller extends \Piwik\Plugin\Controller
         $view->idGoal = $idGoal;
         $view->goalName = $goalDefinition['name'];
         $view->goalAllowMultipleConversionsPerVisit = $goalDefinition['allow_multiple'];
-        $view->graphEvolution = $this->getEvolutionGraph(true, array('nb_conversions'), $idGoal);
+        $view->graphEvolution = $this->getEvolutionGraph(array('nb_conversions'), $idGoal);
         $view->nameGraphEvolution = 'Goals.getEvolutionGraph' . $idGoal;
         $view->topDimensions = $this->getTopDimensions($idGoal);
 
@@ -192,7 +189,7 @@ class Controller extends \Piwik\Plugin\Controller
         $view = new View('@Goals/getOverviewView');
         $this->setGeneralVariablesView($view);
 
-        $view->graphEvolution = $this->getEvolutionGraph(true, array('nb_conversions'));
+        $view->graphEvolution = $this->getEvolutionGraph(array('nb_conversions'));
         $view->nameGraphEvolution = 'GoalsgetEvolutionGraph';
 
         // sparkline for the historical data of the above values
@@ -250,7 +247,7 @@ class Controller extends \Piwik\Plugin\Controller
         return $view->render();
     }
 
-    public function getEvolutionGraph($fetch = false, array $columns = array(), $idGoal = false)
+    public function getEvolutionGraph(array $columns = array(), $idGoal = false)
     {
         if (empty($columns)) {
             $columns = Common::getRequestVar('columns');
@@ -452,10 +449,10 @@ class Controller extends \Piwik\Plugin\Controller
             foreach ($allReports as $category => $reports) {
                 $categoryText = Piwik::translate('Goals_ViewGoalsBy', $category);
                 foreach ($reports as $report) {
-                    $customParams['viewDataTable'] = 'tableGoals';
-                    if (in_array($report['action'], array('getVisitsUntilConversion', 'getDaysToConversion'))) {
-                        $customParams['viewDataTable'] = 'table';
+                    if(empty($report['viewDataTable'])) {
+                        $report['viewDataTable'] = 'tableGoals';
                     }
+                    $customParams['viewDataTable'] = $report['viewDataTable'];
 
                     $goalReportsByDimension->addReport(
                         $categoryText, $report['name'], $report['module'] . '.' . $report['action'], $customParams);

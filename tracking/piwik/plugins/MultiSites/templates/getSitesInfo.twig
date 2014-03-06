@@ -1,13 +1,14 @@
-{% extends 'dashboard.twig' %}
+{% extends isWidgetized ? 'empty.twig' : 'dashboard.twig' %}
 
 {% block content %}
-
-    <div class="top_controls_inner">
+{% if not isWidgetized %}
+    <div class="top_controls">
         {% include "@CoreHome/_periodSelect.twig" %}
         {% include "@CoreHome/_headerMessage.twig" %}
     </div>
+{% endif %}
 
-<div id="multisites">
+<div class="pageWrap" id="multisites">
     <div id="main">
         <script type="text/javascript">
             var allSites = [];

@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package Live
  */
 namespace Piwik\Plugins\Live;
 
@@ -39,11 +37,12 @@ require_once PIWIK_INCLUDE_PATH . '/plugins/UserSettings/functions.php';
 require_once PIWIK_INCLUDE_PATH . '/plugins/Provider/functions.php';
 
 /**
- * @package Live
  */
 class Visitor
 {
     const DELIMITER_PLUGIN_NAME = ", ";
+
+    const EVENT_VALUE_PRECISION = 3;
 
     function __construct($visitorRawData)
     {
@@ -603,7 +602,7 @@ class Visitor
 
     /**
      * Removes fields that are not meant to be displayed (md5 config hash)
-     * Or that the user should only access if he is super user or admin (cookie, IP)
+     * Or that the user should only access if he is Super User or admin (cookie, IP)
      *
      * @param array $visitorDetails
      * @return array
@@ -796,7 +795,7 @@ class Visitor
             // Event value / Generation time
             if($actionDetail['type'] == Action::TYPE_EVENT_CATEGORY) {
                 if(strlen($actionDetail['custom_float']) > 0) {
-                    $actionDetail['eventValue'] = $actionDetail['custom_float'];
+                    $actionDetail['eventValue'] = round($actionDetail['custom_float'], self::EVENT_VALUE_PRECISION);
                 }
             } elseif ($actionDetail['custom_float'] > 0) {
                 $actionDetail['generationTime'] = \Piwik\MetricsFormatter::getPrettyTimeFromSeconds($actionDetail['custom_float'] / 1000);

@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package CoreConsole
  */
 
 namespace Piwik\Plugins\CoreConsole\Commands;
@@ -18,7 +16,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @package CoreConsole
  */
 class GeneratePluginBase extends ConsoleCommand
 {
@@ -119,7 +116,7 @@ class GeneratePluginBase extends ConsoleCommand
      * @return array
      * @throws \RunTimeException
      */
-    protected function getPluginName(InputInterface $input, OutputInterface $output, $pluginNames, $invalidArgumentException)
+    protected function askPluginNameAndValidate(InputInterface $input, OutputInterface $output, $pluginNames, $invalidArgumentException)
     {
         $validate = function ($pluginName) use ($pluginNames, $invalidArgumentException) {
             if (!in_array($pluginName, $pluginNames)) {

@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package Live
  */
 namespace Piwik\Plugins\Live;
 
@@ -21,7 +19,6 @@ use Piwik\View;
 use Piwik\ViewDataTable\Factory;
 
 /**
- * @package Live
  */
 class Controller extends \Piwik\Plugin\Controller
 {
@@ -146,7 +143,7 @@ class Controller extends \Piwik\Plugin\Controller
         $view->exportLink = $this->getVisitorProfileExportLink();
 
         if (Common::getRequestVar('showMap', 1) == 1
-            && $view->visitorData['hasLatLong']
+            && !empty($view->visitorData['hasLatLong'])
             && \Piwik\Plugin\Manager::getInstance()->isPluginLoaded('UserCountryMap')
         ) {
             $view->userCountryMapUrl = $this->getUserCountryMapUrlForVisitorProfile();
@@ -175,10 +172,11 @@ class Controller extends \Piwik\Plugin\Controller
 
     public function getVisitList()
     {
+        $startCounter = Common::getRequestVar('filter_offset', 0, 'int');
         $nextVisits = Request::processRequest('Live.getLastVisitsDetails', array(
                                                                                 'segment'                 => self::getSegmentWithVisitorId(),
                                                                                 'filter_limit'            => API::VISITOR_PROFILE_MAX_VISITS_TO_SHOW,
-                                                                                'disable_generic_filters' => 1,
+                                                                                'filter_offset'           => $startCounter,
                                                                                 'period'                  => false,
                                                                                 'date'                    => false
                                                                            ));
@@ -189,7 +187,7 @@ class Controller extends \Piwik\Plugin\Controller
 
         $view = new View('@Live/getVisitList.twig');
         $view->idSite = Common::getRequestVar('idSite', null, 'int');
-        $view->startCounter = Common::getRequestVar('filter_offset', 0, 'int') + 1;
+        $view->startCounter = $startCounter + 1;
         $view->visits = $nextVisits;
         return $view->render();
     }

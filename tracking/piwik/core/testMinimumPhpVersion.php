@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik
- * @package Piwik
  */
 
 /**
@@ -126,7 +124,7 @@ if (!function_exists('Piwik_ExitWithMessage')) {
             echo $headerPage . $content . $footerPage;
         }
         echo "\n";
-        exit;
+        exit(1);
     }
 }
 

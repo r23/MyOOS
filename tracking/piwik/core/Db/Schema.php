@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik
- * @package Piwik
  */
 namespace Piwik\Db;
 
@@ -18,8 +16,6 @@ use Piwik\Singleton;
  *
  * Note: no relation to the ZF proposals for Zend_Db_Schema_Manager
  *
- * @package Piwik
- * @subpackage Piwik_Db
  * @method static \Piwik\Db\Schema getInstance()
  */
 class Schema extends Singleton
@@ -53,11 +49,9 @@ class Schema extends Singleton
     public static function getSchemas($adapterName)
     {
         static $allSchemaNames = array(
-            // MySQL storage engines
             'MYSQL' => array(
-                'Myisam',
-//				'Innodb',
-//				'Infinidb',
+                'Mysql',
+                // InfiniDB
             ),
 
             // Microsoft SQL Server
@@ -116,10 +110,11 @@ class Schema extends Singleton
     {
         $config = Config::getInstance();
         $dbInfos = $config->database;
-        if (isset($dbInfos['schema'])) {
-            $schemaName = $dbInfos['schema'];
-        } else {
-            $schemaName = 'Myisam';
+        $schemaName = $dbInfos['schema'];
+
+        // Upgrade from pre 2.0.4
+        if(strtolower($schemaName) == 'myisam') {
+            $schemaName = 'Mysql';
         }
         $className = self::getSchemaClassName($schemaName);
         $this->schema = new $className();
@@ -157,6 +152,17 @@ class Schema extends Singleton
     public function getTablesCreateSql()
     {
         return $this->getSchema()->getTablesCreateSql();
+    }
+
+    /**
+     * Creates a new table in the database.
+     *
+     * @param string $nameWithoutPrefix   The name of the table without any piwik prefix.
+     * @param string $createDefinition    The table create definition
+     */
+    public function createTable($nameWithoutPrefix, $createDefinition)
+    {
+        $this->getSchema()->createTable($nameWithoutPrefix, $createDefinition);
     }
 
     /**

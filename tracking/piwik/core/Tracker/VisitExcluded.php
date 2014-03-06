@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik
- * @package Piwik
  */
 namespace Piwik\Tracker;
 
@@ -160,6 +158,7 @@ class VisitExcluded
             || strpos($this->userAgent, 'CloudFlare') !== false // CloudFlare-AlwaysOnline
 
             // Added as they are popular bots
+            || strpos($this->userAgent, 'pingdom') !== false // pingdom
             || strpos($this->userAgent, 'yandex') !== false // yandex
             || strpos($this->userAgent, 'exabot') !== false // Exabot
             || strpos($this->userAgent, 'sogou') !== false // Sogou

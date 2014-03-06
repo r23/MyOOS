@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package VisitTime
  */
 namespace Piwik\Plugins\VisitTime;
 
@@ -25,12 +23,11 @@ use Piwik\WidgetsList;
 
 /**
  *
- * @package VisitTime
  */
 class VisitTime extends \Piwik\Plugin
 {
     /**
-     * @see Piwik_Plugin::getListHooksRegistered
+     * @see Piwik\Plugin::getListHooksRegistered
      */
     public function getListHooksRegistered()
     {
@@ -91,7 +88,8 @@ class VisitTime extends \Piwik\Plugin
 
     function addMenu()
     {
-        MenuMain::getInstance()->add('General_Visitors', 'VisitTime_SubmenuTimes', array('module' => 'VisitTime', 'action' => 'index'));
+        MenuMain::getInstance()->add('General_Visitors', 'VisitTime_SubmenuTimes',
+            array('module' => 'VisitTime', 'action' => 'index'), true, $order = 65);
     }
 
     public function getReportsWithGoalMetrics(&$dimensions)
@@ -226,6 +224,7 @@ class VisitTime extends \Piwik\Plugin
     {
         $view->requestConfig->filter_sort_column = 'label';
         $view->requestConfig->filter_sort_order = 'asc';
+        $view->requestConfig->addPropertiesThatShouldBeAvailableClientSide(array('filter_sort_column'));
         $view->config->show_search = false;
         $view->config->show_limit_control = false;
         $view->config->show_exclude_low_population = false;

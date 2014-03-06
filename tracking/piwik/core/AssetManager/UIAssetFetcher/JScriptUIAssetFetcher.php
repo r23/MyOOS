@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik
- * @package Piwik
  */
 namespace Piwik\AssetManager\UIAssetFetcher;
 
@@ -78,7 +76,9 @@ class JScriptUIAssetFetcher extends UIAssetFetcher
             'plugins/CoreHome/javascripts/require.js',
             'plugins/Zeitgeist/javascripts/piwikHelper.js',
             'plugins/Zeitgeist/javascripts/',
+            'plugins/CoreHome/javascripts/uiControl.js',
             'plugins/CoreHome/javascripts/broadcast.js',
+            'plugins/CoreHome/javascripts/', // load CoreHome JS before other plugins
             'plugins/',
             'tests/',
         );

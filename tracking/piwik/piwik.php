@@ -35,6 +35,11 @@ if (!defined('PIWIK_INCLUDE_PATH')) {
 
 @ignore_user_abort(true);
 
+require_once PIWIK_INCLUDE_PATH . '/core/Plugin/Controller.php';
+require_once PIWIK_INCLUDE_PATH . '/core/Plugin/ControllerAdmin.php';
+
+\Piwik\Plugin\ControllerAdmin::disableEacceleratorIfEnabled();
+
 require_once PIWIK_INCLUDE_PATH . '/libs/upgradephp/upgrade.php';
 require_once PIWIK_INCLUDE_PATH . '/core/testMinimumPhpVersion.php';
 require_once PIWIK_INCLUDE_PATH . '/core/Singleton.php';
@@ -70,6 +75,7 @@ require_once PIWIK_INCLUDE_PATH . '/core/Tracker/VisitorNotFoundInDb.php';
 require_once PIWIK_INCLUDE_PATH . '/core/CacheFile.php';
 require_once PIWIK_INCLUDE_PATH . '/core/Filesystem.php';
 require_once PIWIK_INCLUDE_PATH . '/core/Cookie.php';
+require_once PIWIK_INCLUDE_PATH . '/core/Loader.php';
 
 session_cache_limiter('nocache');
 @date_default_timezone_set('UTC');
@@ -77,6 +83,7 @@ session_cache_limiter('nocache');
 if (!defined('PIWIK_ENABLE_TRACKING') || PIWIK_ENABLE_TRACKING) {
     ob_start();
 }
+
 if ($GLOBALS['PIWIK_TRACKER_DEBUG'] === true) {
     require_once PIWIK_INCLUDE_PATH . '/core/Loader.php';
 
@@ -103,6 +110,6 @@ if (!defined('PIWIK_ENABLE_TRACKING') || PIWIK_ENABLE_TRACKING) {
     ob_end_flush();
     if ($GLOBALS['PIWIK_TRACKER_DEBUG'] === true) {
         Common::printDebug($_COOKIE);
-        Common::printDebug($timer);
+        Common::printDebug((string)$timer);
     }
 }

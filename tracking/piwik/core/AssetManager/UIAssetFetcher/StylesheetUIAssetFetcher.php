@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik
- * @package Piwik
  */
 namespace Piwik\AssetManager\UIAssetFetcher;
 
@@ -39,10 +37,6 @@ class StylesheetUIAssetFetcher extends UIAssetFetcher
          *
          * Stylesheets should be placed within a **stylesheets** subdirectory in your plugin's
          * root directory.
-         *
-         * _Note: While you are developing your plugin you should enable the config setting
-         * `[Debug] disable_merged_assets` so your stylesheets will be reloaded immediately
-         * after a change._
          *
          * **Example**
          *

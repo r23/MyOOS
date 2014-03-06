@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik
- * @package Piwik
  */
 
 namespace Piwik\Tracker;
@@ -29,8 +27,6 @@ use UserAgentParser;
  * Whether a visit is NEW or KNOWN we also save the action in the DB.
  * One request to the piwik.php script is associated to one action.
  *
- * @package Piwik
- * @subpackage Tracker
  */
 class Visit implements VisitInterface
 {
@@ -236,6 +232,8 @@ class Visit implements VisitInterface
         $valuesToUpdate = $this->getExistingVisitFieldsToUpdate($action, $visitIsConverted);
 
         $this->visitorInfo['time_spent_ref_action'] = $this->getTimeSpentReferrerAction();
+
+        $this->request->overrideLocation($valuesToUpdate);
 
         // update visitorInfo
         foreach ($valuesToUpdate AS $name => $value) {

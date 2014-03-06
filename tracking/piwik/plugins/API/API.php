@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package Piwik_API
  */
 namespace Piwik\Plugins\API;
 
@@ -43,7 +41,6 @@ require_once PIWIK_INCLUDE_PATH . '/core/Config.php';
  * The Metadata API is for example used by the Piwik Mobile App to automatically display all Piwik reports, with translated report & columns names and nicely formatted values.
  * More information on the <a href='http://piwik.org/docs/analytics-api/metadata/' target='_blank'>Metadata API documentation page</a>
  *
- * @package Piwik_API
  * @method static \Piwik\Plugins\API\API getInstance()
  */
 class API extends \Piwik\Plugin\API
@@ -613,17 +610,12 @@ class API extends \Piwik\Plugin\API
         $valuesBis = $table->getColumnsStartingWith($segmentName . ColumnDelete::APPEND_TO_COLUMN_NAME_TO_KEEP);
         $values = array_merge($values, $valuesBis);
 
-        // remove false values (while keeping zeros)
-        $values = array_filter($values, 'strlen');
+        $values = $this->getMostFrequentValues($values);
 
-        // we have a list of all values. let's show the most frequently used first.
-        $values = array_count_values($values);
-        arsort($values);
-        $values = array_keys($values);
+        $values = array_slice($values, 0, $maxSuggestionsToReturn);
 
         $values = array_map(array('Piwik\Common', 'unsanitizeInputValue'), $values);
 
-        $values = array_slice($values, 0, $maxSuggestionsToReturn);
         return $values;
     }
 
@@ -642,10 +634,33 @@ class API extends \Piwik\Plugin\API
         $doesSegmentNeedActionsInfo = in_array($segmentName, $segmentsNeedActionsInfo) || $isCustomVariablePage || $isEventSegment;
         return $doesSegmentNeedActionsInfo;
     }
+
+    /**
+     * @param $values
+     * @param $value
+     * @return array
+     */
+    private function getMostFrequentValues($values)
+    {
+        // remove false values (while keeping zeros)
+        $values = array_filter($values, 'strlen');
+
+        // array_count_values requires strings or integer, convert floats to string (mysqli)
+        foreach ($values as &$value) {
+            if (is_numeric($value)) {
+                $value = (string)round($value, 3);
+            }
+        }
+        // we have a list of all values. let's show the most frequently used first.
+        $values = array_count_values($values);
+
+        arsort($values);
+        $values = array_keys($values);
+        return $values;
+    }
 }
 
 /**
- * @package Piwik_API
  */
 class Plugin extends \Piwik\Plugin
 {
@@ -656,7 +671,7 @@ class Plugin extends \Piwik\Plugin
     }
 
     /**
-     * @see Piwik_Plugin::getListHooksRegistered
+     * @see Piwik\Plugin::getListHooksRegistered
      */
     public function getListHooksRegistered()
     {
@@ -681,9 +696,11 @@ class Plugin extends \Piwik\Plugin
         if (empty($_SERVER['HTTP_USER_AGENT'])) {
             return;
         }
-        require_once PIWIK_INCLUDE_PATH . '/libs/UserAgentParser/UserAgentParser.php';
-        $os = \UserAgentParser::getOperatingSystem($_SERVER['HTTP_USER_AGENT']);
-        if ($os && in_array($os['id'], array('AND', 'IPD', 'IPA', 'IPH'))) {
+        require_once PIWIK_INCLUDE_PATH . '/plugins/DevicesDetection/UserAgentParserEnhanced/UserAgentParserEnhanced.php';
+        $ua = new \UserAgentParserEnhanced($_SERVER['HTTP_USER_AGENT']);
+        $ua->parse();
+        $os = $ua->getOs('short_name');
+        if ($os && in_array($os, array('AND', 'IOS'))) {
             MenuTop::addEntry('Piwik Mobile App', array('module' => 'Proxy', 'action' => 'redirect', 'url' => 'http://piwik.org/mobile/'), true, 4);
         }
     }

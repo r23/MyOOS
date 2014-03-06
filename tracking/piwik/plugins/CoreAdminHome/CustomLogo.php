@@ -5,13 +5,12 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package Piwik_API
  */
 namespace Piwik\Plugins\CoreAdminHome;
 
 use Piwik\Config;
 use Piwik\Filesystem;
+use Piwik\Option;
 use Piwik\SettingsPiwik;
 
 class CustomLogo
@@ -44,14 +43,29 @@ class CustomLogo
         return $svg;
     }
 
+    public function isEnabled()
+    {
+        return (bool) Option::get('branding_use_custom_logo');
+    }
+
+    public function enable()
+    {
+        Option::set('branding_use_custom_logo', '1', true);
+    }
+
+    public function disable()
+    {
+        Option::set('branding_use_custom_logo', '0', true);
+    }
+
     public function hasSVGLogo()
     {
-        if (Config::getInstance()->branding['use_custom_logo'] == 0) {
+        if (!$this->isEnabled()) {
             /* We always have our application logo */
             return true;
         }
 
-        if (Config::getInstance()->branding['use_custom_logo'] == 1
+        if ($this->isEnabled()
             && file_exists(Filesystem::getPathToPiwikRoot() . '/' . CustomLogo::getPathUserSvgLogo())
         ) {
             return true;
@@ -95,7 +109,7 @@ class CustomLogo
         if (file_exists($pathToPiwikRoot . '/' . $themeLogo)) {
             $logo = $themeLogo;
         }
-        if (Config::getInstance()->branding['use_custom_logo'] == 1
+        if ($this->isEnabled()
             && file_exists($pathToPiwikRoot . '/' . $customLogo)
         ) {
             $logo = $customLogo;

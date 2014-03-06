@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package ExampleSettingsPlugin
  */
 namespace Piwik\Plugins\ExampleSettingsPlugin;
 
@@ -21,7 +19,6 @@ use Piwik\Settings\UserSetting;
  * $settings->autoRefresh->getValue();
  * $settings->metric->getValue();
  *
- * @package ExampleSettingsPlugin
  */
 class Settings extends \Piwik\Plugin\Settings
 {
@@ -117,7 +114,7 @@ class Settings extends \Piwik\Plugin\Settings
         $this->metric->type  = static::TYPE_STRING;
         $this->metric->uiControlType = static::CONTROL_SINGLE_SELECT;
         $this->metric->availableValues  = array('nb_visits' => 'Visits', 'nb_actions' => 'Actions', 'visitors' => 'Visitors');
-        $this->metric->introduction  = 'Only super users can change the following settings:';
+        $this->metric->introduction  = 'Only Super Users can change the following settings:';
         $this->metric->description   = 'Choose the metric that should be displayed in the browser tab';
         $this->metric->defaultValue  = 'nb_visits';
 

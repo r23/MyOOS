@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package UserCountry
  */
 namespace Piwik\Plugins\UserCountry;
 
@@ -26,7 +24,6 @@ use Piwik\ViewDataTable\Factory;
 
 /**
  *
- * @package UserCountry
  */
 class Controller extends \Piwik\Plugin\ControllerAdmin
 {
@@ -48,7 +45,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
     public function adminIndex()
     {
         $this->dieIfGeolocationAdminIsDisabled();
-        Piwik::checkUserIsSuperUser();
+        Piwik::checkUserHasSuperUserAccess();
         $view = new View('@UserCountry/adminIndex');
 
         $allProviderInfo = LocationProvider::getAllProviderInfo($newline = '<br/>', $includeExtra = true);
@@ -109,7 +106,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
     public function downloadFreeGeoIPDB()
     {
         $this->dieIfGeolocationAdminIsDisabled();
-        Piwik::checkUserIsSuperUser();
+        Piwik::checkUserHasSuperUserAccess();
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $this->checkTokenInUrl();
             Json::sendHeaderJSON();
@@ -195,7 +192,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
     public function updateGeoIPLinks()
     {
         $this->dieIfGeolocationAdminIsDisabled();
-        Piwik::checkUserIsSuperUser();
+        Piwik::checkUserHasSuperUserAccess();
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             Json::sendHeaderJSON();
             try {
@@ -240,7 +237,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
     public function downloadMissingGeoIpDb()
     {
         $this->dieIfGeolocationAdminIsDisabled();
-        Piwik::checkUserIsSuperUser();
+        Piwik::checkUserHasSuperUserAccess();
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             try {
                 $this->checkTokenInUrl();
@@ -293,7 +290,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
     public function setCurrentLocationProvider()
     {
         $this->dieIfGeolocationAdminIsDisabled();
-        Piwik::checkUserIsSuperUser();
+        Piwik::checkUserHasSuperUserAccess();
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $this->checkTokenInUrl();
 

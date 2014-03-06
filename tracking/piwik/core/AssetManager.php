@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik
- * @package Piwik
  */
 namespace Piwik;
 
@@ -36,13 +34,10 @@ use Piwik\Config as PiwikConfig;
  *  - Manages server-side cache
  *
  * Whether assets are included individually or as merged files is defined by
- * the global option 'disable_merged_assets'. When set to 1, files will be
- * included individually.
- * When set to 0, files will be included within a pair of files: 1 JavaScript
- * and 1 css file.
+ * the global option 'disable_merged_assets'. See the documentation in the global
+ * config for more information.
  *
  * @method static \Piwik\AssetManager getInstance()
- * @package Piwik
  */
 class AssetManager extends Singleton
 {

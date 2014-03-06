@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik
- * @package Piwik
  */
 
 namespace Piwik\Settings;
@@ -17,8 +15,6 @@ use Piwik\Piwik;
  * Describes a per user setting. Each user will be able to change this setting for themselves,
  * but not for other users.
  *
- * @package Piwik
- * @subpackage Settings
  *
  * @api
  */
@@ -80,7 +76,7 @@ class UserSetting extends Setting
      */
     public function setUserLogin($userLogin)
     {
-        if (!empty($userLogin) && !Piwik::isUserIsSuperUserOrTheUser($userLogin)) {
+        if (!empty($userLogin) && !Piwik::hasUserSuperUserAccessOrIsTheUser($userLogin)) {
             throw new \Exception('You do not have the permission to read the settings of a different user');
         }
 

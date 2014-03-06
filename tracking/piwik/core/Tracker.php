@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik
- * @package Piwik
  */
 namespace Piwik;
 
@@ -18,6 +16,7 @@ use Piwik\Tracker\Db\Pdo\Mysql;
 use Piwik\Tracker\Request;
 use Piwik\Tracker\Visit;
 use Piwik\Tracker\VisitInterface;
+use Piwik\Plugins\PrivacyManager\Config as PrivacyManagerConfig;
 
 /**
  * Class used by the logging script piwik.php called by the javascript tag.
@@ -26,8 +25,6 @@ use Piwik\Tracker\VisitInterface;
  *
  * We try to include as little files as possible (no dependency on 3rd party modules).
  *
- * @package Piwik
- * @subpackage Tracker
  */
 class Tracker
 {
@@ -191,12 +188,13 @@ class Tracker
         if (isset($jsonData['requests'])) {
             $this->requests = $jsonData['requests'];
         }
+
         $tokenAuth = Common::getRequestVar('token_auth', false, 'string', $jsonData);
+
         if (empty($tokenAuth)) {
             throw new Exception("token_auth must be specified when using Bulk Tracking Import. See <a href='http://developer.piwik.org/api-reference/tracking-api'>Tracking Doc</a>");
         }
         if (!empty($this->requests)) {
-            $idSitesForAuthentication = array();
 
             foreach ($this->requests as &$request) {
                 // if a string is sent, we assume its a URL and try to parse it
@@ -210,21 +208,18 @@ class Tracker
                     }
                 }
 
-                // We need to check access for each single request
-                if (isset($request['idsite'])
-                    && !in_array($request['idsite'], $idSitesForAuthentication)
-                ) {
-                    $idSitesForAuthentication[] = $request['idsite'];
-                }
-            }
+                $requestObj = new Request($request, $tokenAuth);
+                $this->loadTrackerPlugins($requestObj);
 
-            foreach ($idSitesForAuthentication as $idSiteForAuthentication) {
                 // a Bulk Tracking request that is not authenticated should fail
-                if (!Request::authenticateSuperUserOrAdmin($tokenAuth, $idSiteForAuthentication)) {
-                    throw new Exception("token_auth specified does not have Admin permission for site " . intval($idSiteForAuthentication));
+                if (!$requestObj->isAuthenticated()) {
+                    throw new Exception(sprintf("token_auth specified does not have Admin permission for idsite=%s", $requestObj->getIdSite()));
                 }
+
+                $request = $requestObj;
             }
         }
+
         return $tokenAuth;
     }
 
@@ -246,7 +241,6 @@ class Tracker
         if (!empty($this->requests)) {
 
             try {
-                self::connectDatabaseIfNotConnected();
                 foreach ($this->requests as $params) {
                     $isAuthenticated = $this->trackRequest($params, $tokenAuth);
                 }
@@ -305,13 +299,16 @@ class Tracker
         // To avoid parallel requests triggering the Scheduled Tasks,
         // Get last time tasks started executing
         $cache = Cache::getCacheGeneral();
+
         if ($minimumInterval <= 0
-            || empty($cache['isBrowserTriggerArchivingEnabled'])
+            || empty($cache['isBrowserTriggerEnabled'])
         ) {
             Common::printDebug("-> Scheduled tasks not running in Tracker: Browser archiving is disabled.");
             return;
         }
+
         $nextRunTime = $cache['lastTrackerCronRun'] + $minimumInterval;
+
         if ((isset($GLOBALS['PIWIK_TRACKER_DEBUG_FORCE_SCHEDULED_TASKS']) && $GLOBALS['PIWIK_TRACKER_DEBUG_FORCE_SCHEDULED_TASKS'])
             || $cache['lastTrackerCronRun'] === false
             || $nextRunTime < $now
@@ -322,20 +319,26 @@ class Tracker
             Option::set('lastTrackerCronRun', $cache['lastTrackerCronRun']);
             Common::printDebug('-> Scheduled Tasks: Starting...');
 
-            // save current user privilege and temporarily assume super user privilege
-            $isSuperUser = Piwik::isUserIsSuperUser();
+            // save current user privilege and temporarily assume Super User privilege
+            $isSuperUser = Piwik::hasUserSuperUserAccess();
 
             // Scheduled tasks assume Super User is running
-            Piwik::setUserIsSuperUser();
+            Piwik::setUserHasSuperUserAccess();
 
             // While each plugins should ensure that necessary languages are loaded,
             // we ensure English translations at least are loaded
             Translate::loadEnglishTranslation();
 
-            $resultTasks = TaskScheduler::runTasks();
+            ob_start();
+            CronArchive::$url = Common::sanitizeInputValue(Url::getCurrentUrlWithoutFileName());
+            $cronArchive = new CronArchive();
+            $cronArchive->runScheduledTasksInTrackerMode();
+
+            $resultTasks = ob_get_contents();
+            ob_clean();
 
             // restore original user privilege
-            Piwik::setUserIsSuperUser($isSuperUser);
+            Piwik::setUserHasSuperUserAccess($isSuperUser);
 
             Common::printDebug($resultTasks);
             Common::printDebug('Finished Scheduled Tasks.');
@@ -364,7 +367,7 @@ class Tracker
             $config = Config::getInstance();
 
             try {
-                $db = Db::get();
+                Db::get();
             } catch (Exception $e) {
                 Db::createDatabaseObject();
             }
@@ -437,8 +440,8 @@ class Tracker
      */
     protected function init(Request $request)
     {
-        $this->handleTrackingApi($request);
         $this->loadTrackerPlugins($request);
+        $this->handleTrackingApi($request);
         $this->handleDisabledTracker();
         $this->handleEmptyRequest($request);
 
@@ -498,6 +501,26 @@ class Tracker
      */
     public static function factory($configDb)
     {
+        /**
+         * Triggered before a connection to the database is established by the Tracker.
+         *
+         * This event can be used to change the database connection settings used by the Tracker.
+         *
+         * @param array $dbInfos Reference to an array containing database connection info,
+         *                       including:
+         *
+         *                       - **host**: The host name or IP address to the MySQL database.
+         *                       - **username**: The username to use when connecting to the
+         *                                       database.
+         *                       - **password**: The password to use when connecting to the
+         *                                       database.
+         *                       - **dbname**: The name of the Piwik MySQL database.
+         *                       - **port**: The MySQL database port to use.
+         *                       - **adapter**: either `'PDO_MYSQL'` or `'MYSQLI'`
+         *                       - **type**: The MySQL engine to use, for instance 'InnoDB'
+         */
+        Piwik::postEvent('Tracker.getDatabaseConfig', array(&$configDb));
+
         switch ($configDb['adapter']) {
             case 'PDO\MYSQL':
             case 'PDO_MYSQL': // old format pre Piwik 2
@@ -522,32 +545,13 @@ class Tracker
             $configDb['port'] = '3306';
         }
 
-        /**
-         * Triggered before a connection to the database is established by the Tracker.
-         * 
-         * This event can be used to change the database connection settings used by the Tracker.
-         * 
-         * @param array $dbInfos Reference to an array containing database connection info,
-         *                       including:
-         * 
-         *                       - **host**: The host name or IP address to the MySQL database.
-         *                       - **username**: The username to use when connecting to the
-         *                                       database.
-         *                       - **password**: The password to use when connecting to the
-         *                                       database.
-         *                       - **dbname**: The name of the Piwik MySQL database.
-         *                       - **port**: The MySQL database port to use.
-         *                       - **adapter**: either `'PDO_MYSQL'` or `'MYSQLI'`
-         */
-        Piwik::postEvent('Tracker.getDatabaseConfig', array(&$configDb));
-
         $db = Tracker::factory($configDb);
         $db->connect();
 
         return $db;
     }
 
-    public static function connectDatabaseIfNotConnected()
+    protected static function connectDatabaseIfNotConnected()
     {
         if (!is_null(self::$db)) {
             return;
@@ -565,6 +569,7 @@ class Tracker
      */
     public static function getDatabase()
     {
+        self::connectDatabaseIfNotConnected();
         return self::$db;
     }
 
@@ -646,7 +651,7 @@ class Tracker
     {
         // Adding &dp=1 will disable the provider plugin, if token_auth is used (used to speed up bulk imports)
         $disableProvider = $request->getParam('dp');
-        if (!empty($disableProvider) && $request->isAuthenticated()) {
+        if (!empty($disableProvider)) {
             Tracker::setPluginsNotToLoad(array('Provider'));
         }
 
@@ -727,8 +732,10 @@ class Tracker
         if (is_null($args)) {
             $args = $_GET + $_POST;
         }
-        if (is_null($requestMethod)) {
+        if (is_null($requestMethod) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
             $requestMethod = $_SERVER['REQUEST_METHOD'];
+        } else if (is_null($requestMethod)) {
+            $requestMethod = 'GET';
         }
 
         // Do not run scheduled tasks during tests
@@ -751,14 +758,14 @@ class Tracker
         }
 
         // Tests can force the enabling of IP anonymization
-        $forceIpAnonymization = false;
         if (Common::getRequestVar('forceIpAnonymization', false, null, $args) == 1) {
-            self::updateTrackerConfig('ip_address_mask_length', 2);
 
             self::connectDatabaseIfNotConnected();
-            \Piwik\Plugins\PrivacyManager\IPAnonymizer::activate();
 
-            $forceIpAnonymization = true;
+            $privacyConfig = new PrivacyManagerConfig();
+            $privacyConfig->ipAddressMaskLength = 2;
+
+            \Piwik\Plugins\PrivacyManager\IPAnonymizer::activate();
         }
 
         // Custom IP to use for this visitor
@@ -782,7 +789,6 @@ class Tracker
 
         // Disable provider plugin, because it is so slow to do many reverse ip lookups
         self::setPluginsNotToLoad($pluginsDisabled);
-
     }
 
     /**
@@ -809,9 +815,15 @@ class Tracker
      */
     protected function trackRequest($params, $tokenAuth)
     {
-        $request = new Request($params, $tokenAuth);
-        $isAuthenticated = $request->isAuthenticated();
+        if ($params instanceof Request) {
+            $request = $params;
+        } else {
+            $request = new Request($params, $tokenAuth);
+        }
+
         $this->init($request);
+
+        $isAuthenticated = $request->isAuthenticated();
 
         try {
             if ($this->isVisitValid()) {

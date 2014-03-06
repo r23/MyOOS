@@ -5,19 +5,16 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package PrivacyManager
  */
 namespace Piwik\Plugins\PrivacyManager;
 
 use Exception;
 use Piwik\Common;
-use Piwik\Config;
+use Piwik\Config as PiwikConfig;
 use Piwik\DataTable\DataTableInterface;
 use Piwik\Date;
 use Piwik\Db;
 use Piwik\Menu\MenuAdmin;
-
 use Piwik\Metrics;
 use Piwik\Option;
 use Piwik\Period\Range;
@@ -25,7 +22,6 @@ use Piwik\Period;
 use Piwik\Piwik;
 use Piwik\Plugins\Goals\Archiver;
 use Piwik\ScheduledTask;
-use Piwik\ScheduledTime\Daily;
 use Piwik\ScheduledTime;
 use Piwik\Site;
 use Piwik\Tracker\GoalManager;
@@ -41,30 +37,29 @@ require_once PIWIK_INCLUDE_PATH . '/plugins/PrivacyManager/DoNotTrackHeaderCheck
 require_once PIWIK_INCLUDE_PATH . '/plugins/PrivacyManager/IPAnonymizer.php';
 
 /**
- * @package PrivacyManager
  */
 class PrivacyManager extends \Piwik\Plugin
 {
     const OPTION_LAST_DELETE_PIWIK_LOGS = "lastDelete_piwik_logs";
     const OPTION_LAST_DELETE_PIWIK_REPORTS = 'lastDelete_piwik_reports';
     const OPTION_LAST_DELETE_PIWIK_LOGS_INITIAL = "lastDelete_piwik_logs_initial";
-    const DEFAULT_MAX_ROWS_PER_QUERY = 100000;
 
-    // default config options for data purging feature
-    public static $defaultPurgeDataOptions = array(
-        'delete_logs_enable'                   => 0,
-        'delete_logs_schedule_lowest_interval' => 7,
-        'delete_logs_older_than'               => 180,
-        'delete_logs_max_rows_per_query'       => self::DEFAULT_MAX_ROWS_PER_QUERY,
-        'delete_reports_enable'                => 0,
-        'delete_reports_older_than'            => 12,
-        'delete_reports_keep_basic_metrics'    => 1,
-        'delete_reports_keep_day_reports'      => 0,
-        'delete_reports_keep_week_reports'     => 0,
-        'delete_reports_keep_month_reports'    => 1,
-        'delete_reports_keep_year_reports'     => 1,
-        'delete_reports_keep_range_reports'    => 0,
-        'delete_reports_keep_segment_reports'  => 0,
+    // options for data purging feature array[configName => configSection]
+    public static $purgeDataOptions = array(
+        'delete_logs_enable'                   => 'Deletelogs',
+        'delete_logs_schedule_lowest_interval' => 'Deletelogs',
+        'delete_logs_older_than'               => 'Deletelogs',
+        'delete_logs_max_rows_per_query'       => 'Deletelogs',
+        'enable_auto_database_size_estimate'   => 'Deletelogs',
+        'delete_reports_enable'                => 'Deletereports',
+        'delete_reports_older_than'            => 'Deletereports',
+        'delete_reports_keep_basic_metrics'    => 'Deletereports',
+        'delete_reports_keep_day_reports'      => 'Deletereports',
+        'delete_reports_keep_week_reports'     => 'Deletereports',
+        'delete_reports_keep_month_reports'    => 'Deletereports',
+        'delete_reports_keep_year_reports'     => 'Deletereports',
+        'delete_reports_keep_range_reports'    => 'Deletereports',
+        'delete_reports_keep_segment_reports'  => 'Deletereports',
     );
 
     private $dntChecker = null;
@@ -139,7 +134,7 @@ class PrivacyManager extends \Piwik\Plugin
     }
 
     /**
-     * @see Piwik_Plugin::getListHooksRegistered
+     * @see Piwik\Plugin::getListHooksRegistered
      */
     public function getListHooksRegistered()
     {
@@ -155,8 +150,8 @@ class PrivacyManager extends \Piwik\Plugin
 
     public function setTrackerCacheGeneral(&$cacheContent)
     {
-        $this->ipAnonymizer->setTrackerCacheGeneral($cacheContent);
-        $this->dntChecker->setTrackerCacheGeneral($cacheContent);
+        $config       = new Config();
+        $cacheContent = $config->setTrackerCacheGeneral($cacheContent);
     }
 
     public function getScheduledTasks(&$tasks)
@@ -198,37 +193,21 @@ class PrivacyManager extends \Piwik\Plugin
         $settings = array();
 
         // load settings from ini config
-        try {
-            $oldSettings = array(
-                'enable_auto_database_size_estimate',
+        $config = PiwikConfig::getInstance();
+        foreach (self::$purgeDataOptions as $configKey => $configSection) {
+            $values = $config->$configSection;
+            $settings[$configKey] = $values[$configKey];
+        }
 
-                // backwards compatibility: load old values in ini config if present
-                'delete_logs_enable',
-                'delete_logs_schedule_lowest_interval',
-                'delete_logs_older_than',
-            );
-
-            $deleteLogsSettings = Config::getInstance()->Deletelogs;
-            foreach ($oldSettings as $settingName) {
-                $settings[$settingName] = $deleteLogsSettings[$settingName];
-            }
-        } catch (Exception $e) {
-            // ignore
+        if (!Controller::isDataPurgeSettingsEnabled()) {
+            return $settings;
         }
 
         // load the settings for the data purging settings
-        foreach (self::$defaultPurgeDataOptions as $optionName => $defaultValue) {
-            $value = Option::get($optionName);
+        foreach (self::$purgeDataOptions as $configName => $configSection) {
+            $value = Option::get($configName);
             if ($value !== false) {
-                $settings[$optionName] = $value;
-            } else {
-                // if the option hasn't been set/created, use the default value
-                if (!isset($settings[$optionName])) {
-                    $settings[$optionName] = $defaultValue;
-                }
-
-                // option is not saved in the DB, so save it now
-                Option::set($optionName, $settings[$optionName]);
+                $settings[$configName] = $value;
             }
         }
 
@@ -242,9 +221,9 @@ class PrivacyManager extends \Piwik\Plugin
      */
     public static function savePurgeDataSettings($settings)
     {
-        foreach (self::$defaultPurgeDataOptions as $optionName => $defaultValue) {
-            if (isset($settings[$optionName])) {
-                Option::set($optionName, $settings[$optionName]);
+        foreach (self::$purgeDataOptions as $configName => $configSection) {
+            if (isset($settings[$configName])) {
+                Option::set($configName, $settings[$configName]);
             }
         }
     }

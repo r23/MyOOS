@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package MultiSites
  */
 namespace Piwik\Plugins\MultiSites;
 use Piwik\Menu\MenuTop;
@@ -15,20 +13,18 @@ use Piwik\Piwik;
 
 /**
  *
- * @package MultiSites
  */
 class MultiSites extends \Piwik\Plugin
 {
     public function getInformation()
     {
         $info = parent::getInformation();
-        $info['author'] = 'Piwik PRO';
-        $info['author_homepage'] = 'http://piwik.pro';
+        $info['authors'] = array(array('name' => 'Piwik PRO', 'homepage' => 'http://piwik.pro'));
         return $info;
     }
 
     /**
-     * @see Piwik_Plugin::getListHooksRegistered
+     * @see Piwik\Plugin::getListHooksRegistered
      */
     public function getListHooksRegistered()
     {
@@ -59,7 +55,7 @@ class MultiSites extends \Piwik\Plugin
             'metrics'           => $metadataMetrics,
             'processedMetrics'  => false,
             'constantRowsCount' => false,
-            'order'             => 5
+            'order'             => 4
         );
 
         $reports[] = array(

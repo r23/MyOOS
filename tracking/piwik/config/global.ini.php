@@ -19,6 +19,9 @@ dbname =
 tables_prefix =
 port = 3306
 adapter = PDO_MYSQL
+type = InnoDB
+schema = Mysql
+
 ; if charset is set to utf8, Piwik will ensure that it is storing its data using UTF8 charset.
 ; it will add a sql query SET at each page view.
 ; Piwik should work correctly without this setting.
@@ -32,10 +35,8 @@ dbname = piwik_tests
 tables_prefix = piwiktests_
 port = 3306
 adapter = PDO_MYSQL
-
-[superuser]
-login = 
-password =
+type = InnoDB
+schema = Mysql
 
 [log]
 ; possible values for log: screen, database, file
@@ -75,8 +76,8 @@ enable_sql_profiler = 0
 ; this is useful for Piwik developers as an easy way to create data in their local Piwik
 track_visits_inside_piwik_ui = 0
 
-; if set to 1, javascript and css files will be included individually
-; this option must be set to 1 when adding, removing or modifying javascript and css files
+; if set to 1, javascript files will be included individually and neither merged nor minified.
+; this option must be set to 1 when adding, removing or modifying javascript files
 disable_merged_assets = 0
 
 ; If set to 1, all requests to piwik.php will be forced to be 'new visitors'
@@ -130,9 +131,16 @@ all_websites_website_per_page = 50
 anonymous_user_enable_use_segments_API = 1
 
 ; if browser trigger archiving is disabled, API requests with a &segment= parameter will still trigger archiving.
-; You can force the browser archiving to be disabled in most cases by setting this setting to 0
+; You can force the browser archiving to be disabled in most cases by setting this setting to 1
 ; The only time that the browser will still trigger archiving is when requesting a custom date range that is not pre-processed yet
 browser_archiving_disabled_enforce = 0
+
+; By default, users can create Segments which are to be processed in Real-time.
+; Setting this to 0 will force all newly created Custom Segments to be "Pre-processed (faster, requires archive.php cron)"
+; This can be useful if you want to prevent users from adding much load on the server.
+; Note: any existing Segment set to "processed in Real time", will still be set to Real-time.
+;       this will only affect custom segments added or modified after this setting is changed.
+enable_create_realtime_segments = 1
 
 ; this action name is used when the URL ends with a slash /
 ; it is useful to have an actual string to write in the UI
@@ -157,11 +165,12 @@ default_period = day
 ; Time in seconds after which an archive will be computed again. This setting is used only for today's statistics.
 ; Defaults to 10 seconds so that by default, Piwik provides real time reporting.
 ; This setting is overriden in the UI, under "General Settings".
-; This is the default value used if the setting hasn't been overriden via the UI.
+; This setting is only used if it hasn't been overriden via the UI yet, or if enable_general_settings_admin=0
 time_before_today_archive_considered_outdated = 10
 
-; This setting is overriden in the UI, under "General Settings". The default value is to allow browsers
-; to trigger the Piwik archiving process.
+; This setting is overriden in the UI, under "General Settings".
+; The default value is to allow browsers to trigger the Piwik archiving process.
+; This setting is only used if it hasn't been overriden via the UI yet, or if enable_general_settings_admin=0
 enable_browser_archiving_triggering = 1
 
 ; By default Piwik runs OPTIMIZE TABLE SQL queries to free spaces after deleting some data.
@@ -193,11 +202,6 @@ hash_algorithm = whirlpool
 ; by default, Piwik uses PHP's built-in file-based session save handler with lock files.
 ; For clusters, use dbtable.
 session_save_handler = files
-
-; by default, Piwik uses relative URLs, so you can login using http:// or https://
-; (the latter assumes you have a valid SSL certificate).
-; If set to 1, Piwik redirects the login form to use a secure connection (i.e., https).
-force_ssl_login = 0
 
 ; If set to 1, Piwik will automatically redirect all http:// requests to https://
 ; If SSL / https is not correctly configured on the server, this will break Piwik
@@ -457,18 +461,6 @@ campaign_keyword_var_name = "pk_kwd,piwik_kwd,pk_keyword,utm_term"
 ; maximum length of a Page Title or a Page URL recorded in the log_action.name table
 page_maximum_length = 1024;
 
-; Anonymize a visitor's IP address after testing for "Ip exclude"
-; This value is the level of anonymization Piwik will use; if the IP anonymization is deactivated, this value is ignored.
-; For IPv4/IPv6 addresses, valid values are the number of octets in IP address to mask (from 0 to 4).
-; For IPv6 addresses 0..4 means that 0, 64, 80, 104 or all bits are masked.
-ip_address_mask_length = 1
-
-
-; Set this setting to 0 to let plugins use the full non-anonymized IP address when enriching visitor information.
-; When set to 1, by default, Geo Location via geoip and Provider reverse name lookups
-; will use the anonymized IP address when anonymization is enabled.
-use_anonymized_ip_for_visit_enrichment = 1
-
 ; Tracker cache files are the simple caching layer for Tracking.
 ; TTL: Time to live for cache files, in seconds. Default to 5 minutes.
 tracker_cache_file_ttl = 300
@@ -501,12 +493,19 @@ tracking_requests_require_authentication = 1
 delete_logs_enable = 0
 delete_logs_schedule_lowest_interval = 7
 delete_logs_older_than = 180
+delete_logs_max_rows_per_query = 100000
 enable_auto_database_size_estimate = 1
 
-[branding]
-; custom logo
-; if 1, custom logo is being displayed instead of piwik logo
-use_custom_logo = 0
+[Deletereports]
+delete_reports_enable                = 0
+delete_reports_older_than            = 12
+delete_reports_keep_basic_metrics    = 1
+delete_reports_keep_day_reports      = 0
+delete_reports_keep_week_reports     = 0
+delete_reports_keep_month_reports    = 1
+delete_reports_keep_year_reports     = 1
+delete_reports_keep_range_reports    = 0
+delete_reports_keep_segment_reports  = 0
 
 [mail]
 defaultHostnameIfEmpty = defaultHostnameIfEmpty.example.org ; default Email @hostname, if current host can't be read from system variables
@@ -585,6 +584,7 @@ Plugins_Tracker[] = Provider
 Plugins_Tracker[] = Goals
 Plugins_Tracker[] = PrivacyManager
 Plugins_Tracker[] = UserCountry
+Plugins_Tracker[] = Login
 
 [APISettings]
 ; Any key/value pair can be added in this section, they will be available via the REST call

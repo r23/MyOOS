@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik
- * @package Piwik
  */
 namespace Piwik;
 
@@ -48,7 +46,6 @@ use Exception;
  *         return $view->render();
  *     }
  * 
- * @package Piwik
  */
 class Url
 {
@@ -226,7 +223,8 @@ class Url
             return true;
         }
 
-        $trustedHosts = @Config::getInstance()->General['trusted_hosts'];
+        $trustedHosts = self::getTrustedHosts();
+
         // if no trusted hosts, just assume it's valid
         if (empty($trustedHosts)) {
             self::saveTrustedHostnameInConfig($host);
@@ -239,19 +237,23 @@ class Url
             return false;
         }
 
+
         foreach ($trustedHosts as &$trustedHost) {
             $trustedHost = preg_quote($trustedHost);
         }
         $untrustedHost = Common::mb_strtolower($host);
         $untrustedHost = rtrim($untrustedHost, '.');
+
+
         $hostRegex = Common::mb_strtolower('/(^|.)' . implode('|', $trustedHosts) . '$/');
+
         $result = preg_match($hostRegex, $untrustedHost);
         return 0 !== $result;
     }
 
     /**
      * Records one host, or an array of hosts in the config file,
-     * if user is super user
+     * if user is Super User
      *
      * @static
      * @param $host string|array
@@ -259,7 +261,7 @@ class Url
      */
     public static function saveTrustedHostnameInConfig($host)
     {
-        if (Piwik::isUserIsSuperUser()
+        if (Piwik::hasUserSuperUserAccess()
             && file_exists(Config::getLocalConfigPath())
         ) {
             $general = Config::getInstance()->General;
@@ -432,6 +434,11 @@ class Url
         return $query;
     }
 
+    static public function getQueryStringFromUrl($url)
+    {
+        return parse_url($url, PHP_URL_QUERY);
+    }
+
     /**
      * Redirects the user to the referrer. If no referrer exists, the user is redirected
      * to the current URL without query string.
@@ -462,7 +469,24 @@ class Url
         } else {
             echo "Invalid URL to redirect to.";
         }
+
+        if(Common::isPhpCliMode()) {
+            die("If you were using a browser, Piwik would redirect you to this URL: $url \n\n");
+        }
         exit;
+    }
+
+    /**
+     * If the page is using HTTP, redirect to the same page over HTTPS
+     */
+    static public function redirectToHttps()
+    {
+        if(ProxyHttp::isHttps()) {
+            return;
+        }
+        $url = self::getCurrentUrl();
+        $url = str_replace("http://", "https://", $url);
+        self::redirectToUrl($url);
     }
 
     /**
@@ -508,8 +532,30 @@ class Url
         $parsedUrl = @parse_url($url);
         $host = IP::sanitizeIp(@$parsedUrl['host']);
         return !empty($host)
-        && ($disableHostCheck || in_array($host, $hosts))
-        && !empty($parsedUrl['scheme'])
-        && in_array($parsedUrl['scheme'], array('http', 'https'));
+            && ($disableHostCheck || in_array($host, $hosts))
+            && !empty($parsedUrl['scheme'])
+            && in_array($parsedUrl['scheme'], array('http', 'https'));
+    }
+
+    public static function getTrustedHosts( $filterEnrich = true )
+    {
+        $trustedHosts = @Config::getInstance()->General['trusted_hosts'];
+
+        if (empty($trustedHosts)) {
+            return array();
+        }
+        foreach ($trustedHosts as &$trustedHost) {
+            // Case user wrote in the config, http://example.com/test instead of example.com
+            if (UrlHelper::isLookLikeUrl($trustedHost)) {
+                $trustedHost = parse_url($trustedHost, PHP_URL_HOST);
+            }
+        }
+
+        if($filterEnrich) {
+            /* used by Piwik PRO */
+            Piwik::postEvent('Url.filterTrustedHosts', array(&$trustedHosts));
+        }
+
+        return $trustedHosts;
     }
 }

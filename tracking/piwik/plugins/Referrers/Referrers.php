@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package Referrers
  */
 namespace Piwik\Plugins\Referrers;
 
@@ -27,12 +25,11 @@ use Piwik\WidgetsList;
 require_once PIWIK_INCLUDE_PATH . '/plugins/Referrers/functions.php';
 
 /**
- * @package Referrers
  */
 class Referrers extends \Piwik\Plugin
 {
     /**
-     * @see Piwik_Plugin::getListHooksRegistered
+     * @see Piwik\Plugin::getListHooksRegistered
      */
     public function getListHooksRegistered()
     {
@@ -257,32 +254,32 @@ class Referrers extends \Piwik\Plugin
     public function getReportsWithGoalMetrics(&$dimensions)
     {
         $dimensions = array_merge($dimensions, array(
-                                                    array('category' => Piwik::translate('Referrers_Referrers'),
-                                                          'name'     => Piwik::translate('Referrers_Keywords'),
-                                                          'module'   => 'Referrers',
-                                                          'action'   => 'getKeywords',
-                                                    ),
-                                                    array('category' => Piwik::translate('Referrers_Referrers'),
-                                                          'name'     => Piwik::translate('Referrers_SearchEngines'),
-                                                          'module'   => 'Referrers',
-                                                          'action'   => 'getSearchEngines',
-                                                    ),
-                                                    array('category' => Piwik::translate('Referrers_Referrers'),
-                                                          'name'     => Piwik::translate('Referrers_Websites'),
-                                                          'module'   => 'Referrers',
-                                                          'action'   => 'getWebsites',
-                                                    ),
-                                                    array('category' => Piwik::translate('Referrers_Referrers'),
-                                                          'name'     => Piwik::translate('Referrers_Campaigns'),
-                                                          'module'   => 'Referrers',
-                                                          'action'   => 'getCampaigns',
-                                                    ),
-                                                    array('category' => Piwik::translate('Referrers_Referrers'),
-                                                          'name'     => Piwik::translate('Referrers_Type'),
-                                                          'module'   => 'Referrers',
-                                                          'action'   => 'getReferrerType',
-                                                    ),
-                                               ));
+            array('category' => Piwik::translate('Referrers_Referrers'),
+                  'name'     => Piwik::translate('Referrers_Type'),
+                  'module'   => 'Referrers',
+                  'action'   => 'getReferrerType',
+            ),
+            array('category' => Piwik::translate('Referrers_Referrers'),
+                  'name'     => Piwik::translate('Referrers_Keywords'),
+                  'module'   => 'Referrers',
+                  'action'   => 'getKeywords',
+            ),
+            array('category' => Piwik::translate('Referrers_Referrers'),
+                  'name'     => Piwik::translate('Referrers_SearchEngines'),
+                  'module'   => 'Referrers',
+                  'action'   => 'getSearchEngines',
+            ),
+            array('category' => Piwik::translate('Referrers_Referrers'),
+                  'name'     => Piwik::translate('Referrers_Websites'),
+                  'module'   => 'Referrers',
+                  'action'   => 'getWebsites',
+            ),
+            array('category' => Piwik::translate('Referrers_Referrers'),
+                  'name'     => Piwik::translate('Referrers_Campaigns'),
+                  'module'   => 'Referrers',
+                  'action'   => 'getCampaigns',
+            ),
+        ));
     }
 
     public function getDefaultTypeViewDataTable(&$defaultViewTypes)

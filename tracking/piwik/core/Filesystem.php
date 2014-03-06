@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik
- * @package Piwik
  */
 namespace Piwik;
 
@@ -16,7 +14,6 @@ use Piwik\Tracker\Cache;
 /**
  * Contains helper functions that deal with the filesystem.
  * 
- * @package Piwik
  */
 class Filesystem
 {
@@ -296,5 +293,22 @@ class Filesystem
         } else {
             self::copy($source, $target, $excludePhp);
         }
+    }
+
+    /**
+     * Deletes the given file if it exists.
+     *
+     * @param  string $pathToFile
+     * @return bool   true in case of success or if file does not exist, false otherwise. It might fail in case the
+     *                file is not writeable.
+     * @api
+     */
+    public static function deleteFileIfExists($pathToFile)
+    {
+        if (!file_exists($pathToFile)) {
+            return true;
+        }
+
+        return @unlink($pathToFile);
     }
 }

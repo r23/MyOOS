@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik
- * @package Piwik
  */
 namespace Piwik\DataAccess;
 
@@ -151,8 +149,7 @@ class ArchiveSelector
     {
         $getArchiveIdsSql = "SELECT idsite, name, date1, date2, MAX(idarchive) as idarchive
                                FROM %s
-                              WHERE period = ?
-                                AND %s
+                              WHERE %s
                                 AND " . self::getNameCondition($plugins, $segment) . "
                                 AND idsite IN (" . implode(',', $siteIds) . ")
                            GROUP BY idsite, date1, date2";
@@ -169,19 +166,29 @@ class ArchiveSelector
         foreach ($monthToPeriods as $table => $periods) {
             $firstPeriod = reset($periods);
 
-            // if looking for a range archive. NOTE: we assume there's only one period if its a range.
-            $bind = array($firstPeriod->getId());
+            $bind = array();
+
             if ($firstPeriod instanceof Range) {
-                $dateCondition = "date1 = ? AND date2 = ?";
+                $dateCondition = "period = ? AND date1 = ? AND date2 = ?";
+                $bind[] = $firstPeriod->getId();
                 $bind[] = $firstPeriod->getDateStart()->toString('Y-m-d');
                 $bind[] = $firstPeriod->getDateEnd()->toString('Y-m-d');
-            } else { // if looking for a normal period
-                $dateStrs = array();
+            } else {
+                // we assume there is no range date in $periods
+                $dateCondition = '(';
+
                 foreach ($periods as $period) {
-                    $dateStrs[] = $period->getDateStart()->toString('Y-m-d');
+                    if (strlen($dateCondition) > 1) {
+                        $dateCondition .= ' OR ';
+                    }
+
+                    $dateCondition .= "(period = ? AND date1 = ? AND date2 = ?)";
+                    $bind[] = $period->getId();
+                    $bind[] = $period->getDateStart()->toString('Y-m-d');
+                    $bind[] = $period->getDateEnd()->toString('Y-m-d');
                 }
 
-                $dateCondition = "date1 IN ('" . implode("','", $dateStrs) . "')";
+                $dateCondition .= ')';
             }
 
             $sql = sprintf($getArchiveIdsSql, $table, $dateCondition);

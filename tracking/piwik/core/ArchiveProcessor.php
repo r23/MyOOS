@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik
- * @package Piwik
  */
 namespace Piwik;
 
@@ -75,8 +73,6 @@ use Piwik\Period;
  *         $archiveProcessor->aggregateDataTableRecords('MyPlugin_myFancyReport');
  *     }
  * 
- * @package Piwik
- * @subpackage ArchiveProcessor
  */
 class ArchiveProcessor
 {
@@ -194,13 +190,13 @@ class ArchiveProcessor
                                               &$columnsAggregationOperation = null,
                                               $columnsToRenameAfterAggregation = null)
     {
-        // We clean up below all tables created during this function call (and recursive calls)
-        $latestUsedTableId = Manager::getInstance()->getMostRecentTableId();
         if (!is_array($recordNames)) {
             $recordNames = array($recordNames);
         }
         $nameToCount = array();
         foreach ($recordNames as $recordName) {
+            $latestUsedTableId = Manager::getInstance()->getMostRecentTableId();
+
             $table = $this->aggregateDataTableRecord($recordName, $columnsAggregationOperation, $columnsToRenameAfterAggregation);
 
             $nameToCount[$recordName]['level0'] = $table->getRowsCount();
@@ -209,8 +205,10 @@ class ArchiveProcessor
             $blob = $table->getSerialized($maximumRowsInDataTableLevelZero, $maximumRowsInSubDataTable, $columnToSortByBeforeTruncation);
             Common::destroy($table);
             $this->insertBlobRecord($recordName, $blob);
+
+            unset($blob);
+            DataTable\Manager::getInstance()->deleteAll($latestUsedTableId);
         }
-        Manager::getInstance()->deleteAll($latestUsedTableId);
 
         return $nameToCount;
     }

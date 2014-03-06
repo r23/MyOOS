@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik
- * @package Piwik
  */
 namespace Piwik\ArchiveProcessor;
 
@@ -17,6 +15,8 @@ use Piwik\Date;
 use Piwik\Log;
 use Piwik\Option;
 use Piwik\Piwik;
+use Piwik\Plugins\CoreAdminHome\Controller;
+use Piwik\Plugins\CoreAdminHome\CoreAdminHome;
 use Piwik\Segment;
 use Piwik\SettingsPiwik;
 use Piwik\SettingsServer;
@@ -50,21 +50,21 @@ class Rules
      * @param string $plugin
      * @return string
      */
-    public static function getDoneStringFlagFor($segment, $periodLabel, $plugin)
+    public static function getDoneStringFlagFor(array $idSites, $segment, $periodLabel, $plugin)
     {
-        if (!self::shouldProcessReportsAllPlugins($segment, $periodLabel)) {
+        if (!self::shouldProcessReportsAllPlugins($idSites, $segment, $periodLabel)) {
             return self::getDoneFlagArchiveContainsOnePlugin($segment, $plugin);
         }
         return self::getDoneFlagArchiveContainsAllPlugins($segment);
     }
 
-    public static function shouldProcessReportsAllPlugins(Segment $segment, $periodLabel)
+    public static function shouldProcessReportsAllPlugins(array $idSites, Segment $segment, $periodLabel)
     {
         if ($segment->isEmpty() && $periodLabel != 'range') {
             return true;
         }
 
-        $segmentsToProcess = SettingsPiwik::getKnownSegmentsToArchive();
+        $segmentsToProcess = self::getSegmentsToProcess($idSites);
         if (!empty($segmentsToProcess)) {
             // If the requested segment is one of the segments to pre-process
             // we ensure that any call to the API will trigger archiving of all reports for this segment
@@ -74,6 +74,23 @@ class Rules
             }
         }
         return false;
+    }
+
+    /**
+     * @param $idSites
+     * @return array
+     */
+    private static function getSegmentsToProcess($idSites)
+    {
+        $knownSegmentsToArchiveAllSites = SettingsPiwik::getKnownSegmentsToArchive();
+
+        $segmentsToProcess = $knownSegmentsToArchiveAllSites;
+        foreach ($idSites as $idSite) {
+            $segmentForThisWebsite = SettingsPiwik::getKnownSegmentsToArchiveForSite($idSite);
+            $segmentsToProcess = array_merge($segmentsToProcess, $segmentForThisWebsite);
+        }
+        $segmentsToProcess = array_unique($segmentsToProcess);
+        return $segmentsToProcess;
     }
 
     private static function getDoneFlagArchiveContainsOnePlugin(Segment $segment, $plugin)
@@ -155,7 +172,8 @@ class Rules
         $now = time();
         $minimumArchiveTime = $now - Rules::getTodayArchiveTimeToLive();
 
-        $isArchivingDisabled = Rules::isArchivingDisabledFor($segment, $period->getLabel());
+        $idSites = array($site->getId());
+        $isArchivingDisabled = Rules::isArchivingDisabledFor($idSites, $segment, $period->getLabel());
         if ($isArchivingDisabled) {
             if ($period->getNumberOfSubperiods() == 0
                 && $dateStart->getTimestamp() <= $now
@@ -183,19 +201,23 @@ class Rules
 
     public static function getTodayArchiveTimeToLive()
     {
-        $timeToLive = Option::get(self::OPTION_TODAY_ARCHIVE_TTL);
-        if ($timeToLive !== false) {
-            return $timeToLive;
+        $uiSettingIsEnabled = Controller::isGeneralSettingsAdminEnabled();
+
+        if($uiSettingIsEnabled) {
+            $timeToLive = Option::get(self::OPTION_TODAY_ARCHIVE_TTL);
+            if ($timeToLive !== false) {
+                return $timeToLive;
+            }
         }
         return Config::getInstance()->General['time_before_today_archive_considered_outdated'];
     }
 
-    public static function isArchivingDisabledFor(Segment $segment, $periodLabel)
+    public static function isArchivingDisabledFor(array $idSites, Segment $segment, $periodLabel)
     {
         if ($periodLabel == 'range') {
             return false;
         }
-        $processOneReportOnly = !self::shouldProcessReportsAllPlugins($segment, $periodLabel);
+        $processOneReportOnly = !self::shouldProcessReportsAllPlugins($idSites, $segment, $periodLabel);
         $isArchivingDisabled = !self::isRequestAuthorizedToArchive();
 
         if ($processOneReportOnly) {
@@ -219,15 +241,19 @@ class Rules
         return !self::$archivingDisabledByTests &&
         (Rules::isBrowserTriggerEnabled()
             || Common::isPhpCliMode()
-            || (Piwik::isUserIsSuperUser()
+            || (Piwik::hasUserSuperUserAccess()
                 && SettingsServer::isArchivePhpTriggered()));
     }
 
     public static function isBrowserTriggerEnabled()
     {
-        $browserArchivingEnabled = Option::get(self::OPTION_BROWSER_TRIGGER_ARCHIVING);
-        if ($browserArchivingEnabled !== false) {
-            return (bool)$browserArchivingEnabled;
+        $uiSettingIsEnabled = Controller::isGeneralSettingsAdminEnabled();
+
+        if($uiSettingIsEnabled) {
+            $browserArchivingEnabled = Option::get(self::OPTION_BROWSER_TRIGGER_ARCHIVING);
+            if ($browserArchivingEnabled !== false) {
+                return (bool)$browserArchivingEnabled;
+            }
         }
         return (bool)Config::getInstance()->General['enable_browser_archiving_triggering'];
     }

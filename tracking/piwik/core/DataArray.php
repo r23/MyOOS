@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik
- * @package Piwik
  */
 namespace Piwik;
 
@@ -104,6 +102,18 @@ class DataArray
         $oldRowToUpdate[Metrics::INDEX_NB_UNIQ_VISITORS] += $newRowToAdd[Metrics::INDEX_NB_UNIQ_VISITORS];
         if ($onlyMetricsAvailableInActionsTable) {
             return;
+        }
+
+        // In case the existing Row had no action metrics (eg. Custom Variable XYZ with "visit" scope)
+        // but the new Row has action metrics (eg. same Custom Variable XYZ this time with a "page" scope)
+        if(!isset($oldRowToUpdate[Metrics::INDEX_MAX_ACTIONS])) {
+            $toZero = array(Metrics::INDEX_MAX_ACTIONS,
+                            Metrics::INDEX_SUM_VISIT_LENGTH,
+                            Metrics::INDEX_BOUNCE_COUNT,
+                            Metrics::INDEX_NB_VISITS_CONVERTED);
+            foreach($toZero as $metric) {
+                $oldRowToUpdate[$metric] = 0;
+            }
         }
 
         $oldRowToUpdate[Metrics::INDEX_MAX_ACTIONS] = (float)max($newRowToAdd[Metrics::INDEX_MAX_ACTIONS], $oldRowToUpdate[Metrics::INDEX_MAX_ACTIONS]);
@@ -287,6 +297,12 @@ class DataArray
                 $revenue = round($revenue);
             }
             $values[Metrics::INDEX_REVENUE] = $revenue;
+
+            // if there are no "visit" column, we force one to prevent future complications
+            // eg. This helps the setDefaultColumnsToDisplay() call
+            if(!isset($values[Metrics::INDEX_NB_VISITS])) {
+                $values[Metrics::INDEX_NB_VISITS] = 0;
+            }
         }
     }
 

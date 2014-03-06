@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package UserCountry
  */
 namespace Piwik\Plugins\UserCountry;
 
@@ -19,9 +17,9 @@ use Piwik\Menu\MenuMain;
 use Piwik\Piwik;
 use Piwik\Plugin\ViewDataTable;
 use Piwik\Plugins\UserCountry\LocationProvider\DefaultProvider;
-
 use Piwik\Plugins\UserCountry\LocationProvider;
 use Piwik\Plugins\UserCountry\LocationProvider\GeoIp;
+use Piwik\Plugins\PrivacyManager\Config as PrivacyManagerConfig;
 use Piwik\Url;
 use Piwik\WidgetsList;
 
@@ -32,12 +30,11 @@ require_once PIWIK_INCLUDE_PATH . '/plugins/UserCountry/GeoIPAutoUpdater.php';
 
 /**
  *
- * @package UserCountry
  */
 class UserCountry extends \Piwik\Plugin
 {
     /**
-     * @see Piwik_Plugin::getListHooksRegistered
+     * @see Piwik\Plugin::getListHooksRegistered
      */
     public function getListHooksRegistered()
     {
@@ -86,7 +83,9 @@ class UserCountry extends \Piwik\Plugin
     {
         require_once PIWIK_INCLUDE_PATH . "/plugins/UserCountry/LocationProvider.php";
 
-        $ipAddress = IP::N2P(Config::getInstance()->Tracker['use_anonymized_ip_for_visit_enrichment'] == 1 ? $visitorInfo['location_ip'] : $request->getIp());
+        $privacyConfig = new PrivacyManagerConfig();
+
+        $ipAddress = IP::N2P($privacyConfig->useAnonymizedIpForVisitEnrichment ? $visitorInfo['location_ip'] : $request->getIp());
         $userInfo = array(
             'lang' => $visitorInfo['location_browser_lang'],
             'ip' => $ipAddress
@@ -200,7 +199,7 @@ class UserCountry extends \Piwik\Plugin
         if($this->isGeoLocationAdminEnabled()) {
             MenuAdmin::getInstance()->add('General_Settings', 'UserCountry_Geolocation',
                 array('module' => 'UserCountry', 'action' => 'adminIndex'),
-                Piwik::isUserIsSuperUser(),
+                Piwik::hasUserSuperUserAccess(),
                 $order = 8);
         }
     }

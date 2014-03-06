@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik
- * @package Piwik
  */
 
 namespace Piwik;
@@ -38,7 +36,6 @@ use Piwik\Plugins\SitesManager\API;
  * 
  *     $name = Site::getNameFor($idSite);
  * 
- * @package Piwik
  * @api
  */
 class Site
@@ -98,7 +95,7 @@ class Site
     protected static function setSite($idSite, $infoSite)
     {
         if(empty($idSite) || empty($infoSite)) {
-            throw new Exception("Un unexpected website was found.");
+            throw new Exception("An unexpected website was found, check idSite in the request.");
         }
 
         /**

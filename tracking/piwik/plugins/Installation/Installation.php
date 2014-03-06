@@ -5,12 +5,11 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package Installation
  */
 namespace Piwik\Plugins\Installation;
 
 use Piwik\Common;
+use Piwik\Config;
 use Piwik\FrontController;
 use Piwik\Menu\MenuAdmin;
 use Piwik\Piwik;
@@ -18,24 +17,45 @@ use Piwik\Translate;
 
 /**
  *
- * @package Installation
  */
 class Installation extends \Piwik\Plugin
 {
     protected $installationControllerName = '\\Piwik\\Plugins\\Installation\\Controller';
 
     /**
-     * @see Piwik_Plugin::getListHooksRegistered
+     * @see Piwik\Plugin::getListHooksRegistered
      */
     public function getListHooksRegistered()
     {
         $hooks = array(
             'Config.NoConfigurationFile'      => 'dispatch',
             'Config.badConfigurationFile'     => 'dispatch',
+            'Request.dispatch'                => 'dispatchIfNotInstalledYet',
             'Menu.Admin.addItems'             => 'addMenu',
             'AssetManager.getStylesheetFiles' => 'getStylesheetFiles',
         );
         return $hooks;
+    }
+
+    public function dispatchIfNotInstalledYet(&$module, &$action, &$parameters)
+    {
+        $general = Config::getInstance()->General;
+
+        if (empty($general['installation_in_progress'])) {
+            return;
+        }
+
+        if ($module == 'Installation') {
+            return;
+        }
+
+        $module = 'Installation';
+
+        if (!$this->isAllowedAction($action)) {
+            $action = 'welcome';
+        }
+
+        $parameters = array();
     }
 
     public function setControllerToLoad($newControllerName)
@@ -61,13 +81,10 @@ class Installation extends \Piwik\Plugin
 
         Translate::loadCoreTranslation();
 
-        $step = Common::getRequestVar('action', 'welcome', 'string');
-        $controller = $this->getInstallationController();
-        $isActionWhiteListed = in_array($step, array('saveLanguage', 'getBaseCss'));
-        if (in_array($step, array_keys($controller->getInstallationSteps()))
-            || $isActionWhiteListed
-        ) {
-            echo FrontController::getInstance()->dispatch('Installation', $step, array($message));
+        $action = Common::getRequestVar('action', 'welcome', 'string');
+
+        if ($this->isAllowedAction($action)) {
+            echo FrontController::getInstance()->dispatch('Installation', $action, array($message));
         } else {
             Piwik::exitWithErrorMessage(Piwik::translate('Installation_NoConfigFound'));
         }
@@ -76,13 +93,13 @@ class Installation extends \Piwik\Plugin
     }
 
     /**
-     * Adds the 'System Check' admin page if the user is the super user.
+     * Adds the 'System Check' admin page if the user is the Super User.
      */
     public function addMenu()
     {
         MenuAdmin::addEntry('Installation_SystemCheck',
             array('module' => 'Installation', 'action' => 'systemCheckPage'),
-            Piwik::isUserIsSuperUser(),
+            Piwik::hasUserSuperUserAccess(),
             $order = 15);
     }
 
@@ -92,5 +109,14 @@ class Installation extends \Piwik\Plugin
     public function getStylesheetFiles(&$stylesheets)
     {
         $stylesheets[] = "plugins/Installation/stylesheets/systemCheckPage.less";
+    }
+
+    private function isAllowedAction($action)
+    {
+        $controller = $this->getInstallationController();
+        $isActionWhiteListed = in_array($action, array('saveLanguage', 'getBaseCss', 'reuseTables'));
+
+        return in_array($action, array_keys($controller->getInstallationSteps()))
+                || $isActionWhiteListed;
     }
 }

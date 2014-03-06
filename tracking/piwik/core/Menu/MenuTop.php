@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik
- * @package Piwik_Menu
  */
 namespace Piwik\Menu;
 use Piwik\Piwik;
@@ -31,7 +29,6 @@ use Piwik\Piwik;
  *         );
  *     }
  * 
- * @package Piwik_Menu
  * @method static \Piwik\Menu\MenuTop getInstance()
  */
 class MenuTop extends MenuAbstract
@@ -112,7 +109,7 @@ class MenuTop extends MenuAbstract
              *         MenuTop::addEntry(
              *             'TopMenuName',
              *             array('module' => 'MyPlugin', 'action' => 'index'),
-             *             $showOnlyIf = Piwik::isUserIsSuperUser(),
+             *             $showOnlyIf = Piwik::hasUserSuperUserAccess(),
              *             $order = 6
              *         );
              *     }

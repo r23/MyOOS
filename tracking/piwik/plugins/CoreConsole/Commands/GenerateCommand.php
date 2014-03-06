@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package CoreConsole
  */
 
 namespace Piwik\Plugins\CoreConsole\Commands;
@@ -18,7 +16,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @package CoreConsole
  */
 class GenerateCommand extends GeneratePluginBase
 {
@@ -89,6 +86,6 @@ class GenerateCommand extends GeneratePluginBase
         $pluginNames = $this->getPluginNames();
         $invalidName = 'You have to enter the name of an existing plugin';
 
-        return parent::getPluginName($input, $output, $pluginNames, $invalidName);
+        return $this->askPluginNameAndValidate($input, $output, $pluginNames, $invalidName);
     }
 }

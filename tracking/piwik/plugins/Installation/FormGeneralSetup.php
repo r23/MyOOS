@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package Installation
  */
 namespace Piwik\Plugins\Installation;
 
@@ -14,11 +12,11 @@ use HTML_QuickForm2_DataSource_Array;
 use HTML_QuickForm2_Factory;
 use HTML_QuickForm2_Rule;
 use Piwik\Piwik;
+use Piwik\Plugins\UsersManager\UsersManager;
 use Piwik\QuickForm2;
 
 /**
  *
- * @package Installation
  */
 class FormGeneralSetup extends QuickForm2
 {
@@ -40,6 +38,10 @@ class FormGeneralSetup extends QuickForm2
         $password = $this->addElement('password', 'password')
             ->setLabel(Piwik::translate('Installation_Password'));
         $password->addRule('required', Piwik::translate('General_Required', Piwik::translate('Installation_Password')));
+        $pwMinLen = UsersManager::PASSWORD_MIN_LENGTH;
+        $pwMaxLen = UsersManager::PASSWORD_MAX_LENGTH;
+        $pwLenInvalidMessage = Piwik::translate('UsersManager_ExceptionInvalidPassword', array($pwMinLen, $pwMaxLen));
+        $password->addRule('length', $pwLenInvalidMessage, array('min' => $pwMinLen, 'max' => $pwMaxLen));
 
         $passwordBis = $this->addElement('password', 'password_bis')
             ->setLabel(Piwik::translate('Installation_PasswordRepeat'));
@@ -72,7 +74,6 @@ class FormGeneralSetup extends QuickForm2
 /**
  * Login id validation rule
  *
- * @package Installation
  */
 class Rule_isValidLoginString extends HTML_QuickForm2_Rule
 {
@@ -94,7 +95,6 @@ class Rule_isValidLoginString extends HTML_QuickForm2_Rule
 /**
  * Email address validation rule
  *
- * @package Installation
  */
 class Rule_isValidEmailString extends HTML_QuickForm2_Rule
 {

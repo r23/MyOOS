@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package Goals
  */
 namespace Piwik\Plugins\Goals;
 
@@ -24,7 +22,6 @@ use Piwik\WidgetsList;
 
 /**
  *
- * @package Goals
  */
 class Goals extends \Piwik\Plugin
 {
@@ -53,7 +50,21 @@ class Goals extends \Piwik\Plugin
             unset($dimension['category']);
             $dimensionsByGroup[$group][] = $dimension;
         }
+
+        uksort($dimensionsByGroup, array('self', 'sortGoalDimensionsByModule'));
         return $dimensionsByGroup;
+    }
+
+    public static function sortGoalDimensionsByModule($a, $b)
+    {
+        $order = array(
+            Piwik::translate('Referrers_Referrers'),
+            Piwik::translate('General_Visit'),
+            Piwik::translate('VisitTime_ColumnServerTime'),
+        );
+        $orderA = array_search($a, $order);
+        $orderB = array_search($b, $order);
+        return $orderA > $orderB;
     }
 
     static public function getGoalColumns($idGoal)
@@ -84,7 +95,7 @@ class Goals extends \Piwik\Plugin
     }
 
     /**
-     * @see Piwik_Plugin::getListHooksRegistered
+     * @see Piwik\Plugin::getListHooksRegistered
      */
     public function getListHooksRegistered()
     {
@@ -419,12 +430,14 @@ class Goals extends \Piwik\Plugin
             array('category' => Piwik::translate('General_Visit'),
                   'name'     => Piwik::translate('Goals_VisitsUntilConv'),
                   'module'   => 'Goals',
-                  'action'   => 'getVisitsUntilConversion'
+                  'action'   => 'getVisitsUntilConversion',
+                  'viewDataTable' => 'table',
             ),
             array('category' => Piwik::translate('General_Visit'),
                   'name'     => Piwik::translate('Goals_DaysToConv'),
                   'module'   => 'Goals',
-                  'action'   => 'getDaysToConversion'
+                  'action'   => 'getDaysToConversion',
+                  'viewDataTable' => 'table',
             )
         );
         $dimensions = array_merge($dimensions, $reportWithGoalMetrics);

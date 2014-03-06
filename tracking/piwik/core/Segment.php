@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik
- * @package Piwik
  */
 namespace Piwik;
 
@@ -52,7 +50,6 @@ use Piwik\Plugins\API\API;
  *     $segment = new Segment('', $idSites);
  *     // $segment->getSelectQuery will return a query that selects all visits
  * 
- * @package Piwik
  * @api
  */
 class Segment
@@ -319,8 +316,6 @@ class Segment
                 // first table
                 $sql .= $tableSql;
             } else {
-                $join = "";
-
                 if ($actionsAvailable && $table == "log_conversion") {
                     // have actions, need conversions => join on idlink_va
                     $join = "log_conversion.idlink_va = log_link_visit_action.idlink_va "
@@ -351,8 +346,10 @@ class Segment
                     $join = "log_conversion_item.idvisit = log_visit.idvisit";
                 } elseif ($conversionItemAvailable && $table === 'log_link_visit_action') {
                     $join = "log_conversion_item.idvisit = log_link_visit_action.idvisit";
+                } elseif ($conversionItemAvailable && $table === 'log_conversion') {
+                    $join = "log_conversion_item.idvisit = log_conversion.idvisit";
                 } else {
-                    throw new Exception("Table '$table', can't be joined for segmentation");
+                    throw new Exception("Table '$table' can't be joined for segmentation");
                 }
 
                 // the join sql the default way

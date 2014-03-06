@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package Annotations
  */
 namespace Piwik\Plugins\Annotations;
 
@@ -31,7 +29,6 @@ use Piwik\Site;
  * an annotation for the same site, it's possible one of their changes will
  * never get made (as it will be overwritten by the other's).
  *
- * @package Annotations
  */
 class AnnotationList
 {
@@ -316,7 +313,11 @@ class AnnotationList
             $serialized = Option::get($optionName);
 
             if ($serialized !== false) {
-                $result[$id] = unserialize($serialized);
+                $result[$id] = @unserialize($serialized);
+                if(empty($result[$id])) {
+                    // in case unserialize failed
+                    $result[$id] = array();
+                }
             } else {
                 $result[$id] = array();
             }

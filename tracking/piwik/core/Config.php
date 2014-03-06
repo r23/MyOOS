@@ -5,8 +5,6 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik
- * @package Piwik
  */
 
 namespace Piwik;
@@ -38,8 +36,6 @@ use Exception;
  *     Config::getInstance()->MySection = array('myoption' => 1);
  *     Config::getInstance()->forceSave();
  * 
- * @package Piwik
- * @subpackage Piwik_Config
  * @method static \Piwik\Config getInstance()
  */
 class Config extends Singleton
@@ -76,6 +72,7 @@ class Config extends Singleton
      *
      * @param string $pathLocal
      * @param string $pathGlobal
+     * @param string $pathCommon
      */
     public function setTestEnvironment($pathLocal = null, $pathGlobal = null, $pathCommon = null)
     {
@@ -109,12 +106,12 @@ class Config extends Singleton
         // Ensure local mods do not affect tests
         if (is_null($pathGlobal)) {
             $this->configCache['Debug'] = $this->configGlobal['Debug'];
-            $this->configCache['branding'] = $this->configGlobal['branding'];
             $this->configCache['mail'] = $this->configGlobal['mail'];
             $this->configCache['General'] = $this->configGlobal['General'];
             $this->configCache['Segments'] = $this->configGlobal['Segments'];
             $this->configCache['Tracker'] = $this->configGlobal['Tracker'];
             $this->configCache['Deletelogs'] = $this->configGlobal['Deletelogs'];
+            $this->configCache['Deletereports'] = $this->configGlobal['Deletereports'];
         }
 
         // for unit tests, we set that no plugin is installed. This will force
@@ -133,7 +130,6 @@ class Config extends Singleton
 
         // to avoid weird session error in travis
         $this->configCache['General']['session_save_handler'] = 'dbtables';
-
     }
 
     /**
@@ -214,7 +210,7 @@ class Config extends Singleton
      *     $config->save();
      *
      * @param string $hostname eg piwik.example.com
-     *
+     * @return string
      * @throws \Exception In case the domain contains not allowed characters
      */
     public function forceUsageOfLocalHostnameConfig($hostname)
@@ -288,9 +284,14 @@ class Config extends Singleton
         }
     }
 
+    public function existsLocalConfig()
+    {
+        return is_readable($this->pathLocal);
+    }
+
     public function checkLocalConfigFound()
     {
-        if (!is_readable($this->pathLocal)) {
+        if (!$this->existsLocalConfig()) {
             throw new Exception(Piwik::translate('General_ExceptionConfigurationFileNotFound', array($this->pathLocal)));
         }
     }
@@ -370,7 +371,10 @@ class Config extends Singleton
                 : $this->configLocal[$name];
         }
 
-        if ($section === null) {
+        if ($section === null && $name = 'superuser') {
+            $user = $this->getConfigSuperUserForBackwardCompatibility();
+            return $user;
+        } else if ($section === null) {
             throw new Exception("Error while trying to read a specific config file entry <strong>'$name'</strong> from your configuration files.</b>If you just completed a Piwik upgrade, please check that the file config/global.ini.php was overwritten by the latest Piwik version.");
         }
 
@@ -379,6 +383,27 @@ class Config extends Singleton
         $tmp =& $this->configCache[$name];
 
         return $tmp;
+    }
+
+    /**
+     * @deprecated since version 2.0.4
+     */
+    public function getConfigSuperUserForBackwardCompatibility()
+    {
+        try {
+            $db   = Db::get();
+            $user = $db->fetchRow("SELECT login, email, password
+                                FROM " . Common::prefixTable("user") . "
+                                WHERE superuser_access = 1
+                                ORDER BY date_registered ASC LIMIT 1");
+
+            if (!empty($user)) {
+                $user['bridge'] = 1;
+                return $user;
+            }
+        } catch (Exception $e) {}
+
+        return array();
     }
 
     public function getFromGlobalConfig($name)
@@ -460,6 +485,7 @@ class Config extends Singleton
      *
      * @param array $configLocal
      * @param array $configGlobal
+     * @param array $configCommon
      * @param array $configCache
      * @return string
      */
@@ -558,10 +584,11 @@ class Config extends Singleton
      *
      * @param array $configLocal
      * @param array $configGlobal
+     * @param array $configCommon
      * @param array $configCache
      * @param string $pathLocal
      *
-     * @throws Exception if config file not writable
+     * @throws \Exception if config file not writable
      */
     protected function writeConfig($configLocal, $configGlobal, $configCommon, $configCache, $pathLocal)
     {

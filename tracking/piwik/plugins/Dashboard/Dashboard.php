@@ -5,14 +5,13 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
- * @category Piwik_Plugins
- * @package Dashboard
  */
 namespace Piwik\Plugins\Dashboard;
 
 use Exception;
 use Piwik\Common;
 use Piwik\Db;
+use Piwik\DbHelper;
 use Piwik\Menu\MenuMain;
 use Piwik\Menu\MenuTop;
 use Piwik\Piwik;
@@ -20,12 +19,11 @@ use Piwik\Site;
 use Piwik\WidgetsList;
 
 /**
- * @package Dashboard
  */
 class Dashboard extends \Piwik\Plugin
 {
     /**
-     * @see Piwik_Plugin::getListHooksRegistered
+     * @see Piwik\Plugin::getListHooksRegistered
      */
     public function getListHooksRegistered()
     {
@@ -67,7 +65,7 @@ class Dashboard extends \Piwik\Plugin
         $defaultLayout = $this->getLayoutForUser('', 1);
 
         if (empty($defaultLayout)) {
-            if (Piwik::isUserIsSuperUser()) {
+            if (Piwik::hasUserSuperUserAccess()) {
                 $topWidget = '{"uniqueId":"widgetCoreHomegetDonateForm",'
                     . '"parameters":{"module":"CoreHome","action":"getDonateForm"}},';
             } else {
@@ -252,23 +250,13 @@ class Dashboard extends \Piwik\Plugin
 
     public function install()
     {
-        // we catch the exception
-        try {
-            $sql = "CREATE TABLE " . Common::prefixTable('user_dashboard') . " (
-					login VARCHAR( 100 ) NOT NULL ,
-					iddashboard INT NOT NULL ,
-					name VARCHAR( 100 ) NULL DEFAULT NULL ,
-					layout TEXT NOT NULL,
-					PRIMARY KEY ( login , iddashboard )
-					)  DEFAULT CHARSET=utf8 ";
-            Db::exec($sql);
-        } catch (Exception $e) {
-            // mysql code error 1050:table already exists
-            // see bug #153 http://dev.piwik.org/trac/ticket/153
-            if (!Db::get()->isErrNo($e, '1050')) {
-                throw $e;
-            }
-        }
+        $dashboard = "login VARCHAR( 100 ) NOT NULL ,
+					  iddashboard INT NOT NULL ,
+					  name VARCHAR( 100 ) NULL DEFAULT NULL ,
+					  layout TEXT NOT NULL,
+					  PRIMARY KEY ( login , iddashboard )";
+
+        DbHelper::createTable('user_dashboard', $dashboard);
     }
 
     public function uninstall()

@@ -1097,6 +1097,11 @@ $.extend(DataTable.prototype, UIControl.prototype, {
             return;
         }
 
+        if(domElemToTruncate.find('.truncationDisabled').length > 0) {
+            return;
+        }
+
+
         // make the original text (before truncation) available for others.
         // the .truncate plugins adds a title to the dom element but the .tooltip
         // plugin removes that again.
@@ -1606,7 +1611,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
         }
 
         actions.height(tr.innerHeight() - 2);
-        actions.css('marginLeft', (td.width() + 5 - actions.outerWidth()) + 'px');
+        actions.css('marginLeft', (td.width() + 3 - actions.outerWidth()) + 'px');
     },
 
     _findReportHeader: function (domElem) {

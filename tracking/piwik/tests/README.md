@@ -34,7 +34,7 @@ To execute the tests:
  * In your php.ini make sure you have the setting to show all errors:
  `error_reporting = E_ALL | E_STRICT`
 
- * Go to tests/index.php to see the tests homepage
+ * Go to tests/index.html to see the tests homepage
    and run the Integration tests via a visual UI, or run JS Tests
 
  * Next you will need to install PHPUnit
@@ -116,11 +116,7 @@ See [tests/README.testing-data.md](https://github.com/piwik/piwik/blob/master/te
 
 See [tests/README.screenshots.md](https://github.com/piwik/piwik/blob/master/tests/README.screenshots.md)
 
-## VisualPHPUnit
-
-See [tests/README.visualphpunit.md](https://github.com/piwik/piwik/blob/master/tests/README.visualphpunit.md) if you prefer to run phpunit tests using a visual interface.
-
-## Profiling 
+## Profiling
 
 See [tests/README.xhprof.md](https://github.com/piwik/piwik/blob/master/tests/README.xhprof.md) for help on how to profile Piwik with XHProf.
 

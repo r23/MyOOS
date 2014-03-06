@@ -8,7 +8,7 @@ Piwik is a full featured PHP MySQL software program that you download and instal
 At the end of the five minute installation process you will be given a JavaScript code.
 Simply copy and paste this tag on websites you wish to track and access your analytics reports in real time.
 
-Piwik aims to be a Free software alternative to Google Analytics, and is already used on more than 480,000 websites.
+Piwik aims to be a Free software alternative to Google Analytics, and is already used on more than 1,000,000 websites.
 
 ## Mission Statement
 
@@ -23,7 +23,7 @@ Piwik is released under the GPL v3 (or later) license, see [misc/gpl-3.0.txt](mi
 
 ## Requirements
 
-  * PHP 5.3 or greater
+  * PHP 5.3.2 or greater
   * MySQL 4.1 or greater, and either MySQLi or PDO library must be enabled
   * Piwik is OS / server independent
 
@@ -50,7 +50,7 @@ For the list of all tickets closed in the current and past releases, see http://
 We believe in liberating Web Analytics, providing a free platform for simple and advanced analytics. Piwik was built by dozens of people like you,
 and we need your help to make Piwik better… Why not participate in a useful project today?
 
-You will find pointers on how you can participate in Piwik at http://piwik.org/contribute/
+You will find pointers on how you can participate in Piwik at http://piwik.org/get-involved/
 
 ## Contact
 
