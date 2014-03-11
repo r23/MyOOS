@@ -48,3 +48,32 @@ jQuery(document).ready(function($) {
 		});
 
 });
+
+/* ===== Sign Up popovers ===== */
+
+$(function(){
+	$('#name').popover();
+});
+
+$(function(){
+	$('#username').popover();
+});
+
+$(function(){
+	$('#email').popover();
+});
+
+$(function(){
+	$('#password').popover();
+});
+
+$(function(){
+	$('#repeat-password').popover();
+});
+
+
+/* ===== Sticky Navbar ===== */
+
+$(window).load(function(){
+	$(".navbar").sticky({ topSpacing: 0 });
+});

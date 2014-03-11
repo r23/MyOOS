@@ -579,3 +579,21 @@ footer ul.link-list li a:hover {
 .backtotop:hover {
   background: #656565;
 }
+/* === Login & Logout === */
+.sign-form {
+  padding: 30px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+.sign-form .popover {
+  min-width: 200px;
+}
+.popover-title {
+  font-family: 'Roboto', sans-serif !important;
+  background: transparent;
+  font-weight: bold;
+}

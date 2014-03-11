@@ -50,70 +50,70 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
     $check_customer_result = $dbconn->Execute($sql);
 
     if (!$check_customer_result->RecordCount()) {
-      $bError = TRUE;
-    } else {
-      $check_customer = $check_customer_result->fields;
-
-      // Check that password is good
-      if (!oos_validate_password($password, $check_customer['customers_password'])) {
         $bError = TRUE;
-      } else {
-        $address_booktable = $oostable['address_book'];
-        $sql = "SELECT entry_country_id, entry_zone_id
-                FROM $address_booktable
-                WHERE customers_id = '" . $check_customer['customers_id'] . "'
-                  AND address_book_id = '1'";
-        $check_country = $dbconn->GetRow($sql);
+    } else {
+        $check_customer = $check_customer_result->fields;
 
-        if ($check_customer['customers_language'] == '') {
-          $customerstable = $oostable['customers'];
-          $dbconn->Execute("UPDATE $customerstable
-                            SET customers_language = '" . oos_db_input($sLanguage) . "'
-                            WHERE customers_id = '" . intval($check_customer['customers_id']) . "'");
-        }
+        // Check that password is good
+        if (!oos_validate_password($password, $check_customer['customers_password'])) {
+            $bError = TRUE;
+        } else {
+            $address_booktable = $oostable['address_book'];
+            $sql = "SELECT entry_country_id, entry_zone_id
+                    FROM $address_booktable
+                     WHERE customers_id = '" . $check_customer['customers_id'] . "'
+                    AND address_book_id = '1'";
+            $check_country = $dbconn->GetRow($sql);
 
-		// start the session
-		if ( is_session_started() === FALSE ) oos_session_start();
+            if ($check_customer['customers_language'] == '') {
+                $customerstable = $oostable['customers'];
+                $dbconn->Execute("UPDATE $customerstable
+                                    SET customers_language = '" . oos_db_input($sLanguage) . "'
+                                     WHERE customers_id = '" . intval($check_customer['customers_id']) . "'");
+            }
 
-        $_SESSION['customer_wishlist_link_id'] = $check_customer['customers_wishlist_link_id'];
-        $_SESSION['customer_id'] = $check_customer['customers_id'];
-        $_SESSION['customer_default_address_id'] = $check_customer['customers_default_address_id'];
-        if (ACCOUNT_GENDER == 'true') $_SESSION['customer_gender'] = $check_customer['customers_gender'];
-        $_SESSION['customer_first_name'] = $check_customer['customers_firstname'];
-        $_SESSION['customer_lastname'] = $check_customer['customers_lastname'];
-        $_SESSION['customer_max_order'] = $check_customer['customers_max_order'];
-        $_SESSION['customer_country_id'] = $check_country['entry_country_id'];
-        $_SESSION['customer_zone_id'] = $check_country['entry_zone_id'];
-        if (ACCOUNT_VAT_ID == 'true') $_SESSION['customers_vat_id_status'] = $check_customer['customers_vat_id_status'];
+            // start the session
+            if ( is_session_started() === FALSE ) oos_session_start();
 
-        $_SESSION['member']->restore_group();
+            $_SESSION['customer_wishlist_link_id'] = $check_customer['customers_wishlist_link_id'];
+            $_SESSION['customer_id'] = $check_customer['customers_id'];
+            $_SESSION['customer_default_address_id'] = $check_customer['customers_default_address_id'];
+            if (ACCOUNT_GENDER == 'true') $_SESSION['customer_gender'] = $check_customer['customers_gender'];
+            $_SESSION['customer_first_name'] = $check_customer['customers_firstname'];
+            $_SESSION['customer_lastname'] = $check_customer['customers_lastname'];
+            $_SESSION['customer_max_order'] = $check_customer['customers_max_order'];
+            $_SESSION['customer_country_id'] = $check_country['entry_country_id'];
+            $_SESSION['customer_zone_id'] = $check_country['entry_zone_id'];
+            if (ACCOUNT_VAT_ID == 'true') $_SESSION['customers_vat_id_status'] = $check_customer['customers_vat_id_status'];
 
-        $date_now = date('Ymd');
-        $customers_infotable = $oostable['customers_info'];
-        $dbconn->Execute("UPDATE $customers_infotable
+            $_SESSION['member']->restore_group();
+
+            $date_now = date('Ymd');
+            $customers_infotable = $oostable['customers_info'];
+            $dbconn->Execute("UPDATE $customers_infotable
                           SET customers_info_date_of_last_logon = now(),
                               customers_info_number_of_logons = customers_info_number_of_logons+1
                           WHERE customers_info_id = '" . intval($_SESSION['customer_id']) . "'");
 
-        // restore cart contents
-        $_SESSION['cart']->restore_contents();
+            // restore cart contents
+            $_SESSION['cart']->restore_contents();
 
-        if (count($_SESSION['navigation']->snapshot) > 0) {
-          $origin_href = oos_href_link($_SESSION['navigation']->snapshot['content'], $_SESSION['navigation']->snapshot['get'], $_SESSION['navigation']->snapshot['mode']);
-          $_SESSION['navigation']->clear_snapshot();
-          oos_redirect($origin_href);
-        } else {
-            oos_redirect(oos_href_link($aContents['account'], '', 'SSL'));
+            if (count($_SESSION['navigation']->snapshot) > 0) {
+                $origin_href = oos_href_link($_SESSION['navigation']->snapshot['content'], $_SESSION['navigation']->snapshot['get'], $_SESSION['navigation']->snapshot['mode']);
+                $_SESSION['navigation']->clear_snapshot();
+                oos_redirect($origin_href);
+            } else {
+                oos_redirect(oos_href_link($aContents['account'], '', 'SSL'));
+            }
         }
-      }
     }
-  }
+}
 
-  // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title']);
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title']);
 $sCanonical = oos_href_link($aContents['login'], '', 'SSL', FALSE, TRUE);
 $sPagetitle = $aLang['heading_title'];
-
+ $bError = TRUE;
 if (isset($bError) && ($bError == TRUE)) {
     $sErrorMessage = $aLang['text_login_error'];
 } 
@@ -122,18 +122,18 @@ if (isset($_SESSION) && ($_SESSION['cart']->count_contents())) {
     $sInfoMessage = $aLang['text_visitors_cart'];
 }
 
-  $aTemplate['page'] = $sTheme . '/page/user_login.tpl';
+$aTemplate['page'] = $sTheme . '/page/user_login.tpl';
 
-  $nPageType = OOS_PAGE_TYPE_SERVICE;
+$nPageType = OOS_PAGE_TYPE_SERVICE;
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
-  if (!isset($option)) {
+require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+if (!isset($option)) {
     require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
-  }
+}
 
   // assign Smarty variables;
-  $smarty->assign(
+$smarty->assign(
       array(
           'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'heading_title' => $aLang['heading_title'],
@@ -141,8 +141,7 @@ if (isset($_SESSION) && ($_SESSION['cart']->count_contents())) {
             'pagetitle'         => htmlspecialchars($sPagetitle),
             'canonical'         => $sCanonical
       )
-  );
-
+);
 
 // display the template
 $smarty->display($aTemplate['page']);

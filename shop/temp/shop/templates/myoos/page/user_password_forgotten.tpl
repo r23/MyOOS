@@ -21,30 +21,32 @@
     {/foreach}
 {/if} 
     <section id="content">
-    <div class="container">
+      <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <form class="form-horizontal" role="form" name="password_forgotten" action="{html_get_link connection=SSL}" method="post">
+          <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div class="sign-form">
+              <h3 class="first-child">{$lang.navbar_title_2}</h3>
+              <hr>
+                <form role="form" name="password_forgotten" action="{html_get_link connection=SSL}" method="post">
                     {if $oos_session_name}<input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">{/if}
                     {if $formid}<input type="hidden" name="formid" value="{$formid}">{/if}
                     <input type="hidden" name="action" value="process">
-                    <input type="hidden" name="content" value="{$contents.password_forgotten}">			
+                    <input type="hidden" name="content" value="{$contents.password_forgotten}">	
 					
-                    <div class="form-group">
-                        <label for="eingabefeldEmail3" class="col-sm-2 control-label">Email</label>
-                        <div class="col-sm-10">
-                            <input type="email" class="form-control" id="email" placeholder="Enter email" data-original-title="" title="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-color">{$lang.button_continue}</button>
-                        </div>
-                    </div>					
-                </form>			
+                <div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-user"></i></span>
+					<input type="email" class="form-control" id="email" placeholder="Enter email" data-original-title="" title="">
+                </div>
+                <br>
+
+                <button type="submit" class="btn btn-color">{$lang.button_continue}</button>
+                <hr>
+              </form>
+              <p>Not registered? <a href="sign-up.html">Create an Account.</a></p>
             </div>
-        </div>	
-    </div>
+          </div>
+        </div> <!-- / .row -->
+      </div> <!-- / .container -->	
     </section>
     </div> <!-- / .wrapper -->	
 {include file="myoos/system/_footer.tpl"}        

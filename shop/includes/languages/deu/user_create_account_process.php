@@ -43,32 +43,6 @@ $aLang['email_coupon_redeem'] = 'Um den Einkaufsgutschein zu nutzen geben Sie bi
 $aLang['email_password'] = 'Ihr Passwort für \'' . STORE_NAME . '\' lautet:' . "\n\n" . '   %s' . "\n\n";
 
 
-$aLang['email_disclaimer'] = '--- Disclaimer ------------------------------------------------------------ ' . "\n\n" .
-                            'Ihre Privatsphäre:' . "\n\n" .
-                            'Wir verpflichten uns Ihre Daten (Name, E-Mail etc.) in keinem Fall an' . "\n" .
-                            'dritte Parteien weitergegeben, sofern dieses nicht rechtlich erzwungen' . "\n" .
-                            'wird. Ausser dass diese Weitergabe illegal wäre, sehen wir darin keine' . "\n" .
-                            'Bereicherung für Sie oder für uns. Ihr Name und E-Mail-Adresse sind aber' . "\n" .
-                            'natürlich für alle sichtbar, die Ihre Beiträge auf ' . oos_server_get_base_url() . ' lesen.' . "\n" .
-                            'Da die Kommunikation und Anmeldung im World Wide Web in vielen Fällen' . "\n" .
-                            'unverschlüsselt erfolgt, so dass auch Ihr Benutzername und Ihr Passwort' . "\n" .
-                            'für andere lesbar übertragen werden, benutzen Sie für den Zugang' . "\n" .
-                            'zu ' . oos_server_get_base_url() . ' sicherheitshalber eine andere' . "\n" .
-                            'Benutzername/Passwort-Kombination als die, die z.B. Zugriff zu Ihrem' . "\n" .
-                            'persönlichen Computer gestattet.' . "\n\n" .
-                            'Sie haben diese E-Mail nicht angefordert?' . "\n\n" .
-                            'Diese E-Mail wurde am ' . strftime(DATE_FORMAT_LONG) . ' von der IP ' . oos_server_get_remote() . ' ' . oos_server_get_var('REMOTE_HOST') . ' ' . "\n" .
-                            'initiiert. Falls das nicht Ihre (auch temporäre) IP Adresse ist, löschen' . "\n" .
-                            'Sie diese E-Mail nicht, und wenden sich bitte freundlich an den' . "\n" .
-                            'verantwortlichen Webmaster unter ' . STORE_OWNER_EMAIL_ADDRESS . '. Dieser kann Ihnen' . "\n" .
-                            'in dem meisten Fällen weiterhelfen. Sollte Ihnen diese Hilfe nicht' . "\n" .
-                            'ausreichend erscheinen, wenden Sie sich bitte direkt an den Provider' . "\n" .
-                            'von ' . oos_server_get_var('REMOTE_HOST') . "\n\n" .
-                            'Wichtig: Der Betreiber von ' . oos_server_get_base_url() . ' ist nur bedingt in der Lage' . "\n" .
-                            'solchen Missbrauch zu kontrollieren, und ist i.d.R. nicht verantwortlich' . "\n" .
-                            'für diese E-Mail.';
-
-
 $aLang['owner_email_subject'] = 'Neuer Kunde';
 $aLang['owner_email_date'] = 'Datum:';
 $aLang['owner_email_company_info'] = 'Firmendaten';
