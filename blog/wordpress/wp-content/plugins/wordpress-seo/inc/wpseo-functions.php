@@ -42,6 +42,13 @@ function wpseo_do_upgrade() {
 		// Add new capabilities on upgrade
 		wpseo_add_capabilities();
 	}
+
+	/* Only correct the breadcrumb defaults for upgrades from v1.5+ to v1.5.3, upgrades from earlier version
+	   will already get this functionality in the clean_up routine. */
+	if ( version_compare( $option_wpseo['version'], '1.4.25', '>' ) && version_compare( $option_wpseo['version'], '1.5.3', '<' ) ) {
+		add_action( 'init', array( 'WPSEO_Options', 'bring_back_breadcrumb_defaults' ), 3 );
+	}
+
 	
 	// Make sure version nr gets updated for any version without specific upgrades
 	$option_wpseo = get_option( 'wpseo' ); // re-get to make sure we have the latest version
@@ -71,7 +78,7 @@ if ( ! function_exists( 'yoast_breadcrumb' ) ) {
 	 * Other than that, leaving the setting is an easy way to enable/disable the bc without having to
 	 * edit the template files again, but having to manually enable when you've added the template tag
 	 * in your theme is kind of double, so I'm undecided about what to do.
-	 * I guess I'm leaning towards removing the option key in combination with adding the bc shortcode.
+	 * I guess I'm leaning towards removing the option key.
 	 *
 	 * @param string $before  What to show before the breadcrumb.
 	 * @param string $after   What to show after the breadcrumb.
@@ -82,20 +89,9 @@ if ( ! function_exists( 'yoast_breadcrumb' ) ) {
 	function yoast_breadcrumb( $before = '', $after = '', $display = true ) {
 		$options = get_option( 'wpseo_internallinks' );
 
-		$breadcrumbs_string = "";
-
 		if ( $options['breadcrumbs-enable'] === true ) {
-			$breadcrumbs = new WPSEO_Breadcrumbs();
-
-			$breadcrumbs_string = $breadcrumbs->breadcrumb( $before, $after, false );
+			return WPSEO_Breadcrumbs::breadcrumb( $before, $after, $display );
 		}
-
-		// Output $breadcrumbs_string is $display is true
-		if ( true === $display ) {
-			echo $breadcrumbs_string;
-		}
-
-		return $breadcrumbs_string;
 	}
 }
 
@@ -156,12 +152,14 @@ function wpseo_replace_vars( $string, $args, $omit = array() ) {
 	$string = strip_tags( $string );
 
 	// Let's see if we can bail super early.
-	if ( strpos( $string, '%%' ) === false )
+	if ( strpos( $string, '%%' ) === false ) {
 		return trim( preg_replace( '`\s+`u', ' ', $string ) );
+	}
 
 	global $sep;
-	if ( ! isset( $sep ) || empty( $sep ) )
+	if ( ! isset( $sep ) || empty( $sep ) ) {
 		$sep = '-';
+	}
 
 	$simple_replacements = array(
 		'%%sep%%'          => $sep,
@@ -179,8 +177,9 @@ function wpseo_replace_vars( $string, $args, $omit = array() ) {
 	}
 
 	// Let's see if we can bail early.
-	if ( strpos( $string, '%%' ) === false )
+	if ( strpos( $string, '%%' ) === false ) {
 		return trim( preg_replace( '`\s+`u', ' ', $string ) );
+	}
 
 	global $wp_query;
 
@@ -198,28 +197,33 @@ function wpseo_replace_vars( $string, $args, $omit = array() ) {
 		'term404'		=> '',
 	);
 
-	if ( isset( $args['post_content'] ) )
+	if ( isset( $args['post_content'] ) ) {
 		$args['post_content'] = wpseo_strip_shortcode( $args['post_content'] );
-	if ( isset( $args['post_excerpt'] ) )
+	}
+	if ( isset( $args['post_excerpt'] ) ) {
 		$args['post_excerpt'] = wpseo_strip_shortcode( $args['post_excerpt'] );
+	}
 
 	$r = (object) wp_parse_args( $args, $defaults );
 
 	$max_num_pages = 1;
-	if ( ! is_single() ) {
+	if ( ! is_singular() ) {
 		$pagenum = get_query_var( 'paged' );
-		if ( $pagenum === 0 )
+		if ( $pagenum === 0 ) {
 			$pagenum = 1;
+		}
 
-		if ( isset( $wp_query->max_num_pages ) && $wp_query->max_num_pages != '' && $wp_query->max_num_pages != 0 )
+		if ( isset( $wp_query->max_num_pages ) && $wp_query->max_num_pages != '' && $wp_query->max_num_pages != 0 ) {
 			$max_num_pages = $wp_query->max_num_pages;
+		}
 	}
 	else {
 		global $post;
 		$pagenum       = get_query_var( 'page' );
 		$max_num_pages = ( isset( $post->post_content ) ) ? substr_count( $post->post_content, '<!--nextpage-->' ) : 1;
-		if ( $max_num_pages >= 1 )
+		if ( $max_num_pages >= 1 ) {
 			$max_num_pages++;
+		}
 	}
 
 	// Let's do date first as it's a bit more work to get right.
@@ -281,6 +285,13 @@ function wpseo_replace_vars( $string, $args, $omit = array() ) {
 		);
 	}
 
+	/**
+	* Filter: 'wpseo_replacements' - Allow customization of the replacements before they are applied
+	*
+	* @api array $replacements The replacements
+	*/
+	$replacements = apply_filters( "wpseo_replacements", $replacements );
+
 	foreach ( $replacements as $var => $repl ) {
 		if ( ! in_array( $var, $omit ) ) {
 			$string = str_replace( $var, $repl, $string );
@@ -305,7 +316,7 @@ function wpseo_replace_vars( $string, $args, $omit = array() ) {
 		$string = str_replace( '%%pt_plural%%', $pt_plural, $string );
 	}
 
-	if ( preg_match_all( '`%%cf_([^%]+)%%`u', $string, $matches, PREG_SET_ORDER ) ) {
+	if ( is_singular() && preg_match_all( '`%%cf_([^%]+)%%`u', $string, $matches, PREG_SET_ORDER ) ) {
 		global $post;
 		foreach ( $matches as $match ) {
 			$string = str_replace( $match[0], get_post_meta( $post->ID, $match[1], true ), $string );
@@ -670,7 +681,7 @@ function wpseo_sitemap_handler( $atts ) {
 						// include if this key doesn't exists
 						array(
 							'key'     => WPSEO_Meta::$meta_prefix . 'meta-robots-noindex',
-							'value'   => '', // This is ignored, but is necessary...
+							'value'   => 'needs-a-value-anyway', // This is ignored, but is necessary...
 							'compare' => 'NOT EXISTS',
 						),
 						// OR if key does exists include if it is not 1

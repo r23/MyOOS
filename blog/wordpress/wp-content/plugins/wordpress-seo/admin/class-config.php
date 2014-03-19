@@ -85,7 +85,7 @@ if ( ! class_exists( 'WPSEO_Admin_Pages' ) ) {
 					'alt' => 'Website Review banner',
 				),
 				array(
-					'url' => 'https://yoast.com/wordpress/seo-premium/#utm_source=wordpress-seo-config&utm_medium=banner&utm_campaign=premium-seo-banner',
+					'url' => 'https://yoast.com/wordpress/plugins/seo-premium/#utm_source=wordpress-seo-config&utm_medium=banner&utm_campaign=premium-seo-banner',
 					'img' => 'banner-premium-seo.png',
 					'alt' => 'Banner WordPress SEO Premium',
 				),
@@ -93,7 +93,7 @@ if ( ! class_exists( 'WPSEO_Admin_Pages' ) ) {
 
 			if ( ! class_exists( 'wpseo_Video_Sitemap' ) ) {
 				$banners[] = array(
-					'url' => 'https://yoast.com/wordpress/video-seo/#utm_source=wordpress-seo-config&utm_medium=banner&utm_campaign=video-seo-banner',
+					'url' => 'https://yoast.com/wordpress/plugins/video-seo/#utm_source=wordpress-seo-config&utm_medium=banner&utm_campaign=video-seo-banner',
 					'img' => 'banner-video-seo.png',
 					'alt' => 'Banner WordPress SEO Video SEO extension',
 				);
@@ -101,7 +101,7 @@ if ( ! class_exists( 'WPSEO_Admin_Pages' ) ) {
 
 			if ( ! class_exists( 'wpseo_Video_Manual' ) ) {
 				$banners[] = array(
-					'url' => 'https://yoast.com/wordpress/video-manual-wordpress-seo/#utm_source=wordpress-seo-config&utm_medium=banner&utm_campaign=video-manual-banner',
+					'url' => 'https://yoast.com/wordpress/plugins/video-manual-wordpress-seo/#utm_source=wordpress-seo-config&utm_medium=banner&utm_campaign=video-manual-banner',
 					'img' => 'banner-video-seo-manual.png',
 					'alt' => 'Banner WordPress SEO Video manual',
 				);
@@ -109,7 +109,7 @@ if ( ! class_exists( 'WPSEO_Admin_Pages' ) ) {
 
 			if ( class_exists( 'Woocommerce' ) ) {
 				$banners[] = array(
-					'url' => 'https://yoast.com/wordpress/yoast-woocommerce-seo/#utm_source=wordpress-seo-config&utm_medium=banner&utm_campaign=woocommerce-seo-banner',
+					'url' => 'https://yoast.com/wordpress/plugins/yoast-woocommerce-seo/#utm_source=wordpress-seo-config&utm_medium=banner&utm_campaign=woocommerce-seo-banner',
 					'img' => 'banner-woocommerce-seo.png',
 					'alt' => 'Banner WooCommerce SEO plugin',
 				);
@@ -117,7 +117,7 @@ if ( ! class_exists( 'WPSEO_Admin_Pages' ) ) {
 
 			if ( ! defined( 'WPSEO_LOCAL_VERSION' ) ) {
 				$banners[] = array(
-					'url' => 'https://yoast.com/wordpress/local-seo/#utm_source=wordpress-seo-config&utm_medium=banner&utm_campaign=local-seo-banner',
+					'url' => 'https://yoast.com/wordpress/plugins/local-seo/#utm_source=wordpress-seo-config&utm_medium=banner&utm_campaign=local-seo-banner',
 					'img' => 'banner-local-seo.png',
 					'alt' => 'Banner Local SEO plugin',
 				);
@@ -135,7 +135,10 @@ if ( ! class_exists( 'WPSEO_Admin_Pages' ) ) {
 				$i++;
 			}
 			?>
-					<br/><br/><br/>
+					<?php
+						echo __( 'Remove these ads?', 'wordpress-seo' ) . '<br/>';
+						echo '<a target="_blank" href="https://yoast.com/wordpress/plugins/seo-premium/#utm_source=wordpress-seo-config&utm_medium=textlink&utm_campaign=remove-ads-link">' . __('Upgrade to WordPress SEO Premium &raquo;', 'wordpress-seo') . '</a><br/><br/>';
+					?>
 				</div>
 			</div>
 		<?php
@@ -231,12 +234,14 @@ if ( ! class_exists( 'WPSEO_Admin_Pages' ) ) {
 		/**
 		 * Deletes all post meta values with a given meta key from the database
 		 *
+		 * @todo [JRF => whomever] This method does not seem to be used anywhere. Double-check before removal.
+		 *
 		 * @param string $meta_key Key to delete all meta values for.
 		 */
-		function delete_meta( $meta_key ) {
+		/*function delete_meta( $meta_key ) {
 			global $wpdb;
 			$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->postmeta WHERE meta_key = %s", $meta_key ) );
-		}
+		}*/
 
 		/**
 		 * Exports the current site's WP SEO settings.

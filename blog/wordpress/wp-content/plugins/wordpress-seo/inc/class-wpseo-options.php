@@ -111,6 +111,12 @@ if ( ! class_exists( 'WPSEO_Option' ) ) {
 		 * @var  object  Instance of this class
 		 */
 		protected static $instance;
+		
+		/**
+		 *
+		 * @var	bool Whether the filter extension is loaded
+		 */
+		public static $has_filters = true;
 
 
 		/* *********** INSTANTIATION METHODS *********** */
@@ -121,6 +127,8 @@ if ( ! class_exists( 'WPSEO_Option' ) ) {
 		 * @return \WPSEO_Option
 		 */
 		protected function __construct() {
+			
+			self::$has_filters = extension_loaded( 'filter' );
 
 			/* Add filters which get applied to the get_options() results */
 			$this->add_default_filters(); // return defaults if option not set
@@ -585,15 +593,15 @@ if ( ! class_exists( 'WPSEO_Option' ) ) {
 		 * @return  string
 		 */
 		public static function sanitize_url( $value, $allowed_protocols = array( 'http', 'https' ) ) {
-			return esc_url_raw( sanitize_text_field( urldecode( $value ) ), $allowed_protocols );
+			return esc_url_raw( sanitize_text_field( rawurldecode( $value ) ), $allowed_protocols );
 		}
 
 		/**
 		 * Validate a value as boolean
 		 *
-		 * @todo [JRF => whomever] when someone would reorganize the classes, this should maybe
-		 * be moved to a general WPSEO_Utils class. Obviously all calls to this method should be
-		 * adjusted in that case.
+		 * @todo [JRF => whomever] when someone would reorganize the classes, this (and the emulate method
+		 * below) should maybe be moved to a general WPSEO_Utils class. Obviously all calls to this method
+		 * should be adjusted in that case.
 		 *
 		 * @static
 		 *
@@ -602,16 +610,71 @@ if ( ! class_exists( 'WPSEO_Option' ) ) {
 		 * @return  bool
 		 */
 		public static function validate_bool( $value ) {
-			return filter_var( $value, FILTER_VALIDATE_BOOLEAN );
+			if( self::$has_filters ) {
+				return filter_var( $value, FILTER_VALIDATE_BOOLEAN );
+			}
+			else {
+				return self::emulate_filter_bool( $value );
+			}
+		}
+
+		/**
+		 * Cast a value to bool
+		 *
+		 * @static
+		 *
+		 * @param	mixed	$value			Value to cast
+		 *
+		 * @return	bool
+		 */
+		public static function emulate_filter_bool( $value ) {
+			$true  = array(
+				'1',
+				'true', 'True', 'TRUE',
+				'y', 'Y',
+				'yes', 'Yes', 'YES',
+				'on', 'On', 'On',
+		
+			);
+			$false = array(
+				'0',
+				'false', 'False', 'FALSE',
+				'n', 'N',
+				'no', 'No', 'NO',
+				'off', 'Off', 'OFF',
+			);
+		
+			if ( is_bool( $value ) ) {
+				return $value;
+			}
+			else if ( is_int( $value ) && ( $value === 0 || $value === 1 ) ) {
+				return (bool) $value;
+			}
+			else if ( ( is_float( $value ) && ! is_nan( $value ) ) && ( $value === (float) 0 || $value === (float) 1 ) ) {
+				return (bool) $value;
+			}
+			else if ( is_string( $value ) ) {
+				$value = trim( $value );
+				if ( in_array( $value, $true, true ) ) {
+					return true;
+				}
+				else if ( in_array( $value, $false, true ) ) {
+					return false;
+				}
+				else {
+					return false;
+				}
+			}
+			return false;
 		}
 
 
 		/**
 		 * Validate a value as integer
 		 *
-		 * @todo [JRF => whomever] when someone would reorganize the classes, this should maybe
-		 * be moved to a general WPSEO_Utils class. Obviously all calls to this method should be
-		 * adjusted in that case.
+		 * @todo [JRF => whomever] when someone would reorganize the classes, this (and the emulate method
+		 * below) should maybe be moved to a general WPSEO_Utils class. Obviously all calls to this method
+		 * should be adjusted in that case.
 		 *
 		 * @static
 		 *
@@ -620,7 +683,51 @@ if ( ! class_exists( 'WPSEO_Option' ) ) {
 		 * @return  mixed  int or false in case of failure to convert to int
 		 */
 		public static function validate_int( $value ) {
-			return filter_var( $value, FILTER_VALIDATE_INT );
+			if( self::$has_filters ) {
+				return filter_var( $value, FILTER_VALIDATE_INT );
+			}
+			else {
+				return self::emulate_filter_int( $value );
+			}
+		}
+		
+		/**
+		 * Cast a value to integer
+		 *
+		 * @static
+		 *
+		 * @param	mixed	$value			Value to cast
+		 *
+		 * @return	int|bool
+		 */
+		public static function emulate_filter_int( $value ) {
+			if ( is_int( $value ) ) {
+				return $value;
+			}
+			else if ( is_float( $value ) ) {
+				if ( (int) $value == $value && ! is_nan( $value ) ) {
+					return ( int) $value;
+				}
+				else {
+					return false;
+				}
+			}
+			else if ( is_string( $value ) ) {
+				$value = trim( $value );
+				if ( $value === '' ) {
+					return false;
+				}
+				else if ( ctype_digit( $value ) ) {
+					return (int) $value;
+				}
+				else if ( strpos( $value, '-' ) === 0 && ctype_digit( substr( $value, 1 ) ) ) {
+					return (int) $value ;
+				}
+				else {
+					return false;
+				}
+			}
+			return false;
 		}
 
 
@@ -792,6 +899,7 @@ if ( ! class_exists( 'WPSEO_Option_Wpseo' ) ) {
 						if ( isset( $dirty[$key] ) && $dirty[$key] !== '' ) {
 							$meta = $dirty[$key];
 							if ( strpos( $meta, 'content=' ) ) {
+								// Make sure we only have the real key, not a complete meta tag
 								preg_match( '`content=([\'"])([^\'"]+)\1`', $meta, $match );
 								if ( isset( $match[2] ) ) {
 									$meta = $match[2];
@@ -801,49 +909,49 @@ if ( ! class_exists( 'WPSEO_Option_Wpseo' ) ) {
 
 							$meta = sanitize_text_field( $meta );
 							if ( $meta !== '' ) {
+								$regex   = '`^[A-Fa-f0-9_-]+$`';
+								$service = '';
+
 								switch ( $key ) {
 									case 'googleverify':
-										if ( preg_match( '`^[A-Za-z0-9_-]+$`', $meta ) ) {
-											$clean[$key] = $meta;
-										} else {
-											if ( isset( $old[$key] ) && preg_match( '`^[A-Za-z0-9_-]+$`', $old[$key] ) ) {
-												$clean[$key] = $old[$key];
-											}
-											if ( function_exists( 'add_settings_error' ) ) {
-												add_settings_error(
-													$this->group_name, // slug title of the setting
-													'_' . $key, // suffix-id for the error message box
-													sprintf( __( '%s does not seem to be a valid Google Webmaster Tools Verification string. Please correct.', 'wordpress-seo' ), '<strong>' . esc_html( $meta ) . '</strong>' ), // the error message
-													'error' // error type, either 'error' or 'updated'
-												);
-											}
-										}
+										$regex = '`^[A-Za-z0-9_-]+$`';
+										$service = 'Google Webmaster tools';
 										break;
 
 									case 'msverify':
-									case 'pinterestverify':
-									case 'yandexverify':
-									case 'alexaverify':
-										if ( preg_match( '`^[A-Fa-f0-9_-]+$`', $meta ) ) {
-											$clean[$key] = $meta;
-										} else {
-											if ( isset( $old[$key] ) && preg_match( '`^[A-Fa-f0-9_-]+$`', $old[$key] ) ) {
-												$clean[$key] = $old[$key];
-											}
-											if ( function_exists( 'add_settings_error' ) ) {
-												add_settings_error(
-													$this->group_name, // slug title of the setting
-													'_' . $key, // suffix-id for the error message box
-													sprintf( __( '%s does not seem to be a valid %s verification string. Please correct.', 'wordpress-seo' ), '<strong>' . esc_html( $meta ) . '</strong>', $key ), // the error message
-													'error' // error type, either 'error' or 'updated'
-												);
-											}
-										}
+										$service = 'Bing Webmaster tools';
 										break;
 
+									case 'pinterestverify':
+										$service = 'Pinterest';
+										break;
+
+									case 'yandexverify':
+										$service = 'Yandex Webmaster tools';
+										break;
+
+									case 'alexaverify':
+										$regex = '`^[A-Za-z0-9_-]{20,}$`';
+										$service = 'Alexa ID';
+								}
+								
+								if ( preg_match( $regex, $meta ) ) {
+									$clean[$key] = $meta;
+								} else {
+									if ( isset( $old[$key] ) && preg_match( $regex, $old[$key] ) ) {
+										$clean[$key] = $old[$key];
+									}
+									if ( function_exists( 'add_settings_error' ) ) {
+										add_settings_error(
+											$this->group_name, // slug title of the setting
+											'_' . $key, // suffix-id for the error message box
+											sprintf( __( '%s does not seem to be a valid %s verification string. Please correct.', 'wordpress-seo' ), '<strong>' . esc_html( $meta ) . '</strong>', $service ), // the error message
+											'error' // error type, either 'error' or 'updated'
+										);
+									}
 								}
 							}
-							unset( $meta );
+							unset( $meta, $regex, $service );
 						}
 						break;
 
@@ -1971,6 +2079,13 @@ if ( ! class_exists( 'WPSEO_Option_InternalLinks' ) ) {
 		 * @return  array            Cleaned option
 		 */
 		protected function clean_option( $option_value, $current_version = null, $all_old_option_values = null ) {
+			
+			/* Make sure the old fall-back defaults for empty option keys are now added to the option */
+			if ( isset( $current_version ) && version_compare( $current_version, '1.5.3', '<' ) ) {
+				if ( has_action( 'init', array( 'WPSEO_Options', 'bring_back_breadcrumb_defaults' ) ) === false ) {
+					add_action( 'init', array( 'WPSEO_Options', 'bring_back_breadcrumb_defaults' ), 3 );
+				}
+			}
 
 			/* Make sure the values of the variable option key options are cleaned as they
 		 	   may be retained and would not be cleaned/validated then */
@@ -2016,6 +2131,31 @@ if ( ! class_exists( 'WPSEO_Option_InternalLinks' ) ) {
 			}
 
 			return $option_value;
+		}
+		
+		/**
+		 * With the changes to v1.5, the defaults for some of the textual breadcrumb settings are added
+		 * dynamically, but empty strings are allowed.
+		 * This caused issues for people who left the fields empty on purpose relying on the defaults.
+		 * This little routine fixes that.
+		 * Needs to be run on 'init' hook at prio 3 to make sure the defaults are translated.
+		 */
+		public function bring_back_defaults() {
+			$option = get_option( $this->option_name );
+
+			$values_to_bring_back = array(
+				'breadcrumbs-404crumb',
+				'breadcrumbs-archiveprefix',
+				'breadcrumbs-home',
+				'breadcrumbs-searchprefix',
+				'breadcrumbs-sep',
+			);
+			foreach ( $values_to_bring_back as $key ) {
+				if ( $option[$key] === '' && $this->defaults[$key] !== '' ) {
+					$option[$key] = $this->defaults[$key];
+				}
+			}
+			update_option( $this->option_name, $option );
 		}
 
 	} /* End of class WPSEO_Option_InternalLinks */
@@ -2399,12 +2539,11 @@ if ( ! class_exists( 'WPSEO_Option_Social' ) ) {
 							} else {
 								$clean[$key] = array();
 								foreach ( $dirty[$key] as $app_id => $display_name ) {
-									$int = self::validate_int( $app_id );
-									if ( $int !== false && $int > 0 ) {
+									if ( ctype_digit( (string) $app_id ) !== false ) {
 										$clean[$key][$app_id] = sanitize_text_field( $display_name );
 									}
 								}
-								unset( $app_id, $display_name, $int );
+								unset( $app_id, $display_name );
 							}
 						} elseif ( isset( $old[$key] ) && is_array( $old[$key] ) ) {
 							$clean[$key] = $old[$key];
@@ -2583,12 +2722,11 @@ if ( ! class_exists( 'WPSEO_Option_Social' ) ) {
 			if ( isset( $option_value['fbapps'] ) && ( is_array( $option_value['fbapps'] ) && $option_value['fbapps'] !== array() ) ) {
 				$fbapps = array();
 				foreach ( $option_value['fbapps'] as $app_id => $display_name ) {
-					$int = self::validate_int( $app_id );
-					if ( $int !== false && $int > 0 ) {
+					if ( ctype_digit( (string) $app_id ) !== false ) {
 						$fbapps[$app_id] = sanitize_text_field( $display_name );
 					}
 				}
-				unset( $app_id, $display_name, $int );
+				unset( $app_id, $display_name );
 
 				$option_value['fbapps'] = $fbapps;
 			}
@@ -3412,6 +3550,17 @@ if ( ! class_exists( 'WPSEO_Options' ) ) {
 			}
 		}
 
+		/**
+		 * Correct the inadvertent removal of the fallback to default values from the breadcrumbs
+		 *
+		 * @since 1.5.3
+		 */
+		public static function bring_back_breadcrumb_defaults() {
+			if ( isset( self::$option_instances['wpseo_internallinks'] ) ) {
+				self::$option_instances['wpseo_internallinks']->bring_back_defaults();
+			}
+		}
+
 
 		/**
 		 * Initialize some options on first install/activate/reset
@@ -3608,9 +3757,8 @@ if ( ! class_exists( 'WPSEO_Options' ) ) {
 		 * @return  void
 		 */
 		public static function flush_W3TC_cache() {
-			if ( defined( 'W3TC_DIR' ) ) {
-				$w3_objectcache = & W3_ObjectCache::instance();
-				$w3_objectcache->flush();
+			if ( defined( 'W3TC_DIR' ) && function_exists( 'w3tc_objectcache_flush' ) ) {
+				w3tc_objectcache_flush();
 			}
 		}
 

@@ -413,12 +413,6 @@ if ( ! class_exists( 'WPSEO_Meta' ) ) {
 						$post_type = sanitize_text_field( $_GET['post_type'] );
 					}
 
-
-					/* Don't show the robots index field if it's overruled by a blog-wide option */
-					if ( '0' == get_option( 'blog_public' ) ) {
-						unset( $field_defs['meta-robots-noindex'] );
-					}
-
 					/* Adjust the no-index 'default for post type' text string based on the post type */
 					$field_defs['meta-robots-noindex']['options']['0'] = sprintf( $field_defs['meta-robots-noindex']['options']['0'], ( ( isset( $options['noindex-' . $post_type] ) && $options['noindex-' . $post_type] === true ) ? 'noindex' : 'index' ) );
 
@@ -576,6 +570,8 @@ if ( ! class_exists( 'WPSEO_Meta' ) ) {
 			}
 
 			if ( is_array( $meta_value ) && $meta_value !== array() ) {
+				$meta_value = array_map( 'trim', $meta_value );
+
 				if ( in_array( 'none', $meta_value, true ) ) {
 					// None is one of the selected values, takes priority over everything else
 					$clean = 'none';

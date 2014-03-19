@@ -5,8 +5,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 } 
 ?><script type="text/javascript">
 (function($) {
+	
+	if( typeof YoastLicenseManager !== "undefined" ) {
+		return;
+	}
 
-	var YoastLicenseManager = (function () {
+	window.YoastLicenseManager = (function () {
 
 		function init() {
 			var $keyInputs = $(".yoast-license-key-field.yoast-license-obfuscate");
