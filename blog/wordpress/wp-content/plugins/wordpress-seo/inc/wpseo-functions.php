@@ -43,13 +43,20 @@ function wpseo_do_upgrade() {
 		wpseo_add_capabilities();
 	}
 
-	/* Only correct the breadcrumb defaults for upgrades from v1.5+ to v1.5.3, upgrades from earlier version
+	/* Only correct the breadcrumb defaults for upgrades from v1.5+ to v1.5.2.3, upgrades from earlier version
 	   will already get this functionality in the clean_up routine. */
-	if ( version_compare( $option_wpseo['version'], '1.4.25', '>' ) && version_compare( $option_wpseo['version'], '1.5.3', '<' ) ) {
+	if ( version_compare( $option_wpseo['version'], '1.4.25', '>' ) && version_compare( $option_wpseo['version'], '1.5.2.3', '<' ) ) {
 		add_action( 'init', array( 'WPSEO_Options', 'bring_back_breadcrumb_defaults' ), 3 );
 	}
 
-	
+	if ( version_compare( $option_wpseo['version'], '1.4.25', '>' ) && version_compare( $option_wpseo['version'], '1.5.2.4', '<' ) ) {
+		/* Make sure empty maintax/mainpt strings will convert to 0 */
+		WPSEO_Options::clean_up( 'wpseo_internallinks', $option_wpseo['version'] );
+
+		/* Remove slashes from taxonomy meta texts */
+		WPSEO_Options::clean_up( 'wpseo_taxonomy_meta', $option_wpseo['version'] );
+	}
+
 	// Make sure version nr gets updated for any version without specific upgrades
 	$option_wpseo = get_option( 'wpseo' ); // re-get to make sure we have the latest version
 	if ( version_compare( $option_wpseo['version'], WPSEO_VERSION, '<' ) ) {
@@ -290,7 +297,7 @@ function wpseo_replace_vars( $string, $args, $omit = array() ) {
 	*
 	* @api array $replacements The replacements
 	*/
-	$replacements = apply_filters( "wpseo_replacements", $replacements );
+	$replacements = apply_filters( 'wpseo_replacements', $replacements );
 
 	foreach ( $replacements as $var => $repl ) {
 		if ( ! in_array( $var, $omit ) ) {
@@ -891,7 +898,7 @@ if ( ! function_exists( 'wpseo_calc' ) ) {
 			return false;
 		}
 
-		if( ! isset( $bc ) ) {
+		if ( ! isset( $bc ) ) {
 			$bc = extension_loaded( 'bcmath' );
 		}
 
@@ -983,6 +990,39 @@ if ( ! function_exists( 'wpseo_calc' ) ) {
 	}
 }
 
+/**
+ * Check if the web server is running on Apache
+ * @return bool
+ */
+function wpseo_is_apache() {
+	if ( isset( $_SERVER['SERVER_SOFTWARE'] ) && stristr( $_SERVER['SERVER_SOFTWARE'], 'apache' ) !== false ) {
+		return true;
+	}
+	return false;
+}
+
+/**
+ * Check if the web service is running on Nginx
+ *
+ * @return bool
+ */
+function wpseo_is_nginx() {
+	if ( isset( $_SERVER['SERVER_SOFTWARE'] ) && stristr( $_SERVER['SERVER_SOFTWARE'], 'nginx' ) !== false ) {
+		return true;
+	}
+	return false;
+}
+
+/**
+ * WordPress SEO breadcrumb shortcode
+ * [wpseo_breadcrumb]
+ *
+ * @return string
+ */
+function wpseo_shortcode_yoast_breadcrumb() {
+	return yoast_breadcrumb( '', '', false );
+}
+add_shortcode( 'wpseo_breadcrumb', 'wpseo_shortcode_yoast_breadcrumb' );
 
 
 /********************** DEPRECATED FUNCTIONS **********************/
@@ -1086,37 +1126,3 @@ function wpseo_get_term_meta( $term, $taxonomy, $meta ) {
 	_deprecated_function( __FUNCTION__, 'WPSEO 1.5.0', 'WPSEO_Taxonomy_Meta::get_term_meta' );
 	WPSEO_Taxonomy_Meta::get_term_meta( $term, $taxonomy, $meta );
 }
-
-/**
- * Check if the web server is running on Apache
- * @return bool
- */
-function wpseo_is_apache() {
-	if ( isset( $_SERVER['SERVER_SOFTWARE'] ) && stristr( $_SERVER['SERVER_SOFTWARE'], 'apache' ) !== false ) {
-		return true;
-	}
-	return false;
-}
-
-/**
- * Check if the web service is running on Nginx
- *
- * @return bool
- */
-function wpseo_is_nginx() {
-	if ( isset( $_SERVER['SERVER_SOFTWARE'] ) && stristr( $_SERVER['SERVER_SOFTWARE'], 'nginx' ) !== false ) {
-		return true;
-	}
-	return false;
-}
-
-/**
- * WordPress SEO breadcrumb shortcode
- * [wpseo_breadcrumb]
- *
- * @return string
- */
-function wpseo_shortcode_yoast_breadcrumb() {
-	return yoast_breadcrumb( '', '', false );
-}
-add_shortcode( 'wpseo_breadcrumb', 'wpseo_shortcode_yoast_breadcrumb' );

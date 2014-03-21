@@ -610,7 +610,7 @@ if ( ! class_exists( 'WPSEO_Option' ) ) {
 		 * @return  bool
 		 */
 		public static function validate_bool( $value ) {
-			if( self::$has_filters ) {
+			if ( self::$has_filters ) {
 				return filter_var( $value, FILTER_VALIDATE_BOOLEAN );
 			}
 			else {
@@ -683,7 +683,7 @@ if ( ! class_exists( 'WPSEO_Option' ) ) {
 		 * @return  mixed  int or false in case of failure to convert to int
 		 */
 		public static function validate_int( $value ) {
-			if( self::$has_filters ) {
+			if ( self::$has_filters ) {
 				return filter_var( $value, FILTER_VALIDATE_INT );
 			}
 			else {
@@ -900,7 +900,7 @@ if ( ! class_exists( 'WPSEO_Option_Wpseo' ) ) {
 							$meta = $dirty[$key];
 							if ( strpos( $meta, 'content=' ) ) {
 								// Make sure we only have the real key, not a complete meta tag
-								preg_match( '`content=([\'"])([^\'"]+)\1`', $meta, $match );
+								preg_match( '`content=([\'"])?([^\'"> ]+)(?:\1|[ />])`', $meta, $match );
 								if ( isset( $match[2] ) ) {
 									$meta = $match[2];
 								}
@@ -1477,14 +1477,14 @@ if ( ! class_exists( 'WPSEO_Option_Titles' ) ) {
 					   'metadesc-ptarchive-' . $pt->name
 					   'metadesc-tax-' . $tax->name */
 					case 'metadesc-':
-						/* Covers:
-							 'metakey-home-wpseo', 'metakey-author-wpseo'
-							 'metakey-' . $pt->name
-							 'metakey-ptarchive-' . $pt->name
-							 'metakey-tax-' . $tax->name */
+					/* Covers:
+						 'metakey-home-wpseo', 'metakey-author-wpseo'
+						 'metakey-' . $pt->name
+						 'metakey-ptarchive-' . $pt->name
+						 'metakey-tax-' . $tax->name */
 					case 'metakey-':
-						/* Covers:
-							 ''bctitle-ptarchive-' . $pt->name */
+					/* Covers:
+						 ''bctitle-ptarchive-' . $pt->name */
 					case 'bctitle-ptarchive-':
 						if ( isset( $dirty[$key] ) && $dirty[$key] !== '' ) {
 							$clean[$key] = self::sanitize_text_field( $dirty[$key] );
@@ -1519,17 +1519,17 @@ if ( ! class_exists( 'WPSEO_Option_Titles' ) ) {
 					case 'hide-feedlinks':
 					case 'disable-author':
 					case 'disable-date':
-						/* Covers:
-							 'noindex-subpages-wpseo', 'noindex-author-wpseo', 'noindex-archive-wpseo'
-							 'noindex-' . $pt->name
-							 'noindex-ptarchive-' . $pt->name
-							 'noindex-tax-' . $tax->name */
+					/* Covers:
+						 'noindex-subpages-wpseo', 'noindex-author-wpseo', 'noindex-archive-wpseo'
+						 'noindex-' . $pt->name
+						 'noindex-ptarchive-' . $pt->name
+						 'noindex-tax-' . $tax->name */
 					case 'noindex-':
 					case 'noauthorship-': /* 'noauthorship-' . $pt->name */
 					case 'showdate-': /* 'showdate-'. $pt->name */
-						/* Covers:
-							 'hideeditbox-'. $pt->name
-							 'hideeditbox-tax-' . $tax->name */
+					/* Covers:
+						 'hideeditbox-'. $pt->name
+						 'hideeditbox-tax-' . $tax->name */
 					case 'hideeditbox-':
 					default:
 						$clean[$key] = ( isset( $dirty[$key] ) ? self::validate_bool( $dirty[$key] ) : false );
@@ -1966,7 +1966,7 @@ if ( ! class_exists( 'WPSEO_Option_InternalLinks' ) ) {
 						if ( isset( $dirty[$key] ) ) {
 							if ( $taxonomies !== array() && in_array( $dirty[$key], $taxonomies, true ) ) {
 								$clean[$key] = $dirty[$key];
-							} elseif ( (string) $dirty[$key] === '0' ) {
+							} elseif ( (string) $dirty[$key] === '0' || (string) $dirty[$key] === '' ) {
 								$clean[$key] = 0;
 							} elseif ( sanitize_title_with_dashes( $dirty[$key] ) === $dirty[$key] ) {
 								// Allow taxonomies which may not be registered yet
@@ -1998,7 +1998,7 @@ if ( ! class_exists( 'WPSEO_Option_InternalLinks' ) ) {
 						if ( isset( $dirty[$key] ) ) {
 							if ( $allowed_post_types !== array() && in_array( $dirty[$key], $allowed_post_types, true ) ) {
 								$clean[$key] = $dirty[$key];
-							} elseif ( (string) $dirty[$key] === '0' ) {
+							} elseif ( (string) $dirty[$key] === '0' || (string) $dirty[$key] === '' ) {
 								$clean[$key] = 0;
 							} elseif ( sanitize_key( $dirty[$key] ) === $dirty[$key] ) {
 								// Allow taxonomies which may not be registered yet
@@ -2081,7 +2081,7 @@ if ( ! class_exists( 'WPSEO_Option_InternalLinks' ) ) {
 		protected function clean_option( $option_value, $current_version = null, $all_old_option_values = null ) {
 			
 			/* Make sure the old fall-back defaults for empty option keys are now added to the option */
-			if ( isset( $current_version ) && version_compare( $current_version, '1.5.3', '<' ) ) {
+			if ( isset( $current_version ) && version_compare( $current_version, '1.5.2.3', '<' ) ) {
 				if ( has_action( 'init', array( 'WPSEO_Options', 'bring_back_breadcrumb_defaults' ) ) === false ) {
 					add_action( 'init', array( 'WPSEO_Options', 'bring_back_breadcrumb_defaults' ), 3 );
 				}
@@ -2105,7 +2105,7 @@ if ( ! class_exists( 'WPSEO_Option_InternalLinks' ) ) {
 
 							if ( $taxonomies !== array() && in_array( $value, $taxonomies, true ) ) {
 								$option_value[$key] = $value;
-							} elseif ( (string) $value === '0' ) {
+							} elseif ( (string) $value === '0' || (string) $dirty[$key] === '' ) {
 								$option_value[$key] = 0;
 							} elseif ( sanitize_title_with_dashes( $value ) === $value ) {
 								// Allow taxonomies which may not be registered yet
@@ -2119,7 +2119,7 @@ if ( ! class_exists( 'WPSEO_Option_InternalLinks' ) ) {
 						case 'taxonomy-':
 							if ( $allowed_post_types !== array() && in_array( $value, $allowed_post_types, true ) ) {
 								$option_value[$key] = $value;
-							} elseif ( (string) $value === '0' ) {
+							} elseif ( (string) $value === '0' || (string) $dirty[$key] === '' ) {
 								$option_value[$key] = 0;
 							} elseif ( sanitize_key( $option_value[$key] ) === $option_value[$key] ) {
 								// Allow post types which may not be registered yet
@@ -3184,7 +3184,7 @@ if ( ! class_exists( 'WPSEO_Taxonomy_Meta' ) ) {
 					case 'wpseo_metakey':
 					case 'wpseo_bctitle':
 						if ( isset( $meta_data[$key] ) ) {
-							$clean[$key] = self::sanitize_text_field( $meta_data[$key] );
+							$clean[$key] = self::sanitize_text_field( stripslashes( $meta_data[$key] ) );
 						} elseif ( isset( $old_meta[$key] ) ) {
 							// Retain old value if field currently not in use
 							$clean[$key] = $old_meta[$key];
@@ -3195,7 +3195,7 @@ if ( ! class_exists( 'WPSEO_Taxonomy_Meta' ) ) {
 					case 'wpseo_desc':
 					default:
 						if ( isset( $meta_data[$key] ) && is_string( $meta_data[$key] ) ) {
-							$clean[$key] = self::sanitize_text_field( $meta_data[$key] );
+							$clean[$key] = self::sanitize_text_field( stripslashes( $meta_data[$key] ) );
 						}
 						break;
 				}
@@ -3247,10 +3247,14 @@ if ( ! class_exists( 'WPSEO_Taxonomy_Meta' ) ) {
 											break;
 
 										case 'canonical':
+										case 'wpseo_metakey':
+										case 'wpseo_bctitle':
+										case 'wpseo_title':
+										case 'wpseo_desc':
 											// @todo [JRF => whomever] needs checking, I don't have example data [JRF]
 											if ( $value !== '' ) {
-												// Fix incorrectly saved (encoded) canonical urls
-												$option_value[$taxonomy][$term_id][$key] = wp_specialchars_decode( stripslashes( $value ) );
+												// Fix incorrectly saved (encoded) canonical urls and texts
+												$option_value[$taxonomy][$term_id][$key] = wp_specialchars_decode( stripslashes( $value ), ENT_QUOTES );
 											}
 											break;
 
@@ -3553,7 +3557,7 @@ if ( ! class_exists( 'WPSEO_Options' ) ) {
 		/**
 		 * Correct the inadvertent removal of the fallback to default values from the breadcrumbs
 		 *
-		 * @since 1.5.3
+		 * @since 1.5.2.3
 		 */
 		public static function bring_back_breadcrumb_defaults() {
 			if ( isset( self::$option_instances['wpseo_internallinks'] ) ) {
