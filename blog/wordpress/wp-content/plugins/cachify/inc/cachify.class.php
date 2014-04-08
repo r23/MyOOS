@@ -586,7 +586,7 @@ final class Cachify {
 	* Hinzufügen eines Admin-Bar-Menüs
 	*
 	* @since   1.2
-	* @change  2.1.4
+	* @change  2.1.6
 	*
 	* @param   object  Objekt mit Menü-Eigenschaften
 	*/
@@ -598,13 +598,16 @@ final class Cachify {
 			return;
 		}
 
+		/* Display the admin icon anytime */
+		echo '<style>#wp-admin-bar-cachify{display:list-item !important} .ab-icon:before{content:"\f182";top:2px;margin:0}</style>';
+
 		/* Hinzufügen */
 		$wp_admin_bar->add_menu(
 			array(
 				'id' 	 => 'cachify',
 				'href'   => add_query_arg('_cachify', 'flush'),
 				'parent' => 'top-secondary',
-				'title'	 => '<span class="ab-icon dashicons dashicons-post-trash" style="top:2px;margin:0"></span>',
+				'title'	 => '<span class="ab-icon dashicons"></span>',
 				'meta'   => array( 'title' => __('Flush the cachify cache', 'cachify') )
 			)
 		);
@@ -1477,7 +1480,7 @@ final class Cachify {
 		return array(
 			self::MINIFY_DISABLED  => __('No minify', 'cachify'),
 			self::MINIFY_HTML_ONLY => 'HTML',
-			self::MINIFY_HTML_JS   => 'HTML + JavaScript'
+			self::MINIFY_HTML_JS   => 'HTML + Inline JavaScript'
 		);
 	}
 

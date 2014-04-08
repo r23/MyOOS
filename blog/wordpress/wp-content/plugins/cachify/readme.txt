@@ -3,7 +3,7 @@ Contributors: sergej.mueller
 Tags: apc, cache, caching, performance
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5RDDW9FEHGLG6
 Requires at least: 3.8
-Tested up to: 3.8.1
+Tested up to: 3.9
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -48,7 +48,7 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 = Systemvoraussetzungen =
 * WordPress ab 3.8
 * PHP ab 5.2.4
-* APC ab 3.1.4 (optional, falls installiert)
+* APC ab 3.1.4 (optional)
 * Memcached unter Nginx (optional)
 
 
@@ -74,6 +74,13 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 
 == Changelog ==
+
+= 2.1.6 =
+* Button "Cache leeren" sichtbar sowohl in WP 3.8 wie WP 3.9
+
+= 2.1.5 =
+* Support für WordPress 3.9
+* Button "Cache leeren" sichtbar bei jeder Bildschirmauflösung
 
 = 2.1.4 =
 * Support für WordPress 3.8.1
