@@ -12,10 +12,10 @@ $product = $this->product;
 <h3>
 	<?php printf( __( "%s: License Settings", $product->get_text_domain() ), $product->get_item_name() ); ?>&nbsp; &nbsp;
 </h3>
-<?php 
+<?php
 
 // Output form tags if we're not embedded in another form
-if( ! $embedded ) { 
+if( ! $embedded ) {
 	echo '<form method="post" action="">';
 }
 
@@ -39,13 +39,13 @@ wp_nonce_field( $nonce_name, $nonce_name ); ?>
 				<?php if( $this->license_is_valid() ) { ?>
 					<button name="<?php echo esc_attr( $action_name ); ?>" type="submit" class="button-secondary yoast-license-deactivate" value="deactivate"><?php echo esc_html_e( 'Deactivate License', $product->get_text_domain() ); ?></button> &nbsp;
 					<small><?php _e( '(deactivate your license so you can activate it on another WordPress site)', $product->get_text_domain() ); ?></small>
-				<?php } else { 
+				<?php } else {
 
 					if( $this->get_license_key() !== '') { ?>
 						<button name="<?php echo esc_attr( $action_name ); ?>" type="submit" class="button-secondary yoast-license-activate" value="activate" /><?php echo esc_html_e('Activate License', $product->get_text_domain() ); ?></button> &nbsp;
 					<?php } else {
 						_e( 'Please enter a license key in the field below first.', $product->get_text_domain() );
-					} 
+					}
 
 				} ?>
 
@@ -64,23 +64,23 @@ wp_nonce_field( $nonce_name, $nonce_name ); ?>
 	</tbody>
 </table>
 
-<?php 	
+<?php
 
 if( $this->license_is_valid() ) {
-	
+
 	$expiry_date = strtotime( $this->get_license_expiry_date() );
-	
+
 	if( $expiry_date !== false ) {
 		echo '<p>';
 
-		printf( __( 'Your %s license will expire on %s.', $product->get_text_domain() ), $product->get_item_name(), date('F jS Y', $expiry_date ) ); 
+		printf( __( 'Your %s license will expire on %s.', $product->get_text_domain() ), $product->get_item_name(), date('F jS Y', $expiry_date ) );
 
 		if( strtotime( '+3 months' ) > $expiry_date ) {
-			printf( ' ' . __('%sRenew your license now%s.', $product->get_text_domain() ), '<a href="'. $this->product->get_tracking_url( 'renewal' ) .'">', '</a>' ); 
+			printf( ' ' . __('%sRenew your license now%s.', $product->get_text_domain() ), '<a href="'. $this->product->get_tracking_url( 'renewal' ) .'">', '</a>' );
 		}
 
 		echo '</p>';
-	}	
+	}
 }
 
 // Only show a "Save Changes" button and end form if we're not embedded in another form.
@@ -89,7 +89,7 @@ if( ! $embedded ) {
 	// only show "Save Changes" button if license is not activated and not defined with a constant
 	if( $readonly === false ) {
 		submit_button();
-	} 
+	}
 
 	echo '</form>';
 }

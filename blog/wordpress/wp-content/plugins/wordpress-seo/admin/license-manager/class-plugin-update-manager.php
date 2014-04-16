@@ -1,7 +1,7 @@
 <?php
 
 //set_site_transient( 'update_plugins', null );
-if( ! class_exists( "Yoast_Plugin_Update_Manager") ) {
+if( ! class_exists( "Yoast_Plugin_Update_Manager", false ) ) {
 
 	class Yoast_Plugin_Update_Manager extends Yoast_Update_Manager {
 		
@@ -40,7 +40,7 @@ if( ! class_exists( "Yoast_Plugin_Update_Manager") ) {
 		* @param object $data
 		* @return object $data
 		*/
-		public function set_updates_available_data( $data ) {
+		public function set_updates_available_data( $data = array() ) {
 
 			if ( empty( $data ) ) {
 				return $data;
@@ -54,10 +54,10 @@ if( ! class_exists( "Yoast_Plugin_Update_Manager") ) {
 			}
 
 			// compare versions
-		if ( version_compare( $this->product->get_version(), $api_response->new_version, '<' ) ) {
+			if ( version_compare( $this->product->get_version(), $api_response->new_version, '<' ) ) {
 
 				// remote version is newer, add to data
-			$data->response[ $this->product->get_slug() ] = $api_response;
+				$data->response[ $this->product->get_slug() ] = $api_response;
 
 			}
 
