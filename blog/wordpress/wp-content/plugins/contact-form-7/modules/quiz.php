@@ -29,7 +29,7 @@ function wpcf7_quiz_shortcode_handler( $tag ) {
 	$atts['size'] = $tag->get_size_option( '40' );
 	$atts['maxlength'] = $tag->get_maxlength_option();
 	$atts['class'] = $tag->get_class_option( $class );
-	$atts['id'] = $tag->get_option( 'id', 'id', true );
+	$atts['id'] = $tag->get_id_option();
 	$atts['tabindex'] = $tag->get_option( 'tabindex', 'int', true );
 	$atts['aria-required'] = 'true';
 	$atts['aria-invalid'] = $validation_error ? 'true' : 'false';
@@ -54,8 +54,9 @@ function wpcf7_quiz_shortcode_handler( $tag ) {
 	$atts = wpcf7_format_atts( $atts );
 
 	$html = sprintf(
-		'<span class="wpcf7-form-control-wrap %1$s"><span class="wpcf7-quiz-label">%2$s</span>&nbsp;<input %3$s /><input type="hidden" name="_wpcf7_quiz_answer_%1$s" value="%4$s" />%5$s</span>',
-		$tag->name, esc_html( $question ), $atts,
+		'<span class="wpcf7-form-control-wrap %1$s"><span class="wpcf7-quiz-label">%2$s</span>&nbsp;<input %3$s /><input type="hidden" name="_wpcf7_quiz_answer_%4$s" value="%5$s" />%6$s</span>',
+		sanitize_html_class( $tag->name ),
+		esc_html( $question ), $atts, $tag->name,
 		wp_hash( $answer, 'wpcf7_quiz' ), $validation_error );
 
 	return $html;
@@ -72,7 +73,7 @@ function wpcf7_quiz_validation_filter( $result, $tag ) {
 	$name = $tag->name;
 
 	$answer = isset( $_POST[$name] ) ? wpcf7_canonicalize( $_POST[$name] ) : '';
-	$answer = stripslashes( $answer );
+	$answer = wp_unslash( $answer );
 
 	$answer_hash = wp_hash( $answer, 'wpcf7_quiz' );
 
@@ -83,6 +84,10 @@ function wpcf7_quiz_validation_filter( $result, $tag ) {
 	if ( $answer_hash != $expected_hash ) {
 		$result['valid'] = false;
 		$result['reason'][$name] = wpcf7_get_message( 'quiz_answer_not_correct' );
+	}
+
+	if ( isset( $result['reason'][$name] ) && $id = $tag->get_id_option() ) {
+		$result['idref'][$name] = $id;
 	}
 
 	return $result;

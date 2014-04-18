@@ -31,7 +31,7 @@ function wpcf7_acceptance_shortcode_handler( $tag ) {
 	$atts = array();
 
 	$atts['class'] = $tag->get_class_option( $class );
-	$atts['id'] = $tag->get_option( 'id', 'id', true );
+	$atts['id'] = $tag->get_id_option();
 	$atts['tabindex'] = $tag->get_option( 'tabindex', 'int', true );
 
 	if ( $tag->has_option( 'default:on' ) )
@@ -47,7 +47,7 @@ function wpcf7_acceptance_shortcode_handler( $tag ) {
 
 	$html = sprintf(
 		'<span class="wpcf7-form-control-wrap %1$s"><input %2$s />%3$s</span>',
-		$tag->name, $atts, $validation_error );
+		sanitize_html_class( $tag->name ), $atts, $validation_error );
 
 	return $html;
 }
@@ -71,6 +71,10 @@ function wpcf7_acceptance_validation_filter( $result, $tag ) {
 	if ( $invert && $value || ! $invert && ! $value ) {
 		$result['valid'] = false;
 		$result['reason'][$name] = wpcf7_get_message( 'accept_terms' );
+	}
+
+	if ( isset( $result['reason'][$name] ) && $id = $tag->get_id_option() ) {
+		$result['idref'][$name] = $id;
 	}
 
 	return $result;

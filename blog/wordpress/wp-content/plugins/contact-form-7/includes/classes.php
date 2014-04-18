@@ -205,11 +205,14 @@ class WPCF7_ContactForm {
 	public function form_html( $atts = array() ) {
 		$atts = wp_parse_args( $atts, array(
 			'html_id' => '',
+			'html_name' => '',
 			'html_class' => '' ) );
 
 		$this->unit_tag = self::get_unit_tag( $this->id );
 
-		$form = '<div class="wpcf7" id="' . $this->unit_tag . '">';
+		$html = '<div class="wpcf7" id="' . $this->unit_tag . '">' . "\n";
+
+		$html .= $this->screen_reader_response() . "\n";
 
 		$url = wpcf7_get_request_uri();
 
@@ -222,6 +225,9 @@ class WPCF7_ContactForm {
 
 		$id_attr = apply_filters( 'wpcf7_form_id_attr',
 			preg_replace( '/[^A-Za-z0-9:._-]/', '', $atts['html_id'] ) );
+
+		$name_attr = apply_filters( 'wpcf7_form_name_attr',
+			preg_replace( '/[^A-Za-z0-9:._-]/', '', $atts['html_name'] ) );
 
 		$class = 'wpcf7-form';
 
@@ -238,37 +244,42 @@ class WPCF7_ContactForm {
 				$class .= ' failed';
 		}
 
-		$atts['html_class'] = array_unique( array_map( 'sanitize_html_class',
-			explode( ' ', $atts['html_class'] ) ) );
-
 		if ( $atts['html_class'] ) {
-			$class .= ' ' . implode( ' ', $atts['html_class'] );
+			$class .= ' ' . $atts['html_class'];
 		}
 
-		$class = apply_filters( 'wpcf7_form_class_attr', trim( $class ) );
+		if ( $this->in_demo_mode() ) {
+			$class .= ' demo';
+		}
+
+		$class = explode( ' ', $class );
+		$class = array_map( 'sanitize_html_class', $class );
+		$class = array_filter( $class );
+		$class = array_unique( $class );
+		$class = implode( ' ', $class );
+		$class = apply_filters( 'wpcf7_form_class_attr', $class );
 
 		$enctype = apply_filters( 'wpcf7_form_enctype', '' );
 
 		$novalidate = apply_filters( 'wpcf7_form_novalidate',
 			wpcf7_support_html5() ? ' novalidate="novalidate"' : '' );
 
-		$form .= '<form action="' . esc_url_raw( $url ) . '" method="post"'
+		$html .= '<form action="' . esc_url_raw( $url ) . '" method="post"'
 			. ( $id_attr ? ' id="' . esc_attr( $id_attr ) . '"' : '' )
+			. ( $name_attr ? ' name="' . esc_attr( $name_attr ) . '"' : '' )
 			. ' class="' . esc_attr( $class ) . '"'
 			. $enctype . $novalidate . '>' . "\n";
 
-		$form .= $this->form_hidden_fields();
-
-		$form .= $this->form_elements();
+		$html .= $this->form_hidden_fields();
+		$html .= $this->form_elements();
 
 		if ( ! $this->responses_count )
-			$form .= $this->form_response_output();
+			$html .= $this->form_response_output();
 
-		$form .= '</form>';
+		$html .= '</form>';
+		$html .= '</div>';
 
-		$form .= '</div>';
-
-		return $form;
+		return $html;
 	}
 
 	public function form_hidden_fields() {
@@ -330,6 +341,52 @@ class WPCF7_ContactForm {
 
 		return apply_filters( 'wpcf7_form_response_output',
 			$output, $class, $content, $this );
+	}
+
+	public function screen_reader_response() {
+		$class = 'screen-reader-response';
+		$role = '';
+		$content = '';
+
+		if ( $this->is_posted() ) { // Post response output for non-AJAX
+			$role = 'alert';
+			$result = self::get_submission_status( $this->id );
+
+			if ( ! empty( $result['message'] ) ) {
+				$content = esc_html( $result['message'] );
+
+				if ( ! empty( $result['invalid_reasons'] ) ) {
+					$content .= "\n" . '<ul>' . "\n";
+
+					foreach ( (array) $result['invalid_reasons'] as $k => $v ) {
+						if ( isset( $result['invalid_fields'][$k] )
+						&& wpcf7_is_name( $result['invalid_fields'][$k] ) ) {
+							$link = sprintf( '<a href="#%1$s">%2$s</a>',
+								$result['invalid_fields'][$k],
+								esc_html( $v ) );
+							$content .= sprintf( '<li>%s</li>', $link );
+						} else {
+							$content .= sprintf( '<li>%s</li>', esc_html( $v ) );
+						}
+
+						$content .= "\n";
+					}
+
+					$content .= '</ul>' . "\n";
+				}
+			}
+		}
+
+		$atts = array(
+			'class' => trim( $class ),
+			'role' => trim( $role ) );
+
+		$atts = wpcf7_format_atts( $atts );
+
+		$output = sprintf( '<div %1$s>%2$s</div>',
+			$atts, $content );
+
+		return $output;
 	}
 
 	public function validation_error( $name ) {
@@ -445,11 +502,11 @@ class WPCF7_ContactForm {
 					$new_value = array();
 
 					foreach ( $value as $v )
-						$new_value[] = $pipes->do_pipe( stripslashes( $v ) );
+						$new_value[] = $pipes->do_pipe( wp_unslash( $v ) );
 
 					$value = $new_value;
 				} else {
-					$value = $pipes->do_pipe( stripslashes( $value ) );
+					$value = $pipes->do_pipe( wp_unslash( $value ) );
 				}
 			}
 
@@ -466,6 +523,7 @@ class WPCF7_ContactForm {
 			'status' => 'init',
 			'valid' => true,
 			'invalid_reasons' => array(),
+			'invalid_fields' => array(),
 			'spam' => false,
 			'message' => '',
 			'mail_sent' => false,
@@ -480,6 +538,7 @@ class WPCF7_ContactForm {
 			$result['status'] = 'validation_failed';
 			$result['valid'] = false;
 			$result['invalid_reasons'] = $validation['reason'];
+			$result['invalid_fields'] = $validation['idref'];
 			$result['message'] = $this->message( 'validation_error' );
 
 		} elseif ( ! $this->accepted() ) { // Not accepted terms
@@ -543,7 +602,10 @@ class WPCF7_ContactForm {
 	public function validate() {
 		$fes = $this->form_scan_shortcode();
 
-		$result = array( 'valid' => true, 'reason' => array() );
+		$result = array(
+			'valid' => true,
+			'reason' => array(),
+			'idref' => array() );
 
 		foreach ( $fes as $fe ) {
 			$result = apply_filters( 'wpcf7_validate_' . $fe['type'], $result, $fe );
@@ -749,7 +811,7 @@ class WPCF7_ContactForm {
 			$replaced = apply_filters( 'wpcf7_mail_tag_replaced', $replaced,
 				$submitted, $html );
 
-			return stripslashes( $replaced );
+			return wp_unslash( $replaced );
 		}
 
 		$special = apply_filters( 'wpcf7_special_mail_tags', '', $tagname, $html );

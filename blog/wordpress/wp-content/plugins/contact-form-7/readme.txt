@@ -2,9 +2,9 @@
 Contributors: takayukister
 Donate link: http://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
-Requires at least: 3.6
-Tested up to: 3.8.1
-Stable tag: 3.7.2
+Requires at least: 3.7
+Tested up to: 3.9
+Stable tag: 3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,7 +92,7 @@ The following are other recommended plugins by the author of Contact Form 7.
 * Tamil (ta) - [Nitin Aggarwal](http://offshoreally.com/)
 * Thai (th) - [ToshiK](http://www.tuntikorn.com/), [kazama](http://blog.wordthai.com/)
 * Turkish (tr_TR) - [Roman Neumuller](http://katpatuka.wordpress.com), [Hasan Yılmaz](http://hedefturkce.com/), [Emin Buğra Saral](http://www.rahmetli.info/), Burak Yavuz
-* Ukrainian (uk) - [Andrey Kovba](http://myserver.com.ua/), [Ukrainian WordPress localization team](http://wordpress.co.ua/plugins/contact-form-7.html)
+* Ukrainian (uk) - [Andrey Kovba](http://myserver.com.ua/), [Ukrainian WordPress localization team](http://wordpress.co.ua/plugins/contact-form-7.html), Myroslava Pabyrivska
 * Vietnamese (vi) - Thanh Hải, Hà, [Khang Minh](http://betterwp.net/)
 
 If you have created your own language pack, or have an update of an existing one, you can send [gettext PO and MO files](http://codex.wordpress.org/Translating_WordPress) to [me](http://ideasilo.wordpress.com/about/) so that I can bundle it into Contact Form 7. You can download the latest [POT file](http://plugins.svn.wordpress.org/contact-form-7/trunk/languages/contact-form-7.pot), and [PO files in each language](http://plugins.svn.wordpress.org/contact-form-7/branches/languages/).
@@ -124,6 +124,15 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 
 For more information, see [Releases](http://contactform7.com/category/releases/).
 
+= 3.8 =
+
+* Introduced data option for select, checkbox and radio form-tags. With Listo plugin, you can make a menu with hundreds of options.
+* Accessibility improvement: add an invisible response message block before &lt;form&gt;.
+* Added relative date notation support in min and max options of date form-tags.
+* Added html_name attribute support in [contact-form-7] shortcodes.
+* WordPress 3.7 or higher is required.
+* Translation for Ukrainian has been updated.
+
 = 3.7.2 =
 
 * Fixed a bug that allowed to avoid CAPTCHA validation.
@@ -145,19 +154,3 @@ For more information, see [Releases](http://contactform7.com/category/releases/)
 * Fixed bug where auto-p function wrapped [response] with p.
 * The jQuery Form Plugin (jquery.form.js) has been updated to 3.48.0.
 * Translation for Haitian has been created. Translations for German, Hungarian, Czech, Turkish, Lithuanian, French, Basque, and Brazilian Portuguese have been updated.
-
-= 3.6 =
-
-* Accessibility: Apply role="alert" to response message and validation errors.
-* Accessibility: Apply aria-invalid="true" to input fields in which validation errors occuring.
-* Accessibility: Stop using floating-style validation error messages (not-valid-tip) which disappear with mouse-over, as it is not accessible.
-* Text domain has been changed from "wpcf7" to "contact-form-7" according with the standard of WordPress.org language packs.
-* Admin: "Add New" submenu has been added.
-* Flamingo: Sub-channel support.
-* Flamingo: Pass data to Flamingo in cases of spam detected, in addition to cases of mail sent.
-* Flamingo: Support flamingo_email, flamingo_name and flamingo_subject additional settings which allow to alter values passed to Flamingo.
-* New: Date format in mail.
-* New: wpcf7_submit action hook.
-* New: wpcf7_flamingo_submit_if and wpcf7_flamingo_get_value filter hooks.
-* The jQuery Form Plugin (jquery.form.js) has been updated to 3.46.0.
-* Translations for Brazilian Portuguese and French have been updated.

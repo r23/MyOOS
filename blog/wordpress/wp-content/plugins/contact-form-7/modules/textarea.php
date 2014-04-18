@@ -31,7 +31,7 @@ function wpcf7_textarea_shortcode_handler( $tag ) {
 	$atts['rows'] = $tag->get_rows_option( '10' );
 	$atts['maxlength'] = $tag->get_maxlength_option();
 	$atts['class'] = $tag->get_class_option( $class );
-	$atts['id'] = $tag->get_option( 'id', 'id', true );
+	$atts['id'] = $tag->get_id_option();
 	$atts['tabindex'] = $tag->get_option( 'tabindex', 'int', true );
 
 	if ( $tag->has_option( 'readonly' ) )
@@ -53,7 +53,7 @@ function wpcf7_textarea_shortcode_handler( $tag ) {
 	}
 
 	if ( wpcf7_is_posted() && isset( $_POST[$tag->name] ) )
-		$value = stripslashes_deep( $_POST[$tag->name] );
+		$value = wp_unslash( $_POST[$tag->name] );
 
 	$atts['name'] = $tag->name;
 
@@ -61,7 +61,8 @@ function wpcf7_textarea_shortcode_handler( $tag ) {
 
 	$html = sprintf(
 		'<span class="wpcf7-form-control-wrap %1$s"><textarea %2$s>%3$s</textarea>%4$s</span>',
-		$tag->name, $atts, esc_textarea( $value ), $validation_error );
+		sanitize_html_class( $tag->name ), $atts,
+		esc_textarea( $value ), $validation_error );
 
 	return $html;
 }
@@ -85,6 +86,10 @@ function wpcf7_textarea_validation_filter( $result, $tag ) {
 			$result['valid'] = false;
 			$result['reason'][$name] = wpcf7_get_message( 'invalid_required' );
 		}
+	}
+
+	if ( isset( $result['reason'][$name] ) && $id = $tag->get_id_option() ) {
+		$result['idref'][$name] = $id;
 	}
 
 	return $result;

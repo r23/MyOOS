@@ -65,9 +65,17 @@ function wpcf7_ajax_json_echo() {
 				$invalids = array();
 
 				foreach ( $result['invalid_reasons'] as $name => $reason ) {
-					$invalids[] = array(
-						'into' => 'span.wpcf7-form-control-wrap.' . $name,
+					$invalid = array(
+						'into' => 'span.wpcf7-form-control-wrap.'
+							. sanitize_html_class( $name ),
 						'message' => $reason );
+
+					if ( isset( $result['invalid_fields'][$name] )
+					&& wpcf7_is_name( $result['invalid_fields'][$name] ) ) {
+						$invalid['idref'] = $result['invalid_fields'][$name];
+					}
+
+					$invalids[] = $invalid;
 				}
 
 				$items['invalids'] = $invalids;
@@ -150,6 +158,7 @@ function wpcf7_contact_form_tag_func( $atts, $content = null, $code = '' ) {
 			'id' => 0,
 			'title' => '',
 			'html_id' => '',
+			'html_name' => '',
 			'html_class' => '' ), $atts );
 
 		$id = (int) $atts['id'];
