@@ -55,16 +55,27 @@ class API extends \Piwik\Plugin\API
             return $this->languageNames;
         }
         $path = PIWIK_INCLUDE_PATH . "/lang/";
-        $languages = _glob($path . "*.json");
+        $languagesPath = _glob($path . "*.json");
+
         $pathLength = strlen($path);
-        $languageNames = array();
-        if ($languages) {
-            foreach ($languages as $language) {
-                $languageNames[] = substr($language, $pathLength, -strlen('.json'));
+        $languages = array();
+        if ($languagesPath) {
+            foreach ($languagesPath as $language) {
+                $languages[] = substr($language, $pathLength, -strlen('.json'));
             }
         }
-        $this->languageNames = $languageNames;
-        return $languageNames;
+
+        /**
+         * Hook called after loading available language files.
+         *
+         * Use this hook to customise the list of languagesPath available in Piwik.
+         *
+         * @param array
+         */
+        Piwik::postEvent('LanguageManager.getAvailableLanguages', array(&$languages));
+
+        $this->languageNames = $languages;
+        return $languages;
     }
 
     /**
@@ -134,22 +145,7 @@ class API extends \Piwik\Plugin\API
      */
     public function getAvailableLanguageNames()
     {
-        if (!is_null($this->availableLanguageNames)) {
-            return $this->availableLanguageNames;
-        }
-
-        $filenames = $this->getAvailableLanguages();
-        $languagesInfo = array();
-        foreach ($filenames as $filename) {
-            $data = file_get_contents(PIWIK_INCLUDE_PATH . "/lang/$filename.json");
-            $translations = json_decode($data, true);
-            $languagesInfo[] = array(
-                'code'         => $filename,
-                'name'         => $translations['General']['OriginalLanguageName'],
-                'english_name' => $translations['General']['EnglishLanguageName']
-            );
-        }
-        $this->availableLanguageNames = $languagesInfo;
+        $this->loadAvailableLanguages();
         return $this->availableLanguageNames;
     }
 
@@ -250,5 +246,25 @@ class API extends \Piwik\Plugin\API
             ON DUPLICATE KEY UPDATE language=?',
             $paramsBind);
         return true;
+    }
+
+    private function loadAvailableLanguages()
+    {
+        if (!is_null($this->availableLanguageNames)) {
+            return;
+        }
+
+        $filenames = $this->getAvailableLanguages();
+        $languagesInfo = array();
+        foreach ($filenames as $filename) {
+            $data = file_get_contents(PIWIK_INCLUDE_PATH . "/lang/$filename.json");
+            $translations = json_decode($data, true);
+            $languagesInfo[] = array(
+                'code'         => $filename,
+                'name'         => $translations['General']['OriginalLanguageName'],
+                'english_name' => $translations['General']['EnglishLanguageName']
+            );
+        }
+        $this->availableLanguageNames = $languagesInfo;
     }
 }

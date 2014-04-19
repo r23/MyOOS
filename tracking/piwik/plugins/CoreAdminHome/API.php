@@ -39,12 +39,6 @@ class API extends \Piwik\Plugin\API
         return TaskScheduler::runTasks();
     }
 
-    public function getKnownSegmentsToArchive()
-    {
-        Piwik::checkUserHasSuperUserAccess();
-        return SettingsPiwik::getKnownSegmentsToArchive();
-    }
-
     /*
      * stores the list of websites IDs to re-reprocess in archive.php
      */
@@ -200,6 +194,8 @@ class API extends \Piwik\Plugin\API
     static public function getWebsiteIdsToInvalidate()
     {
         Piwik::checkUserHasSomeAdminAccess();
+
+        Option::clearCachedOption(self::OPTION_INVALIDATED_IDSITES);
         $invalidatedIdSites = Option::get(self::OPTION_INVALIDATED_IDSITES);
         if ($invalidatedIdSites
             && ($invalidatedIdSites = unserialize($invalidatedIdSites))

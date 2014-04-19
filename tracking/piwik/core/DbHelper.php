@@ -50,16 +50,6 @@ class DbHelper
     }
 
     /**
-     * Drop specific tables
-     *
-     * @param array $doNotDelete Names of tables to not delete
-     */
-    public static function dropTables($doNotDelete = array())
-    {
-        Schema::getInstance()->dropTables($doNotDelete);
-    }
-
-    /**
      * Returns true if Piwik is installed
      *
      * @since 0.6.3
@@ -102,10 +92,10 @@ class DbHelper
     /**
      * Drop database, used in tests
      */
-    public static function dropDatabase()
+    public static function dropDatabase($dbName = null)
     {
         if (defined('PIWIK_TEST_MODE') && PIWIK_TEST_MODE) {
-            Schema::getInstance()->dropDatabase();
+            Schema::getInstance()->dropDatabase($dbName);
         }
     }
 

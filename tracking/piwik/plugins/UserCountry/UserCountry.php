@@ -15,6 +15,7 @@ use Piwik\IP;
 use Piwik\Menu\MenuAdmin;
 use Piwik\Menu\MenuMain;
 use Piwik\Piwik;
+use Piwik\Plugin\Manager;
 use Piwik\Plugin\ViewDataTable;
 use Piwik\Plugins\UserCountry\LocationProvider\DefaultProvider;
 use Piwik\Plugins\UserCountry\LocationProvider;
@@ -51,9 +52,15 @@ class UserCountry extends \Piwik\Plugin
             'TaskScheduler.getScheduledTasks'        => 'getScheduledTasks',
             'ViewDataTable.configure'                => 'configureViewDataTable',
             'Translate.getClientSideTranslationKeys' => 'getClientSideTranslationKeys',
-            'Tracker.setTrackerCacheGeneral'         => 'setTrackerCacheGeneral'
+            'Tracker.setTrackerCacheGeneral'         => 'setTrackerCacheGeneral',
+            'Insights.addReportToOverview'           => 'addReportToInsightsOverview'
         );
         return $hooks;
+    }
+
+    public function addReportToInsightsOverview(&$reports)
+    {
+        $reports['UserCountry_getCountry'] = array();
     }
 
     public function setTrackerCacheGeneral(&$cache)
@@ -164,7 +171,8 @@ class UserCountry extends \Piwik\Plugin
             $providerValue = $location[LocationProvider::ORG_KEY];
         }
 
-        if (isset($providerValue)) {
+        if (isset($providerValue)
+            && Manager::getInstance()->isPluginInstalled('Provider')) {
             $visitorInfo['location_provider'] = $providerValue;
         }
     }

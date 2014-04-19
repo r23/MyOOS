@@ -27,8 +27,20 @@ class SettingsServer
     public static function isArchivePhpTriggered()
     {
         return !empty($_GET['trigger'])
-        && $_GET['trigger'] == 'archivephp';
+                && $_GET['trigger'] == 'archivephp'
+                && Piwik::hasUserSuperUserAccess();
     }
+
+    /**
+     * Returns true if the current request is a Tracker request.
+     *
+     * @return bool true if the current request is a Tracking API Request (ie. piwik.php)
+     */
+    public static function isTrackerApiRequest()
+    {
+        return !empty($GLOBALS['PIWIK_TRACKER_MODE']);
+    }
+
 
     /**
      * Returns `true` if running on Microsoft IIS 7 (or above), `false` if otherwise.
@@ -120,9 +132,7 @@ class SettingsServer
         }
         $minimumMemoryLimit = Config::getInstance()->General['minimum_memory_limit'];
 
-        if (self::isArchivePhpTriggered()
-            && Piwik::hasUserSuperUserAccess()
-        ) {
+        if (self::isArchivePhpTriggered()) {
             // archive.php: no time limit, high memory limit
             self::setMaxExecutionTime(0);
             $minimumMemoryLimitWhenArchiving = Config::getInstance()->General['minimum_memory_limit_when_archiving'];

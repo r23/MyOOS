@@ -53,6 +53,7 @@ use Piwik\Session;
  */
 class FrontController extends Singleton
 {
+    const DEFAULT_MODULE = 'CoreHome';
     /**
      * Set to false and the Front Controller will not dispatch the request
      *
@@ -152,6 +153,9 @@ class FrontController extends Singleton
         // if nothing returned we try to load something that was printed on the screen
         if (empty($output)) {
             $output = ob_get_contents();
+        } else {
+            // if something was returned, flush output buffer as it is meant to be written to the screen
+            ob_flush();
         }
         ob_end_clean();
         return $output;
@@ -164,7 +168,7 @@ class FrontController extends Singleton
     {
         try {
             if (class_exists('Piwik\\Profiler')
-                && empty($GLOBALS['PIWIK_TRACKER_MODE'])) {
+                && !SettingsServer::isTrackerApiRequest()) {
                 // in tracker mode Piwik\Tracker\Db\Pdo\Mysql does currently not implement profiling
                 Profiler::displayDbProfileReport();
                 Profiler::printQueryCount();
@@ -213,7 +217,7 @@ class FrontController extends Singleton
     {
         $exceptionToThrow = false;
         try {
-            Config::getInstance();
+            Config::getInstance()->database; // access property to check if the local file exists
         } catch (Exception $exception) {
 
             /**
@@ -262,7 +266,6 @@ class FrontController extends Singleton
             );
 
             Filechecks::dieIfDirectoriesNotWritable($directoriesToCheck);
-            self::assignCliParametersToRequest();
 
             Translate::loadEnglishTranslation();
 
@@ -276,10 +279,7 @@ class FrontController extends Singleton
             $this->handleProfiler();
             $this->handleSSLRedirection();
 
-            $pluginsManager = \Piwik\Plugin\Manager::getInstance();
-            $pluginsToLoad = Config::getInstance()->Plugins['Plugins'];
-
-            $pluginsManager->loadPlugins($pluginsToLoad);
+            Plugin\Manager::getInstance()->loadActivatedPlugins();
 
             if ($exceptionToThrow) {
                 throw $exceptionToThrow;
@@ -358,7 +358,7 @@ class FrontController extends Singleton
             SettingsServer::raiseMemoryLimitIfNecessary();
 
             Translate::reloadLanguage();
-            $pluginsManager->postLoadPlugins();
+            \Piwik\Plugin\Manager::getInstance()->postLoadPlugins();
 
             /**
              * Triggered after the platform is initialized and after the user has been authenticated, but
@@ -366,7 +366,7 @@ class FrontController extends Singleton
              * 
              * Piwik uses this event to check for updates to Piwik.
              */
-            Piwik::postEvent('Updater.checkForUpdates');
+            Piwik::postEvent('Platform.initialized');
         } catch (Exception $e) {
 
             if (self::shouldRethrowException()) {
@@ -381,8 +381,7 @@ class FrontController extends Singleton
     protected function prepareDispatch($module, $action, $parameters)
     {
         if (is_null($module)) {
-            $defaultModule = 'CoreHome';
-            $module = Common::getRequestVar('module', $defaultModule, 'string');
+            $module = Common::getRequestVar('module', self::DEFAULT_MODULE, 'string');
         }
 
         if (is_null($action)) {
@@ -447,30 +446,15 @@ class FrontController extends Singleton
         if(Common::isPhpCliMode()) {
             return;
         }
-        // force_ssl=1 -> whole of Piwik must run in SSL
-        $isSSLForced = Config::getInstance()->General['force_ssl'] == 1;
-        if ($isSSLForced) {
-            Url::redirectToHttps();
+        // Only enable this feature after Piwik is already installed
+        if(!SettingsPiwik::isPiwikInstalled()) {
+            return;
         }
-
-    }
-
-
-    /**
-     * Assign CLI parameters as if they were REQUEST or GET parameters.
-     * You can trigger Piwik from the command line by
-     * # /usr/bin/php5 /path/to/piwik/index.php -- "module=API&method=Actions.getActions&idSite=1&period=day&date=previous8&format=php"
-     */
-    public static function assignCliParametersToRequest()
-    {
-        if (isset($_SERVER['argc'])
-            && $_SERVER['argc'] > 0
-        ) {
-            for ($i = 1; $i < $_SERVER['argc']; $i++) {
-                parse_str($_SERVER['argv'][$i], $tmp);
-                $_GET = array_merge($_GET, $tmp);
-            }
+        // proceed only when force_ssl = 1
+        if(!SettingsPiwik::isHttpsForced()) {
+            return;
         }
+        Url::redirectToHttps();
     }
 
     private function handleProfiler()
@@ -546,6 +530,7 @@ class FrontController extends Singleton
         Piwik::postEvent('Request.dispatch.end', array(&$result, $parameters));
         return $result;
     }
+
 }
 
 /**

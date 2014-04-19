@@ -67,7 +67,6 @@
                     self.onClickActionSubDataTable(this)
                 }).size();
             }
-
             self.applyCosmetics(domElem, rows);
             self.handleColumnHighlighting(domElem);
             self.handleRowActions(domElem, rows);
@@ -86,10 +85,11 @@
             }
 
             self.handleColumnDocumentation(domElem);
-            self.handleReportDocumentation(domElem);
             self.handleRelatedReports(domElem);
             self.handleTriggeredEvents(domElem);
             self.handleCellTooltips(domElem);
+            self.handleExpandFooter(domElem);
+            self.setFixWidthToMakeEllipsisWork(domElem);
         },
 
         //see dataTable::applyCosmetics
@@ -100,7 +100,6 @@
             rowsWithSubtables.css('font-weight', 'bold');
 
             $("th:first-child", domElem).addClass('label');
-            $('td span.label', domElem).each(function () { self.truncate($(this)); });
             var imagePlusMinusWidth = 12;
             var imagePlusMinusHeight = 12;
             $('td:first-child', rowsWithSubtables)
@@ -242,7 +241,7 @@
                         }
                     }
                 });
-                
+
                 var table = $(domElem);
                 if (!table.hasClass('dataTable')) {
                     table = table.closest('.dataTable');
@@ -250,6 +249,8 @@
                 if (stripingNeeded) {
                     self.addOddAndEvenClasses(table);
                 }
+
+                self.$element.trigger('piwik:actionsSubTableToggled');
             }
 
             // toggle the +/- image
@@ -278,6 +279,9 @@
             $('.datatableRelatedReports', content).replaceWith(oldReportsElem);
 
             dataTableSel.replaceWith(content);
+
+            content.trigger('piwik:dataTableLoaded');
+
             piwikHelper.lazyScrollTo(content[0], 400);
 
             return content;
@@ -310,6 +314,8 @@
 
             // we execute the bindDataTableEvent function for the new DIV
             self.bindEventsAndApplyStyle($('#' + self.workingDivId), response);
+
+            self.$element.trigger('piwik:actionsSubDataTableLoaded');
 
             //bind back the click event (disabled to avoid double-click problem)
             self.disabledRowDom.click(

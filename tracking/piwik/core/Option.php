@@ -47,6 +47,18 @@ class Option
     }
 
     /**
+     * Returns option values for options whose names are like a given pattern.
+     *
+     * @param string $namePattern The pattern used in the SQL `LIKE` expression
+     *                            used to SELECT options.
+     * @return array Array mapping option names with option values.
+     */
+    public static function getLike($namePattern)
+    {
+        return self::getInstance()->getNameLike($namePattern);
+    }
+
+    /**
      * Sets an option value by name.
      *
      * @param string $name The option name.
@@ -80,6 +92,11 @@ class Option
     public static function deleteLike($namePattern, $value = null)
     {
         return self::getInstance()->deleteNameLike($namePattern, $value);
+    }
+
+    public static function clearCachedOption($name)
+    {
+        self::getInstance()->clearCachedOptionByName($name);
     }
 
     /**
@@ -130,6 +147,13 @@ class Option
      */
     private function __construct()
     {
+    }
+
+    protected function clearCachedOptionByName($name)
+    {
+        if (isset($this->all[$name])) {
+            unset($this->all[$name]);
+        }
     }
 
     protected function getValue($name)
@@ -186,6 +210,18 @@ class Option
         Db::query($sql, $bind);
 
         $this->clearCache();
+    }
+
+    protected function getNameLike($name)
+    {
+        $sql = 'SELECT option_name, option_value FROM ' . Common::prefixTable('option') . ' WHERE option_name LIKE ?';
+        $bind = array($name);
+
+        $result = array();
+        foreach (Db::fetchAll($sql, $bind) as $row) {
+            $result[$row['option_name']] = $row['option_value'];
+        }
+        return $result;
     }
 
     /**

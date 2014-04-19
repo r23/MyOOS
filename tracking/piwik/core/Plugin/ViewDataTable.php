@@ -215,6 +215,8 @@ abstract class ViewDataTable implements ViewInterface
          */
         Piwik::postEvent('ViewDataTable.configure', array($this));
 
+        $this->assignRelatedReportsTitle();
+
         $this->config->show_footer_icons = (false == $this->requestConfig->idSubtable);
 
         // the exclude low population threshold value is sometimes obtained by requesting data.
@@ -228,6 +230,19 @@ abstract class ViewDataTable implements ViewInterface
         }
 
         $this->overrideViewPropertiesWithQueryParams();
+    }
+
+    protected function assignRelatedReportsTitle()
+    {
+        if(!empty($this->config->related_reports_title)) {
+            // title already assigned by a plugin
+            return;
+        }
+        if(count($this->config->related_reports) == 1) {
+            $this->config->related_reports_title = Piwik::translate('General_RelatedReport') . ':';
+        } else {
+            $this->config->related_reports_title = Piwik::translate('General_RelatedReports') . ':';
+        }
     }
 
     /**

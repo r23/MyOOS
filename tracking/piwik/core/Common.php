@@ -31,7 +31,6 @@ class Common
 
     public static $isCliMode = null;
 
-
     /*
      * Database
      */
@@ -109,6 +108,11 @@ class Common
     public static function isGoalPluginEnabled()
     {
         return \Piwik\Plugin\Manager::getInstance()->isPluginActivated('Goals');
+    }
+
+    public static function isActionsPluginEnabled()
+    {
+        return \Piwik\Plugin\Manager::getInstance()->isPluginActivated('Actions');
     }
 
     /**
@@ -1019,6 +1023,10 @@ class Common
      */
     public static function sendHeader($header, $replace = true)
     {
+        // don't send header in CLI mode
+        if(Common::isPhpCliMode()) {
+            return;
+        }
         if (isset($GLOBALS['PIWIK_TRACKER_LOCAL_TRACKING']) && $GLOBALS['PIWIK_TRACKER_LOCAL_TRACKING']) {
             @header($header, $replace);
         } else {
@@ -1057,17 +1065,23 @@ class Common
     static public function printDebug($info = '')
     {
         if (isset($GLOBALS['PIWIK_TRACKER_DEBUG']) && $GLOBALS['PIWIK_TRACKER_DEBUG']) {
-            if(is_object($info)) {
+
+            if (is_object($info)) {
                 $info = var_export($info, true);
             }
-            if (is_array($info)) {
-                print("<pre>");
+
+            Log::getInstance()->setLogLevel(Log::DEBUG);
+
+            if (is_array($info) || is_object($info)) {
                 $info = Common::sanitizeInputValues($info);
                 $out = var_export($info, true);
-                echo $out;
-                print("</pre>");
+                foreach (explode("\n", $out) as $line) {
+                    Log::debug($line);
+                }
             } else {
-                print(htmlspecialchars($info, ENT_QUOTES) . "<br />\n");
+                foreach (explode("\n", $info) as $line) {
+                    Log::debug(htmlspecialchars($line, ENT_QUOTES));
+                }
             }
         }
     }

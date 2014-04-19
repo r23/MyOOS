@@ -38,19 +38,8 @@ class LanguagesManager extends \Piwik\Plugin
             'User.getLanguage'                => 'getLanguageToLoad',
             'UsersManager.deleteUser'         => 'deleteUserLanguage',
             'Template.topBar'                 => 'addLanguagesManagerToOtherTopBar',
-            'Console.addCommands'             => 'addConsoleCommands'
+            'Template.jsGlobalVariables'      => 'jsGlobalVariables'
         );
-    }
-
-    public function addConsoleCommands(&$commands)
-    {
-        $commands[] = 'Piwik\Plugins\LanguagesManager\Commands\CreatePull';
-        $commands[] = 'Piwik\Plugins\LanguagesManager\Commands\FetchFromOTrance';
-        $commands[] = 'Piwik\Plugins\LanguagesManager\Commands\LanguageCodes';
-        $commands[] = 'Piwik\Plugins\LanguagesManager\Commands\LanguageNames';
-        $commands[] = 'Piwik\Plugins\LanguagesManager\Commands\PluginsWithTranslations';
-        $commands[] = 'Piwik\Plugins\LanguagesManager\Commands\SetTranslations';
-        $commands[] = 'Piwik\Plugins\LanguagesManager\Commands\Update';
     }
 
     public function getStylesheetFiles(&$stylesheets)
@@ -65,7 +54,9 @@ class LanguagesManager extends \Piwik\Plugin
 
     public function showLanguagesSelector()
     {
-        MenuTop::addEntry('LanguageSelector', $this->getLanguagesSelector(), true, $order = 30, true);
+        if (Piwik::isUserIsAnonymous() || !DbHelper::isInstalled()) {
+            MenuTop::addEntry('LanguageSelector', $this->getLanguagesSelector(), true, $order = 30, true);
+        }
     }
 
     /**
@@ -82,6 +73,17 @@ class LanguagesManager extends \Piwik\Plugin
     }
 
     /**
+     * Adds the languages drop-down list to topbars other than the main one rendered
+     * in CoreHome/templates/top_bar.twig. The 'other' topbars are on the Installation
+     * and CoreUpdater screens.
+     */
+    public function jsGlobalVariables(&$str)
+    {
+        // piwik object & scripts aren't loaded in 'other' topbars
+        $str .= "piwik.languageName = '" .  self::getLanguageNameForCurrentUser() . "';";
+    }
+
+    /**
      * Renders and returns the language selector HTML.
      *
      * @return string
@@ -91,7 +93,6 @@ class LanguagesManager extends \Piwik\Plugin
         $view = new View("@LanguagesManager/getLanguagesSelector");
         $view->languages = API::getInstance()->getAvailableLanguageNames();
         $view->currentLanguageCode = self::getLanguageCodeForCurrentUser();
-        $view->currentLanguageName = self::getLanguageNameForCurrentUser();
         return $view->render();
     }
 

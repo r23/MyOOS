@@ -33,7 +33,7 @@ class Feedback extends \Piwik\Plugin
     public function addTopMenu()
     {
         MenuTop::addEntry(
-            'General_GiveUsYourFeedback',
+            'General_Help',
             array('module' => 'Feedback', 'action' => 'index', 'segment' => false),
             true,
             $order = 20,
@@ -45,15 +45,26 @@ class Feedback extends \Piwik\Plugin
     public function getStylesheetFiles(&$stylesheets)
     {
         $stylesheets[] = "plugins/Feedback/stylesheets/feedback.less";
+
+        $stylesheets[] = "plugins/Feedback/angularjs/ratefeature/ratefeature.less";
     }
 
     public function getJsFiles(&$jsFiles)
     {
-        $jsFiles[] = "plugins/Feedback/javascripts/feedback.js";
+        $jsFiles[] = "plugins/Feedback/angularjs/ratefeature/ratefeature-model.js";
+        $jsFiles[] = "plugins/Feedback/angularjs/ratefeature/ratefeature-controller.js";
+        $jsFiles[] = "plugins/Feedback/angularjs/ratefeature/ratefeature-directive.js";
     }
 
     public function getClientSideTranslationKeys(&$translationKeys)
     {
-        $translationKeys[] = 'General_Loading';
+        $translationKeys[] = 'Feedback_ThankYou';
+        $translationKeys[] = 'Feedback_RateFeatureTitle';
+        $translationKeys[] = 'Feedback_RateFeatureThankYouTitle';
+        $translationKeys[] = 'Feedback_RateFeatureLeaveMessageLike';
+        $translationKeys[] = 'Feedback_RateFeatureLeaveMessageDislike';
+        $translationKeys[] = 'Feedback_SendFeedback';
+        $translationKeys[] = 'Feedback_RateFeatureSendFeedbackInformation';
+        $translationKeys[] = 'General_Ok';
     }
 }

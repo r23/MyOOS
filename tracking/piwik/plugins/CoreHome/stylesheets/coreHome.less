@@ -208,23 +208,51 @@ a.Piwik_Popover_Error_Back {
     margin: 10px auto 5px !important;
 }
 
+.header_short #updateCheckLinkContainer .icon {
+  display: none;
+}
+
+.header_full #updateCheckLinkContainer {
+  margin-top: -2px;
+}
+
+@-moz-document url-prefix() {
+  .header_full #updateCheckLinkContainer {
+    margin-top: -3px;
+  }
+}
+
+#updateCheckLinkContainer {
+  opacity: 0.7;
+}
+
+#updateCheckLinkContainer:hover {
+  opacity: 1;
+}
+
 #updateCheckLinkContainer {
     float: right;
     cursor: pointer;
 }
 
 #updateCheckLinkContainer>* {
-    vertical-align: bottom;
+    vertical-align: middle;
 }
 
 #header_message #checkForUpdates {
-    font-size: .8em;
+    font-size: 10px;
     line-height: 16px;
     display: inline-block;
+    vertical-align: middle;
+    text-transform: uppercase;
+}
+
+#header_message #checkForUpdates {
+  text-decoration: none;
 }
 
 #header_message #checkForUpdates:hover {
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 /* Used to link within content text, without adding visual clutter */

@@ -3,7 +3,9 @@
 {% block content %}
 {% import 'macros.twig' as piwik %}
 
-<h2 id="location-providers">{{ 'UserCountry_Geolocation'|translate }}</h2>
+<h2 piwik-enriched-headline
+    help-url="http://piwik.org/docs/geo-locate/"
+    id="location-providers">{{ 'UserCountry_Geolocation'|translate }}</h2>
 
 <div style="width:900px;">
 
@@ -29,7 +31,7 @@
         </tr>
         {% for id,provider in locationProviders %}
         <tr>
-            <td width="140">
+            <td width="150">
                 <p>
                     <input class="location-provider" name="location-provider" value="{{ id }}" type="radio" {% if currentProviderId == id %}checked="checked"{% endif %}
                            id="provider_input_{{ id }}" {% if provider.status != 1 %}disabled="disabled"{% endif %}/>

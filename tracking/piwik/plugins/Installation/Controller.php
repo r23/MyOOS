@@ -274,7 +274,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         $this->skipThisStep(__FUNCTION__);
 
         if (Common::getRequestVar('deleteTables', 0, 'int') == 1) {
-            DbHelper::dropTables();
+            Db::dropAllTables();
             $view->existingTablesDeleted = true;
 
             // when the user decides to drop the tables then we dont skip the next steps anymore
@@ -791,14 +791,25 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             'zlib',
             'SPL',
             'iconv',
-            'Reflection',
+            'json',
+            'mbstring',
         );
+        // HHVM provides the required subset of Reflection but lists Reflections as missing
+        if (!defined('HHVM_VERSION')) {
+            $needed_extensions[] = 'Reflection';
+        }
         $infos['needed_extensions'] = $needed_extensions;
         $infos['missing_extensions'] = array();
         foreach ($needed_extensions as $needed_extension) {
             if (!in_array($needed_extension, $extensions)) {
                 $infos['missing_extensions'][] = $needed_extension;
             }
+        }
+
+        // Special case for mbstring
+        if (!function_exists('mb_get_info')
+            || ((int)ini_get('mbstring.func_overload')) != 0) {
+            $infos['missing_extensions'][] = 'mbstring';
         }
 
         $infos['pdo_ok'] = false;
@@ -824,6 +835,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             }
         }
 
+
         // warnings
         $desired_extensions = array(
             'json',
@@ -838,7 +850,6 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
                 $infos['missing_desired_extensions'][] = $desired_extension;
             }
         }
-
         $desired_functions = array(
             'set_time_limit',
             'mail',
@@ -857,21 +868,12 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
 
         $infos['gd_ok'] = SettingsServer::isGdExtensionEnabled();
 
-        $infos['hasMbstring'] = false;
-        $infos['multibyte_ok'] = true;
-        if (function_exists('mb_internal_encoding')) {
-            $infos['hasMbstring'] = true;
-            if (((int)ini_get('mbstring.func_overload')) != 0) {
-                $infos['multibyte_ok'] = false;
-            }
-        }
 
         $serverSoftware = isset($_SERVER['SERVER_SOFTWARE']) ? $_SERVER['SERVER_SOFTWARE'] : '';
         $infos['serverVersion'] = addslashes($serverSoftware);
         $infos['serverOs'] = @php_uname();
         $infos['serverTime'] = date('H:i:s');
 
-        $infos['registerGlobals_ok'] = ini_get('register_globals') == 0;
         $infos['memoryMinimum'] = $minimumMemoryLimit;
 
         $infos['memory_ok'] = true;
@@ -939,8 +941,6 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
 
         if (   !empty($infos['missing_desired_extensions'])
             || !$infos['gd_ok']
-            || !$infos['multibyte_ok']
-            || !$infos['registerGlobals_ok']
             || !$infos['memory_ok']
             || !empty($infos['integrityErrorMessages'])
             || !$infos['timezone'] // if timezone support isn't available
@@ -993,6 +993,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             'zlib'            => 'Installation_SystemCheckZlibHelp',
             'SPL'             => 'Installation_SystemCheckSplHelp',
             'iconv'           => 'Installation_SystemCheckIconvHelp',
+            'mbstring'        => 'Installation_SystemCheckMbstringHelp',
             'Reflection'      => 'Required extension that is built in PHP, see http://www.php.net/manual/en/book.reflection.php',
             'json'            => 'Installation_SystemCheckWarnJsonHelp',
             'libxml'          => 'Installation_SystemCheckWarnLibXmlHelp',
@@ -1008,6 +1009,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             'gzcompress'      => 'Installation_SystemCheckGzcompressHelp',
             'gzuncompress'    => 'Installation_SystemCheckGzuncompressHelp',
             'pack'            => 'Installation_SystemCheckPackHelp',
+            'php5-json'       => 'Installation_SystemCheckJsonHelp',
         );
 
         $view->problemWithSomeDirectories = (false !== array_search(false, $view->infos['directories']));
@@ -1088,7 +1090,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
 
     private function isFinishedInstallation()
     {
-        $isConfigFileFound = file_exists(Config::getLocalConfigPath());
+        $isConfigFileFound = file_exists(Config::getInstance()->getLocalPath());
 
         if (!$isConfigFileFound) {
             return false;

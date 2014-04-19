@@ -71,8 +71,10 @@ class AssetManager extends Singleton
         $this->cacheBuster = UIAssetCacheBuster::getInstance();
         $this->minimalStylesheetFetcher =  new StaticUIAssetFetcher(array('plugins/Zeitgeist/stylesheets/base.less'), array(), $this->theme);
 
-        if(Manager::getInstance()->getThemeEnabled() != null)
+        $theme = Manager::getInstance()->getThemeEnabled();
+        if(!empty($theme)) {
             $this->theme = new Theme();
+        }
     }
 
     /**
@@ -199,8 +201,9 @@ class AssetManager extends Singleton
     {
         $loadedPlugins = array();
 
-        foreach(Manager::getInstance()->getLoadedPluginsName() as $pluginName) {
+        foreach(Manager::getInstance()->getPluginsLoadedAndActivated() as $plugin) {
 
+            $pluginName = $plugin->getPluginName();
             $pluginIsCore = Manager::getInstance()->isPluginBundledWithCore($pluginName);
 
             if(($pluginIsCore && $core) || (!$pluginIsCore && !$core))

@@ -15,14 +15,6 @@ body {
     font-family: Verdana, sans-serif;
 }
 
-#logo  {
-    img.default-piwik-logo {
-        height: 21px;
-        width: 82px;
-        margin-top: 14px;
-    }
-}
-
 .pageWrap {
     padding-left: 10px;
     padding-right: 10px;
@@ -271,6 +263,17 @@ table.entityTable tr td a:hover {
       right: 0;
     }
   }
+  .dropdown-body {
+    background:#fff;
+    padding:0 10px;
+    .border-radius(0px);
+    border: 1px solid @silver-80;
+    border-top-width: 0px;
+  }
+  &:hover .dropdown-body {
+    background:#fff;
+    border-color: @silver-80;
+  }
   .segmentationContainer {
     > span > strong {
       color: @brand-red;
@@ -298,18 +301,16 @@ table.entityTable tr td a:hover {
 
   .segmentListContainer {
     .segmentationContainer {
-      &.visible {
-        .submenu {
+      .submenu {
           li {
-            .font-default(13px, 16px);
-            color: #444;
-            &:hover {
+          .font-default(13px, 16px);
+          color: #444;
+          &:hover {
               border-color: @silver-80 !important;
               background: #fff !important;
               .border-radius(0px);
-            }
           }
-        }
+          }
       }
     }
   }
@@ -386,7 +387,7 @@ table.dataTable {
                 .font-default(10px, 12px);
                 padding-top: 12px;
                 padding-bottom: 12px;
-                border-bottom: 1px solid @silver-80;
+                border-bottom: 1px solid @silver-85;
                 &.columnSorted {
                     background:  @silver-95 !important;
                     .sortIcon {
@@ -398,10 +399,21 @@ table.dataTable {
     }
     tr {
         td {
-            border-color: @silver-80 !important;
-            .font-default(13px, 16px);
+            border-color: @silver-85 !important;
             color: @brand-black;
             background: @silver-95;
+
+            &:not(.value) {
+              .font-default(13px, 16px);
+            }
+
+            .label {
+              line-height: normal;
+            }
+
+            .value {
+              .font-default(13px, 16px);
+            }
 
             &:first-child {
                 border-left: 0px;
@@ -415,6 +427,17 @@ table.dataTable {
             a {
                 text-decoration: none !important;
                 color: @brand-blue;
+                width: inherit;
+            }
+
+            div.label,
+            a.label,
+            span.label {
+              word-break: break-all;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              width: inherit;
+              display: inline-block;
             }
         }
         & td.columneven,
@@ -462,8 +485,12 @@ table.dataTable .dataTableRowActions {
 }
 
 .dataTableFooterIcons {
-    padding: 6px 8px;
-    border-top: 1px solid @silver-80;
+  padding: 6px 8px;
+  border-top: 1px solid @silver-80;
+}
+
+#dashboard .dataTableFooterIcons {
+    padding: 6px 8px 0px;
 }
 
 div.sparkline {
@@ -785,8 +812,17 @@ div.sparkline {
     }
 }
 
-#close.button, #maximise.button, #minimise.button, #refresh.button {
+.widgetTop .button {
     margin: 16px 8px 0 0;
+}
+
+.widget .widgetTop:hover .button {
+  visibility: visible;
+}
+
+.widget .widgetTop .button {
+  opacity: 0.8;
+  visibility: hidden;
 }
 
 .annotationView {
@@ -860,13 +896,13 @@ table#editSites {
 
 #multisites table.dataTable {
     thead tr th {
-        background: @silver-95 !important;
+        background: @theme-color-background-base;
     }
     td {
         background: white;
     }
     tr:hover td {
-        background: #f8f8f8;
+        background: #f2f2f2;
     }
     tfoot tr:hover td {
         background: white;

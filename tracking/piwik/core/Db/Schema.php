@@ -20,6 +20,7 @@ use Piwik\Singleton;
  */
 class Schema extends Singleton
 {
+    const DEFAULT_SCHEMA = 'Mysql';
 
     /**
      * Type of database schema
@@ -37,7 +38,14 @@ class Schema extends Singleton
      */
     private static function getSchemaClassName($schemaName)
     {
-        return '\Piwik\Db\Schema\\' . str_replace(' ', '\\', ucwords(str_replace('_', ' ', strtolower($schemaName))));
+        // Upgrade from pre 2.0.4
+        if(strtolower($schemaName) == 'myisam'
+            || empty($schemaName)) {
+            $schemaName = self::DEFAULT_SCHEMA;
+        }
+
+        $class = str_replace(' ', '\\', ucwords(str_replace('_', ' ', strtolower($schemaName))));
+        return '\Piwik\Db\Schema\\' . $class;
     }
 
     /**
@@ -50,7 +58,7 @@ class Schema extends Singleton
     {
         static $allSchemaNames = array(
             'MYSQL' => array(
-                'Mysql',
+                self::DEFAULT_SCHEMA,
                 // InfiniDB
             ),
 
@@ -110,12 +118,8 @@ class Schema extends Singleton
     {
         $config = Config::getInstance();
         $dbInfos = $config->database;
-        $schemaName = $dbInfos['schema'];
+        $schemaName = trim($dbInfos['schema']);
 
-        // Upgrade from pre 2.0.4
-        if(strtolower($schemaName) == 'myisam') {
-            $schemaName = 'Mysql';
-        }
         $className = self::getSchemaClassName($schemaName);
         $this->schema = new $className();
     }
@@ -178,9 +182,9 @@ class Schema extends Singleton
     /**
      * Drop database
      */
-    public function dropDatabase()
+    public function dropDatabase($dbName = null)
     {
-        $this->getSchema()->dropDatabase();
+        $this->getSchema()->dropDatabase($dbName);
     }
 
     /**
@@ -205,16 +209,6 @@ class Schema extends Singleton
     public function truncateAllTables()
     {
         $this->getSchema()->truncateAllTables();
-    }
-
-    /**
-     * Drop specific tables
-     *
-     * @param array $doNotDelete
-     */
-    public function dropTables($doNotDelete = array())
-    {
-        $this->getSchema()->dropTables($doNotDelete);
     }
 
     /**

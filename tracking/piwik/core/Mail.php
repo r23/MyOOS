@@ -8,6 +8,7 @@
  */
 namespace Piwik;
 
+use Piwik\Plugins\CoreAdminHome\CustomLogo;
 use Zend_Mail;
 
 /**
@@ -28,6 +29,16 @@ class Mail extends Zend_Mail
     {
         parent::__construct($charset);
         $this->initSmtpTransport();
+    }
+
+    public function setDefaultFromPiwik()
+    {
+        $customLogo = new CustomLogo();
+        $fromEmailName = $customLogo->isEnabled()
+            ? Piwik::translate('CoreHome_WebAnalyticsReports')
+            : Piwik::translate('ScheduledReports_PiwikReports');
+        $fromEmailAddress = Config::getInstance()->General['noreply_email_address'];
+        $this->setFrom($fromEmailAddress, $fromEmailName);
     }
 
     /**
@@ -79,5 +90,14 @@ class Mail extends Zend_Mail
         $tr = new \Zend_Mail_Transport_Smtp($mailConfig['host'], $smtpConfig);
         Mail::setDefaultTransport($tr);
         ini_set("smtp_port", $mailConfig['port']);
+    }
+
+    public function send($transport = NULL)
+    {
+        if (defined('PIWIK_TEST_MODE')) { // hack
+            Piwik::postTestEvent("Test.Mail.send", array($this));
+        } else {
+            return parent::send($transport);
+        }
     }
 }

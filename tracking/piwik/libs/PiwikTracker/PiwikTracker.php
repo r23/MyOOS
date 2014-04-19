@@ -148,6 +148,8 @@ class PiwikTracker
     const CVAR_INDEX_ECOMMERCE_ITEM_NAME = 4;
     const CVAR_INDEX_ECOMMERCE_ITEM_CATEGORY = 5;
 
+    const DEFAULT_COOKIE_PATH = '/';
+
     /**
      * Builds a PiwikTracker object, used to track visits, pages and Goal conversions
      * for a specific website, by using the Piwik Tracking API.
@@ -200,7 +202,7 @@ class PiwikTracker
         $this->setNewVisitorId();
 
         $this->configCookiesDisabled = false;
-        $this->configCookiePath = '/';
+        $this->configCookiePath = self::DEFAULT_COOKIE_PATH;
         $this->configCookieDomain = '';
 
         $this->currentTs = time();
@@ -496,7 +498,7 @@ class PiwikTracker
         }
         return $domain;
     }
-    
+
     /**
      * Get cookie name with prefix and domain hash
      */
@@ -966,10 +968,10 @@ class PiwikTracker
 
     /**
      * Loads values from the VisitorId Cookie
-     * 
+     *
      * @return bool True if cookie exists and is valid, False otherwise
      */
-    protected function loadVisitorIdCookie() 
+    protected function loadVisitorIdCookie()
     {
         $idCookie = $this->getCookieMatchingName('id');
         if ($idCookie === false) {
@@ -993,7 +995,7 @@ class PiwikTracker
     /**
      * Deletes all first party cookies from the client
      */
-    public function deleteCookies() 
+    public function deleteCookies()
     {
         $expire = $this->currentTs - 86400;
         $cookies = array('id', 'ses', 'cvar', 'ref');
@@ -1001,7 +1003,7 @@ class PiwikTracker
             $this->setCookie($cookie, '', $expire);
         }
     }
-    
+
     /**
      * Returns the currently assigned Attribution Information stored in a first party cookie.
      *
@@ -1278,7 +1280,7 @@ class PiwikTracker
             '&_idvc=' . $this->visitCount .
             (!empty($this->lastVisitTs) ? '&_viewts=' . $this->lastVisitTs : '' ) .
             (!empty($this->lastEcommerceOrderTs) ? '&_ects=' . $this->lastEcommerceOrderTs : '' ) .
-            
+
             // These parameters are set by the JS, but optional when using API
             (!empty($this->plugins) ? $this->plugins : '') .
             (($this->localHour !== false && $this->localMinute !== false && $this->localSecond !== false) ? '&h=' . $this->localHour . '&m=' . $this->localMinute . '&s=' . $this->localSecond : '') .
@@ -1487,7 +1489,7 @@ class PiwikTracker
      */
     protected function setCookie($cookieName, $cookieValue, $cookieTTL)
     {
-        $cookieExpire = $this->createTs + $cookieTTL;
+        $cookieExpire = $this->currentTs + $cookieTTL;
         if(!headers_sent()) {
             setcookie($this->getCookieName($cookieName), $cookieValue, $cookieExpire, $this->configCookiePath, $this->configCookieDomain);
         }

@@ -237,13 +237,11 @@ class Url
             return false;
         }
 
-
         foreach ($trustedHosts as &$trustedHost) {
             $trustedHost = preg_quote($trustedHost);
         }
         $untrustedHost = Common::mb_strtolower($host);
         $untrustedHost = rtrim($untrustedHost, '.');
-
 
         $hostRegex = Common::mb_strtolower('/(^|.)' . implode('|', $trustedHosts) . '$/');
 
@@ -537,11 +535,10 @@ class Url
             && in_array($parsedUrl['scheme'], array('http', 'https'));
     }
 
-    public static function getTrustedHosts( $filterEnrich = true )
+    public static function getTrustedHostsFromConfig()
     {
         $trustedHosts = @Config::getInstance()->General['trusted_hosts'];
-
-        if (empty($trustedHosts)) {
+        if (!is_array($trustedHosts)) {
             return array();
         }
         foreach ($trustedHosts as &$trustedHost) {
@@ -550,11 +547,15 @@ class Url
                 $trustedHost = parse_url($trustedHost, PHP_URL_HOST);
             }
         }
+        return $trustedHosts;
+    }
 
-        if($filterEnrich) {
-            /* used by Piwik PRO */
-            Piwik::postEvent('Url.filterTrustedHosts', array(&$trustedHosts));
-        }
+    public static function getTrustedHosts()
+    {
+        $trustedHosts = self::getTrustedHostsFromConfig();
+
+        /* used by Piwik PRO */
+        Piwik::postEvent('Url.filterTrustedHosts', array(&$trustedHosts));
 
         return $trustedHosts;
     }

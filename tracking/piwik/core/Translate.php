@@ -68,6 +68,9 @@ class Translate
 
     private static function loadCoreTranslationFile($language)
     {
+        if(empty($language)) {
+            return;
+        }
         $path = PIWIK_INCLUDE_PATH . '/lang/' . $language . '.json';
         if (!Filesystem::isValidFilename($language) || !is_readable($path)) {
             throw new Exception(Piwik::translate('General_ExceptionLanguageFileNotFound', array($language)));
@@ -161,9 +164,6 @@ class Translate
         $js = 'var translations = ' . Common::json_encode($clientSideTranslations) . ';';
         $js .= "\n" . 'if(typeof(piwik_translations) == \'undefined\') { var piwik_translations = new Object; }' .
             'for(var i in translations) { piwik_translations[i] = translations[i];} ';
-        $js .= 'function _pk_translate(translationStringId) { ' .
-            'if( typeof(piwik_translations[translationStringId]) != \'undefined\' ){  return piwik_translations[translationStringId]; }' .
-            'return "The string "+translationStringId+" was not loaded in javascript. Make sure it is added in the Translate.getClientSideTranslationKeys hook.";}';
         return $js;
     }
 

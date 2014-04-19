@@ -50,10 +50,10 @@ class Rules
      * @param string $plugin
      * @return string
      */
-    public static function getDoneStringFlagFor(array $idSites, $segment, $periodLabel, $plugin)
+    public static function getDoneStringFlagFor(array $idSites, $segment, $periodLabel, $plugin, $isSkipAggregationOfSubTables)
     {
         if (!self::shouldProcessReportsAllPlugins($idSites, $segment, $periodLabel)) {
-            return self::getDoneFlagArchiveContainsOnePlugin($segment, $plugin);
+            return self::getDoneFlagArchiveContainsOnePlugin($segment, $plugin, $isSkipAggregationOfSubTables);
         }
         return self::getDoneFlagArchiveContainsAllPlugins($segment);
     }
@@ -64,16 +64,7 @@ class Rules
             return true;
         }
 
-        $segmentsToProcess = self::getSegmentsToProcess($idSites);
-        if (!empty($segmentsToProcess)) {
-            // If the requested segment is one of the segments to pre-process
-            // we ensure that any call to the API will trigger archiving of all reports for this segment
-            $segment = $segment->getString();
-            if (in_array($segment, $segmentsToProcess)) {
-                return true;
-            }
-        }
-        return false;
+        return self::isSegmentPreProcessed($idSites, $segment);
     }
 
     /**
@@ -93,9 +84,10 @@ class Rules
         return $segmentsToProcess;
     }
 
-    private static function getDoneFlagArchiveContainsOnePlugin(Segment $segment, $plugin)
+    public static function getDoneFlagArchiveContainsOnePlugin(Segment $segment, $plugin, $isSkipAggregationOfSubTables = false)
     {
-        return 'done' . $segment->getHash() . '.' . $plugin;
+        $partial = self::isFlagArchivePartial($plugin, $isSkipAggregationOfSubTables);
+        return 'done' . $segment->getHash() . '.' . $plugin . $partial ;
     }
 
     private static function getDoneFlagArchiveContainsAllPlugins(Segment $segment)
@@ -104,17 +96,35 @@ class Rules
     }
 
     /**
+     * @param $plugin
+     * @param $isSkipAggregationOfSubTables
+     * @return string
+     */
+    private static function isFlagArchivePartial($plugin, $isSkipAggregationOfSubTables)
+    {
+        $partialArchive = '';
+        if ($plugin != "VisitsSummary" // VisitsSummary is always called when segmenting and should not have its own .partial archive
+            && $isSkipAggregationOfSubTables
+        ) {
+            $partialArchive = '.partial';
+        }
+        return $partialArchive;
+    }
+
+    /**
      * @param array $plugins
      * @param $segment
      * @return array
      */
-    public static function getDoneFlags(array $plugins, $segment)
+    public static function getDoneFlags(array $plugins, Segment $segment, $isSkipAggregationOfSubTables)
     {
         $doneFlags = array();
         $doneAllPlugins = self::getDoneFlagArchiveContainsAllPlugins($segment);
         $doneFlags[$doneAllPlugins] = $doneAllPlugins;
+
+        $plugins = array_unique($plugins);
         foreach ($plugins as $plugin) {
-            $doneOnePlugin = self::getDoneFlagArchiveContainsOnePlugin($segment, $plugin);
+            $doneOnePlugin = self::getDoneFlagArchiveContainsOnePlugin($segment, $plugin, $isSkipAggregationOfSubTables);
             $doneFlags[$plugin] = $doneOnePlugin;
         }
         return $doneFlags;
@@ -218,19 +228,21 @@ class Rules
             return false;
         }
         $processOneReportOnly = !self::shouldProcessReportsAllPlugins($idSites, $segment, $periodLabel);
-        $isArchivingDisabled = !self::isRequestAuthorizedToArchive();
+        $isArchivingDisabled = !self::isRequestAuthorizedToArchive() || self::$archivingDisabledByTests;
 
         if ($processOneReportOnly) {
-            // When there is a segment, archiving is not necessary allowed
-            // If browser archiving is allowed, then archiving is enabled
-            // if browser archiving is not allowed, then archiving is disabled
+
+            // When there is a segment, we disable archiving when browser_archiving_disabled_enforce applies
             if (!$segment->isEmpty()
                 && $isArchivingDisabled
                 && Config::getInstance()->General['browser_archiving_disabled_enforce']
+                && !SettingsServer::isArchivePhpTriggered() // Only applies when we are not running archive.php
             ) {
                 Log::debug("Archiving is disabled because of config setting browser_archiving_disabled_enforce=1");
                 return true;
             }
+
+            // Always allow processing one report
             return false;
         }
         return $isArchivingDisabled;
@@ -238,11 +250,7 @@ class Rules
 
     protected static function isRequestAuthorizedToArchive()
     {
-        return !self::$archivingDisabledByTests &&
-        (Rules::isBrowserTriggerEnabled()
-            || Common::isPhpCliMode()
-            || (Piwik::hasUserSuperUserAccess()
-                && SettingsServer::isArchivePhpTriggered()));
+        return Rules::isBrowserTriggerEnabled() || SettingsServer::isArchivePhpTriggered();
     }
 
     public static function isBrowserTriggerEnabled()
@@ -265,5 +273,32 @@ class Rules
         }
         Option::set(self::OPTION_BROWSER_TRIGGER_ARCHIVING, (int)$enabled, $autoLoad = true);
         Cache::clearCacheGeneral();
+    }
+
+    /**
+     * @param array $idSites
+     * @param Segment $segment
+     * @return bool
+     */
+    protected static function isSegmentPreProcessed(array $idSites, Segment $segment)
+    {
+        $segmentsToProcess = self::getSegmentsToProcess($idSites);
+
+        if (empty($segmentsToProcess)) {
+            return false;
+        }
+        // If the requested segment is one of the segments to pre-process
+        // we ensure that any call to the API will trigger archiving of all reports for this segment
+        $segment = $segment->getString();
+
+        // Turns out the getString() above returns the URL decoded segment string
+        $segmentsToProcessUrlDecoded = array_map('urldecode', $segmentsToProcess);
+
+        if (in_array($segment, $segmentsToProcess)
+            || in_array($segment, $segmentsToProcessUrlDecoded)
+        ) {
+            return true;
+        }
+        return false;
     }
 }

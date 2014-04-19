@@ -5,6 +5,39 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 
+
+function _pk_translate(translationStringId, values) {
+
+    function sprintf (translation, values) {
+        var index = 0;
+        return (translation+'').replace(/(%(.\$)?s+)/g, function(match, number) {
+
+            var replaced = match;
+            if (match != '%s') {
+                index = parseInt(match.substr(1, 1)) - 1;
+            }
+
+            if (typeof values[index] != 'undefined') {
+                replaced = values[index];
+            }
+
+            index++;
+            return replaced;
+        });
+    }
+
+    if( typeof(piwik_translations[translationStringId]) != 'undefined' ){
+        var translation = piwik_translations[translationStringId];
+        if (typeof values != 'undefined' && values && values.length) {
+            return sprintf(translation, values);
+        }
+
+        return translation;
+    }
+
+    return "The string "+translationStringId+" was not loaded in javascript. Make sure it is added in the Translate.getClientSideTranslationKeys hook.";
+}
+
 var piwikHelper = {
 
     htmlDecode: function(value)
@@ -78,6 +111,21 @@ var piwikHelper = {
 	},
 
     /**
+     * As we still have a lot of old jQuery code and copy html from node to node we sometimes have to trigger the
+     * compiling of angular components manually.
+     *
+     * @param selector
+     */
+    compileAngularComponents: function (selector) {
+        var $element = $(selector);
+
+        angular.element(document).injector().invoke(function($compile) {
+            var scope = angular.element($element).scope();
+            $compile($element)(scope);
+        });
+    },
+
+    /**
      * Displays a Modal dialog. Text will be taken from the DOM node domSelector.
      * Given callback handles will be mapped to the buttons having a role attriute
      *
@@ -91,16 +139,25 @@ var piwikHelper = {
     modalConfirm: function( domSelector, handles )
     {
         var domElem = $(domSelector);
-        var buttons = {};
+        var buttons = [];
 
         $('[role]', domElem).each(function(){
-            var role = $(this).attr('role');
-            var text = $(this).val();
+            var role  = $(this).attr('role');
+            var title = $(this).attr('title');
+            var text  = $(this).val();
+
+            var button = {text: text};
+
             if(typeof handles[role] == 'function') {
-                buttons[text] = function(){$(this).dialog("close"); handles[role].apply()};
+                button.click = function(){$(this).dialog("close"); handles[role].apply()};
             } else {
-                buttons[text] = function(){$(this).dialog("close");};
+                button.click = function(){$(this).dialog("close");};
             }
+
+            if (title) {
+                button.title = title;
+            }
+            buttons.push(button);
             $(this).hide();
         });
 

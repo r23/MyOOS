@@ -62,7 +62,8 @@ DOWNLOAD_EXTENSIONS = (
     '7z aac arc arj asf asx avi bin csv deb dmg doc exe flv gz gzip hqx '
     'jar mpg mp2 mp3 mp4 mpeg mov movie msi msp odb odf odg odp '
     'ods odt ogg ogv pdf phps ppt qt qtm ra ram rar rpm sea sit tar tbz '
-    'bz2 tbz tgz torrent txt wav wma wmv wpd xls xml xsd z zip'
+    'bz2 tbz tgz torrent txt wav wma wmv wpd xls xml xsd z zip '
+    'azw3 epub mobi'
 ).split()
 
 
@@ -580,6 +581,27 @@ class Configuration(object):
         if self.options.login and self.options.password:
             piwik_login = self.options.login
             piwik_password = hashlib.md5(self.options.password).hexdigest()
+
+            logging.debug('Using credentials: (login = %s, password = %s)', piwik_login, piwik_password)
+            try:
+                api_result = piwik.call_api('UsersManager.getTokenAuth',
+                    userLogin=piwik_login,
+                    md5Password=piwik_password,
+                    _token_auth='',
+                    _url=self.options.piwik_url,
+                )
+            except urllib2.URLError, e:
+                fatal_error('error when fetching token_auth from the API: %s' % e)
+
+            try:
+                return api_result['value']
+            except KeyError:
+                # Happens when the credentials are invalid.
+                message = api_result.get('message')
+                fatal_error(
+                    'error fetching authentication token token_auth%s' % (
+                    ': %s' % message if message else '')
+                )
         else:
             # Fallback to the given (or default) configuration file, then
             # get the token from the API.
@@ -600,14 +622,31 @@ class Configuration(object):
                     '../../misc/cron/updatetoken.php'),
             )
 
-            command = ['php', updatetokenfile]
+            phpBinary = 'php'
+
+            is_windows = sys.platform.startswith('win')
+            if is_windows:
+                try:
+                    processWin = subprocess.Popen('where php.exe', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                    [stdout, stderr] = processWin.communicate()
+                    if processWin.returncode == 0:
+                        phpBinary = stdout.strip()
+                    else:
+                        fatal_error("We couldn't detect PHP. It might help to add your php.exe to the path or alternatively run the importer using the --login and --password option")
+                except:
+                    fatal_error("We couldn't detect PHP. You can run the importer using the --login and --password option to fix this issue")
+
+
+            command = [phpBinary, updatetokenfile]
             if self.options.enable_testmode:
                 command.append('--testmode')
 
-            process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            command = subprocess.list2cmdline(command)
+            process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
             [stdout, stderr] = process.communicate()
             if process.returncode != 0:
-                fatal_error("misc/cron/updatetoken.php failed: " + stderr)
+                fatal_error("`" + command + "` failed with error: " + stderr + ".\nReponse code was: " + str(process.returncode) + ". You can alternatively run the importer using the --login and --password option")
+
 
             filename = stdout
             credentials = open(filename, 'r').readline()
@@ -900,7 +939,7 @@ class Piwik(object):
         try:
             return json.loads(res)
         except ValueError:
-            truncate_after = 1100
+            truncate_after = 4000
             raise urllib2.URLError('Piwik returned an invalid response: ' + res[:truncate_after])
 
 
@@ -917,7 +956,7 @@ class Piwik(object):
                     if on_failure is not None:
                         error_message = on_failure(response, kwargs.get('data'))
                     else:
-                        truncate_after = 1100
+                        truncate_after = 4000
                         truncated_response = (response[:truncate_after] + '..') if len(response) > truncate_after else response
                         error_message = "didn't receive the expected response. Response was %s " % truncated_response
 
@@ -1298,7 +1337,7 @@ class Recorder(object):
             return response
 
         # remove the successfully tracked hits from payload
-        succeeded = response['tracked']
+        tracked = response['tracked']
         data['requests'] = data['requests'][tracked:]
 
         return response['message']
@@ -1642,6 +1681,7 @@ class Parser(object):
             if config.options.replay_tracking:
                 # we need a query string and we only consider requests with piwik.php
                 if not hit.query_string or not hit.path.lower().endswith('piwik.php'):
+                    invalid_line(line, 'no query string, or ' + hit.path.lower() + ' does not end with piwik.php')
                     continue
 
                 query_arguments = urlparse.parse_qs(hit.query_string)

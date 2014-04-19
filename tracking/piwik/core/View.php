@@ -134,9 +134,14 @@ class View implements ViewInterface
         $this->initializeTwig();
 
         $this->piwik_version = Version::VERSION;
-        $this->piwikUrl = Common::sanitizeInputValue(Url::getCurrentUrlWithoutFileName());
         $this->userLogin = Piwik::getCurrentUserLogin();
-        $this->isSuperUser = Access::getInstance()->hasSuperUserAccess(); // TODO: redundancy w/ userIsSuperUser
+        $this->isSuperUser = Access::getInstance()->hasSuperUserAccess();
+
+        try {
+            $this->piwikUrl = SettingsPiwik::getPiwikUrl();
+        } catch (Exception $ex) {
+            // pass (occurs when DB cannot be connected to, perhaps piwik URL cache should be stored in config file...)
+        }
     }
 
     /**
@@ -203,13 +208,6 @@ class View implements ViewInterface
             $this->currentModule = Piwik::getModule();
             $this->currentAction = Piwik::getAction();
 
-            $count = SettingsPiwik::getWebsitesCountToDisplay();
-
-            $sites = APISitesManager::getInstance()->getSitesWithAtLeastViewAccess($count);
-            usort($sites, function ($site1, $site2) {
-                return strcasecmp($site1["name"], $site2["name"]);
-            });
-            $this->sites = $sites;
             $this->url = Common::sanitizeInputValue(Url::getCurrentUrl());
             $this->token_auth = Piwik::getCurrentUserTokenAuth();
             $this->userHasSomeAdminAccess = Piwik::isUserHasSomeAdminAccess();
@@ -217,11 +215,7 @@ class View implements ViewInterface
             $this->latest_version_available = UpdateCheck::isNewestVersionAvailable();
             $this->disableLink = Common::getRequestVar('disableLink', 0, 'int');
             $this->isWidget = Common::getRequestVar('widget', 0, 'int');
-            if (Config::getInstance()->General['autocomplete_min_sites'] <= count($sites)) {
-                $this->show_autocompleter = true;
-            } else {
-                $this->show_autocompleter = false;
-            }
+            $this->cacheBuster = UIAssetCacheBuster::getInstance()->piwikVersionBasedCacheBuster();
 
             $this->loginModule = Piwik::getLoginPluginName();
 
@@ -249,7 +243,7 @@ class View implements ViewInterface
 
     protected function renderTwigTemplate()
     {
-        $output = $this->twig->render($this->template, $this->templateVars);
+        $output = $this->twig->render($this->getTemplateFile(), $this->getTemplateVars());
         $output = $this->applyFilter_cacheBuster($output);
 
         $helper = new Theme;
@@ -326,7 +320,6 @@ class View implements ViewInterface
 
     /**
      * Assign value to a variable for use in a template
-     * ToDo: This is ugly.
      * @param string|array $var
      * @param mixed $value
      * @ignore
@@ -348,8 +341,8 @@ class View implements ViewInterface
      */
     static public function clearCompiledTemplates()
     {
-        $view = new View(null);
-        $view->twig->clearTemplateCache();
+        $twig = new Twig();
+        $twig->getTwigEnvironment()->clearTemplateCache();
     }
 
     /**
@@ -360,7 +353,6 @@ class View implements ViewInterface
      *
      * @param string $title The report title.
      * @param string $reportHtml The report body HTML.
-     * @param bool $fetch If true, return report contents as a string; otherwise echo to screen.
      * @return string|void The report contents if `$fetch` is true.
      */
     static public function singleReport($title, $reportHtml)
@@ -368,7 +360,6 @@ class View implements ViewInterface
         $view = new View('@CoreHome/_singleReport');
         $view->title = $title;
         $view->report = $reportHtml;
-
         return $view->render();
     }
 }

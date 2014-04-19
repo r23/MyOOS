@@ -11,8 +11,8 @@ namespace Piwik\Tracker;
 use Exception;
 use Piwik\Common;
 use Piwik\Config;
-use Piwik\Log;
 use Piwik\Piwik;
+use Piwik\Plugins\CustomVariables\CustomVariables;
 use Piwik\Tracker;
 
 /**
@@ -141,9 +141,9 @@ class GoalManager
         foreach ($goals as $goal) {
             $attribute = $goal['match_attribute'];
             // if the attribute to match is not the type of the current action
-            if (($actionType == Action::TYPE_PAGE_URL && $attribute != 'url' && $attribute != 'title')
-                || ($actionType == Action::TYPE_DOWNLOAD && $attribute != 'file')
-                || ($actionType == Action::TYPE_OUTLINK && $attribute != 'external_website')
+            if (   (($attribute == 'url' || $attribute == 'title') && $actionType != Action::TYPE_PAGE_URL)
+                || ($attribute == 'file' && $actionType != Action::TYPE_DOWNLOAD)
+                || ($attribute == 'external_website' && $actionType != Action::TYPE_OUTLINK)
                 || ($attribute == 'manually')
             ) {
                 continue;
@@ -156,40 +156,7 @@ class GoalManager
             }
             $pattern_type = $goal['pattern_type'];
 
-            switch ($pattern_type) {
-                case 'regex':
-                    $pattern = $goal['pattern'];
-                    if (strpos($pattern, '/') !== false
-                        && strpos($pattern, '\\/') === false
-                    ) {
-                        $pattern = str_replace('/', '\\/', $pattern);
-                    }
-                    $pattern = '/' . $pattern . '/';
-                    if (!$goal['case_sensitive']) {
-                        $pattern .= 'i';
-                    }
-                    $match = (@preg_match($pattern, $url) == 1);
-                    break;
-                case 'contains':
-                    if ($goal['case_sensitive']) {
-                        $matched = strpos($url, $goal['pattern']);
-                    } else {
-                        $matched = stripos($url, $goal['pattern']);
-                    }
-                    $match = ($matched !== false);
-                    break;
-                case 'exact':
-                    if ($goal['case_sensitive']) {
-                        $matched = strcmp($goal['pattern'], $url);
-                    } else {
-                        $matched = strcasecmp($goal['pattern'], $url);
-                    }
-                    $match = ($matched == 0);
-                    break;
-                default:
-                    throw new Exception(Piwik::translate('General_ExceptionInvalidGoalPattern', array($pattern_type)));
-                    break;
-            }
+            $match = $this->isUrlMatchingGoal($goal, $pattern_type, $url);
             if ($match) {
                 $goal['url'] = $decodedActionUrl;
                 $this->convertedGoals[] = $goal;
@@ -260,7 +227,11 @@ class GoalManager
         }
 
         // Copy Custom Variables from Visit row to the Goal conversion
-        for ($i = 1; $i <= Tracker::MAX_CUSTOM_VARIABLES; $i++) {
+        // Otherwise, set the Custom Variables found in the cookie sent with this request
+        $goal += $visitCustomVariables;
+        $maxCustomVariables = CustomVariables::getMaxCustomVariables();
+
+        for ($i = 1; $i <= $maxCustomVariables; $i++) {
             if (isset($visitorInformation['custom_var_k' . $i])
                 && strlen($visitorInformation['custom_var_k' . $i])
             ) {
@@ -272,8 +243,6 @@ class GoalManager
                 $goal['custom_var_v' . $i] = $visitorInformation['custom_var_v' . $i];
             }
         }
-        // Otherwise, set the Custom Variables found in the cookie sent with this request
-        $goal += $visitCustomVariables;
 
         // Attributing the correct Referrer to this conversion.
         // Priority order is as follows:
@@ -886,5 +855,51 @@ class GoalManager
                 $keyword = Common::mb_strtolower($keyword);
             }
         }
+    }
+
+    /**
+     * @param $goal
+     * @param $pattern_type
+     * @param $url
+     * @return bool
+     * @throws \Exception
+     */
+    protected function isUrlMatchingGoal($goal, $pattern_type, $url)
+    {
+        switch ($pattern_type) {
+            case 'regex':
+                $pattern = $goal['pattern'];
+                if (strpos($pattern, '/') !== false
+                    && strpos($pattern, '\\/') === false
+                ) {
+                    $pattern = str_replace('/', '\\/', $pattern);
+                }
+                $pattern = '/' . $pattern . '/';
+                if (!$goal['case_sensitive']) {
+                    $pattern .= 'i';
+                }
+                $match = (@preg_match($pattern, $url) == 1);
+                break;
+            case 'contains':
+                if ($goal['case_sensitive']) {
+                    $matched = strpos($url, $goal['pattern']);
+                } else {
+                    $matched = stripos($url, $goal['pattern']);
+                }
+                $match = ($matched !== false);
+                break;
+            case 'exact':
+                if ($goal['case_sensitive']) {
+                    $matched = strcmp($goal['pattern'], $url);
+                } else {
+                    $matched = strcasecmp($goal['pattern'], $url);
+                }
+                $match = ($matched == 0);
+                break;
+            default:
+                throw new Exception(Piwik::translate('General_ExceptionInvalidGoalPattern', array($pattern_type)));
+                break;
+        }
+        return $match;
     }
 }

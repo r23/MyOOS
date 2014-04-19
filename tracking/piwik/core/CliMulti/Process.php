@@ -146,6 +146,14 @@ class Process
             return false;
         }
 
+        if (self::shellExecFunctionIsDisabled()) {
+            return false;
+        }
+
+        if (self::isSystemNotSupported()) {
+            return false;
+        }
+
         if (static::commandExists('ps') && self::returnsSuccessCode('ps') && self::commandExists('awk')) {
             return true;
         }
@@ -153,10 +161,28 @@ class Process
         return false;
     }
 
+    private static function isSystemNotSupported()
+    {
+        $uname = shell_exec('uname -a');
+        if(strpos($uname, 'synology') !== false) {
+            return true;
+        }
+        return false;
+    }
+
+    private static function shellExecFunctionIsDisabled()
+    {
+        $command = 'shell_exec';
+        $disabled = explode(',', ini_get('disable_functions'));
+        $disabled = array_map('trim', $disabled);
+        return in_array($command, $disabled);
+    }
+
     private static function returnsSuccessCode($command)
     {
-        system($command . ' > /dev/null 2>&1', $returnCode);
-
+        $exec = $command . ' > /dev/null 2>&1 & echo $?';
+        $returnCode = shell_exec($exec);
+        $returnCode = trim($returnCode);
         return 0 == (int) $returnCode;
     }
 

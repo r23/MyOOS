@@ -203,15 +203,16 @@ abstract class Controller
     /**
      * Convenience method that creates and renders a ViewDataTable for a API method.
      *
-     * @param string $pluginName The name of the plugin (eg, `'UserSettings'`).
      * @param string $apiAction The name of the API action (eg, `'getResolution'`).
+     * @param bool $controllerAction The name of the Controller action name  that is rendering the report. Defaults
+     *                               to the `$apiAction`.
      * @param bool $fetch If `true`, the rendered string is returned, if `false` it is `echo`'d.
      * @throws \Exception if `$pluginName` is not an existing plugin or if `$apiAction` is not an
      *                    existing method of the plugin's API.
      * @return string|void See `$fetch`.
      * @api
      */
-    protected function renderReport($apiAction)
+    protected function renderReport($apiAction, $controllerAction = false)
     {
         $pluginName = $this->pluginName;
 
@@ -224,7 +225,11 @@ abstract class Controller
 
         $apiAction = $apiProxy->buildApiActionName($pluginName, $apiAction);
 
-        $view      = ViewDataTableFactory::build(null, $apiAction);
+        if ($controllerAction !== false) {
+            $controllerAction = $pluginName . '.' . $controllerAction;
+        }
+
+        $view      = ViewDataTableFactory::build(null, $apiAction, $controllerAction);
         $rendered  = $view->render();
 
         return $rendered;
@@ -507,8 +512,6 @@ abstract class Controller
             $language = LanguagesManager::getLanguageForSession();
             $view->language = !empty($language) ? $language : LanguagesManager::getLanguageCodeForCurrentUser();
 
-            $view->config_action_url_category_delimiter = PiwikConfig::getInstance()->General['action_url_category_delimiter'];
-
             $this->setBasicVariablesView($view);
 
             $view->topMenu       = MenuTop::getInstance()->getMenu();
@@ -544,9 +547,13 @@ abstract class Controller
      */
     protected function setBasicVariablesView($view)
     {
+        $view->clientSideConfig = PiwikConfig::getInstance()->getClientSideOptions();
         $view->debugTrackVisitsInsidePiwikUI = PiwikConfig::getInstance()->Debug['track_visits_inside_piwik_ui'];
         $view->isSuperUser = Access::getInstance()->hasSuperUserAccess();
         $view->hasSomeAdminAccess = Piwik::isUserHasSomeAdminAccess();
+        $view->hasSomeViewAccess  = Piwik::isUserHasSomeViewAccess();
+        $view->isUserIsAnonymous  = Piwik::isUserIsAnonymous();
+        $view->hasSuperUserAccess = Piwik::hasUserSuperUserAccess();
 
         $customLogo = new CustomLogo();
         $view->isCustomLogo = $customLogo->isEnabled();
@@ -555,6 +562,7 @@ abstract class Controller
         $view->logoLarge = \Piwik\Plugins\API\API::getInstance()->getLogoUrl();
         $view->logoSVG = \Piwik\Plugins\API\API::getInstance()->getSVGLogoUrl();
         $view->hasSVGLogo = \Piwik\Plugins\API\API::getInstance()->hasSVGLogo();
+        $view->superUserEmails = implode(',', Piwik::getAllSuperUserAccessEmailAddresses());
 
         $general = PiwikConfig::getInstance()->General;
         $view->enableFrames = $general['enable_framed_pages']
@@ -584,7 +592,7 @@ abstract class Controller
         $view->isValidHost = Url::isValidHost();
         if (!$view->isValidHost) {
             // invalid host, so display warning to user
-            $validHosts = Url::getTrustedHosts($filterEnrich = false);
+            $validHosts = Url::getTrustedHostsFromConfig();
             $validHost = $validHosts[0];
             $invalidHost = Common::sanitizeInputValue($_SERVER['HTTP_HOST']);
 

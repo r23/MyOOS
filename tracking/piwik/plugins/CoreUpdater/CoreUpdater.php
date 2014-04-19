@@ -13,6 +13,8 @@ use Piwik\Common;
 use Piwik\Filesystem;
 use Piwik\FrontController;
 use Piwik\Piwik;
+use Piwik\ScheduledTask;
+use Piwik\ScheduledTime;
 use Piwik\UpdateCheck;
 use Piwik\Updater;
 use Piwik\UpdaterErrorException;
@@ -31,15 +33,28 @@ class CoreUpdater extends \Piwik\Plugin
     {
         $hooks = array(
             'Request.dispatchCoreAndPluginUpdatesScreen' => 'dispatch',
-            'Updater.checkForUpdates'                    => 'updateCheck',
-            'Console.addCommands'                        => 'addConsoleCommands',
+            'Platform.initialized'                       => 'updateCheck',
+            'TaskScheduler.getScheduledTasks'            => 'getScheduledTasks',
         );
         return $hooks;
     }
 
-    public function addConsoleCommands(&$commands)
+    public function getScheduledTasks(&$tasks)
     {
-        $commands[] = 'Piwik\Plugins\CoreUpdater\Commands\Update';
+        $sendUpdateNotification = new ScheduledTask($this,
+            'sendNotificationIfUpdateAvailable',
+            null,
+            ScheduledTime::factory('daily'),
+            ScheduledTask::LOWEST_PRIORITY);
+        $tasks[] = $sendUpdateNotification;
+    }
+
+    public function sendNotificationIfUpdateAvailable()
+    {
+        $coreUpdateCommunication = new UpdateCommunication();
+        if ($coreUpdateCommunication->isEnabled()) {
+            $coreUpdateCommunication->sendNotificationIfUpdateAvailable();
+        }
     }
 
     public static function updateComponents(Updater $updater, $componentsWithUpdateFile)

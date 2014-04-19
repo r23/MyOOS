@@ -22,8 +22,6 @@ use Piwik\DataTable;
  */
 class ResponseBuilder
 {
-    const DISPLAY_BACKTRACE_DEBUG = false;
-
     private $request = null;
     private $outputFormat = null;
 
@@ -72,6 +70,50 @@ class ResponseBuilder
         $this->apiModule = $apiModule;
         $this->apiMethod = $apiMethod;
 
+        if($this->outputFormat == 'original') {
+            @header('Content-Type: text/plain; charset=utf-8');
+        }
+        return $this->renderValue($value);
+    }
+
+    /**
+     * Returns an error $message in the requested $format
+     *
+     * @param Exception $e
+     * @throws Exception
+     * @return string
+     */
+    public function getResponseException(Exception $e)
+    {
+        $format = strtolower($this->outputFormat);
+
+        if ($format == 'original') {
+            throw $e;
+        }
+
+        try {
+            $renderer = Renderer::factory($format);
+        } catch (Exception $exceptionRenderer) {
+            return "Error: " . $e->getMessage() . " and: " . $exceptionRenderer->getMessage();
+        }
+
+        $e = $this->decorateExceptionWithDebugTrace($e);
+
+        $renderer->setException($e);
+
+        if ($format == 'php') {
+            $renderer->setSerialize($this->caseRendererPHPSerialize());
+        }
+
+        return $renderer->renderException();
+    }
+
+    /**
+     * @param $value
+     * @return string
+     */
+    protected function renderValue($value)
+    {
         // when null or void is returned from the api call, we handle it as a successful operation
         if (!isset($value)) {
             return $this->handleSuccess();
@@ -111,38 +153,6 @@ class ResponseBuilder
     }
 
     /**
-     * Returns an error $message in the requested $format
-     *
-     * @param Exception $e
-     * @throws Exception
-     * @return string
-     */
-    public function getResponseException(Exception $e)
-    {
-        $format = strtolower($this->outputFormat);
-
-        if ($format == 'original') {
-            throw $e;
-        }
-
-        try {
-            $renderer = Renderer::factory($format);
-        } catch (Exception $exceptionRenderer) {
-            return "Error: " . $e->getMessage() . " and: " . $exceptionRenderer->getMessage();
-        }
-
-        $e = $this->decorateExceptionWithDebugTrace($e);
-
-        $renderer->setException($e);
-
-        if ($format == 'php') {
-            $renderer->setSerialize($this->caseRendererPHPSerialize());
-        }
-
-        return $renderer->renderException();
-    }
-
-    /**
      * @param Exception $e
      * @return Exception
      */
@@ -150,12 +160,10 @@ class ResponseBuilder
     {
         // If we are in tests, show full backtrace
         if (defined('PIWIK_PATH_TEST_TO_ROOT')) {
-            if (self::DISPLAY_BACKTRACE_DEBUG
-                || \Piwik_ShouldPrintBackTraceWithMessage()
-            ) {
+            if (\Piwik_ShouldPrintBackTraceWithMessage()) {
                 $message = $e->getMessage() . " in \n " . $e->getFile() . ":" . $e->getLine() . " \n " . $e->getTraceAsString();
             } else {
-                $message = $e->getMessage() . "\n \n --> To temporarily debug this error further, set const DISPLAY_BACKTRACE_DEBUG=true; in " . basename(__FILE__);
+                $message = $e->getMessage() . "\n \n --> To temporarily debug this error further, set const PIWIK_PRINT_ERROR_BACKTRACE=true; in index.php";
             }
             return new Exception($message);
         }

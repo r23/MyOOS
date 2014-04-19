@@ -120,13 +120,15 @@
 
             for (var seriesIdx = 0; seriesIdx != this.data.length; ++seriesIdx) {
                 var series = this.data[seriesIdx];
-                var sum = series.reduce(function (previousValue, currentValue) {
-                    if ($.isArray(currentValue) && currentValue[1]) {
-                        return previousValue + currentValue[1];
-                    }
+                var sum = 0;
 
-                    return previousValue + currentValue;
-                }, 0);
+                $.each(series, function(index, value) {
+                    if ($.isArray(value) && value[1]) {
+                        sum = sum + value[1];
+                    } else {
+                        sum = sum + value;
+                    }
+                });
 
                 var percentages = this.tooltip.percentages[seriesIdx] = [];
                 for (var valueIdx = 0; valueIdx != series.length; ++valueIdx) {
@@ -462,6 +464,7 @@
                 // initially, show only the first series
                 this.data = [this.data[0]];
                 this.jqplotParams.series = [this.jqplotParams.series[0]];
+                this.setYTicks();
             }
         },
 
@@ -596,6 +599,7 @@ JQPlotExternalSeriesToggle.prototype = {
 
         this.jqplotObject.data = config.data;
         this.jqplotObject.jqplotParams = config.params;
+        this.jqplotObject.setYTicks();
         this.jqplotObject.render();
     },
 

@@ -93,6 +93,9 @@ class PluginsArchiver
             /** @var Archiver $archiver */
             $archiver = new $archiverClass($this->archiveProcessor);
 
+            if(!$archiver->isEnabled()) {
+                continue;
+            }
             if($this->shouldProcessReportsForPlugin($pluginName)) {
                 if($this->isSingleSiteDayArchive) {
                     $archiver->aggregateDayReport();
@@ -121,7 +124,7 @@ class PluginsArchiver
     protected function getPluginArchivers()
     {
         if (empty(static::$archivers)) {
-            $pluginNames = \Piwik\Plugin\Manager::getInstance()->getLoadedPluginsName();
+            $pluginNames = \Piwik\Plugin\Manager::getInstance()->getActivatedPlugins();
             $archivers = array();
             foreach ($pluginNames as $pluginName) {
                 $archivers[$pluginName] = self::getPluginArchiverClass($pluginName);

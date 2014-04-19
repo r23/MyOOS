@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!--[if lt IE 9 ]>
-<html class="old-ie"> <![endif]-->
+<html class="old-ie" id="ng-app" ng-app="piwikApp"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
-<html><!--<![endif]-->
+<html id="ng-app" ng-app="piwikApp"><!--<![endif]-->
     <head>
 {% block head %}
             <meta charset="utf-8">
@@ -11,6 +11,7 @@
             <link rel="shortcut icon" href="plugins/CoreHome/images/favicon.ico"/>
 
 {% include "_jsGlobalVariables.twig" %}
+{% include "_piwikTag.twig" %}
 {% include "_jsCssIncludes.twig" %}
 
             <!--[if IE]>
@@ -18,7 +19,7 @@
             <![endif]-->
         {% endblock %}
     </head>
-    <body>
+    <body ng-app="app">
     {% set isAdminLayout = true %}
     {% include "_iframeBuster.twig" %}
     {% include "@CoreHome/_javaScriptDisabled.twig" %}
@@ -28,6 +29,8 @@
 
             {% import 'ajaxMacros.twig' as ajax %}
             {{ ajax.requestErrorDiv }}
+            {{ postEvent("Template.beforeContent", "admin", currentModule) }}
+
             <div id="container">
 
                 {% if showMenu is not defined or showMenu %}
@@ -51,7 +54,6 @@
 
                 </div>
             </div>
-            {% include "_piwikTag.twig" %}
         </div>
     </body>
 </html>

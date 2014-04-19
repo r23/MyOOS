@@ -148,7 +148,9 @@ class CliMulti {
      */
     private function supportsAsync()
     {
-        return !SettingsServer::isWindows() && Process::isSupported() && $this->findPhpBinary();
+        return !SettingsServer::isWindows()
+                && Process::isSupported()
+                && $this->findPhpBinary();
     }
 
     private function cleanup()
@@ -173,7 +175,12 @@ class CliMulti {
     {
         $timeOneWeekAgo = strtotime('-1 week');
 
-        foreach (_glob(self::getTmpPath() . '/*') as $file) {
+        $files = _glob(self::getTmpPath() . '/*');
+        if(empty($files)) {
+            return;
+        }
+
+        foreach ($files as $file) {
             $timeLastModified = filemtime($file);
 
             if ($timeOneWeekAgo > $timeLastModified) {
@@ -190,7 +197,7 @@ class CliMulti {
 
     private function findPhpBinary()
     {
-        if (defined('PHP_BINARY')) {
+        if (defined('PHP_BINARY') && false === strpos(PHP_BINARY, 'fpm')) {
             return PHP_BINARY;
         }
 
@@ -233,6 +240,7 @@ class CliMulti {
     private function executeNotAsyncHttp($url, Output $output)
     {
         try {
+            Log::debug("Execute HTTP API request: "  . $url);
             $response = Http::sendHttpRequestBy('curl', $url, $timeout = 0, $userAgent = null, $destinationPath = null, $file = null, $followDepth = 0, $acceptLanguage = false, $this->acceptInvalidSSLCertificate);
             $output->write($response);
         } catch (\Exception $e) {

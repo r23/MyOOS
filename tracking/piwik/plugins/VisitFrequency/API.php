@@ -9,9 +9,13 @@
 namespace Piwik\Plugins\VisitFrequency;
 
 use Piwik\API\Request;
+use Piwik\DataTable;
 use Piwik\Piwik;
-use Piwik\Plugins\VisitsSummary\API as APIVisitsSummary;
+use Piwik\Common;
+use Piwik\Archive;
 use Piwik\SegmentExpression;
+use Piwik\SettingsPiwik;
+use Piwik\Plugins\VisitsSummary\API as APIVisitsSummary;
 
 /**
  * VisitFrequency API lets you access a list of metrics related to Returning Visitors.
@@ -19,7 +23,8 @@ use Piwik\SegmentExpression;
  */
 class API extends \Piwik\Plugin\API
 {
-    const RETURNING_VISITOR_SEGMENT = "visitorType==returning,visitorType==returningCustomer";
+    // visitorType==returning,visitorType==returningCustomer
+    const RETURNING_VISITOR_SEGMENT = "visitorType%3D%3Dreturning%2CvisitorType%3D%3DreturningCustomer";
     const COLUMN_SUFFIX = "_returning";
 
     /**
@@ -54,7 +59,7 @@ class API extends \Piwik\Plugin\API
         if (empty($segment)) {
             $segment = '';
         } else {
-            $segment .= SegmentExpression::AND_DELIMITER;
+            $segment .= urlencode(SegmentExpression::AND_DELIMITER);
         }
         $segment .= self::RETURNING_VISITOR_SEGMENT;
         return $segment;

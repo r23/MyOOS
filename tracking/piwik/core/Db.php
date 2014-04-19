@@ -42,7 +42,7 @@ class Db
      */
     public static function get()
     {
-        if (!empty($GLOBALS['PIWIK_TRACKER_MODE'])) {
+        if (SettingsServer::isTrackerApiRequest()) {
             return Tracker::getDatabase();
         }
 
@@ -101,6 +101,17 @@ class Db
         $db = @Adapter::factory($dbConfig['adapter'], $dbConfig);
 
         self::$connection = $db;
+    }
+
+    /**
+     * Disconnects and destroys the database connection.
+     *
+     * For tests.
+     */
+    public static function destroyDatabaseObject()
+    {
+        DbHelper::disconnectDatabase();
+        self::$connection = null;
     }
 
     /**
@@ -331,6 +342,33 @@ class Db
     }
 
     /**
+     * Drops all tables
+     */
+    static public function dropAllTables()
+    {
+        $tablesAlreadyInstalled = DbHelper::getTablesInstalled();
+        self::dropTables($tablesAlreadyInstalled);
+    }
+
+    /**
+     * Get columns information from table
+     *
+     * @param string|array $table The name of the table you want to get the columns definition for.
+     * @return \Zend_Db_Statement
+     */
+    static public function getColumnNamesFromTable($table)
+    {
+        $columns = self::fetchAll("SHOW COLUMNS FROM " . $table);
+
+        $columnNames = array();
+        foreach ($columns as $column) {
+            $columnNames[] = $column['Field'];
+        }
+
+        return $columnNames;
+    }
+
+    /**
      * Locks the supplied table or tables.
      * 
      * **NOTE:** Piwik does not require the `LOCK TABLES` privilege to be available. Piwik
@@ -534,6 +572,17 @@ class Db
                 self::query($sql, $currentParams);
             }
         }
+    }
+
+    /**
+     * Returns `true` if a table in the database, `false` if otherwise.
+     *
+     * @param string $tableName The name of the table to check for. Must be prefixed.
+     * @return bool
+     */
+    static public function tableExists($tableName)
+    {
+        return self::query("SHOW TABLES LIKE ?", $tableName)->rowCount() > 0;
     }
 
     /**

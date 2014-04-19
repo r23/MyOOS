@@ -167,6 +167,14 @@ class Log extends Singleton
      */
     protected function __construct()
     {
+        /**
+         * access a property that is not overriden by TestingEnvironment before accessing log as the
+         * log section is used in TestingEnvironment. Otherwise access to magic __get('log') fails in
+         * TestingEnvironment as it tries to acccess it already here with __get('log').
+         * $config->log ==> __get('log') ==> Config.createConfigInstance ==> nested __get('log') ==> returns null
+         */
+        $initConfigToPreventErrorWhenAccessingLog = Config::getInstance()->mail;
+
         $logConfig = Config::getInstance()->log;
         $this->setCurrentLogLevelFromConfig($logConfig);
         $this->setLogWritersFromConfig($logConfig);
@@ -263,22 +271,31 @@ class Log extends Singleton
 
     private function setLogWritersFromConfig($logConfig)
     {
-        $availableWritersByName = $this->getAvailableWriters();
-
         // set the log writers
         $logWriters = $logConfig[self::LOG_WRITERS_CONFIG_OPTION];
 
         $logWriters = array_map('trim', $logWriters);
         foreach ($logWriters as $writerName) {
-            if (empty($availableWritersByName[$writerName])) {
-                continue;
-            }
+            $this->addLogWriter($writerName);
+        }
+    }
 
-            $this->writers[] = $availableWritersByName[$writerName];
+    public function addLogWriter($writerName)
+    {
+        if (array_key_exists($writerName, $this->writers)) {
+            return;
+        }
 
-            if ($writerName == 'screen') {
-                $this->loggingToScreen = true;
-            }
+        $availableWritersByName = $this->getAvailableWriters();
+
+        if (empty($availableWritersByName[$writerName])) {
+            return;
+        }
+
+        $this->writers[$writerName] = $availableWritersByName[$writerName];
+
+        if ($writerName == 'screen') {
+            $this->loggingToScreen = true;
         }
     }
 
@@ -290,7 +307,7 @@ class Log extends Singleton
             if ($logLevel >= self::NONE // sanity check
                 && $logLevel <= self::VERBOSE
             ) {
-                $this->currentLogLevel = $logLevel;
+                $this->setLogLevel($logLevel);
             }
         }
     }
@@ -355,6 +372,11 @@ class Log extends Singleton
         return $writers;
     }
 
+    public function setLogLevel($logLevel)
+    {
+        $this->currentLogLevel = $logLevel;
+    }
+
     private function logToFile($level, $tag, $datetime, $message)
     {
         if (is_string($message)) {
@@ -404,9 +426,7 @@ class Log extends Singleton
         }
 
         if (is_string($message)) {
-            if (!defined('PIWIK_TEST_MODE')
-                || !PIWIK_TEST_MODE
-            ) {
+            if (!defined('PIWIK_TEST_MODE')) {
                 $message = '[' . $currentRequestKey . '] ' . $message;
             }
             $message = $this->formatMessage($level, $tag, $datetime, $message);

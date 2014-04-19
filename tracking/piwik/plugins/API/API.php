@@ -17,6 +17,7 @@ use Piwik\DataTable;
 use Piwik\Date;
 use Piwik\Menu\MenuTop;
 use Piwik\Metrics;
+use Piwik\Period\Range;
 use Piwik\Piwik;
 use Piwik\Plugins\CoreAdminHome\CustomLogo;
 use Piwik\Tracker\GoalManager;
@@ -529,6 +530,13 @@ class API extends \Piwik\Plugin\API
             $language, $idGoal, $legendAppendMetric, $labelUseAbsoluteUrl);
     }
 
+    public function getLastDate($date, $period)
+    {
+        $lastDate = Range::getLastDate($date, $period);
+
+        return array_shift($lastDate);
+    }
+
     /**
      * Performs multiple API requests at once and returns every result.
      *
@@ -696,8 +704,11 @@ class Plugin extends \Piwik\Plugin
         if (empty($_SERVER['HTTP_USER_AGENT'])) {
             return;
         }
-        require_once PIWIK_INCLUDE_PATH . '/plugins/DevicesDetection/UserAgentParserEnhanced/UserAgentParserEnhanced.php';
-        $ua = new \UserAgentParserEnhanced($_SERVER['HTTP_USER_AGENT']);
+        if (!class_exists("DeviceDetector")) {
+            throw new \Exception("DeviceDetector could not be found, maybe you are using Piwik from git and need to have update Composer. <br>php composer.phar update");
+        }
+
+        $ua = new \DeviceDetector($_SERVER['HTTP_USER_AGENT']);
         $ua->parse();
         $os = $ua->getOs('short_name');
         if ($os && in_array($os, array('AND', 'IOS'))) {

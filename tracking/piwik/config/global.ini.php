@@ -86,6 +86,11 @@ tracker_always_new_visitor = 0
 ; Allow automatic upgrades to Beta or RC releases
 allow_upgrades_to_beta = 0
 
+[DebugTests]
+; Set to 1 by default. If you set to 0, the standalone plugins (with their own git repositories)
+; will not be loaded when executing tests.
+enable_load_standalone_plugins_during_tests = 1
+
 [General]
 ; the following settings control whether Unique Visitors will be processed for different period types.
 ; year and range periods are disabled by default, to ensure optimal performance for high traffic Piwik instances
@@ -154,7 +159,14 @@ default_language = en
 datatable_default_limit = 10
 
 ; default number of rows returned in API responses
+; this value is overwritten by the '# Rows to display' selector.
+; if set to -1, a click on 'Export as' will export all rows independently of the current '# Rows to display'.
 API_datatable_default_limit = 100
+
+; When period=range, below the datatables, when user clicks on "export", the data will be aggregate of the range.
+; Here you can specify the comma separated list of formats for which the data will be exported aggregated by day
+; (ie. there will be a new "date" column). For example set to: "rss,tsv,csv"
+datatable_export_range_as_day = "rss"
 
 ; This setting is overriden in the UI, under "User Settings".
 ; The date and period loaded by Piwik uses the defaults below. Possible values: yesterday, today.
@@ -245,7 +257,7 @@ noreply_email_address = "noreply@{DOMAIN}"
 
 ; feedback email address;
 ; when testing, use your own email address or "nobody"
-feedback_email_address = "hello@piwik.org"
+feedback_email_address = "feedback@piwik.org"
 
 ; during archiving, Piwik will limit the number of results recorded, for performance reasons
 ; maximum number of rows for any of the Referrers tables (keywords, search engines, campaigns, etc.)
@@ -254,7 +266,7 @@ datatable_archiving_maximum_rows_referrers = 1000
 datatable_archiving_maximum_rows_subtable_referrers = 50
 
 ; maximum number of rows for the Custom Variables names report
-; also used to process Ecommerce conversion rates (should be large enough to hold all unique Ecommerce items)
+; Note: if the website is Ecommerce enabled, the two values below will be automatically set to 50000
 datatable_archiving_maximum_rows_custom_variables = 1000
 ; maximum number of rows for the Custom Variables values reports
 datatable_archiving_maximum_rows_subtable_custom_variables = 1000
@@ -265,6 +277,11 @@ datatable_archiving_maximum_rows_actions = 500
 ; note: should not exceed the display limit in Piwik\Actions\Controller::ACTIONS_REPORT_ROWS_DISPLAY
 ; because each subdirectory doesn't have paging at the bottom, so all data should be displayed if possible.
 datatable_archiving_maximum_rows_subtable_actions = 100
+
+; maximum number of rows for any of the Events tables (Categories, Actions, Names)
+datatable_archiving_maximum_rows_events = 500
+; maximum number of rows for sub-tables of the Events tables (eg. for the subtables Categories>Actions or Categories>Names).
+datatable_archiving_maximum_rows_subtable_events = 100
 
 ; maximum number of rows for other tables (Providers, User settings configurations)
 datatable_archiving_maximum_rows_standard = 500
@@ -352,6 +369,9 @@ overlay_following_pages_limit = 300
 ; With this option, you can disable the framed mode of the Overlay plugin. Use it if your website contains a framebuster.
 overlay_disable_framed_mode = 0
 
+; By default we check whether the Custom logo is writable or not, before we display the Custom logo file uploader
+enable_custom_logo_check = 1
+
 ; If php is running in a chroot environment, when trying to import CSV files with createTableFromCSVFile(),
 ; Mysql will try to load the chrooted path (which is imcomplete). To prevent an error, here you can specify the
 ; absolute path to the chroot environment. eg. '/path/to/piwik/chrooted/'
@@ -379,18 +399,27 @@ enable_geolocation_admin = 1
 enable_delete_old_data_settings_admin = 1
 
 ; By setting this option to 0, the following settings will be hidden and disabled from being set in the UI:
-; - "General Settings"
+; - "Archiving Settings"
+; - "Update settings"
 ; - "Email server settings"
 enable_general_settings_admin = 1
 
 ; By setting this option to 0, it will disable the "Auto update" feature
 enable_auto_update = 1
 
+; By setting this option to 0, no emails will be sent in case of an available core.
+; If set to 0 it also disables the "sent plugin update emails" feature in general and the related setting in the UI.
+enable_update_communication = 1
+
 [Tracker]
 ; Piwik uses first party cookies by default. If set to 1,
 ; the visit ID cookie will be set on the Piwik server domain as well
 ; this is useful when you want to do cross websites analysis
 use_third_party_id_cookie = 0
+
+; If tracking does not work for you or you are stuck finding an issue, you might want to enable the tracker debug mode.
+; Once enabled (set to 1) messages will be logged to all loggers defined in "[log] log_writers" config.
+debug = 0
 
 ; There is a feature in the Tracking API that lets you create new visit at any given time, for example if you know that a different user/customer is using
 ; the app then you would want to tell Piwik to create a new visit (even though both users are using the same browser/computer).
@@ -569,6 +598,7 @@ Plugins[] = Annotations
 Plugins[] = MobileMessaging
 Plugins[] = Overlay
 Plugins[] = SegmentEditor
+Plugins[] = Insights
 
 Plugins[] = Morpheus
 

@@ -395,7 +395,7 @@ if (typeof JSON2 !== 'object') {
     createElement, appendChild, characterSet, charset,
     addEventListener, attachEvent, removeEventListener, detachEvent, disableCookies,
     cookie, domain, readyState, documentElement, doScroll, title, text,
-    location, top, document, referrer, parent, links, href, protocol, name, GearsFactory,
+    location, top, onerror, document, referrer, parent, links, href, protocol, name, GearsFactory,
     performance, mozPerformance, msPerformance, webkitPerformance, timing, requestStart,
     responseEnd, event, which, button, srcElement, type, target,
     parentNode, tagName, hostname, className,
@@ -424,7 +424,7 @@ if (typeof JSON2 !== 'object') {
     setConversionAttributionFirstReferrer,
     disablePerformanceTracking, setGenerationTimeMs,
     doNotTrack, setDoNotTrack, msDoNotTrack,
-    addListener, enableLinkTracking, setLinkTrackingTimer,
+    addListener, enableLinkTracking, enableJSErrorTracking, setLinkTrackingTimer,
     setHeartBeatTimer, killFrame, redirectFile, setCountPreRendered,
     trackGoal, trackLink, trackPageView, trackSiteSearch, trackEvent,
     setEcommerceView, addEcommerceItem, trackEcommerceOrder, trackEcommerceCartUpdate,
@@ -999,7 +999,7 @@ if (typeof Piwik !== 'object') {
 
             // check whether we were redirected from the piwik overlay plugin
             var referrerRegExp = new RegExp('index\\.php\\?module=Overlay&action=startOverlaySession'
-                               + '&idsite=([0-9]+)&period=([^&]+)&date=([^&]+)$');
+                               + '&idSite=([0-9]+)&period=([^&]+)&date=([^&]+)$');
 
             var match = referrerRegExp.exec(documentAlias.referrer);
 
@@ -1072,6 +1072,8 @@ if (typeof Piwik !== 'object') {
                 locationHrefAlias = locationArray[1],
                 configReferrerUrl = locationArray[2],
 
+                enableJSErrorTracking = false,
+
                 // Request method (GET or POST)
                 configRequestMethod = 'GET',
 
@@ -1094,7 +1096,7 @@ if (typeof Piwik !== 'object') {
                 configTitle = documentAlias.title,
 
                 // Extensions to be treated as download links
-                configDownloadExtensions = '7z|aac|apk|ar[cj]|as[fx]|avi|bin|csv|deb|dmg|docx?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|ms[ip]|od[bfgpst]|og[gv]|pdf|phps|png|pptx?|qtm?|ra[mr]?|rpm|sea|sit|tar|t?bz2?|tgz|torrent|txt|wav|wm[av]|wpd||xlsx?|xml|z|zip',
+                configDownloadExtensions = '7z|aac|apk|ar[cj]|as[fx]|avi|azw3|bin|csv|deb|dmg|docx?|epub|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mobi|mp(2|3|4|e?g)|mov(ie)?|ms[ip]|od[bfgpst]|og[gv]|pdf|phps|png|pptx?|qtm?|ra[mr]?|rpm|sea|sit|tar|t?bz2?|tgz|torrent|txt|wav|wm[av]|wpd||xlsx?|xml|z|zip',
 
                 // Hosts or alias(es) to not treat as outlinks
                 configHostsAlias = [domainAlias],
@@ -2476,15 +2478,21 @@ if (typeof Piwik !== 'object') {
                     if (!isDefined(scope)) {
                         scope = 'visit';
                     }
-
+                    if (!isDefined(name)) {
+                        return;
+                    }
+                    if (!isDefined(value)) {
+                        value = "";
+                    }
                     if (index > 0) {
-                        name = isDefined(name) && !isString(name) ? String(name) : name;
-                        value = isDefined(value) && !isString(value) ? String(value) : value;
+                        name = !isString(name) ? String(name) : name;
+                        value = !isString(value) ? String(value) : value;
                         toRecord = [name.slice(0, customVariableMaximumLength), value.slice(0, customVariableMaximumLength)];
-                        if (scope === 'visit' || scope === 2) { /* GA compatibility/misuse */
+                        // numeric scope is there for GA compatibility
+                        if (scope === 'visit' || scope === 2) {
                             loadCustomVariables();
                             customVariables[index] = toRecord;
-                        } else if (scope === 'page' || scope === 3) { /* GA compatibility/misuse */
+                        } else if (scope === 'page' || scope === 3) {
                             customVariablesPage[index] = toRecord;
                         } else if (scope === 'event') { /* GA does not have 'event' scope but we do */
                             customVariablesEvent[index] = toRecord;
@@ -2708,6 +2716,7 @@ if (typeof Piwik !== 'object') {
 
                 /**
                  * Set visitor cookie timeout (in seconds)
+                 * Defaults to 2 years (timeout=63072000000)
                  *
                  * @param int timeout
                  */
@@ -2716,7 +2725,8 @@ if (typeof Piwik !== 'object') {
                 },
 
                 /**
-                 * Set session cookie timeout (in seconds)
+                 * Set session cookie timeout (in seconds).
+                 * Defaults to 30 minutes (timeout=1800000)
                  *
                  * @param int timeout
                  */
@@ -2725,7 +2735,8 @@ if (typeof Piwik !== 'object') {
                 },
 
                 /**
-                 * Set referral cookie timeout (in seconds)
+                 * Set referral cookie timeout (in seconds).
+                 * Defaults to 6 months (15768000000)
                  *
                  * @param int timeout
                  */
@@ -2814,6 +2825,51 @@ if (typeof Piwik !== 'object') {
                             addClickListeners(enable);
                         });
                     }
+                },
+
+                /**
+                 * Enable tracking of uncatched JavaScript errors
+                 *
+                 * If enabled, uncaught JavaScript Errors will be tracked as an event by defining a
+                 * window.onerror handler. If a window.onerror handler is already defined we will make
+                 * sure to call this previously registered error handler after tracking the error.
+                 *
+                 * By default we return false in the window.onerror handler to make sure the error still
+                 * appears in the browser's console etc. Note: Some older browsers might behave differently
+                 * so it could happen that an actual JavaScript error will be suppressed.
+                 * If a window.onerror handler was registered we will return the result of this handler.
+                 *
+                 * Make sure not to overwrite the window.onerror handler after enabling the JS error
+                 * tracking as the error tracking won't work otherwise. To capture all JS errors we
+                 * recommend to include the Piwik JavaScript tracker in the HTML as early as possible.
+                 * If possible directly in <head></head> before loading any other JavaScript.
+                 */
+                enableJSErrorTracking: function () {
+                    if (enableJSErrorTracking) {
+                        return;
+                    }
+
+                    enableJSErrorTracking = true;
+                    var onError = windowAlias.onerror;
+
+                    windowAlias.onerror = function (message, url, linenumber, column, error) {
+                        trackCallback(function () {
+                            var category = 'JavaScript Errors';
+
+                            var action = url + ':' + linenumber;
+                            if (column) {
+                                action += ':' + column;
+                            }
+
+                            logEvent(category, action, message);
+                        });
+
+                        if (onError) {
+                            return onError(message, url, linenumber, column, error);
+                        }
+
+                        return false;
+                    };
                 },
 
                 /**
@@ -3069,6 +3125,7 @@ if (typeof Piwik !== 'object') {
         // find the call to setTrackerUrl or setSiteid (if any) and call them first
         for (iterator = 0; iterator < _paq.length; iterator++) {
             if (_paq[iterator][0] === 'setTrackerUrl'
+                    || _paq[iterator][0] === 'setAPIUrl'
                     || _paq[iterator][0] === 'setSiteId') {
                 apply(_paq[iterator]);
                 delete _paq[iterator];
@@ -3132,7 +3189,7 @@ if (typeof Piwik !== 'object') {
 
 /************************************************************
  * Deprecated functionality below
- * - for legacy piwik.js compatibility
+ * Legacy piwik.js compatibility ftw
  ************************************************************/
 
 /*
