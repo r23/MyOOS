@@ -44,7 +44,6 @@ $aContents['admin_login'] = $prefix_filename . 'admin_login';
 //includes/content/gv
 $aContents['gv_faq'] = $prefix_filename . 'gv_faq';
 $aContents['gv_redeem'] = $prefix_filename . 'gv_redeem';
-$aContents['gv_send'] = $prefix_filename . 'gv_send';
 $aContents['popup_coupon_help'] = $prefix_filename . 'popup_coupon_help';
 
 //includes/content/info

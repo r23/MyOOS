@@ -27,34 +27,29 @@ $cart_products = array();
 $gv_amount_show = 0;
 $gv_coupon_show = 0;
 
-if (isset($_SESSION))
-{  
+if (isset($_SESSION)) {  
 	
-	if ($_SESSION['cart']->count_contents() > 0)
-	{
+	if ($_SESSION['cart']->count_contents() > 0) {
 		$cart_products = $_SESSION['cart']->get_products();
 	}
 	
-	if (isset($_SESSION['customer_id']))
-	{
+	if (isset($_SESSION['customer_id'])) {
 		$coupon_gv_customertable = $oostable['coupon_gv_customer'];
 		$query = "SELECT amount
-				FROM $coupon_gv_customertable
-				WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'";
+				  FROM $coupon_gv_customertable
+				  WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'";
 		$gv_result = $dbconn->GetRow($query);
-		if ($gv_result['amount'] > 0 )
-		{
+		if ($gv_result['amount'] > 0 ) {
 			$gv_amount_show = $oCurrencies->format($gv_result['amount']);
 		}
 	}
 
   
-	if (isset($_SESSION['gv_id']))
-	{
+	if (isset($_SESSION['gv_id'])) {
 		$couponstable = $oostable['coupons'];
 		$query = "SELECT coupon_amount
-              FROM $couponstable
-              WHERE coupon_id = '" . oos_db_input($_SESSION['gv_id']) . "'";
+                  FROM $couponstable
+                  WHERE coupon_id = '" . oos_db_input($_SESSION['gv_id']) . "'";
 		$coupon = $dbconn->GetRow($query);
 		$gv_coupon_show = $oCurrencies->format($coupon['coupon_amount']);
 	}
@@ -68,5 +63,4 @@ $smarty->assign(
 		'gv_coupon_show' => $gv_coupon_show
 	)
 );
-
 
