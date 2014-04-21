@@ -140,8 +140,6 @@ $aLang['login_block_my_account'] = 'persönliche Daten';
 $aLang['login_block_logoff'] = 'Abmelden';
 $aLang['login_entry_remember_me'] = 'Einlogautomatik';
 
-// tell a friend block text in tempalate/your theme/block/tell_a_friend.html
-$aLang['block_tell_a_friend_text'] = 'Empfehlen Sie diesen Artikel einfach per eMail weiter.';
 
 // checkout procedure text
 $aLang['checkout_bar_delivery'] = 'Versandinformationen';

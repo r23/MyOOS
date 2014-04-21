@@ -474,8 +474,6 @@ define('SHOPPING_CART_MINI_IMAGE_DESC', 'Wert für die Verkleinerung in der Deta
 define('DISPLAY_CART_TITLE', 'Warenkorb anzeigen');
 define('DISPLAY_CART_DESC', 'Zeigt den Warenkorb an, nachdem diesem ein Produkt hinzugefügt wurde');
 
-define('ALLOW_GUEST_TO_TELL_A_FRIEND_TITLE', 'Empfehlen auch für Gäste');
-define('ALLOW_GUEST_TO_TELL_A_FRIEND_DESC', 'Gästen erlauben, ein Produkt zu empfehlen');
 
 define('ALLOW_CATEGORY_DESCRIPTIONS_TITLE', 'Erlaube Kategorienbeschreibung');
 define('ALLOW_CATEGORY_DESCRIPTIONS_DESC', 'Erlaubt eine ausführliche Beschreibung der einzelnen Kategorien');

@@ -139,9 +139,6 @@ $aLang['login_block_my_account'] = 'General Information';
 $aLang['login_block_logoff'] = 'Log Off';
 $aLang['login_entry_remember_me'] = 'Aoto Log On';
 
-// tell a friend block text in tempalate/your theme/block/tell_a_friend.html
-$aLang['block_tell_a_friend_text'] = 'Tell someone you know about this product.';
-
 // checkout procedure text
 $aLang['checkout_bar_delivery'] = 'Delivery Information';
 $aLang['checkout_bar_payment'] = 'Payment Information';

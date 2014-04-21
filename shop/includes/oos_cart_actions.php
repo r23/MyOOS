@@ -84,9 +84,9 @@ if (DISPLAY_CART == 'true') {
     if (isset($aData['keywords']) && !empty($aData['keywords']))  {
         $sKeywords = oos_prepare_input($aData['keywords']);
 
-        if ( isset( $sKeywords ) || is_string( $sKeywords ) )	{ 	     
+        if ( isset( $sKeywords ) || is_string( $sKeywords ) ) { 	     
             $parameters .= '&amp;keywords=' . rawurlencode($sKeywords);
-		}
+	}
     }
 
     if (isset($aData['categories_id']) && is_numeric($aData['categories_id'])) {
@@ -102,7 +102,7 @@ if (isset($aData['action'])) {
   
     
 
-  switch ($action) {
+switch ($action) {
     case 'update_product' :
       // customer wants to update the product quantity in their shopping cart
       for ($i=0; $i<count($_POST['products_id']);$i++) {

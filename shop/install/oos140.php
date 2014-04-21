@@ -110,6 +110,7 @@ $aKeys = array('EMAIL_FROM',
                'GZIP_LEVEL',
 			   'CATEGORIES_SCROLL_BOX_LEN',
 			   'USE_DEFAULT_LANGUAGE_CURRENCY',
+			   'ALLOW_GUEST_TO_TELL_A_FRIEND',
 			   'DISPLAY_CONDITIONS_ON_CHECKOUT');
 $db->Execute("DELETE FROM " . $table . " WHERE configuration_key in ('" . implode("', '", $aKeys) . "')");
 

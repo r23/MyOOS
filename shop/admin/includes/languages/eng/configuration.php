@@ -476,9 +476,6 @@ define('SHOPPING_CART_MINI_IMAGE_DESC', 'Wert für die Verkleinerung in der Deta
 define('DISPLAY_CART_TITLE', 'Display Cart After Adding Product');
 define('DISPLAY_CART_DESC', 'Display the shopping cart after adding a product (or return back to their origin)');
 
-define('ALLOW_GUEST_TO_TELL_A_FRIEND_TITLE', 'Allow Guest To Tell A Friend');
-define('ALLOW_GUEST_TO_TELL_A_FRIEND_DESC', 'Allow guests to tell a friend about a product');
-
 define('ALLOW_CATEGORY_DESCRIPTIONS_TITLE', 'Erlaube Kategorienbeschreibung');
 define('ALLOW_CATEGORY_DESCRIPTIONS_DESC', 'Erlaubt eine ausführliche Beschreibung der einzelnen Kategorien');
 
