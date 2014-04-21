@@ -23,7 +23,7 @@ class WPU_Forum_Polls_Widget extends WP_Widget {
 
 		$this->parentExtra = $wpUnited->get_extra('quickpoll');
 
-		if(!is_object($this->parentExtra)) {
+		if (!is_object($this->parentExtra)) {
 			return;
 		}
 		
@@ -44,14 +44,14 @@ class WPU_Forum_Polls_Widget extends WP_Widget {
 		$nativeCSS = $instance['nativeCSS'];
 		$template = $instance['useTemplate'];
 		
-		if($template == 'guess') {
+		if ($template == 'guess') {
 			$template = $phpbbForum->guess_style_type();
 		}
 		
 		$poll = $this->parentExtra->get_poll($pollId, $showTopicLink, $template);
 
 		
-		if((($poll == '') && $hideIfNoPerms) || is_admin()) {
+		if ((($poll == '') && $hideIfNoPerms) || is_admin()) {
 			return;
 		}
 		
@@ -88,7 +88,7 @@ class WPU_Forum_Polls_Widget extends WP_Widget {
 		$instance['nativeCSS'] 		= (strip_tags(stripslashes($new_instance['nativeCSS'])) == 	'ok')? 	1 : 0;
 		$instance['useTemplate'] 	= (string)strip_tags(stripslashes($new_instance['useTemplate']));
 
-		if(trim($instance['useTemplate']) == '') {
+		if (trim($instance['useTemplate']) == '') {
 			$instance['useTemplate'] == 'prosilver';
 		}
 
@@ -113,7 +113,7 @@ class WPU_Forum_Polls_Widget extends WP_Widget {
 		$nativeCSS		= (!empty($instance['nativeCSS'])) 		? 'checked="checked"' : '';
 		$template 		= ((string)$instance['useTemplate']);
 		
-		if(empty($template)) {
+		if (empty($template)) {
 			$template = 'guess';
 		}
 		
@@ -145,9 +145,9 @@ class WPU_Forum_Polls_Widget extends WP_Widget {
 		<p>
 			<label for="<?php echo $this->get_field_id('useTemplate'); ?>"><?php _e('Use template: ', 'wp-united'); ?></label><br />
 			<select name="<?php echo $this->get_field_name('useTemplate'); ?>" id="<?php echo $this->get_field_name('useTemplate'); ?>">
-				<option value="guess" <?php if($template == 'guess'){ ?>selected="selected"<?php } ?>><?php _e('Make best guess for user', 'wp-united'); ?></option>
-				<option value="prosilver" <?php if($template == 'prosilver') { ?>selected="selected"<?php } ?>><?php _e('Force prosilver', 'wp-united'); ?></option>
-				<option value="subsilver2" <?php if($template == 'subsilver2') { ?>selected="selected"<?php } ?>><?php _e('Force subsilver2', 'wp-united'); ?></option>
+				<option value="guess" <?php if ($template == 'guess'){ ?>selected="selected"<?php } ?>><?php _e('Make best guess for user', 'wp-united'); ?></option>
+				<option value="prosilver" <?php if ($template == 'prosilver') { ?>selected="selected"<?php } ?>><?php _e('Force prosilver', 'wp-united'); ?></option>
+				<option value="subsilver2" <?php if ($template == 'subsilver2') { ?>selected="selected"<?php } ?>><?php _e('Force subsilver2', 'wp-united'); ?></option>
 			</select>
 		</p>
 		
@@ -159,7 +159,7 @@ class WPU_Forum_Polls_Widget extends WP_Widget {
 	public function add_poll_script() {
 		global $wpUnited;
 		
-		if($this->addedPollScript) {
+		if ($this->addedPollScript) {
 			return;
 		}
 		

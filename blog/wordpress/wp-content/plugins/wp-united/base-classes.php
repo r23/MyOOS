@@ -47,7 +47,7 @@ class WP_United_Settings {
 	 */
 	public static function Create() {
 		$s = new WP_United_Settings();
-		if(!$s->load_from_wp()) {
+		if (!$s->load_from_wp()) {
 			return($s->load_from_phpbb());
 		}
 		return $s;
@@ -59,7 +59,7 @@ class WP_United_Settings {
 	 */
 	private function load_from_wp() {
 		
-		if(function_exists('get_option')) { 
+		if (function_exists('get_option')) { 
 			$savedSettings = (array)get_option('wpu-settings');
 			$defaults = $this->get_defaults();
 			$this->settings = array_merge($defaults, (array)$savedSettings);
@@ -91,10 +91,10 @@ class WP_United_Settings {
 		}
 
 		// convert config value into something just like me :-)
-		if(!empty($wpuString)) {
+		if (!empty($wpuString)) {
 			$wpuString =  gzuncompress(base64_decode($wpuString));	
 			$settingsObj = unserialize($wpuString); 
-			if(is_object($settingsObj)) {
+			if (is_object($settingsObj)) {
 				return $settingsObj; 
 			}
 		}
@@ -112,7 +112,7 @@ class WP_United_Settings {
 	 */
 	public function update_settings($data) {
 
-		if(function_exists('update_option')) { 
+		if (function_exists('update_option')) { 
 			$data = array_merge($this->settings, (array)$data); 
 			update_option('wpu-settings', $data);
 			$this->settings = $data;
@@ -162,7 +162,7 @@ abstract class WP_United_Plugin_Base {
 		
 	public function __construct($initWithSettingsObj = false) {
 		
-		if(!$initWithSettingsObj) {
+		if (!$initWithSettingsObj) {
 			$this->load_settings();
 		} else {
 			$this->settings = $initWithSettingsObj;
@@ -206,7 +206,7 @@ abstract class WP_United_Plugin_Base {
 			return false;
 		}
 
-		if($this->is_wordpress_loaded()) {
+		if ($this->is_wordpress_loaded()) {
 			$this->settings->enabled = get_option('wpu-enabled'); 
 		}
 		return $this->settings->enabled;
@@ -214,7 +214,7 @@ abstract class WP_United_Plugin_Base {
 	
 	public function is_working() {
 		// if ABSPATH is not defined, we must be loaded from phpBB
-		if(!defined('ABSPATH')) {
+		if (!defined('ABSPATH')) {
 			return true;
 		} else {
 			return (defined('IN_PHPBB') && ($this->get_last_run() == 'working') && ($this->is_enabled()));
@@ -222,11 +222,11 @@ abstract class WP_United_Plugin_Base {
 	}
 	public function get_setting($key = '') { 
 		
-		if(!$key) {
+		if (!$key) {
 			return (array) $this->settings->settings;
 		}
 		
-		if(isset($this->settings->settings[$key])) { 
+		if (isset($this->settings->settings[$key])) { 
 			return $this->settings->settings[$key];
 		}
 		return false;
@@ -238,7 +238,7 @@ abstract class WP_United_Plugin_Base {
 	 */
 	public function get_last_run() {
 	
-		if(empty($this->lastRun) && $this->is_wordpress_loaded()) {
+		if (empty($this->lastRun) && $this->is_wordpress_loaded()) {
 			$this->lastRun = get_option('wpu-last-run');
 		}
 
@@ -247,7 +247,7 @@ abstract class WP_United_Plugin_Base {
 	
 	
 	public function is_wordpress_loaded() {
-		if(defined('ABSPATH')) {
+		if (defined('ABSPATH')) {
 			return true;
 		} else {
 			return false;
@@ -261,7 +261,7 @@ abstract class WP_United_Plugin_Base {
 		foreach($this->actions as $actionArray) {
 			list($action, $details, $whenToLoad) = $actionArray;
 
-			if(!$this->should_load_filteraction($whenToLoad)) {
+			if (!$this->should_load_filteraction($whenToLoad)) {
 				continue;
 			}
 
@@ -283,7 +283,7 @@ abstract class WP_United_Plugin_Base {
 		foreach($this->filters as $filterArray) {
 			list($filter, $details, $whenToLoad) = $filterArray;
 			
-			if(!$this->should_load_filteraction($whenToLoad)) {
+			if (!$this->should_load_filteraction($whenToLoad)) {
 				continue;
 			}
 			
@@ -303,18 +303,18 @@ abstract class WP_United_Plugin_Base {
 	// Should we load this filter or action? 
 	private function should_load_filteraction($whenToLoad) {
 	
-		if(!$this->is_enabled() && ($whenToLoad != 'all')) {
+		if (!$this->is_enabled() && ($whenToLoad != 'all')) {
 			return false;
 		}
 		
 		switch($whenToLoad) {
 			case 'user-int':
-				if(!$this->get_setting('integrateLogin')) {
+				if (!$this->get_setting('integrateLogin')) {
 					return false;
 				}
 			break;
 			case 'template-int':
-				if($this->get_setting('showHdrFtr') == 'NONE') {
+				if ($this->get_setting('showHdrFtr') == 'NONE') {
 					return false;
 				}				
 			break;
@@ -323,7 +323,7 @@ abstract class WP_United_Plugin_Base {
 				return true;
 			break;
 			default:
-				if(!$this->get_setting($whenToLoad)) {
+				if (!$this->get_setting($whenToLoad)) {
 					return false;
 				}
 			break;
@@ -386,13 +386,13 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 
 	public function enable() {
 		$this->settings->enabled = true;
-		if($this->is_wordpress_loaded()) {
+		if ($this->is_wordpress_loaded()) {
 			update_option('wpu-enabled', true);
 		}
 	}
 	public function disable() {
 		$this->settings->enabled = false;
-		if($this->is_wordpress_loaded()) {
+		if ($this->is_wordpress_loaded()) {
 			update_option('wpu-enabled', false);
 		}
 	}
@@ -401,14 +401,14 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 
 	
 	public function phpbb_logout() {
-		if($this->is_working()) {
+		if ($this->is_working()) {
 			global $phpbbForum;
 			$phpbbForum->logout();
 		}
 	}
 	
 	public function get_version($includeRevision = false) {
-		if(empty($this->version)) {
+		if (empty($this->version)) {
 			require_once ($this->get_plugin_path() . 'version.php');
 			global $wpuVersion, $wpuRevision; 
 			$this->version = $wpuVersion;
@@ -423,7 +423,7 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 		
 		static $checked = false;
 		
-		if(is_array($checked)) {
+		if (is_array($checked)) {
 			return $checked;
 		}
 
@@ -440,7 +440,7 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 	
 		$pLoc = $this->get_setting('phpbb_path');
 		
-		if(empty($pLoc)) {
+		if (empty($pLoc)) {
 			$checked =  array(
 				'result'	=>	'OK',
 				'message'	=> 	__('The location to phpBB is not set.')
@@ -449,7 +449,7 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 		}
 		
 		// Not installed!
-		if(!@file_exists($pLoc . 'wp-united/')) {
+		if (!@file_exists($pLoc . 'wp-united/')) {
 			$checked = array(
 				'result'	=> 'ERROR',
 				'message'	=> __('You need to install the WP-United phpBB MOD.', 'wp-united') . '<br /><br />' . $phpbbInstallMsg
@@ -460,7 +460,7 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 		$version = str_replace('-r', '#', $this->get_version(true));
 		
 		// Installed, but version < 0.9.1.0
-		if(!@file_exists($pLoc . 'wp-united/version.php')) {
+		if (!@file_exists($pLoc . 'wp-united/version.php')) {
 			$checked = array(
 				'result'	=> 'ERROR',
 				'message'	=> sprintf($verMismatchMsg, $version, '0.9.0.x') . 
@@ -474,10 +474,10 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 		/**
 		 * Version checks for 0.9.1.0 and above...
 		 */
-		if($wpuVersion_phpbb != $version) {
+		if ($wpuVersion_phpbb != $version) {
 			
 			// upgrade to v0.9.2.5; full xml upgrade
-			if(version_compare($wpuVersion_phpbb, '0.9.2.5', '<')) {
+			if (version_compare($wpuVersion_phpbb, '0.9.2.5', '<')) {
 				$checked = array(
 					'result'	=> 'ERROR',
 					'message'	=> sprintf($verMismatchMsg, $version, 'v0.9.2.4 or earlier') . 
@@ -511,7 +511,7 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 		$installedVer = get_option('wpu-version');
 		$isNewInstall = false;
 		
-		if(empty($installedVer)) {
+		if (empty($installedVer)) {
 			$installedVer = '';
 			$isNewInstall = (get_option('wpu-new-install') == 'yes');
 			
@@ -524,7 +524,7 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 		$upgradeAction = false;
 		
 		// if this is a new install, there will be no options set, but we won't need to upgrade.
-		if(!$isNewInstall) {
+		if (!$isNewInstall) {
 			switch($installedVer) {
 			
 				case '':
@@ -544,17 +544,17 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 
 
 
-		if(!empty($upgradeAction)) {
+		if (!empty($upgradeAction)) {
 			require_once($this->get_plugin_path() . 'upgrade.php');
 			wpu_do_upgrade($upgradeAction);
 		}	
 		
 		
-		if($installedVer != $actualVer) {
+		if ($installedVer != $actualVer) {
 			update_option('wpu-version', $this->get_version(true));
 		}
 		
-		if($isNewInstall) {
+		if ($isNewInstall) {
 			delete_option('wpu-new-install');
 		}
 		
@@ -569,11 +569,11 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 		 * We load them here so that we can auto-remove them if CSS Magic is disabled
 		 */ 
 		 
-		if($this->styleKeysLoaded) {
+		if ($this->styleKeysLoaded) {
 			return;
 		}
 		 
-		if($this->is_working()) {
+		if ($this->is_working()) {
 			$this->styleKeysLoaded = true;
 			
 			$this->styleKeys = $phpbbForum->load_style_keys(); 
@@ -598,10 +598,10 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 
 	
 	public function get_style_key($key = '') {
-		if($key === '') {
+		if ($key === '') {
 			return $this->styleKeys;
 		} else {
-			if(array_key_exists($key, $this->styleKeys)) {
+			if (array_key_exists($key, $this->styleKeys)) {
 				return $this->styleKeys[$key];
 			} else {
 				return false;
@@ -613,7 +613,7 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 	// adds a new style key, or returns the existing one if it already exists
 	public function add_style_key($fileName) {
 		$key = array_search($fileName, (array)$this->styleKeys);
-		if($key === false) {
+		if ($key === false) {
 			$this->styleKeys[] = $fileName;
 			$key = sizeof($this->styleKeys) - 1;
 			$this->updatedStyleKeys = true;
@@ -629,7 +629,7 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 	public function commit_style_keys() { 
 		global $phpbbForum;
 		
-		if(!$this->updatedStyleKeys) {
+		if (!$this->updatedStyleKeys) {
 			return sizeof($this->styleKeys) - 1;
 		}
 
@@ -647,47 +647,47 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 	protected function assess_required_wp_actions() {
 		global $phpEx, $user;
 		
-		if(defined('WPU_PHPBB_IS_EMBEDDED')) { // phpBB embedded in WP admin page
+		if (defined('WPU_PHPBB_IS_EMBEDDED')) { // phpBB embedded in WP admin page
 			return 0;
 		}
 		
 		$numActions = sizeof($this->integActions);
-		if($numActions > 0) { 
+		if ($numActions > 0) { 
 			return $numActions;
 		}
 		
 		
-		if(!$this->is_wordpress_loaded()) {
+		if (!$this->is_wordpress_loaded()) {
 			
 			// Check for user integration-related actions
-			if($this->get_setting('integrateLogin')) { 
+			if ($this->get_setting('integrateLogin')) { 
 			
 				// Is this a login/out page or profile update?
-				if(preg_match("/\/ucp\.{$phpEx}/", $_SERVER['REQUEST_URI'])) { 
+				if (preg_match("/\/ucp\.{$phpEx}/", $_SERVER['REQUEST_URI'])) { 
 					
 					$actionMode = request_var('mode', '');	
 					
-					if($actionMode == 'logout') {
+					if ($actionMode == 'logout') {
 						$this->integActions[] = 'logout';
-					//} else if($actionMode == 'login') { 
+					//} elseif ($actionMode == 'login') { 
 						//$this->integActions[] = 'login';
-					} else if(($actionMode == 'profile_info') || ($actionMode == 'reg_details') || ($actionMode == 'avatar')) {
+					} elseif (($actionMode == 'profile_info') || ($actionMode == 'reg_details') || ($actionMode == 'avatar')) {
 						
 						$didSubmit = request_var('submit', '');
-						if(!empty($didSubmit)) {
+						if (!empty($didSubmit)) {
 							$this->integActions[] = 'profile';
 							$this->integActionsFor = 0;
 						}
 					}
 				// Or is it an admin editing a user's profile?
-				} else if(defined('ADMIN_START')) {
+				} elseif (defined('ADMIN_START')) {
 				
 					$didSubmit = request_var('update', '');
 					
-					if(!empty($didSubmit)) {
+					if (!empty($didSubmit)) {
 						$actionMode = request_var('mode', '');
 						$wpuActionsFor = (int)request_var('u', '');
-						if(!empty($wpuActionsFor) && (($actionMode == 'profile') || ($actionMode == 'overview') || ($actionMode == 'profile'))) {
+						if (!empty($wpuActionsFor) && (($actionMode == 'profile') || ($actionMode == 'overview') || ($actionMode == 'profile'))) {
 							$this->integActions[] = 'profile';
 							$this->integActionsFor = $wpuActionsFor;
 						}
@@ -705,13 +705,13 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 				 * TODO: In future, we could add a core file edit to adm/index.php to defer the decision if this is considered too ugly
 				 */
 				$inAdmin = false;
-				if(defined('ADMIN_START')) {
+				if (defined('ADMIN_START')) {
 					$user->session_begin();
-					 if(isset($user->data['session_admin']) && $user->data['session_admin']) {
+					 if (isset($user->data['session_admin']) && $user->data['session_admin']) {
 						$inAdmin = true;
 					}
 				}
-				if(!$inAdmin) {
+				if (!$inAdmin) {
 					$this->integActions[] = 'template-p-in-w';
 				}	
 			}
@@ -743,10 +743,10 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 	
 	
 	public function should_do_action($actionName) {
-		if(!sizeof($this->integActions)) {
+		if (!sizeof($this->integActions)) {
 			return false;
 		}
-		if(in_array($actionName, $this->integActions)) {
+		if (in_array($actionName, $this->integActions)) {
 			return true;
 		}
 		return false;
@@ -783,7 +783,7 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 	}
 	
 	public function get_wp_content() {
-		if($this->should_do_action('template-p-in-w')) {
+		if ($this->should_do_action('template-p-in-w')) {
 			return $this->outerContent;
 		} else { 
 			return $this->innerContent;
@@ -791,7 +791,7 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 	}
 	
 	public function get_phpbb_content() {
-		if($this->should_do_action('template-p-in-w')) {
+		if ($this->should_do_action('template-p-in-w')) {
 			return $this->innerContent;
 		} else {
 			return $this->outerContent;
@@ -799,7 +799,7 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 	}
 	
 	public function set_wp_content($content) {
-		if($this->should_do_action('template-p-in-w')) { 
+		if ($this->should_do_action('template-p-in-w')) { 
 			$this->outerContent = $content;
 		} else {
 			$this->innerContent = $content;
@@ -807,7 +807,7 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 	}
 	
 	public function set_phpbb_content($content) {
-		if($this->should_do_action('template-p-in-w')) {
+		if ($this->should_do_action('template-p-in-w')) {
 			$this->innerContent = $content;
 		} else {
 			$this->outerContent = $content;
@@ -825,7 +825,7 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 	public function get_inner_package() {
 		if ($this->should_do_action('template-p-in-w')) {
 			return 'phpbb';
-		} else if ($this->should_do_action('template-w-in-p')) {
+		} elseif ($this->should_do_action('template-w-in-p')) {
 			return 'wp';
 		}
 		return 'none';
@@ -834,7 +834,7 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 	public function get_outer_package() {
 		if ($this->should_do_action('template-p-in-w')) {
 			return 'wp';
-		} else if ($this->should_do_action('template-w-in-p')) {
+		} elseif ($this->should_do_action('template-w-in-p')) {
 			return 'phpbb';
 		}
 		return 'none';	
@@ -848,7 +848,7 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 	}
 	
 	protected function ajax_result($errMsg, $msgType = 'message') {
-		if($msgType == 'error') {
+		if ($msgType == 'error') {
 			$errMsg = '[ERROR]' . $errMsg;
 		}
 		die($errMsg);
@@ -864,7 +864,7 @@ abstract class WP_United_Plugin_Main_Base extends WP_United_Plugin_Base {
 	 */
 	public function disable_connection($type) {
 		
-		if(!$this->is_enabled()) {
+		if (!$this->is_enabled()) {
 			$this->ajax_result(__('WP-United is already disabled', 'wp-united'), 'message');
 		}
 		

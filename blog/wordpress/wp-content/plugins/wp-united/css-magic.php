@@ -128,11 +128,11 @@ class CSS_Magic {
 		preg_match_all('/(\@[^\{]*\{)([^\{^\}]*(\{[^\@^\{^\}]*\}[^\{^\}]*)*?)\}/', $str, $nested);
 		
 		$nestIndex = sizeof($this->nestedItems);
-		if(sizeof($nested[0]) && isset($nested[1]) && is_array($nested[1]) && sizeof($nested[1])) {
+		if (sizeof($nested[0]) && isset($nested[1]) && is_array($nested[1]) && sizeof($nested[1])) {
 			foreach($nested[1] as $nestNum => $nestSel) {
-				if(!empty($nestSel) && isset($nested[2]) && is_array($nested[2]) && isset($nested[2][$nestNum])) {
+				if (!empty($nestSel) && isset($nested[2]) && is_array($nested[2]) && isset($nested[2][$nestNum])) {
 					// handle imported stylesheets separately
-					if(stristr($nestSel, '@import') !== false) {
+					if (stristr($nestSel, '@import') !== false) {
 						continue;
 					}
 
@@ -152,10 +152,10 @@ class CSS_Magic {
 		}
 		
 		// Other nested stylesheets:
-		if($this->processImports) {
+		if ($this->processImports) {
 			preg_match_all('/\@import\s(url\()?[\'"]?([^\'^"^\)]*)[\'"]?\)?;/', $str, $imported);
 			$importIndex = sizeof($this->importedItems);
-			if(sizeof($imported[0]) && isset($imported[2]) && is_array($imported[2]) && sizeof($imported[2])) {
+			if (sizeof($imported[0]) && isset($imported[2]) && is_array($imported[2]) && sizeof($imported[2])) {
 				foreach($imported[2] as $importNum => $importUrl) {
 				
 					$this->totalItems = $this->totalItems + 1;
@@ -176,12 +176,12 @@ class CSS_Magic {
 		
 		$parts = explode("}",$str);
 
-		if(count($parts) > 0) {
+		if (count($parts) > 0) {
 			foreach($parts as $part) { 
-				if(strpos($part, '{') !== FALSE) {
+				if (strpos($part, '{') !== FALSE) {
 					list($keys,$cssCode) = explode('{', $part);
 					// store full selector
-					if(strlen($keys) > 0) {
+					if (strlen($keys) > 0) {
 						$keys = str_replace("\n", "", $keys);
 						$keys = str_replace("\r", "", $keys);
 						$keys = str_replace("\\", "", $keys);
@@ -205,7 +205,7 @@ class CSS_Magic {
 		if ($clear) $this->clear();
 		$this->filename = $filename;
 		
-		if(@file_exists($filename)) {
+		if (@file_exists($filename)) {
 			$this->parsedFromFile = true;
 			return $this->parseString(@file_get_contents($filename));
 		} else {
@@ -227,25 +227,25 @@ class CSS_Magic {
 		$path = '';
 		
 		foreach($this->importedItems as $importIndex => $importItem) {
-			if(
+			if (
 				(stristr($importItem['url'], 'http://') !== false) ||
 				(stristr($importItem['url'], 'https://') !== false)
 			) {
 				// full URL:
-				if(empty($this->baseUrl)) {
+				if (empty($this->baseUrl)) {
 					continue;
 				}
 				
 				$path = str_replace($this->baseUrl, $this->basePath, $importItem['url']);
 				
-				if(
+				if (
 					(stristr($importItem['url'], 'http://') !== false) ||
 					(stristr($importItem['url'], 'https://') !== false)
 				) {
 					continue;
 				}
 				
-			} elseif(substr($importItem['url'], 0, 1) === '/') {
+			} elseif (substr($importItem['url'], 0, 1) === '/') {
 				// absolute URL:
 				$path = $this->get_doc_root() . $importItem['url'];
 			} else {
@@ -257,8 +257,8 @@ class CSS_Magic {
 			$path = @realpath($path);
 
 			// only process imported stylesheets if we haven't done so already, to avoid infinite recursion
-			if(!$this->file_already_processed($path)) {
-				if(!empty($path) && $importItem['obj']->parseFile($path)) {
+			if (!$this->file_already_processed($path)) {
+				if (!empty($path) && $importItem['obj']->parseFile($path)) {
 					$importItem['obj']->process_imports($subUrl, $subPath);
 				}
 			}
@@ -274,12 +274,12 @@ class CSS_Magic {
 	public function file_already_processed($path) {
 	
 		foreach($this->importedItems as $importIndex => $importItem) {
-			if($importItem['obj']->file_already_processed($path)) {
+			if ($importItem['obj']->file_already_processed($path)) {
 				return true;
 			}
 		}
 		
-		if($this->parsedFromFile && ($this->filename == $path)) {
+		if ($this->parsedFromFile && ($this->filename == $path)) {
 			return true;
 		}
 		
@@ -338,7 +338,7 @@ class CSS_Magic {
 		$fixed = array();
 		$searchStrings = array();
 		$replStrings = array();
-		if(sizeof($IDs)) {
+		if (sizeof($IDs)) {
 			foreach($IDs as $ID) {
 				foreach(array(' ', '{', '.', '#', ':') as $suffix) {
 					$searchStrings[] = "#{$ID}{$suffix}";
@@ -362,7 +362,7 @@ class CSS_Magic {
 		$fixed = array();
 		$searchStrings = array();
 		$replStrings = array();
-		if(sizeof($classes)) {
+		if (sizeof($classes)) {
 			foreach($classes as $class) {
 				foreach(array(' ', '{', '.', '#', ':') as $suffix) {
 					$searchStrings[] = '#' . $class . $suffix;
@@ -393,10 +393,10 @@ class CSS_Magic {
 			$keyString = str_replace('__ ', '', $keyString);
 			$index++;
 			$fixedKeys = array();
-			if($keyString ==  '[WPU_NESTED]') {
+			if ($keyString ==  '[WPU_NESTED]') {
 				$fixedKeys = array('[WPU_NESTED]');
 				$this->nestedItems[(int)$cssCode]['content']->_makeSpecific($prefix, $removeBody);
-			} else if($keyString == '[WPU_NESTED_IMPORT]') {
+			} elseif ($keyString == '[WPU_NESTED_IMPORT]') {
 				// TODO: process nested import
 				$fixedKeys = array('[WPU_NESTED_IMPORT]');
 				$this->importedItems[(int)$cssCode]['obj']->_makeSpecific($prefix, $removeBody);
@@ -410,10 +410,10 @@ class CSS_Magic {
 					foreach($seps as $sep) {
 						$keyElements = explode($sep, $fixedKey);
 						$bodyPos = array_search("body", $keyElements);
-						if($bodyPos !== false) {
+						if ($bodyPos !== false) {
 							$keyElements[$bodyPos] = $prefix;
-							if(!$removeBody) {
-								if(sizeof($keyElements) > 1) { 
+							if (!$removeBody) {
+								if (sizeof($keyElements) > 1) { 
 									$fixedKey = implode($sep, $keyElements);
 								} else {
 									$fixedKey = $keyElements[$bodyPos]; 
@@ -424,13 +424,13 @@ class CSS_Magic {
 						}
 					}
 					// add prefix selector before each selector
-					if(!$foundBody) {
-						if(($fixedKey[0] != "@") && (strlen(trim($fixedKey)))) {
-							if(strpos($fixedKey, '* html') !== false) { // ie hack
+					if (!$foundBody) {
+						if (($fixedKey[0] != "@") && (strlen(trim($fixedKey)))) {
+							if (strpos($fixedKey, '* html') !== false) { // ie hack
 								$fixedKey = str_replace('* html', '* html ' . $prefix . ' ', $fixedKey);
-							} elseif(strpos($fixedKey, '*+ html') !== false) { // ie7 hack
+							} elseif (strpos($fixedKey, '*+ html') !== false) { // ie7 hack
 								$fixedKey = str_replace('*+ html', '*+ html ' . $prefix . ' ', $fixedKey);
-							} elseif($fixedKey == 'html') {
+							} elseif ($fixedKey == 'html') {
 								$fixedKey = $prefix;
 							} else {
 								$fixedKey = "{$prefix} " . $fixedKey;
@@ -439,7 +439,7 @@ class CSS_Magic {
 						}
 					
 					}
-					if(!empty($fixedKey)) {
+					if (!empty($fixedKey)) {
 						$fixedKeys[] = $fixedKey;
 					}
 				}
@@ -447,7 +447,7 @@ class CSS_Magic {
 			} 
 			
 			// recreate the fixed key
-			if(sizeof($fixedKeys)) {
+			if (sizeof($fixedKeys)) {
 				$fixedKeyString = implode(', ', $fixedKeys);
 			
 				while(array_key_exists($fixedKeyString, $fixed)) {
@@ -474,7 +474,7 @@ class CSS_Magic {
 		$newCSS = array();
 		foreach($this->css as $keyString => $cssCode) {
 			$newKey = trim(str_replace($txt, '', $keyString));
-			if(!empty($newKey)) {
+			if (!empty($newKey)) {
 				$newCSS[$newKey] = $cssCode;
 			}
 		}
@@ -497,14 +497,14 @@ class CSS_Magic {
 	public function getKeyClassesAndIDs($ignores = '') {
 		$classes = array();
 		$ids = array();
-		if(!is_array($ignores)) {
+		if (!is_array($ignores)) {
 			$ignores = array();
 		}
 		
 		foreach($this->css as $keyString => $cssCode) {
 			
 			foreach($ignores as $ignore) {
-				if(strstr($keyString, $ignore) !== false) {
+				if (strstr($keyString, $ignore) !== false) {
 					continue 2;
 				}
 			}
@@ -513,10 +513,10 @@ class CSS_Magic {
 			preg_match_all('/\..[^\s^#^>^<^\.^,^:]*/', $keyString, $cls);
 			preg_match_all('/#.[^\s^#^>^<^\.^,^:]*/', $keyString, $id);
 			
-			if(sizeof($cls[0])) {
+			if (sizeof($cls[0])) {
 				$classes = array_merge($classes, $cls[0]);
 			}
-			if(sizeof($id[0])) {
+			if (sizeof($id[0])) {
 				$ids = array_merge($ids, $id[0]);
 			}			
 		}
@@ -524,28 +524,28 @@ class CSS_Magic {
 		
 		foreach($this->nestedItems as $index => $nestedItem) {
 			$nestedEls = $nestedItem['content']->getKeyClassesAndIDs($ignores);
-			if(sizeof($nestedEls['classes'])) {
+			if (sizeof($nestedEls['classes'])) {
 				$classes = array_merge($classes, $nestedEls['classes']);
 			}
-			if(sizeof($nestedEls['ids'])) {
+			if (sizeof($nestedEls['ids'])) {
 				$ids = array_merge($ids, $nestedEls['ids']);
 			}
 		}
 		
 		foreach($this->importedItems as $index => $importedItem) {
 			$importedEls = $importedItem['obj']->getKeyClassesAndIDs($ignores);
-			if(sizeof($importedEls['classes'])) {
+			if (sizeof($importedEls['classes'])) {
 				$classes = array_merge($classes, $importedEls['classes']);
 			}
-			if(sizeof($importedEls['ids'])) {
+			if (sizeof($importedEls['ids'])) {
 				$ids = array_merge($ids, $importedEls['ids']);
 			}
 		}		
 		
-		if(sizeof($classes)) {
+		if (sizeof($classes)) {
 			$classes = array_unique($classes);
 		}
-		if(sizeof($ids)) {
+		if (sizeof($ids)) {
 			$ids = array_unique($ids);
 		}		
 		return array('ids' => $ids, 'classes' => $classes);
@@ -600,7 +600,7 @@ class CSS_Magic {
 		
 		$urlToCssFile = str_replace($this->basePath, $this->baseUrl, $filePath);
 	
-		if($urlToCssFile) {
+		if ($urlToCssFile) {
 			$urlToCssFile = explode('/', str_replace('\\', '/', $urlToCssFile));
 		}
 		
@@ -612,12 +612,12 @@ class CSS_Magic {
 			$cssResult = $cssCode;
 			
 			preg_match_all('/url\(.*?\)/', $cssCode, $urls);
-			if(is_array($urls[0])) {
+			if (is_array($urls[0])) {
 				foreach($urls[0] as $url) {	
 					
 					$replace = false;
 					
-					if((stristr($url, "http:") === false)  && (stristr($url, "https:") === false) && (substr($url, 0, 1) != '/')) {
+					if ((stristr($url, "http:") === false)  && (stristr($url, "https:") === false) && (substr($url, 0, 1) != '/')) {
 						$out = str_replace(array('url', '(', ')', "'", '"', ' '), '', $url);
 						if ($out != '/') {
 							$replace = true;
@@ -627,13 +627,13 @@ class CSS_Magic {
 					if ($replace) {
 						
 						// only process URLs we haven't processed before in this session
-						if(isset($alreadyProcessed[$url])) {
+						if (isset($alreadyProcessed[$url])) {
 							$out = $alreadyProcessed[$url];
 						} else {
 						
 						
 							// We try to sub in the absolute URL for the file path. If that fails then we use the computed relative path difference.
-							if($urlToCssFile) {
+							if ($urlToCssFile) {
 								$urlParts = explode('/', $out);
 								$canModify = true;
 								
@@ -641,8 +641,8 @@ class CSS_Magic {
 								foreach($urlParts as $part) {
 									if (($part == '.') || ($part == '')) {
 										continue;
-									} else if ($part == '..') {
-										if(!sizeof($result)) {
+									} elseif ($part == '..') {
+										if (!sizeof($result)) {
 											$canModify = false;
 											break;
 										}
@@ -651,12 +651,12 @@ class CSS_Magic {
 										$result[] = $part;
 									}
 								}
-								if($canModify) {
+								if ($canModify) {
 									$out = implode('/', $result);
 								}	
 							}
 							
-							if((stristr($out, "http:") === false)  && (stristr($url, "https:") === false)) {
+							if ((stristr($out, "http:") === false)  && (stristr($url, "https:") === false)) {
 								$out = $relPath.$out;
 							}
 							$out = str_replace(array('//', ':/'), array('/', '://'), $out);		
@@ -689,13 +689,13 @@ class CSS_Magic {
 		
 		$absFileLoc = clean_path(realpath($filePath));
 
-		if(is_dir($absFileLoc)) {
+		if (is_dir($absFileLoc)) {
 			$absFileLoc = $this->add_trailing_slash($absFileLoc);
 		}
 
-		$currLoc = @realpath($this->add_trailing_slash(getcwd()));
+		$absCurrLoc = @realpath($this->add_trailing_slash(getcwd()));
 		
-		if(is_dir($absCurrLoc)) {
+		if (is_dir($absCurrLoc)) {
 			$absCurrLoc = $this->add_trailing_slash($absCurrLoc);
 		}
 		
@@ -730,10 +730,10 @@ class CSS_Magic {
 		foreach($this->css as $keyString => $cssCode) {
 			$keyString = str_replace('__ ', '', $keyString);
 			$cssCode = str_replace('[TANTEK]', "}\\", $cssCode);
-			if($keyString == '[WPU_NESTED]') {
+			if ($keyString == '[WPU_NESTED]') {
 				$response .= $this->nestedItems[(int)$cssCode]['selector'];
 				$response .= $this->nestedItems[(int)$cssCode]['content']->getCSS() . "}\n\n";
-			} elseif($keyString == '[WPU_NESTED_IMPORT]') {
+			} elseif ($keyString == '[WPU_NESTED_IMPORT]') {
 				$r = $this->importedItems[(int)$cssCode]['obj']->getCSS();
 				$response .= (empty($r)) ? $this->importedItems[(int)$cssCode]['orig'] : $r ;
 				$response .= "\n\n";

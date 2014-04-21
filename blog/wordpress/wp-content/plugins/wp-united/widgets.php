@@ -382,29 +382,29 @@ class WPU_Useful_Forum_Links_Widget extends WP_Widget {
 		$after = '</a></li>';
 		$adj = '">';
 		echo '<ul class="wpuusefullinks">';
-		if($instance['showForumIndex']) {
+		if ($instance['showForumIndex']) {
 			echo $before . $phpbbForum->append_sid($phpbbForum->get_board_url()) . $adj . $phpbbForum->lang['FORUM_INDEX'] . $after;
 		}
-		if($instance['showForumSearch']) {
+		if ($instance['showForumSearch']) {
 			echo $before . $phpbbForum->append_sid($phpbbForum->get_board_url() . 'search.' . $phpEx) . $adj . $phpbbForum->lang['SEARCH'] . $after;
 		}
-		if($instance['showUnanswered']) {
+		if ($instance['showUnanswered']) {
 			echo $before . $phpbbForum->append_sid($phpbbForum->get_board_url() . 'search.' . $phpEx . '?search_id=unanswered') . $adj . $phpbbForum->lang['SEARCH_UNANSWERED'] . $after;
 		}
-		if($instance['showActive']) {
+		if ($instance['showActive']) {
 			echo $before . $phpbbForum->append_sid($phpbbForum->get_board_url() . 'search.' . $phpEx . '?search_id=active_topics') . $adj . $phpbbForum->lang['SEARCH_ACTIVE_TOPICS'] . $after;
 		}		
-		if($phpbbForum->user_logged_in()) {
-			if($instance['showMyPosts']) {
+		if ($phpbbForum->user_logged_in()) {
+			if ($instance['showMyPosts']) {
 				echo $before . $phpbbForum->append_sid($phpbbForum->get_board_url() . 'search.' . $phpEx . '?search_id=egosearch') . $adj . $phpbbForum->lang['SEARCH_SELF'] . $after;
 			}
-			if($instance['showNewPosts']) {
+			if ($instance['showNewPosts']) {
 				echo '<li>' . get_wpu_newposts_link() . '</li>';
 			}
-			if($instance['showProfile']) {
+			if ($instance['showProfile']) {
 				echo $before . $phpbbForum->append_sid($phpbbForum->get_board_url() . 'ucp.' . $phpEx) . $adj . $phpbbForum->lang['PROFILE'] . $after;
 			}				
-			if($instance['showPMs']) {
+			if ($instance['showPMs']) {
 				if ($phpbbForum->get_userdata('user_new_privmsg')) {
 					$l_message_new = ($phpbbForum->get_userdata('user_new_privmsg') == 1) ? $phpbbForum->lang['NEW_PM'] : $phpbbForum->lang['NEW_PMS'];
 					$l_privmsgs_text = sprintf($l_message_new, $phpbbForum->get_userdata('user_new_privmsg'));
@@ -415,9 +415,9 @@ class WPU_Useful_Forum_Links_Widget extends WP_Widget {
 					echo $before . $phpbbForum->append_sid($phpbbForum->get_board_url() . 'ucp.' . $phpEx . '?i=pm&folder=inbox') . $adj . $l_privmsgs_text . $after;
 				}	
 			}
-			if($instance['showACP']) {
+			if ($instance['showACP']) {
 				$fStateChanged = $phpbbForum->foreground();
-				if($auth->acl_get('a_')) {
+				if ($auth->acl_get('a_')) {
 					echo $before . $phpbbForum->append_sid($phpbbForum->get_board_url() . ('adm/index.' . $phpEx)) . $adj . $phpbbForum->lang['ACP'] . $after;
 				}
 				$phpbbForum->restore_state($fStateChanged);
@@ -435,7 +435,7 @@ class WPU_Useful_Forum_Links_Widget extends WP_Widget {
 		$instance['title'] = strip_tags(stripslashes($new_instance['title']));
 
 		foreach($this->defaultArgs as $var => $default) {
-			if($var == 'title') {
+			if ($var == 'title') {
 				$instance[$var] = strip_tags(stripslashes($new_instance[$var]));
 			} else {
 				$instance[$var] = (strip_tags(stripslashes($new_instance[$var])) == 'ok')? 1 : 0;
@@ -452,7 +452,7 @@ class WPU_Useful_Forum_Links_Widget extends WP_Widget {
 		$instance = wp_parse_args( (array) $instance, $this->defaultArgs);
 		 
 		foreach ($this->defaultArgs as $var => $default) {
-			if($var == 'title') {
+			if ($var == 'title') {
 				$$var = strip_tags($instance[$var]);
 			} else {
 				$$var = (!empty($instance[$var])) ? 'checked="checked"' : '';
@@ -497,7 +497,7 @@ class WPU_Forum_Nav_Block_Widget extends WP_Widget {
 		$showStyleSwitcher = $instance['showStyleSwitcher'];
 		$nativeCSS = $instance['nativeCSS'];
 		
-		if(!defined('WPU_BLOG_PAGE') || is_admin()) {
+		if (!defined('WPU_BLOG_PAGE') || is_admin()) {
 			return;
 		}
 		
@@ -573,7 +573,7 @@ class WPU_Forum_Nav_Block_Footer_Widget extends WP_Widget {
 		$showSiteHome = $instance['showSiteHome'];
 		$nativeCSS = $instance['nativeCSS'];
 		
-		if(!defined('WPU_BLOG_PAGE') || is_admin()) {
+		if (!defined('WPU_BLOG_PAGE') || is_admin()) {
 			return;
 		}
 		
@@ -636,7 +636,7 @@ class WPU_Forum_Birthdays_Widget extends WP_Widget {
 		
 		$birthdays = $phpbbForum->get_birthday_list();
 		
-		if(($birthdays == '') && $hideIfNothing) {
+		if (($birthdays == '') && $hideIfNothing) {
 			return;
 		}
 		

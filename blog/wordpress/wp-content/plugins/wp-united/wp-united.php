@@ -22,7 +22,7 @@ if ( !defined('ABSPATH') ) {
  *  This file could be invoked from either side to instantiate the object.
  *  The WP-United class then decorates itself with a cross-package settings object.
  */
-if( !class_exists( 'WP_United_Plugin' ) ) {
+if ( !class_exists( 'WP_United_Plugin' ) ) {
 	require_once(plugin_dir_path(__FILE__) . 'base-classes.php');
 	require_once(plugin_dir_path(__FILE__) . 'plugin-main.php');
 	global $wpUnited;
@@ -51,13 +51,13 @@ function wpu_activate() {
 	
 	foreach($checkForThese as $option) {
 		$opt = $option;
-		if(!empty($opt)) {
+		if (!empty($opt)) {
 			$isNewInstall = false;
 			break;
 		}
 	}
 	
-	if($isNewInstall) {
+	if ($isNewInstall) {
 		add_option('wpu-new-install', 'yes');
 	}
 	
@@ -70,7 +70,7 @@ function wpu_activate() {
  */
 function wpu_uninstall() {
 	
-	if(!defined('WP_UNINSTALL_PLUGIN')) {
+	if (!defined('WP_UNINSTALL_PLUGIN')) {
 		return;
 	}
 	

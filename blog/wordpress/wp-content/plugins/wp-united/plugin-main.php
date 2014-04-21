@@ -116,7 +116,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 		// some login integration routines may be needed even when user integration is disabled.	
 		require_once($this->get_plugin_path() . 'user-integrator.php'); 
 		
-		if($this->get_setting('xposting')) {		
+		if ($this->get_setting('xposting')) {		
 			require_once($this->get_plugin_path() . 'cross-posting.php');
 			$this->xPoster = new WPU_Plugin_XPosting($this->settings);
 		}
@@ -137,7 +137,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 	public function init_plugin() { 
 		global $phpbbForum;
 
-		if($this->has_inited()) {
+		if ($this->has_inited()) {
 			return false;
 		}
 		$this->doneInit = true;
@@ -148,30 +148,30 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 		$this->process_adminpanel_actions();
 
 		// disable login integration if we couldn't override pluggables
-		if(defined('WPU_CANNOT_OVERRIDE')) {
+		if (defined('WPU_CANNOT_OVERRIDE')) {
 			$this->settings['integrateLogin'] = 0;
 		}
 
-		if(!$this->get_setting('phpbb_path') || !$phpbbForum->can_connect_to_phpbb()) {
+		if (!$this->get_setting('phpbb_path') || !$phpbbForum->can_connect_to_phpbb()) {
 			$this->set_last_run('disconnected');
 			$shouldRun = false;
 		}
 		
-		if($this->get_last_run() == 'connected') {
+		if ($this->get_last_run() == 'connected') {
 			$shouldRun = false;
 		}
 		
-		if($shouldRun) {
+		if ($shouldRun) {
 			$this->set_last_run('connected');
 		}
 		
 		$versionCheck = $this->check_mod_version();
-		if($versionCheck['result'] != 'OK') {
+		if ($versionCheck['result'] != 'OK') {
 			$this->disable();
 			$shouldRun = false;
 		}
 		
-		if($this->is_enabled() && $shouldRun) { 
+		if ($this->is_enabled() && $shouldRun) { 
 		
 			$this->load_phpbb();
 			
@@ -191,7 +191,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 			
 				
 			// The end flush action stops fwd template integration from working.
-			if($this->should_do_action('template-w-in-p')) {
+			if ($this->should_do_action('template-w-in-p')) {
 				// must match priority etc of the built-in
 				remove_action('shutdown', 'wp_ob_end_flush_all', 1);
 			}
@@ -211,27 +211,27 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 	 *
 	*/
 	public function filetree() {
-		if(check_ajax_referer( 'wp-united-filetree')) {
+		if (check_ajax_referer( 'wp-united-filetree')) {
 			wpu_filetree();
 		}
 		die();
 	}
 	public function ajax_auto_disable() {
-		if(check_ajax_referer( 'wp-united-disable')) {
+		if (check_ajax_referer( 'wp-united-disable')) {
 			$this->disable_connection('server-error'); 
 			die('OK');
 		}
 		
 	}
 	public function ajax_manual_disable() {
-		if(check_ajax_referer( 'wp-united-disable')) {
+		if (check_ajax_referer( 'wp-united-disable')) {
 			$this->disable_connection('manual');
 			die('OK');
 		}
 		
 	}
 	public function ajax_settings_transmit() {
-		if(check_ajax_referer( 'wp-united-transmit')) {
+		if (check_ajax_referer( 'wp-united-transmit')) {
 			wpu_process_settings();
 			$this->transmit_settings();
 			die('OK');
@@ -241,7 +241,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 	
 	// returns a WP-United sub-plugin object, if it exists
 	public function get_extra($extraName) {
-		if($this->is_working() && is_object($this->extras)) {
+		if ($this->is_working() && is_object($this->extras)) {
 			return $this->extras->get_extra($extraName);
 		}
 		return false;
@@ -252,7 +252,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 
 
 		if ( !defined('IN_PHPBB') ) { 
-			if(is_admin()) {
+			if (is_admin()) {
 				define('WPU_PHPBB_IS_EMBEDDED', TRUE);
 			} else {
 				define('WPU_BLOG_PAGE', 1);
@@ -284,7 +284,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 		}
 	
 		// store data before transmitting
-		if($enable) {
+		if ($enable) {
 			$this->enable();
 		} else {
 			$this->disable();
@@ -292,8 +292,8 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 		
 		$dataToStore = $this->settings;
 		
-		if($phpbbForum->synchronise_settings($dataToStore)) { 
-			if($enable) {
+		if ($phpbbForum->synchronise_settings($dataToStore)) { 
+			if ($enable) {
 				$this->set_last_run('working');
 			}
 			die('OK');
@@ -317,9 +317,9 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 	 * @param string $status disconnected|connected|working
 	 */
 	private function set_last_run($status) {
-		if($this->get_last_run() != $status) { 
+		if ($this->get_last_run() != $status) { 
 			// transitions cannot go from 'working' to 'connected' if wp-united is enabled OK.
-			if( ($this->lastRun == 'working') && ($status == 'connected') && $this->is_enabled() ) {
+			if ( ($this->lastRun == 'working') && ($status == 'connected') && $this->is_enabled() ) {
 				return;
 			} 
 			$this->lastRun = $status;
@@ -333,7 +333,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 	 * @return void
 	 */
 	public function phpbb_logout() {
-		if($this->is_working()) {
+		if ($this->is_working()) {
 			global $phpbbForum;
 			$phpbbForum->logout();
 		}
@@ -359,12 +359,12 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 		
 		$wpuDebug->add('Integrate users hook called.');
 		
-		if(!$this->has_inited()) {
+		if (!$this->has_inited()) {
 			$wpuDebug->add('WARNING: A plugin has called set_current_user too early! Initing phpBB environment.');
 			$this->init_plugin();
 		}
 
-		if($this->is_working() && $this->get_setting('integrateLogin') && !defined('WPU_DISABLE_LOGIN_INT')) {
+		if ($this->is_working() && $this->get_setting('integrateLogin') && !defined('WPU_DISABLE_LOGIN_INT')) {
 			wpu_integrate_login();
 		}
 	}
@@ -391,21 +391,21 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 	 */
 	private function process_adminpanel_actions() {
 
-		if(is_admin()) {
+		if (is_admin()) {
 			
 			require_once($this->get_plugin_path() . 'settings-panel.php');
 			
 			// the settings page has detected an error and asked to abort
-			if( isset($_POST['wpudisable']) && check_ajax_referer( 'wp-united-disable') ) {
+			if ( isset($_POST['wpudisable']) && check_ajax_referer( 'wp-united-disable') ) {
 				$this->ajax_auto_disable();
 			}	
 
 			// the user wants to manually disable
-			if( isset($_POST['wpudisableman']) && check_ajax_referer( 'wp-united-disable') ) {
+			if ( isset($_POST['wpudisableman']) && check_ajax_referer( 'wp-united-disable') ) {
 				$this->ajax_manual_disable();
 			}
 						
-			if($this->is_working() && is_object($this->extras)) {
+			if ($this->is_working() && is_object($this->extras)) {
 				$this->extras->admin_load_actions();
 			}
 			
@@ -422,7 +422,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 		wpu_widgets_init();
 		
 		// register any sub-plugin widget
-		if($this->is_working() && is_object($this->extras)) {
+		if ($this->is_working() && is_object($this->extras)) {
 			$this->extras->widgets_init();
 		}
 	}
@@ -433,11 +433,11 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 	 */
 	private function process_frontend_actions() {
 		
-		if(is_admin()) {
+		if (is_admin()) {
 			return;
 		}
 
-		if($this->is_working() && is_object($this->extras)) {
+		if ($this->is_working() && is_object($this->extras)) {
 			$this->extras->page_load_actions();
 		}
 
@@ -456,7 +456,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 		
 		if ( $this->is_working() && $this->get_setting('useForumPage') ) { 
 			$forumPage = get_option('wpu_set_forum');
-			if(!empty($forumPage) && ($forumPage == $post)) {
+			if (!empty($forumPage) && ($forumPage == $post)) {
 				$forumPage = $phpbbForum->append_sid($phpbbForum->get_board_url() . 'index.' . $phpEx);
 				return $forumPage; 
 			}
@@ -511,7 +511,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 	public function handle_new_post($postID, $post, $future=false) {
 		global $phpbbForum;
 		
-		if( (!$future) && (defined("WPU_JUST_POSTED_{$postID}")) ) {
+		if ( (!$future) && (defined("WPU_JUST_POSTED_{$postID}")) ) {
 			return;
 		}
 
@@ -529,7 +529,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 				/**
 				 * @todo this doesn't need to happen every time
 				 */			
-				if(!$phpbbForum->update_blog_link($post->post_author)) {
+				if (!$phpbbForum->update_blog_link($post->post_author)) {
 					wp_die(__('Error accessing the phpBB database when updating Blog ID', 'wp-united'));
 				}
 				
@@ -562,7 +562,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 	 */
 	public function check_content_for_forum($postContent) {
 		
-		if(!$this->is_working()) {
+		if (!$this->is_working()) {
 			return $postContent;
 		}
 		
@@ -584,7 +584,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 	public function censor_content($postContent) { 
 		global $phpbbForum; 
 		
-		if(!$this->is_working()) {
+		if (!$this->is_working()) {
 			return $postContent;
 		}
 
@@ -636,19 +636,19 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 		} else {
 			$email = $id_or_email;
 			$user = get_user_by('email', $id_or_email);
-			if(is_object($user)) {
+			if (is_object($user)) {
 				$id = $user->user_id;
 			}
 		}
 		
 
-		if(!$user) {
+		if (!$user) {
 			return $avatar;
 		}
 
 		$wpuIntID = wpu_get_integrated_phpbbuser($user->ID);
 		
-		if(!$wpuIntID) { 
+		if (!$wpuIntID) { 
 			// the user isn't integrated, show WP avatar
 			return $avatar;
 			
@@ -656,7 +656,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 			
 			$phpbbAvatar = $phpbbForum->get_avatar($wpuIntID, $size, $size, $safe_alt);	
 			
-			if(!empty($phpbbAvatar) && (stristr($phpbbAvatar, 'wpuput=1') === false)) {
+			if (!empty($phpbbAvatar) && (stristr($phpbbAvatar, 'wpuput=1') === false)) {
 				$phpbbAvatar = str_replace('src=', 'class="avatar avatar-' . $size . ' photo" src=', $phpbbAvatar);
 				return $phpbbAvatar;
 			}
@@ -704,7 +704,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 	 */
 	public function add_scripts() {
 		
-		if(!$this->is_enabled()) {
+		if (!$this->is_enabled()) {
 			return;
 		}
 		
@@ -714,7 +714,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 		}
 		
 		// fix broken admin bar on integrated page
-		if(($this->get_setting('showHdrFtr') == 'FWD') && $this->get_setting('cssMagic')) {
+		if (($this->get_setting('showHdrFtr') == 'FWD') && $this->get_setting('cssMagic')) {
 			wp_enqueue_script('wpu-fix-adminbar', $this->get_plugin_url() . 'js/fix-admin-bar.js', array('admin-bar'), false, true);
 		}
 
@@ -729,7 +729,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 			);
 			
 			foreach($langStrings as $key => $lang) {
-				if($key != 'wpu_more_smilies') {
+				if ($key != 'wpu_more_smilies') {
 					echo ',';
 				}
 				echo "'{$key}': '";
@@ -775,8 +775,8 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 
 	public function validate_username_conflict($wpValdUser, $username) {
 		global $phpbbForum;
-		if($phpbbForum->get_state() == 'phpbb') {
-			if(function_exists('phpbb_validate_username')) {
+		if ($phpbbForum->get_state() == 'phpbb') {
+			if (function_exists('phpbb_validate_username')) {
 				return phpbb_validate_username($username, false);
 			}
 		}
@@ -800,7 +800,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 		
 		$result = wpu_validate_new_user($username, $email, $errors);
 				
-		if($result !== false) {
+		if ($result !== false) {
 			return $result; // return our errors obj
 		}
 		
@@ -828,7 +828,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 		 * 
 		 * At any rate, it is pointless to check twice
 		 */
-		if($justCreatedUser === $userID) {
+		if ($justCreatedUser === $userID) {
 				return;
 		}
 
@@ -848,7 +848,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 
 			$result = wpu_validate_new_user($user->user_login, $user->user_email , $errors);
 
-			if($result !== false) { 
+			if ($result !== false) { 
 				// An error occurred validating the new WP user, remove the user.
 				
 				wp_delete_user($userID,  0);
@@ -877,10 +877,10 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 	public function profile_update($userID, $oldUserData) {
 		global $phpbbForum;
 		 
-		if($this->get_setting('integrateLogin')) {
+		if ($this->get_setting('integrateLogin')) {
 			$wpData = get_userdata($userID);
 			$phpbbID = wpu_get_integrated_phpbbuser($userID);
-			if($phpbbID) {
+			if ($phpbbID) {
 				 // only sync password if it has changed, not just because it is different
 				 $ignorePassword = ($wpData->data->user_pass == $oldUserdata->user_pass);
 				 wpu_sync_profiles($wpData, $phpbbForum->get_userdata('', $phpbbID), 'wp-update', $ignorePassword); 
@@ -897,7 +897,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 	public function password_reset($user, $new_pass) {
 		global $phpbbForum;
 		
-		if($this->get_setting('integrateLogin')) {
+		if ($this->get_setting('integrateLogin')) {
 			$wpData = get_userdata($user->ID);
 			
 			//user phpBB password format for syncing
@@ -905,7 +905,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 			$wpData->data->user_pass = wp_hash_password($phpbbPass);
 			
 			$phpbbID = wpu_get_integrated_phpbbuser($userID);
-			if($phpbbID) {
+			if ($phpbbID) {
 				wpu_sync_profiles($wpData, $phpbbForum->get_userdata('', $phpbbID), 'wp-update', false); 
 			}
 		}
@@ -917,7 +917,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 	public function add_wider_cookie($logged_in_cookie, $expire, $expiration, $user_id, $data) {
 		global $phpbbForum, $config;
 		
-		if($this->is_working()) {
+		if ($this->is_working()) {
 	
 			//We don't check if is integrated, as there won't necessarily be a phpBB ID
 			$fStateChanged = $phpbbForum->foreground();
@@ -925,7 +925,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 			$path = $config['cookie_path'];
 			$phpbbForum->restore_state($fStateChanged);
 			
-			if(($path != COOKIEPATH) || ($domain != COOKIE_DOMAIN)) {
+			if (($path != COOKIEPATH) || ($domain != COOKIE_DOMAIN)) {
 				
 				$secure_logged_in_cookie = apply_filters('secure_logged_in_cookie', false, $user_id, $secure);
 				setcookie(LOGGED_IN_COOKIE, $logged_in_cookie, $expire, $path, $domain, $secure_logged_in_cookie, true);
@@ -941,7 +941,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 	public function clear_wider_cookie() {
 		global $phpbbForum, $config;
 		
-		if($this->is_working()) {
+		if ($this->is_working()) {
 			
 			// Do this even for unintegrated users -- it must be cleared if set
 			$fStateChanged = $phpbbForum->foreground();
@@ -969,11 +969,11 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 			return $user;
 		}
 		
-		if(!$this->is_working()) {
+		if (!$this->is_working()) {
 			return $user;
 		}
 
-		if(!$this->get_setting('integrateLogin')) {
+		if (!$this->get_setting('integrateLogin')) {
 			return;
 		}
 		
@@ -982,26 +982,26 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 
 
 
-		if(!$phpbbForum->login($username, $phpbbPass)) {
+		if (!$phpbbForum->login($username, $phpbbPass)) {
 			return $user; // return an error
 		}
 
-		if($integratedID = wpu_get_integration_id() ) {
+		if ($integratedID = wpu_get_integration_id() ) {
 			return(get_userdata($integratedID));
 		}
 
 		// If we've got here, we have a valid phpBB user that isn't integrated in WordPress
 
 		// Should this phpBB user get an account? If not, we can just stay unintegrated
-		if(!$this->get_setting('integcreatewp') || !$userLevel = wpu_get_user_level()) {
+		if (!$this->get_setting('integcreatewp') || !$userLevel = wpu_get_user_level()) {
 			return $user;
 		}
 
 		$signUpName = $phpbbForum->get_username();
 		$newUserID = wpu_create_wp_user($signUpName, $phpbbForum->get_userdata('user_password'), $phpbbForum->get_userdata('user_email'));
 
-		if($newUserID) { 
-			if(!is_a($newUserID, 'WP_Error')) {
+		if ($newUserID) { 
+			if (!is_a($newUserID, 'WP_Error')) {
 				wpu_set_role($newUserID, $userLevel);		
 				wpu_update_int_id($phpbbForum->get_userdata('user_id'), $newUserID);
 				wpu_sync_profiles(get_userdata($newUserID), $phpbbForum->get_userdata(), 'sync');
@@ -1023,7 +1023,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 	public function record_login($auth_cookie, $expire, $expiration, $userID, $scheme) {
 		global $wpUnited;
 		
-		if(!$wpUnited->is_working()) {
+		if (!$wpUnited->is_working()) {
 			return;
 		}
 		
@@ -1052,7 +1052,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 					'title' => __('Visit wp-united.com', 'wp-united')
 				),
 			));
-			if(!is_admin()) {
+			if (!is_admin()) {
 				$adminBar->add_menu(array(
 					'id'    => 'wpu-main',
 					'title' => __('WP-United', 'wp-united'),
@@ -1066,7 +1066,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 		}
 		
 		
-		if(!$wpUnited->is_working()) {
+		if (!$wpUnited->is_working()) {
 			return;
 		}
 		
@@ -1081,9 +1081,9 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 		));	
 		
 		
-		if(current_user_can('manage_options'))  {
+		if (current_user_can('manage_options'))  {
 			$acpLink = $phpbbForum->get_acp_url();
-			if($acpLink) {
+			if ($acpLink) {
 				$adminBar->add_menu(array(
 					'id'    => 'wpu-acp',
 					'title' => __('Visit phpBB ACP', 'wp-united'),
@@ -1150,7 +1150,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 	 * @return void
 	 */
 	public function buffer_end_flush_all() {
-		//if($this->get_setting('showHdrFtr') == 'FWD') {
+		//if ($this->get_setting('showHdrFtr') == 'FWD') {
 			$levels = ob_get_level();
 			for ($i=0; $i<$levels; $i++){
 				$obStatus = ob_get_status();
@@ -1164,7 +1164,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 		public function add_footer_output() {
 		global $wpuDebug;
 	
-		if(
+		if (
 			!$this->should_do_action('template-p-in-w') && 
 			!$this->should_do_action('template-w-in-p')
 		) {
@@ -1175,7 +1175,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 			}
 
 			// Add stats if requested
-			if(defined('WPU_SHOW_STATS') && WPU_SHOW_STATS) {
+			if (defined('WPU_SHOW_STATS') && WPU_SHOW_STATS) {
 				$wpuDebug->display_stats();
 			}
 		}
@@ -1190,7 +1190,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 	 */
 	public function alter_query_for_template_int($request) {
 		
-		if(!$this->is_enabled() || !$this->should_do_action('template-p-in-w')) {
+		if (!$this->is_enabled() || !$this->should_do_action('template-p-in-w')) {
 			return $request;
 		}
 		
@@ -1198,7 +1198,7 @@ class WP_United_Plugin extends WP_United_Plugin_Main_Base {
 			'showposts'	=> 1
 		);
 		
-		if($this->get_setting('useForumPage')) { 
+		if ($this->get_setting('useForumPage')) { 
 			// set the page query so that the forum page is selected if in header
 			$request['page_id']	= get_option('wpu_set_forum');
 		}

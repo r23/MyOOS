@@ -42,7 +42,7 @@ function wpu_do_upgrade($action) {
 			$sql = 'SELECT post_wpu_xpost, topic_id FROM ' . POSTS_TABLE . ' 
 					WHERE post_wpu_xpost > 0';
 					
-			if($result = $db->sql_query($sql)) {
+			if ($result = $db->sql_query($sql)) {
 				while ($row = $db->sql_fetchrow($result)) {
 					$sql = 'UPDATE ' . TOPICS_TABLE . ' 
 						SET topic_wpu_xpost = ' . (int) $row['post_wpu_xpost'] . '

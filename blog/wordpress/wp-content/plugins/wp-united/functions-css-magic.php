@@ -70,7 +70,7 @@ function wpu_css_magic() {
 		$foundOuter = array();
 
 		foreach ((array)$innerSSLinks['keys'] as $index => $key) {
-			if($found = $wpuCache->get_css_magic($wpUnited->get_style_key($key), 'inner', -1)) {
+			if ($found = $wpuCache->get_css_magic($wpUnited->get_style_key($key), 'inner', -1)) {
 				$foundInner[] = $found;
 				$innerSSLinks['replacements'][$index] .=  '[*FOUND*]';
 			} else {
@@ -78,7 +78,7 @@ function wpu_css_magic() {
 			}
 		}
 		foreach ($outerSSLinks['keys'] as $index => $key) {
-			if($found = $wpuCache->get_css_magic($wpUnited->get_style_key($key), 'outer', -1)) {
+			if ($found = $wpuCache->get_css_magic($wpUnited->get_style_key($key), 'outer', -1)) {
 				$foundOuter[] = $found;
 			}
 		}	
@@ -91,15 +91,15 @@ function wpu_css_magic() {
 		$tplVoodooKey = $wpuCache->get_template_voodoo_key(TEMPLATEPATH, $foundInner, $foundOuter, (array)$inCSSInner['orig'], (array)$inCSSOuter['orig']);	
 		$innerSSLinks['replacements'] = str_replace('[*FOUND*]', $tplVoodooKey, $innerSSLinks['replacements']);
 
-		if((sizeof($foundInner) || $inCSSInner['orig'] ) && (sizeof($foundOuter) || $inCSSOuter['orig'])) {
+		if ((sizeof($foundInner) || $inCSSInner['orig'] ) && (sizeof($foundOuter) || $inCSSOuter['orig'])) {
 			$classDupes = array();
 			$idDupes = array();
 			
-			if($templateVoodoo = $wpuCache->get_template_voodoo($tplVoodooKey)) {
+			if ($templateVoodoo = $wpuCache->get_template_voodoo($tplVoodooKey)) {
 				/**
 				 * The template voodoo instructions already exist for this CSS combination
 				 */
-				if(isset($templateVoodoo['classes']) && isset($templateVoodoo['ids'])) {
+				if (isset($templateVoodoo['classes']) && isset($templateVoodoo['ids'])) {
 					$classDupes = $templateVoodoo['classes'];
 					$idDupes = $templateVoodoo['ids'];
 				} 
@@ -168,7 +168,7 @@ function wpu_css_magic() {
 	$numFixes = 0;
 	foreach($inCSSInner['css'] as $index => $innerCSSItem) {
 
-		if($inlineCache = $wpuCache->get_css_magic("{$index}-{$useTVStr}", 'inline', $tvKey)) {
+		if ($inlineCache = $wpuCache->get_css_magic("{$index}-{$useTVStr}", 'inline', $tvKey)) {
 			$result = @file_get_contents($inlineCache);
 		} else {
 			$cssM = new CSS_Magic();
@@ -177,7 +177,7 @@ function wpu_css_magic() {
 			 * @todo could split out to templatevoodoo file
 			 */
 			if ($wpUnited->get_setting('templateVoodoo')) {
-				if(isset($classDupes) && isset($idDupes)) {
+				if (isset($classDupes) && isset($idDupes)) {
 					$finds = array();
 					$repl = array();
 					foreach($classDupes as $classDupe) {
@@ -198,7 +198,7 @@ function wpu_css_magic() {
 			$wpuCache->save_css_magic($result, "{$index}-{$useTVStr}", 'inline', $tvKey);
 		
 		} 
-		if(!empty($result)) {
+		if (!empty($result)) {
 			//$result = '<style type="text/css">'  . $result . '</style>';
 			$wpUnited->set_inner_headinfo(str_replace($inCSSInner['orig'][$index], $result, $wpUnited->get_inner_headinfo()));
 			$numFixes++;
@@ -228,7 +228,7 @@ function wpu_css_magic() {
 		'/((<[^>]+\b)(?=height\s?=\s?[\'"]?\s?([0-9]+)\s?[\'"]?)([^>]*?))(\/?\s*>)/',
 		create_function(
 			'$m',
-			'if(preg_match(\'/(style\s?=\s?[\\\'"]([^\\\'"]+))([\\\'"])/\', $m[1], $r)) 
+			'if (preg_match(\'/(style\s?=\s?[\\\'"]([^\\\'"]+))([\\\'"])/\', $m[1], $r)) 
 				return  str_replace($r[0], "{$r[1]};height:{$m[3]}px;{$r[3]}", $m[1]) . $m[5];
 			return $m[1] . \' style="height:\' . $m[3] . \'px;" \' . $m[5];'
 		),
@@ -240,7 +240,7 @@ function wpu_css_magic() {
 		'/((<[^>]+\b)(?=width\s?=\s?[\'"]?\s?([0-9]+)\s?[\'"]?)([^>]*?))(\/?\s*>)/',
 		create_function(
 			'$m',
-			'if(preg_match(\'/(style\s?=\s?[\\\'"]([^\\\'"]+))([\\\'"])/\', $m[1], $r)) 
+			'if (preg_match(\'/(style\s?=\s?[\\\'"]([^\\\'"]+))([\\\'"])/\', $m[1], $r)) 
 				return  str_replace($r[0], "{$r[1]};width:{$m[3]}px;{$r[3]}", $m[1]) . $m[5];
 			return $m[1] . \' style="width:\' . $m[3] . \'px;" \' . $m[5];'
 		),
@@ -252,7 +252,7 @@ function wpu_css_magic() {
 		'/((<[^>]+\b)(?=bgcolor\s?=\s?[\'"]?\s?([0-9]+)\s?[\'"]?)([^>]*?))(\/?\s*>)/',
 		create_function(
 			'$m',
-			'if(preg_match(\'/(style\s?=\s?[\\\'"]([^\\\'"]+))([\\\'"])/\', $m[1], $r)) 
+			'if (preg_match(\'/(style\s?=\s?[\\\'"]([^\\\'"]+))([\\\'"])/\', $m[1], $r)) 
 				return  str_replace($r[0], "{$r[1]};background-color:{$m[3]}px;{$r[3]}", $m[1]) . $m[5];
 			return $m[1] . \' style="background-color:\' . $m[3] . \'px;" \' . $m[5];'
 		),
@@ -283,7 +283,7 @@ function wpu_get_stylesheet_links($headerInfo, $position='outer') {
 	$pos = "pos=" . $position;
 	
 	$pathHere = dirname($_SERVER['SCRIPT_FILENAME']);
-	if(!empty($pathHere)) {
+	if (!empty($pathHere)) {
 		$pathHere = add_trailing_slash($pathHere);
 	}
 	
@@ -296,7 +296,7 @@ function wpu_get_stylesheet_links($headerInfo, $position='outer') {
 	$matches = array_merge($matches[0], $matches2[0], $matches3[0]);
 	$links = array(); $repl = array(); $keys = array();
 
-	if(is_array($matches)) {
+	if (is_array($matches)) {
 		
 		foreach($matches as $match) {
 			
@@ -308,7 +308,7 @@ function wpu_get_stylesheet_links($headerInfo, $position='outer') {
 			);
 				
 			foreach($ignores as $ignore) {
-				if(strstr($match, $ignore) !== false) {
+				if (strstr($match, $ignore) !== false) {
 					continue 2;
 				}
 			}
@@ -316,9 +316,9 @@ function wpu_get_stylesheet_links($headerInfo, $position='outer') {
 			
 			// extract css location
 			$and = '&';
-			if(stristr($match, "@import url") !== false) { // import URL
+			if (stristr($match, "@import url") !== false) { // import URL
 				$el = str_replace(array("@import", "(", "url",  ")", " ", "'", '"'), "", $match);
-			} elseif(stristr($match, "@import") !== false) { // import
+			} elseif (stristr($match, "@import") !== false) { // import
 				$el = str_replace(array("@import", "(",  ")", " ", "'", '"'), "", $match);
 			} else { // link href -- xxx.css or style.php
 				/**
@@ -333,7 +333,7 @@ function wpu_get_stylesheet_links($headerInfo, $position='outer') {
 				// elements of a stylesheet tag could be delimited by ",' or ' ', in that order of likelihood:
 				$delimChars = array('"', "'", ' ');
 				foreach($delimChars as $delimChar) {
-					if(strpos($els, $delimChar) !== FALSE) {
+					if (strpos($els, $delimChar) !== FALSE) {
 						$els = explode($delimChar, $els);
 						break;
 					}
@@ -342,22 +342,22 @@ function wpu_get_stylesheet_links($headerInfo, $position='outer') {
 				$and = '&amp;';
 			}
 			$tv = (($position == 'inner') && ($wpUnited->get_setting('templateVoodoo'))) ? "{$and}tv=" : '';
-			if(stristr($el, ".css") !== false) {
+			if (stristr($el, ".css") !== false) {
 				/**
 				 * We need to ensure the stylesheet maps to a real file on disk as fopen_url will not work on most 
 				 * servers.
 				 * We try various methods to find the file
 				 */
 				// Absolute path to CSS, in phpBB
-				if(stristr($el, $phpbbForum->get_board_url()) !== false) {
+				if (stristr($el, $phpbbForum->get_board_url()) !== false) {
 					$cssLnk = str_replace($phpbbForum->get_board_url(), $wpUnited->get_setting('phpbb_path'), $el); 
 				// Absolute path to CSS, in WordPress
-				} elseif(stristr($el, $wpUnited->get_wp_base_url()) !== false) {
+				} elseif (stristr($el, $wpUnited->get_wp_base_url()) !== false) {
 					$cssLnk = str_replace($wpUnited->get_wp_base_url(), $wpUnited->get_wp_path(), $el);
-				} elseif(substr($el, 0, 1) === '/') {
+				} elseif (substr($el, 0, 1) === '/') {
 				
 				// An absolute path to doc root. Doc root could be different for phpBB & WP.
-					if($package == 'wp') {
+					if ($package == 'wp') {
 						$cssLnk = $wpUnited->get_wp_doc_root() . $el;
 					} else {
 						global $config;
@@ -375,19 +375,19 @@ function wpu_get_stylesheet_links($headerInfo, $position='outer') {
 				$cssLnk = (stristr( PHP_OS, "WIN")) ? str_replace("/", "\\", $cssLnk) : $cssLnk;
 				$cssLnk = @realpath($cssLnk);
 				
-				if(  (stristr($cssLnk, 'http:') === false) && (stristr($cssLnk, 'https:') === false) && @file_exists($cssLnk) ) { 
+				if (  (stristr($cssLnk, 'http:') === false) && (stristr($cssLnk, 'https:') === false) && @file_exists($cssLnk) ) { 
 					$links[] = $el;
 					$key = $wpuCache->issue_style_key($cssLnk, $position);
 					$keys[] = $key;
 					$repl[] = "{$phpbbForum->get_board_url()}wp-united/style-fixer.php?usecssm=1{$and}style={$key}{$and}{$pos}{$and}{$pkg}{$tv}";
 				}
-			} elseif(stristr($el, "style.php?") !== false) {
+			} elseif (stristr($el, "style.php?") !== false) {
 				/**
 				 * phpBB style.php css
 				 */
 
 				// standardise the path to style.php, so that cache can be used properly
-				if(stristr($el, $phpbbForum->get_board_url()) !== false) {
+				if (stristr($el, $phpbbForum->get_board_url()) !== false) {
 					$cssLnk = str_replace($phpbbForum->get_board_url(), $wpUnited->get_setting('phpbb_path'), $el); 
 				} else {
 					$cssLnk = $pathHere . $el;
@@ -415,7 +415,7 @@ function wpu_extract_css($content) {
 
 	foreach($cssStr[2] as $index => $c) {
 		$cssFixed = str_replace(array('<!--', '-->'), '', $c);
-		if(!empty($cssFixed)) {
+		if (!empty($cssFixed)) {
 			$css['css'][] = $cssFixed;
 			$css['orig'][] = $c; 
 		}
@@ -433,11 +433,11 @@ function apply_template_voodoo(&$cssMagic, $tplVoodooKey) {
 	$templateVoodoo = $wpuCache->get_template_voodoo($tplVoodooKey);
 	
 
-	if(empty($templateVoodoo)) {
+	if (empty($templateVoodoo)) {
 		return false;
 	}
 
-	if(isset($templateVoodoo['classes']) && isset($templateVoodoo['ids'])) {
+	if (isset($templateVoodoo['classes']) && isset($templateVoodoo['ids'])) {
 		
 		$classDupes = $templateVoodoo['classes'];
 		$idDupes = $templateVoodoo['ids'];

@@ -113,7 +113,7 @@ function wpu_msg_handler($errno, $msg_text, $errfile, $errline) {
 			return false;
 		break;
 	}
-	if(!$IN_WORDPRESS) {
+	if (!$IN_WORDPRESS) {
 		return msg_handler($errno, $msg_text, $errfile, $errline);
 	}
 	 return false;
@@ -158,20 +158,20 @@ function wpu_reload_page_if_no_post() {
 	$fStateChanged = $phpbbForum->foreground();
 	$hasPostVars = sizeof($_POST);
 	$phpbbForum->restore_state($fStateChanged);
-	if($hasPostVars || sizeof($_POST)) {
+	if ($hasPostVars || sizeof($_POST)) {
 		return false;
 	}
 	
 	$currPage = wpu_get_curr_page_link();
 	
 	// prevent infinite reloads
-	if(stristr($currPage, 'wpureload=1') !== false) {
+	if (stristr($currPage, 'wpureload=1') !== false) {
 		return false;
 	}
 	$currPage .= (stristr($currPage, '?') !== false) ? '&wpureload=1' : '?wpureload=1';
 	
 	// OK, let's do it... Reload one way or another.
-	if(!headers_sent()) {
+	if (!headers_sent()) {
 		header('Location: ' . $currPage, true, 302);
 		exit();
 	} else {

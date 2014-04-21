@@ -72,11 +72,11 @@ class WPU_User_Mapper {
 		$this->showSpecificUsers = false;
 		$this->showUsersLike = (empty($showLike)) ? false : (string)str_replace(array('|QUOT|', '|AMP|'), array('"', '&'), $showLike);
 
-		if(is_array($showSpecificUserIDs)) { 
+		if (is_array($showSpecificUserIDs)) { 
 			$this->showSpecificUsers = true;
 			$this->usersToShow = $showSpecificUserIDs;
 		} else {
-			if(!empty($showSpecificUserIDs)) {
+			if (!empty($showSpecificUserIDs)) {
 				$this->showSpecificUsers = true;
 				$this->usersToShow = (array)$showSpecificUserIDs;
 			} 
@@ -86,10 +86,10 @@ class WPU_User_Mapper {
 
 		$this->users = array();
 	
-		if($this->leftSide != 'phpbb') { 
+		if ($this->leftSide != 'phpbb') { 
 			// Process WP users on the left
 			$this->load_wp_users();
-			if($this->numUsers) {
+			if ($this->numUsers) {
 				$this->find_phpbb_for_wp_users();
 			}
 			
@@ -111,7 +111,7 @@ class WPU_User_Mapper {
 		$mainWhere = '';
 		$mainWhereAnd = '';
 		$postClause = '';
-		if(!empty($this->showSpecificUsers)) {
+		if (!empty($this->showSpecificUsers)) {
 			/**
 			 * We don't have a need for "show specific users" yet
 			 */
@@ -120,7 +120,7 @@ class WPU_User_Mapper {
 			die();
 			
 		} 
-		if(!empty($this->showUsersLike)) {
+		if (!empty($this->showUsersLike)) {
 			// find similar users for autocomplete
 			$mainWhere =  $wpdb->prepare("UCASE(user_login) LIKE '%s'", '%' . strtoupper($this->showUsersLike) . '%');
 			$mainWhereAnd = " AND $mainWhere";
@@ -134,7 +134,7 @@ class WPU_User_Mapper {
 		 */
 			
 		// if the total number of users depends on an integrated/unintegrated filter, need to start in phpBB
-		if(!empty($this->showOnlyInt) || !empty($this->showOnlyUnInt))  {
+		if (!empty($this->showOnlyInt) || !empty($this->showOnlyUnInt))  {
 			
 			/**
 			 * First we pull the users to use as a filter
@@ -148,7 +148,7 @@ class WPU_User_Mapper {
 						WHERE (user_type = ' . USER_NORMAL . ' OR user_type = ' . USER_FOUNDER . ') 
 							AND user_wpuint_id > 0';
 				
-			if(!$fResults = $db->sql_query($sql)) {
+			if (!$fResults = $db->sql_query($sql)) {
 				$phpbbForum->background($fStateChanged);
 				return;
 			}
@@ -162,14 +162,14 @@ class WPU_User_Mapper {
 			$db->sql_freeresult();
 			$phpbbForum->background($fStateChanged);
 			
-			if( (!empty($this->showOnlyInt)) && (!sizeof($usersToFetch)) ) {
+			if ( (!empty($this->showOnlyInt)) && (!sizeof($usersToFetch)) ) {
 				return;
 			}
 
 			 // Now create the filter for the WP query
-			if(sizeof($usersToFetch)) {
+			if (sizeof($usersToFetch)) {
 				$set = implode(',', $usersToFetch);
-				if(!empty($this->showOnlyInt)) {
+				if (!empty($this->showOnlyInt)) {
 					$where = ' WHERE ID IN (' . $set . ')' . $mainWhereAnd;
 				} else {
 					$where = ' WHERE ID NOT IN (' . $set . ')' . $mainWhereAnd;
@@ -184,14 +184,14 @@ class WPU_User_Mapper {
 			
 		// For other filter types (or no filter), we can just count in WordPress.
 		} else {
-			if($this->showOnlyPosts) {
+			if ($this->showOnlyPosts) {
 				$postClause = ', ' . $wpdb->posts . ' ';
 				$where = ' WHERE (u.ID = post_author AND post_type = \'post\' AND ' . get_private_posts_cap_sql('post') . ')' . $mainWhereAnd;
 				$this->numUsers = $wpdb->get_var( 'SELECT COUNT(*) AS numusers
 						FROM ' . $wpdb->users . ' AS u' . $postClause .
 						$where
 				);
-			} else if($this->showOnlyNoPosts) {
+			} elseif ($this->showOnlyNoPosts) {
 				$postClause = ', ' . $wpdb->posts . ' ';
 				$where = ' WHERE (u.ID <> post_author AND post_type = \'post\' AND ' . get_private_posts_cap_sql('post') . ')' . $mainWhereAnd;
 				$this->numUsers = $wpdb->get_var( 'SELECT COUNT(*) AS numusers
@@ -208,7 +208,7 @@ class WPU_User_Mapper {
 		}
 		
 		// return for all other than autocomplete if there aren't any users
-		if(!$this->numUsers) {
+		if (!$this->numUsers) {
 			return;
 		}
 		
@@ -237,15 +237,15 @@ class WPU_User_Mapper {
 		$fStateChanged = $phpbbForum->foreground();
 		
 		// for normal requests, get the count first
-		if(empty($this->showSpecificUsers)) {
+		if (empty($this->showSpecificUsers)) {
 			$countSql =$this->phpbb_userlist_sql(false, $this->showUsersLike, true); 
-			if($countResult = $db->sql_query($countSql)) {  
-				if($count = $db->sql_fetchrow($countResult)) {
+			if ($countResult = $db->sql_query($countSql)) {  
+				if ($count = $db->sql_fetchrow($countResult)) {
 					$this->numUsers = $count['numusers'];
 				}
 			}
 			$db->sql_freeresult();
-			if(!$this->numUsers) {
+			if (!$this->numUsers) {
 				$phpbbForum->background($fStateChanged);
 				return;
 			} 
@@ -254,7 +254,7 @@ class WPU_User_Mapper {
 		// now do the full query
 		$sql =$this->phpbb_userlist_sql($this->showSpecificUsers, $this->showUsersLike, false);
 
-		if($result = $db->sql_query_limit($sql, $this->numToShow, $this->numStart)) {
+		if ($result = $db->sql_query_limit($sql, $this->numToShow, $this->numStart)) {
 			while($r = $db->sql_fetchrow($result)) { 
 				$user = new WPU_Mapped_Phpbb_User(
 					$r['user_id'], 
@@ -262,10 +262,10 @@ class WPU_User_Mapper {
 					'left'
 				);
 				$this->users[$r['user_id']] = $user;
-				if(!empty($r['user_wpuint_id'])) {
+				if (!empty($r['user_wpuint_id'])) {
 					
 					$integWpUser = new WPU_Mapped_WP_User($r['user_wpuint_id']);
-					if($integWpUser->exists()) {
+					if ($integWpUser->exists()) {
 						$this->users[$r['user_id']]->set_integration_partner($integWpUser);
 					}
 				}
@@ -286,7 +286,7 @@ class WPU_User_Mapper {
 	private function find_phpbb_for_wp_users() {
 		global $phpbbForum, $db, $user;
 		
-		if(!sizeof($this->users)) {
+		if (!sizeof($this->users)) {
 			return;
 		}
 		
@@ -299,7 +299,7 @@ class WPU_User_Mapper {
 		
 		$results = array();
 		
-		if($pResult = $db->sql_query_limit($sql, $this->numToShow)) {
+		if ($pResult = $db->sql_query_limit($sql, $this->numToShow)) {
 			while($r = $db->sql_fetchrow($pResult)) {
 				$pUser = new WPU_Mapped_Phpbb_User(
 					$r['user_id'], 
@@ -359,20 +359,20 @@ class WPU_User_Mapper {
 		$fStateChanged = $phpbbForum->foreground();
 		
 		$where = '';
-		if(!empty($arrUsers)) {
+		if (!empty($arrUsers)) {
 			$where = ' AND (' . $db->sql_in_set('u.user_wpuint_id', (array)$arrUsers) . ') ';
-		} else if(!empty($showLike)) {
+		} elseif (!empty($showLike)) {
 			$where = " AND (UCASE(u.username) LIKE '%" . $db->sql_escape(strtoupper($showLike)) . "%') ";
 		} 
 		
 		// apply filters
-		if(!empty($this->showOnlyInt)) {
+		if (!empty($this->showOnlyInt)) {
 			$where = ' AND (u.user_wpuint_id > 0) ' . $where;
-		} else if(!empty($this->showOnlyUnInt)){
+		} elseif (!empty($this->showOnlyUnInt)){
 			$where = ' AND ((u.user_wpuint_id = 0) OR (u.user_wpuint_id = \'\') OR (u.user_wpuint_id IS NULL))  ' . $where;
-		} else if(!empty($this->showOnlyPosts)) {
+		} elseif (!empty($this->showOnlyPosts)) {
 			$where = ' AND (u.user_posts > 0) ' . $where;
-		} else if(!empty($this->showOnlyNoPosts)) {
+		} elseif (!empty($this->showOnlyNoPosts)) {
 			$where = ' AND (u.user_posts = 0) ' . $where;
 		}				
 
@@ -386,7 +386,7 @@ class WPU_User_Mapper {
 		 $sqlArray['WHERE'] = '(u.user_type = ' . USER_NORMAL . ' OR u.user_type = ' . USER_FOUNDER . ') ' . 
 											$where;		 
 
-		 if($countOnly) {
+		 if ($countOnly) {
 			 $sqlArray['SELECT'] = 'COUNT(*) AS numusers';
 		} else {
 			 $sqlArray['SELECT'] = 'u.user_wpuint_id, u.username, u.user_id, u.user_email, u.user_rank, u.user_posts, u.user_avatar, u.user_avatar_type, u.user_avatar_width, u.user_avatar_height, u.user_regdate, u.user_lastvisit, g.group_name';
@@ -429,7 +429,7 @@ class WPU_User_Mapper {
 				
 				$json[] = $data;
 		}
-		if(sizeof($json)) {
+		if (sizeof($json)) {
 			die('[' . implode($json, ',') . ']');
 		} else {
 			die('{}');

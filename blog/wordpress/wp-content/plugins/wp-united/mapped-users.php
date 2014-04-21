@@ -59,7 +59,7 @@ abstract class WPU_Mapped_User {
 	 * Returns whether the user has posts
 	 */
 	public function has_posts() {
-		if($this->userDetails['posts'] > 0) {
+		if ($this->userDetails['posts'] > 0) {
 			return true;
 		}
 		return false;
@@ -98,7 +98,7 @@ abstract class WPU_Mapped_User {
 	 */
 	public function break_action() {
 		
-		if(!$this->integrated) {
+		if (!$this->integrated) {
 			return '';
 		}
 		
@@ -276,7 +276,7 @@ class WPU_Mapped_WP_User extends WPU_Mapped_User {
 	 * Provides a formatted block of suggested usernames this user could integrate to
 	 */
 	public function get_suggested_matches() {
-		if($this->is_integrated()) {
+		if ($this->is_integrated()) {
 			return;
 		}
 		
@@ -301,7 +301,7 @@ class WPU_Mapped_WP_User extends WPU_Mapped_User {
 		$results = $db->sql_query_limit($sql, 5); 
 		
 
-		if(!$results || !is_array($results) || !sizeof($results)) {
+		if (!$results || !is_array($results) || !sizeof($results)) {
 			echo $noMatch;
 			$phpbbForum->background($fStateChanged);
 			return;
@@ -324,7 +324,7 @@ class WPU_Mapped_WP_User extends WPU_Mapped_User {
 			$match = '<p><strong>' . $dispUsername . '</strong> <em>' . $dispEmail . '</em><br />' . $integText . ' ' . $integLink . '</p>';
 			
 			// e-mail matches go first in the returned list
-			if(strtolower($result['user_email']) == strtolower($this->get_email())) {
+			if (strtolower($result['user_email']) == strtolower($this->get_email())) {
 				array_unshift($matches, $match);
 			} else {
 				$matches[] = $match;
@@ -379,8 +379,8 @@ class WPU_Mapped_Phpbb_User extends WPU_Mapped_User {
 		$this->side = $pos;
 		$this->type = 'phpbb';
 		
-		if(is_array($userData)) {
-			if($this->load_from_userdata($userData)) {
+		if (is_array($userData)) {
+			if ($this->load_from_userdata($userData)) {
 				$this->integrated = true;
 			} 
 		} else {
@@ -450,11 +450,11 @@ class WPU_Mapped_Phpbb_User extends WPU_Mapped_User {
 		$fStateChanged = $phpbbForum->foreground();
 				
 		$av = '';
-		if(function_exists('get_user_avatar')) { 
+		if (function_exists('get_user_avatar')) { 
 			$av = get_user_avatar($avatar, $type, $width, $height);
 		}
 		
-		if(!empty($av)) {
+		if (!empty($av)) {
 			$av = explode('"', $av); 
 			$av = str_replace($phpbb_root_path, $phpbbForum->get_board_url(), $av[1]);
 			$av = "<img src='{$av}' class='avatar avatar-50'  />";
@@ -475,7 +475,7 @@ class WPU_Mapped_Phpbb_User extends WPU_Mapped_User {
 		global $phpbbForum, $wpdb, $db;
 		
 		
-		if($this->is_integrated()) {
+		if ($this->is_integrated()) {
 			return;
 		}
 		
@@ -494,11 +494,11 @@ class WPU_Mapped_Phpbb_User extends WPU_Mapped_User {
 					OR UCASE(user_email) = %s
 				ORDER BY user_login LIMIT 5", '%' . strtoupper($stub) . '%', strtoupper($this->get_email()));
 				
-		if(!$results = $wpdb->get_results($sql)) {
+		if (!$results = $wpdb->get_results($sql)) {
 			return $noMatch;
 		}
 		
-		if(!sizeof($results)) {
+		if (!sizeof($results)) {
 			return $noMatch;
 		}
 		$users = array();
@@ -515,9 +515,9 @@ class WPU_Mapped_Phpbb_User extends WPU_Mapped_User {
 		$sql = 'SELECT user_id, user_wpuint_id FROM ' . USERS_TABLE . ' 
 					WHERE ' . $db->sql_in_set('user_wpuint_id', array_keys($users));
 					
-		if($pResults = $db->sql_query($sql)) {
+		if ($pResults = $db->sql_query($sql)) {
 			while($pResult = $db->sql_fetchrow($pResults)) {
-				if(!empty($pResult['user_wpuint_id'])) {
+				if (!empty($pResult['user_wpuint_id'])) {
 					$users[$pResult['user_wpuint_id']]['integrated'] = true;
 				}
 			}

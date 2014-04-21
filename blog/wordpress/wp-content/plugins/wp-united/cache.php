@@ -76,7 +76,7 @@ class WPU_Cache {
 		global $phpbbForum, $config;
 		$fStateChanged = $phpbbForum->foreground();
 		
-		if(!isset( $config['wpu_cache_hash'])) {
+		if (!isset( $config['wpu_cache_hash'])) {
 			// Generate a 10-digit random number
 			$this->salt = rand(10000, 99999);
 			set_config('wpu_cache_hash', $this->salt);
@@ -123,11 +123,11 @@ class WPU_Cache {
 		if ($wpUnited->get_num_actions() > 1) { 
 			return false;
 		}
-		if(!$this->template_cache_enabled()) {
+		if (!$this->template_cache_enabled()) {
 			return false;
 		}
 		
-		if($this->fullPage) {
+		if ($this->fullPage) {
 			return false;
 		}
 		
@@ -303,8 +303,8 @@ class WPU_Cache {
 		$lastCompiled = $GLOBALS['config']['wpu_plugins_compiled'];
 		$compat = ($compat) ? "_fast" : "_slow";
 		$fnPlugin = $this->baseCacheLoc . "plugin-" . md5("{$this->salt}-{$pluginPath}-{$wpVer}-{$this->wpuVer}{$compat}") . ".{$phpEx}";
-		if(@file_exists($fnPlugin)) {
-			if(filemtime($fnPlugin) <= $lastCompiled) {
+		if (@file_exists($fnPlugin)) {
+			if (filemtime($fnPlugin) <= $lastCompiled) {
 				return $fnPlugin;
 			}
 		}
@@ -317,7 +317,7 @@ class WPU_Cache {
 	 */
 	public function issue_style_key($fileName, $pos) {
 		global $wpUnited;
-		if(stripos($fileName, 'style.php?') !== false) {
+		if (stripos($fileName, 'style.php?') !== false) {
 			/**
 			 * For style.php, we just need to create a style key for the cache
 			 */
@@ -347,13 +347,13 @@ class WPU_Cache {
 	 */
 	public function get_template_voodoo($key) {
 		global $wpUnited;
-		if($key < 0) {
+		if ($key < 0) {
 			return false;
 		}
 		$fileName = $this->baseCacheLoc . $wpUnited->get_style_key($key);
-		if(@file_exists($fileName)) { 
+		if (@file_exists($fileName)) { 
 			$templateVoodoo = @file_get_contents($fileName);
-			if(!empty($templateVoodoo)) {
+			if (!empty($templateVoodoo)) {
 				$templateVoodoo = @unserialize($templateVoodoo);
 				return $templateVoodoo;
 			}
@@ -378,8 +378,8 @@ class WPU_Cache {
 	 */
 	public function get_css_magic($fileName, $pos, $incTplVoodoo = -1, $islandBlock = false) {
 		$cacheFileName =$this->baseCacheLoc . $this->get_css_magic_cache_name($fileName, $pos, $incTplVoodoo, $islandBlock);
-		if(@file_exists($cacheFileName)) {
-			if(@filemtime($cacheFileName) > @filemtime($fileName)) {
+		if (@file_exists($cacheFileName)) {
+			if (@filemtime($cacheFileName) > @filemtime($fileName)) {
 				return  $cacheFileName;
 			} else {
 				@unlink($cacheFileName);
@@ -412,7 +412,7 @@ class WPU_Cache {
 	 */
 	public function prepare_content($content, $addPHP = '') {
 		$addPHP = (!empty($addPHP)) ? "\n\n$addPHP" : '';
-		return '<' ."?php\n\n if(!defined('IN_PHPBB')){exit();}$addPHP\n\n$content\n\n?" . '>';
+		return '<' ."?php\n\n if (!defined('IN_PHPBB')){exit();}$addPHP\n\n$content\n\n?" . '>';
 	}
 
 
@@ -441,7 +441,7 @@ class WPU_Cache {
 		@$dir = opendir($this->baseCacheLoc);
 			while( $entry = @readdir($dir) ) {
 				if ( (strpos($entry, '.htaccess') === false) && ((strpos($entry, '.txt') === false)) ) {
-					if(!is_dir($this->baseCacheLoc . $entry)) {
+					if (!is_dir($this->baseCacheLoc . $entry)) {
 						@unlink($this->baseCacheLoc . $entry);
 					}
 				}
@@ -458,7 +458,7 @@ class WPU_Cache {
 		@$dir = opendir($this->baseCacheLoc);
 			while( $entry = @readdir($dir) ) {
 				if ( strpos($entry, 'theme-') !== false) {
-					if(!is_dir($this->baseCacheLoc . $entry)) {
+					if (!is_dir($this->baseCacheLoc . $entry)) {
 						@unlink($this->baseCacheLoc . $entry);
 					}
 				}
@@ -478,7 +478,7 @@ class WPU_Cache {
 	 * If an item is not listed, we can assume it was already cached
 	 */
 	public function get_logged_actions() {
-		if(sizeof($this->logged)) {
+		if (sizeof($this->logged)) {
 			$strLog = implode('<br />', $this->logged);
 		}
 		return $strLog;

@@ -16,7 +16,7 @@ if ( !defined('ABSPATH') && !defined('IN_PHPBB') ) exit;
 /**
  * Add menu options for WP-United Settings panel
  */
- if(!is_multisite()) {
+ if (!is_multisite()) {
 	add_action('admin_menu', 'wpu_settings_menu');
 } else {
 	add_action('network_admin_menu', 'wpu_settings_menu');
@@ -33,19 +33,19 @@ function wpu_settings_menu() {
 		return;
 	}	
 	
-	if(isset($_GET['page'])) {
-		if($_GET['page'] == 'wpu_acp') {
+	if (isset($_GET['page'])) {
+		if ($_GET['page'] == 'wpu_acp') {
 			global $phpbbForum;
 			wp_redirect($phpbbForum->append_sid($phpbbForum->get_board_url()  .  'adm/index.php'), 302);
 			die();
 		}
-		if($_GET['page'] == 'wpu-user-mapper') {
-			if( isset($_POST['wpumapload']) && check_ajax_referer('wp-united-map') ) {
+		if ($_GET['page'] == 'wpu-user-mapper') {
+			if ( isset($_POST['wpumapload']) && check_ajax_referer('wp-united-map') ) {
 				// Send user mapper html data
 				wpu_map_show_data();
 				die();
 			}
-			if(isset($_GET['term']) && check_ajax_referer('wp-united-usersearch')) {
+			if (isset($_GET['term']) && check_ajax_referer('wp-united-usersearch')) {
 				// send JSON back for autocomplete
 				
 				$pkg = ($_GET['pkg'] == 'phpbb') ? 'phpbb' : 'wp';
@@ -60,13 +60,13 @@ function wpu_settings_menu() {
 				$userMapper->send_json();
 				die();
 			}
-			if( isset($_POST['wpumapaction']) && check_ajax_referer('wp-united-mapaction') ) {
+			if ( isset($_POST['wpumapaction']) && check_ajax_referer('wp-united-mapaction') ) {
 				// Send user mapper html data
 				
 				wpu_process_mapaction();
 				die();
 			}
-			if( isset($_POST['wpusetperms']) && check_ajax_referer('wp-united-mapaction') ) {
+			if ( isset($_POST['wpusetperms']) && check_ajax_referer('wp-united-mapaction') ) {
 				// Send user mapper html data
 				
 				wpu_process_perms();
@@ -80,8 +80,8 @@ function wpu_settings_menu() {
 	wp_register_style('wpuSettingsStyles', $wpUnited->get_plugin_url() . 'theme/settings.css');
 	wp_enqueue_style('wpuSettingsStyles'); 
 		
-	if(isset($_GET['page'])) {
-		if(in_array($_GET['page'], array('wp-united-settings', 'wp-united-setup', 'wpu-user-mapper'))) {
+	if (isset($_GET['page'])) {
+		if (in_array($_GET['page'], array('wp-united-settings', 'wp-united-setup', 'wpu-user-mapper'))) {
 			
 			wp_enqueue_script('filetree', $wpUnited->get_plugin_url() . 'js/filetree.js', array('jquery'), false, false);				
 			wp_enqueue_script('colorbox', $wpUnited->get_plugin_url() . 'js/colorbox.js', array('jquery'), false, false);				
@@ -124,7 +124,7 @@ function wpu_settings_menu() {
 			);	
 				
 		}
-		if(in_array($_GET['page'], array('wp-united-settings', 'wp-united-setup', 'wpu-user-mapper', 'wpu-advanced-options', 'wp-united-help', 'wp-united-support'))) {
+		if (in_array($_GET['page'], array('wp-united-settings', 'wp-united-setup', 'wpu-user-mapper', 'wpu-advanced-options', 'wp-united-help', 'wp-united-support'))) {
 			wp_register_style('wpuSettingsStyles', $wpUnited->get_plugin_url() . 'theme/settings.css');
 			wp_enqueue_style('wpuSettingsStyles');
 		}
@@ -135,10 +135,10 @@ function wpu_settings_menu() {
 		
 		
 	// only show other menu items if WP-United is set up
-	if($wpUnited->is_working()) {
+	if ($wpUnited->is_working()) {
 		add_submenu_page('wp-united-setup', __('WP-United Settings', 'wp-united'), __('Settings', 'wp-united'), 'manage_options','wp-united-settings', 'wpu_settings_page');
 
-			if($wpUnited->get_setting('integrateLogin')) {
+			if ($wpUnited->get_setting('integrateLogin')) {
 					add_submenu_page('wp-united-setup', __('WP-United User Mapping', 'wp-united'), __('User Mapping', 'wp-united'), 'manage_options','wpu-user-mapper', 'wpu_user_mapper');
 			}
 		add_submenu_page('wp-united-setup', __('WP-United Advanced Options', 'wp-united'), __('Advanced Options', 'wp-united'), 'manage_options','wpu-advanced-options', 'wpu_advanced_options');
@@ -187,9 +187,9 @@ function wpu_advanced_options() {
 		<p><?php echo sprintf(__('Some additional options can be set in the included file, %s. These do not normally need to be changed. However, to review and change these options, please open the file in a text editor.', 'wp-united'), '<strong>' . add_trailing_slash($wpUnited->get_plugin_path()) . 'options.php</strong>' ) ; ?></p>
 
 		<?php
-		if(isset($_POST['wpuadvanced-submit'])) {
+		if (isset($_POST['wpuadvanced-submit'])) {
 			// process form
-			if(check_admin_referer( 'wp-united-advanced')) {
+			if (check_admin_referer( 'wp-united-advanced')) {
 				wpu_process_advanced_options();
 			}
 		} else {
@@ -292,19 +292,19 @@ function wpu_support() {
 function wpu_reload_preview() {
 	global $wpUnited, $phpbbForum;
 	
-	if(!$wpUnited->is_working()) {
+	if (!$wpUnited->is_working()) {
 		return;
 	}
 	
 	$previewUrl = '';
 	if ($wpUnited->get_setting('showHdrFtr') == 'FWD') {
 		$previewUrl = get_site_url();
-	} else if($wpUnited->get_setting('showHdrFtr') == 'REV')  {
-		if(is_object($phpbbForum)) {
+	} elseif ($wpUnited->get_setting('showHdrFtr') == 'REV')  {
+		if (is_object($phpbbForum)) {
 			$previewUrl = $phpbbForum->get_board_url();
 		}
 	}
-	if(empty($previewUrl)) {
+	if (empty($previewUrl)) {
 		return '';
 	} 
 	?>
@@ -314,7 +314,7 @@ function wpu_reload_preview() {
 	// <![CDATA[ 
 		var ctr = 0;
 		function wpuIncPrevCtr() {
-			if(ctr < 2) {
+			if (ctr < 2) {
 				ctr++;
 				$wpu('#wpulastprocessing').show();
 				// in case the site has frame breakout code that tries to redirect this parent page.
@@ -353,8 +353,8 @@ function wpu_setup_menu() {
 	
 	$needPreview = false;
 	$msg = '';
-	if(isset($_GET['msg'])) {
-		if($_GET['msg'] == 'fail') { 
+	if (isset($_GET['msg'])) {
+		if ($_GET['msg'] == 'fail') { 
 			$msg = html_entity_decode(base64_decode(stripslashes_deep((string)$_POST['msgerr'])));
 		} else {
 			// $msg is succcess, do preview reloads to init Template Voodoo:
@@ -365,14 +365,14 @@ function wpu_setup_menu() {
 	$buttonDisplay = 'display: block;';
 	
 	$versionCheck = $wpUnited->check_mod_version();
-	if($versionCheck['result'] != 'OK') {
+	if ($versionCheck['result'] != 'OK') {
 		$statusText = __('Disabled', 'wp-united');
 		$statusColour = "error";
 		$statusDesc = $versionCheck['message'];
 		$buttonDisplay = 'display: block;';	
 		$wpUnited->disable();
 		$needPreview = false;
-	} elseif(!$wpUnited->is_enabled() && ($wpUnited->get_last_run() == 'working')) {
+	} elseif (!$wpUnited->is_enabled() && ($wpUnited->get_last_run() == 'working')) {
 			$statusText = __('Disabled', 'wp-united');
 			$statusColour = "error";
 			$statusDesc = __('WP-United is disabled. Select your forum location below and then click &quot;Connect&quot;', 'wp-united') . '<br /><br />' . __('You can\'t change any other settings until WP-United is connected.', 'wp-united');
@@ -407,16 +407,16 @@ function wpu_setup_menu() {
 	wpu_panel_warnings();
 		
 	echo "<div id=\"wpustatus\" class=\"$statusColour\"><p><strong>" . sprintf(__('Current Status: %s', 'wp-united'), $statusText) . '</strong>';
-	if($wpUnited->get_last_run() == 'working' && $wpUnited->is_enabled()) {
+	if ($wpUnited->get_last_run() == 'working' && $wpUnited->is_enabled()) {
 		echo '<button style="float: right;margin-bottom: 6px;" class="button-secondary" onclick="return wpu_manual_disable(\'wp-united-setup\');">' . __('Disable', 'wp-united') . '</button>';
 	}
 	echo "<br /><br />$statusDesc";
-	if(!empty($msg)) {
+	if (!empty($msg)) {
 		echo '<br /><br /><strong>' . __('The server returned the following information:', 'wp-united') . "</strong><br />$msg";
 	}
 	echo '</p></div>';
 	
-	if($needPreview) {
+	if ($needPreview) {
 		wpu_reload_preview();
 	} 
 	
@@ -431,7 +431,7 @@ function wpu_setup_menu() {
 		
 			$docRoot = wpu_get_doc_root(); 
 			$phpbbPath = $wpUnited->get_setting('phpbb_path');
-			if($phpbbPath) {
+			if ($phpbbPath) {
 				$showBackupPath = str_replace($docRoot, '', $phpbbPath);
 				$docRootParts = explode('/', $docRoot);
 				while($showBackupPath == $phpbbPath) {
@@ -473,7 +473,7 @@ function wpu_setup_menu() {
 
 		function wpu_hardened_init_tail() {
 			createFileTree();
-			<?php if($wpUnited->get_setting('phpbb_path')) { ?> 
+			<?php if ($wpUnited->get_setting('phpbb_path')) { ?> 
 				setPath('setup');
 			<?php } ?>
 		}
@@ -486,18 +486,18 @@ function wpu_setup_menu() {
 function wpu_panel_warnings() {
 	global $wpUnited, $phpbbForum, $wpuAdminIsOrphaned;
 	
-	if(!is_writable($wpUnited->get_plugin_path() . 'cache/')) {
+	if (!is_writable($wpUnited->get_plugin_path() . 'cache/')) {
 		echo '<div id="cacheerr" class="error highlight"><p>' . sprintf(__('ERROR: Your cache folder, (%s) is not writable by the web server. You must make this folder writable for WP-United to work properly!'), $wpUnited->get_plugin_path() . 'cache/') .  '</p></div>';
 	}
 
-	if( defined('WPU_CANNOT_OVERRIDE') ) {
+	if ( defined('WPU_CANNOT_OVERRIDE') ) {
 		echo '<div id="pluggableerror" class="error highlight"><p>' . __('WARNING: Another plugin is overriding WordPress login. WP-United user integration is unavailable.', 'wp-united') . '</p></div>';
 	}
-	if( defined('DEBUG') || defined('DEBUG_EXTRA') ) {
+	if ( defined('DEBUG') || defined('DEBUG_EXTRA') ) {
 		echo '<div id="debugerror" class="error highlight"><p>' . __('WARNING: phpBB Debug is set. To prevent notices from showing due to switching between phpBB and WordPress, delete or comment out the two DEBUG lines from your phpBB\'s config.php. If this is a live site, debug MUST be disabled.', 'wp-united') . '</p></div>';
 	}
 	
-	if($wpUnited->is_enabled() && $wpUnited->get_setting('integrateLogins') && defined('COOKIE_DOMAIN') && ($phpbbForum->get_cookie_domain() != COOKIE_DOMAIN)) {
+	if ($wpUnited->is_enabled() && $wpUnited->get_setting('integrateLogins') && defined('COOKIE_DOMAIN') && ($phpbbForum->get_cookie_domain() != COOKIE_DOMAIN)) {
 		echo '<div id="cookieerror" class="error highlight"><p>' . __('WARNING: phpBB and WordPress cookie domains do not match! For user integration to work properly, please edit the cookie domain in phpBB or set the WordPress COOKIE_DOMAIN so that both phpBB &amp; WordPress can set cookies for each other.', 'wp-united') . '</p></div>';
 	}
 	
@@ -512,19 +512,19 @@ function wpu_user_mapper() {
 		<h2> <?php _e('WP-United User Integration Mapping', 'wp-united'); ?> </h2>
 		<p><?php _e('Integrated users have an account both in WordPress and phpBB. The user mapper tool allows you to manually control which accounts are mapped together.', 'wp-united'); ?></p>
 		
-		<?php if($wpUnited->get_setting('integcreatewp')) { ?>
+		<?php if ($wpUnited->get_setting('integcreatewp')) { ?>
 			<p><?php _e('In addition, you need to tell WP-United how to allocate WordPress roles to users when WordPress accounts are automatically given to them.', 'wp-united'); ?></p>
 			<p><?php _e('Select a tab below to get started.', 'wp-united'); ?></p>
 		<?php } ?>
 		<div id="wputabs">
-			<?php if($wpUnited->get_setting('integcreatewp')) { ?>
+			<?php if ($wpUnited->get_setting('integcreatewp')) { ?>
 		
 				<ul>
 					<li><a href="#wpumaptab-map"><?php _e('User Mapping', 'wp-united'); ?></a></li>
 					<li><a href="#wpumaptab-perms"><?php _e('New User Permissions', 'wp-united'); ?></a></li> 
 				</ul>
 			<?php } 
-			if($wpUnited->get_setting('integcreatewp')) { ?>
+			if ($wpUnited->get_setting('integcreatewp')) { ?>
 				<div id="wpumaptab-perms">
 				
 					<p><?php _e('Unintegrated phpBB users are automatically given accounts if they have WP-United permissions. These can be set in the phpBB Administration Control Panel, but this tool makes them easier to set and visualise.', 'wp-united'); ?></p>
@@ -574,7 +574,7 @@ function wpu_user_mapper() {
 								'url'						=>	$phpbbForum->append_sid($phpbbForum->get_board_url() . 'adm/index.php?i=permissions&amp;mode=setting_group_global&amp;group_id[0]=' . $row['group_id'])
 							);
 
-							if($groupData[$row['group_id']]['type'] == __('User-Defined', 'wp-united')) {
+							if ($groupData[$row['group_id']]['type'] == __('User-Defined', 'wp-united')) {
 								$numUserDefined++;
 							}
 						}
@@ -604,26 +604,26 @@ function wpu_user_mapper() {
 								?><div class="wpuplumbleft"><?php
 								
 									foreach ($groupTypes as $type) { 
-										if(($type == __('Built-In', 'wp-united')) || ($numUserDefined > 0)) {
+										if (($type == __('Built-In', 'wp-united')) || ($numUserDefined > 0)) {
 
 											$effectivePerms = wpu_assess_perms('', false, false); //wpu_get_wp_role_for_group();
 											$nevers = wpu_assess_perms('', false, true);
 											
 											foreach ($groupData as $group_id => $row) {
-												if($row['type'] == $type) {
+												if ($row['type'] == $type) {
 													$blockIdL = 'wpuperml-' . str_replace(array('+', '=', '/'), array('_pls', '_eq', '_sl'), base64_encode($row['db_name']));
 													$elsL[] = $blockIdL;
 													?><div class="wpuplumbgroupl ui-widget-header ui-corner-all" id="<?php echo $blockIdL; ?>">
-														<p><strong><?php echo $row['name'];?></strong> <?php if(in_array($row['db_name'], $newUserGroups)) echo ' <span style="color: red;">*</span>'; ?>
+														<p><strong><?php echo $row['name'];?></strong> <?php if (in_array($row['db_name'], $newUserGroups)) echo ' <span style="color: red;">*</span>'; ?>
 														<?php echo '<br /><small><strong>' . __('No. of members: ', 'wp-united') . '</strong>' . $row['total_members']; ?><br />
 														<?php echo '<strong>' . __('Group type: ', 'wp-united') . '</strong>' . $type; ?></small></p>
 														<?php 
-															if(isset($effectivePerms[$row['name']])) {
+															if (isset($effectivePerms[$row['name']])) {
 																foreach($effectivePerms[$row['name']] as $permItem) {
 																	$linkages[$blockIdL] = 'wpupermr-' . str_replace(array('+', '=', '/'), array('_pls', '_eq', '_sl'), base64_encode($permItem));
 																}
 															} 
-															if(isset($nevers[$row['name']])) {
+															if (isset($nevers[$row['name']])) {
 																foreach($nevers[$row['name']] as $neverItem) {
 																	$neverLinkages[$blockIdL] = 'wpupermr-' . str_replace(array('+', '=', '/'), array('_pls', '_eq', '_sl'), base64_encode($neverItem));
 																}
@@ -812,7 +812,7 @@ function wpu_user_mapper() {
 		
 		
 		function wpu_hardened_init_tail() {
-			<?php if($wpUnited->get_setting('integcreatewp')) { 
+			<?php if ($wpUnited->get_setting('integcreatewp')) { 
 				// re-call jsPlumb init, in case it failed on document.ready
 			?>
 				jsPlumb.init();
@@ -844,7 +844,7 @@ function wpu_process_perms() {
 	foreach($conns as $conn) {
 		list($phpbbGroup, $wpuPermName) = explode('=', $conn);
 		$wpuPerm = base64_decode(str_replace(array('_pls', '_eq', '_sl'), array('+', '=', '/'), $wpuPermName));
-		if(in_array($wpuPerm, $permsList)) {
+		if (in_array($wpuPerm, $permsList)) {
 
 			wpu_set_phpbb_group_permissions(
 				base64_decode(str_replace(array('_pls', '_eq', '_sl'), array('+', '=', '/'), $phpbbGroup)), 
@@ -855,7 +855,7 @@ function wpu_process_perms() {
 	foreach($nevers as $never) {
 		list($phpbbGroup, $wpuPermName) = explode('=', $never);
 		$wpuPerm = base64_decode(str_replace(array('_pls', '_eq', '_sl'), array('+', '=', '/'), $wpuPermName));
-		if(in_array($wpuPerm, $permsList)) {
+		if (in_array($wpuPerm, $permsList)) {
 			wpu_set_phpbb_group_permissions(
 				base64_decode(str_replace(array('_pls', '_eq', '_sl'), array('+', '=', '/'), $phpbbGroup)), 
 				$wpuPerm, 
@@ -911,7 +911,7 @@ function wpu_map_show_data() {
 	$haveUnintegratedUsers = false;
 	$haveIntegratedUsers = false;
 	
-	if($total == 0) {
+	if ($total == 0) {
 		echo '<em id="wpumaptable">' . __('There are no users to show that match your criteria', 'wp-united') . '</em>';
 	} else {
 		?><table id="wpumaptable"><?php
@@ -921,7 +921,7 @@ function wpu_map_show_data() {
 				<td> 
 					<?php echo $user; ?>
 				</td><td>
-				<?php if(!$user->is_integrated()) { 
+				<?php if (!$user->is_integrated()) { 
 					$haveUnintegratedUsers = true; ?>
 				
 					<div class="wpuintegnot ui-widget-header ui-corner-all">
@@ -965,17 +965,17 @@ function wpu_map_show_data() {
 	ob_end_clean();
 	
 	echo $content . ']]></mapcontent><bulk><![CDATA[';
-	if($total>0) {
+	if ($total>0) {
 		echo '<div id="wpubulk"><select id="wpuquicksel" name="wpuquicksel">
 			<option value="0">---- ' . __('Bulk actions', 'wp-united') . ' ----</option>';
-		if($haveUnintegratedUsers) {
+		if ($haveUnintegratedUsers) {
 			echo '<option value="del">' . __('Delete all unintegrated', 'wp-united') . '</option>';
 		}
-		if($haveIntegratedUsers) {
+		if ($haveIntegratedUsers) {
 			echo '<option value="break">' . __('Break all integrated', 'wp-united') . '</option>';
 			echo '<option value="sync">' . __('Sync all integrated profiles', 'wp-united') . '</option>';
 		}
-		if($haveUnintegratedUsers) {
+		if ($haveUnintegratedUsers) {
 			echo  '<option value="create">' . __('Create users for all unintegrated', 'wp-united') . '</option>';
 		}				
 		echo '</select><button id="wpuquickselbtn" onclick="return wpuMapBulkActions();">' . __('Add', 'wp-united') . '</button></div>';
@@ -1001,7 +1001,7 @@ function wpu_process_mapaction() {
 	$intUserID = (isset($_POST['intuserid'])) ? (int)$_POST['intuserid'] : 0;
 	$package = (isset($_POST['package'])) ? (string)$_POST['package'] : '';
 	
-	if(
+	if (
 		empty($action) || 
 		empty($userID) || 
 		empty($package) || 
@@ -1018,7 +1018,7 @@ function wpu_process_mapaction() {
 	switch($action) {
 		
 		case 'del':
-			if($package == 'wp') {
+			if ($package == 'wp') {
 				// First break if the user is integrated
 				wpu_map_break($userID);
 				wp_delete_user($userID, '0');
@@ -1077,12 +1077,12 @@ function wpu_process_mapaction() {
 		case 'createin':
 		
 			// create user in phpBB
-			if($package == 'phpbb') {
+			if ($package == 'phpbb') {
 				$phpbbID = wpu_create_phpbb_user($userID);
 					
-				if($phpbbID == 0) {
+				if ($phpbbID == 0) {
 					die('<status>FAIL</status><details>' . __('Could not add user to phpBB', 'wp-united') . '</details></wpumapaction>');
-				} else if($phpbbID == -1) {
+				} elseif ($phpbbID == -1) {
 					die('<status>FAIL</status><details>' . __('A suitable username could not be found in phpBB', 'wp-united') . '</details></wpumapaction>');
 				}
 				wpu_sync_profiles(get_userdata($userID), $phpbbForum->get_userdata('', $phpbbID), 'wp-update');
@@ -1094,15 +1094,15 @@ function wpu_process_mapaction() {
 				
 				require_once( ABSPATH . WPINC . '/registration.php');
 				
-				if( !$userLevel = wpu_get_user_level($userID) ) {
+				if ( !$userLevel = wpu_get_user_level($userID) ) {
 					die('<status>FAIL</status><details>' . __('Cannot create integrated user, as they would have no integration permissions.', 'wp-united') . '</details></wpumapaction>');
 				}
 				
 				
 				$newUserID = wpu_create_wp_user($wpuNewDetails['username'], $wpuNewDetails['user_password'], $wpuNewDetails);
 						
-				if($newUserID) { 
-					if($wpUser = get_userdata($newUserID)) { 
+				if ($newUserID) { 
+					if ($wpUser = get_userdata($newUserID)) { 
 						wpu_update_int_id($userID, $wpUser->ID);
 						
 						wpu_sync_profiles($wpUser, $wpuNewDetails, 'phpbb-update');
@@ -1145,7 +1145,7 @@ function wpu_map_break($intID) {
 
 function wpu_map_killusermeta($intID) {
 	//update usermeta on WP side
-	if(function_exists('delete_user_meta')) {
+	if (function_exists('delete_user_meta')) {
 		@delete_user_meta($intID, 'phpbb_userid');
 		@delete_user_meta($intID, 'phpbb_userLogin');
 	} else {
@@ -1181,13 +1181,13 @@ function wpu_settings_page() {
 			<div id="wputransmit"><p><strong><?php _e('Sending settings to phpBB...', 'wp-united'); ?></strong><br /><?php _e('Please wait...', 'wp-united'); ?></p><img src="<?php echo $wpUnited->get_plugin_url() ?>images/settings/wpuldg.gif" /></div>
 			
 			<?php
-				if(isset($_GET['msg'])) {
-					if($_GET['msg'] == 'success') {
+				if (isset($_GET['msg'])) {
+					if ($_GET['msg'] == 'success') {
 						$needPreview = true;
 			?>
 			<div id="wpustatus" class="updated"><p><?php _e('Settings applied successfully.', 'wp-united'); ?></p></div>
 			<?php
-				} elseif($_GET['msg'] == 'fail') {
+				} elseif ($_GET['msg'] == 'fail') {
 			?>
 					<div id="wpustatus" class="error">
 						<p><?php _e('An error occurred. The error details are below. Please check your settings or try disabling plugins.', 'wp-united'); ?></p>
@@ -1203,7 +1203,7 @@ function wpu_settings_page() {
 			
 			wpu_panel_warnings();
 			
-			if($needPreview) {
+			if ($needPreview) {
 				wpu_reload_preview();
 			} 
 			
@@ -1217,7 +1217,7 @@ function wpu_settings_page() {
 				<div id="wputabs">
 					<ul>
 						<li><a href="#wputab-basic"><?php _e('Basic Settings', 'wp-united'); ?></a></li>
-						<?php if(!defined('WPU_CANNOT_OVERRIDE')) { ?>
+						<?php if (!defined('WPU_CANNOT_OVERRIDE')) { ?>
 							<li><a href="#wputab-user"><?php _e('User Integration', 'wp-united'); ?></a></li>
 						<?php } ?>
 						<li><a href="#wputab-theme"><?php _e('Theme Integration', 'wp-united'); ?></a></li>
@@ -1233,69 +1233,69 @@ function wpu_settings_page() {
 						<input id="wpupathfield" type="hidden" name="wpu-path" value="notset"></input>
 						<h3><?php _e('Forum Page', 'wp-united'); ?></h3>
 						<p><?php _e("Create a WordPress forum page? If you enable this option, WP-United will create a blank page in your WordPress installation, so that 'Forum' links appear in your blog. These links will automatically direct to your forum.", 'wp-united'); ?></p>
-						<input type="checkbox" id="wpuforumpage" name="wpuforumpage" <?php if($wpUnited->get_setting('useForumPage')) { ?>checked="checked"<?php } ?> /><label for="wpuforumpage"><?php _e('Enable Forum Page', 'wp-united'); ?></label>		
+						<input type="checkbox" id="wpuforumpage" name="wpuforumpage" <?php if ($wpUnited->get_setting('useForumPage')) { ?>checked="checked"<?php } ?> /><label for="wpuforumpage"><?php _e('Enable Forum Page', 'wp-united'); ?></label>		
 					</div>
-					<?php if(!defined('WPU_CANNOT_OVERRIDE')) { ?>
+					<?php if (!defined('WPU_CANNOT_OVERRIDE')) { ?>
 						<div id="wputab-user">
 							
 							<h3><?php _e('Integrate logins?', 'wp-united'); ?></h3>
 							<p><?php _e('This will enable some or all of your users to have a seamless session across both phpBB and WordPress. If they are logged in to one, they will be logged in to the other. Accounts will be created in the respective part of the site as needed. Note that you will need to set permissions in the User Mapper section that will appear once this option is enabled. Otherwise, by default, only the phpBB founder user is integrated.', 'wp-united'); ?></p>
 							
 
-							<input type="checkbox" id="wpuloginint" name="wpuloginint" <?php if($wpUnited->get_setting('integrateLogin')) { ?>checked="checked"<?php } ?> /><label for="wpuloginint"><?php _e('Enable Login Integration?', 'wp-united'); ?></label>		
+							<input type="checkbox" id="wpuloginint" name="wpuloginint" <?php if ($wpUnited->get_setting('integrateLogin')) { ?>checked="checked"<?php } ?> /><label for="wpuloginint"><?php _e('Enable Login Integration?', 'wp-united'); ?></label>		
 							
 							<div id="wpusettingsxpost" class="subsettings">
 								
 								<h4><?php _e('Auto-create WordPress accounts when needed?', 'wp-united'); ?></h4>
 								<p><?php _e('Create WordPress accounts for unintegrated phpBB users with appropriate permissions when they visit or register?', 'wp-united'); ?></p>
-								<input type="checkbox" id="wpucreatewacct" name="wpucreatewacct" <?php if($wpUnited->get_setting('integcreatewp')) { echo ' checked="checked" '; } ?>/><label for="wpucreatewacct"><?php _e('Auto-create WordPress accounts?', 'wp-united'); ?></label>	
+								<input type="checkbox" id="wpucreatewacct" name="wpucreatewacct" <?php if ($wpUnited->get_setting('integcreatewp')) { echo ' checked="checked" '; } ?>/><label for="wpucreatewacct"><?php _e('Auto-create WordPress accounts?', 'wp-united'); ?></label>	
 								
 								<h4><?php _e('Auto-create phpBB accounts when needed?', 'wp-united'); ?></h4>
 								<p><?php _e('Create phpBB accounts for unintegrated WordPress users when they visit or register?', 'wp-united'); ?></p>
-								<input type="checkbox" id="wpucreatepacct" name="wpucreatepacct" <?php if($wpUnited->get_setting('integcreatephpbb')) { echo ' checked="checked" '; } ?>/><label for="wpucreatepacct"><?php _e('Auto-create phpBB accounts?', 'wp-united'); ?></label>	
+								<input type="checkbox" id="wpucreatepacct" name="wpucreatepacct" <?php if ($wpUnited->get_setting('integcreatephpbb')) { echo ' checked="checked" '; } ?>/><label for="wpucreatepacct"><?php _e('Auto-create phpBB accounts?', 'wp-united'); ?></label>	
 								
 								<h4><?php _e('Sync avatars?', 'wp-united'); ?></h4>
 								<p><?php _e('Avatars will be synced between phpBB &amp; WordPress. If a user has an avatar in phpBB, it will show in WordPress. If they have a Gravatar, it will show in phpBB.', 'wp-united'); ?></p>
 								<p><?php _e('Enabling this option requires that the &quot;Allow avatars&quot; and &quot;Remote avatar linking&quot; options is enabled in phpBB, so WP-United will automatically enable those options for you if they are disabled.', 'wp-united'); ?></p>
-								<input type="checkbox" id="wpuavatar" name="wpuavatar" <?php if($wpUnited->get_setting('avatarsync')) { echo ' checked="checked" '; } ?>/><label for="wpusmilies"><?php _e('Sync avatars?', 'wp-united'); ?></label>	
+								<input type="checkbox" id="wpuavatar" name="wpuavatar" <?php if ($wpUnited->get_setting('avatarsync')) { echo ' checked="checked" '; } ?>/><label for="wpusmilies"><?php _e('Sync avatars?', 'wp-united'); ?></label>	
 						
 								
 								
 								<h4><?php _e('Enable cross-posting?', 'wp-united'); ?></h4>
 								<p><?php _e('If you enable this option, users will be able to elect to have their blog entry copied to a forum when writing a blog post. To set which forums the user can cross-post to, visit the phpBB forum permissions panel, and enable the &quot;can cross-post&quot; permission for the users/groups/forums combinations you need.', 'wp-united'); ?></p>
-								<input type="checkbox" id="wpuxpost" name="wpuxpost" <?php if($wpUnited->get_setting('xposting')) { ?>checked="checked"<?php } ?> /><label for="wpuxpost"><?php _e('Enable Cross-Posting?', 'wp-united'); ?></label>		
+								<input type="checkbox" id="wpuxpost" name="wpuxpost" <?php if ($wpUnited->get_setting('xposting')) { ?>checked="checked"<?php } ?> /><label for="wpuxpost"><?php _e('Enable Cross-Posting?', 'wp-united'); ?></label>		
 								
 								
 								<div id="wpusettingsxpostxtra" class="subsettings">
 									<h4><?php _e('Type of cross-posting?', 'wp-united'); ?></h4>
 									<p><?php _e('Choose how the post should appear in phpBB. WP-United can post an excerpt, the full post, or give you an option to select when posting each post.', 'wp-united'); ?></p>
-									<input type="radio" name="rad_xpost_type" value="excerpt" id="wpuxpexc"  <?php if($wpUnited->get_setting('xposttype') == 'excerpt') { ?>checked="checked"<?php } ?>  /><label for="wpuxpexc"><?php _e('Excerpt', 'wp-united'); ?></label>
-									<input type="radio" name="rad_xpost_type" value="fullpost" id="wpuxpfp" <?php if($wpUnited->get_setting('xposttype') == 'fullpost') { ?>checked="checked"<?php } ?>  /><label for="wpuxpfp"><?php _e('Full Post', 'wp-united'); ?></label>
-									<input type="radio" name="rad_xpost_type" value="askme" id="wpuxpask" <?php if($wpUnited->get_setting('xposttype') == 'askme') { ?>checked="checked"<?php } ?>  /><label for="wpuxpask"><?php _e('Ask Me', 'wp-united'); ?></label>
+									<input type="radio" name="rad_xpost_type" value="excerpt" id="wpuxpexc"  <?php if ($wpUnited->get_setting('xposttype') == 'excerpt') { ?>checked="checked"<?php } ?>  /><label for="wpuxpexc"><?php _e('Excerpt', 'wp-united'); ?></label>
+									<input type="radio" name="rad_xpost_type" value="fullpost" id="wpuxpfp" <?php if ($wpUnited->get_setting('xposttype') == 'fullpost') { ?>checked="checked"<?php } ?>  /><label for="wpuxpfp"><?php _e('Full Post', 'wp-united'); ?></label>
+									<input type="radio" name="rad_xpost_type" value="askme" id="wpuxpask" <?php if ($wpUnited->get_setting('xposttype') == 'askme') { ?>checked="checked"<?php } ?>  /><label for="wpuxpask"><?php _e('Ask Me', 'wp-united'); ?></label>
 									
 									<h4><?php _e('phpBB manages comments on crossed posts?', 'wp-united'); ?></h4>
 									<p><?php _e('Choose this option to have WordPress comments replaced by forum replies for cross-posted blog posts. In addition, comments posted by integrated users via the WordPress comment form will be cross-posted as replies to the forum topic.', 'wp-united'); ?><br /><br />
 									<?php _e('Note that for users to be able to comment from WordPress, you need to assign them the &quot;Can reply to blog posts&quot; permission in phpBB.', 'wp-united'); ?></p>
-									<input type="checkbox" name="wpuxpostcomments" id="wpuxpostcomments" <?php if($wpUnited->get_setting('xpostautolink')) { ?>checked="checked"<?php } ?> /><label for="wpuxpostcomments"><?php _e('phpBB manages comments', 'wp-united'); ?></label>		
+									<input type="checkbox" name="wpuxpostcomments" id="wpuxpostcomments" <?php if ($wpUnited->get_setting('xpostautolink')) { ?>checked="checked"<?php } ?> /><label for="wpuxpostcomments"><?php _e('phpBB manages comments', 'wp-united'); ?></label>		
 									
 									<div id="wpusettingsxpostcomments" class="subsettings">
 
 										<h4><?php _e('Use WordPress spam filters for guest comments?', 'wp-united'); ?></h4>
 										<p><?php _e('To prevent forum spam from comments posted by guests, turn this option on. Comments will then be passed through WordPress spam filters (e.g. Akismet) before being sent to the forum. This only applies to posts made by guests.', 'wp-united'); ?></p>
 																				
-										<input type="radio" name="rad_xpostcomappr" value="all" id="xpostcomapprall"  <?php if($wpUnited->get_setting('xpostspam') === 'all') { ?>checked="checked" <?php } ?> /><label for="xpostcomapprall"><?php _e('Yes, and override phpBB post approval requirements if the comment passes WordPress checks', 'wp-united'); ?></label><br />
-										<input type="radio" name="rad_xpostcomappr" value="yes" id="xpostcomappryes" <?php if($wpUnited->get_setting('xpostspam') === 1) { ?>checked="checked" <?php } ?>  /><label for="xpostcomappryes"><?php _e('Yes, but still honour phpBB post approval requirements even if the comment passes', 'wp-united'); ?></label><br />
-										<input type="radio" name="rad_xpostcomappr" value="no" id="xpostcomapprno" <?php if($wpUnited->get_setting('xpostspam') === 0) { ?>checked="checked" <?php } ?>  /><label for="xpostcomapprno"><?php _e('No, I will rely on phpBB settings.', 'wp-united'); ?></label>
+										<input type="radio" name="rad_xpostcomappr" value="all" id="xpostcomapprall"  <?php if ($wpUnited->get_setting('xpostspam') === 'all') { ?>checked="checked" <?php } ?> /><label for="xpostcomapprall"><?php _e('Yes, and override phpBB post approval requirements if the comment passes WordPress checks', 'wp-united'); ?></label><br />
+										<input type="radio" name="rad_xpostcomappr" value="yes" id="xpostcomappryes" <?php if ($wpUnited->get_setting('xpostspam') === 1) { ?>checked="checked" <?php } ?>  /><label for="xpostcomappryes"><?php _e('Yes, but still honour phpBB post approval requirements even if the comment passes', 'wp-united'); ?></label><br />
+										<input type="radio" name="rad_xpostcomappr" value="no" id="xpostcomapprno" <?php if ($wpUnited->get_setting('xpostspam') === 0) { ?>checked="checked" <?php } ?>  /><label for="xpostcomapprno"><?php _e('No, I will rely on phpBB settings.', 'wp-united'); ?></label>
 									</div>
 									
 									
 									<h4><?php _e('Force all blog posts to be cross-posted?', 'wp-united'); ?></h4>
 									<p><?php _e('Setting this option will force all blog posts to be cross-posted to a specific forum. You can select the forum here. Note that users must have the &quot;can cross-post&quot; WP-United permission under phpBB Forum Permissions, or the cross-posting will not take place.', 'wp-united'); ?></p>
 									<select id="wpuxpostforce" name="wpuxpostforce">
-										<option value="-1" <?php if($wpUnited->get_setting('xpostforce') == -1) { echo ' selected="selected" '; } ?>>-- <?php _e('Disabled', 'wp-united'); ?> --</option>
+										<option value="-1" <?php if ($wpUnited->get_setting('xpostforce') == -1) { echo ' selected="selected" '; } ?>>-- <?php _e('Disabled', 'wp-united'); ?> --</option>
 										
 										<?php
-										if(defined('IN_PHPBB')) { 
+										if (defined('IN_PHPBB')) { 
 											global $phpbbForum, $db;
 											$fStateChanged = $phpbbForum->foreground();
 											$sql = 'SELECT forum_id, forum_name FROM ' . FORUMS_TABLE . ' WHERE ' .
@@ -1303,7 +1303,7 @@ function wpu_settings_page() {
 											if ($result = $db->sql_query($sql)) {
 												while ( $row = $db->sql_fetchrow($result) ) {
 													echo '<option value="' . $row['forum_id'] . '"';
-													if($wpUnited->get_setting('xpostforce') == (int)$row['forum_id']) {
+													if ($wpUnited->get_setting('xpostforce') == (int)$row['forum_id']) {
 														 echo ' selected="selected" ';
 													}
 													echo '>' . $row['forum_name'] . '</option>';
@@ -1320,7 +1320,7 @@ function wpu_settings_page() {
 									<?php
 										// The default value hasn't had translation applied as we can't do that on the phpBB side. So we translate it now.
 										$xPostPrefix = $wpUnited->get_setting('xpostprefix');
-										if($xPostPrefix == '[BLOG] ') {
+										if ($xPostPrefix == '[BLOG] ') {
 											$xPostPrefix = __('[BLOG] ', 'wp-united');
 										}
 									?>
@@ -1334,13 +1334,13 @@ function wpu_settings_page() {
 					<div id="wputab-theme">
 						<h3><?php _e('Integrate themes?', 'wp-united'); ?></h3>
 						<p><?php _e('WP-United can integrate your phpBB &amp; WordPress templates.', 'wp-united'); ?></p>
-						<input type="checkbox" id="wputplint" name="wputplint" <?php if($wpUnited->get_setting('showHdrFtr') != 'NONE') { ?>checked="checked" <?php } ?> /><label for="wputplint"><?php _e('Enable Theme Integration', 'wp-united'); ?></label>
+						<input type="checkbox" id="wputplint" name="wputplint" <?php if ($wpUnited->get_setting('showHdrFtr') != 'NONE') { ?>checked="checked" <?php } ?> /><label for="wputplint"><?php _e('Enable Theme Integration', 'wp-united'); ?></label>
 						<div id="wpusettingstpl" class="subsettings">
 							<h4><?php _e('Integration Mode', 'wp-united'); ?></h4>
 							<p><?php _e('Do you want WordPress to appear inside your phpBB template, or phpBB to appear inside your WordPress template?', 'wp-united'); ?></p>
 							
-							<input type="radio" name="rad_tpl" value="rev" id="wputplrev"  <?php if($wpUnited->get_setting('showHdrFtr') != 'FWD') { ?>checked="checked" <?php } ?> /><label for="wputplrev"><?php _e('phpBB inside WordPress', 'wp-united'); ?></label>
-							<input type="radio" name="rad_tpl" value="fwd" id="wputplfwd" <?php if($wpUnited->get_setting('showHdrFtr') == 'FWD') { ?>checked="checked" <?php } ?>  /><label for="wputplfwd"><?php _e('WordPress inside phpBB', 'wp-united'); ?></label>
+							<input type="radio" name="rad_tpl" value="rev" id="wputplrev"  <?php if ($wpUnited->get_setting('showHdrFtr') != 'FWD') { ?>checked="checked" <?php } ?> /><label for="wputplrev"><?php _e('phpBB inside WordPress', 'wp-united'); ?></label>
+							<input type="radio" name="rad_tpl" value="fwd" id="wputplfwd" <?php if ($wpUnited->get_setting('showHdrFtr') == 'FWD') { ?>checked="checked" <?php } ?>  /><label for="wputplfwd"><?php _e('WordPress inside phpBB', 'wp-united'); ?></label>
 							
 						
 							<h4><?php _e('Automatic CSS Integration', 'wp-united'); ?></h4>
@@ -1365,21 +1365,21 @@ function wpu_settings_page() {
 									</p>
 									<select id="wpuhdrftrspl" name="wpuhdrftrspl">
 										
-										<option value="0"<?php if($wpUnited->get_setting('wpSimpleHdr') == 1) { echo ' selected="selected" '; } ?>>-- <?php _e('Statically Cached Simple Header &amp; Footer', 'wp-united'); ?> --</option>
+										<option value="0"<?php if ($wpUnited->get_setting('wpSimpleHdr') == 1) { echo ' selected="selected" '; } ?>>-- <?php _e('Statically Cached Simple Header &amp; Footer', 'wp-united'); ?> --</option>
 										<?php
 											$files = get_page_templates();
 											$fileNames = array_values($files);
-											if(!in_array('page.php', $fileNames) && locate_template(array('page.php'))) {
+											if (!in_array('page.php', $fileNames) && locate_template(array('page.php'))) {
 												$files[wpu_fix_translation(__('Fall back to page.php', 'wp-united'))] = 'page.php';
 											}
-											if(!in_array('index.php', $fileNames) && locate_template(array('index.php'))) {
+											if (!in_array('index.php', $fileNames) && locate_template(array('index.php'))) {
 												$files[wpu_fix_translation(__('Fall back to index.php', 'wp-united'))] = 'index.php';
 											}											
-											if(sizeof($files)) {
+											if (sizeof($files)) {
 												foreach($files as $fileDesc => $file) {
-													if(strpos(strtolower($file), '.php') == (strlen($file) - 4)) {
+													if (strpos(strtolower($file), '.php') == (strlen($file) - 4)) {
 														echo '<option value="' . $file . '"';
-														if( ($wpUnited->get_setting('wpPageName') == $file) && ($wpUnited->get_setting('wpSimpleHdr') == 0) ) {
+														if ( ($wpUnited->get_setting('wpPageName') == $file) && ($wpUnited->get_setting('wpSimpleHdr') == 0) ) {
 															echo ' selected="selected" ';
 														}
 														echo '>' .  __('Full Page: ', 'wp-united') . $fileDesc . '</option>';
@@ -1432,7 +1432,7 @@ function wpu_settings_page() {
 									</div>
 									<div id="wputemplate-w-in-p-opts">
 										<p>
-											<input type="checkbox" id="wpudtd" name="wpudtd" <?php if($wpUnited->get_setting('dtdSwitch')) { echo ' checked="checked" '; } ?>/> <label for="wpudtd"><Strong><?php _e("Use WordPress' Document Type Declaration?", 'wp-united'); ?></Strong></label>
+											<input type="checkbox" id="wpudtd" name="wpudtd" <?php if ($wpUnited->get_setting('dtdSwitch')) { echo ' checked="checked" '; } ?>/> <label for="wpudtd"><Strong><?php _e("Use WordPress' Document Type Declaration?", 'wp-united'); ?></Strong></label>
 											<a class="wpuwhatis" href="#" title="<?php _e("The Document Type Declaration, or DTD, is provided at the top of all web pages to let the browser know what type of markup language is being used. phpBB3's prosilver uses an XHTML 1.0 Strict DTD by default. Most WordPress templates, however, use an XHTML 1 transitional  or HTML 5 DTD. In most cases, this doesn't matter -- however, If you want to use WordPress' DTD on pages where WordPress is inside phpBB, then you can turn this option on. This should prevent browsers from going into quirks mode, and will ensure that even more WordPress templates display as designed.", 'wp-united'); ?>"><?php _e('What is this?', 'wp-united'); ?></a>
 										</p>
 									</div>
@@ -1444,11 +1444,11 @@ function wpu_settings_page() {
 
 						<h3><?php _e('Use phpBB Word Censor?', 'wp-united'); ?></h3>
 						<p><?php _e('Turn this option on if you want WordPress posts to be passed through the phpBB word censor.', 'wp-united'); ?></p>
-						<input type="checkbox" id="wpucensor" name="wpucensor" <?php if($wpUnited->get_setting('phpbbCensor')) { echo ' checked="checked" '; } ?>/><label for="wpucensor"><?php _e('Enable word censoring in WordPress', 'wp-united'); ?></label>
+						<input type="checkbox" id="wpucensor" name="wpucensor" <?php if ($wpUnited->get_setting('phpbbCensor')) { echo ' checked="checked" '; } ?>/><label for="wpucensor"><?php _e('Enable word censoring in WordPress', 'wp-united'); ?></label>
 						
 						<h3><?php _e('Use phpBB smilies?', 'wp-united'); ?></h3>
 						<p><?php _e('Turn this option on if you want to use phpBB smilies in WordPress comments and posts.', 'wp-united'); ?></p>
-						<input type="checkbox" id="wpusmilies" name="wpusmilies" <?php if($wpUnited->get_setting('phpbbSmilies')) { echo ' checked="checked" '; } ?>/><label for="wpusmilies"><?php _e('Use phpBB smilies in WordPress', 'wp-united'); ?></label>	
+						<input type="checkbox" id="wpusmilies" name="wpusmilies" <?php if ($wpUnited->get_setting('phpbbSmilies')) { echo ' checked="checked" '; } ?>/><label for="wpusmilies"><?php _e('Use phpBB smilies in WordPress', 'wp-united'); ?></label>	
 						
 					</div>
 					
@@ -1488,10 +1488,10 @@ function wpu_settings_page() {
 			
 			<?php 
 					$cssmVal = 0;
-					if($wpUnited->get_setting('cssMagic')){
+					if ($wpUnited->get_setting('cssMagic')){
 						$cssmVal++;
 					}
-					if($wpUnited->get_setting('templateVoodoo')){
+					if ($wpUnited->get_setting('templateVoodoo')){
 						$cssmVal++;
 					}
 			?>
@@ -1499,7 +1499,7 @@ function wpu_settings_page() {
 
 			function wpu_hardened_init_tail() {
 				setupSettingsPage();
-				<?php if($wpUnited->get_setting('phpbb_path')) { ?> 
+				<?php if ($wpUnited->get_setting('phpbb_path')) { ?> 
 					setPath('settings');
 				<?php } ?>	
 				setupHelpButtons();
@@ -1524,8 +1524,8 @@ function wpu_process_settings() {
 	global $wpUnited, $wpdb; 
 
 	$type = 'setup';
-	if(isset($_POST['type'])) {
-		if($_POST['type'] == 'wp-united-settings') {
+	if (isset($_POST['type'])) {
+		if ($_POST['type'] == 'wp-united-settings') {
 			$type = 'settings';
 		}
 	}
@@ -1535,27 +1535,27 @@ function wpu_process_settings() {
 	/**
 	 * First process path to phpBB
 	 */
-	if(!isset($_POST['wpu-path'])) {
+	if (!isset($_POST['wpu-path'])) {
 		die('[ERROR] ' . __("ERROR: You must specify a valid path for phpBB's config.php", 'wp-united'));
 	}
 	$wpuPhpbbPath = (string)$_POST['wpu-path'];
 	$wpuPhpbbPath = str_replace('http:', '', $wpuPhpbbPath);
 	$wpuPhpbbPath = add_trailing_slash($wpuPhpbbPath);
-	if(!@file_exists($wpUnited->get_plugin_path()))  {
+	if (!@file_exists($wpUnited->get_plugin_path()))  {
 		die('[ERROR] ' . __("ERROR:The path you selected for phpBB's config.php is not valid", 'wp-united'));
 		return;
 	}
-	if(!@file_exists($wpuPhpbbPath . 'config.php'))  {
+	if (!@file_exists($wpuPhpbbPath . 'config.php'))  {
 		die('[ERROR] ' . __("ERROR: phpBB's config.php could not be found at the location you chose", 'wp-united'));
 		return;
 	}
-	if($type=='setup') {
+	if ($type=='setup') {
 		$data['phpbb_path'] = $wpuPhpbbPath;
 	}
 	
 	$wpUnited->update_settings($data);
 
-	if($type == 'settings') {
+	if ($type == 'settings') {
 		/**
 		 * Process 'use forum page'
 		 */
@@ -1610,19 +1610,19 @@ function wpu_process_settings() {
 		 */
 		$data['integrateLogin'] = (isset($_POST['wpuloginint']) && (!defined('WPU_CANNOT_OVERRIDE')) ) ? 1 : 0;
 		
-		if($data['integrateLogin']) {
+		if ($data['integrateLogin']) {
 			
 			$data['integcreatewp'] = (isset($_POST['wpucreatewacct'])) ? 1 : 0;
 			$data['integcreatephpbb'] = (isset($_POST['wpucreatepacct'])) ? 1 : 0;
 			$data['avatarsync'] = (isset($_POST['wpuavatar'])) ? 1 : 0;
 			$data['xposting'] =   (isset($_POST['wpuxpost'])) ? 1 : 0;
 			
-			if($data['xposting'] ) { 
+			if ($data['xposting'] ) { 
 				
 				$xpostType = (!isset($_POST['rad_xpost_type'])) ? 'excerpt' : $_POST['rad_xpost_type'];
-				if($xpostType == 'askme') {
+				if ($xpostType == 'askme') {
 					$data['xposttype'] ='askme';
-				} else if($xpostType == 'fullpost') {
+				} elseif ($xpostType == 'fullpost') {
 					$data['xposttype'] ='fullpost';
 				} else {
 					$data['xposttype'] ='excerpt';
@@ -1630,13 +1630,13 @@ function wpu_process_settings() {
 				
 				$data['xpostautolink'] =(isset($_POST['wpuxpostcomments'])) ? 1 : 0;
 				
-				if($data['xpostautolink']) {
+				if ($data['xpostautolink']) {
 					
 					// xPostSpam could be 'yes', 'no' or 'all'
 					$xPostSpam = (!isset($_POST['rad_xpostcomappr'])) ? 'all' : (string)$_POST['rad_xpostcomappr'];
-					if($xPostSpam == 'no') {
+					if ($xPostSpam == 'no') {
 						$data['xpostspam'] = 0;
-					} else if($xPostSpam == 'yes') {
+					} elseif ($xPostSpam == 'yes') {
 						$data['xpostspam'] = 1;
 					} else {
 						$data['xpostspam'] = 'all';
@@ -1680,10 +1680,10 @@ function wpu_process_settings() {
 		
 		 $tplInt = isset($_POST['wputplint']) ? 1 : 0;
 
-		if($tplInt) {
+		if ($tplInt) {
 			$tplDir = isset($_POST['rad_tpl']) ? (string) $_POST['rad_tpl'] : 'fwd';
 			
-			if($tplDir == 'rev') {
+			if ($tplDir == 'rev') {
 				$data['showHdrFtr'] = 'REV';
 			} else {
 				$data['showHdrFtr'] = 'FWD';
@@ -1710,7 +1710,7 @@ function wpu_process_settings() {
 			$data['wpSimpleHdr'] = 1;
 			$data['wpPageName'] = 'page.php';	
 
-			if(!empty($simpleHeader)) {
+			if (!empty($simpleHeader)) {
 				// we would check for existence of the file, but TEMPLATEPATH isn't initialised here yet.
 				$data['wpSimpleHdr'] = 0;
 				$data['wpPageName'] = $simpleHeader;
@@ -1758,7 +1758,7 @@ function wpu_process_settings() {
 function wpu_panel_error($type, $text) {
 	
 	echo '<div id="message" class="error"><p>' . $text . '</p></div>';
-	if($type=='settings') {
+	if ($type=='settings') {
 		wpu_settings_page();
 	} else {
 		wpu_show_setup_menu();
@@ -1794,7 +1794,7 @@ function wpu_process_advanced_options() {
 }
 
 function wpu_filetree() {
-	if(stristr($_POST['filetree'], '..')) {
+	if (stristr($_POST['filetree'], '..')) {
 		die();
 	}
 	
@@ -1803,25 +1803,25 @@ function wpu_filetree() {
 
 	$fileLoc = str_replace( '\\', '/', urldecode($_POST['filetree']));
 
-	if(stristr($fileLoc, $docRoot) === false) {
+	if (stristr($fileLoc, $docRoot) === false) {
 		$fileLoc = $docRoot . $fileLoc;
 		$fileLoc = str_replace('//', '/', $fileLoc);
 	}
 
-	if( @file_exists($fileLoc) ) {
+	if ( @file_exists($fileLoc) ) {
 		$files = scandir($fileLoc);
 		natcasesort($files);
-		if( count($files) > 2 ) { /* The 2 accounts for . and .. */
+		if ( count($files) > 2 ) { /* The 2 accounts for . and .. */
 			echo "<ul class=\"jqueryFileTree\" style=\"display: none;\">";
 			// All dirs
 			foreach( $files as $file ) {
-				if( @file_exists($fileLoc. $file) && $file != '.' && $file != '..' && is_dir($fileLoc . $file) ) {
+				if ( @file_exists($fileLoc. $file) && $file != '.' && $file != '..' && is_dir($fileLoc . $file) ) {
 					echo "<li class=\"directory collapsed\"><a href=\"#\" rel=\"" . htmlentities($fileLoc . $file) . "/\">" . htmlentities($file) . "</a></li>";
 				}
 			}
 			// All files
 			foreach( $files as $file ) {
-				if( @file_exists($fileLoc . $file) && $file != '.' && $file != '..' && !is_dir($fileLoc . $file) ) {
+				if ( @file_exists($fileLoc . $file) && $file != '.' && $file != '..' && !is_dir($fileLoc . $file) ) {
 					$ext = preg_replace('/^.*\./', '', $file);
 					echo "<li class=\"file ext_$ext\"><a href=\"#\" rel=\"" . htmlentities($fileLoc . $file) . "\">" . htmlentities($file) . "</a></li>";
 				}
@@ -1839,7 +1839,7 @@ function wpu_filetree() {
 function wpu_hardened_script_init() {
 	static $calledInit = false;
 
-	if(!$calledInit) {
+	if (!$calledInit) {
 		$calledInit = true;
 	}
 	
