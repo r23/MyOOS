@@ -92,9 +92,6 @@ $aContents['advanced_search_result'] = $prefix_filename . 'advanced_search_resul
 $aContents['popup_search_help'] = $prefix_filename . 'popup_search_help';
 $aContents['quickfind'] = $prefix_filename . 'quickfind';
 
-//includes/content/tell_a_friend
-$aContents['tell_a_friend'] = $prefix_filename . 'tell_a_friend';
-
 //includes/content/user
 $aContents['account'] = $prefix_filename . 'account';
 $aContents['account_edit'] = $prefix_filename . 'account_edit';
@@ -117,3 +114,4 @@ $aContents['checkout_process'] = $prefix_filename . 'checkout_process';
 $aContents['checkout_shipping'] = $prefix_filename . 'checkout_shipping';
 $aContents['checkout_shipping_address'] = $prefix_filename . 'checkout_shipping_address';
 $aContents['checkout_success'] = $prefix_filename . 'checkout_success';
+
