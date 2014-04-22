@@ -2,7 +2,7 @@
 /**
  * The Template for displaying all single posts.
  *
- * @package MyOOS
+ * @package myoos
  */
 
 get_header(); ?>

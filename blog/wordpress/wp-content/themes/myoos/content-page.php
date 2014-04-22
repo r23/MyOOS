@@ -2,7 +2,7 @@
 /**
  * The template used for displaying page content in page.php
  *
- * @package MyOOS
+ * @package myoos
  */
 ?>
 
@@ -20,5 +20,5 @@
 			) );
 		?>
 	</div><!-- .entry-content -->
-	<?php edit_post_link( __( 'Edit', 'myoos' ), '<footer class="entry-meta"><span class="edit-link">', '</span></footer>' ); ?>
+	<?php edit_post_link( __( 'Edit', 'myoos' ), '<footer class="entry-footer"><span class="edit-link">', '</span></footer>' ); ?>
 </article><!-- #post-## -->

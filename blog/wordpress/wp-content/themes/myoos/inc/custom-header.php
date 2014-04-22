@@ -12,7 +12,7 @@
 	<?php endif; // End header image check. ?>
 
  *
- * @package MyOOS
+ * @package myoos
  */
 
 /**
@@ -21,8 +21,6 @@
  * @uses myoos_header_style()
  * @uses myoos_admin_header_style()
  * @uses myoos_admin_header_image()
- *
- * @package MyOOS
  */
 function myoos_custom_header_setup() {
 	add_theme_support( 'custom-header', apply_filters( 'myoos_custom_header_args', array(

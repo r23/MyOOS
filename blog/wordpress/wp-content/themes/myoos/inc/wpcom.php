@@ -4,14 +4,13 @@
  *
  * This file is centrally included from `wp-content/mu-plugins/wpcom-theme-compat.php`.
  *
- * @package MyOOS
+ * @package myoos
  */
 
 /**
  * Adds support for wp.com-specific theme functions.
  *
  * @global array $themecolors
- * @return void
  */
 function myoos_wpcom_setup() {
 	global $themecolors;

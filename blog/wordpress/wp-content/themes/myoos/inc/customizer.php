@@ -1,8 +1,8 @@
 <?php
 /**
- * MyOOS Theme Customizer
+ * _s Theme Customizer
  *
- * @package MyOOS
+ * @package myoos
  */
 
 /**

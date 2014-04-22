@@ -2,7 +2,7 @@
 /**
  * The template for displaying Search Results pages.
  *
- * @package MyOOS
+ * @package myoos
  */
 
 get_header(); ?>

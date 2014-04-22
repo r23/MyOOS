@@ -1,20 +1,20 @@
 /*
-Theme Name: MyOOS
+Theme Name: _s
 Theme URI: http://underscores.me/
-Author: MyOOS Development Team
-Author URI: http://www.oos-shop.de/
-Description: Highly customizable mobile resonsive theme. Make it your own by using a live preview to change colors, layouts, background and header images and upload your logo with a click of the mouse. It also looks great out of the box!
+Author: Automattic
+Author URI: http://automattic.com/
+Description: Hi. I'm a starter theme called <code>_s</code>, or <em>underscores</em>, if you like. I'm a theme meant for hacking so don't use me as a <em>Parent Theme</em>. Instead try turning me into the next, most awesome, WordPress theme out there. That's what I'm here for.
 Version: 1.0-wpcom
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: MyOOS
+Text Domain: myoos
 Domain Path: /languages/
 Tags:
 
 This theme, like WordPress, is licensed under the GPL.
 Use it to make something cool, have fun, and share what you've learned with others.
 
- MyOOS is based on Underscores http://underscores.me/, (C) 2012-2013 Automattic, Inc.
+ _s is based on Underscores http://underscores.me/, (C) 2012-2014 Automattic, Inc.
 
 Resetting and rebuilding styles have been helped along thanks to the fine work of
 Eric Meyer http://meyerweb.com/eric/tools/css/reset/index.html
@@ -22,10 +22,33 @@ along with Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normali
 and Blueprint http://www.blueprintcss.org/
 */
 
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+1.0 - Reset
+2.0 - Typography
+3.0 - Elements
+4.0 - Forms
+5.0 - Navigation
+	5.1 - Links
+	5.2 - Menus
+6.0 - Accessibility
+7.0 - Alignments
+8.0 - Clearings
+9.0 - Widgets
+10.0 - Content
+	10.1 - Posts and pages
+	10.2 - Asides
+	10.3 - Comments
+11.0 - Infinite scroll
+12.0 - Media
+	12.1 - Captions
+	12.2 - Galleries
+--------------------------------------------------------------*/
 
-/* =Reset
--------------------------------------------------------------- */
-
+/*--------------------------------------------------------------
+1.0 - Reset
+--------------------------------------------------------------*/
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -101,10 +124,9 @@ a img {
 	border: 0;
 }
 
-
-/* =Global
------------------------------------------------ */
-
+/*--------------------------------------------------------------
+2.0 Typography
+--------------------------------------------------------------*/
 body,
 button,
 input,
@@ -116,41 +138,11 @@ textarea {
 	font-size: 1.6rem;
 	line-height: 1.5;
 }
-
-/* Headings */
 h1, h2, h3, h4, h5, h6 {
 	clear: both;
 }
-hr {
-	background-color: #ccc;
-	border: 0;
-	height: 1px;
-	margin-bottom: 1.5em;
-}
-
-/* Text elements */
 p {
 	margin-bottom: 1.5em;
-}
-ul, ol {
-	margin: 0 0 1.5em 3em;
-}
-ul {
-	list-style: disc;
-}
-ol {
-	list-style: decimal;
-}
-li > ul,
-li > ol {
-	margin-bottom: 0;
-	margin-left: 1.5em;
-}
-dt {
-	font-weight: bold;
-}
-dd {
-	margin: 0 1.5em 1.5em;
 }
 b, strong {
 	font-weight: bold;
@@ -206,6 +198,40 @@ small {
 big {
 	font-size: 125%;
 }
+
+/*--------------------------------------------------------------
+3.0 Elements
+--------------------------------------------------------------*/
+hr {
+	background-color: #ccc;
+	border: 0;
+	height: 1px;
+	margin-bottom: 1.5em;
+}
+ul, ol {
+	margin: 0 0 1.5em 3em;
+}
+ul {
+	list-style: disc;
+}
+ol {
+	list-style: decimal;
+}
+li > ul,
+li > ol {
+	margin-bottom: 0;
+	margin-left: 1.5em;
+}
+dt {
+	font-weight: bold;
+}
+dd {
+	margin: 0 1.5em 1.5em;
+}
+img {
+	height: auto; /* Make sure images are scaled correctly. */
+	max-width: 100%; /* Adhere to container width. */
+}
 figure {
 	margin: 0;
 }
@@ -216,10 +242,10 @@ table {
 th {
 	font-weight: bold;
 }
-img {
-	height: auto; /* Make sure images are scaled correctly. */
-	max-width: 100%; /* Adhere to container width. */
-}
+
+/*--------------------------------------------------------------
+4.0 Forms
+--------------------------------------------------------------*/
 button,
 input,
 select,
@@ -227,7 +253,7 @@ textarea {
 	font-size: 100%; /* Corrects font size not being inherited in all browsers */
 	margin: 0; /* Addresses margins set differently in IE6/7, F3/4, S5, Chrome */
 	vertical-align: baseline; /* Improves appearance and consistency in all browsers */
-	*vertical-align: middle; /* Improves appearance and consistency in all browsers */
+	*vertical-align: middle; /* Improves appearance and consistency in IE6/IE7 */
 }
 button,
 input[type="button"],
@@ -315,7 +341,12 @@ textarea {
 	width: 98%;
 }
 
-/* Links */
+/*--------------------------------------------------------------
+5.0 Navigation
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+5.1 Links
+--------------------------------------------------------------*/
 a {
 	color: royalblue;
 }
@@ -328,80 +359,9 @@ a:active {
 	color: midnightblue;
 }
 
-/* Alignment */
-.alignleft {
-	display: inline;
-	float: left;
-	margin-right: 1.5em;
-}
-.alignright {
-	display: inline;
-	float: right;
-	margin-left: 1.5em;
-}
-.aligncenter {
-	clear: both;
-	display: block;
-	margin: 0 auto;
-}
-
-/* Text meant only for screen readers */
-.screen-reader-text {
-	clip: rect(1px, 1px, 1px, 1px);
-	position: absolute !important;
-}
-
-.screen-reader-text:hover,
-.screen-reader-text:active,
-.screen-reader-text:focus {
-	background-color: #f1f1f1;
-	border-radius: 3px;
-	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
-	clip: auto !important;
-	color: #21759b;
-	display: block;
-	font-size: 14px;
-	font-weight: bold;
-	height: auto;
-	left: 5px;
-	line-height: normal;
-	padding: 15px 23px 14px;
-	text-decoration: none;
-	top: 5px;
-	width: auto;
-	z-index: 100000; /* Above WP toolbar */
-}
-
-/* Clearing */
-.clear:before,
-.clear:after,
-.entry-content:before,
-.entry-content:after,
-.comment-content:before,
-.comment-content:after,
-.site-header:before,
-.site-header:after,
-.site-content:before,
-.site-content:after,
-.site-footer:before,
-.site-footer:after {
-	content: '';
-	display: table;
-}
-
-.clear:after,
-.entry-content:after,
-.comment-content:after,
-.site-header:after,
-.site-content:after,
-.site-footer:after {
-	clear: both;
-}
-
-
-/* =Menu
------------------------------------------------ */
-
+/*--------------------------------------------------------------
+5.2 Menus
+--------------------------------------------------------------*/
 .main-navigation {
 	clear: both;
 	display: block;
@@ -451,13 +411,11 @@ a:active {
 .main-navigation .current_page_item a,
 .main-navigation .current-menu-item a {
 }
-
 /* Small menu */
 .menu-toggle {
 	cursor: pointer;
 	display: none;
 }
-
 @media screen and (max-width: 600px) {
 	.menu-toggle,
 	.main-navigation.toggled .nav-menu {
@@ -468,11 +426,126 @@ a:active {
 		display: none;
 	}
 }
+.site-main .comment-navigation,
+.site-main .paging-navigation,
+.site-main .post-navigation {
+	margin: 0 0 1.5em;
+	overflow: hidden;
+}
+.comment-navigation .nav-previous,
+.paging-navigation .nav-previous,
+.post-navigation .nav-previous {
+	float: left;
+	width: 50%;
+}
+.comment-navigation .nav-next,
+.paging-navigation .nav-next,
+.post-navigation .nav-next {
+	float: right;
+	text-align: right;
+	width: 50%;
+}
 
+/*--------------------------------------------------------------
+6.0 Accessibility
+--------------------------------------------------------------*/
+/* Text meant only for screen readers */
+.screen-reader-text {
+	clip: rect(1px, 1px, 1px, 1px);
+	position: absolute !important;
+}
 
-/* =Content
------------------------------------------------ */
+.screen-reader-text:hover,
+.screen-reader-text:active,
+.screen-reader-text:focus {
+	background-color: #f1f1f1;
+	border-radius: 3px;
+	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+	clip: auto !important;
+	color: #21759b;
+	display: block;
+	font-size: 14px;
+	font-weight: bold;
+	height: auto;
+	left: 5px;
+	line-height: normal;
+	padding: 15px 23px 14px;
+	text-decoration: none;
+	top: 5px;
+	width: auto;
+	z-index: 100000; /* Above WP toolbar */
+}
 
+/*--------------------------------------------------------------
+7.0 Alignments
+--------------------------------------------------------------*/
+.alignleft {
+	display: inline;
+	float: left;
+	margin-right: 1.5em;
+}
+.alignright {
+	display: inline;
+	float: right;
+	margin-left: 1.5em;
+}
+.aligncenter {
+	clear: both;
+	display: block;
+	margin: 0 auto;
+}
+
+/*--------------------------------------------------------------
+8.0 Clearings
+--------------------------------------------------------------*/
+.clear:before,
+.clear:after,
+.entry-content:before,
+.entry-content:after,
+.comment-content:before,
+.comment-content:after,
+.site-header:before,
+.site-header:after,
+.site-content:before,
+.site-content:after,
+.site-footer:before,
+.site-footer:after {
+	content: '';
+	display: table;
+}
+
+.clear:after,
+.entry-content:after,
+.comment-content:after,
+.site-header:after,
+.site-content:after,
+.site-footer:after {
+	clear: both;
+}
+
+/*--------------------------------------------------------------
+9.0 Widgets
+--------------------------------------------------------------*/
+.widget {
+	margin: 0 0 1.5em;
+}
+
+/* Make sure select elements fit in widgets */
+.widget select {
+	max-width: 100%;
+}
+
+/* Search widget */
+.widget_search .search-submit {
+	display: none;
+}
+
+/*--------------------------------------------------------------
+10.0 Content
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+10.1 Posts and pages
+--------------------------------------------------------------*/
 .sticky {
 }
 .hentry {
@@ -496,19 +569,39 @@ a:active {
 	margin: 0 0 1.5em;
 }
 
-
-/* =Asides
------------------------------------------------ */
-
+/*--------------------------------------------------------------
+10.2 Asides
+--------------------------------------------------------------*/
 .blog .format-aside .entry-title,
 .archive .format-aside .entry-title {
 	display: none;
 }
 
+/*--------------------------------------------------------------
+10.3 Comments
+--------------------------------------------------------------*/
+.comment-content a {
+	word-wrap: break-word;
+}
+.bypostauthor {
+}
 
-/* =Media
------------------------------------------------ */
+/*--------------------------------------------------------------
+11.0 Infinite scroll
+--------------------------------------------------------------*/
+/* Globally hidden elements when Infinite Scroll is supported and in use. */
+.infinite-scroll .paging-navigation, /* Older / Newer Posts Navigation (always hidden) */
+.infinite-scroll.neverending .site-footer { /* Theme Footer (when set to scrolling) */
+	display: none;
+}
+/* When Infinite Scroll has reached its end we need to re-display elements that were hidden (via .neverending) before */
+.infinity-end.neverending .site-footer {
+	display: block;
+}
 
+/*--------------------------------------------------------------
+12.0 Media
+--------------------------------------------------------------*/
 .page-content img.wp-smiley,
 .entry-content img.wp-smiley,
 .comment-content img.wp-smiley {
@@ -517,6 +610,16 @@ a:active {
 	margin-top: 0;
 	padding: 0;
 }
+/* Make sure embeds and iframes fit their containers */
+embed,
+iframe,
+object {
+	max-width: 100%;
+}
+
+/*--------------------------------------------------------------
+12.1 Captions
+--------------------------------------------------------------*/
 .wp-caption {
 	border: 1px solid #ccc;
 	margin-bottom: 1.5em;
@@ -533,88 +636,41 @@ a:active {
 .wp-caption .wp-caption-text {
 	margin: 0.8075em 0;
 }
-.site-main .gallery {
+
+/*--------------------------------------------------------------
+12.2 Galleries
+--------------------------------------------------------------*/
+.gallery {
 	margin-bottom: 1.5em;
 }
-.gallery-caption {
+.gallery-item {
+	display: inline-block;
+	text-align: center;
+	vertical-align: top;
+	width: 100%;
 }
-.site-main .gallery a img {
-	border: none;
-	height: auto;
-	max-width: 90%;
+.gallery-columns-2 .gallery-item {
+	max-width: 50%;
 }
-.site-main .gallery dd {
-	margin: 0;
+.gallery-columns-3 .gallery-item {
+	max-width: 33.33%;
 }
-.site-main .gallery-columns-4 .gallery-item {
+.gallery-columns-4 .gallery-item {
+	max-width: 25%;
 }
-.site-main .gallery-columns-4 .gallery-item img {
+.gallery-columns-5 .gallery-item {
+	max-width: 20%;
 }
-
-/* Make sure embeds and iframes fit their containers */
-embed,
-iframe,
-object {
-	max-width: 100%;
+.gallery-columns-6 .gallery-item {
+	max-width: 16.66%;
 }
-
-
-/* =Navigation
------------------------------------------------ */
-
-.site-main [class*="navigation"] {
-	margin: 0 0 1.5em;
-	overflow: hidden;
+.gallery-columns-7 .gallery-item {
+	max-width: 14.28%;
 }
-[class*="navigation"] .nav-previous {
-	float: left;
-	width: 50%;
+.gallery-columns-8 .gallery-item {
+	max-width: 12.5%;
 }
-[class*="navigation"] .nav-next {
-	float: right;
-	text-align: right;
-	width: 50%;
+.gallery-columns-9 .gallery-item {
+	max-width: 11.11%;
 }
-
-
-/* =Comments
------------------------------------------------ */
-
-.comment-content a {
-	word-wrap: break-word;
-}
-.bypostauthor {
-}
-
-
-/* =Widgets
------------------------------------------------ */
-
-.widget {
-	margin: 0 0 1.5em;
-}
-
-/* Make sure select elements fit in widgets */
-.widget select {
-	max-width: 100%;
-}
-
-/* Search widget */
-.widget_search .search-submit {
-	display: none;
-}
-
-
-/* =Infinite Scroll
------------------------------------------------ */
-
-/* Globally hidden elements when Infinite Scroll is supported and in use. */
-.infinite-scroll .paging-navigation, /* Older / Newer Posts Navigation (always hidden) */
-.infinite-scroll.neverending .site-footer { /* Theme Footer (when set to scrolling) */
-	display: none;
-}
-
-/* When Infinite Scroll has reached its end we need to re-display elements that were hidden (via .neverending) before */
-.infinity-end.neverending .site-footer {
-	display: block;
-}
+.gallery-caption {}
