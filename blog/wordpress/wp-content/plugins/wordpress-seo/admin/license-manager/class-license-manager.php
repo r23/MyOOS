@@ -58,6 +58,11 @@ if( ! class_exists( 'Yoast_License_Manager', false ) ) {
 		protected $prefix;
 
 		/**
+		 * @var bool Boolean indicating whether this plugin is network activated
+		 */
+		protected $is_network_activated = false;
+
+		/**
 		 * Constructor
 		 *
 		 * @param Yoast_Product $product
@@ -71,23 +76,20 @@ if( ! class_exists( 'Yoast_License_Manager', false ) ) {
 			$this->prefix = sanitize_title_with_dashes( $this->product->get_item_name() . '_', null, 'save' );
 
 			// maybe set license key from constant
-			$this->maybe_set_license_key_from_constant();		
+			$this->maybe_set_license_key_from_constant();
 		}
 
 		/**
-		* Setup hooks
+		 * Setup hooks
 		 *
-		 * @todo I'm not sure I want the setup_auto_updater() to be called from the setup_hooks method
-		*/
+		 */
 		public function setup_hooks() {
 
 			// show admin notice if license is not active
 			add_action( 'admin_notices', array( $this, 'display_admin_notices' ) );
 
+			// catch POST requests from license form
 			add_action( 'admin_init', array( $this, 'catch_post_request') );
-
-			// perform a license check
-			add_action( 'admin_init', array( $this, 'check_license' ), 20 );
 
 			// setup item type (plugin|theme) specific hooks
 			$this->specific_hooks();
@@ -155,8 +157,6 @@ if( ! class_exists( 'Yoast_License_Manager', false ) ) {
 
 			$result = $this->call_license_api( 'activate' );
 
-            // store transient to ensure we only check remotely once a week
-            $this->set_license_checked_remotely();
 
 			if( $result ) {
 
@@ -232,72 +232,6 @@ if( ! class_exists( 'Yoast_License_Manager', false ) ) {
 			}
 
 			return ( $this->get_license_status() === 'deactivated' );		
-		}
-
-        /**
-         * Set transient to ensure we only check a maximum of once every 4 weeks
-         */
-        public function set_license_checked_remotely() {
-            $transient_name = $this->prefix . 'license_checked';
-            set_transient( $transient_name, 1, ( WEEK_IN_SECONDS * 4 ) );
-        }
-
-        /**
-         * Was the license remotely checked in the last 4 weeks?
-         *
-         * @return bool
-         */
-        public function is_license_checked_remotely() {
-            $transient_name = $this->prefix . 'license_checked';
-            return ( get_transient( $transient_name ) == 1 );
-        }
-
-		/**
-		* Checks the license status remotely
-		*
-		* @return boolean True if the function ran with success, false otherwise.
-		*/
-		public function check_license() {
-
-
-            // only run on $_POST requests
-            if( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' !== $_SERVER['REQUEST_METHOD'] ) {
-                return false;
-            }
-
-            // only check active licenses
-            if( $this->license_is_valid() === false ) {
-                return false;
-            }
-
-			// Only run once every 4 weeks
-			if( $this->is_license_checked_remotely() ) {
-                return false;
-            }
-
-			// call remote api
-			$result = $this->call_license_api( 'check' );
-
-			// did the request succeed?
-			if( $result != false && is_object( $result ) ) {
-
-                // story expiry date
-                if( isset( $result->expires ) ) {
-                    $this->set_license_expiry_date( $result->expires );
-                }
-
-                // check if license status is still correct
-                if( isset( $result->license ) && is_string( $result->license ) && $this->get_license_status() != trim( $result->license ) ) {
-                    $this->set_notice( sprintf( __( "Heads up! The license you're using for %s seems inactive on Yoast.com.", $this->product->get_text_domain() ), $this->product->get_item_name() ), false );
-                    $this->set_license_status( $result->license );
-                }
-
-			}
-
-            // store transient to ensure we only check remotely once a week
-            $this->set_license_checked_remotely();
-
-			return true;
 		}
 
 		/**
@@ -413,7 +347,11 @@ if( ! class_exists( 'Yoast_License_Manager', false ) ) {
 			$option_name = $this->prefix . 'license';
 
 			// get array of options from db
-			$options = get_option( $option_name, array( ) );
+			if( $this->is_network_activated ) {
+				$options = get_site_option( $option_name, array( ) );
+			} else {
+				$options = get_option( $option_name, array( ) );
+			}
 
 			// setup array of defaults
 			$defaults = array(
@@ -438,7 +376,12 @@ if( ! class_exists( 'Yoast_License_Manager', false ) ) {
 			$option_name = $this->prefix . 'license';
 
 			// update db
-			update_option( $option_name, $options );
+			if( $this->is_network_activated ) {
+				update_site_option( $option_name, $options );
+			} else {
+				update_option( $option_name, $options );
+			}
+
 		}
 
 		/**
@@ -467,6 +410,14 @@ if( ! class_exists( 'Yoast_License_Manager', false ) ) {
 
 			// save options
 			$this->set_options( $options );
+		}
+
+		public function show_license_form_heading() {
+			?>
+			<h3>
+				<?php printf( __( "%s: License Settings", $this->product->get_text_domain() ), $this->product->get_item_name() ); ?>&nbsp; &nbsp;
+			</h3>
+			<?php
 		}
 
 		/**

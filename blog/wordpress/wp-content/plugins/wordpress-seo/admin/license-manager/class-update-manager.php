@@ -10,14 +10,29 @@ if( ! class_exists( "Yoast_Update_Manager", false ) ) {
 		protected $product;
 
 		/**
-		 * @var string
+		 * @var Yoast_License_Manager
 		 */
-		protected $license_key;
+		protected $license_manager;
 
 		/**
 		 * @var string
 		 */
 		protected $error_message = '';
+
+		/**
+		 * @var object
+		 */
+		protected $update_response = null;
+
+		/**
+		 * @var string The transient name storing the API response
+		 */
+		private $response_transient_key = '';
+
+		/**
+		 * @var string The transient name that stores failed request tries
+		 */
+		private $request_failed_transient_key = '';
 
 		/**
 		 * Constructor
@@ -29,9 +44,29 @@ if( ! class_exists( "Yoast_Update_Manager", false ) ) {
 		 * @param string $version     The current plugin or theme version
 		 * @param string $author      (optional) The item author.
 		 */
-		public function __construct( Yoast_Product $product, $license_key ) {
+		public function __construct( Yoast_Product $product, $license_manager ) {
 			$this->product = $product;
-			$this->license_key = $license_key;
+			$this->license_manager = $license_manager;
+
+			// generate transient names
+			$this->response_transient_key = $this->product->get_slug() . 'update-response';
+			$this->request_failed_transient_key = $this->product->get_slug() . '-update-request-failed';
+
+			// maybe delete transient
+			$this->maybe_delete_transients();
+		}
+
+		/**
+		 * Deletes the various transients
+		 * If we're on the update-core.php?force-check=1 page
+		 */
+		private function maybe_delete_transients() {
+			global $pagenow;
+
+			if( $pagenow === 'update-core.php' && isset( $_GET['force-check'] ) ) {
+				delete_transient( $this->response_transient_key );
+				delete_transient( $this->request_failed_transient_key );
+			}
 		}
 
 		/**
@@ -45,7 +80,7 @@ if( ! class_exists( "Yoast_Update_Manager", false ) ) {
 
 			?>
 			<div class="error">
-			<p><?php printf( __( '%s failed to check for updates because of the following error: <em>%s</em>', $this->product->get_text_domain() ), $this->product->get_item_name(), $this->error_message ); ?></p>
+				<p><?php printf( __( '%s failed to check for updates because of the following error: <em>%s</em>', $this->product->get_text_domain() ), $this->product->get_item_name(), $this->error_message ); ?></p>
 			</div>
 			<?php
 			}
@@ -59,20 +94,24 @@ if( ! class_exists( "Yoast_Update_Manager", false ) ) {
 		 *
 		 * @return false||object
 		 */
-		protected function call_remote_api() {
+		private function call_remote_api() {
 
-			// only check if a transient is not set (or if it's expired)
-			if( get_transient( $this->product->get_slug() . '-update-check-error' ) !== false ) {
+			// only check if the failed transient is not set (or if it's expired)
+			if( get_transient( $this->request_failed_transient_key ) !== false ) {
 				return false;
 			}
+
+			global $wp_version;
 
 			// setup api parameters
 			$api_params = array(
 				'edd_action' => 'get_version',
-				'license'    => $this->license_key,
-				'name'       => $this->product->get_item_name(),
-				'slug'       => $this->product->get_slug(),
-				'author'     => $this->product->get_author()
+				'license'    => $this->license_manager->get_license_key(),
+				'item_name'       => $this->product->get_item_name(),
+				'wp_version'       => $wp_version,
+				'item_version'     => $this->product->get_version(),
+				'url' => home_url(),
+				'slug' => $this->product->get_slug()
 			);
 
 			// setup request parameters
@@ -90,17 +129,76 @@ if( ! class_exists( "Yoast_Update_Manager", false ) ) {
 				$this->error_message = $request->get_error_message();
 				add_action( 'admin_notices', array( $this, 'show_update_error' ) );
 
-				// set a transient to prevent checking for updates on every page load
-				set_transient( $this->product->get_slug() . '-update-check-error', 1, DAY_IN_SECONDS ); // 30 mins
+				// set a transient to prevent failed update checks on every page load
+				set_transient( $this->request_failed_transient_key, 'failed', 10800 );
 
 				return false;
 			}
 
 			// decode response
 			$response = $request->get_response();
+
+			// check if response returned that a given site was inactive
+			if( isset( $response->license_check ) && ! empty( $response->license_check ) && $response->license_check != 'valid' ) {
+
+				// deactivate local license
+				$this->license_manager->set_license_status( 'invalid' );
+
+				// show notice to let the user know we deactivated his/her license
+				$this->error_message = __( "This site has not been activated properly on yoast.com and thus cannot check for future updates. Please activate your site with a valid license key.", $this->product->get_text_domain() );
+				add_action( 'admin_notices', array( $this, 'show_update_error' ) );
+			}
+
 			$response->sections = maybe_unserialize( $response->sections );
 
+			// store response
+			set_transient( $this->response_transient_key, $response, 10800 );
+
 			return $response;
+		}
+
+		/**
+		 * Gets the remote product data (from the EDD API)
+		 *
+		 * - If it was previously fetched in the current requests, this gets it from the instance property
+		 * - Next, it tries the 3-hour transient
+		 * - Next, it calls the remote API and stores the result
+		 *
+		 * @return object
+		 */
+		protected function get_remote_data() {
+
+			// always use property if it's set
+			if( null !== $this->update_response ) {
+				return $this->update_response;
+			}
+
+			// get cached remote data
+			$data = $this->get_cached_remote_data();
+
+			// if cache is empty or expired, call remote api
+			if( $data === false ) {
+				$data = $this->call_remote_api();
+			}
+
+			$this->update_response = $data;
+			return $data;
+		}
+
+		/**
+		 * Gets the remote product data from a 3-hour transient
+		 *
+		 * @return bool|mixed
+		 */
+		private function get_cached_remote_data() {
+
+			$data = get_transient( $this->product->get_slug() . 'update-response' );
+
+			if( $data ) {
+				return $data;
+			}
+
+			return false;
 		}
 
 	}

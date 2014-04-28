@@ -8,11 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var Yoast_Product $product
  */
 $product = $this->product;
-?>
-<h3>
-	<?php printf( __( "%s: License Settings", $product->get_text_domain() ), $product->get_item_name() ); ?>&nbsp; &nbsp;
-</h3>
-<?php
+
+$this->show_license_form_heading();
 
 // Output form tags if we're not embedded in another form
 if( ! $embedded ) {

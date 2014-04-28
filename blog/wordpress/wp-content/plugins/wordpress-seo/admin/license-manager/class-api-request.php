@@ -25,11 +25,6 @@ if( ! class_exists( "Yoast_API_Request", false ) ) {
 		/**
 		* @var boolean
 		*/
-		private $skipped_curl = false;	
-
-		/**
-		* @var boolean
-		*/
 		private $success = false;
 
 		/**
@@ -56,11 +51,8 @@ if( ! class_exists( "Yoast_API_Request", false ) ) {
 			// set request args (merge with defaults)
 			$this->args = wp_parse_args( $args, $this->args );
 
-			// maybe add filter to skip curl
-			$this->maybe_skip_curl();
-
 			// fire the request
-			$this->fire();
+			$this->success = $this->fire();
 		}
 
 		/**
@@ -75,25 +67,18 @@ if( ! class_exists( "Yoast_API_Request", false ) ) {
 
 			// validate raw response
 			if( $this->validate_raw_response( $response ) === false ) {
-
-				// re-try request but without curl
-				if( $this->skip_curl() === true ) {
-					$this->fire();
-				}
-
-				$this->success = false;
 				return false;
 			}
-
-			// store transient to tell class to always skip curl
-			if( $this->skipped_curl === true ) {
-				set_transient( 'yoast_requests_skip_curl', 1, WEEK_IN_SECONDS );
-			}		
 
 			// decode the response
 			$this->response = json_decode( wp_remote_retrieve_body( $response ) );
 
-			$this->success = true;
+			// response should be an object
+			if( ! is_object( $this->response ) ) {
+				$this->error_message = 'No JSON object was returned.';
+				return false;
+			}
+
 			return true;
 		}
 
@@ -144,64 +129,6 @@ if( ! class_exists( "Yoast_API_Request", false ) ) {
 		*/
 		public function get_response() {
 			return $this->response;
-		}
-
-		/**
-		* @access private
-		* @return boolean
-		*/
-		public function maybe_skip_curl() {
-
-			if( get_transient( 'yoast_requests_skip_curl' ) !== 1 ) {
-				return false;
-			}
-
-			return $this->skip_curl();
-		}
-
-		/**
-		* Maybe skip the cURL transport for this request
-		* @access private
-		* @return boolean
-		*/
-		private function skip_curl() {
-
-			// if we already skipped curl, don't bother
-			if( $this->skipped_curl === true ) {
-				return false;
-			}
-
-			$transport_used = _wp_http_get_object()->_get_first_available_transport( $this->args, $this->url );
-			if( strtolower( $transport_used ) !== 'wp_http_curl' ) {
-				return false;
-			}
-
-			add_filter( 'http_api_transports', array( $this, 'disable_curl_transport' ) );
-
-			$this->skipped_curl = true;
-
-			return true;
-		}
-
-		/**
-		* Disables the cURL transport method if a previous cURL request failed
-		*
-		* @param array $transports
-		* @return array
-		*/
-		public function disable_curl_transport( array $transports ) {
-
-			// find index of 'curl'
-			$key = array_search( 'curl', $transports );
-
-			// remove curl
-			if( $key !== false ) {
-				unset( $transports[ $key ] );
-				$transports = array_values( $transports );
-			}
-
-			// return available transports
-			return $transports;
 		}
 
 	}

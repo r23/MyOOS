@@ -64,16 +64,16 @@ if( ! class_exists( "Yoast_Product", false ) ) {
 				$this->item_url = $this->api_url;
 			}
 
-            if( is_admin() && is_multisite() ) {
+			if( is_admin() && is_multisite() ) {
 
-                if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
-                    require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
-                }
+				if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
+					require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+				}
 
-                if( is_plugin_active_for_network( $slug ) ) {
-                    $this->license_page_url = network_admin_url( $license_page_url );
-                }
-            }
+				if( is_plugin_active_for_network( $slug ) ) {
+					$this->license_page_url = network_admin_url( $license_page_url );
+				}
+			}
 		}
 
 

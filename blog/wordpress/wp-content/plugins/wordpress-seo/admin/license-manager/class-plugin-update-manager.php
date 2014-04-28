@@ -1,10 +1,11 @@
 <?php
 
 //set_site_transient( 'update_plugins', null );
+
 if( ! class_exists( "Yoast_Plugin_Update_Manager", false ) ) {
 
 	class Yoast_Plugin_Update_Manager extends Yoast_Update_Manager {
-		
+
 		/**
 		* Constructor
 		*
@@ -16,17 +17,19 @@ if( ! class_exists( "Yoast_Plugin_Update_Manager", false ) ) {
 		* @param string $author (optional)
 		* @param string $text_domain 
 		*/
-	public function __construct( Yoast_Product $product, $license_key ) {
-		parent::__construct( $product, $license_key );
+		public function __construct( Yoast_Product $product, $license_key ) {
+			parent::__construct( $product, $license_key );
 
 			// setup hooks
 			$this->setup_hooks();
+
 		}
 
 		/**
 		* Setup hooks
 		*/
 		private function setup_hooks() {
+
 			// check for updates
 			add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'set_updates_available_data' ) );
 			
@@ -40,24 +43,25 @@ if( ! class_exists( "Yoast_Plugin_Update_Manager", false ) ) {
 		* @param object $data
 		* @return object $data
 		*/
-		public function set_updates_available_data( $data = array() ) {
+		public function set_updates_available_data( $data ) {
 
 			if ( empty( $data ) ) {
 				return $data;
-			} 
+			}
+
 			// send of API request to check for updates
-			$api_response = $this->call_remote_api();
+			$remote_data = $this->get_remote_data();
 
 			// did we get a response?
-			if( $api_response === false ) {
+			if( $remote_data === false ) {
 				return $data;
 			}
 
-			// compare versions
-			if ( version_compare( $this->product->get_version(), $api_response->new_version, '<' ) ) {
+			// compare local version with remote version
+			if ( version_compare( $this->product->get_version(), $remote_data->new_version, '<' ) ) {
 
 				// remote version is newer, add to data
-				$data->response[ $this->product->get_slug() ] = $api_response;
+				$data->response[ $this->product->get_slug() ] = $remote_data;
 
 			}
 
@@ -78,11 +82,11 @@ if( ! class_exists( "Yoast_Plugin_Update_Manager", false ) ) {
 		public function plugins_api_filter( $data, $action = '', $args = null ) {
 
 			// only do something if we're checking for our plugin
-		if ( $action !== 'plugin_information' || ! isset( $args->slug ) || $args->slug !== $this->product->get_slug() ) {
+			if ( $action !== 'plugin_information' || ! isset( $args->slug ) || $args->slug !== $this->product->get_slug() ) {
 				return $data;
-			} 
+			}
 
-			$api_response = $this->call_remote_api();
+			$api_response = $this->get_remote_data();
 			
 			// did we get a response?
 			if ( $api_response === false ) {
