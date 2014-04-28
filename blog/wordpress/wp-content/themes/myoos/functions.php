@@ -1,15 +1,21 @@
 <?php
 /**
- * _s functions and definitions
+ * MyOOS functions and definitions
  *
  * @package myoos
  */
+
+/*
+ * Set Proper Parent/Child theme paths for inclusion
+ */
+define( 'PARENT_DIR', get_template_directory() );
+define( 'PARENT_URL', get_template_directory_uri() );
 
 /**
  * Set the content width based on the theme's design and stylesheet.
  */
 if ( ! isset( $content_width ) ) {
-	$content_width = 640; /* pixels */
+	$content_width = 912; /* pixels */
 }
 
 if ( ! function_exists( 'myoos_setup' ) ) :
@@ -28,7 +34,7 @@ function myoos_setup() {
 	 * If you're building a theme based on _s, use a find and replace
 	 * to change 'myoos' to the name of your theme in all the template files
 	 */
-	load_theme_textdomain( 'myoos', get_template_directory() . '/languages' );
+	load_theme_textdomain( 'myoos', PARENT_DIR . '/languages' );
 
 	// Add default posts and comments RSS feed links to head.
 	add_theme_support( 'automatic-feed-links' );
@@ -38,7 +44,7 @@ function myoos_setup() {
 	 *
 	 * @link http://codex.wordpress.org/Function_Reference/add_theme_support#Post_Thumbnails
 	 */
-	//add_theme_support( 'post-thumbnails' );
+	add_theme_support( 'post-thumbnails' );
 
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
@@ -80,6 +86,43 @@ function myoos_widgets_init() {
 		'before_title'  => '<h1 class="widget-title">',
 		'after_title'   => '</h1>',
 	) );
+	
+	register_sidebar( array(
+		'id' => 'footer-1',
+		'name' => 'Footer Column 1',
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget' => '</div>',
+		'before_title' => '<h4  class="widget-title">',
+		'after_title' => '</h4>',
+	) );
+
+	register_sidebar( array(
+		'id' => 'footer-2',
+		'name' => 'Footer Column 2',
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget' => '</div>',
+		'before_title' => '<h4  class="widget-title">',
+		'after_title' => '</h4>',
+	) );
+
+	register_sidebar( array(
+		'id' => 'footer-3',
+		'name' => 'Footer Column 3',
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget' => '</div>',
+		'before_title' => '<h4  class="widget-title">',
+		'after_title' => '</h4>',
+	) );
+
+	register_sidebar( array(
+		'id' => 'footer-4',
+		'name' => 'Footer Column 4',
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget' => '</div>',
+		'before_title' => '<h4  class="widget-title">',
+		'after_title' => '</h4>',
+	) );
+	
 }
 add_action( 'widgets_init', 'myoos_widgets_init' );
 
@@ -87,11 +130,10 @@ add_action( 'widgets_init', 'myoos_widgets_init' );
  * Enqueue scripts and styles.
  */
 function myoos_scripts() {
-	wp_enqueue_style( '_myoos-style', get_stylesheet_uri() );
 
-	wp_enqueue_script( '_myoos-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
+	wp_enqueue_script( '_myoos-navigation', PARENT_URL . '/js/navigation.js', array(), '20120206', true );
 
-	wp_enqueue_script( '_myoos-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
+	wp_enqueue_script( '_myoos-skip-link-focus-fix', PARENT_URL . '/js/skip-link-focus-fix.js', array(), '20130115', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -102,24 +144,24 @@ add_action( 'wp_enqueue_scripts', 'myoos_scripts' );
 /**
  * Implement the Custom Header feature.
  */
-//require get_template_directory() . '/inc/custom-header.php';
+//require PARENT_DIR . '/inc/custom-header.php';
 
 /**
  * Custom template tags for this theme.
  */
-require get_template_directory() . '/inc/template-tags.php';
+require PARENT_DIR . '/inc/template-tags.php';
 
 /**
  * Custom functions that act independently of the theme templates.
  */
-require get_template_directory() . '/inc/extras.php';
+require PARENT_DIR . '/inc/extras.php';
 
 /**
  * Customizer additions.
  */
-require get_template_directory() . '/inc/customizer.php';
+require PARENT_DIR . '/inc/customizer.php';
 
 /**
  * Load Jetpack compatibility file.
  */
-require get_template_directory() . '/inc/jetpack.php';
+require PARENT_DIR . '/inc/jetpack.php';
