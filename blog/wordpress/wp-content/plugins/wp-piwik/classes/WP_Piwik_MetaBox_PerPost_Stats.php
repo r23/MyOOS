@@ -14,13 +14,17 @@
 				'default'
 			);
 		}
-		
-		function showStats() {
+
+		private function getStats($range = false) {
 			global $post;
 			$postURL = get_permalink($post->ID);
-			$range = $this->getRangeLast30();
+			$range = ($range?$range:$this->getRangeLast30());
 			self::$logger->log('Load per post statistics: '.$postURL);
-			$data = self::$wpPiwik->callPiwikAPI('Actions.getPageUrl', 'range', $range, null, false, false, 'PHP', $postURL, false);
+			return self::$wpPiwik->callPiwikAPI('Actions.getPageUrl', 'range', $range, null, false, false, 'PHP', $postURL, false);
+		}
+			
+		function showStats() {
+			$data = $this->getStats();
 			if (!isset($data[0])) return;
 			echo '<table>';
 			$this->tabRow(__('Visitors', 'wp-piwik').':',$data[0]['nb_visits']);
@@ -32,6 +36,12 @@
 			if (isset($data[0]['avg_time_generation']))
 				$this->tabRow(__('Avg. generation time', 'wp-piwik').':', $data[0]['avg_time_generation']);
 			echo '</table>';
+		}
+		
+		function getValue($range, $key) {
+			$data = $this->getStats($range);
+			if (!isset($data[0]) || !isset($data[0][$key])) return '-';
+			else return $data[0][$key]; 
 		}
 		
 	}

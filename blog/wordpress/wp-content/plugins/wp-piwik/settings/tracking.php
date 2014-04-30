@@ -55,6 +55,13 @@ if (self::$settings->getGlobalOption('add_tracking_code')) {
 	<label for="wp-piwik_compress"><?php _e('WP-Piwik will use the piwik.php proxy script. See', 'wp-piwik'); ?> <a href="http://piwik.org/faq/how-to/#faq_132">Piwik FAQ</a>.</label>
 </td></tr>
 
+<tr><th><?php _e('JavaScript code position', 'wp-piwik'); ?>:</th><td>
+	<select id="wp-piwik_codeposition" name="wp-piwik_codeposition"<?php echo (self::$settings->getGlobalOption('track_codeposition')?' checked="checked"':''); ?>>
+		<option value="footer"<?php echo (self::$settings->getGlobalOption('track_codeposition') == 'footer'?' selected="selected"':''); ?>><?php _e('Footer', 'wp-piwik'); ?></option>
+		<option value="header"<?php echo (self::$settings->getGlobalOption('track_codeposition') == 'header'?' selected="selected"':''); ?>><?php _e('Header', 'wp-piwik'); ?></option>
+	</select>
+	<label for="wp-piwik_codeposition"><?php echo _e('Choose whether the JavaScript code is added to the footer or the header.', 'wp-piwik'); ?></label>
+</td></tr>
 
 <tr><th><?php _e('Add &lt;noscript&gt;', 'wp-piwik'); ?>:</th><td>
 	<input type="checkbox" value="1" id="wp-piwik_noscript" name="wp-piwik_noscript"<?php echo (self::$settings->getGlobalOption('track_noscript')?' checked="checked"':''); ?> />
@@ -71,9 +78,19 @@ if (self::$settings->getGlobalOption('add_tracking_code')) {
 	<label for="wp-piwik_disable_cookies"><?php echo _e('Disable all tracking cookies for a visitor.', 'wp-piwik'); ?></label>
 </td></tr>
 
+<tr><th><?php _e('Limit cookie lifetime', 'wp-piwik'); ?>:</th><td>
+	<input type="checkbox" value="1" id="wp-piwik_limit_cookies" name="wp-piwik_limit_cookies"<?php echo (self::$settings->getGlobalOption('limit_cookies')?' checked="checked"':''); ?> />
+	<label for="wp-piwik_limit_cookies"><?php echo _e('Limit cookie lifetime as follows', 'wp-piwik'); ?>:</label><br />
+	<?php echo _e('Visitor timeout (seconds)', 'wp-piwik'); ?>: <input type="text" name="wp-piwik_limit_cookies_visitor" value="<?php echo self::$settings->getGlobalOption('limit_cookies_visitor'); ?>"><br /><?php echo _e('Session timeout (seconds)', 'wp-piwik'); ?>: <input type="text" name="wp-piwik_limit_cookies_session" value="<?php echo self::$settings->getGlobalOption('limit_cookies_session'); ?>"></td></tr>
+
+<tr><th><?php _e('Track visitors across all subdomains', 'wp-piwik'); ?>:</th><td>
+	<input type="checkbox" value="1" id="wp-piwik_track_across" name="wp-piwik_track_across"<?php echo (self::$settings->getGlobalOption('track_across')?' checked="checked"':''); ?> />
+	<label for="wp-piwik_track_across"><?php echo _e('Adds *.-prefix to cookie domain.', 'wp-piwik'); ?></label>
+</td></tr>
+
 <tr><th><?php _e('Track search', 'wp-piwik'); ?>:</th><td>
 	<input type="checkbox" value="1" id="wp-piwik_search" name="wp-piwik_search"<?php echo (self::$settings->getGlobalOption('track_search')?' checked="checked"':''); ?> />
-	<label for="wp-piwik_search"><?php echo _e('Use Piwik\'s advanced Site Search Analytics feature. See', 'wp-piwik'); ?> <a href="http://piwik.org/docs/javascript-tracking/#toc-tracking-internal-search-keywords-categories-and-no-result-search-keywords">Piwik documentation</a>.</label>
+	<label for="wp-piwik_search"><?php echo _e('Use Piwik\'s advanced Site Search Analytics feature. See', 'wp-piwik'); ?> <a href="http://piwik.org/docs/javascript-tracking/#toc-tracking-internal-search-keywords-categories-and-no-result-search-keywords">Piwik Docs</a>.</label>
 </td></tr>
 
 <tr><th><?php _e('Track 404', 'wp-piwik'); ?>:</th><td>
@@ -81,9 +98,24 @@ if (self::$settings->getGlobalOption('add_tracking_code')) {
 	<label for="wp-piwik_404"><?php echo _e('WP-Piwik can automatically add a 404-category to track 404-page-visits.', 'wp-piwik'); ?></label>
 </td></tr>
 
+<tr><th><?php _e('Add annotation on new post', 'wp-piwik'); ?>:</th><td>
+	<input type="checkbox" value="1" id="wp-piwik_annotations" name="wp-piwik_annotations"<?php echo (self::$settings->getGlobalOption('add_post_annotations')?' checked="checked"':''); ?> />
+	<label for="wp-piwik_annotations"><?php echo _e('Add a Piwik annotation on each new post, see', 'wp-piwik'); ?> <a href="http://piwik.org/docs/annotations/">Piwik Docs</a>.</label>
+</td></tr>
+
+<tr><th><?php _e('Show custom variables box', 'wp-piwik'); ?>:</th><td>
+	<input type="checkbox" value="1" id="wp-piwik_customvars" name="wp-piwik_customvars"<?php echo (self::$settings->getGlobalOption('add_customvars_box')?' checked="checked"':''); ?> />
+	<label for="wp-piwik_customvars"><?php echo _e('Show a custom vars edit box on post edit page.', 'wp-piwik'); ?></label>
+</td></tr>
+
 <tr><th><?php _e('Avoid mod_security', 'wp-piwik'); ?>:</th><td>
 	<input type="checkbox" value="1" id="wp-piwik_reqpost" name="wp-piwik_reqpost"<?php echo (self::$settings->getGlobalOption('track_post')?' checked="checked"':''); ?> />
 	<label for="wp-piwik_reqpost"><?php _e('WP-Piwik can automatically force the Tracking Code to sent data in POST. See', 'wp-piwik'); ?> <a href="http://piwik.org/faq/troubleshooting/#faq_100">Piwik FAQ</a>. <?php _e('Disabled in proxy mode.', 'wp-piwik'); ?></label>
+</td></tr>
+
+<tr><th><?php _e('Add data-cfasync=false', 'wp-piwik'); ?>:</th><td>
+	<input type="checkbox" value="1" id="wp-piwik_datacfasync" name="wp-piwik_datacfasync"<?php echo (self::$settings->getGlobalOption('track_datacfasync')?' checked="checked"':''); ?> />
+	<label for="wp-piwik_datacfasync"><?php _e('Adds data-cfasync=false to the script tag, e.g., to ask Rocket Loader to ignore the script.', 'wp-piwik'); ?>
 </td></tr>
 
 <tr><th><?php _e('CDN URL', 'wp-piwik'); ?>:</th><td>

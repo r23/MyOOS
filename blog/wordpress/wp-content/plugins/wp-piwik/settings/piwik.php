@@ -21,16 +21,14 @@ if (!$bolFOpen && !$bolCURL) {
 </tr><tr>
 	<th><?php _e('Piwik URL', 'wp-piwik'); ?> (REST API):</th>
 	<td>
-		<input type="radio" name="wp-piwik_mode" onchange="javascript:$j('#wp-piwik_path,#wp-piwik_path-label').toggleClass('wp-piwik-input-hide');" value="http" <?php echo (self::$settings->getGlobalOption('piwik_mode')=='http'?'checked="checked" ':''); ?>/>
-		<input id="wp-piwik_url" name="wp-piwik_url" type="text" value="<?php echo self::$settings->getGlobalOption('piwik_url'); ?>" />
-		<label for="wp-piwik_url"></label>
+		<input type="radio" name="wp-piwik_mode" onchange="javascript:$j('#wp-piwik_path,#wp-piwik_url').toggleClass('wp-piwik-input-hide');" value="http" <?php echo (self::$settings->getGlobalOption('piwik_mode')=='http'?'checked="checked" ':''); ?>/>
+		<input <?php echo (self::$settings->getGlobalOption('piwik_mode')=='php'?'class="wp-piwik-input-hide" ':''); ?>id="wp-piwik_url" name="wp-piwik_url" type="text" value="<?php echo self::$settings->getGlobalOption('piwik_url'); ?>" />
 	</td>
 </tr><tr>
 	<th><?php _e('Piwik path', 'wp-piwik'); ?> (PHP API, beta):</th>
 	<td>
-		<input type="radio" name="wp-piwik_mode" onchange="javascript:$j('#wp-piwik_path,#wp-piwik_path-label').toggleClass('wp-piwik-input-hide');" value="php" <?php echo (self::$settings->getGlobalOption('piwik_mode')=='php'?'checked="checked" ':''); ?>/>
+		<input type="radio" name="wp-piwik_mode" onchange="javascript:$j('#wp-piwik_path,#wp-piwik_url').toggleClass('wp-piwik-input-hide');" value="php" <?php echo (self::$settings->getGlobalOption('piwik_mode')=='php'?'checked="checked" ':''); ?>/>
 		<input <?php echo (self::$settings->getGlobalOption('piwik_mode')!='php'?'class="wp-piwik-input-hide" ':''); ?>id="wp-piwik_path" name="wp-piwik_path" type="text" value="<?php echo self::$settings->getGlobalOption('piwik_path'); ?>" />
-		<label <?php echo (self::$settings->getGlobalOption('piwik_mode')!='php'?'class="wp-piwik-input-hide" ':''); ?>id="wp-piwik_path-label" for="wp-piwik_path"><?php _e('If you like to use the PHP API and also to enable tracking by WP-Piwik, please enter your Piwik URL, too. Otherwise your tracking code may be erroneous.','wp-piwik'); ?> [<a href="http://dev.piwik.org/trac/ticket/3220">Details</a>]</label>
 		<?php
 			if (isset($_POST['wp-piwik_path']) && !empty($_POST['wp-piwik_path']) && realpath($_POST['wp-piwik_path']) === false)
 				echo '<p class="wp-piwik-eyecatcher">'.__('Invalid path. Please enter the file path to Piwik.', 'wp-piwik').'</p>';
