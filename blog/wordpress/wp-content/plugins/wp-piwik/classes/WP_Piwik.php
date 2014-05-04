@@ -1,41 +1,5 @@
 <?php
-/*
-Plugin Name: WP-Piwik
 
-Plugin URI: http://wordpress.org/extend/plugins/wp-piwik/
-
-Description: Adds Piwik stats to your dashboard menu and Piwik code to your wordpress header.
-
-Version: 0.9.9.10
-Author: Andr&eacute; Br&auml;kling
-Author URI: http://www.braekling.de
-
-****************************************************************************************** 
-	Copyright (C) 2009-2014 Andre Braekling (email: webmaster@braekling.de)
-
-	This program is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	at your option) any later version.
-
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*******************************************************************************************/
-
-if (!function_exists ('add_action')) {
-	header('Status: 403 Forbidden');
-	header('HTTP/1.1 403 Forbidden');
-	exit();
-}
-
-//require_once(ABSPATH.'wp-includes/pluggable.php');
-
-if (!class_exists('wp_piwik')) {
 class wp_piwik {
 
 	private static
@@ -125,7 +89,7 @@ class wp_piwik {
 	}
 	
 	private function loadLanguage() {
-		load_plugin_textdomain('wp-piwik', false, dirname(self::$strPluginBasename)."/languages/");
+		load_plugin_textdomain('wp-piwik', false, dirname(self::$strPluginBasename)."/../languages/");
 	}
 			
 	function installPlugin() {
@@ -898,8 +862,8 @@ class wp_piwik {
 			'id' => $strFile.$strID,
 			'desc' => substr($strDesc, 0, -2)));
 		// Include widget file
-		if (file_exists(dirname(__FILE__).DIRECTORY_SEPARATOR.'dashboard/'.$strFile.'.php'))
-			include(dirname(__FILE__).DIRECTORY_SEPARATOR.'dashboard/'.$strFile.'.php');
+		if (file_exists(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'dashboard/'.$strFile.'.php'))
+			include(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'dashboard/'.$strFile.'.php');
  	}
 
 	/**
@@ -1163,7 +1127,7 @@ class wp_piwik {
 		echo '<h2 class="nav-tab-wrapper">';
 		foreach($aryTabs as $strTab => $strName) {
 			$strClass = ($strTab == $strCurr?' nav-tab-active':'');
-			echo '<a class="nav-tab'.$strClass.'" href="?page=wp-piwik/wp-piwik.php&tab='.$strTab.'">'.$strName.'</a>';
+			echo '<a class="nav-tab'.$strClass.'" href="?page=wp-piwik/classes/WP_Piwik.php&tab='.$strTab.'">'.$strName.'</a>';
 		}
 		echo '</h2>';
 		return $strCurr;
@@ -1298,14 +1262,14 @@ class wp_piwik {
 		</div>
 <?php /***************************************************************************/
 		}
-		echo '<form class="'.($strTab != 'sitebrowser'?'wp-piwik-settings':'').'" method="post" action="'.admin_url(($pagenow == 'settings.php'?'network/':'').$pagenow.'?page=wp-piwik/wp-piwik.php&tab='.$strTab).'">';
+		echo '<form class="'.($strTab != 'sitebrowser'?'wp-piwik-settings':'').'" method="post" action="'.admin_url(($pagenow == 'settings.php'?'network/':'').$pagenow.'?page=wp-piwik/classes/WP_Piwik.php&tab='.$strTab).'">';
 		echo '<input type="hidden" name="action" value="save_wp-piwik_settings" />';
 		wp_nonce_field('wp-piwik_settings');
 		// Show settings
-		if (($pagenow == 'options-general.php' || $pagenow == 'settings.php') && $_GET['page'] == 'wp-piwik/wp-piwik.php') {
+		if (($pagenow == 'options-general.php' || $pagenow == 'settings.php') && $_GET['page'] == 'wp-piwik/classes/WP_Piwik.php') {
 			echo '<table class="wp-piwik-form-table form-table">';
 			// Get tab contents
-			require_once('settings/'.$strTab.'.php');				
+			$this->includeFile('settings/'.$strTab);
 		// Show submit button
 			if (!in_array($strTab, array('homepage','credits','support','sitebrowser')))
 				echo '<tr><td><p class="submit" style="clear: both;padding:0;margin:0"><input type="submit" name="Submit"  class="button-primary" value="'.__('Save settings', 'wp-piwik').'" /><input type="hidden" name="wp-piwik_settings_submit" value="Y" /></p></td></tr>';
@@ -1326,7 +1290,7 @@ class wp_piwik {
 	 * Show an error message extended by a support site link
 	 */
 	private static function showErrorMessage($strMessage) {
-		echo '<strong class="wp-piwik-error">'.__('An error occured', 'wp-piwik').':</strong> '.$strMessage.' [<a href="'.(self::$settings->checkNetworkActivation()?'network/settings':'options-general').'.php?page=wp-piwik/wp-piwik.php&tab=support">'.__('Support','wp-piwik').'</a>]';
+		echo '<strong class="wp-piwik-error">'.__('An error occured', 'wp-piwik').':</strong> '.$strMessage.' [<a href="'.(self::$settings->checkNetworkActivation()?'network/settings':'options-general').'.php?page=wp-piwik/classes/WP_Piwik.php&tab=support">'.__('Support','wp-piwik').'</a>]';
 	}
 
 	/**
@@ -1350,7 +1314,7 @@ class wp_piwik {
 	 * Execute test script
 	 */
 	private static function loadTestscript() {
-		require_once('debug/testscript.php');
+		require_once('../debug/testscript.php');
 	}
 	
 	/**
@@ -1437,11 +1401,11 @@ class wp_piwik {
 	private function openLogger() {
 		switch (WP_PIWIK_ACTIVATE_LOGGER) {
 			case 2:
-				require_once('classes/WP_Piwik_Logger_File.php');
+				require_once('WP_Piwik_Logger_File.php');
 				self::$logger = new WP_Piwik_Logger_File(__CLASS__);
 			break;
 			default:
-				require_once('classes/WP_Piwik_Logger_Dummy.php');
+				require_once('WP_Piwik_Logger_Dummy.php');
 				self::$logger = new WP_Piwik_Logger_Dummy(__CLASS__);
 		}
 	}
@@ -1465,8 +1429,8 @@ class wp_piwik {
 	
 	private function includeFile($strFile) {
 		self::$logger->log('Include '.$strFile.'.php');
-		if (file_exists(dirname(__FILE__).DIRECTORY_SEPARATOR.$strFile.'.php'))
-			include(dirname(__FILE__).DIRECTORY_SEPARATOR.$strFile.'.php');
+		if (file_exists(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.$strFile.'.php'))
+			include(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.$strFile.'.php');
 	}
 	
 	private function isHiddenUser() {
@@ -1497,11 +1461,3 @@ class wp_piwik {
 	}
 	
 }
-}
-
-require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'config.php');
-
-if (class_exists('wp_piwik'))
-	$GLOBALS['wp_piwik'] = new wp_piwik();
-
-/* EOF */

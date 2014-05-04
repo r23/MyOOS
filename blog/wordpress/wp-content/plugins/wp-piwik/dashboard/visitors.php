@@ -21,7 +21,13 @@
 		$aryConf['params']['date'],
 		$aryConf['params']['limit']
 	);
-	
+	$aryConf['data']['Actions'] = $this->callPiwikAPI(
+		'VisitsSummary.getActions',
+		$aryConf['params']['period'],
+		$aryConf['params']['date'],
+		$aryConf['params']['limit']
+	);
+		
 	if (isset($aryConf['data']['Visitors']['result']) && $aryConf['data']['Visitors']['result'] ='error')
 		echo '<strong>'.__('Piwik error', 'wp-piwik').':</strong> '.htmlentities($aryConf['data']['Visitors']['message'], ENT_QUOTES, 'utf-8');
 	else {
@@ -57,6 +63,7 @@
 				<th class="n"><?php _e('Visits', 'wp-piwik'); ?></th>
 				<th class="n"><?php _e('Unique', 'wp-piwik'); ?></th>
 				<th class="n"><?php _e('Bounced', 'wp-piwik'); ?></th>
+				<th class="n"><?php _e('Page Views', 'wp-piwik'); ?></th>
 			</tr>
 		</thead>
 		<tbody style="cursor:pointer;">
@@ -69,6 +76,8 @@
 					$aryConf['data']['Unique'][$strDate].
 					'</td><td class="n">'.
 					$aryConf['data']['Bounced'][$strDate].
+					'</td><td class="n">'.
+					$aryConf['data']['Actions'][$strDate].
 					'</td></tr>'."\n";
 		}
 		echo '<tr><td class="n" colspan="4"><strong>'.__('Unique TOTAL', 'wp-piwik').'</strong> '.__('Sum', 'wp-piwik').': '.$intUSum.' '.__('Avg', 'wp-piwik').': '.$intAvg.'</td></tr>';	

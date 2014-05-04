@@ -3,7 +3,7 @@
 Contributors: Braekling
 Requires at least: 3.8
 Tested up to: 3.9
-Stable tag: 0.9.9.9
+Stable tag: 0.9.9.10
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6046779
 Tags: statistics, stats, analytics, piwik, wpmu
 
@@ -13,7 +13,7 @@ This plugin adds a Piwik stats site to your WordPress or WordPress multisite das
 
 This plugin adds a Piwik stats site to your WordPress dashboard. It's also able to add the Piwik tracking code to your blog using wp_footer.
 
-**You need a running Piwik (at least 2.0.2) installation** and at least view access to your stats. Also PHP 5 or higher is strictly required.
+You need a running **Piwik 2.0.2 or higher** installation and at least view access to your stats. Also **PHP 5.3 or higher** is strictly required.
 
 Look at the [Piwik website](http://piwik.org/) to get further information about Piwik.
 
@@ -49,7 +49,7 @@ See section "Installation".
 * Graphs powered by [jqPlot](http://www.jqplot.com/) (GPL 2.0 and MIT) and  and [jQuery Sparklines](http://omnipotent.net/jquery.sparkline/) (New BSD License).
 * Metabox support inspired by [Heiko Rabe's metabox demo plugin](http://www.code-styling.de/english/how-to-use-wordpress-metaboxes-at-own-plugins).
 * Translation credits see plugin settings
-* Donations: Marco L., Rolf W., Tobias U., Lars K., Donna F., Kevin D., Ramos S., Thomas M., John C., Andreas G., Ben M., Myra R. I., Carlos U. R.-S., Oleg I., M. N., Daniel K., the Piwik team itself, and all people flattering this.
+* Donations: Marco L., Rolf W., Tobias U., Lars K., Donna F., Kevin D., Ramos S., Thomas M., John C., Andreas G., Ben M., Myra R. I., Carlos U. R.-S., Oleg I., M. N., Daniel K., James L., Jochen K., the Piwik team itself, and all people flattering this.
 * All users who send me mails containing criticism, commendation, feature requests and bug reports - you help me to make WP-Piwik much better!
 
 Thank you all!
@@ -124,6 +124,11 @@ Add WP-Piwik to your /wp-content/plugins folder and enable it as [Network Plugin
 Please update Piwik if not done yet (Piwik 2.0 or higher is recommended)!
 
 == Changelog ==
+
+= 0.9.9.10 =
+* Bugfix: Multisite login issue, see http://wordpress.org/support/topic/0999-multisite-frontend-not-logged-in
+* Bugfix: wpMandrall compatibility, see http://wordpress.org/support/topic/version-0999-conflicts-with-wpmandrill?replies=4
+* Feature: Show page views (actions) in "visitors last 30"
 
 = 0.9.9.9 =
 * Update: PHP API will use namespaces (Piwik 2.x compatibility)

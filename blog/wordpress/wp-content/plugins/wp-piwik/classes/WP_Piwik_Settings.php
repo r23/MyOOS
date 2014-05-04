@@ -70,7 +70,7 @@
 			self::$logger->log('Store default settings');
 			self::$defaultSettings = array('globalSettings' => $this->globalSettings, 'settings' => $this->settings);
 			self::$logger->log('Load settings');
-			$this->globalSettings = (is_plugin_active_for_network('wp-piwik/wp-piwik.php')?
+			$this->globalSettings = ($this->checkNetworkActivation()?
 				get_site_option('wp-piwik_global-settings', $this->globalSettings):
 				get_option('wp-piwik_global-settings', $this->globalSettings)
 			);
@@ -151,5 +151,13 @@
 					$this->setGlobalOption($key, $value);
 			}
 			$this->save();
+		}
+		
+		public function checkNetworkActivation() {
+			if (!function_exists("is_plugin_active_for_network")) {
+				require_once(ABSPATH.'wp-admin/includes/plugin.php');
+				wp_cookie_constants();
+			}
+			return is_plugin_active_for_network('wp-piwik/wp-piwik.php');
 		}
 	}
