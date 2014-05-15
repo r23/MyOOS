@@ -404,8 +404,17 @@ class ProcessedReport
                                                        'format'     => 'original',
                                                        'serialize'  => '0',
                                                        'language'   => $language,
-                                                       'idSubtable' => $idSubtable,
+                                                       'idSubtable' => $idSubtable
                                                   ));
+
+        if (isset($reportMetadata['processedMetrics'])) {
+            $deleteRowsWithNoVisit = '1';
+            if (!empty($reportMetadata['constantRowsCount'])) {
+                $deleteRowsWithNoVisit = '0';
+            }
+            $parameters['filter_add_columns_when_show_all_columns'] = $deleteRowsWithNoVisit;
+        }
+
         if (!empty($segment)) $parameters['segment'] = $segment;
 
         $url = Url::getQueryStringFromParameters($parameters);
@@ -418,12 +427,13 @@ class ProcessedReport
         }
 
         list($newReport, $columns, $rowsMetadata, $totals) = $this->handleTableReport($idSite, $dataTable, $reportMetadata, $showRawMetrics);
+
         foreach ($columns as $columnId => &$name) {
             $name = ucfirst($name);
         }
         $website = new Site($idSite);
 
-        $period = Period::factory($period, $date);
+        $period = Period\Factory::build($period, $date);
         $period = $period->getLocalizedLongString();
 
         $return = array(
@@ -486,11 +496,6 @@ class ProcessedReport
                         $columns[$goalMetricId] = $reportMetadata['metricsGoal'][$goalMetricId];
                     }
                 }
-            }
-
-            if (isset($reportMetadata['processedMetrics'])) {
-                // Add processed metrics
-                $dataTable->filter('AddColumnsProcessedMetrics', array($deleteRowsWithNoVisit = false));
             }
         }
 
@@ -655,11 +660,20 @@ class ProcessedReport
             $enhancedRow = new Row();
             $enhancedDataTable->addRow($enhancedRow);
             $rowMetrics = $row->getColumns();
+
             foreach ($rowMetrics as $columnName => $columnValue) {
                 // filter metrics according to metadata definition
                 if (isset($metadataColumns[$columnName])) {
                     // generate 'human readable' metric values
-                    $prettyValue = MetricsFormatter::getPrettyValue($idSite, $columnName, $columnValue, $htmlAllowed = false);
+
+                    // if we handle MultiSites.getAll we do not always have the same idSite but different ones for
+                    // each site, see http://dev.piwik.org/trac/ticket/5006
+                    $idSiteForRow = $idSite;
+                    if ($row->getMetadata('idsite') && is_numeric($row->getMetadata('idsite'))) {
+                        $idSiteForRow = (int) $row->getMetadata('idsite');
+                    }
+
+                    $prettyValue = MetricsFormatter::getPrettyValue($idSiteForRow, $columnName, $columnValue, $htmlAllowed = false);
                     $enhancedRow->addColumn($columnName, $prettyValue);
                 } // For example the Maps Widget requires the raw metrics to do advanced datavis
                 elseif ($returnRawMetrics) {

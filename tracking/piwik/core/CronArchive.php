@@ -24,6 +24,9 @@ class CronArchive
     // the url can be set here before the init, and it will be used instead of --url=
     static public $url = false;
 
+    // Max parallel requests for a same site's segments
+    const MAX_CONCURRENT_API_REQUESTS = 3;
+
     // force-timeout-for-periods default (1 hour)
     const SECONDS_DELAY_BETWEEN_PERIOD_ARCHIVES = 3600;
 
@@ -61,7 +64,6 @@ class CronArchive
     private $idSitesInvalidatedOldReports = array();
     private $shouldArchiveSpecifiedSites = array();
     private $shouldSkipSpecifiedSites = array();
-
     /**
      * @var SharedSiteIds|FixedSiteIds
      */
@@ -80,6 +82,8 @@ class CronArchive
     private $lastSuccessRunTimestamp = false;
     private $errors = array();
     private $isCoreInited = false;
+
+    const NO_ERROR = "no error";
 
     public $testmode = false;
 
@@ -137,7 +141,7 @@ class CronArchive
         } else {
             $this->websites = new SharedSiteIds($websitesIds);
             if ($this->websites->getInitialSiteIds() != $websitesIds) {
-                $this->log('Will ignore websites and help finish a previous started queue instead. IDs: ' . implode(',', $this->websites->getInitialSiteIds()));
+                $this->log('Will ignore websites and help finish a previous started queue instead. IDs: ' . implode(', ', $this->websites->getInitialSiteIds()));
             }
         }
 
@@ -247,8 +251,8 @@ class CronArchive
             $this->visitsToday . " vtoday, $this->websitesWithVisitsSinceLastRun wtoday, {$this->archivedPeriodsArchivesWebsite} wperiods, " .
             $this->requests . " req, " . round($timer->getTimeMs()) . " ms, " .
             (empty($this->errors)
-                ? "no error"
-                : (count($this->errors) . " errors. eg. '" . reset($this->errors) . "'"))
+                ? self::NO_ERROR
+                : (count($this->errors) . " errors."))
         );
         $this->log($timer->__toString());
     }
@@ -258,36 +262,25 @@ class CronArchive
      */
     public function end()
     {
-        // How to test the error handling code?
-        // - Generate some hits since last archive.php run
-        // - Start the script, in the middle, shutdown apache, then restore
-        // Some errors should be logged and script should successfully finish and then report the errors and trigger a PHP error
-        if (!empty($this->errors)) {
-            $this->logSection("SUMMARY OF ERRORS");
-
-            foreach ($this->errors as $error) {
-                $this->log("Error: " . $error);
-            }
-            $summary = count($this->errors) . " total errors during this script execution, please investigate and try and fix these errors";
-            $this->log($summary);
-
-            $summary .= '. First error was: ' . reset($this->errors);
-            $this->logFatalError($summary);
-        } else {
+        if (empty($this->errors)) {
             // No error -> Logs the successful script execution until completion
             Option::set(self::OPTION_ARCHIVING_FINISHED_TS, time());
+            return;
         }
+
+        $this->logSection("SUMMARY OF ERRORS");
+        foreach ($this->errors as $error) {
+            // do not logError since errors are already in stderr
+            $this->log("Error: " . $error);
+        }
+        $summary = count($this->errors) . " total errors during this script execution, please investigate and try and fix these errors.";
+        $this->logFatalError($summary);
     }
 
-    public function logFatalError($m, $backtrace = true)
+    public function logFatalError($m)
     {
-        throw new CronArchiveFatalException($m, $backtrace ? $this->output : false);
-    }
-
-    public function logFatalExceptionAndExit($ex, $backtrace = true)
-    {
-        $wrapped = new CronArchiveFatalException($ex->getMessage(), $backtrace ? $this->output : false);
-        $wrapped->logAndExit($this);
+        $this->logError($m);
+        exit(1);
     }
 
     public function runScheduledTasks()
@@ -583,6 +576,7 @@ class CronArchive
 
         $cliMulti = new CliMulti();
         $cliMulti->setAcceptInvalidSSLCertificate($this->acceptInvalidSSLCertificate);
+        $cliMulti->setConcurrentProcessesLimit(self::MAX_CONCURRENT_API_REQUESTS);
         $response = $cliMulti->request($urls);
 
         foreach ($urls as $index => $url) {
@@ -620,7 +614,7 @@ class CronArchive
         }
     }
 
-    private function log($m)
+    public function log($m)
     {
         $this->output .= $m . "\n";
         try {
@@ -628,6 +622,28 @@ class CronArchive
         } catch(Exception $e) {
             print($m . "\n");
         }
+    }
+
+    public function logError($m)
+    {
+        if (!defined('PIWIK_ARCHIVE_NO_TRUNCATE')) {
+            $m = substr($m, 0, self::TRUNCATE_ERROR_MESSAGE_SUMMARY);
+        }
+        $m = str_replace(array("\n", "\t"), " ", $m);
+        $this->errors[] = $m;
+        Log::error($m);
+    }
+
+    private function logNetworkError($url, $response)
+    {
+        $message = "Got invalid response from API request: $url. ";
+        if (empty($response)) {
+            $message .= "The response was empty. This usually means a server error. This solution to this error is generally to increase the value of 'memory_limit' in your php.ini file. Please check your Web server Error Log file for more details.";
+        } else {
+            $message .= "Response was '$response'";
+        }
+        $this->logError($message);
+        return false;
     }
 
     /**
@@ -670,28 +686,6 @@ class CronArchive
             return $this->logNetworkError($url, $response);
         }
         return true;
-    }
-
-    public function logError($m)
-    {
-        if (!defined('PIWIK_ARCHIVE_NO_TRUNCATE')) {
-            $m = substr($m, 0, self::TRUNCATE_ERROR_MESSAGE_SUMMARY);
-        }
-
-        $this->errors[] = $m;
-        $this->log("ERROR: $m");
-    }
-
-    private function logNetworkError($url, $response)
-    {
-        $message = "Got invalid response from API request: $url. ";
-        if (empty($response)) {
-            $message .= "The response was empty. This usually means a server error. This solution to this error is generally to increase the value of 'memory_limit' in your php.ini file. Please check your Web server Error Log file for more details.";
-        } else {
-            $message .= "Response was '$response'";
-        }
-        $this->logError($message);
-        return false;
     }
 
     /**
@@ -743,7 +737,7 @@ class CronArchive
             die('<b>You must specify the Super User token_auth as a parameter to this script, eg. <code>?token_auth=XYZ</code> if you wish to run this script through the browser. </b><br>
                 However it is recommended to run it <a href="http://piwik.org/docs/setup-auto-archiving/">via cron in the command line</a>, since it can take a long time to run.<br/>
                 In a shell, execute for example the following to trigger archiving on the local Piwik server:<br/>
-                <code>$ /path/to/php /path/to/piwik/misc/cron/archive.php --url=http://your-website.org/path/to/piwik/</code>');
+                <code>$ /path/to/php /path/to/piwik/console core:archive --url=http://your-website.org/path/to/piwik/</code>');
         }
     }
 
@@ -756,7 +750,7 @@ class CronArchive
             FrontController::getInstance()->init();
             $this->isCoreInited = true;
         } catch (Exception $e) {
-            throw new CronArchiveFatalException("ERROR: During Piwik init, Message: " . $e->getMessage());
+            throw new Exception("ERROR: During Piwik init, Message: " . $e->getMessage());
         }
     }
 
@@ -1142,7 +1136,7 @@ class CronArchive
 
     private function logFatalErrorUrlExpected()
     {
-        $this->logFatalError("archive.php expects the argument 'url' to be set to your Piwik URL, for example: --url=http://example.org/piwik/ "
+        $this->logFatalError("./console core:archive expects the argument 'url' to be set to your Piwik URL, for example: --url=http://example.org/piwik/ "
             . "\n--help for more information", $backtrace = false);
     }
 
@@ -1218,30 +1212,5 @@ class CronArchive
             . (int)$visitsInLastPeriods . " visits in last " . $dateLast . " " . $period . "s, "
             . (int)$visitsToday . " visits " . $thisPeriod . ", "
             . $timer->__toString());
-    }
-}
-
-class CronArchiveFatalException extends Exception
-{
-    private $fullOutput = null;
-
-    public function __construct($message, $fullOutput = null)
-    {
-        parent::__construct($message);
-
-        $this->fullOutput = $fullOutput;
-    }
-
-    public function logAndExit(CronArchive$cronArchiver)
-    {
-        if ($cronArchiver->isCoreInited()) {
-            $cronArchiver->logError($this->getMessage());
-        }
-
-        $fe = fopen('php://stderr', 'w');
-        fwrite($fe, "Error in the last Piwik archive.php run: \n" . $this->getMessage() . "\n"
-            . (!empty($this->fullOutput) ? "\n\n Here is the full errors output:\n\n" . $this->fullOutput : ''));
-
-        exit(1);
     }
 }

@@ -337,6 +337,13 @@ class ArchiveProcessor
             $dataTable = $this->getArchive()->getDataTable($name, $idSubTable = null);
         }
 
+        if ($dataTable instanceof Map) {
+            // see http://dev.piwik.org/trac/ticket/4377
+            foreach ($dataTable->getDataTables() as $table) {
+                $this->renameColumnsAfterAggregation($table, $columnsToRenameAfterAggregation);
+            }
+        }
+
         $dataTable = $this->getAggregatedDataTableMap($dataTable, $columnsAggregationOperation);
         $this->renameColumnsAfterAggregation($dataTable, $columnsToRenameAfterAggregation);
         return $dataTable;
