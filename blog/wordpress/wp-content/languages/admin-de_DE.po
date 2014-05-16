@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-04-16 15:35:25+0000\n"
+"PO-Revision-Date: 2014-05-08 10:32:15+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,11 +10,11 @@ msgstr ""
 "X-Generator: GlotPress/0.1\n"
 "Project-Id-Version: Administration\n"
 
-#: wp-admin/about.php:22
+#: wp-admin/about.php:27
 msgid "Thank you for updating! WordPress %s has lots of refinements we think you&#8217;ll love."
 msgstr "Danke für die Aktualisierung! WordPress %s hat viele Verfeinerungen und wir denken, du wirst sie lieben."
 
-#: wp-admin/about.php:51
+#: wp-admin/about.php:61
 msgid "With quicker access to crop and rotation tools, it&#8217;s now much easier to edit your images while editing posts. You can also scale images directly in the editor to find just the right fit."
 msgstr "Mit schnellerem Zugriff auf die Zuschneide-und Drehwerkzeuge, ist es viel einfacher, deine Bilder zu bearbeiten - während des Bearbeitens der Inhalte. Du kannst Bilder nun auch direkt im Editor skalieren, um genau die richtige Passform zu finden."
 
@@ -26,71 +26,71 @@ msgstr "Das WordPress-Team ist bereit Dir zu helfen. Leite dieses E-Mail an %s u
 msgid "If you reach out to us, we'll also ensure you'll never have this problem again."
 msgstr "Wenn du dich an uns wendest, geben wir unser Bestes, dass dieses Problem nicht mehr auftritt."
 
-#: wp-admin/about.php:40
+#: wp-admin/about.php:50
 msgid "A smoother media editing&nbsp;experience"
 msgstr "Eine rundere Erfahrung beim Bearbeiten von Mediendateien."
 
-#: wp-admin/about.php:44
+#: wp-admin/about.php:54
 msgid "Improved visual editing"
 msgstr "Verbesserte visuelle Bearbeitung"
 
-#: wp-admin/about.php:45
+#: wp-admin/about.php:55
 msgid "The updated visual editor has improved speed, accessibility, and mobile support."
 msgstr "Die aktualisierte Version des visuellen Editors verbessert die Geschwindigkeit, Zugänglichkeit und die Unterstützung mobiler Geräte."
 
-#: wp-admin/about.php:46
+#: wp-admin/about.php:56
 msgid "You can paste into the visual editor from your word processor without wasting time to clean up messy styling. (Yeah, we&#8217;re talking about you, Microsoft Word.)"
 msgstr "Du kannst ohne Zeit zu verlieren, chaotisches Styling von deinem Textverarbeitungsprogramm in den visuellen Editor einfügen. (Ja, wir reden über dich, Microsoft Word.)"
 
-#: wp-admin/about.php:50
+#: wp-admin/about.php:60
 msgid "Edit images easily"
 msgstr "Einfache Bildbearbeitung"
 
-#: wp-admin/about.php:55
+#: wp-admin/about.php:65
 msgid "Drag and drop your images"
 msgstr "Drag-and-Drop für Bilder"
 
-#: wp-admin/about.php:56
+#: wp-admin/about.php:66
 msgid "Uploading your images is easier than ever. Just grab them from your desktop and drop them onto the editor."
 msgstr "Bilder hochzuladen ist einfacher als je zuvor. Ziehe sie einfach von deinem Desktop in den Editor."
 
-#: wp-admin/about.php:65
+#: wp-admin/about.php:75
 msgid "Gallery previews"
 msgstr "Galerie-Vorschau"
 
-#: wp-admin/about.php:66
+#: wp-admin/about.php:76
 msgid "Galleries display a beautiful grid of images right in the editor, just like they do in your published post."
 msgstr "Galerien werden direkt im Editor in einem schönen Gitternetz dargestellt, genau so wie in deinem veröffentlichten Beitrag."
 
-#: wp-admin/about.php:70
+#: wp-admin/about.php:169
 msgid "Do more with audio and video"
 msgstr "Mache mehr aus Tondateien und Videos"
 
-#: wp-admin/about.php:71
+#: wp-admin/about.php:170
 msgid "Images have galleries; now we&#8217;ve added simple audio and video playlists, so you can showcase your music and clips."
 msgstr "Bilder haben Galerien; jetzt haben wir einfache Ton- und Videoplaylisten ergänzt, damit du deine Musik und Videoclips präsentieren kannst."
 
-#: wp-admin/about.php:82
+#: wp-admin/about.php:190
 msgid "Live widget and header previews"
 msgstr "Live Vorschau für Widgets und Header"
 
-#: wp-admin/about.php:83
+#: wp-admin/about.php:191
 msgid "Add, edit, and rearrange your site&#8217;s widgets right in the theme customizer. No &#8220;save and surprise&#8221; &mdash; preview your changes live and only save them when you&#8217;re ready."
 msgstr "Stelle deine Widgets ein, füge neue hinzu, oder ordne sie um - direkt im Theme-Customizer. Keine Überraschungen mehr nach dem Speichern &mdash; nutze die Live Vorschau und speichere die Widgets erst wenn du dazu bereit bist."
 
-#: wp-admin/about.php:84
+#: wp-admin/about.php:192
 msgid "The improved header image tool also lets you upload, crop, and manage headers while customizing your theme."
 msgstr "Das verbesserte Header-Bild-Werkzeug lässt dich hochladen, zuschneiden und Header-Bilder verwalten, während deiner Anpassungen an deinem Theme."
 
-#: wp-admin/about.php:91
+#: wp-admin/about.php:199
 msgid "Browse Themes"
 msgstr "Durchsuche Themes"
 
-#: wp-admin/about.php:88
+#: wp-admin/about.php:196
 msgid "Stunning new theme browser"
 msgstr "Atemberaubender Theme-Browser"
 
-#: wp-admin/about.php:89
+#: wp-admin/about.php:197
 msgid "Looking for a new theme should be easy and fun. Lose yourself in the boundless supply of free WordPress.org themes with the beautiful new theme browser."
 msgstr "Nach neuen Themes zu schauen sollte einfach sein und Spaß machen. Tauche tief in das grenzenlose Angebot von gratis WordPress.org Themes ein, mit dem neuen großartigen Theme-Browser."
 
@@ -106,43 +106,43 @@ msgstr "Füge hinzu, editiere und hantiere mit Widgets im Theme-Customizer."
 msgid "Preview your changes in real-time and only save them when you&#8217;re ready."
 msgstr "Schau&#8217; Dir Deine Änderungen in Echtzeit an und speichere sie erst dann, wenn Du soweit bist."
 
-#: wp-admin/about.php:104
+#: wp-admin/about.php:212
 msgid "Semantic Captions and Galleries"
 msgstr "Semantische Hervorhebung für Beschriftungen und Galerien"
 
-#: wp-admin/about.php:105
+#: wp-admin/about.php:213
 msgid "Theme developers have new options for images and galleries that use intelligent HTML5 markup."
 msgstr "Theme-Entwickler haben neue Optionen für Bilder und Galerien, welche das intelligente HTML5-Markup verwenden."
 
-#: wp-admin/about.php:107
+#: wp-admin/about.php:215
 msgid "Inline Code Documentation"
 msgstr "Integrierte Quelltextdokumentation"
 
-#: wp-admin/about.php:108
+#: wp-admin/about.php:216
 msgid "Every action and filter hook in WordPress is now documented, along with expanded documentation for the media manager and customizer APIs."
 msgstr "Jeder Action und Filter Hook in WordPress ist jetzt dokumentiert, zusammen mit einer erweiterten Dokumentation für den Medien-Manager und die Theme-Customizer API."
 
-#: wp-admin/about.php:112
+#: wp-admin/about.php:220
 msgid "Updated libraries: TinyMCE&nbsp;4, jQuery&nbsp;1.11, Backbone&nbsp;1.1, Underscore&nbsp;1.6, Plupload&nbsp;2, MediaElement&nbsp;2.14, Masonry&nbsp;3."
-msgstr "Aktualisiert Bibliotheken: TinyMCE 4, jQuery 1.11, Backbone 1.1, Underscore 1.6, Plupload 2, Mediaelement 2.14, Masonry 3."
+msgstr "Aktualisierte Bibliotheken: TinyMCE&nbsp;4, jQuery&nbsp;1.11, Backbone&nbsp;1.1, Underscore&nbsp;1.6, Plupload&nbsp;2, Mediaelement&nbsp;2.14, Masonry&nbsp;3."
 
-#: wp-admin/about.php:114
+#: wp-admin/about.php:222
 msgid "Improved Database Layer"
 msgstr "Überarbeitete Datenbankanbindung"
 
-#: wp-admin/about.php:115
+#: wp-admin/about.php:223
 msgid "Database connections are now more fault-resistant and have improved compatibility with PHP 5.5 and MySQL 5.6."
 msgstr "Datenbankverbindungen sind jetzt fehlerresistent und erhalten eine verbesserte Kompatibilität zu PHP 5.5 und MySQL 5.6."
 
-#: wp-admin/about.php:118
+#: wp-admin/about.php:226
 msgid "New Utility Functions"
 msgstr "Neue Hilfsfunktionen"
 
-#: wp-admin/about.php:119
+#: wp-admin/about.php:227
 msgid "Identify a hook in progress with <code>doing_action()</code> and <code>doing_filter()</code>, and manipulate custom image sizes with <code>has_image_size()</code> and <code>remove_image_size()</code>."
 msgstr "Identifiziere aktuell ausgeführte Hooks mit <code>doing_action()</code> bzw. <code>doing_filter()</code> und manipuliere benutzerdefinierte Bildgrößen mit <code>has_image_size()</code> bzw. <code>remove_image_size()</code>."
 
-#: wp-admin/about.php:120
+#: wp-admin/about.php:228
 msgid "Plugins and themes registering custom image sizes can now register suggested cropping points. For example, prevent heads from being cropped out of photos with a top-center crop."
 msgstr "Plugins und Themes, die eigene Bildgrößen definieren, können nun Bildbeschneidungspunkte vorschlagen. Verhindere beispielsweise, das Köpfe aus Bildern herausgeschnitten werden, in dem du einen top-center Beschneidungspunkt vorschlägst."
 
@@ -430,7 +430,7 @@ msgstr "In dieser Ansicht kannst Du WordPress auf die neueste Version aktualisie
 msgid "<strong>Themes and Plugins</strong> &mdash; To update individual themes or plugins from this screen, use the checkboxes to make your selection, then <strong>click on the appropriate &#8220;Update&#8221; button</strong>. To update all of your themes or plugins at once, you can check the box at the top of the section to select all before clicking the update button."
 msgstr "<strong>Themes and Plugins</strong> &ndash; Um einzelne Themes oder Plugins auf diesem Bildschirm zu aktualisieren, markiere bitte die Auswahlfelder und <strong>klicke dann auf die zugehörige Schaltfläche &#8221;Aktualisierung&#8220;</strong>. Um alle Themes und Plugins auf einmal zu aktualisieren, wählst du das Kästchen oberhalb der Auswahl aus und klickst dann auf &#8221;Aktualisieren&#8220;."
 
-#: wp-admin/about.php:20
+#: wp-admin/about.php:25
 msgid "Welcome to WordPress&nbsp;%s"
 msgstr "Willkommen bei WordPress&nbsp;%s"
 
@@ -1285,7 +1285,7 @@ msgstr "Um zwischen Revisionen zu navigieren, <strong>verschiebe den Slider nach
 
 #: wp-admin/press-this.php:613
 msgid "Loading&hellip;"
-msgstr "Lädt&hellip;"
+msgstr "Lädt&#160;&hellip;"
 
 #: wp-admin/upload.php:102
 msgid "Error in moving to trash."
@@ -2326,7 +2326,7 @@ msgstr "Als Header-Bild festlegen"
 msgid "Customize &#8220;%s&#8221;"
 msgstr "Anpassen &#8220;%s&#8221;"
 
-#: wp-admin/about.php:12
+#: wp-admin/about.php:16
 msgid "About"
 msgstr "Über"
 
@@ -2968,7 +2968,7 @@ msgstr "Passwort"
 
 #: wp-admin/setup-config.php:149
 msgid "&hellip;and your MySQL password."
-msgstr "&hellip;und dein MySQL passwort."
+msgstr "&hellip;&#160;und dein MySQL-Passwort."
 
 #: wp-admin/setup-config.php:152
 msgid "Database Host"
@@ -3111,7 +3111,7 @@ msgstr "Bild konnte nicht verarbeitet werden. Bitte gehe zurück und versuche es
 
 #: wp-admin/maint/repair.php:61
 msgid "The %1$s table is not okay. It is reporting the following error: %2$s. WordPress will attempt to repair this table&hellip;"
-msgstr "Die Tabelle %1$s ist nicht in Ordnung. Es wird Bericht über folgenden Fehler erstattet: %2$s. WordPress wird versuchen diese Tabelle zu reparieren&hellip;"
+msgstr "Die Tabelle %1$s ist nicht in Ordnung. Es wird Bericht über folgenden Fehler erstattet: %2$s. WordPress wird versuchen diese Tabelle zu reparieren&#160;&hellip;"
 
 #: wp-admin/edit-form-advanced.php:116
 msgid "There is an autosave of this post that is more recent than the version below. <a href=\"%s\">View the autosave</a>"
@@ -3153,23 +3153,23 @@ msgstr "Mitwirkende Entwickler"
 msgid "Show Toolbar when viewing site"
 msgstr "Werkzeugleiste für mich auf der Website anzeigen"
 
-#: wp-admin/about.php:157
+#: wp-admin/about.php:265
 msgid "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> behob eine Sicherheitslücke sowie %2$s Fehler."
 msgstr[1] "<strong>Version %1$s</strong> behob eine Sicherheitslücke sowie %2$s Fehler."
 
-#: wp-admin/about.php:164
+#: wp-admin/about.php:272
 msgid "For more information, see <a href=\"%s\">the release notes</a>."
 msgstr "Weitere Informationen findest du in den <a href=\"%s\">Veröffentlichtungsmitteilungen</a>."
 
-#: wp-admin/about.php:161
+#: wp-admin/about.php:269
 msgid "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> behob Sicherheitslücken sowie %2$s Fehler."
 msgstr[1] "<strong>Version %1$s</strong> behob Sicherheitslücken sowie %2$s Fehler."
 
-#: wp-admin/about.php:153
+#: wp-admin/about.php:261
 msgid "<strong>Version %1$s</strong> addressed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> hat %2$s Fehler behoben."
@@ -3179,29 +3179,29 @@ msgstr[1] "<strong>Version %1$s</strong> hat %2$s Fehler behoben."
 msgid "Welcome to your WordPress Dashboard! This is the screen you will see when you log in to your site, and gives you access to all the site management features of WordPress. You can get help for any screen by clicking the Help tab in the upper corner."
 msgstr "Willkommen in deinem WordPress Dashboard! Diese Seite wird immer angezeigt, wenn Du dich anmeldest und gibt Dir den Zugang zu allen Einstellungsmöglichkeiten von WordPress. Hilfe bekommst Du auf jeder Seite, in dem Du auf die Registerkarte \"Hilfe\" in der oberen rechten Ecke klickst."
 
-#: wp-admin/about.php:146
+#: wp-admin/about.php:254
 msgid "Maintenance and Security Release"
 msgid_plural "Maintenance and Security Releases"
 msgstr[0] "Wartungs- und Sicherheitsupdate"
 msgstr[1] "Wartungs- und Sicherheitsupdates"
 
-#: wp-admin/about.php:28 wp-admin/credits.php:91 wp-admin/freedoms.php:28
+#: wp-admin/about.php:33 wp-admin/credits.php:91 wp-admin/freedoms.php:28
 msgid "What&#8217;s New"
 msgstr "Was gibt's Neues"
 
-#: wp-admin/about.php:145
+#: wp-admin/about.php:253
 msgid "Security Release"
 msgid_plural "Security Releases"
 msgstr[0] "Sicherheitsupdate"
 msgstr[1] "Sicherheitsupdates"
 
-#: wp-admin/about.php:144
+#: wp-admin/about.php:252
 msgid "Maintenance Release"
 msgid_plural "Maintenance Releases"
 msgstr[0] "Wartungs-Update"
 msgstr[1] "Wartungs-Updates"
 
-#: wp-admin/about.php:149
+#: wp-admin/about.php:257
 msgid "<strong>Version %1$s</strong> addressed a security issue."
 msgid_plural "<strong>Version %1$s</strong> addressed some security issues."
 msgstr[0] "<strong>Version %1$s</strong> hat eine Sicherheitslücke behoben."
@@ -3211,7 +3211,7 @@ msgstr[1] "<strong>Version %1$s</strong> hat ein paar Sicherheitslücken behoben
 msgid "This screen allows you to choose your default permalink structure. You can choose from common settings or create custom URL structures."
 msgstr "Auf dieser Seite kannst du deine gewünschte Permalinkstruktur einstellen. Du kannst entweder aus üblichen Vorlagen wählen oder eine eigene Struktur definieren."
 
-#: wp-admin/about.php:129
+#: wp-admin/about.php:237
 msgid "Return to Updates"
 msgstr "Zurück zu Aktualisierungen"
 
@@ -3520,11 +3520,11 @@ msgstr "Das direkte Einbinden von wp-admin/includes/template.php um add_meta_box
 msgid "Welcome to WordPress %s"
 msgstr "Willkommen bei WordPress %s"
 
-#: wp-admin/about.php:133
+#: wp-admin/about.php:241
 msgid "Go to Dashboard &rarr; Home"
 msgstr "Gehe zu Dashboard &rarr; Startseite"
 
-#: wp-admin/about.php:129
+#: wp-admin/about.php:237
 msgid "Return to Dashboard &rarr; Updates"
 msgstr "Zu Dashboard  &rarr; Aktualisierungen zurückkehren"
 
@@ -3536,7 +3536,7 @@ msgstr "WordPress wird von einem weltumspannenden Team passionierter Leute entwi
 msgid "Core Developers"
 msgstr "Entwickler"
 
-#: wp-admin/about.php:100
+#: wp-admin/about.php:208
 msgid "Under the Hood"
 msgstr "Unter der Haube"
 
@@ -3785,7 +3785,7 @@ msgstr "Löschen bestätigen"
 msgid "Deactivate"
 msgstr "Deaktivieren"
 
-#: wp-admin/about.php:24 wp-admin/credits.php:87 wp-admin/freedoms.php:24
+#: wp-admin/about.php:29 wp-admin/credits.php:87 wp-admin/freedoms.php:24
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:374
 #: wp-admin/includes/class-wp-plugins-list-table.php:493
 #: wp-admin/includes/update.php:166 wp-admin/includes/update.php:192
@@ -4101,7 +4101,7 @@ msgstr "Code-Entwickler"
 msgid "Guest Committer"
 msgstr "Gastentwickler"
 
-#: wp-admin/about.php:111 wp-admin/credits.php:190
+#: wp-admin/about.php:219 wp-admin/credits.php:190
 msgid "External Libraries"
 msgstr "Externe Bibliotheken"
 
@@ -4162,7 +4162,7 @@ msgstr "Erweitertes Entwickler-Team"
 msgid "Want to see your name in lights on this page? <a href=\"%s\">Get involved in WordPress</a>."
 msgstr "Wenn du willst, dass auch dein Name auf dieser Seite erscheint, dann <a href=\"%s\">bring dich ein bei WordPress</a>."
 
-#: wp-admin/about.php:30 wp-admin/credits.php:12 wp-admin/credits.php:93
+#: wp-admin/about.php:35 wp-admin/credits.php:12 wp-admin/credits.php:93
 #: wp-admin/freedoms.php:30
 msgid "Credits"
 msgstr "Mitwirkende"
@@ -4232,7 +4232,7 @@ msgstr "Dein Browser ist veraltet!"
 msgid "Don&#8217;t you wish all software came with these freedoms? So do we! For more information, check out the <a href=\"http://www.fsf.org/\">Free Software Foundation</a>."
 msgstr "Wünschst du dir nicht, dass jede Software diese Freiheiten bietet? Wir auch! Weitere Informationen findest du auf der Seite der <a href=\"http://www.fsf.org/\">Free Software Foundation</a>."
 
-#: wp-admin/about.php:32 wp-admin/credits.php:95 wp-admin/freedoms.php:12
+#: wp-admin/about.php:37 wp-admin/credits.php:95 wp-admin/freedoms.php:12
 #: wp-admin/freedoms.php:32
 msgid "Freedoms"
 msgstr "Freiheiten"
@@ -5191,7 +5191,7 @@ msgstr "Ursprünglicher Name: %s"
 
 #: wp-admin/plugin-editor.php:158 wp-admin/theme-editor.php:115
 msgid "Function Name&hellip;"
-msgstr "Funktionsname&hellip;"
+msgstr "Funktionsname&#160;&hellip;"
 
 #: wp-admin/import.php:94
 msgid "Activate importer"
@@ -6216,7 +6216,7 @@ msgid_plural "Must-Use <span class=\"count\">(%s)</span>"
 msgstr[0] "Obligatorisch <span class=\"count\">(%s)</span>"
 msgstr[1] "Obligatorisch <span class=\"count\">(%s)</span>"
 
-#: wp-admin/about.php:133
+#: wp-admin/about.php:241
 msgid "Go to Dashboard"
 msgstr "Gehe zum Dashboard"
 
@@ -7951,7 +7951,7 @@ msgstr "%1$s <span class=\"count\">(%2$s)</span>"
 #: wp-admin/includes/class-wp-users-list-table.php:211
 #: wp-admin/includes/class-wp-users-list-table.php:213
 msgid "Change role to&hellip;"
-msgstr "Rolle ändern in&hellip;"
+msgstr "Rolle ändern in&#160;&hellip;"
 
 #: wp-admin/includes/class-wp-users-list-table.php:217
 msgid "Change"

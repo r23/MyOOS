@@ -1286,8 +1286,6 @@ function wp_nav_menu_update_menu_items ( $nav_menu_selected_id, $nav_menu_select
 			$args = array();
 			foreach ( $post_fields as $field )
 				$args[$field] = isset( $_POST[$field][$_key] ) ? $_POST[$field][$_key] : '';
-echo $field;
-echo '<br>'
 
 			$menu_item_db_id = wp_update_nav_menu_item( $nav_menu_selected_id, ( $_POST['menu-item-db-id'][$_key] != $_key ? 0 : $_key ), $args );
 
