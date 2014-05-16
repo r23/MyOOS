@@ -101,7 +101,12 @@ if( ! class_exists( "Yoast_Update_Manager", false ) ) {
 				return false;
 			}
 
+			// start request process
 			global $wp_version;
+
+			// set a transient to prevent failed update checks on every page load
+			// this transient will be removed if a request succeeds
+			set_transient( $this->request_failed_transient_key, 'failed', 10800 );
 
 			// setup api parameters
 			$api_params = array(
@@ -129,11 +134,11 @@ if( ! class_exists( "Yoast_Update_Manager", false ) ) {
 				$this->error_message = $request->get_error_message();
 				add_action( 'admin_notices', array( $this, 'show_update_error' ) );
 
-				// set a transient to prevent failed update checks on every page load
-				set_transient( $this->request_failed_transient_key, 'failed', 10800 );
-
 				return false;
 			}
+
+			// request succeeded, delete transient indicating a request failed
+			delete_transient( $this->request_failed_transient_key );
 
 			// decode response
 			$response = $request->get_response();
