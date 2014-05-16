@@ -3,8 +3,8 @@ Contributors: takayukister
 Donate link: http://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 3.7
-Tested up to: 3.9
-Stable tag: 3.8
+Tested up to: 3.9.1
+Stable tag: 3.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,7 +90,7 @@ The following are other recommended plugins by the author of Contact Form 7.
 * Swedish (sv_SE) - [Fredrik Jonsson](http://www.fredda-o-ac.se/), [the Swedish community](http://wp-support.se/)
 * Tagalog (tl) - [Rupert Agnew Lanuza](http://www.rupertlanuza.com/), [Hanne](http://pointen.dk/), [Language Connect](http://www.languageconnect.net/)
 * Tamil (ta) - [Nitin Aggarwal](http://offshoreally.com/)
-* Thai (th) - [ToshiK](http://www.tuntikorn.com/), [kazama](http://blog.wordthai.com/)
+* Thai (th) - [ToshiK](http://www.tuntikorn.com/), [kazama](http://blog.wordthai.com/), [TG Knowledge](http://www.เกร็ดความรู้.com/)
 * Turkish (tr_TR) - [Roman Neumuller](http://katpatuka.wordpress.com), [Hasan Yılmaz](http://hedefturkce.com/), [Emin Buğra Saral](http://www.rahmetli.info/), Burak Yavuz
 * Ukrainian (uk) - [Andrey Kovba](http://myserver.com.ua/), [Ukrainian WordPress localization team](http://wordpress.co.ua/plugins/contact-form-7.html), Myroslava Pabyrivska
 * Vietnamese (vi) - Thanh Hải, Hà, [Khang Minh](http://betterwp.net/)
@@ -123,6 +123,12 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 == Changelog ==
 
 For more information, see [Releases](http://contactform7.com/category/releases/).
+
+= 3.8.1 =
+
+* Fix: misuse of functions that Akismet 3.0 has marked deprecated.
+* Fix: some URL outputs used esc_url_raw in places where esc_url should be used.
+* Translation for Finnish and Thai have been updated.
 
 = 3.8 =
 
