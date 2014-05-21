@@ -1,8 +1,8 @@
 <?php
 /**
  * Module Name: Gravatar Hovercards
- * Module Description: Show a pop-up business card of your users' gravatar profiles in comments.
- * Sort Order: 8
+ * Module Description: Enable pop-up business cards over commenters’ Gravatars.
+ * Sort Order: 11
  * First Introduced: 1.1
  * Requires Connection: No
  * Auto Activate: Yes

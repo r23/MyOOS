@@ -29,7 +29,7 @@ class WPU_Debug {
 	
 	public function add($debug, $type = 'login') {
 		if ( defined('WPU_DEBUG') && (WPU_DEBUG == TRUE) ) {
-				if (!isset($this->debugBuffer[$type])) {
+				if(!isset($this->debugBuffer[$type])) {
 					$this->debugBuffer[$type] = array();
 				}
 				$this->debugBuffer[$type][] = $debug;
@@ -37,7 +37,7 @@ class WPU_Debug {
 	}
 	
 	private function get($type) {
-		if (!isset($this->debugBuffer[$type])) {
+		if(!isset($this->debugBuffer[$type])) {
 			return '';
 		}
 		$result = implode('<br />', $this->debugBuffer[$type]);
@@ -58,7 +58,7 @@ class WPU_Debug {
 	}
 	
 	public function add_debug_box($content, $type = 'login') {
-		if (stristr($content, '</body>') !== false) {
+		if(stristr($content, '</body>') !== false) {
 			return str_replace('</body>', $this->get_block($type) . '</body>', $content);
 		} else {
 			return $content . $this->get_block($type);
@@ -88,7 +88,7 @@ class WPU_Debug {
 	}
 	
 	public function add_stats_box($content) {
-		if (stristr($content, '</body>') !== false) {
+		if(stristr($content, '</body>') !== false) {
 			return str_replace('</body>', $this->get_stats() . '</body>', $content);
 		} else {
 			return $content . $$this->get_stats();
@@ -126,7 +126,7 @@ class WPU_Debug {
 		$result  = '';
 		
 		foreach($settings as $setting => $value) {
-			if ($setting != 'phpbb_path') {
+			if($setting != 'phpbb_path') {
 				$result .= '[b]<strong>' . $setting . '</strong>[/b]' . str_repeat('&nbsp;', 25 - strlen($setting)) . ':' . str_repeat('&nbsp;', 5) . $value . '<br />';
 			}
 		}
@@ -158,12 +158,12 @@ class WPU_Debug {
 				$toSan = explode('.', $sanB);
 				$innerResult = array();
 				foreach($toSan as $item) {
-					if (!strlen($item) || (in_array(strtolower($item), $ignores))) {
+					if(!strlen($item) || (in_array(strtolower($item), $ignores))) {
 						$innerResult[] = $item;
 						continue;
 					}
 					$alreadyUsed = array_keys($this->sanitisedParts);
-					if (!in_array($item, $alreadyUsed)) {
+					if(!in_array($item, $alreadyUsed)) {
 						$newSanIndex = sizeof($alreadyUsed);
 						$suffix = '';
 						$index = $newSanIndex;

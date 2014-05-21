@@ -21,7 +21,7 @@ if ( !defined('IN_PHPBB') && !defined('ABSPATH') ) {
 
 global $wpuVersion, $wpuRevision;
 
-$wpuVersion = '0.9.2.5';
+$wpuVersion = '0.9.2.8';
 
 //
 

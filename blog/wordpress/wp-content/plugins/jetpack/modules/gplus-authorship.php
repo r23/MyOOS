@@ -1,8 +1,8 @@
 <?php
 /**
 * Module Name: Google+ Profile
-* Module Description: Show a link to your Google+ in the sharing area of your posts and add your blog URL to your Google+ profile.
-* Sort Order: 10
+* Module Description: Give users the ability to share posts to Google+, and add your site link to your Google+ profile.
+* Sort Order: 18
 * First Introduced: 2.5
 * Requires Connection: Yes
 * Auto Activate: Yes
@@ -19,7 +19,7 @@ class GPlus_Authorship {
 	function __construct() {
 		$this->in_jetpack = ( defined( 'IS_WPCOM' ) && IS_WPCOM ) ? false : true;
 		if ( $this->in_jetpack ) {
-			require "gplus-authorship/admin/ui.php";
+			require dirname( __FILE__ ) . "/gplus-authorship/admin/ui.php";
 			$gplus_admin = new GPlus_Authorship_Admin;
 			add_action( 'save_post', array( 'GPlus_Authorship_Admin', 'save_post_meta' ) );
 			add_action( 'wp_ajax_save_gplus_profile_data', array( $this, 'save_profile_data' ) );
@@ -34,16 +34,16 @@ class GPlus_Authorship {
 
 	function show_on_this_post() {
 		global $post;
-		$show = apply_filters( 'gplus_authorship_show', true, $post );
-		if ( ! is_main_query() || ! in_the_loop() )
-			$show = false;
+		if ( ! apply_filters( 'gplus_authorship_show', true, $post ) ) {
+			return false;
+		}
 		$author = $this->information( $post->post_author );
 		if ( empty( $author ) )
-			$show = false;
+			return false;
 		$meta = get_post_meta( $post->ID, 'gplus_authorship_disabled', true );
 		if ( isset( $meta ) && true == $meta )
-			$show = false;
-		return $show;
+			return false;
+		return true;
 	}
 
 	function information( $author ) {
@@ -60,6 +60,8 @@ class GPlus_Authorship {
 		if ( !is_single() ) // don't bother unless we are on a page where the G+ authorship link is actually being displayed
 			return $content;
 		if ( !$this->show_on_this_post() ) // G+ isn't enabled
+			return $content;
+		if ( ! is_main_query() || ! in_the_loop() )
 			return $content;
 		return preg_replace_callback( '#<a\s+[^>]+>#i', array( $this, 'rel_callback' ), $content );
 	}
@@ -108,6 +110,9 @@ class GPlus_Authorship {
 		if ( !$this->show_on_this_post() )
 			return $author_name;
 
+		if ( ! is_main_query() || ! in_the_loop() )
+			return $author_name;
+
 		$author = $this->information( $post->post_author );
 		return esc_html( $author['name'] );
 	}
@@ -145,7 +150,8 @@ class GPlus_Authorship {
 
 	function post_output_wrapper( $text = '', $echo = false ) {
 		global $post, $wp_current_filter;
-
+		if ( true == get_option( 'hide_gplus', false ) )
+			return $text;
 		if ( !is_single() )
 			return $text;
 		if  ( get_post_type() != 'post' )
@@ -168,6 +174,9 @@ class GPlus_Authorship {
 		}
 
 		if ( !$this->show_on_this_post())
+			return $text;
+
+		if ( ! is_main_query() || ! in_the_loop() )
 			return $text;
 
 		$output = '';

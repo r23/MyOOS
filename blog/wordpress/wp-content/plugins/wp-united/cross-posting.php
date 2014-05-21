@@ -60,7 +60,7 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 		$this->add_filters();
 		$this->xPostForumList = false;
 		
-		if ($this->get_setting('xpostautolink')) {
+		if($this->get_setting('xpostautolink')) {
 			require_once($this->get_plugin_path() . 'comments.php');
 			$this->integComments = new WPU_XPost_Query_Store();
 		}
@@ -80,7 +80,7 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 		// returns false if no permission, or 0 if doesn't exist
 		$link = $this->integComments->get_comment_action('view', $comment->comment_ID);
 		
-		if (!empty($link)) {
+		if(!empty($link)) {
 			$actions = array(
 				'view'	=> '<a href="' . $link . '" class="vim-r hide-if-no-js">' . __('View in forum', 'wp-united') . '</a>'
 			);
@@ -88,19 +88,19 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 			$editLink = $this->integComments->get_comment_action('edit', $comment->comment_ID);
 			$delLink = $this->integComments->get_comment_action('delete', $comment->comment_ID);
 			
-			if (!empty($editLink)) {
+			if(!empty($editLink)) {
 				$actions['edit'] = '<a href="' . $editLink . '" class="vim-r hide-if-no-js">' . __('Edit forum post', 'wp-united') . '</a>';
 			}
 			
-			if (!$comment->comment_approved) {
+			if(!$comment->comment_approved) {
 				$apprLink = $this->integComments->get_comment_action('approve', $comment->comment_ID);
-				if (!empty($apprLink)) {
+				if(!empty($apprLink)) {
 					$actions['approve']	= '<a href="' . $apprLink . '" class="vim-r hide-if-no-js">' . __('Approve', 'wp-united') . '</a>';
 				}
 			}
 			
 			
-			if (!empty($delLink)) {
+			if(!empty($delLink)) {
 				$actions['delete'] = '<a href="' . $delLink . '" class="vim-r hide-if-no-js">' . __('Delete forum post', 'wp-united') . '</a>';
 			}
 			
@@ -117,16 +117,16 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 		// the comment ID isn't provided, so grep it
 		$id = 0;
 		$idParts = explode('&amp;c=', $link);
-		if (isset($idParts[1])) {
+		if(isset($idParts[1])) {
 			$id = (int)$idParts[1];
 		}
-		if (!$id) {
+		if(!$id) {
 			return $link;
 		}
 		
 		// returns 0 if no such comment, or false if no permission
 		$pLink = $this->integComments->get_comment_action('edit', $id);
-		if (!empty($pLink)) {
+		if(!empty($pLink)) {
 			return $pLink;
 		}
 		
@@ -141,14 +141,14 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 		}
 		
 		// there must be at least three arguments
-		if (!is_array($args) || (sizeof($args) < 3)) {
+		if(!is_array($args) || (sizeof($args) < 3)) {
 			return $allUserCaps;
 		}
 		
 
 		// The first argument is the capability requested
 		$perm = $args[0];
-		if (!in_array($perm, array('view_comment', 'edit_comment', 'delete_comment', 'approve_comment'))) {
+		if(!in_array($perm, array('view_comment', 'edit_comment', 'delete_comment', 'approve_comment'))) {
 			return $allUserCaps;
 		}
 		
@@ -156,15 +156,15 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 		$userID = (int)$args[1];
 		$c = wp_get_current_user();
 		
-		if (empty($c) && ($userID > 0)) {
+		if(empty($c) && ($userID > 0)) {
 			return $allUserCaps;
-		} elseif ($c->ID != $userID) {
+		} else if($c->ID != $userID) {
 			return $allUserCaps;
 		}
 		
 
 		// The third argument is the comment ID
-		if (empty($args[2])) {
+		if(empty($args[2])) {
 			return $allUserCaps;
 		}
 		$id = $args[2];
@@ -192,13 +192,13 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 			
 		$canDo = $this->integComments->get_comment_action($action, 'comment' . $id);
 		
-		if ($canDo === false) {
+		if($canDo === false) {
 			// the comment is cross-posted but the user has no permission
 			$allUserCaps[$requiredCaps[0]] = false;
-		} elseif ($canDo === 0) {
+		} elseif($canDo === 0) {
 			// the comment is not cross-posted
 			return $allUserCaps;
-		} elseif (empty($canDo)) {
+		} elseif(empty($canDo)) {
 			// the link is empty -- an error or not implemented. Return false so the link doesn't display
 			$allUserCaps[$requiredCaps[0]] = false;
 		} else {
@@ -247,7 +247,7 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 	
 		$result = $this->integComments->get($query, $comments);
 	
-		if ($result === false) {
+		if($result === false) {
 			return $comments;
 		}
 
@@ -273,7 +273,7 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 	
 		$result = $this->integComments->get($postID, $comments, true);
 		
-		if ($result === false) {
+		if($result === false) {
 			return $comments;
 		}
 
@@ -295,10 +295,10 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 		if (preg_match('/\/wp-admin\/(post.php|post-new.php|press-this.php)/', $_SERVER['REQUEST_URI'])) {
 			if ( (!isset($_POST['action'])) && (($_POST['action'] != "post") || ($_POST['action'] != "editpost")) ) {
 
-				if ($this->get_setting('xpostforce') > -1) {
+				if($this->get_setting('xpostforce') > -1) {
 					// Add forced xposting info box
 					$this->forceXPosting = $this->get_forced_forum_name($this->get_setting('xpostforce'));
-					if ($this->forceXPosting !== false) {
+					if($this->forceXPosting !== false) {
 						add_meta_box('postWPUstatusdiv', __('Forum Posting', 'wpu-cross-post', 'wp-united'), array($this,'add_forcebox'), 'post', 'side');
 					}
 				} else {	
@@ -345,12 +345,12 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 				} ?>
 				</select>
 		
-				 <?php if ($this->get_setting('xposttype') == 'askme') {
+				 <?php if($this->get_setting('xposttype') == 'askme') {
 					$excerptState = 'checked="checked"';
 					$fullState = '';
 					if (isset($_GET['post'])) {
 						$postID = (int)$_GET['post'];
-						if (get_post_meta($postID, '_wpu_posttype', true) != 'excerpt') {
+						if(get_post_meta($postID, '_wpu_posttype', true) != 'excerpt') {
 							$fullState = 'checked="checked"';
 							$excerptState = '';
 						}
@@ -374,12 +374,12 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 	?>
 		<div id="wpuxpostdiv" class="inside">
 		<p> <?php echo sprintf($showText, $this->forceXPosting); ?></p>
-		<?php if ($this->get_setting('xposttype') == 'askme') {
+		<?php if($this->get_setting('xposttype') == 'askme') {
 					$excerptState = 'checked="checked"';
 					$fullState = '';
 					if (isset($_GET['post'])) {
 						$postID = (int)$_GET['post'];
-						if (get_post_meta($postID, '_wpu_posttype', true) != 'excerpt') {
+						if(get_post_meta($postID, '_wpu_posttype', true) != 'excerpt') {
 							$fullState = 'checked="checked"';
 							$excerptState = '';
 						}
@@ -397,7 +397,7 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 	private function get_xpost_forum_list() {
 		global $phpbbForum, $user, $auth, $db, $userdata, $template, $phpEx;
 		
-		if ($this->xPostForumList !== false) {
+		if($this->xPostForumList !== false) {
 			return $this->xPostForumList;
 		}
 		
@@ -449,11 +449,11 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 			$can_xpost_to = array_keys($can_xpost_to); 
 		} 
 
-		if (in_array($forumID, $can_xpost_to)) {
+		if(in_array($forumID, $can_xpost_to)) {
 			
 			$sql = 'SELECT forum_name FROM ' . FORUMS_TABLE . ' WHERE forum_id = ' . (int)$forumID;
 				
-			if ($result = $db->sql_query($sql)) {
+			if($result = $db->sql_query($sql)) {
 				$row = $db->sql_fetchrow($result);
 				$db->sql_freeresult($result);
 				
@@ -474,18 +474,18 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 	public function get_xposted_details($postID = false) {
 		global $phpbbForum, $db;
 		
-		if ($postID === false) {
+		if($postID === false) {
 			if (isset($_GET['post'])) {
 				$postID = (int)$_GET['post'];
 			}
 		}
-		if (empty($postID)) {
+		if(empty($postID)) {
 			return false;
 		}
 		
 		static $details = array();
 		
-		if (isset($details[$postID])) {
+		if(isset($details[$postID])) {
 			return $details[$postID];
 		}
 		
@@ -503,8 +503,8 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 			$db->sql_freeresult($result);
 			
 			
-			if (!empty($row['post_id'])) {
-				if ($row['topic_type'] == POST_GLOBAL) {
+			if(!empty($row['post_id'])) {
+				if($row['topic_type'] == POST_GLOBAL) {
 					$row['forum_name'] = $phpbbForum->lang['VIEW_TOPIC_GLOBAL'];
 				}
 				$details[$postID] = $row;
@@ -526,7 +526,7 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 	public function comment_count($count, $postID = false) {
 
 		// In WP < 2.9, $postID is not provided
-		if ($postID === false) {
+		if($postID === false) {
 			global $id;
 			$postID = (int) $id;
 		}
@@ -557,9 +557,9 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 			
 		if ( (isset($_POST['sel_wpuxpost'])) && (isset($_POST['chk_wpuxpost'])) ) {
 			$forum_id = (int)$_POST['sel_wpuxpost'];
-		} elseif ( $this->get_setting('xpostforce') > -1 ) {
+		} else if ( $this->get_setting('xpostforce') > -1 ) {
 			$forum_id = $this->get_setting('xpostforce');
-		} elseif ($future) {
+		} else if($future) {
 			$forum_id = get_post_meta($postID, '_wpu_future_xpost', true);
 			if ($forum_id === '')  {
 				$forum_id = false;
@@ -571,7 +571,7 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 		
 		// If this is already cross-posted, then edit the post
 		$details = $this->get_xposted_details($postID);
-		if (($forum_id === false) && ($details === false)) {
+		if(($forum_id === false) && ($details === false)) {
 			return false;
 		}
 		
@@ -582,7 +582,7 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 		// but still authenticate as the user who is publishing
 
 		$phpbbID = get_wpu_user_id($post->post_author);
-		if ($phpbbID > 1) {
+		if($phpbbID > 1) {
 			$topicUsername = $phpbbForum->get_userdata('username', $phpbbID);
 		} else {
 			$topicUsername = $phpbbForum->get_username();
@@ -596,8 +596,8 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 		$data['post_time'] = 0;
 		
 		
-		if ($details !== false) {
-			if (isset($details['post_id'])) {
+		if($details !== false) {
+			if(isset($details['post_id'])) {
 				$mode = 'edit';
 				//$subject = $details['post_subject']; // commented, because we may want to edit the post title after xposting
 				$forum_id = $details['forum_id'];
@@ -611,7 +611,7 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 		}
 		
 		// If this is a future xpost, authenticate as the user who made the post
-		if ($future) {
+		if($future) {
 			// get phpBB user IP (from WP meta, so need to exit phpBB env)
 			$phpbbForum->background();
 			$phpbbIP =  get_post_meta($postID, '_wpu_future_ip', true);
@@ -623,25 +623,25 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 
 		//Check that user has the authority to cross-post there
 		// If we are editing a post, check other permissions if it has been made global/sticky etc.
-		if ($mode == 'edit') {
-			if ( ($data['topic_type'] == POST_GLOBAL)  && (!$auth->acl_getf('f_announce', 0)) )  {
+		if($mode == 'edit') {
+			if( ($data['topic_type'] == POST_GLOBAL)  && (!$auth->acl_getf('f_announce', 0)) )  {
 				wp_die(__('You do not have permission required to edit global announcements', 'wp-united'));		
 			}
 			
-			if ( ($data['topic_type'] == POST_ANNOUNCE) && (!$auth->acl_getf('f_announce', $forum_id)) )  {
+			if( ($data['topic_type'] == POST_ANNOUNCE) && (!$auth->acl_getf('f_announce', $forum_id)) )  {
 				wp_die(__('You do not have the permission required to edit this announcement', 'wp-united'));
 			}
-			if ( ($data['topic_type'] == POST_STICKY) && (!$auth->acl_getf('f_sticky', $forum_id)) ) {
+			if( ($data['topic_type'] == POST_STICKY) && (!$auth->acl_getf('f_sticky', $forum_id)) ) {
 				wp_die(__('You do not have the permission required to edit stickies', 'wp-united'));
 			}
 			
-			if (!$auth->acl_getf('f_edit', $forum_id)) {
+			if(!$auth->acl_getf('f_edit', $forum_id)) {
 				wp_die(__('You do not have the permission required to edit posts in this forum', 'wp-united'));		
 			}
 			
 		}
 		
-		if ($forum_id > 0) {
+		if($forum_id > 0) {
 			$can_crosspost_list = $this->get_xpost_forum_list(); 
 			
 			if ( !in_array($forum_id, (array)$can_crosspost_list['forum_id']) ) { 
@@ -654,12 +654,12 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 		
 		// should we post an excerpt, or a full post?
 		$postType = 'excerpt';
-		if (!$future) {
-			if ($this->get_setting('xposttype') == 'askme') { 
+		if(!$future) {
+			if($this->get_setting('xposttype') == 'askme') { 
 				if (isset($_POST['rad_xpost_type'])) {
 					$postType = ($_POST['rad_xpost_type'] == 'fullpost') ? 'fullpost' : 'excerpt';
 				}
-			} elseif ($this->get_setting('xposttype') == 'fullpost') {
+			} else if($this->get_setting('xposttype') == 'fullpost') {
 				$postType = 'fullpost';
 			}
 			update_post_meta($postID, '_wpu_posttype', $postType);
@@ -668,7 +668,7 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 		}
 		
 		// Get the post excerpt
-		if ($postType == 'excerpt') {
+		if($postType == 'excerpt') {
 			if (!$excerpt = $post->post_excerpt) {
 				if ( preg_match('/<!--more(.*?)?-->/', $content, $matches) ) {
 					$excerpt = explode($matches[0], $content, 2);
@@ -679,7 +679,7 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 			}
 		}
 		
-		if (defined('WPU_SHOW_TAGCATS') && WPU_SHOW_TAGCATS) {
+		if(defined('WPU_SHOW_TAGCATS') && WPU_SHOW_TAGCATS) {
 			$cat_list = $tag_list = '';
 		} else {				
 			$cats = array(); $tags = array();
@@ -737,12 +737,12 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 		$topic_url = submit_post($mode, $subject, $topicUsername, POST_NORMAL, $poll, $data);
 		
 		// If this is a future xpost, switch back to current user
-		if ($future) {
+		if($future) {
 			$phpbbForum->transition_user();
 		}
 		
 		//Update the cross-posted columns so we can remain "in sync" with it, and set the post time/date
-		if (($data !== false) && ($mode == 'post') && (!empty($data['post_id'])) ) {
+		if(($data !== false) && ($mode == 'post') && (!empty($data['post_id'])) ) {
 				
 				// Get timestamp for WP's gmt date. the fallback options won't give correct timezones, but should
 				// only get used if the WP time is really unexpected (e.g. broken by a plugin).
@@ -756,14 +756,14 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 					$phpbbForum->restore_state($fStateChanged);
 					wp_die(__('Could not access the WP-United database fields. Please ensure WP-United is installed correctly. ', 'wp-united'));
 				}
-				if ($utcTime !== false) {
+				if($utcTime !== false) {
 					$sql = 'UPDATE ' . POSTS_TABLE . " SET post_time = {$utcTime} WHERE post_id = {$data['post_id']}";
 					$result = $db->sql_query($sql);		
 				}	
 				$db->sql_freeresult($result);
 				$phpbbForum->restore_state($fStateChanged);
 				return true;
-		} elseif ( ($mode == 'edit') && (!empty($data['topic_id'])) ) {
+		} else if ( ($mode == 'edit') && (!empty($data['topic_id'])) ) {
 			$sql = 'UPDATE ' . TOPICS_TABLE . ' SET topic_type = ' . $data['topic_type'] . " WHERE topic_id = {$data['topic_id']}";
 				$result = $db->sql_query($sql);			
 				$db->sql_freeresult($result);
@@ -783,7 +783,7 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 		}
 		
 		$wpUserID = 0;
-		if ($wpUser = wp_get_current_user()) {
+		if($wpUser = wp_get_current_user()) {
 			$wpUserID = $u->ID;
 		}
 		
@@ -809,7 +809,7 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 			$username = strip_tags(stripslashes(request_var('author', 'Anonymous')));
 			$website = request_var('url', '');
 			$email = request_var('email', '');
-			if ($email) {
+			if($email) {
 				// use wordpress to sanitize email
 				$phpbbForum->background();
 				$isValidEmail = is_email($email);
@@ -818,19 +818,19 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 			$username = wpu_find_next_avail_name($username, 'phpbb');
 		}
 		
-		if ( empty($dets['topic_approved'])) {
+		if( empty($dets['topic_approved'])) {
 			$phpbbForum->restore_state($fStateChanged);
 			wp_die($phpbbForum->lang['ITEM_LOCKED']);
 		}
 		
-		if ( $dets['topic_status'] == ITEM_LOCKED) {
+		if( $dets['topic_status'] == ITEM_LOCKED) {
 			$phpbbForum->restore_state($fStateChanged);
 			wp_die($phpbbForum->lang['TOPIC_LOCKED']);
 		}
 		
 		if ($dets['forum_id'] == 0) {
 			// global announcement
-			if (!$auth->acl_getf_global('f_wpu_xpost_comment') ) {
+			if(!$auth->acl_getf_global('f_wpu_xpost_comment') ) {
 				$phpbbForum->restore_state($fStateChanged);
 				wp_die( __('You do not have permission to respond to this announcement', 'wp-united'));			
 			}
@@ -842,7 +842,7 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 		}
 		$content = ( isset($_POST['comment']) ) ? trim($_POST['comment']) : null;
 		
-		if (empty($content)) {
+		if(empty($content)) {
 			$phpbbForum->restore_state($fStateChanged);
 			wp_die(__('Error: Please type a comment!', 'wp-united'));
 		}
@@ -891,12 +891,12 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 
 		$forceModeration = false;
 		$overrideApproval = false;
-		if ($guestPosting && $checkSpam) {
+		if($guestPosting && $checkSpam) {
 			$commentData['comment_approved'] = wp_allow_comment($commentData);
-			if (!$commentData['comment_approved'] || ($commentData['comment_approved'] == 'spam')) {
+			if(!$commentData['comment_approved'] || ($commentData['comment_approved'] == 'spam')) {
 				$forceModeration = true;
 			} else { // if the comment has passed checks, and we are overriding phpBB approval settings
-				if ($this->get_setting('xpostspam') == 'all') {
+				if($this->get_setting('xpostspam') == 'all') {
 					$overrideApproval = true;
 				}
 			}
@@ -936,19 +936,19 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 			'post_approved'			=> 1, // this doesn't force it to be approved (we  want approval to reflect permission status), but prevents phpBB from throwing notices.
 			'poster_ip'				=> ''
 		); 
-		if ($forceModeration) {
+		if($forceModeration) {
 			$data['force_approved_state'] = false;
-		} elseif ($overrideApproval) {
+		} else if($overrideApproval) {
 			$data['force_approved_state'] = true;
 		}
 
 		$postUrl = submit_post('reply', $subject, $username, POST_NORMAL, $poll, $data);
 
 		// update threading and guest post user data
-		if ($postUrl !== false) {
+		if($postUrl !== false) {
 			
 			
-			if ($commentParent || $guestPosting) {
+			if($commentParent || $guestPosting) {
 				$sql = 'UPDATE ' . POSTS_TABLE . " SET 
 						post_wpu_xpost_parent = {$commentParent}, 
 						post_wpu_xpost_meta1 = '" . $db->sql_escape($website) . "', 
@@ -986,9 +986,9 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 		 * @todo: increment page var if necessary, or remove it if comment order is reversed, by adding hidden field with # of comments
 		 */
 		 
-		if (!empty($_POST['redirect_to'])) {
+		if(!empty($_POST['redirect_to'])) {
 			$location = $_POST['redirect_to'] . '#comment-' . $wpComment->comment_ID;
-		} elseif (!empty($_POST['wpu-comment-redirect'])) {
+		} else if(!empty($_POST['wpu-comment-redirect'])) {
 			$location = urldecode($_POST['wpu-comment-redirect']);
 		}
 		
@@ -1025,18 +1025,18 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 		global $wpUnited, $phpbb_root_path, $phpEx, $phpbbForum, $auth, $user;
 		static $status;
 		
-		if (isset($status)) {
+		if(isset($status)) {
 			return $status;
 		}
 		
 		$this->permsProblem = false;
 		
-		if ($wpUnited->should_do_action('template-p-in-w')) {
+		if($wpUnited->should_do_action('template-p-in-w')) {
 			$status = false;
 			return $status;
 		}
 		
-		if ($postID == NULL) {
+		if($postID == NULL) {
 			global $post;
 			$postID = $post->ID;
 		}
@@ -1048,7 +1048,7 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 		
 		// if not cross-posted, then status is default
 		$fStateChanged = $phpbbForum->foreground();
-		if (!($dets = $this->get_xposted_details($postID))) {
+		if(!($dets = $this->get_xposted_details($postID))) {
 			$phpbbForum->restore_state($fStateChanged);
 			$status = $open;
 			return $status;			
@@ -1070,9 +1070,9 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 		/** if user is logged out, we need to return default wordpress comment status
 		 * Then the template can display "you need to log in", as opposed to "comments are closed"
 		 */
-		if ($permsProblem) {
+		if($permsProblem) {
 			
-			if (!$phpbbForum->user_logged_in()) { 
+			if(!$phpbbForum->user_logged_in()) { 
 				$this->permsProblem = true;
 				$status = $open;
 				return $status;
@@ -1122,13 +1122,13 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 		if ($post->post_status == 'future') {
 			if ($phpbbForum->user_logged_in()) {
 				// If x-post forcing is turned on, we don't need to do anything
-				if ( $this->get_setting('xpostforce') == -1) {
+				if( $this->get_setting('xpostforce') == -1) {
 					if (isset($_POST['sel_wpuxpost']) && isset($_POST['chk_wpuxpost'])) {
 						
 						$forumID = (int)$_POST['sel_wpuxpost'];
 						
 						//only needs doing once
-						if (get_post_meta($postID, '_wpu_future_xpost', true) === $forumID) {
+						if(get_post_meta($postID, '_wpu_future_xpost', true) === $forumID) {
 							return;
 						}
 						
@@ -1142,11 +1142,11 @@ Class WPU_Plugin_XPosting extends WP_United_Plugin_Base {
 						update_post_meta($postID, '_wpu_future_ip', $phpbbForum->get_userip());
 						
 						// check what kind of post it should be
-						if ($this->get_setting('xposttype') == 'askme') { 
+						if($this->get_setting('xposttype') == 'askme') { 
 							if (isset($_POST['rad_xpost_type'])) {
 								$postType = ($_POST['rad_xpost_type'] == 'fullpost') ? 'fullpost' : 'excerpt';
 							}
-						} elseif ($this->get_setting('xposttype') == 'fullpost') {
+						} else if($this->get_setting('xposttype') == 'fullpost') {
 							$postType = 'fullpost';
 						}						
 						update_post_meta($postID, '_wpu_posttype', $postType);

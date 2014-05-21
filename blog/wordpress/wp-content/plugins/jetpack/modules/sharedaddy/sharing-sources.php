@@ -303,7 +303,7 @@ class Share_Email extends Sharing_Source {
 			<?php do_action( 'sharing_email_dialog', 'jetpack' ); ?>
 
 			<img style="float: right; display: none" class="loading" src="<?php echo apply_filters( 'jetpack_static_url', plugin_dir_url( __FILE__ ) . 'images/loading.gif' ); ?>" alt="loading" width="16" height="16" />
-			<input type="submit" value="<?php _e( 'Send Email', 'jetpack' ); ?>" class="sharing_send" />
+			<input type="submit" value="<?php esc_attr_e( 'Send Email', 'jetpack' ); ?>" class="sharing_send" />
 			<a href="#cancel" class="sharing_cancel"><?php _e( 'Cancel', 'jetpack' ); ?></a>
 
 			<div class="errors errors-1" style="display: none;">
@@ -343,7 +343,11 @@ class Share_Twitter extends Sharing_Source {
 
 	function sharing_twitter_via( $post ) {
 		// Allow themes to customize the via
-		return apply_filters( 'jetpack_sharing_twitter_via', '', $post->ID );
+		$twitter_site_tag_value = apply_filters( 'jetpack_twitter_cards_site_tag', '' );
+		// Strip out anything other than a letter, number, or underscore.
+		// This will prevent the inadvertent inclusion of an extra @, as well as normalizing the handle.
+		$twitter_site_tag_value = preg_replace( '/[^\da-z_]+/i', '', $twitter_site_tag_value );
+		return apply_filters( 'jetpack_sharing_twitter_via', $twitter_site_tag_value, $post->ID );
 	}
 
 	public function get_related_accounts( $post ) {
@@ -383,8 +387,9 @@ class Share_Twitter extends Sharing_Source {
 		if ( $this->smart ) {
 			return '<div class="twitter_button"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="' . esc_url( $this->http() . '://platform.twitter.com/widgets/tweet_button.html?url=' . rawurlencode( $share_url ) . '&counturl=' . rawurlencode( str_replace( 'https://', 'http://', get_permalink( $post->ID ) ) ) . '&count=horizontal&text=' . rawurlencode( $post_title . ':' ) . $via ) . '" style="width:101px; height:20px;"></iframe></div>';
 		} else {
-			if ( 'icon-text' == $this->button_style || 'text' == $this->button_style )
+			if ( apply_filters( 'jetpack_register_post_for_share_counts', true, $post->ID, 'twitter' ) ) {
 				sharing_register_post_for_share_counts( $post->ID );
+			}
 			return $this->get_link( get_permalink( $post->ID ), _x( 'Twitter', 'share to', 'jetpack' ), __( 'Click to share on Twitter', 'jetpack' ), 'share=twitter', 'sharing-twitter-' . $post->ID );
 		}
 	}
@@ -567,7 +572,7 @@ class Share_Digg extends Sharing_Source {
 	var s = document.createElement('SCRIPT'), s1 = document.getElementsByTagName('SCRIPT')[0];
 	s.type = 'text/javascript';
 	s.async = true;
-	s.src = 'http://widgets.digg.com/buttons.js';
+	s.src = '//widgets.digg.com/buttons.js';
 	s1.parentNode.insertBefore(s, s1);
 })();
 </script>
@@ -604,8 +609,9 @@ class Share_LinkedIn extends Sharing_Source {
 		else
 			$display = $this->get_link( get_permalink( $post->ID ), _x( 'LinkedIn', 'share to', 'jetpack' ), __( 'Click to share on LinkedIn', 'jetpack' ), 'share=linkedin', 'sharing-linkedin-' . $post->ID );
 
-		if ( 'icon-text' == $this->button_style || 'text' == $this->button_style )
+		if ( apply_filters( 'jetpack_register_post_for_share_counts', true, $post->ID, 'linkedin' ) ) {
 			sharing_register_post_for_share_counts( $post->ID );
+		}
 
 		return $display;
 	}
@@ -635,7 +641,7 @@ class Share_LinkedIn extends Sharing_Source {
 		} else {
 			?><script type="text/javascript">
 			jQuery( document ).ready( function() {
-			    jQuery.getScript( 'http://platform.linkedin.com/in.js?async=true', function success() {
+			    jQuery.getScript( '//platform.linkedin.com/in.js?async=true', function success() {
 			        IN.init();
 			    });
 			});
@@ -710,6 +716,7 @@ class Share_Facebook extends Sharing_Source {
 			// Locale-specific widths/overrides
 			$widths = array(
 				'bg_BG' => 120,
+				'bn_IN' => 100,
 				'cs_CZ' => 135,
 				'de_DE' => 120,
 				'da_DK' => 120,
@@ -739,8 +746,9 @@ class Share_Facebook extends Sharing_Source {
 			return '<div class="like_button"><iframe src="'.$url.'" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:'.( $inner_w + 6 ).'px; height:21px;" allowTransparency="true"></iframe></div>';
 		}
 
-		if ( 'icon-text' == $this->button_style || 'text' == $this->button_style )
+		if ( apply_filters( 'jetpack_register_post_for_share_counts', true, $post->ID, 'facebook' ) ) {
 			sharing_register_post_for_share_counts( $post->ID );
+		}
 		return $this->get_link( get_permalink( $post->ID ), _x( 'Facebook', 'share to', 'jetpack' ), __( 'Share on Facebook', 'jetpack' ), 'share=facebook', 'sharing-facebook-' . $post->ID );
 	}
 
@@ -1005,7 +1013,7 @@ class Share_Custom extends Sharing_Advanced_Source {
 			<tr>
 				<th scope="row"></th>
 				<td>
-					<input class="button-secondary" type="submit" value="<?php _e( 'Save', 'jetpack' ); ?>" />
+					<input class="button-secondary" type="submit" value="<?php esc_attr_e( 'Save', 'jetpack' ); ?>" />
 					<a href="#" class="remove"><small><?php _e( 'Remove Service', 'jetpack' ); ?></small></a>
 				</td>
 			</tr>
@@ -1094,7 +1102,7 @@ class Share_Tumblr extends Sharing_Source {
 			if ( 'new' == $this->open_links )
 				$target = '_blank';
 
-			return '<a target="' . $target . '" href="http://www.tumblr.com/share/link/?url=' . rawurlencode( $this->get_share_url( $post->ID ) ) . '&name=' . rawurlencode( $this->get_share_title( $post->ID ) ) . '" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:62px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_2.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+			return '<a target="' . $target . '" href="http://www.tumblr.com/share/link/?url=' . rawurlencode( $this->get_share_url( $post->ID ) ) . '&name=' . rawurlencode( $this->get_share_title( $post->ID ) ) . '" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:62px; height:20px; background:url(\'//platform.tumblr.com/v1/share_2.png\') top left no-repeat transparent;">Share on Tumblr</a>';
 		 } else {
 			return $this->get_link( get_permalink( $post->ID ), _x( 'Tumblr', 'share to', 'jetpack' ), __( 'Click to share on Tumblr', 'jetpack' ), 'share=tumblr' );
 		}
@@ -1112,7 +1120,7 @@ class Share_Tumblr extends Sharing_Source {
 	// http://www.tumblr.com/share?v=3&u=URL&t=TITLE&s=
 	public function display_footer() {
 		if ( $this->smart ) {
-			?><script type="text/javascript" src="http://platform.tumblr.com/v1/share.js"></script><?php
+			?><script type="text/javascript" src="//platform.tumblr.com/v1/share.js"></script><?php 
 		} else {
 			$this->js_dialog( $this->shortname, array( 'width' => 450, 'height' => 450 ) );
 		}
@@ -1135,48 +1143,9 @@ class Share_Pinterest extends Sharing_Source {
 		return __( 'Pinterest', 'jetpack' );
 	}
 
-	public function get_post_image( $content ) {
-		$image = '';
-
-		if ( class_exists( 'Jetpack_PostImages' ) ) {
-			// Use the full stack of methods to find an image, except for HTML, which can cause loops
-			$img = Jetpack_PostImages::get_image( $content->ID );
-			if ( !empty( $img['src'] ) )
-				return $img['src'];
-		}
-
-		// If we have to fall back to the following, we only do a few basic image checks
-		$content = $content->post_content;
-		if ( function_exists('has_post_thumbnail') && has_post_thumbnail() ) {
-			$thumb_id = get_post_thumbnail_id();
-			$thumb = wp_get_attachment_image_src( $thumb_id, 'full' );
-
-			// This shouldn't be necessary, since has_post_thumbnail() is true,
-			// but... see http://wordpress.org/support/topic/jetpack-youtube-embeds
-			if ( ! $thumb ) return '';
-
-			$image = remove_query_arg( array('w', 'h'), $thumb[0] );
-		} else if ( preg_match_all('/<img (.+?)>/', $content, $matches) ) {
-			foreach ( $matches[1] as $attrs ) {
-				$media = $img = array();
-				foreach ( wp_kses_hair( $attrs, array( 'http', 'https' ) ) as $attr )
-					$img[$attr['name']] = $attr['value'];
-				if ( !isset( $img['src'] ) || 0 !== strpos( $img['src'], 'http' ) ) {
-					continue;
-				}
-				else {
-					$image = htmlspecialchars_decode( $img['src'] );
-					break;
-				}
-			}
-		}
-
-		return $image;
-	}
-
 	public function get_display( $post ) {
 		if ( $this->smart )
-			return '<div class="pinterest_button"><a href="' . esc_url( 'http://pinterest.com/pin/create/button/?url='. rawurlencode( $this->get_share_url( $post->ID ) ) . '&description=' . rawurlencode( $this->get_share_title( $post->ID ) ) . '&media=' . rawurlencode( esc_url_raw( $this->get_post_image( $post ) ) ) ) . '" class="pin-it-button" count-layout="horizontal"> '. __( 'Pin It', 'jetpack') .'</a></div>';
+			return '<div class="pinterest_button"><a href="' . esc_url( 'http://pinterest.com/pin/create/button/?url=' . rawurlencode( $this->get_share_url( $post->ID ) ) . '&description=' . rawurlencode( $post->post_title ) ) .'" data-pin-do="buttonBookmark" ><img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png" /></a></div>';
 		else
 			return $this->get_link( get_permalink( $post->ID ), _x( 'Pinterest', 'share to', 'jetpack' ), __( 'Click to share on Pinterest', 'jetpack' ), 'share=pinterest' );
 	}
@@ -1187,7 +1156,7 @@ class Share_Pinterest extends Sharing_Source {
 
 		// If we're triggering the multi-select panel, then we don't need to redirect to Pinterest
 		if ( !isset( $_GET['js_only'] ) ) {
-			$pinterest_url = esc_url_raw( 'http://pinterest.com/pin/create/button/?url=' . rawurlencode( $this->get_share_url( $post->ID ) ) . '&description=' . rawurlencode( $this->get_share_title( $post->ID ) ) . '&media=' . rawurlencode( esc_url_raw( $this->get_post_image( $post ) ) ) );
+			$pinterest_url = esc_url_raw( 'http://pinterest.com/pin/create/button/?url=' . rawurlencode( $this->get_share_url( $post->ID ) ) . '&description=' . rawurlencode( $this->get_share_title( $post->ID ) ) );
 			wp_redirect( $pinterest_url );
 		} else {
 			echo '// share count bumped';

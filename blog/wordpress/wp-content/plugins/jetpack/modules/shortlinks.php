@@ -1,8 +1,8 @@
 <?php
 /**
  * Module Name: WP.me Shortlinks
- * Module Description: Enable WP.me-powered shortlinks for all of your Posts and Pages for easier sharing.
- * Sort Order: 10
+ * Module Description: Enable WP.me-powered shortlinks for all posts and pages.
+ * Sort Order: 8
  * First Introduced: 1.1
  * Requires Connection: Yes
  * Auto Activate: Yes

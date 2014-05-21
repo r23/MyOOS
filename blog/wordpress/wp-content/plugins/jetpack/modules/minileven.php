@@ -2,8 +2,8 @@
 
 /**
  * Module Name: Mobile Theme
- * Module Description: Automatically optimize your site for mobile devices.
- * Sort Order: 11
+ * Module Description: Optimize your site with a mobile-friendly theme for tablets and phones.
+ * Sort Order: 21
  * First Introduced: 1.8
  * Requires Connection: No
  * Auto Activate: No

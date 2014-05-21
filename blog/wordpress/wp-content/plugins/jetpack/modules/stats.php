@@ -1,7 +1,7 @@
 <?php
 /**
  * Module Name: WordPress.com Stats
- * Module Description: Simple, concise site stats with no additional load on your server.
+ * Module Description: Monitor your stats with clear, concise reports and no additional load on your server.
  * Sort Order: 1
  * First Introduced: 1.1
  * Requires Connection: Yes
@@ -449,7 +449,7 @@ function stats_convert_admin_urls( $html ) {
 }
 
 function stats_convert_image_urls( $html ) {
-	$url = ( is_ssl() ? 'https' : 'http' ) . '://' . STATS_DASHBOARD_SERVER;
+	$url = set_url_scheme( 'http://' . STATS_DASHBOARD_SERVER );
 	$html = preg_replace( '|(["\'])(/i/stats.+)\\1|', '$1' . $url . '$2$1', $html );
 	return $html;
 }

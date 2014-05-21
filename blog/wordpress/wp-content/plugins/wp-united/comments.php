@@ -122,7 +122,7 @@ class WPU_XPost_Query_Store {
 		
 		global $wpuDebug;
 		
-		if (!$this->can_handle_request($query, $prefetch) || $this->doingQuery) {
+		if(!$this->can_handle_request($query, $prefetch) || $this->doingQuery) {
 			return $comments;
 		}
 		// this must be set before set_current_query as we sometimes 
@@ -135,7 +135,7 @@ class WPU_XPost_Query_Store {
 		
 		$sig =  $this->currentQuery['signature']; 
 		
-		if (!isset($this->queries[$sig])) {
+		if(!isset($this->queries[$sig])) {
 			$wpuDebug->add('New XPost query created for query ' . $sig);
 			$this->queries[$sig] = new WPU_XPost_Query($this->idOffset);
 		} else {
@@ -152,7 +152,7 @@ class WPU_XPost_Query_Store {
 		
 		$this->doingQuery = false;
 		
-		if (!empty($this->primeCacheKey)) {
+		if(!empty($this->primeCacheKey)) {
 			$last_changed = wp_cache_get( 'last_changed', 'comment' );
 			$cache_key = "get_comments:{$this->primeCacheKey}:$last_changed";
 			wp_cache_add( $cache_key, $result, 'comment' );
@@ -174,11 +174,11 @@ class WPU_XPost_Query_Store {
 	 */
 	private function can_handle_request(&$query, $prefetch) {
 		
-		if (!is_object($query)) {
+		if(!is_object($query)) {
 			return true;
 		}
 
-		if ( // temp; the comments page needs offsets to work
+		if( // temp; the comments page needs offsets to work
 			//preg_match("/\/edit-comments\.php/", $_SERVER['REQUEST_URI'])	||
 			
 			// we have no karma
@@ -232,18 +232,18 @@ class WPU_XPost_Query_Store {
 			return false;
 		}
 		
-		if ($prefetch) {
+		if($prefetch) {
 			/**
 			 * if the query has an offset, modify the query. It gets passed back
 			 * by reference, so we can modify the offset and plant some markers for
 			 * us later.
 			 */
-			if (!empty($query->query_vars['offset'])) {
-				if (!isset($query->query_vars['wpu-real-offset'])) {
-					if (($query->query_vars['offset'] + $query->query_vars['number']) <= $this->maxLimit) {
+			if(!empty($query->query_vars['offset'])) {
+				if(!isset($query->query_vars['wpu-real-offset'])) {
+					if(($query->query_vars['offset'] + $query->query_vars['number']) <= $this->maxLimit) {
 						$query->query_vars['wpu-real-offset'] = $query->query_vars['offset'];
 						$query->query_vars['wpu-real-limit'] = $query->query_vars['number'];
-						if (!empty($query->query_vars['number'])) {
+						if(!empty($query->query_vars['number'])) {
 							$query->query_vars['number'] = $query->query_vars['number'] + $query->query_vars['offset'];
 						}
 						$query->query_vars['offset'] = 0;
@@ -256,7 +256,7 @@ class WPU_XPost_Query_Store {
 			
 			//if this is for "anything but cross-posts", we just change the comment type 
 			// and send it back to WordPress for handling
-			if ($query->query_vars['type'] == 'wpunoxpost') {
+			if($query->query_vars['type'] == 'wpunoxpost') {
 				$query->query_vars['type'] = '';
 				$query->query_vars['wpu_not_xposted'] = true;
 				return false;
@@ -264,7 +264,7 @@ class WPU_XPost_Query_Store {
 			
 			
 			// for other prefetch requests, we only handle counts. Everything else gets sent back
-			if (empty($query->query_vars['count'])) {
+			if(empty($query->query_vars['count'])) {
 				return false;
 			}
 		}
@@ -289,7 +289,7 @@ class WPU_XPost_Query_Store {
 		$this->currentQuery['passedResult'] = $comments;
 	
 
-		if (!is_object($query)) {
+		if(!is_object($query)) {
 			$this->currentQuery['postID'] = ((int)$query > 0) ? $query : false;
 			$this->currentQuery['limit'] = $this->maxLimit;
 			$this->currentQuery['offset'] = 0;
@@ -297,7 +297,7 @@ class WPU_XPost_Query_Store {
 			$this->currentQuery['realOffset'] = 0;
 			$this->currentQuery['hideOtherUnapproved'] = true;
 		
-			if ($count) { 
+			if($count) { 
 				$this->currentQuery['count'] = true;
 				$this->currentQuery['groupByStatus'] = true;
 				$this->currentQuery['hideOtherUnapproved'] = false;
@@ -313,32 +313,32 @@ class WPU_XPost_Query_Store {
 			$this->currentQuery['count'] = $query->query_vars['count'];
 			
 			// set up vars for status clause
-			if (!empty($query->query_vars['status'])) {
-				if ($query->query_vars['status'] == 'hold') {
+			if(!empty($query->query_vars['status'])) {
+				if($query->query_vars['status'] == 'hold') {
 					$this->currentQuery['status'] = 'unapproved';
 				}
-				elseif ($query->query_vars['status'] != 'approve') {
+				else if($query->query_vars['status'] != 'approve') {
 					$this->currentQuery['status'] = 'approved';
 				}
 			}
 			
 			// set up vars for user clause
-			if (!empty($query->query_vars['user_id'])) {
+			if(!empty($query->query_vars['user_id'])) {
 				$this->currentQuery['userID'] = $query->query_vars['user_id'];
 			}
 			
 			// set up vars for e-mail clause
-			if (!empty($query->query_vars['author_email'])) {
+			if(!empty($query->query_vars['author_email'])) {
 				$this->currentQuery['userEmail'] = $query->query_vars['author_email'];
 			}
 			
 			// set up vars for topic author ID clause
-			if (!empty($query->query_vars['post_author'])) {
+			if(!empty($query->query_vars['post_author'])) {
 				$this->currentQuery['topicUser'] = $query->query_vars['post_author'];
 			}
 			
 			// set up vars for comment parent clause
-			if (!empty($query->query_vars['parent'])) {
+			if(!empty($query->query_vars['parent'])) {
 				$this->currentQuery['parentID'] = $query->query_vars['parent'];
 			}			
 			
@@ -346,7 +346,7 @@ class WPU_XPost_Query_Store {
 			 * if this is a modified query that has had its offset 
 			 * and limit modified by us, then set up the params
 			 */
-			if (isset($query->query_vars['wpu-real-offset'])) {
+			if(isset($query->query_vars['wpu-real-offset'])) {
 				$this->currentQuery['realOffset'] = (int)$query->query_vars['wpu-real-offset'];
 				$this->currentQuery['realLimit'] = ((int)$query->query_vars['wpu-real-limit'] > 0) ? (int)$query->query_vars['wpu-real-limit'] : $this->maxLimit;
 			} else {
@@ -359,13 +359,13 @@ class WPU_XPost_Query_Store {
 			// So we get that now. We then have to prime the cache with the
 			// result, as there is no useable filter.
 			
-			if (!empty($query->query_vars['count']) && ($this->currentQuery['passedResult'] === false) && $prefetch) {
+			if(!empty($query->query_vars['count']) && ($this->currentQuery['passedResult'] === false) && $prefetch) {
 				$this->currentQuery['passedResult'] = get_comments($query->query_vars);
 				$query->query_vars['karma'] = 'WP-United Count Shortcut';
 				$this->primeCacheKey = md5(serialize((array)($query->query_vars)));
 			}
 			
-			if ($query->query_vars['type'] == 'wpuxpostonly') {
+			if($query->query_vars['type'] == 'wpuxpostonly') {
 				$this->currentQuery['phpbbOnly'] = true;
 			}
 			
@@ -384,12 +384,12 @@ class WPU_XPost_Query_Store {
 	*/
 	private function setup_sort_vars($query) {
 		
-		if ($this->currentQuery['count']) {
+		if($this->currentQuery['count']) {
 			$this->currentQuery['order'] = '';
 			return;
 		}
 		
-		if (!is_object($query)) {
+		if(!is_object($query)) {
 			// for loop queries, order is ASC by default
 			$this->currentQuery['order'] = ('DESC' == strtoupper(get_option('comment_order'))) ? 'DESC' : 'ASC';
 			$this->currentQuery['phpbbOrderBy'] = 'p.post_time';
@@ -406,7 +406,7 @@ class WPU_XPost_Query_Store {
 			$ordersBy = array_intersect($ordersBy, array_keys($this->orderFieldsMap));
 			
 			foreach($ordersBy as $orderBy) {
-				if (!empty($this->currentQuery['phpbbOrderBy'])) {
+				if(!empty($this->currentQuery['phpbbOrderBy'])) {
 					$this->currentQuery['phpbbOrderBy'] .= ', ';
 				}
 				$this->currentQuery['phpbbOrderBy'] .= $this->orderFieldsMap[$orderBy];
@@ -417,12 +417,12 @@ class WPU_XPost_Query_Store {
 		
 		$this->currentQuery['phpbbOrderBy'] = empty($this->currentQuery['phpbbOrderBy']) ? 'p.post_time' : $this->currentQuery['phpbbOrderBy'];
 		
-		if (!sizeof($this->currentQuery['finalOrderBy'])) {
+		if(!sizeof($this->currentQuery['finalOrderBy'])) {
 			$this->currentQuery['finalOrderBy'] = array('comment_date_gmt');
 		}
 		
 		// for non-loop queries, order is DESC by default
-		if (empty($query->query_vars['order'])) {
+		if(empty($query->query_vars['order'])) {
 			$this->currentQuery['order'] = 'DESC';
 		} else {
 			$this->currentQuery['order'] = ('ASC' == strtoupper($query->query_vars['order'])) ? 'ASC' : 'DESC';
@@ -450,8 +450,8 @@ class WPU_XPost_Query_Store {
 		$group = 0;
 		
 		// if we are pulling for a specific post, a count request can be fingerprinted almost the same as a normal request.
-		if ($this->currentQuery['count']) {
-			if (empty($this->currentQuery['postID'])) {
+		if($this->currentQuery['count']) {
+			if(empty($this->currentQuery['postID'])) {
 				$count = (int)$this->currentQuery['count'];
 				$group = (int)$this->currentQuery['groupByStatus'];
 			} else {
@@ -493,8 +493,8 @@ class WPU_XPost_Query_Store {
 	*/
 	public function get_comment_action($type, $commentID) {
 		
-		if (isset($this->links[$type])) {
-			if (isset($this->links[$type]['comment' . $commentID])) { 
+		if(isset($this->links[$type])) {
+			if(isset($this->links[$type]['comment' . $commentID])) { 
 				return $this->links[$type]['comment' . $commentID];
 			} else {
 				return 0;
@@ -604,34 +604,34 @@ class WPU_XPost_Query {
 	
 		$this->populate_vars($queryArgs);
 	
-		if (!$this->count && $this->lastQueryArgs['count']) {
+		if(!$this->count && $this->lastQueryArgs['count']) {
 			// The last query was a count request, we need to re-run the query
 			$this->reset_results();
 		}
 	
-		if (!$this->queryExecuted) {
+		if(!$this->queryExecuted) {
 			$this->queryExecuted = true;
 			$this->success = $this->perform_phpbb_comment_query();
 			
-			if ($this->success && !$this->count && is_array($this->passedResult) && sizeof($this->passedResult) && !$this->phpbbOnly) {
+			if($this->success && !$this->count && is_array($this->passedResult) && sizeof($this->passedResult) && !$this->phpbbOnly) {
 				$this->add_wp_comments($this->passedResult);
 			}
 		}
 		
-		if (!$this->success) { 
+		if(!$this->success) { 
 			return false;
 		}
 		
-		if (!$this->count) {
-			if ($this->result['has-xposted-comments']) {
+		if(!$this->count) {
+			if($this->result['has-xposted-comments']) {
 				$this->sort();
 			}
-			if (is_array($this->result['comments'])) {
+			if(is_array($this->result['comments'])) {
 				return array_slice($this->result['comments'], $this->realOffset, $this->realLimit);
 			}
 		}
 		
-		if ($this->groupByStatus) {
+		if($this->groupByStatus) {
 			return $this->result['count-grouped'];
 		} else {
 			return $this->result['count'];
@@ -713,8 +713,8 @@ class WPU_XPost_Query {
 		
 		// user can't read any forums -- don't bother proceding unless this is a count request.
 		// TODO: WordPress sometimes prepares a count based on pulling all records. We may need to move check until later
-		if (!sizeof($permissions['read_forum'])) {
-			if (!$this->count) {
+		if(!sizeof($permissions['read_forum'])) {
+			if(!$this->count) {
 				$phpbbForum->restore_state($fStateChanged);
 				return false;
 			}
@@ -727,7 +727,7 @@ class WPU_XPost_Query {
 			$permissions['delete_own']		= array_unique(array_keys($auth->acl_getf('f_delete')));
 			$permissions['edit_forum']		= array_unique(array_keys($auth->acl_getf('m_edit')));
 			$permissions['delete_forum'] 	= array_unique(array_keys($auth->acl_getf('m_delete')));
-			if ($this->status != 'approved') {
+			if($this->status != 'approved') {
 				$permissions['approve_forum'] 	= array_unique(array_keys($auth->acl_getf('m_approve')));
 			}
 		
@@ -746,8 +746,8 @@ class WPU_XPost_Query {
 		// Now, time to build the query.... It's a many-faceted one but can be done in one go....
 		$where = array();
 		
-		if ($this->count) { 
-			if ($this->groupByStatus) {
+		if($this->count) { 
+			if($this->groupByStatus) {
 				$query = array(
 					'SELECT' 	=> 'p.post_approved, COUNT(p.post_id) AS num_total',
 					'GROUP_BY'	=> 'p.post_approved'
@@ -783,37 +783,37 @@ class WPU_XPost_Query {
 		);
 		
 		
-		if ($this->postID) {
+		if($this->postID) {
 			$where[] = sprintf('(t.topic_wpu_xpost = %d)', $this->postID);
 		} else {
 			$where[] = '(t.topic_wpu_xpost > 0)';
 		}
 		
-		if ($this->userID) {
+		if($this->userID) {
 			$where[] = sprintf('(u.user_wpuint_id = %d)', $this->userID);
 		}
 		
-		if ($this->userEmail) {
+		if($this->userEmail) {
 			$string = esc_sql(like_escape($this->userEmail));
 			$where[] = "(u.user_email LIKE '%" . $db->sql_escape($string) . "%')";
 		}
 		
-		if ($this->topicUser) {
+		if($this->topicUser) {
 			$where[] = sprintf("(t.topic_poster = %d)", wpu_get_integrated_phpbbuser($this->topicUser));
 		}
 		
-		if ($this->parentID) {
+		if($this->parentID) {
 			$where[] = sprintf("(p.post_wpu_xpost_parent = %d)");
 		}
 		
 		$canViewUnapproved = (sizeof($permissions['approve_forum'])) ? $db->sql_in_set('t.forum_id', $permissions['approve_forum']) . ' OR ' : '';
 		
-		if ($this->status == 'unapproved') {
+		if($this->status == 'unapproved') {
 			$where[] = '(p.post_approved = 0 AND (' .
 				$canViewUnapproved . ' 
 				u.user_id = ' . $phpbbID . ' 
 				))';
-		} elseif ($this->status == 'approved') {
+		} else if($this->status == 'approved') {
 			$where[] = '(p.post_approved = 1)';
 		} else {
 			$where[] = '(p.post_approved = 1 OR ( 
@@ -837,18 +837,18 @@ class WPU_XPost_Query {
 
 		$wpuDebug->add('Performing cross-post query: ' . htmlentities(str_replace(array("\n", "\t"), '', $sql . ' LIMIT ' . $this->limit . ' OFFSET ' . $this->offset . ' [real limit: (' . $this->realLimit . ', ' . $this->realOffset . ')]')));
 		
-		if (!($result = $db->sql_query_limit($sql, $this->limit, $this->offset))) {
+		if(!($result = $db->sql_query_limit($sql, $this->limit, $this->offset))) {
 			$db->sql_freeresult($result);
 			$phpbbForum->restore_state($fStateChanged);
 			return false;
 		}
 
-		if ($this->count) {
-			if ($this->groupByStatus) {
+		if($this->count) {
+			if($this->groupByStatus) {
 				// start with inited object
 				$stats = $this->result['count-grouped'];
 				while ($stat = $db->sql_fetchrow($result)) {
-					if ($stat['post_approved'] == 0) {
+					if($stat['post_approved'] == 0) {
 						$stats->moderated = $stat['num_total'];
 					} else {
 						$stats->approved = $stat['num_total'];
@@ -862,7 +862,7 @@ class WPU_XPost_Query {
 				// Now we fetch the native WP count
 				$phpbbForum->background();
 				$wpCount = wp_count_comments($this->postID);
-				if (is_object($wpCount)) {
+				if(is_object($wpCount)) {
 					$stats->{'post-trashed'}	= $wpCount->{'post-trashed'};
 					$stats->trash 			= $wpCount->trash;
 					$stats->spam 			= $wpCount->spam;
@@ -899,11 +899,11 @@ class WPU_XPost_Query {
 				(($row['enable_magic_url']) ? OPTION_FLAG_LINKS : 0);
 			
 			// TODO: THIS IS DISABLED, AS COUNTS/LIMITS WERE UNRELIABLE!!!
-			if ($row['topic_first_post_id'] == $row['post_id']) {
+			if($row['topic_first_post_id'] == $row['post_id']) {
 				// this is a cross-post, not a comment.
 				
 				$forumName = $row['forum_id'];
-				if ($row['topic_type'] == POST_GLOBAL) {
+				if($row['topic_type'] == POST_GLOBAL) {
 					$forumName = $phpbbForum->lang['VIEW_TOPIC_GLOBAL'];
 				}
 				
@@ -927,26 +927,26 @@ class WPU_XPost_Query {
 				
 			} else {
 				
-				if (($row['user_id'] == ANONYMOUS) && (!empty($row['post_username']))) {
+				if(($row['user_id'] == ANONYMOUS) && (!empty($row['post_username']))) {
 					$username = $row['post_username'];
 				} else {
 					$username = $row['username'];
 				}
-				if (($row['user_id'] == ANONYMOUS) && (!empty($row['post_wpu_xpost_meta1']))) {
+				if(($row['user_id'] == ANONYMOUS) && (!empty($row['post_wpu_xpost_meta1']))) {
 					$website = $row['post_wpu_xpost_meta1'];
 				} else {
 					$website = $phpbbForum->get_board_url() . "memberlist.$phpEx?mode=viewprofile&amp;u=" . $row['poster_id'];
 				}
-				if (($row['user_id'] == ANONYMOUS) && (!empty($row['post_wpu_xpost_meta2']))) {
+				if(($row['user_id'] == ANONYMOUS) && (!empty($row['post_wpu_xpost_meta2']))) {
 					$email = $row['post_wpu_xpost_meta2'];
 				} else {
 					$email = $row['user_email'];
 				}	
 				
-				if (!$row['post_approved'] && $this->hideOtherUnapproved) {
-					if (($row['user_id'] == ANONYMOUS) && (empty($currentCommenter['comment_author']) || ($currentCommenter['comment_author'] != $username))) {
+				if(!$row['post_approved'] && $this->hideOtherUnapproved) {
+					if(($row['user_id'] == ANONYMOUS) && (empty($currentCommenter['comment_author']) || ($currentCommenter['comment_author'] != $username))) {
 						continue;
-					} elseif (($row['user_id'] != ANONYMOUS) && (empty($pUsername) || ($pUsername != $username))) {
+					} else if(($row['user_id'] != ANONYMOUS) && (empty($pUsername) || ($pUsername != $username))) {
 						continue;
 					}
 				}			
@@ -983,7 +983,7 @@ class WPU_XPost_Query {
 				$this->result['has-xposted-comments'] = true;
 				
 				// calculate counts anyway, even though this wasn't an explicit count request.
-				if ($row['post_approved'] == 0) {
+				if($row['post_approved'] == 0) {
 					$this->result['count-grouped']->moderated++;
 				} else {
 					$this->result['count-grouped']->approved++;
@@ -1003,19 +1003,19 @@ class WPU_XPost_Query {
 				}
 								
 				$this->links['view'][$cID] = $r . (($phpbbForum->seo) ? "post{$row['post_id']}.html#p{$row['post_id']}" : "viewtopic.{$phpEx}?f={$row['forum_id']}&amp;t={$row['topic_id']}&amp;p={$row['post_id']}#p{$row['post_id']}");
-				if ( 
+				if( 
 					((in_array($row['forum_id'], $permissions['edit_own'])) && ($row['poster_id'] == $phpbbID)) ||
 					(in_array($row['forum_id'], $permissions['edit_forum']))
 				) {
 					$this->links['edit'][$cID] = $r. $phpbbForum->append_sid("posting.{$phpEx}?mode=edit&amp;f={$row['forum_id']}&amp;p={$row['post_id']}#start_here");
 				}
-				if ( 
+				if( 
 					((in_array($row['forum_id'], $permissions['delete_own'])) && ($row['poster_id'] == $phpbbID)) ||
 					(in_array($row['forum_id'], $permissions['delete_forum']))
 				) {
 					$this->links['delete'][$cID] = $r . $phpbbForum->append_sid("posting.{$phpEx}?mode=delete&amp;f={$row['forum_id']}&amp;p={$row['post_id']}");
 				}
-				if (in_array($row['forum_id'], $permissions['approve_forum'])) {	
+				if(in_array($row['forum_id'], $permissions['approve_forum'])) {	
 					$this->links['approve'][$cID] = $r . $phpbbForum->append_sid("mcp.{$phpEx}?i=queue&amp;mode=approve_details&amp;f={$row['forum_id']}&amp;p={$row['post_id']}#start_here");
 				}
 			
@@ -1048,14 +1048,14 @@ class WPU_XPost_Query {
 		$criteriaCounter = 0;
 		$criterion = $this->finalOrderBy[$criteriaCounter];
 
-		if (!empty($criterion)) {
+		if(!empty($criterion)) {
 			while(($a->$criterion == $b->$criterion) && ($criteriaCounter < (sizeof($this->finalOrderBy) - 1)) ) {
 				$criteriaCounter++;
 				$criterion = $this->finalOrderBy[$criteriaCounter];
 			}
 			$result = strcmp((string)$a->$criterion, (string)$b->$criterion);
 
-			if ($this->order == 'ASC') {
+			if($this->order == 'ASC') {
 				return ($result == 0) ? 0 : (($result > 0) ? 1 : -1);
 			} else {
 				return ($result == 0) ? 0 : (($result < 0) ? 1 : -1);

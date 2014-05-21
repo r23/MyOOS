@@ -42,7 +42,7 @@ abstract class WPU_Context_Switcher {
 
 	public function __construct() {
 	
-		if (defined('IN_PHPBB')) { 
+		if(defined('IN_PHPBB')) { 
 			$this->lang = $GLOBALS['user']->lang;
 			$this->state = 'phpbb';
 			$this->phpbbTemplate = $GLOBALS['template'];
@@ -70,7 +70,7 @@ abstract class WPU_Context_Switcher {
 	 * @param bool $state whether to perform the action. Optional -- shortcut for if in the calling function
 	 */
 	public function background($state = true) {
-		if ($state) {
+		if($state) {
 			$this->leave();
 		}
 	}
@@ -90,7 +90,7 @@ abstract class WPU_Context_Switcher {
 	 * @return bool whether phpBB was in the background and we actually had to do anything.
 	 */
 	public function foreground() {
-		if ($this->state != 'phpbb') {
+		if($this->state != 'phpbb') {
 			$this->enter();
 			return true;
 		}
@@ -103,7 +103,7 @@ abstract class WPU_Context_Switcher {
 	 */
 	private function enter() { 
 		$this->lang = (isset($this->phpbbUser->lang)) ? $this->phpbbUser->lang : $this->lang;
-		if ($this->state != 'phpbb') {
+		if($this->state != 'phpbb') {
 			$this->backup_wp_conflicts();
 			$this->restore_phpbb_state();
 			$this->make_phpbb_env();
@@ -115,12 +115,12 @@ abstract class WPU_Context_Switcher {
 	 * Returns to WordPress
 	 */
 	private function leave() { 
-		if (isset($GLOBALS['user']) && is_object($GLOBALS['user'])) {
+		if(isset($GLOBALS['user']) && is_object($GLOBALS['user'])) {
 			$this->lang = (sizeof($GLOBALS['user']->lang)) ? $GLOBALS['user']->lang : $this->lang;
 		}
-		if ($this->state == 'phpbb') {
+		if($this->state == 'phpbb') {
 			$this->backup_phpbb_state();
-			if (defined('DB_NAME')) {
+			if(defined('DB_NAME')) {
 				$this->switch_to_wp_db();
 			}
 			$this->restore_wp_conflicts();
@@ -205,7 +205,7 @@ abstract class WPU_Context_Switcher {
 		$config = $this->wpConfig;
 		$auth = $this->wpAuth;
 		$table_prefix = $this->wpTablePrefix;
-		if (sizeof($this->wpEnv)) {
+		if(sizeof($this->wpEnv)) {
 			 $_GET 			= $this->wpEnv['GET'];
 			 $_POST 			= $this->wpEnv['POST'];
 			 $_COOKIE 		= $this->wpEnv['COOKIE'];
@@ -229,7 +229,7 @@ abstract class WPU_Context_Switcher {
 		
 		$this->restore_phpbb_err_handler();
 		
-		if (sizeof($this->phpbbEnv)) {
+		if(sizeof($this->phpbbEnv)) {
 			 $_GET 			= $this->phpbbEnv['GET'];
 			 $_POST 			= $this->phpbbEnv['POST'];
 			 $_COOKIE 		= $this->phpbbEnv['COOKIE'];
@@ -255,16 +255,16 @@ abstract class WPU_Context_Switcher {
 	protected function switch_to_phpbb_db() {
 		global $db, $dbms;
 		if (defined('DB_NAME') && ($this->phpbbDbName != DB_NAME) && (!empty($db->db_connect_id))) {
-			if ($dbms=='mysqli') {
+			if($dbms=='mysqli') {
 				@mysqli_select_db($this->phpbbDbName, $db->db_connect_id);
-			} elseif ($dbms=='mysql') {
+			} else if($dbms=='mysql') {
 				@mysql_select_db($this->phpbbDbName, $db->db_connect_id);
 			}
 		}
 	}
 	
 	protected function get_phpbb_user_object() {
-		if ($this->get_state() == 'wp') {
+		if($this->get_state() == 'wp') {
 			return $this->phpbbUser;
 		} else {
 			return $GLOBALS['user'];
@@ -277,7 +277,7 @@ abstract class WPU_Context_Switcher {
 
 	protected function restore_phpbb_err_handler() {
 		// restore phpBB error handler
-		if (function_exists('msg_handler') || defined('PHPBB_MSG_HANDLER')) {
+		if(function_exists('msg_handler') || defined('PHPBB_MSG_HANDLER')) {
 			set_error_handler(defined('PHPBB_MSG_HANDLER') ? PHPBB_MSG_HANDLER : 'msg_handler');
 		}
 	}	

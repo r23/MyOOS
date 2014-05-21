@@ -2,8 +2,8 @@
 
 /**
  * Module Name: Custom CSS
- * Module Description: Customize the appearance of your site using CSS but without modifying your theme.
- * Sort Order: 11
+ * Module Description: Customize your site’s CSS without modifying your theme.
+ * Sort Order: 2
  * First Introduced: 1.7
  * Requires Connection: No
  * Auto Activate: Yes

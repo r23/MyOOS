@@ -33,11 +33,11 @@ function wpu_integrate_templates() {
 	 *  Just output WordPress if $wpuNoHead or if an ajax call, etc.
 	 */
 	 $content = $wpUnited->get_wp_content();
-	 if (!stristr($content, '<body')) {
+	 if(!stristr($content, '<body')) {
 		$wpuNoHead = true;
 	}
 
-	if ($wpuNoHead) {
+	if($wpuNoHead) {
 		wpu_output_page($content);
 	}
 
@@ -70,10 +70,10 @@ function wpu_integrate_templates() {
 		//Get ltr, rtl & bgcolor, etc, from the body tag
 		preg_match('/<body[^>]+>/i', $wpUnited->get_inner_content(), $pfBodyMatches);
 
-		if (isset($pfBodyMatches[0])) {
+		if(isset($pfBodyMatches[0])) {
 			$bodyDetails = trim(str_replace(array('<body', '>'), '', $pfBodyMatches[0]));
 			preg_match('/class\s*=\s*"[^"]+"/', $bodyDetails, $bodyClass);
-			if (isset($bodyClass[0])) {
+			if(isset($bodyClass[0])) {
 				$bodyDetails = str_replace($bodyClass[0], "", $bodyDetails);
 				$bodyClass = trim(str_replace(array('class', '=', '"'), '', $bodyClass[0]));
 			}
@@ -85,9 +85,9 @@ function wpu_integrate_templates() {
 		$innerContent = $wpUnited->get_inner_content();
 		
 		// get any signature added by WordPress after /html, e.g. WP_CUSTOMIZER_SIGNATURE  (... ffs)
-		if ($wpUnited->should_do_action('template-w-in-p')) {
+		if($wpUnited->should_do_action('template-w-in-p')) {
 			preg_match('/<\/html>(.*)/i', $innerContent, $sigs);
-			if (is_array($sigs) && isset($sigs[1])) {
+			if(is_array($sigs) && isset($sigs[1])) {
 				$wpuSetWPSignature = $sigs[1];
 				$innerContent = str_replace('</html>' . $sigs[1], '</html>', $innerContent);
 			}
@@ -106,13 +106,13 @@ function wpu_integrate_templates() {
 		
 		// First look for lang and direction attributes
 		preg_match('/<html[^>]+>/i', $outerContent, $outerHtmlTag);
-		if (isset($outerHrmlTag[0]) && $outerHtmlTag[0]) {
+		if(isset($outerHrmlTag[0]) && $outerHtmlTag[0]) {
 				$repl = '';
 				global $user;
-				if (stristr($outerHtmlTag[0], 'lang=') === false) {
+				if(stristr($outerHtmlTag[0], 'lang=') === false) {
 					$repl = 'lang="' . $user->lang['USER_LANG'] . '" ';
 				}
-				if (stristr($outerHtmlTag[0], 'dir=') === false) {
+				if(stristr($outerHtmlTag[0], 'dir=') === false) {
 					$repl = 'dir="' . $user->lang['DIRECTION'] . '" ';
 				}
 				// This only works on PHP 5:
@@ -156,9 +156,9 @@ function wpu_integrate_templates() {
 	// If the WP theme didn't set the head marker, do it now
 	if (!DISABLE_PHPBB_CSS) {
 		$headMarker = '<!--[**HEAD_MARKER**]-->';
-		if ( PHPBB_CSS_FIRST) {
+		if( PHPBB_CSS_FIRST) {
 			$wpUnited->set_outer_content(str_replace('</title>', '</title>' . "\n\n" . $headMarker . "\n\n", $wpUnited->get_outer_content()));
-		} elseif (strstr($wpUnited->get_outer_content(), $headMarker) === false)  {
+		} else if(strstr($wpUnited->get_outer_content(), $headMarker) === false)  {
 			$headMarker = '</head>';
 			$wpUnited->set_inner_headinfo($wpUnited->get_inner_headinfo() . "\n\n</head>");	
 		}
@@ -223,7 +223,7 @@ function wpu_process_phpbb() {
 	
 	//restore the DB connection that phpBB tried to close
 	global $bckDB, $bckCache;
-	if (isset($bckDB) && isset($bckCache)) {
+	if(isset($bckDB) && isset($bckCache)) {
 		$db = $bckDB;
 		$cache = $bckCache;
 	}
@@ -323,7 +323,7 @@ function process_remove_head($retWpInc, $loc = 'inner') {
 	//$wpHdrInfo .= "<style type=\"text/css\" media=\"screen\"> body { font-size: 62.5% !important;} </style>";
 
 
-	if ($loc == 'outer') {
+	if($loc == 'outer') {
 		$wpUnited->set_outer_content($retWpInc);
 	} else {
 		$wpUnited->set_inner_content($retWpInc);
@@ -375,7 +375,7 @@ function process_body($pageContent) {
 	//Process the body section for integrated page
 
 	// With our Base HREF set, any relative links will point to the wrong location. Let's fix them.
-	if (defined('WPU_BLOG_PAGE')) {
+	if(defined('WPU_BLOG_PAGE')) {
 		$fullWpURL = strtolower(substr($_SERVER['SERVER_PROTOCOL'], 0, strpos($_SERVER['SERVER_PROTOCOL'], '/'))) . '://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'?'.$_SERVER['QUERY_STRING'];
 		$pageContent = str_replace('a href="#', "a href=\"$fullWpURL#", $pageContent);
 	}
@@ -401,7 +401,7 @@ function wpu_output_page($content) {
 	$content = str_replace("<!--[**PAGE_TITLE**]-->", $wpu_page_title, $content);
 
 	//Add DTD if needed
-	if (isset($wpu_dtd)) {
+	if(isset($wpu_dtd)) {
 		$content = str_replace("<!--[**WP_DTD**]-->", $wpu_dtd, $content);
 	}
 
@@ -414,7 +414,7 @@ function wpu_output_page($content) {
 	}
 
 	// Add stats if requested
-	if (defined('WPU_SHOW_STATS') && WPU_SHOW_STATS && !$wpuNoHead) {
+	if(defined('WPU_SHOW_STATS') && WPU_SHOW_STATS && !$wpuNoHead) {
 		$content = $wpuDebug->add_stats_box($content);
 	}
 	

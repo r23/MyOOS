@@ -2,8 +2,8 @@
 
 /**
  * Module Name: Shortcode Embeds
- * Module Description: Easily embed videos and more from sites like YouTube, Vimeo, and SlideShare.
- * Sort Order: 11
+ * Module Description: Embed content from YouTube, Vimeo, SlideShare, and more, no coding necessary.
+ * Sort Order: 3
  * First Introduced: 1.1
  * Major Changes In: 1.2
  * Requires Connection: No

@@ -1,8 +1,8 @@
 <?php
 /**
  * Module Name: Publicize
- * Module Description: Connect your site to popular social networks and automatically share new posts with your friends.
- * Sort Order: 1
+ * Module Description: Share new posts on social media networks automatically.
+ * Sort Order: 10
  * First Introduced: 2.0
  * Requires Connection: Yes
  * Auto Activate: Yes

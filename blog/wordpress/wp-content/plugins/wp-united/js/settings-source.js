@@ -9,6 +9,9 @@
 * JavaScript for the WP-United settings panels
 */
 var $wpu = jQuery.noConflict();
+var uiVer = jQuery.ui.version.split('.');
+var uiOldVer = (uiVer[0] == '1' && parseInt(uiVer[1]) <= 8);
+
 (function($wpu) {
     $wpu.QueryString = (function(a) {
         if (a == "") return {};
@@ -128,18 +131,31 @@ function wpuSwitchEntryType() {
  * Initialises the settings page
  */
 function setupSettingsPage() {
-	$wpu('#wputabs').tabs({
-		select: function(event, ui) {                   
-			window.location.hash = ui.tab.hash;
-		}
-    });
+	if(uiOldVer) {
+		$wpu('#wputabs').tabs({
+			select: function(event, ui) {                   
+				window.location.hash = ui.tab.hash;
+			}
+		});
+	} else {
+		$wpu('#wputabs').tabs({
+			beforeActivate: function(event, ui) {                   
+				window.location.hash = ui.newTab.context.hash;
+			}
+		});
+		
+	}
 	$wpu('#phpbbpathchange').button();	
 	$wpu('#wputpladvancedstgs').button();	
 	$wpu('.wpuwhatis').button();	
 	
 	var selTab = $wpu.QueryString['tab']; 
 	if(selTab != undefined) {
-		 $wpu('#wputabs').tabs('select', '#' + selTab); 
+		if(uiOldVer) {
+			$wpu('#wputabs').tabs('select', '#' + selTab);
+		} else {
+			$wpu('#wputabs').tabs('option', 'active', selTab); 
+		}
 	}
 
 }
@@ -591,40 +607,55 @@ var wpuEndPoint;
 var wpuNeverEndPoint;
 function wpuSetupPermsMapper() {
 	
-	$wpu('#wputabs').tabs({
-		select: function(event, ui) {                   
-			window.location.hash = ui.tab.hash;
-		},
-		show: function(event, ui) {
-			jsPlumb.repaintEverything();
-		}
-    });
-	
-	jsPlumb.importDefaults({
-		DragOptions : { cursor: 'pointer', zIndex:2000 },
-		PaintStyle : { strokeStyle:'#666' },
-		EndpointStyle : { width:20, height:16, strokeStyle:'#666' },
-		Container : $wpu('#wpuplumbcanvas')
-	});	
-	
-	wpuEndPoint = {
-		endpoint:['Dot', { radius:15 }],
-		paintStyle:{ fillStyle:'#000061' },
-		scope:'wpuplumb',
-		connectorStyle:{ strokeStyle:'#000061', lineWidth:6 },
-		connector: ['Bezier', { curviness:63 } ],
-		maxConnections:10,
-	};
-	wpuNeverEndPoint = {
-		endpoint:['Rectangle', { width:15, height: 15 }],
-		paintStyle:{ fillStyle:'#dd0000' },
-		scope:'wpuplumbnever',
-		connectorStyle:{ strokeStyle:'#dd0000', lineWidth:6 },
-		connector: ['Bezier', { curviness:63 } ],
-		maxConnections:10
-	};	
+	if(uiOldVer) {
+		$wpu('#wputabs').tabs({
+			select: function(event, ui) {                   
+				window.location.hash = ui.tab.hash;
+			},
+			show: function(event, ui) {
+				jsPlumb.repaintEverything();
+			}
+		});
+	} else {
+		$wpu('#wputabs').tabs({
+			beforeActivate: function(event, ui) {                   
+				window.location.hash = ui.newTab.context.hash;
+			},
+			activate: function(event, ui) {
+				jsPlumb.repaintEverything(); 
+			}
+		});		
+		
+	}
+	jsPlumb.ready(function() {
+		
+		jsPlumb.importDefaults({
+			DragOptions : { cursor: 'pointer', zIndex:2000 },
+			PaintStyle : { strokeStyle:'#666' },
+			EndpointStyle : { width:20, height:16, strokeStyle:'#666' },
+			Container : $wpu('#wpuplumbcanvas')
+		});	
+		
+		wpuEndPoint = {
+			endpoint:['Dot', { radius:15 }],
+			paintStyle:{ fillStyle:'#000061' },
+			scope:'wpuplumb',
+			connectorStyle:{ strokeStyle:'#000061', lineWidth:6 },
+			connector: ['Bezier', { curviness:63 } ],
+			maxConnections:10,
+		};
+		wpuNeverEndPoint = {
+			endpoint:['Rectangle', { width:15, height: 15 }],
+			paintStyle:{ fillStyle:'#dd0000' },
+			scope:'wpuplumbnever',
+			connectorStyle:{ strokeStyle:'#dd0000', lineWidth:6 },
+			connector: ['Bezier', { curviness:63 } ],
+			maxConnections:10
+		};	
 
-	initPlumbing();	
+		initPlumbing();	
+		
+	});
 	
 }
 
@@ -810,10 +841,10 @@ function wpuShowMapper(repaginate) {
 					return false;
 				}
 			})
-			.data('autocomplete')._renderItem = function(ul, item) {
+			.data('ui-autocomplete')._renderItem = function(ul, item) {
 				var statusColor = (item.statuscode == 0) ? 'red' : 'green';
 				return $wpu('<li></li>')
-					.data('item.autocomplete', item )
+					.data('ui-autocomplete-item', item )
 					.append( '<a><small><strong>' + item.label + '</strong><br />' + item.desc + '<br /><em style="color: ' + statusColor + '">' + item.status + '</em></small></a>')
 					.appendTo( ul );
 			};

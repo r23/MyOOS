@@ -25,7 +25,7 @@ Class WP_United_Extra_quickpoll extends WP_United_Extra {
 	
 	public function on_page_load() {
 	
-		if ( isset($_POST['wpupoll']) && check_ajax_referer( 'wpu-poll-submit') ) {
+		if( isset($_POST['wpupoll']) && check_ajax_referer( 'wpu-poll-submit') ) {
 			$this->get_poll();
 			exit;
 		}
@@ -59,7 +59,7 @@ Class WP_United_Extra_quickpoll extends WP_United_Extra {
 				AND t.poll_start > 0 
 			ORDER BY t.topic_time DESC';
 			
-		if (!($result = $db->sql_query_limit($sql, $limit, 0))) {
+		if(!($result = $db->sql_query_limit($sql, $limit, 0))) {
 			wp_die(__('Could not access the database.', 'wp-united'));
 		}		
 
@@ -85,7 +85,7 @@ Class WP_United_Extra_quickpoll extends WP_United_Extra {
 
 		 $fStateChanged = $phpbbForum->foreground();
  
-		if (!$pollHasGenerated) {
+		if(!$pollHasGenerated) {
 			$user->add_lang('viewtopic');
 			$pollHasGenerated = true;
 		}
@@ -95,7 +95,7 @@ Class WP_United_Extra_quickpoll extends WP_United_Extra {
 		$inboundVote = array();
 
 		// Is this an AJAX request?
-		if ($topicID == 0) {
+		if($topicID == 0) {
 			$topicID = (int)request_var('pollid', 0);
 			$template = (string)request_var('polltemplate', 'prosilver');
 			$inboundVote = request_var('vote_id', array('' => 0));
@@ -104,31 +104,31 @@ Class WP_United_Extra_quickpoll extends WP_United_Extra {
 			$showLink = ((int)request_var('showlink', 0) == 1);
 			
 		}
-		if (!$topicID) {
+		if(!$topicID) {
 			return '';
 		}
 		
 		// Or was this form submitted without JS? If so, which poll was it for? (Unlike in phpBB, there could be more than one)
-		if (!$ajax) {
+		if(!$ajax) {
 			// submitted:
-			if (isset($_POST['update']) && isset($_POST['vote_id'])) {
+			if(isset($_POST['update']) && isset($_POST['vote_id'])) {
 				$pollID = (int)request_var('pollid', 0);
-				if ($pollID == $topicID) {
+				if($pollID == $topicID) {
 					$inboundVote = request_var('vote_id', array('' => 0));
 					// the same poll block could be on the page multiple times. We only want to register the vote once.
 					unset($_POST['update']); unset($_POST['vote_id']);
 				}
 			}
 			// view results link:
-			if (isset($_GET['wpupolldisp'])) {
+			if(isset($_GET['wpupolldisp'])) {
 				$pollID = (int)request_var('pollid', 0);
-				if ($pollID == $topicID) {
+				if($pollID == $topicID) {
 					$display=1;
 				}
 			}
 			
 		}
-		if (trim($template) == '') {
+		if(trim($template) == '') {
 			$template = 'prosilver';
 		}
 		$currURL = wpu_get_curr_page_link();
@@ -148,7 +148,7 @@ Class WP_United_Extra_quickpoll extends WP_United_Extra {
 				AND t.topic_id = ' . (int)$topicID . ' 
 				AND p.post_id = t.topic_first_post_id';
 				
-		if (!($result = $db->sql_query($sql))) {
+		if(!($result = $db->sql_query($sql))) {
 			$phpbbForum->restore_state($fStateChanged);
 			wp_die(__('Could not access the database.', 'wp-united'));
 		}		
@@ -158,7 +158,7 @@ Class WP_United_Extra_quickpoll extends WP_United_Extra {
 
 		$db->sql_freeresult($result);
 		
-		if (!$topicData['poll_start'] || (!$auth->acl_get('f_read', $topicData['forum_id']))) {
+		if(!$topicData['poll_start'] || (!$auth->acl_get('f_read', $topicData['forum_id']))) {
 			$phpbbForum->restore_state($fStateChanged);
 			return $pollMarkup;
 		}
@@ -222,16 +222,16 @@ Class WP_United_Extra_quickpoll extends WP_United_Extra {
 			$display
 		) ? true : false;
 
-		if (sizeof($inboundVote) && $userCanVote) {
+		if(sizeof($inboundVote) && $userCanVote) {
 			//  ********   register vote here ********
 
 			if (sizeof($inboundVote) > $topicData['poll_max_options'] || in_array(VOTE_CONVERTED, $currVotedID)){
 				
 				if (!sizeof($inboundVote)) {
 					$actionMsg = $user->lang['NO_VOTE_OPTION'];
-				} elseif (sizeof($inboundVote) > $topicData['poll_max_options']) {
+				} else if (sizeof($inboundVote) > $topicData['poll_max_options']) {
 					$actionMsg = $user->lang['TOO_MANY_VOTE_OPTIONS'];
-				} elseif (in_array(VOTE_CONVERTED, $currVotedID)) {
+				} else if (in_array(VOTE_CONVERTED, $currVotedID)) {
 					$actionMsg = $user->lang['VOTE_CONVERTED'];
 				} 	
 			} else {
@@ -320,7 +320,7 @@ Class WP_United_Extra_quickpoll extends WP_United_Extra {
 		}
 		
 		$pollBBCode = false;
-		if ($topicData['bbcode_bitfield']) {
+		if($topicData['bbcode_bitfield']) {
 			require_once($wpUnited->get_setting('phpbb_path') . 'includes/functions_posting.' . $phpEx);
 			require_once($wpUnited->get_setting('phpbb_path') . 'includes/bbcode.' . $phpEx);
 			$pollBBCode = new bbcode();
@@ -403,7 +403,7 @@ Class WP_United_Extra_quickpoll extends WP_United_Extra {
 		
 		$phpbbForum->restore_state($fStateChanged);
 
-		if ($ajax) {
+		if($ajax) {
 			wpu_ajax_header();
 			echo '<wpupoll>';
 			echo '<newnonce>' . wp_create_nonce('wpu-poll-submit') . '</newnonce>';

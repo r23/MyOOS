@@ -1,8 +1,8 @@
 <?php
 /**
  * Module Name: Monitor
- * Module Description: Jetpack Monitor will keep tabs on your site, and alert you the moment that downtime is detected.
- * Sort Order: 55
+ * Module Description: Receive notifications from Jetpack if your site goes offline — and when it it returns.
+ * Sort Order: 28
  * First Introduced: 2.6
  * Requires Connection: Yes
  * Auto Activate: No

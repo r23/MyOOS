@@ -40,6 +40,13 @@ class Jetpack_Media_Summary {
 			),
 		);
 
+		if ( empty( $post->post_password ) ) {
+			$return['excerpt']       = self::get_excerpt( $post->post_content, $post->post_excerpt );
+			$return['count']['word'] = self::get_word_count( $post->post_content );
+			$return['count']['word_remaining'] = self::get_word_remaining_count( $post->post_content, self::get_excerpt( $post->post_content, $post->post_excerpt ) );
+			$return['count']['link'] = self::get_link_count( $post->post_content );
+		}
+
 		$extract = Jetpack_Media_Meta_Extractor::extract( $blog_id, $post_id, Jetpack_Media_Meta_Extractor::ALL );
 
 		if ( empty( $extract['has'] ) )
@@ -138,13 +145,15 @@ class Jetpack_Media_Summary {
 
 		// If we don't have any prioritized embed...
 		if ( 'standard' == $return['type'] ) {
-			if ( !empty( $extract['has']['gallery'] ) ) {
+			if ( !empty( $extract['has']['gallery'] ) || ! empty( $extract['shortcode']['gallery']['count'] ) ) {
 				//... Then we prioritize galleries first (multiple images returned)
 				$return['type']   = 'gallery';
 				$return['images'] = $extract['image'];
-				foreach ( $return['images'] as $image ) {
-					$return['secure']['images'][] = array( 'url' => self::ssl_img( $image['url'] ) );
-					$return['count']['image']++;
+				if ( ! empty( $return['images'] ) ) {
+					foreach ( $return['images'] as $image ) {
+						$return['secure']['images'][] = array( 'url' => self::ssl_img( $image['url'] ) );
+						$return['count']['image']++;
+					}
 				}
 			} else if ( !empty( $extract['has']['image'] ) ) {
 				// ... Or we try and select a single image that would make sense
@@ -170,18 +179,11 @@ class Jetpack_Media_Summary {
 				$return['secure']['image'] = self::ssl_img( $return['image'] );
 				$return['count']['image']++;
 
-				if ( $number_of_paragraphs <= 2 ) {
-					// If we have lots of text, let's not treat it as an image post, but return its first image
+				if ( $number_of_paragraphs <= 2 && 1 == count( $extract['image'] ) ) {
+					// If we have lots of text or images, let's not treat it as an image post, but return its first image
 					$return['type']  = 'image';
 				}
 			}
-		}
-
-		if ( empty( $post->post_password ) ) {
-			$return['excerpt']       = self::get_excerpt( $post->post_content, $post->post_excerpt );
-			$return['count']['word'] = self::get_word_count( $post->post_content );
-			$return['count']['word_remaining'] = self::get_word_remaining_count( $post->post_content, self::get_excerpt( $post->post_content, $post->post_excerpt ) );
-			$return['count']['link'] = self::get_link_count( $post->post_content );
 		}
 
 		if ( $switched ) {

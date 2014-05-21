@@ -65,7 +65,7 @@ function wpu_initialise_wp() {
 	
 	static $initialised = false;
 	
-	if (!$initialised && function_exists('wpu_deferred_wp_load')) {
+	if(!$initialised && function_exists('wpu_deferred_wp_load')) {
 		$initialised = true;
 		
 		add_filter('request', array($wpUnited, 'alter_query_for_template_int'));
@@ -118,7 +118,7 @@ function wpu_get_wordpress() {
 	$wpuCache = WPU_Cache::getInstance();
 
 	// Initialise the loaded WP
-	if ($wpUnited->ran_patched_wordpress()) { // Wordpress ran inside phpBB
+	if($wpUnited->ran_patched_wordpress()) { // Wordpress ran inside phpBB
 		$wpUnited->set_wp_content(wpu_wp_template_load());
 	}	
 	

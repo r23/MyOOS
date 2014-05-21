@@ -1097,6 +1097,9 @@ div.subsettings div.subsettings div.subsettings {
 .wpuplumbcanvas {
 	border: 1px solid #cccccc;
 	background-color: #eeeeee;
+	margin: 0;
+	padding: 0;
+	position: relative;
 }
 
 .wpuplumbleft {

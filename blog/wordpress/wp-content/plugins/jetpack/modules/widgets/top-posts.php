@@ -134,7 +134,7 @@ class Jetpack_Top_Posts_Widget extends WP_Widget {
 		if ( 'text' != $display ) {
 			$get_image_options = array(
 				'fallback_to_avatars' => true,
-				'gravatar_default' => apply_filters( 'jetpack_static_url', is_ssl() ? 'https' : 'http' . '://en.wordpress.com/i/logo/white-gray-80.png' ),
+				'gravatar_default' => apply_filters( 'jetpack_static_url', set_url_scheme( 'http://en.wordpress.com/i/logo/white-gray-80.png' ) ),
 			);
 			if ( 'grid' == $display ) {
 				if ( $count %2 != 0 ) {
@@ -303,6 +303,6 @@ class Jetpack_Top_Posts_Widget extends WP_Widget {
 				break; // only need to load and show x number of likes
 		}
 
-		return $posts;
+		return apply_filters( 'jetpack_widget_get_top_posts', $posts, $post_ids, $count );
 	}
 }

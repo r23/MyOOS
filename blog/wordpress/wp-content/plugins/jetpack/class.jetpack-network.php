@@ -54,9 +54,12 @@ class Jetpack_Network {
 		if (is_multisite() && is_network_admin()) {
 			add_action('network_admin_menu', array($this, 'add_network_admin_menu'));
 			add_action('network_admin_edit_jetpack-network-settings', array($this, 'save_network_settings_page'), 10, 0);
-			add_action( 'admin_init', array ( $this,  'jetpack_sites_list' ) );
 			add_filter( 'admin_body_class', array( $this, 'body_class' ) );
-			add_filter( 'wpmu_blogs_columns', array( $this, 'add_jetpack_sites_column' ) );
+			
+			if( isset( $_GET['page'] ) && 'jetpack' == $_GET['page'] ) {
+				add_action( 'admin_init', array ( $this,  'jetpack_sites_list' ) );
+			}
+			//add_filter( 'wpmu_blogs_columns', array( $this, 'add_jetpack_sites_column' ) );
 			//add_action( 'manage_sites_custom_column', array( $this, 'render_jetpack_sites_column' ), 10, 2 );
 			//add_action( 'manage_blogs_custom_column', array( $this, 'render_jetpack_sites_column' ), 10, 2 );
 		}
@@ -148,7 +151,7 @@ class Jetpack_Network {
 	 * @return array
 	 **/
 	public function add_jetpack_sites_column( $columns ) {
-		$columns['jetpack_connection'] = __( 'Jetpack' );
+		$columns['jetpack_connection'] = __( 'Jetpack' , 'jetpack' );
 		return $columns;
 	}
 
@@ -215,18 +218,18 @@ class Jetpack_Network {
 		$sites = $this->wp_get_sites();
 
 		foreach( $sites AS $s ) {
-		switch_to_blog( $s->blog_id );
-		$plugins = get_option( 'active_plugins' );
+			switch_to_blog( $s->blog_id );
+			$active_plugins = get_option( 'active_plugins' );
 
-		/*
-		 * If this plugin was activated in the subsite individually
-		 * we do not want to call disconnect. Plugins activated 
-		 * individually (before network activation) stay activated
-		 * when the network deactivation occurs
-		 */
-		if( !in_array( 'jetpack/jetpack.php', $plugins ) ) {
-			Jetpack::disconnect();
-		}
+			/*
+			 * If this plugin was activated in the subsite individually
+			 * we do not want to call disconnect. Plugins activated
+		 	 * individually (before network activation) stay activated
+		 	 * when the network deactivation occurs
+		 	 */
+			if( !in_array( 'jetpack/jetpack.php', $active_plugins ) ) {
+				Jetpack::disconnect();
+			}
 		}
 		restore_current_blog();
 	}
@@ -245,7 +248,7 @@ class Jetpack_Network {
 		 $wp_admin_bar->add_node( array(
 		'parent' => 'network-admin',
 		'id'     => 'network-admin-jetpack',
-		'title'  => __( 'Jetpack' ),
+		'title'  => __( 'Jetpack' , 'jetpack' ),
 		'href'   => $this->get_url( 'network_admin_page' ),
 		) );
 	 }
@@ -308,7 +311,7 @@ class Jetpack_Network {
 		add_action( 'admin_print_styles', array( $this, 'network_admin_styles' ) );
 		
 		add_menu_page(__('Jetpack', 'jetpack'), __('Jetpack', 'jetpack'), 'read', 'jetpack', array($this, 'network_admin_page'), 'div', 3);
-		add_submenu_page('jetpack', 'Jetpack Sites', 'Sites', 'manage_options', 'jetpack', array($this, 'network_admin_page'));
+		add_submenu_page('jetpack', __('Jetpack Sites', 'jetpack'), __('Sites', 'jetpack'), 'manage_options', 'jetpack', array($this, 'network_admin_page'));
 		add_submenu_page('jetpack', __('Settings', 'jetpack'), __('Settings', 'jetpack'), 'read', 'jetpack-settings', array($this, 'render_network_admin_settings_page'));
 		
 		/**
@@ -597,7 +600,10 @@ class Jetpack_Network {
 	 **/
 	function network_admin_styles() {
 		global $wp_styles;
-		wp_enqueue_style( 'jetpack', plugins_url( '_inc/jetpack.css', __FILE__ ), false, JETPACK__VERSION . '-20121016' );
+
+		$min = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
+		wp_enqueue_style( 'jetpack', plugins_url( "_inc/jetpack-network{$min}.css", __FILE__ ), false, JETPACK__VERSION . '-20121016' );
 		$wp_styles->add_data( 'jetpack', 'rtl', true );
 	}
 
@@ -609,12 +615,13 @@ class Jetpack_Network {
 	 * @see Jetpack_Network::jetpack_sites_list()
 	 */
 	function network_admin_page() {
+		global $current_site;
 		$this->network_admin_page_header();
 	
 			$jp = Jetpack::init();
 
 			// We should be, but ensure we are on the main blog
-			switch_to_blog(1);
+			switch_to_blog( $current_site->blog_id );
 			$main_active = $jp->is_active(); 
 			restore_current_blog();
 	
@@ -807,8 +814,11 @@ class Jetpack_Network {
 		if (isset($args['deleted']))
 			$query .= $wpdb->prepare("AND deleted = %s ", $args['deleted']);
 
+		if( isset( $args['exclude_blogs'] ) ) 
+			$query .= "AND blog_id NOT IN (" . implode( ',', $args['exclude_blogs'] ) . ")";
+		
 		$key = 'wp_get_sites:' . md5($query);
-
+		
 		if (!$site_results = wp_cache_get($key, 'site-id-cache')) {
 			$site_results = (array) $wpdb->get_results($query);
 			wp_cache_set($key, $site_results, 'site-id-cache');

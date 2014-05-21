@@ -205,13 +205,24 @@ add_action( 'manage_posts_custom_column', 'grunion_manage_post_columns', 10, 2 )
 function grunion_manage_post_columns( $col, $post_id ) {
 	global $post;
 
+	/**
+	 * parse_fields_from_content() does `apply_filter( 'the_content' )` which, in certain situations,
+	 * can slow down page generation times or cause other odd problems. Only call it if we're dealing
+	 * with a Grunion custom column.
+	 */
+	if ( ! in_array( $col, array( 'feedback_date', 'feedback_from', 'feedback_message' ) ) ) {
+		return;
+	}
+
+	$content_fields = Grunion_Contact_Form_Plugin::parse_fields_from_content( $post_id );
+
 	switch ( $col ) {
 		case 'feedback_from':
-			$author_name = get_post_meta( $post_id, '_feedback_author', TRUE );
-			$author_email = get_post_meta( $post_id, '_feedback_author_email', TRUE );
-			$author_url = get_post_meta( $post_id, '_feedback_author_url', TRUE );
-			$author_ip = get_post_meta( $post_id, '_feedback_ip', TRUE );
-			$form_url = get_post_meta( $post_id, '_feedback_contact_form_url', TRUE );
+			$author_name  = $content_fields['_feedback_author'];
+			$author_email = $content_fields['_feedback_author_email'];
+			$author_url   = $content_fields['_feedback_author_url'];
+			$author_ip    = $content_fields['_feedback_ip'];
+			$form_url     = get_permalink( $post_id );
 
 			$author_name_line = '';
 			if ( !empty( $author_name ) ) {
@@ -246,7 +257,7 @@ function grunion_manage_post_columns( $col, $post_id ) {
 			$post = get_post( $post_id );
 			$post_type_object = get_post_type_object( $post->post_type );
 			echo '<strong>';
-			echo esc_html( get_post_meta( $post_id, '_feedback_subject', TRUE ) );
+			echo esc_html( $content_fields['_feedback_subject'] );
 			echo '</strong><br />';
 			echo sanitize_text_field( get_the_content( '' ) );
 			echo '<br />';
@@ -482,7 +493,7 @@ function grunion_ajax_shortcode_to_json() {
 	$content = stripslashes( $_POST['content'] );
 
 	// doesn't look like a post with a [contact-form] already.
-	if ( false === strpos( $content, '[contact-form' ) ) {
+	if ( false === has_shortcode( $content, 'contact-form' ) ) {
 		die( '' );
 	}
 
@@ -548,7 +559,7 @@ function grunion_ajax_spam() {
 
 	$post = get_post( $post_id );
 	$post_type_object = get_post_type_object( $post->post_type );
-	$akismet_values = get_post_meta( $post_id, '_feedback_akismet_values', TRUE );
+	$akismet_values   = get_post_meta( $post_id, '_feedback_akismet_values', TRUE );
 	if ( $_POST['make_it'] == 'spam' ) {
 		$post->post_status = 'spam';
 		$status = wp_insert_post( $post );
@@ -559,10 +570,44 @@ function grunion_ajax_spam() {
 		$status = wp_insert_post( $post );
 		wp_transition_post_status( 'publish', 'spam', $post );
 		do_action( 'contact_form_akismet', 'spam', $akismet_values );
-
+		
+		$comment_author_email = $reply_to_addr = $message = $to = $headers = false;
+		$blog_url = parse_url( site_url() );
+		
 		// resend the original email
 		$email = get_post_meta( $post_id, '_feedback_email', TRUE );
-		wp_mail( $email['to'], $email['subject'], $email['message'], $email['headers'] );
+		$content_fields = Grunion_Contact_Form_Plugin::parse_fields_from_content( $post_id );
+		
+		if ( !empty( $emails ) && !empty( $content_fields ) ) {
+			if ( isset( $content_fields['_feedback_author_email'] ) )
+				$comment_author_email = $content_fields['_feedback_author_email'];
+				
+			if ( isset( $email['to'] ) )
+				$to = $email['to'];
+			
+			if ( isset( $email['message'] ) )
+				$message = $email['message'];
+				
+			if ( isset( $email['headers'] ) )
+				$headers = $email['headers'];
+			else {
+				$headers = 'From: "' . $content_fields['_feedback_author'] .'" <wordpress@' . $blog_url['host']  . ">\r\n";
+				
+				if ( !empty( $comment_author_email ) )
+					$reply_to_addr = $comment_author_email;
+				elseif ( is_array( $to ) )
+					$reply_to_addr = $to[0];
+					
+				if ( $reply_to_addr )
+					$headers .= 'Reply-To: "' . $content_fields['_feedback_author'] .'" <' . $reply_to_addr . ">\r\n";
+					
+				$headers .= "Content-Type: text/plain; charset=\"" . get_option('blog_charset') . "\"";					
+			}	
+				
+			$subject = apply_filters( 'contact_form_subject', $content_fields['_feedback_subject'] );
+			
+			wp_mail( $to, $subject, $message, $headers );
+		}	
 	} elseif( $_POST['make_it'] == 'publish' ) {
 		if ( !current_user_can($post_type_object->cap->delete_post, $post_id) )
 			wp_die( __( 'You are not allowed to move this item out of the Trash.', 'jetpack' ) );

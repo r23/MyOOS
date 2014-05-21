@@ -2,8 +2,8 @@
 
 /**
  * Module Name: Jetpack Single Sign On
- * Module Description: Let users login with their WordPress.com Credentials
- * Sort Order: 50
+ * Module Description: Allow your users to log in using their WordPress.com accounts.
+ * Sort Order: 30
  * First Introduced: 2.6
  * Requires Connection: Yes
  * Auto Activate: No
@@ -13,10 +13,7 @@
 class Jetpack_SSO {
 	static $instance = null;
 
-	function __construct() {
-		if ( self::$instance ) {
-			return self::$instance;
-		}
+	private function __construct() {
 
 		self::$instance = $this;
 
@@ -313,7 +310,8 @@ class Jetpack_SSO {
 			$this->wants_to_login()
 			&& apply_filters( 'jetpack_sso_bypass_login_forward_wpcom', false ) 
 		) {
-			wp_redirect( $this->build_sso_url() );
+			add_filter( 'allowed_redirect_hosts', array( $this, 'allowed_redirect_hosts' ) );
+			wp_safe_redirect( $this->build_sso_url() );
 		}
 
 		add_action( 'login_footer',   array( $this, 'login_form' ) );
@@ -338,6 +336,7 @@ class Jetpack_SSO {
 				if ( Jetpack::check_identity_crisis() ) {
 					wp_die( __( "Error: This site's Jetpack connection is currently experiencing problems.", 'jetpack' ) );
 				} else {
+					$this->maybe_save_cookie_redirect();
 					// Is it wiser to just use wp_redirect than do this runaround to wp_safe_redirect?
 					add_filter( 'allowed_redirect_hosts', array( $this, 'allowed_redirect_hosts' ) );
 					wp_safe_redirect( $this->build_sso_url() );
@@ -347,7 +346,26 @@ class Jetpack_SSO {
 	}
 
 	/**
- 	 * Determing if the login form should be hidden or not
+	 * Conditionally save the redirect_to url as a cookie.
+	 */
+	public static function maybe_save_cookie_redirect() {
+		if ( headers_sent() ) {
+			return new WP_Error( 'headers_sent', __( 'Cannot deal with cookie redirects, as headers are already sent.', 'jetpack' ) );
+		}
+
+		// If we have something to redirect to
+		if ( ! empty( $_GET['redirect_to'] ) ) {
+			$url = esc_url_raw( $_GET['redirect_to'] );
+			setcookie( 'jetpack_sso_redirect_to', $url, time() + HOUR_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN, false, true );
+		// Otherwise, if it's already set
+		} elseif ( ! empty( $_COOKIE['jetpack_sso_redirect_to'] ) ) {
+			// Purge it.
+			setcookie( 'jetpack_sso_redirect_to', ' ', time() - YEAR_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN );
+		}
+	}
+
+	/**
+	 * Determine if the login form should be hidden or not
 	 *
 	 * Method is private only because it is only used in this class so far.
 	 * Feel free to change it later
@@ -551,6 +569,15 @@ class Jetpack_SSO {
 
 			$_request_redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
 			$redirect_to = user_can( $user, 'edit_posts' ) ? admin_url() : self::profile_page_url();
+
+			// If we have a saved redirect to request in a cookie
+			if ( ! empty( $_COOKIE['jetpack_sso_redirect_to'] ) ) {
+				// Set that as the requested redirect to
+				$redirect_to = $_request_redirect_to = esc_url_raw( $_COOKIE['jetpack_sso_redirect_to'] );
+				// And then purge it
+				setcookie( 'jetpack_sso_redirect_to', ' ', time() - YEAR_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN );
+			}
+
 			wp_safe_redirect( apply_filters( 'login_redirect', $redirect_to, $_request_redirect_to, $user ) );
 			exit;
 		}
@@ -591,6 +618,11 @@ class Jetpack_SSO {
 		);
 
 		$args = wp_parse_args( $args, $defaults );
+
+		if ( ! empty( $_GET['redirect_to'] ) ) {
+			$args['redirect_to'] = esc_url_raw( $_GET['redirect_to'] );
+		}
+
 		$url  = add_query_arg( $args, wp_login_url() );
 
 		$css = "<style>
@@ -600,7 +632,9 @@ class Jetpack_SSO {
 		}
 		.jetpack-sso.button:before {
 			display: block;
-			padding: 3px 4px;
+			box-sizing: border-box;
+			padding: 7px 0 0;
+			text-align: center;
 			position: absolute;
 			top: -1px;
 			left: -1px;
@@ -609,13 +643,16 @@ class Jetpack_SSO {
 			background: #0074a2;
 			color: #fff;
 			-webkit-font-smoothing: antialiased;
-			width: 22px;
-			height: 22px;
+			width: 30px;
+			height: 107%;
+			height: calc( 100% + 2px );
 			font: normal 22px/1 Genericons !important;
 			text-shadow: none;
 		}
-		.jetpack-sso.button:active:before {
-			padding-top: 4px;
+		@media screen and (min-width: 783px) {
+			.jetpack-sso.button:before {
+				padding-top: 3px;
+			}
 		}
 		.jetpack-sso.button:hover {
 			border: 1px solid #aaa;
@@ -624,8 +661,7 @@ class Jetpack_SSO {
 		if ( version_compare( $GLOBALS['wp_version'], '3.8-alpha', '<' ) ) {
 			$css .= "
 			.jetpack-sso.button:before {
-				width: 18px;
-				height: 18px;
+				width: 25px;
 				font-size: 18px !important;
 			}
 			";
@@ -766,6 +802,7 @@ class Jetpack_SSO {
 	}
 
 	function edit_profile_fields( $user ) {
+		wp_enqueue_style( 'genericons' );
 		?>
 
 		<h3><?php _e( 'WordPress.com Single Sign On', 'jetpack' ); ?></h3>
@@ -853,4 +890,4 @@ class Jetpack_SSO {
 	}
 }
 
-new Jetpack_SSO;
+Jetpack_SSO::get_instance();

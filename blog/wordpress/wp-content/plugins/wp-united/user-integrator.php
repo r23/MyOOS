@@ -28,10 +28,10 @@ function wpu_integrate_login() {
 	static $result = -1;
 	static $doingLogin = false;
 
-	if (!$doingLogin) {
+	if(!$doingLogin) {
 	
 		// sometimes this gets called early, e.g. for admin ajax calls.
-		if (!$wpUnited->is_working()) {
+		if(!$wpUnited->is_working()) {
 			return;
 		}
 
@@ -39,7 +39,7 @@ function wpu_integrate_login() {
 		$doingLogin = true;		
 		
 		// If this is a logout request, just do that!
-		if ($wpUnited->should_do_action('logout')) {
+		if($wpUnited->should_do_action('logout')) {
 			wp_logout();
 			wp_set_current_user(0);
 			$wpuDebug->add('Logged out of WordPress');
@@ -47,7 +47,7 @@ function wpu_integrate_login() {
 		}
 		
 
-		if ( !$phpbbForum->user_logged_in() ) { 
+		if( !$phpbbForum->user_logged_in() ) { 
 			$result = wpu_int_phpbb_logged_out(); 
 		} else { 
 			$result = wpu_int_phpbb_logged_in();
@@ -71,7 +71,7 @@ function wpu_int_phpbb_logged_out() {
 	// Check if user is logged into WP
 	get_currentuserinfo();  
 	$wpUser = $current_user;
-	if (!$wpUser->ID) {
+	if(!$wpUser->ID) {
 		$wpuDebug->add('phpBB &amp; WP both logged out.');
 		return false;
 	}
@@ -84,9 +84,9 @@ function wpu_int_phpbb_logged_out() {
 
 	$phpbbId = wpu_get_integrated_phpbbuser($wpUser->ID);
 	
-	if (!$phpbbId) { // The user has no account in phpBB, so we create one:
+	if(!$phpbbId) { // The user has no account in phpBB, so we create one:
 		
-		if (!$wpUnited->get_setting('integcreatephpbb')) {
+		if(!$wpUnited->get_setting('integcreatephpbb')) {
 			$wpuDebug->add('No integrated phpBB account, leaving unintegrated.');
 			return $wpUser->ID;
 		}
@@ -94,7 +94,7 @@ function wpu_int_phpbb_logged_out() {
 		// We just create standard users here for now, no setting of roles
 		$phpbbId = wpu_create_phpbb_user($wpUser->ID);
 		
-		if ($phpbbId == 0) {
+		if($phpbbId == 0) {
 			$wpuDebug->add("Couldn't create phpBB user. Giving up.");
 			//We couldn't create a user in phPBB. Before we wp_die()d. But just handle it silently.
 			return $wpUser->ID;
@@ -106,7 +106,7 @@ function wpu_int_phpbb_logged_out() {
 	
 	
 	// the user now has an integrated phpBB account, log them into it
-	if (headers_sent()) {
+	if(headers_sent()) {
 		$wpuDebug->add("WARNING: headers have already been sent, won't be able to set phpBB cookie!");
 	}
 	
@@ -118,12 +118,12 @@ function wpu_int_phpbb_logged_out() {
 		return $wpUser->ID;
 	}
 	
-	if ($createdUser) {
+	if($createdUser) {
 		wpu_sync_profiles($wpUsr, $phpbbForum->get_userdata(), 'sync');
 	}
 	
 	// if this is a phpBB-in-WordPress page, this has probably just been called after phpBB has already been generated.
-	if ($wpUnited->should_do_action('template-p-in-w')) {
+	if($wpUnited->should_do_action('template-p-in-w')) {
 		wpu_reload_page_if_no_post();
 	}
 	
@@ -142,7 +142,7 @@ function wpu_int_phpbb_logged_in() {
 	// Check if user is logged into WP
 	get_currentuserinfo();  
 	$currWPUser = $current_user;
-	if ($currWPUser->ID) {
+	if($currWPUser->ID) {
 		$wpuDebug->add('WP already logged in, user =' . $currWPUser->ID);
 	}
 	
@@ -151,11 +151,11 @@ function wpu_int_phpbb_logged_in() {
 	$persist = (bool)$phpbbForum->get_userdata('session_autologin');
 	
 	// This user is logged in to phpBB and needs to be integrated. Do they already have an integrated WP account?
-	if ($integratedID = wpu_get_integration_id() ) {
+	if($integratedID = wpu_get_integration_id() ) {
 		
 		$wpuDebug->add("phpBB account is integrated to WP account ID = {$integratedID}.");
 		
-		if ($currWPUser->ID === (int)$integratedID) {
+		if($currWPUser->ID === (int)$integratedID) {
 			$wpuDebug->add('User is already logged in and integrated to correct account, nothing to do.');
 			return $currWPUser->ID;
 		} else {
@@ -163,7 +163,7 @@ function wpu_int_phpbb_logged_in() {
 		}
 		
 		// they already have a WP account, log them in to it and ensure they have the correct details
-		if (!$currWPUser = get_userdata($integratedID)) {
+		if(!$currWPUser = get_userdata($integratedID)) {
 			$wpuDebug->add("Failed to fetch WordPress user details for user ID = {$integratedID}. Maybe they were deleted? Giving up.");
 			return false;
 		}
@@ -180,7 +180,7 @@ function wpu_int_phpbb_logged_in() {
 		$wpuDebug->add('User is not integrated yet.');
 	
 		//Is this user already logged into WP? If so then just link the two logged in accounts
-		if ($currWPUser->ID) {
+		if($currWPUser->ID) {
 			
 			$wpuDebug->add('User is already logged into WP, linking two logged-in accounts.');
 			
@@ -193,7 +193,7 @@ function wpu_int_phpbb_logged_in() {
 		$wpuDebug->add('Not yet logged into WP.');
 	
 		// Should this phpBB user get an account? If not, we can just stay unintegrated
-		if (!$wpUnited->get_setting('integcreatewp') || !$userLevel = wpu_get_user_level()) {
+		if(!$wpUnited->get_setting('integcreatewp') || !$userLevel = wpu_get_user_level()) {
 			$wpuDebug->add('No permissions or auto-create switched off. Not creating integrated account.');
 			return false;
 		}
@@ -205,9 +205,9 @@ function wpu_int_phpbb_logged_in() {
 		
 		$newUserID = wpu_create_wp_user($signUpName, $phpbbForum->get_userdata('user_password'), $phpbbForum->get_userdata('user_email'));
 		
-		if ($newUserID) { 
+		if($newUserID) { 
 			
-		   if (!is_a($newUserID, 'WP_Error')) {
+		   if(!is_a($newUserID, 'WP_Error')) {
 				$currWPUser = get_userdata($newUserID);
 				
 				$wpuDebug->add("Created new WordPress user, ID = {$currWPUser->ID}.");
@@ -241,7 +241,7 @@ function wpu_create_wp_user($signUpName, $password, $email) {
 	global $wpUnited;
 	
 
-	if (! $foundName = wpu_find_next_avail_name($signUpName, 'wp') ) {
+	if(! $foundName = wpu_find_next_avail_name($signUpName, 'wp') ) {
 
 			return false;
 	}
@@ -253,7 +253,7 @@ function wpu_create_wp_user($signUpName, $password, $email) {
 	); 
 
 	// remove WP-United hook so we don't get stuck in a loop on new user creation
-	if (!remove_action('user_register', array($wpUnited, 'process_new_wp_reg'), 10, 1)) {
+	if(!remove_action('user_register', array($wpUnited, 'process_new_wp_reg'), 10, 1)) {
 		return false;
 	}
 
@@ -281,7 +281,7 @@ function wpu_find_next_avail_name($name, $package = 'wp') {
 	
 	
 	//start with the plain username, if unavailable then append a number onto the login name until we find one that is available
-	if ($package == 'wp') {
+	if($package == 'wp') {
 		$name = $newName = sanitize_user($name, true);
 		while ( !$foundFreeName ) {
 			if ( !username_exists($newName) ) {
@@ -300,9 +300,9 @@ function wpu_find_next_avail_name($name, $package = 'wp') {
 			$newName = $name;
 			while ( !$foundFreeName ) {
 				$result = phpbb_validate_username($newName);
-				if ($result === false) {
+				if($result === false) {
 					$foundFreeName = true;
-				} elseif ($result != 'USERNAME_TAKEN') {
+				} else if($result != 'USERNAME_TAKEN') {
 					$phpbbForum->restore_state($fStateChanged);
 					return false;
 				} else {
@@ -354,13 +354,13 @@ function wpu_validate_new_user($username, $email, $errors) {
 	$foundErrors = 0;
 	
 	
-	if (function_exists('phpbb_validate_username')) {
+	if(function_exists('phpbb_validate_username')) {
 		$fStateChanged = $phpbbForum->foreground();
 		$result = phpbb_validate_username($username, false);
 		$emailResult = validate_email($email);
 		$phpbbForum->restore_state($fStateChanged);
 
-		if ($result !== false) {
+		if($result !== false) {
 			switch($result) {
 				case 'INVALID_CHARS':
 					$errors->add('phpbb_invalid_chars', __('The username contains invalid characters', 'wp-united'));
@@ -378,7 +378,7 @@ function wpu_validate_new_user($username, $email, $errors) {
 			}
 		}
 		
-		if ($emailResult !== false) {
+		if($emailResult !== false) {
 			switch($emailResult) {
 				case 'DOMAIN_NO_MX_RECORD':
 					$errors->add('phpbb_invalid_email_mx', __('The email address does not appear to exist (No MX record)', 'wp-united'));
@@ -414,7 +414,7 @@ function wpu_validate_new_user($username, $email, $errors) {
 function wpu_create_phpbb_user($userID) {
 	global $phpbbForum, $config, $db;
 
-	if (!$userID) {
+	if(!$userID) {
 		return -1;
 	}
 
@@ -425,7 +425,7 @@ function wpu_create_phpbb_user($userID) {
 	$password = wpu_convert_password_format($wpUsr->user_pass, 'to-phpbb');
 
 	// validates and finds a unique username
-	if (! $signUpName = wpu_find_next_avail_name($wpUsr->user_login, 'phpbb') ) {
+	if(! $signUpName = wpu_find_next_avail_name($wpUsr->user_login, 'phpbb') ) {
 		$phpbbForum->restore_state($fStateChanged);
 		return -1;
 	}
@@ -486,7 +486,7 @@ function wpu_assess_newuser_perms() {
 
 	static $perms = false;
 	
-	if (is_array($perms)) {
+	if(is_array($perms)) {
 		return $perms;
 	}
 	
@@ -511,12 +511,12 @@ function wpu_get_perms($groupList = '') {
 	
 	$permCacheKey = '';
 	
-	if ( ($groupList == '') || $groupList == array() ) {
+	if( ($groupList == '') || $groupList == array() ) {
 		$where = '';
 		$permCacheKey = '[BLANK]';
 	} else {
 		$groupList = (array)$groupList;
-		if (sizeof($groupList) > 1) {
+		if(sizeof($groupList) > 1) {
 			$where = 'AND ' . $db->sql_in_set('group_name', $groupList);
 		} else {
 			$where = "AND group_name = '" . $db->sql_escape($groupList[0]) . "";
@@ -589,7 +589,7 @@ function wpu_get_perms($groupList = '') {
 		}
 		
 		$roleType = '';
-		if (!empty($row['role_name'])) {
+		if(!empty($row['role_name'])) {
 			$role = (isset($user->lang[$row['role_name']])) ? $user->lang[$row['role_name']] : $row['role_name'];
 			switch($row['role_type']) {
 				case 'm_':
@@ -608,7 +608,7 @@ function wpu_get_perms($groupList = '') {
 		} else {
 			$role = '';
 		}
-		if (!isset($calculatedPerms[$group])) {
+		if(!isset($calculatedPerms[$group])) {
 			$calculatedPerms[$group] = array();
 		}
 		$calculatedPerms[$group][] = array(
@@ -646,7 +646,7 @@ function wpu_get_perms($groupList = '') {
 	
 	$cachedGroupList = (empty($groupList)) ? '[EMPTY]' : implode(',', $groupList);
 	
-	if (!isset($cachedResults[$cachedGroupList])) {
+	if(!isset($cachedResults[$cachedGroupList])) {
 
 		$cachedResults[$cachedGroupList] = array();
 		$cachedResults[$cachedGroupList]['yeses'] = array();
@@ -658,24 +658,24 @@ function wpu_get_perms($groupList = '') {
 		$yeses = array();
 		$nevers = array();
 
-		if (sizeof($setPerms)) {
+		if(sizeof($setPerms)) {
 			
 			foreach($setPerms as $groupName => $permList) { 
 				foreach($permList as $permItem) { 
-					if ($permItem['setting'] == ACL_YES) {
-						if (!isset($yeses[$groupName])) {
+					if($permItem['setting'] == ACL_YES) {
+						if(!isset($yeses[$groupName])) {
 							$yeses[$groupName] = array();
 						}
 						$yeses[$groupName][] = $permItem['perm'];
-					} elseif ($permItem['setting'] == ACL_NEVER) {
-						if (!isset($nevers[$groupName])) {
+					} else if($permItem['setting'] == ACL_NEVER) {
+						if(!isset($nevers[$groupName])) {
 							$nevers[$groupName] = array();
 						}					
 						$nevers[$groupName][] = $permItem['perm'];
 					}
 				}
 				// remove ACL_NEVERS for corresponding groups
-				if (isset($yeses[$groupName]) && isset($nevers[$groupName])) {
+				if(isset($yeses[$groupName]) && isset($nevers[$groupName])) {
 					$yeses[$groupName] = array_diff($yeses[$groupName], $nevers[$groupName]);
 				}
 			}
@@ -684,7 +684,7 @@ function wpu_get_perms($groupList = '') {
 			$cachedResults[$cachedGroupList]['nevers'] = $nevers;
 			$cachedResults[$cachedGroupList]['yeses-single'] = $yeses;
 			// if all these groups belong to a single user, also remove *any* items which also have ACL_NEVER set
-			if (sizeof($nevers)) {
+			if(sizeof($nevers)) {
 				$y = array();
 				$n = array();
 				foreach(array_values($nevers) as $never => $perm) {
@@ -693,7 +693,7 @@ function wpu_get_perms($groupList = '') {
 				
 				foreach($yeses as $groupName => $perms) {
 					$result = array_diff($perms, $n);
-					if (sizeof($result)) {
+					if(sizeof($result)) {
 						$y[$groupName] = $result;
 					}
 				}
@@ -702,9 +702,9 @@ function wpu_get_perms($groupList = '') {
 		}
 	}
 	
-	if ($singleUser) {
+	if($singleUser) {
 		return $cachedResults[$cachedGroupList]['yeses-single'];
-	} elseif ($getNevers) {
+	} else if($getNevers) {
 		return $cachedResults[$cachedGroupList]['nevers'];
 	} else {
 		return $cachedResults[$cachedGroupList]['yeses'];
@@ -720,7 +720,7 @@ function wpu_get_wp_role_for_group($groupList = '') {
 	// get the highest role  for the given group(s), as nothing else really matters
 	foreach($permArr as $group => $roleArr) {
 		foreach($wpuPerms as $wpuPerm) {
-			if (in_array($wpuPerm, $roleArr)) {
+			if(in_array($wpuPerm, $roleArr)) {
 				$result[$group] = $wpuPerm;
 			}
 		}
@@ -752,12 +752,12 @@ function wpu_get_integrated_phpbbuser($userID = 0) {
 
 	$userID = (int)$userID;
 	
-	if ($userID == 0) {
+	if($userID == 0) {
 	
 		$current_user =  wp_get_current_user();
 		$userID = $current_user->ID;
 		
-		if ($userID == 0) {
+		if($userID == 0) {
 			return 0;
 		}
 		
@@ -768,7 +768,7 @@ function wpu_get_integrated_phpbbuser($userID = 0) {
 	$sql = 'SELECT user_id FROM ' . USERS_TABLE . ' 
 				WHERE user_wpuint_id = ' . (int)$userID;
 		
-	if (!$result = $db->sql_query_limit($sql, 1)) {
+	if(!$result = $db->sql_query_limit($sql, 1)) {
 		$pUserID = 0;
 	} else {
 		$pUserID = $db->sql_fetchfield('user_id');
@@ -795,7 +795,7 @@ function wpu_get_user_level($userID = false) {
 	$userLevel = false;
 	
 	// if checking for the current user, do a sanity check
-	if ((!$userID && !$phpbbForum->user_logged_in()) || ($userID == ANONYMOUS)) { 
+	if((!$userID && !$phpbbForum->user_logged_in()) || ($userID == ANONYMOUS)) { 
 		$phpbbForum->restore_state($fStateChanged);
 		return false;
 	} else {
@@ -805,8 +805,8 @@ function wpu_get_user_level($userID = false) {
 	
 	
 	
-	if (!in_array($phpbbForum->get_userdata('user_type'), array(USER_NORMAL, USER_FOUNDER))) {
-		if ($userID !== false) {
+	if(!in_array($phpbbForum->get_userdata('user_type'), array(USER_NORMAL, USER_FOUNDER))) {
+		if($userID !== false) {
 			$phpbbForum->transition_user();
 		}
 		$phpbbForum->restore_state($fStateChanged);
@@ -819,7 +819,7 @@ function wpu_get_user_level($userID = false) {
 	// actual level
 	$debug = 'Checking permissions: ';
 	foreach($wpuPermissions as $perm => $desc) {
-		if ( $auth->acl_get($perm) ) {
+		if( $auth->acl_get($perm) ) {
 			$userLevel = $desc;
 			$debug .= '[' . $desc . ']';
 		}
@@ -828,7 +828,7 @@ function wpu_get_user_level($userID = false) {
 	$wpuDebug->add($debug);
 	$wpuDebug->add('User level set to: ' . $userLevel);
 	
-	if ($userID !== false) {
+	if($userID !== false) {
 		$phpbbForum->transition_user();
 	}
 	
@@ -874,7 +874,7 @@ function wpu_update_int_id($pID, $intID) {
 		$sql = 'UPDATE ' . USERS_TABLE . '
 			SET user_wpuint_id = ' . (int)$intID . '  
 			WHERE user_id = ' . (int)$pID;
-		if (!$result = $db->sql_query($sql)) {
+		if(!$result = $db->sql_query($sql)) {
 			trigger_error(__('WP-United could not update your integration ID in phpBB, due to a database access error. Please contact an administrator and inform them of this error.', 'wp-united'));
 		} else {
 			$updated = TRUE;
@@ -898,7 +898,7 @@ function wpu_update_int_id($pID, $intID) {
 function wpu_sync_profiles($wpData, $pData, $action = 'sync', $ignorePassword = false) {
 	global $wpUnited, $phpbbForum, $wpdb, $wpuDebug;
 
-	if (is_object($wpData)) { 
+	if(is_object($wpData)) { 
 		$wpData = (array)get_object_vars($wpData->data); 
 	} 
 	
@@ -907,7 +907,7 @@ function wpu_sync_profiles($wpData, $pData, $action = 'sync', $ignorePassword = 
 
 	$wpMeta = get_user_meta($wpData['ID']);
 
-	if ( !isset($wpData['ID']) || empty($wpData['ID']) || empty($pData['user_id']) ) {
+	if( !isset($wpData['ID']) || empty($wpData['ID']) || empty($pData['user_id']) ) {
 		return false;
 	}
 
@@ -942,7 +942,7 @@ function wpu_sync_profiles($wpData, $pData, $action = 'sync', $ignorePassword = 
 		
 		// initialise items in both data arrays so we can compare them
 		$pFieldData = (isset($pData[$pField])) ? $pData[$pField] : '';
-		if ($type == 'main') {
+		if($type == 'main') {
 			$wpFieldData = (isset($wpData[$wpField])) ? $wpData[$wpField] : '';
 		} else {
 			$wpFieldData = (isset($wpMeta[$wpField])) ? $wpMeta[$wpField][0] : '';
@@ -950,23 +950,23 @@ function wpu_sync_profiles($wpData, $pData, $action = 'sync', $ignorePassword = 
 		
 		switch($action) {
 			case 'wp-update': // WP profile has been updated, so send to phpBB
-				if ((!empty($wpFieldData)) && ($dir != 'wp-only')) {
+				if((!empty($wpFieldData)) && ($dir != 'wp-only')) {
 					$updates['phpbb'][$pField] = $wpFieldData;
 				}
 				break;
 				
 			case 'phpbb-update': // phpBB profile has been updated, so send to WP
-				if ((!empty($pFieldData)) && ($dir != 'phpbb-only')) {
+				if((!empty($pFieldData)) && ($dir != 'phpbb-only')) {
 					$updates['wp'][$wpField] = $pFieldData;
 				}
 				break;
 				
 			case 'sync': // initial sync of profiles, so fill in whatever we can on both sides
 			default;
-				if ((!empty($wpFieldData)) && (empty($pFieldData)) &&  ($dir != 'wp-only')) {
+				if((!empty($wpFieldData)) && (empty($pFieldData)) &&  ($dir != 'wp-only')) {
 					$updates['phpbb'][$pField] = $wpFieldData;
 				}
-				if ((!empty($pFieldData)) && (empty($wpFieldData)) && ($dir != 'phpbb-only')) {
+				if((!empty($pFieldData)) && (empty($wpFieldData)) && ($dir != 'phpbb-only')) {
 					$updates['wp'][$wpField] = $pFieldData;
 				}
 				break;
@@ -980,55 +980,65 @@ function wpu_sync_profiles($wpData, $pData, $action = 'sync', $ignorePassword = 
 	 */
 				
 	// sync avatar WP -> phpBB
-	if (($action != 'phpbb-update') &&  ($wpUnited->get_setting('avatarsync'))){
-		// is the phpBB avatar empty already, or was it already put by WP-United?
-		if (empty($pData['user_avatar']) || (stripos($pData['user_avatar'], 'wpuput=1') !== false)) { 
-			
-			$avatarSize = 90;
-			
-			// we send an avatar. First we need to get the WP one -- remove our filter hook
-			if (remove_action('get_avatar', array($wpUnited, 'get_avatar'), 10, 5)) {
-				
-				// Gravatars are predicated on user e-mail. If we send ID instead, get_avatar could just return a default as the user might not
-				// have cached data yet. E-mail is also faster as it doesn't need to be converted.
-				$avatar = get_avatar($wpData['user_email'], $avatarSize);
-				if (!empty($avatar)) {
-					if (stripos($avatar, includes_url('images/blank.gif')) === false) {
-						$avatarDetails = $phpbbForum->convert_avatar_to_phpbb($avatar, $pData['user_id'], $avatarSize, $avatarSize);
-						$updates['phpbb'] = array_merge($updates['phpbb'], $avatarDetails);
-					}
-				}
-				// reinstate our action hook:
-				add_action('get_avatar', array($wpUnited, 'get_avatar'), 10, 5);
+	
+	// should we update the avatar?
+	$updateAvatar = false;
+	if($wpUnited->get_setting('avatarsync')) {
+		if($action != 'phpbb-update') {
+			// is the phpBB avatar empty already, or was it already put by WP-United?
+			if(empty($pData['user_avatar']) || (stripos($pData['user_avatar'], 'wpuput=1') !== false)) { 
+				$updateAvatar = true;
 			}
+			// or did the user delete it in phpBB? If so, then replace the vacuum with a default one
+		} else if(empty($pData['user_avatar'])) {
+			$updateAvatar = true;
 		}
-	}	
+	}
+	if($updateAvatar) {
+		$avatarSize = 90;
 		
-	 /**
+		// we send an avatar. First we need to get the WP one -- remove our filter hook
+		if(remove_action('get_avatar', array($wpUnited, 'get_avatar'), 10, 5)) {
+			
+			// Gravatars are predicated on user e-mail. If we send ID instead, get_avatar could just return a default as the user might not
+			// have cached data yet. E-mail is also faster as it doesn't need to be converted.
+			$avatar = get_avatar($wpData['user_email'], $avatarSize);
+			if(!empty($avatar)) {
+				if(stripos($avatar, includes_url('images/blank.gif')) === false) {
+					$avatarDetails = $phpbbForum->convert_avatar_to_phpbb($avatar, $pData['user_id'], $avatarSize, $avatarSize);
+					$updates['phpbb'] = array_merge($updates['phpbb'], $avatarDetails);
+				}
+			}
+			// reinstate our action hook:
+			add_action('get_avatar', array($wpUnited, 'get_avatar'), 10, 5);
+		}
+	}
+
+	/**
 	 * 
 	 *	Compare and update passwords
 	 *
 	 */
-	if (!$ignorePassword) {
-		if (($action == 'phpbb-update') || ($action == 'sync')) { // updating phpBB profile or syncing
-			if (!empty($pData['user_password'])) {
+	if(!$ignorePassword) {
+		if(($action == 'phpbb-update') || ($action == 'sync')) { // updating phpBB profile or syncing
+			if(!empty($pData['user_password'])) {
 				// convert password to WP format for comparison, as that will be the destination if it is different
 				$pData['user_password'] = wpu_convert_password_format($pData['user_password'], 'to-wp');
 				// wp_update_user double-hashes the password so we handle it separately, now
-				if ($pData['user_password'] != $wpData['user_pass']) {
+				if($pData['user_password'] != $wpData['user_pass']) {
 					$wpdb->update($wpdb->users, array('user_pass' => stripslashes($pData['user_password'])) , array('ID' => (int)$wpData['ID']), '%s', '%d');
 					wp_cache_delete($wpData['ID'], 'users');
 					wp_cache_delete($wpData['ID'], 'userlogins');
 				}
 			}
 			
-		} elseif ($action == 'wp-update') {	// updating WP profile 
-			if (!empty($wpData['user_pass'])) { 
+		} else if($action == 'wp-update') {	// updating WP profile 
+			if(!empty($wpData['user_pass'])) { 
 				// convert password to phpBB format for comparison, as that will be the destination if it is different
 				$wpData['user_pass'] = wpu_convert_password_format($wpData['user_pass'], 'to-phpbb');
 
 				// for phpBB we can update along with everything else
-				if ($pData['user_password'] != $wpData['user_pass']) {
+				if($pData['user_password'] != $wpData['user_pass']) {
 					$updates['phpbb']['user_password'] = $wpData['user_pass'];
 				}
 			}
@@ -1045,13 +1055,13 @@ function wpu_sync_profiles($wpData, $pData, $action = 'sync', $ignorePassword = 
 	$updated = false;
 	
 	// Update phpBB items
-	if (sizeof($updates['phpbb'])) { 
+	if(sizeof($updates['phpbb'])) { 
 		$phpbbForum->update_userdata($pData['user_id'], $updates['phpbb']);
 		$updated = true;
 	}
 	
 	// update WP items
-	if (sizeof($updates['wp'])) {
+	if(sizeof($updates['wp'])) {
 		$updates['wp']['ID'] = $wpData['ID'];
 		
 		// prevent our hook from firing
@@ -1088,7 +1098,7 @@ function wpu_convert_password_format($password, $direction = 'to-phpbb') {
 			return $password;
 	}
 	
-	if (substr($password, 0, 3) == $from) { 
+	if(substr($password, 0, 3) == $from) { 
 		$password = substr_replace($password, $to, 0, 3); 
 	}
 	return $password;
@@ -1108,7 +1118,7 @@ function wpu_convert_password_format($password, $direction = 'to-phpbb') {
  */
 function wpu_set_role($id, $userLevel) { 
 	$user = new WP_User($id);
-	if ($user->roles != array($userLevel)) { 
+	if($user->roles != array($userLevel)) { 
 		$user->set_role($userLevel);
 	}
 }
@@ -1124,7 +1134,7 @@ function wpu_set_phpbb_group_permissions($groupName, $perm, $type = ACL_YES) {
 	
 
 	// Not a valid WP-United permission
-	if (!in_array($perm, array_keys(wpu_permissions_list()))) {
+	if(!in_array($perm, array_keys(wpu_permissions_list()))) {
 		return false;
 	}
 	$phpbbForum->update_group_permissions('grant', $groupName, $perm, $type);

@@ -1,5 +1,9 @@
 jQuery( function( $ ) {
 	function setWidgetMargin( $widget ) {
+		if ( $( 'body' ).hasClass( 'wp-customizer' ) ) {
+			return;
+		}
+
 		if ( $widget.hasClass( 'expanded' ) ) {
 			// The expanded widget must be at least 400px wide in order to
 			// contain the visibility settings. IE wasn't handling the
@@ -40,7 +44,7 @@ jQuery( function( $ ) {
 
 	} );
 
-	$( "div#widgets-right" ).on( "click", "a.add-condition", function( e ) {
+	$( "div#widgets-right, form#customize-controls" ).on( "click", "a.add-condition", function( e ) {
 		e.preventDefault();
 		var $condition = $( this ).closest( "div.condition" ),
 			$conditionClone = $condition.clone().insertAfter( $condition );
@@ -64,7 +68,7 @@ jQuery( function( $ ) {
 
 	} );
 
-	$( "div#widgets-right" ).on( "click", "a.delete-condition", function( e ) {
+	$( "div#widgets-right, form#customize-controls" ).on( "click", "a.delete-condition", function( e ) {
 		e.preventDefault();
 
 		var $condition = $( this ).closest( "div.condition" );

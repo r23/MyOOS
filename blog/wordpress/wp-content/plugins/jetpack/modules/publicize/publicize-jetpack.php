@@ -19,13 +19,20 @@ class Publicize extends Publicize_Base {
 		add_action( 'wp_ajax_publicize_twitter_options_save', array( $this, 'options_save_twitter' ) );
 		add_action( 'wp_ajax_publicize_linkedin_options_save', array( $this, 'options_save_linkedin' ) );
 		add_action( 'wp_ajax_publicize_path_options_save', array( $this, 'options_save_path' ) );
-		add_action( 'wp_ajax_publicize_google_plus_options_save', array( $this, 'options_save_google_plus' ) ); 
+		add_action( 'wp_ajax_publicize_google_plus_options_save', array( $this, 'options_save_google_plus' ) );
 
 		add_action( 'load-settings_page_sharing', array( $this, 'force_user_connection' ) );
-		
+
 		add_filter( 'publicize_checkbox_default', array( $this, 'publicize_checkbox_default' ), 10, 4 );
 
 		add_action( 'transition_post_status', array( $this, 'save_publicized' ), 10, 3 );
+
+		add_filter( 'jetpack_twitter_cards_site_tag', array( $this, 'enhaced_twitter_cards_site_tag' ) );
+
+		add_action( 'publicize_save_meta', array( $this, 'save_publicized_twitter_account' ), 10, 4 );
+		add_action( 'publicize_save_meta', array( $this, 'save_publicized_facebook_account' ), 10, 4 );
+
+		add_filter( 'jetpack_sharing_twitter_via', array( $this, 'get_publicized_twitter_account' ), 10, 2 );
 
 		include_once ( JETPACK__PLUGIN_DIR . 'modules/publicize/enhanced-open-graph.php' );
 	}
@@ -43,7 +50,8 @@ class Publicize extends Publicize_Base {
 		global $publicize_ui;
 		remove_action( 'pre_admin_screen_sharing', array( $publicize_ui, 'admin_page' ) );
 
-		Jetpack::init()->admin_styles();
+		// Do we really need `admin_styles`? With the new admin UI, it's breaking some bits.
+		// Jetpack::init()->admin_styles();
 		add_action( 'pre_admin_screen_sharing', array( $this, 'admin_page_warning' ), 1 );
 	}
 
@@ -166,11 +174,14 @@ class Publicize extends Publicize_Base {
 			}
 		}
 
+		// Do we really need `admin_styles`? With the new admin UI, it's breaking some bits.
 		// Errors encountered on WordPress.com's end are passed back as a code
+		/*
 		if ( isset( $_GET['action'] ) && 'error' == $_GET['action'] ) {
 			// Load Jetpack's styles to handle the box
 			Jetpack::init()->admin_styles();
 		}
+		*/
 	}
 
 	function display_connection_error() {
@@ -342,7 +353,7 @@ class Publicize extends Publicize_Base {
 		// Bail if all is well
 		if ( $connection_test_passed ) {
 			return true;
-		} 
+		}
 
 		// Set up refresh if the user can
 		$user_can_refresh = current_user_can( $this->GLOBAL_CAP );
@@ -629,14 +640,69 @@ class Publicize extends Publicize_Base {
 		$this->globalization();
 	}
 
-	/** 
-	* Already-published posts should not be Publicized by default. This filter sets checked to 
-	* false if a post has already been published. 
-	*/ 
-	function publicize_checkbox_default( $checked, $post_id, $name, $connection ) { 
-		if ( 'publish' == get_post_status( $post_id ) ) 
-			return false; 
+	/**
+	* Already-published posts should not be Publicized by default. This filter sets checked to
+	* false if a post has already been published.
+	*/
+	function publicize_checkbox_default( $checked, $post_id, $name, $connection ) {
+		if ( 'publish' == get_post_status( $post_id ) )
+			return false;
 
-		return $checked; 
+		return $checked;
+	}
+
+	/**
+	* If there's only one shared connection to Twitter set it as twitter:site tag.
+	*/
+	function enhaced_twitter_cards_site_tag( $tag ) {
+		$custom_site_tag = get_option( 'jetpack-twitter-cards-site-tag' );
+		if( ! empty( $custom_site_tag ) )
+			return $tag;
+		if ( ! $this->is_enabled('twitter') )
+			return $tag;
+		$connections = $this->get_connections( 'twitter' );
+		foreach ( $connections as $connection ) {
+			$connection_meta = $this->get_connection_meta( $connection );
+			if ( 0 == $connection_meta['connection_data']['user_id'] ) {
+				// If the connection is shared
+				return $this->get_display_name( 'twitter', $connection );
+			}
+		}
+		return $tag;
+	}
+
+	function save_publicized_twitter_account( $submit_post, $post_id, $service_name, $connection ) {
+		if ( 'twitter' == $service_name && $submit_post ) {
+			$connection_meta = $this->get_connection_meta( $connection );
+			$publicize_twitter_user = get_post_meta( $post_id, '_publicize_twitter_user' );
+			if ( empty( $publicize_twitter_user ) || 0 != $connection_meta['connection_data']['user_id'] ) {
+				update_post_meta( $post_id, '_publicize_twitter_user', $this->get_display_name( 'twitter', $connection ) );
+			}
+		}
+	}
+
+	function get_publicized_twitter_account( $account, $post_id ) {
+		if ( ! empty( $account ) ) {
+			return $account;
+		}
+		$account = get_post_meta( $post_id, '_publicize_twitter_user', true );
+		if ( ! empty( $account ) ) {
+			return $account;
+		}
+		return 'jetpack'; // Default 'via' is always us if for some reason we still don't find one.
+	}
+
+	/**
+	* Save the Publicized Facebook account when publishing a post
+	* Use only Personal accounts, not Facebook Pages
+	*/
+	function save_publicized_facebook_account( $submit_post, $post_id, $service_name, $connection ) {
+		$connection_meta = $this->get_connection_meta( $connection );
+		if ( 'facebook' == $service_name && isset( $connection_meta['connection_data']['meta']['facebook_profile'] ) && $submit_post ) {
+			$publicize_facebook_user = get_post_meta( $post_id, '_publicize_facebook_user' );
+			if ( empty( $publicize_facebook_user ) || 0 != $connection_meta['connection_data']['user_id'] ) {
+				update_post_meta( $post_id, '_publicize_facebook_user', $this->get_profile_link( 'facebook', $connection ) );
+			}
+		}
 	}
 }

@@ -29,9 +29,28 @@ class Jetpack_Twitter_Timeline_Widget extends WP_Widget {
 		);
 
 		if ( is_active_widget( false, false, $this->id_base ) || is_active_widget( false, false, 'monster' ) ) {
-			wp_enqueue_script( 'twitter-widgets', '//platform.twitter.com/widgets.js', '', '', true );
+			add_action( 'wp_footer', array( $this, 'library' ) );
 		}
 	}
+	
+	/**
+        * Enqueue Twitter's widget library
+        */
+        public function library() {
+        ?>
+                <script type="text/javascript">
+                        !function(d,s,id){
+                                var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+                                if(!d.getElementById(id)){
+                                        js=d.createElement(s);
+                                        js.id=id;js.src=p+"://platform.twitter.com/widgets.js";
+                                        fjs.parentNode.insertBefore(js,fjs);
+                                }
+                        }
+                        (document,"script","twitter-wjs");
+                </script>
+        <?php
+        }
 
 	/**
 	 * Front-end display of widget.
@@ -92,7 +111,7 @@ class Jetpack_Twitter_Timeline_Widget extends WP_Widget {
 	 * @return array Updated safe values to be saved.
 	 */
 	public function update( $new_instance, $old_instance ) {
-		$non_hex_regex             = '/[^a-f0-9]/';
+		$hex_regex             = '/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/';
 		$instance                  = array();
 		$instance['title']         = sanitize_text_field( $new_instance['title'] );
 		$instance['width']         = (int) $new_instance['width'];
@@ -112,9 +131,11 @@ class Jetpack_Twitter_Timeline_Widget extends WP_Widget {
 		$instance['widget-id'] = is_numeric( $instance['widget-id'] ) ? $instance['widget-id'] : '';
 
 		foreach ( array( 'link-color', 'border-color' ) as $color ) {
-			$clean = preg_replace( $non_hex_regex, '', sanitize_text_field( $new_instance[$color] ) );
-			if ( $clean )
-				$instance[$color] = '#' . $clean;
+			$new_color = sanitize_text_field( $new_instance[$color] );
+			if ( preg_match( $hex_regex, $new_color ) ) {
+				$instance[$color] = $new_color;
+			}
+
 		}
 
 		$instance['theme'] = 'light';

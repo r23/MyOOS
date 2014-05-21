@@ -107,8 +107,8 @@ function wpu_avatar_create_image($userID) {
 	$phpbbUserID = 0;
 	
 	get_currentuserinfo();
-	if ($userID == $user_ID) {
-		if ($phpbbForum->user_logged_in()) {
+	if($userID == $user_ID) {
+		if($phpbbForum->user_logged_in()) {
 			$phpbbUserData = $phpbbForum->get_userdata();
 			$phpbbUserID = $phpbbUserData['user_id'];
 		}
@@ -119,7 +119,7 @@ function wpu_avatar_create_image($userID) {
 		$phpbbUserID = wpu_get_integrated_phpbbuser($userID) ;
 	}
 	
-	if (!$phpbbUserID) {
+	if(!$phpbbUserID) {
 		$avatar = get_avatar($userID);
 	} else {
 		$avatar = $phpbbForum->get_avatar($phpbbUserID);
@@ -127,8 +127,8 @@ function wpu_avatar_create_image($userID) {
 	
 
 	
-	if (!empty($avatar)) {
-		if (!preg_match('/src\s*=\s*[\'"]([^\'"]+)[\'"]/', $avatar, $matches)) {
+	if(!empty($avatar)) {
+		if(!preg_match('/src\s*=\s*[\'"]([^\'"]+)[\'"]/', $avatar, $matches)) {
 			return '';
 		} 
 		$avatar = $matches[1];
@@ -179,18 +179,18 @@ function wpu_phpbb_profile_link($wpID = false) {
 function get_wpu_phpbb_profile_link($wpID = false) {
 	global $phpbbForum, $wpUnited, $phpEx;
 	
-	if (!$wpUnited->is_working()) {
+	if(!$wpUnited->is_working()) {
 		return false;
 	}
 	
-	if ($wpID == false) {
-		if (!$phpbbForum->user_logged_in()) {
+	if($wpID == false) {
+		if(!$phpbbForum->user_logged_in()) {
 			return false;
 		} else {
 			$phpbbID = $phpbbForum->get_userdata('user_id');
 		}
 	} else {
-		if (!$wpUnited->get_setting('integrateLogin')) {
+		if(!$wpUnited->get_setting('integrateLogin')) {
 			return false;
 		} else {
 			$phpbbID = wpu_get_integrated_phpbbuser($wpID);
@@ -322,7 +322,7 @@ function wpu_newposts_link() {
  */
 function get_wpu_newposts_link() {
 	global $phpbbForum, $phpEx;
-	if ( $phpbbForum->user_logged_in() ) {
+	if( $phpbbForum->user_logged_in() ) {
 		return '<a href="'. $phpbbForum->append_sid($phpbbForum->get_board_url() . 'search.'.$phpEx.'?search_id=newposts') . '"><strong>' . get_wpu_newposts() ."</strong>&nbsp;". __('posts since last visit', 'wp-united') . "</a>";
 	}
 }
@@ -333,13 +333,13 @@ function get_wpu_newposts_link() {
  */
 function get_wpu_newposts() {
 	global $db, $phpbbForum;
-	if ( $phpbbForum->user_logged_in() ) {
+	if( $phpbbForum->user_logged_in() ) {
 		$fStateChanged = $phpbbForum->foreground();
 		$sql = "SELECT COUNT(post_id) as total
 				FROM " . POSTS_TABLE . "
 				WHERE post_time >= " . $phpbbForum->get_userdata('user_lastvisit');
 		$result = $db->sql_query($sql);
-		if ( $result ) {
+		if( $result ) {
 			$row = $db->sql_fetchrow($result);
 			$db->sql_freeresult($result);
 			$phpbbForum->restore_state($fStateChanged);
@@ -471,11 +471,11 @@ function wpu_get_comment_author_link($link = '') {
 global $comment, $phpbb_root_path, $phpbbForum;
 	
 	// comment URL could already be filled by cross-posted comments
-	if (!empty($comment->phpbb_id) && !empty($link)) {
+	if(!empty($comment->phpbb_id) && !empty($link)) {
 		return $link;
 	}
 	
-	if (empty($comment->user_id)) {
+	if(empty($comment->user_id)) {
 		return (empty($link)) ? '<a href="' . $comment->comment_author_url . '" rel="nofollow">' . $comment->comment_author . '</a>' : $link;
 	}
 	$uID = get_wpu_user_id($comment->user_id);
@@ -524,7 +524,7 @@ function get_wpu_useronlinelist($args = '') {
 	
 	$fStateChanged = $phpbbForum->foreground();
 	
-	if ( (!empty($template)) && (!empty($legend))  && ($theList = $template->_rootref['LOGGED_IN_USER_LIST'])) {
+	if( (!empty($template)) && (!empty($legend))  && ($theList = $template->_rootref['LOGGED_IN_USER_LIST'])) {
 		// On the phpBB index page -- everything's already in template
 		$legend = $template->_rootref['LEGEND'];
 		$l_online_users = $template->_rootref['TOTAL_USERS_ONLINE'];
@@ -594,7 +594,7 @@ function get_wpu_useronlinelist($args = '') {
 		$ret .= "{$before}{$l_online_record}{$after}";
 	}
 	
-	if ($showLegend) {
+	if($showLegend) {
 		$ret .= "{$before}<em>{$phpbbForum->lang['LEGEND']}: {$legend}</em>{$after}";
 	}
 	
@@ -629,7 +629,7 @@ function get_wpu_login_user_info($args) {
 	$loginAction = ($loggedIn) ? '?mode=logout' : '?mode=login';
 					
 	
-	if ($loggedIn) {
+	if($loggedIn) {
 		$wpu_usr = get_wpu_phpbb_username(); 
 		$colour = $phpbbForum->get_userdata('user_colour');
 		$colour = ($colour) ? ' style="color: #' . $colour . '" ' : '';
@@ -651,7 +651,7 @@ function get_wpu_login_user_info($args) {
 		$phpbbForum->restore_state($fStateChanged);
 
 		// Handle new PMs
-		if ($showPMs) {
+		if($showPMs) {
 			if ($PMs['text']) {
 				$ret .= _wpu_add_class($before, 'wpu-has-pms'). '<a title="' . $PMs['text'] . '" href="' . $phpbbForum->get_board_url() . 'ucp.' . $phpEx . '?i=pm&folder=inbox">' . $PMs['text']. '</a>' . $after;
 			} else {
@@ -669,7 +669,7 @@ function get_wpu_login_user_info($args) {
 				$ret .= $before . '<a href="'.$wpUnited->get_wp_base_url() .'wp-admin/" title="' . __('Dashboard', 'wp-united') . '">' . __('Dashboard', 'wp-united') . '</a>' . $after;
 			}
 			
-			if ($admin) {
+			if($admin) {
 				$ret .= $before . '<a href="'. $phpbbForum->append_sid($phpbbForum->get_board_url() . 'adm/index.' . $phpEx) . '" title="' .  $phpbbForum->lang['ACP'] . '">' . $phpbbForum->lang['ACP'] . '</a>' . $after;
 			}
 		}
@@ -702,7 +702,7 @@ function _wpu_get_breadcrumbs($showSiteHome)  {
 	
 	static $crumbStr = false;
 	
-	if (!empty($crumbStr)) {
+	if(!empty($crumbStr)) {
 		return $crumbStr;
 	}
 	
@@ -710,25 +710,25 @@ function _wpu_get_breadcrumbs($showSiteHome)  {
 	$accessKey = 'accesskey="h"';
 	$crumbStr = '';
 	
-	if ($showSiteHome) {
+	if($showSiteHome) {
 		$crumbs[] = '<a href="' . $phpbbForum->append_sid($phpbbForum->get_board_url()) . '" ' . $accessKey . '>' . $phpbbForum->lang['FORUM_INDEX'] . '</a>';
 		$accessKey = '';
 	}
 	
 	$crumbs[] = '<a href="' . $wpUnited->get_wp_home_url() . '" ' . $accessKey . '>' . get_option('blogname') . '</a>';
 	
-	if (!is_home()){
+	if(!is_home()){
 		//TODO: These are loop functions, change!
 		if (is_category()) {
 			$category = get_the_category(); 
 			$crumbs[] = '<a href="' . esc_url($_SERVER['REQUEST_URI']) . '">' . $category[0]->cat_name . '</a>';
-		} elseif (is_single() || is_page()) {
+		} else if(is_single() || is_page()) {
 			$crumbs[] = '<a href="' . esc_url($_SERVER['REQUEST_URI']) . '">' . get_the_title() . '</a>';
 		} 
 	}
 	
 	foreach($crumbs as $crumbID => $crumb) { 
-		if ($crumbID > 0) {
+		if($crumbID > 0) {
 			$crumbStr .= ' <strong>&#8249;</strong> ';
 		}
 		$crumbStr .= $crumb;
@@ -764,19 +764,19 @@ function wpu_phpbb_nav_block($args) {
 				<li class="icon-home">
 					<?php echo _wpu_get_breadcrumbs($showSiteHome); ?> 
 				</li>
-				<?php if ($showStyleSwitcher) { ?>
+				<?php if($showStyleSwitcher) { ?>
 					<li class="rightside"><a href="#" onclick="fontsizeup(); return false;" onkeypress="return fontsizeup(event);" class="fontsize" title="<?php echo $phpbbForum->lang['CHANGE_FONT_SIZE']; ?>"><?php echo $phpbbForum->lang['CHANGE_FONT_SIZE']; ?></a></li>
 				<?php } ?>
 			</ul>
 			
-			<?php if ($phpbbForum->user_logged_in() && !$phpbbForum->get_userdata('is_bot')) { ?>
+			<?php if($phpbbForum->user_logged_in() && !$phpbbForum->get_userdata('is_bot')) { ?>
 			<ul class="linklist leftside">
 				<li class="icon-ucp">
 					<a href="<?php echo $phpbbForum->append_sid($phpbbForum->get_board_url() . 'ucp.' . $phpEx); ?>" title="<?php echo $phpbbForum->lang['PROFILE']; ?>" accesskey="e"><?php echo $phpbbForum->lang['PROFILE']; ?></a>
-					<?php if ( $PMs['text']) { 
+					<?php if( $PMs['text']) { 
 						?>(<a href="<?php echo $phpbbForum->append_sid($phpbbForum->get_board_url() . 'ucp.' . $phpEx . '?i=pm&folder=inbox'); ?>"><?php echo $PMs['text']; ?></a>)
 					<?php } ?>
-					<?php if ($phpbbForum->user_logged_in()) { ?> &bull;
+					<?php if($phpbbForum->user_logged_in()) { ?> &bull;
 						<a href="<?php echo $phpbbForum->append_sid($phpbbForum->get_board_url() . 'search.' . $phpEx . '?search_id=egosearch'); ?>"><?php echo $phpbbForum->lang['SEARCH_SELF']; ?></a>
 					<?php } ?>
 				</li>
@@ -785,11 +785,11 @@ function wpu_phpbb_nav_block($args) {
 
 			<ul class="linklist rightside">
 				<li class="icon-faq"><a href="<?php echo $phpbbForum->append_sid($phpbbForum->get_board_url() . 'faq.' . $phpEx); ?>" title="<?php echo $phpbbForum->lang['FAQ_EXPLAIN']; ?>"><?php echo $phpbbForum->lang['FAQ']; ?></a></li>
-				<?php if (!$phpbbForum->get_userdata('is_bot')) { ?>
-					<?php if ($showMemberList) { ?>
+				<?php if(!$phpbbForum->get_userdata('is_bot')) { ?>
+					<?php if($showMemberList) { ?>
 						<li class="icon-members"><a href="<?php echo $phpbbForum->append_sid($phpbbForum->get_board_url() . 'memberlist.' . $phpEx); ?>" title="<?php echo $phpbbForum->lang['MEMBERLIST_EXPLAIN']; ?>"><?php echo $phpbbForum->lang['MEMBERLIST']; ?></a></li>
 					<?php }
-					if (!$phpbbForum->user_logged_in() && $showRegLink) { ?>
+					if(!$phpbbForum->user_logged_in() && $showRegLink) { ?>
 						<li class="icon-register"><a href="<?php echo $phpbbForum->append_sid($phpbbForum->get_board_url() . '.ucp.' . $phpEx . '?mode=' . 'register'); ?>"><?php echo $phpbbForum->lang['REGISTER']; ?></a></li>
 					<?php } 
 						$loginLang = ($phpbbForum->user_logged_in()) ? sprintf($phpbbForum->lang['LOGOUT_USER'], $phpbbForum->get_username()) : $phpbbForum->lang['LOGIN'];
@@ -827,7 +827,7 @@ function wpu_phpbb_nav_block_footer($args) {
 	$fStateChanged = $phpbbForum->foreground();
 	global $config;
 	$tz = ($phpbbForum->get_userdata('user_id') != ANONYMOUS) ? strval(doubleval($phpbbForum->get_userdata('user_timezone'))) : strval(doubleval($config['board_timezone']));
-	if ($phpbbForum->get_userdata('user_dst') || ($phpbbForum->get_userdata('user_id') == ANONYMOUS && $config['board_dst'])) {
+	if($phpbbForum->get_userdata('user_dst') || ($phpbbForum->get_userdata('user_id') == ANONYMOUS && $config['board_dst'])) {
 		$timeZoneString = sprintf($phpbbForum->lang['ALL_TIMES'], $phpbbForum->lang['tz'][$tz], $phpbbForum->lang['tz']['dst']);
 	} else {
 		$timeZoneString = sprintf($phpbbForum->lang['ALL_TIMES'], $phpbbForum->lang['tz'][$tz], '');
@@ -866,14 +866,14 @@ function wpu_phpbb_nav_block_footer($args) {
 	static $themePath = '';
 	static $addedBaseScript = false;
 
-	if (!$addedStyles) {
+	if(!$addedStyles) {
 		$addedStyles = true;
 		
 		wp_enqueue_style('wpu-island-reset', $wpUnited->get_plugin_url() . 'theme/island-reset.css');
 		wp_enqueue_style('wpu-island', $phpbbForum->get_island_stylesheet());
 	}
 	
-	if ($includeStyleSwitcher && !$addedStyleSwitcher) {
+	if($includeStyleSwitcher && !$addedStyleSwitcher) {
 		$themePath =  $phpbbForum->get_theme_path();
 		wp_enqueue_style('wpu-nav-blk-2', $themePath . 'normal.css', true);
 		wp_enqueue_style('wpu-nav-blk-3', $themePath . 'medium.css', true);
@@ -889,7 +889,7 @@ function wpu_phpbb_nav_block_footer($args) {
 		wp_enqueue_script('wpu-nav-blk-j', $phpbbForum->get_super_template_path() . 'styleswitcher.js');
 	}
 	
-	if (!$addedBaseScript) { 
+	if(!$addedBaseScript) { 
 		$PMs = $phpbbForum->get_user_pm_details();
 		?>
 		<script type="text/javascript">// <![CDATA[
@@ -898,7 +898,7 @@ function wpu_phpbb_nav_block_footer($args) {
 			var style_cookie_settings = '<?php $phpbbForum->get_style_cookie_settings(); ?>';
 			var onload_functions = new Array();
 			var onunload_functions = new Array();
-			<?php if ($PMs['new'] && $PMs['popup']) { ?>
+			<?php if($PMs['new'] && $PMs['popup']) { ?>
 				var url = '<?php echo $phpbbForum->append_sid($phpbbForum->get_board_url() . 'ucp.' . $phpEx . '?i=pm&amp;mode=popup'); ?>';
 				window.open(url.replace(/&amp;/g, '&'), '_phpbbprivmsg', 'height=225,resizable=yes,scrollbars=yes, width=400');
 			<?php } ?>
@@ -947,7 +947,7 @@ function wpu_comment_number () {
  */
 function wpu_get_redirect_link() {
 	global $phpbbForum;
-	if (!empty( $_SERVER['REQUEST_URI'])) {
+	if(!empty( $_SERVER['REQUEST_URI'])) {
 		$protocol = empty($_SERVER['HTTPS']) ? 'http:' : ((strtolower($_SERVER["HTTPS"]) == 'on') ? 'https:' : 'http:');
 		$protocol = ($_SERVER['SERVER_PORT'] == '80') ? $protocol : $protocol . $_SERVER['SERVER_PORT'];
 		$link = $protocol . '//' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
@@ -966,7 +966,7 @@ function wpu_get_redirect_link() {
  * @author John Wells
  * @since v0.8.0
  */
-if (!function_exists('get_comments_popup_link')) {
+if(!function_exists('get_comments_popup_link')) {
 	function get_comments_popup_link($no, $com, $coms, $closed) {
 		ob_start();
 		comments_popup_link($no, $com, $coms, $closed);
@@ -982,7 +982,7 @@ if (!function_exists('get_comments_popup_link')) {
  * @author John Wells
  * @since v0.8.0
  */
-if (!function_exists('get_wp_loginout')) {
+if(!function_exists('get_wp_loginout')) {
 	function get_wp_loginout() {
 		ob_start();
 		wp_loginout();
@@ -1002,10 +1002,10 @@ if (!function_exists('get_wp_loginout')) {
 function _wpu_add_class($el, $class) {
 	$find = '>';
 	$repl = ' class="%s">';
-	if (stristr($el, 'class="') > 0) {
+	if(stristr($el, 'class="') > 0) {
 		$find = 'class="';
 		$repl = 'class="%s ';
-	} elseif (stristr($el, "class='") > 0) {
+	} else if(stristr($el, "class='") > 0) {
 		$find = "class='";
 		$repl = "class='%s ";
 	}

@@ -44,7 +44,7 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 		parent::__construct();
 	
 		$this->_loaded = false;
-		if (defined('IN_PHPBB')) { 
+		if(defined('IN_PHPBB')) { 
 			$this->_loaded = true;
 		}
 		$this->tokens = array();
@@ -67,14 +67,14 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 		
 		$rootPath = $wpUnited->get_setting('phpbb_path');
 		
-		if (!$rootPath) {
+		if(!$rootPath) {
 			return false;
 		}
 		
 		static $canConnect = false;
 		static $triedToConnect = false;
 		
-		if ($triedToConnect) {
+		if($triedToConnect) {
 			return $canConnect;
 		}
 		
@@ -93,7 +93,7 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 		global $phpbb_hook, $phpbb_root_path, $phpEx, $IN_WORDPRESS, $db, $table_prefix, $wp_table_prefix, $wpUnited;
 		global $dbms, $auth, $user, $cache, $cache_old, $user_old, $config, $template, $dbname, $SID, $_SID;
 
-		if ($this->is_phpbb_loaded()) {
+		if($this->is_phpbb_loaded()) {
 			return;
 		}
 		$this->_loaded = true;
@@ -110,18 +110,18 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 
 		$this->make_phpbb_env();
 
-		if (!$this->can_connect_to_phpbb()) {
+		if(!$this->can_connect_to_phpbb()) {
 			$wpUnited->disable_connection('error'); 
 			die();
 		}
 		require_once($phpbb_root_path . 'common.' . $phpEx);
 
 		// various tests for success:
-		if (!isset($user)) {
+		if(!isset($user)) {
 			$wpUnited->disable_connection('error');
 		}
 
-		if (!is_object($user)) {
+		if(!is_object($user)) {
 			$wpUnited->disable_connection('error');
 		}
 
@@ -132,13 +132,13 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 		$user->session_begin();
 		$auth->acl($user->data);
 
-		if (!is_admin()) {
+		if(!is_admin()) {
 			if ($config['board_disable'] && !defined('IN_LOGIN') && !$auth->acl_gets('a_', 'm_') && !$auth->acl_getf_global('m_')) {
 				// board is disabled. 
 				$user->add_lang('common');
 				define('WPU_BOARD_DISABLED', (!empty($config['board_disable_msg'])) ? '<strong>' . $user->lang['BOARD_DISABLED'] . '</strong><br /><br />' . $config['board_disable_msg'] : $user->lang['BOARD_DISABLE']);
 			} else {
-				if (($wpUnited->get_setting('showHdrFtr') == 'FWD') && (defined('WPU_INTEG_DEFAULT_STYLE') && WPU_INTEG_DEFAULT_STYLE)) {
+				if(($wpUnited->get_setting('showHdrFtr') == 'FWD') && (defined('WPU_INTEG_DEFAULT_STYLE') && WPU_INTEG_DEFAULT_STYLE)) {
 					// This option forces the default phpBB style in a forward integration
 					$user->setup('mods/wp-united', $config['default_style']);
 				} else {
@@ -149,7 +149,7 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 			$user->setup('mods/wp-united');
 		}
 		
-		if (defined('WPU_BLOG_PAGE') && !defined('WPU_HOOK_ACTIVE')) {
+		if(defined('WPU_BLOG_PAGE') && !defined('WPU_HOOK_ACTIVE')) {
 			$cache->purge();
 			trigger_error(__('The WP-United phpBB hook file, hook_wp-united.php, was not loaded. Either it is missing, or you need to clear the phpBB cache. <br /><br />Attempted to automatically clear the phpBB cache. Try <a href="#" onclick="document.location.reload(); return false;">refreshing the page</a> to see if it worked. <br /><br />If this error persists, check that includes/hooks/hook_wp-united.php exists, and try manually purging your phpBB cache.', 'wp-united'), E_USER_ERROR);
 		}
@@ -158,7 +158,7 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 		//fix phpBB SEO mod
 		global $phpbb_seo;
 		if (empty($phpbb_seo) ) {
-			if (@file_exists($phpbb_root_path . 'phpbb_seo/phpbb_seo_class.'.$phpEx)) {
+			if(@file_exists($phpbb_root_path . 'phpbb_seo/phpbb_seo_class.'.$phpEx)) {
 				require_once($phpbb_root_path . 'phpbb_seo/phpbb_seo_class.'.$phpEx);
 				$phpbb_seo = new phpbb_seo();
 				$this->seo = true;
@@ -180,17 +180,17 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 		
 		static $useTemplate = false;
 		
-		if (!empty($useTemplate)) {
+		if(!empty($useTemplate)) {
 			return $useTemplate;
 		}
 		
 		$fStateChanged = $this->foreground();
 		
-		if (stristr($user->theme['theme_path'], 'pro') !== false) {
+		if(stristr($user->theme['theme_path'], 'pro') !== false) {
 			$useTemplate = 'prosilver';
-		} elseif (stristr($user->theme['theme_path'], 'sub') !== false) {
+		} else if(stristr($user->theme['theme_path'], 'sub') !== false) {
 			$useTemplate = 'subsilver2';
-		} elseif (!@file_exists($wpUnited->get_setting['phpbb_path'] . 'styles/' . $user->theme['theme_path'] . '/theme/styleswitcher.js')) {
+		} elseif(!@file_exists($wpUnited->get_setting['phpbb_path'] . 'styles/' . $user->theme['theme_path'] . '/theme/styleswitcher.js')) {
 			$useTemplate = 'subsilver2';
 		}
 		
@@ -207,7 +207,7 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 
 		$fStateChanged = $this->foreground();
 
-		if (!$user->theme['theme_storedb']) {
+		if(!$user->theme['theme_storedb']) {
 			$styleSheet = "{$wpUnited->get_setting('phpbb_path')}styles/" . rawurlencode($user->theme['theme_path']) . '/theme/stylesheet.css';
 			$modStyleSheet = $phpbbForum->get_board_url() . 'wp-united/style-fixer.php?usecssm=1&amp;island=1&amp;style=';
 		} else {
@@ -263,7 +263,7 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 	public function get_board_url() {
 		global $config;
 		
-		if (empty($this->url)) {
+		if(empty($this->url)) {
 			$fStateChanged = $this->foreground();
 			$config['force_server_vars'] = 1;
 			$this->url = add_trailing_slash(generate_board_url());
@@ -280,7 +280,7 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 	 */
 	public function censor($content) { 
 
-		if (!$this->is_phpbb_loaded()) {
+		if(!$this->is_phpbb_loaded()) {
 			return $content;
 		}
 		$fStateChanged = $this->foreground();
@@ -303,18 +303,18 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 		global $wpUnited, $auth, $user, $phpEx;
 		static $acpLink = false;
 		
-		if (!$wpUnited->is_working()) {
+		if(!$wpUnited->is_working()) {
 			return '';
 		}
 		
-		if ($acpLink !== false) {
+		if($acpLink !== false) {
 			return $acpLink;
 		}
 		
 		$acpLink = '';
 		
 		$fStateChanged = $this->foreground();
-		if ($auth->acl_get('a_') && !empty($user->data['is_registered'])) {
+		if($auth->acl_get('a_') && !empty($user->data['is_registered'])) {
 			$acpLink = $this->append_sid($this->get_board_url() . "adm/index.$phpEx");
 		}
 		$this->restore_state($fStateChanged);
@@ -343,12 +343,12 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 		
 		$userCacheKey = ($userID === false) ? '[BLANK]' : $userID;
 	
-		if (!$refreshCache) {
-			if (isset($userDataCache[$userCacheKey])) {
-				if (empty($key)) {
+		if(!$refreshCache) {
+			if(isset($userDataCache[$userCacheKey])) {
+				if(empty($key)) {
 					return $userDataCache[$userCacheKey];
 				} else {
-					if (isset($userDataCache[$userCacheKey][$key])) {
+					if(isset($userDataCache[$userCacheKey][$key])) {
 						return $userDataCache[$userCacheKey][$key];
 					}
 				}
@@ -359,7 +359,7 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 		$fStateChanged = $this->foreground();
 		
 
-		if ($userID !== false) {
+		if($userID !== false) {
 			$result = $this->fetch_userdata_for($userID);
 		} else {
 			$result = $GLOBALS['user']->data;
@@ -369,7 +369,7 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 		$this->restore_state($fStateChanged);
 		
 		if ( !empty($key) ) {
-			if (isset($userDataCache[$userCacheKey][$key])) {
+			if(isset($userDataCache[$userCacheKey][$key])) {
 				return $userDataCache[$userCacheKey][$key];
 			} else {
 				return false;
@@ -385,7 +385,7 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 	}
 	
 	public function handle_session_msgbox($errNo, $errMsg, $errfile, $errLine) {
-		if ($errNo !== E_USER_NOTICE) {
+		if($errNo !== E_USER_NOTICE) {
 			return msg_handler($errNo, $errMsg, $errFile, $errLine);
 		}
 		wp_logout();
@@ -449,7 +449,7 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 		
 		static $result = false;
 
-		if (is_array($result)) {
+		if(is_array($result)) {
 			return $result;
 		}
 		
@@ -530,19 +530,19 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 		$fStateChanged = $this->foreground();
 
 		if (!$userID ) {
-			if ( $this->user_logged_in() ) {
+			if( $this->user_logged_in() ) {
 				$usrData = $this->get_userdata();
 			}
 		} else {
 			$sql = 'SELECT user_rank, user_posts 
 						FROM ' . USERS_TABLE .
 						' WHERE user_wpuint_id = ' . (int)$userID;
-				if (!($result = $db->sql_query($sql))) {
+				if(!($result = $db->sql_query($sql))) {
 					wp_die(__('Could not access the database.', 'wp-united'));
 				}
 				$usrData = $db->sql_fetchrow($result);
 		}
-		if ( $usrData ) {
+		if( $usrData ) {
 				global $phpbb_root_path, $phpEx;
 				if (!function_exists('get_user_rank')) {
 					require_once($phpbb_root_path . 'includes/functions_display.php');
@@ -631,7 +631,7 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 				AND f.forum_id = p.forum_id
 			ORDER BY post_time DESC'; 	
 			
-		if (!($result = $db->sql_query_limit($sql, $limit, 0))) {
+		if(!($result = $db->sql_query_limit($sql, $limit, 0))) {
 			wp_die(__('Could not access the database.', 'wp-united'));
 		}		
 
@@ -687,7 +687,7 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 				AND t.topic_status <> 2 
 			ORDER BY t.topic_time DESC';
 			
-		if (!($result = $db->sql_query_limit($sql, $limit, 0))) {
+		if(!($result = $db->sql_query_limit($sql, $limit, 0))) {
 			$this->restore_state($fStateChanged);
 			wp_die(__('Could not access the database.', 'wp-united'));
 		}		
@@ -737,15 +737,15 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 		 
 		 $fStateChanged = $this->foreground();
 		 
-		 if ( ($toID === false) && ($this->_transitioned_user == true) ) {
+		 if( ($toID === false) && ($this->_transitioned_user == true) ) {
 			  // Transition back to the currently logged-in user
 			$user->data = $this->_savedData;
 			$user->ip = $this->_savedIP;
 			$auth = $this->_savedAuth;
 			$this->_transitioned_user = false;
-		} elseif (($toID !== false) && ($toID !== $user->data['user_id'])) {
+		} else if(($toID !== false) && ($toID !== $user->data['user_id'])) {
 			// Transition to a new user
-			if ($this->_transitioned == false) {
+			if($this->_transitioned == false) {
 				// backup current user
 				$this->_savedData= $user->data;
 				$this->_savedIP = $user->ip;
@@ -772,7 +772,7 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 	public function get_cookie_domain() {
 		global $config;
 		
-		if (!$this->is_phpbb_loaded()) {
+		if(!$this->is_phpbb_loaded()) {
 			return false;
 		}
 		
@@ -786,7 +786,7 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 	public function get_cookie_path() {
 		global $config;
 		
-		if (!$this->is_phpbb_loaded()) {
+		if(!$this->is_phpbb_loaded()) {
 			return false;
 		}
 		
@@ -935,7 +935,7 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 		 
 		 $fStateChanged = $this->foreground();
 		 
-		 if ($user->data['user_id'] != ANONYMOUS) {
+		 if($user->data['user_id'] != ANONYMOUS) {
 			$user->session_kill();
 		}
 		
@@ -948,7 +948,7 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 	public function get_smilies() {
 		global $db;
 		
-		if (!$this->is_phpbb_loaded()) {
+		if(!$this->is_phpbb_loaded()) {
 			return '';
 		}
 		
@@ -974,9 +974,9 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 		$this->restore_state($fStateChanged);
 	
 	
-		if ($i >= 7) {
+		if($i >= 7) {
 			$smlOutput .= '</span>';
-			if ($i>7) {
+			if($i>7) {
 				$smlOutput .= '<a id="wpu-smiley-toggle" href="#" onclick="return wpuSmlMore();">' . __('More smilies', 'wp-united') . '&nbsp;&raquo;</a></span>';
 			}
 		}
@@ -1034,7 +1034,7 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 	public function update_userdata($id, $userItems) {
 		global $db;	
 		
-		if (!is_array($userItems) || !sizeof($userItems) || empty($id)) {
+		if(!is_array($userItems) || !sizeof($userItems) || empty($id)) {
 			return false;
 		}
 
@@ -1063,16 +1063,16 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 		$width = (int)$width;
 		$height = (int)$height;
 		
-		if (($width < 50) || ($height < 50)) { 
+		if(($width < 50) || ($height < 50)) { 
 			return array();
 		}
 		
-		if (!preg_match('/src\s*=\s*[\'"]([^\'"]+)[\'"]/', $html, $matches)) {
+		if(!preg_match('/src\s*=\s*[\'"]([^\'"]+)[\'"]/', $html, $matches)) {
 			return array();
 		} 
 		$avatarUrl = $matches[1];
 		
-		if (!$avatarUrl) {
+		if(!$avatarUrl) {
 			return array();
 		}
 		
@@ -1085,7 +1085,7 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 		
 		$userItems = array();
 		
-		if ($config['allow_avatar'] && $config['allow_avatar_remote']) {
+		if($config['allow_avatar'] && $config['allow_avatar_remote']) {
 		
 			// calling avatar_remote uses too many resources, so we put in the images directly to the DB
 			
@@ -1114,7 +1114,7 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 		global $wpUnited, $cache, $user, $auth, $config, $db, $phpbb_root_path, $phpEx;
 		
 		
-		if (empty($dataToStore)) {
+		if(empty($dataToStore)) {
 			echo "No settings to process";
 			return false;
 		}
@@ -1209,8 +1209,8 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 		$cache->destroy('config');
 		
 
-		if ($wpUnited->get_setting('integrateLogin') && $wpUnited->get_setting('avatarsync')) {
-			if (!$config['allow_avatar'] || !$config['allow_avatar_remote']) {
+		if($wpUnited->get_setting('integrateLogin') && $wpUnited->get_setting('avatarsync')) {
+			if(!$config['allow_avatar'] || !$config['allow_avatar_remote']) {
 				$adminLog[] = __('Updating avatar settings', 'wp-united');
 
 				$sql = 'UPDATE ' . CONFIG_TABLE . ' 
@@ -1247,7 +1247,7 @@ class WPU_Phpbb extends WPU_Context_Switcher {
 			p.firstChild.nodeValue = (n == '-') ? '+' : '-';
 			return false;
 		}
-		if (typeof wpual == 'undefined') {
+		if(typeof wpual == 'undefined') {
 			var wpual = window.onload;
 			window.onload = function() {
 				if (typeof wpual == 'function') wpual();
@@ -1286,7 +1286,7 @@ public function load_style_keys() {
 		}
 		$this->restore_state($fStateChanged);
 
-		if (!empty($fullKey)) {
+		if(!empty($fullKey)) {
 			$results = unserialize(base64_decode($fullKey));
 			return $results;
 		} else {
@@ -1387,8 +1387,8 @@ public function load_style_keys() {
 		
 		$result = $auth->login($username, $password);
 		
-		if ($result['status'] == LOGIN_SUCCESS) {
-			if ($this->user_logged_in()) {
+		if($result['status'] == LOGIN_SUCCESS) {
+			if($this->user_logged_in()) {
 				$authenticated = $this->get_userdata('user_id');
 			}
 		}
@@ -1408,7 +1408,7 @@ public function load_style_keys() {
 	public function update_blog_link($author) {
 		global $db;
 		
-		if (!$this->is_phpbb_loaded()) {
+		if(!$this->is_phpbb_loaded()) {
 			return '';
 		}
 		
