@@ -563,9 +563,14 @@ abstract class Controller
 
             $this->setBasicVariablesView($view);
 
-            $view->topMenu       = MenuTop::getInstance()->getMenu();
-            $view->notifications = NotificationManager::getAllNotificationsToDisplay();
-            NotificationManager::cancelAllNonPersistent();
+            $view->topMenu = MenuTop::getInstance()->getMenu();
+
+            $notifications = $view->notifications;
+            if (empty($notifications)) {
+                $view->notifications = NotificationManager::getAllNotificationsToDisplay();
+                NotificationManager::cancelAllNonPersistent();
+            }
+
         } catch (Exception $e) {
             Piwik_ExitWithMessage($e->getMessage(), $e->getTraceAsString());
         }
@@ -604,8 +609,7 @@ abstract class Controller
         $view->isUserIsAnonymous  = Piwik::isUserIsAnonymous();
         $view->hasSuperUserAccess = Piwik::hasUserSuperUserAccess();
 
-        $customLogo = new CustomLogo();
-        $view->isCustomLogo = $customLogo->isEnabled();
+        $this->addCustomLogoInfo($view);
 
         $view->logoHeader = \Piwik\Plugins\API\API::getInstance()->getHeaderLogoUrl();
         $view->logoLarge = \Piwik\Plugins\API\API::getInstance()->getLogoUrl();
@@ -621,6 +625,13 @@ abstract class Controller
         }
 
         self::setHostValidationVariablesView($view);
+    }
+
+    protected function addCustomLogoInfo($view)
+    {
+        $customLogo = new CustomLogo();
+        $view->isCustomLogo  = $customLogo->isEnabled();
+        $view->customFavicon = $customLogo->getPathUserFavicon();
     }
 
     /**

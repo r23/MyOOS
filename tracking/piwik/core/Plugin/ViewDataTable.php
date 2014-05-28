@@ -11,7 +11,6 @@ namespace Piwik\Plugin;
 use Piwik\API\Request;
 use Piwik\Common;
 use Piwik\DataTable;
-use Piwik\Option;
 use Piwik\Period;
 use Piwik\Piwik;
 use Piwik\View;

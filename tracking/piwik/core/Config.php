@@ -196,6 +196,8 @@ class Config extends Singleton
 
     private static function getLocalConfigInfoForHostname($hostname)
     {
+        // Remove any port number to get actual hostname
+        $hostname = Url::getHostSanitized($hostname);
         $perHostFilename  = $hostname . '.config.ini.php';
         $pathDomainConfig = PIWIK_USER_PATH . '/config/' . $perHostFilename;
 
@@ -217,8 +219,21 @@ class Config extends Singleton
         return array(
             'action_url_category_delimiter' => $general['action_url_category_delimiter'],
             'autocomplete_min_sites' => $general['autocomplete_min_sites'],
-            'datatable_export_range_as_day' => $general['datatable_export_range_as_day']
+            'datatable_export_range_as_day' => $general['datatable_export_range_as_day'],
+            'datatable_row_limits' => $this->getDatatableRowLimits()
         );
+    }
+
+    /**
+     * @param $general
+     * @return mixed
+     */
+    private function getDatatableRowLimits()
+    {
+        $limits = $this->General['datatable_row_limits'];
+        $limits = explode(",", $limits);
+        $limits = array_map('trim', $limits);
+        return $limits;
     }
 
     protected static function getByDomainConfigPath()
@@ -234,10 +249,19 @@ class Config extends Singleton
         return false;
     }
 
+    /**
+     * Returns the hostname of the current request (without port number)
+     *
+     * @return string
+     */
     public static function getHostname()
     {
         // Check trusted requires config file which is not ready yet
         $host = Url::getHost($checkIfTrusted = false);
+
+        // Remove any port number to get actual hostname
+        $host = Url::getHostSanitized($host);
+
         return $host;
     }
 
@@ -710,4 +734,5 @@ class Config extends Singleton
         }
         return $merged;
     }
+
 }

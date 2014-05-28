@@ -403,8 +403,7 @@
         "CustomVariablesReportDocumentation": "Este reporte contiene información sobre sus Variables Personalizadas. Haga clic en el nombre de una variable para ver la distribución de los valores. %s Para más información sobre las Variables Personalizadas en general, lea la %sdocumentación de Variables Personalizadas en piwik.org%s",
         "PluginDescription": "Las Variables Personalizadas son pares del estilo nombre,valor que puede configurar en una visita usando la función setVisitCustomVariables() de la API de Javascript. Piwik reportará cuantas visitas, páginas y conversiones han usado cada una de estos nombres y valores personalizados.",
         "ScopePage": "ámbito de la página",
-        "ScopeVisit": "ámbito de la visita",
-        "TrackingHelp": "Ayuda: %1$sRastreo de variables personalizadas en Piwik%2$s"
+        "ScopeVisit": "ámbito de la visita"
     },
     "Dashboard": {
         "AddAWidget": "Agrega un widget",
@@ -861,8 +860,8 @@
         "TotalVisitsPageviewsRevenue": "(Total: %s visitas, %s páginas vistas, %s ingresos)",
         "TransitionsRowActionTooltip": "Vea que hicieron los visitantes antes y después de observar esta página",
         "TransitionsRowActionTooltipTitle": "Transiciones abiertas",
-        "TranslatorEmail": "ahriman89@gmail.com, ddiods@hotmail.com, fersfeir@niux.com.ar,dave96@dtecno.com, hnicolas.suero@gmail.com",
-        "TranslatorName": "Marcos Alberto Sanmartín Pereira, David Ernesto Soto Vásquez, Fernando SFEIR, David Álvarez Robert, Adrián Seldes, Héctor Nicolás Suero, Paolo",
+        "TranslatorEmail": "ahriman89@gmail.com, ddiods@hotmail.com, fersfeir@niux.com.ar,dave96@dtecno.com, hnicolas.suero@gmail.com, paolo@psdmedia.se,",
+        "TranslatorName": "Marcos Alberto Sanmartín Pereira, David Ernesto Soto Vásquez, Fernando SFEIR, David Álvarez Robert, Adrián Seldes, Héctor Nicolás Suero, <a href=\"http:\/\/www.codice-sconto365.it\/\">Paolo Corna<\/a>",
         "UniquePurchases": "Compras Únicas",
         "Unknown": "Desconocido",
         "Upload": "Subir",
@@ -1050,8 +1049,6 @@
         "Congratulations": "Enhorabuena",
         "CongratulationsHelp": "<p>¡Enhorabuena! La instalación de Piwik está completada.<\/p><p>¡Asegúrese de que el código JavaScript está introducido en sus páginas, y espere a sus primeros visitantes!<\/p>",
         "DatabaseAbilities": "Capacidades de la base de datos",
-        "DatabaseCheck": "Comprobar base de datos",
-        "DatabaseClientVersion": "Versión de cliente de la base de datos",
         "DatabaseCreation": "Creación de la base de datos",
         "DatabaseErrorConnect": "Error al intentar conectarse al servidor de la base de datos",
         "DatabaseServerVersion": "Versión del servidor de la base de datos",
@@ -1134,8 +1131,6 @@
         "SystemCheckPdoAndMysqliHelp": "En un servidor Linux puede compilar php con las siguientes opciones: %1$s En su php.ini, añada las siguientes líneas: %2$s",
         "SystemCheckPhp": "Versión PHP",
         "SystemCheckPhpPdoAndMysqli": "Más información en: %1$sPHP PDO%2$s y %3$sMYSQLI%4$s.",
-        "SystemCheckSecureProtocol": "Protocolo seguro",
-        "SystemCheckSecureProtocolHelp": "Parece que está usando https en su servidor. Estas líneas serán añadidas en el archivo config\/config.ini.php:",
         "SystemCheckSplHelp": "Necesita configurar y reconstruir PHP con la Librería Estándar de PHP habilitada (por defecto).",
         "SystemCheckSummaryNoProblems": "Hurra! No hay problemas con su configuración de Piwik. Dése una palmadita en la espalda.",
         "SystemCheckSummaryThereWereErrors": "Oh! Piwik ha detectado algunos %1$sproblemas críticos%2$s con su configuración Piwik. %3$sLos mismos deben ser arreglados inmediatamente.%4$s",
@@ -1432,7 +1427,6 @@
     },
     "Referrers": {
         "AllReferrersReportDocumentation": "Este informe muestra todas las Referencias en un solo informe enumerando todos los sitios web, las Palabras claves y las Campañas que utilizan tus visitantes para encontrar tu sitio web.",
-        "CampaignFooterHelp": "Ayuda: %sLas campañas de seguimiento en Piwik %s Herramienta Creador de URL %s",
         "Campaigns": "Campañas",
         "CampaignsDocumentation": "Visitantes que visitan su sitio de internet como resultado de una campaña. %s Vea el %s informe para mayores detalles.",
         "CampaignsReportDocumentation": "Este reporte muestra qué campaña llevó visitantes a su sitio de internet. %s Para una mayor información acerca del rastreo de las campañas, lea la documentación %scampañas en piwik.org%s",

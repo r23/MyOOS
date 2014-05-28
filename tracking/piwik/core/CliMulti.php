@@ -159,9 +159,7 @@ class CliMulti {
      */
     private function supportsAsync()
     {
-        return !SettingsServer::isWindows()
-                && Process::isSupported()
-                && $this->findPhpBinary();
+        return Process::isSupported() && $this->findPhpBinary();
     }
 
     private function cleanup()
@@ -203,7 +201,7 @@ class CliMulti {
     public static function getTmpPath()
     {
         $dir = PIWIK_INCLUDE_PATH . '/tmp/climulti';
-        return SettingsPiwik::rewriteTmpPathWithHostname($dir);
+        return SettingsPiwik::rewriteTmpPathWithInstanceId($dir);
     }
 
     private function findPhpBinary()
@@ -233,6 +231,7 @@ class CliMulti {
         if (!empty($bin)) {
             return trim($bin);
         }
+        return false;
     }
 
     private function executeAsyncCli($url, Output $output, $cmdId)

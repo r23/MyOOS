@@ -11,14 +11,14 @@ namespace Piwik\Plugins\API;
 use Piwik\API\Proxy;
 use Piwik\API\Request;
 use Piwik\Config;
+use Piwik\DataTable;
 use Piwik\DataTable\Filter\ColumnDelete;
 use Piwik\DataTable\Row;
-use Piwik\DataTable;
 use Piwik\Date;
 use Piwik\Menu\MenuTop;
 use Piwik\Metrics;
-use Piwik\Period\Range;
 use Piwik\Period;
+use Piwik\Period\Range;
 use Piwik\Piwik;
 use Piwik\Plugins\CoreAdminHome\CustomLogo;
 use Piwik\Tracker\GoalManager;
@@ -570,6 +570,9 @@ class API extends \Piwik\Plugin\API
      */
     public function getSuggestedValuesForSegment($segmentName, $idSite)
     {
+        if(empty(Config::getInstance()->General['enable_segment_suggested_values'])) {
+            return array();
+        }
         Piwik::checkUserHasViewAccess($idSite);
 
         $maxSuggestionsToReturn = 30;

@@ -402,8 +402,7 @@
         "CustomVariablesReportDocumentation": "Ovaj izveštaj sadrži informacije o dodatnim parametrima. Kliknite na ime parametra kako biste videli distribuciju vrednosti. %s Za više informacija o dodatnim parametrima pogledajte %sCustom Variables na piwik.org%s",
         "PluginDescription": "Dodatni parametri predstavljaju uređene parove ime, vrednost koje možete sami postaviti pomoću JavaScript API funkcije setVisitCustomVariables(). U tom slučaju Piwik će prikazati koliko je bilo poseta, otvaranja stranica i ciljeva za svaki od zadatih parova.",
         "ScopePage": "oblast strana",
-        "ScopeVisit": "oblast poseta",
-        "TrackingHelp": "Pomoć: %1$sPraćenje korisničkih promenljivih u Piwik-u%2$s"
+        "ScopeVisit": "oblast poseta"
     },
     "Dashboard": {
         "AddAWidget": "Dodaj vidžet",
@@ -1049,8 +1048,6 @@
         "Congratulations": "Čestitamo",
         "CongratulationsHelp": "<p>Čestitamo! Piwik instalacija je završena.<\/p><p>Proverite da li je JavaScript kod ubačen na sve stranice sajta i sačekajte vaše prve posetioce!<\/p>",
         "DatabaseAbilities": "Mogućnosti baze podataka",
-        "DatabaseCheck": "Provera baze",
-        "DatabaseClientVersion": "Verzija klijenta",
         "DatabaseCreation": "Pravljenje baze",
         "DatabaseErrorConnect": "Greška prilikom povezivanja sa bazom",
         "DatabaseServerVersion": "Verzija servera",
@@ -1134,8 +1131,6 @@
         "SystemCheckPdoAndMysqliHelp": "Na Linux serveru možete kompajlirati PHP sa sledećim opcijama: %1$s U datoteku php.ini dodajte sledeće linije: %2$s",
         "SystemCheckPhp": "Verzija PHP-a",
         "SystemCheckPhpPdoAndMysqli": "Više informacija na: %1$sPHP PDO%2$s i %3$sMYSQLI%4$s.",
-        "SystemCheckSecureProtocol": "Sigurni protokol",
-        "SystemCheckSecureProtocolHelp": "Izgleda da korstite https na vašem serveru. Sledeće linije će biti dodate u config\/config.ini.php:",
         "SystemCheckSplHelp": "Potrebno je da kompajlirate PHP sa standardnom PHP bibiotekom (SPL).",
         "SystemCheckSummaryNoProblems": "Bravo! Nema problema sa vašom instalacijom Piwik-a. Možete biti zadovoljni.",
         "SystemCheckSummaryThereWereErrors": "Piwik je otkrio %1$skritične probleme%2$s sa vašom instalacijom. %3$sPotrebno je da ih odmah rešite.%4$s",
@@ -1432,7 +1427,6 @@
     },
     "Referrers": {
         "AllReferrersReportDocumentation": "Ovaj izveštaj prikazuje sve vaše reference na unificiran način preko spiska svih sajtova, traženih ključnih reči i kampanja koje su koristili posetioci kako bi došli do vašeg sajta.",
-        "CampaignFooterHelp": "Pomoć: %sPraćenje kampanja u Piwik-u %s Alat za pravljenje URL-ova%s",
         "Campaigns": "Kampanje",
         "CampaignsDocumentation": "Korisnik koji je došao na vaš sajt putem kampanje. %sPogledajte%s izveštaj za više detalja.",
         "CampaignsReportDocumentation": "Ovaj izveštaj prikazuje koje kampanje su dovele posetioce na vaš sajt. %s Za više informacija o praćenju kampanja pogledajte %scampaigns na piwik.org%s",

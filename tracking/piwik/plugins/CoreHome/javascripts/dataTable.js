@@ -306,7 +306,13 @@ $.extend(DataTable.prototype, UIControl.prototype, {
     setFixWidthToMakeEllipsisWork: function (domElem) {
         var self = this;
 
-        function getTableWidth(domElem) {
+        function isWidgetized()
+        {
+            return -1 !== location.search.indexOf('module=Widgetize');
+        }
+
+        function getTableWidth(domElem)
+        {
             var totalWidth      = $(domElem).width();
             var totalWidthTable = $('table.dataTable', domElem).width(); // fixes tables in dbstats, referrers, ...
 
@@ -319,6 +325,28 @@ $.extend(DataTable.prototype, UIControl.prototype, {
             }
 
             return parseInt(totalWidth, 10);
+        }
+
+        function setMaxTableWidthIfNeeded (domElem, maxTableWidth)
+        {
+            var tableWidth = getTableWidth(domElem);
+
+            if (tableWidth <= maxTableWidth) {
+                return;
+            }
+
+            if (isWidgetized() || self.isDashboard()) {
+                return;
+            }
+
+            $(domElem).width(maxTableWidth);
+
+            var parentDataTable = $(domElem).parent('.dataTable');
+            if (parentDataTable && parentDataTable.length) {
+                // makes sure dataTableWrapper and DataTable has same size => makes sure maxLabelWidth does not get
+                // applied in getLabelWidth() since they will have the same size.
+                parentDataTable.width(maxTableWidth);
+            }
         }
 
         function getLabelWidth(domElem, tableWidth, minLabelWidth, maxLabelWidth)
@@ -338,10 +366,15 @@ $.extend(DataTable.prototype, UIControl.prototype, {
                 labelWidth = tableWidth * 0.5;
             }
 
-            var isWidgetized  = -1 !== location.search.indexOf('module=Widgetize');
+            var innerWidth = 0;
+            var innerWrapper = domElem.find('.dataTableWrapper');
+            if (innerWrapper && innerWrapper.length) {
+                innerWidth = innerWrapper.width();
+            }
 
             if (labelWidth > maxLabelWidth
-                && !isWidgetized
+                && !isWidgetized()
+                && innerWidth !== domElem.width()
                 && !self.isDashboard()) {
                 labelWidth = maxLabelWidth; // prevent for instance table in Actions-Pages is not too wide
             }
@@ -371,16 +404,26 @@ $.extend(DataTable.prototype, UIControl.prototype, {
         }
 
         function removePaddingFromWidth(domElem, labelWidth) {
+            var maxPaddingLeft  = 0;
+            var maxPaddingRight = 0;
 
-            var firstLabel = $('tbody tr:nth-child(1) td.label', domElem);
-            
-            var paddingLeft = firstLabel.css('paddingLeft');
-            paddingLeft     = paddingLeft ? parseInt(paddingLeft, 10) : 0;
+            $('tbody tr td.label', domElem).each(function (i, node) {
+                $node = $(node);
 
-            var paddingRight = firstLabel.css('paddingRight');
-            paddingRight     = paddingRight ? parseInt(paddingRight, 10) : 0;
+                var paddingLeft  = $node.css('paddingLeft');
+                paddingLeft      = paddingLeft ? Math.round(parseFloat(paddingLeft)) : 0;
+                var paddingRight = $node.css('paddingRight');
+                paddingRight     = paddingRight ? Math.round(parseFloat(paddingLeft)) : 0;
 
-            labelWidth = labelWidth - paddingLeft - paddingRight;
+                if (paddingLeft > maxPaddingLeft) {
+                    maxPaddingLeft = paddingLeft;
+                }
+                if (paddingRight > maxPaddingRight) {
+                    maxPaddingRight = paddingRight;
+                }
+            });
+
+            labelWidth = labelWidth - maxPaddingLeft - maxPaddingRight;
 
             return labelWidth;
         }
@@ -388,7 +431,8 @@ $.extend(DataTable.prototype, UIControl.prototype, {
         var minLabelWidth = 125;
         var maxLabelWidth = 440;
 
-        var tableWidth          = getTableWidth(domElem);
+        setMaxTableWidthIfNeeded(domElem, 1200);
+        var tableWidth = getTableWidth(domElem);
         var labelColumnMinWidth = getLabelColumnMinWidth(domElem);
         var labelColumnWidth    = getLabelWidth(domElem, tableWidth, 125, 440);
 
@@ -406,7 +450,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
     },
 
     handleLimit: function (domElem) {
-        var tableRowLimits = [5, 10, 25, 50, 100, 250, 500],
+            var tableRowLimits = piwik.config.datatable_row_limits,
             evolutionLimits =
             {
                 day: [30, 60, 90, 180, 365, 500],
@@ -500,24 +544,6 @@ $.extend(DataTable.prototype, UIControl.prototype, {
     handleSort: function (domElem) {
         var self = this;
 
-        function getSortImageSrc() {
-            var imageSortSrc = false;
-            if (currentIsSubDataTable) {
-                if (self.param.filter_sort_order == 'asc') {
-                    imageSortSrc = 'plugins/Zeitgeist/images/sort_subtable_asc.png';
-                } else {
-                    imageSortSrc = 'plugins/Zeitgeist/images/sort_subtable_desc.png';
-                }
-            } else {
-                if (self.param.filter_sort_order == 'asc') {
-                    imageSortSrc = 'plugins/Zeitgeist/images/sortasc.png';
-                } else {
-                    imageSortSrc = 'plugins/Zeitgeist/images/sortdesc.png';
-                }
-            }
-            return imageSortSrc;
-        }
-
         if (self.props.enable_sort) {
             $('.sortable', domElem).off('click.dataTableSort').on('click.dataTableSort',
                 function () {
@@ -530,7 +556,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
         if (self.param.filter_sort_column) {
             // are we in a subdatatable?
             var currentIsSubDataTable = $(domElem).parent().hasClass('cellSubDataTable');
-            var imageSortSrc = getSortImageSrc();
+            var imageSortClassType = currentIsSubDataTable ? 'sortSubtable' : ''
             var imageSortWidth = 16;
             var imageSortHeight = 16;
 
@@ -541,7 +567,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
             // adding an image and the class columnSorted to the TD
             $("th#" + self.param.filter_sort_column + ' #thDIV', domElem).parent()
                 .addClass('columnSorted')
-                .prepend('<div class="sortIconContainer sortIconContainer' + ImageSortClass + '"><img class="sortIcon" width="' + imageSortWidth + '" height="' + imageSortHeight + '" src="' + imageSortSrc + '" /></div>');
+                .prepend('<div class="sortIconContainer sortIconContainer' + ImageSortClass + ' ' + imageSortClassType + '"><span class="sortIcon" width="' + imageSortWidth + '" height="' + imageSortHeight + '" /></div>');
         }
     },
 
@@ -712,7 +738,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
                         ;
 
                     var annotationsCss = {left: 6}; // padding-left of .jqplot-graph element (in _dataTableViz_jqplotGraph.tpl)
-                    if (!self.isDashboard() && !self.isWithinDialog(domElem)) {
+                    if (self.isWithinDialog(domElem)) {
                         annotationsCss['top'] = -datatableFeatures.height() - annotationAxisHeight + noteSize / 2;
                     }
 
@@ -722,11 +748,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
                     piwik.annotations.placeEvolutionIcons(annotations, domElem);
 
                     // add new section under axis
-                    if (self.isDashboard() || self.isWithinDialog(domElem)) {
-                        annotations.insertAfter($('.datatableRelatedReports', domElem));
-                    } else {
-                        datatableFeatures.append(annotations);
-                    }
+                    annotations.insertAfter($('.datatableRelatedReports', domElem));
 
                     // reposition annotation icons every time the graph is resized
                     $('.piwik-graph', domElem).on('resizeGraph', function () {
@@ -1302,7 +1324,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
     },
 
     handleExpandFooter: function (domElem) {
-        if (!this.isDashboard() && !this.isWithinDialog(domElem)) {
+        if (this.isWithinDialog(domElem)) {
             return;
         }
 

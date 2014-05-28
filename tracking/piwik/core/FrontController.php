@@ -455,7 +455,7 @@ class FrontController extends Singleton
     private function handleProfiler()
     {
         if (!empty($_GET['xhprof'])) {
-            $mainRun = $_GET['xhprof'] == 1; // archive.php sets xhprof=2
+            $mainRun = $_GET['xhprof'] == 1; // core:archive command sets xhprof=2
             Profiler::setupProfilerXHProf($mainRun);
         }
     }
@@ -522,7 +522,7 @@ class FrontController extends Singleton
          * @param mixed &$result The controller action result.
          * @param array $parameters The arguments passed to the controller action.
          */
-        Piwik::postEvent('Request.dispatch.end', array(&$result, $parameters));
+        Piwik::postEvent('Request.dispatch.end', array(&$result, $module, $action, $parameters));
         return $result;
     }
 

@@ -12,7 +12,6 @@ use Exception;
 use Piwik\AssetManager;
 use Piwik\Common;
 use Piwik\Config;
-
 use Piwik\Db;
 use Piwik\DbHelper;
 use Piwik\Log;
@@ -60,7 +59,7 @@ class BatchInsert
     public static function tableInsertBatch($tableName, $fields, $values, $throwException = false)
     {
         $filePath = PIWIK_USER_PATH . '/tmp/assets/' . $tableName . '-' . Common::generateUniqId() . '.csv';
-        $filePath = SettingsPiwik::rewriteTmpPathWithHostname($filePath);
+        $filePath = SettingsPiwik::rewriteTmpPathWithInstanceId($filePath);
 
         $loadDataInfileEnabled = Config::getInstance()->General['enable_load_data_infile'];
 

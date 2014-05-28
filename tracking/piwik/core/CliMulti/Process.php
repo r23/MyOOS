@@ -32,7 +32,7 @@ class Process
         }
 
         $pidDir = CliMulti::getTmpPath();
-        Filesystem::mkdir($pidDir, true);
+        Filesystem::mkdir($pidDir);
 
         $this->isSupported  = self::isSupported();
         $this->pidFile      = $pidDir . '/' . $pid . '.pid';
@@ -184,7 +184,7 @@ class Process
 
     private static function returnsSuccessCode($command)
     {
-        $exec = $command . ' > /dev/null 2>&1 & echo $?';
+        $exec = $command . ' > /dev/null 2>&1; echo $?';
         $returnCode = shell_exec($exec);
         $returnCode = trim($returnCode);
         return 0 == (int) $returnCode;
@@ -192,7 +192,7 @@ class Process
 
     private static function commandExists($command)
     {
-        $result = shell_exec('which ' . escapeshellarg($command));
+        $result = shell_exec('which ' . escapeshellarg($command) . ' 2> /dev/null');
 
         return !empty($result);
     }

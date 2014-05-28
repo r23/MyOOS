@@ -10,13 +10,11 @@ namespace Piwik\Plugins\ScheduledReports;
 
 use Exception;
 use Piwik\Common;
-use Piwik\Config;
 use Piwik\Db;
 use Piwik\DbHelper;
 use Piwik\Mail;
 use Piwik\Menu\MenuTop;
 use Piwik\Piwik;
-use Piwik\Plugins\CoreAdminHome\CustomLogo;
 use Piwik\Plugins\MobileMessaging\API as APIMobileMessaging;
 use Piwik\Plugins\MobileMessaging\MobileMessaging;
 use Piwik\Plugins\SegmentEditor\API as APISegmentEditor;
@@ -95,7 +93,8 @@ class ScheduledReports extends \Piwik\Plugin
             'Template.reportParametersScheduledReports' => 'template_reportParametersScheduledReports',
             'UsersManager.deleteUser'                   => 'deleteUserReport',
             'SitesManager.deleteSite.end'               => 'deleteSiteReport',
-            APISegmentEditor::DEACTIVATE_SEGMENT_EVENT  => 'segmentDeactivation',
+            'SegmentEditor.deactivate'                  => 'segmentDeactivation',
+            'SegmentEditor.update'                      => 'segmentUpdated',
             'Translate.getClientSideTranslationKeys'    => 'getClientSideTranslationKeys',
         );
     }
@@ -488,22 +487,65 @@ class ScheduledReports extends \Piwik\Plugin
         }
     }
 
-    public function segmentDeactivation($idSegment)
+    public function segmentUpdated($idSegment, $updatedSegment)
     {
         $reportsUsingSegment = API::getInstance()->getReports(false, false, false, false, $idSegment);
 
-        if (count($reportsUsingSegment) > 0) {
+        $reportsNeedSegment = array();
 
-            $reportList = '';
-            $reportNameJoinText = ' ' . Piwik::translate('General_And') . ' ';
-            foreach ($reportsUsingSegment as $report) {
-                $reportList .= '\'' . $report['description'] . '\'' . $reportNameJoinText;
+        if(!$updatedSegment['enable_all_users']) {
+            // which reports would become invisible to other users?
+            foreach($reportsUsingSegment as $report) {
+                if($report['login'] == Piwik::getCurrentUserLogin()) {
+                    continue;
+                }
+                $reportsNeedSegment[] = $report;
             }
-            $reportList = rtrim($reportList, $reportNameJoinText);
-
-            $errorMessage = Piwik::translate('ScheduledReports_Segment_Deletion_Error', $reportList);
-            throw new Exception($errorMessage);
         }
+
+        if($updatedSegment['enable_only_idsite']) {
+            // which reports from other websites are set to use this segment restricted to one website?
+            foreach($reportsUsingSegment as $report) {
+                if($report['idsite'] == $updatedSegment['enable_only_idsite']) {
+                    continue;
+                }
+                $reportsNeedSegment[] = $report;
+            }
+        }
+
+        if(empty($reportsNeedSegment)) {
+            return;
+        }
+
+        $this->throwExceptionReportsAreUsingSegment($reportsNeedSegment);
+
+    }
+
+    public function segmentDeactivation($idSegment)
+    {
+        $reportsUsingSegment = API::getInstance()->getReports(false, false, false, false, $idSegment);
+        if (empty($reportsUsingSegment)) {
+            return;
+        }
+
+        $this->throwExceptionReportsAreUsingSegment($reportsUsingSegment);
+    }
+
+    /**
+     * @param $reportsUsingSegment
+     * @throws \Exception
+     */
+    protected function throwExceptionReportsAreUsingSegment($reportsUsingSegment)
+    {
+        $reportList = '';
+        $reportNameJoinText = ' ' . Piwik::translate('General_And') . ' ';
+        foreach ($reportsUsingSegment as $report) {
+            $reportList .= '\'' . $report['description'] . '\'' . $reportNameJoinText;
+        }
+        $reportList = rtrim($reportList, $reportNameJoinText);
+
+        $errorMessage = Piwik::translate('ScheduledReports_Segment_Deletion_Error', $reportList);
+        throw new Exception($errorMessage);
     }
 
     function addTopMenu()

@@ -43,7 +43,7 @@ use Piwik\Db;
  *                severe than the current log level will be outputted. Others will be
  *                ignored. The default level is **WARN**.
  * - `log_only_when_cli`: 0 or 1. If 1, logging is only enabled when Piwik is executed
- *                        in the command line (for example, by the archive.php cron
+ *                        in the command line (for example, by the core:archive command
  *                        script). Default: 0.
  * - `log_only_when_debug_parameter`: 0 or 1. If 1, logging is only enabled when the
  *                                    `debug` query parameter is 1. Default: 0.
@@ -323,7 +323,7 @@ class Log extends Singleton
         ) {
             $logPath = PIWIK_USER_PATH . DIRECTORY_SEPARATOR . $logPath;
         }
-        $logPath = SettingsPiwik::rewriteTmpPathWithHostname($logPath);
+        $logPath = SettingsPiwik::rewriteTmpPathWithInstanceId($logPath);
         if (is_dir($logPath)) {
             $logPath .= '/piwik.log';
         }
@@ -592,6 +592,10 @@ class Log extends Singleton
      */
     private function writeErrorToStandardErrorOutput($message)
     {
+        if(defined('PIWIK_TEST_MODE')) {
+            // do not log on stderr during tests (prevent display of errors in CI output)
+            return;
+        }
         $fe = fopen('php://stderr', 'w');
         fwrite($fe, $message);
     }

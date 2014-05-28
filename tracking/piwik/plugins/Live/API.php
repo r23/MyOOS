@@ -11,13 +11,13 @@ namespace Piwik\Plugins\Live;
 use Exception;
 use Piwik\Common;
 use Piwik\Config;
-use Piwik\DataTable\Row;
 use Piwik\DataTable;
+use Piwik\DataTable\Row;
 use Piwik\Date;
 use Piwik\Db;
 use Piwik\MetricsFormatter;
-use Piwik\Period;
 use Piwik\Period\Range;
+use Piwik\Period;
 use Piwik\Piwik;
 use Piwik\Plugins\Referrers\API as APIReferrers;
 use Piwik\Plugins\SitesManager\API as APISitesManager;
@@ -473,7 +473,7 @@ class API extends \Piwik\Plugin\API
     {
         $today = Date::today();
 
-        $serverDate = $visit->getColumn('serverDate');
+        $serverDate = $visit->getColumn('firstActionTimestamp');
         return array(
             'date'            => $serverDate,
             'prettyDate'      => Date::factory($serverDate)->getLocalized(self::VISITOR_PROFILE_DATE_FORMAT),
@@ -546,6 +546,9 @@ class API extends \Piwik\Plugin\API
             $website    = new Site($idSite);
             $timezone   = $website->getTimezone();
             $currencies = APISitesManager::getInstance()->getCurrencySymbols();
+
+            // live api is not summable, prevents errors like "Unexpected ECommerce status value"
+            $table->deleteRow(DataTable::ID_SUMMARY_ROW);
 
             foreach ($table->getRows() as $visitorDetailRow) {
                 $visitorDetailsArray = Visitor::cleanVisitorDetails($visitorDetailRow->getColumns());
@@ -686,6 +689,15 @@ class API extends \Piwik\Plugin\API
 
         $dataTable = new DataTable();
         $dataTable->addRowsFromSimpleArray($data);
+       // $dataTable->disableFilter('Truncate');
+
+        if (!empty($data[0])) {
+            $columnsToNotAggregate = array_map(function () {
+                return 'skip';
+            }, $data[0]);
+
+            $dataTable->setMetadata(DataTable::COLUMN_AGGREGATION_OPS_METADATA_NAME, $columnsToNotAggregate);
+        }
 
         return $dataTable;
     }

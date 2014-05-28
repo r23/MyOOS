@@ -376,8 +376,7 @@
         "CustomVariablesReportDocumentation": "Dit rapport bevat informatie over uw aangepaste variabelen. Klik op de naam van een variabele om de verdeling van de waarden te zien. %s voor meer informatie over aangepaste variabelen in het algemeen, lees de %sCustom variabelen documentatie over piwik.org%s",
         "PluginDescription": "Aangepaste variabelen zijn naam-waarde paren die u zelf kunt instellen om extra informatie te verzamelen tijdens ​bezoek. Dit werkt met behulp van de JavaScript-API setVisitCustomVariables () functie. Piwik zal dan het aantal bezoeken, pagina's en conversies rapporteren voor elk van deze aangepaste namen en waarden.",
         "ScopePage": "omvang pagina",
-        "ScopeVisit": "omvang bezoek",
-        "TrackingHelp": "Help: %1$sCustom variabelen bijhouden in Piwik%2$s"
+        "ScopeVisit": "omvang bezoek"
     },
     "Dashboard": {
         "AddAWidget": "Voeg widget toe",
@@ -990,8 +989,6 @@
         "Congratulations": "Gefeliciteerd",
         "CongratulationsHelp": "<p>Gefeliciteerd! Uw Piwik installatie is voltooid.<\/p><p>Controleer of de javascript code geplaatst is op uw pagina's, en wacht op de eerste bezoekers!<\/p>",
         "DatabaseAbilities": "Database mogelijkheden",
-        "DatabaseCheck": "Database controle.",
-        "DatabaseClientVersion": "Database cliënt versie",
         "DatabaseCreation": "Database creatie",
         "DatabaseErrorConnect": "Fout opgetreden bij het maken van een verbinding met de database server.",
         "DatabaseServerVersion": "Database server versie",
@@ -1071,8 +1068,6 @@
         "SystemCheckPdoAndMysqliHelp": "Op een Linux server kunt u php compileren met de volgende opties: %1$s in uw php.ini, voeg de volgende regels toe: %2$s",
         "SystemCheckPhp": "PHP versie",
         "SystemCheckPhpPdoAndMysqli": "Meer informatie op: %1$sPHP PDO%2$s en %3$sMYSQLI%4$s.",
-        "SystemCheckSecureProtocol": "Beveiligd protocol",
-        "SystemCheckSecureProtocolHelp": "Het lijkt er op dat u https op uw webserver gebruikt. Deze regels zullen worden toegevoegd aan config\/config.ini.php:",
         "SystemCheckSplHelp": "U moet PHP opnieuw configureren en compileren met de standard PHP LIbrary (SPL) ingeschakeld (standaard)",
         "SystemCheckSummaryNoProblems": "Hoera! Er zijn geen problemen met je Piwik setup. Geef jezelf een schouderklopje.",
         "SystemCheckSummaryThereWereErrors": "Oeps! Piwik heeft enkele %1$skritieke problemen%2$s gedetecteerd in je Piwik setup. %3$sDeze problemen zouden meteen gefixed moeten worden.%4$s",

@@ -18,6 +18,7 @@ use Piwik\Filesystem;
 use Piwik\Http;
 use Piwik\Option;
 use Piwik\Piwik;
+use Piwik\Plugin\Manager as PluginManager;
 use Piwik\Plugin;
 use Piwik\Plugins\CorePluginsAdmin\Marketplace;
 use Piwik\Plugins\LanguagesManager\LanguagesManager;
@@ -27,9 +28,8 @@ use Piwik\Unzip;
 use Piwik\UpdateCheck;
 use Piwik\Updater;
 use Piwik\Version;
-use Piwik\View;
 use Piwik\View\OneClickDone;
-use Piwik\Plugin\Manager as PluginManager;
+use Piwik\View;
 
 /**
  *
@@ -61,6 +61,7 @@ class Controller extends \Piwik\Plugin\Controller
         $newVersion = $this->checkNewVersionIsAvailableOrDie();
 
         $view = new View('@CoreUpdater/newVersionAvailable');
+        $this->addCustomLogoInfo($view);
 
         $view->piwik_version = Version::VERSION;
         $view->piwik_new_version = $newVersion;
@@ -127,14 +128,19 @@ class Controller extends \Piwik\Plugin\Controller
         $view = new OneClickDone(Piwik::getCurrentUserTokenAuth());
         $view->coreError = $errorMessage;
         $view->feedbackMessages = $messages;
+
+        $this->addCustomLogoInfo($view);
+
         return $view->render();
     }
+
 
     public function oneClickResults()
     {
         $view = new View('@CoreUpdater/oneClickResults');
         $view->coreError = Common::getRequestVar('error', '', 'string', $_POST);
         $view->feedbackMessages = safe_unserialize(Common::unsanitizeInputValue(Common::getRequestVar('messages', '', 'string', $_POST)));
+        $this->addCustomLogoInfo($view);
         return $view->render();
     }
 
@@ -173,7 +179,7 @@ class Controller extends \Piwik\Plugin\Controller
     private function oneClick_Download()
     {
         $pathPiwikZip = PIWIK_USER_PATH . self::PATH_TO_EXTRACT_LATEST_VERSION . 'latest.zip';
-        $this->pathPiwikZip = SettingsPiwik::rewriteTmpPathWithHostname($pathPiwikZip);
+        $this->pathPiwikZip = SettingsPiwik::rewriteTmpPathWithInstanceId($pathPiwikZip);
 
         Filechecks::dieIfDirectoriesNotWritable(array(self::PATH_TO_EXTRACT_LATEST_VERSION));
 
@@ -186,7 +192,7 @@ class Controller extends \Piwik\Plugin\Controller
     private function oneClick_Unpack()
     {
         $pathExtracted = PIWIK_USER_PATH . self::PATH_TO_EXTRACT_LATEST_VERSION;
-        $pathExtracted = SettingsPiwik::rewriteTmpPathWithHostname($pathExtracted);
+        $pathExtracted = SettingsPiwik::rewriteTmpPathWithInstanceId($pathExtracted);
 
         $this->pathRootExtractedPiwik = $pathExtracted . 'piwik';
 
@@ -320,8 +326,13 @@ class Controller extends \Piwik\Plugin\Controller
         $cli = Common::isPhpCliMode() ? '_cli' : '';
         $welcomeTemplate = '@CoreUpdater/runUpdaterAndExit_welcome' . $cli;
         $doneTemplate = '@CoreUpdater/runUpdaterAndExit_done' . $cli;
+
         $viewWelcome = new View($welcomeTemplate);
+        $this->addCustomLogoInfo($viewWelcome);
+
         $viewDone = new View($doneTemplate);
+        $this->addCustomLogoInfo($viewDone);
+
         $doExecuteUpdates = Common::getRequestVar('updateCorePlugins', 0, 'integer') == 1;
 
         if(is_null($doDryRun)) {

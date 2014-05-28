@@ -19,9 +19,9 @@ use Piwik\AssetManager\UIAssetFetcher\StylesheetUIAssetFetcher;
 use Piwik\AssetManager\UIAssetFetcher;
 use Piwik\AssetManager\UIAssetMerger\JScriptUIAssetMerger;
 use Piwik\AssetManager\UIAssetMerger\StylesheetUIAssetMerger;
+use Piwik\Config as PiwikConfig;
 use Piwik\Plugin\Manager;
 use Piwik\Translate;
-use Piwik\Config as PiwikConfig;
 
 /**
  * AssetManager is the class used to manage the inclusion of UI assets:
@@ -253,7 +253,7 @@ class AssetManager extends Singleton
     public function getAssetDirectory()
     {
         $mergedFileDirectory = PIWIK_USER_PATH . "/tmp/assets";
-        $mergedFileDirectory = SettingsPiwik::rewriteTmpPathWithHostname($mergedFileDirectory);
+        $mergedFileDirectory = SettingsPiwik::rewriteTmpPathWithInstanceId($mergedFileDirectory);
 
         if (!is_dir($mergedFileDirectory)) {
             Filesystem::mkdir($mergedFileDirectory);
@@ -373,7 +373,7 @@ class AssetManager extends Singleton
     /**
      * @return UIAsset
      */
-    private function getMergedStylesheetAsset()
+    public function getMergedStylesheetAsset()
     {
         return $this->getMergedUIAsset(self::MERGED_CSS_FILE);
     }

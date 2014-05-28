@@ -401,8 +401,7 @@
         "CustomVariablesReportDocumentation": "Dieser Bericht enthält Informationen über Ihre benutzerdefinierten Variablen. Klicken Sie auf einen Variablennamen, um die Verteilung der Werte zu sehen. %s Für mehr Informationen über benutzerdefinierte Variablen, lesen Sie die %sDokumentation auf piwik.org%s",
         "PluginDescription": "Benutzerdefinierte Variablen sind Namen-Werte-Paare, die Sie über die setVisitCustomVariables() Funktion der Javascript-API setzen können. Piwik wird dann für jeden dieser Namen und Werte die Anzahl der Besuche, die Seiten sowie die Konversionen erfassen.",
         "ScopePage": "Anwendungsbereich Seite",
-        "ScopeVisit": "Anwendungsbereich Besuch",
-        "TrackingHelp": "Hilfe: %1$sBenutzerdefinierte Variablen in Piwik tracken%2$s"
+        "ScopeVisit": "Anwendungsbereich Besuch"
     },
     "Dashboard": {
         "AddAWidget": "Ein Widget hinzufügen",
@@ -1017,7 +1016,7 @@
         "MonthComparedToPreviousMonth": "vorheriger Monat",
         "MonthComparedToPreviousYear": "gleicher Monat im vorherigen Jahr",
         "NoResultMatchesCriteria": "Keine Zeilen entsprechen den Kriterien",
-        "TitleConsideredMoversAndShakersGrowth": "%1$s changed from %2$s to %3$s hat sich geändert zu %4$s. Darauf basierend ist eine Entwicklung jeder Reihe über %5$s%% zu erwarten.",
+        "TitleConsideredMoversAndShakersGrowth": "%1$s hat sich von %2$s auf %3$s geändert verglichen mit %4$s. Darauf basierend ist eine Entwicklung jeder Reihe über %5$s%% zu erwarten.",
         "TitleRowChangeDetails": "'%1$s' hat sich geändert von %2$s (%3$s) zu %4$s (%5$s) %6$s.",
         "TitleRowDisappearedDetails": "'%1$s' ist um %2$s gesunken und verschwand in %3$s verglichen zu %4$s.",
         "TitleRowMoverAndShaker": "Diese Reihe hatte einen größeren Einfluss als der Durchschnitt.",
@@ -1033,8 +1032,6 @@
         "Congratulations": "Glückwunsch",
         "CongratulationsHelp": "<p>Glückwunsch! Piwik ist nun installiert.<\/p><p>Stellen Sie sicher, dass der JavaScript-Code auf Ihrer Webseite eingefügt wurde und warten Sie auf die ersten Besucher.<\/p>",
         "DatabaseAbilities": "Datenbankfähigkeiten",
-        "DatabaseCheck": "Datenbankprüfung",
-        "DatabaseClientVersion": "Version der Datenbank",
         "DatabaseCreation": "Erzeuge Datenbank",
         "DatabaseErrorConnect": "Fehler beim Verbindungsaufbau zur Datenbank",
         "DatabaseServerVersion": "Version des Datenbankserver",
@@ -1119,8 +1116,6 @@
         "SystemCheckPdoAndMysqliHelp": "Auf einem Linux-Server können Sie PHP mit den folgenden Optionen kompilieren: %1$s In Ihrer php.ini fügen Sie dann die folgenden Zeilen ein: %2$s",
         "SystemCheckPhp": "PHP-Version",
         "SystemCheckPhpPdoAndMysqli": "Weitere Informationen unter: %1$sPHP PDO%2$s und %3$sMYSQLI%4$s.",
-        "SystemCheckSecureProtocol": "Sicherheitsprotokoll",
-        "SystemCheckSecureProtocolHelp": "Es scheint so, als ob Sie https auf Ihrem Webserver verwenden. Diese Zeilen werden der Datei config\/config.ini.php hinzugefügt:",
         "SystemCheckSplHelp": "Sie müssen PHP mit standardmäßig aktivierter Standard PHP Bibliothek (SPL) konfigurieren und neu übersetzen.",
         "SystemCheckSummaryNoProblems": "Gratulation! Es gibt keine Probleme mit Ihrer Piwik Installation. Sie können sich selbst auf die Schulter klopfen.",
         "SystemCheckSummaryThereWereErrors": "Ohje! Piwik hat einige %1$skritische Fehler%2$s mit Ihrer Installation festgestellt. %3$sDiese sollten schnellstmöglich behoben werden.%4$s",
@@ -1417,7 +1412,6 @@
     },
     "Referrers": {
         "AllReferrersReportDocumentation": "Dieser Bericht zeigt Ihnen all Ihre Verweise in einem einzigen Bericht. Es werden alle Webseiten, Suchbegriffe und Kampagnen gezeigt, die von Ihren Besuchern benutzt wurden um ihre Webseite zu finden.",
-        "CampaignFooterHelp": "Hilfe: %sKampagnen in Piwik tracken %s Hilfsseite zum generieren von URLs%s",
         "Campaigns": "Kampagnen",
         "CampaignsDocumentation": "Besucher, die aufgrund einer Kampagne auf Ihre Webseite kamen. Weitere Details finden Sie %sim Bericht%s.",
         "CampaignsReportDocumentation": "Dieser Bericht enthält Informationen darüber, welche Kampagnen Besucher auf Ihre Webseite gebracht haben. %s Für mehr Informationen zum Tracken von Kampagnen, lesen Sie die %sKampagnen-Dokumentation auf piwik.org%s",

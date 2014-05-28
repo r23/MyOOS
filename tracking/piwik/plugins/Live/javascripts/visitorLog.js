@@ -24,6 +24,14 @@
 
     $.extend(exports.VisitorLog.prototype, dataTablePrototype, {
 
+        handleColumnHighlighting: function () {
+
+        },
+
+        setFixWidthToMakeEllipsisWork: function () {
+
+        },
+
         /**
          * Initializes this class.
          */

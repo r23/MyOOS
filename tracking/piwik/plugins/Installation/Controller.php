@@ -14,8 +14,8 @@ use Piwik\AssetManager;
 use Piwik\Common;
 use Piwik\Config;
 use Piwik\DataAccess\ArchiveTableCreator;
-use Piwik\Db\Adapter;
 use Piwik\Db;
+use Piwik\Db\Adapter;
 use Piwik\DbHelper;
 use Piwik\Filesystem;
 use Piwik\Http;
@@ -182,6 +182,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         );
 
         if ($this->getParam('deleteTables')) {
+            Manager::getInstance()->clearPluginsInstalledConfig();
             Db::dropAllTables();
             $view->existingTablesDeleted = true;
         }
@@ -205,7 +206,6 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             }
         } else {
 
-            Manager::getInstance()->clearPluginsInstalledConfig();
             DbHelper::createTables();
             DbHelper::createAnonymousUser();
 

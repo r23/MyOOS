@@ -8,17 +8,17 @@
  */
 namespace Piwik\Plugins\Installation;
 
+use Piwik\CliMulti\Process;
 use Piwik\Common;
 use Piwik\Config;
-use Piwik\Db\Adapter;
 use Piwik\Db;
+use Piwik\Db\Adapter;
 use Piwik\DbHelper;
 use Piwik\Filechecks;
 use Piwik\Filesystem;
 use Piwik\Http;
 use Piwik\Piwik;
 use Piwik\Plugins\UserCountry\LocationProvider;
-use Piwik\ProxyHeaders;
 use Piwik\SettingsServer;
 
 class SystemCheck
@@ -174,6 +174,7 @@ class SystemCheck
         }
 
         $infos['timezone'] = SettingsServer::isTimezoneSupportEnabled();
+        $infos['cli_process_ok'] = Process::isSupported();
 
         $infos['tracker_status'] = Common::getRequestVar('trackerStatus', 0, 'int');
 

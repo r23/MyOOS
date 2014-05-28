@@ -17,6 +17,8 @@ use Zend_Session;
  */
 class Session extends Zend_Session
 {
+    const SESSION_NAME = 'PIWIK_SESSID';
+
     protected static $sessionStarted = false;
 
     /**
@@ -62,8 +64,7 @@ class Session extends Zend_Session
         @ini_set('session.cookie_httponly', '1');
 
         // don't use the default: PHPSESSID
-        $sessionName = defined('PIWIK_SESSION_NAME') ? PIWIK_SESSION_NAME : 'PIWIK_SESSID';
-        @ini_set('session.name', $sessionName);
+        @ini_set('session.name', self::SESSION_NAME);
 
         // proxies may cause the referer check to fail and
         // incorrectly invalidate the session
@@ -121,7 +122,7 @@ class Session extends Zend_Session
             }
 
             $pathToSessions = Filechecks::getErrorMessageMissingPermissions(Filesystem::getPathToPiwikRoot() . '/tmp/sessions/');
-            $pathToSessions = SettingsPiwik::rewriteTmpPathWithHostname($pathToSessions);
+            $pathToSessions = SettingsPiwik::rewriteTmpPathWithInstanceId($pathToSessions);
             $message = sprintf("Error: %s %s %s\n<pre>Debug: the original error was \n%s</pre>",
                 Piwik::translate('General_ExceptionUnableToStartSession'),
                 $pathToSessions,
@@ -141,7 +142,7 @@ class Session extends Zend_Session
     public static function getSessionsDirectory()
     {
         $path = PIWIK_USER_PATH . '/tmp/sessions';
-        return SettingsPiwik::rewriteTmpPathWithHostname($path);
+        return SettingsPiwik::rewriteTmpPathWithInstanceId($path);
     }
 
     public static function close()

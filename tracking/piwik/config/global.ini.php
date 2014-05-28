@@ -154,6 +154,16 @@ browser_archiving_disabled_enforce = 0
 ;       this will only affect custom segments added or modified after this setting is changed.
 enable_create_realtime_segments = 1
 
+; Whether to enable the "Suggest values for segment" in the Segment Editor panel.
+; Set this to 0 in case your Piwik database is very big, and suggested values may not appear in time
+enable_segment_suggested_values = 1
+
+; By default, any user with a "view" access for a website can create segment assigned to this website.
+; Set this to "admin" or "superuser" to require that users should have at least this access to create new segments.
+; Note: anonymous user (even if it has view access) is not allowed to create or edit segment.
+; Possible values are "view", "admin", "superuser"
+adding_segment_requires_access = "view"
+
 ; this action name is used when the URL ends with a slash /
 ; it is useful to have an actual string to write in the UI
 action_default_name = index
@@ -164,6 +174,10 @@ default_language = en
 
 ; default number of elements in the datatable
 datatable_default_limit = 10
+
+; Each datatable report has a Row Limit selector at the bottom right.
+; By default you can select from 5 to 500 rows. You may customise the values below:
+datatable_row_limits = "5,10,25,50,100,250,500"
 
 ; default number of rows returned in API responses
 ; this value is overwritten by the '# Rows to display' selector.
@@ -354,6 +368,11 @@ enable_trusted_host_check = 1
 ;trusted_hosts[] = example.com
 ;trusted_hosts[] = stats.example.com
 
+; If you use this Piwik instance over multiple hostnames, Piwik will need to know
+; a unique instance_id for this instance, so that Piwik can serve the right custom logo and tmp/* assets,
+; independantly of the hostname Piwik is currently running under.
+; instance_id = stats.example.com
+
 ; The release server is an essential part of the Piwik infrastructure/ecosystem
 ; to provide the latest software version.
 latest_version_url = http://builds.piwik.org/latest.zip
@@ -417,6 +436,7 @@ enable_auto_update = 1
 ; By setting this option to 0, no emails will be sent in case of an available core.
 ; If set to 0 it also disables the "sent plugin update emails" feature in general and the related setting in the UI.
 enable_update_communication = 1
+
 
 [Tracker]
 ; Piwik uses first party cookies by default. If set to 1,
@@ -617,6 +637,7 @@ Plugins[] = SegmentEditor
 Plugins[] = Insights
 
 Plugins[] = Morpheus
+Plugins[] = ZenMode
 
 [PluginsInstalled]
 PluginsInstalled[] = Login

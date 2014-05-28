@@ -8,8 +8,8 @@
 
 namespace Piwik\Plugins\CoreConsole\Commands;
 
-use Piwik\Plugin\Manager;
 use Piwik\Plugin\ConsoleCommand;
+use Piwik\Plugin\Manager;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -43,7 +43,7 @@ class ManagePlugin extends ConsoleCommand
         $plugins = $input->getArgument('plugins');
 
         if (empty($this->operations[$operation])) {
-            throw new Exception("Invalid operation '$operation'.");
+            throw new \Exception("Invalid operation '$operation'.");
         }
 
         $fn = $this->operations[$operation];
