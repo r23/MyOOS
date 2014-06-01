@@ -40,6 +40,9 @@ $aLang['text_guest'] = 'No private data is stored and no private account will be
 $aLang['entry_remember_me'] = 'Remember me';
 
 
+$aLang['text_password_lost'] = 'Lost your password?';
+$aLang['text_password_forgotten'] = 'Click here to recover.';
+
 $aLang['text_login_error'] = 'No match for \'E-Mail Address\' and/or \'Password\'.';
 $aLang['text_visitors_cart'] = '<font color="#ff0000"><b>NOTE:</b></font> Your &quot;Visitors Cart&quot; contents will be merged with your &quot;Members Cart&quot; contents once you have logged on. <a href="javascript:session_win(\'' . oos_href_link($aContents['info_shopping_cart']) . '\');">[More Info]</a>';
 

@@ -364,7 +364,6 @@ if (!isset($_SESSION['customer_id'])) {
 
     if (ACCOUNT_GENDER == 'true') $sql_data_array['entry_gender'] = $gender;
     if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $company;
-    if (ACCOUNT_OWNER == 'true') $sql_data_array['entry_owner'] = $owner;
     if (ACCOUNT_SUBURB == 'true') $sql_data_array['entry_suburb'] = $suburb;
 
     if (ACCOUNT_STATE == 'true') {
@@ -409,9 +408,6 @@ if (!isset($_SESSION['customer_id'])) {
       if (ACCOUNT_COMPANY == 'true') {
         $email_owner .= $aLang['owner_email_company_info'] . "\n" .
                         $aLang['owner_email_company'] . ' ' . $company . "\n";
-        if (ACCOUNT_OWNER == 'true') {
-          $email_owner .= $aLang['owner_email_owner'] . ' ' . $owner . "\n";
-        }
         if (ACCOUNT_VAT_ID == 'true') {
           $email_owner .= $aLang['entry_vat_id'] . ' ' . $vat_id . "\n";
         }

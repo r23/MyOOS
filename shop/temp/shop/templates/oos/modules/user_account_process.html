@@ -92,12 +92,7 @@
             <td class="main">&nbsp;{$lang.entry_company}</td>
             <td class="main">&nbsp;{$company}<input type=hidden name="company" value="{$company}"></td>
           </tr>
-  {if $smarty.const.ACCOUNT_OWNER eq 'true'}
-          <tr>
-            <td class="main">&nbsp;{$lang.entry_owner}</td>
-            <td class="main">&nbsp;{$owner}<input type=hidden name="owner" value="{$owner}"></td>
-          </tr>
-  {/if}
+
   {if $smarty.const.ACCOUNT_VAT_ID eq 'true'}
           <tr>
             <td class="main">&nbsp;{$lang.entry_vat_id}</td>

@@ -20,21 +20,70 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if (!isset($_POST['action'])) {
-    oos_redirect(oos_href_link($aContents['create_account']));
+// start the session
+if ( is_session_started() === FALSE ) oos_session_start();
+
+// if the customer is logged on, redirect them to the account page
+if (isset($_SESSION['customer_id'])) {
+    oos_redirect(oos_href_link($aContents['account'], '', 'SSL'));
+}
+
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account_process.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
+
+$country = isset($_POST['country']) ? (int)$_POST['country'] : STORE_COUNTRY;
+
+$bProcess = FALSE;
+if (isset($_POST['action']) && ($_POST['action'] == 'process') && isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])){
+	$bProcess = TRUE;
+
+	if (ACCOUNT_GENDER == 'true') {
+		$gender = isset($_POST['gender']) ? oos_db_prepare_input($_POST['gender']) : '';
+	}
+	$firstname = oos_db_prepare_input($_POST['firstname']);
+	$lastname = oos_db_prepare_input($_POST['lastname']);	
+	if (ACCOUNT_DOB == 'true') {
+		$dob = oos_db_prepare_input($_POST['dob']);
+	}
+	$email_address = oos_db_prepare_input($_POST['email_address']);
+    if (ACCOUNT_NUMBER == 'true') {
+		$number = oos_db_prepare_input($_POST['number']);
+	}
+	
+	if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $company;
+    if (ACCOUNT_SUBURB == 'true') $sql_data_array['entry_suburb'] = $suburb;
+    if (ACCOUNT_STATE == 'true') {
+	
+	
+	
+  if (ACCOUNT_COMPANY == 'true') {
+    $company = xtc_db_prepare_input($_POST['company']);
   }
-
-  
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account_process.php';
-  require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
-
-  $firstname = oos_db_prepare_input($_POST['firstname']);
-  $lastname = oos_db_prepare_input($_POST['lastname']);
-
-  $error = FALSE; // reset error flag
+  if (ACCOUNT_VAT_ID == 'true') {
+    $vat = xtc_db_prepare_input($_POST['vat']);
+  }
+  $street_address = xtc_db_prepare_input($_POST['street_address']);
+  if (ACCOUNT_SUBURB == 'true') {
+    $suburb = xtc_db_prepare_input($_POST['suburb']);
+  }
+  $postcode = xtc_db_prepare_input($_POST['postcode']);
+  $city = xtc_db_prepare_input($_POST['city']);
+  $zone_id = isset($_POST['zone_id']) ? xtc_db_prepare_input($_POST['zone_id']) : 0;
+  if (ACCOUNT_STATE == 'true') {
+    $state = isset($_POST['state']) ? xtc_db_prepare_input($_POST['state']) : '';
+  }
+  $telephone = xtc_db_prepare_input($_POST['telephone']);
+  $fax = xtc_db_prepare_input($_POST['fax']);
+  $newsletter = isset($_POST['newsletter']) ? (int)$_POST['newsletter'] : '';
+  $password = xtc_db_prepare_input($_POST['password']);
+  $confirmation = xtc_db_prepare_input($_POST['confirmation']);	
+	
+	
+	
+	$error = FALSE; // reset error flag
 
   if (ACCOUNT_GENDER == 'true') {
     if (($gender == 'm') || ($gender == 'f')) {
@@ -209,7 +258,7 @@
   if ($error == TRUE) {
 
     $processed = TRUE;
-    if ((CUSTOMER_NOT_LOGIN == 'true') or (MAKE_PASSWORD == 'true')) {
+    if (CUSTOMER_NOT_LOGIN == 'true') {
       $show_password = FALSE;
     } else {
       $show_password = 'true';
@@ -370,7 +419,6 @@
 
     if (ACCOUNT_GENDER == 'true') $sql_data_array['entry_gender'] = $gender;
     if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $company;
-    if (ACCOUNT_OWNER == 'true') $sql_data_array['entry_owner'] = $owner;
     if (ACCOUNT_SUBURB == 'true') $sql_data_array['entry_suburb'] = $suburb;
     if (ACCOUNT_STATE == 'true') {
       if ($zone_id > 0) {
@@ -523,9 +571,7 @@
       if (ACCOUNT_COMPANY == 'true') {
         $email_owner .= $aLang['owner_email_company_info'] . "\n" .
                         $aLang['owner_email_company'] . ' ' . $company . "\n";
-        if (ACCOUNT_OWNER == 'true') {
-          $email_owner .= $aLang['owner_email_owner'] . ' ' . $owner . "\n";
-        }
+
         if (ACCOUNT_VAT_ID == 'true') {
           $email_owner .= $aLang['entry_vat_id'] . ' ' . $vat_id . "\n";
         }

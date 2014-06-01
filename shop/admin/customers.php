@@ -203,7 +203,6 @@
                                 'entry_country_id' => $entry_country_id);
 
         if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $entry_company;
-        if (ACCOUNT_OWNER == 'true') $sql_data_array['entry_owner'] = $entry_owner;
         if (ACCOUNT_SUBURB == 'true') $sql_data_array['entry_suburb'] = $entry_suburb;
         if (ACCOUNT_STATE == 'true') {
           $sql_data_array['entry_state'] = $entry_state;
@@ -505,16 +504,6 @@ function popupGoogleMap(url) {
             <td class="main"><?php echo ENTRY_COMPANY; ?></td>
             <td class="main"><?php echo oos_draw_input_field('entry_company', $cInfo->entry_company, 'maxlength="32"'); ?></td>
           </tr>
-<?php
-      if (ACCOUNT_OWNER == 'true') {
-?>
-          <tr>
-            <td class="main"><?php echo ENTRY_OWNER; ?></td>
-            <td class="main"><?php echo oos_draw_input_field('entry_owner', $cInfo->entry_owner, 'maxlength="32"'); ?></td>
-          </tr>
-<?php
-      }
-?>
 
 <?php
       if (ACCOUNT_VAT_ID == 'true') {

@@ -238,9 +238,6 @@ define('ACCOUNT_NUMBER_DESC', 'Verwaltung von eigenen Kundenummern, wenn auf \'t
 define('ACCOUNT_COMPANY_TITLE', 'Firmenname');
 define('ACCOUNT_COMPANY_DESC', 'Ein Firmenname für gewerbliche Kunden kann eingegeben werden. Die Eingabe ist nicht zwingend notwendig.');
 
-define('ACCOUNT_OWNER_TITLE', 'Inhaber');
-define('ACCOUNT_OWNER_DESC', 'Der Inhaber der Firmen bei gewerblichen Kunden kann eingegeben werden. Die Eingabe ist nicht zwingend notwendig.');
-
 define('ACCOUNT_VAT_ID_TITLE', 'Umsatzsteuer ID');
 define('ACCOUNT_VAT_ID_DESC', 'Die Umsatzsteuer ID bei gewerblichen Kunden kann eingegeben werden.');
 

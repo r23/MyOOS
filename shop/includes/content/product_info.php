@@ -54,6 +54,7 @@
 
   if (!$product_info_result->RecordCount()) {
     // product not found
+	header("HTTP/1.1 410 Gone");
     $aLang['text_information'] = $aLang['text_product_not_found'];
 
     $aTemplate['page'] = $sTheme . '/system/info.tpl';
