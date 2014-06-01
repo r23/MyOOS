@@ -220,7 +220,7 @@ function print_FormEditabletext() {
         ' </tr>' . "\n" .
         ' <tr>' . "\n" .
         '   <td align="left"><font class="oos-normal">' . DBTYPE . '</font><br /><font class="small">' . DBTYPE_DESC . '</font></td>' . "\n" .
-        '   <td><select name="dbtype"><option value="mysql" selected>&nbsp;MySQL&nbsp;</option><option value="mysqli">&nbsp;MySQLi&nbsp;</option><option value="postgres">&nbsp;Postgres&nbsp;</option></select></td>' . "\n" .
+        '   <td><select name="dbtype"><option value="mysqli">&nbsp;MySQLi&nbsp;</option><option value="postgres">&nbsp;Postgres&nbsp;</option></select></td>' . "\n" .
         ' </tr>' . "\n" .
         '</table>' . "\n";
 

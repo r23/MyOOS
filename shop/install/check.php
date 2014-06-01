@@ -67,8 +67,8 @@ function oosCheckPHP() {
 ?>
 <table class="content">
 <tr> 
-  <td>PHP version >= 4.2.0</td>
-  <td align="left"><?php echo phpversion() < '4.2' ? '<b><font color="red">No</font></b>' : '<b><font color="green">Yes</font></b>';?></td>
+  <td>PHP version >= 5.2.3</td>
+  <td align="left"><?php echo phpversion() < '5.2.3' ? '<b><font color="red">No</font></b>' : '<b><font color="green">Yes</font></b>';?></td>
 </tr>
 <tr>
   <td>&nbsp; - MySQL support</td> 
@@ -167,42 +167,7 @@ function oosCheckPHP() {
   }
   echo oosGetPHPSetting('file_uploads');
 ?>
-  </b></font></td>
-</tr>
-<tr>
-  <td>Magic Quotes GPC:</td>
-  <td class="toggle">ON</td>
-  <td>
-<?php 
-  if ( oosGetPHPSetting('magic_quotes_gpc') == 'ON' ) {
-?>
-    <font color="green"><b>
-<?php
-  } else {
-?>
-    <font color="red" style="bold"><b>
-<?php
-   }
-  echo oosGetPHPSetting('magic_quotes_gpc');
-?>
-  </b></font></td>
-</tr>
-<tr>
-  <td>Magic Quotes Runtime:</td>
-  <td class="toggle">OFF</td>
-  <td>
-<?php
-  if ( oosGetPHPSetting('magic_quotes_runtime') == 'OFF' ) {
-?>
-    <font color="green"><b>
-<?php
-  } else {
-?>
-    <font color="red" style="bold"><b>
-<?php
-   }
-  echo oosGetPHPSetting('magic_quotes_runtime');
-?>
+
   </b></font></td>
 </tr>
 
