@@ -6,7 +6,7 @@ global $ADODB_INCLUDED_LIB;
 $ADODB_INCLUDED_LIB = 1;
 
 /*
-  @version V5.19dev  ??-???-2014  (c) 2000-2014 John Lim (jlim#natsoft.com). All rights reserved.
+  @version V5.19  23-Apr-2014  (c) 2000-2014 John Lim (jlim#natsoft.com). All rights reserved.
   Released under both BSD license and Lesser GPL library license.
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence. See License.txt.
@@ -645,7 +645,7 @@ function _adodb_getupdatesql(&$zthis,&$rs, $arrFields,$forceUpdate=false,$magicq
 					}
 
 					if ((strpos($upperfname,' ') !== false) || ($ADODB_QUOTE_FIELDNAMES)) {
-						switch (ADODB_QUOTE_FIELDNAMES) {
+						switch ($ADODB_QUOTE_FIELDNAMES) {
 						case 'LOWER':
 							$fnameq = $zthis->nameQuote.strtolower($field->name).$zthis->nameQuote;break;
 						case 'NATIVE':
@@ -657,8 +657,6 @@ function _adodb_getupdatesql(&$zthis,&$rs, $arrFields,$forceUpdate=false,$magicq
 					} else
 						$fnameq = $upperfname;
 
-
-                // is_null requires php 4.0.4
                 //********************************************************//
                 if (is_null($arrFields[$upperfname])
 					|| (empty($arrFields[$upperfname]) && strlen($arrFields[$upperfname]) == 0)
@@ -817,7 +815,7 @@ static $cacheCols;
 		if (adodb_key_exists($upperfname,$arrFields,$force)) {
 			$bad = false;
 			if ((strpos($upperfname,' ') !== false) || ($ADODB_QUOTE_FIELDNAMES)) {
-				switch (ADODB_QUOTE_FIELDNAMES) {
+				switch ($ADODB_QUOTE_FIELDNAMES) {
 				case 'LOWER':
 					$fnameq = $zthis->nameQuote.strtolower($field->name).$zthis->nameQuote;break;
 				case 'NATIVE':
@@ -1206,5 +1204,3 @@ function _adodb_find_from($sql)
 	}
 }
 */
-
-?>

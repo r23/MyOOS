@@ -1,6 +1,6 @@
 <?php
 /*
- V5.19dev  ??-???-2014  (c) 2000-2014 John Lim (jlim#natsoft.com). All rights reserved.
+ V5.19  23-Apr-2014  (c) 2000-2014 John Lim (jlim#natsoft.com). All rights reserved.
   Released under both BSD license and Lesser GPL library license.
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
@@ -122,9 +122,9 @@ class ADODB_postgres64 extends ADOConnection{
 	// to know what the concequences are. The other values are correct (wheren't in 0.94)
 	// -- Freek Dijkstra
 
-	function ADODB_postgres64()
+	function __construct()
 	{
-	// changes the metaColumnsSQL, adds columns: attnum[6]
+		// changes the metaColumnsSQL, adds columns: attnum[6]
 	}
 
 	function ServerInfo()
@@ -590,7 +590,12 @@ a different OID if a database must be reloaded. */
 
 	function Param($name,$type='C')
 	{
-		$this->_pnum += 1;
+		if ($name) {
+			$this->_pnum += 1;
+		} else {
+			// Reset param num if $name is false
+			$this->_pnum = 1;
+		}
 		return '$'.$this->_pnum;
 	}
 
@@ -895,7 +900,8 @@ class ADORecordSet_postgres64 extends ADORecordSet{
 	var $_blobArr;
 	var $databaseType = "postgres64";
 	var $canSeek = true;
-	function ADORecordSet_postgres64($queryID,$mode=false)
+
+	function __construct($queryID, $mode=false)
 	{
 		if ($mode === false) {
 			global $ADODB_FETCH_MODE;
@@ -911,6 +917,8 @@ class ADORecordSet_postgres64 extends ADORecordSet{
 		default: $this->fetchMode = PGSQL_BOTH; break;
 		}
 		$this->adodbFetchMode = $mode;
+
+		// Parent's constructor
 		$this->ADORecordSet($queryID);
 	}
 
@@ -1091,4 +1099,3 @@ class ADORecordSet_postgres64 extends ADORecordSet{
 	}
 
 }
-?>
