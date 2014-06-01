@@ -113,7 +113,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
 $oBreadcrumb->add($aLang['navbar_title']);
 $sCanonical = oos_href_link($aContents['login'], '', 'SSL', FALSE, TRUE);
 $sPagetitle = $aLang['heading_title'];
- $bError = TRUE;
+
 if (isset($bError) && ($bError == TRUE)) {
     $sErrorMessage = $aLang['text_login_error'];
 } 
@@ -132,7 +132,7 @@ if (!isset($option)) {
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
 }
 
-  // assign Smarty variables;
+// assign Smarty variables;
 $smarty->assign(
       array(
           'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
