@@ -126,8 +126,8 @@ $aLang['block_information_shipping'] = 'Liefer- und&nbsp;Versandkosten';
 $aLang['block_information_gv'] = 'Gutschein einlösen';
 
 //login
-$aLang['entry_email_address'] = 'eMail Adresse:';
-$aLang['entry_password'] = 'Passwort:';
+$aLang['entry_email_address'] = 'eMail Adresse';
+$aLang['entry_password'] = 'Passwort';
 $aLang['text_password_info'] = 'Passwort vergessen?';
 $aLang['button_login'] = 'Login';
 $aLang['login_block_new_customer'] = 'Neukunde';

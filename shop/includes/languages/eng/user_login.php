@@ -28,15 +28,16 @@ if (isset($_GET['origin']) && ($_GET['origin'] == $aContents['checkout_payment']
   $aLang['heading_title'] = 'Welcome, Please Sign In';
 }
 
-$aLang['heading_new_customer'] = 'New Customer';
-$aLang['text_new_customer'] = 'I am a new customer.';
-$aLang['text_new_customer_introduction'] = 'By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.';
+$aLang['text_new_customer'] = 'Not registered?';
+$aLang['text_new_customer_introduction'] = 'Create an Account.';
 
 $aLang['heading_returning_customer'] = 'Returning Customer';
 $aLang['text_returning_customer'] = 'I am a returning customer.';
 
 $aLang['title_guest'] = 'Order with a guest account';
 $aLang['text_guest'] = 'No private data is stored and no private account will be created.<br /><br />If you return for another order, all details need to be filled in again.';
+
+$aLang['entry_remember_me'] = 'Remember me';
 
 
 $aLang['text_login_error'] = 'No match for \'E-Mail Address\' and/or \'Password\'.';

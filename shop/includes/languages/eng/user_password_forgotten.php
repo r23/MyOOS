@@ -25,6 +25,9 @@ $aLang['navbar_title_2'] = 'Password Forgotten';
 $aLang['heading_title'] = 'I\'ve Forgotten My Password!';
 $aLang['text_email_address_into'] = 'Please enter the email address you used to register. We will then send you a new password.';
 
+$aLang['text_new_customer'] = 'Not registered?';
+$aLang['text_new_customer_introduction'] = 'Create an Account.';
+
 $aLang['text_no_email_address_found'] = ' The E-Mail Address was not found in our records, please try again.';
 $aLang['email_password_reminder_subject'] = STORE_NAME . ' - New Password';
 $aLang['email_password_reminder_body'] = 'A new password was requested from ' . oos_server_get_remote() . '.' . "\n\n" . 'Your new password to \'' . STORE_NAME . '\' is:' . "\n\n" . '   %s' . "\n\n";

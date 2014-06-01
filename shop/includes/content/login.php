@@ -122,7 +122,7 @@ if (isset($_SESSION) && ($_SESSION['cart']->count_contents())) {
     $sInfoMessage = $aLang['text_visitors_cart'];
 }
 
-$aTemplate['page'] = $sTheme . '/page/user_login.tpl';
+$aTemplate['page'] = $sTheme . '/page/login.tpl';
 
 $nPageType = OOS_PAGE_TYPE_SERVICE;
 

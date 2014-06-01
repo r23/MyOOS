@@ -107,7 +107,6 @@ if (isset($_GET['info_message']) && !empty($_GET['info_message'])) {
 }
 
 if (isset($sErrorMessage) && !empty($sErrorMessage)) {
-
     $aInfoMessage[] = array('type' => 'danger',
                             'title' => $aLang['danger'],
                             'text' => $sErrorMessage);

@@ -125,8 +125,8 @@ $aLang['block_information_shipping'] = 'Shipping & Returns';
 $aLang['block_information_gv'] = 'Gift Voucher FAQ';
 
 // login
-$aLang['entry_email_address'] = 'E-Mail Address:';
-$aLang['entry_password'] = 'Password:';
+$aLang['entry_email_address'] = 'E-Mail Address';
+$aLang['entry_password'] = 'Password';
 $aLang['text_password_info'] = 'Password forgotten?';
 $aLang['button_login'] = 'Login';
 $aLang['login_block_new_customer'] = 'New Customer';

@@ -44,7 +44,6 @@ $aContents['admin_login'] = $prefix_filename . 'admin_login';
 //includes/content/gv
 $aContents['gv_faq'] = $prefix_filename . 'gv_faq';
 $aContents['gv_redeem'] = $prefix_filename . 'gv_redeem';
-$aContents['popup_coupon_help'] = $prefix_filename . 'popup_coupon_help';
 
 //includes/content/info
 $aContents['info_down_for_maintenance'] = $prefix_filename . 'down_for_maintenance';
@@ -52,13 +51,11 @@ $aContents['info_max_order'] = $prefix_filename . 'max_order';
 $aContents['info_sitemap'] = $prefix_filename . 'sitemap';
 $aContents['information'] = $prefix_filename . 'information';
 
-
 //includes/content/main
 $aContents['main'] = $prefix_filename . 'main';
 $aContents['shop'] = $prefix_filename . 'shop';
 $aContents['redirect'] = $prefix_filename . 'redirect';
 $aContents['main_shopping_cart'] = $prefix_filename . 'main_shopping_cart';
-$aContents['info_autologon'] = $prefix_filename . 'info_autologon'; 
 $aContents['info_shopping_cart'] = $prefix_filename . 'info_shopping_cart';
 $aContents['main_wishlist'] = $prefix_filename . 'main_wishlist.php';
 $aContents['contact_us'] = $prefix_filename . 'contact_us';
@@ -73,8 +70,6 @@ $aContents['subscription_center'] = $prefix_filename . 'subscription_center';
 $aContents['product_info'] = $prefix_filename . 'product_info';
 $aContents['products_new'] = $prefix_filename . 'products_new';
 $aContents['specials'] = $prefix_filename . 'specials';
-$aContents['popup_image'] = $prefix_filename . 'popup_image';
-
 
 //includes/content/pub
 $aContents['download'] = $prefix_filename . 'download';

@@ -31,8 +31,7 @@ error_reporting(E_ALL);
  * line out. When running an application on a new server, uncomment this line
  * to check the PHP version quickly.
  */
-if (version_compare(PHP_VERSION, '5.2.3', '<'))
-{
+if (version_compare(PHP_VERSION, '5.2.3', '<')) {
     header('Content-type: text/html; charset=utf-8', true, 503);
 
     echo '<h2>Fehler</h2>';
@@ -44,8 +43,7 @@ if (version_compare(PHP_VERSION, '5.2.3', '<'))
 }
 
 //setting basic configuration parameters
-if (function_exists('ini_set'))
-{
+if (function_exists('ini_set')) {
 	ini_set('session.use_trans_sid', 0);
 	ini_set('url_rewriter.tags', '');
 	ini_set('xdebug.show_exception_trace', 0);
@@ -55,28 +53,22 @@ if (function_exists('ini_set'))
 
 
 define('MYOOS_DOCUMENT_ROOT', dirname(__FILE__)=='/'?'':dirname(__FILE__));
-if(is_readable(MYOOS_DOCUMENT_ROOT . '/bootstrap.php'))
-{
+if(is_readable(MYOOS_DOCUMENT_ROOT . '/bootstrap.php')) {
 	require_once MYOOS_DOCUMENT_ROOT . '/bootstrap.php';
 }
 
-if(!defined('MYOOS_INCLUDE_PATH'))
-{
+if(!defined('MYOOS_INCLUDE_PATH')) {
 	define('MYOOS_INCLUDE_PATH', MYOOS_DOCUMENT_ROOT);
 }
 
 define('OOS_VALID_MOD', 'yes');
 require_once MYOOS_INCLUDE_PATH . '/includes/oos_main.php';
 
-if (is_readable('includes/content/' . $sContent . '.php'))
-{
+if (is_readable('includes/content/' . $sContent . '.php')) {
     require_once MYOOS_INCLUDE_PATH . '/includes/content/' . $sContent . '.php';
-}
-else
-{
+} else {
     oos_redirect(oos_href_link($aContents['error404']));
 }
 
 require_once MYOOS_INCLUDE_PATH . '/includes/oos_nice_exit.php';
-
 

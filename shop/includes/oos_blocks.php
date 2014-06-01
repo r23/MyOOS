@@ -48,13 +48,13 @@ foreach ($block_result as $block)
     $block_heading = $block['block_name'];
     $block_file = trim($block['block_file']);
     $block_side = $block['block_side'];
-# echo $block_file;
         
     if (empty($block_file)) {
         continue;
     }
 
     if (!empty($block_side)) {
+		#	echo $block_file;
         $block_tpl = $sTheme . '/blocks/' . $block_file . '.tpl';
     }
 
