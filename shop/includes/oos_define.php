@@ -40,6 +40,5 @@ define('OOS_PAGE_TYPE_CHECKOUT',  6);
 define('OOS_PAGE_TYPE_ACCOUNT',   8);
 define('OOS_PAGE_TYPE_REVIEWS',   9);
 
-define('MAKE_PASSWORD', 'false'); // OOS create the Password for login; 
 define('OOS_HOME', 'http://www.oos-shop.de/');
 

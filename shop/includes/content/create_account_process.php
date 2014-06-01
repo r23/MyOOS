@@ -180,9 +180,6 @@
   }
 
   if (CUSTOMER_NOT_LOGIN == 'false') {
-    if (MAKE_PASSWORD == 'true') {
-      $password = oos_create_random_value(ENTRY_PASSWORD_MIN_LENGTH);
-    } else {
       $passlen = strlen($password);
       if ($passlen < ENTRY_PASSWORD_MIN_LENGTH) {
         $error = TRUE;
@@ -195,7 +192,6 @@
         $error = TRUE;
         $password_error = 'true';
       }
-    }
   }
 
   $customerstable = $oostable['customers'];
@@ -510,9 +506,7 @@
                        "\n\n";
       }
     }
-    if (MAKE_PASSWORD == 'true') {
-      $email_text .= sprintf($aLang['email_password'], $password) . "\n\n";
-    }
+
     $email_text .= $aLang['email_text'] . $aLang['email_contact'] . $aLang['email_warning'] . $aLang['email_disclaimer'];
 
     oos_mail($name, $email_address, $aLang['email_subject'], nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '3');
@@ -566,4 +560,5 @@
 
     oos_redirect(oos_href_link($aContents['create_account_success'], '', 'SSL'));
   }
-?>
+
+ 
