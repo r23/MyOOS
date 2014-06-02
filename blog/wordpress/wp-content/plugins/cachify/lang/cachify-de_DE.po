@@ -51,7 +51,7 @@ msgstr "Festplatte"
 msgid "Cache method"
 msgstr "Cache-Aufbewahrungsort"
 
-msgid "Cache validity"
+msgid "Cache expiration"
 msgstr "Cache-Gültigkeit"
 
 msgid "Hours"
@@ -78,6 +78,6 @@ msgstr "Dokumentation"
 msgid "Books"
 msgstr "Handbücher"
 
-msgid "Easy to use WordPress cache plugin with static file serving in the database, hard disc, memcached and apc."
-msgstr "Smarter Cache für WordPress. Reduziert die Ladezeit der Blogseiten, indem Inhalte in statischer Form abgelegt und ausgeliefert werden."
+msgid "Easy to use WordPress caching plugin. Serving static blog pages from Database, Hard Disc, Memcached or APC."
+msgstr "Smarter Cache für WordPress. Zwischenspeicherung der Inhalte als statische Dateien wahlweise in der Datenbank, Festplatte, Memcached oder APC."
 

@@ -10,11 +10,13 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 
-Turbo für WordPress. Smarte, aber effiziente Cache-Lösung für WordPress. Mit der Konzentration aufs Wesentliche.
+Smart but efficient cache solution for WordPress. Use DB, HDD, APC or Memcached for storing your blog pages. Make WordPress faster!
 
 
 
 == Description ==
+
+*Note: The plugin is available in English and German.*
 
 = Unkompliziert und ausbaufähig =
 *Cachify* optimiert Ladezeit der Blogseiten, indem Seiteninhalte in statischer Form wahlweise in der Datenbank, auf der Festplatte (HDD) oder dank APC (Alternative PHP Cache) im Speicher des Webservers abgelegt und beim Seitenaufruf ohne Umwege ausgegeben werden. Die Anzahl der DB-Anfragen und PHP-Anweisungen reduziert sich je nach gewählter Methode gegen Null.
@@ -38,7 +40,7 @@ Turbo für WordPress. Smarte, aber effiziente Cache-Lösung für WordPress. Mit 
 
 
 > #### Cachify-Handbuch
-> Als Begleithandbuch und Installationshilfe für *Cachify* wurden ein Kindle-eBook und ein gedrucktes Taschenbuch mit dem Titel „[WordPress Performance](http://www.amazon.de/dp/B0091LDUVA "WordPress Performance"): Beschleunigung der Blogseiten durch Caching“ konzipiert und veröffentlicht. Beide Handbücher beleuchten verfügbare Caching-Methoden, empfehlen Plugin-Einstellungen und liefern wertvolle Tipps & Tricks zur Geschwindigkeitsoptimierung unter WordPress.
+> Als Begleithandbuch und Installationshilfe für *Cachify* wurden ein Kindle-eBook und ein gedrucktes Taschenbuch mit dem Titel „[WordPress Performance](http://www.amazon.de/dp/B0091LDUVA "WordPress Performance"): Beschleunigung der Blogseiten durch Caching“ veröffentlicht. Beide Handbücher beleuchten verfügbare Caching-Methoden, empfehlen Plugin-Einstellungen und liefern wertvolle Tipps & Tricks zur Geschwindigkeitsoptimierung unter WordPress.
 
 
 = Support =
@@ -74,6 +76,12 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 
 == Changelog ==
+
+= 2.1.7 =
+* Kein Caching der Seiten im WooCommerce-Checkout
+* Cache-Leerung bei Custom Post Types
+* Einführung zusätzlicher Sicherheitsabfragen
+* Code-Refactoring
 
 = 2.1.6 =
 * Button "Cache leeren" sichtbar sowohl in WP 3.8 wie WP 3.9

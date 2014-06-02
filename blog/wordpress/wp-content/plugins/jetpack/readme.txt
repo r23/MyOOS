@@ -1,7 +1,7 @@
 === Jetpack by WordPress.com ===
 Contributors: automattic, alternatekev, andy, apeatling, azaozz, barry, beaulebens, blobaugh, cfinke, chellycat, danielbachhuber, daniloercoli, designsimply, eoigal, ethitter, gibrown, georgestephanis, hew, hugobaeta, iammattthomas, jblz, jeherve, jkudish, Joen, johnjamesjacoby, jshreve, kraftbj, lancewillett, martinremy, matt, matveb, mcsf, mdawaffe, migueluy, nickmomrik, obenland, pento, richardmtl, stephdau, tmoorewp, Viper007Bond, westi, yoavf
 Tags: WordPress.com, statistics, stats, views, tweets, twitter, widget, gravatar, hovercards, profile, equations, latex, math, maths, youtube, shortcode, archives, audio, blip, bliptv, dailymotion, digg, flickr, googlevideo, google, googlemaps, kyte, kytetv, livevideo, redlasso, rockyou, rss, scribd, slide, slideshare, soundcloud, vimeo, shortlinks, wp.me, subscriptions, notifications, notes, json, api, rest, mosaic, gallery, slideshow, videopress, monitor, search, omnisearch, sso, jet pack
-Stable tag: 3.0
+Stable tag: 3.0.1
 Requires at least: 3.8
 Tested up to: 3.9.1
 
@@ -90,6 +90,15 @@ Learn more (and get detailed instructions) in our [contribute guide](http://jetp
 Jetpack 3.0 is full of enhancements and bug fixes, including a new Administrative User Interface. Upgrade today!
 
 == Changelog ==
+
+= 3.0.1 =
+* Bugfix: AtD: A wpcom-only function got synced by mistake and caused a few errors. Fixed.
+* Bugfix: Post By Email: Add static keyword to a function.
+* Bugfix: ShareDaddy: In the admin-side configuration of sharing links, we used a Path icon instead of Pinterest. Oops!
+* Bugfix: ShareDaddy: We inadvertently appended `via @jetpack` to some twitter shares. This is no longer the case.
+* Bugfix: Related Posts: Tidying up and relocation of the `resync` button formerly on the more info modal.
+* Bugfix: Infinite Scroll: Work better with core's MediaElement.js
+* Bugfix: Heartbeat: Undeclared variable fixed.
 
 = 3.0 =
 * New User Interface for managing modules and settings

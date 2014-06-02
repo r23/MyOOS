@@ -2,8 +2,8 @@
 
 Contributors: Braekling
 Requires at least: 3.8
-Tested up to: 3.9
-Stable tag: 0.9.9.10
+Tested up to: 3.9.1
+Stable tag: 0.9.9.11
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6046779
 Tags: statistics, stats, analytics, piwik, wpmu
 
@@ -125,9 +125,16 @@ Please update Piwik if not done yet (Piwik 2.0 or higher is recommended)!
 
 == Changelog ==
 
+= 0.9.9.11 =
+* Bugfix: PHP API causes plain text output issue, see http://wordpress.org/support/topic/bug-cant-access-to-tabs-in-setting-after-configuration
+* Bugfix: PHP API causes WordPress multisite login issue, see http://wordpress.org/support/topic/causes-multisite-superadmin-subsite-login-problem
+* Bugfix: Removed PHP warning if annotations are enabled and annotations will work again, see http://wordpress.org/support/topic/warning-message-everywhere-in-the-backend-call_user_func_array-expects
+* Feature: "Track visitors across all subdomains" script changes are done by Piwik now, see http://wordpress.org/support/topic/track-across-subdomains-wp-on-subdomain?replies=2
+* Update: Flattr API update
+
 = 0.9.9.10 =
 * Bugfix: Multisite login issue, see http://wordpress.org/support/topic/0999-multisite-frontend-not-logged-in
-* Bugfix: wpMandrall compatibility, see http://wordpress.org/support/topic/version-0999-conflicts-with-wpmandrill?replies=4
+* Bugfix: wpMandrill compatibility, see http://wordpress.org/support/topic/version-0999-conflicts-with-wpmandrill
 * Feature: Show page views (actions) in "visitors last 30"
 
 = 0.9.9.9 =

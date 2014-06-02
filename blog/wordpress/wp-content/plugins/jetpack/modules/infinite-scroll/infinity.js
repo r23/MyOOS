@@ -39,6 +39,9 @@ Scroller = function( settings ) {
 	this.footer           = $( '#infinite-footer' );
 	this.footer.wrap      = settings.footer;
 
+	// Core's native MediaElement.js implementation needs special handling
+	this.wpMediaelement   = null;
+
 	// We have two type of infinite scroll
 	// cases 'scroll' and 'click'
 
@@ -68,6 +71,7 @@ Scroller = function( settings ) {
 		// Ensure that enough posts are loaded to fill the initial viewport, to compensate for short posts and large displays.
 		self.ensureFilledViewport();
 		this.body.bind( 'post-load', { self: self }, self.checkViewportOnLoad );
+		this.body.bind( 'post-load', { self: self }, self.initializeMejs );
 	} else if ( type == 'click' ) {
 		if ( this.click_handle ) {
 			this.element.append( this.handle );
@@ -243,6 +247,8 @@ Scroller.prototype.refresh = function() {
 				// If additional scripts are required by the incoming set of posts, parse them
 				if ( response.scripts ) {
 					$( response.scripts ).each( function() {
+						var elementToAppendTo = this.footer ? 'body' : 'head';
+
 						// Add script handle to list of those already parsed
 						window.infiniteScroll.settings.scripts.push( this.handle );
 
@@ -254,7 +260,7 @@ Scroller.prototype.refresh = function() {
 							data.type = 'text/javascript';
 							data.appendChild( dataContent );
 
-							document.getElementsByTagName( this.footer ? 'body' : 'head' )[0].appendChild(data);
+							document.getElementsByTagName( elementToAppendTo )[0].appendChild(data);
 						}
 
 						// Build script tag and append to DOM in requested location
@@ -262,7 +268,20 @@ Scroller.prototype.refresh = function() {
 						script.type = 'text/javascript';
 						script.src = this.src;
 						script.id = this.handle;
-						document.getElementsByTagName( this.footer ? 'body' : 'head' )[0].appendChild(script);
+
+						// If MediaElement.js is loaded in by this set of posts, don't initialize the players a second time as it breaks them all
+						if ( 'wp-mediaelement' === this.handle ) {
+							self.body.unbind( 'post-load', self.initializeMejs );
+						}
+
+						if ( 'wp-mediaelement' === this.handle && 'undefined' === typeof mejs ) {
+							self.wpMediaelement = {};
+							self.wpMediaelement.tag = script;
+							self.wpMediaelement.element = elementToAppendTo;
+							setTimeout( self.maybeLoadMejs.bind( self ), 250 );
+						} else {
+							document.getElementsByTagName( elementToAppendTo )[0].appendChild(script);
+						}
 					} );
 				}
 
@@ -331,6 +350,62 @@ Scroller.prototype.refresh = function() {
 
 	return jqxhr;
 };
+
+/**
+ * Core's native media player uses MediaElement.js
+ * The library's size is sufficient that it may not be loaded in time for Core's helper to invoke it, so we need to delay until `mejs` exists.
+ */
+Scroller.prototype.maybeLoadMejs = function() {
+	if ( null === this.wpMediaelement ) {
+		return;
+	}
+
+	if ( 'undefined' === typeof mejs ) {
+		setTimeout( this.maybeLoadMejs, 250 );
+	} else {
+		document.getElementsByTagName( this.wpMediaelement.element )[0].appendChild( this.wpMediaelement.tag );
+		this.wpMediaelement = null;
+
+		// Ensure any subsequent IS loads initialize the players
+		this.body.bind( 'post-load', { self: this }, this.initializeMejs );
+	}
+}
+
+/**
+ * Initialize the MediaElement.js player for any posts not previously initialized
+ */
+Scroller.prototype.initializeMejs = function( ev, response ) {
+	// Are there media players in the incoming set of posts?
+	if ( -1 === response.html.indexOf( 'wp-audio-shortcode' ) && -1 === response.html.indexOf( 'wp-video-shortcode' ) ) {
+		return;
+	}
+
+	// Don't bother if mejs isn't loaded for some reason
+	if ( 'undefined' === typeof mejs ) {
+		return;
+	}
+
+	// Adapted from wp-includes/js/mediaelement/wp-mediaelement.js
+	// Modified to not initialize already-initialized players, as Mejs doesn't handle that well
+	$(function () {
+		var settings = {};
+
+		if ( typeof _wpmejsSettings !== 'undefined' ) {
+			settings.pluginPath = _wpmejsSettings.pluginPath;
+		}
+
+		settings.success = function (mejs) {
+			var autoplay = mejs.attributes.autoplay && 'false' !== mejs.attributes.autoplay;
+			if ( 'flash' === mejs.pluginType && autoplay ) {
+				mejs.addEventListener( 'canplay', function () {
+					mejs.play();
+				}, false );
+			}
+		};
+
+		$('.wp-audio-shortcode, .wp-video-shortcode').not( '.mejs-container' ).mediaelementplayer( settings );
+	});
+}
 
 /**
  * Trigger IS to load additional posts if the initial posts don't fill the window.
