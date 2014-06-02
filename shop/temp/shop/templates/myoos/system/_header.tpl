@@ -36,7 +36,7 @@
 <!--[if lt IE 9]>
 	<script src="{$theme}/js/html5.js"></script>
 <![endif]-->
-<script src="{$theme}/js/jquery.min.js"></script>
+
 </head>
 <body>
 <!--[if lt IE 7]>
