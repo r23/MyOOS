@@ -75,18 +75,7 @@
  {/if}
     </td>
   </tr>
-{if $smarty.const.ACCOUNT_SUBURB eq 'true'}
-  <tr>
-    <td class="main"><b>{$lang.entry_suburb}</b></td>
-    <td class="main">
-    {if $process eq 'true'}
-      {$suburb}<input type=hidden name="suburb" value="{$suburb}">
-    {else}
-      <input type="text" name="suburb" value="">&nbsp;
-    {/if}
-    </td>
-  </tr>
-{/if}
+
   <tr>
     <td class="main"><b>{$lang.entry_post_code}</b></td>
     <td class="main">
@@ -115,26 +104,7 @@
   {/if}
     </td>
   </tr>
-{if $smarty.const.ACCOUNT_STATE eq 'true'}
-  <tr>
-    <td class="main"><b>{$lang.entry_state}</b></td>
-    <td class="main">
-    {if $process eq 'true'}
-      {if $state_error eq 'true'}
-        {if $state_has_zones eq 'true'}
-          <select name=state>{html_options values=$zones_values output=$zones_names}</select>&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_info_text}</font></small>
-        {else}
-          <input type="text" name="state" value="">&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_state_error}</font></small>
-        {/if}
-      {else}
-        {$state} <input type=hidden name="zone_id" value="{$zone_id}"><input type=hidden name="state" value="{$state}">
-      {/if}
-    {else}
-      <input type="text" name="state" value="">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small>
-    {/if}
-    </td>
-  </tr>
-{/if}
+
   <tr>
     <td class="main"><b>{$lang.entry_country}</b></td>
     <td class="main">

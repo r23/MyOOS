@@ -244,8 +244,6 @@ define('ACCOUNT_COMPANY_DESC', 'Firmenname wird angezeigt');
 define('ACCOUNT_VAT_ID_TITLE', 'Umsatzsteuer ID');
 define('ACCOUNT_VAT_ID_DESC', 'Die Umsatzsteuer ID bei gewerblichen Kunden kann eingegeben werden.');
 
-define('ACCOUNT_SUBURB_TITLE', 'Stadtteil');
-define('ACCOUNT_SUBURB_DESC', 'Stadtteil wird angezeigt');
 
 
 define('STORE_ORIGIN_COUNTRY_TITLE', 'Country Code');

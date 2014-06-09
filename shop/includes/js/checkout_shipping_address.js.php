@@ -104,16 +104,8 @@ function check_form() {
     error_message = error_message + "<?php echo decode($aLang['js_city']); ?>";
     error = 1;
   }
-<?php
-  if (ACCOUNT_STATE == 'true') {
-?>
-  if (document.checkout_address.state.value == "" || document.checkout_address.state.length < <?php echo ENTRY_STATE_MIN_LENGTH; ?> ) {
-     error_message = error_message + "<?php echo decode($aLang['js_state']); ?>";
-     error = 1;
-  }
-<?php
-  }
-?>
+
+  
 
   if (document.checkout_address.country.value == 0) {
     error_message = error_message + "<?php echo decode($aLang['js_country']); ?>";

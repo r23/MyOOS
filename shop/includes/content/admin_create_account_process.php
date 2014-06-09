@@ -164,52 +164,6 @@
     $country_error = FALSE;
   }
 
-  if (ACCOUNT_STATE == 'true') {
-    if ($country_error == TRUE) {
-      $state_error = TRUE;
-    } else {
-      $zone_id = 0;
-      $state_error = FALSE;
-      $zonestable = $oostable['zones'];
-      $sql = "SELECT COUNT(*) as total
-              FROM $zonestable
-              WHERE zone_country_id = '" . oos_db_input($country) . "'";
-      $check_result = $dbconn->Execute($sql);
-      $check_value = $check_result->fields;
-      $state_has_zones = ($check_value['total'] > 0);
-      if ($state_has_zones == TRUE) {
-        $zonestable = $oostable['zones'];
-        $sql = "SELECT zone_id
-                FROM $zonestable
-                WHERE zone_country_id = '" . oos_db_input($country) . "'
-                  AND zone_name = '" . oos_db_input($state) . "'";
-        $zone_result = $dbconn->Execute($sql);
-        if ($zone_result->RecordCount() == 1) {
-          $zone_values = $zone_result->fields;
-          $zone_id = $zone_values['zone_id'];
-        } else {
-          $zonestable = $oostable['zones'];
-          $sql = "SELECT zone_id
-                  FROM $zonestable
-                  WHERE zone_country_id = '" . oos_db_input($country) . "'
-                    AND zone_code = '" . oos_db_input($state) . "'";
-          $zone_result = $dbconn->Execute($sql);
-          if ($zone_result->RecordCount() == 1) {
-            $zone_values = $zone_result->fields;
-            $zone_id = $zone_values['zone_id'];
-          } else {
-            $error = TRUE;
-            $state_error = TRUE;
-          }
-        }
-      } else {
-        if ($state == FALSE) {
-          $error = TRUE;
-          $state_error = TRUE;
-        }
-      }
-    }
-  }
 
   if (strlen($telephone) < ENTRY_TELEPHONE_MIN_LENGTH) {
     $error = TRUE;

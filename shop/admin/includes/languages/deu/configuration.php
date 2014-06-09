@@ -242,9 +242,6 @@ define('ACCOUNT_VAT_ID_TITLE', 'Umsatzsteuer ID');
 define('ACCOUNT_VAT_ID_DESC', 'Die Umsatzsteuer ID bei gewerblichen Kunden kann eingegeben werden.');
 
 
-define('ACCOUNT_SUBURB_TITLE', 'Stadtteil');
-define('ACCOUNT_SUBURB_DESC', 'Stadtteil wird angezeigt und kann eingegeben werden. Eine Eingabe ist nicht zwingend notwendig.');
-
 define('STORE_ORIGIN_COUNTRY_TITLE', 'Ländercode');
 define('STORE_ORIGIN_COUNTRY_DESC', 'Eingabe des &quot;ISO 3166&quot;-Ländercodes des Shops, der im Versandbereich benutzt werden soll. Zum Finden Ihres Ländercodes besuchen Sie die <a href="http://www.din.de/gremien/nas/nabd/iso3166ma/codlstp1/index.html" target="_blank">ISO 3166');
 

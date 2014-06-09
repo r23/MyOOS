@@ -65,9 +65,6 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') && isset($_SESSIO
 		$vat_id = oos_db_prepare_input($_POST['vat_id']);
 	}
 	$street_address = oos_db_prepare_input($_POST['street_address']);
-	if (ACCOUNT_SUBURB == 'true') {
-		$suburb = oos_db_prepare_input($_POST['suburb']);
-	}
 	$postcode = oos_db_prepare_input($_POST['postcode']);
 	$city = oos_db_prepare_input($_POST['city']);
 	$zone_id = isset($_POST['zone_id']) ? oos_db_prepare_input($_POST['zone_id']) : 0;
@@ -228,16 +225,6 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') && isset($_SESSIO
 
 		if (ACCOUNT_GENDER == 'true') $sql_data_array['entry_gender'] = $gender;
 		if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $company;
-		if (ACCOUNT_SUBURB == 'true') $sql_data_array['entry_suburb'] = $suburb;
-		if (ACCOUNT_STATE == 'true') {
-			if ($zone_id > 0) {
-				$sql_data_array['entry_zone_id'] = $zone_id;
-				$sql_data_array['entry_state'] = '';
-			} else {
-				$sql_data_array['entry_zone_id'] = '0';
-				$sql_data_array['entry_state'] = $state;
-			}
-		}
 
 		oos_db_perform($oostable['address_book'], $sql_data_array);
 

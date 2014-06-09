@@ -203,7 +203,6 @@
                                 'entry_country_id' => $entry_country_id);
 
         if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $entry_company;
-        if (ACCOUNT_SUBURB == 'true') $sql_data_array['entry_suburb'] = $entry_suburb;
 
         oos_db_perform($oostable['address_book'], $sql_data_array, 'update', "customers_id = '" . intval($customers_id) . "' and address_book_id = '" . oos_db_input($default_address_id) . "'");
 
@@ -536,16 +535,6 @@ function popupGoogleMap(url) {
             <td class="main"><?php echo ENTRY_STREET_ADDRESS; ?></td>
             <td class="main"><?php echo oos_draw_input_field('entry_street_address', $cInfo->entry_street_address, 'maxlength="64"', true); ?></td>
           </tr>
-<?php
-    if (ACCOUNT_SUBURB == 'true') {
-?>
-          <tr>
-            <td class="main"><?php echo ENTRY_SUBURB; ?></td>
-            <td class="main"><?php echo oos_draw_input_field('entry_suburb', $cInfo->entry_suburb, 'maxlength="32"'); ?></td>
-          </tr>
-<?php
-    }
-?>
           <tr>
             <td class="main"><?php echo ENTRY_POST_CODE; ?></td>
             <td class="main"><?php echo oos_draw_input_field('entry_postcode', $cInfo->entry_postcode, 'maxlength="8"', true); ?></td>

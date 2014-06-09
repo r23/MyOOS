@@ -134,7 +134,6 @@ if (!isset($_SESSION['customer_id'])) {
 
       if (ACCOUNT_GENDER == 'true') $sql_data_array['entry_gender'] = $gender;
       if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $company;
-      if (ACCOUNT_SUBURB == 'true') $sql_data_array['entry_suburb'] = $suburb;
 
       if ($_POST['action'] == 'update') {
         oos_db_perform($oostable['address_book'], $sql_data_array, 'update', "address_book_id = '" . oos_db_input($entry_id) . "' AND customers_id ='" . intval($_SESSION['customer_id']) . "'");

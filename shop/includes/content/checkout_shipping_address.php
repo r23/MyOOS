@@ -141,16 +141,7 @@ if ($_SESSION['cart']->count_contents() < 1) {
 
         if (ACCOUNT_GENDER == 'true') $sql_data_array['entry_gender'] = $gender;
         if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $company;
-        if (ACCOUNT_SUBURB == 'true') $sql_data_array['entry_suburb'] = $suburb;
-        if (ACCOUNT_STATE == 'true') {
-          if ($zone_id > 0) {
-            $sql_data_array['entry_zone_id'] = $zone_id;
-            $sql_data_array['entry_state'] = '';
-          } else {
-            $sql_data_array['entry_zone_id'] = '0';
-            $sql_data_array['entry_state'] = $state;
-          }
-        }
+
         oos_db_perform($oostable['address_book'], $sql_data_array);
 
         $_SESSION['sendto'] = $entry_id;
