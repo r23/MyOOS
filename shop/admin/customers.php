@@ -204,10 +204,6 @@
 
         if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $entry_company;
         if (ACCOUNT_SUBURB == 'true') $sql_data_array['entry_suburb'] = $entry_suburb;
-        if (ACCOUNT_STATE == 'true') {
-          $sql_data_array['entry_state'] = $entry_state;
-          $sql_data_array['entry_zone_id'] = $entry_zone_id;
-        }
 
         oos_db_perform($oostable['address_book'], $sql_data_array, 'update', "customers_id = '" . intval($customers_id) . "' and address_book_id = '" . oos_db_input($default_address_id) . "'");
 
@@ -343,20 +339,6 @@ function check_form() {
     error = 1;
   }
 
-<?php if (ACCOUNT_STATE == 'true') { ?>
-  if (document.customers.entry_zone_id.options.length <= 1) {
-    if (document.customers.entry_state.value == "" || document.customers.entry_state.length < 4 ) {
-       error_message = error_message + "<?php echo JS_STATE; ?>";
-       error = 1;
-    }
-  } else {
-    document.customers.entry_state.value = '';
-    if (document.customers.entry_zone_id.selectedIndex == 0) {
-       error_message = error_message + "<?php echo JS_ZONE; ?>";
-       error = 1;
-    }
-  }
-<?php } ?>
 
   if (document.customers.entry_country_id.value == 0) {
     error_message = error_message + "<?php echo JS_COUNTRY; ?>";
@@ -576,20 +558,6 @@ function popupGoogleMap(url) {
             <td class="main"><?php echo ENTRY_COUNTRY; ?></td>
             <td class="main"><?php echo oos_draw_pull_down_menu('entry_country_id', oos_get_countries(), $cInfo->entry_country_id, 'onChange="update_zone(this.form);"'); ?></td>
           </tr>
-<?php
-    if (ACCOUNT_STATE == 'true') {
-?>
-          <tr>
-            <td class="main"><?php echo ENTRY_STATE; ?></td>
-            <td class="main"><?php echo oos_draw_pull_down_menu('entry_zone_id', oos_prepare_country_zones_pull_down($cInfo->entry_country_id), $cInfo->entry_zone_id, 'onChange="resetStateText(this.form);"'); ?></td>
-          </tr>
-          <tr>
-            <td class="main">&nbsp;</td>
-            <td class="main"><?php echo oos_draw_input_field('entry_state', $cInfo->entry_state, 'maxlength="32" onChange="resetZoneSelected(this.form);"'); ?></td>
-          </tr>
-<?php
-    }
-?>
         </table></td>
       </tr>
       <tr>

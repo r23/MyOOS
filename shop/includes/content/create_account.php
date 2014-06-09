@@ -31,7 +31,6 @@ if (isset($_SESSION['customer_id'])) {
    oos_redirect(oos_href_link($aContents['account'], '', 'SSL'));
 }
 
-
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account_process.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
 
@@ -42,7 +41,6 @@ if (isset($_GET['email_address'])) {
 }
 
 $country = isset($_POST['country']) ? (int)$_POST['country'] : STORE_COUNTRY;
-
 
 $bProcess = FALSE;
 if (isset($_POST['action']) && ($_POST['action'] == 'process') && isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])){
@@ -73,9 +71,6 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') && isset($_SESSIO
 	$postcode = oos_db_prepare_input($_POST['postcode']);
 	$city = oos_db_prepare_input($_POST['city']);
 	$zone_id = isset($_POST['zone_id']) ? oos_db_prepare_input($_POST['zone_id']) : 0;
-	if (ACCOUNT_STATE == 'true') {
-		$state = isset($_POST['state']) ? oos_db_prepare_input($_POST['state']) : '';
-	}
 	$telephone = oos_db_prepare_input($_POST['telephone']);
 	$fax = oos_db_prepare_input($_POST['fax']);
 	$newsletter = isset($_POST['newsletter']) ? (int)$_POST['newsletter'] : '';
@@ -146,56 +141,6 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') && isset($_SESSIO
 		$country_error = 'true';
 	}
 
-
-	if (ACCOUNT_STATE == 'true') {
-		if ($entry_country_error) {
-			$state_error = 'true';
-		} else {
-			$zone_id = 0;
-			$state_error = 'false';
-
-			$zonestable = $oostable['zones'];
-			$country_check_sql = "SELECT COUNT(*) AS total
-                            FROM $zonestable
-                            WHERE zone_country_id = '" . intval($country) . "'";
-			$country_check = $dbconn->Execute($country_check_sql);
-
-			$entry_state_has_zones = ($country_check->fields['total'] > 0);
-
-			if ($entry_state_has_zones === TRUE) {
-				$state_has_zones = 'true';
-
-				$zonestable = $oostable['zones'];
-				$match_zone_sql = "SELECT zone_id
-									FROM $zonestable
-									WHERE zone_country_id = '" . intval($country) . "'
-									AND zone_name = '" . oos_db_input($state) . "'";
-				$match_zone_result = $dbconn->Execute($match_zone_sql);
-
-				if ($match_zone_result->RecordCount() == 1) {
-					$match_zone = $match_zone_result->fields;
-					$zone_id = $match_zone['zone_id'];
-				} else {
-					$zonestable = $oostable['zones'];
-					$match_zone_sql2 = "SELECT zone_id
-                              FROM $zonestable
-                              WHERE zone_country_id = '" . intval($country) . "'
-                                AND zone_code = '" . oos_db_input($state) . "'";
-					$match_zone_result = $dbconn->Execute($match_zone_sql2);
-					if ($match_zone_result->RecordCount() == 1) {
-						$match_zone = $match_zone_result->fields;
-						$zone_id = $match_zone['zone_id'];
-					} else {
-						$bError = TRUE;
-						$state_error = 'true';
-					}
-				}
-			} elseif (strlen($state) < ENTRY_STATE_MIN_LENGTH) {
-				$bError = TRUE;
-				$state_error = 'true';
-			}
-		}
-	}
 
 	if (strlen($telephone) < ENTRY_TELEPHONE_MIN_LENGTH) {
 		$bError = TRUE;
@@ -485,12 +430,11 @@ $oBreadcrumb->add($aLang['navbar_title']);
 $sCanonical = oos_href_link($aContents['create_account'], '', 'SSL', FALSE, TRUE);
 $sPagetitle = $aLang['heading_title'];
 
-/*	
+	
 ob_start();
-require 'js/form_check.js.php';
+require 'includes/js/create_account.js.php';
 $javascript = ob_get_contents();
 ob_end_clean();
-*/
 
 
 $aTemplate['page'] = $sTheme . '/page/create_account.tpl';
@@ -504,7 +448,7 @@ if (!isset($option)) {
 
 $read = 'false';
 $smarty->assign('read', $read);
-$smarty->assign('oos_js', $javascript);
+$smarty->assign('javascript', $javascript);
 
 // assign Smarty variables;
 $smarty->assign(

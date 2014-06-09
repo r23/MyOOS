@@ -97,7 +97,7 @@
 <script src="js/libs/jquery-2.0.2.min.js"></script>
 <script src="js/libs/jquery-ui-1.10.3.min.js"></script>
 
-<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="js/bootstrap/bootstrap.min.js"></script>
 <script src="{$theme}/js/jquery.nivo.slider.pack.js"></script>
 <script src="{$theme}/js/scrolltopcontrol.js"></script>
 <script src="{$theme}/js/jquery.sticky.js"></script>

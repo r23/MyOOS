@@ -117,43 +117,6 @@ if ($_SESSION['cart']->count_contents() < 1) {
         $country_error = 'false';
       }
 
-      if (ACCOUNT_STATE == 'true') {
-        if ($country_error == 'true') {
-          $state_error = 'true';
-        } else {
-          $zone_id = 0;
-          $state_error = 'false';
-          $zonestable = $oostable['zones'];
-          $sql = "SELECT COUNT(*) as total
-                  FROM $zonestable
-                  WHERE zone_country_id = '" . oos_db_input($country) . "'";
-          $check_result = $dbconn->Execute($sql);
-          $check_value = $check_result->fields;
-          $state_has_zones = 'false';
-          if ($check_value['total'] > 0) {
-            $state_has_zones = 'true';
-            $zonestable = $oostable['zones'];
-            $sql = "SELECT zone_id
-                    FROM $zonestable
-                    WHERE zone_country_id = '" . oos_db_input($country) . "'
-                      AND zone_name = '" . oos_db_input($state) . "'";
-            $zone_result = $dbconn->Execute($sql);
-            if ($zone_result->RecordCount() == 1) {
-              $zone_values = $zone_result->fields;
-              $zone_id = $zone_values['zone_id'];
-            } else {
-              $error = 'true';
-              $state_error = 'true';
-            }
-          } else {
-            if (strlen($state) < ENTRY_STATE_MIN_LENGTH) {
-              $error = 'true';
-              $state_error = 'true';
-            }
-          }
-        }
-      }
-
       if ($error == FALSE) {
         $address_booktable = $oostable['address_book'];
         $sql = "SELECT max(address_book_id) AS address_book_id

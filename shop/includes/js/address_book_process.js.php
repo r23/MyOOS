@@ -68,16 +68,6 @@ function check_form() {
     error_message = error_message + "<?php echo decode($aLang['js_city']); ?>";
     error = 1;
   }
-<?php
-  if (ACCOUNT_STATE == 'true') {
-?>
-  if (document.add_entry.state.value == "" || document.add_entry.state.length < <?php echo ENTRY_STATE_MIN_LENGTH; ?> ) {
-     error_message = error_message + "<?php echo decode($aLang['js_state']); ?>";
-     error = 1;
-  }
-<?php
-  }
-?>
 
   if (document.add_entry.country.value == 0) {
     error_message = error_message + "<?php echo decode($aLang['js_country']); ?>";

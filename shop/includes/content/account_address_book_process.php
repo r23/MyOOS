@@ -124,52 +124,6 @@ if (!isset($_SESSION['customer_id'])) {
       $country_error = 'false';
     }
 
-    if (ACCOUNT_STATE == 'true') {
-      if ($entry_country_error) {
-        $state_error = 'true';
-      } else {
-        $zone_id = 0;
-        $state_error = 'false';
-
-        $zonestable = $oostable['zones'];
-        $country_check_sql = "SELECT COUNT(*) AS total
-                              FROM $zonestable
-                              WHERE zone_country_id = '" . oos_db_input($country) . "'";
-        $country_check = $dbconn->Execute($country_check_sql);
-        if ($entry_state_has_zones = ($country_check->fields['total'] > 0)) {
-          $state_has_zones = 'true';
-
-          $zonestable = $oostable['zones'];
-          $match_zone_sql = "SELECT zone_id
-                             FROM $zonestable
-                             WHERE zone_country_id = '" . oos_db_input($country) . "'
-                               AND zone_name = '" . oos_db_input($state) . "'";
-          $match_zone_result = $dbconn->Execute($match_zone_sql);
-          if ($match_zone_result->RecordCount() == 1) {
-            $match_zone = $match_zone_result->fields;
-            $zone_id = $match_zone['zone_id'];
-          } else {
-            $zonestable = $oostable['zones'];
-            $match_zone_sql2 = "SELECT zone_id
-                                FROM $zonestable
-                                WHERE zone_country_id = '" . oos_db_input($country) . "'
-                                  AND zone_code = '" . oos_db_input($state) . "'";
-            $match_zone_result = $dbconn->Execute($match_zone_sql2);
-            if ($match_zone_result->RecordCount() == 1) {
-              $match_zone = $match_zone_result->fields;
-              $zone_id = $match_zone['zone_id'];
-            } else {
-              $error = 'true';
-              $state_error = 'true';
-            }
-          }
-        } elseif (strlen($state) < ENTRY_STATE_MIN_LENGTH) {
-          $error = 'true';
-          $state_error = 'true';
-        }
-      }
-    }
-
     if ($error == 'false') {
       $sql_data_array = array('entry_firstname' => $firstname,
                               'entry_lastname' => $lastname,
@@ -181,15 +135,6 @@ if (!isset($_SESSION['customer_id'])) {
       if (ACCOUNT_GENDER == 'true') $sql_data_array['entry_gender'] = $gender;
       if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $company;
       if (ACCOUNT_SUBURB == 'true') $sql_data_array['entry_suburb'] = $suburb;
-      if (ACCOUNT_STATE == 'true') {
-        if ($zone_id > 0) {
-          $sql_data_array['entry_zone_id'] = $zone_id;
-          $sql_data_array['entry_state'] = '';
-        } else {
-          $sql_data_array['entry_zone_id'] = '0';
-          $sql_data_array['entry_state'] = $state;
-        }
-      }
 
       if ($_POST['action'] == 'update') {
         oos_db_perform($oostable['address_book'], $sql_data_array, 'update', "address_book_id = '" . oos_db_input($entry_id) . "' AND customers_id ='" . intval($_SESSION['customer_id']) . "'");

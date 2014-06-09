@@ -129,56 +129,6 @@ if (!isset($_SESSION['customer_id'])) {
     $country_error = FALSE;
   }
 
-  if (ACCOUNT_STATE == 'true') {
-    if ($entry_country_error) {
-      $state_error = 'true';
-    } else {
-      $zone_id = 0;
-      $state_error = 'false';
-
-      $zonestable = $oostable['zones'];
-      $country_check_sql = "SELECT COUNT(*) AS total
-                            FROM $zonestable
-                            WHERE zone_country_id = '" . intval($country) . "'";
-      $country_check = $dbconn->Execute($country_check_sql);
-
-      $entry_state_has_zones = ($country_check->fields['total'] > 0);
-
-      if ($entry_state_has_zones === TRUE) {
-        $state_has_zones = 'true';
-
-        $zonestable = $oostable['zones'];
-        $match_zone_sql = "SELECT zone_id
-                           FROM $zonestable
-                           WHERE zone_country_id = '" . intval($country) . "'
-                             AND zone_name = '" . oos_db_input($state) . "'";
-        $match_zone_result = $dbconn->Execute($match_zone_sql);
-
-        if ($match_zone_result->RecordCount() == 1) {
-          $match_zone = $match_zone_result->fields;
-          $zone_id = $match_zone['zone_id'];
-        } else {
-          $zonestable = $oostable['zones'];
-          $match_zone_sql2 = "SELECT zone_id
-                              FROM $zonestable
-                              WHERE zone_country_id = '" . intval($country) . "'
-                                AND zone_code = '" . oos_db_input($state) . "'";
-          $match_zone_result = $dbconn->Execute($match_zone_sql2);
-          if ($match_zone_result->RecordCount() == 1) {
-            $match_zone = $match_zone_result->fields;
-            $zone_id = $match_zone['zone_id'];
-          } else {
-            $error = 'true';
-            $state_error = 'true';
-          }
-        }
-      } elseif (strlen($state) < ENTRY_STATE_MIN_LENGTH) {
-        $error = 'true';
-        $state_error = 'true';
-      }
-    }
-  }
-
   if (strlen($telephone) < ENTRY_TELEPHONE_MIN_LENGTH) {
     $error = TRUE;
     $telephone_error = 'true';

@@ -54,7 +54,7 @@ foreach ($block_result as $block)
     }
 
     if (!empty($block_side)) {
-		#	echo $block_file;
+		echo $block_file;
         $block_tpl = $sTheme . '/blocks/' . $block_file . '.tpl';
     }
 

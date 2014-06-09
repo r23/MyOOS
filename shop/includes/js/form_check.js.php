@@ -119,18 +119,6 @@ function check_form() {
     }
   }
 
-<?php
-  if (ACCOUNT_STATE == 'true') {
-?>
-  if (document.account_edit.elements['state'].type != "hidden") {
-    if (document.account_edit.state.value == '' || document.account_edit.state.value.length < <?php echo ENTRY_STATE_MIN_LENGTH; ?> ) {
-       error_message = error_message + "<?php echo decode($aLang['js_state']); ?>";
-       error = 1;
-    }
-  }
-<?php
-  }
-?>
 
   if (document.account_edit.elements['country'].type != "hidden") {
     if (document.account_edit.country.value == 0) {

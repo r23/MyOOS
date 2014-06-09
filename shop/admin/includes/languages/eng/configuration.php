@@ -247,8 +247,6 @@ define('ACCOUNT_VAT_ID_DESC', 'Die Umsatzsteuer ID bei gewerblichen Kunden kann 
 define('ACCOUNT_SUBURB_TITLE', 'Stadtteil');
 define('ACCOUNT_SUBURB_DESC', 'Stadtteil wird angezeigt');
 
-define('ACCOUNT_STATE_TITLE', 'Bundesland');
-define('ACCOUNT_STATE_DESC', 'Bundesland wird angezeigt');
 
 define('STORE_ORIGIN_COUNTRY_TITLE', 'Country Code');
 define('STORE_ORIGIN_COUNTRY_DESC', 'Enter the &quot;ISO 3166&quot; Country Code of the Store to be used in shipping quotes.  To find your country code, visit the <A HREF=\"http://www.din.de/gremien/nas/nabd/iso3166ma/codlstp1/index.html\" TARGET=\"_blank\">ISO 3166 Maintenance Agency</A>.');
