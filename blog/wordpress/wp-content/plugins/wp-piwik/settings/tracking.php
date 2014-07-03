@@ -88,6 +88,11 @@ if (self::$settings->getGlobalOption('add_tracking_code')) {
 	<label for="wp-piwik_track_across"><?php echo _e('Adds *.-prefix to cookie domain.', 'wp-piwik'); ?></label>
 </td></tr>
 
+<tr><th><?php _e('Track visitors across all alias URLs', 'wp-piwik'); ?>:</th><td>
+	<input type="checkbox" value="1" id="wp-piwik_track_across_alias" name="wp-piwik_track_across_alias"<?php echo (self::$settings->getGlobalOption('track_across_alias')?' checked="checked"':''); ?> />
+	<label for="wp-piwik_track_across_alias"><?php echo _e('Adds *.-prefix to tracked domain.', 'wp-piwik'); ?></label>
+</td></tr>
+
 <tr><th><?php _e('Track search', 'wp-piwik'); ?>:</th><td>
 	<input type="checkbox" value="1" id="wp-piwik_search" name="wp-piwik_search"<?php echo (self::$settings->getGlobalOption('track_search')?' checked="checked"':''); ?> />
 	<label for="wp-piwik_search"><?php echo _e('Use Piwik\'s advanced Site Search Analytics feature. See', 'wp-piwik'); ?> <a href="http://piwik.org/docs/javascript-tracking/#toc-tracking-internal-search-keywords-categories-and-no-result-search-keywords">Piwik Docs</a>.</label>

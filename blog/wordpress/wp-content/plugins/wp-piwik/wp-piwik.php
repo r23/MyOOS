@@ -6,7 +6,7 @@ Plugin URI: http://wordpress.org/extend/plugins/wp-piwik/
 
 Description: Adds Piwik stats to your dashboard menu and Piwik code to your wordpress header.
 
-Version: 0.9.9.11
+Version: 0.9.9.12
 Author: Andr&eacute; Br&auml;kling
 Author URI: http://www.braekling.de
 
@@ -39,8 +39,8 @@ if (!class_exists('wp_piwik')) {
 class wp_piwik {
 
 	private static
-		$intRevisionId = 92000,
-		$strVersion = '0.9.9.11',
+		$intRevisionId = 93000,
+		$strVersion = '0.9.9.12',
 		$blog_id,
 		$intDashboardID = 30,
 		$strPluginBasename = NULL,
@@ -103,7 +103,7 @@ class wp_piwik {
 				add_action('admin_head', array($this, 'addAdminHeaderTracking'));
 		}
 		if (self::$settings->getGlobalOption('add_post_annotations'))
-			add_action('transition_post_status', array($this, 'onPostStatusTransition'));
+			add_action('transition_post_status', array($this, 'onPostStatusTransition'),10,3);
 	}
 
 	private function addFilters() {
@@ -953,6 +953,9 @@ class wp_piwik {
 			$strURL .= ($strPageURL?'&pageUrl='.urlencode($strPageURL):'');
 			$strURL .= ($strNote?'&note='.urlencode($strNote):'');
 			if (self::$settings->getGlobalOption('track_across') && $strMethod == 'SitesManager.getJavascriptTag') {
+				$strURL .= '&mergeSubdomains=1';
+			}
+			if (self::$settings->getGlobalOption('track_across_alias') && $strMethod == 'SitesManager.getJavascriptTag') {
 				$strURL .= '&mergeAliasUrls=1';
 			}
 			// Fetch data if site exists
@@ -1220,6 +1223,7 @@ class wp_piwik {
 				self::$settings->setGlobalOption('track_feed_addcampaign', (isset($_POST['wp-piwik_trackfeed_addcampaign'])?$_POST['wp-piwik_trackfeed_addcampaign']:false));
 				self::$settings->setGlobalOption('track_datacfasync', (isset($_POST['wp-piwik_datacfasync'])?$_POST['wp-piwik_datacfasync']:false));
 				self::$settings->setGlobalOption('track_across', (isset($_POST['wp-piwik_track_across'])?$_POST['wp-piwik_track_across']:false));
+				self::$settings->setGlobalOption('track_across_alias', (isset($_POST['wp-piwik_track_across_alias'])?$_POST['wp-piwik_track_across_alias']:false));
 				self::$settings->setGlobalOption('add_post_annotations', (isset($_POST['wp-piwik_annotations'])?$_POST['wp-piwik_annotations']:false));
 				self::$settings->setGlobalOption('add_customvars_box', (isset($_POST['wp-piwik_customvars'])?$_POST['wp-piwik_customvars']:false));
 				self::$settings->setGlobalOption('capability_stealth', (isset($_POST['wp-piwik_filter'])?$_POST['wp-piwik_filter']:array()));
@@ -1512,7 +1516,7 @@ class wp_piwik {
 		$this->addNoscriptCode();
 	}
 	
-	public function onPostStatusTransition($newStatus, $oldStatus = 'false', $post = null) {
+	public function onPostStatusTransition($newStatus, $oldStatus, $post) {
 		if ($newStatus == 'publish' && $oldStatus != 'publish' ) {
 			add_action('publish_post', array($this, 'addPiwikAnnotation'));
 		}

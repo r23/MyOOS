@@ -3,7 +3,7 @@
 Contributors: Braekling
 Requires at least: 3.8
 Tested up to: 3.9.1
-Stable tag: 0.9.9.11
+Stable tag: 0.9.9.12
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6046779
 Tags: statistics, stats, analytics, piwik, wpmu
 
@@ -125,6 +125,12 @@ Please update Piwik if not done yet (Piwik 2.0 or higher is recommended)!
 
 == Changelog ==
 
+= 0.9.9.12 =
+* Bugfix: Avoid forced relogin on site change (WP network)
+* Bugfix: Avoid multiple annotations on post updates
+* Bugfix: User mergeSubdomains instead of mergeAliasURLs
+* Feature: Added mergeAliasURLs as additional feature
+
 = 0.9.9.11 =
 * Bugfix: PHP API causes plain text output issue, see http://wordpress.org/support/topic/bug-cant-access-to-tabs-in-setting-after-configuration
 * Bugfix: PHP API causes WordPress multisite login issue, see http://wordpress.org/support/topic/causes-multisite-superadmin-subsite-login-problem
@@ -138,7 +144,7 @@ Please update Piwik if not done yet (Piwik 2.0 or higher is recommended)!
 * Feature: Show page views (actions) in "visitors last 30"
 
 = 0.9.9.9 =
-* Update: PHP API will use namespaces (Piwik 2.x compatibility)
+* Update: PHP API will use namespaces (Piwik 2.x compatibility, PHP 5.3+ required)
 * Update: Piwik URL isn't necessary to use PHP API anymore.
 * Feature: Limit cookie lifetime
 * Feature: Track visitors across all subdomains

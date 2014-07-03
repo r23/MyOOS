@@ -756,3 +756,9 @@ msgstr "Besucher &uuml;ber alle Subdomains aufzeichnen"
 
 msgid "Adds *.-prefix to cookie domain."
 msgstr "F&uuml;gt ein *.-Pr&auml;fix zur Cookie Domain hinzu."
+
+msgid "Track visitors across all alias URLs"
+msgstr "Besucher &uuml;ber alle alternative URLs aufzeichnen"
+
+msgid "Adds *.-prefix to tracked domain."
+msgstr "F&uuml;gt ein *.-Pr&auml;fix zur getrackten Domain hinzu."

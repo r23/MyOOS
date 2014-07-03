@@ -42,6 +42,7 @@
 			'track_codeposition' => 'footer',
 			'track_datacfasync' => false,
 			'track_across' => false,
+			'track_across_alias' => false,			
 			'limit_cookies' => false,
 			'limit_cookies_visitor' => 1209600,
 			'limit_cookies_session' => 0,
@@ -156,7 +157,6 @@
 		public function checkNetworkActivation() {
 			if (!function_exists("is_plugin_active_for_network")) {
 				require_once(ABSPATH.'wp-admin/includes/plugin.php');
-				wp_cookie_constants();
 			}
 			return is_plugin_active_for_network('wp-piwik/wp-piwik.php');
 		}
