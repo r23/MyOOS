@@ -197,7 +197,7 @@ function wpcf7_add_tag_generator_captcha() {
 		'wpcf7-tg-pane-captcha', 'wpcf7_tg_pane_captcha' );
 }
 
-function wpcf7_tg_pane_captcha( &$contact_form ) {
+function wpcf7_tg_pane_captcha( $contact_form ) {
 ?>
 <div id="wpcf7-tg-pane-captcha" class="hidden">
 <form action="">
@@ -435,6 +435,8 @@ function wpcf7_remove_captcha( $prefix ) {
 	$captcha->remove( $prefix );
 }
 
+add_action( 'template_redirect', 'wpcf7_cleanup_captcha_files', 20 );
+
 function wpcf7_cleanup_captcha_files() {
 	if ( ! $captcha = wpcf7_init_captcha() ) {
 		return false;
@@ -460,9 +462,6 @@ function wpcf7_cleanup_captcha_files() {
 		closedir( $handle );
 	}
 }
-
-if ( ! is_admin() && 'GET' == $_SERVER['REQUEST_METHOD'] )
-	wpcf7_cleanup_captcha_files();
 
 function wpcf7_captchac_options( $options ) {
 	if ( ! is_array( $options ) )

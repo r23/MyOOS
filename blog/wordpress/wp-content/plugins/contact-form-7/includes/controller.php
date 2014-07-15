@@ -3,26 +3,32 @@
 add_action( 'init', 'wpcf7_control_init', 11 );
 
 function wpcf7_control_init() {
-	wpcf7_ajax_onload();
-	wpcf7_ajax_json_echo();
-	wpcf7_submit_nonajax();
-}
-
-function wpcf7_ajax_onload() {
-	if ( 'GET' != $_SERVER['REQUEST_METHOD']
-	|| ! isset( $_GET['_wpcf7_is_ajax_call'] ) ) {
+	if ( ! isset( $_SERVER['REQUEST_METHOD'] ) ) {
 		return;
 	}
 
+	if ( 'GET' == $_SERVER['REQUEST_METHOD'] ) {
+		if ( isset( $_GET['_wpcf7_is_ajax_call'] ) ) {
+			wpcf7_ajax_onload();
+		}
+	}
+
+	if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
+		if ( isset( $_POST['_wpcf7_is_ajax_call'] ) ) {
+			wpcf7_ajax_json_echo();
+		}
+
+		wpcf7_submit_nonajax();
+	}
+}
+
+function wpcf7_ajax_onload() {
 	$echo = '';
 	$items = array();
 
-	if ( isset( $_GET['_wpcf7'] ) ) {
-		if ( $contact_form = wpcf7_contact_form( (int) $_GET['_wpcf7'] ) ) {
-			WPCF7_ContactForm::set_current( $contact_form );
-			$items = apply_filters( 'wpcf7_ajax_onload', $items );
-			WPCF7_ContactForm::reset_current();
-		}
+	if ( isset( $_GET['_wpcf7'] )
+	&& $contact_form = wpcf7_contact_form( (int) $_GET['_wpcf7'] ) ) {
+		$items = apply_filters( 'wpcf7_ajax_onload', $items );
 	}
 
 	$echo = json_encode( $items );
@@ -36,9 +42,6 @@ function wpcf7_ajax_onload() {
 }
 
 function wpcf7_ajax_json_echo() {
-	if ( 'POST' != $_SERVER['REQUEST_METHOD'] || ! isset( $_POST['_wpcf7_is_ajax_call'] ) )
-		return;
-
 	$echo = '';
 
 	if ( isset( $_POST['_wpcf7'] ) ) {
@@ -46,8 +49,6 @@ function wpcf7_ajax_json_echo() {
 		$unit_tag = wpcf7_sanitize_unit_tag( $_POST['_wpcf7_unit_tag'] );
 
 		if ( $contact_form = wpcf7_contact_form( $id ) ) {
-			WPCF7_ContactForm::set_current( $contact_form );
-
 			$items = array(
 				'mailSent' => false,
 				'into' => '#' . $unit_tag,
@@ -55,44 +56,41 @@ function wpcf7_ajax_json_echo() {
 
 			$result = $contact_form->submit( true );
 
-			if ( ! empty( $result['message'] ) )
+			if ( ! empty( $result['message'] ) ) {
 				$items['message'] = $result['message'];
+			}
 
-			if ( $result['mail_sent'] )
+			if ( 'mail_sent' == $result['status'] ) {
 				$items['mailSent'] = true;
+			}
 
-			if ( ! $result['valid'] ) {
+			if ( 'validation_failed' == $result['status'] ) {
 				$invalids = array();
 
-				foreach ( $result['invalid_reasons'] as $name => $reason ) {
-					$invalid = array(
+				foreach ( $result['invalid_fields'] as $name => $field ) {
+					$invalids[] = array(
 						'into' => 'span.wpcf7-form-control-wrap.'
 							. sanitize_html_class( $name ),
-						'message' => $reason );
-
-					if ( isset( $result['invalid_fields'][$name] )
-					&& wpcf7_is_name( $result['invalid_fields'][$name] ) ) {
-						$invalid['idref'] = $result['invalid_fields'][$name];
-					}
-
-					$invalids[] = $invalid;
+						'message' => $field['reason'],
+						'idref' => $field['idref'] );
 				}
 
 				$items['invalids'] = $invalids;
 			}
 
-			if ( $result['spam'] )
+			if ( 'spam' == $result['status'] ) {
 				$items['spam'] = true;
+			}
 
-			if ( ! empty( $result['scripts_on_sent_ok'] ) )
+			if ( ! empty( $result['scripts_on_sent_ok'] ) ) {
 				$items['onSentOk'] = $result['scripts_on_sent_ok'];
+			}
 
-			if ( ! empty( $result['scripts_on_submit'] ) )
+			if ( ! empty( $result['scripts_on_submit'] ) ) {
 				$items['onSubmit'] = $result['scripts_on_submit'];
+			}
 
 			$items = apply_filters( 'wpcf7_ajax_json_echo', $items, $result );
-
-			WPCF7_ContactForm::reset_current();
 		}
 	}
 
@@ -121,11 +119,7 @@ function wpcf7_submit_nonajax() {
 		return;
 
 	if ( $contact_form = wpcf7_contact_form( (int) $_POST['_wpcf7'] ) ) {
-		WPCF7_ContactForm::set_current( $contact_form );
-
 		$contact_form->submit();
-
-		WPCF7_ContactForm::reset_current();
 	}
 }
 
@@ -159,7 +153,8 @@ function wpcf7_contact_form_tag_func( $atts, $content = null, $code = '' ) {
 			'title' => '',
 			'html_id' => '',
 			'html_name' => '',
-			'html_class' => '' ), $atts );
+			'html_class' => '',
+			'output' => 'form' ), $atts );
 
 		$id = (int) $atts['id'];
 		$title = trim( $atts['title'] );
@@ -178,29 +173,28 @@ function wpcf7_contact_form_tag_func( $atts, $content = null, $code = '' ) {
 	if ( ! $contact_form )
 		return '[contact-form-7 404 "Not Found"]';
 
-	WPCF7_ContactForm::set_current( $contact_form );
-
-	$html = $contact_form->form_html( $atts );
-
-	WPCF7_ContactForm::reset_current();
-
-	return $html;
+	return $contact_form->form_html( $atts );
 }
 
-if ( WPCF7_LOAD_JS )
-	add_action( 'wp_enqueue_scripts', 'wpcf7_enqueue_scripts' );
+add_action( 'wp_enqueue_scripts', 'wpcf7_enqueue_scripts' );
 
 function wpcf7_enqueue_scripts() {
+	if ( ! wpcf7_load_js() ) {
+		return;
+	}
+
 	// jquery.form.js originally bundled with WordPress is out of date and deprecated
 	// so we need to deregister it and re-register the latest one
 	wp_deregister_script( 'jquery-form' );
 	wp_register_script( 'jquery-form',
 		wpcf7_plugin_url( 'includes/js/jquery.form.min.js' ),
-		array( 'jquery' ), '3.50.0-2014.02.05', true );
+		array( 'jquery' ), '3.51.0-2014.06.20', true );
 
 	$in_footer = true;
-	if ( 'header' === WPCF7_LOAD_JS )
+
+	if ( 'header' === wpcf7_load_js() ) {
 		$in_footer = false;
+	}
 
 	wp_enqueue_script( 'contact-form-7',
 		wpcf7_plugin_url( 'includes/js/scripts.js' ),
@@ -225,10 +219,13 @@ function wpcf7_script_is() {
 	return wp_script_is( 'contact-form-7' );
 }
 
-if ( WPCF7_LOAD_CSS )
-	add_action( 'wp_enqueue_scripts', 'wpcf7_enqueue_styles' );
+add_action( 'wp_enqueue_scripts', 'wpcf7_enqueue_styles' );
 
 function wpcf7_enqueue_styles() {
+	if ( ! wpcf7_load_css() ) {
+		return;
+	}
+
 	wp_enqueue_style( 'contact-form-7',
 		wpcf7_plugin_url( 'includes/css/styles.css' ),
 		array(), WPCF7_VERSION, 'all' );
@@ -254,12 +251,12 @@ function wpcf7_html5_fallback() {
 	if ( ! wpcf7_support_html5_fallback() )
 		return;
 
-	if ( WPCF7_LOAD_JS ) {
+	if ( wpcf7_load_js() ) {
 		wp_enqueue_script( 'jquery-ui-datepicker' );
 		wp_enqueue_script( 'jquery-ui-spinner' );
 	}
 
-	if ( WPCF7_LOAD_CSS ) {
+	if ( wpcf7_load_css() ) {
 		wp_enqueue_style( 'jquery-ui-smoothness',
 			wpcf7_plugin_url( 'includes/js/jquery-ui/themes/smoothness/jquery-ui.min.css' ), array(), '1.10.3', 'screen' );
 	}

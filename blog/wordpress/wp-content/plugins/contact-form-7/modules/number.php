@@ -53,8 +53,7 @@ function wpcf7_number_shortcode_handler( $tag ) {
 		$value = '';
 	}
 
-	if ( wpcf7_is_posted() && isset( $_POST[$tag->name] ) )
-		$value = wp_unslash( $_POST[$tag->name] );
+	$value = wpcf7_get_hangover( $tag->name, $value );
 
 	$atts['value'] = $value;
 
@@ -155,11 +154,11 @@ function wpcf7_add_tag_generator_number() {
 		'wpcf7-tg-pane-range', 'wpcf7_tg_pane_range' );
 }
 
-function wpcf7_tg_pane_number( &$contact_form ) {
+function wpcf7_tg_pane_number( $contact_form ) {
 	wpcf7_tg_pane_number_and_relatives( 'number' );
 }
 
-function wpcf7_tg_pane_range( &$contact_form ) {
+function wpcf7_tg_pane_range( $contact_form ) {
 	wpcf7_tg_pane_number_and_relatives( 'range' );
 }
 

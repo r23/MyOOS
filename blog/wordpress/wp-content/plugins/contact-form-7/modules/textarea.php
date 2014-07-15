@@ -52,8 +52,7 @@ function wpcf7_textarea_shortcode_handler( $tag ) {
 		$value = '';
 	}
 
-	if ( wpcf7_is_posted() && isset( $_POST[$tag->name] ) )
-		$value = wp_unslash( $_POST[$tag->name] );
+	$value = wpcf7_get_hangover( $tag->name, $value );
 
 	$atts['name'] = $tag->name;
 
@@ -108,7 +107,7 @@ function wpcf7_add_tag_generator_textarea() {
 		'wpcf7-tg-pane-textarea', 'wpcf7_tg_pane_textarea' );
 }
 
-function wpcf7_tg_pane_textarea( &$contact_form ) {
+function wpcf7_tg_pane_textarea( $contact_form ) {
 ?>
 <div id="wpcf7-tg-pane-textarea" class="hidden">
 <form action="">

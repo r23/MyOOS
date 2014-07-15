@@ -52,8 +52,7 @@ function wpcf7_date_shortcode_handler( $tag ) {
 		$value = '';
 	}
 
-	if ( wpcf7_is_posted() && isset( $_POST[$tag->name] ) )
-		$value = wp_unslash( $_POST[$tag->name] );
+	$value = wpcf7_get_hangover( $tag->name, $value );
 
 	$atts['value'] = $value;
 
@@ -149,7 +148,7 @@ function wpcf7_add_tag_generator_date() {
 		'wpcf7-tg-pane-date', 'wpcf7_tg_pane_date' );
 }
 
-function wpcf7_tg_pane_date( &$contact_form ) {
+function wpcf7_tg_pane_date( $contact_form ) {
 	wpcf7_tg_pane_date_and_relatives( 'date' );
 }
 

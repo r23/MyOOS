@@ -58,8 +58,9 @@ add_filter( 'wpcf7_form_enctype', 'wpcf7_file_form_enctype_filter' );
 function wpcf7_file_form_enctype_filter( $enctype ) {
 	$multipart = (bool) wpcf7_scan_shortcode( array( 'type' => array( 'file', 'file*' ) ) );
 
-	if ( $multipart )
-		$enctype = ' enctype="multipart/form-data"';
+	if ( $multipart ) {
+		$enctype = 'multipart/form-data';
+	}
 
 	return $enctype;
 }
@@ -181,11 +182,8 @@ function wpcf7_file_validation_filter( $result, $tag ) {
 	// Make sure the uploaded file is only readable for the owner process
 	@chmod( $new_file, 0400 );
 
-	if ( $contact_form = wpcf7_get_current_contact_form() ) {
-		$contact_form->uploaded_files[$name] = $new_file;
-
-		if ( empty( $contact_form->posted_data[$name] ) )
-			$contact_form->posted_data[$name] = $filename;
+	if ( $submission = WPCF7_Submission::get_instance() ) {
+		$submission->add_uploaded_file( $name, $new_file );
 	}
 
 	return $result;
@@ -233,7 +231,7 @@ function wpcf7_add_tag_generator_file() {
 		'wpcf7-tg-pane-file', 'wpcf7_tg_pane_file' );
 }
 
-function wpcf7_tg_pane_file( &$contact_form ) {
+function wpcf7_tg_pane_file( $contact_form ) {
 ?>
 <div id="wpcf7-tg-pane-file" class="hidden">
 <form action="">
@@ -319,30 +317,37 @@ function wpcf7_upload_tmp_dir() {
 		return wpcf7_upload_dir( 'dir' ) . '/wpcf7_uploads';
 }
 
+add_action( 'template_redirect', 'wpcf7_cleanup_upload_files', 20 );
+
 function wpcf7_cleanup_upload_files() {
+	if ( is_admin() || 'GET' != $_SERVER['REQUEST_METHOD']
+	|| is_robots() || is_feed() || is_trackback() ) {
+		return;
+	}
+
 	$dir = trailingslashit( wpcf7_upload_tmp_dir() );
 
-	if ( ! is_dir( $dir ) )
-		return false;
-	if ( ! is_readable( $dir ) )
-		return false;
-	if ( ! wp_is_writable( $dir ) )
-		return false;
+	if ( ! is_dir( $dir ) || ! is_readable( $dir ) || ! wp_is_writable( $dir ) ) {
+		return;
+	}
 
 	if ( $handle = @opendir( $dir ) ) {
 		while ( false !== ( $file = readdir( $handle ) ) ) {
-			if ( $file == "." || $file == ".." || $file == ".htaccess" )
+			if ( $file == "." || $file == ".." || $file == ".htaccess" ) {
 				continue;
+			}
 
-			$stat = stat( $dir . $file );
-			if ( $stat['mtime'] + 60 < time() ) // 60 secs
-				@unlink( $dir . $file );
+			$mtime = @filemtime( $dir . $file );
+
+			if ( $mtime && time() < $mtime + 60 ) { // less than 60 secs old
+				continue;
+			}
+
+			@unlink( $dir . $file );
 		}
+
 		closedir( $handle );
 	}
 }
-
-if ( ! is_admin() && 'GET' == $_SERVER['REQUEST_METHOD'] )
-	wpcf7_cleanup_upload_files();
 
 ?>

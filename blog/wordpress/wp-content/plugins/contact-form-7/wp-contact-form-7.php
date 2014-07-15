@@ -7,7 +7,7 @@ Author: Takayuki Miyoshi
 Author URI: http://ideasilo.wordpress.com/
 Text Domain: contact-form-7
 Domain Path: /languages/
-Version: 3.8.1
+Version: 3.9
 */
 
 /*  Copyright 2007-2014 Takayuki Miyoshi (email: takayukister at gmail.com)
@@ -27,24 +27,19 @@ Version: 3.8.1
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-define( 'WPCF7_VERSION', '3.8.1' );
+define( 'WPCF7_VERSION', '3.9' );
 
-define( 'WPCF7_REQUIRED_WP_VERSION', '3.7' );
+define( 'WPCF7_REQUIRED_WP_VERSION', '3.8' );
 
-if ( ! defined( 'WPCF7_PLUGIN_BASENAME' ) )
-	define( 'WPCF7_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+define( 'WPCF7_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
-if ( ! defined( 'WPCF7_PLUGIN_NAME' ) )
-	define( 'WPCF7_PLUGIN_NAME', trim( dirname( WPCF7_PLUGIN_BASENAME ), '/' ) );
+define( 'WPCF7_PLUGIN_NAME', trim( dirname( WPCF7_PLUGIN_BASENAME ), '/' ) );
 
-if ( ! defined( 'WPCF7_PLUGIN_DIR' ) )
-	define( 'WPCF7_PLUGIN_DIR', untrailingslashit( dirname( __FILE__ ) ) );
+define( 'WPCF7_PLUGIN_DIR', untrailingslashit( dirname( __FILE__ ) ) );
 
-if ( ! defined( 'WPCF7_PLUGIN_URL' ) )
-	define( 'WPCF7_PLUGIN_URL', untrailingslashit( plugins_url( '', __FILE__ ) ) );
+define( 'WPCF7_PLUGIN_URL', untrailingslashit( plugins_url( '', __FILE__ ) ) );
 
-if ( ! defined( 'WPCF7_PLUGIN_MODULES_DIR' ) )
-	define( 'WPCF7_PLUGIN_MODULES_DIR', WPCF7_PLUGIN_DIR . '/modules' );
+define( 'WPCF7_PLUGIN_MODULES_DIR', WPCF7_PLUGIN_DIR . '/modules' );
 
 if ( ! defined( 'WPCF7_LOAD_JS' ) )
 	define( 'WPCF7_LOAD_JS', true );

@@ -1,12 +1,13 @@
 <?php
 
 require_once WPCF7_PLUGIN_DIR . '/includes/functions.php';
-require_once WPCF7_PLUGIN_DIR . '/includes/deprecated.php';
 require_once WPCF7_PLUGIN_DIR . '/includes/formatting.php';
 require_once WPCF7_PLUGIN_DIR . '/includes/pipe.php';
 require_once WPCF7_PLUGIN_DIR . '/includes/shortcodes.php';
 require_once WPCF7_PLUGIN_DIR . '/includes/capabilities.php';
-require_once WPCF7_PLUGIN_DIR . '/includes/classes.php';
+require_once WPCF7_PLUGIN_DIR . '/includes/contact-form.php';
+require_once WPCF7_PLUGIN_DIR . '/includes/mail.php';
+require_once WPCF7_PLUGIN_DIR . '/includes/submission.php';
 require_once WPCF7_PLUGIN_DIR . '/includes/upgrade.php';
 
 if ( is_admin() )
@@ -66,8 +67,8 @@ function wpcf7_install() {
 	if ( get_posts( array( 'post_type' => 'wpcf7_contact_form' ) ) )
 		return;
 
-	$contact_form = wpcf7_get_contact_form_default_pack(
-		array( 'title' => sprintf( __( 'Contact form %d', 'contact-form-7' ), 1 ) ) );
+	$contact_form = WPCF7_ContactForm::get_template( array(
+		'title' => sprintf( __( 'Contact form %d', 'contact-form-7' ), 1 ) ) );
 
 	$contact_form->save();
 }

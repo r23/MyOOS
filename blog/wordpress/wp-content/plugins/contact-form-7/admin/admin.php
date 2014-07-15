@@ -5,17 +5,10 @@ require_once WPCF7_PLUGIN_DIR . '/admin/admin-functions.php';
 add_action( 'admin_menu', 'wpcf7_admin_menu', 9 );
 
 function wpcf7_admin_menu() {
-	$icon_url = wpcf7_plugin_url( 'admin/images/menu-icon.png' );
-
-	if ( defined( 'MP6' ) && MP6
-	|| version_compare( get_bloginfo( 'version' ), '3.8-dev', '>=' ) ) {
-		$icon_url = '';
-	}
-
 	add_object_page( __( 'Contact Form 7', 'contact-form-7' ),
 		__( 'Contact', 'contact-form-7' ),
 		'wpcf7_read_contact_forms', 'wpcf7',
-		'wpcf7_admin_management_page', $icon_url );
+		'wpcf7_admin_management_page' );
 
 	$edit = add_submenu_page( 'wpcf7',
 		__( 'Edit Contact Form', 'contact-form-7' ),
@@ -58,65 +51,13 @@ function wpcf7_load_contact_form_admin() {
 		if ( ! current_user_can( 'wpcf7_edit_contact_form', $id ) )
 			wp_die( __( 'You are not allowed to edit this item.', 'contact-form-7' ) );
 
-		if ( ! $contact_form = wpcf7_contact_form( $id ) ) {
-			$contact_form = new WPCF7_ContactForm();
-			$contact_form->initial = true;
-		}
+		$id = wpcf7_save_contact_form( $id );
 
-		$contact_form->title = trim( $_POST['wpcf7-title'] );
-		$contact_form->locale = trim( $_POST['wpcf7-locale'] );
-
-		$form = trim( $_POST['wpcf7-form'] );
-
-		$mail = array(
-			'subject' => trim( $_POST['wpcf7-mail-subject'] ),
-			'sender' => trim( $_POST['wpcf7-mail-sender'] ),
-			'body' => trim( $_POST['wpcf7-mail-body'] ),
-			'recipient' => trim( $_POST['wpcf7-mail-recipient'] ),
-			'additional_headers' => trim( $_POST['wpcf7-mail-additional-headers'] ),
-			'attachments' => trim( $_POST['wpcf7-mail-attachments'] ),
-			'use_html' =>
-				isset( $_POST['wpcf7-mail-use-html'] ) && 1 == $_POST['wpcf7-mail-use-html']
-		);
-
-		$mail_2 = array(
-			'active' =>
-				isset( $_POST['wpcf7-mail-2-active'] ) && 1 == $_POST['wpcf7-mail-2-active'],
-			'subject' => trim( $_POST['wpcf7-mail-2-subject'] ),
-			'sender' => trim( $_POST['wpcf7-mail-2-sender'] ),
-			'body' => trim( $_POST['wpcf7-mail-2-body'] ),
-			'recipient' => trim( $_POST['wpcf7-mail-2-recipient'] ),
-			'additional_headers' => trim( $_POST['wpcf7-mail-2-additional-headers'] ),
-			'attachments' => trim( $_POST['wpcf7-mail-2-attachments'] ),
-			'use_html' =>
-				isset( $_POST['wpcf7-mail-2-use-html'] ) && 1 == $_POST['wpcf7-mail-2-use-html']
-		);
-
-		$messages = isset( $contact_form->messages ) ? $contact_form->messages : array();
-
-		foreach ( wpcf7_messages() as $key => $arr ) {
-			$field_name = 'wpcf7-message-' . strtr( $key, '_', '-' );
-			if ( isset( $_POST[$field_name] ) )
-				$messages[$key] = trim( $_POST[$field_name] );
-		}
-
-		$additional_settings = trim( $_POST['wpcf7-additional-settings'] );
-
-		$props = apply_filters( 'wpcf7_contact_form_admin_posted_properties',
-			compact( 'form', 'mail', 'mail_2', 'messages', 'additional_settings' ) );
-
-		foreach ( (array) $props as $key => $prop )
-			$contact_form->{$key} = $prop;
-
-		$query = array();
-		$query['message'] = ( $contact_form->initial ) ? 'created' : 'saved';
-
-		$contact_form->save();
-
-		$query['post'] = $contact_form->id;
+		$query = array(
+			'message' => ( -1 == $_POST['post_ID'] ) ? 'created' : 'saved',
+			'post' => $id );
 
 		$redirect_to = add_query_arg( $query, menu_page_url( 'wpcf7', false ) );
-
 		wp_safe_redirect( $redirect_to );
 		exit();
 	}
@@ -137,7 +78,7 @@ function wpcf7_load_contact_form_admin() {
 			$new_contact_form = $contact_form->copy();
 			$new_contact_form->save();
 
-			$query['post'] = $new_contact_form->id;
+			$query['post'] = $new_contact_form->id();
 			$query['message'] = 'created';
 		}
 
@@ -162,12 +103,12 @@ function wpcf7_load_contact_form_admin() {
 		$deleted = 0;
 
 		foreach ( $posts as $post ) {
-			$post = new WPCF7_ContactForm( $post );
+			$post = WPCF7_ContactForm::get_instance( $post );
 
 			if ( empty( $post ) )
 				continue;
 
-			if ( ! current_user_can( 'wpcf7_delete_contact_form', $post->id ) )
+			if ( ! current_user_can( 'wpcf7_delete_contact_form', $post->id() ) )
 				wp_die( __( 'You are not allowed to delete this item.', 'contact-form-7' ) );
 
 			if ( ! $post->delete() )
@@ -192,14 +133,14 @@ function wpcf7_load_contact_form_admin() {
 	$post = null;
 
 	if ( 'wpcf7-new' == $plugin_page && isset( $_GET['locale'] ) ) {
-		$post = wpcf7_get_contact_form_default_pack( array(
+		$post = WPCF7_ContactForm::get_template( array(
 			'locale' => $_GET['locale'] ) );
 	} elseif ( ! empty( $_GET['post'] ) ) {
-		$post = wpcf7_contact_form( $_GET['post'] );
+		$post = WPCF7_ContactForm::get_instance( $_GET['post'] );
 	}
 
-	if ( $post && current_user_can( 'wpcf7_edit_contact_form', $post->id ) ) {
-		wpcf7_add_meta_boxes( $post->id );
+	if ( $post && current_user_can( 'wpcf7_edit_contact_form', $post->id() ) ) {
+		wpcf7_add_meta_boxes( $post->id() );
 
 	} else {
 		$current_screen = get_current_screen();
@@ -214,10 +155,6 @@ function wpcf7_load_contact_form_admin() {
 			'label' => __( 'Contact Forms', 'contact-form-7' ),
 			'default' => 20,
 			'option' => 'cfseven_contact_forms_per_page' ) );
-	}
-
-	if ( $post ) {
-		WPCF7_ContactForm::set_current( $post );
 	}
 }
 
@@ -257,7 +194,7 @@ function wpcf7_admin_enqueue_scripts( $hook_suffix ) {
 
 function wpcf7_admin_management_page() {
 	if ( $post = wpcf7_get_current_contact_form() ) {
-		$post_id = $post->initial ? -1 : $post->id;
+		$post_id = $post->initial() ? -1 : $post->id();
 
 		require_once WPCF7_PLUGIN_DIR . '/admin/includes/meta-boxes.php';
 		require_once WPCF7_PLUGIN_DIR . '/admin/edit-contact-form.php';
@@ -269,7 +206,6 @@ function wpcf7_admin_management_page() {
 
 ?>
 <div class="wrap">
-<?php screen_icon(); ?>
 
 <h2><?php
 	echo esc_html( __( 'Contact Forms', 'contact-form-7' ) );
@@ -313,7 +249,6 @@ function wpcf7_admin_add_new_page() {
 
 ?>
 <div class="wrap">
-<?php screen_icon(); ?>
 
 <h2><?php echo esc_html( __( 'Add New Contact Form', 'contact-form-7' ) ); ?></h2>
 

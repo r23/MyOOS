@@ -58,8 +58,7 @@ function wpcf7_text_shortcode_handler( $tag ) {
 		$value = $tag->get_default_option();
 	}
 
-	if ( wpcf7_is_posted() && isset( $_POST[$tag->name] ) )
-		$value = wp_unslash( $_POST[$tag->name] );
+	$value = wpcf7_get_hangover( $tag->name, $value );
 
 	$atts['value'] = $value;
 
@@ -190,19 +189,19 @@ function wpcf7_add_tag_generator_text() {
 		'wpcf7-tg-pane-tel', 'wpcf7_tg_pane_tel' );
 }
 
-function wpcf7_tg_pane_text( &$contact_form ) {
+function wpcf7_tg_pane_text( $contact_form ) {
 	wpcf7_tg_pane_text_and_relatives( 'text' );
 }
 
-function wpcf7_tg_pane_email( &$contact_form ) {
+function wpcf7_tg_pane_email( $contact_form ) {
 	wpcf7_tg_pane_text_and_relatives( 'email' );
 }
 
-function wpcf7_tg_pane_url( &$contact_form ) {
+function wpcf7_tg_pane_url( $contact_form ) {
 	wpcf7_tg_pane_text_and_relatives( 'url' );
 }
 
-function wpcf7_tg_pane_tel( &$contact_form ) {
+function wpcf7_tg_pane_tel( $contact_form ) {
 	wpcf7_tg_pane_text_and_relatives( 'tel' );
 }
 
