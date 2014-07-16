@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -266,7 +266,7 @@ class ArchiveWriter
 
         $tableName = $this->getTableNameToInsert($value);
 
-        // duplicate idarchives are Ignored, see http://dev.piwik.org/trac/ticket/987
+        // duplicate idarchives are Ignored, see https://github.com/piwik/piwik/issues/987
         $query = "INSERT IGNORE INTO " . $tableName . "
 					(" . implode(", ", $this->getInsertFields()) . ")
 					VALUES (?,?,?,?,?,?,?,?)";

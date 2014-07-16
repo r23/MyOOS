@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -277,6 +277,44 @@ class Plugin
     }
 
     /**
+     * Tries to find a component such as a Menu or Tasks within this plugin.
+     *
+     * @param string $componentName      The name of the component you want to look for. In case you request a
+     *                                   component named 'Menu' it'll look for a file named 'Menu.php' within the
+     *                                   root of the plugin folder that implements a class named
+     *                                   Piwik\Plugin\$PluginName\Menu . If such a file exists but does not implement
+     *                                   this class it'll silently ignored.
+     * @param string $expectedSubclass   If not empty, a check will be performed whether a found file extends the
+     *                                   given subclass. If the requested file exists but does not extend this class
+     *                                   a warning will be shown to advice a developer to extend this certain class.
+     *
+     * @return \stdClass|null  Null if the requested component does not exist or an instance of the found
+     *                         component.
+     */
+    public function findComponent($componentName, $expectedSubclass)
+    {
+        $componentFile = sprintf('%s/plugins/%s/%s.php', PIWIK_INCLUDE_PATH, $this->pluginName, $componentName);
+
+        if (!file_exists($componentFile)) {
+            return;
+        }
+
+        $klassName = sprintf('Piwik\\Plugins\\%s\\%s', $this->pluginName, $componentName);
+
+        if (!class_exists($klassName)) {
+            return;
+        }
+
+        if (!empty($expectedSubclass) && !is_subclass_of($klassName, $expectedSubclass)) {
+            Log::warning(sprintf('Cannot use component %s for plugin %s, class %s does not extend %s',
+                                 $componentName, $this->pluginName, $klassName, $expectedSubclass));
+            return;
+        }
+
+        return new $klassName;
+    }
+
+    /**
      * Detect whether there are any missing dependencies.
      *
      * @param null $piwikVersion Defaults to the current Piwik version
@@ -315,12 +353,29 @@ class Plugin
     {
         foreach ($backtrace as $tracepoint) {
             // try and discern the plugin name
-            if (isset($tracepoint['class'])
-                && preg_match("/Piwik\\\\Plugins\\\\([a-zA-Z_0-9]+)\\\\/", $tracepoint['class'], $matches)
-            ) {
-                return $matches[1];
+            if (isset($tracepoint['class'])) {
+                $className = self::getPluginNameFromNamespace($tracepoint['class']);
+                if ($className) {
+                    return $className;
+                }
             }
         }
         return false;
+    }
+
+    /**
+     * Extracts the plugin name from a namespace name or a fully qualified class name. Returns `false`
+     * if we can't find one.
+     *
+     * @param string $namespaceOrClassName The namespace or class string.
+     * @return string|false
+     */
+    public static function getPluginNameFromNamespace($namespaceOrClassName)
+    {
+        if (preg_match("/Piwik\\\\Plugins\\\\([a-zA-Z_0-9]+)\\\\/", $namespaceOrClassName, $matches)) {
+            return $matches[1];
+        } else {
+            return false;
+        }
     }
 }

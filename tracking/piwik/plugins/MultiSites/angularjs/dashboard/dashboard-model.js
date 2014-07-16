@@ -97,7 +97,7 @@ angular.module('piwikApp').factory('multisitesDashboardModel', function (piwikAp
             site.idsite   = reportMetadata[index].idsite;
             site.group    = reportMetadata[index].group;
             site.main_url = reportMetadata[index].main_url;
-            // casting evolution to int fixes sorting, see: http://dev.piwik.org/trac/ticket/4885
+            // casting evolution to int fixes sorting, see: https://github.com/piwik/piwik/issues/4885
             site.visits_evolution    = parseInt(site.visits_evolution, 10);
             site.pageviews_evolution = parseInt(site.pageviews_evolution, 10);
             site.revenue_evolution   = parseInt(site.revenue_evolution, 10);
@@ -123,6 +123,22 @@ angular.module('piwikApp').factory('multisitesDashboardModel', function (piwikAp
         return sitesByGroup;
     }
 
+    function getSumTotalActions(allSitesUnordered)
+    {
+        var totalActions = 0;
+
+        if (allSitesUnordered && allSitesUnordered.length) {
+            for (var index in allSitesUnordered) {
+                var site = allSitesUnordered[index];
+                if (site && site.nb_pageviews) {
+                    totalActions += parseInt(site.nb_pageviews, 10);
+                }
+            }
+        }
+
+        return totalActions;
+    }
+
     model.updateWebsitesList = function (processedReport) {
         if (!processedReport) {
             onError();
@@ -130,8 +146,9 @@ angular.module('piwikApp').factory('multisitesDashboardModel', function (piwikAp
         }
 
         var allSitesUnordered = processedReport.reportData;
+
+        model.totalActions = getSumTotalActions(allSitesUnordered);
         model.totalVisits  = processedReport.reportTotal.nb_visits;
-        model.totalActions = processedReport.reportTotal.nb_actions;
         model.totalRevenue = processedReport.reportTotal.revenue;
 
         allSitesByGroup = createGroupsAndMoveSitesIntoRelatedGroup(allSitesUnordered, processedReport.reportMetadata);
@@ -190,6 +207,8 @@ angular.module('piwikApp').factory('multisitesDashboardModel', function (piwikAp
     function nestedSearch(sitesByGroup, term)
     {
         var filteredSites = [];
+
+        term = term.toLowerCase();
 
         for (var index in sitesByGroup) {
             var site = sitesByGroup[index];

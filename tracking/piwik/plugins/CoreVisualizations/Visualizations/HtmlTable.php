@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -23,7 +23,7 @@ class HtmlTable extends Visualization
 {
     const ID = 'table';
     const TEMPLATE_FILE     = "@CoreVisualizations/_dataTableViz_htmlTable.twig";
-    const FOOTER_ICON       = 'plugins/Zeitgeist/images/table.png';
+    const FOOTER_ICON       = 'plugins/Morpheus/images/table.png';
     const FOOTER_ICON_TITLE = 'General_DisplaySimpleTable';
 
     public static function getDefaultConfig()

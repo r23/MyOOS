@@ -18,7 +18,7 @@ password =
 dbname =
 tables_prefix =
 port = 3306
-adapter = PDO_MYSQL
+adapter = PDO\MYSQL
 type = InnoDB
 schema = Mysql
 
@@ -34,7 +34,7 @@ password =
 dbname = piwik_tests
 tables_prefix = piwiktests_
 port = 3306
-adapter = PDO_MYSQL
+adapter = PDO\MYSQL
 type = InnoDB
 schema = Mysql
 
@@ -88,8 +88,8 @@ tracker_always_new_visitor = 0
 allow_upgrades_to_beta = 0
 
 [DebugTests]
-; Set to 1 by default. If you set to 0, the standalone plugins (with their own git repositories)
-; will not be loaded when executing tests.
+; When set to 1, standalone plugins (those with their own git repositories)
+; will be loaded when executing tests.
 enable_load_standalone_plugins_during_tests = 0
 
 [General]
@@ -258,6 +258,12 @@ login_password_recovery_email_address = "password-recovery@{DOMAIN}"
 ; name that appears as a Sender in the password recovery email
 login_password_recovery_email_name = Piwik
 
+; email address that appears as a Repy-to in the password recovery email
+; if specified, {DOMAIN} will be replaced by the current Piwik domain
+login_password_recovery_replyto_email_address = "no-reply@{DOMAIN}"
+; name that appears as a Reply-to in the password recovery email
+login_password_recovery_replyto_email_name = "No-reply"
+
 ; By default when user logs out he is redirected to Piwik "homepage" usually the Login form.
 ; Uncomment the next line to set a URL to redirect the user to after he logs out of Piwik.
 ; login_logout_url = http://...
@@ -279,6 +285,9 @@ noreply_email_address = "noreply@{DOMAIN}"
 ; feedback email address;
 ; when testing, use your own email address or "nobody"
 feedback_email_address = "feedback@piwik.org"
+
+; using to set reply_to in reports e-mail to login of report creator
+scheduled_reports_replyto_is_user_email_and_alias = 0
 
 ; during archiving, Piwik will limit the number of results recorded, for performance reasons
 ; maximum number of rows for any of the Referrers tables (keywords, search engines, campaigns, etc.)
@@ -375,7 +384,7 @@ enable_trusted_host_check = 1
 
 ; The release server is an essential part of the Piwik infrastructure/ecosystem
 ; to provide the latest software version.
-latest_version_url = http://builds.piwik.org/latest.zip
+latest_version_url = http://builds.piwik.org/piwik.zip
 
 ; The API server is an essential part of the Piwik infrastructure/ecosystem to
 ; provide services to Piwik installations, e.g., getLatestVersion and
@@ -524,9 +533,13 @@ tracker_cache_file_ttl = 300
 ; Whether Bulk tracking requests to the Tracking API requires the token_auth to be set.
 bulk_requests_require_authentication = 0
 
+; Whether Bulk tracking requests will be wrapped within a DB Transaction.
+; This greatly increases performance of Log Analytics and in general any Bulk Tracking API requests.
+bulk_requests_use_transaction = 1
+
 ; Comma separated list of known Referrer Spammers, ie. bot visits that set a fake Referrer field.
 ; All Visits with a Referrer URL host set to one of these will be excluded.
-; If you find new spam entries in Referrers>Websites, please report them here: http://dev.piwik.org/trac/ticket/5099
+; If you find new spam entries in Referrers>Websites, please report them here: https://github.com/piwik/piwik/issues/5099
 referrer_urls_spam = "semalt.com"
 
 ; DO NOT USE THIS SETTING ON PUBLICLY AVAILABLE PIWIK SERVER
@@ -605,6 +618,7 @@ Plugins[] = Dashboard
 Plugins[] = MultiSites
 Plugins[] = Referrers
 Plugins[] = UserSettings
+Plugins[] = DevicesDetection
 Plugins[] = Goals
 Plugins[] = SEO
 Plugins[] = Events
@@ -635,9 +649,9 @@ Plugins[] = MobileMessaging
 Plugins[] = Overlay
 Plugins[] = SegmentEditor
 Plugins[] = Insights
-
-Plugins[] = Morpheus
 Plugins[] = ZenMode
+Plugins[] = LeftMenu
+Plugins[] = Morpheus
 
 [PluginsInstalled]
 PluginsInstalled[] = Login

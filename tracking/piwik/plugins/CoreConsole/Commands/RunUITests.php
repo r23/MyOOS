@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -24,6 +24,7 @@ class RunUITests extends ConsoleCommand
         $this->addOption('keep-symlinks', null, InputOption::VALUE_NONE, "Keep recursive directory symlinks so test pages can be viewed in a browser.");
         $this->addOption('print-logs', null, InputOption::VALUE_NONE, "Print webpage logs even if tests succeed.");
         $this->addOption('drop', null, InputOption::VALUE_NONE, "Drop the existing database and re-setup a persisted fixture.");
+        $this->addOption('assume-artifacts', null, InputOption::VALUE_NONE, "Assume the diffviewer and processed screenshots will be stored on the builds artifacts server. For use with travis build.");
         $this->addOption('plugin', null, InputOption::VALUE_REQUIRED, "Execute all tests for a plugin.");
     }
 
@@ -34,6 +35,7 @@ class RunUITests extends ConsoleCommand
         $keepSymlinks = $input->getOption('keep-symlinks');
         $printLogs = $input->getOption('print-logs');
         $drop = $input->getOption('drop');
+        $assumeArtifacts = $input->getOption('assume-artifacts');
         $plugin = $input->getOption('plugin');
 
         $options = array();
@@ -51,6 +53,10 @@ class RunUITests extends ConsoleCommand
 
         if ($drop) {
             $options[] = "--drop";
+        }
+
+        if ($assumeArtifacts) {
+            $options[] = "--assume-artifacts";
         }
 
         if ($plugin) {

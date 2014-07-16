@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -15,6 +15,13 @@ use Piwik\DataTable;
 
 class DataTableGenericFilter
 {
+    /**
+     * List of filter names not to run.
+     *
+     * @var string[]
+     */
+    private $disabledFilters = array();
+
     /**
      * Constructor
      *
@@ -33,6 +40,16 @@ class DataTableGenericFilter
     public function filter($table)
     {
         $this->applyGenericFilters($table);
+    }
+
+    /**
+     * Makes sure a set of filters are not run.
+     *
+     * @param string[] $filterNames The name of each filter to disable.
+     */
+    public function disableFilters($filterNames)
+    {
+        $this->disabledFilters = array_unique(array_merge($this->disabledFilters, $filterNames));
     }
 
     /**
@@ -117,6 +134,11 @@ class DataTableGenericFilter
             $filterParams = $filterMeta[1];
             $filterParameters = array();
             $exceptionRaised = false;
+
+            if (in_array($filterName, $this->disabledFilters)) {
+                continue;
+            }
+
             foreach ($filterParams as $name => $info) {
                 // parameter type to cast to
                 $type = $info[0];

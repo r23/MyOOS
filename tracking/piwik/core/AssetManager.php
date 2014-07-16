@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -69,7 +69,7 @@ class AssetManager extends Singleton
     function __construct()
     {
         $this->cacheBuster = UIAssetCacheBuster::getInstance();
-        $this->minimalStylesheetFetcher =  new StaticUIAssetFetcher(array('plugins/Zeitgeist/stylesheets/base.less'), array(), $this->theme);
+        $this->minimalStylesheetFetcher =  new StaticUIAssetFetcher(array('plugins/Morpheus/stylesheets/base.less', 'plugins/Morpheus/stylesheets/general/_forms.less'), array(), $this->theme);
 
         $theme = Manager::getInstance()->getThemeEnabled();
         if(!empty($theme)) {
@@ -363,7 +363,7 @@ class AssetManager extends Singleton
     /**
      * @param UIAsset[] $uiAssets
      */
-    private function removeAssets($uiAssets)
+    public function removeAssets($uiAssets)
     {
         foreach($uiAssets as $uiAsset) {
             $uiAsset->delete();

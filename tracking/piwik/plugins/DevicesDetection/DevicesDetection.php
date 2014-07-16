@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -9,17 +9,13 @@
 
 namespace Piwik\Plugins\DevicesDetection;
 
-use DeviceDetector;
+use DeviceDetector\Parser\Device\DeviceParserAbstract AS DeviceParser;
 use Exception;
 use Piwik\ArchiveProcessor;
-use Piwik\CacheFile;
 use Piwik\Common;
 use Piwik\Db;
-use Piwik\Menu\MenuAdmin;
-use Piwik\Menu\MenuMain;
 use Piwik\Piwik;
 use Piwik\Plugin\ViewDataTable;
-use Piwik\WidgetsList;
 
 require_once PIWIK_INCLUDE_PATH . '/plugins/DevicesDetection/functions.php';
 
@@ -58,10 +54,10 @@ class DevicesDetection extends \Piwik\Plugin
 
     protected function getRawMetadataDeviceType()
     {
-        $deviceTypeList = implode(", ", DeviceDetector::$deviceTypes);
+        $deviceTypeList = implode(", ", DeviceParser::getAvailableDeviceTypeNames());
 
         $deviceTypeLabelToCode = function ($type) use ($deviceTypeList) {
-            $index = array_search(strtolower(trim(urldecode($type))), DeviceDetector::$deviceTypes);
+            $index = array_search(strtolower(trim(urldecode($type))), DeviceParser::getAvailableDeviceTypeNames());
             if ($index === false) {
                 throw new Exception("deviceType segment must be one of: $deviceTypeList");
             }
@@ -89,23 +85,9 @@ class DevicesDetection extends \Piwik\Plugin
     public function getListHooksRegistered()
     {
         return array(
-            'Menu.Reporting.addItems'         => 'addMenu',
-            'Menu.Admin.addItems'             => 'addAdminMenu',
-            'Tracker.newVisitorInformation'   => 'parseMobileVisitData',
-            'WidgetsList.addWidgets'          => 'addWidgets',
             'API.getReportMetadata'           => 'getReportMetadata',
             'API.getSegmentDimensionMetadata' => 'getSegmentsMetadata',
             'ViewDataTable.configure'         => 'configureViewDataTable',
-        );
-    }
-
-    public function addAdminMenu()
-    {
-        MenuAdmin::getInstance()->add(
-            'CoreAdminHome_MenuDiagnostic', 'DevicesDetection_DeviceDetection',
-            array('module' => 'DevicesDetection', 'action' => 'deviceDetection'),
-            Piwik::isUserHasSomeAdminAccess(),
-            $order = 40
         );
     }
 
@@ -115,7 +97,7 @@ class DevicesDetection extends \Piwik\Plugin
      *
      * @return array Category, Report Name, API Module, API action, Translated column name, & optional segment info
      */
-    protected function getRawMetadataReports()
+    public function getRawMetadataReports()
     {
 
         $report = array(
@@ -174,16 +156,6 @@ class DevicesDetection extends \Piwik\Plugin
         return $report;
     }
 
-    public function addWidgets()
-    {
-        foreach ($this->getRawMetadataReports() as $report) {
-            list($category, $name, $controllerName, $controllerAction) = $report;
-            if ($category == false)
-                continue;
-            WidgetsList::add($category, $name, $controllerName, $controllerAction);
-        }
-    }
-
     /**
      * Get segments meta data
      */
@@ -236,7 +208,6 @@ class DevicesDetection extends \Piwik\Plugin
 
     public function install()
     {
-// we catch the exception
         try {
             $q1 = "ALTER TABLE `" . Common::prefixTable("log_visit") . "`
                 ADD `config_os_version` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `config_os` ,
@@ -250,31 +221,6 @@ class DevicesDetection extends \Piwik\Plugin
                 throw $e;
             }
         }
-    }
-
-    public function parseMobileVisitData(&$visitorInfo, \Piwik\Tracker\Request $request)
-    {
-        $userAgent = $request->getUserAgent();
-
-        $UAParser = new DeviceDetector($userAgent);
-        $UAParser->setCache(new CacheFile('tracker', 86400));
-        $UAParser->parse();
-        $deviceInfo['config_browser_name'] = $UAParser->getBrowser("short_name");
-        $deviceInfo['config_browser_version'] = $UAParser->getBrowser("version");
-        $deviceInfo['config_os'] = $UAParser->getOs("short_name");
-        $deviceInfo['config_os_version'] = $UAParser->getOs("version");
-        $deviceInfo['config_device_type'] = $UAParser->getDevice();
-        $deviceInfo['config_device_model'] = $UAParser->getModel();
-        $deviceInfo['config_device_brand'] = $UAParser->getBrand();
-
-        $visitorInfo = array_merge($visitorInfo, $deviceInfo);
-        Common::printDebug("Device Detection:");
-        Common::printDebug($deviceInfo);
-    }
-
-    public function addMenu()
-    {
-        MenuMain::getInstance()->add('General_Visitors', 'DevicesDetection_submenu', array('module' => 'DevicesDetection', 'action' => 'index'));
     }
 
     public function configureViewDataTable(ViewDataTable $view)

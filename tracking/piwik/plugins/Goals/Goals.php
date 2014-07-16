@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -11,13 +11,11 @@ namespace Piwik\Plugins\Goals;
 use Piwik\ArchiveProcessor;
 use Piwik\Common;
 use Piwik\Db;
-use Piwik\Menu\MenuMain;
 use Piwik\Piwik;
 use Piwik\Plugin\ViewDataTable;
 use Piwik\Site;
 use Piwik\Tracker\GoalManager;
 use Piwik\Translate;
-use Piwik\WidgetsList;
 
 /**
  *
@@ -52,6 +50,11 @@ class Goals extends \Piwik\Plugin
 
         uksort($dimensionsByGroup, array('self', 'sortGoalDimensionsByModule'));
         return $dimensionsByGroup;
+    }
+
+    public function getEcommerceReports()
+    {
+        return $this->ecommerceReports;
     }
 
     public static function sortGoalDimensionsByModule($a, $b)
@@ -104,8 +107,6 @@ class Goals extends \Piwik\Plugin
             'Tracker.Cache.getSiteAttributes'        => 'fetchGoalsFromDb',
             'API.getReportMetadata.end'              => 'getReportMetadata',
             'API.getSegmentDimensionMetadata'        => 'getSegmentsMetadata',
-            'WidgetsList.addWidgets'                 => 'addWidgets',
-            'Menu.Reporting.addItems'                => 'addMenus',
             'SitesManager.deleteSite.end'            => 'deleteSiteGoals',
             'Goals.getReportsWithGoalMetrics'        => 'getActualReportsWithGoalMetrics',
             'ViewDataTable.configure'                => 'configureViewDataTable',
@@ -470,71 +471,6 @@ class Goals extends \Piwik\Plugin
         $array['goals'] = API::getInstance()->getGoals($idSite);
     }
 
-    public function addWidgets()
-    {
-        $idSite = Common::getRequestVar('idSite', null, 'int');
-
-        // Ecommerce widgets
-        $site = new Site($idSite);
-        if ($site->isEcommerceEnabled()) {
-            WidgetsList::add('Goals_Ecommerce', 'Goals_EcommerceOverview', 'Goals', 'widgetGoalReport', array('idGoal' => Piwik::LABEL_ID_GOAL_IS_ECOMMERCE_ORDER));
-            WidgetsList::add('Goals_Ecommerce', 'Goals_EcommerceLog', 'Goals', 'getEcommerceLog');
-            foreach ($this->ecommerceReports as $widget) {
-                WidgetsList::add('Goals_Ecommerce', $widget[0], $widget[1], $widget[2]);
-            }
-        }
-
-        // Goals widgets
-        WidgetsList::add('Goals_Goals', 'Goals_GoalsOverview', 'Goals', 'widgetGoalsOverview');
-        $goals = API::getInstance()->getGoals($idSite);
-        if (count($goals) > 0) {
-            foreach ($goals as $goal) {
-                WidgetsList::add('Goals_Goals', Common::sanitizeInputValue($goal['name']), 'Goals', 'widgetGoalReport', array('idGoal' => $goal['idgoal']));
-            }
-        }
-    }
-
-    function addMenus()
-    {
-        $idSite = Common::getRequestVar('idSite', null, 'int');
-        $goals = API::getInstance()->getGoals($idSite);
-        $mainGoalMenu = $this->getGoalCategoryName($idSite);
-        $site = new Site($idSite);
-        if (count($goals) == 0) {
-            MenuMain::getInstance()->add($mainGoalMenu, '', array(
-                                                  'module' => 'Goals',
-                                                  'action' => ($site->isEcommerceEnabled() ? 'ecommerceReport' : 'addNewGoal'),
-                                                  'idGoal' => ($site->isEcommerceEnabled() ? Piwik::LABEL_ID_GOAL_IS_ECOMMERCE_ORDER : null)),
-                true,
-                25);
-            if ($site->isEcommerceEnabled()) {
-                MenuMain::getInstance()->add($mainGoalMenu, 'Goals_Ecommerce', array('module' => 'Goals', 'action' => 'ecommerceReport', 'idGoal' => Piwik::LABEL_ID_GOAL_IS_ECOMMERCE_ORDER), true, 1);
-            }
-            MenuMain::getInstance()->add($mainGoalMenu, 'Goals_AddNewGoal', array('module' => 'Goals', 'action' => 'addNewGoal'));
-        } else {
-            MenuMain::getInstance()->add($mainGoalMenu, '', array(
-                                                  'module' => 'Goals',
-                                                  'action' => ($site->isEcommerceEnabled() ? 'ecommerceReport' : 'index'),
-                                                  'idGoal' => ($site->isEcommerceEnabled() ? Piwik::LABEL_ID_GOAL_IS_ECOMMERCE_ORDER : null)),
-                true,
-                25);
-
-            if ($site->isEcommerceEnabled()) {
-                MenuMain::getInstance()->add($mainGoalMenu, 'Goals_Ecommerce', array('module' => 'Goals', 'action' => 'ecommerceReport', 'idGoal' => Piwik::LABEL_ID_GOAL_IS_ECOMMERCE_ORDER), true, 1);
-            }
-            MenuMain::getInstance()->add($mainGoalMenu, 'Goals_GoalsOverview', array('module' => 'Goals', 'action' => 'index'), true, 2);
-            foreach ($goals as $goal) {
-                MenuMain::getInstance()->add($mainGoalMenu, str_replace('%', '%%', Translate::clean($goal['name'])), array('module' => 'Goals', 'action' => 'goalReport', 'idGoal' => $goal['idgoal']));
-            }
-        }
-    }
-
-    protected function getGoalCategoryName($idSite)
-    {
-        $site = new Site($idSite);
-        return $site->isEcommerceEnabled() ? 'Goals_EcommerceAndGoalsMenu' : 'Goals_Goals';
-    }
-
     public function configureViewDataTable(ViewDataTable $view)
     {
         switch ($view->requestConfig->apiMethodToRequestDataTable) {
@@ -675,5 +611,9 @@ class Goals extends \Piwik\Plugin
         $translationKeys[] = 'Goals_AddGoal';
         $translationKeys[] = 'Goals_UpdateGoal';
         $translationKeys[] = 'Goals_DeleteGoalConfirm';
+        $translationKeys[] = 'Goals_UpdateGoal';
+        $translationKeys[] = 'Goals_DeleteGoalConfirm';
+        $translationKeys[] = 'Goals_Ecommerce';
+        $translationKeys[] = 'Goals_Optional';
     }
 }

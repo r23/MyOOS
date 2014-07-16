@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -86,8 +86,8 @@ use Piwik\Tracker\GoalManager;
  *         $country = $row['location_country'];
  *         $numEcommerceSales = $row[Metrics::INDEX_GOAL_NB_CONVERSIONS];
  *         $numVisitsWithEcommerceSales = $row[Metrics::INDEX_GOAL_NB_VISITS_CONVERTED];
- *         $avgTaxForCountry = $country['avg_tax'];
- *         $maxShippingForCountry = $country['max_shipping'];
+ *         $avgTaxForCountry = $row['avg_tax'];
+ *         $maxShippingForCountry = $row['max_shipping'];
  *
  *         // ... do something with aggregated data ...
  *     }

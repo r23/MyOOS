@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -69,9 +69,10 @@ class API extends \Piwik\Plugin\API
 
         // Ensure the specified dates are valid
         $toInvalidate = $invalidDates = array();
-        $dates = explode(',', $dates);
+        $dates = explode(',', trim($dates));
         $dates = array_unique($dates);
         foreach ($dates as $theDate) {
+            $theDate = trim($theDate);
             try {
                 $date = Date::factory($theDate);
             } catch (Exception $e) {
@@ -130,6 +131,10 @@ class API extends \Piwik\Plugin\API
             ) {
                 $minDate = $date;
             }
+        }
+
+        if(empty($minDate)) {
+            throw new Exception("Check the 'dates' parameter is a valid date.");
         }
 
         // In each table, invalidate day/week/month/year containing this date
@@ -203,4 +208,15 @@ class API extends \Piwik\Plugin\API
         return array();
     }
 
+    /**
+     * Return true if plugin is activated, false otherwise
+     *
+     * @param string $pluginName
+     * @return bool
+     */
+    public function isPluginActivated($pluginName)
+    {
+        Piwik::checkUserHasSomeViewAccess();
+        return \Piwik\Plugin\Manager::getInstance()->isPluginActivated($pluginName);
+    }
 }

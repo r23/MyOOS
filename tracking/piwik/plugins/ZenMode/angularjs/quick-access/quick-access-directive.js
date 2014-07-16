@@ -1,5 +1,5 @@
 /*!
- * Piwik - Web Analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -35,7 +35,7 @@ angular.module('piwikApp').directive('piwikQuickAccess', function($rootElement, 
                     return menuItems;
                 }
 
-                $rootElement.find('#topLeftBar .topBarElem a, #topRightBar .topBarElem a').each(function (index, element) {
+                $rootElement.find('#topRightBar .topBarElem a').each(function (index, element) {
                     menuItems.push({name: $(element).text(), index: ++menuIndex, category: 'menuCategory'});
                     $(element).attr('quick_access', menuIndex);
                 });

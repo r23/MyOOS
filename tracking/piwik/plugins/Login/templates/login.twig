@@ -5,6 +5,7 @@
 <html><!--<![endif]-->
 <head>
     <meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="IE=EDGE,chrome=1" >
     <title>{% if isCustomLogo == false %}Piwik &rsaquo; {% endif %}{{ 'Login_LogIn'|translate }}</title>
 
     {% include "@CoreHome/_favicon.twig" %}
@@ -129,7 +130,7 @@
 
                 <fieldset class="actions">
                     <span class="loadingPiwik" style="display:none;">
-                        <img alt="Loading" src="plugins/Zeitgeist/images/loading-blue.gif"/>
+                        <img alt="Loading" src="plugins/Morpheus/images/loading-blue.gif"/>
                     </span>
                     <input class="submit" id='reset_form_submit' type="submit"
                            value="{{ 'General_ChangePassword'|translate }}" tabindex="100"/>

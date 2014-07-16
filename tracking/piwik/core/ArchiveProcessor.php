@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -337,10 +337,11 @@ class ArchiveProcessor
         }
 
         if ($dataTable instanceof Map) {
-            // see http://dev.piwik.org/trac/ticket/4377
-            foreach ($dataTable->getDataTables() as $table) {
-                $this->renameColumnsAfterAggregation($table, $columnsToRenameAfterAggregation);
-            }
+            // see https://github.com/piwik/piwik/issues/4377
+            $self = $this;
+            $dataTable->filter(function ($table) use ($self, $columnsToRenameAfterAggregation) {
+                $self->renameColumnsAfterAggregation($table, $columnsToRenameAfterAggregation);
+            });
         }
 
         $dataTable = $this->getAggregatedDataTableMap($dataTable, $columnsAggregationOperation);
@@ -443,7 +444,10 @@ class ArchiveProcessor
         }
     }
 
-    protected function renameColumnsAfterAggregation(DataTable $table, $columnsToRenameAfterAggregation = null)
+    /**
+     * Note: public only for use in closure in PHP 5.3.
+     */
+    public function renameColumnsAfterAggregation(DataTable $table, $columnsToRenameAfterAggregation = null)
     {
         // Rename columns after aggregation
         if (is_null($columnsToRenameAfterAggregation)) {

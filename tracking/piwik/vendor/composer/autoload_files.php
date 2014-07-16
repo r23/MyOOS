@@ -7,5 +7,4 @@ $baseDir = dirname($vendorDir);
 
 return array(
     $vendorDir . '/mustangostang/spyc/Spyc.php',
-    $vendorDir . '/piwik/device-detector/DeviceDetector.php',
 );

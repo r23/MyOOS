@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -191,7 +191,7 @@ class SettingsPiwik
      */
     public static function isPiwikInstalled()
     {
-        $config = Config::getInstance()->getLocalConfigPath();
+        $config = Config::getInstance()->getLocalPath();
         $exists = file_exists($config);
 
         // Piwik is installed if the config file is found
@@ -292,6 +292,10 @@ class SettingsPiwik
     /**
      * Returns true if the Piwik server appears to be working.
      *
+     * If the Piwik server is in an error state (eg. some directories are not writable and Piwik displays error message),
+     * or if the Piwik server is "offline",
+     * this will return false..
+     *
      * @param $piwikServerUrl
      * @return bool
      */
@@ -319,7 +323,10 @@ class SettingsPiwik
         $expectedString = 'misc/user/';
 
         $expectedStringNotFound = strpos($fetched, $expectedString) === false && strpos($fetched, $expectedStringAlt) === false;
-        if ($expectedStringNotFound) {
+
+        $hasError = false !== strpos($fetched, PAGE_TITLE_WHEN_ERROR);
+
+        if ($hasError || $expectedStringNotFound) {
             throw new Exception("\nPiwik should be running at: "
                 . $piwikServerUrl
                 . " but this URL returned an unexpected response: '"

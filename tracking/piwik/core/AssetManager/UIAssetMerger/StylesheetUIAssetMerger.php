@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -30,8 +30,10 @@ class StylesheetUIAssetMerger extends UIAssetMerger
 
     protected function getMergedAssets()
     {
-        $this->lessCompiler->addImportDir(PIWIK_USER_PATH);
-        return $this->lessCompiler->compile($this->getConcatenatedAssets());
+        // note: we're using setImportDir on purpose (not addImportDir)
+        $this->lessCompiler->setImportDir(PIWIK_USER_PATH);
+        $concatenatedAssets = $this->getConcatenatedAssets();
+        return $this->lessCompiler->compile($concatenatedAssets);
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -12,13 +12,11 @@ use Piwik\API\Request;
 use Piwik\ArchiveProcessor;
 use Piwik\Common;
 use Piwik\Db;
-use Piwik\Menu\MenuMain;
 use Piwik\MetricsFormatter;
 use Piwik\Piwik;
 use Piwik\Plugin\ViewDataTable;
 use Piwik\Plugins\CoreVisualizations\Visualizations\HtmlTable;
 use Piwik\Site;
-use Piwik\WidgetsList;
 
 /**
  * Actions plugin
@@ -36,8 +34,6 @@ class Actions extends \Piwik\Plugin
     public function getListHooksRegistered()
     {
         $hooks = array(
-            'WidgetsList.addWidgets'          => 'addWidgets',
-            'Menu.Reporting.addItems'         => 'addMenus',
             'API.getReportMetadata'           => 'getReportMetadata',
             'API.getSegmentDimensionMetadata' => 'getSegmentsMetadata',
             'ViewDataTable.configure'         => 'configureViewDataTable',
@@ -462,45 +458,7 @@ class Actions extends \Piwik\Plugin
         }
     }
 
-    function addWidgets()
-    {
-        WidgetsList::add('General_Actions', 'General_Pages', 'Actions', 'getPageUrls');
-        WidgetsList::add('General_Actions', 'Actions_WidgetPageTitles', 'Actions', 'getPageTitles');
-        WidgetsList::add('General_Actions', 'General_Outlinks', 'Actions', 'getOutlinks');
-        WidgetsList::add('General_Actions', 'General_Downloads', 'Actions', 'getDownloads');
-        WidgetsList::add('General_Actions', 'Actions_WidgetPagesEntry', 'Actions', 'getEntryPageUrls');
-        WidgetsList::add('General_Actions', 'Actions_WidgetPagesExit', 'Actions', 'getExitPageUrls');
-        WidgetsList::add('General_Actions', 'Actions_WidgetEntryPageTitles', 'Actions', 'getEntryPageTitles');
-        WidgetsList::add('General_Actions', 'Actions_WidgetExitPageTitles', 'Actions', 'getExitPageTitles');
-
-        if ($this->isSiteSearchEnabled()) {
-            WidgetsList::add('Actions_SubmenuSitesearch', 'Actions_WidgetSearchKeywords', 'Actions', 'getSiteSearchKeywords');
-
-            if (self::isCustomVariablesPluginsEnabled()) {
-                WidgetsList::add('Actions_SubmenuSitesearch', 'Actions_WidgetSearchCategories', 'Actions', 'getSiteSearchCategories');
-            }
-            WidgetsList::add('Actions_SubmenuSitesearch', 'Actions_WidgetSearchNoResultKeywords', 'Actions', 'getSiteSearchNoResultKeywords');
-            WidgetsList::add('Actions_SubmenuSitesearch', 'Actions_WidgetPageUrlsFollowingSearch', 'Actions', 'getPageUrlsFollowingSiteSearch');
-            WidgetsList::add('Actions_SubmenuSitesearch', 'Actions_WidgetPageTitlesFollowingSearch', 'Actions', 'getPageTitlesFollowingSiteSearch');
-        }
-    }
-
-    function addMenus()
-    {
-        MenuMain::getInstance()->add('General_Actions', '', array('module' => 'Actions', 'action' => 'indexPageUrls'), true, 15);
-        MenuMain::getInstance()->add('General_Actions', 'General_Pages', array('module' => 'Actions', 'action' => 'indexPageUrls'), true, 1);
-        MenuMain::getInstance()->add('General_Actions', 'Actions_SubmenuPagesEntry', array('module' => 'Actions', 'action' => 'indexEntryPageUrls'), true, 2);
-        MenuMain::getInstance()->add('General_Actions', 'Actions_SubmenuPagesExit', array('module' => 'Actions', 'action' => 'indexExitPageUrls'), true, 3);
-        MenuMain::getInstance()->add('General_Actions', 'Actions_SubmenuPageTitles', array('module' => 'Actions', 'action' => 'indexPageTitles'), true, 4);
-        MenuMain::getInstance()->add('General_Actions', 'General_Outlinks', array('module' => 'Actions', 'action' => 'indexOutlinks'), true, 6);
-        MenuMain::getInstance()->add('General_Actions', 'General_Downloads', array('module' => 'Actions', 'action' => 'indexDownloads'), true, 7);
-
-        if ($this->isSiteSearchEnabled()) {
-            MenuMain::getInstance()->add('General_Actions', 'Actions_SubmenuSitesearch', array('module' => 'Actions', 'action' => 'indexSiteSearch'), true, 5);
-        }
-    }
-
-    protected function isSiteSearchEnabled()
+    public function isSiteSearchEnabled()
     {
         $idSite  = Common::getRequestVar('idSite', 0, 'int');
         $idSites = Common::getRequestVar('idSites', '', 'string');
@@ -530,11 +488,10 @@ class Actions extends \Piwik\Plugin
         }
     }
 
-    static protected function isCustomVariablesPluginsEnabled()
+    static public function isCustomVariablesPluginsEnabled()
     {
         return \Piwik\Plugin\Manager::getInstance()->isPluginActivated('CustomVariables');
     }
-
 
     public function configureViewDataTable(ViewDataTable $view)
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -10,14 +10,12 @@ namespace Piwik\Plugins\Referrers;
 
 use Piwik\ArchiveProcessor;
 use Piwik\Common;
-use Piwik\Menu\MenuMain;
 use Piwik\Piwik;
 use Piwik\Plugin\ViewDataTable;
 use Piwik\Plugins\CoreVisualizations\Visualizations\HtmlTable;
 use Piwik\Plugins\CoreVisualizations\Visualizations\HtmlTable\AllColumns;
 use Piwik\Plugins\CoreVisualizations\Visualizations\JqplotGraph\Pie;
 use Piwik\SettingsPiwik;
-use Piwik\WidgetsList;
 
 /**
  * @see plugins/Referrers/functions.php
@@ -34,8 +32,6 @@ class Referrers extends \Piwik\Plugin
     public function getListHooksRegistered()
     {
         $hooks = array(
-            'WidgetsList.addWidgets'          => 'addWidgets',
-            'Menu.Reporting.addItems'         => 'addMenus',
             'Goals.getReportsWithGoalMetrics' => 'getReportsWithGoalMetrics',
             'API.getReportMetadata'           => 'getReportMetadata',
             'API.getSegmentDimensionMetadata' => 'getSegmentsMetadata',
@@ -226,35 +222,6 @@ class Referrers extends \Piwik\Plugin
             'segment'        => 'referrerUrl',
             'sqlSegment'     => 'log_visit.referer_url',
         );
-    }
-
-    /**
-     * Adds Referrer widgets
-     */
-    function addWidgets()
-    {
-        WidgetsList::add('Referrers_Referrers', 'Referrers_WidgetKeywords', 'Referrers', 'getKeywords');
-        WidgetsList::add('Referrers_Referrers', 'Referrers_WidgetExternalWebsites', 'Referrers', 'getWebsites');
-        WidgetsList::add('Referrers_Referrers', 'Referrers_WidgetSocials', 'Referrers', 'getSocials');
-        WidgetsList::add('Referrers_Referrers', 'Referrers_SearchEngines', 'Referrers', 'getSearchEngines');
-        WidgetsList::add('Referrers_Referrers', 'Referrers_Campaigns', 'Referrers', 'getCampaigns');
-        WidgetsList::add('Referrers_Referrers', 'General_Overview', 'Referrers', 'getReferrerType');
-        WidgetsList::add('Referrers_Referrers', 'Referrers_WidgetGetAll', 'Referrers', 'getAll');
-        if (SettingsPiwik::isSegmentationEnabled()) {
-            WidgetsList::add('SEO', 'Referrers_WidgetTopKeywordsForPages', 'Referrers', 'getKeywordsForPage');
-        }
-    }
-
-    /**
-     * Adds Web Analytics menus
-     */
-    function addMenus()
-    {
-        MenuMain::getInstance()->add('Referrers_Referrers', '', array('module' => 'Referrers', 'action' => 'index'), true, 20);
-        MenuMain::getInstance()->add('Referrers_Referrers', 'General_Overview', array('module' => 'Referrers', 'action' => 'index'), true, 1);
-        MenuMain::getInstance()->add('Referrers_Referrers', 'Referrers_SubmenuSearchEngines', array('module' => 'Referrers', 'action' => 'getSearchEnginesAndKeywords'), true, 2);
-        MenuMain::getInstance()->add('Referrers_Referrers', 'Referrers_SubmenuWebsites', array('module' => 'Referrers', 'action' => 'indexWebsites'), true, 3);
-        MenuMain::getInstance()->add('Referrers_Referrers', 'Referrers_Campaigns', array('module' => 'Referrers', 'action' => 'indexCampaigns'), true, 4);
     }
 
     /**

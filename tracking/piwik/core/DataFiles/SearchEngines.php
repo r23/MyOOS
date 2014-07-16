@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -303,6 +303,7 @@ if (!isset($GLOBALS['Piwik_SearchEngines'])) {
 
         // DuckDuckGo
         'duckduckgo.com'                 => array('DuckDuckGo', 'q', '?q={k}'),
+        'r.duckduckgo.com'               => array('DuckDuckGo'),
 
         // earthlink
         'search.earthlink.net'           => array('Earthlink', 'q', 'search?q={k}'),

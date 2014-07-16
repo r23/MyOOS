@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -168,7 +168,7 @@ class BatchInsert
 
         /*
 		 * Second attempt: using the LOCAL keyword means the client reads the file and sends it to the server;
-		 * the LOCAL keyword may trigger a known PHP PDO_MYSQL bug when MySQL not built with --enable-local-infile
+		 * the LOCAL keyword may trigger a known PHP PDO\MYSQL bug when MySQL not built with --enable-local-infile
 		 * @see http://bugs.php.net/bug.php?id=54158
 		 */
         $openBaseDir = ini_get('open_basedir');

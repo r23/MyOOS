@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -15,6 +15,7 @@ use Piwik\Common;
 use Piwik\Config;
 use Piwik\DataTable\Renderer\Json;
 use Piwik\Menu\MenuTop;
+use Piwik\Menu\MenuUser;
 use Piwik\Nonce;
 use Piwik\Piwik;
 use Piwik\Plugins\CorePluginsAdmin\UpdateCommunication;
@@ -52,12 +53,13 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             $view->trustedHosts = Url::getTrustedHostsFromConfig();
 
             $logo = new CustomLogo();
-            $view->branding       = array('use_custom_logo' => $logo->isEnabled());
-            $view->logosWriteable = $logo->isCustomLogoWritable();
-            $view->pathUserLogo      = CustomLogo::getPathUserLogo();
-            $view->pathUserFavicon   = CustomLogo::getPathUserFavicon();
-            $view->pathUserLogoSmall = CustomLogo::getPathUserLogoSmall();
-            $view->pathUserLogoSVG   = CustomLogo::getPathUserSvgLogo();
+            $view->branding              = array('use_custom_logo' => $logo->isEnabled());
+            $view->fileUploadEnabled     = $logo->isFileUploadEnabled();
+            $view->logosWriteable        = $logo->isCustomLogoWritable();
+            $view->pathUserLogo          = CustomLogo::getPathUserLogo();
+            $view->pathUserFavicon       = CustomLogo::getPathUserFavicon();
+            $view->pathUserLogoSmall     = CustomLogo::getPathUserLogoSmall();
+            $view->pathUserLogoSVG       = CustomLogo::getPathUserSvgLogo();
             $view->pathUserLogoDirectory = realpath(dirname($view->pathUserLogo) . '/');
         }
 
@@ -202,7 +204,8 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
     {
         $view = new View('@CoreAdminHome/trackingCodeGenerator');
         $this->setBasicVariablesView($view);
-        $view->topMenu = MenuTop::getInstance()->getMenu();
+        $view->topMenu  = MenuTop::getInstance()->getMenu();
+        $view->userMenu = MenuUser::getInstance()->getMenu();
 
         $viewableIdSites = APISitesManager::getInstance()->getSitesIdWithAtLeastViewAccess();
 

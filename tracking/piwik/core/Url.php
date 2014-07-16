@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -474,7 +474,7 @@ class Url
         }
 
         if(Common::isPhpCliMode()) {
-            die("If you were using a browser, Piwik would redirect you to this URL: $url \n\n");
+            throw new Exception("If you were using a browser, Piwik would redirect you to this URL: $url \n\n");
         }
         exit;
     }

@@ -1,5 +1,5 @@
 /*!
- * Piwik - Web Analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -102,22 +102,23 @@ $(document).ready(function () {
     }
 
     function overMainLI () {
-        var $this = $(this);
+        var $this    = $(this);
         var position = $this.position();
-        var width = $this.width();
-        var height = $this.height();
+        var width    = $this.width();
+        var height   = $this.height();
 
         $this.find('ul').css({
             left: position.left + 'px',
             display: 'block',
             minWidth: width + 'px',
             position: 'absolute',
-            top: (position.top + height) + 'px'
+            top: (position.top + height) + 'px',
+            maxHeight: 'none',
         });
     }
 
     function outMainLI () {
-        $(this).find('ul').css({left: '', display: '', minWidth: '', position: '', top: ''});
+        $(this).find('ul').css({left: '', display: '', minWidth: '', position: '', top: '', maxHeight: ''});
     }
 
     function resetSubmenu()

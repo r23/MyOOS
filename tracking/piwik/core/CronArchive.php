@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -12,6 +12,7 @@ use Exception;
 use Piwik\ArchiveProcessor\Rules;
 use Piwik\CronArchive\FixedSiteIds;
 use Piwik\CronArchive\SharedSiteIds;
+use Piwik\Period\Factory;
 use Piwik\Plugins\CoreAdminHome\API as APICoreAdminHome;
 use Piwik\Plugins\SitesManager\API as APISitesManager;
 
@@ -64,6 +65,7 @@ class CronArchive
     private $idSitesInvalidatedOldReports = array();
     private $shouldArchiveSpecifiedSites = array();
     private $shouldSkipSpecifiedSites = array();
+    private $shouldArchiveOnlySpecificPeriods = array();
     /**
      * @var SharedSiteIds|FixedSiteIds
      */
@@ -131,6 +133,10 @@ class CronArchive
         $this->segments = $this->initSegmentsToArchive();
         $this->allWebsites = APISitesManager::getInstance()->getAllSitesId();
 
+        if(!empty($this->shouldArchiveOnlySpecificPeriods)) {
+            $this->log("- Will process the following periods: " . implode(", ", $this->shouldArchiveOnlySpecificPeriods) . " (--force-periods)");
+        }
+
         $websitesIds = $this->initWebsiteIds();
         $this->filterWebsiteIds($websitesIds);
 
@@ -171,7 +177,6 @@ class CronArchive
         $this->runScheduledTasks();
     }
 
-    // TODO: replace w/ $this->
     private $websitesWithVisitsSinceLastRun = 0;
     private $skippedPeriodsArchivesWebsite = 0;
     private $skippedDayArchivesWebsites = 0;
@@ -339,7 +344,7 @@ class CronArchive
 
         // (*) If there was some old reports invalidated for this website
         // we make sure all these old reports are triggered at least once
-        $websiteIsOldDataInvalidate = in_array($idSite, $this->idSitesInvalidatedOldReports);
+        $websiteIsOldDataInvalidate = $this->isOldReportInvalidatedForWebsite($idSite);
 
         if ($websiteIsOldDataInvalidate) {
             $shouldArchivePeriods = true;
@@ -373,7 +378,7 @@ class CronArchive
             $skipDayArchive = false;
         }
 
-         if ($skipDayArchive) {
+        if ($skipDayArchive) {
             $this->log("Skipped website id $idSite, already done "
                 . \Piwik\MetricsFormatter::getPrettyTimeFromSeconds($elapsedSinceLastArchiving, true, $isHtml = false)
                 . " ago, " . $timerWebsite->__toString());
@@ -382,74 +387,10 @@ class CronArchive
             return false;
         }
 
-        // Fake that the request is already done, so that other core:archive commands
-        // running do not grab the same website from the queue
-        Option::set($this->lastRunKey($idSite, "day"), time());
-
-        // Remove this website from the list of websites to be invalidated
-        // since it's now just about to being re-processed, makes sure another running cron archiving process
-        // does not archive the same idSite
-        if ($websiteIsOldDataInvalidate) {
-            $this->setSiteIsArchived($idSite);
-        }
-
-        // when some data was purged from this website
-        // we make sure we query all previous days/weeks/months
-        $processDaysSince = $lastTimestampWebsiteProcessedDay;
-        if($websiteIsOldDataInvalidate
-            // when --force-all-websites option,
-            // also forces to archive last52 days to be safe
-            || $this->shouldArchiveAllSites) {
-            $processDaysSince = false;
-        }
-
-
-        $timer = new Timer;
-        $dateLast = $this->getApiDateLastParameter($idSite, "day", $processDaysSince);
-        $url = $this->getVisitsRequestUrl($idSite, "day", $dateLast);
-        $content = $this->request($url);
-        $response = @unserialize($content);
-        $visitsToday = $this->getVisitsLastPeriodFromApiResponse($response);
-        $visitsLastDays = $this->getVisitsFromApiResponse($response);
-
-        if (empty($content)
-            || !is_array($response)
-            || count($response) == 0
-        ) {
-            // cancel the succesful run flag
-            Option::set($this->lastRunKey($idSite, "day"), 0);
-
-            $this->log("WARNING: Empty or invalid response '$content' for website id $idSite, " . $timerWebsite->__toString() . ", skipping");
-            $this->skipped++;
+        $shouldProceed = $this->processArchiveDays($idSite, $lastTimestampWebsiteProcessedDay, $shouldArchivePeriods, $timerWebsite);
+        if(!$shouldProceed) {
             return false;
         }
-
-        $this->requests++;
-        $this->processed++;
-
-        // If there is no visit today and we don't need to process this website, we can skip remaining archives
-        if ($visitsToday == 0
-            && !$shouldArchivePeriods
-        ) {
-            $this->log("Skipped website id $idSite, no visit today, " . $timerWebsite->__toString());
-            $this->skipped++;
-            return false;
-        }
-
-        if ($visitsLastDays == 0
-            && !$shouldArchivePeriods
-            && $this->shouldArchiveAllSites
-        ) {
-            $this->log("Skipped website id $idSite, no visits in the last " . $dateLast . " days, " . $timerWebsite->__toString());
-            $this->skipped++;
-            return false;
-        }
-
-
-        $this->visitsToday += $visitsToday;
-        $this->websitesWithVisitsSinceLastRun++;
-        $this->archiveVisitsAndSegments($idSite, "day", $lastTimestampWebsiteProcessedDay);
-        $this->logArchivedWebsite($idSite, "day", $dateLast, $visitsLastDays, $visitsToday, $timer);
 
         if (!$shouldArchivePeriods) {
             $this->log("Skipped website id $idSite periods processing, already done "
@@ -462,6 +403,13 @@ class CronArchive
 
         $success = true;
         foreach (array('week', 'month', 'year') as $period) {
+
+            if(!$this->shouldProcessPeriod($period)) {
+                // if any period was skipped, we do not mark the Periods archiving as successful
+                $success = false;
+                continue;
+            }
+
             $success = $this->archiveVisitsAndSegments($idSite, $period, $lastTimestampWebsiteProcessedPeriods)
                 && $success;
         }
@@ -508,9 +456,9 @@ class CronArchive
     /**
      * Returns base URL to process reports for the $idSite on a given $period
      */
-    private function getVisitsRequestUrl($idSite, $period, $dateLast)
+    private function getVisitsRequestUrl($idSite, $period, $date)
     {
-        return "?module=API&method=API.get&idSite=$idSite&period=$period&date=last" . $dateLast . "&format=php&token_auth=" . $this->token_auth;
+        return "?module=API&method=API.get&idSite=$idSite&period=$period&date=" . $date . "&format=php&token_auth=" . $this->token_auth;
     }
 
     private function initSegmentsToArchive()
@@ -521,6 +469,90 @@ class CronArchive
         }
         $this->log("- Will pre-process " . count($segments) . " Segments for each website and each period: " . implode(", ", $segments));
         return $segments;
+    }
+
+    /**
+     * @param $idSite
+     * @param $lastTimestampWebsiteProcessedDay
+     * @param $shouldArchivePeriods
+     * @param $timerWebsite
+     * @return bool
+     */
+    protected function processArchiveDays($idSite, $lastTimestampWebsiteProcessedDay, $shouldArchivePeriods, Timer $timerWebsite)
+    {
+        if (!$this->shouldProcessPeriod("day")) {
+            // skip day archiving and proceed to period processing
+            return true;
+        }
+
+        // Fake that the request is already done, so that other core:archive commands
+        // running do not grab the same website from the queue
+        Option::set($this->lastRunKey($idSite, "day"), time());
+
+        // Remove this website from the list of websites to be invalidated
+        // since it's now just about to being re-processed, makes sure another running cron archiving process
+        // does not archive the same idSite
+        if ($this->isOldReportInvalidatedForWebsite($idSite)) {
+            $this->setSiteIsArchived($idSite);
+        }
+
+        // when some data was purged from this website
+        // we make sure we query all previous days/weeks/months
+        $processDaysSince = $lastTimestampWebsiteProcessedDay;
+        if($this->isOldReportInvalidatedForWebsite($idSite)
+            // when --force-all-websites option,
+            // also forces to archive last52 days to be safe
+            || $this->shouldArchiveAllSites) {
+            $processDaysSince = false;
+        }
+
+        $date = $this->getApiDateParameter($idSite, "day", $processDaysSince);
+        $url = $this->getVisitsRequestUrl($idSite, "day", $date);
+        $content = $this->request($url);
+        $daysResponse = @unserialize($content);
+
+        if (empty($content)
+            || !is_array($daysResponse)
+            || count($daysResponse) == 0
+        ) {
+            // cancel the succesful run flag
+            Option::set($this->lastRunKey($idSite, "day"), 0);
+
+            $this->logError("Empty or invalid response '$content' for website id $idSite, " . $timerWebsite->__toString() . ", skipping");
+            $this->skipped++;
+            return false;
+        }
+
+        $visitsToday = $this->getVisitsLastPeriodFromApiResponse($daysResponse);
+        $visitsLastDays = $this->getVisitsFromApiResponse($daysResponse);
+
+        $this->requests++;
+        $this->processed++;
+
+        // If there is no visit today and we don't need to process this website, we can skip remaining archives
+        if ($visitsToday == 0
+            && !$shouldArchivePeriods
+        ) {
+            $this->log("Skipped website id $idSite, no visit today, " . $timerWebsite->__toString());
+            $this->skipped++;
+            return false;
+        }
+
+        if ($visitsLastDays == 0
+            && !$shouldArchivePeriods
+            && $this->shouldArchiveAllSites
+        ) {
+            $this->log("Skipped website id $idSite, no visits in the last " . $date . " days, " . $timerWebsite->__toString());
+            $this->skipped++;
+            return false;
+        }
+
+        $this->visitsToday += $visitsToday;
+        $this->websitesWithVisitsSinceLastRun++;
+        $this->archiveVisitsAndSegments($idSite, "day", $processDaysSince);
+        $this->logArchivedWebsite($idSite, "day", $date, $visitsLastDays, $visitsToday, $timerWebsite);
+
+        return true;
     }
 
     private function getSegmentsForSite($idSite)
@@ -550,8 +582,8 @@ class CronArchive
 
         $url  = $this->piwikUrl;
 
-        $dateLast = $this->getApiDateLastParameter($idSite, $period, $lastTimestampWebsiteProcessed);
-        $url .= $this->getVisitsRequestUrl($idSite, $period, $dateLast);
+        $date = $this->getApiDateParameter($idSite, $period, $lastTimestampWebsiteProcessed);
+        $url .= $this->getVisitsRequestUrl($idSite, $period, $date);
 
 
         $url .= self::APPEND_TO_API_REQUEST;
@@ -576,7 +608,7 @@ class CronArchive
 
         $cliMulti = new CliMulti();
         $cliMulti->setAcceptInvalidSSLCertificate($this->acceptInvalidSSLCertificate);
-        $cliMulti->setConcurrentProcessesLimit(self::MAX_CONCURRENT_API_REQUESTS);
+        $cliMulti->setConcurrentProcessesLimit($this->getConcurrentRequestsPerWebsite());
         $response = $cliMulti->request($urls);
 
         foreach ($urls as $index => $url) {
@@ -597,7 +629,7 @@ class CronArchive
 
         // we have already logged the daily archive above
         if($period != "day") {
-            $this->logArchivedWebsite($idSite, $period, $dateLast, $visitsInLastPeriods, $visitsLastPeriod, $timer);
+            $this->logArchivedWebsite($idSite, $period, $date, $visitsInLastPeriods, $visitsLastPeriod, $timer);
         }
 
         return $success;
@@ -711,11 +743,10 @@ class CronArchive
         }
 
         // Make sure we log at least INFO (if logger is set to DEBUG then keep it)
-        $logLevel = @$log[\Piwik\Log::LOG_LEVEL_CONFIG_OPTION];
-        if ($logLevel != 'VERBOSE'
-            && $logLevel != 'DEBUG'
+        $logLevel = Log::getInstance()->getLogLevel();
+        if ($logLevel != Log::VERBOSE
+            && $logLevel != Log::DEBUG
         ) {
-            $log[\Piwik\Log::LOG_LEVEL_CONFIG_OPTION] = 'INFO';
             Log::getInstance()->setLogLevel(Log::INFO);
         }
 
@@ -731,7 +762,7 @@ class CronArchive
             return;
         }
         $token_auth = Common::getRequestVar('token_auth', '', 'string');
-        if ($token_auth != $this->token_auth
+        if ($token_auth !== $this->token_auth
             || strlen($token_auth) != 32
         ) {
             die('<b>You must specify the Super User token_auth as a parameter to this script, eg. <code>?token_auth=XYZ</code> if you wish to run this script through the browser. </b><br>
@@ -776,6 +807,7 @@ class CronArchive
         $this->shouldSkipSpecifiedSites = \Piwik\Site::getIdSitesFromIdSitesString($skipIdSites);
         $this->lastSuccessRunTimestamp = Option::get(self::OPTION_ARCHIVING_FINISHED_TS);
         $this->shouldArchiveOnlySitesWithTrafficSince = $this->isShouldArchiveAllSitesWithTrafficSince();
+        $this->shouldArchiveOnlySpecificPeriods = $this->getPeriodsToProcess();
 
         if($this->shouldArchiveOnlySitesWithTrafficSince === false) {
             // force-all-periods is not set here
@@ -987,7 +1019,7 @@ class CronArchive
      */
     private function getTimezonesHavingNewDay()
     {
-        $timestamp = time() - $this->shouldArchiveOnlySitesWithTrafficSince;
+        $timestamp = $this->lastSuccessRunTimestamp;
         $uniqueTimezones = APISitesManager::getInstance()->getUniqueSiteTimezones();
         $timezoneToProcess = array();
         foreach ($uniqueTimezones as &$timezone) {
@@ -1170,7 +1202,97 @@ class CronArchive
      * @param $lastTimestampWebsiteProcessed
      * @return float|int|true
      */
-    private function getApiDateLastParameter($idSite, $period, $lastTimestampWebsiteProcessed = false)
+    private function getApiDateParameter($idSite, $period, $lastTimestampWebsiteProcessed = false)
+    {
+        $dateRangeForced = $this->getDateRangeToProcess();
+        if(!empty($dateRangeForced)) {
+            return $dateRangeForced;
+        }
+        return $this->getDateLastN($idSite, $period, $lastTimestampWebsiteProcessed);
+    }
+
+    /**
+     * @param $idSite
+     * @param $period
+     * @param $date
+     * @param $visitsInLastPeriods
+     * @param $visitsToday
+     * @param $timer
+     */
+    private function logArchivedWebsite($idSite, $period, $date, $visitsInLastPeriods, $visitsToday, Timer $timer)
+    {
+        if(substr($date, 0, 4) === 'last') {
+            $visitsInLastPeriods = (int)$visitsInLastPeriods . " visits in last " . $date . " " . $period . "s, ";
+            $thisPeriod = $period == "day" ? "today" : "this " . $period;
+            $visitsInLastPeriod = (int)$visitsToday . " visits " . $thisPeriod . ", ";
+        } else {
+            $visitsInLastPeriods = (int)$visitsInLastPeriods . " visits in " . $period . "s included in: $date, ";
+            $visitsInLastPeriod = '';
+        }
+
+        $this->log("Archived website id = $idSite, period = $period, "
+            . $visitsInLastPeriods
+            . $visitsInLastPeriod
+            . $timer->__toString());
+    }
+
+    private function getDateRangeToProcess()
+    {
+        $restrictToDateRange = $this->getParameterFromCli("force-date-range", true);
+        if(empty($restrictToDateRange)) {
+            return false;
+        }
+        if(strpos($restrictToDateRange, ',') === false) {
+            throw new Exception("--force-date-range expects a date range ie. YYYY-MM-DD,YYYY-MM-DD");
+        }
+        return $restrictToDateRange;
+    }
+
+    /**
+     * @return array
+     */
+    private function getPeriodsToProcess()
+    {
+        $restrictToPeriods = $this->getParameterFromCli("force-periods", true);
+        $restrictToPeriods = explode(',', $restrictToPeriods);
+        $restrictToPeriods = array_map('trim', $restrictToPeriods);
+        $restrictToPeriods = array_intersect($restrictToPeriods, $this->getDefaultPeriodsToProcess());
+        $restrictToPeriods = array_intersect($restrictToPeriods, Factory::getPeriodsEnabledForAPI());
+        return $restrictToPeriods;
+    }
+
+    /**
+     * @return array
+     */
+    private function getDefaultPeriodsToProcess()
+    {
+        return array('day', 'week', 'month', 'year');
+    }
+
+    /**
+     * @param $idSite
+     * @return bool
+     */
+    private function isOldReportInvalidatedForWebsite($idSite)
+    {
+        return in_array($idSite, $this->idSitesInvalidatedOldReports);
+    }
+
+    private function shouldProcessPeriod($period)
+    {
+        if(empty($this->shouldArchiveOnlySpecificPeriods)) {
+            return true;
+        }
+        return in_array($period, $this->shouldArchiveOnlySpecificPeriods);
+    }
+
+    /**
+     * @param $idSite
+     * @param $period
+     * @param $lastTimestampWebsiteProcessed
+     * @return string
+     */
+    private function getDateLastN($idSite, $period, $lastTimestampWebsiteProcessed)
     {
         $dateLastMax = self::DEFAULT_DATE_LAST;
         if ($period == 'year') {
@@ -1191,25 +1313,19 @@ class CronArchive
         $dateLastForced = $this->getParameterFromCli('--force-date-last-n', true);
         if (!empty($dateLastForced)) {
             $dateLast = $dateLastForced;
-            return $dateLast;
         }
-        return $dateLast;
+        return "last" . $dateLast;
     }
 
     /**
-     * @param $idSite
-     * @param $period
-     * @param $dateLast
-     * @param $visitsInLastPeriods
-     * @param $visitsToday
-     * @param $timer
+     * @return int
      */
-    private function logArchivedWebsite($idSite, $period, $dateLast, $visitsInLastPeriods, $visitsToday, Timer $timer)
+    private function getConcurrentRequestsPerWebsite()
     {
-        $thisPeriod = $period == "day" ? "today" : "this " . $period;
-        $this->log("Archived website id = $idSite, period = $period, "
-            . (int)$visitsInLastPeriods . " visits in last " . $dateLast . " " . $period . "s, "
-            . (int)$visitsToday . " visits " . $thisPeriod . ", "
-            . $timer->__toString());
+        $cliParam = $this->getParameterFromCli('--concurrent-requests-per-website', true);
+        if ($cliParam !== false) {
+            return $cliParam;
+        }
+        return self::MAX_CONCURRENT_API_REQUESTS;
     }
 }

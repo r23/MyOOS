@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -8,20 +8,13 @@
  */
 namespace Piwik\Plugins\DBStats;
 
-use Piwik\Date;
-use Piwik\Menu\MenuAdmin;
 use Piwik\Option;
 use Piwik\Piwik;
 use Piwik\Plugin\ViewDataTable;
 use Piwik\Plugins\CoreVisualizations\Visualizations\Graph;
 use Piwik\Plugins\CoreVisualizations\Visualizations\HtmlTable;
 use Piwik\Plugins\CoreVisualizations\Visualizations\JqplotGraph\Pie;
-use Piwik\ScheduledTask;
-use Piwik\ScheduledTime;
 
-/**
- *
- */
 class DBStats extends \Piwik\Plugin
 {
     const TIME_OF_LAST_TASK_RUN_OPTION = 'dbstats_time_of_last_cache_task_run';
@@ -33,49 +26,10 @@ class DBStats extends \Piwik\Plugin
     {
         return array(
             'AssetManager.getStylesheetFiles' => 'getStylesheetFiles',
-            'Menu.Admin.addItems'             => 'addMenu',
-            'TaskScheduler.getScheduledTasks' => 'getScheduledTasks',
             'ViewDataTable.configure'         => 'configureViewDataTable',
             'ViewDataTable.getDefaultType'    => 'getDefaultTypeViewDataTable',
             "TestingEnvironment.addHooks"     => 'setupTestEnvironment'
         );
-    }
-
-    function addMenu()
-    {
-        MenuAdmin::getInstance()->add('CoreAdminHome_MenuDiagnostic', 'DBStats_DatabaseUsage',
-            array('module' => 'DBStats', 'action' => 'index'),
-            Piwik::hasUserSuperUserAccess(),
-            $order = 6);
-    }
-
-    /**
-     * Gets all scheduled tasks executed by this plugin.
-     */
-    public function getScheduledTasks(&$tasks)
-    {
-        $cacheDataByArchiveNameReportsTask = new ScheduledTask(
-            $this,
-            'cacheDataByArchiveNameReports',
-            null,
-            ScheduledTime::factory('weekly'),
-            ScheduledTask::LOWEST_PRIORITY
-        );
-        $tasks[] = $cacheDataByArchiveNameReportsTask;
-    }
-
-    /**
-     * Caches the intermediate DataTables used in the getIndividualReportsSummary and
-     * getIndividualMetricsSummary reports in the option table.
-     */
-    public function cacheDataByArchiveNameReports()
-    {
-        $api = API::getInstance();
-        $api->getIndividualReportsSummary(true);
-        $api->getIndividualMetricsSummary(true);
-
-        $now = Date::now()->getLocalized("%longYear%, %shortMonth% %day%");
-        Option::set(self::TIME_OF_LAST_TASK_RUN_OPTION, $now);
     }
 
     public function getStylesheetFiles(&$stylesheets)
@@ -105,7 +59,7 @@ class DBStats extends \Piwik\Plugin
     public function configureViewDataTable(ViewDataTable $view)
     {
         switch ($view->requestConfig->apiMethodToRequestDataTable) {
-            case 'DBStats.getDatabaseUsageSummar':
+            case 'DBStats.getDatabaseUsageSummary':
                 $this->configureViewForGetDatabaseUsageSummary($view);
                 break;
             case 'DBStats.getTrackerDataSummary':
@@ -161,7 +115,13 @@ class DBStats extends \Piwik\Plugin
                 : $value;
         };
 
-        $view->config->filters[] = array('ColumnCallbackReplace', array('label', $translateSummaryLabel), $isPriority = true);
+        $view->config->filters[] = array('ColumnCallbackReplace',
+                                         array(
+                                             'label',
+                                             $translateSummaryLabel
+                                         ),
+                                         $isPriority = true
+        );
     }
 
     private function configureViewForGetTrackerDataSummary(ViewDataTable $view)
@@ -276,6 +236,10 @@ class DBStats extends \Piwik\Plugin
             $view->config->highlight_summary_row = true;
         }
 
+        if ($view->isViewDataTableId(Graph::ID)) {
+            $view->config->show_series_picker = false;
+        }
+
         $view->config->addTranslations(array(
             'label'          => Piwik::translate('DBStats_Table'),
             'year'           => Piwik::translate('CoreHome_PeriodYear'),
@@ -298,7 +262,13 @@ class DBStats extends \Piwik\Plugin
             };
 
             $view->config->filters[] = array('ColumnCallbackAddColumn',
-                                             array(array('data_size', 'index_size'), 'total_size', $getTotalTableSize), $isPriority = true);
+                                             array(
+                                                 array('data_size', 'index_size'),
+                                                 'total_size',
+                                                 $getTotalTableSize
+                                             ),
+                                             $isPriority = true
+            );
 
             $sizeColumns[] = 'total_size';
         }
@@ -315,9 +285,15 @@ class DBStats extends \Piwik\Plugin
                 && $addTotalSizeColumn
             ) {
                 $view->config->filters[] = array('ColumnCallbackAddColumnPercentage',
-                                                 array('percent_total', 'total_size', 'total_size', $quotientPrecision = 0,
-                                                       $shouldSkipRows = false, $getDivisorFromSummaryRow = true),
-                                                 $isPriority = true
+                                                 array(
+                                                     'percent_total',
+                                                     'total_size',
+                                                     'total_size',
+                                                     $quotientPrecision = 0,
+                                                     $shouldSkipRows = false,
+                                                     $getDivisorFromSummaryRow = true
+                                                 ),
+                                                 $isPriority = false
                 );
 
                 $view->requestConfig->filter_sort_column = 'percent_total';
@@ -344,6 +320,7 @@ class DBStats extends \Piwik\Plugin
                 $view->requestConfig->filter_sort_column = 'row_count';
                 $view->requestConfig->filter_sort_order  = 'desc';
             }
+            $view->config->selectable_rows = array();
         }
 
         $getPrettySize = array('\Piwik\MetricsFormatter', 'getPrettySizeFromBytes');

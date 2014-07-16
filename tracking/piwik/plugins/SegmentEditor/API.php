@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -79,7 +79,11 @@ class API extends \Piwik\Plugin\API
     {
         $autoArchive = (int)$autoArchive;
         if ($autoArchive) {
-            $exception = new Exception("To prevent abuse, autoArchive=1 requires Super User or ControllerAdmin access.");
+            $exception = new Exception(
+                "Please contact Support to make these changes on your behalf. ".
+                " To update (or create) a pre-processed segment, a user must have admin access or super user access. "
+            );
+
             if (empty($idSite)) {
                 if (!Piwik::hasUserSuperUserAccess()) {
                     throw $exception;

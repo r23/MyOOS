@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -299,7 +299,7 @@ class Mysql implements SchemaInterface
 			",
 
             'session'               => "CREATE TABLE {$prefixTables}session (
-								id CHAR(32) NOT NULL,
+								id VARCHAR( 255 ) NOT NULL,
 								modified INTEGER,
 								lifetime INTEGER,
 								data TEXT,
@@ -454,7 +454,7 @@ class Mysql implements SchemaInterface
             Db::exec($statement);
         } catch (Exception $e) {
             // mysql code error 1050:table already exists
-            // see bug #153 http://dev.piwik.org/trac/ticket/153
+            // see bug #153 https://github.com/piwik/piwik/issues/153
             if (!Db::get()->isErrNo($e, '1050')) {
                 throw $e;
             }

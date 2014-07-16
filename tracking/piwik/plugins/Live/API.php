@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -406,8 +406,9 @@ class API extends \Piwik\Plugin\API
             return false;
         }
 
-        $visitDetails = $dataTable->getFirstRow()->getColumns();
-        $visitor      = new Visitor($visitDetails);
+        $visitorFactory = new VisitorFactory();
+        $visitDetails   = $dataTable->getFirstRow()->getColumns();
+        $visitor        = $visitorFactory->create($visitDetails);
 
         return $visitor->getVisitorId();
     }
@@ -543,9 +544,11 @@ class API extends \Piwik\Plugin\API
             /** @var DataTable $table */
             $actionsLimit = (int)Config::getInstance()->General['visitor_log_maximum_actions_per_visit'];
 
-            $website    = new Site($idSite);
-            $timezone   = $website->getTimezone();
-            $currencies = APISitesManager::getInstance()->getCurrencySymbols();
+            $visitorFactory = new VisitorFactory();
+            $website        = new Site($idSite);
+            $timezone       = $website->getTimezone();
+            $currency       = $website->getCurrency();
+            $currencies     = APISitesManager::getInstance()->getCurrencySymbols();
 
             // live api is not summable, prevents errors like "Unexpected ECommerce status value"
             $table->deleteRow(DataTable::ID_SUMMARY_ROW);
@@ -553,15 +556,18 @@ class API extends \Piwik\Plugin\API
             foreach ($table->getRows() as $visitorDetailRow) {
                 $visitorDetailsArray = Visitor::cleanVisitorDetails($visitorDetailRow->getColumns());
 
-                $visitor = new Visitor($visitorDetailsArray);
+                $visitor = $visitorFactory->create($visitorDetailsArray);
                 $visitorDetailsArray = $visitor->getAllVisitorDetails();
 
-                $visitorDetailsArray['siteCurrency'] = $website->getCurrency();
+                $visitorDetailsArray['siteCurrency'] = $currency;
                 $visitorDetailsArray['siteCurrencySymbol'] = @$currencies[$visitorDetailsArray['siteCurrency']];
                 $visitorDetailsArray['serverTimestamp'] = $visitorDetailsArray['lastActionTimestamp'];
+
                 $dateTimeVisit = Date::factory($visitorDetailsArray['lastActionTimestamp'], $timezone);
-                $visitorDetailsArray['serverTimePretty'] = $dateTimeVisit->getLocalized('%time%');
-                $visitorDetailsArray['serverDatePretty'] = $dateTimeVisit->getLocalized(Piwik::translate('CoreHome_ShortDateFormat'));
+                if($dateTimeVisit) {
+                    $visitorDetailsArray['serverTimePretty'] = $dateTimeVisit->getLocalized('%time%');
+                    $visitorDetailsArray['serverDatePretty'] = $dateTimeVisit->getLocalized(Piwik::translate('CoreHome_ShortDateFormat'));
+                }
 
                 $dateTimeVisitFirstAction = Date::factory($visitorDetailsArray['firstActionTimestamp'], $timezone);
                 $visitorDetailsArray['serverDatePrettyFirstAction'] = $dateTimeVisitFirstAction->getLocalized(Piwik::translate('CoreHome_ShortDateFormat'));

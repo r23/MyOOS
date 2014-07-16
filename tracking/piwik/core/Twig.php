@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -42,18 +42,19 @@ class Twig
 
 		//get current theme
 		$manager = Plugin\Manager::getInstance();
-		$theme = $manager->getThemeEnabled();
+		$theme   = $manager->getThemeEnabled();
 		$loaders = array();
 		
 		//create loader for custom theme to overwrite twig templates
-		if($theme->getPluginName() != \Piwik\Plugin\Manager::DEFAULT_THEME){
+		if($theme && $theme->getPluginName() != \Piwik\Plugin\Manager::DEFAULT_THEME) {
 			$customLoader = $this->getCustomThemeLoader($theme);
-			if($customLoader){
+			if ($customLoader) {
 				//make it possible to overwrite plugin templates
-				$this->addCustomPluginNamespaces($customLoader,$theme->getPluginName());
+				$this->addCustomPluginNamespaces($customLoader, $theme->getPluginName());
 				$loaders[] = $customLoader;
 			}
 		}
+
 		$loaders[] = $loader;
         
         $chainLoader = new Twig_Loader_Chain($loaders);
@@ -77,7 +78,7 @@ class Twig
         $this->addFilter_sumTime();
         $this->addFilter_money();
         $this->addFilter_truncate();
-        $this->addFilter_notificiation();
+        $this->addFilter_notification();
         $this->addFilter_percentage();
         $this->addFilter_prettyDate();
         $this->addFilter_safeDecodeRaw();
@@ -201,7 +202,7 @@ class Twig
         return $this->twig;
     }
 
-    protected function addFilter_notificiation()
+    protected function addFilter_notification()
     {
         $twigEnv = $this->getTwigEnvironment();
         $notificationFunction = new Twig_SimpleFilter('notification', function ($message, $options) use ($twigEnv) {
@@ -233,6 +234,8 @@ class Twig
     protected function addFilter_safeDecodeRaw()
     {
         $rawSafeDecoded = new Twig_SimpleFilter('rawSafeDecoded', function ($string) {
+            $string = str_replace('+', '%2B', $string);
+
             return SafeDecodeLabel::decodeLabelSafe($string);
 
         }, array('is_safe' => array('all')));

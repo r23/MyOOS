@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -12,8 +12,6 @@ use Piwik\ArchiveProcessor;
 use Piwik\Common;
 use Piwik\Config;
 use Piwik\IP;
-use Piwik\Menu\MenuAdmin;
-use Piwik\Menu\MenuMain;
 use Piwik\Piwik;
 use Piwik\Plugin\Manager;
 use Piwik\Plugin\ViewDataTable;
@@ -22,7 +20,6 @@ use Piwik\Plugins\UserCountry\LocationProvider\GeoIp;
 use Piwik\Plugins\UserCountry\LocationProvider;
 use Piwik\Plugins\UserCountry\LocationProvider\DefaultProvider;
 use Piwik\Url;
-use Piwik\WidgetsList;
 
 /**
  * @see plugins/UserCountry/GeoIPAutoUpdater.php
@@ -40,16 +37,12 @@ class UserCountry extends \Piwik\Plugin
     public function getListHooksRegistered()
     {
         $hooks = array(
-            'WidgetsList.addWidgets'                 => 'addWidgets',
-            'Menu.Reporting.addItems'                => 'addMenu',
-            'Menu.Admin.addItems'                    => 'addAdminMenu',
             'Goals.getReportsWithGoalMetrics'        => 'getReportsWithGoalMetrics',
             'API.getReportMetadata'                  => 'getReportMetadata',
             'API.getSegmentDimensionMetadata'        => 'getSegmentsMetadata',
             'AssetManager.getStylesheetFiles'        => 'getStylesheetFiles',
             'AssetManager.getJavaScriptFiles'        => 'getJsFiles',
             'Tracker.newVisitorInformation'          => 'enrichVisitWithLocation',
-            'TaskScheduler.getScheduledTasks'        => 'getScheduledTasks',
             'ViewDataTable.configure'                => 'configureViewDataTable',
             'Translate.getClientSideTranslationKeys' => 'getClientSideTranslationKeys',
             'Tracker.setTrackerCacheGeneral'         => 'setTrackerCacheGeneral',
@@ -66,14 +59,6 @@ class UserCountry extends \Piwik\Plugin
     public function setTrackerCacheGeneral(&$cache)
     {
         $cache['currentLocationProviderId'] = LocationProvider::getCurrentProviderId();
-    }
-
-    public function getScheduledTasks(&$tasks)
-    {
-        // add the auto updater task if GeoIP admin is enabled
-        if($this->isGeoLocationAdminEnabled()) {
-            $tasks[] = new GeoIPAutoUpdater();
-        }
     }
 
     public function getStylesheetFiles(&$stylesheets)
@@ -174,41 +159,6 @@ class UserCountry extends \Piwik\Plugin
         if (isset($providerValue)
             && Manager::getInstance()->isPluginInstalled('Provider')) {
             $visitorInfo['location_provider'] = $providerValue;
-        }
-    }
-
-    public function addWidgets()
-    {
-        $widgetContinentLabel = Piwik::translate('UserCountry_WidgetLocation')
-            . ' (' . Piwik::translate('UserCountry_Continent') . ')';
-        $widgetCountryLabel = Piwik::translate('UserCountry_WidgetLocation')
-            . ' (' . Piwik::translate('UserCountry_Country') . ')';
-        $widgetRegionLabel = Piwik::translate('UserCountry_WidgetLocation')
-            . ' (' . Piwik::translate('UserCountry_Region') . ')';
-        $widgetCityLabel = Piwik::translate('UserCountry_WidgetLocation')
-            . ' (' . Piwik::translate('UserCountry_City') . ')';
-
-        WidgetsList::add('General_Visitors', $widgetContinentLabel, 'UserCountry', 'getContinent');
-        WidgetsList::add('General_Visitors', $widgetCountryLabel, 'UserCountry', 'getCountry');
-        WidgetsList::add('General_Visitors', $widgetRegionLabel, 'UserCountry', 'getRegion');
-        WidgetsList::add('General_Visitors', $widgetCityLabel, 'UserCountry', 'getCity');
-    }
-
-    public function addMenu()
-    {
-        MenuMain::getInstance()->add('General_Visitors', 'UserCountry_SubmenuLocations', array('module' => 'UserCountry', 'action' => 'index'));
-    }
-
-    /**
-     * Event handler. Adds menu items to the MenuAdmin menu.
-     */
-    public function addAdminMenu()
-    {
-        if($this->isGeoLocationAdminEnabled()) {
-            MenuAdmin::getInstance()->add('General_Settings', 'UserCountry_Geolocation',
-                array('module' => 'UserCountry', 'action' => 'adminIndex'),
-                Piwik::hasUserSuperUserAccess(),
-                $order = 8);
         }
     }
 

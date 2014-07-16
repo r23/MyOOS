@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -40,6 +40,7 @@ class SyncUITestScreenshots extends ConsoleCommand
 
         $urlBase = sprintf('http://builds-artifacts.piwik.org/ui-tests.master/%s', $buildNumber);
         $diffviewer = Http::sendHttpRequest($urlBase . "/screenshot-diffs/diffviewer.html", $timeout = 60);
+        $diffviewer = str_replace('&', '&amp;', $diffviewer);
 
         $dom = new \DOMDocument();
         $dom->loadHTML($diffviewer);
@@ -47,7 +48,7 @@ class SyncUITestScreenshots extends ConsoleCommand
             $columns = $row->getElementsByTagName("td");
 
             $nameColumn = $columns->item(0);
-            $processedColumn = $columns->item(2);
+            $processedColumn = $columns->item(3);
 
             $testPlugin = null;
             if ($nameColumn
@@ -72,10 +73,36 @@ class SyncUITestScreenshots extends ConsoleCommand
                     $downloadTo = "plugins/$testPlugin/tests/UI/expected-ui-screenshots/$file";
                 }
 
-                $output->write("<info>Downloading $file to .$downloadTo...</info>\n");
+                $output->write("<info>Downloading $file to  $downloadTo...</info>\n");
                 Http::sendHttpRequest("$urlBase/processed-ui-screenshots/$file", $timeout = 60, $userAgent = null,
                     PIWIK_DOCUMENT_ROOT . "/" . $downloadTo);
             }
         }
+
+        $this->displayGitInstructions($output);
+
+    }
+
+    /**
+     * @param OutputInterface $output
+     */
+    protected function displayGitInstructions(OutputInterface $output)
+    {
+        $output->writeln('');
+        $output->writeln('--------------');
+        $output->writeln('');
+        $output->writeln("If all downloaded screenshots are valid you may push them with these commands:");
+        $output->writeln('');
+        $commands = "cd tests/PHPUnit/UI/
+git add expected-ui-screenshots/
+git pull
+git commit -m'' # WRITE A COMMIT MESSAGE
+git push
+cd ..
+git add UI
+git commit -m'' #WRITE A COMMIT MESSAGE
+git pull
+git push";
+        $output->writeln($commands);
     }
 }

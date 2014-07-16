@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -204,7 +204,7 @@ class Controller extends \Piwik\Plugin\Controller
         $view = new View('@CoreHome/getPromoVideo');
         $view->shareText = Piwik::translate('CoreHome_SharePiwikShort');
         $view->shareTextLong = Piwik::translate('CoreHome_SharePiwikLong');
-        $view->promoVideoUrl = 'http://www.youtube.com/watch?v=OslfF_EH81g';
+        $view->promoVideoUrl = 'https://www.youtube.com/watch?v=OslfF_EH81g';
         return $view->render();
     }
 
@@ -227,18 +227,6 @@ class Controller extends \Piwik\Plugin\Controller
 
         Url::redirectToUrl($url);
         exit;
-    }
-
-    public function getSiteSelector()
-    {
-        return "<div piwik-siteselector class=\"sites_autocomplete\" switch-site-on-select=\"false\"></div>";
-    }
-
-    public function getPeriodSelector()
-    {
-        $view = new View("@CoreHome/_periodSelect");
-        $this->setGeneralVariablesView($view);
-        return $view->render();
     }
 
     public function saveViewDataTableParameters()

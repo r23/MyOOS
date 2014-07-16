@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -163,7 +163,7 @@ class Controller extends \Piwik\Plugin\Controller
         }
 
         if (function_exists('opcache_reset')) {
-            opcache_reset(); // reset the opcode cache (php 5.5.0+)
+            @opcache_reset(); // reset the opcode cache (php 5.5.0+)
         }
     }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -193,7 +193,6 @@ class Tracker
         }
 
         if (!empty($this->requests)) {
-
             foreach ($this->requests as &$request) {
                 // if a string is sent, we assume its a URL and try to parse it
                 if (is_string($request)) {
@@ -236,18 +235,23 @@ class Tracker
         $this->initOutputBuffer();
 
         if (!empty($this->requests)) {
+            $this->beginTransaction();
 
             try {
                 foreach ($this->requests as $params) {
                     $isAuthenticated = $this->trackRequest($params, $tokenAuth);
                 }
                 $this->runScheduledTasksIfAllowed($isAuthenticated);
+                $this->commitTransaction();
             } catch(DbException $e) {
                 Common::printDebug($e->getMessage());
+                $this->rollbackTransaction();
             }
+
         } else {
             $this->handleEmptyRequest(new Request($_GET + $_POST));
         }
+
         $this->end();
 
         $this->flushOutputBuffer();
@@ -268,6 +272,47 @@ class Tracker
         return ob_get_contents();
     }
 
+    protected function beginTransaction()
+    {
+        $this->transactionId = null;
+        if(!$this->shouldUseTransactions()) {
+            return;
+        }
+        $this->transactionId = self::getDatabase()->beginTransaction();
+    }
+
+    protected function commitTransaction()
+    {
+        if(empty($this->transactionId)) {
+            return;
+        }
+        self::getDatabase()->commit($this->transactionId);
+    }
+
+    protected function rollbackTransaction()
+    {
+        if(empty($this->transactionId)) {
+            return;
+        }
+        self::getDatabase()->rollback($this->transactionId);
+    }
+
+    /**
+     * @return bool
+     */
+    protected function shouldUseTransactions()
+    {
+        $isBulkRequest = count($this->requests) > 1;
+        return $isBulkRequest && $this->isTransactionSupported();
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isTransactionSupported()
+    {
+        return (bool) Config::getInstance()->Tracker['bulk_requests_use_transaction'];
+    }
 
     protected function shouldRunScheduledTasks()
     {
@@ -404,8 +449,8 @@ class Tracker
         if (isset($GLOBALS['PIWIK_TRACKER_DEBUG']) && $GLOBALS['PIWIK_TRACKER_DEBUG']) {
             Common::sendHeader('Content-Type: text/html; charset=utf-8');
             $trailer = '<span style="color: #888888">Backtrace:<br /><pre>' . $e->getTraceAsString() . '</pre></span>';
-            $headerPage = file_get_contents(PIWIK_INCLUDE_PATH . '/plugins/Zeitgeist/templates/simpleLayoutHeader.tpl');
-            $footerPage = file_get_contents(PIWIK_INCLUDE_PATH . '/plugins/Zeitgeist/templates/simpleLayoutFooter.tpl');
+            $headerPage = file_get_contents(PIWIK_INCLUDE_PATH . '/plugins/Morpheus/templates/simpleLayoutHeader.tpl');
+            $footerPage = file_get_contents(PIWIK_INCLUDE_PATH . '/plugins/Morpheus/templates/simpleLayoutFooter.tpl');
             $headerPage = str_replace('{$HTML_TITLE}', 'Piwik &rsaquo; Error', $headerPage);
 
             echo $headerPage . '<p>' . $this->getMessageFromException($e) . '</p>' . $trailer . $footerPage;
@@ -465,7 +510,7 @@ class Tracker
 
             case self::STATE_EMPTY_REQUEST:
                 Common::printDebug("Empty request => Piwik page");
-                echo "<a href='/'>Piwik</a> is a free open source web <a href='http://piwik.org'>analytics</a> that lets you keep control of your data.";
+                echo "<a href='/'>Piwik</a> is a free/libre web <a href='http://piwik.org'>analytics</a> that lets you keep control of your data.";
                 break;
 
             case self::STATE_NOSCRIPT_REQUEST:
@@ -511,7 +556,7 @@ class Tracker
          *                                       database.
          *                       - **dbname**: The name of the Piwik MySQL database.
          *                       - **port**: The MySQL database port to use.
-         *                       - **adapter**: either `'PDO_MYSQL'` or `'MYSQLI'`
+         *                       - **adapter**: either `'PDO\MYSQL'` or `'MYSQLI'`
          *                       - **type**: The MySQL engine to use, for instance 'InnoDB'
          */
         Piwik::postEvent('Tracker.getDatabaseConfig', array(&$configDb));
@@ -652,7 +697,7 @@ class Tracker
 
         try {
             $pluginsTracker = \Piwik\Plugin\Manager::getInstance()->loadTrackerPlugins();
-            Common::printDebug("Loading plugins: { " . implode(",", $pluginsTracker) . " }");
+            Common::printDebug("Loading plugins: { " . implode(", ", $pluginsTracker) . " }");
         } catch (Exception $e) {
             Common::printDebug("ERROR: " . $e->getMessage());
         }
@@ -865,4 +910,6 @@ class Tracker
     {
         return file_get_contents("php://input");
     }
+
+
 }

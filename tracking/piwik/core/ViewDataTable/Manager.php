@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -168,7 +168,7 @@ class Manager
         if ($view->config->show_goals) {
             $goalButton = static::getFooterIconFor(Goals::ID);
             if (Common::getRequestVar('idGoal', false) == 'ecommerceOrder') {
-                $goalButton['icon'] = 'plugins/Zeitgeist/images/ecommerceOrder.gif';
+                $goalButton['icon'] = 'plugins/Morpheus/images/ecommerceOrder.gif';
             }
 
             $normalViewIcons['buttons'][] = $goalButton;
@@ -178,14 +178,14 @@ class Manager
             $normalViewIcons['buttons'][] = array(
                 'id'    => 'ecommerceOrder',
                 'title' => Piwik::translate('General_EcommerceOrders'),
-                'icon'  => 'plugins/Zeitgeist/images/ecommerceOrder.gif',
+                'icon'  => 'plugins/Morpheus/images/ecommerceOrder.gif',
                 'text'  => Piwik::translate('General_EcommerceOrders')
             );
 
             $normalViewIcons['buttons'][] = array(
                 'id'    => 'ecommerceAbandonedCart',
                 'title' => Piwik::translate('General_AbandonedCarts'),
-                'icon'  => 'plugins/Zeitgeist/images/ecommerceAbandonedCart.gif',
+                'icon'  => 'plugins/Morpheus/images/ecommerceAbandonedCart.gif',
                 'text'  => Piwik::translate('General_AbandonedCarts')
             );
         }
@@ -237,7 +237,9 @@ class Manager
 
         $graphViewIcons['buttons'] = array_filter($graphViewIcons['buttons']);
 
-        if (!empty($insightsViewIcons['buttons'])) {
+        if (!empty($insightsViewIcons['buttons'])
+            && $view->config->show_insights
+        ) {
             $result[] = $insightsViewIcons;
         }
 
@@ -303,10 +305,14 @@ class Manager
 
         foreach ($parametersToOverride as $key => $value) {
             if ($key === 'viewDataTable'
-                && !empty($params['columns'])
                 && !empty($params[$key])
                 && $params[$key] !== $value) {
-                unset($params['columns']);
+                if (!empty($params['columns'])) {
+                    unset($params['columns']);
+                }
+                if (!empty($params['columns_to_display'])) {
+                    unset($params['columns_to_display']);
+                }
             }
 
             $params[$key] = $value;

@@ -1,14 +1,12 @@
 <?php
 /**
- * Piwik - Open source web analytics
+ * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
  */
 namespace Piwik\Plugins\CoreHome;
-
-use Piwik\WidgetsList;
 
 /**
  *
@@ -23,18 +21,8 @@ class CoreHome extends \Piwik\Plugin
         return array(
             'AssetManager.getStylesheetFiles'        => 'getStylesheetFiles',
             'AssetManager.getJavaScriptFiles'        => 'getJsFiles',
-            'WidgetsList.addWidgets'                 => 'addWidgets',
             'Translate.getClientSideTranslationKeys' => 'getClientSideTranslationKeys'
         );
-    }
-
-    /**
-     * Adds the donate form widget.
-     */
-    public function addWidgets()
-    {
-        WidgetsList::add('Example Widgets', 'CoreHome_SupportPiwik', 'CoreHome', 'getDonateForm');
-        WidgetsList::add('Example Widgets', 'Installation_Welcome', 'CoreHome', 'getPromoVideo');
     }
 
     public function getStylesheetFiles(&$stylesheets)
@@ -42,7 +30,8 @@ class CoreHome extends \Piwik\Plugin
         $stylesheets[] = "libs/jquery/themes/base/jquery-ui.css";
         $stylesheets[] = "libs/jquery/stylesheets/jquery.jscrollpane.css";
         $stylesheets[] = "libs/jquery/stylesheets/scroll.less";
-        $stylesheets[] = "plugins/Zeitgeist/stylesheets/base.less";
+        $stylesheets[] = "plugins/Morpheus/stylesheets/base.less";
+        $stylesheets[] = "plugins/Morpheus/stylesheets/theme.less";
         $stylesheets[] = "plugins/CoreHome/stylesheets/coreHome.less";
         $stylesheets[] = "plugins/CoreHome/stylesheets/menu.less";
         $stylesheets[] = "plugins/CoreHome/stylesheets/dataTable.less";
@@ -56,6 +45,7 @@ class CoreHome extends \Piwik\Plugin
         $stylesheets[] = "plugins/CoreHome/stylesheets/notification.less";
         $stylesheets[] = "plugins/CoreHome/stylesheets/zen-mode.less";
         $stylesheets[] = "plugins/CoreHome/angularjs/enrichedheadline/enrichedheadline.less";
+        $stylesheets[] = "plugins/CoreHome/angularjs/menudropdown/menudropdown.less";
     }
 
     public function getJsFiles(&$jsFiles)
@@ -75,8 +65,10 @@ class CoreHome extends \Piwik\Plugin
         $jsFiles[] = "libs/angularjs/angular-sanitize.min.js";
         $jsFiles[] = "libs/angularjs/angular-animate.min.js";
         $jsFiles[] = "libs/angularjs/angular-cookies.min.js";
-        $jsFiles[] = "plugins/Zeitgeist/javascripts/piwikHelper.js";
-        $jsFiles[] = "plugins/Zeitgeist/javascripts/ajaxHelper.js";
+        $jsFiles[] = "plugins/Morpheus/javascripts/piwikHelper.js";
+        $jsFiles[] = "plugins/Morpheus/javascripts/ajaxHelper.js";
+        $jsFiles[] = "plugins/Morpheus/javascripts/jquery.icheck.min.js";
+        $jsFiles[] = "plugins/Morpheus/javascripts/morpheus.js";
         $jsFiles[] = "plugins/CoreHome/javascripts/require.js";
         $jsFiles[] = "plugins/CoreHome/javascripts/uiControl.js";
         $jsFiles[] = "plugins/CoreHome/javascripts/dataTable.js";
@@ -107,6 +99,7 @@ class CoreHome extends \Piwik\Plugin
         $jsFiles[] = "plugins/CoreHome/angularjs/common/filters/evolution.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/common/filters/length.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/common/filters/trim.js";
+        $jsFiles[] = "plugins/CoreHome/angularjs/common/filters/pretty-url.js";
 
         $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/directive.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/autocomplete-matched.js";
@@ -123,6 +116,8 @@ class CoreHome extends \Piwik\Plugin
         $jsFiles[] = "plugins/CoreHome/angularjs/siteselector/siteselector-model.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/siteselector/siteselector-controller.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/siteselector/siteselector-directive.js";
+
+        $jsFiles[] = "plugins/CoreHome/angularjs/menudropdown/menudropdown-directive.js";
 
         $jsFiles[] = "plugins/CoreHome/angularjs/enrichedheadline/enrichedheadline-directive.js";
     }
@@ -202,5 +197,16 @@ class CoreHome extends \Piwik\Plugin
         $translationKeys[] = 'General_Search';
         $translationKeys[] = 'General_MoreDetails';
         $translationKeys[] = 'General_Help';
+        $translationKeys[] = 'General_MoreDetails';
+        $translationKeys[] = 'General_Help';
+        $translationKeys[] = 'General_Id';
+        $translationKeys[] = 'General_Name';
+        $translationKeys[] = 'General_JsTrackingTag';
+        $translationKeys[] = 'General_Yes';
+        $translationKeys[] = 'General_No';
+        $translationKeys[] = 'General_Edit';
+        $translationKeys[] = 'General_Delete';
+        $translationKeys[] = 'General_Default';
+        $translationKeys[] = 'General_LoadingData';
     }
 }
