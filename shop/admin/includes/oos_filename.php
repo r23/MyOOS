@@ -93,7 +93,6 @@ $aFilename['stats_low_stock'] = $prefix_filename . 'stats_low_stock.php';
 $aFilename['stats_products_purchased'] = $prefix_filename . 'stats_products_purchased.php';
 $aFilename['stats_products_viewed'] = $prefix_filename . 'stats_products_viewed.php';
 $aFilename['stats_recover_cart_sales'] = $prefix_filename . 'stats_recover_cart_sales.php';
-$aFilename['stats_referer'] = $prefix_filename . 'stats_referer.php';
 $aFilename['stats_sales_report2'] = $prefix_filename . 'stats_sales_report2.php';
 $aFilename['tax_classes'] = $prefix_filename . 'tax_classes.php';
 $aFilename['tax_rates'] = $prefix_filename . 'tax_rates.php';

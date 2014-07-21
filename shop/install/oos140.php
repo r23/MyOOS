@@ -136,8 +136,6 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_file
 // campaigns
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('campaigns', 0, 6, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 
-// reports
-$result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('stats_referer', 0, 16, 0)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 
 // information.php
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('information.php', 1, 0, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");

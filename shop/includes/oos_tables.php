@@ -98,7 +98,6 @@ $oostable['products_units'] = $prefix_table . 'products_units';
 $oostable['products_up_sell'] = $prefix_table . 'products_up_sell';
 $oostable['products_xsell'] = $prefix_table . 'products_xsell';
 $oostable['recovercartsales'] = $prefix_table . 'recovercartsales';
-$oostable['referer'] = $prefix_table . 'referer';
 $oostable['reviews'] = $prefix_table . 'reviews';
 $oostable['reviews_description'] = $prefix_table . 'reviews_description';
 $oostable['specials'] = $prefix_table . 'specials';
