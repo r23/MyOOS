@@ -17,3 +17,5 @@ shop/temp/shop/templates_c/
 /mobil/MyOOSCordova/nbproject/private/
 /forum/phpBB3/nbproject/private/
 /shop/nbproject/private/
+bootstrap.min.less
+font-awesome.min.less
