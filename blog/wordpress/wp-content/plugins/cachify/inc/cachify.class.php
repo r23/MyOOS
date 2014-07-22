@@ -1204,7 +1204,7 @@ final class Cachify {
 			$ignore_tags[] = 'script';
 		}
 
-		/* Empty blacklist? | TODO: Make better */
+		/* Empty blacklist? | TODO: Make it better */
 		if ( ! $ignore_tags ) {
 			return($data);
 		}

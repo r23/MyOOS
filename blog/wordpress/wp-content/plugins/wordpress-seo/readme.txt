@@ -4,9 +4,9 @@ Donate link: https://yoast.com/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Tags: seo, SEO, google, meta, meta description, search engine optimization, xml sitemap, xml sitemaps, google sitemap, sitemap, sitemaps, robots meta, rss, rss footer, yahoo, bing, news sitemaps, XML News Sitemaps, WordPress SEO, WordPress SEO by Yoast, yoast, multisite, canonical, nofollow, noindex, keywords, meta keywords, description, webmaster tools, google webmaster tools, seo pack
-Requires at least: 3.5
+Requires at least: 3.6
 Tested up to: 3.9.1
-Stable tag: 1.5.4.1
+Stable tag: 1.5.4.2
 
 Improve your WordPress SEO: Write better content and have a fully optimized WordPress site using the WordPress SEO plugin by Yoast.
 
@@ -109,11 +109,25 @@ You'll find the [FAQ on Yoast.com](https://yoast.com/wordpress/plugins/seo/faq/)
 
 == Changelog ==
 
+= 1.5.4.2 =
+Release Date: July 16th, 2014
+
+* Bugfixes:
+	* Fixed several notices for undefined variables.
+	* Properly trim meta description to its desired size again, regression caused in 1.5.4.
+	* Fix empty last modified date for term sitemaps in sitemap index.
+	* Fix bug where `wpseo_sitemap_exclude_empty_terms` filter wouldn't work for index sitemap.
+
+* Enhancements:
+	* Improve nonce checking in bulk title & description editor.
+	* Prevent direct access to XSL file.
+	* Improve code styling to match WordPress code standard even more strictly, props [Jrf](http://profiles.wordpress.org/jrf).
+	* Add button to copy home meta description to home OpenGraph description.
+
 = 1.5.4.1 =
 Release Date: July 15th, 2014
 
 * Bugfixes:
-	* Prevent `DateTime` borking if int is passed to it.
 	* Properly minified the metabox JS file, fixing snippet preview, props [Jrf](http://profiles.wordpress.org/jrf).
 	* Format unix timestamp to string in sitemap, fixes possible fatal error in XML sitemap.
 

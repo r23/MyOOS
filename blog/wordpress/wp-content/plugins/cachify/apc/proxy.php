@@ -10,8 +10,8 @@ if ( ! empty($_COOKIE) ) {
 
 if (
 	empty($_cachify_logged_in)
-	&& ( ! empty($_SERVER['PHP_SELF']) && strpos($_SERVER['PHP_SELF'], '/wp-admin/') === false )
-	&& ( ! empty($_SERVER['HTTP_ACCEPT_ENCODING']) && strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false )
+	&& ( strpos( filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_STRING), '/wp-admin/' ) === false )
+	&& ( strpos( filter_input(INPUT_SERVER, 'HTTP_ACCEPT_ENCODING', FILTER_SANITIZE_STRING), 'gzip' ) !== false )
 	&& extension_loaded('apc')
 	&& ( $cache = apc_fetch(md5($_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']) . '.cachify') )
 ) {

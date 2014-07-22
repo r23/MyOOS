@@ -24,7 +24,6 @@ Smart but efficient cache solution for WordPress. Use DB, HDD, APC or Memcached 
 
 = Pluspunkte =
 * Zusammenarbeit mit Custom Post Types
-* Unterstützung von WooCommerce
 * Speicherungsmethoden: DB, HDD, APC und Memcached
 * "Cache leeren" als Schaltfläche in der Admin Bar
 * Handbuch als Online-, Kindle- oder Print-Version
@@ -77,8 +76,10 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 == Changelog ==
 
+= 2.1.8 =
+* HHVM-Unterstützung für die *Memcached* Caching-Methode (Danke, [Ulrich Block](http://www.ulrich-block.de))
+
 = 2.1.7 =
-* Kein Caching der Seiten im WooCommerce-Checkout
 * Cache-Leerung bei Custom Post Types
 * Einführung zusätzlicher Sicherheitsabfragen
 * Code-Refactoring
@@ -114,10 +115,6 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 = 2.0.9 =
 * Quelltext-Minimierung als Selektbox und Hook
 * Interne Umstellung auf Konstanten
-
-= 2.0.8 =
-* Volle Unterstützung von WooCommerce (WC 1.4.2+)
-* Detaillierter auf [Google+](https://plus.google.com/110569673423509816572/posts/ic4heMghbxw)
 
 = 2.0.7 =
 * Unterstützung für Memcached

@@ -251,7 +251,7 @@ final class Cachify_MEMCACHED {
 	* Connect to Memcached server
 	*
 	* @since   2.0.7
-	* @change  2.0.7
+	* @change  2.1.8
 	*
 	* @hook    array  cachify_memcached_servers  Array with memcached servers
 	*
@@ -273,14 +273,20 @@ final class Cachify_MEMCACHED {
 		/* Init */
 		self::$_memcached = new Memcached();
 
-		/* Options */
-		self::$_memcached->setOptions(
-			array(
-				Memcached::OPT_COMPRESSION => false,
-				Memcached::OPT_BUFFER_WRITES => true,
-				Memcached::OPT_BINARY_PROTOCOL => true
-			)
-		);
+		/* Set options */
+		if ( defined('HHVM_VERSION') ) {
+			self::$_memcached->setOption( Memcached::OPT_COMPRESSION, false );
+			self::$_memcached->setOption( Memcached::OPT_BUFFER_WRITES, true );
+			self::$_memcached->setOption( Memcached::OPT_BINARY_PROTOCOL, true );
+		} else {
+			self::$_memcached->setOptions(
+				array(
+					Memcached::OPT_COMPRESSION => false,
+					Memcached::OPT_BUFFER_WRITES => true,
+					Memcached::OPT_BINARY_PROTOCOL => true
+				)
+			);
+		}
 
 		/* Connect */
 		self::$_memcached->addServers(
