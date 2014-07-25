@@ -116,14 +116,5 @@ class SepaAccountCheck {
 		return $iso_code_data;
   }
 
-	// -----------  Diese Funktion ueberprueft, ob das Lastschriftmodul installiert ist. -------------*/
-	function IsGBTInstalled () {
-		if (ereg ( 'sepabanktransfer.php', MODULE_PAYMENT_INSTALLED) ) {
-			$is_installed = true;
-		} else {
-			$is_installed = false;
-		}
-		return $is_installed;
-	}
 }  
 

@@ -422,7 +422,7 @@ $flds = "
    customers_password C(40) NOTNULL,
    customers_wishlist_link_id C(32) NOTNULL,
    customers_newsletter C(1) NULL,
-   customers_status  C(1) DEFAULT '1' NOTNULL,
+   customers_status  C(3) DEFAULT '1' NOTNULL,
    customers_login C(1) DEFAULT '0' NOTNULL,
    customers_language C(3),
    customers_max_order N '15.8' NOTNULL DEFAULT '0.00000000'
@@ -1126,6 +1126,24 @@ $flds = "
   reviews_id I NOTNULL PRIMARY,
   reviews_languages_id I NOTNULL DEFAULT '1' PRIMARY,
   reviews_text X NOTNULL
+";
+dosql($table, $flds);
+
+
+$table = $prefix_table . 'sepabanktransfer';
+$flds = "
+  sepabanktransfer_id I NOTNULL AUTO PRIMARY,
+  customers_id I  NOTNULL,
+  sepabanktransfer_owner C(64) DEFAULT NULL,
+  sepabanktransfer_street_address C(64) NOTNULL,
+  sepabanktransfer_postcode C(10) NOTNULL,
+  sepabanktransfer_city C(32) NOTNULL,
+  sepabanktransfer_state C(32) NOTNULL,
+  sepabanktransfer_email_address C(96) NOTNULL, 
+  sepabanktransfer_name C(64) DEFAULT NULL,   
+  sepabanktransfer_iban C(34) NOTNULL,
+  sepabanktransfer_bic C(11) NOTNULL,  
+  sepabanktransfer_status I2 DEFAULT NULL
 ";
 dosql($table, $flds);
 
