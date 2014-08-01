@@ -1,6 +1,6 @@
 <?php
 class Jetpack_RelatedPosts {
-	const VERSION = '20140307';
+	const VERSION = '20140611';
 	const SHORTCODE = 'jetpack-related-posts';
 
 	/**
@@ -88,16 +88,16 @@ class Jetpack_RelatedPosts {
 	 * @return null
 	 */
 	public function action_admin_init() {
-		if ( ! $this->_show_config_in_admin() )
-			return;
 
 		// Add the setting field [jetpack_relatedposts] and place it in Settings > Reading
 		add_settings_field( 'jetpack_relatedposts', '<span id="jetpack_relatedposts">' . __( 'Related posts', 'jetpack' ) . '</span>', array( $this, 'print_setting_html' ), 'reading' );
 		register_setting( 'reading', 'jetpack_relatedposts', array( $this, 'parse_options' ) );
 		add_action('admin_head', array( $this, 'print_setting_head' ) );
 
-		// Enqueue style for live preview
-		$this->_enqueue_assets( false, true );
+		if( 'options-reading.php' == $GLOBALS['pagenow'] ) {
+			// Enqueue style for live preview on the reading settings page
+			$this->_enqueue_assets( false, true );
+		}
 	}
 
 	/**
@@ -336,6 +336,12 @@ EOT;
 	 * @returns null
 	 */
 	public function print_setting_head() {
+
+		// only dislay the Related Posts JavaScript on the Reading Settings Admin Page
+		$current_screen =  get_current_screen();
+		if( 'options-reading' != $current_screen->id )
+			return;
+
 		$related_headline = sprintf(
 			'<h3 class="jp-relatedposts-headline"><em>%s</em></h3>',
 			esc_html__( 'Related', 'jetpack' )
@@ -793,7 +799,13 @@ EOT;
 	 * @return array
 	 */
 	protected function _get_related_posts( $post_id, $size, array $filters ) {
-		$hits = $this->_get_related_post_ids( $post_id, $size, $filters );
+		$hits = $this->_filter_non_public_posts(
+			$this->_get_related_post_ids(
+				$post_id,
+				$size,
+				$filters
+			)
+		);
 
 		$hits = apply_filters( 'jetpack_relatedposts_filter_hits', $hits, $post_id );
 
@@ -810,16 +822,32 @@ EOT;
 	 * @param int $post_id
 	 * @param int $size
 	 * @param array $filters
-	 * @uses wp_remote_post, is_wp_error, wp_remote_retrieve_body
+	 * @uses wp_remote_post, is_wp_error, wp_remote_retrieve_body, get_post_meta, update_post_meta
 	 * @return array
 	 */
 	protected function _get_related_post_ids( $post_id, $size, array $filters ) {
+		$now_ts = time();
+		$cache_meta_key = '_jetpack_related_posts_cache';
+
 		$body = array(
 			'size' => (int) $size,
 		);
 
 		if ( !empty( $filters ) )
 			$body['filter'] = array( 'and' => $filters );
+
+		// Load all cached values
+		$cache = get_post_meta( $post_id, $cache_meta_key, true );
+		if ( empty( $cache ) )
+			$cache = array();
+
+		// Build cache key
+		$cache_key = md5( serialize( $body ) );
+
+		// Cache is valid! Return cacheed value.
+		if ( is_array( $cache[ $cache_key ] ) && $cache[ $cache_key ][ 'expires' ] > $now_ts ) {
+			return $cache[ $cache_key ][ 'payload' ];
+		}
 
 		$response = wp_remote_post(
 			"https://public-api.wordpress.com/rest/v1/sites/{$this->_blog_id_wpcom}/posts/$post_id/related/",
@@ -831,6 +859,7 @@ EOT;
 			)
 		);
 
+		// Oh no... return nothing don't cache errors.
 		if ( is_wp_error( $response ) ) {
 			return array();
 		}
@@ -844,7 +873,44 @@ EOT;
 				);
 			}
 		}
+
+		// Copy all valid cache values
+		$new_cache = array();
+		foreach ( $cache as $k => $v ) {
+			if ( is_array( $v ) && $v[ 'expires' ] > $now_ts ) {
+				$new_cache[ $k ] = $v;
+			}
+		}
+
+		// Set new cache value
+		$new_cache[ $cache_key ] = array(
+			'expires' => 12 * HOUR_IN_SECONDS + $now_ts,
+			'payload' => $related_posts,
+		);
+
+		// Update cache
+		update_post_meta( $post_id, $cache_meta_key, $new_cache );
+
 		return $related_posts;
+	}
+
+	/**
+	 * Filter out any hits that are not public anymore.
+	 *
+	 * @param array $related_posts
+	 * @uses get_post_stati, get_post_status
+	 * @return array
+	 */
+	protected function _filter_non_public_posts( array $related_posts ) {
+		$public_stati = get_post_stati( array( 'public' => true ) );
+
+		$filtered = array();
+		foreach ( $related_posts as $hit ) {
+			if ( in_array( get_post_status( $hit['id'] ), $public_stati ) ) {
+				$filtered[] = $hit;
+			}
+		}
+		return $filtered;
 	}
 
 	/**
@@ -904,15 +970,6 @@ EOT;
 	}
 
 	/**
-	 * Determines if we should show config in admin dashboard to turn on related posts.
-	 *
-	 * @return bool
-	 */
-	protected function _show_config_in_admin() {
-		return true;
-	}
-
-	/**
 	 * Determines if the current post is able to use related posts.
 	 *
 	 * @uses self::get_options, is_admin, is_single, wp_count_posts, get_post
@@ -957,8 +1014,13 @@ EOT;
 	protected function _enqueue_assets( $script, $style ) {
 		if ( $script )
 			wp_enqueue_script( 'jetpack_related-posts', plugins_url( 'related-posts.js', __FILE__ ), array( 'jquery' ), self::VERSION );
-		if ( $style )
-			wp_enqueue_style( 'jetpack_related-posts', plugins_url( 'related-posts.css', __FILE__ ), array(), self::VERSION );
+		if ( $style ){
+			if( is_rtl() ) {
+				wp_enqueue_style( 'jetpack_related-posts', plugins_url( 'rtl/related-posts-rtl.css', __FILE__ ), array(), self::VERSION );
+			} else {
+				wp_enqueue_style( 'jetpack_related-posts', plugins_url( 'related-posts.css', __FILE__ ), array(), self::VERSION );
+			}
+		}
 	}
 
 	/**
@@ -1021,7 +1083,13 @@ class Jetpack_RelatedPosts_Raw extends Jetpack_RelatedPosts {
 	 * @return array
 	 */
 	protected function _get_related_posts( $post_id, $size, array $filters ) {
-		$hits = $this->_get_related_post_ids( $post_id, $size, $filters );
+		$hits = $this->_filter_non_public_posts(
+			$this->_get_related_post_ids(
+				$post_id,
+				$size,
+				$filters
+			)
+		);
 
 		return $hits;
 	}

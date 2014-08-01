@@ -98,12 +98,12 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 				), 9, 2);
 
 				// Updatemeldung
-				if(ini_get('allow_url_fopen') || function_exists('curl_init')) {
-					add_action('in_plugin_update_message-' . TWOCLICK_BASENAME, array(
-						$this,
-						'_update_notice'
-					));
-				} // END if(ini_get('allow_url_fopen') || function_exists('curl_init'))
+// 				if(ini_get('allow_url_fopen') || function_exists('curl_init')) {
+// 					add_action('in_plugin_update_message-' . TWOCLICK_BASENAME, array(
+// 						$this,
+// 						'_update_notice'
+// 					));
+// 				} // END if(ini_get('allow_url_fopen') || function_exists('curl_init'))
 			} // END if(is_admin())
 		} // END function __construct()
 
@@ -725,11 +725,12 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 					</div>
 					<?php
 				}
+
 				/**
 				 * Setting the active tab
 				 */
 				if(isset($_GET['tab'])) {
-					$this->var_sActiveTab = $_GET['tab'];
+					$this->var_sActiveTab = wp_filter_nohtml_kses($_GET['tab']);
 				} // END if(isset($_GET['tab']))
 
 				$this->_get_tablinks_for_options_page();
@@ -750,7 +751,6 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 						<form method="post" action="options.php">
 							<?php
 							settings_fields($this->var_sOptionsGroup);
-// 							$options = get_option('twoclick_buttons_settings');
 							$options = $this->_get_option();
 							?>
 							<input type="hidden" value="<?php echo $this->var_sActiveTab; ?>" name="twoclick_buttons_settings[twoclick_buttons_settings_section]" id="twoclick_buttons_settings[twoclick_buttons_settings_section]" />

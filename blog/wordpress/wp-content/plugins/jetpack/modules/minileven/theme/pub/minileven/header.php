@@ -15,6 +15,7 @@
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <?php wp_head(); ?>
+</head>
 
 <body <?php body_class(); ?>>
 <div id="wrapper">
@@ -26,7 +27,7 @@
 				<h3 class="menu-toggle"><?php _e( 'Menu', 'jetpack' ); ?></h3>
 
 				<?php /*  Allow screen readers / text browsers to skip the navigation menu and get right to the good stuff. */ ?>
-				<div class="skip-link"><a class="assistive-text" href="#content"><?php _e( 'Skip to primary content', 'minileven' , 'jetpack'); ?></a></div>
+				<div class="skip-link"><a class="assistive-text" href="#content"><?php _e( 'Skip to primary content', 'jetpack' ); ?></a></div>
 				<?php /* Our navigation menu.  If one isn't filled out, wp_nav_menu falls back to wp_page_menu. The menu assiged to the primary position is the one used. If none is assigned, the menu with the lowest ID is used. */
 					if ( false !== $location ) :
 						$location_values = array_values( $location );

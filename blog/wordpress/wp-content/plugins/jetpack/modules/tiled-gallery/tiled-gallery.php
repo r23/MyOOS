@@ -82,7 +82,11 @@ class Jetpack_Tiled_Gallery {
 
 	public static function default_scripts_and_styles() {
 		wp_enqueue_script( 'tiled-gallery', plugins_url( 'tiled-gallery/tiled-gallery.js', __FILE__ ), array( 'jquery' ) );
-		wp_enqueue_style( 'tiled-gallery', plugins_url( 'tiled-gallery/tiled-gallery.css', __FILE__ ), array(), '2012-09-21' );
+		if( is_rtl() ) {
+			wp_enqueue_style( 'tiled-gallery', plugins_url( 'tiled-gallery/rtl/tiled-gallery-rtl.css', __FILE__ ), array(), '2012-09-21' );
+		} else {
+			wp_enqueue_style( 'tiled-gallery', plugins_url( 'tiled-gallery/tiled-gallery.css', __FILE__ ), array(), '2012-09-21' );
+		}
 	}
 
 	public function gallery_shortcode( $val, $atts ) {
@@ -215,7 +219,7 @@ class Jetpack_Tiled_Gallery {
 			if ( $add_link ) {
 				$output .= '<a border="0" href="' . esc_url( $link ) . '">';
 			}
-			$output .= '<img ' . $orig_dimensions . $this->generate_carousel_image_args( $image ) . '" src="' . esc_url( $img_src ) . '" width="' . esc_attr( $img_size ) . '" height="' . esc_attr( $img_size ) . '" style="width:' . esc_attr( $img_size ) . 'px; height:' . esc_attr( $img_size ) . 'px; margin: ' . esc_attr( $margin ) . 'px;" title="' . esc_attr( $image_title ) . '" />';
+			$output .= '<img ' . $orig_dimensions . $this->generate_carousel_image_args( $image ) . ' src="' . esc_url( $img_src ) . '" width="' . esc_attr( $img_size ) . '" height="' . esc_attr( $img_size ) . '" style="width:' . esc_attr( $img_size ) . 'px; height:' . esc_attr( $img_size ) . 'px; margin: ' . esc_attr( $margin ) . 'px;" title="' . esc_attr( $image_title ) . '" />';
 			if ( $add_link ) {
 				$output .= '</a>';
 			}
@@ -262,7 +266,7 @@ class Jetpack_Tiled_Gallery {
 			$likes_blog_id = Jetpack_Options::get_option( 'id' );
 		}
 
-		if ( in_array( 'carousel', Jetpack::get_active_modules() ) || 'carousel' == $this->atts['link'] ) {
+		if ( ( defined( 'IS_WPCOM' ) && IS_WPCOM ) || in_array( 'carousel', Jetpack::get_active_modules() ) || 'carousel' == $this->atts['link'] ) {
 			$extra_data = array( 'data-carousel-extra' => array( 'blog_id' => $blog_id, 'permalink' => get_permalink( isset( $post->ID ) ? $post->ID : 0 ), 'likes_blog_id' => $likes_blog_id ) );
 		} else {
 			$extra_data = array();
@@ -321,8 +325,11 @@ class Jetpack_Tiled_Gallery {
 
 	public static function gallery_already_redefined() {
 		global $shortcode_tags;
-		if ( ! isset( $shortcode_tags[ 'gallery' ] ) || $shortcode_tags[ 'gallery' ] !== 'gallery_shortcode' )
-			return true;
+		$redefined = false;
+		if ( ! isset( $shortcode_tags[ 'gallery' ] ) || $shortcode_tags[ 'gallery' ] !== 'gallery_shortcode' ) {
+			$redefined = true;
+		}
+		return apply_filters( 'jetpack_tiled_gallery_shortcode_redefined', $redefined );
 	}
 
 	public static function init() {
@@ -489,7 +496,7 @@ class Jetpack_Tiled_Gallery_Symmetric_Row extends Jetpack_Tiled_Gallery_Shape {
 
 	public function is_possible() {
 		return $this->is_not_as_previous() && $this->images_left >= 3 && $this->images_left != 5 &&
-			$this->images[0]->ratio < 0.8 && $this->images[0]->ratio == $this->images[3]->ratio;
+			$this->images[0]->ratio < 0.8 && isset( $this->images[3] ) && $this->images[0]->ratio == $this->images[3]->ratio;
 	}
 }
 

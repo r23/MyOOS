@@ -271,7 +271,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend_Debug')) {
 		private function _get_userdata() {
 			ob_start();
 
-			$var_sUserAgent = $_SERVER['HTTP_USER_AGENT'];
+			$var_sUserAgent = wp_filter_nohtml_kses($_SERVER['HTTP_USER_AGENT']);
 			?>
 			<div class="metabox-holder clearfix">
 				<div id="post-body">

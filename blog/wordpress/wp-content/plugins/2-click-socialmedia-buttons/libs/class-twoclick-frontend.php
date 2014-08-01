@@ -471,17 +471,29 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 		 */
 		private function _shorten_tweettext($var_sTweettext) {
 			$array_TweettextData = array(
-				'length_tweettext_maximal' => 140,
-				'length_tweettext' => strlen($var_sTweettext),
+				'length_tweettext_maximal' => 136,
+				'length_tweettext' => strlen(rawurlencode($var_sTweettext)),
+// 				'length_tweettext' => strlen($var_sTweettext),
 				'length_twitter_name' => (!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_twitter_reply'])) ? strlen(' via @' . $this->array_TwoclickButtonsOptions['twoclick_buttons_twitter_reply']) : 0,
 				'length_tweetlink' => 20,
-				'length_more' => strlen(' [...]')
+				'length_more' => strlen(' ...')
 			);
 
 			$length_new_tweettext = $array_TweettextData['length_tweettext_maximal'] - $array_TweettextData['length_twitter_name'] - $array_TweettextData['length_tweetlink'] - $array_TweettextData['length_more'];
 
 			if($array_TweettextData['length_tweettext'] > $length_new_tweettext) {
-				$var_sTweettext = substr($var_sTweettext, 0, $length_new_tweettext);
+				$words = explode(' ', $var_sTweettext);
+				$ttext = '';
+
+				foreach($words as $word) {
+					if(strlen(rawurlencode($ttext)) + strlen(rawurlencode(' ' . $word)) < $length_new_tweettext) {
+						$ttext .= ' ' . $word;
+					} else {
+						break;
+					} // END if(strlen(rawurlencode($ttext)) + strlen(rawurlencode(' ' . $word)) < $length_new_tweettext)
+				} // END foreach($words as $word)
+
+				$var_sTweettext = $ttext . ' ...';
 			} // END if($array_TweettextData['length_tweettext'] > $length_new_tweettext)
 
 			return $var_sTweettext;
@@ -843,6 +855,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 					$array_ButtonData['services']['twitter'] = array(
 						'reply_to' => $this->array_TwoclickButtonsOptions['twoclick_buttons_twitter_reply'],
 						'tweet_text' => apply_filters('twoclick-twitter-tweettext', rawurlencode($this->_get_tweettext())),
+// 						'tweet_text' => apply_filters('twoclick-twitter-tweettext', $this->_get_tweettext()),
 						'status' => 'on',
 						'txt_info' => apply_filters('twoclick-twitter-infotext', stripslashes(wp_filter_kses($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_twitter']))),
 						'perma_option' => $var_sShowTwitterPerm,

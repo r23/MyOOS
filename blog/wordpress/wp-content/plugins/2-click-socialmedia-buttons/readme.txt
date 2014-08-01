@@ -2,9 +2,9 @@
 Contributors: ppfeufer
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DC2AEJD2J66RE
 Tags: twitter, facebook, googleplus, button, flattr, social, privacy, xing, pinterest, t3n, linkedin, twoclick
-Requires at least: 3.4
-Tested up to: 3.8-alpha
-Stable tag: 1.6.3
+Requires at least: 3.6
+Tested up to: 4.0
+Stable tag: 1.6.4
 License: GPLv3
 
 Facebook-Like/Empfehlen, Twitter, Flattr, Xing, Pinterest, t3n, LinkedIn und Googleplus dem deutschen Datenschutz entsprechend in WordPress.
@@ -67,6 +67,12 @@ Nutze dafür einfach dein Dashboard
 3. Einstellungsmenü der Buttons.
 
 == Changelog ==
+
+= 1.6.4 =
+* *26. Juli 2014*
+* Hoffentlich ein kleines Problem mit Twitter behoben, was bei langen Titelüberschriften dazu führen konnte, dass die Buttons nicht mehr angezeigt wurden, wenn Umlaute im Titel waren. Bei meinen Tests konnte ich nichts weiter feststellen.
+* Übergabe von Variablenwerten gesäubert. Danke an [Dominik Neubauer](https://www.it-tuv.com/) für die Meldung.
+* Getestet für WordPress 4.0
 
 = 1.6.3 =
 * *21. Januar 2014*

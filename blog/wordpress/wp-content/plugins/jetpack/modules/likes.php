@@ -10,7 +10,7 @@
  */
 
 class Jetpack_Likes {
-	var $version = '20140227';
+	var $version = '20140528';
 
 	public static function init() {
 		static $instance = NULL;
@@ -62,6 +62,7 @@ class Jetpack_Likes {
 			Jetpack_Sync::sync_options( __FILE__, 'social_notifications_like' );
 
 		} else { // wpcom
+			add_action( 'wpmu_new_blog', array( $this, 'enable_comment_likes' ), 10, 1 );
 			add_action( 'admin_init', array( $this, 'add_meta_box' ) );
 			add_action( 'end_likes_meta_box_content', array( $this, 'sharing_meta_box_content' ) );
 			add_filter( 'likes_meta_box_title', array( $this, 'add_likes_to_sharing_meta_box_title' ) );
@@ -158,7 +159,7 @@ class Jetpack_Likes {
 		// site like setting.
 		if ( ( $this->is_enabled_sitewide() && empty( $_POST['wpl_enable_post_likes'] ) ) || ( ! $this->is_enabled_sitewide() && !empty( $_POST['wpl_enable_post_likes'] ) ) ) {
 			update_post_meta( $post_id, 'switch_like_status', 1 );
-			//$g_gif = file_get_contents( 'http://stats.wordpress.com/g.gif?v=wpcom-no-pv&x_likes=switched_post_like_status' ); @todo stat
+			//$g_gif = file_get_contents( 'http://pixel.wp.com/g.gif?v=wpcom-no-pv&x_likes=switched_post_like_status' ); @todo stat
 		} else {
 			delete_post_meta( $post_id, 'switch_like_status' );
 		}
@@ -241,9 +242,9 @@ class Jetpack_Likes {
 
 	function admin_likes_get_option( $option ) {
 		if ( defined( 'IS_WPCOM' ) && IS_WPCOM ) {
-			$option_setting = get_blog_option( get_current_blog_id(), $option );
+			$option_setting = get_blog_option( get_current_blog_id(), $option, 'on' );
 		} else {
-			$option_setting = get_option( $option );
+			$option_setting = get_option( $option, 'on' );
 		}
 
 		return intval( 'on' == $option_setting );
@@ -419,14 +420,14 @@ class Jetpack_Likes {
 		switch( $new_state ) {
 			case 'off' :
 				if ( true == $db_state && ! $this->in_jetpack ) {
-					$g_gif = file_get_contents( 'http://stats.wordpress.com/g.gif?v=wpcom-no-pv&x_likes=disabled_likes' );
+					$g_gif = file_get_contents( 'http://pixel.wp.com/g.gif?v=wpcom-no-pv&x_likes=disabled_likes' );
 				}
 				update_option( 'disabled_likes', 1 );
 				break;
 			case 'on'  :
 			default:
 				if ( false == $db_state && ! $this->in_jetpack ) {
-					$g_gif = file_get_contents( 'http://stats.wordpress.com/g.gif?v=wpcom-no-pv&x_likes=reenabled_likes' );
+					$g_gif = file_get_contents( 'http://pixel.wp.com/g.gif?v=wpcom-no-pv&x_likes=reenabled_likes' );
 				}
 				delete_option( 'disabled_likes' );
 				break;
@@ -435,14 +436,14 @@ class Jetpack_Likes {
 		switch( $reblogs_new_state ) {
 			case 'off' :
 				if ( true == $reblogs_db_state && ! $this->in_jetpack ) {
-					$g_gif = file_get_contents( 'http://stats.wordpress.com/g.gif?v=wpcom-no-pv&x_reblogs=disabled_reblogs' );
+					$g_gif = file_get_contents( 'http://pixel.wp.com/g.gif?v=wpcom-no-pv&x_reblogs=disabled_reblogs' );
 				}
 				update_option( 'disabled_reblogs', 1 );
 				break;
 			case 'on'  :
 			default:
 				if ( false == $reblogs_db_state && ! $this->in_jetpack ) {
-					$g_gif = file_get_contents( 'http://stats.wordpress.com/g.gif?v=wpcom-no-pv&x_reblogs=reenabled_reblogs' );
+					$g_gif = file_get_contents( 'http://pixel.wp.com/g.gif?v=wpcom-no-pv&x_reblogs=reenabled_reblogs' );
 				}
 				delete_option( 'disabled_reblogs' );
 				break;
@@ -459,6 +460,16 @@ class Jetpack_Likes {
 				update_option( 'jetpack_comment_likes_enabled', 0 );
 			break;
 		}
+	}
+
+	/**
+	 * Force comment likes on for a blog
+	 * Used when a new blog is created
+	 */
+	function enable_comment_likes( $blog_id ) {
+		switch_to_blog( $blog_id );
+		update_option( 'jetpack_comment_likes_enabled', 1 );
+		restore_current_blog();
 	}
 
 	/**

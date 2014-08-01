@@ -4,7 +4,7 @@ Donate link: http://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 3.8
 Tested up to: 3.9.1
-Stable tag: 3.9
+Stable tag: 3.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -58,7 +58,7 @@ The following are other recommended plugins by the author of Contact Form 7.
 * Galician (gl_ES) - [Arume Desenvolvementos Informáticos](http://www.arumeinformatica.es/)
 * Georgian (ka_GE) - [Nodar Rocko Davituri](http://davituri.com/)
 * German (de_DE) - [Marcel Spitau](http://blog.spitau.de), [Ivan Graf](http://blog.bildergallery.com/)
-* Greek (el) - [Nick Mouratidis](http://www.kepik.gr/), [Pr. friedlich](http://friedlich.wordpress.com/)
+* Greek (el) - [Nick Mouratidis](http://www.kepik.gr/), [Pr. friedlich](http://friedlich.wordpress.com/), John D. Dimoferlias
 * Gujarati (gu_IN) - [Apoto](http://www.apoto.com/)
 * Haitian (ht) - [Lam Tu Do](http://bizover.net/)
 * Hebrew (he_IL) - [Yaron Ofer](http://www.gadgetguru.co.il/), [Arik Galansky](http://www.arikg.co.il/)
@@ -123,6 +123,14 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 == Changelog ==
 
 For more information, see [Releases](http://contactform7.com/category/releases/).
+
+= 3.9.1 =
+
+* Fix: options with empty values didn't work correctly in a drop-down menu.
+* Fix: broke layout of input fields after validation by an incorrect jQuery use.
+* Fix: couldn't enqueue JavaScript manually with wpcf7_enqueue_scripts() when WPCF7_LOAD_JS was false.
+* Fix: couldn't enqueue CSS manually with wpcf7_enqueue_styles() when WPCF7_LOAD_CSS was false.
+* Translations for Greek and Hungarian have been updated.
 
 = 3.9 =
 

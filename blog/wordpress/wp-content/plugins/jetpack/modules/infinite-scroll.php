@@ -148,7 +148,7 @@ class Jetpack_Infinite_Scroll_Extras {
 		// Abort if Stats module isn't active
 		if ( in_array( 'stats', Jetpack::get_active_modules() ) ) {
 			// Abort if user is logged in but logged-in users shouldn't be tracked.
-			if ( is_user_logged_in() ) {
+			if ( is_user_logged_in() && function_exists( 'stats_get_options' ) ) {
 				$stats_options = stats_get_options();
 				$track_loggedin_users = isset( $stats_options['reg_users'] ) ? (bool) $stats_options['reg_users'] : false;
 
@@ -185,6 +185,9 @@ class Jetpack_Infinite_Scroll_Extras {
 	 * @return null
 	 */
 	public function action_wp_enqueue_scripts() {
+		$load_scripts_and_styles = !( is_singular() || is_page() );
+		if( apply_filters( 'jetpack_infinite_scroll_load_scripts_and_styles', $load_scripts_and_styles ) )
+			return;
 		// VideoPress stand-alone plugin
 		global $videopress;
 		if ( ! empty( $videopress ) && The_Neverending_Home_Page::archive_supports_infinity() && is_a( $videopress, 'VideoPress' ) && method_exists( $videopress, 'enqueue_scripts' ) ) {

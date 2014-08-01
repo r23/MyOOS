@@ -196,7 +196,12 @@ class GPlus_Authorship_Admin {
 		$gplus_connections = GPlus_Authorship_Utils::get_all_gplus_authors();
 		if ( empty( $gplus_connections ) || count( $gplus_connections ) < 1 )
 			return;
-		add_meta_box( 'gplus_authorship', __( 'Google+', 'jetpack' ), array( $this, 'post_screen_meta_box' ), 'post', 'advanced', 'high' );
+
+		$types = array( 'post' );
+		$types = apply_filters( 'gplus_modify_post_types', $types );
+		foreach( $types as $type ) {
+			add_meta_box( 'gplus_authorship', __( 'Google+', 'jetpack' ), array( $this, 'post_screen_meta_box' ), $type, 'advanced', 'high' );
+		}
 	}
 
 	function should_we_show_the_meta_box( $page ) {
@@ -222,7 +227,7 @@ class GPlus_Authorship_Admin {
 		<p>
 			<label for="gplus_authorship_enable">
 				<input type="checkbox" name="gplus_authorship" id="gplus_authorship_enable" value="1" <?php checked( $enabled_on_post ); ?>>
-				<?php esc_html_e( 'Associate my Google+ infomation with this post.', 'jetpack' ); ?> <br />
+				<?php esc_html_e( 'Associate my Google+ information with this post.', 'jetpack' ); ?> <br />
 				<?php if ( !empty( $users_gplus_info ) ) { ?>
 				<div class="gplus-post-meta-box">
 					<img src="<?php echo esc_url( $users_gplus_info['profile_image'] ); ?>?sz=25" alt="" />

@@ -19,13 +19,8 @@
 	height: auto;
 	min-height: 100%;
 	width: 100%;
-	position: relative;
 	width: 100%;
 	-webkit-font-smoothing: antialiased;
-	z-index: 1;
-}
-.jp-frame {
-	position: relative;
 }
 
 // ==========================================================================
@@ -72,41 +67,42 @@ html {
 // ==========================================================================
 
 .header {
-	background: #31621b;
+	background: $green;
 	left: 0;
-	position: relative;
 	right: 0;
-	z-index: 2;
 }
 .header-nav {
-	.current {
-		background: $green;
+	li {
+		line-height: 60px;
 	}
 	a {
-		padding: 0 em(15);
-		color: #fff;
-		line-height: 46px;
-
-		&:hover {
-			background: $green;
-		}
+		padding: 0 em(10);
+		line-height: 24px;
 	}
 	.jetpack-logo {
-		color: #fff;
-		line-height: 50px;
-		font-weight: normal;
-		height: 46px;
-		margin-top: -2px;
-		padding: 0 em(8) 0 em(6);
-
-		&:before {
-			font-family: 'Jetpack' !important;
-			content: '\e600';
+		a {
+			display: inline-block;
 			position: relative;
-			margin-right: 8px;
-			font-size: 31px;
-		}
+			width: 214px;
+			margin-right: 6px;
+			background-size: 183px 32px;
+			color: #fff;
+			line-height: 60px;
+			font-weight: normal;
+			text-indent: -9999px;
 
+			&:before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: url(images/jetpack-logo.png) center center no-repeat;
+				background: url(images/jetpack-logo.svg) center center no-repeat, none;
+				background-size: 183px 32px;
+			}
+		}
 	}
 }
 
@@ -115,16 +111,6 @@ html {
 
 	li {
 		margin: 0;
-	}
-	.jetpack-logo {
-		font: normal 400 24px/50px $sans;
-		margin-left: 10px;
-		text-shadow: 0 1px 1px rgba(0,0,0,.15);
-
-		span {
-			float: right;
-			margin-top: -3px;
-		}
 	}
 }
 
@@ -139,9 +125,7 @@ html {
 // Help tab
 .jetpack-pagestyles {
 	#screen-meta {
-		border-left: 20px solid #81a844;
-		border-right: 20px solid #81a844;
-		margin: 0 0 -1px;
+		margin: 0;
 	}
 	#screen-meta-links .screen-meta-toggle {
 		z-index: 2;
@@ -292,12 +276,12 @@ html {
 	border-bottom: 1px solid #d6d6d6;
 	background: #fff;
 	position: relative;
-	padding: 2.0em 0 4.6em;
+	padding: 2.0em 1em 4.6em 1em;
 	text-align: center;
 	z-index: 1;
 
 	// Full with bar that breaks out of .page width
-	&:before { 
+	&:before {
 		content: "";
 		display: block;
 		position: absolute;
@@ -322,7 +306,7 @@ html {
 	margin: 0 -5px; // For centering features
 	@extend %clearfix;
 }
-.feature, 
+.feature,
 .module {
 	position: relative;
 	float: left;
@@ -433,7 +417,7 @@ html {
 		font-size: 24px;
 		font-weight: 300;
 		margin: 0 0 13px 6px;
-		text-align: left; 
+		text-align: left;
 	}
 	.clear {
 		clear: both;
@@ -657,96 +641,101 @@ html {
 }
 .modal {
 	background: #fff;
-	bottom: 10%;
-	display: none;
-	left: 10%;
-	margin-left: 160px;
 	position: fixed;
-	right: 10%;
-	text-align: center;
-	top: 10%;
-	z-index: 12;
+	top: 52px;
+	bottom: 20px;
+	right: 20px;
+	left: 20px;
+	margin-left: 160px;
+	display: none;
 	@include box-shadow(0 1px 20px 5px rgba(0, 0, 0, 0.1));
+	z-index: 500;
 
-	header {
-		border-bottom: 1px solid #ddd;
-		height: 47px;
-		overflow: hidden;
-		text-align: left;
+	.close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		font: 300 em(24) 'genericons' !important;
+		color: #777;
+		content: '\f405';
+		display: inline-block;
+		padding: em(4) em(10) em(6);
+		z-index: 5;
 
-		li {
-			color: #999;
-			display: inline-block;
-			font-size: em(22);
-			font-weight: normal;
-			padding-left: em(10);
-			list-style: none;
-			margin-top: em(5);
-
-			a.active {
-				color: #555;
-				cursor: default;
-				text-decoration: none;
-			}
+		&:hover {
+			background: #eee;
+			opacity: 0.8;
 		}
-		ul {
-			margin: 0;
-			padding: 0;
-		}
-		.close {
-			border-left: 1px solid #ddd;
-			float: right;
-			font: 300 em(24) 'genericons' !important;
-			color: #777;
-			content: '\f405';
-			display: inline-block;
-			padding: em(4) em(10) em(6);
-
-			&:hover {
-				background: #eee;
-				opacity: 0.8;
-			}
-			&:active {
-				background: #eee;
-				opacity: 0.4;
-			}
+		&:active {
+			background: #eee;
+			opacity: 0.4;
 		}
 	}
 	#jp-post-flair {
 		display: none;
 	}
 	.content-container {
+		position: absolute;
+		top: 0;
+		right: 0;
 		bottom: 0;
 		left: 0;
 		overflow: auto;
-		padding: 0 em(20) em(10);
-		position: absolute;
-		right: 0;
-		text-align: center;
-		top: 47px;
+		padding: em(30, 14);
 	}
 	.content {
 		margin: 0 auto;
 		max-width: 900px;
 		text-align: left;
+	}
+	h2 {
+		text-align: left;
+		margin-top: 0;
+		color: #5d6d74;
+		font: 300 32px $proxima; // 36/14
+		text-shadow: 0 1px 1px #fff;
+	}
+	p {
+		font-size: em(16, 13);
+	}
+	footer {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		padding: 12px 20px;
+		border-top: 1px solid #ddd;
+		background: #fff;
+		text-align: right;
 
-		h3, h4 {
-			margin-top: em(22, 36);
-			color: #5d6d74;
-			font: 300 1.4em $proxima; // 36/14
-			text-shadow: 0 1px 1px #fff;
+		ul {
+			margin: 0;
 		}
-
-		div.jp-info-img {
-			float: right;
-			margin: 0 0 1em 1em;
-
-			img {
-				border: 1px solid #ddd;
-				max-width: 100%;
-			}
+		li {
+			display: inline-block;
+			margin: 0;
 		}
 	}
+	.button-secondary {
+		vertical-align: baseline;
+	}
+}
+.jp-info-img {
+	float: right;
+	margin: 0 0 30px 30px;
+
+	img {
+		border: 1px solid #ddd;
+		max-width: 100%;
+		height: auto;
+
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+}
+.content-container.modal-footer {
+	bottom: 53px;
 }
 .shade {
 	background: #000;
@@ -984,7 +973,7 @@ html {
 		padding: 23px 23px 23px 80px;
 		position: relative;
 		text-align: left;
-		
+
 		&:before {
 			color: #fff;
 			content: '\f418';
@@ -1011,7 +1000,7 @@ html {
 .modules h3.icon,
 .jetpack-modules .info a {
 	width: auto;
-	
+
 	&:before {
 		display: inline-block;
 		position: relative;
@@ -1167,4 +1156,9 @@ html {
 .shortlinks:before,
 .jetpack-modules #shortlinks .info a:before {
 	content: '\f107';
+}
+.modules h3.custom-content-types:before,
+.jetpack-modules #custom-content-types .info a:before {
+	content: '\f498';
+	font: normal 20px "dashicons";
 }

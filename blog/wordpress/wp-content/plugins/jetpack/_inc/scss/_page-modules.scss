@@ -70,6 +70,15 @@
 	}
 }
 
+.module-actions.landing-page {
+	float: right;
+	margin-right: 15px;
+
+	a {
+		font-size: 0.6em;
+	}
+}
+
 .table-bordered.jetpack-modules {
 	border: none;
 	margin-bottom: 0;
@@ -85,6 +94,9 @@
 		&:hover {
 			.genericon {
 				display: inline-block;
+			}
+			td .row-actions span a {
+				opacity: 1;
 			}
 		}
 		&.active {
@@ -126,8 +138,16 @@
 			.row-actions {
 				float: right;
 				padding: 0 0 1px;
+				visibility: visible;
+
 				span {
 					margin-left: 5px;
+					a {
+						opacity: 0;
+						&:focus {
+							opacity: 1;
+						}
+					}
 				}
 
 				@media (max-width: 530px) {
