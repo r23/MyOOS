@@ -1147,6 +1147,17 @@ $flds = "
 ";
 dosql($table, $flds);
 
+$table = $prefix_table . 'sepamandatsreferenz';
+$flds = "
+  mandatsreferenz_id I NOTNULL AUTO PRIMARY,
+  customers_id I  NOTNULL,
+  sepabanktransfer_id I  NOTNULL,
+  customers_email_address C(96) NOTNULL, 
+  pdf_date_send T,
+";
+dosql($table, $flds);
+
+
 
 $table = $prefix_table . 'specials';
 $flds = "

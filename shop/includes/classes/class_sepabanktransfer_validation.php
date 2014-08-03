@@ -42,11 +42,17 @@ class SepaAccountCheck {
 
 
 	/* -------- Funktion zum externen Aufruf der Pruefung ---------- */
-	function CheckAccount($dd_owner, $dd_iban, $dd_bic, $country_id) {
+	function CheckAccount($owner, $dd_iban, $dd_bic, $country_id) {
 		// Erst einmal RICHTIG.
 		$Result = 0;
 		// Keinen Kontoinhaber uebergeben.
-		if ($dd_owner == '' || strlen($dd_owner ) < 5) { return 1;}
+		if ($owner == '' || strlen($owner ) < 5) { 
+			return 1;
+		}
+		
+		
+		
+		
 		// Keine BIC uebergeben.
 		if ($dd_bic == '') { return 8; }
 		// Kein Land zur Kontovalidierung angegeben
