@@ -32,10 +32,6 @@
 <!-- Google fonts -->
 <link href='http://fonts.googleapis.com/css?family=Noto+Serif:400,400italic,700|Open+Sans:300,400,600,700' rel='stylesheet' type='text/css' />
 
-<!-- IE Fix for HTML5 Tags -->
-<!--[if lt IE 9]>
-	<script src="{$theme}/js/html5.js"></script>
-<![endif]-->
 
 </head>
 <body>

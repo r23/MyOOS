@@ -22,8 +22,7 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-if ($debug == 'true')
-{
+if ($debug == 'true') {
     echo '<pre>';
     print_r($_SESSION);
     echo '<br />';
@@ -33,29 +32,23 @@ if ($debug == 'true')
     echo '</pre>';
 }
 
-if (isset($_SESSION))
-{
+if (isset($_SESSION)) {
 
 	// shopping_cart
-	if (isset($_SESSION['new_products_id_in_cart']))
-	{
+	if (isset($_SESSION['new_products_id_in_cart'])) {
 		unset($_SESSION['new_products_id_in_cart']);
 	}
-	$_SESSION['error_cart_msg'] = '';
+	unset($_SESSION['error_cart_msg']);
 
 	// close session (store variables)
 	oos_session_close();
-} 
-else
-{
-	if ($debug == 'true')
-	{
+} else {
+	if ($debug == 'true') {
 		echo 'no session';
 	}
 }
 
-if (OOS_LOG_SQL == 'true')
-{
+if (OOS_LOG_SQL == 'true') {
 	$dbconn->LogSQL(false); // turn off logging
     // output summary of SQL logging results
     $perf = NewPerfMonitor($dbconn);

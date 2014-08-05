@@ -104,5 +104,9 @@
 
 <script src="{$theme}/js/application.js"></script>
 
+<!--[if lt IE 9]>
+    <script src="js/plugin/respond.js"></script>
+    <script src="js/plugin/html5shiv.js"></script>
+<![endif]-->
 </body>
 </html>
