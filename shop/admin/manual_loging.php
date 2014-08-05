@@ -183,66 +183,7 @@
           </tr>
         </table></td>
       </tr>
-<?php   
-      $login_result = $dbconn->Execute("SELECT man_key, status, defined FROM " . $oostable['manual_info'] . " WHERE status = '0'");
-      $login = $login_result->fields;
-      require 'includes/modules/spg_shipping/key_generate.php';
-      if ($login['status'] != '0') {
-        $email_address = ""; 
-?>
-       <tr><td width="100%" align="center"><br /><?php echo oos_draw_login_form('login', $oosModules['admin'], $aCatalogFilename['login_admin'], 'action=login_admin','POST', 'target=_blank'); ?>
-          <table border="0" cellspacing="0" cellpadding="2" width="70%">
-          <tr class="dataTableHeadingRowa">
-          <td class="dataTableHeadingContenta" colspan="2" align="left"><?php echo HEADING_LOGIN_ADMIN; ?></td>
-          </tr>
-          <tr class="dataTableRow">
-          <td class="dataTableHeadingContenta" colspan="2" align="left"><?php echo HEADING_LOGIN_ADMIN_EXPLAIN; ?></td>
-          </tr>
-           <tr class="dataTableRow">
-           <td class="dataTableContenta" align="left"><?php echo TEXT_EMAIL_ADDRESS; ?></td>
-           <td class="dataTableContenta" align="left">
-<?php
-    $customers = array();
-    $customers[] = array('id' => '', 'text' => TEXT_SELECT_CUSTOMER);
 
-    $mail_result = $dbconn->Execute("SELECT customers_email_address, customers_firstname, customers_lastname FROM " . $oostable['customers'] . " ORDER BY customers_lastname");
-    while($customers_values = $mail_result->fields) {
-      $customers[] = array('id' => $customers_values['customers_email_address'],
-                           'text' => $customers_values['customers_lastname'] . ', ' . $customers_values['customers_firstname'] . ' (' . $customers_values['customers_email_address'] . ')');
-
-      // Move that ADOdb pointer!
-      $mail_result->MoveNext();
-    }
-    echo oos_draw_pull_down_menu('email_address', $customers, $_GET['customer']);
-    echo oos_draw_hidden_field('verif_key', $newkey);
-?></td>
-         </tr>
-           <tr class="dataTableRow">
-           <td class="dataTableContenta" align="left">&nbsp;</td>
-           <td class="dataTableContenta" align="center"><?php echo oos_image_swap_submits('login','login_off.gif', IMAGE_LOGIN);  ?></td>
-         </tr></form>
-        </table></td>
-        </tr> 
-        <tr><td width="100%" align="center"><br />
-<?php
-    echo oos_draw_login_form('login', $oosModules['admin'], $aCatalogFilename['create_account_admin'], 'action=login_admin','POST', 'target=_blank');
-    echo oos_draw_hidden_field('verif_key', $newkey);
-?>
-         <table border="0" cellspacing="0" cellpadding="2" width="70%">
-    <tr class="dataTableHeadingRowa">
-            <td class="dataTableHeadingContenta" align="left"><?php echo HEADING_CREATE_ORDER_ADMIN; ?></td>
-          </tr>
-          <tr class="dataTableRow">
-            <td class="dataTableContenta" align="left"><?php echo HEADING_CREATE_ORDER_EXPLAIN; ?></td>
-          </tr>     
-           <tr class="dataTableRow">
-            <td class="dataTableContenta" align="center"><?php echo oos_image_swap_submits('create_order','create_order_off.gif', IMAGE_CREATE_ORDER); ?></td>
-          </tr>
-        </table></form>
-       </td></tr>
-<?php
-  }
-?>
    </table></td>
 <!-- body_text_eof //-->
   </tr>

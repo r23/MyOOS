@@ -115,7 +115,6 @@ $aCatalogFilename['default'] = $prefix_catalog_filename . 'main';
 $aCatalogFilename['gv_redeem'] = $prefix_catalog_filename . 'redeem';
 $aCatalogFilename['product_info'] = $prefix_catalog_filename . 'info'; 
 $aCatalogFilename['login_admin'] = $prefix_catalog_filename . 'login';
-$aCatalogFilename['create_account_admin'] = $prefix_catalog_filename . 'create_account';
 $aCatalogFilename['wishlist'] = $prefix_catalog_filename . 'wishlist'; 
 $aCatalogFilename['user_login'] = $prefix_catalog_filename . 'login';
 

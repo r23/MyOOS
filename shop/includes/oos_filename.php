@@ -37,8 +37,6 @@ $aContents['account_my_wishlist'] = $prefix_filename . 'account_my_wishlist';
 $aContents['account_order_history'] = $prefix_filename . 'account_order_history';
 
 //includes/content/admin
-$aContents['admin_create_account'] = $prefix_filename . 'admin_create_account';
-$aContents['admin_create_account_process'] = $prefix_filename . 'admin_create_account_process';
 $aContents['admin_login'] = $prefix_filename . 'admin_login';
 
 //includes/content/gv
