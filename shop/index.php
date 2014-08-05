@@ -53,9 +53,7 @@ if (function_exists('ini_set')) {
 
 
 define('MYOOS_DOCUMENT_ROOT', dirname(__FILE__)=='/'?'':dirname(__FILE__));
-if(is_readable(MYOOS_DOCUMENT_ROOT . '/bootstrap.php')) {
-	require_once MYOOS_DOCUMENT_ROOT . '/bootstrap.php';
-}
+
 
 if(!defined('MYOOS_INCLUDE_PATH')) {
 	define('MYOOS_INCLUDE_PATH', MYOOS_DOCUMENT_ROOT);
