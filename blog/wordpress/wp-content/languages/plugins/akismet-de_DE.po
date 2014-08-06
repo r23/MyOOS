@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-04-16 09:59:39+0000\n"
+"PO-Revision-Date: 2014-06-20 14:53:06+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -420,8 +420,8 @@ msgstr "<a href=\"%s\">Akismet</a> sorgt dafür, dass kein Spam in Deinen Blog g
 #: class.akismet-admin.php:312
 msgid "There&#8217;s <a href=\"%2$s\">%1$s comment</a> in your spam queue right now."
 msgid_plural "There are <a href=\"%2$s\">%1$s comments</a> in your spam queue right now."
-msgstr[0] "In Deiner Spam-Warteliste gibt es gerade &#8217;s <a href=\"%2$s\">%1$s Kommentar</a>."
-msgstr[1] "In Deiner Spam-Warteliste gibt es gerade &#8217;s <a href=\"%2$s\">%1$s Kommentare</a>."
+msgstr[0] "In deiner Spam-Warteliste gibt es gerade <a href=\"%2$s\">%1$s Kommentar</a>."
+msgstr[1] "In deiner Spam-Warteliste gibt es gerade <a href=\"%2$s\">%1$s Kommentare</a>."
 
 #: class.akismet-admin.php:318
 msgid "There&#8217;s nothing in your <a href='%s'>spam queue</a> at the moment."

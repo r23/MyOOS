@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-05-08 10:38:43+0000\n"
+"PO-Revision-Date: 2014-07-25 12:18:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2857,7 +2857,7 @@ msgstr "(Diese Meldung wurde in Version %s hinzugefügt.)"
 
 #: wp-includes/user.php:153
 msgid "<strong>ERROR</strong>: The password you entered for the username <strong>%1$s</strong> is incorrect. <a href=\"%2$s\" title=\"Password Lost and Found\">Lost your password</a>?"
-msgstr "<strong>FEHLER:</strong>: Das von dir für den Benutzer <strong>%1$s</strong> eingegebene Passwort ist falsch. Hast du dein <a href=\"%2$s\" title=\"Passwort zurücksetzen\">Passwort vergessen</a>?"
+msgstr "<strong>FEHLER</strong>: Das von dir für den Benutzer <strong>%1$s</strong> eingegebene Passwort ist falsch. Hast du dein <a href=\"%2$s\" title=\"Passwort zurücksetzen\">Passwort vergessen</a>?"
 
 #: wp-includes/class-wp-xmlrpc-server.php:5655
 msgid "Sorry, you cannot publish this post."

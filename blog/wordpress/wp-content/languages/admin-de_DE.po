@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-05-08 10:32:15+0000\n"
+"PO-Revision-Date: 2014-08-06 19:42:48+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,15 +16,15 @@ msgstr "Danke für die Aktualisierung! WordPress %s hat viele Verfeinerungen und
 
 #: wp-admin/about.php:61
 msgid "With quicker access to crop and rotation tools, it&#8217;s now much easier to edit your images while editing posts. You can also scale images directly in the editor to find just the right fit."
-msgstr "Mit schnellerem Zugriff auf die Zuschneide-und Drehwerkzeuge, ist es viel einfacher, deine Bilder zu bearbeiten - während des Bearbeitens der Inhalte. Du kannst Bilder nun auch direkt im Editor skalieren, um genau die richtige Passform zu finden."
+msgstr "Mit schnellerem Zugriff auf die Zuschneide- und Drehwerkzeuge ist es viel einfacher, deine Bilder zu bearbeiten - während des Bearbeitens der Inhalte. Du kannst Bilder nun auch direkt im Editor skalieren, um genau die richtige Passform zu finden."
 
 #: wp-admin/includes/class-wp-upgrader.php:2371
 msgid "The WordPress team is willing to help you. Forward this email to %s and the team will work with you to make sure your site is working."
-msgstr "Das WordPress-Team ist bereit Dir zu helfen. Leite dieses E-Mail an %s und das Team wird mit Dir zusammenarbeiten, um sicherzustellen, dass deine Webseite funktioniert."
+msgstr "Das WordPress-Team ist bereit, Dir zu helfen. Leite diese E-Mail an %s, und das Team wird mit Dir zusammenarbeiten, um sicherzustellen, dass deine Webseite funktioniert."
 
 #: wp-admin/includes/class-wp-upgrader.php:2384
 msgid "If you reach out to us, we'll also ensure you'll never have this problem again."
-msgstr "Wenn du dich an uns wendest, geben wir unser Bestes, dass dieses Problem nicht mehr auftritt."
+msgstr "Wenn du dich an uns wendest, geben wir unser Bestes, damit dieses Problem nicht mehr auftritt."
 
 #: wp-admin/about.php:50
 msgid "A smoother media editing&nbsp;experience"
@@ -930,7 +930,7 @@ msgstr "Es gibt nicht genug freien Speicherplatz, um das Update abzuschließen."
 
 #: wp-admin/options-discussion.php:143
 msgid "Comment must be manually approved"
-msgstr "Der Kommentar muss manuell bestätigt werden"
+msgstr "muss der Kommentar manuell bestätigt werden"
 
 #: wp-admin/options-media.php:49
 msgid "The sizes listed below determine the maximum dimensions in pixels to use when adding an image to the Media Library."
@@ -4206,7 +4206,7 @@ msgstr "Designer"
 
 #: wp-admin/freedoms.php:39
 msgid "You have the freedom to run the program, for any purpose."
-msgstr "Du hast die Freiheit, das Programm für jeden Awendungszweck einzusetzen."
+msgstr "Du hast die Freiheit, das Programm für jeden Anwendungszweck einzusetzen."
 
 #: wp-admin/freedoms.php:40
 msgid "You have access to the source code, the freedom to study how the program works, and the freedom to change it to make it do what you wish."
@@ -5104,7 +5104,7 @@ msgstr "Du kannst das Aussehen deiner Website verändern, in dem du einen eigene
 
 #: wp-admin/edit-tags.php:218
 msgid "<strong>Slug</strong> - The &#8220;slug&#8221; is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens."
-msgstr "<strong>Titelform</strong> – Die “Titelform (in URLs)” ist die URL-Variante des Namens. Sie besteht normalerweise nur aus Kleinbuchstaben, Zahlen und Bindestrichen."
+msgstr "<strong>Permalink</strong> – Die “Titelform (in URLs)” ist die URL-Variante des Namens. Sie besteht normalerweise nur aus Kleinbuchstaben, Zahlen und Bindestrichen."
 
 #: wp-admin/edit-form-advanced.php:275
 msgid "You can also create posts with the <a href=\"%s\">Press This bookmarklet</a>."
@@ -6146,7 +6146,7 @@ msgstr "WordPress wurde erfolgreich aktualisiert"
 
 #: wp-admin/update-core.php:380
 msgid "Update WordPress"
-msgstr "WordPress Aktualisieren"
+msgstr "WordPress aktualisieren"
 
 #: wp-admin/plugins.php:116 wp-admin/update-core.php:223
 #: wp-admin/update-core.php:280 wp-admin/update-core.php:578
@@ -6881,7 +6881,7 @@ msgstr "jemand einen Kommentar schreibt."
 
 #: wp-admin/options-discussion.php:135
 msgid "A comment is held for moderation"
-msgstr "Ein Kommentar wartet auf Freischaltung."
+msgstr "ein Kommentar auf Freischaltung wartet."
 
 #: wp-admin/options-discussion.php:139 wp-admin/options-discussion.php:140
 msgid "Before a comment appears"
@@ -8310,7 +8310,7 @@ msgstr "Diskussion"
 #: wp-admin/includes/class-wp-terms-list-table.php:419
 #: wp-admin/includes/meta-boxes.php:631
 msgid "Slug"
-msgstr "Titelform"
+msgstr "Permalink"
 
 #: wp-admin/edit-form-advanced.php:506 wp-admin/includes/ajax-actions.php:1753
 msgid "Last edited by %1$s on %2$s at %3$s"
