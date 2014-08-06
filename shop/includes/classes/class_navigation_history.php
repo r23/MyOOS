@@ -34,55 +34,50 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 class oosNavigationHistory
 {
 
-     var $path;
-     var $snapshot;
+     protected $path;
+     protected $snapshot;
 
     /**
      * Constructor of our Class
      */
-     public function __construct()
-     {
+     public function __construct() {
          $this->reset();
      }
 
 
-     function reset()
-     {
+     function reset() {
          $this->path = array();
          $this->snapshot = array();
      }
 
 
 
-    function set_snapshot($aSetPage = '')
-    {
+    function set_snapshot($aSetPage = '') {
         global $sContent, $request_type;
 
         if (is_array($aSetPage)) {
             $this->snapshot = array('content' => $aSetPage['content'],
                                     'mode' => $aSetPage['mode'],
                                     'get' => $aSetPage['get']);
-      } else {
-          $get_all = '';
-          if (isset($_GET)) {
-              $get_all = oos_get_all_get_parameters();
-              $get_all = oos_remove_trailing($get_all);
-          }
-          $this->snapshot = array('content' => $sContent,
-                                  'mode' => $request_type,
-                                  'get' => $get_all);
+		} else {
+			$get_all = '';
+			if (isset($_GET)) {
+				$get_all = oos_get_all_get_parameters();
+				$get_all = oos_remove_trailing($get_all);
+			}
+			$this->snapshot = array('content' => $sContent,
+									'mode' => $request_type,
+									'get' => $get_all);
         }
     }
 
 
-    function clear_snapshot()
-    {
+    function clear_snapshot() {
         $this->snapshot = array();
     }
 
 
-    function set_path_as_snapshot($history = 0)
-    {
+    function set_path_as_snapshot($history = 0) {
         $pos = (count($this->path)-1-$history);
         $this->snapshot = array('content' => $this->path[$pos]['content'],
                                 'mode' => $this->path[$pos]['mode'],

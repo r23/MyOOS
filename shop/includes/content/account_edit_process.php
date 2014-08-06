@@ -32,13 +32,14 @@ if (!isset($_SESSION['customer_id'])) {
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
 
-  if (!isset($_POST['action']) || ($_POST['action'] != 'process')) {
-    oos_redirect(oos_href_link($aContents['account_edit'], '', 'SSL'));
-  }
-
+if (!isset($_POST['action']) || ($_POST['action'] != 'process')) {
+	oos_redirect(oos_href_link($aContents['account_edit'], '', 'SSL'));
+}
   
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_account_edit_process.php';
-  require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_account_edit_process.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
+
+
 
   $firstname = oos_db_prepare_input($_POST['firstname']);
   $lastname = oos_db_prepare_input($_POST['lastname']);

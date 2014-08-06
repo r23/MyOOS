@@ -27,8 +27,8 @@ if ( is_session_started() === FALSE ) oos_session_start();
 
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id'])) {
-	
-    $_SESSION['navigation']->set_snapshot();
+
+	$_SESSION['navigation']->set_snapshot(array('mode' => 'SSL', 'content' => $aContents['account']));
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
 

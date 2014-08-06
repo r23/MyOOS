@@ -27,7 +27,6 @@
 					<h3 class="first-child">{$lang.heading_returning_customer}</h3>
 					<hr>
 					<form role="form" name="login" action="{html_get_link connection=SSL}" method="post">
-					<form name="login" action="{html_get_link connection=SSL}" method="post">
 						{if $oos_session_name}<input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">{/if}
 						{if $formid}<input type="hidden" name="formid" value="{$formid}">{/if}
 						<input type="hidden" name="action" value="process">

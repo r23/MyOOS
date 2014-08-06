@@ -207,34 +207,25 @@
   }
 
 
- /**
-  * get client ip
-  *
-  * @copyright (C) 2003 by osCommerce.
-  * @license GPL <http://www.gnu.org/licenses/gpl.html>
-  * @link http://www.oscommerce.com
-  * @access public
-  * @return string client ip
-  */
-  function oos_server_get_remote() {
-    if (isset($_SERVER)) {
-      if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-      } elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
-        $ip = $_SERVER['HTTP_CLIENT_IP'];
-      } else {
-        $ip = $_SERVER['REMOTE_ADDR'];
-      }
-    } else {
-      if (getenv('HTTP_X_FORWARDED_FOR')) {
-        $ip = getenv('HTTP_X_FORWARDED_FOR');
-      } elseif (getenv('HTTP_CLIENT_IP')) {
-        $ip = getenv('HTTP_CLIENT_IP');
-      } else {
-        $ip = getenv('REMOTE_ADDR');
-      }
-    }
-
-    return $ip;
-  }
+/**
+ * get client ip
+ *
+ * @copyright (C) 2003 by osCommerce.
+ * @license GPL <http://www.gnu.org/licenses/gpl.html>
+ * @link http://www.oscommerce.com
+ * @access public
+ * @return string client ip
+ */
+function oos_server_get_remote()
+{
+	if ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+		$sIP = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		$sIP = preg_replace('/,.*$/', '', $sIP);
+	} elseif ( isset( $_SERVER['HTTP_CLIENT_IP'] ) ) {
+		$sIP = $_SERVER['HTTP_CLIENT_IP'];
+	} else {
+		$sIP = $_SERVER['REMOTE_ADDR'];
+	}
+	return $sIP;
+}
 
