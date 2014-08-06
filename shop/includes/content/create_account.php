@@ -34,18 +34,12 @@ if (isset($_SESSION['customer_id'])) {
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account_process.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
 
-
-$snapshot = count($_SESSION['navigation']->snapshot);
-if (isset($_GET['email_address'])) {
-	$email_address = oos_db_prepare_input($_GET['email_address']);
-}
-
 $country = isset($_POST['country']) ? (int)$_POST['country'] : STORE_COUNTRY;
 
 $bProcess = FALSE;
-if (isset($_POST['action']) && ($_POST['action'] == 'process') && isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])){
+if (isset($_POST['action']) && ($_POST['action'] == 'process') && isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) {
 	$bProcess = TRUE;
-
+	
 	if (ACCOUNT_GENDER == 'true') {
 		$gender = isset($_POST['gender']) ? oos_db_prepare_input($_POST['gender']) : '';
 	}
@@ -79,7 +73,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') && isset($_SESSIO
 	if (ACCOUNT_GENDER == 'true' && $gender != 'm' && $gender != 'f') {
 		$bError = TRUE;
 		$gender_error = 'true';
-        }
+    }
 	
 	if (strlen($firstname) < ENTRY_FIRST_NAME_MIN_LENGTH) {
 		$bError = TRUE;
@@ -411,9 +405,12 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') && isset($_SESSIO
 	}
 }
 
-
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title']);
+echo $aLang['navbar_title'];
+print_r($oBreadcrumb);
+exit;
+
 $sCanonical = oos_href_link($aContents['create_account'], '', 'SSL', FALSE, TRUE);
 $sPagetitle = $aLang['heading_title'];
 
@@ -433,6 +430,8 @@ if (!isset($option)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
 }
 
+
+
 $read = 'false';
 $smarty->assign('read', $read);
 $smarty->assign('javascript', $javascript);
@@ -449,7 +448,6 @@ $smarty->assign(
          ));
 
 $smarty->assign('email_address', $email_address);
-
 
 if ($bError == TRUE) {
     $smarty->assign(array('error' => $bError,
@@ -509,14 +507,15 @@ if ($bError == TRUE) {
     }
 }	
 
+
 if (CUSTOMER_NOT_LOGIN == 'true') {
 	$show_password = FALSE;
 } else {
 	$show_password = 'true';
 }
 
-$smarty->assign('snapshot', $snapshot);
-$smarty->assign('login_orgin_text', sprintf($aLang['text_origin_login'], oos_href_link($aContents['login'], oos_get_all_get_parameters(), 'SSL')));
+
+$smarty->assign('login_orgin_text', sprintf($aLang['text_origin_login'], oos_href_link($aContents['login'], '', 'SSL')));
 
 $smarty->assign('newsletter_ids', array(0,1));
 $smarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));
