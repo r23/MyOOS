@@ -361,12 +361,11 @@
     }
   }
   if (!isset($_SESSION['man_key'])) {
-    oos_mail($oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], $oOrder->customer['email_address'], $aLang['email_text_subject'], nl2br($email_order), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+    oos_mail($oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], $oOrder->customer['email_address'], $aLang['email_text_subject'], nl2br($email_order), $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
   }
 
 // send emails to other people
-  if (SEND_EXTRA_ORDER_EMAILS_TO != '') {
-    if (SEND_BANKINFO_TO_ADMIN == 'true') {
+    if (MODULE_PAYMENT_SEPABT_TO_ADMIN == 'true') {
       if ($_POST['banktransfer_fax'] != "on"){
         $email_order .= "\n";
         $email_order .= "Kontoinhaber: ". $banktransfer_owner . "\n";
@@ -384,8 +383,8 @@
         $email_order .= "Kontodaten werden per Fax bestaetigt!\n";
       }
     }
-    oos_mail('', SEND_EXTRA_ORDER_EMAILS_TO, $aLang['email_text_subject'], nl2br($email_order), $oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], $oOrder->customer['email_address'], true);
-  }
+    oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $aLang['email_text_subject'], nl2br($email_order), $email_html, $oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], $oOrder->customer['email_address'], true);
+
 
 
 

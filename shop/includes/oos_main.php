@@ -96,9 +96,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_products_history.php'
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shopping_cart.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_navigation_history.php';
 
-// require the mail classes
-require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.phpmailer.php';
-
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_session.php';
 
 

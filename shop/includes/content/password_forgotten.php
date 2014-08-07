@@ -64,7 +64,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')) {
                         SET customers_password = '" . oos_db_input($crypted_password) . "'
                         WHERE customers_id = '" . $check_customer['customers_id'] . "'");
 
-        oos_mail($check_customer['customers_firstname'] . " " . $check_customer['customers_lastname'], $email_address, $aLang['email_password_reminder_subject'], nl2br(sprintf($aLang['email_password_reminder_body'], $newpass)), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+        oos_mail($check_customer['customers_firstname'] . " " . $check_customer['customers_lastname'], $email_address, $aLang['email_password_reminder_subject'], nl2br(sprintf($aLang['email_password_reminder_body'], $newpass)), $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
  
         $_SESSION['success_message'] = $aLang['text_password_sent'];
         oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));

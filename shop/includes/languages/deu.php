@@ -339,7 +339,6 @@ $aLang['text_no_reviews'] = 'Es liegen noch keine Bewertungen vor.';
 $aLang['text_no_new_products'] = 'Zur Zeit gibt es keine neuen Produkte.';
 $aLang['text_unknown_tax_rate'] = 'Unbekannter Steuersatz';
 $aLang['text_required'] = 'erforderlich';
-$aLang['error_oos_mail'] = '<small>Fehler:</small> Die eMail kann nicht über den angegebenen SMTP-Server verschickt werden. Bitte kontrollieren Sie die Einstellungen in der php.ini Datei und führen Sie notwendige Korrekturen durch!';
 
 /*
 $aLang['warning_install_directory_exists'] = 'Warnung: Das Installationverzeichnis ist noch vorhanden auf: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/install. Bitte löschen Sie das Verzeichnis aus Gründen der Sicherheit!';

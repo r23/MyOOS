@@ -336,7 +336,7 @@ $aLang['text_no_reviews'] = 'There are currently no product reviews.';
 $aLang['text_no_new_products'] = 'There are currently no products.';
 $aLang['text_unknown_tax_rate'] = 'Unknown tax rate';
 $aLang['text_required'] = 'Required';
-$aLang['error_oos_mail'] = '<small>OOS ERROR:</small> Cannot send the email through the specified SMTP server. Please check your php.ini setting and correct the SMTP server if necessary.';
+
 /*
 $aLang['warning_install_directory_exists'] = 'Warning: Installation directory exists at: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/install. Please remove this directory for security reasons.';
 $aLang['warning_config_file_writeable'] = 'Warning: I am able to write to the configuration file: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php. This is a potential security risk - please set the right user permissions on this file.';

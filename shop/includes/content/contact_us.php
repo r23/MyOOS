@@ -28,7 +28,7 @@
   $error = 'false';
   if (isset($_GET['action']) && ($_GET['action'] == 'send')) {
     if (oos_validate_is_email(trim($email))) {
-      oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $aLang['email_subject'], $enquiry, $name, $email);
+      oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $aLang['email_subject'], $enquiry, $email_html, $name, $email);
       oos_redirect(oos_href_link($aContents['contact_us'], 'action=success'));
     } else {
       $error = 'true';

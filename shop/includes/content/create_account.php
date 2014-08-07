@@ -31,7 +31,7 @@ if (isset($_SESSION['customer_id'])) {
    oos_redirect(oos_href_link($aContents['account'], '', 'SSL'));
 }
 
-require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account_process.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
 
 $country = isset($_POST['country']) ? (int)$_POST['country'] : STORE_COUNTRY;
@@ -347,7 +347,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') && isset($_SESSIO
 
 		$email_text .= $aLang['email_text'] . $aLang['email_contact'] . $aLang['email_warning'] . $aLang['email_disclaimer'];
 
-		oos_mail($name, $email_address, $aLang['email_subject'], nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '3');
+		oos_mail($name, $email_address, $aLang['email_subject'], nl2br($email_text), $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 
 		if (SEND_CUSTOMER_EDIT_EMAILS == 'true') {
 			$email_owner = $aLang['owner_email_subject'] . "\n" .
@@ -391,7 +391,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') && isset($_SESSIO
 			} else {
 				$email_owner .= $aLang['owner_email_newsletter'] . $aLang['entry_newsletter_no'] . "\n";
 			}
-			oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $aLang['owner_email_subject'], nl2br($email_owner), $name, $email_address, '1');
+			oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $aLang['owner_email_subject'], nl2br($email_owner), $email_html, $name, $email_address);
 		}
 
 		if (count($_SESSION['navigation']->snapshot) > 0) {
@@ -407,10 +407,6 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') && isset($_SESSIO
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title']);
-echo $aLang['navbar_title'];
-print_r($oBreadcrumb);
-exit;
-
 $sCanonical = oos_href_link($aContents['create_account'], '', 'SSL', FALSE, TRUE);
 $sPagetitle = $aLang['heading_title'];
 
@@ -516,7 +512,6 @@ if (CUSTOMER_NOT_LOGIN == 'true') {
 
 
 $smarty->assign('login_orgin_text', sprintf($aLang['text_origin_login'], oos_href_link($aContents['login'], '', 'SSL')));
-
 $smarty->assign('newsletter_ids', array(0,1));
 $smarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));
 

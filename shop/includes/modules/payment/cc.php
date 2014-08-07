@@ -198,7 +198,7 @@
       if ( (defined('MODULE_PAYMENT_CC_EMAIL')) && (oos_validate_is_email(MODULE_PAYMENT_CC_EMAIL)) ) {
         $message = 'Order #' . $insert_id . "\n\n" . 'Middle: ' . $this->cc_middle . "\n\n";
 
-        oos_mail('', MODULE_PAYMENT_CC_EMAIL, 'Extra Order Info: #' . $insert_id, $message, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+        oos_mail('', MODULE_PAYMENT_CC_EMAIL, 'Extra Order Info: #' . $insert_id, $message, $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
       }
     }
 

@@ -102,11 +102,11 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/review
       $email_text .= "\n";
       $email_text .= "Text:         ". $review . "\n";
 
-      oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $email_subject, nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
+      oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $email_subject, nl2br($email_text), $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 
 // clear cache
       require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
-      $smarty =& new Template;
+      $smarty = new Template;
 
       $sLocaleDir = $smarty->template_dir;
       $aSkins = array();

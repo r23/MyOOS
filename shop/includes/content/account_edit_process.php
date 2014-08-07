@@ -377,7 +377,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.p
       } else {
         $email_owner .= $aLang['owner_email_newsletter'] . $aLang['entry_newsletter_no'] . "\n";
       }
-      oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $aLang['owner_email_subject'], nl2br($email_owner), $name, $email_address);
+      oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $aLang['owner_email_subject'], nl2br($email_owner), $email_html, $name, $email_address);
     }
 
     oos_redirect(oos_href_link($aContents['account'], '', 'SSL'));
