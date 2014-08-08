@@ -1,7 +1,7 @@
 === Jetpack by WordPress.com ===
 Contributors: automattic, alternatekev, andy, apeatling, azaozz, barry, beaulebens, blobaugh, cfinke, chellycat, danielbachhuber, daniloercoli, designsimply, eoigal, ethitter, gibrown, georgestephanis, hew, hugobaeta, iammattthomas, jblz, jeherve, jkudish, Joen, johnjamesjacoby, jshreve, kraftbj, lancewillett, martinremy, matt, matveb, mcsf, mdawaffe, migueluy, nickmomrik, obenland, pento, richardmtl, stephdau, tmoorewp, Viper007Bond, westi, yoavf
 Tags: WordPress.com, statistics, stats, views, tweets, twitter, widget, gravatar, hovercards, profile, equations, latex, math, maths, youtube, shortcode, archives, audio, blip, bliptv, dailymotion, digg, flickr, googlevideo, google, googlemaps, kyte, kytetv, livevideo, redlasso, rockyou, rss, scribd, slide, slideshare, soundcloud, vimeo, shortlinks, wp.me, subscriptions, notifications, notes, json, api, rest, mosaic, gallery, slideshow, videopress, monitor, search, omnisearch, sso, jet pack
-Stable tag: 3.1
+Stable tag: 3.1.1
 Requires at least: 3.8
 Tested up to: 3.9.2
 
@@ -85,6 +85,14 @@ Learn more (and get detailed instructions) in our [contribute guide](http://jetp
 8. Mobile Theme
 
 == Changelog ==
+
+= 3.1.1 =
+* Enhancement: Update translation files for strings that had been submitted/approved since release.
+* Bug Fix: Social Links: Add a function check to better degrade if Publicize isn't around.
+* Bug Fix: Open Graph: Add WordPress SEO back to the blacklist, until they update how they opt us out.
+* Bug Fix: Asset Minification: Add another caveat ( empty $plugin ) to short out on.
+* Bug Fix: Deprecated Hooks: Fixing our expectations where something that should be an array occasionally wasn't.
+* Bug Fix: Custom CSS: Add extra whitelist rule for -o-keyframe rules.
 
 = 3.1 =
 * Enhancement: New Custom Content Types module.
