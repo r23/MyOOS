@@ -26,9 +26,9 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
   $aTemplate['info_shopping_cart'] = $sTheme . '/system/info_shopping_cart.tpl';
 
-  //smarty
-  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
-  $smarty =& new Template;
+//smarty
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
+$smarty = new myOOS_Smarty();
 
   $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
   $info_shopping_cart_id = $sTheme . '|info_shopping_cart|' . $sLanguage;

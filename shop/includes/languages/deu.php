@@ -87,6 +87,10 @@ $aLang['male'] = 'Herr';
 $aLang['female'] = 'Frau';
 $aLang['male_address'] = 'Herr';
 $aLang['female_address'] = 'Frau';
+$aLang['email_greet_mr'] = 'Sehr geehrter Herr %s,';
+$aLang['email_greet_ms'] = 'Sehr geehrte Frau %s,';
+$aLang['email_greet_none'] = 'Guten Tag!';
+
 
 // text for date of birth example
 define('DOB_FORMAT_STRING', 'tt.mm.jjjj');
@@ -405,13 +409,6 @@ $aLang['warning_no_file_uploaded'] = 'Warning: No file uploaded.';
 $aLang['warning_file_uploads_disabled'] = 'Warning: File uploads are disabled in the php.ini configuration file.';
 
 
-// 404 Email Error Report
-$aLang['error404_email_subject'] = '404 Fehlerreport';
-$aLang['error404_email_header'] = '404 Fehlermeldung';
-$aLang['error404_email_text'] = 'Ein 404-Fehler trat auf';
-$aLang['error404_email_date'] = 'Datum:';
-$aLang['error404_email_uri'] = 'Die fehlerhafte URI:';
-$aLang['error404_email_ref'] = 'Die Ausgangsseite:';
 
 $aLang['err404'] = '404 Fehlermeldung';
 $aLang['err404_page_not_found'] = 'Die angeforderte Seite wurde nicht gefunden bei';

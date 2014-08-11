@@ -26,7 +26,7 @@
     var $description;
     var $uninstallable;
     var $depends;
-    var $preceeds = 'session';
+    var $preceeds;
     var $author;
     var $version;
     var $requirements;
@@ -39,8 +39,8 @@
 
       $this->name          = PLUGIN_EVENT_MAIL_NAME;
       $this->description   = PLUGIN_EVENT_MAIL_DESC;
-      $this->uninstallable = TRUE;
-      $this->preceeds      = 'session';
+      $this->uninstallable = FALSE;
+      $this->preceeds      = '';
       $this->author        = 'OOS Development Team';
       $this->version       = '1.0';
       $this->requirements  = array(
@@ -69,7 +69,7 @@
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('EMAIL_TRANSPORT', 'mail', 6, 3, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'mail\', \'sendmail\', \'smtp\'),')");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('EMAIL_USE_HTML', 'true', 6, 5, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('ENTRY_EMAIL_ADDRESS_CHECK', 'false', 6, 6, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_SMTPAUTH', 'true', 6, 7, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')");
+      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_SMTPAUTH', 'false', 6, 7, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_SMTPUSER', '', 6, 8, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_SMTPPASS', '', 6, 9, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_SMTPHOST', '', 6, 10, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");

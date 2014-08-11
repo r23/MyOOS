@@ -37,7 +37,6 @@ if ( is_session_started() === FALSE ) oos_session_start();
 
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id'])) {
-
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
@@ -105,8 +104,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/review
       oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $email_subject, nl2br($email_text), $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 
 // clear cache
-      require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
-      $smarty = new Template;
+//smarty
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
+$smarty = new myOOS_Smarty();
 
       $sLocaleDir = $smarty->template_dir;
       $aSkins = array();

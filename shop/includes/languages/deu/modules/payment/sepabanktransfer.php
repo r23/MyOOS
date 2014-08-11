@@ -44,6 +44,8 @@ define('MODULE_PAYMENT_SEPABT_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kleins
 define('MODULE_PAYMENT_SEPABT_ORDER_STATUS_ID_TITLE', 'Bestellstatus festlegen');
 define('MODULE_PAYMENT_SEPABT_ORDER_STATUS_ID_DESC', 'Bestellungen, welche mit diesem Modul gemacht werden, auf diesen Status setzen.');
 
+define('MODULE_PAYMENT_SEPABT_TO_ADMIN_TITLE', 'Bankinfo per Mail');
+define('MODULE_PAYMENT_SEPABT_TO_ADMIN_DESC', 'M&ouml;chten Sie die Bankdaten aus dem Lastschriftverfahren mit der E-Mail erhalten?');
 
 define('MODULE_PAYMENT_SEPABT_PAYEE_TITLE', 'Zahlungsempf&auml;ngerr');	
 define('MODULE_PAYMENT_SEPABT_PAYEE_DESC', 'Bitte geben Sie einen Zahlungsempf&auml;nger ein');

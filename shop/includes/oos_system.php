@@ -26,8 +26,7 @@ $smarty = new myOOS_Smarty();
 
 
 //debug
-if ($debug == 'true')
-{
+if ($debug == 'true') {
 	$smarty->force_compile   = TRUE;
 	$smarty->debugging       = TRUE;
 	$smarty->clearAllCache();
@@ -53,8 +52,7 @@ if (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
 $oos_manufacturers_cache_id     = $sTheme . '|block|manufacturers|' . $sLanguage . '|' . $nManufacturersId;
 $oos_manufacturer_info_cache_id = $sTheme . '|block|manufacturer_info|' . $sLanguage . '|' . $nManufacturersId;
 
-if (isset($_GET['products_id']))
-{
+if (isset($_GET['products_id'])) {
 	if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
 	$oos_manufacturer_info_cache_id = $sTheme . '|block|manufacturer_info|' . $sLanguage . '|' . intval($nProductsId);
 	$oos_products_info_cache_id     = $sTheme . '|products_info|' . $sLanguage . '|' . intval($nProductsId);
@@ -126,26 +124,27 @@ $query = "SELECT products_units_id, products_unit_name
           WHERE languages_id = '" . intval($nLanguageID) . "'";
 $products_units = $dbconn->GetAssoc($query);
 
-  // PAngV
-  if ($_SESSION['member']->group['show_price'] == 1) {
+// PAngV
+$sPAngV = $aLang['text_taxt_incl'];
+if ($_SESSION['member']->group['show_price'] == 1) {
     if ($_SESSION['member']->group['show_price_tax'] == 1) {
-      $sPAngV = $aLang['text_taxt_incl'];
+		$sPAngV = $aLang['text_taxt_incl'];
     } else {
-      $sPAngV = $aLang['text_taxt_add'];
+		$sPAngV = $aLang['text_taxt_add'];
     }
 
     if (isset($_SESSION['customers_vat_id_status']) && ($_SESSION['customers_vat_id_status'] == 1)) {
-      $sPAngV = $aLang['tax_info_excl'];
+		$sPAngV = $aLang['tax_info_excl'];
     }
+}
 
-    $sPAngV .= ', <br />';
-    $sPAngV .= sprintf($aLang['text_shipping'], oos_href_link($aContents['information'], 'information_id=1'));
-  }
+$sPAngV .= ', <br />';
+$sPAngV .= sprintf($aLang['text_shipping'], oos_href_link($aContents['information'], 'information_id=2'));
+
   
-  $smarty->assign(
+$smarty->assign(
       array(
           'pangv'               => $sPAngV,
           'products_units'      => $products_units,
-
       )
 );

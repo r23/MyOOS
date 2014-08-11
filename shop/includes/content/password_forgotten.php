@@ -47,7 +47,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')) {
     }
 	
     $customerstable = $oostable['customers'];
-    $check_customer_sql = "SELECT customers_firstname, customers_lastname, customers_password, customers_id
+    $check_customer_sql = "SELECT customers_gender, customers_firstname, customers_lastname, customers_password, customers_id
                            FROM $customerstable
                            WHERE customers_email_address = '" . oos_db_input($email_address) . "'";
     $check_customer_result = $dbconn->Execute($check_customer_sql);
@@ -64,6 +64,43 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')) {
                         SET customers_password = '" . oos_db_input($crypted_password) . "'
                         WHERE customers_id = '" . $check_customer['customers_id'] . "'");
 
+		$customers_name = $check_customer['customers_firstname'] . '. ' . $check_customer['customers_lastname'];				
+						
+		switch ($check_customer['customers_gender']) {
+			case 'm':
+				$sGreet = sprintf ($aLang['email_greet_mr'], $customers_name);
+				break;
+			case 'f':
+				$sGreet = sprintf ($aLang['email_greet_ms'], $customers_name);
+				break;
+			default:
+				$sGreet = $aLang['email_greet_none'];
+		}
+		if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $gender;
+						
+		//smarty
+		require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
+		$smarty = new myOOS_Smarty();						
+
+		// dont allow cache
+		$smarty->caching = false;
+
+		$smarty->assign(
+			array(
+				'shop_name'		=> STORE_NAME,
+				'shop_url'		=> OOS_HTTP_SERVER . OOS_SHOP,
+				'shop_logo'		=> STORE_LOGO,
+				'services_url'	=> COMMUNITY,
+				'blog_url'		=> BLOG_URL,
+                'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', 'NONSSL', FALSE, TRUE),
+				'password' 		=> $newpass
+			)
+		);
+
+		// create mails
+		$email_html = $smarty->fetch('/email-templates/' . $sLanguage . '/password_verification_mail.html');
+		$email_txt = $smarty->fetch('/email-templates/' . $sLanguage . '/password_verification_mail.tpl');
+		
         oos_mail($check_customer['customers_firstname'] . " " . $check_customer['customers_lastname'], $email_address, $aLang['email_password_reminder_subject'], nl2br(sprintf($aLang['email_password_reminder_body'], $newpass)), $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
  
         $_SESSION['success_message'] = $aLang['text_password_sent'];

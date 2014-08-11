@@ -42,3 +42,7 @@ define('OOS_PAGE_TYPE_REVIEWS',   9);
 
 define('OOS_HOME', 'http://www.oos-shop.de/');
 
+define('STORE_LOGO', OOS_HTTP_SERVER . OOS_SHOP . OOS_IMAGES . 'logo.png');
+define('COMMUNITY', 'http://localhost/phpbb3');
+define('BLOG_URL', 'http://localhost/wordpress'); 
+                                              
