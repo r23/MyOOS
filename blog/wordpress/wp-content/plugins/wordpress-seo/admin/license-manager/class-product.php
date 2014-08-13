@@ -162,6 +162,15 @@ if( ! class_exists( "Yoast_Product", false ) ) {
 		}
 
 		/**
+		 * Returns the dirname of the slug and limits it to 15 chars
+		 *
+		 * @return string
+		 */
+		public function get_transient_prefix() {
+			return substr( dirname( $this->slug ), 0, 15 );
+		}
+
+		/**
 		 * @param string $text_domain
 		 */
 		public function set_text_domain( $text_domain ) {

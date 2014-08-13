@@ -107,6 +107,10 @@ if( ! class_exists( 'Yoast_License_Manager', false ) ) {
 		*/
 		public function display_admin_notices() {
 
+			if ( ! current_user_can( 'manage_options' ) ) {
+				return;
+			}
+
 			// show notice if license is invalid
 			if( ! $this->license_is_valid() ) {
 				if( $this->get_license_key() == '' ) {
@@ -179,7 +183,7 @@ if( ! class_exists( 'Yoast_License_Manager', false ) ) {
 					}
 				
 					// add upgrade notice if user has less than 3 activations left
-					if( true || $result->license_limit > 0 && ( $result->license_limit - $result->site_count ) <= 3 ) {
+					if( $result->license_limit > 0 && ( $result->license_limit - $result->site_count ) <= 3 ) {
 						$message .= sprintf( __( '<a href="%s">Did you know you can upgrade your license?</a>', $this->product->get_text_domain() ), $this->product->get_tracking_url( 'license-nearing-limit-notice' ) );
 					// add extend notice if license is expiring in less than 1 month
 					} elseif( $expiry_date !== false && $expiry_date < strtotime( "+1 month" ) ) {
@@ -250,7 +254,7 @@ if( ! class_exists( 'Yoast_License_Manager', false ) ) {
 				'edd_action' => $action . '_license',
 				'license'    => $this->get_license_key(),
 				'item_name'  => urlencode( trim( $this->product->get_item_name() ) ),
-				'url' => home_url()
+				'url'        => get_option( 'home' )                                    // grab the URL straight from the option to prevent filters from breaking it.
 			);
 
 			// create api request url

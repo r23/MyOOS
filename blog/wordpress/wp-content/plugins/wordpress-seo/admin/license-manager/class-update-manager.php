@@ -49,8 +49,8 @@ if( ! class_exists( "Yoast_Update_Manager", false ) ) {
 			$this->license_manager = $license_manager;
 
 			// generate transient names
-			$this->response_transient_key = $this->product->get_slug() . 'update-response';
-			$this->request_failed_transient_key = $this->product->get_slug() . '-update-request-failed';
+			$this->response_transient_key = $this->product->get_transient_prefix() . '-update-response';
+			$this->request_failed_transient_key = $this->product->get_transient_prefix() . '-update-request-failed';
 
 			// maybe delete transient
 			$this->maybe_delete_transients();
@@ -197,7 +197,7 @@ if( ! class_exists( "Yoast_Update_Manager", false ) ) {
 		 */
 		private function get_cached_remote_data() {
 
-			$data = get_transient( $this->product->get_slug() . 'update-response' );
+			$data = get_transient( $this->response_transient_key );
 
 			if( $data ) {
 				return $data;
