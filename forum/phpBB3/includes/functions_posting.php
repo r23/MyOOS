@@ -1749,7 +1749,13 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll, &$data, $u
 			trigger_error("You are not allowed to post URLs!");
 		}
 	}
-
+	
+	if (!$user->data['is_registered'] ||
+		$user->data['user_posts'] < $user_posts_threshold) {
+		if (_is_lang_spam($msgwows)) {
+			trigger_error("Only German posts are allowed here!");
+		}
+	}
 	
 	
 	// Collect Information
@@ -2773,4 +2779,59 @@ function phpbb_bump_topic($forum_id, $topic_id, $post_data, $bump_time = false)
 	return $url;
 }
 
-?>
+
+function _is_lang_spam($content)
+{
+		/* Init */
+		$lang = 'de';
+
+		/* Formatieren */
+		$content = preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', $content );
+		$content = strip_tags($content);
+
+		
+		/* Keine Daten? */
+		if ( empty($content) ) {
+			return false;
+		}
+
+		/* Formatieren */
+		$content = rawurlencode(
+			( function_exists('mb_substr') ? mb_substr($content, 0, 200) : substr($content, 0, 200) )
+		);
+
+		/* IP abfragen */
+		$response = get_lang(sprintf('http://translate.google.com/translate_a/t?client=x&text=%s', $content));
+
+		/* Parsen */
+		preg_match(	'/"src":"(\\D{2})"/',$response, $matches );
+
+		/* Fehler? */
+		if ( empty($matches[1]) ) {
+			return false;
+		}
+
+		return ( strtolower($matches[1]) != $lang );
+	}
+
+
+/**
+ * make use of either cURL or file_get_contents
+ */
+function get_lang($url)
+{
+    if (function_exists('curl_init')) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        $output = curl_exec($ch);
+        curl_close($ch);
+
+        return ($output) ? $output : false;	
+    } elseif (ini_get('allow_url_fopen')) {
+        return @file_get_contents($url);
+    }
+}
+
