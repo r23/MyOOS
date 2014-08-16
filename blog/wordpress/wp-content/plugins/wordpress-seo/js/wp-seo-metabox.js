@@ -128,7 +128,15 @@ function yst_replaceVariables(str, callback) {
 	// excerpt
 	var excerpt = yst_clean(jQuery("#excerpt").val());
 	str = str.replace(/%%excerpt_only%%/g, excerpt);
+	if ('' == excerpt) {
+		excerpt = jQuery("#content").val().replace(/(<([^>]+)>)/ig,"").substring(0,wpseoMetaboxL10n.wpseo_meta_desc_length-1);
+	}
 	str = str.replace(/%%excerpt%%/g, excerpt);
+
+	// parent page
+	if ( jQuery('#parent_id option:selected').text() != wpseoMetaboxL10n.no_parent_text ) {
+		str = str.replace(/%%parent_title%%/g, jQuery('#parent_id option:selected').text());
+	}
 
 	// remove double separators
 	var esc_sep = yst_escapeFocusKw(wpseoMetaboxL10n.sep);
@@ -409,6 +417,10 @@ jQuery(document).ready(function () {
 		yst_updateTitle();
 	});
 	jQuery('#title').keyup(function () {
+		yst_updateTitle();
+		yst_updateDesc();
+	});
+	jQuery('#parent_id').change(function () {
 		yst_updateTitle();
 		yst_updateDesc();
 	});
