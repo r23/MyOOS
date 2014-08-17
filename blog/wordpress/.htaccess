@@ -514,6 +514,13 @@ Options -Indexes
   deny from all
 </files> 
 
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^sitemap_index\.xml$ /index.php?sitemap=1 [L]
+  RewriteRule ^([^/]+?)-sitemap([0-9]+)?.xml$ /index.php?sitemap=$1&sitemap_n=$2 [L]
+</IfModule>
+
 # BEGINN CACHIFY
 # <IfModule mod_rewrite.c>
 #   RewriteEngine On
