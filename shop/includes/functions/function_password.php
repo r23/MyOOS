@@ -19,38 +19,31 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
- /**
-  * This funstion validates a plain text password with an
-  * encrpyted password
-  *
-  * @param $sPlain
-  * @param $sEncrypted
-  * @return boolean
-  */
-  function oos_validate_password($sPlain, $sEncrypted) {
+/**
+ * This funstion validates a plain text password with an
+ * encrpyted password
+ *
+ * @param $sPlain
+ * @param $sEncrypted
+ * @return boolean
+ */
+function oos_validate_password($sPlain, $sEncrypted) {
 
-    if (oos_is_not_null($sPlain) && oos_is_not_null($sEncrypted)) {
-      // split apart the hash / salt
-      $aStack = explode(':', $sEncrypted);
+	if (oos_is_not_null($sPlain) && oos_is_not_null($sEncrypted)) {
+		if (!class_exists('PasswordHash')) {
+			require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpass/PasswordHash.php';
+		}
 
-      if (count($aStack) != 2) return FALSE;
+		$oHasher = new PasswordHash( 8, true );
 
-      if (md5($aStack[1] . $sPlain) == $aStack[0]) {
-        return TRUE;
-      }
-    }
-
-    if (oos_is_not_null($_COOKIE['password']) && oos_is_not_null($sEncrypted)) {
-      if ($_COOKIE['password'] == $sEncrypted) {
-        return TRUE;
-      }
-    }
+		return $oHasher->CheckPassword($sPlain, $sEncrypted);
+	}
 
     return FALSE;
-  }
+}
 
 
  /**
@@ -58,18 +51,15 @@
   *
   * @param $sPlain
   * @return string
-  */
-  function oos_encrypt_password($sPlain) {
-    $sPassword = '';
+  */  
+function oos_encrypt_password($sPlain) {
 
-    for ($i=0; $i<10; $i++) {
-      $sPassword .= oos_rand();
-    }
+	if (!class_exists('PasswordHash')) {
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpass/PasswordHash.php';
+	}
 
-    $sSalt = substr(md5($sPassword), 0, 2);
-
-    $sPassword = md5($sSalt . $sPlain) . ':' . $sSalt;
-
-    return $sPassword;
-  }
+	$oHasher = new PasswordHash( 8, true );
+	
+    return $oHasher->HashPassword($sPlain);
+}
 

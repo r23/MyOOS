@@ -59,12 +59,13 @@ if (strlen(ini_get("safe_mode"))< 1) {
 
 define('OOS_VALID_MOD', 'yes');
 // Version information
-define('OOS_VERSION', '2.0.11 -dev');
+define('OOS_VERSION', '2.0.24 -dev');
 
-  require_once '../includes/functions/function_global.php';
-  require_once '../includes/functions/function_kernel.php';
-  require_once '../includes/functions/function_password.php';
-  require_once '../includes/lib/adodb/adodb.inc.php';
+require_once '../includes/functions/function_global.php';
+require_once '../includes/functions/function_kernel.php';
+require_once '../includes/lib/phpass/PasswordHash.php';
+require_once '../includes/functions/function_password.php';
+require_once '../includes/lib/adodb/adodb.inc.php';
 
   include_once 'modify_configure.php';
   include_once 'upgrade.php';

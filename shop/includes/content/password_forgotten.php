@@ -92,7 +92,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')) {
 				'shop_logo'		=> STORE_LOGO,
 				'services_url'	=> COMMUNITY,
 				'blog_url'		=> BLOG_URL,
-                'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', 'NONSSL', FALSE, TRUE),
+				'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', 'NONSSL', FALSE, TRUE),
 				'password' 		=> $newpass
 			)
 		);
