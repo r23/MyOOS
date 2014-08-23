@@ -84,9 +84,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_output.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_encoded.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_coupon.php';
 
-// require the password crypto functions
-require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
-
 // require validation functions (right now only email address)
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
 
@@ -132,7 +129,7 @@ if (isset($_POST[session_name()])) {
 
 if ( is_session_started() === TRUE ) {
     if (!(preg_match('/^[a-z0-9]{26}$/i', session_id()) || preg_match('/^[a-z0-9]{32}$/i', session_id()))) {
-        session_regenerate_id(true);
+        session_regenerate_id(TRUE);
    }
 }   
 

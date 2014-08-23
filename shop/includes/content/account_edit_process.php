@@ -38,7 +38,8 @@ if (!isset($_POST['action']) || ($_POST['action'] != 'process')) {
   
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_account_edit_process.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
-
+// require the password crypto functions
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 
 
   $firstname = oos_db_prepare_input($_POST['firstname']);

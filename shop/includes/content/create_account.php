@@ -33,6 +33,8 @@ if (isset($_SESSION['customer_id'])) {
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
+// require the password crypto functions
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 
 $country = isset($_POST['country']) ? (int)$_POST['country'] : STORE_COUNTRY;
 
