@@ -18,7 +18,7 @@
 					<h5 class="widgetheading">{$block_heading_information}</h5>			
 					<ul class="link-list">
 					{foreach item=info from=$information}
-						<li><a href="{html_href_link content=$contents.information information_id=$info.information_id}" title="{$info.information_name}" rel="nofollow">{$info.information_name}</a></li>
+						<li><a href="{html_href_link content=$contents.information information_id=$info.information_id}" title="{$info.information_name}">{$info.information_name}</a></li>
 					{/foreach}	
 					</ul>					
 				</div>
