@@ -139,6 +139,8 @@
     // Remove excess separators
     $sStr = trim($sStr, '_');
 
+	$sStr = strtolower($sStr);
+
     return $sStr;
   }
 

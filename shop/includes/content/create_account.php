@@ -507,7 +507,7 @@ if ($bError == TRUE) {
 
 
 if (CUSTOMER_NOT_LOGIN == 'true') {
-	$show_password = FALSE;
+	$show_password = 'false';
 } else {
 	$show_password = 'true';
 }
@@ -534,7 +534,6 @@ $smarty->assign(
  
             'email_address'     => $email_address,
             'show_password'     => $show_password
-
         )
 );
 
@@ -543,6 +542,4 @@ $smarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_
 
 // display the template
 $smarty->display($aTemplate['page']);
-  
 
- 

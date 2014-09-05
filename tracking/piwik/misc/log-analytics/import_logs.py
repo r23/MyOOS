@@ -360,11 +360,11 @@ class Configuration(object):
         )
         option_parser.add_option(
             '--exclude-path', dest='excluded_paths', action='append', default=[],
-            help="Paths to exclude. Can be specified multiple times"
+            help="Any URL path matching this exclude-path will not be imported in Piwik. Can be specified multiple times"
         )
         option_parser.add_option(
             '--exclude-path-from', dest='exclude_path_from',
-            help="Each line from this file is a path to exclude"
+            help="Each line from this file is a path to exclude (see: --exclude-path)"
         )
         option_parser.add_option(
             '--include-path', dest='included_paths', action='append', default=[],
@@ -880,7 +880,7 @@ class Piwik(object):
         """
         args = {
             'module' : 'API',
-            'format' : 'json',
+            'format' : 'json2',
             'method' : method,
         }
         # token_auth, by default, is taken from config.
@@ -970,17 +970,9 @@ class StaticResolver(object):
     def __init__(self, site_id):
         self.site_id = site_id
         # Go get the main URL
-        sites = piwik.call_api(
+        site = piwik.call_api(
             'SitesManager.getSiteFromId', idSite=self.site_id
         )
-        try:
-            site = sites[0]
-        except (IndexError, KeyError):
-            logging.debug('response for SitesManager.getSiteFromId: %s', str(sites))
-
-            fatal_error(
-                "cannot get the main URL of this site: invalid site ID: %s" % site_id
-            )
         if site.get('result') == 'error':
             fatal_error(
                 "cannot get the main URL of this site: %s" % site.get('message')

@@ -26,7 +26,6 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 if ( is_session_started() === FALSE ) oos_session_start();
 
 if (!isset($_SESSION['customer_id'])) {
-
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }

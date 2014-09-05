@@ -126,7 +126,7 @@ class FrontController extends Singleton
             }
 
             if ($action === false) {
-                $this->triggerControllerActionNotFoundError($controller, $controllerAction);
+                $this->triggerControllerActionNotFoundError($module, $controllerAction);
             }
 
         }
@@ -320,6 +320,7 @@ class FrontController extends Singleton
             $this->handleProfiler();
             $this->handleSSLRedirection();
 
+            Plugin\Manager::getInstance()->loadPluginTranslations('en');
             Plugin\Manager::getInstance()->loadActivatedPlugins();
 
             if ($exceptionToThrow) {

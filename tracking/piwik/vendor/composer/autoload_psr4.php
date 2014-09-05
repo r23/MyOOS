@@ -6,5 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Piwik\\Plugins\\' => array($baseDir . '/plugins'),
+    'Piwik\\' => array($baseDir . '/core'),
     'DeviceDetector\\' => array($vendorDir . '/piwik/device-detector'),
 );

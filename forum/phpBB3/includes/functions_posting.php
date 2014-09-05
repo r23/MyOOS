@@ -1749,7 +1749,7 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll, &$data, $u
 			trigger_error("You are not allowed to post URLs!");
 		}
 	}
-	
+
 	if (!$user->data['is_registered'] ||
 		$user->data['user_posts'] < $user_posts_threshold) {
 		if (_is_lang_spam($msgwows)) {

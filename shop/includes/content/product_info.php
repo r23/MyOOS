@@ -30,7 +30,6 @@
   } else {
     oos_redirect(oos_href_link($aContents['main']));
   }
-
   
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_info.php';
 
@@ -72,8 +71,7 @@
             'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'heading_title' => $aLang['text_product_not_found'],
 
-            'pagetitle' 	=> htmlspecialchars($sPagetitle),
-            'canonical'		=> $sCanonical
+            'pagetitle' 	=> htmlspecialchars($sPagetitle)
         )
     );
 
@@ -90,15 +88,21 @@
 
     // links breadcrumb
     if (SHOW_PRODUCTS_MODEL == 'true') {
-      $oBreadcrumb->add($product_info['products_model'], oos_href_link($aContents['product_info'], 'category=' . $category . '&amp;products_id=' . $nProductsId));
+      $oBreadcrumb->add($product_info['products_model'], oos_href_link($aContents['product_info'], 'products_id=' . $nProductsId));
     } else {
-      $oBreadcrumb->add($product_info['products_name'], oos_href_link($aContents['product_info'], 'category=' . $category . '&amp;products_id=' . $nProductsId));
+      $oBreadcrumb->add($product_info['products_name'], oos_href_link($aContents['product_info'], 'products_id=' . $nProductsId));
     }
 
 
     $oos_pagetitle =  $product_info['products_name'] . ' - ' . OOS_META_TITLE ;
     $oos_meta_description = $product_info['products_description_meta'];
 
+	if ($oEvent->installed_plugin('sefu')) {
+		$path = oos_make_filename($product_info['products_name']);
+		$sCanonical = OOS_HTTP_SERVER . OOS_SHOP . $path . '-p-' . intval($nProductsId);
+    } else {
+		$sCanonical = oos_href_link($aContents['product_info'], 'products_id=' . $nProductsId, 'NONSSL', FALSE);
+    }	
 	
     $aTemplate['page'] = $sTheme . '/products/product_info.tpl';
     $aTemplate['also_purchased_products'] = $sTheme . '/products/also_purchased_products.tpl';
@@ -110,12 +114,14 @@
 
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
     if (!isset($option)) {
-      require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
-      require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
     }
 
     // products history
-    $_SESSION['products_history']->add_current_products($nProductsId);
+	if (isset($_SESSION)) {
+		$_SESSION['products_history']->add_current_products($nProductsId);
+	}
 
 
     $info_product_price = '';
@@ -194,10 +200,11 @@
 
     // assign Smarty variables;
     $smarty->assign(
-            array('breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-            'pagetitle'         => htmlspecialchars($sPagetitle),
-            'canonical'         => $sCanonical,
-            'discounts_price' =>  $discounts_price));
+            array(
+				'breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+				'pagetitle'         => htmlspecialchars($sPagetitle),
+				'canonical'         => $sCanonical,
+				'discounts_price' =>  $discounts_price));
 
     if (!isset($block_get_parameters)) {
       $block_get_parameters = oos_get_all_get_parameters(array('action'));

@@ -27,24 +27,13 @@ $aTemplate['page'] = $sTheme . '/page/information.tpl';
 $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
 $nInformationsID = isset($_GET['information_id']) ? $_GET['information_id']+0 : 1;
-$contents_cache_id = $sTheme . 'information|' . $nInformationsID . '|' . $sLanguage;
 $sCanonical = oos_href_link($aContents['information'], 'information_id=' . intval($nInformationsID), 'NONSSL', FALSE, TRUE);
 
 require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
-if (!isset($option))
-{
+if (!isset($option)) {
     require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
 }
-
-if ( (USE_CACHE == 'true') && (!isset($_SESSION)) )
-{
-    $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
-    $smarty->setCacheLifetime(3600);
-}
-
-
-if(!$smarty->isCached($aTemplate['page'], $contents_cache_id )) {
 
 $informationtable = $oostable['information'];
 $information_descriptiontable = $oostable['information_description'];
@@ -61,22 +50,22 @@ $information = $dbconn->GetRow($sql);
 // links breadcrumb
 $oBreadcrumb->add($information['information_heading_title']);
 $sPagetitle = $information['information_heading_title'];
+$sDescription = $information['information_description'];
 
 // assign Smarty variables;
 $smarty->assign(
-        array(
+		array(
             'breadcrumb'        => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'heading_title'     => $information['information_heading_title'],
 
             'pagetitle'         => htmlspecialchars($sPagetitle),
+			'meta_description'  => htmlspecialchars($sDescription),			
             'canonical'         => $sCanonical,
-            
+			
             'informations'      => $information,
             'get_params'        => 'information_id=' . intval($nInformationsID)
         )
-    );
-
-}
+);
 
 // display the template
 $smarty->display($aTemplate['page'], $contents_cache_id);

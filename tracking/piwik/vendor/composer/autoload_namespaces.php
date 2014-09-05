@@ -6,8 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Zend_' => array($baseDir . '/libs'),
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
-    'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
     'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
+    'PEAR_' => array($baseDir . '/libs'),
     'JShrink' => array($vendorDir . '/tedivm/jshrink/src'),
+    'HTML_' => array($baseDir . '/libs'),
+    'Archive_' => array($baseDir . '/libs'),
 );

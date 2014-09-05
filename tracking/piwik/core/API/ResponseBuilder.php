@@ -221,7 +221,7 @@ class ResponseBuilder
             $firstKey   = key($array);
         }
 
-        $isAssoc = !empty($firstArray) && is_numeric($firstKey) && is_array($firstArray) && !Piwik::isMultiDimensionalArray($array) && count(array_filter(array_keys($firstArray), 'is_string'));
+        $isAssoc = !empty($firstArray) && is_numeric($firstKey) && is_array($firstArray) && count(array_filter(array_keys($firstArray), 'is_string'));
 
         if ($isAssoc) {
             $hideColumns = Common::getRequestVar('hideColumns', '', 'string', $this->request);
@@ -229,6 +229,13 @@ class ResponseBuilder
             if ($hideColumns !== '' || $showColumns !== '') {
                 $columnDelete = new ColumnDelete(new DataTable(), $hideColumns, $showColumns);
                 $array = $columnDelete->filter($array);
+            }
+        } else if (is_numeric($firstKey)) {
+            $limit  = Common::getRequestVar('filter_limit', -1, 'integer', $this->request);
+            $offset = Common::getRequestVar('filter_offset', '0', 'integer', $this->request);
+
+            if (-1 !== $limit) {
+                $array = array_slice($array, $offset, $limit);
             }
         }
 

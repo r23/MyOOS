@@ -3,7 +3,7 @@
  * Device Detector - The Universal Device Detection library for parsing User Agents
  *
  * @link http://piwik.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @license http://www.gnu.org/licenses/lgpl.html LGPL v3 or later
  */
 namespace DeviceDetector\Parser\Device;
 
@@ -78,6 +78,7 @@ abstract class DeviceParserAbstract extends ParserAbstract
         'BU' => 'Blu',
         'BX' => 'bq',
         'CA' => 'Cat',
+        'CC' => 'ConCorde',
         'CH' => 'Cherry Mobile',
         'CK' => 'Cricket',
         'CL' => 'Compal',

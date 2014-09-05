@@ -43,7 +43,7 @@ If you do not have a server, consider our Piwik Hosting partner: http://piwik.or
 
 ## Changelog
 
-For the list of all tickets closed in the current and past releases, see http://piwik.org/changelog/
+For the list of all tickets closed in the current and past releases, see http://piwik.org/changelog/. For the list of technical changes in the Piwik platform, see [http://developer.piwik.org/changelog](http://developer.piwik.org/changelog).
 
 ## Participate!
 
@@ -100,4 +100,6 @@ The Piwik project uses an ever-expanding comprehensive set of thousands of unit 
  running on the hosted distributed continuous integration platform Travis-CI.
 
 Build status (master branch) [![Build Status](https://travis-ci.org/piwik/piwik.png?branch=master)](https://travis-ci.org/piwik/piwik) - Screenshot tests Build  [![Build Status](https://travis-ci.org/piwik/piwik-ui-tests.png?branch=master)](https://travis-ci.org/piwik/piwik-ui-tests)
+
+Code Coverage: [![Coverage Status](https://coveralls.io/repos/piwik/piwik/badge.png?branch=master)](https://coveralls.io/r/piwik/piwik?branch=master)
 

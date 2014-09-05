@@ -60,15 +60,31 @@ abstract class Settings implements StorageInterface
 
     /**
      * Constructor.
-     *
-     * @param string $pluginName The name of the plugin these settings are for.
      */
-    public function __construct($pluginName)
+    public function __construct($pluginName = null)
     {
-        $this->pluginName = $pluginName;
+        if (!empty($pluginName)) {
+            $this->pluginName = $pluginName;
+        } else {
+
+            $classname    = get_class($this);
+            $parts        = explode('\\', $classname);
+
+            if (3 <= count($parts)) {
+                $this->pluginName = $parts[2];
+            }
+        }
 
         $this->init();
         $this->loadSettings();
+    }
+
+    /**
+     * @ignore
+     */
+    public function getPluginName()
+    {
+        return $this->pluginName;
     }
 
     /**
@@ -109,11 +125,14 @@ abstract class Settings implements StorageInterface
             return $setting->isWritableByCurrentUser();
         });
 
-        uasort($settings, function ($setting1, $setting2) use ($settings) {
+        $settings2 = $settings;
+        
+        uasort($settings, function ($setting1, $setting2) use ($settings2) {
+
             /** @var Setting $setting1 */ /** @var Setting $setting2 */
             if ($setting1->getOrder() == $setting2->getOrder()) {
                 // preserve order for settings having same order
-                foreach ($settings as $setting) {
+                foreach ($settings2 as $setting) {
                     if ($setting1 === $setting) {
                         return -1;
                     }
