@@ -219,28 +219,6 @@ if ( ! class_exists( 'WPSEO_Meta' ) ) {
 						'0.1' => '0.1 - ', // translation added later
 					),
 				),
-				'sitemap-html-include'	=> array(
-					'type'			=> 'select',
-					'title' 		=> '', // translation added later
-					'default_value'	=> '-',
-					'description'	=> '', // translation added later
-					'options'		=> array(
-						'-' 			=> '', // translation added later
-						'always'		=> '', // translation added later
-						'never' 		=> '', // translation added later
-					),
-				),
-				'authorship'			=> array(
-					'type'			=> 'select',
-					'title'			=> '', // translation added later
-					'default_value'	=> '-',
-					'description'	=> '', // translation added later
-					'options'		=> array(
-						'-' 			=> '', // translation added later
-						'always'		=> '', // translation added later
-						'never' 		=> '', // translation added later
-					),
-				),
 				'canonical'			 	=> array(
 					'type'			=> 'text',
 					'title' 		=> '', // translation added later
@@ -468,9 +446,6 @@ if ( ! class_exists( 'WPSEO_Meta' ) ) {
 							$field_defs['sitemap-prio']
 						);
 					}
-
-					/* Adjust the authorship 'default for post type' text string based on the post type */
-					$field_defs['authorship']['options']['-'] = sprintf( $field_defs['authorship']['options']['-'], ( ( isset( $options[ 'noauthorship-' . $post_type ] ) && $options[ 'noauthorship-' . $post_type ] === true ) ? __( 'don\'t show', 'wordpress-seo' ) : __( 'show', 'wordpress-seo' ) ) );
 
 					break;
 			}
