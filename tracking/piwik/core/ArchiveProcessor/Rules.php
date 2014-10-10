@@ -257,7 +257,7 @@ class Rules
         return $isArchivingDisabled;
     }
 
-    protected static function isRequestAuthorizedToArchive()
+    public static function isRequestAuthorizedToArchive()
     {
         return Rules::isBrowserTriggerEnabled() || SettingsServer::isArchivePhpTriggered();
     }
@@ -282,6 +282,18 @@ class Rules
         }
         Option::set(self::OPTION_BROWSER_TRIGGER_ARCHIVING, (int)$enabled, $autoLoad = true);
         Cache::clearCacheGeneral();
+    }
+
+    /**
+     * Returns true if the archiving process should skip the calculation of unique visitors
+     * across several sites. The `[General] enable_processing_unique_visitors_multiple_sites`
+     * INI config option controls the value of this variable.
+     *
+     * @return bool
+     */
+    public static function shouldSkipUniqueVisitorsCalculationForMultipleSites()
+    {
+        return Config::getInstance()->General['enable_processing_unique_visitors_multiple_sites'] != 1;
     }
 
     /**

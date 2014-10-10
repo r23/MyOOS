@@ -575,6 +575,19 @@ class Common
     }
 
     /**
+     * Converts a User ID string to the Visitor ID Binary representation.
+     *
+     * @param $userId
+     * @return string
+     */
+    public static function convertUserIdToVisitorIdBin($userId)
+    {
+        require_once PIWIK_INCLUDE_PATH . '/libs/PiwikTracker/PiwikTracker.php';
+        $userIdHashed = \PiwikTracker::getUserIdHashed($userId);
+        return self::convertVisitorIdToBin($userIdHashed);
+    }
+
+    /**
      * Convert IP address (in network address format) to presentation format.
      * This is a backward compatibility function for code that only expects
      * IPv4 addresses (i.e., doesn't support IPv6).
@@ -1041,12 +1054,7 @@ class Common
     public static function sendHeader($header, $replace = true)
     {
         // don't send header in CLI mode
-        if(Common::isPhpCliMode()) {
-            return;
-        }
-        if (isset($GLOBALS['PIWIK_TRACKER_LOCAL_TRACKING']) && $GLOBALS['PIWIK_TRACKER_LOCAL_TRACKING']) {
-            @header($header, $replace);
-        } else {
+        if(!Common::isPhpCliMode() and !headers_sent()) {
             header($header, $replace);
         }
     }

@@ -23,6 +23,7 @@ use Piwik\Period\Range;
 use Piwik\Piwik;
 use Piwik\Plugin\Dimension\VisitDimension;
 use Piwik\Plugins\CoreAdminHome\CustomLogo;
+use Piwik\SegmentExpression;
 use Piwik\Translate;
 use Piwik\Version;
 
@@ -154,6 +155,21 @@ class API extends \Piwik\Plugin\API
         $segments[] = array(
             'type'           => 'dimension',
             'category'       => Piwik::translate('General_Visit'),
+            'name'           => 'General_UserId',
+            'segment'        => 'userId',
+            'acceptedValues' => 'any non empty unique string identifying the user (such as an email address or a username).',
+            'sqlSegment'     => 'log_visit.idvisitor',
+            'sqlFilterValue' => array('Piwik\Common', 'convertUserIdToVisitorIdBin'),
+            'sqlFilter'      => array($this, 'checkSegmentMatchTypeIsValidForUser'),
+            'permission'     => $isAuthenticatedWithViewAccess,
+
+            // TODO specify that this segment is not compatible with some operators
+//            'unsupportedOperators' = array(MATCH_CONTAINS, MATCH_DOES_NOT_CONTAIN),
+        );
+
+        $segments[] = array(
+            'type'           => 'dimension',
+            'category'       => Piwik::translate('General_Visit'),
             'name'           => 'General_VisitorID',
             'segment'        => 'visitorId',
             'acceptedValues' => '34c31e04394bdc63 - any 16 Hexadecimal chars ID, which can be fetched using the Tracking API function getVisitorId()',
@@ -161,6 +177,7 @@ class API extends \Piwik\Plugin\API
             'sqlFilterValue' => array('Piwik\Common', 'convertVisitorIdToBin'),
             'permission'     => $isAuthenticatedWithViewAccess,
         );
+
         $segments[] = array(
             'type'           => 'dimension',
             'category'       => Piwik::translate('General_Visit'),
@@ -221,6 +238,32 @@ class API extends \Piwik\Plugin\API
             }
         }
         return $compare;
+    }
+
+    /**
+     * Throw an exception if the User ID segment is used with an un-supported match type,
+     *
+     * @ignore
+     * @param $value
+     * @param $sqlSegment
+     * @param $matchType
+     * @param $name
+     * @return $value
+     * @throws \Exception
+     */
+    public function checkSegmentMatchTypeIsValidForUser($value, $sqlSegment, $matchType, $name)
+    {
+        $acceptedMatches = array(
+            SegmentExpression::MATCH_EQUAL,
+            SegmentExpression::MATCH_IS_NOT_NULL_NOR_EMPTY,
+            SegmentExpression::MATCH_IS_NULL_OR_EMPTY,
+            SegmentExpression::MATCH_NOT_EQUAL,
+        );
+        if(in_array($matchType, $acceptedMatches)) {
+            return $value;
+        }
+        $message = "Invalid Segment match type: try using 'userId' segment with one of the following match types: %s.";
+        throw new \Exception(sprintf($message, implode(", ", $acceptedMatches)));
     }
 
     /**
@@ -500,6 +543,11 @@ class API extends \Piwik\Plugin\API
             throw new \Exception("Requested segment not found.");
         }
 
+        // if segment has suggested values callback then return result from it instead
+        if (isset($segmentFound['suggestedValuesCallback'])) {
+            return call_user_func($segmentFound['suggestedValuesCallback'], $idSite, $maxSuggestionsToReturn);
+        }
+
         // if period=range is disabled, do not proceed
         if(!Period\Factory::isPeriodEnabledForAPI('range')) {
             return array();
@@ -560,7 +608,8 @@ class API extends \Piwik\Plugin\API
                                          'entryPageTitle', 'entryPageUrl', 'exitPageTitle', 'exitPageUrl');
         $isCustomVariablePage = stripos($segmentName, 'customVariablePage') !== false;
         $isEventSegment = stripos($segmentName, 'event') !== false;
-        $doesSegmentNeedActionsInfo = in_array($segmentName, $segmentsNeedActionsInfo) || $isCustomVariablePage || $isEventSegment;
+        $isContentSegment = stripos($segmentName, 'content') !== false;
+        $doesSegmentNeedActionsInfo = in_array($segmentName, $segmentsNeedActionsInfo) || $isCustomVariablePage || $isEventSegment || $isContentSegment;
         return $doesSegmentNeedActionsInfo;
     }
 

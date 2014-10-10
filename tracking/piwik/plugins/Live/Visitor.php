@@ -134,6 +134,7 @@ class Visitor implements VisitorInterface
         $toUnset = array('config_id');
         if (Piwik::isUserIsAnonymous()) {
             $toUnset[] = 'idvisitor';
+            $toUnset[] = 'user_id';
             $toUnset[] = 'location_ip';
         }
         foreach ($toUnset as $keyName) {
@@ -301,7 +302,12 @@ class Visitor implements VisitorInterface
                 $actionDetail['customVariables'] = $customVariablesPage;
             }
 
-            if($actionDetail['type'] == Action::TYPE_EVENT_CATEGORY) {
+            if ($actionDetail['type'] == Action::TYPE_CONTENT) {
+
+                unset($actionDetails[$actionIdx]);
+                continue;
+
+            } elseif ($actionDetail['type'] == Action::TYPE_EVENT_CATEGORY) {
                 // Handle Event
                 if(strlen($actionDetail['pageTitle']) > 0) {
                     $actionDetail['eventName'] = $actionDetail['pageTitle'];
@@ -325,7 +331,7 @@ class Visitor implements VisitorInterface
             }
             unset($actionDetail['custom_float']);
 
-            if($actionDetail['type'] != Action::TYPE_EVENT_CATEGORY) {
+            if ($actionDetail['type'] != Action::TYPE_EVENT_CATEGORY) {
                 unset($actionDetail['eventCategory']);
                 unset($actionDetail['eventAction']);
             }

@@ -168,6 +168,11 @@ class Process
     private static function isSystemNotSupported()
     {
         $uname = @shell_exec('uname -a');
+
+        if(empty($uname)) {
+            $uname = php_uname();
+        }
+
         if(strpos($uname, 'synology') !== false) {
             return true;
         }
@@ -203,6 +208,13 @@ class Process
      */
     private static function isProcFSMounted()
     {
-        return is_resource(@fopen('/proc', 'r'));
+        if(is_resource(@fopen('/proc', 'r'))) {
+            return true;
+        }
+        // Testing if /proc is a resource with @fopen fails on systems with open_basedir set.
+        // by using stat we not only test the existance of /proc but also confirm it's a 'proc' filesystem
+        $type = shell_exec('stat -f -c "%T" /proc 2>/dev/null');
+        return strpos($type, 'proc') === 0;
     }
+
 }

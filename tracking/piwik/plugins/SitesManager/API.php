@@ -22,6 +22,7 @@ use Piwik\SettingsPiwik;
 use Piwik\SettingsServer;
 use Piwik\Site;
 use Piwik\TaskScheduler;
+use Piwik\Tracker;
 use Piwik\Tracker\Cache;
 use Piwik\Url;
 use Piwik\UrlHelper;
@@ -69,13 +70,13 @@ class API extends \Piwik\Plugin\API
      * @param bool $customCampaignNameQueryParam
      * @param bool $customCampaignKeywordParam
      * @param bool $doNotTrack
-     * @internal param $
+     * @param bool $disableCookies
      * @return string The Javascript tag ready to be included on the HTML pages
      */
     public function getJavascriptTag($idSite, $piwikUrl = '', $mergeSubdomains = false, $groupPageTitlesByDomain = false,
                                      $mergeAliasUrls = false, $visitorCustomVariables = false, $pageCustomVariables = false,
                                      $customCampaignNameQueryParam = false, $customCampaignKeywordParam = false,
-                                     $doNotTrack = false)
+                                     $doNotTrack = false, $disableCookies = false)
     {
         Piwik::checkUserHasViewAccess($idSite);
 
@@ -87,7 +88,7 @@ class API extends \Piwik\Plugin\API
         $htmlEncoded = Piwik::getJavascriptCode($idSite, $piwikUrl, $mergeSubdomains, $groupPageTitlesByDomain,
                                                 $mergeAliasUrls, $visitorCustomVariables, $pageCustomVariables,
                                                 $customCampaignNameQueryParam, $customCampaignKeywordParam,
-                                                $doNotTrack);
+                                                $doNotTrack, $disableCookies);
         $htmlEncoded = str_replace(array('<br>', '<br />', '<br/>'), '', $htmlEncoded);
         return $htmlEncoded;
     }
@@ -193,26 +194,6 @@ class API extends \Piwik\Plugin\API
     }
 
     /**
-     * Returns the list of alias URLs registered for the given idSite.
-     * The website ID must be valid when calling this method!
-     *
-     * @param int $idSite
-     * @return array list of alias URLs
-     */
-    private function getAliasSiteUrlsFromId($idSite)
-    {
-        $db = Db::get();
-        $result = $db->fetchAll("SELECT url
-								FROM " . Common::prefixTable("site_url") . "
-								WHERE idsite = ?", $idSite);
-        $urls = array();
-        foreach ($result as $url) {
-            $urls[] = $url['url'];
-        }
-        return $urls;
-    }
-
-    /**
      * Returns the list of all URLs registered for the given idSite (main_url + alias URLs).
      *
      * @throws Exception if the website ID doesn't exist or the user doesn't have access to it
@@ -222,25 +203,12 @@ class API extends \Piwik\Plugin\API
     public function getSiteUrlsFromId($idSite)
     {
         Piwik::checkUserHasViewAccess($idSite);
-        $site = new Site($idSite);
-        $urls = $this->getAliasSiteUrlsFromId($idSite);
-        return array_merge(array($site->getMainUrl()), $urls);
+        return $this->getModel()->getSiteUrlsFromId($idSite);
     }
 
-    /**
-     * Returns the list of all the website IDs registered.
-     * Caller must check access.
-     *
-     * @return array The list of website IDs
-     */
     private function getSitesId()
     {
-        $result = Db::fetchAll("SELECT idsite FROM " . Common::prefixTable('site'));
-        $idSites = array();
-        foreach ($result as $idSite) {
-            $idSites[] = $idSite['idsite'];
-        }
-        return $idSites;
+        return $this->getModel()->getSitesId();
     }
 
     /**
@@ -627,6 +595,7 @@ class API extends \Piwik\Plugin\API
     {
         Site::clearCache();
         Cache::regenerateCacheWebsiteAttributes($idSite);
+        SiteUrls::clearSitesCache();
     }
 
     /**

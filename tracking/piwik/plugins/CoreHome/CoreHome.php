@@ -30,6 +30,7 @@ class CoreHome extends \Piwik\Plugin
     {
         $instance = new Visitor($details);
 
+        $visitor['userId']                      = $instance->getUserId();
         $visitor['visitorType']                 = $instance->getVisitorReturning();
         $visitor['visitorTypeIcon']             = $instance->getVisitorReturningIcon();
         $visitor['visitConverted']              = $instance->isVisitorGoalConverted();
@@ -49,6 +50,8 @@ class CoreHome extends \Piwik\Plugin
         $stylesheets[] = "libs/jquery/themes/base/jquery-ui.css";
         $stylesheets[] = "libs/jquery/stylesheets/jquery.jscrollpane.css";
         $stylesheets[] = "libs/jquery/stylesheets/scroll.less";
+        $stylesheets[] = "libs/angularjs/ngDialog/css/ngDialog.min.css";
+        $stylesheets[] = "libs/angularjs/ngDialog/css/ngDialog-theme-default.min.css";
         $stylesheets[] = "plugins/Morpheus/stylesheets/base.less";
         $stylesheets[] = "plugins/Morpheus/stylesheets/theme.less";
         $stylesheets[] = "plugins/CoreHome/stylesheets/coreHome.less";
@@ -65,6 +68,7 @@ class CoreHome extends \Piwik\Plugin
         $stylesheets[] = "plugins/CoreHome/stylesheets/zen-mode.less";
         $stylesheets[] = "plugins/CoreHome/angularjs/enrichedheadline/enrichedheadline.less";
         $stylesheets[] = "plugins/CoreHome/angularjs/menudropdown/menudropdown.less";
+        $stylesheets[] = "plugins/CoreHome/angularjs/dialogtoggler/ngdialog.less";
     }
 
     public function getJsFiles(&$jsFiles)
@@ -80,10 +84,11 @@ class CoreHome extends \Piwik\Plugin
         $jsFiles[] = "libs/jquery/mwheelIntent.js";
         $jsFiles[] = "libs/javascript/sprintf.js";
         $jsFiles[] = "libs/mousetrap/mousetrap.min.js";
-        $jsFiles[] = "libs/angularjs/angular.js";
+        $jsFiles[] = "libs/angularjs/angular.min.js";
         $jsFiles[] = "libs/angularjs/angular-sanitize.min.js";
         $jsFiles[] = "libs/angularjs/angular-animate.min.js";
         $jsFiles[] = "libs/angularjs/angular-cookies.min.js";
+        $jsFiles[] = "libs/angularjs/ngDialog/js/ngDialog.min.js";
         $jsFiles[] = "plugins/Morpheus/javascripts/piwikHelper.js";
         $jsFiles[] = "plugins/Morpheus/javascripts/ajaxHelper.js";
         $jsFiles[] = "plugins/Morpheus/javascripts/jquery.icheck.min.js";
@@ -127,6 +132,7 @@ class CoreHome extends \Piwik\Plugin
         $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/onenter.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/focusif.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/dialog.js";
+        $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/translate.js";
 
         $jsFiles[] = "plugins/CoreHome/angularjs/piwikApp.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/anchorLinkFix.js";
@@ -139,6 +145,10 @@ class CoreHome extends \Piwik\Plugin
         $jsFiles[] = "plugins/CoreHome/angularjs/menudropdown/menudropdown-directive.js";
 
         $jsFiles[] = "plugins/CoreHome/angularjs/enrichedheadline/enrichedheadline-directive.js";
+
+        $jsFiles[] = "plugins/CoreHome/angularjs/dialogtoggler/dialogtoggler-directive.js";
+        $jsFiles[] = "plugins/CoreHome/angularjs/dialogtoggler/dialogtoggler-controller.js";
+        $jsFiles[] = "plugins/CoreHome/angularjs/dialogtoggler/dialogtoggler-urllistener-service.js";
     }
 
     public function getClientSideTranslationKeys(&$translationKeys)
@@ -229,5 +239,7 @@ class CoreHome extends \Piwik\Plugin
         $translationKeys[] = 'General_Default';
         $translationKeys[] = 'General_LoadingData';
         $translationKeys[] = 'General_ErrorRequest';
+        $translationKeys[] = 'CoreHome_UndoPivotBySubtable';
+        $translationKeys[] = 'CoreHome_PivotBySubtable';
     }
 }

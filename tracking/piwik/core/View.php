@@ -9,8 +9,12 @@
 namespace Piwik;
 
 use Exception;
+use Piwik\Access;
 use Piwik\AssetManager\UIAssetCacheBuster;
+use Piwik\Common;
 use Piwik\Plugins\UsersManager\API as APIUsersManager;
+use Piwik\SettingsPiwik;
+use Piwik\Version;
 use Piwik\View\ViewInterface;
 use Twig_Environment;
 
@@ -232,6 +236,8 @@ class View implements ViewInterface
             $user = APIUsersManager::getInstance()->getUser($this->userLogin);
             $this->userAlias = $user['alias'];
         } catch (Exception $e) {
+            Log::verbose($e);
+
             // can fail, for example at installation (no plugin loaded yet)
         }
 
@@ -244,16 +250,25 @@ class View implements ViewInterface
 
         ProxyHttp::overrideCacheControlHeaders('no-store');
 
-        @header('Content-Type: ' . $this->contentType);
+        Common::sendHeader('Content-Type: ' . $this->contentType);
         // always sending this header, sometimes empty, to ensure that Dashboard embed loads (which could call this header() multiple times, the last one will prevail)
-        @header('X-Frame-Options: ' . (string)$this->xFrameOptions);
+        Common::sendHeader('X-Frame-Options: ' . (string)$this->xFrameOptions);
 
         return $this->renderTwigTemplate();
     }
 
     protected function renderTwigTemplate()
     {
-        $output = $this->twig->render($this->getTemplateFile(), $this->getTemplateVars());
+        try {
+            $output = $this->twig->render($this->getTemplateFile(), $this->getTemplateVars());
+        } catch (Exception $ex) {
+            // twig does not rethrow exceptions, it wraps them so we log the cause if we can find it
+            $cause = $ex->getPrevious();
+            Log::debug($cause === null ? $ex : $cause);
+
+            throw $ex;
+        }
+
         $output = $this->applyFilter_cacheBuster($output);
 
         $helper = new Theme;

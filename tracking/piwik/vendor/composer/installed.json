@@ -93,17 +93,17 @@
     },
     {
         "name": "piwik/device-detector",
-        "version": "2.3.1",
-        "version_normalized": "2.3.1.0",
+        "version": "2.4",
+        "version_normalized": "2.4.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/piwik/device-detector.git",
-            "reference": "9cd0338be126aaf947f20fd08a6381c0c658dca5"
+            "reference": "64d91375aea2340b81e2cb46745dc3b2213d3231"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/piwik/device-detector/zipball/9cd0338be126aaf947f20fd08a6381c0c658dca5",
-            "reference": "9cd0338be126aaf947f20fd08a6381c0c658dca5",
+            "url": "https://api.github.com/repos/piwik/device-detector/zipball/64d91375aea2340b81e2cb46745dc3b2213d3231",
+            "reference": "64d91375aea2340b81e2cb46745dc3b2213d3231",
             "shasum": ""
         },
         "require": {
@@ -113,7 +113,7 @@
         "require-dev": {
             "phpunit/phpunit": "4.0.*"
         },
-        "time": "2014-08-11 20:21:18",
+        "time": "2014-08-29 18:24:04",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -142,18 +142,18 @@
     },
     {
         "name": "symfony/console",
-        "version": "v2.5.3",
-        "version_normalized": "2.5.3.0",
+        "version": "v2.5.4",
+        "version_normalized": "2.5.4.0",
         "target-dir": "Symfony/Component/Console",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/Console.git",
-            "reference": "cd2d1e4bac2206b337326b0140ff475fe9ad5f63"
+            "reference": "748beed2a1e73179c3f5154d33fe6ae100c1aeb1"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/Console/zipball/cd2d1e4bac2206b337326b0140ff475fe9ad5f63",
-            "reference": "cd2d1e4bac2206b337326b0140ff475fe9ad5f63",
+            "url": "https://api.github.com/repos/symfony/Console/zipball/748beed2a1e73179c3f5154d33fe6ae100c1aeb1",
+            "reference": "748beed2a1e73179c3f5154d33fe6ae100c1aeb1",
             "shasum": ""
         },
         "require": {
@@ -167,7 +167,7 @@
             "psr/log": "For using the console logger",
             "symfony/event-dispatcher": ""
         },
-        "time": "2014-08-05 09:00:40",
+        "time": "2014-08-14 16:10:54",
         "type": "library",
         "extra": {
             "branch-alias": {

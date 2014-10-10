@@ -9,7 +9,10 @@
 namespace Piwik\Plugin;
 
 use Piwik\API\Proxy;
+use Piwik\API\Request;
 use Piwik\Cache\LanguageAwareStaticCache;
+use Piwik\Columns\Dimension;
+use Piwik\DataTable;
 use Piwik\Menu\MenuReporting;
 use Piwik\Metrics;
 use Piwik\Piwik;
@@ -33,6 +36,11 @@ use Exception;
  */
 class Report
 {
+    /**
+     * The sub-namespace name in a plugin where Report components are stored.
+     */
+    const COMPONENT_SUBNAMESPACE = 'Reports';
+
     /**
      * The name of the module which is supposed to be equal to the name of the plugin. The module is detected
      * automatically.
@@ -97,7 +105,7 @@ class Report
      * @var array
      * @api
      */
-    protected $metrics = array('nb_visits', 'nb_uniq_visitors', 'nb_actions');
+    protected $metrics = array('nb_visits', 'nb_uniq_visitors', 'nb_actions', 'nb_users');
     // for a little performance improvement we avoid having to call Metrics::getDefaultMetrics for each report
 
     /**
@@ -319,7 +327,7 @@ class Report
     public function configureReportingMenu(MenuReporting $menu)
     {
         if ($this->menuTitle) {
-            $action = 'menu' . ucfirst($this->action);
+            $action = $this->getMenuControllerAction();
             $menu->add($this->category,
                        $this->menuTitle,
                        array('module' => $this->module, 'action' => $action),
@@ -571,6 +579,67 @@ class Report
     }
 
     /**
+     * Returns the Dimension instance of this report's subtable report.
+     *
+     * @return Dimension|null The subtable report's dimension or null if there is subtable report or
+     *                        no dimension for the subtable report.
+     * @api
+     */
+    public function getSubtableDimension()
+    {
+        if (empty($this->actionToLoadSubTables)) {
+            return null;
+        }
+
+        list($subtableReportModule, $subtableReportAction) = $this->getSubtableApiMethod();
+
+        $subtableReport = self::factory($subtableReportModule, $subtableReportAction);
+        if (empty($subtableReport)) {
+            return null;
+        }
+
+        return $subtableReport->getDimension();
+    }
+
+    /**
+     * Returns true if the report is for another report's subtable, false if otherwise.
+     *
+     * @return bool
+     */
+    public function isSubtableReport()
+    {
+        return $this->isSubtableReport;
+    }
+
+    /**
+     * Fetches the report represented by this instance.
+     *
+     * @param array $paramOverride Query parameter overrides.
+     * @return DataTable
+     * @api
+     */
+    public function fetch($paramOverride = array())
+    {
+        return Request::processRequest($this->module . '.' . $this->action, $paramOverride);
+    }
+
+    /**
+     * Fetches a subtable for the report represented by this instance.
+     *
+     * @param int $idSubtable The subtable ID.
+     * @param array $paramOverride Query parameter overrides.
+     * @return DataTable
+     * @api
+     */
+    public function fetchSubtable($idSubtable, $paramOverride = array())
+    {
+        $paramOverride = array('idSubtable' => $idSubtable) + $paramOverride;
+
+        list($module, $action) = $this->getSubtableApiMethod();
+        return Request::processRequest($module . '.' . $action, $paramOverride);
+    }
+
+    /**
      * Get an instance of a specific report belonging to the given module and having the given action.
      * @param  string $module
      * @param  string $action
@@ -579,31 +648,7 @@ class Report
      */
     public static function factory($module, $action)
     {
-        if (empty($module) || empty($action)) {
-            return;
-        }
-
-        $pluginManager = PluginManager::getInstance();
-
-        try {
-            if (!$pluginManager->isPluginActivated($module)) {
-                return;
-            }
-
-            $plugin = $pluginManager->getLoadedPlugin($module);
-
-        } catch (Exception $e) {
-            return;
-        }
-
-        $reports = $plugin->findMultipleComponents('Reports', '\\Piwik\\Plugin\\Report');
-        $action  = ucfirst($action);
-
-        foreach ($reports as $reportClass) {
-            if ($reportClass == 'Piwik\\Plugins\\' . $module . '\\Reports\\' . $action) {
-                return new $reportClass();
-            }
-        }
+        return ComponentFactory::factory($module, ucfirst($action), __CLASS__);
     }
 
     /**
@@ -661,5 +706,35 @@ class Report
         }
 
         return $metrics;
+    }
+
+    private function getMenuControllerAction()
+    {
+        return 'menu' . ucfirst($this->action);
+    }
+
+    private function getSubtableApiMethod()
+    {
+        if (strpos($this->actionToLoadSubTables, '.') !== false) {
+            return explode('.', $this->actionToLoadSubTables);
+        } else {
+            return array($this->module, $this->actionToLoadSubTables);
+        }
+    }
+
+    /**
+     * Finds a top level report that provides stats for a specific Dimension.
+     *
+     * @param Dimension $dimension The dimension whose report we're looking for.
+     * @return Report|null The
+     * @api
+     */
+    public static function getForDimension(Dimension $dimension)
+    {
+        return ComponentFactory::getComponentIf(__CLASS__, $dimension->getModule(), function (Report $report) use ($dimension) {
+            return !$report->isSubtableReport()
+                && $report->getDimension()
+                && $report->getDimension()->getId() == $dimension->getId();
+        });
     }
 }
