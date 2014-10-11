@@ -65,4 +65,20 @@ final class Antispam_Bee_Columns {
 			'antispam_bee'
 		);
 	}
+
+
+	/**
+	* Print CSS for the plugin column
+	*
+	* @since   2.6.1
+	* @change  2.6.1
+	*/
+
+	public static function print_column_styles() { ?>
+        <style>
+            .column-antispam_bee_reason {
+                width: 10%;
+            }
+        </style>
+    <?php }
 }

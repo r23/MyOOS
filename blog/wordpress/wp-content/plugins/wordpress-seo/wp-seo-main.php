@@ -14,7 +14,7 @@ if ( ! function_exists( 'add_filter' ) ) {
  * @internal Nobody should be able to overrule the real version number as this can cause serious issues
  * with the options, so no if ( ! defined() )
  */
-define( 'WPSEO_VERSION', '1.6.1' );
+define( 'WPSEO_VERSION', '1.6.3' );
 
 if ( ! defined( 'WPSEO_PATH' ) ) {
 	define( 'WPSEO_PATH', plugin_dir_path( WPSEO_FILE ) );
@@ -48,6 +48,7 @@ function wpseo_auto_load( $class ) {
 			'wpseo_bulk_list_table'              => WPSEO_PATH . 'admin/class-bulk-editor-list-table.php',
 			'wpseo_admin_pages'                  => WPSEO_PATH . 'admin/class-config.php',
 			'wpseo_metabox'                      => WPSEO_PATH . 'admin/class-metabox.php',
+			'wpseo_snippet_preview'              => WPSEO_PATH . 'admin/class-snippet-preview.php',
 			'wpseo_social_admin'                 => WPSEO_PATH . 'admin/class-opengraph-admin.php',
 			'wpseo_pointers'                     => WPSEO_PATH . 'admin/class-pointers.php',
 			'wpseo_sitemaps_admin'               => WPSEO_PATH . 'admin/class-sitemaps-admin.php',
@@ -76,11 +77,11 @@ function wpseo_auto_load( $class ) {
 			'wpseo_replace_vars'                 => WPSEO_PATH . 'inc/class-wpseo-replace-vars.php',
 
 			'yoast_license_manager'              => WPSEO_PATH . 'admin/license-manager/class-license-manager.php',
-			'yoast_plugin_license_manager'       =>	WPSEO_PATH . 'admin/license-manager/class-plugin-license-manager.php',
-			'yoast_product'                      =>	WPSEO_PATH . 'admin/license-manager/class-product.php',
+			'yoast_plugin_license_manager'       => WPSEO_PATH . 'admin/license-manager/class-plugin-license-manager.php',
+			'yoast_product'                      => WPSEO_PATH . 'admin/license-manager/class-product.php',
 
-			'yoast_notification_center'          =>	WPSEO_PATH . 'admin/class-yoast-notification-center.php',
-			'yoast_notification'                 =>	WPSEO_PATH . 'admin/class-yoast-notification.php',
+			'yoast_notification_center'          => WPSEO_PATH . 'admin/class-yoast-notification-center.php',
+			'yoast_notification'                 => WPSEO_PATH . 'admin/class-yoast-notification.php',
 
 			'wp_list_table'                      => ABSPATH . 'wp-admin/includes/class-wp-list-table.php',
 			'walker_category'                    => ABSPATH . 'wp-includes/category-template.php',
@@ -338,7 +339,7 @@ function wpseo_admin_init() {
 	}
 
 	/**
-	 * Filter: 'wpseo_always_register_metaboxes_on_admint' - Allow developers to change whether
+	 * Filter: 'wpseo_always_register_metaboxes_on_admin' - Allow developers to change whether
 	 * the WPSEO metaboxes are only registered on the typical pages (lean loading) or always
 	 * registered when in admin.
 	 *

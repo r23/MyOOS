@@ -151,10 +151,10 @@ if ( ! class_exists( 'WPSEO_Bulk_List_Table' ) ) {
 				<?php if ( 'top' === $which ) { ?>
 				<form id="posts-filter" action="" method="get">
 					<input type="hidden" name="page" value="wpseo_bulk-editor" />
-					<input type="hidden" name="type" value="<?php echo $this->page_type; ?>" />
-					<input type="hidden" name="orderby" value="<?php echo $_GET['orderby']; ?>" />
-					<input type="hidden" name="order" value="<?php echo $_GET['order']; ?>" />
-					<input type="hidden" name="post_type_filter" value="<?php echo $_GET['post_type_filter']; ?>" />
+					<input type="hidden" name="type" value="<?php echo esc_attr( $this->page_type ); ?>" />
+					<input type="hidden" name="orderby" value="<?php echo esc_attr( $_GET['orderby'] ); ?>" />
+					<input type="hidden" name="order" value="<?php echo esc_attr( $_GET['order'] ); ?>" />
+					<input type="hidden" name="post_type_filter" value="<?php echo esc_attr( $_GET['post_type_filter'] ); ?>" />
 					<?php if ( ! empty( $post_status ) ) { ?>
 						<input type="hidden" name="post_status" value="<?php echo esc_attr( $post_status ); ?>" />
 					<?php } ?>
@@ -573,7 +573,7 @@ if ( ! class_exists( 'WPSEO_Bulk_List_Table' ) ) {
 
 							case 'col_existing_yoast_seo_metadesc':
 								$cell_value = ( ( ! empty( $meta_data[WPSEO_Meta::$meta_prefix . 'metadesc'] ) ) ? $meta_data[WPSEO_Meta::$meta_prefix . 'metadesc'] : '' );
-								echo sprintf( '<td %2$s id="wpseo-existing-metadesc-%3$s">%1$s</td>', $cell_value, $attributes, $rec->ID );
+								echo sprintf( '<td %2$s id="wpseo-existing-metadesc-%3$s">%1$s</td>', wp_strip_all_tags( $cell_value ), $attributes, $rec->ID );
 								break;
 
 							case 'col_row_action':

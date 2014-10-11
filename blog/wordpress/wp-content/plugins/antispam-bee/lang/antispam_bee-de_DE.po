@@ -134,7 +134,7 @@ msgstr "Analyse der Kommentarinhalte auf BBCode-Links"
 msgid "Use a public antispam database"
 msgstr "Öffentliche Spamdatenbank berücksichtigen"
 
-msgid "Matching the ip address with <a href=\"http://opm.tornevall.org\" target=\"_blank\">Tornevall</a>"
+msgid "Matching the ip address with <a href=\"https://dnsbl.tornevall.org\" target=\"_blank\">Tornevall</a>"
 msgstr "Beachte den <a href=\"http://playground.ebiene.de/antispam-bee-wordpress-plugin/#dnsbl_check\" target=\"_blank\">Datenschutzhinweis</a> für die Option"
 
 msgid "Validate the ip address of commentators"

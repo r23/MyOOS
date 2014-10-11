@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Antispam Bee\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-21 22:20+0300\n"
-"PO-Revision-Date: 2013-12-03 12:10+0100\n"
+"PO-Revision-Date: 2013-12-20 11:18+0100\n"
 "Last-Translator: Sergej Müller\n"
 "Language-Team: Andrey Ananin\n"
 "Language: \n"
@@ -119,8 +119,8 @@ msgid "Use a public antispam database"
 msgstr "Использовать общую БД антиспама"
 
 #: ../inc/gui.class.php:216
-msgid "Matching the ip address with <a href=\"http://opm.tornevall.org\" target=\"_blank\">Tornevall</a>"
-msgstr "Проверять IP-адрес в <a href=\"http://opm.tornevall.org\" target=\"_blank\">Tornevall</a>"
+msgid "Matching the ip address with <a href=\"https://dnsbl.tornevall.org\" target=\"_blank\">Tornevall</a>"
+msgstr "Проверять IP-адрес в <a href=\"https://dnsbl.tornevall.org\" target=\"_blank\">Tornevall</a>"
 
 #: ../inc/gui.class.php:223
 msgid "Validate the ip address of commentators"
