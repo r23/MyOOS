@@ -2,9 +2,9 @@
 Contributors: takayukister
 Donate link: http://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
-Requires at least: 3.8
+Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 3.9.3
+Stable tag: 4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,69 +32,69 @@ The following are other recommended plugins by the author of Contact Form 7.
 
 = Translators =
 
-* Afrikaans (af) - [Schalk Burger](http://www.schalkburger.za.net/)
-* Albanian (sq) - [Olgi Zenullari](http://www.olgizenullari.com/)
-* Arabic (ar) - [Tarek Chaaban](http://www.chaaban.info/), Muhammed Lardi, [Yaser Maadan](http://www.englize.com/)
-* Armenian (hy_AM) - [Emmanuelle Traduction](http://www.translatonline.com/)
-* Azerbaijani (az_AZ) - [Zaur Bayramov](http://bloglayaq.com/)
-* Bangla (bn_BD) - [SM Mehdi Akram](http://www.shamokaldarpon.com/)
-* Basque (Euskara; eu) - [karrikas](http://blog.karrikas.com/)
-* Belarusian (be_BY) - [Igor Dubilei](http://www.iflexion.com/)
-* Bosnian (bs) - [Vedran](http://www.seorabbit.com/)
-* Brazilian Portuguese (pt_BR) - [Leonardo Pinheiro](http://www.eletrikabarbarella.com.br/), [Henrique Vianna](http://henriquevianna.com/), [Caciano Gabriel Batista](http://www.gn10.com.br/), [Gervásio Antônio](http://twitter.com/gervasioantonio), Gilvanilson Santos
-* Bulgarian (bg_BG) - [Iliyan Darganov](http://www.darganov.com/)
-* Catalan (ca) - [Jordi Sancho](http://www.qasolutions.net/blog), Robert Buj, Jaume Aragay Badia
+* Afrikaans (af) - Schalk Burger
+* Albanian (sq) - Olgi Zenullari
+* Arabic (ar) - Tarek Chaaban, Muhammed Lardi, Yaser Maadan
+* Armenian (hy_AM) - Emmanuelle Traduction
+* Azerbaijani (az) - Zaur Bayramov
+* Bangla (bn_BD) - SM Mehdi Akram
+* Basque (Euskara; eu) - karrikas
+* Belarusian (be_BY) - Igor Dubilei
+* Bosnian (bs_BA) - Vedran
+* Bulgarian (bg_BG) - Iliyan Darganov
+* Catalan (ca) - Jordi Sancho, Robert Buj, Jaume Aragay Badia
 * Central Kurdish (ckb) - Mahr Hassan
-* Chinese, Simplified (zh_CN) - [Soz](http://www.webtoolol.com/), [Keefe Dunn](http://dengkefu.com/), [Stella Hu](http://prowordpresser.com/)
-* Chinese, Traditional (zh_TW) - [James Wu](http://jameswublog.com)
-* Croatian (hr) - [tolingo Translation Services](http://www.tolingo.com)
-* Czech (cs_CZ) - Korry, [Radovan Fiser](http://algymsa.cz/), [Tomas Vesely](http://www.mcmotylek.cz/), [Pavel Bilek](http://chcistranky.eu/zdarma/), Vladislav Šenk
-* Danish (da_DK) - [Jens Griebel](http://www.kompas-it.dk/), [Georg S. Adamsen](http://wordpress.blogos.dk/)
-* Dutch (nl_NL) - [Chris Devriese](http://www.100it.be/), [Martin Hein](http://www.split-a-pixel.nl/), [Rene](http://wpwebshop.com/), [TenSheep](http://tensheep.nl/), [Tim de Hoog](http://www.ecommany.com/)
+* Chinese (China; zh_CN) - Soz, Keefe Dunn, Stella Hu
+* Chinese (Taiwan; zh_TW) - James Wu
+* Croatian (hr) - tolingo Translation Services
+* Czech (cs_CZ) - Korry, Radovan Fiser, Tomas Vesely, Pavel Bilek, Vladislav Šenk
+* Danish (da_DK) - Jens Griebel, Georg S. Adamsen
+* Dutch (nl_NL) - Chris Devriese, Martin Hein, Rene, TenSheep, Tim de Hoog
 * Esperanto (eo_EO) - Arkadiusz Zychewicz
-* Estonian (et) - [Peeter Rahuvarm](http://www.kraabus.ee), Egon Elbre
-* Finnish (fi) - [Miika Turunen](http://www.webwork.fi/), [Mediajalostamo](http://www.mediajalostamo.fi/), [Jani Alha](http://www.wysiwyg.fi/)
-* French (fr_FR) - [Jillij](http://www.jillij.com/), [Oncle Tom](http://case.oncle-tom.net/), [Maître Mô](http://maitremo.fr/), Emmanuel Simond, Hédi Sellami
-* Galician (gl_ES) - [Arume Desenvolvementos Informáticos](http://www.arumeinformatica.es/)
-* Georgian (ka_GE) - [Nodar Rocko Davituri](http://davituri.com/)
-* German (de_DE) - [Marcel Spitau](http://blog.spitau.de), [Ivan Graf](http://blog.bildergallery.com/)
-* Greek (el) - [Nick Mouratidis](http://www.kepik.gr/), [Pr. friedlich](http://friedlich.wordpress.com/), John D. Dimoferlias
-* Gujarati (gu_IN) - [Apoto](http://www.apoto.com/)
-* Haitian (ht) - [Lam Tu Do](http://bizover.net/)
-* Hebrew (he_IL) - [Yaron Ofer](http://www.gadgetguru.co.il/), [Arik Galansky](http://www.arikg.co.il/)
-* Hindi (hi_IN) - [Tarun Joshi](http://www.readers-cafe.net/), [Ashish](http://outshinesolutions.com/)
-* Hungarian (hu_HU) - [Andras Hirschler](http://hia.itblog.hu/), [János Csárdi-Braunstein](http://blogocska.org/), [Farkas Győző](http://www.sakraft.hu/)
-* Indian Bengali (bn_IN) - [Suman Manna](http://www.gwebpro.com/)
-* Indonesian (Bahasa Indonesia; id_ID) - [Hendry Lee](http://blogbuildingu.com/), [Belajar Seo Indonesia](http://dhany.web.id/panduan-seo)
-* Irish (ga_IE) - [Vikas Arora](http://www.wiznicworld.com/)
-* Italian (it_IT) - [Bruno](http://www.brunosalzano.com), [Gianni Diurno](http://gidibao.net/)
-* Japanese (ja) - [Takayuki Miyoshi](http://ideasilo.wordpress.com)
-* Korean (ko_KR) - Seong Eun Lee, [Jong-In Kim](http://incommunity.codex.kr/wordpress/), [martian36](http://martian36.tistory.com/)
-* Latvian (lv) - [Sandis Veinbergs](http://www.kleofass.lv/)
-* Lithuanian (lt_LT) - [Ernestas Kardzys](http://www.ernestas.info/), [Vincent G](http://www.host1free.com/), [Mantas Malcius](http://mantas.malcius.lt/)
-* Macedonian (mk_MK) - [Darko](http://www.findermind.com/)
-* Malay (ms_MY) - [Zairul Azmil](http://www.zairul.com/)
-* Malayalam (ml_IN) - [RAHUL.S.A](http://www.infution.co.cc/)
-* Maltese (mt_MT) - [Ajoft Technologies](http://www.ajoft.com/)
-* Norwegian (nb_NO) - Kjetil M. Bergem, [aanvik.net](http://www.aanvik.net), [Peter Holme](http://holme.se/nettsteder/)
-* Persian (Farsi; fa_IR) - [Mohammad Musavi](http://www.musavis.com/), [Mohsen Firoozmandan](http://www.rankbazar.com/), Ghaem Omidi
-* Polish (pl_PL) - [Zbigniew Czernik](http://zibik.jogger.pl/), [Daniel Fruzynski](http://www.poradnik-webmastera.com), [RafalDesign](http://www.rafaldesign.pl/), [Bartosz Arendt](http://digitalfactory.pl/)
-* Portuguese (pt_PT) - [Hugo Baeta](http://hugobaeta.com), [Pedro Nave](http://pedronave.com/)
+* Estonian (et) - Peeter Rahuvarm, Egon Elbre
+* Finnish (fi) - Miika Turunen, Mediajalostamo, Jani Alha
+* French (fr_FR) - Jillij, Oncle Tom, Maître Mô, Emmanuel Simond, Hédi Sellami
+* Galician (gl_ES) - Arume Desenvolvementos Informáticos
+* Georgian (ka_GE) - Nodar Rocko Davituri
+* German (de_DE) - Marcel Spitau, Ivan Graf
+* Greek (el) - Nick Mouratidis, Pr. friedlich, John D. Dimoferlias
+* Gujarati (gu_IN) - Apoto
+* Haitian (ht) - Lam Tu Do
+* Hebrew (he_IL) - Yaron Ofer, Arik Galansky
+* Hindi (hi_IN) - Tarun Joshi, Ashish
+* Hungarian (hu_HU) - Andras Hirschler, János Csárdi-Braunstein, Farkas Győző
+* Indian Bengali (bn_IN) - Suman Manna
+* Indonesian (Bahasa Indonesia; id_ID) - Hendry Lee, Belajar Seo Indonesia
+* Irish (ga_IE) - Vikas Arora
+* Italian (it_IT) - Bruno, Gianni Diurno
+* Japanese (ja) - Takayuki Miyoshi
+* Korean (ko_KR) - Seong Eun Lee, Jong-In Kim, martian36
+* Latvian (lv) - Sandis Veinbergs
+* Lithuanian (lt_LT) - Ernestas Kardzys, Vincent G, Mantas Malcius
+* Macedonian (mk_MK) - Darko
+* Malay (ms_MY) - Zairul Azmil
+* Malayalam (ml_IN) - RAHUL.S.A
+* Maltese (mt_MT) - Ajoft Technologies
+* Norwegian (nb_NO) - Kjetil M. Bergem, aanvik.net, Peter Holme
+* Persian (Farsi; fa_IR) - Mohammad Musavi, Mohsen Firoozmandan, Ghaem Omidi
+* Polish (pl_PL) - Zbigniew Czernik, Daniel Fruzynski, RafalDesign, Bartosz Arendt
+* Portuguese (Brazil; pt_BR) - Leonardo Pinheiro, Henrique Vianna, Caciano Gabriel Batista, Gervásio Antônio, Gilvanilson Santos
+* Portuguese (Portugal; pt_PT) - Hugo Baeta, Pedro Nave, Pedro Mendonça
 * Punjabi (pa_IN) - Jasvinder Sing
-* Russian (ru_RU) - Dmitry Volotovich, [Denis Voituk](http://artprima.cz/), [kg69design](http://kg69design.com/)
-* Romanian (ro_RO) - [Stas Sushkov](http://stas.nerd.ro/), [Anunturi Jibo](http://www.jibo.ro/), [Marius Olar](http://webdudes.ro/), [Inbox Translation](http://inboxtranslation.com/)
-* Serbian (sr_RS) - [Vedran](http://www.seorabbit.com/), [Aleksandar Urošević](http://blog.urosevic.net/)
-* Sinhala (si_LK) - [Nitin Aggarwal](http://offshoreally.com/)
-* Slovak (sk_SK) - [Patrik Bóna](http://www.mrhead.sk/), [WordPress Slovakia](http://wp.sk/)
-* Slovene (sl_SI) - [Mihael Simonič](http://smihael.bplaced.net), Jani Roskar
-* Spanish (es_ES) - [Jordi Sancho](http://www.qasolutions.net/blog), [Vladimir Prieto](http://vladimir.prie.to/), [Federico Mikaelian](http://www.fedemika.com.ar/), [Matias Baldanza](http://matiasbaldanza.com/), [Carlos Agnese](http://albumdecarlitos.com.ar/), [Lourdes Cuesta](http://www.morote.net)
-* Swedish (sv_SE) - [Fredrik Jonsson](http://www.fredda-o-ac.se/), [the Swedish community](http://wp-support.se/)
-* Tagalog (tl) - [Rupert Agnew Lanuza](http://www.rupertlanuza.com/), [Hanne](http://pointen.dk/), [Language Connect](http://www.languageconnect.net/)
-* Tamil (ta) - [Nitin Aggarwal](http://offshoreally.com/)
-* Thai (th) - [ToshiK](http://www.tuntikorn.com/), [kazama](http://blog.wordthai.com/), [TG Knowledge](http://www.เกร็ดความรู้.com/)
-* Turkish (tr_TR) - [Roman Neumuller](http://katpatuka.wordpress.com), [Hasan Yılmaz](http://hedefturkce.com/), [Emin Buğra Saral](http://www.rahmetli.info/), Burak Yavuz
-* Ukrainian (uk) - [Andrey Kovba](http://myserver.com.ua/), [Ukrainian WordPress localization team](http://wordpress.co.ua/plugins/contact-form-7.html), Myroslava Pabyrivska
-* Vietnamese (vi) - Thanh Hải, Hà, [Khang Minh](http://betterwp.net/)
+* Russian (ru_RU) - Dmitry Volotovich, Denis Voituk, kg69design
+* Romanian (ro_RO) - Stas Sushkov, Anunturi Jibo, Marius Olar, Inbox Translation
+* Serbian (sr_RS) - Vedran, Aleksandar Urošević
+* Sinhala (si_LK) - Nitin Aggarwal
+* Slovak (sk_SK) - Patrik Bóna, WordPress Slovakia
+* Slovene (sl_SI) - Mihael Simonič, Jani Roskar
+* Spanish (es_ES) - Jordi Sancho, Vladimir Prieto, Federico Mikaelian, Matias Baldanza, Carlos Agnese, Lourdes Cuesta
+* Swedish (sv_SE) - Fredrik Jonsson, the Swedish community
+* Tagalog (tl) - Rupert Agnew Lanuza, Hanne, Language Connect
+* Tamil (ta) - Nitin Aggarwal
+* Thai (th) - ToshiK, kazama, TG Knowledge
+* Turkish (tr_TR) - Roman Neumuller, Hasan Yılmaz, Emin Buğra Saral, Burak Yavuz
+* Ukrainian (uk) - Andrey Kovba, Ukrainian WordPress localization team, Myroslava Pabyrivska
+* Vietnamese (vi) - Thanh Hải, Hà, Khang Minh
 
 If you have created your own language pack, or have an update of an existing one, you can send [gettext PO and MO files](http://codex.wordpress.org/Translating_WordPress) to [me](http://ideasilo.wordpress.com/about/) so that I can bundle it into Contact Form 7. You can download the latest [POT file](http://plugins.svn.wordpress.org/contact-form-7/trunk/languages/contact-form-7.pot), and [PO files in each language](http://plugins.svn.wordpress.org/contact-form-7/branches/languages/).
 
@@ -124,6 +124,12 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 == Changelog ==
 
 For more information, see [Releases](http://contactform7.com/category/releases/).
+
+= 4.0 =
+
+* The default mail template changed (see [Best Practice to Set Up Mail](http://contactform7.com/best-practice-to-set-up-mail/)).
+* Translations for Slovak, German, Turkish and Portuguese have been updated.
+* WordPress 3.9 or higher is required.
 
 = 3.9.3 =
 

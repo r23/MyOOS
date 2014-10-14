@@ -205,6 +205,12 @@ class WPCF7_Submission {
 	private function spam() {
 		$spam = false;
 
+		$user_agent = (string) $this->get_meta( 'user_agent' );
+
+		if ( strlen( $user_agent ) < 2 ) {
+			$spam = true;
+		}
+
 		if ( WPCF7_VERIFY_NONCE && ! $this->verify_nonce() ) {
 			$spam = true;
 		}
@@ -222,8 +228,8 @@ class WPCF7_Submission {
 
 	private function blacklist_check() {
 		$target = wpcf7_array_flatten( $this->posted_data );
-		$target[] = $_SERVER['REMOTE_ADDR'];
-		$target[] = $_SERVER['HTTP_USER_AGENT'];
+		$target[] = $this->get_meta( 'remote_ip' );
+		$target[] = $this->get_meta( 'user_agent' );
 
 		$target = implode( "\n", $target );
 
