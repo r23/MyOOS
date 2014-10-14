@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Piwik\\Plugins\\' => array($baseDir . '/plugins'),
+    'Piwik\\Decompress\\' => array($vendorDir . '/piwik/decompress/src'),
     'Piwik\\' => array($baseDir . '/core'),
     'DeviceDetector\\' => array($vendorDir . '/piwik/device-detector'),
 );

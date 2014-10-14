@@ -6,6 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Archive_Tar' => $vendorDir . '/piwik/decompress/libs/Archive_Tar/Tar.php',
+    'PEAR' => $vendorDir . '/piwik/decompress/libs/PEAR.php',
+    'PEAR5' => $vendorDir . '/piwik/decompress/libs/PEAR5.php',
+    'PEAR_Error' => $vendorDir . '/piwik/decompress/libs/PEAR.php',
+    'PclZip' => $vendorDir . '/piwik/decompress/libs/PclZip/pclzip.lib.php',
     'lessc' => $vendorDir . '/leafo/lessphp/lessc.inc.php',
     'lessc_formatter_classic' => $vendorDir . '/leafo/lessphp/lessc.inc.php',
     'lessc_formatter_compressed' => $vendorDir . '/leafo/lessphp/lessc.inc.php',
