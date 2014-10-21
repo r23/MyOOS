@@ -58,7 +58,7 @@
             "shasum": ""
         },
         "require": {
-            "php": ">=5.3.3"
+            "php": ">=5.3.2"
         },
         "require-dev": {
             "phpunit/phpunit": "~4.0"
@@ -130,17 +130,17 @@
     },
     {
         "name": "piwik/device-detector",
-        "version": "2.4",
-        "version_normalized": "2.4.0.0",
+        "version": "2.5.1",
+        "version_normalized": "2.5.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/piwik/device-detector.git",
-            "reference": "64d91375aea2340b81e2cb46745dc3b2213d3231"
+            "reference": "a15c326733bf596e23c19b319c15c8780be9fe34"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/piwik/device-detector/zipball/64d91375aea2340b81e2cb46745dc3b2213d3231",
-            "reference": "64d91375aea2340b81e2cb46745dc3b2213d3231",
+            "url": "https://api.github.com/repos/piwik/device-detector/zipball/a15c326733bf596e23c19b319c15c8780be9fe34",
+            "reference": "a15c326733bf596e23c19b319c15c8780be9fe34",
             "shasum": ""
         },
         "require": {
@@ -150,7 +150,7 @@
         "require-dev": {
             "phpunit/phpunit": "4.0.*"
         },
-        "time": "2014-08-29 18:24:04",
+        "time": "2014-10-06 20:13:03",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -169,7 +169,7 @@
                 "homepage": "http://piwik.org/the-piwik-team/"
             }
         ],
-        "description": "The Universal Device Detection library, that parses User Agents and detects devices (desktop, tablet, mobile, tv, cars, console, etc.), and detects browsers, operating systems, devices, brands and models.",
+        "description": "The Universal Device Detection library, that parses User Agents and detects devices (desktop, tablet, mobile, tv, cars, console, etc.), clients (browsers, media players, mobile apps, feed readers, libraries, etc), operating systems, devices, brands and models.",
         "homepage": "http://piwik.org",
         "keywords": [
             "devicedetection",
@@ -179,18 +179,18 @@
     },
     {
         "name": "symfony/console",
-        "version": "v2.5.4",
-        "version_normalized": "2.5.4.0",
+        "version": "v2.5.5",
+        "version_normalized": "2.5.5.0",
         "target-dir": "Symfony/Component/Console",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/Console.git",
-            "reference": "748beed2a1e73179c3f5154d33fe6ae100c1aeb1"
+            "reference": "ca053eaa031c93afb68a71e4eb1f4168dfd4a661"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/Console/zipball/748beed2a1e73179c3f5154d33fe6ae100c1aeb1",
-            "reference": "748beed2a1e73179c3f5154d33fe6ae100c1aeb1",
+            "url": "https://api.github.com/repos/symfony/Console/zipball/ca053eaa031c93afb68a71e4eb1f4168dfd4a661",
+            "reference": "ca053eaa031c93afb68a71e4eb1f4168dfd4a661",
             "shasum": ""
         },
         "require": {
@@ -204,7 +204,7 @@
             "psr/log": "For using the console logger",
             "symfony/event-dispatcher": ""
         },
-        "time": "2014-08-14 16:10:54",
+        "time": "2014-09-25 09:53:56",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -236,23 +236,23 @@
     },
     {
         "name": "tedivm/jshrink",
-        "version": "v0.5.1",
-        "version_normalized": "0.5.1.0",
+        "version": "v0.5.2",
+        "version_normalized": "0.5.2.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/tedivm/JShrink.git",
-            "reference": "2d3f1a7d336ad54bdf2180732b806c768a791cbf"
+            "url": "https://github.com/tedious/JShrink.git",
+            "reference": "4b48e3d051cf0ab145db9df20d3292d91485bb60"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/tedivm/JShrink/zipball/2d3f1a7d336ad54bdf2180732b806c768a791cbf",
-            "reference": "2d3f1a7d336ad54bdf2180732b806c768a791cbf",
+            "url": "https://api.github.com/repos/tedious/JShrink/zipball/4b48e3d051cf0ab145db9df20d3292d91485bb60",
+            "reference": "4b48e3d051cf0ab145db9df20d3292d91485bb60",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2012-11-26 04:48:55",
+        "time": "2014-01-14 22:23:53",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -279,23 +279,23 @@
     },
     {
         "name": "twig/twig",
-        "version": "v1.16.0",
-        "version_normalized": "1.16.0.0",
+        "version": "v1.16.1",
+        "version_normalized": "1.16.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/fabpot/Twig.git",
-            "reference": "8ce37115802e257a984a82d38254884085060024"
+            "reference": "7c4c01dcf578523cfcddf383641a4f12790270ec"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fabpot/Twig/zipball/8ce37115802e257a984a82d38254884085060024",
-            "reference": "8ce37115802e257a984a82d38254884085060024",
+            "url": "https://api.github.com/repos/fabpot/Twig/zipball/7c4c01dcf578523cfcddf383641a4f12790270ec",
+            "reference": "7c4c01dcf578523cfcddf383641a4f12790270ec",
             "shasum": ""
         },
         "require": {
             "php": ">=5.2.4"
         },
-        "time": "2014-07-05 12:19:05",
+        "time": "2014-10-10 14:09:53",
         "type": "library",
         "extra": {
             "branch-alias": {

@@ -17,9 +17,11 @@ use Piwik\DataTable\BaseFilter;
 use Piwik\DataTable\Row;
 use Piwik\Log;
 use Piwik\Metrics;
+use Piwik\Period;
 use Piwik\Piwik;
 use Piwik\Plugin\Report;
 use Piwik\Plugin\Segment;
+use Piwik\Site;
 
 /**
  * DataTable filter that creates a pivot table from a report.
@@ -421,15 +423,22 @@ class PivotByDimension extends BaseFilter
             'hideColumns' => ''
         );
 
+        /** @var Site $site */
         $site = $table->getMetadata('site');
         if (!empty($site)) {
             $params['idSite'] = $site->getId();
         }
 
+        /** @var Period $period */
         $period = $table->getMetadata('period');
         if (!empty($period)) {
-            $params['date'] = $period->getDateStart()->toString();
             $params['period'] = $period->getLabel();
+
+            if ($params['period'] == 'range') {
+                $params['date'] = $period->getRangeString();
+            } else {
+                $params['date'] = $period->getDateStart()->toString();
+            }
         }
 
         return $params;
@@ -459,8 +468,14 @@ class PivotByDimension extends BaseFilter
 
     private function getOrderedColumnsWithPrependedNumerals($defaultRow, $othersRowLabel)
     {
-        $nbsp = html_entity_decode('&nbsp;'); // must use decoded character otherwise sort later will fail
-                                              // (sort column will be set to decoded but columns will have &nbsp;)
+        $flags = ENT_COMPAT;
+        if (defined('ENT_HTML401')) {
+            $flags |= ENT_HTML401; // part of default flags for 5.4, but not 5.3
+        }
+
+        // must use decoded character otherwise sort later will fail
+        // (sort column will be set to decoded but columns will have &nbsp;)
+        $nbsp = html_entity_decode('&nbsp;', $flags, 'utf-8');
 
         $result = array();
 
