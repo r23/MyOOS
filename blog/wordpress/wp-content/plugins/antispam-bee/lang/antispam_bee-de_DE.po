@@ -36,8 +36,8 @@ msgstr "Leere Daten"
 msgid "CSS Hack"
 msgstr "CSS Hack"
 
-msgid "Server IP"
-msgstr "Server IP"
+msgid "Fake IP"
+msgstr "Gefälschte IP"
 
 msgid "Local DB Spam"
 msgstr "Lokale Spamdatenbank"

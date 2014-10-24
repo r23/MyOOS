@@ -8,7 +8,7 @@ Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://antispambee.com
 License: GPLv2 or later
-Version: 2.6.1
+Version: 2.6.2
 */
 
 /*
@@ -323,7 +323,7 @@ class Antispam_Bee {
 	* Initialisierung der internen Variablen
 	*
 	* @since   2.4
-	* @change  2.5.2
+	* @change  2.6.2
 	*/
 
 	private static function _init_internal_vars()
@@ -371,7 +371,7 @@ class Antispam_Bee {
 			'reasons' => array(
 				'css'		=> 'CSS Hack',
 				'empty'		=> 'Empty Data',
-				'server'	=> 'Server IP',
+				'server'	=> 'Fake IP',
 				'localdb'	=> 'Local DB Spam',
 				'country'	=> 'Country Check',
 				'dnsbl'		=> 'DNSBL Spam',
@@ -491,7 +491,7 @@ class Antispam_Bee {
 	* Meta-Links des Plugins
 	*
 	* @since   0.1
-	* @change  2.6.1
+	* @change  2.6.2
 	*
 	* @param   array   $input  Bereits vorhandene Links
 	* @param   string  $file   Aktuelle Seite
@@ -508,9 +508,9 @@ class Antispam_Bee {
 		return array_merge(
 			$input,
 			array(
-				'<a href="https://flattr.com/t/1323822" target="_blank">Flattr</a>',
 				'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=ZAQUT9RLPW8QN" target="_blank">PayPal</a>',
-				'<a href="https://www.amazon.de/gp/registry/wishlist/2U5I7F9649LOJ/?layout=grid" target="_blank">Wishlist</a>'
+				'<a href="https://flattr.com/t/1323822" target="_blank">Flattr</a>',
+				'<a href="https://www.amazon.de/registry/wishlist/2U5I7F9649LOJ/" target="_blank">Wishlist</a>'
 			)
 		);
 	}
@@ -1355,7 +1355,7 @@ class Antispam_Bee {
 		}
 
 		/* Bot erkannt */
-		if ( !empty($_POST['bee_spam']) ) {
+		if ( ! empty($_POST['bee_spam']) ) {
 			return array(
 				'reason' => 'css'
 			);
@@ -1732,52 +1732,48 @@ class Antispam_Bee {
 
 
 	/**
-	* Prüfung auf eine gefälschte IP
+	* Check for a fake IP
 	*
 	* @since   2.0
-	* @change  2.5.1
+	* @change  2.6.2
 	*
-	* @param   string   $ip    IP-Adresse
-	* @param   string   $host  Host [optional]
-	* @return  boolean         TRUE bei gefälschter IP
+	* @param   string   $ip    Client IP
+	* @param   string   $host  Client Host [optional]
+	* @return  boolean         TRUE if fake IP
 	*/
 
-	private static function _is_fake_ip($ip, $host = false)
+	private static function _is_fake_ip($client_ip, $client_host = false)
 	{
 		/* Remote Host */
-		$hostbyip = gethostbyaddr($ip);
+		$host_by_ip = gethostbyaddr($client_ip);
 
 		/* IPv6 */
-		if ( !self::_is_ipv4($ip) ) {
-			return $ip != $hostbyip;
+		if ( self::_is_ipv6($client_ip) ) {
+			return $client_ip != $host_by_ip;
 		}
 
-		/* IPv4 / Kommentar */
-		if ( empty($host) ) {
-			$found = strpos(
-				$ip,
-				self::_cut_ip(
-					gethostbyname($hostbyip)
-				)
-			);
+		/* IPv4 / Comment */
+		if ( empty($client_host) ) {
+			$ip_by_host = gethostbyname($host_by_ip);
+
+			if ( $ip_by_host === $host_by_ip ) {
+				return false;
+			}
 
 		/* IPv4 / Trackback */
 		} else {
-			/* IP-Vergleich */
-			if ( $hostbyip == $ip ) {
+			if ( $host_by_ip === $client_ip ) {
 				return true;
 			}
 
-			/* Treffer suchen */
-			$found = strpos(
-				$ip,
-				self::_cut_ip(
-					gethostbyname($host)
-				)
-			);
+			$ip_by_host = gethostbyname($client_host);
 		}
 
-		return $found === false;
+		if ( strpos( $client_ip, self::_cut_ip($ip_by_host) ) === false ) {
+			return true;
+		}
+
+		return false;
 	}
 
 
@@ -1785,7 +1781,7 @@ class Antispam_Bee {
 	* Prüfung auf unerwünschte Sprachen
 	*
 	* @since   2.0
-	* @change  2.4.2
+	* @change  2.6.2
 	*
 	* @param   string   $content  Inhalt des Kommentars
 	* @return  boolean 	          TRUE bei Spam
@@ -1813,7 +1809,7 @@ class Antispam_Bee {
 		$response = wp_remote_get(
 			esc_url_raw(
 				sprintf(
-					'http://translate.google.com/translate_a/t?client=x&text=%s',
+					'https://translate.google.com/translate_a/t?client=x&text=%s',
 					$content
 				),
 				'http'
@@ -1910,18 +1906,34 @@ class Antispam_Bee {
 
 
 	/**
-	* Prüfung auf eine IPv4-Adresse
+	* Check for an IPv4 address
 	*
 	* @since   2.4
-	* @change  2.4
+	* @change  2.6.2
 	*
-	* @param   string   $ip  Zu prüfende IP
-	* @return  integer       Anzahl der Treffer
+	* @param   string   $ip  IP to validate
+	* @return  integer       TRUE if IPv4
 	*/
 
 	private static function _is_ipv4($ip)
 	{
 		return preg_match('/^\d{1,3}(\.\d{1,3}){3,3}$/', $ip);
+	}
+
+
+	/**
+	* Check for an IPv6 address
+	*
+	* @since   2.6.2
+	* @change  2.6.2
+	*
+	* @param   string   $ip  IP to validate
+	* @return  boolean       TRUE if IPv6
+	*/
+
+	private static function _is_ipv6($ip)
+	{
+		return ! self::_is_ipv4($ip);
 	}
 
 

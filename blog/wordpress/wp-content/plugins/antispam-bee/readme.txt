@@ -69,7 +69,7 @@ Anmeldefrei und ohne lästige Captchas.
 
 
 = Support =
-Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
+Fragen rund ums Plugin werden gern per E-Mail beantwortet. Beachtet auch die [Guidelines](https://plus.google.com/+SergejMüller/posts/Ex2vYGN8G2L).
 
 
 = Inkompatibilität =
@@ -79,12 +79,12 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 
 = Unterstützung =
-* Via [Flattr](https://flattr.com/t/1323822)
-* Via [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZAQUT9RLPW8QN)
-* Via [Wishlist](https://www.amazon.de/gp/registry/wishlist/2U5I7F9649LOJ/?layout=grid)
+* [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZAQUT9RLPW8QN)
+* [Flattr](https://flattr.com/t/1323822)
+* [Wishlist](https://www.amazon.de/registry/wishlist/2U5I7F9649LOJ/)
 
 
-= Handbücher =
+= Lesenswertes =
 * [Antispam Bee: Antispam für WordPress](http://playground.ebiene.de/antispam-bee-wordpress-plugin/)
 * [Guide: Spam-Bekämpfung in WordPress](http://cup.wpcoder.de/wordpress-antispam-guide/)
 
@@ -104,19 +104,28 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 == Changelog ==
 
+= 2.6.2 =
+
+* **English**
+    * Improving detection of fake IPs
+    * *Release time investment (Development & QA): 11 h*
+
+* **Deutsch**
+    * Überarbeitung der Erkennung von gefälschten IPs
+    * *Release-Zeitaufwand (Development & QA): 11 Stunden*
+
+
 = 2.6.1 =
 
-*English*
+* **English**
+    * Code refactoring of options management
+    * Support for `HTTP_FORWARDED_FOR` header
+    * *Release time investment (Development & QA): 8,5 h*
 
-* Code refactoring of options management
-* Support for `HTTP_FORWARDED_FOR` header
-* *Release time investment (Development & QA): 8,5 h*
-
-*Deutsch*
-
-* Überarbeitung der Optionen-Verwaltung
-* Berücksichtigung der Header `HTTP_FORWARDED_FOR`
-* *Release-Zeitaufwand (Development & QA): 8,5 Stunden*
+* **Deutsch**
+    * Überarbeitung der Optionen-Verwaltung
+    * Berücksichtigung der Header `HTTP_FORWARDED_FOR`
+    * *Release-Zeitaufwand (Development & QA): 8,5 Stunden*
 
 
 = 2.6.0 =
