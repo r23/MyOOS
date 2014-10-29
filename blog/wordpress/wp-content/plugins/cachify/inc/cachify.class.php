@@ -505,7 +505,7 @@ final class Cachify {
 	* Hinzufügen der Action-Links
 	*
 	* @since   1.0
-	* @change  2.0.2
+	* @change  2.1.9
 	*
 	* @param   string  $data  Ursprungsinhalt der dynamischen robots.txt
 	* @return  string  $data  Modifizierter Inhalt der robots.txt
@@ -523,9 +523,9 @@ final class Cachify {
 
 		/* Ausgabe */
 		$data .= sprintf(
-			'Disallow: %s/wp-content/cache/%s',
+			'%2$sDisallow: %1$s/wp-content/cache/cachify/%2$s',
 			( empty($path) ? '' : $path ),
-			"\n"
+			PHP_EOL
 		);
 
 		return $data;
@@ -588,8 +588,9 @@ final class Cachify {
 		return array_merge(
 			$input,
 			array(
+				'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=ZAQUT9RLPW8QN" target="_blank">PayPal</a>',
 				'<a href="https://flattr.com/t/1327625" target="_blank">Flattr</a>',
-				'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>'
+				'<a href="https://www.amazon.de/registry/wishlist/2U5I7F9649LOJ/" target="_blank">Wishlist</a>'
 			)
 		);
 	}
@@ -1187,7 +1188,12 @@ final class Cachify {
 	{
 		/* Disabled? */
 		if ( ! self::$options['compress_html'] ) {
-			return($data);
+			return $data;
+		}
+
+		/* Avoid slow rendering */
+		if ( strlen($data) > 700000) {
+			return $data;
 		}
 
 		/* Ignore this html tags */
@@ -1206,7 +1212,7 @@ final class Cachify {
 
 		/* Empty blacklist? | TODO: Make it better */
 		if ( ! $ignore_tags ) {
-			return($data);
+			return $data;
 		}
 
 		/* Convert to string */
@@ -1222,12 +1228,12 @@ final class Cachify {
 				'',
 				' '
 			),
-			(string) $data
+			$data
 		);
 
 		/* Fault */
 		if ( strlen($cleaned) <= 1 ) {
-			return($data);
+			return $data;
 		}
 
 		return $cleaned;
@@ -1612,7 +1618,7 @@ final class Cachify {
 	* Darstellung der Optionsseite
 	*
 	* @since   1.0
-	* @change  2.1.7
+	* @change  2.1.9
 	*/
 
 	public static function options_page()
@@ -1726,7 +1732,7 @@ final class Cachify {
 							<?php submit_button() ?>
 						</th>
 						<td>
-							<a href="http://playground.ebiene.de/cachify-wordpress-cache/" target="_blank"><?php _e('Manual', 'cachify') ?></a> &bull; <a href="http://playground.ebiene.de/cachify-wordpress-cache/#book" target="_blank"><?php _e('Books', 'cachify') ?></a> &bull; <a href="https://flattr.com/t/1327625" target="_blank">Flattr</a> &bull; <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>
+							<a href="http://playground.ebiene.de/cachify-wordpress-cache/" target="_blank"><?php _e('Manual', 'cachify') ?></a> &bull; <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=ZAQUT9RLPW8QN" target="_blank">PayPal</a> &bull; <a href="https://flattr.com/t/1327625" target="_blank">Flattr</a> &bull; <a href="https://www.amazon.de/registry/wishlist/2U5I7F9649LOJ/" target="_blank">Wishlist</a>
 						</td>
 					</tr>
 				</table>

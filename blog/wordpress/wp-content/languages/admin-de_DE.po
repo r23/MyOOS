@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-09-04 08:34:30+0000\n"
+"PO-Revision-Date: 2014-10-16 20:25:24+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -548,7 +548,7 @@ msgstr "Danke für das Vertrauen in <a href=\"%s\">WordPress</a>."
 #: wp-admin/upload.php:52 wp-admin/upload.php:220 wp-admin/user-edit.php:54
 #: wp-admin/user-new.php:185 wp-admin/users.php:63 wp-admin/widgets.php:74
 msgid "<a href=\"https://wordpress.org/support/\" target=\"_blank\">Support Forums</a>"
-msgstr "<a href=\"https://wordpress.org/support/\" target=\"_blank\">Support Foren (en.)</a>"
+msgstr "<a href=\"https://de.wordpress.org/hilfe/\" target=\"_blank\">Support</a>"
 
 #: wp-admin/credits.php:164
 msgid "https://make.wordpress.org/"
@@ -1072,7 +1072,7 @@ msgstr "Wenn Du übernimmst, wird %s daran gehindert, weiter zu schreiben."
 
 #: wp-admin/update-core.php:50
 msgid "If you need to re-install version %s, you can do so here or download the package and re-install manually:"
-msgstr "Wenn du Version %s neu installieren musst, kannst du das hier erledigen oder das Installationspaket herunterladen und zu Fuß installieren: "
+msgstr "Wenn du Version %s neu installieren musst, kannst du das hier erledigen oder das Installationspaket herunterladen und manuell installieren: "
 
 #: wp-admin/update-core.php:161
 msgid "Future security updates will be applied automatically."
@@ -1802,7 +1802,7 @@ msgstr "Bearbeite dein Menü unten oder <a href=\"%s\">erstelle ein neues Menü<
 
 #: wp-admin/nav-menus.php:636
 msgid "Select a menu to edit:"
-msgstr "Wähle ein Menü zum bearbeiten:"
+msgstr "Wähle ein Menü zum Bearbeiten:"
 
 #: wp-admin/nav-menus.php:677
 msgid "or <a href=\"%s\">create a new menu</a>."
@@ -7589,8 +7589,8 @@ msgstr[1] "Aktivierte <span class=\"count\">(%s)</span>"
 #: wp-admin/includes/class-wp-plugins-list-table.php:262
 msgid "Recently Active <span class=\"count\">(%s)</span>"
 msgid_plural "Recently Active <span class=\"count\">(%s)</span>"
-msgstr[0] "Kürzlich Inaktiv <span class=\"count\">(%s)</span>"
-msgstr[1] "Kürzlich Inaktivierte <span class=\"count\">(%s)</span>"
+msgstr[0] "Kürzlich aktiv <span class=\"count\">(%s)</span>"
+msgstr[1] "Kürzlich aktiv <span class=\"count\">(%s)</span>"
 
 #: wp-admin/includes/class-wp-plugins-list-table.php:265
 msgid "Inactive <span class=\"count\">(%s)</span>"

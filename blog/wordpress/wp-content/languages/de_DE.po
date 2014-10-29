@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-09-05 15:23:15+0000\n"
+"PO-Revision-Date: 2014-10-26 13:41:46+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -692,7 +692,7 @@ msgstr "Bild-Details"
 #: wp-includes/update.php:119 wp-includes/update.php:295
 #: wp-includes/update.php:457
 msgid "An unexpected error occurred. Something may be wrong with WordPress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href=\"https://wordpress.org/support/\">support forums</a>."
-msgstr "Ein unerwarteter Fehler ist aufgetreten. Das könnte an WordPress.org oder der Konfiguration dieses Servers liegen. Solltest du weiterhin Probleme haben, wende dich an das <a href=\"https://wordpress.org/support/\">Support Forum (en.)</a>."
+msgstr "Ein unerwarteter Fehler ist aufgetreten. Das könnte an WordPress.org oder der Konfiguration dieses Servers liegen. Solltest du weiterhin Probleme haben, wende dich an den <a href=\"https://de.wordpress.org/hilfe/\">Support</a>."
 
 #: wp-includes/media.php:2910
 msgid "Back"
@@ -883,7 +883,7 @@ msgstr ""
 "<li>Hat der Benutzer <code>%2$s</code> die notwendigen Rechte, um die Datenbank <code>%1$s</code> zu verwenden?</li>\n"
 "<li>Auf einigen Systemen wird dem Datenbanknamen der Benutzername vorangestellt, so dass dieser die Form <code>username_%1$s</code> hat. Könnte dies das Problem sein?</li>\n"
 "</ul>\n"
-"<p>Wenn du nicht weißt, wie man eine Datenbank einrichtet, solltest du dich <strong>an deinen Hoster wenden</strong>. Sofern keiner dieser Vorschläge zur Lösung führt, kannst du im <a href=\"http://forum.wpde.org/\">WordPress Deutschland Forum</a> deine Fragen stellen.</p>"
+"<p>Wenn du nicht weißt, wie man eine Datenbank einrichtet, solltest du dich <strong>an deinen Hoster wenden</strong>. Sofern keiner dieser Vorschläge zur Lösung führt, kannst du dich jederzeit an den <a href='http://de.wordpress.org/hilfe/'>WordPress-Support</a> wenden.</p>"
 
 #: wp-includes/wp-db.php:1160
 msgid "The query argument of %s must have a placeholder."
@@ -909,7 +909,7 @@ msgstr ""
 "→\t<li>Bist du sicher, dass der Name des Datenbankservers stimmt?</li>\n"
 "→\t<li>Bist du sicher, dass der Datenbankserver läuft?</li>\n"
 "</ul>\n"
-"<p>Wenn du nicht sicher bist, woran es liegt, kontaktiere am besten deinen Hoster. Wenn du weitergehende Hilfe brauchst, kannst du dich jederzeit an den <a href='http://de.wordpress.org/support/'>WordPress Support</a> wenden.</p>\n"
+"<p>Wenn du nicht sicher bist, woran es liegt, kontaktiere am besten deinen Hoster. Wenn du weitergehende Hilfe brauchst, kannst du dich jederzeit an den <a href='http://de.wordpress.org/hilfe/'>WordPress Support</a> wenden.</p>\n"
 
 #: wp-login.php:629
 msgid "Hint: The password should be at least seven characters long. To make it stronger, use upper and lower case letters, numbers, and symbols like ! \" ? $ % ^ &amp; )."
@@ -962,7 +962,7 @@ msgstr "https://wordpress.org/"
 
 #: wp-includes/admin-bar.php:146 wp-login.php:771
 msgid "https://wordpress.org/support/"
-msgstr "https://wordpress.org/support/"
+msgstr "https://de.wordpress.org/hilfe/"
 
 #: wp-includes/admin-bar.php:154
 msgid "https://wordpress.org/support/forum/requests-and-feedback"
@@ -2403,7 +2403,7 @@ msgstr "Standard-Bildlink"
 
 #: wp-includes/class-wp-xmlrpc-server.php:392
 msgid "Image default align"
-msgstr "Standard Bildausrichtung"
+msgstr "Standard-Bildausrichtung"
 
 #: wp-includes/class-wp-xmlrpc-server.php:1166
 msgid "Sorry, you are not allowed to edit this post."
@@ -2902,7 +2902,7 @@ msgctxt "add new from admin bar"
 msgid "User"
 msgstr "Benutzer"
 
-#: wp-includes/pluggable.php:1067
+#: wp-includes/pluggable.php:1073
 msgid "You should specify a nonce action to be verified by using the first parameter."
 msgstr "Um verifiziert zu werden, gib bitte eine vorläufige Aktion als ersten Parameter an."
 
@@ -3063,7 +3063,7 @@ msgstr "(Diese Meldung wurde in Version %s hinzugefügt.)"
 msgid "Sorry, you cannot publish this post."
 msgstr "Bedaure, aber du kannst diesen Beitrag nicht veröffentlichen."
 
-#: wp-includes/pluggable.php:1412
+#: wp-includes/pluggable.php:1418
 msgid "Permalink: %s"
 msgstr "Permalink: %s"
 
@@ -3099,7 +3099,7 @@ msgstr "Audio"
 msgid "Invalid post format"
 msgstr "Ungültige Formatvorlage"
 
-#: wp-includes/pluggable.php:1404 wp-includes/pluggable.php:1533
+#: wp-includes/pluggable.php:1410 wp-includes/pluggable.php:1539
 msgid "Whois  : http://whois.arin.net/rest/ip/%s"
 msgstr "Whois: http://whois.arin.net/rest/ip/%s"
 
@@ -3288,7 +3288,7 @@ msgstr "Es sind nur Kleinbuchstaben und Ziffern erlaubt."
 
 #: wp-includes/query.php:2402
 msgid "\"caller_get_posts\" is deprecated. Use \"ignore_sticky_posts\" instead."
-msgstr "\"caller_get_posts\" ist veraltet. Bitte nutze stattdessen \"ignore_sticky_posts\"."
+msgstr "\"caller_get_posts\" ist veraltet. Bitte benutze stattdessen \"ignore_sticky_posts\"."
 
 #: wp-includes/taxonomy.php:97
 msgid "New Link Category Name"
@@ -3332,7 +3332,7 @@ msgstr "[%1$s] Aktivieren %2$s"
 msgid "Your server is running PHP version %1$s but WordPress %2$s requires at least %3$s."
 msgstr "Dein Server läuft mit der PHP-Version %1$s, aber WordPress %2$s benötigt mindestens die Version %3$s."
 
-#: wp-includes/pluggable.php:1514
+#: wp-includes/pluggable.php:1520
 msgid "A new trackback on the post \"%s\" is waiting for your approval"
 msgstr "Ein neuer Trackback zum Beitrag \"%s\" wartet auf Freigabe"
 
@@ -3374,23 +3374,23 @@ msgstr "Benutzern und Seiten"
 msgid "Custom Menu"
 msgstr "Individuelles Menü"
 
-#: wp-includes/pluggable.php:1389
+#: wp-includes/pluggable.php:1395
 msgid "New pingback on your post \"%s\""
 msgstr "Neuer Pingback zum Beitrag \"%s\""
 
-#: wp-includes/pluggable.php:1521
+#: wp-includes/pluggable.php:1527
 msgid "A new pingback on the post \"%s\" is waiting for your approval"
 msgstr "Ein neuer Pingback zum Beitrag \"%s\" wartet auf deine Freigabe."
 
-#: wp-includes/pluggable.php:1528
+#: wp-includes/pluggable.php:1534
 msgid "A new comment on the post \"%s\" is waiting for your approval"
 msgstr "Ein neuer Kommentar zum Beitrag \"%s\" wartet auf deine Freigabe."
 
-#: wp-includes/pluggable.php:1379
+#: wp-includes/pluggable.php:1385
 msgid "New trackback on your post \"%s\""
 msgstr "Neuer Trackback zum Beitrag \"%s\""
 
-#: wp-includes/pluggable.php:1399
+#: wp-includes/pluggable.php:1405
 msgid "New comment on your post \"%s\""
 msgstr "Neue Kommentare zu deinem Beitrag \"%s\""
 
@@ -3827,7 +3827,7 @@ msgstr "Entschuldige, aber diese Seite wurde bereits reserviert!"
 msgid "That site is currently reserved but may be available in a couple days."
 msgstr "Diese Seite wurde bereits reserviert, ist aber eventuell in ein paar Tagen wieder verfügbar."
 
-#: wp-includes/pluggable.php:1639
+#: wp-includes/pluggable.php:1645
 msgid "New user registration on your site %s:"
 msgstr "Neue Benutzerregistrierung auf deiner Seite %s:"
 
@@ -4873,11 +4873,11 @@ msgstr "Link einfügen/ändern"
 
 #: wp-includes/class-wp-editor.php:889
 msgid "Insert row before"
-msgstr "Zeile einfügen"
+msgstr "Zeile darüber einfügen"
 
 #: wp-includes/class-wp-editor.php:890
 msgid "Insert row after"
-msgstr "Zeile einfügen"
+msgstr "Zeile darunter einfügen"
 
 #: wp-includes/class-wp-editor.php:895
 msgid "Delete row"
@@ -4885,11 +4885,11 @@ msgstr "Zeile löschen"
 
 #: wp-includes/class-wp-editor.php:891
 msgid "Insert column before"
-msgstr "Spalte einfügen"
+msgstr "Spalte davor einfügen"
 
 #: wp-includes/class-wp-editor.php:892
 msgid "Insert column after"
-msgstr "Spalte einfügen"
+msgstr "Spalte danach einfügen"
 
 #: wp-includes/class-wp-editor.php:899
 msgid "Merge table cells"
@@ -5324,116 +5324,116 @@ msgstr ""
 msgid "<strong>ERROR</strong>: Invalid username or incorrect password."
 msgstr "<strong>Fehler:</strong> Falscher Benutzername oder E-Mail-Adresse."
 
-#: wp-includes/pluggable.php:1401 wp-includes/pluggable.php:1530
+#: wp-includes/pluggable.php:1407 wp-includes/pluggable.php:1536
 msgid "Author : %1$s (IP: %2$s , %3$s)"
 msgstr "Autor: %1$s (IP: %2$s , %3$s)"
 
-#: wp-includes/pluggable.php:1402 wp-includes/pluggable.php:1531
+#: wp-includes/pluggable.php:1408 wp-includes/pluggable.php:1537
 msgid "E-mail : %s"
 msgstr "E-Mail : %s"
 
-#: wp-includes/pluggable.php:1382 wp-includes/pluggable.php:1392
-#: wp-includes/pluggable.php:1403 wp-includes/pluggable.php:1517
-#: wp-includes/pluggable.php:1524 wp-includes/pluggable.php:1532
+#: wp-includes/pluggable.php:1388 wp-includes/pluggable.php:1398
+#: wp-includes/pluggable.php:1409 wp-includes/pluggable.php:1523
+#: wp-includes/pluggable.php:1530 wp-includes/pluggable.php:1538
 msgid "URL    : %s"
 msgstr "URL: %s"
 
-#: wp-includes/pluggable.php:1405 wp-includes/pluggable.php:1534
+#: wp-includes/pluggable.php:1411 wp-includes/pluggable.php:1540
 msgid "Comment: "
 msgstr "Kommentar: "
 
-#: wp-includes/pluggable.php:1406
+#: wp-includes/pluggable.php:1412
 msgid "You can see all comments on this post here: "
 msgstr "Du kannst alle Kommentare zu diesem Beitrag hier sehen:"
 
-#: wp-includes/pluggable.php:1408
+#: wp-includes/pluggable.php:1414
 msgid "[%1$s] Comment: \"%2$s\""
 msgstr "[%1$s] Kommentar: \"%2$s\""
 
-#: wp-includes/pluggable.php:1381 wp-includes/pluggable.php:1391
+#: wp-includes/pluggable.php:1387 wp-includes/pluggable.php:1397
 msgid "Website: %1$s (IP: %2$s , %3$s)"
 msgstr "Website: %1$s (IP: %2$s , %3$s)"
 
-#: wp-includes/pluggable.php:1383 wp-includes/pluggable.php:1393
+#: wp-includes/pluggable.php:1389 wp-includes/pluggable.php:1399
 msgid "Excerpt: "
 msgstr "Kurzfassung: "
 
-#: wp-includes/pluggable.php:1384
+#: wp-includes/pluggable.php:1390
 msgid "You can see all trackbacks on this post here: "
 msgstr "Du kannst alle Trackbacks zu diesem Beitrag hier sehen: "
 
-#: wp-includes/pluggable.php:1386
+#: wp-includes/pluggable.php:1392
 msgid "[%1$s] Trackback: \"%2$s\""
 msgstr "[%1$s] Trackback: \"%2$s\""
 
-#: wp-includes/pluggable.php:1394
+#: wp-includes/pluggable.php:1400
 msgid "You can see all pingbacks on this post here: "
 msgstr "Du kannst alle Pingbacks zu diesem Beitrag hier sehen: "
 
-#: wp-includes/pluggable.php:1396
+#: wp-includes/pluggable.php:1402
 msgid "[%1$s] Pingback: \"%2$s\""
 msgstr "[%1$s] Pingback: \"%2$s\""
 
-#: wp-includes/pluggable.php:1416 wp-includes/pluggable.php:1540
+#: wp-includes/pluggable.php:1422 wp-includes/pluggable.php:1546
 msgid "Trash it: %s"
 msgstr "In Papierkorb legen: %s"
 
-#: wp-includes/pluggable.php:1418 wp-includes/pluggable.php:1542
+#: wp-includes/pluggable.php:1424 wp-includes/pluggable.php:1548
 msgid "Delete it: %s"
 msgstr "Lösche %s"
 
-#: wp-includes/pluggable.php:1419 wp-includes/pluggable.php:1543
+#: wp-includes/pluggable.php:1425 wp-includes/pluggable.php:1549
 msgid "Spam it: %s"
 msgstr "Spam: %s"
 
-#: wp-includes/pluggable.php:1516 wp-includes/pluggable.php:1523
+#: wp-includes/pluggable.php:1522 wp-includes/pluggable.php:1529
 msgid "Website : %1$s (IP: %2$s , %3$s)"
 msgstr "Website: %1$s (IP: %2$s , %3$s)"
 
-#: wp-includes/pluggable.php:1518
+#: wp-includes/pluggable.php:1524
 msgid "Trackback excerpt: "
 msgstr "Trackback (Kurzfassung):"
 
-#: wp-includes/pluggable.php:1525
+#: wp-includes/pluggable.php:1531
 msgid "Pingback excerpt: "
 msgstr "Pingback (Kurzfassung):"
 
-#: wp-includes/pluggable.php:1538
+#: wp-includes/pluggable.php:1544
 msgid "Approve it: %s"
 msgstr "Genehmige %s"
 
-#: wp-includes/pluggable.php:1545
+#: wp-includes/pluggable.php:1551
 msgid "Currently %s comment is waiting for approval. Please visit the moderation panel:"
 msgid_plural "Currently %s comments are waiting for approval. Please visit the moderation panel:"
 msgstr[0] "Zurzeit wartet %s Kommentar auf Freigabe. Bitte gehe zur Moderationsansicht:"
 msgstr[1] "Zurzeit warten %s Kommentare auf Freigabe. Bitte gehe zur Moderationsansicht:"
 
-#: wp-includes/pluggable.php:1549
+#: wp-includes/pluggable.php:1555
 msgid "[%1$s] Please moderate: \"%2$s\""
 msgstr "[%1$s] Bitte moderiere: \"%2$s\""
 
-#: wp-includes/pluggable.php:1612
+#: wp-includes/pluggable.php:1618
 msgid "Password Lost and Changed for user: %s"
 msgstr "Passwort verloren und geändert für Benutzer: %s"
 
-#: wp-includes/pluggable.php:1616
+#: wp-includes/pluggable.php:1622
 msgid "[%s] Password Lost/Changed"
 msgstr "[%s] Passwort verloren/ändern"
 
-#: wp-includes/pluggable.php:1640 wp-includes/pluggable.php:1648
+#: wp-includes/pluggable.php:1646 wp-includes/pluggable.php:1654
 #: wp-login.php:362
 msgid "Username: %s"
 msgstr "Benutzername: %s"
 
-#: wp-includes/pluggable.php:1643
+#: wp-includes/pluggable.php:1649
 msgid "[%s] New User Registration"
 msgstr "[%s] Registrierung eines neuen Benutzers"
 
-#: wp-includes/pluggable.php:1649
+#: wp-includes/pluggable.php:1655
 msgid "Password: %s"
 msgstr "Passwort: %s"
 
-#: wp-includes/pluggable.php:1652
+#: wp-includes/pluggable.php:1658
 msgid "[%s] Your username and password"
 msgstr "[%s] Dein Benutzername und Passwort"
 
@@ -5789,7 +5789,7 @@ msgstr "Das Template fehlt."
 
 #: wp-includes/class-wp-theme.php:266
 msgid "The parent theme is missing. Please install the \"%s\" parent theme."
-msgstr "Das Übergeordnete Theme fehlt. Bitte installiere das übergeordnete Theme \"%s\", da du Child-Themes sonst nicht nutzen kannst."
+msgstr "Das übergeordnete Theme fehlt. Bitte installiere das übergeordnete Theme \"%s\", da du Child-Themes sonst nicht nutzen kannst."
 
 #: wp-includes/class-wp-theme.php:221
 msgid "Stylesheet is missing."
@@ -6733,7 +6733,7 @@ msgstr "Links"
 msgid "Uncategorized"
 msgstr "Allgemein"
 
-#: wp-includes/pluggable.php:1641
+#: wp-includes/pluggable.php:1647
 msgid "E-mail: %s"
 msgstr "E-Mail: %s"
 
