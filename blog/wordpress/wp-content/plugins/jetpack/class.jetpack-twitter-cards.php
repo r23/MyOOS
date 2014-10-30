@@ -27,7 +27,7 @@ class Jetpack_Twitter_Cards {
 
 		$site_tag = self::site_tag();
 		$site_tag = apply_filters( 'jetpack_sharing_twitter_via', $site_tag, ( is_singular() ? $post->ID : null ) );
-		$site_tag = apply_filters( 'jetpack_twitter_cards_site_tag', $site_tag );
+		$site_tag = apply_filters( 'jetpack_twitter_cards_site_tag', $site_tag, $og_tags );
 		$og_tags['twitter:site'] = self::sanitize_twitter_user( $site_tag );
 
 		if ( ! is_singular() || ! empty( $og_tags['twitter:card'] ) ) {
@@ -45,7 +45,11 @@ class Jetpack_Twitter_Cards {
 			$featured = Jetpack_PostImages::from_thumbnail( $post->ID, 240, 240 );
 			if ( !empty( $featured ) && count( $featured ) > 0 ) {
 				if ( (int) $featured[0]['src_width'] >= 280 && (int) $featured[0]['src_height'] >= 150 ) {
-					$card_type = 'summary_large_image';
+					if ( 'image' === get_post_format( $post->ID ) ) {
+						$card_type = 'photo';
+					} else {
+						$card_type = 'summary_large_image';
+					}
 					$og_tags['twitter:image:src'] = add_query_arg( 'w', 640, $featured[0]['src'] );
 				} else {
 					$og_tags['twitter:image'] = add_query_arg( 'w', 240, $featured[0]['src'] );
@@ -105,6 +109,13 @@ class Jetpack_Twitter_Cards {
 
 	static function sanitize_twitter_user( $str ) {
 		return '@' . preg_replace( '/^@/', '', $str );
+	}
+
+	static function prioritize_creator_over_default_site( $site_tag, $og_tags = array() ) {
+		if ( ! empty( $og_tags['twitter:creator'] ) && in_array( $site_tag, array( '@wordpressdotcom', '@jetpack' ) ) ) {
+			$site_tag = $og_tags['twitter:creator'];
+		}
+		return $site_tag;
 	}
 
 	static function twitter_cards_define_type_based_on_image_count( $og_tags, $extract ) {
@@ -195,6 +206,7 @@ class Jetpack_Twitter_Cards {
 		add_filter( 'jetpack_open_graph_tags',        array( __CLASS__, 'twitter_cards_tags' ) );
 		add_filter( 'jetpack_open_graph_output',      array( __CLASS__, 'twitter_cards_output' ) );
 		add_filter( 'jetpack_twitter_cards_site_tag', array( __CLASS__, 'site_tag' ), -99 );
+		add_filter( 'jetpack_twitter_cards_site_tag', array( __CLASS__, 'prioritize_creator_over_default_site' ), 99, 2 );
 		add_action( 'admin_init',                     array( __CLASS__, 'settings_init' ) );
 		add_action( 'sharing_global_options',         array( __CLASS__, 'sharing_global_options' ) );
 		add_action( 'sharing_admin_update',           array( __CLASS__, 'settings_validate' ) );

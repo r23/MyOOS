@@ -109,6 +109,8 @@ abstract class WPCOM_JSON_API_Endpoint {
 			'min_version'          => '0',
 			'max_version'          => WPCOM_JSON_API__CURRENT_VERSION,
 			'force'	               => '',
+			'deprecated'           => false,
+			'new_version'          => WPCOM_JSON_API__CURRENT_VERSION,
 			'jp_disabled'          => false,
 			'path_labels'          => array(),
 			'request_format'       => array(),
@@ -140,6 +142,8 @@ abstract class WPCOM_JSON_API_Endpoint {
 		$this->path_labels = $args['path_labels'];
 		$this->min_version = $args['min_version'];
 		$this->max_version = $args['max_version'];
+		$this->deprecated  = $args['deprecated'];
+		$this->new_version = $args['new_version'];
 
 		$this->pass_wpcom_user_details = $args['pass_wpcom_user_details'];
 		$this->custom_fields_filtering = (bool) $args['custom_fields_filtering'];
@@ -263,17 +267,20 @@ abstract class WPCOM_JSON_API_Endpoint {
 			if ( is_array( $description ) ) {
 				// String or boolean array keys only
 				$whitelist = array_keys( $description );
-				if ( isset( $data[$key] ) && isset( $description[$data[$key]] ) ) {
+
+				if ( $whitelist === $boolean_arg || $whitelist === $naeloob_arg ) {
+					// Truthiness
+					if ( isset( $data[$key] ) ) {
+						$return[$key] = (bool) WPCOM_JSON_API::is_truthy( $data[$key] );
+					} elseif ( $return_default_values ) {
+						$return[$key] = $whitelist === $naeloob_arg; // Default to true for naeloob_arg and false for boolean_arg.
+					}
+				} elseif ( isset( $data[$key] ) && isset( $description[$data[$key]] ) ) {
+					// String Key
 					$return[$key] = (string) $data[$key];
 				} elseif ( $return_default_values ) {
+					// Default value
 					$return[$key] = (string) current( $whitelist );
-				} else {
-					continue;
-				}
-
-				// Truthiness
-				if ( $whitelist === $boolean_arg || $whitelist === $naeloob_arg ) {
-					$return[$key] = (bool) WPCOM_JSON_API::is_truthy( $return[$key] );
 				}
 
 				continue;
@@ -444,13 +451,14 @@ abstract class WPCOM_JSON_API_Endpoint {
 		case 'tag' :
 		case 'category' :
 			$docs = array(
+				'ID'					=> '(int)',
 				'name'        => '(string)',
 				'slug'        => '(string)',
 				'description' => '(HTML)',
 				'post_count'  => '(int)',
 				'meta'        => '(object)',
 			);
-			if ( 'category' === $type ) {
+			if ( 'category' === $type['type'] ) {
 				$docs['parent'] = '(int)';
 			}
 			$return[$key] = (object) $this->cast_and_filter( $value, $docs, false, $for_output );
@@ -519,6 +527,22 @@ abstract class WPCOM_JSON_API_Endpoint {
 				'author'      => '(string)   The plugin author\'s name',
 				'author_url'  => '(url)      The plugin author web site address',
 				'network'     => '(boolean)  Whether the plugin can only be activated network wide.',
+				'autoupdate'  => '(boolean)  Whether the plugin is automatically updated',
+				'log'         => '(array)    An array of log strings telling how the plugin was modified',
+			);
+			$return[$key] = (object) $this->cast_and_filter( $value, apply_filters( 'wpcom_json_api_plugin_cast_and_filter', $docs ), false, $for_output );
+			break;
+		case 'jetpackmodule' :
+			$docs = array(
+				'id'          => '(string)   The module\'s ID',
+				'active'      => '(boolean)  The module\'s status.',
+				'name'        => '(string)   The module\'s name.',
+				'description' => '(safehtml) The module\'s description.',
+				'sort'        => '(int)      The module\'s display order.',
+				'introduced'  => '(string)   The Jetpack version when the module was introduced.',
+				'changed'     => '(string)   The Jetpack version when the module was changed.',
+				'free'        => '(boolean)  The module\'s Free or Paid status.',
+				'module_tags' => '(array)    The module\'s tags.'
 			);
 			$return[$key] = (object) $this->cast_and_filter( $value, apply_filters( 'wpcom_json_api_plugin_cast_and_filter', $docs ), false, $for_output );
 			break;
@@ -550,6 +574,13 @@ abstract class WPCOM_JSON_API_Endpoint {
 	}
 
 	/**
+ 	 * Checks if the endpoint is publicly displayable
+ 	 */
+	function is_publicly_documentable() {
+		return '__do_not_document' !== $this->group && true !== $this->in_testing;
+	}
+
+	/**
 	 * Auto generates documentation based on description, method, path, path_labels, and query parameters.
 	 * Echoes HTML.
 	 */
@@ -568,6 +599,10 @@ abstract class WPCOM_JSON_API_Endpoint {
 
 <?php endif; ?>
 
+<?php if ( true === $this->deprecated ) { ?>
+<p><strong>This endpoint is deprecated in favor of version <?php echo floatval( $this->new_version ); ?></strong></p>
+<?php } ?>
+
 <section class="resource-url">
 	<h2 id="apidoc-resource-url">Resource URL</h2>
 	<table class="api-doc api-doc-resource-parameters api-doc-resource">
@@ -580,7 +615,13 @@ abstract class WPCOM_JSON_API_Endpoint {
 		<tbody>
 			<tr class="api-index-item">
 				<th scope="row" class="parameter api-index-item-title"><?php echo wp_kses_post( $doc['method'] ); ?></th>
-				<td class="type api-index-item-title" style="white-space: nowrap;">https://public-api.wordpress.com/rest/v1<?php echo wp_kses_post( $doc['path_labeled'] ); ?></td>
+				<?php
+				$version = WPCOM_JSON_API__CURRENT_VERSION;
+				if ( !empty( $this->max_version ) ) {
+					$version = $this->max_version;
+				}
+				?>
+				<td class="type api-index-item-title" style="white-space: nowrap;">https://public-api.wordpress.com/rest/v<?php echo floatval( $version ); ?><?php echo wp_kses_post( $doc['path_labeled'] ); ?></td>
 			</tr>
 		</tbody>
 	</table>
@@ -919,6 +960,8 @@ EOPHP;
 					if ( !current_user_can( 'edit_post', $post->ID ) ) {
 						return new WP_Error( 'unauthorized', 'User cannot view post', 403 );
 					}
+				} elseif ( 'auto-draft' === $post->post_status ) {
+					//allow auto-drafts
 				} else {
 					return new WP_Error( 'unauthorized', 'User cannot view post', 403 );
 				}
@@ -956,6 +999,12 @@ EOPHP;
 			$profile_URL = 'http://en.gravatar.com/' . md5( strtolower( trim( $email ) ) );
 			$nice        = '';
 			$site_id     = -1;
+
+			// Comment author URLs and Emails are sent through wp_kses() on save, which replaces "&" with "&amp;"
+			// "&" is the only email/URL character altered by wp_kses()
+			foreach ( array( 'email', 'URL' ) as $field ) {
+				$$field = str_replace( '&amp;', '&', $$field );
+			}
 		} else {
 			if ( isset( $author->post_author ) ) {
 				if ( 0 == $author->post_author )
@@ -1040,6 +1089,81 @@ EOPHP;
 		return (object) $response;
 	}
 
+	function get_media_item_v1_1( $media_id ) {
+		$media_item = get_post( $media_id );
+
+		if ( ! $media_item || is_wp_error( $media_item ) )
+			return new WP_Error( 'unknown_media', 'Unknown Media', 404 );
+
+		$file = basename( wp_get_attachment_url( $media_item->ID ) );
+		$file_info = pathinfo( $file );
+		$ext  = $file_info['extension'];
+
+		$response = array(
+			'ID'           => $media_item->ID,
+			'URL'          => wp_get_attachment_url( $media_item->ID ),
+			'guid'         => $media_item->guid,
+			'date'         => (string) $this->format_date( $media_item->post_date_gmt, $media_item->post_date ),
+			'post_ID'      => $media_item->post_parent,
+			'file'         => $file,
+			'mime_type'    => $media_item->post_mime_type,
+			'extension'    => $ext,
+			'title'        => $media_item->post_title,
+			'caption'      => $media_item->post_excerpt,
+			'description'  => $media_item->post_content,
+		);
+
+		if ( in_array( $ext, array( 'jpg', 'jpeg', 'png', 'gif' ) ) ) {			
+			$metadata = wp_get_attachment_metadata( $media_item->ID );
+			$response['height'] = $metadata['height'];
+			$response['width']  = $metadata['width'];
+			$response['exif']   = $metadata['image_meta'];
+		}
+
+		if ( in_array( $ext, array( 'mp3', 'm4a', 'wav', 'ogg' ) ) ) {			
+			$metadata = wp_get_attachment_metadata( $media_item->ID );
+			$response['exif']   = $metadata;
+		}
+
+		if ( in_array( $ext, array( 'ogv', 'mp4', 'mov', 'wmv', 'avi', 'mpg', '3gp', '3g2', 'm4v' ) ) ) {
+			$metadata = wp_get_attachment_metadata( $media_item->ID );
+			$response['height'] = $metadata['height'];
+			$response['width']  = $metadata['width'];
+
+			// add VideoPress info
+			if ( function_exists( 'video_get_info_by_blogpostid' ) ) {
+				$info = video_get_info_by_blogpostid( $this->api->get_blog_id_for_output(), $media_id );
+				
+				$response['videopress_guid'] = $info->guid;
+				$response['videopress_processing_done'] = true;
+				if ( '0000-00-00 00:00:00' == $info->finish_date_gmt ) {
+					$response['videopress_processing_done'] = false;
+				} 
+			}
+		}
+
+		$response['meta'] = (object) array(
+			'links' => (object) array(
+				'self' => (string) $this->get_media_link( $this->api->get_blog_id_for_output(), $media_id ),
+				'help' => (string) $this->get_media_link( $this->api->get_blog_id_for_output(), $media_id, 'help' ),
+				'site' => (string) $this->get_site_link( $this->api->get_blog_id_for_output() ),
+			),
+		);
+
+		// add VideoPress link to the meta
+		if ( in_array( $ext, array( 'ogv', 'mp4', 'mov', 'wmv', 'avi', 'mpg', '3gp', '3g2', 'm4v' ) ) ) {
+			if ( function_exists( 'video_get_info_by_blogpostid' ) ) {
+				$response['meta']->links->videopress = (string) $this->get_link( '/videos/%s', $response['videopress_guid'], '' );
+			}
+		}
+
+		if ( $media_item->post_parent > 0 ) {
+			$response['meta']->links->parent = (string) $this->get_post_link( $this->api->get_blog_id_for_output(), $media_item->post_parent );
+		}
+
+		return (object) $response;
+	}
+
 	function get_taxonomy( $taxonomy_id, $taxonomy_type, $context ) {
 
 		$taxonomy = get_term_by( 'slug', $taxonomy_id, $taxonomy_type );
@@ -1048,6 +1172,10 @@ EOPHP;
 			return new WP_Error( 'unknown_taxonomy', 'Unknown taxonomy', 404 );
 		}
 
+		return $this->format_taxonomy( $taxonomy, $taxonomy_type, $context );
+	}
+
+	function format_taxonomy( $taxonomy, $taxonomy_type, $context ) {
 		// Permissions
 		switch ( $context ) {
 		case 'edit' :
@@ -1056,7 +1184,8 @@ EOPHP;
 				return new WP_Error( 'unauthorized', 'User cannot edit taxonomy', 403 );
 			break;
 		case 'display' :
-			if ( -1 == get_option( 'blog_public' ) ) {
+			$tax = get_taxonomy( $taxonomy_type );
+			if ( -1 == get_option( 'blog_public' ) && ! current_user_can( 'read' ) ) {
 				return new WP_Error( 'unauthorized', 'User cannot view taxonomy', 403 );
 			}
 			break;
@@ -1067,7 +1196,7 @@ EOPHP;
 		$response                = array();
 		$response['ID']          = (int) $taxonomy->term_id;
 		$response['name']        = (string) $taxonomy->name;
-		$response['slug']        = (string) $taxonomy_id;
+		$response['slug']        = (string) $taxonomy->slug;
 		$response['description'] = (string) $taxonomy->description;
 		$response['post_count']  = (int) $taxonomy->count;
 
@@ -1076,8 +1205,8 @@ EOPHP;
 
 		$response['meta'] = (object) array(
 			'links' => (object) array(
-				'self' => (string) $this->get_taxonomy_link( $this->api->get_blog_id_for_output(), $taxonomy_id, $taxonomy_type ),
-				'help' => (string) $this->get_taxonomy_link( $this->api->get_blog_id_for_output(), $taxonomy_id, $taxonomy_type, 'help' ),
+				'self' => (string) $this->get_taxonomy_link( $this->api->get_blog_id_for_output(), $taxonomy->slug, $taxonomy_type ),
+				'help' => (string) $this->get_taxonomy_link( $this->api->get_blog_id_for_output(), $taxonomy->slug, $taxonomy_type, 'help' ),
 				'site' => (string) $this->get_site_link( $this->api->get_blog_id_for_output() ),
 			),
 		);
@@ -1095,12 +1224,38 @@ EOPHP;
 	 */
 	function format_date( $date_gmt, $date = null ) {
 		$timestamp_gmt = strtotime( "$date_gmt+0000" );
+
 		if ( null === $date ) {
 			$timestamp = $timestamp_gmt;
 			$hours     = $minutes = $west = 0;
 		} else {
-			$timestamp = strtotime( "$date+0000" );
-			$offset    = $timestamp - $timestamp_gmt;
+			$date_time = date_create( "$date+0000" );
+			if ( $date_time ) {
+				$timestamp = $date_time->getTimestamp();
+			} else {
+				$timestamp = 0;
+			}
+
+			// "0000-00-00 00:00:00" == -62169984000
+			if ( -62169984000 == $timestamp_gmt ) {
+				// WordPress sets post_date=now, post_date_gmt="0000-00-00 00:00:00" for all drafts
+				// WordPress sets post_modified=now, post_modified_gmt="0000-00-00 00:00:00" for new drafts
+
+				// Try to guess the correct offset from the blog's options.
+				$timezone_string = get_option( 'timezone_string' );
+
+				if ( $timezone_string && $date_time ) {
+					$timezone = timezone_open( $timezone_string );
+					if ( $timezone ) {
+						$offset = $timezone->getOffset( $date_time );
+					}
+				} else {
+					$offset = 3600 * get_option( 'gmt_offset' );
+				}
+			} else {
+				$offset = $timestamp - $timestamp_gmt;
+			}
+
 			$west      = $offset < 0;
 			$offset    = abs( $offset );
 			$hours     = (int) floor( $offset / 3600 );
@@ -1164,6 +1319,75 @@ EOPHP;
 			(string) $dt_local->format( 'Y-m-d H:i:s' ),
 			(string) $dt_utc->format( 'Y-m-d H:i:s' ),
 		);
+	}
+
+	// Load the functions.php file for the current theme to get its post formats, CPTs, etc.
+	function load_theme_functions() {
+		// the theme info we care about is found either within functions.php or one of the jetpack files. it might also make sense to load inc/wpcom.php and includes/wpcom.php if there is a need for it
+		$function_files = array( '/functions.php', '/inc/jetpack.compat.php', '/inc/jetpack.php', '/includes/jetpack.compat.php' );
+
+		// Is this a child theme? Load the child theme's functions file.
+		if ( get_stylesheet_directory() !== get_template_directory() && wpcom_is_child_theme() ) {
+			foreach ( $function_files as $function_file ) {
+				if ( file_exists( get_stylesheet_directory() . $function_file ) ) {
+					require_once(  get_stylesheet_directory() . $function_file );
+				}
+			}
+		}
+
+		foreach ( $function_files as $function_file ) {
+			if ( file_exists( get_template_directory() . $function_file ) ) {
+				require_once(  get_template_directory() . $function_file );
+			}
+		}
+
+		// since the stuff we care about (CPTS, post formats, are usually on setup or init hooks, we want to load those)
+		$this->copy_hooks( 'after_setup_theme', 'restapi_theme_after_setup_theme', WP_CONTENT_DIR . '/themes' );
+		do_action( 'restapi_theme_after_setup_theme' );
+		$this->copy_hooks( 'init', 'restapi_theme_init', WP_CONTENT_DIR . '/themes' );
+		do_action( 'restapi_theme_init' );
+	}
+
+	function copy_hooks( $from_hook, $to_hook, $base_path = '' ) {
+		global $wp_filter;
+		foreach ( $wp_filter as $hook => $actions ) {
+			if ( $from_hook <> $hook )
+				continue;
+			foreach ( (array) $actions as $priority => $callbacks ) {
+				foreach( $callbacks as $callback_key => $callback_data ) {
+					$callback = $callback_data['function'];
+					$reflection = $this->get_reflection( $callback ); // use reflection api to determine filename where function is defined
+					if ( false !== $reflection ) {
+						$file_name = $reflection->getFileName();
+						if ( 0 === strpos( $file_name, $base_path ) ) { // only copy hooks with functions which are part of VIP (the theme, parent theme, or VIP plugins)
+							$wp_filter[$to_hook][$priority][ 'cph' . $callback_key ] = $callback_data;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	function get_reflection( $callback ) {
+		if ( is_array( $callback ) ) {
+			list( $class, $method ) = $callback;
+			return new ReflectionMethod( $class, $method );
+		}
+
+		if ( is_string( $callback ) && strpos( $callback, "::" ) !== false ) {
+			list( $class, $method ) = explode( "::", $callback );
+			return new ReflectionMethod( $class, $method );
+		}
+
+		if ( version_compare( PHP_VERSION, "5.3.0", ">=" ) && method_exists( $callback, "__invoke" ) ) {
+			return new ReflectionMethod( $callback, "__invoke" );
+		}
+
+		if ( is_string( $callback ) && strpos( $callback, "::" ) == false && function_exists( $callback ) ) {
+			return new ReflectionFunction( $callback );
+		}
+
+		return false;
 	}
 
 	function get_link() {
@@ -1286,4 +1510,4 @@ EOPHP;
 
 }
 
-require_once( JETPACK__PLUGIN_DIR . 'json-endpoints.php' );
+require_once( __DIR__ . '/json-endpoints.php' );

@@ -139,6 +139,9 @@ function AtD_change_mce_settings( $init_array ) {
 	if ( ! AtD_is_allowed() )
 		return $init_array;
 
+	if ( ! is_array( $init_array ) )
+		$init_array = array();
+
 	$user = wp_get_current_user();
 
 	$init_array['atd_rpc_url']        = admin_url( 'admin-ajax.php?action=proxy_atd&_wpnonce=' . wp_create_nonce( 'proxy_atd' ) . '&url=' );
@@ -253,6 +256,9 @@ function AtD_load_submit_check_javascripts() {
  * Check if a user is allowed to use AtD
  */
 function AtD_is_allowed() {
+	if ( ( defined( 'AtD_FORCED_ON' ) && AtD_FORCED_ON ) ) {
+		return true;
+	}
 	$user = wp_get_current_user();
 	if ( ! $user || $user->ID == 0 )
 		return;

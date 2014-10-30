@@ -19,8 +19,10 @@ abstract class WPCOM_JSON_API_Post_Endpoint extends WPCOM_JSON_API_Endpoint {
 			'publish' => 'The post is published.',
 			'draft'   => 'The post is saved as a draft.',
 			'pending' => 'The post is pending editorial approval.',
+			'private' => 'The post is published privately',
 			'future'  => 'The post is scheduled for future publishing.',
 			'trash'   => 'The post is in the trash.',
+			'auto-draft' => 'The post is a placeholder for a new post.',
 		),
 		'sticky'   => '(bool) Is the post sticky?',
 		'password' => '(string) The plaintext password protecting the post, or, more likely, the empty string if the post is not password protected.',
@@ -30,7 +32,6 @@ abstract class WPCOM_JSON_API_Post_Endpoint extends WPCOM_JSON_API_Endpoint {
 		'pings_open'     => '(bool) Is the post open for pingbacks, trackbacks?',
 		'likes_enabled' => "(bool) Is the post open to likes?",
 		'sharing_enabled' => "(bool) Should sharing buttons show on this post?",
-		'gplusauthorship_enabled' => "(bool) Should a Google+ account be associated with this post?",
 		'comment_count'  => '(int) The number of comments for this post.',
 		'like_count'     => '(int) The number of likes for this post.',
 		'i_like'         => '(bool) Does the current user like this post?',
@@ -38,7 +39,7 @@ abstract class WPCOM_JSON_API_Post_Endpoint extends WPCOM_JSON_API_Endpoint {
 		'is_following'   => '(bool) Is the current user following this blog?',
 		'global_ID'      => '(string) A unique WordPress.com-wide representation of a post.',
 		'featured_image' => '(URL) The URL to the featured image for this post if it has one.',
-		'post_thumbnail' => '(object:attachment) The attachment object for the featured image if it has one.',
+		'post_thumbnail' => '(object>attachment) The attachment object for the featured image if it has one.',
 		'format'         => array(), // see constructor
 		'geo'            => '(object>geo|false)',
 		'publicize_URLs' => '(array:URL) Array of Twitter and Facebook URLs published by this post.',
@@ -70,6 +71,9 @@ abstract class WPCOM_JSON_API_Post_Endpoint extends WPCOM_JSON_API_Endpoint {
 
 		// whitelist of metadata that can be accessed
  		if ( in_array( $key, apply_filters( 'rest_api_allowed_public_metadata', $whitelisted_meta ) ) )
+			return true;
+
+		if ( 0 === strpos( $key, 'geo_' ) )
 			return true;
 
 		if ( 0 === strpos( $key, '_wpas_' ) )
@@ -181,7 +185,7 @@ abstract class WPCOM_JSON_API_Post_Endpoint extends WPCOM_JSON_API_Endpoint {
 				break;
 			case 'title' :
 				if ( 'display' === $context ) {
-					$response[$key] = (string) html_entity_decode( get_the_title( $post->ID ) );
+					$response[$key] = (string) get_the_title( $post->ID );
 				} else {
 					$response[$key] = (string) htmlspecialchars_decode( $post->post_title, ENT_QUOTES );
 				}
@@ -213,7 +217,7 @@ abstract class WPCOM_JSON_API_Post_Endpoint extends WPCOM_JSON_API_Endpoint {
 					$response[$key] = (string) ob_get_clean();
 					remove_filter( 'the_password_form', array( $this, 'the_password_form' ) );
 				} else {
-					$response[$key] = (string) $post->post_excerpt;
+					$response[$key] = htmlspecialchars_decode( (string) $post->post_excerpt, ENT_QUOTES );
 				}
 				break;
 			case 'status' :
@@ -230,6 +234,9 @@ abstract class WPCOM_JSON_API_Post_Endpoint extends WPCOM_JSON_API_Endpoint {
 				break;
 			case 'password' :
 				$response[$key] = (string) $post->post_password;
+				if ( 'edit' === $context ) {
+					$response[$key] = htmlspecialchars_decode( (string) $response[$key], ENT_QUOTES );
+				}
 				break;
 			case 'parent' : // (object|false)
 				if ( $post->post_parent ) {
@@ -271,26 +278,6 @@ abstract class WPCOM_JSON_API_Post_Endpoint extends WPCOM_JSON_API_Endpoint {
 					$show = false;
 				$response[$key] = (bool) $show;
 				break;
-			case 'gplusauthorship_enabled' :
-				$gplus_enabled = true;
-				if ( ! apply_filters( 'gplus_authorship_show', true, $post ) ) {
-					$gplus_enabled = false;
-				}
-
-				$authors = get_option( 'gplus_authors', array() );
-				$author = ( empty( $authors[ $post->post_author ] ) ? array() : $authors[ $post->post_author ] );
-				
-				if ( empty( $author ) ) {
-					$gplus_enabled = false;
-				}
-
-				$meta = get_post_meta( $post->ID, 'gplus_authorship_disabled', true );
-				if ( isset( $meta ) && true == $meta ) {
-					$gplus_enabled = false;
-				}
-			
-				$response[$key] = (bool) $gplus_enabled;
-				break;
 			case 'comment_count' :
 				$response[$key] = (int) $post->comment_count;
 				break;
@@ -317,7 +304,7 @@ abstract class WPCOM_JSON_API_Post_Endpoint extends WPCOM_JSON_API_Endpoint {
 					$response[$key] = '';
 				break;
 			case 'post_thumbnail' :
-				$response[$key] = '';
+				$response[$key] = null;
 
 				$thumb_id = get_post_thumbnail_id( $post->ID );
 				if ( ! empty( $thumb_id ) ) {
@@ -389,18 +376,17 @@ abstract class WPCOM_JSON_API_Post_Endpoint extends WPCOM_JSON_API_Endpoint {
 				$terms = wp_get_post_tags( $post->ID );
 				foreach ( $terms as $term ) {
 					if ( !empty( $term->name ) ) {
-						$response[$key][$term->name] = $this->get_taxonomy( $term->slug, 'post_tag', $context );
+						$response[$key][$term->name] = $this->format_taxonomy( $term, 'post_tag', $context );
 					}
 				}
 				$response[$key] = (object) $response[$key];
 				break;
 			case 'categories':
 				$response[$key] = array();
-				$terms = wp_get_post_categories( $post->ID );
+				$terms = wp_get_object_terms( $post->ID, 'category', array( 'fields' => 'all' ) );
 				foreach ( $terms as $term ) {
-					$category = $taxonomy = get_term_by( 'id', $term, 'category' );
-					if ( !empty( $category->name ) ) {
-						$response[$key][$category->name] = $this->get_taxonomy( $category->slug, 'category', $context );
+					if ( !empty( $term->name ) ) {
+						$response[$key][$term->name] = $this->format_taxonomy( $term, 'category', $context );
 					}
 				}
 				$response[$key] = (object) $response[$key];
@@ -456,7 +442,7 @@ abstract class WPCOM_JSON_API_Post_Endpoint extends WPCOM_JSON_API_Endpoint {
 		}
 
 		// WPCOM_JSON_API_Post_Endpoint::find_featured_worthy_media( $post );
-		$response['featured_media'] = self::find_featured_media( $post );
+		// $response['featured_media'] = self::find_featured_media( $response );
 
 		unset( $GLOBALS['post'] );
 		return $response;
@@ -538,7 +524,7 @@ abstract class WPCOM_JSON_API_Post_Endpoint extends WPCOM_JSON_API_Endpoint {
 			'include'   => '',
 			'exclude'   => '',
 			'slideshow' => false
-		), $attr ) );
+		), $attr, 'gallery' ) );
 
 		// Custom image size and always use it
 		add_image_size( 'win8app-column', 480 );

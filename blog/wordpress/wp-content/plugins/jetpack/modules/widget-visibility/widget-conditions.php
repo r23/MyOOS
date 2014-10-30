@@ -48,6 +48,12 @@ class Jetpack_Widget_Conditions {
 					<?php
 				}
 			break;
+			case 'loggedin':
+				?>
+				<option value="loggedin" <?php selected( 'loggedin', $minor ); ?>><?php _e( 'Logged In', 'jetpack' ); ?></option>
+				<option value="loggedout" <?php selected( 'loggedout', $minor ); ?>><?php _e( 'Logged Out', 'jetpack' ); ?></option>
+				<?php
+			break;
 			case 'author':
 				?>
 				<option value=""><?php _e( 'All author pages', 'jetpack' ); ?></option>
@@ -56,6 +62,15 @@ class Jetpack_Widget_Conditions {
 				foreach ( get_users( array( 'orderby' => 'name', 'exclude_admin' => true ) ) as $author ) {
 					?>
 					<option value="<?php echo esc_attr( $author->ID ); ?>" <?php selected( $author->ID, $minor ); ?>><?php echo esc_html( $author->display_name ); ?></option>
+					<?php
+				}
+			break;
+			case 'role':
+				global $wp_roles;
+
+				foreach ( $wp_roles->roles as $role_key => $role ) {
+					?>
+					<option value="<?php echo esc_attr( $role_key ); ?>" <?php selected( $role_key, $minor ); ?> ><?php echo esc_html( $role['name'] ); ?></option>
 					<?php
 				}
 			break;
@@ -192,6 +207,13 @@ class Jetpack_Widget_Conditions {
 									<option value="" <?php selected( "", $rule['major'] ); ?>><?php echo esc_html_x( '-- Select --', 'Used as the default option in a dropdown list', 'jetpack' ); ?></option>
 									<option value="category" <?php selected( "category", $rule['major'] ); ?>><?php esc_html_e( 'Category', 'jetpack' ); ?></option>
 									<option value="author" <?php selected( "author", $rule['major'] ); ?>><?php echo esc_html_x( 'Author', 'Noun, as in: "The author of this post is..."', 'jetpack' ); ?></option>
+									<?php
+									// this doesn't work on .com because of caching
+									if( ! ( defined( 'IS_WPCOM' ) && IS_WPCOM ) ) {
+									?>
+									<option value="loggedin" <?php selected( "loggedin", $rule['major'] ); ?>><?php echo esc_html_x( 'User', 'Noun', 'jetpack' ); ?></option>
+									<option value="role" <?php selected( "role", $rule['major'] ); ?>><?php echo esc_html_x( 'Role', 'Noun, as in: "The user role of that can access this widget is..."', 'jetpack' ); ?></option>
+									<?php } ?>
 									<option value="tag" <?php selected( "tag", $rule['major'] ); ?>><?php echo esc_html_x( 'Tag', 'Noun, as in: "This post has one tag."', 'jetpack' ); ?></option>
 									<option value="date" <?php selected( "date", $rule['major'] ); ?>><?php echo esc_html_x( 'Date', 'Noun, as in: "This page is a date archive."', 'jetpack' ); ?></option>
 									<option value="page" <?php selected( "page", $rule['major'] ); ?>><?php echo esc_html_x( 'Page', 'Example: The user is looking at a page, not a post.', 'jetpack' ); ?></option>
@@ -203,7 +225,7 @@ class Jetpack_Widget_Conditions {
 								<select class="conditions-rule-minor" name="conditions[rules_minor][]" <?php if ( ! $rule['major'] ) { ?> disabled="disabled"<?php } ?> data-loading-text="<?php esc_attr_e( 'Loading...', 'jetpack' ); ?>">
 									<?php self::widget_conditions_options_echo( $rule['major'], $rule['minor'] ); ?>
 								</select>
-								
+
 							</div>
 							<div class="condition-control">
 							 <span class="condition-conjunction"><?php echo esc_html_x( 'or', 'Shown between widget visibility conditions.', 'jetpack' ); ?></span>
@@ -211,7 +233,7 @@ class Jetpack_Widget_Conditions {
 								<a href="#" class="delete-condition"><?php esc_html_e( 'Delete', 'jetpack' ); ?></a> | <a href="#" class="add-condition"><?php esc_html_e( 'Add', 'jetpack' ); ?></a>
 							 </div>
 							</div>
-							
+
 						</div><!-- .condition -->
 						<?php
 					}
@@ -323,7 +345,7 @@ class Jetpack_Widget_Conditions {
 	 * @return array Settings to display or bool false to hide.
 	 */
 	public static function filter_widget( $instance ) {
-		global $post, $wp_query;
+		global $wp_query;
 
 		if ( empty( $instance['conditions'] ) || empty( $instance['conditions']['rules'] ) )
 			return $instance;
@@ -408,7 +430,14 @@ class Jetpack_Widget_Conditions {
 					else if ( is_singular() && $rule['minor'] && in_array( 'category', get_post_taxonomies() ) &&  has_category( $rule['minor'] ) )
 						$condition_result = true;
 				break;
+				case 'loggedin':
+					$condition_result = is_user_logged_in();
+					if ( 'loggedin' !== $rule['minor'] ) {
+					    $condition_result = ! $condition_result;
+					}
+				break;
 				case 'author':
+					$post = get_post();
 					if ( ! $rule['minor'] && is_author() )
 						$condition_result = true;
 					else if ( $rule['minor'] && is_author( $rule['minor'] ) )
@@ -416,15 +445,36 @@ class Jetpack_Widget_Conditions {
 					else if ( is_singular() && $rule['minor'] && $rule['minor'] == $post->post_author )
 						$condition_result = true;
 				break;
+				case 'role':
+					if( is_user_logged_in() ) {
+						global $current_user;
+						get_currentuserinfo();
+
+						$user_roles = $current_user->roles;
+
+						if( in_array( $rule['minor'], $user_roles ) ) {
+							$condition_result = true;
+						} else {
+							$condition_result = false;
+						}
+
+					} else {
+						$condition_result = false;
+					}
+				break;
 				case 'taxonomy':
 					$term = explode( '_tax_', $rule['minor'] ); // $term[0] = taxonomy name; $term[1] = term id
-					$terms = get_the_terms( $post->ID, $rule['minor'] ); // Does post have terms in taxonomy?
-					if ( is_tax( $term[0], $term[1] ) )
+
+					if ( isset( $term[1] ) && is_tax( $term[0], $term[1] ) )
 						$condition_result = true;
-					else if ( is_singular() && $term[1] && has_term( $term[1], $term[0] ) )
+					else if ( isset( $term[1] ) && is_singular() && $term[1] && has_term( $term[1], $term[0] ) )
 						$condition_result = true;
-					else if ( is_singular() && $terms & !is_wp_error( $terms ) )
-						$condition_result = true;
+					else if ( is_singular() && $post_id = get_the_ID() ){
+						$terms = get_the_terms( $post_id, $rule['minor'] ); // Does post have terms in taxonomy?
+						if( $terms & ! is_wp_error( $terms ) ) {
+							$condition_result = true;
+						}
+					}
 				break;
 			}
 

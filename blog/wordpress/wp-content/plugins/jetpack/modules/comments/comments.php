@@ -53,6 +53,14 @@ class Jetpack_Comments extends Highlander_Comments_Base {
 		parent::__construct();
 
 		// Jetpack Comments is loaded
+
+		/**
+		 * `Fires after the Jetpack_Comments object has been instantiated
+		 *
+		 * @since ?
+		 * @module Jetpack_Comments
+		 * @param array $jetpack_comments First element in array of type Jetpack_Comments
+		 **/
 		do_action_ref_array( 'jetpack_comments_loaded', array( $this ) );
 		add_action( 'after_setup_theme', array( $this, 'set_default_color_theme_based_on_theme_settings' ), 100 );
 	}
@@ -496,7 +504,7 @@ h1 span {
 </style>
 </head>
 <body>
-        <h1><?php printf( __( 'Submitting Comment%s', 'jetpack' ), '<span id="ellipsis" class="hidden">&hellip;</span>' ); ?></h1>
+	<h1><?php printf( __( 'Submitting Comment%s', 'jetpack' ), '<span id="ellipsis" class="hidden">&hellip;</span>' ); ?></h1>
 <script type="text/javascript">
 try {
 	window.parent.location = <?php echo json_encode( $url ); ?>;
@@ -507,7 +515,7 @@ try {
 }
 ellipsis = document.getElementById( 'ellipsis' );
 function toggleEllipsis() {
-        ellipsis.className = ellipsis.className ? '' : 'hidden';
+	ellipsis.className = ellipsis.className ? '' : 'hidden';
 }
 setInterval( toggleEllipsis, 1200 );
 </script>
