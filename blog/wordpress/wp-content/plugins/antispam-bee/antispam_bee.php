@@ -8,7 +8,7 @@ Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://antispambee.com
 License: GPLv2 or later
-Version: 2.6.2
+Version: 2.6.3
 */
 
 /*
@@ -57,7 +57,7 @@ class Antispam_Bee {
 	* "Konstruktor" der Klasse
 	*
 	* @since   0.1
-	* @change  2.6.1
+	* @change  2.6.3
 	*/
 
   	public static function init()
@@ -209,6 +209,21 @@ class Antispam_Bee {
 					    	'Antispam_Bee_Columns',
 					    	'print_column_styles'
 					    )
+					);
+
+					add_filter(
+						'manage_edit-comments_sortable_columns',
+						array(
+							'Antispam_Bee_Columns',
+							'register_sortable_columns'
+						)
+					);
+					add_action(
+						'pre_get_posts',
+						array(
+							'Antispam_Bee_Columns',
+							'set_orderby_query'
+						)
 					);
 				}
 			}
@@ -1072,27 +1087,30 @@ class Antispam_Bee {
 	* Überprüfung der POST-Werte
 	*
 	* @since   0.1
-	* @change  2.4.2
+	* @change  2.6.3
 	*/
 
 	public static function precheck_incoming_request()
 	{
-		/* Nur Frontend */
-		if ( is_feed() or is_trackback() or self::_is_mobile() ) {
+		/* Skip if not a comment request */
+		if ( is_feed() OR is_trackback() OR empty($_POST) OR self::_is_mobile() ) {
 			return;
 		}
 
-		/* Allgemeine Werte */
-		$request_url = self::get_key($_SERVER, 'REQUEST_URI');
+		/* Request params */
+		$request_uri = self::get_key($_SERVER, 'REQUEST_URI');
+		$request_path = parse_url($request_uri, PHP_URL_PATH);
+
+		/* Request check */
+		if ( strpos($request_path, 'wp-comments-post.php') === false ) {
+			return;
+		}
+
+		/* Form fields */
 		$hidden_field = self::get_key($_POST, 'comment');
 		$plugin_field = self::get_key($_POST, self::$_secret);
 
-		/* Falsch verbunden */
-		if ( empty($_POST) or empty($request_url) or strpos($request_url, 'wp-comments-post.php') === false ) {
-			return;
-		}
-
-		/* Felder prüfen */
+		/* Fields check */
 		if ( empty($hidden_field) && !empty($plugin_field) ) {
 			$_POST['comment'] = $plugin_field;
 			unset($_POST[self::$_secret]);
@@ -1106,7 +1124,7 @@ class Antispam_Bee {
 	* Prüfung der eingehenden Anfragen auf Spam
 	*
 	* @since   0.1
-	* @change  2.6.1
+	* @change  2.6.3
 	*
 	* @param   array  $comment  Unbehandelter Kommentar
 	* @return  array  $comment  Behandelter Kommentar
@@ -1117,6 +1135,7 @@ class Antispam_Bee {
 		/* Add client IP */
 		$comment['comment_author_IP'] = self::get_client_ip();
 
+		/* Hook client IP */
 		add_filter(
 			'pre_comment_user_ip',
 			array(
@@ -1125,43 +1144,44 @@ class Antispam_Bee {
 			)
 		);
 
-		/* Server-Werte */
-		$url = self::get_key($_SERVER, 'REQUEST_URI');
+		/* Request params */
+		$request_uri = self::get_key($_SERVER, 'REQUEST_URI');
+		$request_path = parse_url($request_uri, PHP_URL_PATH);
 
-		/* Leere Werte? */
-		if ( empty($url) ) {
+		/* Empty path? */
+		if ( empty($request_path) ) {
 			return self::_handle_spam_request(
 				$comment,
 				'empty'
 			);
 		}
 
-		/* Ping-Optionen */
+		/* Defaults */
 		$ping = array(
 			'types'   => array('pingback', 'trackback', 'pings'),
 			'allowed' => !self::get_option('ignore_pings')
 		);
 
-		/* Kommentar */
-		if ( strpos($url, 'wp-comments-post.php') !== false && !empty($_POST) ) {
-			/* Filter ausführen */
+		/* Is a comment */
+		if ( strpos($request_path, 'wp-comments-post.php') !== false && ! empty($_POST) ) {
+			/* Verify request */
 			$status = self::_verify_comment_request($comment);
 
-			/* Spam lokalisiert */
-			if ( !empty($status['reason']) ) {
+			/* Treat the request as spam */
+			if ( ! empty($status['reason']) ) {
 				return self::_handle_spam_request(
 					$comment,
 					$status['reason']
 				);
 			}
 
-		/* Trackback */
+		/* Is a trackback */
 		} else if ( in_array(self::get_key($comment, 'comment_type'), $ping['types']) && $ping['allowed'] ) {
-			/* Filter ausführen */
+			/* Verify request */
 			$status = self::_verify_trackback_request($comment);
 
-			/* Spam lokalisiert */
-			if ( !empty($status['reason']) ) {
+			/* Treat the request as spam */
+			if ( ! empty($status['reason']) ) {
 				return self::_handle_spam_request(
 					$comment,
 					$status['reason'],
@@ -1253,7 +1273,7 @@ class Antispam_Bee {
 		$body = self::get_key($comment, 'comment_content');
 
 		/* Leere Werte ? */
-		if ( empty($url) or empty($body) ) {
+		if ( empty($url) OR empty($body) ) {
 			return array(
 				'reason' => 'empty'
 			);
@@ -1605,7 +1625,7 @@ class Antispam_Bee {
 		}
 
 		/* IP abfragen */
-		$response = wp_remote_get(
+		$response = wp_safe_remote_request(
 			esc_url_raw(
 				sprintf(
 					'https://geoip.maxmind.com/a?l=%s&i=%s',
@@ -1652,7 +1672,7 @@ class Antispam_Bee {
 	private static function _is_dnsbl_spam($ip)
 	{
 		/* Start request */
-		$response = wp_remote_get(
+		$response = wp_safe_remote_request(
 			esc_url_raw(
 				sprintf(
 					'http://www.stopforumspam.com/api?ip=%s&f=json',
@@ -1806,7 +1826,7 @@ class Antispam_Bee {
 		);
 
 		/* IP abfragen */
-		$response = wp_remote_get(
+		$response = wp_safe_remote_request(
 			esc_url_raw(
 				sprintf(
 					'https://translate.google.com/translate_a/t?client=x&text=%s',

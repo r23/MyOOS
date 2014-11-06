@@ -51,7 +51,7 @@ final class Antispam_Bee_Columns {
 		}
 
 		/* Init data */
-		$spam_reason = get_comment_meta($comment_id, $column , true);
+		$spam_reason = get_comment_meta($comment_id, $column, true);
 		$spam_reasons = Antispam_Bee::$defaults['reasons'];
 
 		/* Empty values? */
@@ -64,6 +64,49 @@ final class Antispam_Bee_Columns {
 			$spam_reasons[$spam_reason],
 			'antispam_bee'
 		);
+	}
+
+
+	/**
+	* Register plugin sortable columns on comments screen
+	*
+	* @since   2.6.3
+	* @change  2.6.3
+	*
+	* @param   array  $columns  Registered columns
+	* @return  array  $columns  Columns with AB field
+	*/
+
+	public static function register_sortable_columns($columns)
+	{
+		$columns['antispam_bee_reason'] = 'antispam_bee_reason';
+
+		return $columns;
+	}
+
+
+	/**
+	* Adjust orderby query
+	*
+	* @since   2.6.3
+	* @change  2.6.3
+	*
+	* @param   object  $query  Current WordPress query
+	*/
+
+	public static function set_orderby_query($query)
+	{
+		/* Order by value */
+		$orderby = $query->get('orderby');
+
+		/* Skip if not our case */
+		if ( empty($orderby) OR $orderby !== 'antispam_bee_reason' ) {
+			return;
+		}
+
+		/* Set orderby values */
+		$query->set( 'meta_key', 'antispam_bee_reason' );
+		$query->set( 'orderby', 'meta_value' );
 	}
 
 
