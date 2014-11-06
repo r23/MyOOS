@@ -514,6 +514,38 @@ Options -Indexes
   deny from all
 </files> 
 
+
+<Files xmlrpc.php>
+    Order Deny,Allow
+    Deny from all
+</Files>
+
+#<IfModule mod_setenvif.c>
+#    <Files xmlrpc.php>
+#        BrowserMatch "Poster" allowed
+#        BrowserMatch "WordPress" allowed
+#        BrowserMatch "Windows Live Writer" allowed
+#        BrowserMatch "wp-iphone" allowed
+#        BrowserMatch "wp-android" allowed
+#        BrowserMatch "wp-windowsphone" allowed
+#
+#        Order Deny,Allow
+#        Deny from All
+#        Allow from env=allowed
+#    </Files>
+#</IfModule>
+
+# https://github.com/blueimp/jQuery-File-Upload/wiki/Security
+
+# ForceType application/octet-stream
+# Header set Content-Disposition attachment
+<FilesMatch "(?i)\.(gif|jpe?g|png)$">
+    ForceType none
+    Header unset Content-Disposition
+</FilesMatch>
+Header set X-Content-Type-Options nosniff
+
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
