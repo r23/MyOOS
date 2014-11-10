@@ -1,0 +1,40 @@
+{if $specials_block eq 'true'}
+<table width="150"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="2"><img src="{$theme_image}/block/tbl_top_left.gif" alt=" " width="2" height="4"></td>
+    <td colspan="2" class="tbl_top_center"></td>
+    <td width="2"><img src="{$theme_image}/block/tbl_top_right.gif" alt=" " width="2" height="4"></td>
+  </tr>
+  <tr>
+    <td rowspan="2" class="tbl_left"></td>
+    <td width="4" class="tbl_header"><img src="{$theme_image}/trans.gif" alt=" " width="2" height="22"></td>
+    <td width="146" align="left" valign="middle" class="tbl_header">{$block_heading_specials} <a href="{html_href_link modul=$modules.products file=$filename.specials}"><img src="{$theme_image}/infobox/arrow_right.gif" border="0" alt="{$icon_arrow_right}"></a>
+</td>
+    <td rowspan="2" class="tbl_right"></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="left" valign="top" bgcolor="#F6F7F1">
+	<table width="100%"  border="0" cellspacing="3" cellpadding="0">
+  <tr>
+    <td align="center">
+<a href="{product_info_link products_id=$specials_random_product.products_id}">{small_product_image image=$specials_random_product.products_image alt=$specials_random_product.products_name|strip_tags}</a>
+<br /><img src="{$theme_image}/link.gif" alt=" "><a href="{html_href_link modul=$modules.products file=$filename.product_info products_id=$specials_random_product.products_id}">{$specials_random_product.products_name}</a>
+<br /><s>{$specials_random_product_price}{$smarty.const.UNITS_DELIMITER}{$products_units[$specials_random_product.products_units_id]}</s><br />
+{if $specials_random_product.products_base_price != 1}<s><span class="base_price">{$specials_random_product.products_base_unit} = {$specials_random_base_product_price}</span></s><br />{/if}
+<span class="special_price">{$specials_random_product_special_price}{$smarty.const.UNITS_DELIMITER}{$products_units[$specials_random_product.products_units_id]}</span><br />
+{if $specials_random_product.products_base_price != 1}<br /><span class="special_base_price">{$specials_random_product.products_base_unit} = {$specials_random_base_product_special_price}</span><br />{/if}
+
+<span class="pangv">{$pangv}</span><br />
+
+
+            </td>
+  </tr>
+</table>	</td>
+  </tr>
+  <tr>
+    <td><img src="{$theme_image}/block/tbl_buttom_left.gif" alt=" " width="2" height="2"></td>
+    <td colspan="2" class="tbl_buttom_center"></td>
+    <td><img src="{$theme_image}/block/tbl_buttom_right.gif" alt=" " width="2" height="2"></td>
+  </tr>
+</table>
+{/if}

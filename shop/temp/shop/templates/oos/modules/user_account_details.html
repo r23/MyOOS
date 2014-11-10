@@ -1,4 +1,4 @@
-<!--  $Id: user_account_details.html 216 2013-04-02 08:24:45Z r23 $ -->
+<!--  $Id: user_account_details.html,v 1.2 2009/02/19 14:26:06 r23 Exp $ -->
      <table border="0" width="100%" cellspacing="0" cellpadding="2">
          <tr>
            <td class="formAreaTitle">{$lang.category_personal}</td>
@@ -60,6 +60,13 @@
             <td class="main">&nbsp;{$lang.entry_company}</td>
             <td class="main">&nbsp;<input type="text" name="company" value="{$account.entry_company}"></td>
           </tr>
+  {if $smarty.const.ACCOUNT_OWNER eq 'true'}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_owner}</td>
+            <td class="main">&nbsp;<input type="text" name="owner" value="{$account.entry_owner}"></td>
+          </tr>
+
+  {/if}
   {if $smarty.const.ACCOUNT_VAT_ID eq 'true'}
           <tr>
             <td class="main">&nbsp;{$lang.entry_vat_id}</td>
@@ -82,7 +89,12 @@
             <td class="main">&nbsp;{$lang.entry_street_address}</td>
             <td class="main">&nbsp;<input type="text" name="street_address" value="{$account.entry_street_address}">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small></td>
           </tr>
-
+{if $smarty.const.ACCOUNT_SUBURB eq 'true'}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_suburb}</td>
+            <td class="main">&nbsp;<input type="text" name="suburb" value="{$account.entry_suburb}"></td>
+          </tr>
+{/if}
           <tr>
             <td class="main">&nbsp;{$lang.entry_post_code}</td>
             <td class="main">&nbsp;<input type="text" name="postcode" value="{$account.entry_postcode}">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small></td>
@@ -91,7 +103,12 @@
             <td class="main">&nbsp;{$lang.entry_city}</td>
             <td class="main">&nbsp;<input type="text" name="city" value="{$account.entry_city}">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small></td>
           </tr>
-
+{if $smarty.const.ACCOUNT_STATE eq 'true'}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_state}</td>
+            <td class="main">&nbsp;<input type="text" name="state" value="{oos_get_zone_name country_id=$account.entry_country_id zone_id=$account.entry_zone_id default_zone=$account.entry_state}">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small></td>
+          </tr>
+{/if}
           <tr>
             <td class="main">&nbsp;{$lang.entry_country}</td>
             <td class="main">&nbsp;{oos_get_country_list name=country selected=$account.entry_country_id}&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small></td>

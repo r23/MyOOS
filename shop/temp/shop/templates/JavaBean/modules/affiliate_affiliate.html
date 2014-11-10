@@ -1,0 +1,82 @@
+<!--  $Id: affiliate_affiliate.html,v 1.1 2007/06/07 11:02:55 r23 Exp $ -->
+    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+{if $info_message !='' }
+      <tr>
+        <td class="smallText">{$info_message}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+{/if}
+      <tr>
+        <td><form name="login" method="post" action="{html_href_link modul=$modules.affiliate file=$filename.affiliate_affiliate action=process connection=SSL}"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main" width="50%" valign="top"><b>{$lang.heading_new_affiliate}</b></td>
+            <td class="main" width="50%" valign="top"><b>{$lang.heading_returning_affiliate}</b></td>
+          </tr>
+          <tr>
+            <td width="50%" height="100%" valign="top"><table border="0" width="100%" height="100%" cellspacing="0" cellpadding="1" class="infoBox">
+              <tr>
+                <td><table border="0" width="100%" height="100%" cellspacing="0" cellpadding="2" class="oos-BoxContents">
+                  <tr>
+                    <td height="10"></td>
+                  </tr>
+                  <tr>
+                    <td class="main" valign="top">{$lang.text_new_affiliate}<br /><br />{$lang.text_new_affiliate_introduction}</td>
+                  </tr>
+                  <tr>
+                    <td class="smallText" colspan="2"><a href="{html_href_link modul=$modules.affiliate file=$filename.affiliate_terms connection=SSL}">{$lang.text_new_affiliate_terms}</a></td>
+                  </tr>
+                  <tr>
+                    <td height="10"></td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+            <td width="50%" height="100%" valign="top"><table border="0" width="100%" height="100%" cellspacing="0" cellpadding="1" class="infoBox">
+              <tr>
+                <td><table border="0" width="100%" height="100%" cellspacing="0" cellpadding="2" class="oos-BoxContents">
+                  <tr>
+                <td colspan="2" height="10"></td>
+                  </tr>
+                  <tr>
+                    <td class="main" colspan="2">{$lang.text_returning_affiliate}</td>
+                  </tr>
+                  <tr>
+                <td colspan="2" height="10"></td>
+                  </tr>
+                  <tr>
+                    <td class="main"><b>{$lang.text_affiliate_id}</b></td>
+                    <td class="main"><input type="text" name="affiliate_username"></td>
+                  </tr>
+                  <tr>
+                    <td class="main"><b>{$lang.text_affiliate_password}</b></td>
+                    <td class="main"><input type="password" name="affiliate_password" maxlength="40"></td>
+                  </tr>
+                  <tr>
+                <td colspan="2" height="10"></td>
+                  </tr>
+                  <tr>
+                    <td class="smallText" colspan="2"><a href="{html_href_link modul=$modules.affiliate file=$filename.affiliate_password_forgotten connection=SSL}">{$lang.text_affiliate_password_forgotten}</a></td>
+                  </tr>
+                  <tr>
+                <td colspan="2" height="10"></td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+          <tr>
+          <tr>
+            <td width="50%" align="right" valign="top"><a href="{html_href_link modul=$modules.affiliate file=$filename.affiliate_signup connection=SSL}">{html_image_button image="continue.gif" alt=$lang.image_button_continue}</a></td>
+            <td width="50%" align="right" valign="top">{html_image_submit image="login.gif" alt=$lang.image_button_login}</td>
+          </tr>
+        </table></form></td>
+      </tr>
+    </table>

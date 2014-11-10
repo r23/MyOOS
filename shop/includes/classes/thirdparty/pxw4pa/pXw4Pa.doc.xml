@@ -1,0 +1,1018 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="temp3.xsl"?>
+<!--
+
+documentation and example xml file for yayo's pXw4Pa (poor XML wrapper for PHP arrays) v1.0.
+
+THIS FILE IS PART OF THE PXW4PA SOFTWARE
+AND IT IS RELEASED UNDER THE TERMS OF THE
+CC GNU GPL v.2 LICENSE
+
+pXw4Pa - POOR XML WRAPPER FOR PHP ARRAYS v 1.0
+Copyright (C) 2005/2006 yayo (Roberto Correzzola)
+
+This program is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License,
+or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the
+Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+-->
+
+
+<!DOCTYPE pXw4Pa SYSTEM "http://pxw4pa.sourceforge.net/pXw4Pa.dtd">
+<pXw4Pa version="1.0">
+		<group>
+<!-- ENGLISH -->
+		<group name="uk">
+				<group name="header">
+						<group><entry name="title">&#160;pXw4Pa v1.0</entry></group>
+						<group><entry name="text">poor XML wrapper for PHP arrays</entry></group>
+						<group><entry name="html">
+
+
+&#60;TABLE class=&#34;about&#34; frame=&#34;box&#34; rules=&#34;all&#34;&#62;&#60;TBODY&#62;&#60;TR&#62;&#60;TD &#62;version: &#60;/TD &#62;&#60;TD &#62;1.0&#60;/TD &#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD &#62;released: &#60;/TD &#62;&#60;TD &#62;May 7, 2006&#60;/TD &#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD &#62;license: &#60;/TD &#62;&#60;TD &#62;GNU GPL (General Public License) v.2&#60;/TD &#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD &#62;author: &#60;/TD &#62;&#60;TD &#62;yayo (Roberto Correzzola)&#60;/TD &#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD &#62;email:&#60;br&#62;&#60;small&#62;(also read section&#60;br&#62;&#34;future planning&#34;)&#60;/small&#62;&#60;/TD &#62;&#60;TD &#62;&#60;TABLE&#62;&#60;TBODY&#62;&#60;TR&#62;&#60;TD class=&#34;btm&#34; rowspan=&#34;2&#34;&#62;yayo&#60;/TD&#62;&#60;TD&#62;&#60;/TD&#62;&#60;TD class=&#34;btm&#34; rowspan=&#34;2&#34;&#62;75&#60;/TD&#62;&#60;TD&#62;&#60;/TD&#62;&#60;TD class=&#34;btm&#34; rowspan=&#34;2&#34;&#62;katamail&#60;/TD&#62;&#60;TD&#62;&#60;/TD&#62;&#60;TD class=&#34;btm&#34; rowspan=&#34;2&#34;&#62;com&#60;/TD&#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD class=&#34;top&#34; rowspan=&#34;2&#34;&#62;.&#60;/TD&#62;&#60;TD class=&#34;top&#34; rowspan=&#34;2&#34;&#62;@&#60;/TD&#62;&#60;TD class=&#34;top&#34; rowspan=&#34;2&#34;&#62;.&#60;/TD&#62;&#60;/TR&#62;&#60;/TBODY&#62;&#60;/TABLE&#62;&#60;/TD &#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD &#62;homepage: &#60;/TD &#62;&#60;TD &#62;&#60;a class=&#34;link&#34; href=&#34;http://pxw4pa.sourceforge.net/index.php&#34;&#62;http://pxw4pa.sourceforge.net/index.php&#60;/a&#62;&#60;/TD&#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD &#62;SF page: &#60;/TD &#62;&#60;TD &#62;&#60;a class=&#34;link&#34; href=&#34;http://sourceforge.projects.pxw4pa/&#34;&#62;http://sourceforge.projects.pxw4pa/&#60;/a&#62;&#60;/TD&#62;&#60;/TR&#62;&#60;/TBODY&#62;&#60;/TABLE&#62;
+</entry></group>
+				</group>
+
+				<group name="language">
+						<entry name="group_label">clicca qui per leggerlo in...</entry>
+						<entry name="language">English</entry>
+				</group>
+
+				<group name="messages">
+						<entry name="writing_test_error">Something wrong! I'm not able to create/write the file...</entry>
+						<entry name="writing_test_ok">File &#34;test.xml&#34; written! : )</entry>
+				</group>
+	
+				<group name="index">
+						<entry name="group_label">&#160;&#160;index</entry>
+						<group><entry name="link">disclaimer.</entry></group>
+						<group><entry name="link">license.</entry></group>
+						<group><entry name="link">history.</entry></group>
+						<group><entry name="link">what is pXw4Pa?</entry></group>
+						<group><entry name="link">download link and requirement.</entry></group>
+						<group><entry name="link">how to use it.</entry></group>
+						<group><entry name="link">how to WRITE an XML file from a PHP array.</entry></group>
+						<group><entry name="link">how to READ a PHP array from an XML file.</entry></group>
+						<group><entry name="link">XML tags used.</entry></group>
+						<group><entry name="link">demonstration.</entry></group>
+						<group><entry name="link">options.</entry></group>
+						<group><entry name="link">limitations, bugs, issues...</entry></group>
+						<group><entry name="link">future planning.</entry></group>
+						<group><entry name="link">about implementing this code somewhere...</entry></group>
+						<group><entry name="link">donations(?).</entry></group>
+						<group><entry name="link">acknowledgements.</entry></group>
+						<group><entry name="link">author's other projects.</entry></group>
+						<group><entry name="text">
+
+</entry></group>
+				</group>
+
+				<group name="content">
+						<entry name="group_label">&#160;&#160;documentation</entry>
+						<group><entry name="title">disclaimer.</entry></group>
+						<group><entry name="text">The author is not responsible for data loss, or any kind of trouble that results from the use of this software.
+USE IT AT YOUR OWN RISK!</entry></group>
+						<group><entry name="back">top</entry></group>
+		
+						<group><entry name="title">license.</entry></group>
+						<group><entry name="text">pXw4Pa v1.0 (poor XML wrapper for PHP arrays)
+Copyright (C) 2005/2006 yayo (Roberto Correzzola)
+		
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+---
+
+To display an abstract of the license click here:</entry></group>
+
+						<group><entry name="html">&#60;a class=&#34;link&#34; href=&#34;http://creativecommons.org/licenses/GPL/2.0/deed.en&#34;&#62;http://creativecommons.org/licenses/GPL/2.0/deed.en&#60;/a&#62;</entry></group>
+						<group><entry name="text">From the same page you have access to the whole text of the license (the full text is also attached to the pXw4Pa package).</entry></group>
+						<group><entry name="back">top</entry></group>
+		
+						<group><entry name="title">history.</entry></group>
+						<group><entry name="text">
+Version 1.0
+- both functions were totally rewritten: serialization is no longer used;
+read function now uses PHP XML parser, which displays useful info on badly formatted XML.
+compared to version 0.8, the functions are now around half the size and twice as fast.
+- supported data types: string, integer, double (=floating point), boolean, and NULL
+- added the attribute &#34;type&#34; to the XML structure
+- some documentation changes
+- some other minor changes
+
+
+Version 0.8
+- the XML code produced is now w3c valid: it contains a link to the Document Type Declaration file pXw4Pa.dtd (contained in the package files).
+- added support for empty and space-filled tags (tags which contains spaces, tabs, CarriageReturn and LineFeed characters.)
+- some documentation changes
+
+
+Version 0.7
+- added a demonstration/test for Write function
+- Html documentation code validated upon W3C standard (CSS file too)
+- some documentation changes
+
+
+Version 0.6
+- fixed a serious bug with the Write function (which lead to failed translation from serialize syntax on strings with a &#34;;&#34; char);
+the translation code now ensures a much more correct result.
+- some documentation changes
+
+
+Version 0.5
+- script modified (added multiple language support)
+- html documentation script rewritten (index added)
+- added css file
+- Italian documentation
+- Support for XML comments added
+
+
+Version 0.2
+- Added some notes on documentation
+- Fixed a bug which created trouble when the 1st subnode wasn't named
+
+
+Version 0.1
+- 1st release</entry></group>
+						<group><entry name="back">top</entry></group>
+
+						<group><entry name="title">what is pXw4Pa?</entry></group>
+						<group><entry name="text">&#34;pXw4Pa&#34; is a couple of simple functions written in PHP 4 which can transfer an array of data from or to an XML file.
+pXw4Pa can be used to store/swap data blocks of your programs to an XML file simply and quickly, without making use of XML parsers or other big stuff.
+
+The XML (acronym for Extensible Markup Language) is a standard way to store information in a simple text file, using a special syntax and a set of labels. It is a restricted form of the SGML format, the Standard Generalized Markup Language [ISO 8879].
+You can find all the information you need about it on this page:</entry></group>
+						<group><entry name="html">&#60;a class=&#34;link&#34; href=&#34;http://en.wikipedia.org/wiki/XML&#34;&#62;http://en.wikipedia.org/wiki/XML&#60;/a&#62;</entry></group>
+						<group><entry name="text">
+---
+
+Example of pXw4Pa use.
+Imagine you're working on a PHP script and you need to manage this data:
+</entry></group>
+
+						<group><entry name="text">
+$pc&#160;=(
+&#160;&#160;&#160;&#160;hardware&#160;=(
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1&#160;=&#160;&#34;monitor&#34;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;2&#160;=&#160;&#34;motherboard+CPU&#34;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;3&#160;=&#160;&#34;hard&#160;disk&#34;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;4&#160;=&#160;&#34;keyboard&#34;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;5&#160;=&#160;&#34;mouse&#34;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;6&#160;=&#160;&#34;modem&#34;
+&#160;&#160;&#160;&#160;)
+&#160;&#160;&#160;&#160;software&#160;=(
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1&#160;=&#160;&#34;operative&#160;system&#34;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;2&#160;=&#160;&#34;drivers&#34;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;3&#160;=&#160;&#34;applications&#34;
+&#160;&#160;&#160;&#160;)
+)
+</entry></group>
+						<group><entry name="text">
+
+The array $pc contains both hardware and software subarrays, and each one of these contains a list of other string type data values.
+Using the pxw4pa write function you can save this array into a text file with .xml extension.
+The result will be something like this:
+</entry></group>
+
+						<group><entry name="text">
+&#60;?xml&#160;version=&#34;1.0&#34;?&#62;
+&#60;pXw4Pa&#160;version=&#34;1.0&#34;&#62;
+&#60;group&#62;
+&#160;&#160;&#160;&#160;&#60;group&#160;name=&#34;hardware&#34;&#62;
+&#160;&#160;&#160;&#160;&#160;&#160;&#60;entry&#160;name=&#34;1&#34;&#160;type=&#34;string&#34;&#62;monitor&#60;/entry&#62;
+&#160;&#160;&#160;&#160;&#160;&#160;&#60;entry&#160;name=&#34;2&#34;&#160;type=&#34;string&#34;&#62;motherboard+CPU&#60;/entry&#62;
+&#160;&#160;&#160;&#160;&#160;&#160;&#60;entry&#160;name=&#34;3&#34;&#160;type=&#34;string&#34;&#62;hard&#160;disk&#60;/entry&#62;
+&#160;&#160;&#160;&#160;&#160;&#160;&#60;entry&#160;name=&#34;4&#34;&#160;type=&#34;string&#34;&#62;keyboard&#60;/entry&#62;
+&#160;&#160;&#160;&#160;&#160;&#160;&#60;entry&#160;name=&#34;5&#34;&#160;type=&#34;string&#34;&#62;mouse&#60;/entry&#62;
+&#160;&#160;&#160;&#160;&#160;&#160;&#60;entry&#160;name=&#34;6&#34;&#160;type=&#34;string&#34;&#62;modem&#60;/entry&#62;
+&#160;&#160;&#160;&#160;&#60;/group&#62;
+&#160;&#160;&#160;&#160;&#60;group&#160;name=&#34;software&#34;&#62;
+&#160;&#160;&#160;&#160;&#160;&#160;&#60;entry&#160;name=&#34;1&#34;&#160;type=&#34;string&#34;&#62;operative&#160;system&#60;/entry&#62;
+&#160;&#160;&#160;&#160;&#160;&#160;&#60;entry&#160;name=&#34;2&#34;&#160;type=&#34;string&#34;&#62;drivers&#60;/entry&#62;
+&#160;&#160;&#160;&#160;&#160;&#160;&#60;entry&#160;name=&#34;3&#34;&#160;type=&#34;string&#34;&#62;applications&#60;/entry&#62;
+&#160;&#160;&#160;&#160;&#60;/group&#62;
+&#160;&#160;&#60;/group&#62;
+&#60;/pXw4Pa&#62;
+</entry></group>
+
+						<group><entry name="text">
+
+(supposing that the name of the parent array &#34;pc&#34; is used as the filename: &#34;pc.xml&#34;)
+
+This lets you easily move your data almost everywhere, share it with other programmers, or use it in other software, since the XML format is a standard and it's widely used.</entry></group>
+						<group><entry name="back">top</entry></group>
+						
+						<group><entry name="title">download link and requirement.</entry></group>
+						<group><entry name="text">First of all, you must download the zip archive containing the 2 functions, of course. : )
+You can download it from this address:</entry></group>
+						<group><entry name="html">&#60;a class=&#34;link&#34; href=&#34;http://prdownloads.sourceforge.net/pxw4pa/pXw4Pa_1.0.zip?download&#34;&#62;http://prdownloads.sourceforge.net/pxw4pa/
+pXw4Pa_1.0.zip?download&#60;/a&#62;</entry></group>
+						<group><entry name="text">
+On this page you will be asked to choose a mirror (one of the SourceForge archives) for the download. When you've chosen a mirror wait a moment: the download will start automatically.
+
+---
+
+Also remember that  to use pXw4Pa you need at least the version 4.0.0 of PHP.
+</entry></group>
+						<group><entry name="back">top</entry></group>
+						
+						<group><entry name="title">how to use it.</entry></group>
+						<group><entry name="text">The file &#34;pXw4Pa.php&#34; contains the 2 functions.
+You can copy the function you need to your PHP file, or copy the file to your project folder and link it to your project, adding the line</entry></group>
+						<group><entry name="code">require &#39;pXw4Pa.php&#39;;</entry></group>
+						<group><entry name="text">to the beginning of your code.</entry></group>
+						<group><entry name="back">top</entry></group>
+
+						<group><entry name="title">how to WRITE an XML file from a PHP array.</entry></group>
+						<group><entry name="text">To write an array to an XML file call the WRITE function in this way:</entry></group>
+						<group><entry name="code">pXw4Pa_write(&#36;array,&#39;filename&#39;);</entry></group>
+						<group><entry name="text">replacing the &#34;&#36;array&#34; text with the name of the array you want to process, and &#34;filename&#34; with the name of XML file you&#39;re going to write.
+
+If you omit the filename, the code will use the default name &#34;pXw4Pa_ouput.xml&#34;.
+
+If something goes wrong an error message will help you to find the problem.
+
+Note: the write function exchange &#60;, &#62;, &#34; and &#38; chars with the equivalent HTML entities (&#38;#60;, &#38;#62;, &#38;#34; and &#38;#38;) before to write the file, to avoid to create an invalid XML.
+
+</entry></group>
+						<group><entry name="warning">WARNING!
+Any existing XML file will be overwritten
+without asking you to confirm!</entry></group>
+						<group><entry name="back">top</entry></group>
+						
+						<group><entry name="title">how to READ a PHP array from an XML file.</entry></group>
+						<group><entry name="text">To read an array from an XML file call the READ function in this way:</entry></group>
+						<group><entry name="code">&#36;array=pXw4Pa_read(&#39;filename&#39;);</entry></group>
+						<group><entry name="text">replacing the &#34;&#36;array&#34; text with the name of the array where you want to store the content of the XML file, and &#34;filename&#34; with the name of XML file you&#39;re going to read.
+
+If something goes wrong an error message will help you to find the problem.
+
+---
+
+If you're going to write an XML file by hand, keep in mind these things:
+
+1. The whole content of your XML-array must be closed inside a &#34;&#60;group&#62;&#60;/group&#62;&#34; node without a name (=&#62;attribute &#34;name&#34;). This is because the read function searches for the XML file content as a single big group (as it should be). The name of that group will be the name of the array that must be assigned within the PHP code. This means that the content of your XML-array will start with the sequence</entry></group>
+						<group><entry name="code">&#60;pXw4Pa version=&#34;#.#&#34;&#62;&#60;group&#62;</entry></group>
+						<group><entry name="text">and will be closed by the sequence</entry></group>
+						<group><entry name="code">&#60;/group&#62;&#60;/pXwaPa&#62;.</entry></group>
+						<group><entry name="text">2. Using the &#34;less then&#34;, &#34;greater then&#34; and &#34;double quote&#34; characters (&#60;, &#62; and &#34;) inside a string, could lead to an invalid XML file, since these characters are the same used to define the tags of the XML syntax.
+
+If you need to have valid XML files you must change these characters to something else, like the HTML entities.
+
+To get the HTML entity of a character, write this sequence without spaces inbetween: ampersand+hash+[ASCII code of the required char]+semicolon.
+
+Example.
+Since the ASCII value of the  &#34;less then&#34; char is 60, its HTML entity is:
+</entry></group>
+						<group><entry name="code">&amp;#60;</entry></group>
+						<group><entry name="text">Also the ampersand (&amp;) can lead to problems if you use it alone. Use the same rule here too: write it as &amp;#38; (also &amp;amp; will work)</entry></group>
+						<group><entry name="back">top</entry></group>
+						
+						<group><entry name="title">XML tags used.</entry></group>
+						<group><entry name="text">All the XML data managed by the two functions is delimited by these tags.
+(Read also the notes in the previous section about these tags.)</entry></group>
+						<group><entry name="code">&#60;pXw4Pa version=&#34;1.0&#34;&#62;</entry></group>
+						<group><entry name="code">&#60;/pXw4Pa&#62;</entry></group>
+						<group><entry name="text">
+---
+
+The GROUP tags are used to define the subarrays.
+These tags use the attribute NAME to store the name (or index) of the subarray.</entry></group>
+						<group><entry name="code">&#60;group name=&#34;...&#34;&#62;</entry></group>
+						<group><entry name="code">&#60;/group&#62;</entry></group>
+						<group><entry name="text">
+---
+
+The ENTRY tags are used to define the single values.
+These tags use the attribute NAME to store the name (or index) of the value, and the attribute TYPE to define the type of data of the value (valid types are &#34;string&#34;, &#34;integer&#34;, &#34;double&#34;, &#34;boolean&#34; and &#34;NULL&#34;).</entry></group>
+						<group><entry name="code">&#60;entry name=&#34;...&#34; type=&#34;...&#34;&#62;</entry></group>
+						<group><entry name="code">&#60;/entry&#62;</entry></group>
+						<group><entry name="text">
+---
+
+The one exception is entries with a NULL value, which have no closing tag:</entry></group>
+						<group><entry name="code">&#60;entry name=&#34;...&#34; type=&#34;NULL&#34;/&#62;</entry></group>
+						<group><entry name="text">
+---
+
+some more info:
+
+1st. if you are going to write the XML by hand and you don't care about the index values, try to omit the NAME attribute: the read function will assign to each value/array the 1st numerical index available.
+
+2nd. Undefined type of data (entries without TYPE attribute) are set to the string type by default.
+(If you're going to write an XML file by hand, you can omit the TYPE attribute for this kind of data.)
+
+3rd. Write function always write both NAME and TYPE attributes.</entry></group>
+						<group><entry name="back">top</entry></group>
+								 
+						<group><entry name="html">&#60;a name=&#34;form&#34;&#62;&#60;/a&#62;</entry></group>
+						<group><entry name="title">demonstration.</entry></group>
+						<group><entry name="text">The html page you are reading is created with PHP code and an array read from the XML file &#34;pXw4Pa.doc.xml&#34; !
+Take a look at that file to see the XML code.
+(be careful: if you're new to XML and/or PHP, that code could be hard to understand.. It would be probably easier for you to create a simple array, save it to XML, and then open the file created to see how it is written.)
+
+---
+
+For the Write function you can use the following test: it demonstrates how the information can be moved from XML to an array and vice versa without losing data along the way. 
+
+By pressing the test button below the whole array that was used to create this documentation page (stored on the &#34;pXw4Pa.doc.xml&#34; file), will be rewritten to a new XML file (&#34;test.xml&#34;). 
+Then you can compare the two files to see how all the information is moved from one file to another (via the array) and nothing is lost or modified. 
+Note how the text formatting is different (the original XML file was handwritten and this formatting follows readability requirements, while the new file is formatted using the standard pattern of the pXw4Pa_write function; at the moment all comments are discarded). </entry></group>
+						<group><entry name="html">&#60;form action=&#34;[PATH]&#34; method=&#34;get&#34;&#62;&#60;input style=&#34;font-family:monospace;font-size:140%;&#34; type=&#34;submit&#34; value=&#34;test&#34; name=&#34;create_file&#34;&#62;&#60;input type=&#34;hidden&#34; name=&#34;lang&#34; value=&#34;[LANG]&#34;&#62;&#60;br&#62;&#60;br&#62;[WTR]&#60;/form&#62;</entry></group>
+						<group><entry name="text">---
+
+The XML files produced using the WRITE function (with &#34;?dtd&#34; option enabled) are valid XML files.
+Click on the antipixel logo or the link which follows, to read the report of the W3C validator about the XML file (pXw4Pa.doc.xml) used to create this documentation page.</entry></group>
+						<group><entry name="html">
+&#60;a class=&#34;link&#34; href=&#34;http://validator.w3.org/check?uri=http%3A%2F%2Fpxw4pa.sourceforge.net%2FpXw4Pa.doc.xml&#34;&#62;&#60;img src=&#34;valid-xml1.png&#34; alt=&#34;XML 1.0 valid! click to read the W3C validator report.&#34;&#62;
+http://validator.w3.org/check?uri=http%3A%2F
+%2Fpxw4pa.sourceforge.net%2FpXw4Pa.doc.xml
+&#60;/a&#62;</entry></group>
+						<group><entry name="back">top</entry></group>
+						
+						<group><entry name="title">options.</entry></group>
+						<group><entry name="text">"?v" (both functions)
+"?v+" (for READ function V1.0 only)
+
+You can add the &#34;?v&#34; debug option (&#34;v&#34; means verbose) to the 2 functions to display result of the processing sequence.</entry></group>
+						<group><entry name="code">&#36;array=pXw4Pa_read(&#39;filename&#39;,&#39;?v&#39;);</entry></group>
+						<group><entry name="code">pXw4Pa_write(&#36;array,&#39;filename&#39;,&#39;?v&#39;);</entry></group>
+						<group><entry name="text">Version 1.0 of the read function also lets you use the &#34;?v+&#34; option to display the types of data for each entry, along with the names and values.</entry></group>
+						<group><entry name="code">&#36;array=pXw4Pa_read(&#39;filename&#39;,&#39;?v+&#39;);</entry></group>
+						<group><entry name="text">---
+
+"?dtd" (for WRITE function v1.0 only)
+
+This option lets you link the XML file written to the pXw4Pa.dtd file (DTD = Document Type Declaration). This file contains all the info about the labels and grammar used on a XML file written with pXw4Pa.
+This is required when you need to make valid XML.
+Remember to copy the DTD file to the same folder as the XML file.
+
+This option doesn't allow you to pass a specified DTD filename value directly to the function, since usually the default filename is ok. If you really want to change this value read the last part of this section.
+</entry></group>
+						<group><entry name="code">pXw4Pa_write(&#36;array,&#39;filename&#39;,&#39;?dtd&#39;);</entry></group>
+						<group><entry name="text">---
+
+"?css=cssfilename"
+OR "?xsl=xslfilename"(both for WRITE function v1.0 only)
+
+These options let you attach a CSS (Cascade Style Sheet) or an XSL (eXtensible Stylesheet Language) file to the XML, which can be useful to display the content of the XML/array with a browser.
+Replace &#34;(css/xsl)filename&#34; with the filename of the CSS/XSL file you're going to use (along with URL or fullpath, if required).
+Remember to use the correct path of the CSS/XSL file. If you use only the filename, without URL or full path, the file must reside in the same folder as the XML.
+</entry></group>
+						<group><entry name="code">pXw4Pa_write(&#36;array,&#39;filename&#39;,&#39;?css=cssfilename&#39;);</entry></group>
+						<group><entry name="code">pXw4Pa_write(&#36;array,&#39;filename&#39;,&#39;?xsl=xslfilename&#39;);</entry></group>
+						<group><entry name="text">NOTE: A CSS file lets you display only the values of an XML files. To display also indexes and data types use XSL, instead.
+
+Here you can see some examples of XML, formatted using the CSS and XSL files provided with the pXw4Pa package.</entry></group>
+						<group><entry name="html">
+&#60;a class=&#34;link&#34; href=&#34;test.txt&#34;&#62;unformatted XML file&#60;/a&#62;
+&#60;a class=&#34;link&#34; href=&#34;testcss.xml&#34;&#62;css&#60;/a&#62;
+&#60;a class=&#34;link&#34; href=&#34;test1.xml&#34;&#62;xsl 1&#60;/a&#62;
+&#60;a class=&#34;link&#34; href=&#34;test2.xml&#34;&#62;xsl 2&#60;/a&#62;
+&#60;a class=&#34;link&#34; href=&#34;test3.xml&#34;&#62;xsl 3&#60;/a&#62;
+&#60;a class=&#34;link&#34; href=&#34;test4.xml&#34;&#62;xsl 4&#60;/a&#62;
+</entry></group>
+						<group><entry name="text">
+Note: The XSL files that you find in the pXw4Pa package don't display indexes which are not defined in the XML files. Each one of them is represented by a question mark or the undefined word.
+
+---
+
+DTD, CSS and XSL options use global variables. This can be useful if you always use the same value(s): rather than adding the required option each time you call the write function, you can set up the corresponding global variable once, at the beginning of your code.
+These are the three global variables used:
+
+$_pXw4Pa[&#34;dtdfilename&#34;]
+$_pXw4Pa[&#34;css&#34;]
+$_pXw4Pa[&#34;xsl&#34;]
+
+Note that the &#34;dtdfilename&#34; variable contain the value &#34;pXw4Pa.dtd&#34; by default.
+
+To use this feature you must assign to the correct variable the URL/path/filename of the required file.
+Example:</entry></group>
+						<group><entry name="code">$_pXw4Pa[&#34;xsl&#34;]=&#34;my_project/project.xsl&#34;;</entry></group>
+						<group><entry name="back">top</entry></group>
+						
+						<group><entry name="title">limitations, bugs, issues...</entry></group>
+						<group><entry name="text">- It seems that the read function doesn't recognize the &amp;nbsp; HTML entity.
+The problem can be temporarily solved by using the HTML entity &amp;#160; .
+
+- speed is now improved, but pXw4Pa may be not the best choice for real time management of large information archives.
+
+---
+
+If you've found a bug not listed here you can contact me to my email address so we can try to fix it (for more info about how to contact me, please read the next section)</entry></group>
+						<group><entry name="back">top</entry></group>
+						
+						<group><entry name="title">future planning.</entry></group>
+						<group><entry name="text">No guarantees.
+
+If someone wants to help this little project to grow, without starting another one by his(/her)self, contact me at my email address (at the top of this page).
+
+Write only in Italian or clear English, please, and remember to put the &#34;[pXw4Pa v#.#]&#34; text on the subject of your mail with the correct version number of the code, to help me to find your mail within the spam.</entry></group>
+						<group><entry name="back">top</entry></group>
+					
+						<group><entry name="title">about implementing this code somewhere...</entry></group>
+						<group><entry name="text">...it would be nice to read the project name within the credits. ; )
+And sending me an e-mail about it, would be nice too (my address is on the top of this page; before to write me read also the note on the previous section).
+Thanks!!
+
+---
+
+You can also use one of the following antipixel logos if you want to add a link to this page to your website.</entry></group>
+						<group><entry name="html">
+&#60;table class=&#34;antipixels&#34;&#62;&#60;tbody&#62;&#60;tr&#62;&#60;td&#62;&#60;img alt=&#34;pXw4Pa antipixel logo 1&#34; src=&#34;pxw4pa_logo1.png&#34;&#62;&#60;/td&#62;&#60;td&#62;&#60;img alt=&#34;pXw4Pa antipixel logo 2&#34; src=&#34;pxw4pa_logo2.png&#34;&#62;&#60;/td&#62;&#60;td&#62;&#60;img alt=&#34;pXw4Pa antipixel logo 3&#34; src=&#34;pxw4pa_logo3.png&#34;&#62;&#60;/td&#62;&#60;td&#62;&#60;img alt=&#34;pXw4Pa antipixel logo 4&#34; src=&#34;pxw4pa_logo4.png&#34;&#62;&#60;/td&#62;&#60;td&#62;&#60;img alt=&#34;pXw4Pa antipixel logo 5&#34; src=&#34;pxw4pa_logo5.png&#34;&#62;&#60;/td&#62;&#60;/tr&#62;&#60;/tbody&#62;&#60;/table&#62;
+</entry></group>
+						<group><entry name="text">choose the one you like (or which fits into your website style), copy it to your site folder, and insert it in your HTML using this code:
+
+
+&#60;a href=&#34;http://pxw4pa.sourceforge.net/index.html&#34;&#62; &#60;IMG src=&#34;pXw4Pa_logo1.png&#34; width=&#34;80&#34; height=&#34;15&#34; alt=&#34;pXw4Pa site logo&#34; style=&#34;border-width: 0px;&#34;&#62; &#60;/A&#62;
+
+</entry></group>
+						<group><entry name="back">top</entry></group>
+
+						<group><entry name="title">donations(?).</entry></group>
+						<group><entry name="text">In case someone will finds this script useful and wants to offer me a beer or some money to help me pay for petrol, this would be very much appreciated.
+
+Sadly the situation is a bit complicated.
+At the present time I have no job, and no money, so no bank account (and no credit card).
+A line of text on the SourceForge hosting Terms of Service forbids soliciting donations in other ways than the one available, which is paypal.
+But to use paypal, if I recall correctly, I need to have a credit card.
+So... no donations.
+
+(Anyway, you can contact me via email, if you want. :P)</entry></group>
+						<group><entry name="back">top</entry></group>
+			
+						<group><entry name="title">acknowledgements.</entry></group>
+						<group><entry name="text">Many thanks to the author of Stickies Tom Revell, for correcting my poor English within this documentation file!
+(Don't blame him if you find some errors in the text: probably it's only because I have added something after his last correction to keep the page up to date).
+
+Tom's webpage:
+</entry></group>
+						<group><entry name="html">&#60;a class=&#34;link&#34; href=&#34;http://www.zhornsoftware.co.uk/&#34;&#62;http://www.zhornsoftware.co.uk/&#60;/a&#62;</entry></group>
+						<group><entry name="text">---
+
+Thanks also to Megagun, Raptorjedi and the community of AnywhereBB:
+</entry></group>
+						<group><entry name="html">&#60;a class=&#34;link&#34; href=&#34;http://anywherebb.com/&#34;&#62;http://anywherebb.com/&#60;/a&#62;</entry></group>
+						<group><entry name="text">mirror:</entry></group>
+						<group><entry name="html">&#60;a class=&#34;link&#34; href=&#34;http://www.0x44.com/&#34;&#62;http://www.0x44.com/&#60;/a&#62;</entry></group>
+						<group><entry name="text">---
+
+Many thanks to Mark Dickens for his help in testing release 1.0.
+
+Mark's project page:
+</entry></group>
+						<group><entry name="html">&#60;a class=&#34;link&#34; href=&#34;http://adodblite.sourceforge.net/index.php&#34;&#62;http://adodblite.sourceforge.net/index.php&#60;/a&#62;
+</entry></group>
+						<group><entry name="text">
+Mark also provided some patches to fix bugs in v0.8.
+You can find those patches here:
+</entry></group>
+						<group><entry name="html">&#60;a class=&#34;link&#34; href=&#34;https://sourceforge.net/tracker/index.php?func=detail&amp;amp;aid=1355603&amp;amp;group_id=143311&amp;amp;atid=755119&#34;&#62;https://sourceforge.net/tracker/index.php?func=detail
+&amp;amp;aid=1355603&amp;amp;group_id=143311&amp;amp;atid=755119&#60;/a&#62;
+</entry></group>
+						<group><entry name="text">---
+
+Thanks also to Francesco from the PHPItalia mailing list</entry></group>
+						<group><entry name="html">&#60;a class=&#34;link&#34; href=&#34;http://www.domeus.it/groups/index.jsp;jsessionid=FDF92B0F41459CDD49802F590B83FA9D;dom01?gid=236020&#34;&#62;http://www.domeus.it/groups/index.jsp;jsessionid=
+FDF92B0F41459CDD49802F590B83FA9D;dom01?gid=236020&#60;/a&#62;</entry></group>
+						<group><entry name="text">who provide me some info about the references behaviour in PHP4 and 5.</entry></group>
+						<group><entry name="back">top</entry></group>
+
+						<group><entry name="title">author's other projects.</entry></group>
+						<group><entry name="text">Don't forget to take a look at my 2nd project:
+
+TRASHY
+(Tags Resized and Alternative Syntax for Html made by Yayo)
+
+</entry></group>
+						<group><entry name="html">&#60;a href=&#34;http://trashy.sourceforge.net/index.php&#34;&#62; &#60;IMG src=&#34;TRASHY_logo1.png&#34; width=&#34;80&#34; height=&#34;15&#34; alt=&#34;TRASHY site logo&#34; style=&#34;border-width: 0px;&#34;&#62; &#60;/A&#62;
+&#60;a class=&#34;link&#34; href=&#34;http://trashy.sourceforge.net/index.php&#34;&#62;http://trashy.sourceforge.net/index.php&#60;/a&#62;</entry></group>
+						<group><entry name="back">top</entry></group>
+
+						<group><entry name="title">end of file.</entry></group>
+						<group><entry name="text">May 6, 2006.</entry></group>
+						<group><entry name="code">yayo</entry></group>
+						<group><entry name="html">
+
+
+
+
+&#60;TABLE class=&#34;icons&#34; cellpadding=&#34;2&#34;&#62;&#60;TBODY&#62;&#60;TR&#62;&#60;TD class=&#34;min&#34; rowspan=&#34;4&#34;&#62;&#60;A href=&#34;http://creativecommons.org/licenses/GPL/2.0/&#34;&#62;&#60;IMG src=&#34;cc-GPL-a.png&#34; width=&#34;88&#34; height=&#34;62&#34; alt=&#34;This software and its documentation are licensed under the terms of the CC-GNU GPL license v.2!&#34; title=&#34;This software and its documentation are licensed under the terms of the CC-GNU GPL license v.2&#34;&#62;&#60;/A&#62;&#60;!-- /Creative Commons License --&#62;&#60;!--&#60;rdf:RDF xmlns=&#34;http://web.resource.org/cc/&#34;xmlns:dc=&#34;http://purl.org/dc/elements/1.1/&#34;xmlns:rdf=&#34;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#34;&#62;&#60;Work rdf:about=&#34;&#34;&#62;&#60;license rdf:resource=&#34;http://creativecommons.org/licenses/GPL/2.0/&#34; /&#62;&#60;dc:type rdf:resource=&#34;http://purl.org/dc/dcmitype/Software&#34; /&#62;&#60;/Work&#62;&#60;License rdf:about=&#34;http://creativecommons.org/licenses/GPL/2.0/&#34;&#62;&#60;permits rdf:resource=&#34;http://web.resource.org/cc/Reproduction&#34; /&#62;&#60;permits rdf:resource=&#34;http://web.resource.org/cc/Distribution&#34; /&#62;&#60;requires rdf:resource=&#34;http://web.resource.org/cc/Notice&#34; /&#62;&#60;permits rdf:resource=&#34;http://web.resource.org/cc/DerivativeWorks&#34; /&#62;&#60;requires rdf:resource=&#34;http://web.resource.org/cc/ShareAlike&#34; /&#62;&#60;requires rdf:resource=&#34;http://web.resource.org/cc/SourceCode&#34; /&#62;&#60;/License&#62;&#60;/rdf:RDF&#62;--&#62;&#60;/TD&#62;&#60;TD class=&#34;min&#34;&#62;&#60;A href=&#34;http://validator.w3.org/check/referer&#34;&#62;&#60;IMG src=&#34;valid-html401.png&#34; width=&#34;80&#34; height=&#34;15&#34; alt=&#34;This page is valid -//W3C//DTD HTML 4.01 Strict//EN!&#34; title=&#34;This page is valid -//W3C//DTD HTML 4.01 Strict//EN!&#34;&#62;&#60;/A&#62;&#60;/TD&#62;&#60;TD class=&#34;min&#34; rowspan=&#34;4&#34;&#62;&#60;IMG src=&#34;pxw4pa_logo1.png&#34; width=&#34;80&#34; height=&#34;15&#34; alt=&#34;Also this webpage uses pXw4Pa! :)&#34; title=&#34;Also this webpage uses pXw4Pa! :)&#34;&#62;&#60;/TD&#62;&#60;TD rowspan=&#34;4&#34;&#62;&#160;&#60;/TD&#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD&#62;&#60;A href=&#34;http://jigsaw.w3.org/css-validator/check/referer&#34;&#62;&#60;IMG src=&#34;valid-css.png&#34; width=&#34;80&#34; height=&#34;15&#34; alt=&#34;This page uses valid CSS!&#34; title=&#34;This page uses valid CSS!&#34;&#62;&#60;/A&#62;&#60;/TD&#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD&#62;&#60;A href=&#34;http://www.contentquality.com/mynewtester/cynthia.exe?rptmode=2&amp;amp;url1=http://pxw4pa.sourceforge.net/index.php&#34;&#62;&#60;IMG src=&#34;WAI_AA.png&#34; width=&#34;80&#34; height=&#34;15&#34; alt=&#34;This site conforms to the W3C-WAI Web Content Accessibility Guidelines.&#34; title=&#34;This site conforms to the W3C-WAI Web Content Accessibility Guidelines.&#34;&#62;&#60;/A&#62;&#60;/TD&#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD&#62;&#60;A href=&#34;http://www.contentquality.com/mynewtester/cynthia.exe?rptmode=-1&amp;amp;url1=http://pxw4pa.sourceforge.net/index.php&#34;&#62;&#60;IMG src=&#34;section508.png&#34; width=&#34;80&#34; height=&#34;15&#34; alt=&#34;This site conforms to the US Government Section 508 Accessibility Guidelines.&#34; title=&#34;This site conforms to the US Government Section 508 Accessibility Guidelines.&#34;&#62;&#60;/A&#62;&#60;/TD&#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD colspan=&#34;4&#34;&#62;&#60;span class=&#34;small&#34;&#62;This webpage/documentation and the pXw4Pa software itself are both released under the terms of the CC-GNU GPL license v.2.
+copyright (C) 2005/2006 yayo (Roberto Correzzola)&#60;/span&#62;&#60;/TD&#62;&#60;/TR&#62;&#60;/TBODY&#62;&#60;/TABLE&#62;</entry></group>
+
+				</group>
+		</group>
+
+
+
+<!-- ITALIANO -->
+		<group name="it">
+				<group name="header">
+						<group><entry name="title">&#160;pXw4Pa v1.0</entry></group>
+						<group><entry name="text">poor XML wrapper for PHP arrays
+(ovvero &#34;avvolgitore povero di XML per matrici di dati PHP&#34;)</entry></group>
+						<group><entry name="html">
+
+
+&#60;TABLE class=&#34;about&#34; frame=&#34;box&#34; rules=&#34;all&#34;&#62;&#60;TBODY&#62;&#60;TR&#62;&#60;TD &#62;versione: &#60;/TD &#62;&#60;TD &#62;1.0&#60;/TD &#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD &#62;rilasciato: &#60;/TD &#62;&#60;TD &#62;7 maggio 2006&#60;/TD &#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD &#62;licenza: &#60;/TD &#62;&#60;TD &#62;GNU GPL (General Public License) v.2&#60;/TD &#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD &#62;autore: &#60;/TD &#62;&#60;TD &#62;yayo (Roberto Correzzola)&#60;/TD &#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD &#62;email:&#60;br&#62;&#60;small&#62;(vedi anche sezione&#60;br&#62;&#34;sviluppi futuri&#34;)&#60;/small&#62;&#60;/TD &#62;&#60;TD &#62;&#60;TABLE&#62;&#60;TBODY&#62;&#60;TR&#62;&#60;TD class=&#34;btm&#34; rowspan=&#34;2&#34;&#62;yayo&#60;/TD&#62;&#60;TD&#62;&#60;/TD&#62;&#60;TD class=&#34;btm&#34; rowspan=&#34;2&#34;&#62;75&#60;/TD&#62;&#60;TD&#62;&#60;/TD&#62;&#60;TD class=&#34;btm&#34; rowspan=&#34;2&#34;&#62;katamail&#60;/TD&#62;&#60;TD&#62;&#60;/TD&#62;&#60;TD class=&#34;btm&#34; rowspan=&#34;2&#34;&#62;com&#60;/TD&#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD class=&#34;top&#34; rowspan=&#34;2&#34;&#62;.&#60;/TD&#62;&#60;TD class=&#34;top&#34; rowspan=&#34;2&#34;&#62;@&#60;/TD&#62;&#60;TD class=&#34;top&#34; rowspan=&#34;2&#34;&#62;.&#60;/TD&#62;&#60;/TR&#62;&#60;/TBODY&#62;&#60;/TABLE&#62;&#60;/TD &#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD &#62;sito: &#60;/TD &#62;&#60;TD &#62;&#60;a class=&#34;link&#34; href=&#34;http://pxw4pa.sourceforge.net/index.php&#34;&#62;http://pxw4pa.sourceforge.net/index.php&#60;/a&#62;&#60;/TD&#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD &#62;pagina su SourceForge: &#60;/TD &#62;&#60;TD &#62;&#60;a class=&#34;link&#34; href=&#34;http://sourceforge.projects.pxw4pa/&#34;&#62;http://sourceforge.projects.pxw4pa/&#60;/a&#62;&#60;/TD&#62;&#60;/TR&#62;&#60;/TBODY&#62;&#60;/TABLE&#62;
+</entry></group>
+				</group>
+				<group name="language">
+						<entry name="group_label">click here to read this in...</entry>
+						<entry name="language">Italiano</entry>
+				</group>
+
+				<group name="messages">
+						<entry name="writing_test_error">Qualcosa non va! Non sono in grado di creare/scrivere il file...</entry>
+						<entry name="writing_test_ok">Ho scritto il file &#34;test.xml&#34;! : )</entry>
+				</group>
+		
+				<group name="index">
+						<entry name="group_label">&#160;&#160;indice</entry>
+						<group><entry name="link">liberatoria.</entry></group>
+						<group><entry name="link">licenza.</entry></group>
+						<group><entry name="link">storia.</entry></group>
+						<group><entry name="link">che cos'è pXw4Pa?</entry></group>
+						<group><entry name="link">di cosa ha bisogno per funzionare e dove trovarlo.</entry></group>
+						<group><entry name="link">come usarlo.</entry></group>
+						<group><entry name="link">come SCRIVERE un file XML da un array PHP.</entry></group>
+						<group><entry name="link">come LEGGERE un array PHP da un file XML.</entry></group>
+						<group><entry name="link">tag usati nel file XML.</entry></group>
+						<group><entry name="link">dimostrazione.</entry></group>
+						<group><entry name="link">opzioni.</entry></group>
+						<group><entry name="link">difetti conosciuti.</entry></group>
+						<group><entry name="link">sviluppi futuri.</entry></group>
+						<group><entry name="link">se pensi di usare questo codice in un tuo software...</entry></group>
+						<group><entry name="link">donazioni(?).</entry></group>
+						<group><entry name="link">ringraziamenti.</entry></group>
+						<group><entry name="link">altri progetti dell'autore.</entry></group>
+						<group><entry name="text">
+
+</entry></group>
+
+
+		</group>
+
+				<group name="content">
+						<entry name="group_label">&#160;&#160;documentazione</entry>
+						<group><entry name="title">liberatoria.</entry></group>
+						<group><entry name="text">L'autore declina ogni responsabilit&#224; relativa a qualsiasi tipo di danno derivato dall'uso (proprio o improprio) di questo codice.
+USALO A TUO RISCHIO!</entry></group>
+						<group><entry name="back">torna su</entry></group>
+		
+						<group><entry name="title">licenza.</entry></group>
+						<group><entry name="text">pXw4Pa v0.8 (poor XML wrapper for PHP arrays)
+Copyright (C) 2005 yayo (Roberto Correzzola)
+		
+Questo programma &#232; software libero; puoi redistribuirlo e/o modificarlo nei termini della GNU General Public License (licenza pubblica generale GNU) pubblicata dalla Free Software Foundation (Fondazione Software Libero); usando la versione 2 della Licenza, o (a tua scelta) qualsiasi versione successiva.
+
+Questo programma &#232; distribuito nella speranza che sia utile, ma SENZA ALCUNA GARANZIA; non fornisce nemmeno implicite garanzie di COMMERCIABILIT&#192; n&#233; di SODDISFARE NECESSIT&#192; SPECIFICHE. Fai riferimento alla GNU General Public License per altri dettagli.
+
+Dovresti aver ricevuto una copia della GNU General Public License con questo programma; in caso contrario, scrivi alla Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+---
+
+Clicca su questo collegamento per leggere un riassunto in italiano della licenza:</entry></group>
+						<group><entry name="html">&#60;a class=&#34;link&#34; href=&#34;http://creativecommons.org/licenses/GPL/2.0/&#34;&#62;http://creativecommons.org/licenses/GPL/2.0/&#60;/a&#62;
+
+</entry></group>
+						<group><entry name="text">Da quella stessa pagina puoi accedere anche alla versione integrale della licenza (una sua copia è comunque allegata al pacchetto di pXw4Pa).</entry></group>
+						<group><entry name="back">torna su</entry></group>
+		
+						<group><entry name="title">storia.</entry></group>
+						<group><entry name="text">
+Versione 1.0
+- entrambe le funzioni sono state riscritte da capo: la funzione serialize non è più usata;
+la funzione di lettura usa il parser XML di PHP, che visualizza informazioni utili (in inglese) in caso di file XML non corretti.
+il codice è ora più piccolo del precedente (meno della metà, considerando entrambe le funzioni) ed è veloce circa il doppio.
+- tipi di dati supportati: strings, integer, double (=floating point), boolean, e NULL
+- aggiunto l'attributo &#34;type&#34; alla struttura XML
+- alcuni cambiamenti nella documentazione
+- altri cambiamenti minori
+
+
+Versione 0.8
+- il codice XML prodotto è ora conforme agli standard w3c: contiene il collegamento al file pXw4Pa.dtd, contenente le specifiche della struttura del file XML.
+- aggiunto il supporto per i tag vuoti o contenenti-spazi (per spazi si intendono anche le tabulazioni e i caratteri di ritorno a capo CarriageReturn e LineFeed.)
+- alcune modifiche alla documentazione
+
+
+Versione 0.7
+- aggiunto un test/dimostrazione per la funzione di Scrittura
+- convalidato il codice html e il file CSS della documentazione secondo le specifiche W3C
+- alcune modifiche alla documentazione
+
+
+Versione 0.6
+- corretto un serio difetto nella funzione di scrittura che impediva la traduzione (dalla sintassi propria della funzione Serialize alla sintassi XML) per tutte le stringhe di testo contenenti il carattere &#34;;&#34;.
+ora la procedura di traduzione &#232; molto pi&#249; affidabile
+- alcune modifiche alla documentazione
+
+
+Versione 0.5
+- riscritto (da capo) lo script di documentazione html (aggiunto indice,
+aggiunto supporto per pi&#249; linguaggi)
+- aggiunta documentazione italiana
+- aggiunto file css
+- Aggiunto il supporto per i tag di commento (non interferiscono più con le funzioni: vengono ignorati e rimossi)
+
+
+Versione 0.2
+- Aggiunte alcune note alla documentazione.
+- Aggiustato un errore che creava problemi durante il caricamento di una struttura con il primo sottogruppo privo di nome
+
+Versione 0.1
+- prima versione rilasciata.</entry></group>
+						<group><entry name="back">torna su</entry></group>
+
+						<group><entry name="title">che cos'&#232; pXw4Pa?</entry></group>
+						<group><entry name="text">&#34;pXw4Pa&#34; &#232; una coppia di semplici funzioni scritte in PHP 4 fatte per trasferire informazioni da una matrice di dati (array) su di un file XML, e viceversa.
+La due funzioni si chiamano &#34;pXw4Pa_read()&#34; e &#34;pXw4Pa_write()&#34;.
+
+Il formato XML (acronimo di Extensible Markup Language, ovvero Linguaggio di Marcatura Estensibile) è un modo standard di immagazzinare  informazioni in un semplice file di testo, usando una serie di etichette disposte secondo una sintassi speciale. È una forma semplificata del formato SGML, ovvero Standard Generalized Markup Language [ISO 8879] (Linguaggio di Marcatura Standard Generalizzato).
+Puoi trovare tutte le informazioni che ti servono sul formato XML leggendo questa pagina:</entry></group>
+						<group><entry name="html">&#60;a class=&#34;link&#34; href=&#34;http://it.wikipedia.org/wiki/XML&#34;&#62;http://it.wikipedia.org/wiki/XML&#60;/a&#62;</entry></group>
+						<group><entry name="text">
+---
+
+Esempio di uso di pXw4Pa.
+Immagina di lavorare ad un codice PHP in cui viene usato questo gruppo di informazioni:
+</entry></group>
+
+						<group><entry name="text">
+$pc&#160;=(
+&#160;&#160;&#160;&#160;hardware&#160;=(
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1&#160;=&#160;&#34;monitor&#34;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;2&#160;=&#160;&#34;scheda madre+CPU&#34;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;3&#160;=&#160;&#34;disco&#160;fisso&#34;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;4&#160;=&#160;&#34;tastiera&#34;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;5&#160;=&#160;&#34;mouse&#34;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;6&#160;=&#160;&#34;modem&#34;
+&#160;&#160;&#160;&#160;)
+&#160;&#160;&#160;&#160;software&#160;=(
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1&#160;=&#160;&#34;sistema&#160;operativo&#34;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;2&#160;=&#160;&#34;driver&#34;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;3&#160;=&#160;&#34;applicazioni&#34;
+&#160;&#160;&#160;&#160;)
+)
+</entry></group>
+						<group><entry name="text">
+
+La matrice $pc contiene le sottomatrici hardware e software, e ognuna di esse contiene una serie di valori di tipo testo.
+Usando la funzione di scrittura di pxw4pa puoi salvare questa matrice di dati in un file di testo con estensione &#34;.xml&#34;.
+Il risultato sarà simile a questo:
+</entry></group>
+
+						<group><entry name="text">
+&#60;?xml&#160;version=&#34;1.0&#34;?&#62;
+&#60;pXw4Pa&#160;version=&#34;1.0&#34;&#62;
+&#160;&#160;&#60;group&#62;
+&#160;&#160;&#160;&#160;&#60;group&#160;name=&#34;hardware&#34;&#62;
+&#160;&#160;&#160;&#160;&#160;&#160;&#60;entry&#160;name=&#34;1&#34;&#160;type=&#34;string&#34;&#62;monitor&#60;/entry&#62;
+&#160;&#160;&#160;&#160;&#160;&#160;&#60;entry&#160;name=&#34;2&#34;&#160;type=&#34;string&#34;&#62;scheda madre+CPU&#60;/entry&#62;
+&#160;&#160;&#160;&#160;&#160;&#160;&#60;entry&#160;name=&#34;3&#34;&#160;type=&#34;string&#34;&#62;disco&#160;fisso&#60;/entry&#62;
+&#160;&#160;&#160;&#160;&#160;&#160;&#60;entry&#160;name=&#34;4&#34;&#160;type=&#34;string&#34;&#62;tastiera&#60;/entry&#62;
+&#160;&#160;&#160;&#160;&#160;&#160;&#60;entry&#160;name=&#34;5&#34;&#160;type=&#34;string&#34;&#62;mouse&#60;/entry&#62;
+&#160;&#160;&#160;&#160;&#160;&#160;&#60;entry&#160;name=&#34;6&#34;&#160;type=&#34;string&#34;&#62;modem&#60;/entry&#62;
+&#160;&#160;&#160;&#160;&#60;/group&#62;
+&#160;&#160;&#160;&#160;&#60;group&#160;name=&#34;software&#34;&#62;
+&#160;&#160;&#160;&#160;&#160;&#160;&#60;entry&#160;name=&#34;1&#34;&#160;type=&#34;string&#34;&#62;sistema&#160;operativo&#60;/entry&#62;
+&#160;&#160;&#160;&#160;&#160;&#160;&#60;entry&#160;name=&#34;2&#34;&#160;type=&#34;string&#34;&#62;driver&#60;/entry&#62;
+&#160;&#160;&#160;&#160;&#160;&#160;&#60;entry&#160;name=&#34;3&#34;&#160;type=&#34;string&#34;&#62;applicazioni&#60;/entry&#62;
+&#160;&#160;&#160;&#160;&#60;/group&#62;
+&#160;&#160;&#60;/group&#62;
+&#60;/pXw4Pa&#62;
+</entry></group>
+
+						<group><entry name="text">
+
+(immagina che il nome della matrice &#34;pc&#34; sarà usato come nome del file: &#34;pc.xml&#34;)
+
+Questo ti permette di traspostare facilmente i tuoi dati, condividerli con altri programmatori, o usarli con in programmi, dato che il formato XML è standard ed è ampiamente diffuso.</entry></group>
+						<group><entry name="back">torna su</entry></group>
+						
+						<group><entry name="title">di cosa ha bisogno per funzionare e dove trovarlo.</entry></group>
+						<group><entry name="text">Ovviamente, prima di tutto devi scaricare l'archivio zip contenente le due funzioni. : )
+Lo puoi scaricare da qui:
+</entry></group>
+						<group><entry name="html">&#60;a class=&#34;link&#34; href=&#34;http://prdownloads.sourceforge.net/pxw4pa/pXw4Pa_1.0.zip?download&#34;&#62;http://prdownloads.sourceforge.net/pxw4pa/
+pXw4Pa_1.0.zip?download&#60;/a&#62;</entry></group>
+						<group><entry name="text">
+Su questa pagina ti sara chiesto di scegliere un mirror (cioè uno degli archivi di SourceForge) da cui scaricare il file. Quando ne hai selezionato uno, aspetta qualche secondo e lo scaricamento partirà automaticamente.
+
+---
+
+Tieni anche presente che per usare queste funzioni hai bisogno di PHP versione 4.0.0 (o di una versione più recente).
+</entry></group>
+						<group><entry name="back">torna su</entry></group>
+						
+						<group><entry name="title">come usarlo.</entry></group>
+						<group><entry name="text">Le due funzioni sono contenute nel file &#34;pXw4Pa.php&#34;.
+Puoi copiare la funzione che ti serve nel tuo codice PHP, oppure copiare l'intero file nella cartella del tuo progetto e collegarlo ad esso aggiungendo questa linea all'inizio del tuo codice:</entry></group>
+						<group><entry name="code">require &#39;pXw4Pa.PHP&#39;;</entry></group>
+						<group><entry name="back">torna su</entry></group>
+						<group><entry name="title">come SCRIVERE un file XML da un array PHP.</entry></group>
+						<group><entry name="text">Per scrivere un file XML con il contenuto di un array basta chiamare la funzione relativa in questo modo:</entry></group>
+						<group><entry name="code">pXw4Pa_write(&#36;array,&#39;nome_file&#39;);</entry></group>
+						<group><entry name="text">sostituendo alla parola &#34;&#36;array&#34; il nome dell'array che volete elaborare, e a &#34;nome_file&#34; il nome del file che volete scrivere.</entry></group>
+						<group><entry name="text">Se non viene fornito alla funzione un nome di file, essa produrr&#224; automaticamente il file  &#34;pXw4Pa_ouput.xml&#34;.
+
+Nel caso qualcosa andasse storto un messaggio d'errore vi aiuter&#224; a capire cosa non va.
+
+Nota: la funzione di scrittura sostituisce i caratteri &#60;, &#62;, &#34; e &#38; con le entità HTML equivalenti (&#38;#60;, &#38;#62;, &#38;#34; e &#38;#38;) prima di scrivere il file XML, per evitare di creare un file non valido.
+</entry></group>
+						<group><entry name="warning">ATTENZIONE!
+Qualsiasi file XML esistente verr&#224; sovrascritto
+senza chiedere conferma!</entry></group>
+						<group><entry name="back">torna su</entry></group>
+						
+						<group><entry name="title">come LEGGERE un array PHP da un file XML.</entry></group>
+						<group><entry name="text">Per leggere un array da un file XML basta chiamare la funzione relativa in questo modo:</entry></group>
+						<group><entry name="code">&#36;array=pXw4Pa_read(&#39;nome_file&#39;);</entry></group>
+						<group><entry name="text">sostituendo la parola &#34;&#36;array&#34; con il nome dell'array in cui volete immagazzinare il contenuto del file XML, e &#34;nome_file&#34; con il nome del file XML che volete elaborare.
+
+Nel caso qualcosa andasse storto un messaggio d'errore vi aiuter&#224; a capire cosa non va.
+
+---
+
+Se stai per scrivere un file XML a mano, tieni bene a mente quanto segue:
+
+1. L'intero contenuto dell'array deve essere racchiuso all'interno della coppia di tag (senza nome) &#34;&#60;group&#62;&#60;/group&#62;&#34;. Questo perch&#233; la funzione di lettura si aspetta di trovare l'array come un unico grande gruppo (come dovrebbe essere). Il nome del gruppo di dati sar&#224; il nome assegnato all'array direttamente del codice PHP. Questo significa che l'insieme di dati inizier&#224; con la sequenza </entry></group>
+						<group><entry name="code">&#60;pXw4Pa version=&#34;#.#&#34;&#62;&#60;group&#62;</entry></group>
+						<group><entry name="text">e terminer&#224; con la sequenza</entry></group>
+						<group><entry name="code">&#60;/group&#62;&#60;/pXwaPa&#62;.</entry></group>
+						<group><entry name="text">
+2. L'uso dentro una stringa di testo dei caratteri &#34;minore di&#34;, &#34;maggiore di&#34; e &#34;doppie virgolette&#34; (&#60;, &#62; e &#34;, quest'ultimo chiamato anche doppi apici), potrebbe portare alla creazione di un file XML non corretto, dato che questi caratteri sono gli stessi usati nella sintassi XML.
+
+Se hai bisogno di avere file XML validi, devi necessariamente sostituire questi caratteri con un'equivalente, come le entità HTML.
+
+Per avere l'entità HTML di un carattere, scrivi questa sequenza di testo senza spazi o altre interruzioni: &amp;+cancelletto+[codice ASCII del carattere]+punto-e-virgola.
+
+Esempio.
+Dato che il valore ASCII del carattere &#34;&#60;&#34; è 60, la sua entità HTML sarà:</entry></group>
+						<group><entry name="code">&amp;#60;</entry></group>
+						<group><entry name="text">Tieni presente inoltre che anche il carattere chiamato ampersand (&amp;) può portare a simili problemi quando è usato da solo. Anche in questo caso vale la stessa regola: sostituiscilo con il suo corrispondente &amp;#38; (anche &amp;amp; funziona)</entry></group>
+						<group><entry name="back">torna su</entry></group>
+						
+						<group><entry name="title">tag usati nel file XML.</entry></group>
+						<group><entry name="text">Tutti i dati gestiti da queste due funzioni vengono scritti dentro queste due etichette (rispettivamente tag apertura e di chiusura).
+(leggi anche le note della sezione precedente, riguardo a questi tag.)</entry></group>
+						<group><entry name="code">&#60;pXw4Pa version=&#34;1.0&#34;&#62;</entry></group>
+						<group><entry name="code">&#60;/pXw4Pa&#62;</entry></group>
+						<group><entry name="text">
+---
+
+L'etichetta GROUP è usata per definire le sottomatrici.
+Queste etichette usano l'attributo NAME per definire il nome (o indice) della sottomatrice.</entry></group>
+						<group><entry name="code">&#60;group name=&#34;...&#34;&#62;</entry></group>
+						<group><entry name="code">&#60;/group&#62;</entry></group>
+						<group><entry name="text">
+---
+
+L'etichetta ENTRY è usata per definire i singoli valori.
+Queste etichette usano l'attributo NAME per definire il nome (o indice) del valore, e l'attributo TYPE per definire il tipo di dati del valore stesso (tipi validi sono &#34;string&#34;, &#34;integer&#34;, &#34;double&#34;, &#34;boolean&#34; and &#34;NULL&#34;)</entry></group>
+						<group><entry name="code">&#60;entry name=&#34;...&#34; type=&#34;...&#34;&#62;</entry></group>
+						<group><entry name="code">&#60;/entry&#62;</entry></group>
+						<group><entry name="text">
+---
+
+L'unica eccezione sono i dati di tipo NULL, perché non hanno un tag di chiusura:</entry></group>
+						<group><entry name="code">&#60;entry name=&#34;...&#34; type=&#34;NULL&#34;/&#62;</entry></group>
+						<group><entry name="text">
+---
+
+altre informazioni:
+
+1. Se stai per scrivere un file XML a mano, e non ti interessano i nomi (o indici) dei valori dell'array, prova a omettere l'attributo NAME: la funzione di lettura assegnerà ad ogni valore/sottomatrice il primo indice numerico disponibile.
+
+2. Tipi di dati non definiti (valori senza l'attributo TYPE) vengono salvati come dati di tipo string per default.
+(Se stai per scrivere un file XML a mano, puoi omettere l'attributo TYPE per questo tipo di dati.)
+
+3. La funzione di scrittura aggiunge sempre sia l'attributo NAME che l'attributo TYPE.</entry></group>
+
+
+						<group><entry name="back">torna su</entry></group>
+								 
+						<group><entry name="html">&#60;a name=&#34;form&#34;&#62;&#60;/a&#62;</entry></group>
+						<group><entry name="title">dimostrazione.</entry></group>
+						<group><entry name="text">Riguardo la funzione di Lettura: la pagina html che stai leggendo &#232; creata con del codice PHP che sfrutta un array di dati immagazzinato nel file XML &#34;pXw4Pa.doc.xml&#34; !
+Dai un'occhiata a quel file per vedere come &#232; fatto.
+(attenzione: se sei alle prime armi col PHP o con il formato XML, questo file potrebbe sembrarti troppo complicato. Puoi provare a creare una semplice matrice e a trasformarla in file XML con la funzione di scrittura.)
+
+---
+
+Per quanto riguarda la funzione di scrittura, tramite il test che segue puoi verificare come le informazioni vengano spostate da file XML ad array e viceversa senza che nesun dato sensibile venga perduto o alterato.
+
+Premendo il pulsante &#34;test&#34; (qui di seguito) l'array contenente le informazioni testuali di questa documentazione viene ritrasferito su un nuovo file (&#34;test.xml&#34;).
+
+Una volta creato il file ti baster&#224; confrontarlo con l'originale (&#34;pXw4Pa.doc.xml&#34;) per notare che i dati in essi contenuti sono gli stessi, nonostante la disposizione del testo sia diversa (il file originale infatti &#232; stato scritto a mano e le informazioni sono state ordinate secondo necessit&#224; di lettura, mentre la funzione di scrittura di pXw4Pa prevede un metodo standard di ordinamento del testo diverso; va detto inoltre che attualmente i commenti vengono ignorati dalla funzione di lettura e quindi vanno perduti nel trasferimento).</entry></group>
+						<group><entry name="html">&#60;form action=&#34;[PATH]&#34; method=&#34;get&#34;&#62;&#60;input style=&#34;font-family:monospace;font-size:140%;&#34; type=&#34;submit&#34; value=&#34;test&#34; name=&#34;create_file&#34;&#62;&#60;input type=&#34;hidden&#34; name=&#34;lang&#34; value=&#34;[LANG]&#34;&#62;&#60;br&#62;&#60;br&#62;[WTR]&#60;/form&#62;</entry></group>
+						<group><entry name="text">---
+
+Il file XML prodotto dalla funzione di scrittura è un file XML valido, creato secondo gli standard W3C.
+Clicca su logo antipixel o sul collegamento riportati qui di seguito per visualizzare il rapporto sulla validità del file XML (pXw4Pa.doc.xml) usato per creare questa pagina.</entry></group>
+						<group><entry name="html">
+&#60;a class=&#34;link&#34; href=&#34;http://validator.w3.org/check?uri=http%3A%2F%2Fpxw4pa.sourceforge.net%2FpXw4Pa.doc.xml&#34;&#62;&#60;img src=&#34;valid-xml1.png&#34; alt=&#34;XML 1.0 valido! clicca per leggere il rapporto W3C.&#34;&#62;
+http://validator.w3.org/check?uri=http%3A%2F
+%2Fpxw4pa.sourceforge.net%2FpXw4Pa.doc.xml
+&#60;/a&#62;</entry></group>
+
+						<group><entry name="back">torna su</entry></group>
+						
+						<group><entry name="title">opzioni.</entry></group>
+						<group><entry name="text">"?v" (entrambe le funzioni)
+"?v+" (solo funzione di lettura v1.0)
+
+Puoi attivare l'opzione di debug &#34;?v&#34; delle due funzioni per visualizzare un messaggio sul risultato dell'elaborazione dei dati.</entry></group>
+						<group><entry name="code">&#36;array=pXw4Pa_read(&#39;filename&#39;,&#39;?v&#39;);</entry></group>
+						<group><entry name="code">pXw4Pa_write(&#36;array,&#39;filename&#39;,&#39;?v&#39;);</entry></group>
+						<group><entry name="text">La versione 1.0 della funzione di lettura ti permette anche di usare l'opzione &#34;?v+&#34; per visualizzare anche i tipi di dati, oltre che nomi e valori.</entry></group>
+						<group><entry name="code">pXw4Pa_write(&#36;array,&#39;filename&#39;,&#39;?v+&#39;);</entry></group>
+						<group><entry name="text">---
+
+"?dtd" (solo funzione di scrittura v1.0)
+
+Questa opzione ti permette di collegare l'XML che stai per scrivere al il file pXw4Pa.dtd (DTD = Document Type Declaration, cioè Dichiarazione di Tipo di Documento). Questo file contiene tutte le informazioni riguardanti i marcatori e la grammatica usata nel file XML prodotto con pXw4Pa.
+Questo è richiesto solo quando si ha necessità di avere file XML validi.
+Ricorda di copiare il file DTD nella stessa cartella del file XML.
+
+Questa opzione non ti permette di specificare un nome di file DTD, dato che il file di default è più che sufficiente. Se hai veramente bisogno di cambiare questo valore leggi l'ultima parte di questa sezione.</entry></group>
+						<group><entry name="code">pXw4Pa_write(&#36;array,&#39;filename&#39;,&#39;?dtd&#39;);</entry></group>
+						<group><entry name="text">---
+
+"?css=nomefilecss"
+OPPURE "?xsl=nomefilexsl"
+(entrambe solo per la funzione di scrittura v1.0)
+
+Questa opzione ti permette di collegare un foglio di stile in formato CSS (Cascade Style Sheet) o XSL (eXtensible Stylesheet Language) al tuo file XML. I questo modo puoi aprire il file con un programma di navigazione internet e visualizzare i dati come fossero ordinati in una apposita pagina web.
+Sostituisci &#34;nomefile(css/csl)&#34; con il nome del file CSS/XSL che vuoi usare (assieme all'URL o al percorso completo, se necessario).
+Ricorda di usare il percorso corretto del file CSS/XSL. Se usi solo il nome del file, esso deve trovarsi nella stessa cartella dell'XML.
+</entry></group>
+						<group><entry name="code">pXw4Pa_write(&#36;array,&#39;filename&#39;,&#39;?css=nomefilecss&#39;);</entry></group>
+						<group><entry name="code">pXw4Pa_write(&#36;array,&#39;filename&#39;,&#39;?xsl=nomefilexsl&#39;);</entry></group>
+						<group><entry name="text">NOTA: Un foglio di stile CSS ti permette di visualizzare solo i valori del file XML. Per visualizzare anche gli indici e i tipi di valori usa l'XSL.
+
+Qui puoi vedere alcuni esempi di file XML visualizzati tramite i file CSS e XSL forniti con il pacchetto di pXw4Pa.</entry></group>
+						<group><entry name="html">
+&#60;a class=&#34;link&#34; href=&#34;test.txt&#34;&#62;file XML non formattato&#60;/a&#62;
+&#60;a class=&#34;link&#34; href=&#34;testcss.xml&#34;&#62;css&#60;/a&#62;
+&#60;a class=&#34;link&#34; href=&#34;test1.xml&#34;&#62;xsl 1&#60;/a&#62;
+&#60;a class=&#34;link&#34; href=&#34;test2.xml&#34;&#62;xsl 2&#60;/a&#62;
+&#60;a class=&#34;link&#34; href=&#34;test3.xml&#34;&#62;xsl 3&#60;/a&#62;
+&#60;a class=&#34;link&#34; href=&#34;test4.xml&#34;&#62;xsl 4&#60;/a&#62;
+</entry></group>
+						<group><entry name="text">
+Nota: I file XSL forniti con il pacchetto di pXw4Pa non calcolano gli indici non specificati nel file XML. Ognuno di questi indici mancanti viene visualizzato con un punto di domanda o con la scritta undefined (indefinito).
+
+---
+
+Le opzioni DTD, CSS e XSL usano variabili globali. Questo può essere utile se usi ripetutamente gli stessi file: invece di passarli alla funzione di scrittura ogni volta, ti basta assegnare il nome del file alla variabile corrispondente, una volta per tutte, all'inizio del tuo codice.
+Queste sono le tre variabili globali usate:
+
+$_pXw4Pa[&#34;dtdfilename&#34;]
+$_pXw4Pa[&#34;css&#34;]
+$_pXw4Pa[&#34;xsl&#34;]
+
+Nota che alla variabile &#34;dtdfilename&#34; è assegnato il valore &#34;pXw4Pa.dtd&#34; di default.
+
+Per usare questo sistema, assegna il nome del file che vuoi usare alla variabile corrispondente (aggiungendo se necessario l'URL o il percorso).
+Esempio:</entry></group>
+						<group><entry name="code">$_pXw4Pa[&#34;xsl&#34;]=&#34;mio_progetto/progetto.xsl&#34;;</entry></group>
+						<group><entry name="back">torna su</entry></group>
+						
+						<group><entry name="title">difetti conosciuti.</entry></group>
+						<group><entry name="text">- Sembra che la funzione di lettura non riconosca l'entità HTML &amp;nbsp;.
+Il problema può essere temporaneamente risolto usando questa scrittura equivalente: &amp;#160; .
+
+- la velocità è ora molto migliorata, ma probabilmente pXw4Pa non è la scelta migliore per la gestione in tempo reale di grandi archivi di informazioni.
+
+---
+
+Se ne hai trovato qualcun'altro puoi segnalarmelo al mio indirizzo email cos&#236; vediamo di risolverlo (per altre informazini su come contattarmi leggi la sezione seguente).</entry></group>
+
+						<group><entry name="back">torna su</entry></group>
+						
+						<group><entry name="title">sviluppi futuri.</entry></group>
+						<group><entry name="text">Nessuna garanzia.
+
+Nel caso qualcuno volesse aiutare questo piccolo progetto a crescere, senza avviarne un'altro per conto proprio, può contattarmi al mio indirizzo di posta elettronica (si trova all'inizio della pagina).
+
+Scrivetemi solo in italiano o in inglese chiaro, e ricordate di inserire nell'oggetto della mail il testo &#34;[pXw4Pa v#.#]&#34; con il numero corretto di versione a cui fate riferimento, cos&#236; posso individuare la vostra lettera pi&#249; facilmente nella valanga di spam.</entry></group>
+						<group><entry name="back">torna su</entry></group>
+					
+						<group><entry name="title">se pensi di usare questo codice in un tuo software...</entry></group>
+						<group><entry name="text">...sarebbe bello che questo codice fosse citato nella sezione ringraziamenti del tuo progetto. ; )
+E magari fammelo sapere inviandomi una e-mail (l'indirizzo &#232; all'inizio della pagina).
+Grazie!!
+
+---
+
+Puoi anche usare uno di questi logo antipixel per aggiungere un collegamento a questa pagina nel tuo sito web:</entry></group>
+						<group><entry name="html">
+&#60;table class=&#34;antipixels&#34;&#62;&#60;tbody&#62;&#60;tr&#62;&#60;td&#62;&#60;img alt=&#34;pXw4Pa antipixel logo 1&#34; src=&#34;pxw4pa_logo1.png&#34;&#62;&#60;/td&#62;&#60;td&#62;&#60;img alt=&#34;pXw4Pa antipixel logo 2&#34; src=&#34;pxw4pa_logo2.png&#34;&#62;&#60;/td&#62;&#60;td&#62;&#60;img alt=&#34;pXw4Pa antipixel logo 3&#34; src=&#34;pxw4pa_logo3.png&#34;&#62;&#60;/td&#62;&#60;td&#62;&#60;img alt=&#34;pXw4Pa antipixel logo 4&#34; src=&#34;pxw4pa_logo4.png&#34;&#62;&#60;/td&#62;&#60;td&#62;&#60;img alt=&#34;pXw4Pa antipixel logo 5&#34; src=&#34;pxw4pa_logo5.png&#34;&#62;&#60;/td&#62;&#60;/tr&#62;&#60;/tbody&#62;&#60;/table&#62;
+</entry></group>
+						<group><entry name="text">Scegli quello che ti piace (o che si adatta meglio allo stile del tuo sito), copialo nella cartella del tuo sito, e inserisci nel codice HTML le seguenti righe:
+
+
+&#60;A href=&#34;http://pxw4pa.sourceforge.net/index.html&#34;&#62; &#60;IMG src=&#34;pXw4Pa_logo1.png&#34; width=&#34;80&#34; height=&#34;15&#34; alt=&#34;pXw4Pa site logo&#34; style=&#34;border-width: 0px;&#34;&#62; &#60;/A&#62;
+
+</entry></group>
+						<group><entry name="back">torna su</entry></group>
+
+						<group><entry name="title">donazioni(?).</entry></group>
+						<group><entry name="text">Se qualcuno trovasse utile questo script e volesse ringraziarmi mandandomi due soldi per una birra o aiutandomi a pagare un po' di benzina, lo apprezzerei molto.
+
+Purtroppo la situazione è un po' anomala.
+Al momento non ho un lavoro né un centesimo, quindi non ho un conto in banca (men che meno una carta di credito).
+Una clausola del servizio di hosting di SourceForge proibisce di sollecitare donazioni tramite un sistema diverso da quello disponibile, che è paypal.
+E per eseguire transazioni monetarie con paypal mi serve una carta di credito (almeno così mi risulta).
+Per cui... niente donazioni.
+
+(Se vuoi contattarmi via email, quello si può fare. :P)</entry></group>
+						<group><entry name="back">torna su</entry></group>
+
+			
+						<group><entry name="title">ringraziamenti.</entry></group>
+						<group><entry name="text">Ringrazio Tom Revell, autore di Stickies (nonché mio amico), per aver corretto il mio povero inglese in questa documentazione!
+(Eventuali errori sono probabilmente dovuti ad un mio improvviso aggiornamento del sito a cui non è seguita una verifica).
+
+Il sito di Tom:
+</entry></group>
+						<group><entry name="html">&#60;a class=&#34;link&#34; href=&#34;http://www.zhornsoftware.co.uk/&#34;&#62;http://www.zhornsoftware.co.uk/&#60;/a&#62;</entry></group>
+						<group><entry name="text">---
+
+Grazie anche a Megagun, Raptorjedi e alla community di AnywhereBB:
+</entry></group>
+						<group><entry name="html">&#60;a class=&#34;link&#34; href=&#34;http://anywherebb.com/&#34;&#62;http://anywherebb.com/&#60;/a&#62;</entry></group>
+						<group><entry name="text">collegamento secondario:</entry></group>
+						<group><entry name="html">&#60;a class=&#34;link&#34; href=&#34;http://www.0x44.com/&#34;&#62;http://www.0x44.com/&#60;/a&#62;</entry></group>
+						<group><entry name="text">---
+
+Ringrazio anche Mark Dickens per aver testato la versione 1.0 di questo progetto.
+
+La pagina del progetto di Mark:
+</entry></group>
+						<group><entry name="html">&#60;a class=&#34;link&#34; href=&#34;http://adodblite.sourceforge.net/index.php&#34;&#62;http://adodblite.sourceforge.net/index.php&#60;/a&#62;
+</entry></group>
+						<group><entry name="text">
+Mark ha anche fornito alcune pezze di correzione per la versione v0.8.
+Puoi trovarle qui:
+</entry></group>
+						<group><entry name="html">&#60;a class=&#34;link&#34; href=&#34;https://sourceforge.net/tracker/index.php?func=detail&amp;amp;aid=1355603&amp;amp;group_id=143311&amp;amp;atid=755119&#34;&#62;https://sourceforge.net/tracker/index.php?func=detail
+&amp;amp;aid=1355603&amp;amp;group_id=143311&amp;amp;atid=755119&#60;/a&#62;
+</entry></group>
+						<group><entry name="text">---
+
+Grazie anche a Francesco dalla mailing list PHPItalia</entry></group>
+						<group><entry name="html">&#60;a class=&#34;link&#34; href=&#34;http://www.domeus.it/groups/index.jsp;jsessionid=FDF92B0F41459CDD49802F590B83FA9D;dom01?gid=236020&#34;&#62;http://www.domeus.it/groups/index.jsp;jsessionid=
+FDF92B0F41459CDD49802F590B83FA9D;dom01?gid=236020&#60;/a&#62;</entry></group>
+						<group><entry name="text">per alcune informazioni riguardo il comportamento dei riferimenti
+in PHP4 e 5.</entry></group>
+						<group><entry name="back">torna su</entry></group>
+
+						<group><entry name="title">altri progetti dell'autore.</entry></group>
+						<group><entry name="text">Non dimenticare di dare un'occhiata al mio secondo progetto:
+
+TRASHY - Tags Resized and Alternative Syntax for Html, made by Yayo
+(in italiano: Tag Ridotti e Sintassi Alternativa per l'HTML, scritto da Yayo.)
+
+</entry></group>
+						<group><entry name="html">&#60;A href=&#34;http://trashy.sourceforge.net/index.php&#34;&#62; &#60;IMG src=&#34;TRASHY_logo1.png&#34; width=&#34;80&#34; height=&#34;15&#34; alt=&#34;TRASHY site logo&#34; style=&#34;border-width: 0px;&#34;&#62; &#60;/A&#62;
+&#60;a class=&#34;link&#34; href=&#34;http://trashy.sourceforge.net/index.php&#34;&#62;http://trashy.sourceforge.net/index.php&#60;/a&#62;</entry></group>
+						<group><entry name="back">torna su</entry></group>
+
+						<group><entry name="title">fine della documentazione.</entry></group>
+						<group><entry name="text">6 maggio 2006</entry></group>
+						<group><entry name="code">yayo</entry></group>
+						<group><entry name="html">
+
+
+
+
+&#60;TABLE class=&#34;icons&#34; cellpadding=&#34;2&#34;&#62;&#60;TBODY&#62;&#60;TR&#62;&#60;TD class=&#34;min&#34; rowspan=&#34;4&#34;&#62;&#60;A href=&#34;http://creativecommons.org/licenses/GPL/2.0/&#34;&#62;&#60;IMG src=&#34;cc-GPL-a.png&#34; width=&#34;88&#34; height=&#34;62&#34; alt=&#34;Questo software e la sua documentazione sono rilasciati sotto licenza CC-GNU GPL v.2!&#34; title=&#34;Questo software e la sua documentazione sono distribuiti sotto licenza CC-GNU GPL v.2!&#34;&#62;&#60;/A&#62;&#60;!-- /Creative Commons License --&#62;&#60;!--&#60;rdf:RDF xmlns=&#34;http://web.resource.org/cc/&#34;xmlns:dc=&#34;http://purl.org/dc/elements/1.1/&#34;xmlns:rdf=&#34;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#34;&#62;&#60;Work rdf:about=&#34;&#34;&#62;&#60;license rdf:resource=&#34;http://creativecommons.org/licenses/GPL/2.0/&#34; /&#62;&#60;dc:type rdf:resource=&#34;http://purl.org/dc/dcmitype/Software&#34; /&#62;&#60;/Work&#62;&#60;License rdf:about=&#34;http://creativecommons.org/licenses/GPL/2.0/&#34;&#62;&#60;permits rdf:resource=&#34;http://web.resource.org/cc/Reproduction&#34; /&#62;&#60;permits rdf:resource=&#34;http://web.resource.org/cc/Distribution&#34; /&#62;&#60;requires rdf:resource=&#34;http://web.resource.org/cc/Notice&#34; /&#62;&#60;permits rdf:resource=&#34;http://web.resource.org/cc/DerivativeWorks&#34; /&#62;&#60;requires rdf:resource=&#34;http://web.resource.org/cc/ShareAlike&#34; /&#62;&#60;requires rdf:resource=&#34;http://web.resource.org/cc/SourceCode&#34; /&#62;&#60;/License&#62;&#60;/rdf:RDF&#62;--&#62;&#60;/TD&#62;&#60;TD class=&#34;min&#34;&#62;&#60;A href=&#34;http://validator.w3.org/check/referer&#34;&#62;&#60;IMG src=&#34;valid-html401.png&#34; width=&#34;80&#34; height=&#34;15&#34; alt=&#34;Questa pagina è scritta in codice -//W3C//DTD HTML 4.01 Strict//EN valido!&#34; title=&#34;Questa pagina è scritta in codice -//W3C//DTD HTML 4.01 Strict//EN valido!&#34;&#62;&#60;/A&#62;&#60;/TD&#62;&#60;TD class=&#34;min&#34; rowspan=&#34;4&#34;&#62;&#60;IMG src=&#34;pxw4pa_logo1.png&#34; width=&#34;80&#34; height=&#34;15&#34; alt=&#34;Anche questa pagina usa pXw4Pa! :)&#34; title=&#34;Anche questa pagina usa pXw4Pa! :)&#34;&#62;&#60;/TD&#62;&#60;TD rowspan=&#34;4&#34;&#62;&#160;&#60;/TD&#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD&#62;&#60;A href=&#34;http://jigsaw.w3.org/css-validator/check/referer&#34;&#62;&#60;IMG src=&#34;valid-css.png&#34; width=&#34;80&#34; height=&#34;15&#34; alt=&#34;Questa pagina usa un file CSS valido!&#34; title=&#34;Questa pagina usa un file CSS valido!&#34;&#62;&#60;/A&#62;&#60;/TD&#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD&#62;&#60;A href=&#34;http://www.contentquality.com/mynewtester/cynthia.exe?rptmode=2&amp;amp;url1=http://pxw4pa.sourceforge.net/index.php&#34;&#62;&#60;IMG src=&#34;WAI_AA.png&#34; width=&#34;80&#34; height=&#34;15&#34; alt=&#34;Questo sito è conforme alle linee guida W3C-WAI per l'accessibilità dei contenuti.&#34; title=&#34;Questo sito è conforme alle linee guida W3C-WAI per l'accessibilità dei contenuti.&#34;&#62;&#60;/A&#62;&#60;/TD&#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD&#62;&#60;A href=&#34;http://www.contentquality.com/mynewtester/cynthia.exe?rptmode=-1&amp;amp;url1=http://pxw4pa.sourceforge.net/index.php&#34;&#62;&#60;IMG src=&#34;section508.png&#34; width=&#34;80&#34; height=&#34;15&#34; alt=&#34;Questo sito è conforme alle linee guida della sezione 508 del governo degli stati uniti per l'accessibilità dei contenuti.&#34; title=&#34;Questo sito è conforme alle linee guida della sezione 508 del governo degli stati uniti per l'accessibilità dei contenuti.&#34;&#62;&#60;/A&#62;&#60;/TD&#62;&#60;/TR&#62;&#60;TR&#62;&#60;TD colspan=&#34;4&#34;&#62;&#60;span class=&#34;small&#34;&#62;Questa pagina/documentazione e il software pXw4Pa stesso sono distribuiti sotto licenza CC-GNU GPL v.2.
+copyright (C) 2005/2006 yayo (Roberto Correzzola)&#60;/span&#62;&#60;/TD&#62;&#60;/TR&#62;&#60;/TBODY&#62;&#60;/TABLE&#62;</entry></group>
+				</group>
+		</group>
+		</group>
+</pXw4Pa>

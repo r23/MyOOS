@@ -1,0 +1,13 @@
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="body_head">{$oos_heading_title}</td>
+    <td align="right"><img src="{$smarty.const.OOS_IMAGES}{$category.categories_image}" border="0" alt="{$category.categories_name}" title="{$category.categories_name}"></td>
+  </tr>
+{if $smarty.const.ALLOW_CATEGORY_DESCRIPTIONS eq 'true' && $category.categories_description != '' }
+  <tr>
+<td colspan="2" height="10"></td>  </tr>
+  <tr>
+    <td align="left" colspan="2" class="main">{$category.categories_description}</td>
+  </tr>
+{/if}
+</table>

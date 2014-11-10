@@ -1,0 +1,615 @@
+NAME:
+
+    SmartyPaginate: a class/plugin for data set pagination within the Smarty
+    template environment.
+
+AUTHOR:
+    Monte Ohrt (monte [AT] ohrt [DOT] com)
+
+VERSION:
+    1.5
+    
+DATE:
+    March 9th, 2005
+
+WEBSITE:
+    http://www.phpinsider.com/php/code/SmartyPaginate/
+    
+DOWNLOAD:
+    http://www.phpinsider.com/php/code/SmartyPaginate/SmartyPaginate-current.tar.gz   
+    
+ANONYMOUS CVS: (leave password empty)
+    cvs -d :pserver:anonymous@cvs.phpinsider.com:/export/CVS login
+    cvs -d :pserver:anonymous@cvs.phpinsider.com:/export/CVS checkout SmartyPaginate
+
+SYNOPSIS:
+
+    index.php
+    ---------
+
+    session_start();
+    require('Smarty.class.php');
+    require('SmartyPaginate.class.php');
+    
+    $smarty =& new Smarty;
+    
+    // required connect
+    SmartyPaginate::connect();
+    // set items per page
+    SmartyPaginate::setLimit(25);
+
+    // assign your db results to the template
+    $smarty->assign('results', get_db_results());
+    // assign {$paginate} var
+    SmartyPaginate::assign($smarty);
+    // display results
+    $smarty->display('index.tpl');
+
+    function get_db_results() {
+        // normally you would have an SQL query here,
+        // for this example we fabricate a 100 item array
+        // (emulating a table with 100 records)
+        // and slice out our pagination range
+        // (emulating a LIMIT X,Y MySQL clause)
+        $_data = range(1,100);
+        SmartyPaginate::setTotal(count($_data));
+        return array_slice($_data, SmartyPaginate::getCurrentIndex(),
+            SmartyPaginate::getLimit());
+    }
+
+    
+    index.tpl
+    ---------
+
+    {* display pagination header *}
+    Items {$paginate.first}-{$paginate.last} out of {$paginate.total} displayed.
+
+    {* display results *}    
+    {section name=res loop=$results}
+        {$results[res]}
+    {/section}
+
+    {* display pagination info *}
+    {paginate_prev} {paginate_middle} {paginate_next}
+    
+    
+    OUTPUT
+    ------
+    
+    Items 1-25 out of 100 displayed.
+    
+    1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+    
+    prev [1-25][26-50][51-75][76-100] next
+    
+
+DESCRIPTION:
+
+    What is SmartyPaginate?
+
+    SmartyPaginate is a data pagination class for the Smarty template engine.
+    Often times when you display a large result set on a web page (such as a
+    database query), you will want to break it up across multiple pages with
+    "previous" and "next" links that aid in navigating through the data.
+    SmartyPaginate automates the task of keeping track of the pagination and
+    displaying pagination navigation links.
+
+BACKGROUND:
+
+    Data pagination is a very frequently performed task when it comes to web
+    application programming. Developing data pagination can be a tedious and
+    time consuming task. SmartyPaginate simplifies this effort by abstracting
+    the pagination process. You basically provide the pagination criteria (such
+    as items per page and total number of items), SmartyPaginate does the rest!
+    
+    SmartyPaginate does NOT handle retrieving your data set, it is up to your
+    application code to fetch the appropriate page of data and assign it to the
+    template. You do, however, use the SmartyPaginate information to determine
+    what data needs to be retrieved and assigned.
+    
+    On the application side, you call SmartyPaginate::connect() first. Then you
+    tell SmartyPaginate how many items you want per page and how many total
+    items there are. You then use this information to retrieve and assign your
+    dataset (such as selecting items from a database.)
+    
+    In the template, you put {paginate_* ...} tags which dictate the
+    previous/next links, as well as groupings in between. The links are
+    automatically populated with the information required to paginate.
+
+    SmartyPaginate does NOT do any caching of results. If you want them
+    cached, you can use the caching built into smarty using pagination criteria
+    for the cache_id.    
+
+REQUIREMENTS:
+
+    You must enable session management prior to using SmartyPaginate. Do this
+    by calling session_start() at the top of your PHP application.
+    SmartyPaginate also requires the Smarty template environment.
+
+INSTALLATION:
+
+    It is assumed that you are familiar with the Smarty templating
+    installation and setup, so I will not explain Smarty template
+    directories and such. Please refer to the Smarty documentation for
+    that information.
+    
+    To install SmartyPaginate:
+
+    * Copy the 'SmartyPaginate.class.php' file to a place within your
+      php_include path (or use absolute pathnames when including.)
+    * Copy all of the plugins to your Smarty plugin directory. (located
+      in the plugins/ directory of the distribution.)
+
+IMPLEMENTATION:
+
+    The general workflow of implementing SmartyPaginate goes something like
+    this:
+    
+    First, call session_start() at the top of your script. This must be called
+    once before any output is generated. Then call SmartyPaginate::connect().
+    This sets up the session data initially, and updates the session data on
+    each request.
+    
+    By default SmartyPaginate will use the "next" variable from the $_GET super
+    global to adjust each iteration, if you want to change that use
+    SmartyPaginate::setUrlVar(). The URL used in the prev/next links is
+    $_SERVER['PHP_SELF'] by default, if you want to change that use
+    SmartyPaginate::setURL().
+    
+    If at any time you want to reset your pagination data (like when a user
+    performs a new search), then call the SmartyPaginate::reset() method. This
+    resets all the session data.
+    
+    Now we determine how many items we want displayed per page. By default this
+    is 10, if you want something different then use SmartyPaginate::setLimit().
+    
+    Next we retrieve the data that we want displayed. Typically this will come
+    from a database query. You will use the SmartyPaginate::getCurrentIndex()
+    and SmartyPaginate::getLimit() methods to get the proper segment. In MySQL
+    for instance, you would put "LIMIT X,Y" at the end of your query where "X"
+    would be SmartyPaginate::getCurrentIndex() and "Y" would be
+    SmartyPaginate::getLimit().
+    
+    Once you have retrieved your dataset, you must tell SmartyPaginate the
+    total number of items being paginated with SmartyPaginate::setTotal().
+    MySQL has a nice feature to get the total number of rows without running
+    the search query twice. It goes something like:
+    
+    SELECT SQL_CALC_FOUND_ROWS * FROM mytable LIMIT X,Y
+    SELECT FOUND_ROWS() as total
+    
+    On the first query, put your SmartyPaginate values in for X and Y. The
+    second query will give you the number of records from the previous query
+    had the LIMIT clause not been applied.
+
+    Here is how the get_db_results() function from the SYNOPSIS section
+    might look using MySQL:
+    
+    
+    function get_db_results() {
+    
+        $_link = mysql_connect('mysql_host', 'mysql_user', 'mysql_password'));
+        mysql_select_db('my_database');
+
+        $_query = sprintf("SELECT SQL_CALC_FOUND_ROWS * FROM my_table LIMIT %d,%d",
+            SmartyPaginate::getCurrentIndex(), SmartyPaginate::getLimit());
+        
+        $_result = mysql_query($_query));
+
+        while ($_row = mysql_fetch_array($_result, MYSQL_ASSOC)) {
+            // collect each record into $_data
+            $_data[] = $_row;
+        }
+        
+        // now we get the total number of records from the table
+        $_query = "SELECT FOUND_ROWS()";
+        $_result = mysql_query($_query));
+        $_row = mysql_fetch_array($_result, MYSQL_ASSOC);
+        
+        SmartyPaginate::setTotal($_row['FOUND_ROWS']);
+
+        mysql_free_result($_result);
+        mysql_close($_link);
+        
+        return $_data;
+
+    }
+    
+
+    Now we populate the {$paginate} variable with
+    SmartyPaginate::assign($smarty). Supply your smarty object instance as the
+    parameter.    
+    
+    Once that is complete, you are finished with the application side of
+    SmartyPaginate, and you display your template.
+    
+    Now in the template, we use the {$paginate} variable to display the first,
+    last and total number of items we are displaying. Then we use the
+    {paginate_prev}, {paginate_middle} and {paginate_next} functions to display
+    the pagination navigation on the page. See the SYNOPSIS for an example
+    utilizing of all of these.
+    
+
+PUBLIC METHODS:    
+
+    function connect(id = 'default', $formvar = null)
+    -------------------------------------------------
+    
+    examples:
+    SmartyPaginate::connect();
+    SmartyPaginate::connect('mydata', $myformvars);
+
+    connect() is required on every invocation of SmartyPaginate. You can
+    optionally pass an id in case you want to keep track of more than one
+    pagination instance. You can also pass in your form variables as the second
+    parameter in case they are not contained in the $_GET superglobal
+    (default). 
+
+    function disconnect()
+    ---------------------
+    
+    examples:
+    SmartyPaginate::disconnect();
+    SmartyPaginate::disconnect(id = 'mydata');
+    
+    This clears the SmartyPaginate session data. Call this when you are
+    finished with pagination and want to clear all session data. If the id
+    parameter is it not supplied, all pagination data is cleared.
+
+
+    function reset($id = 'default')
+    -------------------------------
+    
+    examples:
+    SmartyPaginate::reset();
+    SmartyPaginate::reset($id = 'mydata');
+    
+    This resets the SmartyPaginate session data. Call this when you want to
+    reset all pagination data to defaults.
+
+
+    function setLimit($limit, $id = 'default')
+    ------------------------------------------
+        
+    examples:
+    SmartyPaginate::setLimit(20);
+    SmartyPaginate::setLimit(20, 'mydata');
+    
+    setLimit() sets the number of items displayed per page, the default is 10.
+    You can optionally pass an id as the second parameter.
+
+    function getLimit($id = 'default')
+    ----------------------------------
+    
+    examples:
+    $limit = SmartyPaginate::getLimit();
+    
+    Gets the current number of items displayed per page.
+
+
+    function setTotal($total, $id = 'default')
+    ------------------------------------------
+        
+    examples:
+    SmartyPaginate::setTotal(150);
+    SmartyPaginate::setTotal(150, 'mydata');
+    
+    setTotal() sets the total number if items being paginated. This could come
+    from SQL_CALC_ROWS when doing a mysql query, for example. This MUST be set
+    for the paginator to work! You can optionally pass an id as the second
+    parameter.
+
+    function getTotal($id = 'default')
+    ----------------------------------
+    
+    examples:
+    $total = SmartyPaginate::getTotal();
+    
+    Gets the total number of items being paginated. You can optionally pass an
+    id as the second parameter.
+
+
+    function setUrl($url, $id = 'default')
+    --------------------------------------
+        
+    examples:
+    SmartyPaginate::setUrl('results.php');
+    SmartyPaginate::setUrl('results.php', 'mydata');
+    
+    setUrl() sets the URL used in the paginator links to navigate from page to
+    page. By default $_SERVER['PHP_SELF'] is used (current script.) You can
+    optionally pass an id as the second parameter.
+    
+    function getUrl($id = 'default')
+    --------------------------------
+    
+    examples:
+    $url = SmartyPaginate::getUrl();
+    
+    Gets the URL used by the paginator. You can optionally pass an id as the
+    second parameter.
+
+    function setUrlVar($urlvar, $id = 'default')
+    --------------------------------------------
+        
+    examples:
+    SmartyPaginate::setUrlVar('page_next');
+    SmartyPaginate::setUrlVar('page_next', 'mydata');
+    
+    setUrlVar() sets the URL variable used by the paginator links determine the
+    next page. 'next' is the default value, only change this if it conflicts
+    with application variables. You can optionally pass an id as the second
+    parameter.
+
+    
+    function getUrlVar($id = 'default')
+    -----------------------------------
+    
+    examples:
+    $urlvar = SmartyPaginate::getUrlVar();
+    
+    Gets the URL variable used by the paginator. You can optionally pass an id
+    as the second parameter.
+
+
+    function setCurrentItem($item, $id = 'default')
+    -----------------------------------------------
+        
+    examples:
+    SmartyPaginate::setCurrentItem(11);
+    SmartyPaginate::setCurrentItem(11, 'mydata');
+    
+    setCurrentItem() sets the current item being paginated to. This is normally
+    set by clicking the pagination links, use this if you have a reason to jump
+    to another item manually. You can optionally pass an id as the second
+    parameter.
+
+
+    function getCurrentItem($id = 'default')
+    ----------------------------------------
+    
+    examples:
+    $item = SmartyPaginate::getCurrentItem();
+    
+    Gets the current item being paginated to. You can optionally pass an id as
+    the second parameter. This is the same as getCurrentIndex() + 1.
+
+
+    function getCurrentIndex($id = 'default')
+    -----------------------------------------
+    
+    examples:
+    $item = SmartyPaginate::getCurrentIndex();
+    
+    Gets the index of the current item. You can optionally pass an id as
+    the second parameter. This is the same as getCurrentItem() - 1. Use this
+    as "X" in a MySQL query with LIMIT X,Y.
+
+
+    function getLastItem($id = 'default')
+    -------------------------------------
+        
+    examples:
+    SmartyPaginate::getLastItem();
+    SmartyPaginate::getLastItem('mydata');
+    
+    getLastItem() gets the last item of the currently displayed list.
+
+
+    function setPrevText($text, $id = 'default')
+    --------------------------------------------
+        
+    examples:
+    SmartyPaginate::setPrevText('PREVIOUS');
+    SmartyPaginate::setPrevText('PREVIOUS', 'mydata');
+    
+    Set the default text used in the "previous" pagination link. The default
+    value is 'prev'.
+
+
+    function getPrevText($id = 'default')
+    -------------------------------------
+        
+    examples:
+    SmartyPaginate::getPrevText();
+    SmartyPaginate::getPrevText('mydata');
+    
+    Get the default text used in the "prev" pagination link.
+
+
+    function setNextText($text, $id = 'default')
+    --------------------------------------------
+        
+    examples:
+    SmartyPaginate::setNextText('NEXT');
+    SmartyPaginate::setNextText('NEXT', 'mydata');
+    
+    Set the default text used in the "next" pagination link. The default
+    value is 'next'.
+
+    function getNextText($id = 'default')
+    -------------------------------------
+        
+    examples:
+    SmartyPaginate::getNextText();
+    SmartyPaginate::getNextText('mydata');
+
+    
+    Get the default text used in the "first" pagination link.
+
+    function setFirstText($text, $id = 'default')
+    --------------------------------------------
+        
+    examples:
+    SmartyPaginate::setFirstText('FIRST');
+    SmartyPaginate::setFirstText('FIRST', 'mydata');
+    
+    Set the default text used in the "first" pagination link. The default
+    value is 'first'.
+
+    function getFirstText($id = 'default')
+    -------------------------------------
+        
+    examples:
+    SmartyPaginate::getFirstText();
+    SmartyPaginate::getFirstText('mydata');
+    
+    Get the default text used in the "first" pagination link.
+
+
+    function setLastText($text, $id = 'default')
+    --------------------------------------------
+        
+    examples:
+    SmartyPaginate::setLastText('LAST');
+    SmartyPaginate::setLastText('LAST', 'mydata');
+    
+    Set the default text used in the "last" pagination link. The default
+    value is 'last'.
+
+    function getLastText($id = 'default')
+    -------------------------------------
+        
+    examples:
+    SmartyPaginate::getLastText();
+    SmartyPaginate::getLastText('mydata');
+    
+    Get the default text used in the "last" pagination link.
+
+
+    function assign(&$smarty, $var = 'paginate', $id = 'default')
+    -------------------------------------------------------------
+        
+    examples:
+    SmartyPaginate::assign($smarty);
+    SmartyPaginate::assign($smarty, 'page_me');
+    SmartyPaginate::assign($smarty, 'paginate', 'mydata');
+    
+    Sets the {$paginate} template variable. Pass the Smarty object as the first
+    parameter. You can optionally pass a different template variable name as
+    the second parameter or an id as the third parameter.
+
+
+    function setPageLimit($limit, $id = 'default')
+    ----------------------------------------------
+        
+    examples:
+    SmartyPaginate::setPageLimit(5);
+    SmartyPaginate::setPageLimit(5, 'mydata');
+    
+    setPageLimit() sets the default number of page groupings displayed in the
+    {paginate_middle} function. This is the same as this in the template:
+    
+    {paginate_middle page_limit="5"}
+    
+
+    function getPageLimit($id = 'default')
+    --------------------------------------
+    
+    examples:
+    $page_limit = SmartyPaginate::getPageLimit();
+    
+    getPageLimit() gets the default number of page groupings displayed in the
+    {paginate_middle} function.
+
+
+SMARTYPAGINATE VARIABLE SYNTAX
+
+    The pagination variable is assigned with SmartyPaginate::assign(). The
+    pagination variable is 'paginate' by default, unless otherwise noted when
+    calling SmartyPaginate::assign(). Available values:
+    
+    {$paginate.first} -- the first item displayed
+    {$paginate.last} -- the last item displayed
+    {$paginate.total} -- the total number of items
+    {$paginate.size} -- the size of the currently displayed segment
+    {$paginate.page_current} -- the current page being displayed
+    {$paginate.page_total} -- the total number of pages
+
+    The following are used if you want to make a custom navigation bar (instead
+    of using the template functions {paginate_prev/middle/next})
+    
+    {$paginate.url} -- The pagination URL
+    {$paginate.urlvar} -- The pagination URL variable (default 'next')
+    {$paginate.current_item} -- the current item index
+    {$paginate.prev_text} -- the text for the prev link
+    {$paginate.next_text} -- the text for the next link
+    {$paginate.limit} -- the page limit
+    {$paginate.page[N].number} -- the page number
+    {$paginate.page[N].item_start} -- the starting item for this page
+    {$paginate.page[N].item_end} -- the ending item for this page
+    {$paginate.page[N].is_current} -- boolean true on the current page
+    
+    Examples:
+    
+    {if $paginate.size gt 1}
+      Items {$paginate.first}-{$paginate.last} of {$paginate.total} displayed.
+    {else}
+      Item {$paginate.first} of {$paginate.total} displayed.    
+    {/if}
+    
+    
+SMARTYPAGINATE FUNCTION SYNTAX:    
+    
+    There are several different template functions available. They are as follows:
+    
+    {paginate_first}
+    {paginate_first id="mydata"}
+    {paginate_first text="FIRST"}
+    {paginate_prev}
+    {paginate_prev id="mydata"}
+    {paginate_prev text="&lt;&lt;"}
+    {paginate_next}
+    {paginate_next id="mydata"}
+    {paginate_next text="&lt;&lt;"}
+    {paginate_last}
+    {paginate_last id="mydata"}
+    {paginate_last text="FIRST"}
+     
+     The functions above are used to display links that take you to the first,
+     previous, next and last pagination groupings. Use the "id" parameter only if
+     you are not using the default id. The "text" parameter changes the default
+     text of the link. Any unknown attributes will be passed through to the
+     links as HTML attributes.
+    
+    {paginate_middle}
+    {paginate_middle id="mydata"}
+    {paginate_middle format="page"}
+    {paginate_middle prefix="(" suffix=")"}
+    {paginate_middle page_limit="5"}
+    {paginate_middle link_prefix="[[" link_suffix="]]"}
+
+    {paginate_middle} displays the links to all of the pagination groupings. The
+    format attribute "page" displays the page number instead of the item range
+    numbers. ([1][2][3] instead of [1-5][6-10][11-15]). The prefix and suffix
+    attributes change the default delimiters [] around each link. The
+    link_prefix and link_suffix change the text between the links. The
+    page_limit attribute sets the maximum number of page groupings to display
+    (if you have too many pages, limit the display with this.) Any unknown
+    attributes will be passed through to the links as HTML attributes.
+
+CREDITS:
+
+    Thanks to those who have submitted bug reports, suggestions, etc.
+    
+    boots (from forums)
+    kills (from forums)
+    Josef Whiter (help with page grouping)
+	oPT (from forums)
+	jaco (from forums)
+      
+    Anyone I missed, let me know!
+
+
+COPYRIGHT:
+    Copyright(c) 2004-2005 New Digital Group, Inc. All rights reserved.
+
+    This library is free software; you can redistribute it and/or modify it
+    under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation; either version 2.1 of the License, or (at
+    your option) any later version.
+
+    This library is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+    FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
+    License for more details.

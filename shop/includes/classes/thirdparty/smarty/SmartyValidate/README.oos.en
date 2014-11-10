@@ -1,0 +1,53 @@
+/* ----------------------------------------------------------------------
+   $Id: README.oos.en,v 1.1 2007/06/07 16:55:53 r23 Exp $
+
+   OOS [OSIS Online Shop]
+   http://www.oos-shop.de/
+
+   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   ----------------------------------------------------------------------
+   Released under the GNU General Public License
+   ---------------------------------------------------------------------- */
+
+
+
+~/shop/includes/classes/thirdparty/smarty/libs/
+        SmartyValidate.class.php
+
+
+~/shop/includes/classes/thirdparty/smarty/libs/plugins
+        validate_criteria.isRange.php
+        validate_criteria.isFileSize.php
+        validate_criteria.isDateOnOrBefore.php
+        validate_criteria.isDateOnOrAfter.php
+        validate_criteria.isEqual.php
+        validate_criteria.isDate.php
+        validate_criteria.isLength.php
+        validate_criteria.isCCExpDate.php
+        validate_criteria.isDateAfter.php
+        validate_transform.default.php
+        validate_criteria.isDateEqual.php
+        validate_criteria.isPrice.php
+        validate_criteria.isInt.php
+        validate_criteria.isNumber.php
+        validate_criteria.dummyValid.php
+        validate_criteria.notEmpty.php
+        function.validate_init.php
+        function.validate.php
+        validate_criteria.isURL.php
+        validate_criteria.isRegExp.php
+        validate_criteria.isFloat.php
+        validate_criteria.isCCNum.php
+        validate_criteria.isEmail.php
+        validate_criteria.isFileType.php
+        validate_criteria.isDateBefore.php
+        validate_transform.makeDate.php
+        validate_transform.trim.php
+
+
+~/shop/includes/classes/thirdparty/smarty/SmartyValidate/
+        NEWS
+        README
+        README.oos.eng
+
+

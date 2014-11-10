@@ -1,0 +1,551 @@
+/* ----------------------------------------------------------------------
+   $Id: stylesheet.css,v 1.1 2007/06/14 16:26:02 r23 Exp $
+
+   OOS [OSIS Online Shop]
+   http://www.oos-shop.de/
+   
+   
+   Copyright (c) 2003 - 2005 by the OOS Development Team.
+   ----------------------------------------------------------------------
+   Based on:
+
+   File: stylesheet.css,v 1.52 2003/02/13 13:54:41 project3000 
+   ----------------------------------------------------------------------
+   osCommerce, Open Source E-Commerce Solutions
+   http://www.oscommerce.com
+
+   Copyright (c) 2003 osCommerce
+   ----------------------------------------------------------------------
+   Released under the GNU General Public License
+   ---------------------------------------------------------------------- */
+
+.boxText { font-family: Verdana, Arial, sans-serif; font-size: 10px; }
+.errorBox { font-family : Verdana, Arial, sans-serif; font-size : 10px; background: #ffb3b5; font-weight: bold; }
+.stockWarning { font-family : Verdana, Arial, sans-serif; font-size : 10px; color: #cc0033; }
+.productsNotifications { background: #f2fff7; }
+.orderEdit { font-family : Verdana, Arial, sans-serif; font-size : 10px; color: #70d250; text-decoration: underline; }
+
+BODY {
+  background: #ffffff;
+  color: #000000;
+  margin: 0px;
+}
+
+A { 
+  color: #000000; 
+  text-decoration: none; 
+}
+
+A:hover { 
+  color: #AABBDD; 
+  text-decoration: underline; 
+}
+
+FORM {
+	display: inline;
+}
+
+TR.header {
+  background: #ffffff;
+}
+
+TR.headerNavigation {
+  background: #bbc3d3;
+}
+
+TD.headerNavigation {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+  background: #bbc3d3;
+  color: #ffffff;
+  font-weight : bold;
+}
+
+A.headerNavigation { 
+  color: #FFFFFF; 
+}
+
+A.headerNavigation:hover {
+  color: #ffffff;
+}
+
+TR.headerError {
+  background: #ff0000;
+}
+
+TD.headerError {
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  font-size: 12px;
+  background: #ff0000;
+  color: #ffffff;
+  font-weight : bold;
+  text-align : center;
+}
+
+TR.headerInfo {
+  background: #00ff00;
+}
+
+TD.headerInfo {
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  font-size: 12px;
+  background: #00ff00;
+  color: #ffffff;
+  font-weight: bold;
+  text-align: center;
+}
+
+TR.footer {
+  background: #bbc3d3;
+}
+
+TD.footer {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+  background: #bbc3d3;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.infoBox {
+  background: #b6b7cb;
+}
+
+.infoBoxContents {
+  background: #f8f8f9;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+}
+
+.infoBoxNotice {
+  background: #FF8E90;
+}
+
+.infoBoxNoticeContents {
+  background: #FFE6E6;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+}
+
+TD.infoBoxHeading {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  background: #bbc3d3;
+  color: #ffffff;
+}
+
+SPAN.oos-bigInfo {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  background: #bbc3d3;
+  color: #ffffff;
+}
+
+
+TD.infoBox, SPAN.infoBox {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+}
+
+TR.accountHistory-odd, TR.addressBook-odd, TR.alsoPurchased-odd, TR.payment-odd, TR.productListing-odd, TR.productReviews-odd, TR.upcomingProducts-odd, TR.shippingOptions-odd {
+  background: #f4f7fd;
+}
+
+TR.accountHistory-even, TR.addressBook-even, TR.alsoPurchased-even, TR.payment-even, TR.productListing-even, TR.productReviews-even, TR.upcomingProducts-even, TR.shippingOptions-even {
+  background: #ffffff;
+}
+
+TR.productListing-heading {
+  background: #d2e9fb;
+}
+
+TD.productListing-heading {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+  background: #d2e9fb;
+  color: #000000;
+  font-weight: bold;
+  font-variant: small-caps;
+}
+
+TD.productListing-data {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+}
+
+A.pageResults { 
+  color: #0000FF; 
+}
+
+A.pageResults:hover { 
+  color: #0000FF; 
+  background: #FFFF33; 
+}
+
+TD.pageHeading, DIV.pageHeading {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  color: #9a9a9a;
+}
+
+SPAN.oos-bigTitle {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: #9a9a9a;
+}
+
+
+TD.category_desc {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+TR.subBar {
+  background: #f4f7fd;
+}
+
+TD.subBar {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+  color: #000000;
+}
+
+TD.main, P.main {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+TD.smallText, SPAN.smallText, P.smallText {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+}
+
+TD.accountCategory {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 13px;
+  color: #aabbdd;
+}
+
+TD.fieldKey {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+TD.fieldValue {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 12px;
+}
+
+TD.tableHeading {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+TABLE.ticket {
+  border-collapse:collapse;
+  border-color: #bbc3d3;
+  border-style: solid;
+  border-width: 2px;
+}
+
+TD.ticketInfoBoxHeading {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  background: #bbc3d3;
+  color: #ffffff;
+  border:2px #bbc3d3 solid; 
+}
+
+TD.ticketSmallText {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+  border:2px #bbc3d3 solid; 
+}
+
+SPAN.newItemInCart {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+  color: #ff0000;
+}
+
+CHECKBOX, INPUT, RADIO, SELECT {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 11px;
+}
+
+TEXTAREA {
+  width: 100%;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 11px;
+}
+
+SPAN.greetUser {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 12px;
+  color: #f0a480;
+  font-weight: bold;
+}
+
+TABLE.formArea {
+  background: #f1f9fe;
+  border-color: #7b9ebd;
+  border-style: solid;
+  border-width: 1px;
+}
+
+TD.formAreaTitle {
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+SPAN.markProductOutOfStock {
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  font-size: 12px;
+  color: #c76170;
+  font-weight: bold;
+}
+
+SPAN.productSpecialPrice {
+  font-family: Verdana, Arial, sans-serif;
+  color: #ff0000;
+}
+
+SPAN.errorText {
+  font-family: Verdana, Arial, sans-serif;
+  color: #ff0000;
+}
+
+
+SPAN.otDiscount {
+  font-family: Verdana, Arial, sans-serif;
+  color: #ff0000;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.moduleRow { }
+.moduleRowOver { background-color: #D7E9F7; cursor: hand; }
+.moduleRowSelected { background-color: #E9F4FC; }
+
+.checkoutBarFrom, .checkoutBarTo { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #8c8c8c; }
+.checkoutBarCurrent { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #000000; }
+
+/* BOF: Category Tabs */
+
+TD.tab {
+	background-color: #2F4F4F;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-style: normal;
+	font-weight: bold;
+	font-size: smaller;
+	}
+		
+A.tab {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 10px;
+	color: #ffffff;
+	text-decoration : none;
+	}
+A.tab:hover {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 10px;
+	color: #ffcc00;
+	text-decoration : none;
+}
+TD.ontab {
+	background-color: #6699ff;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-style: normal;
+	font-weight: bold;
+	font-size: smaller;
+	color: #ffffff;
+	}
+
+A.headerLink {
+	background-color: #ffffff;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-style: normal;
+	font-weight: bold;
+	font-size: smaller;
+	color: #000099;
+	text-decoration : none;
+}
+A.headerLink:hover {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-style: normal;
+	font-weight: bold;
+	font-size: smaller;
+	color: #99ccff;
+	text-decoration : none;
+}
+/* EOF: Category Tabs */
+
+/* ERROR MESSAGES ON QUANTITY AND UNITS */
+TD.QtyErrors, P.QtyErrors {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 9px;
+  color= #FF0000;
+  line-height: 1.5;
+}
+
+/* BOF: For Discount Prices */
+TD.DiscountPriceTitle, P.DiscountPriceTitle {
+  background: #bbc3d3
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+
+TD.DiscountPriceQty, P.DiscountPriceQty {
+  background: #FFFFCC
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 11px;
+	color: #FF0000;
+  line-height: 1.0;
+}
+
+TD.DiscountPrice, P.DiscountPrice {
+  background: #FFFFCC
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 11px;
+	color: #000000;
+  line-height: 1.0;
+}
+
+TD.QuantityDiscountAvailable, P.QuantityDiscountAvailable {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+	color: #FF0000;
+}
+/* EOF: For Discount Prices */
+
+/* BOF: PRICES */
+TD.pageHeadingPriceSavings, DIV.pageHeadingPriceSavings {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  color: #A62A2A;
+}
+
+TD.pageHeadingPriceList, DIV.pageHeadingPriceList {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  color: #9a9a9a;
+}
+
+TD.pageHeadingPriceRebate, DIV.pageHeadingPriceRebate {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  color: #D1AF0E;
+}
+
+TD.pageHeadingRebateSavings, DIV.pageHeadingRebateSavings {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  color: #388E8E;
+}
+/* EOF: PRICES */
+
+
+/* BOF: Define an Outline style */
+.outline {
+border: #000000;
+border-style: solid;
+border-top-width: 1px;
+border-right-width: 1px;
+border-bottom-width: 1px;
+border-left-width: 1px;
+background-color: #FFFFFF;
+}
+/* EOF: Define an Outline style */
+
+
+TABLE.linkListing {
+  border: 1px;
+  border-style: solid;
+  border-color: #b6b7cb;
+  border-spacing: 1px;
+}
+
+.linkListing-heading {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  background: #b6b7cb;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+TD.linkListing-data {
+  border-right: 1px solid #b6b7cb;
+  border-bottom: 1px solid #b6b7cb;
+  padding: 4px;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+}
+
+TR.linkListing-odd {
+  background: #f8f8f9;
+}
+
+TR.linkListing-even {
+  background: #F5F5F5;
+}
+
+ul.bb-list-unordered { }
+ol.bb-list-ordered { }
+ol.bb-list-ordered-d { list-style-type:decimal; }
+ol.bb-list-ordered-lr { list-style-type:lower-roman; }
+ol.bb-list-ordered-ur { list-style-type:upper-roman; }
+ol.bb-list-ordered-la { list-style-type:lower-alpha; }
+ol.bb-list-ordered-ua { list-style-type:upper-alpha; }
+ol.bb-listitem { }
+
+.bb-code,
+.bb-php {
+  border: 1px solid black;
+  padding: 10px;
+  font-family: Courier;
+  white-space: nowrap;
+}
+
+.bb-quote {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.bb-email { }
+.bb-url { }
+
+.bb-image {
+  border-width: 0;
+  border-style: none;
+}
+
+.textarea {
+ line-height: 13px;
+ font-size: 13px;
+ padding: 2px;
+ font-family: sans-serif;
+
+ width: 450px;
+ height: 235px;
+}

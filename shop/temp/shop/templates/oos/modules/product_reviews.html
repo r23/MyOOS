@@ -1,4 +1,4 @@
-<!--  $Id: product_reviews.html 452 2013-06-28 15:49:00Z r23 $ -->
+<!--  $Id: product_reviews.html,v 1.2 2009/02/19 14:26:06 r23 Exp $ -->
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td>{$oosPageHeading}</td>
@@ -25,7 +25,7 @@
           <tr class="productReviews-odd">
   {/if}
             <td class="smallText">{$smarty.section.i.rownum|number_format}</td>
-            <td class="smallText"><a href="{html_href_link content=$contents.product_reviews_info products_id=$smarty.get.products_id reviews_id=$oos_reviews_array[i].id}">{$oos_reviews_array[i].customers_name}</a></td>
+            <td class="smallText"><a href="{html_href_link modul=$modules.reviews file=$filename.product_reviews_info products_id=$smarty.get.products_id reviews_id=$oos_reviews_array[i].id}">{$oos_reviews_array[i].customers_name}</a></td>
             <td align="center" class="smallText"><img src="{$smarty.const.OOS_IMAGES}stars_{$oos_reviews_array[i].rating}.gif" border="0" alt="{$oos_reviews_array[i].rating|string_format:$lang.text_of_5_stars}" width="59" height="11"></td>
             <td align="center" class="smallText">{$oos_reviews_array[i].read}</td>
             <td align="right" class="smallText">{$oos_reviews_array[i].date_added}</td>
@@ -41,8 +41,8 @@
           <tr>
             <td class="main" colspan="5"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main"><a href="{product_info_link products_id=$smarty.get.products_id}">{html_image_button image="back.gif" alt=$lang.button_back}</a></td>
-                <td align="right" class="main"><a href="{html_href_link content=$contents.product_reviews_write products_id=$smarty.get.products_id}">{html_image_button image="write_review.gif" alt=$lang.button_write_review}</a></td>
+                <td class="main"><a href="{product_info_link products_id=$smarty.get.products_id}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
+                <td align="right" class="main"><a href="{html_href_link modul=$modules.reviews file=$filename.product_reviews_write products_id=$smarty.get.products_id}">{html_image_button image="write_review.gif" alt=$lang.image_button_write_review}</a></td>
               </tr>
             </table></td>
           </tr>

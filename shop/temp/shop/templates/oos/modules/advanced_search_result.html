@@ -1,4 +1,4 @@
-<!--  $Id: advanced_search_result.html 452 2013-06-28 15:49:00Z r23 $ -->
+<!--  $Id: advanced_search_result.html,v 1.2 2009/02/19 14:26:06 r23 Exp $ -->
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td>{$oosPageHeading}</td>
@@ -12,13 +12,13 @@
       </tr>
 {else}
       <tr>
-        <td>{include file="$oos/products/product_listing.html"}</td>
+        <td>{include file="$theme_set/products/product_listing.html"}</td>
       </tr>
 {/if}
       <tr>
         <td height="10"></td>
       </tr>
       <tr>
-        <td class="main"><a href="{html_href_link content=$contents.advanced_search oos_get=$oos_get_all_get_params}">{html_image_button image="back.gif" alt=$lang.button_back}</a></td>
+        <td class="main"><a href="{html_href_link modul=$modules.search file=$filename.advanced_search oos_get=$oos_get_all_get_params}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
       </tr>
     </table>

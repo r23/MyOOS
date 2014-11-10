@@ -1,0 +1,60 @@
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" class="contentpane">
+<tbody><tr><td height="2"></td></tr>
+<tr><td width="100%" class="contentheading">{$oos_heading_title}</td></tr>
+<tr><td height="15"></td></tr>
+{if $smarty.get.action eq 'success'}
+<tr>
+	<td>
+		<table border="0" width="100%">
+		<tbody><tr><td colspan="2" height="2"></td></tr>
+		<tr>
+			<td class="main"><img src="{$theme_image}/table_background_man_on_board.gif" border="0" alt="{$oos_heading_title}" align="left">{$lang.text_success}</td>
+		</tr>
+		<tr>
+			<td align="right"><br /><a href="{html_href_link modul=$modules.main file=$filename.main}">{html_image_button image="continue.gif" alt=$lang.image_button_continue}</a></td>
+		</tr>
+		</tbody></table>
+	</td>
+</tr>
+{else}
+<tr>
+	<td>
+{if $oEvent->installed_plugin('spell')}
+<script type="text/javascript" src="js/googiespell/AmiJS.js"></script>
+<script type="text/javascript" src="js/googiespell/googiespell.js"></script>
+<script type="text/javascript" src="js/googiespell/cookiesupport.js"></script>
+<link href="js/googiespell/googiespell.css" rel="stylesheet" type="text/css" media="all" />
+{/if}
+
+		<form name="contact_us" action="{html_href_link modul=$modules.main file=$filename.contact_us action=send}" method="post">
+		<div class="contact_email">
+		{$lang.entry_name}				<br />
+			<input type="text" name="name" size="30" class="inputbox" value="{$smarty.post.name}" />
+			<br />
+			{$lang.entry_email}			<br />
+			<input type="text" name="email" size="30" class="inputbox" value="{$smarty.post.email}" />
+			<br /><br />
+			{$lang.entry_enquiry}			<br />
+
+			<span id="spell_container" style="background-color: #ddd"></span><br />
+			<textarea id="tal" name="enquiry" class="textarea">{$smarty.post.enquiry|stripslashes}</textarea>
+{if $oEvent->installed_plugin('spell')}
+{literal}
+<script type="text/javascript">
+  var googie2 = new GoogieSpell("js/googiespell/", "send_req.php?lang=");
+  googie2.dontUseCloseButtons();
+  googie2.setSpellContainer("spell_container");
+  googie2.decorateTextarea("tal");
+</script>
+{/literal}
+{/if}
+
+			<br />
+			 {html_image_submit image="continue.gif" alt=$lang.image_button_continue}
+		</div>
+		</form>
+	</td>
+</tr>
+{/if}
+</tbody></table>

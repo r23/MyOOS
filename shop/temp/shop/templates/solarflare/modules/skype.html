@@ -1,0 +1,49 @@
+    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td colspan="2">{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td colspan="2" height="10"></td>
+      </tr>
+      <tr>
+        <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td>{html_oos_image basedir=$smarty.const.OOS_IMAGES image=skype_logo.gif alt=Skype}</td>
+          </tr>
+          <tr>
+            <td class="main">{$lang.text_intro}</td>
+          </tr>
+
+<tr><td>
+<!-- Skype White Dropdown - http://www.skype.com/go/skypebuttons -->
+<script type="text/javascript" src="http://download.skype.com/share/skypebuttons/buttons/white_dropdown/dropdown.js"></script>
+<script type="text/javascript" src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script>
+<div id="skypeWhiteDrp">
+<div id="skypeDropdown-white-head"><a href="skype:{$smarty.const.SKYPE_ME}?call" onclick="return skypeCheck();" id="skypeWhiteDrp-Call"><img src="http://download.skype.com/share/skypebuttons/buttons/white_dropdown/call.gif" width="155" height="52" id="skypeWhiteDrpCall" alt="" /></a><a href="#" id="skypeWhiteDrp-Switch" onclick="return false;"><img src="http://download.skype.com/share/skypebuttons/buttons/white_dropdown/down.gif" width="40" height="52" id="skypeWhiteDrpArrow" alt="" onmouseover="skypeWhiteDrpDown()" onmouseout="skypeWhiteDrpUp();" /></a></div>
+<div id="skypeDropdown-white" style="display: none;">
+<a href="skype:{$smarty.const.SKYPE_ME}?chat" onclick="return skypeCheck();"><img src="http://download.skype.com/share/skypebuttons/buttons/white_dropdown/2.gif" onmouseover="skpBtnOvrWhite(this)" onmouseout="skpBtnOutWhite(this)" width="195" height="25" id="SkpWhiteBtn-2" alt="" /></a>
+<a href="skype:{$smarty.const.SKYPE_ME}?add" onclick="return skypeCheck();"><img src="http://download.skype.com/share/skypebuttons/buttons/white_dropdown/3.gif" onmouseover="skpBtnOvrWhite(this)" onmouseout="skpBtnOutWhite(this)" width="195" height="27" id="SkpWhiteBtn-3" alt="" /></a>
+<a href="skype:{$smarty.const.SKYPE_ME}?voicemail" onclick="return skypeCheck();"><img src="http://download.skype.com/share/skypebuttons/buttons/white_dropdown/4.gif" onmouseover="skpBtnOvrWhite(this)" onmouseout="skpBtnOutWhite(this)" width="195" height="25" id="SkpWhiteBtn-4" alt="" /></a>
+<a href="skype:{$smarty.const.SKYPE_ME}?userinfo" onclick="return skypeCheck();"><img src="http://download.skype.com/share/skypebuttons/buttons/white_dropdown/5.gif" onmouseover="skpBtnOvrWhite(this)" onmouseout="skpBtnOutWhite(this)" width="195" height="27" id="SkpWhiteBtn-5" alt="" /></a>
+<a href="skype:{$smarty.const.SKYPE_ME}?sendfile" onclick="return skypeCheck();"><img src="http://download.skype.com/share/skypebuttons/buttons/white_dropdown/6.gif" onmouseover="skpBtnOvrWhite(this)" onmouseout="skpBtnOutWhite(this)" width="195" height="39" id="SkpWhiteBtn-6" alt="" /></a>
+</div>
+</div>
+</td></tr>
+
+
+        </table></td>
+      </tr>
+
+      <tr>
+        <td colspan="2" align="left" valign="middle" class="main"><hr size="1" noshade></td>
+      </tr>
+{if !isset($smarty.get.option)}
+      <tr>
+        <td align="left" valign="middle" class="main"><a href="{oos_back_link}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
+        <td align="right" valign="middle" class="main"><a href="{html_href_link modul=$modules.main file=$filename.main}">{html_image_button image="continue.gif" alt=$lang.image_button_continue}</a></td>
+      </tr>
+{/if}
+      <tr>
+        <td colspan="2" align="left" valign="middle" class="main">&nbsp;</td>
+      </tr>
+    </table>

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html {$oos_html_params}>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$smarty.const.CHARSET}">
+<base href="{$oos_base}">
+<title>{$heading_titel}</title>
+<link rel="stylesheet" type="text/css" href="{$theme_css}/print.css">
+</head>
+
+<body class="contentpane">
+
+     <table class="contentpaneopen">
+       <tbody><tr>
+         <td class="contentheading" width="100%">{$heading_titel}</td>
+         <td align="right" width="100%" class="buttonheading"><a href="#" onclick="javascript:window.print(); return false" title="{$lang.icon_button_print}">{html_js_icon image="print.gif" alt=$lang.icon_button_print}</a></td>
+       </tr></tbody>
+     </table>
+
+
+     <table class="contentpaneopen">
+       <tbody><tr>
+         <td valign="top" colspan="2" class="createdate">
+         {$oos_date_long}</td>
+       </tr>
+       <tr>
+         <td valign="top" colspan="2" class="main">
+         {$help_text}</td>
+      </tr></tbody>
+     </table>
+
+
+     <div align="right" style="margin-top: 30px; margin-bottom: 30px;">
+         <a href='javascript:window.close();'>
+         <span class="small">{$lang.text_close_window}</span>
+        </a>
+     </div>
+
+
+</body>
+</html>

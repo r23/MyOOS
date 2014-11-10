@@ -13,7 +13,7 @@
 {foreach item=order_products_history from=$order_history}
           <tr>
             <td class="block_content"><a href="{product_info_link products_id=$order_products_history.products_id}">{$order_products_history.products_name}</a></td>
-            <td class="block_content" align="right" valign="top"><a href="{html_href_link content=$content_file oos_get=$get_params action=cust_order pid=$order_products_history.products_id}">{html_image_button image="cart.gif" alt=$lang.icon_cart}</a></td>
+            <td class="block_content" align="right" valign="top"><a href="{html_href_link modul=$main_page file=$page_file oos_get=$get_params action=cust_order pid=$order_products_history.products_id}">{html_image_button image="cart.gif" alt=$lang.icon_cart}</a></td>
           </tr>
 {/foreach}
           <tr>

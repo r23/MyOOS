@@ -1,0 +1,186 @@
+2.9 Apr 23, 2007
+----------------
+
+* fix bug with multiple validators on a field (mckneisler, monte)
+* fix bug with initialization of multiple forms (schildi, monte)
+* fix looping on non-numeric index arrays (kayk, monte)
+
+2.8 Aug 7, 2006
+---------------
+
+* fix bug with failed fields function (kills, monte)
+
+2.7 March 29, 2006
+------------------
+
+* add SMARTY_VALIDATE_DEFAULT_FORM constant (kills, monte)
+* split up is_valid process for easier method subclassing (kills, monte)
+* fix more PHP 5 date problems (kills, monte)
+* fix PHP 5.1 problem with isDate (sguillory6, monte)
+* fix bug with duplicate error messages (monte)
+* fix problem when is_valid() called multiple times (monte)
+* fix problem with testing array keys in zero-index fields (andrea_c75,monte)
+* fix undefined index notice (Temas, monte)
+
+2.6 Aug 17, 2005
+----------------
+
+* fix variable reference notice (boots, monte)
+* fix error with array validation (monte)
+* fix error when form is redrawn and no validation was done
+  but error could still show (monte)
+* fix typo in isLength plugin (rainco, monte)
+* fix bug when using append (monte)
+* make is_valid return true if no validators defined (Pete Darwin, monte)
+* add ability to pass parameters to transform in register_validator()
+
+2.5 May 17, 2005
+----------------
+
+* fix bug with isRange criteria (Alexey Kuimov, monte)
+* fix problems with looping validators that have been
+  registered/unregistered (monte)
+* fix bug with assign/append in validator tags (monte)
+* fix default transform function, errors on non-empty value (monte)
+* fix undefined index notices (rainco, monte)
+* change e-mail validator logic to simpler method (monte)
+* give better error when registering a validator with
+  unregistered form (monte)
+* fix some PHP notices (monte)
+
+2.4 April 4, 2005
+-----------------
+
+* fix ccExpDate criteria bug, it didn't work (monte)
+* add set_page() function, update README (monte)
+* add register_validator() function, update README (monte)
+* fix documentation on custom criteria/transforms (monte)
+* add support for specific array keys field="foo[bar]" (monte)
+* allow array brackets field=foo[] (monte)
+* add better error reporting when connect() was not called (monte)
+
+2.3 December 20, 2004
+---------------------
+
+* fix problem with _execute_transform test (monte)
+* add "default" transform function (Isidor128, monte)
+* fix false test with transform parameter (Thomas Keller, monte)
+* update isEmail validation plugin to better validation regex (monte)
+* allow dashes in hostname for isURL syntax checking (monte)
+* fix condition where form criteria has not been defined (such as lost session)
+  and is_valid() passes (B00zy, monte)
+* make append array associative with field name as key (Isidor128, monte)
+* fixed validation error for unset formvars (B00zy, monte)
+* use strict mode for booleanize test (B00zy, monte)
+* add {validate_init} tag for initializing validate tag paramters (monte)
+
+2.2 July 13, 2004
+-----------------
+
+* fix parenthesis placement with connect method (nzsmarty, monte)
+* add the optional form name tag to the docs (Peter Belt, monte)
+* fixed bug: halt ignored when assigning message to a var (monte)
+* fixed connect() so that it properly checks for class (boots)
+* assign/append smarty vars in is_valid function call
+  so variables are available anywhere in the template,
+  even before validator tags (pabianjs, monte)
+* remove PHP license mention in README, add LGPL (monte)
+* fix bug with isURL validator regex (monte)
+
+2.2-b1 June 24, 2004
+--------------------
+
+* add dummyValid, isDateEqual, isDateAfter, isDateBefore,
+  isDateOnOrAfter, isDateOnOrBefore criteria functions (monte)
+* add makeDate transform function (monte)
+* fix bug with is_error not getting assigned when form is registered (hristov, monte)
+* pass $params and $formvars to transform functions (monte)
+* fixed _object_instance() so that it properly returns a reference (boots)
+* add isURL criteria (monte)
+* change is_form_registered() to is_registered_form(), change
+  is_object_registered() to is_registered_object() to conform
+  to other naming conventions (monte)
+* add isFileType and isFileSize criteria (monte)
+* show error when connect() is executed with no PHP session (monte)
+* add parameter 'name' to register_criteria and register_function.
+  breaks BC but makes criteria/transforms more flexible and simpler
+  "isCustom" is GONE, not necessary an confusing anyways (monte)
+* move all criteria/tranform functions to plugins (monte)
+* add second param to connect() to reset default form (xces, monte)
+* updated disconnect() to release object references (boots)
+* updated _object_instance() to accept a release all parameter (boots)
+* removed _smarty_instance(). Now _object_instance() used exlusively (boots)
+* update connect() with stronger Smarty class checking (boots)
+* remove deprecated register_function() method (monte)
+* make register_form() remove any previously registered data when passed second
+  parameter of "true", remove reset_form(), no longer necessary. (monte)
+* update isEmail to check all addresses separated by newlines (monte)
+* make criteria and transformations work on array elements unless
+  specifically stated in {validate ...} tag as @foo (monte)
+
+2.1-b1 June 10, 2004
+--------------------
+
+* add "halt" parameter for stopping validation on a form (monte)
+* add register_object() method, add support for foo->bar isCustom functions (monte)
+* change register_form() behavior: do NOT throw an error when a form is already
+  registered. Just return false (monte)
+* use message from validator tag instead of session so updates are seen (monte)
+* document reset_form() method (was in RC1, not documented) (monte)
+
+2.0RC1 June 7, 2004
+-------------------
+
+* remove clear(), add disconnect() method (monte)
+* add register_form(), unregister_form(), is_form_registered() methods (monte)
+* remove init(), add connect() method, require smarty object as param (monte)
+
+1.6 June 1, 2004
+----------------
+
+* change assign/append to act separately (monte, xces)
+* add transform parameter, deprecate trim parameter (monte)
+* add register_criteria() and register_transform() methods,
+  deprecate register_function() method (monte)
+* add is_init() and clear() methods (monte)
+
+1.5 May 27th, 2004
+------------------
+
+* fix bug with passing form name to custom function (xces, monte)
+* added "append" attribute as alternate to "assign" (xces, monte)
+* added fourth parameter to custom functions to access all form vars. (monte)
+
+1.4 May 26th, 2004
+------------------
+
+* added third parameter to custom functions to access all available attrs.
+* fixed bug in is_registered_function() method (only affects custom funcs) 
+* fixed incorrect example of is_valid() in the docs
+
+1.3 May 25th, 2004
+------------------
+
+* added isLength validator
+* stop validation after one validator fails (per field)
+* fix trim() functionality
+* fix _is_float function call (typo)
+* fix foreach() error condition
+
+1.2 May 7th, 2004
+-----------------
+
+* changed behavior of isCustom functions to require registration
+  (instead of allowing anything when no functions are registered.)
+
+1.1 May 7th, 2004
+-----------------
+
+* fixed some documentation errors
+* renamed isValid() to is_valid to more closely follow Smarty function names
+* added register_function() to secure function calls with "isCustom"
+
+1.0 May 6th, 2004
+-----------------
+
+initial release.

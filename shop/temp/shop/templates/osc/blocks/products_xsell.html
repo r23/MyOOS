@@ -1,0 +1,34 @@
+{if $xsell_block eq 'true'}
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+  <tr>
+    <td height="14" class="infoBoxHeading"><img src="{$theme_image}/infobox/corner_right_left.gif" border="0" alt="" width="11" height="14"></td>
+    <td width="100%" height="14" class="infoBoxHeading">{$block_heading_xsell}</td>
+    <td height="14" class="infoBoxHeading"><img src="{$theme_image}/trans.gif" border="0" alt="" width="11" height="14"></td>
+  </tr>
+</table>
+<table border="0" width="100%" cellspacing="0" cellpadding="1" class="infoBox">
+  <tr>
+    <td><table border="0" width="100%" cellspacing="0" cellpadding="3" class="infoBoxContents">
+  <tr>
+    <td height="1"></td>
+  </tr>
+{foreach name=xsell item=xsell_products from=$block_xsell_products}
+  <tr>
+  {if $smarty.const.BLOCK_XSELL_PRODUCTS_IMAGE eq 'true'}
+    <td align="center" class="boxText" colspan="3"><a href="{product_info_link products_id=$xsell_products.products_id}">{html_oos_image basedir=$smarty.const.OOS_IMAGES image=$xsell_products.products_image alt=$xsell_products.products_name width=$smarty.const.SMALL_IMAGE_WIDTH height=$smarty.const.SMALL_IMAGE_HEIGHT}</a></td>
+  </tr>
+  <tr>
+  {/if}
+    <td class="boxText">{$smarty.foreach.xsell.iteration|number_format}.</td>
+    <td class="boxText"><a href="{product_info_link products_id=$xsell_products.products_id}">{$xsell_products.products_name}</a></td>
+    <td class="boxText">{if $smarty.session.member->group.show_price eq 1 }<a href="{html_href_link modul=$main_page file=$page_file action=buy_now products_id=$xsell_products.products_id}">{html_image_button image="cart.gif" alt=$lang.icon_cart}</a>{/if}</td>
+  </tr>
+  <tr>
+    <td colspan="3"><img src="{$theme_image}/trans.gif" alt="" width="100%" height="3" /></td>
+  </tr>
+{/foreach}
+</table>
+</td>
+  </tr>
+</table>
+{/if}

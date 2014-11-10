@@ -1,0 +1,57 @@
+{if $whats_new_block eq 'true'}
+<table width="150"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="2"><img src="{$theme_image}/block/tbl_top_left.gif" alt=" " width="2" height="4"></td>
+    <td colspan="2" class="tbl_top_center"></td>
+    <td width="2"><img src="{$theme_image}/block/tbl_top_right.gif" alt=" " width="2" height="4"></td>
+  </tr>
+  <tr>
+    <td rowspan="2" class="tbl_left"></td>
+    <td width="4" class="tbl_header"><img src="{$theme_image}/trans.gif" alt=" " width="2" height="22"></td>
+    <td width="146" align="left" valign="middle" class="tbl_header">{$block_heading_whats_new} <a href="{html_href_link modul=$modules.products file=$filename.products_new}"><img src="{$theme_image}/infobox/arrow_right.gif" border="0" alt="{$icon_arrow_right}"></a>
+</td>
+    <td rowspan="2" class="tbl_right"></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="left" valign="top" bgcolor="#F6F7F1">
+	<table width="100%"  border="0" cellspacing="3" cellpadding="0">
+  <tr>
+    <td align="center">
+<a href="{product_info_link products_id=$random_product.products_id}">{small_product_image image=$random_product.products_image alt=$random_product.products_name|strip_tags}</a>
+<br />
+<img src="{$theme_image}/link.gif" alt=" "><a href="{product_info_link products_id=$random_product.products_id}">{$random_product.products_name}</a>
+<br />
+{if (!empty($whats_new_special_price))}
+   <s>{$whats_new_product_price}{$smarty.const.UNITS_DELIMITER}{$products_units[$random_product.products_units_id]}</s><br />
+   {if $random_product.products_base_price != 1}<s><span class="base_price">{$random_product.products_base_unit} = {$whats_new_base_product_price}</span></s><br />{/if}
+
+   <span class="special_price">{$whats_new_product_special_price}{$smarty.const.UNITS_DELIMITER}{$products_units[$random_product.products_units_id]}</span>
+   {if $random_product.products_base_price != 1}<br /><span class="special_base_price">{$random_product.products_base_unit} = {$whats_new_base_product_special_price}</span></s><br />{/if}
+
+{else}
+  {if $whats_new_max_product_discount != 0}
+    <s>{$whats_new_product_price}</s> -{$whats_new_max_product_discount}%<br />
+    <span class="discount_price">{$whats_new_product_discount_price}{$smarty.const.UNITS_DELIMITER}{$products_units[$random_product.products_units_id]}</span>
+    {if $random_product.products_base_price != 1}<br /><span class="discount_base_price">{$random_product.products_base_unit} = {$whats_new_base_product_special_price}</span></s><br />{/if}
+
+  {else}
+    {$whats_new_product_price}{$smarty.const.UNITS_DELIMITER}{$products_units[$random_product.products_units_id]}
+    {if $random_product.products_base_price != 1}<br /><span class="base_price">{$random_product.products_base_unit} = {$whats_new_base_product_price}</span><br />{/if}
+
+  {/if}
+{/if}
+<br /><span class="pangv">{$pangv}</span><br />
+
+</td>
+          </tr>
+	</td>
+  </tr>
+</table>	</td>
+  </tr>
+  <tr>
+    <td><img src="{$theme_image}/block/tbl_buttom_left.gif" alt=" " width="2" height="2"></td>
+    <td colspan="2" class="tbl_buttom_center"></td>
+    <td><img src="{$theme_image}/block/tbl_buttom_right.gif" alt=" " width="2" height="2"></td>
+  </tr>
+</table>
+{/if}

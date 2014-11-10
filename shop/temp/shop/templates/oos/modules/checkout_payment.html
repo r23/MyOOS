@@ -1,13 +1,11 @@
-<!--  $Id: checkout_payment.html 452 2013-06-28 15:49:00Z r23 $ -->
-
-<form name="checkout_payment" action="{html_get_link connection=SSL}" method="post" onSubmit="return check_form();">
-    <input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
-    <input type="hidden" name="formid" value="{$formid}">
-	<input type="hidden" name="action" value="process">
-    <input type="hidden" name="content" value="{$contents.checkout_confirmation}">
-
-
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<!--  $Id: checkout_payment.html,v 1.2 2009/02/19 14:26:06 r23 Exp $ -->
+{if $oEvent->installed_plugin('spell')}
+ <script type="text/javascript" src="js/googiespell/AmiJS.js"></script>
+ <script type="text/javascript" src="js/googiespell/googiespell.js"></script>
+ <script type="text/javascript" src="js/googiespell/cookiesupport.js"></script>
+ <link href="js/googiespell/googiespell.css" rel="stylesheet" type="text/css" media="all">
+{/if}
+<form name="checkout_payment" action="{html_href_link modul=$modules.checkout file=$filename.checkout_confirmation connection=SSL}" method="post" onsubmit="return check_form();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td>{$oosPageHeading}</td>
       </tr>
@@ -52,7 +50,7 @@
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                <td class="main" width="50%" valign="top">{$lang.text_selected_billing_destination}<br><br><a href="{html_href_link content=$contents.checkout_payment_address connection=SSL}">{html_image_button image="change_address.gif" alt=$lang.button_change_address}</a></td>
+                <td class="main" width="50%" valign="top">{$lang.text_selected_billing_destination}<br><br><a href="{html_href_link modul=$modules.checkout file=$filename.checkout_payment_address connection=SSL}">{html_image_button image="change_address.gif" alt=$lang.image_button_change_address}</a></td>
                 <td align="right" width="50%" valign="top"><table border="0" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="main" align="center" valign="top"><b>{$lang.title_billing_address}</b><br><img src="{$theme_image}/arrow_south_east.gif" border="0" alt=" " width="50" height="31"></td>
@@ -204,6 +202,39 @@
         </table></td>
       </tr>
 {/if}
+{if $smarty.const.DISPLAY_CONDITIONS_ON_CHECKOUT eq 'true'}
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main"><b>{$lang.heading_conditions_information}</b></td>
+          </tr>
+        </table></td>
+      </tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr>
+            <td><div class="license-form">
+               <div align="middle"  class="form-block" style="padding: 0px;">
+              {html_iframe doc="conditions.html" class="license" frameborder="0" scrolling="auto"}
+              </div>
+              </div>
+              </td>
+          </tr>
+          <tr class="oos-BoxContents">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="main" valign="top"><input type="checkbox" name="conditions" id="1"></td>
+                <td class="main" onClick="javascript:document.getElementById('1').checked= !document.getElementById('1').checked;">{$lang.text_conditions_confirm}</td>
+                <td class="main" align="right"><a href="{$condition_link}" target="_blank"><b>{$lang.text_conditions_download}</b></a></td>
+                <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+{/if}
       <tr>
         <td height="10"></td>
       </tr>
@@ -214,7 +245,7 @@
               <tr>
                 <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
                 <td class="main"><b>{$lang.title_continue_checkout_procedure}</b><br>{$lang.text_continue_checkout_procedure}</td>
-                <td class="main" align="right">{html_image_submit image="continue.gif" alt=$lang.button_continue}</td>
+                <td class="main" align="right">{html_image_submit image="continue.gif" alt=$lang.image_button_continue}</td>
                 <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
               </tr>
             </table></td>
@@ -249,7 +280,7 @@
             </table></td>
           </tr>
           <tr>
-            <td align="center" width="25%" class="checkoutBarFrom"><a href="{html_href_link content=$contents.checkout_shipping connection=SSL}" class="checkoutBarFrom">{$lang.checkout_bar_delivery}</a></td>
+            <td align="center" width="25%" class="checkoutBarFrom"><a href="{html_href_link modul=$modules.checkout file=$filename.checkout_shipping connection=SSL}" class="checkoutBarFrom">{$lang.checkout_bar_delivery}</a></td>
             <td align="center" width="25%" class="checkoutBarCurrent">{$lang.checkout_bar_payment}</td>
             <td align="center" width="25%" class="checkoutBarTo">{$lang.checkout_bar_confirmation}</td>
             <td align="center" width="25%" class="checkoutBarTo">{$lang.checkout_bar_finished}</td>

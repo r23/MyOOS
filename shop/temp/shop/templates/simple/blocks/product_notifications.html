@@ -1,0 +1,34 @@
+{if $notifications_block eq 'true'}
+<table width="150"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="2"><img src="{$theme_image}/block/tbl_top_left.gif" alt=" " width="2" height="4"></td>
+    <td colspan="2" class="tbl_top_center"></td>
+    <td width="2"><img src="{$theme_image}/block/tbl_top_right.gif" alt=" " width="2" height="4"></td>
+  </tr>
+  <tr>
+    <td rowspan="2" class="tbl_left"></td>
+    <td width="4" class="tbl_header"><img src="{$theme_image}/trans.gif" alt=" " width="2" height="22"></td>
+    <td width="146" align="left" valign="middle" class="tbl_header">{$block_heading_notifications} <a href="{html_href_link modul=$modules.user file=$filename.product_notifications connection=SSL}"><img src="{$theme_image}/infobox/arrow_right.gif" border="0" alt="{$icon_arrow_right}"></a></td>
+    <td rowspan="2" class="tbl_right"></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="left" valign="top" bgcolor="#F6F7F1">
+	<table width="100%"  border="0" cellspacing="3" cellpadding="0">
+  <tr>
+{if $notification_exists}
+  <td><a href="{html_href_link modul=$main_page file=$page_file oos_get=$get_params action=notify_remove connection=$request_type}">{html_oos_image basedir=$smarty.const.OOS_IMAGES image="box_products_notifications_remove.gif" alt=$lang.image_button_remove_notifications}</a></td>
+  <td><a href="{html_href_link modul=$main_page file=$page_file oos_get=$get_params action=notify_remove connection=$request_type}">{$products_name|string_format:$lang.block_notifications_notify_remove}</a></td>
+{else}
+  <td><a href="{html_href_link modul=$main_page file=$page_file oos_get=$get_params action=notify connection=$request_type}">{html_oos_image basedir=$smarty.const.OOS_IMAGES image="box_products_notifications.gif" alt=$lang.image_button_notifications}</a></td>
+  <td><a href="{html_href_link modul=$main_page file=$page_file oos_get=$get_params action=notify connection=$request_type}">{$products_name|string_format:$lang.block_notifications_notify}</a></td>
+{/if}
+  </tr>
+</table>	</td>
+  </tr>
+  <tr>
+    <td><img src="{$theme_image}/block/tbl_buttom_left.gif" alt=" " width="2" height="2"></td>
+    <td colspan="2" class="tbl_buttom_center"></td>
+    <td><img src="{$theme_image}/block/tbl_buttom_right.gif" alt=" " width="2" height="2"></td>
+  </tr>
+</table>
+{/if}

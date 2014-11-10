@@ -1,0 +1,9 @@
+phpOpenOffice
+=============
+
+Das Skript phpOpenOffice erleichtert die Veränderung von Dokumenten, die mit OpenOffice.org
+erstellt wurden. Es ersetzt Platzhalter in Dokumenten mit Daten. Einsatzgebiete für das
+Skript sind beispielsweise personalisierte Anschreiben, Rechnungen und Lieferscheine. Zur
+Nutzung muss lediglich die Datei phpOpenOffice.php eingebunden werden, in der die Pfade für
+temporäre Dateien und Zusatzbibliotheken anzugeben sind. phpOpenOffice steht unter der
+BSD-Lizenz.

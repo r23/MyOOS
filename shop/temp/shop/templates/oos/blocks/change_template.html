@@ -1,0 +1,58 @@
+<table width="154" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="19" class="block_head_background"><img src="{$theme_image}/table_head_arrow.gif" alt=" " width="21" height="19"></td>
+    <td width="130" class="block_head_background">{$block_heading_change_template}</td>
+    <td width="5" class="block_head_background"><img src="{$theme_image}/table_head_right.gif" alt=" " width="5" height="19"></td>
+  </tr>
+  <tr>
+    <td colspan="3"><table width="154" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="2" class="block_content_backgr_left"></td>
+        <td width="150"><table width="150" border="0" cellspacing="0" cellpadding="3">
+          <tr>
+            <td align="center" valign="top" class="block_content">
+<img src="themes/{$smarty.session.theme}/images/template_thumbnail.gif" name="preview" border="1" width="140" height="90" alt="{$smarty.session.theme}">
+<br>
+{literal}
+<script language='JavaScript1.2' type='text/javascript'>
+<!--
+  function showimage() {
+    document.images.preview.src = 'themes/' + getSelectedValue( 'templateform', 'template' ) + '/images/template_thumbnail.gif';
+  }
+  function getSelectedValue( frmName, srcListName ) {
+    var form = eval( 'document.' + frmName );
+    var srcList = eval( 'form.' + srcListName );
+    i = srcList.selectedIndex;
+    if (i != null && i > -1) {
+      return srcList.options[i].value;
+    } else {
+      return null;
+    }
+}
+-->
+</script>
+{/literal}
+<form name="templateform" action="{html_get_link}" method="get">
+    <input type="hidden" name="mp" value="{$main_page}">
+    <input type="hidden" name="file" value="{$page_file}">
+    <input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
+    <select name=template onchange="showimage()">{html_options values=$skins selected=$smarty.session.theme output=$skins}</select>
+    {html_image_submit image="quick_find.gif" alt=$block_heading_search}
+</form>            </td>
+          </tr>
+        </table></td>
+        <td width="2" class="block_content_backgr_right"></td>
+      </tr>
+      <tr>
+        <td><img src="{$theme_image}/table_butt_left.gif" alt=" " width="2" height="8"></td>
+        <td></td>
+        <td><img src="{$theme_image}/table_butt_right.gif" alt=" " width="2" height="8"></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="3"><img src="{$theme_image}/pixel.gif" alt=" " width="3" height="3"></td>
+  </tr>
+</table>
+
+

@@ -1,0 +1,2 @@
+Version 0.1b
+Added function xmlencode to make sure that variables are UTF8 encoded and openoffice/xml compatible.

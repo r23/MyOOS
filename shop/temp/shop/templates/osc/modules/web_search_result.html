@@ -1,0 +1,28 @@
+<!--  $Id: web_search_result.html,v 1.1 2007/06/15 07:15:31 r23 Exp $ -->
+    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+{if $oos_page_numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '1' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+   {$oosPageNavigation}
+{/if}
+      <tr>
+        <td><table border="0" cellspacing="0" cellpadding="2">
+{foreach from=$websearch_results item=search_element}
+                      <tr>
+                        <td valign="top" class="main"><div align="justify"><a href="{$search_element->getURL()}" target="_blank" class="webSearchTitle"><b>{$search_element->getTitle()}</b></a><br />{$search_element->getSnippet()}<br /><a href="{$search_element->getURL()}" target="_blank"><u>{$search_element->getURL()}</u></a></div></td>
+                      </tr>
+                      <tr>
+                        <td height="10"></td>
+                      </tr>
+{/foreach}
+
+        </table></td>
+      </tr>
+{if $oos_page_numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+  {$oosPageNavigation}
+{/if}
+    </table></td>

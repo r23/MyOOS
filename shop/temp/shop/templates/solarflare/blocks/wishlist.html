@@ -1,0 +1,33 @@
+{if $wishlist_block eq 'true'}
+<table cellpadding="0" cellspacing="0" class="moduletable">
+<tbody><tr><th valign="top">{$block_heading_customer_wishlist}&nbsp;&nbsp;<a href="{html_href_link modul=$modules.account file=$filename.account_my_wishlist connection=SSL}"><img src="{$theme_image}/infobox/arrow_right.gif" border="0" alt="{$icon_arrow_right}"></a></th></tr>
+<tr>
+	<td>
+
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+		<tbody><tr><td height="8"></td></tr>
+
+{if $show_wishlist eq 'true'}
+	{foreach name=block item=wishlist from=$wishlist_contents}
+		<tr>
+		{if $smarty.const.BLOCK_WISHLIST_IMAGE eq 'true'}
+		<td align="center" colspan="2"><a href="{product_info_link products_id=$wishlist.products_id}">{small_product_image image=$wishlist.products_image alt=$wishlist.products_name|strip_tags}</a></td>
+		</tr>
+		<tr>
+		{/if}
+		<td class="boxText" valign="top">{$smarty.foreach.block.iteration|number_format}.</td>
+		<td class="boxText"><a href="{product_info_link products_id=$wishlist.products_id}">{$wishlist.products_name}</a></td>
+		</tr>
+
+		<tr><td colspan="2" height="3"></td></tr>
+	{/foreach}
+{else}
+		<tr><td align="center" valign="top" class="boxText">{$lang.block_wishlist_empty}</td></tr>
+{/if}
+		</tbody></table>
+
+	</td>
+
+</tr>
+</tbody></table>
+{/if}

@@ -1,0 +1,44 @@
+{if $login_block eq 'true'}
+<table cellpadding="0" cellspacing="0" class="moduletable">
+<tbody><tr><th valign="top">{$block_login_heading}</th></tr>
+<tr>
+	<td>
+	<form name="login" method="post" action="{html_href_link modul=$modules.user file=$filename.login action=process connection=SSL}">
+
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+		<tbody><tr>
+		<td>
+			{$lang.entry_email_address}		<br />
+			<input name="email_address" type="text" class="inputbox" alt="{$lang.entry_email_address}" size="10" />
+			<br />
+			{$lang.entry_password}			<br />
+			<input type="password" name="password" class="inputbox" size="10" alt="{$lang.entry_password}" />
+			<br />
+{if $oEvent->installed_plugin('autologon')}
+			<input type="checkbox" name="remember" class="inputbox" value="yes" alt="{$lang.login_entry_remember_me}" />
+                	{$lang.login_entry_remember_me}		<br />
+{/if}
+			<br />
+			{html_image_submit image="login.gif" border="0" alt=$lang.image_button_login}
+			<br />
+			<br />
+		</td>
+		</tr>
+		<tr>
+			<td>
+
+&nbsp;&nbsp;&nbsp; <img src="{$theme_image}/icons/folder.gif" alt=" ">&nbsp;&nbsp;<a href="{html_href_link modul=$modules.user file=$filename.create_account connection=SSL}">{$lang.login_block_new_customer}</a><br />
+&nbsp;&nbsp;&nbsp; <img src="{$theme_image}/icons/folder.gif" alt=" ">&nbsp;&nbsp;<a href="{html_href_link modul=$modules.user file=$filename.password_forgotten connection=SSL}">{$lang.text_password_info}</a><br />
+
+			</td>
+		</tr>
+		</tbody></table>
+
+	</form>
+
+	</td>
+
+</tr>
+</tbody></table>
+
+{/if}

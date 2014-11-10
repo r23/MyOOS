@@ -1,0 +1,26 @@
+{if $notifications_block eq 'true'}
+<table cellpadding="0" cellspacing="0" class="moduletablegreen">
+<tbody><tr><th valign="top">{$block_heading_notifications}&nbsp;&nbsp;<a href="{html_href_link modul=$modules.user file=$filename.product_notifications connection=SSL}"><img src="{$theme_image}/infobox/arrow_right.gif" border="0" alt="{$icon_arrow_right}"></a></th></tr>
+<tr>
+	<td>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+		<tbody><tr><td colspan="2" height="8"></td></tr>
+
+		<tr>
+{if $notification_exists}
+		<td><a href="{html_href_link modul=$main_page file=$page_file oos_get=$get_params action=notify_remove connection=$request_type}">{html_oos_image basedir=$smarty.const.OOS_IMAGES image="box_products_notifications_remove.gif" alt=$lang.image_button_remove_notifications}</a></td>
+		<td><a href="{html_href_link modul=$main_page file=$page_file oos_get=$get_params action=notify_remove connection=$request_type}">{$products_name|string_format:$lang.block_notifications_notify_remove}</a></td>
+{else}
+		<td><a href="{html_href_link modul=$main_page file=$page_file oos_get=$get_params action=notify connection=$request_type}">{html_oos_image basedir=$smarty.const.OOS_IMAGES image="box_products_notifications.gif" alt=$lang.image_button_notifications}</a></td>
+		<td><a href="{html_href_link modul=$main_page file=$page_file oos_get=$get_params action=notify connection=$request_type}">{$products_name|string_format:$lang.block_notifications_notify}</a></td>
+{/if}
+		</td>
+		</tr>
+		</tbody></table>
+
+
+	</td>
+
+</tr>
+</tbody></table>
+{/if}

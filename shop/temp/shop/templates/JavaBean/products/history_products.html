@@ -1,0 +1,26 @@
+{if $products_history_block eq 'true'}
+{section name=i loop=$history_products}
+{if $smarty.section.i.first}
+<table border="0" cellpadding="1" cellspacing="0" width="100%">
+  <tr>
+    <td><table border="0" cellpadding="3" cellspacing="0" width="100%">
+      <tr>
+        <td align="left" class="tbl_header">{$lang.table_heading_products_history}</td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<table border="0" width="100%" cellspacing="0" cellpadding="4" class="oos-BoxContents">
+  <tr>
+  {/if}
+    <td align="center" valign="top"><a href="{html_href_link modul=$modules.products file=$filename.product_info products_id=$history_products[i].products_id}">{html_oos_image basedir=$smarty.const.OOS_IMAGES image=$history_products[i].products_image alt=$history_products[i].products_name height=$smarty.const.SMALL_IMAGE_HEIGHT width=$smarty.const.SMALL_IMAGE_WIDTH}</a><br />
+    <a href="{html_href_link modul=$modules.products file=$filename.product_info products_id=$history_products[i].products_id}">{$history_products[i].products_name}</a></td>
+  {if $smarty.section.i.rownum is div by 3}
+  </tr>
+    <tr>
+  {/if}
+  {if $smarty.section.i.last}
+</table>
+  {/if}
+{/section}
+{/if}

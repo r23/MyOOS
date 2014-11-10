@@ -1,0 +1,30 @@
+<table width="150"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="2"><img src="{$theme_image}/block/tbl_top_left.gif" alt=" " width="2" height="4"></td>
+    <td colspan="2" class="tbl_top_center"></td>
+    <td width="2"><img src="{$theme_image}/block/tbl_top_right.gif" alt=" " width="2" height="4"></td>
+  </tr>
+  <tr>
+    <td rowspan="2" class="tbl_left"></td>
+    <td width="4" class="tbl_header"><img src="{$theme_image}/trans.gif" alt=" " width="2" height="22"></td>
+    <td width="146" align="left" valign="middle" class="tbl_header">{$block_heading_currencies}</td>
+    <td rowspan="2" class="tbl_right"></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="left" valign="top" bgcolor="#F6F7F1">
+	<table width="100%"  border="0" cellspacing="3" cellpadding="0">
+  <tr>
+    <td>
+<form name="currencies" action="{html_href_link modul=$main_page file=$page_file  connection=$request_type add_session_id='false' search_engine_safe='false'}" method="get">
+{$oos_pull_down_menu}
+</form>
+	</td>
+  </tr>
+</table>	</td>
+  </tr>
+  <tr>
+    <td><img src="{$theme_image}/block/tbl_buttom_left.gif" alt=" " width="2" height="2"></td>
+    <td colspan="2" class="tbl_buttom_center"></td>
+    <td><img src="{$theme_image}/block/tbl_buttom_right.gif" alt=" " width="2" height="2"></td>
+  </tr>
+</table>

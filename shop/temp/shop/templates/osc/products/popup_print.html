@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<HTML {$smarty.const.HTML_PARAMS}>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset={$smarty.const.CHARSET}">
+<title>{$lang.table_heading_description}</title>
+<meta name="robots" content="noindex, nofollow">
+<base href="{$oos_base}">
+
+<link rel="stylesheet" type="text/css" href="{$theme_css}/print.css">
+</head>
+<body class="contentpane">
+
+
+    <table class="contentpaneopen">
+      <tbody><tr>
+        <td class="contentheading" width="100%">{$product_info.products_name}</td>
+        <td align="right" width="100%" class="buttonheading"><a href="#" onclick="javascript:window.print(); return false" title="{$lang.icon_button_print}">{html_js_icon image="print.gif" alt=$lang.icon_button_print}</a></td>
+      </tr></tbody>
+    </table>
+
+    <table class="contentpaneopen">
+      <tbody><tr>
+        <td valign="top" colspan="2" class="createdate">{$oos_date_long}</td>
+      </tr>
+      <tr><td height="15"></td></tr>
+    </tbody></table>
+
+
+    <table cellspacing="0" cellpadding="0">
+       <tbody><tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <tbody><tr>
+
+           <td align="center" valign="top">
+{if $product_info.products_image != '' }
+ {html_oos_image basedir=$smarty.const.OOS_IMAGES image=$product_info.products_image alt=$product_info.products_name width=$smarty.const.SMALL_IMAGE_WIDTH height=$smarty.const.SMALL_IMAGE_HEIGHT hspace=5 vspace=5}<br />
+{/if}
+               </td>
+            </td>
+
+               <td valign="top" width="350">
+
+               <table align="center" cellpadding="0" cellspacing="0" width="310">
+               <tbody><tr><td height="15"></td></tr>
+               <tr><td class="heading_title">{$product_info.products_name}</td></tr>
+               <tr><td height="10"></td></tr>
+
+{if $smarty.const.PRODUCT_LIST_MODEL > 0}
+               <tr><td height="10"></td></tr>
+               <tr>
+               <td class="main"><b>{$lang.table_heading_model}</b> {$product_info.products_model}</td>
+               </tr>
+{/if}
+
+{if ($product_info.products_date_available > $oosDate) }
+               <tr><td height="10"></td></tr>
+               <tr><td width="310" class="main">{$product_info.products_date_available|oos_date_long|string_format:$lang.text_date_available}</td>
+               </tr>
+{else}
+  {if $smarty.const.SHOW_DATE_ADDED_AVAILABLE eq 'true'}
+               <tr><td height="10"></td></tr>
+               <tr><td width="310" class="main">{$product_info.products_date_added|oos_date_long|string_format:$lang.text_date_added}</td>
+               </tr>
+  {/if}
+{/if}
+
+               <tr><td height="10"></td></tr>
+               <tr><td class="main">{$lang.price_info|clean_text:false}</td>
+               </tr>
+
+
+               <tr><td height="15"></td></tr>
+               <tr><td><b>{$lang.price}: </b>&nbsp;
+
+{if (!empty($info_special_price))}
+   <s>{$info_product_price}</s><br />
+   {if $product_info.products_base_price != 1}<s><span class="base_price">{$product_info.products_base_unit} = {$info_base_product_price}</span></s><br />{/if}
+
+   <span class="special_price">{$info_product_special_price|price2image:true}</span>
+   {if $product_info.products_base_price != 1}<br /><span class="special_base_price">{$product_info.products_base_unit} = {$info_base_product_special_price}</span></s><br />{/if}
+
+{else}
+  {if $info_max_product_discount != 0}
+    <s>{$info_product_price}</s> -{$info_max_product_discount}%<br />
+    <span class="discount_price">{$info_product_discount_price|price2image:true}</span>
+    {if $product_info.products_base_price != 1}<br /><span class="discount_base_price">{$product_info.products_base_unit} = {$info_base_product_special_price}</span></s><br />{/if}
+
+  {else}
+    {$info_product_price|price2image:true}
+    {if $product_info.products_base_price != 1}<br /><span class="base_price">{$product_info.products_base_unit} = {$info_base_product_price}</span><br />{/if}
+
+  {/if}
+{/if}
+ </td></tr>
+
+               <tr><td height="10"></td></tr>
+
+               <tr><td height="15"></td></tr>
+               </tbody></table>
+               </td>
+
+          </tr>
+        </tbody></table>
+       </tr>
+
+
+       <tr><td><img src="{$theme_image}/layout/pm.gif" alt=" " width="570" height="1" border="0"></td><tr>
+
+       <tr><td height="15"></td></tr>
+       <tr><td class="heading_title">{$lang.table_heading_description}</td></td>
+
+       <tr><td height="10"></td></tr>
+       <tr><td class="main">{$product_info.products_description}</td></tr>
+
+{if $oEvent->installed_plugin('sufu')}
+       <tr><td height="10"></td></tr>
+       <tr><td class="main"><b>URL:</b><br /> {html_href_link modul=$modules.products file=$filename.product_info products_id=$product_info.products_id connection='NONSSL' add_session_id='false' search_engine_safe='true'}</a>
+{/if}
+
+
+       <tr><td height="10"></td></tr>
+     </td></tr>
+     </tbody></table>
+     </table>
+
+
+     <div align="right" style="margin-top: 30px; margin-bottom: 30px;">
+         <a href='javascript:window.close();'>
+         <span class="small">{$lang.text_close_window}</span>
+        </a>
+     </div>
+
+</body>
+</html>
+

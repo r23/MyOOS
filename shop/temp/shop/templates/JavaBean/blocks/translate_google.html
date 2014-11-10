@@ -1,0 +1,47 @@
+<table width="150"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="2"><img src="{$theme_image}/block/tbl_top_left.gif" alt=" " width="2" height="4"></td>
+    <td colspan="2" class="tbl_top_center"></td>
+    <td width="2"><img src="{$theme_image}/block/tbl_top_right.gif" alt=" " width="2" height="4"></td>
+  </tr>
+  <tr>
+    <td rowspan="2" class="tbl_left"></td>
+    <td width="4" class="tbl_header"><img src="{$theme_image}/trans.gif" alt=" " width="2" height="22"></td>
+    <td width="146" align="left" valign="middle" class="tbl_header">{$block_heading_translate_google}</td>
+    <td rowspan="2" class="tbl_right"></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="left" valign="top" bgcolor="#F6F7F1">
+<table width="100%"  border="0" cellspacing="3" cellpadding="0">
+{if $smarty.session.language != 'deu'}
+  <tr>
+    <td><a href="http://translate.google.com/translate?u={html_href_link modul=$main_page file=$page_file oos_get=$get_params language=eng}&amp;langpair=en&hl=de">Deutsch</a></td>
+    <td><a href="http://translate.google.com/translate?u={html_href_link modul=$main_page file=$page_file oos_get=$get_params language=eng}&amp;langpair=en&hl=de"><img src="{$smarty.const.OOS_IMAGES}flags/german.gif" border="0" alt=" " width="20" height="12" /></a></td>
+  </tr>
+{/if}
+  <tr>
+    <td><a href="http://translate.google.com/translate?u={html_href_link modul=$main_page file=$page_file oos_get=$get_params language=eng}&amp;langpair=en&hl=fr">Fran�is</a><br /></td>
+    <td><a href="http://translate.google.com/translate?u={html_href_link modul=$main_page file=$page_file oos_get=$get_params language=eng}&amp;langpair=en&hl=fr"><img src="{$smarty.const.OOS_IMAGES}flags/french.gif" border="0" alt=" " width="20" height="12" /></a></td>
+  </tr>
+  <tr>
+    <td><a href="http://translate.google.com/translate?u={html_href_link modul=$main_page file=$page_file oos_get=$get_params language=eng}&amp;langpair=en&hl=it">Italiano</a><br /></td>
+    <td><a href="http://translate.google.com/translate?u={html_href_link modul=$main_page file=$page_file oos_get=$get_params language=eng}&amp;langpair=en&hl=it"><img src="{$smarty.const.OOS_IMAGES}flags/italian.gif" border="0" alt=" " width="20" height="12" /></a></td>
+  </tr>
+{if $smarty.session.language != 'spa'}
+  <tr>
+    <td><a href="http://translate.google.com/translate?u={html_href_link modul=$main_page file=$page_file oos_get=$get_params language=eng}&amp;langpair=en&hl=es">Espa�l</a></td>
+    <td><a href="http://translate.google.com/translate?u={html_href_link modul=$main_page file=$page_file oos_get=$get_params language=eng}&amp;langpair=en&hl=es"><img src="{$smarty.const.OOS_IMAGES}flags/spanish.gif" border="0" alt=" " width="20" height="12" /></a></td>
+  </tr>
+{/if}
+  <tr>
+    <td><a href="http://translate.google.com/translate?u={html_href_link modul=$main_page file=$page_file oos_get=$get_params language=eng}&amp;langpair=en&hl=pt">Portuguese</a><br /></td>
+    <td><a href="http://translate.google.com/translate?u={html_href_link modul=$main_page file=$page_file oos_get=$get_params language=eng}&amp;langpair=en&hl=pt"><img src="{$smarty.const.OOS_IMAGES}flags/portuguese.gif" border="0" alt=" " width="20" height="12" /></a></td>
+  </tr>
+</table>	</td>
+  </tr>
+  <tr>
+    <td><img src="{$theme_image}/block/tbl_buttom_left.gif" alt=" " width="2" height="2"></td>
+    <td colspan="2" class="tbl_buttom_center"></td>
+    <td><img src="{$theme_image}/block/tbl_buttom_right.gif" alt=" " width="2" height="2"></td>
+  </tr>
+</table>

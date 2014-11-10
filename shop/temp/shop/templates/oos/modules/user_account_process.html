@@ -1,4 +1,4 @@
-<!--  $Id: user_account_process.html 216 2013-04-02 08:24:45Z r23 $ -->
+<!--  $Id: user_account_process.html,v 1.3 2009/02/19 14:26:06 r23 Exp $ -->
      <table border="0" width="100%" cellspacing="0" cellpadding="2">
          <tr>
            <td class="formAreaTitle">{$lang.category_personal}</td>
@@ -92,7 +92,12 @@
             <td class="main">&nbsp;{$lang.entry_company}</td>
             <td class="main">&nbsp;{$company}<input type=hidden name="company" value="{$company}"></td>
           </tr>
-
+  {if $smarty.const.ACCOUNT_OWNER eq 'true'}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_owner}</td>
+            <td class="main">&nbsp;{$owner}<input type=hidden name="owner" value="{$owner}"></td>
+          </tr>
+  {/if}
   {if $smarty.const.ACCOUNT_VAT_ID eq 'true'}
           <tr>
             <td class="main">&nbsp;{$lang.entry_vat_id}</td>
@@ -127,7 +132,12 @@
   {/if}
             </td>
           </tr>
-
+{if $smarty.const.ACCOUNT_SUBURB eq 'true'}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_suburb}</td>
+            <td class="main">&nbsp;{$suburb}<input type=hidden name="suburb" value="{$suburb}"></td>
+          </tr>
+{/if}
           <tr>
             <td class="main">&nbsp;{$lang.entry_post_code}</td>
             <td class="main">&nbsp;
@@ -148,7 +158,22 @@
   {/if}
             </td>
           </tr>
-
+{if $smarty.const.ACCOUNT_STATE eq 'true'}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_state}</td>
+            <td class="main">&nbsp;
+  {if $state_error eq 'true'}
+      {if $state_has_zones eq 'true'}
+          <select name=state>{html_options values=$zones_values output=$zones_names}</select>&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_info_text}</font></small>
+      {else}
+          <input type="text" name="state" value="">&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_state_error}</font></small>
+      {/if}
+  {else}
+     {$state} <input type=hidden name="zone_id" value="{$zone_id}"><input type=hidden name="state" value="{$state}">
+  {/if}
+            </td>
+          </tr>
+{/if}
           <tr>
             <td class="main">&nbsp;{$lang.entry_country}</td>
             <td class="main">&nbsp;

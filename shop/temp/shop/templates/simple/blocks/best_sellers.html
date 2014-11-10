@@ -1,0 +1,38 @@
+{if $best_sellers_block eq 'true'}
+<table width="150"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="2"><img src="{$theme_image}/block/tbl_top_left.gif" alt=" " width="2" height="4"></td>
+    <td colspan="2" class="tbl_top_center"></td>
+    <td width="2"><img src="{$theme_image}/block/tbl_top_right.gif" alt=" " width="2" height="4"></td>
+  </tr>
+  <tr>
+    <td rowspan="2" class="tbl_left"></td>
+    <td width="4" class="tbl_header"><img src="{$theme_image}/trans.gif" alt=" " width="2" height="22"></td>
+    <td width="146" align="left" valign="middle" class="tbl_header">{$block_heading_best_sellers}</td>
+    <td rowspan="2" class="tbl_right"></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="left" valign="top" bgcolor="#F6F7F1">
+	<table width="100%"  border="0" cellspacing="3" cellpadding="0">
+{foreach name=best item=best_seller from=$best_sellers_list}
+      <tr>
+      <td class="boxText">{$smarty.foreach.best.iteration|number_format}.</td>
+  {if $smarty.const.BLOCK_BEST_SELLERS_IMAGE eq 'true'}
+        <td class="boxText">{tooltip products_id=$best_seller.products_id products_description=$best_seller.products_description image=$best_seller.products_image}{$best_seller.products_name|truncate:14:"":true|close_tags}</a>
+  {else}
+        <td class="boxText"><a href="{product_info_link products_id=$best_seller.products_id}">{$best_seller.products_name|truncate:17:"":true|close_tags}</a></td>
+  {/if}
+      </tr>
+      <tr>
+        <td colspan="2"><img src="{$theme_image}/pixel.gif" alt=" " width="100%" height="3" /></td>
+      </tr>
+{/foreach}
+</table>	</td>
+  </tr>
+  <tr>
+    <td><img src="{$theme_image}/block/tbl_buttom_left.gif" alt=" " width="2" height="2"></td>
+    <td colspan="2" class="tbl_buttom_center"></td>
+    <td><img src="{$theme_image}/block/tbl_buttom_right.gif" alt=" " width="2" height="2"></td>
+  </tr>
+</table>
+{/if}

@@ -1,0 +1,21 @@
+{if $order_history_block eq 'true'}
+<table cellpadding="0" cellspacing="0" class="moduletable">
+<tbody><tr><th valign="top">{$block_heading_customer_orders}</th></tr>
+<tr>
+	<td>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+		<tbody><tr><td colspan="2" height="8"></td></tr>
+
+{foreach item=order_products_history from=$order_history}
+		<tr>
+			<td class="boxText"><a href="{product_info_link products_id=$order_products_history.products_id}">{$order_products_history.products_name}</a></td>
+			<td class="boxText" align="right" valign="top"><a href="{html_href_link modul=$main_page file=$page_file oos_get=$get_params action=cust_order pid=$order_products_history.products_id}">{html_image_button image="cart.gif" alt=$lang.icon_cart}</a></td>
+		</tr>
+{/foreach}
+		</tbody></table>
+
+	</td>
+
+</tr>
+</tbody></table>
+{/if}

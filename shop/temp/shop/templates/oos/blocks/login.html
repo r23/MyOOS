@@ -1,0 +1,57 @@
+{if $login_block eq 'true'}
+<table width="154" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="19" class="block_head_background"><img src="{$theme_image}/table_head_arrow.gif" alt=" " width="21" height="19"></td>
+    <td width="130" class="block_head_background">{$block_login_heading}</td>
+    <td width="5" class="block_head_background"><img src="{$theme_image}/table_head_right.gif" alt=" " width="5" height="19"></td>
+  </tr>
+  <tr>
+    <td colspan="3"><table width="154" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="2" class="block_content_backgr_left"></td>
+        <td width="150">
+<form name="login" method="post" action="{html_href_link modul=$modules.user file=$filename.login action=process connection=SSL}">
+<table width="150" border="0" cellspacing="0" cellpadding="3">
+          <tr>
+            <td align="left" class="block_content">{$lang.entry_email_address}</td>
+         </tr>
+         <tr>
+           <td align="left" class="block_content"><input type="text" name="email_address" maxlength="96" size="20" value=""></td>
+         </tr>
+         <tr>
+           <td align="left" class="block_content">{$lang.entry_password}</td>
+         </tr>
+         <tr>
+           <td align="left" class="block_content"><input type="password" name="password" maxlength="40" size="20" value=""></td>
+         </tr>
+{if $oEvent->installed_plugin('autologon')}
+         <tr>
+           <td class="main" align="left"><input type="checkbox" name="remember_me" checked="checked">&nbsp;{$lang.login_entry_remember_me}</td>
+         </tr>
+{/if}
+         <tr>
+           <td class="main" align="center">{html_image_submit image="sign_in.gif" alt=$lang.image_button_login}</td>
+         </tr>
+         <tr>
+          <td align="left" class="block_content">
+            <a href="{html_href_link modul=$modules.user file=$filename.create_account connection=SSL}">{$lang.login_block_new_customer}</a><br>
+            <a href="{html_href_link modul=$modules.user file=$filename.password_forgotten connection=SSL}">{$lang.text_password_info}</a></td>
+          </tr>
+        </table>
+</form>
+</td>
+        <td width="2" class="block_content_backgr_right"></td>
+      </tr>
+      <tr>
+        <td><img src="{$theme_image}/table_butt_left.gif" alt=" " width="2" height="8"></td>
+        <td></td>
+
+        <td><img src="{$theme_image}/table_butt_right.gif" alt=" " width="2" height="8"></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="3"><img src="{$theme_image}/pixel.gif" alt=" " width="3" height="3"></td>
+  </tr>
+</table>
+{/if}

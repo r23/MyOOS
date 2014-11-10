@@ -9,7 +9,7 @@
          <td><br>{$up_sell_products}</td>
        </tr>
       <tr>
-        <td>{include file="$oos/products/history_products.html"}</td>
+        <td>{include file="$theme_set/products/history_products.html"}</td>
       </tr>
 {$featured}
       <tr>
@@ -19,7 +19,7 @@
    {$oosPageNavigation}
 {/if}
   <tr>
-    <td>{include file="$oos/products/slavery_product_listing.html"}</td>
+    <td>{include file="$theme_set/products/slavery_product_listing.html"}</td>
   </tr>
 {if $oos_page_numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
    {$oosPageNavigation}

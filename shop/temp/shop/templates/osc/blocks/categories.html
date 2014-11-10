@@ -1,0 +1,23 @@
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+  <tr>
+    <td height="14" class="infoBoxHeading"><img src="{$theme_image}/infobox/corner_left.gif" border="0" alt="" width="11" height="14"></td>
+    <td width="100%" height="14" class="infoBoxHeading">{$block_heading_categories}</td>
+    <td height="14" class="infoBoxHeading"><img src="{$theme_image}/trans.gif" border="0" alt="" width="11" height="14"></td>
+  </tr>
+</table>
+<table border="0" width="100%" cellspacing="0" cellpadding="1" class="infoBox">
+  <tr>
+    <td><table border="0" width="100%" cellspacing="0" cellpadding="3" class="infoBoxContents">
+  <tr>
+    <td height="1"></td>
+  </tr>
+  <tr>
+    <td class="oos-BlockText">{if $categories_isscroll == 0}{foreach item=category from=$categories_contents}{include file="default/blocks/category.html"}{/foreach}{else}{include file="default/blocks/categories_scroll.html"}{/if}</td>
+  </tr>
+  <tr>
+    <td height="1"></td>
+  </tr>
+</table>
+</td>
+  </tr>
+</table>

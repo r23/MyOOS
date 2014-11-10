@@ -1,0 +1,178 @@
+{if $smarty.const.LIGHTBOX eq 'true'}
+<script type="text/javascript" src="js/lightbox/prototype.js"></script>
+<script type="text/javascript" src="js/lightbox/scriptaculous.js?load=effects"></script>
+<script type="text/javascript" src="js/lightbox/lightbox.js"></script>
+<link rel="stylesheet" href="css/lightbox.css" type="text/css" media="screen" />
+{/if}
+
+<form name="cart_quantity" action="{html_get_link}" method="post" enctype="multipart/form-data">
+<input type="hidden" name="action" value="add_product">
+<input type="hidden" name="mp" value="{$main_page}">
+<input type="hidden" name="file" value="{$page_file}">
+<input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>{$oosPageHeading}<hr size="1" noshade></td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+         <tr>
+           <td class="main">{$product_info.products_description|stripslashes}
+<br />
+{if $smarty.const.PDF_DATA_SHEET eq 'true'}
+<script language="javascript"><!--
+document.write('<a href="javascript:void window.open(\'{html_href_link modul=$modules.products file=$filename.product_info_pdf products_id=$product_info.products_id}\', \'win2\', \'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no\');" title="{$lang.icon_button_pdf}">{html_js_icon image="pdf.gif" alt=$lang.icon_button_pdf}</a>');
+//--></script>
+{/if}
+<script language="javascript"><!--
+document.write('<a href="javascript:void window.open(\'{html_href_link modul=$modules.products file=$filename.popup_print products_id=$product_info.products_id}\', \'win2\', \'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no\');" title="{$lang.icon_button_print}">{html_js_icon image="print.gif" alt=$lang.icon_button_print}</a>');
+//--></script>
+
+    </td>
+    <td align="right" valign="top" class="smallText">
+{if $product_info.products_image != '' }
+  {if $smarty.const.LIGHTBOX eq 'true'}
+    <a href="{$smarty.const.OOS_IMAGES}{$smarty.const.OOS_POPUP_IMAGES}{$product_info.products_image}" rel="lightbox" title= {$product_info.products_name} ><img src="{$smarty.const.OOS_IMAGES}{$product_info.products_image}" alt={$product_info.products_name|escape:"quotes"} border="0"></a><br>
+    <br><br><a href="{$smarty.const.OOS_IMAGES}{$smarty.const.OOS_POPUP_IMAGES}{$product_info.products_image}" rel="lightbox" title= {$product_info.products_name} >{html_js_icon image="zoom.gif" alt=$lang.icon_button_zoom}{$lang.text_click_to_enlarge}</a>
+
+  {else}
+
+<script language="javascript"><!--
+document.write('<a href="javascript:popupWindow(\'{html_href_link modul=$modules.products file=$filename.popup_image pID=$product_info.products_id image=0}\')">{html_oos_image basedir=$smarty.const.OOS_IMAGES image=$product_info.products_image alt=$product_info.products_name|escape:"quotes" width=$smarty.const.SMALL_IMAGE_WIDTH height=$smarty.const.SMALL_IMAGE_HEIGHT hspace=5 vspace=5}<br />{$lang.text_click_to_enlarge}</a>');
+//--></script>
+<noscript>
+ {html_oos_image basedir=$smarty.const.OOS_IMAGES image=$product_info.products_image alt=$product_info.products_name width=$smarty.const.SMALL_IMAGE_WIDTH height=$smarty.const.SMALL_IMAGE_HEIGHT hspace=5 vspace=5}<br />
+</noscript>
+  {/if}
+{/if}
+
+{if $product_info.products_zoomify != '' }
+<script language="javascript"><!--
+document.write('<br /><a href="javascript:popupZoom(\'{html_href_link modul=$modules.products file=$filename.product_zoom products_id=$product_info.products_id}\')">{html_js_icon image="zoom.gif" alt=$lang.icon_button_zoom}</a>');
+//--></script>
+{/if}
+
+<br /><br />{html_image_submit image="wishlist.gif" alt=$lang.image_button_in_wishlist name="button[wishlist][]"}
+
+            </td>
+          </tr>
+        </table></td>
+       </tr>
+{include file="$theme_set/products/mo_pics.html"}
+       </tr>
+       <tr>
+         <td height="10"></td>
+       </tr>
+       <tr>
+         <td>{$options}</td>
+       <tr>
+{if $reviews_total > 0 }
+      <tr>
+        <td><br />{$lang.text_current_reviews}&nbsp;{$reviews_total}</td>
+      </tr>
+{/if}
+{if $product_info.products_url != '' }
+      <tr>
+        <td class="main"><br />{$redirect|string_format:$lang.text_more_information}</td>
+      </tr>
+{/if}
+{if ($product_info.products_date_available > $oosDate) }
+      <tr>
+        <td align="center" class="smallText"><br />{$product_info.products_date_available|oos_date_long|string_format:$lang.text_date_available}</td>
+      </tr>
+{else}
+  {if $smarty.const.SHOW_DATE_ADDED_AVAILABLE eq 'true'}
+      <tr>
+        <td align="center" class="smallText"><br />{$product_info.products_date_added|oos_date_long|string_format:$lang.text_date_added}</td>
+      </tr>
+  {/if}
+{/if}
+
+{if $discounts_price eq 'true'}
+  {include file="$theme_set/products/discounts_price.html"}
+{/if}
+
+      <tr>
+        <td height="10"></td>
+      </tr>
+{if $smarty.session.error_cart_msg != ''}
+      <tr>
+        <td colspan="2" align="right" class="QtyErrors"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="errorBox"><img src="{$smarty.const.OOS_ICONS}warning.gif" border="0" alt="{$lang.icon_warning}" width="10" height="10">{$smarty.session.error_cart_msg}</td>
+          </tr>
+        </table></td>
+      </tr>
+{/if}
+      <tr>
+        <td align="right" class="main">{$lang.products_order_qty_text}&nbsp;<input type="text" name="cart_quantity" value="{$product_info.products_quantity_order_min|quantity}" size="3">
+   {if $product_info.products_quantity_order_min > 1 }
+     {$lang.products_order_qty_min_text} {$product_info.products_quantity_order_min|quantity}
+   {/if}
+   {if $product_info.products_quantity_order_units > 1 }
+     {$lang.products_order_qty_unit_text} {$product_info.products_quantity_order_units|quantity}
+   {/if}
+        </td>
+      </tr>
+      <tr>
+       <td><hr size="1" noshade>
+         <table border="0" width="100%" cellspacing="0" cellpadding="0">
+         <tr>
+
+    <td class="main">
+{if $oEvent->installed_plugin('reviews')}
+   {if $reviews_total > 0 }
+        <a href="{html_href_link modul=$modules.reviews file=$filename.product_reviews products_id=$product_info.products_id}">{html_image_button image="reviews.gif" alt=$lang.image_button_reviews}</a></td>
+   {else}
+        <a href="{html_href_link modul=$modules.reviews file=$filename.product_reviews_write products_id=$product_info.products_id}">{html_image_button image="write_review.gif" alt=$lang.image_button_write_review}</a></td>
+   {/if}
+    <td align="center" class="main">
+{/if}
+
+{if $cart_count_contents gt 0 }
+   {if $smarty.session.member->group.show_price eq 1 }
+        <a href="{html_href_link modul=$modules.checkout file=$filename.checkout_payment connection=SSL}">{html_image_button image="checkout.gif" alt=$lang.image_button_checkout}</a></td>
+   {/if}
+{/if}
+
+
+        <td align="right" class="main"><input type="hidden" name="products_id" value="{$product_info.products_id}">
+{if $smarty.session.member->group.show_price eq 1 }
+{html_image_submit image="in_cart.gif" alt=$lang.image_button_in_cart}
+{else}
+<a href="{html_href_link modul=$modules.user file=$filename.login connection=SSL}">{html_image_button image="login.gif" alt=$lang.image_button_login}</a>
+{/if}</td>
+          </tr>
+        </table></td>
+      </tr>
+</table>
+</form>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+{if $oos_page_numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+   {$oosPageNavigation}
+{/if}
+  <tr>
+    <td>{include file="$theme_set/products/slavery_product_listing.html"}</td>
+  </tr>
+{if $oos_page_numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+   {$oosPageNavigation}
+{/if}
+       <tr>
+         <td><br />{$xsell_products}</td>
+       </tr>
+       <tr>
+         <td><br />{$up_sell_products}</td>
+       </tr>
+       <tr>
+         <td><br />{$also_purchased_products}</td>
+       </tr>
+{if $social_bookmarks}
+       <tr>
+         <td><br />{$social_bookmarks}</td>
+       </tr>
+{/if}
+     </table>

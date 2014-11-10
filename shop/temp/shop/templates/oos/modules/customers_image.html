@@ -1,9 +1,9 @@
-<!--  $Id: customers_image.html 452 2013-06-28 15:49:00Z r23 $ -->
+<!--  $Id: customers_image.html,v 1.2 2009/02/19 14:26:06 r23 Exp $ -->
 
 <form name="customers_image" action="{html_get_link}" method="post" enctype="multipart/form-data">
 <input type="hidden" name="action" value="add_customers_image">
 <input type="hidden" name="mp" value="{$main_page}">
-<input type="hidden" name="file" value="{$content_file}">
+<input type="hidden" name="file" value="{$page_file}">
 <input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
 
 
@@ -59,8 +59,8 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main"><a href="{html_href_link content=$contents.yourstore connection=SSL}">{html_image_button image="back.gif" alt=$lang.button_back}</a></td>
-            <td class="main" align="right">{html_image_submit image="continue.gif" alt=$lang.button_continue}</td>
+            <td class="main"><a href="{html_href_link modul=$modules.user file=$filename.yourstore connection=SSL}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
+            <td class="main" align="right">{html_image_submit image="continue.gif" alt=$lang.image_button_continue}</td>
           </tr>
         </table></td>
       </tr>

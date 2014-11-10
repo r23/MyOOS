@@ -1,0 +1,118 @@
+<!--  $Id: tell_a_friend.html,v 1.1 2007/06/15 07:15:31 r23 Exp $ -->
+    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+  {if $valid_product eq false}
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="pageHeading">{$lang.heading_title_error|oosupper}</td>
+          </tr>
+          <tr>
+            <td height="10"></td>
+          </tr>
+          <tr>
+            <td class="main">{$lang.error_invalid_product}</td>
+          </tr>
+        </table></td>
+      </tr>
+  {else}
+      <tr>
+        <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+    {if $action eq 'process' && $error eq 'false'}
+      <tr>
+        <td><br /><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main">{$oos_friendemail}</td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td align="right" class="main"><br /><a href="{product_info_link products_id=$smarty.get.products_id}">{html_image_button image="continue.gif" alt=$lang.image_button_continue}</a></td>
+      </tr>
+    {else}
+      <tr>
+        <td>
+{if $oEvent->installed_plugin('spell')}
+ <script type="text/javascript" src="js/googiespell/AmiJS.js"></script>
+ <script type="text/javascript" src="js/googiespell/googiespell.js"></script>
+ <script type="text/javascript" src="js/googiespell/cookiesupport.js"></script>
+ <link href="js/googiespell/googiespell.css" rel="stylesheet" type="text/css" media="all" />
+{/if}
+<form name="email_friend" action="{html_href_link modul=$modules.tell_a_friend file=$filename.tell_a_friend action=process products_id=$smarty.get.products_id}" method="post"><input type="hidden" name="products_name" value="{$product_info.products_name}"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="formAreaTitle">{$lang.form_title_customer_details}</td>
+          </tr>
+          <tr>
+            <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
+              <tr>
+                <td class="main"><table border="0" cellspacing="0" cellpadding="2">
+                  <tr>
+                    <td class="main">{$lang.form_field_customer_name}</td>
+                    <td class="main">{$your_name_prompt}</td>
+                  </tr>
+                  <tr>
+                    <td class="main">{$lang.form_field_customer_email}</td>
+                    <td class="main">{$your_email_address_prompt}</td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+          <tr>
+            <td class="formAreaTitle"><br />{$lang.form_title_friend_details}</td>
+          </tr>
+          <tr>
+            <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
+              <tr>
+                <td class="main"><table border="0" cellspacing="0" cellpadding="2">
+                  <tr>
+                    <td class="main">{$lang.form_field_friend_name}</td>
+                    <td class="main"><input type="text" name="friendname" value="{$friendname}">{if $friendname_error eq 'true'}&nbsp;<span class="errorText">{$lang.text_required}</span>{/if}</td>
+                  </tr>
+                  <tr>
+                    <td class="main">{$lang.form_field_friend_email}</td>
+                    <td class="main"><input type="text" name="friendemail" value="{$friendemail}">{if $friendemail_error eq 'true'}{$lang.entry_email_address_check_error}{/if}</td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+          <tr>
+            <td class="formAreaTitle"><br />{$lang.form_title_friend_message}</td>
+          </tr>
+          <tr>
+            <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
+             <tr>
+               <td>
+<span id="spell_container" style="background-color: #ddd"></span><br />
+<textarea id="tal" name="yourmessage" class="textarea">{$smarty.post.yourmessage|stripslashes}</textarea>
+{if $oEvent->installed_plugin('spell')}
+{literal}
+  <script type="text/javascript">
+    var googie2 = new GoogieSpell("js/googiespell/", "send_req.php?lang=");
+    googie2.dontUseCloseButtons();
+    googie2.setSpellContainer("spell_container");
+    googie2.decorateTextarea("tal");
+  </script>
+{/literal}
+{/if}
+               </td>
+             </tr>
+            </table></td>
+          </tr>
+          <tr>
+            <td><br /><table border="0" width="100%" cellspacing="0" cellpadding="0">
+              <tr>
+                <td class="main"><a href="{product_info_link products_id=$smarty.get.products_id}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
+                <td align="right" class="main">{html_image_submit image="continue.gif" alt=$lang.image_button_continue}</td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></form></td>
+      </tr>
+  {/if}
+{/if}
+    </table></td>

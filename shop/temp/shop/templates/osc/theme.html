@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html {$smarty.const.HTML_PARAMS}>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$smarty.const.CHARSET}">
+<title>{$pagetitle}</title>
+<meta name="description" content="{$meta_description}">
+<meta name="keywords" content="{$meta_keywords}">
+
+<meta name="page-topic" content="{$smarty.const.OOS_META_PAGE_TOPIC}">
+<meta name="audience" content="{$smarty.const.OOS_META_AUDIENCE}">
+<meta name="author" content="{$smarty.const.OOS_META_AUTHOR}">
+<meta name="copyright" content="Copyright (c) {$smarty.now|date_format:"%Y"} by {$smarty.const.OOS_META_COPYRIGHT}">
+<meta name="page-type" content="{$smarty.const.OOS_META_PAGE_TYPE}">
+
+<meta name="publisher" content="{$smarty.const.OOS_META_PUBLISHER}">
+<meta name="robots" content="{$smarty.const.OOS_META_ROBOTS}">
+<meta http-equiv="expires" content="{$smarty.const.OOS_META_EXPIRES}">
+<meta http-equiv="pragma" content="{$smarty.const.OOS_META_PAGE_PRAGMA}">
+
+<meta name="Language" content="{$smarty.session.languages_name}">
+<meta name="revisit-after" content="{$smarty.const.OOS_META_REVISIT_AFTER}">
+<meta name="Content-Language" content="{$smarty.session.iso_639_1}">
+
+<meta name="resource-type" content="document">
+<meta name="creation" content="{$smarty.now|date_format:"%a,%d %b %Y"}">
+<meta name="revision" content="{$oos_revision_date}">
+<meta name="distribution" content="Global">
+<meta name="Generator" content="{$smarty.const.OOS_FULL_NAME} - {$smarty.const.OOS_HOME}  All rights reserved.">
+<meta name="rating" content="General">
+
+<base href="{$oos_base}">
+<link rel="shortcut icon" HREF="{$oos_base}favicon.ico" TYPE="image/x-icon">
+<link rel="StyleSheet" TYPE="text/css" HREF="{$theme_css}/style.css">
+<link rel="StyleSheet" TYPE="text/css" HREF="{$theme_css}/stylesheet.css">
+
+<link rel="top" type="text/html" href="{$oos_base}">
+<link rel="author" href="mailto:{$smarty.const.STORE_OWNER_EMAIL_ADDRESS}">
+<link rel="contents" type="text/html" href="{html_href_link modul=$modules.info file=$filename.info_sitemap}">
+<link rel="search" type="text/html" href="{html_href_link modul=$modules.search file=$filename.advanced_search}">
+<link rel="bookmark" type="text/html" href="{html_href_link modul=$main_page file=$page_file oos_get=$get_params connection='NONSSL' add_session_id='false' search_engine_safe='false'}">
+
+{if $popup_window}
+  {formtool_init src=$popup_window}
+{/if}
+
+{literal}
+<script type="text/javascript" language="JavaScript">
+<!--
+function couponpopupWindow(url) {
+  window.open(url,'popupWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=450,height=280,screenX=150,screenY=150,top=150,left=150')
+}
+
+function popupZoom(url) {
+  var width  = 900;
+  var height = 636;
+  var y = (screen.availHeight - height) /2;
+  var x = (screen.availWidth - width) /2;
+  var micro = window.open(url,'micro','resizable=0,scrollbars=0,status=0,location=0,width='+width+',height='+height+', top='+y+',left='+x);
+  micro.focus();
+}
+//-->
+</script>
+{/literal}
+
+{$oos_js}
+
+</head>
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
+
+{foreach item=warning from=$oos_info_warning}
+   {include file="default/system/warning.html"}
+{/foreach}
+<!-- header //-->
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+  <tr class="header">
+    <td valign="middle"><a href="{html_href_link modul=$modules.main file=$filename.main}"><img src="{$theme_image}/logo.gif" border="0" alt="{$smarty.const.STORE_NAME}" title=" {$smarty.const.STORE_NAME} " width="180" height="50" /></a></td>
+    <td align="right" valign="bottom"><a href="{html_href_link modul=$modules.main file=$filename.account connection=SSL}"><img src="{$theme_image}/header_account.gif" border="0" alt="{$lang.header_title_my_account}" title="{$lang.header_title_my_account}" width="30" height="30"></a>&nbsp;&nbsp;<a href="{html_href_link modul=$modules.main file=$filename.main_shopping_cart connection=SSL}"><img src="{$theme_image}/header_cart.gif" border="0" alt="{$lang.header_title_cart_contents}" title="{$lang.header_title_cart_contents}" width="30" height="30"></a>&nbsp;&nbsp;
+{if (!empty($smarty.session.member->group.payment))}
+   <a href="{html_href_link modul=$modules.checkout file=$filename.checkout_payment connection=SSL}"><img src="{$theme_image}/header_checkout.gif" border="0" alt="{$lang.header_title_checkout}" title="{$lang.header_title_checkout}" width="30" height="30"></a>
+{/if}
+&nbsp;&nbsp;</td>
+  </tr>
+</table>
+<table border="0" width="100%" cellspacing="0" cellpadding="1">
+  <tr class="headerNavigation">
+    <td class="headerNavigation">&nbsp;&nbsp;{$oos_breadcrumb}</td>
+    <td align="right" class="headerNavigation">
+<!-- start customernavi -->
+{if (isset($smarty.session.customer_id)) }
+  <a href="{html_href_link modul=$modules.user file=$filename.logoff connection=SSL}" class="headerNavigation">{$lang.header_title_logoff}</a>&nbsp;
+{else}
+  <a href="{html_href_link modul=$modules.user file=$filename.login connection=SSL}" class="headerNavigation">{$lang.header_title_login}</a>&nbsp;
+{/if}
+|&nbsp;<a href="{html_href_link modul=$modules.user file=$filename.account connection=SSL}" class="headerNavigation">{$lang.header_title_my_account}</a>&nbsp;
+|&nbsp;<a href="{html_href_link modul=$modules.main file=$filename.main_shopping_cart}" class="headerNavigation">{$lang.header_title_cart_contents}</a>&nbsp;
+|&nbsp;<a href="{html_href_link modul=$modules.checkout file=$filename.checkout_payment connection=SSL}" class="headerNavigation">{$lang.header_title_checkout}</a>&nbsp;&nbsp;
+<!-- stop customernavi -->
+</td>
+  </tr>
+</table>
+{foreach item=error from=$oos_error_message}
+   {include file="$theme_set/system/error_message.html"}
+{/foreach}
+{foreach item=info from=$oos_info_message}
+   {include file="$theme_set/system/info_message.html"}
+{/foreach}
+<!-- header_eof //-->
+<!-- body //-->
+<table border="0" width="100%" cellspacing="3" cellpadding="3">
+  <tr>
+    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
+{foreach item=block from=$oos_blockleft}
+   {include file="$theme_set/system/block.html"}
+{/foreach}
+    </table></td>
+<td>{$contents}</td>
+    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
+{foreach item=block from=$oos_blockright}
+   {include file="$theme_set/system/block.html"}
+{/foreach}
+    </table></td>
+  </tr>
+</table>
+<!-- body_eof //-->
+
+<table border="0" width="100%" cellspacing="0" cellpadding="1">
+  <tr class="footer">
+    <td class="footer">&nbsp;&nbsp;{$oos_date_long}&nbsp;&nbsp;</td>
+    <td align="right" class="footer">&nbsp;{$counter_now}&nbsp;{$lang.footer_text_requests_since}&nbsp;{$counter_startdate_formatted}&nbsp;&nbsp;</td>
+  </tr>
+</table>
+<br />
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center" class="smallText">
+{* The following copyright announcement can only be
+    appropriately modified or removed if the layout of
+    the site theme has been modified to distinguish
+    itself from the default osCommerce-copyrighted
+    theme.
+
+    For more information please read the following
+    Frequently Asked Questions entry on the osCommerce
+    support site:
+
+    http://www.oscommerce.com/community.php/faq,26/q,50
+
+    Please leave this comment intact together with the
+    following copyright announcement. *}
+{$smarty.const.FOOTER_TEXT_BODY}
+    </td>
+  </tr>
+</table>
+{if $oos_banner}
+   {include file="$theme_set/system/banner.html"}
+{/if}
+
+
+<div class="footer" align="center">
+<div align="center">Copyright &copy; 2003 - {$smarty.now|date_format:"%Y"} OOS [OSIS Online Shop].  All rights reserved.</div>
+<div align="center"><a href="{$smarty.const.OOS_HOME}" target="_blank">OOS [OSIS Online Shop]</a> is Free Software released under the <a href="http://www.gnu.org" target="_blank">GNU/GPL License.</a></div>
+</div>
+
+</body>
+</html>

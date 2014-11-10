@@ -1,0 +1,34 @@
+<!--  $Id: checkout_success_page_heading.html,v 1.1 2007/06/07 11:02:55 r23 Exp $ -->
+      </tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <tbody><tr>
+           <td><img src="{$theme_image}/heading/{$oos_heading_image}" border="0" alt="{$oos_heading_title}" width="175" height="198"></td>            </td>
+
+           <td valign="top" width="350">
+
+               <table align="center" cellpadding="0" cellspacing="0" width="310">
+               <tbody><tr><td height="15"></td></tr>
+               <tr><td class="heading_title">{$oos_heading_title}</td></tr>
+               <tr><td height="10"></td></tr>
+                <tr><td>{$lang.text_success}</td></tr>
+
+{if $oEvent->installed_plugin('notify')}
+               <tr><td height="10"></td></tr>
+               <tr><td class="main">{$products_notify}</td>
+               </tr>
+{/if}
+
+               <tr><td height="15"></td></tr>
+               <tr><td><h3>{$lang.text_thanks_for_shopping}</h3></td></tr>
+
+               <tr><td height="15"></td></tr>
+               </tbody></table>
+               </td>
+
+
+          </tr>
+        </tbody></table>
+       </tr>

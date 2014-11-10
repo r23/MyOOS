@@ -1,4 +1,4 @@
-<!--  $Id: subscription_center.html 452 2013-06-28 15:49:00Z r23 $ -->
+<!--  $Id: subscription_center.html,v 1.2 2009/02/19 14:26:06 r23 Exp $ -->
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td>{$oosPageHeading}</td>
@@ -12,14 +12,7 @@
        </tr>
 {/if}
       <tr>
-        <td>
-<form name="subscription_center" action="{html_get_link connection=SSL}" method="post" onSubmit="return check_form();">
-	<input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
-	<input type="hidden" name="formid" value="{$formid}">
-	<input type="hidden" name="action" value="process">
-	<input type="hidden" name="content" value="{$contents.subscription_center}">
-
-<br><table border="0" width="100%" cellspacing="0" cellpadding="3">
+        <td><form name="subscription_center" method="post" action="{html_href_link modul=$modules.newsletters file=$filename.subscription_center action=process connection=SSL}"><br><table border="0" width="100%" cellspacing="0" cellpadding="3">
           <tr>
             <td align="right" class="main">{$lang.entry_email_address}</td>
             <td class="main"><input type="text" name="email_address" maxlength="96" value="{$smarty.post.email_address}"></td>
@@ -28,7 +21,7 @@
             <td colspan="2"><br><table border="0" cellpadding="0" cellspacing="0" width="100%">
               <tr>
                 <td valign="top"></td>
-                <td align="right" valign="top">{html_image_submit image="continue.gif" alt=$lang.button_continue}</td>
+                <td align="right" valign="top">{html_image_submit image="continue.gif" alt=$lang.image_button_continue}</td>
               </tr>
             </table></td>
           </tr>

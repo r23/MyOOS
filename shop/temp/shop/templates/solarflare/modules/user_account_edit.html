@@ -1,0 +1,26 @@
+<!--  $Id: user_account_edit.html,v 1.1 2007/06/15 07:42:42 r23 Exp $ -->
+    <form name="account_edit" action="{html_href_link modul=$modules.user file=$filename.account_edit_process connection=SSL}" method="post" onSubmit="return check_form();"><input type="hidden" name="action" value="process"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td>
+{include file="$theme_set/modules/user_account_details.html"}
+        </td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main"><a href="{html_href_link modul=$modules.user file=$filename.account connection=SSL}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
+            <td class="main" align="right">{html_image_submit image="continue.gif" alt=$lang.image_button_continue}</td>
+          </tr>
+        </table></td>
+      </tr>
+    </table>
+    </form>

@@ -1,0 +1,66 @@
+    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+{if $oos_page_numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '1' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+   {$oosPageNavigation}
+{/if}
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+{section name=i loop=$oos_products_new_array}
+          <tr>
+            <td width="{$products_image_box}" valign="top" class="main"><a href="{html_href_link modul=$modules.products file=$filename.product_info products_id=$oos_products_new_array[i].id}">{html_oos_image basedir=$smarty.const.OOS_IMAGES image=$oos_products_new_array[i].image alt=$oos_products_new_array[i].name height=$smarty.const.SMALL_IMAGE_HEIGHT width=$smarty.const.SMALL_IMAGE_WIDTH}</a></td>
+            <td valign="top" class="main"><a href="{html_href_link modul=$modules.products file=$filename.product_info products_id=$oos_products_new_array[i].id}"><b><u>{$oos_products_new_array[i].name}</u></b></a><br />
+            {if ($smarty.const.SHOW_DATE_ADDED_AVAILABLE eq 'true')}
+              {$lang.text_date_added}{$oos_products_new_array[i].date_added|oos_date_long}<br />
+            {/if}
+            {if $oos_products_new_array[i].manufacturer != ''}
+              {$lang.text_manufacturer} {$oos_products_new_array[i].manufacturer}
+            {/if}
+            <br /><br />
+            {if (!empty($oos_products_new_array[i].new_product_special_price))}
+               {$lang.text_price} <s>{$oos_products_new_array[i].new_product_price}{$oos_products_new_array[i].new_product_units}</s><br />
+               {if $oos_products_new_array[i].products_base_price != 1}<s>{$lang.text_products_base_price}: <span class="base_price">{$oos_products_new_array[i].new_products_base_unit} = {$oos_products_new_array[i].new_base_product_price}</span></s><br />{/if}
+
+               <span class="special_price">{$lang.text_price} {$oos_products_new_array[i].new_product_special_price}</span><br />
+               {if $oos_products_new_array[i].products_base_price != 1}<br /><span class="special_base_price">{$lang.text_products_base_price}: {$oos_products_new_array[i].new_products_base_unit} = {$oos_products_new_array[i].new_base_product_special_price}</span><br />{/if}
+
+            {else}
+              {if $oos_products_new_array[i].new_max_product_discount != 0}
+                {$lang.text_price} <s>{$oos_products_new_array[i].new_product_price}</s> -{$oos_products_new_array[i].new_max_product_discount}%<br />
+                <span class="discount_price">{$oos_products_new_array[i].new_product_discount_price}{$oos_products_new_array[i].new_product_units}</span><br />
+                {if $oos_products_new_array[i].products_base_price != 1}<br /><span class="discount_base_price">{$lang.text_products_base_price}: {$oos_products_new_array[i].new_products_base_unit} = {$oos_products_new_array[i].new_base_product_special_price}</span><br />{/if}
+
+              {else}
+                {$lang.text_price} {$oos_products_new_array[i].new_product_price}{$oos_products_new_array[i].new_product_units}<br />
+                {if $oos_products_new_array[i].products_base_price != 1}<br /><span class="base_price">{$lang.text_products_base_price}: {$oos_products_new_array[i].new_products_base_unit} = {$oos_products_new_array[i].new_base_product_price}</span><br />{/if}
+
+              {/if}
+            {/if}
+            <span class="pangv">{$pangv}</span><br />
+            </td>
+            <td align="right" valign="middle" class="main">
+{if $smarty.session.member->group.show_price eq 1 }
+  <a href="{html_href_link modul=$modules.products file=$filename.products_new action=buy_now products_id=$oos_products_new_array[i].id}">{html_image_button image="in_cart.gif" alt=$lang.image_button_in_cart}</a>
+{else}
+  <a href="{html_href_link modul=$modules.user file=$filename.login connection=SSL}">{html_image_button image="login.gif" alt=$lang.image_button_login}</a>
+{/if}
+             </td>
+          </tr>
+          <tr>
+            <td colspan="3" class="main">&nbsp;</td>
+          </tr>
+{sectionelse}
+          <tr>
+            <td class="main">{$lang.text_no_new_products}</td>
+          </tr>
+{/section}
+        </table></td>
+      </tr>
+{if $oos_page_numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+   {$oosPageNavigation}
+{/if}
+    </table>

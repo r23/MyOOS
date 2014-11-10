@@ -1,0 +1,57 @@
+    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+{if $cart_count_contents gt 0 }
+      <tr>
+        <td><form name="cart_quantity" action="{html_href_link modul=$modules.main file=$filename.main_shopping_cart action=update_product}" method="post">{$hidden_field}
+          <table border="0" width="100%" cellspacing="0" cellpadding="2">{$shopping_cart_detail}</table>
+      </tr>
+  {if $smarty.session.error_cart_msg != ''}
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="QtyErrors">{$smarty.session.error_cart_msg}</td>
+      </tr>
+  {/if}
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="right" class="main"><b>{$lang.sub_title_sub_total} {$oos_cart_total}</b></td>
+      </tr>
+  {if $any_out_of_stock eq 1 }
+    {if $smarty.const.STOCK_ALLOW_CHECKOUT eq 'true'}
+      <tr>
+        <td class="stockWarning" align="center"><br />{$lang.out_of_stock_can_checkout}</td>
+      </tr>
+    {else}
+      <tr>
+        <td class="stockWarning" align="center"><br />{$lang.out_of_stock_cant_checkout}</td>
+      </tr>
+    {/if}
+  {/if}
+      <tr>
+        <td><br /><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main">{html_image_submit image="update_cart.gif" alt=$lang.image_button_update_cart}</td>
+{if isset($back_link) }
+            <td class="main"><a href="{$back_link}">{html_image_button image="continue_shopping.gif" alt=$lang.image_button_continue_shopping}</a></td>
+{/if}
+            <td align="right" class="main"><a href="{html_href_link modul=$modules.checkout file=$filename.checkout_shipping connection=SSL}">{html_image_button image="checkout.gif" alt=$lang.image_button_continue}</a></td>
+          </tr>
+        </table></form></td>
+      </tr>
+{else}
+      <tr>
+        <td align="center" class="main">{$lang.text_cart_empty}</td>
+      </tr>
+      <tr>
+        <td align="right" class="main"><br /><a href="{html_href_link modul=$modules.main file=$filename.main}">{html_image_button image="continue.gif" alt=$lang.image_button_continue}</a></td>
+      </tr>
+{/if}
+</table>

@@ -1,0 +1,86 @@
+/* ----------------------------------------------------------------------
+   $Id: style.css,v 1.1 2007/06/15 07:08:47 r23 Exp $
+
+   OOS [OSIS Online Shop]
+   http://www.oos-shop.de/
+   
+   
+   Copyright (c) 2003 - 2005 by the OOS Development Team.
+   ----------------------------------------------------------------------
+   Released under the GNU General Public License
+   ---------------------------------------------------------------------- */
+
+body {
+    background-color: #fff;
+    color: #000;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+#wrapper {
+    width: 870px;
+    border: 0px;
+    margin: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px;
+}
+
+#break {
+	height:20px;
+}
+
+
+#warning { 
+    background-color: #ffb3b5;
+    background-position: right top;
+    font-size : 11px; 
+    font-weight: bold; 
+}
+
+
+#left_block {
+	margin-top: 2px;
+	border: 1px solid #cccccc;
+	padding: 2px;
+	float: left;
+	width: 159px !important;
+	width: 165px;
+}
+
+#content_area {
+	padding: 0px;
+	margin-top: 0px;
+	margin-left: 2px;
+	/** border: 1px solid #cccccc; **/
+	float: left;
+	width: 635px;;
+}
+
+
+#right_block {
+	border: 1px solid #cccccc;
+	margin-top: 2px;
+	float: right;
+	padding: 2px;
+	width: 159px !important;
+	width: 165px;
+}
+
+.clr {
+    clear:both;
+}
+
+.ctr {
+    text-align: center;
+}
+
+.footer {
+    font-size : 10px; 
+    font-weight: normal;
+}
+

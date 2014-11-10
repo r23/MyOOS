@@ -1,0 +1,43 @@
+{if $manufacturer_info_block eq 'true'}
+<table width="150"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="2"><img src="{$theme_image}/block/tbl_top_left.gif" alt=" " width="2" height="4"></td>
+    <td colspan="2" class="tbl_top_center"></td>
+    <td width="2"><img src="{$theme_image}/block/tbl_top_right.gif" alt=" " width="2" height="4"></td>
+  </tr>
+  <tr>
+    <td rowspan="2" class="tbl_left"></td>
+    <td width="4" class="tbl_header"><img src="{$theme_image}/trans.gif" alt=" " width="2" height="22"></td>
+    <td width="146" align="left" valign="middle" class="tbl_header">{$block_heading_manufacturer_info}</td>
+    <td rowspan="2" class="tbl_right"></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="left" valign="top" bgcolor="#F6F7F1">
+	<table width="100%"  border="0" cellspacing="3" cellpadding="0">
+{if $manufacturer.manufacturers_image != '' }
+          <tr>
+            <td align="center" class="block_content" colspan="2">{html_oos_image basedir=$smarty.const.OOS_IMAGES image=$manufacturer.manufacturers_image alt=$manufacturer.manufacturers_name}</td>
+          </tr>
+{/if}
+{if $manufacturer.manufacturers_url != '' }
+          <tr>
+             <td valign="top" class="block_content">-&nbsp;</td>
+             <td valign="top" class="block_content"><a href="{html_href_link modul=$modules.main file=$filename.redirect action=manufacturer manufacturers_id=$manufacturer.manufacturers_id}" target="_blank">{$manufacturer.manufacturers_name|string_format:$lang.block_manufacturer_info_homepage}</a></td>
+          </tr>
+{/if}
+          <tr>
+            <td valign="top" class="block_content">-&nbsp;</td>
+            <td valign="top" class="block_content"><a href="{html_href_link modul=$modules.main file=$filename.shop manufacturers_id=$manufacturer.manufacturers_id}">{$lang.block_manufacturer_info_other_products}</a></td>
+          </tr>
+          <tr>
+            <td colspan="2"><img src="{$theme_image}/pixel.gif" alt=" " width="146" height="3" /></td>
+          </tr>
+</table>	</td>
+  </tr>
+  <tr>
+    <td><img src="{$theme_image}/block/tbl_buttom_left.gif" alt=" " width="2" height="2"></td>
+    <td colspan="2" class="tbl_buttom_center"></td>
+    <td><img src="{$theme_image}/block/tbl_buttom_right.gif" alt=" " width="2" height="2"></td>
+  </tr>
+</table>
+{/if}

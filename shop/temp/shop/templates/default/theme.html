@@ -17,9 +17,9 @@
 
 <link rel="top" type="text/html" href="{$oos_base}">
 <link rel="author" href="mailto:{$smarty.const.STORE_OWNER_EMAIL_ADDRESS}">
-<link rel="contents" type="text/html" href="{html_href_link content=$contents.info_sitemap}">
-<link rel="search" type="text/html" href="{html_href_link content=$contents.advanced_search}">
-<link rel="bookmark" type="text/html" href="{html_href_link content=$content_file oos_get=$get_params connection='NONSSL' add_session_id='false' search_engine_safe='false'}">
+<link rel="contents" type="text/html" href="{html_href_link modul=$modules.info file=$filename.info_sitemap}">
+<link rel="search" type="text/html" href="{html_href_link modul=$modules.search file=$filename.advanced_search}">
+<link rel="bookmark" type="text/html" href="{html_href_link modul=$main_page file=$page_file oos_get=$get_params connection='NONSSL' add_session_id='false' search_engine_safe='false'}">
 
 </head>
 <body>
@@ -38,6 +38,8 @@
 <div align="center">Copyright &copy; 2003 - {$smarty.now|date_format:"%Y"} OOS [OSIS Online Shop].  All rights reserved.</div>
 <div align="center"><a href="{$smarty.const.OOS_HOME}" target="_blank">OOS [OSIS Online Shop]</a> is Free Software released under the <a href="http://www.gnu.org" target="_blank">GNU/GPL License.</a></div>
 </div>
+
+{formtool_init src="wz_tooltip.js"}
 
 </body>
 </html>

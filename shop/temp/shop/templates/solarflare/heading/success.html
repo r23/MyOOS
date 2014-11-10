@@ -1,0 +1,28 @@
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><img src="{$theme_image}/heading/{$oos_heading_image}" border="0" alt="{$oos_heading_title}" hspace="5" vspace="5"></td>
+    <td align="left" valign="middle"><font class="body_head">{$oos_heading_title}</font><br />
+    <br />
+    {$lang.text_main}</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td align="left" valign="middle"><hr width="100%" size="1" noshade>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td align="left" valign="middle">
+	{$block_heading_information}...<br /><br />
+{foreach item=info from=$information}
+ <tr><td>&nbsp;&nbsp;&nbsp; <img src="{$theme_image}/link.gif" alt=" "><a href="{html_href_link modul=$modules.info file=$filename.information information_id=$info.information_id}">{$info.information_name}</a></td></tr>
+ <tr><td height="2"></td></tr>
+ <tr><td><img src="{$theme_image}/layout/block.gif" alt=" " width="200" height="1"></td></tr>
+ <tr><td height="2"></td></tr>
+{/foreach}
+{if $smarty.const.MODULE_ORDER_TOTAL_GV_STATUS eq 'true'}
+<img src="{$theme_image}/link.gif" alt=" "><a href="{html_href_link modul=$modules.gv file=$filename.gv_faq}">{$lang.block_information_gv}</a><br />
+{/if}
+	</td>
+  </tr>
+</table>

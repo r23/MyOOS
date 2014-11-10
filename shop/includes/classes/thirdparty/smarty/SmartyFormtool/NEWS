@@ -1,0 +1,35 @@
+1.3 Dec 2, 2004
+---------------
+
+* rewrote most plugins to add better xhtml compliance and javascript syntax
+  while also fixing various typos and cut/paste errors and standardizing
+  error checking (boots)
+* add boolean 'all' attribute to formtool_move, formtool_copy and
+  formtool_remove. This deprecates formtool_moveall (boots)
+* add ability automate display counters for lists in formtool_moveall,
+  formtool_move, formtool_copy and formtool_remove (boots)
+* add new plugins formtool_copy, formtool_remove (boots)
+* add optional CSS class and style attributes to all plugins which render HTML
+  controls (boots)
+* fix Safari problem with removing items from lists, simplified
+  some calculations in the process (Monte)
+
+1.2 July 13, 2004
+-----------------
+
+* fix Safari problem when moving elements down (was only half fixed) (monte)
+* add ability to turn off limit message alert (kills, Monte)
+* add LGPL license text to README
+
+1.1 June 28, 2004
+-----------------
+
+* fixed bug with Mac IE and moving items from one list to another (monte)
+* added formtool_save function for initializing a saved setting (monte)
+* fixed bug with Safari and moveup/movedown (monte)
+* fix error in function.formtool_move.php (carnalito, monte)
+
+1.0 May 27, 2004
+----------------
+
+initial release

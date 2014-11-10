@@ -1,12 +1,11 @@
-<!--  $Id: checkout_shipping.html 452 2013-06-28 15:49:00Z r23 $ -->
-
-<form name="checkout_payment" action="{html_get_link connection=SSL}" method="post">
-    <input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
-    <input type="hidden" name="formid" value="{$formid}">
-	<input type="hidden" name="action" value="process">
-    <input type="hidden" name="content" value="{$contents.checkout_shipping}">
-
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<!--  $Id: checkout_shipping.html,v 1.2 2009/02/19 14:26:06 r23 Exp $ -->
+{if $oEvent->installed_plugin('spell')}
+ <script type="text/javascript" src="js/googiespell/AmiJS.js"></script>
+ <script type="text/javascript" src="js/googiespell/googiespell.js"></script>
+ <script type="text/javascript" src="js/googiespell/cookiesupport.js"></script>
+ <link href="js/googiespell/googiespell.css" rel="stylesheet" type="text/css" media="all">
+{/if}
+<form name="checkout_address" action="{html_href_link modul=$modules.checkout file=$filename.checkout_shipping connection=SSL}" method="post"><input type="hidden" name="action" value="process"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td>{$oosPageHeading}</td>
       </tr>
@@ -26,7 +25,7 @@
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                <td class="main" width="50%" valign="top">{$lang.text_choose_shipping_destination}<br><br><a href="{html_href_link content=$contents.checkout_shipping_address connection=SSL}">{html_image_button image="change_address.gif" alt=$lang.button_change_address}</a></td>
+                <td class="main" width="50%" valign="top">{$lang.text_choose_shipping_destination}<br><br><a href="{html_href_link modul=$modules.checkout file=$filename.checkout_shipping_address connection=SSL}">{html_image_button image="change_address.gif" alt=$lang.image_button_change_address}</a></td>
                 <td align="right" width="50%" valign="top"><table border="0" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="main" align="center" valign="top"><b>{$lang.title_shipping_address}</b><br><img src="{$theme_image}/arrow_south_east.gif" border="0" alt=" " width="50" height="31"></td>
@@ -203,7 +202,7 @@
               <tr>
                 <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
                 <td class="main"><b>{$lang.title_continue_checkout_procedure}</b><br>{$lang.text_continue_checkout_procedure}</td>
-                <td class="main" align="right">{html_image_submit image="continue.gif" alt=$lang.button_continue}</td>
+                <td class="main" align="right">{html_image_submit image="continue.gif" alt=$lang.image_button_continue}</td>
                 <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
               </tr>
             </table></td>

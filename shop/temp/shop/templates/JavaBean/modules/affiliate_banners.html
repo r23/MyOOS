@@ -1,0 +1,61 @@
+<!--  $Id: affiliate_banners.html,v 1.1 2007/06/07 11:02:55 r23 Exp $ -->
+    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+         <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main">{$lang.text_information}</td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="infoBoxHeading" align="center">{$lang.text_affiliate_individual_banner}</td>
+          </tr>
+          <tr>
+            <td class="smallText" align="center">{$lang.text_affiliate_individual_banner_info}<form name="individual_banner" action="{html_href_link modul=$modules.affiliate file=$filename.affiliate_banners}" method="post"><input type="text" name="individual_banner_id" value="" size="5">&nbsp;&nbsp;{html_image_submit image="affiliate_build_a_link.gif" alt=$lang.image_button_build_a_link}</form></td>
+          </tr>
+ {if $individual_banner_id}
+          <tr>
+            <td class="smallText" align="center"><br />{$link}</td>
+          </tr>
+          <tr>
+            <td class="smallText" align="center">{$lang.text_affiliate_info}</td>
+          </tr>
+          <tr>
+            <td align="center"><textarea name="affiliate_banner" wrap="soft" cols="60" rows="6">{$link}</textarea></td>
+          </tr>
+{/if}
+        </table></td>
+      </tr>
+      <tr>
+        <td height="20"></td>
+      </tr>
+{section name=i loop=$banners_array}
+      <tr>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="infoBoxHeading" align="center">{$lang.text_affiliate_name} {$banners_array[i].affiliate_banners_title}</td>
+          </tr>
+          <tr>
+            <td class="smallText" align="center"><br />{$banners_array[i].link}</td>
+          </tr>
+          <tr>
+            <td class="smallText" align="center">{$lang.text_affiliate_info}</td>
+          </tr>
+          <tr>
+            <td class="smallText" align="center"><textarea name="affiliate_banner" wrap="soft" cols="60" rows="6">{$banners_array[i].link}</textarea></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td height="20"></td>
+      </tr>
+{/section}
+    </table>

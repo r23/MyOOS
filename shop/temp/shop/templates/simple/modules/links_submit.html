@@ -1,0 +1,32 @@
+<!--  $Id: links_submit.html,v 1.1 2007/06/15 15:05:22 r23 Exp $ -->
+    <form name="submit_link" action="{html_href_link modul=$modules.links file=$filename.links_submit connection=SSL}" method="post" onSubmit="return check_form(submit_link);"><input type="hidden" name="action" value="process"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td class="smallText">{$lang.text_main}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td>
+{include file="$theme_set/modules/links_details.html"}
+        </td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main"><a href="{html_href_link modul=$modules.links file=$filename.links connection=SSL}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
+            <td class="main" align="right">{html_image_submit image="continue.gif" alt=$lang.image_button_continue}</td>
+          </tr>
+        </table></td>
+      </tr>
+    </table>
+    </form>

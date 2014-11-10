@@ -1,0 +1,128 @@
+<!--  $Id: ticket_view.html,v 1.1 2007/06/15 07:42:42 r23 Exp $ -->
+    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+{if !isset($tlid) }
+      <tr>
+        <td><table border="0" cellspacing="0" cellpadding="2">
+          <form name="ticket_view" action="{html_href_link modul=$modules.ticket file=$filename.ticket_view action=send}" method="get"><input type="hidden" name="mp" value="{$modules.ticket}"><input type="hidden" name="file" value="{$filename.ticket_view}">
+          <tr>
+            <td class="main" align="left">{$lang.text_view_ticket_nr}&nbsp;</td>
+            <td class="main" align="left"><input type="text" name="tlid"></td>
+            <td>{html_image_submit image="continue.gif" alt=$lang.image_button_continue}</td>
+          </tr></form>
+        </table></td>
+      </tr>
+      <tr>
+        <td height="5"></td>
+      </tr>
+  {if isset($smarty.session.customer_id) }
+     {if $customers_tickets_numrows > 0 }
+      <tr>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="5">
+          <tr>
+            <td class="infoBoxHeading" align="left">{$lang.table_heading_nr}</td>
+        {if $smarty.const.TICKET_USE_SUBJECT eq 'true'}
+            <td class="infoBoxHeading" align="left">{$lang.table_heading_subject}</td>
+        {/if}
+        {if $ticket_use_status eq 'true'}
+            <td class="infoBoxHeading">{$lang.table_heading_status}</td>
+        {/if}
+        {if $smarty.const.TICKET_USE_DEPARTMENT eq 'true'}
+            <td class="infoBoxHeading">{$lang.table_heading_department}</td>
+        {/if}
+        {if $smarty.const.TICKET_USE_PRIORITY eq 'true'}
+            <td class="infoBoxHeading">{$lang.table_heading_priority}</td>
+        {/if}
+           <td class="infoBoxHeading" align="right">{$lang.table_heading_created}</td>
+            <td class="infoBoxHeading" align="right">{$lang.table_heading_last_modified}</td>
+          </tr>
+       {section name=i loop=$customers_tickets_array}
+          {if $smarty.section.i.rownum is even}
+      <tr class="productListing-even">
+      {else}
+      <tr class="productListing-odd">
+          {/if}
+            <td class="smallText" align="left"><a href="{html_href_link modul=$modules.ticket file=$filename.ticket_view tlid=$customers_tickets_array[i].ticket_link_id}">{$customers_tickets_array[i].ticket_link_id}</a></td>
+          {if $smarty.const.TICKET_USE_SUBJECT eq 'true'}
+            <td class="smallText" align="left"><a href="{html_href_link modul=$modules.ticket file=$filename.ticket_view tlid=$customers_tickets_array[i].ticket_link_id}">{$customers_tickets_array[i].ticket_subject}</a></td>
+          {/if}
+          {if $ticket_use_status eq 'true'}
+            <td class="smallText">{assign_array var=$customers_tickets_array[i].ticket_status_id values=$ticket_status_array}</td>
+          {/if}
+          {if $smarty.const.TICKET_USE_DEPARTMENT eq 'true'}
+            <td class="smallText">{assign_array var=$customers_tickets_array[i].ticket_department_id values=$ticket_department_array}</td>
+          {/if}
+          {if $smarty.const.TICKET_USE_PRIORITY eq 'true'}
+            <td class="smallText">{assign_array var=$customers_tickets_array[i].ticket_priority_id values=$ticket_priority_array}</td>
+          {/if}
+            <td class="smallText" align="right">{$customers_tickets_array[i].ticket_date_created|oos_date_short}</td>
+            <td class="smallText" align="right">{$customers_tickets_array[i].ticket_date_last_modified|oos_date_short}</td>
+          </tr>
+       {/section}
+        </table></td>
+      </tr>
+    {/if}
+  {/if}
+{/if}
+  {if isset($tlid) }
+    {if $ticket.ticket_customers_id > 1 && $ticket.ticket_login_required eq '1' && !isset($smarty.session.customer_id) }
+      <tr>
+        <td align="center"><table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main">{$text_view_ticket_login}</td>
+          </tr>
+        </table></td>
+      </tr>
+    {else}
+      <tr>
+        <td><table class="ticket" width="100%" border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td colspan=2 class="ticketInfoBoxHeading" align="left"><b>{$ticket.ticket_subject}</b></td>
+          </tr>
+          <tr>
+            <td class="ticketSmallText" colspan=2 align="left">{$lang.text_opened}&nbsp;{$ticket.ticket_date_created|oos_date_short}&nbsp;{$lang.text_ticket_by}&nbsp;{$ticket.ticket_customers_name}<br />
+               {$lang.text_ticket_nr}&nbsp;{$ticket.ticket_link_id}
+        {if $ticket.ticket_customers_orders_id > 0 }
+          <br />{$lang.text_customers_orders_id}&nbsp;{$ticket.ticket_customers_orders_id}
+        {/if}
+            </td>
+          </tr>
+   {section name=i loop=$statuses_array}
+          <tr >
+            <td class="ticketSmallText" width="15%"><b>{$statuses_array[i].ticket_edited_by}</b><br /></br>
+
+          {$lang.text_date}&nbsp;{$statuses_array[i].ticket_date_modified|oos_date_short}<br />
+          {if $ticket_use_status eq 'true'}      {$lang.text_status}&nbsp;{assign_array var=$statuses_array[i].ticket_status_id values=$ticket_status_array}<br />{/if}
+          {if $smarty.const.TICKET_USE_DEPARTMENT eq 'true'}  {$lang.text_department}&nbsp;{assign_array var=$statuses_array[i].ticket_department_id values=$ticket_department_array}<br />{/if}
+          {if $smarty.const.TICKET_USE_PRIORITY eq 'true'}    {$lang.text_priority}&nbsp;{assign_array var=$statuses_array[i].ticket_priority_id values=$ticket_priority_array}<br />{/if}
+            </td>
+            <td align=left class="ticketSmallText">{$statuses_array[i].ticket_comments|nl2br}</td>
+          </tr>
+       {if $smarty.section.i.last}
+          <form name="ticket_view" action="{html_href_link modul=$modules.ticket file=$filename.ticket_view action=send}" method="post">
+          <input type="hidden" name="tlid" value="{$tlid}">
+          <input type="hidden" name="status" value="{$statuses_array[i].ticket_status_id}">
+          <input type="hidden" name="department" value="{$statuses_array[i].ticket_department_id}">
+          <input type="hidden" name="priority" value="{$statuses_array[i].ticket_priority_id}">
+
+          <tr>
+            <td class="ticketSmallText" valign="top">{$lang.text_comment}<br /><br /><br /></td>
+            <td  class="ticketSmallText" ><textarea name="enquiry" wrap="soft" cols="50" rows="15"></textarea></td>
+          </tr>
+          <tr>
+            <td colspan=2 class="main" align="center">{html_image_submit image="continue.gif" alt=$lang.image_button_continue}</td>
+          </tr>
+          </form>
+       {/if}
+    {/section}
+        </table></td>
+      </tr>
+
+   {/if}
+  {/if}
+    </table>

@@ -1,0 +1,55 @@
+<table width="150"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="2"><img src="{$theme_image}/block/tbl_top_left.gif" alt=" " width="2" height="4"></td>
+    <td colspan="2" class="tbl_top_center"></td>
+    <td width="2"><img src="{$theme_image}/block/tbl_top_right.gif" alt=" " width="2" height="4"></td>
+  </tr>
+  <tr>
+    <td rowspan="2" class="tbl_left"></td>
+    <td width="2" class="tbl_header"><img src="{$theme_image}/trans.gif" alt=" " width="2" height="22"></td>
+    <td width="146" align="left" valign="middle" class="tbl_header">{$block_heading_change_template}</td>
+    <td rowspan="2" class="tbl_right"></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="left" valign="top" bgcolor="#F6F7F1">
+	<table width="100%"  border="0" cellspacing="3" cellpadding="0">
+  <tr>
+    <td align="center">
+<img src="themes/{$smarty.session.theme}/images/template_thumbnail.gif" name="preview" border="1" width="140" height="90" alt="{$smarty.session.theme}" />
+<br />
+{literal}
+<script language='JavaScript1.2' type='text/javascript'>
+<!--
+  function showimage() {
+    document.images.preview.src = 'themes/' + getSelectedValue( 'templateform', 'template' ) + '/images/template_thumbnail.gif';
+  }
+  function getSelectedValue( frmName, srcListName ) {
+    var form = eval( 'document.' + frmName );
+    var srcList = eval( 'form.' + srcListName );
+    i = srcList.selectedIndex;
+    if (i != null && i > -1) {
+      return srcList.options[i].value;
+    } else {
+      return null;
+    }
+}
+-->
+</script>
+{/literal}
+<form name="templateform" action="{html_get_link}" method="get">
+    <input type="hidden" name="mp" value="{$main_page}">
+    <input type="hidden" name="file" value="{$page_file}">
+    <input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
+    <select name=template onchange="showimage()">{html_options values=$skins selected=$smarty.session.theme output=$skins}</select>
+    {html_image_submit image="quick_find.gif" alt=$block_heading_search}
+</form>
+	</td>
+  </tr>
+</table>	</td>
+  </tr>
+  <tr>
+    <td><img src="{$theme_image}/block/tbl_buttom_left.gif" alt=" " width="2" height="2"></td>
+    <td colspan="2" class="tbl_buttom_center"></td>
+    <td><img src="{$theme_image}/block/tbl_buttom_right.gif" alt=" " width="2" height="2"></td>
+  </tr>
+</table>

@@ -1,0 +1,132 @@
+<!--  $Id: ticket_create.html,v 1.1 2007/06/15 07:42:42 r23 Exp $ -->
+    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+  {if $smarty.get.action eq 'success'}
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td rowspan=4 class="main"><img src="{$theme_image}/heading/{$success_image}" border="0" alt="{$oos_heading_title}" width="175" height="198"></td>
+            <td class="main">{$lang.text_success}</td>
+          </tr>
+          <tr>
+            <td class="main">{$lang.text_your_ticket_id} {$smarty.get.tlid}</td>
+          </tr>
+          <tr>
+            <td class="main">{$lang.text_check_your_ticket}<br /><a href="{html_href_link modul=$modules.ticket file=$filename.ticket_view tlid=$smarty.get.tlid connection='NONSSL' add_session_id='false' search_engine_safe='false'}">{html_href_link modul=$modules.ticket file=$filename.ticket_view tlid=$smarty.get.tlid connection='NONSSL' add_session_id='false' search_engine_safe=flase}</a></td>
+          </tr>
+          <tr>
+            <td valign ="bottom" align="right"><br /><a href="{html_href_link modul=$modules.main file=$filename.main}">{html_image_button image="continue.gif" alt=$lang.image_button_continue}</a></td>
+          </tr>
+        </table></td>
+      </tr>
+  {else}
+      <tr>
+        <td>
+{if $oEvent->installed_plugin('spell')}
+ <script type="text/javascript" src="js/googiespell/AmiJS.js"></script>
+ <script type="text/javascript" src="js/googiespell/googiespell.js"></script>
+ <script type="text/javascript" src="js/googiespell/cookiesupport.js"></script>
+ <link href="js/googiespell/googiespell.css" rel="stylesheet" type="text/css" media="all" />
+{/if}
+<form name="contact_us" action="{html_href_link modul=$modules.ticket file=$filename.ticket_create action=send}" method="post"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td width="150" class="main">{$lang.entry_name}&nbsp;</td>
+            <td class="main">
+    {if isset($smarty.session.customer_id) }
+      <input type="hidden" name="name" value="{$customer.customers_firstname} {$customer.customers_lastname}">{$customer.customers_firstname} {$customer.customers_lastname}
+    {else}
+      <input type="text" name="name" value="{$smarty.post.name}">
+      {if ($error_name) }
+         &nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_error_no_name}</font></small>
+      {/if}
+    {/if}
+            </td>
+            <td class="main" align="left" width="100%" valign="top" rowspan="2">
+    {if !isset($smarty.session.customer_id) }
+      <a href="{html_href_link modul=$modules.ticket file=$filename.ticket_create login="yes"}">{$lang.text_login}</a>
+    {/if}
+            &nbsp;</td>
+          </tr>
+          <tr>
+            <td class="main">{$lang.entry_email}&nbsp;</td>
+            <td class="main">
+    {if isset($smarty.session.customer_id) }
+      <input type="hidden" name="email" value="{$customer.customers_email_address}">{$customer.customers_email_address}
+    {else}
+       <input type="text" name="email" value="{$smarty.post.email}">
+       {if ($error_email) }
+         &nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_email_address_check_error}</font></small>
+       {/if}
+    {/if}
+            </td>
+          </tr>
+    {if $smarty.const.TICKET_USE_SUBJECT eq 'true'}
+          <tr>
+            <td class="main">{$lang.entry_subject}&nbsp;</td>
+            <td class="main"><input type="text" name="subject" value="{$smarty.post.subject}">
+       {if ($error_subject) }
+         &nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_error_no_subject}</font></small>
+       {/if}
+            </td>
+          </tr>
+    {/if}
+    {if $smarty.const.TICKET_USE_ORDER_IDS eq 'true' && isset($customer_id)  }
+          <tr>
+            <td class="main">{$lang.entry_order}&nbsp;</td>
+            <td class="main"><select name="ticket_customers_orders_id">{html_options values=$orders_id selected=$ticket_preselected_order_id output=$orders_values}</select></td>
+            <td>&nbsp;</td>
+          </tr>
+    {/if}
+    {if $smarty.const.TICKET_USE_DEPARTMENT eq 'true'}
+          <tr>
+            <td class="main">{$lang.entry_department}&nbsp;</td>
+            <td class="main"><select name="department">{html_options values=$ticket_departments selected=$smarty.const.TICKET_DEFAULT_DEPARTMENT_ID output=$ticket_department_values}</select></td>
+            <td>&nbsp;</td>
+          </tr>
+    {else}
+      <input type=hidden name="department" value="{$smarty.const.TICKET_DEFAULT_DEPARTMENT_ID}">
+    {/if}
+    {if $smarty.const.TICKET_USE_PRIORITY eq 'true'}
+          <tr>
+            <td class="main">{$lang.entry_priority}&nbsp;</td>
+            <td class="main"><select name="priority">{html_options values=$ticket_prioritys selected=$smarty.const.TICKET_DEFAULT_PRIORITY_ID output=$ticket_priority_values}</select></td>
+            <td>&nbsp;</td>
+          </tr>
+    {else}
+      <input type=hidden name="priority" value="{$smarty.const.TICKET_DEFAULT_PRIORITY_ID}">
+    {/if}
+          <tr>
+            <td colspan=3 class="main">{$lang.entry_enquiry}</td>
+          </tr>
+          <tr>
+            <td colspan=3>
+<span id="spell_container" style="background-color: #ddd"></span><br />
+<textarea id="tal" name="enquiry" class="textarea">{$smarty.post.enquiry|stripslashes}</textarea>
+{if $oEvent->installed_plugin('spell')}
+{literal}
+  <script type="text/javascript">
+    var googie2 = new GoogieSpell("js/googiespell/", "send_req.php?lang=");
+    googie2.dontUseCloseButtons();
+    googie2.setSpellContainer("spell_container");
+    googie2.decorateTextarea("tal");
+  </script>
+{/literal}
+{/if}
+
+{if ($error_enquiry) }
+&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_error_no_enquiry}</font></small>
+{/if}
+            </td>
+          </tr>
+          <tr>
+            <td colspan=3 class="main" align="right"><br />{html_image_submit image="continue.gif" alt=$lang.image_button_continue}</td>
+          </tr>
+        </table></form></td>
+      </tr>
+{/if}
+    </table>

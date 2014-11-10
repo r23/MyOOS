@@ -1,0 +1,72 @@
+<!--  $Id: affiliate_summary.html,v 1.1 2007/06/07 11:02:55 r23 Exp $ -->
+    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main">{$lang.text_greeting} {$affiliate.affiliate_firstname} {$affiliate.affiliate_lastname}<br />{$lang.text_affiliate_id} {$smarty.session.affiliate_id}</td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <tr>
+            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="infoboxheading">{$lang.text_summary_title}</td>
+              </tr>
+            </table></td>
+          </tr>
+          <tr>
+            <td><table width="100%" border="0" cellpadding="4" cellspacing="2">
+              <center>
+                <tr>
+                  <td width="35%" align="right" class="boxtext">{$lang.text_impressions}<a href="javascript:helpWindow('{html_href_link modul=$modules.affiliate file=$filename.affiliate_help1}')">{$lang.text_summary_help}</a></td>
+                  <td width="15%" class="boxtext">{$affiliate_impressions}</td>
+                  <td width="35%" align="right" class="boxtext">{$lang.text_visits}<a href="javascript:helpWindow('{html_href_link modul=$modules.affiliate file=$filename.affiliate_help2}')">{$lang.text_summary_help}</a></td>
+                  <td width="15%" class="boxtext">{$affiliate_clickthroughs}</td>
+                </tr>
+                <tr>
+                  <td width="35%" align="right" class="boxtext">{$lang.text_transactions}<a href="javascript:helpWindow('{html_href_link modul=$modules.affiliate file=$filename.affiliate_help3}')">{$lang.text_summary_help}</a></td>
+                  <td width="15%" class="boxtext">{$affiliate_transactions}</td>
+                  <td width="35%" align="right" class="boxtext">{$lang.text_conversion}<a href="javascript:helpWindow('{html_href_link modul=$modules.affiliate file=$filename.affiliate_help4}')">{$lang.text_summary_help}</a></td>
+                  <td width="15%" class="boxtext">{$affiliate_conversions}</td>
+                </tr>
+                <tr>
+                  <td width="35%" align="right" class="boxtext">{$lang.text_amount}<a href="javascript:helpWindow('{html_href_link modul=$modules.affiliate file=$filename.affiliate_help5}')">{$lang.text_summary_help}</a></td>
+                  <td width="15%" class="boxtext">{$price_affiliate_amount}</td>
+                  <td width="35%" align="right" class="boxtext">{$lang.text_average}<a href="javascript:helpWindow('{html_href_link modul=$modules.affiliate file=$filename.affiliate_help6}')">{$lang.text_summary_help}</a></td>
+                  <td width="15%" class="boxtext">{$price_affiliate_average}</td>
+                </tr>
+                <tr>
+                  <td width="35%" align="right" class="boxtext">{$lang.text_commission_rate}<a href="javascript:helpWindow('{html_href_link modul=$modules.affiliate file=$filename.affiliate_help7}')">{$lang.text_summary_help}</a></td>
+                  <td width="15%" class="boxtext">{$round_affiliate_percent}%</td>
+                  <td width="35%" align="right" class="boxtext">{$lang.text_commission}<a href="javascript:helpWindow('{html_href_link modul=$modules.affiliate file=$filename.affiliate_help8}')">{$lang.text_summary_help}</a></td>
+                  <td width="15%" class="boxtext">{$price_affiliate_commission}</td>
+                </tr>
+                <tr>
+                  <td colspan="4"><img src="{$theme_image}/black.gif" border="0" alt=" " width="100%" height="1"></td>
+                </tr>
+                 <tr>
+                  <td align="center" class="boxtext" colspan="4"><b>{$lang.text_summary}<b></td>
+                </tr>
+                <tr>
+                  <td colspan="4"><img src="{$theme_image}/black.gif" border="0" alt=" " width="100%" height="1"></td>
+                </tr>
+                <tr>
+                  <td align="right" colspan="4"><a href="{html_href_link modul=$modules.affiliate file=$filename.affiliate_banners connection=SSL}">{html_image_button image="affiliate_banners.gif" alt=$lang.image_banners}</a> <a href="{html_href_link modul=$modules.affiliate file=$filename.affiliate_clicks connection=SSL}">{html_image_button image="affiliate_clickthroughs.gif" alt=$lang.image_clickthroughs}</a> <a href="{html_href_link modul=$modules.affiliate file=$filename.affiliate_sales connection=SSL}">{html_image_button image="affiliate_sales.gif" alt=$lang.image_sales}</a></td>
+                </tr>
+              </center>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table>

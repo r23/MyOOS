@@ -1,0 +1,37 @@
+/* ----------------------------------------------------------------------
+   $Id: README.oos.en,v 1.1 2007/06/07 16:55:53 r23 Exp $
+
+   OOS [OSIS Online Shop]
+   http://www.oos-shop.de/
+
+   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   ----------------------------------------------------------------------
+   Released under the GNU General Public License
+   ---------------------------------------------------------------------- */
+
+
+
+~/shop/includes/classes/thirdparty/smarty/libs/
+        SmartyMenu.class.php
+
+
+~/shop/includes/classes/thirdparty/smarty/libs/plugins
+        function.menu_init.php
+        function.menu.php
+
+
+~/shop/css
+        outline_h.css
+        outline_v.css
+        plain_h.css
+        plain_c.css
+
+
+~/shop/js
+        SmartyMenus.js
+
+
+~/shop/includes/classes/thirdparty/smarty/SmartyMenu/
+        NEWS
+        README
+        README.oos.eng

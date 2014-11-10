@@ -1,0 +1,74 @@
+    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td width="50%" class="main" valign="top">
+              <ul>
+<li><a href="{product_info_link products_id=2}">OOS Demo bestellen</a></li>
+<li><a href="{product_info_link products_id=1}">Installation Service</a></li>
+<li><a href="{product_info_link products_id=3}">Sponsor 50 Euro</a></li>
+<li><a href="{product_info_link products_id=4}">Sponsor 90 Euro</a></li>
+</td>
+            <td width="50%" class="main" valign="top">
+              <ul>
+<li><a href="{html_href_link modul=$modules.info file=$filename.oos}">Was ist OOS?</a></li>
+<li><a href="{html_href_link modul=$modules.info file=$filename.photos}">Bildschirmfotos</a></li>
+<li><a href="{html_href_link modul=$modules.info file=$filename.versionen}">OOS Versionen</a></li>
+<li><a href="{html_href_link modul=$modules.info file=$filename.license}" >OOS License</a></li>
+<li><a href="{html_href_link modul=$modules.main file=$filename.main_shopping_cart}">{$lang.header_title_cart_contents}</a></li>
+<li><a href="{html_href_link modul=$modules.products file=$filename.products_new}">{$lang.page_products_new}</a></li>
+<li><a href="{html_href_link modul=$modules.ticket file=$filename.ticket_view}">{$lang.block_ticket_view}</a></li>
+<li><a href="{html_href_link modul=$modules.main file=$filename.info_directions}">{$lang.block_information_mapquest}</a></li>
+<li><a href="{html_href_link modul=$modules.ticket file=$filename.ticket_create}">{$lang.block_information_contact}</a></li>
+{if $oEvent->installed_plugin('reviews')}
+<li><a href="{html_href_link modul=$modules.reviews file=$filename.reviews_reviews}">{$lang.page_reviews}</a></li>
+{/if}
+{if $oEvent->installed_plugin('affiliate')}
+                <li>{$lang.page_affiliate}</li>
+                  <ul>
+    {if $affiliate_login eq 'true'}
+                    <li><a href="{html_href_link modul=$modules.affiliate file=$filename.affiliate_summary}">{$lang.block_affiliate_summary}</a></li>
+                    <li><a href="{html_href_link modul=$modules.affiliate file=$filename.affiliate_account}">{$lang.block_affiliate_account}</a></li>
+                    <li><a href="{html_href_link modul=$modules.affiliate file=$filename.affiliate_payment}">{$lang.block_affiliate_payment}</a></li>
+                    <li><a href="{html_href_link modul=$modules.affiliate file=$filename.affiliate_clicks}">{$lang.block_affiliate_clickrate}</a></li>
+                    <li><a href="{html_href_link modul=$modules.affiliate file=$filename.affiliate_sales}">{$lang.block_affiliate_sales}</a></li>
+                    <li><a href="{html_href_link modul=$modules.affiliate file=$filename.affiliate_banners}">{$lang.block_affiliate_banners}</a></li>
+                    <li><a href="{html_href_link modul=$modules.affiliate file=$filename.affiliate_contact}">{$lang.block_affiliate_contact}</a></li>
+                    <li><a href="{html_href_link modul=$modules.affiliate file=$filename.affiliate_faq}">{$lang.block_affiliate_faq}</a></li>
+                    <li><a href="{html_href_link modul=$modules.affiliate file=$filename.affiliate_logout}">{$lang.block_affiliate_logout}</a></li>
+  {else}
+                    <li><a href="{html_href_link modul=$modules.affiliate file=$filename.affiliate_info}">{$lang.block_affiliate_info}</a></li>
+                    <li><a href="{html_href_link modul=$modules.affiliate file=$filename.affiliate_affiliate}">{$lang.block_affiliate_login}</a></li>
+  {/if}
+                  </ul>
+{/if}
+
+                <li>{$lang.heading_information}</li>
+                  <ul>
+{if $oEvent->installed_plugin('gallery')}
+                    <li><a href="{html_href_link modul=$modules.info file=$filename.info_gallery}">{$lang.block_information_gallery}</a></li>
+{/if}
+{foreach item=info from=$information}
+                    <li><a href="{html_href_link modul=$modules.info file=$filename.information information_id=$info.information_id}">{$info.information_name}</a></li>
+{/foreach}
+                    <li><a href="{html_href_link modul=$modules.main file=$filename.contact_us}">{$lang.block_information_contact}</a></li>
+                    <li><a href="{html_href_link modul=$modules.info file=$filename.info_vcard}">{$lang.block_information_v_card}</a></li>
+                  </ul>
+              </ul>
+            </td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td align="right" class="main"><br /><a href="{oos_back_link}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
+      </tr>
+    </table>

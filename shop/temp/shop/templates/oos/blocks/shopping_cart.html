@@ -1,8 +1,8 @@
 <table width="154" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td width="31" class="block_cart_background"><a href="{html_href_link content=$contents.main_shopping_cart}"><img src="{$theme_image}/block_cart_arrow.gif" border="0" alt="{$block_heading_shopping_cart}" width="31" height="32"></a></td>
+    <td width="31" class="block_cart_background"><a href="{html_href_link modul=$modules.main file=$filename.main_shopping_cart}"><img src="{$theme_image}/block_cart_arrow.gif" border="0" alt="{$block_heading_shopping_cart}" width="31" height="32"></a></td>
     <td width="101" class="block_cart_background">{$block_heading_shopping_cart}</td>
-    <td width="22" class="block_cart_background" align="right"><a href="{html_href_link content=$contents.main_shopping_cart}"><img src="{$theme_image}/block_cart_more.gif" border="0" alt="{$lang.icon_arrow_right}" width="22" height="32"></a></td>
+    <td width="22" class="block_cart_background" align="right"><a href="{html_href_link modul=$modules.main file=$filename.main_shopping_cart}"><img src="{$theme_image}/block_cart_more.gif" border="0" alt="{$lang.icon_arrow_right}" width="22" height="32"></a></td>
   </tr>
 </table>
 
@@ -60,7 +60,7 @@
     <td align="left" class="boxText"><table cellpadding="0" width="151" cellspacing="0" border="0"><tr><td class="smalltext">{$lang.voucher_balance}</td><td class="smalltext" align="right" valign="bottom">{$gv_amount_show}</td></tr></table></td>
    </tr>
   <tr>
-    <td align="left" class="boxText"><table cellpadding="0" width="151" cellspacing="0" border="0"><tr><td class="smalltext"><a href="{html_href_link content=$contents.gv_send}">{$lang.gv_send_to_friend}</a></td></tr></table></td>
+    <td align="left" class="boxText"><table cellpadding="0" width="151" cellspacing="0" border="0"><tr><td class="smalltext"><a href="{html_href_link modul=$modules.gv file=$filename.gv_send}">{$lang.gv_send_to_friend}</a></td></tr></table></td>
   </tr>
 {/if}
 
@@ -80,7 +80,7 @@
    <tr>
     <td align="left" class="boxText"><table cellpadding="0" width="151" cellspacing="0" border="0"><tr><td class="smalltext">{$lang.cart_coupon}</td><td class="smalltext" align="right" valign="bottom">
 <script language="javascript"><!--
-document.write('<a href="javascript:couponpopupWindow(\'{html_href_link content=$contents.popup_coupon_help cID=$smarty.session.cc_id}\')">{$lang.cart_coupon_info}</a>');
+document.write('<a href="javascript:couponpopupWindow(\'{html_href_link modul=$modules.gv file=$filename.popup_coupon_help cID=$smarty.session.cc_id}\')">{$lang.cart_coupon_info}</a>');
 //--></script>
 <noscript>{$lang.cart_coupon_info}</noscript></td></tr></table></td>
    </tr>

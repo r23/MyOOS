@@ -1,0 +1,52 @@
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+  <tr>
+    <td height="14" class="infoBoxHeading"><img src="{$theme_image}/infobox/corner_right_left.gif" border="0" alt="" width="11" height="14"></td>
+    <td width="100%" height="14" class="infoBoxHeading">{$block_heading_change_template}</td>
+    <td height="14" class="infoBoxHeading" nowrap><img src="{$theme_image}/trans.gif" border="0" alt="" width="11" height="14"></td>
+  </tr>
+</table>
+<table border="0" width="100%" cellspacing="0" cellpadding="1" class="infoBox">
+  <tr>
+    <td><table border="0" width="100%" cellspacing="0" cellpadding="3" class="infoBoxContents">
+  <tr>
+    <td height="1"></td>
+  </tr>
+  <tr>
+    <td align="center" class="boxText">
+<img src="themes/{$smarty.session.theme}/images/template_thumbnail.gif" name="preview" border="1" width="139" height="111" alt="{$smarty.session.theme}" />
+<br />
+{literal}
+<script language='JavaScript1.2' type='text/javascript'>
+<!--
+  function showimage() {
+    document.images.preview.src = 'themes/' + getSelectedValue( 'templateform', 'template' ) + '/images/template_thumbnail.gif';
+  }
+  function getSelectedValue( frmName, srcListName ) {
+    var form = eval( 'document.' + frmName );
+    var srcList = eval( 'form.' + srcListName );
+    i = srcList.selectedIndex;
+    if (i != null && i > -1) {
+      return srcList.options[i].value;
+    } else {
+      return null;
+    }
+}
+-->
+</script>
+{/literal}
+<form name="templateform" action="{html_get_link}" method="get">
+    <input type="hidden" name="mp" value="{$main_page}">
+    <input type="hidden" name="file" value="{$page_file}">
+    <input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
+    <select name=template onchange="showimage()">{html_options values=$skins selected=$smarty.session.theme output=$skins}</select>
+    {html_image_submit image="quick_find.gif" alt=$block_heading_search}
+</form>
+    </td>
+  </tr>
+  <tr>
+    <td height="1"></td>
+  </tr>
+</table>
+</td>
+  </tr>
+</table>

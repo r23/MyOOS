@@ -1,4 +1,4 @@
-<!--  $Id: login_admin.html 452 2013-06-28 15:49:00Z r23 $ -->
+<!--  $Id: login_admin.html,v 1.1 2007/06/07 11:02:55 r23 Exp $ -->
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td>{$oosPageHeading}</td>
@@ -17,15 +17,7 @@
 
 {if ( $login_result_values.man_key2 eq $newkey2 and $login_result_values.status != 0 ) }
     <tr>
-      <td>
-
-	<form name="login" action="{html_get_link connection=SSL}" method="post">
-		<input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
-		<input type="hidden" name="formid" value="{$formid}">
-		<input type="hidden" name="action" value="login_process">
-		<input type="hidden" name="content" value="{$contents.admin_login}">
-
-<table border="0" width="70%" cellspacing="0" cellpadding="2">
+      <td><form name="login" method="post" action="{html_href_link modul=$modules.admin file=$filename.admin_login action=login_process connection=SSL}"><table border="0" width="70%" cellspacing="0" cellpadding="2">
          <tr>
             <td class="main" width="50%" valign="top"><b>{$lang.heading_admin_login}</b></td>
           </tr>
@@ -61,7 +53,7 @@
             </table></td>
           </tr>
           <tr>
-            <td width="50%" align="right" valign="top">{html_image_submit image="sign_in.gif" alt=$lang.button_login}</td>
+            <td width="50%" align="right" valign="top">{html_image_submit image="sign_in.gif" alt=$lang.image_button_login}</td>
           </tr>
 	    </table></form></td>
       </tr>

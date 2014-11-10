@@ -1,0 +1,57 @@
+<!--  $Id: affiliate_sales.html,v 1.1 2007/06/07 11:02:55 r23 Exp $ -->
+    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main" colspan="5">{$lang.text_affiliate_header} {$number_of_sales}</td>
+          </tr>
+          <tr>
+            <td colspan="5" height="10"></td>
+          </tr>
+          <tr>
+            <td class="infoBoxHeading" align="center">{$lang.table_heading_date}</td>
+            <td class="infoBoxHeading" align="right">{$lang.table_heading_value}</td>
+            <td class="infoBoxHeading" align="right">{$lang.table_heading_percentage}</td>
+            <td class="infoBoxHeading" align="right">{$lang.table_heading_sales}</td>
+            <td class="infoBoxHeading" align="right">{$lang.table_heading_status}</td>
+          </tr>
+{section name=i loop=$sales_array}
+  {if $smarty.section.i.rownum is even}
+          <tr class="productListing-even">
+  {else}
+          <tr class="productListing-odd">
+  {/if}
+            <td class="smallText" align="center">{$sales_array[i].affiliate_date|oos_date_short}</td>
+            <td class="smallText" align="right">{$sales_array[i].affiliate_value}</td>
+            <td class="smallText" align="right">{$sales_array[i].affiliate_percent} %</td>
+            <td class="smallText" align="right">{$sales_array[i].affiliate_payment}</td>
+            <td class="smallText" align="right">
+  {if $sales_array[i].orders_status}
+     {$sales_array[i].orders_status}
+  {else}
+    {$lang.text_deleted_order_by_admin}
+  {/if}</td>
+          </tr>
+{sectionelse}
+          <tr class="productListing-odd">
+            <td class="main" colspan="5">{$lang.text_no_sales}</td>
+          </tr>
+{/section}
+          <tr>
+            <td colspan="5"><img src="{$theme_image}/black.gif" border="0" alt=" " width="100%" height="1"></td>
+          </tr>
+          <tr>
+            <td class="main" colspan="5"><br />{$lang.text_information_sales_total} {$oos_sum_of_earnings} {$lang.text_information_sales_total2}</td>
+          </tr>
+        </table></td>
+      </tr>
+{if $oos_page_numrows > 0 }
+   {$oosPageNavigation}
+{/if}
+    </table>

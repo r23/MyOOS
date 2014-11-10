@@ -1,0 +1,48 @@
+<?php
+/* ----------------------------------------------------------------------
+   $Id: oos_modules.php,v 1.1 2007/06/07 16:06:31 r23 Exp $
+
+   OOS [OSIS Online Shop]
+   http://www.oos-shop.de/
+
+   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   ----------------------------------------------------------------------
+   Based on:
+
+   osCommerce, Open Source E-Commerce Solutions
+   http://www.oscommerce.com
+
+   Copyright (c) 2003 osCommerce
+   ----------------------------------------------------------------------
+   Released under the GNU General Public License
+   ---------------------------------------------------------------------- */
+
+  /** ensure this file is being included by a parent file */
+  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+
+   
+  $aModules = array();
+  $prefix_modules = '';
+  if (!$prefix_modules == '') $prefix_modules =  $prefix_modules . '_';
+   
+  $aModules = array();
+  $aModules['account'] = $prefix_modules . 'account';
+  $aModules['admin'] = $prefix_modules . 'admin';
+  $aModules['affiliate'] = $prefix_modules . 'affiliate';
+  $aModules['checkout'] = $prefix_modules . 'checkout';
+  $aModules['info'] = $prefix_modules . 'info';
+  $aModules['links'] = $prefix_modules . 'links';
+  $aModules['gv'] = $prefix_modules . 'gv';
+  $aModules['main'] = $prefix_modules . 'main';
+  $aModules['news'] = $prefix_modules . 'news';
+  $aModules['newsletters'] = $prefix_modules . 'newsletters';
+  $aModules['products'] = $prefix_modules . 'products';
+  $aModules['pub'] = $prefix_modules . 'pub';
+  $aModules['reviews'] = $prefix_modules . 'reviews';
+  $aModules['search'] = $prefix_modules . 'search';
+  $aModules['tell_a_friend'] = $prefix_modules . 'tell_a_friend';
+  $aModules['ticket'] = $prefix_modules . 'ticket';
+  $aModules['user'] = $prefix_modules . 'user';
+  $aModules['web'] = $prefix_modules . 'web'; 
+ 
+?>

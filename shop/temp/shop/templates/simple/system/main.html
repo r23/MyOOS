@@ -1,0 +1,26 @@
+    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+{if $customer_greeting}
+         <tr>
+           <td>{$customer_greeting}</td>
+         </tr>
+{/if}
+          <tr>
+            <td>{$lang.text_main}</td>
+          </tr>
+{$new_news}
+{$new_spezials}
+{$featured}
+{$new_products}
+{$mod_manufacturers}
+{$upcoming_products}
+        </table></td>
+      </tr>
+    </table>

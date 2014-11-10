@@ -1,4 +1,4 @@
-<!--  $Id: product_reviews_write.html 452 2013-06-28 15:49:00Z r23 $ -->
+<!--  $Id: product_reviews_write.html,v 1.2 2009/02/19 14:26:06 r23 Exp $ -->
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td>{$oosPageHeading}</td>
@@ -13,14 +13,13 @@
 {else}
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-
-<form name="product_reviews_write" action="{html_get_link connection=SSL}" method="post" onSubmit="return checkForm();">
-	<input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
-	<input type="hidden" name="formid" value="{$formid}">
-	<input type="hidden" name="action" value="process">
-	<input type="hidden" name="content" value="{$contents.product_reviews_write}">
-	<input type="hidden" name="products_id" value="{$smarty.get.products_id}">
-
+{if $oEvent->installed_plugin('spell')}
+ <script type="text/javascript" src="js/googiespell/AmiJS.js"></script>
+ <script type="text/javascript" src="js/googiespell/googiespell.js"></script>
+ <script type="text/javascript" src="js/googiespell/cookiesupport.js"></script>
+ <link href="js/googiespell/googiespell.css" rel="stylesheet" type="text/css" media="all">
+{/if}
+<form name="product_reviews_write" action="{html_href_link modul=$modules.reviews file=$filename.product_reviews_write action=process products_id=$smarty.get.products_id}" method="post" onSubmit="return checkForm();">
           <tr>
             <td class="main"><b>{$lang.sub_title_product}</b> {$product_info.products_name}</td>
             <td rowspan="4" valign="top" align="right"><br><a href="{product_info_link products_id=$smarty.get.products_id}">{small_product_image image=$product_info.products_image alt=$product_info.products_name|strip_tags hspace=5 vspace=5}</a></td>
@@ -58,8 +57,8 @@
       <tr>
         <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main"><a href="{html_href_link content=$contents.product_reviews products_id=$smarty.get.products_id}">{html_image_button image="back.gif" alt=$lang.button_back}</a></td>
-            <td align="right" class="main">{html_image_submit image="continue.gif" alt=$lang.button_continue}</td>
+            <td class="main"><a href="{html_href_link modul=$modules.reviews file=$filename.product_reviews products_id=$smarty.get.products_id}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
+            <td align="right" class="main">{html_image_submit image="continue.gif" alt=$lang.image_button_continue}</td>
           </tr>
         </table><input type="hidden" name="get_params" value="products_id={$smarty.get.products_id}"></form></td>
       </tr>

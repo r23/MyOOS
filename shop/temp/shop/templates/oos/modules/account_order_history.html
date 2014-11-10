@@ -1,4 +1,4 @@
-<!--  $Id: account_order_history.html 452 2013-06-28 15:49:00Z r23 $ -->
+<!--  $Id: account_order_history.html,v 1.2 2009/02/19 14:26:06 r23 Exp $ -->
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td>{$oosPageHeading}</td>
@@ -44,7 +44,7 @@
             {/if}
             <span class="pangv">{$pangv}</span><br>
             </td>
-            <td align="right" valign="middle" class="main"><a href="{html_href_link content=$contents.account_order_history action=buy_now products_id=$oos_order_history_array[i].id}">{html_image_button image="in_cart.gif" alt=$lang.button_in_cart}</a></td>
+            <td align="right" valign="middle" class="main"><a href="{html_href_link modul=$modules.account file=$filename.account_order_history action=buy_now products_id=$oos_order_history_array[i].id}">{html_image_button image="in_cart.gif" alt=$lang.image_button_in_cart}</a></td>
           </tr>
           <tr>
             <td colspan="3" class="main">&nbsp;</td>

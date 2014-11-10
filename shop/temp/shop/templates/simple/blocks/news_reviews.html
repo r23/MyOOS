@@ -1,0 +1,35 @@
+{if $news_reviews_block eq 'true'}
+<table width="150"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="2"><img src="{$theme_image}/block/tbl_top_left.gif" alt=" " width="2" height="4"></td>
+    <td colspan="2" class="tbl_top_center"></td>
+    <td width="2"><img src="{$theme_image}/block/tbl_top_right.gif" alt=" " width="2" height="4"></td>
+  </tr>
+  <tr>
+    <td rowspan="2" class="tbl_left"></td>
+    <td width="4" class="tbl_header_green"><img src="{$theme_image}/trans.gif" alt=" " width="2" height="22"></td>
+    <td width="146" align="left" valign="middle" class="tbl_header_green">{$block_heading_reviews}<a href="{html_href_link modul=$modules.news file=$filename.news_comments}"><img src="{$theme_image}/infobox/arrow_right.gif" border="0" alt="{$icon_arrow_right}"></a>
+</td>
+    <td rowspan="2" class="tbl_right"></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="left" valign="top" bgcolor="#F6F7F1">
+	<table width="100%"  border="0" cellspacing="3" cellpadding="0">
+  <tr>
+    <td>
+{if $random_news.news_reviews_text}
+   <div align="center"><a href="{html_href_link modul=$modules.news file=$filename.news_reviews_info news_id=$random_news.news_id news_reviews_id=$random_news.news_reviews_id}">{html_oos_image basedir=$smarty.const.OOS_IMAGES image=$random_news.news_image alt=$random_news.news_name|escape:"quotes" width=$smarty.const.SMALL_IMAGE_WIDTH height=$smarty.const.SMALL_IMAGE_HEIGHT}</a></div>
+   <div align="left"><a href="{html_href_link modul=$modules.news file=$filename.news_reviews_info news_id=$random_news.news_id news_reviews_id=$random_news.news_reviews_id}">{$random_news.news_reviews_text|strip|truncate:55:"...":true|close_tags|bbcode2html|B2Smilies}</a></div><br />
+   <div align="center"><img src="{$smarty.const.OOS_IMAGES}stars_{$random_news.news_reviews_rating}.gif" border="0" alt="{$random_news.news_reviews_rating|string_format:$lang.block_reviews_text_of_5_stars}" width="59" height="11"></div>
+{/if}
+	</td>
+  </tr>
+</table>	</td>
+  </tr>
+  <tr>
+    <td><img src="{$theme_image}/block/tbl_buttom_left.gif" alt=" " width="2" height="2"></td>
+    <td colspan="2" class="tbl_buttom_center"></td>
+    <td><img src="{$theme_image}/block/tbl_buttom_right.gif" alt=" " width="2" height="2"></td>
+  </tr>
+</table>
+{/if}

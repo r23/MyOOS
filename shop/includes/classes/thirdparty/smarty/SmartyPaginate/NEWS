@@ -1,0 +1,54 @@
+1.5 Oct 6, 2005
+---------------
+
+* fix bug with last link on uneven groupings (pt2002, monte)
+* fix error in paginate_middle with replacing & (Michele, monte)
+* add setPageLimit()/getPageLimit() functions (monte)
+* make error messages better in plugins (monte)
+* fix format=page error in paginate_middle href tags (NeXXt, monte)
+
+1.4 April 12, 2005
+------------------
+
+* fix problem with multiple navigations in one page (signetro, monte)
+* add link_prefix and link_suffix params to {paginate_middle} (oPT,monte)
+* fix bug with urlvar other than "next" (jaco, monte)
+
+1.3 March 9th, 2005
+-------------------
+
+* added HTML attribute passthru (monte)
+* add pagination grouping limits (monte, Josef Whiter)
+* fix bug in paginate_* UrlVar setting (Fernando_AndrX, monte)
+* fix functions paginate_* urls to be XHTML compliant (kilburn, monte)
+* add the assign() method  and new {$paginate} vars to the README (monte)
+
+1.2 October 12th, 2004
+----------------------
+
+* remove is_int(), allow numeric strings (jaey, monte)
+* add setPrevText() and setNextText() methods (kills, monte)
+* add {$paginate.url} (monte)
+* add {$paginate.urlvar} (monte)
+* add {$paginate.current_item} (monte)
+* add {$paginate.prev_text} (monte)
+* add {$paginate.next_text} (monte)
+* add {$paginate.limit} (monte)
+* add {$paginate.page[N].number} (monte)
+* add {$paginate.page[N].item_start} (monte)
+* add {$paginate.page[N].item_end} (monte)
+* add {$paginate.page[N].is_current} (monte)
+* add getCurrentIndex() method (monte)
+
+1.1 October 6th, 2004
+---------------------
+
+* add getLastItem() method (monte)
+* add assign() method (monte)
+* add reset() method (monte)
+* ignore out of bounds 'next' values (monte)
+
+1.0 September 30th, 2004
+------------------------
+
+initial release

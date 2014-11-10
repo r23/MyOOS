@@ -1,0 +1,92 @@
+<!--  $Id: my_wishlist.html,v 1.1 2007/06/15 07:15:31 r23 Exp $ -->
+    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="100%" height="10"></td>
+      </tr>
+{if $oos_page_numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '1' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+  {$oosPageNavigation}
+{/if}
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+{section name=i loop=$wishlist_array}
+      <td width="50%"><form name="cart_quantity" action="{html_href_link modul=$modules.main file=$filename.main_shopping_cart action=frend_wishlist_add_product}" method="post"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+       <tr>
+         <td align="left" width="{$smarty.const.SMALL_IMAGE_WIDTH}" class="smallText"><a href="{product_info_link products_id=$wishlist_array[i].products_id}">{small_product_image image=$wishlist_array[i].products_image alt=$wishlist_array[i].products_name|strip_tags hspace=5 vspace=5}</a></td>
+         <td width="5"></td>
+         <td valign="top" class="smallText"><a href="{product_info_link products_id=$wishlist_array[i].products_id}"><b>{$wishlist_array[i].products_name}</b></a><br />
+           <br />{$wishlist_array[i].products_description|truncate:120:" [...]":false|close_tags}<br />
+           {if $wishlist_array[i].attributes_print != ''}
+              <br />{$wishlist_array[i].attributes_print}<br />
+           {/if}
+       </tr>
+       <tr>
+         <td valign="top"><a href="{html_href_link modul=$main_page file=$page_file action=remove_wishlist pid=$wishlist_array[i].products_id connection=SSL}">{html_image_button image="wldelete.gif" alt=$image_wishlist_delete}</a></td>
+         <td width="5"></td>
+         <td valign="top">
+            {if $smarty.session.member->group.show_price eq 1 }
+              <input type="hidden" name="products_id" value="{$wishlist_array[i].wl_products_id}">
+              <input type="hidden" name="wl_products_id" value="{$wishlist_array[i].products_id}">
+              <input type="hidden" name="cart_quantity" value="1">
+              {html_customer_image_submit image="cart.gif" alt=$lang.image_button_in_cart}
+             {/if}
+         </td>
+       </tr>
+       <tr>
+         <td valign="bottom" class="smallText">
+{if $smarty.session.member->group.show_price eq 1 }
+  {if (!empty($wishlist_array[i].special_price))}
+     <s>{$wishlist_array[i].product_price}</s><br />
+     <span class="special_price">{$wishlist_array[i].product_special_price}</span>
+  {else}
+    {if $wishlist_array[i].product_discount != 0}
+      <s>{$wishlist_array[i].product_price}</s>&nbsp;-{$wishlist_array[i].product_discount}%<br />
+      <span class="discount_price">{$wishlist_array[i].product_discount_price}</span>
+    {else}
+      {$wishlist_array[i].product_price}
+    {/if}
+  {/if}
+{/if}
+         </td>
+         <td width="5"></td>
+         <td></td>
+        </tr>
+        <tr>
+          <td valign="top" colspan="3" class="smallText">
+{if $smarty.session.member->group.show_price eq 1 }
+  {if $wishlist_array[i].products_base_price != 1}
+    <span class="smallText">{$lang.text_products_base_price}: </span>
+    {if (!empty($wishlist_array[i].special_price))}
+    <span class="special_base_price">{$wishlist_array[i].products_base_unit} = {$wishlist_array[i].base_product_special_price}</span></s><br />
+    {else}
+      {if $wishlist_array[i].product_discount != 0}
+      <span class="discount_base_price">{$wishlist_array[i].products_base_unit} = {$wishlist_array[i].base_product_special_price}</span></s><br />
+      {else}
+      <span class="base_price">{$wishlist_array[i].products_base_unit} = {$wishlist_array[i].base_product_price}</span><br />
+      {/if}
+    {/if}
+  {/if}
+{/if}
+<span class="pangv">{$pangv}</span><br />
+          </td>
+        </tr>
+      </table></form></td>
+
+      {if $smarty.section.i.rownum is even}
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+     {/if}
+{/section}
+          </tr>
+        </table></td>
+      </tr>
+{if $oos_page_numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+  {$oosPageNavigation}
+{/if}
+    </table></td>

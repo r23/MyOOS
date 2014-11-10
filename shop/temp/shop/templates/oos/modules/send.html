@@ -1,4 +1,4 @@
-<!--  $Id: send.html 452 2013-06-28 15:49:00Z r23 $ -->
+<!--  $Id: send.html,v 1.3 2009/02/19 14:26:06 r23 Exp $ -->
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td>{$oosPageHeading}</td>
@@ -11,22 +11,13 @@
         <td class="main"><img src="{$theme_image}/heading/man_on_board.gif" border="0" alt="{$oos_heading_title}" width="175" height="198" align="left">{$lang.text_success}<br><br>gv {$id1}</td>
       </tr>
       <tr>
-        <td align="right"><br><a href="{html_href_link content=$contents.main}">{html_image_button image="continue.gif" alt=$lang.button_continue}</a></td>
+        <td align="right"><br><a href="{html_href_link modul=$modules.main file=$filename.main}">{html_image_button image="continue.gif" alt=$lang.image_button_continue}</a></td>
       </tr>
   {/if}
 
   {if $smarty.get.action eq 'send' && $error eq 'false'}
       <tr>
-        <td>
-		
-<form name="send" action="{html_get_link connection=SSL}" method="post">
-	<input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
-	<input type="hidden" name="formid" value="{$formid}">
-	<input type="hidden" name="action" value="process">
-	<input type="hidden" name="content" value="{$contents.gv_send}">		
-		
-		
-		<table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><form action="{html_href_link modul=$modules.gv file=$filename.gv_send action=process}" method="post"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main">{$main_message}</td>
           </tr>
@@ -41,8 +32,8 @@
       <input type="hidden" name="send_name" value="{$send_name}"><input type="hidden" name="to_name" value="{$to_name}"><input type="hidden" name="email" value="{$email}"><input type="hidden" name="amount" value="{$gv_amount}"><input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}"><input type="hidden" name="message" value="{$message}">
 
           <tr>
-            <td class="main">{html_image_submit image="back.gif" alt=$lang.button_back name="back"}</td>
-            <td align="right"><br>{html_image_submit image="send.gif" alt=$lang.button_continue}</td>
+            <td class="main">{html_image_submit image="back.gif" alt=$lang.image_button_back name="back"}</td>
+            <td align="right"><br>{html_image_submit image="send.gif" alt=$lang.image_button_continue}</td>
           </tr>
         </table></form></td>
       </tr>
@@ -51,15 +42,7 @@
         <td class="main">{$lang.heading_text}</td>
       </tr>
       <tr>
-        <td>
-<form name="send" action="{html_get_link connection=SSL}" method="post">
-	<input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
-	<input type="hidden" name="formid" value="{$formid}">
-	<input type="hidden" name="action" value="send">
-	<input type="hidden" name="content" value="{$contents.gv_send}">
-
-
-<table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><form action="{html_href_link modul=$modules.gv file=$filename.gv_send action=send}" method="post"><input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main">{$lang.entry_name}<br><input type="text" name="to_name" value="{$to_name}"></td>
           </tr>
@@ -76,10 +59,10 @@
         <table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
   {if $back_link != '' }
-            <td class="main"><a href="{$back_link}">{html_image_button image="back.gif" alt=$lang.button_back}</a></td>
+            <td class="main"><a href="{$back_link}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
 
   {/if}
-             <td class="main" align="right">{html_image_submit image="continue.gif" alt=$lang.button_continue}</td>
+             <td class="main" align="right">{html_image_submit image="continue.gif" alt=$lang.image_button_continue}</td>
           </tr>
         </table></form></td>
       </tr>

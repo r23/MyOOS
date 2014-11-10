@@ -1,0 +1,18 @@
+<!--  $Id: create_account_admin.html,v 1.1 2007/06/15 07:15:31 r23 Exp $ -->
+   <td width="100%" valign="top"><form name="account_edit" action="{html_href_link modul=$modules.admin file=$filename.admin_create_account_process connection=SSL}" method="post" onSubmit="return check_form();"><input type="hidden" name="action" value="process"><input type=hidden name="keya" value="{$verif_key}"><input type=hidden name="keyb" value="{$newkey2}"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+         <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td>
+{include file="$theme_set/modules/user_account_details.html"}
+        </td>
+      </tr>
+      <tr>
+        <td align="right" class="main"><br />{html_image_submit image="continue.gif" alt=$lang.image_button_continue}</td>
+      </tr>
+    </table></form>
+		</td>

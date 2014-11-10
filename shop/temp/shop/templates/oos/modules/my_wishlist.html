@@ -1,4 +1,4 @@
-<!--  $Id: my_wishlist.html 452 2013-06-28 15:49:00Z r23 $ -->
+<!--  $Id: my_wishlist.html,v 1.2 2009/02/19 14:26:06 r23 Exp $ -->
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td>{$oosPageHeading}</td>
@@ -13,15 +13,7 @@
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
 {section name=i loop=$wishlist_array}
-      <td width="50%">
-
-<form name="cart_quantity" action="{html_get_link connection=SSL}" method="post">
-	<input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
-	<input type="hidden" name="formid" value="{$formid}">
-	<input type="hidden" name="action" value="frend_wishlist_add_product">
-	<input type="hidden" name="content" value="{$contents.main_shopping_cart}">
-
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <td width="50%"><form name="cart_quantity" action="{html_href_link modul=$modules.main file=$filename.main_shopping_cart action=frend_wishlist_add_product}" method="post"><table border="0" width="100%" cellspacing="0" cellpadding="0">
        <tr>
          <td align="left" width="{$smarty.const.SMALL_IMAGE_WIDTH}" class="smallText"><a href="{product_info_link products_id=$wishlist_array[i].products_id}">{small_product_image image=$wishlist_array[i].products_image alt=$wishlist_array[i].products_name|strip_tags hspace=5 vspace=5}</a></td>
          <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
@@ -32,14 +24,14 @@
            {/if}
        </tr>
        <tr>
-         <td valign="top"><a href="{html_href_link content=$content_file action=remove_wishlist pid=$wishlist_array[i].products_id connection=SSL}">{html_image_button image="wldelete.gif" alt=$image_wishlist_delete}</a></td>
+         <td valign="top"><a href="{html_href_link modul=$main_page file=$page_file action=remove_wishlist pid=$wishlist_array[i].products_id connection=SSL}">{html_image_button image="wldelete.gif" alt=$image_wishlist_delete}</a></td>
          <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
          <td valign="top">
             {if $smarty.session.member->group.show_price eq 1 }
               <input type="hidden" name="products_id" value="{$wishlist_array[i].wl_products_id}">
               <input type="hidden" name="wl_products_id" value="{$wishlist_array[i].products_id}">
               <input type="hidden" name="cart_quantity" value="1">
-              {html_customer_image_submit image="cart.gif" alt=$lang.button_in_cart}
+              {html_customer_image_submit image="cart.gif" alt=$lang.image_button_in_cart}
              {/if}
          </td>
        </tr>

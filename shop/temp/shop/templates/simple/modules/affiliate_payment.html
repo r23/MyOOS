@@ -1,0 +1,51 @@
+<!--  $Id: affiliate_payment.html,v 1.1 2007/06/15 15:05:22 r23 Exp $ -->
+    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main" colspan="4">{$lang.text_affiliate_header} {$number_of_payment}</td>
+          </tr>
+          <tr>
+            <td colspan="4" height="10"></td>
+          </tr>
+          <tr>
+            <td class="infoBoxHeading" align="right">{$lang.table_heading_payment_id}</td>
+            <td class="infoBoxHeading" align="center">{$lang.table_heading_date}</td>
+            <td class="infoBoxHeading" align="right">{$lang.table_heading_payment}</td>
+            <td class="infoBoxHeading" align="right">{$lang.table_heading_status}</td>
+          </tr>
+{section name=i loop=$payment_array}
+  {if $smarty.section.i.rownum is even}
+          <tr class="productListing-even">
+  {else}
+          <tr class="productListing-odd">
+  {/if}
+
+            <td class="smallText" align="right">{$payment_array[i].affiliate_payment_id}</td>
+            <td class="smallText" align="center">{$payment_array[i].affiliate_payment_date|oos_date_short}</td>
+            <td class="smallText" align="right">{$payment_array[i].affiliate_payment_total}</td>
+            <td class="smallText" align="right">{$payment_array[i].affiliate_payment_status_name}</td>
+          </tr>
+{sectionelse}
+          <tr class="productListing-odd">
+            <td colspan="4" class="main">{$lang.text_no_payments}</td>
+          </tr>
+{/section}
+          <tr>
+            <td colspan="4"><img src="{$theme_image}/black.gif" border="0" alt=" " width="100%" height="1"></td>
+          </tr>
+          <tr>
+            <td class="main" colspan="4"><br />{$lang.text_information_payment_total} {$payment_array[i].total}</td>
+          </tr>
+        </table></td>
+      </tr>
+      {if $oos_page_numrows > 0 }
+       {$oosPageNavigation}
+      {/if}
+    </table>
