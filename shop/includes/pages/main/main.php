@@ -75,7 +75,6 @@
   if (!isset($option)) {
     require 'includes/info_message.php';
     require 'includes/oos_blocks.php';
-    require 'includes/oos_counter.php';
   }
 
   if (TIME_BASED_GREETING == 'true') {
