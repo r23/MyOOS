@@ -210,15 +210,11 @@
     $messageStack->add(ERROR_NO_DEFAULT_LANGUAGE_DEFINED, 'error');
   }
 
-
-  require 'includes/functions/function_ticket.php';
-  require 'includes/functions/function_affiliate.php';
   require 'includes/functions/function_added.php';
 
 
-  if (basename($_SERVER['PHP_SELF']) != $aFilename['login'] 
-   && basename($_SERVER['PHP_SELF']) != $aFilename['password_forgotten']) { 
-    oos_admin_check_login(); 
-  }
 
-?>
+if (basename($_SERVER['SCRIPT_NAME']) != $aFilename['login'] 
+   && basename($_SERVER['SCRIPT_NAME']) != $aFilename['password_forgotten']) { 
+    oos_admin_check_login(); 
+}

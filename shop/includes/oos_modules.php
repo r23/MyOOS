@@ -28,21 +28,14 @@
   $aModules = array();
   $aModules['account'] = $prefix_modules . 'account';
   $aModules['admin'] = $prefix_modules . 'admin';
-  $aModules['affiliate'] = $prefix_modules . 'affiliate';
   $aModules['checkout'] = $prefix_modules . 'checkout';
   $aModules['info'] = $prefix_modules . 'info';
-  $aModules['links'] = $prefix_modules . 'links';
   $aModules['gv'] = $prefix_modules . 'gv';
   $aModules['main'] = $prefix_modules . 'main';
-  $aModules['news'] = $prefix_modules . 'news';
   $aModules['newsletters'] = $prefix_modules . 'newsletters';
   $aModules['products'] = $prefix_modules . 'products';
   $aModules['pub'] = $prefix_modules . 'pub';
   $aModules['reviews'] = $prefix_modules . 'reviews';
   $aModules['search'] = $prefix_modules . 'search';
-  $aModules['tell_a_friend'] = $prefix_modules . 'tell_a_friend';
-  $aModules['ticket'] = $prefix_modules . 'ticket';
   $aModules['user'] = $prefix_modules . 'user';
-  $aModules['web'] = $prefix_modules . 'web'; 
- 
-?>
+

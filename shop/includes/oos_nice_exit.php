@@ -57,4 +57,3 @@
     echo $perf->ExpensiveSQL();
     echo $perf->InvalidSQL();
   }
-?>

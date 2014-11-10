@@ -29,8 +29,6 @@
 
   if ($menu_dhtml == true) {
     $contents[] = array('text'  => '<a href="#" onclick="return false;" onmouseover="menuItemMouseover(event, \'customersMenu\');" class="menuBoxContentLink"><span class="menuItemText">' . BOX_HEADING_CUSTOMERS . '</span><span class="menuItemArrow">&#9654;</span></a><br />' .
-                                   '<a href="#" onclick="return false;" onmouseover="menuItemMouseover(event, \'ticketMenu\');" class="menuBoxContentLink"><span class="menuItemText">' . BOX_HEADING_TICKET . '</span><span class="menuItemArrow">&#9654;</span></a><br />' .
-                                   '<a href="#" onclick="return false;" onmouseover="menuItemMouseover(event, \'affiliateMenu\');" class="menuBoxContentLink"><span class="menuItemText">' . BOX_HEADING_AFFILIATE . '</span><span class="menuItemArrow">&#9654;</span></a><br />' .
                                    '<a href="#" onclick="return false;" onmouseover="menuItemMouseover(event, \'gv_adminMenu\');" class="menuBoxContentLink"><span class="menuItemText">' . BOX_HEADING_GV_ADMIN . '</span><span class="menuItemArrow">&#9654;</span></a><br />');
   }
 
