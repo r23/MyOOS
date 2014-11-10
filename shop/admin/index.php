@@ -112,16 +112,7 @@
                                                'access' => oos_admin_check_boxes('affiliate', 'sub_boxes')),
                                          array('title' => BOX_AFFILIATE_BANNERS, 'link' => oos_href_link_admin($aFilename['affiliate_banners'], 'selected_box=affiliate'),
                                                'access' => oos_admin_check_boxes('affiliate_banners', 'sub_boxes')))),
-               array('title' => BOX_HEADING_TOOLS,
-                     'access' => oos_admin_check_boxes('tools.php'),
-                     'image' => 'tools.gif',
-                     'href' => oos_href_link_admin(oos_selected_file('tools.php'), 'selected_box=tools'),
-                     'children' => array(array('title' => TOOLS_BACKUP, 'link' => oos_href_link_admin($aFilename['backup'], 'selected_box=tools'),
-                                               'access' => oos_admin_check_boxes('backup', 'sub_boxes')),
-                                         array('title' => TOOLS_BANNERS, 'link' => oos_href_link_admin($aFilename['banner_manager'], 'selected_box=tools'),
-                                               'access' => oos_admin_check_boxes('banner_manager', 'sub_boxes')),
-                                         array('title' => TOOLS_FILES, 'link' => oos_href_link_admin($aFilename['file_manager'], 'selected_box=tools'),
-                                               'access' => oos_admin_check_boxes('file_manager', 'sub_boxes')))));
+);
 
   $languages = oos_get_languages();
   $languages_array = array();

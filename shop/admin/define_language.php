@@ -168,9 +168,6 @@
           <tr>
             <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
           </tr>
-          <tr>
-            <td align="right"><?php echo '<a href="' . oos_href_link_admin($aFilename['file_manager'], 'current_path=' . OOS_ABSOLUTE_PATH . 'includes/languages/' . $_GET['lngdir']) . '">' . oos_image_swap_button('file_manager','file_manager_off.gif', IMAGE_FILE_MANAGER) . '</a>'; ?></td>
-          </tr>
 <?php
   }
 ?>

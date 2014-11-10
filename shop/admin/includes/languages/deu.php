@@ -162,9 +162,9 @@ define('BOX_REPORTS_REFERER' , 'HTTP Referers');
 // tools text in includes/boxes/tools.php
 define('BOX_HEADING_TOOLS', 'Hilfsprogramme');
 define('BOX_TOOLS_BACKUP', 'Datenbanksicherung');
-define('BOX_TOOLS_BANNER_MANAGER', 'Banner Manager');
+
 define('BOX_TOOLS_DEFINE_LANGUAGE', 'Sprachen definieren');
-define('BOX_TOOLS_FILE_MANAGER', 'Datei-Manager');
+
 define('BOX_EXPORT_PREISSUCHMASCHINE', 'Export preissuchmaschine.de');
 define('BOX_TOOLS_MAIL', 'eMail versenden');
 define('BOX_TOOLS_NEWSLETTER_MANAGER', 'Rundschreiben Manager');

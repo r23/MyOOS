@@ -85,24 +85,26 @@
   }
 
 
-  // require the database functions
-  if (!defined('ADODB_LOGSQL_TABLE')) {
-    define('ADODB_LOGSQL_TABLE', $oostable['adodb_logsql']);
-  }
-  require '../includes/classes/thirdparty/adodb/toexport.inc.php';
-  require '../includes/classes/thirdparty/adodb/adodb-errorhandler.inc.php';
-  require '../includes/classes/thirdparty/adodb/adodb.inc.php';
-  require '../includes/classes/thirdparty/adodb/tohtml.inc.php';
-  require '../includes/functions/function_db.php';
 
-  // make a connection to the database... now
-  if (!oosDBInit()) {
-    die('Unable to connect to database server!');
-  }
+// require the database functions
+if (!defined('ADODB_LOGSQL_TABLE')) {
+	define('ADODB_LOGSQL_TABLE', $oostable['adodb_logsql']);
+}
+require_once MYOOS_INCLUDE_PATH . 'includes/lib/adodb/toexport.inc.php';
+require_once MYOOS_INCLUDE_PATH . 'includes/lib/adodb/adodb-errorhandler.inc.php';
+require_once MYOOS_INCLUDE_PATH . 'includes/lib/adodb/adodb.inc.php';
+require_once MYOOS_INCLUDE_PATH . 'includes/lib/adodb/tohtml.inc.php';
+require_once MYOOS_INCLUDE_PATH . 'includes/functions/function_db.php';
 
-  $dbconn =& oosDBGetConn();
-  oosDB_importTables($oostable);
+// make a connection to the database... now
+if (!oosDBInit()) {
+	die('Unable to connect to database server!');
+}
 
+$dbconn =& oosDBGetConn();
+oosDB_importTables($oostable);  
+  
+  
 // customization for the design layout
   define('MENU_DHTML', false);
   (MENU_DHTML == true) ? define('BOX_WIDTH', 0) : define('BOX_WIDTH', 125);

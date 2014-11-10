@@ -51,8 +51,8 @@ function dosql($table, $flds) {
    GLOBAL $db;
 
    $dict = NewDataDictionary($db);
-
-   $taboptarray = array('mysql' => 'TYPE=MyISAM', 'REPLACE');
+   // $dict->debug = 1;
+   $taboptarray = array('mysql' => 'ENGINE=MyISAM DEFAULT CHARSET=utf8;', 'REPLACE');
 
    $sqlarray = $dict->CreateTableSQL($table, $flds, $taboptarray);
    $dict->ExecuteSQLArray($sqlarray);
@@ -709,6 +709,9 @@ $table = $prefix_table . 'orders';
 $flds = "
   orders_id I NOTNULL AUTO PRIMARY,
   customers_id I NOTNULL,
+  customers_cid I NOTNULL,
+  customers_firstname C(32) NOTNULL,
+  customers_lastname C(32) NOTNULL,
   customers_name C(64) NOTNULL,
   customers_company C(32),
   customers_street_address C(64) NOTNULL,
@@ -720,6 +723,8 @@ $flds = "
   customers_telephone C(32) NOTNULL,
   customers_email_address C(96) NOTNULL,
   customers_address_format_id I2 NOTNULL,
+  delivery_firstname C(32) NOTNULL,
+  delivery_lastname C(32) NOTNULL,
   delivery_name C(64) NOTNULL,
   delivery_company C(32),
   delivery_street_address C(64) NOTNULL,
@@ -729,6 +734,8 @@ $flds = "
   delivery_state C(32),
   delivery_country C(32) NOTNULL,
   delivery_address_format_id I2 NOTNULL,
+  billing_firstname C(32) NOTNULL,
+  billing_lastname C(32) NOTNULL,
   billing_name C(64) NOTNULL,
   billing_company C(32),
   billing_street_address C(64) NOTNULL,

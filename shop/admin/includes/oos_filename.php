@@ -32,9 +32,6 @@
   $aFilename['admin_members'] = $prefix_filename . 'admin_members.php';
 
   $aFilename['advanced_search_result'] = $prefix_filename . 'advanced_search_result.php';
-  $aFilename['backup'] = $prefix_filename . 'backup.php';
-  $aFilename['banner_manager'] = $prefix_filename . 'banner_manager.php';
-  $aFilename['banner_statistics'] = $prefix_filename . 'banner_statistics.php';
   $aFilename['cache'] = $prefix_filename . 'cache.php';
   $aFilename['campaigns'] = $prefix_filename . 'campaigns.php';
   $aFilename['catalog_product_info'] = $prefix_filename . 'product_info.php';
@@ -79,7 +76,7 @@
   $aFilename['orders_status'] = $prefix_filename . 'orders_status.php';
   $aFilename['packingslip'] = $prefix_filename . 'packingslip.php';
   $aFilename['password_forgotten'] = $prefix_filename . 'password_forgotten.php';
-  $aFilename['php_info'] = $prefix_filename . 'php_info.php';
+
   $aFilename['plugins'] = $prefix_filename . 'plugins.php';
   $aFilename['popup_google_map'] = $prefix_filename . 'popup_google_map.php';
   $aFilename['popup_image'] = $prefix_filename . 'popup_image.php';
