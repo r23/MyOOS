@@ -27,7 +27,6 @@
   $prefix_filename = '';
   if (!$prefix_filename == '') $prefix_filename =  $prefix_filename . '_';
 
-  $aFilename['affiliate_show_banner'] = $prefix_filename . 'show_banner.php';
   $aFilename['conditions_download'] = $prefix_filename . 'conditions.pdf';
 
   //includes/pages/account
@@ -42,34 +41,6 @@
   $aFilename['admin_create_account'] = $prefix_filename . 'create_account';
   $aFilename['admin_create_account_process'] = $prefix_filename . 'create_account_process';
   $aFilename['admin_login'] = $prefix_filename . 'login';
-
-  //includes/pages/affiliate
-  $aFilename['affiliate_affiliate'] = $prefix_filename . 'affiliate';
-  $aFilename['affiliate_summary'] = $prefix_filename . 'summary';
-  $aFilename['affiliate_logout'] = $prefix_filename . 'logout';
-  $aFilename['affiliate_contact'] = $prefix_filename . 'contact';
-  $aFilename['affiliate_faq'] = $prefix_filename . 'faq';
-  $aFilename['affiliate_account'] = $prefix_filename . 'details';
-  $aFilename['affiliate_details'] = $prefix_filename . 'details';
-  $aFilename['affiliate_details_ok'] = $prefix_filename . 'details_ok';
-  $aFilename['affiliate_terms'] = $prefix_filename . 'terms';
-  $aFilename['affiliate_help1'] = $prefix_filename . 'help1';
-  $aFilename['affiliate_help2'] = $prefix_filename . 'help2';
-  $aFilename['affiliate_help3'] = $prefix_filename . 'help3';
-  $aFilename['affiliate_help4'] = $prefix_filename . 'help4';
-  $aFilename['affiliate_help5'] = $prefix_filename . 'help5';
-  $aFilename['affiliate_help6'] = $prefix_filename . 'help6';
-  $aFilename['affiliate_help7'] = $prefix_filename . 'help7';
-  $aFilename['affiliate_help8'] = $prefix_filename . 'help8';
-  $aFilename['affiliate_info'] = $prefix_filename . 'info';
-  $aFilename['affiliate_banners'] = $prefix_filename . 'banners';
-  $aFilename['affiliate_clicks'] = $prefix_filename . 'clicks';
-  $aFilename['affiliate_password_forgotten'] = $prefix_filename . 'password_forgotten';
-  $aFilename['affiliate_sales'] = $prefix_filename . 'sales';
-  $aFilename['affiliate_signup'] = $prefix_filename . 'signup';
-  $aFilename['affiliate_signup_ok'] = $prefix_filename . 'signup_ok';
-  $aFilename['affiliate_terms'] = $prefix_filename . 'terms';
-  $aFilename['affiliate_payment'] = $prefix_filename . 'payment';
 
   //includes/pages/gv
   $aFilename['gv_faq'] = $prefix_filename . 'faq';
@@ -88,12 +59,6 @@
   $aFilename['info_skype'] = $prefix_filename . 'skype';
   $aFilename['info_gallery'] = $prefix_filename . 'gallery';
 
-  //includes/pages/links
-  $aFilename['links'] = $prefix_filename . 'links';
-  $aFilename['links_submit'] = $prefix_filename . 'submit';
-  $aFilename['links_submit_success'] = $prefix_filename . 'submit_success';
-  $aFilename['popup_links_help'] = $prefix_filename . 'popup_links_help';
-
   //includes/pages/main
   $aFilename['main'] = $prefix_filename . 'main';
   $aFilename['shop'] = $prefix_filename . 'shop';
@@ -105,13 +70,6 @@
   $aFilename['contact_us'] = $prefix_filename . 'old_contact_us';
 
 
-  //includes/pages/news
-  $aFilename['news_news'] = $prefix_filename . 'news';
-  $aFilename['news_comments'] = $prefix_filename . 'comments';
-  $aFilename['news_info_pdf'] = $prefix_filename . 'pdf_info';
-  $aFilename['news_reviews'] = $prefix_filename . 'reviews';
-  $aFilename['news_reviews_info'] = $prefix_filename . 'reviews_info';
-  $aFilename['news_reviews_write'] = $prefix_filename . 'reviews_write';
 
   //includes/pages/newsletters
   $aFilename['newsletters'] = $prefix_filename . 'newsletters';
@@ -150,12 +108,6 @@
   //includes/pages/web
   $aFilename['search_result'] = $prefix_filename . 'search_result';
 
-  //includes/pages/tell_a_friend
-  $aFilename['tell_a_friend'] = $prefix_filename . 'tell_a_friend';
-
-  //includes/pages/ticket
-  $aFilename['ticket_create'] = $prefix_filename . 'create';
-  $aFilename['ticket_view'] = $prefix_filename . 'view';
 
   //includes/pages/user
   $aFilename['account'] = $prefix_filename . 'account';
@@ -180,4 +132,3 @@
   $aFilename['checkout_shipping_address'] = $prefix_filename . 'shipping_address';
   $aFilename['checkout_success'] = $prefix_filename . 'success';
 
-?>

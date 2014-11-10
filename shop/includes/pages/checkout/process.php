@@ -380,46 +380,9 @@
     oos_mail('', SEND_EXTRA_ORDER_EMAILS_TO, $aLang['email_text_subject'], nl2br($email_order), $oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], $oOrder->customer['email_address'], true);
   }
 
-// Include OSC-AFFILIATE 
-// fetch the net total of an order
-  $affiliate_total = 0;
-  for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
-    $affiliate_total += $oOrder->products[$i]['final_price'] * $oOrder->products[$i]['qty'];
-  }
-  $affiliate_total = round($affiliate_total, 2);
-
-// Check for individual commission
-  $affiliate_percentage = 0;
-  if (AFFILATE_INDIVIDUAL_PERCENTAGE == 'true') {
-    $affiliate_affiliatetable = $oostable['affiliate_affiliate'];
-    $sql = "SELECT affiliate_commission_percent
-            FROM $affiliate_affiliatetable
-            WHERE affiliate_id = '" . oos_db_input($_SESSION['affiliate_ref']) . "'";
-    $affiliate_commission_result = $dbconn->Execute($sql);
-    $affiliate_commission = $affiliate_commission_result->fields;
-    $affiliate_percent = $affiliate_commission['affiliate_commission_percent'];
-  }
-  if ($affiliate_percent < AFFILIATE_PERCENT) $affiliate_percent = AFFILIATE_PERCENT;
-  $affiliate_payment = round(($affiliate_total * $affiliate_percent / 100), 2);
-
-  if (isset($_SESSION['affiliate_ref'])) {
-    $sql_data_array = array('affiliate_id' => $_SESSION['affiliate_ref'],
-                            'affiliate_date' => $affiliate_clientdate,
-                            'affiliate_browser' => $affiliate_clientbrowser,
-                            'affiliate_ipaddress' => $affiliate_clientip,
-                            'affiliate_value' => $affiliate_total,
-                            'affiliate_payment' => $affiliate_payment,
-                            'affiliate_orders_id' => $insert_id,
-                            'affiliate_clickthroughs_id' => $_SESSION['affiliate_clickthroughs_id'],
-                            'affiliate_percent' => $affiliate_percent);
-    oos_db_perform($oostable['affiliate_sales'], $sql_data_array);
-  }
 
 // load the after_process function from the payment modules
   $payment_modules->after_process();
-
-  $order_total_modules->sendFax();
-  $order_total_modules->sendSMS();
 
   $_SESSION['cart']->reset(true);
 
@@ -434,4 +397,4 @@
 
   oos_redirect(oos_href_link($aModules['checkout'], $aFilename['checkout_success'], '', 'SSL'));
 
-?>
+

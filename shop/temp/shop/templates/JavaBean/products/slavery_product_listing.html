@@ -1,9 +1,0 @@
-<table border="0" width="100%" cellspacing="0" cellpadding="2">
-{section name=i loop=$list_box_contents}
-  <tr {$list_box_contents[i].params}>
-   {section name=j loop=$list_box_contents[i]}
-     <td align="{$list_box_contents[i][j].align}" {$list_box_contents[i][j].params}>{$list_box_contents[i][j].text}</td>
-   {/section}
-  </tr>
-{/section}
-</table>
