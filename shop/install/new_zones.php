@@ -243,4 +243,4 @@ if ($result === false) {
 }
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 
-?>
+

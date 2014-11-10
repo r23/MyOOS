@@ -10,7 +10,7 @@
    Based on:
 
    File: general.php,v 1.231 2003/07/09 01:15:48 hpdl
-         general.php,v 1.212 2003/02/17 07:55:54 hpdl 
+         general.php,v 1.212 2003/02/17 07:55:54 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -30,7 +30,7 @@
   */
 
   /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
  /**
   * Stop from parsing any further PHP code
@@ -57,8 +57,8 @@
     }
 
     // clean URL
-    if (strpos($sUrl, '&amp;') !== false) $sUrl = str_replace('&amp;', '&', $sUrl);
-    if (strpos($sUrl, '&&') !== false) $sUrl = str_replace('&&', '&', $sUrl);
+    if (strpos($sUrl, '&amp;') !== FALSE) $sUrl = str_replace('&amp;', '&', $sUrl);
+    if (strpos($sUrl, '&&') !== FALSE) $sUrl = str_replace('&&', '&', $sUrl);
 
     header('Location: ' . $sUrl);
     oos_exit();
@@ -103,12 +103,13 @@
   }
 
   function oos_prepare_input($sStr) {
-    if (get_magic_quotes_gpc()) {
-      $sStr =& stripslashes($sStr);
+    if (!is_array($sStr)) {
+       if (get_magic_quotes_gpc()) {
+         $sStr = stripslashes($sStr);
+       }
+       $sStr = strip_tags($sStr);
+       $sStr = trim($sStr);
     }
-    $sStr =& strip_tags($sStr);
-    $sStr =& trim($sStr);
-
     return $sStr;
   }
 
@@ -121,7 +122,7 @@
   * Used in conjunction with pnVarCleanFromInput
   * @author    PostNuke Content Management System
   * @copyright Copyright (C) 2001 by the Post-Nuke Development Team.
-  * @version Revision: 2.0  - changed by Author: r23  on Date: 2004/01/12 06:02:08 
+  * @version Revision: 2.0  - changed by Author: r23  on Date: 2004/01/12 06:02:08
   * @access private
   * @param any variables or arrays to be stripslashed
   */
@@ -142,7 +143,7 @@
   * system is not allowed
   * @author    PostNuke Content Management System
   * @copyright Copyright (C) 2001 by the Post-Nuke Development Team.
-  * @version Revision: 2.0  - changed by Author: r23  on Date: 2004/01/12 06:02:08 
+  * @version Revision: 2.0  - changed by Author: r23  on Date: 2004/01/12 06:02:08
   * @access private
   * @param var variable to prepare
   * @param ...
@@ -225,7 +226,7 @@
     $query  = "SELECT admin_firstname, admin_lastname
                FROM $admintable
                WHERE admin_id  = '" . intval($nNewsAuthorId) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $sAdminName = $result->fields['admin_firstname'] . ' ' . $result->fields['admin_lastname'];
 
@@ -252,7 +253,7 @@
     $query  = "SELECT (avg(news_reviews_rating ) / 5 * 100) AS average_rating
                FROM $news_reviewstable
                WHERE news_id  = '" . intval($nNewsId)  . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $sAverage = $result->fields['average_rating'];
 
@@ -279,7 +280,7 @@
     $query = "SELECT customers_firstname, customers_lastname
               FROM $customerstable
               WHERE customers_wishlist_link_id = '" . oos_db_input($wlid) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $sCustomersName = $result->fields['customers_firstname'] . ' ' . $result->fields['customers_lastname'];
 
@@ -403,7 +404,7 @@
   * @param $current_price
   * @return string
   */
-  function oos_get_products_price_quantity_discount($product_id, $qty, $current_price = false) {
+  function oos_get_products_price_quantity_discount($product_id, $qty, $current_price = FALSE) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -540,38 +541,38 @@
   * @param $bWithIsoCodes
   * @return array
   */
-  function oos_get_countries($countries_id = '', $bWithIsoCodes = false) {
+  function oos_get_countries($countries_id = '', $bWithIsoCodes = FALSE) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
     $aCountries = array();
-    if (oos_is_not_null($countries_id)) {
-      if ($bWithIsoCodes == true) {
-        $countriestable = $oostable['countries'];
-        $query = "SELECT countries_name, countries_iso_code_2, countries_iso_code_3
-                  FROM $countriestable
-                  WHERE countries_id = '" . intval($countries_id) . "'
-                  ORDER BY countries_name";
-        $aCountries = $dbconn->GetRow($query);
-      } else {
-        $countriestable = $oostable['countries'];
-        $query = "SELECT countries_name
-                  FROM $countriestable
-                  WHERE countries_id = '" . intval($countries_id) . "'";
-        $aCountries = $dbconn->GetRow($query);
-      }
+    if (!empty($countries_id)) {
+        if ($bWithIsoCodes == TRUE) {
+            $countriestable = $oostable['countries'];
+            $query = "SELECT countries_name, countries_iso_code_2, countries_iso_code_3
+                      FROM $countriestable
+                      WHERE countries_id = '" . intval($countries_id) . "'
+                      ORDER BY countries_name";
+            $aCountries = $dbconn->GetRow($query);
+        } else {
+            $countriestable = $oostable['countries'];
+            $query = "SELECT countries_name
+                      FROM $countriestable
+                      WHERE countries_id = '" . intval($countries_id) . "'";
+            $aCountries = $dbconn->GetRow($query);
+        }
     } else {
-      $countriestable = $oostable['countries'];
-      $query = "SELECT countries_id, countries_name
-                FROM $countriestable
-                ORDER BY countries_name";
-      $aCountries = $dbconn->GetAll($query);
+        $countriestable = $oostable['countries'];
+        $query = "SELECT countries_id, countries_name
+                  FROM $countriestable
+                  ORDER BY countries_name";
+        $aCountries = $dbconn->GetAll($query);
     }
 
     return $aCountries;
-  }
+}
 
 
  /**
@@ -825,7 +826,7 @@
                 AND c.categories_id = cd.categories_id
                 AND cd.categories_languages_id = '" .  intval($nLanguageID) . "'
               ORDER BY sort_order, cd.categories_name";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     while ($categories = $result->fields) {
       $aCategories[] = array('id' => $categories['categories_id'],
@@ -862,10 +863,10 @@
     $query = "SELECT parent_id
               FROM $categoriestable
               WHERE categories_id = '" . intval($categories_id) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     while ($parent_categories = $result->fields) {
-      if ($parent_categories['parent_id'] == 0) return true;
+      if ($parent_categories['parent_id'] == 0) return TRUE;
       $categories[count($categories)] = $parent_categories['parent_id'];
       if ($parent_categories['parent_id'] != $categories_id) {
         oos_get_parent_categories($categories, $parent_categories['parent_id']);
@@ -894,7 +895,7 @@
     $oostable =& oosDBGetTables();
 
     $products_to_categoriestable = $oostable['products_to_categories'];
-    $query = "SELECT COUNT(*) AS total 
+    $query = "SELECT COUNT(*) AS total
               FROM $products_to_categoriestable
               WHERE products_id = '" . intval($products_id) . "'";
     $cat_count_data = $dbconn->Execute($query);
@@ -952,7 +953,7 @@
       $uprid = $prid;
 
       if (is_array($parameters) && (count($parameters) > 0)) {
-        $attributes_check = true;
+        $attributes_check = TRUE;
         $attributes_ids = '';
 
         reset($parameters);
@@ -966,7 +967,7 @@
           }
         }
 
-        if ($attributes_check == true) {
+        if ($attributes_check == TRUE) {
           $uprid .= $attributes_ids;
         }
       }
@@ -974,8 +975,8 @@
       $uprid = oos_get_product_id($prid);
 
       if (is_numeric($uprid)) {
-        if (strpos($prid, '{') !== false) {
-          $attributes_check = true;
+        if (strpos($prid, '{') !== FALSE) {
+          $attributes_check = TRUE;
           $attributes_ids = '';
 
           // strpos()+1 to remove up to and including the first { which would create an empty array element in explode()
@@ -987,65 +988,21 @@
             if (is_numeric($pair[0]) && is_numeric($pair[1])) {
               $attributes_ids .= '{' . intval($pair[0]) . '}' . intval($pair[1]);
             } else {
-              $attributes_check = false;
+              $attributes_check = FALSE;
               break;
             }
           }
 
-          if ($attributes_check == true) {
+          if ($attributes_check == TRUE) {
             $uprid .= $attributes_ids;
           }
         }
       } else {
-        return false;
+        return FALSE;
       }
     }
 
     return $uprid;
-  }
-
-
- /**
-  * send error reporting email to admin 
-  *
-  * @author    PostNuke Content Management System
-  * @copyright Copyright (C) 2001 by the Post-Nuke Development Team.
-  * @version Revision: 2.0  - changed by Author: r23  on Date: 2004/03/09 06:02:08 
-  * @access private
-  */
-  function oos_error_reporting_mail() {
-    global $aLang;
-
-    $sServer = oos_server_get_host();
-    $sProtocol = oos_server_get_protocol();
-    $sUri = oos_server_get_var('REQUEST_URI');
-    $sRemoteIP = oos_server_get_remote();
-
-
-    $email_text = '';
-    $email_text .= $aLang['error404_email_header'] . "\n\n" .
-                   $aLang['error404_email_text'] . ' ' .
-                   $remote . ' ' .
-                   $aLang['error404_email_date'] . ' ' . strftime(DATE_TIME_FORMAT) . "\n\n";
-
-    $email_text .= $aLang['error404_email_uri'] . "\n" .
-                   trim($sProtocol . $sServer . $sUri) . "\n\n";
-
-    if ($_SERVER["HTTP_REFERER"] != "") {
-      $email_text .= $aLang['error404_email_ref'] . "\n" .
-                     $_SERVER["HTTP_REFERER"] . "\n\n";
-    }
-
-    if (!defined('WEBMASTER_NAME')) {
-      define('WEBMASTER_NAME', STORE_OWNER);
-    }
-    if (!defined('WEBMASTER_EMAIL_ADDRESS')) {
-      define('WEBMASTER_EMAIL_ADDRESS', STORE_OWNER_EMAIL_ADDRESS);
-    }
-
-
-    # Send the mail message. This assumes mail() will work on your system!
-    oos_mail(WEBMASTER_NAME, WEBMASTER_EMAIL_ADDRESS, $aLang['error404_email_subject'], nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '1');
   }
 
 
@@ -1064,14 +1021,14 @@
     $oostable =& oosDBGetTables();
 
     $products_attributestable = $oostable['products_attributes'];
-    $query = "SELECT COUNT(*) AS total 
+    $query = "SELECT COUNT(*) AS total
               FROM $products_attributestable
               WHERE products_id = '" . intval($products_id) . "'";
     $attributes = $dbconn->Execute($query);
     if ($attributes->fields['total'] > 0) {
-      return true;
+      return TRUE;
     } else {
-      return false;
+      return FALSE;
     }
   }
 
@@ -1082,7 +1039,7 @@
 
     if (empty($modules)) return $nCount;
 
-    $aModules = split(';', $modules);
+    $aModules = explode(';', $modules);
 
     for ($i=0, $n=count($aModules); $i<$n; $i++) {
       $class = substr($aModules[$i], 0, strrpos($aModules[$i], '.'));
@@ -1107,28 +1064,22 @@
 
 
 
-  function oos_output_string($sStr, $bTranslate = false, $bProtected = false) {
-    if ($bProtected == true) {
-      return htmlspecialchars($sStr);
-    } else {
-      if ($bTranslate == false) {
-        return oos_parse_input_field_data($sStr, array('"' => '&quot;'));
-      } else {
-        return oos_parse_input_field_data($sStr, $bTranslate);
-      }
-    }
-  }
+/**
+ * Parse and output a user submited value
+ *
+ * @param string $sStr The string to parse and output
+ * @param array $aTranslate An array containing the characters to parse
+ * @access public
+ */
+function oos_output_string($sStr, $aTranslate = null)
+{
 
- /**
-  * Parse the data used in the html tags to ensure the tags will not break
-  *
-  * @param $data
-  * @param $parse
-  * @return string
-  */
-  function oos_parse_input_field_data($data, $parse) {
-    return strtr(trim($data), $parse);
-  }
+    if (empty($aTranslate)) {
+        $aTranslate = array('"' => '&quot;');
+    }
+
+    return strtr(trim($sStr), $aTranslate);
+}
 
 
  /**
@@ -1170,34 +1121,15 @@
     $query = "SELECT currencies_id
               FROM $currenciestable
               WHERE code = '" . oos_db_input($code) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     if ($result->RecordCount() > 0) {
       return $code;
     } else {
-      return false;
+      return FALSE;
     }
   }
 
-
- /**
-  * Checks to see if the tempalte exists 
-  */
-  function oos_template_exits($sStr) {
-
-    $sDir = OOS_TEMP_PATH;
-    if (substr($sDir, -1) != "/") {
-      $sDir = $sDir."/";
-    }
-
-    $sDir .= 'shop/';
-
-    if (file_exists($sDir . 'templates/' . oos_var_prep_for_os($sStr) . '/theme.html')) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
 
  /**
@@ -1264,7 +1196,7 @@
   function oos_get_extension($filename) {
 
     $filename  = strtolower($filename);
-    $extension = split("[/\\.]", $filename);
+    $extension = explode("[/\\.]", $filename);
     $n = count($extension)-1;
     $extension = $extension[$n];
 
@@ -1282,74 +1214,101 @@
     $sStr =& trim($sStr);
     $sStr =& strtolower($sStr);
 
-    return ereg_replace("[^[:alnum:]._-]", "", $sStr);
+    return preg_match("/[^[:alnum:]._-]/", "", $sStr);
   }
 
 
-  /**
-   * Mail function (uses phpMailer)
-   */
-  function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $from_email_name, $from_email_address) {
+/**
+ * Mail function (uses phpMailer)
+ */
+function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_html, $from_email_name, $from_email_address, $attachments = array() ) {
 
-    global $oEvent;
+	global $oEvent, $oEmail;
 
-    if (!$oEvent->installed_plugin('mail')) return false;
+	if (!$oEvent->installed_plugin('mail')) return FALSE;
 
-    if (preg_match('~[\r\n]~', $to_name)) return false;
-    if (preg_match('~[\r\n]~', $to_email_address)) return false;
-    if (preg_match('~[\r\n]~', $email_subject)) return false;
-    if (preg_match('~[\r\n]~', $from_email_name)) return false;
-    if (preg_match('~[\r\n]~', $from_email_address)) return false;
+    if (preg_match('~[\r\n]~', $to_name)) return FALSE;
+    if (preg_match('~[\r\n]~', $to_email_address)) return FALSE;
+    if (preg_match('~[\r\n]~', $subject)) return FALSE;
+    if (preg_match('~[\r\n]~', $from_email_name)) return FALSE;
+    if (preg_match('~[\r\n]~', $from_email_address)) return FALSE;
+
+	if ( !is_array($attachments) ) {
+		$attachments = explode( "\n", str_replace( "\r\n", "\n", $attachments ) );
+	}
 
     $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : 'en');
 
-    // Instantiate a new mail object
-    $mail = new PHPMailer;
+	// (Re)create it, if it's gone missing
+	if ( !is_object( $oEmail ) || !is_a( $oEmail, 'PHPMailer' ) ) {
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.phpmailer.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class-smtp.php';
+		// Instantiate a new mail object
+		$oEmail = new PHPMailer( true );
+	}
 
-    $mail->PluginDir = OOS_ABSOLUTE_PATH . 'includes/classes/thirdparty/phpmailer/';
-    $mail->SetLanguage( $sLang, OOS_ABSOLUTE_PATH . 'includes/classes/thirdparty/phpmailer/language/' );
+	// Empty out the values that may be set
+	$oEmail->ClearAllRecipients();
+	$oEmail->ClearAttachments();
+	$oEmail->ClearCustomHeaders();
+	$oEmail->ClearReplyTos();
 
-    $mail->CharSet = CHARSET;
-    $mail->IsMail();
+    $oEmail->PluginDir = OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/';
+    $oEmail->SetLanguage( $sLang, OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/language/' );
+    $oEmail->CharSet = CHARSET;
 
-    $mail->From = $from_email_address ? $from_email_address : STORE_OWNER_EMAIL_ADDRESS;
-    $mail->FromName = $from_email_name ? $from_email_name : STORE_OWNER;
-    $mail->Mailer = EMAIL_TRANSPORT;
+    $oEmail->IsMail();
+
+    $oEmail->From = $from_email_address ? $from_email_address : STORE_OWNER_EMAIL_ADDRESS;
+    $oEmail->FromName = $from_email_name ? $from_email_name : STORE_OWNER;
+    $oEmail->Mailer = EMAIL_TRANSPORT;
 
     // Add smtp values if needed
     if ( EMAIL_TRANSPORT == 'smtp' ) {
-      $mail->IsSMTP(); // set mailer to use SMTP
-      $mail->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
-      $mail->Username = OOS_SMTPUSER; // SMTP username
-      $mail->Password = OOS_SMTPPASS; // SMTP password
-      $mail->Host     = OOS_SMTPHOST; // specify main and backup server
-    } else
-      // Set sendmail path
-      if ( EMAIL_TRANSPORT == 'sendmail' ) {
+      $oEmail->IsSMTP(); // set mailer to use SMTP
+      $oEmail->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
+      $oEmail->Username = OOS_SMTPUSER; // SMTP username
+      $oEmail->Password = OOS_SMTPPASS; // SMTP password
+      $oEmail->Host     = OOS_SMTPHOST; // specify main and backup server
+    } elseif ( EMAIL_TRANSPORT == 'sendmail' ) {
         if (!oos_empty(OOS_SENDMAIL)) {
-          $mail->Sendmail = OOS_SENDMAIL;
-          $mail->IsSendmail();
+          $oEmail->Sendmail = OOS_SENDMAIL;
+          $oEmail->IsSendmail();
         }
     }
 
 
-    $mail->AddAddress($to_email_address, $to_name);
-    $mail->Subject = $email_subject;
+    $oEmail->AddAddress($to_email_address, $to_name);
+    $oEmail->Subject = $subject;
 
 
     // Build the text version
-    $text = strip_tags($email_text);
+
     if (EMAIL_USE_HTML == 'true') {
-      $mail->IsHTML(true);
-      $mail->Body = $email_text;
-      $mail->AltBody = $text;
+		$oEmail->IsHTML(true);
+		$oEmail->Body = $email_html;
+		$oEmail->AltBody = $email_text;
     } else {
-      $mail->Body = $text;
+		$oEmail->IsHTML(false);
+		$oEmail->Body = $email_text;
     }
 
-    // Send message
-    $mail->Send();
-  }
 
+	if ( !empty( $attachments ) ) {
+		foreach ( $attachments as $attachment ) {
+			try {
+				$oEmail->AddAttachment($attachment);
+			} catch ( phpmailerException $e ) {
+				continue;
+			}
+		}
+	}
 
-?>
+	// Send!
+	try {
+		return $oEmail->Send();
+	} catch ( phpmailerException $e ) {
+		return false;
+	}
+}
+

@@ -301,4 +301,4 @@ if ($result === false) {
 
 require 'configuration_upgrade.php';
 
-?>
+

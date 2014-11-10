@@ -518,4 +518,4 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "languages " . UPDATED .'</font>';
 
 
-?>
+

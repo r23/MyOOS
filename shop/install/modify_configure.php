@@ -123,8 +123,6 @@ echo <<< EOT
         define('OOS_SHOP', '$oos_shop_dir');<br />
         define('OOS_ABSOLUTE_PATH', '$oos_root_path$oos_shop_dir');<br />
         define('OOS_TEMP_PATH', '$oos_template_dir'); <br />
-        define('STORE_SESSIONS', 'false');<br />
-        define('STORE_SESSIONS_CRYPT', 'false');<br />
         define('OOS_DB_TYPE', '$dbtype');<br />
         define('OOS_DB_SERVER', '$dbhost');<br />
         define('OOS_DB_USERNAME', '$dbuname');<br />
@@ -142,7 +140,7 @@ EOT;
 function oosUpdateConfigShop($db_prefs = false) {
     global $reg_src, $reg_rep;
     global $dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype;
-    global $oos_server, $oos_ssl_server, $enable_ssl, $oos_root_path, $oos_shop_path, $oos_shop_dir, $oos_template_dir, $tmpsession, $tmp_session_crypt;
+    global $oos_server, $oos_ssl_server, $enable_ssl, $oos_root_path, $oos_shop_path, $oos_shop_dir, $oos_template_dir;
 
     add_src_rep("OOS_HTTP_SERVER", $oos_server);
     add_src_rep("OOS_HTTPS_SERVER", $oos_ssl_server);
@@ -154,17 +152,7 @@ function oosUpdateConfigShop($db_prefs = false) {
     add_src_rep("OOS_SHOP", $oos_shop_dir);
     add_src_rep("OOS_ABSOLUTE_PATH", $oos_root_path . $oos_shop_dir);
     add_src_rep("OOS_TEMP_PATH", $oos_template_dir);
-    if ($tmpsession == 'file') {
-      add_src_rep("STORE_SESSIONS", 'false');
-      add_src_rep("STORE_SESSIONS_CRYPT", 'false');
-    } else {
-      add_src_rep("STORE_SESSIONS", 'true');
-      if ($tmp_session_crypt == 'on') {
-        add_src_rep("STORE_SESSIONS_CRYPT", 'true');
-      } else {
-        add_src_rep("STORE_SESSIONS_CRYPT", 'false');
-      }
-    }
+
     add_src_rep("OOS_DB_TYPE", $dbtype);
     add_src_rep("OOS_DB_SERVER", $dbhost);
     add_src_rep("OOS_DB_USERNAME", base64_encode($dbuname));
@@ -186,4 +174,4 @@ function oosUpdateConfigShop($db_prefs = false) {
 }
 
 
-?>
+

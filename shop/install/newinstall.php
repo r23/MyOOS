@@ -47,7 +47,7 @@
      echo '<table align="center"><tr><td align="left">';
 
      if ($dbmake) {
-       $db =& NewADOConnection($dbtype);
+       $db = NewADOConnection($dbtype);
        $dbh = $db->Connect($dbhost, $dbuname, $dbpass);
        if (!$dbh) {
         $dbpass = "";
@@ -57,7 +57,7 @@
        $dict = NewDataDictionary($db);
 
        if (!$dict) continue;
-       $dict->debug = 1;
+       // $dict->debug = 1;
 
        $sqlarray = $dict->CreateDatabase($dbname);
        $dict->ExecuteSQLArray($sqlarray);
@@ -120,10 +120,10 @@
     $max_order = '800';
     $default_address = '1';
     $logs = 0;
-    $time = mktime();
+    $sTime = time();
     $wishlist_link_id = '';
     for ($x=3;$x<10;$x++) {
-      $wishlist_link_id .= substr($time,$x,1) . oos_create_random_value(1, $type = 'chars');
+      $wishlist_link_id .= substr($sTime,$x,1) . oos_create_random_value(1, $type = 'chars');
     }
     $sql = "INSERT INTO ". $prefix_table . "customers
             (customers_gender,
@@ -197,4 +197,4 @@
     echo '</td></tr></table>';
   }
 
-?>
+

@@ -61,8 +61,6 @@
   define('ADODB_ERROR_LOG_TYPE', 3);
   define('ADODB_ASSOC_CASE', 0); // assoc lowercase for ADODB_FETCH_ASSOC
 
-  define('STORE_SESSIONS', '');
-  define('STORE_SESSIONS_CRYPT', '');
 
   define('OOS_DB_TYPE', '');
   define('OOS_DB_SERVER', '');
@@ -73,4 +71,3 @@
   define('OOS_ENCODED', '');
   define('OOS_SYSTEM', '');
 
-?>

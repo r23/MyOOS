@@ -72,5 +72,3 @@
   define('OOS_DB_PREFIX', '');
   define('OOS_ENCODED', '');
   define('OOS_SYSTEM', '');
-
-?>

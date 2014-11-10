@@ -220,7 +220,7 @@ function print_FormEditabletext() {
         ' </tr>' . "\n" .
         ' <tr>' . "\n" .
         '   <td align="left"><font class="oos-normal">' . DBTYPE . '</font><br /><font class="small">' . DBTYPE_DESC . '</font></td>' . "\n" .
-        '   <td><select name="dbtype"><option value="mysql" selected>&nbsp;MySQL&nbsp;</option><option value="mysqli">&nbsp;MySQLi&nbsp;</option><option value="postgres">&nbsp;Postgres&nbsp;</option></select></td>' . "\n" .
+        '   <td><select name="dbtype"><option value="mysqli">&nbsp;MySQLi&nbsp;</option><option value="postgres">&nbsp;Postgres&nbsp;</option></select></td>' . "\n" .
         ' </tr>' . "\n" .
         '</table>' . "\n";
 
@@ -263,41 +263,7 @@ function print_ServerHidden() {
         '<input type="hidden" name="oos_template_dir" value="' . $_POST['oos_template_dir'] . '">' . "\n";
 }
 
-function print_ServerTmpHidden() {
-   echo '<input type="hidden" name="tmpsession" value="' . $_POST['tmpsession'] . '">' . "\n" .
-        '<input type="hidden" name="tmp_session_crypt" value="' . $_POST['tmp_session_crypt'] . '">' . "\n" .
-        '<input type="hidden" name="enable_ssl" value="' . $_POST['enable_ssl'] . '">' . "\n";
-}
 
-
-
-
-function print_ConfirmTmp() {
-
-   echo'<font class="oos-title">' . TMP_VIRTUAL_1 . ':&nbsp;</font>' . "\n" .
-        '<font class="oos-normal">' . TMP_VIRTUAL_2 . '</font>' . "\n" .
-        '<br /><br />' . "\n" .
-        '<center><form action="step.php" method="post"><table class="content">' . "\n" .
-        ' <tr>' . "\n" .
-        '  <td align="left"><font class="oos-normal">' . TMP_VIRTUAL_3 . '</font></td>' . "\n" .
-        '  <td><input type="radio" name="tmpsession" value="file" checked></td>' . "\n" .
-        ' </tr>' . "\n" .
-        ' <tr>' . "\n" .
-        '  <td align="left"><font class="oos-normal">' . TMP_VIRTUAL_4 . '</font></td>' . "\n" .
-        '  <td><input type="radio" name="tmpsession" value="db"></td>' . "\n" .
-        ' </tr>' . "\n" .
-        ' <tr>' . "\n" .
-        '  <td align="left"><font class="oos-normal">' . TMP_VIRTUAL_5 . '</font></td>' . "\n" .
-        '  <td><input type="checkbox" name="tmp_session_crypt"></td>' . "\n" .
-        ' </tr>' . "\n" .
-        ' <tr>' . "\n" .
-        '</table><br /><br />' . "\n";
-   print_FormHidden();
-   echo '<input type="hidden" name="op" value="ConfigTmpServer">' . "\n" .
-        '<input type="submit" value="' . BTN_CONTINUE . '">' . "\n" .
-        '</form></center>' . "\n";
-
-}
 
 function print_ConfigTmpServerInfo() {
 
@@ -431,52 +397,6 @@ function print_ConfigTmpServerInfo() {
 }
 
 
-function print_ChangeTmpServer() {
-
-   echo '<font class="oos-title">' . TMP_VIRTUAL_1 . ':&nbsp;</font>' . "\n" .
-        '<font class="oos-normal">' . TMP_VIRTUAL_2 . '</font>' . "\n";
-
-   if ($_POST['tmp_session_crypt'] == false) {
-     $session_crypt = '<input type="checkbox" name="tmp_session_crypt">';
-   } else {
-     $session_crypt = '<input type="checkbox" name="tmp_session_crypt" checked>';
-   }
-   if ($_POST['tmpsession'] == 'file') {
-     $tmp_session_file = '<input type="radio" name="tmpsession" value="file" checked>';
-     $tmp_session_db = '<input type="radio" name="tmpsession" value="db">';
-   } else {
-     $tmp_session_file = '<input type="radio" name="tmpsession" value="file">';
-     $tmp_session_db = '<input type="radio" name="tmpsession" value="db" checked>';
-   }
-   if ($_POST['tmpsession'] == 'file') {
-     if (!is_dir(session_save_path())) {
-       echo '<br /><font class="oos-error">' .  TMP_SESSION_NON_EXISTENT . '</font>' . "\n";
-     } elseif (!is_writeable(session_save_path())) {
-       echo '<br /><font class="oos-error">' .  TMP_SESSION_DIRECTORY_NOT_WRITEABLE . '</font>' . "\n";
-     }
-   }
-
-   echo '<br /><br />' . "\n" .
-        '<center><form action="step.php" method="post"><table class="content">' . "\n" .
-        ' <tr>' . "\n" .
-        '  <td align="left"><font class="oos-normal">' . TMP_VIRTUAL_3 . '</font></td>' . "\n" .
-        '  <td>' . $tmp_session_file . '</td>' . "\n" .
-        ' </tr>' . "\n" .
-        ' <tr>' . "\n" .
-        '  <td align="left"><font class="oos-normal">' . TMP_VIRTUAL_4 . '</font></td>' . "\n" .
-        '  <td>' . $tmp_session_db  . '</td>' . "\n" .
-        ' </tr>' . "\n" .
-        ' <tr>' . "\n" .
-        '  <td align="left"><font class="oos-normal">' . TMP_VIRTUAL_5 . '</font></td>' . "\n" .
-        '  <td>' . $session_crypt . '</td>' . "\n" .
-        ' </tr>' . "\n" .
-        '</table>' . "\n";
-   echo print_DBHidden();
-   echo print_ServerHidden();
-   echo '<input type="hidden" name="op" value="ConfigTmpServer">' . "\n" .
-        '<input type="submit" value="' . BTN_SET_LOGIN . '">' . "\n" .
-        '</form></center>' . "\n";
-}
 
 
 function print_Admin() {
@@ -806,7 +726,7 @@ function print_DesignOptionen() {
        '</table>' . "\n" .
        '<br /><br />' . "\n";
   print_FormHidden();
-  echo '<input type="hidden" name="op" value="Tmp_Server">' . "\n" .
+  echo '<input type="hidden" name="op" value="Admin">' . "\n" .
        '<input type="submit" value="' . BTN_NEXT . '"><br />' . "\n" .
        '</form></center>' . "\n" .
        '<br />';
@@ -909,7 +829,7 @@ function print_Confirm() {
         ' </tr>' . "\n" .
         ' <tr>' . "\n" .
         '  <td align="left"><font class="oos-normal">' . VIRTUAL_9 . '</font></td>' . "\n" .
-        '  <td><input type="text" name="oos_template_dir" SIZE=60 maxlength=80 value=""></td>' . "\n" .
+        '  <td><input type="text" name="oos_template_dir" SIZE=60 maxlength=80 value="' . $dir_fs_www_root . $shop_path . 'temp"></td>' . "\n" .
         ' </tr>' . "\n" .
         '</table>' . "\n" .
         '<br /><br />' . "\n";
@@ -935,6 +855,11 @@ function print_Start() {
 
 }
 
+function print_ServerTmpHidden() {
+   echo '<input type="hidden" name="tmpsession" value="' . $_POST['tmpsession'] . '">' . "\n" .
+        '<input type="hidden" name="tmp_session_crypt" value="' . $_POST['tmp_session_crypt'] . '">' . "\n" .
+        '<input type="hidden" name="enable_ssl" value="' . $_POST['enable_ssl'] . '">' . "\n";
+}
 
 function print_ChangeInfo() {
    global $dbhost, $dbuname, $dbpass, $dbname, $prefix_table ;
@@ -1086,6 +1011,3 @@ function print_select_language() {
        '</form>' . "\n";
 }
 
-
-
-?>

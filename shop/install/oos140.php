@@ -429,4 +429,4 @@ require 'lang_upgrade.php';
 require 'configuration_upgrade.php';
 
 
-?>
+

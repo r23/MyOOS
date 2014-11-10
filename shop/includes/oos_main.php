@@ -19,56 +19,55 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being require d by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being require d by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 // debug
-  $debug = 'false';
+$debug = 'true';
 
-// start the timer for the page parse time log
-  define('PAGE_PARSE_START_TIME', microtime());
-
-// for debug set the level of error reporting
-  error_reporting(E_ALL & ~E_NOTICE);
-//  error_reporting(0);
-
-// disable use_trans_sid as oos_href_link() does this manually
-  if (function_exists('ini_set')) {
-    ini_set('arg_separator.output', '&amp;');
-  }
 
 // Set the local configuration parameters - mainly for developers
-  if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
-
-
-// require  server parameters
-  require 'includes/configure.php';
-  require 'includes/oos_define.php';
+if (is_readable('includes/local/configure.php')) {
+    require_once MYOOS_INCLUDE_PATH . '/includes/local/configure.php';
+} else {
+    require_once MYOOS_INCLUDE_PATH . '/includes/configure.php';
+}
 
 // Version information
-  require 'includes/oos_version.php';
+define('OOS_VERSION', '2.0.18 -dev');
+// Complete software name string
+define('OOS_FULL_NAME', 'MyOOS ' . OOS_VERSION);
+
+// require Shop parameters
+require_once MYOOS_INCLUDE_PATH . '/includes/oos_define.php';
 
 // Load server utilities
-  require 'includes/functions/function_server.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_server.php';
 
+//for debugging purposes
+require_once MYOOS_INCLUDE_PATH . '/includes/oos_debug.php';
 
 // redirect to the installation module if DB_SERVER is empty
-  if (strlen(OOS_DB_TYPE) < 1) {
+if (strlen(OOS_DB_TYPE) < 1) {
     if (is_dir('install')) {
-      header('Location: install/step.php');
-      exit;
+        header('Location: install/step.php');
+        exit;
     }
-  }
+}
 
 // set the type of request (secure or not)
-  $request_type = 'NONSSL';
-  if (ENABLE_SSL == 'true') {
-    if (strtolower(oos_server_get_var('HTTPS')) == 'on'
-      || (oos_server_get_var('HTTPS') == '1')
-      || oos_server_has_var('SSL_PROTOCOL')) {
-        $request_type = 'SSL';
-    }
-  }
+$request_type = 'NONSSL';
+if (ENABLE_SSL == 'true') {
+    $request_type = (((isset($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) == 'on' || $_SERVER['HTTPS'] == '1'))) ||
+        (isset($_SERVER['HTTP_X_FORWARDED_BY']) && strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_BY']), 'SSL') !== FALSE) ||
+        (isset($_SERVER['HTTP_X_FORWARDED_HOST']) && (strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_HOST']), 'SSL') !== FALSE || strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_HOST']), str_replace('https://', '', HTTPS_SERVER)) !== FALSE)) ||
+        (isset($_SERVER['SCRIPT_URI']) && strtolower(substr($_SERVER['SCRIPT_URI'], 0, 6)) == 'https:') ||
+        (isset($_SERVER['HTTP_X_FORWARDED_SSL']) && ($_SERVER['HTTP_X_FORWARDED_SSL'] == '1' || strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) == 'on')) ||
+        (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && (strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'ssl' || strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https')) ||
+        (isset($_SERVER['HTTP_SSLSESSIONID']) && $_SERVER['HTTP_SSLSESSIONID'] != '') ||
+        (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == '443')) ? 'SSL' : 'NONSSL';
+}
+
 
 // require  the list of project filenames
   require 'includes/oos_modules.php';
@@ -112,23 +111,22 @@
   require 'includes/functions/function_session.php';
 
 
-// require  the database functions
-  $adodb_logsqltable = $oostable['adodb_logsql'];
-  if (!defined('ADODB_LOGSQL_TABLE')) {
+// require the database functions
+$adodb_logsqltable = $oostable['adodb_logsql'];
+if (!defined('ADODB_LOGSQL_TABLE')) {
     define('ADODB_LOGSQL_TABLE', $adodb_logsqltable);
-  }
-  require 'includes/classes/thirdparty/adodb/adodb-errorhandler.inc.php';
-  require 'includes/classes/thirdparty/adodb/adodb.inc.php';
-  require 'includes/functions/function_db.php';
+}
+require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/adodb-errorhandler.inc.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/adodb.inc.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_db.php';
 
-// make a connection to the database... now 
-  if (!oosDBInit()) {
+// make a connection to the database... now
+if (!oosDBInit()) {
     die('Unable to connect to database server!');
-  }
+}
 
-  $dbconn =& oosDBGetConn();
-  oosDB_importTables($oostable);
-
+$dbconn =& oosDBGetConn();
+oosDB_importTables($oostable);
 
 // set the application parameters
   $configurationtable = $oostable['configuration'];
@@ -149,7 +147,7 @@
   // Close result set
   $configuration_result->Close();
 
-//for debugging purposes 
+//for debugging purposes
 //  require 'includes/oos_debug.php';
 
 

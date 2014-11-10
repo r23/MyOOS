@@ -50,19 +50,17 @@
  * Please read the credits file for more information on who has made this project possible.
  */
 
- // Set the level of error reporting
-  error_reporting(E_ALL & ~E_NOTICE);
+// Set the level of error reporting
+error_reporting(E_ALL & ~E_NOTICE);
 
-  if (strlen(ini_get("safe_mode"))< 1) {
-    @set_time_limit(0);
-  }
-  define('OOS_VALID_MOD', 'yes');
 
-  require_once '../includes/functions/function_global.php';
-  require_once '../includes/functions/function_kernel.php';
-  require_once '../includes/functions/function_password.php';
-  require_once '../includes/oos_version.php';
-  require_once '../includes/classes/thirdparty/adodb/adodb.inc.php';
+define('OOS_VALID_MOD', 'yes');
+// Version information
+define('OOS_VERSION', '2.0.24 -dev');
+
+require_once '../includes/functions/function_global.php';
+require_once '../includes/functions/function_kernel.php';
+require_once '../includes/lib/adodb/adodb.inc.php';
 
   include_once 'modify_configure.php';
   include_once 'upgrade.php';
@@ -131,18 +129,6 @@
       print_Start();
       break;
 
-    case 'Tmp_Server':
-      print_ConfirmTmp();
-      break;
-
-    case 'ConfigTmpServer':
-      print_ConfigTmpServerInfo();
-      break;
-
-    case 'ChangeTmpServer':
-      print_ChangeTmpServer();
-      break;
-
     case 'Admin':
        print_Admin();
        break;
@@ -205,4 +191,4 @@
       break;
   }
   include_once 'footer.php';
-?>
+

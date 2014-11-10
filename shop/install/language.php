@@ -42,9 +42,9 @@ function installer_get_language() {
    global $currentlang;
 
    if (!isset($currentlang)) {
-     $currentlang = 'de_DE.iso-8859-15';
+     $currentlang = 'de_DE';
    }
-   if (file_exists($file="locales/$currentlang/global.php")) {
+   if (file_exists($file="locales/$currentlang.php")) {
      @include $file;
    }
 }
@@ -60,9 +60,11 @@ function installer_get_language() {
       if (is_dir($locale_dir)) {
         if ($dh = opendir($locale_dir)) {
           while (($file = readdir($dh)) !== false) {
-            if ($file == '.' || $file == '..' || $file == 'CVS' || filetype($locale_dir . $file) == 'file' ) continue;
-            if (is_dir($locale_dir . $file) && @$lang[$file]) {
-              $langlist[$file] = $lang[$file];
+
+            if ($file == '.' || $file == '..' || $file == 'CVS' || filetype($locale_dir . $file) == 'dir' ) continue;
+			$sFile = substr($file, 0, -4);
+            if (is_file($locale_dir . $file) && @$lang[$sFile]) {
+              $langlist[$sFile] = $lang[$sFile];
             }
           }
           closedir($dh);
@@ -87,19 +89,13 @@ function installer_get_language() {
 
 // list of all availabe languages (from Patrick Kellum <webmaster@ctarl-ctarl.com>)
    function languagelist() {
+
+	$lang['en_US'] = LANGUAGE_ENG . ' (en_US)'; // English
+	$lang['de_DE'] = LANGUAGE_DEU . ' (de_DE)'; // German
     /*
-      $lang['nl_NL.utf-8'] = LANGUAGE_NLD . ' (nl_NL.utf-8)'; // Dutch
-      $lang['en_US.utf-8'] = LANGUAGE_ENG . ' (en_US.utf-8)'; // English
-      $lang['de_DE.utf-8'] = LANGUAGE_DEU . ' (de_DE.utf-8)'; // German
-    */
-      $lang['ru_RU.utf-8'] = LANGUAGE_RUS . ' (ru_RU.utf-8)'; // Russian
-
-      $lang['nl_NL.iso-8859-15'] = LANGUAGE_NLD . ' (nl_NL.iso-8859-15)'; // Dutch
-      $lang['en_US.iso-8859-15'] = LANGUAGE_ENG . ' (en_US.iso-8859-15)'; // English
-      $lang['de_DE.iso-8859-15'] = LANGUAGE_DEU . ' (de_DE.iso-8859-15)'; // German
-
-      $lang['ru_RU.CP1251'] = LANGUAGE_RUS . ' (ru_RU.CP1251)'; // Russian
-
+      $lang['nl_NL'] = LANGUAGE_NLD . ' (nl_NL)'; // Dutch
+      $lang['en_US'] = LANGUAGE_ENG . ' (en_US)'; // English
+      $lang['de_DE'] = LANGUAGE_DEU . ' (de_DE)'; // German
 
       $lang['dan'] = LANGUAGE_DAN; // Danish
       $lang['fin'] = LANGUAGE_FIN; // Finnish
@@ -111,8 +107,7 @@ function installer_get_language() {
       $lang['slv'] = LANGUAGE_SLV; // Slovenian
       $lang['spa'] = LANGUAGE_SPA; // Spanish
       $lang['swe'] = LANGUAGE_SWE; // Swedish
+	*/
 //    end of list
       return $lang;
 }
-
-?>

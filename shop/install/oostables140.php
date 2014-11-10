@@ -111,4 +111,4 @@ $flds = "
 ";
 dosql($table, $flds);
 
-?>
+

@@ -17,9 +17,50 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+/**
+ * Set the error reporting level. Unless you have a special need, E_ALL is a
+ * good level for error reporting.
+ */
+error_reporting(E_ALL);
+// error_reporting(E_ALL & ~E_STRICT);
+   
+   
+/**
+ * Test to make sure that MyOOS is running on PHP 5.2.3 or newer. Once you are
+ * sure that your environment is compatible with MyOOS, you can comment this
+ * line out. When running an application on a new server, uncomment this line
+ * to check the PHP version quickly.
+ */
+if (version_compare(PHP_VERSION, '5.2.3', '<')) {
+    header('Content-type: text/html; charset=utf-8', true, 503);
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/oos_main.php';
+    echo '<h2>Fehler</h2>';
+    echo 'Auf Ihrem Server läuft PHP version ' . PHP_VERSION . ', MyOOS benötigt mindestens PHP 5.2.3';
+
+    echo '<h2>Error</h2>';
+    echo 'Your server is running PHP version ' . PHP_VERSION . ' but MyOOS requires at least PHP 5.2.3';
+    return;
+}
+
+//setting basic configuration parameters
+if (function_exists('ini_set')) {
+	ini_set('session.use_trans_sid', 0);
+	ini_set('url_rewriter.tags', '');
+	ini_set('xdebug.show_exception_trace', 0);
+	ini_set('magic_quotes_runtime', 0);
+	// ini_set('display_errors', false);
+}
+
+
+define('MYOOS_DOCUMENT_ROOT', dirname(__FILE__)=='/'?'':dirname(__FILE__));
+
+
+if(!defined('MYOOS_INCLUDE_PATH')) {
+	define('MYOOS_INCLUDE_PATH', MYOOS_DOCUMENT_ROOT);
+}
+
+define('OOS_VALID_MOD', 'yes');
+require 'includes/oos_main.php';
 
 
   $sMp = oos_var_prep_for_os($sMp);
@@ -38,19 +79,6 @@
 
   } else {
     // Module not found
-    if (SEND_404_ERROR == 'true') {
-      switch (REPORTLEVEL_404) {
-        case 1:
-          if (eregi(oos_server_get_var('HTTP_HOST'), oos_server_get_var('HTTP_REFERER'))) {
-            oos_error_reporting_mail();
-          }
-          break;
-
-        case 2:
-          oos_error_reporting_mail();
-          break;
-      }
-    }
 
     oos_redirect(oos_href_link($aModules['main'], $aFilename['main']));
 
@@ -58,4 +86,3 @@
 
   include 'includes/oos_nice_exit.php';
 
-?>

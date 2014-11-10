@@ -77,4 +77,3 @@ $flds = "
 ";
 dosql($table, $flds);
 
-?>
