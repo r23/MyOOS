@@ -4,13 +4,13 @@
 
    OOS [OSIS Online Shop]
    http://www.oos-shop.de/
-   
-   
+
+
    Copyright (c) 2003 - 2006 by the OOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: upgrade.php,v 1.3 2002/03/07 09:56:00 lothrien 
+   File: upgrade.php,v 1.3 2002/03/07 09:56:00 lothrien
    ----------------------------------------------------------------------
    POST-NUKE Content Management System
    Copyright (C) 2001 by the Post-Nuke Development Team.
@@ -56,7 +56,7 @@ function oosDoUpgrade160 ($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $d
 
 function print_SelectOOS() {
   global $update;
-  
+
   echo '<font class="oos-title">' . OOSUPGRADE_1 . ':</font><br /><br />' . "\n" .
        '<font class="oos-error">' . UPGRADE_INFO . '</font><br /><br />' . "\n" .
        '<form name="oos updrade" action="update.php" method="post">' . "\n" .
@@ -67,11 +67,11 @@ function print_SelectOOS() {
          '</tr></table></form><br>' . "\n" .
          '<form name="oos updrade" action="update.php" method="post">' . "\n" .
          '<input type="hidden" name="aupdate" value="oos160">' . "\n";
-  print_FormHidden(); 
+  print_FormHidden();
   echo '<table width="50%" align="center">' . "\n" .
        ' <tr>' . "\n" .
        '  <td><input type="submit"  name ="op" value="OOS 1.6.0"></td>' . "\n" .
-       '</tr></table></form>' . "\n" . 
+       '</tr></table></form>' . "\n" .
        '<font class="oos-normal">' . OOSUPGRADE_5 . '</font><br /><br />' . "\n";
 
 
@@ -83,7 +83,7 @@ function print_Next() {
 
    echo '<form action="update.php" method="post"><center><table width="50%">' . "\n";
    echo '<tr><td align=center><input type="hidden" name="op" value="Finish">' . "\n" .
-        '<input type="submit" value="' . BTN_FINISH . '"></td></tr></table></center></form>' . "\n"; 
+        '<input type="submit" value="' . BTN_FINISH . '"></td></tr></table></center></form>' . "\n";
 }
 
 

@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: modify_configure.php,v 1.13 2002/03/16 15:24:37 johnnyrocket 
+   File: modify_configure.php,v 1.13 2002/03/16 15:24:37 johnnyrocket
    ----------------------------------------------------------------------
    POST-NUKE Content Management System
    Copyright (C) 2001 by the Post-Nuke Development Team.
@@ -120,10 +120,10 @@ echo <<< EOT
         <table><tr><td><font class="oos-normal">
         define('OOS_HTTP_SERVER', '$oos_server');<br />
         define('OOS_HTTPS_SERVER', '$oos_ssl_server');<br />
-        define('OOS_SHOP', '$oos_shop_dir');<br /> 
+        define('OOS_SHOP', '$oos_shop_dir');<br />
         define('OOS_ABSOLUTE_PATH', '$oos_root_path$oos_shop_dir');<br />
         define('OOS_TEMP_PATH', '$oos_template_dir'); <br />
-        define('STORE_SESSIONS', 'false');<br /> 
+        define('STORE_SESSIONS', 'false');<br />
         define('STORE_SESSIONS_CRYPT', 'false');<br />
         define('OOS_DB_TYPE', '$dbtype');<br />
         define('OOS_DB_SERVER', '$dbhost');<br />
@@ -145,13 +145,13 @@ function oosUpdateConfigShop($db_prefs = false) {
     global $oos_server, $oos_ssl_server, $enable_ssl, $oos_root_path, $oos_shop_path, $oos_shop_dir, $oos_template_dir, $tmpsession, $tmp_session_crypt;
 
     add_src_rep("OOS_HTTP_SERVER", $oos_server);
-    add_src_rep("OOS_HTTPS_SERVER", $oos_ssl_server); 
+    add_src_rep("OOS_HTTPS_SERVER", $oos_ssl_server);
     if ($enable_ssl == 'on') {
       add_src_rep("ENABLE_SSL", 'true');
     } else {
       add_src_rep("ENABLE_SSL", 'false');
     }
-    add_src_rep("OOS_SHOP", $oos_shop_dir); 
+    add_src_rep("OOS_SHOP", $oos_shop_dir);
     add_src_rep("OOS_ABSOLUTE_PATH", $oos_root_path . $oos_shop_dir);
     add_src_rep("OOS_TEMP_PATH", $oos_template_dir);
     if ($tmpsession == 'file') {

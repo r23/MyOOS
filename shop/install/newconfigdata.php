@@ -298,7 +298,7 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configur
 
 //15 AFFILIATE
 
-//16 webprinter 
+//16 webprinter
 
 //17
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('PDF_DATA_SHEET', 'false', 17, 1, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") or die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");

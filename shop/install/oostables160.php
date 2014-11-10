@@ -29,7 +29,7 @@ function dosql($table, $flds) {
    $taboptarray = array('mysql' => 'TYPE=MyISAM', 'REPLACE');
 
    $sqlarray = $dict->CreateTableSQL($table, $flds, $taboptarray);
-   $dict->ExecuteSQLArray($sqlarray); 
+   $dict->ExecuteSQLArray($sqlarray);
 
   echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $table . " " . MADE . '</font>';
 }
@@ -52,7 +52,7 @@ $flds = "
 dosql($table, $flds);
 
 
-$idxname = 'idx_campaigns_name'; 
+$idxname = 'idx_campaigns_name';
 $idxflds = 'campaigns_name';
 idxsql($idxname, $table, $idxflds);
 

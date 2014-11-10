@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: newinstall.php,v 1.5 2002/02/09 12:50:40 
+   File: newinstall.php,v 1.5 2002/02/09 12:50:40
    ----------------------------------------------------------------------
    POST-NUKE Content Management System
    Copyright (C) 2001 by the Post-Nuke Development Team.
@@ -38,9 +38,9 @@
    ---------------------------------------------------------------------- */
 
  /**
-  * This function creates the DB on new installs 
+  * This function creates the DB on new installs
   */
-  function make_db($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype, $dbmake) { 
+  function make_db($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype, $dbmake) {
      global $db;
 
      echo '<font class="oos-title">' . INPUT_DATA . '</font>';
@@ -69,7 +69,7 @@
   }
 
   /**
-   * This function inserts the default data on new installs 
+   * This function inserts the default data on new installs
    */
   function oosInputData($gender, $firstname, $name, $pwd, $repeatpwd, $email, $phone, $fax, $prefix_table, $update) {
     global $currentlang, $db, $update;

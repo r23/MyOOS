@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: install.php,v 1.91 2002/02/05 11:09:04 jgm 
+   File: install.php,v 1.91 2002/02/05 11:09:04 jgm
    ----------------------------------------------------------------------
    POST-NUKE Content Management System
    Copyright (C) 2001 by the Post-Nuke Development Team.
@@ -40,13 +40,13 @@
 /**
  * PostNuke Install Script.
  *
- * This script will set the database up, and do the basic configurations of the script.  
- * Once this script has run, please delete this file from your root directory.  
+ * This script will set the database up, and do the basic configurations of the script.
+ * Once this script has run, please delete this file from your root directory.
  * There is a security risk if you keep this file around.
  *
  * This module of the PostNuke project was inspired by the myPHPNuke project.
  *
- * The PostNuke project is free software released under the GNU License.  
+ * The PostNuke project is free software released under the GNU License.
  * Please read the credits file for more information on who has made this project possible.
  */
 

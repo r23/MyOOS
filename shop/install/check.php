@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* ----------------------------------------------------------------------
    $Id: check.php,v 1.1 2007/06/13 16:41:17 r23 Exp $
 
@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: install.php,v 1.7 2004/08/26 05:20:59 rcastley 
+   File: install.php,v 1.7 2004/08/26 05:20:59 rcastley
    ----------------------------------------------------------------------
    copyright (C) 2000 - 2004 Miro International Pty Ltd
    license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -17,7 +17,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: check.php,v 1.6 2002/02/04 18:51:32 voll 
+   File: check.php,v 1.6 2002/02/04 18:51:32 voll
    ----------------------------------------------------------------------
    POST-NUKE Content Management System
    Copyright (C) 2001 by the Post-Nuke Development Team.
@@ -66,27 +66,27 @@ function oosCheckPHP() {
    $rewrite = 'none';
 ?>
 <table class="content">
-<tr> 
-  <td>PHP version >= 4.2.0</td>
-  <td align="left"><?php echo phpversion() < '4.2' ? '<b><font color="red">No</font></b>' : '<b><font color="green">Yes</font></b>';?></td>
+<tr>
+  <td>PHP version >= 5.2.3</td>
+  <td align="left"><?php echo phpversion() < '5.2.3' ? '<b><font color="red">No</font></b>' : '<b><font color="green">Yes</font></b>';?></td>
 </tr>
 <tr>
-  <td>&nbsp; - MySQL support</td> 
+  <td>&nbsp; - MySQL support</td>
   <td align="left"><?php echo extension_loaded( 'mysql' ) ? '<b><font color="green">Available</font></b>' : '<b><font color="red">Unavailable</font></b>';?>
   </td>
 </tr>
 <tr>
-  <td>&nbsp; - GD support</td> 
+  <td>&nbsp; - GD support</td>
   <td align="left"><?php echo extension_loaded( 'gd' ) ? '<b><font color="green">Available</font></b>' : '<b><font color="red">Unavailable</font></b>';?>
   </td>
 </tr>
 <tr>
-  <td>&nbsp; - cURL support</td> 
+  <td>&nbsp; - cURL support</td>
   <td align="left"><?php echo extension_loaded( 'curl' ) ? '<b><font color="green">Available</font></b>' : '<b><font color="red">Unavailable</font></b>';?>
   </td>
 </tr>
 <tr>
-  <td>&nbsp; - OpenSSL support</td> 
+  <td>&nbsp; - OpenSSL support</td>
   <td align="left"><?php echo extension_loaded( 'openssl' ) ? '<b><font color="green">Available</font></b>' : '<b><font color="red">Unavailable</font></b>';?>
   </td>
 </tr>
@@ -99,10 +99,10 @@ function oosCheckPHP() {
   <td align="left"><?php echo extension_loaded('xml') ? '<b><font color="green">Available</font></b>' : '<b><font color="red">Unavailable</font></b>';?>
   </td>
 </tr>
-<tr> 
+<tr>
   <td>Session save path</td>
   <td align="left">
-  <b><?php echo (($sp=ini_get('session.save_path'))?$sp:'Not set'); ?></b>, 
+  <b><?php echo (($sp=ini_get('session.save_path'))?$sp:'Not set'); ?></b>,
   <?php echo is_writable( $sp ) ? '<b><font color="green">Writeable</font></b>' : '<b><font color="red">Unwriteable</font></b>';?>
   </td>
 </tr>
@@ -119,7 +119,7 @@ function oosCheckPHP() {
   <td>Safe Mode:</td>
   <td class="toggle">OFF</td>
   <td>
-<?php 
+<?php
   if ( oosGetPHPSetting('safe_mode') == 'OFF' ) {
 ?>
     <font color="green"><b>
@@ -137,7 +137,7 @@ function oosCheckPHP() {
   <td>Display Errors:</td>
   <td class="toggle">OFF</td>
   <td>
-<?php 
+<?php
   if ( oosGetPHPSetting('display_errors') == 'OFF' ) {
 ?>
     <font color="green"><b>
@@ -155,7 +155,7 @@ function oosCheckPHP() {
   <td>File Uploads:</td>
   <td class="toggle">ON</td>
   <td>
-<?php 
+<?php
   if ( oosGetPHPSetting('file_uploads') == 'ON' ) {
 ?>
     <font color="green"><b>
@@ -167,42 +167,7 @@ function oosCheckPHP() {
   }
   echo oosGetPHPSetting('file_uploads');
 ?>
-  </b></font></td>
-</tr>
-<tr>
-  <td>Magic Quotes GPC:</td>
-  <td class="toggle">ON</td>
-  <td>
-<?php 
-  if ( oosGetPHPSetting('magic_quotes_gpc') == 'ON' ) {
-?>
-    <font color="green"><b>
-<?php
-  } else {
-?>
-    <font color="red" style="bold"><b>
-<?php
-   }
-  echo oosGetPHPSetting('magic_quotes_gpc');
-?>
-  </b></font></td>
-</tr>
-<tr>
-  <td>Magic Quotes Runtime:</td>
-  <td class="toggle">OFF</td>
-  <td>
-<?php
-  if ( oosGetPHPSetting('magic_quotes_runtime') == 'OFF' ) {
-?>
-    <font color="green"><b>
-<?php
-  } else {
-?>
-    <font color="red" style="bold"><b>
-<?php
-   }
-  echo oosGetPHPSetting('magic_quotes_runtime');
-?>
+
   </b></font></td>
 </tr>
 
@@ -211,7 +176,7 @@ function oosCheckPHP() {
   </td>
   <td class="toggle">OFF</td>
   <td>
-<?php 
+<?php
   if ( oosGetPHPSetting('register_globals') == 'OFF' ) {
 ?>
     <font color="green"><b>
@@ -229,7 +194,7 @@ function oosCheckPHP() {
   <td>Output Buffering:</td>
   <td class="toggle">OFF</td>
   <td>
-<?php 
+<?php
   if ( oosGetPHPSetting('output_buffering') == 'OFF' ) {
 ?>
     <font color="green"><b>
@@ -247,7 +212,7 @@ function oosCheckPHP() {
   <td>Session auto start:</td>
   <td class="toggle">OFF</td>
   <td>
-<?php 
+<?php
   if ( oosGetPHPSetting('session.auto_start') == 'OFF' ) {
 ?>
     <font color="green"><b>
@@ -330,14 +295,6 @@ function oosCheckPHP() {
   }
 
 
-  $file = '../includes/configure-old.php';
-  if (is_writable($file)){
-    echo '<img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font color="green">' . CHMOD_CHECK_7 . '</font><br />';
-  } else {
-    echo '<img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' . CHMOD_CHECK_8 . '</font><br />';
-    $check_php = false;
-  }
-
 
   if ($check_php == true) {
     echo '<br /><br /><font class="oos-normal">' . PHP_CHECK_OK . '</font><br />';
@@ -360,4 +317,4 @@ function oosGetPHPSetting($val) {
   $r =  (ini_get($val) == '1' ? 1 : 0);
   return $r ? 'ON' : 'OFF';
 }
-?>
+

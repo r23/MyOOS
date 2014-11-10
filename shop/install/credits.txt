@@ -56,7 +56,7 @@ Released under the GNU General Public License
 
 Erweiterungen zur Bercksichtigung der
 DIRECTIVE 2000/31/EC OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL
-Grundlage hierfr ist das europ�sche eCommerce Gesetz mit 
+Grundlage hierfr ist das europ?sche eCommerce Gesetz mit 
 seinen landesspezifischen Ausfhrungsgesetzen
 Autor: Thomas Plänkers (webmaster@oscommerce.at)
 Released under the GNU General Public License v2.0 (oder neuer)
@@ -88,7 +88,7 @@ Henri Schmidhuber IN-Solution http://www.in-solution.de
 Steve Kemp Snowtech Services http://www.snowtech.com.au 
 Ron Seigel
 Hubert Keil http://www.win-vermieter.de/osc/
-Thomas Pl�kers  TheMedia http://themedia.at 
+Thomas Pl?kers  TheMedia http://themedia.at 
 Contribution based on:
 osCommerce, Open Source E-Commerce Solutions
 http://www.oscommerce.com

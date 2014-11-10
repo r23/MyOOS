@@ -468,10 +468,10 @@ if (!function_exists('dosql')) {
 
      $dict = NewDataDictionary($db);
 
-     $taboptarray = array('mysql' => 'TYPE=MyISAM', 'REPLACE'); 
+     $taboptarray = array('mysql' => 'TYPE=MyISAM', 'REPLACE');
 
      $sqlarray = $dict->CreateTableSQL($table, $flds, $taboptarray);
-     $dict->ExecuteSQLArray($sqlarray); 
+     $dict->ExecuteSQLArray($sqlarray);
 
      echo '<br><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $table . " " . MADE . '</font>';
    }
@@ -501,7 +501,7 @@ $flds = "
 ";
 dosql($table, $flds);
 
-$idxname = 'idx_name'; 
+$idxname = 'idx_name';
 $idxflds = 'name';
 idxsql($idxname, $table, $idxflds);
 

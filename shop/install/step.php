@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: install.php,v 1.91 2002/02/05 11:09:04 jgm 
+   File: install.php,v 1.91 2002/02/05 11:09:04 jgm
    ----------------------------------------------------------------------
    POST-NUKE Content Management System
    Copyright (C) 2001 by the Post-Nuke Development Team.
@@ -145,7 +145,7 @@
 
     case 'Admin':
        print_Admin();
-       break; 
+       break;
 
     case 'Submit':
       print_Submit();

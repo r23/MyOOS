@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: gui.php,v 1.18.2.1 2002/04/03 21:03:19 jgm 
+   File: gui.php,v 1.18.2.1 2002/04/03 21:03:19 jgm
    ----------------------------------------------------------------------
    POST-NUKE Content Management System
    Copyright (C) 2001 by the Post-Nuke Development Team.
@@ -92,7 +92,7 @@ function writeable_oosConfigure() {
 
 
 /**
- * This function prints the "This is your setting" area 
+ * This function prints the "This is your setting" area
  */
 function print_FormText() {
    global $dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype;
@@ -228,7 +228,7 @@ function print_FormEditabletext() {
 
 
 /**
- * This function prints the <input type=hidden> area 
+ * This function prints the <input type=hidden> area
  */
 function print_FormHidden() {
    global $update;
@@ -410,7 +410,7 @@ function print_ConfigTmpServerInfo() {
     print_FormTmpServer();
     echo '<form name="ChangeTmpServer" action="step.php" method="post">' . "\n";
     print_FormHidden();
-    echo '<input type="hidden" name="op" value="ChangeTmpServer">' . "\n" . 
+    echo '<input type="hidden" name="op" value="ChangeTmpServer">' . "\n" .
          '<input type="submit" value="' . BTN_CHANGE_INFO . '"><br />' . "\n" .
          '</form></center>' . "\n" .
          '<br />' . "\n" .
@@ -452,7 +452,7 @@ function print_ChangeTmpServer() {
      if (!is_dir(session_save_path())) {
        echo '<br /><font class="oos-error">' .  TMP_SESSION_NON_EXISTENT . '</font>' . "\n";
      } elseif (!is_writeable(session_save_path())) {
-       echo '<br /><font class="oos-error">' .  TMP_SESSION_DIRECTORY_NOT_WRITEABLE . '</font>' . "\n"; 
+       echo '<br /><font class="oos-error">' .  TMP_SESSION_DIRECTORY_NOT_WRITEABLE . '</font>' . "\n";
      }
    }
 
@@ -530,19 +530,19 @@ function print_Admin() {
 
 
 function print_ChangeLogin() {
-   global $currentlang, $gender, $firstname, $name, $pwd, $repeatpwd, $email, $phone, $fax, $root_path, $oos_url; 
+   global $currentlang, $gender, $firstname, $name, $pwd, $repeatpwd, $email, $phone, $fax, $root_path, $oos_url;
 
    echo '<font class="oos-title">' . CONTINUE_1 . '</font>' . "\n";
 
    if ($pwd == '') {
      echo '<br /><font class="oos-error">' . ADMIN_ERROR . '&nbsp;' . ADMIN_PASSWORD_ERROR . '</font>' . "\n";
-   } 
+   }
    if ($email == '') {
      echo '<br /><font class="oos-error">' . ADMIN_ERROR . '&nbsp;' . ADMIN_EMAIL_ERROR. '</font>' . "\n";
    }
    if ($pwd != $repeatpwd) {
      echo '<br /><font class="oos-error">' . ADMIN_ERROR . '&nbsp;' . PASSWORD_ERROR . '</font>' . "\n";
-   } 
+   }
    if ($gender == 'm') {
      $oos_radio_gender = '<input type="radio" name="gender" value="m" checked>&nbsp;' . MALE . '&nbsp;&nbsp;<input type="radio" name="gender" value="f">&nbsp;' . FEMALE . '&nbsp';
    } else {
@@ -597,7 +597,7 @@ function print_ChangeLogin() {
 }
 
 function print_Login() {
-   global $currentlang, $gender, $firstname, $name, $pwd, $repeatpwd, $email, $phone, $fax, $root_path, $oos_url; 
+   global $currentlang, $gender, $firstname, $name, $pwd, $repeatpwd, $email, $phone, $fax, $root_path, $oos_url;
 
    $oos_gender = ($gender == 'm') ? MALE : FEMALE;
 
@@ -645,7 +645,7 @@ function print_Login() {
         '  <td>&nbsp;</td>' . "\n" .
         '  <td>' . "\n";
    print_FormHidden();
-   echo '<input type="hidden" name="op" value="Change Login">' . "\n" . 
+   echo '<input type="hidden" name="op" value="Change Login">' . "\n" .
         '<input type="submit" value="' . BTN_CHANGE_INFO . '"><br />' . "\n" .
         '  </td>' . "\n" .
         ' </tr>' . "\n" .
@@ -771,7 +771,7 @@ function print_ConfigServerInfo() {
   print_FormServer();
   echo '<form name="ChangeServer" action="step.php" method="post">' . "\n";
   print_FormHidden();
-  echo '<input type="hidden" name="op" value="ChangeServer">' . "\n" . 
+  echo '<input type="hidden" name="op" value="ChangeServer">' . "\n" .
        '<input type="submit" value="' . BTN_CHANGE_INFO . '"><br />' . "\n" .
        '</form></center>' . "\n" .
        '<br />' . "\n" .
@@ -806,7 +806,7 @@ function print_DesignOptionen() {
        '</table>' . "\n" .
        '<br /><br />' . "\n";
   print_FormHidden();
-  echo '<input type="hidden" name="op" value="Tmp_Server">' . "\n" . 
+  echo '<input type="hidden" name="op" value="Tmp_Server">' . "\n" .
        '<input type="submit" value="' . BTN_NEXT . '"><br />' . "\n" .
        '</form></center>' . "\n" .
        '<br />';
@@ -815,7 +815,7 @@ function print_DesignOptionen() {
 
 
 function print_ChangeServer() {
-   global $oos_server, $oos_template_dir, $oos_ssl_server, $enable_ssl, $oos_root_path, $oos_shop_path, $oos_shop_dir, $oos_admin_dir; 
+   global $oos_server, $oos_template_dir, $oos_ssl_server, $enable_ssl, $oos_root_path, $oos_shop_path, $oos_shop_dir, $oos_admin_dir;
 
    echo '<font class="oos-title">' . VIRTUAL_1 . '</font>' . "\n";
 
@@ -829,7 +829,7 @@ function print_ChangeServer() {
         ' <tr>' . "\n" .
         '  <td align="left"><font class="oos-normal">HTTP Server</font></td>' . "\n" .
         '  <td><input type="text" name="oos_server" SIZE=60 maxlength=180 value="' . $oos_server . '"></td>' . "\n" .
-        ' </tr>' . "\n" .  
+        ' </tr>' . "\n" .
         ' <tr>' . "\n" .
         '  <td align="left"><font class="oos-normal">HTTPS SERVER</font></td>' . "\n" .
         '  <td><input type="text" name="oos_ssl_server" SIZE=60 maxlength=180 value="' . $oos_ssl_server . '"></td>' . "\n" .
@@ -939,7 +939,7 @@ function print_Start() {
 function print_ChangeInfo() {
    global $dbhost, $dbuname, $dbpass, $dbname, $prefix_table ;
 
-  echo '<font class="oos-title">' . CHANGE_INFO_1 . ':&nbsp;</font>' . 
+  echo '<font class="oos-title">' . CHANGE_INFO_1 . ':&nbsp;</font>' .
        '&nbsp;<font class="oos-normal">' . CHANGE_INFO_2 . '<br /><br />' . "\n" .
        '<form action="step.php" method="post"><center>' . "\n" .
        '<table class="content">' . "\n" .
@@ -979,13 +979,13 @@ function print_ChangeInfo() {
 
 
 function print_NewInstall() {
-   echo '<font class="oos-title">' . DBINFO . '</font><br>' . 
+   echo '<font class="oos-title">' . DBINFO . '</font><br>' .
         '<center><font class="oos-normal">&nbsp;' . SUBMIT_1 . '</font>' . "\n" .
         '<br /><br />' . "\n";
-   print_FormText(); 
+   print_FormText();
    echo '<form name="change info" action="step.php" method="post">' . "\n";
    print_FormHidden();
-   echo '<input type="hidden" name="op" value="Change_Info">' . "\n" . 
+   echo '<input type="hidden" name="op" value="Change_Info">' . "\n" .
         '<input type="submit" value="' . BTN_CHANGE_INFO . '"><br />' . "\n" .
         '</form>' . "\n" .
         '<br /><font class="oos-normal">' . NEW_INSTALL_3 . '</font>' . "\n" .
@@ -1065,8 +1065,8 @@ function print_oosDefault() {
    echo '<center>';
    echo '<input type="checkbox" name="agreecheck"><font class="oos-normal">' . DEFAULT_3 . '</font><br />';
    echo '<input type="submit" value="' . BTN_NEXT . '"><br />';
-   echo '</center>'; 
-   echo '</form>'; 
+   echo '</center>';
+   echo '</form>';
 }
 
 function print_select_language() {

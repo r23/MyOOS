@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: oscommerce.sql,v 1.71 2003/02/14 05:58:35 hpdl 
+   File: oscommerce.sql,v 1.71 2003/02/14 05:58:35 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -17,7 +17,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
 
-   File: newtables.php,v 1.40.2.1 2002/04/03 21:02:06 
+   File: newtables.php,v 1.40.2.1 2002/04/03 21:02:06
    ----------------------------------------------------------------------
    POST-NUKE Content Management System
    Copyright (C) 2001 by the Post-Nuke Development Team.
@@ -42,7 +42,7 @@
    To read the license please visit http://www.gnu.org/copyleft/gpl.html
    ----------------------------------------------------------------------
    Original Author of file:
-   Purpose of file: 
+   Purpose of file:
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -52,10 +52,10 @@ function dosql($table, $flds) {
 
    $dict = NewDataDictionary($db);
 
-   $taboptarray = array('mysql' => 'TYPE=MyISAM', 'REPLACE'); 
+   $taboptarray = array('mysql' => 'TYPE=MyISAM', 'REPLACE');
 
    $sqlarray = $dict->CreateTableSQL($table, $flds, $taboptarray);
-   $dict->ExecuteSQLArray($sqlarray); 
+   $dict->ExecuteSQLArray($sqlarray);
 
    echo '<br><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $table . " " . MADE . '</font>';
 }
@@ -206,7 +206,7 @@ $flds = "
 dosql($table, $flds);
 
 
-$idxname = 'idx_block_name'; 
+$idxname = 'idx_block_name';
 $idxflds = 'block_name';
 idxsql($idxname, $table, $idxflds);
 
@@ -310,7 +310,7 @@ $flds = "
 dosql($table, $flds);
 
 
-$idxname = 'idx_countries_name'; 
+$idxname = 'idx_countries_name';
 $idxflds = 'countries_name';
 idxsql($idxname, $table, $idxflds);
 
@@ -489,7 +489,7 @@ $flds = "
 dosql($table, $flds);
 
 
-$idxname = 'idx_customers_status_name'; 
+$idxname = 'idx_customers_status_name';
 $idxflds = 'customers_status_name';
 idxsql($idxname, $table, $idxflds);
 
@@ -609,7 +609,7 @@ $flds = "
 ";
 dosql($table, $flds);
 
-$idxname = 'idx_name'; 
+$idxname = 'idx_name';
 $idxflds = 'name';
 idxsql($idxname, $table, $idxflds);
 
@@ -666,12 +666,12 @@ $flds = "
   manufacturers_name C(32) NOTNULL,
   manufacturers_image C(64),
   date_added T,
-  last_modified T 
+  last_modified T
 ";
 dosql($table, $flds);
 
 
-$idxname = 'idx_manufacturers_name'; 
+$idxname = 'idx_manufacturers_name';
 $idxflds = 'manufacturers_name';
 idxsql($idxname, $table, $idxflds);
 
@@ -683,7 +683,7 @@ $flds = "
   manufacturers_languages_id I NOTNULL DEFAULT '1' PRIMARY,
   manufacturers_url C(255) NOTNULL,
   url_clicked I2 NOTNULL DEFAULT '0',
-  date_last_click T 
+  date_last_click T
 ";
 dosql($table, $flds);
 
@@ -783,7 +783,7 @@ $flds = "
 dosql($table, $flds);
 
 
-$idxname = 'idx_orders_status_name'; 
+$idxname = 'idx_orders_status_name';
 $idxflds = 'orders_status_name';
 idxsql($idxname, $table, $idxflds);
 
@@ -840,7 +840,7 @@ $flds = "
 dosql($table, $flds);
 
 
-$idxname = 'idx_orders_id'; 
+$idxname = 'idx_orders_id';
 $idxflds = 'orders_id';
 idxsql($idxname, $table, $idxflds);
 
@@ -855,7 +855,7 @@ $flds = "
 dosql($table, $flds);
 
 
-$idxname = 'idx_page_type_name'; 
+$idxname = 'idx_page_type_name';
 $idxflds = 'page_type_name';
 idxsql($idxname, $table, $idxflds);
 
@@ -911,8 +911,8 @@ $flds = "
 ";
 dosql($table, $flds);
 
-$idxname = 'idx_products_date_added'; 
-$idxflds = 'products_date_added'; 
+$idxname = 'idx_products_date_added';
+$idxflds = 'products_date_added';
 idxsql($idxname, $table, $idxflds);
 
 
@@ -953,7 +953,7 @@ $flds = "
 ";
 dosql($table, $flds);
 
-$idxname = 'idx_products_name'; 
+$idxname = 'idx_products_name';
 $idxflds = 'products_name';
 idxsql($idxname, $table, $idxflds);
 
@@ -990,7 +990,7 @@ $flds = "
 ";
 dosql($table, $flds);
 
-$idxname = 'idx_products_options_types_name'; 
+$idxname = 'idx_products_options_types_name';
 $idxflds = 'products_options_types_name';
 idxsql($idxname, $table, $idxflds);
 
@@ -1024,7 +1024,7 @@ $flds = "
 ";
 dosql($table, $flds);
 
-$idxname = 'idx_products_status_name'; 
+$idxname = 'idx_products_status_name';
 $idxflds = 'products_status_name';
 idxsql($idxname, $table, $idxflds);
 
