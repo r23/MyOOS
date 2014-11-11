@@ -49,7 +49,7 @@
 
     $nXsellProducts = $xsell_products_result->RecordCount();
     if ($nXsellProducts >=  MIN_DISPLAY_XSELL_PRODUCTS) {
-      $oSmarty->assign('oos_xsell_products_array', $xsell_products_result->GetArray());
+      $smarty->assign('oos_xsell_products_array', $xsell_products_result->GetArray());
     }
   }
 

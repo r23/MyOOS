@@ -33,7 +33,7 @@
     if (!isset($block_get_parameters)) {
       $block_get_parameters = oos_get_all_get_parameters(array('action'));
       $block_get_parameters = oos_remove_trailing($block_get_parameters);
-      $oSmarty->assign('get_params', $block_get_parameters);
+      $smarty->assign('get_params', $block_get_parameters);
     }
 
     if (isset($_SESSION['customer_id'])) {
@@ -50,7 +50,7 @@
 
     $products_name = oos_get_products_name($nProductsId);
 
-    $oSmarty->assign(
+    $smarty->assign(
         array(
             'notification_exists' => $notification_exists,
             'products_name' => $products_name,
@@ -59,6 +59,6 @@
     );
   }
 
-  $oSmarty->assign('notifications_block', $notifications_block);
+  $smarty->assign('notifications_block', $notifications_block);
 
 ?>

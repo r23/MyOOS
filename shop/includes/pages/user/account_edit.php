@@ -70,7 +70,7 @@
   }
 
   // assign Smarty variables;
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'oos_heading_title' => $aLang['heading_title'],
@@ -84,13 +84,13 @@
   );
 
   // JavaScript
-  $oSmarty->assign('oos_js', $javascript);
+  $smarty->assign('oos_js', $javascript);
 
-  $oSmarty->assign('newsletter_ids', array(0,1));
-  $oSmarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));
+  $smarty->assign('newsletter_ids', array(0,1));
+  $smarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));
 
-  $oSmarty->assign('oosPageHeading', $oSmarty->fetch($aOption['page_heading']));
-  $oSmarty->assign('contents', $oSmarty->fetch($aOption['template_main']));
+  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
+  $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
   // display the template
   require 'includes/oos_display.php';

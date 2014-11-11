@@ -403,7 +403,7 @@
     }
 
     // assign Smarty variables;
-    $oSmarty->assign(
+    $smarty->assign(
         array(
             'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'oos_heading_title' => $aLang['heading_title'],
@@ -413,13 +413,13 @@
 
     require 'includes/modules/product_listing.php';
 
-    $oSmarty->assign('pw_mispell', $pw_mispell);
-    $oSmarty->assign('pw_string', $pw_string);
-    $oSmarty->assign('oos_get_all_get_params', oos_get_all_get_parameters(array('sort', 'page')));
+    $smarty->assign('pw_mispell', $pw_mispell);
+    $smarty->assign('pw_string', $pw_string);
+    $smarty->assign('oos_get_all_get_params', oos_get_all_get_parameters(array('sort', 'page')));
 
-    $oSmarty->assign('oosPageNavigation', $oSmarty->fetch($aOption['page_navigation']));
-    $oSmarty->assign('oosPageHeading', $oSmarty->fetch($aOption['page_heading']));
-    $oSmarty->assign('contents', $oSmarty->fetch($aOption['template_main']));
+    $smarty->assign('oosPageNavigation', $smarty->fetch($aOption['page_navigation']));
+    $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
+    $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
     // display the template
     require 'includes/oos_display.php';

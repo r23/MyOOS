@@ -62,10 +62,10 @@
   if ($best_sellers_result->RecordCount() >= MIN_DISPLAY_BESTSELLERS) {
     $best_sellers_block = 'true';
 
-    $oSmarty->assign('best_sellers_list', $best_sellers_result->GetArray());
-    $oSmarty->assign('block_heading_best_sellers', $block_heading);
+    $smarty->assign('best_sellers_list', $best_sellers_result->GetArray());
+    $smarty->assign('block_heading_best_sellers', $block_heading);
   }
 
-  $oSmarty->assign('best_sellers_block', $best_sellers_block);
+  $smarty->assign('best_sellers_block', $best_sellers_block);
 
 ?>

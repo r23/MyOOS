@@ -49,7 +49,7 @@
     }
 
     // assign Smarty variables;
-    $oSmarty->assign(
+    $smarty->assign(
         array(
             'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'oos_heading_title' => $aLang['text_product_not_found'],
@@ -82,41 +82,41 @@
       require 'includes/oos_blocks.php';
     }
 
-    $oSmarty->assign('oos_breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
+    $smarty->assign('oos_breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
 
     require 'includes/modules/slavery_products.php';
     require 'includes/modules/history_products.php';
 
-    if ( (USE_CACHE == 'true') && (!SID) ) {
-      $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
-    }
+if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
+	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
+}
 
-    if (!$oSmarty->isCached($aOption['xsell_products'], $oos_products_info_cache_id)) {
+    if (!$smarty->isCached($aOption['xsell_products'], $oos_products_info_cache_id)) {
       require 'includes/modules/xsell_products.php';
     }
-    $oSmarty->assign('xsell_products', $oSmarty->fetch($aOption['xsell_products'], $oos_products_info_cache_id));
+    $smarty->assign('xsell_products', $smarty->fetch($aOption['xsell_products'], $oos_products_info_cache_id));
 
-    if (!$oSmarty->isCached($aOption['up_sell_products'], $oos_products_info_cache_id)) {
+    if (!$smarty->isCached($aOption['up_sell_products'], $oos_products_info_cache_id)) {
       require 'includes/modules/up_sell_products.php';
     }
-    $oSmarty->assign('up_sell_products', $oSmarty->fetch($aOption['up_sell_products'], $oos_products_info_cache_id));
+    $smarty->assign('up_sell_products', $smarty->fetch($aOption['up_sell_products'], $oos_products_info_cache_id));
 
-    if (!$oSmarty->isCached($aOption['also_purchased_products'], $oos_products_info_cache_id)) {
+    if (!$smarty->isCached($aOption['also_purchased_products'], $oos_products_info_cache_id)) {
       require 'includes/modules/also_purchased_products.php';
-      $oSmarty->assign('oos_also_purchased_array', $aPurchased);
+      $smarty->assign('oos_also_purchased_array', $aPurchased);
     }
-    $oSmarty->assign('also_purchased_products', $oSmarty->fetch($aOption['also_purchased_products'], $oos_products_info_cache_id));
+    $smarty->assign('also_purchased_products', $smarty->fetch($aOption['also_purchased_products'], $oos_products_info_cache_id));
 
-    if (!$oSmarty->isCached($aOption['featured'], $oos_modules_cache_id)) {
+    if (!$smarty->isCached($aOption['featured'], $oos_modules_cache_id)) {
       require 'includes/modules/featured.php';
     }
-    $oSmarty->assign('featured', $oSmarty->fetch($aOption['featured'], $oos_modules_cache_id));
+    $smarty->assign('featured', $smarty->fetch($aOption['featured'], $oos_modules_cache_id));
 
-    $oSmarty->setCaching(false);
+    $smarty->setCaching(false);
   }
 
-  $oSmarty->assign('oosPageHeading', $oSmarty->fetch($aOption['page_heading']));
-  $oSmarty->assign('contents', $oSmarty->fetch($aOption['template_main']));
+  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
+  $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
   // display the template
   require 'includes/oos_display.php';

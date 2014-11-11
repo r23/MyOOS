@@ -83,7 +83,7 @@
     require 'includes/oos_blocks.php';
   }
 
-  $oSmarty->assign(
+  $smarty->assign(
        array(
            'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
            'oos_heading_title' => sprintf($aLang['heading_title'], $reviews['products_name']),
@@ -95,8 +95,8 @@
        )
   );
 
-  $oSmarty->assign('oosPageHeading', $oSmarty->fetch($aOption['page_heading']));
-  $oSmarty->assign('contents', $oSmarty->fetch($aOption['template_main']));
+  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
+  $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
   // display the template
   require 'includes/oos_display.php';

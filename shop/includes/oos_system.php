@@ -22,23 +22,23 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 //smarty
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
-$oSmarty = new myOOS_Smarty();
+$smarty = new myOOS_Smarty();
 
 
 
 //debug
 if ($debug == 'true') {
-	$oSmarty->force_compile   = TRUE;
-	$oSmarty->debugging       = TRUE;
-	$oSmarty->clearAllCache();
-	$oSmarty->clearCompiledTemplate();
+	$smarty->force_compile   = TRUE;
+	$smarty->debugging       = TRUE;
+	$smarty->clearAllCache();
+	$smarty->clearCompiledTemplate();
 }
 
 // object register
-$oSmarty->assignByRef("oEvent", $oEvent);
+$smarty->assignByRef("oEvent", $oEvent);
 
   // object register
-#  $oSmarty->register_object("cart", $_SESSION['cart'],array('count_contents', 'get_products'));
+#  $smarty->register_object("cart", $_SESSION['cart'],array('count_contents', 'get_products'));
 
 
   // cache_id
@@ -68,7 +68,7 @@ $oSmarty->assignByRef("oEvent", $oEvent);
   if (empty($oos_meta_description)) $oos_meta_description = OOS_META_DESCRIPTION;
   if (empty($oos_meta_keywords)) $oos_meta_keywords = OOS_META_KEYWORDS;
 
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'filename'          => $aFilename,
           'modules'           => $aModules,
@@ -89,14 +89,13 @@ $oSmarty->assignByRef("oEvent", $oEvent);
 
           'pagetitle'         => $oos_pagetitle,
 
-          'meta_description'  => $oos_meta_description,
-          'meta_keywords'     => $oos_meta_keywords
+          'meta_description'  => $oos_meta_description
       )
   );
  
  
 
-  $oSmarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
+  $smarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
 
 
 $cart_count_contents = 0;
@@ -108,12 +107,12 @@ if (isset($_SESSION)) {
     $_SESSION['formid'] = $sFormid;
 
 	if (is_object($_SESSION['cart'])) {
-		$oSmarty->registerObject("cart", $_SESSION['cart'],array('count_contents', 'get_products')); 
+		$smarty->registerObject("cart", $_SESSION['cart'],array('count_contents', 'get_products')); 
 
 		$cart_count_contents = $_SESSION['cart']->count_contents();
 		$cart_show_total = $oCurrencies->format($_SESSION['cart']->show_total()); 
 	}
-	$oSmarty->assign(
+	$smarty->assign(
 		array(
 			'formid'            => $sFormid,
 
@@ -124,7 +123,7 @@ if (isset($_SESSION)) {
     );
 }
 
-$oSmarty->assign(
+$smarty->assign(
     array(
 		'cart_show_total'     => $cart_show_total,
 		'cart_count_contents' => $cart_count_contents
@@ -157,7 +156,7 @@ $sPAngV .= ', <br />';
 $sPAngV .= sprintf($aLang['text_shipping'], oos_href_link($aContents['information'], 'information_id=2'));
 
 
-$oSmarty->assign(
+$smarty->assign(
       array(
           'pangv'               => $sPAngV,
           'products_units'      => $products_units,

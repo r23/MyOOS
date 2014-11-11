@@ -253,7 +253,7 @@
     }
 
 // assign Smarty variables;
-  $oSmarty->assign(
+  $smarty->assign(
       array('oos_breadcrumb'      => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'oos_heading_title'   => $aLang['heading_title'],
             'oos_heading_image'   => 'account.gif',
@@ -316,29 +316,29 @@
         $zones_values[] = $zones['zone_name'];
         $zones_result->MoveNext();
       }
-      $oSmarty->assign('zones_names', $zones_names);
-      $oSmarty->assign('zones_values', $zones_values);
+      $smarty->assign('zones_names', $zones_names);
+      $smarty->assign('zones_values', $zones_values);
     } else {
       $state = oos_get_zone_name($country, $zone_id, $state);
-      $oSmarty->assign('state', $state);
-      $oSmarty->assign('zone_id', $zone_id);  
+      $smarty->assign('state', $state);
+      $smarty->assign('zone_id', $zone_id);  
     }
 
     $country_name = oos_get_country_name($country);
-    $oSmarty->assign('country_name', $country_name);
+    $smarty->assign('country_name', $country_name);
 
     if ($newsletter == '1') {
       $news = ENTRY_NEWSLETTER_YES;
     } else {
       $news = ENTRY_NEWSLETTER_NO;
     }
-    $oSmarty->assign('news', $news);
+    $smarty->assign('news', $news);
 
-    $oSmarty->assign('newsletter_ids', array(0,1));
-    $oSmarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));
+    $smarty->assign('newsletter_ids', array(0,1));
+    $smarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));
 
-    $oSmarty->assign('oosPageHeading', $oSmarty->fetch($aOption['page_heading']));
-    $oSmarty->assign('contents', $oSmarty->fetch($aOption['template_main']));
+    $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
+    $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
     // display the template
     require 'includes/oos_display.php';

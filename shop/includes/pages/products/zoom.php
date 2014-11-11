@@ -55,12 +55,12 @@
                '&zoomifyZoom=80&zoomifyMinZoom=10&zoomifyMaxZoom=100';
 
   // assign Smarty variables;
-  $oSmarty->assign('lang', $aLang);
-  $oSmarty->assign('theme_css', 'themes/' . $sTheme);
-  $oSmarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
-  $oSmarty->assign('products_name', $products_info['products_name']);
-  $oSmarty->assign('zoomify', $sZoomify);
+  $smarty->assign('lang', $aLang);
+  $smarty->assign('theme_css', 'themes/' . $sTheme);
+  $smarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
+  $smarty->assign('products_name', $products_info['products_name']);
+  $smarty->assign('zoomify', $sZoomify);
 
   // display the template
-  $oSmarty->display($aOption['popup_zoom']);
+  $smarty->display($aOption['popup_zoom']);
 ?>

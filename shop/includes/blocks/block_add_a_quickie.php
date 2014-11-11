@@ -25,9 +25,9 @@
   if (!isset($block_get_parameters)) {
     $block_get_parameters = oos_get_all_get_parameters(array('action'));
     $block_get_parameters = oos_remove_trailing($block_get_parameters);
-    $oSmarty->assign('get_params', $block_get_parameters);
+    $smarty->assign('get_params', $block_get_parameters);
   }
 
-  $oSmarty->assign('block_heading_add_product_id', $block_heading);
+  $smarty->assign('block_heading_add_product_id', $block_heading);
 
 

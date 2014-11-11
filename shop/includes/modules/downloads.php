@@ -81,7 +81,7 @@
     // Close result set
     $downloads_result->Close();
 
-    $oSmarty->assign('downloads_array',$downloads_array);
+    $smarty->assign('downloads_array',$downloads_array);
   }
 
 ?>

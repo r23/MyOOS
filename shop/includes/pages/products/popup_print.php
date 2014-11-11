@@ -34,7 +34,7 @@
    * utilizing eAccelerator extension (http://eaccelerator.net/HomeUk)
    */
   if (function_exists( 'eaccelerator' )) {
-    $oSmarty->cache_handler_func = 'smarty_cache_eaccelerator';
+    $smarty->cache_handler_func = 'smarty_cache_eaccelerator';
   }
 
   $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
@@ -42,7 +42,7 @@
   $sGroup = trim($_SESSION['member']->group['text']);
   $popup_cache_id = $sTheme . '|products|' . $sGroup . '|print|' . $nProductsId . '|' . $sLanguage;
 
-  if (!$oSmarty->isCached($aOption['popup_print'], $popup_cache_id )) {
+  if (!$smarty->isCached($aOption['popup_print'], $popup_cache_id )) {
     require 'includes/languages/' . $sLanguage . '/products_info.php';
 
     $productstable = $oostable['products'];
@@ -69,7 +69,7 @@
       // product not found
       $aLang['text_information'] = $aLang['text_product_not_found'];
 
-      $oSmarty->assign(
+      $smarty->assign(
           array(
               'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
               'oos_heading_title' => $aLang['text_product_not_found'],
@@ -117,17 +117,17 @@
 
       if (OOS_BASE_PRICE == 'false') {
         $info_product_price_list = $oCurrencies->display_price($product_info['products_price_list'], oos_get_tax_rate($product_info['products_tax_class_id']));
-        $oSmarty->assign('info_product_price_list', $info_product_price_list);
+        $smarty->assign('info_product_price_list', $info_product_price_list);
       }
 
       // assign Smarty variables;
-      $oSmarty->assign_by_ref("oEvent", $oEvent);
+      $smarty->assign_by_ref("oEvent", $oEvent);
 
-      $oSmarty->assign('product_info', $product_info);
-      $oSmarty->assign('oosDate', date('Y-m-d H:i:s'));
-      $oSmarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
+      $smarty->assign('product_info', $product_info);
+      $smarty->assign('oosDate', date('Y-m-d H:i:s'));
+      $smarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
 
-      $oSmarty->assign(
+      $smarty->assign(
           array(
               'filename'                        => $aFilename,
               'modules'                         => $aModules,
@@ -153,5 +153,5 @@
   }
 
   // display the template
-  $oSmarty->display($aOption['popup_print'], $popup_cache_id);
+  $smarty->display($aOption['popup_print'], $popup_cache_id);
 ?>

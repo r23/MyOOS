@@ -190,12 +190,12 @@
   $sql = "SELECT campaigns_id FROM $campaignstable WHERE campaigns_languages_id = '" . intval($_SESSION['language_id']) . "'";
   $campaigns_result = $dbconn->Execute($sql);
   if ($campaigns_result->RecordCount()) {
-    $oSmarty->assign('campaigns', 'true');
+    $smarty->assign('campaigns', 'true');
 
     if (isset($_SESSION['campaigns_id']) && is_numeric($_SESSION['campaigns_id'])) {
-      $oSmarty->assign('campaigns_id', $_SESSION['campaigns_id']);
+      $smarty->assign('campaigns_id', $_SESSION['campaigns_id']);
     } else {
-      $oSmarty->assign('campaigns_id', DEFAULT_CAMPAIGNS_ID);
+      $smarty->assign('campaigns_id', DEFAULT_CAMPAIGNS_ID);
     }
 
     $campaignstable = $oostable['campaigns'];
@@ -203,11 +203,11 @@
                       FROM $campaignstable
                       WHERE campaigns_languages_id = '" . intval($_SESSION['language_id']) . "'
                       ORDER BY campaigns_id";
-    $oSmarty->assign('campaigns_radios', $dbconn->getAssoc($campaigns_sql));
+    $smarty->assign('campaigns_radios', $dbconn->getAssoc($campaigns_sql));
   }
 
   // assign Smarty variables;
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'oos_heading_title' => $aLang['heading_title'],
@@ -225,10 +225,10 @@
 
 
   // JavaScript
-  $oSmarty->assign('popup_window', 'checkout_shipping.js');
+  $smarty->assign('popup_window', 'checkout_shipping.js');
 
-  $oSmarty->assign('oosPageHeading', $oSmarty->fetch($aOption['page_heading']));
-  $oSmarty->assign('contents', $oSmarty->fetch($aOption['template_main'])); 
+  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
+  $smarty->assign('contents', $smarty->fetch($aOption['template_main'])); 
 
   // display the template
   require 'includes/oos_display.php';

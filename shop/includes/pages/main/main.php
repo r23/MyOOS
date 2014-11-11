@@ -88,7 +88,7 @@
   }
 
   // assign Smarty variables;
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'oos_breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'oos_heading_title' => $heading_title,
@@ -98,54 +98,53 @@
 
 
   if (isset($_SESSION['customer_id'])) {
-    $oSmarty->assign('customer_greeting', oos_customer_greeting());
+    $smarty->assign('customer_greeting', oos_customer_greeting());
   }
 
-  if ( (USE_CACHE == 'true') && (!SID) && (!isset($_SESSION['customer_id'])) ){
-    $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
-  }
-
+if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
+	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
+}
 
   if ($oEvent->installed_plugin('spezials')) {
-    if (!$oSmarty->isCached($aOption['new_spezials'], $oos_modules_cache_id)) {
+    if (!$smarty->isCached($aOption['new_spezials'], $oos_modules_cache_id)) {
       require 'includes/modules/new_spezials.php';
     }
-    $oSmarty->assign('new_spezials', $oSmarty->fetch($aOption['new_spezials'], $oos_modules_cache_id));
+    $smarty->assign('new_spezials', $smarty->fetch($aOption['new_spezials'], $oos_modules_cache_id));
   }
 
   
   
   if ($oEvent->installed_plugin('featured')) {
-    if (!$oSmarty->isCached($aOption['featured'], $oos_modules_cache_id)) {
+    if (!$smarty->isCached($aOption['featured'], $oos_modules_cache_id)) {
       require 'includes/modules/featured.php';
     }
-    $oSmarty->assign('featured', $oSmarty->fetch($aOption['featured'], $oos_modules_cache_id));
+    $smarty->assign('featured', $smarty->fetch($aOption['featured'], $oos_modules_cache_id));
   }
 
 
-  if (!$oSmarty->isCached($aOption['new_products'], $oos_modules_cache_id)) {
+  if (!$smarty->isCached($aOption['new_products'], $oos_modules_cache_id)) {
     require 'includes/modules/new_products.php';
   }
-  $oSmarty->assign('new_products', $oSmarty->fetch($aOption['new_products'], $oos_modules_cache_id));
+  $smarty->assign('new_products', $smarty->fetch($aOption['new_products'], $oos_modules_cache_id));
 
 
   if ($oEvent->installed_plugin('manufacturers')) {
-    if (!$oSmarty->isCached($aOption['mod_manufacturers'], $oos_modules_cache_id)) {
+    if (!$smarty->isCached($aOption['mod_manufacturers'], $oos_modules_cache_id)) {
       require 'includes/modules/mod_manufacturers.php';
     }
-    $oSmarty->assign('mod_manufacturers', $oSmarty->fetch($aOption['mod_manufacturers'], $oos_modules_cache_id));
+    $smarty->assign('mod_manufacturers', $smarty->fetch($aOption['mod_manufacturers'], $oos_modules_cache_id));
   }
 
 
-  if (!$oSmarty->isCached($aOption['upcoming_products'], $oos_modules_cache_id)) {
+  if (!$smarty->isCached($aOption['upcoming_products'], $oos_modules_cache_id)) {
     require 'includes/modules/upcoming_products.php';
   }
   
-  $oSmarty->assign('upcoming_products', $oSmarty->fetch($aOption['upcoming_products'], $oos_modules_cache_id));
-  $oSmarty->setCaching(false);
+  $smarty->assign('upcoming_products', $smarty->fetch($aOption['upcoming_products'], $oos_modules_cache_id));
+  $smarty->setCaching(false);
 
-  $oSmarty->assign('oosPageHeading', $oSmarty->fetch($aOption['page_heading']));
-  $oSmarty->assign('contents', $oSmarty->fetch($aOption['template_main']));
+  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
+  $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
   
   // display the template

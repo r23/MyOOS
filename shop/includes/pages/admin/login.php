@@ -169,7 +169,7 @@
 
 
 // assign Smarty variables;
-  $oSmarty->assign(
+  $smarty->assign(
       array('oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'oos_heading_title' => $aLang['heading_title'],
             'oos_heading_image' => 'login.gif',
@@ -179,7 +179,7 @@
   );
 
   // JavaScript
-  $oSmarty->assign('popup_window', 'popup_window.js');
+  $smarty->assign('popup_window', 'popup_window.js');
 
   if (isset($_GET['action']) && ($_GET['action'] == 'login_admin')) {
     require 'includes/modules/key_generate.php';
@@ -187,7 +187,7 @@
     $login_query = "SELECT man_key2, man_key3, status FROM $manual_infotable WHERE man_key = '" . oos_db_input($verif_key) . "' AND status = '1'";
     $login_result_values = $dbconn->GetRow($login_query);
 
-    $oSmarty->assign(
+    $smarty->assign(
         array('newkey2'             => $newkey2,
               'email_address'       => $email_address,
               'verif_key'           => $verif_key,
@@ -196,8 +196,8 @@
     );
   }
 
-  $oSmarty->assign('oosPageHeading', $oSmarty->fetch($aOption['page_heading']));
-  $oSmarty->assign('contents', $oSmarty->fetch($aOption['template_main']));
+  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
+  $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
   // display the template
   require 'includes/oos_display.php';

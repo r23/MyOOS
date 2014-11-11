@@ -101,7 +101,7 @@
       require 'includes/classes/class_template.php';
       $oSmarty =& new Template;
 
-      $sLocaleDir = $oSmarty->template_dir;
+      $sLocaleDir = $smarty->template_dir;
       $aSkins = array();
 
       if (is_dir($sLocaleDir)) {
@@ -119,7 +119,7 @@
       sort($aSkins);
 
       foreach ($aSkins as $sName) {
-        $oSmarty->clear_cache(null, $sName.'|products|reviews');
+        $smarty->clear_cache(null, $sName.'|products|reviews');
       }
 
     }
@@ -161,7 +161,7 @@
     require 'includes/oos_blocks.php';
   }
 
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'oos_breadcrumb'   => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'oos_heading_title' => $aLang['heading_title'],
@@ -175,8 +175,8 @@
       )
   );
 
-  $oSmarty->assign('oosPageHeading', $oSmarty->fetch($aOption['page_heading']));
-  $oSmarty->assign('contents', $oSmarty->fetch($aOption['template_main']));
+  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
+  $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
   // display the template
   require 'includes/oos_display.php';

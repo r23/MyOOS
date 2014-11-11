@@ -14,15 +14,17 @@
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
   
+ 
+  
   if (isset($option) && ($option == 'print')) {
-    $oSmarty->display('default/print.html');
+    $smarty->display('default/print.html');
   } else {
 
 
 // load_filter
-//    $oSmarty->load_filter('output', 'png_image');
-//    $oSmarty->load_filter('output', 'highlight');
-//    $oSmarty->load_filter('output', 'trimwhitespace');
+//    $smarty->load_filter('output', 'png_image');
+//    $smarty->load_filter('output', 'highlight');
+//    $smarty->load_filter('output', 'trimwhitespace');
 // display the template
-    $oSmarty->display($sTheme.'/theme.html');
+    $smarty->display($sTheme.'/theme.html');
   }

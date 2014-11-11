@@ -30,16 +30,16 @@
   $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
   $info_shopping_cart_id = $sTheme . '|info_shopping_cart|' . $sLanguage;
 
-  if (!$oSmarty->isCached($aOption['info_shopping_cart'], $info_shopping_cart_id )) {
+  if (!$smarty->isCached($aOption['info_shopping_cart'], $info_shopping_cart_id )) {
     require 'includes/languages/' . $sLanguage . '/main_info_shopping_cart.php';
 
     // assign Smarty variables;
-    $oSmarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
-    $oSmarty->assign('lang', $aLang);
-    $oSmarty->assign('theme_image', 'themes/' . $sTheme . '/images');
-    $oSmarty->assign('theme_css', 'themes/' . $sTheme);
+    $smarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
+    $smarty->assign('lang', $aLang);
+    $smarty->assign('theme_image', 'themes/' . $sTheme . '/images');
+    $smarty->assign('theme_css', 'themes/' . $sTheme);
   }
 
   // display the template
-  $oSmarty->display($aOption['info_shopping_cart'], $info_shopping_cart_id);
+  $smarty->display($aOption['info_shopping_cart'], $info_shopping_cart_id);
 ?>

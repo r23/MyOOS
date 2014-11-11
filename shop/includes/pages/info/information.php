@@ -27,6 +27,8 @@
 
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
+ 
+  
   $nInformationsID = isset($_GET[information_id]) ? $_GET[information_id]+0 : 1;
   $sGroup = trim($_SESSION['member']->group['text']);
   $contents_cache_id = $sTheme . '|info|' . $sGroup . '|information|' . $nInformationsID . '|' . $sLanguage;
@@ -37,12 +39,13 @@
     require 'includes/oos_blocks.php';
   }
 
-  if ( (USE_CACHE == 'true') && (!SID) ) {
-    $oSmarty->caching = 2;
-    $oSmarty->cache_lifetime = 24 * 3600;
-  }
+if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
+	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
+}
 
-  if (!$oSmarty->isCached($aOption['template_main'], $contents_cache_id)) {
+
+
+  if (!$smarty->isCached($aOption['template_main'], $contents_cache_id)) {
     $informationtable = $oostable['information'];
     $information_descriptiontable = $oostable['information_description'];
     $sql = "SELECT i.information_id, i.information_image, id.information_name,
@@ -59,7 +62,7 @@
     $oBreadcrumb->add($information['information_heading_title'], oos_href_link($aModules['info'], $aFilename['information'], 'information_id=' . intval($nInformationsID)));
 
     // assign Smarty variables;
-    $oSmarty->assign(
+    $smarty->assign(
         array(
             'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'oos_heading_title' => $information['information_heading_title'],
@@ -71,10 +74,12 @@
     );
 
   }
-  $oSmarty->assign('oosPageHeading', $oSmarty->fetch($aOption['page_heading'], $contents_cache_id));
-  $oSmarty->assign('contents', $oSmarty->fetch($aOption['template_main'], $contents_cache_id));
-  $oSmarty->setCaching(false);
-
+  
+ 
+  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading'], $contents_cache_id));
+  $smarty->assign('contents', $smarty->fetch($aOption['template_main'], $contents_cache_id));
+  $smarty->setCaching(false);
+  
+  
   // display the template
   require 'includes/oos_display.php';
-?>

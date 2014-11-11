@@ -39,9 +39,9 @@
   if ( ($sFile != $aFilename['login']) && ($sFile != $aFilename['create_account'])) {
     if (!isset($_SESSION['customer_id'])) {
       $login_block = 'true';
-      $oSmarty->assign('block_login_heading', $block_heading);
+      $smarty->assign('block_login_heading', $block_heading);
     }
   }
-  $oSmarty->assign('login_block', $login_block);
+  $smarty->assign('login_block', $login_block);
 
 ?>

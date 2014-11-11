@@ -77,7 +77,7 @@
     // Close result set
     $new_spezials_result->Close();
 
-    $oSmarty->assign('new_spezials_array', $new_spezials_array);
+    $smarty->assign('new_spezials_array', $new_spezials_array);
   }
 
 ?>

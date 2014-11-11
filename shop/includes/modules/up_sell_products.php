@@ -46,7 +46,7 @@
 
     $nUp_sell = $up_sell_products_result->RecordCount();
     if ($nUp_sell >=  MIN_DISPLAY_XSELL_PRODUCTS) {
-      $oSmarty->assign('oos_up_sell_products_array', $up_sell_products_result->GetArray());
+      $smarty->assign('oos_up_sell_products_array', $up_sell_products_result->GetArray());
     }
   }
 

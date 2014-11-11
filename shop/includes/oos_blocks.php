@@ -55,18 +55,18 @@
     $block_tpl = $sTheme . '/blocks/' . $block_file . '.html';
 
     if ($block['block_cache'] != '') {
-      if ( (USE_CACHE == 'true') && (!SID) ) {
-        $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
-      }
+		if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
+			$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
+		}
       $bid = trim('oos_' . $block['block_cache'] . '_cache_id');
-      if (!$oSmarty->isCached($block_tpl, ${$bid})) {
+      if (!$smarty->isCached($block_tpl, ${$bid})) {
         require 'includes/blocks/block_' . $block_file . '.php';
       }
-      $block_content = $oSmarty->fetch($block_tpl, ${$bid});
+      $block_content = $smarty->fetch($block_tpl, ${$bid});
     } else {
-      $oSmarty->setCaching(false);
+      $smarty->setCaching(false);
       require 'includes/blocks/block_' . $block_file . '.php';
-      $block_content = $oSmarty->fetch($block_tpl);
+      $block_content = $smarty->fetch($block_tpl);
     }
 	
     $aContentBlock[] = array('side' => $block_side,
@@ -81,15 +81,15 @@
      switch ($aContentBlock[$i]['side']) {
 
        case 'left':
-         $oSmarty->append('oos_blockleft', array('content' => $aContentBlock[$i]['block_content']));
+         $smarty->append('oos_blockleft', array('content' => $aContentBlock[$i]['block_content']));
          break;
 
        case 'right':
-         $oSmarty->append('oos_blockright', array('content' => $aContentBlock[$i]['block_content']));
+         $smarty->append('oos_blockright', array('content' => $aContentBlock[$i]['block_content']));
          break;
 
      }
   }
 
-  $oSmarty->setCaching(false);
+  $smarty->setCaching(false);
 

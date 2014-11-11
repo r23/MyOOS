@@ -30,7 +30,7 @@
 
     $nManufacturer = $manufacturer_result->RecordCount();
     if ($nManufacturer >=  MIN_DISPLAY_MANUFACTURER) {
-      $oSmarty->assign('mod_manufacturer_array', $manufacturer_result->GetArray());
+      $smarty->assign('mod_manufacturer_array', $manufacturer_result->GetArray());
     }
   }
 

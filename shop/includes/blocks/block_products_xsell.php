@@ -36,11 +36,11 @@
 
     if ($xsell_products_result->RecordCount()) {
       $xsell_block = 'true';
-      $oSmarty->assign('block_xsell_products', $xsell_products_result->GetArray());
+      $smarty->assign('block_xsell_products', $xsell_products_result->GetArray());
     }
   }
-  $oSmarty->assign('block_heading_xsell', $block_heading);
+  $smarty->assign('block_heading_xsell', $block_heading);
 
-  $oSmarty->assign('xsell_block', $xsell_block);
+  $smarty->assign('xsell_block', $xsell_block);
 
 ?>

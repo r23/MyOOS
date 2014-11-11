@@ -65,7 +65,7 @@
   $col3 = ($q4 > 0 ? (($q4-1) > $q3 ? $q3 . '-' . ($q4-1) : $q3) : $q3 . '+');
   $col4 = ($q4 > 0 ? $q4 . '+' : '');
 
-  $oSmarty->assign(array('discount_table' => $discount_table,
+  $smarty->assign(array('discount_table' => $discount_table,
                         'colspan' => $col_cnt,
                         'q0' => $q0,
                         'q1' => $q1,

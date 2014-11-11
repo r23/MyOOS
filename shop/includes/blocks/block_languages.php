@@ -42,9 +42,9 @@
     $lang_get_parameters = oos_get_all_get_parameters(array('language', 'currency'));
     $lang_get_parameters = oos_remove_trailing($lang_get_parameters);
 
-    $oSmarty->assign('languages_contents', $languages_result->GetArray());
+    $smarty->assign('languages_contents', $languages_result->GetArray());
 
-    $oSmarty->assign(
+    $smarty->assign(
         array(
             'block_heading_languages' => $block_heading,
             'lang_get_parameters' => $lang_get_parameters
@@ -56,6 +56,6 @@
                       SET block_status = 0
                       WHERE block_file = 'languages'");
   }
-  $oSmarty->assign('languages_block', $languages_block);
+  $smarty->assign('languages_block', $languages_block);
 
 ?>

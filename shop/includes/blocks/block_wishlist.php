@@ -50,10 +50,10 @@
 
       if ($wishlist_result->RecordCount()) {
         $show_wishlist = 'true';
-        $oSmarty->assign('wishlist_contents', $wishlist_result->GetArray());
+        $smarty->assign('wishlist_contents', $wishlist_result->GetArray());
       }
 
-      $oSmarty->assign(
+      $smarty->assign(
           array(
               'show_wishlist' => $show_wishlist,
               'block_heading_customer_wishlist' => $block_heading
@@ -61,6 +61,6 @@
       );
     }
   }
-  $oSmarty->assign('wishlist_block', $wishlist_block);
+  $smarty->assign('wishlist_block', $wishlist_block);
 
 ?>

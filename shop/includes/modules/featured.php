@@ -99,7 +99,7 @@
     // Close result set
     $featured_result->Close();
 
-    $oSmarty->assign('featured_array', $aFeatured);
+    $smarty->assign('featured_array', $aFeatured);
   }
 
 ?>

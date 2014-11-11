@@ -297,11 +297,11 @@
 
     }
 
-    $oSmarty->assign(array('oos_page_split' => $listing_split->display_count($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], $aLang['text_display_number_of_products']),
+    $smarty->assign(array('oos_page_split' => $listing_split->display_count($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], $aLang['text_display_number_of_products']),
                            'oos_display_links' => $listing_split->display_links($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),
                            'oos_page_numrows' => $listing_numrows));
 
-    $oSmarty->assign('list_box_contents', $list_box_contents);
+    $smarty->assign('list_box_contents', $list_box_contents);
 
   }
 

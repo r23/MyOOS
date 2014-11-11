@@ -122,7 +122,7 @@
   $new_products_result->Close();
 
   // assign Smarty variables;
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'block_heading_new_products' => sprintf($aLang['table_heading_new_products'], strftime('%B')),
           'new_products_array' => $new_products_array

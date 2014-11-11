@@ -64,7 +64,7 @@ if (isset($_SESSION)) {
 	}
 }
 
-$oSmarty->assign(
+$smarty->assign(
 	array(
 		'block_heading_shopping_cart' => $block_heading,
 		'cart_products'  => $cart_products,
@@ -75,7 +75,7 @@ $oSmarty->assign(
 
 
 
-  $oSmarty->assign(
+  $smarty->assign(
       array(
           'block_heading_shopping_cart' => $block_heading,
           'cart_products'  => $cart_products,

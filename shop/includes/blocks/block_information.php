@@ -32,6 +32,6 @@
                 i.status = '1' AND
                 id.information_languages_id = '" . intval($nLanguageID) . "'
           ORDER BY i.sort_order DESC";
-  $oSmarty->assign('information', $dbconn->GetAll($sql));
-  $oSmarty->assign('block_heading_information', $block_heading);
+  $smarty->assign('information', $dbconn->GetAll($sql));
+  $smarty->assign('block_heading_information', $block_heading);
 
