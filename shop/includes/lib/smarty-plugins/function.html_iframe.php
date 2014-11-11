@@ -28,7 +28,7 @@
  */
 function smarty_function_html_iframe($params, &$smarty)
 {
-    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+        require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
 
     $doc = '';
     $class = 'license';
@@ -36,7 +36,7 @@ function smarty_function_html_iframe($params, &$smarty)
     $height = '';
     $scrolling = 'auto';
     $extra = '';
-    // $sTheme = STORE_TEMPLATES;
+    // $sTheme = oos_var_prep_for_os($_SESSION['theme']);
     $sLanguage = oos_var_prep_for_os($_SESSION['language']);
     $dir = OOS_SHOP . OOS_MEDIA . $sLanguage . '/';
 
@@ -50,7 +50,7 @@ function smarty_function_html_iframe($params, &$smarty)
                 if(!is_array($_val)) {
                  $$_key = smarty_function_escape_special_chars($_val);
                 } else {
-                  throw new SmartyException ("html_iframe: attribute '$_key' cannot be an array", E_USER_NOTICE);
+                  $smarty->trigger_error("html_iframe: attribute '$_key' cannot be an array", E_USER_NOTICE);
                 }
                 break;
 
@@ -58,14 +58,14 @@ function smarty_function_html_iframe($params, &$smarty)
                 if(!is_array($_val)) {
                     $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
                 } else {
-                    throw new SmartyException ("html_iframe: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    $smarty->trigger_error("html_iframe: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
                 }
                 break;
         }
     }
 
     if (empty($doc)) {
-        throw new SmartyException ("html_iframe: missing 'doc' parameter", E_USER_NOTICE);
+        $smarty->trigger_error("html_iframe: missing 'doc' parameter", E_USER_NOTICE);
         return;
     }
 

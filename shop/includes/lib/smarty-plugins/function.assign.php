@@ -21,12 +21,12 @@ function smarty_function_assign($params, &$smarty)
     extract($params);
 
     if (empty($var)) {
-        throw new SmartyException ("assign: missing 'var' parameter");
+        $smarty->trigger_error("assign: missing 'var' parameter");
         return;
     }
 
     if (!in_array('value', array_keys($params))) {
-        throw new SmartyException ("assign: missing 'value' parameter");
+        $smarty->trigger_error("assign: missing 'value' parameter");
         return;
     }
 

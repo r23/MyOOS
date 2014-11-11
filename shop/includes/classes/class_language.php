@@ -23,11 +23,11 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 
-  class language {
+class language {
     var $languages;
     var $_languages = array();
 
@@ -41,42 +41,34 @@
                           FROM $languagestable
                           WHERE status = '1'
                           ORDER BY sort_order";
-        if (USE_DB_CACHE == 'true') {
-          $languages_result = $dbconn->CacheExecute(3600*24, $languages_sql);
-        } else {
-          $languages_result = $dbconn->Execute($languages_sql);
+        if (USE_DB_CACHE == 'true')
+		{
+			$languages_result = $dbconn->CacheExecute(3600*24, $languages_sql);
         }
-        while ($languages = $languages_result->fields) {
-          $this->_languages[$languages['iso_639_2']] = array('id' => $languages['languages_id'],
-                                                             'name' => $languages['name'],
-                                                             'iso_639_2' => $languages['iso_639_2'],
-                                                             'iso_639_1' => $languages['iso_639_1']);
-          // Move that ADOdb pointer!
-          $languages_result->MoveNext();
+		else
+		{
+			$languages_result = $dbconn->Execute($languages_sql);
         }
-        // Close result set
-        $languages_result->Close();
+
+        while ($languages = $languages_result->fields)
+		{
+			$this->_languages[$languages['iso_639_2']] = array('id' => $languages['languages_id'],
+																'name' => $languages['name'],
+																'iso_639_2' => $languages['iso_639_2'],
+																'iso_639_1' => $languages['iso_639_1']);
+			// Move that ADOdb pointer!
+			$languages_result->MoveNext();
+        }
     }
 
 
-    function set($sLang = '') {
+    function set_language($sLang = '') {
 
-      if ( (oos_is_not_null($sLang)) && ($this->exists($sLang) === true)) {
+      if ( (oos_is_not_null($sLang)) && ($this->exists($sLang) === TRUE)) {
         $this->language = $this->get($sLang);
       } else {
         $this->language = $this->get(DEFAULT_LANGUAGE);
       }
-/*
-        if (!isset($_COOKIE['language']) || (isset($_COOKIE['language']) && ($_COOKIE['language'] != $this->language['iso_639_2']))) {
-          oos_setcookie('language', $this->language['iso_639_2'], time()+60*60*24*90);
-        }
-*/
-
-       $_SESSION['language'] = $this->language['iso_639_2'];
-       $_SESSION['language_id'] = $this->language['id'];
-
-       $_SESSION['iso_639_1'] = $this->language['iso_639_1'];
-       $_SESSION['languages_name'] = $this->language['name'];
 
        if (isset($_SESSION['customer_id'])) {
          $dbconn =& oosDBGetConn();
@@ -85,21 +77,13 @@
          $sLanguage = oos_var_prep_for_os($this->language['iso_639_2']);
          $customerstable = $oostable['customers'];
          $query = "UPDATE $customerstable SET customers_language =? WHERE customers_id =?";
-         $result =& $dbconn->Execute($query, array($sLanguage, (int)$_SESSION['customer_id']));
+         $result = $dbconn->Execute($query, array($sLanguage, (int)$_SESSION['customer_id']));
        }
 
     }
 
 
     function get_browser_language() {
-
-      if (isset($_COOKIE['language'])) {
-        if ($this->exists($_COOKIE['language'])) {
-          $this->set($_COOKIE['language']);
-
-          return true;
-        }
-      }
 
       $http_accept_language = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
 
@@ -121,12 +105,8 @@
          'fi' => 'fi|finnish',
          'fra' => 'fr([-_][[:alpha:]]{2})?|french',
          'gl' => 'gl|galician',
-         'he' => 'he|hebrew',
          'hu' => 'hu|hungarian',
-         'id' => 'id|indonesian',
          'ita' => 'it|italian',
-         'ja' => 'ja|japanese',
-         'ko' => 'ko|korean',
          'ka' => 'ka|georgian',
          'lt' => 'lt|lithuanian',
          'nl' => 'nl([-_][[:alpha:]]{2})?|dutch',
@@ -138,22 +118,20 @@
          'sk' => 'sk|slovak',
          'sr' => 'sr|serbian',
          'sv' => 'sv|swedish',
-         'th' => 'th|thai',
          'tr' => 'tr|turkish',
          'uk' => 'uk|ukrainian',
-         'tw' => 'zh[-_]tw|chinese traditional',
          'zh' => 'zh|chinese simplified');
 
       foreach ($http_accept_language as $browser_language) {
         foreach ($browser_languages as $key => $value) {
-          if (eregi('^(' . $value . ')(;q=[0-9]\\.[0-9])?$', $browser_language) && $this->exists($key)) {
-            $this->set($key);
-            return true;
+          if (preg_match('/^(' . $value . ')(;q=[0-9]\\.[0-9])?$/', $browser_language) && $this->exists($key)) {
+            $this->set_language($key);
+            return TRUE;
           }
         }
       }
 
-      $this->set(DEFAULT_LANGUAGE);
+      $this->set_language(DEFAULT_LANGUAGE);
     }
 
 
@@ -180,6 +158,4 @@
     function getCode() {
       return $this->language['iso_639_2'];
     }
-  }
-
-?>
+}

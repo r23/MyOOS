@@ -43,7 +43,7 @@
     $oSmarty->cache_lifetime = 3 * 3600;
   }
 
-  if (!$oSmarty->is_cached($aOption['template_main'], $contents_cache_id)) {
+  if (!$oSmarty->isCached($aOption['template_main'], $contents_cache_id)) {
 
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aModules['info'], $aFilename['info_down_for_maintenance']));
@@ -59,7 +59,7 @@
   }
   $oSmarty->assign('oosPageHeading', $oSmarty->fetch($aOption['page_heading'], $contents_cache_id));
   $oSmarty->assign('contents', $oSmarty->fetch($aOption['template_main'], $contents_cache_id));
-  $oSmarty->caching = false;
+  $oSmarty->setCaching(false);
 
   // display the template
   require 'includes/oos_display.php';

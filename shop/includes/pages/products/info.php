@@ -36,7 +36,7 @@
   $productstable = $oostable['products'];
   $products_descriptiontable = $oostable['products_description'];
   $product_info_sql = "SELECT p.products_id, pd.products_name, pd.products_description, pd.products_url,
-                              pd.products_description_meta, pd.products_keywords_meta, p.products_model,
+                              pd.products_description_meta, p.products_model,
                               p.products_quantity, p.products_image, p.products_subimage1, p.products_subimage2,
                               p.products_subimage3, p.products_subimage4, p.products_subimage5, p.products_subimage6,
                               p.products_movie, p.products_zoomify, p.products_discount_allowed, p.products_price,
@@ -266,42 +266,42 @@
     $oSmarty->assign('oosDate', date('Y-m-d H:i:s'));
 
     if (SOCIAL_BOOKMARKS == 'true') {
-      $oSmarty->caching = true;
+      $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
       $oos_social_bookmarks_cache_id = '|social_bookmarks|' . $sLanguage . '|' . intval($nProductsId);
-      if (!$oSmarty->is_cached($aOption['social_bookmarks'], $oos_social_bookmarks_cache_id)) {
+      if (!$oSmarty->isCached($aOption['social_bookmarks'], $oos_social_bookmarks_cache_id)) {
         $oSmarty->assign('bookmark', oos_href_link($aModules['products'], $aFilename['product_info'], 'products_id=' . intval($nProductsId), 'NONSSL', false));
         $oSmarty->assign('bookmarktitle', STORE_NAME . ' - ' . $product_info['products_name']);
       }
       $oSmarty->assign('social_bookmarks', $oSmarty->fetch($aOption['social_bookmarks'], $oos_social_bookmarks_cache_id));
 
-      $oSmarty->caching = false;
+      $oSmarty->setCaching(false);
     }
 
 
 
     if ( (USE_CACHE == 'true') && (!SID) ) {
-      $oSmarty->caching = true;
+      $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
     }
-    if (!$oSmarty->is_cached($aOption['xsell_products'], $oos_products_info_cache_id)) {
+    if (!$oSmarty->isCached($aOption['xsell_products'], $oos_products_info_cache_id)) {
       require 'includes/modules/xsell_products.php';
     }
     $oSmarty->assign('xsell_products', $oSmarty->fetch($aOption['xsell_products'], $oos_products_info_cache_id));
 
-    if (!$oSmarty->is_cached($aOption['up_sell_products'], $oos_products_info_cache_id)) {
+    if (!$oSmarty->isCached($aOption['up_sell_products'], $oos_products_info_cache_id)) {
       require 'includes/modules/up_sell_products.php';
     }
     $oSmarty->assign('up_sell_products', $oSmarty->fetch($aOption['up_sell_products'], $oos_products_info_cache_id));
 
     require 'includes/modules/slavery_products.php';
 
-    if (!$oSmarty->is_cached($aOption['also_purchased_products'], $oos_products_info_cache_id)) {
+    if (!$oSmarty->isCached($aOption['also_purchased_products'], $oos_products_info_cache_id)) {
       require 'includes/modules/also_purchased_products.php';
       $oSmarty->assign('oos_also_purchased_array', $aPurchased);
     }
     $oSmarty->assign('also_purchased_products', $oSmarty->fetch($aOption['also_purchased_products'], $oos_products_info_cache_id));
 
-    $oSmarty->caching = false;
+    $oSmarty->setCaching(false);
   }
 
   $oSmarty->assign('oosPageHeading', $oSmarty->fetch($aOption['page_heading']));
@@ -309,4 +309,3 @@
 
   // display the template
   require 'includes/oos_display.php';
-?>

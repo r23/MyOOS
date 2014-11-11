@@ -27,10 +27,10 @@
   require 'includes/classes/class_template.php';
   $oSmarty =& new Template;
 
-  $oSmarty->caching = true;
+  $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
   $info_shopping_cart_id = $sTheme . '|info_shopping_cart|' . $sLanguage;
 
-  if (!$oSmarty->is_cached($aOption['info_shopping_cart'], $info_shopping_cart_id )) {
+  if (!$oSmarty->isCached($aOption['info_shopping_cart'], $info_shopping_cart_id )) {
     require 'includes/languages/' . $sLanguage . '/main_info_shopping_cart.php';
 
     // assign Smarty variables;

@@ -1,11 +1,11 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: reports.php,v 1.1 2007/06/08 14:03:09 r23 Exp $
+   $Id: reports.php 437 2013-06-22 15:33:30Z r23 $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -29,15 +29,13 @@
   $heading[] = array('text'  => BOX_HEADING_REPORTS,
                      'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=reports'));
 
-  if ($_SESSION['selected_box'] == 'reports' || $menu_dhtml == true) {
-      $contents[] = array('text'  => oos_admin_files_boxes('stats_keywords', BOX_REPORTS_KEYWORDS) .
-                                     oos_admin_files_boxes('stats_referer', BOX_REPORTS_REFERER) .
-                                     oos_admin_files_boxes('stats_products_viewed', BOX_REPORTS_PRODUCTS_VIEWED) .
-                                     oos_admin_files_boxes('stats_products_purchased', BOX_REPORTS_PRODUCTS_PURCHASED) .
-                                     oos_admin_files_boxes('stats_low_stock', BOX_REPORTS_STOCK_LEVEL) . 
-                                     oos_admin_files_boxes('stats_customers', BOX_REPORTS_ORDERS_TOTAL) .
-                                     oos_admin_files_boxes('stats_sales_report2', BOX_REPORTS_SALES_REPORT2) .
-                                     oos_admin_files_boxes('stats_recover_cart_sales', BOX_REPORTS_RECOVER_CART_SALES));
+  if ($_SESSION['selected_box'] == 'reports' ) {
+      $contents[] = array('text'  => oos_admin_files_boxes('stats_products_viewed', 'selected_box=reports', BOX_REPORTS_PRODUCTS_VIEWED) .
+                                     oos_admin_files_boxes('stats_products_purchased', 'selected_box=reports', BOX_REPORTS_PRODUCTS_PURCHASED) .
+                                     oos_admin_files_boxes('stats_low_stock', 'selected_box=reports', BOX_REPORTS_STOCK_LEVEL) .
+                                     oos_admin_files_boxes('stats_customers', 'selected_box=reports', BOX_REPORTS_ORDERS_TOTAL) .
+                                     oos_admin_files_boxes('stats_sales_report2', 'selected_box=reports', BOX_REPORTS_SALES_REPORT2) .
+                                     oos_admin_files_boxes('stats_recover_cart_sales', 'selected_box=reports', BOX_REPORTS_RECOVER_CART_SALES));
   }
 
   $box = new box;

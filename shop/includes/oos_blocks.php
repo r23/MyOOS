@@ -51,31 +51,31 @@
     if (empty($block_file)) {
       continue;
     }
-
+	
     $block_tpl = $sTheme . '/blocks/' . $block_file . '.html';
 
     if ($block['block_cache'] != '') {
       if ( (USE_CACHE == 'true') && (!SID) ) {
-        $oSmarty->caching = true;
+        $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
       }
       $bid = trim('oos_' . $block['block_cache'] . '_cache_id');
-
-      if (!$oSmarty->is_cached($block_tpl, ${$bid})) {
+      if (!$oSmarty->isCached($block_tpl, ${$bid})) {
         require 'includes/blocks/block_' . $block_file . '.php';
       }
       $block_content = $oSmarty->fetch($block_tpl, ${$bid});
     } else {
-
-      $oSmarty->caching = false;
+      $oSmarty->setCaching(false);
       require 'includes/blocks/block_' . $block_file . '.php';
       $block_content = $oSmarty->fetch($block_tpl);
     }
-
+	
     $aContentBlock[] = array('side' => $block_side,
                              'block_content' => $block_content );
 
   }
 
+  
+ 
 
   for ($i = 0, $n = count($aContentBlock); $i < $n; $i++) {
      switch ($aContentBlock[$i]['side']) {
@@ -91,6 +91,5 @@
      }
   }
 
-  $oSmarty->caching = false;
+  $oSmarty->setCaching(false);
 
-?>

@@ -1,12 +1,12 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: modifier.oos_date_long.php 216 2013-04-02 08:24:45Z r23 $
+   $Id: modifier.oos_date_long.php,v 1.1 2007/06/08 13:34:16 r23 Exp $
 
-   MyOOS [Shopsystem]
+   OOS [OSIS Online Shop]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2007 by the OOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 

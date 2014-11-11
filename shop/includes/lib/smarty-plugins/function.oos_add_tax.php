@@ -1,12 +1,12 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: function.oos_add_tax.php 216 2013-04-02 08:24:45Z r23 $
+   $Id: function.oos_add_tax.php,v 1.1 2007/06/08 13:34:16 r23 Exp $
 
-   MyOOS [Shopsystem]
+   OOS [OSIS Online Shop]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2007 by the OOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -39,7 +39,7 @@ function smarty_function_oos_add_tax($params, &$smarty)
 {
     global $oCurrencies;
     
-    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+        require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
     
     foreach($params as $_key => $_val) {
       $$_key = smarty_function_escape_special_chars($_val);

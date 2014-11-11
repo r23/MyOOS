@@ -28,10 +28,10 @@
   require 'includes/classes/class_template.php';
   $oSmarty =& new Template;
 
-  $oSmarty->caching = true;
+  $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
   $info_autologon_id = $sTheme . '|info_autologon|' . $sLanguage;
 
-  if (!$oSmarty->is_cached($aOption['info_autologon'], $info_autologon_id )) {
+  if (!$oSmarty->isCached($aOption['info_autologon'], $info_autologon_id )) {
     require 'includes/languages/' . $sLanguage . '/main_info_autologon.php';
 
     // assign Smarty variables;

@@ -10,71 +10,63 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  /**
-   * Smarty Template System
-   *
-   * {@link http://smarty.php.net/ smarty.php.net}
-   * {@link http://smarty.incutio.com/ smarty wiki}
-   * {@link http://marc.theaimsgroup.com/?l=smarty-general&r=1&w=2 mail list archive}
-   */
-   include SMARTY_DIR . 'Smarty.class.php';
-   include SMARTY_DIR . 'SmartyValidate.class.php';
+/**
+ * @see libs/Smarty/Smarty.class.php
+ * @link http://smarty.net
+ */
+require_once MYOOS_INCLUDE_PATH . '/includes/lib/smarty/libs/Smarty.class.php';
 
-  /**
-   * Template engine
-   *
-   * @package  Smarty
-   */
-   class Template extends Smarty  {
+/**
+ * Smarty class
+ *
+ * @package myOOS
+ * @subpackage myOOS_Smarty
+ * @see Smarty, libs/Smarty/Smarty.class.php
+ * @link http://smarty.net/manual/en/
+ */
+class myOOS_Smarty extends Smarty
+{
 
-    /**
-     * Constructor
-     */
-     function Template() {
+	function trigger_error($error_msg, $error_type = E_USER_WARNING)
+	{
+		throw new SmartyException($error_msg);
+	}
 
-       $this->Smarty();
+	public function __construct()
+	{
 
-       $this->left_delimiter =  '{';
-       $this->right_delimiter =  '}';
+		// Class Constructor.
+		// These automatically get set with each new instance.
 
-       $dir = OOS_TEMP_PATH;
-       if (substr($dir, -1) != "/") {
-         $dir = $dir."/";
-       }
+        parent::__construct();
 
-       $this->template_dir = $dir . 'shop/templates/';
-       $this->compile_dir = $dir . 'shop/templates_c/';
-       $this->config_dir = $dir . 'shop/configs/';
-       $this->cache_dir = $dir . 'shop/cache/';
+		$this->left_delimiter =  '{';
+		$this->right_delimiter =  '}';
 
-       array_push($this->plugins_dir, SMARTY_DIR . '/plugins');
-       array_push($this->plugins_dir, 'includes/plugins/thirdparty/smarty');
+		$dir = OOS_TEMP_PATH;
+		if (substr($dir, -1) != "/")
+		{
+			$dir = $dir."/";
+		}
 
-       $this->use_sub_dirs = false;
-
-       $thstamp  = mktime(0, 0, 0, date ("m") , date ("d")+80, date("Y"));
-       $oos_date = date("D,d M Y", $thstamp);
-
-       $this->assign(
-           array(
-               'oos_revision_date' => $oos_date,
-               'oos_date_long'     => strftime(DATE_FORMAT_LONG)
-           )
-       );
-
-     }
-   }
+		$this->setTemplateDir($dir . 'shop/templates/')
+			->setCompileDir( $dir . 'shop/templates_c/')
+			->setCacheDir($dir . 'shop/cache/');
 
 
-  /**
-   * @param $tpl_cource
-   * @param $smarty
-   */
-   function oosAddHeaderComment($tpl_source, &$smarty) {
-     return "<?php echo \"<!-- Created by Smarty! -->\n\" ?>\n".$tpl_source;
-   }
+		// set multiple directories where plugins are stored
+		$this->setPluginsDir(array(
+			MYOOS_INCLUDE_PATH . '/includes/lib/smarty/libs/plugins',
+			MYOOS_INCLUDE_PATH . '/includes/lib/smarty-plugins'
+		));
 
-?>
+
+		$this->use_sub_dirs = FALSE;
+		$this->error_reporting = E_ALL & ~E_NOTICE;
+
+    }
+}
+

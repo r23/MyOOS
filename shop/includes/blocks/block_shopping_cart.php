@@ -23,32 +23,57 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  $cart_products = array();
-  if ($_SESSION['cart']->count_contents() > 0) {
-    $cart_products = $_SESSION['cart']->get_products();
-  }
+$cart_products = array();
+$gv_coupon_show = 0;
+$gv_amount_show = 0;
 
-  $gv_amount_show = 0;
-  if (isset($_SESSION['customer_id'])) {
-    $coupon_gv_customertable = $oostable['coupon_gv_customer'];
-    $query = "SELECT amount
-              FROM $coupon_gv_customertable
-              WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'";
-    $gv_result = $dbconn->GetRow($query);
-    if ($gv_result['amount'] > 0 ) {
-      $gv_amount_show = $oCurrencies->format($gv_result['amount']);
-    }
-  }
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  $gv_coupon_show = 0;
-  if (isset($_SESSION['gv_id'])) {
-    $couponstable = $oostable['coupons'];
-    $query = "SELECT coupon_amount
-              FROM $couponstable
-              WHERE coupon_id = '" . oos_db_input($_SESSION['gv_id']) . "'";
-    $coupon = $dbconn->GetRow($query);
-    $gv_coupon_show = $oCurrencies->format($coupon['coupon_amount']);
-  }
+$cart_products = array();
+$gv_amount_show = 0;
+$gv_coupon_show = 0;
+
+if (isset($_SESSION)) { 
+ 
+	if (is_object($_SESSION['cart'])) {
+		if ($_SESSION['cart']->count_contents() > 0) {
+			$cart_products = $_SESSION['cart']->get_products();
+		}
+	}
+
+	if (isset($_SESSION['customer_id'])) {
+		$coupon_gv_customertable = $oostable['coupon_gv_customer'];
+		$query = "SELECT amount
+				  FROM $coupon_gv_customertable
+				  WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'";
+		$gv_result = $dbconn->GetRow($query);
+		if ($gv_result['amount'] > 0 ) {
+			$gv_amount_show = $oCurrencies->format($gv_result['amount']);
+		}
+	}
+
+  
+	if (isset($_SESSION['gv_id'])) {
+		$couponstable = $oostable['coupons'];
+		$query = "SELECT coupon_amount
+                  FROM $couponstable
+                  WHERE coupon_id = '" . oos_db_input($_SESSION['gv_id']) . "'";
+		$coupon = $dbconn->GetRow($query);
+		$gv_coupon_show = $oCurrencies->format($coupon['coupon_amount']);
+	}
+}
+
+$oSmarty->assign(
+	array(
+		'block_heading_shopping_cart' => $block_heading,
+		'cart_products'  => $cart_products,
+		'gv_amount_show' => $gv_amount_show,
+		'gv_coupon_show' => $gv_coupon_show
+	)
+);
+
+
 
   $oSmarty->assign(
       array(
@@ -59,4 +84,3 @@
      )
   );
 
-?>

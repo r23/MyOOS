@@ -1,11 +1,11 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: configuration.php,v 1.1 2007/06/08 14:03:09 r23 Exp $
+   $Id: configuration.php 437 2013-06-22 15:33:30Z r23 $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -31,7 +31,7 @@
   $heading[] = array('text'  => BOX_HEADING_CONFIGURATION,
                      'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=configuration'));
 
-  if ($_SESSION['selected_box'] == 'configuration' || $menu_dhtml == true) {
+  if ($_SESSION['selected_box'] == 'configuration' ) {
     $cfg_groups = '';
     $configuration_groups_result = $dbconn->Execute("SELECT configuration_group_id as cgID FROM " . $oostable['configuration_group'] . " where visible = '1' ORDER BY sort_order");
     while ($configuration_groups = $configuration_groups_result->fields) {

@@ -17,36 +17,28 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  //smarty
-  require 'includes/classes/class_template.php';
-  $oSmarty =& new Template;
-
-  /**
-   * Smarty Cache Handler
-   * utilizing eAccelerator extension (http://eaccelerator.net/HomeUk)
-   */
-  if (function_exists( 'eaccelerator' )) {
-    $oSmarty->cache_handler_func = 'smarty_cache_eaccelerator';
-  }
+//smarty
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
+$oSmarty = new myOOS_Smarty();
 
 
-  //debug
-  if ($debug == 'true') {
-    $oSmarty->force_compile   = true;
-    $oSmarty->debugging       = true;
 
-/*
-    $oSmarty->clear_all_cache();
-    $oSmarty->clear_compiled_tpl();
-*/
-  }
+//debug
+if ($debug == 'true') {
+	$oSmarty->force_compile   = TRUE;
+	$oSmarty->debugging       = TRUE;
+	$oSmarty->clearAllCache();
+	$oSmarty->clearCompiledTemplate();
+}
+
+// object register
+$oSmarty->assignByRef("oEvent", $oEvent);
 
   // object register
-  $oSmarty->register_object("cart", $_SESSION['cart'],array('count_contents', 'get_products'));
-  $oSmarty->assign_by_ref("oEvent", $oEvent);
+#  $oSmarty->register_object("cart", $_SESSION['cart'],array('count_contents', 'get_products'));
 
 
   // cache_id
@@ -95,25 +87,80 @@
           'pangv'             => $sPAngV,
           'products_units'    => $products_units,
 
-          'oos_session_name'  => oos_session_name(),
-          'oos_session_id'    => oos_session_id(),
-
           'pagetitle'         => $oos_pagetitle,
 
           'meta_description'  => $oos_meta_description,
           'meta_keywords'     => $oos_meta_keywords
       )
   );
+ 
+ 
 
   $oSmarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
 
-  // shopping_cart
-  $cart_show_total = 0;
-  $cart_count_contents = $_SESSION['cart']->count_contents();
-  if ($cart_count_contents > 0) {
-    $cart_show_total = $oCurrencies->format($_SESSION['cart']->show_total());
-  }
-  $oSmarty->assign('cart_show_total', $cart_show_total);
-  $oSmarty->assign('cart_count_contents', $cart_count_contents);
 
-?>
+$cart_count_contents = 0;
+$cart_show_total = 0;
+
+if (isset($_SESSION)) {
+   
+    $sFormid = md5(uniqid(rand(), true));
+    $_SESSION['formid'] = $sFormid;
+
+	if (is_object($_SESSION['cart'])) {
+		$oSmarty->registerObject("cart", $_SESSION['cart'],array('count_contents', 'get_products')); 
+
+		$cart_count_contents = $_SESSION['cart']->count_contents();
+		$cart_show_total = $oCurrencies->format($_SESSION['cart']->show_total()); 
+	}
+	$oSmarty->assign(
+		array(
+			'formid'            => $sFormid,
+
+			'oos_session_name'  => oos_session_name(),
+			'oos_session_id'    => oos_session_id()
+
+        )
+    );
+}
+
+$oSmarty->assign(
+    array(
+		'cart_show_total'     => $cart_show_total,
+		'cart_count_contents' => $cart_count_contents
+    )
+);
+
+
+$products_unitstable = $oostable['products_units'];
+$query = "SELECT products_units_id, products_unit_name
+          FROM $products_unitstable
+          WHERE languages_id = '" . intval($nLanguageID) . "'";
+$products_units = $dbconn->GetAssoc($query);
+
+
+// PAngV
+$sPAngV = $aLang['text_taxt_incl'];
+if ($_SESSION['member']->group['show_price'] == 1) {
+    if ($_SESSION['member']->group['show_price_tax'] == 1) {
+		$sPAngV = $aLang['text_taxt_incl'];
+    } else {
+		$sPAngV = $aLang['text_taxt_add'];
+    }
+
+    if (isset($_SESSION['customers_vat_id_status']) && ($_SESSION['customers_vat_id_status'] == 1)) {
+		$sPAngV = $aLang['tax_info_excl'];
+    }
+}
+
+$sPAngV .= ', <br />';
+$sPAngV .= sprintf($aLang['text_shipping'], oos_href_link($aContents['information'], 'information_id=2'));
+
+
+$oSmarty->assign(
+      array(
+          'pangv'               => $sPAngV,
+          'products_units'      => $products_units,
+      )
+);
+

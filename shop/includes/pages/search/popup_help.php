@@ -27,10 +27,10 @@
   require 'includes/classes/class_template.php';
   $oSmarty = new Template;
 
-  $oSmarty->caching = true;
+  $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
   $help_cache_id = $sTheme . '|popup|search|' . $sLanguage;
 
-  if (!$oSmarty->is_cached($aOption['popup_help'], $help_cache_id )) {
+  if (!$oSmarty->isCached($aOption['popup_help'], $help_cache_id )) {
     require 'includes/languages/' . $sLanguage . '/search_advanced.php';
 
     // assign Smarty variables;

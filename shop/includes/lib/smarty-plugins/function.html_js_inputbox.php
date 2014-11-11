@@ -28,7 +28,7 @@
  */
 function smarty_function_html_js_inputbox($params, &$smarty)
 {
-    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+        require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
 
     $class = 'inputbox';
     $name = 'keywords';
@@ -54,7 +54,7 @@ function smarty_function_html_js_inputbox($params, &$smarty)
                 if(!is_array($_val)) {
                     $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
                 } else {
-                    throw new SmartyException ("html_js_inputbox: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    $smarty->trigger_error("html_js_inputbox: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
                 }
                 break;
         }

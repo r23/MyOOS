@@ -77,7 +77,7 @@
 
     $oSmarty->assign('oos_breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
 
-    if (!$oSmarty->is_cached($aOption['template_main'], $contents_cache_id)) {
+    if (!$oSmarty->isCached($aOption['template_main'], $contents_cache_id)) {
       $categoriestable = $oostable['categories'];
       $categories_descriptiontable = $oostable['categories_description'];
       $sql = "SELECT cd.categories_name, cd.categories_heading_title, cd.categories_description,
@@ -185,7 +185,7 @@
     }
     $oSmarty->assign('oosPageHeading', $oSmarty->fetch($aOption['page_heading'], $contents_cache_id));
     $oSmarty->assign('contents', $oSmarty->fetch($aOption['template_main'], $contents_cache_id));
-    $oSmarty->caching = false;
+    $oSmarty->setCaching(false);
   } elseif ($category_depth == 'products' || isset($_GET['manufacturers_id'])) {
 
     $aOption['template_main'] = $sTheme . '/system/products.html';
@@ -244,7 +244,7 @@
 
     $oSmarty->assign('oos_breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
 
-    if (!$oSmarty->is_cached($aOption['template_main'], $contents_cache_id)) {
+    if (!$oSmarty->isCached($aOption['template_main'], $contents_cache_id)) {
 
 // create column list
       $define_list = array('PRODUCT_LIST_MODEL' => PRODUCT_LIST_MODEL,
@@ -583,7 +583,7 @@
     $oSmarty->assign('oosPageNavigation', $oSmarty->fetch($aOption['page_navigation'], $contents_cache_id));
     $oSmarty->assign('oosPageHeading', $oSmarty->fetch($aOption['page_heading'], $contents_cache_id));
     $oSmarty->assign('contents', $oSmarty->fetch($aOption['template_main'], $contents_cache_id));
-    $oSmarty->caching = false;
+    $oSmarty->setCaching(false);
   } else {
     // $category_depth = 'top';
     oos_redirect(oos_href_link($aModules['main'], $aFilename['main']));

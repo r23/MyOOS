@@ -63,26 +63,27 @@ define('OOS_VALID_MOD', 'yes');
 require 'includes/oos_main.php';
 
 
-  $sMp = oos_var_prep_for_os($sMp);
-  $sFile = oos_var_prep_for_os($sFile);
-  $sLanguage = oos_var_prep_for_os($_SESSION['language']);
-  $sTheme = oos_var_prep_for_os($_SESSION['theme']);
+$sMp = oos_var_prep_for_os($sMp);
+$sFile = oos_var_prep_for_os($sFile);
 
-  if (file_exists('includes/pages/' . $sMp . '/' . $sFile . '.php')) {
+if (file_exists('includes/pages/' . $sMp . '/' . $sFile . '.php')) {
+
+/*
     if (isset($_GET['history_back'])){
       $_SESSION['navigation']->remove_last_page();
     } else {
       $_SESSION['navigation']->add_current_page();
     }
-
+*/
+	
     include 'includes/pages/' . $sMp . '/' . $sFile . '.php';
 
-  } else {
+} else {
     // Module not found
-
     oos_redirect(oos_href_link($aModules['main'], $aFilename['main']));
 
-  }
+}
 
-  include 'includes/oos_nice_exit.php';
+include 'includes/oos_nice_exit.php';
+
 

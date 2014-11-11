@@ -1,12 +1,12 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: function.oos_display_tax_value.php 216 2013-04-02 08:24:45Z r23 $
+   $Id: function.oos_display_tax_value.php,v 1.1 2007/06/08 13:34:16 r23 Exp $
 
-   MyOOS [Shopsystem]
+   OOS [OSIS Online Shop]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2007 by the OOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -38,7 +38,7 @@
 function smarty_function_oos_display_tax_value($params, &$smarty)
 {
      
-   require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+       require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
   
    $value = '';
    $padding = TAX_DECIMAL_PLACES;

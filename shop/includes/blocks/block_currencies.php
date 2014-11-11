@@ -22,6 +22,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
+  /*
   if (isset($oCurrencies) && is_object($oCurrencies)) {
 
     reset($oCurrencies->currencies);
@@ -48,5 +49,5 @@
         )
     );
   }
+*/
 
-?>

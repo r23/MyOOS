@@ -37,12 +37,12 @@
     $oSmarty->cache_handler_func = 'smarty_cache_eaccelerator';
   }
 
-  $oSmarty->caching = true;
+  $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
   $sGroup = trim($_SESSION['member']->group['text']);
   $popup_cache_id = $sTheme . '|products|' . $sGroup . '|print|' . $nProductsId . '|' . $sLanguage;
 
-  if (!$oSmarty->is_cached($aOption['popup_print'], $popup_cache_id )) {
+  if (!$oSmarty->isCached($aOption['popup_print'], $popup_cache_id )) {
     require 'includes/languages/' . $sLanguage . '/products_info.php';
 
     $productstable = $oostable['products'];

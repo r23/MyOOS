@@ -134,11 +134,11 @@
   require 'includes/classes/class_template.php';
   $oSmarty = new Template;
 
-  $oSmarty->caching = true;
+  $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
   $cid += 0;
   $help_cache_id = $sTheme . '|popup|coupon|' . $cid . '|' . $sLanguage;
 
-  if (!$oSmarty->is_cached($aOption['popup_help'], $help_cache_id )) {
+  if (!$oSmarty->isCached($aOption['popup_help'], $help_cache_id )) {
 
     // assign Smarty variables;
     $oSmarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);

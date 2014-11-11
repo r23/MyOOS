@@ -29,7 +29,7 @@
  */
 function smarty_function_small_product_image($params, &$smarty)
 {
-    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+        require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
 
     $basedir = OOS_IMAGES;
     $height = SMALL_IMAGE_HEIGHT;
@@ -52,7 +52,7 @@ function smarty_function_small_product_image($params, &$smarty)
            if (!is_array($_val)) {
              $$_key = smarty_function_escape_special_chars($_val);
            } else {
-             throw new SmartyException ("small_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+             $smarty->trigger_error("small_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
            }
            break;
 
@@ -60,7 +60,7 @@ function smarty_function_small_product_image($params, &$smarty)
            if (!is_array($_val)) {
              $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
            } else {
-             throw new SmartyException ("small_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+             $smarty->trigger_error("small_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
            }
            break;
       }

@@ -32,10 +32,11 @@ function smarty_function_html_customer_image_submit($params, &$smarty)
     if ($_SESSION['member']->group['show_price'] != 1) {
       return '';
     } 
-	require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
-    require_once(MYOOS_INCLUDE_PATH . '/includes/lib/smarty-plugins/function.html_image_submit.php');
+   
+    require_once $smarty->_get_plugin_filepath('function','html_image_submit');
     
     return smarty_function_html_image_submit($params, $smarty);
 
 }
 
+?>

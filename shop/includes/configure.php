@@ -46,14 +46,10 @@
   define('OOS_ABSOLUTE_PATH', '');
   define('OOS_DOWNLOAD_PATH', OOS_ABSOLUTE_PATH . 'download/');
   define('OOS_DOWNLOAD_PATH_PUBLIC', OOS_ABSOLUTE_PATH . 'pub/');
-  define('OOS_ABSOLUTE_PATH_SWF',  OOS_ABSOLUTE_PATH . 'swf/');
-  define('OOS_EXPORT_PATH', OOS_ABSOLUTE_PATH . 'admin/export/');
   define('OOS_FEEDS_EXPORT_PATH', OOS_ABSOLUTE_PATH . 'feed/');
 
   define('OOS_UPLOADS', OOS_ABSOLUTE_PATH . OOS_IMAGES . 'uploads/');
-  define('OOS_WATERMARK_LOGO', OOS_ABSOLUTE_PATH . OOS_IMAGES . 'watermark.png');
 
-  define('SMARTY_DIR', OOS_ABSOLUTE_PATH . 'includes/classes/thirdparty/smarty/libs/');
 
   define('OOS_TEMP_PATH', '');
   define('ADODB_ERROR_LOG_DEST', OOS_TEMP_PATH . 'logs/adodb_error.log');

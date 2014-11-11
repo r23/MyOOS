@@ -70,25 +70,27 @@ if (ENABLE_SSL == 'true') {
 
 
 // require  the list of project filenames
-  require 'includes/oos_modules.php';
-  require 'includes/oos_filename.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/oos_modules.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/oos_filename.php';
+
 
 
 // require  the list of project database tables
-  require 'includes/oos_tables.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/oos_tables.php';
 
 // define general functions used application-wide
-  require 'includes/functions/function_global.php';
-  require 'includes/functions/function_kernel.php';
-  require 'includes/functions/function_input.php';
-  require 'includes/functions/function_output.php';
-  require 'includes/functions/function_encoded.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_global.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_kernel.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_input.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_output.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_encoded.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_coupon.php';
 
 // require  the password crypto functions
-  require 'includes/functions/function_password.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 
 // require  validation functions (right now only email address)
-  require 'includes/functions/function_validations.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
 
   if (isset($_POST)) {
     foreach ($_POST as $key=>$value) {
@@ -98,17 +100,51 @@ if (ENABLE_SSL == 'true') {
 
 
 // initialize the logger class
-  require 'includes/classes/class_logger.php';
 
-  require 'includes/classes/class_member.php';
-  require 'includes/classes/class_products_history.php';
-  require 'includes/classes/class_shopping_cart.php';
-  require 'includes/classes/class_navigation_history.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_member.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_products_history.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shopping_cart.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_navigation_history.php';
 
-// require  the mail classes
-  require 'includes/classes/thirdparty/phpmailer/class.phpmailer.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_session.php';
 
-  require 'includes/functions/function_session.php';
+
+// set the session name and save path
+session_name('OOSSID');
+
+// set the top level domains
+$http_domain = oos_server_get_top_level_domain(OOS_HTTP_SERVER);
+$https_domain = oos_server_get_top_level_domain(OOS_HTTPS_SERVER);
+$current_domain = (($request_type == 'NONSSL') ? $http_domain : $https_domain);
+
+// set the session cookie parameters
+if (function_exists('session_set_cookie_params')) {
+    session_set_cookie_params(0, '/', (oos_is_not_null($current_domain) ? '.' . $current_domain : ''));
+} elseif (function_exists('ini_set')) {
+    ini_set('session.cookie_lifetime', '0');
+    ini_set('session.cookie_path', '/');
+    ini_set('session.cookie_domain', (oos_is_not_null($current_domain) ? '.' . $current_domain : ''));
+}
+
+// set the session ID if it exists
+if (isset($_POST[session_name()])) {
+    session_id($_POST[session_name()]);
+    oos_session_start();
+/*
+} elseif (isset($_COOKIE[session_name()])) {
+  session_id($_COOKIE[session_name()]);
+   oos_session_start();
+ */
+} elseif (isset($_GET[session_name()])) {
+    session_id($_GET[session_name()]);
+    oos_session_start();
+}
+
+if ( is_session_started() === TRUE ) {
+    if (!(preg_match('/^[a-z0-9]{26}$/i', session_id()) || preg_match('/^[a-z0-9]{32}$/i', session_id()))) {
+        session_regenerate_id(TRUE);
+   }
+}
 
 
 // require the database functions
@@ -129,34 +165,84 @@ $dbconn =& oosDBGetConn();
 oosDB_importTables($oostable);
 
 // set the application parameters
-  $configurationtable = $oostable['configuration'];
-  $configuration_query = "SELECT configuration_key AS cfg_key, configuration_value AS cfg_value
-                          FROM $configurationtable";
-
-  if (USE_DB_CACHE == 'true') {
+$configurationtable = $oostable['configuration'];
+$configuration_query = "SELECT configuration_key AS cfg_key, configuration_value AS cfg_value
+FROM $configurationtable";
+if (USE_DB_CACHE == 'true') {
     $configuration_result = $dbconn->CacheExecute(3600, $configuration_query);
-  } else {
+} else {
     $configuration_result = $dbconn->Execute($configuration_query);
-  }
+}
 
-  while ($configuration = $configuration_result->fields) {
+while ($configuration = $configuration_result->fields) {
     define($configuration['cfg_key'], $configuration['cfg_value']);
     // Move that ADOdb pointer!
     $configuration_result->MoveNext();
-  }
-  // Close result set
-  $configuration_result->Close();
-
-//for debugging purposes
-//  require 'includes/oos_debug.php';
-
-
-  require 'includes/classes/class_plugin_event.php';
-  $oEvent = new plugin_event;
-  $oEvent->getInstance();
+}
 
 // set the language
-  $nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : 1;
+$sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
+$nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_CUSTOMERS_STATUS_ID;
+
+
+
+if (!isset($_SESSION['language']) || isset($_GET['language'])) {
+    // include the language class
+    include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_language.php';
+    $oLang = new language();
+
+    if (isset($_GET['language']) && is_string($_GET['language'])) {
+        // start the session
+        if ( is_session_started() === FALSE ) oos_session_start();
+
+        $oLang->set_language($_GET['language']);
+    } else {
+        $oLang->get_browser_language();
+    }
+
+    $sLanguage = $oLang->language['iso_639_2'];
+    $nLanguageID = $oLang->language['id'];
+
+    if (isset($_SESSION)) {
+        $_SESSION['language'] = $oLang->language['iso_639_2'];
+        $_SESSION['language_id'] = $oLang->language['id'];
+        $_SESSION['iso_639_1'] = $oLang->language['iso_639_1'];
+        $_SESSION['languages_name'] = $oLang->language['name'];
+    }
+
+}
+
+include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+
+
+// currency
+include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_currencies.php';
+$oCurrencies = new currencies();
+$sCurrency = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
+if (!isset($_SESSION['currency']) || isset($_GET['currency'])) {
+    if (isset($_GET['currency']) && oos_currency_exits($_GET['currency']))  {
+        // start the session
+        if ( is_session_started() === FALSE ) oos_session_start();
+
+        $sCurrency = oos_var_prep_for_os($_GET['currency']);
+    }
+
+    if (isset($_SESSION)) {
+        $_SESSION['currency'] = $sCurrency;
+    }
+}
+
+
+
+//for debugging purposes
+//require_once MYOOS_INCLUDE_PATH . '/includes/oos_debug.php';
+
+
+
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_plugin_event.php';
+$oEvent = new plugin_event;
+$oEvent->getInstance();
+
 
 // determine the page directory
   if (isset($_GET['mp'])) {
@@ -192,59 +278,35 @@ oosDB_importTables($oostable);
   }
 
 // initialize the message stack for output messages
-  require 'includes/classes/class_message_stack.php';
-  $oMessage = new messageStack;
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_message_stack.php';
+$oMessage = new messageStack;
+
+
 
 // templates selection
-  if (!isset($_SESSION['theme']) || isset($_GET['template'])) {
-    if (isset($_GET['template']) && oos_template_exits($_GET['template'])) {
-      $_SESSION['theme'] = oos_var_prep_for_os($_GET['template']);
-    } else {
-      $_SESSION['theme'] = STORE_TEMPLATES;
-    }
-  }
-  $sTheme = oos_var_prep_for_os($_SESSION['theme']);
+$sTheme = STORE_TEMPLATES;
+$aTemplate = array();
 
-  // PAngV
-  if ($_SESSION['member']->group['show_price'] == 1) {
-    if ($_SESSION['member']->group['show_price_tax'] == 1) {
-      $sPAngV = $aLang['text_taxt_incl'];
-    } else {
-      $sPAngV = $aLang['text_taxt_add'];
-    }
-
-    if (isset($_SESSION['customers_vat_id_status']) && ($_SESSION['customers_vat_id_status'] == 1)) {
-      $sPAngV = $aLang['tax_info_excl'];
-    }
-
-    $sPAngV .= ', <br />';
-    $sPAngV .= sprintf($aLang['text_shipping'], oos_href_link($aModules['info'], $aFilename['information'], 'information_id=1'));
-  }
 
 
   $today = date("Y-m-d H:i:s");
 
 // Shopping cart actions
   if ( isset($_GET['action']) || isset($_POST['action']) ) {
-    require 'includes/oos_cart_actions.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/oos_cart_actions.php';
   }
 
 // split-page-results
-  require 'includes/classes/class_split_page_results.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
 
 // infobox
-  require 'includes/classes/class_boxes.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_boxes.php';
 
-  require 'includes/functions/function_coupon.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_coupon.php';
 
 
-  $products_unitstable = $oostable['products_units'];
-  $query = "SELECT products_units_id, products_unit_name
-            FROM $products_unitstable
-            WHERE languages_id = '" . intval($nLanguageID) . "'";
-  $products_units = $dbconn->GetAssoc($query);
+
 
 
   $aOption = array();
 
-?>

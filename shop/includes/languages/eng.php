@@ -19,6 +19,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+
 /* ----------------------------------------------------------------------
    If you made a translation, please send to 
       lang@oos-shop.de 
@@ -48,7 +49,7 @@
   * @param $reverse
   * @return string
   */
-  function oos_date_raw($date, $reverse = false) {
+  function oos_date_raw($date, $reverse = FALSE) {
     if ($reverse) {
       return substr($date, 3, 2) . substr($date, 0, 2) . substr($date, 6, 4);
     } else {
@@ -56,15 +57,14 @@
     }
   }
 
-// if USE_DEFAULT_LANGUAGE_CURRENCY is true, use the following currency, instead of the applications default currency (used when changing language)
-define('LANGUAGE_CURRENCY', 'USD');
 
 // Global entries for the <html> tag
-define('HTML_PARAMS','dir="LTR" lang="en"');
-define('XML_PARAMS','xml:lang="en" lang="en"');
+define('LANG', 'en');
 
-// charset for web pages and emails
-define('CHARSET', 'iso-8859-15');
+$aLang['welcome_msg'] = 'MANY PRODUCTS REDUCED 40%';
+$aLang['welcome_msg_title'] = '';
+$aLang['danger'] = 'Oh snap! You got an error!';
+$aLang['warning'] = 'Warning!';
 
 //text in oos_temp/templates/your theme/system/user_navigation.html
 $aLang['header_title_create_account'] = 'Create an Account';
@@ -87,6 +87,10 @@ $aLang['male'] = 'Male';
 $aLang['female'] = 'Female';
 $aLang['male_address'] = 'Mr.';
 $aLang['female_address'] = 'Ms.';
+$aLang['email_greet_mr'] = 'Dear Mr. %s,';
+$aLang['email_greet_ms'] = 'Dear Ms. %s,';
+$aLang['email_greet_none'] = 'Hi,';
+
 
 // text for date of birth example
 define('DOB_FORMAT_STRING', 'mm/dd/yyyy');
@@ -123,24 +127,13 @@ $aLang['block_information_imprint'] = 'Imprint';
 $aLang['block_information_privacy'] = 'Privacy Notice';
 $aLang['block_information_conditions'] = 'Conditions of Use';
 $aLang['block_information_shipping'] = 'Shipping & Returns';
-$aLang['block_information_contact'] = 'Contact Us';
-$aLang['block_information_v_card'] = 'vCard';
-$aLang['block_information_mapquest'] = 'Map This Location';
-$aLang['block_skype_me'] = 'Skype Me';
 $aLang['block_information_gv'] = 'Gift Voucher FAQ';
-$aLang['block_information_gallery'] = 'Gallery';
-
-//service
-$aLang['block_service_links'] = 'Web Links';
-$aLang['block_service_newsfeed'] = 'RDS/RSS Newsfeed';
-$aLang['block_service_gv'] = 'Gift Voucher FAQ';
-$aLang['block_service_sitemap'] = 'Sitemap';
 
 // login
-$aLang['entry_email_address'] = 'E-Mail Address:';
-$aLang['entry_password'] = 'Password:';
+$aLang['entry_email_address'] = 'E-Mail Address';
+$aLang['entry_password'] = 'Password';
 $aLang['text_password_info'] = 'Password forgotten?';
-$aLang['image_button_login'] = 'Login';
+$aLang['button_login'] = 'Login';
 $aLang['login_block_new_customer'] = 'New Customer';
 $aLang['login_block_account_edit'] = 'Edit Account Info.';
 $aLang['login_block_account_history'] = 'Account History';
@@ -150,9 +143,6 @@ $aLang['login_block_product_notifications'] = 'Product Notifications';
 $aLang['login_block_my_account'] = 'General Information';
 $aLang['login_block_logoff'] = 'Log Off';
 $aLang['login_entry_remember_me'] = 'Aoto Log On';
-
-// tell a friend block text in tempalate/your theme/block/tell_a_friend.html
-$aLang['block_tell_a_friend_text'] = 'Tell someone you know about this product.';
 
 // checkout procedure text
 $aLang['checkout_bar_delivery'] = 'Delivery Information';
@@ -285,33 +275,34 @@ $aLang['prevnext_button_prev'] = '&lt;&lt;&nbsp;Prev';
 $aLang['prevnext_button_next'] = 'Next&nbsp;&gt;&gt;';
 $aLang['prevnext_button_last'] = 'LAST&gt;&gt;';
 
-$aLang['image_button_add_address'] = 'Add Address';
-$aLang['image_button_address_book'] = 'Address Book';
-$aLang['image_button_back'] = 'Back';
-$aLang['image_button_change_address'] = 'Change Address';
-$aLang['image_button_checkout'] = 'Checkout';
-$aLang['image_button_confirm_order'] = 'Confirm Order';
-$aLang['image_button_continue'] = 'Continue';
-$aLang['image_button_continue_shopping'] = 'Continue Shopping';
-$aLang['image_button_delete'] = 'Delete';
-$aLang['image_button_edit_account'] = 'Edit Account';
-$aLang['image_button_history'] = 'Order History';
-$aLang['image_button_login'] = 'Sign In';
-$aLang['image_button_in_cart'] = 'In Cart';
-$aLang['image_button_notifications'] = 'Notifications';
-$aLang['image_button_quick_find'] = 'Quick Find';
-$aLang['image_button_remove_notifications'] = 'Remove Notifications';
-$aLang['image_button_reviews'] = 'Reviews';
-$aLang['image_button_search'] = 'Search';
-$aLang['image_button_tell_a_friend'] = 'Tell a Friend';
-$aLang['image_button_update'] = 'Update';
-$aLang['image_button_update_cart'] = 'Update Cart';
-$aLang['image_button_write_review'] = 'Write Review';
-$aLang['image_button_add_quick'] = 'Add a Quickie!';
+$aLang['button_add_address'] = 'Add Address';
+$aLang['button_address_book'] = 'Address Book';
+$aLang['button_back'] = 'Back';
+$aLang['button_change_address'] = 'Change Address';
+$aLang['button_checkout'] = 'Checkout';
+$aLang['button_confirm_order'] = 'Confirm Order';
+$aLang['button_continue'] = 'Continue';
+$aLang['button_continue_shopping'] = 'Continue Shopping';
+$aLang['button_delete'] = 'Delete';
+$aLang['button_edit_account'] = 'Edit Account';
+$aLang['button_history'] = 'Order History';
+$aLang['button_login'] = 'Sign In';
+$aLang['button_in_cart'] = 'In Cart';
+$aLang['button_notifications'] = 'Notifications';
+$aLang['button_quick_find'] = 'Quick Find';
+$aLang['button_remove_notifications'] = 'Remove Notifications';
+$aLang['button_reviews'] = 'Reviews';
+$aLang['button_search'] = 'Search';
+$aLang['button_tell_a_friend'] = 'Tell a Friend';
+$aLang['button_update'] = 'Update';
+$aLang['button_update_cart'] = 'Update Cart';
+$aLang['button_write_review'] = 'Write Review';
+$aLang['button_add_quick'] = 'Add a Quickie!';
 $aLang['image_wishlist_delete'] = 'delete';
-$aLang['image_button_in_wishlist'] = 'Wishlist';
-$aLang['image_button_add_wishlist'] = 'Wishlist';
-$aLang['image_button_redeem_voucher'] = 'Redeem';
+$aLang['button_in_wishlist'] = 'Wishlist';
+$aLang['button_add_wishlist'] = 'Wishlist';
+$aLang['button_redeem_voucher'] = 'Redeem';
+$aLang['button_callaction'] = 'Request a quote';
 
 $aLang['icon_button_mail'] = 'E-mail';
 $aLang['icon_button_movie'] = 'Movie';
@@ -340,7 +331,7 @@ $aLang['text_no_reviews'] = 'There are currently no product reviews.';
 $aLang['text_no_new_products'] = 'There are currently no products.';
 $aLang['text_unknown_tax_rate'] = 'Unknown tax rate';
 $aLang['text_required'] = 'Required';
-$aLang['error_oos_mail'] = '<small>OOS ERROR:</small> Cannot send the email through the specified SMTP server. Please check your php.ini setting and correct the SMTP server if necessary.';
+
 
 $aLang['warning_install_directory_exists'] = 'Warning: Installation directory exists at: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/install. Please remove this directory for security reasons.';
 $aLang['warning_config_file_writeable'] = 'Warning: I am able to write to the configuration file: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php. This is a potential security risk - please set the right user permissions on this file.';
@@ -368,53 +359,6 @@ $aLang['gv_send_to_friend'] = 'Send Gift Voucher';
 $aLang['voucher_redeemed'] = 'Voucher Redeemed';
 $aLang['cart_coupon'] = 'Coupon :';
 $aLang['cart_coupon_info'] = 'more info';
-
-$aLang['block_affiliate_info'] = 'Affiliate Information';
-$aLang['block_affiliate_summary'] = 'Affiliate Summary';
-$aLang['block_affiliate_account'] = 'Edit Affiliate Account';
-$aLang['block_affiliate_clickrate'] = 'Clickthrough Report';
-$aLang['block_affiliate_payment'] = 'Payment Report';
-$aLang['block_affiliate_sales'] = 'Sales Report';
-$aLang['block_affiliate_banners'] = 'Affiliate Banners';
-$aLang['block_affiliate_contact'] = 'Contact Us';
-$aLang['block_affiliate_faq'] = 'Affiliate Program FAQ';
-$aLang['block_affiliate_login'] = 'Affiliate Log In';
-$aLang['block_affiliate_logout'] = 'Affiliate Log Out';
-
-$aLang['entry_affiliate_payment_details'] = 'Payable to:';
-$aLang['entry_affiliate_accept_agb'] = 'Check here to indicate that you have read and agree to the <a target="_new" href="' . oos_href_link($aModules['affiliate'], $aFilename['affiliate_terms'], '', 'SSL') . '">Associates Terms & Conditions</a>.';
-$aLang['entry_affiliate_agb_error'] = '&nbsp;<small><font color="#FF0000">You must accept our Associates Terms & Conditions</font></small>';
-$aLang['entry_affiliate_payment_check'] = 'Check Payee Name:';
-$aLang['entry_affiliate_payment_check_text'] = '';
-$aLang['entry_affiliate_payment_check_error'] = '&nbsp;<small><font color="#FF0000">require_onced</font></small>';
-$aLang['entry_affiliate_payment_paypal'] = 'PayPal Account Email:';
-$aLang['entry_affiliate_payment_paypal_text'] = '';
-$aLang['entry_affiliate_payment_paypal_error'] = '&nbsp;<small><font color="#FF0000">require_onced</font></small>';
-$aLang['entry_affiliate_payment_bank_name'] = 'Bank Name:';
-$aLang['entry_affiliate_payment_bank_name_text'] = '';
-$aLang['entry_affiliate_payment_bank_name_error'] = '&nbsp;<small><font color="#FF0000">require_onced</font></small>';
-$aLang['entry_affiliate_payment_bank_account_name'] = 'Account Name:';
-$aLang['entry_affiliate_payment_bank_account_name_text'] = '';
-$aLang['entry_affiliate_payment_bank_account_name_error'] = '&nbsp;<small><font color="#FF0000">require_onced</font></small>';
-$aLang['entry_affiliate_payment_bank_account_number'] = 'Account Number:';
-$aLang['entry_affiliate_payment_bank_account_number_text'] = '';
-$aLang['entry_affiliate_payment_bank_account_number_error'] = '&nbsp;<small><font color="#FF0000">require_onced</font></small>';
-$aLang['entry_affiliate_payment_bank_branch_number'] = 'ABA/BSB number (branch number):';
-$aLang['entry_affiliate_payment_bank_branch_number_text'] = '';
-$aLang['entry_affiliate_payment_bank_branch_number_error'] = '&nbsp;<small><font color="#FF0000">require_onced</font></small>';
-$aLang['entry_affiliate_payment_bank_swift_code'] = 'SWIFT Code:';
-$aLang['entry_affiliate_payment_bank_swift_code_text'] = '';
-$aLang['entry_affiliate_payment_bank_swift_code_error'] = '&nbsp;<small><font color="#FF0000">require_onced</font></small>';
-$aLang['entry_affiliate_company'] = 'Company';
-$aLang['entry_affiliate_company_text'] = '';
-$aLang['entry_affiliate_company_error'] = '&nbsp;<small><font color="#FF0000">require_onced</font></small>';
-$aLang['entry_affiliate_company_taxid'] = 'VAT-Id.:';
-$aLang['entry_affiliate_company_taxid_text'] = '';
-$aLang['entry_affiliate_company_taxid_error'] = '&nbsp;<small><font color="#FF0000">require_onced</font></small>';
-$aLang['entry_affiliate_homepage'] = 'Homepage';
-
-$aLang['entry_affiliate_homepage_text'] = '&nbsp;<small><font color="#AABBDD">require_onced (http://)</font></small>';
-$aLang['entry_affiliate_homepage_error'] = '&nbsp;<small><font color="#FF0000">require_onced (http://)</font></small>';
 
 $aLang['category_payment_details'] = 'You get your money by:';
 
@@ -452,13 +396,6 @@ $aLang['warning_no_file_uploaded'] = 'Warning: No file uploaded.';
 $aLang['warning_file_uploads_disabled'] = 'Warning: File uploads are disabled in the php.ini configuration file.';
 
 
-// 404 Email Error Report
-$aLang['error404_email_subject'] = '404 Error Report';
-$aLang['error404_email_header'] = '404 Error Message';
-$aLang['error404_email_text'] = 'A 404 error was encountered by';
-$aLang['error404_email_date'] = 'Date:';
-$aLang['error404_email_uri'] = 'The URI which generated the error is:';
-$aLang['error404_email_ref'] = 'The referring page was:';
 
 $aLang['err404'] = '404 Error Message';
 $aLang['err404_page_not_found'] = 'Page Not Found on';
@@ -496,10 +433,6 @@ $aLang['text_new_customer_ip'] = 'This account has been created by this computer
 $aLang['text_customer_account_password_security'] = 'For you\'r own security we are not able to know or retrieve this password. If you forgot it, you can request a new one.';
 $aLang['text_login_need_upgrade_csnewsletter'] = '<font color="#ff0000"><b>NOTE:</b></font>You have already subscribed to an account for &quot;Newsletter &quot;. You need to upgade this account to be able to buy.';
 
-// use TimeBasedGreeting
-$aLang['good_morning'] = 'Good morning!';
-$aLang['good_afternoon'] = 'Good afternoon!';
-$aLang['good_evening'] = 'Good evening!';
 
 $aLang['text_taxt_incl'] = 'incl. Tax';
 $aLang['text_taxt_add'] = 'plus. Tax';
@@ -508,9 +441,6 @@ $aLang['text_shipping'] = 'excl. <a href="%s"><u>Shipping cost</u></a>.';
 
 $aLang['price'] = 'Preis';
 $aLang['price_from'] = 'from';
-$aLang['price_info'] = 'Alle Preise pro St&uuml;ck in &euro; inkl. der gesetzlichen Mehrwertsteuer, zzgl. <a href="' . oos_href_link($aModules['info'], $aFilename['information'], 'information_id=1') . '">Versandkostenpauschale</a>.';
-$aLang['support_info'] = 'Haben Sie noch Fragen? Sie erreichen uns &uuml;ber unser <a href="' . oos_href_link($aModules['ticket'], $aFilename['ticket_create']) . '">Kontaktformular</a>.';
-
 /*
   The following copyright announcement can only be
   appropriately modified or removed if the layout of
@@ -528,4 +458,5 @@ $aLang['support_info'] = 'Haben Sie noch Fragen? Sie erreichen uns &uuml;ber uns
   following copyright announcement.
 */
 define('FOOTER_TEXT_BODY', 'Copyright &copy; 2003 <a href="http://www.oscommerce.com" target="_blank">osCommerce</a><br>Powered by <a href="http://www.oscommerce.com" target="_blank">osCommerce</a>');
-?>
+
+

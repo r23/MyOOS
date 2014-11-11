@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: pnAPI.php,v 1.81.2.14 2002/05/17 16:50:12 byronmhome 
+   File: pnAPI.php,v 1.81.2.14 2002/05/17 16:50:12 byronmhome
    ----------------------------------------------------------------------
    POST-NUKE Content Management System
    Copyright (C) 2001 by the Post-Nuke Development Team.
@@ -46,15 +46,15 @@
    Purpose of file: The PostNuke API
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 
  /**
   * ADODB Database Abstraction Layer API Helpers
   *
   * @package database
-  * @copyright (C) 2006 by the OOS Development Team.
+  * @copyright (C) 2013 by the MyOOS Development Team.
   * @license GPL <http://www.gnu.org/licenses/gpl.html>
   * @link http://www.oos-shop.de/
   * @subpackage adodb
@@ -70,7 +70,7 @@
   * @access protected
   * @global object db database connection object
   * @global integer ADODB_FETCH_MODE array fectching by associative or numeric keyed arrays
-  * @global array oosDB_tables database tables used by OOS [OSIS Online Shop]
+  * @global array oosDB_tables database tables used by MyOOS [Shopsystem]
   * @return bool true on success, false on failure
   */
   function oosDBInit() {
@@ -92,7 +92,7 @@
     global $ADODB_CACHE_DIR;
     $ADODB_CACHE_DIR = oos_get_local_path(OOS_TEMP_PATH . 'adodb_cache/');
 
-    $dbconn =& ADONewConnection($dbtype);
+    $dbconn = ADONewConnection($dbtype);
     if (!$dbconn->Connect($dbhost, $dbuname, $dbpass, $dbname)) {
       $dbpass = "****";
       $dbuname = "****";
@@ -100,10 +100,10 @@
     }
 
     if (function_exists('memcache_pconnect')) {
-      $dbconn->memCache = true; // should we use memCache instead of caching in files
+      $dbconn->memCache = TRUE; // should we use memCache instead of caching in files
       $dbconn->memCacheHost = '126.0.1.1'; // $db->memCacheHost = array($ip1, $ip2, $ip3); // $db->memCacheHost = $ip1; still works
       $dbconn->memCachePort = '11211'; // this is default memCache port
-      $dbconn->memCacheCompress = false; // Use 'true' to store the item compressed (uses zlib)
+      $dbconn->memCacheCompress = FALSE; // Use 'true' to store the item compressed (uses zlib)
     }
 
 
@@ -114,18 +114,18 @@
     if (strcmp($dbtype, 'oci8') == 0) {
         $dbconn->Execute("alter session set NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS'");
     }
-    //$dbconn->debug = true;
+    //$dbconn->debug = TRUE;
     if (OOS_LOG_SQL == 'true') {
-      include 'includes/classes/thirdparty/adodb/adodb-perf.inc.php';
+      include_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/adodb-perf.inc.php';
       adodb_perf::table(ADODB_LOGSQL_TABLE);
 
       $dbconn->LogSQL();
     }
 
-    $GLOBALS['oosDB_connections'][0] =& $dbconn;
+    $GLOBALS['oosDB_connections'][0] = $dbconn;
     $GLOBALS['oosDB_tables'] = array();
 
-    return true;
+    return TRUE;
   }
 
  /**
@@ -166,8 +166,8 @@
 
   function oos_db_input($sStr) {
 
-    if (function_exists('mysql_escape_string')) {
-      return mysql_escape_string($sStr);
+    if (function_exists('mysql_real_escape_string')) {
+      return mysql_real_escape_string($sStr);
     }
 
     return addslashes($sStr);
@@ -269,4 +269,4 @@
     $dict->ExecuteSQLArray($sqlarray);
   }
 
-?>
+

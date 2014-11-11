@@ -88,31 +88,31 @@
     require 'includes/modules/history_products.php';
 
     if ( (USE_CACHE == 'true') && (!SID) ) {
-      $oSmarty->caching = true;
+      $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
     }
 
-    if (!$oSmarty->is_cached($aOption['xsell_products'], $oos_products_info_cache_id)) {
+    if (!$oSmarty->isCached($aOption['xsell_products'], $oos_products_info_cache_id)) {
       require 'includes/modules/xsell_products.php';
     }
     $oSmarty->assign('xsell_products', $oSmarty->fetch($aOption['xsell_products'], $oos_products_info_cache_id));
 
-    if (!$oSmarty->is_cached($aOption['up_sell_products'], $oos_products_info_cache_id)) {
+    if (!$oSmarty->isCached($aOption['up_sell_products'], $oos_products_info_cache_id)) {
       require 'includes/modules/up_sell_products.php';
     }
     $oSmarty->assign('up_sell_products', $oSmarty->fetch($aOption['up_sell_products'], $oos_products_info_cache_id));
 
-    if (!$oSmarty->is_cached($aOption['also_purchased_products'], $oos_products_info_cache_id)) {
+    if (!$oSmarty->isCached($aOption['also_purchased_products'], $oos_products_info_cache_id)) {
       require 'includes/modules/also_purchased_products.php';
       $oSmarty->assign('oos_also_purchased_array', $aPurchased);
     }
     $oSmarty->assign('also_purchased_products', $oSmarty->fetch($aOption['also_purchased_products'], $oos_products_info_cache_id));
 
-    if (!$oSmarty->is_cached($aOption['featured'], $oos_modules_cache_id)) {
+    if (!$oSmarty->isCached($aOption['featured'], $oos_modules_cache_id)) {
       require 'includes/modules/featured.php';
     }
     $oSmarty->assign('featured', $oSmarty->fetch($aOption['featured'], $oos_modules_cache_id));
 
-    $oSmarty->caching = false;
+    $oSmarty->setCaching(false);
   }
 
   $oSmarty->assign('oosPageHeading', $oSmarty->fetch($aOption['page_heading']));

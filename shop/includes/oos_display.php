@@ -13,6 +13,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
+  
   if (isset($option) && ($option == 'print')) {
     $oSmarty->display('default/print.html');
   } else {
@@ -22,6 +23,6 @@
 //    $oSmarty->load_filter('output', 'png_image');
 //    $oSmarty->load_filter('output', 'highlight');
 //    $oSmarty->load_filter('output', 'trimwhitespace');
-
+// display the template
     $oSmarty->display($sTheme.'/theme.html');
   }

@@ -1,12 +1,12 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: function.oos_get_country_list.php 216 2013-04-02 08:24:45Z r23 $
+   $Id: function.oos_get_country_list.php,v 1.1 2007/06/08 13:34:16 r23 Exp $
 
-   MyOOS [Shopsystem]
+   OOS [OSIS Online Shop]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2007 by the OOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -39,8 +39,8 @@ function smarty_function_oos_get_country_list($params, &$smarty)
 {
     global $aLang;
 
-    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
-    require_once(SMARTY_PLUGINS_DIR . 'function.html_options.php');
+        require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+    require_once $smarty->_get_plugin_filepath('function','html_options');
 
     /* Set the name of the <select> tag. */
     $name  = 'country';

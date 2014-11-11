@@ -60,7 +60,7 @@
 
   $popup_cache_id = $sTheme . '|popup_image|' . $pID . '|' . $image . '|' . $sLanguage;
 
-  if (!$oSmarty->is_cached($aOption['popup_image'], $popup_cache_id )) {
+  if (!$oSmarty->isCached($aOption['popup_image'], $popup_cache_id )) {
     $productstable = $oostable['products'];
     $products_descriptiontable = $oostable['products_description'];
     $sql = "SELECT pd.products_name, p.products_image, p.products_subimage1, p.products_subimage2,

@@ -44,7 +44,7 @@
     $oSmarty->cache_lifetime = 6 * 3600;
   }
 
-  if (!$oSmarty->is_cached($aOption['template_main'], $contents_cache_id)) {
+  if (!$oSmarty->isCached($aOption['template_main'], $contents_cache_id)) {
     require 'includes/languages/' . $sLanguage . '/products_new.php';
 
     $productstable  = $oostable['products'];
@@ -139,7 +139,7 @@
   $oSmarty->assign('oosPageNavigation', $oSmarty->fetch($aOption['page_navigation'], $contents_cache_id));
   $oSmarty->assign('oosPageHeading', $oSmarty->fetch($aOption['page_heading'], $contents_cache_id));
   $oSmarty->assign('contents', $oSmarty->fetch($aOption['template_main'], $contents_cache_id));
-  $oSmarty->caching = false;
+  $oSmarty->setCaching(false);
 
   // display the template
   require 'includes/oos_display.php';

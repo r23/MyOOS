@@ -72,10 +72,6 @@
   $oostable['manufacturers'] = $prefix_table . 'manufacturers';
   $oostable['manufacturers_info'] = $prefix_table . 'manufacturers_info';
   $oostable['newsletters'] = $prefix_table . 'newsletters';
-  $oostable['newsfeed'] = $prefix_table . 'newsfeed';
-  $oostable['newsfeed_categories'] = $prefix_table . 'newsfeed_categories';
-  $oostable['newsfeed_info'] = $prefix_table . 'newsfeed_info';
-  $oostable['newsfeed_manager'] = $prefix_table . 'newsfeed_manager';
   $oostable['orders'] = $prefix_table . 'orders';
   $oostable['orders_products'] = $prefix_table . 'orders_products';
   $oostable['orders_products_attributes'] = $prefix_table . 'orders_products_attributes';

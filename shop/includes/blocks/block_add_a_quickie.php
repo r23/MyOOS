@@ -30,4 +30,4 @@
 
   $oSmarty->assign('block_heading_add_product_id', $block_heading);
 
-?>
+

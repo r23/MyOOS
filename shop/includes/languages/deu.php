@@ -19,11 +19,6 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/* ----------------------------------------------------------------------
-   If you made a translation, please send to
-      lang@oos-shop.de
-   the translated file.
-   ---------------------------------------------------------------------- */
 
  /**
   * look in your $PATH_LOCALE/locale directory for available locales..
@@ -48,7 +43,7 @@
   * @param $reverse
   * @return string
   */
-  function oos_date_raw($date, $reverse = false) {
+  function oos_date_raw($date, $reverse = FALSE) {
     if ($reverse) {
       return substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
     } else {
@@ -56,15 +51,14 @@
     }
   }
 
-// if USE_DEFAULT_LANGUAGE_CURRENCY is true, use the following currency, instead of the applications default currency (used when changing language)
-define('LANGUAGE_CURRENCY', 'EUR');
-
 // Global entries for the <html> tag
-define('HTML_PARAMS','dir="LTR" lang="de"');
-define('XML_PARAMS','xml:lang="de" lang="de"');
+define('LANG','de');
 
-// charset for web pages and emails
-define('CHARSET', 'iso-8859-15');
+$aLang['welcome_msg'] = 'VIELE PRODUKTE 40% REDUZIERT';
+$aLang['welcome_msg_title'] = '';
+$aLang['danger'] = 'Oh nein! Es ist ein Fehler aufgetreten!';
+$aLang['warning'] = 'Warnung!';
+
 
 //text in oos_temp/templates/oos/system/user_navigation.html
 $aLang['header_title_create_account'] = 'Neues Konto';
@@ -88,6 +82,10 @@ $aLang['male'] = 'Herr';
 $aLang['female'] = 'Frau';
 $aLang['male_address'] = 'Herr';
 $aLang['female_address'] = 'Frau';
+$aLang['email_greet_mr'] = 'Sehr geehrter Herr %s,';
+$aLang['email_greet_ms'] = 'Sehr geehrte Frau %s,';
+$aLang['email_greet_none'] = 'Guten Tag!';
+
 
 // text for date of birth example
 define('DOB_FORMAT_STRING', 'tt.mm.jjjj');
@@ -107,7 +105,7 @@ $aLang['block_reviews_text_of_5_stars'] = '%s von 5 Sternen!';
 $aLang['block_shopping_cart_empty'] = '0 Produkte';
 
 // notifications block text in tempalate/your theme/block/products_notifications.php
-$aLang['block_notifications_notify'] = 'Benachrichtigen Sie mich &uuml;ber Aktuelles zum Artikel <b>%s</b>';
+$aLang['block_notifications_notify'] = 'Benachrichtigen Sie mich über Aktuelles zum Artikel <b>%s</b>';
 $aLang['block_notifications_notify_remove'] = 'Benachrichtigen Sie mich nicht mehr zum Artikel <b>%s</b>';
 
 // wishlist block text in tempalate/your theme/block/wishlist.html
@@ -121,48 +119,35 @@ $aLang['block_add_product_id_text'] = 'Eingabe der Bestellnummer.';
 
 // information block text in tempalate/your theme/block/information.html
 $aLang['block_information_imprint'] = 'Impressum';
-$aLang['block_information_privacy'] = 'Privatsph&auml;re&nbsp;und Datenschutz';
+$aLang['block_information_privacy'] = 'Privatsphäre&nbsp;und Datenschutz';
 $aLang['block_information_conditions'] = 'Unsere AGB';
 $aLang['block_information_shipping'] = 'Liefer- und&nbsp;Versandkosten';
-$aLang['block_information_contact'] = 'Kontakt';
-$aLang['block_information_v_card'] = 'vCard';
-$aLang['block_information_mapquest'] = 'Wegbeschreibung';
-$aLang['block_skype_me'] = 'Skype Me';
-$aLang['block_information_gv'] = 'Gutschein einl&ouml;sen';
-$aLang['block_information_gallery'] = 'Gallery';
-
-//service
-$aLang['block_service_links'] = 'Web Links';
-$aLang['block_service_newsfeed'] = 'RDS/RSS Newsfeed';
-$aLang['block_service_gv'] = 'Gutschein einl&ouml;sen';
-$aLang['block_service_sitemap'] = 'Sitemap';
+$aLang['block_information_gv'] = 'Gutschein einlösen';
 
 //login
-$aLang['entry_email_address'] = 'eMail Adresse:';
-$aLang['entry_password'] = 'Passwort:';
+$aLang['entry_email_address'] = 'eMail Adresse';
+$aLang['entry_password'] = 'Passwort';
 $aLang['text_password_info'] = 'Passwort vergessen?';
-$aLang['image_button_login'] = 'Login';
+$aLang['button_login'] = 'Login';
 $aLang['login_block_new_customer'] = 'Neukunde';
-$aLang['login_block_account_edit'] = 'Daten &auml;ndern';
-$aLang['login_block_account_history'] = 'Bestell&uuml;bersicht';
+$aLang['login_block_account_edit'] = 'Daten ändern';
+$aLang['login_block_account_history'] = 'Bestellübersicht';
 $aLang['login_block_order_history'] = 'Einkaufsliste';
 $aLang['login_block_address_book'] = 'Adressbuch';
 $aLang['login_block_product_notifications'] = 'Benachrichtigungen';
-$aLang['login_block_my_account'] = 'pers&ouml;nliche Daten';
+$aLang['login_block_my_account'] = 'persönliche Daten';
 $aLang['login_block_logoff'] = 'Abmelden';
 $aLang['login_entry_remember_me'] = 'Einlogautomatik';
 
-// tell a friend block text in tempalate/your theme/block/tell_a_friend.html
-$aLang['block_tell_a_friend_text'] = 'Empfehlen Sie diesen Artikel einfach per eMail weiter.';
 
 // checkout procedure text
 $aLang['checkout_bar_delivery'] = 'Versandinformationen';
 $aLang['checkout_bar_payment'] = 'Zahlungsweise';
-$aLang['checkout_bar_confirmation'] = 'Best&auml;tigung';
+$aLang['checkout_bar_confirmation'] = 'Bestätigung';
 $aLang['checkout_bar_finished'] = 'Fertig!';
 
 // pull down default text
-$aLang['pull_down_default'] = 'Bitte w&auml;hlen';
+$aLang['pull_down_default'] = 'Bitte wählen';
 $aLang['type_below'] = 'bitte unten eingeben';
 
 //newsletter
@@ -171,8 +156,9 @@ $aLang['block_newsletters_unsubscribe'] = 'Austragen';
 
 //myworld
 $aLang['text_date_account_created'] = 'Zugang erstellt am:';
-$aLang['text_yourstore'] = 'Ihre pers&ouml;nliche Seite';
+$aLang['text_yourstore'] = 'Ihre persönliche Seite';
 $aLang['edit_yourimage'] = 'Bild bearbeiten';
+
 
 // javascript messages
 $aLang['js_error'] = 'Notwendige Angaben fehlen!\nBitte richtig ausfüllen.\n\n';
@@ -201,7 +187,7 @@ $aLang['error_conditions_not_accepted'] = 'Sofern Sie unsere AGB\'s nicht akzept
 
 
 $aLang['category_company'] = 'Firmendaten';
-$aLang['category_personal'] = 'Ihre pers&ouml;nlichen Daten';
+$aLang['category_personal'] = 'Ihre persönlichen Daten';
 $aLang['category_address'] = 'Ihre Adresse';
 $aLang['category_contact'] = 'Ihre Kontaktinformationen';
 $aLang['category_options'] = 'Optionen';
@@ -213,8 +199,8 @@ $aLang['entry_owner'] = 'Inhaber';
 $aLang['entry_owner_error'] = '';
 $aLang['entry_owner_text'] = '';
 $aLang['entry_vat_id'] = 'Umsatzsteuer ID';
-$aLang['entry_vat_id_error'] = 'Die Eingegebene USt-IdNr. ist ung&uuml;ltig oder kann derzeit nicht &uuml;berpr&uuml;ft werden! Bitte geben Sie eine g&uuml;ltige Umsatzsteuer ID ein oder lassen Sie das Feld leer.';
-$aLang['entry_vat_id_text'] = 'Nur f&uuml;r Deutschland und EU!';
+$aLang['entry_vat_id_error'] = 'Die Eingegebene USt-IdNr. ist ungültig oder kann derzeit nicht überprüft werden! Bitte geben Sie eine gültige Umsatzsteuer ID ein oder lassen Sie das Feld leer.';
+$aLang['entry_vat_id_text'] = 'Nur für Deutschland und EU!';
 $aLang['entry_number'] = 'Kundennummer';
 $aLang['entry_number_error'] = '';
 $aLang['entry_number_text'] = '';
@@ -228,7 +214,7 @@ $aLang['entry_date_of_birth'] = 'Geburtsdatum:';
 $aLang['entry_date_of_birth_text'] = '(z.B. 21.05.1970)';
 $aLang['entry_email_address'] = 'eMail-Adresse:';
 $aLang['entry_email_address_error'] = 'mindestens ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' Buchstaben';
-$aLang['entry_email_address_check_error'] = 'ung&uuml;ltige eMail-Adresse!';
+$aLang['entry_email_address_check_error'] = 'ungültige eMail-Adresse!';
 $aLang['entry_email_address_error_exists'] = 'Diese eMail-Adresse existiert schon!';
 $aLang['entry_street_address'] = 'Strasse/Nr.:';
 $aLang['entry_street_address_error'] = 'mindestens ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Buchstaben';
@@ -254,7 +240,7 @@ $aLang['entry_newsletter_yes'] = 'abonniert';
 $aLang['entry_newsletter_no'] = 'nicht abonniert';
 $aLang['entry_newsletter_error'] = '';
 $aLang['entry_password'] = 'Passwort:';
-$aLang['entry_password_confirmation'] = 'Best&auml;tigung:';
+$aLang['entry_password_confirmation'] = 'Bestätigung:';
 $aLang['entry_password_error'] = 'mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Zeichen';
 $aLang['password_hidden'] = '--VERSTECKT--';
 $aLang['entry_info_text'] = 'notwendige Eingabe';
@@ -271,46 +257,47 @@ $aLang['text_display_number_of_wishlist'] = 'angezeigt Wunschprodukte <b>%d</b> 
 
 $aLang['prevnext_title_first_page'] = 'erste Seite';
 $aLang['prevnext_title_previous_page'] = 'vorherige Seite';
-$aLang['prevnext_title_next_page'] = 'n&auml;chste Seite';
+$aLang['prevnext_title_next_page'] = 'nächste Seite';
 $aLang['prevnext_title_last_page'] = 'letzte Seite';
 $aLang['prevnext_title_page_no'] = 'Seite %d';
 $aLang['prevnext_title_prev_set_of_no_page'] = 'Vorhergehende %d Seiten';
-$aLang['prevnext_title_next_set_of_no_page'] = 'N&auml;chste %d Seiten';
+$aLang['prevnext_title_next_set_of_no_page'] = 'Nächste %d Seiten';
 $aLang['prevnext_button_first'] = '&lt;&lt;ERSTE';
 $aLang['prevnext_button_prev'] = '&lt;&lt;&nbsp;vorherige';
-$aLang['prevnext_button_next'] = 'n&auml;chste&nbsp;&gt;&gt;';
+$aLang['prevnext_button_next'] = 'nächste&nbsp;&gt;&gt;';
 $aLang['prevnext_button_last'] = 'LETZTE&gt;&gt;';
 
-$aLang['image_button_add_address'] = 'Neue Adresse';
-$aLang['image_button_address_book'] = 'Adressbuch';
-$aLang['image_button_back'] = 'Zurück';
-$aLang['image_button_change_address'] = 'Adresse ändern';
-$aLang['image_button_checkout'] = 'Kasse';
-$aLang['image_button_confirm_order'] = 'Bestellung bestätigen';
-$aLang['image_button_continue'] = 'Weiter';
-$aLang['image_button_continue_shopping'] = 'Einkauf fortsetzen';
-$aLang['image_button_delete'] = 'Löschen';
-$aLang['image_button_edit_account'] = 'Daten ändern';
-$aLang['image_button_history'] = 'Bestellübersicht';
-$aLang['image_button_login'] = 'Anmelden';
-$aLang['image_button_in_cart'] = 'In den Warenkorb';
-$aLang['image_button_notifications'] = 'Benachrichtigungen';
-$aLang['image_button_quick_find'] = 'Schnellsuche';
-$aLang['image_button_remove_notifications'] = 'Benachrichtigungen löschen';
-$aLang['image_button_reviews'] = 'Bewertungen';
-$aLang['image_button_search'] = 'Suchen';
-$aLang['image_button_tell_a_friend'] = 'Weiterempfehlen';
-$aLang['image_button_update'] = 'Aktualisieren';
-$aLang['image_button_update_cart'] = 'Warenkorb aktualisieren';
-$aLang['image_button_write_review'] = 'Bewertung schreiben';
-$aLang['image_button_add_quick'] = 'Schnellkauf!';
-$aLang['image_wishlist_delete'] = 'l&ouml;schen';
-$aLang['image_button_in_wishlist'] = 'Wunschliste';
-$aLang['image_button_add_wishlist'] = 'Wunschliste';
-$aLang['image_button_redeem_voucher'] = 'Gutschein einlösen';
+$aLang['button_add_address'] = 'Neue Adresse';
+$aLang['button_address_book'] = 'Adressbuch';
+$aLang['button_back'] = 'Zurück';
+$aLang['button_change_address'] = 'Adresse ändern';
+$aLang['button_checkout'] = 'Kasse';
+$aLang['button_confirm_order'] = 'Bestellung bestätigen';
+$aLang['button_continue'] = 'Weiter';
+$aLang['button_continue_shopping'] = 'Einkauf fortsetzen';
+$aLang['button_delete'] = 'Löschen';
+$aLang['button_edit_account'] = 'Daten ändern';
+$aLang['button_history'] = 'Bestellübersicht';
+$aLang['button_login'] = 'Anmelden';
+$aLang['button_in_cart'] = 'In den Warenkorb';
+$aLang['button_notifications'] = 'Benachrichtigungen';
+$aLang['button_quick_find'] = 'Schnellsuche';
+$aLang['button_remove_notifications'] = 'Benachrichtigungen löschen';
+$aLang['button_reviews'] = 'Bewertungen';
+$aLang['button_search'] = 'Suchen';
+$aLang['button_tell_a_friend'] = 'Weiterempfehlen';
+$aLang['button_update'] = 'Aktualisieren';
+$aLang['button_update_cart'] = 'Warenkorb aktualisieren';
+$aLang['button_write_review'] = 'Bewertung schreiben';
+$aLang['button_add_quick'] = 'Schnellkauf!';
+$aLang['image_wishlist_delete'] = 'löschen';
+$aLang['button_in_wishlist'] = 'Wunschliste';
+$aLang['button_add_wishlist'] = 'Wunschliste';
+$aLang['button_redeem_voucher'] = 'Gutschein einlösen';
+$aLang['button_callaction'] = 'Fordern Sie ein Angebot';
 
-$aLang['image_button_hp_buy'] = 'In den Warenkorb';
-$aLang['image_button_hp_more'] = 'Zeige mehr';
+$aLang['button_hp_buy'] = 'In den Warenkorb';
+$aLang['button_hp_more'] = 'Zeige mehr';
 
 $aLang['icon_button_mail'] = 'E-mail';
 $aLang['icon_button_movie'] = 'Movie';
@@ -323,8 +310,8 @@ $aLang['icon_arrow_right'] = 'Zeige mehr';
 $aLang['icon_cart'] = 'In den Warenkorb';
 $aLang['icon_warning'] = 'Warnung';
 
-$aLang['text_greeting_personal'] = 'Sch&ouml;n, dass Sie wieder da sind <span class="greetUser">%s!</span> M&ouml;chten Sie die <a href="%s"><u>neuen Produkte</u></a> ansehen?';
-$aLang['text_greeting_guest'] = 'Herzlich Willkommen <span class="greetUser">Gast!</span> M&ouml;chten Sie sich <a href="%s"><u>anmelden</u></a>? Oder wollen Sie ein <a href="%s"><u>Kundenkonto</u></a> er&ouml;ffnen?';
+$aLang['text_greeting_personal'] = 'Schön, dass Sie wieder da sind <span class="greetUser">%s!</span> Möchten Sie die <a href="%s"><u>neuen Produkte</u></a> ansehen?';
+$aLang['text_greeting_guest'] = 'Herzlich Willkommen <span class="greetUser">Gast!</span> Möchten Sie sich <a href="%s"><u>anmelden</u></a>? Oder wollen Sie ein <a href="%s"><u>Kundenkonto</u></a> eröffnen?';
 
 $aLang['text_sort_products'] = 'Sortierung der Artikel ist ';
 $aLang['text_descendingly'] = 'absteigend';
@@ -334,31 +321,32 @@ $aLang['text_by'] = ' nach ';
 $aLang['text_review_by'] = 'von %s';
 $aLang['text_review_word_count'] = '%s Worte';
 $aLang['text_review_rating'] = 'Bewertung:';
-$aLang['text_review_date_added'] = 'Datum hinzugef&uuml;gt: ';
+$aLang['text_review_date_added'] = 'Datum hinzugefügt: ';
 $aLang['text_no_reviews'] = 'Es liegen noch keine Bewertungen vor.';
 $aLang['text_no_new_products'] = 'Zur Zeit gibt es keine neuen Produkte.';
 $aLang['text_unknown_tax_rate'] = 'Unbekannter Steuersatz';
 $aLang['text_required'] = 'erforderlich';
-$aLang['error_oos_mail'] = '<small>Fehler:</small> Die eMail kann nicht &uuml;ber den angegebenen SMTP-Server verschickt werden. Bitte kontrollieren Sie die Einstellungen in der php.ini Datei und f&uuml;hren Sie notwendige Korrekturen durch!';
 
-$aLang['warning_install_directory_exists'] = 'Warnung: Das Installationverzeichnis ist noch vorhanden auf: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/install. Bitte l&ouml;schen Sie das Verzeichnis aus Gr&uuml;nden der Sicherheit!';
-$aLang['warning_config_file_writeable'] = 'Warnung: OOS [OSIS Online Shop] kann in die Konfigurationsdatei schreiben: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php. Das stellt ein m&ouml;gliches Sicherheitsrisiko dar - bitte korrigieren Sie die Benutzerberechtigungen zu dieser Datei!';
+
+$aLang['warning_install_directory_exists'] = 'Warnung: Das Installationverzeichnis ist noch vorhanden auf: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/install. Bitte löschen Sie das Verzeichnis aus Gründen der Sicherheit!';
+$aLang['warning_config_file_writeable'] = 'Warnung: MyOOS [Shopsystem] kann in die Konfigurationsdatei schreiben: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php. Das stellt ein mögliches Sicherheitsrisiko dar - bitte korrigieren Sie die Benutzerberechtigungen zu dieser Datei!';
 $aLang['warning_session_auto_start'] = 'Warnung: session.auto_start ist enabled - Bitte disablen Sie dieses PHP Feature in der php.ini und starten Sie den WEB-Server neu!';
-$aLang['warning_download_directory_non_existent'] = 'Warnung: Das Verzeichnis f&uuml;r den Artikel Download existiert nicht: ' . OOS_DOWNLOAD_PATH . '. Diese Funktion wird nicht funktionieren bis das Verzeichnis erstellt wurde!';
-$aLang['warning_session_directory_non_existent'] = 'Warnung: Das Verzeichnis f&uuml;r die Sessions existiert nicht: ' . oos_session_save_path() . '. Die Sessions werden nicht funktionieren bis das Verzeichnis erstellt wurde!';
-$aLang['warning_session_directory_not_writeable'] = 'Warnung: OOS [OSIS Online Shop] kann nicht in das Sessions Verzeichnis schreiben: ' . oos_session_save_path() . '. Die Sessions werden nicht funktionieren bis die richtigen Benutzerberechtigungen gesetzt wurden!';
+$aLang['warning_download_directory_non_existent'] = 'Warnung: Das Verzeichnis für den Artikel Download existiert nicht: ' . OOS_DOWNLOAD_PATH . '. Diese Funktion wird nicht funktionieren bis das Verzeichnis erstellt wurde!';
+$aLang['warning_session_directory_non_existent'] = 'Warnung: Das Verzeichnis für die Sessions existiert nicht: ' . oos_session_save_path() . '. Die Sessions werden nicht funktionieren bis das Verzeichnis erstellt wurde!';
+$aLang['warning_session_directory_not_writeable'] = 'Warnung: MyOOS [Shopsystem] kann nicht in das Sessions Verzeichnis schreiben: ' . oos_session_save_path() . '. Die Sessions werden nicht funktionieren bis die richtigen Benutzerberechtigungen gesetzt wurden!';
 
-$aLang['text_ccval_error_invalid_date'] = 'Das \'G&uuml;ltig bis\' Datum ist ung&uuml;ltig.<br>Bitte korrigieren Sie Ihre Angaben.';
-$aLang['text_ccval_error_invalid_number'] = 'Die \'KreditkarteNummer\', die Sie angegeben haben, ist ung&uuml;ltig.<br>Bitte korrigieren Sie Ihre Angaben.';
+
+$aLang['text_ccval_error_invalid_date'] = 'Das \'Gültig bis\' Datum ist ungültig.<br>Bitte korrigieren Sie Ihre Angaben.';
+$aLang['text_ccval_error_invalid_number'] = 'Die \'KreditkarteNummer\', die Sie angegeben haben, ist ungültig.<br>Bitte korrigieren Sie Ihre Angaben.';
 $aLang['text_ccval_error_unknown_card'] = 'Die ersten 4 Ziffern Ihrer Kreditkarte sind: %s<br>Wenn diese Angaben stimmen, wird dieser Kartentyp leider nicht akzeptiert.<br>Bitte korrigieren Sie Ihre Angaben gegebenfalls.';
 
 $aLang['voucher_balance'] = 'Gutschein - Guthaben';
 $aLang['gv_faq'] = 'Gutschein FAQ';
-$aLang['error_redeemed_amount'] = 'Prima: Der Einl&ouml;sewert wurde Ihrem Kundenkonto gutgeschrieben! ';
+$aLang['error_redeemed_amount'] = 'Prima: Der Einlösewert wurde Ihrem Kundenkonto gutgeschrieben! ';
 $aLang['error_no_redeem_code'] = 'Sie haben keinen Gutschein-Code eingegeben!';  
-$aLang['error_no_invalid_redeem_gv'] = 'Fehler: Sie haben keinen g&uuml;ltigen Gutschein-Code eingegeben!'; 
+$aLang['error_no_invalid_redeem_gv'] = 'Fehler: Sie haben keinen gültigen Gutschein-Code eingegeben!'; 
 $aLang['table_heading_credit'] = 'Guthaben';
-$aLang['gv_has_vouchera'] = 'Sie haben ein Gutschein - Guthaben auf Ihrem Kundenkonto. M&ouml;chten Sie einen Teil <br>
+$aLang['gv_has_vouchera'] = 'Sie haben ein Gutschein - Guthaben auf Ihrem Kundenkonto. Möchten Sie einen Teil <br>
                          Ihres Guthabens per';
 $aLang['gv_has_voucherb'] = 'versenden?';
 $aLang['entry_amount_check_error'] = '&nbsp;<small><font color="#FF0000">Leider keine ausreichende Deckung auf Ihrem Kundenkonto!</font></smal>'; 
@@ -368,61 +356,14 @@ $aLang['voucher_redeemed'] = 'Voucher Redeemed';
 $aLang['cart_coupon'] = 'Coupon :';
 $aLang['cart_coupon_info'] = 'more info';
 
-$aLang['block_affiliate_info'] = 'Informationen';
-$aLang['block_affiliate_summary'] = 'Partnerkonto &Uuml;bersicht';
-$aLang['block_affiliate_account'] = 'Partnerkonto bearbeiten';
-$aLang['block_affiliate_clickrate'] = '&Uuml;bersicht Klicks';
-$aLang['block_affiliate_payment'] = 'Provisionszahlungen';
-$aLang['block_affiliate_sales'] = '&Uuml;bersicht Verk&auml;ufe';
-$aLang['block_affiliate_banners'] = 'Banner';
-$aLang['block_affiliate_contact'] = 'Kontakt';
-$aLang['block_affiliate_faq'] = 'FAQ';
-$aLang['block_affiliate_login'] = 'Anmeldung';
-$aLang['block_affiliate_logout'] = 'Abmelden';
-
-$aLang['entry_affiliate_payment_details'] = 'Zahlbar an:';
-$aLang['entry_affiliate_accept_agb'] = 'Bitte best&auml;tigen Sie, dass Sie mit unseren <a target="_new" href="' . oos_href_link($aModules['affiliate'], $aFilename['affiliate_terms'], '', 'SSL') . '">AGB\'s</a> einverstanden sind.';
-$aLang['entry_affiliate_agb_error'] = '&nbsp;<small><font color="#FF0000">Sie m&uuml;ssen sich mit unseren AGB\'s einverstanden erkl&auml;ren.</font></small>';
-$aLang['entry_affiliate_payment_check'] = 'Empf&auml;nger des Schecks:';
-$aLang['entry_affiliate_payment_check_text'] = '';
-$aLang['entry_affiliate_payment_check_error'] = '&nbsp;<small><font color="#FF0000">erforderlich</font></small>';
-$aLang['entry_affiliate_payment_paypal'] = 'PayPal Account eMail:';
-$aLang['entry_affiliate_payment_paypal_text'] = '';
-$aLang['entry_affiliate_payment_paypal_error'] = '&nbsp;<small><font color="#FF0000">erforderlich</font></small>';
-$aLang['entry_affiliate_payment_bank_name'] = 'Kreditinstitut:';
-$aLang['entry_affiliate_payment_bank_name_text'] = '';
-$aLang['entry_affiliate_payment_bank_name_error'] = '&nbsp;<small><font color="#FF0000">erforderlich</font></small>';
-$aLang['entry_affiliate_payment_bank_account_name'] = 'Kontoinhaber:';
-$aLang['entry_affiliate_payment_bank_account_name_text'] = '';
-$aLang['entry_affiliate_payment_bank_account_name_error'] = '&nbsp;<small><font color="#FF0000">erforderlich</font></small>';
-$aLang['entry_affiliate_payment_bank_account_number'] = 'Konto-Nr.:';
-$aLang['entry_affiliate_payment_bank_account_number_text'] = '';
-$aLang['entry_affiliate_payment_bank_account_number_error'] = '&nbsp;<small><font color="#FF0000">erforderlich</font></small>';
-$aLang['entry_affiliate_payment_bank_branch_number'] = 'Bankleitzahl:';
-$aLang['entry_affiliate_payment_bank_branch_number_text'] = '';
-$aLang['entry_affiliate_payment_bank_branch_number_error'] = '&nbsp;<small><font color="#FF0000">erforderlich</font></small>';
-$aLang['entry_affiliate_payment_bank_swift_code'] = 'SWIFT Code:';
-$aLang['entry_affiliate_payment_bank_swift_code_text'] = '';
-$aLang['entry_affiliate_payment_bank_swift_code_error'] = '&nbsp;<small><font color="#FF0000">erforderlich</font></small>';
-$aLang['entry_affiliate_company'] = 'Firma';
-$aLang['entry_affiliate_company_text'] = '';
-$aLang['entry_affiliate_company_error'] = '&nbsp;<small><font color="#FF0000">erforderlich</font></small>';
-$aLang['entry_affiliate_company_taxid'] = 'UID-Nr.:';
-$aLang['entry_affiliate_company_taxid_text'] = '';
-$aLang['entry_affiliate_company_taxid_error'] = '&nbsp;<small><font color="#FF0000">erforderlich</font></small>';
-$aLang['entry_affiliate_homepage'] = 'Homepage';
-
-$aLang['entry_affiliate_homepage_text'] = '&nbsp;<small><font color="#000000"> (http://)</font></small>';
-$aLang['entry_affiliate_homepage_error'] = '&nbsp;<small><font color="#FF0000">erforderlich (http://)</font></small>';
-
-$aLang['category_payment_details'] = 'Auszahlung kann erfolgen &uuml;ber';
+$aLang['category_payment_details'] = 'Auszahlung kann erfolgen über';
 
 $aLang['block_ticket_generate'] = 'Support Anfrage';
 $aLang['block_ticket_view'] = 'Ticket einsehen';
 
 $aLang['down_for_maintenance_text'] = 'Down for Maintenance ... Please try back later';
 $aLang['down_for_maintenance_no_prices_display'] = 'Down for Maintenance';
-$aLang['no_login_no_prices_display'] = 'Preise nur f&uuml;r H&auml;ndler';
+$aLang['no_login_no_prices_display'] = 'Preise nur für Händler';
 $aLang['text_products_base_price'] = 'Grundpreis';
 
 $aLang['products_see_qty_discounts'] = 'Staffelpreise';
@@ -451,13 +392,6 @@ $aLang['warning_no_file_uploaded'] = 'Warning: No file uploaded.';
 $aLang['warning_file_uploads_disabled'] = 'Warning: File uploads are disabled in the php.ini configuration file.';
 
 
-// 404 Email Error Report
-$aLang['error404_email_subject'] = '404 Fehlerreport';
-$aLang['error404_email_header'] = '404 Fehlermeldung';
-$aLang['error404_email_text'] = 'Ein 404-Fehler trat auf';
-$aLang['error404_email_date'] = 'Datum:';
-$aLang['error404_email_uri'] = 'Die fehlerhafte URI:';
-$aLang['error404_email_ref'] = 'Die Ausgangsseite:';
 
 $aLang['err404'] = '404 Fehlermeldung';
 $aLang['err404_page_not_found'] = 'Die angeforderte Seite wurde nicht gefunden bei';
@@ -476,11 +410,11 @@ $aLang['text_info_csname'] = 'Sie sind Mitglied der Kundengruppe : ';
 $aLang['text_info_csdiscount'] = 'Sie bekommen je nach Produkt einen maximalen Rabatt bis zu : ';
 $aLang['text_info_csotdiscount'] = 'Sie bekommen auf Ihre Gesamtbestellung einen Rabatt von : ';
 $aLang['text_info_csstaff'] = 'Sie sind berechtigt zu Staffelpreisen einzukaufen.';
-$aLang['text_info_cspay'] = 'Folgende Zahlungsarten k&ouml;nnen Sie benutzen : ';
+$aLang['text_info_cspay'] = 'Folgende Zahlungsarten können Sie benutzen : ';
 $aLang['text_info_show_price_no'] = 'Sie erhalten noch keine Preisinformationen. Bitte melden Sie sich an';
 $aLang['text_info_show_price_with_tax_yes'] = 'Die Preise beinhalten die MwSt.';
 $aLang['text_info_show_price_with_tax_no'] = 'Die Preise werden ohne MwSt. angezeigt.';
-$aLang['text_info_receive_mail_mode'] = 'Infos h&auml;tte ich gerne im Format : ';
+$aLang['text_info_receive_mail_mode'] = 'Infos hätte ich gerne im Format : ';
 $aLang['entry_receive_mail_text'] = 'Text only';
 $aLang['entry_receive_mail_html'] = 'HTML';
 $aLang['entry_receive_mail_pdf'] = 'PDF';
@@ -496,9 +430,6 @@ $aLang['text_customer_account_password_security'] = 'For you\'r own security we 
 $aLang['text_login_need_upgrade_csnewsletter'] = '<font color="#ff0000"><b>NOTE:</b></font>You have already subscribed to an account for &quot;Newsletter &quot;. You need to upgade this account to be able to buy.';
 
 // use TimeBasedGreeting
-$aLang['good_morning'] = 'Guten Morgen!';
-$aLang['good_afternoon'] = 'Guten Tag!';
-$aLang['good_evening'] = 'Guten Abend!';
 
 $aLang['text_taxt_incl'] = 'inkl. gesetzl. MwSt.';
 $aLang['text_taxt_add'] = 'zzgl. gesetzl. MwSt.';
@@ -507,10 +438,6 @@ $aLang['text_shipping'] = 'zzgl. <a href="%s"><u>Versandkosten</u></a>.';
 
 $aLang['price'] = 'Preis';
 $aLang['price_from'] = 'Ab';
-
-$aLang['price_info'] = 'Alle Preise pro St&uuml;ck in &euro; inkl. der gesetzlichen Mehrwertsteuer, zzgl. <a href="' . oos_href_link($aModules['info'], $aFilename['information'], 'information_id=1') . '">Versandkostenpauschale</a>.';
-$aLang['support_info'] = 'Haben Sie noch Fragen? Sie erreichen uns &uuml;ber unser <a href="' . oos_href_link($aModules['ticket'], $aFilename['ticket_create']) . '">Kontaktformular</a>.';
-
 
 /*
   The following copyright announcement can only be
@@ -529,4 +456,4 @@ $aLang['support_info'] = 'Haben Sie noch Fragen? Sie erreichen uns &uuml;ber uns
   following copyright announcement.
 */
 define('FOOTER_TEXT_BODY', 'Copyright &copy; 2003 <a href="http://www.oscommerce.com" target="_blank">osCommerce</a><br>Powered by <a href="http://www.oscommerce.com" target="_blank">osCommerce</a>');
-?>
+

@@ -117,7 +117,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
         // get rendered template
         // disable caching for evaluated code
         if ($_template->source->recompiled) {
-            $_template->caching = false;
+            $_template->setCaching(false);
         }
         // checks if template exists
         if (!$_template->source->exists) {

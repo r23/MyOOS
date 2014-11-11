@@ -42,7 +42,7 @@
     $oSmarty->cache_lifetime = 24 * 3600;
   }
 
-  if (!$oSmarty->is_cached($aOption['template_main'], $contents_cache_id)) {
+  if (!$oSmarty->isCached($aOption['template_main'], $contents_cache_id)) {
     $informationtable = $oostable['information'];
     $information_descriptiontable = $oostable['information_description'];
     $sql = "SELECT i.information_id, i.information_image, id.information_name,
@@ -73,7 +73,7 @@
   }
   $oSmarty->assign('oosPageHeading', $oSmarty->fetch($aOption['page_heading'], $contents_cache_id));
   $oSmarty->assign('contents', $oSmarty->fetch($aOption['template_main'], $contents_cache_id));
-  $oSmarty->caching = false;
+  $oSmarty->setCaching(false);
 
   // display the template
   require 'includes/oos_display.php';

@@ -35,4 +35,3 @@
   $oSmarty->assign('information', $dbconn->GetAll($sql));
   $oSmarty->assign('block_heading_information', $block_heading);
 
-?>

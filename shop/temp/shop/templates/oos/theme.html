@@ -5,7 +5,6 @@
 <meta http-equiv="content-type" content="text/html; charset={$smarty.const.CHARSET}">
 <title>{$pagetitle}</title>
 <meta name="description" content="{$meta_description}">
-<meta name="keywords" content="{$meta_keywords}">
 
 <meta name="page-topic" content="{$smarty.const.OOS_META_PAGE_TOPIC}">
 <meta name="audience" content="{$smarty.const.OOS_META_AUDIENCE}">
@@ -50,30 +49,8 @@
 <link rel="bookmark" type="text/html" href="{html_href_link modul=$main_page file=$page_file oos_get=$get_params connection='NONSSL' add_session_id='false' search_engine_safe='false'}">
 
 
-{if $popup_window}
-  {formtool_init src=js/$popup_window}
-{/if}
 
-{literal}
-<script type="text/javascript" language="JavaScript">
-<!--
-function couponpopupWindow(url) {
-  window.open(url,'popupWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=450,height=280,screenX=150,screenY=150,top=150,left=150')
-}
 
-function popupZoom(url) {
-  var width  = 900;
-  var height = 636;
-  var y = (screen.availHeight - height) /2;
-  var x = (screen.availWidth - width) /2;
-  var micro = window.open(url,'micro','resizable=0,scrollbars=0,status=0,location=0,width='+width+',height='+height+', top='+y+',left='+x);
-  micro.focus();
-}
-//-->
-</script>
-{/literal}
-
-{$oos_js}
 
 </HEAD>
 <BODY>
@@ -139,16 +116,14 @@ function popupZoom(url) {
 
 <table width="870" border="0" align="center" cellspacing="0" cellpadding="0">
   <tr>
-    <td align="right" class="footer_navigation_background" nowrap="nowrap">&nbsp;{$counter_now}&nbsp;{$lang.footer_text_requests_since}&nbsp;{$counter_startdate_formatted}&nbsp;&nbsp;</td>
+    <td align="right" class="footer_navigation_background" nowrap="nowrap">&nbsp;&nbsp;</td>
     <td width="5" class="footer_navigation_background"><img src="{$theme_image}/footer_navigation_right.gif" alt=" " width="5" height="19" ></td>
   </tr>
 </table>
 
 <br>
 <br><div class="smallText" align="center">
-{if $oos_banner}
-   {include file="$theme_set/system/banner.html"}
-{/if}
+
 </div>
 
 		<!--
@@ -170,8 +145,6 @@ function popupZoom(url) {
 <div align="center" class="smallText"><a href="{$smarty.const.OOS_HOME}" target="_blank">OOS [OSIS Online Shop]</a> is Free Software released under the <a href="http://www.gnu.org" target="_blank">GNU/GPL License.</a></div>
 </div>
 
-
-{formtool_init src="js/wz_tooltip.js"}
 
 </BODY>
 </HTML>

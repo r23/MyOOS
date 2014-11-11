@@ -32,13 +32,13 @@
 function smarty_function_html_image_submit($params, &$smarty)
 {
 
-    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+        require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
 
     $image = '';
     $alt = '';
     $border = 0;
     $extra = '';
-    $sTheme = STORE_TEMPLATES;
+    $sTheme = oos_var_prep_for_os($_SESSION['theme']);
     $sLanguage = oos_var_prep_for_os($_SESSION['language']);
 
     $basedir = 'themes/' . $sTheme . '/images/buttons/' . $sLanguage . '/';
@@ -54,7 +54,7 @@ function smarty_function_html_image_submit($params, &$smarty)
                 if(!is_array($_val)) {
                     $$_key = smarty_function_escape_special_chars($_val);
                 } else {
-                    throw new SmartyException ("html_image_submit: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    $smarty->trigger_error("html_image_submit: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
                 }
                 break;
 
@@ -62,14 +62,14 @@ function smarty_function_html_image_submit($params, &$smarty)
                 if(!is_array($_val)) {
                     $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
                 } else {
-                    throw new SmartyException ("html_image_submit: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    $smarty->trigger_error("html_image_submit: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
                 }
                 break;
         }
     }
 
     if (empty($image)) {
-        throw new SmartyException ("html_image_submit: missing 'button' parameter", E_USER_NOTICE);
+        $smarty->trigger_error("html_image_submit: missing 'button' parameter", E_USER_NOTICE);
         return;
     }
 

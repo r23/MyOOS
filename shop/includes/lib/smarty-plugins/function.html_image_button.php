@@ -33,7 +33,7 @@
 function smarty_function_html_image_button($params, &$smarty)
 {
 
-    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+        require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
 
     $image = '';
     $alt = '';
@@ -42,10 +42,16 @@ function smarty_function_html_image_button($params, &$smarty)
     $width = '';
     $extra = '';
 
-    $sTheme = STORE_TEMPLATES;
+    $sTheme = oos_var_prep_for_os($_SESSION['theme']);
     $sLanguage = oos_var_prep_for_os($_SESSION['language']);
 
     $basedir = 'themes/' . $sTheme . '/images/buttons/' . $sLanguage . '/';
+
+    if(strstr($GLOBALS['HTTP_SERVER_VARS']['HTTP_USER_AGENT'], 'Mac')) {
+        $dpi_default = 72;
+    } else {
+        $dpi_default = 96;
+    }
 
     foreach($params as $_key => $_val) {
         switch($_key) {
@@ -58,7 +64,7 @@ function smarty_function_html_image_button($params, &$smarty)
                 if(!is_array($_val)) {
                     $$_key = smarty_function_escape_special_chars($_val);
                 } else {
-                    throw new SmartyException ("html_image_button: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    $smarty->trigger_error("html_image_button: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
                 }
                 break;
 
@@ -66,68 +72,52 @@ function smarty_function_html_image_button($params, &$smarty)
                 if(!is_array($_val)) {
                     $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
                 } else {
-                    throw new SmartyException ("html_image_button: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    $smarty->trigger_error("html_image_button: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
                 }
                 break;
         }
     }
 
     if (empty($image)) {
-        throw new SmartyException ("html_image_button: missing 'button' parameter", E_USER_NOTICE);
+        $smarty->trigger_error("html_image_button: missing 'button' parameter", E_USER_NOTICE);
         return;
     }
 
     $_image_path = $basedir . $image;
 
-/*
-	if (stripos($params['file'], 'file://') === 0) {
-        $params['file'] = substr($params['file'], 7);
-    }
-    
-    $protocol = strpos($params['file'], '://');
-    if ($protocol !== false) {
-        $protocol = strtolower(substr($params['file'], 0, $protocol));
-    }
-    
-    if (isset($template->smarty->security_policy)) {
-        if ($protocol) {
-            // remote resource (or php stream, …)
-            if(!$template->smarty->security_policy->isTrustedUri($params['file'])) {
-                return;
-            }
-        } else {
-            // local file
-            if(!$template->smarty->security_policy->isTrustedResourceDir($params['file'])) {
-                return;
-            }
-        }
-    }
-*/	
-
     if (!isset($params['width']) || !isset($params['height'])) {
-        // FIXME: (rodneyrehm) getimagesize() loads the complete file off a remote resource, use custom [jpg,png,gif]header reader!
-        if (!$_image_data = @getimagesize($_image_path)) {
-            if (!file_exists($_image_path)) {
-                trigger_error("html_image_button: unable to find '$_image_path'", E_USER_NOTICE);
-                return;
-            } else if (!is_readable($_image_path)) {
-                trigger_error("html_image_button: unable to read '$_image_path'", E_USER_NOTICE);
-                return;
-            } else {
-                trigger_error("html_image_button: '$_image_path' is not a valid image file", E_USER_NOTICE);
-                return;
-            } 
+      if ($smarty->security &&
+        ($_params = array('resource_type' => 'file', 'resource_name' => $_image_path)) &&
+        (require_once(SMARTY_CORE_DIR . 'core.is_secure.php')) &&
+        (!smarty_core_is_secure($_params, $smarty)) ) {
+          $smarty->trigger_error("html_image_button:: (secure) '$_image_path' not in secure directory", E_USER_NOTICE);
+
+      } elseif (!$_image_data = @getimagesize($_image_path)) {
+        if(!file_exists($_image_path)) {
+          $smarty->trigger_error("html_image_button: unable to find '$_image_path'", E_USER_NOTICE);
+          return;
+        } elseif(!is_readable($_image_path)) {
+          $smarty->trigger_error("html_image_button: unable to read '$_image_path'", E_USER_NOTICE);
+          return;
+        } else {
+          $smarty->trigger_error("html_image_button: '$_image_path' is not a valid image button", E_USER_NOTICE);
+          return;
         }
+      }
 
-        if (!isset($params['width'])) {
-            $width = $_image_data[0];
-        } 
-        if (!isset($params['height'])) {
-            $height = $_image_data[1];
-        } 
-    } 
-	
+      if (!isset($params['width'])) {
+        $width = $_image_data[0];
+      }
+      if (!isset($params['height'])) {
+        $height = $_image_data[1];
+      }
+    }
 
+    if(isset($params['dpi'])) {
+      $_resize = $dpi_default/$params['dpi'];
+      $width = round($width * $_resize);
+      $height = round($height * $_resize);
+    }
 
     $sSlash = (defined('OOS_XHTML') && (OOS_XHTML == 'true') ? ' /' : '');
 
@@ -135,3 +125,4 @@ function smarty_function_html_image_button($params, &$smarty)
 
 }
 
+?>
