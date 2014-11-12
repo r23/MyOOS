@@ -482,12 +482,6 @@ function popupImageWindow(url) {
                                     array('id' => '0', 'text' => ENTRY_NO));
 
 
-    if (OOS_SPAW == 'true') {
-      include 'includes/classes/spaw/spaw_control.class.php';
-    } elseif (OOS_SPAW == 'fck') {
-      include 'includes/classes/fckeditor/fckeditor.php';
-    }
-
     $form_action = ($_GET['pID']) ? 'update_product' : 'insert_product';
     if (NEW_PRODUCT_PREVIEW == 'true') {
       $form_action = 'new_product_preview';
@@ -590,25 +584,7 @@ function calcBasePriceFactor() {
                 <td class="main">
 
 <?php 
-      if (OOS_SPAW == 'true') {
-        $sw = new SPAW_Wysiwyg('products_description_' . $languages[$i]['id'] /*name*/,(($_POST['products_description_' .$languages[$i]['id']]) ? stripslashes($_POST['products_description_' .$languages[$i]['id']]) : oos_get_products_description($pInfo->products_id, $languages[$i]['id'])) /*value*/,
-                             $languages[$i]['iso_639_1'] /*language*/, 'sidetable' /*toolbar mode*/, 'default' /*theme*/,
-                             '550px' /*width*/, '350px' /*height*/);
-        $sw->show();
-      } elseif (OOS_SPAW == 'fck') {
-        $oFCKeditor = new FCKeditor('products_description_' . $languages[$i]['id']);
-        $oFCKeditor->BasePath = 'includes/classes/fckeditor/';
-        $oFCKeditor->Config['AutoDetectLanguage'] = false;
-        $oFCKeditor->Config['DefaultLanguage'] = $languages[$i]['iso_639_1'];
-        $oFCKeditor->Width = '550';
-        $oFCKeditor->Height = '350';
-        $oFCKeditor->Config['SkinPath'] = 'skins/silver/' ;
-        $oFCKeditor->ToolbarSet = 'Oos';
-        $oFCKeditor->Value = (($_POST['products_description_' .$languages[$i]['id']]) ? stripslashes($_POST['products_description_' .$languages[$i]['id']]) : oos_get_products_description($pInfo->products_id, $languages[$i]['id']));
-        $oFCKeditor->Create();
-      } else {
-        echo oos_draw_textarea_field('products_description_' . $languages[$i]['id'], 'soft', '70', '15', ($_POST['products_description_' .$languages[$i]['id']] ? stripslashes($_POST['products_description_' .$languages[$i]['id']]) : oos_get_products_description($pInfo->products_id, $languages[$i]['id']))); 
-      }
+       echo oos_draw_textarea_field('products_description_' . $languages[$i]['id'], 'soft', '70', '15', ($_POST['products_description_' .$languages[$i]['id']] ? stripslashes($_POST['products_description_' .$languages[$i]['id']]) : oos_get_products_description($pInfo->products_id, $languages[$i]['id']))); 
 ?>
                  </td>
               </tr>
