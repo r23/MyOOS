@@ -27,7 +27,7 @@
               FROM " . $information_descriptiontable . "
               WHERE information_id = '" . intval($informations_id) . "'
                 AND information_languages_id = '" . intval($lang_id) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $information_name = $result->fields['information_name'];
 
@@ -51,7 +51,7 @@
               FROM " . $information_descriptiontable . "
               WHERE information_id = '" . intval($informations_id) . "'
                 AND information_languages_id = '" . intval($lang_id) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $information_url = $result->fields['information_url'];
 
@@ -75,7 +75,7 @@
               FROM " . $information_descriptiontable . "
               WHERE information_id = '" . intval($informations_id) . "'
                 AND information_languages_id = '" . intval($lang_id) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $information_description = $result->fields['information_description'];
 
@@ -99,7 +99,7 @@
               FROM " . $information_descriptiontable . "
               WHERE information_id = '" . intval($informations_id) . "'
                 AND information_languages_id = '" . intval($lang_id) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $information_heading_title = $result->fields['information_heading_title'];
 

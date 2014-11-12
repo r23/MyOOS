@@ -62,7 +62,7 @@
             if (OOS_IMAGE_SWF == 'true') {
               include 'includes/classes/class_image2swf.php';
               $swf = new Image2swf;
-              $filename = split("[/\\.]", $products_image_name);
+              $filename = explode("[/\\.]", $products_image_name);
               $swf->Main(OOS_ABSOLUTE_PATH . OOS_IMAGES . $products_image_name, $filename[0]);  
             }
           } else {
@@ -959,7 +959,7 @@ function calcBasePriceFactor() {
         if (OOS_IMAGE_SWF == 'true') {
           include 'includes/classes/class_image2swf.php';
           $swf = new Image2swf;
-          $filename = split("[/\\.]", $products_image_name);
+          $filename = explode("[/\\.]", $products_image_name);
           $swf->Main(OOS_ABSOLUTE_PATH . OOS_IMAGES . $products_image_name, $filename[0]);   
         }
       } else {

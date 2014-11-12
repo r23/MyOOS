@@ -36,7 +36,7 @@
   * @return number
   */
   function oosWordCount($sStr, $sNeedle = ' ') {
-    $aTemp = split($sNeedle, $sStr);
+    $aTemp = explode($sNeedle, $sStr);
 
     return count($aTemp);
   }

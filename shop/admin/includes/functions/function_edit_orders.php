@@ -41,7 +41,7 @@
     $query = "SELECT countries_id
               FROM " . $oostable['countries'] . " 
               WHERE countries_name = '" . $country_name . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
     if (!$result->RecordCount()) {
       $country_id = 0;
     } else {
@@ -66,7 +66,7 @@
     $query = "SELECT countries_iso_code_2
               FROM " . $oostable['countries'] . "
               WHERE countries_id = '" . $country_id . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
     if (!$result->RecordCount()) {
       $country_iso = 0;
     } else {
@@ -93,7 +93,7 @@
               FROM " . $oostable['zones'] . "
               WHERE zone_country_id = '" . $country_id . "'
                 AND zone_name = '" . $zone_name . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
     if (!$result->RecordCount()) {
       $zone_id = 0;
     } else {

@@ -56,7 +56,7 @@
                              cc_expires, currency, currency_value, date_purchased, orders_status, last_modified
                      FROM " . $oostable['orders'] . " 
                      WHERE orders_id = '" . oos_db_input($order_id) . "'";
-      $lable_result =& $dbconn->Execute($lable_query);
+      $lable_result = $dbconn->Execute($lable_query);
       $lable = $lable_result->fields;
 
 
@@ -64,7 +64,7 @@
                        FROM " . $oostable['orders_total'] . " 
                        WHERE orders_id = '" . oos_db_input($order_id) . "'
                        ORDER BY sort_order";
-      $totals_result =& $dbconn->Execute($totals_query);
+      $totals_result = $dbconn->Execute($totals_query);
 
       while ($totals = $totals_result->fields) {
         $this->totals[] = array('title' => $totals['title'],
@@ -126,7 +126,7 @@
                                      " . $oostable['products'] . " p
                                 WHERE o.products_id = p.products_id &&
                                       o.orders_id = '" . oos_db_input($order_id) . "'";
-      $lables_products_result =& $dbconn->Execute($lables_products_query);
+      $lables_products_result = $dbconn->Execute($lables_products_query);
 
       while ($lables_products = $lables_products_result->fields) {
         $this->products[$index] = array('qty' => $lables_products['products_quantity'],
@@ -143,7 +143,7 @@
                              FROM " . $oostable['orders_products_attributes'] . "
                              WHERE orders_id = '" . oos_db_input($order_id) . "'
                                AND orders_products_id = '" . $orders_products['orders_products_id'] . "'";
-        $attributes_result =& $dbconn->Execute($attributes_query);
+        $attributes_result = $dbconn->Execute($attributes_query);
 
         if ($attributes_result->RecordCount()) {
           while ($attributes = $attributes_result->fields) {

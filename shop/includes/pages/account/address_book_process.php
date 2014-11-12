@@ -320,7 +320,7 @@
      $zones_query = "SELECT zone_name FROM $zonestable
                      WHERE zone_country_id = '" . oos_db_input($country) . "'
                      ORDER BY zone_name";
-     $zones_result =& $dbconn->Execute($zones_query);
+     $zones_result = $dbconn->Execute($zones_query);
      while ($zones = $zones_result->fields) {
        $aZonesNames[] =  $zones['zone_name'];
        $aZonesValues[] = $zones['zone_name'];

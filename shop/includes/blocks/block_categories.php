@@ -160,7 +160,7 @@
 
     if (oos_is_not_null($cPath)) {
       $new_path = '';
-      $id = split('_', $cPath);
+      $id = explode('_', $cPath);
       reset($id);
       while (list($key, $value) = each($id)) {
         unset($prev_id);

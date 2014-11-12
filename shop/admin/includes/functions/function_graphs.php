@@ -463,7 +463,7 @@
               WHERE banners_id = '" . $banner_id . "' 
                 AND to_days(now()) - to_days(banners_history_date) < " . $days . "
               ORDER BY banners_history_date";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     while ($banner_stats = $result->fields) {
       $names[] = $banner_stats['name'];
@@ -529,7 +529,7 @@
               FROM " . $oostable['banners_history'] . "
               WHERE banners_id = '" . $banner_id . "'
               GROUP BY year(banners_history_date)";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     while ($banner_stats = $result->fields) {
       $names[] = $banner_stats['year'];
@@ -605,7 +605,7 @@
               WHERE banners_id = '" . $banner_id . "'
                 AND year(banners_history_date) = '" . $year . "'
               GROUP BY month(banners_history_date)";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     while ($banner_stats = $result->fields) {
       $names[($banner_stats['banner_month']-1)] = strftime('%b', mktime(0,0,0,$banner_stats['banner_month']));
@@ -683,7 +683,7 @@
               WHERE banners_id = '" . $banner_id . "'
                 AND month(banners_history_date) = '" . $month . "'
                 AND year(banners_history_date) = '" . $year . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     while ($banner_stats = $result->fields) {
       $names[($banner_stats['banner_day']-1)] = $banner_stats['banner_day'];

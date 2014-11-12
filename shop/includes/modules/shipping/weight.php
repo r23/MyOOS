@@ -68,7 +68,7 @@
     function quote($method = '') {
       global $oOrder, $aLang, $shipping_weight;
 
-      $weight_cost = split("[:,]" , MODULE_SHIPPING_WEIGHT_COST);
+      $weight_cost = explode("[:,]" , MODULE_SHIPPING_WEIGHT_COST);
 
       if ($shipping_weight > $weight_cost[count ($weight_cost)-2]) {
           $shipping = ($shipping_weight-$weight_cost[count ($weight_cost)-2])* MODULE_SHIPPING_WEIGHT_STEP +$weight_cost[count ($weight_cost)-1];

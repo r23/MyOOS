@@ -100,7 +100,7 @@
 
       for ($i=1; $i<=$this->num_ap_insured; $i++) {
         $countries_table = constant('MODULE_SHIPPING_AP_INSURED_COUNTRIES_' . $i);
-        $country_zones = split("[,]", $countries_table);
+        $country_zones = explode("[,]", $countries_table);
         if (in_array($dest_country, $country_zones)) {
           $dest_zone = $i;
           break;
@@ -113,7 +113,7 @@
         $shipping = -1;
         $ap_insured_cost = constant('MODULE_SHIPPING_AP_INSURED_COST_' . $i);
 
-        $ap_insured_table = split("[:,]" , $ap_insured_cost);
+        $ap_insured_table = explode("[:,]" , $ap_insured_cost);
         for ($i=0; $i<count($ap_insured_table); $i+=2) {
           if ($shipping_weight <= $ap_insured_table[$i]) {
             $shipping = $ap_insured_table[$i+1];

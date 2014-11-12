@@ -36,7 +36,7 @@
 
       $query = "SELECT code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value 
                 FROM " . $oostable['currencies'];
-      $result =& $dbconn->Execute($query);
+      $result = $dbconn->Execute($query);
 
       while ($currencies = $result->fields) {
         $this->currencies[$currencies['code']] = array('title' => $currencies['title'],

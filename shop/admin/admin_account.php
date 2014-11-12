@@ -50,7 +50,7 @@
 
         $admintable = $oostable['admin'];
         $check_email_query = "SELECT admin_email_address FROM " . $admintable . " WHERE admin_id <> " . $admin_id . "";
-        $check_email_result =& $dbconn->Execute($check_email_query);
+        $check_email_result = $dbconn->Execute($check_email_query);
         while ($check_email = $check_email_result->fields) {
           $stored_email[] = $check_email['admin_email_address'];
 

@@ -45,7 +45,7 @@
               FROM " . $oostable['languages'] . "
               WHERE status = '1'
               ORDER BY sort_order";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     // start array at one, the rest of the code expects it that way
     $ll =1;
@@ -80,7 +80,7 @@
               FROM " . $oostable['tax_rates'] . "
               WHERE  tax_class_id = '" . $tax_class_id . "'
               GROUP BY tax_priority";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     if ($result->RecordCount()) {
       while ($tax = $tax_result->fields) {
@@ -110,7 +110,7 @@
     $query = "SELECT tax_class_id
               FROM " . $oostable['tax_class'] . "
               WHERE tax_class_title = '" . $tax_class_title . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $tax_class_array = $result->fields;
     $tax_class_id = $tax_class_array['tax_class_id'];

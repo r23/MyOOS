@@ -161,7 +161,7 @@
                               FROM $admin_filestable
                               WHERE admin_files_is_boxes = 1
                               ORDER BY admin_files_name";
-    $installed_boxes_result =& $dbconn->Execute($installed_boxes_query);
+    $installed_boxes_result = $dbconn->Execute($installed_boxes_query);
 
     $installed_boxes = array();
     while($db_boxes = $installed_boxes_result->fields) {
@@ -257,7 +257,7 @@
       $files_array = array();
       $admin_filestable = $oostable['admin_files'];
       $file_query = "SELECT admin_files_name FROM $admin_filestable WHERE admin_files_is_boxes = '0' ";
-      $file_result =& $dbconn->Execute($file_query);
+      $file_result = $dbconn->Execute($file_query);
       while ($fetch_files = $file_result->fields) {
         $files_array[] = $fetch_files['admin_files_name'];
 

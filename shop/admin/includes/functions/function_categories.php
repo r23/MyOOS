@@ -41,7 +41,7 @@
         $query = "SELECT parent_id
                   FROM $categoriestable
                   WHERE categories_id = '" . $cPath_array[(count($cPath_array)-1)] . "'";
-        $last_category_result =& $dbconn->Execute($query);
+        $last_category_result = $dbconn->Execute($query);
         $last_category = $last_category_result->fields;
 
         // Close result set
@@ -51,7 +51,7 @@
         $query = "SELECT parent_id
                   FROM $categoriestable
                   WHERE categories_id = '" . $current_category_id . "'";
-        $current_category_result =& $dbconn->Execute($query);
+        $current_category_result = $dbconn->Execute($query);
 
         $current_category = $current_category_result->fields;
         if ($last_category['parent_id'] == $current_category['parent_id']) {
@@ -96,7 +96,7 @@
                 FROM $categories_descriptiontable cd
                 WHERE cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "'
                   AND cd.categories_id = '" . intval($parent_id) . "'";
-      $category_result =& $dbconn->Execute($query);
+      $category_result = $dbconn->Execute($query);
 
       $category = $category_result->fields;
       $category_tree_array[] = array('id' => $parent_id, 'text' => $category['categories_name']);
@@ -114,7 +114,7 @@
                 AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "'
                 AND c.parent_id = '" . intval($parent_id) . "'
            ORDER BY c.sort_order, cd.categories_name";
-    $categories_result =& $dbconn->Execute($query);
+    $categories_result = $dbconn->Execute($query);
 
     while ($categories = $categories_result->fields) {
       if ($exclude != $categories['categories_id']) $category_tree_array[] = array('id' => $categories['categories_id'], 'text' => $spacing . $categories['categories_name']);
@@ -144,7 +144,7 @@
               FROM $categories_descriptiontable
               WHERE categories_id = '" . intval($category_id) . "'
                 AND categories_languages_id = '" . intval($lang_id) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $categories_name = $result->fields['categories_name'];
 
@@ -168,7 +168,7 @@
               FROM $products_descriptiontable
               WHERE products_id = '" . intval($product_id) . "'
                 AND products_languages_id = '" . intval($lang_id) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $products_description = $result->fields['products_description'];
 
@@ -191,7 +191,7 @@
               FROM $products_descriptiontable
               WHERE products_id = '" . intval($product_id) . "'
                 AND products_languages_id = '" . intval($lang_id) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $products_description_meta = $result->fields['products_description_meta'];
 
@@ -214,7 +214,7 @@
               FROM $products_descriptiontable
               WHERE products_id = '" . intval($product_id) . "' 
                 AND products_languages_id = '" . intval($lang_id) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $products_keywords_meta = $result->fields['products_keywords_meta'];
 
@@ -239,7 +239,7 @@
               FROM $products_descriptiontable
               WHERE products_id = '" . intval($product_id) . "'
                 AND products_languages_id = '" . intval($lang_id) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $products_url = $result->fields['products_url'];
 
@@ -266,7 +266,7 @@
                               $products_to_categoriestable p2c
                          WHERE p.products_id = p2c.products_id 
                            AND p2c.categories_id = '" . intval($categories_id) . "'";
-      $products_result =& $dbconn->Execute($products_query);
+      $products_result = $dbconn->Execute($products_query);
 
     } else {
       $products_query = "SELECT COUNT(*) AS total
@@ -275,7 +275,7 @@
                          WHERE p.products_id = p2c.products_id 
                            AND p.products_status >= '1' 
                            AND p2c.categories_id = '" . intval($categories_id) . "'";
-      $products_result =& $dbconn->Execute($products_query);
+      $products_result = $dbconn->Execute($products_query);
     }
 
     $products = $products_result->fields;
@@ -290,7 +290,7 @@
     $childs_query = "SELECT categories_id
                      FROM $categoriestable
                      WHERE parent_id = '" . intval($categories_id) . "'";
-    $childs_result =& $dbconn->Execute($childs_query);
+    $childs_result = $dbconn->Execute($childs_query);
 
     if ($childs_result->RecordCount()) {
       while ($childs = $childs_result->fields) {
@@ -320,7 +320,7 @@
     $query = "SELECT categories_id
               FROM $categoriestable
               WHERE parent_id = '" . (int)$categories_id . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     while ($categories = $result->fields) {
       $categories_count++;
@@ -348,7 +348,7 @@
       $query = "UPDATE $categoriestable
                 SET categories_status = '1'
                 WHERE categories_id = '" . intval($categories_id) . "'";
-      $result =& $dbconn->Execute($query);
+      $result = $dbconn->Execute($query);
 
       // Close result set
       $result->Close();
@@ -357,7 +357,7 @@
       $query = "UPDATE $categoriestable
                 SET categories_status = '0'
                 WHERE categories_id = '" . intval($categories_id) . "'";
-      $result =& $dbconn->Execute($query);
+      $result = $dbconn->Execute($query);
 
       // Close result set
       $result->Close();
@@ -380,7 +380,7 @@
               SET products_status = '" . intval($status) . "',
                   products_last_modified = now()
               WHERE products_id = '" . intval($products_id) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     // Close result set
     $result->Close();
@@ -405,7 +405,7 @@
       $categories_query = "SELECT categories_id
                            FROM $products_to_categoriestable
                            WHERE products_id = '" . $id . "'";
-      $categories_result =& $dbconn->Execute($categories_query);
+      $categories_result = $dbconn->Execute($categories_query);
 
       while ($categories = $categories_result->fields) {
         if ($categories['categories_id'] == '0') {
@@ -417,7 +417,7 @@
                              WHERE c.categories_id = '" . $categories['categories_id'] . "'
                                AND c.categories_id = cd.categories_id
                                AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "'";
-          $category_result =& $dbconn->Execute($category_query);
+          $category_result = $dbconn->Execute($category_query);
 
           $category = $category_result->fields;
 
@@ -445,7 +445,7 @@
                           WHERE c.categories_id = '" . $id . "' 
                             AND c.categories_id = cd.categories_id
                             AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "'";
-      $category_result =& $dbconn->Execute($category_query);
+      $category_result = $dbconn->Execute($category_query);
 
       $category = $category_result->fields;
 
@@ -487,7 +487,7 @@
     $category_image_query = "SELECT categories_image
                              FROM $categoriestable
                              WHERE categories_id = '" . oos_db_input($category_id) . "'";
-    $category_image_result =& $dbconn->Execute($category_image_query);
+    $category_image_result = $dbconn->Execute($category_image_query);
     $category_image = $category_image_result->fields;
 
     // Close result set
@@ -496,7 +496,7 @@
     $duplicate_image_query = "SELECT COUNT(*) AS total
                               FROM $categoriestable
                               WHERE categories_image = '" . oos_db_input($category_image['categories_image']) . "'";
-    $duplicate_image_result =& $dbconn->Execute($duplicate_image_query);
+    $duplicate_image_result = $dbconn->Execute($duplicate_image_query);
     $duplicate_image = $duplicate_image_result->fields;
 
     if ($duplicate_image['total'] < 2) {
@@ -532,7 +532,7 @@
               FROM $categories_descriptiontable
               WHERE categories_id = '" . intval($category_id) . "'
                 AND categories_languages_id = '" . intval($lang_id) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $categories_heading_title = $result->fields['categories_heading_title'];
 
@@ -555,7 +555,7 @@
               FROM $categories_descriptiontable
               WHERE categories_id = '" . intval($category_id) . "'
                 AND categories_languages_id = '" . intval($lang_id) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $categories_description = $result->fields['categories_description'];
 
@@ -578,7 +578,7 @@
                 FROM $categories_descriptiontable
                WHERE categories_id = '" . intval($category_id) . "'
                  AND categories_languages_id = '" . intval($lang_id). "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $categories_description_meta = $result->fields['categories_description_meta'];
 
@@ -601,7 +601,7 @@
               FROM $categories_descriptiontable
               WHERE categories_id = '" . intval($category_id) . "'
                 AND categories_languages_id = '" . intval($lang_id) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $categories_keywords_meta = $result->fields['categories_keywords_meta'];
 
@@ -622,7 +622,7 @@
     $query = "SELECT COUNT(*) AS total
               FROM $productstable
               WHERE  products_image = '" . oos_db_input($image) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     if ($result->fields['total'] == 1) {
       return true;
@@ -646,7 +646,7 @@
                     products_subimage4 = '" . oos_db_input($image) . "' OR
                     products_subimage5 = '" . oos_db_input($image) . "' OR
                     products_subimage6 = '" . oos_db_input($image) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     if ($result->fields['total'] == 1) {
       return true;

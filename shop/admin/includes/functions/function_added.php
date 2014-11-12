@@ -46,7 +46,7 @@
               WHERE p.products_id = '" . (int)$product_id . "'
                 AND p.manufacturers_id = m.manufacturers_id
                 AND mi.manufacturers_id = m.manufacturers_id";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $manufacturers_name = $result->fields['manufacturers_name'];
 
@@ -75,7 +75,7 @@
               FROM $products_attributestable
               WHERE products_id = '" . (int)$products_id . "'
               ORDER BY options_id,price_prefix,options_values_price";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $count1 = 0;
     $the_options_id = 'x';
@@ -167,7 +167,7 @@
               FROM $categories_descriptiontable
               WHERE categories_id = '" . (int)$who_am_i . "'
                 AND categories_languages_id = '" . intval($_SESSION['language_id']) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $categories_name = $result->fields['categories_name'];
 

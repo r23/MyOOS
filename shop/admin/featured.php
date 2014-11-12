@@ -45,7 +45,7 @@
                     p.products_id = pd.products_id AND 
                    pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'
               ORDER BY products_name";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     while ($products = $result->fields) {
       if (!oos_in_array($products['products_id'], $exclude)) {

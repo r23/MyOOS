@@ -68,7 +68,7 @@
               FROM " . $block_infotable . "
               WHERE block_id = '" . $block_id . "'
                 AND block_languages_id = '" . intval($lang_id) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $block_name = $result->fields['block_name'];
 
@@ -100,7 +100,7 @@
       $query = "SELECT page_type_id, page_type_name
                 FROM " . $page_typetable . "
                 WHERE page_type_languages_id = '" . intval($lang_id) . "'";
-      $type_result =& $dbconn->Execute($query);
+      $type_result = $dbconn->Execute($query);
 
       while ($type = $type_result->fields) {
         $type_array[] = array('id' => $type['page_type_id'],
@@ -119,7 +119,7 @@
       $query = "SELECT block_id, page_type_id 
                 FROM " . $block_to_page_typetable . "
                 WHERE block_id = '" . $block_id . "'";
-      $block_to_page_result =& $dbconn->Execute($query);
+      $block_to_page_result = $dbconn->Execute($query);
 
       while ($block_to_page = $block_to_page_result->fields) {
         $block_to_page_array[] = $block_to_page['page_type_id'];
@@ -165,7 +165,7 @@
     $query = "SELECT page_type_id, page_type_name
               FROM " . $page_typetable . "
               WHERE page_type_languages_id = '" . intval($lang_id) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     while ($type = $result->fields) {
       $select_page_type .= oos_draw_checkbox_field('page_type[]', $type['page_type_id']) . $type['page_type_name'] . '<br />';
@@ -207,7 +207,7 @@
                 WHERE b2p.block_id = '" . (int)$block_id . "'
                   AND p.page_type_id = b2p.page_type_id
                   AND p.page_type_languages_id = '" . intval($lang_id) . "'";
-      $result =& $dbconn->Execute($query);
+      $result = $dbconn->Execute($query);
 
       while ($block_info =  $result->fields) {
         $info .= $block_info['page_type_name']. '<br />';

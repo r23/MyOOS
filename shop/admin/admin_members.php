@@ -30,7 +30,7 @@
       case 'member_new':
         $admintable = $oostable['admin'];
         $check_email_query = "SELECT admin_email_address FROM $admintable";
-        $check_email_result =& $dbconn->Execute($check_email_query);
+        $check_email_result = $dbconn->Execute($check_email_query);
         while ($check_email = $check_email_result->fields) {
           $stored_email[] = $check_email['admin_email_address'];
 
@@ -67,7 +67,7 @@
 
         $admintable = $oostable['admin'];
         $check_email_query = "SELECT admin_email_address FROM $admintable WHERE admin_id <> " . $admin_id . "";
-        $check_email_result =& $dbconn->Execute($check_email_query);
+        $check_email_result = $dbconn->Execute($check_email_query);
         while ($check_email = $check_email_result->fields) {
           $stored_email[] = $check_email['admin_email_address'];
 
@@ -105,7 +105,7 @@
 
         $admin_filestable = $oostable['admin_files'];
         $define_files_query = "SELECT admin_files_id FROM $admin_filestable ORDER BY admin_files_id";
-        $define_files_result =& $dbconn->Execute($define_files_query);
+        $define_files_result = $dbconn->Execute($define_files_query);
         while ($define_files = $define_files_result->fields) {
           $admin_files_id = $define_files['admin_files_id'];
 
@@ -150,7 +150,7 @@
         } else {
           $admin_groupstable = $oostable['admin_groups'];
           $check_groups_name_query = "SELECT admin_groups_name as group_name_edit FROM $admin_groupstable WHERE admin_groups_id <> " . $_GET['gID'] . " and admin_groups_name like '%" . $name_replace . "%'";
-          $check_groups_name_result =& $dbconn->Execute($check_groups_name_query);
+          $check_groups_name_result = $dbconn->Execute($check_groups_name_query);
           $check_duplicate = $check_groups_name_result->RecordCount();
           if ($check_duplicate > 0){
             oos_redirect_admin(oos_href_link_admin($aFilename['admin_members'], 'gID=' . $_GET['gID'] . '&gName=used&action=edit_group'));
@@ -173,7 +173,7 @@
           oos_redirect_admin(oos_href_link_admin($aFilename['admin_members'], 'gID=' . $_GET[gID] . '&gName=false&action=new_group'));
         } else {
           $check_groups_name_query = "SELECT admin_groups_name as group_name_new FROM ". $oostable['admin_groups'] . " WHERE admin_groups_name like '%" . $name_replace . "%'";
-          $check_groups_name_result =& $dbconn->Execute($check_groups_name_query);
+          $check_groups_name_result = $dbconn->Execute($check_groups_name_query);
           $check_duplicate = $check_groups_name_result->RecordCount();
           if ($check_duplicate > 0){
             oos_redirect_admin(oos_href_link_admin($aFilename['admin_members'], 'gID=' . $_GET['gID'] . '&gName=used&action=new_group'));
@@ -236,11 +236,11 @@
 <?php
   $admin_filestable = $oostable['admin_files'];
   $db_boxes_query = "SELECT admin_files_id as admin_boxes_id, admin_files_name as admin_boxes_name, admin_groups_id as boxes_group_id FROM $admin_filestable WHERE admin_files_is_boxes = '1' ORDER BY admin_files_name";
-  $db_boxes_result =& $dbconn->Execute($db_boxes_query);
+  $db_boxes_result = $dbconn->Execute($db_boxes_query);
   while ($group_boxes = $db_boxes_result->fields) {
     $admin_filestable = $oostable['admin_files'];
     $group_boxes_files_query = "SELECT admin_files_id, admin_files_name, admin_groups_id FROM $admin_filestable WHERE admin_files_is_boxes = '0' and admin_files_to_boxes = '" . $group_boxes['admin_boxes_id'] . "' ORDER BY admin_files_name";
-    $group_boxes_files_result =& $dbconn->Execute($group_boxes_files_query);
+    $group_boxes_files_result = $dbconn->Execute($group_boxes_files_query);
 
     $selectedGroups = $group_boxes['boxes_group_id'];
     $groupsArray = explode(",", $selectedGroups);
@@ -327,7 +327,7 @@
               </tr>
 <?php
   $db_groups_query = "SELECT * FROM ". $oostable['admin_groups'] . " ORDER BY admin_groups_id";
-  $db_groups_result =& $dbconn->Execute($db_groups_query);
+  $db_groups_result = $dbconn->Execute($db_groups_query);
 
   $add_groups_prepare = '\'0\'' ;
   $del_groups_prepare = '\'0\'' ;
@@ -385,7 +385,7 @@
 
   while ($admin = $db_admin_result->fields) {
     $admin_group_query = "SELECT admin_groups_name FROM ". $oostable['admin_groups'] . " WHERE admin_groups_id = '" . $admin['admin_groups_id'] . "'";
-    $admin_group_result =& $dbconn->Execute($admin_group_query);
+    $admin_group_result = $dbconn->Execute($admin_group_query);
     $admin_group = $admin_group_result->fields;
     if ((!isset($_GET['mID']) || (isset($_GET['mID']) && ($_GET['mID'] == $admin['admin_id']))) && !isset($mInfo)) {
       $mInfo_array = array_merge($admin, $admin_group);
@@ -444,7 +444,7 @@
       $groups_array = array();
       $groups_array = array(array('id' => '0', 'text' => TEXT_NONE));
       $groups_query = "SELECT admin_groups_id, admin_groups_name FROM ". $oostable['admin_groups'];
-      $groups_result =& $dbconn->Execute($groups_query);
+      $groups_result = $dbconn->Execute($groups_query);
       while ($groups = $groups_result->fields) {
         $groups_array[] = array('id' => $groups['admin_groups_id'],
                                 'text' => $groups['admin_groups_name']);
@@ -472,7 +472,7 @@
         $groups_array = array();
         $groups_array = array(array('id' => '0', 'text' => TEXT_NONE));
         $groups_query = "SELECT admin_groups_id, admin_groups_name FROM ". $oostable['admin_groups'];
-        $groups_result =& $dbconn->Execute($groups_query);
+        $groups_result = $dbconn->Execute($groups_query);
         while ($groups = $groups_result->fields) {
           $groups_array[] = array('id' => $groups['admin_groups_id'],
                                   'text' => $groups['admin_groups_name']);
@@ -550,7 +550,7 @@
     case 'show_group':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_GROUP . '</b>');
         $check_email_query = "SELECT admin_email_address FROM ". $oostable['admin'] . "";
-        $check_email_result =& $dbconn->Execute($check_email_query);
+        $check_email_result = $dbconn->Execute($check_email_query);
         //$stored_email[];
         while ($check_email = $check_email_result->fields) {
           $stored_email[] = $check_email['admin_email_address'];

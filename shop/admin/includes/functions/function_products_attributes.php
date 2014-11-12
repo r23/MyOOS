@@ -45,7 +45,7 @@
               FROM $products_optionstable
               WHERE products_options_id = '" . $options_id . "'
                 AND products_options_languages_id = '" . intval($_SESSION['language_id']) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $products_options_name = $result->fields['products_options_name'];
 
@@ -73,7 +73,7 @@
               FROM $products_options_valuestable
               WHERE products_options_values_id = '" . $values_id . "'
                 AND products_options_values_languages_id = '" . intval($_SESSION['language_id']) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $products_options_values_name = $result->fields['products_options_values_name'];
 

@@ -58,7 +58,7 @@
       $query = "UPDATE $customerstable"
            . " SET customers_image = ?"
            . " WHERE customers_id = ?";
-      $result =& $dbconn->Execute($query, array('', (int)$_SESSION['customer_id']));
+      $result = $dbconn->Execute($query, array('', (int)$_SESSION['customer_id']));
 
 
     }
@@ -81,7 +81,7 @@
           $query = "UPDATE $customerstable"
               . " SET customers_image = ?"
               . " WHERE customers_id = ?";
-          $result =& $dbconn->Execute($query, array((string)$picture_tempname, (int)$_SESSION['customer_id']));
+          $result = $dbconn->Execute($query, array((string)$picture_tempname, (int)$_SESSION['customer_id']));
 
           $customers_image_file->save();
         }

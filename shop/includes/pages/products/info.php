@@ -83,7 +83,7 @@
         . " SET products_viewed = products_viewed+1"
         . " WHERE products_id = ?"
         . "   AND products_languages_id = ?";
-    $result =& $dbconn->Execute($query, array((int)$nProductsId, (int)$nLanguageID));
+    $result = $dbconn->Execute($query, array((int)$nProductsId, (int)$nLanguageID));
 
     $product_info = $product_info_result->fields;
 
@@ -111,7 +111,7 @@
           $query = "UPDATE $productstable"
               . " SET products_zoomify = ?"
               . " WHERE products_id = ?";
-          $result =& $dbconn->Execute($query, array((string)$sImagePath, (int)$nProductsId));
+          $result = $dbconn->Execute($query, array((string)$sImagePath, (int)$nProductsId));
 
           $product_info['products_zoomify'] = $sImagePath;
         }

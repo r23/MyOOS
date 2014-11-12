@@ -87,7 +87,7 @@
         $query = "UPDATE $whos_onlinetable"
             . " SET customer_id = ?, full_name = ?, ip_address = ?, time_last_click = ?, last_page_url = ?"
             . " WHERE session_id = ?";
-        $result =& $dbconn->Execute($query, array((string)$wo_customer_id, (string)$wo_full_name, (string)$wo_ip_address, (string)$current_time, (string)$wo_last_page_url, (string)$wo_session_id));
+        $result = $dbconn->Execute($query, array((string)$wo_customer_id, (string)$wo_full_name, (string)$wo_ip_address, (string)$current_time, (string)$wo_last_page_url, (string)$wo_session_id));
 
       } else {
         $whos_onlinetable = $oostable['whos_online'];

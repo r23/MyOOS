@@ -782,15 +782,15 @@
       <tr>
 <?php
     if (!$_POST['coupon_startdate']) {
-      $coupon_startdate = split("[-]", date('Y-m-d'));
+      $coupon_startdate = explode("[-]", date('Y-m-d'));
     } else {
-      $coupon_startdate = split("[-]", $_POST['coupon_startdate']);
+      $coupon_startdate = explode("[-]", $_POST['coupon_startdate']);
     }
     if (!$_POST['coupon_finishdate']) {
-      $coupon_finishdate = split("[-]", date('Y-m-d'));
+      $coupon_finishdate = explode("[-]", date('Y-m-d'));
       $coupon_finishdate[0] = $coupon_finishdate[0] + 1;
     } else {
-      $coupon_finishdate = split("[-]", $_POST['coupon_finishdate']);
+      $coupon_finishdate = explode("[-]", $_POST['coupon_finishdate']);
     }
 ?>
         <td align="left" class="main"><?php echo COUPON_STARTDATE; ?></td>

@@ -75,7 +75,7 @@
         $oOrder_total = $shipping_weight;
       }
 
-      $table_cost = split("[:,]" , MODULE_SHIPPING_TABLE_COST);
+      $table_cost = explode("[:,]" , MODULE_SHIPPING_TABLE_COST);
       $size = count($table_cost);
       for ($i=0, $n=$size; $i<$n; $i+=2) {
         if ($oOrder_total <= $table_cost[$i]) {

@@ -54,7 +54,7 @@
               FROM " . $oostable['customers_status'] . "
               WHERE customers_status_id = '" . $customers_status_id . "'
                 AND customers_status_languages_id = '" . intval($lang_id) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $customers_status_name = $result->fields['customers_status_name'];
 
@@ -88,7 +88,7 @@
               FROM " . $oostable['customers_status'] . "
               WHERE customers_status_languages_id = '" . intval($_SESSION['language_id']) . "'
               ORDER BY customers_status_id";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     while ($customers_statuses = $result->fields) {
       $i = $customers_statuses['customers_status_id'];
@@ -136,7 +136,7 @@
                     customers_status = customers_status_id
               WHERE customers_id= '" . intval($customer_id) . "'
                 AND customers_status_languages_id = '" . intval($_SESSION['language_id']) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $customer_status_array = $result->fields;
 
@@ -162,7 +162,7 @@
       $query = "UPDATE " . $oostable['customers'] . "
                 SET customers_login = '1'
                 WHERE customers_id = '" . intval($customer_id) . "'";
-      $result =& $dbconn->Execute($query);
+      $result = $dbconn->Execute($query);
 
       // Close result set
       $result->Close();
@@ -171,7 +171,7 @@
       $query = "UPDATE " . $oostable['customers'] . " 
                 SET customers_login = '0'
                 WHERE customers_id = '" . intval($customer_id) . "'";
-      $result =& $dbconn->Execute($query);
+      $result = $dbconn->Execute($query);
       // Close result set
       $result->Close();
       return;

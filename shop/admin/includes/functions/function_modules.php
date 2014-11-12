@@ -49,7 +49,7 @@
       $query = "SELECT geo_zone_name 
                 FROM " . $oostable['geo_zones'] . " 
                 WHERE geo_zone_id = '" . (int)$zone_class_id . "'";
-      $result =& $dbconn->Execute($query);
+      $result = $dbconn->Execute($query);
 
       return $result->fields['geo_zone_name'];
     }
@@ -77,7 +77,7 @@
               FROM " . $oostable['orders_status'] . "
               WHERE orders_status_id = '" . (int)$order_status_id . "'
                 AND orders_languages_id = '" . intval($lang_id) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     return $result->fields['orders_status_name'];
   }
@@ -102,7 +102,7 @@
       $query = "SELECT tax_class_title
                 FROM " . $oostable['tax_class'] . "
                 WHERE tax_class_id = '" . (int)$tax_class_id . "'";
-      $result =& $dbconn->Execute($query);
+      $result = $dbconn->Execute($query);
 
       return $result->fields['tax_class_title'];
     }
@@ -124,7 +124,7 @@
     $query = "SELECT zone_name
               FROM " . $oostable['zones'] . "
               WHERE zone_id = '" . (int)$zone_id . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     if (!$result->RecordCount()) {
       return $zone_id;
@@ -218,7 +218,7 @@
     $query = "SELECT geo_zone_id, geo_zone_name
               FROM " . $oostable['geo_zones'] . "
               ORDER BY geo_zone_name";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     while ($zone_class = $result->fields) {
       $zone_class_array[] = array('id' => $zone_class['geo_zone_id'],
@@ -253,7 +253,7 @@
               FROM " . $oostable['orders_status'] . "
               WHERE orders_languages_id = '" . intval($_SESSION['language_id']) . "'
               ORDER BY orders_status_name";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     while ($statuses = $result->fields) {
       $statuses_array[] = array('id' => $statuses['orders_status_id'],
@@ -287,7 +287,7 @@
     $query = "SELECT tax_class_id, tax_class_title
               FROM " . $oostable['tax_class'] . "
               ORDER BY tax_class_title";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     while ($tax_class = $result->fields) {
       $tax_class_array[] = array('id' => $tax_class['tax_class_id'],

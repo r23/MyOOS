@@ -38,7 +38,7 @@
         $query = "SELECT configuration_value 
                   FROM " . $oostable['configuration'] . " 
                   WHERE configuration_key = '" . $pmInfo_array[$i] . "'";
-        $result =& $dbconn->Execute($query);
+        $result = $dbconn->Execute($query);
         $key_value = $result->fields;
 
         $this->keys[$pmInfo_array[$i]]['title'] = constant(strtoupper($pmInfo_array[$i] . '_TITLE'));

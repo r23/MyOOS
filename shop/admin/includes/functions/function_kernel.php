@@ -44,7 +44,7 @@
     if (!isset($_SESSION['login_id'])) {
       oos_redirect_admin(oos_href_link_admin($aFilename['login'], '', 'SSL'));
     } else {
-      $filename = split('\?', basename($_SERVER['PHP_SELF'])); 
+      $filename = preg_split('/\?/', basename($_SERVER['SCRIPT_NAME']));
       $filename = $filename[0];
       $page_key = array_search($filename, $aFilename);
 
@@ -54,7 +54,7 @@
                   FROM $admin_filestable
                   WHERE FIND_IN_SET( '" . $_SESSION['login_groups_id'] . "', admin_groups_id)
                     AND admin_files_name = '" . $page_key . "'";
-        $result =& $dbconn->Execute($query);
+        $result = $dbconn->Execute($query);
 
         if (!$result->RecordCount()) {
           oos_redirect_admin(oos_href_link_admin($aFilename['forbiden']));
@@ -63,9 +63,9 @@
     }
   }
 
-  
-  
-  
+
+
+
   function oos_admin_check_boxes($filename, $boxes='') {
 
     // Get database information
@@ -83,7 +83,7 @@
               WHERE FIND_IN_SET( '" . $_SESSION['login_groups_id'] . "', admin_groups_id)
                 AND admin_files_is_boxes = '" . $is_boxes . "'
                 AND admin_files_name = '" . $filename . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $return_value = false;
     if ($result->RecordCount()) {
@@ -108,12 +108,12 @@
     $aFilename = oos_get_filename();
 
     $admin_filestable = $oostable['admin_files'];
-    $query = "SELECT admin_files_name 
+    $query = "SELECT admin_files_name
               FROM $admin_filestable
               WHERE FIND_IN_SET( '" . $_SESSION['login_groups_id'] . "', admin_groups_id)
                 AND admin_files_is_boxes = '0'
                 AND admin_files_name = '" . $filename . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     if ($result->RecordCount()) {
       $sub_boxes = '<a href="' . oos_href_link_admin($aFilename[$filename]) . '" class="menuBoxContentLink">' . $sub_box_name . '</a><br />';
@@ -122,7 +122,7 @@
     // Close result set
     $result->Close();
 
-    return $sub_boxes; 
+    return $sub_boxes;
   }
 
 
@@ -142,7 +142,7 @@
               WHERE FIND_IN_SET( '" . $_SESSION['login_groups_id'] . "', admin_groups_id)
                 AND admin_files_is_boxes = '1'
                 AND admin_files_name = '" . $filename . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     if ($result->RecordCount()) {
       $boxes_id = $result->fields;
@@ -151,9 +151,9 @@
       $randomize_query = "SELECT admin_files_name
                            FROM $admin_filestable
                            WHERE FIND_IN_SET( '" . $_SESSION['login_groups_id'] . "', admin_groups_id)
-                             AND admin_files_is_boxes = '0' 
+                             AND admin_files_is_boxes = '0'
                              AND admin_files_to_boxes = '" . $boxes_id['boxes_id'] . "'";
-      $randomize_result =& $dbconn->Execute($randomize_query);
+      $randomize_result = $dbconn->Execute($randomize_query);
 
       if ($randomize_result->RecordCount()) {
         $randomize = $randomize_result->fields['admin_files_name'];
@@ -168,11 +168,6 @@
 
     header('Location: ' . $url);
 
-    if (STORE_PAGE_PARSE_TIME == 'true') {
-      if (!is_object($logger)) $logger = new logger;
-      $logger->timer_stop();
-    }
-
     exit;
   }
 
@@ -185,10 +180,10 @@
     $oostable =& oosDBGetTables();
 
     $customerstable = $oostable['customers'];
-    $query = "SELECT customers_firstname, customers_lastname 
+    $query = "SELECT customers_firstname, customers_lastname
               FROM $customerstable
               WHERE customers_id = '" . $customers_id . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $sName = $customers->fields['customers_firstname'] . ' ' . $customers->fields['customers_lastname'];
 
@@ -220,7 +215,7 @@
   * system is not allowed
   * @author    PostNuke Content Management System
   * @copyright Copyright (C) 2001 by the Post-Nuke Development Team.
-  * @version Revision: 2.0  - changed by Author: r23  on Date: 2004/01/12 06:02:08 
+  * @version Revision: 2.0  - changed by Author: r23  on Date: 2004/01/12 06:02:08
   * @access private
   * @param var variable to prepare
   * @param ...
@@ -331,6 +326,24 @@
     return stristr($_SERVER['HTTP_USER_AGENT'], $component);
   }
 
+/**
+ * Parse and output a user submited value
+ *
+ * @param string $sStr The string to parse and output
+ * @param array $aTranslate An array containing the characters to parse
+ * @access public
+ */
+function oos_output_string($sStr, $aTranslate = null)
+{
+
+    if (empty($aTranslate)) {
+        $aTranslate = array('"' => '&quot;');
+    }
+
+    return strtr(trim($sStr), $aTranslate);
+}
+
+
   function oos_address_format($address_format_id, $address, $html, $boln, $eoln) {
 
     $dbconn =& oosDBGetConn();
@@ -340,7 +353,7 @@
     $query = "SELECT address_format as format
               FROM $address_formattable
               WHERE address_format_id = '" . $address_format_id . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $address_format = $result->fields;
 
@@ -411,7 +424,7 @@
               FROM $zonestable
               WHERE zone_country_id = '" . $country . "'
                 AND zone_id = '" . $zone . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     if (!$result->RecordCount()) {
       $state_prov_code = $def_state;
@@ -437,7 +450,7 @@
     $query = "SELECT countries_name
               FROM $countriestable
               WHERE countries_id = '" . $country_id . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     if (!$result->RecordCount()) {
       return $country_id;
@@ -477,7 +490,7 @@
               FROM $languagestable
               WHERE status = '1'
               ORDER BY sort_order";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     while ($languages = $result->fields) {
       $languages_array[] = array('id' => $languages['languages_id'],
@@ -516,7 +529,7 @@
               FROM $products_descriptiontable
               WHERE products_id = '" . $product_id . "'
                 AND products_languages_id = '" . intval($lang_id) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     $products_name = $result->fields['products_name'];
 
@@ -544,7 +557,7 @@
     $query = "SELECT countries_id, countries_name
               FROM $countriestable
               ORDER BY countries_name";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     while ($countries = $result->fields) {
       $countries_array[] = array('id' => $countries['countries_id'],
@@ -570,11 +583,11 @@
     $oostable =& oosDBGetTables();
 
     $zonestable = $oostable['zones'];
-    $query = "SELECT zone_id, zone_name 
+    $query = "SELECT zone_id, zone_name
               FROM $zonestable
-              WHERE zone_country_id = '" . $country_id . "' 
+              WHERE zone_country_id = '" . $country_id . "'
               ORDER BY zone_name";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     while ($zones = $result->fields) {
       $zones_array[] = array('id' => $zones['zone_id'],
@@ -616,43 +629,6 @@
     return $zones;
   }
 
-
-  function oos_set_banner_status($banners_id, $status) {
-
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
-
-    if ($status == '1') {
-      $bannerstable = $oostable['banners'];
-      $query = "UPDATE $bannerstable
-                   SET status = '1',
-                       expires_impressions = NULL,
-                       expires_date = NULL,
-                       date_status_change = NULL
-                 WHERE banners_id = '" . $banners_id . "'";
-      $result =& $dbconn->Execute($query);
-
-      // Close result set
-      $result->Close();
-
-      return;
-    } elseif ($status == '0') {
-      $bannerstable = $oostable['banners'];
-      $query = "UPDATE $bannerstable
-                   SET status = '0',
-                       date_status_change = now()
-                 WHERE banners_id = '" . $banners_id . "'";
-      $result =& $dbconn->Execute($query);
-
-      // Close result set
-      $result->Close();
-
-      return;
-    } else {
-      return false;
-    }
-  }
 
 
   function oos_set_time_limit($limit) {
@@ -706,18 +682,15 @@
     $productstable = $oostable['products'];
     $product_image_query = "SELECT products_image
                             FROM $productstable
-                            WHERE products_id = '" . oos_db_input($product_id) . "'";
-    $product_image_result =& $dbconn->Execute($product_image_query);
+                            WHERE products_id = '" . intval($product_id) . "'";
+    $product_image_result = $dbconn->Execute($product_image_query);
     $product_image = $product_image_result->fields;
 
-    // Close result set
-    $product_image_result->Close();
-
     $productstable = $oostable['products'];
-    $duplicate_query = "SELECT COUNT(*) AS total 
+    $duplicate_query = "SELECT COUNT(*) AS total
                         FROM $productstable
                         WHERE products_image = '" . oos_db_input($product_image['products_image']) . "'";
-    $duplicate_result =& $dbconn->Execute($duplicate_query);
+    $duplicate_result = $dbconn->Execute($duplicate_query);
 
     if ($duplicate_result->fields['total'] < 2) {
       if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . $product_image['products_image'])) {
@@ -726,48 +699,34 @@
       if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . OOS_POPUP_IMAGES . $product_image['products_image'])) {
         @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . OOS_POPUP_IMAGES . $product_image['products_image']);
       }
-      if (OOS_IMAGE_SWF == 'true') {
-        $filename = split("[/\\.]", $product_image['products_image']);
-        if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . $filename[0] . '.jpg')) {
-          @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . $filename[0] . '.jpg');
-        }
-        if (file_exists(OOS_ABSOLUTE_PATH_SWF . $filename[0] . '.swf')) {
-    @unlink(OOS_ABSOLUTE_PATH_SWF . $filename[0] . '.swf');
-        }
-      }
     }
 
-    // Close result set
-    $duplicate_result->Close();
 
-    $dbconn->Execute("DELETE FROM " . $oostable['specials'] . " WHERE products_id = '" . oos_db_input($product_id) . "'");
-    $dbconn->Execute("DELETE FROM " . $oostable['products'] . " WHERE products_id = '" . oos_db_input($product_id) . "'");
-    $dbconn->Execute("DELETE FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . oos_db_input($product_id) . "'");
-    $dbconn->Execute("DELETE FROM " . $oostable['products_description'] . " WHERE products_id = '" . oos_db_input($product_id) . "'");
-    $dbconn->Execute("DELETE FROM " . $oostable['products_attributes'] . " WHERE products_id = '" . oos_db_input($product_id) . "'");
-    $dbconn->Execute("DELETE FROM " . $oostable['customers_basket'] . " WHERE products_id = '" . oos_db_input($product_id) . "'");
-    $dbconn->Execute("DELETE FROM " . $oostable['customers_basket_attributes'] . " WHERE products_id = '" . oos_db_input($product_id) . "'");
-    $dbconn->Execute("DELETE FROM " . $oostable['customers_wishlist'] . " WHERE products_id = '" . oos_db_input($product_id) . "'");
-    $dbconn->Execute("DELETE FROM " . $oostable['customers_wishlist_attributes'] . " WHERE products_id = '" . oos_db_input($product_id) . "'");
-    $dbconn->Execute("DELETE FROM " . $oostable['products_to_master'] . " WHERE master_id = '" . oos_db_input($product_id) . "' OR slave_id = '" . oos_db_input($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['specials'] . " WHERE products_id = '" . intval($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['products'] . " WHERE products_id = '" . intval($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . intval($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['products_description'] . " WHERE products_id = '" . intval($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['products_attributes'] . " WHERE products_id = '" . intval($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['customers_basket'] . " WHERE products_id = '" . intval($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['customers_basket_attributes'] . " WHERE products_id = '" . intval($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['customers_wishlist'] . " WHERE products_id = '" . intval($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['customers_wishlist_attributes'] . " WHERE products_id = '" . intval($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['products_to_master'] . " WHERE master_id = '" . intval($product_id) . "' OR slave_id = '" . intval($product_id) . "'");
 
     $reviewstable = $oostable['reviews'];
     $reviews_query = "SELECT reviews_id
                       FROM $reviewstable
-                      WHERE products_id = '" . oos_db_input($product_id) . "'";
-    $reviews_result =& $dbconn->Execute($reviews_query);
+                      WHERE products_id = '" . intval($product_id) . "'";
+    $reviews_result = $dbconn->Execute($reviews_query);
 
     while ($product_reviews = $reviews_result->fields) {
-      $dbconn->Execute("DELETE FROM " . $oostable['reviews_description'] . " WHERE reviews_id = '" . $product_reviews['reviews_id'] . "'");
+      $dbconn->Execute("DELETE FROM " . $oostable['reviews_description'] . " WHERE reviews_id = '" . intval($product_reviews['reviews_id']) . "'");
 
       // Move that ADOdb pointer!
       $reviews_result->MoveNext();
     }
 
-    // Close result set
-    $reviews_result->Close();
-
-    $dbconn->Execute("DELETE FROM " . $oostable['reviews'] . " WHERE products_id = '" . oos_db_input($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['reviews'] . " WHERE products_id = '" . intval($product_id) . "'");
 
   }
 
@@ -916,11 +875,11 @@
                  ON (tz.geo_zone_id = tr.tax_zone_id)
               WHERE (za.zone_country_id IS null or za.zone_country_id = '0'
                   OR za.zone_country_id = '" . (int)$country_id . "')
-                AND (za.zone_id is null OR za.zone_id = '0' 
+                AND (za.zone_id is null OR za.zone_id = '0'
                   OR za.zone_id = '" . (int)$zone_id . "')
                 AND tr.tax_class_id = '" . (int)$class_id . "'
             GROUP BY tr.tax_priority";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     if ($result->RecordCount()) {
       $tax_multiplier = 0;
@@ -930,9 +889,6 @@
         // Move that ADOdb pointer!
         $result->MoveNext();
       }
-
-      // Close result set
-      $result->Close();
 
       return $tax_multiplier;
     } else {
@@ -996,10 +952,12 @@
 
 
   function oos_prepare_input($string) {
+    if (is_array ($string))  return $string;
+
     if (get_magic_quotes_gpc()) {
-      $string =& stripslashes($string);
+      $string = stripslashes($string);
     }
-    $string =& trim($string);
+    $string = trim($string);
 
     return $string;
   }
@@ -1013,7 +971,7 @@
   */
   function oos_get_extension($filename) {
     $filename  = strtolower($filename);
-    $extension = split("[/\\.]", $filename);
+    $extension = explode("[/\\.]", $filename);
     $n = count($extension)-1;
     $extension = $extension[$n];
 
@@ -1038,8 +996,8 @@
     // Instantiate a new mail object
     $mail = new PHPMailer;
 
-    $mail->PluginDir = OOS_ABSOLUTE_PATH . 'includes/classes/thirdparty/phpmailer/';
-    $mail->SetLanguage( $sLang, OOS_ABSOLUTE_PATH . 'includes/classes/thirdparty/phpmailer/language/' );
+    $mail->PluginDir = OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/';
+    $mail->SetLanguage( $sLang, OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/language/' );
 
     $mail->CharSet = CHARSET;
     $mail->IsMail();
@@ -1083,5 +1041,3 @@
     $mail->Send();
   }
 
-
-?>

@@ -62,7 +62,7 @@
       $query = "SELECT coupon_code
                 FROM " . $oostable['coupons'] . " 
                 WHERE coupon_code = '" . $coupon_code . "'";
-      $result =& $dbconn->Execute($query);
+      $result = $dbconn->Execute($query);
       if ($result->RecordCount() == 0) $good_result = 1;
     }
 
@@ -88,25 +88,25 @@
     $coupon_gv_query = "SELECT coupon_amount
                         FROM " . $oostable['coupons'] . "
                         WHERE coupon_id = '" . $gv_id . "'";
-    $coupon_gv_result =& $dbconn->Execute($coupon_gv_query);
+    $coupon_gv_result = $dbconn->Execute($coupon_gv_query);
     $coupon_gv = $coupon_gv_result->fields;
 
     if ($customer_gv_result->RecordCount() > 0) {
       $customer_gv_query = "SELECT amount 
                             FROM " . $oostable['coupon_gv_customer'] . "
                             WHERE customer_id = '" . $customer_id . "'";
-      $customer_gv_result =& $dbconn->Execute($customer_gv_query);
+      $customer_gv_result = $dbconn->Execute($customer_gv_query);
 
       $customer_gv = $customer_gv_result->fields;
       $new_gv_amount = $customer_gv['amount'] + $coupon_gv['coupon_amount'];
 
       $gv_query = "UPDATE " . $oostable['coupon_gv_customer'] . "
                    SET amount = '" . $new_gv_amount . "'";
-      $result =& $dbconn->Execute($gv_query);
+      $result = $dbconn->Execute($gv_query);
     } else {
       $gv_query = "INSERT INTO " . $oostable['coupon_gv_customer'] . " 
                   (customer_id, amount) VALUES ('" . $customer_id . "', '" . $coupon_gv['coupon_amount'] . "'";
-      $result =& $dbconn->Execute($gv_query);
+      $result = $dbconn->Execute($gv_query);
     }
   }
 

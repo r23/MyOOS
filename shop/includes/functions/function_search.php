@@ -38,7 +38,7 @@
     $query = "SELECT categories_id
               FROM $categoriestable
               WHERE parent_id = '" . intval($nParentId) . "'";
-    $result =& $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
     while ($subcategories = $result->fields) {
       $aSubcategories[count($aSubcategories)] = $subcategories['categories_id'];
@@ -65,7 +65,7 @@
     $sSearch = trim(strtolower($sSearch));
 
     // Break up $sSearch on whitespace; quoted string will be reconstructed later
-    $pieces = split('[[:space:]]+', $sSearch);
+    $pieces = explode('[[:space:]]+', $sSearch);
     $objects = array();
     $tmpstring = '';
     $flag = '';
