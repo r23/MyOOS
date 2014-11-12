@@ -33,7 +33,7 @@
       if (defined('MODULE_ORDER_TOTAL_INSTALLED') && oos_is_not_null(MODULE_ORDER_TOTAL_INSTALLED)) {
         $this->modules = explode(';', MODULE_ORDER_TOTAL_INSTALLED);
 
-        $sLanguage = oos_var_prep_for_os($_SESSION['language']);
+        $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
 
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {

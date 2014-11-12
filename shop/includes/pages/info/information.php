@@ -80,6 +80,5 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
   $smarty->assign('contents', $smarty->fetch($aOption['template_main'], $contents_cache_id));
   $smarty->setCaching(false);
   
-  
   // display the template
   require 'includes/oos_display.php';

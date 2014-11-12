@@ -61,7 +61,7 @@ function smarty_function_html_image($params, &$smarty)
                 if(!is_array($_val)) {
                     $$_key = smarty_function_escape_special_chars($_val);
                 } else {
-                    $smarty->trigger_error("html_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    throw new SmartyException("html_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
                 }
                 break;
 
@@ -75,14 +75,14 @@ function smarty_function_html_image($params, &$smarty)
                 if(!is_array($_val)) {
                     $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
                 } else {
-                    $smarty->trigger_error("html_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    throw new SmartyException("html_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
                 }
                 break;
         }
     }
 
     if (empty($file)) {
-        $smarty->trigger_error("html_image: missing 'file' parameter", E_USER_NOTICE);
+        throw new SmartyException("html_image: missing 'file' parameter", E_USER_NOTICE);
         return;
     }
 
@@ -97,17 +97,17 @@ function smarty_function_html_image($params, &$smarty)
             ($_params = array('resource_type' => 'file', 'resource_name' => $_image_path)) &&
             (require_once(SMARTY_CORE_DIR . 'core.is_secure.php')) &&
             (!smarty_core_is_secure($_params, $smarty)) ) {
-            $smarty->trigger_error("html_image: (secure) '$_image_path' not in secure directory", E_USER_NOTICE);
+            throw new SmartyException("html_image: (secure) '$_image_path' not in secure directory", E_USER_NOTICE);
 
         } elseif (!$_image_data = @getimagesize($_image_path)) {
             if(!file_exists($_image_path)) {
-                $smarty->trigger_error("html_image: unable to find '$_image_path'", E_USER_NOTICE);
+                throw new SmartyException("html_image: unable to find '$_image_path'", E_USER_NOTICE);
                 return;
             } else if(!is_readable($_image_path)) {
-                $smarty->trigger_error("html_image: unable to read '$_image_path'", E_USER_NOTICE);
+                throw new SmartyException("html_image: unable to read '$_image_path'", E_USER_NOTICE);
                 return;
             } else {
-                $smarty->trigger_error("html_image: '$_image_path' is not a valid image file", E_USER_NOTICE);
+                throw new SmartyException("html_image: '$_image_path' is not a valid image file", E_USER_NOTICE);
                 return;
             }
         }

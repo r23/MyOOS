@@ -71,7 +71,7 @@
         }
       }
 
-      $sLanguage = oos_var_prep_for_os($_SESSION['language']);
+      $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
       include 'includes/languages/' . $sLanguage . '.php';
 
       return true;

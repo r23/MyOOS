@@ -27,7 +27,7 @@
 function smarty_function_categories_link($params, &$smarty)
 {
 
-  require_once $smarty->_get_plugin_filepath('function','html_href_link');
+  require_once(MYOOS_INCLUDE_PATH . '/includes/lib/smarty-plugins/function.html_href_link.php');
 
   $aModules = oos_get_modules();
   $aFilename =  oos_get_filename();
@@ -40,11 +40,10 @@ function smarty_function_categories_link($params, &$smarty)
   if (is_array($params)) {
     $result = array_merge($link_params, $params);
   } else {
-    $smarty->trigger_error("categories_link: extra attribute '$params' must an array", E_USER_NOTICE);
+    throw new SmartyException("categories_link: extra attribute '$params' must an array", E_USER_NOTICE);
   }
 
   return smarty_function_html_href_link($result, $smarty);
 
 }
 
-?>

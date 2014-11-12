@@ -54,7 +54,7 @@ function smarty_function_html_href_link($params, &$smarty)
           if(!is_array($_val)) {
             $$_key = smarty_function_escape_special_chars($_val);
           } else {
-            $smarty->trigger_error("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
+            throw new SmartyException("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
           }
           break;
 
@@ -62,7 +62,7 @@ function smarty_function_html_href_link($params, &$smarty)
           if(!is_array($_val)) {
             $$_key = smarty_function_escape_special_chars($_val);
           } else {
-            $smarty->trigger_error("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
+            throw new SmartyException("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
           }
           break;
 
@@ -82,7 +82,7 @@ function smarty_function_html_href_link($params, &$smarty)
           if(!is_array($_val)) {
             $parameters .= $_key.'='.smarty_function_escape_special_chars($_val).'&amp;';
           } else {
-            $smarty->trigger_error("html_href_link: parameters '$_key' cannot be an array", E_USER_NOTICE);
+            throw new SmartyException("html_href_link: parameters '$_key' cannot be an array", E_USER_NOTICE);
           }
           break;
        }
@@ -90,11 +90,11 @@ function smarty_function_html_href_link($params, &$smarty)
 
 
     if (empty($modul)) {
-      $smarty->trigger_error("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
+      throw new SmartyException("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
     }
 
     if (empty($file)) {
-      $smarty->trigger_error("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
+      throw new SmartyException("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
     }
 
     if (isset($addentry_id)) {
@@ -116,7 +116,7 @@ function smarty_function_html_href_link($params, &$smarty)
         $link = OOS_HTTP_SERVER . OOS_SHOP;
       }
     } else {
-      $smarty->trigger_error("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
+      throw new SmartyException("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
     }
 
     if (isset($parameters)) {

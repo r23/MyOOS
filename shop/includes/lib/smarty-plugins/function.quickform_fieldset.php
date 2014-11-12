@@ -68,13 +68,13 @@ function smarty_function_quickform_fieldset($params, &$smarty)
         /* $form is required */
         if ( (!isset($form)) )
         {
-            $smarty->trigger_error("quickform_fieldset: missing 'form' parameter");
+            throw new SmartyException("quickform_fieldset: missing 'form' parameter");
             return;
         }
         /* $fields is required */
         if ( (!isset($fields)) )
         {
-            $smarty->trigger_error("quickform_fieldset: missing 'fields' parameter");
+            throw new SmartyException("quickform_fieldset: missing 'fields' parameter");
             return;
         }
 

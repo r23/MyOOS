@@ -36,11 +36,11 @@
 function smarty_function_rss_load($params, &$smarty)
 {
     if ($params['file'] == '') {
-        $smarty->trigger_error("rss_load: missing 'file' parameter");
+        throw new SmartyException("rss_load: missing 'file' parameter");
         return;
     }
     if ($params['assign'] == '') {
-        $smarty->trigger_error("rss_load: missing 'assign' parameter");
+        throw new SmartyException("rss_load: missing 'assign' parameter");
         return;
     }
 	
@@ -73,10 +73,10 @@ function smarty_function_rss_load($params, &$smarty)
 		if($_rss->parse($params['file'], $_cache_file)) {
 			$smarty->assign($params['assign'], $_rss->RSSData);
 		} else {
-        	$smarty->trigger_error("rss_load: unable to read '". $params['file'] . "'");		
+        	throw new SmartyException("rss_load: unable to read '". $params['file'] . "'");		
 		}
 	} else {
-        $smarty->trigger_error("rss_load: unable to load ONYX_RSS library");				
+        throw new SmartyException("rss_load: unable to load ONYX_RSS library");				
 	}	
 }
 

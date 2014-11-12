@@ -19,7 +19,7 @@
 function smarty_function_tooltip($params, &$smarty)
 {
 
-    require_once $smarty->_get_plugin_filepath('function','html_href_link');
+    require_once(MYOOS_INCLUDE_PATH . '/includes/lib/smarty-plugins/function.html_href_link.php');
 
     $aModules = oos_get_modules();
     $aFilename =  oos_get_filename();
@@ -31,7 +31,7 @@ function smarty_function_tooltip($params, &$smarty)
     $align = 'right';
     $image = '';
 
-    $sLanguage = oos_var_prep_for_os($_SESSION['language']);
+    $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
 
     foreach ($params as $_key=>$_val) {
       switch($_key) {
@@ -46,7 +46,7 @@ function smarty_function_tooltip($params, &$smarty)
            break;
 
         default:
-                $smarty->trigger_error("[tooltip] unknown parameter $_key", E_USER_WARNING);
+                throw new SmartyException("[tooltip] unknown parameter $_key", E_USER_WARNING);
            break;
       }
     }

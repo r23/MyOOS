@@ -48,7 +48,7 @@
           }
         }
 
-        $sLanguage = oos_var_prep_for_os($_SESSION['language']);
+        $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
         for ($i=0, $n=sizeof($include_modules); $i<$n; $i++) {
           include 'includes/languages/' . $sLanguage . '/modules/payment/' . $include_modules[$i]['file'];
           include 'includes/modules/payment/' . $include_modules[$i]['file'];

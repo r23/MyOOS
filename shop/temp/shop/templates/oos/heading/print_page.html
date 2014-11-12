@@ -3,15 +3,7 @@
 	<td class="pageHeading">{$oos_heading_title}</td>
 	<td class="pageHeading" align="right">
 
-{if !isset($smarty.get.option)}
-	{if $smarty.const.PDF_WITH_HTMLDOC eq 'true'}
-		<a href="{htmldoc_link modul=$main_page file=$page_file oos_get=$get_params}">{html_js_icon image="pdf.gif" alt=$lang.icon_button_pdf}</a>
-	{/if}
 
-	<script language="javascript"><!--
-		document.write('<a href="javascript:void window.open(\'{html_href_link modul=$main_page file=$page_file oos_get=$get_params option=print}\', \'win2\', \'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no\');" title="{$lang.icon_button_print}">{html_js_icon image="print.gif" alt=$lang.icon_button_print}</a>');
-	//--></script>
-{/if}
 	</td>
 
 </tr>

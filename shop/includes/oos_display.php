@@ -21,10 +21,6 @@
   } else {
 
 
-// load_filter
-//    $smarty->load_filter('output', 'png_image');
-//    $smarty->load_filter('output', 'highlight');
-//    $smarty->load_filter('output', 'trimwhitespace');
 // display the template
     $smarty->display($sTheme.'/theme.html');
   }

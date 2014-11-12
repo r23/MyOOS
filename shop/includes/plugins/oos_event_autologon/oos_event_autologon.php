@@ -89,7 +89,7 @@
               $check_country = $dbconn->GetRow($sql);
 
               if ($check_customer['customers_language'] == '') {
-                $sLanguage = oos_var_prep_for_os($_SESSION['language']);
+                $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
                 $customerstable = $oostable['customers'];
                 $dbconn->Execute("UPDATE $customerstable
                                   SET customers_language = '" . oos_db_input($sLanguage) . "'

@@ -162,7 +162,7 @@
   function oos_image_button($image, $alt = '', $parameters = '') {
 
     $sTheme = oos_var_prep_for_os($_SESSION['theme']);
-    $sLanguage = oos_var_prep_for_os($_SESSION['language']);
+    $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
 
     return oos_image('themes/' . $sTheme . '/images/buttons/' . $sLanguage . '/' . $image, $alt, '', '', $parameters); 
   }
@@ -180,7 +180,7 @@
    function oos_image_submit($image, $alt = '', $parameters = '') {
 
      $sTheme = oos_var_prep_for_os($_SESSION['theme']);
-     $sLanguage = oos_var_prep_for_os($_SESSION['language']);
+     $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
 
      return '<input type="image" src="' . 'themes/' . $sTheme . '/images/buttons/' . $sLanguage . '/' . $image .'" alt="'.$alt.'" border="0" '.$parameters.' />';
    }

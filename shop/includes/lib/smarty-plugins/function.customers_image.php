@@ -39,7 +39,7 @@ function smarty_function_customers_image($params, &$smarty)
     $image = '';
     $extra = '';
 
-    $sLanguage = oos_var_prep_for_os($_SESSION['language']);
+    $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
 
     foreach($params as $_key => $_val) {
       switch($_key) {
@@ -52,7 +52,7 @@ function smarty_function_customers_image($params, &$smarty)
            if (!is_array($_val)) {
              $$_key = smarty_function_escape_special_chars($_val);
            } else {
-             $smarty->trigger_error("customers_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+             throw new SmartyException("customers_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
            }
            break;
 
@@ -60,7 +60,7 @@ function smarty_function_customers_image($params, &$smarty)
            if (!is_array($_val)) {
              $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
            } else {
-             $smarty->trigger_error("customers_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+             throw new SmartyException("customers_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
            }
            break;
       }
