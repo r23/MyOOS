@@ -79,14 +79,6 @@
         $cookie_url_array = parse_url((ENABLE_SSL == true ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . substr(OOS_SHOP, 0, -1));
         $cookie_path = $cookie_url_array['path'];
 
-        if ((!$oEvent->installed_plugin('autologon')) || ($_POST['remember_me'] == '')) {
-          setcookie("email_address", "", time() - 3600, $cookie_path);   // Delete email_address cookie
-          setcookie("password", "", time() - 3600, $cookie_path);	 // Delete password cookie
-        } else {
-          setcookie('email_address', $email_address, time()+ (365 * 24 * 3600), $cookie_path, '', ((getenv('HTTPS') == 'on') ? 1 : 0));
-          setcookie('password', $check_customer['customers_password'], time()+ (365 * 24 * 3600), $cookie_path, '', ((getenv('HTTPS') == 'on') ? 1 : 0));
-        }
-
         $date_now = date('Ymd');
         $customers_infotable = $oostable['customers_info'];
         $dbconn->Execute("UPDATE $customers_infotable

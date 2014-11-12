@@ -44,4 +44,3 @@
   }
   $smarty->assign('login_block', $login_block);
 
-?>
