@@ -68,14 +68,6 @@ $sFile = oos_var_prep_for_os($sFile);
 
 if (file_exists('includes/pages/' . $sMp . '/' . $sFile . '.php')) {
 
-/*
-    if (isset($_GET['history_back'])){
-      $_SESSION['navigation']->remove_last_page();
-    } else {
-      $_SESSION['navigation']->add_current_page();
-    }
-*/
-	
     include 'includes/pages/' . $sMp . '/' . $sFile . '.php';
 
 } else {

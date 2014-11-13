@@ -26,6 +26,9 @@
   require 'includes/languages/' . $sLanguage . '/checkout_process.php';
   require 'includes/functions/function_address.php';
 
+// start the session
+if ( is_session_started() === FALSE ) oos_session_start();  
+  
 // if the customer is not logged on, redirect them to the login page
   if (!isset($_SESSION['customer_id'])) {
     $_SESSION['navigation']->set_snapshot(array('mode' => 'SSL', 'modules' => $aModules['checkout'], 'file' =>$aFilename['checkout_payment']));

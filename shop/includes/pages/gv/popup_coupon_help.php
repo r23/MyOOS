@@ -21,8 +21,6 @@
 
   require 'includes/languages/' . $sLanguage . '/gv_popup_coupon_help.php';
 
-  $_SESSION['navigation']->remove_current_page();
-
   $text_coupon_help = $aLang['text_coupon_help_header'];
 
   if (isset($_GET['cID'])) {

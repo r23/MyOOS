@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: html_output.php,v 1.49 2003/02/11 01:31:02 hpdl 
+   File: html_output.php,v 1.49 2003/02/11 01:31:02 hpdl
          html_output.php 1498 2007-03-29 14:04:50Z hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
@@ -164,7 +164,7 @@
     $sTheme = oos_var_prep_for_os($_SESSION['theme']);
     $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
 
-    return oos_image('themes/' . $sTheme . '/images/buttons/' . $sLanguage . '/' . $image, $alt, '', '', $parameters); 
+    return oos_image('themes/' . $sTheme . '/images/buttons/' . $sLanguage . '/' . $image, $alt, '', '', $parameters);
   }
 
 
@@ -244,7 +244,7 @@
   * @param $height
   * @param $width
   * @param $image
-  */ 
+  */
   function oos_black_line($width = '100%', $height = '1', $image = 'black.gif') {
     return oos_image(OOS_IMAGES . $image, '', $width, $height);
   }
@@ -421,7 +421,7 @@
   * @param $values
   * @param $default
   * @param $parameters
-  * @param $required 
+  * @param $required
   */
   function oos_draw_pull_down_menu($name, $values, $default = '', $parameters = '', $required = false) {
 

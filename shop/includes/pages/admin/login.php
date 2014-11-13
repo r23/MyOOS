@@ -56,8 +56,6 @@
 
   require 'includes/languages/' . $sLanguage . '/admin_login.php';
 
-  $_SESSION['navigation']->remove_current_page();
-
   if (isset($_SESSION['customer_id'])) {
     unset($_SESSION['customer_id']);
     unset($_SESSION['customer_wishlist_link_id']);

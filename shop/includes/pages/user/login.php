@@ -24,10 +24,8 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
  
-  $_SESSION['navigation']->remove_current_page();
-echo 'jeep';
-exit;  
   require 'includes/languages/' . $sLanguage . '/user_login.php';
+  
   if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
 
     // Check if email exists
@@ -63,6 +61,8 @@ exit;
                             WHERE customers_id = '" . intval($check_customer['customers_id']) . "'");
         }
 
+		// start the session
+		if ( is_session_started() === FALSE ) oos_session_start();
 
         $_SESSION['customer_wishlist_link_id'] = $check_customer['customers_wishlist_link_id'];
         $_SESSION['customer_id'] = $check_customer['customers_id'];
@@ -93,7 +93,6 @@ exit;
         if (count($_SESSION['navigation']->snapshot) > 0) {
           $origin_href = oos_href_link($_SESSION['navigation']->snapshot['modules'], $_SESSION['navigation']->snapshot['file'], $_SESSION['navigation']->snapshot['get'], $_SESSION['navigation']->snapshot['mode']);
           $_SESSION['navigation']->clear_snapshot();
-          $_SESSION['navigation']->remove_last_page();
           oos_redirect($origin_href);
         } else {
           if (ENABLE_SSL == 'true') { 
@@ -106,13 +105,14 @@ exit;
     }
   }
 
+
   // links breadcrumb
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aModules['user'], $aFilename['login'], '', 'SSL'));
 
   $info_message = '';
   if (isset($_GET['login']) && ($_GET['login'] == 'fail')) {
     $info_message = $aLang['text_login_error'];
-  } elseif ($_SESSION['cart']->count_contents()) {
+  } elseif (is_object($_SESSION['cart'])) {
     $info_message = $aLang['text_visitors_cart'];
   }
 
@@ -122,8 +122,10 @@ exit;
   $nPageType = OOS_PAGE_TYPE_SERVICE;
 
   require 'includes/oos_system.php';
+
   if (!isset($option)) {
     require 'includes/info_message.php';
+
     require 'includes/oos_blocks.php';
   }
 

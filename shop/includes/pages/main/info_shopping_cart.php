@@ -19,8 +19,6 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  $_SESSION['navigation']->remove_current_page();
-
   $aOption['info_shopping_cart'] = $sTheme . '/system/info_shopping_cart.html';
 
   //smarty

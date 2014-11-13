@@ -19,7 +19,6 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  $_SESSION['navigation']->remove_current_page();
 
   $aOption['popup_help'] = $sTheme . '/system/popup_help.html';
 

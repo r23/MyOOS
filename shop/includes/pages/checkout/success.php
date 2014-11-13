@@ -23,6 +23,9 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
+// start the session
+if ( is_session_started() === FALSE ) oos_session_start();  
+  
 // if the customer is not logged on, redirect them to the shopping cart page
   if (!isset($_SESSION['customer_id'])) {
     oos_redirect(oos_href_link($aModules['main'], $aFilename['main_shopping_cart']));

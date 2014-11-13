@@ -24,10 +24,12 @@
 
 
   if (!$oEvent->installed_plugin('notify')) {
-    $_SESSION['navigation']->remove_current_page();
     oos_redirect(oos_href_link($aModules['main'], $aFilename['main']));
   }
 
+// start the session
+if ( is_session_started() === FALSE ) oos_session_start();  
+  
   if (!isset($_SESSION['customer_id'])) {
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aModules['user'], $aFilename['login'], '', 'SSL'));

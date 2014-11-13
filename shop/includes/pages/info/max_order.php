@@ -26,8 +26,6 @@
 
   require 'includes/languages/' . $sLanguage . '/info_max_order.php';
 
-  $_SESSION['navigation']->remove_current_page();
-
   // links breadcrumb
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aModules['info'], $aFilename['info_max_order']));
 

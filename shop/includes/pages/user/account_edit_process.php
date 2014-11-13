@@ -206,7 +206,6 @@
   }
 
   if ($error == true) {
-    $_SESSION['navigation']->remove_current_page();
 
     $processed = true;
     $no_edit = true;

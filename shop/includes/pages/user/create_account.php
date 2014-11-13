@@ -24,6 +24,9 @@
 
   require 'includes/languages/' . $sLanguage . '/user_create_account.php';
 
+// start the session
+if ( is_session_started() === FALSE ) oos_session_start();    
+  
   // links breadcrumb
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aModules['user'], $aFilename['create_account']));
 

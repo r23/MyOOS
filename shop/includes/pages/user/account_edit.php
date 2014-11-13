@@ -22,11 +22,19 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
+echo 'jeep';
+exit;   
+  
+// start the session
+if ( is_session_started() === FALSE ) oos_session_start();   
+
+ 
   if (!isset($_SESSION['customer_id'])) {
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aModules['user'], $aFilename['login'], '', 'SSL'));
   }
 
+  
   require 'includes/languages/' . $sLanguage . '/user_account_edit.php';
 
   $customerstable = $oostable['customers'];
@@ -94,4 +102,3 @@
 
   // display the template
   require 'includes/oos_display.php';
-?>

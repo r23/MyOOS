@@ -26,6 +26,9 @@
   require 'includes/languages/' . $sLanguage . '/checkout_confirmation.php';
   require 'includes/functions/function_address.php';
 
+// start the session
+if ( is_session_started() === FALSE ) oos_session_start();  
+  
 // if the customer is not logged on, redirect them to the login page
   if (!isset($_SESSION['customer_id'])) {
     $_SESSION['navigation']->set_snapshot(array('mode' => 'SSL', 'modules' => $aModules['checkout'], 'file' =>$aFilename['checkout_payment']));
@@ -65,9 +68,6 @@
 // if conditions are not accepted, redirect the customer to the payment method selection page
   if ( (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') && (empty($_POST['gv_redeem_code'])) ) {
     if ($_POST['conditions'] == false) {
-      $_SESSION['navigation']->remove_current_page();
-      $_SESSION['navigation']->remove_last_page();
-
       oos_redirect(oos_href_link($aModules['checkout'], $aFilename['checkout_payment'], 'error_message=' . urlencode(decode($aLang['error_conditions_not_accepted'])), 'SSL', true, false));
     }
   }

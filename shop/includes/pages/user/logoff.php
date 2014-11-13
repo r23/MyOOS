@@ -28,11 +28,6 @@
   // links breadcrumb
   $oBreadcrumb->add($aLang['navbar_title']);
 
-  $cookie_url_array = parse_url((ENABLE_SSL == true ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . substr(OOS_SHOP, 0, -1));
-  $cookie_path = $cookie_url_array['path'];	
-  setcookie("email_address", "", time() - 3600, $cookie_path); 
-  setcookie("password", "", time() - 3600, $cookie_path);
-
   unset($_SESSION['customer_id']);
   unset($_SESSION['customer_wishlist_link_id']);
   unset($_SESSION['customer_default_address_id']);

@@ -17,8 +17,6 @@
     define('OOS_BASE_PRICE', 'false');
   }
 
-  $_SESSION['navigation']->remove_current_page();
-
   if (isset($_GET['products_id'])) {
     if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
   }

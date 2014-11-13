@@ -23,7 +23,6 @@
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
   if (!$oEvent->installed_plugin('reviews')) {
-    $_SESSION['navigation']->remove_current_page();
     oos_redirect(oos_href_link($aModules['main'], $aFilename['main']));
   }
 

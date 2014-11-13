@@ -27,6 +27,9 @@
     oos_redirect(oos_href_link($aModules['user'], $aFilename['create_account']));
   }
 
+// start the session
+if ( is_session_started() === FALSE ) oos_session_start();  
+  
   require 'includes/languages/' . $sLanguage . '/user_create_account_process.php';
   require 'includes/functions/function_validate_vatid.php';
 
@@ -210,7 +213,6 @@
   }
 
   if ($error == true) {
-    $_SESSION['navigation']->remove_current_page();
 
     $processed = true;
     if ((CUSTOMER_NOT_LOGIN == 'true') or (MAKE_PASSWORD == 'true')) {
@@ -571,4 +573,3 @@
 
     oos_redirect(oos_href_link($aModules['user'], $aFilename['create_account_success'], '', 'SSL'));
   }
-?>

@@ -36,8 +36,6 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  $_SESSION['navigation']->remove_current_page();
-
   $aOption['popup_image'] = $sTheme . '/products/popup_image.html';
 
   //smarty

@@ -23,10 +23,14 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
+  
   require 'includes/languages/' . $sLanguage . '/checkout_shipping.php';
   require 'includes/functions/function_address.php';
   require 'includes/classes/class_http_client.php';
 
+// start the session
+if ( is_session_started() === FALSE ) oos_session_start();  
+  
 // if the customer is not logged on, redirect them to the login page
   if (!isset($_SESSION['customer_id'])) {
     $_SESSION['navigation']->set_snapshot();

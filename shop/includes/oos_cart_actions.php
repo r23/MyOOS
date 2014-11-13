@@ -78,8 +78,6 @@
         }
       }
 
-      $_SESSION['navigation']->remove_last_page();
-
       oos_redirect(oos_href_link($goto_mp, $goto_file, oos_get_all_get_parameters($parameters), 'NONSSL'));
       break;
 
