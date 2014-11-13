@@ -14,7 +14,7 @@ namespace Piwik\Decompress;
 class PclZip implements DecompressInterface
 {
     /**
-     * @var PclZip
+     * @var \PclZip
      */
     private $pclzip;
     /**

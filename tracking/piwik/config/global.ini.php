@@ -38,6 +38,26 @@ adapter = PDO\MYSQL
 type = InnoDB
 schema = Mysql
 
+[tests]
+; needed in order to run tests.
+; if Piwik is available at http://localhost/dev/piwik/ replace @REQUEST_URI@ with /dev/piwik/
+; note: the REQUEST_URI should not contain "plugins" or "tests" in the PATH
+http_host   = localhost
+remote_addr = "127.0.0.1"
+request_uri = "@REQUEST_URI@"
+
+; access key and secret as listed in AWS -> IAM -> Users
+aws_accesskey = ""
+aws_secret = ""
+; key pair name as listed in AWS -> EC2 -> Key Pairs. Key name should be different per user.
+aws_keyname = ""
+; PEM file can be downloaded after creating a new key pair in AWS -> EC2 -> Key Pairs
+aws_pem_file = "<path to pem file>"
+aws_securitygroups[] = "default"
+aws_region = "us-east-1"
+aws_ami = "ami-609c1e08"
+aws_instance_type = "c3.large"
+
 [log]
 ; possible values for log: screen, database, file
 log_writers[] = screen
@@ -45,7 +65,7 @@ log_writers[] = screen
 ; log level, everything logged w/ this level or one of greater severity
 ; will be logged. everything else will be ignored. possible values are:
 ; NONE, ERROR, WARN, INFO, DEBUG, VERBOSE
-log_level = WARN
+log_level = ERROR
 
 ; if set to 1, only requests done in CLI mode (eg. the ./console core:archive cron run) will be logged
 ; NOTE: log_only_when_debug_parameter will also be checked for
@@ -306,6 +326,11 @@ feedback_email_address = "feedback@piwik.org"
 
 ; using to set reply_to in reports e-mail to login of report creator
 scheduled_reports_replyto_is_user_email_and_alias = 0
+
+; scheduled reports truncate limit
+; the report will be rendered with the first 23 rows and will aggregate other rows in a summary row
+; 23 rows table fits in one portrait page
+scheduled_reports_truncate = 23
 
 ; during archiving, Piwik will limit the number of results recorded, for performance reasons
 ; maximum number of rows for any of the Referrers tables (keywords, search engines, campaigns, etc.)

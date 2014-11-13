@@ -6,3 +6,4 @@ third-party libraries:
 
  * PclZip/
    - in r1960, ignore touch() - utime failed warning
+   - line 5679, replaced `php_uname()` by `PHP_OS` (see [#2](https://github.com/piwik/component-decompress/issues/2))
