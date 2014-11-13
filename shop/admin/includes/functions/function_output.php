@@ -40,6 +40,7 @@
   * @return string
   */
   function oos_href_link_admin($page = '', $parameters = '', $connection = 'NONSSL') {
+
     if ($page == '') {
       die('</td></tr></table></td></tr></table><br /><br /><font color="#ff0000"><b>Error!</b></font><br /><br /><b>Unable to determine the page link!<br /><br />Function used:<br /><br />oos_href_link_admin(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</b>');
     }

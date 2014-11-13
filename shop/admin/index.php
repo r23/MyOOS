@@ -96,22 +96,7 @@
                                                'access' => oos_admin_check_boxes('stats_products_purchased', 'sub_boxes')),
                                          array('title' => REPORTS_ORDERS, 'link' => oos_href_link_admin($aFilename['stats_customers'], 'selected_box=reports'),              
                                                'access' => oos_admin_check_boxes('stats_customers', 'sub_boxes')))),
-               array('title' => BOX_HEADING_CONTENT,
-                     'access' => oos_admin_check_boxes('content.php'),
-                     'image' => 'content.gif',
-                     'href' => oos_href_link_admin($aFilename['content_news'], 'selected_box=content'),
-                     'children' => array(array('title' => BOX_CONTENT_BLOCK, 'link' => oos_href_link_admin($aFilename['content_block'], 'selected_box=content'),
-                                               'access' => oos_admin_check_boxes('content_block', 'sub_boxes')),
-                                         array('title' => BOX_CONTENT_NEWS, 'link' => oos_href_link_admin($aFilename['content_news'], 'selected_box=content'),
-                                               'access' => oos_admin_check_boxes('content_news', 'sub_boxes')))),
-               array('title' => BOX_HEADING_AFFILIATE,
-                     'access' => oos_admin_check_boxes('affiliate.php'),
-                     'image' => 'affiliate.gif',
-                     'href' => oos_href_link_admin(oos_selected_file('affiliate.php'), 'selected_box=affiliate'),
-                     'children' => array(array('title' => BOX_AFFILIATE, 'link' => oos_href_link_admin($aFilename['affiliate'], 'selected_box=affiliate'),
-                                               'access' => oos_admin_check_boxes('affiliate', 'sub_boxes')),
-                                         array('title' => BOX_AFFILIATE_BANNERS, 'link' => oos_href_link_admin($aFilename['affiliate_banners'], 'selected_box=affiliate'),
-                                               'access' => oos_admin_check_boxes('affiliate_banners', 'sub_boxes')))),
+
 );
 
   $languages = oos_get_languages();

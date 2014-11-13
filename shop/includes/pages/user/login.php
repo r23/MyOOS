@@ -23,9 +23,10 @@
 
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
-
+ 
   $_SESSION['navigation']->remove_current_page();
-
+echo 'jeep';
+exit;  
   require 'includes/languages/' . $sLanguage . '/user_login.php';
   if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
 

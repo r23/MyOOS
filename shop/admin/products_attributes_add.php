@@ -152,7 +152,6 @@ function go_option() {
     echo $messageStack->output();
   }
 ?>
-<script language="javascript" src="includes/menu.js"></script>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
     <td></td>
