@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: login.php,v 1.3 2007/06/13 16:15:14 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -31,7 +31,7 @@ define('IMAGE_BUTTON_LOGIN', '�ertragen');
 define('SECURITYCODE', 'Sicherheitscode:');
 define('TEXT_PASSWORD_FORGOTTEN', 'Passwort vergessen?');
 
-define('TEXT_WELCOME', ' Willkommen bei OOS <br />OOS [OSIS Online Shop]!</p><p>Use a valid eMail and password to gain access to the administration console.');
+define('TEXT_WELCOME', ' Willkommen bei OOS <br />MyOOS [Shopsystem]!</p><p>Use a valid eMail and password to gain access to the administration console.');
 
 define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>ERROR:</b></font> Falscher Benutzername oder Passwort!');
 define('TEXT_FORGOTTEN_ERROR', '<font color="#ff0000"><b>FEHLER:</b></font> Vorname und Passwort sind nicht hinterlegt!');

@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: gv_send.php,v 1.3 2007/06/12 16:51:19 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -52,4 +52,4 @@ $aLang['email_gv_enter'] = ' and enter the code ';
 $aLang['email_gv_fixed_footer'] = 'If you are have problems redeeming the Gift Voucher using the automated link above, ' . "\n" . 
                                 'you can also enter the Gift Voucher code during the checkout process at our store.' . "\n\n");
 $aLang['email_gv_shop_footer'] = '';
-?>
+

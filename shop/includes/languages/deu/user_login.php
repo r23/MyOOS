@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: user_login.php,v 1.3 2007/06/12 16:36:39 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -40,4 +40,4 @@ $aLang['text_password_forgotten'] = 'Sie haben Ihr Passwort vergessen? Dann klic
 
 $aLang['text_login_error'] = '<font color="#ff0000"><b>FEHLER:</b></font> Keine &Uuml;bereinstimmung der eingebenen \'eMail-Adresse\' und/oder dem \'Passwort\'.';
 $aLang['text_visitors_cart'] = '<font color="#ff0000"><b>ACHTUNG:</b></font> Ihre Besuchereingaben werden automatisch mit Ihrem Kundenkonto verbunden. <a href="javascript:session_win(\'' . oos_href_link($aModules['main'], $aFilename['info_shopping_cart']) . '\');">[Mehr Information]</a>';
-?>
+

@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: user_customers_image.php,v 1.3 2007/06/12 16:51:19 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -37,4 +37,4 @@ $aLang['text_customers_image'] = 'Image:';
 $aLang['error_customers_image_directory_not_writeable'] = 'Error: Customer images directory is not writeable: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES . OOS_CUSTOMERS_IMAGE;
 $aLang['error_customers_image_directory_does_not_exist'] = 'Error: Customer images directory does not exist: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES . OOS_CUSTOMERS_IMAGE;
 
-?>
+

@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: account_history.php,v 1.3 2007/06/12 16:51:18 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -34,4 +34,4 @@ $aLang['text_order_cost'] = 'Order Cost:';
 $aLang['text_view_order'] = 'View Order';
 
 $aLang['text_no_purchases'] = 'You have not yet made any purchases.';
-?>
+

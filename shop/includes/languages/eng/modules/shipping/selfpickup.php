@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: selfpickup.php,v 1.3 2007/06/13 16:42:27 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -31,4 +31,4 @@ define('MODULE_SHIPPING_SELFPICKUP_SORT_ORDER_DESC', 'Sort order of display.');
 $aLang['module_shipping_selfpickup_text_title'] = 'Self Pickup';
 $aLang['module_shipping_selfpickup_text_description'] = 'Pickup By The Customer';
 $aLang['module_shipping_selfpickup_text_way'] = 'Self Pickup at our Company.';
-?>
+

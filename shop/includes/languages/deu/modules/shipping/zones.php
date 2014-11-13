@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $jd: zones.php,v '.$j.'.8 2007/04/23 '.$j.'5:37:35 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2008 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -49,4 +49,3 @@ $aLang['module_shipping_zones_text_units'] = 'kg';
 $aLang['module_shipping_zones_invalid_zone'] = 'Es ist kein Versand in dieses Land m&ouml;glich!';
 $aLang['module_shipping_zones_undefined_rate'] = 'Die Versandkosten k&ouml;nnen im Moment nicht berechnet werden.';
 
-?>

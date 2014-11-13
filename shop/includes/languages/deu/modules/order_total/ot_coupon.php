@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: ot_coupon.php,v 1.6 2008/08/29 10:25:21 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2008 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -55,4 +55,3 @@ $aLang['redeemed_min_order'] = 'f&uuml;r Waren &uuml;ber ';
 $aLang['redeemed_restrictions'] = ' [Artikel / Kategorie Einschr&auml;nkungen]';
 $aLang['text_enter_coupon_code'] = 'Gutscheincode&nbsp;&nbsp;';
 
-?>

@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: deu.php,v 1.4 2009/08/17 14:22:11 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 

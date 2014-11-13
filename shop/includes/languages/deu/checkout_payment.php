@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: checkout_payment.php,v 1.3 2007/06/12 16:36:39 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -42,4 +42,4 @@ $aLang['text_continue_checkout_procedure'] = 'zur Best&auml;tigung Ihrer Bestell
 $aLang['heading_conditions_information'] = 'Allgemeine Gesch&auml;fts- und Lieferbedingungen';
 $aLang['text_conditions_confirm'] = 'Ich akzeptiere Ihre allgemeinen Gesch&auml;fts- und Lieferbedingungen';
 $aLang['text_conditions_download'] = 'AGB herunterladen';
-?>
+

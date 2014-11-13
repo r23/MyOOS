@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: info_newsfeed.php,v 1.3 2007/06/12 16:36:39 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -30,4 +30,4 @@ if ($oEvent->installed_plugin('sefu')) {
 $aLang['text_information'] .= '<br /><br /><br />
 <b>PHP Client</b><br />
 <a href="http://download.juretta.com/fase4/" target="_blank">RDF/RSS Klasse</a> Stefan Saasen';
-?>
+

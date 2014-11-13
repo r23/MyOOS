@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: account_order_history.php,v 1.3 2007/06/12 16:36:39 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -21,4 +21,4 @@ So k&ouml;nnen Sie die Einkaufsliste f&uuml;llen:<br>
 <br>
 Sie bestellen Artikel. Diese werden automatisch Ihrer Einkaufsliste hinzugef&uuml;gt.<br><br>';
 
-?>
+

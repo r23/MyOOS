@@ -2,7 +2,7 @@
 /* ----------------------------------------------------------------------
    $Id: global.php 216 2013-04-02 08:24:45Z r23 $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
    Copyright (c) 2003 - 2013 by the MyOOS Development Team.
@@ -27,7 +27,7 @@ define('DATE_TIME_FORMAT', DATE_FORMAT_LONG . ' %H:%M:%S');
 
 define('HTML_PARAMS','dir="LTR" lang="en"');
 define('CHARSET', 'iso-8859-15');
-define('INSTALLATION', 'OOS [OSIS Online Shop] Installation');
+define('INSTALLATION', 'MyOOS [Shopsystem] Installation');
 
 define('BTN_CONTINUE', 'Further');
 define('BTN_NEXT' ,'Further');
@@ -42,13 +42,13 @@ define('BTN_LOGIN_SUBMIT','Admin install');
 define('BTN_SET_LOGIN', 'Further');
 define('BTN_FINISH', 'Finish');
 
-define('GREAT', 'Welcome to OOS [OSIS Online Shop]!');
-define('GREAT_1', 'The OOS [OSIS Online Shop] is a comprehensive Internet-Shopping-Solution. This captivates by a particularly high Measure to Adaptability, Speed and high Performance. The OOS [OSIS Online Shop] Standard Software is equipped with all basic functions for Online Sales, Order, Payment, Statistics and Administration. Maintenance of the Product data base can be made at any time online. Like that it is ensured that the Customers the most current Online-Offer is always presented.');
+define('GREAT', 'Welcome to MyOOS [Shopsystem]!');
+define('GREAT_1', 'The MyOOS [Shopsystem] is a comprehensive Internet-Shopping-Solution. This captivates by a particularly high Measure to Adaptability, Speed and high Performance. The MyOOS [Shopsystem] Standard Software is equipped with all basic functions for Online Sales, Order, Payment, Statistics and Administration. Maintenance of the Product data base can be made at any time online. Like that it is ensured that the Customers the most current Online-Offer is always presented.');
 define('SELECT_LANGUAGE_1', 'Select your language.');
 define('SELECT_LANGUAGE_2', 'Languages: ');
 
 define('DEFAULT_1', 'GNU/GPL License:');
-define('DEFAULT_2', 'OOS [OSIS Online Shop] is free Software.');
+define('DEFAULT_2', 'MyOOS [Shopsystem] is free Software.');
 define('DEFAULT_3', 'I Accept the GPL License');
 
 define('METHOD_1', 'To begin the installation, please choose your installation method:');
@@ -67,7 +67,7 @@ define('PHP_CHECK_11', 'magic_quotes_runtime is Off.');
 define('PHP_CHECK_12', 'no Graphic-Functions'); 
 define('PHP_CHECK_13', 'For Graphic-Functions you need the GD-Library gd-lib (recommended version 2.0 or more highly) <br />available under - <a href=\'http://www.boutell.com/gd/\' target=\'_blank\'>http://www.boutell.com/gd/</a>');
 define('PHP_CHECK_14', 'no truecolor Graphic-Functions'); 
-define('PHP_CHECK_15', 'For Graphic-Functions in OOS [OSIS Online Shop] we recommended <br />GD-Library gd-lib Version 2.0 or higher - <a href=\'http://www.boutell.com/gd/\' target=\'_blank\'>http://www.boutell.com/gd/</a>');
+define('PHP_CHECK_15', 'For Graphic-Functions in MyOOS [Shopsystem] we recommended <br />GD-Library gd-lib Version 2.0 or higher - <a href=\'http://www.boutell.com/gd/\' target=\'_blank\'>http://www.boutell.com/gd/</a>');
 define('PHP_CHECK_16', 'PHP_SELF');
 define('PHP_CHECK_17', 'The File name straight implemented Scripts, relative to the root listing of the document is not available.');
 
@@ -104,15 +104,15 @@ define('NEW_INSTALL_3', 'Note: <b>new Database</b> put on only select, if root a
 define('NEW_INSTALL_4', 'new Database put on');
 
 define('UPGRADE_1', 'Upgrade');
-define('UPGRADE_2', 'The OOS [OSIS Online Shop] Database is provided with the following Entrance data:');
+define('UPGRADE_2', 'The MyOOS [Shopsystem] Database is provided with the following Entrance data:');
 define('UPGRADE_3', 'Please select the Shop Version, which you use:');
 define('UPGRADE_INFO', 'NOTE: Before the Upgrade an in any case Data protection should be made. There is not a Guarantee for the Function of the Upgrades.');
 
-define('OOSUPGRADE_1', 'OOS [OSIS Online Shop]');
-define('OOSUPGRADE_2', 'If you use the OOS [OSIS Online Shop] 1.0.1, click please up <samp>OOS 1.0.1</samp>');
-define('OOSUPGRADE_3', 'OOS [OSIS Online Shop]');
-define('OOSUPGRADE_4', 'If you use the OOS [OSIS Online Shop] 1.0.2, click please up <samp>OOS 1.0.2</samp>');
-define('OOSUPGRADE_5', 'Its OOS [OSIS Online Shop] Version can see you in the File <samp>~/shop/includes/oos_version.php</samp>.');
+define('OOSUPGRADE_1', 'MyOOS [Shopsystem]');
+define('OOSUPGRADE_2', 'If you use the MyOOS [Shopsystem] 1.0.1, click please up <samp>OOS 1.0.1</samp>');
+define('OOSUPGRADE_3', 'MyOOS [Shopsystem]');
+define('OOSUPGRADE_4', 'If you use the MyOOS [Shopsystem] 1.0.2, click please up <samp>OOS 1.0.2</samp>');
+define('OOSUPGRADE_5', 'Its MyOOS [Shopsystem] Version can see you in the File <samp>~/shop/includes/oos_version.php</samp>.');
 
 define('MADE', ' provided.');
 define('MAKE_DB_1', 'Database could not be provided');
@@ -121,10 +121,10 @@ define('MAKE_DB_3', 'No Database provides.');
 define('MODIFY_FILE_1', 'Error: unable to open for read:');
 define('MODIFY_FILE_2', 'Error: unable to open for write:');
 define('MODIFY_FILE_3', 'Error: lines changed, did nothing');
-define('SHOW_ERROR_INFO', 'Error:</b> OOS [OSIS Online Shop] Installation could not into the \'configure.php\' File write. <br /> They can change this File with an Editor. <br />Here the information you to register should:');
+define('SHOW_ERROR_INFO', 'Error:</b> MyOOS [Shopsystem] Installation could not into the \'configure.php\' File write. <br /> They can change this File with an Editor. <br />Here the information you to register should:');
 
 define('VIRTUAL_1', 'Web Server');
-define('VIRTUAL_2', 'Specify now the Web servers environment for OOS [OSIS Online Shop].');
+define('VIRTUAL_2', 'Specify now the Web servers environment for MyOOS [Shopsystem].');
 define('VIRTUAL_3', 'SSL-Coding activate');
 define('VIRTUAL_4', 'Webserver Root Directory');
 define('VIRTUAL_5', 'Webserver Shop Directory');
@@ -152,7 +152,7 @@ define('INSTALL_REWRITE_DESC', 'Select which rules you wish to use when generati
 define('HTACCESS_ERROR', 'To check your local webserver installation, serendipity needs to be able to write the file ".htaccess". This was not possible because of permission errors. Please adjust the permissions like this: <br />&nbsp;&nbsp;%s<br />and reload this page.');
 
 define('TMP_VIRTUAL_1', 'Session Attitudes');
-define('TMP_VIRTUAL_2', 'The Support of Sessions in the OOS [OSIS Online Shop] offers the Marketing to hold certain Data during a consequence of calls of your Shop\'s. They cannot between the standard physical files Procedure and the Storage of the Session-Data into your Database select. During Storage into Your Database you cannot additionally still specify whether the Data are to be written coded into these.');
+define('TMP_VIRTUAL_2', 'The Support of Sessions in the MyOOS [Shopsystem] offers the Marketing to hold certain Data during a consequence of calls of your Shop\'s. They cannot between the standard physical files Procedure and the Storage of the Session-Data into your Database select. During Storage into Your Database you cannot additionally still specify whether the Data are to be written coded into these.');
 define('TMP_VIRTUAL_3', 'The Session in Files store - activate:');
 define('TMP_VIRTUAL_4', 'The Session into Your Database store - activate:');
 define('TMP_VIRTUAL_5', 'Session is to be written coded into the Database - to activate:');
@@ -162,11 +162,11 @@ define('TMP_CONFIG_VIRTUAL_3', 'The Session in Files are stored.');
 define('TMP_CONFIG_VIRTUAL_4', 'The Session is stored into the Database.');
 define('TMP_CONFIG_VIRTUAL_5', 'Coding of the Session-Data:');
 define('TMP_SESSION_NON_EXISTENT', 'Warning: The Directory for the Sessions does not exist: ' . session_save_path() . '. The Sessions will not Function to the Directory were provided!');
-define('TMP_SESSION_DIRECTORY_NOT_WRITEABLE', 'Warning: OOS [OSIS Online Shop] cannot write into Sessions Directory: ' . session_save_path() . '. The Sessions will not function to the correct user Authorizations were set!');
+define('TMP_SESSION_DIRECTORY_NOT_WRITEABLE', 'Warning: MyOOS [Shopsystem] cannot write into Sessions Directory: ' . session_save_path() . '. The Sessions will not function to the correct user Authorizations were set!');
 define('TMP_ADODB_DIRECTORY', 'Error: Database abstraction the Layer Directory is missing.');
 define('TMP_ADODB_DIRECTORY_NOT_WRITEABLE', 'Error: The logs file is not writeable.');
 
-define('TMP_ADODB_FILE', 'Error: The Logs File does not exist: The Database Error handling will not function in the OOS [OSIS Online Shop] to the File was provided!');
+define('TMP_ADODB_FILE', 'Error: The Logs File does not exist: The Database Error handling will not function in the MyOOS [Shopsystem] to the File was provided!');
 define('TMP_ADODB_FILE_NOT_WRITEABLE', 'Error: The logs file is not writeable.');
 
 define('YES', 'activated');
@@ -175,10 +175,10 @@ define('NO', 'deactivated');
 define('NOTMADE', ' does not provide');
 define('NOTUPDATED', '<img src="images/no.gif" alt="ERROR" border="0" align="absmiddle">  ERROR ');
 define('UPDATED', 'updated');
-define('NOW_104', 'Its OOS [OSIS Online Shop] Database was successfully updated!');
+define('NOW_104', 'Its MyOOS [Shopsystem] Database was successfully updated!');
 
 define('CONTINUE_1', 'Shop Administrator');
-define('CONTINUE_2', 'Specify now the administrator account for OOS [OSIS Online Shop]. They can configure later with the email-address and the password its OOS [OSIS Online Shop].');
+define('CONTINUE_2', 'Specify now the administrator account for MyOOS [Shopsystem]. They can configure later with the email-address and the password its MyOOS [Shopsystem].');
 define('CONTINUE_3', 'Please you control your data. A change is later no longer possible!');
 
 define('ADMIN_GENDER', 'Admin Gender');
@@ -200,12 +200,12 @@ define('ADMIN_ERROR', 'Error:');
 define('ADMIN_PASSWORD_ERROR', 'Please give You a \'Admin Password\' !');
 define('ADMIN_EMAIL_ERROR', 'Please give You a \'Admin E-Mail\' !');
 
-define('INPUT_DATA', 'Data for OOS [OSIS Online Shop] ');
+define('INPUT_DATA', 'Data for MyOOS [Shopsystem] ');
 
 define('FINISH_1', 'Thank saying');
-define('FINISH_2', 'On this occasion we would like to thank all, which contributed to the development of OOS [OSIS Online Shop]. Our special thanks are entitled to the developers of PHP. ');
-define('FINISH_3', 'They successfully installed OOS [OSIS Online Shop]. Please delete now installations Directories');
-define('FINISH_4', 'OOS [OSIS Online Shop] Admin');
+define('FINISH_2', 'On this occasion we would like to thank all, which contributed to the development of MyOOS [Shopsystem]. Our special thanks are entitled to the developers of PHP. ');
+define('FINISH_3', 'They successfully installed MyOOS [Shopsystem]. Please delete now installations Directories');
+define('FINISH_4', 'MyOOS [Shopsystem] Admin');
 
 // All entries use ISO 639-2/T
 // http://www.loc.gov/standards/iso639-2/langcodes.html
@@ -223,7 +223,7 @@ define('LANGUAGE_SLV', 'Slovenian');
 define('LANGUAGE_SPA', 'Spanish');
 define('LANGUAGE_SWE', 'Swedish');
 
-define('FOOTER', 'Diese WebSite wurde mit <a target="_blank" href="http://www.oos-shop.de/">OOS [OSIS Online Shop]</a> erstellt. <br /><a target="_blank" href="http://www.oos-shop.de/">OOS [OSIS Online Shop]</a> ist als freie Software unter der <a target="_blank" href="http://www.gnu.org/">GNU/GPL Lizenz</a> erh?tlich.');
+define('FOOTER', 'Diese WebSite wurde mit <a target="_blank" href="http://www.oos-shop.de/">MyOOS [Shopsystem]</a> erstellt. <br /><a target="_blank" href="http://www.oos-shop.de/">MyOOS [Shopsystem]</a> ist als freie Software unter der <a target="_blank" href="http://www.gnu.org/">GNU/GPL Lizenz</a> erh?tlich.');
 
 define('STEP_1', 'Welcome');
 define('STEP_2', 'License');

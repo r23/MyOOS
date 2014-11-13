@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: checkout_success.php,v 1.3 2007/06/12 16:51:19 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -35,4 +35,4 @@ $aLang['table_heading_download_date'] = 'Expiry date: ';
 $aLang['table_heading_download_count'] = ' downloads remain.';
 $aLang['heading_download'] = 'Download your products here:';
 $aLang['footer_download'] = 'You can also download your products at a later time at \'%s\'';
-?>
+

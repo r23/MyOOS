@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: checkout_confirmation.php,v 1.3 2007/06/12 16:36:39 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -40,4 +40,4 @@ $aLang['text_edit'] = 'Bearbeiten';
 
 $aLang['heading_conditions_information'] = 'Widerrufsrecht nach dem Fernabsatzgesetz';
 $aLang['heading_conditions_text'] = 'F&uuml;gen Sie hier Ihren Text zum Widerrufsrecht ein.';
-?>
+

@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: error.php,v 1.1 2007/06/13 17:33:39 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -245,7 +245,7 @@ function MM_callJS(jsStr)
 <br>
 <table border="0" width="870" cellspacing="0" cellpadding="0" align="center">
   <tr>
-    <td align="center" class="smallText"><br />Diese WebSite wurde mit <a href="http://www.oos-shop.de" target="_blank">OOS [OSIS Online Shop]</a> erstellt. <br /> <a href="http://www.oos-shop.de" target="_blank">OOS [OSIS Online Shop]</a> ist als freie Software unter der <a href="http://www.gnu.org" target="_blank">GNU/GPL Lizenz</a> erh&auml,ltlich.<br /></td>
+    <td align="center" class="smallText"><br />Diese WebSite wurde mit <a href="http://www.oos-shop.de" target="_blank">MyOOS [Shopsystem]</a> erstellt. <br /> <a href="http://www.oos-shop.de" target="_blank">MyOOS [Shopsystem]</a> ist als freie Software unter der <a href="http://www.gnu.org" target="_blank">GNU/GPL Lizenz</a> erh&auml,ltlich.<br /></td>
   </tr>
 </table>
 <p>&nbsp;</p>

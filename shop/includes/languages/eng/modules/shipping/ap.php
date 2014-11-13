@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: ap.php,v 1.3 2007/06/13 16:42:27 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -115,4 +115,4 @@ $aLang['module_shipping_ap_text_way'] = 'Dispatch to';
 $aLang['module_shipping_ap_text_units'] = 'kg';
 $aLang['module_shipping_ap_invalid_zone'] = 'Unfortunately it is not possible to dispatch into this country';
 $aLang['module_shipping_ap_undefined_rate'] = 'Forwarding expenses cannot be calculated for the moment';
-?>
+

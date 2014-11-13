@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: account_order_history.php,v 1.3 2007/06/12 16:51:18 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -22,4 +22,4 @@ This is how you can add items to your shopping list:<br>
 Every time you purchase products from our shop all items are added automatically to your shopping list.';
 
 
-?>
+

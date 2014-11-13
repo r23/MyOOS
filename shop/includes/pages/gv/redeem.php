@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: redeem.php,v 1.2 2007/12/20 21:26:33 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -116,4 +116,4 @@
   $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
   require 'includes/oos_display.php';
-?>
+

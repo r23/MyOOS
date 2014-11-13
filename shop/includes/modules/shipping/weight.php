@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: weight.php,v 1.1 2007/06/07 17:30:51 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -138,4 +138,4 @@
       return array('MODULE_SHIPPING_WEIGHT_STATUS', 'MODULE_SHIPPING_WEIGHT_HANDLING', 'MODULE_SHIPPING_WEIGHT_COST', 'MODULE_SHIPPING_WEIGHT_STEP', 'MODULE_SHIPPING_WEIGHT_TAX_CLASS', 'MODULE_SHIPPING_WEIGHT_ZONE', 'MODULE_SHIPPING_WEIGHT_SORT_ORDER');
     }
   }
-?>
+

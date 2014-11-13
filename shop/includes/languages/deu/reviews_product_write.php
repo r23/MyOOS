@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: reviews_product_write.php,v 1.3 2007/06/12 16:36:39 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -30,4 +30,4 @@ $aLang['text_no_html'] = '<small><font color="#ff0000"><b>ACHTUNG:</b></font></s
 $aLang['text_bad'] = '<small><font color="#ff0000"><b>SCHLECHT</b></font></small>';
 $aLang['text_good'] = '<small><font color="#ff0000"><b>SEHR GUT</b></font></small>';
 $aLang['error_invalid_product'] = 'Das von Ihnen gew&auml;hlte Produkt wurde nicht gefunden!';
-?>
+

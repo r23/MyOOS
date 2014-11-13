@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: deu.php,v 1.1 2007/06/12 17:11:55 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -45,4 +45,4 @@ define('OOS_SMTPHOST_DESC', '[hostname:port]  (e.g. "smtp1.example.com:25;smtp2.
 
 define('OOS_SENDMAIL_TITLE', 'Pfade zu sendmail');
 define('OOS_SENDMAIL_DESC', '/var/qmail/bin/sendmail');
-?>
+

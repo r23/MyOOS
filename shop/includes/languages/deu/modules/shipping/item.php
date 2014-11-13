@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: item.php,v 1.3 2007/08/04 04:53:51 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -40,4 +40,4 @@ define('MODULE_SHIPPING_ITEM_SORT_ORDER_DESC', 'Reihenfolge der Anzeige');
 $aLang['module_shipping_item_text_title'] = 'Versandkosten pro St&uuml;ck';
 $aLang['module_shipping_item_text_description'] = 'Versandkosten pro St&uuml;ck';
 $aLang['module_shipping_item_text_way'] = '';
-?>
+

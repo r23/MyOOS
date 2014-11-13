@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: old_contact_us.php,v 1.1 2007/06/07 16:50:51 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -64,4 +64,4 @@
 
   // display the template
   require 'includes/oos_display.php';
-?>
+

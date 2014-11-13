@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: user_logoff.php,v 1.3 2007/06/12 16:36:39 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -23,4 +23,4 @@
 $aLang['heading_title'] = 'Abmeldung';
 $aLang['navbar_title'] = 'Abmeldung';
 $aLang['text_main'] = 'Sie wurden soeben sicher abgemeldet, so dass niemand mehr Ihre Daten einsehen kann.<br /><br />Ihr Warenkorb wurde zwischengespeichert und steht Ihnen nach der n&auml;chsten Anmeldung wieder zur Verf&uuml;gung.';
-?>
+

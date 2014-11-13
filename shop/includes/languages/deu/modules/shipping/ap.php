@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: ap.php,v 1.4 2008/08/12 22:18:07 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2008 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -110,4 +110,4 @@ $aLang['module_shipping_ap_text_way'] = 'Versand nach';
 $aLang['module_shipping_ap_text_units'] = 'kg';
 $aLang['module_shipping_ap_invalid_zone'] = 'Es ist leider kein Versand in dieses Land m&ouml;glich';
 $aLang['module_shipping_ap_undefined_rate'] = 'Die Versandkosten k&ouml;nnen im Moment nicht errechnet werden';
-?>
+

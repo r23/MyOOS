@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: checkout_shipping_address.php,v 1.3 2007/06/12 16:51:19 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -41,4 +41,4 @@ $aLang['text_new_shipping_address_problem'] = 'Please check the new shipping add
 
 $aLang['title_continue_checkout_procedure'] = 'Continue Checkout Procedure';
 $aLang['text_continue_checkout_procedure'] = 'to select the preferred shipping method.';
-?>
+

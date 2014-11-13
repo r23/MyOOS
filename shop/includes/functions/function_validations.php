@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: function_validations.php,v 1.1 2007/06/12 16:49:27 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -23,7 +23,7 @@
   * validations
   * 
   * @package validations
-  * @copyright (C) 2006 by the OOS Development Team.
+  * @copyright (C) 2014 by the MyOOS Development Team..
   * @license GPL <http://www.gnu.org/licenses/gpl.html>
   * @link http://www.oos-shop.de/
   */
@@ -133,4 +133,4 @@
    return '^com$|^edu$|^net$|^org$|^gov$|^mil$|^int$|^biz$|^info$|^name$|^pro$|^aero$|^coop$|^museum$';
  }
 
-?>
+

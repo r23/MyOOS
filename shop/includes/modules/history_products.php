@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: history_products.php,v 1.2 2008/08/29 16:53:12 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2008 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -35,4 +35,3 @@
 
   $smarty->assign('products_history_block', $products_history_block);
 
-?>

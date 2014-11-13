@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: products_cross_sell.php,v 1.3 2007/06/12 16:36:39 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -29,4 +29,4 @@ $aLang['table_heading_quantity'] = 'Anzahl';
 $aLang['table_heading_price'] = 'Preis';
 $aLang['table_heading_weight'] = 'Gewicht';
 $aLang['table_heading_buy_now'] = 'Bestellen';
-?>
+

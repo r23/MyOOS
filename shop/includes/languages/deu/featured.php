@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: featured.php,v 1.3 2007/06/12 16:36:39 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -25,4 +25,4 @@ $aLang['text_no_featured_products'] = 'Produkt wurde nicht gefunden!';
 $aLang['text_date_added'] = 'Hinzugefgt am:';
 $aLang['text_manufacturer'] = 'Hersteller:';
 $aLang['text_price'] = 'Preis:';
-?>
+

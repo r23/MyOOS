@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: gv_popup_coupon_help.php,v 1.3 2007/06/12 16:54:23 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -32,4 +32,4 @@ $aLang['text_coupon_help_date'] = '<br /><br />Der Coupon ist g&uuml;ltig zwisch
 $aLang['text_coupon_help_restrict'] = '<br /><br />Produkte/Kategorie Einschr&auml;nkungen';
 $aLang['text_coupon_help_categories'] = 'Kategorie';
 $aLang['text_coupon_help_products'] = 'Produkt';
-?>
+

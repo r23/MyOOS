@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: invoice.php,v 1.3 2007/06/14 16:15:58 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -34,4 +34,4 @@ define('MODULE_PAYMENT_INVOICE_ORDER_STATUS_ID_DESC', 'Festlegung des Status fr 
 
 $aLang['module_payment_invoice_text_description'] = 'Invoice';
 $aLang['module_payment_invoice_text_title'] = 'Invoice';
-?>
+

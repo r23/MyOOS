@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: oos140.php,v 1.3 2009/01/13 21:29:21 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2009 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -198,7 +198,7 @@ $result = $db->Execute("ALTER TABLE " . $table . " ADD `block_author_www` VARCHA
 $result = $db->Execute("ALTER TABLE " . $table . " ADD `block_modules_group` VARCHAR( 32 ) DEFAULT 'block' NOT NULL AFTER `block_author_www`");
 
 $table = $prefix_table . 'block';
-$result = $db->Execute("UPDATE " . $table . " SET block_author_name = 'OOS [OSIS Online Shop]' WHERE block_author_name = ''");
+$result = $db->Execute("UPDATE " . $table . " SET block_author_name = 'MyOOS [Shopsystem]' WHERE block_author_name = ''");
 $result = $db->Execute("UPDATE " . $table . " SET block_author_www = 'http://www.oos-shop.de' WHERE block_author_www = ''");
 $result = $db->Execute("UPDATE " . $table . " SET block_modules_group = 'block' WHERE block_modules_group = ''");
 

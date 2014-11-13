@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: main_info_shopping_cart.php,v 1.3 2007/06/12 16:36:39 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -28,4 +28,4 @@ $aLang['sub_heading_text_1'] = 'Jeder Besucher unseres Online-Shops bekommt eine
 $aLang['sub_heading_text_2'] = 'Jeder angemeldete Kunde verf&uuml;gt &uuml;ber einen \'Kundenwarenkorb\' zum Einkaufen, mit dem er auch zu einem sp&auml;terem Zeitpunkt den Einkauf beenden kann. Jeder Artikel bleibt darin registriert bis der Kunde zur Kasse geht, oder die Produkte darin l&ouml;scht.';
 $aLang['sub_heading_text_3'] = 'Die Besuchereingaben werden automatisch bei der Registrierung als Kunde in den Kundenwarenkorb &uuml;bernommen.';
 $aLang['text_close_window'] = '<b><u>[Fenster schliessen]</b></u>';
-?>
+

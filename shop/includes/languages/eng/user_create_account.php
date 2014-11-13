@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: user_create_account.php,v 1.3 2007/06/12 16:51:19 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -23,4 +23,4 @@
 $aLang['navbar_title'] = 'Create an Account';
 $aLang['heading_title'] = 'My Account Information';
 $aLang['text_origin_login'] = '<font color="#FF0000"><small><b>NOTE:</b></font></small> If you already have an account with us, please login at the <a href="%s"><u>login page</u></a>.';
-?>
+

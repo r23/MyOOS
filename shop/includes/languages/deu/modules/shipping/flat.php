@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: flat.php,v 1.4 2007/10/26 22:47:37 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -37,4 +37,4 @@ define('MODULE_SHIPPING_FLAT_SORT_ORDER_DESC', 'Reihenfolge der Anzeige');
 $aLang['module_shipping_flat_text_title'] = 'Pauschale Versandkosten';
 $aLang['module_shipping_flat_text_description'] = 'Pauschale Versandkosten';
 $aLang['module_shipping_flat_text_way'] = '';
-?>
+

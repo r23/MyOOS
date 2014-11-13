@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: account_address_book_process.php,v 1.3 2007/06/12 16:51:18 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -26,4 +26,4 @@ $aLang['navbar_title_add_entry'] = 'New Entry';
 $aLang['navbar_title_modify_entry'] = 'Modify Entry';
 $aLang['heading_title_add_entry'] = 'New Address Book Entry';
 $aLang['heading_title_modify_entry'] = 'Address Book Entry';
-?>
+

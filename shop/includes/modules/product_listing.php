@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: product_listing.php,v 1.4 2008/11/12 14:49:03 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2008 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -319,4 +319,3 @@
                         'oos_page_numrows' => $listing_numrows));
   $smarty->assign('list_box_contents', $list_box_contents);
 
-?>

@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: reviews_reviews.php,v 1.3 2007/06/12 16:51:19 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -23,4 +23,4 @@
 $aLang['navbar_title'] = 'Reviews';
 $aLang['heading_title'] = 'Read What Others Are Saying';
 $aLang['text_of_5_stars'] = '%s of 5 Stars!';
-?>
+

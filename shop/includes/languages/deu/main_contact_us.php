@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: main_contact_us.php,v 1.3 2007/06/12 16:36:39 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -28,4 +28,4 @@ $aLang['email_subject'] = 'Anfrage von ' . STORE_NAME;
 $aLang['entry_name'] = 'Vollst&auml;ndiger Name:';
 $aLang['entry_email'] = 'eMail-Adresse:';
 $aLang['entry_enquiry'] = 'Anfrage:';
-?>
+

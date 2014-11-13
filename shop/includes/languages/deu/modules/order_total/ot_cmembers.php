@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: ot_cmembers.php,v 1.6 2008/10/03 15:38:16 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2008 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -45,4 +45,3 @@ $aLang['module_cmembers_description'] = 'Kundenrabatt nach Menge';
 $aLang['shipping_not_included'] = ' [Versandkosten nicht enthalten]';
 $aLang['tax_not_included'] = ' [MwSt. nicht enthalten]';
 
-?>

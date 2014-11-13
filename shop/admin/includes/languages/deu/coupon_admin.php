@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: coupon_admin.php,v 1.8 2008/01/20 12:42:14 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 

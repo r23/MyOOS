@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: ot_cod_fee.php,v 1.6 2008/08/29 10:25:21 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2008 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -78,4 +78,3 @@ $aLang['module_order_total_cod_title'] = 'Nachnahmegeb&uuml;hr';
 $aLang['module_order_total_cod_description'] = 'Nachnahmegeb&uuml;hr';
 
 
-?>

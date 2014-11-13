@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: reviews_product_info.php,v 1.3 2007/06/12 16:51:19 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -29,4 +29,4 @@ $aLang['sub_title_review'] = 'Review:';
 $aLang['sub_title_rating'] = 'Rating:';
 $aLang['text_of_5_stars'] = '%s of 5 Stars!';
 $aLang['text_click_to_enlarge'] = 'Click to enlarge';
-?>
+

@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: ot_gv.php,v 1.5 2008/08/29 10:25:21 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2008 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -52,4 +52,3 @@ $aLang['tax_not_included'] = ' [MwSt. nicht enthalten]';
 $aLang['module_order_total_gv_user_prompt'] = 'M&ouml;chten Sie mit Ihrem Gutschein-Guthaben bezahlen? ->&nbsp;';
 $aLang['text_enter_gv_code'] = 'Gutscheincode&nbsp;&nbsp;';
 
-?>

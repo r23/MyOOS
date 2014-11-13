@@ -2,11 +2,11 @@
  /* ----------------------------------------------------------------------
    $Id: function.oos_price.php,v 1.1 2007/06/08 13:34:16 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 

@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: oos_version.php,v 1.4 2008/08/15 16:28:30 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -29,7 +29,7 @@
  /**
   * Naming, version & release date
   */
-  define('OOS_NAME', 'OOS [OSIS Online Shop]');
+  define('OOS_NAME', 'MyOOS [Shopsystem]');
 
  /**
   * Additional software subname string

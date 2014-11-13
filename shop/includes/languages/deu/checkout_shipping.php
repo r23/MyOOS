@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: checkout_shipping.php,v 1.3 2007/06/12 16:54:23 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -39,4 +39,4 @@ $aLang['table_heading_campaigns'] = 'Wie wurden Sie auf uns aufmerksam?';
 
 $aLang['title_continue_checkout_procedure'] = 'Fortsetzung des Bestellvorganges';
 $aLang['text_continue_checkout_procedure'] = 'zur Auswahl der gew&uuml;nschten Zahlungsweise.';
-?>
+

@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: account_history_info.php,v 1.3 2007/06/12 16:54:22 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -50,4 +50,4 @@ $aLang['serial'] = 'SN:';
 $aLang['table_heading_download_date'] = 'herunterladen m&ouml;glich bis:';
 $aLang['table_heading_download_count'] = 'max. Anz. Downloads';
 $aLang['heading_download'] = 'Artikel herunterladen:';
-?>
+

@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: cod.php,v 1.3 2007/06/14 16:15:58 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -34,4 +34,4 @@ define('MODULE_PAYMENT_COD_ORDER_STATUS_ID_DESC', 'Set the status of orders made
 
 $aLang['module_payment_cod_text_title'] = 'Cash on Delivery';
 $aLang['module_payment_cod_text_description'] = 'Cash on Delivery';
-?>
+

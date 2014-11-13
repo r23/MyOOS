@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: cc.php,v 1.4 2008/08/25 14:28:07 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -44,4 +44,3 @@ $aLang['module_payment_cc_text_js_cc_owner'] = '* Der \'Name des Inhabers\' muss
 $aLang['module_payment_cc_text_js_cc_number'] = '* Die \'Kreditkarten-Nr.\' muss mindestens aus ' . CC_NUMBER_MIN_LENGTH . ' Zahlen bestehen.\n';
 $aLang['module_payment_cc_text_error'] = 'Fehler bei der &Uuml;berp&uuml;fung der Kreditkarte!';
 
-?>

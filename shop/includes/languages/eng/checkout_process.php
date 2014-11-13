@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: checkout_process.php,v 1.3 2007/06/12 16:51:19 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -41,4 +41,4 @@ $aLang['email_text_payment_method'] = 'Payment Method';
 
 $aLang['email_separator'] = '------------------------------------------------------';
 $aLang['text_email_via'] = 'via';
-?>
+

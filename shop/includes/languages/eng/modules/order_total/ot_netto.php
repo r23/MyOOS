@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: ot_netto.php,v 1.3 2007/06/14 16:16:10 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
   
@@ -29,4 +29,4 @@ define('MODULE_ORDER_TOTAL_NETTO_SORT_ORDER_DESC', 'Sort order of display.');
 
 $aLang['module_order_total_netto_title'] = 'net';
 $aLang['module_order_total_netto_description'] = 'net amount';
-?>
+

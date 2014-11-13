@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: user_product_notifications.php,v 1.3 2007/06/12 16:51:19 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -38,4 +38,4 @@ $aLang['text_global_product_notifications_description_enabled'] = 'If you no lon
 $aLang['text_product_notifications_list'] = 'Below is a list of products you selected to be notified on. If you wish to remove one or more products from the product notification list, please select the desired products and click on \'Remove Notifications\'.';
 
 $aLang['text_enable_global_notifications'] = 'Please send me notifications on all products';
-?>
+

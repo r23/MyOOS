@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: user_password_forgotten.php,v 1.3 2007/06/12 16:51:19 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -27,4 +27,4 @@ $aLang['text_no_email_address_found'] = '<font color="#ff0000"><b>NOTE:</b></fon
 $aLang['email_password_reminder_subject'] = STORE_NAME . ' - New Password';
 $aLang['email_password_reminder_body'] = 'A new password was requested from ' . oos_server_get_remote() . '.' . "\n\n" . 'Your new password to \'' . STORE_NAME . '\' is:' . "\n\n" . '   %s' . "\n\n";
 $aLang['text_password_sent'] = 'A New Password Has Been Sent To Your Email Address';
-?>
+

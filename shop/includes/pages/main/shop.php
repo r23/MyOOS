@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: shop.php,v 1.4 2008/07/23 13:21:51 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2008 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -588,4 +588,4 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 
   // display the template
   require 'includes/oos_display.php';
-?>
+

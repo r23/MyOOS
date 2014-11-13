@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: user_account_edit.php,v 1.3 2007/06/12 16:36:39 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -23,4 +23,4 @@
 $aLang['navbar_title_1'] = 'Ihr Konto';
 $aLang['navbar_title_2'] = 'Ihre pers&ouml;nliche Daten &auml;ndern';
 $aLang['heading_title'] = 'Ihre pers&ouml;nliche Daten &auml;ndern:';
-?>
+

@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: ot_shipping.php,v 1.6 2008/08/29 10:25:21 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2008 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -40,4 +40,3 @@ $aLang['module_order_total_shipping_description'] = 'Versandkosten einer Bestell
 $aLang['free_shipping_title'] = 'Versandkostenfrei';
 $aLang['free_shipping_description'] = 'Versandkostenfrei bei einem Bestellwert &uuml;ber %s';
 
-?>

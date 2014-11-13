@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: function_kernel.php,v 1.9 2009/01/23 06:23:43 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2008 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -24,7 +24,7 @@
   * kernel
   *
   * @package kernel
-  * @copyright (C) 2005 by the OOS Development Team.
+  * @copyright (C) 2014 by the MyOOS Development Team.
   * @license GPL <http://www.gnu.org/licenses/gpl.html>
   * @link http://www.oos-shop.de/
   */

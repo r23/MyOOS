@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: table.php,v 1.3 2007/08/04 04:53:51 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -45,4 +45,4 @@ $aLang['module_shipping_table_text_description'] = 'Tabellarische Versandkosten'
 $aLang['module_shipping_table_text_way'] = '';
 $aLang['module_shipping_table_text_weight'] = 'Gewicht';
 $aLang['module_shipping_table_text_amount'] = 'Menge';
-?>
+

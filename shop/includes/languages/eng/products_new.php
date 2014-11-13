@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: products_new.php,v 1.3 2007/06/12 16:51:19 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -26,4 +26,4 @@ $aLang['heading_title'] = 'New Products';
 $aLang['text_date_added'] = 'Date Added:';
 $aLang['text_manufacturer'] = 'Manufacturer:';
 $aLang['text_price'] = 'Price:';
-?>
+

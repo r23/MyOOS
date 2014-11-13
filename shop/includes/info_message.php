@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: info_message.php,v 1.2 2009/02/17 03:49:20 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2009 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 

@@ -1,10 +1,10 @@
 <?php
 /* ----------------------------------------------------------------------
    $Id: header.php,v 1.1 2007/06/13 16:41:18 r23 Exp $
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
    POST-NUKE Content Management System
@@ -40,7 +40,7 @@
   <tr>
     <td width="135"><img src="images/hippoos_top.png" alt="" width="135" height="86" /></td>
     <td>&nbsp;</td>
-    <td valign="middle"><h1><img src="images/arrow_green.png" alt="" width="11" height="11" align="middle" /> OOS [OSIS Online Shop]</h1></td>
+    <td valign="middle"><h1><img src="images/arrow_green.png" alt="" width="11" height="11" align="middle" /> MyOOS [Shopsystem]</h1></td>
     <td width="274" colspan="2" align="right" valign="middle"><a href="http://www.php.net/" target="_blank"><img src="images/powered_php.png" alt="" width="80" height="15" border="0" /></a><br />
       <br />
       <a href="http://www.mysql.org/" target="_blank"><img src="images/powered_mysql.png" alt="" width="93" height="15" border="0" /></a></td>

@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: ot_gv.php,v 1.3 2007/06/14 16:16:10 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -52,4 +52,4 @@ $aLang['shipping_not_included'] = ' [Shipping not included]';
 $aLang['tax_not_included'] = ' [Tax not included]';
 $aLang['module_order_total_gv_user_prompt'] = 'Tick to use Gift Voucher account balance ->&nbsp;';
 $aLang['text_enter_gv_code'] = 'Enter Redeem Code&nbsp;&nbsp;';
-?>
+

@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: fedexeu.php,v 1.2 2007/08/11 05:59:52 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -305,4 +305,4 @@
       return $keys;
     }
   }
-?>
+

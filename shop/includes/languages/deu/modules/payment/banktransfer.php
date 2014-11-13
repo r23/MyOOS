@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: banktransfer.php,v 1.5 2008/08/25 14:28:07 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -84,4 +84,3 @@ $aLang['js_bank_name'] = 'Bitte geben Sie den Namen Ihrer Bank ein!\n';
 $aLang['js_bank_number'] = 'Bitte geben Sie Ihre Kontonummer ein!\n';
 $aLang['js_bank_owner'] = 'Bitte geben Sie den Namen des Kontobesitzers ein!\n';
 
-?>

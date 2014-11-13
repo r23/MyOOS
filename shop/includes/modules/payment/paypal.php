@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: paypal.php,v 1.1 2007/06/07 17:30:51 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -125,7 +125,7 @@
                                oos_draw_hidden_field('shipping', number_format($oOrder->info['shipping_cost'] * $oCurrencies->get_value($my_currency), $oCurrencies->get_decimal_places($my_currency))) .
                                oos_draw_hidden_field('currency_code', $my_currency) .
                                oos_draw_hidden_field('rm', '2') .
-                               oos_draw_hidden_field('bn', 'OOS [OSIS Online Shop]') .
+                               oos_draw_hidden_field('bn', 'MyOOS [Shopsystem]') .
                                oos_draw_hidden_field('no_note', '1');
       $process_button_string .= '<input type="hidden" name="return" value="' . oos_href_link($aModules['checkout'], $aFilename['checkout_process'], '', 'SSL') . '" >';
       $process_button_string .= '<input type="hidden" name="cancel_return" value="' . oos_href_link($aModules['checkout'], $aFilename['checkout_payment'], '', 'SSL') . '" >';
@@ -183,4 +183,3 @@
       return array('MODULE_PAYMENT_PAYPAL_STATUS', 'MODULE_PAYMENT_PAYPAL_ID', 'MODULE_PAYMENT_PAYPAL_CURRENCY', 'MODULE_PAYMENT_PAYPAL_ZONE', 'MODULE_PAYMENT_PAYPAL_ORDER_STATUS_ID', 'MODULE_PAYMENT_PAYPAL_SORT_ORDER');
     }
   }
-?>

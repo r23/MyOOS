@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: eubanktransfer.php,v 1.4 2008/08/25 14:28:07 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -77,4 +77,3 @@ $aLang['module_payment_eu_banktransfer_email_footer'] = 'Die einfachste Zahlungs
                                                         'Die Ware wird ausgeliefert wenn der Betrag auf unserem Konto eingegangen ist.';
 
 
-?>

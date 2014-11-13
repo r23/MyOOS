@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: info_max_order.php,v 1.3 2007/06/12 16:51:19 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -26,4 +26,4 @@ $aLang['navbar_title'] = 'Maximum order';
 $aLang['heading_title'] = 'Maximum order';
 
 $aLang['text_information'] = 'You are '. $oCurrencies->format ($_SESSION['cart']->show_total() - (+$_SESSION['customer_max_order'])) .' above your ' . $oCurrencies->format($_SESSION['customer_max_order']) . ' Credit Limit. <br />Please contact our Sales Team to confirm your order.';
-?>
+

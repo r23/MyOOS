@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: redirect.php,v 1.1 2007/06/07 16:50:51 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -23,19 +23,6 @@
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
   switch ($_GET['action']) {
-    case 'banner': $bannerstable = $oostable['banners'];
-                   $sql = "SELECT banners_url
-                           FROM $bannerstable
-                           WHERE banners_id = '" . oos_db_input($_GET['goto']) . "'";
-                   $banner_result = $dbconn->Execute($sql);
-                   if ($banner_result->RecordCount()) {
-                     $banner = $banner_result->fields;
-                     oos_update_banner_click_count($_GET['goto']);
-                     oos_redirect($banner['banners_url']);
-                   } else {
-                     oos_redirect(oos_href_link($aModules['main'], $aFilename['main']));
-                   }
-                   break;
 
     case 'url':    if (isset($_GET['goto'])) {
                      oos_redirect('http://' . $_GET['goto']);
@@ -44,20 +31,6 @@
                    }
                    break;
 
-    case 'links':  require 'includes/functions/function_links.php';
-                   $linkstable = $oostable['links'];
-                   $links_sql = "SELECT links_url
-                                 FROM $linkstable
-                                 WHERE links_id = '" . intval($_GET['goto']) . "'";
-                   $links_result = $dbconn->Execute($links_sql);
-                   if ($links_result->RecordCount()) {
-                     $link = $links_result->fields;
-                     oos_update_links_click_count($_GET['goto']);
-                     oos_redirect($link['links_url']);
-                   } else {
-                     oos_redirect(oos_href_link($aModules['main'], $aFilename['main']));
-                   }
-                   break;
 
     case 'manufacturer' : if (isset($_GET['manufacturers_id'])) {
                             $manufacturers_id = intval($_GET['manufacturers_id']);
@@ -103,4 +76,4 @@
                    break;
   }
 
-?>
+

@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: gv_faq.php,v 1.3 2007/06/12 16:51:19 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -82,4 +82,4 @@ validated and added to your Gift Voucher account. You Can then use the amount to
   by email at '. STORE_OWNER_EMAIL_ADDRESS . '. Please make sure you give 
   as much information as possible in the email. ';
 
-?>
+

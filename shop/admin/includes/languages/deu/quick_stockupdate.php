@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: quick_stockupdate.php,v 1.3 2007/06/13 16:15:14 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2006 by the OOS Development Team
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -24,4 +24,3 @@ define('TEXT_TAX_INFO', ' ex VAT:');
 
 define('TEXT_INFO_UPDATE_STATUS', 'Check to set status on each individual product based on items in stock<br><i>( one or more in stock will become <font color="009933"><b>active</b></font> / zero in stock will become <font color="ff0000"><b>not active</b></font> )</i><p>');
 
-?>

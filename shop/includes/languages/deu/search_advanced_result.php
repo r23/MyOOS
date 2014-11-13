@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: search_advanced_result.php,v 1.3 2007/06/12 16:36:39 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -37,4 +37,4 @@ $aLang['text_no_products2'] = '<br /><span style="font-size:11px;">Ihre Suche - 
 $aLang['text_buy'] = '1 x \'';
 $aLang['text_now'] = '\' bestellen';
 $aLang['text_replacement_suggestion'] = 'Sie k�nen auch die folgenden Suchbegriffe verwenden: ';
-?>
+

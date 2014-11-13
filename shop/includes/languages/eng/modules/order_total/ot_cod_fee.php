@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: ot_cod_fee.php,v 1.5 2007/10/29 18:21:06 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -74,4 +74,4 @@ define('MODULE_ORDER_TOTAL_COD_TAX_CLASS_DESC', 'Use the following tax class on 
 $aLang['module_order_total_cod_title'] = 'Cash on Delivery Fee';
 $aLang['module_order_total_cod_description'] = 'Cash on Delivery Fee';
 
-?>
+

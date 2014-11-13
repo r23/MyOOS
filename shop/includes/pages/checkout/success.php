@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: success.php,v 1.3 2009/09/08 01:14:34 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2009 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -147,4 +147,4 @@ if ( is_session_started() === FALSE ) oos_session_start();
 
   // display the template
   require 'includes/oos_display.php';
-?>
+

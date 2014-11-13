@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: ot_tax.php,v 1.7 2008/08/29 10:25:21 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2008 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -30,4 +30,3 @@ $aLang['module_order_total_tax_description'] = 'Mehrwertsteuer';
 $aLang['module_order_total_included_tax'] = 'enthaltene ';
 $aLang['module_order_total_ex_tax'] = '+ ';
 
-?>

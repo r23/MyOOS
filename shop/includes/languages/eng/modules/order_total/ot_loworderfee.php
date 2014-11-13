@@ -2,11 +2,11 @@
 /* ----------------------------------------------------------------------
    $Id: ot_loworderfee.php,v 1.3 2007/06/14 16:16:10 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -44,4 +44,4 @@ define('MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS_DESC', 'Use the following tax c
 
 $aLang['module_order_total_loworderfee_title'] = 'Low Order Fee';
 $aLang['module_order_total_loworderfee_description'] = 'Low Order Fee';
-?>
+

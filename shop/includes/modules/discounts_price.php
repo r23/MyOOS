@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: discounts_price.php,v 1.2 2008/08/29 16:53:12 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2008 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -84,4 +84,3 @@
                         'td4' => $td4,
                         'td5' => $td5));
 
-?>

@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: deu.php,v 1.1 2007/06/13 15:41:56 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -21,4 +21,4 @@ define('MAX_DISPLAY_NEW_REVIEWS_DESC', 'H&ouml;chstanzahl der neuen anzuzeigende
 
 define('MAX_RANDOM_SELECT_REVIEWS_TITLE', 'Zuf&auml;llige Produktbewertungen');
 define('MAX_RANDOM_SELECT_REVIEWS_DESC', 'Die Menge der Produktbewertungen, aus denen per Zufall eine Produktbewertungen angezeigt wird');
-?>
+

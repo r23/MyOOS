@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: zones.php,v 1.4 2008/08/12 16:30:14 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2008 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -47,4 +47,4 @@ $aLang['module_shipping_zones_text_way'] = 'Shipping to';
 $aLang['module_shipping_zones_text_units'] = 'lb(s)';
 $aLang['module_shipping_zones_invalid_zone'] = 'No shipping available to the selected country';
 $aLang['module_shipping_zones_undefined_rate'] = 'The shipping rate cannot be determined at this time';
-?>
+

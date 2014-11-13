@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: user_create_account_process.php,v 1.3 2007/06/12 16:36:39 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -95,4 +95,3 @@ $aLang['owner_email_newsletter_yes'] = 'abonniert';
 $aLang['owner_email_newsletter_no'] = 'nicht abonniert';
 $aLang['email_separator'] = '------------------------------------------------------';
 
-?>

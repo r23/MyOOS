@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: popup_coupon_help.php,v 1.3 2008/01/20 14:37:53 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2007 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -149,4 +149,4 @@
 
   // display the template
   $smarty->display($aOption['popup_help'], $help_cache_id);
-?>
+

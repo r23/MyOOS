@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: cash.php,v 1.5 2008/08/25 14:28:07 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -57,4 +57,3 @@ define('MODULE_PAYMENT_CASH_ORDER_STATUS_ID_DESC', 'Bestellungen, welche mit die
 $aLang['module_payment_cash_text_description'] = 'Barzahlung';
 $aLang['module_payment_cash_text_title'] = 'Barzahlung';
 
-?>

@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: oos_nice_exit.php,v 1.2 2007/11/21 00:42:05 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2006 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 

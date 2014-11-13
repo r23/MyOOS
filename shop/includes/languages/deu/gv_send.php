@@ -2,10 +2,10 @@
 /* ----------------------------------------------------------------------
    $Id: gv_send.php,v 1.4 2008/06/04 14:41:38 r23 Exp $
 
-   OOS [OSIS Online Shop]
+   MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2008 by the OOS Development Team.
+   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -50,4 +50,4 @@ $aLang['email_gv_enter'] = ' und den Gutscheincode eingeben ';
 $aLang['email_gv_fixed_footer'] = 'Falls Sie Probleme haben den Gutschein mit dem automatisierten Link zu benutzen, ' . "\n" . 
                                 'können Sie den Gutscheincode auch bei der Bestellung eingeben, wenn Sie diese an der Kasse beenden.' . "\n\n";
 $aLang['email_gv_shop_footer'] = '';
-?>
+
