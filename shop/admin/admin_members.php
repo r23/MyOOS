@@ -143,7 +143,7 @@
 
       case 'group_edit':
         $admin_groups_name = ucwords(strtolower(oos_db_prepare_input($_POST['admin_groups_name'])));
-        $name_replace = ereg_replace (" ", "%", $admin_groups_name);
+        $name_replace = preg_replace ("/ /", "%", $admin_groups_name);
 
         if (($admin_groups_name == '' || NULL) || (strlen($admin_groups_name) <= 5) ) {
           oos_redirect_admin(oos_href_link_admin($aFilename['admin_members'], 'gID=' . $_GET[gID] . '&gName=false&action=action=edit_group'));
@@ -167,7 +167,7 @@
 
       case 'group_new':
         $admin_groups_name = ucwords(strtolower(oos_db_prepare_input($_POST['admin_groups_name'])));
-        $name_replace = ereg_replace (" ", "%", $admin_groups_name);
+        $name_replace = preg_replace ("/ /", "%", $admin_groups_name);
 
         if (($admin_groups_name == '' || NULL) || (strlen($admin_groups_name) <= 5) ) {
           oos_redirect_admin(oos_href_link_admin($aFilename['admin_members'], 'gID=' . $_GET[gID] . '&gName=false&action=new_group'));

@@ -9,8 +9,8 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: ot_cmembers.php,v 1.1 2003/01/08 10:53:04 elarifr 
-         ot_lev_members.php,v 1.0 2002/04/08 01:13:43 hpdl 
+   File: ot_cmembers.php,v 1.1 2003/01/08 10:53:04 elarifr
+         ot_lev_members.php,v 1.0 2002/04/08 01:13:43 hpdl
    ----------------------------------------------------------------------
    Customers_status v3.x / Catalog part
    Copyright elari@free.fr
@@ -26,7 +26,7 @@
    ---------------------------------------------------------------------- */
 
   class ot_cmembers {
-    var $title, $output, $enabled = false;
+    var $title, $output, $enabled = FALSE;
 
     function ot_cmembers() {
       global $aLang;
@@ -34,7 +34,7 @@
       $this->code = 'ot_cmembers';
       $this->title = $aLang['module_cmembers_title'];
       $this->description = $aLang['module_cmembers_description'];
-      $this->enabled = (defined('MODULE_CMEMBERS_STATUS') && (MODULE_CMEMBERS_STATUS == 'true') ? true : false);
+      $this->enabled = (defined('MODULE_CMEMBERS_STATUS') && (MODULE_CMEMBERS_STATUS == 'true') ? TRUE : FALSE);
       $this->sort_order = (defined('MODULE_CMEMBERS_SORT_ORDER') ? MODULE_CMEMBERS_SORT_ORDER : null);
       $this->include_shipping = (defined('MODULE_CMEMBERS_INC_SHIPPING') ? MODULE_CMEMBERS_INC_SHIPPING : null);
       $this->include_tax = (defined('MODULE_CMEMBERS_INC_TAX') ? MODULE_CMEMBERS_INC_TAX : null);
@@ -102,7 +102,7 @@
       $gv_result = $dbconn->GetRow($query);
 
 
-      if (ereg('^GIFT', addslashes($gv_result['products_model']))) {
+      if (preg_match('/^GIFT/', addslashes($gv_result['products_model']))) {
         $qty = $_SESSION['cart']->get_quantity($t_prid);
         $products_tax = oos_get_tax_rate($gv_result['products_tax_class_id']);
         if ($this->include_tax =='false') {
@@ -157,4 +157,4 @@
       $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");
     }
   }
-?>
+

@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: advanced_search_result.php,v 1.67 2003/02/13 04:23:22 hpdl 
+   File: advanced_search_result.php,v 1.67 2003/02/13 04:23:22 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -37,7 +37,7 @@
 
     $pw_keywords = explode(' ',stripslashes(strtolower($_GET['keywords'])));
     $pw_boldwords = $pw_keywords;
-    $sql = "SELECT sws_word, sws_replacement 
+    $sql = "SELECT sws_word, sws_replacement
             FROM " . $oostable['searchword_swap'];
     $sql_words = $dbconn->Execute($sql);
     $pw_replacement = '';
@@ -219,11 +219,11 @@
     }
 
     $select_str = "SELECT DISTINCT " . $select_column_list . " m.manufacturers_id, p.products_id, pd.products_name,
-                          p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, 
+                          p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4,
                           p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty,
                           p.products_discount4_qty, p.products_tax_class_id, p.products_units_id, p.products_quantity_order_min,
                           p.products_price, p.products_price_list, p.products_base_price, p.products_base_unit, p.products_discount_allowed,
-                          IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price, 
+                          IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
                           IF(s.status, s.specials_new_products_price, p.products_price) AS final_price ";
 
     if ( ($_SESSION['member']->group['show_price_tax'] == 1) && ( (isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($_GET['pto']) && oos_is_not_null($_GET['pto']))) ) {
@@ -239,7 +239,7 @@
         $_SESSION['customer_country_id'] = STORE_COUNTRY;
         $_SESSION['customer_zone_id'] = STORE_ZONE;
       }
-      $from_str .= " LEFT JOIN 
+      $from_str .= " LEFT JOIN
                         " . $oostable['tax_rates'] . " tr
                      ON p.products_tax_class_id = tr.tax_class_id LEFT JOIN
                         " . $oostable['zones_to_geo_zones'] . " gz
@@ -266,7 +266,7 @@
       if ($_GET['inc_subcat'] == '1') {
         $subcategories_array = array();
         oos_get_subcategories($subcategories_array, $_GET['categories_id']);
-        $where_str .= " AND 
+        $where_str .= " AND
                            p2c.products_id = p.products_id AND
                            p2c.products_id = pd.products_id AND
                            (p2c.categories_id = '" . intval($_GET['categories_id']) . "'";
@@ -301,8 +301,8 @@
               break;
 
             default:
-              $where_str .= "   (pd.products_name LIKE '%" . addslashes($search_keywords[$i]) . "%' 
-                              OR p.products_model LIKE '%" . addslashes($search_keywords[$i]) . "%' 
+              $where_str .= "   (pd.products_name LIKE '%" . addslashes($search_keywords[$i]) . "%'
+                              OR p.products_model LIKE '%" . addslashes($search_keywords[$i]) . "%'
                               OR p.products_ean LIKE '%" . addslashes($search_keywords[$i]) . "%'
                               OR m.manufacturers_name LIKE '%" . addslashes($search_keywords[$i]) . "%'";
               if (isset($_GET['search_in_description']) && ($_GET['search_in_description'] == '1')) $where_str .= " OR pd.products_description LIKE '%" . addslashes($search_keywords[$i]) . "%'";

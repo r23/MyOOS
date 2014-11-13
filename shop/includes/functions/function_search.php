@@ -65,7 +65,7 @@
     $sSearch = trim(strtolower($sSearch));
 
     // Break up $sSearch on whitespace; quoted string will be reconstructed later
-    $pieces = explode('[[:space:]]+', $sSearch);
+    $pieces = preg_split('/[[:space:]]+/', $sSearch);
     $objects = array();
     $tmpstring = '';
     $flag = '';
@@ -108,7 +108,7 @@
 */
 
         // Add this word to the $tmpstring, starting the $tmpstring
-        $tmpstring = trim(ereg_replace('"', ' ', $pieces[$k]));
+        $tmpstring = trim(preg_match('/"/', ' ', $pieces[$k]));
 
         // Check for one possible exception to the rule. That there is a single quoted word.
         if (substr($pieces[$k], -1 ) == '"') {
@@ -159,7 +159,9 @@
             $piece onto the tail of the string, push the $tmpstring onto the $haves,
             kill the $tmpstring, turn the $flag "off", and return.
 */
-            $tmpstring .= ' ' . trim(ereg_replace('"', ' ', $pieces[$k]));
+            $sTmp = preg_replace('/"/', ' ', $pieces[$k]);
+            $tmpstring .= ' ' . trim($sTmp);
+
 
              // Push the $tmpstring onto the array of stuff to search for
             $objects[] = trim($tmpstring);
@@ -210,9 +212,9 @@
     }
 
     if ( ($operator_count < $keyword_count) && ($balance == 0) ) {
-      return true;
+      return TRUE;
     } else {
-      return false;
+      return FALSE;
     }
   }
 
@@ -235,13 +237,13 @@
     $format_string = strtolower($format_string);
 
     if (strlen($date_to_check) != strlen($format_string)) {
-      return false;
+      return FALSE;
     }
 
     $size = count($separators);
     for ($i=0; $i<$size; $i++) {
       $pos_separator = strpos($date_to_check, $separators[$i]);
-      if ($pos_separator != false) {
+      if ($pos_separator != FALSE) {
         $date_separator_idx = $i;
         break;
       }
@@ -249,25 +251,25 @@
 
     for ($i=0; $i<$size; $i++) {
       $pos_separator = strpos($format_string, $separators[$i]);
-      if ($pos_separator != false) {
+      if ($pos_separator != FALSE) {
         $format_separator_idx = $i;
         break;
       }
     }
 
     if ($date_separator_idx != $format_separator_idx) {
-      return false;
+      return FALSE;
     }
 
     if ($date_separator_idx != -1) {
       $format_string_array = explode( $separators[$date_separator_idx], $format_string );
       if (count($format_string_array) != 3) {
-        return false;
+        return FALSE;
       }
 
       $date_to_check_array = explode( $separators[$date_separator_idx], $date_to_check );
       if (count($date_to_check_array) != 3) {
-        return false;
+        return FALSE;
       }
 
       $size = count($format_string_array);
@@ -279,7 +281,7 @@
     } else {
       if (strlen($format_string) == 8 || strlen($format_string) == 9) {
         $pos_month = strpos($format_string, 'mmm');
-        if ($pos_month != false) {
+        if ($pos_month != FALSE) {
           $month = substr( $date_to_check, $pos_month, 3 );
           $size = count($month_abbr);
           for ($i=0; $i<$size; $i++) {
@@ -292,7 +294,7 @@
           $month = substr($date_to_check, strpos($format_string, 'mm'), 2);
         }
       } else {
-        return false;
+        return FALSE;
       }
 
       $day = substr($date_to_check, strpos($format_string, 'dd'), 2);
@@ -300,19 +302,19 @@
     }
 
     if (strlen($year) != 4) {
-      return false;
+      return FALSE;
     }
 
     if (!settype($year, 'integer') || !settype($month, 'integer') || !settype($day, 'integer')) {
-      return false;
+      return FALSE;
     }
 
     if ($month > 12 || $month < 1) {
-      return false;
+      return FALSE;
     }
 
     if ($day < 1) {
-      return false;
+      return FALSE;
     }
 
     if (oos_is_leap_year($year)) {
@@ -320,12 +322,12 @@
     }
 
     if ($day > $no_of_days[$month - 1]) {
-      return false;
+      return FALSE;
     }
 
     $date_array = array($year, $month, $day);
 
-    return true;
+    return TRUE;
   }
 
 
@@ -337,12 +339,12 @@
   */
   function oos_is_leap_year($year) {
     if ($year % 100 == 0) {
-      if ($year % 400 == 0) return true;
+      if ($year % 400 == 0) return TRUE;
     } else {
-      if (($year % 4) == 0) return true;
+      if (($year % 4) == 0) return TRUE;
     }
 
-    return false;
+    return FALSE;
   }
 
-?>
+

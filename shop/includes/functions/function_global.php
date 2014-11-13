@@ -38,7 +38,7 @@
   * @return string
   */
   function oos_date_long($raw_date) {
-    if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return false;
+    if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return FALSE;
 
     $year = intval(substr($raw_date, 0, 4));
     $month = intval(substr($raw_date, 5, 2));
@@ -59,7 +59,7 @@
   * @return string
   */
   function oos_date_short($raw_date) {
-    if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return false;
+    if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return FALSE;
 
     $year = substr($raw_date, 0, 4);
     $month = intval(substr($raw_date, 5, 2));
@@ -71,7 +71,7 @@
     if (@date('Y', mktime($hour, $minute, $second, $month, $day, $year)) == $year) {
       return date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, $year));
     } else {
-      return ereg_replace('2037' . '$', $year, date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, 2037)));
+      return preg_match('/2037' . '$/', $year, date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, 2037)));
     }
   }
 
@@ -101,7 +101,7 @@
     if (is_numeric($pieces[0])) {
       return $pieces[0];
     } else {
-      return false;
+      return FALSE;
     }
   }
 
@@ -109,15 +109,15 @@
   function oos_is_not_null($value) {
     if (is_array($value)) {
       if (sizeof($value) > 0) {
-        return true;
+        return TRUE;
       } else {
-        return false;
+        return FALSE;
       }
     } else {
       if (($value != '') && (strtolower($value) != 'null') && (strlen(trim($value)) > 0)) {
-        return true;
+        return TRUE;
       } else {
-        return false;
+        return FALSE;
       }
     }
   }
@@ -126,15 +126,15 @@
   function oos_empty($value) {
     if (is_array($value)) {
       if (sizeof($value) > 0) {
-        return false;
+        return FALSE;
       } else {
-        return true;
+        return TRUE;
       }
     } else {
       if ((strtolower($value) != 'null') && (strlen(trim($value)) > 0)) {
-        return false;
+        return FALSE;
       } else {
-        return true;
+        return TRUE;
       }
     }
   }
@@ -152,7 +152,7 @@
 
     if (!isset($seeded)) {
       mt_srand((double)microtime()*1000000);
-      $seeded = true;
+      $seeded = TRUE;
     }
 
     if (isset($min) && isset($max)) {
@@ -167,7 +167,7 @@
   }
 
   function oos_create_random_value($length, $type = 'mixed') {
-    if ( ($type != 'mixed') && ($type != 'chars') && ($type != 'digits')) return false;
+    if ( ($type != 'mixed') && ($type != 'chars') && ($type != 'digits')) return FALSE;
 
     $rand_value = '';
     while (strlen($rand_value) < $length) {
@@ -188,4 +188,3 @@
     return $rand_value;
   }
 
-?>

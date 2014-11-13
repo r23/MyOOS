@@ -116,7 +116,7 @@
                     AND p.products_id = pm.slave_id AND
                       pm.master_id = '" . intval($nProductsId) . "'";
 
-  if ( (!isset($_GET['sort'])) || (!ereg('[1-8][ad]', $_GET['sort'])) || (substr($_GET['sort'], 0, 1) > count($column_list)) ) {
+  if ( (!isset($_GET['sort'])) || (!preg_match('/[1-8][ad]/', $_GET['sort'])) || (substr($_GET['sort'], 0, 1) > count($column_list)) ) {
     for ($col=0, $n=count($column_list); $col<$n; $col++) {
       if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
         $_GET['sort'] = $col+1 . 'a';
@@ -168,9 +168,8 @@
   $aOption['slavery_products'] = $sTheme . '/products/slavery_product_listing.html';
   $aOption['slavery_page_navigation'] = $sTheme . '/heading/page_navigation.html';
 
-  include 'includes/modules/slavery_listing.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/modules/slavery_listing.php';
 
   $smarty->assign('slavery_products', $smarty->fetch($aOption['slavery_products']));
   $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
 
-?>

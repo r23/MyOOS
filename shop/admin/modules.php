@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: modules.php,v 1.44 2002/11/22 18:58:29 dgw_ 
+   File: modules.php,v 1.44 2002/11/22 18:58:29 dgw_
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -84,7 +84,7 @@
     }
   }
   $no_js_general = true;
-  require 'includes/oos_header.php'; 
+  require 'includes/oos_header.php';
 ?>
 <!-- body //-->
 <table border="0" width="100%" cellspacing="2" cellpadding="2">
@@ -115,8 +115,8 @@
 <?php
   $file_extension = substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
   $directory_array = array();
-  if ($dir = @dir($module_directory)) {
-    while ($file = $dir->read()) {
+  if ($oDir = @dir($module_directory)) {
+    while ($file = $oDir->read()) {
       if (!is_dir($module_directory . $file)) {
         if (substr($file, strrpos($file, '.')) == $file_extension) {
           $directory_array[] = $file;
@@ -124,7 +124,7 @@
       }
     }
     sort($directory_array);
-    $dir->close();
+    $oDir->close();
   }
 
   $installed_modules = array();
@@ -182,12 +182,12 @@
                 <td class="dataTableContent"><?php echo $module->title; ?></td>
                 <td class="dataTableContent" align="right"><?php if (is_numeric($module->sort_order)) echo $module->sort_order; ?></td>
                 <td class="dataTableContent" align="right">
-<?php 
-  if ($module->check() > 0) { 
-    echo '<a href="' . oos_href_link_admin($aFilename['modules'], 'set=' . $_GET['set'] . '&module=' . $class . '&action=remove') . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>'; 
-  } else { 
-    echo '<a href="' . oos_href_link_admin($aFilename['modules'], 'set=' . $_GET['set'] . '&module=' . $class . '&action=install') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>'; 
-  } 
+<?php
+  if ($module->check() > 0) {
+    echo '<a href="' . oos_href_link_admin($aFilename['modules'], 'set=' . $_GET['set'] . '&module=' . $class . '&action=remove') . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+  } else {
+    echo '<a href="' . oos_href_link_admin($aFilename['modules'], 'set=' . $_GET['set'] . '&module=' . $class . '&action=install') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
+  }
 ?></td>
                 <td class="dataTableContent" align="right"><?php if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . oos_href_link_admin($aFilename['modules'], 'set=' . $_GET['set'] . '&module=' . $class) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
@@ -250,7 +250,7 @@
           $keys .= '<b>' . $value['title'] . '</b><br />';
           if ($value['use_function']) {
             $use_function = $value['use_function'];
-            if (ereg('->', $use_function)) {
+            if (preg_match('/->/', $use_function)) {
               $class_method = explode('->', $use_function);
               if (!is_object(${$class_method[0]})) {
                 include 'includes/classes/class_'. $class_method[0] . '.php';

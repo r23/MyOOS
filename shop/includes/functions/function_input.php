@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   Id: pnAPI.php,v 1.41 2003/07/12 21:44:40 markwest Exp 
+   Id: pnAPI.php,v 1.41 2003/07/12 21:44:40 markwest Exp
    ----------------------------------------------------------------------
    PostNuke Content Management System
    Copyright (C) 2001 by the Post-Nuke Development Team.
@@ -68,20 +68,20 @@
     if (count($_GET) > 0) {
       foreach ($_GET as $secvalue) {
         if (!is_array($secvalue)) {
-          if ((eregi("<[^>]*script*\"?[^>]*>", $secvalue)) ||
-            (eregi(".*[[:space:]](or|and)[[:space:]].*(=|like).*", $secvalue)) ||
-            (eregi("<[^>]*object*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*iframe*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*applet*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*meta*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*style*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*form*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*window.*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*alert*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*img*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*document.*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*cookie*\"?[^>]*>", $secvalue)) ||
-            (eregi("\"", $secvalue))
+          if ((preg_match("/<[^>]*script*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/.*[[:space:]](or|and)[[:space:]].*(=|like).*/i", $secvalue)) ||
+            (preg_match("/<[^>]*object*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*iframe*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*applet*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*meta*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*style*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*form*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*window.*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*alert*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*img*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*document.*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*cookie*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/\"/i", $secvalue))
             ) {
               oos_redirect(oos_href_link($aModules['main'], $aFilename['main']));
           }
@@ -96,15 +96,15 @@
     if (count($_POST) > 0) {
       foreach ($_POST as $secvalue) {
         if (!is_array($secvalue)) {
-          if ((eregi("<[^>]*script*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*object*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*iframe*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*applet*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*window.*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*alert*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*document.*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*cookie*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*meta*\"?[^>]*>", $secvalue))
+          if ((preg_match("/<[^>]*script*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*object*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*iframe*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*applet*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*window.*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*alert*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*document.*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*cookie*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*meta*\"?[^>]*>/i", $secvalue))
             ) {
                oos_redirect(oos_href_link($aModules['main'], $aFilename['main']));
           }
@@ -119,26 +119,25 @@
     if (count($_COOKIE) > 0) {
       foreach ($_COOKIE as $secvalue) {
         if (!is_array($secvalue)) {
-          if ((eregi("<[^>]*script*\"?[^>]*>", $secvalue)) ||
-            (eregi(".*[[:space:]](or|and)[[:space:]].*(=|like).*", $secvalue)) ||
-            (eregi("<[^>]*object*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*iframe*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*applet*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*meta*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*style*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*form*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*window.*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*alert*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*document.*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*cookie*\"?[^>]*>", $secvalue)) ||
-            (eregi("<[^>]*img*\"?[^>]*>", $secvalue))
+          if ((preg_match("/<[^>]*script*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/.*[[:space:]](or|and)[[:space:]].*(=|like).*/i", $secvalue)) ||
+            (preg_match("/<[^>]*object*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*iframe*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*applet*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*meta*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*style*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*form*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*window.*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*alert*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*document.*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*cookie*\"?[^>]*>/i", $secvalue)) ||
+            (preg_match("/<[^>]*img*\"?[^>]*>/i", $secvalue))
             ) {
                oos_redirect(oos_href_link($aModules['main'], $aFilename['main']));
           }
         }
       }
     }
-  } 
+  }
 
 
-?>
