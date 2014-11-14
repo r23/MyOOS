@@ -22,7 +22,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account.php';
 
 // start the session
 if ( is_session_started() === FALSE ) oos_session_start();    
@@ -45,10 +45,10 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $aOption['page_heading'] = $sTheme . '/heading/page_heading.html';
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
-    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
   $read = 'false';
   $smarty->assign('read', $read); 
@@ -83,4 +83,4 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
   // display the template
-  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';

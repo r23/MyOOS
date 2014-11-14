@@ -54,7 +54,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/admin_login.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/admin_login.php';
 
   if (isset($_SESSION['customer_id'])) {
     unset($_SESSION['customer_id']);
@@ -159,10 +159,10 @@
 
   $nPageType = OOS_PAGE_TYPE_SERVICE;
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
-    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
 
@@ -180,7 +180,7 @@
   $smarty->assign('popup_window', 'popup_window.js');
 
   if (isset($_GET['action']) && ($_GET['action'] == 'login_admin')) {
-    include_once MYOOS_INCLUDE_PATH . '/includes/modules/key_generate.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/modules/key_generate.php';
     $manual_infotable = $oostable['manual_info'];
     $login_query = "SELECT man_key2, man_key3, status FROM $manual_infotable WHERE man_key = '" . oos_db_input($verif_key) . "' AND status = '1'";
     $login_result_values = $dbconn->GetRow($login_query);
@@ -198,5 +198,5 @@
   $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
   // display the template
-  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
 

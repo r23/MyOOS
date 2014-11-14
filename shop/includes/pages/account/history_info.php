@@ -35,8 +35,8 @@ if ( is_session_started() === FALSE ) oos_session_start();
     oos_redirect(oos_href_link($aModules['account'], $aFilename['account_history'], '', 'SSL'));
   }
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_history_info.php';
-  include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_history_info.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 
   $orderstable = $oostable['orders'];
   $sql = "SELECT customers_id
@@ -53,7 +53,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aModules['account'], $aFilename['account_history'], '', 'SSL'));
   $oBreadcrumb->add($aLang['navbar_title_3'], oos_href_link($aModules['account'], $aFilename['account_history_info'], 'order_id=' . $_GET['order_id'], 'SSL'));
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
   $oOrder = new order($_GET['order_id']);
 
   $aOption['template_main'] = $sTheme . '/modules/account_history_info.html';
@@ -65,10 +65,10 @@ if ( is_session_started() === FALSE ) oos_session_start();
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
-    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
 // assign Smarty variables;
@@ -95,7 +95,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $smarty->assign('statuses_array', $dbconn->GetAll($sql));
 
   if (DOWNLOAD_ENABLED == 'true') {
-    include_once MYOOS_INCLUDE_PATH . '/includes/modules/downloads.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/modules/downloads.php';
     $smarty->assign('download', $smarty->fetch($aOption['download']));
   }
 
@@ -103,4 +103,4 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
   // display the template
-  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';

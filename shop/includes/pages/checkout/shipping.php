@@ -24,9 +24,9 @@
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
   
-  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_shipping.php';
-  include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
-  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_http_client.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_shipping.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_http_client.php';
 
 // start the session
 if ( is_session_started() === FALSE ) oos_session_start();  
@@ -70,7 +70,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
     }
   }
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
   $oOrder = new order;
 
 // register a random ID in the session to check throughout the checkout procedure
@@ -89,7 +89,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $total_count = $_SESSION['cart']->count_contents();
 
 // load all enabled shipping modules
-  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
   $shipping_modules = new shipping;
 
   if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
@@ -111,7 +111,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
     if ( ($pass == TRUE) && ($oOrder->info['subtotal'] >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
       $free_shipping = TRUE;
 
-      include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/ot_shipping.php';
+      require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/ot_shipping.php';
     }
   } else {
     $free_shipping = FALSE;
@@ -184,10 +184,10 @@ if ( is_session_started() === FALSE ) oos_session_start();
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
-    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
   $campaignstable = $oostable['campaigns'];
@@ -235,5 +235,5 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $smarty->assign('contents', $smarty->fetch($aOption['template_main'])); 
 
   // display the template
-  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
 

@@ -10,7 +10,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being include_onced by a parent file */
+  /** ensure this file is being require_onced by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
   if (!defined('OOS_BASE_PRICE')) {
@@ -24,7 +24,7 @@
   $aOption['popup_print'] = $sTheme . '/products/popup_print.html';
 
   //smarty
-  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
   $oSmarty = new Template;
 
   /**
@@ -41,7 +41,7 @@
   $popup_cache_id = $sTheme . '|products|' . $sGroup . '|print|' . $nProductsId . '|' . $sLanguage;
 
   if (!$smarty->isCached($aOption['popup_print'], $popup_cache_id )) {
-    include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_info.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_info.php';
 
     $productstable = $oostable['products'];
     $products_descriptiontable = $oostable['products_description'];

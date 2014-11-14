@@ -31,7 +31,7 @@
     oos_redirect(oos_href_link($aModules['user'], $aFilename['login'], '', 'SSL'));
   }
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_redeem.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_redeem.php';
 
   $bError = TRUE;
 // check for a voucher number in the url
@@ -95,10 +95,10 @@
 
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
-    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
   // assign Smarty variables;
@@ -115,5 +115,5 @@
   $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
   $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
 

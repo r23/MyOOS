@@ -30,8 +30,8 @@
 // start the session
 if ( is_session_started() === FALSE ) oos_session_start();  
   
-  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account_process.php';
-  include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account_process.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
 
   $firstname = oos_db_prepare_input($_POST['firstname']);
   $lastname = oos_db_prepare_input($_POST['lastname']);
@@ -234,10 +234,10 @@ if ( is_session_started() === FALSE ) oos_session_start();
     $aOption['page_heading'] = $sTheme . '/heading/page_heading.html';
     $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
-    include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
     if (!isset($option)) {
-      include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
-      include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+      require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+      require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
     }
 
     // assign Smarty variables;
@@ -325,7 +325,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
     $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
     // display the template
-    include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
   } else {
     $customer_max_order = DEFAULT_MAX_ORDER;
     $customers_status = DEFAULT_CUSTOMERS_STATUS_ID;

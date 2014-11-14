@@ -31,8 +31,8 @@
     oos_redirect(oos_href_link($aModules['user'], $aFilename['account_edit'], '', 'SSL'));
   }
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_account_edit_process.php';
-  include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_account_edit_process.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
 
   $firstname = oos_db_prepare_input($_POST['firstname']);
   $lastname = oos_db_prepare_input($_POST['lastname']);
@@ -225,10 +225,10 @@
 
     $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
-    include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
     if (!isset($option)) {
-      include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
-      include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+      require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+      require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
     }
 
     $smarty->assign('oos_js', $javascript); 
@@ -315,7 +315,7 @@
     $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
     $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
-    include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
   } else {
     $new_encrypted_password = oos_encrypt_password($password);
     $sql_data_array = array('customers_firstname' => $firstname,

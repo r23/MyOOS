@@ -1,14 +1,10 @@
-# $Id: robots.txt,v 1.2 2008/10/03 15:38:16 r23 Exp $
 User-agent: *
 Disallow: /admin/
-Disallow: /administrator/
 Disallow: /download/
-Disallow: /images/
 Disallow: /includes/
 Disallow: /js/
 Disallow: /media/
 Disallow: /pub/
-Disallow: /swf/
 Disallow: /themes/
 Disallow: /*OOSSID
 Disallow: /*OOSADMINSID

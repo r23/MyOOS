@@ -40,7 +40,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
     oos_redirect(oos_href_link($aModules['main'], $aFilename['main']));
   }
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/reviews_product_write.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/reviews_product_write.php';
 
   $productstable = $oostable['products'];
   $products_descriptiontable = $oostable['products_description'];
@@ -100,7 +100,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
       oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $email_subject, nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
 
 // clear cache
-      include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
+      require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
       $oSmarty =& new Template;
 
       $sLocaleDir = $smarty->template_dir;
@@ -157,10 +157,10 @@ if ( is_session_started() === FALSE ) oos_session_start();
 
   $nPageType = OOS_PAGE_TYPE_REVIEWS;
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
-    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
   $smarty->assign(
@@ -181,4 +181,4 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
   // display the template
-  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';

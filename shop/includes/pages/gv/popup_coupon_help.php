@@ -19,7 +19,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_popup_coupon_help.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_popup_coupon_help.php';
 
   $text_coupon_help = $aLang['text_coupon_help_header'];
 
@@ -129,7 +129,7 @@
   $aOption['popup_help'] = $sTheme . '/system/popup_help.html';
 
   //smarty
-  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
   $oSmarty = new Template;
 
   $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);

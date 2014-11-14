@@ -22,8 +22,8 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/search_advanced_result.php';
-  include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_search.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/search_advanced_result.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_search.php';
 
   // Search enhancement mod start
   if (isset($_GET['keywords']) && $_GET['keywords'] != '') {
@@ -396,10 +396,10 @@
 
     $nPageType = OOS_PAGE_TYPE_CATALOG;
 
-    include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
     if (!isset($option)) {
-      include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
-      include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+      require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+      require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
     }
 
     // assign Smarty variables;
@@ -411,7 +411,7 @@
         )
     );
 
-    include_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
 
     $smarty->assign('pw_mispell', $pw_mispell);
     $smarty->assign('pw_string', $pw_string);
@@ -422,6 +422,6 @@
     $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
     // display the template
-    include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
   }
 

@@ -23,8 +23,8 @@
   /** ensure this file is being required by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/main_shop.php';
-  include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/main_shop.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
 
 // the following cPath references come from oos_main.php
   $category_depth = 'top';
@@ -64,10 +64,10 @@
     $sGroup = trim($_SESSION['member']->group['text']);
     $contents_cache_id = $sTheme . '|shop|nested|' . intval($nCurrentCategoryId) . '|' . $cPath . '|' . $sGroup . '|' . $sLanguage;
 
-    include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
     if (!isset($option)) {
-      include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
-      include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+      require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+      require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
     }
 
 if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
@@ -166,7 +166,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
       $categories_result->Close();
 
       $new_products_category_id = $nCurrentCategoryId;
-      include_once MYOOS_INCLUDE_PATH . '/includes/modules/new_products.php';
+      require_once MYOOS_INCLUDE_PATH . '/includes/modules/new_products.php';
 
       // assign Smarty variables;
       if ( (ALLOW_CATEGORY_DESCRIPTIONS == 'true') && (oos_is_not_null($category['categories_heading_title'])) ) {
@@ -199,10 +199,10 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
     $sGroup = trim($_SESSION['member']->group['text']);
     $contents_cache_id = $sTheme . '|shop|products|' . intval($nCurrentCategoryId) . '|' . $cPath . '|' . $nManufacturersID . '|' . $nPage . '|' . $nFilterID . '|' . $sGroup . '|' . $sLanguage;
 
-    include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
     if (!isset($option)) {
-      include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
-      include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+      require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+      require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
     }
 
     // index_products_heading.html
@@ -574,7 +574,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
       );
 
       if ( (isset($_GET['manufacturers_id'])) ||  (oos_total_products_in_category($nCurrentCategoryId) >= 1) ) {
-        include_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
+        require_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
       }
     }
     $smarty->assign('oosPageNavigation', $smarty->fetch($aOption['page_navigation'], $contents_cache_id));
@@ -587,5 +587,5 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
   }
 
   // display the template
-  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
 

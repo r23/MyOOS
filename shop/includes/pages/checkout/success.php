@@ -31,7 +31,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
     oos_redirect(oos_href_link($aModules['main'], $aFilename['main_shopping_cart']));
   }
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_success.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_success.php';
 
   if (isset($_GET['action']) && ($_GET['action'] == 'update')) {
     if (isset($_POST['notify']) && !empty($_POST['notify'])) {
@@ -100,10 +100,10 @@ if ( is_session_started() === FALSE ) oos_session_start();
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
-    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
   //ICW ADDED FOR ORDER_TOTAL CREDIT SYSTEM - Start Addition
@@ -146,5 +146,5 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
   // display the template
-  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
 

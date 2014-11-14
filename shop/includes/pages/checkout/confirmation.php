@@ -23,8 +23,8 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_confirmation.php';
-  include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_confirmation.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 
 // start the session
 if ( is_session_started() === FALSE ) oos_session_start();  
@@ -74,14 +74,14 @@ if ( is_session_started() === FALSE ) oos_session_start();
 
 
 // load the selected payment module
-  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_payment.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_payment.php';
 
   if ($credit_covers) $_SESSION['payment'] = ''; 
 
   $payment_modules = new payment($_SESSION['payment']);
-  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order_total.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order_total.php';
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
   $oOrder = new order;
 
   if ( (isset($_SESSION['shipping'])) && ($_SESSION['shipping']['id'] == 'free_free')) {
@@ -109,7 +109,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
   }
 
 // load the selected shipping module
-  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
   $shipping_modules = new shipping($_SESSION['shipping']);
 
 
@@ -136,10 +136,10 @@ if ( is_session_started() === FALSE ) oos_session_start();
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
-    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
   // assign Smarty variables;
@@ -181,5 +181,5 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
   // display the template
-  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
 
