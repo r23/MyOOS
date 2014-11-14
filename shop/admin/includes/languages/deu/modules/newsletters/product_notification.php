@@ -31,4 +31,4 @@ define('BUTTON_SELECT', '>>>');
 define('BUTTON_UNSELECT', '<<<');
 define('BUTTON_SUBMIT', 'Weiter');
 define('BUTTON_CANCEL', 'Abbrechen');
-?>
+

@@ -92,4 +92,3 @@ define('COUPON_USES_COUPON_HELP', 'Wie oft kann der Gutschein benutzt werden? So
 define('COUPON_USES_USER_HELP', 'Wie oft kann ein Kunde den Gutschein benutzen? Soll die Anzahl unlimitiert m&ouml;glich sein, lassen Sie das Feld leer.');
 define('COUPON_PRODUCTS_HELP', 'Ein Liste von erlaubten Produkt-IDs (mit Komma getrennt). Lassen Sie dieses Feld leer, falls Sie keine Beschr&auml;nkungen machen wollen.');
 define('COUPON_CATEGORIES_HELP', 'Eine Liste von erlaubten Kategorien (mit Komma getrennt). Lassen Sie dieses Feld leer, falls Sie keine Beschr&auml;nkungen machen wollen.');
-?>

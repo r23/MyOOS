@@ -44,13 +44,13 @@
       }
     }
 
-    function format($number, $calculate_currency_value = true, $currency_type = '', $currency_value = '') {
+    function format($number, $calculate_currency_value = TRUE, $currency_type = '', $currency_value = '') {
 
-      if (empty($currency_type) || ($this->exists($currency_type) == false)) {
+      if (empty($currency_type) || ($this->exists($currency_type) == FALSE)) {
         $currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
       }
 
-      if ($calculate_currency_value == true) {
+      if ($calculate_currency_value == TRUE) {
         $rate = (oos_is_not_null($currency_value)) ? $currency_value : $this->currencies[$currency_type]['value'];
         $format_string = $this->currencies[$currency_type]['symbol_left'] . number_format($number * $rate, $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$currency_type]['thousands_point']) . ' ' . $this->currencies[$currency_type]['symbol_right'];
       } else {
@@ -66,7 +66,7 @@
         return true;
       }
 
-      return false;
+      return FALSE;
     }
 
     function get_value($code) {
@@ -101,4 +101,4 @@
       return $show_what_price;
     }
   }
-?>
+

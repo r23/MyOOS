@@ -23,7 +23,7 @@
     oos_redirect(oos_href_link($aModules['main'], $aFilename['main']));
   }
 
-  require 'includes/languages/' . $sLanguage . '/info_down_for_maintenance.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/info_down_for_maintenance.php';
 
   $aOption['template_main'] = $sTheme . '/system/info.html';
   $aOption['page_heading'] = $sTheme . '/heading/page_heading.html';
@@ -31,10 +31,10 @@
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
   $contents_cache_id = $sTheme . '|down_for_maintenance|' . $sLanguage;
 
-  require 'includes/oos_system.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    require 'includes/info_message.php';
-    require 'includes/oos_blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
 if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
@@ -60,5 +60,5 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
   $smarty->setCaching(false);
 
   // display the template
-  require 'includes/oos_display.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
 

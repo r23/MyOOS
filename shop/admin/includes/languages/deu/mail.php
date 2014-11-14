@@ -34,4 +34,4 @@ define('ERROR_NO_CUSTOMER_SELECTED', 'Fehler: Es wurde kein Kunde ausgew&auml;hl
 
 define('TEXT_FROM_NAME', 'Absender Name:');
 define('TEXT_FROM_MAIL', 'Absender eMail:');
-?>
+

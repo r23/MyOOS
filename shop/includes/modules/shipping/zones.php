@@ -102,7 +102,7 @@
    ---------------------------------------------------------------------- */
 
   class zones {
-    var $code, $title, $description, $num_zones, $enabled = false;
+    var $code, $title, $description, $num_zones, $enabled = FALSE;
 
 // class constructor
     function zones() {
@@ -128,7 +128,7 @@
 
       $dest_country = $oOrder->delivery['country']['iso_code_2'];
       $dest_zone = 0;
-      $error = false;
+      $error = FALSE;
 
       for ($i=1; $i<=$this->num_zones; $i++) {
         $countries_table = constant('MODULE_SHIPPING_ZONES_COUNTRIES_' . $i);
@@ -140,7 +140,7 @@
       }
 
       if ($dest_zone == 0) {
-        $error = true;
+        $error = TRUE;
       } else {
         $shipping = -1;
         $zones_cost = constant('MODULE_SHIPPING_ZONES_COST_' . $dest_zone);
@@ -175,7 +175,7 @@
 
       if (oos_is_not_null($this->icon)) $this->quotes['icon'] = oos_image($this->icon, $this->title);
 
-      if ($error == true) $this->quotes['error'] = $aLang['module_shipping_zones_invalid_zone'];
+      if ($error == TRUE) $this->quotes['error'] = $aLang['module_shipping_zones_invalid_zone'];
 
       return $this->quotes;
     }

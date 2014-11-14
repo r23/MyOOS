@@ -1,32 +1,19 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
-<html {$smarty.const.HTML_PARAMS}>
-<HEAD>
-<meta http-equiv="content-type" content="text/html; charset={$smarty.const.CHARSET}">
+<!DOCTYPE html>
+<html lang="de">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <title>{$pagetitle}</title>
 <meta name="description" content="{$meta_description}">
-
-<meta name="page-topic" content="{$smarty.const.OOS_META_PAGE_TOPIC}">
-<meta name="audience" content="{$smarty.const.OOS_META_AUDIENCE}">
 <meta name="author" content="{$smarty.const.OOS_META_AUTHOR}">
 <meta name="copyright" content="Copyright (c) {$smarty.now|date_format:"%Y"} by {$smarty.const.OOS_META_COPYRIGHT}">
-<meta name="page-type" content="{$smarty.const.OOS_META_PAGE_TYPE}">
-
-<meta name="publisher" content="{$smarty.const.OOS_META_PUBLISHER}">
-<meta name="robots" content="{$smarty.const.OOS_META_ROBOTS}">
-<meta http-equiv="expires" content="{$smarty.const.OOS_META_EXPIRES}">
-<meta http-equiv="pragma" content="{$smarty.const.OOS_META_PAGE_PRAGMA}">
-
+<meta name="robots" content="noodp,noydir">
 <meta name="Language" content="{$smarty.session.languages_name}">
-<meta name="revisit-after" content="{$smarty.const.OOS_META_REVISIT_AFTER}">
 <meta name="Content-Language" content="{$smarty.session.iso_639_1}">
-
 <meta name="resource-type" content="document">
 <meta name="creation" content="{$smarty.now|date_format:"%a,%d %b %Y"}">
 <meta name="revision" content="{$oos_revision_date}">
 <meta name="distribution" content="Global">
-
-
 <!--
  *	DO NOT REMOVE THE FOLLOWING - FAILURE TO COMPLY IS A DIRECT VIOLATION
  *	OF THE GNU GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
@@ -37,15 +24,13 @@
 -->
 <meta name="rating" content="General">
 <base href="{$oos_base}">
-
 <link rel="shortcut icon" href="{$oos_base}favicon.ico" type="image/x-icon">
 <link rel="stylesheet" type="text/css" href="{$theme_css}/style.css">
 <link rel="stylesheet" type="text/css" href="{$theme_css}/stylesheet.css">
 
 <link rel="top" type="text/html" href="{$oos_base}">
-<link rel="author" href="mailto:{$smarty.const.STORE_OWNER_EMAIL_ADDRESS}">
-<link rel="contents" type="text/html" href="{html_href_link modul=$modules.info file=$filename.info_sitemap}">
-<link rel="search" type="text/html" href="{html_href_link modul=$modules.search file=$filename.advanced_search}">
+<link rel="contents" type="text/html" href="{html_href_link modul=$modules.info file=$filename.info_sitemap connection='NONSSL' add_session_id='false' search_engine_safe='false'}">
+<link rel="search" type="text/html" href="{html_href_link modul=$modules.search file=$filename.advanced_search connection='NONSSL' add_session_id='false' search_engine_safe='false'}">
 <link rel="bookmark" type="text/html" href="{html_href_link modul=$main_page file=$page_file oos_get=$get_params connection='NONSSL' add_session_id='false' search_engine_safe='false'}">
 
 {literal}
@@ -158,8 +143,8 @@ function popupZoom(url) {
 		-->
 
 <div class="footer" align="center">
-<div align="center" class="smallText">Copyright &copy; 2003 - {$smarty.now|date_format:"%Y"} <a href="{$smarty.const.OOS_HOME}" target="_blank">MyOOS [Shopsystem]</a>.  All rights reserved.</div>
-<div align="center" class="smallText"><a href="{$smarty.const.OOS_HOME}" target="_blank">MyOOS [Shopsystem]</a> is Free Software released under the <a href="http://www.gnu.org" target="_blank">GNU/GPL License.</a></div>
+<div align="center" class="smallText">Copyright &copy; 2003 - {$smarty.now|date_format:"%Y"} <a href="http://www.oos-shop.de" target="_blank">MyOOS [Shopsystem]</a>.  All rights reserved.</div>
+<div align="center" class="smallText"><a href="http://www.oos-shop.de" target="_blank">MyOOS [Shopsystem]</a> is Free Software released under the <a href="http://www.gnu.org" target="_blank">GNU/GPL License.</a></div>
 </div>
 
 

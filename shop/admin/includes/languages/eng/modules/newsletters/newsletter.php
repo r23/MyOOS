@@ -22,4 +22,4 @@
 
 
 define('TEXT_COUNT_CUSTOMERS', 'Customers receiving newsletter: %s');
-?>
+

@@ -44,7 +44,7 @@ function smarty_function_oos_display_price($params, &$smarty)
    $price = '';
    $tax = '';
    $qty = '';
-   $calculate_currency_value = true;
+   $calculate_currency_value = TRUE;
    $currency = '';
    $currency_value = '';
    

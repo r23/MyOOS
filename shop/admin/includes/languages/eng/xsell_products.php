@@ -44,4 +44,4 @@ define('TABLE_HEADING_PRODUCT_SORT', 'Sort Order');
 define('TEXT_IMAGE_NONEXISTENT', 'No Image');
 define('TEXT_CROSS_SELL', 'Cross-Sell');
 
-?>
+

@@ -34,4 +34,4 @@ define('TEXT_INFO_HEADING_DELETE_PRODUCTS_UNITS', 'Delete packing unit');
 
 define('ERROR_REMOVE_DEFAULT_ORDER_STATUS', 'Error: The default packing unit can not be removed. Please set another packing unit as default, and try again.');
 define('ERROR_STATUS_USED_IN_PRODUCTS', 'Error: This packing unit is currently used in products.');
-?>
+

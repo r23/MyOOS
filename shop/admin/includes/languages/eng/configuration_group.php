@@ -92,4 +92,3 @@ define('30_DESC', 'Slave Listing configuration options');
 
 define('31_TITLE', 'Recover Cart Sales');
 define('31_DESC', 'Recover Cart Sales (RCS) Configuration Values');
-?>

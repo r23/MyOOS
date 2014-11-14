@@ -37,7 +37,7 @@
 
     function restore_contents() {
 
-      if (!isset($_SESSION['customer_id'])) return false;
+      if (!isset($_SESSION['customer_id'])) return FALSE;
 
       // insert current cart contents in database
       if (is_array($this->contents)) {
@@ -160,18 +160,18 @@
       $this->cleanup();
     }
 
-    function reset($reset_database = false) {
+    function reset($reset_database = FALSE) {
 
       $this->contents = array();
       $this->total = 0;
       $this->weight = 0;
-      $this->content_type = false;
+      $this->content_type = FALSE;
 
       // Get database information
       $dbconn =& oosDBGetConn();
       $oostable =& oosDBGetTables();
 
-      if (isset($_SESSION['customer_id']) && ($reset_database == true)) {
+      if (isset($_SESSION['customer_id']) && ($reset_database == TRUE)) {
         $customers_baskettable = $oostable['customers_basket'];
         $dbconn->Execute("DELETE FROM $customers_baskettable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'");
         $customers_basket_attributestable = $oostable['customers_basket_attributes'];
@@ -183,7 +183,7 @@
     }
 
 
-    function add_cart($products_id, $nQuantity = '1', $attributes = '', $notify = true, $towlid = '') {
+    function add_cart($products_id, $nQuantity = '1', $attributes = '', $notify = TRUE, $towlid = '') {
 
       // Get database information
       $dbconn =& oosDBGetConn();
@@ -212,7 +212,7 @@
           }
 
 
-          if ($notify == true) {
+          if ($notify == TRUE) {
             $_SESSION['new_products_id_in_cart'] = $sProductsId;
           }
 
@@ -419,7 +419,7 @@
       if (isset($this->contents[$products_id])) {
         return true;
       } else {
-        return false;
+        return FALSE;
       }
     }
 
@@ -495,7 +495,7 @@
         $product_result = $dbconn->Execute($product_sql);
         if ($product = $product_result->fields) {
           $no_count = 1;
-          if (ereg('^GIFT', $product['products_model'])) {
+          if (preg_match('/^GIFT/', $product['products_model'])) {
             $no_count = 0;
           }
 
@@ -510,7 +510,7 @@
           $products_price = $products_price*(100-$max_product_discount)/100;
 
           $products_weight = $product['products_weight'];
-          $bSpezialPrice = false;
+          $bSpezialPrice = FALSE;
 
           $specialstable = $oostable['specials'];
           $sql = "SELECT specials_new_products_price
@@ -521,7 +521,7 @@
           if ($specials_result->RecordCount()) {
             $specials = $specials_result->fields;
             $products_price = $specials['specials_new_products_price'];
-            $bSpezialPrice = true;
+            $bSpezialPrice = TRUE;
           }
 
           $this->total_virtual +=  oos_add_tax($products_price, $products_tax) * $nQuantity * $no_count;
@@ -543,7 +543,7 @@
             $attribute_price = $dbconn->GetRow($sql);
 
             $sAttributesPrice = $attribute_price['options_values_price'];
-            if ($bSpezialPrice === false) {
+            if ($bSpezialPrice === FALSE) {
               $sAttributesPrice = $sAttributesPrice*(100-$max_product_discount)/100;
             }
 
@@ -606,7 +606,7 @@
 
     function get_products() {
 
-      if (!is_array($this->contents)) return false;
+      if (!is_array($this->contents)) return FALSE;
 
       // Get database information
       $dbconn =& oosDBGetConn();
@@ -709,7 +709,7 @@
 
     function get_content_type() {
 
-      $this->content_type = false;
+      $this->content_type = FALSE;
 
       // Get database information
       $dbconn =& oosDBGetConn();
@@ -835,15 +835,15 @@
       if (is_array($this->contents)) {
         reset($this->contents);
         while (list($products_id, ) = each($this->contents)) {
-          $no_count = false;
+          $no_count = FALSE;
           $productstable = $oostable['products'];
           $sql = "SELECT products_model
                   FROM $productstable
                   WHERE products_id = '" . intval($products_id) . "'";
           $gv_result  = $dbconn->GetRow($sql);
 
-          if (ereg('^GIFT', $gv_result['products_model'])) {
-            $no_count = true;
+		  if (preg_match('/^GIFT/', $gv_result['products_model'])) {
+            $no_count = TRUE;
           }
           if (NO_COUNT_ZERO_WEIGHT == 1) {
             $productstable = $oostable['products'];
@@ -853,7 +853,7 @@
             $gv_result  = $dbconn->GetRow($sql);
 
             if ($gv_result['products_weight']<=MINIMUM_WEIGHT) {
-              $no_count = true;
+              $no_count = TRUE;
             }
           }
           if (!$no_count) $total_items += $this->get_quantity($products_id);
@@ -863,4 +863,3 @@
     }
   }
 
-?>

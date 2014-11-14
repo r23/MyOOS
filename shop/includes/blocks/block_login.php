@@ -33,7 +33,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  if ($oEvent->installed_plugin('down_for_maintenance')) return false;
+  if ($oEvent->installed_plugin('down_for_maintenance')) return FALSE;
 
   $login_block = 'false';
   if ( ($sFile != $aFilename['login']) && ($sFile != $aFilename['create_account'])) {

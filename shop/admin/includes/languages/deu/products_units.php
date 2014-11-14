@@ -34,4 +34,4 @@ define('TEXT_INFO_HEADING_DELETE_PRODUCTS_UNITS', 'Verpackungseinheit l&ouml;sch
 
 define('ERROR_REMOVE_DEFAULT_PRODUCTS_UNITS', 'Fehler: Die Standard-Verpackungseinheit kann nicht gel&ouml;scht werden. Bitte definieren Sie einen neuen Standard-Verpackungseinheit und wiederholen Sie den Vorgang.');
 define('ERROR_STATUS_USED_IN_PRODUCTS', 'Fehler: Diese Verpackungseinheit wird zur Zeit noch bei den Produkten verwendet.');
-?>
+

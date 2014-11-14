@@ -27,4 +27,4 @@ define('TEXT_INFO_LOCATION', 'Die Spiderseite wurde erfolgreich in ');
 define('TEXT_LOCATION', OOS_ABSOLUTE_PATH . 'spider.html');
 define('TEXT_SAVED', ' erstellt.');
 
-?>
+

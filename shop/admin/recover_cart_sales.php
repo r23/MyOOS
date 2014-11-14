@@ -52,7 +52,7 @@
     if (@date('Y', mktime(0, 0, 0, $month, $day, $year)) == $year) {
       return date(DATE_FORMAT, mktime(0, 0, 0, $month, $day, $year));
     } else {
-      return ereg_replace('2037' . '$', $year, date(DATE_FORMAT, mktime(0, 0, 0, $month, $day, 2037)));
+      return preg_replace ('/2037' . '$/', $year, date(DATE_FORMAT, mktime(0, 0, 0, $month, $day, 2037)));
     }
 
   }

@@ -22,7 +22,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  if (!$oEvent->installed_plugin('reviews')) return false;
+  if (!$oEvent->installed_plugin('reviews')) return FALSE;
 
   if ($sFile != $aFilename['product_reviews_write']) {
     $reviews_block = 'true';

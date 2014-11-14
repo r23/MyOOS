@@ -70,7 +70,7 @@ function smarty_function_customers_image($params, &$smarty)
 
 
     if ((empty($image) || ($image == $basedir)) && (IMAGE_REQUIRED == 'false')) {
-        return false;
+        return FALSE;
     }
 
     if ((empty($image) || ($image == $basedir)) && (IMAGE_REQUIRED == 'true')) {
@@ -99,7 +99,7 @@ function smarty_function_customers_image($params, &$smarty)
         $width = $image_size[0];
         $height = $image_size[1];
       } else {
-        return false;
+        return FALSE;
       }
     }
 

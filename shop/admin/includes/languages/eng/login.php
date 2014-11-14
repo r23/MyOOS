@@ -38,4 +38,4 @@ define('TEXT_FORGOTTEN_SUCCESS', 'The new password have sent to your email addre
 
 define('ADMIN_EMAIL_SUBJECT', 'New Password'); 
 define('ADMIN_EMAIL_TEXT', 'Hi %s,' . "\n\n" . 'You can access the admin panel with the following password. Once you access the admin, please change your password!' . "\n\n" . 'Website : %s' . "\n" . 'Username: %s' . "\n" . 'Password: %s' . "\n\n" . 'Thanks!' . "\n" . '%s' . "\n\n" . 'This is an automated response, please do not reply!'); 
-?>
+

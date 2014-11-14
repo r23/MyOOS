@@ -39,7 +39,7 @@
 
       $this->name          = PLUGIN_EVENT_SEFU_NAME;
       $this->description   = PLUGIN_EVENT_SEFU_DESC;
-      $this->uninstallable = true;
+      $this->uninstallable = TRUE;
       $this->preceeds      = 'session';
       $this->author        = 'OOS Development Team';
       $this->version       = '1.0';
@@ -52,7 +52,7 @@
     }
 
     function create_plugin_instance() {
-      include 'includes/classes/class_url_rewrite.php';
+      include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_url_rewrite.php';
 
       if (isset($_GET['rewrite'])) {
         $sUrl = oos_server_get_var('QUERY_STRING');
@@ -152,7 +152,7 @@
       $template = 'htaccess' . $htaccess_cgi . '_rewrite.tpl';
 
       if (!($a = file(OOS_TEMP_PATH . 'htaccess/' . $template, 1))) {
-        return false;
+        return FALSE;
       }
 
       $content = str_replace(
@@ -174,7 +174,7 @@
                 );
       $fp = @fopen(OOS_ABSOLUTE_PATH . '.htaccess', 'w');
       if (!$fp) {
-        return false;
+        return FALSE;
       } else {
         // Check if an old htaccess file existed and try to preserve its contents. Otherwise completely wipe the file.
         if ($htaccess != '' && preg_match('@^(.*)#\s+BEGIN\s+OOS.*#\s+END\s+OOS(.*)$@isU', $htaccess, $match)) {
@@ -235,7 +235,7 @@
       }
 
       if (!($a = file(OOS_TEMP_PATH . 'htaccess/' . $template, 1))) {
-        return false;
+        return FALSE;
       }
 
       $content = str_replace(
@@ -257,7 +257,7 @@
                 );
       $fp = @fopen(OOS_ABSOLUTE_PATH . '.htaccess', 'w');
       if (!$fp) {
-        return false;
+        return FALSE;
       } else {
         // Check if an old htaccess file existed and try to preserve its contents. Otherwise completely wipe the file.
         if ($htaccess != '' && preg_match('@^(.*)#\s+BEGIN\s+OOS.*#\s+END\s+OOS(.*)$@isU', $htaccess, $match)) {
@@ -273,7 +273,7 @@
     }
 
     function config_item() {
-      return false;
+      return FALSE;
     }
   }
 

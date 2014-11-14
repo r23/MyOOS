@@ -40,4 +40,4 @@ define('TEXT_FORGOTTEN_SUCCESS', 'Das neue Passwort wurde an Ihre E-Mail-Adresse
 
 define('ADMIN_EMAIL_SUBJECT', 'Neues Passwort'); 
 define('ADMIN_EMAIL_TEXT', 'Hi %s,' . "\n\n" . 'Sie k�nen den redaktionellen Bereich mit folgenden Passwort betreten. Nach erfolgtem Login, �dern Sie bitte aus Sicherheitsgrnden Ihr Passwort!' . "\n\n" . 'Website : %s' . "\n" . 'Benutzername: %s' . "\n" . 'Passwort: %s' . "\n\n" . 'Danke!' . "\n" . '%s' . "\n\n" . 'Dies ist eine automatisierte Antwortmail. Bitte beantworten Sie diese nicht!'); 
-?>
+

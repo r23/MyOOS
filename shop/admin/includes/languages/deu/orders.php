@@ -115,4 +115,4 @@ define('TEXT_BANK_ERROR_5', 'Bankleitzahl nicht gefunden!');
 define('TEXT_BANK_ERROR_8', 'Keine Bankleitzahl angegeben!');
 define('TEXT_BANK_ERROR_9', 'Keine Kontonummer angegeben!');
 define('TEXT_BANK_ERRORCODE', 'Fehlercode:');
-?>
+

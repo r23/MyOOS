@@ -29,4 +29,3 @@ define('TOTAL_RECORDS', 'Examined Records:');
 define('TOTAL_SALES', 'Recovered Sales:');
 define('TOTAL_SALES_EXPLANATION', ' (Possible sales from customers who abanoned carts & were notified via RCS)');
 define('TOTAL_RECOVERED', 'Total Recovered:');
-?>

@@ -42,8 +42,8 @@
     function getKeywords()  {
       $url = oos_server_get_var('HTTP_REFERER');
 
-      if (empty ($url) || $this->ini_array === false) {
-        return false;
+      if (empty ($url) || $this->ini_array === FALSE) {
+        return FALSE;
       }
 
       $parse_url = parse_url ($url);
@@ -53,7 +53,7 @@
       parse_str ($parse_url["query"], $parse_query);
 
       if (!empty ($parse_url["host"])) {
-        $founded = false;
+        $founded = FALSE;
 
         foreach ($this->ini_array as $engine) {
           $this->_safe_set ($engine["Host"], "");
@@ -62,8 +62,8 @@
 
           $host_pos = strpos($parse_url["host"], $engine["Host"]);
 
-          if ($host_pos !== false) {
-            $founded = true;
+          if ($host_pos !== FALSE) {
+            $founded = TRUE;
             if (isset ($parse_query[$engine["QueryField"]])) {
               return urldecode ($parse_query[$engine["QueryField"]]);
             }
@@ -86,7 +86,7 @@
       $this->ini_file = 'includes/ini/engines.ini';
       $this->ini_array = @parse_ini_file ($this->ini_file, true);
 
-      if ($this->ini_array === false) {
+      if ($this->ini_array === FALSE) {
         trigger_error("referrer object creation failed", E_USER_NOTICE);
       }
       $this->global_fields = array ("q", "p", "query", "qwederr", "qs");
@@ -94,4 +94,4 @@
 
   }
 
-?>
+

@@ -81,7 +81,7 @@ function smarty_function_html_oos_image($params, &$smarty)
     $image = $basedir . $image;
 
     if ((empty($image) || ($image == OOS_IMAGES)) && (IMAGE_REQUIRED == 'false')) {
-        return false;
+        return FALSE;
     }
 
     if ( (CONFIG_CALCULATE_IMAGE_SIZE == 'true') && (empty($width) || empty($height)) ) {
@@ -97,7 +97,7 @@ function smarty_function_html_oos_image($params, &$smarty)
               $height = $image_size[1];
             }
         } elseif (IMAGE_REQUIRED == 'false') {
-            return false;
+            return FALSE;
         }
     }
 

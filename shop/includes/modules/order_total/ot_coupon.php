@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   class ot_coupon {
-    var $title, $output, $enabled = false;
+    var $title, $output, $enabled = FALSE;
 
     function ot_coupon() {
       global $aLang;
@@ -36,7 +36,7 @@
       $this->include_tax = (defined('MODULE_ORDER_TOTAL_COUPON_INC_TAX') ? MODULE_ORDER_TOTAL_COUPON_INC_TAX : null);
       $this->calculate_tax = (defined('MODULE_ORDER_TOTAL_COUPON_CALC_TAX') ? MODULE_ORDER_TOTAL_COUPON_CALC_TAX : null);
       $this->tax_class  = (defined('MODULE_ORDER_TOTAL_COUPON_TAX_CLASS') ? MODULE_ORDER_TOTAL_COUPON_TAX_CLASS : null);
-      $this->credit_class = true;
+      $this->credit_class = TRUE;
 
       $this->output = array();
 
@@ -61,7 +61,7 @@
   }
 
   function selection_test() {
-    return false;
+    return FALSE;
   }
 
 
@@ -287,12 +287,12 @@
           $productstable = $oostable['products'];
           $cc_query = $dbconn->Execute("SELECT products_tax_class_id FROM $productstable WHERE products_id = '" . (int)$t_prid . "'");
           $cc_result = $cc_query->fields;
-          $valid_product = false;
+          $valid_product = FALSE;
 
           if ($get_result['restrict_to_products']) {
             $pr_ids = explode("[,]", $get_result['restrict_to_products']);
             for ($p = 0; $p < count($pr_ids); $p++) {
-              if ($pr_ids[$p] == $t_prid) $valid_product = true;
+              if ($pr_ids[$p] == $t_prid) $valid_product = TRUE;
             }
           }
           if ($get_result['restrict_to_categories']) {
@@ -301,7 +301,7 @@
 
               $products_to_categoriestable = $oostable['products_to_categories'];
               $cat_query = $dbconn->Execute("SELECT products_id FROM $products_to_categoriestable WHERE products_id = '" . (int)$products_id . "' AND categories_id = '" . (int)$cat_ids[$i] . "'");
-              if ($cat_query->RecordCount() !=0 ) $valid_product = true;
+              if ($cat_query->RecordCount() !=0 ) $valid_product = TRUE;
             }
           }
 
@@ -392,7 +392,7 @@
   }
 
  function update_credit_account($i) {
-  return false;
+  return FALSE;
  }
 
  function apply_credit() {
@@ -430,7 +430,7 @@
       $productstable = $oostable['products'];
       $gv_query = $dbconn->Execute("SELECT products_price, products_tax_class_id, products_model FROM $productstable WHERE products_id = '" . intval($t_prid) . "'");
       $gv_result = $gv_query->fields;
-      if (ereg('^GIFT', addslashes($gv_result['products_model']))) {
+      if (preg_match('/^GIFT/', addslashes($gv_result['products_model']))) {
         $qty = $_SESSION['cart']->get_quantity($t_prid);
         $products_tax = oos_get_tax_rate($gv_result['products_tax_class_id']);
         if ($this->include_tax =='false') {
@@ -455,7 +455,7 @@
      $couponstable = $oostable['coupons'];
      $coupon_get = $dbconn->Execute("SELECT coupon_amount, coupon_minimum_order,restrict_to_products,restrict_to_categories, coupon_type FROM $couponstable WHERE coupon_code = '" . $coupon_result['coupon_code'] . "'");
      $get_result = $coupon_get->fields;
-     $in_cat = true;
+     $in_cat = TRUE;
      if ($get_result['restrict_to_categories']) {
        $cat_ids = explode("[,]", $get_result['restrict_to_categories']);
        $in_cat=false;
@@ -467,14 +467,14 @@
             $products_to_categoriestable = $oostable['products_to_categories'];
             $cat_query = $dbconn->Execute("SELECT products_id FROM $products_to_categoriestable WHERE products_id = '" . (int)$products_id . "' AND categories_id = '" . (int)$cat_ids[$i] . "'");
              if ($cat_query->RecordCount() !=0 ) {
-               $in_cat = true;
+               $in_cat = TRUE;
                $total_price += $this->get_product_price($products_id);
              }
            }
          }
        }
      }
-     $in_cart = true;
+     $in_cart = TRUE;
      if ($get_result['restrict_to_products']) {
 
        $pr_ids = explode("[,]", $get_result['restrict_to_products']);

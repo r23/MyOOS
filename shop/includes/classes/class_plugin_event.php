@@ -75,7 +75,7 @@
         }
 
         if (!class_exists($sName)) {
-          return false;
+          return FALSE;
         }
       }
 
@@ -106,4 +106,3 @@
     }
   }
 
-?>

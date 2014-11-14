@@ -111,4 +111,4 @@ define('ADDPRODUCT_TEXT_CONFIRM_QUANTITY', 'Qty.');
 define('ADDPRODUCT_TEXT_CONFIRM_ADDNOW', 'Add now');
 
 
-?>
+

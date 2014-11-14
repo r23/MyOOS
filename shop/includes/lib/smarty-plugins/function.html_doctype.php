@@ -66,19 +66,19 @@
 function smarty_function_html_doctype($params, &$smarty)
 {
   // Default values:
-  $xhtml            = true;
+  $xhtml            = TRUE;
   $type             = "Transitional";
-  $dtd              = true;
-  $omitxml          = false;
+  $dtd              = TRUE;
+  $omitxml          = FALSE;
   $encoding         = "UTF-8";
-  $sendheaders      = true;
-  $force_opera_html = false;
+  $sendheaders      = TRUE;
+  $force_opera_html = FALSE;
   
   extract($params);
   
   $type = ucfirst( strtolower($type) ); // standardise $type's case
   if (headers_sent())
-    $sendheaders = false;
+    $sendheaders = FALSE;
 
   // DOCTYPE Header  
   $header = "";
@@ -88,7 +88,7 @@ function smarty_function_html_doctype($params, &$smarty)
   {
       if (stristr($_SERVER['HTTP_USER_AGENT'],"Opera 7")||stristr($_SERVER['HTTP_USER_AGENT'],"Opera/7"))
       {
-          $xhtml = false;
+          $xhtml = FALSE;
           $version = 4.01;
       }
   }
@@ -125,7 +125,7 @@ function smarty_function_html_doctype($params, &$smarty)
     if (!isset($version) || $version > 1.1) {
       $version = "1.0";  // default version for XHMTL
 	}
-    if ($dtd === true) {
+    if ($dtd === TRUE) {
       // Add default DTD
       if ($version == "1.0" && strtolower($type) == "strict")
         $dtd = "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd";
@@ -152,7 +152,7 @@ function smarty_function_html_doctype($params, &$smarty)
     else //default
       $header .= "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML $version $type//EN\"";
 
-    if ($dtd != "" && $dtd !== false)
+    if ($dtd != "" && $dtd !== FALSE)
       $header .= " \"$dtd\"";
     $header .= ">\n";
   }
@@ -177,7 +177,7 @@ function smarty_function_html_doctype($params, &$smarty)
       elseif ($version == "4.0" || $version == "4.00")
         $version = "4.0";
       
-      if ($dtd === true) {
+      if ($dtd === TRUE) {
         // Add default DTD
         if ($version === "4.01" && (strtolower($type) == "strict" || empty($type)))
           $dtd = "http://www.w3.org/TR/html4/strict.dtd";
@@ -199,7 +199,7 @@ function smarty_function_html_doctype($params, &$smarty)
         $header .= "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML $version//EN\"";
       else
         $header .= "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML $version $type//EN\"";
-      if ($dtd != "" && $dtd !== false)
+      if ($dtd != "" && $dtd !== FALSE)
         $header .= " \"$dtd\"";
       $header .= ">\n";
     }

@@ -46,4 +46,4 @@ define('TEXT_INFO_HEADING_EDIT_LANGUAGE', 'Sprache bearbeiten');
 define('TEXT_INFO_HEADING_DELETE_LANGUAGE', 'Sprache l&ouml;schen');
 
 define('ERROR_REMOVE_DEFAULT_LANGUAGE', 'Fehler: Die Standardsprache darf nicht gel&ouml;scht werden. Bitte definieren Sie eine neue Standardsprache und wiederholen Sie den Vorgang.');
-?>
+

@@ -72,4 +72,4 @@ define('ERROR_REMOVE_DEFAULT_CUSTOMER_STATUS', 'Error: The default customer stat
 define('ERROR_STATUS_USED_IN_CUSTOMERS', 'Error: This order status is currently used in customers.');
 define('ERROR_STATUS_USED_IN_HISTORY', 'Error: This order status is currently used in the order status history.');
 
-?>
+

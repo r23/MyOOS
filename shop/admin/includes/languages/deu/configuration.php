@@ -773,4 +773,3 @@ define('RCS_AUTO_CHECK_DESC', 'To check entries which are most likely safe to em
 
 define('RCS_CARTS_MATCH_ALL_DATES_TITLE', 'Match orders from any date');
 define('RCS_CARTS_MATCH_ALL_DATES_DESC', 'If <b>true</b> then any order found with a matching item will be considered a matched order.<br><br>If <b>false</b> only orders placed after the abandoned cart are considered.');
-?>

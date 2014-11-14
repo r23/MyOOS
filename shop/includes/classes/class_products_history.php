@@ -72,7 +72,7 @@
         if (in_array ($products_id, $this->products_history)) {
           return true;
         } else {
-          return false;
+          return FALSE;
         }
       }
 
@@ -108,4 +108,4 @@
         $this->products_history = array();
       }
     }
-?>
+

@@ -25,4 +25,4 @@ define('ADMIN_EMAIL_TEXT', 'A new password was requested from ' . oos_server_get
 
 define('HEADING_PASSWORD_FORGOTTEN', 'Password Forgotten:');
 define('TEXT_PASSWORD_INFO', 'Please enter your Username and e-mail address then click on the Send Password button.<br />You will receive a new password shortly. Use this new password to access the site.');
-?>
+

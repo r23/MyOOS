@@ -56,4 +56,4 @@ define('ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE', 'Fehler: Download Link nicht akzept
 define('SUCCESS_DATABASE_SAVED', 'Erfolg: Die Datenbank wurde gesichert.');
 define('SUCCESS_DATABASE_RESTORED', 'Erfolg: Die Datenbank wurde wiederhergestellt.');
 define('SUCCESS_EXPORT_DELETED', 'Erfolg: Die Sicherungsdatei wurde gel&ouml;scht.');
-?>
+

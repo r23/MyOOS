@@ -32,7 +32,7 @@
     var $table_data_parameters = '';
 
 // class constructor
-    function tableBox($contents, $direct_output = false) {
+    function tableBox($contents, $direct_output = FALSE) {
       $tableBox_string = '<table border="' . $this->table_border . '" width="' . $this->table_width . '" cellspacing="' . $this->table_cellspacing . '" cellpadding="' . $this->table_cellpadding . '"';
       if (oos_is_not_null($this->table_parameters)) $tableBox_string .= ' ' . $this->table_parameters;
       $tableBox_string .= '>' . "\n";
@@ -78,7 +78,7 @@
 
       $tableBox_string .= '</table>' . "\n";
 
-      if ($direct_output == true) echo $tableBox_string;
+      if ($direct_output == TRUE) echo $tableBox_string;
 
       return $tableBox_string;
     }
@@ -110,22 +110,22 @@
   }
 
   class infoBoxHeading extends tableBox {
-    function infoBoxHeading($contents, $left_corner = true, $right_corner = true, $right_arrow = false) {
+    function infoBoxHeading($contents, $left_corner = TRUE, $right_corner = TRUE, $right_arrow = FALSE) {
       global $aLang;
       
       $this->table_cellpadding = '0';
 
-      if ($left_corner == true) {
+      if ($left_corner == TRUE) {
         $left_corner = oos_image(OOS_IMAGES . 'infobox/corner_left.gif');
       } else {
         $left_corner = oos_image(OOS_IMAGES . 'infobox/corner_right_left.gif');
       }
-      if ($right_arrow == true) {
+      if ($right_arrow == TRUE) {
         $right_arrow = '<a href="' . $right_arrow . '">' . oos_image(OOS_IMAGES . 'infobox/arrow_right.gif', $aLang['icon_arrow_right']) . '</a>';
       } else {
         $right_arrow = '';
       }
-      if ($right_corner == true) {
+      if ($right_corner == TRUE) {
         $right_corner = $right_arrow . oos_image(OOS_IMAGES . 'infobox/corner_right.gif');
       } else {
         $right_corner = $right_arrow;
@@ -145,7 +145,7 @@
 
 // WebMakers.com Added: Allows a footer that matches the header to be added
   class infoBoxFooter extends tableBox {
-    function infoBoxFooter($contents, $left_corner = true, $right_corner = true, $right_arrow = false) {
+    function infoBoxFooter($contents, $left_corner = TRUE, $right_corner = TRUE, $right_arrow = FALSE) {
       $this->table_cellpadding = '0';
 
       if ($left_corner) {
@@ -211,4 +211,4 @@
       $this->tableBox($contents, true);
     }
   }
-?>
+

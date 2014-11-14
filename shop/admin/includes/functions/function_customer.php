@@ -244,4 +244,3 @@
     return $payment_title;
   }
 
-?>

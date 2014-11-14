@@ -39,4 +39,4 @@ define('TEXT_COPY_ATTRIBUTES','Copy Product Attribuites to Duplicate?');
 define('TEXT_COPY_ATTRIBUTES_YES','Yes');
 define('TEXT_COPY_ATTRIBUTES_NO','No');
 
-?>
+

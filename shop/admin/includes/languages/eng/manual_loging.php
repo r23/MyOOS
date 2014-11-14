@@ -50,4 +50,4 @@ define('TEXT_EMAIL_ADDRESS', 'Select Customer');
 define('TEXT_SELECT_CUSTOMER', 'Select Customer');
 define('IMAGE_CREATE_ORDER', 'Create Order');
 define('HEADING_CREATE_ORDER_ADMIN', 'Create Order under NEW account name');
-?>
+

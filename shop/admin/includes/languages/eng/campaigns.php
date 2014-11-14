@@ -41,4 +41,4 @@ define('TEXT_INFO_HEADING_DELETE_CAMPAIGNS', 'delete campaign');
 define('ERROR_REMOVE_DEFAULT_CAMPAIGNS', 'Error: The default campaign can not be removed. Please set another campaign as default, and try again.');
 define('TEXT_DISPLAY_NUMBER_OF_CAMPAIGNS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> campaigns)');
 
-?>
+

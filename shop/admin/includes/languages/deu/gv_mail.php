@@ -49,4 +49,4 @@ define ('TEXT_REDEEM_COUPON_MESSAGE_HEADER', 'Sie haben erfolgreich einen Gutsch
 define ('TEXT_REDEEM_COUPON_MESSAGE_AMOUNT', "\n\n" . 'Der Wert des Gutscheins betr�t: %s');
 define ('TEXT_REDEEM_COUPON_MESSAGE_BODY', "\n\n" . 'Sie k�nen nun unsere Seite besuchen, sich einloggen und den Gutschein an jeden beliebigen Empf�ger versenden.');
 define ('TEXT_REDEEM_COUPON_MESSAGE_FOOTER', "\n\n");
-?>
+

@@ -31,7 +31,7 @@
  * @param boolean
  * @return string
  */
-function smarty_modifier_linkurl($string, $length = 50, $link = true) {
+function smarty_modifier_linkurl($string, $length = 50, $link = TRUE) {
   
   if (!function_exists(oos_truncate)) {
     function oos_truncate($string, $length) {
@@ -52,7 +52,7 @@ function smarty_modifier_linkurl($string, $length = 50, $link = true) {
     }
   }
 
-  if ($link == true){
+  if ($link == TRUE){
     $pattern = '#(^|[^\"=]{1})(http://|ftp://|mailto:|news:)([^\s<>\)]+)([\s\n<>\)]|$)#sme';
     $string = preg_replace($pattern,"'$1<a href=\"$2$3\" title=\"$2$3\" target=\"_blank\">'.oos_truncate('$2$3',$length).'</a>$4'",$string);
   } else {

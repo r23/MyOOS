@@ -54,4 +54,4 @@ define('TYPE_BELOW', 'Alle Bundesl&auml;nder');
 define('PLEASE_SELECT', 'Alle Bundesl&auml;nder');
 define('TEXT_ALL_COUNTRIES', 'Alle L&auml;nder');
 
-?>
+

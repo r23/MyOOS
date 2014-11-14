@@ -90,7 +90,7 @@
   }
 
 
-  require 'includes/languages/' . $sLanguage . '/user_customers_image.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_customers_image.php';
 
   $customerstable = $oostable['customers'];
   $address_bookstable = $oostable['address_book'];
@@ -125,10 +125,10 @@
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
-  require 'includes/oos_system.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    require 'includes/info_message.php';
-    require 'includes/oos_blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
   // assign Smarty variables;
@@ -149,4 +149,4 @@
   $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
   // display the template
-  require 'includes/oos_display.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';

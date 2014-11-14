@@ -24,4 +24,3 @@ define('TEXT_TAX_INFO', ' ex VAT:');
 
 define('TEXT_INFO_UPDATE_STATUS', 'Check to set status on each individual product based on items in stock<br><i>( one or more in stock will become <font color="009933"><b>active</b></font> / zero in stock will become <font color="ff0000"><b>not active</b></font> )</i><p>');
 
-?>

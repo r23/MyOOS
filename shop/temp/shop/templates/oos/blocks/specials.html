@@ -16,7 +16,7 @@
             <s>{$specials_random_product_price}{$smarty.const.UNITS_DELIMITER}{$products_units[$specials_random_product.products_units_id]}</s><br>
             {if $specials_random_product.products_base_price != 1}<s><span class="base_price">{$specials_random_product.products_base_unit} = {$specials_random_base_product_price}</span></s><br>{/if}
 
-            <span class="special_price">{$specials_random_product_special_price|price2image:true}{$smarty.const.UNITS_DELIMITER}{$products_units[$specials_random_product.products_units_id]}</span><br>
+            <span class="special_price">{$specials_random_product_special_price}{$smarty.const.UNITS_DELIMITER}{$products_units[$specials_random_product.products_units_id]}</span><br>
             {if $specials_random_product.products_base_price != 1}<br><span class="special_base_price">{$specials_random_product.products_base_unit} = {$specials_random_base_product_special_price}</span><br>{/if}
 
             <span class="pangv">{$pangv}</span><br>

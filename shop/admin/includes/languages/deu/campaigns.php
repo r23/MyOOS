@@ -41,4 +41,4 @@ define('TEXT_INFO_HEADING_DELETE_CAMPAIGNS', 'Kampagne l&ouml;schen');
 define('ERROR_REMOVE_DEFAULT_CAMPAIGNS', 'Fehler: Die Standard-Kampagne kann nicht gel&ouml;scht werden. Bitte definieren Sie einen neue Standard-Kampagne und wiederholen Sie den Vorgang.');
 define('TEXT_DISPLAY_NUMBER_OF_CAMPAIGNS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Kampagnen)');
 
-?>
+

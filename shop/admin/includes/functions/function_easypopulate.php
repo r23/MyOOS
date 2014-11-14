@@ -137,4 +137,3 @@
     echo sprintf("| %'.4s ", substr(strip_tags($item2), 0, 80));
   }
 
-?>

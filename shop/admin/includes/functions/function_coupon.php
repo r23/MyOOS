@@ -160,4 +160,3 @@
 
     return $date_selector;
   }
-?>

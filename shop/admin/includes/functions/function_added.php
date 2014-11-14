@@ -177,4 +177,3 @@
     return $categories_name;
   }
 
-?>

@@ -23,8 +23,8 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  require 'includes/languages/' . $sLanguage . '/checkout_confirmation.php';
-  require 'includes/functions/function_address.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_confirmation.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 
 // start the session
 if ( is_session_started() === FALSE ) oos_session_start();  
@@ -67,21 +67,21 @@ if ( is_session_started() === FALSE ) oos_session_start();
 
 // if conditions are not accepted, redirect the customer to the payment method selection page
   if ( (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') && (empty($_POST['gv_redeem_code'])) ) {
-    if ($_POST['conditions'] == false) {
+    if ($_POST['conditions'] == FALSE) {
       oos_redirect(oos_href_link($aModules['checkout'], $aFilename['checkout_payment'], 'error_message=' . urlencode(decode($aLang['error_conditions_not_accepted'])), 'SSL', true, false));
     }
   }
 
 
 // load the selected payment module
-  require 'includes/classes/class_payment.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_payment.php';
 
   if ($credit_covers) $_SESSION['payment'] = ''; 
 
   $payment_modules = new payment($_SESSION['payment']);
-  require 'includes/classes/class_order_total.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order_total.php';
 
-  require 'includes/classes/class_order.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
   $oOrder = new order;
 
   if ( (isset($_SESSION['shipping'])) && ($_SESSION['shipping']['id'] == 'free_free')) {
@@ -109,20 +109,20 @@ if ( is_session_started() === FALSE ) oos_session_start();
   }
 
 // load the selected shipping module
-  require 'includes/classes/class_shipping.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
   $shipping_modules = new shipping($_SESSION['shipping']);
 
 
 // Stock Check
-  $any_out_of_stock = false;
+  $any_out_of_stock = FALSE;
   if (STOCK_CHECK == 'true') {
     for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
       if (oos_check_stock($oOrder->products[$i]['id'], $oOrder->products[$i]['qty'])) {
-        $any_out_of_stock = true;
+        $any_out_of_stock = TRUE;
       }
     }
     // Out of Stock
-    if ( (STOCK_ALLOW_CHECKOUT != 'true') && ($any_out_of_stock == true) ) {
+    if ( (STOCK_ALLOW_CHECKOUT != 'true') && ($any_out_of_stock == TRUE) ) {
       oos_redirect(oos_href_link($aModules['main'], $aFilename['main_shopping_cart']));
     }
   }
@@ -136,10 +136,10 @@ if ( is_session_started() === FALSE ) oos_session_start();
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
 
-  require 'includes/oos_system.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    require 'includes/info_message.php';
-    require 'includes/oos_blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
   // assign Smarty variables;
@@ -181,5 +181,5 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
   // display the template
-  require 'includes/oos_display.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
 

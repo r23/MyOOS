@@ -42,4 +42,4 @@ define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
 
 define('TEXT_INFO_HEADING_DELETE_SPECIALS', 'Sonderangebot l&ouml;schen');
 define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie das Sonderangebot l&ouml;schen m&ouml;chten?');
-?>
+

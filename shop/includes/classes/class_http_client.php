@@ -51,9 +51,9 @@
     var $replyString; // full response
     var $protocolVersion = '1.1';
     var $requestHeaders, $requestBody;
-    var $socket = false;
+    var $socket = FALSE;
 // proxy stuff
-    var $useProxy = false;
+    var $useProxy = FALSE;
     var $proxyHost, $proxyPort;
 
 /**
@@ -73,7 +73,7 @@
  * @param proxyPort proxy port usually 80 or 8080
  **/
     function setProxy($proxyHost, $proxyPort) {
-      $this->useProxy = true;
+      $this->useProxy = TRUE;
       $this->proxyHost = $proxyHost;
       $this->proxyPort = $proxyPort;
     }
@@ -90,7 +90,7 @@
         $this->protocolVersion = $version;
         return true;
       } else {
-        return false;
+        return FALSE;
       }
     }
 
@@ -327,7 +327,7 @@
       $this->responseBody = '';
 
 // connect if necessary
-      if ( ($this->socket == false) || (feof($this->socket)) ) {
+      if ( ($this->socket == FALSE) || (feof($this->socket)) ) {
         if ($this->useProxy) {
           $host = $this->proxyHost;
           $port = $this->proxyPort;
@@ -339,7 +339,7 @@
         if (oos_empty($port)) $port = 80;
 
         if (!$this->socket = fsockopen($host, $port, $this->reply, $this->replyString)) {
-          return false;
+          return FALSE;
         }
 
         if (oos_is_not_null($this->requestBody)) {
@@ -391,7 +391,7 @@
  **/
     function processHeader($lastLine = "\r\n") {
       $headers = array();
-      $finished = false;
+      $finished = FALSE;
 
       while ( (!$finished) && (!feof($this->socket)) ) {
         $str = fgets($this->socket, 1024);

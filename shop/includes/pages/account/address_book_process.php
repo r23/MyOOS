@@ -34,7 +34,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
     $_SESSION['navigation']->set_path_as_snapshot(1);
   }
 
-  require 'includes/languages/' . $sLanguage . '/account_address_book_process.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_address_book_process.php';
 
   if (isset($_GET['action']) && ($_GET['action'] == 'remove') && oos_is_not_null($_GET['entry_id']) ) {
     $entry_id = oos_db_prepare_input($_GET['entry_id']);
@@ -252,10 +252,10 @@ if ( is_session_started() === FALSE ) oos_session_start();
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
-  require 'includes/oos_system.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    require 'includes/info_message.php';
-    require 'includes/oos_blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
 // assign Smarty variables;
@@ -345,4 +345,4 @@ if ( is_session_started() === FALSE ) oos_session_start();
    $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
    // display the template
-   require 'includes/oos_display.php';
+   include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';

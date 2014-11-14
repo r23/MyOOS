@@ -17,4 +17,4 @@ define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
 define('TEXT_PLUGINS_DIRECTORY', 'Plugin Verzeichnis:');
-?>
+

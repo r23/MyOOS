@@ -104,7 +104,7 @@
            } else {
              $file_check = file_exists($filename) ? 'true' : 'false';
              $this->debug['SAVE_FILE_COMPRESS'][] = array('file' => $filename, 'status' => 'failure', 'file_exists' => $file_check);
-             return false;
+             return FALSE;
            }
            break;
 
@@ -118,7 +118,7 @@
            } else {
             $file_check = file_exists($filename) ? 'true' : 'false';
             $this->debug['SAVE_FILE_XML'][] = array('file' => $filename, 'status' => 'failure', 'file_exists' => $file_check);
-            return false;
+            return FALSE;
            }
            break;
 
@@ -135,20 +135,20 @@
      function CompressFile($file){
        $source = $this->savepath . $file . '.xml';
        $filename = $this->savepath . $file . '.xml.gz';
-       $error_encountered = false;
+       $error_encountered = FALSE;
        if ( $gz_out = gzopen($filename, 'wb9') ){
          if ($fp_in = fopen($source,'rb')){
            while (!feof($fp_in)) gzwrite($gz_out, fread($fp_in, 1024*512));
              fclose($fp_in);
          } else {
-           $error_encountered = true;
+           $error_encountered = TRUE;
          }
          gzclose($gz_out);
        } else {
-         $error_encountered = true;
+         $error_encountered = TRUE;
        }
        if ($error_encountered){
-         return false;
+         return FALSE;
        } else {
          return true;
        }
@@ -191,7 +191,7 @@
                     : "{sitemap*.xml}"
                     : "{sitemap*.xml}";
        foreach ( glob($this->savepath . $pattern, GLOB_BRACE) as $filename ) {
-         if ( eregi('index', $filename) ) continue;
+		 if ( preg_match('/index/', $filename) ) continue;
          $content .= "\t" . '<sitemap>' . "\n";
          $content .= "\t\t" . '<loc>'.$this->base_url . basename($filename).'</loc>' . "\n";
          $content .= "\t\t" . '<lastmod>'.date ("Y-m-d", filemtime($filename)).'</lastmod>' . "\n";
@@ -325,7 +325,7 @@
      * @return string Full cPath string
      */
      function GetFullcPath($cID){
-       if ( ereg('_', $cID) ){
+	   if ( preg_match('/_/', $cID) ){
          return $cID;
        } else {
          $c = array();
@@ -391,4 +391,4 @@
        return htmlspecialchars(utf8_encode('http://www.google.com/webmasters/sitemaps/ping?sitemap=' . $url));
      }
 }
-?>
+

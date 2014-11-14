@@ -24,12 +24,10 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
 $smarty = new myOOS_Smarty();
 
-
-
 //debug
 if ($debug == 'true') {
 	$smarty->force_compile   = TRUE;
-	$smarty->debugging       = TRUE;
+	$smarty->debugging       = true;
 	$smarty->clearAllCache();
 	$smarty->clearCompiledTemplate();
 }

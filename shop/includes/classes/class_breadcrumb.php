@@ -64,4 +64,4 @@
       return $trail_title_string;
     }
   }
-?>
+

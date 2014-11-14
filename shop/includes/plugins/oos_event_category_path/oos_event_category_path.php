@@ -39,7 +39,7 @@
 
       $this->name          = PLUGIN_EVENT_CATEGORY_PATH_NAME;
       $this->description   = PLUGIN_EVENT_CATEGORY_PATH_DESC;
-      $this->uninstallable = false;
+      $this->uninstallable = FALSE;
       $this->author        = 'OOS Development Team';
       $this->version       = '1.0';
       $this->requirements  = array(
@@ -53,7 +53,7 @@
     function create_plugin_instance() {
       global $cPath, $aCategoryPath, $nCurrentCategoryId;
 
-      include 'includes/classes/class_category_tree.php';
+      include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_category_tree.php';
 
       if (isset($_GET['cPath'])) {
         $cPath = oos_var_prep_for_os($_GET['cPath']);
@@ -76,15 +76,15 @@
     }
 
     function install() {
-      return false;
+      return FALSE;
     }
 
     function remove() {
-      return false;
+      return FALSE;
     }
 
     function config_item() {
-      return false;
+      return FALSE;
     }
   }
 

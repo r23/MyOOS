@@ -37,7 +37,7 @@
     return $aManufacturers;
   }
 
-  require 'includes/languages/' . $sLanguage . '/search_advanced.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/search_advanced.php';
 
   // links breadcrumb
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aModules['search'], $aFilename['advanced_search']));
@@ -123,10 +123,10 @@
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
 
-  require 'includes/oos_system.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    require 'includes/info_message.php';
-    require 'includes/oos_blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
   // assign Smarty variables;
@@ -146,4 +146,4 @@
   $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
   // display the template
-  require 'includes/oos_display.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';

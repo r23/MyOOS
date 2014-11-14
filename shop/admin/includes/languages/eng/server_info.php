@@ -34,4 +34,4 @@ define('TITLE_DATABASE_HOST', 'Database Host:');
 define('TITLE_DATABASE', 'Database:');
 define('TITLE_DATABASE_DATE', 'Datebase Date:');
 define('TITLE_PHP_INFORMATION', 'PHP Info');
-?>
+

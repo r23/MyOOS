@@ -85,7 +85,7 @@ function smarty_function_html_image_button($params, &$smarty)
     }
     
     $protocol = strpos($params['file'], '://');
-    if ($protocol !== false) {
+    if ($protocol !== FALSE) {
         $protocol = strtolower(substr($params['file'], 0, $protocol));
     }
     

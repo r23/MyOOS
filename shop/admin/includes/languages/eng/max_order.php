@@ -26,4 +26,4 @@ define('NAVBAR_TITLE', 'Maximum order');
 define('HEADING_TITLE', 'Maximum order');
 define('TEXT_INFORMATION', 'You are '. $currencies->format ($cart->show_total() - (+$max_order)) .' above your ' . $currencies->format($max_order) . ' Credit Limit. <br />Please contact our Sales Team to confirm your order.');
 
-?>
+

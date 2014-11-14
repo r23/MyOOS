@@ -40,4 +40,3 @@ define('ENTRY_TAX', 'MwSt.:');
 define('ENTRY_SHIPPING', 'Versandkosten:');
 define('ENTRY_TOTAL', 'Gesamtsumme:');
 
-?>

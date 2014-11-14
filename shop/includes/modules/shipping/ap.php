@@ -42,7 +42,7 @@
    ---------------------------------------------------------------------- */
 
   class ap {
-    var $code, $title, $description, $icon, $num_ap, $enabled = false;
+    var $code, $title, $description, $icon, $num_ap, $enabled = FALSE;
 
 // class constructor
     function ap() {
@@ -56,8 +56,8 @@
       $this->tax_class = (defined('MODULE_SHIPPING_AP_TAX_CLASS') ? MODULE_SHIPPING_AP_TAX_CLASS : null);
       $this->enabled = (defined('MODULE_SHIPPING_AP_STATUS') && (MODULE_SHIPPING_AP_STATUS == 'True') ? true : false);
 
-      if ( ($this->enabled == true) && ((int)MODULE_SHIPPING_AP_ZONE > 0) ) {
-        $check_flag = false;
+      if ( ($this->enabled == TRUE) && ((int)MODULE_SHIPPING_AP_ZONE > 0) ) {
+        $check_flag = FALSE;
 
         // Get database information
         $dbconn =& oosDBGetConn();
@@ -67,10 +67,10 @@
         $check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_SHIPPING_AP_ZONE . "' AND zone_country_id = '" . $oOrder->delivery['country']['id'] . "' ORDER BY zone_id");
         while ($check = $check_result->fields) {
           if ($check['zone_id'] < 1) {
-            $check_flag = true;
+            $check_flag = TRUE;
             break;
           } elseif ($check['zone_id'] == $oOrder->delivery['zone_id']) {
-            $check_flag = true;
+            $check_flag = TRUE;
             break;
           }
 
@@ -81,8 +81,8 @@
         // Close result set
         $check_result->Close();
 
-        if ($check_flag == false) {
-          $this->enabled = false;
+        if ($check_flag == FALSE) {
+          $this->enabled = FALSE;
         }
       }
 
@@ -96,7 +96,7 @@
 
       $dest_country = $oOrder->delivery['country']['iso_code_2'];
       $dest_zone = 0;
-      $error = false;
+      $error = FALSE;
 
       for ($i=1; $i<=$this->num_ap; $i++) {
         $countries_table = constant('MODULE_SHIPPING_AP_COUNTRIES_' . $i);
@@ -108,7 +108,7 @@
       }
 
       if ($dest_zone == 0) {
-        $error = true;
+        $error = TRUE;
       } else {
         $shipping = -1;
         $ap_cost = constant('MODULE_SHIPPING_AP_COST_' . $i);
@@ -142,7 +142,7 @@
 
       if (oos_is_not_null($this->icon)) $this->quotes['icon'] = oos_image($this->icon, $this->title);
 
-      if ($error == true) $this->quotes['error'] = $aLang['module_shipping_ap_invalid_zone'];
+      if ($error == TRUE) $this->quotes['error'] = $aLang['module_shipping_ap_invalid_zone'];
 
       return $this->quotes;
     }

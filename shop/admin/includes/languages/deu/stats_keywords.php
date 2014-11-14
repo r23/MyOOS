@@ -44,4 +44,3 @@ define('BUTTON_ADD_WORD', 'Wort zur Tabelle hinzuf&uml;gen');
 
 define('LINK_EDIT', 'Editieren');
 define('LINK_DELETE', 'L&ouml;schen');
-?>

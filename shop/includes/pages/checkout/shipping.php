@@ -24,9 +24,9 @@
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
   
-  require 'includes/languages/' . $sLanguage . '/checkout_shipping.php';
-  require 'includes/functions/function_address.php';
-  require 'includes/classes/class_http_client.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_shipping.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_http_client.php';
 
 // start the session
 if ( is_session_started() === FALSE ) oos_session_start();  
@@ -70,7 +70,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
     }
   }
 
-  require 'includes/classes/class_order.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
   $oOrder = new order;
 
 // register a random ID in the session to check throughout the checkout procedure
@@ -80,8 +80,8 @@ if ( is_session_started() === FALSE ) oos_session_start();
 // if the order contains only virtual products, forward the customer to the billing page as
 // a shipping address is not needed
   if (($oOrder->content_type == 'virtual') || ($_SESSION['cart']->show_total() == 0) ) {
-    $_SESSION['shipping'] = false;
-    $_SESSION['sendto'] = false;
+    $_SESSION['shipping'] = FALSE;
+    $_SESSION['sendto'] = FALSE;
     oos_redirect(oos_href_link($aModules['checkout'], $aFilename['checkout_payment'], '', 'SSL'));
   }
 
@@ -89,32 +89,32 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $total_count = $_SESSION['cart']->count_contents();
 
 // load all enabled shipping modules
-  require 'includes/classes/class_shipping.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
   $shipping_modules = new shipping;
 
   if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
     switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
       case 'national':
-        if ($oOrder->delivery['country_id'] == STORE_COUNTRY) $pass = true; break;
+        if ($oOrder->delivery['country_id'] == STORE_COUNTRY) $pass = TRUE; break;
 
       case 'international':
-        if ($oOrder->delivery['country_id'] != STORE_COUNTRY) $pass = true; break;
+        if ($oOrder->delivery['country_id'] != STORE_COUNTRY) $pass = TRUE; break;
 
       case 'both':
-        $pass = true; break;
+        $pass = TRUE; break;
 
       default:
-        $pass = false; break;
+        $pass = FALSE; break;
     }
 
-    $free_shipping = false;
-    if ( ($pass == true) && ($oOrder->info['subtotal'] >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
-      $free_shipping = true;
+    $free_shipping = FALSE;
+    if ( ($pass == TRUE) && ($oOrder->info['subtotal'] >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
+      $free_shipping = TRUE;
 
-      require 'includes/languages/' . $sLanguage . '/modules/order_total/ot_shipping.php';
+      include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/ot_shipping.php';
     }
   } else {
-    $free_shipping = false;
+    $free_shipping = FALSE;
   }
 
 
@@ -131,7 +131,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
       $_SESSION['campaigns_id'] = intval($_POST['campaign_id']);
     }
 
-    if ( (oos_count_shipping_modules() > 0) || ($free_shipping == true) ) {
+    if ( (oos_count_shipping_modules() > 0) || ($free_shipping == TRUE) ) {
       if ( (isset($_POST['shipping'])) && (strpos($_POST['shipping'], '_')) ) {
         $_SESSION['shipping'] = $_POST['shipping'];
 
@@ -148,7 +148,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
           } else {
             if ( (isset($quote[0]['methods'][0]['title'])) && (isset($quote[0]['methods'][0]['cost'])) ) {
               $_SESSION['shipping'] = array('id' => $_SESSION['shipping'],
-                                            'title' => (($free_shipping == true) ?  $quote[0]['methods'][0]['title'] : $quote[0]['module'] . ' (' . $quote[0]['methods'][0]['title'] . ')'),
+                                            'title' => (($free_shipping == TRUE) ?  $quote[0]['methods'][0]['title'] : $quote[0]['module'] . ' (' . $quote[0]['methods'][0]['title'] . ')'),
                                             'cost' => $quote[0]['methods'][0]['cost']);
 
               oos_redirect(oos_href_link($aModules['checkout'], $aFilename['checkout_payment'], '', 'SSL'));
@@ -159,7 +159,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
         }
       }
     } else {
-      $_SESSION['shipping'] = false;
+      $_SESSION['shipping'] = FALSE;
 
       oos_redirect(oos_href_link($aModules['checkout'], $aFilename['checkout_payment'], '', 'SSL'));
     }
@@ -172,7 +172,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
 // if the modules status was changed when none were available, to save on implementing
 // a javascript force-selection method, also automatically select the cheapest shipping
 // method if more than one module is now enabled
-  if ( !isset($_SESSION['shipping']) || ( isset($_SESSION['shipping']) && ($_SESSION['shipping'] == false) && (oos_count_shipping_modules() > 1) ) ) $_SESSION['shipping'] = $shipping_modules->cheapest();
+  if ( !isset($_SESSION['shipping']) || ( isset($_SESSION['shipping']) && ($_SESSION['shipping'] == FALSE) && (oos_count_shipping_modules() > 1) ) ) $_SESSION['shipping'] = $shipping_modules->cheapest();
   list ($sess_class, $sess_method) = explode ('_', $_SESSION['shipping']['id']);
 
   // links breadcrumb
@@ -184,10 +184,10 @@ if ( is_session_started() === FALSE ) oos_session_start();
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
 
-  require 'includes/oos_system.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    require 'includes/info_message.php';
-    require 'includes/oos_blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
   $campaignstable = $oostable['campaigns'];
@@ -235,5 +235,5 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $smarty->assign('contents', $smarty->fetch($aOption['template_main'])); 
 
   // display the template
-  require 'includes/oos_display.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
 

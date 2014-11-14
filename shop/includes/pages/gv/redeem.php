@@ -31,9 +31,9 @@
     oos_redirect(oos_href_link($aModules['user'], $aFilename['login'], '', 'SSL'));
   }
 
-  require 'includes/languages/' . $sLanguage . '/gv_redeem.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_redeem.php';
 
-  $bError = true;
+  $bError = TRUE;
 // check for a voucher number in the url
   if ( (isset($_GET['gv_no']) && !empty($_GET['gv_no'])) ) {
     $couponstable = $oostable['coupons'];
@@ -54,7 +54,7 @@
       if ($redeem_result->RecordCount() == 0 ) {
         // check for require_onced session variables
         $_SESSION['gv_id'] = $coupon['coupon_id'];
-        $bError = false;
+        $bError = FALSE;
       }
     }
   } else {
@@ -95,10 +95,10 @@
 
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
-  require 'includes/oos_system.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    require 'includes/info_message.php';
-    require 'includes/oos_blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
   // assign Smarty variables;
@@ -115,5 +115,5 @@
   $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
   $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
-  require 'includes/oos_display.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
 

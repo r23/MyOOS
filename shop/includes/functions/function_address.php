@@ -162,7 +162,7 @@
   * @param $boln
   * @param $eoln
   */
-  function oos_address_label($customers_id, $address_id = 1, $html = false, $boln = '', $eoln = "\n") {
+  function oos_address_label($customers_id, $address_id = 1, $html = FALSE, $boln = '', $eoln = "\n") {
 
     // Get database information
     $dbconn =& oosDBGetConn();

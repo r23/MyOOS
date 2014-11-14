@@ -25,4 +25,4 @@ define('ADMIN_EMAIL_TEXT', '�er die Adresse ' . oos_server_get_var('REMOTE_ADD
 
 define('HEADING_PASSWORD_FORGOTTEN', 'Passwort vergessen');
 define('TEXT_PASSWORD_INFO', 'Bitte geben Sie Ihren Vornamen und Ihre E-Mail Adresse ein und klicken Sie auf Passwort senden. <br />In Krze erhalten Sie ein neues Passwort. Verwenden Sie dieses Passwort, um sich anzumelden.');
-?>
+

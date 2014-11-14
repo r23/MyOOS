@@ -31,4 +31,4 @@ define('TEXT_PRODUCTS_BSUBIMAGE5', 'Gro�s Produktbild 5:');
 define('TEXT_PRODUCTS_SUBIMAGE6', 'Produktbild 6:');
 define('TEXT_PRODUCTS_BSUBIMAGE6', 'Gro�s Produktbild 6:');
 // BOF: WebMakers.com Added: mo images with modifications - combined work of: John Poynton, Richard Aspden, Brandon Sweet
-?>
+

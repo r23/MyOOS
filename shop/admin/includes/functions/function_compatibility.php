@@ -58,7 +58,7 @@
 
   if (!function_exists('is_numeric')) {
     function is_numeric($param) {
-      return ereg("^[0-9]{1,50}.?[0-9]{0,50}$", $param);
+      return preg_match("/^[0-9]{1,50}.?[0-9]{0,50}$/", $param);
     }
   }
 
@@ -83,4 +83,3 @@
       return copy($file, $target);
     }
   }
-?>

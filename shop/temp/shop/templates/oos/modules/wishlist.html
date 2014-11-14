@@ -28,13 +28,13 @@
 {if $smarty.session.member->group.show_price eq 1 }
   {if (!empty($wishlist_array[i].special_price))}
      <s>{$wishlist_array[i].product_price}</s><br>
-     <span class="special_price">{$wishlist_array[i].product_special_price|price2image:true}</span>
+     <span class="special_price">{$wishlist_array[i].product_special_price}</span>
   {else}
     {if $wishlist_array[i].product_discount != 0}
       <s>{$wishlist_array[i].product_price}</s>&nbsp;-{$wishlist_array[i].product_discount}%<br>
-      <span class="discount_price">{$wishlist_array[i].product_discount_price|price2image:true}</span>
+      <span class="discount_price">{$wishlist_array[i].product_discount_price}</span>
     {else}
-      {$wishlist_array[i].product_price|price2image}
+      {$wishlist_array[i].product_price}
     {/if}
   {/if}
 {/if}

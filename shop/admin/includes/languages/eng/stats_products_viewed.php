@@ -28,4 +28,4 @@ define('TABLE_HEADING_PRODUCTS', 'Products');
 define('TABLE_HEADING_VIEWED', 'Viewed');
 
 define('TEXT_VIEWS_RESET', 'The counter was reset!');
-?>
+

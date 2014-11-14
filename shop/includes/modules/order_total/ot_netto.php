@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   class ot_netto {
-    var $title, $output, $enabled = false;
+    var $title, $output, $enabled = FALSE;
 
     function ot_netto() {
       global $aLang;

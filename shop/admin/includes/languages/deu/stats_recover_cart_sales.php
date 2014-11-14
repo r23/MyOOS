@@ -29,4 +29,3 @@ define('TOTAL_RECORDS', 'In Überprüfung befindliche Datensätze:');
 define('TOTAL_SALES', 'Verkäufe:');
 define('TOTAL_SALES_EXPLANATION', ' (Possible sales from customers who abanoned carts & were notified via RCS)');
 define('TOTAL_RECOVERED', 'Total Recovered:');
-?>

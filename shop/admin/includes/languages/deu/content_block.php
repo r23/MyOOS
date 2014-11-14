@@ -44,4 +44,4 @@ define('TEXT_BLOCK_NAME', 'Block - Name');
 define('TEXT_BLOCK_PAGE', 'Seite');
 
 define('TEXT_DELETE_INTRO', 'Sind Sie sicher, dass Sie diesen Block l&ouml;schen m&ouml;chten?');
-?>
+

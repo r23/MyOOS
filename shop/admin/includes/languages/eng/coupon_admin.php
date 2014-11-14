@@ -95,4 +95,4 @@ define('COUPON_CATEGORIES_HELP', 'A comma separated list of cpaths that this cou
 define('TEXT_FROM_NAME', 'Absender Name:');
 define('TEXT_FROM_MAIL', 'Absender eMail:');
 
-?>
+

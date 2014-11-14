@@ -156,7 +156,7 @@ function smarty_function_html_href_link($params, &$smarty)
       $separator = '?';
 
       $pos = strpos ($link, 'action');
-      if ($pos === false) {
+      if ($pos === FALSE) {
         $url_rewrite = new url_rewrite;
         $link = $url_rewrite->transform_uri($link);
       }

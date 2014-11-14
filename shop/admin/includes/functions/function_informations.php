@@ -109,4 +109,3 @@
     return  $information_heading_title;
   }
 
-?>

@@ -45,4 +45,4 @@ define('REPORTS_ORDERS', 'Orders');
 define('TOOLS_BACKUP', 'Backup');
 define('TOOLS_BANNERS', 'Banners');
 define('TOOLS_FILES', 'Files');
-?>
+

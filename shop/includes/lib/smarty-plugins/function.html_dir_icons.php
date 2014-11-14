@@ -85,13 +85,13 @@ function smarty_function_html_dir_icons($params, &$smarty)
 	 * @var bool
 	 * True to produce hyperlinks for the icons
 	 */
-	$link		= true;
+	$link		= TRUE;
 	
 	/**
 	 * @var bool
 	 * True to show any pictures (not defined by filetypes) as unlinked pictures
 	 */
-	$thumb_pics	= true;
+	$thumb_pics	= TRUE;
 	
 	extract($params);
 

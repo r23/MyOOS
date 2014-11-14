@@ -30,7 +30,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
     oos_redirect(oos_href_link($aModules['user'], $aFilename['login'], '', 'SSL'));
   }
 
-  require 'includes/languages/' . $sLanguage . '/account_my_wishlist.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_my_wishlist.php';
 
   $customers_wishlisttable = $oostable['customers_wishlist'];
   $wishlist_result_raw = "SELECT products_id, customers_wishlist_date_added
@@ -159,10 +159,10 @@ if ( is_session_started() === FALSE ) oos_session_start();
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
 
-  require 'includes/oos_system.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    require 'includes/info_message.php';
-    require 'includes/oos_blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
 // assign Smarty variables;
@@ -184,4 +184,4 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
   // display the template
-  require 'includes/oos_display.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';

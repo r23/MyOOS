@@ -38,4 +38,4 @@ define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this featured 
 define('TEXT_DISPLAY_NUMBER_OF_FEATURED', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> featured products)');
 
 define('TEXT_IMAGE_NONEXISTENT', 'IMAGE DOES NOT EXIST');
-?>
+

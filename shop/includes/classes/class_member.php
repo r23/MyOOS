@@ -68,7 +68,7 @@
 
     function restore_group() {
 
-      if (!isset($_SESSION['customer_id'])) return false;
+      if (!isset($_SESSION['customer_id'])) return FALSE;
 
       // Get database information
       $dbconn =& oosDBGetConn();

@@ -78,4 +78,3 @@ define('EMAIL_COUPON_INCENTIVE_HEADER', 'Herzlichen Gl&uuml;ckwunsch! Um den ers
                                         'Es folgen weitere Details &uuml;ber Ihren pers&ouml;nlichen Einkaufsgutschein.' . "\n\n");
 define('EMAIL_COUPON_REDEEM', 'Um den Einkaufsgutschein zu nutzen geben Sie bitte den Gutscheincode %s ' . "\n" .
                                'beim Beenden Ihrer Bestellung ein!');
-?>

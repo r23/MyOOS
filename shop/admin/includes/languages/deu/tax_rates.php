@@ -43,4 +43,3 @@ define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diesen Steuersatz l&
 define('TEXT_INFO_HEADING_NEW_TAX_RATE', 'Neuer Steuersatz');
 define('TEXT_INFO_HEADING_EDIT_TAX_RATE', 'Steuersatz bearbeiten');
 define('TEXT_INFO_HEADING_DELETE_TAX_RATE', 'Steuersatz l&ouml;schen');
-?>

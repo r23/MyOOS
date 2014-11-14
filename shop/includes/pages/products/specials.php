@@ -26,7 +26,7 @@
     oos_redirect(oos_href_link($aModules['main'], $aFilename['main']));
   }
 
-  require 'includes/languages/' . $sLanguage . '/products_specials.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_specials.php';
 
   $aOption['template_main'] = $sTheme . '/products/specials.html';
   $aOption['page_heading'] = $sTheme . '/heading/page_heading.html';
@@ -37,10 +37,10 @@
   $nPage = isset($_GET[page]) ? $_GET[page]+0 : 1;
   $contents_cache_id = $sTheme . '|info|' . $sGroup . '|spezials|' . $nPage . '|' . $sLanguage;
 
-  require 'includes/oos_system.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    require 'includes/info_message.php';
-    require 'includes/oos_blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
 if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
@@ -122,4 +122,4 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
   $smarty->setCaching(false);
 
   // display the template
-  require 'includes/oos_display.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';

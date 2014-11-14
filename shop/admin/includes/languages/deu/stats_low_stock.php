@@ -31,4 +31,4 @@ define('HEADING_TITLE', 'unterschrittene Mindestmengen');
 define('TABLE_HEADING_NUMBER', 'Nr.');
 define('TABLE_HEADING_PRODUCTS', 'Produkt Name');
 define('TABLE_HEADING_QTY_LEFT', 'Anzahl');
-?>
+

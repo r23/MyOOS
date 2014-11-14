@@ -26,17 +26,17 @@
                {$lang.text_price} <s>{$oos_products_new_array[i].new_product_price}{$oos_products_new_array[i].new_product_units}</s><br>
                {if $oos_products_new_array[i].products_base_price != 1}<s>{$lang.text_products_base_price}: <span class="base_price">{$oos_products_new_array[i].new_products_base_unit} = {$oos_products_new_array[i].new_base_product_price}</span></s><br>{/if}
 
-               <span class="special_price">{$lang.text_price} {$oos_products_new_array[i].new_product_special_price|price2image:true}{$oos_products_new_array[i].products_units}</span><br>
+               <span class="special_price">{$lang.text_price} {$oos_products_new_array[i].new_product_special_price}{$oos_products_new_array[i].products_units}</span><br>
                {if $oos_products_new_array[i].products_base_price != 1}<span class="special_base_price">{$lang.text_products_base_price}: {$oos_products_new_array[i].new_products_base_unit} = {$oos_products_new_array[i].new_base_product_special_price}</span><br>{/if}
 
             {else}
               {if $oos_products_new_array[i].new_max_product_discount != 0}
                 {$lang.text_price} <s>{$oos_products_new_array[i].new_product_price}</s> -{$oos_products_new_array[i].new_max_product_discount}%<br>
-                <span class="discount_price">{$oos_products_new_array[i].new_product_discount_price|price2image:true}{$oos_products_new_array[i].new_product_units}</span><br>
+                <span class="discount_price">{$oos_products_new_array[i].new_product_discount_price}{$oos_products_new_array[i].new_product_units}</span><br>
                 {if $oos_products_new_array[i].products_base_price != 1}<span class="discount_base_price">{$lang.text_products_base_price}: {$oos_products_new_array[i].new_products_base_unit} = {$oos_products_new_array[i].new_base_product_special_price}</span><br>{/if}
 
               {else}
-                {$lang.text_price} {$oos_products_new_array[i].new_product_price|price2image}{$oos_products_new_array[i].new_product_units}<br>
+                {$lang.text_price} {$oos_products_new_array[i].new_product_price}{$oos_products_new_array[i].new_product_units}<br>
                 {if $oos_products_new_array[i].products_base_price != 1}<span class="base_price">{$lang.text_products_base_price}: {$oos_products_new_array[i].new_products_base_unit} = {$oos_products_new_array[i].new_base_product_price}</span><br>{/if}
 
               {/if}

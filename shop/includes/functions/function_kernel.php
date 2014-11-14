@@ -1308,7 +1308,7 @@ function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_htm
 	try {
 		return $oEmail->Send();
 	} catch ( phpmailerException $e ) {
-		return false;
+		return FALSE;
 	}
 }
 

@@ -54,4 +54,4 @@ define('TEXT_INFO_NEW_FILE_INTRO', 'Check the <font color="red"><b>left menu</b>
 
 define('TEXT_INFO_NEW_FILE_BOX', 'Current Box: ');
 
-?>
+

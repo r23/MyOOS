@@ -24,7 +24,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
  
-  require 'includes/languages/' . $sLanguage . '/user_login.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_login.php';
   
   if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
 
@@ -77,7 +77,7 @@
 
         $_SESSION['member']->restore_group();
 
-        $cookie_url_array = parse_url((ENABLE_SSL == true ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . substr(OOS_SHOP, 0, -1));
+        $cookie_url_array = parse_url((ENABLE_SSL == TRUE ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . substr(OOS_SHOP, 0, -1));
         $cookie_path = $cookie_url_array['path'];
 
         $date_now = date('Ymd');
@@ -121,12 +121,12 @@
 
   $nPageType = OOS_PAGE_TYPE_SERVICE;
 
-  require 'includes/oos_system.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
 
   if (!isset($option)) {
-    require 'includes/info_message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
 
-    require 'includes/oos_blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
   // assign Smarty variables;
@@ -145,4 +145,4 @@
   $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
   // display the template
-  require 'includes/oos_display.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';

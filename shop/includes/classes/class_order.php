@@ -142,7 +142,7 @@
                               'format_id' => $order['delivery_address_format_id']);
 
       if (empty($this->delivery['name']) && empty($this->delivery['street_address'])) {
-        $this->delivery = false;
+        $this->delivery = FALSE;
       }
 
       $this->billing = array('name' => $order['billing_name'],
@@ -425,4 +425,4 @@
       }
     }
   }
-?>
+

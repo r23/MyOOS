@@ -60,12 +60,12 @@
 		}
       $bid = trim('oos_' . $block['block_cache'] . '_cache_id');
       if (!$smarty->isCached($block_tpl, ${$bid})) {
-        require 'includes/blocks/block_' . $block_file . '.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/blocks/block_' . $block_file . '.php';
       }
       $block_content = $smarty->fetch($block_tpl, ${$bid});
     } else {
       $smarty->setCaching(false);
-      require 'includes/blocks/block_' . $block_file . '.php';
+      include_once MYOOS_INCLUDE_PATH . '/includes/blocks/block_' . $block_file . '.php';
       $block_content = $smarty->fetch($block_tpl);
     }
 	

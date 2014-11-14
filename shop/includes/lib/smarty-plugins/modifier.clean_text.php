@@ -18,7 +18,7 @@
  * @param string
  * @return string
  */
-function smarty_modifier_clean_text($string, $with_links = true)
+function smarty_modifier_clean_text($string, $with_links = TRUE)
 {
 
 /*

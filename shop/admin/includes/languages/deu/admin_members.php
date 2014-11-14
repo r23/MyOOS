@@ -104,4 +104,4 @@ if ($_GET['gPath'] == 1) {
 } else {
   define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br />�&auml;ndern Sie die Zugriffsberechtigungen f&uuml;r diese Gruppe und die darin befindlichen Dateien, indem Sie die Bereiche ausw&auml;hlen/abw&auml;hlen. Klicken Sie <b>speichern</b> um die &Auml;nderungen zu sichern.<br /><br />');
 }
-?>
+

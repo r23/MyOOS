@@ -47,8 +47,8 @@
         $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
 
         for ($i=0, $n=count($include_modules); $i<$n; $i++) {
-          include 'includes/languages/' . $sLanguage . '/modules/shipping/' . $include_modules[$i]['file'];
-          include 'includes/modules/shipping/' . $include_modules[$i]['file'];
+          include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/shipping/' . $include_modules[$i]['file'];
+          include_once MYOOS_INCLUDE_PATH . '/includes/modules/shipping/' . $include_modules[$i]['file'];
 
           $GLOBALS[$include_modules[$i]['class']] = new $include_modules[$i]['class'];
         }
@@ -120,7 +120,7 @@
           }
         }
 
-        $cheapest = false;
+        $cheapest = FALSE;
         $size = count($rates);
         for ($i=0; $i<$size; $i++) {
           if (is_array($cheapest)) {
@@ -136,4 +136,4 @@
       }
     }
   }
-?>
+

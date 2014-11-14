@@ -70,7 +70,7 @@ function smarty_function_swap_product_image($params, &$smarty)
     $image = $basedir . $image;
 
     if ((empty($image) || ($image == OOS_IMAGES)) && (IMAGE_REQUIRED == 'false')) {
-        return false;
+        return FALSE;
     }
 
     return '<img id="'.$id.'" src="'.$image.'" alt="'.$alt.'" border="'.$border.'" width="'.$width.'" height="'.$height.'"'.$extra.' onmouseover="imgSwap(this)" onmouseout="imgSwap(this)" />';

@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   class ot_tax {
-    var $title, $output, $enabled = false;
+    var $title, $output, $enabled = FALSE;
 
     function ot_tax() {
       global $aLang;

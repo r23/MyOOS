@@ -48,12 +48,12 @@ function smarty_function_oos_display_tax_value($params, &$smarty)
    } 
 
    if (strpos($value, '.')) {
-     $loop = true;
+     $loop = TRUE;
      while ($loop) {
        if (substr($value, -1) == '0') {
          $value = substr($value, 0, -1);
        } else {
-         $loop = false;
+         $loop = FALSE;
          if (substr($value, -1) == '.') {
            $value = substr($value, 0, -1);
          }

@@ -197,12 +197,12 @@
 
     if ($nDomainSize > 1) {
       if (is_numeric($aDomain[$nDomainSize-2]) && is_numeric($aDomain[$nDomainSize-1])) {
-        return false;
+        return FALSE;
       } else {
         return $aDomain[$nDomainSize-2] . '.' . $aDomain[$nDomainSize-1];
       }
     } else {
-      return false;
+      return FALSE;
     }
   }
 

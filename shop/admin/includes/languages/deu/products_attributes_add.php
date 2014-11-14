@@ -40,4 +40,4 @@ define('MAX_ROW_LISTS_OPTIONS', 10);
 
 define('TEXT_OPTION_ID', 'Options ID');
 define('TEXT_OPTION_NAME', 'Optionsname');
-?>
+

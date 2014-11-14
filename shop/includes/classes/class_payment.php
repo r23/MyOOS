@@ -50,8 +50,8 @@
 
         $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
         for ($i=0, $n=sizeof($include_modules); $i<$n; $i++) {
-          include 'includes/languages/' . $sLanguage . '/modules/payment/' . $include_modules[$i]['file'];
-          include 'includes/modules/payment/' . $include_modules[$i]['file'];
+          include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/payment/' . $include_modules[$i]['file'];
+          include_once MYOOS_INCLUDE_PATH . '/includes/modules/payment/' . $include_modules[$i]['file'];
 
           $GLOBALS[$include_modules[$i]['class']] = new $include_modules[$i]['class'];
         }
@@ -85,8 +85,6 @@
             if (method_exists($GLOBALS[$this->selected_module], 'update_status')) {
               $GLOBALS[$this->selected_module]->update_status();
             }
-          } else { // PHP3 compatibility
-            @call_user_method('update_status', $GLOBALS[$this->selected_module]);
           }
         }
       }
@@ -135,7 +133,7 @@
                '  }' . "\n\n" .
                '  if (error == 1 && submitter != 1) {' . "\n" .
                '    alert(error_message);' . "\n" .
-               '    return false;' . "\n" .
+               '    return FALSE;' . "\n" .
                '  } else {' . "\n" .
                '    return true;' . "\n" .
                '  }' . "\n" .
@@ -170,7 +168,7 @@
         if (is_object($GLOBALS[$this->selected_module]) && ($GLOBALS[$this->selected_module]->enabled) ) {
 
           if ($credit_covers) { 
-            $GLOBALS[$this->selected_module]->enabled = false; 
+            $GLOBALS[$this->selected_module]->enabled = FALSE; 
             $GLOBALS[$this->selected_module] = NULL; 
             $payment_modules = ''; 
           } else { 
@@ -221,4 +219,4 @@
     }
   }
 
-?>
+

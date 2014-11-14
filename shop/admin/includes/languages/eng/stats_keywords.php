@@ -43,4 +43,4 @@ define('BUTTON_ADD_WORD', 'Add word/phrase to table');
 
 define('LINK_EDIT', 'Edit');
 define('LINK_DELETE', 'Delete');
-?>
+

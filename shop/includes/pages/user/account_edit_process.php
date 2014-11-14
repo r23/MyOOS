@@ -31,96 +31,96 @@
     oos_redirect(oos_href_link($aModules['user'], $aFilename['account_edit'], '', 'SSL'));
   }
 
-  require 'includes/languages/' . $sLanguage . '/user_account_edit_process.php';
-  require 'includes/functions/function_validate_vatid.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_account_edit_process.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
 
   $firstname = oos_db_prepare_input($_POST['firstname']);
   $lastname = oos_db_prepare_input($_POST['lastname']);
 
-  $error = false; // reset error flag
+  $error = FALSE; // reset error flag
 
   if (ACCOUNT_GENDER == 'true') {
     if ( ($gender == 'm') || ($gender == 'f') ) {
-      $gender_error = false;
+      $gender_error = FALSE;
     } else {
-      $error = true;
+      $error = TRUE;
       $gender_error = 'true';
     }
   }
 
   if (strlen($firstname) < ENTRY_FIRST_NAME_MIN_LENGTH) {
-    $error = true;
+    $error = TRUE;
     $firstname_error = 'true';
   } else {
-    $firstname_error = false;
+    $firstname_error = FALSE;
   }
 
   if (strlen($lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
-    $error = true;
+    $error = TRUE;
     $lastname_error = 'true';
   } else {
-    $lastname_error = false;
+    $lastname_error = FALSE;
   }
 
   if (ACCOUNT_DOB == 'true') {
     if (checkdate(substr(oos_date_raw($dob), 4, 2), substr(oos_date_raw($dob), 6, 2), substr(oos_date_raw($dob), 0, 4))) {
-      $date_of_birth_error = false;
+      $date_of_birth_error = FALSE;
     } else {
-      $error = true;
+      $error = TRUE;
       $date_of_birth_error = 'true';
     }
   }
 
   if (strlen($email_address) < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
-    $error = true;
+    $error = TRUE;
     $email_address_error = 'true';
   } else {
-    $email_address_error = false;
+    $email_address_error = FALSE;
   }
 
   if (!oos_validate_is_email($email_address)) {
-    $error = true;
+    $error = TRUE;
     $email_address_check_error = 'true';
   } else {
-    $email_address_check_error = false;
+    $email_address_check_error = FALSE;
   }
 
   if ((ACCOUNT_VAT_ID == 'true') && (ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && oos_is_not_null($vat_id)) {
     if (!oos_validate_is_vatid($vat_id)) {
-      $error = true;
+      $error = TRUE;
       $vatid_check_error = 'true';
     } else {
-      $vatid_check_error = false;
+      $vatid_check_error = FALSE;
     }
   }
 
 
   if (strlen($street_address) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
-    $error = true;
+    $error = TRUE;
     $street_address_error = 'true';
   } else {
-    $street_address_error = false;
+    $street_address_error = FALSE;
   }
 
   if (strlen($postcode) < ENTRY_POSTCODE_MIN_LENGTH) {
-    $error = true;
+    $error = TRUE;
     $post_code_error = 'true';
   } else {
-    $post_code_error = false;
+    $post_code_error = FALSE;
   }
 
   if (strlen($city) < ENTRY_CITY_MIN_LENGTH) {
-    $error = true;
+    $error = TRUE;
     $city_error = 'true';
   } else {
-    $city_error = false;
+    $city_error = FALSE;
   }
 
   if (!is_numeric($country)) {
-    $error = true;
+    $error = TRUE;
     $country_error = 'true';
   } else {
-    $country_error = false;
+    $country_error = FALSE;
   }
 
   if (ACCOUNT_STATE == 'true') {
@@ -138,7 +138,7 @@
 
       $entry_state_has_zones = ($country_check->fields['total'] > 0);
 
-      if ($entry_state_has_zones === true) {
+      if ($entry_state_has_zones === TRUE) {
         $state_has_zones = 'true';
 
         $zonestable = $oostable['zones'];
@@ -174,21 +174,21 @@
   }
 
   if (strlen($telephone) < ENTRY_TELEPHONE_MIN_LENGTH) {
-    $error = true;
+    $error = TRUE;
     $telephone_error = 'true';
   } else {
-    $telephone_error = false;
+    $telephone_error = FALSE;
   }
 
   if (strlen($password) < ENTRY_PASSWORD_MIN_LENGTH) {
-    $error = true;
+    $error = TRUE;
     $password_error = 'true';
   } else {
-    $password_error = false;
+    $password_error = FALSE;
   }
 
   if ($password != $confirmation) {
-    $error = true;
+    $error = TRUE;
     $password_error = 'true';
   }
 
@@ -199,16 +199,16 @@
                         AND customers_id != '" . intval($_SESSION['customer_id']) . "'";
   $check_email = $dbconn->Execute($check_email_sql);
   if ($check_email->fields['total'] > 0) {
-    $error = true;
+    $error = TRUE;
     $email_address_exists = 'true';
   } else {
-    $email_address_exists = false;
+    $email_address_exists = FALSE;
   }
 
-  if ($error == true) {
+  if ($error == TRUE) {
 
-    $processed = true;
-    $no_edit = true;
+    $processed = TRUE;
+    $no_edit = TRUE;
     $show_password = 'true';
 
     // links breadcrumb
@@ -225,10 +225,10 @@
 
     $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
-    require 'includes/oos_system.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
     if (!isset($option)) {
-      require 'includes/info_message.php';
-      require 'includes/oos_blocks.php';
+      include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+      include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
     }
 
     $smarty->assign('oos_js', $javascript); 
@@ -315,7 +315,7 @@
     $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
     $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
-    require 'includes/oos_display.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
   } else {
     $new_encrypted_password = oos_encrypt_password($password);
     $sql_data_array = array('customers_firstname' => $firstname,
@@ -330,7 +330,7 @@
     if (ACCOUNT_DOB == 'true') $sql_data_array['customers_dob'] = oos_date_raw($dob);
     if (ACCOUNT_VAT_ID == 'true') {
       $sql_data_array['customers_vat_id'] = $vat_id;
-      if ((ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && ($vatid_check_error === false) && ($country != STORE_COUNTRY)) {
+      if ((ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && ($vatid_check_error === FALSE) && ($country != STORE_COUNTRY)) {
         $sql_data_array['customers_vat_id_status'] = 1;
       } else {
         $sql_data_array['customers_vat_id_status'] = 0;
@@ -340,7 +340,7 @@
     oos_db_perform($oostable['customers'], $sql_data_array, 'update', "customers_id = '" . intval($_SESSION['customer_id']) . "'");
 
     if (oos_is_not_null($_COOKIE['password'])) {
-      $cookie_url_array = parse_url((ENABLE_SSL == true ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . substr(OOS_SHOP, 0, -1));
+      $cookie_url_array = parse_url((ENABLE_SSL == TRUE ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . substr(OOS_SHOP, 0, -1));
       $cookie_path = $cookie_url_array['path'];
       setcookie('email_address', $email_address, time()+ (365 * 24 * 3600), $cookie_path, '', ((getenv('HTTPS') == 'on') ? 1 : 0));
       setcookie('password', $new_encrypted_password, time()+ (365 * 24 * 3600), $cookie_path, '', ((getenv('HTTPS') == 'on') ? 1 : 0));
@@ -380,7 +380,7 @@
     $_SESSION['customer_zone_id'] = $zone_id;
 
     if (ACCOUNT_VAT_ID == 'true') {
-      if ((ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && ($vatid_check_error === false)) {
+      if ((ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && ($vatid_check_error === FALSE)) {
         $_SESSION['customers_vat_id_status'] = 1;
       } else {
         $_SESSION['customers_vat_id_status'] = 0;

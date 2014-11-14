@@ -57,4 +57,4 @@ define('JS_ALERT_EMAIL_FORMAT',     '- Das Format der Email-Adresse ist ungülti
 define('JS_ALERT_EMAIL_USED',       '- Diese Email-Adresse wird schon verwendet! \n');
 define('JS_ALERT_PASSWORD_CONFIRM', '- Im Passwort-Bestätigungsfeld ist keine Eintragung vorgenommen worden! \n');
 
-?>
+

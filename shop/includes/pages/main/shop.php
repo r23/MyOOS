@@ -23,8 +23,8 @@
   /** ensure this file is being required by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  require 'includes/languages/' . $sLanguage . '/main_shop.php';
-  require 'includes/functions/function_default.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/main_shop.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
 
 // the following cPath references come from oos_main.php
   $category_depth = 'top';
@@ -64,10 +64,10 @@
     $sGroup = trim($_SESSION['member']->group['text']);
     $contents_cache_id = $sTheme . '|shop|nested|' . intval($nCurrentCategoryId) . '|' . $cPath . '|' . $sGroup . '|' . $sLanguage;
 
-    require 'includes/oos_system.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
     if (!isset($option)) {
-      require 'includes/info_message.php';
-      require 'includes/oos_blocks.php';
+      include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+      include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
     }
 
 if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
@@ -97,7 +97,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
         $smarty->assign('oos_meta_description', $category['categories_description_meta']);
       }
 
-      if (isset($cPath) && ereg('_', $cPath)) {
+      if (isset($cPath) && preg_match('/_/', $cPath)) {
         // check to see if there are deeper categories within the current category
         $category_links = array_reverse($aCategoryPath);
         for ($i=0, $n=count($category_links); $i<$n; $i++) {
@@ -166,7 +166,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
       $categories_result->Close();
 
       $new_products_category_id = $nCurrentCategoryId;
-      require 'includes/modules/new_products.php';
+      include_once MYOOS_INCLUDE_PATH . '/includes/modules/new_products.php';
 
       // assign Smarty variables;
       if ( (ALLOW_CATEGORY_DESCRIPTIONS == 'true') && (oos_is_not_null($category['categories_heading_title'])) ) {
@@ -199,10 +199,10 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
     $sGroup = trim($_SESSION['member']->group['text']);
     $contents_cache_id = $sTheme . '|shop|products|' . intval($nCurrentCategoryId) . '|' . $cPath . '|' . $nManufacturersID . '|' . $nPage . '|' . $nFilterID . '|' . $sGroup . '|' . $sLanguage;
 
-    require 'includes/oos_system.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
     if (!isset($option)) {
-      require 'includes/info_message.php';
-      require 'includes/oos_blocks.php';
+      include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+      include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
     }
 
     // index_products_heading.html
@@ -454,7 +454,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
       }
 
 
-      if ( (!isset($_GET['sort'])) || (!ereg('[1-8][ad]', $_GET['sort'])) || (substr($_GET['sort'], 0, 1) > count($column_list)) ) {
+      if ( (!isset($_GET['sort'])) || (!preg_match('/[1-8][ad]/', $_GET['sort'])) || (substr($_GET['sort'], 0, 1) > count($column_list)) ) {
         for ($col=0, $n=count($column_list); $col<$n; $col++) {
           if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
             $_GET['sort'] = 'products_sort_order';
@@ -574,7 +574,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
       );
 
       if ( (isset($_GET['manufacturers_id'])) ||  (oos_total_products_in_category($nCurrentCategoryId) >= 1) ) {
-        require 'includes/modules/product_listing.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
       }
     }
     $smarty->assign('oosPageNavigation', $smarty->fetch($aOption['page_navigation'], $contents_cache_id));
@@ -587,5 +587,5 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
   }
 
   // display the template
-  require 'includes/oos_display.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
 

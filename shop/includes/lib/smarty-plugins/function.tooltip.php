@@ -54,7 +54,7 @@ function smarty_function_tooltip($params, &$smarty)
     $image = $basedir . $image;
 
     if ((empty($image) || ($image == OOS_IMAGES)) && (IMAGE_REQUIRED == 'false')) {
-        return false;
+        return FALSE;
     }
 
     if ((empty($image) || ($image == OOS_IMAGES)) && (IMAGE_REQUIRED == 'true')) {
@@ -87,13 +87,13 @@ function smarty_function_tooltip($params, &$smarty)
         } elseif (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'no_picture.gif')) {
           $image = OOS_IMAGES . 'no_picture.gif';
         } else {
-          return false;
+          return FALSE;
         }
         $image_size = @getimagesize($image);
         $width = $image_size[0];
         $height = $image_size[1];
       } else {
-        return false;
+        return FALSE;
       }
     }
 

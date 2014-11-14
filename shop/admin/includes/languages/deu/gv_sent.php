@@ -41,4 +41,4 @@ define('TEXT_INFO_DATE_REDEEMED', 'Einl&ouml;sedatum:');
 define('TEXT_INFO_IP_ADDRESS', 'IP Adresse:');
 define('TEXT_INFO_CUSTOMERS_ID', 'Kunden-Nr.:');
 define('TEXT_INFO_NOT_REDEEMED', 'Nicht eingel&ouml;st');
-?>
+

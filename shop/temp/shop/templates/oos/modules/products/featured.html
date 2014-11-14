@@ -23,14 +23,14 @@
          <td valign="bottom" class="smallText" nowrap="nowrap">
 {if (!empty($featured_array[i].featured_product_special_price))}
    <s>{$featured_array[i].featured_product_price}{$featured_array[i].products_units}</s><br>
-   <span class="special_price">{$featured_array[i].featured_product_special_price|price2image:true}{$featured_array[i].products_units}</span><br>
+   <span class="special_price">{$featured_array[i].featured_product_special_price}{$featured_array[i].products_units}</span><br>
 {else}
   {if $featured_array[i].featured_max_product_discount != 0}
     <s>{$featured_array[i].featured_product_price}</s>&nbsp;-{$featured_array[i].featured_max_product_discount}%<br>
-    <span class="discount_price">{$featured_array[i].featured_product_discount_price|price2image:true}{$featured_array[i].products_units}</span><br>
+    <span class="discount_price">{$featured_array[i].featured_product_discount_price}{$featured_array[i].products_units}</span><br>
 
   {else}
-    {$featured_array[i].featured_product_price|price2image}{$featured_array[i].products_units}
+    {$featured_array[i].featured_product_price}{$featured_array[i].products_units}
   {/if}
 {/if}
 

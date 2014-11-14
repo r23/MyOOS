@@ -34,4 +34,4 @@ define('TITLE_DATABASE', 'Datenbank:');
 define('TITLE_DATABASE_DATE', 'Datenbank Datum:');
 define('TITLE_PHP_INFORMATION', 'PHP Info');
 
-?>
+

@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   class ot_gv {
-    var $title, $output, $enabled = false;
+    var $title, $output, $enabled = FALSE;
 
     function ot_gv() {
       global $aLang;
@@ -38,7 +38,7 @@
       $this->credit_tax = (defined('MODULE_ORDER_TOTAL_GV_CREDIT_TAX') ? MODULE_ORDER_TOTAL_GV_CREDIT_TAX : null);
       $this->tax_class  = (defined('MODULE_ORDER_TOTAL_GV_TAX_CLASS') ? MODULE_ORDER_TOTAL_GV_TAX_CLASS : null);
       $this->show_redeem_box = (defined('MODULE_ORDER_TOTAL_GV_REDEEM_BOX') ? MODULE_ORDER_TOTAL_GV_REDEEM_BOX : null);
-      $this->credit_class = true;
+      $this->credit_class = TRUE;
       $this->checkbox = $this->user_prompt . '<input type="checkbox" onClick="submitFunction()" name="' . 'c' . $this->code . '">';
 
       $this->output = array();
@@ -47,7 +47,7 @@
     function process() {
       global $oOrder, $oCurrencies;
 
-      if (isset ($_SESSION['cot_gv']) && $_SESSION['cot_gv'] == true) {
+      if (isset ($_SESSION['cot_gv']) && $_SESSION['cot_gv'] == TRUE) {
 
         $order_total = $this->get_order_total();
         $od_amount = $this->calculate_credit($order_total);
@@ -69,7 +69,7 @@
       if ($this->user_has_gv_account($_SESSION['customer_id'])) {
         return true;
       } else {
-        return false;
+        return FALSE;
       }
     }
 
@@ -80,7 +80,7 @@
     }
 
     function use_credit_amount() {
-      $_SESSION['cot_gv'] = false;
+      $_SESSION['cot_gv'] = FALSE;
       $output_string = '';
       if ($this->selection_test()) {
         $output_string .=  '    <td colspan="2" align="right" class="main">';
@@ -96,7 +96,7 @@
       $dbconn =& oosDBGetConn();
       $oostable =& oosDBGetTables();
 
-      if (ereg('^GIFT', addslashes($oOrder->products[$i]['model']))) {
+      if (preg_match('/^GIFT/', addslashes($oOrder->products[$i]['model']))) {
         $gv_order_amount = ($oOrder->products[$i]['final_price'] * $oOrder->products[$i]['qty']);
         if ($this->credit_tax=='true') $gv_order_amount = $gv_order_amount * (100 + $oOrder->products[$i]['tax']) / 100;
         $gv_order_amount = $gv_order_amount * 100 / 100;
@@ -105,12 +105,12 @@
 
           $coupon_gv_customertable = $oostable['coupon_gv_customer'];
           $gv_query = $dbconn->Execute("SELECT amount FROM $coupon_gv_customertable WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'");
-          $customer_gv = false;
+          $customer_gv = FALSE;
           $total_gv_amount = 0;
 
           if ($gv_result = $gv_query->fields) {
             $total_gv_amount = $gv_result['amount'];
-            $customer_gv = true;
+            $customer_gv = TRUE;
           }
           $total_gv_amount = $total_gv_amount + $gv_order_amount;
           if ($customer_gv) {
@@ -175,7 +175,7 @@
       $dbconn =& oosDBGetConn();
       $oostable =& oosDBGetTables();
 
-      if (isset ($_SESSION['cot_gv']) && $_SESSION['cot_gv'] == true) {
+      if (isset ($_SESSION['cot_gv']) && $_SESSION['cot_gv'] == TRUE) {
 
         $coupon_gv_customertable = $oostable['coupon_gv_customer'];
         $gv_query = $dbconn->Execute("SELECT amount FROM $coupon_gv_customertable WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'");
@@ -225,11 +225,11 @@
 
           $coupon_gv_customertable = $oostable['coupon_gv_customer'];
           $gv_amount_query = $dbconn->Execute("SELECT amount FROM $coupon_gv_customertable WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'");
-          $customer_gv = false;
+          $customer_gv = FALSE;
           $total_gv_amount = $gv_amount;
           if ($gv_amount_result = $gv_amount_query->fields) {
             $total_gv_amount = $gv_amount_result['amount'] + $gv_amount;
-            $customer_gv = true;
+            $customer_gv = TRUE;
           }
 
           $couponstable = $oostable['coupons'];
@@ -349,7 +349,7 @@
       if ($gv_result->fields['amount']>0) {
         return true;
       }
-      return false;
+      return FALSE;
     }
 
     function get_order_total() {

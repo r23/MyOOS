@@ -36,4 +36,4 @@ define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie das Land l&ouml;sche
 define('TEXT_INFO_HEADING_NEW_COUNTRY', 'neues Land');
 define('TEXT_INFO_HEADING_EDIT_COUNTRY', 'Land bearbeiten');
 define('TEXT_INFO_HEADING_DELETE_COUNTRY', 'Land l&ouml;schen');
-?>
+

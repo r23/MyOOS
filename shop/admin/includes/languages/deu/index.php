@@ -45,4 +45,4 @@ define('REPORTS_ORDERS', 'Bestellungen');
 define('TOOLS_BACKUP', 'Datensicherung');
 define('TOOLS_BANNERS', 'Bannerverwaltung');
 define('TOOLS_FILES', 'Dateiverwaltung');
-?>
+

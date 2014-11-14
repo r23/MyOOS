@@ -12,7 +12,7 @@
  
 require_once $smarty->_get_plugin_filepath('shared','improvetypo');
 
-function smarty_modifier_improvetypo($content,$diff = false)
+function smarty_modifier_improvetypo($content,$diff = FALSE)
 	{
 	return smarty_improvetypo($content,$diff);
 	}

@@ -22,14 +22,14 @@
   $aOption['info_shopping_cart'] = $sTheme . '/system/info_shopping_cart.html';
 
   //smarty
-  require 'includes/classes/class_template.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
   $oSmarty =& new Template;
 
   $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
   $info_shopping_cart_id = $sTheme . '|info_shopping_cart|' . $sLanguage;
 
   if (!$smarty->isCached($aOption['info_shopping_cart'], $info_shopping_cart_id )) {
-    require 'includes/languages/' . $sLanguage . '/main_info_shopping_cart.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/main_info_shopping_cart.php';
 
     // assign Smarty variables;
     $smarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);

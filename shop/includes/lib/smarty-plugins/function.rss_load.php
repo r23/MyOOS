@@ -17,7 +17,7 @@
  *
  * Input:    file = local file or URL of rss
  *           assign = template var to assign parsed data
- *           caching = true/false (opt, default true)
+ *           caching = TRUE/false (opt, default true)
  *           cache_dir = directory to store cache (opt,
  *                       default=$smarty->cache_dir)
  *           cache_lifetime = number of seconds cache file

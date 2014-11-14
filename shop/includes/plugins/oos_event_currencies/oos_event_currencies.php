@@ -41,7 +41,7 @@
 
       $this->name          = PLUGIN_EVENT_CURRENCIES_NAME;
       $this->description   = PLUGIN_EVENT_CURRENCIES_DESC;
-      $this->uninstallable = false;
+      $this->uninstallable = FALSE;
       $this->depends       = 'language';
       $this->author        = 'OOS Development Team';
       $this->version       = '1.0';
@@ -56,7 +56,7 @@
     function create_plugin_instance() {
       global $oCurrencies;
 
-      include 'includes/classes/class_currencies.php';
+      include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_currencies.php';
       $oCurrencies = new currencies();
 
       // currency
@@ -72,15 +72,15 @@
     }
 
     function install() {
-      return false;
+      return FALSE;
     }
 
     function remove() {
-      return false;
+      return FALSE;
     }
 
     function config_item() {
-      return false;
+      return FALSE;
     }
   }
 

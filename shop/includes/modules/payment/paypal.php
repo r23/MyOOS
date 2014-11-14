@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   class paypal {
-    var $code, $title, $description, $enabled = false;
+    var $code, $title, $description, $enabled = FALSE;
 
 // class constructor
     function paypal() {
@@ -45,8 +45,8 @@
     function update_status() {
       global $oOrder;
 
-      if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_PAYPAL_ZONE > 0) ) {
-        $check_flag = false;
+      if ( ($this->enabled == TRUE) && ((int)MODULE_PAYMENT_PAYPAL_ZONE > 0) ) {
+        $check_flag = FALSE;
 
         // Get database information
         $dbconn =& oosDBGetConn();
@@ -56,11 +56,11 @@
         $check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_PAYMENT_PAYPAL_ZONE . "' AND zone_country_id = '" . $oOrder->billing['country']['id'] . "' ORDER BY zone_id");
         while ($check = $check_result->fields) {
           if ($check['zone_id'] < 1) {
-            $check_flag = true;
+            $check_flag = TRUE;
             break;
 
           } elseif ($check['zone_id'] == $oOrder->billing['zone_id']) {
-            $check_flag = true;
+            $check_flag = TRUE;
             break;
 
           }
@@ -72,14 +72,14 @@
         // Close result set
         $check_result->Close();
 
-        if ($check_flag == false) {
-          $this->enabled = false;
+        if ($check_flag == FALSE) {
+          $this->enabled = FALSE;
         }
       }
     }
 
     function javascript_validation() {
-      return false;
+      return FALSE;
     }
 
     function selection() {
@@ -88,11 +88,11 @@
     }
 
     function pre_confirmation_check() {
-      return false;
+      return FALSE;
     }
 
     function confirmation() {
-      return false;
+      return FALSE;
     }
 
     function process_button() {
@@ -135,15 +135,15 @@
     }
 
     function before_process() {
-      return false;
+      return FALSE;
     }
 
     function after_process() {
-      return false;
+      return FALSE;
     }
 
     function output_error() {
-      return false;
+      return FALSE;
     }
 
     function check() {

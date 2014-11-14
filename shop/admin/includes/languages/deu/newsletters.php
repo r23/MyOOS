@@ -46,4 +46,4 @@ define('ERROR_NEWSLETTER_MODULE', 'Fehler: Das Newsletter Modul wird ben&ouml;ti
 define('ERROR_REMOVE_UNLOCKED_NEWSLETTER', 'Fehler: Bitte sperren Sie das Rundschreiben bevor Sie es l&ouml;schen.');
 define('ERROR_EDIT_UNLOCKED_NEWSLETTER', 'Fehler: Bitte sperren Sie das Rundschreiben bevor Sie es bearbeiten.');
 define('ERROR_SEND_UNLOCKED_NEWSLETTER', 'Fehler: Bitte sperren Sie das Rundschreiben bevor Sie es versenden.');
-?>
+

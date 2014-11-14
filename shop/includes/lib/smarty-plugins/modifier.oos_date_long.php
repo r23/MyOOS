@@ -41,7 +41,7 @@
  
 function smarty_modifier_oos_date_long($raw_date)
 {
-    if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return false;
+    if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return FALSE;
 
     $year = (int)substr($raw_date, 0, 4);
     $month = (int)substr($raw_date, 5, 2);

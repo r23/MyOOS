@@ -23,7 +23,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  if ($oEvent->installed_plugin('customer_must_login')) return false;
+  if ($oEvent->installed_plugin('customer_must_login')) return FALSE;
 
   $whats_new_block = 'false';
 

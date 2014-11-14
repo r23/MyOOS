@@ -37,7 +37,7 @@
    ---------------------------------------------------------------------- */
 
   class ot_cod_fee {
-    var $title, $output, $enabled = false;
+    var $title, $output, $enabled = FALSE;
 
     function ot_cod_fee() {
       global $aLang;
@@ -57,7 +57,7 @@
       if (MODULE_ORDER_TOTAL_COD_STATUS == 'true') {
 
         //Will become true, if cod can be processed.
-        $cod_country = false;
+        $cod_country = FALSE;
 
         //check if payment method is cod. If yes, check if cod is possible.
         if ($_SESSION['payment'] == 'cod') {
@@ -75,12 +75,12 @@
             for ($i = 0; $i < count($cod_zones); $i++) {
             if ($cod_zones[$i] == $oOrder->billing['country']['iso_code_2']) {
                   $cod_cost = $cod_zones[$i + 1];
-                  $cod_country = true;
+                  $cod_country = TRUE;
                   //print('match' . $i . ': ' . $cod_cost);
                   break;
                 } elseif ($cod_zones[$i] == '00') {
                   $cod_cost = $cod_zones[$i + 1];
-                  $cod_country = true;
+                  $cod_country = TRUE;
                   //print('match' . $i . ': ' . $cod_cost);
                   break;
                 } else {

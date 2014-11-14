@@ -22,7 +22,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  if (!is_numeric(MAX_DISPLAY_UPCOMING_PRODUCTS)) return false;
+  if (!is_numeric(MAX_DISPLAY_UPCOMING_PRODUCTS)) return FALSE;
 
   switch (OOS_DB_TYPE)
     {

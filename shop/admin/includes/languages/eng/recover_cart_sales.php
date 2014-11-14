@@ -76,4 +76,4 @@ define('TEXT_SEND_EMAIL', 'Send E-mail');
 define('TEXT_RETURN', '[Click Here To Return]');
 define('TEXT_NOT_CONTACTED', 'Uncontacted');
 define('PSMSG', 'Additional PS Message: ');
-?>
+

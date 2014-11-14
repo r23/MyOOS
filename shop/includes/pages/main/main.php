@@ -23,8 +23,8 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  require 'includes/languages/' . $sLanguage . '/main_main.php';
-  require 'includes/functions/function_default.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/main_main.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
 
 
   
@@ -73,10 +73,10 @@
 
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
-  require 'includes/oos_system.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    require 'includes/info_message.php';
-    require 'includes/oos_blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
   
@@ -107,7 +107,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 
   if ($oEvent->installed_plugin('spezials')) {
     if (!$smarty->isCached($aOption['new_spezials'], $oos_modules_cache_id)) {
-      require 'includes/modules/new_spezials.php';
+      include_once MYOOS_INCLUDE_PATH . '/includes/modules/new_spezials.php';
     }
     $smarty->assign('new_spezials', $smarty->fetch($aOption['new_spezials'], $oos_modules_cache_id));
   }
@@ -116,28 +116,28 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
   
   if ($oEvent->installed_plugin('featured')) {
     if (!$smarty->isCached($aOption['featured'], $oos_modules_cache_id)) {
-      require 'includes/modules/featured.php';
+      include_once MYOOS_INCLUDE_PATH . '/includes/modules/featured.php';
     }
     $smarty->assign('featured', $smarty->fetch($aOption['featured'], $oos_modules_cache_id));
   }
 
 
   if (!$smarty->isCached($aOption['new_products'], $oos_modules_cache_id)) {
-    require 'includes/modules/new_products.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/modules/new_products.php';
   }
   $smarty->assign('new_products', $smarty->fetch($aOption['new_products'], $oos_modules_cache_id));
 
 
   if ($oEvent->installed_plugin('manufacturers')) {
     if (!$smarty->isCached($aOption['mod_manufacturers'], $oos_modules_cache_id)) {
-      require 'includes/modules/mod_manufacturers.php';
+      include_once MYOOS_INCLUDE_PATH . '/includes/modules/mod_manufacturers.php';
     }
     $smarty->assign('mod_manufacturers', $smarty->fetch($aOption['mod_manufacturers'], $oos_modules_cache_id));
   }
 
 
   if (!$smarty->isCached($aOption['upcoming_products'], $oos_modules_cache_id)) {
-    require 'includes/modules/upcoming_products.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/modules/upcoming_products.php';
   }
   
   $smarty->assign('upcoming_products', $smarty->fetch($aOption['upcoming_products'], $oos_modules_cache_id));
@@ -148,6 +148,6 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 
   
   // display the template
-  require 'includes/oos_display.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
 
 

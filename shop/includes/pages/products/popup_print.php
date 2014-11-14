@@ -24,7 +24,7 @@
   $aOption['popup_print'] = $sTheme . '/products/popup_print.html';
 
   //smarty
-  require 'includes/classes/class_template.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
   $oSmarty = new Template;
 
   /**
@@ -41,7 +41,7 @@
   $popup_cache_id = $sTheme . '|products|' . $sGroup . '|print|' . $nProductsId . '|' . $sLanguage;
 
   if (!$smarty->isCached($aOption['popup_print'], $popup_cache_id )) {
-    require 'includes/languages/' . $sLanguage . '/products_info.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_info.php';
 
     $productstable = $oostable['products'];
     $products_descriptiontable = $oostable['products_description'];

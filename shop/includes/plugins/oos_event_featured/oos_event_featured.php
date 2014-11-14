@@ -40,7 +40,7 @@
 
       $this->name          = PLUGIN_EVENT_FEATURED_NAME;
       $this->description   = PLUGIN_EVENT_FEATURED_DESC;
-      $this->uninstallable = true;
+      $this->uninstallable = TRUE;
       $this->author        = 'OOS Development Team';
       $this->version       = '2.0';
       $this->requirements  = array(
@@ -53,7 +53,7 @@
 
     function create_plugin_instance() {
 
-      include 'includes/functions/function_featured.php';
+      include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_featured.php';
       oos_expire_featured();
 
       return true;

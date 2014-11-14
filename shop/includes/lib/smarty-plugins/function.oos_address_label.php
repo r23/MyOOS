@@ -39,7 +39,7 @@ function smarty_function_oos_address_label($params, &$smarty)
 
     $customers_id = '';
     $address_id = 1;
-    $html = true;
+    $html = TRUE;
     $boln = '';
     $eoln = '<br>';
 

@@ -146,4 +146,3 @@
     return str_replace("&#39;", "'", $string);
   }
 
-?>

@@ -26,7 +26,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  if (!is_numeric(MAX_DISPLAY_XSELL_PRODUCTS)) return false;
+  if (!is_numeric(MAX_DISPLAY_XSELL_PRODUCTS)) return FALSE;
 
   if (isset($_GET['products_id'])) {
     if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);

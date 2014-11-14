@@ -51,4 +51,4 @@ define ('TEXT_REDEEM_COUPON_MESSAGE_FOOTER', "\n\n");
 
 define('TEXT_FROM_NAME', 'Absender Name:');
 define('TEXT_FROM_MAIL', 'Absender eMail:');
-?>
+

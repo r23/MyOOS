@@ -63,4 +63,3 @@ define('TEXT_SEND_EMAIL', 'Sende E-mail');
 define('TEXT_RETURN', '[Klick hier um zurckzugehen]');
 define('TEXT_NOT_CONTACTED', 'Nicht kontaktiert');
 define('PSMSG', 'Zus�zliche Nachricht (PS) am Ende der Mail: ');
-?>

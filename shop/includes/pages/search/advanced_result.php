@@ -22,8 +22,8 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  require 'includes/languages/' . $sLanguage . '/search_advanced_result.php';
-  require 'includes/functions/function_search.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/search_advanced_result.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_search.php';
 
   // Search enhancement mod start
   if (isset($_GET['keywords']) && $_GET['keywords'] != '') {
@@ -340,7 +340,7 @@
       $where_str .= " GROUP BY p.products_id, tr.tax_priority";
     }
 
-    if ( (!isset($_GET['sort'])) || (!ereg('[1-8][ad]', $_GET['sort'])) || (substr($_GET['sort'], 0 , 1) > count($column_list)) ) {
+    if ( (!isset($_GET['sort'])) || (!preg_match('/[1-8][ad]/', $_GET['sort'])) || (substr($_GET['sort'], 0 , 1) > count($column_list)) ) {
       for ($col=0, $n=count($column_list); $col<$n; $col++) {
         if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
           $_GET['sort'] = $col+1 . 'a';
@@ -396,10 +396,10 @@
 
     $nPageType = OOS_PAGE_TYPE_CATALOG;
 
-    require 'includes/oos_system.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
     if (!isset($option)) {
-      require 'includes/info_message.php';
-      require 'includes/oos_blocks.php';
+      include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+      include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
     }
 
     // assign Smarty variables;
@@ -411,7 +411,7 @@
         )
     );
 
-    require 'includes/modules/product_listing.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
 
     $smarty->assign('pw_mispell', $pw_mispell);
     $smarty->assign('pw_string', $pw_string);
@@ -422,6 +422,6 @@
     $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
     // display the template
-    require 'includes/oos_display.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
   }
 

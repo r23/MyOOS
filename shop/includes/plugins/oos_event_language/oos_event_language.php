@@ -39,7 +39,7 @@
 
       $this->name          = PLUGIN_EVENT_LANGUAGE_NAME;
       $this->description   = PLUGIN_EVENT_LANGUAGE_DESC;
-      $this->uninstallable = false;
+      $this->uninstallable = FALSE;
       $this->author        = 'OOS Development Team';
       $this->version       = '2.0';
       $this->requirements  = array(
@@ -61,7 +61,7 @@
 
       if (!isset($_SESSION['language']) || isset($_GET['language'])) {
         // include the language class
-        include 'includes/classes/class_language.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_language.php';
         $oLang = new language;
 
         if (isset($_GET['language']) && oos_is_not_null($_GET['language'])) {
@@ -72,22 +72,22 @@
       }
 
       $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
-      include 'includes/languages/' . $sLanguage . '.php';
+      include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
 
       return true;
 
     }
 
     function install() {
-      return false;
+      return FALSE;
     }
 
     function remove() {
-      return false;
+      return FALSE;
     }
 
     function config_item() {
-      return false;
+      return FALSE;
     }
   }
 

@@ -57,4 +57,4 @@ define( 'TEXT_UNAME_ERROR', '<br /><p class="main">The username cannot be empty.
 define( 'TEXT_FULL_ACCESS', 'This administrator has <b>full</b> access.' );
 define( 'TEXT_PARTIAL_ACCESS', 'This administrator has access to the following areas.  CTRL+Click to select multiple.' );
 define( 'TEXT_ADMIN_HAS_ACCESS_TO', 'Administrator Rights' );
-?>
+

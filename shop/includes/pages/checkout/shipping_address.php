@@ -23,8 +23,8 @@
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
   
-  require 'includes/languages/' . $sLanguage . '/checkout_shipping_address.php';
-  require 'includes/functions/function_address.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_shipping_address.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 
 // start the session
 if ( is_session_started() === FALSE ) oos_session_start();  
@@ -43,12 +43,12 @@ if ( is_session_started() === FALSE ) oos_session_start();
 // if the order contains only virtual products, forward the customer to the billing page as
 // a shipping address is not needed
   if ($oOrder->content_type == 'virtual') {
-    $_SESSION['shipping'] = false;
-    $_SESSION['sendto'] = false;
+    $_SESSION['shipping'] = FALSE;
+    $_SESSION['sendto'] = FALSE;
     oos_redirect(oos_href_link($aModules['checkout'], $aFilename['checkout_payment'], '', 'SSL'));
   }
 
-  $error = false;
+  $error = FALSE;
   $process = 'false';
   if (isset($_POST['action']) && ($_POST['action'] == 'submit')) {
 // process a new shipping address
@@ -152,7 +152,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
         }
       }
 
-      if ($error == false) {
+      if ($error == FALSE) {
         $address_booktable = $oostable['address_book'];
         $sql = "SELECT max(address_book_id) AS address_book_id 
                 FROM $address_booktable
@@ -196,11 +196,11 @@ if ( is_session_started() === FALSE ) oos_session_start();
       }
 // process the selected shipping destination
     } elseif (isset($_POST['address'])) {
-      $reset_shipping = false;
+      $reset_shipping = FALSE;
       if (isset($_SESSION['sendto'])) {
         if ($_SESSION['sendto'] != $_POST['address']) {
           if (isset($_SESSION['shipping'])) {
-            $reset_shipping = true;
+            $reset_shipping = TRUE;
           }
         }
       }
@@ -215,7 +215,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
       $check_address = $check_address_result->fields;
 
       if ($check_address['total'] == '1') {
-        if ($reset_shipping == true) unset($_SESSION['shipping']);
+        if ($reset_shipping == TRUE) unset($_SESSION['shipping']);
         oos_redirect(oos_href_link($aModules['checkout'], $aFilename['checkout_shipping'], '', 'SSL'));
       } else {
         unset($_SESSION['sendto']);
@@ -283,10 +283,10 @@ if ( is_session_started() === FALSE ) oos_session_start();
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
 
-  require 'includes/oos_system.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    require 'includes/info_message.php';
-    require 'includes/oos_blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
   // assign Smarty variables;
@@ -355,5 +355,5 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
   // display the template
-  require 'includes/oos_display.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
 

@@ -22,7 +22,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  if (!$oEvent->installed_plugin('notify')) return false;
+  if (!$oEvent->installed_plugin('notify')) return FALSE;
 
   $notifications_block = 'false';
 
@@ -45,7 +45,7 @@
       $check = $dbconn->Execute($query);
       $notification_exists = (($check->fields['total'] > 0) ? true : false);
     } else {
-      $notification_exists = false;
+      $notification_exists = FALSE;
     }
 
     $products_name = oos_get_products_name($nProductsId);

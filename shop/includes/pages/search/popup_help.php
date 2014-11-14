@@ -23,14 +23,14 @@
   $aOption['popup_help'] = $sTheme . '/system/popup_help.html';
 
   //smarty
-  require 'includes/classes/class_template.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
   $oSmarty = new Template;
 
   $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
   $help_cache_id = $sTheme . '|popup|search|' . $sLanguage;
 
   if (!$smarty->isCached($aOption['popup_help'], $help_cache_id )) {
-    require 'includes/languages/' . $sLanguage . '/search_advanced.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/search_advanced.php';
 
     // assign Smarty variables;
     $smarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);

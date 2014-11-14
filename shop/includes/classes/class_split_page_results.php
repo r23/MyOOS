@@ -43,19 +43,19 @@
        $pos_from = strpos($sql_result, ' FROM', 0);
 
        $pos_group_by = strpos($sql_result, ' GROUP BY', $pos_from);
-       if (($pos_group_by < $pos_to) && ($pos_group_by != false)) $pos_to = $pos_group_by;
+       if (($pos_group_by < $pos_to) && ($pos_group_by != FALSE)) $pos_to = $pos_group_by;
 
        $pos_having = strpos($sql_result, ' HAVING', $pos_from);
-       if (($pos_having < $pos_to) && ($pos_having != false)) $pos_to = $pos_having;
+       if (($pos_having < $pos_to) && ($pos_having != FALSE)) $pos_to = $pos_having;
 
        $pos_order_by = strpos($sql_result, ' ORDER BY', $pos_from);
-       if (($pos_order_by < $pos_to) && ($pos_order_by != false)) $pos_to = $pos_order_by;
+       if (($pos_order_by < $pos_to) && ($pos_order_by != FALSE)) $pos_to = $pos_order_by;
 
        $pos_limit = strpos($sql_result, ' LIMIT', $pos_from);
-       if (($pos_limit < $pos_to) && ($pos_limit != false)) $pos_to = $pos_limit;
+       if (($pos_limit < $pos_to) && ($pos_limit != FALSE)) $pos_to = $pos_limit;
 
        $pos_procedure = strpos($sql_result, ' PROCEDURE', $pos_from);
-       if (($pos_procedure < $pos_to) && ($pos_procedure != false)) $pos_to = $pos_procedure;
+       if (($pos_procedure < $pos_to) && ($pos_procedure != FALSE)) $pos_to = $pos_procedure;
 
        $offset = ($max_rows_per_page * ($current_page_number - 1));
        if ($offset < 0) $offset = 0;
@@ -148,4 +148,4 @@
      }
    }
 
-?>
+

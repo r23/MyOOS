@@ -39,4 +39,4 @@ define('TEXT_COPY_ATTRIBUTES','Artikeloptionen kopieren?');
 define('TEXT_COPY_ATTRIBUTES_YES' ,'Ja');
 define('TEXT_COPY_ATTRIBUTES_NO' ,'Nein');
 
-?>
+

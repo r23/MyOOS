@@ -30,7 +30,7 @@
     oos_redirect(oos_href_link($aModules['reviews'], $aFilename['reviews_reviews']));
   }
 
-  require 'includes/languages/' . $sLanguage . '/reviews_product_info.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/reviews_product_info.php';
 
 // lets retrieve all $_GET keys and values..
   $get_parameters = oos_get_all_get_parameters(array('reviews_id'));
@@ -76,10 +76,10 @@
 
   $nPageType = OOS_PAGE_TYPE_REVIEWS;
 
-  require 'includes/oos_system.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    require 'includes/info_message.php';
-    require 'includes/oos_blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
   $smarty->assign(
@@ -98,4 +98,4 @@
   $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
   // display the template
-  require 'includes/oos_display.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';

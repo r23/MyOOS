@@ -23,8 +23,8 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  require 'includes/languages/' . $sLanguage . '/checkout_process.php';
-  require 'includes/functions/function_address.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_process.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 
 // start the session
 if ( is_session_started() === FALSE ) oos_session_start();  
@@ -51,14 +51,14 @@ if ( is_session_started() === FALSE ) oos_session_start();
   }
 
 // load selected payment module
-  require 'includes/classes/class_payment.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_payment.php';
   $payment_modules = new payment($_SESSION['payment']);
 
 // load the selected shipping module
-  require 'includes/classes/class_shipping.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
   $shipping_modules = new shipping($_SESSION['shipping']);
 
-  require 'includes/classes/class_order.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
   $oOrder = new order;
 
   if ( (isset($_SESSION['shipping'])) && ($_SESSION['shipping']['id'] == 'free_free')) {
@@ -70,7 +70,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
 // load the before_process function from the payment modules
   $payment_modules->before_process();
 
-  require 'includes/classes/class_order_total.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order_total.php';
   $order_total_modules = new order_total;
 
   $order_totals = $order_total_modules->process();

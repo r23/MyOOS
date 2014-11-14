@@ -22,8 +22,8 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  require 'includes/languages/' . $sLanguage . '/checkout_payment_address.php';
-  require 'includes/functions/function_address.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_payment_address.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 
 // start the session
 if ( is_session_started() === FALSE ) oos_session_start();  
@@ -39,7 +39,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
     oos_redirect(oos_href_link($aModules['main'], $aFilename['main_shopping_cart']));
   }
 
-  $error = false;
+  $error = FALSE;
   $process = 'false';
   if (isset($_POST['action']) && ($_POST['action'] == 'submit')) {
 // process a new billing address
@@ -143,7 +143,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
         }
       }
 
-      if ($error == false) {
+      if ($error == FALSE) {
         $address_booktable = $oostable['address_book'];
         $sql = "SELECT max(address_book_id) AS address_book_id
                 FROM $address_booktable
@@ -188,11 +188,11 @@ if ( is_session_started() === FALSE ) oos_session_start();
       }
 // process the selected billing destination
     } elseif (isset($_POST['address'])) {
-      $reset_payment = false;
+      $reset_payment = FALSE;
       if (isset($_SESSION['billto'])) {
         if ($_SESSION['billto'] != $_POST['address']) {
           if (isset($_SESSION['payment'])) {
-            $reset_payment = true;
+            $reset_payment = TRUE;
           }
         }
       }
@@ -208,7 +208,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
       $check_address = $check_address_result->fields;
 
       if ($check_address['total'] == '1') {
-        if ($reset_payment == true)   unset($_SESSION['payment']);
+        if ($reset_payment == TRUE)   unset($_SESSION['payment']);
         oos_redirect(oos_href_link($aModules['checkout'], $aFilename['checkout_payment'], '', 'SSL'));
       } else {
         unset($_SESSION['billto']);
@@ -275,10 +275,10 @@ if ( is_session_started() === FALSE ) oos_session_start();
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
 
-  require 'includes/oos_system.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    require 'includes/info_message.php';
-    require 'includes/oos_blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
   // assign Smarty variables;
@@ -347,5 +347,5 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
 
   // display the template
-  require 'includes/oos_display.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
 

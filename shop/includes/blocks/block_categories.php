@@ -29,7 +29,7 @@
   * @param $include_inactive
   * @return string
   */
-  function oos_count_products_in_category($category_id, $include_inactive = false) {
+  function oos_count_products_in_category($category_id, $include_inactive = FALSE) {
 
     $products_count = 0;
 
@@ -39,7 +39,7 @@
     $productstable = $oostable['products'];
     $products_to_categoriestable = $oostable['products_to_categories'];
 
-    if ($include_inactive == true) {
+    if ($include_inactive == TRUE) {
       $products = $dbconn->Execute("SELECT COUNT(*) AS total FROM $productstable p, $products_to_categoriestable p2c WHERE p.products_id = p2c.products_id AND p2c.categories_id = '" . intval($category_id) . "'");
     } else {
       $products = $dbconn->Execute("SELECT COUNT(*) AS total FROM $productstable p, $products_to_categoriestable p2c WHERE p.products_id = p2c.products_id AND p.products_status >= '1' AND p2c.categories_id = '" . intval($category_id) . "'");

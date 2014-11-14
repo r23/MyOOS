@@ -13,8 +13,8 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  if ($oEvent->installed_plugin('down_for_maintenance')) return false;
-  if ($sFile == $aFilename['customers_image']) return false;
+  if ($oEvent->installed_plugin('down_for_maintenance')) return FALSE;
+  if ($sFile == $aFilename['customers_image']) return FALSE;
 
   $myworld_block = 'false';
 

@@ -54,4 +54,4 @@ define('TEXT_INFO_NEW_FILE_INTRO', '&Uuml;berpr&uuml;fen Sie das <font color="re
 
 define('TEXT_INFO_NEW_FILE_BOX', 'Momentaner Bereich: ');
 
-?>
+

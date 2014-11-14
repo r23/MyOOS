@@ -79,4 +79,4 @@ define('EMAIL_COUPON_INCENTIVE_HEADER', 'Congratulation, to make your first visi
 define('EMAIL_COUPON_REDEEM', 'To use the coupon enter the redeem code which is %s during checkout, ' . "\n" . 
                                'after making a purchase');
 
-?>
+

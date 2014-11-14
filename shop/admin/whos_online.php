@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: whos_online.php,v 1.30 2002/11/22 14:45:49 dgw_ 
+   File: whos_online.php,v 1.30 2002/11/22 14:45:49 dgw_
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -34,7 +34,7 @@
   $dbconn->Execute("DELETE FROM $whos_onlinetable WHERE time_last_click < '" . $xx_mins_ago . "'");
 
   $no_js_general = true;
-  require 'includes/oos_header.php'; 
+  require 'includes/oos_header.php';
 ?>
 <!-- body //-->
 <table border="0" width="100%" cellspacing="2" cellpadding="2">
@@ -67,8 +67,8 @@
               </tr>
 <?php
   $whos_onlinetable = $oostable['whos_online'];
-  $sql = "SELECT customer_id, full_name, ip_address, time_entry, 
-                 time_last_click, last_page_url, session_id 
+  $sql = "SELECT customer_id, full_name, ip_address, time_entry,
+                 time_last_click, last_page_url, session_id
           FROM $whos_onlinetable";
   $whos_online_result = $dbconn->Execute($sql);
   while ($whos_online = $whos_online_result->fields) {
@@ -88,7 +88,7 @@
                 <td class="dataTableContent" align="center"><?php echo $whos_online['ip_address']; ?></td>
                 <td class="dataTableContent"><?php echo date('H:i:s', $whos_online['time_entry']); ?></td>
                 <td class="dataTableContent" align="center"><?php echo date('H:i:s', $whos_online['time_last_click']); ?></td>
-                <td class="dataTableContent"><?php if (eregi('^(.*)' . oos_session_name() . '=[a-f,0-9]+[&]*(.*)', $whos_online['last_page_url'], $array)) { echo $array[1] . $array[2]; } else { echo $whos_online['last_page_url']; } ?>&nbsp;</td>
+                <td class="dataTableContent"><?php if (preg_match('/^(.*)' . oos_session_name() . '=[a-f,0-9]+[&]*(.*)/', $whos_online['last_page_url'], $array)) { echo $array[1] . $array[2]; } else { echo $whos_online['last_page_url']; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -108,24 +108,10 @@
   if (isset($info)) {
     $heading[] = array('text' => '<b>' . TABLE_HEADING_SHOPPING_CART . '</b><br />');
 
-    if (STORE_SESSIONS == 'true') {
-      $sessionstable = $oostable['sessions'];
-
-      $session_data = $dbconn->Execute("SELECT data FROM $sessionstable WHERE sesskey = '" . $info . "'");
-
-      if (STORE_SESSIONS_CRYPT == 'true') {
-        include_once '../includes/classes/thirdparty/adodb/session/crypt.inc.php';
-        $Crypt = new MD5Crypt;
-        $session_data = rawurldecode($Crypt->Decrypt(reset($session_data->fields), crypt(ADODB_Session::encryptionKey(), $info)));    
-      } else {
-        $session_data = rawurldecode($session_data->fields['data']);
-      }
-    } else {
       if ( (file_exists(oos_session_save_path() . '/sess_' . $info)) && (filesize(oos_session_save_path() . '/sess_' . $info) > 0) ) {
         $session_data = file(oos_session_save_path() . '/sess_' . $info);
         $session_data = trim(implode('', $session_data));
       }
-    }
 
     $currency = unserialize(oos_get_serialized_variable($session_data, 'currency', 'string'));
 

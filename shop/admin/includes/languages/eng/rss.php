@@ -45,4 +45,4 @@ define('TEXT_DELETE_IMAGE', 'Delete newsfeed image?');
 
 define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Error: I can not write to this directory. Please set the right user permissions on: %s');
 define('ERROR_DIRECTORY_DOES_NOT_EXIST', 'Error: Directory does not exist: %s');
-?>
+

@@ -300,4 +300,3 @@
     return oos_draw_pull_down_menu($name, $tax_class_array, $tax_class_id);
   }
 
-?>

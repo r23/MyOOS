@@ -103,4 +103,4 @@ if ($_GET['gPath'] == 1) {
 } else {
   define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br />Change permission for this group by selecting or unselecting boxes and files provided. Click <b>save</b> to save the changes.<br /><br />');
 }
-?>
+

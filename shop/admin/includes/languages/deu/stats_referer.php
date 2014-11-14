@@ -19,4 +19,4 @@ define('TABLE_HEADING_PER_CENT', '%');
 
 define('TEXT_HTTP_REFERERS_RESET', 'HTTP referers wurden zur&uuml;ck gestellt!');
 
-?>
+

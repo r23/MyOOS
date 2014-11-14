@@ -487,4 +487,3 @@ define('ORDERS_STATUS_UPDATED_VALUE','4'); // set to the Updated status to updat
 require('includes/languages/' . $_SESSION['language'] . '/' . 'quantity_control.php');
 require('includes/languages/' . $_SESSION['language'] . '/' . 'mo_pics.php');
 
-?>

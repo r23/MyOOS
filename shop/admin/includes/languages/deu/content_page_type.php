@@ -32,4 +32,4 @@ define('TEXT_INFO_HEADING_EDIT_PAGE_TYPE', 'Seitentyp bearbeiten');
 define('TEXT_INFO_HEADING_DELETE_PAGE_TYPE', 'Seitentyp l&ouml;schen');
 
 define('ERROR_STATUS_USED_IN_ORDERS', 'Fehler: Dieser Seitentyp wird zur Zeit noch bei den Bl�ken verwendet.');
-?>
+

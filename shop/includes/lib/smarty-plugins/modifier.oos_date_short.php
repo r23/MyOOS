@@ -41,7 +41,7 @@
  
 function smarty_modifier_oos_date_short($raw_date)
 {
-    if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return false;
+    if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return FALSE;
 
     $year = substr($raw_date, 0, 4);
     $month = (int)substr($raw_date, 5, 2);
@@ -53,8 +53,8 @@ function smarty_modifier_oos_date_short($raw_date)
     if (@date('Y', mktime($hour, $minute, $second, $month, $day, $year)) == $year) {
       return date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, $year));
     } else {
-      return ereg_replace('2037' . '$', $year, date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, 2037)));
+      return preg_match('/2037' . '$/', $year, date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, 2037)));
     }
 }
 
-?>
+

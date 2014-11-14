@@ -39,7 +39,7 @@
 
       $this->name          = PLUGIN_EVENT_WHOS_ONLINE_NAME;
       $this->description   = PLUGIN_EVENT_WHOS_ONLINE_DESC;
-      $this->uninstallable = true;
+      $this->uninstallable = TRUE;
       $this->author        = 'OOS Development Team';
       $this->version       = '2.0';
       $this->requirements  = array(
@@ -119,7 +119,7 @@
     }
 
     function config_item() {
-      return false;
+      return FALSE;
     }
   }
 

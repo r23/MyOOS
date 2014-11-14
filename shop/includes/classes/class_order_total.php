@@ -37,8 +37,8 @@
 
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
-          include 'includes/languages/' . $sLanguage . '/modules/order_total/' . $value;
-          include 'includes/modules/order_total/' . $value;
+          include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/' . $value;
+          include_once MYOOS_INCLUDE_PATH . '/includes/modules/order_total/' . $value;
 
           $class = substr($value, 0, strrpos($value, '.'));
           $GLOBALS[$class] = new $class;
@@ -238,7 +238,7 @@
     function pre_confirmation_check() {
       global $payment, $oOrder, $credit_covers;
 
-      $credit_covers = false;
+      $credit_covers = FALSE;
       if (MODULE_ORDER_TOTAL_INSTALLED) {
         $total_deductions  = 0;
         reset($this->modules);
@@ -250,7 +250,7 @@
           }
         }
         if ($oOrder->info['total'] - $total_deductions <= 0 ) {
-          $credit_covers = true;
+          $credit_covers = TRUE;
         }
       }
       return $credit_covers;
@@ -304,4 +304,4 @@
     }
   }
 
-?>
+

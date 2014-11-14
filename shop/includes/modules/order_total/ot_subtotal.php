@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   class ot_subtotal {
-    var $title, $output, $enabled = false;
+    var $title, $output, $enabled = FALSE;
 
     function ot_subtotal() {
       global $aLang;

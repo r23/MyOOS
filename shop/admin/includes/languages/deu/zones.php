@@ -36,4 +36,3 @@ define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie dieses Bundesland l&
 define('TEXT_INFO_HEADING_NEW_ZONE', 'neues Bundesland');
 define('TEXT_INFO_HEADING_EDIT_ZONE', 'Bundesland bearbeiten');
 define('TEXT_INFO_HEADING_DELETE_ZONE', 'Bundesland l&ouml;schen');
-?>

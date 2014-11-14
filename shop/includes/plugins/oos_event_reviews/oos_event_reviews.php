@@ -40,7 +40,7 @@
 
       $this->name          = PLUGIN_EVENT_REVIEWS_NAME;
       $this->description   = PLUGIN_EVENT_REVIEWS_DESC;
-      $this->uninstallable = true;
+      $this->uninstallable = TRUE;
       $this->author        = 'OOS Development Team';
       $this->version       = '2.0';
       $this->requirements  = array(

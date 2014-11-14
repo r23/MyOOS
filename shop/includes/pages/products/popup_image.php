@@ -39,7 +39,7 @@
   $aOption['popup_image'] = $sTheme . '/products/popup_image.html';
 
   //smarty
-  require 'includes/classes/class_template.php';
+  include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
   $oSmarty =& new Template;
 
   /**

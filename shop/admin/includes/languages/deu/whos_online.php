@@ -33,4 +33,4 @@ define('TABLE_HEADING_ACTION', 'Aktion');
 define('TABLE_HEADING_SHOPPING_CART', 'Warenkorb');
 define('TEXT_SHOPPING_CART_SUBTOTAL', 'Insgesamt');
 define('TEXT_NUMBER_OF_CUSTOMERS', 'Es sind zur Zeit %s Kunden online');
-?>
+
