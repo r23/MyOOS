@@ -31,7 +31,7 @@ var req;
 function loadXMLDoc(key) {
 
 <?php
-  $sUrl = oos_href_link($aModules['search'], $aFilename['quickfind'], '', 'NONSSL', true, false);
+  $sUrl = oos_href_link($aModules['search'], $aContents['quickfind'], '', 'NONSSL', true, false);
   if (strpos($sUrl, '&amp;') !== false) $sUrl = str_replace('&amp;', '&', $sUrl);
 ?>
    var url="<?php echo $sUrl; ?>&keywords="+key;

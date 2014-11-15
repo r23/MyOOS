@@ -41,8 +41,7 @@ function smarty_function_html_href_link($params, &$smarty)
         require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
 	
 	
-    $modul = '';
-    $file = '';
+    $content = '';
     $parameters = '';
     $connection = 'NONSSL';
     $add_session_id = 'true';
@@ -50,15 +49,8 @@ function smarty_function_html_href_link($params, &$smarty)
 
     foreach($params as $_key => $_val) {
       switch($_key) {
-        case 'modul':
-          if(!is_array($_val)) {
-            $$_key = smarty_function_escape_special_chars($_val);
-          } else {
-            throw new SmartyException("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
-          }
-          break;
 
-        case 'file':
+        case 'content':
           if(!is_array($_val)) {
             $$_key = smarty_function_escape_special_chars($_val);
           } else {
@@ -88,12 +80,7 @@ function smarty_function_html_href_link($params, &$smarty)
        }
     }
 
-
-    if (empty($modul)) {
-      throw new SmartyException("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
-    }
-
-    if (empty($file)) {
+    if (empty($content)) {
       throw new SmartyException("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
     }
 
@@ -105,7 +92,7 @@ function smarty_function_html_href_link($params, &$smarty)
       $parameters .= $oos_get;
     }
 
-    $file = trim($file);
+    $content = trim($content);
 
     if ($connection == 'NONSSL') {
       $link = OOS_HTTP_SERVER . OOS_SHOP;
@@ -120,9 +107,9 @@ function smarty_function_html_href_link($params, &$smarty)
     }
 
     if (isset($parameters)) {
-      $link .= 'index.php?mp=' . $modul . '&amp;file=' . $file . '&amp;' . oos_output_string($parameters);
+      $link .= 'index.php?content=' . $content . '&amp;' . oos_output_string($parameters);
     } else {
-      $link .= 'index.php?mp=' . $modul . '&amp;file=' . $file;
+      $link .= 'index.php?content=' . $content;
     }
 
     $separator = '&amp;';
@@ -170,4 +157,4 @@ function smarty_function_html_href_link($params, &$smarty)
     return $link;
   }
 
-?>
+

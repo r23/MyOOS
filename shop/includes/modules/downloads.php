@@ -27,7 +27,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  if (oos_var_prep_for_os($sFile) != $aFilename['account_history_info']) {
+  if (oos_var_prep_for_os($sContent) != $aContents['account_history_info']) {
 // Get last order id for checkout_success
     $orderstable = $oostable['orders'];
     $orders_result = $dbconn->Execute("SELECT orders_id FROM $orderstable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' ORDER BY orders_id desc limit 1");

@@ -62,9 +62,9 @@ function installer_get_language() {
           while (($file = readdir($dh)) !== false) {
 
             if ($file == '.' || $file == '..' || $file == 'CVS' || filetype($locale_dir . $file) == 'dir' ) continue;
-			$sFile = substr($file, 0, -4);
-            if (is_file($locale_dir . $file) && @$lang[$sFile]) {
-              $langlist[$sFile] = $lang[$sFile];
+			$sContent = substr($file, 0, -4);
+            if (is_file($locale_dir . $file) && @$lang[$sContent]) {
+              $langlist[$sContent] = $lang[$sContent];
             }
           }
           closedir($dh);

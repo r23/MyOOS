@@ -25,7 +25,7 @@
 $aLang['heading_title'] = 'Send Gift Voucher';
 $aLang['navbar_title'] = 'Send Gift Voucher';
 $aLang['email_subject'] = 'Enquiry from ' . STORE_NAME;
-$aLang['heading_text'] = '<br />Please enter below the details of the Gift Voucher you wish to send. For more information, please see our <a href="' . oos_href_link($aModules['gv'], $aFilename['gv_faq']).'">'.GV_FAQ.'.</a><br />';
+$aLang['heading_text'] = '<br />Please enter below the details of the Gift Voucher you wish to send. For more information, please see our <a href="' . oos_href_link($aContents['gv_faq']).'">'.GV_FAQ.'.</a><br />';
 $aLang['entry_name'] = 'Recipients Name:';
 $aLang['entry_email'] = 'Recipients E-Mail Address:';
 $aLang['entry_message'] = 'Message to Recipients:';

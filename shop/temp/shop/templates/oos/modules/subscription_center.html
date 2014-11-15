@@ -12,7 +12,7 @@
        </tr>
 {/if}
       <tr>
-        <td><form name="subscription_center" method="post" action="{html_href_link modul=$modules.newsletters file=$filename.subscription_center action=process connection=SSL}"><br><table border="0" width="100%" cellspacing="0" cellpadding="3">
+        <td><form name="subscription_center" method="post" action="{html_href_link content=$filename.subscription_center action=process connection=SSL}"><br><table border="0" width="100%" cellspacing="0" cellpadding="3">
           <tr>
             <td align="right" class="main">{$lang.entry_email_address}</td>
             <td class="main"><input type="text" name="email_address" maxlength="96" value="{$smarty.post.email_address}"></td>

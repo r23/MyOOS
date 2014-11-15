@@ -151,7 +151,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
         if (isset($_POST['notify_comments']) && ($_POST['notify_comments'] == 'on')) {
           $notify_comments = sprintf(EMAIL_TEXT_COMMENTS_UPDATE, $comments) . "\n\n";
         }
-        $email = STORE_NAME . "\n" . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $oID . "\n" . EMAIL_TEXT_INVOICE_URL . ' ' . oos_catalog_link($aFilename['catalog_account_history_info'], 'order_id=' . $oID, 'SSL') . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . oos_date_long($check_status['date_purchased']) . "\n\n" . $notify_comments . sprintf(EMAIL_TEXT_STATUS_UPDATE, $orders_status_array[$status]);
+        $email = STORE_NAME . "\n" . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $oID . "\n" . EMAIL_TEXT_INVOICE_URL . ' ' . oos_catalog_link($aContents['catalog_account_history_info'], 'order_id=' . $oID, 'SSL') . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . oos_date_long($check_status['date_purchased']) . "\n\n" . $notify_comments . sprintf(EMAIL_TEXT_STATUS_UPDATE, $orders_status_array[$status]);
         oos_mail($check_status['customers_name'], $check_status['customers_email_address'], EMAIL_TEXT_SUBJECT, $email, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
         $customer_notified = '1';
       }
@@ -495,7 +495,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?> #<?php echo $oID; ?></td>
             <td class="pageHeading" align="right"><?php echo oos_draw_separator('trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
-            <td class="pageHeading" align="right"><?php echo '<a href="' . oos_href_link_admin($aFilename['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?></td>
+            <td class="pageHeading" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?></td>
           </tr>
         </table></td>
       </tr>
@@ -939,7 +939,7 @@ if($action == "add_product") {
           <tr>
             <td class="pageHeading"><?php echo ADDING_TITLE; ?> #<?php echo $oID; ?></td>
             <td class="pageHeading" align="right"><?php echo oos_draw_separator('trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
-            <td class="pageHeading" align="right"><?php echo '<a href="' . oos_href_link_admin($aFilename['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?></td>
+            <td class="pageHeading" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?></td>
           </tr>
         </table></td>
       </tr>

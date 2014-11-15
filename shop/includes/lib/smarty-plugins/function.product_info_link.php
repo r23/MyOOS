@@ -16,7 +16,7 @@
  *         - products_id
  *
  * Examples: <{product_info_link products_id=17}>
- * Output:   http:// ... index.php?mp=products&amp;file=info&amp;products_id=17
+ * Output:   http:// ... index.php?content=product_info&amp;products_id=17
  * @author   r23 <info@r23.de>
  * @version  1.0
  * @param array
@@ -29,13 +29,11 @@ function smarty_function_product_info_link($params, &$smarty)
 
   require_once(MYOOS_INCLUDE_PATH . '/includes/lib/smarty-plugins/function.html_href_link.php');
 
-  $aModules = oos_get_modules();
-  $aFilename =  oos_get_filename(); 
+  $aContents =  oos_get_content(); 
 
   $result = array();
   $link_params = array();
-  $link_params = array('modul' => $aModules['products'],
-                       'file' => $aFilename['product_info']);
+  $link_params = array('content' => $aContents['product_info']);
 
   if (is_array($params)) {
     $result = array_merge($link_params, $params);
@@ -46,5 +44,3 @@ function smarty_function_product_info_link($params, &$smarty)
   return smarty_function_html_href_link($result, $smarty);
 
 }
-
-?>

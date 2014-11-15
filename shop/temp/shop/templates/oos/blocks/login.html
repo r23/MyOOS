@@ -10,7 +10,7 @@
       <tr>
         <td width="2" class="block_content_backgr_left"></td>
         <td width="150">
-<form name="login" method="post" action="{html_href_link modul=$modules.user file=$filename.login action=process connection=SSL}">
+<form name="login" method="post" action="{html_href_link content=$filename.login action=process connection=SSL}">
 <table width="150" border="0" cellspacing="0" cellpadding="3">
           <tr>
             <td align="left" class="block_content">{$lang.entry_email_address}</td>
@@ -34,8 +34,8 @@
          </tr>
          <tr>
           <td align="left" class="block_content">
-            <a href="{html_href_link modul=$modules.user file=$filename.create_account connection=SSL}">{$lang.login_block_new_customer}</a><br>
-            <a href="{html_href_link modul=$modules.user file=$filename.password_forgotten connection=SSL}">{$lang.text_password_info}</a></td>
+            <a href="{html_href_link content=$filename.create_account connection=SSL}">{$lang.login_block_new_customer}</a><br>
+            <a href="{html_href_link content=$filename.password_forgotten connection=SSL}">{$lang.text_password_info}</a></td>
           </tr>
         </table>
 </form>

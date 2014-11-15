@@ -82,7 +82,7 @@
 					</div>
 					<ul class="list-unstyled quick-access">
 						<li class="first"><a href="{html_href_link content=$contents.account connection=SSL}" title="{$lang.header_title_my_account}"><i class="fa fa-user"></i> {$lang.header_title_my_account}</a></li>
-						<li><a href="{html_href_link content=$contents.main_shopping_cart}" title="{$lang.header_title_cart_contents}"><i class="fa fa-shopping-cart"></i> {$lang.header_title_cart_contents}</a></li>
+						<li><a href="{html_href_link content=$contents.shopping_cart}" title="{$lang.header_title_cart_contents}"><i class="fa fa-shopping-cart"></i> {$lang.header_title_cart_contents}</a></li>
 						<li><a href="{html_href_link content=$contents.checkout_payment connection=SSL}" title="{$lang.header_title_checkout}"><i class="fa fa-folder-open"></i> {$lang.header_title_checkout}</a></li>
 					{if (isset($smarty.session.customer_id)) }
 						<li class="last"><a href="{html_href_link content=$contents.logoff connection=SSL}" title="{$lang.header_title_logoff}"><i class="fa fa-sign-out"></i> {$lang.header_title_logoff}</a></li>

@@ -15,7 +15,7 @@
       </tr>
 {/if}
       <tr>
-        <td><form name="login" method="post" action="{html_href_link modul=$modules.user file=$filename.login action=process connection=SSL}"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><form name="login" method="post" action="{html_href_link content=$filename.login action=process connection=SSL}"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main" width="50%" valign="top"><b>{$lang.heading_new_customer}</b></td>
             <td class="main" width="50%" valign="top"><b>{$lang.heading_returning_customer}</b></td>
@@ -66,7 +66,7 @@
                     <td colspan="2"><td height="10"></td>
                   </tr>
                   <tr>
-                    <td class="smallText" colspan="2"><a href="{html_href_link modul=$modules.user file=$filename.password_forgotten connection=SSL}">{$lang.text_password_forgotten}</a></td>
+                    <td class="smallText" colspan="2"><a href="{html_href_link content=$filename.password_forgotten connection=SSL}">{$lang.text_password_forgotten}</a></td>
                   </tr>
                   <tr>
                     <td colspan="2"><td height="10"></td>
@@ -76,7 +76,7 @@
             </table></td>
           </tr>
           <tr>
-            <td width="50%" align="right" valign="top"><a href="{html_href_link modul=$modules.user file=$filename.create_account connection=SSL}">{html_image_button image="continue.gif" alt=$lang.image_button_continue}</a></td>
+            <td width="50%" align="right" valign="top"><a href="{html_href_link content=$filename.create_account connection=SSL}">{html_image_button image="continue.gif" alt=$lang.image_button_continue}</a></td>
             <td width="50%" align="right" valign="top">{html_image_submit image="sign_in.gif" alt=$lang.image_button_login}</td>
           </tr>
         </table></form></td>

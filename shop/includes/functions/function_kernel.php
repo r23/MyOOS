@@ -487,12 +487,28 @@
   function oos_get_all_get_parameters($aExclude = '') {
 
     if (!is_array($aExclude)) $aExclude = array();
-    $aParameters = array('p', 'error', 'rewrite', 'c', 'm', 'mp', 'file', 'infex.php', 'history_back', 'gclid', 'x', 'y');
+    $aParameters = array('p', 'error', 'rewrite', 'c', 'm', 'content', 'infex.php', 'history_back', 'formid', 'gclid', 'x', 'y');
+
+	$urlValues = array();
+	if (is_array($_GET)
+		&& (count($_GET) > 0))
+	{
+		reset($_GET);
+		foreach($_GET as $key => $value)
+		{
+			if(empty($value)
+				|| $value === FALSE)
+			{
+				continue;
+			}
+			$urlValues[$key] = $value;
+		}
+	}
 
     $sUrl = '';
-    if (is_array($_GET) && (count($_GET) > 0)) {
-      reset($_GET);
-      while (list($sKey, $sValue) = each($_GET)) {
+    if (is_array($urlValues) && (count($urlValues) > 0)) {
+      reset($urlValues);
+      while (list($sKey, $sValue) = each($urlValues)) {
         if (!empty($sValue)) {
           if ( ($sKey != oos_session_name()) && (!in_array($sKey, $aParameters)) && (!in_array($sKey, $aExclude)) ) {
             $sUrl .= $sKey . '=' . rawurlencode($sValue) . '&amp;';
@@ -515,7 +531,7 @@
 
     if (!is_array($aExclude)) $aExclude = array();
 
-    $aParameters = array('mp', 'file', 'x', 'y');
+    $aParameters = array('formid', 'page', 'x', 'y');
 
     $sUrl = '';
     if (is_array($_POST) && (count($_POST) > 0)) {
@@ -1144,22 +1160,12 @@ function oos_output_string($sStr, $aTranslate = null)
 
 
  /**
-  * Return $aFilename
+  * Return $aContents
   */
-  function oos_get_filename() {
-    GLOBAL $aFilename;
+  function oos_get_content() {
+    GLOBAL $aContents;
 
-    return $aFilename;
-  }
-
-
- /**
-  * Return $aModules
-  */
-  function oos_get_modules() {
-    GLOBAL $aModules;
-
-    return $aModules;
+    return $aContents;
   }
 
 

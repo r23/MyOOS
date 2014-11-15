@@ -39,7 +39,7 @@
         }
 
         if (in_array($_POST['admin_email_address'], $stored_email)) {
-          oos_redirect_admin(oos_href_link_admin($aFilename['admin_members'], 'page=' . $_GET['page'] . 'mID=' . $_GET['mID'] . '&error=email&action=new_member'));
+          oos_redirect_admin(oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . 'mID=' . $_GET['mID'] . '&error=email&action=new_member'));
         } else {
           $newpass = oos_create_random_value(ENTRY_PASSWORD_MIN_LENGTH);
           $crypted_password = oos_encrypt_password($newpass);
@@ -56,7 +56,7 @@
 
           oos_mail($_POST['admin_firstname'] . ' ' . $_POST['admin_lastname'], $_POST['admin_email_address'], ADMIN_EMAIL_SUBJECT, sprintf(ADMIN_EMAIL_TEXT, $_POST['admin_firstname'], OOS_HTTP_SERVER . OOS_SHOP . 'admin/', $_POST['admin_email_address'], $newpass, STORE_OWNER), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 
-          oos_redirect_admin(oos_href_link_admin($aFilename['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $admin_id));
+          oos_redirect_admin(oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $admin_id));
         }
         break;
 
@@ -76,7 +76,7 @@
         }
 
         if (in_array($_POST['admin_email_address'], $stored_email)) {
-          oos_redirect_admin(oos_href_link_admin($aFilename['admin_members'], 'page=' . $_GET['page'] . 'mID=' . $_GET['mID'] . '&error=email&action=edit_member'));
+          oos_redirect_admin(oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . 'mID=' . $_GET['mID'] . '&error=email&action=edit_member'));
         } else {
           $sql_data_array = array('admin_groups_id' => oos_db_prepare_input($_POST['admin_groups_id']),
                                   'admin_firstname' => oos_db_prepare_input($_POST['admin_firstname']),
@@ -88,7 +88,7 @@
 
           oos_mail($_POST['admin_firstname'] . ' ' . $_POST['admin_lastname'], $_POST['admin_email_address'], ADMIN_EMAIL_SUBJECT, sprintf(ADMIN_EMAIL_TEXT, $_POST['admin_firstname'], OOS_HTTP_SERVER . OOS_SHOP . 'admin/', $_POST['admin_email_address'], $hiddenPassword, STORE_OWNER), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 
-          oos_redirect_admin(oos_href_link_admin($aFilename['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $admin_id));
+          oos_redirect_admin(oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $admin_id));
         }
         break;
 
@@ -97,7 +97,7 @@
         $query = "DELETE FROM ". $oostable['admin'] . " WHERE admin_id = '" . $admin_id . "'";
         $dbconn->Execute($query);
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['admin_members'], 'page=' . $_GET['page']));
+        oos_redirect_admin(oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page']));
         break;
 
       case 'group_define':
@@ -122,7 +122,7 @@
           $define_files_result->MoveNext();
         }
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['admin_members'], 'gID=' . $_POST['admin_groups_id']));
+        oos_redirect_admin(oos_href_link_admin($aContents['admin_members'], 'gID=' . $_POST['admin_groups_id']));
         break;
 
       case 'group_delete':
@@ -138,7 +138,7 @@
         $query = "DELETE FROM $admintable WHERE admin_groups_id = '" . $_GET['gID'] . "'";
         $dbconn->Execute($query);
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['admin_members'], 'gID=groups'));
+        oos_redirect_admin(oos_href_link_admin($aContents['admin_members'], 'gID=groups'));
         break;
 
       case 'group_edit':
@@ -146,21 +146,21 @@
         $name_replace = preg_replace ("/ /", "%", $admin_groups_name);
 
         if (($admin_groups_name == '' || NULL) || (strlen($admin_groups_name) <= 5) ) {
-          oos_redirect_admin(oos_href_link_admin($aFilename['admin_members'], 'gID=' . $_GET[gID] . '&gName=false&action=action=edit_group'));
+          oos_redirect_admin(oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET[gID] . '&gName=false&action=action=edit_group'));
         } else {
           $admin_groupstable = $oostable['admin_groups'];
           $check_groups_name_query = "SELECT admin_groups_name as group_name_edit FROM $admin_groupstable WHERE admin_groups_id <> " . $_GET['gID'] . " and admin_groups_name like '%" . $name_replace . "%'";
           $check_groups_name_result = $dbconn->Execute($check_groups_name_query);
           $check_duplicate = $check_groups_name_result->RecordCount();
           if ($check_duplicate > 0){
-            oos_redirect_admin(oos_href_link_admin($aFilename['admin_members'], 'gID=' . $_GET['gID'] . '&gName=used&action=edit_group'));
+            oos_redirect_admin(oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET['gID'] . '&gName=used&action=edit_group'));
           } else {
             $admin_groups_id = $_GET['gID'];
             $query = "UPDATE " . $oostable['admin_groups'] . "
                         SET admin_groups_name = '" . $admin_groups_name . "'
                         WHERE admin_groups_id = '" . $admin_groups_id . "'";
             $dbconn->Execute($query);
-            oos_redirect_admin(oos_href_link_admin($aFilename['admin_members'], 'gID=' . $admin_groups_id));
+            oos_redirect_admin(oos_href_link_admin($aContents['admin_members'], 'gID=' . $admin_groups_id));
           }
         }
         break;
@@ -170,13 +170,13 @@
         $name_replace = preg_replace ("/ /", "%", $admin_groups_name);
 
         if (($admin_groups_name == '' || NULL) || (strlen($admin_groups_name) <= 5) ) {
-          oos_redirect_admin(oos_href_link_admin($aFilename['admin_members'], 'gID=' . $_GET[gID] . '&gName=false&action=new_group'));
+          oos_redirect_admin(oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET[gID] . '&gName=false&action=new_group'));
         } else {
           $check_groups_name_query = "SELECT admin_groups_name as group_name_new FROM ". $oostable['admin_groups'] . " WHERE admin_groups_name like '%" . $name_replace . "%'";
           $check_groups_name_result = $dbconn->Execute($check_groups_name_query);
           $check_duplicate = $check_groups_name_result->RecordCount();
           if ($check_duplicate > 0){
-            oos_redirect_admin(oos_href_link_admin($aFilename['admin_members'], 'gID=' . $_GET['gID'] . '&gName=used&action=new_group'));
+            oos_redirect_admin(oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET['gID'] . '&gName=used&action=new_group'));
           } else {
             $sql_data_array = array('admin_groups_name' => $admin_groups_name);
             oos_db_perform($oostable['admin_groups'], $sql_data_array);
@@ -187,7 +187,7 @@
             $query = "alter table " . $oostable['admin_files'] . " change admin_groups_id admin_groups_id set( " . $add_group_id . ") NOT NULL DEFAULT '1' ";
             $dbconn->Execute($query);
 
-            oos_redirect_admin(oos_href_link_admin($aFilename['admin_members'], 'gID=' . $admin_groups_id));
+            oos_redirect_admin(oos_href_link_admin($aContents['admin_members'], 'gID=' . $admin_groups_id));
           }
         }
         break;
@@ -223,9 +223,9 @@
    $group_name = $dbconn->GetRow($group_name_query);
 
    if ($_GET['gPath'] == 1) {
-     echo oos_draw_form('defineForm', $aFilename['admin_members'], 'gID=' . $_GET['gPath']);
+     echo oos_draw_form('defineForm', $aContents['admin_members'], 'gID=' . $_GET['gPath']);
    } elseif ($_GET['gPath'] != 1) {
-     echo oos_draw_form('defineForm', $aFilename['admin_members'], 'gID=' . $_GET['gPath'] . '&action=group_define', 'post', 'enctype="multipart/form-data"');
+     echo oos_draw_form('defineForm', $aContents['admin_members'], 'gID=' . $_GET['gPath'] . '&action=group_define', 'post', 'enctype="multipart/form-data"');
      echo oos_draw_hidden_field('admin_groups_id', $_GET['gPath']);
    }
 ?>
@@ -314,7 +314,7 @@
   $db_boxes_result->Close();
 ?>
               <tr class="dataTableRowBoxes">
-                <td colspan=2 class="dataTableContent" valign="top" align="right"><?php if ($_GET['gPath'] != 1) { echo  '<a href="' . oos_href_link_admin($aFilename['admin_members'], 'gID=' . $_GET['gPath']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a> ' . oos_image_swap_submits('save','save_off.gif', IMAGE_INSERT); } else { echo oos_image_swap_submits('back','back_off.gif', IMAGE_BACK); } ?>&nbsp;</td>
+                <td colspan=2 class="dataTableContent" valign="top" align="right"><?php if ($_GET['gPath'] != 1) { echo  '<a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET['gPath']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a> ' . oos_image_swap_submits('save','save_off.gif', IMAGE_INSERT); } else { echo oos_image_swap_submits('back','back_off.gif', IMAGE_BACK); } ?>&nbsp;</td>
               </tr>
             </table></form>
 <?php
@@ -339,14 +339,14 @@
     }
 
     if (isset($gInfo) && is_object($gInfo) && ($groups['admin_groups_id'] == $gInfo->admin_groups_id) ) {
-      echo '                <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['admin_members'], 'gID=' . $groups['admin_groups_id'] . '&action=edit_group') . '\'">' . "\n";
+      echo '                <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $groups['admin_groups_id'] . '&action=edit_group') . '\'">' . "\n";
     } else {
-      echo '                <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['admin_members'], 'gID=' . $groups['admin_groups_id']) . '\'">' . "\n";
+      echo '                <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $groups['admin_groups_id']) . '\'">' . "\n";
       $del_groups_prepare .= ',\'' . $groups['admin_groups_id'] . '\'' ;
     }
 ?>
                 <td class="dataTableContent">&nbsp;<b><?php echo $groups['admin_groups_name']; ?></b></td>
-                <td class="dataTableContent" align="right"><?php if (isset($gInfo) && is_object($gInfo) && ($groups['admin_groups_id'] == $gInfo->admin_groups_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . oos_href_link_admin($aFilename['admin_members'], 'gID=' . $groups['admin_groups_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($gInfo) && is_object($gInfo) && ($groups['admin_groups_id'] == $gInfo->admin_groups_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $groups['admin_groups_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     $count_groups++;
@@ -361,7 +361,7 @@
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="smallText" valign="top"><?php echo TEXT_COUNT_GROUPS . $count_groups; ?></td>
-                    <td class="smallText" valign="top" align="right"><?php echo '<a href="' . oos_href_link_admin($aFilename['admin_members']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a> <a href="' . oos_href_link_admin($aFilename['admin_members'], 'gID=' . $gInfo->admin_groups_id . '&action=new_group') . '">' . oos_image_swap_button('admin_group','admin_group_off.gif', IMAGE_NEW_GROUP) . '</a>'; ?>&nbsp;</td>
+                    <td class="smallText" valign="top" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['admin_members']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a> <a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $gInfo->admin_groups_id . '&action=new_group') . '">' . oos_image_swap_button('admin_group','admin_group_off.gif', IMAGE_NEW_GROUP) . '</a>'; ?>&nbsp;</td>
                   </tr>
                 </table></td>
               </tr>
@@ -393,16 +393,16 @@
     }
 
     if (isset($mInfo) && is_object($mInfo) && ($admin['admin_id'] == $mInfo->admin_id) ) {
-      echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $admin['admin_id'] . '&action=edit_member') . '\'">' . "\n";
+      echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $admin['admin_id'] . '&action=edit_member') . '\'">' . "\n";
     } else {
-      echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $admin['admin_id']) . '\'">' . "\n";
+      echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $admin['admin_id']) . '\'">' . "\n";
     }
 ?>
                 <td class="dataTableContent">&nbsp;<?php echo $admin['admin_firstname']; ?>&nbsp;<?php echo $admin['admin_lastname']; ?></td>
                 <td class="dataTableContent"><?php echo $admin['admin_email_address']; ?></td>
                 <td class="dataTableContent" align="center"><?php echo $admin_group['admin_groups_name']; ?></td>
                 <td class="dataTableContent" align="center"><?php echo $admin['admin_lognum']; ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($mInfo) && is_object($mInfo) && ($admin['admin_id'] == $mInfo->admin_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . oos_href_link_admin($aFilename['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $admin['admin_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($mInfo) && is_object($mInfo) && ($admin['admin_id'] == $mInfo->admin_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $admin['admin_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -416,7 +416,7 @@
                 <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="smallText" valign="top"><?php echo $db_admin_split->display_count($db_admin_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_MEMBERS); ?><br /><?php echo $db_admin_split->display_links($db_admin_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
-                    <td class="smallText" valign="top" align="right"><?php echo '<a href="' . oos_href_link_admin($aFilename['admin_members'], 'gID=groups') . '">' . oos_image_swap_button('admin_groups','admin_groups_off.gif', IMAGE_GROUPS) . '</a>'; echo ' <a href="' . oos_href_link_admin($aFilename['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->admin_id . '&action=new_member') . '">' . oos_image_swap_button('admin_member','admin_member_off.gif', IMAGE_NEW_MEMBER) . '</a>'; ?>&nbsp;</td>
+                    <td class="smallText" valign="top" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=groups') . '">' . oos_image_swap_button('admin_groups','admin_groups_off.gif', IMAGE_GROUPS) . '</a>'; echo ' <a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->admin_id . '&action=new_member') . '">' . oos_image_swap_button('admin_member','admin_member_off.gif', IMAGE_NEW_MEMBER) . '</a>'; ?>&nbsp;</td>
                   </tr>
                 </table></td>
               </tr>
@@ -433,7 +433,7 @@
     case 'new_member':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW . '</b>');
 
-      $contents = array('form' => oos_draw_form('newmember', $aFilename['admin_members'], 'action=member_new&page=' . $_GET['page'], 'post', 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('newmember', $aContents['admin_members'], 'action=member_new&page=' . $_GET['page'], 'post', 'enctype="multipart/form-data"'));
       if ($_GET['error']) {
         $contents[] = array('text' => TEXT_INFO_ERROR);
       }
@@ -452,13 +452,13 @@
         $groups_result->MoveNext();
       }
       $contents[] = array('text' => '<br />&nbsp;' . TEXT_INFO_GROUP . '<br />&nbsp;' . oos_draw_pull_down_menu('admin_groups_id', $groups_array, '0'));
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('insert','insert_off.gif', IMAGE_INSERT, 'onClick="validateForm();return document.returnValue"') . ' <a href="' . oos_href_link_admin($aFilename['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $_GET['mID']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('insert','insert_off.gif', IMAGE_INSERT, 'onClick="validateForm();return document.returnValue"') . ' <a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $_GET['mID']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
       break;
 
     case 'edit_member':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW . '</b>');
 
-      $contents = array('form' => oos_draw_form('newmember', $aFilename['admin_members'], 'action=member_edit&page=' . $_GET['page'] . '&mID=' . $_GET['mID'], 'post', 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('newmember', $aContents['admin_members'], 'action=member_edit&page=' . $_GET['page'] . '&mID=' . $_GET['mID'], 'post', 'enctype="multipart/form-data"'));
       if ($_GET['error']) {
         $contents[] = array('text' => TEXT_INFO_ERROR);
       }
@@ -481,25 +481,25 @@
         }
         $contents[] = array('text' => '<br />&nbsp;' . TEXT_INFO_GROUP . '<br />&nbsp;' . oos_draw_pull_down_menu('admin_groups_id', $groups_array, $mInfo->admin_groups_id));
       }
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('insert','insert_off.gif', IMAGE_INSERT, 'onClick="validateForm();return document.returnValue"') . ' <a href="' . oos_href_link_admin($aFilename['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $_GET['mID']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('insert','insert_off.gif', IMAGE_INSERT, 'onClick="validateForm();return document.returnValue"') . ' <a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $_GET['mID']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
       break;
 
     case 'del_member':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE . '</b>');
       if ($mInfo->admin_id == 1 || $mInfo->admin_email_address == STORE_OWNER_EMAIL_ADDRESS) {
-        $contents[] = array('align' => 'center', 'text' => '<br /><a href="' . oos_href_link_admin($aFilename['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->admin_id) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a><br />&nbsp;');
+        $contents[] = array('align' => 'center', 'text' => '<br /><a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->admin_id) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a><br />&nbsp;');
       } else {
-        $contents = array('form' => oos_draw_form('edit', $aFilename['admin_members'], 'action=member_delete&page=' . $_GET['page'] . '&mID=' . $admin['admin_id'], 'post', 'enctype="multipart/form-data"'));
+        $contents = array('form' => oos_draw_form('edit', $aContents['admin_members'], 'action=member_delete&page=' . $_GET['page'] . '&mID=' . $admin['admin_id'], 'post', 'enctype="multipart/form-data"'));
         $contents[] = array('text' => oos_draw_hidden_field('admin_id', $mInfo->admin_id));
         $contents[] = array('align' => 'center', 'text' =>  sprintf(TEXT_INFO_DELETE_INTRO, $mInfo->admin_firstname . ' ' . $mInfo->admin_lastname));
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('delete','delete_off.gif', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aFilename['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $_GET['mID']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('delete','delete_off.gif', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $_GET['mID']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
       }
       break;
 
     case 'new_group':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_GROUPS . '</b>');
 
-      $contents = array('form' => oos_draw_form('new_group', $aFilename['admin_members'], 'action=group_new&gID=' . $gInfo->admin_groups_id, 'post', 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('new_group', $aContents['admin_members'], 'action=group_new&gID=' . $gInfo->admin_groups_id, 'post', 'enctype="multipart/form-data"'));
       if ($_GET['gName'] == 'false') {
         $contents[] = array('text' => TEXT_INFO_GROUPS_NAME_FALSE . '<br />&nbsp;');
       } elseif ($_GET['gName'] == 'used') {
@@ -508,33 +508,33 @@
       $contents[] = array('text' => oos_draw_hidden_field('set_groups_id', substr($add_groups_prepare, 4)) );
       $contents[] = array('text' => TEXT_INFO_GROUPS_NAME . '<br />');
       $contents[] = array('align' => 'center', 'text' => oos_draw_input_field('admin_groups_name'));
-      $contents[] = array('align' => 'center', 'text' => '<br /><a href="' . oos_href_link_admin($aFilename['admin_members'], 'gID=' . $gInfo->admin_groups_id) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a> ' . oos_image_swap_submits('next','next_off.gif', IMAGE_NEXT) );
+      $contents[] = array('align' => 'center', 'text' => '<br /><a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $gInfo->admin_groups_id) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a> ' . oos_image_swap_submits('next','next_off.gif', IMAGE_NEXT) );
       break;
 
     case 'edit_group':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_GROUP . '</b>');
 
-      $contents = array('form' => oos_draw_form('edit_group', $aFilename['admin_members'], 'action=group_edit&gID=' . $_GET['gID'], 'post', 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('edit_group', $aContents['admin_members'], 'action=group_edit&gID=' . $_GET['gID'], 'post', 'enctype="multipart/form-data"'));
       if ($_GET['gName'] == 'false') {
         $contents[] = array('text' => TEXT_INFO_GROUPS_NAME_FALSE . '<br />&nbsp;');
       } elseif ($_GET['gName'] == 'used') {
         $contents[] = array('text' => TEXT_INFO_GROUPS_NAME_USED . '<br />&nbsp;');
       }
       $contents[] = array('align' => 'center', 'text' => TEXT_INFO_EDIT_GROUP_INTRO . '<br />&nbsp;<br />' . oos_draw_input_field('admin_groups_name', $gInfo->admin_groups_name));
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('save','save_off.gif', IMAGE_SAVE) . ' <a href="' . oos_href_link_admin($aFilename['admin_members'], 'gID=' . $gInfo->admin_groups_id) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('save','save_off.gif', IMAGE_SAVE) . ' <a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $gInfo->admin_groups_id) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
       break;
 
     case 'del_group':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_GROUPS . '</b>');
 
-      $contents = array('form' => oos_draw_form('delete_group', $aFilename['admin_members'], 'action=group_delete&gID=' . $gInfo->admin_groups_id, 'post', 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('delete_group', $aContents['admin_members'], 'action=group_delete&gID=' . $gInfo->admin_groups_id, 'post', 'enctype="multipart/form-data"'));
       if ($gInfo->admin_groups_id == 1) {
         $contents[] = array('align' => 'center', 'text' => sprintf(TEXT_INFO_DELETE_GROUPS_INTRO_NOT, $gInfo->admin_groups_name));
-        $contents[] = array('align' => 'center', 'text' => '<br /><a href="' . oos_href_link_admin($aFilename['admin_members'], 'gID=' . $_GET['gID']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a><br />&nbsp;');
+        $contents[] = array('align' => 'center', 'text' => '<br /><a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET['gID']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a><br />&nbsp;');
       } else {
         $contents[] = array('text' => oos_draw_hidden_field('set_groups_id', substr($del_groups_prepare, 4)) );
         $contents[] = array('align' => 'center', 'text' => sprintf(TEXT_INFO_DELETE_GROUPS_INTRO, $gInfo->admin_groups_name));
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('delete','delete_off.gif', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aFilename['admin_members'], 'gID=' . $_GET['gID']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a><br />&nbsp;');
+        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('delete','delete_off.gif', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET['gID']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a><br />&nbsp;');
       }
       break;
 
@@ -543,7 +543,7 @@
 
       $contents[] = array('text' => sprintf(TEXT_INFO_DEFINE_INTRO, $group_name['admin_groups_name']));
       if ($_GET['gPath'] == 1) {
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aFilename['admin_members'], 'gID=' . $_GET['gPath']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_CANCEL) . '</a><br />');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET['gPath']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_CANCEL) . '</a><br />');
       }
       break;
 
@@ -564,14 +564,14 @@
         } else {
           $checkEmail = "false";
         }
-      $contents = array('form' => oos_draw_form('show_group', $aFilename['admin_members'], 'action=show_group&gID=groups', 'post', 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('show_group', $aContents['admin_members'], 'action=show_group&gID=groups', 'post', 'enctype="multipart/form-data"'));
       $contents[] = array('text' => $define_files['admin_files_name'] . oos_draw_input_field('level_edit', $checkEmail));
       break;
 
     default:
       if (isset($mInfo) && is_object($mInfo)) {
         $heading[] = array('text' => '<b>&nbsp;' . TEXT_INFO_HEADING_DEFAULT . '</b>');
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aFilename['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->admin_id . '&action=edit_member') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a> <a href="' . oos_href_link_admin($aFilename['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->admin_id . '&action=del_member') . '">' . oos_image_swap_button('delete','delete_off.gif', IMAGE_DELETE) . '</a><br />&nbsp;');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->admin_id . '&action=edit_member') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->admin_id . '&action=del_member') . '">' . oos_image_swap_button('delete','delete_off.gif', IMAGE_DELETE) . '</a><br />&nbsp;');
         $contents[] = array('text' => '&nbsp;<b>' . TEXT_INFO_FULLNAME . '</b><br />&nbsp;' . $mInfo->admin_firstname . ' ' . $mInfo->admin_lastname);
         $contents[] = array('text' => '&nbsp;<b>' . TEXT_INFO_EMAIL . '</b><br />&nbsp;' . $mInfo->admin_email_address);
         $contents[] = array('text' => '&nbsp;<b>' . TEXT_INFO_GROUP . '</b>' . $mInfo->admin_groups_name);
@@ -583,7 +583,7 @@
       } elseif (isset($gInfo) && is_object($gInfo)) {
         $heading[] = array('text' => '<b>&nbsp;' . TEXT_INFO_HEADING_DEFAULT_GROUPS . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aFilename['admin_members'], 'gPath=' . $gInfo->admin_groups_id . '&action=define_group') . '">' . oos_image_swap_button('define','define_off.gif', IMAGE_FILE_PERMISSION) . '</a> <a href="' . oos_href_link_admin($aFilename['admin_members'], 'gID=' . $gInfo->admin_groups_id . '&action=edit_group') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a> <a href="' . oos_href_link_admin($aFilename['admin_members'], 'gID=' . $gInfo->admin_groups_id . '&action=del_group') . '">' . oos_image_swap_button('delete','delete_off.gif', IMAGE_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['admin_members'], 'gPath=' . $gInfo->admin_groups_id . '&action=define_group') . '">' . oos_image_swap_button('define','define_off.gif', IMAGE_FILE_PERMISSION) . '</a> <a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $gInfo->admin_groups_id . '&action=edit_group') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $gInfo->admin_groups_id . '&action=del_group') . '">' . oos_image_swap_button('delete','delete_off.gif', IMAGE_DELETE) . '</a>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_DEFAULT_GROUPS_INTRO . '<br />&nbsp');
       }
   }

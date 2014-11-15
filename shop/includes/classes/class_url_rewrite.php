@@ -36,12 +36,11 @@
 
       $url_array = explode('/', $path);
 
-      $aFilename = oos_get_filename();
-      $aModules = oos_get_modules();
+      $aContents = oos_get_content();
 
-      if ( (in_array('cPath', $url_array)) || (in_array($aFilename['product_info'], $url_array) && in_array($aModules['products'], $url_array)) ) {
+      if ( (in_array('cPath', $url_array)) || (in_array($aContents['product_info'], $url_array) && in_array($url_array)) ) {
 
-        $_filter = array('mp', 'file', $aModules['main'], $aModules['products'], $aFilename['shop'], oos_session_name(), oos_session_id());
+        $_filter = array('mp', 'file', $aContents['shop'], oos_session_name(), oos_session_id());
 
         $dbconn =& oosDBGetConn();
         $oostable =& oosDBGetTables();

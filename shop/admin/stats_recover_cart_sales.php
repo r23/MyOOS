@@ -126,7 +126,7 @@ Working...
                    '<td>&nbsp;</td>' .
                    '<td class="datatablecontent" align="center">' . oos_date_order_stat($inrec['recovercartsales_date_added']) . '</td>' .
                    '<td>&nbsp;</td>' .
-                   '<td class="datatablecontent"><a href="' . oos_href_link_admin($aFilename['customers'], 'search=' . $crec['customers_lastname'], 'NONSSL') . '">' . $crec['customers_firstname'] . ' ' . $crec['customers_lastname'] . '</a></td>' .
+                   '<td class="datatablecontent"><a href="' . oos_href_link_admin($aContents['customers'], 'search=' . $crec['customers_lastname'], 'NONSSL') . '">' . $crec['customers_firstname'] . ' ' . $crec['customers_lastname'] . '</a></td>' .
                    '<td class="datatablecontent">' . oos_date_short($orders['date_purchased']) . '</td>' .
                    '<td class="datatablecontent" align="center">' . $orders['orders_status_name'] . '</td>' .
                    '<td class="datatablecontent" align="right">' . strip_tags($orders['order_total']) . '</td>' .

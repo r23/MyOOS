@@ -21,7 +21,7 @@
                      'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=plugins'));
 
   if ($_SESSION['selected_box'] == 'plugins' ) {
-    $contents[] = array('text'  => '<a href="' . oos_href_link_admin($aFilename['plugins'], '', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_PLUGINS_EVENT . '</a>');
+    $contents[] = array('text'  => '<a href="' . oos_href_link_admin($aContents['plugins'], '', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_PLUGINS_EVENT . '</a>');
   }
 
   $box = new box;

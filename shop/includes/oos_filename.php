@@ -19,116 +19,96 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
+$aContents = array();
+$prefix_filename = '';
+if (!$prefix_filename == '') $prefix_filename = $prefix_filename . '_';
 
-  $aFilename = array();
-  $prefix_filename = '';
-  if (!$prefix_filename == '') $prefix_filename =  $prefix_filename . '_';
+$aContents['conditions_download'] = $prefix_filename . 'conditions.pdf';   
+   
+//account
+$aContents['account_history'] = $prefix_filename . 'account_history';
+$aContents['account_history_info'] = $prefix_filename . 'account_history_info';
+$aContents['account_address_book'] = $prefix_filename . 'account_address_book';
+$aContents['account_address_book_process'] = $prefix_filename . 'account_address_book_process';
+$aContents['account_my_wishlist'] = $prefix_filename . 'account_my_wishlist';
+$aContents['account_order_history'] = $prefix_filename . 'account_order_history';
 
-  $aFilename['conditions_download'] = $prefix_filename . 'conditions.pdf';
+//admin
+$aContents['admin_login'] = $prefix_filename . 'admin_login';
 
-  //includes/pages/account
-  $aFilename['account_history'] = $prefix_filename . 'history';
-  $aFilename['account_history_info'] = $prefix_filename . 'history_info';
-  $aFilename['account_address_book'] = $prefix_filename . 'address_book';
-  $aFilename['account_address_book_process'] = $prefix_filename . 'address_book_process';
-  $aFilename['account_my_wishlist'] = $prefix_filename . 'my_wishlist';
-  $aFilename['account_order_history'] = $prefix_filename . 'order_history';
+//gv
+$aContents['gv_faq'] = $prefix_filename . 'gv_faq';
+$aContents['gv_redeem'] = $prefix_filename . 'gv_redeem';
+$aContents['gv_send'] = $prefix_filename . 'gv_send';
+$aContents['popup_coupon_help'] = $prefix_filename . 'popup_coupon_help';
 
-  //includes/pages/admin
-  $aFilename['admin_create_account'] = $prefix_filename . 'create_account';
-  $aFilename['admin_create_account_process'] = $prefix_filename . 'create_account_process';
-  $aFilename['admin_login'] = $prefix_filename . 'login';
+//info
+$aContents['info_down_for_maintenance'] = $prefix_filename . 'info_down_for_maintenance';
+$aContents['info_max_order'] = $prefix_filename . 'info_max_order';
+$aContents['sitemap'] = $prefix_filename . 'sitemap';
+$aContents['information'] = $prefix_filename . 'information';
+  
+//main
+$aContents['main'] = $prefix_filename . 'main';
+$aContents['shop'] = $prefix_filename . 'shop';
+$aContents['redirect'] = $prefix_filename . 'redirect';
+$aContents['shopping_cart'] = $prefix_filename . 'shopping_cart';
+$aContents['info_shopping_cart'] = $prefix_filename . 'info_shopping_cart';
+$aContents['wishlist'] = $prefix_filename . 'wishlist';
+$aContents['contact_us'] = $prefix_filename . 'contact_us';
 
-  //includes/pages/gv
-  $aFilename['gv_faq'] = $prefix_filename . 'faq';
-  $aFilename['gv_redeem'] = $prefix_filename . 'redeem';
-  $aFilename['gv_send'] = $prefix_filename . 'send';
-  $aFilename['popup_coupon_help'] = $prefix_filename . 'popup_coupon_help';
+//newsletters
+$aContents['newsletters'] = $prefix_filename . 'newsletters';
+$aContents['newsletters_subscribe_success'] = $prefix_filename . 'subscribe_success';
+$aContents['newsletters_unsubscribe_success'] = $prefix_filename . 'unsubscribe_success';
+$aContents['subscription_center'] = $prefix_filename . 'subscription_center';
 
-  //includes/pages/info
-  $aFilename['info_down_for_maintenance'] = $prefix_filename . 'down_for_maintenance';
-  $aFilename['info_max_order'] = $prefix_filename . 'max_order';
-  $aFilename['info_newsfeed'] = $prefix_filename . 'newsfeed';
-  $aFilename['info_sitemap'] = $prefix_filename . 'sitemap';
-  $aFilename['info_vcard'] = $prefix_filename . 'vcard';
-  $aFilename['information'] = $prefix_filename . 'information';
-  $aFilename['info_directions'] = $prefix_filename . 'directions';
-  $aFilename['info_skype'] = $prefix_filename . 'skype';
-  $aFilename['info_gallery'] = $prefix_filename . 'gallery';
+//products
+$aContents['cross_sell'] = $prefix_filename . 'cross_sell';
+$aContents['product_info'] = $prefix_filename . 'product_info';
+$aContents['products_new'] = $prefix_filename . 'new';
+$aContents['specials'] = $prefix_filename . 'specials';
+$aContents['popup_image'] = $prefix_filename . 'popup_image';
+$aContents['popup_print'] = $prefix_filename . 'popup_print';
 
-  //includes/pages/main
-  $aFilename['main'] = $prefix_filename . 'main';
-  $aFilename['shop'] = $prefix_filename . 'shop';
-  $aFilename['redirect'] = $prefix_filename . 'redirect';
-  $aFilename['main_shopping_cart'] = $prefix_filename . 'shopping_cart';
-  $aFilename['info_autologon'] = $prefix_filename . 'info_autologon'; 
-  $aFilename['info_shopping_cart'] = $prefix_filename . 'info_shopping_cart';
-  $aFilename['main_wishlist'] = $prefix_filename . 'wishlist.php';
-  $aFilename['contact_us'] = $prefix_filename . 'old_contact_us';
+//pub
+$aContents['download'] = $prefix_filename . 'download';
 
+//reviews
+$aContents['reviews'] = $prefix_filename . 'reviews';
+$aContents['product_reviews'] = $prefix_filename . 'product_reviews';
+$aContents['product_reviews_info'] = $prefix_filename . 'product_reviews_info';
+$aContents['product_reviews_write'] = $prefix_filename . 'product_reviews_write';
 
+//search
+$aContents['advanced_search'] = $prefix_filename . 'advanced_search';
+$aContents['advanced_search_result'] = $prefix_filename . 'advanced_search_result';
+$aContents['popup_search_help'] = $prefix_filename . 'popup_search_help';
+$aContents['quickfind'] = $prefix_filename . 'quickfind';
 
-  //includes/pages/newsletters
-  $aFilename['newsletters'] = $prefix_filename . 'newsletters';
-  $aFilename['newsletters_subscribe_success'] = $prefix_filename . 'subscribe_success';
-  $aFilename['newsletters_unsubscribe_success'] = $prefix_filename . 'unsubscribe_success';
-  $aFilename['subscription_center'] = $prefix_filename . 'subscription_center';
+//user
+$aContents['account'] = $prefix_filename . 'account';
+$aContents['account_edit'] = $prefix_filename . 'account_edit';
+$aContents['account_edit_process'] = $prefix_filename . 'account_edit_process';
+$aContents['create_account'] = $prefix_filename . 'create_account'; 
+$aContents['create_account_process'] = $prefix_filename . 'create_account_process';
+$aContents['create_account_success'] = $prefix_filename . 'create_account_success';
+$aContents['login'] = $prefix_filename . 'login';
+$aContents['logoff'] = $prefix_filename . 'logoff';
+$aContents['password_forgotten'] = $prefix_filename . 'password_forgotten';
+$aContents['product_notifications'] = $prefix_filename . 'product_notifications';
+$aContents['yourstore'] = $prefix_filename . 'yourstore';
+$aContents['customers_image'] = $prefix_filename . 'customers_image';
 
-  //includes/pages/products
-  $aFilename['cross_sell'] = $prefix_filename . 'cross_sell';
-  $aFilename['product_info'] = $prefix_filename . 'info';
-  $aFilename['products_new'] = $prefix_filename . 'new';
-  $aFilename['products_rss'] = $prefix_filename . 'rss';
-  $aFilename['product_zoom'] = $prefix_filename . 'zoom';
-  $aFilename['product_movie'] = $prefix_filename . 'movie';
-  $aFilename['specials'] = $prefix_filename . 'specials';
-  $aFilename['product_info_pdf'] = $prefix_filename . 'pdf_info';
-  $aFilename['popup_image'] = $prefix_filename . 'popup_image';
-  $aFilename['popup_print'] = $prefix_filename . 'popup_print';
-
-  //includes/pages/pub
-  $aFilename['download'] = $prefix_filename . 'download';
-
-  //includes/pages/reviews
-  $aFilename['reviews_reviews'] = $prefix_filename . 'reviews';
-  $aFilename['product_reviews'] = $prefix_filename . 'product';
-  $aFilename['product_reviews_info'] = $prefix_filename . 'product_info';
-  $aFilename['product_reviews_write'] = $prefix_filename . 'product_write';
-
-  //includes/pages/search
-  $aFilename['advanced_search'] = $prefix_filename . 'advanced';
-  $aFilename['advanced_search_result'] = $prefix_filename . 'advanced_result';
-  $aFilename['popup_search_help'] = $prefix_filename . 'popup_help';
-  $aFilename['quickfind'] = $prefix_filename . 'quickfind';
-
-
-  //includes/pages/web
-  $aFilename['search_result'] = $prefix_filename . 'search_result';
-
-
-  //includes/pages/user
-  $aFilename['account'] = $prefix_filename . 'account';
-  $aFilename['account_edit'] = $prefix_filename . 'account_edit';
-  $aFilename['account_edit_process'] = $prefix_filename . 'account_edit_process';
-  $aFilename['create_account'] = $prefix_filename . 'create_account'; 
-  $aFilename['create_account_process'] = $prefix_filename . 'create_account_process';
-  $aFilename['create_account_success'] = $prefix_filename . 'create_account_success';
-  $aFilename['login'] = $prefix_filename . 'login';
-  $aFilename['logoff'] = $prefix_filename . 'logoff';
-  $aFilename['password_forgotten'] = $prefix_filename . 'password_forgotten';
-  $aFilename['product_notifications'] = $prefix_filename . 'product_notifications';
-  $aFilename['yourstore'] = $prefix_filename . 'yourstore';
-  $aFilename['customers_image'] = $prefix_filename . 'customers_image';
-
-  //includes/pages/checkout
-  $aFilename['checkout_confirmation'] = $prefix_filename . 'confirmation';
-  $aFilename['checkout_payment'] = $prefix_filename . 'payment';
-  $aFilename['checkout_payment_address'] = $prefix_filename . 'payment_address';
-  $aFilename['checkout_process'] = $prefix_filename . 'process';
-  $aFilename['checkout_shipping'] = $prefix_filename . 'shipping';
-  $aFilename['checkout_shipping_address'] = $prefix_filename . 'shipping_address';
-  $aFilename['checkout_success'] = $prefix_filename . 'success';
+//checkout
+$aContents['checkout_confirmation'] = $prefix_filename . 'checkout_confirmation';
+$aContents['checkout_payment'] = $prefix_filename . 'checkout_payment';
+$aContents['checkout_payment_address'] = $prefix_filename . 'checkout_payment_address';
+$aContents['checkout_process'] = $prefix_filename . 'checkout_process';
+$aContents['checkout_shipping'] = $prefix_filename . 'checkout_shipping';
+$aContents['checkout_shipping_address'] = $prefix_filename . 'checkout_shipping_address';
+$aContents['checkout_success'] = $prefix_filename . 'checkout_success';
 

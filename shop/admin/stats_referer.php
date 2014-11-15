@@ -23,7 +23,7 @@
   if (isset($_GET['action']) && ($_GET['action'] == 'reset')) {
     $referertable = $oostable['referer'];
     $dbconn->Execute("DELETE FROM $referertable");
-    oos_redirect_admin(oos_href_link_admin($aFilename['stats_referer'], 'reset=1'));
+    oos_redirect_admin(oos_href_link_admin($aContents['stats_referer'], 'reset=1'));
   }
   if (isset($_GET['reset']) && ($_GET['reset'] == '1')) {
     $messageStack->add(TEXT_HTTP_REFERERS_RESET, 'success');
@@ -115,7 +115,7 @@
            <tr>
             <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="smallText" valign="top"><?php echo '<a href="' . oos_href_link_admin($aFilename['stats_referer'],"action=reset") . '">' . oos_image_swap_button('reset','reset_off.gif', IMAGE_RESET) . '</a>'; ?></td>
+                <td class="smallText" valign="top"><?php echo '<a href="' . oos_href_link_admin($aContents['stats_referer'],"action=reset") . '">' . oos_image_swap_button('reset','reset_off.gif', IMAGE_RESET) . '</a>'; ?></td>
               </tr>
             </table></td>
           </tr>

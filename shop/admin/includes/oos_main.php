@@ -213,8 +213,8 @@ if (!defined('DEFAULT_LANGUAGE')) {
 
 require 'includes/functions/function_added.php';
 
-if (basename($_SERVER['SCRIPT_NAME']) != $aFilename['login']
-   && basename($_SERVER['SCRIPT_NAME']) != $aFilename['password_forgotten']) {
+if (basename($_SERVER['SCRIPT_NAME']) != $aContents['login']
+   && basename($_SERVER['SCRIPT_NAME']) != $aContents['password_forgotten']) {
     oos_admin_check_login();
 }
 

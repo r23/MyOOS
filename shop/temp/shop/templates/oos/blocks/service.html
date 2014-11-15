@@ -11,14 +11,10 @@
         <td width="150"><table width="150" border="0" cellspacing="0" cellpadding="3">
           <tr>
             <td align="left" valign="top" class="block_content">
-<strong><big>&middot;</big></strong>&nbsp;<a href="{html_href_link modul=$modules.links file=$filename.links}">{$lang.block_service_links}</a><br>
-{if $smarty.const.DISPLAY_NEWSFEED eq 'true'}
-<strong><big>&middot;</big></strong>&nbsp;<a href="{html_href_link modul=$modules.info file=$filename.info_newsfeed}">{$lang.block_service_newsfeed}</a><br>
-{/if}
 {if $smarty.const.MODULE_ORDER_TOTAL_GV_STATUS eq 'true'}
-<strong><big>&middot;</big></strong>&nbsp;<a href="{html_href_link modul=$modules.gv file=$filename.gv_faq}">{$lang.block_service_gv}</a><br>
+<strong><big>&middot;</big></strong>&nbsp;<a href="{html_href_link content=$filename.gv_faq}">{$lang.block_service_gv}</a><br>
 {/if}
-<strong><big>&middot;</big></strong>&nbsp;<a href="{html_href_link modul=$modules.info file=$filename.info_sitemap}">{$lang.block_service_sitemap}</a><br>
+<strong><big>&middot;</big></strong>&nbsp;<a href="{html_href_link content=$filename.sitemap}">{$lang.block_service_sitemap}</a><br>
              </td>
           </tr>
         </table></td>

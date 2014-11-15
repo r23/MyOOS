@@ -35,7 +35,7 @@
     $cfg_groups = '';
     $configuration_groups_result = $dbconn->Execute("SELECT configuration_group_id as cgID FROM " . $oostable['configuration_group'] . " where visible = '1' ORDER BY sort_order");
     while ($configuration_groups = $configuration_groups_result->fields) {
-      $cfg_groups .= '<a href="' . oos_href_link_admin($aFilename['configuration'], 'gID=' . $configuration_groups['cgID'], 'NONSSL') . '" class="menuBoxContentLink">' . constant(strtoupper($configuration_groups['cgID'] . '_TITLE')) . '</a><br />';
+      $cfg_groups .= '<a href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $configuration_groups['cgID'], 'NONSSL') . '" class="menuBoxContentLink">' . constant(strtoupper($configuration_groups['cgID'] . '_TITLE')) . '</a><br />';
 
       // Move that ADOdb pointer!
       $configuration_groups_result->MoveNext();

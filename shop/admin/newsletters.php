@@ -34,7 +34,7 @@
         $newsletterstable = $oostable['newsletters'];
         $dbconn->Execute("UPDATE $newsletterstable SET locked = '" . $status . "' WHERE newsletters_id = '" . oos_db_input($newsletter_id) . "'");
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']));
+        oos_redirect_admin(oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']));
         break;
 
       case 'insert':
@@ -67,7 +67,7 @@
             oos_db_perform($oostable['newsletters'], $sql_data_array, 'update', 'newsletters_id = \'' . oos_db_input($newsletter_id) . '\'');
           }
 
-          oos_redirect_admin(oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $newsletter_id));
+          oos_redirect_admin(oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $newsletter_id));
         } else {
           $action = 'new';
         }
@@ -79,7 +79,7 @@
         $newsletterstable = $oostable['newsletters'];
         $dbconn->Execute("DELETE FROM $newsletterstable WHERE newsletters_id = '" . oos_db_input($newsletter_id) . "'");
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page']));
+        oos_redirect_admin(oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page']));
         break;
 
       case 'delete':
@@ -100,7 +100,7 @@
             case 'confirm_send': $error = ERROR_SEND_UNLOCKED_NEWSLETTER; break;
           }
           $messageStack->add_session($error, 'error');
-          oos_redirect_admin(oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']));
+          oos_redirect_admin(oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']));
         }
         break;
     }
@@ -163,7 +163,7 @@
       <tr>
         <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
       </tr>
-      <tr><?php echo oos_draw_form('newsletter', $aFilename['newsletters'], 'page=' . $_GET['page'] . '&action=' . $form_action); if ($form_action == 'update') echo oos_draw_hidden_field('newsletter_id', $nID); ?>
+      <tr><?php echo oos_draw_form('newsletter', $aContents['newsletters'], 'page=' . $_GET['page'] . '&action=' . $form_action); if ($form_action == 'update') echo oos_draw_hidden_field('newsletter_id', $nID); ?>
         <td><table border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo TEXT_NEWSLETTER_MODULE; ?></td>
@@ -191,7 +191,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main" align="right"><?php echo (($form_action == 'insert') ? oos_image_swap_submits('save','save_off.gif', IMAGE_SAVE) : oos_image_swap_submits('update','update_off.gif', IMAGE_UPDATE)). '&nbsp;&nbsp;<a href="' . oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>'; ?></td>
+            <td class="main" align="right"><?php echo (($form_action == 'insert') ? oos_image_swap_submits('save','save_off.gif', IMAGE_SAVE) : oos_image_swap_submits('update','update_off.gif', IMAGE_UPDATE)). '&nbsp;&nbsp;<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>'; ?></td>
           </tr>
         </table></td>
       </form></tr>
@@ -206,13 +206,13 @@
     $nInfo = new objectInfo($newsletter);
 ?>
       <tr>
-        <td align="right"><?php echo '<a href="' . oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?></td>
+        <td align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?></td>
       </tr>
       <tr>
         <td><tt><?php echo nl2br($nInfo->content); ?></tt></td>
       </tr>
       <tr>
-        <td align="right"><?php echo '<a href="' . oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?></td>
+        <td align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?></td>
       </tr>
 <?php
   } elseif ($action == 'send') {
@@ -288,7 +288,7 @@
         <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
       </tr>
       <tr>
-        <td><?php echo '<a href="' . oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?></td>
+        <td><?php echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?></td>
       </tr>
 <?php
   } else {
@@ -319,17 +319,17 @@
       }
 
       if (isset($nInfo) && is_object($nInfo) && ($newsletters['newsletters_id'] == $nInfo->newsletters_id) ) {
-        echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $nInfo->newsletters_id . '&action=preview') . '\'">' . "\n";
+        echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $nInfo->newsletters_id . '&action=preview') . '\'">' . "\n";
       } else {
-        echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $newsletters['newsletters_id']) . '\'">' . "\n";
+        echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $newsletters['newsletters_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $newsletters['newsletters_id'] . '&action=preview') . '">' . oos_image(OOS_IMAGES . 'icons/preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . $newsletters['title']; ?></td>
+                <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $newsletters['newsletters_id'] . '&action=preview') . '">' . oos_image(OOS_IMAGES . 'icons/preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . $newsletters['title']; ?></td>
                 <td class="dataTableContent" align="right"><?php echo number_format($newsletters['content_length']) . ' bytes'; ?></td>
                 <td class="dataTableContent" align="right"><?php echo $newsletters['module']; ?></td>
                 <td class="dataTableContent" align="center"><?php if ($newsletters['status'] == '1') { echo oos_image(OOS_IMAGES . 'icons/tick.gif', ICON_TICK); } else { echo oos_image(OOS_IMAGES . 'icons/cross.gif', ICON_CROSS); } ?></td>
                 <td class="dataTableContent" align="center"><?php if ($newsletters['locked'] > 0) { echo oos_image(OOS_IMAGES . 'icons/locked.gif', ICON_LOCKED); } else { echo oos_image(OOS_IMAGES . 'icons/unlocked.gif', ICON_UNLOCKED); } ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($nInfo) && is_object($nInfo) && ($newsletters['newsletters_id'] == $nInfo->newsletters_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $newsletters['newsletters_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($nInfo) && is_object($nInfo) && ($newsletters['newsletters_id'] == $nInfo->newsletters_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $newsletters['newsletters_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
         // Move that ADOdb pointer!
@@ -345,7 +345,7 @@
                     <td class="smallText" align="right"><?php echo $newsletters_split->display_links($newsletters_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
                   </tr>
                   <tr>
-                    <td align="right" colspan="2"><?php echo '<a href="' . oos_href_link_admin($aFilename['newsletters'], 'action=new') . '">' . oos_image_swap_button('new_newsletter','new_newsletter_off.gif', IMAGE_NEW_NEWSLETTER) . '</a>'; ?></td>
+                    <td align="right" colspan="2"><?php echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'action=new') . '">' . oos_image_swap_button('new_newsletter','new_newsletter_off.gif', IMAGE_NEW_NEWSLETTER) . '</a>'; ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -358,10 +358,10 @@
     case 'delete':
       $heading[] = array('text' => '<b>' . $nInfo->title . '</b>');
 
-      $contents = array('form' => oos_draw_form('newsletters', $aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $nInfo->newsletters_id . '&action=deleteconfirm'));
+      $contents = array('form' => oos_draw_form('newsletters', $aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $nInfo->newsletters_id . '&action=deleteconfirm'));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $nInfo->title . '</b>');
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('delete','delete_off.gif', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('delete','delete_off.gif', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
       break;
 
     default:
@@ -369,9 +369,9 @@
         $heading[] = array('text' => '<b>' . $nInfo->title . '</b>');
 
         if ($nInfo->locked > 0) {
-          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $nInfo->newsletters_id . '&action=new') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a> <a href="' . oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $nInfo->newsletters_id . '&action=delete') . '">' . oos_image_swap_button('delete','delete_off.gif', IMAGE_DELETE) . '</a> <a href="' . oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $nInfo->newsletters_id . '&action=preview') . '">' . oos_image_swap_button('preview','preview_off.gif', IMAGE_PREVIEW) . '</a> <a href="' . oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $nInfo->newsletters_id . '&action=send') . '">' . oos_image_swap_button('send','send_off.gif', IMAGE_SEND) . '</a> <a href="' . oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $nInfo->newsletters_id . '&action=unlock') . '">' . oos_image_swap_button('unlock','unlock_off.gif', IMAGE_UNLOCK) . '</a>');
+          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $nInfo->newsletters_id . '&action=new') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $nInfo->newsletters_id . '&action=delete') . '">' . oos_image_swap_button('delete','delete_off.gif', IMAGE_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $nInfo->newsletters_id . '&action=preview') . '">' . oos_image_swap_button('preview','preview_off.gif', IMAGE_PREVIEW) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $nInfo->newsletters_id . '&action=send') . '">' . oos_image_swap_button('send','send_off.gif', IMAGE_SEND) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $nInfo->newsletters_id . '&action=unlock') . '">' . oos_image_swap_button('unlock','unlock_off.gif', IMAGE_UNLOCK) . '</a>');
         } else {
-          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $nInfo->newsletters_id . '&action=preview') . '">' . oos_image_swap_button('preview','preview_off.gif', IMAGE_PREVIEW) . '</a> <a href="' . oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $nInfo->newsletters_id . '&action=lock') . '">' . oos_image_swap_button('lock','lock_off.gif', IMAGE_LOCK) . '</a>');
+          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $nInfo->newsletters_id . '&action=preview') . '">' . oos_image_swap_button('preview','preview_off.gif', IMAGE_PREVIEW) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $nInfo->newsletters_id . '&action=lock') . '">' . oos_image_swap_button('lock','lock_off.gif', IMAGE_LOCK) . '</a>');
         }
         $contents[] = array('text' => '<br />' . TEXT_NEWSLETTER_DATE_ADDED . ' ' . oos_date_short($nInfo->date_added));
         if ($nInfo->status == '1') $contents[] = array('text' => TEXT_NEWSLETTER_DATE_SENT . ' ' . oos_date_short($nInfo->date_sent));

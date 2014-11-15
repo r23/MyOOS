@@ -1,6 +1,6 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: reviews_reviews.php,v 1.3 2007/06/12 16:51:19 r23 Exp $
+   $Id: reviews.php,v 1.3 2007/06/12 16:51:19 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

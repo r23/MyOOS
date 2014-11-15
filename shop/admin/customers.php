@@ -94,7 +94,7 @@
 
                      $email_text .= sprintf(EMAIL_GV_INCENTIVE_HEADER, $currencies->format(NEW_SIGNUP_GIFT_VOUCHER_AMOUNT)) . "\n\n" .
                                     sprintf(EMAIL_GV_REDEEM, $coupon_code) . "\n\n" .
-                                    EMAIL_GV_LINK . oos_catalog_link($oosModules['gv'], $oosCatalogFilename['gv_redeem'], 'gv_no=' . $coupon_code) . 
+                                    EMAIL_GV_LINK . oos_catalog_link($oosCatalogFilename['gv_redeem'], 'gv_no=' . $coupon_code) . 
                                     "\n\n";
                    }
                    if (NEW_SIGNUP_DISCOUNT_COUPON != '') {
@@ -136,7 +136,7 @@
                  $email_text .= sprintf(EMAIL_PASSWORD_BODY, $newpass);
                  $email_text .= EMAIL_CONTACT;
                  oos_mail($name, $check_customer_values['customers_email_address'], EMAIL_SUBJECT, nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS); 
-                 oos_redirect_admin(oos_href_link_admin($aFilename['customers'], 'selected_box=customers&page=' . $_GET['page'] . '&cID=' . $_GET['cID']));
+                 oos_redirect_admin(oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $_GET['page'] . '&cID=' . $_GET['cID']));
               }
             }
           }
@@ -212,7 +212,7 @@
 
         oos_db_perform($oostable['address_book'], $sql_data_array, 'update', "customers_id = '" . intval($customers_id) . "' and address_book_id = '" . oos_db_input($default_address_id) . "'");
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $customers_id));
+        oos_redirect_admin(oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $customers_id));
         break;
       case 'deleteconfirm':
         $customers_id = oos_db_prepare_input($_GET['cID']);
@@ -242,7 +242,7 @@
         $dbconn->Execute("DELETE FROM " . $oostable['customers_status_history'] . " WHERE customers_id = '" . intval($customers_id) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['whos_online'] . " WHERE customer_id = '" . intval($customers_id) . "'");
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['customers'], oos_get_all_get_params(array('cID', 'action')))); 
+        oos_redirect_admin(oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')))); 
         break;
     }
   }
@@ -442,7 +442,7 @@ function popupGoogleMap(url) {
       <tr>
         <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
       </tr>
-      <tr><?php echo oos_draw_form('customers', $aFilename['customers'], oos_get_all_get_params(array('action')) . 'action=update', 'post', 'onSubmit="return check_form();"') . oos_draw_hidden_field('default_address_id', $cInfo->customers_default_address_id); ?>
+      <tr><?php echo oos_draw_form('customers', $aContents['customers'], oos_get_all_get_params(array('action')) . 'action=update', 'post', 'onSubmit="return check_form();"') . oos_draw_hidden_field('default_address_id', $cInfo->customers_default_address_id); ?>
         <td class="formAreaTitle"><?php echo CATEGORY_PERSONAL; ?></td>
       </tr>
       <tr>
@@ -639,7 +639,7 @@ function popupGoogleMap(url) {
         <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
       </tr>
       <tr>
-        <td align="right" class="main"><?php echo oos_image_swap_submits('update','update_off.gif', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aFilename['customers'], oos_get_all_get_params(array('action'))) .'">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>'; ?></td>
+        <td align="right" class="main"><?php echo oos_image_swap_submits('update','update_off.gif', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('action'))) .'">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>'; ?></td>
       </tr></form>
 <?php
   } else {
@@ -650,10 +650,10 @@ function popupGoogleMap(url) {
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
             <td class="pageHeading" align="right"><?php echo oos_draw_separator('trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
             <td align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-               <tr><?php echo oos_draw_form('search', $aFilename['customers'], '', 'get'); ?>
+               <tr><?php echo oos_draw_form('search', $aContents['customers'], '', 'get'); ?>
                  <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . oos_draw_input_field('search'); ?></td>
                </form></tr>
-              <tr><?php echo oos_draw_form('status', $aFilename['customers'], '', 'get'); ?>
+              <tr><?php echo oos_draw_form('status', $aContents['customers'], '', 'get'); ?>
               <td class="smallText" align="right"><?php echo HEADING_TITLE_STATUS . ' ' . oos_draw_pull_down_menu('status', array_merge(array(array('id' => '0', 'text' => TEXT_ALL_CUSTOMERS)), $customers_statuses_array), '0', 'onChange="this.form.submit();"'); ?></td>
           </form></tr>
         </table></td>
@@ -735,9 +735,9 @@ function popupGoogleMap(url) {
       }
 
       if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id)) {
-        echo '          <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=edit') . '\'">' . "\n";
+        echo '          <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=edit') . '\'">' . "\n";
       } else {
-        echo '          <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['customers'], oos_get_all_get_params(array('cID')) . 'cID=' . $customers['customers_id']) . '\'">' . "\n";
+        echo '          <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID')) . 'cID=' . $customers['customers_id']) . '\'">' . "\n";
       }
 ?>
                 <td class="dataTableContent"><?php if ($customers_statuses_array[$customers['customers_status']]['cs_image'] != '') { echo oos_image(OOS_SHOP_IMAGES . 'icons/' . $customers_statuses_array[$customers['customers_status']]['cs_image'], ''); } ?>&nbsp;</td>
@@ -747,21 +747,21 @@ function popupGoogleMap(url) {
                 <td class="dataTableContent" align="center">
 <?php
       if ($customers['customers_login'] == '1') {
-        echo '<a href="' . oos_href_link_admin($aFilename['customers'], 'selected_box=customers&page=' . $_GET['page'] . '&action=setflag&loginflag=0&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+        echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $_GET['page'] . '&action=setflag&loginflag=0&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
       } else {
-        echo '<a href="' . oos_href_link_admin($aFilename['customers'], 'selected_box=customers&page=' . $_GET['page'] . '&action=setflag&loginflag=1&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
+        echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $_GET['page'] . '&action=setflag&loginflag=1&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
       }
 
       if (defined('GOOGLE_MAP_API_KEY')) {
 ?>
-                <td class="dataTableContent" align="center"><?php echo '<a href="javascript:popupGoogleMap(\'' . $aFilename['popup_google_map'] . '?query=' . rawurlencode($customers['entry_city']) . '\')">' . oos_image(OOS_IMAGES . 'icon_popup.gif', 'View Google Map'); ?></a>&nbsp;</td>
+                <td class="dataTableContent" align="center"><?php echo '<a href="javascript:popupGoogleMap(\'' . $aContents['popup_google_map'] . '?query=' . rawurlencode($customers['entry_city']) . '\')">' . oos_image(OOS_IMAGES . 'icon_popup.gif', 'View Google Map'); ?></a>&nbsp;</td>
 <?php
       }
 ?>
 
 
                 <td class="dataTableContent" align="right"><?php echo oos_date_short($info['date_account_created']); ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . oos_href_link_admin($aFilename['customers'], oos_get_all_get_params(array('cID')) . 'cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID')) . 'cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -782,7 +782,7 @@ function popupGoogleMap(url) {
     if (oos_is_not_null($_GET['search'])) {
 ?>
                   <tr>
-                    <td align="right" colspan="7"><?php echo '<a href="' . oos_href_link_admin($aFilename['customers']) . '">' . oos_image_swap_button('reset','reset_off.gif', IMAGE_RESET) . '</a>'; ?></td>
+                    <td align="right" colspan="7"><?php echo '<a href="' . oos_href_link_admin($aContents['customers']) . '">' . oos_image_swap_button('reset','reset_off.gif', IMAGE_RESET) . '</a>'; ?></td>
                   </tr>
 <?php
     }
@@ -798,15 +798,15 @@ function popupGoogleMap(url) {
     case 'confirm':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_CUSTOMER . '</b>');
 
-      $contents = array('form' => oos_draw_form('customers', $aFilename['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=deleteconfirm'));
+      $contents = array('form' => oos_draw_form('customers', $aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=deleteconfirm'));
       $contents[] = array('text' => TEXT_DELETE_INTRO . '<br /><br /><b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>');
       if ($cInfo->number_of_reviews > 0) $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('delete_reviews', 'on', true) . ' ' . sprintf(TEXT_DELETE_REVIEWS, $cInfo->number_of_reviews));
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('delete','delete_off.gif', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aFilename['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('delete','delete_off.gif', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
       break;
 
     case 'editstatus':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_STATUS_CUSTOMER . '</b>');
-      $contents = array('form' => oos_draw_form('customers', $aFilename['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=statusconfirm'));
+      $contents = array('form' => oos_draw_form('customers', $aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=statusconfirm'));
       $contents[] = array('text' => '<br />' . oos_draw_pull_down_menu('pdm_status', array_merge(array(array('id' => '0', 'text' => PULL_DOWN_DEFAULT)), $customers_statuses_array), $cInfo->customers_status) );
       $contents[] = array('text' => '<table border="0" cellspacing="0" cellpadding="5"><tr><td class="smallText" align="center">' . TABLE_HEADING_NEW_VALUE .' </td><td class="smallText" align="center">' . TABLE_HEADING_DATE_ADDED . '</td></tr>');
 
@@ -828,7 +828,7 @@ function popupGoogleMap(url) {
           $contents[] = array('text' => '<tr>' . "\n" . ' <td class="smallText" colspan="2">' . TEXT_NO_CUSTOMER_HISTORY . '</td>' . "\n" . ' </tr>' . "\n");
       }
       $contents[] = array('text' => '</table>');
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('update','update_off.gif', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aFilename['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('update','update_off.gif', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
       break;
 
     default:
@@ -845,8 +845,8 @@ function popupGoogleMap(url) {
       if (isset($cInfo) && is_object($cInfo)) {
         $heading[] = array('text' => '<b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aFilename['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=edit') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a> <a href="' . oos_href_link_admin($aFilename['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=confirm') . '">' . oos_image_swap_button('delete','delete_off.gif', IMAGE_DELETE) . '</a> <a href="' . oos_href_link_admin($aFilename['orders'], 'cID=' . $cInfo->customers_id) . '">' . oos_image_swap_button('orders','orders_off.gif', IMAGE_ORDERS) . '</a> <a href="' . oos_href_link_admin($aFilename['mail'], 'selected_box=tools&customer=' . $cInfo->customers_email_address) . '">' . oos_image_swap_button('email','email_off.gif', IMAGE_EMAIL) . '</a>');
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_catalog_link($oosModules['main'], $oosCatalogFilename['wishlist'],  'wlid=' . $cInfo->customers_wishlist_link_id) . '">' . oos_image_swap_button('wishlist','wishlist_off.gif', IMAGE_WISHLIST) . '</a> <a href="' . oos_href_link_admin($aFilename['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=editstatus') . '">' . oos_image_swap_button('status','status_off.gif', IMAGE_STATUS) . '</a>');       
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=edit') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=confirm') . '">' . oos_image_swap_button('delete','delete_off.gif', IMAGE_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], 'cID=' . $cInfo->customers_id) . '">' . oos_image_swap_button('orders','orders_off.gif', IMAGE_ORDERS) . '</a> <a href="' . oos_href_link_admin($aContents['mail'], 'selected_box=tools&customer=' . $cInfo->customers_email_address) . '">' . oos_image_swap_button('email','email_off.gif', IMAGE_EMAIL) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_catalog_link($oosCatalogFilename['wishlist'],  'wlid=' . $cInfo->customers_wishlist_link_id) . '">' . oos_image_swap_button('wishlist','wishlist_off.gif', IMAGE_WISHLIST) . '</a> <a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=editstatus') . '">' . oos_image_swap_button('status','status_off.gif', IMAGE_STATUS) . '</a>');       
 
         $manual_infotable = $oostable['manual_info'];
         $sql = "SELECT man_info_id, man_key, status
@@ -855,7 +855,7 @@ function popupGoogleMap(url) {
         $login_result = $dbconn->Execute($sql);
         $login = $login_result->fields;
         if ($login['status'] != '0') {
-          $contents[] = array('align' => 'center', 'text' => oos_draw_login_form('login', $oosModules['admin'], $oosCatalogFilename['login_admin'], 'action=login_admin','POST', 'target=_blank') . oos_draw_hidden_field('verif_key', $login['man_key']) . oos_draw_hidden_field('email_address', $cInfo->customers_email_address) . oos_image_swap_submits('login','login_off.gif', IMAGE_LOGIN) . '</form>');
+          $contents[] = array('align' => 'center', 'text' => oos_draw_login_form('login',$oosCatalogFilename['login_admin'], 'action=login_admin','POST', 'target=_blank') . oos_draw_hidden_field('verif_key', $login['man_key']) . oos_draw_hidden_field('email_address', $cInfo->customers_email_address) . oos_image_swap_submits('login','login_off.gif', IMAGE_LOGIN) . '</form>');
         }
         $contents[] = array('text' => '<br />'  . oos_customers_payment($customer_status['customers_status_payment']));
         $contents[] = array('text' => '<br />' . TEXT_DATE_ACCOUNT_CREATED . ' ' . oos_date_short($cInfo->date_account_created));

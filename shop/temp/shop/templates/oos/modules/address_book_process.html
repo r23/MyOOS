@@ -1,5 +1,5 @@
 <!--  $Id: address_book_process.html,v 1.1 2007/06/07 11:02:55 r23 Exp $ -->
-    <form name="add_entry" action="{html_href_link modul=$modules.account file=$filename.account_address_book_process connection=SSL}" method="post" onSubmit="return check_form();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <form name="add_entry" action="{html_href_link content=$filename.account_address_book_process connection=SSL}" method="post" onSubmit="return check_form();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td>{$oosPageHeading}</td>
       </tr>
@@ -16,8 +16,8 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="2" cellpadding="0">
           <tr>
-            <td class="main"><input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="{$entry_id}"><a href="{html_href_link modul=$modules.account file=$filename.account_address_book connection=SSL}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
-            <td class="main" align="center"><a href="{html_href_link modul=$modules.account file=$filename.account_address_book_process action=remove entry_id=$entry_id connection=SSL}">{html_image_button image="delete.gif" alt=$lang.image_button_delete}</a></td>
+            <td class="main"><input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="{$entry_id}"><a href="{html_href_link content=$filename.account_address_book connection=SSL}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
+            <td class="main" align="center"><a href="{html_href_link content=$filename.account_address_book_process action=remove entry_id=$entry_id connection=SSL}">{html_image_button image="delete.gif" alt=$lang.image_button_delete}</a></td>
             <td class="main" align="right">{html_image_submit image="continue.gif" alt=$lang.image_button_continue}</td>
           </tr>
         </table></td>
@@ -26,7 +26,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="2" cellpadding="0">
           <tr>
-            <td class="main"><input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="{$entry_id}"><a href="{html_href_link modul=$modules.account file=$filename.account_address_book connection=SSL}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
+            <td class="main"><input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="{$entry_id}"><a href="{html_href_link content=$filename.account_address_book connection=SSL}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
             <td class="main" align="right">{html_image_submit image="continue.gif" alt=$lang.image_button_continue}</td>
           </tr>
         </table></td>

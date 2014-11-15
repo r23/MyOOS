@@ -51,7 +51,7 @@
     if (empty($block_file)) {
       continue;
     }
-	
+
     $block_tpl = $sTheme . '/blocks/' . $block_file . '.html';
 
     if ($block['block_cache'] != '') {
@@ -71,6 +71,7 @@
 	
     $aContentBlock[] = array('side' => $block_side,
                              'block_content' => $block_content );
+
 
   }
 

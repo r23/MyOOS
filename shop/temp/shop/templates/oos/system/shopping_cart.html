@@ -7,7 +7,7 @@
       </tr>
 {if $cart_count_contents gt 0 }
       <tr>
-        <td><form name="cart_quantity" action="{html_href_link modul=$modules.main file=$filename.main_shopping_cart action=update_product}" method="post">{$hidden_field}
+        <td><form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=update_product}" method="post">{$hidden_field}
           <table border="0" width="100%" cellspacing="0" cellpadding="2">{$shopping_cart_detail}</table></td>
       </tr>
   {if $smarty.session.error_cart_msg != ''}
@@ -42,7 +42,7 @@
 {if isset($back_link) }
             <td class="main"><a href="{$back_link}">{html_image_button image="continue_shopping.gif" alt=$lang.image_button_continue_shopping}</a></td>
 {/if}
-            <td align="right" class="main">{if $smarty.session.member->group.show_price eq 1 }<a href="{html_href_link modul=$modules.checkout file=$filename.checkout_shipping connection=SSL}">{html_image_button image="checkout.gif" alt=$lang.image_button_continue}</a>{/if}</td>
+            <td align="right" class="main">{if $smarty.session.member->group.show_price eq 1 }<a href="{html_href_link content=$filename.checkout_shipping connection=SSL}">{html_image_button image="checkout.gif" alt=$lang.image_button_continue}</a>{/if}</td>
           </tr>
         </table></form></td>
       </tr>
@@ -51,7 +51,7 @@
         <td align="center" class="main">{$lang.text_cart_empty}</td>
       </tr>
       <tr>
-        <td align="right" class="main"><br><a href="{html_href_link modul=$modules.main file=$filename.main}">{html_image_button image="continue.gif" alt=$lang.image_button_continue}</a></td>
+        <td align="right" class="main"><br><a href="{html_href_link content=$filename.main}">{html_image_button image="continue.gif" alt=$lang.image_button_continue}</a></td>
       </tr>
 {/if}
     </table>

@@ -61,9 +61,9 @@
                         WHERE admin_id = '" . $_SESSION['login_id'] . "'");
 
           if (($login_lognum == 0) || !($login_logdate) || ($login_email_address == 'admin@localhost') || ($login_modified == '0000-00-00 00:00:00')) {
-            oos_redirect_admin(oos_href_link_admin($aFilename['admin_account']));
+            oos_redirect_admin(oos_href_link_admin($aContents['admin_account']));
           } else {
-            oos_redirect_admin(oos_href_link_admin($aFilename['default']));
+            oos_redirect_admin(oos_href_link_admin($aContents['default']));
           }
         }
       }
@@ -93,7 +93,7 @@ function setFocus() {
 	<div class="login">
 		<div class="login-form">
 			<img src="images/login.gif" alt="Login" />
-		<?php echo oos_draw_form('login', $aFilename['login'], 'action=process'); ?>
+		<?php echo oos_draw_form('login', $aContents['login'], 'action=process'); ?>
 			<div class="form-block">
 			<div class="inputlabel"><?php echo ENTRY_EMAIL_ADDRESS; ?></div>
 			<div><?php echo oos_draw_input_field('email_address', '', 'class="inputbox" size="15"'); ?></div>
@@ -112,7 +112,7 @@ function setFocus() {
 ?>
 
 	        	<div align="left"><input type="submit" name="submit" class="button" value="Login" /></div>
-                        <div class="ctr"><a href="<?php echo oos_href_link_admin($aFilename['password_forgotten'], '', 'SSL') . '">' . TEXT_PASSWORD_FORGOTTEN; ?></a></div>
+                        <div class="ctr"><a href="<?php echo oos_href_link_admin($aContents['password_forgotten'], '', 'SSL') . '">' . TEXT_PASSWORD_FORGOTTEN; ?></a></div>
 
 
         	</div>

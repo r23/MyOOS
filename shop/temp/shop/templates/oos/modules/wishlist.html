@@ -13,7 +13,7 @@
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
 {section name=i loop=$wishlist_array}
-      <td width="50%"><form name="cart_quantity" action="{html_href_link modul=$modules.main file=$filename.main_shopping_cart action=frend_wishlist_add_product}" method="post"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <td width="50%"><form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=frend_wishlist_add_product}" method="post"><table border="0" width="100%" cellspacing="0" cellpadding="0">
        <tr>
          <td align="left" width="{$smarty.const.SMALL_IMAGE_WIDTH}" class="smallText"><a href="{product_info_link products_id=$wishlist_array[i].products_id}">{small_product_image image=$wishlist_array[i].products_image alt=$wishlist_array[i].products_name|strip_tags hspace=5 vspace=5}</a></td>
          <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>

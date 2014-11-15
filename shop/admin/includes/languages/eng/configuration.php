@@ -46,15 +46,27 @@ define('STORE_OWNER_EMAIL_ADDRESS_DESC', 'The e-mail address of my store owner')
 define('STORE_OWNER_VAT_ID_TITLE' , 'VAT ID of Shop Owner');
 define('STORE_OWNER_VAT_ID_DESC' , 'The VAT ID of the Shop Owner');
 
-define('SKYPE_ME_TITLE', 'Skype-Name');
-define('SKYPE_ME_DESC', 'If you don\'t have a Skype Name, please <a href=\"http://www.skype.com/go/download\" target=\"_blank\">download Skype</a> to create one, and visit this page again.');
+define('STORE_ADDRESS_STREET_TITLE', 'Store Address: Street');
+define('STORE_ADDRESS_STREET_DESC', 'This is the Street used on printable documents and displayed online');
 
+define('STORE_ADDRESS_POSTCODE_TITLE', 'Store Address: Postcode');
+define('STORE_ADDRESS_POSTCODE_DESC', 'This is the Postcode used on printable documents and displayed online');
+
+define('STORE_ADDRESS_CITY_TITLE', 'Store Address: City');
+define('STORE_ADDRESS_CITY_DESC', 'This is the City used on printable documents and displayed online');
+
+define('STORE_ADDRESS_TELEPHONE_NUMBER_TITLE', 'Store Address: Phone');
+define('STORE_ADDRESS_TELEPHONE_NUMBER_DESC', 'This is the Phone used on printable documents and displayed online');
+
+define('STORE_ADDRESS_EMAIL_TITLE', 'Store Address: E-Mail Address');
+define('STORE_ADDRESS_EMAIL_DESC', 'This is the e-mail address of my store ');
 
 define('STORE_COUNTRY_TITLE', 'Country');
 define('STORE_COUNTRY_DESC', 'The country my store is located in <br><br><b>Note: Please remember to update the store zone.</b>');
 
 define('STORE_ZONE_TITLE', 'Zone');
 define('STORE_ZONE_DESC', 'The zone my store is located in');
+
 
 define('EXPECTED_PRODUCTS_SORT_TITLE', 'Expected Sort Order');
 define('EXPECTED_PRODUCTS_SORT_DESC', 'This is the sort order used in the expected products box.');

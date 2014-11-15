@@ -11,7 +11,7 @@
         <td width="150"><table width="150" border="0" cellspacing="0" cellpadding="3">
           <tr>
             <td align="left" valign="top" class="block_content">
-    <form name="quick_add" method="post" action="{html_href_link modul=$main_page file=$page_file oos_get=$get_params action=add_a_quickie}">
+    <form name="quick_add" method="post" action="{html_href_link content=$page_file oos_get=$get_params action=add_a_quickie}">
     <div align="center"><input type="text" name="cart_quantity" value="1" maxlength="3" size="2">&nbsp;<input type="text" name="quickie" size="9">&nbsp;
     {html_customer_image_submit image="cart.gif" alt=$block_heading_add_product_id}</div><br>{$lang.block_add_product_id_text|wordwrap:25:"<br>\n"}<br></form></td>
           </tr>

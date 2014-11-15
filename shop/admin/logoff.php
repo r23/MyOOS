@@ -22,7 +22,7 @@
   define('OOS_VALID_MOD', 'yes');
   require 'includes/oos_main.php';
 
-  require('includes/languages/' . $_SESSION['language'] . '/' . $aFilename['logoff']);
+  require('includes/languages/' . $_SESSION['language'] . '/' . $aContents['logoff']);
 
   unset($_SESSION['login_id']);
   unset($_SESSION['login_firstname']);
@@ -47,7 +47,7 @@
 			<div class="clr"></div>
 			<div class="smallText"><?php echo TEXT_MAIN; ?></div>
 			<div id="break"></div>
-			<div align="left"><a href="<?php echo oos_href_link_admin($aFilename['login'], '', 'SSL') . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK); ?></a></div> 
+			<div align="left"><a href="<?php echo oos_href_link_admin($aContents['login'], '', 'SSL') . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK); ?></a></div> 
 
 
 		</div>

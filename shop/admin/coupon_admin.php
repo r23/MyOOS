@@ -121,7 +121,7 @@
     // Close result set
     $mail_result->Close();
 
-    oos_redirect_admin(oos_href_link_admin($aFilename['coupon_admin'], 'mail_sent_to=' . urlencode($mail_sent_to)));
+    oos_redirect_admin(oos_href_link_admin($aContents['coupon_admin'], 'mail_sent_to=' . urlencode($mail_sent_to)));
   }
 
   if ( ($action == 'preview_email') && (!$_POST['customers_email_address']) ) {
@@ -289,7 +289,7 @@
                 <td class="dataTableContent" align="center"><?php echo $customer['customers_firstname'] . ' ' . $customer['customers_lastname']; ?></td>
                 <td class="dataTableContent" align="center"><?php echo $cc_list['redeem_ip']; ?></td>
                 <td class="dataTableContent" align="center"><?php echo oos_date_short($cc_list['redeem_date']); ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($cc_list['unique_id'] == $cInfo->unique_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . oos_href_link_admin($aFilename['coupon_admin'], 'page=' . $_GET['page'] . '&cID=' . $cc_list['coupon_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($cc_list['unique_id'] == $cInfo->unique_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'page=' . $_GET['page'] . '&cID=' . $cc_list['coupon_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -360,7 +360,7 @@
         </table></td>
       </tr>
       <tr>
-          <tr><?php echo oos_draw_form('mail', $aFilename['coupon_admin'], 'action=send_email_to_user&cID=' . $_GET['cID']); ?>
+          <tr><?php echo oos_draw_form('mail', $aContents['coupon_admin'], 'action=send_email_to_user&cID=' . $_GET['cID']); ?>
             <td><table border="0" width="100%" cellpadding="0" cellspacing="2">
               <tr>
                 <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
@@ -412,7 +412,7 @@
                 <table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
                     <td><?php ?>&nbsp;</td>
-                    <td align="right"><?php echo '<a href="' . oos_href_link_admin($aFilename['coupon_admin']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a> ' . oos_image_swap_submits('send_mail','send_mail_off.gif', IMAGE_SEND_EMAIL); ?></td>
+                    <td align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['coupon_admin']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a> ' . oos_image_swap_submits('send_mail','send_mail_off.gif', IMAGE_SEND_EMAIL); ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -442,7 +442,7 @@
       </tr>
       <tr>
 
-          <tr><?php echo oos_draw_form('mail', $aFilename['coupon_admin'], 'action=preview_email&cID='. $_GET['cID']); ?>
+          <tr><?php echo oos_draw_form('mail', $aContents['coupon_admin'], 'action=preview_email&cID='. $_GET['cID']); ?>
             <td><table border="0" cellpadding="0" cellspacing="2">
               <tr>
                 <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
@@ -771,12 +771,12 @@
       </tr>
        <tr>
         <td align="left" class="main"><?php echo COUPON_PRODUCTS; ?></td>
-        <td align="left"><?php echo oos_draw_input_field('coupon_products', $coupon_products); ?> <a href="<?php echo oos_href_link_admin($aFilename['validproducts']); ?>" TARGET="_blank" ONCLICK="window.open('<?php echo oos_href_link_admin($aFilename['validproducts']); ?>', 'Valid_Products', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
+        <td align="left"><?php echo oos_draw_input_field('coupon_products', $coupon_products); ?> <a href="<?php echo oos_href_link_admin($aContents['validproducts']); ?>" TARGET="_blank" ONCLICK="window.open('<?php echo oos_href_link_admin($aContents['validproducts']); ?>', 'Valid_Products', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
         <td align="left" class="main"><?php echo COUPON_PRODUCTS_HELP; ?></td>
       </tr>
       <tr>
         <td align="left" class="main"><?php echo COUPON_CATEGORIES; ?></td>
-        <td align="left"><?php echo oos_draw_input_field('coupon_categories', $coupon_categories); ?> <a href="<?php echo oos_href_link_admin($aFilename['validcategories']); ?>" TARGET="_blank" ONCLICK="window.open('<?php echo oos_href_link_admin($aFilename['validcategories']); ?>', 'Valid_Categories', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
+        <td align="left"><?php echo oos_draw_input_field('coupon_categories', $coupon_categories); ?> <a href="<?php echo oos_href_link_admin($aContents['validcategories']); ?>" TARGET="_blank" ONCLICK="window.open('<?php echo oos_href_link_admin($aContents['validcategories']); ?>', 'Valid_Categories', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
         <td align="left" class="main"><?php echo COUPON_CATEGORIES_HELP; ?></td>
       </tr>
       <tr>
@@ -820,7 +820,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="main"><?php echo oos_draw_form('status', $aFilename['coupon_admin'], '', 'get'); ?>
+            <td class="main"><?php echo oos_draw_form('status', $aContents['coupon_admin'], '', 'get'); ?>
 <?php
     $status_array[] = array('id' => 'Y', 'text' => TEXT_COUPON_ACTIVE);
     $status_array[] = array('id' => 'N', 'text' => TEXT_COUPON_INACTIVE);
@@ -904,7 +904,7 @@
 ?>
             &nbsp;</td>
                 <td class="dataTableContent" align="center"><?php echo $cc_list['coupon_code']; ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($cc_list['coupon_id'] == $cInfo->coupon_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . oos_href_link_admin($aFilename['coupon_admin'], 'page=' . $_GET['page'] . '&cID=' . $cc_list['coupon_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($cc_list['coupon_id'] == $cInfo->coupon_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'page=' . $_GET['page'] . '&cID=' . $cc_list['coupon_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -967,11 +967,11 @@
       } else { 
         $prod_details = NONE;
         if ($cInfo->restrict_to_products) {
-          $prod_details = '<a href="' . oos_href_link_admin($aFilename['listproducts'], 'cID=' . $cInfo->coupon_id) . '" TARGET="_blank" ONCLICK="window.open(\'' . $aFilename['listproducts'] . '?cID=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</A>';
+          $prod_details = '<a href="' . oos_href_link_admin($aContents['listproducts'], 'cID=' . $cInfo->coupon_id) . '" TARGET="_blank" ONCLICK="window.open(\'' . $aContents['listproducts'] . '?cID=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</A>';
         }
         $cat_details = NONE;
         if ($cInfo->restrict_to_categories) {
-          $cat_details = '<a href="' . oos_href_link_admin($aFilename['listcategories'], 'cID=' . $cInfo->coupon_id) . '" TARGET="_blank" ONCLICK="window.open(\'' . $aFilename['listcategories'] . '?cID=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</A>';
+          $cat_details = '<a href="' . oos_href_link_admin($aContents['listcategories'], 'cID=' . $cInfo->coupon_id) . '" TARGET="_blank" ONCLICK="window.open(\'' . $aContents['listcategories'] . '?cID=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</A>';
         }
         $coupon_name_result = $dbconn->Execute("SELECT coupon_name
                                            FROM " . $oostable['coupons_description'] . " 

@@ -39,13 +39,13 @@
   * @return string
   */
   function oos_create_sort_heading($sortby, $colnum, $heading) {
-    global $sMp, $sFile, $aLang;
+    global $sMp, $sContent, $aLang;
 
     $sort_prefix = '';
     $sort_suffix = '';
 
     if ($sortby) {
-      $sort_prefix = '<a href="' . oos_href_link($sMp, $sFile, oos_get_all_get_parameters(array('page', 'info', 'sort')) . 'page=1&amp;sort=' . $colnum . ($sortby == $colnum . 'a' ? 'd' : 'a')) . '" title="' . $aLang['text_sort_products'] . ($sortby == $colnum . 'd' || substr($sortby, 0, 1) != $colnum ? $aLang['text_ascendingly'] : $aLang['text_descendingly']) . $aLang['text_by'] . $heading . '">' ;
+      $sort_prefix = '<a href="' . oos_href_link($sContent, oos_get_all_get_parameters(array('page', 'info', 'sort')) . 'page=1&amp;sort=' . $colnum . ($sortby == $colnum . 'a' ? 'd' : 'a')) . '" title="' . $aLang['text_sort_products'] . ($sortby == $colnum . 'd' || substr($sortby, 0, 1) != $colnum ? $aLang['text_ascendingly'] : $aLang['text_descendingly']) . $aLang['text_by'] . $heading . '">' ;
       $sort_suffix = (substr($sortby, 0, 1) == $colnum ? (substr($sortby, 1, 1) == 'a' ? '+' : '-') : '') . '</a>';
     }
 

@@ -76,7 +76,7 @@
   * @param $connection
   * @return string
   */
-  function oos_catalog_link($modul = '', $page = '', $parameters = '', $connection = 'NONSSL') {
+  function oos_catalog_link($page = '', $parameters = '', $connection = 'NONSSL') {
     if ($connection == 'NONSSL') {
       $link = OOS_HTTP_SERVER . OOS_SHOP;
     } elseif ($connection == 'SSL') {
@@ -89,9 +89,9 @@
       die('</td></tr></table></td></tr></table><br /><br /><font color="#ff0000"><b>Error!</b></font><br /><br /><b>Unable to determine connection method on a link!<br /><br />Known methods: NONSSL SSL<br /><br />Function used:<br /><br />oos_href_link_admin(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</b>');
     }
     if (oos_is_not_null($parameters)) {
-      $link .= 'index.php?mp=' . $modul . '&file=' . $page . '&' . $parameters;
+      $link .= 'index.php?content=' . $page . '&' . $parameters;
     } else {
-      $link .= 'index.php?mp=' . $modul . '&file=' . $page;
+      $link .= 'index.php?content=' . $page;
     }
     while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
 
@@ -496,12 +496,12 @@
   * @param $params
   * @return string
   */
-  function oos_draw_login_form($name, $modul, $page, $parameters = '', $method = 'post', $params = '') {
+  function oos_draw_login_form($name, $page, $parameters = '', $method = 'post', $params = '') {
     $loginform = '<form name="' . $name . '" action="';
     if ($parameters) {
-      $loginform .= oos_catalog_link($modul, $page, $parameters);
+      $loginform .= oos_catalog_link($page, $parameters);
     } else {
-      $loginform .= oos_catalog_link($modul, $page, $parameters);
+      $loginform .= oos_catalog_link($page, $parameters);
     }
     $loginform .= '" method="' . $method . '"';
     if ($params) {

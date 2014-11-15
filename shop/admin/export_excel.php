@@ -93,7 +93,7 @@
           }
           $messageStack->add_session(SUCCESS_DATABASE_SAVED, 'success');
         }
-        oos_redirect_admin(oos_href_link_admin($aFilename['export_excel']));
+        oos_redirect_admin(oos_href_link_admin($aContents['export_excel']));
         break;
 
       case 'download':
@@ -112,12 +112,12 @@
         }
         break;
       case 'deleteconfirm':
-        if (strstr($_GET['file'], '..')) oos_redirect_admin(oos_href_link_admin($aFilename['export_excel']));
+        if (strstr($_GET['file'], '..')) oos_redirect_admin(oos_href_link_admin($aContents['export_excel']));
 
         oos_remove(OOS_EXPORT_PATH . '/' . $_GET['file']);
         if (!$oos_remove_error) {
           $messageStack->add_session(SUCCESS_EXPORT_DELETED, 'success');
-          oos_redirect_admin(oos_href_link_admin($aFilename['export_excel']));
+          oos_redirect_admin(oos_href_link_admin($aContents['export_excel']));
         }
         break;
     }
@@ -195,10 +195,10 @@
       echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'">' . "\n";
       $onclick_link = 'file=' . $entry;
 ?>
-                <td class="dataTableContent" onclick="document.location.href='<?php echo oos_href_link_admin($aFilename['export_excel'], $onclick_link); ?>'"><?php echo '<a href="' . oos_href_link_admin($aFilename['export_excel'], 'action=download&file=' . $entry) . '">' . oos_image(OOS_IMAGES . 'icons/file_download.gif', ICON_FILE_DOWNLOAD) . '</a>&nbsp;' . $entry; ?></td>
-                <td class="dataTableContent" align="center" onclick="document.location.href='<?php echo oos_href_link_admin($aFilename['export_excel'], $onclick_link); ?>'"><?php echo date(PHP_DATE_TIME_FORMAT, filemtime(OOS_EXPORT_PATH . $entry)); ?></td>
-                <td class="dataTableContent" align="right" onclick="document.location.href='<?php echo oos_href_link_admin($aFilename['export_excel'], $onclick_link); ?>'"><?php echo number_format(filesize(OOS_EXPORT_PATH . $entry)); ?> bytes</td>
-                <td class="dataTableContent" align="right"><?php if (isset($buInfo) && is_object($buInfo) && ($entry == $buInfo->file) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . oos_href_link_admin($aFilename['export_excel'], 'file=' . $entry) . '">' . oos_image(OOS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" onclick="document.location.href='<?php echo oos_href_link_admin($aContents['export_excel'], $onclick_link); ?>'"><?php echo '<a href="' . oos_href_link_admin($aContents['export_excel'], 'action=download&file=' . $entry) . '">' . oos_image(OOS_IMAGES . 'icons/file_download.gif', ICON_FILE_DOWNLOAD) . '</a>&nbsp;' . $entry; ?></td>
+                <td class="dataTableContent" align="center" onclick="document.location.href='<?php echo oos_href_link_admin($aContents['export_excel'], $onclick_link); ?>'"><?php echo date(PHP_DATE_TIME_FORMAT, filemtime(OOS_EXPORT_PATH . $entry)); ?></td>
+                <td class="dataTableContent" align="right" onclick="document.location.href='<?php echo oos_href_link_admin($aContents['export_excel'], $onclick_link); ?>'"><?php echo number_format(filesize(OOS_EXPORT_PATH . $entry)); ?> bytes</td>
+                <td class="dataTableContent" align="right"><?php if (isset($buInfo) && is_object($buInfo) && ($entry == $buInfo->file) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . oos_href_link_admin($aContents['export_excel'], 'file=' . $entry) . '">' . oos_image(OOS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     }
@@ -207,7 +207,7 @@
 ?>
               <tr>
                 <td class="smallText" colspan="3"><?php echo TEXT_EXPORT_DIRECTORY . ' ' . OOS_EXPORT_PATH; ?></td>
-                <td align="right" class="smallText"><?php if ($action != 'backup')  echo '<a href="' . oos_href_link_admin($aFilename['export_excel'], 'action=backup') . '">' . oos_image_swap_button('backup','backup_off.gif', IMAGE_BACKUP) . '</a>'; ?></td>
+                <td align="right" class="smallText"><?php if ($action != 'backup')  echo '<a href="' . oos_href_link_admin($aContents['export_excel'], 'action=backup') . '">' . oos_image_swap_button('backup','backup_off.gif', IMAGE_BACKUP) . '</a>'; ?></td>
              </tr>
             </table></td>
 <?php
@@ -218,7 +218,7 @@
     case 'backup':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_BACKUP . '</b>');
 
-      $contents = array('form' => oos_draw_form('backup', $aFilename['export_excel'], 'action=make_file_now'));
+      $contents = array('form' => oos_draw_form('backup', $aContents['export_excel'], 'action=make_file_now'));
       $contents[] = array('text' => TEXT_INFO_NEW_BACKUP);
 
 
@@ -232,23 +232,23 @@
         $contents[] = array('text' => '<br />' . oos_draw_radio_field('download', 'yes', true) . ' ' . TEXT_INFO_DOWNLOAD_ONLY . '*<br /><br />*' . TEXT_INFO_BEST_THROUGH_HTTPS);
       }
 
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('backup','backup_off.gif', IMAGE_BACKUP) . '&nbsp;<a href="' . oos_href_link_admin($aFilename['export_excel']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('backup','backup_off.gif', IMAGE_BACKUP) . '&nbsp;<a href="' . oos_href_link_admin($aContents['export_excel']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
       break;
 
     case 'delete':
       $heading[] = array('text' => '<b>' . $buInfo->date . '</b>');
 
-      $contents = array('form' => oos_draw_form('delete', $aFilename['export_excel'], 'file=' . $buInfo->file . '&action=deleteconfirm'));
+      $contents = array('form' => oos_draw_form('delete', $aContents['export_excel'], 'file=' . $buInfo->file . '&action=deleteconfirm'));
       $contents[] = array('text' => TEXT_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $buInfo->file . '</b>');
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('delete','delete_off.gif', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aFilename['export_excel'], 'file=' . $buInfo->file) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('delete','delete_off.gif', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['export_excel'], 'file=' . $buInfo->file) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
       break;
 
     default:
       if (isset($buInfo) && is_object($buInfo)) {
         $heading[] = array('text' => '<b>' . $buInfo->date . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aFilename['export_excel'], 'file=' . $buInfo->file . '&action=delete') . '">' . oos_image_swap_button('delete','delete_off.gif', IMAGE_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['export_excel'], 'file=' . $buInfo->file . '&action=delete') . '">' . oos_image_swap_button('delete','delete_off.gif', IMAGE_DELETE) . '</a>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_DATE . ' ' . $buInfo->date);
         $contents[] = array('text' => TEXT_INFO_SIZE . ' ' . $buInfo->size);
         $contents[] = array('text' => '<br />' . TEXT_INFO_COMPRESSION . ' ' . $buInfo->compression);

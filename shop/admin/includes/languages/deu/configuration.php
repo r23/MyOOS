@@ -40,8 +40,20 @@ define('STORE_OWNER_EMAIL_ADDRESS_DESC', 'Die E-Mail Adresse des Shop-Betreibers
 define('STORE_OWNER_VAT_ID_TITLE' , 'Umsatzsteuer ID');
 define('STORE_OWNER_VAT_ID_DESC' , 'Die Umsatzsteuer ID ihres Unternehmens');
 
-define('SKYPE_ME_TITLE', 'Skype-Name');
-define('SKYPE_ME_DESC', 'Wenn Sie noch keinen Skype-Namen haben, k&ouml;nnen Sie <a href="http://www.skype.com/go/download" target="_blank">Skype herunterladen</a>, um einen Skype-Namen zu erstellen.');
+define('STORE_ADDRESS_STREET_TITLE', 'Adressinformation: Straße des Shops');
+define('STORE_ADDRESS_STREET_DESC', 'Die Kontaktinformationen des Shops, welche sowohl in Dokumenten als auch Online ausgegeben werden');
+
+define('STORE_ADDRESS_POSTCODE_TITLE', 'Adressinformation: PLZ des Shops');
+define('STORE_ADDRESS_POSTCODE_DESC', 'Die Kontaktinformationen des Shops, welche sowohl in Dokumenten als auch Online ausgegeben werden');
+
+define('STORE_ADDRESS_CITY_TITLE', 'Adressinformation: Stadt des Shops');
+define('STORE_ADDRESS_CITY_DESC', 'Die Kontaktinformationen des Shops, welche sowohl in Dokumenten als auch Online ausgegeben werden');
+
+define('STORE_ADDRESS_TELEPHONE_NUMBER_TITLE', 'Adressinformation: Telefone des Shops');
+define('STORE_ADDRESS_TELEPHONE_NUMBER_DESC', 'Die Kontaktinformationen des Shops, welche sowohl in Dokumenten als auch Online ausgegeben werden');
+
+define('STORE_ADDRESS_EMAIL_TITLE', 'Adressinformation: Die E-Mail Adresse des Shops');
+define('STORE_ADDRESS_EMAIL_DESC', 'Die E-Mail Adresse des Shops, welche sowohl in Dokumenten als auch Online ausgegeben werden');
 
 define('STORE_COUNTRY_TITLE', 'Land');
 define('STORE_COUNTRY_DESC', 'In welchem Land wird der Shop betrieben <br><br><b>Hinweis: Bitte vergessen Sie nicht, das Bundesland zu aktualisieren</b>');

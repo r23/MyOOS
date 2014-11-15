@@ -44,7 +44,7 @@ $smarty->assignByRef("oEvent", $oEvent);
   $oos_system_cache_id            = $sTheme . '|block|' . $sLanguage;
   $oos_categories_cache_id        = $sTheme . '|block|categories|' . $sLanguage . '|' . $cPath;
   $oos_modules_cache_id           = $sTheme . '|modules|' . $sLanguage . '|' . $_SESSION['currency'];
-  $oos_news_cache_id              = $sTheme . '|modules|news|' . $sLanguage;
+
 
   if (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
     $nManufacturersId = intval($_GET['manufacturers_id']);
@@ -64,14 +64,11 @@ $smarty->assignByRef("oEvent", $oEvent);
   // Meta-Tags
   if (empty($oos_pagetitle)) $oos_pagetitle = OOS_META_TITLE;
   if (empty($oos_meta_description)) $oos_meta_description = OOS_META_DESCRIPTION;
-  if (empty($oos_meta_keywords)) $oos_meta_keywords = OOS_META_KEYWORDS;
 
   $smarty->assign(
       array(
-          'filename'          => $aFilename,
-          'modules'           => $aModules,
-          'main_page'         => $sMp,
-          'page_file'         => $sFile,
+          'filename'          => $aContents,
+          'page_file'         => $sContent,
 
           'request_type'      => $request_type,
 

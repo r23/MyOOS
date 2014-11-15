@@ -35,11 +35,11 @@
 
         // Check that password is good
         if (!oos_validate_password($_POST['password_confirmation'], $check_pass['confirm_password'])) {
-          oos_redirect_admin(oos_href_link_admin($aFilename['admin_account'], 'action=check_account&error=password'));
+          oos_redirect_admin(oos_href_link_admin($aContents['admin_account'], 'action=check_account&error=password'));
         } else {
           //$confirm = 'confirm_account';
           $_SESSION['confirm_account'] = 'confirm';
-          oos_redirect_admin(oos_href_link_admin($aFilename['admin_account'], 'action=edit_process'));
+          oos_redirect_admin(oos_href_link_admin($aContents['admin_account'], 'action=edit_process'));
         }
         break;
 
@@ -62,7 +62,7 @@
         $check_email_result->Close();
 
         if (in_array($_POST['admin_email_address'], $stored_email)) {
-          oos_redirect_admin(oos_href_link_admin($aFilename['admin_account'], 'action=edit_process&error=email'));
+          oos_redirect_admin(oos_href_link_admin($aContents['admin_account'], 'action=edit_process&error=email'));
         } else {
           $sql_data_array = array('admin_firstname' => oos_db_prepare_input($_POST['admin_firstname']),
                                   'admin_lastname' => oos_db_prepare_input($_POST['admin_lastname']),
@@ -74,7 +74,7 @@
 
         //oos_mail($_POST['admin_firstname'] . ' ' . $_POST['admin_lastname'], $_POST['admin_email_address'], ADMIN_EMAIL_SUBJECT, sprintf(ADMIN_EMAIL_TEXT, $_POST['admin_firstname'], OOS_HTTP_SERVER . OOS_SHOP . 'admin/', $_POST['admin_email_address'], $hiddenPassword, STORE_OWNER), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 
-          oos_redirect_admin(oos_href_link_admin($aFilename['admin_account'], 'page=' . $_GET['page'] . '&mID=' . $admin_id));
+          oos_redirect_admin(oos_href_link_admin($aContents['admin_account'], 'page=' . $_GET['page'] . '&mID=' . $admin_id));
         }
         break;
     }
@@ -90,7 +90,7 @@
     </table></td>
 <!-- body_text //-->
     <td width="100%" valign="top">
-      <?php if ($action == 'edit_process') { echo oos_draw_form('account', $aFilename['admin_account'], 'action=save_account', 'post', 'enctype="multipart/form-data"'); } elseif ($action == 'check_account') { echo oos_draw_form('account', $aFilename['admin_account'], 'action=check_password', 'post', 'enctype="multipart/form-data"'); } else { echo oos_draw_form('account', $aFilename['admin_account'], 'action=check_account', 'post', 'enctype="multipart/form-data"'); } ?>
+      <?php if ($action == 'edit_process') { echo oos_draw_form('account', $aContents['admin_account'], 'action=save_account', 'post', 'enctype="multipart/form-data"'); } elseif ($action == 'check_account') { echo oos_draw_form('account', $aContents['admin_account'], 'action=check_password', 'post', 'enctype="multipart/form-data"'); } else { echo oos_draw_form('account', $aContents['admin_account'], 'action=check_account', 'post', 'enctype="multipart/form-data"'); } ?>
       <table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -180,7 +180,7 @@
                 </td>
               </tr>
               <tr>
-                <td><table width="100%" border="0" cellspacing="0" cellpadding="3"><tr><td class="smallText" valign="top"><?php echo TEXT_INFO_MODIFIED . $myAccount['admin_modified']; ?></td><td align="right"><?php if ($action == 'edit_process') { echo '<a href="' . oos_href_link_admin($aFilename['admin_account']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a> '; if (isset($_SESSION['confirm_account'])) { echo oos_image_swap_submits('save','save_off.gif', IMAGE_SAVE, 'onClick="validateForm();return document.returnValue"'); } } elseif ($action == 'check_account') { echo '&nbsp;'; } else { echo oos_image_swap_submits('edit','edit_off.gif', IMAGE_EDIT); } ?></td><tr></table></td>
+                <td><table width="100%" border="0" cellspacing="0" cellpadding="3"><tr><td class="smallText" valign="top"><?php echo TEXT_INFO_MODIFIED . $myAccount['admin_modified']; ?></td><td align="right"><?php if ($action == 'edit_process') { echo '<a href="' . oos_href_link_admin($aContents['admin_account']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a> '; if (isset($_SESSION['confirm_account'])) { echo oos_image_swap_submits('save','save_off.gif', IMAGE_SAVE, 'onClick="validateForm();return document.returnValue"'); } } elseif ($action == 'check_account') { echo '&nbsp;'; } else { echo oos_image_swap_submits('edit','edit_off.gif', IMAGE_EDIT); } ?></td><tr></table></td>
               </tr>
             </table>
             </td>
@@ -203,7 +203,7 @@
         $contents[] = array('text' => '&nbsp;' . TEXT_INFO_INTRO_CONFIRM_PASSWORD_ERROR);
       }
       $contents[] = array('align' => 'center', 'text' => oos_draw_password_field('password_confirmation'));
-      $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aFilename['admin_account']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a> ' . oos_image_swap_submits('confirm','confirm_off.gif', IMAGE_CONFIRM) . '<br />&nbsp');
+      $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['admin_account']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a> ' . oos_image_swap_submits('confirm','confirm_off.gif', IMAGE_CONFIRM) . '<br />&nbsp');
       break;
 
     default:

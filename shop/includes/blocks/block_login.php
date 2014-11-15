@@ -36,7 +36,7 @@
   if ($oEvent->installed_plugin('down_for_maintenance')) return FALSE;
 
   $login_block = 'false';
-  if ( ($sFile != $aFilename['login']) && ($sFile != $aFilename['create_account'])) {
+  if ( ($sContent != $aContents['login']) && ($sContent != $aContents['create_account'])) {
     if (!isset($_SESSION['customer_id'])) {
       $login_block = 'true';
       $smarty->assign('block_login_heading', $block_heading);

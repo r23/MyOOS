@@ -23,6 +23,10 @@
           <tr>
             <td>
 <?php
+
+# echo BOX_LOCALIZATION_CURRENCIES;
+
+
   $heading = array();
   $contents = array();
 

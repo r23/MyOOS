@@ -47,7 +47,7 @@
             fwrite($new_file, $file_contents, strlen($file_contents));
             fclose($new_file);
           }
-          oos_redirect_admin(oos_href_link_admin($aFilename['define_language'], 'lngdir=' . $_GET['lngdir']));
+          oos_redirect_admin(oos_href_link_admin($aContents['define_language'], 'lngdir=' . $_GET['lngdir']));
         }
         break;
     }
@@ -78,7 +78,7 @@
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr><?php echo oos_draw_form('lng', $aFilename['define_language'], '', 'get'); ?>
+          <tr><?php echo oos_draw_form('lng', $aContents['define_language'], '', 'get'); ?>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
             <td class="pageHeading" align="right"><?php echo oos_draw_separator('trans.gif', '1', HEADING_IMAGE_HEIGHT); ?></td>
             <td class="pageHeading" align="right"><?php echo oos_draw_pull_down_menu('lngdir', $languages_array, '', 'onChange="this.form.submit();"'); ?></td>
@@ -107,7 +107,7 @@
       }
 
 ?>
-          <tr><?php echo oos_draw_form('language', $aFilename['define_language'], 'lngdir=' . $_GET['lngdir'] . '&filename=' . $_GET['filename'] . '&action=save'); ?>
+          <tr><?php echo oos_draw_form('language', $aContents['define_language'], 'lngdir=' . $_GET['lngdir'] . '&filename=' . $_GET['filename'] . '&action=save'); ?>
             <td><table border="0" cellspacing="0" cellpadding="2">
               <tr>
                 <td class="main"><b><?php echo $_GET['filename']; ?></b></td>
@@ -119,7 +119,7 @@
                 <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
               </tr>
               <tr>
-                <td align="right"><?php if ($file_writeable) { echo oos_image_swap_submits('save','save_off.gif', IMAGE_SAVE) . '&nbsp;<a href="' . oos_href_link_admin($aFilename['define_language'], 'lngdir=' . $_GET['lngdir']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>'; } else { echo '<a href="' . oos_href_link_admin($aFilename['define_language'], 'lngdir=' . $_GET['lngdir']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; } ?></td>
+                <td align="right"><?php if ($file_writeable) { echo oos_image_swap_submits('save','save_off.gif', IMAGE_SAVE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['define_language'], 'lngdir=' . $_GET['lngdir']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>'; } else { echo '<a href="' . oos_href_link_admin($aContents['define_language'], 'lngdir=' . $_GET['lngdir']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; } ?></td>
               </tr>
             </table></td>
           </form></tr>
@@ -133,7 +133,7 @@
             <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
           </tr>
           <tr>
-            <td><?php echo '<a href="' . oos_href_link_admin($aFilename['define_language'], 'lngdir=' . $_GET['lngdir']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?></td>
+            <td><?php echo '<a href="' . oos_href_link_admin($aContents['define_language'], 'lngdir=' . $_GET['lngdir']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?></td>
           </tr>
 <?php
     }
@@ -143,7 +143,7 @@
           <tr>
             <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
-                <td class="smallText"><a href="<?php echo oos_href_link_admin($aFilename['define_language'], 'lngdir=' . $_GET['lngdir'] . '&filename=' . $filename); ?>"><b><?php echo $filename; ?></b></a></td>
+                <td class="smallText"><a href="<?php echo oos_href_link_admin($aContents['define_language'], 'lngdir=' . $_GET['lngdir'] . '&filename=' . $filename); ?>"><b><?php echo $filename; ?></b></a></td>
 <?php
     $dir = dir(OOS_ABSOLUTE_PATH . 'includes/languages/' . $_GET['lngdir']);
     $left = false;
@@ -151,7 +151,7 @@
       $file_extension = substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
       while ($file = $dir->read()) {
         if (substr($file, strrpos($file, '.')) == $file_extension) {
-          echo '                <td class="smallText"><a href="' . oos_href_link_admin($aFilename['define_language'], 'lngdir=' . $_GET['lngdir'] . '&filename=' . $file) . '">' . $file . '</a></td>' . "\n";
+          echo '                <td class="smallText"><a href="' . oos_href_link_admin($aContents['define_language'], 'lngdir=' . $_GET['lngdir'] . '&filename=' . $file) . '">' . $file . '</a></td>' . "\n";
           if (!$left) {
             echo '              </tr>' . "\n" .
                  '              <tr>' . "\n";

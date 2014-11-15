@@ -198,8 +198,7 @@
       $dbconn =& oosDBGetConn();
       $oostable =& oosDBGetTables();
 
-      $aFilename = oos_get_filename();
-      $aModules = oos_get_modules();
+      $aContents = oos_get_content();
 
       if ($_POST['gv_redeem_code']) {
 
@@ -211,7 +210,7 @@
           $coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
           $redeem_query = $dbconn->Execute("SELECT * FROM $coupon_redeem_tracktable WHERE coupon_id = '" . $gv_result['coupon_id'] . "'");
           if ( ($redeem_query->RecordCount() != 0) && ($gv_result['coupon_type'] == 'G') ) {
-            oos_redirect(oos_href_link($aModules['checkout'], $aFilename['checkout_payment'], 'error_message=' . urlencode(decode($aLang['error_no_invalid_redeem_gv'])), 'SSL'));
+            oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode(decode($aLang['error_no_invalid_redeem_gv'])), 'SSL'));
           }
         }
         if ($gv_result['coupon_type'] == 'G') {
@@ -261,10 +260,10 @@
                                             amount) VALUES ('" . intval($_SESSION['customer_id']) . "',
                                                             '" . $total_gv_amount . "')");
           }
-          oos_redirect(oos_href_link($aModules['checkout'], $aFilename['checkout_payment'], 'error_message=' . urlencode($aLang['error_redeemed_amount'] . $oCurrencies->format($gv_amount)), 'SSL'));
+          oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode($aLang['error_redeemed_amount'] . $oCurrencies->format($gv_amount)), 'SSL'));
        }
      }
-     if ($_POST['submit_redeem_x'] && $gv['coupon_type'] == 'G') oos_redirect(oos_href_link($aModules['checkout'], $aFilename['checkout_payment'], 'error_message=' . urlencode(decode($aLang['error_no_redeem_code'])), 'SSL'));
+     if ($_POST['submit_redeem_x'] && $gv['coupon_type'] == 'G') oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode(decode($aLang['error_no_redeem_code'])), 'SSL'));
    }
 
     function calculate_credit($amount) {

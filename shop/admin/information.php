@@ -41,7 +41,7 @@
                          SET status = '1'
                          WHERE information_id = '" . intval($lID) . "'");
          }
-         oos_redirect_admin(oos_href_link_admin($aFilename['information'], 'page=' . $_GET['page']. '&lID=' . $_GET['lID']));
+         oos_redirect_admin(oos_href_link_admin($aContents['information'], 'page=' . $_GET['page']. '&lID=' . $_GET['lID']));
       break;
 
       case 'insert':
@@ -109,7 +109,7 @@
           }
         }
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['information'], 'page=' . $_GET['page'] . '&mID=' . $information_id));
+        oos_redirect_admin(oos_href_link_admin($aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $information_id));
         break;
 
       case 'deleteconfirm':
@@ -131,7 +131,7 @@
            $dbconn->Execute("DELETE FROM $information_descriptiontable WHERE information_id = '" . oos_db_input($information_id) . "'");
         }
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['information'], 'page=' . $_GET['page']));
+        oos_redirect_admin(oos_href_link_admin($aContents['information'], 'page=' . $_GET['page']));
         break;
 
 
@@ -184,22 +184,22 @@
     }
 
     if (isset($mInfo) && is_object($mInfo) && ($information['information_id'] == $mInfo->information_id) ) {
-      echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['information'], 'page=' . $_GET['page'] . '&mID=' . $information['information_id'] . '&action=edit') . '\'">' . "\n";
+      echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $information['information_id'] . '&action=edit') . '\'">' . "\n";
     } else {
-      echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['information'], 'page=' . $_GET['page'] . '&mID=' . $information['information_id']) . '\'">' . "\n";
+      echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $information['information_id']) . '\'">' . "\n";
     }
 ?>
                 <td class="dataTableContent"><?php echo $information['information_name']; ?></td>
                 <td class="dataTableContent">
 <?php
   if ($information['status'] == '1') {
-    echo '<a href="' . oos_href_link_admin($aFilename['information'], 'action=setflag&flag=0&lID=' . $information['information_id'] . '&page=' . $_GET['page']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+    echo '<a href="' . oos_href_link_admin($aContents['information'], 'action=setflag&flag=0&lID=' . $information['information_id'] . '&page=' . $_GET['page']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
   } else {
-    echo '<a href="' . oos_href_link_admin($aFilename['information'], 'action=setflag&flag=1&lID=' . $information['information_id'] . '&page=' . $_GET['page']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
+    echo '<a href="' . oos_href_link_admin($aContents['information'], 'action=setflag&flag=1&lID=' . $information['information_id'] . '&page=' . $_GET['page']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
   }
 ?></td>
 
-                <td class="dataTableContent" align="right"><?php if (isset($mInfo) && is_object($mInfo) && ($information['information_id'] == $mInfo->information_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . oos_href_link_admin($aFilename['information'], 'page=' . $_GET['page'] . '&mID=' . $information['information_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($mInfo) && is_object($mInfo) && ($information['information_id'] == $mInfo->information_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $information['information_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
                 </tr>
 
 
@@ -220,7 +220,7 @@
   if (empty($action)) {
 ?>
               <tr>
-                <td align="right" colspan="3" class="smallText"><?php echo '<a href="' . oos_href_link_admin($aFilename['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=new') . '">' . oos_image_swap_button('insert','insert_off.gif', IMAGE_INSERT) . '</a>'; ?></td>
+                <td align="right" colspan="3" class="smallText"><?php echo '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=new') . '">' . oos_image_swap_button('insert','insert_off.gif', IMAGE_INSERT) . '</a>'; ?></td>
               </tr>
 <?php
   }
@@ -234,7 +234,7 @@
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_HEADING_NEW_INFORMATION . '</b>');
 
-      $contents = array('form' => oos_draw_form('information', $aFilename['information'], 'action=insert', 'post', 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('information', $aContents['information'], 'action=insert', 'post', 'enctype="multipart/form-data"'));
       $contents[] = array('text' => TEXT_NEW_INTRO);
 
       $informations_name_inputs_string = '';
@@ -259,14 +259,14 @@
       $contents[] = array('text' => '<br />' . TEXT_INFORMATION_SORT_ORDER . '<br />' . oos_draw_input_field('sort_order'));
 
 
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('save','save_off.gif', IMAGE_SAVE) . ' <a href="' . oos_href_link_admin($aFilename['information'], 'page=' . $_GET['page'] . '&mID=' . $_GET['mID']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('save','save_off.gif', IMAGE_SAVE) . ' <a href="' . oos_href_link_admin($aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $_GET['mID']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
       break;
 
 
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_HEADING_EDIT_INFORMATION . '</b>');
 
-      $contents = array('form' => oos_draw_form('information', $aFilename['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=save', 'post', 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('information', $aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=save', 'post', 'enctype="multipart/form-data"'));
       $contents[] = array('text' => TEXT_EDIT_INTRO);
 
       $informations_name_inputs_string = '';
@@ -291,18 +291,18 @@
 
       $contents[] = array('text' => '<br />' . TEXT_INFORMATION_SORT_ORDER . '<br />' . oos_draw_input_field('sort_order') . '<br />' . $mInfo->sort_order);
 
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('save','save_off.gif', IMAGE_SAVE) . ' <a href="' . oos_href_link_admin($aFilename['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('save','save_off.gif', IMAGE_SAVE) . ' <a href="' . oos_href_link_admin($aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
       break;
 
     case 'delete':
       if ($mInfo->information_id > 5) {
         $heading[] = array('text' => '<b>' . TEXT_HEADING_DELETE_INFORMATION . '</b>');
 
-        $contents = array('form' => oos_draw_form('information', $aFilename['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=deleteconfirm'));
+        $contents = array('form' => oos_draw_form('information', $aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=deleteconfirm'));
         $contents[] = array('text' => TEXT_DELETE_INTRO);
         $contents[] = array('text' => '<br /><b>' . $mInfo->information_name . '</b>');
         $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('delete_image', '', true) . ' ' . TEXT_DELETE_IMAGE);
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('delete','delete_off.gif', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aFilename['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('delete','delete_off.gif', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
       }
       break;
 
@@ -310,9 +310,9 @@
       if (isset($mInfo) && is_object($mInfo)) {
         $heading[] = array('text' => '<b>' . $mInfo->information_name . '</b>');
         if ($mInfo->information_id > 5) {
-          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aFilename['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=edit') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a> <a href="' . oos_href_link_admin($aFilename['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=delete') . '">' . oos_image_swap_button('delete','delete_off.gif', IMAGE_DELETE) . '</a>');
+          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=edit') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=delete') . '">' . oos_image_swap_button('delete','delete_off.gif', IMAGE_DELETE) . '</a>');
         } else {
-          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aFilename['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=edit') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a>');
+          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=edit') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a>');
         }
         $contents[] = array('text' => '<br />' . TEXT_DATE_ADDED . ' ' . oos_date_short($mInfo->date_added));
         if (oos_is_not_null($mInfo->last_modified)) $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($mInfo->last_modified));

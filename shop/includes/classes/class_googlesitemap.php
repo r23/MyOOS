@@ -212,8 +212,7 @@
        $dbconn =& oosDBGetConn();
        $oostable =& oosDBGetTables();
 
-       $aFilename = oos_get_filename();
-       $aModules = oos_get_modules();
+       $aContents = oos_get_content();
 
        $sql = "SELECT products_id as pID, products_date_added as date_added,
                       products_last_modified as last_mod, products_ordered
@@ -230,7 +229,7 @@
          while ( $result = $products_query->fields ) {
 
            $top = max($top, $result['products_ordered']);
-           $location = oos_href_link($aModules['products'], $aFilename['product_info'], 'products_id=' . $result['pID'], 'NONSSL', false, true);
+           $location = oos_href_link($aContents['product_info'], 'products_id=' . $result['pID'], 'NONSSL', false, true);
            $lastmod = oos_is_not_null($result['last_mod']) ? $result['last_mod'] : $result['date_added'];
            $changefreq = GOOGLE_SITEMAP_PROD_CHANGE_FREQ;
            $ratio = $top > 0 ? $result['products_ordered']/$top : 0;
@@ -271,8 +270,7 @@
        $dbconn =& oosDBGetConn();
        $oostable =& oosDBGetTables();
 
-       $aFilename = oos_get_filename();
-       $aModules = oos_get_modules();
+       $aContents = oos_get_content();
 
        $sql = "SELECT categories_id as cID, date_added, last_modified as last_mod
                FROM " . $oostable['categories'] . "
@@ -286,7 +284,7 @@
          $container = array();
          $number = 0;
          while( $result = $categories_query->fields ) {
-           $location = oos_href_link($aModules['main'], $aFilename['shop'], 'cPath=' . $this->GetFullcPath($result['cID']), 'NONSSL', false, true);
+           $location = oos_href_link($aContents['shop'], 'cPath=' . $this->GetFullcPath($result['cID']), 'NONSSL', false, true);
            $lastmod = oos_is_not_null($result['last_mod']) ? $result['last_mod'] : $result['date_added'];
 
            $changefreq = GOOGLE_SITEMAP_CAT_CHANGE_FREQ;

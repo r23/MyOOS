@@ -27,8 +27,8 @@ $aLang['heading_title'] = 'Vielen Dank!';
 
 $aLang['text_success'] = 'Ihre Bestellung ist eingegangen und wird bearbeitet! Die Lieferung erfolgt innerhalb von ca. 2-5 Werktagen.';
 $aLang['text_notify_products'] = 'Bitte benachrichtigen Sie mich &uuml;ber Aktuelles zu folgenden Produkten:';
-$aLang['text_see_orders'] = 'Sie k&ouml;nnen Ihre Bestellung(en) auf der Seite <a href="' . oos_href_link($aModules['user'], $aFilename['account'], '', 'SSL') . '"><u>\'Ihr Konto\'</a></u> jederzeit einsehen und sich dort auch Ihre <a href="' . oos_href_link($aModules['account'], $aFilename['account_history'], '', 'SSL') . '"><u>\'Bestell&uuml;bersicht\'</u></a> anzeigen lassen.';
-$aLang['text_contact_store_owner'] = 'Falls Sie Fragen bez&uuml;glich Ihrer Bestellung haben, wenden Sie sich an unseren <a href="' . oos_href_link($aModules['main'], $aFilename['contact_us']) . '"><u>Vertrieb</u></a>.';
+$aLang['text_see_orders'] = 'Sie k&ouml;nnen Ihre Bestellung(en) auf der Seite <a href="' . oos_href_link($aContents['account'], '', 'SSL') . '"><u>\'Ihr Konto\'</a></u> jederzeit einsehen und sich dort auch Ihre <a href="' . oos_href_link($aContents['account_history'], '', 'SSL') . '"><u>\'Bestell&uuml;bersicht\'</u></a> anzeigen lassen.';
+$aLang['text_contact_store_owner'] = 'Falls Sie Fragen bez&uuml;glich Ihrer Bestellung haben, wenden Sie sich an unseren <a href="' . oos_href_link($aContents['contact_us']) . '"><u>Vertrieb</u></a>.';
 $aLang['text_thanks_for_shopping'] = 'Wir danken Ihnen f&uuml;r Ihren Online-Einkauf!';
 
 $aLang['table_heading_download_date'] = 'herunterladen m&ouml;glich bis:';

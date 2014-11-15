@@ -119,7 +119,7 @@
               </tr>
               <tr>
                 <td class="smallText"><b><?php echo TITLE_PHP_VERSION; ?></b></td>
-                <td colspan="3" class="smallText"><?php echo $system['php'] . ' (' . TITLE_ZEND_VERSION . ' ' . $system['zend'] . ')&nbsp;&raquo;&nbsp;&raquo;&nbsp;<a href="' . oos_href_link_admin($aFilename['php_info'], '', 'NONSSL') . '" target="_blank">' . TITLE_PHP_INFORMATION . '</a>'; ?></td>
+                <td colspan="3" class="smallText"><?php echo $system['php'] . ' (' . TITLE_ZEND_VERSION . ' ' . $system['zend'] . ')&nbsp;&raquo;&nbsp;&raquo;&nbsp;<a href="' . oos_href_link_admin($aContents['php_info'], '', 'NONSSL') . '" target="_blank">' . TITLE_PHP_INFORMATION . '</a>'; ?></td>
              </tr>
              <tr>
                 <td class="smallText"><b>ADODB Version</b></td>

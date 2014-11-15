@@ -50,7 +50,7 @@
       }
     }
   }
-  require('includes/languages/' . $_SESSION['language'] . '/' . $aFilename['login']);
+  require('includes/languages/' . $_SESSION['language'] . '/' . $aContents['login']);
 
   if ($login == 'success') {
     $success_message = TEXT_FORGOTTEN_SUCCESS;
@@ -84,14 +84,14 @@ function setFocus() {
 ?>
 
 	  <p><div class="smallText"><?php echo TEXT_FORGOTTEN_FAIL; ?></div></p>
-	  <p><div class="smallText"><?php echo '<a href="' . oos_href_link_admin($aFilename['login'], '' , 'SSL') . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?></div></p>
+	  <p><div class="smallText"><?php echo '<a href="' . oos_href_link_admin($aContents['login'], '' , 'SSL') . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?></div></p>
 	  <div id="break"></div>
 <?php
   } elseif (isset($success_message)) {
 ?>
 
 	  <p><div class="smallText"><?php echo $success_message; ?></div></p>
-	  <p><div class="smallText"><?php echo '<a href="' . oos_href_link_admin($aFilename['login'], '' , 'SSL') . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?></div></p>
+	  <p><div class="smallText"><?php echo '<a href="' . oos_href_link_admin($aContents['login'], '' , 'SSL') . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?></div></p>
 	  <div id="break"></div>
 <?php
   } else {
@@ -99,7 +99,7 @@ function setFocus() {
 
 		<div class="login-form">
 		
-		<?php echo oos_draw_form('login', $aFilename['password_forgotten'], 'action=process'); ?>
+		<?php echo oos_draw_form('login', $aContents['password_forgotten'], 'action=process'); ?>
 		<?php echo oos_draw_hidden_field('log_times', $log_times); ?>
 		
 			<img src="images/login.gif" alt="<?php echo HEADING_PASSWORD_FORGOTTEN; ?>" />
@@ -113,7 +113,7 @@ function setFocus() {
 			<div><?php echo oos_draw_input_field('email_address', '', 'class="inputbox" size="15"'); ?></div>
 
 			
-			<div class="ctr"><?php echo '<a href="' . oos_href_link_admin($aFilename['login'], '' , 'SSL') . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a> ' . oos_image_swap_submits('confirm','confirm_off.gif', IMAGE_BUTTON_LOGIN); ?></div>
+			<div class="ctr"><?php echo '<a href="' . oos_href_link_admin($aContents['login'], '' , 'SSL') . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a> ' . oos_image_swap_submits('confirm','confirm_off.gif', IMAGE_BUTTON_LOGIN); ?></div>
 	
 		</div>
 			</form>

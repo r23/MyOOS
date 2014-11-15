@@ -29,9 +29,9 @@
 <link rel="stylesheet" type="text/css" href="{$theme_css}/stylesheet.css">
 
 <link rel="top" type="text/html" href="{$oos_base}">
-<link rel="contents" type="text/html" href="{html_href_link modul=$modules.info file=$filename.info_sitemap connection='NONSSL' add_session_id='false' search_engine_safe='false'}">
-<link rel="search" type="text/html" href="{html_href_link modul=$modules.search file=$filename.advanced_search connection='NONSSL' add_session_id='false' search_engine_safe='false'}">
-<link rel="bookmark" type="text/html" href="{html_href_link modul=$main_page file=$page_file oos_get=$get_params connection='NONSSL' add_session_id='false' search_engine_safe='false'}">
+<link rel="contents" type="text/html" href="{html_href_link content=$filename.sitemap connection='NONSSL' add_session_id='false' search_engine_safe='false'}">
+<link rel="search" type="text/html" href="{html_href_link content=$filename.advanced_search connection='NONSSL' add_session_id='false' search_engine_safe='false'}">
+<link rel="bookmark" type="text/html" href="{html_href_link content=$page_file oos_get=$get_params connection='NONSSL' add_session_id='false' search_engine_safe='false'}">
 
 {literal}
 <script type="text/javascript" language="JavaScript">
@@ -64,7 +64,7 @@ function popupZoom(url) {
 <!-- header //-->
 <table width="870" align="center" cellpadding="0" cellspacing="0">
    <tr>
-      <td class="block_head"><a href="{html_href_link modul=$modules.main file=$filename.main}"><img src="{$theme_image}/logo.gif" border="0" width="140" height="179" alt="{$smarty.const.STORE_NAME}" title=" {$smarty.const.STORE_NAME} "></a></td>
+      <td class="block_head"><a href="{html_href_link content=$filename.main}"><img src="{$theme_image}/logo.gif" border="0" width="140" height="179" alt="{$smarty.const.STORE_NAME}" title=" {$smarty.const.STORE_NAME} "></a></td>
    </tr>
 </table>
 
@@ -75,13 +75,13 @@ function popupZoom(url) {
     <td align="right" class="oos-HeadNavi">
 
 {if (isset($smarty.session.customer_id)) }
-<a href="{html_href_link modul=$modules.user file=$filename.logoff connection=SSL}" class="headerNavigation">{$lang.header_title_logoff}</a>&nbsp;
+<a href="{html_href_link content=$filename.logoff connection=SSL}" class="headerNavigation">{$lang.header_title_logoff}</a>&nbsp;
 {else}
-<a href="{html_href_link modul=$modules.user file=$filename.login connection=SSL}" class="headerNavigation">{$lang.header_title_login}</a>&nbsp;
+<a href="{html_href_link content=$filename.login connection=SSL}" class="headerNavigation">{$lang.header_title_login}</a>&nbsp;
 {/if}
-|&nbsp;<a href="{html_href_link modul=$modules.user file=$filename.account connection=SSL}" class="headerNavigation">{$lang.header_title_my_account}</a>&nbsp;
-|&nbsp;<a href="{html_href_link modul=$modules.main file=$filename.main_shopping_cart}" class="headerNavigation">{$lang.header_title_cart_contents}</a>&nbsp;
-|&nbsp;<a href="{html_href_link modul=$modules.checkout file=$filename.checkout_payment connection=SSL}" class="headerNavigation">{$lang.header_title_checkout}</a>&nbsp;&nbsp;
+|&nbsp;<a href="{html_href_link content=$filename.account connection=SSL}" class="headerNavigation">{$lang.header_title_my_account}</a>&nbsp;
+|&nbsp;<a href="{html_href_link content=$filename.shopping_cart}" class="headerNavigation">{$lang.header_title_cart_contents}</a>&nbsp;
+|&nbsp;<a href="{html_href_link content=$filename.checkout_payment connection=SSL}" class="headerNavigation">{$lang.header_title_checkout}</a>&nbsp;&nbsp;
 
     </td>
   </tr>

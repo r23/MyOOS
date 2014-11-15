@@ -12,14 +12,14 @@
 {if $smarty.session.sendto != false}
             <td width="30%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main"><b>{$lang.heading_delivery_address}</b> <a href="{html_href_link modul=$modules.checkout file=$filename.checkout_shipping_address connection=SSL}"><span class="orderEdit">({$lang.text_edit})</span></a></td>
+                <td class="main"><b>{$lang.heading_delivery_address}</b> <a href="{html_href_link content=$filename.checkout_shipping_address connection=SSL}"><span class="orderEdit">({$lang.text_edit})</span></a></td>
               </tr>
               <tr>
                 <td class="main">{oos_address_format address_format_id=$order->delivery.format_id address=$order->delivery html=1}</td>
               </tr>
   {if $order->info.shipping_method}
               <tr>
-                <td class="main"><b>{$lang.heading_shipping_method}</b> <a href="{html_href_link modul=$modules.checkout file=$filename.checkout_shipping connection=SSL}"><span class="orderEdit">({$lang.text_edit})</span></a></td>
+                <td class="main"><b>{$lang.heading_shipping_method}</b> <a href="{html_href_link content=$filename.checkout_shipping connection=SSL}"><span class="orderEdit">({$lang.text_edit})</span></a></td>
               </tr>
               <tr>
                 <td class="main">{$order->info.shipping_method}</td>
@@ -32,13 +32,13 @@
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
    {if sizeof($order->info.tax_groups) > 1}
                   <tr>
-                    <td class="main" colspan="2"><b>{$lang.heading_products}</b> <a href="{html_href_link modul=$modules.main file=$filename.main_shopping_cart}"><span class="orderEdit">({$lang.text_edit})</span></a></td>
+                    <td class="main" colspan="2"><b>{$lang.heading_products}</b> <a href="{html_href_link content=$filename.shopping_cart}"><span class="orderEdit">({$lang.text_edit})</span></a></td>
                     <td class="smallText" align="right"><b>{$lang.heading_tax}</b></td>
                     <td class="smallText" align="right"><b>{$lang.heading_total}</b></td>
                   </tr>
   {else}
                   <tr>
-                    <td class="main" colspan="3"><b>{$lang.heading_products}</b> <a href="{html_href_link modul=$modules.main file=$filename.main_shopping_cart}"><span class="orderEdit">({$lang.text_edit})</span></a></td>
+                    <td class="main" colspan="3"><b>{$lang.heading_products}</b> <a href="{html_href_link content=$filename.shopping_cart}"><span class="orderEdit">({$lang.text_edit})</span></a></td>
                   </tr>
   {/if}
   {foreach item=products from=$order->products}
@@ -82,13 +82,13 @@
           <tr class="oos-BoxContents">
             <td width="30%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main"><b>{$lang.heading_billing_address}</b> <a href="{html_href_link modul=$modules.checkout file=$filename.checkout_payment_address connection=SSL}"><span class="orderEdit">({$lang.text_edit})</span></a></td>
+                <td class="main"><b>{$lang.heading_billing_address}</b> <a href="{html_href_link content=$filename.checkout_payment_address connection=SSL}"><span class="orderEdit">({$lang.text_edit})</span></a></td>
               </tr>
               <tr>
                 <td class="main">{oos_address_format address_format_id=$order->billing.format_id address=$order->billing html=1}</td>
               </tr>
               <tr>
-                <td class="main"><b>{$lang.heading_payment_method}</b> <a href="{html_href_link modul=$modules.checkout file=$filename.checkout_payment connection=SSL}"><span class="orderEdit">({$lang.text_edit})</span></a></td>
+                <td class="main"><b>{$lang.heading_payment_method}</b> <a href="{html_href_link content=$filename.checkout_payment connection=SSL}"><span class="orderEdit">({$lang.text_edit})</span></a></td>
               </tr>
               <tr>
                 <td class="main">{$order->info.payment_method}</td>
@@ -137,7 +137,7 @@
       </tr>
 {if $order->info.comments != ''}
       <tr>
-        <td class="main"><b>{$lang.heading_order_comments}</b> <a href="{html_href_link modul=$modules.checkout file=$filename.checkout_payment connection=SSL}"><span class="orderEdit">({$lang.text_edit})</span></a></td>
+        <td class="main"><b>{$lang.heading_order_comments}</b> <a href="{html_href_link content=$filename.checkout_payment connection=SSL}"><span class="orderEdit">({$lang.text_edit})</span></a></td>
       </tr>
       <tr>
         <td height="10"></td>
@@ -220,8 +220,8 @@
             </table></td>
           </tr>
           <tr>
-            <td align="center" width="25%" class="checkoutBarFrom"><a href="{html_href_link modul=$modules.checkout file=$filename.checkout_shipping connection=SSL}" class="checkoutBarFrom">{$lang.checkout_bar_delivery}</a></td>
-            <td align="center" width="25%" class="checkoutBarFrom"><a href="{html_href_link modul=$modules.checkout file=$filename.checkout_payment connection=SSL}" class="checkoutBarFrom">{$lang.checkout_bar_payment}</a></td>
+            <td align="center" width="25%" class="checkoutBarFrom"><a href="{html_href_link content=$filename.checkout_shipping connection=SSL}" class="checkoutBarFrom">{$lang.checkout_bar_delivery}</a></td>
+            <td align="center" width="25%" class="checkoutBarFrom"><a href="{html_href_link content=$filename.checkout_payment connection=SSL}" class="checkoutBarFrom">{$lang.checkout_bar_payment}</a></td>
             <td align="center" width="25%" class="checkoutBarCurrent">{$lang.checkout_bar_confirmation}</td>
             <td align="center" width="25%" class="checkoutBarTo">{$lang.checkout_bar_finished}</td>
           </tr>

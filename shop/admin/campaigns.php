@@ -119,7 +119,7 @@
           $dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . oos_db_input($campaigns_id) . "' WHERE configuration_key = 'DEFAULT_CAMPAIGNS_ID'");
         }
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $campaigns_id));
+        oos_redirect_admin(oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $campaigns_id));
         break;
 
     case 'deleteconfirm':
@@ -135,7 +135,7 @@
         $campaignstable = $oostable['campaigns'];
         $dbconn->Execute("DELETE FROM $campaignstable WHERE campaigns_id = '" . oos_db_input($cID) . "'");
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['campaigns'], 'page=' . $_GET['page']));
+        oos_redirect_admin(oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page']));
         break;
 
     case 'delete':
@@ -189,9 +189,9 @@
     }
 
     if (isset($oInfo) && is_object($oInfo) && ($campaigns['campaigns_id'] == $oInfo->campaigns_id)) {
-      echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id . '&action=edit') . '\'">' . "\n";
+      echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id . '&action=edit') . '\'">' . "\n";
     } else {
-      echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $campaigns['campaigns_id']) . '\'">' . "\n";
+      echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $campaigns['campaigns_id']) . '\'">' . "\n";
     }
 
     if (DEFAULT_CAMPAIGNS_ID == $campaigns['campaigns_id']) {
@@ -201,7 +201,7 @@
     }
 ?>
 
-                <td class="dataTableContent" align="right"><?php if (isset($oInfo) && is_object($oInfo) && ($campaigns['campaigns_id'] == $oInfo->campaigns_id)) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . oos_href_link_admin($aFilename['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $campaigns['campaigns_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($oInfo) && is_object($oInfo) && ($campaigns['campaigns_id'] == $oInfo->campaigns_id)) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $campaigns['campaigns_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -218,7 +218,7 @@
     if (empty($action)) {
 ?>
                   <tr>
-                    <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aFilename['campaigns'], 'page=' . $_GET['page'] . '&action=new') . '">' . oos_image_swap_button('insert','insert_off.gif', IMAGE_INSERT) . '</a>'; ?></td>
+                    <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&action=new') . '">' . oos_image_swap_button('insert','insert_off.gif', IMAGE_INSERT) . '</a>'; ?></td>
                   </tr>
 <?php
   }
@@ -235,7 +235,7 @@
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_CAMPAIGNS . '</b>');
 
-      $contents = array('form' => oos_draw_form('status', $aFilename['campaigns'], 'page=' . $_GET['page'] . '&action=insert'));
+      $contents = array('form' => oos_draw_form('status', $aContents['campaigns'], 'page=' . $_GET['page'] . '&action=insert'));
       $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
 
       $campaigns_inputs_string = '';
@@ -246,13 +246,13 @@
 
       $contents[] = array('text' => '<br />' . TEXT_INFO_CAMPAIGNS_NAME . $campaigns_inputs_string);
       $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('insert','insert_off.gif', IMAGE_INSERT) . ' <a href="' . oos_href_link_admin($aFilename['campaigns'], 'page=' . $_GET['page']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('insert','insert_off.gif', IMAGE_INSERT) . ' <a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
       break;
 
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_CAMPAIGNS . '</b>');
 
-      $contents = array('form' => oos_draw_form('status', $aFilename['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id  . '&action=save'));
+      $contents = array('form' => oos_draw_form('status', $aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id  . '&action=save'));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
 
       $campaigns_inputs_string = '';
@@ -263,23 +263,23 @@
 
       $contents[] = array('text' => '<br />' . TEXT_INFO_CAMPAIGNS_NAME . $campaigns_inputs_string);
       if (DEFAULT_CAMPAIGNS_ID != $oInfo->campaigns_id) $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('update','update_off.gif', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aFilename['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id) . '">' . oos_image_swap_button('cancel', 'cancel_off.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('update','update_off.gif', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id) . '">' . oos_image_swap_button('cancel', 'cancel_off.gif', IMAGE_CANCEL) . '</a>');
       break;
 
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_CAMPAIGNS . '</b>');
 
-      $contents = array('form' => oos_draw_form('status', $aFilename['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id  . '&action=deleteconfirm'));
+      $contents = array('form' => oos_draw_form('status', $aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id  . '&action=deleteconfirm'));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $oInfo->campaigns_name . '</b>');
-      if ($remove_status) $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('delete', 'delete_off.gif', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aFilename['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id) . '">' . oos_image_swap_button('cancel', 'cancel_off.gif', IMAGE_CANCEL) . '</a>');
+      if ($remove_status) $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('delete', 'delete_off.gif', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id) . '">' . oos_image_swap_button('cancel', 'cancel_off.gif', IMAGE_CANCEL) . '</a>');
       break;
 
     default:
      if (isset($oInfo) && is_object($oInfo)) {
         $heading[] = array('text' => '<b>' . $oInfo->campaigns_name . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aFilename['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id . '&action=edit') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a> <a href="' . oos_href_link_admin($aFilename['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id . '&action=delete') . '">' . oos_image_swap_button('delete', 'delete_off.gif', IMAGE_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id . '&action=edit') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id . '&action=delete') . '">' . oos_image_swap_button('delete', 'delete_off.gif', IMAGE_DELETE) . '</a>');
 
         $campaigns_inputs_string = '';
         $languages = oos_get_languages();

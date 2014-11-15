@@ -38,7 +38,7 @@
                         SET status = '1'
                         WHERE languages_id = '" . intval($lID) . "'");
         }
-        oos_redirect_admin(oos_href_link_admin($aFilename['languages'], 'page=' . $_GET['page']. '&lID=' . $_GET['lID']));
+        oos_redirect_admin(oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page']. '&lID=' . $_GET['lID']));
         break;
 
       case 'insert':
@@ -536,7 +536,7 @@
           // Move that ADOdb pointer!
           $ticket_status_result->MoveNext();
         }
-        oos_redirect_admin(oos_href_link_admin($aFilename['languages'], 'page=' . $_GET['page'] . '&lID=' . $insert_id));
+        oos_redirect_admin(oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $insert_id));
         break;
 
       case 'save':
@@ -554,7 +554,7 @@
                         SET configuration_value = '" . oos_db_input($iso_639_2) . "'
                         WHERE configuration_key = 'DEFAULT_LANGUAGE'");
         }
-        oos_redirect_admin(oos_href_link_admin($aFilename['languages'], 'page=' . $_GET['page'] . '&lID=' . $_GET['lID']));
+        oos_redirect_admin(oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $_GET['lID']));
         break;
 
       case 'deleteconfirm':
@@ -567,7 +567,7 @@
         if ($lng['iso_639_2'] == DEFAULT_LANGUAGE) {
           $remove_language = false;
           $messageStack->add_session(ERROR_REMOVE_DEFAULT_LANGUAGE, 'error');
-          oos_redirect_admin(oos_href_link_admin($aFilename['languages'], 'page=' . $_GET['page']));
+          oos_redirect_admin(oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page']));
         }
 
         $dbconn->Execute("DELETE FROM " . $oostable['languages'] . " WHERE languages_id = '" . intval($lID) . "'");
@@ -597,7 +597,7 @@
         $dbconn->Execute("DELETE FROM " . $oostable['ticket_reply'] . " WHERE ticket_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['ticket_status'] . " WHERE ticket_languages_id = '" . intval($lID) . "'");
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['languages'], 'page=' . $_GET['page']));
+        oos_redirect_admin(oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page']));
         break;
 
       case 'delete':
@@ -631,10 +631,10 @@
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
             <td class="pageHeading" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-            <tr><?php echo oos_draw_form('search', $aFilename['languages'], '', 'get'); ?>
+            <tr><?php echo oos_draw_form('search', $aContents['languages'], '', 'get'); ?>
               <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . oos_draw_input_field('search'); ?></td>
               </form></tr>
-            <tr><?php echo oos_draw_form('status', $aFilename['languages'], '', 'get'); ?>
+            <tr><?php echo oos_draw_form('status', $aContents['languages'], '', 'get'); ?>
               <td class="smallText" align="right"><?php echo HEADING_TITLE_STATUS . ' ' . oos_draw_pull_down_menu('status', $lang_select_array, '0', 'onChange="this.form.submit();"'); ?></td>
             </form></tr>
            </table></td>
@@ -679,9 +679,9 @@
     }
 
     if (isset($lInfo) && is_object($lInfo) && ($languages['languages_id'] == $lInfo->languages_id) ) {
-      echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id . '&action=edit') . '\'">' . "\n";
+      echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id . '&action=edit') . '\'">' . "\n";
     } else {
-      echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['languages'], 'page=' . $_GET['page'] . '&lID=' . $languages['languages_id']) . '\'">' . "\n";
+      echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $languages['languages_id']) . '\'">' . "\n";
     }
 
     if (DEFAULT_LANGUAGE == $languages['iso_639_2']) {
@@ -695,13 +695,13 @@
                 <td class="dataTableContent" align="center">
 <?php
   if ($languages['status'] == '1') {
-    echo '<a href="' . oos_href_link_admin($aFilename['languages'], 'action=setflag&flag=0&lID=' . $languages['languages_id'] . '&page=' . $_GET['page']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+    echo '<a href="' . oos_href_link_admin($aContents['languages'], 'action=setflag&flag=0&lID=' . $languages['languages_id'] . '&page=' . $_GET['page']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
   } else {
-    echo '<a href="' . oos_href_link_admin($aFilename['languages'], 'action=setflag&flag=1&lID=' . $languages['languages_id'] . '&page=' . $_GET['page']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
+    echo '<a href="' . oos_href_link_admin($aContents['languages'], 'action=setflag&flag=1&lID=' . $languages['languages_id'] . '&page=' . $_GET['page']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
   }
 ?></td>
 
-                <td class="dataTableContent" align="right"><?php if (isset($lInfo) && is_object($lInfo) && ($languages['languages_id'] == $lInfo->languages_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . oos_href_link_admin($aFilename['languages'], 'page=' . $_GET['page'] . '&lID=' . $languages['languages_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($lInfo) && is_object($lInfo) && ($languages['languages_id'] == $lInfo->languages_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $languages['languages_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -718,7 +718,7 @@
   if (empty($action)) {
 ?>
                   <tr>
-                    <td align="right" colspan="2"><?php echo '<a href="' . oos_href_link_admin($aFilename['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id . '&action=new') . '">' . oos_image_swap_button('new_language','new_language_off.gif', IMAGE_NEW_LANGUAGE) . '</a>'; ?></td>
+                    <td align="right" colspan="2"><?php echo '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id . '&action=new') . '">' . oos_image_swap_button('new_language','new_language_off.gif', IMAGE_NEW_LANGUAGE) . '</a>'; ?></td>
                   </tr>
 <?php
   }
@@ -734,25 +734,25 @@
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_LANGUAGE . '</b>');
 
-      $contents = array('form' => oos_draw_form('languages', $aFilename['languages'], 'action=insert'));
+      $contents = array('form' => oos_draw_form('languages', $aContents['languages'], 'action=insert'));
       $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_NAME . '<br />' . oos_draw_input_field('name'));
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_ISO_639_2 . '<br />' . oos_draw_input_field('iso_639_2'));
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_ISO_639_1 . '<br />' . oos_draw_input_field('iso_639_1'));
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('insert','insert_off.gif', IMAGE_INSERT) . ' <a href="' . oos_href_link_admin($aFilename['languages'], 'page=' . $_GET['page'] . '&lID=' . $_GET['lID']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('insert','insert_off.gif', IMAGE_INSERT) . ' <a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $_GET['lID']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
       break;
 
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_LANGUAGE . '</b>');
 
-      $contents = array('form' => oos_draw_form('languages', $aFilename['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id . '&action=save'));
+      $contents = array('form' => oos_draw_form('languages', $aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id . '&action=save'));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_NAME . '<br />' . oos_draw_input_field('name', $lInfo->name));
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_ISO_639_2 . '<br />' . oos_draw_input_field('iso_639_2', $lInfo->iso_639_2));
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_ISO_639_1 . '<br />' . oos_draw_input_field('iso_639_1', $lInfo->iso_639_1));
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_SORT_ORDER . '<br />' . oos_draw_input_field('sort_order', $lInfo->sort_order));
       if (DEFAULT_LANGUAGE != $lInfo->iso_639_2 && $lInfo->status == '1' ) $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('update','update_off.gif', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aFilename['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('update','update_off.gif', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
       break;
 
     case 'delete':
@@ -760,14 +760,14 @@
 
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $lInfo->name . '</b>');
-      $contents[] = array('align' => 'center', 'text' => '<br />' . (($remove_language) ? '<a href="' . oos_href_link_admin($aFilename['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id . '&action=deleteconfirm') . '">' . oos_image_swap_button('delete','delete_off.gif', IMAGE_DELETE) . '</a>' : '') . ' <a href="' . oos_href_link_admin($aFilename['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . (($remove_language) ? '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id . '&action=deleteconfirm') . '">' . oos_image_swap_button('delete','delete_off.gif', IMAGE_DELETE) . '</a>' : '') . ' <a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
       break;
 
     default:
       if (isset($lInfo) && is_object($lInfo)) {
         $heading[] = array('text' => '<b>' . $lInfo->name . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aFilename['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id . '&action=edit') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a> <a href="' . oos_href_link_admin($aFilename['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id . '&action=delete') . '">' . oos_image_swap_button('delete','delete_off.gif', IMAGE_DELETE) . '</a> <a href="' . oos_href_link_admin($aFilename['define_language'], 'lngdir=' . $lInfo->iso_639_2) . '">' . oos_image_swap_button('define','define_off.gif', IMAGE_DEFINE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id . '&action=edit') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id . '&action=delete') . '">' . oos_image_swap_button('delete','delete_off.gif', IMAGE_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['define_language'], 'lngdir=' . $lInfo->iso_639_2) . '">' . oos_image_swap_button('define','define_off.gif', IMAGE_DEFINE) . '</a>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_NAME . ' ' . $lInfo->name);
         $contents[] = array('text' => TEXT_INFO_LANGUAGE_ISO_639_2 . ' ' . $lInfo->iso_639_2);
         $contents[] = array('text' => TEXT_INFO_LANGUAGE_ISO_639_1 . ' ' . $lInfo->iso_639_1);

@@ -23,7 +23,7 @@
           <tr class="addressBook-odd">
   {/if}
             <td class="smallText">{$smarty.section.i.rownum|number_format}</td>
-            <td class="smallText"><a href="{html_href_link modul=$modules.account file=$filename.account_address_book_process action=modify entry_id=$oos_address_book_array[i].address_book_id connection=SSL}">{$oos_address_book_array[i].entry_firstname} {$oos_address_book_array[i].entry_lastname}</a></td>
+            <td class="smallText"><a href="{html_href_link content=$filename.account_address_book_process action=modify entry_id=$oos_address_book_array[i].address_book_id connection=SSL}">{$oos_address_book_array[i].entry_firstname} {$oos_address_book_array[i].entry_lastname}</a></td>
             <td class="smallText" align="right">{$oos_address_book_array[i].address_summary}</td>
           </tr>
   {if $smarty.section.i.last}
@@ -37,8 +37,8 @@
           <tr>
             <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="smallText" valign="top"><a href="{html_href_link modul=$modules.user file=$filename.account connection=SSL}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a><br><br>{$smarty.const.MAX_ADDRESS_BOOK_ENTRIES|string_format:$lang.text_maximum_entries}</td>
-                <td class="smallText" align="right" valign="top"><a href="{html_href_link modul=$modules.account file=$filename.account_address_book_process addentry_id=$smarty.section.i.rownum connection=SSL}">{html_image_button image="add_address.gif" alt=$lang.image_button_add_address}</a></td>
+                <td class="smallText" valign="top"><a href="{html_href_link content=$filename.account connection=SSL}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a><br><br>{$smarty.const.MAX_ADDRESS_BOOK_ENTRIES|string_format:$lang.text_maximum_entries}</td>
+                <td class="smallText" align="right" valign="top"><a href="{html_href_link content=$filename.account_address_book_process addentry_id=$smarty.section.i.rownum connection=SSL}">{html_image_button image="add_address.gif" alt=$lang.image_button_add_address}</a></td>
               </tr>
             </table></td>
           </tr>
@@ -47,7 +47,7 @@
             <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td class="smallText">{$smarty.const.MAX_ADDRESS_BOOK_ENTRIES|string_format:$lang.text_maximum_entries_reached}</td>
-                <td class="smallText" align="right"><a href="{html_href_link modul=$modules.user file=$filename.account connection=SSL}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
+                <td class="smallText" align="right"><a href="{html_href_link content=$filename.account connection=SSL}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
               </tr>
             </table></td>
           </tr>
@@ -66,8 +66,8 @@
           <tr>
             <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="smallText" valign="top"><a href="{html_href_link modul=$modules.user file=$filename.account connection=SSL}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a><br><br>{$smarty.const.MAX_ADDRESS_BOOK_ENTRIES|string_format:$lang.text_maximum_entries}</td>
-                <td class="smallText" align="right" valign="top"><a href="{html_href_link modul=$modules.account file=$filename.account_address_book_process entry_id=2 connection=SSL}">{html_image_button image="add_address.gif" alt=$lang.image_button_add_address}</a></td>
+                <td class="smallText" valign="top"><a href="{html_href_link content=$filename.account connection=SSL}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a><br><br>{$smarty.const.MAX_ADDRESS_BOOK_ENTRIES|string_format:$lang.text_maximum_entries}</td>
+                <td class="smallText" align="right" valign="top"><a href="{html_href_link content=$filename.account_address_book_process entry_id=2 connection=SSL}">{html_image_button image="add_address.gif" alt=$lang.image_button_add_address}</a></td>
               </tr>
             </table></td>
           </tr>

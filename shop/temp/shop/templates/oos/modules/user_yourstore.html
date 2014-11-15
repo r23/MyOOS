@@ -42,12 +42,12 @@
 
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
 <tr>
-	<td align="center" class="main"><a href="{html_href_link modul=$modules.account file=$filename.account_address_book connection=SSL}">{html_image_button image="address_book.gif" alt=$lang.image_button_address_book}</a></td>
-	<td align="center" class="main"><a href="{html_href_link modul=$modules.account file=$filename.account_history connection=SSL}">{html_image_button image="history.gif" alt=$lang.image_button_history}</a></td>
+	<td align="center" class="main"><a href="{html_href_link content=$filename.account_address_book connection=SSL}">{html_image_button image="address_book.gif" alt=$lang.image_button_address_book}</a></td>
+	<td align="center" class="main"><a href="{html_href_link content=$filename.account_history connection=SSL}">{html_image_button image="history.gif" alt=$lang.image_button_history}</a></td>
 {if $oEvent->installed_plugin('notify')}
-        <td align="center" class="main"><a href="{html_href_link modul=$modules.user file=$filename.product_notifications connection=SSL}">{html_image_button image="notifications.gif" alt=$lang.image_button_notifications}</a></td>
+        <td align="center" class="main"><a href="{html_href_link content=$filename.product_notifications connection=SSL}">{html_image_button image="notifications.gif" alt=$lang.image_button_notifications}</a></td>
 {/if}
-	<td align="center" class="main"><a href="{html_href_link modul=$modules.user file=$filename.account_edit connection=SSL}">{html_image_button image="edit_account.gif" alt=$lang.image_button_edit_account}</a></td>
+	<td align="center" class="main"><a href="{html_href_link content=$filename.account_edit connection=SSL}">{html_image_button image="edit_account.gif" alt=$lang.image_button_edit_account}</a></td>
 </tr>
 </table>
 

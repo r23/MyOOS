@@ -61,7 +61,7 @@
         $message .= "\n\n" . TEXT_GV_WORTH  . $currencies->format($_POST['amount']) . "\n\n";
         $message .= TEXT_TO_REDEEM;
         $message .= TEXT_WHICH_IS . $id1 . TEXT_IN_CASE . "\n\n";
-        $message .= OOS_HTTP_SERVER  . OOS_SHOP . 'index.php?mp=' . $oosModules['gv'] . '&file=' . $oosCatalogFilename['gv_redeem'] . '&gv_no=' . $id1 . "\n\n";
+        $message .= OOS_HTTP_SERVER  . OOS_SHOP . 'index.php?content=' . $oosCatalogFilename['gv_redeem'] . '&gv_no=' . $id1 . "\n\n";
         $message .= TEXT_OR_VISIT . OOS_HTTP_SERVER  . OOS_SHOP . TEXT_ENTER_CODE;
 
         //Let's build a message object using the email class
@@ -118,7 +118,7 @@
       $message .= "\n\n" . TEXT_GV_WORTH  . $currencies->format($_POST['amount']) . "\n\n";
       $message .= TEXT_TO_REDEEM;
       $message .= TEXT_WHICH_IS . $id1 . TEXT_IN_CASE . "\n\n";
-      $message .= OOS_HTTP_SERVER  . OOS_SHOP . 'index.php?mp=' . $oosModules['gv'] . '&file=' . $oosCatalogFilename['gv_redeem'] . '&gv_no=' . $id1 . "\n\n";
+      $message .= OOS_HTTP_SERVER  . OOS_SHOP . 'index.php?content=' . $oosCatalogFilename['gv_redeem'] . '&gv_no=' . $id1 . "\n\n";
       $message .= TEXT_OR_VISIT . OOS_HTTP_SERVER  . OOS_SHOP  . TEXT_ENTER_CODE;
 
       //Let's build a message object using the email class
@@ -166,7 +166,7 @@
       $insert_result = $dbconn->Execute("INSERT INTO $coupon_email_tracktable (coupon_id, customer_id_sent, sent_firstname, emailed_to, date_sent) VALUES ('" . $insert_id ."', '0', 'Admin', '" . $_POST['email_to'] . "', now() )"); 
     }
 
-    oos_redirect_admin(oos_href_link_admin($aFilename['gv_mail'], 'mail_sent_to=' . urlencode($mail_sent_to)));
+    oos_redirect_admin(oos_href_link_admin($aContents['gv_mail'], 'mail_sent_to=' . urlencode($mail_sent_to)));
   }
 
   if ( ($action == 'preview') && (!$_POST['customers_email_address']) && (!$_POST['email_to']) ) {
@@ -220,7 +220,7 @@
         break;
     }
 ?>
-          <tr><?php echo oos_draw_form('mail', $aFilename['gv_mail'], 'action=send_email_to_user'); ?>
+          <tr><?php echo oos_draw_form('mail', $aContents['gv_mail'], 'action=send_email_to_user'); ?>
             <td><table border="0" width="100%" cellpadding="0" cellspacing="2">
               <tr>
                 <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
@@ -272,7 +272,7 @@
                 <table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
                     <td><?php echo oos_image_swap_submits('back','back_off.gif', IMAGE_BACK, 'name="back"'); ?></td>
-                    <td align="right"><?php echo '<a href="' . oos_href_link_admin($aFilename['gv_mail']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a> ' . oos_image_swap_submits('send_mail','send_mail_off.gif', IMAGE_SEND_EMAIL); ?></td>
+                    <td align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['gv_mail']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a> ' . oos_image_swap_submits('send_mail','send_mail_off.gif', IMAGE_SEND_EMAIL); ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -281,7 +281,7 @@
 <?php
   } else {
 ?>
-          <tr><?php echo oos_draw_form('mail', $aFilename['gv_mail'], 'action=preview'); ?>
+          <tr><?php echo oos_draw_form('mail', $aContents['gv_mail'], 'action=preview'); ?>
             <td><table border="0" cellpadding="0" cellspacing="2">
               <tr>
                 <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>

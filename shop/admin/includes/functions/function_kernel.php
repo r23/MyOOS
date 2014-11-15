@@ -39,16 +39,16 @@
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $aFilename = oos_get_filename();
+    $aContents = oos_get_content();
 
     if (!isset($_SESSION['login_id'])) {
-      oos_redirect_admin(oos_href_link_admin($aFilename['login'], '', 'SSL'));
+      oos_redirect_admin(oos_href_link_admin($aContents['login'], '', 'SSL'));
     } else {
       $filename = preg_split('/\?/', basename($_SERVER['SCRIPT_NAME']));
       $filename = $filename[0];
-      $page_key = array_search($filename, $aFilename);
+      $page_key = array_search($filename, $aContents);
 
-      if ($filename != $aFilename['default'] && $filename != $aFilename['forbiden'] && $filename != $aFilename['logoff'] && $filename != $aFilename['admin_account']  && $filename != $aFilename['popup_image'] && $filename != $aFilename['packingslip'] && $filename != $aFilename['popup_image_product']  && $filename != $aFilename['popup_image_news'] && $filename != $aFilename['popup_subimage_product'] && $filename != $aFilename['invoice'] && $filename != $aFilename['edit_orders']) {
+      if ($filename != $aContents['default'] && $filename != $aContents['forbiden'] && $filename != $aContents['logoff'] && $filename != $aContents['admin_account']  && $filename != $aContents['popup_image'] && $filename != $aContents['packingslip'] && $filename != $aContents['popup_image_product']  && $filename != $aContents['popup_image_news'] && $filename != $aContents['popup_subimage_product'] && $filename != $aContents['invoice'] && $filename != $aContents['edit_orders']) {
         $admin_filestable = $oostable['admin_files'];
         $query = "SELECT admin_files_name
                   FROM $admin_filestable
@@ -57,7 +57,7 @@
         $result = $dbconn->Execute($query);
 
         if (!$result->RecordCount()) {
-          oos_redirect_admin(oos_href_link_admin($aFilename['forbiden']));
+          oos_redirect_admin(oos_href_link_admin($aContents['forbiden']));
         }
       }
     }
@@ -97,7 +97,7 @@
   }
 
 
-  function oos_admin_files_boxes($filename, $sub_box_name) {
+  function oos_admin_files_boxes($filename, $parameters, $sub_box_name) {
 
     $sub_boxes = '';
 
@@ -105,7 +105,7 @@
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $aFilename = oos_get_filename();
+    $aContents = oos_get_content();
 
     $admin_filestable = $oostable['admin_files'];
     $query = "SELECT admin_files_name
@@ -116,7 +116,7 @@
     $result = $dbconn->Execute($query);
 
     if ($result->RecordCount()) {
-      $sub_boxes = '<a href="' . oos_href_link_admin($aFilename[$filename]) . '" class="menuBoxContentLink">' . $sub_box_name . '</a><br />';
+	  $sub_boxes = '<a href="' . oos_href_link_admin($aContents[$filename], $parameters) . '" title="' . $sub_box_name . '">' . $sub_box_name . '</a><br>';
     }
 
     // Close result set
@@ -132,7 +132,7 @@
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $aFilename = oos_get_filename();
+    $aContents = oos_get_content();
 
     $randomize = 'admin_account';
 
@@ -159,7 +159,7 @@
         $randomize = $randomize_result->fields['admin_files_name'];
       }
     }
-    return $aFilename[$randomize];
+    return $aContents[$randomize];
   }
 
 
@@ -259,10 +259,10 @@
 
 
 
-  function oos_get_filename() {
-    GLOBAL $aFilename;
+  function oos_get_content() {
+    GLOBAL $aContents;
 
-    return $aFilename;
+    return $aContents;
   }
 
 

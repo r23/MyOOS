@@ -28,14 +28,14 @@
     $searchword_swaptable = $oostable['searchword_swap'];
     $newword_sql = "INSERT INTO $searchword_swaptable (sws_word, sws_replacement)VALUES('" . addslashes($_GET['txtWord']) . "', '" . addslashes($_GET['txtReplacement']) . "' )";
     $result = $dbconn->Execute($newword_sql);
-    oos_redirect_admin(oos_href_link_admin($aFilename['stats_keywords'], 'action=' . BUTTON_VIEW_WORD_LIST . ''));
+    oos_redirect_admin(oos_href_link_admin($aContents['stats_keywords'], 'action=' . BUTTON_VIEW_WORD_LIST . ''));
   }
 
   if (isset($_GET['removeword']) && isset($_GET['delete'])){
     $searchword_swaptable = $oostable['searchword_swap'];
     $word_delete_sql = "DELETE FROM $searchword_swaptable WHERE sws_id = " . $_GET['delete'];
     $result = $dbconn->Execute($word_delete_sql);
-    oos_redirect_admin(oos_href_link_admin($aFilename['stats_keywords'], 'action=' . BUTTON_VIEW_WORD_LIST . ''));	
+    oos_redirect_admin(oos_href_link_admin($aContents['stats_keywords'], 'action=' . BUTTON_VIEW_WORD_LIST . ''));	
   }
 
   if (isset($_GET['editword']) && isset($_GET['link'])){
@@ -49,7 +49,7 @@
     $searchword_swaptable = $oostable['searchword_swap'];
     $word_update_sql = "UPDATE $searchword_swaptable SET sws_word= '" . addslashes($_GET['txtWord']) . "', sws_replacement = '" . addslashes($_GET['txtReplacement']) . "' WHERE  sws_id = " . $_GET['id'];
     $result = $dbconn->Execute($word_update_sql);
-    oos_redirect_admin(oos_href_link_admin($aFilename['stats_keywords'], 'action=' . BUTTON_VIEW_WORD_LIST . ''));
+    oos_redirect_admin(oos_href_link_admin($aContents['stats_keywords'], 'action=' . BUTTON_VIEW_WORD_LIST . ''));
   }
 
   $no_js_general = true;
@@ -104,7 +104,7 @@
   }
 
   if (isset($_GET['action']) && ($_GET['action'] == BUTTON_UPDATE_WORD_LIST)) {
-    echo oos_draw_form('addwords', $aFilename['stats_keywords'], '', 'get');
+    echo oos_draw_form('addwords', $aContents['stats_keywords'], '', 'get');
 ?>
 <table border="0" cellpadding="2" cellspacing="0" width="100%">
 <?php
@@ -154,8 +154,8 @@
   <tr class="dataTableRow">
     <td class="dataTableContent"><?php echo stripslashes($pw_words_result['sws_word']); ?></td>
     <td class="dataTableContent"><?php echo stripslashes($pw_words_result['sws_replacement']); ?></td>
-    <td class="dataTableHeadingContent"><a href="<?php echo oos_href_link_admin($aFilename['stats_keywords'], 'editword=1&link=1&add=1&action=' . BUTTON_VIEW_WORD_LIST . '&edit=' . $pw_words_result['sws_id']); ?>"><u><?php echo LINK_EDIT ?></u></a></td>
-    <td class="dataTableHeadingContent"><a href="<?php echo oos_href_link_admin($aFilename['stats_keywords'], 'removeword=1&delete=' . $pw_words_result['sws_id']); ?>"><u><?php echo LINK_DELETE ?></u></a></td>
+    <td class="dataTableHeadingContent"><a href="<?php echo oos_href_link_admin($aContents['stats_keywords'], 'editword=1&link=1&add=1&action=' . BUTTON_VIEW_WORD_LIST . '&edit=' . $pw_words_result['sws_id']); ?>"><u><?php echo LINK_EDIT ?></u></a></td>
+    <td class="dataTableHeadingContent"><a href="<?php echo oos_href_link_admin($aContents['stats_keywords'], 'removeword=1&delete=' . $pw_words_result['sws_id']); ?>"><u><?php echo LINK_DELETE ?></u></a></td>
   </tr>
 <?php
       // Move that ADOdb pointer!
@@ -201,8 +201,8 @@ switch($_GET['sortorder']){
    $result = $dbconn->Execute($pw_sql);
    while ($sql_q_result = $result->fields) {
 ?>
-  <tr class="dataTableRow"  onmouseover="this.className='dataTableRowOver';this.style.cursor='hand'" onmouseout="this.className='dataTableRow'" onclick="document.location.href='<?php echo oos_catalog_link($oosModules['search'], $oosCatalogFilename['advanced_search_result'], 'keywords=' . urlencode($sql_q_result['search_text']). '&search_in_description=1' ); ?>'" >
-    <td class="dataTableContent"><a target="_blank" href="<?php echo oos_catalog_link($oosModules['search'], $oosCatalogFilename['advanced_search_result'], 'keywords=' . urlencode($sql_q_result['search_text']). '&search_in_description=1' ); ?>"><?php echo $sql_q_result['search_text']; ?></a></td>  
+  <tr class="dataTableRow"  onmouseover="this.className='dataTableRowOver';this.style.cursor='hand'" onmouseout="this.className='dataTableRow'" onclick="document.location.href='<?php echo oos_catalog_link($oosCatalogFilename['advanced_search_result'], 'keywords=' . urlencode($sql_q_result['search_text']). '&search_in_description=1' ); ?>'" >
+    <td class="dataTableContent"><a target="_blank" href="<?php echo oos_catalog_link($oosCatalogFilename['advanced_search_result'], 'keywords=' . urlencode($sql_q_result['search_text']). '&search_in_description=1' ); ?>"><?php echo $sql_q_result['search_text']; ?></a></td>  
     <td class="dataTableContent"><?php echo $sql_q_result['search_count']; ?></td>
   </tr>
 <?php
@@ -223,7 +223,7 @@ switch($_GET['sortorder']){
 <!-- body_eof //-->
 <!-- right_column_bof //-->
 <td valign="top" width="25%">
-<?php echo oos_draw_form('delete', $aFilename['stats_keywords'], '', 'get'); ?>
+<?php echo oos_draw_form('delete', $aContents['stats_keywords'], '', 'get'); ?>
 <table border="0" cellspacing="0" cellpadding="2" width="100%">
   <tr>
     <td class="pageHeading" align="right">&nbsp;</td>

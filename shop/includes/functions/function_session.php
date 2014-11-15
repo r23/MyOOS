@@ -175,9 +175,7 @@ function oos_session_start()
 	}
 
 
-	$aFilename = oos_get_filename();
-	$aModules = oos_get_modules();
-
+	$aContents = oos_get_content();
 
 	// verify the browser user agent
 	$http_user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
@@ -188,7 +186,7 @@ function oos_session_start()
 
 	if ($_SESSION['session_user_agent'] != $http_user_agent) {
 		session_destroy();
-		oos_redirect(oos_link($aModules['user'], $aFilename['login'], '', 'SSL'));
+		oos_redirect(oos_link($aContents['login'], '', 'SSL'));
 	}
 
 	// verify the IP address
@@ -198,7 +196,7 @@ function oos_session_start()
 
 	if ($_SESSION['session_ip_address'] != oos_server_get_remote()) {
 		session_destroy();
-		oos_redirect(oos_link($aModules['user'], $aFilename['login'], '', 'SSL'));
+		oos_redirect(oos_link($aContents['login'], '', 'SSL'));
 	}
 
 }

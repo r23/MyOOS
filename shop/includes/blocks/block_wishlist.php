@@ -26,7 +26,7 @@
 
   $wishlist_block = 'false';
 
-  if ($sFile != $aFilename['account_my_wishlist']) {
+  if ($sContent != $aContents['account_my_wishlist']) {
     if (isset($_SESSION['customer_id'])) {
 
       $wishlist_block = 'true';

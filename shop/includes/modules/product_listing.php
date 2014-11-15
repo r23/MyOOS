@@ -139,19 +139,19 @@
           case 'PRODUCT_LIST_NAME':
             $lc_align = '';
             if (isset($_GET['manufacturers_id'])) {
-              $lc_text = '<a href="' . oos_href_link($aModules['products'], $aFilename['product_info'], 'manufacturers_id=' . $_GET['manufacturers_id'] . '&amp;products_id=' . $listing['products_id']) . '">' . $listing['products_name'] . '</a>';
+              $lc_text = '<a href="' . oos_href_link($aContents['product_info'], 'manufacturers_id=' . $_GET['manufacturers_id'] . '&amp;products_id=' . $listing['products_id']) . '">' . $listing['products_name'] . '</a>';
             } else {
               if ($oEvent->installed_plugin('sefu')) {
-                $lc_text = '&nbsp;<a href="' . oos_href_link($aModules['products'], $aFilename['product_info'], 'products_id=' . $listing['products_id']) . '">' . $listing['products_name'] . '</a>&nbsp;';
+                $lc_text = '&nbsp;<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $listing['products_id']) . '">' . $listing['products_name'] . '</a>&nbsp;';
               } else {
-                $lc_text = '&nbsp;<a href="' . oos_href_link($aModules['products'], $aFilename['product_info'], ($cPath ? 'cPath=' . $cPath . '&amp;' : '') . 'products_id=' . $listing['products_id']) . '">' . $listing['products_name'] . '</a>&nbsp;';
+                $lc_text = '&nbsp;<a href="' . oos_href_link($aContents['product_info'], ($cPath ? 'cPath=' . $cPath . '&amp;' : '') . 'products_id=' . $listing['products_id']) . '">' . $listing['products_name'] . '</a>&nbsp;';
               }
             }
             break;
 
           case 'PRODUCT_LIST_MANUFACTURER':
             $lc_align = '';
-            $lc_text = '&nbsp;<a href="' . oos_href_link($aModules['main'], $aFilename['shop'], 'manufacturers_id=' . $listing['manufacturers_id']) . '">' . $listing['manufacturers_name'] . '</a>&nbsp;';
+            $lc_text = '&nbsp;<a href="' . oos_href_link($aContents['shop'], 'manufacturers_id=' . $listing['manufacturers_id']) . '">' . $listing['manufacturers_name'] . '</a>&nbsp;';
             break;
 
           case 'PRODUCT_LIST_UVP':
@@ -244,12 +244,12 @@
           case 'PRODUCT_LIST_IMAGE':
             $lc_align = 'center';
             if (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
-              $lc_text = '<a href="' . oos_href_link($aModules['products'], $aFilename['product_info'], 'manufacturers_id=' . $_GET['manufacturers_id'] . '&amp;products_id=' . $listing['products_id']) . '">';
+              $lc_text = '<a href="' . oos_href_link($aContents['product_info'], 'manufacturers_id=' . $_GET['manufacturers_id'] . '&amp;products_id=' . $listing['products_id']) . '">';
             } else {
               if ($oEvent->installed_plugin('sefu')) {
-                $lc_text = '&nbsp;<a href="' . oos_href_link($aModules['products'], $aFilename['product_info'], 'products_id=' . $listing['products_id']) . '">';
+                $lc_text = '&nbsp;<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $listing['products_id']) . '">';
               } else {
-                $lc_text = '&nbsp;<a href="' . oos_href_link($aModules['products'], $aFilename['product_info'], ($cPath ? 'cPath=' . $cPath . '&amp;' : '') . 'products_id=' . $listing['products_id']) . '">';
+                $lc_text = '&nbsp;<a href="' . oos_href_link($aContents['product_info'], ($cPath ? 'cPath=' . $cPath . '&amp;' : '') . 'products_id=' . $listing['products_id']) . '">';
               }
             }
 
@@ -279,7 +279,7 @@
                  $lc_text .= '<input type="hidden" name="action" value="buy_now">';
                  $lc_text .= '<input type="hidden" name="products_id" value="' . $listing['products_id'] .'">';
                  $lc_text .= '<input type="hidden" name="mp" value="' . $sMp .'">';
-                 $lc_text .= '<input type="hidden" name="file" value="' . $sFile .'">';
+                 $lc_text .= '<input type="hidden" name="file" value="' . $sContent .'">';
                  $lc_text .= '<input type="hidden" name="cPath" value="' . $cPath .'">';
                  $lc_text .= oos_hide_session_id();
                  $lc_text .= oos_get_all_as_hidden_field(array('action'));
@@ -288,7 +288,7 @@
                  $lc_text .= oos_image_submit('buy_now.gif', $aLang['text_buy'] . $listing['products_name'] . $aLang['text_now']);
                  $lc_text .= '</form>';
                } else {
-                 $lc_text = '<a href="' . oos_href_link($sMp, $sFile, $all_get_listing . 'action=buy_now&amp;products_id=' . $listing['products_id'] . '&amp;cart_quantity=' . $order_min ) . '">' . oos_image_button('buy_now.gif', $aLang['text_buy'] . $listing['products_name'] . $aLang['text_now']) . '</a>&nbsp;';
+                 $lc_text = '<a href="' . oos_href_link($sContent, $all_get_listing . 'action=buy_now&amp;products_id=' . $listing['products_id'] . '&amp;cart_quantity=' . $order_min ) . '">' . oos_image_button('buy_now.gif', $aLang['text_buy'] . $listing['products_name'] . $aLang['text_now']) . '</a>&nbsp;';
                }
 
             } else {

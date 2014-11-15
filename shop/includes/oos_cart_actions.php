@@ -22,13 +22,14 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
+// start the session
+if ( is_session_started() === FALSE ) oos_session_start();   
+  
   if (DISPLAY_CART == 'true') {
-    $goto_mp = $aModules['main'];
-    $goto_file = $aFilename['main_shopping_cart'];
+    $goto_file = $aContents['shopping_cart'];
     $parameters = array('action', 'cPath', 'products_id', 'pid');
   } else {
-    $goto_mp = $sMp;
-    $goto_file = $sFile;
+    $goto_file = $sContent;
     if ($_GET['action'] == 'buy_now') {
       $parameters = array('action', 'pid', 'cart_quantity');
     } elseif ($_POST['action'] == 'buy_now') {
@@ -78,7 +79,7 @@
         }
       }
 
-      oos_redirect(oos_href_link($goto_mp, $goto_file, oos_get_all_get_parameters($parameters), 'NONSSL'));
+      oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters), 'NONSSL'));
       break;
 
     case 'add_product' :
@@ -122,13 +123,12 @@
           if (!isset($_SESSION['customer_id'])) {
 
             $aPage = array();
-            $aPage['modules'] = $sMp;
-            $aPage['file'] = $sFile;
+            $aPage['file'] = $sContent;
             $aPage['mode'] = $request_type;
             $aPage['get'] = 'products_id=' . rawurlencode($_POST['products_id']) . '&amp;action=add_wishlist';
 
             $_SESSION['navigation']->set_snapshot($aPage);
-            oos_redirect(oos_href_link($aModules['user'], $aFilename['login'], '', 'SSL'));
+            oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
           } else {
             $wishlist_products_id = oos_get_uprid($_POST['products_id'], $_POST['id']);
 
@@ -163,7 +163,7 @@
                                                                     . $dbconn->qstr($value) . ")");
               }
             }
-            oos_redirect(oos_href_link($aModules['account'], $aFilename['account_my_wishlist']));
+            oos_redirect(oos_href_link($aContents['account_my_wishlist']));
           }
         } else {
 
@@ -191,9 +191,9 @@
             }
 
             if ($_SESSION['error_cart_msg'] == '') {
-              oos_redirect(oos_href_link($goto_mp, $goto_file, oos_get_all_post_parameters($parameters), 'NONSSL'));
+              oos_redirect(oos_href_link($goto_file, oos_get_all_post_parameters($parameters), 'NONSSL'));
             } else {
-              oos_redirect(oos_href_link($aModules['products'], $aFilename['product_info'], 'products_id=' . $_POST['products_id']));
+              oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['products_id']));
             }
           }
         }
@@ -214,7 +214,7 @@
     case 'add_wishlist' :
       if (isset($_GET['products_id']) && is_numeric($_GET['products_id']) && isset($_SESSION['customer_id'])) {
         if (oos_has_product_attributes($_GET['products_id'])) {
-          oos_redirect(oos_href_link($aModules['products'], $aFilename['product_info'], 'products_id=' . $_GET['products_id']));
+          oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['products_id']));
         }
 
         $wishlist_products_id = oos_prepare_input($_GET['products_id']);
@@ -228,14 +228,14 @@
                                                                     . $dbconn->qstr($_SESSION['customer_wishlist_link_id']) . ','
                                                                     . $dbconn->qstr($wishlist_products_id) . ','
                                                                     . $dbconn->qstr(date('Ymd')) . ")");
-         oos_redirect(oos_href_link($aModules['account'], $aFilename['account_my_wishlist']));
+         oos_redirect(oos_href_link($aContents['account_my_wishlist']));
        }
       break;
 
     case 'buy_now' :
       if (isset($_GET['products_id'])) {
         if (oos_has_product_attributes($_GET['products_id'])) {
-          oos_redirect(oos_href_link($aModules['products'], $aFilename['product_info'], 'products_id=' . $_GET['products_id']));
+          oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['products_id']));
         } else {
           if (isset($_GET['cart_quantity']) && is_numeric($_GET['cart_quantity'])) {
             $cart_quantity = oos_prepare_input($_GET['cart_quantity']);
@@ -259,13 +259,13 @@
           }
         }
         if ($_SESSION['error_cart_msg'] == '') {
-          oos_redirect(oos_href_link($goto_mp, $goto_file, oos_get_all_get_parameters($parameters), 'NONSSL'));
+          oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters), 'NONSSL'));
         } else {
-          oos_redirect(oos_href_link($aModules['products'], $aFilename['product_info'], 'products_id=' . $_GET['products_id']));
+          oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['products_id']));
         }
       } elseif (isset($_POST['products_id']) && is_numeric($_POST['products_id'])) {
         if (oos_has_product_attributes($_POST['products_id'])) {
-          oos_redirect(oos_href_link($aModules['products'], $aFilename['product_info'], 'products_id=' . $_POST['products_id']));
+          oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['products_id']));
         } else {
 
           if (DECIMAL_CART_QUANTITY == 'true') {
@@ -292,9 +292,9 @@
             }
           }
           if ($_SESSION['error_cart_msg'] == '') {
-            oos_redirect(oos_href_link($goto_mp, $goto_file, oos_get_all_post_parameters($parameters), 'NONSSL'));
+            oos_redirect(oos_href_link($goto_file, oos_get_all_post_parameters($parameters), 'NONSSL'));
           } else {
-            oos_redirect(oos_href_link($aModules['products'], $aFilename['product_info'], 'products_id=' . $_POST['products_id']));
+            oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['products_id']));
           }
         }
       }
@@ -304,7 +304,7 @@
     case 'buy_slave' :
       if (isset($_GET['slave_id'])) {
         if (oos_has_product_attributes($_GET['slave_id'])) {
-          oos_redirect(oos_href_link($aModules['products'], $aFilename['product_info'], 'products_id=' . $_GET['slave_id']));
+          oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['slave_id']));
         } else {
           $cart_quantity = 1;
           $cart_qty = $_SESSION['cart']->get_quantity($_GET['slave_id']);
@@ -324,13 +324,13 @@
           }
         }
         if ($_SESSION['error_cart_msg'] == '') {
-          oos_redirect(oos_href_link($goto_mp, $goto_file, oos_get_all_get_parameters($parameters), 'NONSSL'));
+          oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters), 'NONSSL'));
         } else {
-          oos_redirect(oos_href_link($aModules['products'], $aFilename['product_info'], 'products_id=' . $_GET['slave_id']));
+          oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['slave_id']));
         }
       } elseif (isset($_POST['slave_id']) && is_numeric($_POST['slave_id'])) {
         if (oos_has_product_attributes($_POST['slave_id'])) {
-          oos_redirect(oos_href_link($aModules['products'], $aFilename['product_info'], 'products_id=' . $_POST['slave_id']));
+          oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['slave_id']));
         } else {
 
           if (DECIMAL_CART_QUANTITY == 'true') {
@@ -357,9 +357,9 @@
           }
         }
         if ($_SESSION['error_cart_msg'] == '') {
-          oos_redirect(oos_href_link($goto_mp, $goto_file, oos_get_all_post_parameters($parameters), 'NONSSL'));
+          oos_redirect(oos_href_link($goto_file, oos_get_all_post_parameters($parameters), 'NONSSL'));
         } else {
-          oos_redirect(oos_href_link($aModules['products'], $aFilename['product_info'], 'products_id=' . $_POST['slave_id']));
+          oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['slave_id']));
         }
       }
       break;
@@ -380,12 +380,12 @@
             $quickie_result = $dbconn->Execute("SELECT products_id FROM $productstable WHERE (products_model LIKE '%" . addslashes($quickie) . "%' OR products_ean LIKE '%" . addslashes($quickie) . "%')");
           }
           if ($quickie_result->RecordCount() != 1) {
-            oos_redirect(oos_href_link($aModules['search'], $aFilename['advanced_search_result'], 'keywords=' . $quickie, 'NONSSL'));
+            oos_redirect(oos_href_link($aContents['advanced_search_result'], 'keywords=' . $quickie, 'NONSSL'));
           }
           $products_quickie = $quickie_result->fields;
 
           if (oos_has_product_attributes($products_quickie['products_id'])) {
-            oos_redirect(oos_href_link($aModules['products'], $aFilename['product_info'], 'products_id=' . $products_quickie['products_id'], 'NONSSL'));
+            oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $products_quickie['products_id'], 'NONSSL'));
           } else {
 
             $cart_qty = $_SESSION['cart']->get_quantity($products_quickie['products_id']);
@@ -404,9 +404,9 @@
               $_SESSION['error_cart_msg'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min;
             }
             if ($_SESSION['error_cart_msg'] == '') {
-              oos_redirect(oos_href_link($goto_mp, $goto_file, oos_get_all_get_parameters($parameters), 'NONSSL'));
+              oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters), 'NONSSL'));
             } else {
-              oos_redirect(oos_href_link($aModules['products'], $aFilename['product_info'], 'products_id=' . $products_quickie['products_id']));
+              oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $products_quickie['products_id']));
             }
           }
         }
@@ -422,7 +422,7 @@
         } elseif (isset($_POST['notify'])) {
           $notify = oos_var_prep_for_os($_POST['notify']);
         } else {
-          oos_redirect(oos_href_link($sMp, $sFile, oos_get_all_get_parameters(array('action', 'notify'))));
+          oos_redirect(oos_href_link($sContent, oos_get_all_get_parameters(array('action', 'notify'))));
         }
 
         $products_notificationstable = $oostable['products_notifications'];
@@ -443,10 +443,10 @@
             $dbconn->Execute($sql);
           }
         }
-        oos_redirect(oos_href_link($sMp, $sFile, oos_get_all_get_parameters(array('action')), 'SSL'));
+        oos_redirect(oos_href_link($sContent, oos_get_all_get_parameters(array('action')), 'SSL'));
       } else {
         $_SESSION['navigation']->set_snapshot();
-        oos_redirect(oos_href_link($aModules['user'], $aFilename['login'], '', 'SSL'));
+        oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
       }
       break;
 
@@ -462,24 +462,24 @@
         if ($check->fields['total'] > 0) {
           $dbconn->Execute("DELETE FROM $products_notificationstable WHERE products_id = '" . intval($nProductsId) . "' AND customers_id = '" . intval($_SESSION['customer_id']) . "'");
         }
-        oos_redirect(oos_href_link($sMp, $sFile, oos_get_all_get_parameters(array('action'))));
+        oos_redirect(oos_href_link($sContent, oos_get_all_get_parameters(array('action'))));
       } else {
         $_SESSION['navigation']->set_snapshot();
-        oos_redirect(oos_href_link($aModules['user'], $aFilename['login'], '', 'SSL'));
+        oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
       }
       break;
 
     case 'cust_order' :
       if (isset($_SESSION['customer_id']) && isset($_GET['pid'])) {
         if (oos_has_product_attributes($_GET['pid'])) {
-          oos_redirect(oos_href_link($aModules['products'], $aFilename['product_info'], 'products_id=' . $_GET['pid']));
+          oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['pid']));
         } else {
           $cart_qty = $_SESSION['cart']->get_quantity($_GET['pid']);
           $news_qty = $cart_qty + 1;
           $_SESSION['cart']->add_cart($_GET['pid'], intval($news_qty));
         }
       }
-      oos_redirect(oos_href_link($goto_mp, $goto_file, oos_get_all_get_parameters($parameters)));
+      oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters)));
       break;
 
     case 'cust_wishlist_add_product' :
@@ -508,9 +508,9 @@
           }
         }
         if ($_SESSION['error_cart_msg'] == '') {
-          oos_redirect(oos_href_link($goto_mp, $goto_file, oos_get_all_get_parameters($parameters), 'NONSSL'));
+          oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters), 'NONSSL'));
         } else {
-          oos_redirect(oos_href_link($aModules['products'], $aFilename['product_info'], 'products_id=' . $_POST['products_id']));
+          oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['products_id']));
         }
       }
       break;
@@ -534,9 +534,9 @@
           $_SESSION['error_cart_msg'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min;
         }
         if ($_SESSION['error_cart_msg'] == '') {
-          oos_redirect(oos_href_link($goto_mp, $goto_file, oos_get_all_get_parameters($parameters), 'NONSSL'));
+          oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters), 'NONSSL'));
         } else {
-          oos_redirect(oos_href_link($aModules['products'], $aFilename['product_info'], 'products_id=' . $_POST['products_id']));
+          oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['products_id']));
         }
       }
       break;

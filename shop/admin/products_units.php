@@ -121,7 +121,7 @@
           $dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . intval($products_units_id) . "' WHERE configuration_key = 'DEFAULT_PRODUCTS_UNITS_ID'");
         }
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['products_units'], 'page=' . $_GET['page'] . '&uID=' . $products_units_id));
+        oos_redirect_admin(oos_href_link_admin($aContents['products_units'], 'page=' . $_GET['page'] . '&uID=' . $products_units_id));
         break;
 
     case 'deleteconfirm':
@@ -137,7 +137,7 @@
         $products_unitstable = $oostable['products_units'];
         $dbconn->Execute("DELETE FROM $products_unitstable WHERE products_units_id = '" . intval($uID) . "'");
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['products_units'], 'page=' . $_GET['page']));
+        oos_redirect_admin(oos_href_link_admin($aContents['products_units'], 'page=' . $_GET['page']));
         break;
 
     case 'delete':
@@ -198,9 +198,9 @@
     }
 
     if (isset($oInfo) && is_object($oInfo) && ($products_units['products_units_id'] == $oInfo->products_units_id)) {
-      echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['products_units'], 'page=' . $_GET['page'] . '&uID=' . $oInfo->products_units_id . '&action=edit') . '\'">' . "\n";
+      echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['products_units'], 'page=' . $_GET['page'] . '&uID=' . $oInfo->products_units_id . '&action=edit') . '\'">' . "\n";
     } else {
-      echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['products_units'], 'page=' . $_GET['page'] . '&uID=' . $products_units['products_units_id']) . '\'">' . "\n";
+      echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['products_units'], 'page=' . $_GET['page'] . '&uID=' . $products_units['products_units_id']) . '\'">' . "\n";
     }
 
     if (DEFAULT_PRODUCTS_UNITS_ID == $products_units['products_units_id']) {
@@ -210,7 +210,7 @@
     }
 ?>
 
-                <td class="dataTableContent" align="right"><?php if (isset($oInfo) && is_object($oInfo) && ($products_units['products_units_id'] == $oInfo->products_units_id)) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . oos_href_link_admin($aFilename['products_units'], 'page=' . $_GET['page'] . '&uID=' . $products_units['products_units_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($oInfo) && is_object($oInfo) && ($products_units['products_units_id'] == $oInfo->products_units_id)) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $_GET['page'] . '&uID=' . $products_units['products_units_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -227,7 +227,7 @@
     if (empty($action)) {
 ?>
                   <tr>
-                    <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aFilename['products_units'], 'page=' . $_GET['page'] . '&action=new') . '">' . oos_image_swap_button('insert','insert_off.gif', IMAGE_INSERT) . '</a>'; ?></td>
+                    <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $_GET['page'] . '&action=new') . '">' . oos_image_swap_button('insert','insert_off.gif', IMAGE_INSERT) . '</a>'; ?></td>
                   </tr>
 <?php
   }
@@ -243,7 +243,7 @@
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_PRODUCTS_UNITS . '</b>');
 
-      $contents = array('form' => oos_draw_form('status', $aFilename['products_units'], 'page=' . $_GET['page'] . '&action=insert'));
+      $contents = array('form' => oos_draw_form('status', $aContents['products_units'], 'page=' . $_GET['page'] . '&action=insert'));
       $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
 
       $products_units_inputs_string = '';
@@ -254,13 +254,13 @@
 
       $contents[] = array('text' => '<br />' . TEXT_INFO_PRODUCTS_UNITS_NAME . $products_units_inputs_string);
       $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('insert','insert_off.gif', IMAGE_INSERT) . ' <a href="' . oos_href_link_admin($aFilename['products_units'], 'page=' . $_GET['page']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('insert','insert_off.gif', IMAGE_INSERT) . ' <a href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $_GET['page']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
       break;
 
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_PRODUCTS_UNITS . '</b>');
 
-      $contents = array('form' => oos_draw_form('status', $aFilename['products_units'], 'page=' . $_GET['page'] . '&uID=' . $oInfo->products_units_id  . '&action=save'));
+      $contents = array('form' => oos_draw_form('status', $aContents['products_units'], 'page=' . $_GET['page'] . '&uID=' . $oInfo->products_units_id  . '&action=save'));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
 
       $products_units_inputs_string = '';
@@ -271,23 +271,23 @@
 
       $contents[] = array('text' => '<br />' . TEXT_INFO_PRODUCTS_UNITS_NAME . $products_units_inputs_string);
       if (DEFAULT_PRODUCTS_UNITS_ID != $oInfo->products_units_id) $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('update','update_off.gif', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aFilename['products_units'], 'page=' . $_GET['page'] . '&uID=' . $oInfo->products_units_id) . '">' . oos_image_swap_button('cancel', 'cancel_off.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('update','update_off.gif', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $_GET['page'] . '&uID=' . $oInfo->products_units_id) . '">' . oos_image_swap_button('cancel', 'cancel_off.gif', IMAGE_CANCEL) . '</a>');
       break;
 
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_PRODUCTS_UNITS . '</b>');
 
-      $contents = array('form' => oos_draw_form('status', $aFilename['products_units'], 'page=' . $_GET['page'] . '&uID=' . $oInfo->products_units_id  . '&action=deleteconfirm'));
+      $contents = array('form' => oos_draw_form('status', $aContents['products_units'], 'page=' . $_GET['page'] . '&uID=' . $oInfo->products_units_id  . '&action=deleteconfirm'));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $oInfo->products_unit_name . '</b>');
-      if ($remove_status) $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('delete', 'delete_off.gif', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aFilename['products_units'], 'page=' . $_GET['page'] . '&uID=' . $oInfo->products_units_id) . '">' . oos_image_swap_button('cancel', 'cancel_off.gif', IMAGE_CANCEL) . '</a>');
+      if ($remove_status) $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('delete', 'delete_off.gif', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $_GET['page'] . '&uID=' . $oInfo->products_units_id) . '">' . oos_image_swap_button('cancel', 'cancel_off.gif', IMAGE_CANCEL) . '</a>');
       break;
 
     default:
      if (isset($oInfo) && is_object($oInfo)) {
         $heading[] = array('text' => '<b>' . $oInfo->products_unit_name . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aFilename['products_units'], 'page=' . $_GET['page'] . '&uID=' . $oInfo->products_units_id . '&action=edit') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a> <a href="' . oos_href_link_admin($aFilename['products_units'], 'page=' . $_GET['page'] . '&uID=' . $oInfo->products_units_id . '&action=delete') . '">' . oos_image_swap_button('delete', 'delete_off.gif', IMAGE_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $_GET['page'] . '&uID=' . $oInfo->products_units_id . '&action=edit') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $_GET['page'] . '&uID=' . $oInfo->products_units_id . '&action=delete') . '">' . oos_image_swap_button('delete', 'delete_off.gif', IMAGE_DELETE) . '</a>');
 
         $products_units_inputs_string = '';
         $languages = oos_get_languages();

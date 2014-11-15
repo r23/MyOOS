@@ -115,7 +115,7 @@
 
 {if $oEvent->installed_plugin('sufu')}
        <tr><td height="10"></td></tr>
-       <tr><td class="main"><b>URL:</b><br> {html_href_link modul=$modules.products file=$filename.product_info products_id=$product_info.products_id connection='NONSSL' add_session_id='false' search_engine_safe='true'}</a>
+       <tr><td class="main"><b>URL:</b><br> {html_href_link content=$filename.product_info products_id=$product_info.products_id connection='NONSSL' add_session_id='false' search_engine_safe='true'}</a>
 {/if}
 
 

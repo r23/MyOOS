@@ -20,9 +20,9 @@ DirectoryIndex {PREFIX}{indexFile}
 #  Rules
 #
 
- RewriteRule ^(.*)-p-(.*).html$ {indexFile}?mp=products&file=info&products_id=$2&rewrite=true& [L,NC,QSA]
- RewriteRule ^(.*)-c-(.*).html$ {indexFile}?mp=main&file=shop&cPath=$2&rewrite=true& [L,NC,QSA]
- RewriteRule ^(.*)-m-(.*).html$ {indexFile}?mp=main&file=shop&manufacturers_id=$2&rewrite=true& [L,NC,QSA]
+ RewriteRule ^(.*)-p-(.*).html$ {indexFile}?content=product_info&products_id=$2&rewrite=true& [L,NC,QSA]
+ RewriteRule ^(.*)-c-(.*).html$ {indexFile}?content=shop&cPath=$2&rewrite=true& [L,NC,QSA]
+ RewriteRule ^(.*)-m-(.*).html$ {indexFile}?content=shop&manufacturers_id=$2&rewrite=true& [L,NC,QSA]
  RewriteRule (.*\.html?) index.php?mp=info&file=$1 [L,QSA]
 </IfModule>
 

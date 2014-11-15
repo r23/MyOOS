@@ -26,7 +26,7 @@
     $products_descriptiontable = $oostable['products_description'];
     $reset_sql = "UPDATE $products_descriptiontable SET products_viewed = '0'";
     $dbconn->Execute($reset_sql);
-    oos_redirect_admin(oos_href_link_admin($aFilename['stats_products_viewed'], 'reset=1'));
+    oos_redirect_admin(oos_href_link_admin($aContents['stats_products_viewed'], 'reset=1'));
   }
   if (isset($_GET['reset']) && ($_GET['reset'] == '1')) {
     $messageStack->add(TEXT_VIEWS_RESET, 'success');
@@ -82,9 +82,9 @@
       $rows = '0' . $rows;
     }
 ?>
-              <tr class="dataTableRow" onmouseover="this.className='dataTableRowOver';this.style.cursor='hand'" onmouseout="this.className='dataTableRow'" onclick="document.location.href='<?php echo oos_href_link_admin($aFilename['products'], 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . $aFilename['stats_products_viewed'] . '?page=' . $_GET['page'], 'NONSSL'); ?>'">
+              <tr class="dataTableRow" onmouseover="this.className='dataTableRowOver';this.style.cursor='hand'" onmouseout="this.className='dataTableRow'" onclick="document.location.href='<?php echo oos_href_link_admin($aContents['products'], 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_viewed'] . '?page=' . $_GET['page'], 'NONSSL'); ?>'">
                 <td class="dataTableContent"><?php echo $rows; ?>.</td>
-                <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aFilename['products'], 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . $aFilename['stats_products_viewed'] . '?page=' . $_GET['page'], 'NONSSL') . '">' . $products['products_name'] . '</a> (' . $products['name'] . ')'; ?></td>
+                <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_viewed'] . '?page=' . $_GET['page'], 'NONSSL') . '">' . $products['products_name'] . '</a> (' . $products['name'] . ')'; ?></td>
                 <td class="dataTableContent" align="center"><?php echo $products['products_viewed']; ?>&nbsp;</td>
               </tr>
 <?php
@@ -107,7 +107,7 @@
           <tr>
             <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="smallText" valign="top"><?php echo '<a href="' . oos_href_link_admin($aFilename['stats_products_viewed'],"action=reset") . '">' . oos_image_swap_button('reset','reset_off.gif', IMAGE_RESET) . '</a>'; ?></td>
+                <td class="smallText" valign="top"><?php echo '<a href="' . oos_href_link_admin($aContents['stats_products_viewed'],"action=reset") . '">' . oos_image_swap_button('reset','reset_off.gif', IMAGE_RESET) . '</a>'; ?></td>
               </tr>
             </table></td>
           </tr>

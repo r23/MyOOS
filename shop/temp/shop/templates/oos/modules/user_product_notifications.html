@@ -33,7 +33,7 @@
           <tr>
             <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="100%" height="20"></td>
           </tr>
-          <form name="global" method="post" action="{html_href_link modul=$modules.user file=$filename.product_notifications action=global_notify connection=SSL}">
+          <form name="global" method="post" action="{html_href_link content=$filename.product_notifications action=global_notify connection=SSL}">
           <tr>
             <td class="main"><input type="checkbox" name="global" value="enable" CHECKED>{$lang.text_enable_global_notifications}</td>
           </tr>
@@ -63,7 +63,7 @@
           <tr>
             <td height="10"></td>
           </tr>
-          <form name="global" method="post" action="{html_href_link modul=$modules.user file=$filename.product_notifications action=global_notify connection=SSL}">
+          <form name="global" method="post" action="{html_href_link content=$filename.product_notifications action=global_notify connection=SSL}">
           <tr>
             <td class="main"><input type="checkbox" name="global" value="enable">{$lang.text_enable_global_notifications}</td>
           </tr>
@@ -89,7 +89,7 @@
           <tr>
             <td height="10"></td>
           </tr>
-          <form name="notifications" method="post" action="{html_href_link modul=$modules.user file=$filename.product_notifications action=update_notifications connection=SSL}">
+          <form name="notifications" method="post" action="{html_href_link content=$filename.product_notifications action=update_notifications connection=SSL}">
 {section name=i loop=$products_array}
       <tr>
        <td class="main"><input type="checkbox" name="products[]" value="{$products_array[i].products_id}">&nbsp;{$products_array[i].products_name}</td>
@@ -107,7 +107,7 @@
             <td height="10"></td>
           </tr>
           <tr>
-            <td align="right" class="smallText"><a href="{html_href_link modul=$modules.user file=$filename.account connection=SSL}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
+            <td align="right" class="smallText"><a href="{html_href_link content=$filename.account connection=SSL}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
           </tr>
         </table></td>
       </tr>

@@ -34,7 +34,7 @@
           $configurationtable = $oostable['configuration'];
           $dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . $value . "' WHERE configuration_key = '" . $key . "'");
         }
-        oos_redirect_admin(oos_href_link_admin($aFilename['plugins'], 'plugin=' . $_GET['plugin']));
+        oos_redirect_admin(oos_href_link_admin($aContents['plugins'], 'plugin=' . $_GET['plugin']));
         break;
 
       case 'remove':
@@ -55,7 +55,7 @@
           }
         }
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['plugins'], 'plugin=' . $_GET['plugin']));
+        oos_redirect_admin(oos_href_link_admin($aContents['plugins'], 'plugin=' . $_GET['plugin']));
         break;
 
       case 'install':
@@ -121,7 +121,7 @@
 
           }
         }
-        oos_redirect_admin(oos_href_link_admin($aFilename['plugins'], 'plugin=' . $_GET['plugin']));
+        oos_redirect_admin(oos_href_link_admin($aContents['plugins'], 'plugin=' . $_GET['plugin']));
         break;
     }
   }
@@ -221,7 +221,7 @@
     if (isset($pInfo) && is_object($pInfo) && ($sInstance == $pInfo->instance) ) {
       echo '              <tr class="dataTableRowSelected">' . "\n";
     } else {
-      echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['plugins'], 'plugin=' . $sInstance) . '\'">' . "\n";
+      echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $sInstance) . '\'">' . "\n";
     }
 ?>
 
@@ -230,15 +230,15 @@
 <?php
    if (in_array($sInstance, $installed)) {
      if ($oPlugin->uninstallable) {
-       echo '<a href="' . oos_href_link_admin($aFilename['plugins'], 'plugin=' . $sInstance . '&action=remove') . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+       echo '<a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $sInstance . '&action=remove') . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
      } else {
        echo oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10);
      }
    } else {
-      echo '<a href="' . oos_href_link_admin($aFilename['plugins'], 'plugin=' . $sInstance . '&action=install') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>'; 
+      echo '<a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $sInstance . '&action=install') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>'; 
    }
 ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($pInfo) && is_object($pInfo) && ($sInstance == $pInfo->instance) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . oos_href_link_admin($aFilename['plugins'], 'plugin=' . $sInstance ) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($pInfo) && is_object($pInfo) && ($sInstance == $pInfo->instance) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $sInstance ) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 
 <?php
@@ -269,9 +269,9 @@
 
       $heading[] = array('text' => '<b>' . $pInfo->name . '</b>');
 
-      $contents = array('form' => oos_draw_form('plugins', $aFilename['plugins'], 'plugin=' . $_GET['plugin'] . '&action=save'));
+      $contents = array('form' => oos_draw_form('plugins', $aContents['plugins'], 'plugin=' . $_GET['plugin'] . '&action=save'));
       $contents[] = array('text' => $keys);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('update','update_off.gif', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aFilename['plugins'], 'plugin=' . $_GET['plugin']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('update','update_off.gif', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $_GET['plugin']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
       break;
 
 
@@ -283,7 +283,7 @@
         $keys = '';
         if ($pInfo->uninstallable || (sizeof($pInfo->keys > 0))) {
           if ($pInfo->status) {
-            $contents[] = array('align' => 'center', 'text' => ($pInfo->uninstallable ? '<a href="' . oos_href_link_admin($aFilename['plugins'], 'plugin=' . $pInfo->instance . '&action=remove') . '">' . oos_image_swap_button('modules_remove','module_remove_off.gif', IMAGE_PLUGINS_REMOVE) . '</a>' : '') . ((sizeof($pInfo->keys) > 0) ? ' <a href="' . oos_href_link_admin($aFilename['plugins'], 'plugin=' . $pInfo->instance . '&action=edit') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a>' : ''));
+            $contents[] = array('align' => 'center', 'text' => ($pInfo->uninstallable ? '<a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=remove') . '">' . oos_image_swap_button('modules_remove','module_remove_off.gif', IMAGE_PLUGINS_REMOVE) . '</a>' : '') . ((sizeof($pInfo->keys) > 0) ? ' <a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=edit') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a>' : ''));
 
             if (sizeof($pInfo->config_item) > 0) {
               $keys = '<br />';
@@ -313,7 +313,7 @@
               $keys = substr($keys, 0, strrpos($keys, '<br /><br />'));
             }
           } else {
-            $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aFilename['plugins'], 'plugin=' . $pInfo->instance . '&action=install') . '">' . oos_image_swap_button('module_install','module_install_off.gif', IMAGE_PLUGINS_INSTALL) . '</a>');
+            $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=install') . '">' . oos_image_swap_button('module_install','module_install_off.gif', IMAGE_PLUGINS_INSTALL) . '</a>');
           }
         }
 

@@ -106,8 +106,7 @@
       if (!in_array($my_currency, array('CAD', 'EUR', 'GBP', 'JPY', 'USD'))) {
         $my_currency = 'EUR';
       }
-      $aFilename = oos_get_filename();
-      $aModules = oos_get_modules();
+      $aContents = oos_get_content();
 
       $process_button_string = oos_draw_hidden_field('cmd', '_xclick') .
                                oos_draw_hidden_field('business', MODULE_PAYMENT_PAYPAL_ID) .
@@ -127,8 +126,8 @@
                                oos_draw_hidden_field('rm', '2') .
                                oos_draw_hidden_field('bn', 'MyOOS [Shopsystem]') .
                                oos_draw_hidden_field('no_note', '1');
-      $process_button_string .= '<input type="hidden" name="return" value="' . oos_href_link($aModules['checkout'], $aFilename['checkout_process'], '', 'SSL') . '" >';
-      $process_button_string .= '<input type="hidden" name="cancel_return" value="' . oos_href_link($aModules['checkout'], $aFilename['checkout_payment'], '', 'SSL') . '" >';
+      $process_button_string .= '<input type="hidden" name="return" value="' . oos_href_link($aContents['checkout_process'], '', 'SSL') . '" >';
+      $process_button_string .= '<input type="hidden" name="cancel_return" value="' . oos_href_link($aContents['checkout_payment'], '', 'SSL') . '" >';
 
 
       return $process_button_string;

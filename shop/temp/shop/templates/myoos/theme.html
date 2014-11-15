@@ -44,7 +44,7 @@
   
 		
 		<link rel="top" type="text/html" href="{$oos_base}">
-		<link rel="contents" type="text/html" href="{html_href_link content=$contents.info_sitemap}">
+		<link rel="contents" type="text/html" href="{html_href_link content=$contents.sitemap}">
 		<link rel="search" type="text/html" href="{html_href_link content=$contents.advanced_search}">
 		<link rel="bookmark" type="text/html" href="{html_href_link content=$content_file oos_get=$get_params connection='NONSSL' add_session_id='false' search_engine_safe='false'}">
 
@@ -298,7 +298,7 @@
 <a href="{html_href_link content=$contents.login connection=SSL}" class="headerNavigation">{$lang.header_title_login}</a>&nbsp;
 {/if}
 |&nbsp;<a href="{html_href_link content=$contents.account connection=SSL}" class="headerNavigation">{$lang.header_title_my_account}</a>&nbsp;
-|&nbsp;<a href="{html_href_link content=$contents.main_shopping_cart}" class="headerNavigation">{$lang.header_title_cart_contents}</a>&nbsp;
+|&nbsp;<a href="{html_href_link content=$contents.shopping_cart}" class="headerNavigation">{$lang.header_title_cart_contents}</a>&nbsp;
 |&nbsp;<a href="{html_href_link content=$contents.checkout_payment connection=SSL}" class="headerNavigation">{$lang.header_title_checkout}</a>&nbsp;&nbsp;
 
     </td>

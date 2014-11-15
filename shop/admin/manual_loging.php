@@ -75,7 +75,7 @@
     switch ($action) {
       case 'setflag':
         oos_set_login_status($_GET['id'], $_GET['flag']);
-        oos_redirect_admin(oos_href_link_admin($aFilename['manual_loging'], '', 'NONSSL'));
+        oos_redirect_admin(oos_href_link_admin($aContents['manual_loging'], '', 'NONSSL'));
         break;
     }
   }
@@ -116,21 +116,21 @@
         $sInfo = new objectInfo($palm_doa);
       }
       if (isset($sInfo) && is_object($sInfo) && ($palm_doa['man_info_id'] == $sInfo->man_info_id) ) {
-        echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['manual_loging'], 'page=' . $_GET['page'] . '&sID=' . $sInfo->man_info_id . '&action=edit') . '\'">' . "\n";
+        echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $_GET['page'] . '&sID=' . $sInfo->man_info_id . '&action=edit') . '\'">' . "\n";
       } else {
-        echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['manual_loging'], 'page=' . $_GET['page'] . '&sID=' . $palm_doa['man_info_id']) . '\'">' . "\n";
+        echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $_GET['page'] . '&sID=' . $palm_doa['man_info_id']) . '\'">' . "\n";
       }
 ?>
                 <td class="dataTableContent" align="left"><?php echo $palm_doa['man_name']; ?></td>
                 <td class="dataTableContent" align="center">
 <?php
       if ($palm_doa['status'] == '1') {
-        echo '&nbsp;<a href="' . oos_href_link_admin($aFilename['manual_loging'], 'action=setflag&flag=0&id=' . $palm_doa['man_info_id'], 'NONSSL') . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '</a>';
+        echo '&nbsp;<a href="' . oos_href_link_admin($aContents['manual_loging'], 'action=setflag&flag=0&id=' . $palm_doa['man_info_id'], 'NONSSL') . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '</a>';
       } else {
-        echo '&nbsp;<a href="' . oos_href_link_admin($aFilename['manual_loging'], 'action=setflag&flag=1&id=' . $palm_doa['man_info_id'], 'NONSSL') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10) . '</a>';
+        echo '&nbsp;<a href="' . oos_href_link_admin($aContents['manual_loging'], 'action=setflag&flag=1&id=' . $palm_doa['man_info_id'], 'NONSSL') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10) . '</a>';
       }
 ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($sInfo) && is_object($sInfo) && ($palm_doa['man_info_id'] == $sInfo->man_info_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . oos_href_link_admin($aFilename['manual_loging'], 'page=' . $_GET['page'] . '&sID=' . $palm_doa['man_info_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($sInfo) && is_object($sInfo) && ($palm_doa['man_info_id'] == $sInfo->man_info_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $_GET['page'] . '&sID=' . $palm_doa['man_info_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
       </tr>
 <?php
     // Move that ADOdb pointer!
@@ -158,10 +158,10 @@
   switch ($action) {
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_OVERSTOCK . '</b>');
-      $contents = array('form' => oos_draw_form('palm_daily', $aFilename['manual_loging'], 'page=' . $_GET['page'] . '&sID=' . $sInfo->man_info_id . '&action=deleteconfirm'));
+      $contents = array('form' => oos_draw_form('palm_daily', $aContents['manual_loging'], 'page=' . $_GET['page'] . '&sID=' . $sInfo->man_info_id . '&action=deleteconfirm'));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $sInfo->contact_info_name . '</b>');
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('button_delete_off.gif', IMAGE_DELETE) . '&nbsp;<a href="' . oos_href_link_admin($aFilename['manual_loging'], 'page=' . $_GET['page'] . '&sID=' . $sInfo->man_info_id) . '">' . oos_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('button_delete_off.gif', IMAGE_DELETE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $_GET['page'] . '&sID=' . $sInfo->man_info_id) . '">' . oos_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
       break;
     default:
       if (isset($sInfo) && is_object($sInfo)) {
@@ -183,66 +183,7 @@
           </tr>
         </table></td>
       </tr>
-<?php   
-      $login_result = $dbconn->Execute("SELECT man_key, status, defined FROM " . $oostable['manual_info'] . " WHERE status = '0'");
-      $login = $login_result->fields;
-      require 'includes/modules/spg_shipping/key_generate.php';
-      if ($login['status'] != '0') {
-        $email_address = ""; 
-?>
-       <tr><td width="100%" align="center"><br /><?php echo oos_draw_login_form('login', $oosModules['admin'], $oosCatalogFilename['login_admin'], 'action=login_admin','POST', 'target=_blank'); ?>
-          <table border="0" cellspacing="0" cellpadding="2" width="70%">
-          <tr class="dataTableHeadingRowa">
-          <td class="dataTableHeadingContenta" colspan="2" align="left"><?php echo HEADING_LOGIN_ADMIN; ?></td>
-          </tr>
-          <tr class="dataTableRow">
-          <td class="dataTableHeadingContenta" colspan="2" align="left"><?php echo HEADING_LOGIN_ADMIN_EXPLAIN; ?></td>
-          </tr>
-           <tr class="dataTableRow">
-           <td class="dataTableContenta" align="left"><?php echo TEXT_EMAIL_ADDRESS; ?></td>
-           <td class="dataTableContenta" align="left">
-<?php
-    $customers = array();
-    $customers[] = array('id' => '', 'text' => TEXT_SELECT_CUSTOMER);
 
-    $mail_result = $dbconn->Execute("SELECT customers_email_address, customers_firstname, customers_lastname FROM " . $oostable['customers'] . " ORDER BY customers_lastname");
-    while($customers_values = $mail_result->fields) {
-      $customers[] = array('id' => $customers_values['customers_email_address'],
-                           'text' => $customers_values['customers_lastname'] . ', ' . $customers_values['customers_firstname'] . ' (' . $customers_values['customers_email_address'] . ')');
-
-      // Move that ADOdb pointer!
-      $mail_result->MoveNext();
-    }
-    echo oos_draw_pull_down_menu('email_address', $customers, $_GET['customer']);
-    echo oos_draw_hidden_field('verif_key', $newkey);
-?></td>
-         </tr>
-           <tr class="dataTableRow">
-           <td class="dataTableContenta" align="left">&nbsp;</td>
-           <td class="dataTableContenta" align="center"><?php echo oos_image_swap_submits('login','login_off.gif', IMAGE_LOGIN);  ?></td>
-         </tr></form>
-        </table></td>
-        </tr> 
-        <tr><td width="100%" align="center"><br />
-<?php
-    echo oos_draw_login_form('login', $oosModules['admin'], $oosCatalogFilename['create_account_admin'], 'action=login_admin','POST', 'target=_blank');
-    echo oos_draw_hidden_field('verif_key', $newkey);
-?>
-         <table border="0" cellspacing="0" cellpadding="2" width="70%">
-    <tr class="dataTableHeadingRowa">
-            <td class="dataTableHeadingContenta" align="left"><?php echo HEADING_CREATE_ORDER_ADMIN; ?></td>
-          </tr>
-          <tr class="dataTableRow">
-            <td class="dataTableContenta" align="left"><?php echo HEADING_CREATE_ORDER_EXPLAIN; ?></td>
-          </tr>     
-           <tr class="dataTableRow">
-            <td class="dataTableContenta" align="center"><?php echo oos_image_swap_submits('create_order','create_order_off.gif', IMAGE_CREATE_ORDER); ?></td>
-          </tr>
-        </table></form>
-       </td></tr>
-<?php
-  }
-?>
    </table></td>
 <!-- body_text_eof //-->
   </tr>

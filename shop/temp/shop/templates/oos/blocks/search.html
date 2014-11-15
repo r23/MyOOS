@@ -11,14 +11,13 @@
         <td width="150"><table width="150" border="0" cellspacing="0" cellpadding="3">
           <tr>
             <td align="left" valign="top" class="block_content">
-    <form name="quick_find" action="{html_href_link modul=$modules.search file=$filename.advanced_search_result}" method="get">
-    <input type="hidden" name="mp" value="{$modules.search}">
+    <form name="quick_find" action="{html_href_link content=$filename.advanced_search_result}" method="get">
     <input type="hidden" name="file" value="{$filename.advanced_search_result}"><br>
     {html_js_inputbox name='keywords' size='12' value=$lang.text_search}
     <input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
     {html_image_submit image="quick_find.gif" alt=$block_heading_search}
     <br>{$lang.block_search_text|wordwrap:25:"<br>\n"}<br>
-    <a href="{html_href_link modul=$modules.search file=$filename.advanced_search}"><b>{$lang.block_search_advanced_search}</b></a></form></td>
+    <a href="{html_href_link content=$filename.advanced_search}"><b>{$lang.block_search_advanced_search}</b></a></form></td>
           </tr>
         </table></td>
         <td width="2" class="block_content_backgr_right"></td>

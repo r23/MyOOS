@@ -53,12 +53,12 @@
     function create_plugin_instance() {
 
       if (!isset($_SESSION['customer_id'])) {
-        $aFilename = oos_get_filename();
-        $aModules = oos_get_modules();
+        $aContents = oos_get_content();
 
-        if ($_GET['mp'] != $aModules['user']) {
+		// Todo fix
+        if ($_GET['mp'] != $aModules['user']) { 
           $_SESSION['navigation']->set_snapshot();
-          oos_redirect(oos_href_link($aModules['user'], $aFilename['login'], '', 'SSL'));
+          oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
         }
       }
 

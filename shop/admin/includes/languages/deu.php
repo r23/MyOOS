@@ -25,6 +25,7 @@
    the translated file.
    ---------------------------------------------------------------------- */
 
+   
  /**
   * look in your $PATH_LOCALE/locale directory for available locales..
   * on RedHat try 'de_DE'
@@ -57,10 +58,10 @@
   }
 
 // Global entries for the <html> tag
-define('HTML_PARAMS','dir="ltr" lang="de"');
+define('HTML_PARAMS',' lang="de"');
 
 // charset for web pages and emails
-define('CHARSET', 'iso-8859-1');
+define('CHARSET', 'utf-8');
 
 // page title
 define('TITLE', 'OSIS Online Shop');

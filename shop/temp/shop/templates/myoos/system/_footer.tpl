@@ -29,12 +29,12 @@
 					<ul class="link-list">
 						<li><a href="{html_href_link content=$contents.products_new}" title="{$lang.block_service_new}"><i class="fa fa-bullhorn"></i> {$lang.block_service_new}</a></li>
 						<li><a href="{html_href_link content=$contents.specials}" title="{$lang.block_service_specials}"><i class="fa fa-star"></i> {$lang.block_service_specials}</a></li>
-						<li><a href="{html_href_link content=$contents.info_sitemap}" title="{$lang.block_service_sitemap}"><i class="fa fa-sitemap"></i> {$lang.block_service_sitemap}</a></li>
+						<li><a href="{html_href_link content=$contents.sitemap}" title="{$lang.block_service_sitemap}"><i class="fa fa-sitemap"></i> {$lang.block_service_sitemap}</a></li>
 						<li><a href="{html_href_link content=$contents.advanced_search}" title="{$lang.block_service_advanced_search}"><i class="fa fa-search"></i> {$lang.block_service_advanced_search}</a></li>
 {if $oEvent->installed_plugin('reviews')}
-						<li><a href="{html_href_link content=$contents.reviews_reviews}" title="{$lang.block_service_reviews}"><i class="fa fa-comments"></i> {$lang.block_service_reviews}</a></li>
+						<li><a href="{html_href_link content=$contents.reviews}" title="{$lang.block_service_reviews}"><i class="fa fa-comments"></i> {$lang.block_service_reviews}</a></li>
 {else}
-						<li><a href="{html_href_link content=$contents.main_shopping_cart}" title="{$lang.block_service_shopping_cart}"><i class="fa fa-shopping-cart"></i> {$lang.block_service_shopping_cart}</a></li>
+						<li><a href="{html_href_link content=$contents.shopping_cart}" title="{$lang.block_service_shopping_cart}"><i class="fa fa-shopping-cart"></i> {$lang.block_service_shopping_cart}</a></li>
 {/if}
 					</ul>					
 				</div>

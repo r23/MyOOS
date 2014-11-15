@@ -62,17 +62,11 @@ if(!defined('MYOOS_INCLUDE_PATH')) {
 define('OOS_VALID_MOD', 'yes');
 require 'includes/oos_main.php';
 
-
-$sMp = oos_var_prep_for_os($sMp);
-$sFile = oos_var_prep_for_os($sFile);
-
-if (file_exists('includes/pages/' . $sMp . '/' . $sFile . '.php')) {
-
-    include 'includes/pages/' . $sMp . '/' . $sFile . '.php';
-
+if (is_readable('includes/content/' . $sContent . '.php')) {
+    require_once MYOOS_INCLUDE_PATH . '/includes/content/' . $sContent . '.php';
 } else {
     // Module not found
-    oos_redirect(oos_href_link($aModules['main'], $aFilename['main']));
+    oos_redirect(oos_href_link($aContents['main']));
 
 }
 

@@ -57,10 +57,10 @@
   }
 
 // Global entries for the <html> tag
-define('HTML_PARAMS','dir="ltr" lang="en"');
+define('HTML_PARAMS','lang="en"');
 
 // charset for web pages and emails
-define('CHARSET', 'iso-8859-1');
+define('CHARSET', 'utf-8');
 
 // page title
 define('TITLE', 'OSIS Online Shop');

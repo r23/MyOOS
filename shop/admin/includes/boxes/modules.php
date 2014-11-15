@@ -30,9 +30,9 @@
                      'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=modules'));
 
   if ($_SESSION['selected_box'] == 'modules' ) {
-    $contents[] = array('text'  => '<a href="' . oos_href_link_admin($aFilename['modules'], 'set=payment', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_MODULES_PAYMENT . '</a><br />' .
-                                   '<a href="' . oos_href_link_admin($aFilename['modules'], 'set=shipping', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_MODULES_SHIPPING . '</a><br />' .
-                                   '<a href="' . oos_href_link_admin($aFilename['modules'], 'set=ordertotal', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_MODULES_ORDER_TOTAL . '</a>');
+    $contents[] = array('text'  => '<a href="' . oos_href_link_admin($aContents['modules'], 'set=payment', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_MODULES_PAYMENT . '</a><br />' .
+                                   '<a href="' . oos_href_link_admin($aContents['modules'], 'set=shipping', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_MODULES_SHIPPING . '</a><br />' .
+                                   '<a href="' . oos_href_link_admin($aContents['modules'], 'set=ordertotal', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_MODULES_ORDER_TOTAL . '</a>');
   }
 
   $box = new box;

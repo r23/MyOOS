@@ -56,14 +56,13 @@
       $dbconn =& oosDBGetConn();
       $oostable =& oosDBGetTables();
 
-      $aFilename = oos_get_filename();
-      $aModules = oos_get_modules();
+      $aContents = oos_get_content();
 
       // include the breadcrumb class and start the breadcrumb trail
       include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_breadcrumb.php';
       $oBreadcrumb = new breadcrumb;
 
-      $oBreadcrumb->add($aLang['header_title_top'], oos_href_link($aModules['main'], $aFilename['main']));
+      $oBreadcrumb->add($aLang['header_title_top'], oos_href_link($aContents['main']));
 
       // add category names or the manufacturer name to the breadcrumb trail
       if (isset($aCategoryPath) && (count($aCategoryPath) > 0)) {
@@ -76,7 +75,7 @@
                              AND categories_languages_id = '" .  intval($nLanguageID) . "'";
           $categories = $dbconn->Execute($categories_sql);
           if ($categories->RecordCount() > 0) {
-            $oBreadcrumb->add($categories->fields['categories_name'], oos_href_link($aModules['main'], $aFilename['shop'], 'cPath=' . implode('_', array_slice($aCategoryPath, 0, ($i+1)))));
+            $oBreadcrumb->add($categories->fields['categories_name'], oos_href_link($aContents['shop'], 'cPath=' . implode('_', array_slice($aCategoryPath, 0, ($i+1)))));
           } else {
             break;
           }
@@ -90,8 +89,8 @@
         $manufacturers = $dbconn->Execute($manufacturers_sql);
 
         if ($manufacturers->RecordCount() > 0) {
-          $oBreadcrumb->add($aLang['header_title_catalog'], oos_href_link($aModules['main'], $aFilename['shop']));
-          $oBreadcrumb->add($manufacturers->fields['manufacturers_name'], oos_href_link($aModules['main'], $aFilename['shop'], 'manufacturers_id=' . $_GET['manufacturers_id']));
+          $oBreadcrumb->add($aLang['header_title_catalog'], oos_href_link($aContents['shop']));
+          $oBreadcrumb->add($manufacturers->fields['manufacturers_name'], oos_href_link($aContents['shop'], 'manufacturers_id=' . $_GET['manufacturers_id']));
         }
       }
 

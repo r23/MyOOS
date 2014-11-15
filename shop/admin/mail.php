@@ -87,7 +87,7 @@
       // Move that ADOdb pointer!
       $mail_result->MoveNext();
     }
-    oos_redirect_admin(oos_href_link_admin($aFilename['mail'], 'mail_sent_to=' . urlencode($mail_sent_to)));
+    oos_redirect_admin(oos_href_link_admin($aContents['mail'], 'mail_sent_to=' . urlencode($mail_sent_to)));
   }
 
   if ( ($action == 'preview') && !isset($_POST['customers_email_address']) ) {
@@ -134,7 +134,7 @@
         break;
     }
 ?>
-          <tr><?php echo oos_draw_form('mail', $aFilename['mail'], 'action=send_email_to_user'); ?>
+          <tr><?php echo oos_draw_form('mail', $aContents['mail'], 'action=send_email_to_user'); ?>
             <td><table border="0" width="100%" cellpadding="0" cellspacing="2">
               <tr>
                 <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
@@ -180,7 +180,7 @@
                 <table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
                     <td><?php echo oos_image_swap_submits('back','back_off.gif', IMAGE_BACK, 'name="back"'); ?></td>
-                    <td align="right"><?php echo '<a href="' . oos_href_link_admin($aFilename['mail']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a> ' . oos_image_swap_submits('send_mail','send_mail_off.gif', IMAGE_SEND_EMAIL); ?></td>
+                    <td align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['mail']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a> ' . oos_image_swap_submits('send_mail','send_mail_off.gif', IMAGE_SEND_EMAIL); ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -189,7 +189,7 @@
 <?php
   } else {
 ?>
-          <tr><?php echo oos_draw_form('mail', $aFilename['mail'], 'action=preview'); ?>
+          <tr><?php echo oos_draw_form('mail', $aContents['mail'], 'action=preview'); ?>
             <td><table border="0" cellpadding="0" cellspacing="2">
               <tr>
                 <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>

@@ -73,7 +73,7 @@
           $products_attributes_downloadtable = $oostable['products_attributes_download'];
           $dbconn->Execute("INSERT INTO $products_attributes_downloadtable VALUES (" . $products_attributes_id . ", '" . $_POST['products_attributes_filename'] . "', '" . $_POST['products_attributes_maxdays'] . "', '" . $_POST['products_attributes_maxcount'] . "')");
         }
-        oos_redirect_admin(oos_href_link_admin($aFilename['products_attributes'], $page_info));
+        oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
         break;
 
       case 'update_product_attribute':
@@ -113,7 +113,7 @@
                             products_attributes_maxcount='" . $_POST['products_attributes_maxcount'] . "'
                         WHERE products_attributes_id = '" . $_POST['attribute_id'] . "'");
         }
-        oos_redirect_admin(oos_href_link_admin($aFilename['products_attributes'], $page_info));
+        oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
         break;
 
       case 'delete_attribute':
@@ -121,7 +121,7 @@
         $dbconn->Execute("DELETE FROM $products_attributestable WHERE products_attributes_id = '" . $_GET['attribute_id'] . "'");
         $products_attributes_downloadtable = $oostable['products_attributes_download'];
         $dbconn->Execute("DELETE FROM $products_attributes_downloadtable WHERE products_attributes_id = '" . $_GET['attribute_id'] . "'");
-        oos_redirect_admin(oos_href_link_admin($aFilename['products_attributes'], $page_info));
+        oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
         break;
     }
   }
@@ -140,7 +140,7 @@
 <script language="javascript"><!--
 function go_option() {
   if (document.option_order_by.selected.options[document.option_order_by.selected.selectedIndex].value != "none") {
-    location = "<?php echo oos_href_link_admin($aFilename['products_attributes'], 'option_page=' . ($_GET['option_page'] ? $_GET['option_page'] : 1)); ?>&option_order_by="+document.option_order_by.selected.options[document.option_order_by.selected.selectedIndex].value;
+    location = "<?php echo oos_href_link_admin($aContents['products_attributes'], 'option_page=' . ($_GET['option_page'] ? $_GET['option_page'] : 1)); ?>&option_order_by="+document.option_order_by.selected.options[document.option_order_by.selected.selectedIndex].value;
   }
 }
 //--></script>
@@ -155,15 +155,13 @@ function go_option() {
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
     <td></td>
-    <td align="right"><?php echo '<a href="http://www.oos-shop.de/" target="_blank">' . oos_image(OOS_IMAGES . 'support.gif', HEADER_TITLE_SUPPORT_SITE, '50', '50') . '</a>&nbsp;&nbsp;<a href="' . oos_catalog_link($oosModules['main'], $oosCatalogFilename['default']) . '">' . oos_image(OOS_IMAGES . 'checkout.gif', HEADER_TITLE_ONLINE_CATALOG, '53', '50') . '</a>&nbsp;&nbsp;<a href="' . oos_href_link_admin($aFilename['default'], '', 'NONSSL') . '">' . oos_image(OOS_IMAGES . 'administration.gif', HEADER_TITLE_ADMINISTRATION, '50', '50') . '</a>'; ?>&nbsp;&nbsp;</td>
+    <td align="right"><?php echo '<a href="http://www.oos-shop.de/" target="_blank">' . oos_image(OOS_IMAGES . 'support.gif', HEADER_TITLE_SUPPORT_SITE, '50', '50') . '</a>&nbsp;&nbsp;<a href="' . oos_catalog_link($oosCatalogFilename['default']) . '">' . oos_image(OOS_IMAGES . 'checkout.gif', HEADER_TITLE_ONLINE_CATALOG, '53', '50') . '</a>&nbsp;&nbsp;<a href="' . oos_href_link_admin($aContents['default'], '', 'NONSSL') . '">' . oos_image(OOS_IMAGES . 'administration.gif', HEADER_TITLE_ADMINISTRATION, '50', '50') . '</a>'; ?>&nbsp;&nbsp;</td>
   </tr>
   <tr class="headerBar">
-    <td class="headerBarContent">&nbsp;&nbsp;<?php if (isset($_SESSION['login_id'])) { echo '<a href="' . oos_href_link_admin($aFilename['admin_account'], '', 'SSL') . '" class="headerLink">' . HEADER_TITLE_ACCOUNT . '</a> | <a href="' . oos_href_link_admin($aFilename['logoff'], '', 'NONSSL') . '" class="headerLink">' . HEADER_TITLE_LOGOFF . '</a>'; } else { echo '<a href="' . oos_href_link_admin($aFilename['default'], '', 'NONSSL') . '" class="headerLink">' . HEADER_TITLE_TOP . '</a>'; }?></td>
-    <td class="headerBarContent" align="right"><?php echo '<a href="http://www.oos-shop.de/" class="headerLink">' . HEADER_TITLE_SUPPORT_SITE . '</a> &nbsp;|&nbsp; <a href="' . oos_catalog_link($oosModules['main'], $oosCatalogFilename['default']) . '" class="headerLink">' . HEADER_TITLE_ONLINE_CATALOG . '</a>&nbsp;|&nbsp; <a href="' . oos_href_link_admin($aFilename['default'], '', 'NONSSL') . '" class="headerLink">' . HEADER_TITLE_ADMINISTRATION . '</a>'; ?>&nbsp;&nbsp;</td>
+    <td class="headerBarContent">&nbsp;&nbsp;<?php if (isset($_SESSION['login_id'])) { echo '<a href="' . oos_href_link_admin($aContents['admin_account'], '', 'SSL') . '" class="headerLink">' . HEADER_TITLE_ACCOUNT . '</a> | <a href="' . oos_href_link_admin($aContents['logoff'], '', 'NONSSL') . '" class="headerLink">' . HEADER_TITLE_LOGOFF . '</a>'; } else { echo '<a href="' . oos_href_link_admin($aContents['default'], '', 'NONSSL') . '" class="headerLink">' . HEADER_TITLE_TOP . '</a>'; }?></td>
+    <td class="headerBarContent" align="right"><?php echo '<a href="http://www.oos-shop.de/" class="headerLink">' . HEADER_TITLE_SUPPORT_SITE . '</a> &nbsp;|&nbsp; <a href="' . oos_catalog_link($oosCatalogFilename['default']) . '" class="headerLink">' . HEADER_TITLE_ONLINE_CATALOG . '</a>&nbsp;|&nbsp; <a href="' . oos_href_link_admin($aContents['default'], '', 'NONSSL') . '" class="headerLink">' . HEADER_TITLE_ADMINISTRATION . '</a>'; ?>&nbsp;&nbsp;</td>
   </tr>
 </table>
-
-<?php if (MENU_DHTML == true) require 'includes/header_navigation.php'; ?>
 
 
 <!-- header_eof //-->
@@ -194,7 +192,7 @@ function go_option() {
       $form_action = 'add_product_attributes';
     }
 ?>
-        <td><form name="attributes" action="<?php echo oos_href_link_admin($aFilename['products_attributes'], 'action=' . $form_action . '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page); ?>" method="post"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><form name="attributes" action="<?php echo oos_href_link_admin($aContents['products_attributes'], 'action=' . $form_action . '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page); ?>" method="post"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td colspan="8" class="smallText">
 <?php
@@ -224,12 +222,12 @@ function go_option() {
 
   // Previous
   if ($prev_attribute_page) {
-    echo '<a href="' . oos_href_link_admin($aFilename['products_attributes'], 'attribute_page=' . $prev_attribute_page) . '"> &lt;&lt; </a> | ';
+    echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'attribute_page=' . $prev_attribute_page) . '"> &lt;&lt; </a> | ';
   }
 
   for ($i = 1; $i <= $num_pages; $i++) {
     if ($i != $attribute_page) {
-      echo '<a href="' . oos_href_link_admin($aFilename['products_attributes'], 'attribute_page=' . $i) . '">' . $i . '</a> | ';
+      echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'attribute_page=' . $i) . '">' . $i . '</a> | ';
     } else {
       echo '<b><font color="red">' . $i . '</font></b> | ';
     }
@@ -237,7 +235,7 @@ function go_option() {
 
   // Next
   if ($attribute_page != $num_pages) {
-    echo '<a href="' . oos_href_link_admin($aFilename['products_attributes'], 'attribute_page=' . $next_attribute_page) . '"> &gt;&gt; </a>';
+    echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'attribute_page=' . $next_attribute_page) . '"> &gt;&gt; </a>';
   }
 ?>
             </td>
@@ -352,7 +350,7 @@ function go_option() {
       echo '&nbsp;</td>';
 ?>
             <td align="center" class="smallText">&nbsp;<input type="text" name="price_prefix" value="<?php echo $attributes_values['price_prefix']; ?>" size="2">&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo oos_image_swap_submits('update', 'update_off.gif', IMAGE_UPDATE); ?>&nbsp;<?php echo '<a href="' . oos_href_link_admin($aFilename['products_attributes'], '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><?php echo oos_image_swap_button('cancel', 'cancel_off.gif', IMAGE_CANCEL); ?></a>&nbsp;</td>
+            <td align="center" class="smallText">&nbsp;<?php echo oos_image_swap_submits('update', 'update_off.gif', IMAGE_UPDATE); ?>&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><?php echo oos_image_swap_button('cancel', 'cancel_off.gif', IMAGE_CANCEL); ?></a>&nbsp;</td>
 <?php
       if (DOWNLOAD_ENABLED == 'true') {
         $products_attributes_downloadtable = $oostable['products_attributes_download'];
@@ -395,7 +393,7 @@ function go_option() {
             <td align="right" class="smallText">&nbsp;<b><?php echo $attributes_values["options_sort_order"]; ?></td>
             <td align="right" class="smallText">&nbsp;<b><?php echo $attributes_values["options_values_price"]; ?></b>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<b><?php echo $attributes_values["price_prefix"]; ?></b>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<b><?php echo '<a href="' . oos_href_link_admin($aFilename['products_attributes'], 'action=delete_attribute&attribute_id=' . $_GET['attribute_id']) . '">'; ?><?php echo oos_image_swap_button('confirm', 'confirm_off.gif', IMAGE_CONFIRM); ?></a>&nbsp;&nbsp;<?php echo '<a href="' . oos_href_link_admin($aFilename['products_attributes'], '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><?php echo oos_image_swap_button('cancel', 'cancel_off.gif', IMAGE_CANCEL); ?></a>&nbsp;</b></td>
+            <td align="center" class="smallText">&nbsp;<b><?php echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_attribute&attribute_id=' . $_GET['attribute_id']) . '">'; ?><?php echo oos_image_swap_button('confirm', 'confirm_off.gif', IMAGE_CONFIRM); ?></a>&nbsp;&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><?php echo oos_image_swap_button('cancel', 'cancel_off.gif', IMAGE_CANCEL); ?></a>&nbsp;</b></td>
 <?php
     } else {
 ?>
@@ -423,7 +421,7 @@ function go_option() {
         if (OOS_PRICE_IS_BRUTTO == 'true') echo " - ". TEXT_TAX_INFO . $in_price_netto;
 ?>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo $attributes_values["price_prefix"]; ?>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo '<a href="' . oos_href_link_admin($aFilename['products_attributes'], 'action=update_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><?php echo oos_image_swap_button('edit', 'edit_off.gif', IMAGE_UPDATE); ?></a>&nbsp;&nbsp;<?php echo '<a href="' . oos_href_link_admin($aFilename['products_attributes'], 'action=delete_product_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page, 'NONSSL') , '">'; ?><?php echo oos_image_swap_button('delete', 'delete_off.gif', IMAGE_DELETE); ?></a>&nbsp;</td>
+            <td align="center" class="smallText">&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><?php echo oos_image_swap_button('edit', 'edit_off.gif', IMAGE_UPDATE); ?></a>&nbsp;&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_product_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page, 'NONSSL') , '">'; ?><?php echo oos_image_swap_button('delete', 'delete_off.gif', IMAGE_DELETE); ?></a>&nbsp;</td>
 <?php
     }
     $products_attributestable = $oostable['products_attributes'];

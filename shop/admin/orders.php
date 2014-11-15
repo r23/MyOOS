@@ -166,7 +166,7 @@
                 $notify_comments = sprintf(EMAIL_TEXT_COMMENTS_UPDATE, $comments) . "\n\n";
               }
             }
-            $email = STORE_NAME . "\n" . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $oID . "\n" . EMAIL_TEXT_INVOICE_URL . ' ' . oos_catalog_link($oosModules['account'], $oosCatalogFilename['account_history_info'], 'order_id=' . $oID, 'SSL') . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . oos_date_long($check_status['date_purchased']) . "\n\n" . $notify_comments . sprintf(EMAIL_TEXT_STATUS_UPDATE, $orders_status_array[$status]);
+            $email = STORE_NAME . "\n" . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $oID . "\n" . EMAIL_TEXT_INVOICE_URL . ' ' . oos_catalog_link($oosCatalogFilename['account_history_info'], 'order_id=' . $oID, 'SSL') . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . oos_date_long($check_status['date_purchased']) . "\n\n" . $notify_comments . sprintf(EMAIL_TEXT_STATUS_UPDATE, $orders_status_array[$status]);
             oos_mail($check_status['customers_name'], $check_status['customers_email_address'], EMAIL_TEXT_SUBJECT, nl2br($email), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
             $customer_notified = '1';
           }
@@ -183,7 +183,7 @@
           $messageStack->add_session(WARNING_ORDER_NOT_UPDATED, 'warning');
         }
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['orders'], oos_get_all_get_params(array('action')) . 'action=edit'));
+        oos_redirect_admin(oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action')) . 'action=edit'));
         break;
 
       case 'update_serial':
@@ -197,7 +197,7 @@
 
         $messageStack->add_session(SUCCESS_ORDER_UPDATED, 'success');
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['orders'], oos_get_all_get_params(array('action')) . 'action=edit&serial_updated=1'));
+        oos_redirect_admin(oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action')) . 'action=edit&serial_updated=1'));
         break;
 
     case 'deleteconfirm':
@@ -205,7 +205,7 @@
 
         oos_remove_order($oID, $_POST['restock']);
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['orders'], oos_get_all_get_params(array('oID', 'action'))));
+        oos_redirect_admin(oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action'))));
         break;
 
     }
@@ -262,8 +262,8 @@ function popupGoogleMap(url) {
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
             <td class="pageHeading" align="right"><?php echo oos_draw_separator('trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
             <td class="pageHeading" align="right">
-            <?php echo '<a href="' . oos_href_link_admin($aFilename['edit_orders'], oos_get_all_get_params(array('action'))) . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a> &nbsp; '; ?>
-            <?php echo '<a href="' . oos_href_link_admin($aFilename['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?>
+            <?php echo '<a href="' . oos_href_link_admin($aContents['edit_orders'], oos_get_all_get_params(array('action'))) . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a> &nbsp; '; ?>
+            <?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?>
             </td>
           </tr>
         </table></td>
@@ -287,7 +287,7 @@ function popupGoogleMap(url) {
 ?>
               <tr>
                 <td class="main" valign="top"><b>Google Map</b></td>
-                <td class="main"><?php echo '<a href="javascript:popupGoogleMap(\'' . $aFilename['popup_google_map'] . '?query=' . rawurlencode($order->customer['city']. ', '.$order->customer['country']) . '\')">' . oos_image(OOS_IMAGES . 'icon_popup.gif', 'View Google Map'); ?></a></td>
+                <td class="main"><?php echo '<a href="javascript:popupGoogleMap(\'' . $aContents['popup_google_map'] . '?query=' . rawurlencode($order->customer['city']. ', '.$order->customer['country']) . '\')">' . oos_image(OOS_IMAGES . 'icon_popup.gif', 'View Google Map'); ?></a></td>
               </tr>
               <tr>
                 <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '5'); ?></td>
@@ -318,7 +318,7 @@ function popupGoogleMap(url) {
 ?>
               <tr>
                 <td class="main" valign="top"><b>Google Map</b></td>
-                <td class="main"><?php echo '<a href="javascript:popupGoogleMap(\'' . $aFilename['popup_google_map'] . '?query=' . rawurlencode($order->delivery['city']. ', '.$order->delivery['country']) . '\')">' . oos_image(OOS_IMAGES . 'icon_popup.gif', 'View Google Map'); ?></a></td>
+                <td class="main"><?php echo '<a href="javascript:popupGoogleMap(\'' . $aContents['popup_google_map'] . '?query=' . rawurlencode($order->delivery['city']. ', '.$order->delivery['country']) . '\')">' . oos_image(OOS_IMAGES . 'icon_popup.gif', 'View Google Map'); ?></a></td>
               </tr>
               <tr>
                 <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '5'); ?></td>
@@ -338,7 +338,7 @@ function popupGoogleMap(url) {
 ?>
               <tr>
                 <td class="main" valign="top"><b>Google Map</b></td>
-                <td class="main"><?php echo '<a href="javascript:popupGoogleMap(\'' . $aFilename['popup_google_map'] . '?query=' . rawurlencode($order->billing['city']. ', '.$order->billing['country']) . '\')">' . oos_image(OOS_IMAGES . 'icon_popup.gif', 'View Google Map'); ?></a></td>
+                <td class="main"><?php echo '<a href="javascript:popupGoogleMap(\'' . $aContents['popup_google_map'] . '?query=' . rawurlencode($order->billing['city']. ', '.$order->billing['country']) . '\')">' . oos_image(OOS_IMAGES . 'icon_popup.gif', 'View Google Map'); ?></a></td>
               </tr>
               <tr>
                 <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '5'); ?></td>
@@ -499,7 +499,7 @@ function popupGoogleMap(url) {
 
       $serial_number = "Add Serial #";
       if (oos_is_not_null($order->products[$i]['serial_number'])) $serial_number = $order->products[$i]['serial_number'];
-      echo '            <td class="dataTableContent" valign="top"><a href="' . oos_href_link_admin($aFilename['orders'], 'action=edit&oID=' . $oID . '&serial=' . $i, 'NONSSL') . '">' . $serial_number . '</a></td>' . "\n" .
+      echo '            <td class="dataTableContent" valign="top"><a href="' . oos_href_link_admin($aContents['orders'], 'action=edit&oID=' . $oID . '&serial=' . $i, 'NONSSL') . '">' . $serial_number . '</a></td>' . "\n" .
            '            <td class="dataTableContent" valign="top">' . $order->products[$i]['model'] . '</td>' . "\n" .
            '            <td class="dataTableContent" align="right" valign="top">' . oos_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n" .
            '            <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format($order->products[$i]['final_price'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
@@ -513,7 +513,7 @@ function popupGoogleMap(url) {
              '            <td class="dataTableContent" colspan="2" valign="top" align="right">Enter Serial #:&nbsp;</td>' . "\n";
 
         echo '            <td class="dataTableContent" colspan="7" valign="top">' . 
-                          oos_draw_form('serial_form', $aFilename['orders'], 'action=update_serial&oID=' . $oID . '&serial=' . $order->products[$i]['id'], 'post', '') . 
+                          oos_draw_form('serial_form', $aContents['orders'], 'action=update_serial&oID=' . $oID . '&serial=' . $order->products[$i]['id'], 'post', '') . 
                           oos_draw_input_field('serial_number', $serial_number, '', false, 'text', true) . '&nbsp;&nbsp;' . oos_image_swap_submits('update','update_off.gif', IMAGE_UPDATE) . '</td>' . "\n" .
              '          </tr>' . "\n";
       }
@@ -577,7 +577,7 @@ function popupGoogleMap(url) {
       <tr>
         <td><?php echo oos_draw_separator('trans.gif', '1', '5'); ?></td>
       </tr>
-      <tr><?php echo oos_draw_form('status', $aFilename['orders'], oos_get_all_get_params(array('action')) . 'action=update_order'); ?>
+      <tr><?php echo oos_draw_form('status', $aContents['orders'], oos_get_all_get_params(array('action')) . 'action=update_order'); ?>
         <td class="main"><?php echo oos_draw_textarea_field('comments', 'soft', '60', '5'); ?></td>
       </tr>
       <tr>
@@ -600,7 +600,7 @@ function popupGoogleMap(url) {
         </table></td>
       </form></tr>
       <tr>
-        <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aFilename['invoice'], 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . oos_image_swap_button('invoice','invoice_off.gif', IMAGE_ORDERS_INVOICE) . '</a> <a href="' . oos_href_link_admin($aFilename['packingslip'], 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . oos_image_swap_button('pachingslip','packingslip_off.gif', IMAGE_ORDERS_PACKINGSLIP) . '</a> <a href="' . oos_href_link_admin($aFilename['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?></td>
+        <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['invoice'], 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . oos_image_swap_button('invoice','invoice_off.gif', IMAGE_ORDERS_INVOICE) . '</a> <a href="' . oos_href_link_admin($aContents['packingslip'], 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . oos_image_swap_button('pachingslip','packingslip_off.gif', IMAGE_ORDERS_PACKINGSLIP) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?></td>
       </tr>
 <?php
   } else {
@@ -611,10 +611,10 @@ function popupGoogleMap(url) {
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
             <td class="pageHeading" align="right"><?php echo oos_draw_separator('trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
             <td align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-              <tr><?php echo oos_draw_form('orders', $aFilename['orders'], '', 'get'); ?>
+              <tr><?php echo oos_draw_form('orders', $aContents['orders'], '', 'get'); ?>
                 <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . oos_draw_input_field('oID', '', 'size="12"') . oos_draw_hidden_field('action', 'edit'); ?></td>
               </form></tr>
-              <tr><?php echo oos_draw_form('status', $aFilename['orders'], '', 'get'); ?>
+              <tr><?php echo oos_draw_form('status', $aContents['orders'], '', 'get'); ?>
                 <td class="smallText" align="right"><?php echo HEADING_TITLE_STATUS . ' ' . oos_draw_pull_down_menu('status', array_merge(array(array('id' => '', 'text' => TEXT_ALL_ORDERS)), $orders_statuses), '', 'onChange="this.form.submit();"'); ?></td>
               </form></tr>
             </table></td>
@@ -690,16 +690,16 @@ function popupGoogleMap(url) {
       }
 
       if (isset($oInfo) && is_object($oInfo) && ($orders['orders_id'] == $oInfo->orders_id)) {
-        echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=edit') . '\'">' . "\n";
+        echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=edit') . '\'">' . "\n";
       } else {
-        echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['orders'], oos_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '\'">' . "\n";
+        echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aFilename['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $orders['orders_id'] . '&action=edit') . '">' . oos_image(OOS_IMAGES . 'icons/preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . $orders['customers_name']; ?></td>
+                <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $orders['orders_id'] . '&action=edit') . '">' . oos_image(OOS_IMAGES . 'icons/preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . $orders['customers_name']; ?></td>
                 <td class="dataTableContent" align="right"><?php echo strip_tags($orders['order_total']); ?></td>
                 <td class="dataTableContent" align="center"><?php echo oos_datetime_short($orders['date_purchased']); ?></td>
                 <td class="dataTableContent" align="right"><?php echo $orders['orders_status_name']; ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($oInfo) && is_object($oInfo) && ($orders['orders_id'] == $oInfo->orders_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . oos_href_link_admin($aFilename['orders'], oos_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($oInfo) && is_object($oInfo) && ($orders['orders_id'] == $oInfo->orders_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -723,18 +723,18 @@ function popupGoogleMap(url) {
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_ORDER . '</b>');
 
-      $contents = array('form' => oos_draw_form('orders', $aFilename['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=deleteconfirm'));
+      $contents = array('form' => oos_draw_form('orders', $aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=deleteconfirm'));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO . '<br /><br /><b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>');
       $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('restock') . ' ' . TEXT_INFO_RESTOCK_PRODUCT_QUANTITY);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('delete','delete_off.gif', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aFilename['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('delete','delete_off.gif', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');
       break;
 
     default:
       if (isset($oInfo) && is_object($oInfo)) {
         $heading[] = array('text' => '<b>[' . $oInfo->orders_id . ']&nbsp;&nbsp;' . oos_datetime_short($oInfo->date_purchased) . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aFilename['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=edit') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a> <a href="' . oos_href_link_admin($aFilename['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=delete') . '">' . oos_image_swap_button('delete','delete_off.gif', IMAGE_DELETE) . '</a>');
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aFilename['invoice'], 'oID=' . $oInfo->orders_id) . '" TARGET="_blank">' . oos_image_swap_button('invoice','invoice_off.gif', IMAGE_ORDERS_INVOICE) . '</a> <a href="' . oos_href_link_admin($aFilename['packingslip'], 'oID=' . $oInfo->orders_id) . '" TARGET="_blank">' . oos_image_swap_button('packingslip','packingslip_off.gif', IMAGE_ORDERS_PACKINGSLIP) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=edit') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=delete') . '">' . oos_image_swap_button('delete','delete_off.gif', IMAGE_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['invoice'], 'oID=' . $oInfo->orders_id) . '" TARGET="_blank">' . oos_image_swap_button('invoice','invoice_off.gif', IMAGE_ORDERS_INVOICE) . '</a> <a href="' . oos_href_link_admin($aContents['packingslip'], 'oID=' . $oInfo->orders_id) . '" TARGET="_blank">' . oos_image_swap_button('packingslip','packingslip_off.gif', IMAGE_ORDERS_PACKINGSLIP) . '</a>');
 
         $contents[] = array('text' => '<br />' . TEXT_DATE_ORDER_CREATED . ' ' . oos_date_short($oInfo->date_purchased));
         if (oos_is_not_null($oInfo->last_modified)) $contents[] = array('text' => TEXT_DATE_ORDER_LAST_MODIFIED . ' ' . oos_date_short($oInfo->last_modified));

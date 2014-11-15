@@ -15,6 +15,8 @@
 
   $products_history_block = 'false';
 
+if (isset($_SESSION)) {
+  
   if ($_SESSION['products_history']->count_history() > 0) {
     $products_history_block = 'true';
     $product_ids = $_SESSION['products_history']->get_product_id_list();
@@ -32,6 +34,7 @@
     $smarty->assign('customer_products_history', $dbconn->GetAll($products_sql));
     $smarty->assign('block_heading_products_history', $block_heading);
   }
+}
 
   $smarty->assign('products_history_block', $products_history_block);
 

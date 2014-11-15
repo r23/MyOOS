@@ -37,7 +37,7 @@
       $dbconn =& oosDBGetConn();
       $oostable =& oosDBGetTables();
 
-      $aFilename = oos_get_filename();
+      $aContents = oos_get_content();
 
       $products_array = array();
       $products_result = $dbconn->Execute("SELECT pd.products_id, pd.products_name FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd WHERE pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND pd.products_id = p.products_id AND p.products_status >= '1' ORDER BY pd.products_name");
@@ -93,10 +93,10 @@ function selectAll(FormName, SelectBox) {
 }
 //--></script>';
 
-      $choose_audience_string .= '<form name="notifications" action="' . oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID'] . '&action=confirm') . '" method="post" onSubmit="return selectAll(\'notifications\', \'chosen[]\')"><table border="0" width="100%" cellspacing="0" cellpadding="2">' . "\n" .
+      $choose_audience_string .= '<form name="notifications" action="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID'] . '&action=confirm') . '" method="post" onSubmit="return selectAll(\'notifications\', \'chosen[]\')"><table border="0" width="100%" cellspacing="0" cellpadding="2">' . "\n" .
                                  '  <tr>' . "\n" .
                                  '    <td align="center" class="main"><b>' . TEXT_PRODUCTS . '</b><br />' . oos_draw_pull_down_menu('products', $products_array, '', 'size="20" style="width: 20em;" multiple') . '</td>' . "\n" .
-                                 '    <td align="center" class="main">&nbsp;<br /><a href="' . oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID'] . '&action=confirm&global=true') . '"><input type="button" value="' . BUTTON_GLOBAL . '" style="width: 8em;"></a><br /><br /><br /><input type="button" value="' . BUTTON_SELECT . '" style="width: 8em;" onClick="mover(\'remove\');"><br /><br /><input type="button" value="' . BUTTON_UNSELECT . '" style="width: 8em;" onClick="mover(\'add\');"><br /><br /><br /><input type="submit" value="' . BUTTON_SUBMIT . '" style="width: 8em;"><br /><br /><a href="' . oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '"><input type="button" value="' . BUTTON_CANCEL . '" style="width: 8em;"></a></td>' . "\n" .
+                                 '    <td align="center" class="main">&nbsp;<br /><a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID'] . '&action=confirm&global=true') . '"><input type="button" value="' . BUTTON_GLOBAL . '" style="width: 8em;"></a><br /><br /><br /><input type="button" value="' . BUTTON_SELECT . '" style="width: 8em;" onClick="mover(\'remove\');"><br /><br /><input type="button" value="' . BUTTON_UNSELECT . '" style="width: 8em;" onClick="mover(\'add\');"><br /><br /><br /><input type="submit" value="' . BUTTON_SUBMIT . '" style="width: 8em;"><br /><br /><a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '"><input type="button" value="' . BUTTON_CANCEL . '" style="width: 8em;"></a></td>' . "\n" .
                                  '    <td align="center" class="main"><b>' . TEXT_SELECTED_PRODUCTS . '</b><br />' . oos_draw_pull_down_menu('chosen[]', array(), '', 'size="20" style="width: 20em;" multiple') . '</td>' . "\n" .
                                  '  </tr>' . "\n" .
                                  '</table></form>';
@@ -112,7 +112,7 @@ function selectAll(FormName, SelectBox) {
       $dbconn =& oosDBGetConn();
       $oostable =& oosDBGetTables();
 
-      $aFilename = oos_get_filename();
+      $aContents = oos_get_content();
 
       if ($_GET['global'] == 'true') {
         $products_result = $dbconn->Execute("SELECT distinct customers_id FROM " . $oostable['products_notifications']);
@@ -169,7 +169,7 @@ function selectAll(FormName, SelectBox) {
                         '  <tr>' . "\n" .
                         '    <td>' . oos_draw_separator('trans.gif', '1', '10') . '</td>' . "\n" .
                         '  </tr>' . "\n" .
-                        '  <tr>' . oos_draw_form('confirm', $aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID'] . '&action=confirm_send') . "\n" .
+                        '  <tr>' . oos_draw_form('confirm', $aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID'] . '&action=confirm_send') . "\n" .
                         '    <td align="right">';
       if (count($audience) > 0) {
         if ($_GET['global'] == 'true') {
@@ -181,7 +181,7 @@ function selectAll(FormName, SelectBox) {
         }
         $confirm_string .= oos_image_submit('send.gif', IMAGE_SEND) . ' ';
       }
-      $confirm_string .= '<a href="' . oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID'] . '&action=send') . '">' . oos_image_button('back.gif', IMAGE_BACK) . '</a> <a href="' . oos_href_link_admin($aFilename['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '">' . oos_image_button('cancel_off.gif', IMAGE_CANCEL) . '</a></td>' . "\n" .
+      $confirm_string .= '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID'] . '&action=send') . '">' . oos_image_button('back.gif', IMAGE_BACK) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '">' . oos_image_button('cancel_off.gif', IMAGE_CANCEL) . '</a></td>' . "\n" .
                          '  </tr>' . "\n" .
                          '</table>';
 

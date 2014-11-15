@@ -16,7 +16,7 @@
  *         - cPath
  *
  * Examples: {categories_link cPath=17}
- * Output:   http:// ... index.php?mp=mp&amp;file=shop&amp;cPath=17
+ * Output:   http:// ... index.php?content=shop&amp;cPath=17
  * @author   r23 <info@r23.de>
  * @version  1.0
  * @param array
@@ -29,13 +29,11 @@ function smarty_function_categories_link($params, &$smarty)
 
   require_once(MYOOS_INCLUDE_PATH . '/includes/lib/smarty-plugins/function.html_href_link.php');
 
-  $aModules = oos_get_modules();
-  $aFilename =  oos_get_filename();
+  $aContents =  oos_get_content();
 
   $result = array();
   $link_params = array();
-  $link_params = array('modul' => $aModules['main'],
-                       'file' => $aFilename['shop']);
+  $link_params = array('content' => $aContents['shop']);
 
   if (is_array($params)) {
     $result = array_merge($link_params, $params);

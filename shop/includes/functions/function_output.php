@@ -42,7 +42,7 @@
   * @param $search_engine_safe
   * @return string
   */
-  function oos_href_link($modul = '', $page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = TRUE, $search_engine_safe = TRUE) {
+  function oos_href_link($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = TRUE, $search_engine_safe = TRUE) {
     global $oEvent, $spider_flag;
 
 
@@ -59,9 +59,9 @@
     }
 
     if (oos_is_not_null($parameters)) {
-      $link .= 'index.php?mp=' . $modul . '&amp;file=' . $page . '&amp;' . oos_output_string($parameters);
+      $link .= 'index.php?content=' . $page . '&amp;' . oos_output_string($parameters);
     } else {
-      $link .= 'index.php?mp=' . $modul . '&amp;file=' . $page;
+      $link .= 'index.php?content=' . $page;
     }
 
     $separator = '&amp;';

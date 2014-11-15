@@ -170,7 +170,7 @@ td.style.backgroundColor="DFE4F4";
     $products_result = $dbconn->Execute($products_result_raw);
     while ($products = $products_result->fields) {
 ?>
-        <tr onMouseOver="cOn(this); this.style.cursor='pointer'; this.style.cursor='hand';" onMouseOut="cOut(this);" bgcolor='#DFE4F4' onClick=document.location.href="<?php echo oos_href_link_admin($aFilename['xsell_products'], 'add_related_product_ID=' . $products['products_id'], 'NONSSL');?>">
+        <tr onMouseOver="cOn(this); this.style.cursor='pointer'; this.style.cursor='hand';" onMouseOut="cOut(this);" bgcolor='#DFE4F4' onClick=document.location.href="<?php echo oos_href_link_admin($aContents['xsell_products'], 'add_related_product_ID=' . $products['products_id'], 'NONSSL');?>">
           <td class="dataTableContent" valign="top">&nbsp;<?php echo $products['products_id'];?>&nbsp;</td>
           <td class="dataTableContent" valign="top">&nbsp;<?php echo $products['products_model'];?>&nbsp;</td>
           <td class="dataTableContent" valign="top">&nbsp;<?php echo $products['products_name'];?>&nbsp;</td>
@@ -217,8 +217,8 @@ td.style.backgroundColor="DFE4F4";
       }
 ?>
       </table></td>
-      <td class="dataTableContent" valign="top">&nbsp;<a href="<?php echo oos_href_link_admin($aFilename['xsell_products'], oos_get_all_get_params(array('action')) . 'add_related_product_ID=' . $products['products_id'], 'NONSSL');?>"><?php echo TEXT_EDIT_SELLS;?></a>&nbsp;</td>
-      <td class="dataTableContent" valign="top" align="center">&nbsp;<?php echo (($i > 0) ? '<a href="' . oos_href_link_admin($aFilename['xsell_products'], oos_get_all_get_params(array('action')) . 'sort=1&add_related_product_ID=' . $products['products_id'], 'NONSSL') .'">'.TEXT_SORT.'</a>&nbsp;' : '--')?></td>
+      <td class="dataTableContent" valign="top">&nbsp;<a href="<?php echo oos_href_link_admin($aContents['xsell_products'], oos_get_all_get_params(array('action')) . 'add_related_product_ID=' . $products['products_id'], 'NONSSL');?>"><?php echo TEXT_EDIT_SELLS;?></a>&nbsp;</td>
+      <td class="dataTableContent" valign="top" align="center">&nbsp;<?php echo (($i > 0) ? '<a href="' . oos_href_link_admin($aContents['xsell_products'], oos_get_all_get_params(array('action')) . 'sort=1&add_related_product_ID=' . $products['products_id'], 'NONSSL') .'">'.TEXT_SORT.'</a>&nbsp;' : '--')?></td>
     </tr>
 <?php
       // Move that ADOdb pointer!
@@ -253,7 +253,7 @@ td.style.backgroundColor="DFE4F4";
 ?>
   <table border="0" cellspacing="0" cellpadding="0" bgcolor="#999999" align="center">
     <tr>
-      <td><?php echo oos_draw_form('update_cross', $aFilename['xsell_products'], oos_get_all_get_params(array('action')) . 'action=update_cross', 'post');?><table cellpadding="1" cellspacing="1" border="0">
+      <td><?php echo oos_draw_form('update_cross', $aContents['xsell_products'], oos_get_all_get_params(array('action')) . 'action=update_cross', 'post');?><table cellpadding="1" cellspacing="1" border="0">
         <tr>
           <td colspan="6"><table cellpadding="3" cellspacing="0" border="0" width="100%">
             <tr class="dataTableHeadingRow">
@@ -261,7 +261,7 @@ td.style.backgroundColor="DFE4F4";
             </tr>
             <tr class="dataTableHeadingRow">
               <td align="right"><?php echo oos_info_image($products_name['products_image'], $products_name['products_name']);?></td>
-              <td align="right" valign="bottom"><?php echo oos_image_swap_submits('update','update_off.gif', IMAGE_UPDATE) . '<br /><br /><a href="'.oos_href_link_admin($aFilename['xsell_products'], 'men_id=catalog').'">' . oos_image_swap_button('cancel','cancel_off.gif') . '</a>';?></td>
+              <td align="right" valign="bottom"><?php echo oos_image_swap_submits('update','update_off.gif', IMAGE_UPDATE) . '<br /><br /><a href="'.oos_href_link_admin($aContents['xsell_products'], 'men_id=catalog').'">' . oos_image_swap_button('cancel','cancel_off.gif') . '</a>';?></td>
             </tr>
           </table></td>
         </tr>
@@ -331,7 +331,7 @@ td.style.backgroundColor="DFE4F4";
 ?>
   <table border="0" cellspacing="0" cellpadding="0" bgcolor="#999999" align="center">
     <tr>
-      <td><?php echo oos_draw_form('update_sort', $aFilename['xsell_products'], oos_get_all_get_params(array('action')) . 'action=update_sort', 'post');?><table cellpadding="1" cellspacing="1" border="0">
+      <td><?php echo oos_draw_form('update_sort', $aContents['xsell_products'], oos_get_all_get_params(array('action')) . 'action=update_sort', 'post');?><table cellpadding="1" cellspacing="1" border="0">
         <tr>
           <td colspan="6"><table cellpadding="3" cellspacing="0" border="0" width="100%">
             <tr class="dataTableHeadingRow">
@@ -339,7 +339,7 @@ td.style.backgroundColor="DFE4F4";
                 </tr>
                 <tr class="dataTableHeadingRow">
                   <td align="right"><?php echo oos_info_image($products_name['products_image'], $products_name['products_name']);?></td>
-                  <td align="right" valign="bottom"><?php echo oos_image_swap_submits('update','update_off.gif', IMAGE_UPDATE) . '<br /><br /><a href="'.oos_href_link_admin($aFilename['xsell_products'], 'men_id=catalog').'">' . oos_image_swap_button('cancel', 'cancel_off.gif') . '</a>';?></td>
+                  <td align="right" valign="bottom"><?php echo oos_image_swap_submits('update','update_off.gif', IMAGE_UPDATE) . '<br /><br /><a href="'.oos_href_link_admin($aContents['xsell_products'], 'men_id=catalog').'">' . oos_image_swap_button('cancel', 'cancel_off.gif') . '</a>';?></td>
                 </tr>
               </table></td>
             </tr>

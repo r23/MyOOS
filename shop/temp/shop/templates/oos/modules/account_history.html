@@ -30,7 +30,7 @@
           <tr>
             <td class="main" width="50%" valign="top"><b>{$lang.text_order_date}</b> {$oos_history_array[i].date_purchased|oos_date_long}<br><b>{$lang.text_order_shipped_to}</b> {$oos_history_array[i].delivery_name}</td>
             <td class="main" width="30%" valign="top"><b>{$lang.text_order_products}</b> {$oos_history_array[i].products_total}<br><b>{$lang.text_order_cost}</b> {$oos_history_array[i].order_total}</td>
-            <td class="main" width="20%"><a href="{html_href_link modul=$modules.account file=$filename.account_history_info page=$smarty.get.page order_id=$oos_history_array[i].orders_id connection=SSL}">{$lang.text_view_order}</a></td>
+            <td class="main" width="20%"><a href="{html_href_link content=$filename.account_history_info page=$smarty.get.page order_id=$oos_history_array[i].orders_id connection=SSL}">{$lang.text_view_order}</a></td>
           </tr>
         </table></td>
           </tr>
@@ -76,7 +76,7 @@
             <td height="10"></td>
           </tr>
           <tr>
-            <td class="smallText"><a href="{html_href_link modul=$modules.user file=$filename.account connection=SSL}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
+            <td class="smallText"><a href="{html_href_link content=$filename.account connection=SSL}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
           </tr>
         </table></td>
       </tr>

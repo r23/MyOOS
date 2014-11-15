@@ -1,5 +1,5 @@
 <!--  $Id: shipping_address.html,v 1.3 2009/02/19 14:26:06 r23 Exp $ -->
-    <form name="checkout_address" action="{html_href_link modul=$modules.checkout file=$filename.checkout_shipping_address connection=SSL}" method="post" onSubmit="return check_form();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <form name="checkout_address" action="{html_href_link content=$filename.checkout_shipping_address connection=SSL}" method="post" onSubmit="return check_form();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td>{$oosPageHeading}</td>
       </tr>
@@ -181,7 +181,7 @@
         <td height="10"></td>
       </tr>
       <tr>
-        <td><a href="{html_href_link modul=$modules.checkout file=$filename.checkout_shipping_address connection=SSL}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
+        <td><a href="{html_href_link content=$filename.checkout_shipping_address connection=SSL}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
       </tr>
 {/if}
       <tr>

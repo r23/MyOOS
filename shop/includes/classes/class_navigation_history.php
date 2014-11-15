@@ -51,7 +51,7 @@
 
 
      function add_current_page() {
-      global $sMp, $sFile, $request_type;
+      global $sMp, $sContent, $request_type;
 
       $get_all = ''; 
       if (isset($_GET)) {
@@ -59,7 +59,7 @@
         $get_all = oos_remove_trailing($get_all);
       }
       $this->path[] = array('modules' => $sMp,
-                            'file' => $sFile,
+                            'file' => $sContent,
                             'mode' => $request_type,
                             'get' => $get_all);
 
@@ -67,10 +67,10 @@
 
 
     function remove_current_page() {
-      global $sMp, $sFile;
+      global $sMp, $sContent;
 
       $last_entry_position = count($this->path) - 1;
-      if ( ($this->path[$last_entry_position]['modules'] == $sMp)  && ($this->path[$last_entry_position]['file'] == $sFile) ) {
+      if ( ($this->path[$last_entry_position]['modules'] == $sMp)  && ($this->path[$last_entry_position]['file'] == $sContent) ) {
         unset($this->path[$last_entry_position]);
       }
     }
@@ -87,7 +87,7 @@
 
 
     function set_snapshot($page = '') {
-      global $sMp, $sFile, $request_type;
+      global $sMp, $sContent, $request_type;
 
       if (is_array($page)) {
         $this->snapshot = array('modules' => $page['modules'],
@@ -101,7 +101,7 @@
           $get_all = oos_remove_trailing($get_all);
         }
         $this->snapshot = array('modules' => $sMp,
-                                'file' => $sFile,
+                                'file' => $sContent,
                                 'mode' => $request_type,
                                 'get' => $get_all);
       }

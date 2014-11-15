@@ -109,7 +109,7 @@
 ?>
 <br />
             <table border="0">
-              <tr><?php echo oos_draw_form('stockupdate', $aFilename['quick_stockupdate']); ?>
+              <tr><?php echo oos_draw_form('stockupdate', $aContents['quick_stockupdate']); ?>
               <th class="smallText" align="left" valign="top">Categories:<br /><?php echo $dropdown; ?></form></th>
               </tr>
             </table>
@@ -121,7 +121,7 @@
   // see if there is a category ID:
   if (isset($_POST['cat_id']) && !empty($_POST['cat_id'])) {
     // start the table
-    echo oos_draw_form('stockupdate', $aFilename['quick_stockupdate']);
+    echo oos_draw_form('stockupdate', $aContents['quick_stockupdate']);
     echo '            <table width="100%" border="0" cellspacing="2" cellpadding="2">';
 
     // get all active prods in that specific category

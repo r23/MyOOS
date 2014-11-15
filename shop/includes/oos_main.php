@@ -70,10 +70,7 @@ if (ENABLE_SSL == 'true') {
 
 
 // require  the list of project filenames
-require_once MYOOS_INCLUDE_PATH . '/includes/oos_modules.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/oos_filename.php';
-
-
 
 // require  the list of project database tables
 require_once MYOOS_INCLUDE_PATH . '/includes/oos_tables.php';
@@ -245,24 +242,15 @@ $oEvent->getInstance();
 
 
 // determine the page directory
-  if (isset($_GET['mp'])) {
-    $sMp = oos_var_prep_for_os($_GET['mp']);
-  } elseif (isset($_POST['mp'])) {
-    $sMp = oos_var_prep_for_os($_POST['mp']);
-  }
-  if (isset($_GET['file'])) {
-    $sFile = oos_var_prep_for_os($_GET['file']);
-  } elseif (isset($_POST['file'])) {
-    $sFile = oos_var_prep_for_os($_POST['file']);
-  }
-
-  if ( (empty($sMp)) || (empty($sFile)) ) {
-    $sMp = $aModules['main'];
-    $sFile = $aFilename['main'];
-  }
-
-  $sFile = str_replace('.html', '', $sFile);
-
+if (isset($_GET['content'])) {
+	$sContent = oos_var_prep_for_os($_GET['content']);
+} elseif (isset($_POST['content'])) {
+	$sContent = oos_var_prep_for_os($_POST['content']);
+}
+if ( empty( $sContent ) || !is_string( $sContent ) ) {
+    $sContent = $aContents['main'];
+}  
+  
 // Cross-Site Scripting attack defense
    oos_secure_input();
 
@@ -281,15 +269,11 @@ $oEvent->getInstance();
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_message_stack.php';
 $oMessage = new messageStack;
 
-
-
 // templates selection
 $sTheme = STORE_TEMPLATES;
 $aTemplate = array();
 
-
-
-  $today = date("Y-m-d H:i:s");
+$today = date("Y-m-d H:i:s");
 
 // Shopping cart actions
   if ( isset($_GET['action']) || isset($_POST['action']) ) {
@@ -298,15 +282,9 @@ $aTemplate = array();
 
 // split-page-results
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
-
 // infobox
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_boxes.php';
-
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_coupon.php';
 
-
-
-
-
-  $aOption = array();
+$aOption = array();
 

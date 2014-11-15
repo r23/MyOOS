@@ -100,8 +100,7 @@
     function buildBranch($parent_id, $level = 0) {
       $result = $this->parent_group_start_string;
 
-      $aFilename = oos_get_filename();
-      $aModules = oos_get_modules();
+      $aContents = oos_get_content();
 
       if (isset($this->data[$parent_id])) {
         foreach ($this->data[$parent_id] as $category_id => $category) {
@@ -111,7 +110,7 @@
             $category_link = $category_id;
           }
 
-          $sLink = '<a href="' . oos_href_link($aModules['main'], $aFilename['shop'], 'cPath=' . $category_link) . '">';
+          $sLink = '<a href="' . oos_href_link($aContents['shop'], 'cPath=' . $category_link) . '">';
 
 
           $result .= $this->child_start_string;

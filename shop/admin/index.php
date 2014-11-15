@@ -25,76 +25,76 @@
   $cat = array(array('title' => BOX_HEADING_MY_ACCOUNT,
                      'access' => true,
                      'image' => 'my_account.gif',
-                     'href' => oos_href_link_admin($aFilename['admin_account']),
-                     'children' => array(array('title' => BOX_MY_ACCOUNT, 'link' => oos_href_link_admin($aFilename['admin_account']),
+                     'href' => oos_href_link_admin($aContents['admin_account']),
+                     'children' => array(array('title' => BOX_MY_ACCOUNT, 'link' => oos_href_link_admin($aContents['admin_account']),
                                                'access' => true),
-                                         array('title' => BOX_MY_ACCOUNT_LOGOFF, 'link' => oos_href_link_admin($aFilename['logoff']),
+                                         array('title' => BOX_MY_ACCOUNT_LOGOFF, 'link' => oos_href_link_admin($aContents['logoff']),
                                                'access' => true))),
                array('title' => BOX_HEADING_ADMINISTRATOR,
                      'access' => oos_admin_check_boxes('administrator.php'),
                      'image' => 'administrator.gif',
                      'href' => oos_href_link_admin(oos_selected_file('administrator.php'), 'selected_box=administrator'),
-                     'children' => array(array('title' => BOX_ADMINISTRATOR_MEMBER, 'link' => oos_href_link_admin($aFilename['admin_members'], 'selected_box=administrator'),
+                     'children' => array(array('title' => BOX_ADMINISTRATOR_MEMBER, 'link' => oos_href_link_admin($aContents['admin_members'], 'selected_box=administrator'),
                                                'access' => oos_admin_check_boxes('admin_members', 'sub_boxes')),
-                                         array('title' => BOX_ADMINISTRATOR_BOXES, 'link' => oos_href_link_admin($aFilename['admin_files'], 'selected_box=administrator'),
+                                         array('title' => BOX_ADMINISTRATOR_BOXES, 'link' => oos_href_link_admin($aContents['admin_files'], 'selected_box=administrator'),
                                                'access' => oos_admin_check_boxes('admin_files', 'sub_boxes')))),
                array('title' => BOX_HEADING_CONFIGURATION,
                      'access' => oos_admin_check_boxes('configuration.php'),
                      'image' => 'configuration.gif',
-                     'href' => oos_href_link_admin($aFilename['configuration'], 'selected_box=configuration&gID=1'),
-                     'children' => array(array('title' => BOX_CONFIGURATION_MYSTORE, 'link' => oos_href_link_admin($aFilename['configuration'], 'selected_box=configuration&gID=1'),
+                     'href' => oos_href_link_admin($aContents['configuration'], 'selected_box=configuration&gID=1'),
+                     'children' => array(array('title' => BOX_CONFIGURATION_MYSTORE, 'link' => oos_href_link_admin($aContents['configuration'], 'selected_box=configuration&gID=1'),
                                                'access' => oos_admin_check_boxes('configuration', 'sub_boxes')),
-                                         array('title' => BOX_CONFIGURATION_LOGGING, 'link' => oos_href_link_admin($aFilename['configuration'], 'selected_box=configuration&gID=10'),
+                                         array('title' => BOX_CONFIGURATION_LOGGING, 'link' => oos_href_link_admin($aContents['configuration'], 'selected_box=configuration&gID=10'),
                                                'access' => oos_admin_check_boxes('configuration', 'sub_boxes')),
-                                         array('title' => BOX_CONFIGURATION_CACHE, 'link' => oos_href_link_admin($aFilename['configuration'], 'selected_box=configuration&gID=11'),
+                                         array('title' => BOX_CONFIGURATION_CACHE, 'link' => oos_href_link_admin($aContents['configuration'], 'selected_box=configuration&gID=11'),
                                                'access' => oos_admin_check_boxes('configuration', 'sub_boxes')))),
                array('title' => BOX_HEADING_MODULES,
                      'access' => oos_admin_check_boxes('modules.php'),
                      'image' => 'modules.gif',
                      'href' => oos_href_link_admin(oos_selected_file('modules.php'), 'selected_box=modules&set=payment'),
-                     'children' => array(array('title' => BOX_MODULES_PAYMENT, 'link' => oos_href_link_admin($aFilename['modules'], 'selected_box=modules&set=payment'),
+                     'children' => array(array('title' => BOX_MODULES_PAYMENT, 'link' => oos_href_link_admin($aContents['modules'], 'selected_box=modules&set=payment'),
                                                'access' => oos_admin_check_boxes('modules', 'sub_boxes')),
-                                         array('title' => BOX_MODULES_SHIPPING, 'link' => oos_href_link_admin($aFilename['modules'], 'selected_box=modules&set=shipping'),
+                                         array('title' => BOX_MODULES_SHIPPING, 'link' => oos_href_link_admin($aContents['modules'], 'selected_box=modules&set=shipping'),
                                                'access' => oos_admin_check_boxes('modules', 'sub_boxes')))),
                array('title' => BOX_HEADING_CATALOG,
                      'access' => oos_admin_check_boxes('catalog.php'),
                      'image' => 'catalog.gif',
                      'href' => oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog'),
-                     'children' => array(array('title' => CATALOG_CONTENTS, 'link' => oos_href_link_admin($aFilename['categories'], 'selected_box=catalog'),
+                     'children' => array(array('title' => CATALOG_CONTENTS, 'link' => oos_href_link_admin($aContents['categories'], 'selected_box=catalog'),
                                                'access' => oos_admin_check_boxes('categories', 'sub_boxes')),
-                                         array('title' => BOX_CATALOG_MANUFACTURERS, 'link' => oos_href_link_admin($aFilename['manufacturers'], 'selected_box=catalog'),
+                                         array('title' => BOX_CATALOG_MANUFACTURERS, 'link' => oos_href_link_admin($aContents['manufacturers'], 'selected_box=catalog'),
                                                'access' => oos_admin_check_boxes('manufacturers', 'sub_boxes')))),
                array('title' => BOX_HEADING_LOCATION_AND_TAXES,
                      'access' => oos_admin_check_boxes('taxes.php'),
                      'image' => 'location.gif',
                      'href' => oos_href_link_admin(oos_selected_file('taxes.php'), 'selected_box=taxes'),
-                     'children' => array(array('title' => BOX_TAXES_COUNTRIES, 'link' => oos_href_link_admin($aFilename['countries'], 'selected_box=taxes'),
+                     'children' => array(array('title' => BOX_TAXES_COUNTRIES, 'link' => oos_href_link_admin($aContents['countries'], 'selected_box=taxes'),
                                                'access' => oos_admin_check_boxes('countries', 'sub_boxes')),
-                                         array('title' => BOX_TAXES_GEO_ZONES, 'link' => oos_href_link_admin($aFilename['geo_zones'], 'selected_box=taxes'),
+                                         array('title' => BOX_TAXES_GEO_ZONES, 'link' => oos_href_link_admin($aContents['geo_zones'], 'selected_box=taxes'),
                                                'access' => oos_admin_check_boxes('geo_zones', 'sub_boxes')))),
                array('title' => BOX_HEADING_CUSTOMERS,
                      'access' => oos_admin_check_boxes('customers.php'),
                      'image' => 'customers.gif',
                      'href' => oos_href_link_admin(oos_selected_file('customers.php'), 'selected_box=customers'),
-                     'children' => array(array('title' => BOX_CUSTOMERS_CUSTOMERS, 'link' => oos_href_link_admin($aFilename['customers'], 'selected_box=customers'),
+                     'children' => array(array('title' => BOX_CUSTOMERS_CUSTOMERS, 'link' => oos_href_link_admin($aContents['customers'], 'selected_box=customers'),
                                                'access' => oos_admin_check_boxes('customers', 'sub_boxes')),
-                                         array('title' => BOX_CUSTOMERS_ORDERS, 'link' => oos_href_link_admin($aFilename['orders'], 'selected_box=customers'),
+                                         array('title' => BOX_CUSTOMERS_ORDERS, 'link' => oos_href_link_admin($aContents['orders'], 'selected_box=customers'),
                                                'access' => oos_admin_check_boxes('orders', 'sub_boxes')))),
                array('title' => BOX_HEADING_LOCALIZATION,
                      'access' => oos_admin_check_boxes('localization.php'),
                      'image' => 'localization.gif',
                      'href' => oos_href_link_admin(oos_selected_file('localization.php'), 'selected_box=localization'),
-                     'children' => array(array('title' => BOX_LOCALIZATION_CURRENCIES, 'link' => oos_href_link_admin($aFilename['currencies'], 'selected_box=localization'),
+                     'children' => array(array('title' => BOX_LOCALIZATION_CURRENCIES, 'link' => oos_href_link_admin($aContents['currencies'], 'selected_box=localization'),
                                                'access' => oos_admin_check_boxes('currencies', 'sub_boxes')),
-                                         array('title' => BOX_LOCALIZATION_LANGUAGES, 'link' => oos_href_link_admin($aFilename['languages'], 'selected_box=localization'),
+                                         array('title' => BOX_LOCALIZATION_LANGUAGES, 'link' => oos_href_link_admin($aContents['languages'], 'selected_box=localization'),
                                                'access' => oos_admin_check_boxes('languages', 'sub_boxes')))),
                array('title' => BOX_HEADING_REPORTS,
                      'access' => oos_admin_check_boxes('reports.php'),
                      'image' => 'reports.gif',
-                     'href' => oos_href_link_admin($aFilename['stats_products_purchased'], 'selected_box=reports'),
-                     'children' => array(array('title' => REPORTS_PRODUCTS, 'link' => oos_href_link_admin($aFilename['stats_products_purchased'], 'selected_box=reports'),
+                     'href' => oos_href_link_admin($aContents['stats_products_purchased'], 'selected_box=reports'),
+                     'children' => array(array('title' => REPORTS_PRODUCTS, 'link' => oos_href_link_admin($aContents['stats_products_purchased'], 'selected_box=reports'),
                                                'access' => oos_admin_check_boxes('stats_products_purchased', 'sub_boxes')),
-                                         array('title' => REPORTS_ORDERS, 'link' => oos_href_link_admin($aFilename['stats_customers'], 'selected_box=reports'),              
+                                         array('title' => REPORTS_ORDERS, 'link' => oos_href_link_admin($aContents['stats_customers'], 'selected_box=reports'),              
                                                'access' => oos_admin_check_boxes('stats_customers', 'sub_boxes')))),
 
 );
@@ -157,7 +157,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
         <td><table border="0" width="600" height="440" cellspacing="0" cellpadding="0">
           <tr bgcolor="#ffffff" height="50">
             <td height="50"></td>
-            <td align="right" class="text" nowrap><?php echo '<a href="' . oos_href_link_admin($aFilename['default']) . '">' . HEADER_TITLE_ADMINISTRATION . '</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="' . oos_catalog_link($oosModules['main'], $oosCatalogFilename['default']) . '">' . HEADER_TITLE_ONLINE_CATALOG . '</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://www.oos-shop.de/" target="_blank">' . HEADER_TITLE_SUPPORT_SITE . '</a>'; ?>&nbsp;&nbsp;</td>
+            <td align="right" class="text" nowrap><?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_ADMINISTRATION . '</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="' . oos_catalog_link($oosCatalogFilename['default']) . '">' . HEADER_TITLE_ONLINE_CATALOG . '</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://www.oos-shop.de/" target="_blank">' . HEADER_TITLE_SUPPORT_SITE . '</a>'; ?>&nbsp;&nbsp;</td>
           </tr>
           <tr bgcolor="#8C8E8F">
             <td colspan="2"><table border="0" width="460" height="390" cellspacing="0" cellpadding="2">
@@ -187,8 +187,8 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
   while ($orders_status = $orders_status_result->fields) {
     $orders_pending_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['orders'] . " WHERE orders_status = '" . $orders_status['orders_status_id'] . "'");
     $orders_pending = $orders_pending_result->fields;
-    if (oos_admin_check_boxes($aFilename['orders'], 'sub_boxes') == true) { 
-      $orders_contents .= '<a href="' . oos_href_link_admin($aFilename['orders'], 'selected_box=customers&status=' . $orders_status['orders_status_id']) . '">' . $orders_status['orders_status_name'] . '</a>: ' . $orders_pending['count'] . '<br />';
+    if (oos_admin_check_boxes($aContents['orders'], 'sub_boxes') == true) { 
+      $orders_contents .= '<a href="' . oos_href_link_admin($aContents['orders'], 'selected_box=customers&status=' . $orders_status['orders_status_id']) . '">' . $orders_status['orders_status_name'] . '</a>: ' . $orders_pending['count'] . '<br />';
     } else {
       $orders_contents .= '' . $orders_status['orders_status_name'] . ': ' . $orders_pending['count'] . '<br />';
     }

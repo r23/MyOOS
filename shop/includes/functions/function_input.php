@@ -55,10 +55,9 @@
   */
   function oos_secure_input() {
 
-    $aFilename = oos_get_filename();
-    $aModules = oos_get_modules();
+    $aContents = oos_get_content();
 
-   # Cross-Site Scripting attack defense - Sent by larsneo
+	# Cross-Site Scripting attack defense - Sent by larsneo
    # some syntax checking against injected javascript
    # extended by Neo
 
@@ -83,7 +82,7 @@
             (preg_match("/<[^>]*cookie*\"?[^>]*>/i", $secvalue)) ||
             (preg_match("/\"/i", $secvalue))
             ) {
-              oos_redirect(oos_href_link($aModules['main'], $aFilename['main']));
+              oos_redirect(oos_href_link($aContents['main']));
           }
         }
       }
@@ -106,7 +105,7 @@
             (preg_match("/<[^>]*cookie*\"?[^>]*>/i", $secvalue)) ||
             (preg_match("/<[^>]*meta*\"?[^>]*>/i", $secvalue))
             ) {
-               oos_redirect(oos_href_link($aModules['main'], $aFilename['main']));
+               oos_redirect(oos_href_link($aContents['main']));
           }
         }
       }
@@ -133,7 +132,7 @@
             (preg_match("/<[^>]*cookie*\"?[^>]*>/i", $secvalue)) ||
             (preg_match("/<[^>]*img*\"?[^>]*>/i", $secvalue))
             ) {
-               oos_redirect(oos_href_link($aModules['main'], $aFilename['main']));
+               oos_redirect(oos_href_link($aContents['main']));
           }
         }
       }

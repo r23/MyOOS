@@ -11,13 +11,11 @@
         <td width="150"><table width="150" border="0" cellspacing="0" cellpadding="3">
           <tr>
             <td align="left" valign="top" class="block_content">
-{if $oEvent->installed_plugin('gallery')}
-  <strong><big>&middot;</big></strong>&nbsp;<a href="{html_href_link modul=$modules.info file=$filename.info_gallery}">{$lang.block_information_gallery}</a><br>
-{/if}
+
 {foreach item=info from=$information}
-  <strong><big>&middot;</big></strong>&nbsp;<a href="{html_href_link modul=$modules.info  file=$filename.information information_id=$info.information_id}">{$info.information_name}</a><br>
+  <strong><big>&middot;</big></strong>&nbsp;<a href="{html_href_link content=$filename.information information_id=$info.information_id}">{$info.information_name}</a><br>
 {/foreach}
-<strong><big>&middot;</big></strong>&nbsp;<a href="{html_href_link modul=$modules.main file=$filename.contact_us}">{$lang.block_information_contact}</a><br>
+<strong><big>&middot;</big></strong>&nbsp;<a href="{html_href_link content=$filename.contact_us}">{$lang.block_information_contact}</a><br>
             </td>
           </tr>
         </table></td>

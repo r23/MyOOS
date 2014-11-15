@@ -35,7 +35,7 @@
         oos_db_perform($oostable['admin_files'], $sql_data_array);
         $admin_boxes_id = $dbconn->Insert_ID();
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['admin_files'], 'cID=' . $admin_boxes_id));
+        oos_redirect_admin(oos_href_link_admin($aContents['admin_files'], 'cID=' . $admin_boxes_id));
         break;
 
       case 'box_remove':
@@ -45,7 +45,7 @@
         $query = "DELETE FROM " . $admin_filestable . " WHERE admin_files_id = '" . $admin_boxes_id . "' or admin_files_to_boxes = '" . $admin_boxes_id . "'";
         $dbconn->Execute($query);
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['admin_files']));
+        oos_redirect_admin(oos_href_link_admin($aContents['admin_files']));
         break;
 
       case 'file_store':
@@ -54,7 +54,7 @@
         oos_db_perform($oostable['admin_files'], $sql_data_array);
         $admin_files_id = $dbconn->Insert_ID();
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $admin_files_id));
+        oos_redirect_admin(oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $admin_files_id));
         break;
 
       case 'file_remove':
@@ -63,7 +63,7 @@
         $query = "DELETE FROM " . $admin_filestable . " WHERE admin_files_id = '" . $admin_files_id . "'";
         $dbconn->Execute($query);
 
-        oos_redirect_admin(oos_href_link_admin($aFilename['admin_files'], 'cPath=' . $_GET['cPath']));
+        oos_redirect_admin(oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath']));
         break;
     }
   }
@@ -122,13 +122,13 @@
       }
 
       if (isset($fInfo) && is_object($fInfo) && ($files['admin_files_id'] == $fInfo->admin_files_id) ) {
-        echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id'] . '&action=edit_file') . '\'">' . "\n";
+        echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id'] . '&action=edit_file') . '\'">' . "\n";
       } else {
-        echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id']) . '\'">' . "\n";
+        echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id']) . '\'">' . "\n";
       }
 ?>
                 <td class="dataTableContent"><?php echo $files['admin_files_name']; ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($fInfo) && is_object($fInfo) && ($files['admin_files_id'] == $fInfo->admin_files_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . oos_href_link_admin($aFilename['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($fInfo) && is_object($fInfo) && ($files['admin_files_id'] == $fInfo->admin_files_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -141,7 +141,7 @@
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="smallText" valign="top"><?php echo TEXT_COUNT_FILES . $file_count; ?></td>
-                    <td class="smallText" valign="top" align="right"><?php echo '<a href="' . oos_href_link_admin($aFilename['admin_files'], 'cID=' . $_GET['cPath']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>&nbsp<a href="' . oos_href_link_admin($aFilename['admin_files'], 'cPath=' . $_GET['cPath'] . '&action=store_file') . '">' . oos_image_swap_button('admin_files','admin_files_off.gif', IMAGE_INSERT_FILE) . '</a>'; ?>&nbsp;</td>
+                    <td class="smallText" valign="top" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $_GET['cPath']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>&nbsp<a href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&action=store_file') . '">' . oos_image_swap_button('admin_files','admin_files_off.gif', IMAGE_INSERT_FILE) . '</a>'; ?>&nbsp;</td>
                   </tr>
                 </table></td>
               </tr>
@@ -201,12 +201,12 @@
       }
       if (isset($cInfo) && is_object($cInfo) && ($boxes[$i]['admin_boxes_id'] == $cInfo->admin_boxes_id) ) {
         if ( substr("$cInfo->admin_boxes_id", 0,1) == 'b') {
-          echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id']) . '\'">' . "\n";
+          echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id']) . '\'">' . "\n";
         } else {
-          echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['admin_files'], 'cPath=' . $boxes[$i]['admin_boxes_id'] . '&action=store_file') . '\'">' . "\n";
+          echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $boxes[$i]['admin_boxes_id'] . '&action=store_file') . '\'">' . "\n";
         }
       } else {
-        echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aFilename['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id']) . '\'">' . "\n";
+        echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id']) . '\'">' . "\n";
       }
 ?>
                 <td class="dataTableContent"><?php echo oos_image(OOS_IMAGES . 'icons/folder.gif', ICON_FOLDER) . ' <b>' . ucfirst (substr_replace ($boxes[$i]['admin_boxes_name'], '' , -4)) . '</b>'; ?></td>
@@ -214,9 +214,9 @@
 <?php
       if (isset($cInfo) && is_object($cInfo) && ($_GET['cID'] == $boxes[$i]['admin_boxes_id'])) {
         if (substr($boxes[$i]['admin_boxes_id'], 0,1) == 'b') {
-          echo oos_image(OOS_IMAGES . 'icon_status_red.gif', STATUS_BOX_NOT_INSTALLED, 10, 10) . '&nbsp;<a href="' . oos_href_link_admin($aFilename['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id'] . '&box=' . $boxes[$i]['admin_boxes_name'] . '&action=box_store') . '">' . oos_image(OOS_IMAGES . 'icon_status_green_light.gif', STATUS_BOX_INSTALL, 10, 10) . '</a>';
+          echo oos_image(OOS_IMAGES . 'icon_status_red.gif', STATUS_BOX_NOT_INSTALLED, 10, 10) . '&nbsp;<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id'] . '&box=' . $boxes[$i]['admin_boxes_name'] . '&action=box_store') . '">' . oos_image(OOS_IMAGES . 'icon_status_green_light.gif', STATUS_BOX_INSTALL, 10, 10) . '</a>';
         } else {
-          echo '<a href="' . oos_href_link_admin($aFilename['admin_files'], 'cID=' . $_GET['cID'] . '&action=box_remove') . '">' . oos_image(OOS_IMAGES . 'icon_status_red_light.gif', STATUS_BOX_REMOVE, 10, 10) . '</a>&nbsp;' . oos_image(OOS_IMAGES . 'icon_status_green.gif', STATUS_BOX_INSTALLED, 10, 10);
+          echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $_GET['cID'] . '&action=box_remove') . '">' . oos_image(OOS_IMAGES . 'icon_status_red_light.gif', STATUS_BOX_REMOVE, 10, 10) . '</a>&nbsp;' . oos_image(OOS_IMAGES . 'icon_status_green.gif', STATUS_BOX_INSTALLED, 10, 10);
         }
       } else {
         if (substr($boxes[$i]['admin_boxes_id'], 0,1) == 'b') {
@@ -227,7 +227,7 @@
       }
 ?>
                 </td>
-                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($boxes[$i]['admin_boxes_id'] == $cInfo->admin_boxes_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . oos_href_link_admin($aFilename['admin_files'], 'cID=' . $db_cat['admin_boxes_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($boxes[$i]['admin_boxes_id'] == $cInfo->admin_boxes_id) ) { echo oos_image(OOS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $db_cat['admin_boxes_id']) . '">' . oos_image(OOS_IMAGES . 'icon_information.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
      $i++;
@@ -272,7 +272,7 @@
       $dir = dir(OOS_ABSOLUTE_PATH . 'admin/');
 
       while ($file = $dir->read()) {
-        if ((substr("$file", -4) == '.php') && $file != $aFilename['default'] && $file != $aFilename['login'] && $file != $aFilename['logoff'] && $file != $aFilename['forbiden'] && $file != $aFilename['popup_image'] && $file != $aFilename['password_forgotten'] && $file != $aFilename['admin_account'] && $file != 'invoice.php' && $file != 'packingslip.php') {
+        if ((substr("$file", -4) == '.php') && $file != $aContents['default'] && $file != $aContents['login'] && $file != $aContents['logoff'] && $file != $aContents['forbiden'] && $file != $aContents['popup_image'] && $file != $aContents['password_forgotten'] && $file != $aContents['admin_account'] && $file != 'invoice.php' && $file != 'packingslip.php') {
           $file_dir[] = substr($file, 0, -4);
         }
       }
@@ -290,21 +290,21 @@
                         'text' => $val);
       }
 
-      $contents = array('form' => oos_draw_form('store_file', $aFilename['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id'] . '&action=file_store', 'post', 'enctype="multipart/form-data"')); 
+      $contents = array('form' => oos_draw_form('store_file', $aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id'] . '&action=file_store', 'post', 'enctype="multipart/form-data"')); 
       $contents[] = array('text' => '<b>' . TEXT_INFO_NEW_FILE_BOX .  ucfirst(substr_replace ($current_box['admin_box_name'], '', -4)) . '</b>');
       $contents[] = array('text' => TEXT_INFO_NEW_FILE_INTRO );
       $contents[] = array('align' => 'left', 'text' => '<br />&nbsp;' . oos_draw_pull_down_menu('admin_files_name', $show, $show)); 
       $contents[] = array('text' => oos_draw_hidden_field('admin_files_to_boxes', $_GET['cPath']));
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('save','save_off.gif', IMAGE_SAVE) . ' <a href="' . oos_href_link_admin($aFilename['admin_files'], 'cPath=' . $_GET['cPath']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');    
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('save','save_off.gif', IMAGE_SAVE) . ' <a href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');    
       break;
 
     case 'remove_file': 
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_FILE . '</b>');
 
-      $contents = array('form' => oos_draw_form('remove_file', $aFilename['admin_files'], 'action=file_remove&cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id'], 'post', 'enctype="multipart/form-data"')); 
+      $contents = array('form' => oos_draw_form('remove_file', $aContents['admin_files'], 'action=file_remove&cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id'], 'post', 'enctype="multipart/form-data"')); 
       $contents[] = array('text' => oos_draw_hidden_field('admin_files_id', $_GET['fID']));
       $contents[] = array('text' =>  sprintf(TEXT_INFO_DELETE_FILE_INTRO, $fInfo->admin_files_name, ucfirst(substr_replace ($current_box['admin_box_name'], '', -4))) );    
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('confirm','confirm_off.gif', IMAGE_CONFIRM) . ' <a href="' . oos_href_link_admin($aFilename['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $_GET['fID']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');    
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_image_swap_submits('confirm','confirm_off.gif', IMAGE_CONFIRM) . ' <a href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $_GET['fID']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>');    
       break;
 
     default:
@@ -314,7 +314,7 @@
           $contents[] = array('text' => '<b>' . $cInfo->admin_boxes_name . ' ' . TEXT_INFO_DEFAULT_BOXES_NOT_INSTALLED . '</b><br />&nbsp;');
           $contents[] = array('text' => TEXT_INFO_DEFAULT_BOXES_INTRO);
         } else {
-          $contents = array('form' => oos_draw_form('newfile', $aFilename['admin_files'], 'cPath=' . $cInfo->admin_boxes_id . '&action=store_file', 'post', 'enctype="multipart/form-data"')); 
+          $contents = array('form' => oos_draw_form('newfile', $aContents['admin_files'], 'cPath=' . $cInfo->admin_boxes_id . '&action=store_file', 'post', 'enctype="multipart/form-data"')); 
           $contents[] = array('align' => 'center', 'text' => oos_image_swap_submits('admin_files','admin_files_off.gif', IMAGE_INSERT_FILE) );
           $contents[] = array('text' => oos_draw_hidden_field('this_category', $cInfo->admin_boxes_id));
           $contents[] = array('text' => '<br />' . TEXT_INFO_DEFAULT_BOXES_INTRO);
@@ -324,7 +324,7 @@
       if (isset($fInfo) && is_object($fInfo)) {
         $heading[] = array('text' => '<b>' . TEXT_INFO_NEW_FILE_BOX .  ucfirst(substr_replace ($current_box['admin_box_name'], '', -4)) . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aFilename['admin_files'], 'cPath=' . $_GET['cPath'] . '&action=store_file') . '">' . oos_image_swap_button('admin_files','admin_files_off.gif', IMAGE_INSERT_FILE) . '</a> <a href="' . oos_href_link_admin($aFilename['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $fInfo->admin_files_id . '&action=remove_file') . '">' . oos_image_swap_button('admin_remove','admin_remove_off.gif', IMAGE_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&action=store_file') . '">' . oos_image_swap_button('admin_files','admin_files_off.gif', IMAGE_INSERT_FILE) . '</a> <a href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $fInfo->admin_files_id . '&action=remove_file') . '">' . oos_image_swap_button('admin_remove','admin_remove_off.gif', IMAGE_DELETE) . '</a>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_DEFAULT_FILE_INTRO . ucfirst(substr_replace ($current_box['admin_box_name'], '', -4)));
       }
   }

@@ -52,11 +52,10 @@
 
     function create_plugin_instance() {
 
-      $aFilename = oos_get_filename();
-      $aModules = oos_get_modules();
+      $aContents = oos_get_content();
 
-      if ($_GET['file'] != $aFilename['info_down_for_maintenance']) {
-        oos_redirect(oos_href_link($aModules['info'], $aFilename['info_down_for_maintenance'], '', 'NONSSL', true, false));
+      if ($_GET['file'] != $aContents['info_down_for_maintenance']) {
+        oos_redirect(oos_href_link($aContents['info_down_for_maintenance'], '', 'NONSSL', true, false));
       }
 
       return true;
