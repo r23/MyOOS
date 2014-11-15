@@ -51,21 +51,21 @@
     }
 
     function create_plugin_instance() {
-      global $cPath, $aCategoryPath, $nCurrentCategoryId;
+      global $sCategory, $aCategoryPath, $nCurrentCategoryId;
 
       include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_category_tree.php';
 
       if (isset($_GET['cPath'])) {
-        $cPath = oos_var_prep_for_os($_GET['cPath']);
+        $sCategory = oos_var_prep_for_os($_GET['cPath']);
       } elseif (isset($_GET['products_id']) && !isset($_GET['manufacturers_id'])) {
-        $cPath = oos_get_product_path($_GET['products_id']);
+        $sCategory = oos_get_product_path($_GET['products_id']);
       } else {
-        $cPath = '';
+        $sCategory = '';
       }
 
-      if (!empty($cPath)) {
-        $aCategoryPath = oos_parse_category_path($cPath);
-        $cPath = implode('_', $aCategoryPath);
+      if (!empty($sCategory)) {
+        $aCategoryPath = oos_parse_category_path($sCategory);
+        $sCategory = implode('_', $aCategoryPath);
 
         $nCurrentCategoryId = end($aCategoryPath);
       } else {

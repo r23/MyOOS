@@ -46,7 +46,7 @@
     }
     $products_count += $products->fields['total'];
 
-    $nGroupID = intval($_SESSION['member']->group['id']);
+    $nGroupID = isset($_SESSION['member']) ? $_SESSION['member']->group['id']+0 : 1;
     $categoriestable = $oostable['categories'];
     $child_categories_result = $dbconn->Execute("SELECT categories_id FROM $categoriestable WHERE ( access = '0' OR access = '" . intval($nGroupID) . "' ) AND parent_id = '" . intval($category_id) . "'");
     if ($child_categories_result->RecordCount()) {
@@ -72,7 +72,7 @@
   * @return string
   */
   function oos_show_category($counter) {
-    global $foo, $aCategories, $cPath_new, $id, $parent_child;#vx
+    global $foo, $aCategories, $sCategory_new, $id, $parent_child;#vx
 
     $aCategory = array('counter' => $counter);
 
@@ -111,15 +111,8 @@
 
   // Use Categories Scroll List
   // Uses HIDE_A_CATEGORY
-  if (CATEGORIES_BOX_SCROLL_LIST_ON == 'true') {
-    $categories_isscroll = 1;
-    $aCategories = array();
-    $aCategories['hideSession'] = oos_hide_session_id();
-    $aCategories['pullDownMenu'] = oos_draw_pull_down_menu('cPath', oos_get_categories(array(array('id' => '', 'text' => $aLang['pull_down_default']))), $cPath, 'onchange="this.form.submit();" size="' . CATEGORIES_SCROLL_BOX_LEN . '"');
-  } else {
-    // Normal Categories Display list
-    $categories_isscroll = 0;
-    $nGroupID = intval($_SESSION['member']->group['id']);
+
+    $nGroupID = isset($_SESSION['member']) ? $_SESSION['member']->group['id']+0 : 1;
 
     $categoriestable = $oostable['categories'];
     $categories_descriptiontable = $oostable['categories_description'];
@@ -158,15 +151,15 @@
     // Close result set
     $categories_result->Close();
 
-    if (oos_is_not_null($cPath)) {
+    if (oos_is_not_null($sCategory)) {
       $new_path = '';
-      $id = explode('_', $cPath);
+      $id = explode('_', $sCategory);
       reset($id);
       while (list($key, $value) = each($id)) {
         unset($prev_id);
         unset($first_id);
 
-        $nGroupID = intval($_SESSION['member']->group['id']);
+        $nGroupID = isset($_SESSION['member']) ? $_SESSION['member']->group['id']+0 : 1;
 
         $categoriestable = $oostable['categories'];
         $categories_descriptiontable = $oostable['categories_description'];
@@ -220,7 +213,7 @@
     if (sizeof($list_of_categories_ids) > 0 ) {#vx
       $select_list_of_cat_ids = implode(",", $list_of_categories_ids);
 
-      $nGroupID = intval($_SESSION['member']->group['id']);
+      $nGroupID = isset($_SESSION['member']) ? $_SESSION['member']->group['id']+0 : 1;
 
       $categoriestable = $oostable['categories'];
       $query = "SELECT categories_id, parent_id
@@ -242,13 +235,10 @@
       oos_show_category($first_element);
     }
 
-  }
-
   $smarty->assign(
       array(
           'block_heading_categories' => $block_heading,
-          'categories_contents' => $aCategories,
-          'categories_isscroll' => $categories_isscroll
+          'categories_contents' => $aCategories
       )
   );
 

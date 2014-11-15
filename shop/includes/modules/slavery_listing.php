@@ -132,7 +132,7 @@
                 if ($oEvent->installed_plugin('sefu')) {
                   $lc_text = '&nbsp;<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $listing['products_id']) . '">' . $listing['products_name'] . '</a>&nbsp;';
                 } else {
-                  $lc_text = '&nbsp;<a href="' . oos_href_link($aContents['product_info'], ($cPath ? 'cPath=' . $cPath . '&amp;' : '') . 'products_id=' . $listing['products_id']) . '">' . $listing['products_name'] . '</a>&nbsp;';
+                  $lc_text = '&nbsp;<a href="' . oos_href_link($aContents['product_info'], ($sCategory ? 'category=' . $sCategory . '&amp;' : '') . 'products_id=' . $listing['products_id']) . '">' . $listing['products_name'] . '</a>&nbsp;';
                 }
               }
               break;
@@ -236,7 +236,7 @@
                 if ($oEvent->installed_plugin('sefu')) {
                   $lc_text = '&nbsp;<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $listing['products_id']) . '">';
                 } else {
-                  $lc_text = '&nbsp;<a href="' . oos_href_link($aContents['product_info'], ($cPath ? 'cPath=' . $cPath . '&amp;' : '') . 'products_id=' . $listing['products_id']) . '">';
+                  $lc_text = '&nbsp;<a href="' . oos_href_link($aContents['product_info'], ($sCategory ? 'category=' . $sCategory . '&amp;' : '') . 'products_id=' . $listing['products_id']) . '">';
                 }
               }
 
@@ -268,7 +268,7 @@
                  $lc_text .= '<input type="hidden" name="slave_id" value="' . $listing['products_id'] .'">';
                  $lc_text .= '<input type="hidden" name="mp" value="' . $sMp .'">';
                  $lc_text .= '<input type="hidden" name="file" value="' . $sContent .'">';
-                 $lc_text .= '<input type="hidden" name="cPath" value="' . $cPath .'">';
+                 $lc_text .= '<input type="hidden" name="cPath" value="' . $sCategory .'">';
                  $lc_text .= '<input type="hidden" name="products_id" value="' . $nProductsId .'">';
                  $lc_text .= oos_hide_session_id();
                  $lc_text .= oos_get_all_as_hidden_field(array('action'));

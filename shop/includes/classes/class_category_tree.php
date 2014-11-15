@@ -110,7 +110,7 @@
             $category_link = $category_id;
           }
 
-          $sLink = '<a href="' . oos_href_link($aContents['shop'], 'cPath=' . $category_link) . '">';
+          $sLink = '<a href="' . oos_href_link($aContents['shop'], 'category=' . $category_link) . '">';
 
 
           $result .= $this->child_start_string;

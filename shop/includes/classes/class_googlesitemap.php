@@ -284,7 +284,7 @@
          $container = array();
          $number = 0;
          while( $result = $categories_query->fields ) {
-           $location = oos_href_link($aContents['shop'], 'cPath=' . $this->GetFullcPath($result['cID']), 'NONSSL', false, true);
+           $location = oos_href_link($aContents['shop'], 'category=' . $this->GetFullcPath($result['cID']), 'NONSSL', false, true);
            $lastmod = oos_is_not_null($result['last_mod']) ? $result['last_mod'] : $result['date_added'];
 
            $changefreq = GOOGLE_SITEMAP_CAT_CHANGE_FREQ;

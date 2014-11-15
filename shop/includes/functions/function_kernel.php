@@ -821,7 +821,7 @@
   function oos_get_categories($aCategories = '', $parent_id = '0', $indent = '') {
 
     $parent_id = oos_db_prepare_input($parent_id);
-    $nGroupID = intval($_SESSION['member']->group['id']);
+    $nGroupID = isset($_SESSION['member']) ? $_SESSION['member']->group['id']+0 : 1;
 
     if (!is_array($aCategories)) $aCategories = array();
 
@@ -904,7 +904,7 @@
   */
   function oos_get_product_path($products_id) {
 
-    $cPath = '';
+    $sCategory = '';
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -929,14 +929,14 @@
 
       $size = count($categories)-1;
       for ($i = $size; $i >= 0; $i--) {
-        if ($cPath != '') $cPath .= '_';
-        $cPath .= $categories[$i];
+        if ($sCategory != '') $sCategory .= '_';
+        $sCategory .= $categories[$i];
       }
-      if ($cPath != '') $cPath .= '_';
-      $cPath .= $cat_id_data['categories_id'];
+      if ($sCategory != '') $sCategory .= '_';
+      $sCategory .= $cat_id_data['categories_id'];
     }
 
-    return $cPath;
+    return $sCategory;
   }
 
 
@@ -1173,12 +1173,12 @@ function oos_output_string($sStr, $aTranslate = null)
  /**
   * Parse and secure the cPath parameter values
   *
-  * @param $cPath
+  * @param $sCategory
   * @return array
   */
-  function oos_parse_category_path($cPath) {
+  function oos_parse_category_path($sCategory) {
     // make sure the category IDs are integers
-    $aCategoryPath = array_map('oos_string_to_int', explode('_', $cPath));
+    $aCategoryPath = array_map('oos_string_to_int', explode('_', $sCategory));
 
     // make sure no duplicate category IDs exist which could lock the server in a loop
     $aTmp = array();

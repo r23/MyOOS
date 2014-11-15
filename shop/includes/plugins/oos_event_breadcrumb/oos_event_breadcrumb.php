@@ -75,7 +75,7 @@
                              AND categories_languages_id = '" .  intval($nLanguageID) . "'";
           $categories = $dbconn->Execute($categories_sql);
           if ($categories->RecordCount() > 0) {
-            $oBreadcrumb->add($categories->fields['categories_name'], oos_href_link($aContents['shop'], 'cPath=' . implode('_', array_slice($aCategoryPath, 0, ($i+1)))));
+            $oBreadcrumb->add($categories->fields['categories_name'], oos_href_link($aContents['shop'], 'category=' . implode('_', array_slice($aCategoryPath, 0, ($i+1)))));
           } else {
             break;
           }

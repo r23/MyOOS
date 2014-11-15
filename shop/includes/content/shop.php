@@ -29,7 +29,7 @@
 // the following cPath references come from oos_main.php
   $category_depth = 'top';
   $aLang['heading_title'] = $aLang['heading_title_top'];
-  if (isset($cPath) && oos_is_not_null($cPath)) {
+  if (isset($sCategory) && oos_is_not_null($sCategory)) {
     $products_to_categoriestable = $oostable['products_to_categories'];
     $sql = "SELECT COUNT(*) AS total
             FROM $products_to_categoriestable
@@ -62,7 +62,7 @@
     $nPageType = OOS_PAGE_TYPE_CATALOG;
 
     $sGroup = trim($_SESSION['member']->group['text']);
-    $contents_cache_id = $sTheme . '|shop|nested|' . intval($nCurrentCategoryId) . '|' . $cPath . '|' . $sGroup . '|' . $sLanguage;
+    $contents_cache_id = $sTheme . '|shop|nested|' . intval($nCurrentCategoryId) . '|' . $sCategory . '|' . $sGroup . '|' . $sLanguage;
 
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
     if (!isset($option)) {
@@ -97,7 +97,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
         $smarty->assign('oos_meta_description', $category['categories_description_meta']);
       }
 
-      if (isset($cPath) && preg_match('/_/', $cPath)) {
+      if (isset($sCategory) && preg_match('/_/', $sCategory)) {
         // check to see if there are deeper categories within the current category
         $category_links = array_reverse($aCategoryPath);
         for ($i=0, $n=count($category_links); $i<$n; $i++) {
@@ -143,10 +143,10 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
       $categories_box = '';
       while ($categories = $categories_result->fields) {
         $rows++;
-        $cPath_new = oos_get_path($categories['categories_id'], $categories['parent_id'], $categories['gparent_id']);
+        $sCategory_new = oos_get_path($categories['categories_id'], $categories['parent_id'], $categories['gparent_id']);
         $width = (int)(100 / MAX_DISPLAY_CATEGORIES_PER_ROW) . '%';
 
-        $categories_box .= '                <td align="center" class="smallText" style="width: ' . $width . '" valign="top"><a href="' . oos_href_link($aContents['shop'], $cPath_new) . '">';
+        $categories_box .= '                <td align="center" class="smallText" style="width: ' . $width . '" valign="top"><a href="' . oos_href_link($aContents['shop'], $sCategory_new) . '">';
 
         if (oos_is_not_null($categories['categories_image'])) {
           $categories_box .= oos_image(OOS_IMAGES . $categories['categories_image'], $categories['categories_name'], SUBCATEGORY_IMAGE_WIDTH, SUBCATEGORY_IMAGE_HEIGHT) . '<br />';
@@ -197,7 +197,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
     $nFilterID = intval($_GET['filter_id']) ? $_GET['filter_id']+0 : 0;
     $sSort = oos_var_prep_for_os($_GET['sort']);
     $sGroup = trim($_SESSION['member']->group['text']);
-    $contents_cache_id = $sTheme . '|shop|products|' . intval($nCurrentCategoryId) . '|' . $cPath . '|' . $nManufacturersID . '|' . $nPage . '|' . $nFilterID . '|' . $sGroup . '|' . $sLanguage;
+    $contents_cache_id = $sTheme . '|shop|products|' . intval($nCurrentCategoryId) . '|' . $sCategory . '|' . $nManufacturersID . '|' . $nPage . '|' . $nFilterID . '|' . $sGroup . '|' . $sLanguage;
 
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
     if (!isset($option)) {
@@ -517,7 +517,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
             $manufacturers_id = intval($_GET['manufacturers_id']);
             $arguments = 'manufacturers_id=' . intval($manufacturers_id);
           } else {
-            $arguments = 'cPath=' . $cPath;
+            $arguments = 'category=' . $sCategory;
           }
           $arguments .= '&amp;sort=' . $_GET['sort'];
 

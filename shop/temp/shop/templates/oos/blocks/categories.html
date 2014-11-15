@@ -10,7 +10,11 @@
         <td width="2" class="block_content_backgr_left"></td>
         <td width="150"><table width="150" border="0" cellspacing="0" cellpadding="3">
           <tr>
-            <td valign="top" class="block_content">{if $categories_isscroll == 0}{foreach item=category from=$categories_contents}{include file="$theme_set/blocks/category.html"}{/foreach}{else}{include file="default/blocks/categories_scroll.html"}{/if}</td>
+            <td valign="top" class="block_content">
+			{foreach item=category from=$categories_contents}
+				{include file="$theme_set/blocks/category.html"}
+			{/foreach}
+			</td>
           </tr>
         </table></td>
         <td width="2" class="block_content_backgr_right"></td>

@@ -489,9 +489,6 @@ define('SHOW_DATE_ADDED_AVAILABLE_DESC', 'M&ouml;chten Sie im Shop das Datum von
 define('SHOW_COUNTS_TITLE', 'Artikelanzahl hinter den Kategorienamen');
 define('SHOW_COUNTS_DESC', 'Anzeigen, wieviele Produkte in jeder Kategorie vorhanden sind');
 
-define('CATEGORIES_BOX_SCROLL_LIST_ON_TITLE', 'Kategorien-Auswahlliste');
-define('CATEGORIES_BOX_SCROLL_LIST_ON_DESC', 'M&ouml;chten Sie die Kategorien als Auswahlliste anzeigen?');
-
 define('CATEGORIES_SCROLL_BOX_LEN_TITLE', 'Kategorie-Menge');
 define('CATEGORIES_SCROLL_BOX_LEN_DESC', 'Wenn Sie die Kategorien als Auswahlliste anzeigen wollen, legen Sie hier die L&auml;nge fest');
 

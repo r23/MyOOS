@@ -38,9 +38,9 @@
     if (oos_is_not_null($current_category_id)) {
       $cp_size = count($aCategoryPath);
       if ($cp_size == 0) {
-        $cPath_new = $current_category_id;
+        $sCategory_new = $current_category_id;
       } else {
-        $cPath_new = '';
+        $sCategory_new = '';
         if (oos_empty($parent_id) || oos_empty($gparent_id) ) {
           $categoriestable = $oostable['categories'];
           $query = "SELECT c.parent_id, p.parent_id as gparent_id
@@ -55,24 +55,24 @@
         }
         if ($parent_id == $gparent_id) {
           for ($i=0; $i < ($cp_size - 1); $i++) {
-            $cPath_new .= '_' . $aCategoryPath[$i];
+            $sCategory_new .= '_' . $aCategoryPath[$i];
           }
         } else {
           for ($i=0; $i < $cp_size; $i++) {
-            $cPath_new .= '_' . $aCategoryPath[$i];
+            $sCategory_new .= '_' . $aCategoryPath[$i];
           }
         }
-        $cPath_new .= '_' . $current_category_id;
+        $sCategory_new .= '_' . $current_category_id;
 
-        if (substr($cPath_new, 0, 1) == '_') {
-          $cPath_new = substr($cPath_new, 1);
+        if (substr($sCategory_new, 0, 1) == '_') {
+          $sCategory_new = substr($sCategory_new, 1);
         }
       }
     } else {
-      $cPath_new = implode('_', $aCategoryPath);
+      $sCategory_new = implode('_', $aCategoryPath);
     }
 
-    return 'cPath=' . $cPath_new;
+    return 'category=' . $sCategory_new;
   }
 
 

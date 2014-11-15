@@ -65,9 +65,9 @@
   // add the products model or products_name to the breadcrumb trail
   // links breadcrumb
   if (SHOW_PRODUCTS_MODEL == 'true') {
-    $oBreadcrumb->add($reviews['products_model'], oos_href_link($aContents['product_info'], 'cPath=' . $cPath . '&amp;products_id=' . $reviews['products_id']));
+    $oBreadcrumb->add($reviews['products_model'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $reviews['products_id']));
   } else {
-    $oBreadcrumb->add($reviews['products_name'], oos_href_link($aContents['product_info'], 'cPath=' . $cPath . '&amp;products_id=' . $reviews['products_id']));
+    $oBreadcrumb->add($reviews['products_name'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $reviews['products_id']));
   }
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['product_reviews'], $get_parameters));
 

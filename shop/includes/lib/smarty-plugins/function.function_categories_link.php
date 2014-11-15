@@ -15,8 +15,8 @@
  * Input:<br>
  *         - cPath
  *
- * Examples: {categories_link cPath=17}
- * Output:   http:// ... index.php?content=shop&amp;cPath=17
+ * Examples: {categories_link category=17}
+ * Output:   http:// ... index.php?content=shop&amp;category=17
  * @author   r23 <info@r23.de>
  * @version  1.0
  * @param array

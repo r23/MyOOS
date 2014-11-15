@@ -121,9 +121,9 @@
 
     // links breadcrumb
     if (SHOW_PRODUCTS_MODEL == 'true') {
-      $oBreadcrumb->add($product_info['products_model'], oos_href_link($aContents['product_info'], 'cPath=' . $cPath . '&amp;products_id=' . $nProductsId));
+      $oBreadcrumb->add($product_info['products_model'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $nProductsId));
     } else {
-      $oBreadcrumb->add($product_info['products_name'], oos_href_link($aContents['product_info'], 'cPath=' . $cPath . '&amp;products_id=' . $nProductsId));
+      $oBreadcrumb->add($product_info['products_name'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $nProductsId));
     }
 
 

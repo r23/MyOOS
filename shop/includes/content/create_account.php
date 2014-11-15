@@ -26,6 +26,7 @@
 
 // start the session
 if ( is_session_started() === FALSE ) oos_session_start();    
+
   
   // links breadcrumb
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['create_account']));
@@ -50,6 +51,9 @@ if ( is_session_started() === FALSE ) oos_session_start();
     require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
+  
+
+  
   $read = 'false';
   $smarty->assign('read', $read); 
   $smarty->assign('oos_js', $javascript);
