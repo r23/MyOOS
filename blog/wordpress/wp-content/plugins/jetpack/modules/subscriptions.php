@@ -654,9 +654,14 @@ class Jetpack_Subscriptions_Widget extends WP_Widget {
 
 		<script>
 			( function( d ) {
-				var i = d.createElement('input');
-				if ( 'placeholder' in i && d.getElementById( 'jetpack-subscribe-label' ).length > 0 ) {
-					d.getElementById( 'jetpack-subscribe-label' ).style.visibility = 'hidden';
+				if ( ( 'placeholder' in d.createElement( 'input' ) ) ) {
+					var label = d.getElementById( 'jetpack-subscribe-label' );
+ 					label.style.clip 	 = 'rect(1px, 1px, 1px, 1px)';
+ 					label.style.position = 'absolute';
+ 					label.style.height   = '1px';
+ 					label.style.width    = '1px';
+ 					label.style.overflow = 'hidden';
+ 						
 				}
 			} ) ( document );
 		</script>

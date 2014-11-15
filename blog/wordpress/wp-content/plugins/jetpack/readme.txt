@@ -1,7 +1,7 @@
 === Jetpack by WordPress.com ===
 Contributors: automattic, alternatekev, andy, apeatling, azaozz, barry, beaulebens, blobaugh, cfinke, chellycat, danielbachhuber, daniloercoli, designsimply, dsmart, eoigal, ethitter, gibrown, georgestephanis, hew, hugobaeta, iammattthomas, jblz, jeherve, jkudish, Joen, johnjamesjacoby, jshreve, kraftbj, lancewillett, martinremy, matt, matveb, maverick3x6, mcsf, mdawaffe, migueluy, nickmomrik, obenland, pento, professor44, richardmtl, roccotripaldi, sdquirk, stephdau, tmoorewp, Viper007Bond, westi, yoavf
 Tags: WordPress.com, statistics, stats, views, tweets, twitter, widget, gravatar, hovercards, profile, equations, latex, math, maths, youtube, shortcode, archives, audio, blip, bliptv, dailymotion, digg, flickr, googlevideo, google, googlemaps, kyte, kytetv, livevideo, redlasso, rockyou, rss, scribd, slide, slideshare, soundcloud, vimeo, shortlinks, wp.me, subscriptions, notifications, notes, json, api, rest, mosaic, gallery, slideshow, videopress, monitor, search, omnisearch, sso, jet pack
-Stable tag: 3.2
+Stable tag: 3.2.1
 Requires at least: 3.8
 Tested up to: 4.0
 
@@ -100,6 +100,21 @@ Learn more (and get detailed instructions) in our [contribute guide](http://jetp
 
 == Changelog ==
 
+= 3.2.1 =
+Release Date: November 14th, 2014
+
+* Enhancement: Updated translation files.
+* Enhancement: JSON API: More object vars passed back to some queries. Documentation on http://developer.wordpress.com/
+* Bug Fix: JSON API: Pass back correct author in `me/posts` data.
+* Bug Fix: JSON API: Don't check if a post is freshly pressed on remote Jetpack sites where the function doesn't exist.
+* Bug Fix: Site Logo: Add backward-compatible template tags to match the standalone release.
+* Bug Fix: Don't use __DIR__ -- it's 5.3+ only, and WordPress supports back to 5.2.
+* Bug Fix: Retool how we remove the source styles when using the concatenated version.
+* Bug Fix: Shortcodes: TED: Correct default language code from `eng` to `en`.
+* Bug Fix: Gallery Widget: Add a default background color.
+* Bug Fix: Subscription Notifications: Remove the label.
+* Bug Fix: Sharing: enqueue Genericons on static front page as well if selected.
+
 = 3.2 =
 Release Date: October 29, 2014
 
@@ -108,7 +123,6 @@ Release Date: October 29, 2014
 * Enhancement: Improvements to API endpoints.
 * Enhancement: Add oEmbed sources (Twitter, SoundCloud, Instagram, DailyMotion, Vine).
 * Enhancement: Add indicators to make it easier to see which modules are active.
-* Enhancement: Add custom post type: Testimonials.
 * Enhancement: Improve debug tool.
 * Enhancement: Add new 'Site Logos' code to theme tools, for themes that opt in to support it.
 * Enhancement: Improved caching for related posts.
@@ -116,8 +130,9 @@ Release Date: October 29, 2014
 * Enhancement: Improved accessibility.
 * Enhancement: Added additional filters to Widget Visibility.
 * Bug Fix: Fixed PHP Notice errors for Likes, Widget Visibility.
+* Bug Fix: Improvements to the testimonials CPT.
 * Bug Fix: Improved RTL on VideoPress admin.
-* Bug Fix: Removed Google+ module (discontinued by Google).
+* Bug Fix: Removed Google+ Authorship module (discontinued by Google).
 * Bug Fix: Fixed use of deprecated function in mobile theme.
 * Bug Fix: Various fixes to Tiled Galleries.
 * Bug Fix: Various fixes to Contact Form.
