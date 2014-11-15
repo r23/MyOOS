@@ -116,7 +116,7 @@
     $result = $dbconn->Execute($query);
 
     if ($result->RecordCount()) {
-	  $sub_boxes = '<a href="' . oos_href_link_admin($aContents[$filename], $parameters) . '" title="' . $sub_box_name . '">' . $sub_box_name . '</a><br>';
+	  $sub_boxes = '<a href="' . oos_href_link_admin($aContents[$filename], $parameters) . '" class="menuBoxContentLink" title="' . $sub_box_name . '">' . $sub_box_name . '</a><br>';
     }
 
     // Close result set

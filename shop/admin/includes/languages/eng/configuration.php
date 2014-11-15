@@ -652,68 +652,8 @@ define('OOS_META_INDEX_PAGE_DESC', 'M&ouml;chten Sie eine Index-Seite mit allen 
 define('OOS_META_INDEX_PATH_TITLE', 'Path to IndexSite');
 define('OOS_META_INDEX_PATH_DESC', 'Path to store File for Spider');
 
-define('ADMIN_CONFIG_KEYWORD_SHOW_TITLE', 'Keyword Show (ADMIN)');
-define('ADMIN_CONFIG_KEYWORD_SHOW_DESC', 'Check searches from your own IP address ? (each search will be displayed)');
-
-define('OOS_CONFIG_KEYWORD_SHOW_TITLE', 'Keyword Show Visitors');
-define('OOS_CONFIG_KEYWORD_SHOW_DESC', 'Check the Customers/Guests searches ? (each search will be displayed)');
-
-define('CONFIG_KEYWORD_SHOW_EXCLUDED_TITLE', 'Keyword Show (exclude this IP-Address)');
-define('CONFIG_KEYWORD_SHOW_EXCLUDED_DESC', 'Your own IP Address, can be excluded through ADMIN<br>(like webmaster/owners/Beta-testers)');
-
-define('KEYWORD_SHOW_LOG_PATH_TITLE', 'Keyword Show (absolute path to your logfile)');
-define('KEYWORD_SHOW_LOG_PATH_DESC', 'Put here absolute path to your logfile, include the name of logfile<br>(non-compressed or compressed,.gz logfile)');
-
-define('ENABLE_LINKS_COUNT_TITLE', 'Click Count');
-define('ENABLE_LINKS_COUNT_DESC', 'Enable links click count.');
-
-define('ENABLE_SPIDER_FRIENDLY_LINKS_TITLE', 'Spider Friendly Links');
-define('ENABLE_SPIDER_FRIENDLY_LINKS_DESC', 'Enable spider friendly links (recommended).');
-
-define('LINKS_IMAGE_WIDTH_TITLE', 'Links Image Width');
-define('LINKS_IMAGE_WIDTH_DESC', 'Maximum width of the links image.');
-
-define('LINKS_IMAGE_HEIGHT_TITLE', 'Links Image Height');
-define('LINKS_IMAGE_HEIGHT_DESC', 'Maximum height of the links image.');
-
-define('LINK_LIST_IMAGE_TITLE', 'Display Link Image');
-define('LINK_LIST_IMAGE_DESC', 'Do you want to display the Link Image?');
-
-define('LINK_LIST_URL_TITLE', 'Display Link URL');
-define('LINK_LIST_URL_DESC', 'Do you want to display the Link URL?');
-
-define('LINK_LIST_TITLE_TITLE', 'Display Link Title');
-define('LINK_LIST_TITLE_DESC', 'Do you want to display the Link Title?');
-
-define('LINK_LIST_DESCRIPTION_TITLE', 'Display Link Description');
-define('LINK_LIST_DESCRIPTION_DESC', 'Do you want to display the Link Description?');
-
-define('LINK_LIST_COUNT_TITLE', 'Display Link Click Count');
-define('LINK_LIST_COUNT_DESC', 'Do you want to display the Link Click Count?');
-
-define('ENTRY_LINKS_TITLE_MIN_LENGTH_TITLE', 'Link Title Minimum Length');
-define('ENTRY_LINKS_TITLE_MIN_LENGTH_DESC', 'Minimum length of link title.');
-
-define('ENTRY_LINKS_URL_MIN_LENGTH_TITLE', 'Link URL Minimum Length');
-define('ENTRY_LINKS_URL_MIN_LENGTH_DESC', 'Minimum length of link URL.');
-
-define('ENTRY_LINKS_DESCRIPTION_MIN_LENGTH_TITLE', 'Link Description Minimum Length');
-define('ENTRY_LINKS_DESCRIPTION_MIN_LENGTH_DESC', 'Minimum length of link description.');
-
-define('ENTRY_LINKS_CONTACT_NAME_MIN_LENGTH_TITLE', 'Link Contact Name Minimum Length');
-define('ENTRY_LINKS_CONTACT_NAME_MIN_LENGTH_DESC', 'Minimum length of link contact name.');
-
-define('LINKS_CHECK_PHRASE_TITLE', 'Links Check Phrase');
-define('LINKS_CHECK_PHRASE_DESC', 'Phrase to look for, when you perform a link check.');
-
-define('DISPLAY_NEWSFEED_TITLE', 'Newsfeed anbieten');
-define('DISPLAY_NEWSFEED_DESC', 'M&ouml;chten Sie Ihren Kunden RDF/RSS Newsfeed anbieten?');
-
 define('MULTIPLE_CATEGORIES_USE_TITLE', 'Use Multiple Categories');
 define('MULTIPLE_CATEGORIES_USE_DESC', 'Set to true or false in order to add product to multiple categories with one click.');
-
-define('OOS_SPAW_TITLE', 'SPAW PHP WYSIWYG Editor');
-define('OOS_SPAW_DESC', 'SPAW PHP WYSIWYG bei der Datenerfassung verwenden?');
 
 define('SLAVE_LIST_IMAGE_TITLE', 'Display Slave Image');
 define('SLAVE_LIST_IMAGE_DESC', 'Do you want to display the Product Image?');
@@ -739,53 +679,3 @@ define('SLAVE_LIST_WEIGHT_DESC', 'Do you want to display the Product Weight?');
 define('SLAVE_LIST_BUY_NOW_TITLE', 'Display Buy Now column');
 define('SLAVE_LIST_BUY_NOW_DESC', 'Do you want to display the Buy Now column?');
 
-define('RCS_BASE_DAYS_TITLE', 'Look back days');
-define('RCS_BASE_DAYS_DESC', 'Number of days to look back from today for abandoned cards.');
-
-define('RCS_REPORT_DAYS_TITLE', 'Sales Results Report days');
-define('RCS_REPORT_DAYS_DESC', 'Number of days the sales results report takes into account. The more days the longer the SQL queries!.');
-
-define('RCS_EMAIL_TTL_TITLE', 'E-Mail time to live');
-define('RCS_EMAIL_TTL_DESC', 'Number of days to give for emails before they no longer show as being sent');
-
-define('RCS_EMAIL_FRIENDLY_TITLE', 'Friendly E-Mails');
-define('RCS_EMAIL_FRIENDLY_DESC', 'If <b>true</b> then the customer\'s name will be used in the greeting. If <b>false</b> then a generic greeting will be used.');
-
-define('RCS_SHOW_ATTRIBUTES_TITLE', 'Show Attributes');
-define('RCS_SHOW_ATTRIBUTES_DESC', 'Controls display of item attributes.<br><br>Some sites have attributes for their items.<br><br>Set this to <b>true</b> if yours does and you want to show them, otherwise set to <b>false</b>.');
-
-define('RCS_CHECK_SESSIONS_TITLE', 'Ignore Customers with Sessions');
-define('RCS_CHECK_SESSIONS_DESC', 'If you want the tool to ignore customers with an active session (ie, probably still shopping) set this to <b>true</b>.<br><br>Setting this to <b>false</b> will operate in the default manner of ignoring session data &amp; using less resources');
-
-define('RCS_CURCUST_COLOR_TITLE', 'Current Customer Hilight');
-define('RCS_CURCUST_COLOR_DESC', 'Color for the word/phrase used to notate a current customer<br><br>A current customer is someone who has purchased items from your store in the past.');
-
-define('RCS_UNCONTACTED_COLOR_TITLE', 'Uncontacted hilight Hilight');
-define('RCS_UNCONTACTED_COLOR_DESC', 'Row highlight color for uncontacted customers.<br><br>An uncontacted customer is one that you have <i>not</i> used this tool to send an email to before.');
-
-define('RCS_CONTACTED_COLOR_TITLE', 'Contacted hilight Hilight');
-define('RCS_CONTACTED_COLOR_DESC', 'Row highlight color for contacted customers.<br><br>An contacted customer is one that you <i>have</i> used this tool to send an email to before.');
-
-define('RCS_MATCHED_ORDER_COLOR_TITLE', 'Matching Order Hilight');
-define('RCS_MATCHED_ORDER_COLOR_DESC', 'Row highlight color for entrees that may have a matching order.<br><br>An entry will be marked with this color if an order contains one or more of an item in the abandoned cart <b>and</b> matches either the cart\'s customer email address or database ID.');
-
-define('RCS_SKIP_MATCHED_CARTS_TITLE', 'Skip Carts w/Matched Orders');
-define('RCS_SKIP_MATCHED_CARTS_DESC', 'To ignore carts with an a matching order set this to <b>true</b>.<br><br>Setting this to <b>false</b> will cause entries with a matching order to show, along with the matching order\'s status.<br><br>See documentation for details.');
-
-define('RCS_PENDING_SALE_STATUS_TITLE', 'Lowest Pending sales status');
-define('RCS_PENDING_SALE_STATUS_DESC', 'The highest value that an order can have and still be considered pending. Any value higher than this will be considered by RCS as sale which completed.<br><br>See documentation for details.');
-
-define('RCS_REPORT_EVEN_STYLE_TITLE', 'Report Even Row Style');
-define('RCS_REPORT_EVEN_STYLE_DESC', 'Style for even rows in results report. Typical options are <i>dataTableRow</i> and <i>attributes-even</i>.');
-
-define('RCS_REPORT_ODD_STYLE_TITLE', 'Report Odd Row Style');
-define('RCS_REPORT_ODD_STYLE_DESC', 'Style for odd rows in results report. Typical options are NULL (ie, no entry) and <i>attributes-odd</i>.');
-
-define('RCS_EMAIL_COPIES_TO_TITLE', 'E-Mail Copies to');
-define('RCS_EMAIL_COPIES_TO_DESC', 'If you want copies of emails that are sent to customers by this contribution, enter the email address here. If empty no copies are sent');
-
-define('RCS_AUTO_CHECK_TITLE', 'Autocheck "safe" carts to email');
-define('RCS_AUTO_CHECK_DESC', 'To check entries which are most likely safe to email (ie, not existing customers, not previously emailed, etc.) set this to <b>true</b>.<br><br>Setting this to <b>false</b> will leave all entries unchecked (you will have to check each entry you want to send an email for).');
-
-define('RCS_CARTS_MATCH_ALL_DATES_TITLE', 'Match orders from any date');
-define('RCS_CARTS_MATCH_ALL_DATES_DESC', 'If <b>true</b> then any order found with a matching item will be considered a matched order.<br><br>If <b>false</b> only orders placed after the abandoned cart are considered.');
