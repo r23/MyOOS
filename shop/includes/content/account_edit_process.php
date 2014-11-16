@@ -220,8 +220,8 @@
     $javascript = ob_get_contents();
     ob_end_clean();
 
-    $aOption['template_main'] = $sTheme . '/modules/user_account_edit_process.html';
-    $aOption['page_heading'] = $sTheme . '/heading/page_heading.html';
+    $aTemplate['page'] = $sTheme . '/page/user_account_edit_process.html';
+    $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
     $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
@@ -301,7 +301,6 @@
         array(
             'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'oos_heading_title' => $aLang['heading_title'],
-            'oos_heading_image' => 'account.gif',
 
             'email_address'     => $email_address,
             'show_password'     => $show_password
@@ -312,10 +311,10 @@
     $smarty->assign('newsletter_ids', array(0,1));
     $smarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));
 
-    $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
-    $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
+    $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
+  
 
-    require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+  $smarty->display($aTemplate['page']);
   } else {
     $new_encrypted_password = oos_encrypt_password($password);
     $sql_data_array = array('customers_firstname' => $firstname,

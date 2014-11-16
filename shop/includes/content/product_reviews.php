@@ -75,9 +75,9 @@
   }
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['product_reviews'], $get_params));
 
-  $aOption['template_main'] = $sTheme . '/modules/product_reviews.html';
-  $aOption['page_heading'] = $sTheme . '/heading/page_heading.html';
-  $aOption['page_navigation'] = $sTheme . '/heading/page_navigation.html';
+  $aTemplate['page'] = $sTheme . '/page/product_reviews.html';
+  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
+  $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.html';
 
   $nPageType = OOS_PAGE_TYPE_REVIEWS;
 
@@ -91,15 +91,14 @@
       array(
           'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'oos_heading_title' => sprintf($aLang['heading_title'], $product_info['products_name']),
-          'oos_heading_image' => 'reviews.gif',
 
           'oos_reviews_array' => $aReviews
       )
   );
 
-  $smarty->assign('oosPageNavigation', $smarty->fetch($aOption['page_navigation']));
-  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
-  $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
+  $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation']));
+  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
+
 
   // display the template
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+$smarty->display($aTemplate['page']);

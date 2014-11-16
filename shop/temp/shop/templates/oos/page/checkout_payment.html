@@ -1,0 +1,278 @@
+{include file="oos/system/_header.tpl"}
+
+<form name="checkout_payment" action="{html_href_link content=$filename.checkout_confirmation connection=SSL}" method="post" onsubmit="return check_form();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+{if $oos_payment_error eq 'true'}
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main"><b>{$error.title}</b></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBoxNotice">
+          <tr class="infoBoxNoticeContents">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+                <td class="main" width="100%" valign="top">{$error.error}</td>
+                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+{/if}
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main"><b>{$lang.table_heading_billing_address}</b></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr class="oos-BoxContents">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+                <td class="main" width="50%" valign="top">{$lang.text_selected_billing_destination}<br><br><a href="{html_href_link content=$filename.checkout_payment_address connection=SSL}">{html_image_button image="change_address.gif" alt=$lang.image_button_change_address}</a></td>
+                <td align="right" width="50%" valign="top"><table border="0" cellspacing="0" cellpadding="2">
+                  <tr>
+                    <td class="main" align="center" valign="top"><b>{$lang.title_billing_address}</b><br><img src="{$theme_image}/arrow_south_east.gif" border="0" alt=" " width="50" height="31"></td>
+                    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+                    <td class="main" valign="top">{oos_address_label customers_id=$smarty.session.customer_id address_id=$smarty.session.billto}</td>
+                    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main"><b>{$lang.table_heading_payment_method}</b></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr class="oos-BoxContents">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+{if sizeof($selection) > 1 }
+              <tr>
+                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+                <td class="main" width="50%" valign="top">{$lang.text_select_payment_method}</td>
+                <td class="main" width="50%" valign="top" align="right"><b>{$lang.title_please_select}</b><br><img src="{$theme_image}/arrow_east_south.gif" border="0" alt=" " width="40" height="32"></td>
+                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+              </tr>
+{else}
+              <tr>
+                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+                <td class="main" width="100%" colspan="2">{$lang.text_enter_payment_information}</td>
+                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+              </tr>
+{/if}
+  {section name=i loop=$selection}
+              <tr>
+                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+                <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    {if ( ($selection[i].id eq $smarty.session.payment) || ($smarty.section.i.total eq 1) ) }
+                  <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, {$smarty.section.i.rownum})">
+    {else}
+                  <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, {$smarty.section.i.rownum})">
+    {/if}
+                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+                    <td class="main" colspan="3"><b>{$selection[i].module}</b></td>
+                    <td class="main" align="right">
+    {if sizeof($selection) > 1 }
+      <input type="radio" name="payment" value="{$selection[i].id}" {if $selection[i].id eq $smarty.session.payment}checked{/if} >
+    {else}
+      <input type="hidden" name="payment" value="{$selection[i].id}">
+    {/if}
+
+                    </td>
+                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+                  </tr>
+    {if isset($selection[i].error)}
+                  <tr>
+                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+                    <td class="main" colspan="4">{$selection[i].error}</td>
+                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+                  </tr>
+    {else}
+
+                  <tr>
+                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+                    <td colspan="4"><table border="0" cellspacing="0" cellpadding="2">
+      {section name=n loop=$selection[i].fields}
+                      <tr>
+                        <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+                        <td class="main">{$selection[i].fields[n].title}</td>
+                        <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+                        <td class="main">{$selection[i].fields[n].field}</td>
+                        <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+                      </tr>
+      {/section}
+                    </table></td>
+                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+                  </tr>
+
+    {/if}
+                </table></td>
+                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+              </tr>
+  {/section}
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+{$credit_selection}
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main"><b>{$lang.table_heading_comments}</b></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr class="oos-BoxContents">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+             <tr>
+               <td>
+<span id="spell_container" style="background-color: #ddd"></span><br>
+<textarea id="tal" name="comments" class="textarea">{$smarty.session.comments|stripslashes}</textarea>
+               </td>
+             </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+{if $campaigns eq 'true'}
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main"><b>{$lang.table_heading_campaigns}</b></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr class="oos-BoxContents">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+{oos_radios name="campaign_id" options=$campaigns_radios selected=$campaigns_id}
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+{/if}
+{if $smarty.const.DISPLAY_CONDITIONS_ON_CHECKOUT eq 'true'}
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main"><b>{$lang.heading_conditions_information}</b></td>
+          </tr>
+        </table></td>
+      </tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr>
+            <td><div class="license-form">
+               <div align="middle"  class="form-block" style="padding: 0px;">
+              {html_iframe doc="conditions.html" class="license" frameborder="0" scrolling="auto"}
+              </div>
+              </div>
+              </td>
+          </tr>
+          <tr class="oos-BoxContents">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="main" valign="top"><input type="checkbox" name="conditions" id="1"></td>
+                <td class="main" onClick="javascript:document.getElementById('1').checked= !document.getElementById('1').checked;">{$lang.text_conditions_confirm}</td>
+                <td class="main" align="right"><a href="{$condition_link}" target="_blank"><b>{$lang.text_conditions_download}</b></a></td>
+                <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+{/if}
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr class="oos-BoxContents">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+                <td class="main"><b>{$lang.title_continue_checkout_procedure}</b><br>{$lang.text_continue_checkout_procedure}</td>
+                <td class="main" align="right">{html_image_submit image="continue.gif" alt=$lang.image_button_continue}</td>
+                <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="25%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="50%" align="right"><img src="{$theme_image}/pixel_silver.gif" border="0" alt=" " width="1" height="5"></td>
+                <td width="50%"><img src="{$theme_image}/pixel_silver.gif" border="0" alt=" " width="100%" height="1"></td>
+              </tr>
+            </table></td>
+            <td width="25%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="50%"><img src="{$theme_image}/pixel_silver.gif" border="0" alt=" " width="100%" height="1"></td>
+                <td><img src="{$theme_image}/checkout_bullet.gif" border="0" alt=" " width="11" height="11"></td>
+                <td width="50%"><img src="{$theme_image}/pixel_silver.gif" border="0" alt=" " width="100%" height="1"></td>
+              </tr>
+            </table></td>
+            <td width="25%"><img src="{$theme_image}/pixel_silver.gif" border="0" alt=" " width="100%" height="1"></td>
+            <td width="25%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="50%"><img src="{$theme_image}/pixel_silver.gif" border="0" alt=" " width="100%" height="1"></td>
+                <td width="50%"><img src="{$theme_image}/pixel_silver.gif" border="0" alt=" " width="1" height="5"></td>
+              </tr>
+            </table></td>
+          </tr>
+          <tr>
+            <td align="center" width="25%" class="checkoutBarFrom"><a href="{html_href_link content=$filename.checkout_shipping connection=SSL}" class="checkoutBarFrom">{$lang.checkout_bar_delivery}</a></td>
+            <td align="center" width="25%" class="checkoutBarCurrent">{$lang.checkout_bar_payment}</td>
+            <td align="center" width="25%" class="checkoutBarTo">{$lang.checkout_bar_confirmation}</td>
+            <td align="center" width="25%" class="checkoutBarTo">{$lang.checkout_bar_finished}</td>
+          </tr>
+        </table></td>
+      </tr>
+    </table>
+    </form>
+
+{include file="oos/system/_footer.tpl"}

@@ -19,7 +19,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  $aOption['info_shopping_cart'] = $sTheme . '/system/info_shopping_cart.html';
+  $aTemplate['info_shopping_cart'] = $sTheme . '/system/info_shopping_cart.html';
 
   //smarty
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
@@ -28,7 +28,7 @@
   $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
   $info_shopping_cart_id = $sTheme . '|info_shopping_cart|' . $sLanguage;
 
-  if (!$smarty->isCached($aOption['info_shopping_cart'], $info_shopping_cart_id )) {
+  if (!$smarty->isCached($aTemplate['info_shopping_cart'], $info_shopping_cart_id )) {
     require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/main_info_shopping_cart.php';
 
     // assign Smarty variables;
@@ -39,5 +39,5 @@
   }
 
   // display the template
-  $smarty->display($aOption['info_shopping_cart'], $info_shopping_cart_id);
+  $smarty->display($aTemplate['info_shopping_cart'], $info_shopping_cart_id);
 

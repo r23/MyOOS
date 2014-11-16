@@ -286,5 +286,4 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_boxes.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_coupon.php';
 
-$aOption = array();
 

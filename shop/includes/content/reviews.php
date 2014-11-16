@@ -40,9 +40,9 @@
     return count($aTemp);
   }
 
-  $aOption['template_main'] = $sTheme . '/modules/reviews.html';
-  $aOption['page_heading'] = $sTheme . '/heading/page_heading.html';
-  $aOption['page_navigation'] = $sTheme . '/heading/page_navigation.html';
+  $aTemplate['page'] = $sTheme . '/page/reviews.html';
+  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
+  $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.html';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
 
@@ -60,7 +60,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
 
-  if (!$smarty->isCached($aOption['template_main'], $contents_cache_id)) {
+  if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
     require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/reviews.php';
 
     $reviewstable  = $oostable['reviews'];
@@ -102,7 +102,6 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
         array(
             'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'oos_heading_title' => $aLang['heading_title'],
-            'oos_heading_image' => 'specials.gif',
 
             'oos_page_split'    => $reviews_split->display_count($reviews_numrows, MAX_DISPLAY_NEW_REVIEWS, $_GET['page'], $aLang['text_display_number_of_reviews']),
             'oos_display_links' => $reviews_split->display_links($reviews_numrows, MAX_DISPLAY_NEW_REVIEWS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),
@@ -112,10 +111,10 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
         )
     );
   }
-  $smarty->assign('oosPageNavigation', $smarty->fetch($aOption['page_navigation'], $contents_cache_id));
-  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading'], $contents_cache_id));
-  $smarty->assign('contents', $smarty->fetch($aOption['template_main'], $contents_cache_id));
+  $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation'], $contents_cache_id));
+  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading'], $contents_cache_id));
+  
   $smarty->setCaching(false);
 
   // display the template
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+$smarty->display($aTemplate['page']);

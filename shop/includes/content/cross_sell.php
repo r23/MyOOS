@@ -37,8 +37,8 @@
     // product not found
     $aLang['text_information'] = $aLang['text_product_not_found'];
 
-    $aOption['template_main'] = $sTheme . '/system/info.html';
-    $aOption['page_heading'] = $sTheme . '/heading/page_heading.html';
+    $aTemplate['page'] = $sTheme . '/page/info.html';
+    $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
     $nPageType =OOS_PAGE_TYPE_PRODUCTS;
 
@@ -52,8 +52,7 @@
     $smarty->assign(
         array(
             'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-            'oos_heading_title' => $aLang['text_product_not_found'],
-            'oos_heading_image' => 'specials.gif'
+            'oos_heading_title' => $aLang['text_product_not_found']
         )
     );
 
@@ -67,12 +66,12 @@
       $oBreadcrumb->add($product_info['products_name'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $nProductsId));
     }
 
-    $aOption['template_main'] = $sTheme . '/products/cross_sell_products.html';
-    $aOption['also_purchased_products'] = $sTheme . '/products/also_purchased_products.html';
-    $aOption['history_products'] = $sTheme . '/products/history_products.html';
-    $aOption['xsell_products'] = $sTheme . '/products/xsell_products.html';
-    $aOption['up_sell_products'] = $sTheme . '/products/up_sell_products.html';
-    $aOption['featured'] = $sTheme . '/modules/products/featured.html';
+    $aTemplate['page'] = $sTheme . '/products/cross_sell_products.html';
+    $aTemplate['also_purchased_products'] = $sTheme . '/products/also_purchased_products.html';
+    $aTemplate['history_products'] = $sTheme . '/products/history_products.html';
+    $aTemplate['xsell_products'] = $sTheme . '/products/xsell_products.html';
+    $aTemplate['up_sell_products'] = $sTheme . '/products/up_sell_products.html';
+    $aTemplate['featured'] = $sTheme . '/page/products/featured.html';
 
     $nPageType = OOS_PAGE_TYPE_PRODUCTS;
 
@@ -91,32 +90,32 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
 
-    if (!$smarty->isCached($aOption['xsell_products'], $oos_products_info_cache_id)) {
+    if (!$smarty->isCached($aTemplate['xsell_products'], $oos_products_info_cache_id)) {
       require_once MYOOS_INCLUDE_PATH . '/includes/modules/xsell_products.php';
     }
-    $smarty->assign('xsell_products', $smarty->fetch($aOption['xsell_products'], $oos_products_info_cache_id));
+    $smarty->assign('xsell_products', $smarty->fetch($aTemplate['xsell_products'], $oos_products_info_cache_id));
 
-    if (!$smarty->isCached($aOption['up_sell_products'], $oos_products_info_cache_id)) {
+    if (!$smarty->isCached($aTemplate['up_sell_products'], $oos_products_info_cache_id)) {
       require_once MYOOS_INCLUDE_PATH . '/includes/modules/up_sell_products.php';
     }
-    $smarty->assign('up_sell_products', $smarty->fetch($aOption['up_sell_products'], $oos_products_info_cache_id));
+    $smarty->assign('up_sell_products', $smarty->fetch($aTemplate['up_sell_products'], $oos_products_info_cache_id));
 
-    if (!$smarty->isCached($aOption['also_purchased_products'], $oos_products_info_cache_id)) {
+    if (!$smarty->isCached($aTemplate['also_purchased_products'], $oos_products_info_cache_id)) {
       require_once MYOOS_INCLUDE_PATH . '/includes/modules/also_purchased_products.php';
       $smarty->assign('oos_also_purchased_array', $aPurchased);
     }
-    $smarty->assign('also_purchased_products', $smarty->fetch($aOption['also_purchased_products'], $oos_products_info_cache_id));
+    $smarty->assign('also_purchased_products', $smarty->fetch($aTemplate['also_purchased_products'], $oos_products_info_cache_id));
 
-    if (!$smarty->isCached($aOption['featured'], $oos_modules_cache_id)) {
+    if (!$smarty->isCached($aTemplate['featured'], $oos_modules_cache_id)) {
       require_once MYOOS_INCLUDE_PATH . '/includes/modules/featured.php';
     }
-    $smarty->assign('featured', $smarty->fetch($aOption['featured'], $oos_modules_cache_id));
+    $smarty->assign('featured', $smarty->fetch($aTemplate['featured'], $oos_modules_cache_id));
 
     $smarty->setCaching(false);
   }
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
-  $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
+  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
+
 
   // display the template
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+$smarty->display($aTemplate['page']);

@@ -237,7 +237,7 @@ $aLang['entry_fax_number_text'] = '';
 $aLang['entry_newsletter'] = 'Newsletter:';
 $aLang['entry_newsletter_text'] = '';
 $aLang['entry_newsletter_yes'] = 'abonniert';
-$aLang['entry_newsletter_no'] = 'nicht abonniert';
+$aLang[''] = 'nicht abonniert';
 $aLang['entry_newsletter_error'] = '';
 $aLang['entry_password'] = 'Passwort:';
 $aLang['entry_password_confirmation'] = 'Bestätigung:';
@@ -309,9 +309,6 @@ $aLang['icon_button_zoom'] = 'Zoom';
 $aLang['icon_arrow_right'] = 'Zeige mehr';
 $aLang['icon_cart'] = 'In den Warenkorb';
 $aLang['icon_warning'] = 'Warnung';
-
-$aLang['text_greeting_personal'] = 'Schön, dass Sie wieder da sind <span class="greetUser">%s!</span> Möchten Sie die <a href="%s"><u>neuen Produkte</u></a> ansehen?';
-$aLang['text_greeting_guest'] = 'Herzlich Willkommen <span class="greetUser">Gast!</span> Möchten Sie sich <a href="%s"><u>anmelden</u></a>? Oder wollen Sie ein <a href="%s"><u>Kundenkonto</u></a> eröffnen?';
 
 $aLang['text_sort_products'] = 'Sortierung der Artikel ist ';
 $aLang['text_descendingly'] = 'absteigend';

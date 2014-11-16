@@ -22,8 +22,8 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  $aOption['template_main'] = $sTheme . '/modules/information.html';
-  $aOption['page_heading'] = $sTheme . '/heading/print_page.html';;
+  $aTemplate['page'] = $sTheme . '/page/information.html';
+  $aTemplate['page_heading'] = $sTheme . '/heading/print_page.html';;
 
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
@@ -45,7 +45,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 
 
 
-  if (!$smarty->isCached($aOption['template_main'], $contents_cache_id)) {
+  if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
     $informationtable = $oostable['information'];
     $information_descriptiontable = $oostable['information_description'];
     $sql = "SELECT i.information_id, i.information_image, id.information_name,
@@ -76,9 +76,9 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
   }
   
  
-  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading'], $contents_cache_id));
-  $smarty->assign('contents', $smarty->fetch($aOption['template_main'], $contents_cache_id));
+  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading'], $contents_cache_id));
+  
   $smarty->setCaching(false);
   
   // display the template
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+$smarty->display($aTemplate['page']);

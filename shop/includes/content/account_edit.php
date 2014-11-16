@@ -66,8 +66,8 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $javascript = ob_get_contents();
   ob_end_clean();
 
-  $aOption['template_main'] = $sTheme . '/modules/user_account_edit.html';
-  $aOption['page_heading'] = $sTheme . '/heading/page_heading.html';
+  $aTemplate['page'] = $sTheme . '/page/user_account_edit.html';
+  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
@@ -82,7 +82,6 @@ if ( is_session_started() === FALSE ) oos_session_start();
       array(
           'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'oos_heading_title' => $aLang['heading_title'],
-          'oos_heading_image' => 'account.gif',
 
           'account'           => $account,
           'email_address'     => $email_address,
@@ -97,8 +96,8 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $smarty->assign('newsletter_ids', array(0,1));
   $smarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
-  $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
+  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
+
 
   // display the template
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+$smarty->display($aTemplate['page']);

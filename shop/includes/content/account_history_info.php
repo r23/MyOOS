@@ -56,11 +56,11 @@ if ( is_session_started() === FALSE ) oos_session_start();
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
   $oOrder = new order($_GET['order_id']);
 
-  $aOption['template_main'] = $sTheme . '/modules/account_history_info.html';
-  $aOption['page_heading'] = $sTheme . '/heading/page_heading.html';
+  $aTemplate['page'] = $sTheme . '/page/account_history_info.html';
+  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   if (DOWNLOAD_ENABLED == 'true') {
-    $aOption['download'] = $sTheme . '/modules/download.html';
+    $aTemplate['download'] = $sTheme . '/page/download.html';
   }
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
@@ -75,8 +75,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $smarty->assign(
       array(
           'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-          'oos_heading_title' => $aLang['heading_title'],
-          'oos_heading_image' => 'history.gif'
+          'oos_heading_title' => $aLang['heading_title']
       )
   );
 
@@ -96,11 +95,11 @@ if ( is_session_started() === FALSE ) oos_session_start();
 
   if (DOWNLOAD_ENABLED == 'true') {
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/downloads.php';
-    $smarty->assign('download', $smarty->fetch($aOption['download']));
+    $smarty->assign('download', $smarty->fetch($aTemplate['download']));
   }
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
-  $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
+  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
+
 
   // display the template
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+$smarty->display($aTemplate['page']);

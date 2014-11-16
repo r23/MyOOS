@@ -315,9 +315,6 @@ $aLang['icon_arrow_right'] = 'more';
 $aLang['icon_cart'] = 'In Cart';
 $aLang['icon_warning'] = 'Warning';
 
-$aLang['text_greeting_personal'] = 'Welcome back <span class="greetUser">%s!</span> Would you like to see which <a href="%s"><u>new products</u></a> are available to purchase?';
-$aLang['text_greeting_guest'] = 'Welcome <span class="greetUser">Guest!</span> Would you like to <a href="%s"><u>log yourself in</u></a>? Or would you prefer to <a href="%s"><u>create an account</u></a>?';
-
 $aLang['text_sort_products'] = 'Sort products ';
 $aLang['text_descendingly'] = 'descendingly';
 $aLang['text_ascendingly'] = 'ascendingly';

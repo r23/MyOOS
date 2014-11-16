@@ -390,9 +390,9 @@
 
     $listing_sql = $select_str . $from_str . $where_str . $order_str;
 
-    $aOption['template_main'] = $sTheme . '/modules/advanced_search_result.html';
-    $aOption['page_heading'] = $sTheme . '/heading/page_heading.html';
-    $aOption['page_navigation'] = $sTheme . '/heading/page_navigation.html';
+    $aTemplate['page'] = $sTheme . '/page/advanced_search_result.html';
+    $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
+    $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.html';
 
     $nPageType = OOS_PAGE_TYPE_CATALOG;
 
@@ -406,8 +406,7 @@
     $smarty->assign(
         array(
             'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-            'oos_heading_title' => $aLang['heading_title'],
-            'oos_heading_image' => 'browse.gif'
+            'oos_heading_title' => $aLang['heading_title']
         )
     );
 
@@ -417,11 +416,11 @@
     $smarty->assign('pw_string', $pw_string);
     $smarty->assign('oos_get_all_get_params', oos_get_all_get_parameters(array('sort', 'page')));
 
-    $smarty->assign('oosPageNavigation', $smarty->fetch($aOption['page_navigation']));
-    $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
-    $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
+    $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation']));
+    $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
+  
 
     // display the template
-    require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+  $smarty->display($aTemplate['page']);
   }
 

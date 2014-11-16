@@ -95,8 +95,8 @@ if ( is_session_started() === FALSE ) oos_session_start();
     $products_result->Close();
   }
 
-  $aOption['template_main'] = $sTheme . '/modules/checkout_success.html';
-  $aOption['page_heading'] = $sTheme . '/modules/checkout_success_page_heading.html';
+  $aTemplate['page'] = $sTheme . '/page/checkout_success.html';
+  $aTemplate['page_heading'] = $sTheme . '/page/checkout_success_page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
 
@@ -137,14 +137,13 @@ if ( is_session_started() === FALSE ) oos_session_start();
           'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'oos_heading_title' => $aLang['heading_title'],
 
-          'products_notify' => $products_notify,
-          'oos_heading_image' => 'man_on_board.gif'
+          'products_notify' => $products_notify
       )
   );
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
-  $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
+  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
+
 
   // display the template
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+$smarty->display($aTemplate['page']);
 

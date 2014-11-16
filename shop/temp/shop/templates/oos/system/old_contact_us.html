@@ -1,3 +1,5 @@
+{include file="oos/system/_header.tpl"}
+
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td>{$oosPageHeading}</td>
@@ -19,12 +21,6 @@
 {else}
       <tr>
         <td>
-{if $oEvent->installed_plugin('spell')}
- <script type="text/javascript" src="js/googiespell/AmiJS.js"></script>
- <script type="text/javascript" src="js/googiespell/googiespell.js"></script>
- <script type="text/javascript" src="js/googiespell/cookiesupport.js"></script>
- <link href="js/googiespell/googiespell.css" rel="stylesheet" type="text/css" media="all">
-{/if}
 <form name="contact_us" action="{html_href_link content=$filename.contact_us action=send}" method="post"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main">{$lang.entry_name}<br><input type="text" name="name" value="{$smarty.post.name}" size=40></td>
@@ -39,16 +35,6 @@
             <td>
 <span id="spell_container" style="background-color: #ddd"></span><br>
 <textarea id="tal" name="enquiry" class="textarea">{$smarty.post.enquiry|stripslashes}</textarea>
-{if $oEvent->installed_plugin('spell')}
-{literal}
-  <script type="text/javascript">
-    var googie2 = new GoogieSpell("js/googiespell/", "send_req.php?lang=");
-    googie2.dontUseCloseButtons();
-    googie2.setSpellContainer("spell_container");
-    googie2.decorateTextarea("tal");
-  </script>
-{/literal}
-{/if}
          </td>
           </tr>
           <tr>
@@ -58,3 +44,6 @@
       </tr>
 {/if}
     </table>
+
+{include file="oos/system/_footer.tpl"}
+	

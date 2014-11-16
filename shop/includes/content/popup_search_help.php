@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
 
-  $aOption['popup_help'] = $sTheme . '/system/popup_help.html';
+  $aTemplate['popup_help'] = $sTheme . '/system/popup_help.html';
 
   //smarty
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
@@ -29,7 +29,7 @@
   $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
   $help_cache_id = $sTheme . '|popup|search|' . $sLanguage;
 
-  if (!$smarty->isCached($aOption['popup_help'], $help_cache_id )) {
+  if (!$smarty->isCached($aTemplate['popup_help'], $help_cache_id )) {
     require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/search_advanced.php';
 
     // assign Smarty variables;
@@ -42,5 +42,5 @@
   }
 
   // display the template
-  $smarty->display($aOption['popup_help'], $help_cache_id);
+  $smarty->display($aTemplate['popup_help'], $help_cache_id);
 

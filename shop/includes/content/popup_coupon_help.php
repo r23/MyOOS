@@ -126,7 +126,7 @@
     $cid = 0;
   }
 
-  $aOption['popup_help'] = $sTheme . '/system/popup_help.html';
+  $aTemplate['popup_help'] = $sTheme . '/system/popup_help.html';
 
   //smarty
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
@@ -136,7 +136,7 @@
   $cid += 0;
   $help_cache_id = $sTheme . '|popup|coupon|' . $cid . '|' . $sLanguage;
 
-  if (!$smarty->isCached($aOption['popup_help'], $help_cache_id )) {
+  if (!$smarty->isCached($aTemplate['popup_help'], $help_cache_id )) {
 
     // assign Smarty variables;
     $smarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
@@ -148,5 +148,5 @@
   }
 
   // display the template
-  $smarty->display($aOption['popup_help'], $help_cache_id);
+  $smarty->display($aTemplate['popup_help'], $help_cache_id);
 

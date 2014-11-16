@@ -57,8 +57,8 @@
     // product not found
     $aLang['text_information'] = $aLang['text_product_not_found'];
 
-    $aOption['template_main'] = $sTheme . '/system/info.html';
-    $aOption['page_heading'] = $sTheme . '/heading/page_heading.html';
+    $aTemplate['page'] = $sTheme . '/page/info.html';
+    $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
     $nPageType = OOS_PAGE_TYPE_PRODUCTS;
 
@@ -71,8 +71,7 @@
     $smarty->assign(
         array(
             'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-            'oos_heading_title' => $aLang['text_product_not_found'],
-            'oos_heading_image' => 'specials.gif'
+            'oos_heading_title' => $aLang['text_product_not_found']
         )
     );
 
@@ -139,14 +138,14 @@
       $oos_meta_keywords = $product_info['products_keywords_meta'];
     }
 
-    $aOption['template_main'] = $sTheme . '/products/product_info.html';
-    $aOption['also_purchased_products'] = $sTheme . '/products/also_purchased_products.html';
-    $aOption['xsell_products'] = $sTheme . '/products/xsell_products.html';
-    $aOption['up_sell_products'] = $sTheme . '/products/up_sell_products.html';
-    $aOption['page_heading'] = $sTheme . '/products/product_heading.html';
+    $aTemplate['page'] = $sTheme . '/page/product_info.html';
+    $aTemplate['also_purchased_products'] = $sTheme . '/products/also_purchased_products.html';
+    $aTemplate['xsell_products'] = $sTheme . '/products/xsell_products.html';
+    $aTemplate['up_sell_products'] = $sTheme . '/products/up_sell_products.html';
+    $aTemplate['page_heading'] = $sTheme . '/products/product_heading.html';
 
     if (SOCIAL_BOOKMARKS == 'true') {
-      $aOption['social_bookmarks'] = 'default/products/social_bookmarks.html';
+      $aTemplate['social_bookmarks'] = 'default/products/social_bookmarks.html';
     }
 
     $nPageType = OOS_PAGE_TYPE_PRODUCTS;
@@ -265,47 +264,33 @@
     $smarty->assign('redirect', oos_href_link($aContents['redirect'], 'action=url&amp;goto=' . urlencode($product_info['products_url']), 'NONSSL', false, false));
     $smarty->assign('oosDate', date('Y-m-d H:i:s'));
 
-    if (SOCIAL_BOOKMARKS == 'true') {
-      $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
-
-      $oos_social_bookmarks_cache_id = '|social_bookmarks|' . $sLanguage . '|' . intval($nProductsId);
-      if (!$smarty->isCached($aOption['social_bookmarks'], $oos_social_bookmarks_cache_id)) {
-        $smarty->assign('bookmark', oos_href_link($aContents['product_info'], 'products_id=' . intval($nProductsId), 'NONSSL', false));
-        $smarty->assign('bookmarktitle', STORE_NAME . ' - ' . $product_info['products_name']);
-      }
-      $smarty->assign('social_bookmarks', $smarty->fetch($aOption['social_bookmarks'], $oos_social_bookmarks_cache_id));
-
-      $smarty->setCaching(false);
-    }
-
-
 
 if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
-    if (!$smarty->isCached($aOption['xsell_products'], $oos_products_info_cache_id)) {
+    if (!$smarty->isCached($aTemplate['xsell_products'], $oos_products_info_cache_id)) {
       require_once MYOOS_INCLUDE_PATH . '/includes/modules/xsell_products.php';
     }
-    $smarty->assign('xsell_products', $smarty->fetch($aOption['xsell_products'], $oos_products_info_cache_id));
+    $smarty->assign('xsell_products', $smarty->fetch($aTemplate['xsell_products'], $oos_products_info_cache_id));
 
-    if (!$smarty->isCached($aOption['up_sell_products'], $oos_products_info_cache_id)) {
+    if (!$smarty->isCached($aTemplate['up_sell_products'], $oos_products_info_cache_id)) {
       require_once MYOOS_INCLUDE_PATH . '/includes/modules/up_sell_products.php';
     }
-    $smarty->assign('up_sell_products', $smarty->fetch($aOption['up_sell_products'], $oos_products_info_cache_id));
+    $smarty->assign('up_sell_products', $smarty->fetch($aTemplate['up_sell_products'], $oos_products_info_cache_id));
 
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/slavery_products.php';
 
-    if (!$smarty->isCached($aOption['also_purchased_products'], $oos_products_info_cache_id)) {
+    if (!$smarty->isCached($aTemplate['also_purchased_products'], $oos_products_info_cache_id)) {
       require_once MYOOS_INCLUDE_PATH . '/includes/modules/also_purchased_products.php';
       $smarty->assign('oos_also_purchased_array', $aPurchased);
     }
-    $smarty->assign('also_purchased_products', $smarty->fetch($aOption['also_purchased_products'], $oos_products_info_cache_id));
+    $smarty->assign('also_purchased_products', $smarty->fetch($aTemplate['also_purchased_products'], $oos_products_info_cache_id));
 
     $smarty->setCaching(false);
   }
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
-  $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
+  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
+
 
   // display the template
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+$smarty->display($aTemplate['page']);

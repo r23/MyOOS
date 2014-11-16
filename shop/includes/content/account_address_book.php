@@ -103,8 +103,8 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], '', 'SSL'));
   $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_address_book'], '', 'SSL'));
 
-  $aOption['template_main'] = $sTheme . '/modules/address_book.html';
-  $aOption['page_heading'] = $sTheme . '/heading/page_heading.html';
+  $aTemplate['page'] = $sTheme . '/page/address_book.html';
+  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
@@ -119,14 +119,13 @@ if ( is_session_started() === FALSE ) oos_session_start();
       array(
           'oos_breadcrumb'         => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'oos_heading_title'      => $aLang['heading_title'],
-          'oos_heading_image'      => 'address_book.gif',
 
           'oos_address_book_array' => $aAddressBook
       )
   );
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
-  $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
+  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
+
 
   // display the template
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+$smarty->display($aTemplate['page']);

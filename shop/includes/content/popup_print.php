@@ -21,7 +21,7 @@
     if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
   }
 
-  $aOption['popup_print'] = $sTheme . '/products/popup_print.html';
+  $aTemplate['popup_print'] = $sTheme . '/products/popup_print.html';
 
   //smarty
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
@@ -40,7 +40,7 @@
   $sGroup = trim($_SESSION['member']->group['text']);
   $popup_cache_id = $sTheme . '|products|' . $sGroup . '|print|' . $nProductsId . '|' . $sLanguage;
 
-  if (!$smarty->isCached($aOption['popup_print'], $popup_cache_id )) {
+  if (!$smarty->isCached($aTemplate['popup_print'], $popup_cache_id )) {
     require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_info.php';
 
     $productstable = $oostable['products'];
@@ -70,8 +70,7 @@
       $smarty->assign(
           array(
               'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-              'oos_heading_title' => $aLang['text_product_not_found'],
-              'oos_heading_image' => 'specials.gif'
+              'oos_heading_title' => $aLang['text_product_not_found']
           )
       );
     } else {
@@ -150,4 +149,4 @@
   }
 
   // display the template
-  $smarty->display($aOption['popup_print'], $popup_cache_id);
+  $smarty->display($aTemplate['popup_print'], $popup_cache_id);

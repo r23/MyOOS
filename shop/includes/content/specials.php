@@ -28,9 +28,9 @@
 
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_specials.php';
 
-  $aOption['template_main'] = $sTheme . '/products/specials.html';
-  $aOption['page_heading'] = $sTheme . '/heading/page_heading.html';
-  $aOption['page_navigation'] = $sTheme . '/heading/page_navigation.html';
+  $aTemplate['page'] = $sTheme . '/products/specials.html';
+  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
+  $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.html';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
   $sGroup = trim($_SESSION['member']->group['text']);
@@ -47,7 +47,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
 
-  if (!$smarty->isCached($aOption['template_main'], $contents_cache_id)) {
+  if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
     $productstable = $oostable['products'];
     $specialstable = $oostable['specials'];
     $products_descriptiontable = $oostable['products_description'];
@@ -106,7 +106,6 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
         array(
             'oos_breadcrumb'     => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'oos_heading_title'  => $aLang['heading_title'],
-            'oos_heading_image'  => 'specials.gif',
 
             'oos_page_split'     => $specials_split->display_count($specials_numrows, MAX_DISPLAY_SPECIAL_PRODUCTS, $_GET['page'], $aLang['text_display_number_of_specials']),
             'oos_display_links'  => $specials_split->display_links($specials_numrows, MAX_DISPLAY_SPECIAL_PRODUCTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),
@@ -116,10 +115,10 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
         )
     );
   }
-  $smarty->assign('oosPageNavigation', $smarty->fetch($aOption['page_navigation'], $contents_cache_id));
-  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading'], $contents_cache_id));
-  $smarty->assign('contents', $smarty->fetch($aOption['template_main'], $contents_cache_id));
+  $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation'], $contents_cache_id));
+  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading'], $contents_cache_id));
+  
   $smarty->setCaching(false);
 
   // display the template
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+$smarty->display($aTemplate['page']);

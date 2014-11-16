@@ -270,8 +270,8 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $javascript = ob_get_contents();
   ob_end_clean();
 
-  $aOption['template_main'] = $sTheme . '/modules/payment_address.html';
-  $aOption['page_heading'] = $sTheme . '/heading/page_heading.html';
+  $aTemplate['page'] = $sTheme . '/page/payment_address.html';
+  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
 
@@ -285,8 +285,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $smarty->assign(
       array(
           'oos_breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-          'oos_heading_title' => $aLang['heading_title'],
-          'oos_heading_image' => 'payment.gif',
+          'oos_heading_title' => $aLang['heading_title']
 
           'process' => $process,
           'addresses_count' => $addresses_count,
@@ -343,9 +342,9 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $state = oos_get_zone_name($country, $zone_id, $state);
   $smarty->assign('state', $state);
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
-  $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
+  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
+
 
   // display the template
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+$smarty->display($aTemplate['page']);
 

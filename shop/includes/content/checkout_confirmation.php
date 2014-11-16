@@ -131,8 +131,8 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $oBreadcrumb->add(decode($aLang['navbar_title_1']), oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
   $oBreadcrumb->add(decode($aLang['navbar_title_2']));
 
-  $aOption['template_main'] = $sTheme . '/modules/checkout_confirmation.html';
-  $aOption['page_heading'] = $sTheme . '/heading/page_heading.html';
+  $aTemplate['page'] = $sTheme . '/page/checkout_confirmation.html';
+  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
 
@@ -146,8 +146,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $smarty->assign(
       array(
           'oos_breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-          'oos_heading_title' => $aLang['heading_title'],
-          'oos_heading_image' => 'confirmation.gif'
+          'oos_heading_title' => $aLang['heading_title']
       )
   );
 
@@ -177,9 +176,9 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $smarty->assign('payment_modules_process_button', $payment_modules_process_button);
   $smarty->assign('order', $oOrder);
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
-  $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
+  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
+
 
   // display the template
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+$smarty->display($aTemplate['page']);
 

@@ -142,9 +142,9 @@
   // links breadcrumb
   $oBreadcrumb->add($customer. $aLang['navbar_title'], oos_href_link($aContents['wishlist']));
 
-  $aOption['template_main'] = $sTheme . '/modules/wishlist.html';
-  $aOption['page_heading'] = $sTheme . '/heading/page_heading.html';
-  $aOption['page_navigation'] = $sTheme . '/heading/page_navigation.html';
+  $aTemplate['page'] = $sTheme . '/page/wishlist.html';
+  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
+  $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.html';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
 
@@ -159,7 +159,6 @@
       array(
           'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'oos_heading_title' => $customer . $aLang['heading_title'],
-          'oos_heading_image' => 'wishlist.gif',
 
           'oos_page_split'    => $wishlist_split->display_count($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, $_GET['page'], $aLang['text_display_number_of_wishlist']),
           'oos_display_links' => $wishlist_split->display_links($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),
@@ -169,10 +168,10 @@
       )
   );
 
-  $smarty->assign('oosPageNavigation', $smarty->fetch($aOption['page_navigation']));
-  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
-  $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
+  $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation']));
+  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
+
 
   // display the template
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+$smarty->display($aTemplate['page']);
 

@@ -19,72 +19,68 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account.php';
 
 // start the session
-if ( is_session_started() === FALSE ) oos_session_start();    
+if ( is_session_started() === FALSE ) oos_session_start();
 
-  
-  // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['create_account']));
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['create_account']));
 
-  $snapshot = count($_SESSION['navigation']->snapshot); 
-  if (isset($_GET['email_address'])) {
-    $email_address = oos_db_prepare_input($_GET['email_address']);
-  }
-  $account['entry_country_id'] = STORE_COUNTRY;
+$snapshot = count($_SESSION['navigation']->snapshot); 
+if (isset($_GET['email_address'])) {
+	$email_address = oos_db_prepare_input($_GET['email_address']);
+}
+$account['entry_country_id'] = STORE_COUNTRY;
 
-  ob_start();
-  require 'js/form_check.js.php';
-  $javascript = ob_get_contents();
-  ob_end_clean();
+ob_start();
+require 'js/form_check.js.php';
+$javascript = ob_get_contents();
+ob_end_clean();
 
-  $aOption['template_main'] = $sTheme . '/modules/user_create_account.html';
-  $aOption['page_heading'] = $sTheme . '/heading/page_heading.html';
-  $nPageType = OOS_PAGE_TYPE_ACCOUNT;
+$aTemplate['page'] = $sTheme . '/page/user_create_account.html';
+$aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
+$nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
-  if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
-  }
-  
+require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+if (!isset($option)) {
+	require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+}
 
-  
-  $read = 'false';
-  $smarty->assign('read', $read); 
-  $smarty->assign('oos_js', $javascript);
+$read = 'false';
+$smarty->assign('read', $read); 
+$smarty->assign('oos_js', $javascript);
 
-  // assign Smarty variables;
-  $smarty->assign(
-      array(
-         'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-         'oos_heading_title' => $aLang['heading_title'],
-         'oos_heading_image' => 'account.gif',
+// assign Smarty variables;
+$smarty->assign(
+	array(
+	'oos_breadcrumb'=> $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+	'oos_heading_title' => $aLang['heading_title']
 
-         ));
+ ));
 
-  $smarty->assign('account', $account);
-  $smarty->assign('email_address', $email_address);
+$smarty->assign('account', $account);
+$smarty->assign('email_address', $email_address);
 
-  if ((CUSTOMER_NOT_LOGIN == 'true') or (MAKE_PASSWORD == 'true')) {
-    $show_password = FALSE;
-  } else {
-    $show_password = 'true';
-  }
-  $smarty->assign('show_password', $show_password);
+if ((CUSTOMER_NOT_LOGIN == 'true') or (MAKE_PASSWORD == 'true')) {
+	$show_password = 'false';
+} else {
+	$show_password = 'true';
+}
+$smarty->assign('show_password', $show_password);
 
-  $smarty->assign('snapshot', $snapshot);
-  $smarty->assign('login_orgin_text', sprintf($aLang['text_origin_login'], oos_href_link($aContents['login'], oos_get_all_get_parameters(), 'SSL')));
+$smarty->assign('snapshot', $snapshot);
+$smarty->assign('login_orgin_text', sprintf($aLang['text_origin_login'], oos_href_link($aContents['login'], oos_get_all_get_parameters(), 'SSL')));
 
-  $smarty->assign('newsletter_ids', array(0,1));
-  $smarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));
+$smarty->assign('newsletter_ids', array(0,1));
+$smarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
-  $smarty->assign('contents', $smarty->fetch($aOption['template_main']));
+$smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
 
-  // display the template
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+
+// display the template
+$smarty->display($aTemplate['page']);

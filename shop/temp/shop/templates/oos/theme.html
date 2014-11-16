@@ -13,7 +13,6 @@
 <meta name="resource-type" content="document">
 <meta name="creation" content="{$smarty.now|date_format:"%a,%d %b %Y"}">
 <meta name="revision" content="{$oos_revision_date}">
-<meta name="distribution" content="Global">
 <!--
  *	DO NOT REMOVE THE FOLLOWING - FAILURE TO COMPLY IS A DIRECT VIOLATION
  *	OF THE GNU GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
@@ -54,8 +53,8 @@ function popupZoom(url) {
 
 {$oos_js}
 
-</HEAD>
-<BODY>
+</head>
+<body>
 
 {foreach item=warning from=$oos_info_warning}
    {include file="default/system/warning.html"}
@@ -89,10 +88,10 @@ function popupZoom(url) {
 
 
 {foreach item=error from=$oos_error_message}
-   {include file="$theme_set/system/error_message.html"}
+   {include file="oos/system/error_message.html"}
 {/foreach}
 {foreach item=info from=$oos_info_message}
-   {include file="$theme_set/system/info_message.html"}
+   {include file="oos/system/info_message.html"}
 {/foreach}
 <!-- header_eof //-->
 
@@ -101,52 +100,8 @@ function popupZoom(url) {
   <tr>
     <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
 {foreach item=block from=$oos_blockleft}
-   {include file="$theme_set/system/block.html"}
+   {include file="oos/system/block.html"}
 {/foreach}
     </table></td>
     <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-    <td width="100%" valign="top">{$contents}</td>
-    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
-{foreach item=block from=$oos_blockright}
-   {include file="$theme_set/system/block.html"}
-{/foreach}
-    </table></td>
-  </tr>
-</table>
-<!-- body_eof //-->
-
-<table width="870" border="0" align="center" cellspacing="0" cellpadding="0">
-  <tr>
-    <td align="right" class="footer_navigation_background" nowrap="nowrap">&nbsp;&nbsp;</td>
-    <td width="5" class="footer_navigation_background"><img src="{$theme_image}/footer_navigation_right.gif" alt=" " width="5" height="19" ></td>
-  </tr>
-</table>
-
-<br>
-<br><div class="smallText" align="center">
-
-</div>
-
-		<!--
-			GERMAN:
-			Diese Rueckverlinkung darf nur entfernt werden,
-			wenn Sie eine MyOOS Lizenz besitzen.
-			:: Lizenzbedingungen: 
-			http://www.myoos.de/Projektbezogene-Gebuehr-p-38.html
-
-			ENGLISH:
-			This back linking maybe only removed,
-			if you possess a MyOOS Lizenz license.
-			:: License conditions: 
-			http://www.myoos.de/Projektbezogene-Gebuehr-p-38.html
-		-->
-
-<div class="footer" align="center">
-<div align="center" class="smallText">Copyright &copy; 2003 - {$smarty.now|date_format:"%Y"} <a href="http://www.oos-shop.de" target="_blank">MyOOS [Shopsystem]</a>.  All rights reserved.</div>
-<div align="center" class="smallText"><a href="http://www.oos-shop.de" target="_blank">MyOOS [Shopsystem]</a> is Free Software released under the <a href="http://www.gnu.org" target="_blank">GNU/GPL License.</a></div>
-</div>
-
-
-</BODY>
-</HTML>
+    <td width="100%" valign="top">{$contents}

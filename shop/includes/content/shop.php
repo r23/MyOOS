@@ -56,8 +56,8 @@
 
   if ($category_depth == 'nested') {
 
-    $aOption['template_main'] = $sTheme . '/system/nested.html';
-    $aOption['page_heading'] = $sTheme . '/system/nested_heading.html';
+    $aTemplate['page'] = $sTheme . '/system/nested.html';
+    $aTemplate['page_heading'] = $sTheme . '/system/nested_heading.html';
 
     $nPageType = OOS_PAGE_TYPE_CATALOG;
 
@@ -76,7 +76,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 
     $smarty->assign('oos_breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
 
-    if (!$smarty->isCached($aOption['template_main'], $contents_cache_id)) {
+    if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
       $categoriestable = $oostable['categories'];
       $categories_descriptiontable = $oostable['categories_description'];
       $sql = "SELECT cd.categories_name, cd.categories_heading_title, cd.categories_description,
@@ -181,14 +181,14 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
           )
       );
     }
-    $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading'], $contents_cache_id));
-    $smarty->assign('contents', $smarty->fetch($aOption['template_main'], $contents_cache_id));
+    $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading'], $contents_cache_id));
+    
     $smarty->setCaching(false);
   } elseif ($category_depth == 'products' || isset($_GET['manufacturers_id'])) {
 
-    $aOption['template_main'] = $sTheme . '/system/products.html';
-    $aOption['page_heading'] = $sTheme . '/system/index_products_heading.html';
-    $aOption['page_navigation'] = $sTheme . '/heading/page_navigation.html';
+    $aTemplate['page'] = $sTheme . '/system/products.html';
+    $aTemplate['page_heading'] = $sTheme . '/system/index_products_heading.html';
+    $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.html';
 
     $nPageType = OOS_PAGE_TYPE_CATALOG;
 
@@ -231,7 +231,6 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 // todo multilanguage support
       if (OOS_META_KATEGORIEN == "Meta Tag with categories edit") {
         $smarty->assign('oos_meta_description', $category['categories_description_meta']);
-        $smarty->assign('oos_meta_keywords', $category['categories_keywords_meta']);
       }
     }
 
@@ -241,7 +240,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 
     $smarty->assign('oos_breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
 
-    if (!$smarty->isCached($aOption['template_main'], $contents_cache_id)) {
+    if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
 
 // create column list
       $define_list = array('PRODUCT_LIST_MODEL' => PRODUCT_LIST_MODEL,
@@ -577,9 +576,9 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
         require_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
       }
     }
-    $smarty->assign('oosPageNavigation', $smarty->fetch($aOption['page_navigation'], $contents_cache_id));
-    $smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading'], $contents_cache_id));
-    $smarty->assign('contents', $smarty->fetch($aOption['template_main'], $contents_cache_id));
+    $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation'], $contents_cache_id));
+    $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading'], $contents_cache_id));
+    
     $smarty->setCaching(false);
   } else {
     // $category_depth = 'top';
@@ -587,5 +586,5 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
   }
 
   // display the template
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+$smarty->display($aTemplate['page']);
 

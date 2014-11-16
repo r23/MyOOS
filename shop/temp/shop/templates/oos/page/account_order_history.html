@@ -1,0 +1,65 @@
+{include file="oos/system/_header.tpl"}
+
+    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+{if $oos_page_numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '1' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+   {$oosPageNavigation}
+{/if}
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+{section name=i loop=$oos_order_history_array}
+          <tr>
+            <td width="{$products_image_box}" valign="top" class="main"><a href="{product_info_link products_id=$oos_order_history_array[i].id}">{small_product_image image=$oos_order_history_array[i].image alt=$oos_order_history_array[i].name|strip_tags}</a></td>
+            <td valign="top" class="main"><a href="{product_info_link products_id=$oos_order_history_array[i].id}"><b><u>{$oos_order_history_array[i].name}</u></b></a><br>
+            {if ($smarty.const.SHOW_DATE_ADDED_AVAILABLE eq 'true')}
+              {$lang.text_date_added}{$oos_order_history_array[i].date_added|oos_date_short}<br>
+            {/if}
+
+            {if $oos_order_history_array[i].manufacturer != ''}
+              {$lang.text_manufacturer} {$oos_order_history_array[i].manufacturer}
+            {/if}
+            <br><br>
+            {if (!empty($oos_order_history_array[i].new_product_special_price))}
+               {$lang.text_price} <s>{$oos_order_history_array[i].new_product_price}</s><br>
+               {if $oos_order_history_array[i].products_base_price != 1}<s>{$lang.text_products_base_price}: <span class="base_price">{$oos_order_history_array[i].new_products_base_unit} = {$oos_order_history_array[i].new_base_product_price}</span></s><br>{/if}
+
+               <span class="special_price">{$lang.text_price} {$oos_order_history_array[i].new_product_special_price}</span>
+               {if $oos_order_history_array[i].products_base_price != 1}<br><span class="special_base_price">{$lang.text_products_base_price}: {$oos_order_history_array[i].new_products_base_unit} = {$oos_order_history_array[i].new_base_product_special_price}</span></s><br>{/if}
+
+            {else}
+              {if $oos_order_history_array[i].new_max_product_discount != 0}
+                {$lang.text_price} <s>{$oos_order_history_array[i].new_product_price}</s> -{$oos_order_history_array[i].new_max_product_discount}%<br>
+                <span class="discount_price">{$oos_order_history_array[i].new_product_discount_price}</span>
+                {if $oos_order_history_array[i].products_base_price != 1}<br><span class="discount_base_price">{$lang.text_products_base_price}: {$oos_order_history_array[i].new_products_base_unit} = {$oos_order_history_array[i].new_base_product_special_price}</span></s><br>{/if}
+
+              {else}
+                {$lang.text_price} {$oos_order_history_array[i].new_product_price}
+                {if $oos_order_history_array[i].products_base_price != 1}<br><span class="base_price">{$lang.text_products_base_price}: {$oos_order_history_array[i].new_products_base_unit} = {$oos_order_history_array[i].new_base_product_price}</span><br>{/if}
+
+              {/if}
+            {/if}
+            <span class="pangv">{$pangv}</span><br>
+            </td>
+            <td align="right" valign="middle" class="main"><a href="{html_href_link content=$filename.account_order_history action=buy_now products_id=$oos_order_history_array[i].id}">{html_image_button image="in_cart.gif" alt=$lang.image_button_in_cart}</a></td>
+          </tr>
+          <tr>
+            <td colspan="3" class="main">&nbsp;</td>
+          </tr>
+{sectionelse}
+          <tr>
+            <td class="main">{$lang.text_no_products}</td>
+          </tr>
+{/section}
+        </table></td>
+      </tr>
+{if $oos_page_numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+   {$oosPageNavigation}
+{/if}
+    </table>
+
+{include file="oos/system/_footer.tpl"}

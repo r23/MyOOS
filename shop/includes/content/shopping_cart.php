@@ -108,8 +108,8 @@ if (isset($_SESSION)) {
   // links breadcrumb
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['shopping_cart']));
 
-  $aOption['template_main'] = $sTheme . '/system/shopping_cart.html';
-  $aOption['page_heading'] = $sTheme . '/heading/page_heading.html';
+  $aTemplate['page'] = $sTheme . '/page/shopping_cart.html';
+  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
 
@@ -124,7 +124,6 @@ if (isset($_SESSION)) {
       array(
           'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'oos_heading_title' => $aLang['heading_title'],
-          'oos_heading_image' => 'cart.gif',
 
           'hidden_field'         => $hidden_field,
           'shopping_cart_detail' => $shopping_cart_detail,
@@ -152,9 +151,9 @@ if (isset($_SESSION)) {
 }
 
 
-$smarty->assign('oosPageHeading', $smarty->fetch($aOption['page_heading']));
-$smarty->assign('contents', $smarty->fetch($aOption['template_main']));
+$smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
+
 
 // display the template
-require_once MYOOS_INCLUDE_PATH . '/includes/oos_display.php';
+$smarty->display($aTemplate['page']);
   
