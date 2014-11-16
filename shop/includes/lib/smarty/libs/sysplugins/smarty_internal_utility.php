@@ -196,7 +196,7 @@ class Smarty_Internal_Utility
         $_dir_sep = $smarty->use_sub_dirs ? '/' : '^';
         if (isset($resource_name)) {
             $_save_stat = $smarty->caching;
-            $smarty->setCaching(false);
+            $smarty->caching = false;
             $tpl = new $smarty->template_class($resource_name, $smarty);
             $smarty->caching = $_save_stat;
 
