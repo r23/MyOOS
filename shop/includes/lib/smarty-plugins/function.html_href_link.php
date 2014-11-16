@@ -38,13 +38,13 @@ function smarty_function_html_href_link($params, &$smarty)
 {
     global $oEvent, $spider_kill_sid;
 
-        require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+	require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
 	
 	
     $content = '';
     $parameters = '';
     $connection = 'NONSSL';
-    $add_session_id = 'true';
+    $add_session_id = TRUE;
     $search_engine_safe = 'true';
 
     foreach($params as $_key => $_val) {
@@ -136,6 +136,18 @@ function smarty_function_html_href_link($params, &$smarty)
 
     if ( $spider_kill_sid == 'true') $_sid = NULL;
 
+    if (isset($_SESSION)) {
+		// Add the session ID when moving from HTTP and HTTPS servers or when SID is defined
+		if ( (ENABLE_SSL == 'true' ) && ($connection == 'SSL') && ($add_session_id == TRUE) ) {
+			$_sid = oos_session_name() . '=' . oos_session_id();
+		} elseif ( ($add_session_id == TRUE) && (oos_is_not_null(SID)) ) 	{
+			$_sid = SID;
+		}
+
+		 if ( $spider_kill_sid == 'true') $_sid = NULL;
+	}	
+	
+	
 
     if ( ($search_engine_safe == 'true') &&  $oEvent->installed_plugin('sefu') ) {
       $link = str_replace(array('?', '&amp;', '='), '/', $link);

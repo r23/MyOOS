@@ -158,6 +158,7 @@ $aLang['type_below'] = 'Type Below';
 $aLang['block_newsletters_subscribe'] = 'Subscribe';
 $aLang['block_newsletters_unsubscribe'] = 'Unsubscribe';
 
+
 //myworld
 $aLang['text_date_account_created'] = 'Account Created:';
 $aLang['text_yourstore'] = 'Your Participation';

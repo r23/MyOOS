@@ -87,7 +87,6 @@ $aContents['product_reviews_write'] = $prefix_filename . 'product_reviews_write'
 $aContents['advanced_search'] = $prefix_filename . 'advanced_search';
 $aContents['advanced_search_result'] = $prefix_filename . 'advanced_search_result';
 $aContents['popup_search_help'] = $prefix_filename . 'popup_search_help';
-$aContents['quickfind'] = $prefix_filename . 'quickfind';
 
 //user
 $aContents['account'] = $prefix_filename . 'account';

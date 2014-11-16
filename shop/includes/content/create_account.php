@@ -81,6 +81,5 @@ $smarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_
 
 $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
 
-
 // display the template
 $smarty->display($aTemplate['page']);

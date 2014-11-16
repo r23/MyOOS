@@ -153,6 +153,8 @@ $aLang['type_below'] = 'bitte unten eingeben';
 //newsletter
 $aLang['block_newsletters_subscribe'] = 'Eintragen';
 $aLang['block_newsletters_unsubscribe'] = 'Austragen';
+$aLang['entry_newsletter_no'] = 'Nein';
+$aLang['entry_newsletter_yes'] = 'Ja';
 
 //myworld
 $aLang['text_date_account_created'] = 'Zugang erstellt am:';

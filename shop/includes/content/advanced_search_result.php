@@ -39,6 +39,7 @@
 
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/search_advanced.php';
 
+ 
   // links breadcrumb
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['advanced_search']));
 
@@ -46,7 +47,7 @@
   require 'js/advanced_search.js.php';
   $javascript = ob_get_contents();
   ob_end_clean();
-
+  
   $info_message = '';
   if (isset($_GET['errorno'])) {
     if (($_GET['errorno'] & 1) == 1) {
@@ -93,6 +94,7 @@
                  '  <tr>' . "\n" .
                  '    <td colspan="2"></td>' . "\n" .
                  '  </tr>' . "\n";
+if (is_object($_SESSION['member'])) {
   if ($_SESSION['member']->group['show_price'] == 1 ) {
     $options_box .= '  <tr>' . "\n" .
                     '    <td class="fieldKey">' . $aLang['entry_price_from'] . '</td>' . "\n" .
@@ -106,6 +108,7 @@
                     '    <td colspan="2"></td>' . "\n" .
                     '  </tr>' . "\n";
   }
+}
 /*
   $options_box .= '  <tr>' . "\n" .
                   '    <td class="fieldKey">' . $aLang['entry_date_from'] . '</td>' . "\n" .
@@ -118,6 +121,10 @@
 */
   $options_box .= '</table>';
 
+  
+
+    
+  
   $aTemplate['page'] = $sTheme . '/page/advanced_search.html';
   $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
