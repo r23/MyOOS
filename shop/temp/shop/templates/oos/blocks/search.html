@@ -12,7 +12,7 @@
           <tr>
             <td align="left" valign="top" class="block_content">
     <form name="quick_find" action="{html_href_link content=$filename.advanced_search_result}" method="get">
-    <input type="hidden" name="file" value="{$filename.advanced_search_result}"><br>
+    <input type="hidden" name="content" value="{$filename.advanced_search_result}"><br>
     {html_js_inputbox name='keywords' size='12' value=$lang.text_search}
     <input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
     {html_image_submit image="quick_find.gif" alt=$block_heading_search}

@@ -2,7 +2,7 @@
     <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
     <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
 {foreach item=block from=$oos_blockright}
-   {include file="oos/system/block.html"}
+   {include file="oos/system/_block.tpl"}
 {/foreach}
     </table></td>
   </tr>
@@ -21,7 +21,7 @@
 
 </div>
 
-		<!--
+		{*
 			GERMAN:
 			Diese Rueckverlinkung darf nur entfernt werden,
 			wenn Sie eine MyOOS Lizenz besitzen.
@@ -33,7 +33,7 @@
 			if you possess a MyOOS Lizenz license.
 			:: License conditions: 
 			http://www.myoos.de/Projektbezogene-Gebuehr-p-38.html
-		-->
+		*}
 
 <div class="footer" align="center">
 <div align="center" class="smallText">Copyright &copy; 2003 - {$smarty.now|date_format:"%Y"} <a href="{$smarty.const.OOS_HTTP_SERVER}">{$smarty.const.STORE_NAME}</a>.  All rights reserved.</div>

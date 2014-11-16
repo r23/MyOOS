@@ -128,14 +128,6 @@ function smarty_function_html_href_link($params, &$smarty)
 
 
 // Add the session ID when moving from HTTP and HTTPS servers or when SID is defined
-    if ( (ENABLE_SSL == 'true' ) && ($connection == 'SSL') && ($add_session_id == 'true') ) {
-      $_sid = oos_session_name() . '=' . oos_session_id();
-    } elseif ( ($add_session_id == 'true') && (oos_is_not_null(SID)) ) {
-      $_sid = SID;
-    }
-
-    if ( $spider_kill_sid == 'true') $_sid = NULL;
-
     if (isset($_SESSION)) {
 		// Add the session ID when moving from HTTP and HTTPS servers or when SID is defined
 		if ( (ENABLE_SSL == 'true' ) && ($connection == 'SSL') && ($add_session_id == TRUE) ) {

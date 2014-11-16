@@ -13,14 +13,14 @@
 <meta name="resource-type" content="document">
 <meta name="creation" content="{$smarty.now|date_format:"%a,%d %b %Y"}">
 <meta name="revision" content="{$oos_revision_date}">
-<!--
+{*
  *	DO NOT REMOVE THE FOLLOWING - FAILURE TO COMPLY IS A DIRECT VIOLATION
  *	OF THE GNU GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
- -->
+*}
 <meta name="Generator" content="{$smarty.const.OOS_FULL_NAME} - {$smarty.const.OOS_HOME}  All rights reserved.">
-<!--
+{*
  *	END OF COPYRIGHT
--->
+*}
 <meta name="rating" content="General">
 <base href="{$oos_base}">
 <link rel="shortcut icon" href="{$oos_base}favicon.ico" type="image/x-icon">
@@ -100,7 +100,7 @@ function popupZoom(url) {
   <tr>
     <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
 {foreach item=block from=$oos_blockleft}
-   {include file="oos/system/block.html"}
+   {include file="oos/system/_block.tpl"}
 {/foreach}
     </table></td>
     <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>

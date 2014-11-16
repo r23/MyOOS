@@ -230,10 +230,8 @@ if (!isset($_SESSION['currency']) || isset($_GET['currency'])) {
 }
 
 
-
 //for debugging purposes
 //require_once MYOOS_INCLUDE_PATH . '/includes/oos_debug.php';
-
 
 
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_plugin_event.php';
@@ -252,18 +250,13 @@ if ( empty( $sContent ) || !is_string( $sContent ) ) {
 }  
   
 // Cross-Site Scripting attack defense
-   oos_secure_input();
-
-// PrintPage
-  if (isset($_GET['option'])) {
-    $option = oos_var_prep_for_os($_GET['option']);
-  }
+oos_secure_input();
 
 
 // products history
-  if (!isset($_SESSION['products_history'])) {
-    $_SESSION['products_history'] = new oosProductsHistory;
-  }
+if (!isset($_SESSION['products_history'])) {
+	$_SESSION['products_history'] = new oosProductsHistory;
+}
 
 // initialize the message stack for output messages
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_message_stack.php';
@@ -276,9 +269,9 @@ $aTemplate = array();
 $today = date("Y-m-d H:i:s");
 
 // Shopping cart actions
-  if ( isset($_GET['action']) || isset($_POST['action']) ) {
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_cart_actions.php';
-  }
+if ( isset($_GET['action']) || isset($_POST['action']) ) {
+	require_once MYOOS_INCLUDE_PATH . '/includes/oos_cart_actions.php';
+}
 
 // split-page-results
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';

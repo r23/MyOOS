@@ -74,15 +74,18 @@
       }
     }
 
-    // Add the session ID when moving from HTTP and HTTPS servers or when SID is defined
-    if ( (ENABLE_SSL == 'true' ) && ($connection == 'SSL') && ($add_session_id == TRUE) ) {
-      $_sid = oos_session_name() . '=' . oos_session_id();
-    } elseif ( ($add_session_id == TRUE) && (oos_is_not_null(SID)) ) {
-      $_sid = SID;
-    }
+    if (isset($_SESSION)) {
+		// Add the session ID when moving from HTTP and HTTPS servers or when SID is defined
+		if ( (ENABLE_SSL == 'true' ) && ($connection == 'SSL') && ($add_session_id == TRUE) ) {
+			$_sid = oos_session_name() . '=' . oos_session_id();
+		} elseif ( ($add_session_id == TRUE) && (oos_is_not_null(SID)) ) {
+			$_sid = SID;
+		}
 
-    if ( $spider_flag === FALSE) $_sid = NULL;
-
+		if ( $spider_flag === FALSE) $_sid = NULL;
+	}
+	
+	
     if ( ($search_engine_safe == TRUE) &&  $oEvent->installed_plugin('sefu') ) {
       $link = str_replace(array('?', '&amp;', '='), '/', $link);
 
@@ -186,42 +189,6 @@
    }
 
 
- /**
-  * @return string
-  */
-  function oos_image_swap($id, $src, $alt = '', $width = '', $height = '', $params = '') {
-    $image = '<img id="' . $id . '" src="' . $src . '" border="0" alt="' . $alt . '"';
-    if ($alt) {
-      $image .= ' title=" ' . $alt . ' "';
-    }
-    if ($width) {
-      $image .= ' width="' . $width . '"';
-    }
-    if ($height) {
-      $image .= ' height="' . $height . '"';
-    }
-    if ($params) {
-      $image .= ' ' . $params;
-    }
-    $image .= 'onmouseover="imgSwap(this)" onmouseout="imgSwap(this)"';
-    $image .= ' />';
-
-    return $image;
-  }
-
-
- /**
-  * Output a function button in the selected language
-  *
-  * @param $image
-  * @param $alt
-  * @param $params
-  * @return string
-  */
-  function oos_image_swap_button($id, $image, $alt = '', $params = '') {
-     return oos_image_swap($id, OOS_IMAGES . 'buttons/' . $_SESSION['language'] . '/' . $image, $alt, '', '', $params);
-  }
-
 
  /**
   * Output a folder image
@@ -290,34 +257,39 @@
   }
 
 
- /**
-  * Output a selection field - alias function for oos_draw_checkbox_field() and oos_draw_radio_field()
-  *
-  * @param $name
-  * @param $type
-  * @param $value
-  * @param $checked
-  * @param $parameters
-  * @return string
-  */
-  function oos_draw_select_field($name, $type, $value = '', $checked = FALSE, $parameters = '') {
-    $selection = '<input type="' . oos_parse_input_field_data($type, array('"' => '&quot;')) . '" name="' . oos_parse_input_field_data($name, array('"' => '&quot;')) . '"';
 
-    if (oos_is_not_null($value)) $selection .= ' value="' . oos_parse_input_field_data($value, array('"' => '&quot;')) . '"';
+/**
+ * Output a selection field - alias function for oos_draw_checkbox_field() and oos_draw_radio_field()
+ *
+ * @param $name
+ * @param $type
+ * @param $value
+ * @param $checked
+ * @param $parameters
+ * @return string
+ */
+function oos_draw_select_field($name, $type, $value = null, $checked = FALSE, $parameters = null)
+{
+
+    $selection = '<input type="' . oos_output_string($type) . '" name="' . oos_output_string($name) . '"';
+
+    if (!empty( $value )) $selection .= ' value="' . oos_output_string($value) . '"';
 
     if ( ($checked === TRUE) || ( isset($GLOBALS[$name]) && is_string($GLOBALS[$name]) && ( ($GLOBALS[$name] == 'on') || (isset($value) && (stripslashes($GLOBALS[$name]) == $value)) ) ) ) {
-      $selection .= ' checked="checked"';
+        $selection .= ' checked="checked"';
     }
 
-    if (!empty($parameters)) {
-      $selection .= ' ' . $parameters;
+    if (!empty( $parameters ) && is_string( $parameters ) ) {
+        $selection .= ' ' . $parameters;
     }
+
 
     $selection .= ' />';
 
     return $selection;
-  }
-
+}  
+  
+  
 
  /**
   * Output a form checkbox field
@@ -402,7 +374,7 @@
       reset($_GET);
       while (list($sKey, $sValue) = each($_GET)) {
         if (!empty($sValue)) {
-          if ( ($sKey != oos_session_name()) && ($sKey != 'error') && ($sKey != 'p') && ($sKey != 'rewrite') && ($sKey != 'c') && ($sKey != 'm') && ($sKey != 'mp') && ($sKey != 'file') && ($sKey != 'index.php') && ($sKey != 'history_back') && (!in_array($sKey, $aExclude)) && ($sKey != 'x') && ($sKey != 'y') ) {
+          if ( ($sKey != oos_session_name()) && ($sKey != 'error') && ($sKey != 'p') && ($sKey != 'rewrite') && ($sKey != 'c') && ($sKey != 'm') &&  ($sKey != 'content') && ($sKey != 'index.php') && ($sKey != 'history_back') && (!in_array($sKey, $aExclude)) && ($sKey != 'x') && ($sKey != 'y') ) {
             $sField = '<input type="hidden" name="' . oos_output_string($sKey) . '"';
             $sField .= ' value="' . oos_output_string($sValue) . '" />';
           }
@@ -414,67 +386,37 @@
   }
 
 
- /**
-  * Output a form pull down menu
-  *
-  * @param $$name
-  * @param $values
-  * @param $default
-  * @param $parameters
-  * @param $required
-  */
-  function oos_draw_pull_down_menu($name, $values, $default = '', $parameters = '', $required = FALSE) {
+/**
+ * Output a form pull down menu
+ *
+ * @param $$name
+ * @param $values
+ * @param $default
+ * @param $parameters
+ * @param $required
+ */
+function oos_draw_pull_down_menu($name, $values, $default = null, $parameters = null, $required = FALSE)
+{
 
-    $field = '<select name="' . oos_parse_input_field_data($name, array('"' => '&quot;')) . '"';
+    $field = '<select name="' . oos_output_string($name) . '"';
 
-    if (oos_is_not_null($parameters)) $field .= ' ' . $parameters;
+    if (!empty( $parameters ) && is_string( $parameters ) ) $field .= ' ' . $parameters;
 
     $field .= '>';
 
     if (empty($default) && isset($GLOBALS[$name])) $default = $GLOBALS[$name];
 
     for ($i=0, $n=count($values); $i<$n; $i++) {
-      $field .= '<option value="' . oos_parse_input_field_data($values[$i]['id'], array('"' => '&quot;')) . '"';
-      if ($default == $values[$i]['id']) {
-        $field .= ' selected="selected"';
-      }
+        $field .= '<option value="' . oos_output_string($values[$i]['id']) . '"';
+        if ($default == $values[$i]['id']) {
+            $field .= ' selected="selected"';
+        }
 
-      $field .= '>' . oos_parse_input_field_data($values[$i]['text'], array('"' => '&quot;', '\'' => '&#039;', '<' => '&lt;', '>' => '&gt;')) . '</option>';
+        $field .= '>' . oos_output_string($values[$i]['text']) . '</option>';
     }
     $field .= '</select>';
 
     if ($required == TRUE) $field .= TEXT_FIELD_REQUIRED;
 
     return $field;
-  }
-
-
-  function decode(&$data, $force = TRUE) {
-
-    if ($force === FALSE && (CHARSET == 'ISO-8859-15' || CHARSET == 'UTF-8')) {
-      return $data;
-    }
-
-    switch (strtolower(CHARSET)) {
-       case 'utf-8':
-          // The file is UTF-8 format. No changes needed.
-          break;
-
-       case 'iso-8859-15':
-          $data = utf8_decode($data);
-          break;
-
-       default:
-           if (function_exists('iconv')) {
-             $data = iconv('UTF-8', CHARSET, $data);
-           } elseif (function_exists('recode')) {
-             $data = recode('utf-8..' . CHARSET, $data);
-           }
-           break;
-      }
-
-     return $data;
-   }
-
-
-
+}
