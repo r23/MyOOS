@@ -36,7 +36,7 @@
 		-->
 
 <div class="footer" align="center">
-<div align="center" class="smallText">Copyright &copy; 2003 - {$smarty.now|date_format:"%Y"} <a href="http://www.oos-shop.de" target="_blank">MyOOS [Shopsystem]</a>.  All rights reserved.</div>
+<div align="center" class="smallText">Copyright &copy; 2003 - {$smarty.now|date_format:"%Y"} <a href="{$smarty.const.OOS_HTTP_SERVER}">{$smarty.const.STORE_NAME}</a>.  All rights reserved.</div>
 <div align="center" class="smallText"><a href="http://www.oos-shop.de" target="_blank">MyOOS [Shopsystem]</a> is Free Software released under the <a href="http://www.gnu.org" target="_blank">GNU/GPL License.</a></div>
 </div>
 
