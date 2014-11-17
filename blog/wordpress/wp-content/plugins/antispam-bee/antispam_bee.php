@@ -8,7 +8,7 @@ Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://antispambee.com
 License: GPLv2 or later
-Version: 2.6.3
+Version: 2.6.4
 */
 
 /*
@@ -338,7 +338,7 @@ class Antispam_Bee {
 	* Initialisierung der internen Variablen
 	*
 	* @since   2.4
-	* @change  2.6.2
+	* @change  2.6.4
 	*/
 
 	private static function _init_internal_vars()
@@ -353,6 +353,7 @@ class Antispam_Bee {
 				'regexp_check'		=> 1,
 				'spam_ip' 			=> 1,
 				'already_commented'	=> 1,
+				'time_check'		=> 0,
 				'ignore_pings' 		=> 0,
 				'always_allowed' 	=> 0,
 
@@ -385,6 +386,7 @@ class Antispam_Bee {
 			),
 			'reasons' => array(
 				'css'		=> 'CSS Hack',
+				'time'		=> 'Comment time',
 				'empty'		=> 'Empty Data',
 				'server'	=> 'Fake IP',
 				'localdb'	=> 'Local DB Spam',
@@ -1110,12 +1112,12 @@ class Antispam_Bee {
 		$hidden_field = self::get_key($_POST, 'comment');
 		$plugin_field = self::get_key($_POST, self::$_secret);
 
-		/* Fields check */
-		if ( empty($hidden_field) && !empty($plugin_field) ) {
+		/* Hidden field check */
+		if ( empty($hidden_field) && ! empty($plugin_field) ) {
 			$_POST['comment'] = $plugin_field;
-			unset($_POST[self::$_secret]);
+			unset( $_POST[self::$_secret] );
 		} else {
-			$_POST['bee_spam'] = 1;
+			$_POST['ab_spam__hidden_field'] = 1;
 		}
 	}
 
@@ -1227,7 +1229,7 @@ class Antispam_Bee {
 	* ersetzt das Kommentarfeld
 	*
 	* @since   2.4
-	* @change  2.4.1
+	* @change  2.6.4
 	*
 	* @param   string  $data  HTML-Code der Webseite
 	* @return  string         Behandelter HTML-Code
@@ -1245,11 +1247,25 @@ class Antispam_Bee {
 			return $data;
 		}
 
-		/* Convert */
+		/* Build init time field */
+		if ( self::get_option('time_check') ) {
+			$init_time_field = sprintf(
+				'<input type="hidden" name="ab_init_time" value="%d" />',
+				time()
+			);
+		} else {
+			$init_time_field = '';
+		}
+
+		/* Inject HTML */
 		return preg_replace(
 			'#<textarea(.+?)name=["\']comment["\'](.+?)</textarea>#s',
-			'<textarea$1name="' .self::$_secret. '"$2</textarea><textarea name="comment" style="display:none" rows="1" cols="1"></textarea>',
-			(string) $data,
+            sprintf(
+                '<textarea$1name="%s"$2</textarea><textarea name="comment" style="display:none" rows="1" cols="1"></textarea>%s',
+                self::$_secret,
+                $init_time_field
+            ),
+			$data,
 			1
 		);
 	}
@@ -1330,7 +1346,7 @@ class Antispam_Bee {
 	* Prüfung den Kommentar
 	*
 	* @since   2.4
-	* @change  2.6.1
+	* @change  2.6.4
 	*
 	* @param   array  $comment  Daten des Kommentars
 	* @return  array            Array mit dem Verdachtsgrund [optional]
@@ -1375,9 +1391,16 @@ class Antispam_Bee {
 		}
 
 		/* Bot erkannt */
-		if ( ! empty($_POST['bee_spam']) ) {
+		if ( ! empty($_POST['ab_spam__hidden_field']) ) {
 			return array(
 				'reason' => 'css'
+			);
+		}
+
+		/* Action time */
+		if ( $options['time_check'] && self::_is_shortest_time() ) {
+			return array(
+				'reason' => 'time'
 			);
 		}
 
@@ -1437,6 +1460,31 @@ class Antispam_Bee {
 				'reason' => 'lang'
 			);
 		}
+	}
+
+
+	/**
+	* Check for comment action time
+	*
+	* @since   2.6.4
+	* @change  2.6.4
+	*
+	* @return  boolean    TRUE if the action time is less than 5 seconds
+	*/
+
+	private static function _is_shortest_time()
+	{
+		/* Comment init time */
+		if ( ! $init_time = (int)self::get_key($_POST, 'ab_init_time') ) {
+			return false;
+		}
+
+		/* Compare time values */
+		if ( time() - $init_time < apply_filters('ab_action_time_limit', 5) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 

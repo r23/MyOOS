@@ -53,6 +53,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 			'regexp_check' 		=> (int)(!empty($_POST['ab_regexp_check'])),
 			'spam_ip' 			=> (int)(!empty($_POST['ab_spam_ip'])),
 			'already_commented'	=> (int)(!empty($_POST['ab_already_commented'])),
+			'time_check'		=> (int)(!empty($_POST['ab_time_check'])),
 			'always_allowed' 	=> (int)(!empty($_POST['ab_always_allowed'])),
 
 			'ignore_pings' 		=> (int)(!empty($_POST['ab_ignore_pings'])),
@@ -175,7 +176,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 	* Anzeige der GUI
 	*
 	* @since   0.1
-	* @change  2.6.1
+	* @change  2.6.4
 	*/
 
 	public static function options_page() { ?>
@@ -212,6 +213,14 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 								<label for="ab_already_commented">
 									<?php esc_html_e('Trust approved commentators', 'antispam_bee') ?>
 									<span><?php esc_html_e('No check for already commenting users', 'antispam_bee') ?></span>
+								</label>
+							</li>
+
+							<li>
+								<input type="checkbox" name="ab_time_check" id="ab_time_check" value="1" <?php checked($options['time_check'], 1) ?> />
+								<label for="ab_time_check">
+									<?php esc_html_e('Consider the comment time', 'antispam_bee') ?>
+									<span><?php esc_html_e('Not recommended when using page caching', 'antispam_bee') ?></span>
 								</label>
 							</li>
 

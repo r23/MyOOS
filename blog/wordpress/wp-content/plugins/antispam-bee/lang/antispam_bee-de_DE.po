@@ -36,6 +36,9 @@ msgstr "Leere Daten"
 msgid "CSS Hack"
 msgstr "CSS Hack"
 
+msgid "Comment time"
+msgstr "Kommentarzeit"
+
 msgid "Fake IP"
 msgstr "Gefälschte IP"
 
@@ -124,6 +127,12 @@ msgstr "Genehmigten Kommentatoren vertrauen"
 
 msgid "No check for already commenting users"
 msgstr "Keine Prüfung bereits kommentierender Nutzer"
+
+msgid "Consider the comment time"
+msgstr "Kommentarzeit berücksichtigen"
+
+msgid "Not recommended when using page caching"
+msgstr "Nicht empfohlen beim Caching von Blogseiten"
 
 msgid "BBCode is spam"
 msgstr "BBCode als Spam einstufen"
