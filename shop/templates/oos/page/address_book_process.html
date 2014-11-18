@@ -1,6 +1,7 @@
 {include file="oos/system/_header.tpl"}
 
-    <form name="add_entry" action="{html_href_link content=$filename.account_address_book_process connection=SSL}" method="post" onSubmit="return check_form();">
+    <form name="add_entry" action="{html_get_link connection=SSL}" method="post" onSubmit="return check_form();">
+	<input type="content" name="formid" value="{$filename.account_address_book_process}">
 {if $mySystem.sed}
     <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 	<input type="hidden" name="formid" value="{$mySystem.formid}">

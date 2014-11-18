@@ -285,7 +285,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
   $smarty->assign(
       array(
           'oos_breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-          'oos_heading_title' => $aLang['heading_title']
+          'oos_heading_title' => $aLang['heading_title'],
 
           'process' => $process,
           'addresses_count' => $addresses_count,

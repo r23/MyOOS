@@ -93,6 +93,7 @@ $smarty->assignByRef("oEvent", $oEvent);
 
 $cart_count_contents = 0;
 $cart_show_total = 0;
+
 $aSystem = array();
 
 if (isset($_SESSION)) {
@@ -115,6 +116,7 @@ if (isset($_SESSION)) {
 	}
 
 }
+
 
 $smarty->assign(
     array(

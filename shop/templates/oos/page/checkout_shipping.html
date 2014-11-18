@@ -1,6 +1,7 @@
 {include file="oos/system/_header.tpl"}
 
-<form name="checkout_address" action="{html_href_link content=$filename.checkout_shipping connection=SSL}" method="post">
+<form name="checkout_address" action="{html_get_link connection=SSL}" method="post">
+	<input type="hidden" name="content" value="{$filename.checkout_shipping}">
 {if $mySystem.sed}
     <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 	<input type="hidden" name="formid" value="{$mySystem.formid}">
