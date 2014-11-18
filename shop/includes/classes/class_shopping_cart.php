@@ -9,9 +9,9 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: shopping_cart.php,v 1.2 2003/01/09 09:40:08 elarifr 
+   File: shopping_cart.php,v 1.2 2003/01/09 09:40:08 elarifr
          shopping_cart.php,v 1.3.2.6 2003/05/12 23:11:20 wilt
-   orig: shopping_cart.php,v 1.32 2003/02/11 00:04:53 hpdl 
+   orig: shopping_cart.php,v 1.32 2003/02/11 00:04:53 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -32,7 +32,7 @@
     var $content_type;
 
     function shoppingCart() {
-      $this->reset();
+		$this->reset();
     }
 
     function restore_contents() {
@@ -75,7 +75,7 @@
                         customers_basket_date_added) VALUES ('" . intval($_SESSION['customer_id']) . "',
                                                              '" . oos_db_input($towlid) . "',
                                                              '" . oos_db_input($products_id) . "',
-                                                             '" . oos_db_input($qty) . "', 
+                                                             '" . oos_db_input($qty) . "',
                                                              '" . oos_db_input(date('Ymd')) . "')");
             if (isset($this->contents[$products_id]['attributes'])) {
               reset($this->contents[$products_id]['attributes']);
@@ -99,7 +99,7 @@
             $customers_baskettable = $oostable['customers_basket'];
             $dbconn->Execute("UPDATE $customers_baskettable
                           SET customers_basket_quantity = '" . intval($qty) . "'
-                          WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' AND 
+                          WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' AND
                                 products_id = '" . oos_db_input($products_id) . "'");
           }
         }
@@ -107,9 +107,9 @@
           $remote = oos_server_get_remote();
           $coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
           $gv_result = $dbconn->Execute("INSERT INTO $coupon_redeem_tracktable
-                                  (coupon_id, 
-                                   customer_id, 
-                                   redeem_date, 
+                                  (coupon_id,
+                                   customer_id,
+                                   redeem_date,
                                    redeem_ip) VALUES ('" . oos_db_input($_SESSION['gv_id']) . "',
                                                       '" . intval($_SESSION['customer_id']) . "',
                                                       now(),
@@ -117,7 +117,7 @@
 
           $couponstable = $oostable['coupons'];
           $gv_update = $dbconn->Execute("UPDATE $couponstable
-                                     SET coupon_active = 'N' 
+                                     SET coupon_active = 'N'
                                      WHERE coupon_id = '" . oos_db_input($_SESSION['gv_id']) . "'");
 
           oos_gv_account_update($_SESSION['customer_id'], $_SESSION['gv_id']);
@@ -177,9 +177,9 @@
         $customers_basket_attributestable = $oostable['customers_basket_attributes'];
         $dbconn->Execute("DELETE FROM $customers_basket_attributestable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'");
       }
-
+	  
       unset($this->cartID);
-      if (isset($_SESSION['cartID'])) unset($_SESSION['cartID']);
+     if (isset($_SESSION['cartID'])) unset($_SESSION['cartID']);
     }
 
 
@@ -343,7 +343,7 @@
                 $this->contents[$sProductsId]['attributes_values'][$option] = $attr_value;
               }
             }
- 
+
             if (!$blank_value) {
               $this->contents[$sProductsId]['attributes'][$option] = $value;
               // update database
@@ -390,7 +390,7 @@
     }
 
 
-    function count_contents() {  // get total number of items in cart 
+    function count_contents() {  // get total number of items in cart
       $total_items = 0;
       if (is_array($this->contents)) {
         reset($this->contents);
@@ -575,7 +575,7 @@
 
     function attributes_price($products_id) {
 
-      $attributes_price = 0; 
+      $attributes_price = 0;
 
       if (isset($this->contents[$products_id]['attributes'])) {
         reset($this->contents[$products_id]['attributes']);
@@ -723,7 +723,7 @@
             while (list(, $value) = each($this->contents[$products_id]['attributes'])) {
               $products_attributestable = $oostable['products_attributes'];
               $products_attributes_downloadtable = $oostable['products_attributes_download'];
-              $sql = "SELECT COUNT(*) AS total 
+              $sql = "SELECT COUNT(*) AS total
                       FROM $products_attributestable pa,
                            $products_attributes_downloadtable pad
                       WHERE pa.products_id = '" . intval($products_id) . "'
@@ -842,7 +842,7 @@
                   WHERE products_id = '" . intval($products_id) . "'";
           $gv_result  = $dbconn->GetRow($sql);
 
-		  if (preg_match('/^GIFT/', $gv_result['products_model'])) {
+          if (preg_match('/^GIFT/', $gv_result['products_model'])) {
             $no_count = TRUE;
           }
           if (NO_COUNT_ZERO_WEIGHT == 1) {

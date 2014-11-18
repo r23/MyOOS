@@ -91,6 +91,11 @@
             <td height="10"></td>
           </tr>
           <form name="notifications" method="post" action="{html_href_link content=$filename.product_notifications action=update_notifications connection=SSL}">
+{if $mySystem.sed}
+    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+	<input type="hidden" name="formid" value="{$mySystem.formid}">
+{/if}
+
 {section name=i loop=$products_array}
       <tr>
        <td class="main"><input type="checkbox" name="products[]" value="{$products_array[i].products_id}">&nbsp;{$products_array[i].products_name}</td>

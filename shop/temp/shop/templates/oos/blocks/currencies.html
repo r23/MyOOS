@@ -10,7 +10,14 @@
         <td width="2" class="block_content_backgr_left"></td>
         <td width="150"><table width="150" border="0" cellspacing="0" cellpadding="3">
           <tr>
-            <td align="left" valign="top" class="block_content"><form name="currencies" action="{html_get_link}" method="get">{$oos_pull_down_menu}</form></td>
+            <td align="left" valign="top" class="block_content">
+<form name="currencies" action="{html_get_link}" method="get">
+	{if $mySystem.sed}
+		<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+		<input type="hidden" name="formid" value="{$mySystem.formid}">
+	{/if}
+	{$oos_pull_down_menu}
+</form></td>
           </tr>
         </table></td>
         <td width="2" class="block_content_backgr_right"></td>

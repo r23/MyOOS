@@ -128,6 +128,7 @@ function oos_session_start()
 	}
 
 
+
 	if (empty($user_agent) === FALSE) {
 		$spider_agent = @parse_ini_file('includes/ini/spiders.ini');
 
@@ -142,6 +143,8 @@ function oos_session_start()
 		}
 	}
 
+
+	
 	if ($spider_flag === FALSE) {
 		// set the session name and save path
 		oos_session_name('OOSSID');
@@ -174,9 +177,8 @@ function oos_session_start()
 		$_SESSION['member']->default_member();
 	}
 
-
 	$aContents = oos_get_content();
-
+	
 	// verify the browser user agent
 	$http_user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
 

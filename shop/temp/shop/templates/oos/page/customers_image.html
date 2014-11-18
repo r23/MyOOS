@@ -3,7 +3,10 @@
 <form name="customers_image" action="{html_get_link}" method="post" enctype="multipart/form-data">
 <input type="hidden" name="action" value="add_customers_image">
 <input type="hidden" name="content" value="{$page_file}">
-<input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
+{if $mySystem.sed}
+    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+	<input type="hidden" name="formid" value="{$mySystem.formid}">
+{/if}
 
 
     <table border="0" width="100%" cellspacing="0" cellpadding="0">

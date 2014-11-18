@@ -1,19 +1,15 @@
 {include file="oos/system/_header.tpl"}
 
-{if $smarty.const.LIGHTBOX eq 'true'}
-<script type="text/javascript" src="js/lightbox/prototype.js"></script>
-<script type="text/javascript" src="js/lightbox/scriptaculous.js?load=effects"></script>
-<script type="text/javascript" src="js/lightbox/lightbox.js"></script>
-<link rel="stylesheet" href="css/lightbox.css" type="text/css" media="screen">
-{/if}
-
 <form name="cart_quantity" action="{html_get_link}" method="post" enctype="multipart/form-data">
 <input type="hidden" name="action" value="add_product">
 <input type="hidden" name="content" value="{$page_file}">
 {if $smarty.get.edit}
 <input type="hidden" name="edit_product" value="{$smarty.get.products_id}">
 {/if}
-<input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
+{if $mySystem.sed}
+    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+	<input type="hidden" name="formid" value="{$mySystem.formid}">
+{/if}
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
 
       <tr>

@@ -18,7 +18,13 @@
 
   {if $smarty.get.action eq 'send' && $error eq 'false'}
       <tr>
-        <td><form action="{html_href_link content=$filename.gv_send action=process}" method="post"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><form action="{html_href_link content=$filename.gv_send action=process}" method="post">
+{if $mySystem.sed}
+    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+	<input type="hidden" name="formid" value="{$mySystem.formid}">
+{/if}		
+		
+		<table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main">{$main_message}</td>
           </tr>
@@ -43,7 +49,13 @@
         <td class="main">{$lang.heading_text}</td>
       </tr>
       <tr>
-        <td><form action="{html_href_link content=$filename.gv_send action=send}" method="post"><input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><form action="{html_href_link content=$filename.gv_send action=send}" method="post">
+{if $mySystem.sed}
+    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+	<input type="hidden" name="formid" value="{$mySystem.formid}">
+{/if}		
+		
+		 <table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main">{$lang.entry_name}<br><input type="text" name="to_name" value="{$to_name}"></td>
           </tr>

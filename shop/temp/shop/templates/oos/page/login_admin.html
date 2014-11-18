@@ -17,7 +17,13 @@
 
 {if ( $login_result_values.man_key2 eq $newkey2 and $login_result_values.status != 0 ) }
     <tr>
-      <td><form name="login" method="post" action="{html_href_link content=$filename.admin_login action=login_process connection=SSL}"><table border="0" width="70%" cellspacing="0" cellpadding="2">
+      <td><form name="login" method="post" action="{html_href_link content=$filename.admin_login action=login_process connection=SSL}">
+{if $mySystem.sed}
+    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+	<input type="hidden" name="formid" value="{$mySystem.formid}">
+{/if}	  
+	  
+	  <table border="0" width="70%" cellspacing="0" cellpadding="2">
          <tr>
             <td class="main" width="50%" valign="top"><b>{$lang.heading_admin_login}</b></td>
           </tr>

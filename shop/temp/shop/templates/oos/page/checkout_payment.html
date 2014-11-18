@@ -1,6 +1,12 @@
 {include file="oos/system/_header.tpl"}
 
-<form name="checkout_payment" action="{html_href_link content=$filename.checkout_confirmation connection=SSL}" method="post" onsubmit="return check_form();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+<form name="checkout_payment" action="{html_href_link content=$filename.checkout_confirmation connection=SSL}" method="post" onsubmit="return check_form();">
+{if $mySystem.sed}
+    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+	<input type="hidden" name="formid" value="{$mySystem.formid}">
+{/if}
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td>{$oosPageHeading}</td>
       </tr>

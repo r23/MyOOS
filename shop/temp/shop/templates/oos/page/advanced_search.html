@@ -2,7 +2,10 @@
 
    <form name="advanced_search" action="{html_get_link}" method="get" onSubmit="return check_form(this);">
    <input type="hidden" name="content" value="{$filename.advanced_search_result}">
-   <input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
+{if $mySystem.sed}
+    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+	<input type="hidden" name="formid" value="{$mySystem.formid}">
+{/if}
  
  <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>

@@ -504,7 +504,7 @@
 			$urlValues[$key] = $value;
 		}
 	}
-
+	
     $sUrl = '';
     if (is_array($urlValues) && (count($urlValues) > 0)) {
       reset($urlValues);
@@ -531,7 +531,7 @@
 
     if (!is_array($aExclude)) $aExclude = array();
 
-    $aParameters = array('formid', 'page', 'x', 'y');
+    $aParameters = array('formid', 'content', 'x', 'y');
 
     $sUrl = '';
     if (is_array($_POST) && (count($_POST) > 0)) {

@@ -23,7 +23,7 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 // debug
-$debug = 'false';
+$debug = 'true';
 
 
 // Set the local configuration parameters - mainly for developers
@@ -105,45 +105,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_navigation_history.ph
 
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_session.php';
 
-
-// set the session name and save path
-session_name('OOSSID');
-
-// set the top level domains
-$http_domain = oos_server_get_top_level_domain(OOS_HTTP_SERVER);
-$https_domain = oos_server_get_top_level_domain(OOS_HTTPS_SERVER);
-$current_domain = (($request_type == 'NONSSL') ? $http_domain : $https_domain);
-
-// set the session cookie parameters
-if (function_exists('session_set_cookie_params')) {
-    session_set_cookie_params(0, '/', (oos_is_not_null($current_domain) ? '.' . $current_domain : ''));
-} elseif (function_exists('ini_set')) {
-    ini_set('session.cookie_lifetime', '0');
-    ini_set('session.cookie_path', '/');
-    ini_set('session.cookie_domain', (oos_is_not_null($current_domain) ? '.' . $current_domain : ''));
-}
-
-// set the session ID if it exists
-if (isset($_POST[session_name()])) {
-    session_id($_POST[session_name()]);
-    oos_session_start();
-/*
-} elseif (isset($_COOKIE[session_name()])) {
-  session_id($_COOKIE[session_name()]);
-   oos_session_start();
- */
-} elseif (isset($_GET[session_name()])) {
-    session_id($_GET[session_name()]);
-    oos_session_start();
-}
-
-if ( is_session_started() === TRUE ) {
-    if (!(preg_match('/^[a-z0-9]{26}$/i', session_id()) || preg_match('/^[a-z0-9]{32}$/i', session_id()))) {
-        session_regenerate_id(TRUE);
-   }
-}
-
-
 // require the database functions
 $adodb_logsqltable = $oostable['adodb_logsql'];
 if (!defined('ADODB_LOGSQL_TABLE')) {
@@ -177,9 +138,27 @@ while ($configuration = $configuration_result->fields) {
     $configuration_result->MoveNext();
 }
 
-// set the language
-$sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
-$nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_CUSTOMERS_STATUS_ID;
+
+// set the session name and save path
+session_name('OOSSID');
+
+// set the session ID if it exists
+if (isset($_POST[session_name()]) && !empty($_POST[session_name()])){
+    oos_session_start();
+/*
+} elseif (isset($_COOKIE[session_name()])) {
+  session_id($_COOKIE[session_name()]);
+   oos_session_start();
+ */
+} elseif (isset($_GET[session_name()]) && !empty($_GET[session_name()])) {
+    oos_session_start();
+}
+
+if ( is_session_started() === TRUE ) {
+    if (!(preg_match('/^[a-z0-9]{26}$/i', session_id()) || preg_match('/^[a-z0-9]{32}$/i', session_id()))) {
+        session_regenerate_id(TRUE);
+   }
+}
 
 
 
@@ -208,6 +187,10 @@ if (!isset($_SESSION['language']) || isset($_GET['language'])) {
     }
 
 }
+
+// set the language
+$sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
+$nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_CUSTOMERS_STATUS_ID;
 
 include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
 
@@ -252,12 +235,6 @@ if ( empty( $sContent ) || !is_string( $sContent ) ) {
 // Cross-Site Scripting attack defense
 oos_secure_input();
 
-
-// products history
-if (!isset($_SESSION['products_history'])) {
-	$_SESSION['products_history'] = new oosProductsHistory;
-}
-
 // initialize the message stack for output messages
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_message_stack.php';
 $oMessage = new messageStack;
@@ -278,5 +255,4 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
 // infobox
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_boxes.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_coupon.php';
-
 

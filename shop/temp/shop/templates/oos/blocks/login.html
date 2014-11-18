@@ -11,6 +11,11 @@
         <td width="2" class="block_content_backgr_left"></td>
         <td width="150">
 <form name="login" method="post" action="{html_href_link content=$filename.login action=process connection=SSL}">
+{if $mySystem.sed}
+    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+	<input type="hidden" name="formid" value="{$mySystem.formid}">
+{/if}
+
 <table width="150" border="0" cellspacing="0" cellpadding="3">
           <tr>
             <td align="left" class="block_content">{$lang.entry_email_address}</td>
