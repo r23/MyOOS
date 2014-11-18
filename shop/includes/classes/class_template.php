@@ -52,7 +52,7 @@ class myOOS_Smarty extends Smarty
 			$dir = $dir."/";
 		}
 
-		$this->setTemplateDir($dir . 'shop/templates/')
+		$this->setTemplateDir(MYOOS_INCLUDE_PATH . '/templates/')
 			->setCompileDir( $dir . 'shop/templates_c/')
 			->setCacheDir($dir . 'shop/cache/');
 
