@@ -9,7 +9,13 @@
       </tr>
 {if $cart_count_contents gt 0 }
       <tr>
-        <td><form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=update_product}" method="post">{$hidden_field}
+        <td>
+<form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=update_product}" method="post">
+{if $mySystem.sed}
+    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+	<input type="hidden" name="formid" value="{$mySystem.formid}">
+{/if}		
+		{$hidden_field}
           <table border="0" width="100%" cellspacing="0" cellpadding="2">{$shopping_cart_detail}</table></td>
       </tr>
   {if $smarty.session.error_cart_msg != ''}

@@ -1,5 +1,12 @@
 {include file="oos/system/_header.tpl"}
-   <form name="account_edit" action="{html_href_link content=$filename.create_account_process connection=SSL}" method="post" onSubmit="return check_form();"><input type="hidden" name="action" value="process"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+   <form name="account_edit" action="{html_href_link content=$filename.create_account_process connection=SSL}" method="post" onSubmit="return check_form();">
+ {if $mySystem.sed}
+    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+	<input type="hidden" name="formid" value="{$mySystem.formid}">
+{/if}  
+   <input type="hidden" name="action" value="process">
+   
+   <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td>{$oosPageHeading}</td>
       </tr>
