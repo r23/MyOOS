@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: class_split_page_results.php,v 1.2 2007/12/11 08:12:54 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

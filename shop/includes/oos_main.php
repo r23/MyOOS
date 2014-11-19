@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: oos_main.php,v 1.3 2008/07/06 23:58:17 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
@@ -34,7 +33,7 @@ if (is_readable('includes/local/configure.php')) {
 }
 
 // Version information
-define('OOS_VERSION', '2.0.18 -dev');
+define('OOS_VERSION', '2.0.29 -dev');
 // Complete software name string
 define('OOS_FULL_NAME', 'MyOOS ' . OOS_VERSION);
 

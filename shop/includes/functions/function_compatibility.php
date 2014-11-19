@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: function_compatibility.php,v 1.4 2008/08/09 04:52:04 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

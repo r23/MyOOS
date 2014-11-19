@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: class_order_total.php,v 1.2 2007/11/16 21:30:26 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

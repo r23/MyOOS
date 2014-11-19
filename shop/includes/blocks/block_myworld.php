@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: block_myworld.php,v 1.3 2007/10/24 23:37:58 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

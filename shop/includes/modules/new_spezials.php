@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: new_spezials.php,v 1.2 2008/08/29 16:53:12 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

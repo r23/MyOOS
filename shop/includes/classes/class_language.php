@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: class_language.php,v 1.2 2008/07/22 13:16:53 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

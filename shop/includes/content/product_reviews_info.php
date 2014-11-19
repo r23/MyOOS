@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: product_info.php,v 1.2 2007/12/01 00:28:43 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

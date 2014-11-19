@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: function_input.php,v 1.2 2008/08/15 16:28:30 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

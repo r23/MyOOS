@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: class_url_rewrite.php,v 1.1 2007/06/07 16:06:31 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

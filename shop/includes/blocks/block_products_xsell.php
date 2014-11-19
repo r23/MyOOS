@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: block_products_xsell.php,v 1.1 2007/06/07 11:55:41 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

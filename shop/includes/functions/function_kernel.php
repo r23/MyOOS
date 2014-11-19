@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: function_kernel.php,v 1.9 2009/01/23 06:23:43 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

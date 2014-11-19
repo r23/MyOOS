@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: subscription_center.php,v 1.1 2007/06/07 16:50:51 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

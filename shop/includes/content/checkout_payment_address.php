@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: payment_address.php,v 1.1 2007/06/07 16:31:25 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

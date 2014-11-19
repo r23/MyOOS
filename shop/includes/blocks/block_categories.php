@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: block_categories.php,v 1.3 2007/10/29 23:02:42 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

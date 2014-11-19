@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: subscribe_success.php,v 1.2 2008/10/03 15:38:16 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

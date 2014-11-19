@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: account_edit_process.php,v 1.2 2008/01/20 14:37:53 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: class_payment.php,v 1.2 2007/10/21 01:23:35 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

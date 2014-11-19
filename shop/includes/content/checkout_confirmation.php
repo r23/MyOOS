@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: confirmation.php,v 1.3 2009/01/17 00:34:07 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

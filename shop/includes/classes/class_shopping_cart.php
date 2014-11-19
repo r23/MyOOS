@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: class_shopping_cart.php,v 1.3 2008/11/12 14:49:03 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

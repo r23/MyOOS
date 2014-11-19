@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: order_history.php,v 1.1 2007/06/07 16:24:30 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: create_account.php,v 1.1 2007/06/07 17:11:51 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: advanced.php,v 1.1 2007/06/07 17:11:51 r23 Exp $
 
    OOS [OSIS Online Shop]
    http://www.oos-shop.de/

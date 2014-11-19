@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: function_listing.php,v 1.1 2007/06/12 16:49:27 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

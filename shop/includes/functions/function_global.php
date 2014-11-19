@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: function_global.php,v 1.2 2007/09/10 20:42:35 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

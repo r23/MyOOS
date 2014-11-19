@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: info_message.php,v 1.2 2009/02/17 03:49:20 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
