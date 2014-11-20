@@ -484,6 +484,7 @@
   * @return string
   */
   function oos_get_all_get_parameters($aExclude = '') {
+	global $session;
 
     if (!is_array($aExclude)) $aExclude = array();
     $aParameters = array('p', 'error', 'rewrite', 'c', 'm', 'content', 'infex.php', 'history_back', 'formid', 'gclid', 'x', 'y');
@@ -509,7 +510,7 @@
       reset($urlValues);
       while (list($sKey, $sValue) = each($urlValues)) {
         if (!empty($sValue)) {
-          if ( ($sKey != oos_session_name()) && (!in_array($sKey, $aParameters)) && (!in_array($sKey, $aExclude)) ) {
+          if ( ($sKey != $session->getName()) && (!in_array($sKey, $aParameters)) && (!in_array($sKey, $aExclude)) ) {
             $sUrl .= $sKey . '=' . rawurlencode($sValue) . '&amp;';
           }
         }
@@ -527,7 +528,8 @@
   * @return string
   */
   function oos_get_all_post_parameters($aExclude = '') {
-
+	global $session;
+	
     if (!is_array($aExclude)) $aExclude = array();
 
     $aParameters = array('formid', 'content', 'x', 'y');
@@ -537,7 +539,7 @@
       reset($_POST);
       while (list($sKey, $sValue) = each($_POST)) {
         if ( (!empty($sValue)) && (!is_array($sValue)) ) {
-          if ( ($sKey != oos_session_name())  && (!in_array($sKey, $aParameters))  && (!in_array($sKey, $aExclude)) ) {
+          if ( ($sKey != $session->getName())  && (!in_array($sKey, $aParameters))  && (!in_array($sKey, $aExclude)) ) {
             $sUrl .= $sKey . '=' . rawurlencode($sValue) . '&amp;';
           }
         }

@@ -121,13 +121,13 @@
 
         if (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') {
           $js .= "\n" . '  if (!document.getElementById("1").checked) {' . "\n" .
-                 '    error_message = error_message + unescape("' . decode($aLang['error_conditions_not_accepted']) . '");' . "\n" .
+                 '    error_message = error_message + unescape("' . $aLang['error_conditions_not_accepted'] . '");' . "\n" .
                  '    error = 1;' . "\n" .
                  '  }' . "\n\n";
         }
 
         $js .= "\n" . '  if (payment_value == null && submitter != 1) {' . "\n" . // ICW CREDIT CLASS Gift Voucher System
-               '    error_message = error_message + "' . decode($aLang['js_error_no_payment_module_selected']) . '";' . "\n" .
+               '    error_message = error_message + "' . $aLang['js_error_no_payment_module_selected'] . '";' . "\n" .
                '    error = 1;' . "\n" .
                '  }' . "\n\n" .
                '  if (error == 1 && submitter != 1) {' . "\n" .

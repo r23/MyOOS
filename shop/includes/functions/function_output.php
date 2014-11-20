@@ -42,7 +42,7 @@
   * @return string
   */
   function oos_href_link($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = TRUE, $search_engine_safe = TRUE) {
-    global $oEvent, $spider_flag;
+    global $session, $oEvent, $spider_flag;
 
 
     if ($connection == 'NONSSL') {
@@ -74,9 +74,10 @@
     }
 
     if (isset($_SESSION)) {
+
 		// Add the session ID when moving from HTTP and HTTPS servers or when SID is defined
 		if ( (ENABLE_SSL == 'true' ) && ($connection == 'SSL') && ($add_session_id == TRUE) ) {
-			$_sid = oos_session_name() . '=' . oos_session_id();
+			$_sid = $session->getName() . '=' . $session->getId();
 		} elseif ( ($add_session_id == TRUE) && (oos_is_not_null(SID)) ) {
 			$_sid = SID;
 		}
@@ -351,15 +352,6 @@ function oos_draw_select_field($name, $type, $value = null, $checked = FALSE, $p
 
 
 
-
- /**
-  * Hide form elements
-  */
-  function oos_hide_session_id() {
-    if (defined('SID') && oos_is_not_null(SID)) return oos_draw_hidden_field(oos_session_name(), oos_session_id());
-  }
-
-
  /**
   * Return all GET variables, except those passed as a parameter
   *
@@ -373,7 +365,7 @@ function oos_draw_select_field($name, $type, $value = null, $checked = FALSE, $p
       reset($_GET);
       while (list($sKey, $sValue) = each($_GET)) {
         if (!empty($sValue)) {
-          if ( ($sKey != oos_session_name()) && ($sKey != 'error') && ($sKey != 'p') && ($sKey != 'rewrite') && ($sKey != 'c') && ($sKey != 'm') &&  ($sKey != 'content') && ($sKey != 'index.php') && ($sKey != 'history_back') && (!in_array($sKey, $aExclude)) && ($sKey != 'x') && ($sKey != 'y') ) {
+          if ( ($sKey != $session->getName()) && ($sKey != 'error') && ($sKey != 'p') && ($sKey != 'rewrite') && ($sKey != 'c') && ($sKey != 'm') &&  ($sKey != 'content') && ($sKey != 'index.php') && ($sKey != 'history_back') && (!in_array($sKey, $aExclude)) && ($sKey != 'x') && ($sKey != 'y') ) {
             $sField = '<input type="hidden" name="' . oos_output_string($sKey) . '"';
             $sField .= ' value="' . oos_output_string($sValue) . '" />';
           }

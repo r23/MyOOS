@@ -18,11 +18,11 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
 // start the session
-if ( is_session_started() === FALSE ) oos_session_start();   
+if ( $session->hasStarted() === FALSE ) $session->start(); 
   
   if (DISPLAY_CART == 'true') {
     $goto_file = $aContents['shopping_cart'];
@@ -98,9 +98,9 @@ if ( is_session_started() === FALSE ) oos_session_start();
 
               if ($products_options_file->parse(TEXT_PREFIX . $_POST[UPLOAD_PREFIX . $i])) {
                 if (isset($_SESSION['customer_id'])) {
-                  $dbconn->Execute("INSERT INTO " . $files_uploadedtable . " (sesskey, customers_id, files_uploaded_name) VALUES ('" . oos_session_id() . "', '" . intval($_SESSION['customer_id']) . "', '" . oos_db_input($products_options_file->filename) . "')");
+                  $dbconn->Execute("INSERT INTO " . $files_uploadedtable . " (sesskey, customers_id, files_uploaded_name) VALUES ('" . $session->getId() . "', '" . intval($_SESSION['customer_id']) . "', '" . oos_db_input($products_options_file->filename) . "')");
                 } else {
-                  $dbconn->Execute("INSERT INTO " . $files_uploadedtable . " (sesskey, files_uploaded_name) VALUES ('" . oos_session_id() . "', '" . oos_db_input($products_options_file->filename) . "')");
+                  $dbconn->Execute("INSERT INTO " . $files_uploadedtable . " (sesskey, files_uploaded_name) VALUES ('" . $session->getId() . "', '" . oos_db_input($products_options_file->filename) . "')");
                 }
                 $insert_id = $dbconn->Insert_ID();
                 $real_ids[TEXT_PREFIX . $_POST[UPLOAD_PREFIX . $i]] = $insert_id . ". " . $products_options_file->filename;
@@ -122,7 +122,7 @@ if ( is_session_started() === FALSE ) oos_session_start();
           if (!isset($_SESSION['customer_id'])) {
 
             $aPage = array();
-            $aPage['file'] = $sContent;
+            $aPage['content'] = $sContent;
             $aPage['mode'] = $request_type;
             $aPage['get'] = 'products_id=' . rawurlencode($_POST['products_id']) . '&amp;action=add_wishlist';
 

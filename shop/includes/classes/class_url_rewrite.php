@@ -24,6 +24,7 @@
 
 
     function transform_uri($param) {
+		global $session;
 
       unset($path);
       unset($url);
@@ -39,7 +40,7 @@
 
       if ( (in_array('cPath', $url_array)) || (in_array($aContents['product_info'], $url_array) && in_array($url_array)) ) {
 
-        $_filter = array('mp', 'file', $aContents['shop'], oos_session_name(), oos_session_id());
+        $_filter = array('content', $aContents['shop'], $session->getName(), $session->getId());
 
         $dbconn =& oosDBGetConn();
         $oostable =& oosDBGetTables();

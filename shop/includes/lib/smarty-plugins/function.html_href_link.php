@@ -36,7 +36,7 @@
 
 function smarty_function_html_href_link($params, &$smarty)
 {
-    global $oEvent, $spider_kill_sid;
+    global $session, $oEvent, $spider_kill_sid;
 
 	require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
 	
@@ -131,7 +131,7 @@ function smarty_function_html_href_link($params, &$smarty)
     if (isset($_SESSION)) {
 		// Add the session ID when moving from HTTP and HTTPS servers or when SID is defined
 		if ( (ENABLE_SSL == 'true' ) && ($connection == 'SSL') && ($add_session_id == TRUE) ) {
-			$_sid = oos_session_name() . '=' . oos_session_id();
+			$_sid = $session->getName() . '=' . $session->getId();
 		} elseif ( ($add_session_id == TRUE) && (oos_is_not_null(SID)) ) 	{
 			$_sid = SID;
 		}

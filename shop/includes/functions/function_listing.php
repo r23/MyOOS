@@ -38,7 +38,7 @@
   * @return string
   */
   function oos_create_sort_heading($sortby, $colnum, $heading) {
-    global $sMp, $sContent, $aLang;
+    global $sContent, $aLang;
 
     $sort_prefix = '';
     $sort_suffix = '';

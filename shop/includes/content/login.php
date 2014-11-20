@@ -86,7 +86,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
 			$_SESSION['cart']->restore_contents();
 
 			if (count($_SESSION['navigation']->snapshot) > 0) {
-				$origin_href = oos_href_link($_SESSION['navigation']->snapshot['file'], $_SESSION['navigation']->snapshot['get'], $_SESSION['navigation']->snapshot['mode']);
+				$origin_href = oos_href_link($_SESSION['navigation']->snapshot['content'], $_SESSION['navigation']->snapshot['get'], $_SESSION['navigation']->snapshot['mode']);
 				$_SESSION['navigation']->clear_snapshot();
 				oos_redirect($origin_href);
 			} else {

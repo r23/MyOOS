@@ -1,18 +1,14 @@
 <?php
 /**
- * Copyright 2010 Phoenix Foundation
+ * MyOOS [Shopsystem]
+ * http://www.oos-shop.de/
  *
- * This work is contributed to the Phoenix Foundation under one or more
- * Contributor Agreements and licensed to You under the following license:
- *
- * @license GNU/LGPLv3 (or at your option, any later version).
+ * @license GNU/LGPLv2 (or at your option, any later version).
  * @package Phoenix
  * @subpackage Phoenix_Session
- *
- * Please see the NOTICE file distributed with this source code for further
- * information regarding copyright and licensing.
  */
 
+ 
 use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
@@ -110,7 +106,7 @@ class Phoenix_Session extends Session
                 break;
         }
 		*/
-		$lifetime = 31536000;
+		$lifetime = 0;
         $config['cookie_lifetime'] = $lifetime;
 
         $this->storage->setOptions($config);

@@ -101,14 +101,14 @@ if (isset($_SESSION)) {
    
 	$sFormid = md5(uniqid(rand(), true));
 	$_SESSION['formid'] = $sFormid;
-	
+
 	$aSystem = array(
 		'sed'	=> true,
 		'formid' => $sFormid,
-		'session_name' => oos_session_name(),
-		'session_id' => oos_session_id()
+		'session_name' => $session->getName(),
+		'session_id' => $session->getId()
 	);
-	
+
 	if (is_object($_SESSION['cart'])) {
 		$smarty->registerObject("cart", $_SESSION['cart'],array('count_contents', 'get_products')); 
 

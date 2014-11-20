@@ -27,7 +27,7 @@
   $oBreadcrumb->add($aLang['navbar_title_2']);
 
   if (count($_SESSION['navigation']->snapshot) > 0) {
-    $origin_href = oos_href_link($_SESSION['navigation']->snapshot['file'], $_SESSION['navigation']->snapshot['get'], $_SESSION['navigation']->snapshot['mode']);
+    $origin_href = oos_href_link($_SESSION['navigation']->snapshot['content'], $_SESSION['navigation']->snapshot['get'], $_SESSION['navigation']->snapshot['mode']);
     $_SESSION['navigation']->clear_snapshot();
   } else {
     $origin_href = oos_href_link($aContents['main']);

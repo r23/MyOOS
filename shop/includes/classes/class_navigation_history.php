@@ -49,48 +49,12 @@
      }
 
 
-     function add_current_page() {
-      global $sMp, $sContent, $request_type;
-
-      $get_all = ''; 
-      if (isset($_GET)) {
-        $get_all = oos_get_all_get_parameters();
-        $get_all = oos_remove_trailing($get_all);
-      }
-      $this->path[] = array('modules' => $sMp,
-                            'file' => $sContent,
-                            'mode' => $request_type,
-                            'get' => $get_all);
-
-    }
-
-
-    function remove_current_page() {
-      global $sMp, $sContent;
-
-      $last_entry_position = count($this->path) - 1;
-      if ( ($this->path[$last_entry_position]['modules'] == $sMp)  && ($this->path[$last_entry_position]['file'] == $sContent) ) {
-        unset($this->path[$last_entry_position]);
-      }
-    }
-
-
-    function remove_last_page() {
-
-      $last_entry_position = count($this->path) - 1;
-      if ($last_entry_position > 0) {
-        unset($this->path[$last_entry_position]);
-      }
-    }
-
-
 
     function set_snapshot($page = '') {
-      global $sMp, $sContent, $request_type;
+      global $sContent, $request_type;
 
       if (is_array($page)) {
-        $this->snapshot = array('modules' => $page['modules'],
-                                'file' => $page['file'],
+        $this->snapshot = array('content' => $page['content'],
                                 'mode' => $page['mode'],
                                 'get' => $page['get']);
       } else {
@@ -99,8 +63,7 @@
           $get_all = oos_get_all_get_parameters();
           $get_all = oos_remove_trailing($get_all);
         }
-        $this->snapshot = array('modules' => $sMp,
-                                'file' => $sContent,
+        $this->snapshot = array('content' => $sContent,
                                 'mode' => $request_type,
                                 'get' => $get_all);
       }
@@ -113,8 +76,7 @@
 
     function set_path_as_snapshot($history = 0) {
       $pos = (count($this->path)-1-$history);
-      $this->snapshot = array('modules' => $this->path[$pos]['modules'],
-                              'file' => $this->path[$pos]['file'],
+      $this->snapshot = array('content' => $this->path[$pos]['content'],
                               'mode' => $this->path[$pos]['mode'],
                               'get' => $this->path[$pos]['get']);
     }
@@ -122,23 +84,15 @@
 
     function debug() {
       for ($i=0, $n=count($this->path); $i<$n; $i++) {
-        echo $this->path[$i]['modules'] . '&' . $this->path[$i]['file'] . '&' . $this->path[$i]['get'] . '<br />';
+        echo $this->path[$i]['content'] . '&' . $this->path[$i]['get'] . '<br />';
         echo '<br />';
       }
 
       echo '<br /><br />';
       if (count($this->snapshot) > 0) {
-        echo $this->snapshot['mode'] . ' ' . $this->snapshot['modules'] . '&' . $this->snapshot['file'] . '&' . $this->snapshot['get'] . '<br />';
+        echo $this->snapshot['content'] . '&' . $this->snapshot['get'] . '<br />';
       }
     }
 
-
-    function unserialize($broken) {
-      for(reset($broken);$kv=each($broken);) {
-        $key=$kv['key'];
-        if (gettype($this->$key)!="user function")
-        $this->$key=$kv['value'];
-      }
-    }
-  }
+}
 

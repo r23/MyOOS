@@ -121,10 +121,10 @@ function oos_session_start()
 
 
 	// set the session ID if it exists
-	if (isset($_POST[oos_session_name()])) {
-		oos_session_id($_POST[oos_session_name()]);
-	} elseif (isset($_GET[oos_session_name()])) {
-		oos_session_id($_GET[oos_session_name()]);
+	if (isset($_POST[$session->getName()])) {
+		oos_session_id($_POST[$session->getName()]);
+	} elseif (isset($_GET[$session->getName()])) {
+		oos_session_id($_GET[$session->getName()]);
 	}
 
 

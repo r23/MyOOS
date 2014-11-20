@@ -28,7 +28,6 @@
 						<h3 class="first-child">{$lang.navbar_title_2}</h3>
 						<hr>
 						<form role="form" name="password_forgotten" action="{html_get_link connection=SSL}" method="post">
-							{if $oos_session_name}<input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">{/if}
 							{if $formid}<input type="hidden" name="formid" value="{$formid}">{/if}
 							<input type="hidden" name="action" value="process">
 							<input type="hidden" name="content" value="{$contents.password_forgotten}">	

@@ -77,7 +77,7 @@
      * @return string
      */
      function display_links($query_numrows, $max_rows_per_page, $max_page_links, $current_page_number, $parameters = '') {
-       global $aLang, $sMp, $sContent;
+       global $aLang, $sContent;
 
        $display_link = '';
        $class = 'class="pageResults"';

@@ -29,7 +29,7 @@ if ( $session->hasStarted() === FALSE ) $session->start();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
   }
 
-  if ($_SESSION['navigation']->snapshot['file'] != $aContents['account_address_book']) {
+  if ($_SESSION['navigation']->snapshot['content'] != $aContents['account_address_book']) {
     $_SESSION['navigation']->set_path_as_snapshot(1);
   }
 
@@ -195,7 +195,7 @@ if ( $session->hasStarted() === FALSE ) $session->start();
         oos_db_perform($oostable['address_book'], $sql_data_array);
 
         if (count($_SESSION['navigation']->snapshot) > 0) {
-          $origin_href = oos_href_link($_SESSION['navigation']->snapshot['file'], $_SESSION['navigation']->snapshot['get'], $_SESSION['navigation']->snapshot['mode']);
+          $origin_href = oos_href_link($_SESSION['navigation']->snapshot['content'], $_SESSION['navigation']->snapshot['get'], $_SESSION['navigation']->snapshot['mode']);
           $_SESSION['navigation']->clear_snapshot();
           oos_redirect($origin_href);
         }
@@ -232,7 +232,7 @@ if ( $session->hasStarted() === FALSE ) $session->start();
   }
 
   if (count($_SESSION['navigation']->snapshot) > 0) {
-    $back_link = oos_href_link($_SESSION['navigation']->snapshot['file'], $_SESSION['navigation']->snapshot['get'], $_SESSION['navigation']->snapshot['mode']);
+    $back_link = oos_href_link($_SESSION['navigation']->snapshot['content'], $_SESSION['navigation']->snapshot['get'], $_SESSION['navigation']->snapshot['mode']);
   } else {
     $back_link = oos_href_link($aContents['account_address_book'], '', 'SSL');
   }

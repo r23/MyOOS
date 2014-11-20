@@ -34,7 +34,7 @@
     $hidden_get_variables = '';
     reset($_GET);
     while (list($sKey, $value) = each($_GET)) {
-      if ( ($sKey != 'currency') && ($sKey != oos_session_name()) && ($sKey != 'x') && ($sKey != 'y') ) {
+      if ( ($sKey != 'currency') && ($sKey != $session->getName()) && ($sKey != 'x') && ($sKey != 'y') ) {
         $hidden_get_variables .= oos_draw_hidden_field($sKey, $value);
       }
     }

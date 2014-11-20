@@ -265,11 +265,10 @@
                  $lc_text = '<form name="buy_slave" action="' . OOS_HTTP_SERVER . OOS_SHOP . 'index.php" method="post">';
                  $lc_text .= '<input type="hidden" name="action" value="buy_slave">';
                  $lc_text .= '<input type="hidden" name="slave_id" value="' . $listing['products_id'] .'">';
-                 $lc_text .= '<input type="hidden" name="mp" value="' . $sMp .'">';
-                 $lc_text .= '<input type="hidden" name="file" value="' . $sContent .'">';
+                 $lc_text .= '<input type="hidden" name="content" value="' . $sContent .'">';
                  $lc_text .= '<input type="hidden" name="cPath" value="' . $sCategory .'">';
                  $lc_text .= '<input type="hidden" name="products_id" value="' . $nProductsId .'">';
-                 $lc_text .= oos_hide_session_id();
+                 $lc_text .= oos_draw_hidden_field($session->getName(), $session->getId());
                  $lc_text .= oos_get_all_as_hidden_field(array('action'));
                  $lc_text .= $aLang['products_order_qty_text'];
                  $lc_text .= ' <input type="text" name="cart_quantity" value="' . $order_min . '" size="3" /><br />';

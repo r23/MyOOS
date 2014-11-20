@@ -54,7 +54,7 @@ if (function_exists('ini_set')) {
 use Symfony\Component\HttpFoundation\Request;
 
 $autoloader = require_once __DIR__ . '/core/vendor/autoload.php';
-
+$request = Request::createFromGlobals();
 
 define('MYOOS_DOCUMENT_ROOT', dirname(__FILE__)=='/'?'':dirname(__FILE__));
 

@@ -159,7 +159,7 @@
 
   $back = count($_SESSION['navigation']->path)-2;
   if (isset($_SESSION['navigation']->path[$back])) {
-    $back_link = oos_href_link($_SESSION['navigation']->path[$back]['file'], $_SESSION['navigation']->path[$back]['get'], $_SESSION['navigation']->path[$back]['mode']);
+    $back_link = oos_href_link($_SESSION['navigation']->path[$back]['content'], $_SESSION['navigation']->path[$back]['get'], $_SESSION['navigation']->path[$back]['mode']);
   }
 
   // links breadcrumb

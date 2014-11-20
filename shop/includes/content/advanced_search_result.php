@@ -35,7 +35,6 @@ $dfrom = $_GET['dfrom'] = isset($_GET['dfrom']) && !empty($_GET['dfrom']) ? stri
 $dto = $_GET['dto'] = isset($_GET['dto']) && !empty($_GET['dto']) ? stripslashes($_GET['dto']) : false;
 
 
-
   $error = 0; // reset error flag to false
   $errorno = 0;
 
@@ -106,6 +105,7 @@ $dto = $_GET['dto'] = isset($_GET['dto']) && !empty($_GET['dto']) ? stripslashes
 if ($error == 1) {
 	oos_redirect(oos_href_link($aContents['advanced_search'], 'errorno=' . $errorno . '&' . oos_get_all_get_parameters()));
 } else {
+
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title1'], oos_href_link($aContents['advanced_search']));
 #    $oBreadcrumb->add($aLang['navbar_title2'], oos_href_link($aContents['advanced_search_result'], 'keywords=' . $_GET['keywords'] . '&search_in_description=' . $_GET['search_in_description'] . '&categories_id=' . $_GET['categories_id'] . '&inc_subcat=' . $_GET['inc_subcat'] . '&manufacturers_id=' . $_GET['manufacturers_id'] . '&pfrom=' . $_GET['pfrom'] . '&pto=' . $_GET['pto'] . '&dfrom=' . $_GET['dfrom'] . '&dto=' . $_GET['dto']));
@@ -189,10 +189,15 @@ if ($error == 1) {
                       " . $oostable['specials'] . " s ON p.products_id = s.products_id";
 
     if ( ($_SESSION['member']->group['show_price_tax'] == 1) && ( (isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($_GET['pto']) && oos_is_not_null($_GET['pto']))) ) {
-      if (!isset($_SESSION['customer_country_id'])) {
-        $_SESSION['customer_country_id'] = STORE_COUNTRY;
-        $_SESSION['customer_zone_id'] = STORE_ZONE;
-      }
+	
+	$nCountry_id = STORE_COUNTRY;
+	$nZone_id = STORE_ZONE;
+	if (isset($_SESSION)) {
+		if (isset($_SESSION['customer_country_id'])) {
+			$nCountry_id = $_SESSION['customer_country_id'];
+			$nZone_id = $_SESSION['customer_zone_id'];
+		}
+	}
       $from_str .= " LEFT JOIN
                         " . $oostable['tax_rates'] . " tr
                      ON p.products_tax_class_id = tr.tax_class_id LEFT JOIN
@@ -200,10 +205,10 @@ if ($error == 1) {
                      ON tr.tax_zone_id = gz.geo_zone_id AND
                         (gz.zone_country_id is null OR
                          gz.zone_country_id = '0' OR
-                         gz.zone_country_id = '" . intval($_SESSION['customer_country_id']) . "') AND
+                         gz.zone_country_id = '" . intval($nCountry_id) . "') AND
                         (gz.zone_id is null OR
                          gz.zone_id = '0' OR
-                         gz.zone_id = '" . intval($_SESSION['customer_zone_id']) . "')";
+                         gz.zone_id = '" . intval($nZone_id) . "')";
 
     }
 
@@ -366,8 +371,6 @@ if ($error == 1) {
 
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
 
-    $smarty->assign('pw_mispell', $pw_mispell);
-    $smarty->assign('pw_string', $pw_string);
     $smarty->assign('oos_get_all_get_params', oos_get_all_get_parameters(array('sort', 'page')));
 
     $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation']));
@@ -375,6 +378,6 @@ if ($error == 1) {
   
 
     // display the template
-  $smarty->display($aTemplate['page']);
+	$smarty->display($aTemplate['page']);
 }
 

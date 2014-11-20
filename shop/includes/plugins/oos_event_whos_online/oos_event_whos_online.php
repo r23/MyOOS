@@ -51,6 +51,7 @@
     }
 
     function create_plugin_instance() {
+		global $session;
 
       // Get database information
       $dbconn =& oosDBGetConn();
@@ -64,7 +65,7 @@
         $wo_full_name = 'Guest';
       }
 
-      $wo_session_id = oos_session_id();
+      $wo_session_id = $session->getId();
       $wo_ip_address = oos_server_get_remote();
       $wo_last_page_url = addslashes(oos_server_get_var('REQUEST_URI'));
 

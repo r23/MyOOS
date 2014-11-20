@@ -154,6 +154,8 @@ if (isset($_POST[$sSid]) && !empty($_POST[$sSid])){
    $session->start();
 }
 
+
+
 // set the language
 $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
 $nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_LANGUAGE_ID;
@@ -205,7 +207,7 @@ if (!isset($_SESSION['currency']) || isset($_GET['currency'])) {
 
 
 //for debugging purposes
-//require_once MYOOS_INCLUDE_PATH . '/includes/oos_debug.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/oos_debug.php';
 
 if ( $session->hasStarted() === TRUE ) {
     if (!(preg_match('/^[a-z0-9]{26}$/i', $session->getId()) || preg_match('/^[a-z0-9]{32}$/i', $session->getId()))) {
@@ -257,9 +259,6 @@ if ( $session->hasStarted() === TRUE ) {
 	}	
 }
 
-
-
-
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_plugin_event.php';
 $oEvent = new plugin_event;
 $oEvent->getInstance();
@@ -298,5 +297,4 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
 // infobox
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_boxes.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_coupon.php';
-
 

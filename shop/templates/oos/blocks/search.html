@@ -18,10 +18,6 @@
 {/if}
     <input type="hidden" name="content" value="{$filename.advanced_search_result}"><br>
     {html_js_inputbox name='keywords' size='12' value=$lang.text_search}
-{if $mySystem.sed}
-    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-	<input type="hidden" name="formid" value="{$mySystem.formid}">
-{/if}
     {html_image_submit image="quick_find.gif" alt=$block_heading_search}
     <br>{$lang.block_search_text|wordwrap:25:"<br>\n"}<br>
     <a href="{html_href_link content=$filename.advanced_search}"><b>{$lang.block_search_advanced_search}</b></a></form></td>
