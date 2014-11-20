@@ -61,7 +61,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
 			}
 
 			// start the session
-			if ( is_session_started() === FALSE ) oos_session_start();
+			if ( $session->hasStarted() === FALSE ) $session->start();
 
 			$_SESSION['customer_wishlist_link_id'] = $check_customer['customers_wishlist_link_id'];
 			$_SESSION['customer_id'] = $check_customer['customers_id'];

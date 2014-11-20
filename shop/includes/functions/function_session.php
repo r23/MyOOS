@@ -94,6 +94,7 @@ function oos_session_save_path($sPath = '')
 function oos_session_start()
 {
 
+/*
 	// Session
 	$user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
 	$spider_flag = FALSE;
@@ -200,6 +201,8 @@ function oos_session_start()
 		oos_redirect(oos_link($aContents['login'], '', 'SSL'));
 	}
 
+	*/
+	
 }
 
 

@@ -51,6 +51,11 @@ if (function_exists('ini_set')) {
 }
 
 
+use Symfony\Component\HttpFoundation\Request;
+
+$autoloader = require_once __DIR__ . '/core/vendor/autoload.php';
+
+
 define('MYOOS_DOCUMENT_ROOT', dirname(__FILE__)=='/'?'':dirname(__FILE__));
 
 
@@ -60,6 +65,7 @@ if(!defined('MYOOS_INCLUDE_PATH')) {
 
 define('OOS_VALID_MOD', 'yes');
 require 'includes/oos_main.php';
+
 
 if (is_readable('includes/content/' . $sContent . '.php')) {
     require_once MYOOS_INCLUDE_PATH . '/includes/content/' . $sContent . '.php';

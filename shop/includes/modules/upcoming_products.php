@@ -18,46 +18,27 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  if (!is_numeric(MAX_DISPLAY_UPCOMING_PRODUCTS)) return FALSE;
+if (!is_numeric(MAX_DISPLAY_UPCOMING_PRODUCTS)) return FALSE;
 
-  switch (OOS_DB_TYPE)
-    {
-      case 'postgres':
-        $productstable = $oostable['products'];
-        $products_descriptiontable = $oostable['products_description'];
-        $sql = "SELECT p.products_id, pd.products_name, products_date_available AS date_expected
-                FROM $productstable p,
-                     $products_descriptiontable pd
-                WHERE products_date_available >= CURRENT_DATE AND
-                      p.products_id = pd.products_id AND
-                      pd.products_languages_id = '" . intval($nLanguageID) . "'
-                ORDER BY
-                      " . EXPECTED_PRODUCTS_FIELD . "
-                      " . EXPECTED_PRODUCTS_SORT;
-        break;
 
-      case 'mysqli':
-      case 'mysql':
-      default:
-        $productstable = $oostable['products'];
-        $products_descriptiontable = $oostable['products_description'];
-        $sql = "SELECT p.products_id, pd.products_name, products_date_available AS date_expected
-                FROM $productstable p,
-                     $products_descriptiontable pd
-                WHERE to_days(products_date_available) >= to_days(now()) AND
-                      p.products_id = pd.products_id AND
-                      pd.products_languages_id = '" . intval($nLanguageID) . "'
-                ORDER BY
-                      " . EXPECTED_PRODUCTS_FIELD . "
-                      " . EXPECTED_PRODUCTS_SORT;
-        break;
-    }
+$productstable = $oostable['products'];
+$products_descriptiontable = $oostable['products_description'];
+$sql = "SELECT p.products_id, pd.products_name, products_date_available AS date_expected
+			FROM $productstable p,
+				$products_descriptiontable pd
+		WHERE to_days(products_date_available) >= to_days(now()) AND
+				p.products_id = pd.products_id AND
+				pd.products_languages_id = '" . intval($nLanguageID) . "'
+		ORDER BY
+			" . EXPECTED_PRODUCTS_FIELD . "
+			" . EXPECTED_PRODUCTS_SORT;
 
-  $expected_result = $dbconn->SelectLimit($sql, MAX_DISPLAY_UPCOMING_PRODUCTS);
-  if ($expected_result->RecordCount() > 0) {
-    $smarty->assign('expected_array', $expected_result->GetArray());
-  }
+
+$expected_result = $dbconn->SelectLimit($sql, MAX_DISPLAY_UPCOMING_PRODUCTS);
+if ($expected_result->RecordCount() > 0) {
+	$smarty->assign('expected_array', $expected_result->GetArray());
+}
 

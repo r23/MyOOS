@@ -23,6 +23,8 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
 $smarty = new myOOS_Smarty();
 
+# if ( $session->hasStarted() === FALSE ) $session->start();
+
 
 //debug
 if ($debug == 'true') {

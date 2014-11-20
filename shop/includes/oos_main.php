@@ -138,28 +138,25 @@ while ($configuration = $configuration_result->fields) {
 }
 
 
+require_once MYOOS_INCLUDE_PATH . '/core/lib/Phoenix/Core/Session.php';
+$session = new Phoenix_Session();
+
 // set the session name and save path
-session_name('OOSSID');
+$session->setName('PHOENIXSID');
 
+$sSid = $session->getName();
 // set the session ID if it exists
-if (isset($_POST[session_name()]) && !empty($_POST[session_name()])){
-    oos_session_start();
-/*
-} elseif (isset($_COOKIE[session_name()])) {
-  session_id($_COOKIE[session_name()]);
-   oos_session_start();
- */
-} elseif (isset($_GET[session_name()]) && !empty($_GET[session_name()])) {
-    oos_session_start();
+if (isset($_POST[$sSid]) && !empty($_POST[$sSid])){
+   $session->start();
+} elseif (isset($_COOKIE[$sSid])) {
+	$session->start();
+} elseif (isset($_GET[$sSid]) && !empty($_GET[$sSid])) {
+   $session->start();
 }
 
-if ( is_session_started() === TRUE ) {
-    if (!(preg_match('/^[a-z0-9]{26}$/i', session_id()) || preg_match('/^[a-z0-9]{32}$/i', session_id()))) {
-        session_regenerate_id(TRUE);
-   }
-}
-
-
+// set the language
+$sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
+$nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_LANGUAGE_ID;
 
 if (!isset($_SESSION['language']) || isset($_GET['language'])) {
     // include the language class
@@ -168,7 +165,7 @@ if (!isset($_SESSION['language']) || isset($_GET['language'])) {
 
     if (isset($_GET['language']) && is_string($_GET['language'])) {
         // start the session
-        if ( is_session_started() === FALSE ) oos_session_start();
+        if ( $session->hasStarted() === FALSE ) $session->start();
 
         $oLang->set_language($_GET['language']);
     } else {
@@ -186,12 +183,7 @@ if (!isset($_SESSION['language']) || isset($_GET['language'])) {
     }
 
 }
-
-// set the language
-$sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
-$nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_CUSTOMERS_STATUS_ID;
-
-include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '.php';
+include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . oos_var_prep_for_os($sLanguage) . '.php';
 
 
 // currency
@@ -201,7 +193,7 @@ $sCurrency = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CUR
 if (!isset($_SESSION['currency']) || isset($_GET['currency'])) {
     if (isset($_GET['currency']) && oos_currency_exits($_GET['currency']))  {
         // start the session
-        if ( is_session_started() === FALSE ) oos_session_start();
+        if ( $session->hasStarted() === FALSE ) $session->start();
 
         $sCurrency = oos_var_prep_for_os($_GET['currency']);
     }
@@ -214,6 +206,58 @@ if (!isset($_SESSION['currency']) || isset($_GET['currency'])) {
 
 //for debugging purposes
 //require_once MYOOS_INCLUDE_PATH . '/includes/oos_debug.php';
+
+if ( $session->hasStarted() === TRUE ) {
+    if (!(preg_match('/^[a-z0-9]{26}$/i', $session->getId()) || preg_match('/^[a-z0-9]{32}$/i', $session->getId()))) {
+        $session->regenerate(TRUE);
+	}
+	
+	// create the shopping cart
+	if (!isset($_SESSION['cart'])) {
+		$_SESSION['cart'] = new shoppingCart();
+	}
+
+	// navigation history
+	if (!isset($_SESSION['navigation'])) {
+		$_SESSION['navigation'] = new oosNavigationHistory();
+	}
+
+	// products history
+	if (!isset($_SESSION['products_history'])) 	{
+		$_SESSION['products_history'] = new oosProductsHistory();
+	}
+
+	if (!isset($_SESSION['member'])) {
+		$_SESSION['member'] = new oosMember();
+		$_SESSION['member']->default_member();
+	}
+
+	$aContents = oos_get_content();
+	
+	// verify the browser user agent
+	$http_user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+
+	if (!isset($_SESSION['session_user_agent'])) {
+		$_SESSION['session_user_agent'] = $http_user_agent;
+	}
+
+	if ($_SESSION['session_user_agent'] != $http_user_agent) {
+		$session->expire();
+		oos_redirect(oos_link($aContents['login'], '', 'SSL'));
+	}
+
+	// verify the IP address
+	if (!isset($_SESSION['session_ip_address'])) {
+		$_SESSION['session_ip_address'] = oos_server_get_remote();
+	}
+
+	if ($_SESSION['session_ip_address'] != oos_server_get_remote()) {
+		$session->expire();
+		oos_redirect(oos_link($aContents['login'], '', 'SSL'));
+	}	
+}
+
+
 
 
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_plugin_event.php';
@@ -254,4 +298,5 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
 // infobox
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_boxes.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_coupon.php';
+
 

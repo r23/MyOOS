@@ -18,14 +18,11 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
-
-echo 'jeep';
-exit;   
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
   
 // start the session
-if ( is_session_started() === FALSE ) oos_session_start();   
+if ( $session->hasStarted() === FALSE ) $session->start();   
 
  
   if (!isset($_SESSION['customer_id'])) {

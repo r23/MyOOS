@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: languages.php,v 1.1 2007/06/08 17:14:41 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
@@ -51,22 +50,7 @@
                          '" . oos_db_input($iso_639_1) . "')";
         $dbconn->Execute($sql);
         $insert_id = $dbconn->Insert_ID();
-        //affiliate_payment_status
-        $affiliate_payment_result = $dbconn->Execute("SELECT affiliate_payment_status_id, affiliate_payment_status_name
-                                                 FROM " . $oostable['affiliate_payment_status'] . "
-                                                 WHERE affiliate_languages_id = '" . intval($_SESSION['language_id']) . "'");
-        while ($affiliate_payment_status = $affiliate_payment_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['affiliate_payment_status'] . "
-                      (affiliate_payment_status_id,
-                       affiliate_languages_id,
-                       affiliate_payment_status_name)
-                       VALUES ('" . $affiliate_payment_status['affiliate_payment_status_id'] . "',
-                               '" . intval($insert_id) . "',
-                               '" . oos_db_input($affiliate_payment_status['affiliate_payment_status_name']) . "')");
 
-         // Move that ADOdb pointer!
-          $affiliate_payment_result->MoveNext();
-        }
         //block_info
         $block_info_result = $dbconn->Execute("SELECT block_id, block_name
                                            FROM " . $oostable['block_info'] . "
@@ -170,26 +154,6 @@
            // Move that ADOdb pointer!
            $customers_status_result->MoveNext();
         }
-        // links_description
-        $links_description_result = $dbconn->Execute("SELECT l.links_id, ld.links_title, ld.links_description
-                                                  FROM " . $oostable['links'] . " l LEFT JOIN
-                                                       " . $oostable['links_description'] . " ld
-                                                     ON l.links_id = ld.links_id
-                                                  WHERE ld.links_languages_id = '" . intval($_SESSION['language_id']) . "'");
-        while ($links_description = $links_description_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['categories_description'] . "
-                      (links_id,
-                       links_languages_id,
-                       links_title,
-                       links_description)
-                       VALUES ('" . $links_description['links_id'] . "',
-                               '" . intval($insert_id) . "',
-                               '" . oos_db_input($links_description['links_title']) . "',
-                               '" . oos_db_input($links_description['links_description']) . "')");
-
-          // Move that ADOdb pointer!
-          $links_description_result->MoveNext();
-        }
 
         //information_description
         $information_result = $dbconn->Execute("SELECT i.information_id, id.information_name, id.information_description
@@ -212,43 +176,6 @@
           $information_result->MoveNext();
         }
 
-        //link_categories_description
-        $link_categories_result = $dbconn->Execute("SELECT lc.link_categories_id, lcd.link_categories_name, lcd.link_categories_description
-                                                FROM " . $oostable['link_categories'] . " lc LEFT JOIN
-                                                     " . $oostable['link_categories_description'] . " lcd
-                                                  ON lc.link_categories_id = lcd.link_categories_id
-                                                WHERE lcd.link_categories_languages_id = '" . intval($_SESSION['language_id']) . "'");
-        while ($link_categories = $link_categories_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['link_categories_description'] . "
-                      (link_categories_id, 
-                       link_categories_languages_id,
-                       link_categories_name,
-                       link_categories_description) 
-                       VALUES ('" . $link_categories['link_categories_id'] . "',
-                               '" . intval($insert_id) . "',
-                               '" . oos_db_input($link_categories['link_categories_name']) . "',
-                               '" . oos_db_input($link_categories['link_categories_description']) . "')");
-
-          // Move that ADOdb pointer!
-          $link_categories_result->MoveNext();
-        }
-
-        // links_status
-        $links_status_result = $dbconn->Execute("SELECT links_status_id, links_status_name
-                                             FROM " . $oostable['links_status'] . "
-                                             WHERE links_status_languages_id = '" . intval($_SESSION['language_id']) . "'");
-        while ($links_status = $links_status_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['links_status'] . "
-                      (links_status_id,
-                       links_status_languages_id,
-                       links_status_name)
-                       VALUES ('" . $links_status['links_status_id'] . "',
-                               '" . intval($insert_id) . "',
-                               '" . oos_db_input($links_status['links_status_name']) . "')");
-
-          // Move that ADOdb pointer!
-          $links_status_result->MoveNext();
-        }
 
         // manufacturers_info
         $manufacturers_result = $dbconn->Execute("SELECT m.manufacturers_id, mi.manufacturers_url
@@ -267,67 +194,6 @@
 
           // Move that ADOdb pointer!
           $manufacturers_result->MoveNext();
-        }
-        // newsfeed_categories
-        $newsfeed_categories_result = $dbconn->Execute("SELECT newsfeed_categories_id, newsfeed_categories_name
-                                                   FROM " . $oostable['newsfeed_categories'] . "
-                                                   WHERE newsfeed_categories_languages_id = '" . intval($_SESSION['language_id']) . "'");
-        while ($newsfeed_categories = $newsfeed_categories_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['newsfeed_categories'] . "
-                        (newsfeed_categories_id,
-                         newsfeed_categories_languages_id,
-                         newsfeed_categories_name)
-                         VALUES ('" . $newsfeed_categories['newsfeed_categories_id'] . "',
-                                 '" . intval($insert_id) . "',
-                                 '" . oos_db_input($newsfeed_categories['newsfeed_categories_name']) . "')");
-
-          // Move that ADOdb pointer!
-          $newsfeed_categories_result->MoveNext();
-        }
-        // newsfeed_info
-       $newsfeed_result = $dbconn->Execute("SELECT n.newsfeed_id, ni.newsfeed_name, ni.newsfeed_title,
-                                               ni.newsfeed_description
-                                        FROM " . $oostable['newsfeed'] . " n LEFT JOIN
-                                             " . $oostable['newsfeed_info'] . " ni
-                                            ON n.newsfeed_id = ni.newsfeed_id
-                                        WHERE ni.newsfeed_languages_id = '" . intval($_SESSION['language_id']) . "'");
-        while ($newsfeed = $newsfeed_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['newsfeed_info'] . "
-                      (newsfeed_id,
-                       newsfeed_name,
-                       newsfeed_title,
-                       newsfeed_description,
-                       newsfeed_languages_id) 
-                       VALUES ('" . $newsfeed['newsfeed_id'] . "',
-                               '" . $newsfeed['newsfeed_name'] . "',
-                               '" . $newsfeed['newsfeed_title'] . "',
-                               '" . $newsfeed['newsfeed_description'] . "',
-                               '" . intval($insert_id) . "')");
-
-          // Move that ADOdb pointer!
-          $newsfeed_result->MoveNext();
-        }
-        // create additional news_categories_description records
-        $news_categories_result = $dbconn->Execute("SELECT n.news_categories_id, nd.news_categories_name, nd.news_categories_heading_title, nd.news_categories_description
-                                          FROM " . $oostable['news_categories'] . " n LEFT JOIN
-                                               " . $oostable['news_categories_description'] . " nd
-                                              ON n.news_categories_id = nd.news_categories_id
-                                          WHERE nd.news_categories_languages_id = '" . intval($_SESSION['language_id']) . "'");
-        while ($categories = $news_categories_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['news_categories_description'] . "
-                      (news_categories_id,
-                       news_categories_languages_id,
-                       news_categories_name,
-                       news_categories_heading_title,
-                       news_categories_description) 
-                       VALUES ('" . $categories['news_categories_id'] . "',
-                               '" . intval($insert_id) . "',
-                               '" . oos_db_input($categories['news_categories_name']) . "',
-                               '" . oos_db_input($categories['news_categories_heading_title']) . "',
-                               '" . oos_db_input($categories['news_categories_description']) . "')");
-
-          // Move that ADOdb pointer!
-          $news_categories_result->MoveNext();
         }
 
         // orders_status
@@ -453,89 +319,6 @@
           $products_status_result->MoveNext();
         }
 
-        // ticket_admins
-        $ticket_admin_result = $dbconn->Execute("SELECT ticket_admin_id, ticket_admin_name
-                                             FROM " . $oostable['ticket_admins'] . "
-                                             WHERE ticket_languages_id = '" . intval($_SESSION['language_id']) . "'");
-        while ($ticket_admin = $ticket_admin_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['ticket_admins'] . " 
-                      (ticket_admin_id,
-                       ticket_languages_id,
-                       ticket_admin_name)
-                       VALUES ('" . $ticket_admin['ticket_admin_id'] . "',
-                               '" . intval($insert_id) . "',
-                               '" . oos_db_input($ticket_admin['ticket_admin_name']) . "')");
-
-          // Move that ADOdb pointer!
-          $ticket_admin_result->MoveNext();
-        }
-        //ticket_department
-        $ticket_department_result = $dbconn->Execute("SELECT ticket_department_id, ticket_department_name
-                                                  FROM " . $oostable['ticket_department'] . "
-                                                  WHERE ticket_languages_id = '" . intval($_SESSION['language_id']) . "'");
-        while ($ticket_department = $ticket_department_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['ticket_department'] . "
-                      (ticket_department_id,
-                       ticket_languages_id,
-                       ticket_department_name)
-                       VALUES ('" . $ticket_department['ticket_department_id'] . "',
-                               '" . intval($insert_id) . "',
-                               '" . oos_db_input($ticket_department['ticket_department_name']) . "')");
-
-          // Move that ADOdb pointer!
-          $ticket_department_result->MoveNext();
-        }
-        //ticket_priority
-        $ticket_priority_result = $dbconn->Execute("SELECT ticket_priority_id, ticket_priority_name
-                                                FROM " . $oostable['ticket_priority'] . "
-                                               WHERE ticket_languages_id = '" . intval($_SESSION['language_id']) . "'");
-        while ($ticket_priority = $ticket_priority_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['ticket_priority'] . "
-                      (ticket_priority_id,
-                       ticket_languages_id,
-                       ticket_priority_name)
-                       VALUES ('" . $ticket_priority['ticket_priority_id'] . "', 
-                               '" . intval($insert_id) . "',
-                               '" . oos_db_input($ticket_priority['ticket_priority_name']) . "')");
-
-          // Move that ADOdb pointer!
-          $ticket_priority_result->MoveNext();
-        }
-
-        // ticket_reply
-        $ticket_reply_result = $dbconn->Execute("SELECT ticket_reply_id, ticket_reply_name, ticket_reply_text
-                                             FROM " . $oostable['ticket_reply'] . "
-                                             WHERE ticket_languages_id = '" . intval($_SESSION['language_id']) . "'");
-        while ($ticket_reply = $ticket_reply_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['ticket_reply'] . "
-                      (ticket_reply_id,
-                       ticket_languages_id,
-                       ticket_reply_name,
-                       ticket_reply_text) 
-                       VALUES ('" . $ticket_reply['ticket_reply_id'] . "',
-                               '" . intval($insert_id) . "',
-                               '" . oos_db_input($ticket_reply['ticket_reply_name']) . "', 
-                               '" . oos_db_input($ticket_reply['ticket_reply_text']) . "')");
-
-          // Move that ADOdb pointer!
-          $ticket_reply_result->MoveNext();
-        }
-        // ticket_reply
-        $ticket_status_result = $dbconn->Execute("SELECT ticket_status_id, ticket_status_name
-                                              FROM " . $oostable['ticket_status'] . "
-                                              WHERE ticket_languages_id = '" . intval($_SESSION['language_id']) . "'");
-        while ($ticket_status = $ticket_status_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['ticket_status'] . "
-                      (ticket_status_id,
-                       ticket_languages_id,
-                       ticket_status_name)
-                       VALUES ('" . $ticket_status['ticket_status_id'] . "',
-                               '" . intval($insert_id) . "',
-                               '" . oos_db_input($ticket_status['ticket_status_name']) . "')");
-
-          // Move that ADOdb pointer!
-          $ticket_status_result->MoveNext();
-        }
         oos_redirect_admin(oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $insert_id));
         break;
 
@@ -553,6 +336,10 @@
           $dbconn->Execute("UPDATE " . $oostable['configuration'] . " 
                         SET configuration_value = '" . oos_db_input($iso_639_2) . "'
                         WHERE configuration_key = 'DEFAULT_LANGUAGE'");
+						
+			$dbconn->Execute("UPDATE " . $oostable['configuration'] . " 
+                        SET configuration_value = '" . intval($lID2) . "'
+                        WHERE configuration_key = 'DEFAULT_LANGUAGE_ID'");				
         }
         oos_redirect_admin(oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $_GET['lID']));
         break;
@@ -571,19 +358,12 @@
         }
 
         $dbconn->Execute("DELETE FROM " . $oostable['languages'] . " WHERE languages_id = '" . intval($lID) . "'");
-        $dbconn->Execute("DELETE FROM " . $oostable['affiliate_payment_status'] . " WHERE affiliate_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['block_info'] . " WHERE block_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['categories_description'] . " WHERE categories_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['coupons_description']  . " WHERE coupon_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['customers_status']  . " WHERE customers_status_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['information_description']  . " WHERE information_languages_id = '" . intval($lID) . "'");
-        $dbconn->Execute("DELETE FROM " . $oostable['link_categories_description'] . " WHERE link_categories_languages_id = '" . intval($lID) . "'");
-        $dbconn->Execute("DELETE FROM " . $oostable['links_description'] . " WHERE links_languages_id = '" . intval($lID) . "'");
-        $dbconn->Execute("DELETE FROM " . $oostable['links_status'] . " WHERE links_status_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['manufacturers_info'] . " WHERE manufacturers_languages_id = '" . intval($lID) . "'");
-        $dbconn->Execute("DELETE FROM " . $oostable['newsfeed_categories'] . " WHERE newsfeed_categories_languages_id = '" . intval($lID) . "'");
-        $dbconn->Execute("DELETE FROM " . $oostable['newsfeed_info'] . " WHERE newsfeed_languages_id = '" . intval($lID) . "'");     
-        $dbconn->Execute("DELETE FROM " . $oostable['news_categories_description'] . " WHERE news_categories_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['orders_status'] . " WHERE orders_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['page_type'] . " WHERE page_type_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_description'] . " WHERE products_languages_id = '" . intval($lID) . "'");
@@ -591,11 +371,6 @@
         $dbconn->Execute("DELETE FROM " . $oostable['products_options_types'] . " WHERE products_options_types_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_options_values'] . " WHERE products_options_values_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_status'] . " WHERE products_status_languages_id = '" . intval($lID) . "'");
-        $dbconn->Execute("DELETE FROM " . $oostable['ticket_admins'] . " WHERE ticket_languages_id = '" . intval($lID) . "'");
-        $dbconn->Execute("DELETE FROM " . $oostable['ticket_department'] . " WHERE ticket_languages_id = '" . intval($lID) . "'");
-        $dbconn->Execute("DELETE FROM " . $oostable['ticket_priority'] . " WHERE ticket_languages_id = '" . intval($lID) . "'");
-        $dbconn->Execute("DELETE FROM " . $oostable['ticket_reply'] . " WHERE ticket_languages_id = '" . intval($lID) . "'");
-        $dbconn->Execute("DELETE FROM " . $oostable['ticket_status'] . " WHERE ticket_languages_id = '" . intval($lID) . "'");
 
         oos_redirect_admin(oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page']));
         break;

@@ -50,7 +50,7 @@ define('OOS_FEEDS_EXPORT_PATH', OOS_ABSOLUTE_PATH . 'feed/');
 define('OOS_UPLOADS', OOS_ABSOLUTE_PATH . OOS_IMAGES . 'uploads/');
 
 
-define('OOS_TEMP_PATH', '');
+define('OOS_TEMP_PATH', OOS_ABSOLUTE_PATH . 'temp/');
 define('ADODB_ERROR_LOG_DEST', OOS_TEMP_PATH . 'logs/adodb_error.log');
 
 define('ADODB_ERROR_LOG_TYPE', 3);

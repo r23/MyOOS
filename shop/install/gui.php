@@ -157,10 +157,6 @@ function print_FormServer() {
         '  <td align="left"><font class="oos-normal">' . VIRTUAL_5 . '</font></td>' . "\n" .
         '  <td><font class="oos-normal">' . $_POST['oos_shop_path'] . '</font></td>' . "\n" .
         ' </tr>' . "\n" .
-        ' <tr>' . "\n" .
-        '   <td align="left"><font class="oos-normal">' . VIRTUAL_9 . '</font></td>' . "\n" .
-        '   <td><font class="oos-normal">' . $_POST['oos_template_dir'] . '</font></td>' . "\n" .
-        ' </tr>' . "\n" .
         '</table>' . "\n";
 }
 
@@ -220,7 +216,7 @@ function print_FormEditabletext() {
         ' </tr>' . "\n" .
         ' <tr>' . "\n" .
         '   <td align="left"><font class="oos-normal">' . DBTYPE . '</font><br /><font class="small">' . DBTYPE_DESC . '</font></td>' . "\n" .
-        '   <td><select name="dbtype"><option value="mysqli">&nbsp;MySQLi&nbsp;</option><option value="postgres">&nbsp;Postgres&nbsp;</option></select></td>' . "\n" .
+        '   <td><select name="dbtype"><option value="mysqli">&nbsp;MySQLi&nbsp;</option></select></td>' . "\n" .
         ' </tr>' . "\n" .
         '</table>' . "\n";
 
@@ -259,130 +255,13 @@ function print_ServerHidden() {
         '<input type="hidden" name="enable_ssl" value="' . $_POST['enable_ssl'] . '">' . "\n" .
         '<input type="hidden" name="oos_root_path" value="' . $_POST['oos_root_path'] . '">' . "\n" .
         '<input type="hidden" name="oos_shop_path" value="' . $_POST['oos_shop_path'] . '">' . "\n" .
-        '<input type="hidden" name="oos_shop_dir" value="' . $_POST['oos_shop_dir'] . '">' . "\n" .
-        '<input type="hidden" name="oos_template_dir" value="' . $_POST['oos_template_dir'] . '">' . "\n";
+        '<input type="hidden" name="oos_shop_dir" value="' . $_POST['oos_shop_dir'] . '">' . "\n";
 }
 
 
 
 function print_ConfigTmpServerInfo() {
 
-  If ($_POST['rewrite'] != 'none') {
-    $oos_shop_path = $_POST['oos_shop_path'];
-    $oos_template_dir = $_POST['oos_template_dir'];
-    $rewrite = $_POST['rewrite'];
-    $oos_shop_dir = $_POST['oos_shop_dir'];
-
-    printf(INSTALL_WRITE_FILE,
-       '<font class="oos-error"><b>' . $oos_shop_path . '.htaccess</b></font>'
-    );
-
-    $htaccess = @file_get_contents($oos_shop_path . '.htaccess');
-
-    if (php_sapi_name() == 'cgi' || php_sapi_name() == 'cgi-fcgi') {
-      $htaccess_cgi = '_cgi';
-    } else {
-      $htaccess_cgi = '';
-    }
-
-    /* Detect comptability with php_value directives */
-
-    if ($htaccess_cgi == '') {
-      $response = '';
-      $oos_host     = preg_replace('@^([^:]+):?.*$@', '\1', $_SERVER['HTTP_HOST']);
-      $oos_shop_dir = $_POST['oos_shop_dir'];
-
-      $old_htaccess = @file_get_contents($oos_shop_path . '.htaccess');
-      $fp = @fopen($oos_shop_path . '.htaccess', 'w');
-      if ($fp) {
-        fwrite($fp, 'php_value register_globals off'. "\n" .'php_value session.use_trans_sid 0');
-        fclose($fp);
-
-        $sock = @fsockopen($oos_host, $_SERVER['SERVER_PORT'], $errorno, $errorstring, 10);
-        if ($sock) {
-          fputs($sock, "GET {$oos_shop_dir} HTTP/1.0\r\n");
-          fputs($sock, "Host: $oos_host\r\n");
-          fputs($sock, "User-Agent: OSIS Online Shop/{OOS_VERSION}\r\n");
-          fputs($sock, "Connection: close\r\n\r\n");
-
-          while (!feof($sock) && strlen($response) < 4096) {
-            $response .= fgets($sock, 400);
-          }
-          fclose($sock);
-        }
-
-        /* If we get HTTP 500 Internal Server Error, we have to use the .cgi template */
-        if (preg_match('@^HTTP/\d\.\d 500@', $response)) {
-          $htaccess_cgi = '_cgi';
-        }
-
-        if (!empty($old_htaccess)) {
-          $fp = @fopen($oos_shop_path . '.htaccess', 'w');
-          fwrite($fp, $old_htaccess);
-          fclose($fp);
-        } else {
-          @unlink($oos_shop_path. '.htaccess');
-        }
-      }
-    }
-
-    if ($rewrite == 'rewrite') {
-      $template = 'htaccess' . $htaccess_cgi . '_rewrite.tpl';
-    } elseif ($rewrite == 'errordocs') {
-      $template = 'htaccess' . $htaccess_cgi . '_errordocs.tpl';
-    } else {
-      $template = 'htaccess' . $htaccess_cgi . '_normal.tpl';
-    }
-
-    if (!($a = file($oos_template_dir . 'htaccess/' . $template, 1))) {
-      echo '<br/><font class="oos-error"><b>' . ERROR_TEMPLATE_FILE . '</b></font>';
-    }
-
-    $content = str_replace(
-                 array(
-                   '{PREFIX}',
-                   '{errorFile}',
-                   '{indexFile}',
-                   '{logFile}',
-                 ),
-
-                 array(
-                   $oos_shop_dir,
-                   'error.php',
-                   'index.php',
-                   $oos_template_dir . 'logs/php_error.log',
-                 ),
-
-                 implode('', $a)
-              );
-    $fp = @fopen($oos_shop_path . '.htaccess', 'w');
-    if (!$fp) {
-      printf(FILE_WRITE_ERROR, '<font class="oos-error"><b>' . $oos_shop_path . '.htaccess</b></font>');
-      printf(COPY_CODE_BELOW , $oos_shop_path . '.htaccess', 'oos', htmlspecialchars($content));
-    } else {
-      // Check if an old htaccess file existed and try to preserve its contents. Otherwise completely wipe the file.
-      if ($htaccess != '' && preg_match('@^(.*)#\s+BEGIN\s+OOS.*#\s+END\s+OOS(.*)$@isU', $htaccess, $match)) {
-        // Code outside from oos-code was found.
-        fwrite($fp, $match[1] . $content . $match[2]);
-      } else {
-        fwrite($fp, $content);
-      }
-      fclose($fp);
-      echo DONE;
-    }
-  } else {
-    echo '<font class="oos-title">' . TMP_CONFIG_VIRTUAL_2 . '&nbsp;</font><br />' . "\n" .
-         '<br /><br /><br /><center>';
-    print_FormTmpServer();
-    echo '<form name="ChangeTmpServer" action="step.php" method="post">' . "\n";
-    print_FormHidden();
-    echo '<input type="hidden" name="op" value="ChangeTmpServer">' . "\n" .
-         '<input type="submit" value="' . BTN_CHANGE_INFO . '"><br />' . "\n" .
-         '</form></center>' . "\n" .
-         '<br />' . "\n" .
-         '<font class="oos-normal">' . CONFIG_VIRTUAL_3 . '</font><br /><br />' . "\n";
-
-  }
   echo '<br>';
   echo '<table width="90%" align="center">' . "\n" .
        ' <tr>' . "\n" .
@@ -680,11 +559,7 @@ function print_ConfigServerInfo() {
     @fclose($sock);
   }
 
-  if (!is_dir($_POST['oos_template_dir'])) {
-    printf(ERROR_NO_DIRECTORY,
-      '<font class="oos-error"><b>' . VIRTUAL_9 . '</b></font>'
-    );
-  }
+
   echo '<br />';
   echo '<br /><font class="oos-normal">' . CONFIG_VIRTUAL_2 . '</font><br /><br />' . "\n";
   echo '<center>';
@@ -771,10 +646,6 @@ function print_ChangeServer() {
         '  <td><input type="test" name="oos_shop_dir" SIZE=60 maxlength=80 value="' . $oos_shop_dir . '"></td>' . "\n" .
         ' </tr>' . "\n" .
         ' <tr>' . "\n" .
-        '  <td align="left"><font class="oos-normal">' . VIRTUAL_9 . '</font></td>' . "\n" .
-        '  <td><input type="text" name="oos_template_dir" SIZE=60 maxlength=80 value="' . $oos_template_dir . '"></td>' . "\n" .
-        ' </tr>' . "\n" .
-        ' <tr>' . "\n" .
         '  <td align="left">&nbsp;</td>' . "\n" .
         '  <td>&nbsp;</td>' . "\n" .
         ' </tr>' . "\n" .
@@ -826,10 +697,6 @@ function print_Confirm() {
         ' <tr>' . "\n" .
         '  <td align="left"><font class="oos-normal">' . VIRTUAL_5 . '</font></td>' . "\n" .
         '  <td><input type="text" name="oos_shop_path" SIZE=60 maxlength=180 value="' . $dir_fs_www_root . $shop_path . '"></td>' . "\n" .
-        ' </tr>' . "\n" .
-        ' <tr>' . "\n" .
-        '  <td align="left"><font class="oos-normal">' . VIRTUAL_9 . '</font></td>' . "\n" .
-        '  <td><input type="text" name="oos_template_dir" SIZE=60 maxlength=80 value="' . $dir_fs_www_root . $shop_path . 'temp"></td>' . "\n" .
         ' </tr>' . "\n" .
         '</table>' . "\n" .
         '<br /><br />' . "\n";
@@ -890,7 +757,7 @@ function print_ChangeInfo() {
        ' </tr>' . "\n" .
        ' <tr>' . "\n" .
        '   <td align="left"><font class="oos-normal">' . DBTYPE . '</font></td>' . "\n" .
-       '   <td><select name="dbtype"><option value="mysql" selected>&nbsp;MySQL&nbsp;</option><option value="mysqli">&nbsp;MySQLi&nbsp;</option><option value="postgres">&nbsp;Postgres&nbsp;</option></select></td>' . "\n" .
+       '   <td><select name="dbtype"><option value="mysqli">&nbsp;MySQLi&nbsp;</option></select></td>' . "\n" .
        ' </tr>' . "\n" .
        '</table>' . "\n" .
        '<br /><br />' . "\n" .

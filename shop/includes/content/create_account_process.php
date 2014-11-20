@@ -27,7 +27,7 @@
   }
 
 // start the session
-if ( is_session_started() === FALSE ) oos_session_start();  
+if ( $session->hasStarted() === FALSE ) $session->start();  
   
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account_process.php';
   require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
