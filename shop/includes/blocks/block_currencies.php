@@ -21,7 +21,6 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  /*
   if (isset($oCurrencies) && is_object($oCurrencies)) {
 
     reset($oCurrencies->currencies);
@@ -39,7 +38,7 @@
       }
     }
 
-    $oos_pull_down_menu = oos_draw_pull_down_menu('currency', $aCurrencies, $_SESSION['currency'], 'onChange="this.form.submit();" style="width: 100%"') . $hidden_get_variables . oos_hide_session_id();
+    $oos_pull_down_menu = oos_draw_pull_down_menu('currency', $aCurrencies, $_SESSION['currency'], 'onChange="this.form.submit();" style="width: 100%"') . $hidden_get_variables;
 
     $smarty->assign(
         array(
@@ -48,5 +47,5 @@
         )
     );
   }
-*/
+
 
