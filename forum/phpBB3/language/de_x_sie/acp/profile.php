@@ -1,15 +1,16 @@
 <?php
 /**
 *
-* acp_profile [Deutsch — Sie]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: profile.php 617 2013-09-29 10:21:18Z pyramide $
-* @copyright (c) 2005 phpBB Group; 2006 phpBB.de
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 * Deutsche Übersetzung durch die Übersetzer-Gruppe von phpBB.de:
-* siehe docs/AUTHORS und https://www.phpbb.de/go/ubersetzerteam
+* siehe language/de_x_sie/AUTHORS.md und https://www.phpbb.de/go/ubersetzerteam
 *
 */
 
@@ -41,8 +42,11 @@ if (empty($lang) || !is_array($lang))
 // Custom profile fields
 $lang = array_merge($lang, array(
 	'ADDED_PROFILE_FIELD'	=> 'Benutzerdefiniertes Profilfeld erfolgreich hinzugefügt.',
+	'ALPHA_DOTS'			=> 'Nur alphanumerische Zeichen und Punkte',
 	'ALPHA_ONLY'			=> 'Nur alphanumerische Zeichen',
 	'ALPHA_SPACERS'			=> 'Nur alphanumerische, Leer- und -+_[]-Zeichen',
+	'ALPHA_UNDERSCORE'		=> 'Nur alphanumerische Zeichen und Unterstriche',
+	'ALPHA_PUNCTUATION'		=> 'Nur alphanumerische Zeichen, Kommas, Punkte, Unterstriche und Bindestriche mit einem Buchstaben am Anfang',
 	'ALWAYS_TODAY'			=> 'Immer das aktuelle Datum',
 
 	'BOOL_ENTRIES_EXPLAIN'	=> 'Geben Sie hier die Optionen an.',
@@ -51,14 +55,13 @@ $lang = array_merge($lang, array(
 	'CHANGED_PROFILE_FIELD'		=> 'Profilfeld erfolgreich geändert.',
 	'CHARS_ANY'					=> 'Alle Zeichen',
 	'CHECKBOX'					=> 'Kontrollkästchen',
-	'COLUMNS'					=> 'Spalten',
+	'COLUMNS'					=> 'Zeichen',
 	'CP_LANG_DEFAULT_VALUE'		=> 'Standardwert',
 	'CP_LANG_EXPLAIN'			=> 'Feld-Beschreibung',
 	'CP_LANG_EXPLAIN_EXPLAIN'	=> 'Die dem Benutzer angezeigte Beschreibung für das Feld.',
 	'CP_LANG_NAME'				=> 'Dem Benutzer angezeigter Name/Titel',
 	'CP_LANG_OPTIONS'			=> 'Optionen',
 	'CREATE_NEW_FIELD'			=> 'Neues Feld anlegen',
-	'COLUMNS'					=> 'Zeichen',
 	'CUSTOM_FIELDS_NOT_TRANSLATED'	=> 'Mindestens ein benutzerdefiniertes Profilfeld wurde nicht übersetzt. Bitte geben Sie die erforderlichen Informationen an, indem Sie auf den „Übersetzen“-Link klicken.',
 
 	'DEFAULT_ISO_LANGUAGE'			=> 'Standard-Sprache [ %s ]',
@@ -69,34 +72,44 @@ $lang = array_merge($lang, array(
 	'DISPLAY_AT_PROFILE'			=> 'Im persönlichen Bereich des Benutzers anzeigen',
 	'DISPLAY_AT_PROFILE_EXPLAIN'	=> 'Der Benutzer kann das Profil in seinem persönlichen Bereich ändern.',
 	'DISPLAY_AT_REGISTER'			=> 'Bei der Registrierung anzeigen',
-	'DISPLAY_AT_REGISTER_EXPLAIN'	=> 'Wenn diese Option gesetzt ist, wird das Feld bei der Registrierung angezeigt.',
+	'DISPLAY_AT_REGISTER_EXPLAIN'	=> 'Wenn diese Option aktiviert ist, wird das Feld bei der Registrierung angezeigt.',
+	'DISPLAY_ON_MEMBERLIST'			=> 'In Mitgliederliste anzeigen',
+	'DISPLAY_ON_MEMBERLIST_EXPLAIN'	=> 'Wenn diese Option aktiviert ist, wird das Feld in der Mitgliederliste angezeigt.',
+	'DISPLAY_ON_PM'					=> 'Bei Privaten Nachrichten anzeigen',
+	'DISPLAY_ON_PM_EXPLAIN'			=> 'Wenn diese Option aktiviert ist, wird das Feld im Kurzprofil neben Privaten Nachrichten angezeigt.',
 	'DISPLAY_ON_VT'					=> 'Bei der Themen-Ansicht anzeigen',
-	'DISPLAY_ON_VT_EXPLAIN'			=> 'Wenn diese Option gesetzt ist, wird das Feld im Kurzprofil neben den Beiträgen angezeigt.',
+	'DISPLAY_ON_VT_EXPLAIN'			=> 'Wenn diese Option aktiviert ist, wird das Feld im Kurzprofil neben den Beiträgen angezeigt.',
 	'DISPLAY_PROFILE_FIELD'			=> 'Profilfeld öffentlich anzeigen',
 	'DISPLAY_PROFILE_FIELD_EXPLAIN'	=> 'Das Profilfeld wird an allen Stellen angezeigt, die in den Einstellungen zur Serverlast aktiviert sind. Wird diese Option auf „Nein“ gestellt, so wird das Feld im Beitrag, im Profil und in der Mitgliederliste ausgeblendet.',
 	'DROPDOWN_ENTRIES_EXPLAIN'		=> 'Geben Sie hier die Optionen an; jede Option in einer neuen Zeile.',
 
-	'EDIT_DROPDOWN_LANG_EXPLAIN'	=> 'Bitte beachten Sie, dass Sie den Text der Optionen ändern oder neue Optionen an das Ende hinzufügen können. Es wird nicht empfohlen, neue Optionen zwischen bestehenden hinzuzufügen, weil dies zu falsch zugeordneten Optionen bei den Benutzern führen kann. Dies kann auch passieren, wenn Sie Optionen löschen, die nicht am Ende stehen. Wenn Optionen vom Ende entfernt werden, wird den Benutzern, die diese Optionen derzeit ausgewählt haben, die Standard-Option zugewiesen.',
+	'EDIT_DROPDOWN_LANG_EXPLAIN'	=> 'Bitte beachten Sie, dass Sie den Text der Optionen ändern oder neue Optionen an das Ende hinzufügen können. Es wird nicht empfohlen, neue Optionen zwischen bestehenden hinzuzufügen, weil dies zu fehlerhaft zugeordneten Optionen bei den Benutzern führen kann. Dies kann auch passieren, wenn Sie Optionen löschen, die nicht am Ende stehen. Wenn Optionen vom Ende entfernt werden, wird den Benutzern, die diese Optionen ausgewählt haben, die Standard-Option zugewiesen.',
 	'EMPTY_FIELD_IDENT'				=> 'Die	Feld-Kennung ist nicht angegeben.',
 	'EMPTY_USER_FIELD_NAME'			=> 'Bitte füllen Sie den dem Benutzer angezeigten Namen/Titel aus.',
 	'ENTRIES'						=> 'Optionen',
 	'EVERYTHING_OK'					=> 'Alles in Ordnung',
 
 	'FIELD_BOOL'				=> 'Boolescher Wert (Ja/Nein)',
+	'FIELD_CONTACT_DESC'		=> 'Beschreibung des Kontakts',
+	'FIELD_CONTACT_URL'			=> 'Link des Kontakts',
 	'FIELD_DATE'				=> 'Datum',
 	'FIELD_DESCRIPTION'			=> 'Feld-Beschreibung',
 	'FIELD_DESCRIPTION_EXPLAIN'	=> 'Die dem Benutzer angezeigte Beschreibung für das Feld.',
 	'FIELD_DROPDOWN'			=> 'Auswahlfeld',
+	'FIELD_GOOGLEPLUS'			=> 'Google+',
 	'FIELD_IDENT'				=> 'Feld-Kennung',
 	'FIELD_IDENT_ALREADY_EXIST'	=> 'Die ausgewählte Feld-Kennung existiert bereits. Bitte geben Sie eine andere an.',
 	'FIELD_IDENT_EXPLAIN'		=> 'Die Feld-Kennung dient Ihnen zur Identifizierung des Feldes. Sie wird den Benutzern nicht angezeigt.',
 	'FIELD_INT'					=> 'Zahlen',
+	'FIELD_IS_CONTACT'			=> 'Feld als Kontakt anzeigen',
+	'FIELD_IS_CONTACT_EXPLAIN'	=> 'Kontaktfelder werden im Abschnitt „Kontaktdaten“ des Profils angezeigt und in den Kurzprofilen neben Beiträgen und Privaten Nachrichten anders dargestellt. Sie können <samp>%s</samp> als Platzhalter verwenden, der durch den vom Benutzer angegebenen Wert ersetzt wird.',
 	'FIELD_LENGTH'				=> 'Größe des Eingabefelds',
 	'FIELD_NOT_FOUND'			=> 'Profilfeld nicht gefunden.',
 	'FIELD_STRING'				=> 'Einzeiliges Textfeld',
 	'FIELD_TEXT'				=> 'Mehrzeiliges Textfeld',
 	'FIELD_TYPE'				=> 'Art des Feldes',
 	'FIELD_TYPE_EXPLAIN'		=> 'Sie können die Art des Feldes später nicht mehr ändern.',
+	'FIELD_URL'					=> 'URL (Link)',
 	'FIELD_VALIDATION'			=> 'Zulässige Werte',
 	'FIRST_OPTION'				=> 'Erste Option',
 
@@ -108,6 +121,12 @@ $lang = array_merge($lang, array(
 	'ISO_LANGUAGE'				=> 'Sprache [ %s ]',
 
 	'LANG_SPECIFIC_OPTIONS'		=> 'Sprachspezifische Optionen [ <strong>%s</strong> ]',
+
+	'LETTER_NUM_DOTS'			=> 'Nur Buchstaben, Zahlen und Punkte',
+	'LETTER_NUM_ONLY'			=> 'Nur Buchstaben und Zahlen',
+	'LETTER_NUM_PUNCTUATION'	=> 'Nur Buchstaben, Zahlen, Kommas, Punkte, Unterstriche und Bindestriche mit einem Buchstaben am Anfang',
+	'LETTER_NUM_SPACERS'		=> 'Nur Buchstaben, Zahlen, Leer- und -+_[]-Zeichen',
+	'LETTER_NUM_UNDERSCORE'		=> 'Nur Buchstaben, Zahlen und Unterstriche',
 
 	'MAX_FIELD_CHARS'		=> 'Maximal zulässige Zeichenanzahl',
 	'MAX_FIELD_NUMBER'		=> 'Höchste zulässige Zahl',
@@ -158,5 +177,3 @@ $lang = array_merge($lang, array(
 
 	'VISIBILITY_OPTION'				=> 'Sichtbarkeit',
 ));
-
-?>

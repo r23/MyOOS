@@ -1,15 +1,16 @@
 <?php
 /**
 *
-* ucp [Deutsch — Sie]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: ucp.php 617 2013-09-29 10:21:18Z pyramide $
-* @copyright (c) 2005 phpBB Group; 2006 phpBB.de
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 * Deutsche Übersetzung durch die Übersetzer-Gruppe von phpBB.de:
-* siehe docs/AUTHORS und https://www.phpbb.de/go/ubersetzerteam
+* siehe language/de_x_sie/AUTHORS.md und https://www.phpbb.de/go/ubersetzerteam
 *
 */
 
@@ -57,7 +58,7 @@ $lang = array_merge($lang, array(
 		<li>Sie gestatten dem Betreiber darüber hinaus, Ihre Beiträge abzuändern, sofern sie gegen o.&nbsp;g. Regeln verstoßen oder geeignet sind, dem Betreiber oder einem Dritten Schaden zuzufügen.</li></ol>
 
 		<h3>4. General Public License</h3>
-		<ol style="list-style-type: lower-alpha"><li>Sie nehmen zur Kenntnis, dass es sich bei phpBB um eine unter der General Public License (GPL) bereitgestellten Foren-Software der phpBB Group (www.phpbb.com) handelt; deutschsprachige Informationen werden durch die deutschsprachige Community unter www.phpbb.de zur Verfügung gestellt. Beide haben keinen Einfluss auf die Art und Weise, wie die Software verwendet wird. Sie können insbesondere die Verwendung der Software für bestimmte Zwecke nicht untersagen oder auf Inhalte fremder Foren Einfluss nehmen.</li></ol>
+		<ol style="list-style-type: lower-alpha"><li>Sie nehmen zur Kenntnis, dass es sich bei phpBB um eine unter der „<a href="http://opensource.org/licenses/gpl-2.0.php">GNU General Public License v2</a>“ (GPL) bereitgestellten Foren-Software von phpBB Limited (www.phpbb.com) handelt; deutschsprachige Informationen werden durch die deutschsprachige Community unter www.phpbb.de zur Verfügung gestellt. Beide haben keinen Einfluss auf die Art und Weise, wie die Software verwendet wird. Sie können insbesondere die Verwendung der Software für bestimmte Zwecke nicht untersagen oder auf Inhalte fremder Foren Einfluss nehmen.</li></ol>
 
 		<h3>5. Gewährleistung</h3>
 		<ol style="list-style-type: lower-alpha"><li>Der Betreiber haftet mit Ausnahme der Verletzung von Leben, Körper und Gesundheit und der Verletzung wesentlicher Vertragspflichten (Kardinalpflichten) nur für Schäden, die auf ein vorsätzliches oder grob fahrlässiges Verhalten zurückzuführen sind. Dies gilt auch für mittelbare Folgeschäden wie insbesondere entgangenen Gewinn.</li>
@@ -77,7 +78,7 @@ $lang = array_merge($lang, array(
 		<p>Ihre Daten werden auf zwei verschiedene Arten gesammelt:</p>
 		<ol style="list-style-type: decimal;"><li>phpBB erstellt bei Ihrem Besuch des Boards mehrere Cookies. Cookies sind kleine Textdateien, die Ihr Browser als temporäre Dateien ablegt. Zwei dieser Cookies enthalten eine eindeutige Benutzer-Nummer (Benutzer-ID) sowie eine anonyme Sitzungs-Nummer (Session-ID), die Ihnen von phpBB automatisch zugewiesen wird. Ein drittes Cookie wird erstellt, sobald Sie Themen besucht haben und wird dazu verwendet, Informationen über die von Ihnen gelesenen Beiträge zu speichern, um die ungelesenen Beiträge markieren zu können.</li>
 		<li>Weitere Daten werden gesammelt, wenn Informationen an den Betreiber übermittelt werden. Dies betrifft — ohne Anspruch auf Vollständigkeit — zum Beispiel Beiträge, die als Gast erstellt werden, Daten, die im Rahmen der Registrierung erfasst werden und die von Ihnen nach Ihrer Registrierung erstellten Nachrichten. Ihr Benutzerkonto besteht mindestens aus einem eindeutigen Benutzernamen, einem Passwort zur Anmeldung mit diesem Konto und einer persönlichen und gültigen E-Mail-Adresse.</li></ol>
-		<p>Ihr Passwort wird mit einer Einwege-Verschlüsselung (Hash) gespeichert, so dass es sicher ist. Jedoch wird Ihnen empfohlen, dieses Passwort nicht auf einer Vielzahl von Webseiten zu verwenden. Das Passwort ist Ihr Schlüssel zu Ihrem Benutzerkonto für das Board, also gehen Sie mit ihm sorgsam um. Insbesondere wird Sie kein Vertreter des Betreibers, der phpBB Group oder ein Dritter berechtigterweise nach Ihrem Passwort fragen. Sollten Sie Ihr Passwort vergessen haben, so können Sie die Funktion „Ich habe mein Passwort vergessen“ benutzen. Die phpBB-Software fragt Sie dann nach Ihrem Benutzernamen und Ihrer E-Mail-Adresse und sendet anschließend ein neu generiertes Passwort an diese Adresse, mit dem Sie dann auf das Board zugreifen können.</p>
+		<p>Ihr Passwort wird mit einer Einwege-Verschlüsselung (Hash) gespeichert, so dass es sicher ist. Jedoch wird Ihnen empfohlen, dieses Passwort nicht auf einer Vielzahl von Webseiten zu verwenden. Das Passwort ist Ihr Schlüssel zu Ihrem Benutzerkonto für das Board, also gehen Sie mit ihm sorgsam um. Insbesondere wird Sie kein Vertreter des Betreibers, von phpBB Limited oder ein Dritter berechtigterweise nach Ihrem Passwort fragen. Sollten Sie Ihr Passwort vergessen haben, so können Sie die Funktion „Ich habe mein Passwort vergessen“ benutzen. Die phpBB-Software fragt Sie dann nach Ihrem Benutzernamen und Ihrer E-Mail-Adresse und sendet anschließend ein neu generiertes Passwort an diese Adresse, mit dem Sie dann auf das Board zugreifen können.</p>
 
 		<h3>Gestattung der Datenspeicherung</h3>
 		<p>Sie gestatten dem Betreiber, die von Ihnen im Rahmen der Registrierung eingegebenen Daten sowie laufende Zugriffsdaten (Datum und Uhrzeit der Nutzung, IP-Adresse und weitere von Ihrem Browser übermittelte Daten) zu speichern und für den Betrieb des Boards zu verwenden.</p>
@@ -129,14 +130,25 @@ $lang = array_merge($lang, array(
 	'ATTACHMENTS_EXPLAIN'			=> 'Dies ist eine Übersicht aller Dateianhänge, die Sie in Beiträgen dieses Boards erstellt haben.',
 	'ATTACHMENTS_DELETED'			=> 'Dateianhänge erfolgreich gelöscht.',
 	'ATTACHMENT_DELETED'			=> 'Dateianhang erfolgreich gelöscht.',
+	'AUTOLOGIN_SESSION_KEYS_DELETED'=> 'Die ausgewählten Anmelde-Schlüssel wurden erfolgreich gelöscht.',
 	'AVATAR_CATEGORY'				=> 'Kategorie',
-	'AVATAR_EXPLAIN'				=> 'Maximale Bildgröße: %1$d Pixel breit, %2$d Pixel hoch. Maximale Dateigröße: %3$.2f KiB.',
-	'AVATAR_FEATURES_DISABLED'		=> 'Die Avatar-Funktion ist derzeit deaktiviert.',
+	'AVATAR_DRIVER_GRAVATAR_TITLE'	=> 'Gravatar',
+	'AVATAR_DRIVER_GRAVATAR_EXPLAIN'=> 'Gravatar ist ein Dienst, mit dem Sie den gleichen Avatar auf mehreren Websites verwenden können. Unter <a href="http://www.gravatar.com/">Gravatar</a> erhalten Sie weitere Informationen.',
+	'AVATAR_DRIVER_LOCAL_TITLE'		=> 'Avatar aus Galerie',
+	'AVATAR_DRIVER_LOCAL_EXPLAIN'	=> 'Sie können Ihren Avatar aus einer lokalen Galerie von Avataren auswählen.',
+	'AVATAR_DRIVER_REMOTE_TITLE'	=> 'Avatar verlinken',
+	'AVATAR_DRIVER_REMOTE_EXPLAIN'	=> 'Erstellen Sie einen Link auf einen Avatar von einer anderen Website.',
+	'AVATAR_DRIVER_UPLOAD_TITLE'	=> 'Avatar hochladen',
+	'AVATAR_DRIVER_UPLOAD_EXPLAIN'	=> 'Laden Sie Ihren persönlichen Avatar hoch.',
+	'AVATAR_EXPLAIN'				=> 'Maximale Größe: Breite: %1$s, Höhe: %2$s, Dateigröße: %3$.2f KiB.',
+	'AVATAR_FEATURES_DISABLED'		=> 'Die Avatar-Funktion ist deaktiviert.',
 	'AVATAR_GALLERY'				=> 'Lokale Galerie',
 	'AVATAR_GENERAL_UPLOAD_ERROR'	=> 'Konnte Avatar nicht nach %s hochladen.',
 	'AVATAR_NOT_ALLOWED'			=> 'Ihr Avatar kann nicht angezeigt werden, da Avatare deaktiviert wurden.',
 	'AVATAR_PAGE'					=> 'Seite',
-	'AVATAR_TYPE_NOT_ALLOWED'		=> 'Ihr aktueller Avatar kann nicht angezeigt werden, da der verwendete Avatar-Typ deaktiviert wurde.',
+	'AVATAR_SELECT'					=> 'Wählen Sie Ihren Avatar aus',
+	'AVATAR_TYPE'					=> 'Typ des Avatars',
+	'AVATAR_TYPE_NOT_ALLOWED'		=> 'Ihr Avatar kann nicht angezeigt werden, da der verwendete Avatar-Typ deaktiviert wurde.',
 
 	'BACK_TO_DRAFTS'			=> 'Zurück zu den gespeicherten Entwürfen',
 	'BACK_TO_LOGIN'				=> 'Zurück zur Anmeldemaske',
@@ -144,7 +156,6 @@ $lang = array_merge($lang, array(
 	'BIRTHDAY_EXPLAIN'			=> 'Wenn Sie ein Jahr angeben, wird an Ihrem Geburtstag Ihr Alter angezeigt.',
 	'BOARD_DATE_FORMAT'			=> 'Mein Datums-Format',
 	'BOARD_DATE_FORMAT_EXPLAIN'	=> 'Der Syntax entspricht der der <a href="http://www.php.net/date">date()</a>-Funktion von PHP.',
-	'BOARD_DST'					=> 'Derzeit ist Sommerzeit',
 	'BOARD_LANGUAGE'			=> 'Meine Sprache',
 	'BOARD_STYLE'				=> 'Mein Board-Style',
 	'BOARD_TIMEZONE'			=> 'Meine Zeitzone',
@@ -164,8 +175,6 @@ $lang = array_merge($lang, array(
 	'CLICK_RETURN_FOLDER'		=> '%1$sZurück zu Ihrem „%3$s“-Ordner%2$s',
 	'CONFIRMATION'				=> 'Bestätigung der Registrierung',
 	'CONFIRM_CHANGES'			=> 'Änderungen bestätigen',
-	'CONFIRM_EMAIL'				=> 'Bestätigung der E-Mail-Adresse',
-	'CONFIRM_EMAIL_EXPLAIN'		=> 'Sie müssen die Bestätigung nur angeben, wenn Sie Ihre E-Mail-Adresse ändern möchten.',
 	'CONFIRM_EXPLAIN'			=> 'Um automatisierte Anmeldungen zu unterbinden, müssen Sie einen Bestätigungscode angeben. Der Code ist in dem Bild unterhalb dieses Textes enthalten. Wenn Sie nur über ein eingeschränktes Sehvermögen verfügen oder aus einem anderen Grund den Code nicht lesen können, kontaktieren Sie bitte die %sBoard-Administration%s.',
 	'VC_REFRESH'				=> 'Neuer Code',
 	'VC_REFRESH_EXPLAIN'		=> 'Wenn Sie den Bestätigungscode nicht lesen können, können Sie mit dieser Schaltfläche einen neuen anfordern.',
@@ -176,12 +185,12 @@ $lang = array_merge($lang, array(
 	'COPPA_COMPLIANCE'			=> 'COPPA-Einwilligung',
 	'COPPA_EXPLAIN'				=> 'Bitte beachten Sie, dass durch Absenden des Formulars Ihr Benutzerkonto erstellt wird. Allerdings kann es nicht aktiviert werden, bis ein Elternteil oder ein Erziehungsberechtigter Ihre Registrierung bestätigt haben. Sie erhalten per E-Mail das dafür notwendige Formular und Details, wohin es gesendet werden muss.',
 	'CREATE_FOLDER'				=> 'Ordner anlegen …',
-	'CURRENT_IMAGE'				=> 'Aktuelles Bild',
-	'CURRENT_PASSWORD'			=> 'Aktuelles Passwort',
-	'CURRENT_PASSWORD_EXPLAIN'	=> 'Sie müssen Ihr aktuelles Passwort eingeben, wenn Sie Ihren Benutzernamen oder Ihre E-Mail-Adresse abändern möchten.',
-	'CURRENT_CHANGE_PASSWORD_EXPLAIN' => 'Damit Sie Ihr Passwort, Ihre E-Mail-Adresse oder Ihren Benutzernamen ändern können, müssen Sie Ihr aktuelles Passwort eingeben.',
-	'CUR_PASSWORD_EMPTY'		=> 'Sie haben Ihr aktuelles Passwort nicht angegeben.',
-	'CUR_PASSWORD_ERROR'		=> 'Das angegebene aktuelle Passwort ist fehlerhaft.',
+	'CURRENT_IMAGE'				=> 'Derzeitiges Bild',
+	'CURRENT_PASSWORD'			=> 'Derzeitiges Passwort',
+	'CURRENT_PASSWORD_EXPLAIN'	=> 'Sie müssen Ihr derzeitiges Passwort eingeben, wenn Sie Ihren Benutzernamen oder Ihre E-Mail-Adresse abändern möchten.',
+	'CURRENT_CHANGE_PASSWORD_EXPLAIN' => 'Damit Sie Ihr Passwort, Ihre E-Mail-Adresse oder Ihren Benutzernamen ändern können, müssen Sie Ihr derzeitiges Passwort eingeben.',
+	'CUR_PASSWORD_EMPTY'		=> 'Sie haben Ihr derzeitiges Passwort nicht angegeben.',
+	'CUR_PASSWORD_ERROR'		=> 'Das angegebene derzeitige Passwort ist falsch.',
 	'CUSTOM_DATEFORMAT'			=> 'Eigenes …',
 
 	'DEFAULT_ACTION'			=> 'Standard-Verhalten',
@@ -229,27 +238,49 @@ $lang = array_merge($lang, array(
 	'EXPORT_FOLDER'				=> 'Exportiere diese Ansicht',
 
 	'FIELD_REQUIRED'					=> 'Das Feld „%s“ muss ausgefüllt werden.',
-	'FIELD_TOO_SHORT'					=> '„%1$s“ ist zu kurz, es sind mindestens %2$d Zeichen erforderlich.',
-	'FIELD_TOO_LONG'					=> '„%1$s“ ist zu lang, es sind maximal %2$d Zeichen zulässig.',
-	'FIELD_TOO_SMALL'					=> 'Der Wert von „%1$s“ ist zu klein, er muss mindestens %2$d betragen.',
-	'FIELD_TOO_LARGE'					=> 'Der Wert von „%1$s“ ist zu groß, er darf maximal %2$d betragen.',
+	'FIELD_TOO_SHORT'					=> array(
+		1	=> '„%2$s“ ist zu kurz, es ist mindestens %1$d Zeichen erforderlich.',
+		2	=> '„%2$s“ ist zu kurz, es sind mindestens %1$d Zeichen erforderlich',
+	),
+	'FIELD_TOO_LONG'					=> array(
+		1	=> '„%2$s“ ist zu lang, es ist maximal %1$d Zeichen zulässig.',
+		2	=> '„%2$s“ ist zu lang, es sind maximal %1$d Zeichen zulässig.',
+	),
+	'FIELD_TOO_SMALL'					=> 'Der Wert von „%2$s“ ist zu klein, er muss mindestens %1$d betragen.',
+	'FIELD_TOO_LARGE'					=> 'Der Wert von „%2$s“ ist zu groß, er darf maximal %1$d betragen.',
+	'FIELD_INVALID_CHARS_INVALID'		=> '„%s“ enthält ungültige Zeichen.',
 	'FIELD_INVALID_CHARS_NUMBERS_ONLY'	=> '„%s“ enthält ungültige Zeichen. Es sind nur Zahlen zulässig.',
+	'FIELD_INVALID_CHARS_ALPHA_DOTS'	=> '„%s“ enthält ungültige Zeichen. Es sind nur alphanumerische Zeichen oder Punkte („.“) zulässig.',
 	'FIELD_INVALID_CHARS_ALPHA_ONLY'	=> '„%s“ enthält ungültige Zeichen. Es sind nur alphanumerische Zeichen zulässig.',
-	'FIELD_INVALID_CHARS_SPACERS_ONLY'	=> '„%s“ enthält ungültige Zeichen. Es sind nur alphanumerische, Leer- und -+_[]-Zeichen zulässig.',
+	'FIELD_INVALID_CHARS_ALPHA_PUNCTUATION'	=> '„%s“ enthält ungültige Zeichen. Es sind nur alphanumerische, Leer- und _,-.-Zeichen zulässig und das erste Zeichen muss ein Buchstabe sein.',
+	'FIELD_INVALID_CHARS_ALPHA_SPACERS'	=> '„%s“ enthält ungültige Zeichen. Es sind nur alphanumerische, Leer- und -+_[]-Zeichen zulässig.',
+	'FIELD_INVALID_CHARS_ALPHA_UNDERSCORE'	=> '„%s“ enthält ungültige Zeichen. Es sind nur alphanumerische Zeichen und Unterstriche („_“) zulässig.',
+	'FIELD_INVALID_CHARS_LETTER_NUM_DOTS'	=> '„%s“ enthält ungültige Zeichen. Es sind nur Buchstaben, Zahlen oder Punkte („.“) zulässig.',
+	'FIELD_INVALID_CHARS_LETTER_NUM_ONLY'	=> '„%s“ enthält ungültige Zeichen. Es sind nur Buchstaben und Zahlen zulässig.',
+	'FIELD_INVALID_CHARS_LETTER_NUM_PUNCTUATION'	=> '„%s“ enthält ungültige Zeichen. Es sind nur Buchstaben, Zahlen, Leer- und _,-.-Zeichen zulässig und das erste Zeichen muss ein Buchstabe sein.',
+	'FIELD_INVALID_CHARS_LETTER_NUM_SPACERS'	=> '„%s“ enthält ungültige Zeichen. Es sind nur Buchstaben, Zahlen, Leer- und -+_[]-Zeichen zulässig.',
+	'FIELD_INVALID_CHARS_LETTER_NUM_UNDERSCORE'	=> '„%s“ enthält ungültige Zeichen. Es sind nur Buchstaben, Zahlen und Unterstriche („_“) zulässig.',
 	'FIELD_INVALID_DATE'				=> '„%s“ enthält ein ungültiges Datum.',
+	'FIELD_INVALID_URL'					=> '„%s“ enthält eine ungültige URL.',
 	'FIELD_INVALID_VALUE'				=> '„%s“ enthält einen ungültigen Wert.',
 
 	'FOE_MESSAGE'				=> 'Nachricht von ignoriertem Mitglied',
 	'FOES_EXPLAIN'				=> 'Diese Mitglieder werden durch Sie ignoriert. Ihre Beiträge sind nicht vollständig sichtbar. Ignorierte Mitglieder können Ihnen aber weiterhin Private Nachrichten senden. Bitte beachten Sie, dass Sie keine Moderatoren oder Administratoren ignorieren können.',
 	'FOES_UPDATED'				=> 'Die Liste Ihrer ignorierten Mitglieder wurde erfolgreich aktualisiert.',
 	'FOLDER_ADDED'				=> 'Ordner erfolgreich angelegt.',
-	'FOLDER_MESSAGE_STATUS'		=> '%1$d von %2$d Nachrichten gespeichert',
+	'FOLDER_MESSAGE_STATUS'		=> array(
+		1	=> '%2$d von %1$s gespeichert',
+		2	=> '%2$d von %1$s gespeichert',
+	),
 	'FOLDER_NAME_EMPTY'			=> 'Sie müssen einen Namen für den Ordner angeben.',
 	'FOLDER_NAME_EXIST'			=> 'Der Ordner <strong>%s</strong> existiert bereits.',
 	'FOLDER_OPTIONS'			=> 'Ordner-Einstellungen',
 	'FOLDER_RENAMED'			=> 'Ordner erfolgreich umbenannt.',
 	'FOLDER_REMOVED'			=> 'Ordner erfolgreich gelöscht.',
-	'FOLDER_STATUS_MSG'			=> 'Ordner ist zu %1$d%% voll (%2$d von %3$d Nachrichten gespeichert)',
+	'FOLDER_STATUS_MSG'			=> array(
+		1	=> 'Ordner ist zu %3$d%% voll (%2$d von %1$s gespeichert)',
+		2	=> 'Ordner ist zu %3$d%% voll (%2$d von %1$s gespeichert)',
+	),
 	'FORWARD_PM'				=> 'PN weiterleiten',
 	'FORCE_PASSWORD_EXPLAIN'	=> 'Sie müssen Ihr Passwort ändern, bevor Sie andere Bereiche des Boards besuchen können.',
 	'FRIEND_MESSAGE'			=> 'Nachricht von Freund',
@@ -266,6 +297,11 @@ $lang = array_merge($lang, array(
 	'FWD_TO'					=> 'An: %s',
 
 	'GLOBAL_ANNOUNCEMENT'		=> 'Globale Bekanntmachung',
+
+	'GRAVATAR_AVATAR_EMAIL'			=> 'Gravatar-E-Mail-Adresse',
+	'GRAVATAR_AVATAR_EMAIL_EXPLAIN'	=> 'Geben Sie die E-Mail-Adresse an, die Sie für die Registrierung auf <a href="http://www.gravatar.com/">Gravatar</a> verwendet haben.',
+	'GRAVATAR_AVATAR_SIZE'			=> 'Avatar-Größen',
+	'GRAVATAR_AVATAR_SIZE_EXPLAIN'	=> 'Geben Sie die Breite und die Höhe des Avatars an. Sie können die Felder auch leer lassen, um eine automatische Erkennung zu versuchen.',
 
 	'HIDE_ONLINE'				=> 'Verberge meinen Online-Status',
 	'HIDE_ONLINE_EXPLAIN'		=> 'Wenn Sie diese Einstellung ändern, wird Sie erst bei Ihrem nächsten Besuch des Boards aktiv.',
@@ -287,6 +323,12 @@ $lang = array_merge($lang, array(
 	'LINK_REMOTE_SIZE'			=> 'Avatar-Größe',
 	'LINK_REMOTE_SIZE_EXPLAIN'	=> 'Geben Sie die Breite und die Höhe des Avatars an. Wenn die Felder leer gelassen werden, wird eine automatische Erkennung versucht.',
 	'LOGIN_EXPLAIN_UCP'			=> 'Bitte melden Sie sich an, um auf Ihren persönlichen Bereich zuzugreifen.',
+	'LOGIN_LINK'					=> 'Verknüpfen Sie das externe Konto mit Ihrem Benutzerkonto auf diesem Board oder registrieren Sie sich neu',
+	'LOGIN_LINK_EXPLAIN'			=> 'Sie haben versucht, sich mit einem externen Konto anzumelden, das noch nicht mit einem Benutzerkonto auf diesem Board verknüpft ist. Sie müssen entweder das externe Konto mit einem bestehenden Benutzerkonto verknüpfen oder ein neues erstellen.',
+	'LOGIN_LINK_MISSING_DATA'		=> 'Daten, die zur Verknüpfung Ihres Benutzerkontos mit einem externen Konto notwendig sind, wurden nicht bereitgestellt. Bitte starten Sie den Anmeldevorgang erneut.',
+	'LOGIN_LINK_NO_DATA_PROVIDED'	=> 'Dieser Seite wurden keine Daten übermittelt, die zur Verknüpfung Ihres Benutzerkontos mit einem externen Konto notwendig sind. Bitte wenden Sie sich an die Board-Administration, sofern das Problem regelmäßig auftritt.',
+	'LOGIN_KEY'					=> 'Anmelde-Schlüssel',
+	'LOGIN_TIME'				=> 'Zeitpunkt der Anmeldung',
 	'LOGIN_REDIRECT'			=> 'Sie wurden erfolgreich angemeldet.',
 	'LOGOUT_FAILED'				=> 'Sie wurden nicht abgemeldet, da die Anfrage nicht zu Ihrer Sitzung passte. Bitte wenden Sie sich an die Board-Administration, sofern das Problem regelmäßig auftritt.',
 	'LOGOUT_REDIRECT'			=> 'Sie wurden erfolgreich abgemeldet.',
@@ -307,19 +349,42 @@ $lang = array_merge($lang, array(
 	'MOVE_DELETED_MESSAGES_TO'		=> 'Nachrichten im zu löschenden Ordner verschieben nach',
 	'MOVE_DOWN'						=> 'Nach unten',
 	'MOVE_MARKED_TO_FOLDER'			=> 'Markierte verschieben nach %s',
-	'MOVE_PM_ERROR'					=> 'Beim Verschieben Ihrer Nachrichten in den neuen Ordner ist ein Fehler aufgetreten. Es wurden nur %1d von %2d Nachrichten verschoben.',
+	'MOVE_PM_ERROR'					=> array(
+		1	=> 'Beim Verschieben Ihrer Nachrichten in den neuen Ordner ist ein Fehler aufgetreten. Es wurde nur %2$d von %1$s verschoben.',
+		2	=> 'Beim Verschieben Ihrer Nachrichten in den neuen Ordner ist ein Fehler aufgetreten. Es wurden nur %2$d von %1$s verschoben.',
+	),
 	'MOVE_TO_FOLDER'				=> 'In Ordner verschieben',
 	'MOVE_UP'						=> 'Nach oben',
 
-	'NEW_EMAIL_CONFIRM_EMPTY'		=> 'Sie haben Ihre E-Mail-Adresse nicht bestätigt.',
-	'NEW_EMAIL_ERROR'			=> 'Die angegebenen E-Mail-Adressen stimmten nicht überein.',
 	'NEW_FOLDER_NAME'			=> 'Neuer Name des Ordners',
 	'NEW_PASSWORD'				=> 'Neues Passwort',
 	'NEW_PASSWORD_CONFIRM_EMPTY'	=> 'Sie haben das Passwort nicht bestätigt.',
 	'NEW_PASSWORD_ERROR'		=> 'Das angegebene Passwort stimmte nicht mit seiner Bestätigung überein.',
+
+	'NOTIFICATIONS_MARK_ALL_READ'						=> 'Alle Benachrichtigungen als gelesen markieren',
+	'NOTIFICATIONS_MARK_ALL_READ_CONFIRM'				=> 'Sind Sie sich sicher, dass Sie alle Benachrichtigungen als gelesen markieren möchten?',
+	'NOTIFICATIONS_MARK_ALL_READ_SUCCESS'				=> 'Alle Benachrichtiungen wurden als gelesen markiert.',
+	'NOTIFICATION_GROUP_MISCELLANEOUS'					=> 'Weitere Benachrichtigungen',
+	'NOTIFICATION_GROUP_MODERATION'						=> 'Benachrichtigungen für Moderatoren',
+	'NOTIFICATION_GROUP_ADMINISTRATION'					=> 'Benachrichtigungen für Administratoren',
+	'NOTIFICATION_GROUP_POSTING'						=> 'Benachrichtigungen zu Beiträgen',
+	'NOTIFICATION_METHOD_EMAIL'							=> 'E-Mail',
+	'NOTIFICATION_METHOD_JABBER'						=> 'Jabber',
+	'NOTIFICATION_TYPE'									=> 'Benachrichtigungs-Typ',
+	'NOTIFICATION_TYPE_BOOKMARK'						=> 'Jemand antwortet auf ein Thema, für das Sie ein Lesezeichen gesetzt haben',
+	'NOTIFICATION_TYPE_GROUP_REQUEST'					=> 'Jemand möchte einer Gruppe beitreten, deren Leiter Sie sind',
+	'NOTIFICATION_TYPE_IN_MODERATION_QUEUE'				=> 'Ein Beitrag oder ein Thema muss freigegeben werden',
+	'NOTIFICATION_TYPE_MODERATION_QUEUE'				=> 'Ihre Themen/Beiträge wurden von einem Moderator freigegeben oder die Freigabe abgelehnt',
+	'NOTIFICATION_TYPE_PM'								=> 'Jemand sendet Ihnen eine Private Nachricht',
+	'NOTIFICATION_TYPE_POST'							=> 'Jemand antwortet auf ein Thema, das Sie abonniert haben',
+	'NOTIFICATION_TYPE_QUOTE'							=> 'Jemand zitiert Sie in einem Beitrag',
+	'NOTIFICATION_TYPE_REPORT'							=> 'Jemand hat einen Beitrag gemeldet',
+	'NOTIFICATION_TYPE_TOPIC'							=> 'Jemand erstellt einen Beitrag in einem Forum, das Sie abonniert haben',
+	'NOTIFICATION_TYPE_ADMIN_ACTIVATE_USER'				=> 'Ein neu registrierter Benutzer muss aktiviert werden',
+
 	'NOTIFY_METHOD'				=> 'Benachrichtigungs-Methode',
 	'NOTIFY_METHOD_BOTH'		=> 'Beide',
-	'NOTIFY_METHOD_EMAIL'		=> 'Nur per E-Mail',
+	'NOTIFY_METHOD_EMAIL'			=> 'Nur per E-Mail',
 	'NOTIFY_METHOD_EXPLAIN'		=> 'Methode, die für den Versand von Nachrichten über das Board verwendet wird.',
 	'NOTIFY_METHOD_IM'			=> 'Nur per Jabber',
 	'NOTIFY_ON_PM'				=> 'Benachrichtige mich über neue Nachrichten',
@@ -334,10 +399,13 @@ $lang = array_merge($lang, array(
 	'NOT_ADDED_FOES_SELF'			=> 'Sie können sich nicht selbst zu Ihren ignorierten Mitgliedern hinzufügen.',
 	'NOT_AGREE'						=> 'Ich bin mit diesen Bedingungen nicht einverstanden',
 	'NOT_ENOUGH_SPACE_FOLDER'		=> 'Der Ziel-Ordner „%s“ scheint voll zu sein. Die gewählte Aktion wurde nicht durchgeführt.',
-	'NOT_MOVED_MESSAGE'				=> 'Sie haben 1 zurückgehaltene Private Nachricht, weil der Ordner voll ist.',
-	'NOT_MOVED_MESSAGES'			=> 'Sie haben %d zurückgehaltene Private Nachrichten, weil der Ordner voll ist.',
+	'NOT_MOVED_MESSAGES'			=> array(
+		1	=> 'Sie haben %d zurückgehaltene Private Nachricht, weil der Ordner voll ist.',
+		2	=> 'Sie haben %d zurückgehaltene Private Nachrichten, weil der Ordner voll ist.',
+	),
 	'NO_ACTION_MODE'				=> 'Keine Nachrichten-Aktion festgelegt.',
 	'NO_AUTHOR'						=> 'Es ist kein Autor für diese Nachricht festgelegt.',
+	'NO_AVATAR'						=> 'Kein Avatar ausgewählt',
 	'NO_AVATAR_CATEGORY'			=> 'Keine',
 
 	'NO_AUTH_DELETE_MESSAGE'		=> 'Sie sind nicht berechtigt, Private Nachrichten zu löschen.',
@@ -345,6 +413,7 @@ $lang = array_merge($lang, array(
 	'NO_AUTH_FORWARD_MESSAGE'		=> 'Sie sind nicht berechtigt, Private Nachrichten weiterzuleiten.',
 	'NO_AUTH_GROUP_MESSAGE'			=> 'Sie sind nicht berechtigt, Private Nachrichten an Gruppen zu senden.',
 	'NO_AUTH_PASSWORD_REMINDER'		=> 'Sie sind nicht berechtigt, ein neues Passwort anzufordern.',
+	'NO_AUTH_PROFILEINFO'			=> 'Sie sind nicht berechtigt, Ihre Profilinformationen zu ändern.',
 	'NO_AUTH_READ_HOLD_MESSAGE'		=> 'Sie sind nicht berechtigt, zurückgehaltene Private Nachrichten zu lesen.',
 	'NO_AUTH_READ_MESSAGE'			=> 'Sie sind nicht berechtigt, Private Nachrichten zu lesen.',
 	'NO_AUTH_READ_REMOVED_MESSAGE'	=> 'Sie können diese Nachricht nicht lesen, weil sie von ihrem Autor gelöscht wurde.',
@@ -356,8 +425,8 @@ $lang = array_merge($lang, array(
 	'NO_BOOKMARKS_SELECTED'		=> 'Sie haben keine Lesezeichen ausgewählt.',
 	'NO_EDIT_READ_MESSAGE'		=> 'Diese Private Nachricht kann nicht geändert werden, da sie bereits gelesen wurde.',
 	'NO_EMAIL_USER'				=> 'Es existiert kein Benutzer mit dieser Kombination aus Benutzernamen und E-Mail-Adresse.',
-	'NO_FOES'					=> 'Derzeit sind keine ignorierten Mitglieder definiert',
-	'NO_FRIENDS'				=> 'Derzeit sind keine Freunde definiert',
+	'NO_FOES'					=> 'Es sind keine ignorierten Mitglieder definiert',
+	'NO_FRIENDS'				=> 'Es sind keine Freunde definiert',
 	'NO_FRIENDS_OFFLINE'		=> 'Keine Freunde offline',
 	'NO_FRIENDS_ONLINE'			=> 'Keine Freunde online',
 	'NO_GROUP_SELECTED'			=> 'Keine Gruppe ausgewählt.',
@@ -371,31 +440,34 @@ $lang = array_merge($lang, array(
 	'NO_RULES_DEFINED'			=> 'Keine Regeln festgelegt.',
 	'NO_SAVED_DRAFTS'			=> 'Keine Entwürfe gespeichert.',
 	'NO_TO_RECIPIENT'			=> 'Keinen',
-	'NO_WATCHED_FORUMS'			=> 'Sie beobachten keine Foren.',
-	'NO_WATCHED_SELECTED'		=> 'Sie haben keine beobachteten Themen oder Foren ausgewählt.',
-	'NO_WATCHED_TOPICS'			=> 'Sie beobachten keine Themen.',
+	'NO_WATCHED_FORUMS'			=> 'Sie haben keine Foren abonniert.',
+	'NO_WATCHED_SELECTED'		=> 'Sie haben keine abonnierten Themen oder Foren ausgewählt.',
+	'NO_WATCHED_TOPICS'			=> 'Sie haben keine Themen abonniert.',
 
-	'PASS_TYPE_ALPHA_EXPLAIN'	=> 'Das Passwort muss zwischen %1$d und %2$d Zeichen lang sein und aus Groß- und Kleinbuchstaben sowie Ziffern bestehen.',
-	'PASS_TYPE_ANY_EXPLAIN'		=> 'Muss zwischen %1$d und %2$d Zeichen lang sein.',
-	'PASS_TYPE_CASE_EXPLAIN'	=> 'Das Passwort muss zwischen %1$d und %2$d Zeichen lang sein und muss aus Groß- und Kleinbuchstaben bestehen.',
-	'PASS_TYPE_SYMBOL_EXPLAIN'	=> 'Das Passwort muss zwischen %1$d und %2$d Zeichen lang sein und muss aus Groß- und Kleinbuchstaben, Ziffern sowie Sonderzeichen bestehen.',
+	'PASS_TYPE_ALPHA_EXPLAIN'	=> 'Das Passwort muss zwischen %1$s und %2$s lang sein und aus Groß- und Kleinbuchstaben sowie Ziffern bestehen.',
+	'PASS_TYPE_ANY_EXPLAIN'		=> 'Muss zwischen %1$s und %2$s lang sein.',
+	'PASS_TYPE_CASE_EXPLAIN'	=> 'Das Passwort muss zwischen %1$s und %2$s lang sein und muss aus Groß- und Kleinbuchstaben bestehen.',
+	'PASS_TYPE_SYMBOL_EXPLAIN'	=> 'Das Passwort muss zwischen %1$s und %2$s lang sein und muss aus Groß- und Kleinbuchstaben, Ziffern sowie Sonderzeichen bestehen.',
 	'PASSWORD'					=> 'Passwort',
 	'PASSWORD_ACTIVATED'		=> 'Ihr neues Passwort wurde aktiviert.',
 	'PASSWORD_UPDATED'			=> 'Ihr neues Passwort wurde an Ihre hinterlegte E-Mail-Adresse gesendet.',
-	'PERMISSIONS_RESTORED'		=> 'Ursprüngliche Berechtigungen wieder hergestellt.',
+	'PERMISSIONS_RESTORED'		=> 'Ursprüngliche Berechtigungen wiederhergestellt.',
 	'PERMISSIONS_TRANSFERRED'	=> 'Berechtigungen von <strong>%s</strong> erfolgreich übernommen. Sie können nun das Board mit den Rechten des Benutzers testen.<br />Bitte beachten Sie, dass Administrationsrechte nicht übernommen wurden. Sie können jederzeit zu Ihren Berechtigungen zurückkehren.',
 	'PM_DISABLED'				=> 'Private Nachrichten sind auf diesem Board deaktiviert.',
 	'PM_FROM'					=> 'Von',
 	'PM_FROM_REMOVED_AUTHOR'	=> 'Diese Nachricht wurde Ihnen von einem Mitglied gesendet, das nicht mehr registriert ist.',
 	'PM_ICON'					=> 'PN-Symbol',
 	'PM_INBOX'					=> 'Posteingang',
+	'PM_MARK_ALL_READ'			=> 'Markiere alle Nachrichten als gelesen',
+	'PM_MARK_ALL_READ_SUCCESS'	=> 'Alle Privaten Nachrichten in diesem Ordner wurden als gelesen markiert',
 	'PM_NO_USERS'				=> 'Der Benutzer, der hinzugefügt werden sollte, existiert nicht.',
 	'PM_OUTBOX'					=> 'Postausgang',
 	'PM_SENTBOX'				=> 'Gesendete Nachrichten',
 	'PM_SUBJECT'				=> 'Betreff',
 	'PM_TO'						=> 'Senden an',
+	'PM_TOOLS'					=> 'Nachrichten-Optionen',
+	'PM_USERS_REMOVED_NO_PERMISSION'	=> 'Einige Benutzer konnten nicht hinzugefügt werden, da sie keine Berechtigung haben, Private Nachrichten zu lesen.',
 	'PM_USERS_REMOVED_NO_PM'	=> 'Einige Benutzer konnten nicht hinzugefügt werden, da sie den Empfang Privater Nachrichten deaktiviert haben.',
-	'POPUP_ON_PM'				=> 'Öffne ein Benachrichtigungsfenster bei neuen Privaten Nachrichten',
 	'POST_EDIT_PM'				=> 'Nachricht ändern',
 	'POST_FORWARD_PM'			=> 'Nachricht weiterleiten',
 	'POST_NEW_PM'				=> 'Neue Nachricht erstellen',
@@ -407,6 +479,8 @@ $lang = array_merge($lang, array(
 	'PREFERENCES_UPDATED'		=> 'Ihre Einstellungen wurden aktualisiert.',
 	'PROFILE_INFO_NOTICE'		=> 'Bitte beachten Sie, dass diese Angaben von anderen Mitgliedern einsehbar sind. Seien Sie daher vorsichtig, wenn Sie persönliche Daten angeben. Jedes mit einem * markierte Feld muss ausgefüllt werden.',
 	'PROFILE_UPDATED'			=> 'Ihr Profil wurde aktualisiert.',
+	'PROFILE_AUTOLOGIN_KEYS'	=> 'Durch eine gespeicherte Anmeldung werden Sie beim Aufruf des Boards automatisch angemeldet. Wenn Sie sich abmelden, wird die Anmeldung nur auf dem Computer gelöscht, auf dem Sie die Abmeldung durchführen. Hier können Sie alle Anmelde-Schlüssel sehen, die Sie auf anderen Computern erstellt haben, um auf dieses Board zuzugreifen.',
+	'PROFILE_NO_AUTOLOGIN_KEYS'	=> 'Es gibt keine gespeicherten Anmeldungen.',
 
 	'RECIPIENT'							=> 'Empfänger',
 	'RECIPIENTS'						=> 'Empfänger',
@@ -431,10 +505,12 @@ $lang = array_merge($lang, array(
 	'RULE_DELETED'						=> 'Regel erfolgreich entfernt.',
 	'RULE_LIMIT_REACHED'				=> 'Sie können keine weiteren Regeln für Private Nachrichten erstellen, da Sie das Maximum möglicher Regeln erreicht haben.',
 	'RULE_NOT_DEFINED'					=> 'Die Regel wurde nicht korrekt definiert.',
-	'RULE_REMOVED_MESSAGE'				=> 'Eine Private Nachricht wurde auf Grund Ihrer Regeln entfernt.',
-	'RULE_REMOVED_MESSAGES'				=> '%d Private Nachrichten wurden auf Grund Ihrer Regeln entfernt.',
+	'RULE_REMOVED_MESSAGES'				=> array(
+		1	=> 'Eine Private Nachricht wurde auf Grund Ihrer Regeln entfernt.',
+		2	=> '%d Private Nachrichten wurden auf Grund Ihrer Regeln entfernt.',
+	),
 
-	'SAME_PASSWORD_ERROR'		=> 'Das von Ihnen eingegebene neue Passwort entspricht Ihrem aktuellen Passwort.',
+	'SAME_PASSWORD_ERROR'		=> 'Das von Ihnen eingegebene neue Passwort entspricht Ihrem derzeitigem Passwort.',
 	'SEARCH_YOUR_POSTS'			=> 'Ihre Beiträge anzeigen',
 	'SEND_PASSWORD'				=> 'Passwort senden',
 	'SENT_AT'					=> 'Gesendet',			// Used before dates in private messages
@@ -442,6 +518,8 @@ $lang = array_merge($lang, array(
 	'SIGNATURE_EXPLAIN'			=> 'Eine Signatur ist ein Text, der an Ihre Nachrichten angefügt werden kann. Sie ist auf %d Zeichen begrenzt.',
 	'SIGNATURE_PREVIEW'			=> 'Ihre Signatur wird folgendermaßen aussehen',
 	'SIGNATURE_TOO_LONG'		=> 'Ihre Signatur ist zu lang.',
+	'SELECT_CURRENT_TIME'		=> 'Aktuelle Zeitzone auswählen',
+	'SELECT_TIMEZONE'			=> 'Zeitzone auswählen',
 	'SORT'						=> 'Sortiere',
 	'SORT_COMMENT'				=> 'Dateikommentar',
 	'SORT_DOWNLOADS'			=> 'Downloads',
@@ -451,30 +529,47 @@ $lang = array_merge($lang, array(
 	'SORT_SIZE'					=> 'Dateigröße',
 
 	'TIMEZONE'					=> 'Zeitzone',
-	'TO'						=> 'An',
+	'TIMEZONE_DATE_SUGGESTION'	=> 'Vorschlag: %s',
+	'TIMEZONE_INVALID'			=> 'Die von Ihnen ausgewählte Zeitzone ist ungültig.',
+	'TO'						=> 'Empfänger',
+	'TO_MASS'					=> 'Empfänger',
+	'TO_ADD'					=> 'Empfänger hinzufügen',
+	'TO_ADD_MASS'				=> 'Empfänger hinzufügen',
+	'TO_ADD_GROUPS'				=> 'Gruppe hinzufügen',
 	'TOO_MANY_RECIPIENTS'		=> 'Sie haben versucht, eine Private Nachricht an zu viele Empfänger zu senden.',
-	'TOO_MANY_REGISTERS'		=> 'Sie haben die zulässige Zahl von Registrierungs-Versuchen in dieser Sitzung überschritten. Bitte versuchen Sie es später erneut.',
+	'TOO_MANY_REGISTERS'		=> 'Sie haben die zulässige Anzahl von Registrierungs-Versuchen in dieser Sitzung überschritten. Bitte versuchen Sie es später erneut.',
 
 	'UCP'						=> 'Persönlicher Bereich',
 	'UCP_ACTIVATE'				=> 'Benutzerkonto aktivieren',
 	'UCP_ADMIN_ACTIVATE'		=> 'Bitte beachten Sie, dass Sie eine gültige E-Mail-Adresse angeben müssen, bevor Ihr Benutzerkonto aktiviert wird. Ein Administrator wird Ihr Benutzerkonto überprüfen und wenn er es freigibt, erhalten Sie eine Nachricht an die angegebene E-Mail-Adresse.',
-	'UCP_AIM'					=> 'AOL-Webname',
 	'UCP_ATTACHMENTS'			=> 'Dateianhänge',
+	'UCP_AUTH_LINK'				=> 'Externes Konto',
+	'UCP_AUTH_LINK_ASK'			=> 'Sie haben Ihr Benutzerkonto nicht mit diesem Dienst verknüpft. Mit unten stehender Schaltfläche können Sie Ihr Benutzerkonto mit einem Konto dieses externen Dienstes verknüpfen.',
+	'UCP_AUTH_LINK_ID'			=> 'Eindeutige ID',
+	'UCP_AUTH_LINK_LINK'		=> 'Verknüpfen',
+	'UCP_AUTH_LINK_MANAGE'		=> 'Verknüpfungen mit externen Konten verwalten',
+	'UCP_AUTH_LINK_NOT_SUPPORTED'	=> 'Die Verknüpfung Ihres Benutzerkontos mit externen Konten wird durch die Authentifizierungs-Methode des Boards nicht unterstützt.',
+	'UCP_AUTH_LINK_TITLE'		=> 'Verwalten Sie Ihre Verknüpfungen mit externen Konten',
+	'UCP_AUTH_LINK_UNLINK'		=> 'Verknüpfung lösen',
 	'UCP_COPPA_BEFORE'			=> 'Vor dem %s',
 	'UCP_COPPA_ON_AFTER'		=> 'Am %s oder später',
 	'UCP_EMAIL_ACTIVATE'		=> 'Bitte beachten Sie, dass Sie eine gültige E-Mail-Adresse angeben müssen, bevor Ihr Benutzerkonto aktiviert wird. Sie erhalten eine E-Mail an die angegebene Adresse, in der ein Aktivierungs-Schlüssel enthalten ist.',
-	'UCP_ICQ'					=> 'ICQ-Nummer',
 	'UCP_JABBER'				=> 'Jabber-ID',
+	'UCP_LOGIN_LINK'			=> 'Verknüpfung mit externem Konto einrichten',
 
 	'UCP_MAIN'					=> 'Einstieg',
 	'UCP_MAIN_ATTACHMENTS'		=> 'Dateianhänge verwalten',
 	'UCP_MAIN_BOOKMARKS'		=> 'Lesezeichen verwalten',
 	'UCP_MAIN_DRAFTS'			=> 'Gespeicherte Entwürfe verwalten',
 	'UCP_MAIN_FRONT'			=> 'Übersicht',
-	'UCP_MAIN_SUBSCRIBED'		=> 'Benachrichtigungen verwalten',
+	'UCP_MAIN_SUBSCRIBED'		=> 'Abonnements verwalten',
 
-	'UCP_MSNM'					=> 'WLM-Adresse',
 	'UCP_NO_ATTACHMENTS'		=> 'Sie haben keine Dateianhänge erstellt.',
+
+	'UCP_NOTIFICATION_LIST'				=> 'Benachrichtigungen verwalten',
+	'UCP_NOTIFICATION_LIST_EXPLAIN'		=> 'Hier können sie alle Benachrichtigungen der Vergangenheit sehen.',
+	'UCP_NOTIFICATION_OPTIONS'			=> 'Benachrichtigungen einstellen',
+	'UCP_NOTIFICATION_OPTIONS_EXPLAIN'	=> 'Hier können Sie die gewünschten Benachrichtigungswege für das Board festlegen.',
 
 	'UCP_PREFS'					=> 'Einstellungen',
 	'UCP_PREFS_PERSONAL'		=> 'Persönliche Einstellungen',
@@ -485,8 +580,6 @@ $lang = array_merge($lang, array(
 	'UCP_PM_COMPOSE'			=> 'Neue Nachricht erstellen',
 	'UCP_PM_DRAFTS'				=> 'PN-Entwürfe verwalten',
 	'UCP_PM_OPTIONS'			=> 'Regeln, Ordner &amp; Einstellungen',
-	'UCP_PM_POPUP'				=> 'Private Nachrichten',
-	'UCP_PM_POPUP_TITLE'		=> 'Benachrichtigung über Private Nachrichten',
 	'UCP_PM_UNREAD'				=> 'Ungelesene Nachrichten',
 	'UCP_PM_VIEW'				=> 'Nachrichten anzeigen',
 
@@ -495,31 +588,32 @@ $lang = array_merge($lang, array(
 	'UCP_PROFILE_PROFILE_INFO'	=> 'Profil ändern',
 	'UCP_PROFILE_REG_DETAILS'	=> 'Registrierungs-Details ändern',
 	'UCP_PROFILE_SIGNATURE'		=> 'Signatur ändern',
+	'UCP_PROFILE_AUTOLOGIN_KEYS'=> 'Gespeicherte Anmeldungen verwalten',
 
 	'UCP_USERGROUPS'			=> 'Benutzergruppen',
 	'UCP_USERGROUPS_MEMBER'		=> 'Mitgliedschaften ändern',
 	'UCP_USERGROUPS_MANAGE'		=> 'Gruppen verwalten',
 
-	'UCP_REGISTER_DISABLE'			=> 'Eine Registrierung ist derzeit nicht möglich.',
+	'UCP_PASSWORD_RESET_DISABLED'	=> 'Die Funktion zum Zurücksetzen eines Passworts wurde deaktiviert. Wenn Sie Unterstützung beim Zugriff auf Ihr Benutzerkonto benötigen, wenden Sie sich bitte an die %sBoard-Administration%s',
+	'UCP_REGISTER_DISABLE'			=> 'Eine Registrierung ist momentan nicht möglich.',
 	'UCP_REMIND'					=> 'Passwort senden',
 	'UCP_RESEND'					=> 'Aktivierungs-Schlüssel senden',
-	'UCP_WELCOME'					=> 'Willkommen im persönlichen Bereich. Hier können Sie Ihr Profil, Ihre Präferenzen, Ihre beobachteten Foren und Themen überwachen, ansehen und aktualisieren. Sie können auch Nachrichten an andere Mitglieder schicken (sofern erlaubt). Bitte lesen Sie alle Bekanntmachungen, bevor Sie fortfahren.',
-	'UCP_YIM'						=> 'Yahoo!-ID',
+	'UCP_WELCOME'					=> 'Willkommen im persönlichen Bereich. Hier können Sie Ihr Profil, Ihre Präferenzen, Ihre abonnierten Foren und Themen überwachen, ansehen und aktualisieren. Sie können auch Nachrichten an andere Mitglieder schicken (sofern erlaubt). Bitte lesen Sie alle Bekanntmachungen, bevor Sie fortfahren.',
 	'UCP_ZEBRA'						=> 'Freunde und ignorierte Mitglieder',
 	'UCP_ZEBRA_FOES'				=> 'Ignorierte Mitglieder verwalten',
 	'UCP_ZEBRA_FRIENDS'				=> 'Freunde verwalten',
 	'UNDISCLOSED_RECIPIENT'			=> 'Verborgene Empfänger',
 	'UNKNOWN_FOLDER'				=> 'Unbekannter Ordner',
-	'UNWATCH_MARKED'				=> 'Ausgewählte Benachrichtigungen deaktivieren',
+	'UNWATCH_MARKED'				=> 'Ausgewählte Abonnements beenden',
 	'UPLOAD_AVATAR_FILE'			=> 'Von Ihrem Rechner hochladen',
 	'UPLOAD_AVATAR_URL'				=> 'Von URL hochladen',
 	'UPLOAD_AVATAR_URL_EXPLAIN'		=> 'Geben Sie die URL an, an der sich das Avatar-Bild befindet. Es wird dann auf diese Site hochgeladen.',
-	'USERNAME_ALPHA_ONLY_EXPLAIN'	=> 'Der Benutzername muss zwischen %1$d und %2$d Zeichen lang sein und darf nur aus alphanumerischen Zeichen bestehen.',
-	'USERNAME_ALPHA_SPACERS_EXPLAIN'=> 'Der Benutzername muss zwischen %1$d und %2$d Zeichen lang sein und darf nur aus alphanumerischen, Leer- und -+_[]-Zeichen bestehen.',
-	'USERNAME_ASCII_EXPLAIN'		=> 'Der Benutzername muss zwischen %1$d und %2$d Zeichen lang sein und darf nur aus ASCII-Zeichen (also keinen Sonderzeichen oder Umlauten) bestehen.',
-	'USERNAME_LETTER_NUM_EXPLAIN'	=> 'Der Benutzername muss zwischen %1$d und %2$d Zeichen lang sein und darf nur aus Buchstaben und Ziffern bestehen.',
-	'USERNAME_LETTER_NUM_SPACERS_EXPLAIN'=> 'Der Benutzername muss zwischen %1$d und %2$d Zeichen lang sein und darf nur aus Buchstaben, Ziffern, Leer- und -+_[]-Zeichen bestehen.',
-	'USERNAME_CHARS_ANY_EXPLAIN'	=> 'Der Benutzername muss zwischen %1$d und %2$d Zeichen lang sein.',
+	'USERNAME_ALPHA_ONLY_EXPLAIN'	=> 'Der Benutzername muss zwischen %1$s und %2$s lang sein und darf nur aus alphanumerischen Zeichen bestehen.',
+	'USERNAME_ALPHA_SPACERS_EXPLAIN'=> 'Der Benutzername muss zwischen %1$s und %2$s lang sein und darf nur aus alphanumerischen, Leer- und -+_[]-Zeichen bestehen.',
+	'USERNAME_ASCII_EXPLAIN'		=> 'Der Benutzername muss zwischen %1$s und %2$s lang sein und darf nur aus ASCII-Zeichen (also keinen Sonderzeichen oder Umlauten) bestehen.',
+	'USERNAME_LETTER_NUM_EXPLAIN'	=> 'Der Benutzername muss zwischen %1$s und %2$s lang sein und darf nur aus Buchstaben und Ziffern bestehen.',
+	'USERNAME_LETTER_NUM_SPACERS_EXPLAIN'=> 'Der Benutzername muss zwischen %1$s und %2$s lang sein und darf nur aus Buchstaben, Ziffern, Leer- und -+_[]-Zeichen bestehen.',
+	'USERNAME_CHARS_ANY_EXPLAIN'	=> 'Der Benutzername muss zwischen %1$s und %2$s lang sein.',
 	'USERNAME_TAKEN_USERNAME'		=> 'Der ausgewählte Benutzername ist bereits vergeben. Bitte wählen Sie einen anderen aus.',
 	'USERNAME_DISALLOWED_USERNAME'	=> 'Der ausgewählte Benutzername wurde gesperrt oder enthält ein zensiertes Wort. Bitte wählen Sie einen anderen Benutzernamen.',
 	'USER_NOT_FOUND_OR_INACTIVE'	=> 'Die von Ihnen angegebenen Benutzernamen wurden entweder nicht gefunden oder es handelt sich um nicht aktivierte Benutzer.',
@@ -532,10 +626,13 @@ $lang = array_merge($lang, array(
 	'VIEW_NEXT_PM'				=> 'Nächste PN',
 	'VIEW_PM'					=> 'Nachricht anzeigen',
 	'VIEW_PM_INFO'				=> 'Details der Nachricht',
-	'VIEW_PM_MESSAGE'			=> '1 Nachricht',
-	'VIEW_PM_MESSAGES'			=> '%d Nachrichten',
+	'VIEW_PM_MESSAGES'			=> array(
+		1	=> '%d Nachricht',
+		2	=> '%d Nachrichten',
+	),
 	'VIEW_PREVIOUS_HISTORY'		=> 'Vorherige PN im Verlauf',
 	'VIEW_PREVIOUS_PM'			=> 'Vorherige PN',
+	'VIEW_PROFILE'				=> 'Profil anzeigen',
 	'VIEW_SIGS'					=> 'Signaturen anzeigen',
 	'VIEW_SMILIES'				=> 'Smilies als Grafiken anzeigen',
 	'VIEW_TOPICS_DAYS'			=> 'Themen der letzten Zeit anzeigen',
@@ -545,30 +642,30 @@ $lang = array_merge($lang, array(
 	'VIEW_POSTS_DIR'			=> 'Sortiere Beiträge',
 	'VIEW_POSTS_KEY'			=> 'Zeige Beiträge sortiert nach',
 
-	'WATCHED_EXPLAIN'			=> 'Unten befindet sich eine Liste der Foren und Themen, die Sie beobachten. Sie werden über neue Beiträge in den beobachteten Foren und Themen benachrichtigt. Um eine Benachrichtigung zu deaktivieren, markieren Sie sie und klicken Sie auf „Ausgewählte Benachrichtigungen entfernen“.',
-	'WATCHED_FORUMS'			=> 'Beobachtete Foren',
-	'WATCHED_TOPICS'			=> 'Beobachtete Themen',
+	'WATCHED_EXPLAIN'			=> 'Unten befindet sich eine Liste der Foren und Themen, die Sie abonniert haben. Sie werden über neue Beiträge in den abonnierten Foren und Themen benachrichtigt. Um Abonnements zu beenden, markieren Sie sie und klicken anschließend auf „Ausgewählte Abonnements beenden“.',
+	'WATCHED_FORUMS'			=> 'Abonnierte Foren',
+	'WATCHED_TOPICS'			=> 'Abonnierte Themen',
 	'WRONG_ACTIVATION'			=> 'Der angegebene Aktivierungs-Schlüssel passt auf keinen in der Datenbank vorhandenen Schlüssel.',
 
 	'YOUR_DETAILS'				=> 'Ihre Aktivität',
 	'YOUR_FOES'					=> 'Ihre ignorierten Mitglieder',
-	'YOUR_FOES_EXPLAIN'			=> 'Um Benutzer zu entfernen, markieren Sie sie und klicken Sie auf Absenden.',
+	'YOUR_FOES_EXPLAIN'			=> 'Um Benutzer zu entfernen, markieren Sie sie und klicken anschließend auf Absenden.',
 	'YOUR_FRIENDS'				=> 'Ihre Freunde',
-	'YOUR_FRIENDS_EXPLAIN'		=> 'Um Benutzer zu entfernen, markieren Sie sie und klicken Sie auf Absenden.',
+	'YOUR_FRIENDS_EXPLAIN'		=> 'Um Benutzer zu entfernen, markieren Sie sie und klicken anschließend auf Absenden.',
 	'YOUR_WARNINGS'				=> 'Ihre Verwarnungs-Stufe',
 
 	'PM_ACTION' => array(
 		'PLACE_INTO_FOLDER'	=> 'In Ordner ablegen',
 		'MARK_AS_READ'		=> 'Als gelesen markieren',
 		'MARK_AS_IMPORTANT'	=> 'Markieren',
-		'DELETE_MESSAGE'	=> 'Nachricht löschen'
+		'DELETE_MESSAGE'	=> 'Nachricht löschen',
 	),
 	'PM_CHECK' => array(
 		'SUBJECT'	=> 'Betreff',
 		'SENDER'	=> 'Absender',
 		'MESSAGE'	=> 'Nachricht',
 		'STATUS'	=> 'Nachrichten-Status',
-		'TO'		=> 'Gesendet an'
+		'TO'		=> 'Gesendet an',
 	),
 	'PM_RULE' => array(
 		'IS_LIKE'		=> 'ist wie',
@@ -584,9 +681,8 @@ $lang = array_merge($lang, array(
 		'ANSWERED'		=> 'beantwortet',
 		'FORWARDED'		=> 'weitergeleitet',
 		'TO_GROUP'		=> 'meine Hauptgruppe',
-		'TO_ME'			=> 'mich'
+		'TO_ME'			=> 'mich',
 	),
-
 
 	'GROUPS_EXPLAIN'	=> 'Benutzergruppen erleichtern den Administratoren die Benutzerverwaltung. Standardmäßig werden Sie einer spezifischen Gruppe zugeordnet, Ihrer Hauptgruppe. Diese Gruppe legt fest, wie Sie andere Benutzer sehen, z.&nbsp;B. die Farbe Ihres Benutzernamens, Ihren Avatar oder Ihren Rang. Sie können Ihre Hauptgruppe ändern, sofern dies die Administratoren erlaubt haben. Sie können auch anderen Gruppen zugeordnet werden oder das Recht erhalten, anderen Gruppen beizutreten. Durch manche Gruppen erhalten Sie das Recht, auf zusätzliche Inhalte zuzugreifen oder Ihre Möglichkeiten werden in anderen Bereichen erweitert.',
 	'GROUP_LEADER'		=> 'Gruppen-Leiter',
@@ -600,5 +696,3 @@ $lang = array_merge($lang, array(
 	'NO_PENDING'	=> 'Sie haben keine laufenden Beitrittsanfragen',
 	'NO_NONMEMBER'	=> 'Es gibt keine Gruppe, in der Sie nicht Mitglied sind',
 ));
-
-?>

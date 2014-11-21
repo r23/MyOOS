@@ -1,15 +1,16 @@
 <?php
 /**
 *
-* acp_permissions [Deutsch — Sie]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: permissions.php 617 2013-09-29 10:21:18Z pyramide $
-* @copyright (c) 2005 phpBB Group; 2006 phpBB.de
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 * Deutsche Übersetzung durch die Übersetzer-Gruppe von phpBB.de:
-* siehe docs/AUTHORS und https://www.phpbb.de/go/ubersetzerteam
+* siehe language/de_x_sie/AUTHORS.md und https://www.phpbb.de/go/ubersetzerteam
 *
 */
 
@@ -56,12 +57,12 @@ $lang = array_merge($lang, array(
 
 		<br />
 
-		<p>Für weitere Informationen über die Einrichtung und Verwaltung von Berechtigungen auf Ihrem phpBB3-Board sehen Sie bitte im <a href="https://www.phpbb.com/support/documentation/3.0/quickstart/quick_permissions.html">Kapitel 1.5 der Schnellstartanleitung (englisch)</a> (<a href="https://www.phpbb.de/go/3/berechtigungen">deutsche Übersetzung</a>) nach.</p>
+		<p>Für weitere Informationen über die Einrichtung und Verwaltung von Berechtigungen auf Ihrem phpBB3-Board sehen Sie bitte im <a href="https://www.phpbb.com/support/documentation/3.0/quickstart/quick_permissions.html">Kapitel 1.5 der Schnellstartanleitung (englisch)</a> (<a href="https://www.phpbb.de/go/3.1/berechtigungen">deutsche Übersetzung</a>) nach.</p>
 	',
 
 	'ACL_NEVER'				=> 'Nie',
 	'ACL_SET'				=> 'Berechtigungen setzen',
-	'ACL_SET_EXPLAIN'		=> 'Berechtigungen basieren auf einem einfachen <strong>JA/NEIN</strong>-System. Wird eine Einstellung für einen Benutzer oder eine Gruppe auf <strong>NIE</strong> gesetzt, so überschreibt dieser Wert alle anderen gesetzten Werte. Wenn Sie bei diesem Benutzer/dieser Gruppe keinen Wert für eine Einstellung vornehmen wollen, wählen Sie <strong>NEIN</strong> aus. Wenn an anderer Stelle eine Einstellung vorgenommen wurde, so wird diese verwendet; ansonsten wird von <strong>NIE</strong> ausgegangen. Alle (mit dem davorstehendem Kontrollkästchen) ausgewählten Objekte werden die von Ihnen definierten Berechtigungen übernehmen.',
+	'ACL_SET_EXPLAIN'		=> 'Berechtigungen basieren auf einem einfachen <strong>JA/NEIN</strong>-System. Wird eine Einstellung für einen Benutzer oder eine Gruppe auf <strong>NIE</strong> gesetzt, so überschreibt dieser Wert alle anderen gesetzten Werte. Wenn Sie bei diesem Benutzer/dieser Gruppe keinen Wert für eine Einstellung vornehmen möchten, wählen Sie <strong>NEIN</strong> aus. Wenn an anderer Stelle eine Einstellung vorgenommen wurde, so wird diese verwendet; ansonsten wird von <strong>NIE</strong> ausgegangen. Alle (mit dem davorstehendem Kontrollkästchen) ausgewählten Objekte werden die von Ihnen definierten Berechtigungen übernehmen.',
 	'ACL_SETTING'			=> 'Einstellung',
 
 	'ACL_TYPE_A_'			=> 'Administrator-Berechtigungen',
@@ -92,7 +93,7 @@ $lang = array_merge($lang, array(
 	'ACP_MOD_ROLES_EXPLAIN'						=> 'Hier können Sie Rollen für Moderator-Berechtigungen verwalten. Rollen sind zugewiesene Berechtigungen; wenn Sie eine Rolle ändern, ändern sich die Rechte aller Elemente, denen diese Rolle zugewiesen wurde.',
 	'ACP_USER_ROLES_EXPLAIN'					=> 'Hier können Sie Rollen für Benutzer-Berechtigungen verwalten. Rollen sind zugewiesene Berechtigungen; wenn Sie eine Rolle ändern, ändern sich die Rechte aller Elemente, denen diese Rolle zugewiesen wurde.',
 	'ACP_USERS_FORUM_PERMISSIONS_EXPLAIN'		=> 'Hier können Sie Benutzern Foren-Berechtigungen zuweisen.',
-	'ACP_USERS_PERMISSIONS_EXPLAIN'				=> 'Hier können Sie Benutzern globale Rechte (Benutzer-, globale Moderatoren- und Administrator-Berechtigungen) zuweisen. Benutzerrechte beinhalten Punkte wie Avatare, den Versand von Privaten Nachrichten usw.; Globale-Moderator-Berechtigungen beinhalten die Bestätigung von Beiträgen, die Verwaltung von Themen und Sperren etc. und Administrations-Berechtigungen beinhalten die Änderung von Berechtigungen, die Definition benutzerdefinierter BBCodes etc. Um diese Rechte für eine größere Zahl von Benutzern zu ändern, sollte das Gruppen-Berechtigungssystem verwendet werden. Benutzer-Berechtigungen sollten nur in seltenen Fällen verwendet werden; die vorzuziehende Methode ist, die Benutzer in Gruppen aufzunehmen und den Gruppen entsprechende Rechte zuzuweisen.',
+	'ACP_USERS_PERMISSIONS_EXPLAIN'				=> 'Hier können Sie Benutzern globale Rechte (Benutzer-, globale Moderatoren- und Administrator-Berechtigungen) zuweisen. Benutzerrechte beinhalten Punkte wie Avatare, den Versand von Privaten Nachrichten usw.; Globale-Moderator-Berechtigungen beinhalten die Bestätigung von Beiträgen, die Verwaltung von Themen und Sperren etc. und Administrations-Berechtigungen beinhalten die Änderung von Berechtigungen, die Definition benutzerdefinierter BBCodes etc. Um diese Rechte für eine größere Anzahl von Benutzern zu ändern, sollte das Gruppen-Berechtigungssystem verwendet werden. Benutzer-Berechtigungen sollten nur in seltenen Fällen verwendet werden; die vorzuziehende Methode ist, die Benutzer in Gruppen aufzunehmen und den Gruppen entsprechende Rechte zuzuweisen.',
 	'ACP_VIEW_ADMIN_PERMISSIONS_EXPLAIN'		=> 'Hier können Sie die effektiven Administrator-Berechtigungen anzeigen, die den ausgewählten Benutzern/Gruppen zugewiesen sind.',
 	'ACP_VIEW_GLOBAL_MOD_PERMISSIONS_EXPLAIN'	=> 'Hier können Sie die globalen Moderator-Berechtigungen anzeigen, die den ausgewählten Benutzern/Gruppen zugewiesen sind.',
 	'ACP_VIEW_FORUM_PERMISSIONS_EXPLAIN'		=> 'Hier können Sie die Forums-Berechtigungen anzeigen, die den ausgewählten Benutzer/Gruppen und Foren zugewiesen sind.',
@@ -125,7 +126,7 @@ $lang = array_merge($lang, array(
 
 	'DEFAULT'					=> 'Standard',
 	'DELETE_ROLE'				=> 'Rolle löschen',
-	'DELETE_ROLE_CONFIRM'		=> 'Sind Sie sich sicher, dass Sie diese Rolle löschen wollen? Objekte, denen diese Rolle zugewiesen wurde, werden ihre Rechte <strong>nicht</strong> verlieren.',
+	'DELETE_ROLE_CONFIRM'		=> 'Sind Sie sich sicher, dass Sie diese Rolle löschen möchten? Objekte, denen diese Rolle zugewiesen wurde, werden ihre Rechte <strong>nicht</strong> verlieren.',
 	'DISPLAY_ROLE_ITEMS'		=> 'Objekte anzeigen, die diese Rolle verwenden',
 
 	'EDIT_PERMISSIONS'			=> 'Berechtigungen ändern',
@@ -141,7 +142,7 @@ $lang = array_merge($lang, array(
 
 	'NO_AUTH_SETTING_FOUND'		=> 'Keine definierten Berechtigungen gefunden',
 	'NO_ROLE_ASSIGNED'			=> 'Keine Rolle zugewiesen …',
-	'NO_ROLE_ASSIGNED_EXPLAIN'	=> 'Die Auswahl dieser Rolle ändert die rechts angegebenen Rechte nicht. Wenn Sie alle Berechtigungen entfernen wollen, verwenden Sie den „<strong>Alle Nie</strong>“-Link.',
+	'NO_ROLE_ASSIGNED_EXPLAIN'	=> 'Die Auswahl dieser Rolle ändert die rechts angegebenen Rechte nicht. Wenn Sie alle Berechtigungen entfernen möchten, verwenden Sie den „<strong>Alle Nie</strong>“-Link.',
 	'NO_ROLE_AVAILABLE'			=> 'Keine Rolle verfügbar',
 	'NO_ROLE_NAME_SPECIFIED'	=> 'Bitte geben Sie der Rolle einen Namen.',
 	'NO_ROLE_SELECTED'			=> 'Die Rolle kann nicht gefunden werden.',
@@ -199,7 +200,7 @@ $lang = array_merge($lang, array(
 	'ROLE_DESCRIPTION_FORUM_POLLS'			=> 'Wie „Standard-Zugang“, kann aber auch Umfragen erstellen.',
 	'ROLE_DESCRIPTION_FORUM_READONLY'		=> 'Kann das Forum lesen, aber keine neuen Themen oder Antworten erstellen.',
 	'ROLE_DESCRIPTION_FORUM_STANDARD'		=> 'Kann die meisten Foren-Funktionen inkl. Dateianhänge nutzen und kann eigene Themen löschen, kann aber keine Umfragen erstellen.',
-	'ROLE_DESCRIPTION_FORUM_NEW_MEMBER'		=> 'Eine Rolle für Mitglieder der speziellen Gruppe neu registrierter Benutzer. Enthält <samp>NIE</samp>-Berechtigungen, um Funktionen für neue Benutzer zu sperren.',
+	'ROLE_DESCRIPTION_FORUM_NEW_MEMBER'		=> 'Eine Rolle für Mitglieder der speziellen Gruppe neu registrierter Benutzer. Enthält <strong>NIE</strong>-Berechtigungen, um Funktionen für neue Benutzer zu sperren.',
 	'ROLE_DESCRIPTION_MOD_FULL'				=> 'Kann alle Moderations-Funktionen inkl. der Sperren nutzen.',
 	'ROLE_DESCRIPTION_MOD_QUEUE'			=> 'Kann die Moderations-Warteschlange benutzen, um Beiträge zu bestätigen und zu ändern — aber nichts anderes.',
 	'ROLE_DESCRIPTION_MOD_SIMPLE'			=> 'Kann nur die themenbezogenen Grundfunktionen nutzen. Kann keine Verwarnungen erteilen oder die Moderations-Warteschlange nutzen.',
@@ -209,7 +210,7 @@ $lang = array_merge($lang, array(
 	'ROLE_DESCRIPTION_USER_NOAVATAR'		=> 'Hat eingeschränkte Rechte und kann keinen Avatar benutzen.',
 	'ROLE_DESCRIPTION_USER_NOPM'			=> 'Hat eingeschränkte Rechte und kann keine Privaten Nachrichten benutzen.',
 	'ROLE_DESCRIPTION_USER_STANDARD'		=> 'Kann fast alle Benutzer-Funktionen verwenden. Ausgenommen sind z.&nbsp;B. die Änderung des Benutzernames oder das Übergehen der Wartezeit.',
-	'ROLE_DESCRIPTION_USER_NEW_MEMBER'		=> 'Eine Rolle für Mitglieder der speziellen Gruppe neu registrierter Benutzer. Enthält <samp>NIE</samp>-Berechtigungen, um Funktionen für neue Benutzer zu sperren.',
+	'ROLE_DESCRIPTION_USER_NEW_MEMBER'		=> 'Eine Rolle für Mitglieder der speziellen Gruppe neu registrierter Benutzer. Enthält <strong>NIE</strong>-Berechtigungen, um Funktionen für neue Benutzer zu sperren.',
 
 	'ROLE_DESCRIPTION_EXPLAIN'		=> 'Sie können eine kurze Beschreibung angeben, was diese Rolle macht oder für was sie gedacht ist. Der Text, den Sie hier angeben, wird auch in der Berechtigungs-Verwaltung angezeigt.',
 	'ROLE_DESCRIPTION_LONG'			=> 'Die Beschreibung der Rolle ist zu lang. Sie muss weniger als 4000 Zeichen umfassen.',
@@ -230,23 +231,23 @@ $lang = array_merge($lang, array(
 	'SET_USERS_PERMISSIONS'			=> 'Benutzer-Berechtigungen festlegen',
 	'SET_USERS_FORUM_PERMISSIONS'	=> 'Benutzerspezifische Forenrechte festlegen',
 
-	'TRACE_DEFAULT'							=> 'Standardmäßig ist jede Berechtigung auf <strong>NEIN</strong> (nicht definiert), so dass die Berechtigung durch andere Berechtigungen überschrieben werden kann.',
+	'TRACE_DEFAULT'					=> 'Standardmäßig ist jede Berechtigung auf <strong>NEIN</strong> (nicht definiert), so dass die Berechtigung durch andere Berechtigungen überschrieben werden kann.',
 	'TRACE_FOR'								=> 'Verfolgung der Einstellung von',
 	'TRACE_GLOBAL_SETTING'					=> '%s (global)',
-	'TRACE_GROUP_NEVER_TOTAL_NEVER'			=> 'Die Berechtigung dieser Gruppe ist <strong>NIE</strong> wie das Ergebnis, so dass das alte Ergebnis beibehalten wird.',
+	'TRACE_GROUP_NEVER_TOTAL_NEVER'	=> 'Die Berechtigung dieser Gruppe ist <strong>NIE</strong> wie das Ergebnis, so dass das alte Ergebnis beibehalten wird.',
 	'TRACE_GROUP_NEVER_TOTAL_NEVER_LOCAL'	=> 'Die Berechtigung dieser Gruppe für dieses Forum ist <strong>NIE</strong> wie das Ergebnis, so dass das alte Ergebnis beibehalten wird.',
-	'TRACE_GROUP_NEVER_TOTAL_NO'			=> 'Die Berechtigung dieser Gruppe ist <strong>NIE</strong>, was zum neuen Ergebnis wird, weil es bislang nicht definiert (<strong>NEIN</strong>) war.',
-	'TRACE_GROUP_NEVER_TOTAL_NO_LOCAL'		=> 'Die Berechtigung dieser Gruppe für dieses Forum ist <strong>NIE</strong>, was zum neuen Ergebnis wird, weil es bislang nicht definiert (<strong>NEIN</strong>) war.',
-	'TRACE_GROUP_NEVER_TOTAL_YES'			=> 'Die Berechtigung dieser Gruppe ist <strong>NIE</strong>, was das Ergebnis <strong>JA</strong> für diesen Benutzer mit <strong>NIE</strong> überschreibt.',
-	'TRACE_GROUP_NEVER_TOTAL_YES_LOCAL'		=> 'Die Berechtigung dieser Gruppe für dieses Forum ist <strong>NIE</strong>, was das Ergebnis <strong>JA</strong> für diesen Benutzer mit <strong>NIE</strong> überschreibt.',
-	'TRACE_GROUP_NO'						=> 'Die Berechtigung dieser Gruppe ist <strong>NEIN</strong>, so dass die alte Berechtigung beibehalten wird.',
-	'TRACE_GROUP_NO_LOCAL'					=> 'Die Berechtigung dieser Gruppe für dieses Forum ist <strong>NEIN</strong>, so dass die alte Berechtigung beibehalten wird.',
-	'TRACE_GROUP_YES_TOTAL_NEVER'			=> 'Die Berechtigung dieser Gruppe ist <strong>JA</strong>, aber das Ergebnis <strong>NIE</strong> kann nicht überschritten werden.',
-	'TRACE_GROUP_YES_TOTAL_NEVER_LOCAL'		=> 'Die Berechtigung dieser Gruppe für dieses Forum ist <strong>JA</strong>, aber das Ergebnis <strong>NIE</strong> kann nicht überschritten werden.',
-	'TRACE_GROUP_YES_TOTAL_NO'				=> 'Die Berechtigung dieser Gruppe ist <strong>JA</strong>, was zum neuen Ergebnis wird, weil es bislang nicht definiert (<strong>NEIN</strong>) war.',
-	'TRACE_GROUP_YES_TOTAL_NO_LOCAL'		=> 'Die Berechtigung dieser Gruppe für dieses Forum ist <strong>JA</strong>, was zum neuen Ergebnis wird, weil es bislang nicht definiert (<strong>NEIN</strong>) war.',
-	'TRACE_GROUP_YES_TOTAL_YES'				=> 'Die Berechtigung dieser Gruppe ist <strong>JA</strong> wie das Ergebnis, so dass das alte Ergebnis beibehalten wird.',
-	'TRACE_GROUP_YES_TOTAL_YES_LOCAL'		=> 'Die Berechtigung dieser Gruppe für dieses Forum ist <strong>JA</strong> wie das Ergebnis, so dass das alte Ergebnis beibehalten wird.',
+	'TRACE_GROUP_NEVER_TOTAL_NO'	=> 'Die Berechtigung dieser Gruppe ist <strong>NIE</strong>, was zum neuen Ergebnis wird, weil es bislang nicht definiert (<strong>NEIN</strong>) war.',
+	'TRACE_GROUP_NEVER_TOTAL_NO_LOCAL'	=> 'Die Berechtigung dieser Gruppe für dieses Forum ist <strong>NIE</strong>, was zum neuen Ergebnis wird, weil es bislang nicht definiert (<strong>NEIN</strong>) war.',
+	'TRACE_GROUP_NEVER_TOTAL_YES'	=> 'Die Berechtigung dieser Gruppe ist <strong>NIE</strong>, was das Ergebnis <strong>JA</strong> für diesen Benutzer mit <strong>NIE</strong> überschreibt.',
+	'TRACE_GROUP_NEVER_TOTAL_YES_LOCAL'	=> 'Die Berechtigung dieser Gruppe für dieses Forum ist <strong>NIE</strong>, was das Ergebnis <strong>JA</strong> für diesen Benutzer mit <strong>NIE</strong> überschreibt.',
+	'TRACE_GROUP_NO'				=> 'Die Berechtigung dieser Gruppe ist <strong>NEIN</strong>, so dass die alte Berechtigung beibehalten wird.',
+	'TRACE_GROUP_NO_LOCAL'			=> 'Die Berechtigung dieser Gruppe für dieses Forum ist <strong>NEIN</strong>, so dass die alte Berechtigung beibehalten wird.',
+	'TRACE_GROUP_YES_TOTAL_NEVER'	=> 'Die Berechtigung dieser Gruppe ist <strong>JA</strong>, aber das Ergebnis <strong>NIE</strong> kann nicht überschritten werden.',
+	'TRACE_GROUP_YES_TOTAL_NEVER_LOCAL'	=> 'Die Berechtigung dieser Gruppe für dieses Forum ist <strong>JA</strong>, aber das Ergebnis <strong>NIE</strong> kann nicht überschritten werden.',
+	'TRACE_GROUP_YES_TOTAL_NO'		=> 'Die Berechtigung dieser Gruppe ist <strong>JA</strong>, was zum neuen Ergebnis wird, weil es bislang nicht definiert (<strong>NEIN</strong>) war.',
+	'TRACE_GROUP_YES_TOTAL_NO_LOCAL'	=> 'Die Berechtigung dieser Gruppe für dieses Forum ist <strong>JA</strong>, was zum neuen Ergebnis wird, weil es bislang nicht definiert (<strong>NEIN</strong>) war.',
+	'TRACE_GROUP_YES_TOTAL_YES'		=> 'Die Berechtigung dieser Gruppe ist <strong>JA</strong> wie das Ergebnis, so dass das alte Ergebnis beibehalten wird.',
+	'TRACE_GROUP_YES_TOTAL_YES_LOCAL'	=> 'Die Berechtigung dieser Gruppe für dieses Forum ist <strong>JA</strong> wie das Ergebnis, so dass das alte Ergebnis beibehalten wird.',
 	'TRACE_PERMISSION'						=> 'Einstellung verfolgen — %s',
 	'TRACE_RESULT'							=> 'Ergebnis der Verfolgung',
 	'TRACE_SETTING'							=> 'Einstellung verfolgen',
@@ -285,7 +286,5 @@ $lang = array_merge($lang, array(
 	'VIEW_PERMISSIONS'		=> 'Berechtigungen anzeigen',
 
 	'WRONG_PERMISSION_TYPE'				=> 'Falsche Berechtigungs-Art ausgewählt.',
-	'WRONG_PERMISSION_SETTING_FORMAT'	=> 'Die Berechtigungs-Einstellungen sind in einem falschen Format, phpBB kann sie nicht verarbeiten.',
+	'WRONG_PERMISSION_SETTING_FORMAT'	=> 'Die Berechtigungs-Einstellungen sind in einem fehlerhaften Format, phpBB kann sie nicht verarbeiten.',
 ));
-
-?>

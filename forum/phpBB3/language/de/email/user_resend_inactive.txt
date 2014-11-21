@@ -10,11 +10,9 @@ Benutzername: {USERNAME}
 
 Dein Passwort wurde sicher in unserer Datenbank gespeichert und kann nicht wiederhergestellt werden. Falls es vergessen werden sollte, kannst du es über die E-Mail-Adresse, die deinem Account zugeordnet ist, zurücksetzen lassen.
 
-Bitte besuche folgenden Link, um den Account zu aktivieren:
+Um dein Benutzerkonto zu aktivieren, musst du folgenden Link aufrufen:
 
 {U_ACTIVATE}
-
-
 
 Vielen Dank für deine Registrierung.
 

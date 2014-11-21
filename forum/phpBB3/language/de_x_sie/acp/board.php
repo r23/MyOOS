@@ -1,15 +1,16 @@
 <?php
 /**
 *
-* acp_board [Deutsch — Sie]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: board.php 617 2013-09-29 10:21:18Z pyramide $
-* @copyright (c) 2005 phpBB Group; 2006 phpBB.de
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 * Deutsche Übersetzung durch die Übersetzer-Gruppe von phpBB.de:
-* siehe docs/AUTHORS und https://www.phpbb.de/go/ubersetzerteam
+* siehe language/de_x_sie/AUTHORS.md und https://www.phpbb.de/go/ubersetzerteam
 *
 */
 
@@ -41,22 +42,33 @@ if (empty($lang) || !is_array($lang))
 // Board Settings
 $lang = array_merge($lang, array(
 	'ACP_BOARD_SETTINGS_EXPLAIN'	=> 'Hier können Sie einige grundlegende Einstellungen Ihres Boards vornehmen, ihm einen passenden Namen und eine Beschreibung geben und, neben anderen Werten, die Standard-Einstellungen für Zeitzone und Sprache anpassen.',
+	'BOARD_INDEX_TEXT'				=> 'Bezeichnung für Foren-Übersicht',
+	'BOARD_INDEX_TEXT_EXPLAIN'		=> 'Dieser Text wird für die Foren-Übersicht in der Brotkrümelnavigation des Boards angezeigt. Wenn kein Text festgelegt ist, wird der Standardwert „Foren-Übersicht“ verwendet.',
+	'BOARD_STYLE'					=> 'Style des Boards',
 	'CUSTOM_DATEFORMAT'				=> 'Eigenes …',
 	'DEFAULT_DATE_FORMAT'			=> 'Datumsformat',
 	'DEFAULT_DATE_FORMAT_EXPLAIN'	=> 'Die Syntax entspricht der der <a href="http://www.php.net/date"><code>date()</code></a>-Funktion von PHP.',
 	'DEFAULT_LANGUAGE'				=> 'Standard-Sprache',
 	'DEFAULT_STYLE'					=> 'Standard-Style',
+	'DEFAULT_STYLE_EXPLAIN'			=> 'Der Standard-Style für neue Mitglieder.',
 	'DISABLE_BOARD'					=> 'Board deaktivieren',
-	'DISABLE_BOARD_EXPLAIN'			=> 'Hiermit sperren Sie das Board für alle Benutzer. Wenn Sie möchten, können Sie eine kurze Nachricht (bis zu 255 Zeichen) angeben.',
+	'DISABLE_BOARD_EXPLAIN'			=> 'Hiermit sperren Sie das Board für alle Benutzer, die weder Administrator noch Moderator sind. Wenn Sie möchten, können Sie eine kurze Nachricht (bis zu 255 Zeichen) angeben.',
+	'DISPLAY_LAST_SUBJECT'			=> 'Betreff des letzten Beitrags in Foren-Liste anzeigen',
+	'DISPLAY_LAST_SUBJECT_EXPLAIN'	=> 'Der Betreff des zuletzt erstellten Beitrags wird in der Foren-Liste angezeigt und mit dem Beitrag verlinkt. Der Betreff von Beiträgen in passwortgeschützten Foren und solchen, die der Benutzer nicht lesen darf, werden nicht angezeigt.',
+	'GUEST_STYLE'					=> 'Style für Gäste',
+	'GUEST_STYLE_EXPLAIN'			=> 'Der Style des Boards für Gäste.',
 	'OVERRIDE_STYLE'				=> 'Benutzer-Style überschreiben',
-	'OVERRIDE_STYLE_EXPLAIN'		=> 'Verwendet den Standard-Style statt der individuell von den Benutzern gewählten Styles.',
+	'OVERRIDE_STYLE_EXPLAIN'		=> 'Verwendet den als „Standard-Style“ festgelegten Style für alle Mitglieder und Gäste unabhängig deren persönlichen Einstellungen.',
 	'SITE_DESC'						=> 'Beschreibung des Boards',
+	'SITE_HOME_TEXT'				=> 'Bezeichnung der Homepage',
+	'SITE_HOME_TEXT_EXPLAIN'		=> 'Dieser Text wird als Link auf Ihre Homepage in der Brotkrümelnavigation des Boards angezeigt. Wenn kein Text festgelegt ist, wird der Standardwert „Startseite“ verwendet.',
+	'SITE_HOME_URL'					=> 'URL der Homepage',
+	'SITE_HOME_URL_EXPLAIN'			=> 'Wenn festgelegt, wird ein Link zu dieser Seite der Brotkrümelnavigation des Boards vorangestellt und das Logo des Boards wird auf diese Seite statt der Foren-Übersicht verweisen. Es muss eine vollständige URL angegeben werden, z.&nbsp;B. <samp>http://www.phpbb.com</samp>.',
 	'SITE_NAME'						=> 'Name des Boards',
-	'SYSTEM_DST'					=> 'Derzeit ist Sommerzeit',
 	'SYSTEM_TIMEZONE'				=> 'Zeitzone für Gäste',
 	'SYSTEM_TIMEZONE_EXPLAIN'		=> 'Zeitzone, die für Benutzer verwendet wird, die nicht angemeldet sind (Gäste, Bots). Angemeldete Benutzer legen ihre Zeitzone während der Registrierung fest und können sie im persönlichen Bereich ändern.',
 	'WARNINGS_EXPIRE'				=> 'Gültigkeit von Verwarnungen',
-	'WARNINGS_EXPIRE_EXPLAIN'		=> 'Die Anzahl der Tage, nach denen eine Verwarnung automatisch aus dem Benutzer-Profil gelöscht wird. Um Verwarnungen dauerhaft zu machen, stellen Sie als Wert 0 ein.',
+	'WARNINGS_EXPIRE_EXPLAIN'		=> 'Die Anzahl der Tage, nach denen eine Verwarnung automatisch aus dem Benutzer-Profil gelöscht wird. Verwarnungen bleiben dauerhaft erhalten, wenn 0 als Wert eingestellt wird.',
 ));
 
 // Board Features
@@ -69,7 +81,7 @@ $lang = array_merge($lang, array(
 	'ALLOW_BOOKMARKS'			=> 'Setzen von Lesezeichen für Themen erlauben',
 	'ALLOW_BOOKMARKS_EXPLAIN'	=> 'Der Benutzer darf persönliche Lesezeichen speichern.',
 	'ALLOW_BBCODE'				=> 'BBCode erlauben',
-	'ALLOW_FORUM_NOTIFY'		=> 'Beobachten von Foren erlauben',
+	'ALLOW_FORUM_NOTIFY'		=> 'Abonnieren von Foren erlauben',
 	'ALLOW_NAME_CHANGE'			=> 'Namenswechsel erlauben',
 	'ALLOW_NO_CENSORS'			=> 'Deaktivieren der Wortzensur erlauben',
 	'ALLOW_NO_CENSORS_EXPLAIN'	=> 'Benutzer können die automatische Wortzensur in Beiträgen und Privaten Nachrichten deaktivieren.',
@@ -87,7 +99,7 @@ $lang = array_merge($lang, array(
 	'ALLOW_SIG_LINKS_EXPLAIN'	=> '„Nein“ deaktiviert den <code>[URL]</code> BBCode-Tag und die automatische Verlinkung von URLs.',
 	'ALLOW_SIG_SMILIES'			=> 'Smilies in Signaturen erlauben',
 	'ALLOW_SMILIES'				=> 'Smilies erlauben',
-	'ALLOW_TOPIC_NOTIFY'		=> 'Beobachten von Themen erlauben',
+	'ALLOW_TOPIC_NOTIFY'		=> 'Abonnieren von Themen erlauben',
 	'BOARD_PM'					=> 'Private Nachrichten',
 	'BOARD_PM_EXPLAIN'			=> 'Aktiviert Private Nachrichten für alle Benutzer.',
 ));
@@ -98,6 +110,7 @@ $lang = array_merge($lang, array(
 
 	'ALLOW_AVATARS'					=> 'Avatare erlauben',
 	'ALLOW_AVATARS_EXPLAIN'			=> 'Erlaubt die generelle Nutzung von Avataren.<br />Wenn Sie Avatare generell oder die eines bestimmten Typs deaktivieren, werden die deaktivierten Avatare nicht mehr im Board angezeigt, Benutzer können ihren Avatar aber weiterhin im persönlichen Bereich herunterladen.',
+	'ALLOW_GRAVATAR'				=> 'Gravatar-Avatare erlauben',
 	'ALLOW_LOCAL'					=> 'Galerie-Avatare erlauben',
 	'ALLOW_REMOTE'					=> 'Remote-Avatare erlauben',
 	'ALLOW_REMOTE_EXPLAIN'			=> 'Avatare, die von einer anderen Website verlinkt werden.',
@@ -105,13 +118,13 @@ $lang = array_merge($lang, array(
 	'ALLOW_REMOTE_UPLOAD_EXPLAIN'	=> 'Erlaubt das Hochladen eines Avatars von einer anderen Website.',
 	'ALLOW_UPLOAD'					=> 'Hochladen von Avataren erlauben',
 	'AVATAR_GALLERY_PATH'			=> 'Avatar-Galeriepfad',
-	'AVATAR_GALLERY_PATH_EXPLAIN'	=> 'Der Pfad von Ihrem phpBB-Hauptverzeichnis aus, in dem die Galerie-Avatare liegen (z.&nbsp;B. <samp>images/avatars/gallery</samp>).',
+	'AVATAR_GALLERY_PATH_EXPLAIN'	=> 'Der Pfad von Ihrem phpBB-Hauptverzeichnis aus, in dem die Galerie-Avatare liegen (z.&nbsp;B. <samp>images/avatars/gallery</samp>).<br />Doppelte Punkte (<samp>../</samp>) werden aus Sicherheitsgründen aus der Pfadangabe entfernt.',
 	'AVATAR_STORAGE_PATH'			=> 'Avatar Speicherpfad',
-	'AVATAR_STORAGE_PATH_EXPLAIN'	=> 'Der Pfad von Ihrem phpBB-Hauptverzeichnis aus, in dem die Avatare gespeichert werden (z.&nbsp;B. <samp>images/avatars/upload</samp>).',
+	'AVATAR_STORAGE_PATH_EXPLAIN'	=> 'Der Pfad von Ihrem phpBB-Hauptverzeichnis aus, in dem die Avatare gespeichert werden (z.&nbsp;B. <samp>images/avatars/upload</samp>).<br />Das Hochladen von Avataren <strong>wird nicht funktionieren</strong>, wenn dieser Ordner nicht beschreibbar ist.<br />Doppelte Punkte (<samp>../</samp>) werden aus Sicherheitsgründen aus der Pfadangabe entfernt.',
 	'MAX_AVATAR_SIZE'				=> 'Maximale Abmessungen für Avatare',
 	'MAX_AVATAR_SIZE_EXPLAIN'		=> 'Breite &times; Höhe in Pixel',
 	'MAX_FILESIZE'					=> 'Maximale Dateigröße',
-	'MAX_FILESIZE_EXPLAIN'			=> 'Für hochgeladene Avatare. Bei 0 wird die Dateigröße nur durch die PHP-Konfiguration limitiert.',
+	'MAX_FILESIZE_EXPLAIN'			=> 'Für hochgeladene Avatare. Die Dateigröße wird nur durch die PHP-Konfiguration limitiert, wenn 0 als Wert eingestellt wird.',
 	'MIN_AVATAR_SIZE'				=> 'Minimale Abmessungen für Avatare',
 	'MIN_AVATAR_SIZE_EXPLAIN'		=> 'Breite &times; Höhe in Pixel',
 ));
@@ -132,17 +145,17 @@ $lang = array_merge($lang, array(
 	'ALLOW_SIG_PM'				=> 'Signatur in Privaten Nachrichten erlauben',
 	'ALLOW_SMILIES_PM'			=> 'Smilies in Privaten Nachrichten erlauben',
 	'BOXES_LIMIT'				=> 'Maximale Anzahl von Nachrichten pro Ordner',
-	'BOXES_LIMIT_EXPLAIN'		=> 'Benutzer können in einem Ordner nicht mehr als die hier festgelegte Anzahl an Privaten Nachrichten ablegen. Um eine unbegrenzte Anzahl zuzulassen, stellen Sie als Wert 0 ein.',
-	'BOXES_MAX'					=> 'Maximale Anzahl an Ordnern',
-	'BOXES_MAX_EXPLAIN'			=> 'Standardmäßig können Benutzer diese Anzahl an persönlichen Ordnern für Private Nachrichten erstellen.',
+	'BOXES_LIMIT_EXPLAIN'		=> 'Benutzer können in einem Ordner nicht mehr als die hier festgelegte Anzahl von Privaten Nachrichten ablegen. Um eine unbegrenzte Anzahl zuzulassen, muss 0 als Wert eingestellt werden.',
+	'BOXES_MAX'					=> 'Maximale Anzahl von Ordnern',
+	'BOXES_MAX_EXPLAIN'			=> 'Standardmäßig können Benutzer diese Anzahl von persönlichen Ordnern für Private Nachrichten erstellen.',
 	'ENABLE_PM_ICONS'			=> 'Die Nutzung von Themen-Symbolen in Privaten Nachrichten aktivieren',
 	'FULL_FOLDER_ACTION'		=> 'Standard-Verhalten bei vollem Ordner',
 	'FULL_FOLDER_ACTION_EXPLAIN'=> 'Das standardmäßige Verhalten, wenn der Ordner eines Benutzers voll ist und die von ihm eingestellte Aktion nicht durchführbar ist bzw. diese nicht festgelegt wurde. Eine Ausnahme gilt für den Ordner „Gesendete Nachrichten“, wo das Standard-Verhalten immer so eingestellt ist, dass alte Nachrichten gelöscht werden.',
 	'HOLD_NEW_MESSAGES'			=> 'Neue Nachrichten zurückhalten',
 	'PM_EDIT_TIME'				=> 'Nachträgliche Bearbeitung einschränken',
-	'PM_EDIT_TIME_EXPLAIN'		=> 'Limitiert die Zeit zur Bearbeitung einer gesendeten, aber noch ungelesenen Privaten Nachricht. Um dieses Verhalten abzuschalten, stellen Sie als Wert 0 ein.',
+	'PM_EDIT_TIME_EXPLAIN'		=> 'Limitiert die Zeit zur Bearbeitung einer gesendeten, aber noch ungelesenen Privaten Nachricht. Eine zeitlich unbegrenzte Bearbeitung ist möglich, wenn 0 als Wert eingestellt wird.',
 	'PM_MAX_RECIPIENTS'			=> 'Maximale Anzahl zulässiger Empfänger',
-	'PM_MAX_RECIPIENTS_EXPLAIN'	=> 'Die maximale Anzahl zulässiger Empfänger für eine Private Nachricht. Bei einem Wert von 0 sind unbegrenzt viele Empfänger zulässig. Diese Einstellung kann gruppenbezogen in den Gruppeneinstellungen angepasst werden.',
+	'PM_MAX_RECIPIENTS_EXPLAIN'	=> 'Die maximale Anzahl zulässiger Empfänger für eine Private Nachricht. Eine unbegrenzte Anzahl von Empfängern ist zulässig, wenn 0 als Wert eingestellt wird. Diese Einstellung kann gruppenbezogen in den Gruppeneinstellungen angepasst werden.',
 ));
 
 // Post Settings
@@ -154,11 +167,11 @@ $lang = array_merge($lang, array(
 	'ALLOW_POST_FLASH_EXPLAIN'			=> 'Wenn deaktiviert, ist der <code>[FLASH]</code> BBCode-Tag in Beiträgen deaktiviert. Andernfalls wird durch das Berechtigungssystem festgelegt, welche Benutzer den <code>[FLASH]</code> BBCode-Tag benutzen können.',
 
 	'BUMP_INTERVAL'					=> 'Neu-Markierung möglich nach',
-	'BUMP_INTERVAL_EXPLAIN'			=> 'Die Zahl der Minuten, Stunden oder Tage, die seit dem letzten Beitrag zu einem Thema vergangen sein müssen, damit das Thema als „Neu“ markiert werden kann. Um die Markierung als „Neu“ vollständig zu deaktivieren, stellen Sie als Wert 0 ein.',
+	'BUMP_INTERVAL_EXPLAIN'			=> 'Die Zahl der Minuten, Stunden oder Tage, die seit dem letzten Beitrag zu einem Thema vergangen sein müssen, damit das Thema als „Neu“ markiert werden kann. Die Markierung als „Neu“ wird vollständig deaktiviert, wenn 0 als Wert eingestellt wird.',
 	'CHAR_LIMIT'					=> 'Maximale Anzahl der Zeichen pro Beitrag/Nachricht',
-	'CHAR_LIMIT_EXPLAIN'			=> 'Die maximale Zahl von Zeichen, die in einem Beitrag/einer Privaten Nachricht zulässig sind; 0 bedeutet unbegrenzt.',
+	'CHAR_LIMIT_EXPLAIN'			=> 'Die maximale Anzahl von Zeichen, die in einem Beitrag/einer Privaten Nachricht zulässig sind; 0 bedeutet unbegrenzt.',
 	'DELETE_TIME'					=> 'Begrenze Löschzeit',
-	'DELETE_TIME_EXPLAIN'			=> 'Begrenzt die Zeit, die zur Löschung eines neuen Beitrags zur Verfügung steht. Um keine Begrenzung festzulegen, stelle als Wert 0 ein.',
+	'DELETE_TIME_EXPLAIN'			=> 'Begrenzt die Zeit, die zur Löschung eines neuen Beitrags zur Verfügung steht. Es wird keine Begrenzung festgelegt, wenn 0 als Wert eingestellt wird.',
 	'DISPLAY_LAST_EDITED'			=> 'Bearbeitungen anzeigen',
 	'DISPLAY_LAST_EDITED_EXPLAIN'	=> 'Wählen Sie aus, ob die Information „Zuletzt bearbeitet von“ in Beiträgen angezeigt werden soll.',
 	'EDIT_TIME'						=> 'Nachträgliche Bearbeitung einschränken',
@@ -166,24 +179,24 @@ $lang = array_merge($lang, array(
 	'FLOOD_INTERVAL'				=> 'Wartezeit zwischen zwei Beiträgen',
 	'FLOOD_INTERVAL_EXPLAIN'		=> 'Die Zeit in Sekunden, die ein Benutzer warten muss, bevor er einen neuen Beitrag schreiben kann. Wenn Sie Benutzern erlauben möchten, die Wartezeit zu umgehen, müssen Sie deren Befugnisse anpassen.',
 	'HOT_THRESHOLD'					=> 'Grenzwert für beliebte Themen',
-	'HOT_THRESHOLD_EXPLAIN'			=> 'Anzahl der Beiträge in einem Thema, bis es als „beliebtes Thema“ angezeigt wird. Um beliebte Themen zu deaktivieren, stellen Sie als Wert 0 ein.',
-	'MAX_POLL_OPTIONS'				=> 'Maximale Anzahl an Umfrage-Optionen',
+	'HOT_THRESHOLD_EXPLAIN'			=> 'Anzahl der Beiträge in einem Thema, bis es als „beliebtes Thema“ angezeigt wird. Beliebte Themen werden deaktiviert, wenn 0 als Wert eingestellt wird.',
+	'MAX_POLL_OPTIONS'				=> 'Maximale Anzahl von Umfrage-Optionen',
 	'MAX_POST_FONT_SIZE'			=> 'Maximale Schriftgröße in Beiträgen',
-	'MAX_POST_FONT_SIZE_EXPLAIN'	=> 'Maximal in Beiträgen zulässige Schriftgröße. Um keine Begrenzung festzulegen, stellen Sie als Wert 0 ein.',
+	'MAX_POST_FONT_SIZE_EXPLAIN'	=> 'Maximal in Beiträgen zulässige Schriftgröße. Es wird keine Begrenzung festgelegt, wenn 0 als Wert eingestellt wird.',
 	'MAX_POST_IMG_HEIGHT'			=> 'Maximale Bild-Höhe in Beiträgen',
-	'MAX_POST_IMG_HEIGHT_EXPLAIN'	=> 'Die maximale Höhe eines Bildes/einer Flash-Datei in Beiträgen. Um keine Begrenzung festzulegen, stellen Sie als Wert 0 ein.',
+	'MAX_POST_IMG_HEIGHT_EXPLAIN'	=> 'Die maximale Höhe eines Bildes/einer Flash-Datei in Beiträgen. Es wird keine Begrenzung festgelegt, wenn 0 als Wert eingestellt wird.',
 	'MAX_POST_IMG_WIDTH'			=> 'Maximale Bild-Breite in Beiträgen',
-	'MAX_POST_IMG_WIDTH_EXPLAIN'	=> 'Die maximale Breite eines Bildes/einer Flash-Datei in Beiträgen. Um keine Begrenzung festzulegen, stellen Sie als Wert 0 ein.',
-	'MAX_POST_URLS'					=> 'Maximale Anzahl an Links pro Beitrag',
-	'MAX_POST_URLS_EXPLAIN'			=> 'Maximale Anzahl von Links in einem Beitrag. Um keine Begrenzung festzulegen, stellen Sie als Wert 0 ein.',
+	'MAX_POST_IMG_WIDTH_EXPLAIN'	=> 'Die maximale Breite eines Bildes/einer Flash-Datei in Beiträgen. Es wird keine Begrenzung festgelegt, wenn 0 als Wert eingestellt wird.',
+	'MAX_POST_URLS'					=> 'Maximale Anzahl von Links pro Beitrag',
+	'MAX_POST_URLS_EXPLAIN'			=> 'Maximale Anzahl von Links in einem Beitrag. Es wird keine Begrenzung festgelegt, wenn 0 als Wert eingestellt wird.',
 	'MIN_CHAR_LIMIT'				=> 'Minimale Anzahl von Zeichen pro Beitrag/Nachricht',
 	'MIN_CHAR_LIMIT_EXPLAIN'		=> 'Die minimale Anzahl von Zeichen, die ein Benutzer in einem Beitrag/einer Nachricht mindestens eingeben muss. Der Wert muss 1 oder größer sein.',
 	'POSTING'						=> 'Beiträge schreiben',
 	'POSTS_PER_PAGE'				=> 'Beiträge pro Seite',
 	'QUOTE_DEPTH_LIMIT'				=> 'Maximale Tiefe verschachtelter Zitate',
-	'QUOTE_DEPTH_LIMIT_EXPLAIN'		=> 'Die maximale Tiefe für verschachtelte Zitate. Um keine Begrenzung festzulegen, stellen Sie als Wert 0 ein.',
+	'QUOTE_DEPTH_LIMIT_EXPLAIN'		=> 'Die maximale Tiefe für verschachtelte Zitate. Es wird keine Begrenzung festgelegt, wenn 0 als Wert eingestellt wird.',
 	'SMILIES_LIMIT'					=> 'Maximale Smilies pro Beitrag',
-	'SMILIES_LIMIT_EXPLAIN'			=> 'Die maximale Anzahl an Smilies in einem Beitrag. Um keine Begrenzung festzulegen, stellen Sie als Wert 0 ein.',
+	'SMILIES_LIMIT_EXPLAIN'			=> 'Die maximale Anzahl von Smilies in einem Beitrag. Es wird keine Begrenzung festgelegt, wenn 0 als Wert eingestellt wird.',
 	'SMILIES_PER_PAGE'				=> 'Smilies pro Seite',
 	'TOPICS_PER_PAGE'				=> 'Themen pro Seite',
 ));
@@ -193,17 +206,17 @@ $lang = array_merge($lang, array(
 	'ACP_SIGNATURE_SETTINGS_EXPLAIN'	=> 'Hier können Sie alle Standard-Einstellungen für Signaturen vornehmen.',
 
 	'MAX_SIG_FONT_SIZE'				=> 'Maximale Schriftgröße',
-	'MAX_SIG_FONT_SIZE_EXPLAIN'		=> 'Die maximal erlaubte Schriftgröße, die ein Benutzer für seine Signatur verwenden kann. Um keine Begrenzung festzulegen, stellen Sie als Wert 0 ein.',
+	'MAX_SIG_FONT_SIZE_EXPLAIN'		=> 'Die maximal erlaubte Schriftgröße, die ein Benutzer für seine Signatur verwenden kann. Es wird keine Begrenzung festgelegt, wenn 0 als Wert eingestellt wird.',
 	'MAX_SIG_IMG_HEIGHT'			=> 'Maximale Bild-Höhe',
-	'MAX_SIG_IMG_HEIGHT_EXPLAIN'	=> 'Die maximal erlaubte Höhe einer Bild- oder Flash-Datei in der Signatur. Um keine Begrenzung festzulegen, stellen Sie als Wert 0 ein.',
+	'MAX_SIG_IMG_HEIGHT_EXPLAIN'	=> 'Die maximal erlaubte Höhe einer Bild- oder Flash-Datei in der Signatur. Es wird keine Begrenzung festgelegt, wenn 0 als Wert eingestellt wird.',
 	'MAX_SIG_IMG_WIDTH'				=> 'Maximale Bild-Breite',
-	'MAX_SIG_IMG_WIDTH_EXPLAIN'		=> 'Die maximal erlaubte Breite einer Bild- oder Flash-Datei in der Benutzer-Signatur. Um keine Begrenzung festzulegen, stellen Sie als Wert 0 ein.',
+	'MAX_SIG_IMG_WIDTH_EXPLAIN'		=> 'Die maximal erlaubte Breite einer Bild- oder Flash-Datei in der Benutzer-Signatur. Es wird keine Begrenzung festgelegt, wenn 0 als Wert eingestellt wird.',
 	'MAX_SIG_LENGTH'				=> 'Maximale Länge',
-	'MAX_SIG_LENGTH_EXPLAIN'		=> 'Die maximal erlaubte Anzahl an Zeichen in der Signatur.',
+	'MAX_SIG_LENGTH_EXPLAIN'		=> 'Die maximal erlaubte Anzahl von Zeichen in der Signatur.',
 	'MAX_SIG_SMILIES'				=> 'Maximale Smilies',
-	'MAX_SIG_SMILIES_EXPLAIN'		=> 'Die maximal erlaubte Anzahl an Smilies in der Signatur. Um keine Begrenzung festzulegen, stellen Sie als Wert 0 ein.',
+	'MAX_SIG_SMILIES_EXPLAIN'		=> 'Die maximal erlaubte Anzahl von Smilies in der Signatur. Es wird keine Begrenzung festgelegt, wenn 0 als Wert eingestellt wird.',
 	'MAX_SIG_URLS'					=> 'Maximale Links',
-	'MAX_SIG_URLS_EXPLAIN'			=> 'Die maximal erlaubte Anzahl der Links in der Signatur. Um keine Begrenzung festzulegen, stellen Sie als Wert 0 ein.',
+	'MAX_SIG_URLS_EXPLAIN'			=> 'Die maximal erlaubte Anzahl der Links in der Signatur. Es wird keine Begrenzung festgelegt, wenn 0 als Wert eingestellt wird.',
 ));
 
 // Registration Settings
@@ -213,9 +226,9 @@ $lang = array_merge($lang, array(
 	'ACC_ACTIVATION'				=> 'Benutzerkonto-Aktivierung',
 	'ACC_ACTIVATION_EXPLAIN'		=> 'Diese Einstellung legt fest, ob Benutzer sofortigen Zugang zum Board haben, oder ob eine Bestätigung erforderlich ist. Sie können neue Registrierungen auch komplett deaktivieren. Die E-Mail-Funktionalität des Boards muss aktiviert sein, damit eine Aktivierung durch den Benutzer oder einen Administrator möglich ist.',
 	'NEW_MEMBER_POST_LIMIT'			=> 'Grenze für kürzlich registrierte Benutzer',
-	'NEW_MEMBER_POST_LIMIT_EXPLAIN'	=> 'Jeder neu registrierte Benutzer ist Mitglied der Gruppe „Kürzlich registrierte Benutzer“, bis er diese Zahl von Beiträgen erreicht hat. Sie können diese Gruppe nutzen, um für sie die Nutzung von Privaten Nachrichten zu unterbinden oder um eine Freigabe ihrer Beiträge erforderlich zu machen. <strong>Ein Wert von 0 deaktiviert diese Funktion.</strong>',
+	'NEW_MEMBER_POST_LIMIT_EXPLAIN'	=> 'Jeder neu registrierte Benutzer ist Mitglied der Gruppe „Kürzlich registrierte Benutzer“, bis er diese Anzahl von Beiträgen erreicht hat. Sie können diese Gruppe nutzen, um für sie die Nutzung von Privaten Nachrichten zu unterbinden oder um eine Freigabe ihrer Beiträge erforderlich zu machen. <strong>Diese Funktion wird bei einem Wert von 0 deaktiviert.</strong>',
 	'NEW_MEMBER_GROUP_DEFAULT'		=> 'Kürzlich registrierte Benutzer-Gruppe als Standard setzen',
-	'NEW_MEMBER_GROUP_DEFAULT_EXPLAIN'	=> 'Wenn diese Funktion aktiviert und eine Grenze für kürzlich registrierte Benutzer gesetzt ist, werden neue Benutzer nicht nur in die <em>Kürzlich registrierte Benutzer</em>-Gruppe aufgenommen, sondern diese ist zugleich ihre Standardgruppe. Diese Funktion ist hilfreich, wenn Sie einen Rang oder einen Avatar für die Gruppe festlegen wollen, die dann für den Benutzer übernommen werden.',
+	'NEW_MEMBER_GROUP_DEFAULT_EXPLAIN'	=> 'Wenn diese Funktion aktiviert und eine Grenze für kürzlich registrierte Benutzer gesetzt ist, werden neue Benutzer nicht nur in die <em>Kürzlich registrierte Benutzer</em>-Gruppe aufgenommen, sondern diese ist zugleich ihre Standardgruppe. Diese Funktion ist hilfreich, wenn Sie einen Rang oder einen Avatar für die Gruppe festlegen möchten, die dann für den Benutzer übernommen werden.',
 
 	'ACC_ADMIN'					=> 'Durch einen Administrator',
 	'ACC_DISABLE'				=> 'Registrierung deaktivieren',
@@ -234,7 +247,7 @@ $lang = array_merge($lang, array(
 	'MIN_CHARS'					=> 'Min.',
 	'NO_AUTH_PLUGIN'			=> 'Keine passende Authentifizierungs-Methode gefunden.',
 	'PASSWORD_LENGTH'			=> 'Passwortlänge',
-	'PASSWORD_LENGTH_EXPLAIN'	=> 'Die minimale und maximale Anzahl an Zeichen in Passwörtern.',
+	'PASSWORD_LENGTH_EXPLAIN'	=> 'Die minimale und maximale Anzahl von Zeichen in Passwörtern.',
 	'REG_LIMIT'					=> 'Registrierungs-Versuche',
 	'REG_LIMIT_EXPLAIN'			=> 'Die Zahl der Versuche, die ein Benutzer für die Lösung der Anti-Spam-Bot-Aufgabe hat, bevor er für die Sitzung gesperrt wird.',
 	'USERNAME_ALPHA_ONLY'		=> 'Nur alphanumerische Zeichen',
@@ -246,7 +259,7 @@ $lang = array_merge($lang, array(
 	'USERNAME_CHARS_ANY'		=> 'Alle Zeichen',
 	'USERNAME_CHARS_EXPLAIN'	=> 'Legt fest, welche Zeichen in Benutzernamen genutzt werden können. Füllzeichen sind: Leerzeichen, -, +, _, [ und ].',
 	'USERNAME_LENGTH'			=> 'Länge des Benutzernamens',
-	'USERNAME_LENGTH_EXPLAIN'	=> 'Die minimale und maximale Anzahl an Zeichen in Benutzernamen.',
+	'USERNAME_LENGTH_EXPLAIN'	=> 'Die minimale und maximale Anzahl von Zeichen in Benutzernamen.',
 ));
 
 // Feeds
@@ -292,6 +305,7 @@ $lang = array_merge($lang, array(
 // Visual Confirmation Settings
 $lang = array_merge($lang, array(
 	'ACP_VC_SETTINGS_EXPLAIN'				=> 'Hier können Sie Plugins auswählen und konfigurieren, die das automatisierte Versenden von Formularen durch Spam-Bots unterbinden sollen. Diese Plugins zeigen dem Benutzer normalerweise einen <em>CAPTCHA</em>-Test an, der für einen Computer nur schwer zu lösen ist.',
+	'ACP_VC_EXT_GET_MORE'					=> 'Weitere (und eventuell bessere) Anti-Spam-Plugins finden Sie in der <a href="https://www.phpbb.com/go/anti-spam-ext"><strong>Erweiterungs-Datenbank auf phpBB.com</strong></a>. Weitere Informationen, wie Sie Spam auf Ihrem Board unterbinden können, können Sie in der <a href="https://www.phpbb.com/go/anti-spam"><strong>Knowledge-Base auf phpBB.com</strong></a> finden.',
 	'AVAILABLE_CAPTCHAS'					=> 'Verfügbare Plugins',
 	'CAPTCHA_UNAVAILABLE'					=> 'Das Plugin kann nicht ausgewählt werden, da seine Voraussetzungen nicht erfüllt werden.',
 	'CAPTCHA_GD'							=> 'GD-Grafik',
@@ -300,9 +314,9 @@ $lang = array_merge($lang, array(
 	'CAPTCHA_GD_EXPLAIN'					=> 'Verwendet die GD-Library, um komplexere Grafiken erstellen zu können.',
 	'CAPTCHA_GD_FOREGROUND_NOISE_EXPLAIN'	=> 'Fügt den Grafiken ein Vordergrund-Rauschen hinzu, um eine automatisierte Erkennung zu erschweren.',
 	'CAPTCHA_GD_X_GRID'						=> 'Hintergrund-Rauschen x-Achse',
-	'CAPTCHA_GD_X_GRID_EXPLAIN'				=> 'Verwenden Sie einen niedrigeren Wert, um die Lösung der Grafik schwieriger zu machen. 0 deaktiviert das Hintergrund-Rauschen auf der x-Achse.',
+	'CAPTCHA_GD_X_GRID_EXPLAIN'				=> 'Verwenden Sie einen niedrigeren Wert, um die Lösung der Grafik schwieriger zu machen. Das Hintergrund-Rauschen auf der x-Achse wird deaktiviert, wenn 0 als Wert eingestellt wird.',
 	'CAPTCHA_GD_Y_GRID'						=> 'Hintergrund-Rauschen Y-Achse',
-	'CAPTCHA_GD_Y_GRID_EXPLAIN'				=> 'Verwenden Sie einen niedrigeren Wert, um die Lösung der Grafik schwieriger zu machen. 0 deaktiviert das Hintergrund-Rauschen auf der y-Achse.',
+	'CAPTCHA_GD_Y_GRID_EXPLAIN'				=> 'Verwenden Sie einen niedrigeren Wert, um die Lösung der Grafik schwieriger zu machen. Das Hintergrund-Rauschen auf der y-Achse wird deaktiviert, wenn 0 als Wert eingestellt wird.',
 	'CAPTCHA_GD_WAVE'						=> 'Wellen-Verzerrung',
 	'CAPTCHA_GD_WAVE_EXPLAIN'				=> 'Fügt der Grafik eine Wellen-Verzerrung hinzu.',
 	'CAPTCHA_GD_3D_NOISE'					=> '3D-Rauschen hinzufügen',
@@ -317,7 +331,7 @@ $lang = array_merge($lang, array(
 	'CAPTCHA_PREVIEW_EXPLAIN'				=> 'So würde die Anzeige des Plugins mit den aktuellen Einstellungen aussehen.',
 
 	'CAPTCHA_SELECT'						=> 'Installierte Plugins',
-	'CAPTCHA_SELECT_EXPLAIN'				=> 'Die Liste enthält die Plugins, die vom Board gefunden wurden. Ausgegraute Elemente stehen derzeit nicht zur Verfügung und müssen ggf. erst konfiguriert werden, bevor sie genutzt werden können.',
+	'CAPTCHA_SELECT_EXPLAIN'				=> 'Die Liste enthält die Plugins, die vom Board gefunden wurden. Ausgegraute Elemente stehen nicht zur Verfügung und müssen ggf. erst konfiguriert werden, bevor sie genutzt werden können.',
 	'CAPTCHA_CONFIGURE'						=> 'Plugins konfigurieren',
 	'CAPTCHA_CONFIGURE_EXPLAIN'				=> 'Ändert die Einstellungen für das ausgewählte Plugin.',
 	'CONFIGURE'								=> 'Konfigurieren',
@@ -333,7 +347,7 @@ $lang = array_merge($lang, array(
 
 // Cookie Settings
 $lang = array_merge($lang, array(
-	'ACP_COOKIE_SETTINGS_EXPLAIN'		=> 'Hier legen Sie die Einstellungen fest, die verwendet werden, um Cookies an die Browser Ihrer Benutzer zu senden. In den meisten Fällen sollten die Standardwerte ausreichend sein. Führe Änderungen mit Bedacht durch, falsche Einstellungen könnten Ihre Benutzer daran hindern, sich anzumelden.',
+	'ACP_COOKIE_SETTINGS_EXPLAIN'		=> 'Hier legen Sie die Einstellungen fest, die verwendet werden, um Cookies an die Browser Ihrer Benutzer zu senden. In den meisten Fällen sollten die Standardwerte ausreichend sein. Führe Änderungen mit Bedacht durch, fehlerhafte Einstellungen könnten Ihre Benutzer daran hindern, sich anzumelden.',
 
 	'COOKIE_DOMAIN'				=> 'Cookie-Domain',
 	'COOKIE_NAME'				=> 'Cookie-Name',
@@ -346,20 +360,40 @@ $lang = array_merge($lang, array(
 	'SESSION_LENGTH_EXPLAIN'	=> 'Die Zeit in Sekunden, nach der Sitzungen ungültig werden.',
 ));
 
+// Contact Settings
+$lang = array_merge($lang, array(
+	'ACP_CONTACT_SETTINGS_EXPLAIN'		=> 'Hier können Sie die Kontaktseite aktivieren oder deaktivieren. Sie können auch einen Text festlegen, der auf der Seite angezeigt wird.',
+
+	'CONTACT_US_ENABLE'				=> 'Kontaktseite aktivieren',
+	'CONTACT_US_ENABLE_EXPLAIN'		=> 'Diese Seite erlaubt es Benutzern, E-Mails an die Board-Administration zu senden',
+
+	'CONTACT_US_INFO'				=> 'Kontakt-Informationen',
+	'CONTACT_US_INFO_EXPLAIN'		=> 'Diese Nachricht wird auf der Kontaktseite angezeigt',
+	'CONTACT_US_INFO_PREVIEW'		=> 'Kontakt-Informationen — Vorschau',
+	'CONTACT_US_INFO_UPDATED'		=> 'Die Einstellungen für die Kontaktseite wurden aktualisiert.',
+));
+
 // Load Settings
 $lang = array_merge($lang, array(
 	'ACP_LOAD_SETTINGS_EXPLAIN'	=> 'Hier können Sie einige Board-Funktionen aktivieren und deaktivieren, um die beanspruchte Rechenleistung zu verringern. Auf den meisten Servern ist es allerdings nicht nötig, irgendeine Funktion zu deaktivieren. Andererseits kann es auf einigen Systemen oder auf Servern, die man sich mit anderen teilt, durchaus Vorteile bringen, wenn Funktionen abgeschaltet werden, die nicht wirklich benötigt werden. Sie können hier auch Limits für die Systemauslastung und für die aktiven Sitzungen festlegen, bei deren Überschreitung das Board offline geht.',
 
-	'CUSTOM_PROFILE_FIELDS'			=> 'Zusätzliche Profil-Felder',
+	'ALLOW_CDN'						=> 'Nutzung von Drittanbieter-Servern zulassen',
+	'ALLOW_CDN_EXPLAIN'				=> 'Wenn diese Einstellung aktiviert ist, werden manche Dateien von Servern externer Drittanbieter bezogen und nicht von Ihrem Server. Dadurch wird die Bandbreite reduziert, die Ihr Server in Anspruch nimmt. Allerdings kann diese Einstellung aus Sicht einiger Administratoren datenschutzrechtlich problematisch sein. In einer Standard-phpBB-Installation betrifft dies „jQuery“ und die Schriftart „Open Sans“, die über das Netzwerk von Google bezogen werden.',
+	'ALLOW_LIVE_SEARCHES'			=> 'Suchvorschläge zulassen',
+	'ALLOW_LIVE_SEARCHES_EXPLAIN'	=> 'Wenn diese Option aktiviert ist, erhalten Benutzer Vorschläge für Suchbegriffe beim Ausfüllen bestimmter Felder des Boards.',
+	'CUSTOM_PROFILE_FIELDS'			=> 'Benutzerdefinierte Profil-Felder',
 	'LIMIT_LOAD'					=> 'Schränke Systemauslastung ein',
-	'LIMIT_LOAD_EXPLAIN'			=> 'Wenn die durchschnittliche Systemauslastung der letzten Minute (load average) diesen Wert überschreitet, geht das Board automatisch offline. 1.0 steht für eine ca. 100-prozentige Auslastung eines Prozessors. Diese Einstellung steht nur auf System zur Verfügung, die auf UNIX basieren und bei denen dieser Wert zugänglich ist. Der Wert stellt sich auf 0 zurück, wenn phpBB diesen Wert nicht auslesen konnte.',
+	'LIMIT_LOAD_EXPLAIN'			=> 'Wenn die durchschnittliche Systemauslastung der letzten Minute (load average) diesen Wert überschreitet, geht das Board automatisch offline. 1.0 steht für eine ca. 100-prozentige Auslastung eines Prozessors. Diese Einstellung steht nur auf System zur Verfügung, die auf UNIX basieren und bei denen dieser Wert zugänglich ist. Der Wert stellt sich auf 0 zurück, wenn phpBB diesen Wert nicht auslesen kann.',
 	'LIMIT_SESSIONS'				=> 'Schränke Sitzungen ein',
-	'LIMIT_SESSIONS_EXPLAIN'		=> 'Wenn die Zahl der Sitzungen innerhalb einer Minute diesen Wert überschreitet, geht das Board offline. Um keine Begrenzung festzulegen, stellen Sie als Wert 0 ein.',
-	'LOAD_CPF_MEMBERLIST'			=> 'Erlaubt Styles, zusätzliche Profil-Felder in der Mitgliederliste anzuzeigen',
-	'LOAD_CPF_VIEWPROFILE'			=> 'Zusätzliche Profil-Felder in Mitgliederprofilen anzeigen',
-	'LOAD_CPF_VIEWTOPIC'			=> 'Zusätzliche Profil-Felder in der Themen-Ansicht anzeigen',
+	'LIMIT_SESSIONS_EXPLAIN'		=> 'Wenn die Zahl der Sitzungen innerhalb einer Minute diesen Wert überschreitet, geht das Board offline. Es wird keine Begrenzung festgelegt, wenn 0 als Wert eingestellt wird.',
+	'LOAD_CPF_MEMBERLIST'			=> 'Erlaubt Styles, benutzerdefinierte Profil-Felder in der Mitgliederliste anzuzeigen',
+	'LOAD_CPF_PM'					=> 'Benutzerdefinierte Profil-Felder in Privaten Nachrichten anzeigen',
+	'LOAD_CPF_VIEWPROFILE'			=> 'Benutzerdefinierte Profil-Felder in Mitgliederprofilen anzeigen',
+	'LOAD_CPF_VIEWTOPIC'			=> 'Benutzerdefinierte Profil-Felder in der Themen-Ansicht anzeigen',
 	'LOAD_USER_ACTIVITY'			=> 'Aktivität der Mitglieder anzeigen',
 	'LOAD_USER_ACTIVITY_EXPLAIN'	=> 'Zeigt im Profil und im persönlichen Bereich an, in welchen Foren und Themen ein Mitglied am aktivsten ist. Es wird empfohlen, diese Funktion in Foren zu deaktivieren, die mehr als eine Million Beiträge haben.',
+	'READ_NOTIFICATION_EXPIRE_DAYS'	=> 'Aufbewahrung gelesener Benachrichtungen',
+	'READ_NOTIFICATION_EXPIRE_DAYS_EXPLAIN' => 'Anzahl von Tagen, nach denen gelesene Benachrichtungen automatisch gelöscht werden. Benachrichtigungen bleiben dauerhaft erhalten, wenn 0 als Wert eingestellt wird.',
 	'RECOMPILE_STYLES'				=> 'Rekompilieren veralteter Style-Komponenten',
 	'RECOMPILE_STYLES_EXPLAIN'		=> 'Prüft auf neue Style-Komponenten und rekompiliert diese.',
 	'YES_ANON_READ_MARKING'			=> 'Gelesen-Markierung für Gäste',
@@ -383,12 +417,19 @@ $lang = array_merge($lang, array(
 
 // Auth settings
 $lang = array_merge($lang, array(
-	'ACP_AUTH_SETTINGS_EXPLAIN'	=> 'phpBB unterstützt Authentifizierungs-Plugins oder -Module. Mit diesen können Sie festlegen, wie Benutzer authentifiziert werden, wenn sie sich im Forum anmelden. Standardmäßig gibt es drei Plugins: DB, LDAP und Apache. Nicht alle Methoden benötigen zusätzliche Angaben, füllen Sie daher nur Felder aus, wenn sie für die gewählte Methode von Belang sind.',
+	'ACP_AUTH_SETTINGS_EXPLAIN'	=> 'phpBB unterstützt Authentifizierungs-Plugins oder -Module. Mit diesen können Sie festlegen, wie Benutzer authentifiziert werden, wenn sie sich im Forum anmelden. Standardmäßig gibt es vier Plugins: DB, LDAP, Apache und OAuth. Nicht alle Methoden benötigen zusätzliche Angaben, füllen Sie daher nur Felder aus, wenn sie für die gewählte Methode von Belang sind.',
 
 	'AUTH_METHOD'				=> 'Authentifizierungs-Methode wählen',
 
+	'AUTH_PROVIDER_OAUTH_ERROR_ELEMENT_MISSING'	=> 'Für jeden aktivierten OAuth-Anbieter muss sowohl der Key als auch das Secret angegeben werden. Für einen OAuth-Anbieter wurde nur ein Wert angegeben.',
+	'AUTH_PROVIDER_OAUTH_EXPLAIN'				=> 'Für jeden OAuth-Anbieter wird sowohl ein eindeutiger Key <em>(Schlüssel)</em> als auch ein Secret <em>(Geheimnis)</em> benötigt, um eine Authentifizierung vornehmen zu können. Diese sollten Ihnen vom OAuth-Provider bei der Registrierung Ihrer Website bereitgestellt werden und exakt so eingegeben werden, wie sie bereitgestellt wurden.<br />Ein Anbieter, für den nicht sowohl Key als auch Secret angegeben wurde, wird den Benutzern Ihres Forums nicht zur Verfügung stehen. Beachten Sie, dass die Benutzer weiterhin die Möglichkeit haben, sich über das DB-Plugin anzumelden.',
+	'AUTH_PROVIDER_OAUTH_KEY'					=> 'Key',
+	'AUTH_PROVIDER_OAUTH_TITLE'					=> 'OAuth',
+	'AUTH_PROVIDER_OAUTH_SECRET'				=> 'Secret',
+
 	'APACHE_SETUP_BEFORE_USE'	=> 'Sie müssen die Apache-Authentifizierung konfigurieren, bevor diese Methode in phpBB eingestellt wird. Beachten Sie, dass der Benutzername der Apache-Authentifizierung Ihrem phpBB-Benutzernamen entsprechen muss. Die Apache-Authentifizierung kann nur mit mod_php (nicht mit der CGI-Version) und deaktiviertem safe_mode verwendet werden.',
 
+	'LDAP'							=> 'LDAP',
 	'LDAP_DN'						=> 'LDAP-Basis <var>DN</var>',
 	'LDAP_DN_EXPLAIN'				=> 'Distinguished Name des Verzeichnisses, in dem sich die Benutzer-Daten befinden, z.&nbsp;B. <samp>o=Meine&nbsp;Firma,c=DE</samp>.',
 	'LDAP_EMAIL'					=> 'LDAP-E-Mail-Attribut',
@@ -420,6 +461,10 @@ $lang = array_merge($lang, array(
 	'FORCE_SERVER_VARS_EXPLAIN'	=> 'Wenn dies auf „Ja“ gestellt wird, werden die hier vorgenommenen Server-Einstellungen anstelle der automatisch ermittelten Werte genommen.',
 	'ICONS_PATH'				=> 'Speicherpfad für Themen-Symbole',
 	'ICONS_PATH_EXPLAIN'		=> 'Pfad von Ihrem phpBB-Hauptverzeichnis aus, z.&nbsp;B. <samp>images/icons</samp>.',
+	'MOD_REWRITE_ENABLE'					=> 'Umschreiben von URLs aktivieren',
+	'MOD_REWRITE_ENABLE_EXPLAIN'			=> 'Wenn aktiviert, werden URLs, die ‚app.php‘ enthalten, umgeschrieben, so dass sie keinen Dateinamen mehr enthalten. (z.&nbsp;B. wird <samp>app.php/foo</samp> zu <samp>/foo</samp>). <strong>Das Modul mod_rewrite des Apache-Webservers ist notwendig, damit dies funktioniert. Wenn diese Option aktiviert wird, ohne dass mod_rewrite verfügbar ist, können URLs Ihres Boards ungültig werden.</strong>',
+	'MOD_REWRITE_DISABLED'					=> 'Das Modul <strong>mod_rewrite</strong> Ihres Apache-Webservers ist deaktiviert. Aktivieren Sie das Modul oder kontaktieren Sie Ihren Webhosting-Provider, wenn Sie möchten, dass diese Funktion aktiviert wird.',
+	'MOD_REWRITE_INFORMATION_UNAVAILABLE'	=> 'Es konnte nicht festgestellt werden, ob dieser Server die Umschreibung von URLs unterstützt. Diese Funktion kann aktiviert werden, aber wenn die Umschreibung von URLs nicht unterstützt wird, können vom Board erstellte Pfadangaben (z.&nbsp;B. bei Links) ungültig sein. Kontaktieren Sie Ihren Webhosting-Provider, wenn Sie sich nicht sicher sind, ob Sie diese Funktion problemlos aktivieren können.',
 	'PATH_SETTINGS'				=> 'Pfad-Einstellungen',
 	'RANKS_PATH'				=> 'Speicherpfad für Rang-Bilder',
 	'RANKS_PATH_EXPLAIN'		=> 'Pfad von Ihrem phpBB-Hauptverzeichnis aus, z.&nbsp;B. <samp>images/ranks</samp>.',
@@ -436,6 +481,8 @@ $lang = array_merge($lang, array(
 	'SMILIES_PATH_EXPLAIN'		=> 'Pfad von Ihrem phpBB-Hauptverzeichnis aus, z.&nbsp;B. <samp>images/smilies</samp>.',
 	'UPLOAD_ICONS_PATH'			=> 'Speicherpfad der Dateityp-Gruppen-Symbole',
 	'UPLOAD_ICONS_PATH_EXPLAIN'	=> 'Pfad von Ihrem phpBB-Hauptverzeichnis aus, z.&nbsp;B. <samp>images/upload_icons</samp>.',
+	'USE_SYSTEM_CRON'		=> 'Wiederkehrende Aufgaben über Cron-Job des Systems ausführen',
+	'USE_SYSTEM_CRON_EXPLAIN'		=> 'Wenn deaktiviert, wird sich phpBB darum kümmern, dass wiederkehrende Aufgaben automatisch ausgeführt werden. Wenn aktiviert, wird phpBB wiederkehrende Aufgaben nicht selbst ausführen; der System-Administrator muss dann dafür sorgen, dass <code>bin/phpbbcli.php cron:run</code> regelmäßig (z.&nbsp;B. alle 5 Minuten) durch einen Cron-Job des Systems ausgeführt wird.',
 ));
 
 // Security Settings
@@ -443,10 +490,12 @@ $lang = array_merge($lang, array(
 	'ACP_SECURITY_SETTINGS_EXPLAIN'		=> 'Hier können die Einstellungen zu Sitzungen und zur Anmeldung festgelegt werden.',
 
 	'ALL'							=> 'Alle',
-	'ALLOW_AUTOLOGIN'				=> 'Dauerhafte Anmeldung erlauben',
-	'ALLOW_AUTOLOGIN_EXPLAIN'		=> 'Legt fest, ob Benutzer sich automatisch bei jedem Besuch des Boards anmelden können.',
-	'AUTOLOGIN_LENGTH'				=> 'Verfallszeit für Anmelde-Schlüssel',
-	'AUTOLOGIN_LENGTH_EXPLAIN'		=> 'Die Anzahl der Tage, nach denen ein Anmelde-Schlüssel für die automatische Anmeldung verfällt. Um den Schlüssel nicht verfallen zu lassen, stellen Sie als Wert 0 ein.',
+	'ALLOW_AUTOLOGIN'				=> 'Dauerhafte Anmeldungen erlauben',
+	'ALLOW_AUTOLOGIN_EXPLAIN'		=> 'Legt fest, ob sich Benutzer dauerhaft am Board anmelden können.',
+	'ALLOW_PASSWORD_RESET'			=> 'Zurücksetzen von Passwörtern zulassen',
+	'ALLOW_PASSWORD_RESET_EXPLAIN'	=> 'Legt fest, ob Benutzer die Funktion „Ich habe mein Passwort vergessen“ auf der Anmeldeseite nutzen können, um wieder Zugang zu ihrem Benutzerkonto bekommen zu können. Wenn Sie einen externen Authentifizierungsservice nutzen, möchten Sie diese Funktion möglicherweise deaktivieren.',
+	'AUTOLOGIN_LENGTH'				=> 'Verfallszeit für Anmelde-Schlüssel (in Tagen)',
+	'AUTOLOGIN_LENGTH_EXPLAIN'		=> 'Die Anzahl der Tage, nach denen ein Anmelde-Schlüssel für die dauerhafte Anmeldung verfällt. Der Schlüssel verfällt nie, wenn 0 als Wert eingestellt wird.',
 	'BROWSER_VALID'					=> 'Browser prüfen',
 	'BROWSER_VALID_EXPLAIN'			=> 'Aktiviert die Prüfung des Browsers für die jeweilige Sitzung, um die Sicherheit zu erhöhen.',
 	'CHECK_DNSBL'					=> 'IP gegen Schwarze DNS-Liste prüfen',
@@ -456,23 +505,23 @@ $lang = array_merge($lang, array(
 	'EMAIL_CHECK_MX'				=> 'E-Mail-Domain auf gültigen MX-Eintrag prüfen',
 	'EMAIL_CHECK_MX_EXPLAIN'		=> 'Wenn aktiviert, wird die Domain der E-Mail-Adresse bei der Registrierung und der Änderung des Profils auf einen gültigen MX-Eintrag geprüft.',
 	'FORCE_PASS_CHANGE'				=> 'Passwortänderung erzwingen',
-	'FORCE_PASS_CHANGE_EXPLAIN'		=> 'Verlangt von den Benutzern, ihr Passwort nach einer festgelegten Anzahl an Tagen zu erneuern. Um dieses Verhalten abzuschalten, stellen Sie als Wert 0 ein.',
+	'FORCE_PASS_CHANGE_EXPLAIN'		=> 'Verlangt von den Benutzern, ihr Passwort nach einer festgelegten Anzahl von Tagen zu erneuern. Es wird keine Passwortänderung erzwungen, wenn 0 als Wert eingestellt wird.',
 	'FORM_TIME_MAX'					=> 'Maximale Zeit zur Übermittlung eines Formulars',
-	'FORM_TIME_MAX_EXPLAIN'			=> 'Die Zeit, die ein Benutzer hat, um ein Formular abzusenden. Stellen Sie als Wert -1 ein, um das Verhalten abzuschalten. Beachten Sie, dass ein Formular unabhängig dieser Einstellung ungültig werden kann, wenn die Sitzung abläuft.',
+	'FORM_TIME_MAX_EXPLAIN'			=> 'Die Zeit, die ein Benutzer hat, um ein Formular abzusenden. Stellen Sie als Wert -1 ein, um das Verhalten abzuschalten. Beachten Sie, dass ein Formular unabhängig von dieser Einstellung ungültig werden kann, wenn die Sitzung abläuft.',
 	'FORM_SID_GUESTS'				=> 'Formulare an Gast-Sitzungen binden',
-	'FORM_SID_GUESTS_EXPLAIN'		=> 'Wenn aktiviert, ist ein Formular bei Gästen nur für die aktuelle Sitzung gültig. Dies kann bei manchen Internet-Providern zu Problemen führen.',
+	'FORM_SID_GUESTS_EXPLAIN'		=> 'Wenn aktiviert, ist ein Formular bei Gästen nur für die jeweilige Sitzung gültig. Dies kann bei manchen Internet-Providern zu Problemen führen.',
 	'FORWARDED_FOR_VALID'			=> '<var>X_FORWARDED_FOR</var>-Kopfzeilen prüfen',
 	'FORWARDED_FOR_VALID_EXPLAIN'	=> 'Sitzungen werden nur fortgesetzt, wenn die übermittelte <var>X_FORWARDED_FOR</var>-Kopfzeile mit der der letzten Anfrage identisch ist. Die in <var>X_FORWARDED_FOR</var> angegebene Adresse wird ebenfalls auf Sperrung geprüft.',
 	'IP_VALID'						=> 'Überprüfung der Sitzungs-IP',
 	'IP_VALID_EXPLAIN'				=> 'Legt fest, welche Teile der IP eines Benutzers zur Validierung einer Sitzung herangezogen werden. <samp>Alle</samp> bedeutet, dass die komplette IP Adresse verglichen wird; <samp>A.B.C</samp> vergleicht die ersten drei Oktetts; <samp>A.B</samp> vergleicht die ersten zwei Oktetts; <samp>Keine</samp> deaktiviert die Prüfung. Bei IPv6-Adressen prüft <samp>A.B.C</samp> die ersten 4 Blöcke und <samp>A.B</samp> die ersten 3.',
-	'IP_LOGIN_LIMIT_MAX'			=> 'Maximale Anzahl an Anmeldeversuchen pro IP-Adresse',
-	'IP_LOGIN_LIMIT_MAX_EXPLAIN'	=> 'Anzahl erfolgloser Anmeldeversuche von einer IP-Adresse, nach der zusätzlich eine Anti-Spam-Bot-Aufgabe gelöst werden muss. Mit 0 wird die Prüfung erfolgloser Anmeldungen für IP-Adressen deaktiviert.',
+	'IP_LOGIN_LIMIT_MAX'			=> 'Maximale Anzahl von Anmeldeversuchen pro IP-Adresse',
+	'IP_LOGIN_LIMIT_MAX_EXPLAIN'	=> 'Anzahl erfolgloser Anmeldeversuche von einer IP-Adresse, nach der zusätzlich eine Anti-Spam-Bot-Aufgabe gelöst werden muss. Die Prüfung erfolgloser Anmeldungen für IP-Adressen wird deaktiviert, wenn 0 als Wert eingestellt wird.',
 	'IP_LOGIN_LIMIT_TIME'			=> 'Ablaufzeit für erfolglose Anmeldeversuche von einer IP-Adresse',
 	'IP_LOGIN_LIMIT_TIME_EXPLAIN'	=> 'Erfolglose Anmeldeversuche verfallen nach dieser Zeit.',
 	'IP_LOGIN_LIMIT_USE_FORWARDED'	=> 'Anmeldeversuche anhand <var>X_FORWARDED_FOR</var>-Header prüfen',
 	'IP_LOGIN_LIMIT_USE_FORWARDED_EXPLAIN'	=> 'Anstatt einer Prüfung der IP-Adressen erfolgt eine Prüfung der <var>X_FORWARDED_FOR</var>-Werte im Header.<br /><em><strong>Warnung:</strong> Diese Funktion darf nur aktiviert werden, wenn sich Ihr Board hinter einem Proxy-Server befindet, der den <var>X_FORWARDED_FOR</var>-Header vertrauenswürdig festlegt.</em>',
-	'MAX_LOGIN_ATTEMPTS'			=> 'Maximale Anzahl an Anmeldeversuchen pro Benutzername',
-	'MAX_LOGIN_ATTEMPTS_EXPLAIN'	=> 'Anzahl erfolgloser Anmeldeversuche für ein Benutzerkonto, nach der zusätzlich eine Anti-Spam-Bot-Aufgabe gelöst werden muss. Mit 0 wird die Prüfung erfolgloser Anmeldungen für Benutzerkonten deaktiviert.',
+	'MAX_LOGIN_ATTEMPTS'			=> 'Maximale Anzahl von Anmeldeversuchen pro Benutzername',
+	'MAX_LOGIN_ATTEMPTS_EXPLAIN'	=> 'Anzahl erfolgloser Anmeldeversuche für ein Benutzerkonto, nach der zusätzlich eine Anti-Spam-Bot-Aufgabe gelöst werden muss. Die Prüfung erfolgloser Anmeldungen für Benutzerkonten wird deaktiviert, wenn 0 als Wert eingestellt wird.',
 	'NO_IP_VALIDATION'				=> 'Keine',
 	'NO_REF_VALIDATION'				=> 'Keine',
 	'PASSWORD_TYPE'					=> 'Passwort-Komplexität',
@@ -483,8 +532,8 @@ $lang = array_merge($lang, array(
 	'PASS_TYPE_SYMBOL'				=> 'Muss Sonderzeichen enthalten',
 	'REF_HOST'						=> 'Prüfe nur den Hostnamen',
 	'REF_PATH'						=> 'Prüfe auch den Skript-Pfad',
-	'REFERER_VALID'					=> 'Referrer prüfen',
-	'REFERER_VALID_EXPLAIN'			=> 'Wenn aktiviert, wird der Referrer von POST-Anfragen gegen die Einstellungen des Hostnamen/Skript-Pfads geprüft. Dies kann bei Boards zu Problemen führen, die mehrere Domains oder eine externe Anmeldung nutzen.',
+	'REFERRER_VALID'				=> 'Referrer prüfen',
+	'REFERRER_VALID_EXPLAIN'		=> 'Wenn aktiviert, wird der Referrer von POST-Anfragen gegen die Einstellungen des Hostnamen/Skript-Pfads geprüft. Dies kann bei Boards zu Problemen führen, die mehrere Domains oder eine externe Anmeldung nutzen.',
 	'TPL_ALLOW_PHP'					=> 'Erlaube PHP in Templates',
 	'TPL_ALLOW_PHP_EXPLAIN'			=> 'Wenn diese Option eingeschaltet ist, werden <code>PHP</code>- und <code>INCLUDEPHP</code>-Anweisungen in Templates erkannt und ausgeführt.',
 ));
@@ -501,14 +550,16 @@ $lang = array_merge($lang, array(
 	'BOARD_HIDE_EMAILS_EXPLAIN'		=> 'Diese Funktion hält E-Mail-Adressen komplett privat.',
 	'CONTACT_EMAIL'					=> 'Kontakt-E-Mail-Adresse',
 	'CONTACT_EMAIL_EXPLAIN'			=> 'Diese Adresse wird angegeben, wann immer eine spezifische Kontaktmöglichkeit benötigt wird, z.&nbsp;B. bei Spam, Fehlermeldungen etc. Sie wird in allen E-Mails als <samp>Von</samp>- und <samp>Antwort</samp>-Adresse verwendet.',
+	'CONTACT_EMAIL_NAME'			=> 'Name des Kontakts',
+	'CONTACT_EMAIL_NAME_EXPLAIN'	=> 'Dieser Name für den Kontakt wird E-Mail-Empfängern angezeigt. Wenn Sie keinen Namen für den Kontakt verwenden möchten, lassen Sie dieses Feld leer.',
 	'EMAIL_FUNCTION_NAME'			=> 'Name der E-Mail-Funktion',
 	'EMAIL_FUNCTION_NAME_EXPLAIN'	=> 'Die PHP-Funktion, die genutzt wird, um E-Mails zu versenden.',
 	'EMAIL_PACKAGE_SIZE'			=> 'Größe von E-Mail-Paketen',
-	'EMAIL_PACKAGE_SIZE_EXPLAIN'	=> 'Dies ist die Anzahl der E-Mails, die maximal in einem Paket gesendet werden können. Diese Einstellung greift für die interne Nachrichten-Warteschlange; verwenden Sie 0, wenn Sie Probleme mit nicht versandten Benachrichtigungs-E-Mails haben.',
+	'EMAIL_PACKAGE_SIZE_EXPLAIN'	=> 'Dies ist die Anzahl der E-Mails, die maximal in einem Paket gesendet werden können. Diese Einstellung greift für die interne Nachrichten-Warteschlange. Wenn Sie Probleme mit nicht versandten Benachrichtigungs-E-Mails haben, sollten Sie 0 als Wert einstellen.',
 	'EMAIL_SIG'						=> 'E-Mail-Signatur',
 	'EMAIL_SIG_EXPLAIN'				=> 'Dieser Text wird an alle E-Mails angehängt, die das Board versendet.',
 	'ENABLE_EMAIL'					=> 'Aktiviere E-Mail-Funktionalität',
-	'ENABLE_EMAIL_EXPLAIN'			=> 'Wenn dies deaktiviert ist, werden keinerlei E-Mails vom Board versendet. <em>Die Aktivierung von Benutzerkonten durch den Benutzer oder einen Administrator erfordert, dass diese Option aktiviert ist. Wenn derzeit die Aktivierung durch den Benutzer oder einen Administrator aktiviert ist, ist bei einer Deaktivierung dieser Option keine Aktivierung mehr erforderlich.</em>',
+	'ENABLE_EMAIL_EXPLAIN'			=> 'Wenn dies deaktiviert ist, werden keinerlei E-Mails vom Board versendet. <em>Wenn eine Bestätigung der Registrierung durch den Benutzer oder einen Adminstrator erforderlich sein soll, darf diese Option nicht deaktiviert sein. Ansonsten ist eine Registrierung immer ohne Bestätigung möglich.</em>',
 	'SMTP_AUTH_METHOD'				=> 'Authentifizierungsmethode für SMTP',
 	'SMTP_AUTH_METHOD_EXPLAIN'		=> 'Nur benötigt, wenn ein Benutzername/Passwort eingegeben ist. Fragen Sie Ihren Webhosting-Provider, falls Sie nicht sicher sind, welche Methode Sie wählen sollen.',
 	'SMTP_CRAM_MD5'					=> 'CRAM-MD5',
@@ -534,9 +585,9 @@ $lang = array_merge($lang, array(
 
 	'JAB_ENABLE'				=> 'Jabber aktivieren',
 	'JAB_ENABLE_EXPLAIN'		=> 'Aktiviert die Nutzung von Jabber-Nachrichten und -Benachrichtigungen.',
-	'JAB_GTALK_NOTE'			=> 'Beachten Sie, dass GTalk nicht funktionieren wird, da die <samp>dns_get_record</samp>-Funktion nicht gefunden werden konnte. Diese Funktion ist in PHP 4 nicht verfügbar und nicht in Windows-Plattformen implementiert. Sie funktioniert derzeit nicht auf BSD-basierten Systemen inklusive Mac OS.',
+	'JAB_GTALK_NOTE'			=> 'Beachten Sie, dass GTalk nicht funktionieren wird, da die <samp>dns_get_record</samp>-Funktion nicht gefunden werden konnte. Diese Funktion ist in PHP 4 nicht verfügbar und nicht in Windows-Plattformen implementiert. Sie funktioniert im Moment nicht auf BSD-basierten Systemen inklusive Mac OS.',
 	'JAB_PACKAGE_SIZE'			=> 'Jabber-Paketgröße',
-	'JAB_PACKAGE_SIZE_EXPLAIN'	=> 'Dies ist die Anzahl der Nachrichten, die in einem Paket gesendet werden. Um die Nachrichten sofort zu senden, stellen Sie als Wert 0 ein.',
+	'JAB_PACKAGE_SIZE_EXPLAIN'	=> 'Dies ist die Anzahl der Nachrichten, die in einem Paket gesendet werden. Die Nachrichten werden sofort versendet, wenn 0 als Wert eingestellt wird.',
 	'JAB_PASSWORD'				=> 'Jabber-Passwort',
 	'JAB_PASSWORD_EXPLAIN'		=> '<em><strong>WARNUNG:</strong> Dieses Passwort wird im Klartext in der Datenbank gespeichert und ist daher für jeden einsehbar, der Zugriff auf die Datenbank oder diese Konfigurationsseite hat.</em>',
 	'JAB_PORT'					=> 'Jabber-Port',
@@ -549,5 +600,3 @@ $lang = array_merge($lang, array(
 	'JAB_USERNAME'				=> 'Jabber-Benutzername oder JID',
 	'JAB_USERNAME_EXPLAIN'		=> 'Geben Sie einen bereits registrierten Benutzernamen oder eine gültige JID an. Der Benutzername wird nicht auf Gültigkeit geprüft. Wenn Sie nur einen Benutzernamen angeben, wird die JID aus dem Benutzernamen und dem oben festgelegten Server ermittelt. Geben Sie ansonsten eine gültige JID wie <samp>user@jabber.org</samp> ein.',
 ));
-
-?>

@@ -1,15 +1,16 @@
 <?php
 /**
 *
-* recaptcha [Deutsch — Sie]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: captcha_recaptcha.php 617 2013-09-29 10:21:18Z pyramide $
-* @copyright (c) 2009 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 * Deutsche Übersetzung durch die Übersetzer-Gruppe von phpBB.de:
-* siehe docs/AUTHORS und https://www.phpbb.de/go/ubersetzerteam
+* siehe language/de_x_sie/AUTHORS.md und https://www.phpbb.de/go/ubersetzerteam
 *
 */
 
@@ -42,7 +43,7 @@ $lang = array_merge($lang, array(
 	'RECAPTCHA_LANG'				=> 'de',
 	'RECAPTCHA_NOT_AVAILABLE'		=> 'Um reCaptcha nutzen zu können, müssen Sie sich ein Konto auf <a href="http://www.google.com/recaptcha">www.google.com/recaptcha</a> anlegen.',
 	'CAPTCHA_RECAPTCHA'				=> 'reCaptcha',
-	'RECAPTCHA_INCORRECT'			=> 'Der von Ihnen eingegebene Bestätigungscode ist fehlerhaft',
+	'RECAPTCHA_INCORRECT'			=> 'Der von Ihnen eingegebene Bestätigungscode ist falsch',
 
 	'RECAPTCHA_PUBLIC'				=> 'Öffentlicher reCaptcha-Schlüssel',
 	'RECAPTCHA_PUBLIC_EXPLAIN'		=> 'Ihr öffentlicher reCaptcha-Schlüssel. Schlüssel können über <a href="http://www.google.com/recaptcha">www.google.com/recaptcha</a> bezogen werden.',
@@ -50,6 +51,5 @@ $lang = array_merge($lang, array(
 	'RECAPTCHA_PRIVATE_EXPLAIN'		=> 'Ihr privater reCaptcha-Schlüssel. Schlüssel können über <a href="http://www.google.com/recaptcha">www.google.com/recaptcha</a> bezogen werden.',
 
 	'RECAPTCHA_EXPLAIN'				=> 'Um automatische Eingaben zu unterbinden, müssen Sie die beiden angezeigten Wörter in das untenstehende Feld eingeben.',
+	'RECAPTCHA_SOCKET_ERROR'		=> 'Bei der Verbindung mit dem reCaptcha-Service ist ein Problem aufgetreten: Socket konnte nicht geöffnet werden. Bitte versuchen Sie es später erneut.',
 ));
-
-?>

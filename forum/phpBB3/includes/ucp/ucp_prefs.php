@@ -1,10 +1,13 @@
 <?php
 /**
 *
-* @package ucp
-* @version $Id$
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This file is part of the phpBB Forum Software package.
+*
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 */
 
@@ -19,7 +22,6 @@ if (!defined('IN_PHPBB'))
 /**
 * ucp_prefs
 * Changing user preferences
-* @package ucp
 */
 class ucp_prefs
 {
@@ -27,7 +29,7 @@ class ucp_prefs
 
 	function main($id, $mode)
 	{
-		global $config, $db, $user, $auth, $template, $phpbb_root_path, $phpEx;
+		global $config, $db, $user, $auth, $template, $phpbb_dispatcher, $phpbb_root_path, $phpEx;
 
 		$submit = (isset($_POST['submit'])) ? true : false;
 		$error = $data = array();
@@ -41,15 +43,12 @@ class ucp_prefs
 					'notifymethod'	=> request_var('notifymethod', $user->data['user_notify_type']),
 					'dateformat'	=> request_var('dateformat', $user->data['user_dateformat'], true),
 					'lang'			=> basename(request_var('lang', $user->data['user_lang'])),
-					'style'			=> request_var('style', (int) $user->data['user_style']),
-					'tz'			=> request_var('tz', (float) $user->data['user_timezone']),
+					'user_style'		=> request_var('user_style', (int) $user->data['user_style']),
+					'tz'			=> request_var('tz', $user->data['user_timezone']),
 
-					'dst'			=> request_var('dst', (bool) $user->data['user_dst']),
 					'viewemail'		=> request_var('viewemail', (bool) $user->data['user_allow_viewemail']),
 					'massemail'		=> request_var('massemail', (bool) $user->data['user_allow_massemail']),
 					'hideonline'	=> request_var('hideonline', (bool) !$user->data['user_allow_viewonline']),
-					'notifypm'		=> request_var('notifypm', (bool) $user->data['user_notify_pm']),
-					'popuppm'		=> request_var('popuppm', (bool) $user->optionget('popuppm')),
 					'allowpm'		=> request_var('allowpm', (bool) $user->data['user_allow_pm']),
 				);
 
@@ -59,21 +58,35 @@ class ucp_prefs
 					$data['notifymethod'] = NOTIFY_BOTH;
 				}
 
+				/**
+				* Add UCP edit global settings data before they are assigned to the template or submitted
+				*
+				* To assign data to the template, use $template->assign_vars()
+				*
+				* @event core.ucp_prefs_personal_data
+				* @var	bool	submit		Do we display the form only
+				*							or did the user press submit
+				* @var	array	data		Array with current ucp options data
+				* @since 3.1.0-a1
+				*/
+				$vars = array('submit', 'data');
+				extract($phpbb_dispatcher->trigger_event('core.ucp_prefs_personal_data', compact($vars)));
+
 				if ($submit)
 				{
 					if ($config['override_user_style'])
 					{
-						$data['style'] = (int) $config['default_style'];
+						$data['user_style'] = (int) $config['default_style'];
 					}
-					else if (!phpbb_style_is_active($data['style']))
+					else if (!phpbb_style_is_active($data['user_style']))
 					{
-						$data['style'] = (int) $user->data['user_style'];
+						$data['user_style'] = (int) $user->data['user_style'];
 					}
 
 					$error = validate_data($data, array(
 						'dateformat'	=> array('string', false, 1, 30),
 						'lang'			=> array('language_iso_name'),
-						'tz'			=> array('num', false, -14, 14),
+						'tz'			=> array('timezone'),
 					));
 
 					if (!check_form_key('ucp_prefs_personal'))
@@ -83,23 +96,30 @@ class ucp_prefs
 
 					if (!sizeof($error))
 					{
-						$user->optionset('popuppm', $data['popuppm']);
-
 						$sql_ary = array(
 							'user_allow_pm'			=> $data['allowpm'],
 							'user_allow_viewemail'	=> $data['viewemail'],
 							'user_allow_massemail'	=> $data['massemail'],
 							'user_allow_viewonline'	=> ($auth->acl_get('u_hideonline')) ? !$data['hideonline'] : $user->data['user_allow_viewonline'],
 							'user_notify_type'		=> $data['notifymethod'],
-							'user_notify_pm'		=> $data['notifypm'],
 							'user_options'			=> $user->data['user_options'],
 
-							'user_dst'				=> $data['dst'],
 							'user_dateformat'		=> $data['dateformat'],
 							'user_lang'				=> $data['lang'],
 							'user_timezone'			=> $data['tz'],
-							'user_style'			=> $data['style'],
+							'user_style'			=> $data['user_style'],
 						);
+
+						/**
+						* Update UCP edit global settings data on form submit
+						*
+						* @event core.ucp_prefs_personal_update_data
+						* @var	array	data		Submitted display options data
+						* @var	array	sql_ary		Display options data we update
+						* @since 3.1.0-a1
+						*/
+						$vars = array('data', 'sql_ary');
+						extract($phpbb_dispatcher->trigger_event('core.ucp_prefs_personal_update_data', compact($vars)));
 
 						$sql = 'UPDATE ' . USERS_TABLE . '
 							SET ' . $db->sql_build_array('UPDATE', $sql_ary) . '
@@ -112,7 +132,7 @@ class ucp_prefs
 					}
 
 					// Replace "error" strings with their real, localised form
-					$error = preg_replace('#^([A-Z_]+)$#e', "(!empty(\$user->lang['\\1'])) ? \$user->lang['\\1'] : '\\1'", $error);
+					$error = array_map(array($user, 'lang'), $error);
 				}
 
 				$dateformat_options = '';
@@ -133,6 +153,8 @@ class ucp_prefs
 					$s_custom = true;
 				}
 				$dateformat_options .= '>' . $user->lang['CUSTOM_DATEFORMAT'] . '</option>';
+
+				phpbb_timezone_select($template, $user, $data['tz'], true);
 
 				// check if there are any user-selectable languages
 				$sql = 'SELECT COUNT(lang_id) as languages_count
@@ -173,9 +195,6 @@ class ucp_prefs
 					'S_MASS_EMAIL'		=> $data['massemail'],
 					'S_ALLOW_PM'		=> $data['allowpm'],
 					'S_HIDE_ONLINE'		=> $data['hideonline'],
-					'S_NOTIFY_PM'		=> $data['notifypm'],
-					'S_POPUP_PM'		=> $data['popuppm'],
-					'S_DST'				=> $data['dst'],
 
 					'DATE_FORMAT'			=> $data['dateformat'],
 					'A_DATE_FORMAT'			=> addslashes($data['dateformat']),
@@ -188,8 +207,7 @@ class ucp_prefs
 					'S_MORE_STYLES'			=> $s_more_styles,
 
 					'S_LANG_OPTIONS'		=> language_select($data['lang']),
-					'S_STYLE_OPTIONS'		=> ($config['override_user_style']) ? '' : style_select($data['style']),
-					'S_TZ_OPTIONS'			=> tz_select($data['tz'], true),
+					'S_STYLE_OPTIONS'		=> ($config['override_user_style']) ? '' : style_select($data['user_style']),
 					'S_CAN_HIDE_ONLINE'		=> ($auth->acl_get('u_hideonline')) ? true : false,
 					'S_SELECT_NOTIFY'		=> ($config['jab_enable'] && $user->data['user_jabber'] && @extension_loaded('xml')) ? true : false)
 				);
@@ -203,11 +221,11 @@ class ucp_prefs
 				$data = array(
 					'topic_sk'		=> request_var('topic_sk', (!empty($user->data['user_topic_sortby_type'])) ? $user->data['user_topic_sortby_type'] : 't'),
 					'topic_sd'		=> request_var('topic_sd', (!empty($user->data['user_topic_sortby_dir'])) ? $user->data['user_topic_sortby_dir'] : 'd'),
-					'topic_st'		=> request_var('topic_st', (!empty($user->data['user_topic_show_days'])) ? $user->data['user_topic_show_days'] : 0),
+					'topic_st'		=> request_var('topic_st', (!empty($user->data['user_topic_show_days'])) ? (int) $user->data['user_topic_show_days'] : 0),
 
 					'post_sk'		=> request_var('post_sk', (!empty($user->data['user_post_sortby_type'])) ? $user->data['user_post_sortby_type'] : 't'),
 					'post_sd'		=> request_var('post_sd', (!empty($user->data['user_post_sortby_dir'])) ? $user->data['user_post_sortby_dir'] : 'a'),
-					'post_st'		=> request_var('post_st', (!empty($user->data['user_post_show_days'])) ? $user->data['user_post_show_days'] : 0),
+					'post_st'		=> request_var('post_st', (!empty($user->data['user_post_show_days'])) ? (int) $user->data['user_post_show_days'] : 0),
 
 					'images'		=> request_var('images', (bool) $user->optionget('viewimg')),
 					'flash'			=> request_var('flash', (bool) $user->optionget('viewflash')),
@@ -217,13 +235,39 @@ class ucp_prefs
 					'wordcensor'	=> request_var('wordcensor', (bool) $user->optionget('viewcensors')),
 				);
 
+				/**
+				* Add UCP edit display options data before they are assigned to the template or submitted
+				*
+				* To assign data to the template, use $template->assign_vars()
+				*
+				* @event core.ucp_prefs_view_data
+				* @var	bool	submit		Do we display the form only
+				*							or did the user press submit
+				* @var	array	data		Array with current ucp options data
+				* @since 3.1.0-a1
+				*/
+				$vars = array('submit', 'data');
+				extract($phpbb_dispatcher->trigger_event('core.ucp_prefs_view_data', compact($vars)));
+
 				if ($submit)
 				{
 					$error = validate_data($data, array(
-						'topic_sk'	=> array('string', false, 1, 1),
-						'topic_sd'	=> array('string', false, 1, 1),
-						'post_sk'	=> array('string', false, 1, 1),
-						'post_sd'	=> array('string', false, 1, 1),
+						'topic_sk'	=> array(
+							array('string', false, 1, 1),
+							array('match', false, '#(a|r|s|t|v)#'),
+						),
+						'topic_sd'	=> array(
+							array('string', false, 1, 1),
+							array('match', false, '#(a|d)#'),
+						),
+						'post_sk'	=> array(
+							array('string', false, 1, 1),
+							array('match', false, '#(a|s|t)#'),
+						),
+						'post_sd'	=> array(
+							array('string', false, 1, 1),
+							array('match', false, '#(a|d)#'),
+						),
 					));
 
 					if (!check_form_key('ucp_prefs_view'))
@@ -255,6 +299,17 @@ class ucp_prefs
 							'user_post_show_days'	=> $data['post_st'],
 						);
 
+						/**
+						* Update UCP edit display options data on form submit
+						*
+						* @event core.ucp_prefs_view_update_data
+						* @var	array	data		Submitted display options data
+						* @var	array	sql_ary		Display options data we update
+						* @since 3.1.0-a1
+						*/
+						$vars = array('data', 'sql_ary');
+						extract($phpbb_dispatcher->trigger_event('core.ucp_prefs_view_update_data', compact($vars)));
+
 						$sql = 'UPDATE ' . USERS_TABLE . '
 							SET ' . $db->sql_build_array('UPDATE', $sql_ary) . '
 							WHERE user_id = ' . $user->data['user_id'];
@@ -266,7 +321,7 @@ class ucp_prefs
 					}
 
 					// Replace "error" strings with their real, localised form
-					$error = preg_replace('#^([A-Z_]+)$#e', "(!empty(\$user->lang['\\1'])) ? \$user->lang['\\1'] : '\\1'", $error);
+					$error = array_map(array($user, 'lang'), $error);
 				}
 
 				$sort_dir_text = array('a' => $user->lang['ASCENDING'], 'd' => $user->lang['DESCENDING']);
@@ -275,7 +330,7 @@ class ucp_prefs
 				$limit_topic_days = array(0 => $user->lang['ALL_TOPICS'], 1 => $user->lang['1_DAY'], 7 => $user->lang['7_DAYS'], 14 => $user->lang['2_WEEKS'], 30 => $user->lang['1_MONTH'], 90 => $user->lang['3_MONTHS'], 180 => $user->lang['6_MONTHS'], 365 => $user->lang['1_YEAR']);
 
 				$sort_by_topic_text = array('a' => $user->lang['AUTHOR'], 't' => $user->lang['POST_TIME'], 'r' => $user->lang['REPLIES'], 's' => $user->lang['SUBJECT'], 'v' => $user->lang['VIEWS']);
-				$sort_by_topic_sql = array('a' => 't.topic_first_poster_name', 't' => 't.topic_last_post_time', 'r' => 't.topic_replies', 's' => 't.topic_title', 'v' => 't.topic_views');
+				$sort_by_topic_sql = array('a' => 't.topic_first_poster_name', 't' => array('t.topic_last_post_time', 't.topic_last_post_id'), 'r' => 't.topic_posts_approved', 's' => 't.topic_title', 'v' => 't.topic_views');
 
 				// Post ordering options
 				$limit_post_days = array(0 => $user->lang['ALL_POSTS'], 1 => $user->lang['1_DAY'], 7 => $user->lang['7_DAYS'], 14 => $user->lang['2_WEEKS'], 30 => $user->lang['1_MONTH'], 90 => $user->lang['3_MONTHS'], 180 => $user->lang['6_MONTHS'], 365 => $user->lang['1_YEAR']);
@@ -343,6 +398,20 @@ class ucp_prefs
 				);
 				add_form_key('ucp_prefs_post');
 
+				/**
+				* Add UCP edit posting defaults data before they are assigned to the template or submitted
+				*
+				* To assign data to the template, use $template->assign_vars()
+				*
+				* @event core.ucp_prefs_post_data
+				* @var	bool	submit		Do we display the form only
+				*							or did the user press submit
+				* @var	array	data		Array with current ucp options data
+				* @since 3.1.0-a1
+				*/
+				$vars = array('submit', 'data');
+				extract($phpbb_dispatcher->trigger_event('core.ucp_prefs_post_data', compact($vars)));
+
 				if ($submit)
 				{
 					if (check_form_key('ucp_prefs_post'))
@@ -355,6 +424,17 @@ class ucp_prefs
 							'user_options'	=> $user->data['user_options'],
 							'user_notify'	=> $data['notify'],
 						);
+
+						/**
+						* Update UCP edit posting defaults data on form submit
+						*
+						* @event core.ucp_prefs_post_update_data
+						* @var	array	data		Submitted display options data
+						* @var	array	sql_ary		Display options data we update
+						* @since 3.1.0-a1
+						*/
+						$vars = array('data', 'sql_ary');
+						extract($phpbb_dispatcher->trigger_event('core.ucp_prefs_post_update_data', compact($vars)));
 
 						$sql = 'UPDATE ' . USERS_TABLE . '
 							SET ' . $db->sql_build_array('UPDATE', $sql_ary) . '
@@ -381,6 +461,24 @@ class ucp_prefs
 			break;
 		}
 
+		/**
+		* Modify UCP preferences data before the page load
+		*
+		* @event core.ucp_prefs_modify_common
+		* @var	array	data		Array with current/submitted UCP options data
+		* @var	array	error		Errors data
+		* @var	string	mode		UCP prefs operation mode
+		* @var	string	s_hidden_fields		Hidden fields data
+		* @since 3.1.0-RC3
+		*/
+		$vars = array(
+			'data',
+			'error',
+			'mode',
+			's_hidden_fields',
+		);
+		extract($phpbb_dispatcher->trigger_event('core.ucp_prefs_modify_common', compact($vars)));
+
 		$template->assign_vars(array(
 			'L_TITLE'			=> $user->lang['UCP_PREFS_' . strtoupper($mode)],
 
@@ -392,5 +490,3 @@ class ucp_prefs
 		$this->page_title = 'UCP_PREFS_' . strtoupper($mode);
 	}
 }
-
-?>

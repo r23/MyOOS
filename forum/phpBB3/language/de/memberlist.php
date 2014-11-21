@@ -1,15 +1,16 @@
 <?php
 /**
 *
-* memberlist [Deutsch — Du]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: memberlist.php 617 2013-09-29 10:21:18Z pyramide $
-* @copyright (c) 2005 phpBB Group; 2006 phpBB.de
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 * Deutsche Übersetzung durch die Übersetzer-Gruppe von phpBB.de:
-* siehe docs/AUTHORS und https://www.phpbb.de/go/ubersetzerteam
+* siehe language/de/AUTHORS.md und https://www.phpbb.de/go/ubersetzerteam
 *
 */
 
@@ -51,10 +52,12 @@ $lang = array_merge($lang, array(
 	'BEFORE'				=> 'Vor dem',
 
 	'CC_EMAIL'				=> 'Eine Kopie dieser E-Mail an mich senden.',
-	'CONTACT_USER'			=> 'Kontaktdaten',
+	'CONTACT_ADMIN'			=> 'Kontakt mit der Board-Administration aufnehmen',
 
 	'DEST_LANG'				=> 'Sprache',
 	'DEST_LANG_EXPLAIN'		=> 'Wähle — sofern verfügbar — eine passende Sprache aus, in der der Empfänger die Nachricht erhalten soll.',
+
+	'EDIT_PROFILE'			=> 'Profil ändern',
 
 	'EMAIL_BODY_EXPLAIN'	=> 'Diese Nachricht wird als reiner Text verschickt, verwende daher kein HTML oder BBCode. Als Antwort-Adresse für die E-Mail wird deine E-Mail-Adresse angegeben.',
 	'EMAIL_DISABLED'		=> 'Leider wurden alle E-Mail-Funktionen deaktiviert.',
@@ -64,27 +67,23 @@ $lang = array_merge($lang, array(
 	'EMPTY_MESSAGE_EMAIL'	=> 'Du musst eine Nachricht angeben, die versendet werden soll.',
 	'EMPTY_MESSAGE_IM'		=> 'Du musst eine Nachricht angeben, die versendet werden soll.',
 	'EMPTY_NAME_EMAIL'		=> 'Du musst den Namen des Empfängers angeben.',
+	'EMPTY_SENDER_EMAIL'	=> 'Du musst eine gültige E-Mail-Adresse angeben.',
+	'EMPTY_SENDER_NAME'		=> 'Du musst einen Namen angeben.',
 	'EMPTY_SUBJECT_EMAIL'	=> 'Du musst einen Betreff für die E-Mail angeben.',
 	'EQUAL_TO'				=> 'Entspricht',
 
 	'FIND_USERNAME_EXPLAIN'	=> 'Benutze dieses Formular, um nach Mitgliedern zu suchen. Es müssen nicht alle Felder ausgefüllt werden. Verwende ein * als Platzhalter für teilweise Übereinstimmungen. Verwende das Format <kbd>JJJJ-MM-TT</kbd> (z.&nbsp;B. <samp>2002-01-01</samp>), um Datumswerte anzugeben. Benutze die Kontrollkästchen, um mehrere Benutzer auszuwählen (mehrere Benutzer werden abhängig vom Formular akzeptiert) und wähle dann „Markierte auswählen“.',
-	'FLOOD_EMAIL_LIMIT'		=> 'Du kannst derzeit keine weitere E-Mail versenden. Bitte versuche es später erneut.',
+	'FLOOD_EMAIL_LIMIT'		=> 'Du kannst momentan keine weitere E-Mail versenden. Bitte versuche es später erneut.',
 
 	'GROUP_LEADER'			=> 'Gruppenleiter',
 
 	'HIDE_MEMBER_SEARCH'	=> 'Das Suchformular ausblenden',
 
 	'IM_ADD_CONTACT'		=> 'Kontakt hinzufügen',
-	'IM_AIM'				=> 'Bitte beachte, dass du AOL Instant Messenger installiert haben musst, um diese Funktion zu nutzen.',
-	'IM_AIM_EXPRESS'		=> 'AIM Express',
 	'IM_DOWNLOAD_APP'		=> 'Anwendung herunterladen',
-	'IM_ICQ'				=> 'Bitte beachte, dass die Benutzer den Empfang unverlangter Nachrichten deaktiviert haben können.',
 	'IM_JABBER'				=> 'Bitte beachte, dass die Benutzer den Empfang unverlangter Nachrichten deaktiviert haben können.',
 	'IM_JABBER_SUBJECT'		=> 'Dies ist eine automatische Nachricht, bitte beantworte sie nicht. Nachricht von Benutzer %1$s auf %2$s.',
 	'IM_MESSAGE'			=> 'Deine Nachricht',
-	'IM_MSNM'				=> 'Bitte beachte, dass du Windows Live Messenger installiert haben musst, um diese Funktion zu nutzen.',
-	'IM_MSNM_BROWSER'		=> 'Dein Browser unterstützt diese Funktion nicht.',
-	'IM_MSNM_CONNECT'		=> 'Es besteht keine Verbindung zu Windows Live Messenger.\nUm fortzufahren, muss eine Verbindung zu Windows Live Messenger bestehen.',
 	'IM_NAME'				=> 'Dein Name',
 	'IM_NO_DATA'			=> 'Es gibt keine passenden Kontaktdaten für diesen Benutzer.',
 	'IM_NO_JABBER'			=> 'Direkter Kontakt zu Jabber-Benutzern wird auf diesem Board nicht unterstützt. Du benötigst einen installierten Jabber-Client auf deinem Rechner, um den Benutzer kontaktieren zu können.',
@@ -96,15 +95,19 @@ $lang = array_merge($lang, array(
 
 	'LAST_ACTIVE'				=> 'Letzte Aktivität',
 	'LESS_THAN'					=> 'Weniger als',
-	'LIST_USER'					=> '1 Mitglied',
-	'LIST_USERS'				=> '%d Mitglieder',
-	'LOGIN_EXPLAIN_LEADERS'		=> 'Du musst registriert und angemeldet sein, um die Liste der Team-Mitglieder anzuschauen.',
+	'LIST_USERS'				=> array(
+		1	=> '%d Mitglied',
+		2	=> '%d Mitglieder',
+	),
+	'LOGIN_EXPLAIN_TEAM'		=> 'Du musst registriert und angemeldet sein, um die Liste der Team-Mitglieder anzuschauen.',
 	'LOGIN_EXPLAIN_MEMBERLIST'	=> 'Du musst registriert und angemeldet sein, um auf die Mitgliederliste zuzugreifen.',
 	'LOGIN_EXPLAIN_SEARCHUSER'	=> 'Du musst registriert und angemeldet sein, um nach Mitgliedern zu suchen.',
 	'LOGIN_EXPLAIN_VIEWPROFILE'	=> 'Du musst registriert und angemeldet sein, um Profile anzuschauen.',
 
 	'MORE_THAN'				=> 'Mehr als',
 
+	'NO_CONTACT_FORM'		=> 'Das Kontaktformular für die Board-Administration wurde deaktiviert.',
+	'NO_CONTACT_PAGE'		=> 'Die Kontaktseite für die Board-Administration wurde deaktiviert.',
 	'NO_EMAIL'				=> 'Du bist nicht berechtigt, eine E-Mail an diesen Benutzer zu senden.',
 	'NO_VIEW_USERS'			=> 'Du bist nicht berechtigt, die Mitgliederliste oder Profile anzusehen.',
 
@@ -120,12 +123,12 @@ $lang = array_merge($lang, array(
 
 	'SELECT_MARKED'			=> 'Markierte auswählen',
 	'SELECT_SORT_METHOD'	=> 'Sortierung auswählen',
-	'SEND_AIM_MESSAGE'		=> 'AIM-Nachricht senden',
+	'SENDER_EMAIL_ADDRESS'	=> 'Deine E-Mail-Adresse',
+	'SENDER_NAME'			=> 'Dein Name',
 	'SEND_ICQ_MESSAGE'		=> 'ICQ-Nachricht senden',
 	'SEND_IM'				=> 'Instant Message senden',
 	'SEND_JABBER_MESSAGE'	=> 'Jabber-Nachricht senden',
 	'SEND_MESSAGE'			=> 'Nachricht',
-	'SEND_MSNM_MESSAGE'		=> 'WLM-Nachricht senden',
 	'SEND_YIM_MESSAGE'		=> 'YIM-Nachricht senden',
 	'SORT_EMAIL'			=> 'E-Mail',
 	'SORT_LAST_ACTIVE'		=> 'Letzte Aktivität',
@@ -142,11 +145,12 @@ $lang = array_merge($lang, array(
 	),
 	'USER_ONLINE'			=> 'Online',
 	'USER_PRESENCE'			=> 'Anwesenheit im Board',
+	'USERS_PER_PAGE'		=> 'Mitglieder pro Seite',
 
 	'VIEWING_PROFILE'		=> 'Profil von %s',
-	'VISITED'				=> 'Letzte Anmeldung',
-
-	'WWW'					=> 'Website',
+	'VIEW_FACEBOOK_PROFILE'	=> 'Facebook-Profil anzeigen',
+	'VIEW_SKYPE_PROFILE'	=> 'Skype-Profil anzeigen',
+	'VIEW_TWITTER_PROFILE'	=> 'Twitter-Profil anzeigen',
+	'VIEW_YOUTUBE_CHANNEL'	=> 'YouTube-Kanal anzeigen',
+	'VIEW_GOOGLEPLUS_PROFILE' => 'Google+-Profil anzeigen',
 ));
-
-?>

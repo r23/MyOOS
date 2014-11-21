@@ -1,15 +1,16 @@
 <?php
 /**
 *
-* search [Deutsch — Du]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: search.php 617 2013-09-29 10:21:18Z pyramide $
-* @copyright (c) 2005 phpBB Group; 2006 phpBB.de
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 * Deutsche Übersetzung durch die Übersetzer-Gruppe von phpBB.de:
-* siehe docs/AUTHORS und https://www.phpbb.de/go/ubersetzerteam
+* siehe language/de/AUTHORS.md und https://www.phpbb.de/go/ubersetzerteam
 *
 */
 
@@ -44,9 +45,14 @@ $lang = array_merge($lang, array(
 
 	'DISPLAY_RESULTS'		=> 'Ergebnisse anzeigen als',
 
-	'FOUND_SEARCH_MATCH'		=> 'Die Suche ergab %d Treffer',
-	'FOUND_SEARCH_MATCHES'		=> 'Die Suche ergab %d Treffer',
-	'FOUND_MORE_SEARCH_MATCHES'	=> 'Die Suche ergab mehr als %d Treffer',
+	'FOUND_SEARCH_MATCHES'		=> array(
+		1	=> 'Die Suche ergab %d Treffer',
+		2	=> 'Die Suche ergab %d Treffer',
+	),
+	'FOUND_MORE_SEARCH_MATCHES'		=> array(
+		1	=> 'Die Suche ergab mehr als %d Treffer',
+		2	=> 'Die Suche ergab mehr als %d Treffer',
+	),
 
 	'GLOBAL'				=> 'Globale Bekanntmachung',
 
@@ -59,24 +65,31 @@ $lang = array_merge($lang, array(
 	'LOGIN_EXPLAIN_UNREADSEARCH'=> 'Um deine ungelesenen Beiträge anzusehen, musst du auf diesem Board registriert und angemeldet sein.',
 	'LOGIN_EXPLAIN_NEWPOSTS'	=> 'Um die Beiträge seit deinem letzten Besuch anzusehen, musst du auf diesem Board registriert und angemeldet sein.',
 
-	'MAX_NUM_SEARCH_KEYWORDS_REFINE'	=> 'Deine Suchanfrage enthält zu viele Wörter. Bitte gib nicht mehr als %1$d Wörter an.',
+	'MAX_NUM_SEARCH_KEYWORDS_REFINE'	=> array(
+		1	=> 'Deine Suchanfrage enthält zu viele Wörter. Bitte gib nicht mehr als %1$d Wort an.',
+		2	=> 'Deine Suchanfrage enthält zu viele Wörter. Bitte gib nicht mehr als %1$d Wörter an.',
+	),
 
-	'NO_KEYWORDS'			=> 'Du musst mindestens ein Wort angeben, nach dem gesucht werden soll. Jedes Wort muss aus mindestens %d Buchstaben bestehen und darf ohne Platzhalter nicht mehr als %d Buchstaben haben.',
+	'NO_KEYWORDS'			=> 'Du musst mindestens ein Wort angeben, nach dem gesucht werden soll. Jedes Wort muss aus mindestens %s bestehen und darf ohne Platzhalter nicht mehr als %s haben.',
 	'NO_RECENT_SEARCHES'	=> 'In der letzten Zeit wurden keine Suchanfragen durchgeführt.',
 	'NO_SEARCH'				=> 'Du bist leider nicht berechtigt, die Suche zu verwenden.',
 	'NO_SEARCH_RESULTS'		=> 'Es wurden keine passenden Ergebnisse gefunden.',
-	'NO_SEARCH_TIME'		=> 'Die Suche steht dir derzeit leider nicht zur Verfügung. Bitte versuche es in ein paar Minuten erneut.',
+	'NO_SEARCH_TIME'		=> array(
+		1	=> 'Die Suche steht dir momentan leider nicht zur Verfügung. Bitte versuche es in %d Sekunde erneut.',
+		2	=> 'Die Suche steht dir momentan leider nicht zur Verfügung. Bitte versuche es in %d Sekunden erneut.',
+	),
 	'NO_SEARCH_UNREADS'		=> 'Die Suche nach ungelesenen Beiträgen wurde auf diesem Board deaktiviert.',
 	'WORD_IN_NO_POST'		=> 'Es wurden keine Beiträge gefunden, weil das Wort <strong>%s</strong> in keinem Beitrag enthalten ist.',
 	'WORDS_IN_NO_POST'		=> 'Es wurden keine Beiträge gefunden, weil die Wörter <strong>%s</strong> in keinem Beitrag enthalten sind.',
 
 	'POST_CHARACTERS'		=> 'Zeichen der Beiträge anzeigen',
+	'PHRASE_SEARCH_DISABLED'	=> 'Die Suche nach einem exakten Ausdruck wird auf diesem Board nicht unterstützt.',
 
 	'RECENT_SEARCHES'		=> 'Die letzten Suchanfragen',
 	'RESULT_DAYS'			=> 'Suchzeitraum begrenzen',
 	'RESULT_SORT'			=> 'Ergebnisse sortieren nach',
 	'RETURN_FIRST'			=> 'Die ersten',
-	'RETURN_TO_SEARCH_ADV'	=> 'Zurück zur erweiterten Suche',
+	'GO_TO_SEARCH_ADV'	=> 'Zur erweiterten Suche',
 
 	'SEARCHED_FOR'				=> 'Benutzte Suchanfrage',
 	'SEARCHED_TOPIC'			=> 'Durchsuchtes Thema',
@@ -103,8 +116,11 @@ $lang = array_merge($lang, array(
 	'SORT_FORUM'				=> 'Forum',
 	'SORT_POST_SUBJECT'			=> 'Betreff des Beitrags',
 	'SORT_TIME'					=> 'Erstellungsdatum des Beitrags',
+	'SPHINX_SEARCH_FAILED'		=> 'Suche gescheitert: %s',
+	'SPHINX_SEARCH_FAILED_LOG'	=> 'Die Suche konnte leider nicht ausgeführt werden. Mehr Informationen zu diesem Fehler können im erstellten Fehler-Protokoll gefunden werden.',
 
-	'TOO_FEW_AUTHOR_CHARS'	=> 'Du musst mindestens %d Zeichen des Benutzernamens angeben.',
+	'TOO_FEW_AUTHOR_CHARS'	=> array(
+		1	=> 'Du musst mindestens %d Zeichen des Benutzernamens angeben.',
+		2	=> 'Du musst mindestens %d Zeichen des Benutzernamens angeben.',
+	),
 ));
-
-?>

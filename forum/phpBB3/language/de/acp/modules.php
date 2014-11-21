@@ -1,15 +1,16 @@
 <?php
 /**
 *
-* acp_modules [Deutsch — Du]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: modules.php 617 2013-09-29 10:21:18Z pyramide $
-* @copyright (c) 2005 phpBB Group; 2006 phpBB.de
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 * Deutsche Übersetzung durch die Übersetzer-Gruppe von phpBB.de:
-* siehe docs/AUTHORS und https://www.phpbb.de/go/ubersetzerteam
+* siehe language/de/AUTHORS.md und https://www.phpbb.de/go/ubersetzerteam
 *
 */
 
@@ -83,5 +84,3 @@ $lang = array_merge($lang, array(
 
 	'SELECT_MODULE'			=> 'Wähle ein Modul',
 ));
-
-?>

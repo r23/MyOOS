@@ -6,7 +6,7 @@ diese Nachricht wurde dir von „{SITENAME}“ geschickt, weil {FROM_USERNAME} g
 
 {TOPIC_NAME}
 
-Du kannst das Thema mit folgendem Link erreichen:
+Du kannst dir das Thema ansehen, wenn du folgenden Link aufrufst:
 
 {U_TOPIC}
 

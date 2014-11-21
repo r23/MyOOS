@@ -1,15 +1,16 @@
 <?php
 /**
 *
-* acp_forums [Deutsch — Sie]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: forums.php 617 2013-09-29 10:21:18Z pyramide $
-* @copyright (c) 2005 phpBB Group; 2006 phpBB.de
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 * Deutsche Übersetzung durch die Übersetzer-Gruppe von phpBB.de:
-* siehe docs/AUTHORS und https://www.phpbb.de/go/ubersetzerteam
+* siehe language/de_x_sie/AUTHORS.md und https://www.phpbb.de/go/ubersetzerteam
 *
 */
 
@@ -46,6 +47,10 @@ $lang = array_merge($lang, array(
 	'AUTO_PRUNE_FREQ_EXPLAIN'	=> 'Das Intervall, in dem nach automatisch zu löschenden Themen gesucht wird.',
 	'AUTO_PRUNE_VIEWED'			=> 'Seit dem letzten Zugriff vergangene Tage',
 	'AUTO_PRUNE_VIEWED_EXPLAIN'	=> 'Die Anzahl der Tage seit dem letzten Zugriff auf das Thema, nach denen es entfernt wird.',
+	'AUTO_PRUNE_SHADOW_FREQ'	=> 'Prüfungsintervall für automatisches Löschen von Links zu verschobenen Themen',
+	'AUTO_PRUNE_SHADOW_DAYS'	=> 'Seit dem Verschieben des Themas vergangene Tage',
+	'AUTO_PRUNE_SHADOW_DAYS_EXPLAIN'	=> 'Die Anzahl der Tage seit dem Verschieben eines Themas, nach denen der Link auf das verschobene Thema im alten Forum gelöscht wird.',
+	'AUTO_PRUNE_SHADOW_FREQ_EXPLAIN'	=> 'Das Intervall, in dem nach automatisch zu löschenden Links zu verschobenen Themen gesucht wird.',
 
 	'CONTINUE'						=> 'Fortsetzen',
 	'COPY_PERMISSIONS'				=> 'Kopiere Berechtigungen von',
@@ -75,7 +80,7 @@ $lang = array_merge($lang, array(
 	'ENABLE_TOPIC_ICONS'			=> 'Themen-Symbole aktivieren',
 
 	'FORUM_ADMIN'						=> 'Foren-Administration',
-	'FORUM_ADMIN_EXPLAIN'				=> 'In phpBB3 ist alles forenbasiert. Eine Kategorie ist hier nur eine spezielle Art von Forum. Jedes Forum kann eine unbegrenzte Anzahl an Unterforen haben und Sie können festlegen, ob in ihnen Beiträge geschrieben werden dürfen oder nicht (dann verhält es sich wie eine Kategorie). Hier können Sie Foren hinzufügen, bearbeiten, löschen, schließen und wieder öffnen wie auch zusätzliche Kontrollfunktionen einstellen. Wenn Ihre Beitrags- und Themeninformationen nicht mehr synchron sind, können Sie das Forum auch resynchronisieren. <strong>Sie müssen passende Berechtigungen erstellen oder kopieren, damit ein neu erstelltes Forum auch angezeigt wird.</strong>',
+	'FORUM_ADMIN_EXPLAIN'				=> 'In phpBB3 ist alles forenbasiert. Eine Kategorie ist hier nur eine spezielle Art von Forum. Jedes Forum kann eine unbegrenzte Anzahl von Unterforen haben und Sie können festlegen, ob in ihnen Beiträge geschrieben werden dürfen oder nicht (dann verhält es sich wie eine Kategorie). Hier können Sie Foren hinzufügen, bearbeiten, löschen, schließen und wieder öffnen wie auch zusätzliche Kontrollfunktionen einstellen. Wenn Ihre Beitrags- und Themeninformationen nicht mehr synchron sind, können Sie das Forum auch resynchronisieren. <strong>Sie müssen passende Berechtigungen erstellen oder kopieren, damit ein neu erstelltes Forum auch angezeigt wird.</strong>',
 	'FORUM_AUTO_PRUNE'					=> 'Automatisches Löschen inaktiver Themen aktivieren',
 	'FORUM_AUTO_PRUNE_EXPLAIN'			=> 'Löscht inaktive Themen des Forums automatisch, wenn sie den folgenden Kriterien entsprechen.',
 	'FORUM_CREATED'						=> 'Forum wurde erfolgreich erstellt.',
@@ -101,10 +106,12 @@ $lang = array_merge($lang, array(
 	'FORUM_PASSWORD_CONFIRM_EXPLAIN'	=> 'Muss nur ausgefüllt werden, wenn ein Forum-Passwort vergeben wird.',
 	'FORUM_PASSWORD_EXPLAIN'			=> 'Definiert ein Passwort für dieses Forum. Es wird empfohlen, vorzugsweise das Berechtigungs-System zu nutzen.',
 	'FORUM_PASSWORD_UNSET'				=> 'Forum-Passwort entfernen',
-	'FORUM_PASSWORD_UNSET_EXPLAIN'		=> 'Aktivieren Sie diese Option, wenn Sie das Forum-Passwort entfernen wollen.',
+	'FORUM_PASSWORD_UNSET_EXPLAIN'		=> 'Aktivieren Sie diese Option, wenn Sie das Forum-Passwort entfernen möchten.',
 	'FORUM_PASSWORD_OLD'				=> 'Das Forum-Passwort nutzt eine veraltete Hash-Methode und sollte geändert werden.',
 	'FORUM_PASSWORD_MISMATCH'			=> 'Die angegebenen Passwörter stimmen nicht überein.',
 	'FORUM_PRUNE_SETTINGS'				=> 'Einstellungen zum automatischen Löschen',
+	'FORUM_PRUNE_SHADOW'				=> 'Automatisches Löschen von Links zu verschobenen Themen',
+	'FORUM_PRUNE_SHADOW_EXPLAIN'			=> 'Löscht Links zu verschobenen Themen aus dem Forum. Die Einstellungen für Häufigkeit und Alter legen Sie unten fest.',
 	'FORUM_RESYNCED'					=> 'Forum „%s“ wurde erfolgreich resynchronisiert',
 	'FORUM_RULES_EXPLAIN'				=> 'Die Forumsregeln werden auf allen Seiten innerhalb des jeweiligen Forums angezeigt.',
 	'FORUM_RULES_LINK'					=> 'Link zu den Forumsregeln',
@@ -119,7 +126,7 @@ $lang = array_merge($lang, array(
 	'FORUM_TYPE'						=> 'Forum-Typ',
 	'FORUM_UPDATED'						=> 'Forumseinstellungen erfolgreich aktualisiert.',
 
-	'FORUM_WITH_SUBFORUMS_NOT_TO_LINK'		=> 'Sie wollen ein Forum mit Unterforen in einen Link umwandeln. Bitte verschieben Sie alle Unterforen aus diesem Forum, bevor Sie fortfahren, da Sie nach der Umwandlung in einen Link die Unterforen dieses Forums nicht länger sehen können.',
+	'FORUM_WITH_SUBFORUMS_NOT_TO_LINK'		=> 'Sie möchten ein Forum mit Unterforen in einen Link umwandeln. Bitte verschieben Sie alle Unterforen aus diesem Forum, bevor Sie fortfahren, da Sie nach der Umwandlung in einen Link die Unterforen dieses Forums nicht länger sehen können.',
 
 	'GENERAL_FORUM_SETTINGS'	=> 'Allgemeine Forumseinstellungen',
 
@@ -130,7 +137,7 @@ $lang = array_merge($lang, array(
 	'LIST_SUBFORUMS_EXPLAIN'	=> 'Führt die Unterforen, bei denen die Option „Führe Unterforum in der Legende des übergeordneten Forums auf“ aktiviert ist, in der Legende dieses Forums in der Foren-Übersicht und anderswo auf.',
 	'LOCKED'					=> 'Gesperrt',
 
-	'MOVE_POSTS_NO_POSTABLE_FORUM'	=> 'Das ausgewählte Forum kann keine Beiträge aufnehmen. Bitte wählen Sie ein Forum aus, dass Beiträge aufnehmen kann.',
+	'MOVE_POSTS_NO_POSTABLE_FORUM'	=> 'Das ausgewählte Forum kann keine Beiträge aufnehmen. Bitte wählen Sie ein Forum aus, das Beiträge aufnehmen kann.',
 	'MOVE_POSTS_TO'					=> 'Beiträge verschieben nach',
 	'MOVE_SUBFORUMS_TO'				=> 'Unterforen verschieben nach',
 
@@ -141,7 +148,7 @@ $lang = array_merge($lang, array(
 	'NO_PERMISSION_FORUM_ADD'		=> 'Sie haben nicht die erforderlichen Berechtigungen, um Foren hinzuzufügen.',
 	'NO_PERMISSION_FORUM_DELETE'	=> 'Sie haben nicht die erforderlichen Berechtigungen, um Foren zu löschen.',
 
-	'PARENT_IS_LINK_FORUM'		=> 'Das übergeordnete Forum, dass Sie ausgewählt haben, ist ein Forums-Link. Ein Forums-Link kann keine Unterforen enthalten. Bitte wählen Sie ein Forum oder eine Kategorie als übergeordnetes Forum aus.',
+	'PARENT_IS_LINK_FORUM'		=> 'Das übergeordnete Forum, das Sie ausgewählt haben, ist ein Forums-Link. Ein Forums-Link kann keine Unterforen enthalten. Bitte wählen Sie ein Forum oder eine Kategorie als übergeordnetes Forum aus.',
 	'PARENT_NOT_EXIST'			=> 'Übergeordnetes Forum existiert nicht.',
 	'PRUNE_ANNOUNCEMENTS'		=> 'Ankündigungen automatisch löschen',
 	'PRUNE_STICKY'				=> 'Wichtige Themen automatisch löschen',
@@ -151,7 +158,7 @@ $lang = array_merge($lang, array(
 	'REDIRECT_ACL'	=> 'Nun können Sie für dieses Forum %sBefugnisse vergeben%s.',
 
 	'SYNC_IN_PROGRESS'			=> 'Synchronisiere Foren',
-	'SYNC_IN_PROGRESS_EXPLAIN'	=> 'Derzeit wird Thema %1$d von %2$d synchronisiert.',
+	'SYNC_IN_PROGRESS_EXPLAIN'	=> 'Es wird Thema %1$d von %2$d synchronisiert.',
 
 	'TYPE_CAT'			=> 'Kategorie',
 	'TYPE_FORUM'		=> 'Forum',
@@ -159,5 +166,3 @@ $lang = array_merge($lang, array(
 
 	'UNLOCKED'			=> 'Entsperrt',
 ));
-
-?>

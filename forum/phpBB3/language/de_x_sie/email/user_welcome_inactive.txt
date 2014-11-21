@@ -10,7 +10,7 @@ Benutzername: {USERNAME}
 Board-URL:    {U_BOARD}
 ----------------------------
 
-Bitte besuchen Sie folgenden Link, um Ihr Benutzerkonto zu aktivieren:
+Um Ihr Benutzerkonto zu aktivieren, müssen Sie folgenden Link aufrufen:
 
 {U_ACTIVATE}
 

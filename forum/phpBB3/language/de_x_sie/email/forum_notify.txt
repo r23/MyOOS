@@ -2,18 +2,18 @@ Subject: Benachrichtigung über neue Antwort — „{FORUM_NAME}“
 
 Guten Tag {USERNAME},
 
-Sie erhalten diese Benachrichtigung, weil Sie das Forum „{FORUM_NAME}“ auf „{SITENAME}“ beobachten. Seit Ihrem letzten Besuch wurde in diesem Forum eine neue Antwort auf das Thema „{TOPIC_TITLE}“<!-- IF AUTHOR_NAME !== '' --> von {AUTHOR_NAME}<!-- ENDIF --> erstellt. Sie können den folgenden Link benutzen, um den ersten ungelesenen Beitrag anzusehen. Sie erhalten keine weitere Benachrichtigung, bis Sie das Thema besucht haben.
+Sie erhalten diese Benachrichtigung, weil Sie das Forum „{FORUM_NAME}“ auf „{SITENAME}“ abonniert haben. Seit Ihrem letzten Besuch wurde in diesem Forum eine neue Antwort auf das Thema „{TOPIC_TITLE}“<!-- IF AUTHOR_NAME !== '' --> von {AUTHOR_NAME}<!-- ENDIF --> erstellt. Sie erhalten keine weitere Benachrichtigung, bis Sie das Thema besucht haben.
 
+Sie können sich den ersten noch nicht gelesenen Beitrag ansehen, wenn Sie folgenden Link aufrufen:
 {U_NEWEST_POST}
 
-Wenn Sie das Thema ansehen möchten, verwenden Sie folgenden Link:
+Sie können sich das Thema ansehen, wenn Sie folgenden Link aufrufen:
 {U_TOPIC}
 
-Wenn Sie das Forum ansehen möchten, verwenden Sie folgenden Link:
+Sie können sich das Forum ansehen, wenn Sie folgenden Link aufrufen:
 {U_FORUM}
 
-Wenn Sie das Forum nicht länger beobachten möchten, verwenden Sie entweder den Link „Forum nicht mehr beobachten“ in dem entsprechenden Forum oder besuchen Sie folgenden Link:
-
+Wenn Sie das Forum nicht länger abonnieren möchten, verwenden Sie entweder den Link „Abonnement des Forums beenden“ im entsprechenden Forum oder rufen Sie folgenden Link auf:
 {U_STOP_WATCHING_FORUM}
 
 {EMAIL_SIG}

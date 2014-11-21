@@ -1,15 +1,16 @@
 <?php
 /**
 *
-* acp_database [Deutsch — Du]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: database.php 617 2013-09-29 10:21:18Z pyramide $
-* @copyright (c) 2005 phpBB Group; 2006 phpBB.de
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 * Deutsche Übersetzung durch die Übersetzer-Gruppe von phpBB.de:
-* siehe docs/AUTHORS und https://www.phpbb.de/go/ubersetzerteam
+* siehe language/de/AUTHORS.md und https://www.phpbb.de/go/ubersetzerteam
 *
 */
 
@@ -62,7 +63,7 @@ $lang = array_merge($lang, array(
 
 	'RESTORE_FAILURE'		=> 'Die Backup-Datei könnte beschädigt sein.',
 	'RESTORE_OPTIONS'		=> 'Wiederherstellungs-Optionen',
-	'RESTORE_SELECTED_BACKUP'	=> 'Bist du dir sicher, dass du das ausgewählte Backup wiederherstellen willst?',
+	'RESTORE_SELECTED_BACKUP'	=> 'Bist du dir sicher, dass du das ausgewählte Backup wiederherstellen möchtest?',
 	'RESTORE_SUCCESS'		=> 'Die Datenbank wurde erfolgreich wiederhergestellt.<br /><br />Dein Board sollte nun den Stand haben, den es zur Zeit des Backups hatte.',
 
 	'SELECT_ALL'			=> 'Alle markieren',
@@ -76,5 +77,3 @@ $lang = array_merge($lang, array(
 	'TABLE_SELECT'		=> 'Tabellen-Auswahl',
 	'TABLE_SELECT_ERROR'=> 'Du musst mindestens eine Tabelle auswählen.',
 ));
-
-?>

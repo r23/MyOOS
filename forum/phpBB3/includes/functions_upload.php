@@ -1,10 +1,13 @@
 <?php
 /**
 *
-* @package phpBB3
-* @version $Id$
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This file is part of the phpBB Forum Software package.
+*
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 */
 
@@ -19,7 +22,6 @@ if (!defined('IN_PHPBB'))
 /**
 * Responsible for holding all file relevant information, as well as doing file-specific operations.
 * The {@link fileupload fileupload class} can be used to upload several files, each of them being this object to operate further on.
-* @package phpBB3
 */
 class filespec
 {
@@ -45,10 +47,22 @@ class filespec
 	var $upload = '';
 
 	/**
+	 * The plupload object
+	 * @var \phpbb\plupload\plupload
+	 */
+	protected $plupload;
+
+	/**
+	 * phpBB Mimetype guesser
+	 * @var \phpbb\mimetype\guesser
+	 */
+	protected $mimetype_guesser;
+
+	/**
 	* File Class
 	* @access private
 	*/
-	function filespec($upload_ary, $upload_namespace)
+	function filespec($upload_ary, $upload_namespace, \phpbb\mimetype\guesser $mimetype_guesser = null, \phpbb\plupload\plupload $plupload = null)
 	{
 		if (!isset($upload_ary))
 		{
@@ -59,7 +73,7 @@ class filespec
 		$this->filename = $upload_ary['tmp_name'];
 		$this->filesize = $upload_ary['size'];
 		$name = (STRIP) ? stripslashes($upload_ary['name']) : $upload_ary['name'];
-		$name = trim(utf8_htmlspecialchars(utf8_basename($name)));
+		$name = trim(utf8_basename($name));
 		$this->realname = $this->uploadname = $name;
 		$this->mimetype = $upload_ary['type'];
 
@@ -68,10 +82,10 @@ class filespec
 
 		if (!$this->mimetype)
 		{
-			$this->mimetype = 'application/octetstream';
+			$this->mimetype = 'application/octet-stream';
 		}
 
-		$this->extension = strtolower($this->get_extension($this->realname));
+		$this->extension = strtolower(self::get_extension($this->realname));
 
 		// Try to get real filesize from temporary folder (not always working) ;)
 		$this->filesize = (@filesize($this->filename)) ? @filesize($this->filename) : $this->filesize;
@@ -81,6 +95,8 @@ class filespec
 
 		$this->local = (isset($upload_ary['local_mode'])) ? true : false;
 		$this->upload = $upload_namespace;
+		$this->plupload = $plupload;
+		$this->mimetype_guesser = $mimetype_guesser;
 	}
 
 	/**
@@ -88,6 +104,7 @@ class filespec
 	*
 	* @param real|unique|unique_ext $mode real creates a realname, filtering some characters, lowering every character. Unique creates an unique filename
 	* @param string $prefix Prefix applied to filename
+	* @param string $user_id The user_id is only needed for when cleaning a user's avatar
 	* @access public
 	*/
 	function clean_filename($mode = 'unique', $prefix = '', $user_id = '')
@@ -152,7 +169,7 @@ class filespec
 	*/
 	function is_image()
 	{
-		return (strpos($this->mimetype, 'image/') !== false) ? true : false;
+		return (strpos($this->mimetype, 'image/') === 0);
 	}
 
 	/**
@@ -162,12 +179,14 @@ class filespec
 	*/
 	function is_uploaded()
 	{
-		if (!$this->local && !is_uploaded_file($this->filename))
+		$is_plupload = $this->plupload && $this->plupload->is_active();
+
+		if (!$this->local && !$is_plupload && !is_uploaded_file($this->filename))
 		{
 			return false;
 		}
 
-		if ($this->local && !file_exists($this->filename))
+		if (($this->local || $is_plupload) && !file_exists($this->filename))
 		{
 			return false;
 		}
@@ -188,8 +207,11 @@ class filespec
 
 	/**
 	* Get file extension
+	*
+	* @param string Filename that needs to be checked
+	* @return string Extension of the supplied filename
 	*/
-	function get_extension($filename)
+	static public function get_extension($filename)
 	{
 		if (strpos($filename, '.') === false)
 		{
@@ -201,25 +223,24 @@ class filespec
 	}
 
 	/**
-	* Get mimetype. Utilize mime_content_type if the function exist.
-	* Not used at the moment...
+	* Get mimetype
+	*
+	* @param string $filename Filename that needs to be checked
+	* @return string Mimetype of supplied filename
 	*/
 	function get_mimetype($filename)
 	{
-		$mimetype = '';
-
-		if (function_exists('mime_content_type'))
+		if ($this->mimetype_guesser !== null)
 		{
-			$mimetype = mime_content_type($filename);
+			$mimetype = $this->mimetype_guesser->guess($filename, $this->uploadname);
+
+			if ($mimetype !== 'application/octet-stream')
+			{
+				$this->mimetype = $mimetype;
+			}
 		}
 
-		// Some browsers choke on a mimetype of application/octet-stream
-		if (!$mimetype || $mimetype == 'application/octet-stream')
-		{
-			$mimetype = 'application/octetstream';
-		}
-
-		return $mimetype;
+		return $this->mimetype;
 	}
 
 	/**
@@ -262,8 +283,9 @@ class filespec
 	* Move file to destination folder
 	* The phpbb_root_path variable will be applied to the destination path
 	*
-	* @param string $destination_path Destination path, for example $config['avatar_path']
+	* @param string $destination Destination path, for example $config['avatar_path']
 	* @param bool $overwrite If set to true, an already existing file will be overwritten
+	* @param bool $skip_image_check If set to true, the check for the file to be a valid image is skipped
 	* @param string $chmod Permission mask for chmodding the file after a successful move. The mode entered here reflects the mode defined by {@link phpbb_chmod()}
 	*
 	* @access public
@@ -297,6 +319,9 @@ class filespec
 		if (file_exists($this->destination_file) && !$overwrite)
 		{
 			@unlink($this->filename);
+			$this->error[] = $user->lang($this->upload->error_prefix . 'GENERAL_UPLOAD_ERROR', $this->destination_file);
+			$this->file_moved = false;
+			return false;
 		}
 		else
 		{
@@ -355,6 +380,9 @@ class filespec
 		// Try to get real filesize from destination folder
 		$this->filesize = (@filesize($this->destination_file)) ? @filesize($this->destination_file) : $this->filesize;
 
+		// Get mimetype of supplied file
+		$this->mimetype = $this->get_mimetype($this->destination_file);
+
 		if ($this->is_image() && !$skip_image_check)
 		{
 			$this->width = $this->height = 0;
@@ -370,7 +398,7 @@ class filespec
 				}
 
 				// Check image type
-				$types = $this->upload->image_types();
+				$types = fileupload::image_types();
 
 				if (!isset($types[$this->image_info[2]]) || !in_array($this->extension, $types[$this->image_info[2]]))
 				{
@@ -427,7 +455,13 @@ class filespec
 
 		if (!$this->upload->valid_dimensions($this))
 		{
-			$this->error[] = sprintf($user->lang[$this->upload->error_prefix . 'WRONG_SIZE'], $this->upload->min_width, $this->upload->min_height, $this->upload->max_width, $this->upload->max_height, $this->width, $this->height);
+			$this->error[] = $user->lang($this->upload->error_prefix . 'WRONG_SIZE',
+				$user->lang('PIXELS', (int) $this->upload->min_width),
+				$user->lang('PIXELS', (int) $this->upload->min_height),
+				$user->lang('PIXELS', (int) $this->upload->max_width),
+				$user->lang('PIXELS', (int) $this->upload->max_height),
+				$user->lang('PIXELS', (int) $this->width),
+				$user->lang('PIXELS', (int) $this->height));
 
 			return false;
 		}
@@ -438,8 +472,6 @@ class filespec
 
 /**
 * Class for assigning error messages before a real filespec class can be assigned
-*
-* @package phpBB3
 */
 class fileerror extends filespec
 {
@@ -452,19 +484,20 @@ class fileerror extends filespec
 /**
 * File upload class
 * Init class (all parameters optional and able to be set/overwritten separately) - scope is global and valid for all uploads
-*
-* @package phpBB3
 */
 class fileupload
 {
 	var $allowed_extensions = array();
-	var $disallowed_content = array('body', 'head', 'html', 'img', 'plaintext', 'a href', 'pre', 'script', 'table', 'title'); 
+	var $disallowed_content = array('body', 'head', 'html', 'img', 'plaintext', 'a href', 'pre', 'script', 'table', 'title');
 	var $max_filesize = 0;
 	var $min_width = 0;
 	var $min_height = 0;
 	var $max_width = 0;
 	var $max_height = 0;
 	var $error_prefix = '';
+
+	/** @var int Timeout for remote upload */
+	var $upload_timeout = 6;
 
 	/**
 	* Init file upload class.
@@ -476,6 +509,8 @@ class fileupload
 	* @param int $min_height Minimum image height (only checked for images)
 	* @param int $max_width Maximum image width (only checked for images)
 	* @param int $max_height Maximum image height (only checked for images)
+	* @param bool|array $disallowed_content If enabled, the first 256 bytes of the file must not
+	*										contain any of its values. Defaults to false.
 	*
 	*/
 	function fileupload($error_prefix = '', $allowed_extensions = false, $max_filesize = false, $min_width = false, $min_height = false, $max_width = false, $max_height = false, $disallowed_content = false)
@@ -556,15 +591,29 @@ class fileupload
 	* Upload file from users harddisk
 	*
 	* @param string $form_name Form name assigned to the file input field (if it is an array, the key has to be specified)
+	* @param \phpbb\mimetype\guesser $mimetype_guesser Mimetype guesser
+	* @param \phpbb\plupload\plupload $plupload The plupload object
+	*
 	* @return object $file Object "filespec" is returned, all further operations can be done with this object
 	* @access public
 	*/
-	function form_upload($form_name)
+	function form_upload($form_name, \phpbb\mimetype\guesser $mimetype_guesser = null, \phpbb\plupload\plupload $plupload = null)
 	{
-		global $user;
+		global $user, $request;
 
-		unset($_FILES[$form_name]['local_mode']);
-		$file = new filespec($_FILES[$form_name], $this);
+		$upload = $request->file($form_name);
+		unset($upload['local_mode']);
+
+		if ($plupload)
+		{
+			$result = $plupload->handle_upload($form_name);
+			if (is_array($result))
+			{
+				$upload = array_merge($upload, $result);
+			}
+		}
+
+		$file = new filespec($upload, $this, $mimetype_guesser, $plupload);
 
 		if ($file->init_error)
 		{
@@ -573,9 +622,9 @@ class fileupload
 		}
 
 		// Error array filled?
-		if (isset($_FILES[$form_name]['error']))
+		if (isset($upload['error']))
 		{
-			$error = $this->assign_internal_error($_FILES[$form_name]['error']);
+			$error = $this->assign_internal_error($upload['error']);
 
 			if ($error !== false)
 			{
@@ -585,7 +634,7 @@ class fileupload
 		}
 
 		// Check if empty file got uploaded (not catched by is_uploaded_file)
-		if (isset($_FILES[$form_name]['size']) && $_FILES[$form_name]['size'] == 0)
+		if (isset($upload['size']) && $upload['size'] == 0)
 		{
 			$file->error[] = $user->lang[$this->error_prefix . 'EMPTY_FILEUPLOAD'];
 			return $file;
@@ -624,42 +673,28 @@ class fileupload
 	/**
 	* Move file from another location to phpBB
 	*/
-	function local_upload($source_file, $filedata = false)
+	function local_upload($source_file, $filedata = false, \phpbb\mimetype\guesser $mimetype_guesser = null)
 	{
-		global $user;
+		global $user, $request;
 
-		$form_name = 'local';
+		$upload = array();
 
-		$_FILES[$form_name]['local_mode'] = true;
-		$_FILES[$form_name]['tmp_name'] = $source_file;
+		$upload['local_mode'] = true;
+		$upload['tmp_name'] = $source_file;
 
 		if ($filedata === false)
 		{
-			$_FILES[$form_name]['name'] = utf8_basename($source_file);
-			$_FILES[$form_name]['size'] = 0;
-			$mimetype = '';
-
-			if (function_exists('mime_content_type'))
-			{
-				$mimetype = mime_content_type($source_file);
-			}
-
-			// Some browsers choke on a mimetype of application/octet-stream
-			if (!$mimetype || $mimetype == 'application/octet-stream')
-			{
-				$mimetype = 'application/octetstream';
-			}
-
-			$_FILES[$form_name]['type'] = $mimetype;
+			$upload['name'] = utf8_basename($source_file);
+			$upload['size'] = 0;
 		}
 		else
 		{
-			$_FILES[$form_name]['name'] = $filedata['realname'];
-			$_FILES[$form_name]['size'] = $filedata['size'];
-			$_FILES[$form_name]['type'] = $filedata['type'];
+			$upload['name'] = $filedata['realname'];
+			$upload['size'] = $filedata['size'];
+			$upload['type'] = $filedata['type'];
 		}
 
-		$file = new filespec($_FILES[$form_name], $this);
+		$file = new filespec($upload, $this, $mimetype_guesser);
 
 		if ($file->init_error)
 		{
@@ -667,9 +702,9 @@ class fileupload
 			return $file;
 		}
 
-		if (isset($_FILES[$form_name]['error']))
+		if (isset($upload['error']))
 		{
-			$error = $this->assign_internal_error($_FILES[$form_name]['error']);
+			$error = $this->assign_internal_error($upload['error']);
 
 			if ($error !== false)
 			{
@@ -704,6 +739,7 @@ class fileupload
 		}
 
 		$this->common_checks($file);
+		$request->overwrite('local', $upload, \phpbb\request\request_interface::FILES);
 
 		return $file;
 	}
@@ -713,10 +749,11 @@ class fileupload
 	* Uploads file from given url
 	*
 	* @param string $upload_url URL pointing to file to upload, for example http://www.foobar.com/example.gif
+	* @param \phpbb\mimetype\guesser $mimetype_guesser Mimetype guesser
 	* @return object $file Object "filespec" is returned, all further operations can be done with this object
 	* @access public
 	*/
-	function remote_upload($upload_url)
+	function remote_upload($upload_url, \phpbb\mimetype\guesser $mimetype_guesser = null)
 	{
 		global $user, $phpbb_root_path;
 
@@ -795,13 +832,28 @@ class fileupload
 		fputs($fsock, "HOST: " . $host . "\r\n");
 		fputs($fsock, "Connection: close\r\n\r\n");
 
+		// Set a proper timeout for the socket
+		socket_set_timeout($fsock, $this->upload_timeout);
+
 		$get_info = false;
 		$data = '';
-		while (!@feof($fsock))
+		$length = false;
+		$timer_stop = time() + $this->upload_timeout;
+
+		while ((!$length || $filesize < $length) && !@feof($fsock))
 		{
 			if ($get_info)
 			{
-				$block = @fread($fsock, 1024);
+				if ($length)
+				{
+					// Don't attempt to read past end of file if server indicated length
+					$block = @fread($fsock, min($length - $filesize, 1024));
+				}
+				else
+				{
+					$block = @fread($fsock, 1024);
+				}
+
 				$filesize += strlen($block);
 
 				if ($remote_max_filesize && $filesize > $remote_max_filesize)
@@ -847,6 +899,15 @@ class fileupload
 					}
 				}
 			}
+
+			$stream_meta_data = stream_get_meta_data($fsock);
+
+			// Cancel upload if we exceed timeout
+			if (!empty($stream_meta_data['timed_out']) || time() >= $timer_stop)
+			{
+				$file = new fileerror($user->lang[$this->error_prefix . 'REMOTE_UPLOAD_TIMEOUT']);
+				return $file;
+			}
 		}
 		@fclose($fsock);
 
@@ -871,7 +932,7 @@ class fileupload
 
 		$upload_ary['tmp_name'] = $filename;
 
-		$file = new filespec($upload_ary, $this);
+		$file = new filespec($upload_ary, $this, $mimetype_guesser);
 		$this->common_checks($file);
 
 		return $file;
@@ -996,12 +1057,15 @@ class fileupload
 	*/
 	function is_valid($form_name)
 	{
-		return (isset($_FILES[$form_name]) && $_FILES[$form_name]['name'] != 'none') ? true : false;
+		global $request;
+		$upload = $request->file($form_name);
+
+		return (!empty($upload) && $upload['name'] !== 'none');
 	}
 
 
 	/**
-	* Check for allowed extension
+	* Check for bad content (IE mime-sniffing)
 	*/
 	function valid_content(&$file)
 	{
@@ -1009,29 +1073,35 @@ class fileupload
 	}
 
 	/**
-	* Return image type/extension mapping
+	* Get image type/extension mapping
+	*
+	* @return array Array containing the image types and their extensions
 	*/
-	function image_types()
+	static public function image_types()
 	{
-		return array(
-			1 => array('gif'),
-			2 => array('jpg', 'jpeg'),
-			3 => array('png'),
-			4 => array('swf'),
-			5 => array('psd'),
-			6 => array('bmp'),
-			7 => array('tif', 'tiff'),
-			8 => array('tif', 'tiff'),
-			9 => array('jpg', 'jpeg'),
-			10 => array('jpg', 'jpeg'),
-			11 => array('jpg', 'jpeg'),
-			12 => array('jpg', 'jpeg'),
-			13 => array('swc'),
-			14 => array('iff'),
-			15 => array('wbmp'),
-			16 => array('xbm'),
+		$result = array(
+			IMAGETYPE_GIF		=> array('gif'),
+			IMAGETYPE_JPEG		=> array('jpg', 'jpeg'),
+			IMAGETYPE_PNG		=> array('png'),
+			IMAGETYPE_SWF		=> array('swf'),
+			IMAGETYPE_PSD		=> array('psd'),
+			IMAGETYPE_BMP		=> array('bmp'),
+			IMAGETYPE_TIFF_II	=> array('tif', 'tiff'),
+			IMAGETYPE_TIFF_MM	=> array('tif', 'tiff'),
+			IMAGETYPE_JPC		=> array('jpg', 'jpeg'),
+			IMAGETYPE_JP2		=> array('jpg', 'jpeg'),
+			IMAGETYPE_JPX		=> array('jpg', 'jpeg'),
+			IMAGETYPE_JB2		=> array('jpg', 'jpeg'),
+			IMAGETYPE_IFF		=> array('iff'),
+			IMAGETYPE_WBMP		=> array('wbmp'),
+			IMAGETYPE_XBM		=> array('xbm'),
 		);
+
+		if (defined('IMAGETYPE_SWC'))
+		{
+			$result[IMAGETYPE_SWC] = array('swc');
+		}
+
+		return $result;
 	}
 }
-
-?>

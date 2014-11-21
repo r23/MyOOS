@@ -1,0 +1,20 @@
+Subject: Benachrichtigung über neue Antwort — „{TOPIC_TITLE}“
+
+Guten Tag {USERNAME},
+
+Sie erhalten diese Benachrichtigung, weil Sie für das Thema „{TOPIC_TITLE}“ auf „{SITENAME}“ ein Lesezeichen gesetzt haben. Seit Ihrem letzten Besuch wurde zu diesem Thema eine neue Antwort erstellt. Sie können den folgenden Link benutzen, um die neuen Antworten anzusehen. Sie erhalten keine weitere Benachrichtigung, bis Sie das Thema besucht haben.
+
+Sie können sich die neuesten Antworten seit Ihrem letzten Besuch ansehen, wenn Sie folgenden Link aufrufen:
+{U_NEWEST_POST}
+
+Sie können sich das Thema ansehen, wenn Sie folgenden Link aufrufen:
+{U_TOPIC}
+
+Sie können sich das Forum ansehen, wenn Sie folgenden Link aufrufen:
+{U_FORUM}
+
+Wenn Sie nicht länger E-Mails erhalten möchten, wenn auf ein Thema, für das Sie ein Lesezeichen gesetzt haben, geantwortet wurde, müssen Sie Ihre Benachrichtigungseinstellungen ändern. Diese können Sie ändern, wenn Sie folgenden Link aufrufen:
+
+{U_NOTIFICATION_SETTINGS}
+
+{EMAIL_SIG}

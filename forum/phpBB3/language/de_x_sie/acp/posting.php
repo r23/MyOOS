@@ -1,15 +1,16 @@
 <?php
 /**
 *
-* acp_posting [Deutsch — Sie]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: posting.php 617 2013-09-29 10:21:18Z pyramide $
-* @copyright (c) 2005 phpBB Group; 2006 phpBB.de
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 * Deutsche Übersetzung durch die Übersetzer-Gruppe von phpBB.de:
-* siehe docs/AUTHORS und https://www.phpbb.de/go/ubersetzerteam
+* siehe language/de_x_sie/AUTHORS.md und https://www.phpbb.de/go/ubersetzerteam
 *
 */
 
@@ -49,6 +50,7 @@ $lang = array_merge($lang, array(
 
 	'BBCODE_ADDED'				=> 'BBCode erfolgreich hinzugefügt.',
 	'BBCODE_EDITED'				=> 'BBCode erfolgreich bearbeitet.',
+	'BBCODE_DELETED'			=> 'Der BBCode wurde erfolgreich entfernt.',
 	'BBCODE_NOT_EXIST'			=> 'Der gewählte BBCode existiert nicht.',
 	'BBCODE_HELPLINE'			=> 'Tipp-Anzeige',
 	'BBCODE_HELPLINE_EXPLAIN'	=> 'Geben Sie hier den Text ein, der in der Tipp-Zeile erscheinen soll, wenn sich der Mauszeiger auf der Schaltfläche befindet.',
@@ -88,8 +90,8 @@ $lang = array_merge($lang, array(
 		'URL'			=> 'Eine gültige URL eines beliebigen Protokolls (http, ftp usw. — kann nicht für JavaScript-Exploits verwendet werden). Falls nicht angegeben, wird „http://“ vorangestellt.',
 		'LOCAL_URL'		=> 'Eine lokale URL. Muss relativ zur Themenansicht angegeben werden. Protokoll und Domain darf nicht vorangestellt werden, da den Links „%s“ vorangestellt wird.',
 		'RELATIVE_URL'	=> 'Eine relative URL. Kann verwendet werden, um Teile einer URL zu prüfen. Achtung: auch eine vollständige URL ist eine gültige relative URL. Wenn relative URLs zur Adresse des Boards verwendet werden sollen, sollte der LOCAL_URL-Token verwendet werden.',
-		'COLOR'			=> 'Eine HTML-Farbe. Es kann entweder der hexadezimale Wert (z.&nbsp;B. <samp>#FF1234</samp>) oder ein <a href="http://www.w3.org/TR/CSS21/syndata.html#value-def-color">CSS-Farbwert</a> wie z.&nbsp;B. <samp>fuchsia</samp> oder <samp>InactiveBorder</samp> angegeben werden.'
-	)
+		'COLOR'			=> 'Eine HTML-Farbe. Es kann entweder der hexadezimale Wert (z.&nbsp;B. <samp>#FF1234</samp>) oder ein <a href="http://www.w3.org/TR/CSS21/syndata.html#value-def-color">CSS-Farbwert</a> wie z.&nbsp;B. <samp>fuchsia</samp> oder <samp>InactiveBorder</samp> angegeben werden.',
+	),
 ));
 
 // Smilies and topic icons
@@ -103,10 +105,10 @@ $lang = array_merge($lang, array(
 	'AFTER_SMILIES'			=> 'Nach %s',
 
 	'CODE'						=> 'Code',
-	'CURRENT_ICONS'				=> 'Derzeitige Beitrags-Symbole',
-	'CURRENT_ICONS_EXPLAIN'		=> 'Wählen Sie, was mit den aktuell eingestellten Beitrags-Symbolen geschehen soll.',
-	'CURRENT_SMILIES'			=> 'Derzeitige Smilies',
-	'CURRENT_SMILIES_EXPLAIN'	=> 'Wählen Sie, was mit den aktuell eingestellten Smilies geschehen soll.',
+	'CURRENT_ICONS'				=> 'Vorhandene Beitrags-Symbole',
+	'CURRENT_ICONS_EXPLAIN'		=> 'Wählen Sie, was mit den vorhandenen Beitrags-Symbolen geschehen soll.',
+	'CURRENT_SMILIES'			=> 'Vorhandene Smilies',
+	'CURRENT_SMILIES_EXPLAIN'	=> 'Wählen Sie, was mit den vorhandenen Smilies geschehen soll.',
 
 	'DISPLAY_ON_POSTING'		=> 'Beim Verfassen eines Beitrags anzeigen',
 	'DISPLAY_POSTING'			=> 'Auf Verfassen-Seite',
@@ -116,22 +118,26 @@ $lang = array_merge($lang, array(
 	'EDIT_SMILIES'				=> 'Smilies bearbeiten',
 	'EMOTION'					=> 'Beschreibung',
 	'EXPORT_ICONS'				=> 'Symbol-Paket erzeugen',
-	'EXPORT_ICONS_EXPLAIN'		=> '%sMit diesem Link können Sie die Konfiguration der installierten Symbole in eine Datei <samp>icons.pak</samp> schreiben. Diese kann nach dem Download dazu verwendet werden, ein <samp>.zip</samp>- oder <samp>.tgz</samp>-Archiv zu erstellen, welches alle Symbole und die <samp>icons.pak</samp> Konfigurations-Datei enthält.%s',
+	'EXPORT_ICONS_EXPLAIN'		=> '%sMit diesem Link können Sie die Konfiguration der installierten Symbole in eine Datei <samp>icons.pak</samp> schreiben. Diese kann nach dem Download dazu verwendet werden, ein <samp>.zip</samp>- oder <samp>.tgz</samp>-Archiv zu erstellen, welches alle Symbole und die <samp>icons.pak</samp>-Konfigurations-Datei enthält.%s',
 	'EXPORT_SMILIES'			=> 'Smilie-Paket erzeugen',
-	'EXPORT_SMILIES_EXPLAIN'	=> '%sMit diesem Link können Sie die Konfiguration der installierten Smilies in eine Datei <samp>smilies.pak</samp> schreiben. Diese kann nach dem Download dazu verwendet werden, ein <samp>.zip</samp>- oder <samp>.tgz</samp>-Archiv zu erstellen, welches alle Smilies und die <samp>smilies.pak</samp> Konfigurations-Datei enthält.%s',
+	'EXPORT_SMILIES_EXPLAIN'	=> '%sMit diesem Link können Sie die Konfiguration der installierten Smilies in eine Datei <samp>smilies.pak</samp> schreiben. Diese kann nach dem Download dazu verwendet werden, ein <samp>.zip</samp>- oder <samp>.tgz</samp>-Archiv zu erstellen, welches alle Smilies und die <samp>smilies.pak</samp>-Konfigurations-Datei enthält.%s',
 
 	'FIRST'			=> 'am Anfang',
 
 	'ICONS_ADD'				=> 'Neues Beitrags-Symbol hinzufügen',
-	'ICONS_NONE_ADDED'		=> 'Kein Beitrags-Symbol wurde hinzugefügt.',
-	'ICONS_ONE_ADDED'		=> 'Das Beitrags-Symbol wurde erfolgreich hinzugefügt.',
-	'ICONS_ADDED'			=> 'Die Beitrags-Symbole wurden erfolgreich hinzugefügt.',
+	'ICONS_ADDED'			=> array(
+		0	=> 'Kein Beitrags-Symbol wurde hinzugefügt.',
+		1	=> 'Das Beitrags-Symbol wurde erfolgreich hinzugefügt.',
+		2	=> 'Die Beitrags-Symbole wurden erfolgreich hinzugefügt.',
+	),
 	'ICONS_CONFIG'			=> 'Symbol-Konfiguration',
 	'ICONS_DELETED'			=> 'Das Beitrags-Symbol wurde erfolgreich entfernt.',
 	'ICONS_EDIT'			=> 'Beitrags-Symbol bearbeiten',
-	'ICONS_ONE_EDITED'		=> 'Das Beitrags-Symbol wurde erfolgreich aktualisiert.',
-	'ICONS_NONE_EDITED'		=> 'Kein Beitrags-Symbol wurde aktualisiert.',
-	'ICONS_EDITED'			=> 'Die Beitrags-Symbole wurden erfolgreich aktualisiert.',
+	'ICONS_EDITED'			=> array(
+		0	=> 'Kein Beitrags-Symbol wurde aktualisiert.',
+		1	=> 'Das Beitrags-Symbol wurde erfolgreich aktualisiert.',
+		2	=> 'Die Beitrags-Symbole wurden erfolgreich aktualisiert.',
+	),
 	'ICONS_HEIGHT'			=> 'Höhe',
 	'ICONS_IMAGE'			=> 'Symbol',
 	'ICONS_IMPORTED'		=> 'Das Symbol-Paket wurde erfolgreich installiert.',
@@ -163,9 +169,11 @@ $lang = array_merge($lang, array(
 
 	'SELECT_PACKAGE'			=> 'Paket-Datei auswählen',
 	'SMILIES_ADD'				=> 'Neuen Smilie hinzufügen',
-	'SMILIES_NONE_ADDED'		=> 'Kein Smilie wurde hinzugefügt.',
-	'SMILIES_ONE_ADDED'			=> 'Der Smilie wurde erfolgreich hinzugefügt.',
-	'SMILIES_ADDED'				=> 'Die Smilies wurden erfolgreich hinzugefügt.',
+	'SMILIES_ADDED'				=> array(
+		0	=> 'Kein Smilie wurde hinzugefügt.',
+		1	=> 'Der Smilie wurde erfolgreich hinzugefügt.',
+		2	=> 'Die Smilies wurden erfolgreich hinzugefügt.',
+	),
 	'SMILIES_CODE'				=> 'Smilie-Code',
 	'SMILIES_CONFIG'			=> 'Smilie-Konfiguration',
 	'SMILIES_DELETED'			=> 'Der Smilie wurde erfolgreich entfernt.',
@@ -173,9 +181,11 @@ $lang = array_merge($lang, array(
 	'SMILIE_NO_CODE'			=> 'Der Smilie „%s“ wurde ignoriert, da kein Smilie-Code angegeben wurde.',
 	'SMILIE_NO_EMOTION'			=> 'Der Smilie „%s“ wurde ignoriert, da keine Beschreibung angegeben wurde.',
 	'SMILIE_NO_FILE'			=> 'Der Smilie „%s“ wurde ignoriert, da die Datei nicht vorhanden ist.',
-	'SMILIES_NONE_EDITED'		=> 'Kein Smilie wurde aktualisiert',
-	'SMILIES_ONE_EDITED'		=> 'Der Smilie wurde erfolgreich aktualisiert',
-	'SMILIES_EDITED'			=> 'Die Smilies wurden erfolgreich aktualisiert',
+	'SMILIES_EDITED'			=> array(
+		0	=> 'Kein Smilie wurde aktualisiert.',
+		1	=> 'Der Smilie wurde erfolgreich aktualisiert.',
+		2	=> 'Die Smilies wurden erfolgreich aktualisiert.',
+	),
 	'SMILIES_EMOTION'			=> 'Beschreibung',
 	'SMILIES_HEIGHT'			=> 'Höhe',
 	'SMILIES_IMAGE'				=> 'Smilie-Bild',
@@ -187,7 +197,10 @@ $lang = array_merge($lang, array(
 	'SMILIES_URL'				=> 'Smilie',
 	'SMILIES_WIDTH'				=> 'Breite',
 
-	'TOO_MANY_SMILIES'			=> 'Das Limit von %d Smilies wurde erreicht.',
+	'TOO_MANY_SMILIES'			=> array(
+		1	=> 'Das Limit von %d Smilie wurde erreicht.',
+		2	=> 'Das Limit von %d Smilies wurde erreicht.',
+	),
 
 	'WRONG_PAK_TYPE'	=> 'Das angegebene Paket enthielt ungültige Daten.',
 ));
@@ -227,7 +240,7 @@ $lang = array_merge($lang, array(
 	'RANK_IMAGE'			=> 'Rang-Bild',
 	'RANK_IMAGE_EXPLAIN'	=> 'Hier können Sie ein kleines Rang-Bild einstellen. Der Pfad kann absolut oder relativ zum phpBB-Verzeichnis angegeben werden.',
 	'RANK_IMAGE_IN_USE'		=> '(benutzt)',
-	'RANK_MINIMUM'			=> 'Minimale Anzahl an Beiträgen',
+	'RANK_MINIMUM'			=> 'Minimale Anzahl von Beiträgen',
 	'RANK_REMOVED'			=> 'Der Rang wurde erfolgreich gelöscht.',
 	'RANK_SPECIAL'			=> 'Spezialrang',
 	'RANK_TITLE'			=> 'Rang-Titel',
@@ -279,5 +292,3 @@ $lang = array_merge($lang, array(
 
 	'USED_IN_REPORTS'		=> 'In Meldungen benutzt',
 ));
-
-?>

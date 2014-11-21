@@ -1,15 +1,16 @@
 <?php
 /**
 *
-* mcp [Deutsch — Sie]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: mcp.php 617 2013-09-29 10:21:18Z pyramide $
-* @copyright (c) 2005 phpBB Group; 2006 phpBB.de
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 * Deutsche Übersetzung durch die Übersetzer-Gruppe von phpBB.de:
-* siehe docs/AUTHORS und https://www.phpbb.de/go/ubersetzerteam
+* siehe language/de_x_sie/AUTHORS.md und https://www.phpbb.de/go/ubersetzerteam
 *
 */
 
@@ -56,6 +57,10 @@ $lang = array_merge($lang, array(
 	'APPROVE_POST_CONFIRM'	=> 'Sind Sie sich sicher, dass Sie diesen Beitrag freigeben möchten?',
 	'APPROVE_POSTS'			=> 'Beiträge freigeben',
 	'APPROVE_POSTS_CONFIRM'	=> 'Sind Sie sich sicher, dass Sie diese Beiträge freigeben möchten?',
+	'APPROVE_TOPIC'			=> 'Thema freigeben',
+	'APPROVE_TOPIC_CONFIRM'	=> 'Sind Sie sich sicher, dass Sie dieses Thema freigeben möchten?',
+	'APPROVE_TOPICS'		=> 'Themen freigeben',
+	'APPROVE_TOPICS_CONFIRM'=> 'Sind Sie sich sicher, dass Sie diese Themen freigeben möchten?',
 
 	'CANNOT_MOVE_SAME_FORUM'=> 'Sie können ein Thema nicht in das Forum verschieben, in dem es sich befindet.',
 	'CANNOT_WARN_ANONYMOUS'	=> 'Sie können keinen Gast verwarnen.',
@@ -76,16 +81,12 @@ $lang = array_merge($lang, array(
 	'DELETE_PM_REPORTS'			=> 'PN-Meldungen löschen',
 	'DELETE_PM_REPORTS_CONFIRM'	=> 'Sind Sie sich sicher, dass Sie die ausgewählten Meldungen zu Privaten Nachrichten löschen möchten?',
 	'DELETE_POSTS'				=> 'Beiträge löschen',
-	'DELETE_POSTS_CONFIRM'		=> 'Sind Sie sich sicher, dass Sie diese Beiträge löschen möchten?',
-	'DELETE_POST_CONFIRM'		=> 'Sind Sie sich sicher, dass Sie diesen Beitrag löschen möchten?',
 	'DELETE_REPORT'				=> 'Meldung löschen',
 	'DELETE_REPORT_CONFIRM'		=> 'Sind Sie sich sicher, dass Sie die ausgewählte Meldung löschen möchten?',
 	'DELETE_REPORTS'			=> 'Meldungen löschen',
 	'DELETE_REPORTS_CONFIRM'	=> 'Sind Sie sich sicher, dass Sie die ausgewählten Meldungen löschen möchten?',
 	'DELETE_SHADOW_TOPIC'		=> 'Link zum verschobenen Thema löschen',
 	'DELETE_TOPICS'				=> 'Ausgewählte Themen löschen',
-	'DELETE_TOPICS_CONFIRM'		=> 'Sind Sie sich sicher, dass Sie diese Themen löschen möchten?',
-	'DELETE_TOPIC_CONFIRM'		=> 'Sind Sie sich sicher, dass Sie dieses Thema löschen möchten?',
 	'DISAPPROVE'				=> 'Freigabe verweigern',
 	'DISAPPROVE_REASON'			=> 'Grund für die Verweigerung der Freigabe',
 	'DISAPPROVE_POST'			=> 'Freigabe des Beitrags verweigern',
@@ -123,8 +124,10 @@ $lang = array_merge($lang, array(
 	'LATEST_WARNING_TIME'		=> 'Letzte Verwarnung',
 	'LATEST_WARNINGS'			=> 'Die letzten 5 Verwarnungen',
 	'LEAVE_SHADOW'				=> 'Einen Link im alten Forum beibehalten',
-	'LIST_REPORT'				=> '1 Meldung',
-	'LIST_REPORTS'				=> '%d Meldungen',
+	'LIST_REPORTS'				=> array(
+		1	=> '%d Meldung',
+		2	=> '%d Meldungen',
+	),
 	'LOCK'						=> 'Sperren',
 	'LOCK_POST_POST'			=> 'Beitrag sperren',
 	'LOCK_POST_POST_CONFIRM'	=> 'Sind Sie sich sicher, dass Sie Änderungen an diesem Beitrag unterbinden möchten?',
@@ -203,6 +206,10 @@ $lang = array_merge($lang, array(
 	'MCP_QUEUE_UNAPPROVED_POSTS_EXPLAIN'	=> 'Dies ist eine Liste aller Beiträge, die freigegeben werden müssen, bevor sie für die Benutzer sichtbar werden.',
 	'MCP_QUEUE_UNAPPROVED_TOPICS'			=> 'Auf Freigabe wartende Themen',
 	'MCP_QUEUE_UNAPPROVED_TOPICS_EXPLAIN'	=> 'Dies ist eine Liste aller Themen, die freigegeben werden müssen, bevor sie für die Benutzer sichtbar werden.',
+	'MCP_QUEUE_DELETED_POSTS'				=> 'Gelöschte Beiträge',
+	'MCP_QUEUE_DELETED_POSTS_EXPLAIN'		=> 'Dies ist eine Liste aller Beiträge, die als gelöscht markiert wurden. Sie können sie auf dieser Seite wiederherstellen oder dauerhaft löschen.',
+	'MCP_QUEUE_DELETED_TOPICS'				=> 'Gelöschte Themen',
+	'MCP_QUEUE_DELETED_TOPICS_EXPLAIN'		=> 'Dies ist eine Liste aller Themen, die als gelöscht markiert wurden. Sie können sie auf dieser Seite wiederherstellen oder dauerhaft löschen.',
 
 	'MCP_VIEW_USER'			=> 'Verwarnungen eines Benutzers anzeigen',
 
@@ -240,25 +247,32 @@ $lang = array_merge($lang, array(
 	'NO_POST'						=> 'Sie müssen einen Beitrag auswählen, um einen Benutzer für einen Beitrag verwarnen zu können.',
 	'NO_POST_REPORT'				=> 'Dieser Beitrag wurde nicht gemeldet.',
 	'NO_POST_SELECTED'				=> 'Sie müssen mindestens einen Beitrag auswählen, um diese Aktion durchzuführen.',
+	'NO_POSTS_DELETED'				=> 'Es gibt keine als gelöscht markierte Beiträge.',
+	'NO_POSTS_QUEUE'				=> 'Es gibt keine Beiträge, die auf Freigabe warten.',
 	'NO_REASON_DISAPPROVAL'			=> 'Bitte geben Sie eine Begründung für die Verweigerung der Freigabe an.',
 	'NO_REPORT'						=> 'Keine Meldung gefunden',
 	'NO_REPORTS'					=> 'Keine Meldungen gefunden',
 	'NO_REPORT_SELECTED'			=> 'Sie müssen mindestens eine Meldung auswählen, um diese Aktion durchzuführen.',
 	'NO_TOPIC_ICON'					=> 'Keines',
 	'NO_TOPIC_SELECTED'				=> 'Sie müssen mindestens ein Thema auswählen, um diese Aktion durchzuführen.',
+	'NO_TOPICS_DELETED'				=> 'Es gibt keine als gelöscht markierte Themen.',
 	'NO_TOPICS_QUEUE'				=> 'Es warten keine Themen auf Freigabe.',
 
 	'ONLY_TOPIC'			=> 'Nur Thema „%s“',
 	'OTHER_USERS'			=> 'Andere Benutzer, die von dieser IP Beiträge erstellt haben',
 
+	'QUICKMOD_ACTION_NOT_ALLOWED' => '%s nicht als Schnellmoderation zulässig',
+
 	'PM_REPORT_CLOSED_SUCCESS'	=> 'Die ausgewählte Meldung einer Privaten Nachricht wurde erfolgreich geschlossen.',
 	'PM_REPORT_DELETED_SUCCESS'	=> 'Die ausgewählte Meldung einer Privaten Nachricht wurde erfolgreich gelöscht.',
 	'PM_REPORTED_SUCCESS'		=> 'Diese Private Nachricht wurde erfolgreich gemeldet.',
-	'PM_REPORT_TOTAL'			=> 'Insgesamt wartet <strong>1</strong> Meldung zu einer Privaten Nachricht auf Überprüfung.',
-	'PM_REPORTS_TOTAL'			=> 'Insgesamt warten <strong>%d</strong> Meldungen zu Privaten Nachrichten auf Überprüfung.',
 	'PM_REPORTS_CLOSED_SUCCESS'	=> 'Die ausgewählten Meldungen zu Privaten Nachrichten wurden erfolgreich geschlossen.',
 	'PM_REPORTS_DELETED_SUCCESS'=> 'Die ausgewählten Meldungen zu Privaten Nachrichten wurden erfolgreich gelöscht.',
-	'PM_REPORTS_ZERO_TOTAL'		=> 'Es warten keine Meldungen zu Privaten Nachrichten auf Überprüfung.',
+	'PM_REPORTS_TOTAL'			=> array(
+		0	=> 'Es warten keine Meldungen zu Privaten Nachrichten auf Überprüfung.',
+		1	=> 'Insgesamt wartet <strong>1</strong> Meldung zu Privaten Nachrichten auf Überprüfung.',
+		2	=> 'Insgesamt warten <strong>%d</strong> Meldungen zu Privaten Nachrichten auf Überprüfung.',
+	),
 	'PM_REPORT_DETAILS'			=> 'Details der Meldung zu einer Privaten Nachricht',
 	'POSTER'					=> 'Autor',
 	'POSTS_APPROVED_SUCCESS'	=> 'Die ausgewählten Beiträge wurden freigegeben.',
@@ -266,16 +280,18 @@ $lang = array_merge($lang, array(
 	'POSTS_DISAPPROVED_SUCCESS'	=> 'Die Freigabe der ausgewählten Beiträge wurde verweigert.',
 	'POSTS_LOCKED_SUCCESS'		=> 'Die ausgewählten Beiträge wurden erfolgreich gesperrt.',
 	'POSTS_MERGED_SUCCESS'		=> 'Die ausgewählten Beiträge wurden zusammengeführt.',
-	'POSTS_UNLOCKED_SUCCESS'	=> 'Die ausgewählten Beiträge wurden erfolgreich entsperrt.',
 	'POSTS_PER_PAGE'			=> 'Beiträge je Seite',
 	'POSTS_PER_PAGE_EXPLAIN'	=> '(Mit 0 werden alle Beiträge angezeigt.)',
+	'POSTS_RESTORED_SUCCESS'	=> 'Die ausgewählten Beiträge wurden erfolgreich wiederhergestellt.',
+	'POSTS_UNLOCKED_SUCCESS'	=> 'Die ausgewählten Beiträge wurden erfolgreich entsperrt.',
 	'POST_APPROVED_SUCCESS'		=> 'Der ausgewählte Beitrag wurde freigegeben.',
 	'POST_DELETED_SUCCESS'		=> 'Der ausgewählte Beitrag wurde erfolgreich aus der Datenbank gelöscht.',
 	'POST_DISAPPROVED_SUCCESS'	=> 'Die Freigabe des ausgewählten Beitrags wurde verweigert.',
 	'POST_LOCKED_SUCCESS'		=> 'Der Beitrag wurde erfolgreich gesperrt.',
 	'POST_NOT_EXIST'			=> 'Der angegebene Beitrag existiert nicht.',
 	'POST_REPORTED_SUCCESS'		=> 'Dieser Beitrag wurde erfolgreich gemeldet.',
-	'POST_UNLOCKED_SUCCESS'		=> 'Der Beitrag wurde erfolgreich entsperrt.',
+	'POST_RESTORED_SUCCESS'		=> 'Dieser Beitrag wurde erfolgreich wiederhergestellt.',
+	'POST_UNLOCKED_SUCCESS'		=> 'Dieser Beitrag wurde erfolgreich entsperrt.',
 
 	'READ_USERNOTES'			=> 'Benutzer-Notizen',
 	'READ_WARNINGS'				=> 'Verwarnungen des Benutzers',
@@ -285,8 +301,11 @@ $lang = array_merge($lang, array(
 	'REPORTED_ON_DATE'			=> 'am',
 	'REPORTS_CLOSED_SUCCESS'	=> 'Die ausgewählten Meldungen wurden erfolgreich geschlossen.',
 	'REPORTS_DELETED_SUCCESS'	=> 'Die ausgewählten Meldungen wurden erfolgreich gelöscht.',
-	'REPORTS_TOTAL'				=> 'Insgesamt warten <strong>%d</strong> Meldungen auf Überprüfung.',
-	'REPORTS_ZERO_TOTAL'		=> 'Es warten keine Meldungen auf Überprüfung.',
+	'REPORTS_TOTAL'				=> array(
+		0	=> 'Es warten keine Meldungen auf Überprüfung.',
+		1	=> 'Insgesamt wartet <strong>1</strong> Meldung auf Überprüfung.',
+		2	=> 'Insgesamt warten <strong>%d</strong> Meldungen auf Überprüfung.',
+	),
 	'REPORT_CLOSED'				=> 'Diese Meldung wurde bereits geschlossen.',
 	'REPORT_CLOSED_SUCCESS'		=> 'Die ausgewählte Meldung wurde erfolgreich geschlossen.',
 	'REPORT_DELETED_SUCCESS'	=> 'Die ausgewählte Meldung wurde erfolgreich gelöscht.',
@@ -298,7 +317,15 @@ $lang = array_merge($lang, array(
 	'REPORT_POST_EXPLAIN'		=> 'Benutzen Sie dieses Formular, um den ausgewählten Beitrag zu melden. Meldungen sollten nur erfolgen, wenn der Beitrag den Foren-Regeln widerspricht.',
 	'REPORT_REASON'				=> 'Grund der Meldung',
 	'REPORT_TIME'				=> 'Zeitpunkt der Meldung',
-	'REPORT_TOTAL'				=> 'Insgesamt wartet <strong>1</strong> Meldung auf Überprüfung.',
+	'RESTORE'					=> 'Wiederherstellen',
+	'RESTORE_POST'				=> 'Beitrag wiederherstellen',
+	'RESTORE_POST_CONFIRM'		=> 'Sind Sie sich sicher, dass Sie diesen Beitrag wiederherstellen möchten?',
+	'RESTORE_POSTS'				=> 'Beiträge wiederherstellen',
+	'RESTORE_POSTS_CONFIRM'		=> 'Sind Sie sich sicher, dass Sie die ausgewählten Beiträge wiederherstellen möchten?',
+	'RESTORE_TOPIC'				=> 'Thema wiederherstellen',
+	'RESTORE_TOPIC_CONFIRM'		=> 'Sind Sie sich sicher, dass Sie dieses Thema wiederherstellen möchten?',
+	'RESTORE_TOPICS'			=> 'Themen wiederherstellen',
+	'RESTORE_TOPICS_CONFIRM'	=> 'Sind Sie sich sicher, dass Sie die ausgewählten Themen wiederherstellen möchten?',
 	'RESYNC'					=> 'Resynchronisierung',
 	'RETURN_MESSAGE'			=> '%sZurück zur Nachricht%s',
 	'RETURN_NEW_FORUM'			=> '%sGehe in das neue Forum%s',
@@ -339,6 +366,7 @@ $lang = array_merge($lang, array(
 	'TOPICS_FORKED_SUCCESS'		=> 'Die gewählten Themen wurden erfolgreich dupliziert.',
 	'TOPICS_LOCKED_SUCCESS'		=> 'Die ausgewählten Themen wurden gesperrt.',
 	'TOPICS_MOVED_SUCCESS'		=> 'Die ausgewählten Themen wurden erfolgreich verschoben.',
+	'TOPICS_RESTORED_SUCCESS'	=> 'Die ausgewählten Themen wurden erfolgreich wiederhergestellt.',
 	'TOPICS_RESYNC_SUCCESS'		=> 'Die ausgewählten Themen wurden resynchronisiert.',
 	'TOPICS_TYPE_CHANGED'		=> 'Die Art der Themen wurde erfolgreich geändert.',
 	'TOPICS_UNLOCKED_SUCCESS'	=> 'Die ausgewählten Themen wurden entsperrt.',
@@ -349,6 +377,7 @@ $lang = array_merge($lang, array(
 	'TOPIC_LOCKED_SUCCESS'		=> 'Das ausgewählte Thema wurde gesperrt.',
 	'TOPIC_MOVED_SUCCESS'		=> 'Das ausgewählte Thema wurde erfolgreich verschoben.',
 	'TOPIC_NOT_EXIST'			=> 'Das ausgewählte Thema existiert nicht.',
+	'TOPIC_RESTORED_SUCCESS'	=> 'Das ausgewählte Theme wurde erfolgreich wiederhergestellt.',
 	'TOPIC_RESYNC_SUCCESS'		=> 'Das ausgewählte Thema wurde resynchronisiert.',
 	'TOPIC_SPLIT_SUCCESS'		=> 'Das ausgewählte Thema wurde erfolgreich geteilt.',
 	'TOPIC_TIME'				=> 'Erstellung des Themas',
@@ -356,9 +385,11 @@ $lang = array_merge($lang, array(
 	'TOPIC_UNLOCKED_SUCCESS'	=> 'Das ausgewählte Thema wurde entsperrt.',
 	'TOTAL_WARNINGS'			=> 'Verwarnungen insgesamt',
 
-	'UNAPPROVED_POSTS_TOTAL'		=> 'Insgesamt warten <strong>%d</strong> Beiträge auf Freigabe.',
-	'UNAPPROVED_POSTS_ZERO_TOTAL'	=> 'Es warten keine Beiträge auf Freigabe.',
-	'UNAPPROVED_POST_TOTAL'			=> 'Insgesamt wartet <strong>1</strong> Beitrag auf Freigabe.',
+	'UNAPPROVED_POSTS_TOTAL'		=> array(
+		0	=> 'Es warten keine Beiträge auf Freigabe.',
+		1	=> 'Insgesamt wartet <strong>1</strong> Beitrag auf Freigabe.',
+		2	=> 'Insgesamt warten <strong>%d</strong> Beiträge auf Freigabe.',
+	),
 	'UNLOCK'						=> 'Entsperren',
 	'UNLOCK_POST'					=> 'Beitrag entsperren',
 	'UNLOCK_POST_EXPLAIN'			=> 'Änderungen erlauben',
@@ -384,7 +415,7 @@ $lang = array_merge($lang, array(
 	'WARNING_PM_BODY'		=> 'Ihnen wurde eine Verwarnung durch einen Administrator oder Moderator dieses Forums erteilt:[quote]%s[/quote]',
 	'WARNING_PM_SUBJECT'	=> 'Verwarnung erteilt.',
 	'WARNING_POST_DEFAULT'	=> 'Dies ist eine Verwarnung wegen dieses von Ihnen erstellten Beitrags: %s.',
-	'WARNINGS_ZERO_TOTAL'	=> 'Es existieren keine Verwarnungen.',
+	'NO_WARNINGS'	=> 'Es existieren keine Verwarnungen.',
 
 	'YOU_SELECTED_TOPIC'	=> 'Sie haben das Thema mit der ID %d ausgewählt: %s.',
 
@@ -400,8 +431,6 @@ $lang = array_merge($lang, array(
 			'SPAM'		=> 'Die gemeldete Nachricht hat nur zum Ziel, für eine Website oder ein anderes Produkt zu werben.',
 			'OFF_TOPIC'	=> 'Die gemeldete Nachricht betrifft ein anderes Thema.',
 			'OTHER'		=> 'Keine der genannten Kategorien. Bitte benutzen Sie „Weitere Informationen“ für Ihre Meldung.',
-		)
+		),
 	),
 ));
-
-?>

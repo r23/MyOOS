@@ -1,15 +1,16 @@
 <?php
 /**
 *
-* acp_bots [Deutsch — Du]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: bots.php 617 2013-09-29 10:21:18Z pyramide $
-* @copyright (c) 2005 phpBB Group; 2006 phpBB.de
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 * Deutsche Übersetzung durch die Übersetzer-Gruppe von phpBB.de:
-* siehe docs/AUTHORS und https://www.phpbb.de/go/ubersetzerteam
+* siehe language/de/AUTHORS.md und https://www.phpbb.de/go/ubersetzerteam
 *
 */
 
@@ -65,12 +66,10 @@ $lang = array_merge($lang, array(
 	'BOT_STYLE_EXPLAIN'	=> 'Der Style, der genutzt wird, um dem Bot das Board anzuzeigen.',
 	'BOT_UPDATED'		=> 'Bestehender Bot erfolgreich aktualisiert.',
 
-	'ERR_BOT_AGENT_MATCHES_UA'	=> 'Die angegebene Browser-Signatur ist identisch mit der, die du aktuell verwendest. Bitte ändere die angegebene Browser-Signatur des Agenten.',
+	'ERR_BOT_AGENT_MATCHES_UA'	=> 'Die angegebene Browser-Signatur ist identisch mit der, die du verwendest. Bitte ändere die angegebene Browser-Signatur des Agenten.',
 	'ERR_BOT_NO_IP'				=> 'Die angegebenen IP-Adressen waren unzulässig oder der Hostname konnte nicht ermittelt werden.',
 	'ERR_BOT_NO_MATCHES'		=> 'Du musst mindestens eine Agenten-Übereinstimmung oder IP für diesen Bot angeben.',
 
 	'NO_BOT'		=> 'Konnte keinen Bot mit der angegebenen ID finden.',
 	'NO_BOT_GROUP'	=> 'Die spezielle Bot-Gruppe konnte nicht gefunden werden.',
 ));
-
-?>

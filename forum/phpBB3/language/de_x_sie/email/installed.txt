@@ -12,7 +12,7 @@ Benutzername: {USERNAME}
 URL des Boards: {U_BOARD}
 ----------------------------
 
-Hilfreiche Informationen über die phpBB-Software können im docs-Ordner Ihrer Installation und auf der Website der phpBB Group — https://www.phpbb.com/support/ — gefunden werden. Eine deutschsprachige Anlaufstelle finden Sie unter https://www.phpbb.de/.
+Hilfreiche Informationen über die phpBB-Software können im docs-Ordner Ihrer Installation und auf der Website von phpBB Limited — https://www.phpbb.com/support/ — gefunden werden. Eine deutschsprachige Anlaufstelle finden Sie unter https://www.phpbb.de/.
 
 Um die Sicherheit Ihres Boards zu gewährleisten, empfehlen wir dir dringend, es immer auf der aktuellen Version zu halten. Damit Sie entsprechende Informationen zeitnah erhalten, kann auf den oben genannten Seite ein Newsletter abonniert werden.
 

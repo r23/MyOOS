@@ -1,15 +1,16 @@
 <?php
 /**
 *
-* acp_attachments [Deutsch — Sie]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: attachments.php 617 2013-09-29 10:21:18Z pyramide $
-* @copyright (c) 2005 phpBB Group; 2006 phpBB.de
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 * Deutsche Übersetzung durch die Übersetzer-Gruppe von phpBB.de:
-* siehe docs/AUTHORS und https://www.phpbb.de/go/ubersetzerteam
+* siehe language/de_x_sie/AUTHORS.md und https://www.phpbb.de/go/ubersetzerteam
 *
 */
 
@@ -60,11 +61,12 @@ $lang = array_merge($lang, array(
 	'ATTACH_EXT_GROUPS_URL'				=> 'Dateityp-Gruppen',
 	'ATTACH_ID'							=> 'ID',
 	'ATTACH_MAX_FILESIZE'				=> 'Maximale Dateigröße',
-	'ATTACH_MAX_FILESIZE_EXPLAIN'		=> 'Maximale Größe pro Datei; bei 0 wird die Dateigröße nur durch die PHP-Konfiguration limitiert.',
+	'ATTACH_MAX_FILESIZE_EXPLAIN'		=> 'Die Dateigröße wird nur durch die PHP-Konfiguration limitiert, wenn 0 als Wert eingestellt wird.',
 	'ATTACH_MAX_PM_FILESIZE'			=> 'Maximale Dateigröße in Privaten Nachrichten',
 	'ATTACH_MAX_PM_FILESIZE_EXPLAIN'	=> 'Maximale Größe pro Datei in Privaten Nachrichten; 0 bedeutet unbegrenzt.',
 	'ATTACH_ORPHAN_URL'					=> 'Verwaiste Dateianhänge',
 	'ATTACH_POST_ID'					=> 'Beitrags-ID',
+	'ATTACH_POST_TYPE'					=> 'Beitrags-Typ',
 	'ATTACH_QUOTA'						=> 'Maximales Kontingent für Dateianhänge',
 	'ATTACH_QUOTA_EXPLAIN'				=> 'Maximaler für Dateianhänge verfügbarer Speicherplatz für das gesamte Forum; 0 bedeutet unbegrenzt.',
 	'ATTACH_TO_POST'					=> 'Datei an den Beitrag anhängen',
@@ -110,16 +112,19 @@ $lang = array_merge($lang, array(
 	'EXT_GROUP_REAL_MEDIA'			=> 'RealMedia-Dateien',
 	'EXT_GROUP_WINDOWS_MEDIA'		=> 'Windows Media-Dateien',
 
+	'FILES_GONE'			=> 'Einige der Dateianhänge, die Sie zum Löschen ausgewählt haben, existieren nicht. Sie könnten bereits gelöscht worden sein. Dateianhänge, die existierten, wurden gelöscht.',
+	'FILES_STATS_WRONG'		=> 'Ihre Datei-Statistik ist vermutlich fehlerhaft und muss resynchronisiert werden. Derzeitige Werte: Anzahl von Dateianhängen = %1$d, Gesamtgröße der Dateianhänge = %2$s.<br />%3$sDatei-Statistik resynchronisieren%4$s.',
+
 	'GO_TO_EXTENSIONS'		=> 'Dateierweiterungen bearbeiten',
 	'GROUP_NAME'			=> 'Gruppenname',
 
 	'IMAGE_LINK_SIZE'			=> 'Dateigröße für verlinkte Bilder',
-	'IMAGE_LINK_SIZE_EXPLAIN'	=> 'Bild-Dateianhänge werden als Link dargestellt, wenn deren Größe diese Werte überschreitet. Um dieses Verhalten abzuschalten, stellen Sie als Werte 0px &times; 0px ein.',
+	'IMAGE_LINK_SIZE_EXPLAIN'	=> 'Bild-Dateianhänge werden als Link dargestellt, wenn deren Größe diese Werte überschreitet. Bei der Verwendung von 0px &times; 0px wird dieses Verhalten abgeschaltet.',
 	'IMAGICK_PATH'				=> 'Imagemagick-Pfad',
 	'IMAGICK_PATH_EXPLAIN'		=> 'Voller Pfad zum Imagemagick-Programm, z.&nbsp;B. <samp>/usr/bin/</samp>.',
 
-	'MAX_ATTACHMENTS'				=> 'Maximale Anzahl an Dateianhängen pro Beitrag',
-	'MAX_ATTACHMENTS_PM'			=> 'Maximale Anzahl an Dateianhängen pro Privater Nachricht',
+	'MAX_ATTACHMENTS'				=> 'Maximale Anzahl von Dateianhängen pro Beitrag',
+	'MAX_ATTACHMENTS_PM'			=> 'Maximale Anzahl von Dateianhängen pro Privater Nachricht',
 	'MAX_EXTGROUP_FILESIZE'			=> 'Maximale Dateigröße',
 	'MAX_IMAGE_SIZE'				=> 'Maximale Bildgröße',
 	'MAX_IMAGE_SIZE_EXPLAIN'		=> 'Maximale Größe von Bild-Dateianhängen. Um die Überprüfung der Bildgröße abzuschalten, stellen Sie als Werte 0px &times; 0px ein.',
@@ -133,6 +138,7 @@ $lang = array_merge($lang, array(
 	'NOT_ALLOWED_IN_PM'			=> 'Nur in Beiträgen erlaubt',
 	'NOT_ALLOWED_IN_PM_POST'	=> 'Nicht erlaubt',
 	'NOT_ASSIGNED'				=> 'Nicht zugewiesen',
+	'NO_ATTACHMENTS'			=> 'Für den Zeitraum wurden keine Dateianhänge gefunden.',
 	'NO_EXT_GROUP'				=> 'Keine',
 	'NO_EXT_GROUP_NAME'			=> 'Kein Gruppenname eingegeben.',
 	'NO_EXT_GROUP_SPECIFIED'	=> 'Keine Dateityp-Gruppe angegeben.',
@@ -146,8 +152,9 @@ $lang = array_merge($lang, array(
 	'ORDER_ALLOW_DENY'		=> 'Erlauben',
 	'ORDER_DENY_ALLOW'		=> 'Verbieten',
 
-	'REMOVE_ALLOWED_IPS'		=> '<em>Erlaubte</em> IPs/Hostnamen oder Ausnahmen entfernen',
-	'REMOVE_DISALLOWED_IPS'		=> '<em>Verbotene</em> IPs/Hostnamen oder Ausnahmen entfernen',
+	'REMOVE_ALLOWED_IPS'			=> '<em>Erlaubte</em> IPs/Hostnamen oder Ausnahmen entfernen',
+	'REMOVE_DISALLOWED_IPS'			=> '<em>Verbotene</em> IPs/Hostnamen oder Ausnahmen entfernen',
+	'RESYNC_FILES_STATS_CONFIRM'	=> 'Sind Sie sich sicher, dass Sie die Datei-Statistik neu synchronisieren möchten?',
 
 	'SEARCH_IMAGICK'				=> 'Nach Imagemagick suchen',
 	'SECURE_ALLOW_DENY'				=> 'Erlauben-/Verbieten-Liste',
@@ -173,5 +180,3 @@ $lang = array_merge($lang, array(
 	'UPLOAD_ICON'					=> 'Upload-Symbol',
 	'UPLOAD_NOT_DIR'				=> 'Der angegebene Pfad für hochgeladene Dateien ist kein existierendes Verzeichnis.',
 ));
-
-?>

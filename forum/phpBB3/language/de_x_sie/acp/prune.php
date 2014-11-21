@@ -1,15 +1,16 @@
 <?php
 /**
 *
-* acp_prune [Deutsch — Sie]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: prune.php 617 2013-09-29 10:21:18Z pyramide $
-* @copyright (c) 2005 phpBB Group; 2006 phpBB.de
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 * Deutsche Übersetzung durch die Übersetzer-Gruppe von phpBB.de:
-* siehe docs/AUTHORS und https://www.phpbb.de/go/ubersetzerteam
+* siehe language/de_x_sie/AUTHORS.md und https://www.phpbb.de/go/ubersetzerteam
 *
 */
 
@@ -40,7 +41,9 @@ if (empty($lang) || !is_array($lang))
 
 // User pruning
 $lang = array_merge($lang, array(
-	'ACP_PRUNE_USERS_EXPLAIN'	=> 'Dieser Bereich erlaubt es Ihnen, Benutzer Ihres Boards zu löschen oder zu deaktivieren. Benutzerkonten können anhand verschiedener Kriterien selektriert werden: der Beitragszahl, der letzten Aktivität usw. Die Kriterien können kombiniert werden, so dass Sie die betroffenen Benutzer weiter einschränken können. So können Sie z.&nbsp;B. Benutzer löschen, die weniger als 10 Beiträge haben und deren letzte Aktivität vor dem 2002-01-01 war. Alternativ können Sie die Kriterien auch überspringen, indem Sie eine Liste von Benutzernamen direkt in das Textfeld eingeben (jeden Benutzer in eine Zeile). Gehen Sie mit diesem Tool vorsichtig um! Wenn ein Benutzer gelöscht ist, gibt es keine Funktion, um diesen Vorgang rückgängig zu machen.',
+	'ACP_PRUNE_USERS_EXPLAIN'	=> 'Dieser Bereich erlaubt es Ihnen, Benutzer Ihres Boards zu löschen oder zu deaktivieren. Sie können die zu löschenden bzw. zu deaktivierenden Benutzerkonten anhand verschiedener Kriterien festlegen: der Beitragszahl, der letzten Aktivität usw. Die Kriterien können kombiniert werden, so dass Sie die betroffenen Benutzer weiter einschränken können. So können Sie z.&nbsp;B. Benutzer löschen, die weniger als 10 Beiträge haben und deren letzte Aktivität vor dem 2002-01-01 war. Bei Textfeldern können Sie einen Stern (*) als Platzhalter verwenden. Alternativ können Sie die Kriterien auch überspringen, indem Sie eine Liste von Benutzernamen direkt in das Textfeld eingeben (jeden Benutzer in eine Zeile). Gehen Sie vorsichtig mit diesem Tool um! Wenn ein Benutzer gelöscht ist, gibt es keine Funktion, um diesen Vorgang rückgängig zu machen.',
+
+	'CRITERIA'				=> 'Kriterien',
 
 	'DEACTIVATE_DELETE'			=> 'Deaktivieren oder löschen',
 	'DEACTIVATE_DELETE_EXPLAIN'	=> 'Wählen Sie aus, ob der Benutzer deaktiviert oder gelöscht werden soll. Ein deaktivierter Benutzer kann in der Benutzerverwaltung wieder aktiviert werden, eine Löschung hingegen ist endgültig.',
@@ -48,13 +51,16 @@ $lang = array_merge($lang, array(
 	'DELETE_USER_POSTS'			=> 'Lösche Beiträge der gelöschten Benutzer',
 	'DELETE_USER_POSTS_EXPLAIN' => 'Entfernt zusätzlich die Beiträge der gelöschten Benutzer. Hat keine Auswirkung, wenn die Benutzer deaktiviert werden.',
 
-	'JOINED_EXPLAIN'			=> 'Geben Sie ein Datum im Format <kbd>JJJJ-MM-TT</kbd> an.',
+	'JOINED_EXPLAIN'			=> 'Geben Sie ein Datum im Format <kbd>JJJJ-MM-TT</kbd> an. Sie können beide Felder verwenden, um einen abgeschlossenen Bereich auszuwählen oder ein Feld leer lassen, um einen offenen Bereich zu verwenden.',
 
 	'LAST_ACTIVE_EXPLAIN'		=> 'Geben Sie ein Datum im Format <kbd>JJJJ-MM-TT</kbd> an. Verwenden Sie <kbd>0000-00-00</kbd>, um die Benutzer zu löschen, die sich nie angemeldet haben; die <em>Vor dem</em>- und <em>Nach dem</em>-Bedingungen werden dann ignoriert.',
 
-	'PRUNE_USERS_LIST'				=> 'Zu löschende Benutzer',
-	'PRUNE_USERS_LIST_DELETE'		=> 'Mit den angegebenen Kriterien werden folgende Benutzer gelöscht:',
-	'PRUNE_USERS_LIST_DEACTIVATE'	=> 'Mit den angegebenen Kriterien werden folgende Benutzer deaktiviert:',
+	'POSTS_ON_QUEUE'			=> 'Auf Freigabe wartende Beiträge',
+	'PRUNE_USERS_GROUP_EXPLAIN'	=> 'Beschränke auf Mitglieder folgender Gruppe.',
+	'PRUNE_USERS_GROUP_NONE'	=> 'Alle Gruppen',
+	'PRUNE_USERS_LIST'				=> 'Zu löschende Benutzer', // TODO: Das passt nicht ganz
+	'PRUNE_USERS_LIST_DELETE'		=> 'Mit den angegebenen Kriterien werden folgende Benutzer gelöscht. Sie können einzelne Benutzer von der Liste der zu löschenden Benutzer entfernen, in dem Sie die Markierung neben dem Benutzernamen entfernen.',
+	'PRUNE_USERS_LIST_DEACTIVATE'	=> 'Mit den angegebenen Kriterien werden folgende Benutzer deaktiviert. Sie können einzelne Benutzer von der Liste der zu deaktivierenden Benutzer entfernen, in dem Sie die Markierung neben dem Benutzernamen entfernen.',
 
 	'SELECT_USERS_EXPLAIN'		=> 'Geben Sie hier spezifische Benutzernamen ein. Die oben angegebenen Kriterien werden dann ignoriert. Gründer können nicht gelöscht werden.',
 
@@ -62,7 +68,7 @@ $lang = array_merge($lang, array(
 	'USER_DELETE_SUCCESS'		=> 'Die ausgewählten Benutzer wurden erfolgreich gelöscht.',
 	'USER_PRUNE_FAILURE'		=> 'Keine Benutzer entsprachen den ausgewählten Kriterien.',
 
-	'WRONG_ACTIVE_JOINED_DATE'	=> 'Das eingegebene Datum ist falsch, es wird in der Forum <kbd>JJJJ-MM-TT</kbd> erwartet.',
+	'WRONG_ACTIVE_JOINED_DATE'	=> 'Das eingegebene Datum ist fehlerhaft, es wird in der Form <kbd>JJJJ-MM-TT</kbd> erwartet.',
 ));
 
 // Forum Pruning
@@ -80,7 +86,7 @@ $lang = array_merge($lang, array(
 	'PRUNE_ANNOUNCEMENTS'			=> 'Bekanntmachungen löschen',
 	'PRUNE_FINISHED_POLLS'			=> 'Abgeschlossene Umfragen löschen',
 	'PRUNE_FINISHED_POLLS_EXPLAIN'	=> 'Löscht Themen mit Umfragen, die beendet sind.',
-	'PRUNE_FORUM_CONFIRM'			=> 'Sind Sie sich sicher, dass Sie die ausgewählten Foren mit den angegebenen Einstellungen löschen wollen? Es gibt keine Möglichkeit, einmal gelöschte Beiträge und Themen wiederherzustellen.',
+	'PRUNE_FORUM_CONFIRM'			=> 'Sind Sie sich sicher, dass Sie die ausgewählten Foren mit den angegebenen Einstellungen löschen möchten? Es gibt keine Möglichkeit, einmal gelöschte Beiträge und Themen wiederherzustellen.',
 	'PRUNE_NOT_POSTED'				=> 'Seit dem letzten Beitrag vergangene Tage',
 	'PRUNE_NOT_VIEWED'				=> 'Seit dem letzten Zugriff vergangene Tage',
 	'PRUNE_OLD_POLLS'				=> 'Lösche alte Umfragen',
@@ -90,5 +96,3 @@ $lang = array_merge($lang, array(
 
 	'TOPICS_PRUNED'		=> 'Themen gelöscht',
 ));
-
-?>

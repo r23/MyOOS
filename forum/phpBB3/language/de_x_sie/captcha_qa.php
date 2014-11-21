@@ -1,15 +1,16 @@
 <?php
 /**
 *
-* captcha_qa [Deutsch — Sie]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: captcha_qa.php 617 2013-09-29 10:21:18Z pyramide $
-* @copyright (c) 2009 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 * Deutsche Übersetzung durch die Übersetzer-Gruppe von phpBB.de:
-* siehe docs/AUTHORS und https://www.phpbb.de/go/ubersetzerteam
+* siehe language/de_x_sie/AUTHORS.md und https://www.phpbb.de/go/ubersetzerteam
 *
 */
 
@@ -41,7 +42,7 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'CAPTCHA_QA'				=> 'Q&amp;A',
 	'CONFIRM_QUESTION_EXPLAIN'	=> 'Diese Frage dient dazu, das automatisierte Versenden von Formularen durch Spam-Bots zu verhindern.',
-	'CONFIRM_QUESTION_WRONG'	=> 'Sie haben eine fehlerhafte Antwort auf die Frage angegeben.',
+	'CONFIRM_QUESTION_WRONG'	=> 'Sie haben eine falsche Antwort auf die Frage angegeben.',
 
 	'QUESTION_ANSWERS'			=> 'Antworten',
 	'ANSWERS_EXPLAIN'			=> 'Bitte geben Sie gültige Antworten auf die Frage ein, jede Antwort in eine Zeile.',
@@ -62,6 +63,5 @@ $lang = array_merge($lang, array(
 
 	'QA_ERROR_MSG'				=> 'Bitte füllen Sie alle Felder aus und geben Sie mindestens eine Antwort an.',
 	'QA_LAST_QUESTION'			=> 'Sie können nicht alle Fragen löschen, solange das Plugin aktiv ist.',
-));
 
-?>
+));

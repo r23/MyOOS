@@ -1,15 +1,16 @@
 <?php
 /**
 *
-* acp_users [Deutsch — Du]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: users.php 617 2013-09-29 10:21:18Z pyramide $
-* @copyright (c) 2005 phpBB Group; 2006 phpBB.de
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 * Deutsche Übersetzung durch die Übersetzer-Gruppe von phpBB.de:
-* siehe docs/AUTHORS und https://www.phpbb.de/go/ubersetzerteam
+* siehe language/de/AUTHORS.md und https://www.phpbb.de/go/ubersetzerteam
 *
 */
 
@@ -40,7 +41,7 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'ADMIN_SIG_PREVIEW'		=> 'Signatur-Vorschau',
-	'AT_LEAST_ONE_FOUNDER'	=> 'Du kannst diesen Gründer nicht in einen normalen Benutzer umwandeln. Es muss mindestens ein Gründer in diesem Board vorhanden sein. Wenn du den Gründer-Status dieses Benutzers ändern willst, musst du zuerst einen anderen Benutzer zum Gründer ernennen.',
+	'AT_LEAST_ONE_FOUNDER'	=> 'Du kannst diesen Gründer nicht in einen normalen Benutzer umwandeln. Es muss mindestens ein Gründer in diesem Board vorhanden sein. Wenn du den Gründer-Status dieses Benutzers ändern möchtest, musst du zuerst einen anderen Benutzer zum Gründer ernennen.',
 
 	'BAN_ALREADY_ENTERED'	=> 'Die Sperre wurde bereits früher erfolgreich erstellt. Die Liste der Sperren wurde nicht aktualisiert.',
 	'BAN_SUCCESSFUL'		=> 'Sperre erfolgreich hinzugefügt.',
@@ -55,6 +56,7 @@ $lang = array_merge($lang, array(
 	'CANNOT_FORCE_REACT_FOUNDER'	=> 'Du kannst keine erneute Aktivierung für Benutzerkonten von Gründern erzwingen.',
 	'CANNOT_FORCE_REACT_YOURSELF'	=> 'Du kannst für dein eigenes Benutzerkonto keine erneute Aktivierung erzwingen.',
 	'CANNOT_REMOVE_ANONYMOUS'		=> 'Du kannst das Gäste-Benutzerkonto nicht löschen.',
+	'CANNOT_REMOVE_FOUNDER'			=> 'Du kannst keine Benutzerkonten von Gründern löschen.',
 	'CANNOT_REMOVE_YOURSELF'		=> 'Du kannst dein eigenes Benutzerkonto nicht löschen.',
 	'CANNOT_SET_FOUNDER_IGNORED'	=> 'Du kannst keine ignorierten Mitglieder zu Gründern ernennen.',
 	'CANNOT_SET_FOUNDER_INACTIVE'	=> 'Du musst Benutzer erst aktivieren, bevor du sie zum Gründer ernennen kannst, da nur aktive Benutzer zum Gründer ernannt werden können.',
@@ -118,7 +120,7 @@ $lang = array_merge($lang, array(
 	'USER_ATTACHMENTS_REMOVED'		=> 'Alle Dateianhänge des Benutzers erfolgreich gelöscht.',
 	'USER_AVATAR_NOT_ALLOWED'		=> 'Der Avatar kann nicht angezeigt werden, da Avatare deaktiviert wurden.',
 	'USER_AVATAR_UPDATED'			=> 'Avatar-Daten des Benutzers erfolgreich geändert.',
-	'USER_AVATAR_TYPE_NOT_ALLOWED'	=> 'Der aktuelle Avatar kann nicht angezeigt werden, da der verwendete Avatar-Typ deaktiviert wurde.',
+	'USER_AVATAR_TYPE_NOT_ALLOWED'	=> 'Der Avatar kann nicht angezeigt werden, da der verwendete Avatar-Typ deaktiviert wurde.',
 	'USER_CUSTOM_PROFILE_FIELDS'	=> 'Benutzerdefinierte Profil-Felder',
 	'USER_DELETED'					=> 'Benutzer erfolgreich gelöscht.',
 	'USER_GROUP_ADD'				=> 'Benutzer einer Gruppe hinzufügen',
@@ -142,5 +144,3 @@ $lang = array_merge($lang, array(
 	'USER_WARNING_LOG_DELETED'		=> 'Es sind keine Informationen verfügbar. Vermutlich wurde der Eintrag im Log gelöscht.',
 	'USER_TOOLS'					=> 'Standard-Funktionen',
 ));
-
-?>

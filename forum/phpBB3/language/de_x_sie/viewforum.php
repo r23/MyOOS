@@ -1,15 +1,16 @@
 <?php
 /**
 *
-* viewforum [Deutsch — Sie]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: viewforum.php 617 2013-09-29 10:21:18Z pyramide $
-* @copyright (c) 2005 phpBB Group; 2006 phpBB.de
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 * Deutsche Übersetzung durch die Übersetzer-Gruppe von phpBB.de:
-* siehe docs/AUTHORS und https://www.phpbb.de/go/ubersetzerteam
+* siehe language/de_x_sie/AUTHORS.md und https://www.phpbb.de/go/ubersetzerteam
 *
 */
 
@@ -67,8 +68,8 @@ $lang = array_merge($lang, array(
 	'UNREAD_POSTS_LOCKED'	=> 'Ungelesene Beiträge [ gesperrt ]',
 
 	'VIEW_FORUM'			=> 'Forum anzeigen',
-	'VIEW_FORUM_TOPIC'		=> '1 Thema',
-	'VIEW_FORUM_TOPICS'		=> '%d Themen',
+	'VIEW_FORUM_TOPICS'		=> array(
+		1	=> '%d Thema',
+		2	=> '%d Themen',
+	),
 ));
-
-?>

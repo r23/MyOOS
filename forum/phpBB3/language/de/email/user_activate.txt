@@ -2,7 +2,7 @@ Subject: Reaktiviere dein Benutzerkonto
 
 Hallo {USERNAME},
 
-dein Benutzerkonto auf „{SITENAME}“ wurde deaktiviert; vermutlich, weil du Änderungen an deinem Profil vorgenommen hast. Um dein Benutzerkonto wieder zu aktivieren, musst du den folgenden Link besuchen:
+dein Benutzerkonto auf „{SITENAME}“ wurde deaktiviert; vermutlich, weil du Änderungen an deinem Profil vorgenommen hast. Um dein Benutzerkonto wieder zu aktivieren, musst du folgenden Link aufrufen:
 
 {U_ACTIVATE}
 

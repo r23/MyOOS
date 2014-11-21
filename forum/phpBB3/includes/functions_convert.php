@@ -1,10 +1,13 @@
 <?php
 /**
 *
-* @package install
-* @version $Id$
-* @copyright (c) 2006 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This file is part of the phpBB Forum Software package.
+*
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 */
 
@@ -824,7 +827,7 @@ function get_avatar_dim($src, $axis, $func = false, $arg1 = false, $arg2 = false
 		break;
 
 		case AVATAR_REMOTE:
-			 // see notes on this functions usage and (hopefully) model $func to avoid this accordingly
+			// see notes on this functions usage and (hopefully) model $func to avoid this accordingly
 			return get_remote_avatar_dim($src, $axis);
 		break;
 
@@ -1004,8 +1007,8 @@ function get_remote_avatar_dim($src, $axis)
 		{
 			$bigger = ($remote_avatar_cache[$src][0] > $remote_avatar_cache[$src][1]) ? 0 : 1;
 			$ratio = $default[$bigger] / $remote_avatar_cache[$src][$bigger];
-			$remote_avatar_cache[$src][0] = (int)($remote_avatar_cache[$src][0] * $ratio);
-			$remote_avatar_cache[$src][1] = (int)($remote_avatar_cache[$src][1] * $ratio);
+			$remote_avatar_cache[$src][0] = (int) ($remote_avatar_cache[$src][0] * $ratio);
+			$remote_avatar_cache[$src][1] = (int) ($remote_avatar_cache[$src][1] * $ratio);
 		}
 	}
 
@@ -1028,7 +1031,6 @@ function set_user_options()
 		'attachsig'		=> array('bit' => 6, 'default' => 0),
 		'bbcode'		=> array('bit' => 8, 'default' => 1),
 		'smilies'		=> array('bit' => 9, 'default' => 1),
-		'popuppm'		=> array('bit' => 10, 'default' => 0),
 		'sig_bbcode'	=> array('bit' => 15, 'default' => 1),
 		'sig_smilies'	=> array('bit' => 16, 'default' => 1),
 		'sig_links'		=> array('bit' => 17, 'default' => 1),
@@ -1118,7 +1120,7 @@ function words_unique(&$words)
 * Adds a user to the specified group and optionally makes them a group leader
 * This function does not create the group if it does not exist and so should only be called after the groups have been created
 */
-function add_user_group($group_id, $user_id, $group_leader=false)
+function add_user_group($group_id, $user_id, $group_leader = false)
 {
 	global $convert, $phpbb_root_path, $config, $user, $db;
 
@@ -1238,7 +1240,7 @@ function get_config()
 		$filename = $convert->options['forum_path'] . '/' . $convert->config_schema['filename'];
 		if (!file_exists($filename))
 		{
-			$convert->p_master->error($user->lang['FILE_NOT_FOUND'] . ': ' . $filename, __LINE__, __FILE__);
+			$convert->p_master->error($user->lang('FILE_NOT_FOUND', $filename), __LINE__, __FILE__);
 		}
 
 		if (isset($convert->config_schema['array_name']))
@@ -1285,7 +1287,9 @@ function restore_config($schema)
 		{
 			$var = (empty($m[2]) || empty($convert_config[$m[2]])) ? "''" : "'" . addslashes($convert_config[$m[2]]) . "'";
 			$exec = '$config_value = ' . $m[1] . '(' . $var . ');';
+			// @codingStandardsIgnoreStart
 			eval($exec);
+			// @codingStandardsIgnoreEnd
 		}
 		else
 		{
@@ -1298,7 +1302,7 @@ function restore_config($schema)
 				$src_ary = $schema['array_name'];
 				$config_value = (isset($convert_config[$src_ary][$src])) ? $convert_config[$src_ary][$src] : '';
 			}
-   		}
+		}
 
 		if ($config_value !== '')
 		{
@@ -1643,7 +1647,7 @@ function mass_auth($ug_type, $forum_id, $ug_id, $acl_list, $setting = ACL_NO)
 		switch ($sql_type)
 		{
 			case 'insert':
-				switch ($db->sql_layer)
+				switch ($db->get_sql_layer())
 				{
 					case 'mysql':
 					case 'mysql4':
@@ -1652,6 +1656,7 @@ function mass_auth($ug_type, $forum_id, $ug_id, $acl_list, $setting = ACL_NO)
 
 					case 'mssql':
 					case 'sqlite':
+					case 'sqlite3':
 					case 'mssqlnative':
 						$sql = implode(' UNION ALL ', preg_replace('#^(.*?)$#', 'SELECT \1', $sql_subary));
 					break;
@@ -1720,7 +1725,7 @@ function add_default_groups()
 		'GUESTS'			=> array('', 0, 0),
 		'REGISTERED'		=> array('', 0, 0),
 		'REGISTERED_COPPA'	=> array('', 0, 0),
-		'GLOBAL_MODERATORS'	=> array('00AA00', 1, 0),
+		'GLOBAL_MODERATORS'	=> array('00AA00', 2, 0),
 		'ADMINISTRATORS'	=> array('AA0000', 1, 1),
 		'BOTS'				=> array('9E8DA7', 0, 0),
 		'NEWLY_REGISTERED'		=> array('', 0, 0),
@@ -1749,13 +1754,45 @@ function add_default_groups()
 			'group_type'			=> GROUP_SPECIAL,
 			'group_colour'			=> (string) $data[0],
 			'group_legend'			=> (int) $data[1],
-			'group_founder_manage'	=> (int) $data[2]
+			'group_founder_manage'	=> (int) $data[2],
 		);
 	}
 
 	if (sizeof($sql_ary))
 	{
 		$db->sql_multi_insert(GROUPS_TABLE, $sql_ary);
+	}
+}
+
+function add_groups_to_teampage()
+{
+	global $db;
+
+	$teampage_groups = array(
+		'ADMINISTRATORS'	=> 1,
+		'GLOBAL_MODERATORS'	=> 2,
+	);
+
+	$sql = 'SELECT *
+		FROM ' . GROUPS_TABLE . '
+		WHERE ' . $db->sql_in_set('group_name', array_keys($teampage_groups));
+	$result = $db->sql_query($sql);
+
+	$teampage_ary = array();
+	while ($row = $db->sql_fetchrow($result))
+	{
+		$teampage_ary[] = array(
+			'group_id'				=> (int) $row['group_id'],
+			'teampage_name'			=> '',
+			'teampage_position'		=> (int) $teampage_groups[$row['group_name']],
+			'teampage_parent'		=> 0,
+		);
+	}
+	$db->sql_freeresult($result);
+
+	if (sizeof($teampage_ary))
+	{
+		$db->sql_multi_insert(TEAMPAGE_TABLE, $teampage_ary);
 	}
 }
 
@@ -1769,7 +1806,7 @@ function sync_post_count($offset, $limit)
 	$sql = 'SELECT COUNT(post_id) AS num_posts, poster_id
 			FROM ' . POSTS_TABLE . '
 			WHERE post_postcount = 1
-				AND post_approved = 1
+				AND post_visibility = ' . ITEM_APPROVED . '
 			GROUP BY poster_id
 			ORDER BY poster_id';
 	$result = $db->sql_query_limit($sql, $limit, $offset);
@@ -1885,7 +1922,7 @@ function add_bots()
 			'user_email'			=> '',
 			'user_lang'				=> $config['default_lang'],
 			'user_style'			=> 1,
-			'user_timezone'			=> 0,
+			'user_timezone'			=> 'UTC',
 			'user_allow_massemail'	=> 0,
 		);
 
@@ -1942,7 +1979,7 @@ function update_dynamic_config()
 
 	$sql = 'SELECT COUNT(post_id) AS stat
 		FROM ' . POSTS_TABLE . '
-		WHERE post_approved = 1';
+		WHERE post_visibility = ' . ITEM_APPROVED;
 	$result = $db->sql_query($sql);
 	$row = $db->sql_fetchrow($result);
 	$db->sql_freeresult($result);
@@ -1951,7 +1988,7 @@ function update_dynamic_config()
 
 	$sql = 'SELECT COUNT(topic_id) AS stat
 		FROM ' . TOPICS_TABLE . '
-		WHERE topic_approved = 1';
+		WHERE topic_visibility = ' . ITEM_APPROVED;
 	$result = $db->sql_query($sql);
 	$row = $db->sql_fetchrow($result);
 	$db->sql_freeresult($result);
@@ -2004,10 +2041,10 @@ function update_topics_posted()
 {
 	global $db, $config;
 
-	switch ($db->sql_layer)
+	switch ($db->get_sql_layer())
 	{
 		case 'sqlite':
-		case 'firebird':
+		case 'sqlite3':
 			$db->sql_query('DELETE FROM ' . TOPICS_POSTED_TABLE);
 		break;
 
@@ -2259,7 +2296,7 @@ function convert_bbcode($message, $convert_size = true, $extended_bbcodes = fals
 		$message = preg_replace('#\[size=([0-9]+)\](.*?)\[/size\]#i', '[size=\1]\2[/size]', $message);
 		$message = preg_replace('#\[size=[0-9]{2,}\](.*?)\[/size\]#i', '[size=29]\1[/size]', $message);
 
-		for ($i = sizeof($size); $i; )
+		for ($i = sizeof($size); $i;)
 		{
 			$i--;
 			$message = str_replace('[size=' . $i . ']', '[size=' . $size[$i] . ']', $message);
@@ -2473,7 +2510,3 @@ function fill_dateformat($user_dateformat)
 
 	return ((empty($user_dateformat)) ? $config['default_dateformat'] : $user_dateformat);
 }
-
-
-
-?>
