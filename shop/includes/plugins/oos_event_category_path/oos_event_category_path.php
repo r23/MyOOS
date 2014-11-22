@@ -55,8 +55,8 @@
 
       include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_category_tree.php';
 
-      if (isset($_GET['cPath'])) {
-        $sCategory = oos_var_prep_for_os($_GET['cPath']);
+      if (isset($_GET['category'])) {
+        $sCategory = oos_var_prep_for_os($_GET['category']);
       } elseif (isset($_GET['products_id']) && !isset($_GET['manufacturers_id'])) {
         $sCategory = oos_get_product_path($_GET['products_id']);
       } else {

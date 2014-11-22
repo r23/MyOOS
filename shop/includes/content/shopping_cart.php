@@ -81,8 +81,8 @@ if (isset($_SESSION)) {
 
 						$attr_price = $attributes_values['options_values_price'];
 
-						if ($_SESSION['member']->group['discount'] != 0) {
-							$max_product_discount = min($products[$i]['discount_allowed'], $_SESSION['member']->group['discount']);
+						if ($_SESSION['user']->group['discount'] != 0) {
+							$max_product_discount = min($products[$i]['discount_allowed'], $_SESSION['user']->group['discount']);
 							if ( ($max_product_discount > 0) && ($products[$i]['spezial'] == 'false') ) {
 								$attr_price = $attr_price*(100-$max_product_discount)/100;
 							}

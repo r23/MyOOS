@@ -64,7 +64,7 @@
           $shipping_tax_description = oos_get_tax_rate($GLOBALS[$module]->tax_class, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
 
           $tax = oos_calculate_tax($oOrder->info['shipping_cost'], $shipping_tax);
-          if ($_SESSION['member']->group['show_price_tax'] == 1)  $oOrder->info['shipping_cost'] += $tax;
+          if ($_SESSION['user']->group['show_price_tax'] == 1)  $oOrder->info['shipping_cost'] += $tax;
 
           $oOrder->info['tax'] += $tax;
           $oOrder->info['tax_groups']["$shipping_tax_description"] += $tax;

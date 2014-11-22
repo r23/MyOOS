@@ -50,7 +50,7 @@
       $specials_random_base_product_price = '';
       $specials_random_base_product_special_price = '';
 
-      if ($_SESSION['member']->group['show_price'] == 1 ) {
+      if ($_SESSION['user']->group['show_price'] == 1 ) {
         $specials_random_product_price = $oCurrencies->display_price($specials_random_product['products_price'], oos_get_tax_rate($specials_random_product['products_tax_class_id']));    
         $specials_random_product_special_price = $oCurrencies->display_price($specials_random_product['specials_new_products_price'], oos_get_tax_rate($specials_random_product['products_tax_class_id']));
 

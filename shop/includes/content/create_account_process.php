@@ -434,7 +434,7 @@ if ( $session->hasStarted() === FALSE ) $session->start();
       // restore cart contents
       $_SESSION['cart']->restore_contents();
 
-      $_SESSION['member']->restore_group();
+      $_SESSION['user']->restore_group();
     }
 
     // build the message content

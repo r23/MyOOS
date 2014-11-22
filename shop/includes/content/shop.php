@@ -60,7 +60,7 @@
 
     $nPageType = OOS_PAGE_TYPE_CATALOG;
 
-    $sGroup = trim($_SESSION['member']->group['text']);
+    $sGroup = trim($_SESSION['user']->group['text']);
     $contents_cache_id = $sTheme . '|shop|nested|' . intval($nCurrentCategoryId) . '|' . $sCategory . '|' . $sGroup . '|' . $sLanguage;
 
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
@@ -195,7 +195,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
     $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
     $nFilterID = intval($_GET['filter_id']) ? $_GET['filter_id']+0 : 0;
     $sSort = oos_var_prep_for_os($_GET['sort']);
-    $sGroup = trim($_SESSION['member']->group['text']);
+    $sGroup = trim($_SESSION['user']->group['text']);
     $contents_cache_id = $sTheme . '|shop|products|' . intval($nCurrentCategoryId) . '|' . $sCategory . '|' . $nManufacturersID . '|' . $nPage . '|' . $nFilterID . '|' . $sGroup . '|' . $sLanguage;
 
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';

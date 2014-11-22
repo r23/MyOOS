@@ -29,7 +29,7 @@
  
   
   $nInformationsID = isset($_GET[information_id]) ? $_GET[information_id]+0 : 1;
-  $sGroup = trim($_SESSION['member']->group['text']);
+  $sGroup = trim($_SESSION['user']->group['text']);
   $contents_cache_id = $sTheme . '|info|' . $sGroup . '|information|' . $nInformationsID . '|' . $sLanguage;
 
   require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';

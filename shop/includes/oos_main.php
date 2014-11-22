@@ -33,7 +33,7 @@ if (is_readable('includes/local/configure.php')) {
 }
 
 // Version information
-define('OOS_VERSION', '2.0.29 -dev');
+define('OOS_VERSION', '2.0.30 -dev');
 // Complete software name string
 define('OOS_FULL_NAME', 'MyOOS ' . OOS_VERSION);
 
@@ -97,12 +97,11 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php'
 
 // initialize the logger class
 
-require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_member.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_user.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_products_history.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shopping_cart.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_navigation_history.php';
 
-require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_session.php';
 
 // require the database functions
 $adodb_logsqltable = $oostable['adodb_logsql'];
@@ -214,25 +213,6 @@ if ( $session->hasStarted() === TRUE ) {
         $session->regenerate(TRUE);
 	}
 	
-	// create the shopping cart
-	if (!isset($_SESSION['cart'])) {
-		$_SESSION['cart'] = new shoppingCart();
-	}
-
-	// navigation history
-	if (!isset($_SESSION['navigation'])) {
-		$_SESSION['navigation'] = new oosNavigationHistory();
-	}
-
-	// products history
-	if (!isset($_SESSION['products_history'])) 	{
-		$_SESSION['products_history'] = new oosProductsHistory();
-	}
-
-	if (!isset($_SESSION['member'])) {
-		$_SESSION['member'] = new oosMember();
-		$_SESSION['member']->default_member();
-	}
 
 	$aContents = oos_get_content();
 	

@@ -49,7 +49,7 @@
   $shopping_cart_detail .= '    <td class="tableHeading">' . $aLang['table_heading_products'] . '</td>' . "\n";
 
   if ($sContent == $aContents['shopping_cart']) {
-    if ($_SESSION['member']->group['discount'] != 0) {
+    if ($_SESSION['user']->group['discount'] != 0) {
       $colspan++;
       $shopping_cart_detail .= '<td align="right" class="tableHeading"><b>' . $aLang['table_heading_discount'] . '</b></td>';
     }
@@ -141,8 +141,8 @@
     $shopping_cart_detail .= '</td>' . "\n";
 
     if ($sContent == $aContents['shopping_cart']) {
-      if ($_SESSION['member']->group['discount'] != 0) {
-        $max_product_discount = min($products[$i]['discount_allowed'] , $_SESSION['member']->group['discount']);
+      if ($_SESSION['user']->group['discount'] != 0) {
+        $max_product_discount = min($products[$i]['discount_allowed'] , $_SESSION['user']->group['discount']);
         if ( ($max_product_discount > 0) && ($products[$i]['spezial'] == 'false') ) {
           $shopping_cart_detail .= '    <td align="right" valign="top" class="main">-' . number_format($max_product_discount, 2) . '%</td>';
         } else {

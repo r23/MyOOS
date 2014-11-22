@@ -71,7 +71,7 @@
     if ($wishlist_special_price = oos_get_products_special_price($wl_products_id)) {
       $wishlist_product_special_price = $oCurrencies->display_price($wishlist_special_price, oos_get_tax_rate($wishlist_product['products_tax_class_id']));
     } else {
-      $wishlist_product_discount = min($wishlist_product['products_discount_allowed'], $_SESSION['member']->group['discount']);
+      $wishlist_product_discount = min($wishlist_product['products_discount_allowed'], $_SESSION['user']->group['discount']);
 
       if ($wishlist_product_discount != 0 ) {
         $wishlist_special_price = $wishlist_product['products_price']*(100-$wishlist_product_discount)/100;

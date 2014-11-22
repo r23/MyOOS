@@ -74,7 +74,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
 			$_SESSION['customer_zone_id'] = $check_country['entry_zone_id'];
 			if (ACCOUNT_VAT_ID == 'true') $_SESSION['customers_vat_id_status'] = $check_customer['customers_vat_id_status'];
 
-			$_SESSION['member']->restore_group();
+			$_SESSION['user']->restore_group();
 
 			$customers_infotable = $oostable['customers_info'];
 			$dbconn->Execute("UPDATE $customers_infotable

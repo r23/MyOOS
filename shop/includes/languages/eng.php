@@ -333,10 +333,7 @@ $aLang['text_required'] = 'Required';
 
 $aLang['warning_install_directory_exists'] = 'Warning: Installation directory exists at: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/install. Please remove this directory for security reasons.';
 $aLang['warning_config_file_writeable'] = 'Warning: I am able to write to the configuration file: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php. This is a potential security risk - please set the right user permissions on this file.';
-$aLang['warning_session_auto_start'] = 'Warning: session.auto_start is enabled - please disable this php feature in php.ini and restart the web server.';
 $aLang['warning_download_directory_non_existent'] = 'Warning: The downloadable products directory does not exist: ' . OOS_DOWNLOAD_PATH . '. Downloadable products will not work until this directory is valid.';
-$aLang['warning_session_directory_non_existent'] = 'Warning: The sessions directory does not exist: ' . oos_session_save_path() . '. Sessions will not work until this directory is created.';
-$aLang['warning_session_directory_not_writeable'] = 'Warning: I am not able to write to the sessions directory: ' . oos_session_save_path() . '. Sessions will not work until the right user permissions are set.';
 
 $aLang['text_ccval_error_invalid_date'] = 'The expiry date entered for the credit card is invalid.<br>Please check the date and try again.';
 $aLang['text_ccval_error_invalid_number'] = 'The credit card number entered is invalid.<br>Please check the number and try again.';

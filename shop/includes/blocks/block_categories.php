@@ -45,7 +45,7 @@
     }
     $products_count += $products->fields['total'];
 
-    $nGroupID = isset($_SESSION['member']) ? $_SESSION['member']->group['id']+0 : 1;
+    $nGroupID = isset($_SESSION['user']) ? $_SESSION['user']->group['id']+0 : 1;
     $categoriestable = $oostable['categories'];
     $child_categories_result = $dbconn->Execute("SELECT categories_id FROM $categoriestable WHERE ( access = '0' OR access = '" . intval($nGroupID) . "' ) AND parent_id = '" . intval($category_id) . "'");
     if ($child_categories_result->RecordCount()) {
@@ -111,7 +111,7 @@
   // Use Categories Scroll List
   // Uses HIDE_A_CATEGORY
 
-    $nGroupID = isset($_SESSION['member']) ? $_SESSION['member']->group['id']+0 : 1;
+    $nGroupID = isset($_SESSION['user']) ? $_SESSION['user']->group['id']+0 : 1;
 
     $categoriestable = $oostable['categories'];
     $categories_descriptiontable = $oostable['categories_description'];
@@ -158,7 +158,7 @@
         unset($prev_id);
         unset($first_id);
 
-        $nGroupID = isset($_SESSION['member']) ? $_SESSION['member']->group['id']+0 : 1;
+        $nGroupID = isset($_SESSION['user']) ? $_SESSION['user']->group['id']+0 : 1;
 
         $categoriestable = $oostable['categories'];
         $categories_descriptiontable = $oostable['categories_description'];
@@ -212,7 +212,7 @@
     if (sizeof($list_of_categories_ids) > 0 ) {#vx
       $select_list_of_cat_ids = implode(",", $list_of_categories_ids);
 
-      $nGroupID = isset($_SESSION['member']) ? $_SESSION['member']->group['id']+0 : 1;
+      $nGroupID = isset($_SESSION['user']) ? $_SESSION['user']->group['id']+0 : 1;
 
       $categoriestable = $oostable['categories'];
       $query = "SELECT categories_id, parent_id

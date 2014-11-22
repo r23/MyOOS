@@ -36,7 +36,7 @@
 
   $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
-  $sGroup = trim($_SESSION['member']->group['text']);
+  $sGroup = trim($_SESSION['user']->group['text']);
   $popup_cache_id = $sTheme . '|products|' . $sGroup . '|print|' . $nProductsId . '|' . $sLanguage;
 
   if (!$smarty->isCached($aTemplate['popup_print'], $popup_cache_id )) {
@@ -86,13 +86,13 @@
       $info_special_price = '';
       $info_product_special_price = '';
 
-      if ($_SESSION['member']->group['show_price'] == 1 ) {
+      if ($_SESSION['user']->group['show_price'] == 1 ) {
         $info_product_price = $oCurrencies->display_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
 
         if ($info_special_price = oos_get_products_special_price($product_info['products_id'])) {
           $info_product_special_price = $oCurrencies->display_price($info_special_price, oos_get_tax_rate($product_info['products_tax_class_id']));
         } else {
-          $info_product_discount = min($product_info['products_discount_allowed'], $_SESSION['member']->group['discount']);
+          $info_product_discount = min($product_info['products_discount_allowed'], $_SESSION['user']->group['discount']);
 
           if ($info_product_discount != 0 ) {
             $info_product_special_price = $product_info['products_price']*(100-$info_product_discount)/100;

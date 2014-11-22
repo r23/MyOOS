@@ -794,7 +794,7 @@
   */
   function oos_add_tax($price, $tax) {
 
-    if( ($_SESSION['member']->group['show_price_tax'] == 1) && ($tax > 0) ) {
+    if( ($_SESSION['user']->group['show_price_tax'] == 1) && ($tax > 0) ) {
       return $price + oos_calculate_tax($price, $tax);
     } else {
       return $price;
@@ -822,7 +822,7 @@
   function oos_get_categories($aCategories = '', $parent_id = '0', $indent = '') {
 
     $parent_id = oos_db_prepare_input($parent_id);
-    $nGroupID = isset($_SESSION['member']) ? $_SESSION['member']->group['id']+0 : 1;
+    $nGroupID = isset($_SESSION['user']) ? $_SESSION['user']->group['id']+0 : 1;
 
     if (!is_array($aCategories)) $aCategories = array();
 
@@ -1072,7 +1072,7 @@
   }
 
   function oos_count_payment_modules() {
-    return oos_count_modules($_SESSION['member']->group['payment']);
+    return oos_count_modules($_SESSION['user']->group['payment']);
   }
 
   function oos_count_shipping_modules() {

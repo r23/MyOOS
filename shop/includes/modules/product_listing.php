@@ -53,7 +53,7 @@
         break;
 
       case 'PRODUCT_LIST_UVP':
-        if ($_SESSION['member']->group['show_price'] != 1) {
+        if ($_SESSION['user']->group['show_price'] != 1) {
           $lc_text = '';
         } else {
           $lc_text = $aLang['table_heading_list_price'];
@@ -63,7 +63,7 @@
 
 
       case 'PRODUCT_LIST_PRICE':
-        if ($_SESSION['member']->group['show_price'] != 1) {
+        if ($_SESSION['user']->group['show_price'] != 1) {
           $lc_text = '';
         } else {
           $lc_text = $aLang['table_heading_price'];
@@ -87,7 +87,7 @@
         break;
 
       case 'PRODUCT_LIST_BUY_NOW':
-        if ($_SESSION['member']->group['show_price'] != 1) {
+        if ($_SESSION['user']->group['show_price'] != 1) {
           $lc_text='';
         } else {
           $lc_text = $aLang['table_heading_buy_now'];
@@ -187,7 +187,7 @@
               $pl_special_price = $listing['specials_new_products_price'];
               $pl_product_special_price = $oCurrencies->display_price($pl_special_price, oos_get_tax_rate($listing['products_tax_class_id']));
             } else {
-              $pl_max_product_discount =  min($listing['products_discount_allowed'],$_SESSION['member']->group['discount']);
+              $pl_max_product_discount =  min($listing['products_discount_allowed'],$_SESSION['user']->group['discount']);
 
               if ($pl_max_product_discount != 0 ) {
                 $pl_special_price = $listing['products_price']*(100-$pl_max_product_discount)/100;
@@ -265,7 +265,7 @@
 
           case 'PRODUCT_LIST_BUY_NOW':
             $lc_align = 'right';
-            if ($_SESSION['member']->group['show_price'] == 1) {
+            if ($_SESSION['user']->group['show_price'] == 1) {
 
                if (DECIMAL_CART_QUANTITY == 'true') {
                  $order_min = number_format($listing['products_quantity_order_min'], 2);
@@ -278,7 +278,7 @@
                  $lc_text .= '<input type="hidden" name="action" value="buy_now">';
                  $lc_text .= '<input type="hidden" name="products_id" value="' . $listing['products_id'] .'">';
                  $lc_text .= '<input type="hidden" name="content" value="' . $sContent .'">';
-                 $lc_text .= '<input type="hidden" name="cPath" value="' . $sCategory .'">';
+                 $lc_text .= '<input type="hidden" name="category" value="' . $sCategory .'">';
                  $lc_text .= oos_draw_hidden_field($session->getName(), $session->getId());
                  $lc_text .= oos_get_all_as_hidden_field(array('action'));
                  $lc_text .= $aLang['products_order_qty_text'];

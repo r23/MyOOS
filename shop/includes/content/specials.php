@@ -32,7 +32,7 @@
   $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.html';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
-  $sGroup = trim($_SESSION['member']->group['text']);
+  $sGroup = trim($_SESSION['user']->group['text']);
   $nPage = isset($_GET[page]) ? $_GET[page]+0 : 1;
   $contents_cache_id = $sTheme . '|info|' . $sGroup . '|spezials|' . $nPage . '|' . $sLanguage;
 

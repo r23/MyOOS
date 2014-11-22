@@ -28,7 +28,7 @@
 
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
-  $sGroup = trim($_SESSION['member']->group['text']);
+  $sGroup = trim($_SESSION['user']->group['text']);
   $contents_cache_id = $sTheme . '|info|' . $sGroup . '|sitemap|' . $sLanguage;
 
   require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';

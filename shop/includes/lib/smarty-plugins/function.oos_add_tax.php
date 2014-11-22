@@ -45,10 +45,10 @@ function smarty_function_oos_add_tax($params, &$smarty)
       $$_key = smarty_function_escape_special_chars($_val);
     }
     
-    if ($_SESSION['member']->group['show_price_tax'] == 1) {
+    if ($_SESSION['user']->group['show_price_tax'] == 1) {
       return round($price, $oCurrencies->currencies[DEFAULT_CURRENCY]['decimal_places']) + oos_calculate_tax($price, $tax);
     } else {
       return round($price, $oCurrencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
     }
   }
-?>
+

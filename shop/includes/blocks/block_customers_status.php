@@ -28,9 +28,9 @@
 
   $customers_status_block = 'false';
 
-  if ($_SESSION['member']->group['public'] > 0 ) {
+  if ($_SESSION['user']->group['public'] > 0 ) {
     $customers_status_block = 'true';
-    $customers_discount = $oCurrencies->display_price($_SESSION['member']->group['ot_minimum'], '');
+    $customers_discount = $oCurrencies->display_price($_SESSION['user']->group['ot_minimum'], '');
     $smarty->assign('customers_discount', $customers_discount);
   }
 

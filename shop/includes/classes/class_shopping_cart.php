@@ -500,12 +500,12 @@
 
           $prid = $product['products_id'];
           $products_tax = oos_get_tax_rate($product['products_tax_class_id']);
-          if ($_SESSION['member']->group['qty_discounts'] == 1) {
+          if ($_SESSION['user']->group['qty_discounts'] == 1) {
             $products_price = $this->products_price_actual($prid, $product['products_price'], $nQuantity);
           } else {
             $products_price = $product['products_price'];
           }
-          $max_product_discount = min($product['products_discount_allowed'], $_SESSION['member']->group['discount']);
+          $max_product_discount = min($product['products_discount_allowed'], $_SESSION['user']->group['discount']);
           $products_price = $products_price*(100-$max_product_discount)/100;
 
           $products_weight = $product['products_weight'];
@@ -629,12 +629,12 @@
         $products_result = $dbconn->Execute($sql);
         if ($products = $products_result->fields) {
           $prid = $products['products_id'];
-          if ($_SESSION['member']->group['qty_discounts'] == 1) {
+          if ($_SESSION['user']->group['qty_discounts'] == 1) {
             $products_price = $this->products_price_actual($prid, $products['products_price'], $nQuantity);
           } else {
             $products_price = $products['products_price'];
           }
-          $max_product_discount = min($products['products_discount_allowed'], $_SESSION['member']->group['discount']);
+          $max_product_discount = min($products['products_discount_allowed'], $_SESSION['user']->group['discount']);
           $products_price = $products_price*(100-$max_product_discount)/100;
 
           $spezial_price = 'false';

@@ -93,7 +93,7 @@
                  '  <tr>' . "\n" .
                  '    <td colspan="2"></td>' . "\n" .
                  '  </tr>' . "\n";
-  if ($_SESSION['member']->group['show_price'] == 1 ) {
+  if ($_SESSION['user']->group['show_price'] == 1 ) {
     $options_box .= '  <tr>' . "\n" .
                     '    <td class="fieldKey">' . $aLang['entry_price_from'] . '</td>' . "\n" .
                     '    <td class="fieldValue">' . oos_draw_input_field('pfrom') . '</td>' . "\n" .

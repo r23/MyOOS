@@ -56,7 +56,6 @@ use Symfony\Component\HttpFoundation\Request;
 $autoloader = require_once __DIR__ . '/core/vendor/autoload.php';
 $request = Request::createFromGlobals();
 
-
 define('MYOOS_DOCUMENT_ROOT', dirname(__FILE__)=='/'?'':dirname(__FILE__));
 
 if(!defined('MYOOS_INCLUDE_PATH')) {

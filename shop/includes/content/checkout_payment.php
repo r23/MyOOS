@@ -34,7 +34,7 @@ if ( $session->hasStarted() === FALSE ) $session->start();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
   }
 
-  if (oos_empty($_SESSION['member']->group['payment'])) {
+  if (oos_empty($_SESSION['user']->group['payment'])) {
     oos_redirect(oos_href_link($aContents['main'])); 
   }
 

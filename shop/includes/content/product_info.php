@@ -82,39 +82,8 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
         . " WHERE products_id = ?"
         . "   AND products_languages_id = ?";
     $result = $dbconn->Execute($query, array((int)$nProductsId, (int)$nLanguageID));
-
     $product_info = $product_info_result->fields;
 
-
-    if (is_dir(OOS_IMAGES . 'zoomify/')) {
-      if ($product_info['products_zoomify'] == '') {
-        if (oos_is_not_null($product_info['products_image'])){
-          $sImage = $product_info['products_image'];
-          $sDir = substr($sImage, 0, strrpos($sImage, '.'));
-          if ( file_exists(OOS_IMAGES . 'zoomify/' .  $sDir  . '/ImageProperties.xml') ) {
-            $sImagePath = $sDir;
-          }
-        }
-
-        if (!isset($sImagePath)) {
-          $sName = $product_info['products_name'];
-          $sDir = oos_strip_all($product_info['products_name']);
-          if ( file_exists(OOS_IMAGES . 'zoomify/' .  $sDir  . '/ImageProperties.xml') ) {
-            $sImagePath = $sDir;
-          }
-        }
-
-        if (isset($sImagePath)) {
-          $productstable = $oostable['products'];
-          $query = "UPDATE $productstable"
-              . " SET products_zoomify = ?"
-              . " WHERE products_id = ?";
-          $result = $dbconn->Execute($query, array((string)$sImagePath, (int)$nProductsId));
-
-          $product_info['products_zoomify'] = $sImagePath;
-        }
-      }
-    }
 
 
     // links breadcrumb
@@ -125,27 +94,15 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
     }
 
 
-    // $oos_pagetitle = OOS_META_TITLE . ' // ' . $oBreadcrumb->trail_title(' &raquo; ');
+    // Meta Tags
     $oos_pagetitle = OOS_META_TITLE . ' - ' . $product_info['products_name'];
-
-
-    // todo multilanguage support
-    if (OOS_META_PRODUKT == "description tag by article description replace") {
-      $oos_meta_description = substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '',$product_info['products_description'])),0 , 250);
-    } elseif (OOS_META_PRODUKT == "Meta Tag with article edit") {
-      $oos_meta_description = $product_info['products_description_meta'];
-      $oos_meta_keywords = $product_info['products_keywords_meta'];
-    }
+    $oos_meta_description = substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '',$product_info['products_description'])),0 , 250);
 
     $aTemplate['page'] = $sTheme . '/page/product_info.html';
     $aTemplate['also_purchased_products'] = $sTheme . '/products/also_purchased_products.html';
     $aTemplate['xsell_products'] = $sTheme . '/products/xsell_products.html';
     $aTemplate['up_sell_products'] = $sTheme . '/products/up_sell_products.html';
     $aTemplate['page_heading'] = $sTheme . '/products/product_heading.html';
-
-    if (SOCIAL_BOOKMARKS == 'true') {
-      $aTemplate['social_bookmarks'] = 'default/products/social_bookmarks.html';
-    }
 
     $nPageType = OOS_PAGE_TYPE_PRODUCTS;
 
@@ -156,8 +113,10 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
     }
 
     // products history
-    $_SESSION['products_history']->add_current_products($nProductsId);
-
+	if (isset($_SESSION)) {
+		$_SESSION['products_history']->add_current_products($nProductsId);
+	}
+	
     // JavaScript 
     $smarty->assign('popup_window', 'popup_window.js');
 
@@ -171,13 +130,13 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
     $info_special_price = '';
     $info_product_special_price = '';
 
-    if ($_SESSION['member']->group['show_price'] == 1 ) {
+    if ($_SESSION['user']->group['show_price'] == 1 ) {
       $info_product_price = $oCurrencies->display_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
 
       if ($info_special_price = oos_get_products_special_price($product_info['products_id'])) {
         $info_product_special_price = $oCurrencies->display_price($info_special_price, oos_get_tax_rate($product_info['products_tax_class_id']));
       } else {
-        $info_product_discount = min($product_info['products_discount_allowed'], $_SESSION['member']->group['discount']);
+        $info_product_discount = min($product_info['products_discount_allowed'], $_SESSION['user']->group['discount']);
 
         if ($info_product_discount != 0 ) {
           $info_product_special_price = $product_info['products_price']*(100-$info_product_discount)/100;
@@ -225,7 +184,7 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 
     $discounts_price = 'false';
     if ( (oos_empty($info_special_price)) && ( ($product_info['products_discount4_qty'] > 0 || $product_info['products_discount3_qty'] > 0 || $product_info['products_discount2_qty'] > 0 || $product_info['products_discount1_qty'] > 0 )) ){
-      if ( ($_SESSION['member']->group['show_price'] == 1 ) && ($_SESSION['member']->group['qty_discounts'] == 1) ) {
+      if ( ($_SESSION['user']->group['show_price'] == 1 ) && ($_SESSION['user']->group['qty_discounts'] == 1) ) {
         $discounts_price = 'true';
         require_once MYOOS_INCLUDE_PATH . '/includes/modules/discounts_price.php';
 

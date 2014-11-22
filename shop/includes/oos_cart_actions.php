@@ -26,7 +26,7 @@ if ( $session->hasStarted() === FALSE ) $session->start();
   
   if (DISPLAY_CART == 'true') {
     $goto_file = $aContents['shopping_cart'];
-    $parameters = array('action', 'cPath', 'products_id', 'pid');
+    $parameters = array('action', 'category', 'products_id', 'pid');
   } else {
     $goto_file = $sContent;
     if ($_GET['action'] == 'buy_now') {

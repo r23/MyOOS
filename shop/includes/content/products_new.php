@@ -29,7 +29,7 @@
   $nPageType = OOS_PAGE_TYPE_CATALOG;
 
   $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
-  $sGroup = trim($_SESSION['member']->group['text']);
+  $sGroup = trim($_SESSION['user']->group['text']);
   $contents_cache_id = $sTheme . '|products_new|' . $nPage. '|' . $sGroup . '|' . $sLanguage;
 
   require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
@@ -81,7 +81,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
         $new_special_price = $products_new['specials_new_products_price'];
         $new_product_special_price = $oCurrencies->display_price($new_special_price, oos_get_tax_rate($products_new['products_tax_class_id']));
       } else {
-        $new_max_product_discount = min($products_new['products_discount_allowed'],$_SESSION['member']->group['discount']);
+        $new_max_product_discount = min($products_new['products_discount_allowed'],$_SESSION['user']->group['discount']);
         if ($new_max_product_discount != 0) {
           $new_special_price = $products_new['products_price']*(100-$new_max_product_discount)/100;
           $new_product_discount_price = $oCurrencies->display_price($new_special_price, oos_get_tax_rate($products_new['products_tax_class_id']));

@@ -62,7 +62,7 @@
       if (oos_is_not_null($featured_special_price)) {
         $featured_product_special_price = $oCurrencies->display_price($featured_special_price, oos_get_tax_rate($featured['products_tax_class_id']));
       } else {
-        $featured_max_product_discount = min($featured['products_discount_allowed'],$_SESSION['member']->group['discount']);
+        $featured_max_product_discount = min($featured['products_discount_allowed'],$_SESSION['user']->group['discount']);
         if ($featured_max_product_discount != 0 ) {
           $featured_special_price = $featured['products_price']*(100-$featured_max_product_discount)/100;
           $featured_product_discount_price = $oCurrencies->display_price($featured_special_price, oos_get_tax_rate($featured['products_tax_class_id']));

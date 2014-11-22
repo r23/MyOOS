@@ -38,7 +38,7 @@
 
       $aContents = oos_get_content();
 
-      if ( (in_array('cPath', $url_array)) || (in_array($aContents['product_info'], $url_array) && in_array($url_array)) ) {
+      if ( (in_array('category', $url_array)) || (in_array($aContents['product_info'], $url_array) && in_array($url_array)) ) {
 
         $_filter = array('content', $aContents['shop'], $session->getName(), $session->getId());
 
@@ -52,7 +52,7 @@
 
         for ($i=0; $i < count($url_array); $i++){
           switch ($url_array[$i]) {
-            case 'cPath':
+            case 'category':
               unset($category);
               $category = '';
               $i++;
@@ -67,7 +67,7 @@
                   $category = substr($category, 0, -1);
                   $category .= '-c-' .  $url_array[$i]. '/';
                 } else {
-                  $category .= 'cPath/' . $url_array[$i] . '/';
+                  $category .= 'category/' . $url_array[$i] . '/';
                 }
               }
               $path .= $category;

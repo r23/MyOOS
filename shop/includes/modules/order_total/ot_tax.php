@@ -38,7 +38,7 @@
       global $oOrder, $oCurrencies, $aLang;
 
       reset($oOrder->info['tax_groups']);
-      if ($_SESSION['member']->group['show_price_tax'] == 1) {
+      if ($_SESSION['user']->group['show_price_tax'] == 1) {
         $info = $aLang['module_order_total_included_tax'];
       } else {
         $info = $aLang['module_order_total_ex_tax'];

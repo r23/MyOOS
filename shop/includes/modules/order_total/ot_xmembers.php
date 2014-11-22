@@ -38,8 +38,8 @@
       $this->sort_order = (defined('MODULE_XMEMBERS_SORT_ORDER') ? MODULE_XMEMBERS_SORT_ORDER : null);
       $this->include_shipping = (defined('MODULE_XMEMBERS_INC_SHIPPING') ? MODULE_XMEMBERS_INC_SHIPPING : null);
       $this->include_tax = (defined('MODULE_XMEMBERS_INC_TAX') ? MODULE_XMEMBERS_INC_TAX : null);
-      $this->percentage = $_SESSION['member']->group['ot_discount'];
-      $this->minimum = $_SESSION['member']->group['ot_minimum'];
+      $this->percentage = $_SESSION['user']->group['ot_discount'];
+      $this->minimum = $_SESSION['user']->group['ot_minimum'];
       $this->calculate_tax = (defined('MODULE_XMEMBERS_CALC_TAX') ? MODULE_XMEMBERS_CALC_TAX : null);
 
       $this->output = array();
@@ -51,7 +51,7 @@
       $od_amount = $this->calculate_credit($this->get_order_total());
       if ($od_amount>0) {
         $this->deduction = $od_amount;
-        $this->output[] = array('title' => '<span class="otDiscount">- ' . $this->title . ' ('. number_format($_SESSION['member']->group['ot_discount'], 2) .'%):</span>',
+        $this->output[] = array('title' => '<span class="otDiscount">- ' . $this->title . ' ('. number_format($_SESSION['user']->group['ot_discount'], 2) .'%):</span>',
                                 'text' => '<b><span class="otDiscount">' . $oCurrencies->format($od_amount) . '</span></b>',
                                 'value' => $od_amount);
         $oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
@@ -65,7 +65,7 @@
     $od_amount=0;
     $od_pc = $this->percentage;
     if ($amount > $this->minimum) {
-      if ($_SESSION['member']->group['ot_discount_flag'] == '1') {  // Calculate tax reduction if necessary
+      if ($_SESSION['user']->group['ot_discount_flag'] == '1') {  // Calculate tax reduction if necessary
         if ($this->calculate_tax == 'true') {  // Calculate main tax reduction
           $tod_amount = round($oOrder->info['tax']*10)/10*$od_pc/100;
           $oOrder->info['tax'] = $oOrder->info['tax'] - $tod_amount; // Calculate tax group deductions

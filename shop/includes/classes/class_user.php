@@ -24,15 +24,15 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  class oosMember {
+  class oosUser {
     var $group;
     var $groupID;
 
-    function oosMember() {
+    function oosUser() {
       $this->reset();
     }
 
-    function default_member() {
+    function anonymous() {
 
       // Get database information
       $dbconn =& oosDBGetConn();

@@ -46,7 +46,7 @@
   }
 
   $_SESSION['cart']->reset(); 
-  $_SESSION['member']->default_member();
+  $_SESSION['user']->anonymous();
 
   $aTemplate['page'] = $sTheme . '/system/success.html';
   $aTemplate['page_heading'] = $sTheme . '/heading/success_page_heading.html';

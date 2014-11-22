@@ -28,7 +28,7 @@
 function smarty_function_html_customer_image_submit($params, &$smarty)
 {
 /*
-    if ($_SESSION['member']->group['show_price'] != 1) {
+    if ($_SESSION['user']->group['show_price'] != 1) {
       return '';
     } 
 */

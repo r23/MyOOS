@@ -39,26 +39,6 @@
     }
   }
 
-  // check if the session folder is writeable
-  if (WARN_SESSION_DIRECTORY_NOT_WRITEABLE == 'true') {
-    if (STORE_SESSIONS == 'false') {
-      if (!is_dir(oos_session_save_path())) {
-        $aInfoMessage[] = array('type' => 'warning',
-                                'text' => $aLang['warning_session_directory_non_existent']);
-      } elseif (!is_writeable(oos_session_save_path())) {
-        $aInfoMessage[] = array('type' => 'warning',
-                                'text' => $aLang['warning_session_directory_not_writeable']);
-      }
-    }
-  }
-
-  // check session.auto_start is disabled
-  if ( (function_exists('ini_get')) && (WARN_SESSION_AUTO_START == 'true') ) {
-    if (ini_get('session.auto_start') == '1') {
-      $aInfoMessage[] = array('type' => 'warning',
-                              'text' => $aLang['warning_session_auto_start']);
-    }
-  }
 
   if ( (WARN_DOWNLOAD_DIRECTORY_NOT_READABLE == 'true') && (DOWNLOAD_ENABLED == 'true') ) {
     if (!is_dir(OOS_DOWNLOAD_PATH)) {

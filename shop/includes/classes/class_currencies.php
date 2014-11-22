@@ -89,7 +89,7 @@
            $show_what_price = $aLang['down_for_maintenance_no_prices_display'];
            break;
 
-        case ($_SESSION['member']->group['show_price'] != 1) && (!isset($_SESSION['affiliate_id'])):
+        case ($_SESSION['user']->group['show_price'] != 1) && (!isset($_SESSION['affiliate_id'])):
             $show_what_price = $aLang['no_login_no_prices_display'];
             break;
 

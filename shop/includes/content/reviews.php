@@ -46,7 +46,7 @@
   $nPageType = OOS_PAGE_TYPE_CATALOG;
 
   $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
-  $sGroup = trim($_SESSION['member']->group['text']);
+  $sGroup = trim($_SESSION['user']->group['text']);
   $contents_cache_id = $sTheme . '|products|reviews|' . $nPage. '|' . $sGroup . '|' . $sLanguage;
 
   require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';

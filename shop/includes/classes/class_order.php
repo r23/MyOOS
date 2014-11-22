@@ -406,7 +406,7 @@
         $this->info['subtotal'] += $shown_price;
 
         $products_tax = $this->products[$index]['tax'];
-        if ($_SESSION['member']->group['show_price_tax'] == 1) {
+        if ($_SESSION['user']->group['show_price_tax'] == 1) {
           $this->info['tax'] += $shown_price - ($shown_price / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
           $this->info['tax_groups']["$products_tax"] += $shown_price - ($shown_price / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
         } else {
@@ -417,7 +417,7 @@
         $index++;
       }
 
-      if ($_SESSION['member']->group['show_price_tax'] == 1) {
+      if ($_SESSION['user']->group['show_price_tax'] == 1) {
         $this->info['total'] = $this->info['subtotal'] + $this->info['shipping_cost'];
       } else {
         $this->info['total'] = $this->info['subtotal'] + $this->info['tax'] + $this->info['shipping_cost'];

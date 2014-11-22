@@ -30,8 +30,8 @@
     function payment($module = '') {
       global $aLang;
 
-      if (defined('MODULE_PAYMENT_INSTALLED') && oos_is_not_null($_SESSION['member']->group['payment'])) {
-        $this->modules = explode(';', $_SESSION['member']->group['payment']);
+      if (defined('MODULE_PAYMENT_INSTALLED') && oos_is_not_null($_SESSION['user']->group['payment'])) {
+        $this->modules = explode(';', $_SESSION['user']->group['payment']);
 
         $include_modules = array();
 

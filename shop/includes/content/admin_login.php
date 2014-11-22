@@ -72,7 +72,7 @@
 
     $_SESSION['cart']->reset();
 
-    $_SESSION['member']->default_member();
+    $_SESSION['user']->anonymous();
   }
 
   if (isset($_GET['action']) && ($_GET['action'] == 'login_process')) {
@@ -132,7 +132,7 @@
       $_SESSION['customer_shopping_points'] = $check_customer['customers_shopping_points'];
 
       $_SESSION['man_key'] = $keya;
-      $_SESSION['member']->restore_group();
+      $_SESSION['user']->restore_group();
 
 // restore cart contents
       $_SESSION['cart']->restore_contents();

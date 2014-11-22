@@ -137,8 +137,8 @@ $products_units = $dbconn->GetAssoc($query);
 
 // PAngV
 $sPAngV = $aLang['text_taxt_incl'];
-if ($_SESSION['member']->group['show_price'] == 1) {
-    if ($_SESSION['member']->group['show_price_tax'] == 1) {
+if ($_SESSION['user']->group['show_price'] == 1) {
+    if ($_SESSION['user']->group['show_price_tax'] == 1) {
 		$sPAngV = $aLang['text_taxt_incl'];
     } else {
 		$sPAngV = $aLang['text_taxt_add'];
