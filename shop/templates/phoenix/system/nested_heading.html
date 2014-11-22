@@ -1,0 +1,13 @@
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="pageHeading">{$oos_heading_title}</td>
+  </tr>
+{if $smarty.const.ALLOW_CATEGORY_DESCRIPTIONS eq 'true' && $category.categories_description != '' }
+  <tr>
+    <td height="10"></td>
+  </tr>
+  <tr>
+    <td align="left" class="main">{$category.categories_description}</td>
+  </tr>
+{/if}
+</table>

@@ -1,0 +1,49 @@
+{include file="phoenix/system/_header.tpl"}
+
+    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="main"><b>{$lang.sub_title_product}</b> {$reviews.products_name}</td>
+            <td class="smallText" rowspan="3" align="center"><a href="{product_info_link products_id=$smarty.get.products_id}">{small_product_image image=$reviews.products_image alt=$reviews.products_name|strip_tags align=center hspace=5 vspace=5}<br>{$reviews.products_name}</a></td>
+          </tr>
+          <tr>
+            <td class="main"><b>{$lang.sub_title_from}</b> {$reviews.customers_name}</td>
+          </tr>
+          <tr>
+            <td class="main"><b>{$lang.sub_title_date}</b> {$reviews.date_added|oos_date_long}</td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td class="main"><b>{$lang.sub_title_review}</b></td>
+      </tr>
+      <tr>
+        <td class="main"><br>{$reviews.reviews_text|strip_tags|wordwrap:60:"<br>\n"|bbcode2html|B2Smilies}</td>
+      </tr>
+      <tr>
+        <td class="main"><br><b>{$lang.sub_title_rating}</b> <img src="{$smarty.const.OOS_IMAGES}stars_{$reviews.reviews_rating}.gif" border="0" alt="{$reviews.reviews_rating|string_format:$lang.text_of_5_stars}" width="59" height="11"> <small>{$reviews.reviews_rating|string_format:$lang.text_of_5_stars}</small></td>
+      </tr>
+      <tr>
+        <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="main"><a href="{html_href_link content=$filename.product_reviews products_id=$smarty.get.products_id}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
+            <td align="right" class="main">
+{if $smarty.session.member->group.show_price eq 1 }
+  <a href="{html_href_link content=$filename.main action=buy_now products_id=$smarty.get.products_id}">{html_image_button image="in_cart.gif" alt=$lang.image_button_in_cart}</a>
+{else}
+  <a href="{html_href_link content=$filename.login connection=SSL}">{html_image_button image="sign_in.gif" alt=$lang.image_button_login}</a>
+{/if}
+             </td>
+          </tr>
+        </table></td>
+      </tr>
+    </table>
+
+{include file="phoenix/system/_footer.tpl"}

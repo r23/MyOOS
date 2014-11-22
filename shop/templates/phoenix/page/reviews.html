@@ -1,0 +1,35 @@
+{include file="phoenix/system/_header.tpl"}
+
+    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>{$oosPageHeading}</td>
+      </tr>
+      <tr>
+        <td height="10"></td>
+      </tr>
+{if $oos_page_numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '1' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+   {$oosPageNavigation}
+{/if}
+      <tr>
+        <td><table border="0" cellspacing="0" cellpadding="2">
+{section name=i loop=$oos_reviews_array}
+  <tr>
+    <td valign="top" class="main"><a href="{html_href_link content=$filename.product_reviews_info products_id=$oos_reviews_array[i].products_id reviews_id=$oos_reviews_array[i].reviews_id}">{small_product_image image=$oos_reviews_array[i].products_image alt=$oos_reviews_array[i].products_name|strip_tags}</a></td>
+    <td valign="top" class="main"><a href="{html_href_link content=$filename.product_reviews_info products_id=$oos_reviews_array[i].products_id reviews_id=$oos_reviews_array[i].reviews_id}"><b><u>{$oos_reviews_array[i].products_name}</u></b></a>&nbsp;{$oos_reviews_array[i].authors_name|string_format:$lang.text_review_by}&nbsp;({$oos_reviews_array[i].word_count|string_format:$lang.text_review_word_count})<br>{$oos_reviews_array[i].review}<br><br><i> {$lang.text_review_rating}<img src="{$smarty.const.OOS_IMAGES}stars_{$oos_reviews_array[i].rating}.gif" border="0" alt="{$oos_reviews_array[i].rating|string_format:$lang.text_of_5_stars}" width="59" height="11"> {$oos_reviews_array[i].rating|string_format:$lang.text_of_5_stars}<br>{$lang.text_review_date_added} {$oos_reviews_array[i].date_added}</i></td>
+  </tr>
+  <tr>
+    <td colspan="2" class="main">&nbsp;</td>
+  </tr>
+{sectionelse}
+  <tr>
+    <td class="main">{$lang.text_no_reviews}</td>
+  </tr>
+{/section}
+        </table></td>
+      </tr>
+{if $oos_page_numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+  {$oosPageNavigation}
+{/if}
+    </table>
+
+{include file="phoenix/system/_footer.tpl"}

@@ -1,0 +1,39 @@
+<table width="154" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="19" class="block_head_background"><img src="{$theme_image}/table_head_arrow.gif" alt=" " width="21" height="19"></td>
+    <td width="130" class="block_head_background">{$block_heading_search}</td>
+    <td width="5" class="block_head_background"><img src="{$theme_image}/table_head_right.gif" alt=" " width="5" height="19"></td>
+  </tr>
+  <tr>
+    <td colspan="3"><table width="154" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="2" class="block_content_backgr_left"></td>
+        <td width="150"><table width="150" border="0" cellspacing="0" cellpadding="3">
+          <tr>
+            <td align="left" valign="top" class="block_content">
+    <form name="quick_find" action="{html_href_link content=$filename.advanced_search_result}" method="get">
+{if $mySystem.sed}
+    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+	<input type="hidden" name="formid" value="{$mySystem.formid}">
+{/if}
+    <input type="hidden" name="content" value="{$filename.advanced_search_result}"><br>
+    {html_js_inputbox name='keywords' size='12' value=$lang.text_search}
+    {html_image_submit image="quick_find.gif" alt=$block_heading_search}
+    <br>{$lang.block_search_text|wordwrap:25:"<br>\n"}<br>
+    <a href="{html_href_link content=$filename.advanced_search}"><b>{$lang.block_search_advanced_search}</b></a></form></td>
+          </tr>
+        </table></td>
+        <td width="2" class="block_content_backgr_right"></td>
+      </tr>
+      <tr>
+        <td><img src="{$theme_image}/table_butt_left.gif" alt=" " width="2" height="8"></td>
+        <td></td>
+
+        <td><img src="{$theme_image}/table_butt_right.gif" alt=" " width="2" height="8"></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="3"><img src="{$theme_image}/pixel.gif" alt=" " width="3" height="3"></td>
+  </tr>
+</table>

@@ -1,0 +1,48 @@
+{if $wishlist_block eq 'true'}
+<table width="154" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="19" class="block_head_background"><img src="{$theme_image}/table_head_arrow.gif" alt=" " width="21" height="19"></td>
+    <td width="115" class="block_head_background">{$block_heading_customer_wishlist}</td>
+    <td width="20" class="block_head_background" nowrap="nowrap"><a href="{html_href_link content=$filename.account_my_wishlist connection=SSL}"><img src="{$theme_image}/infobox/more.gif" border="0" alt="{$lang.icon_arrow_right}" width="15" height="19"></a><img src="{$theme_image}/table_head_right.gif" alt=" " width="5" height="19"></td>
+  </tr>
+  <tr>
+    <td colspan="3"><table width="154" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="2" class="block_content_backgr_left"></td>
+        <td width="150"><table width="144" border="0" cellspacing="0" cellpadding="3">
+{if $show_wishlist eq 'true'}
+  {foreach name=block item=wishlist from=$wishlist_contents}
+          <tr>
+    {if $smarty.const.BLOCK_WISHLIST_IMAGE eq 'true'}
+            <td align="center" colspan="2"><a href="{product_info_link products_id=$wishlist.products_id}">{small_product_image image=$wishlist.products_image alt=$wishlist.products_name|strip_tags}</a></td>
+          </tr>
+          <tr>
+    {/if}
+            <td class="block_content" valign="top">{$smarty.foreach.block.iteration|number_format}.</td>
+            <td class="block_content"><a href="{product_info_link products_id=$wishlist.products_id}">{$wishlist.products_name}</a></td>
+          </tr>
+  {/foreach}
+{else}
+          <tr>
+            <td align="center" valign="top" class="block_content">{$lang.block_wishlist_empty}</td>
+          </tr>
+{/if}
+          <tr>
+            <td colspan="2"><img src="{$theme_image}/pixel.gif" alt=" " width="144" height="3"></td>
+          </tr>
+        </table></td>
+        <td width="2" class="block_content_backgr_right"></td>
+      </tr>
+      <tr>
+        <td><img src="{$theme_image}/table_butt_left.gif" alt=" " width="2" height="8"></td>
+        <td></td>
+
+        <td><img src="{$theme_image}/table_butt_right.gif" alt=" " width="2" height="8"></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="3"><img src="{$theme_image}/pixel.gif" alt=" " width="3" height="3"></td>
+  </tr>
+</table>
+{/if}

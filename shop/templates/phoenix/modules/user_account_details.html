@@ -1,0 +1,174 @@
+     <table border="0" width="100%" cellspacing="0" cellpadding="2">
+         <tr>
+           <td class="formAreaTitle">{$lang.category_personal}</td>
+         </tr>
+         <tr>
+           <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
+            <tr>
+              <td class="main"><table border="0" cellspacing="0" cellpadding="2">
+{if $smarty.const.ACCOUNT_GENDER eq 'true'}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_gender}</td>
+            <td class="main">&nbsp;<input type="radio" name="gender" value="m" checked="checked">&nbsp;&nbsp;{$lang.male}&nbsp;&nbsp;<input type="radio" name="gender" value="f">&nbsp;&nbsp;{$lang.female}&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small></td>
+          </tr>
+{/if}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_first_name}</td>
+            <td class="main">&nbsp;<input type="text" name="firstname" value="{$account.customers_firstname}">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small></td>
+          </tr>
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_last_name}</td>
+            <td class="main">&nbsp;<input type="text" name="lastname" value="{$account.customers_lastname}">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small></td>
+          </tr>
+{if $smarty.const.ACCOUNT_DOB eq 'true'}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_date_of_birth}</td>
+            <td class="main">&nbsp;<input type="text" name="dob" value="{$account.customers_dob|oos_date_short}">&nbsp;&nbsp;<small>{$lang.entry_date_of_birth_text}<font color="#AABBDD">{$lang.entry_info_text}</font></small></td>
+          </tr>
+{/if}
+{if $smarty.const.ACCOUNT_NUMBER eq 'true'}
+  {if $read eq 'false'}
+          <tr>
+              <td class="main">&nbsp;{$lang.entry_number}</td>
+              <td class="main">&nbsp;<input type="text" name="number" value="{$number}"></td>
+          </tr>
+  {else}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_number}</td>
+            <td class="main">&nbsp;{$account.customers_number}<input type="hidden" name="number" value="{$account.customers_number}"></td>
+          </tr>
+  {/if}
+{/if}
+         <tr>
+            <td class="main">&nbsp;{$lang.entry_email_address}</td>
+            <td class="main">&nbsp;<input type="text" name="email_address" value="{$email_address}">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+{if $smarty.const.ACCOUNT_COMPANY eq 'true'}
+  <tr>
+    <td class="formAreaTitle"><br>{$lang.category_company}</td>
+  </tr>
+  <tr>
+    <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
+      <tr>
+        <td class="main"><table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_company}</td>
+            <td class="main">&nbsp;<input type="text" name="company" value="{$account.entry_company}"></td>
+          </tr>
+  {if $smarty.const.ACCOUNT_OWNER eq 'true'}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_owner}</td>
+            <td class="main">&nbsp;<input type="text" name="owner" value="{$account.entry_owner}"></td>
+          </tr>
+
+  {/if}
+  {if $smarty.const.ACCOUNT_VAT_ID eq 'true'}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_vat_id}</td>
+            <td class="main">&nbsp;<input type="text" name="vat_id" value="{$account.customers_vat_id}"></td>
+          </tr>
+  {/if}
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+{/if}
+  <tr>
+    <td class="formAreaTitle"><br>{$lang.category_address}</td>
+  </tr>
+  <tr>
+    <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
+      <tr>
+        <td class="main"><table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_street_address}</td>
+            <td class="main">&nbsp;<input type="text" name="street_address" value="{$account.entry_street_address}">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small></td>
+          </tr>
+{if $smarty.const.ACCOUNT_SUBURB eq 'true'}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_suburb}</td>
+            <td class="main">&nbsp;<input type="text" name="suburb" value="{$account.entry_suburb}"></td>
+          </tr>
+{/if}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_post_code}</td>
+            <td class="main">&nbsp;<input type="text" name="postcode" value="{$account.entry_postcode}">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small></td>
+          </tr>
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_city}</td>
+            <td class="main">&nbsp;<input type="text" name="city" value="{$account.entry_city}">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small></td>
+          </tr>
+{if $smarty.const.ACCOUNT_STATE eq 'true'}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_state}</td>
+            <td class="main">&nbsp;<input type="text" name="state" value="{oos_get_zone_name country_id=$account.entry_country_id zone_id=$account.entry_zone_id default_zone=$account.entry_state}">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small></td>
+          </tr>
+{/if}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_country}</td>
+            <td class="main">&nbsp;{oos_get_country_list name=country selected=$account.entry_country_id}&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td class="formAreaTitle"><br>{$lang.category_contact}</td>
+  </tr>
+  <tr>
+    <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
+      <tr>
+        <td class="main"><table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_telephone_number}</td>
+            <td class="main">&nbsp;<input type="text" name="telephone" value="{$account.customers_telephone}">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small></td>
+          </tr>
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_fax_number}</td>
+            <td class="main">&nbsp;<input type="text" name="fax" value="{$account.customers_fax}"></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td class="formAreaTitle"><br>{$lang.category_options}</td>
+  </tr>
+  <tr>
+    <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
+      <tr>
+        <td class="main"><table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_newsletter}</td>
+            <td class="main">&nbsp;<select name=newsletter>{html_options values=$newsletter_ids selected=$account.customers_newsletter output=$newsletter}</select></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+{if $show_password eq 'true'}
+  <tr>
+    <td class="formAreaTitle"><br>{$lang.category_password}</td>
+  </tr>
+  <tr>
+    <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
+      <tr>
+        <td class="main"><table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_password}</td>
+            <td class="main">&nbsp;<input type="password" name="password" maxlength="40">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small></td>
+          </tr>
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_password_confirmation}</td>
+            <td class="main">&nbsp;<input type="password" name="confirmation" maxlength="40">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_password_confirmation}</font></small></td></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+{/if}
+</table>

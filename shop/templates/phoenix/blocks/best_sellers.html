@@ -1,0 +1,41 @@
+{if $best_sellers_block eq 'true'}
+<table width="154" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="19" class="block_head_background"><img src="{$theme_image}/table_head_arrow.gif" alt=" " width="21" height="19"></td>
+    <td width="130" class="block_head_background">{$block_heading_best_sellers}</td>
+    <td width="5" class="block_head_background"><img src="{$theme_image}/table_head_right.gif" alt=" " width="5" height="19"></td>
+  </tr>
+  <tr>
+    <td colspan="3"><table width="154" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="2" class="block_content_backgr_left"></td>
+        <td width="150"><table width="144" border="0" cellspacing="0" cellpadding="3">
+{foreach name=best item=best_seller from=$best_sellers_list}
+          <tr>
+            <td class="block_content" valign="top">{$smarty.foreach.best.iteration|number_format}.</td>
+  {if $smarty.const.BLOCK_BEST_SELLERS_IMAGE eq 'true'}
+            <td class="block_content">{tooltip products_id=$best_seller.products_id products_description=$best_seller.products_description image=$best_seller.products_image}{$best_seller.products_name|truncate:14:"":true|close_tags}</a>
+  {else}
+            <td class="block_content"><a href="{product_info_link products_id=$best_seller.products_id}">{$best_seller.products_name|truncate:17:"":true|close_tags}</a></td>
+  {/if}
+          </tr>
+{/foreach}
+          <tr>
+            <td colspan="2"><img src="{$theme_image}/pixel.gif" alt=" " width="144" height="3"></td>
+          </tr>
+        </table></td>
+        <td width="2" class="block_content_backgr_right"></td>
+      </tr>
+      <tr>
+        <td><img src="{$theme_image}/table_butt_left.gif" alt=" " width="2" height="8"></td>
+        <td></td>
+
+        <td><img src="{$theme_image}/table_butt_right.gif" alt=" " width="2" height="8"></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="3"><img src="{$theme_image}/pixel.gif" alt=" " width="3" height="3"></td>
+  </tr>
+</table>
+{/if}

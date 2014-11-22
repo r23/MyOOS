@@ -1,0 +1,45 @@
+{if $manufacturers_block eq 'true'}
+<table width="154" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="19" class="block_head_background"><img src="{$theme_image}/table_head_arrow.gif" alt=" " width="21" height="19"></td>
+    <td width="130" class="block_head_background">{$block_heading_manufacturers}</td>
+    <td width="5" class="block_head_background"><img src="{$theme_image}/table_head_right.gif" alt=" " width="5" height="19"></td>
+  </tr>
+  <tr>
+    <td colspan="3"><table width="154" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="2" class="block_content_backgr_left"></td>
+        <td width="150"><table width="150" border="0" cellspacing="0" cellpadding="3">
+          <tr>
+            <td align="left" valign="top" class="block_content">
+{if $display_a_list eq 'true'}
+{foreach item=manufacturer from=$manufacturers_list}
+  {include file="default/blocks/manufacturer.html"}
+{/foreach}
+{else}
+   <form name="manufacturers" action="{html_get_link}" method="get">
+    <input type="hidden" name="content" value="{$filename.shop}">
+{if $mySystem.sed}
+    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+	<input type="hidden" name="formid" value="{$mySystem.formid}">
+{/if}
+    <select name="manufacturers_id" onChange="this.form.submit();" size="{$smarty.const.MAX_MANUFACTURERS_LIST}" style="width: 100%">{html_options values=$manufacturers_values selected=$select_manufacturers output=$manufacturers_names}</select>
+    </form>
+{/if}
+           </td>
+          </tr>
+        </table></td>
+        <td width="2" class="block_content_backgr_right"></td>
+      </tr>
+      <tr>
+        <td><img src="{$theme_image}/table_butt_left.gif" alt=" " width="2" height="8"></td>
+        <td></td>
+        <td><img src="{$theme_image}/table_butt_right.gif" alt=" " width="2" height="8"></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="3"><img src="{$theme_image}/pixel.gif" alt=" " width="3" height="3"></td>
+  </tr>
+</table>
+{/if}

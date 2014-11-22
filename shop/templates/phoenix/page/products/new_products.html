@@ -1,0 +1,74 @@
+{section name=i loop=$new_products_array}
+  {if $smarty.section.i.first}
+          <tr>
+            <td><br>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="19" class="block_head_background"><img src="{$theme_image}/table_head_arrow.gif" alt=" " width="21" height="19"></td>
+    <td width="100%" class="block_head_background">{$block_heading_new_products}</td>
+    <td width="5" class="block_head_background"><img src="{$theme_image}/table_head_right.gif" alt=" " width="5" height="19"></td>
+  </tr>
+</table>
+<table border="0" width="100%" cellspacing="0" cellpadding="4">
+  <tr>
+  {/if}
+      <td width="50%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+       <tr>
+         <td align="left" width="{$smarty.const.SMALL_IMAGE_WIDTH}" class="smallText"><a href="{product_info_link products_id=$new_products_array[i].products_id}">{small_product_image image=$new_products_array[i].products_image alt=$new_products_array[i].products_name|strip_tags}</a></td>
+         <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
+         <td valign="top" class="smallText"><a href="{product_info_link products_id=$new_products_array[i].products_id}"><b>{$new_products_array[i].products_name}</b></a><br>
+           <br>{$new_products_array[i].products_description|truncate:120:" [...]":false|close_tags}<br>
+       </tr>
+       <tr>
+         <td valign="bottom" class="smallText" nowrap="nowrap">
+{if (!empty($new_products_array[i].new_product_special_price))}
+   <s>{$new_products_array[i].new_product_price}{$new_products_array[i].new_product_units}</s><br>
+   <span class="special_price">{$new_products_array[i].new_product_special_price}</span><br>
+{else}
+  {if $new_products_array[i].new_max_product_discount != 0}
+    <s>{$new_products_array[i].new_product_price}</s>&nbsp;-{$new_products_array[i].new_max_product_discount}%<br>
+    <span class="discount_price">{$new_products_array[i].new_product_discount_price}{$new_products_array[i].new_product_units}</span><br>
+
+  {else}
+    {$new_products_array[i].new_product_price}{$new_products_array[i].new_product_units}<br>
+  {/if}
+{/if}
+
+         </td>
+         <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
+         <td valign="bottom" align="right" >{if $smarty.session.member->group.show_price eq 1 }<a href="{html_href_link content=$page_file action=buy_now products_id=$new_products_array[i].products_id}">{html_image_button image="hp_buy.gif" alt=$lang.image_button_in_cart}</a>{/if}
+         <img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1">
+         <a href="{product_info_link products_id=$new_products_array[i].products_id}">{html_image_button image="hp_more.gif" alt=$lang.image_button_hp_more}</a>
+         </td>
+        </tr>
+        <tr>
+          <td valign="top" colspan="3" class="smallText">
+{if $new_products_array[i].products_base_price != 1}
+  <span class="smallText">{$lang.text_products_base_price}: </span>
+  {if (!empty($new_products_array[i].new_special_price))}
+  <span class="special_base_price">{$new_products_array[i].products_base_unit} = {$new_products_array[i].new_base_product_special_price}</span><br>
+  {else}
+    {if $new_products_array[i].new_max_product_discount != 0}
+    <span class="discount_base_price">{$new_products_array[i].products_base_unit} = {$new_products_array[i].new_base_product_special_price}</span><br>
+    {else}
+    <span class="base_price">{$new_products_array[i].products_base_unit} = {$new_products_array[i].new_base_product_price}</span><br>
+    {/if}
+  {/if}
+{/if}
+<span class="pangv">{$pangv}</span><br>
+          </td>
+        </tr>
+      </table></td>
+  {if $smarty.section.i.rownum is even}
+    </tr>
+    <tr>
+  {else}
+     <td><img src="{$theme_image}/pg.gif" border="0" alt=" " width="1" height="150"></td>
+  {/if}
+  {if $smarty.section.i.last}
+  t</tr>
+</table>
+            </td>
+          </tr>
+  {/if}
+{/section}

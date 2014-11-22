@@ -1,0 +1,186 @@
+{include file="phoenix/system/_header.tpl"}
+
+<table border="0" width="100%" cellspacing="0" cellpadding="2">
+  <tr>
+    <td class="formAreaTitle">{$lang.category_personal}</td>
+  </tr>
+  <tr>
+    <td><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
+      <tr>
+        <td><table border="0" cellspacing="0" cellpadding="2">
+{if $smarty.const.ACCOUNT_GENDER eq 'true'}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_gender}</td>
+            <td class="main">&nbsp;
+    {if $process eq 'true'}
+        {if $gender_error eq 'true'}
+           <input type="radio" name="gender" value="m" checked="checked">&nbsp;&nbsp;{$lang.male}&nbsp;&nbsp;<input type="radio" name="gender" value="f">&nbsp;&nbsp;{$lang.female}&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_info_text}</font></small>
+        {else}
+           {if $gender eq 'm' }
+              {$lang.male}
+           {else}
+              {$lang.female}
+           {/if}
+           <input type=hidden name="gender" value="{$gender}">
+        {/if}
+    {else}
+      <input type="radio" name="gender" value="m" checked="checked">&nbsp;&nbsp;{$lang.male}&nbsp;&nbsp;<input type="radio" name="gender" value="f">&nbsp;&nbsp;{$lang.female}&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small>
+    {/if}</td>
+          </tr>
+{/if}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_first_name}</td>
+            <td class="main">&nbsp;
+  {if $process eq 'true'}
+    {if $firstname_error eq 'true'}
+     <input type="text" name="firstname" value="{$firstname}">&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_first_name_error}</font></small>
+    {else}
+     {$firstname}<input type=hidden name="firstname" value="{$firstname}">
+    {/if}
+  {else}
+     <input type="text" name="firstname" value="{$entry.entry_firstname}">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small>
+  {/if}
+</td>
+          </tr>
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_last_name}</td>
+            <td class="main">&nbsp;
+  {if $process eq 'true'}
+    {if $lastname_error eq 'true'}
+       <input type="text" name="lastname" value="{$lastname}">&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_last_name_error}</font></small>
+    {else}
+       {$lastname}<input type=hidden name="lastname" value="{$lastname}">
+    {/if}
+  {else}
+     <input type="text" name="lastname" value="{$entry.entry_lastname}">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small>
+  {/if}
+</td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+{if $smarty.const.ACCOUNT_COMPANY eq 'true'}
+  <tr>
+    <td class="formAreaTitle"><br>{$lang.category_company}</td>
+  </tr>
+  <tr>
+    <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
+      <tr>
+        <td class="main"><table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_company}</td>
+            <td class="main">&nbsp;
+    {if $process eq 'true'}
+       {$company}<input type=hidden name="company" value="{$company}"></td>
+    {else}
+       <input type="text" name="company" value="{$entry.entry_company}"></td>
+    {/if}
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+{/if}
+  <tr>
+    <td class="formAreaTitle"><br>{$category_address}</td>
+  </tr>
+  <tr>
+    <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
+      <tr>
+        <td class="main"><table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_street_address}</td>
+            <td class="main">&nbsp;
+  {if $process eq 'true'}
+     {if $street_address_error eq 'true'}
+        <input type="text" name="street_address" value="{$street_address}">&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_street_address_error}</font></small>
+     {else}
+        {$street_address}<input type=hidden name="street_address" value="{$street_address}">
+     {/if}
+  {else}
+      <input type="text" name="street_address" value="{$entry.entry_street_address}">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small>
+  {/if}
+</td>
+          </tr>
+{if $smarty.const.ACCOUNT_SUBURB eq 'true'}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_suburb}</td>
+            <td class="main">&nbsp;
+    {if $process eq 'true'}
+      {$suburb}<input type=hidden name="suburb" value="{$suburb}">
+    {else}
+       <input type="text" name="suburb" value="{$entry.entry_suburb}">
+    {/if}
+</td>
+          </tr>
+{/if}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_post_code}</td>
+            <td class="main">&nbsp;
+  {if $process eq 'true'}
+    {if $post_code_error eq 'true'}
+       <input type="text" name="postcode" value="{$postcode}">&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_post_code_error}</font></small>
+    {else}
+       {$postcode}<input type=hidden name="postcode" value="{$postcode}">
+    {/if}
+  {else}
+       <input type="text" name="postcode" value="{$entry.entry_postcode}">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small>
+  {/if}
+</td>
+          </tr>
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_city}</td>
+            <td class="main">&nbsp;
+  {if $process eq 'true'}
+    {if $city_error eq 'true'}
+       <input type="text" name="city" value="{$city}">&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_city_error}</font></small>
+    {else}
+       {$city}<input type=hidden name="city" value="{$city}">
+    {/if}
+  {else}
+        <input type="text" name="city" value="{$entry.entry_city}">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small>
+  {/if}
+</td>
+          </tr>
+{if $smarty.const.ACCOUNT_STATE eq 'true'}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_state}</td>
+            <td class="main">&nbsp;
+    {if $process eq 'true'}
+       {if $state_error eq 'true'}
+         {if $state_has_zones eq 'true'}
+            <select name=state>{html_options values=$zones_values output=$zones_names}</select>&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_info_text}</font></small>
+         {else}
+            <input type="text" name="state" value="">&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_state_error}</font></small>
+         {/if}
+       {else}
+         {$state} <input type=hidden name="zone_id" value="{$zone_id}"><input type=hidden name="state" value="{$state}">
+       {/if}
+    {else}
+       <input type="text" name="state" value="{oos_get_zone_name country_id=$entry.entry_country_id zone_id=$entry.entry_zone_id default_zone=$entry.entry_state}">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small>
+    {/if}
+</td>
+          </tr>
+{/if}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_country}</td>
+            <td class="main">&nbsp;
+  {if $process eq 'true'}
+     {if $country_error eq 'true'}
+       {oos_get_country_list name=country}&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_country_error}</font></small>
+     {else}
+       {$country_name}<input type=hidden name="country" value="{$country}">
+     {/if}
+  {else}
+    {oos_get_country_list name=country selected=$entry.entry_country_id}&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small>
+  {/if}
+</td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+
+{include file="phoenix/system/_footer.tpl"}

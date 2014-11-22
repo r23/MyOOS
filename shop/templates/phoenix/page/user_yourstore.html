@@ -1,0 +1,157 @@
+{include file="phoenix/system/_header.tpl"}
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<tr><td>{$oosPageHeading}</td></tr>
+<tr><td height="10"></td></tr>
+<tr>
+	<td>
+	<table border="0" cellspacing="0" cellpadding="2">
+
+{if $smarty.const.ACCOUNT_GENDER eq 'true'}
+	<tr>
+		<td class="main">&nbsp;{$lang.entry_gender}</td>
+		<td class="main">&nbsp;{$gender}</td>
+	</tr>
+{/if}
+	<tr>
+		<td class="main">&nbsp;{$lang.entry_first_name}</td>
+		<td class="main">&nbsp;{$account.customers_firstname}</td>
+	</tr>
+	<tr>
+		<td class="main">&nbsp;{$lang.entry_last_name}</td>
+		<td class="main">&nbsp;{$account.customers_lastname}</td>
+	</tr>
+{if $smarty.const.ACCOUNT_DOB eq 'true'}
+	<tr>
+		<td class="main">&nbsp;{$lang.entry_date_of_birth}</td>
+		<td class="main">&nbsp;{$account.customers_dob|oos_date_short}</td>
+	</tr>
+{/if}
+{if $smarty.const.ACCOUNT_NUMBER eq 'true'}
+	<tr>
+		<td class="main">&nbsp;{$lang.entry_number}</td>
+		<td class="main">&nbsp;{$account.customers_number}</td>
+	</tr>
+{/if}
+	<tr>
+		<td class="main">&nbsp;{$lang.entry_email_address}</td>
+		<td class="main">&nbsp;{$account.customers_email_address}</td>
+	</tr>
+	</table></td>
+</tr>
+</table>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="2">
+<tr>
+	<td align="center" class="main"><a href="{html_href_link content=$filename.account_address_book connection=SSL}">{html_image_button image="address_book.gif" alt=$lang.image_button_address_book}</a></td>
+	<td align="center" class="main"><a href="{html_href_link content=$filename.account_history connection=SSL}">{html_image_button image="history.gif" alt=$lang.image_button_history}</a></td>
+{if $oEvent->installed_plugin('notify')}
+        <td align="center" class="main"><a href="{html_href_link content=$filename.product_notifications connection=SSL}">{html_image_button image="notifications.gif" alt=$lang.image_button_notifications}</a></td>
+{/if}
+	<td align="center" class="main"><a href="{html_href_link content=$filename.account_edit connection=SSL}">{html_image_button image="edit_account.gif" alt=$lang.image_button_edit_account}</a></td>
+</tr>
+</table>
+
+
+{section name=i loop=$oos_up_sell_products_array}
+  {if $smarty.section.i.first}
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="19" class="block_head_background"><img src="{$theme_image}/table_head_arrow.gif" alt=" " width="21" height="19"></td>
+    <td width="100%" class="block_head_background">{$lang.text_also_purchased_products}</td>
+    <td width="5" class="block_head_background"><img src="{$theme_image}/table_head_right.gif" alt=" " width="5" height="19"></td>
+  </tr>
+</table>
+<table border="0" width="100%" cellspacing="0" cellpadding="4">
+  <tr>
+  {/if}
+      <td width="50%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+       <tr>
+         <td align="left" width="{$smarty.const.SMALL_IMAGE_WIDTH}" class="smallText"><a href="{product_info_link products_id=$oos_up_sell_products_array[i].products_id}">{small_product_image image=$oos_up_sell_products_array[i].products_image alt=$oos_up_sell_products_array[i].products_name|strip_tags}</a></td>
+         <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
+         <td valign="top" class="smallText"><a href="{product_info_link products_id=$oos_up_sell_products_array[i].products_id}"><b>{$oos_up_sell_products_array[i].products_name}</b></a><br>
+           <br>{$oos_up_sell_products_array[i].products_description|truncate:120:" [...]":false|close_tags}<br>
+       </tr>
+       <tr>
+         <td colspan="3" align="right" class="smallText" nowrap="nowrap">
+         <a href="{product_info_link products_id=$oos_up_sell_products_array[i].products_id}">{html_image_button image="hp_more.gif" alt=$lang.image_button_hp_more}</a>
+         </td>
+        </tr>
+      </table></td>
+  {if $smarty.section.i.rownum is even}
+    </tr>
+    <tr>
+  {else}
+     <td><img src="{$theme_image}/pg.gif" border="0" alt=" " width="1" height="150"></td>
+  {/if}
+  {if $smarty.section.i.last}
+  </tr>
+</table>
+  {/if}
+{/section}
+
+
+{section name=i loop=$oos_xsell_products_array}
+  {if $smarty.section.i.first}
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="19" class="block_head_background"><img src="{$theme_image}/table_head_arrow.gif" alt=" " width="21" height="19"></td>
+    <td width="100%" class="block_head_background">{$lang.text_xsell_products}</td>
+    <td width="5" class="block_head_background"><img src="{$theme_image}/table_head_right.gif" alt=" " width="5" height="19"></td>
+  </tr>
+</table>
+<table border="0" width="100%" cellspacing="0" cellpadding="4">
+  <tr>
+  {/if}
+      <td width="50%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+       <tr>
+         <td align="left" width="{$smarty.const.SMALL_IMAGE_WIDTH}" class="smallText"><a href="{product_info_link products_id=$oos_xsell_products_array[i].products_id}">{small_product_image image=$oos_xsell_products_array[i].products_image alt=$oos_xsell_products_array[i].products_name|strip_tags}</a></td>
+         <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
+         <td valign="top" class="smallText"><a href="{product_info_link products_id=$oos_xsell_products_array[i].products_id}"><b>{$oos_xsell_products_array[i].products_name}</b></a><br>
+           <br>{$oos_xsell_products_array[i].products_description|truncate:120:" [...]":false|close_tags}<br>
+       </tr>
+       <tr>
+         <td colspan="3" align="right" class="smallText" nowrap="nowrap">
+         <a href="{product_info_link products_id=$oos_xsell_products_array[i].products_id}">{html_image_button image="hp_more.gif" alt=$lang.image_button_hp_more}</a>
+         </td>
+        </tr>
+      </table></td>
+  {if $smarty.section.i.rownum is even}
+    </tr>
+    <tr>
+  {else}
+     <td><img src="{$theme_image}/pg.gif" border="0" alt=" " width="1" height="150"></td>
+  {/if}
+  {if $smarty.section.i.last}
+  </tr>
+</table>
+  {/if}
+{/section}
+
+{section name=i loop=$history_products}
+  {if $smarty.section.i.first}
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="19" class="block_head_background"><img src="{$theme_image}/table_head_arrow.gif" alt=" " width="21" height="19"></td>
+    <td width="100%" class="block_head_background">{$lang.table_heading_products_history}</td>
+    <td width="5" class="block_head_background"><img src="{$theme_image}/table_head_right.gif" alt=" " width="5" height="19"></td>
+  </tr>
+</table>
+<table border="0" width="100%" cellspacing="0" cellpadding="4" class="oos-BoxContents">
+  <tr>
+  {/if}
+    <td align="center" width="33%" class="smallText"><a href="{product_info_link products_id=$history_products[i].products_id}">{small_product_image image=$history_products[i].products_image alt=$history_products[i].products_name|strip_tags}</a><br><a href="{product_info_link products_id=$history_products[i].products_id}">{$history_products[i].products_name}</a></td>
+  {if $smarty.section.i.rownum is div by 3}
+    </tr>
+    <tr>
+  {/if}
+  {if $smarty.section.i.last}
+</table>
+  {/if}
+{/section}
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+{$featured}
+</table>
+
+{include file="phoenix/system/_footer.tpl"}
