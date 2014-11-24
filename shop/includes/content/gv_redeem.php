@@ -22,13 +22,17 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  if (!isset($_SESSION['customer_id'])) {
+if (!isset($_SESSION['customer_id'])) {
+	// navigation history
+	if (!isset($_SESSION['navigation'])) {
+		$_SESSION['navigation'] = new oosNavigationHistory();
+	}   
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
-  }
+}
 
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_redeem.php';
 

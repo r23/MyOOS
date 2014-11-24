@@ -212,7 +212,26 @@ if ( $session->hasStarted() === TRUE ) {
     if (!(preg_match('/^[a-z0-9]{26}$/i', $session->getId()) || preg_match('/^[a-z0-9]{32}$/i', $session->getId()))) {
         $session->regenerate(TRUE);
 	}
-	
+
+	// create the shopping cart
+	if (!isset($_SESSION['cart'])) {
+		$_SESSION['cart'] = new shoppingCart();
+	}
+
+	// products history
+	if (!isset($_SESSION['products_history'])) 	{
+		$_SESSION['products_history'] = new oosProductsHistory();
+	}
+
+	if (!isset($_SESSION['user'])) {
+		$_SESSION['user'] = new oosUser();
+		$_SESSION['user']->anonymous();
+	}
+
+	// navigation history
+	if (!isset($_SESSION['navigation'])) {
+		$_SESSION['navigation'] = new oosNavigationHistory();
+	}	
 
 	$aContents = oos_get_content();
 	

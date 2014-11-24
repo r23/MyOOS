@@ -24,14 +24,18 @@
 // start the session
 if ( $session->hasStarted() === FALSE ) $session->start();
   
-  if (!isset($_SESSION['customer_id'])) {
+if (!isset($_SESSION['customer_id'])) {
+	// navigation history
+	if (!isset($_SESSION['navigation'])) {
+		$_SESSION['navigation'] = new oosNavigationHistory();
+	}   
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
-  }
+}
 
-  if ($_SESSION['navigation']->snapshot['content'] != $aContents['account_address_book']) {
+if ($_SESSION['navigation']->snapshot['content'] != $aContents['account_address_book']) {
     $_SESSION['navigation']->set_path_as_snapshot(1);
-  }
+}
 
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_address_book_process.php';
 

@@ -52,7 +52,7 @@
 
     function set_snapshot($page = '') {
       global $sContent, $request_type;
-
+	  
       if (is_array($page)) {
         $this->snapshot = array('content' => $page['content'],
                                 'mode' => $page['mode'],

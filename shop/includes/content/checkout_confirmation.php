@@ -29,10 +29,14 @@
 if ( $session->hasStarted() === FALSE ) $session->start();  
   
 // if the customer is not logged on, redirect them to the login page
-  if (!isset($_SESSION['customer_id'])) {
+if (!isset($_SESSION['customer_id'])) {
+	// navigation history
+	if (!isset($_SESSION['navigation'])) {
+		$_SESSION['navigation'] = new oosNavigationHistory();
+	}   
     $_SESSION['navigation']->set_snapshot(array('mode' => 'SSL', 'content' =>$aContents['checkout_payment']));
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
-  }
+}
 
 // if there is nothing in the customers cart, redirect them to the shopping cart page
   if ($_SESSION['cart']->count_contents() < 1) {

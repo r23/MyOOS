@@ -42,6 +42,14 @@ if (file_exists('../includes/local/configure.php')) include('../includes/local/c
 require '../includes/configure.php';
 require 'includes/oos_define.php';
 
+
+use Symfony\Component\HttpFoundation\Request;
+
+$autoloader = require_once MYOOS_INCLUDE_PATH . '/core/vendor/autoload.php';
+$request = Request::createFromGlobals();
+
+
+
 require 'includes/oos_filename.php';
 require_once MYOOS_INCLUDE_PATH . 'includes/oos_tables.php';
 
@@ -58,22 +66,17 @@ require_once MYOOS_INCLUDE_PATH . 'includes/functions/function_server.php';
     }
   }
 
-// define how the session functions will be used
-require_once MYOOS_INCLUDE_PATH . 'includes/functions/function_session.php';
+require_once MYOOS_INCLUDE_PATH . '/core/lib/Phoenix/Core/Session.php';
+$session = new Phoenix_Session();
+$session->setName('PHOENIXADMINSID');
+$session->start();
 
-// set the session ID if it exists
-if (isset($_POST[oos_session_name()])) {
-	oos_session_id($_POST[oos_session_name()]);
-} elseif (isset($_GET[oos_session_name()])) {
-	oos_session_id($_GET[oos_session_name()]);
-}
-
-oos_session_name('OOSADMINSID');
-session_start();
+/*
 
 if (!isset($_SESSION)) {
 	$_SESSION = array();
 }
+*/
 
 // require the database functions
 if (!defined('ADODB_LOGSQL_TABLE')) {

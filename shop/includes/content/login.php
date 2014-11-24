@@ -27,6 +27,17 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_l
   
 if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
 
+    $email_address = oos_prepare_input($_POST['email_address']);
+    $password = oos_prepare_input($_POST['password']);
+	
+    if ( empty( $email_address ) || !is_string( $email_address ) ) {
+        oos_redirect(oos_href_link($aContents['forbiden']));
+    }
+
+    if ( empty( $password ) || !is_string( $password ) ) {
+        oos_redirect(oos_href_link($aContents['forbiden']));
+    }
+
 	// Check if email exists
 	$customerstable = $oostable['customers'];
 	$sql = "SELECT customers_id, customers_gender, customers_firstname, customers_lastname,

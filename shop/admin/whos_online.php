@@ -88,7 +88,7 @@
                 <td class="dataTableContent" align="center"><?php echo $whos_online['ip_address']; ?></td>
                 <td class="dataTableContent"><?php echo date('H:i:s', $whos_online['time_entry']); ?></td>
                 <td class="dataTableContent" align="center"><?php echo date('H:i:s', $whos_online['time_last_click']); ?></td>
-                <td class="dataTableContent"><?php if (preg_match('/^(.*)' . oos_session_name() . '=[a-f,0-9]+[&]*(.*)/', $whos_online['last_page_url'], $array)) { echo $array[1] . $array[2]; } else { echo $whos_online['last_page_url']; } ?>&nbsp;</td>
+                <td class="dataTableContent"><?php if (preg_match('/^(.*)' . $session->getName() . '=[a-f,0-9]+[&]*(.*)/', $whos_online['last_page_url'], $array)) { echo $array[1] . $array[2]; } else { echo $whos_online['last_page_url']; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!

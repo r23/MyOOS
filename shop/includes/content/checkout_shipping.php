@@ -22,19 +22,18 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_shipping.php';
-  require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
-  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_http_client.php';
-
 // start the session
 if ( $session->hasStarted() === FALSE ) $session->start();  
   
 // if the customer is not logged on, redirect them to the login page
-  if (!isset($_SESSION['customer_id'])) {
+if (!isset($_SESSION['customer_id'])) {
+	// navigation history
+	if (!isset($_SESSION['navigation'])) {
+		$_SESSION['navigation'] = new oosNavigationHistory();
+	}   
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
-  }
+}
 
 // if there is nothing in the customers cart, redirect them to the shopping cart page
   if ($_SESSION['cart']->count_contents() < 1) {
@@ -48,6 +47,11 @@ if ( $session->hasStarted() === FALSE ) $session->start();
     }
   }
 
+  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_shipping.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_http_client.php';
+
+  
 
   if (isset($_SESSION['shipping'])) unset($_SESSION['shipping']);
 

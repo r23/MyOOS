@@ -18,20 +18,24 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  if (!$oEvent->installed_plugin('reviews')) {
+if (!$oEvent->installed_plugin('reviews')) {
     oos_redirect(oos_href_link($aContents['main']));
-  }
+}
 
 // start the session
 if ( $session->hasStarted() === FALSE ) $session->start();  
   
-  if (!isset($_SESSION['customer_id'])) {
+if (!isset($_SESSION['customer_id'])) {
+	// navigation history
+	if (!isset($_SESSION['navigation'])) {
+		$_SESSION['navigation'] = new oosNavigationHistory();
+	}   
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
-  }
+}
 
   if (isset($_GET['products_id'])) {
     if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);

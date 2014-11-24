@@ -98,14 +98,6 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
       die("$dbtype://$dbuname:$dbpass@$dbhost/$dbname failed to connect " . $dbconn->ErrorMsg());
     }
 
-    if (function_exists('memcache_pconnect')) {
-      $dbconn->memCache = TRUE; // should we use memCache instead of caching in files
-      $dbconn->memCacheHost = '126.0.1.1'; // $db->memCacheHost = array($ip1, $ip2, $ip3); // $db->memCacheHost = $ip1; still works
-      $dbconn->memCachePort = '11211'; // this is default memCache port
-      $dbconn->memCacheCompress = FALSE; // Use 'true' to store the item compressed (uses zlib)
-    }
-
-
     global $ADODB_FETCH_MODE;
     $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
@@ -165,8 +157,8 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
   function oos_db_input($sStr) {
 
-    if (function_exists('mysql_real_escape_string')) {
-      return mysql_real_escape_string($sStr);
+    if (function_exists('mysqli::escape_string ')) {
+      return mysqli::escape_string ($sStr);
     }
 
     return addslashes($sStr);
@@ -239,9 +231,9 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
   function oosDBOutput($sStr) {
     if (get_magic_quotes_gpc()) {
-      return mysql_real_escape_string(stripslashes($sStr));
+      return mysqli::escape_string (stripslashes($sStr));
     } else {
-      return mysql_real_escape_string($sStr);
+      return mysqli::escape_string ($sStr);
     }
   }
 

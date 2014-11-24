@@ -195,13 +195,15 @@
 
 
   function oos_get_all_get_params($exclude_array = '') {
+	global $session;
+	
     if ($exclude_array == '') $exclude_array = array();
 
     $get_url = '';
 
     reset($_GET);
     while (list($key, $value) = each($_GET)) {
-      if (($key != oos_session_name()) && ($key != 'error') && (!oos_in_array($key, $exclude_array))) $get_url .= $key . '=' . $value . '&';
+      if (($key != $session->getName()) && ($key != 'error') && (!oos_in_array($key, $exclude_array))) $get_url .= $key . '=' . $value . '&';
     }
 
     return $get_url;

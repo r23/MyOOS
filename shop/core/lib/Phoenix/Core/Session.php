@@ -110,28 +110,7 @@ class Phoenix_Session extends Session
         $config['cookie_lifetime'] = $lifetime;
 
         $this->storage->setOptions($config);
-        parent::start();
-		
-		// create the shopping cart
-		if (!isset($_SESSION['cart'])) {
-			$_SESSION['cart'] = new shoppingCart();
-		}
-
-		// products history
-		if (!isset($_SESSION['products_history'])) 	{
-			$_SESSION['products_history'] = new oosProductsHistory();
-		}
-
-		if (!isset($_SESSION['user'])) {
-			$_SESSION['user'] = new oosUser();
-			$_SESSION['user']->anonymous();
-		}
-
-		// navigation history
-		if (!isset($_SESSION['navigation'])) {
-			$_SESSION['navigation'] = new oosNavigationHistory();
-		}
-		
+        return parent::start();		
 		
     }
 

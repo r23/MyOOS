@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: class_split_page_results.php,v 1.2 2007/12/11 08:14:49 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
@@ -61,7 +60,8 @@
 
 
     function display_links($query_numrows, $max_rows_per_page, $max_page_links, $current_page_number, $parameters = '', $page_name = 'page') {
-
+	  global $session;
+	  
       if ( oos_is_not_null($parameters) && (substr($parameters, -1) != '&') ) $parameters .= '&';
 
       // calculate number of pages needing links
@@ -101,7 +101,7 @@
           }
         }
 
-        if (SID) $display_links .= oos_draw_hidden_field(oos_session_name(), oos_session_id());
+        if (SID) $display_links .= oos_draw_hidden_field($session->getName(), $session->getId());
 
         $display_links .= '</form>';
       } else {
@@ -126,4 +126,3 @@
     }
   }
 
-?>
