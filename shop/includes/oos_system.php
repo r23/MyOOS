@@ -74,9 +74,9 @@ $smarty->assignByRef("oEvent", $oEvent);
 
           'request_type'      => $request_type,
 
-          'theme_set'         => $sTheme,
-          'theme_image'       => 'themes/' . $sTheme . '/images',
-          'theme_css'         => 'themes/' . $sTheme,
+          'theme_set'           => $sTheme,
+          'theme_image'         => 'themes/' . $sTheme . '/images',
+          'theme'               => 'themes/' . $sTheme,
 
           'lang'              => $aLang,
           'language'          => $sLanguage,
@@ -89,7 +89,7 @@ $smarty->assignByRef("oEvent", $oEvent);
  
  
 
-  $smarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
+$smarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
 
 
 $cart_count_contents = 0;
@@ -159,4 +159,5 @@ $smarty->assign(
           'products_units'      => $products_units,
       )
 );
+
 
