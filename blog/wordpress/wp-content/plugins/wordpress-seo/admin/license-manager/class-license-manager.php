@@ -175,11 +175,13 @@ if( ! class_exists( 'Yoast_License_Manager', false ) ) {
 				// show success notice if license is valid
 				if($result->license === 'valid') {
 
+					$message = sprintf( __( "Your %s license has been activated. ", $this->product->get_text_domain() ), $this->product->get_item_name() );
+
 					// show a custom notice if users have an unlimited license
 					if( $result->license_limit == 0 ) {
-						$message = sprintf( __( "Your %s license has been activated. You have an unlimited license. ", $this->product->get_text_domain() ), $this->product->get_item_name() );
+						$message .= __( "You have an unlimited license. ", $this->product->get_text_domain() );
 					} else {
-						$message = sprintf( __( "Your %s license has been activated. You have used %d/%d activations. ", $this->product->get_text_domain() ), $this->product->get_item_name(), $result->site_count, $result->license_limit );
+						$message .= sprintf( __( "You have used %d/%d activations. ", $this->product->get_text_domain() ), $result->site_count, $result->license_limit );
 					}
 				
 					// add upgrade notice if user has less than 3 activations left
