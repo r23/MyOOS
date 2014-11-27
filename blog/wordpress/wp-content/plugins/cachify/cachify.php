@@ -8,7 +8,7 @@ Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://cachify.de
 License: GPLv2 or later
-Version: 2.1.9
+Version: 2.2.0
 */
 
 /*

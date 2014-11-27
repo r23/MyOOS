@@ -1,8 +1,8 @@
 <?php
 /**
- * The Template for displaying all single posts.
+ * The template for displaying all single posts.
  *
- * @package myoos
+ * @package MyOOS
  */
 
 get_header(); ?>
@@ -18,7 +18,7 @@ get_header(); ?>
 
 			<?php
 				// If comments are open or we have at least one comment, load up the comment template
-				if ( comments_open() || '0' != get_comments_number() ) :
+				if ( comments_open() || get_comments_number() ) :
 					comments_template();
 				endif;
 			?>

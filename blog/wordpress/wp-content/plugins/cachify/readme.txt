@@ -3,7 +3,7 @@ Contributors: sergej.mueller
 Tags: apc, cache, caching, performance
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZAQUT9RLPW8QN
 Requires at least: 3.8
-Tested up to: 4.0
+Tested up to: 4.0.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -76,6 +76,10 @@ Fragen rund ums Plugin werden gern per E-Mail beantwortet. Beachtet auch die [Gu
 
 
 == Changelog ==
+
+= 2.2.0 =
+* Werkzeugleiste: Anzeige des "Cache leeren" Buttons im Frontend der Website
+* Werkzeugleiste: Steuerung der Anzeige des "Cache leeren" Buttons via Hook
 
 = 2.1.9 =
 * Vervollständigung des Cachify-Pfades in `robots.txt`: `Disallow: /wp-content/cache/cachify/`

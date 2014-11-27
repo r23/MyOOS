@@ -74,7 +74,7 @@ final class Cachify {
 	* Konstruktor der Klasse
 	*
 	* @since   1.0.0
-	* @change  2.1.7
+	* @change  2.2.0
 	*
 	* @param   void
 	* @return  void
@@ -125,6 +125,23 @@ final class Cachify {
 			)
 		);
 
+        /* Flush icon */
+		add_action(
+			'admin_bar_menu',
+			array(
+				__CLASS__,
+				'add_flush_icon'
+			),
+			90
+		);
+		add_action(
+			'init',
+			array(
+				__CLASS__,
+				'process_flush_request'
+			)
+		);
+
 		/* Backend */
 		if ( is_admin() ) {
 			add_action(
@@ -156,13 +173,7 @@ final class Cachify {
 					'register_settings'
 				)
 			);
-			add_action(
-				'admin_init',
-				array(
-					__CLASS__,
-					'process_flush_request'
-				)
-			);
+
 			add_action(
 				'admin_menu',
 				array(
@@ -194,14 +205,7 @@ final class Cachify {
 					'edit_comment'
 				)
 			);
-			add_action(
-				'admin_bar_menu',
-				array(
-					__CLASS__,
-					'add_flush_icon'
-				),
-				90
-			);
+
 			add_action(
 				'dashboard_glance_items',
 				array(
@@ -597,38 +601,6 @@ final class Cachify {
 
 
 	/**
-	* Hinzufügen eines Admin-Bar-Menüs
-	*
-	* @since   1.2
-	* @change  2.1.5
-	*
-	* @param   object  Objekt mit Menü-Eigenschaften
-	*/
-
-	public static function add_flush_icon($wp_admin_bar)
-	{
-		/* Aussteigen */
-		if ( ! is_admin_bar_showing() OR ! is_super_admin() ) {
-			return;
-		}
-
-		/* Display the admin icon anytime */
-		echo '<style>#wp-admin-bar-cachify{display:list-item !important} .ab-icon{margin:0 !important} .ab-icon:before{content:"\f182";top:2px;margin:0}</style>';
-
-		/* Hinzufügen */
-		$wp_admin_bar->add_menu(
-			array(
-				'id' 	 => 'cachify',
-				'href'   => add_query_arg('_cachify', 'flush'),
-				'parent' => 'top-secondary',
-				'title'	 => '<span class="ab-icon dashicons"></span>',
-				'meta'   => array( 'title' => __('Flush the cachify cache', 'cachify') )
-			)
-		);
-	}
-
-
-	/**
 	* Anzeige des Spam-Counters auf dem Dashboard
 	*
 	* @since   2.0.0
@@ -702,28 +674,71 @@ final class Cachify {
 
 
 	/**
+	* Hinzufügen eines Admin-Bar-Menüs
+	*
+	* @since   1.2
+	* @change  2.2.0
+    *
+    * @hook    mixed   cachify_user_can_flush_cache
+	*
+	* @param   object  Objekt mit Menü-Eigenschaften
+	*/
+
+	public static function add_flush_icon($wp_admin_bar)
+	{
+		/* Aussteigen */
+		if ( ! is_admin_bar_showing() OR ! apply_filters('cachify_user_can_flush_cache', current_user_can('manage_options')) ) {
+			return;
+		}
+
+		/* Display the admin icon anytime */
+		echo '<style>#wp-admin-bar-cachify{display:list-item !important} .ab-icon{margin:0 !important} .ab-icon:before{content:"\f182";top:2px;margin:0}</style>';
+
+		/* Hinzufügen */
+		$wp_admin_bar->add_menu(
+			array(
+				'id' 	 => 'cachify',
+				'href'   => wp_nonce_url( add_query_arg('_cachify', 'flush'), '_cachify_flush_nonce'),
+				'parent' => 'top-secondary',
+				'title'	 => '<span class="ab-icon dashicons"></span>',
+				'meta'   => array( 'title' => __('Flush the cachify cache', 'cachify') )
+			)
+		);
+	}
+
+
+	/**
 	* Verarbeitung der Plugin-Meta-Aktionen
 	*
 	* @since   0.5
-	* @change  2.1.3
+	* @change  2.2.0
+    *
+    * @hook    mixed  cachify_user_can_flush_cache
 	*
 	* @param   array  $data  Metadaten der Plugins
 	*/
 
 	public static function process_flush_request($data)
 	{
-		/* Leer? */
-		if ( empty($_GET['_cachify']) OR $_GET['_cachify'] !== 'flush' OR ! is_super_admin() ) {
+		/* Skip if not a flush request */
+		if ( empty($_GET['_cachify']) OR $_GET['_cachify'] !== 'flush' ) {
 			return;
 		}
 
-		/* Global */
-		global $wpdb;
+        /* Check nonce */
+        if ( empty($_GET['_wpnonce']) OR ! wp_verify_nonce($_GET['_wpnonce'], '_cachify_flush_nonce') ) {
+            return;
+        }
+
+		/* Skip if not necessary */
+		if ( ! is_admin_bar_showing() OR ! apply_filters('cachify_user_can_flush_cache', current_user_can('manage_options')) ) {
+			return;
+		}
 
 		/* Multisite & Network */
 		if ( is_multisite() && is_plugin_active_for_network(CACHIFY_BASE) ) {
 			/* Alter Blog */
-			$old = $wpdb->blogid;
+			$old = $GLOBALS['wpdb']->blogid;
 
 			/* Blog-IDs */
 			$ids = self::_get_blog_ids();
@@ -738,25 +753,40 @@ final class Cachify {
 			switch_to_blog($old);
 
 			/* Notiz */
-			add_action(
-				'network_admin_notices',
-				array(
-					__CLASS__,
-					'flush_notice'
-				)
-			);
+			if ( is_admin() ) {
+				add_action(
+					'network_admin_notices',
+					array(
+						__CLASS__,
+						'flush_notice'
+					)
+				);
+			}
 		} else {
 			/* Leeren */
 			self::flush_total_cache();
 
 			/* Notiz */
-			add_action(
-				'admin_notices',
-				array(
-					__CLASS__,
-					'flush_notice'
+			if ( is_admin() ) {
+				add_action(
+					'admin_notices',
+					array(
+						__CLASS__,
+						'flush_notice'
+					)
+				);
+			}
+		}
+
+		if ( ! is_admin() ) {
+			wp_redirect(
+				remove_query_arg(
+					'_cachify',
+					wp_get_referer()
 				)
 			);
+
+			exit();
 		}
 	}
 
@@ -765,13 +795,15 @@ final class Cachify {
 	* Hinweis nach erfolgreichem Cache-Leeren
 	*
 	* @since   1.2
-	* @change  2.1.3
+	* @change  2.2.0
+    *
+    * @hook    mixed  cachify_user_can_flush_cache
 	*/
 
 	public static function flush_notice()
 	{
 		/* Kein Admin */
-		if ( ! is_super_admin() ) {
+		if ( ! is_admin_bar_showing() OR ! apply_filters('cachify_user_can_flush_cache', current_user_can('manage_options')) ) {
 			return false;
 		}
 
