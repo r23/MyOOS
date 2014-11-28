@@ -55,6 +55,7 @@ function myoos_setup() {
 	 */
 	load_theme_textdomain( 'myoos', PARENT_DIR . '/languages' );
 
+	
 	// Add default posts and comments RSS feed links to head.
 	add_theme_support( 'automatic-feed-links' );
 
@@ -128,6 +129,17 @@ function myoos_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'myoos_scripts' );
+
+
+// Register Theme Features
+function custom_theme_features()  {
+
+	// Add theme support for Translation
+	load_theme_textdomain( 'redux-framework', PARENT_DIR . '/admin/redux-framework/ReduxCore/languages' );
+}
+
+// Hook into the 'after_setup_theme' action
+add_action( 'after_setup_theme', 'custom_theme_features' );
 
 /**
  * Implement the Custom Header feature.

@@ -628,7 +628,8 @@
                         $locale = strtolower( $locale ) . '_' . strtoupper( $locale );
                     }
                 }
-                load_textdomain( 'redux-framework', self::$_dir . 'languages/' . $locale . '.mo' );
+
+                load_theme_textdomain( 'redux-framework', self::$_dir . 'languages/' . $locale . '.mo' );
             } // _internationalization()
 
             /**
