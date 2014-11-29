@@ -108,8 +108,8 @@ if (!class_exists('Redux_Framework_config')) {
         function dynamic_section($sections) {
             //$sections = array();
             $sections[] = array(
-                'title' => __('Section via hook', 'redux-framework'),
-                'desc' => __('<p class="description">This is a section created by adding a filter to the sections array. Can be used by child themes to add/remove sections from the options.</p>', 'redux-framework'),
+                'title' => __('Section via hook', MYOOS_THEME_NAME),
+                'desc' => __('<p class="description">This is a section created by adding a filter to the sections array. Can be used by child themes to add/remove sections from the options.</p>', MYOOS_THEME_NAME),
                 'icon' => 'el-icon-paper-clip',
                 // Leave this as a blank section, no options just some intro text set above.
                 'fields' => array()
@@ -187,7 +187,7 @@ if (!class_exists('Redux_Framework_config')) {
             $screenshot     = $this->theme->get_screenshot();
             $class          = $screenshot ? 'has-screenshot' : '';
 
-            $customize_title = sprintf(__('Customize &#8220;%s&#8221;', 'redux-framework'), $this->theme->display('Name'));
+            $customize_title = sprintf(__('Customize &#8220;%s&#8221;', MYOOS_THEME_NAME), $this->theme->display('Name'));
             
             ?>
             <div id="current-theme" class="<?php echo esc_attr($class); ?>">
@@ -204,14 +204,14 @@ if (!class_exists('Redux_Framework_config')) {
 
                 <div>
                     <ul class="theme-info">
-                        <li><?php printf(__('By %s', 'redux-framework'), $this->theme->display('Author')); ?></li>
-                        <li><?php printf(__('Version %s', 'redux-framework'), $this->theme->display('Version')); ?></li>
-                        <li><?php echo '<strong>' . __('Tags', 'redux-framework') . ':</strong> '; ?><?php printf($this->theme->display('Tags')); ?></li>
+                        <li><?php printf(__('By %s', MYOOS_THEME_NAME), $this->theme->display('Author')); ?></li>
+                        <li><?php printf(__('Version %s', MYOOS_THEME_NAME), $this->theme->display('Version')); ?></li>
+                        <li><?php echo '<strong>' . __('Tags', MYOOS_THEME_NAME) . ':</strong> '; ?><?php printf($this->theme->display('Tags')); ?></li>
                     </ul>
                     <p class="theme-description"><?php echo $this->theme->display('Description'); ?></p>
             <?php
             if ($this->theme->parent()) {
-                printf(' <p class="howto">' . __('This <a href="%1$s">child theme</a> requires its parent theme, %2$s.') . '</p>', __('http://codex.wordpress.org/Child_Themes', 'redux-framework'), $this->theme->parent()->display('Name'));
+                printf(' <p class="howto">' . __('This <a href="%1$s">child theme</a> requires its parent theme, %2$s.') . '</p>', __('http://codex.wordpress.org/Child_Themes', MYOOS_THEME_NAME), $this->theme->parent()->display('Name'));
             }
             ?>
 
@@ -236,8 +236,8 @@ if (!class_exists('Redux_Framework_config')) {
 
             // ACTUAL DECLARATION OF SECTIONS
             $this->sections[] = array(
-                'title'     => __('Home Settings', 'redux-framework'),
-                'desc'      => __('Redux Framework was created with the developer in mind. It allows for any theme developer to have an advanced theme panel with most of the features a developer would need. For more information check out the Github repo at: <a href="https://github.com/ReduxFramework/Redux-Framework">https://github.com/ReduxFramework/Redux-Framework</a>', 'redux-framework'),
+                'title'     => __('Home Settings', MYOOS_THEME_NAME),
+                'desc'      => __('Redux Framework was created with the developer in mind. It allows for any theme developer to have an advanced theme panel with most of the features a developer would need. For more information check out the Github repo at: <a href="https://github.com/ReduxFramework/Redux-Framework">https://github.com/ReduxFramework/Redux-Framework</a>', MYOOS_THEME_NAME),
                 'icon'      => 'el-icon-home',
                 // 'submenu' => false, // Setting submenu to false on a given section will hide it from the WordPress sidebar menu!
                 'fields'    => array(
@@ -245,11 +245,11 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-web-fonts',
                         'type'      => 'media',
-                        'title'     => __('Web Fonts', 'redux-framework'),
+                        'title'     => __('Web Fonts', MYOOS_THEME_NAME),
                         'compiler'  => 'true',
                         'mode'      => false, // Can be set to false to allow any media type, or can also be set to any mime type.
-                        'desc'      => __('Basic media uploader with disabled URL input field.', 'redux-framework'),
-                        'subtitle'  => __('Upload any media using the WordPress native uploader', 'redux-framework'),
+                        'desc'      => __('Basic media uploader with disabled URL input field.', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Upload any media using the WordPress native uploader', MYOOS_THEME_NAME),
                         'hint'      => array(
                             //'title'     => '',
                             'content'   => 'This is a <b>hint</b> tool-tip for the webFonts field.<br/><br/>Add any HTML based text you like here.',
@@ -258,19 +258,19 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'section-media-start',
                         'type'      => 'section',
-                        'title'     => __('Media Options', 'redux-framework'),
-                        'subtitle'  => __('With the "section" field you can create indent option sections.', 'redux-framework'),
+                        'title'     => __('Media Options', MYOOS_THEME_NAME),
+                        'subtitle'  => __('With the "section" field you can create indent option sections.', MYOOS_THEME_NAME),
                         'indent'    => true // Indent all options below until the next 'section' option is set.
                     ),
                     array(
                         'id'        => 'opt-media',
                         'type'      => 'media',
                         'url'       => true,
-                        'title'     => __('Media w/ URL', 'redux-framework'),
+                        'title'     => __('Media w/ URL', MYOOS_THEME_NAME),
                         'compiler'  => 'true',
                         //'mode'      => false, // Can be set to false to allow any media type, or can also be set to any mime type.
-                        'desc'      => __('Basic media uploader with disabled URL input field.', 'redux-framework'),
-                        'subtitle'  => __('Upload any media using the WordPress native uploader', 'redux-framework'),
+                        'desc'      => __('Basic media uploader with disabled URL input field.', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Upload any media using the WordPress native uploader', MYOOS_THEME_NAME),
                         'default'   => array('url' => 'http://s.wordpress.org/style/images/codeispoetry.png'),
                         //'hint'      => array(
                         //    'title'     => 'Hint Title',
@@ -285,31 +285,31 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'media-no-url',
                         'type'      => 'media',
-                        'title'     => __('Media w/o URL', 'redux-framework'),
-                        'desc'      => __('This represents the minimalistic view. It does not have the preview box or the display URL in an input box. ', 'redux-framework'),
-                        'subtitle'  => __('Upload any media using the WordPress native uploader', 'redux-framework'),
+                        'title'     => __('Media w/o URL', MYOOS_THEME_NAME),
+                        'desc'      => __('This represents the minimalistic view. It does not have the preview box or the display URL in an input box. ', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Upload any media using the WordPress native uploader', MYOOS_THEME_NAME),
                     ),
                     array(
                         'id'        => 'media-no-preview',
                         'type'      => 'media',
                         'preview'   => false,
-                        'title'     => __('Media No Preview', 'redux-framework'),
-                        'desc'      => __('This represents the minimalistic view. It does not have the preview box or the display URL in an input box. ', 'redux-framework'),
-                        'subtitle'  => __('Upload any media using the WordPress native uploader', 'redux-framework'),
+                        'title'     => __('Media No Preview', MYOOS_THEME_NAME),
+                        'desc'      => __('This represents the minimalistic view. It does not have the preview box or the display URL in an input box. ', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Upload any media using the WordPress native uploader', MYOOS_THEME_NAME),
                     ),
                     array(
                         'id'        => 'opt-gallery',
                         'type'      => 'gallery',
                         'title'     => __('Add/Edit Gallery', 'so-panels'),
                         'subtitle'  => __('Create a new Gallery by selecting existing or uploading new images using the WordPress native uploader', 'so-panels'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                     ),
                     array(
                         'id'            => 'opt-slider-label',
                         'type'          => 'slider',
-                        'title'         => __('Slider Example 1', 'redux-framework'),
-                        'subtitle'      => __('This slider displays the value as a label.', 'redux-framework'),
-                        'desc'          => __('Slider description. Min: 1, max: 500, step: 1, default value: 250', 'redux-framework'),
+                        'title'         => __('Slider Example 1', MYOOS_THEME_NAME),
+                        'subtitle'      => __('This slider displays the value as a label.', MYOOS_THEME_NAME),
+                        'desc'          => __('Slider description. Min: 1, max: 500, step: 1, default value: 250', MYOOS_THEME_NAME),
                         'default'       => 250,
                         'min'           => 1,
                         'step'          => 1,
@@ -319,9 +319,9 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'            => 'opt-slider-text',
                         'type'          => 'slider',
-                        'title'         => __('Slider Example 2 with Steps (5)', 'redux-framework'),
-                        'subtitle'      => __('This example displays the value in a text box', 'redux-framework'),
-                        'desc'          => __('Slider description. Min: 0, max: 300, step: 5, default value: 75', 'redux-framework'),
+                        'title'         => __('Slider Example 2 with Steps (5)', MYOOS_THEME_NAME),
+                        'subtitle'      => __('This example displays the value in a text box', MYOOS_THEME_NAME),
+                        'desc'          => __('Slider description. Min: 0, max: 300, step: 5, default value: 75', MYOOS_THEME_NAME),
                         'default'       => 75,
                         'min'           => 0,
                         'step'          => 5,
@@ -331,9 +331,9 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'            => 'opt-slider-select',
                         'type'          => 'slider',
-                        'title'         => __('Slider Example 3 with two sliders', 'redux-framework'),
-                        'subtitle'      => __('This example displays the values in select boxes', 'redux-framework'),
-                        'desc'          => __('Slider description. Min: 0, max: 500, step: 5, slider 1 default value: 100, slider 2 default value: 300', 'redux-framework'),
+                        'title'         => __('Slider Example 3 with two sliders', MYOOS_THEME_NAME),
+                        'subtitle'      => __('This example displays the values in select boxes', MYOOS_THEME_NAME),
+                        'desc'          => __('Slider description. Min: 0, max: 500, step: 5, slider 1 default value: 100, slider 2 default value: 300', MYOOS_THEME_NAME),
                         'default'       => array(
                             1 => 100,
                             2 => 300,
@@ -347,9 +347,9 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'            => 'opt-slider-float',
                         'type'          => 'slider',
-                        'title'         => __('Slider Example 4 with float values', 'redux-framework'),
-                        'subtitle'      => __('This example displays float values', 'redux-framework'),
-                        'desc'          => __('Slider description. Min: 0, max: 1, step: .1, default value: .5', 'redux-framework'),
+                        'title'         => __('Slider Example 4 with float values', MYOOS_THEME_NAME),
+                        'subtitle'      => __('This example displays float values', MYOOS_THEME_NAME),
+                        'desc'          => __('Slider description. Min: 0, max: 1, step: .1, default value: .5', MYOOS_THEME_NAME),
                         'default'       => .5,
                         'min'           => 0,
                         'step'          => .1,
@@ -360,8 +360,8 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-spinner',
                         'type'      => 'spinner',
-                        'title'     => __('JQuery UI Spinner Example 1', 'redux-framework'),
-                        'desc'      => __('JQuery UI spinner description. Min:20, max: 100, step:20, default value: 40', 'redux-framework'),
+                        'title'     => __('JQuery UI Spinner Example 1', MYOOS_THEME_NAME),
+                        'desc'      => __('JQuery UI spinner description. Min:20, max: 100, step:20, default value: 40', MYOOS_THEME_NAME),
                         'default'   => '40',
                         'min'       => '20',
                         'step'      => '20',
@@ -370,22 +370,22 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'switch-on',
                         'type'      => 'switch',
-                        'title'     => __('Switch On', 'redux-framework'),
-                        'subtitle'  => __('Look, it\'s on!', 'redux-framework'),
+                        'title'     => __('Switch On', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Look, it\'s on!', MYOOS_THEME_NAME),
                         'default'   => true,
                     ),
                     array(
                         'id'        => 'switch-off',
                         'type'      => 'switch',
-                        'title'     => __('Switch Off', 'redux-framework'),
-                        'subtitle'  => __('Look, it\'s on!', 'redux-framework'),
+                        'title'     => __('Switch Off', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Look, it\'s on!', MYOOS_THEME_NAME),
                         'default'   => false,
                     ),
                     array(
                         'id'        => 'switch-custom',
                         'type'      => 'switch',
-                        'title'     => __('Switch - Custom Titles', 'redux-framework'),
-                        'subtitle'  => __('Look, it\'s on! Also hidden child elements!', 'redux-framework'),
+                        'title'     => __('Switch - Custom Titles', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Look, it\'s on! Also hidden child elements!', MYOOS_THEME_NAME),
                         'default'   => 0,
                         'on'        => 'Enabled',
                         'off'       => 'Disabled',
@@ -394,9 +394,9 @@ if (!class_exists('Redux_Framework_config')) {
                         'id'        => 'switch-fold',
                         'type'      => 'switch',
                         'required'  => array('switch-custom', '=', '1'),
-                        'title'     => __('Switch - With Hidden Items (NESTED!)', 'redux-framework'),
-                        'subtitle'  => __('Also called a "fold" parent.', 'redux-framework'),
-                        'desc'      => __('Items set with a fold to this ID will hide unless this is set to the appropriate value.', 'redux-framework'),
+                        'title'     => __('Switch - With Hidden Items (NESTED!)', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Also called a "fold" parent.', MYOOS_THEME_NAME),
+                        'desc'      => __('Items set with a fold to this ID will hide unless this is set to the appropriate value.', MYOOS_THEME_NAME),
                         'default'   => false,
                     ),
                     array(
@@ -404,8 +404,8 @@ if (!class_exists('Redux_Framework_config')) {
                         'type'      => 'image_select',
                         'tiles'     => true,
                         'required'  => array('switch-fold', 'equals', '0'),
-                        'title'     => __('Images Option (with pattern=>true)', 'redux-framework'),
-                        'subtitle'  => __('Select a background pattern.', 'redux-framework'),
+                        'title'     => __('Images Option (with pattern=>true)', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Select a background pattern.', MYOOS_THEME_NAME),
                         'default'   => 0,
                         'options'   => $sample_patterns
                     ,
@@ -454,23 +454,23 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-slides',
                         'type'      => 'slides',
-                        'title'     => __('Slides Options', 'redux-framework'),
-                        'subtitle'  => __('Unlimited slides with drag and drop sortings.', 'redux-framework'),
-                        'desc'      => __('This field will store all slides values into a multidimensional array to use into a foreach loop.', 'redux-framework'),
+                        'title'     => __('Slides Options', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Unlimited slides with drag and drop sortings.', MYOOS_THEME_NAME),
+                        'desc'      => __('This field will store all slides values into a multidimensional array to use into a foreach loop.', MYOOS_THEME_NAME),
                         'placeholder'   => array(
-                            'title'         => __('This is a title', 'redux-framework'),
-                            'description'   => __('Description Here', 'redux-framework'),
-                            'url'           => __('Give us a link!', 'redux-framework'),
+                            'title'         => __('This is a title', MYOOS_THEME_NAME),
+                            'description'   => __('Description Here', MYOOS_THEME_NAME),
+                            'url'           => __('Give us a link!', MYOOS_THEME_NAME),
                         ),
                     ),
                     array(
                         'id'        => 'opt-presets',
                         'type'      => 'image_select',
                         'presets'   => true,
-                        'title'     => __('Preset', 'redux-framework'),
-                        'subtitle'  => __('This allows you to set a json string or array to override multiple preferences in your theme.', 'redux-framework'),
+                        'title'     => __('Preset', MYOOS_THEME_NAME),
+                        'subtitle'  => __('This allows you to set a json string or array to override multiple preferences in your theme.', MYOOS_THEME_NAME),
                         'default'   => 0,
-                        'desc'      => __('This allows you to set a json string or array to override multiple preferences in your theme.', 'redux-framework'),
+                        'desc'      => __('This allows you to set a json string or array to override multiple preferences in your theme.', MYOOS_THEME_NAME),
                         'options'   => array(
                             '1'         => array('alt' => 'Preset 1', 'img' => ReduxFramework::$_url . '../sample/presets/preset1.png', 'presets' => array('switch-on' => 1, 'switch-off' => 1, 'switch-custom' => 1)),
                             '2'         => array('alt' => 'Preset 2', 'img' => ReduxFramework::$_url . '../sample/presets/preset2.png', 'presets' => '{"slider1":"1", "slider2":"0", "switch-on":"0"}'),
@@ -479,7 +479,7 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'            => 'opt-typography',
                         'type'          => 'typography',
-                        'title'         => __('Typography', 'redux-framework'),
+                        'title'         => __('Typography', MYOOS_THEME_NAME),
                         //'compiler'      => true,  // Use if you want to hook in your own CSS compiler
                         'google'        => true,    // Disable google fonts. Won't work if you haven't defined your google api key
                         'font-backup'   => true,    // Select a backup non-google font in addition to a google font
@@ -495,7 +495,7 @@ if (!class_exists('Redux_Framework_config')) {
                         'output'        => array('h2.site-description'), // An array of CSS selectors to apply this font style to dynamically
                         'compiler'      => array('h2.site-description-compiler'), // An array of CSS selectors to apply this font style to dynamically
                         'units'         => 'px', // Defaults to px
-                        'subtitle'      => __('Typography option with each property can be called individually.', 'redux-framework'),
+                        'subtitle'      => __('Typography option with each property can be called individually.', MYOOS_THEME_NAME),
                         'default'       => array(
                             'color'         => '#333',
                             'font-style'    => '700',
@@ -514,14 +514,14 @@ if (!class_exists('Redux_Framework_config')) {
 
             $this->sections[] = array(
                 'icon'      => 'el-icon-cogs',
-                'title'     => __('General Settings', 'redux-framework'),
+                'title'     => __('General Settings', MYOOS_THEME_NAME),
                 'fields'    => array(
                     array(
                         'id'        => 'opt-layout',
                         'type'      => 'image_select',
                         'compiler'  => true,
-                        'title'     => __('Main Layout', 'redux-framework'),
-                        'subtitle'  => __('Select main content and sidebar alignment. Choose between 1, 2 or 3 column layout.', 'redux-framework'),
+                        'title'     => __('Main Layout', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Select main content and sidebar alignment. Choose between 1, 2 or 3 column layout.', MYOOS_THEME_NAME),
                         'options'   => array(
                             '1' => array('alt' => '1 Column',       'img' => ReduxFramework::$_url . 'assets/img/1col.png'),
                             '2' => array('alt' => '2 Column Left',  'img' => ReduxFramework::$_url . 'assets/img/2cl.png'),
@@ -536,16 +536,16 @@ if (!class_exists('Redux_Framework_config')) {
                         'id'        => 'opt-textarea',
                         'type'      => 'textarea',
                         'required'  => array('layout', 'equals', '1'),
-                        'title'     => __('Tracking Code', 'redux-framework'),
-                        'subtitle'  => __('Paste your Google Analytics (or other) tracking code here. This will be added into the footer template of your theme.', 'redux-framework'),
+                        'title'     => __('Tracking Code', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Paste your Google Analytics (or other) tracking code here. This will be added into the footer template of your theme.', MYOOS_THEME_NAME),
                         'validate'  => 'js',
                         'desc'      => 'Validate that it\'s javascript!',
                     ),
                     array(
                         'id'        => 'opt-ace-editor-css',
                         'type'      => 'ace_editor',
-                        'title'     => __('CSS Code', 'redux-framework'),
-                        'subtitle'  => __('Paste your CSS code here.', 'redux-framework'),
+                        'title'     => __('CSS Code', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Paste your CSS code here.', MYOOS_THEME_NAME),
                         'mode'      => 'css',
                         'theme'     => 'monokai',
                         'desc'      => 'Possible modes can be found at <a href="http://ace.c9.io" target="_blank">http://ace.c9.io/</a>.',
@@ -554,8 +554,8 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-ace-editor-js',
                         'type'      => 'ace_editor',
-                        'title'     => __('JS Code', 'redux-framework'),
-                        'subtitle'  => __('Paste your JS code here.', 'redux-framework'),
+                        'title'     => __('JS Code', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Paste your JS code here.', MYOOS_THEME_NAME),
                         'mode'      => 'javascript',
                         'theme'     => 'chrome',
                         'desc'      => 'Possible modes can be found at <a href="http://ace.c9.io" target="_blank">http://ace.c9.io/</a>.',
@@ -564,8 +564,8 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-ace-editor-php',
                         'type'      => 'ace_editor',
-                        'title'     => __('PHP Code', 'redux-framework'),
-                        'subtitle'  => __('Paste your PHP code here.', 'redux-framework'),
+                        'title'     => __('PHP Code', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Paste your PHP code here.', MYOOS_THEME_NAME),
                         'mode'      => 'php',
                         'theme'     => 'chrome',
                         'desc'      => 'Possible modes can be found at <a href="http://ace.c9.io" target="_blank">http://ace.c9.io/</a>.',
@@ -574,8 +574,8 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-editor',
                         'type'      => 'editor',
-                        'title'     => __('Footer Text', 'redux-framework'),
-                        'subtitle'  => __('You can use the following shortcodes in your footer text: [wp-url] [site-url] [theme-url] [login-url] [logout-url] [site-title] [site-tagline] [current-year]', 'redux-framework'),
+                        'title'     => __('Footer Text', MYOOS_THEME_NAME),
+                        'subtitle'  => __('You can use the following shortcodes in your footer text: [wp-url] [site-url] [theme-url] [login-url] [logout-url] [site-title] [site-tagline] [current-year]', MYOOS_THEME_NAME),
                         'default'   => 'Powered by Redux Framework.',
                     ),
                     array(
@@ -590,13 +590,13 @@ if (!class_exists('Redux_Framework_config')) {
 
             $this->sections[] = array(
                 'icon'      => 'el-icon-website',
-                'title'     => __('Styling Options', 'redux-framework'),
+                'title'     => __('Styling Options', MYOOS_THEME_NAME),
                 'fields'    => array(
                     array(
                         'id'        => 'opt-select-stylesheet',
                         'type'      => 'select',
-                        'title'     => __('Theme Stylesheet', 'redux-framework'),
-                        'subtitle'  => __('Select your themes alternative color scheme.', 'redux-framework'),
+                        'title'     => __('Theme Stylesheet', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Select your themes alternative color scheme.', MYOOS_THEME_NAME),
                         'options'   => array('default.css' => 'default.css', 'color1.css' => 'color1.css'),
                         'default'   => 'default.css',
                     ),
@@ -604,8 +604,8 @@ if (!class_exists('Redux_Framework_config')) {
                         'id'        => 'opt-color-background',
                         'type'      => 'color',
                         'output'    => array('.site-title'),
-                        'title'     => __('Body Background Color', 'redux-framework'),
-                        'subtitle'  => __('Pick a background color for the theme (default: #fff).', 'redux-framework'),
+                        'title'     => __('Body Background Color', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Pick a background color for the theme (default: #fff).', MYOOS_THEME_NAME),
                         'default'   => '#FFFFFF',
                         'validate'  => 'color',
                     ),
@@ -613,23 +613,23 @@ if (!class_exists('Redux_Framework_config')) {
                         'id'        => 'opt-background',
                         'type'      => 'background',
                         'output'    => array('body'),
-                        'title'     => __('Body Background', 'redux-framework'),
-                        'subtitle'  => __('Body background with image, color, etc.', 'redux-framework'),
+                        'title'     => __('Body Background', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Body background with image, color, etc.', MYOOS_THEME_NAME),
                         //'default'   => '#FFFFFF',
                     ),
                     array(
                         'id'        => 'opt-color-footer',
                         'type'      => 'color',
-                        'title'     => __('Footer Background Color', 'redux-framework'),
-                        'subtitle'  => __('Pick a background color for the footer (default: #dd9933).', 'redux-framework'),
+                        'title'     => __('Footer Background Color', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Pick a background color for the footer (default: #dd9933).', MYOOS_THEME_NAME),
                         'default'   => '#dd9933',
                         'validate'  => 'color',
                     ),
                     array(
                         'id'        => 'opt-color-rgba',
                         'type'      => 'color_rgba',
-                        'title'     => __('Color RGBA - BETA', 'redux-framework'),
-                        'subtitle'  => __('Gives you the RGBA color. Still quite experimental. Use at your own risk.', 'redux-framework'),
+                        'title'     => __('Color RGBA - BETA', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Gives you the RGBA color. Still quite experimental. Use at your own risk.', MYOOS_THEME_NAME),
                         'default'   => array('color' => '#dd9933', 'alpha' => '1.0'),
                         'output'    => array('body'),
                         'mode'      => 'background',
@@ -638,9 +638,9 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-color-header',
                         'type'      => 'color_gradient',
-                        'title'     => __('Header Gradient Color Option', 'redux-framework'),
-                        'subtitle'  => __('Only color validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Header Gradient Color Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Only color validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         'default'   => array(
                             'from'      => '#1e73be', 
                             'to'        => '#00897e'
@@ -649,9 +649,9 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-link-color',
                         'type'      => 'link_color',
-                        'title'     => __('Links Color Option', 'redux-framework'),
-                        'subtitle'  => __('Only color validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Links Color Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Only color validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         //'regular'   => false, // Disable Regular Color
                         //'hover'     => false, // Disable Hover Color
                         //'active'    => false, // Disable Active Color
@@ -665,10 +665,10 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-header-border',
                         'type'      => 'border',
-                        'title'     => __('Header Border Option', 'redux-framework'),
-                        'subtitle'  => __('Only color validation can be done on this field type', 'redux-framework'),
+                        'title'     => __('Header Border Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Only color validation can be done on this field type', MYOOS_THEME_NAME),
                         'output'    => array('.site-header'), // An array of CSS selectors to apply this font style to
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         'default'   => array(
                             'border-color'  => '#1e73be', 
                             'border-style'  => 'solid', 
@@ -691,9 +691,9 @@ if (!class_exists('Redux_Framework_config')) {
                         //'units'         => 'em',      // You can specify a unit value. Possible: px, em, %
                         //'units_extended'=> 'true',    // Allow users to select any type of unit
                         //'display_units' => 'false',   // Set to false to hide the units if the units are specified
-                        'title'         => __('Padding/Margin Option', 'redux-framework'),
-                        'subtitle'      => __('Allow your users to choose the spacing or margin they want.', 'redux-framework'),
-                        'desc'          => __('You can enable or disable any piece of this field. Top, Right, Bottom, Left, or Units.', 'redux-framework'),
+                        'title'         => __('Padding/Margin Option', MYOOS_THEME_NAME),
+                        'subtitle'      => __('Allow your users to choose the spacing or margin they want.', MYOOS_THEME_NAME),
+                        'desc'          => __('You can enable or disable any piece of this field. Top, Right, Bottom, Left, or Units.', MYOOS_THEME_NAME),
                         'default'       => array(
                             'margin-top'    => '1px', 
                             'margin-right'  => '2px', 
@@ -706,9 +706,9 @@ if (!class_exists('Redux_Framework_config')) {
                         'type'              => 'dimensions',
                         'units'             => 'em',    // You can specify a unit value. Possible: px, em, %
                         'units_extended'    => 'true',  // Allow users to select any type of unit
-                        'title'             => __('Dimensions (Width/Height) Option', 'redux-framework'),
-                        'subtitle'          => __('Allow your users to choose width, height, and/or unit.', 'redux-framework'),
-                        'desc'              => __('You can enable or disable any piece of this field. Width, Height, or Units.', 'redux-framework'),
+                        'title'             => __('Dimensions (Width/Height) Option', MYOOS_THEME_NAME),
+                        'subtitle'          => __('aaa Allow your users to choose width, height, and/or unit.', MYOOS_THEME_NAME),
+                        'desc'              => __('You can enable or disable any piece of this field. Width, Height, or Units.', MYOOS_THEME_NAME),
                         'default'           => array(
                             'width'     => 200, 
                             'height'    => 100,
@@ -717,8 +717,8 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-typography-body',
                         'type'      => 'typography',
-                        'title'     => __('Body Font', 'redux-framework'),
-                        'subtitle'  => __('Specify the body font properties.', 'redux-framework'),
+                        'title'     => __('Body Font', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Specify the body font properties.', MYOOS_THEME_NAME),
                         'google'    => true,
                         'default'   => array(
                             'color'         => '#dd9933',
@@ -730,17 +730,17 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-custom-css',
                         'type'      => 'textarea',
-                        'title'     => __('Custom CSS', 'redux-framework'),
-                        'subtitle'  => __('Quickly add some CSS to your theme by adding it to this block.', 'redux-framework'),
-                        'desc'      => __('This field is even CSS validated!', 'redux-framework'),
+                        'title'     => __('Custom CSS', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Quickly add some CSS to your theme by adding it to this block.', MYOOS_THEME_NAME),
+                        'desc'      => __('This field is even CSS validated!', MYOOS_THEME_NAME),
                         'validate'  => 'css',
                     ),
                     array(
                         'id'        => 'opt-custom-html',
                         'type'      => 'textarea',
-                        'title'     => __('Custom HTML', 'redux-framework'),
-                        'subtitle'  => __('Just like a text box widget.', 'redux-framework'),
-                        'desc'      => __('This field is even HTML validated!', 'redux-framework'),
+                        'title'     => __('Custom HTML', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Just like a text box widget.', MYOOS_THEME_NAME),
+                        'desc'      => __('This field is even HTML validated!', MYOOS_THEME_NAME),
                         'validate'  => 'html',
                     ),
                 )
@@ -754,16 +754,16 @@ if (!class_exists('Redux_Framework_config')) {
              */
             $this->sections[] = array(
                 'icon'      => 'el-icon-bullhorn',
-                'title'     => __('Field Validation', 'redux-framework'),
-                'heading'   => __('Validate ALL fields within Redux.', 'redux-framework'),
-                'desc'      => __('<p class="description">This is the Description. Again HTML is allowed2</p>', 'redux-framework'),
+                'title'     => __('Field Validation', MYOOS_THEME_NAME),
+                'heading'   => __('Validate ALL fields within Redux.', MYOOS_THEME_NAME),
+                'desc'      => __('<p class="description">This is the Description. Again HTML is allowed2</p>', MYOOS_THEME_NAME),
                 'fields'    => array(
                     array(
                         'id'        => 'opt-text-email',
                         'type'      => 'text',
-                        'title'     => __('Text Option - Email Validated', 'redux-framework'),
-                        'subtitle'  => __('This is a little space under the Field Title in the Options table, additional info is good in here.', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Text Option - Email Validated', MYOOS_THEME_NAME),
+                        'subtitle'  => __('This is a little space under the Field Title in the Options table, additional info is good in here.', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         'validate'  => 'email',
                         'msg'       => 'custom error message',
                         'default'   => 'test@test.com',
@@ -775,25 +775,25 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-text-post-type',
                         'type'      => 'text',
-                        'title'     => __('Text Option with Data Attributes', 'redux-framework'),
-                        'subtitle'  => __('You can also pass an options array if you want. Set the default to whatever you like.', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Text Option with Data Attributes', MYOOS_THEME_NAME),
+                        'subtitle'  => __('You can also pass an options array if you want. Set the default to whatever you like.', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         'data'      => 'post_type',
                     ),
                     array(
                         'id'        => 'opt-multi-text',
                         'type'      => 'multi_text',
-                        'title'     => __('Multi Text Option - Color Validated', 'redux-framework'),
+                        'title'     => __('Multi Text Option - Color Validated', MYOOS_THEME_NAME),
                         'validate'  => 'color',
-                        'subtitle'  => __('If you enter an invalid color it will be removed. Try using the text "blue" as a color.  ;)', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework')
+                        'subtitle'  => __('If you enter an invalid color it will be removed. Try using the text "blue" as a color.  ;)', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME)
                     ),
                     array(
                         'id'        => 'opt-text-url',
                         'type'      => 'text',
-                        'title'     => __('Text Option - URL Validated', 'redux-framework'),
-                        'subtitle'  => __('This must be a URL.', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Text Option - URL Validated', MYOOS_THEME_NAME),
+                        'subtitle'  => __('This must be a URL.', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         'validate'  => 'url',
                         'default'   => 'http://reduxframework.com',
 //                        'text_hint' => array(
@@ -804,36 +804,36 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-text-numeric',
                         'type'      => 'text',
-                        'title'     => __('Text Option - Numeric Validated', 'redux-framework'),
-                        'subtitle'  => __('This must be numeric.', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Text Option - Numeric Validated', MYOOS_THEME_NAME),
+                        'subtitle'  => __('This must be numeric.', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         'validate'  => 'numeric',
                         'default'   => '0',
                     ),
                     array(
                         'id'        => 'opt-text-comma-numeric',
                         'type'      => 'text',
-                        'title'     => __('Text Option - Comma Numeric Validated', 'redux-framework'),
-                        'subtitle'  => __('This must be a comma separated string of numerical values.', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Text Option - Comma Numeric Validated', MYOOS_THEME_NAME),
+                        'subtitle'  => __('This must be a comma separated string of numerical values.', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         'validate'  => 'comma_numeric',
                         'default'   => '0',
                     ),
                     array(
                         'id'        => 'opt-text-no-special-chars',
                         'type'      => 'text',
-                        'title'     => __('Text Option - No Special Chars Validated', 'redux-framework'),
-                        'subtitle'  => __('This must be a alpha numeric only.', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Text Option - No Special Chars Validated', MYOOS_THEME_NAME),
+                        'subtitle'  => __('This must be a alpha numeric only.', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         'validate'  => 'no_special_chars',
                         'default'   => '0'
                     ),
                     array(
                         'id'        => 'opt-text-str_replace',
                         'type'      => 'text',
-                        'title'     => __('Text Option - Str Replace Validated', 'redux-framework'),
-                        'subtitle'  => __('You decide.', 'redux-framework'),
-                        'desc'      => __('This field\'s default value was changed by a filter hook!', 'redux-framework'),
+                        'title'     => __('Text Option - Str Replace Validated', MYOOS_THEME_NAME),
+                        'subtitle'  => __('You decide.', MYOOS_THEME_NAME),
+                        'desc'      => __('This field\'s default value was changed by a filter hook!', MYOOS_THEME_NAME),
                         'validate'  => 'str_replace',
                         'str'       => array(
                             'search'        => ' ', 
@@ -844,9 +844,9 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-text-preg_replace',
                         'type'      => 'text',
-                        'title'     => __('Text Option - Preg Replace Validated', 'redux-framework'),
-                        'subtitle'  => __('You decide.', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Text Option - Preg Replace Validated', MYOOS_THEME_NAME),
+                        'subtitle'  => __('You decide.', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         'validate'  => 'preg_replace',
                         'preg'      => array(
                             'pattern'       => '/[^a-zA-Z_ -]/s', 
@@ -857,36 +857,36 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'                => 'opt-text-custom_validate',
                         'type'              => 'text',
-                        'title'             => __('Text Option - Custom Callback Validated', 'redux-framework'),
-                        'subtitle'          => __('You decide.', 'redux-framework'),
-                        'desc'              => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'             => __('Text Option - Custom Callback Validated', MYOOS_THEME_NAME),
+                        'subtitle'          => __('You decide.', MYOOS_THEME_NAME),
+                        'desc'              => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         'validate_callback' => 'redux_validate_callback_function',
                         'default'           => '0'
                     ),
                     array(
                         'id'        => 'opt-textarea-no-html',
                         'type'      => 'textarea',
-                        'title'     => __('Textarea Option - No HTML Validated', 'redux-framework'),
-                        'subtitle'  => __('All HTML will be stripped', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Textarea Option - No HTML Validated', MYOOS_THEME_NAME),
+                        'subtitle'  => __('All HTML will be stripped', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         'validate'  => 'no_html',
                         'default'   => 'No HTML is allowed in here.'
                     ),
                     array(
                         'id'        => 'opt-textarea-html',
                         'type'      => 'textarea',
-                        'title'     => __('Textarea Option - HTML Validated', 'redux-framework'),
-                        'subtitle'  => __('HTML Allowed (wp_kses)', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Textarea Option - HTML Validated', MYOOS_THEME_NAME),
+                        'subtitle'  => __('HTML Allowed (wp_kses)', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         'validate'  => 'html', //see http://codex.wordpress.org/Function_Reference/wp_kses_post
                         'default'   => 'HTML is allowed in here.'
                     ),
                     array(
                         'id'            => 'opt-textarea-some-html',
                         'type'          => 'textarea',
-                        'title'         => __('Textarea Option - HTML Validated Custom', 'redux-framework'),
-                        'subtitle'      => __('Custom HTML Allowed (wp_kses)', 'redux-framework'),
-                        'desc'          => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'         => __('Textarea Option - HTML Validated Custom', MYOOS_THEME_NAME),
+                        'subtitle'      => __('Custom HTML Allowed (wp_kses)', MYOOS_THEME_NAME),
+                        'desc'          => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         'validate'      => 'html_custom',
                         'default'       => '<p>Some HTML is allowed in here.</p>',
                         'allowed_html'  => array('') //see http://codex.wordpress.org/Function_Reference/wp_kses
@@ -894,9 +894,9 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-textarea-js',
                         'type'      => 'textarea',
-                        'title'     => __('Textarea Option - JS Validated', 'redux-framework'),
-                        'subtitle'  => __('JS will be escaped', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Textarea Option - JS Validated', MYOOS_THEME_NAME),
+                        'subtitle'  => __('JS will be escaped', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         'validate'  => 'js'
                     ),
                 )
@@ -904,23 +904,23 @@ if (!class_exists('Redux_Framework_config')) {
             
             $this->sections[] = array(
                 'icon'      => 'el-icon-check',
-                'title'     => __('Radio/Checkbox Fields', 'redux-framework'),
-                'desc'      => __('<p class="description">This is the Description. Again HTML is allowed</p>', 'redux-framework'),
+                'title'     => __('Radio/Checkbox Fields', MYOOS_THEME_NAME),
+                'desc'      => __('<p class="description">This is the Description. Again HTML is allowed</p>', MYOOS_THEME_NAME),
                 'fields'    => array(
                     array(
                         'id'        => 'opt-checkbox',
                         'type'      => 'checkbox',
-                        'title'     => __('Checkbox Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Checkbox Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         'default'   => '1'// 1 = on | 0 = off
                     ),
                     array(
                         'id'        => 'opt-multi-check',
                         'type'      => 'checkbox',
-                        'title'     => __('Multi Checkbox Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Multi Checkbox Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         
                         //Must provide key => value pairs for multi checkbox options
                         'options'   => array(
@@ -939,25 +939,25 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-checkbox-data',
                         'type'      => 'checkbox',
-                        'title'     => __('Multi Checkbox Option (with menu data)', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Multi Checkbox Option (with menu data)', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         'data'      => 'menu'
                     ),
                     array(
                         'id'        => 'opt-checkbox-sidebar',
                         'type'      => 'checkbox',
-                        'title'     => __('Multi Checkbox Option (with sidebar data)', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Multi Checkbox Option (with sidebar data)', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         'data'      => 'sidebars'
                     ),
                     array(
                         'id'        => 'opt-radio',
                         'type'      => 'radio',
-                        'title'     => __('Radio Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Radio Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         
                          //Must provide key => value pairs for radio options
                         'options'   => array(
@@ -970,17 +970,17 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-radio-data',
                         'type'      => 'radio',
-                        'title'     => __('Multi Checkbox Option (with menu data)', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Multi Checkbox Option (with menu data)', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         'data'      => 'menu'
                     ),
                     array(
                         'id'        => 'opt-image-select',
                         'type'      => 'image_select',
-                        'title'     => __('Images Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Images Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         
                         //Must provide key => value(array:title|img) pairs for radio options
                         'options'   => array(
@@ -994,9 +994,9 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-image-select-layout',
                         'type'      => 'image_select',
-                        'title'     => __('Images Option for Layout', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This uses some of the built in images, you can use them for layout options.', 'redux-framework'),
+                        'title'     => __('Images Option for Layout', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This uses some of the built in images, you can use them for layout options.', MYOOS_THEME_NAME),
                         
                         //Must provide key => value(array:title|img) pairs for radio options
                         'options'   => array(
@@ -1012,9 +1012,9 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-sortable',
                         'type'      => 'sortable',
-                        'title'     => __('Sortable Text Option', 'redux-framework'),
-                        'subtitle'  => __('Define and reorder these however you want.', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Sortable Text Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Define and reorder these however you want.', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         'options'   => array(
                             'si1' => 'Item 1',
                             'si2' => 'Item 2',
@@ -1025,9 +1025,9 @@ if (!class_exists('Redux_Framework_config')) {
                         'id'        => 'opt-check-sortable',
                         'type'      => 'sortable',
                         'mode'      => 'checkbox', // checkbox or text
-                        'title'     => __('Sortable Text Option', 'redux-framework'),
-                        'subtitle'  => __('Define and reorder these however you want.', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Sortable Text Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('Define and reorder these however you want.', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         'options'   => array(
                             'si1' => 'Item 1',
                             'si2' => 'Item 2',
@@ -1039,15 +1039,15 @@ if (!class_exists('Redux_Framework_config')) {
             
             $this->sections[] = array(
                 'icon'      => 'el-icon-list-alt',
-                'title'     => __('Select Fields', 'redux-framework'),
-                'desc'      => __('<p class="description">This is the Description. Again HTML is allowed</p>', 'redux-framework'),
+                'title'     => __('Select Fields', MYOOS_THEME_NAME),
+                'desc'      => __('<p class="description">This is the Description. Again HTML is allowed</p>', MYOOS_THEME_NAME),
                 'fields'    => array(
                     array(
                         'id'        => 'opt-select',
                         'type'      => 'select',
-                        'title'     => __('Select Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Select Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         
                         //Must provide key => value pairs for select options
                         'options'   => array(
@@ -1061,9 +1061,9 @@ if (!class_exists('Redux_Framework_config')) {
                         'id'        => 'opt-multi-select',
                         'type'      => 'select',
                         'multi'     => true,
-                        'title'     => __('Multi Select Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Multi Select Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         
                         //Must provide key => value pairs for radio options
                         'options'   => array(
@@ -1077,8 +1077,8 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-select-image',
                         'type'      => 'select_image',
-                        'title'     => __('Select Image', 'redux-framework'),
-                        'subtitle'  => __('A preview of the selected image will appear underneath the select box.', 'redux-framework'),
+                        'title'     => __('Select Image', MYOOS_THEME_NAME),
+                        'subtitle'  => __('A preview of the selected image will appear underneath the select box.', MYOOS_THEME_NAME),
                         'options'   => $sample_patterns,
                         // Alternatively
                         //'options'   => Array(
@@ -1089,92 +1089,92 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'    => 'opt-info',
                         'type'  => 'info',
-                        'desc'  => __('You can easily add a variety of data from WordPress.', 'redux-framework'),
+                        'desc'  => __('You can easily add a variety of data from WordPress.', MYOOS_THEME_NAME),
                     ),
                     array(
                         'id'        => 'opt-select-categories',
                         'type'      => 'select',
                         'data'      => 'categories',
-                        'title'     => __('Categories Select Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Categories Select Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                     ),
                     array(
                         'id'        => 'opt-select-categories-multi',
                         'type'      => 'select',
                         'data'      => 'categories',
                         'multi'     => true,
-                        'title'     => __('Categories Multi Select Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Categories Multi Select Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                     ),
                     array(
                         'id'        => 'opt-select-pages',
                         'type'      => 'select',
                         'data'      => 'pages',
-                        'title'     => __('Pages Select Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Pages Select Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                     ),
                     array(
                         'id'        => 'opt-multi-select-pages',
                         'type'      => 'select',
                         'data'      => 'pages',
                         'multi'     => true,
-                        'title'     => __('Pages Multi Select Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Pages Multi Select Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                     ),
                     array(
                         'id'        => 'opt-select-tags',
                         'type'      => 'select',
                         'data'      => 'tags',
-                        'title'     => __('Tags Select Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Tags Select Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                     ),
                     array(
                         'id'        => 'opt-multi-select-tags',
                         'type'      => 'select',
                         'data'      => 'tags',
                         'multi'     => true,
-                        'title'     => __('Tags Multi Select Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Tags Multi Select Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                     ),
                     array(
                         'id'        => 'opt-select-menus',
                         'type'      => 'select',
                         'data'      => 'menus',
-                        'title'     => __('Menus Select Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Menus Select Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                     ),
                     array(
                         'id'        => 'opt-multi-select-menus',
                         'type'      => 'select',
                         'data'      => 'menu',
                         'multi'     => true,
-                        'title'     => __('Menus Multi Select Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Menus Multi Select Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                     ),
                     array(
                         'id'        => 'opt-select-post-type',
                         'type'      => 'select',
                         'data'      => 'post_type',
-                        'title'     => __('Post Type Select Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Post Type Select Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                     ),
                     array(
                         'id'        => 'opt-multi-select-post-type',
                         'type'      => 'select',
                         'data'      => 'post_type',
                         'multi'     => true,
-                        'title'     => __('Post Type Multi Select Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Post Type Multi Select Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                     ),
                     array(
                         'id'        => 'opt-multi-select-sortable',
@@ -1182,70 +1182,70 @@ if (!class_exists('Redux_Framework_config')) {
                         'data'      => 'post_type',
                         'multi'     => true,
                         'sortable'  => true,
-                        'title'     => __('Post Type Multi Select Option + Sortable', 'redux-framework'),
-                        'subtitle'  => __('This field also has sortable enabled!', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Post Type Multi Select Option + Sortable', MYOOS_THEME_NAME),
+                        'subtitle'  => __('This field also has sortable enabled!', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                     ),
                     array(
                         'id'        => 'opt-select-posts',
                         'type'      => 'select',
                         'data'      => 'post',
-                        'title'     => __('Posts Select Option2', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Posts Select Option2', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                     ),
                     array(
                         'id'        => 'opt-multi-select-posts',
                         'type'      => 'select',
                         'data'      => 'post',
                         'multi'     => true,
-                        'title'     => __('Posts Multi Select Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Posts Multi Select Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                     ),
                     array(
                         'id'        => 'opt-select-roles',
                         'type'      => 'select',
                         'data'      => 'roles',
-                        'title'     => __('User Role Select Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('User Role Select Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                     ),
                     array(
                         'id'        => 'opt-select-capabilities',
                         'type'      => 'select',
                         'data'      => 'capabilities',
                         'multi'     => true,
-                        'title'     => __('Capabilities Select Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Capabilities Select Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                     ),
                     array(
                         'id'        => 'opt-select-elusive',
                         'type'      => 'select',
                         'data'      => 'elusive-icons',
-                        'title'     => __('Elusive Icons Select Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('Here\'s a list of all the elusive icons by name and icon.', 'redux-framework'),
+                        'title'     => __('Elusive Icons Select Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('Here\'s a list of all the elusive icons by name and icon.', MYOOS_THEME_NAME),
                     ),
                 )
             );
 
             $theme_info  = '<div class="redux-framework-section-desc">';
-            $theme_info .= '<p class="redux-framework-theme-data description theme-uri">' . __('<strong>Theme URL:</strong> ', 'redux-framework') . '<a href="' . $this->theme->get('ThemeURI') . '" target="_blank">' . $this->theme->get('ThemeURI') . '</a></p>';
-            $theme_info .= '<p class="redux-framework-theme-data description theme-author">' . __('<strong>Author:</strong> ', 'redux-framework') . $this->theme->get('Author') . '</p>';
-            $theme_info .= '<p class="redux-framework-theme-data description theme-version">' . __('<strong>Version:</strong> ', 'redux-framework') . $this->theme->get('Version') . '</p>';
+            $theme_info .= '<p class="redux-framework-theme-data description theme-uri">' . __('<strong>Theme URL:</strong> ', MYOOS_THEME_NAME) . '<a href="' . $this->theme->get('ThemeURI') . '" target="_blank">' . $this->theme->get('ThemeURI') . '</a></p>';
+            $theme_info .= '<p class="redux-framework-theme-data description theme-author">' . __('<strong>Author:</strong> ', MYOOS_THEME_NAME) . $this->theme->get('Author') . '</p>';
+            $theme_info .= '<p class="redux-framework-theme-data description theme-version">' . __('<strong>Version:</strong> ', MYOOS_THEME_NAME) . $this->theme->get('Version') . '</p>';
             $theme_info .= '<p class="redux-framework-theme-data description theme-description">' . $this->theme->get('Description') . '</p>';
             $tabs = $this->theme->get('Tags');
             if (!empty($tabs)) {
-                $theme_info .= '<p class="redux-framework-theme-data description theme-tags">' . __('<strong>Tags:</strong> ', 'redux-framework') . implode(', ', $tabs) . '</p>';
+                $theme_info .= '<p class="redux-framework-theme-data description theme-tags">' . __('<strong>Tags:</strong> ', MYOOS_THEME_NAME) . implode(', ', $tabs) . '</p>';
             }
             $theme_info .= '</div>';
 
             if (file_exists(dirname(__FILE__) . '/../README.md')) {
                 $this->sections['theme_docs'] = array(
                     'icon'      => 'el-icon-list-alt',
-                    'title'     => __('Documentation', 'redux-framework'),
+                    'title'     => __('Documentation', MYOOS_THEME_NAME),
                     'fields'    => array(
                         array(
                             'id'        => '17',
@@ -1260,15 +1260,15 @@ if (!class_exists('Redux_Framework_config')) {
             // You can append a new section at any time.
             $this->sections[] = array(
                 'icon'      => 'el-icon-eye-open',
-                'title'     => __('Additional Fields', 'redux-framework'),
-                'desc'      => __('<p class="description">This is the Description. Again HTML is allowed</p>', 'redux-framework'),
+                'title'     => __('Additional Fields', MYOOS_THEME_NAME),
+                'desc'      => __('<p class="description">This is the Description. Again HTML is allowed</p>', MYOOS_THEME_NAME),
                 'fields'    => array(
                     array(
                         'id'        => 'opt-datepicker',
                         'type'      => 'date',
-                        'title'     => __('Date Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework')
+                        'title'     => __('Date Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME)
                     ),
                     array(
                         'id'    => 'opt-divide',
@@ -1277,9 +1277,9 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-button-set',
                         'type'      => 'button_set',
-                        'title'     => __('Button Set Option', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Button Set Option', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         
                         //Must provide key => value pairs for radio options
                         'options'   => array(
@@ -1292,9 +1292,9 @@ if (!class_exists('Redux_Framework_config')) {
                     array(
                         'id'        => 'opt-button-set-multi',
                         'type'      => 'button_set',
-                        'title'     => __('Button Set, Multi Select', 'redux-framework'),
-                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework'),
-                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework'),
+                        'title'     => __('Button Set, Multi Select', MYOOS_THEME_NAME),
+                        'subtitle'  => __('No validation can be done on this field type', MYOOS_THEME_NAME),
+                        'desc'      => __('This is the description field, again good for additional info.', MYOOS_THEME_NAME),
                         'multi'     => true,
                         
                         //Must provide key => value pairs for radio options
@@ -1309,30 +1309,30 @@ if (!class_exists('Redux_Framework_config')) {
                         'id'        => 'opt-info-field',
                         'type'      => 'info',
                         'required'  => array('18', 'equals', array('1', '2')),
-                        'desc'      => __('This is the info field, if you want to break sections up.', 'redux-framework')
+                        'desc'      => __('This is the info field, if you want to break sections up.', MYOOS_THEME_NAME)
                     ),
                     array(
                         'id'    => 'opt-info-warning',
                         'type'  => 'info',
                         'style' => 'warning',
-                        'title' => __('This is a title.', 'redux-framework'),
-                        'desc'  => __('This is an info field with the warning style applied and a header.', 'redux-framework')
+                        'title' => __('This is a title.', MYOOS_THEME_NAME),
+                        'desc'  => __('This is an info field with the warning style applied and a header.', MYOOS_THEME_NAME)
                     ),
                     array(
                         'id'    => 'opt-info-success',
                         'type'  => 'info',
                         'style' => 'success',
                         'icon'  => 'el-icon-info-sign',
-                        'title' => __('This is a title.', 'redux-framework'),
-                        'desc'  => __('This is an info field with the success style applied, a header and an icon.', 'redux-framework')
+                        'title' => __('This is a title.', MYOOS_THEME_NAME),
+                        'desc'  => __('This is an info field with the success style applied, a header and an icon.', MYOOS_THEME_NAME)
                     ),
                     array(
                         'id'    => 'opt-info-critical',
                         'type'  => 'info',
                         'style' => 'critical',
                         'icon'  => 'el-icon-info-sign',
-                        'title' => __('This is a title.', 'redux-framework'),
-                        'desc'  => __('This is an info field with the critical style applied, a header and an icon.', 'redux-framework')
+                        'title' => __('This is a title.', MYOOS_THEME_NAME),
+                        'desc'  => __('This is an info field with the critical style applied, a header and an icon.', MYOOS_THEME_NAME)
                     ),
                     array(
                         'id'        => 'opt-raw_info',
@@ -1345,16 +1345,16 @@ if (!class_exists('Redux_Framework_config')) {
                         'id'        => 'opt-info-normal',
                         'type'      => 'info',
                         'notice'    => true,
-                        'title'     => __('This is a title.', 'redux-framework'),
-                        'desc'      => __('This is an info notice field with the normal style applied, a header and an icon.', 'redux-framework')
+                        'title'     => __('This is a title.', MYOOS_THEME_NAME),
+                        'desc'      => __('This is an info notice field with the normal style applied, a header and an icon.', MYOOS_THEME_NAME)
                     ),
                     array(
                         'id'        => 'opt-notice-info',
                         'type'      => 'info',
                         'notice'    => true,
                         'style'     => 'info',
-                        'title'     => __('This is a title.', 'redux-framework'),
-                        'desc'      => __('This is an info notice field with the info style applied, a header and an icon.', 'redux-framework')
+                        'title'     => __('This is a title.', MYOOS_THEME_NAME),
+                        'desc'      => __('This is an info notice field with the info style applied, a header and an icon.', MYOOS_THEME_NAME)
                     ),
                     array(
                         'id'        => 'opt-notice-warning',
@@ -1362,8 +1362,8 @@ if (!class_exists('Redux_Framework_config')) {
                         'notice'    => true,
                         'style'     => 'warning',
                         'icon'      => 'el-icon-info-sign',
-                        'title'     => __('This is a title.', 'redux-framework'),
-                        'desc'      => __('This is an info notice field with the warning style applied, a header and an icon.', 'redux-framework')
+                        'title'     => __('This is a title.', MYOOS_THEME_NAME),
+                        'desc'      => __('This is an info notice field with the warning style applied, a header and an icon.', MYOOS_THEME_NAME)
                     ),
                     array(
                         'id'        => 'opt-notice-success',
@@ -1371,8 +1371,8 @@ if (!class_exists('Redux_Framework_config')) {
                         'notice'    => true,
                         'style'     => 'success',
                         'icon'      => 'el-icon-info-sign',
-                        'title'     => __('This is a title.', 'redux-framework'),
-                        'desc'      => __('This is an info notice field with the success style applied, a header and an icon.', 'redux-framework')
+                        'title'     => __('This is a title.', MYOOS_THEME_NAME),
+                        'desc'      => __('This is an info notice field with the success style applied, a header and an icon.', MYOOS_THEME_NAME)
                     ),
                     array(
                         'id'        => 'opt-notice-critical',
@@ -1380,23 +1380,16 @@ if (!class_exists('Redux_Framework_config')) {
                         'notice'    => true,
                         'style'     => 'critical',
                         'icon'      => 'el-icon-info-sign',
-                        'title'     => __('This is a title.', 'redux-framework'),
-                        'desc'      => __('This is an notice field with the critical style applied, a header and an icon.', 'redux-framework')
+                        'title'     => __('This is a title.', MYOOS_THEME_NAME),
+                        'desc'      => __('This is an notice field with the critical style applied, a header and an icon.', MYOOS_THEME_NAME)
                     ),
-                    array(
-                        'id'        => 'opt-custom-callback',
-                        'type'      => 'callback',
-                        'title'     => __('Custom Field Callback', 'redux-framework'),
-                        'subtitle'  => __('This is a completely unique field type', 'redux-framework'),
-                        'desc'      => __('This is created with a callback function, so anything goes in this field. Make sure to define the function though.', 'redux-framework'),
-                        'callback'  => 'redux_my_custom_field'
-                    ),
+
                 )
             );
 
             $this->sections[] = array(
-                'title'     => __('Import / Export', 'redux-framework'),
-                'desc'      => __('Import and Export your Redux Framework settings from file, text or URL.', 'redux-framework'),
+                'title'     => __('Import / Export', MYOOS_THEME_NAME),
+                'desc'      => __('Import and Export your Redux Framework settings from file, text or URL.', MYOOS_THEME_NAME),
                 'icon'      => 'el-icon-refresh',
                 'fields'    => array(
                     array(
@@ -1415,8 +1408,8 @@ if (!class_exists('Redux_Framework_config')) {
 
             $this->sections[] = array(
                 'icon'      => 'el-icon-info-sign',
-                'title'     => __('Theme Information', 'redux-framework'),
-                'desc'      => __('<p class="description">This is the Description. Again HTML is allowed</p>', 'redux-framework'),
+                'title'     => __('Theme Information', MYOOS_THEME_NAME),
+                'desc'      => __('<p class="description">This is the Description. Again HTML is allowed</p>', MYOOS_THEME_NAME),
                 'fields'    => array(
                     array(
                         'id'        => 'opt-raw-info',
@@ -1429,7 +1422,7 @@ if (!class_exists('Redux_Framework_config')) {
             if (file_exists(trailingslashit(dirname(__FILE__)) . 'README.html')) {
                 $tabs['docs'] = array(
                     'icon'      => 'el-icon-book',
-                    'title'     => __('Documentation', 'redux-framework'),
+                    'title'     => __('Documentation', MYOOS_THEME_NAME),
                     'content'   => nl2br(file_get_contents(trailingslashit(dirname(__FILE__)) . 'README.html'))
                 );
             }
@@ -1440,18 +1433,18 @@ if (!class_exists('Redux_Framework_config')) {
             // Custom page help tabs, displayed using the help API. Tabs are shown in order of definition.
             $this->args['help_tabs'][] = array(
                 'id'        => 'redux-help-tab-1',
-                'title'     => __('Theme Information 1', 'redux-framework'),
-                'content'   => __('<p>This is the tab content, HTML is allowed.</p>', 'redux-framework')
+                'title'     => __('Theme Information 1', MYOOS_THEME_NAME),
+                'content'   => __('<p>This is the tab content, HTML is allowed.</p>', MYOOS_THEME_NAME)
             );
 
             $this->args['help_tabs'][] = array(
                 'id'        => 'redux-help-tab-2',
-                'title'     => __('Theme Information 2', 'redux-framework'),
-                'content'   => __('<p>This is the tab content, HTML is allowed.</p>', 'redux-framework')
+                'title'     => __('Theme Information 2', MYOOS_THEME_NAME),
+                'content'   => __('<p>This is the tab content, HTML is allowed.</p>', MYOOS_THEME_NAME)
             );
 
             // Set the help sidebar
-            $this->args['help_sidebar'] = __('<p>This is the sidebar content, HTML is allowed.</p>', 'redux-framework');
+            $this->args['help_sidebar'] = __('<p>This is the sidebar content, HTML is allowed.</p>', MYOOS_THEME_NAME);
         }
 
         /**
@@ -1469,8 +1462,8 @@ if (!class_exists('Redux_Framework_config')) {
                 'page_slug' => '_options',
                 'page_title' => 'Theme Options',
                 'update_notice' => true,
-                'intro_text' => '<p>This text is displayed above the options panel. It isn\\’t required, but more info is always better! The intro_text field accepts all HTML.</p>’',
-                'footer_text' => '<p>This text is displayed below the options panel. It isn\\’t required, but more info is always better! The footer_text field accepts all HTML.</p>',
+                'intro_text' => '',
+                'footer_text' => '',
                 'admin_bar' => true,
                 'menu_type' => 'menu',
                 'menu_title' => 'Theme Options',

@@ -11,7 +11,14 @@
 define( 'MYOOS_THEME_NAME', 'MyOOS');
 define( 'PARENT_DIR', get_template_directory() );
 define( 'PARENT_URL', get_template_directory_uri() );
- 
+
+/*
+ * Make theme available for translation.
+ * Translations can be filed in the /languages/ directory.
+ * If you're building a theme based on MyOOS, use a find and replace
+ * to change 'myoos' to the name of your theme in all the template files
+ */ 
+load_theme_textdomain( 'MyOOS', PARENT_DIR . '/languages' );
 
 /**
  * Add Redux Framework & extras
@@ -46,14 +53,6 @@ if ( ! function_exists( 'myoos_setup' ) ) :
  * as indicating support for post thumbnails.
  */
 function myoos_setup() {
-
-	/*
-	 * Make theme available for translation.
-	 * Translations can be filed in the /languages/ directory.
-	 * If you're building a theme based on MyOOS, use a find and replace
-	 * to change 'myoos' to the name of your theme in all the template files
-	 */
-	load_theme_textdomain( 'myoos', PARENT_DIR . '/languages' );
 
 	
 	// Add default posts and comments RSS feed links to head.
@@ -130,16 +129,6 @@ function myoos_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'myoos_scripts' );
 
-
-// Register Theme Features
-function custom_theme_features()  {
-
-	// Add theme support for Translation
-	load_theme_textdomain( 'redux-framework', PARENT_DIR . '/admin/redux-framework/ReduxCore/languages' );
-}
-
-// Hook into the 'after_setup_theme' action
-add_action( 'after_setup_theme', 'custom_theme_features' );
 
 /**
  * Implement the Custom Header feature.
