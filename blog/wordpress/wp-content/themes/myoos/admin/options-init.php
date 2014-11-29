@@ -707,7 +707,7 @@ if (!class_exists('Redux_Framework_config')) {
                         'units'             => 'em',    // You can specify a unit value. Possible: px, em, %
                         'units_extended'    => 'true',  // Allow users to select any type of unit
                         'title'             => __('Dimensions (Width/Height) Option', MYOOS_THEME_NAME),
-                        'subtitle'          => __('aaa Allow your users to choose width, height, and/or unit.', MYOOS_THEME_NAME),
+                        'subtitle'          => __('Allow your users to choose width, height, and/or unit.', MYOOS_THEME_NAME),
                         'desc'              => __('You can enable or disable any piece of this field. Width, Height, or Units.', MYOOS_THEME_NAME),
                         'default'           => array(
                             'width'     => 200, 

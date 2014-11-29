@@ -515,10 +515,10 @@ Options -Indexes
 </files> 
 
 
-<Files xmlrpc.php>
-    Order Deny,Allow
-    Deny from all
-</Files>
+#<Files xmlrpc.php>
+#    Order Deny,Allow
+#    Deny from all
+#</Files>
 
 #<IfModule mod_setenvif.c>
 #    <Files xmlrpc.php>
