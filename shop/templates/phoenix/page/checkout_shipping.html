@@ -1,5 +1,11 @@
 {include file="phoenix/system/_header.tpl"}
 
+{if $message}
+    {foreach item=info from=$message}
+        {include file="phoenix/system/_message.tpl"}
+    {/foreach}
+{/if}
+
 <form name="checkout_address" action="{html_get_link connection=SSL}" method="post">
 	<input type="hidden" name="content" value="{$filename.checkout_shipping}">
 {if $mySystem.sed}

@@ -1,5 +1,11 @@
 {include file="phoenix/system/_header.tpl"}
 
+{if $message}
+    {foreach item=info from=$message}
+        {include file="phoenix/system/_message.tpl"}
+    {/foreach}
+{/if}
+
     <form name="account_edit" action="{html_href_link content=$filename.account_edit_process connection=SSL}" method="post" onSubmit="return check_form();">
 {if $mySystem.sed}
     <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">

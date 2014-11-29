@@ -1,5 +1,12 @@
 {include file="phoenix/system/_header.tpl"}
 
+{if $message}
+    {foreach item=info from=$message}
+        {include file="phoenix/system/_message.tpl"}
+    {/foreach}
+{/if}
+
+
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
 {if $smarty.const.ACCOUNT_GENDER eq 'true'}
   <tr>

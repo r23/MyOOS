@@ -1,5 +1,11 @@
 {include file="phoenix/system/_header.tpl"}
 
+{if $message}
+    {foreach item=info from=$message}
+        {include file="phoenix/system/_message.tpl"}
+    {/foreach}
+{/if}
+
    <form name="advanced_search" action="{html_get_link}" method="get" onSubmit="return check_form(this);">
    <input type="hidden" name="content" value="{$filename.advanced_search_result}">
 {if $mySystem.sed}

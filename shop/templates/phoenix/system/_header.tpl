@@ -44,10 +44,6 @@
 </head>
 <body>
 
-{foreach item=warning from=$oos_info_warning}
-   {include file="default/system/warning.html"}
-{/foreach}
-
 <!-- header //-->
 <table width="870" align="center" cellpadding="0" cellspacing="0">
    <tr>
@@ -74,13 +70,6 @@
   </tr>
 </table>
 
-
-{foreach item=error from=$oos_error_message}
-   {include file="phoenix/system/error_message.html"}
-{/foreach}
-{foreach item=info from=$oos_info_message}
-   {include file="phoenix/system/info_message.html"}
-{/foreach}
 <!-- header_eof //-->
 
 <!-- body //-->
