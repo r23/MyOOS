@@ -346,7 +346,7 @@ $lang = array_merge($lang, array(
 	'JABBER'				=> 'Jabber',
 	'JOINED'				=> 'Registriert',
 	'JUMP_PAGE'				=> 'Geben Sie die Nummer der Seite an, zu der Sie gehen möchten.',
-	'JUMP_TO'				=> 'Forum wechseln',
+	'JUMP_TO'				=> 'Gehe zu Forum',
 	'JUMP_TO_PAGE'			=> 'Gehe zu Seite',
 	'JUMP_TO_PAGE_CLICK'	=> 'Klicken Sie, um auf Seite … zu gehen',
 

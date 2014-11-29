@@ -16,11 +16,59 @@ acp_bbcodes_edit_fieldsets_after
 * Since: 3.1.0-a3
 * Purpose: Add settings to BBCode add/edit form
 
+acp_email_options_after
+===
+* Location: adm/style/acp_email.html
+* Since: 3.1.2-RC1
+* Purpose: Add settings to mass email form
+
+acp_forums_main_settings_append
+===
+* Location: adm/style/acp_forums.html
+* Since: 3.1.2-RC1
+* Purpose: Add settings to forums at end of main settings section
+
+acp_forums_main_settings_prepend
+===
+* Location: adm/style/acp_forums.html
+* Since: 3.1.2-RC1
+* Purpose: Add settings to forums before main settings section
+
 acp_forums_normal_settings_append
 ===
 * Location: adm/style/acp_forums.html
 * Since: 3.1.0-a1
-* Purpose: Add settings to forums
+* Purpose: Add settings to forums at end of normal settings section
+
+acp_forums_normal_settings_prepend
+===
+* Location: adm/style/acp_forums.html
+* Since: 3.1.2-RC1
+* Purpose: Add settings to forums before normal settings section
+
+acp_forums_prune_settings_append
+===
+* Location: adm/style/acp_forums.html
+* Since: 3.1.2-RC1
+* Purpose: Add settings to forums at end of prune settings section
+
+acp_forums_prune_settings_prepend
+===
+* Location: adm/style/acp_forums.html
+* Since: 3.1.2-RC1
+* Purpose: Add settings to forums before prune settings section
+
+acp_forums_rules_settings_append
+===
+* Location: adm/style/acp_forums.html
+* Since: 3.1.2-RC1
+* Purpose: Add settings to forums at end of rules settings section
+
+acp_forums_rules_settings_prepend
+===
+* Location: adm/style/acp_forums.html
+* Since: 3.1.2-RC1
+* Purpose: Add settings to forums before rules settings section
 
 acp_group_options_before
 ===
@@ -111,7 +159,7 @@ acp_ranks_list_column_before
 * Locations:
     + adm/style/acp_ranks.html
 * Since: 3.1.0-RC3
-* Purpose: Add content after the last column (but before the action column) 
+* Purpose: Add content after the last column (but before the action column)
 in the ranks list in the ACP
 
 acp_ranks_list_header_after
@@ -126,7 +174,7 @@ acp_ranks_list_header_before
 * Locations:
     + adm/style/acp_ranks.html
 * Since: 3.1.0-RC3
-* Purpose: Add content after the last header-column (but before the action column) 
+* Purpose: Add content after the last header-column (but before the action column)
 in the ranks list in the ACP
 
 acp_simple_footer_after
@@ -336,6 +384,14 @@ index_body_block_stats_prepend
 * Since: 3.1.0-b3
 * Purpose: Prepend content to the statistics list on the Board index
 
+index_body_forumlist_body_after
+===
+* Locations:
+    + styles/prosilver/template/index_body.html
+    + styles/subsilver2/template/index_body.html
+* Since: 3.1.1
+* Purpose: Add content after the forum list body on the index page
+
 index_body_markforums_after
 ===
 * Locations:
@@ -417,6 +473,30 @@ memberlist_body_username_prepend
 * Since: 3.1.0-a1
 * Purpose: Add information before every username in the memberlist. Works in
 all display modes (leader, group and normal memberlist).
+
+memberlist_search_fields_after
+===
+* Locations:
+    + styles/prosilver/template/memberlist_search.html
+    + styles/subsilver2/template/memberlist_search.html
+* Since: 3.1.2-RC1
+* Purpose: Add information after the search fields column.
+
+memberlist_search_fields_before
+===
+* Locations:
+    + styles/prosilver/template/memberlist_search.html
+    + styles/subsilver2/template/memberlist_search.html
+* Since: 3.1.2-RC1
+* Purpose: Add information before the search fields column.
+
+memberlist_search_sorting_options_before
+===
+* Locations:
+    + styles/prosilver/template/memberlist_search.html
+    + styles/subsilver2/template/memberlist_search.html
+* Since: 3.1.2-RC1
+* Purpose: Add information before the search sorting options field.
 
 memberlist_view_contact_after
 ===
@@ -756,6 +836,14 @@ posting_editor_buttons_before
 * Since: 3.1.0-a3
 * Purpose: Add content before the BBCode posting buttons
 
+posting_editor_buttons_custom_tags_before
+===
+* Locations:
+    + styles/prosilver/template/posting_buttons.html
+    + styles/subsilver2/template/posting_buttons.html
+* Since: 3.1.2-RC1
+* Purpose: Add content inside the BBCode posting buttons and before the customs BBCode
+
 posting_editor_message_after
 ===
 * Locations:
@@ -1011,7 +1099,7 @@ ucp_pm_viewmessage_post_buttons_after
     + styles/prosilver/template/ucp_pm_viewmessage.html
     + styles/subsilver2/template/ucp_pm_viewmessage.html
 * Since: 3.1.0-RC3
-* Purpose: Add post button to private messages (next to edit, quote etc), at 
+* Purpose: Add post button to private messages (next to edit, quote etc), at
 the end of the list.
 
 ucp_pm_viewmessage_post_buttons_before
@@ -1020,7 +1108,7 @@ ucp_pm_viewmessage_post_buttons_before
     + styles/prosilver/template/ucp_pm_viewmessage.html
     + styles/subsilver2/template/ucp_pm_viewmessage.html
 * Since: 3.1.0-RC3
-* Purpose: Add post button to private messages (next to edit, quote etc), at 
+* Purpose: Add post button to private messages (next to edit, quote etc), at
 the start of the list.
 
 ucp_pm_viewmessage_print_head_append
