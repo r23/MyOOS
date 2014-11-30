@@ -105,7 +105,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
   // links breadcrumb
   $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], '', 'SSL'));
   $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_address_book'], '', 'SSL'));
-
+ 
   $aTemplate['page'] = $sTheme . '/page/address_book.html';
   $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
@@ -113,14 +113,14 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 
   require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
   // assign Smarty variables;
   $smarty->assign(
       array(
-          'oos_breadcrumb'         => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+          'breadcrumb'         => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'oos_heading_title'      => $aLang['heading_title'],
 
           'oos_address_book_array' => $aAddressBook

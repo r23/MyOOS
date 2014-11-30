@@ -63,13 +63,13 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
     if (!isset($option)) {
-      require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+      require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
       require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
     }
 
     $smarty->assign(
         array(
-            'oos_breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+            'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
             'oos_heading_title' => $aLang['text_product_not_found']
         )
     );
@@ -95,8 +95,8 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 
 
     // Meta Tags
-    $oos_pagetitle = OOS_META_TITLE . ' - ' . $product_info['products_name'];
-    $oos_meta_description = substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '',$product_info['products_description'])),0 , 250);
+    $sPagetitle = OOS_META_TITLE . ' - ' . $product_info['products_name'];
+    $sDescription = substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '',$product_info['products_description'])),0 , 250);
 
     $aTemplate['page'] = $sTheme . '/page/product_info.html';
     $aTemplate['also_purchased_products'] = $sTheme . '/products/also_purchased_products.html';
@@ -108,7 +108,7 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
     if (!isset($option)) {
-      require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+      require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
       require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
     }
 
@@ -207,7 +207,7 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/products_options.php';
 
     // assign Smarty variables;
-    $smarty->assign(array('oos_breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+    $smarty->assign(array('breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
                            'discounts_price' =>  $discounts_price));
 
     if (!isset($block_get_parameters)) {

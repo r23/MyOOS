@@ -65,7 +65,7 @@
 
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
     if (!isset($option)) {
-      require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+      require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
       require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
     }
 
@@ -73,7 +73,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
 
-    $smarty->assign('oos_breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
+    $smarty->assign('breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
 
     if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
       $categoriestable = $oostable['categories'];
@@ -200,7 +200,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
     if (!isset($option)) {
-      require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+      require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
       require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
     }
 
@@ -237,7 +237,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
 
-    $smarty->assign('oos_breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
+    $smarty->assign('breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
 
     if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
 

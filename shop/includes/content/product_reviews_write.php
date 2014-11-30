@@ -162,13 +162,13 @@ if (!isset($_SESSION['customer_id'])) {
 
   require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
   }
 
   $smarty->assign(
       array(
-          'oos_breadcrumb'   => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+          'breadcrumb'   => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
           'oos_heading_title' => $aLang['heading_title'],
 
           'oos_js'            => $javascript,

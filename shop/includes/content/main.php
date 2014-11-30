@@ -26,7 +26,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/main.p
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
 
 // default
-
+$sCanonical = (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP;
 
 $aTemplate['page'] = $sTheme . '/page/main.html';
 $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
@@ -40,7 +40,7 @@ $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
 if (!isset($option)) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/info_message.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
 	require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
 }
 
@@ -51,9 +51,9 @@ $heading_title = $aLang['heading_title'];
 // assign Smarty variables;
 $smarty->assign(
 	array(
-		'oos_breadcrumb'	=> $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+		'breadcrumb'	=> $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
 		'oos_heading_title' => $heading_title,
-		'canonical'			=> $current_domain
+		'canonical'			=> $sCanonical
 	)
 );
 
@@ -93,12 +93,9 @@ if (!$smarty->isCached($aTemplate['upcoming_products'], $oos_modules_cache_id)) 
 	require_once MYOOS_INCLUDE_PATH . '/includes/modules/upcoming_products.php';
 }
 $smarty->assign('upcoming_products', $smarty->fetch($aTemplate['upcoming_products'], $oos_modules_cache_id));
-
 $smarty->setCaching(false);
 
 $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
-# 
-
 
 // display the template
 $smarty->display($aTemplate['page']);

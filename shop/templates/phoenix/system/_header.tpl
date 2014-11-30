@@ -19,8 +19,9 @@
 <meta name="resource-type" content="document">
 <meta name="creation" content="{$smarty.now|date_format:"%a,%d %b %Y"}">	
 <meta name="robots" content="index,follow,noodp,noydir"/>
-
+{if $canonical}
 <link rel="canonical" href="{$canonical}" />
+{/if}
 <base href="{$oos_base}">		
 <!-- Bootstrap style  --> 
 <link href="{$theme}/css/bootstrap.min.css" rel="stylesheet" />
@@ -54,7 +55,7 @@
 
 <table width="870" border="0" align="center" cellspacing="0" cellpadding="1">
   <tr class="oos-HeadNavi">
-    <td class="oos-HeadNavi">&nbsp;&nbsp;{$oos_breadcrumb}</td>
+    <td class="oos-HeadNavi">&nbsp;&nbsp;{$breadcrumb}</td>
     <td align="right" class="oos-HeadNavi">
 
 {if (isset($smarty.session.customer_id)) }
@@ -72,13 +73,3 @@
 
 <!-- header_eof //-->
 
-<!-- body //-->
-<table width="870" border="0" align="center" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
-{foreach item=block from=$oos_blockleft}
-   {include file="phoenix/system/_block.tpl"}
-{/foreach}
-    </table></td>
-    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-    <td width="100%" valign="top">

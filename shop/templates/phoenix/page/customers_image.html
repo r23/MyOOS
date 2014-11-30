@@ -5,7 +5,16 @@
         {include file="phoenix/system/_message.tpl"}
     {/foreach}
 {/if}
-
+<!-- body //-->
+<table width="870" border="0" align="center" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
+{foreach item=block from=$oos_blockleft}
+   {include file="phoenix/system/_block.tpl"}
+{/foreach}
+    </table></td>
+    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
+    <td width="100%" valign="top">
 <form name="customers_image" action="{html_get_link}" method="post" enctype="multipart/form-data">
 <input type="hidden" name="action" value="add_customers_image">
 <input type="hidden" name="content" value="{$page_file}">
@@ -77,5 +86,14 @@
       </tr>
     </table>
 </form>
-
+</td>
+    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
+    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
+{foreach item=block from=$oos_blockright}
+   {include file="phoenix/system/_block.tpl"}
+{/foreach}
+    </table></td>
+  </tr>
+</table>
+<!-- body_eof //-->
 {include file="phoenix/system/_footer.tpl"}

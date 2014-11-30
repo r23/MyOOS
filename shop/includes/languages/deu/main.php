@@ -34,4 +34,3 @@ $aLang['text_news_score'] = 'durchschnittl. Bewertung:';
 $aLang['text_news_printer'] = 'Druckbare Version';
 $aLang['text_news_on'] = 'am';
 $aLang['text_news_readmore'] = 'mehr...';
-

@@ -70,7 +70,7 @@ function popupZoom(url) {
 
 <table width="870" border="0" align="center" cellspacing="0" cellpadding="1">
   <tr class="oos-HeadNavi">
-    <td class="oos-HeadNavi">&nbsp;&nbsp;{$oos_breadcrumb}</td>
+    <td class="oos-HeadNavi">&nbsp;&nbsp;{$breadcrumb}</td>
     <td align="right" class="oos-HeadNavi">
 
 {if (isset($smarty.session.customer_id)) }

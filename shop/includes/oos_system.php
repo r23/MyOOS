@@ -64,8 +64,8 @@ $smarty->assignByRef("oEvent", $oEvent);
   }
 
   // Meta-Tags
-  if (empty($oos_pagetitle)) $oos_pagetitle = OOS_META_TITLE;
-  if (empty($oos_meta_description)) $oos_meta_description = OOS_META_DESCRIPTION;
+  if (empty($sPagetitle)) $sPagetitle = OOS_META_TITLE;
+  if (empty($sDescription)) $sDescription = OOS_META_DESCRIPTION;
 
   $smarty->assign(
       array(
@@ -81,9 +81,8 @@ $smarty->assignByRef("oEvent", $oEvent);
           'lang'              => $aLang,
           'language'          => $sLanguage,
 
-          'pagetitle'         => $oos_pagetitle,
-
-          'meta_description'  => $oos_meta_description
+          'pagetitle'         => $sPagetitle,
+          'meta_description'  => $sDescription
       )
   );
  
@@ -159,5 +158,3 @@ $smarty->assign(
           'products_units'      => $products_units,
       )
 );
-
-
