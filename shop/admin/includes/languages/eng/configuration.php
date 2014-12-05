@@ -516,9 +516,6 @@ define('ALLOW_NEWS_CATEGORY_DESCRIPTIONS_DESC', 'Erlaubt eine ausf&uuml;hrliche 
 define('SHOW_PRODUCTS_MODEL_TITLE', 'Navigation mit Bestellummer');
 define('SHOW_PRODUCTS_MODEL_DESC', 'M&ouml;chten Sie die auf der Produkt-Informations-Seite die Bestellnummer in der Navation anzeigen?');
 
-define('BREADCRUMB_SEPARATOR_TITLE', 'breadcrumb separator');
-define('BREADCRUMB_SEPARATOR_DESC', 'Breadcrumb separator');
-
 define('BLOCK_BEST_SELLERS_IMAGE_TITLE', 'Bild im Block Verkaufschlager');
 define('BLOCK_BEST_SELLERS_IMAGE_DESC', 'Bild im Content-Block Verkaufschlager anzeigen?');
 

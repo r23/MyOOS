@@ -120,8 +120,8 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
     // assign Smarty variables;
     $smarty->assign(
         array(
-           'breadcrumb'         => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-           'oos_heading_title'      => $aLang['heading_title'],
+           'breadcrumb'         => $oBreadcrumb->trail(),
+           'heading_title'      => $aLang['heading_title'],
 
            'oos_page_split'         => $products_new_split->display_count($products_new_numrows, MAX_DISPLAY_PRODUCTS_NEW, $_GET['page'], $aLang['text_display_number_of_products_new']),
            'oos_display_links'      => $products_new_split->display_links($products_new_numrows, MAX_DISPLAY_PRODUCTS_NEW, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),

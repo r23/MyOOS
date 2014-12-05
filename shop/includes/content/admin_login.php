@@ -167,8 +167,8 @@
 
 // assign Smarty variables;
   $smarty->assign(
-      array('breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-            'oos_heading_title' => $aLang['heading_title'],
+      array('breadcrumb'    => $oBreadcrumb->trail(),
+            'heading_title' => $aLang['heading_title'],
 
             'info_message'      => $info_message
       )

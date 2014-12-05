@@ -69,8 +69,8 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 
     $smarty->assign(
         array(
-            'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-            'oos_heading_title' => $aLang['text_product_not_found']
+            'breadcrumb'    => $oBreadcrumb->trail(),
+            'heading_title' => $aLang['text_product_not_found']
         )
     );
 
@@ -207,7 +207,7 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/products_options.php';
 
     // assign Smarty variables;
-    $smarty->assign(array('breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+    $smarty->assign(array('breadcrumb' => $oBreadcrumb->trail(),
                            'discounts_price' =>  $discounts_price));
 
     if (!isset($block_get_parameters)) {

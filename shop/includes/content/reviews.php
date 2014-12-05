@@ -99,8 +99,8 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 
     $smarty->assign(
         array(
-            'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-            'oos_heading_title' => $aLang['heading_title'],
+            'breadcrumb'    => $oBreadcrumb->trail(),
+            'heading_title' => $aLang['heading_title'],
 
             'oos_page_split'    => $reviews_split->display_count($reviews_numrows, MAX_DISPLAY_NEW_REVIEWS, $_GET['page'], $aLang['text_display_number_of_reviews']),
             'oos_display_links' => $reviews_split->display_links($reviews_numrows, MAX_DISPLAY_NEW_REVIEWS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),

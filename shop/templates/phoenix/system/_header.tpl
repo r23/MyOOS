@@ -2,7 +2,7 @@
 <html lang="{$smarty.const.LANG}">
 <head>
 <meta charset="utf-8" />
-<title>{$pagetitle} {$smarty.const.OOS_META_TITLE}</title>
+<title>{$pagetitle}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />	
 <meta name="description" content="{$meta_description}" />
 <meta name="author" content="{$smarty.const.OOS_META_AUTHOR}" />
@@ -25,8 +25,9 @@
 <base href="{$oos_base}">		
 <!-- Bootstrap style  --> 
 <link href="{$theme}/css/bootstrap.min.css" rel="stylesheet" />
-<link href="{$theme}/css/style.css" rel="stylesheet" />
 <link href="{$theme}/css/font-awesome.min.css" rel="stylesheet" />
+<link href="{$theme}/css/style.min.css" rel="stylesheet" />
+
 <!-- Included Custom CSS Files -->
 
 <!-- Place favicon.ico and apple-touch-icon.png -->
@@ -44,6 +45,7 @@
 
 </head>
 <body>
+<div class="wrapper">
 
 <!-- header //-->
 <table width="870" align="center" cellpadding="0" cellspacing="0">
@@ -55,7 +57,7 @@
 
 <table width="870" border="0" align="center" cellspacing="0" cellpadding="1">
   <tr class="oos-HeadNavi">
-    <td class="oos-HeadNavi">&nbsp;&nbsp;{$breadcrumb}</td>
+    <td></td>
     <td align="right" class="oos-HeadNavi">
 
 {if (isset($smarty.session.customer_id)) }
@@ -72,4 +74,3 @@
 </table>
 
 <!-- header_eof //-->
-

@@ -73,7 +73,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
 
-    $smarty->assign('breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
+    $smarty->assign('breadcrumb', $oBreadcrumb->trail());
 
     if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
       $categoriestable = $oostable['categories'];
@@ -169,9 +169,9 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 
       // assign Smarty variables;
       if ( (ALLOW_CATEGORY_DESCRIPTIONS == 'true') && (oos_is_not_null($category['categories_heading_title'])) ) {
-        $smarty->assign('oos_heading_title', $category['categories_heading_title']);
+        $smarty->assign('heading_title', $category['categories_heading_title']);
       } else {
-        $smarty->assign('oos_heading_title', $aLang['heading_title']);
+        $smarty->assign('heading_title', $aLang['heading_title']);
       }
       $smarty->assign(
           array(
@@ -219,9 +219,9 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
       $category = $dbconn->GetRow($sql);
 
       if (oos_is_not_null($category['categories_heading_title'])) {
-        $smarty->assign('oos_heading_title', $category['categories_heading_title']);
+        $smarty->assign('heading_title', $category['categories_heading_title']);
       } else {
-        $smarty->assign('oos_heading_title', $aLang['heading_title']);
+        $smarty->assign('heading_title', $aLang['heading_title']);
       }
 // todo multilanguage support
       if (OOS_META_KATEGORIEN == "description tag by category description replace") {
@@ -237,7 +237,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
 
-    $smarty->assign('breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
+    $smarty->assign('breadcrumb', $oBreadcrumb->trail());
 
     if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
 

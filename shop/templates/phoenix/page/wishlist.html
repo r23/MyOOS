@@ -1,10 +1,13 @@
 {include file="phoenix/system/_header.tpl"}
 
+{include file="phoenix/system/_breadcrumbs.tpl"}
+
 {if $message}
     {foreach item=info from=$message}
         {include file="phoenix/system/_message.tpl"}
     {/foreach}
 {/if}
+
 <!-- body //-->
 <table width="870" border="0" align="center" cellspacing="0" cellpadding="0">
   <tr>

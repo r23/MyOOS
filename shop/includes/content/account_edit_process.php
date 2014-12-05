@@ -302,8 +302,8 @@ if (!isset($_SESSION['customer_id'])) {
 
     $smarty->assign(
         array(
-            'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-            'oos_heading_title' => $aLang['heading_title'],
+            'breadcrumb'    => $oBreadcrumb->trail(),
+            'heading_title' => $aLang['heading_title'],
 
             'email_address'     => $email_address,
             'show_password'     => $show_password

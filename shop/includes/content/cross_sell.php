@@ -50,8 +50,8 @@
     // assign Smarty variables;
     $smarty->assign(
         array(
-            'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-            'oos_heading_title' => $aLang['text_product_not_found']
+            'breadcrumb'    => $oBreadcrumb->trail(),
+            'heading_title' => $aLang['text_product_not_found']
         )
     );
 
@@ -80,7 +80,7 @@
       require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
     }
 
-    $smarty->assign('breadcrumb', $oBreadcrumb->trail(BREADCRUMB_SEPARATOR));
+    $smarty->assign('breadcrumb', $oBreadcrumb->trail());
 
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/slavery_products.php';
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/history_products.php';

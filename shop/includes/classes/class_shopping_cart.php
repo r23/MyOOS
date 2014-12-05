@@ -611,7 +611,7 @@
       $dbconn =& oosDBGetConn();
       $oostable =& oosDBGetTables();
 
-      $nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : 1;
+      $nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_LANGUAGE_ID;
 
       $products_array = array();
       reset($this->contents);

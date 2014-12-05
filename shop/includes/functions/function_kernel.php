@@ -196,7 +196,7 @@
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : 1;
+    $nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_LANGUAGE_ID;
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_name
@@ -830,7 +830,7 @@
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : 1;
+    $nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_LANGUAGE_ID;
 
     $categoriestable = $oostable['categories'];
     $categories_descriptiontable = $oostable['categories_description'];

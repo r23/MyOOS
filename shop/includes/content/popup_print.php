@@ -68,8 +68,8 @@
 
       $smarty->assign(
           array(
-              'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-              'oos_heading_title' => $aLang['text_product_not_found']
+              'breadcrumb'    => $oBreadcrumb->trail(),
+              'heading_title' => $aLang['text_product_not_found']
           )
       );
     } else {

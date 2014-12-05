@@ -60,13 +60,13 @@
 
       // include the breadcrumb class and start the breadcrumb trail
       include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_breadcrumb.php';
-      $oBreadcrumb = new breadcrumb;
+      $oBreadcrumb = new breadcrumb();
 
       $oBreadcrumb->add($aLang['header_title_top'], oos_href_link($aContents['main']));
 
       // add category names or the manufacturer name to the breadcrumb trail
       if (isset($aCategoryPath) && (count($aCategoryPath) > 0)) {
-        $nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : 1;
+        $nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_LANGUAGE_ID;
         for ($i=0, $n=count($aCategoryPath); $i<$n; $i++) {
           $categories_descriptiontable = $oostable['categories_description'];
           $categories_sql = "SELECT categories_name

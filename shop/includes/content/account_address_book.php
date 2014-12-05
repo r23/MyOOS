@@ -120,8 +120,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
   // assign Smarty variables;
   $smarty->assign(
       array(
-          'breadcrumb'         => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-          'oos_heading_title'      => $aLang['heading_title'],
+          'breadcrumb'         => $oBreadcrumb->trail(),
+          'heading_title'      => $aLang['heading_title'],
 
           'oos_address_book_array' => $aAddressBook
       )

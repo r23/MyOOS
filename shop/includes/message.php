@@ -33,7 +33,7 @@ $aInfoMessage = array();
 // check if the 'install' directory exists, and warn of its existence
 if (WARN_INSTALL_EXISTENCE == 'true') {
     if (file_exists(dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/install')) {
-        $aInfoMessage[] = array('type' => 'warning',
+        $aInfoMessage[] = array('type' => 'danger',
 								'text' => $aLang['warning_install_directory_exists']);
     }
 }
@@ -43,7 +43,7 @@ if (WARN_CONFIG_WRITEABLE == 'true') {
     if ( (file_exists(dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php')) 
             && (is_writeable(dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php')) )
     {
-        $aInfoMessage[] = array('type' => 'warning',
+        $aInfoMessage[] = array('type' => 'danger',
 								'text' => $aLang['warning_config_file_writeable']);
     }
 }
@@ -51,7 +51,7 @@ if (WARN_CONFIG_WRITEABLE == 'true') {
 
 if ( (WARN_DOWNLOAD_DIRECTORY_NOT_READABLE == 'true') && (DOWNLOAD_ENABLED == 'true') ) {
     if (!is_dir(OOS_DOWNLOAD_PATH)) {
-        $aInfoMessage[] = array('type' => 'warning',
+        $aInfoMessage[] = array('type' => 'danger',
                               'text' => $aLang['warning_download_directory_non_existent']);
     }
 }

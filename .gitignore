@@ -19,3 +19,4 @@ shop/temp/shop/templates_c/
 /shop/nbproject/private/
 bootstrap.min.less
 font-awesome.min.less
+/shop/themes/phoenix/less/style.min.less

@@ -264,7 +264,7 @@ if ($_SESSION['navigation']->snapshot['content'] != $aContents['account_address_
 // assign Smarty variables;
   $smarty->assign(
       array(
-          'breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
+          'breadcrumb' => $oBreadcrumb->trail(),
 
           'back_link'      => $back_link,
           'entry_id'       => $entry_id,
@@ -277,13 +277,13 @@ if ($_SESSION['navigation']->snapshot['content'] != $aContents['account_address_
   if (isset($_GET['action']) && $_GET['action'] == 'modify') {
     $smarty->assign(
         array(
-            'oos_heading_title' => $aLang['heading_title_modify_entry']
+            'heading_title' => $aLang['heading_title_modify_entry']
         )
     );
   } else {
     $smarty->assign(
         array(
-            'oos_heading_title' => $aLang['heading_title_add_entry']
+            'heading_title' => $aLang['heading_title_add_entry']
         )
     );
   }

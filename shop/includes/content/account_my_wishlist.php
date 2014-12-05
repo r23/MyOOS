@@ -167,8 +167,8 @@ if ( $session->hasStarted() === FALSE ) $session->start();
 // assign Smarty variables;
   $smarty->assign(
        array(
-           'breadcrumb' => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-           'oos_heading_title' => $aLang['heading_title'],
+           'breadcrumb' => $oBreadcrumb->trail(),
+           'heading_title' => $aLang['heading_title'],
 
            'oos_page_split' => $wishlist_split->display_count($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, $_GET['page'], $aLang['text_display_number_of_wishlist']),
            'oos_display_links' => $wishlist_split->display_links($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),

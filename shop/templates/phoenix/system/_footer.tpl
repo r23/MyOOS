@@ -31,6 +31,7 @@
 <div align="center" class="smallText"><a href="http://www.oos-shop.de" target="_blank">MyOOS [Shopsystem]</a> is Free Software released under the <a href="http://www.gnu.org" target="_blank">GNU/GPL License.</a></div>
 </div>
 
+</div><!--/wrapper-->
 <!-- JS Global Compulsory -->           
 <script type="text/javascript" src="js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery/jquery-migrate.min.js"></script>

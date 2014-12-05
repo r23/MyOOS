@@ -88,8 +88,8 @@
 
   $smarty->assign(
       array(
-          'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-          'oos_heading_title' => sprintf($aLang['heading_title'], $product_info['products_name']),
+          'breadcrumb'    => $oBreadcrumb->trail(),
+          'heading_title' => sprintf($aLang['heading_title'], $product_info['products_name']),
 
           'oos_reviews_array' => $aReviews
       )

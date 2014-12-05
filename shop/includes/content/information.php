@@ -63,8 +63,8 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
     // assign Smarty variables;
     $smarty->assign(
         array(
-            'breadcrumb'    => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-            'oos_heading_title' => $information['information_heading_title'],
+            'breadcrumb'    => $oBreadcrumb->trail(),
+            'heading_title' => $information['information_heading_title'],
             'oos_heading_image' => $information['information_image'],
 
             'informations'       => $information,

@@ -1,5 +1,7 @@
 {include file="phoenix/system/_header.tpl"}
 
+{include file="phoenix/system/_breadcrumbs.tpl"}
+
 {if $message}
     {foreach item=info from=$message}
         {include file="phoenix/system/_message.tpl"}
@@ -24,7 +26,7 @@
       </tr>
   {if $smarty.get.action eq 'process'}
       <tr>
-        <td class="main"><img src="{$theme_image}/heading/man_on_board.gif" border="0" alt="{$oos_heading_title}" width="175" height="198" align="left">{$lang.text_success}<br><br>gv {$id1}</td>
+        <td class="main"><img src="{$theme_image}/heading/man_on_board.gif" border="0" alt="{$heading_title}" width="175" height="198" align="left">{$lang.text_success}<br><br>gv {$id1}</td>
       </tr>
       <tr>
         <td align="right"><br><a href="{html_href_link content=$filename.main}">{html_image_button image="continue.gif" alt=$lang.image_button_continue}</a></td>

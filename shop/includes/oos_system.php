@@ -23,9 +23,6 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
 $smarty = new myOOS_Smarty();
 
-# if ( $session->hasStarted() === FALSE ) $session->start();
-
-
 //debug
 if ($debug == 'true') {
 	$smarty->force_compile   = TRUE;
@@ -63,31 +60,29 @@ $smarty->assignByRef("oEvent", $oEvent);
     $oos_xsell_products_cache_id    = $sTheme . '|block|products|' . $sLanguage . '|' . intval($nProductsId);
   }
 
-  // Meta-Tags
-  if (empty($sPagetitle)) $sPagetitle = OOS_META_TITLE;
-  if (empty($sDescription)) $sDescription = OOS_META_DESCRIPTION;
+// Meta-Tags
+if (empty($sPagetitle)) $sPagetitle = OOS_META_TITLE;
+if (empty($sDescription)) $sDescription = OOS_META_DESCRIPTION;
 
-  $smarty->assign(
-      array(
-          'filename'          => $aContents,
-          'page_file'         => $sContent,
+$smarty->assign(
+	array(
+		'filename'          => $aContents,
+		'page_file'         => $sContent,
 
-          'request_type'      => $request_type,
+		'request_type'      => $request_type,
 
-          'theme_set'           => $sTheme,
-          'theme_image'         => 'themes/' . $sTheme . '/images',
-          'theme'               => 'themes/' . $sTheme,
+		'theme_set'           => $sTheme,
+		'theme_image'         => 'themes/' . $sTheme . '/images',
+		'theme'               => 'themes/' . $sTheme,
 
-          'lang'              => $aLang,
-          'language'          => $sLanguage,
+		'lang'              => $aLang,
+		'language'          => $sLanguage,
 
-          'pagetitle'         => $sPagetitle,
-          'meta_description'  => $sDescription
+		'pagetitle'         => $sPagetitle,
+		'meta_description'  => $sDescription
       )
-  );
+);
  
- 
-
 $smarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
 
 

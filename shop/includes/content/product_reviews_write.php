@@ -168,8 +168,8 @@ if (!isset($_SESSION['customer_id'])) {
 
   $smarty->assign(
       array(
-          'breadcrumb'   => $oBreadcrumb->trail(BREADCRUMB_SEPARATOR),
-          'oos_heading_title' => $aLang['heading_title'],
+          'breadcrumb'   => $oBreadcrumb->trail(),
+          'heading_title' => $aLang['heading_title'],
 
           'oos_js'            => $javascript,
           'valid_product'     => $valid_product,
