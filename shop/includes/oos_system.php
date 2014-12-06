@@ -42,7 +42,7 @@ $smarty->assignByRef("oEvent", $oEvent);
   $oos_cache_id                   = $sTheme . '|block|' . $sLanguage;
   $oos_system_cache_id            = $sTheme . '|block|' . $sLanguage;
   $oos_categories_cache_id        = $sTheme . '|block|categories|' . $sLanguage . '|' . $sCategory;
-  $oos_modules_cache_id           = $sTheme . '|modules|' . $sLanguage . '|' . $_SESSION['currency'];
+  $nModulesCacheID           = $sTheme . '|modules|' . $sLanguage . '|' . $_SESSION['currency'];
 
 
   if (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {

@@ -10,7 +10,7 @@
    ---------------------------------------------------------------------- */
 
   /** ensure this file is being required by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
   if (isset($_GET['products_id'])) {
     if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
@@ -105,10 +105,10 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
     }
     $smarty->assign('also_purchased_products', $smarty->fetch($aTemplate['also_purchased_products'], $oos_products_info_cache_id));
 
-    if (!$smarty->isCached($aTemplate['featured'], $oos_modules_cache_id)) {
+    if (!$smarty->isCached($aTemplate['featured'], $nModulesCacheID)) {
       require_once MYOOS_INCLUDE_PATH . '/includes/modules/featured.php';
     }
-    $smarty->assign('featured', $smarty->fetch($aTemplate['featured'], $oos_modules_cache_id));
+    $smarty->assign('featured', $smarty->fetch($aTemplate['featured'], $nModulesCacheID));
 
     $smarty->setCaching(false);
   }

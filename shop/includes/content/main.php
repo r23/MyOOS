@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/main.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
@@ -29,7 +29,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
 $sCanonical = (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP;
 
 $aTemplate['page'] = $sTheme . '/page/main.html';
-$aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 if ($oEvent->installed_plugin('spezials')) $aTemplate['new_spezials'] = $sTheme . '/page/products/new_spezials.html';
 if ($oEvent->installed_plugin('featured')) $aTemplate['featured'] = $sTheme . '/page/products/featured.html';
 if ($oEvent->installed_plugin('manufacturers')) $aTemplate['mod_manufacturers'] = $sTheme . '/page/products/manufacturers.html';
@@ -45,15 +44,12 @@ if (!isset($option)) {
 }
 
 
-$heading_title = $aLang['heading_title'];
-
-
 // assign Smarty variables;
 $smarty->assign(
 	array(
 		'breadcrumb'	=> $oBreadcrumb->trail(),
-		'heading_title' => $heading_title,
-		'canonical'			=> $sCanonical
+		'heading_title' => $aLang['heading_title'],
+		'canonical'		=> $sCanonical
 	)
 );
 
@@ -62,40 +58,37 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 }
 
 
-
 if ($oEvent->installed_plugin('spezials')) {
-	if (!$smarty->isCached($aTemplate['new_spezials'], $oos_modules_cache_id)) {
+	if (!$smarty->isCached($aTemplate['new_spezials'], $nModulesCacheID)) {
 		require_once MYOOS_INCLUDE_PATH . '/includes/modules/new_spezials.php';
 	}
-	$smarty->assign('new_spezials', $smarty->fetch($aTemplate['new_spezials'], $oos_modules_cache_id));
+	$smarty->assign('new_spezials', $smarty->fetch($aTemplate['new_spezials'], $nModulesCacheID));
 }
  
 if ($oEvent->installed_plugin('featured')) {
-	if (!$smarty->isCached($aTemplate['featured'], $oos_modules_cache_id)) {
+	if (!$smarty->isCached($aTemplate['featured'], $nModulesCacheID)) {
 		require_once MYOOS_INCLUDE_PATH . '/includes/modules/featured.php';
 	}
-	$smarty->assign('featured', $smarty->fetch($aTemplate['featured'], $oos_modules_cache_id));
+	$smarty->assign('featured', $smarty->fetch($aTemplate['featured'], $nModulesCacheID));
 }
 
-if (!$smarty->isCached($aTemplate['new_products'], $oos_modules_cache_id)) {
+if (!$smarty->isCached($aTemplate['new_products'], $nModulesCacheID)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/modules/new_products.php';
 }
-$smarty->assign('new_products', $smarty->fetch($aTemplate['new_products'], $oos_modules_cache_id));
+$smarty->assign('new_products', $smarty->fetch($aTemplate['new_products'], $nModulesCacheID));
 
 if ($oEvent->installed_plugin('manufacturers')) {
-	if (!$smarty->isCached($aTemplate['mod_manufacturers'], $oos_modules_cache_id)) {
+	if (!$smarty->isCached($aTemplate['mod_manufacturers'], $nModulesCacheID)) {
 		require_once MYOOS_INCLUDE_PATH . '/includes/modules/mod_manufacturers.php';
 	}
-    $smarty->assign('mod_manufacturers', $smarty->fetch($aTemplate['mod_manufacturers'], $oos_modules_cache_id));
+    $smarty->assign('mod_manufacturers', $smarty->fetch($aTemplate['mod_manufacturers'], $nModulesCacheID));
 }
 
-if (!$smarty->isCached($aTemplate['upcoming_products'], $oos_modules_cache_id)) {
+if (!$smarty->isCached($aTemplate['upcoming_products'], $nModulesCacheID)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/modules/upcoming_products.php';
 }
-$smarty->assign('upcoming_products', $smarty->fetch($aTemplate['upcoming_products'], $oos_modules_cache_id));
+$smarty->assign('upcoming_products', $smarty->fetch($aTemplate['upcoming_products'], $nModulesCacheID));
 $smarty->setCaching(false);
-
-$smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
 
 // display the template
 $smarty->display($aTemplate['page']);

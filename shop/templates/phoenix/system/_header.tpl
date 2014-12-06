@@ -27,7 +27,6 @@
 <link href="{$theme}/css/bootstrap.min.css" rel="stylesheet" />
 <link href="{$theme}/css/font-awesome.min.css" rel="stylesheet" />
 <link href="{$theme}/css/style.min.css" rel="stylesheet" />
-
 <!-- Included Custom CSS Files -->
 
 <!-- Place favicon.ico and apple-touch-icon.png -->
