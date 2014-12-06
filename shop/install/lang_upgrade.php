@@ -12,21 +12,6 @@
 
 global $db, $prefix_table;
 
-$table = $prefix_table . 'affiliate_payment_status';
-$result = $db->Execute("UPDATE " . $table . " SET affiliate_language = '1' WHERE affiliate_language = 'deu'");
-$result = $db->Execute("UPDATE " . $table . " SET affiliate_language = '2' WHERE affiliate_language = 'eng'");
-$result = $db->Execute("UPDATE " . $table . " SET affiliate_language = '3' WHERE affiliate_language = 'nld'");
-$result = $db->Execute("UPDATE " . $table . " SET affiliate_language = '4' WHERE affiliate_language = 'pol'");
-$result = $db->Execute("UPDATE " . $table . " SET affiliate_language = '5' WHERE affiliate_language = 'rus'");
-$result = $db->Execute("UPDATE " . $table . " SET affiliate_language = '6' WHERE affiliate_language = 'spa'");
-
-$result = $db->Execute("ALTER TABLE " . $table . " CHANGE `affiliate_language` `affiliate_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
-if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
-} else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
-}
-
 
 $table = $prefix_table . 'block_info';
 $result = $db->Execute("UPDATE " . $table . " SET block_language = '1' WHERE block_language = 'deu'");
@@ -156,110 +141,11 @@ if ($result === false) {
 }
 
 
-$table = $prefix_table . 'newsfeed_categories';
-$result = $db->Execute("UPDATE " . $table . " SET newsfeed_categories_language = '1' WHERE newsfeed_categories_language = 'deu'");
-$result = $db->Execute("UPDATE " . $table . " SET newsfeed_categories_language = '2' WHERE newsfeed_categories_language = 'eng'");
-$result = $db->Execute("UPDATE " . $table . " SET newsfeed_categories_language = '3' WHERE newsfeed_categories_language = 'nld'");
-$result = $db->Execute("UPDATE " . $table . " SET newsfeed_categories_language = '4' WHERE newsfeed_categories_language = 'pol'");
-$result = $db->Execute("UPDATE " . $table . " SET newsfeed_categories_language = '5' WHERE newsfeed_categories_language = 'rus'");
-$result = $db->Execute("UPDATE " . $table . " SET newsfeed_categories_language = '6' WHERE newsfeed_categories_language = 'spa'");
-
-$result = $db->Execute("ALTER TABLE " . $table . " CHANGE `newsfeed_categories_language` `newsfeed_categories_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
-if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
-} else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
-}
-
-
-$table = $prefix_table . 'newsfeed_info';
-$result = $db->Execute("UPDATE " . $table . " SET newsfeed_language = '1' WHERE newsfeed_language = 'deu'");
-$result = $db->Execute("UPDATE " . $table . " SET newsfeed_language = '2' WHERE newsfeed_language = 'eng'");
-$result = $db->Execute("UPDATE " . $table . " SET newsfeed_language = '3' WHERE newsfeed_language = 'nld'");
-$result = $db->Execute("UPDATE " . $table . " SET newsfeed_language = '4' WHERE newsfeed_language = 'pol'");
-$result = $db->Execute("UPDATE " . $table . " SET newsfeed_language = '5' WHERE newsfeed_language = 'rus'");
-$result = $db->Execute("UPDATE " . $table . " SET newsfeed_language = '6' WHERE newsfeed_language = 'spa'");
-
-$result = $db->Execute("ALTER TABLE " . $table . " CHANGE `newsfeed_language` `newsfeed_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
-if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
-} else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
-}
-
-
-$table = $prefix_table . 'newsfeed_manager';
-$result = $db->Execute("UPDATE " . $table . " SET newsfeed_manager_language = '1' WHERE newsfeed_manager_language = 'deu'");
-$result = $db->Execute("UPDATE " . $table . " SET newsfeed_manager_language = '2' WHERE newsfeed_manager_language = 'eng'");
-$result = $db->Execute("UPDATE " . $table . " SET newsfeed_manager_language = '3' WHERE newsfeed_manager_language = 'nld'");
-$result = $db->Execute("UPDATE " . $table . " SET newsfeed_manager_language = '4' WHERE newsfeed_manager_language = 'pol'");
-$result = $db->Execute("UPDATE " . $table . " SET newsfeed_manager_language = '5' WHERE newsfeed_manager_language = 'rus'");
-$result = $db->Execute("UPDATE " . $table . " SET newsfeed_manager_language = '6' WHERE newsfeed_manager_language = 'spa'");
-
-$result = $db->Execute("ALTER TABLE " . $table . " CHANGE `newsfeed_manager_language` `newsfeed_manager_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
-if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
-} else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
-}
-
-
-$table = $prefix_table . 'news_categories_description';
-$result = $db->Execute("UPDATE " . $table . " SET news_categories_language = '1' WHERE news_categories_language = 'deu'");
-$result = $db->Execute("UPDATE " . $table . " SET news_categories_language = '2' WHERE news_categories_language = 'eng'");
-$result = $db->Execute("UPDATE " . $table . " SET news_categories_language = '3' WHERE news_categories_language = 'nld'");
-$result = $db->Execute("UPDATE " . $table . " SET news_categories_language = '4' WHERE news_categories_language = 'pol'");
-$result = $db->Execute("UPDATE " . $table . " SET news_categories_language = '5' WHERE news_categories_language = 'rus'");
-$result = $db->Execute("UPDATE " . $table . " SET news_categories_language = '6' WHERE news_categories_language = 'spa'");
-
-$result = $db->Execute("ALTER TABLE " . $table . " CHANGE `news_categories_language` `news_categories_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
-if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
-} else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
-}
-
-
-$table = $prefix_table . 'news_description';
-$result = $db->Execute("UPDATE " . $table . " SET news_language = '1' WHERE news_language = 'deu'");
-$result = $db->Execute("UPDATE " . $table . " SET news_language = '2' WHERE news_language = 'eng'");
-$result = $db->Execute("UPDATE " . $table . " SET news_language = '3' WHERE news_language = 'nld'");
-$result = $db->Execute("UPDATE " . $table . " SET news_language = '4' WHERE news_language = 'pol'");
-$result = $db->Execute("UPDATE " . $table . " SET news_language = '5' WHERE news_language = 'rus'");
-$result = $db->Execute("UPDATE " . $table . " SET news_language = '6' WHERE news_language = 'spa'");
-
-$result = $db->Execute("ALTER TABLE " . $table . " CHANGE `news_language` `news_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
-if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
-} else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
-}
-
-
-$table = $prefix_table . 'news_reviews_description';
-$result = $db->Execute("UPDATE " . $table . " SET news_reviews_language = '1' WHERE news_reviews_language = 'deu'");
-$result = $db->Execute("UPDATE " . $table . " SET news_reviews_language = '2' WHERE news_reviews_language = 'eng'");
-$result = $db->Execute("UPDATE " . $table . " SET news_reviews_language = '3' WHERE news_reviews_language = 'nld'");
-$result = $db->Execute("UPDATE " . $table . " SET news_reviews_language = '4' WHERE news_reviews_language = 'pol'");
-$result = $db->Execute("UPDATE " . $table . " SET news_reviews_language = '5' WHERE news_reviews_language = 'rus'");
-$result = $db->Execute("UPDATE " . $table . " SET news_reviews_language = '6' WHERE news_reviews_language = 'spa'");
-
-$result = $db->Execute("ALTER TABLE " . $table . " CHANGE `news_reviews_language` `news_reviews_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
-if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
-} else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
-}
-
-
 
 $table = $prefix_table . 'orders_status';
 $result = $db->Execute("UPDATE " . $table . " SET orders_language = '1' WHERE orders_language = 'deu'");
 $result = $db->Execute("UPDATE " . $table . " SET orders_language = '2' WHERE orders_language = 'eng'");
-$result = $db->Execute("UPDATE " . $table . " SET orders_language = '3' WHERE orders_language = 'nld'");
-$result = $db->Execute("UPDATE " . $table . " SET orders_language = '4' WHERE orders_language = 'pol'");
-$result = $db->Execute("UPDATE " . $table . " SET orders_language = '5' WHERE orders_language = 'rus'");
-$result = $db->Execute("UPDATE " . $table . " SET orders_language = '6' WHERE orders_language = 'spa'");
+
 
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE `orders_language` `orders_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
 if ($result === false) {
@@ -272,10 +158,6 @@ if ($result === false) {
 $table = $prefix_table . 'page_type';
 $result = $db->Execute("UPDATE " . $table . " SET page_type_language = '1' WHERE page_type_language = 'deu'");
 $result = $db->Execute("UPDATE " . $table . " SET page_type_language = '2' WHERE page_type_language = 'eng'");
-$result = $db->Execute("UPDATE " . $table . " SET page_type_language = '3' WHERE page_type_language = 'nld'");
-$result = $db->Execute("UPDATE " . $table . " SET page_type_language = '4' WHERE page_type_language = 'pol'");
-$result = $db->Execute("UPDATE " . $table . " SET page_type_language = '5' WHERE page_type_language = 'rus'");
-$result = $db->Execute("UPDATE " . $table . " SET page_type_language = '6' WHERE page_type_language = 'spa'");
 
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE `page_type_language` `page_type_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
 if ($result === false) {
@@ -288,10 +170,6 @@ if ($result === false) {
 $table = $prefix_table . 'products_description';
 $result = $db->Execute("UPDATE " . $table . " SET products_language = '1' WHERE products_language = 'deu'");
 $result = $db->Execute("UPDATE " . $table . " SET products_language = '2' WHERE products_language = 'eng'");
-$result = $db->Execute("UPDATE " . $table . " SET products_language = '3' WHERE products_language = 'nld'");
-$result = $db->Execute("UPDATE " . $table . " SET products_language = '4' WHERE products_language = 'pol'");
-$result = $db->Execute("UPDATE " . $table . " SET products_language = '5' WHERE products_language = 'rus'");
-$result = $db->Execute("UPDATE " . $table . " SET products_language = '6' WHERE products_language = 'spa'");
 
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE `products_language` `products_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
 if ($result === false) {
@@ -374,86 +252,6 @@ $result = $db->Execute("UPDATE " . $table . " SET reviews_language = '5' WHERE r
 $result = $db->Execute("UPDATE " . $table . " SET reviews_language = '6' WHERE reviews_language = 'spa'");
 
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE `reviews_language` `reviews_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
-if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
-} else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
-}
-
-
-$table = $prefix_table . 'ticket_admins';
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '1' WHERE ticket_language = 'deu'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '2' WHERE ticket_language = 'eng'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '3' WHERE ticket_language = 'nld'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '4' WHERE ticket_language = 'pol'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '5' WHERE ticket_language = 'rus'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '6' WHERE ticket_language = 'spa'");
-
-$result = $db->Execute("ALTER TABLE " . $table . " CHANGE `ticket_language` `ticket_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
-if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
-} else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
-}
-
-
-$table = $prefix_table . 'ticket_department';
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '1' WHERE ticket_language = 'deu'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '2' WHERE ticket_language = 'eng'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '3' WHERE ticket_language = 'nld'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '4' WHERE ticket_language = 'pol'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '5' WHERE ticket_language = 'rus'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '6' WHERE ticket_language = 'spa'");
-
-$result = $db->Execute("ALTER TABLE " . $table . " CHANGE `ticket_language` `ticket_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
-if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
-} else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
-}
-
-
-$table = $prefix_table . 'ticket_priority';
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '1' WHERE ticket_language = 'deu'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '2' WHERE ticket_language = 'eng'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '3' WHERE ticket_language = 'nld'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '4' WHERE ticket_language = 'pol'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '5' WHERE ticket_language = 'rus'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '6' WHERE ticket_language = 'spa'");
-
-$result = $db->Execute("ALTER TABLE " . $table . " CHANGE `ticket_language` `ticket_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
-if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
-} else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
-}
-
-
-$table = $prefix_table . 'ticket_reply';
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '1' WHERE ticket_language = 'deu'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '2' WHERE ticket_language = 'eng'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '3' WHERE ticket_language = 'nld'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '4' WHERE ticket_language = 'pol'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '5' WHERE ticket_language = 'rus'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '6' WHERE ticket_language = 'spa'");
-
-$result = $db->Execute("ALTER TABLE " . $table . " CHANGE `ticket_language` `ticket_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
-if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
-} else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
-}
-
-
-$table = $prefix_table . 'ticket_status';
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '1' WHERE ticket_language = 'deu'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '2' WHERE ticket_language = 'eng'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '3' WHERE ticket_language = 'nld'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '4' WHERE ticket_language = 'pol'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '5' WHERE ticket_language = 'rus'");
-$result = $db->Execute("UPDATE " . $table . " SET ticket_language = '6' WHERE ticket_language = 'spa'");
-
-$result = $db->Execute("ALTER TABLE " . $table . " CHANGE `ticket_language` `ticket_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
