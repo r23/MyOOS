@@ -42,30 +42,35 @@
   $block_sql .= " ORDER BY b.block_side, b.block_sort_order ASC";
   $block_result = $dbconn->GetAll($block_sql);
 
-  foreach ($block_result as $block) {
-    $block_heading = $block['block_name'];
-    $block_file = trim($block['block_file']);
-    $block_side = $block['block_side'];
+foreach ($block_result as $block) {
+	$block_heading = $block['block_name'];
+	$block_file = trim($block['block_file']);
+	$block_side = $block['block_side'];
 
-    if (empty($block_file)) {
-      continue;
-    }
+	if (empty($block_file)) {
+		continue;
+	}
 
-    $block_tpl = $sTheme . '/blocks/' . $block_file . '.html';
-
-    if ($block['block_cache'] != '') {
+    if (!empty($block_side)) {
+        $block_tpl = $sTheme . '/blocks/' . $block_file . '.html';
+    }	
+	
+    if ( (!empty($block['block_cache'])) && (!empty($block_side)) ) {
 		if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 			$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 		}
-      $bid = trim('oos_' . $block['block_cache'] . '_cache_id');
-      if (!$smarty->isCached($block_tpl, ${$bid})) {
-        include_once MYOOS_INCLUDE_PATH . '/includes/blocks/block_' . $block_file . '.php';
-      }
-      $block_content = $smarty->fetch($block_tpl, ${$bid});
+		$bid = trim('oos_' . $block['block_cache'] . '_cache_id');
+		
+		if (!$smarty->isCached($block_tpl, ${$bid})) {
+			include_once MYOOS_INCLUDE_PATH . '/includes/blocks/block_' . $block_file . '.php';
+		}
+		$block_content = $smarty->fetch($block_tpl, ${$bid});
     } else {
-      $smarty->setCaching(false);
-      include_once MYOOS_INCLUDE_PATH . '/includes/blocks/block_' . $block_file . '.php';
-      $block_content = $smarty->fetch($block_tpl);
+		$smarty->setCaching(false);
+		include_once MYOOS_INCLUDE_PATH . '/includes/blocks/block_' . $block_file . '.php';
+		if (!empty($block_side)) {
+			$block_content = $smarty->fetch($block_tpl);
+		}
     }
 	
     $aContentBlock[] = array('side' => $block_side,
@@ -76,20 +81,20 @@
 
   
  
+$n = count($aContentBlock);
+for ($i = 0, $n; $i < $n; $i++) {
+	switch ($aContentBlock[$i]['side']) {
 
-  for ($i = 0, $n = count($aContentBlock); $i < $n; $i++) {
-     switch ($aContentBlock[$i]['side']) {
+		case 'left':
+			$smarty->append('oos_blockleft', array('content' => $aContentBlock[$i]['block_content']));
+			break;
 
-       case 'left':
-         $smarty->append('oos_blockleft', array('content' => $aContentBlock[$i]['block_content']));
-         break;
+		case 'right':
+			$smarty->append('oos_blockright', array('content' => $aContentBlock[$i]['block_content']));
+			break;
 
-       case 'right':
-         $smarty->append('oos_blockright', array('content' => $aContentBlock[$i]['block_content']));
-         break;
+	}
+}
 
-     }
-  }
-
-  $smarty->setCaching(false);
+$smarty->setCaching(false);
 

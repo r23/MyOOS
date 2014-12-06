@@ -25,35 +25,9 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 class breadcrumb {
 
 	/**
-	 * @var	object	Instance of this class
-	 */
-	public static $instance;
-
-	/**
-	 * @var string	Last used 'before' string
-	 */
-	public static $before = '';
-
-	/**
-	 * @var string	Last used 'after' string
-	 */
-	public static $after = '';
-
-	/**
-	 * @var string	HTML wrapper element for a single breadcrumb element
-	 */
-	private $element = 'span';
-
-
-	/**
 	 * @var array	Array of individual (linked) html strings created from crumbs
 	 */
 	private $links = array();
-
-	/**
-	 * @var	string	Breadcrumb html string
-	 */
-	public $output;
 
 
 	/**
@@ -61,12 +35,18 @@ class breadcrumb {
 	 */
 	public function __construct() {
 		$this->reset();
-	}	
-
-    function reset() {
+	}
+	
+	/**
+	 * reset
+	 */
+    private function reset() {
 		$this->links = array();
     }
-	
+
+	/**
+	 * Add Link
+	 */	
 	public function add($title, $url = '', $icon = '') {
 		$this->links[] = array('title' => $title, 'url' => $url, 'icon' => $icon );
     }
@@ -77,7 +57,7 @@ class breadcrumb {
 	 *
 	 * @return	string
 	 */
-    function trail() {
+    public function trail() {
 
 		$link_output = '';
 		
@@ -109,5 +89,5 @@ class breadcrumb {
 				
 		return $link_output;
     }  
- } 
+} 
 

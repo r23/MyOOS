@@ -70,7 +70,8 @@ $aLang['header_title_catalog'] = 'Katalog';
 $aLang['header_title_logoff'] = 'Abmelden';
 $aLang['header_title_login'] = 'Anmelden';
 $aLang['header_title_whats_new'] = 'Neue Produkte';
-
+$aLang['header_select_language'] = 'Ihre Sprache';
+$aLang['header_select_currencies'] = 'Währung';
 
 $aLang['block_heading_specials'] = 'Angebote';
 

@@ -47,30 +47,69 @@
 <body>
 <div class="wrapper">
 
+    <div class="header header-static">
+        <div class="topbar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- Topbar Navigation -->
+                        <ul class="list-inline left-topbar">
+							<li><a href="{html_href_link content=$filename.account connection=SSL}">{$lang.header_title_my_account}</a></li>
+							<li><a href="{html_href_link content=$filename.shopping_cart}">{$lang.header_title_cart_contents}</a></li>
+							<li><a href="{html_href_link content=$filename.checkout_payment connection=SSL}">{$lang.header_title_checkout}</a></li>
+						{if (isset($smarty.session.customer_id)) }
+							<li><a href="{html_href_link content=$filename.logoff connection=SSL}">{$lang.header_title_logoff}</a></li>
+						{else}
+							<li><a href="{html_href_link content=$filename.login connection=SSL}">{$lang.header_title_login}</a></li>
+						{/if}						
+                        </ul>  
+                    </div>
+                    <div class="col-sm-6">
+                        <ul class="right-topbar pull-right">
+						{if $currency_block eq 'true'}
+                            <li>
+                                <a>{$lang.header_select_currencies}: ({$currency})</a>
+                                <ul class="currency">
+							{foreach item=currencies from=$currencies_contents}
+								{if $currencies.id == $currency}
+									<li class="active">
+								{else}
+									<li>
+								{/if}
+										<a href="{html_href_link content=$page_file oos_get=$currency_get_parameters currency=$currencies.id connection=$request_type}">{$currencies.text} {if $currencies.id == $currency}<i class="fa fa-check"></i>{/if}</a></li>
+							{/foreach}
+                                </ul>
+                            </li>
+						{/if}	
+						{if $languages_block eq 'true'}
+                            <li>
+                                <a>{$lang.header_select_language}: ({$language})</a>
+                                <ul class="language">
+							{foreach item=languages from=$languages_contents}
+								{if $languages.iso_639_2 == $language}
+									<li class="active">
+								{else}
+									<li>
+								{/if}
+										<a href="{html_href_link content=$page_file oos_get=$lang_get_parameters language=$languages.iso_639_2 connection=$request_type}">{$languages.name} ({$languages.iso_639_2}){if $languages.iso_639_2 == $language}<i class="fa fa-check"></i>{/if}</a>
+									</li>
+							{/foreach}
+                                </ul>
+                            </li>
+						{/if}							
+                        </ul>
+                    </div>
+                </div>
+            </div><!--/container-->
+        </div>
+    </div>
+
+
 <!-- header //-->
 <table width="870" align="center" cellpadding="0" cellspacing="0">
    <tr>
       <td class="block_head"><a href="{html_href_link content=$filename.main}"><img src="{$theme_image}/logo.gif" border="0" width="140" height="179" alt="{$smarty.const.STORE_NAME}" title=" {$smarty.const.STORE_NAME} "></a></td>
    </tr>
-</table>
-
-
-<table width="870" border="0" align="center" cellspacing="0" cellpadding="1">
-  <tr class="oos-HeadNavi">
-    <td></td>
-    <td align="right" class="oos-HeadNavi">
-
-{if (isset($smarty.session.customer_id)) }
-<a href="{html_href_link content=$filename.logoff connection=SSL}" class="headerNavigation">{$lang.header_title_logoff}</a>&nbsp;
-{else}
-<a href="{html_href_link content=$filename.login connection=SSL}" class="headerNavigation">{$lang.header_title_login}</a>&nbsp;
-{/if}
-|&nbsp;<a href="{html_href_link content=$filename.account connection=SSL}" class="headerNavigation">{$lang.header_title_my_account}</a>&nbsp;
-|&nbsp;<a href="{html_href_link content=$filename.shopping_cart}" class="headerNavigation">{$lang.header_title_cart_contents}</a>&nbsp;
-|&nbsp;<a href="{html_href_link content=$filename.checkout_payment connection=SSL}" class="headerNavigation">{$lang.header_title_checkout}</a>&nbsp;&nbsp;
-
-    </td>
-  </tr>
 </table>
 
 <!-- header_eof //-->

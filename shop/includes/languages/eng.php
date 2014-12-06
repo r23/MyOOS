@@ -75,8 +75,10 @@ $aLang['header_title_top'] = 'Top';
 $aLang['header_title_catalog'] = 'Catalog';
 $aLang['header_title_logoff'] = 'Log Off';
 $aLang['header_title_login'] = 'Log In';
-$aLang['header_title_whats_new'] = 'What\'s New?';
+$aLang['header_select_language'] = 'Your Language';
+$aLang['header_select_currencies'] = 'Currency';
 
+$aLang['header_title_whats_new'] = 'What\'s New?';
 $aLang['block_heading_specials'] = 'Specials';
 
 // footer text in includes/oos_footer.php

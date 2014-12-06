@@ -77,7 +77,8 @@ $smarty->assign(
 
 		'lang'              => $aLang,
 		'language'          => $sLanguage,
-
+		'currency'			=> $sCurrency,
+		  
 		'pagetitle'         => $sPagetitle,
 		'meta_description'  => $sDescription
       )
