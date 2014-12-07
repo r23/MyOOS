@@ -38,13 +38,13 @@ define('OOS_VERSION', '2.0.32 -dev');
 define('OOS_FULL_NAME', 'MyOOS ' . OOS_VERSION);
 
 // require Shop parameters
-require_once MYOOS_INCLUDE_PATH . '/includes/oos_define.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/define.php';
 
 // Load server utilities
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_server.php';
 
 //for debugging purposes
-require_once MYOOS_INCLUDE_PATH . '/includes/oos_debug.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/debug.php';
 
 // redirect to the installation module if DB_SERVER is empty
 if (strlen(OOS_DB_TYPE) < 1) {
@@ -69,10 +69,10 @@ if (ENABLE_SSL == 'true') {
 
 
 // require  the list of project filenames
-require_once MYOOS_INCLUDE_PATH . '/includes/oos_filename.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/filename.php';
 
 // require  the list of project database tables
-require_once MYOOS_INCLUDE_PATH . '/includes/oos_tables.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/tables.php';
 
 // define general functions used application-wide
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_global.php';
@@ -206,7 +206,7 @@ if (!isset($_SESSION['currency']) || isset($_GET['currency'])) {
 
 
 //for debugging purposes
-require_once MYOOS_INCLUDE_PATH . '/includes/oos_debug.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/debug.php';
 
 if ( $session->hasStarted() === TRUE ) {
     if (!(preg_match('/^[a-z0-9]{26}$/i', $session->getId()) || preg_match('/^[a-z0-9]{32}$/i', $session->getId()))) {
@@ -288,7 +288,7 @@ $today = date("Y-m-d H:i:s");
 
 // Shopping cart actions
 if ( isset($_GET['action']) || isset($_POST['action']) ) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/oos_cart_actions.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/cart_actions.php';
 }
 
 // split-page-results

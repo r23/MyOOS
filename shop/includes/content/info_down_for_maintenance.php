@@ -29,10 +29,10 @@
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
   $nContentCacheID = $sTheme . '|down_for_maintenance|' . $sLanguage;
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
   if (!isset($option)) {
     require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
   }
 
 if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {

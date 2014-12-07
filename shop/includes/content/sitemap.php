@@ -30,10 +30,10 @@ $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 $sGroup = trim($_SESSION['user']->group['text']);
 $nContentCacheID = $sTheme . '|info|' . $sGroup . '|sitemap|' . $sLanguage;
 
-require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-	require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
@@ -60,8 +60,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     $smarty->assign('sitemap', $oSitemap->buildTree());
 }
-#$smarty->setCaching(false);
+$smarty->setCaching(false);
 
-  // display the template
+// display the template
 $smarty->display($aTemplate['page']);
-

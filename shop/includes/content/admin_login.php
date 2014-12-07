@@ -157,10 +157,10 @@
 
   $nPageType = OOS_PAGE_TYPE_SERVICE;
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+  require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
   if (!isset($option)) {
     require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
   }
 
 

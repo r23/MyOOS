@@ -63,7 +63,7 @@ if(!defined('MYOOS_INCLUDE_PATH')) {
 }
 
 define('OOS_VALID_MOD', 'yes');
-require 'includes/oos_main.php';
+require 'includes/main.php';
 
 if (is_readable('includes/content/' . $sContent . '.php')) {
     require_once MYOOS_INCLUDE_PATH . '/includes/content/' . $sContent . '.php';
@@ -73,6 +73,6 @@ if (is_readable('includes/content/' . $sContent . '.php')) {
 
 }
 
-include 'includes/oos_nice_exit.php';
+include 'includes/nice_exit.php';
 
 
