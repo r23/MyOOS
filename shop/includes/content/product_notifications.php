@@ -87,7 +87,6 @@ if (!isset($_SESSION['customer_id'])) {
   $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['product_notifications'], '', 'SSL'));
 
   $aTemplate['page'] = $sTheme . '/page/user_product_notifications.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
@@ -124,8 +123,5 @@ if (!isset($_SESSION['customer_id'])) {
           ORDER BY pd.products_name";
   $smarty->assign('products_array', $dbconn->GetAll($sql));
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
-
-
-  // display the template
+// display the template
 $smarty->display($aTemplate['page']);

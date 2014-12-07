@@ -124,7 +124,6 @@ if (!isset($_SESSION['customer_id'])) {
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['customers_image']));
 
   $aTemplate['page'] = $sTheme .  '/modules/customers_image.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
@@ -147,8 +146,6 @@ if (!isset($_SESSION['customer_id'])) {
       )
   );
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
 
-
-  // display the template
+// display the template
 $smarty->display($aTemplate['page']);

@@ -94,7 +94,6 @@ if (!isset($_SESSION['customer_id'])) {
   }
 
   $aTemplate['page'] = $sTheme . '/page/redeem.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
@@ -113,8 +112,6 @@ if (!isset($_SESSION['customer_id'])) {
           'message'           => $sMessage
       )
   );
-
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
 
 
 $smarty->display($aTemplate['page']);

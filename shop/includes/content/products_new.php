@@ -23,14 +23,13 @@
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
   $aTemplate['page'] = $sTheme . '/products/products_new.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
   $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.html';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
 
   $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
   $sGroup = trim($_SESSION['user']->group['text']);
-  $contents_cache_id = $sTheme . '|products_new|' . $nPage. '|' . $sGroup . '|' . $sLanguage;
+  $nContentCacheID = $sTheme . '|products_new|' . $nPage. '|' . $sGroup . '|' . $sLanguage;
 
   require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
@@ -42,7 +41,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
 
-  if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
+  if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
     require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_new.php';
 
     $productstable  = $oostable['products'];
@@ -133,10 +132,8 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
     );
   }
 
-  $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation'], $contents_cache_id));
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading'], $contents_cache_id));
-  
-  $smarty->setCaching(false);
+  $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation'], $nContentCacheID));
+$smarty->setCaching(false);
 
-  // display the template
+// display the template
 $smarty->display($aTemplate['page']);

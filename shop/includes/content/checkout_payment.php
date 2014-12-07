@@ -123,7 +123,6 @@ if ( $session->hasStarted() === FALSE ) $session->start();
   ob_end_clean();
 
   $aTemplate['page'] = $sTheme . '/page/checkout_payment.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
 
@@ -181,9 +180,5 @@ if ( $session->hasStarted() === FALSE ) $session->start();
   // JavaScript
   $smarty->assign('oos_js', $javascript);
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
-
-
-  // display the template
+// display the template
 $smarty->display($aTemplate['page']);
-

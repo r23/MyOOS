@@ -29,7 +29,6 @@
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['info_max_order']));
 
   $aTemplate['page'] = $sTheme . '/page/info.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
@@ -47,8 +46,5 @@
       )
   ); 
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
- 
-
-  // display the template
+// display the template
 $smarty->display($aTemplate['page']);

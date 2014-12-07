@@ -36,7 +36,7 @@
 
 function smarty_function_html_href_link($params, &$smarty)
 {
-    global $session, $oEvent, $spider_kill_sid;
+    global $session, $oEvent, $spider_kill_sid, $debug;
 
 	require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
 	
@@ -80,8 +80,8 @@ function smarty_function_html_href_link($params, &$smarty)
        }
     }
 
-    if (empty($content)) {
-      throw new SmartyException("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
+    if (empty($content) && ($debug == 'false') )  {
+       throw new SmartyException("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
     }
 
     if (isset($addentry_id)) {
@@ -103,7 +103,7 @@ function smarty_function_html_href_link($params, &$smarty)
         $link = OOS_HTTP_SERVER . OOS_SHOP;
       }
     } else {
-      throw new SmartyException("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
+		throw new SmartyException("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
     }
 
     if (isset($parameters)) {

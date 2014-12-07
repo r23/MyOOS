@@ -61,7 +61,7 @@
     $nPageType = OOS_PAGE_TYPE_CATALOG;
 
     $sGroup = trim($_SESSION['user']->group['text']);
-    $contents_cache_id = $sTheme . '|shop|nested|' . intval($nCurrentCategoryId) . '|' . $sCategory . '|' . $sGroup . '|' . $sLanguage;
+    $nContentCacheID = $sTheme . '|shop|nested|' . intval($nCurrentCategoryId) . '|' . $sCategory . '|' . $sGroup . '|' . $sLanguage;
 
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
     if (!isset($option)) {
@@ -75,7 +75,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 
     $smarty->assign('breadcrumb', $oBreadcrumb->trail());
 
-    if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
+    if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
       $categoriestable = $oostable['categories'];
       $categories_descriptiontable = $oostable['categories_description'];
       $sql = "SELECT cd.categories_name, cd.categories_heading_title, cd.categories_description,
@@ -180,7 +180,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
           )
       );
     }
-    $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading'], $contents_cache_id));
+    $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading'], $nContentCacheID));
     
     $smarty->setCaching(false);
   } elseif ($category_depth == 'products' || isset($_GET['manufacturers_id'])) {
@@ -196,7 +196,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
     $nFilterID = intval($_GET['filter_id']) ? $_GET['filter_id']+0 : 0;
     $sSort = oos_var_prep_for_os($_GET['sort']);
     $sGroup = trim($_SESSION['user']->group['text']);
-    $contents_cache_id = $sTheme . '|shop|products|' . intval($nCurrentCategoryId) . '|' . $sCategory . '|' . $nManufacturersID . '|' . $nPage . '|' . $nFilterID . '|' . $sGroup . '|' . $sLanguage;
+    $nContentCacheID = $sTheme . '|shop|products|' . intval($nCurrentCategoryId) . '|' . $sCategory . '|' . $nManufacturersID . '|' . $nPage . '|' . $nFilterID . '|' . $sGroup . '|' . $sLanguage;
 
     require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
     if (!isset($option)) {
@@ -239,7 +239,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 
     $smarty->assign('breadcrumb', $oBreadcrumb->trail());
 
-    if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
+    if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
 // create column list
       $define_list = array('PRODUCT_LIST_MODEL' => PRODUCT_LIST_MODEL,
@@ -575,8 +575,8 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
         require_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
       }
     }
-    $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation'], $contents_cache_id));
-    $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading'], $contents_cache_id));
+    $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation'], $nContentCacheID));
+    $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading'], $nContentCacheID));
     
     $smarty->setCaching(false);
   } else {

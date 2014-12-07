@@ -108,7 +108,6 @@ if (isset($_SESSION)) {
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['shopping_cart']));
 
   $aTemplate['page'] = $sTheme . '/page/shopping_cart.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
 
@@ -148,9 +147,6 @@ if (isset($_SESSION)) {
 		$smarty->assign('back_link', $back_link);
 	}
 }
-
-
-$smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
 
 
 // display the template

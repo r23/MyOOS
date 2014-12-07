@@ -156,7 +156,6 @@ if (!isset($_SESSION['customer_id'])) {
   ob_end_clean();
 
   $aTemplate['page'] = $sTheme . '/page/product_reviews_write.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_REVIEWS;
 
@@ -178,8 +177,5 @@ if (!isset($_SESSION['customer_id'])) {
       )
   );
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
-
-
-  // display the template
+// display the template
 $smarty->display($aTemplate['page']);

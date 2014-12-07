@@ -25,10 +25,9 @@
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/info_down_for_maintenance.php';
 
   $aTemplate['page'] = $sTheme . '/page/info.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
-  $contents_cache_id = $sTheme . '|down_for_maintenance|' . $sLanguage;
+  $nContentCacheID = $sTheme . '|down_for_maintenance|' . $sLanguage;
 
   require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
@@ -40,7 +39,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
 
-  if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
+  if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['info_down_for_maintenance']));
@@ -53,10 +52,8 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
         )
     );
   }
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading'], $contents_cache_id));
   
-  $smarty->setCaching(false);
+$smarty->setCaching(false);
 
-  // display the template
+// display the template
 $smarty->display($aTemplate['page']);
-

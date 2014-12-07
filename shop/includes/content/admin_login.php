@@ -154,7 +154,6 @@
   }
 
   $aTemplate['page'] = $sTheme . '/page/login_admin.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_SERVICE;
 
@@ -191,8 +190,6 @@
        )
     );
   }
-
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
 
 
   // display the template

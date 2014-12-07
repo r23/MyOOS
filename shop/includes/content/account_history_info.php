@@ -60,7 +60,6 @@ if (!isset($_SESSION['customer_id'])) {
   $oOrder = new order($_GET['order_id']);
 
   $aTemplate['page'] = $sTheme . '/page/account_history_info.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   if (DOWNLOAD_ENABLED == 'true') {
     $aTemplate['download'] = $sTheme . '/page/download.html';
@@ -100,9 +99,6 @@ if (!isset($_SESSION['customer_id'])) {
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/downloads.php';
     $smarty->assign('download', $smarty->fetch($aTemplate['download']));
   }
-
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
-
 
   // display the template
 $smarty->display($aTemplate['page']);

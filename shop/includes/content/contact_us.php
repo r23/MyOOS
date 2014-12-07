@@ -37,7 +37,6 @@
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['contact_us']));
 
   $aTemplate['page'] = $sTheme . '/system/contact_us.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
@@ -57,9 +56,6 @@
       )
   );
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
 
-
-  // display the template
+// display the template
 $smarty->display($aTemplate['page']);
-

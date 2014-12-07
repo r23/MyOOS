@@ -60,7 +60,6 @@
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['newsletters']));
 
     $aTemplate['page'] = $sTheme . '/page/subscription_center.html';
-    $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
     $nPageType = OOS_PAGE_TYPE_SERVICE;
 
@@ -78,9 +77,6 @@
         )
     );
 
-    $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
-  
-
-    // display the template
-  $smarty->display($aTemplate['page']);
+	// display the template
+	$smarty->display($aTemplate['page']);
   }

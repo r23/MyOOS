@@ -57,7 +57,6 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
     $aLang['text_information'] = $aLang['text_product_not_found'];
 
     $aTemplate['page'] = $sTheme . '/page/info.html';
-    $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
     $nPageType = OOS_PAGE_TYPE_PRODUCTS;
 

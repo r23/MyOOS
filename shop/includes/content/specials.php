@@ -28,13 +28,12 @@
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_specials.php';
 
   $aTemplate['page'] = $sTheme . '/products/specials.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
   $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.html';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
   $sGroup = trim($_SESSION['user']->group['text']);
   $nPage = isset($_GET[page]) ? $_GET[page]+0 : 1;
-  $contents_cache_id = $sTheme . '|info|' . $sGroup . '|spezials|' . $nPage . '|' . $sLanguage;
+  $nContentCacheID = $sTheme . '|info|' . $sGroup . '|spezials|' . $nPage . '|' . $sLanguage;
 
   require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
@@ -46,7 +45,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
 
-  if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
+  if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
     $productstable = $oostable['products'];
     $specialstable = $oostable['specials'];
     $products_descriptiontable = $oostable['products_description'];
@@ -114,10 +113,9 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
         )
     );
   }
-  $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation'], $contents_cache_id));
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading'], $contents_cache_id));
+  $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation'], $nContentCacheID));
   
   $smarty->setCaching(false);
 
-  // display the template
+// display the template
 $smarty->display($aTemplate['page']);

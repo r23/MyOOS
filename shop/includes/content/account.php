@@ -68,7 +68,6 @@ if ($account['customers_newsletter'] == '1') {
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['account'], '', 'SSL'));
 
 $aTemplate['page'] = $sTheme . '/page/user_account.html';
-$aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
 $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
@@ -89,9 +88,8 @@ $smarty->assign(
           'oos_get_country_name' => $sCountryName,
           'newsletter'           => $newsletter
       )
-  );
+);
 
-$smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
 
 // display the template
 $smarty->display($aTemplate['page']);

@@ -135,7 +135,6 @@ if (!isset($_SESSION['customer_id'])) {
   $oBreadcrumb->add(decode($aLang['navbar_title_2']));
 
   $aTemplate['page'] = $sTheme . '/page/checkout_confirmation.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
 
@@ -179,9 +178,6 @@ if (!isset($_SESSION['customer_id'])) {
   $smarty->assign('payment_modules_process_button', $payment_modules_process_button);
   $smarty->assign('order', $oOrder);
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
-
-
-  // display the template
+// display the template
 $smarty->display($aTemplate['page']);
 

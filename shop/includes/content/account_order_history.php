@@ -36,7 +36,6 @@ if (!isset($_SESSION['customer_id'])) {
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_order_history.php';
 
   $aTemplate['page'] = $sTheme . '/page/account_order_history.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
   $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.html';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
@@ -171,9 +170,7 @@ if (!isset($_SESSION['customer_id'])) {
 
 
   $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation']));
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
 
-
-  // display the template
+// display the template
 $smarty->display($aTemplate['page']);
 

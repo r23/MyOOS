@@ -107,7 +107,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
   $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_address_book'], '', 'SSL'));
  
   $aTemplate['page'] = $sTheme . '/page/address_book.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
@@ -126,8 +125,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
           'oos_address_book_array' => $aAddressBook
       )
   );
-
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
 
 
   // display the template

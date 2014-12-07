@@ -153,7 +153,6 @@ if ( $session->hasStarted() === FALSE ) $session->start();
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['account_my_wishlist']));
 
   $aTemplate['page'] = $sTheme . '/page/my_wishlist.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
   $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.html';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
@@ -178,7 +177,6 @@ if ( $session->hasStarted() === FALSE ) $session->start();
        )
   );
   $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation']));
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
 
 
   // display the template

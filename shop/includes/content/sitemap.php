@@ -18,50 +18,49 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/sitemap.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/sitemap.php';
 
-  $aTemplate['page'] = $sTheme . '/page/sitemap.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
+$aTemplate['page'] = $sTheme . '/page/sitemap.html';
 
-  $nPageType = OOS_PAGE_TYPE_MAINPAGE;
+$nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
-  $sGroup = trim($_SESSION['user']->group['text']);
-  $contents_cache_id = $sTheme . '|info|' . $sGroup . '|sitemap|' . $sLanguage;
+$sGroup = trim($_SESSION['user']->group['text']);
+$nContentCacheID = $sTheme . '|info|' . $sGroup . '|sitemap|' . $sLanguage;
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
-  if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
-  }
+require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
+if (!isset($option)) {
+	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/oos_blocks.php';
+}
 
 if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
 
-  if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
+if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     $oSitemap = new oosCategoryTree;
     $oSitemap->setShowCategoryProductCount(false);
 
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['sitemap']));
-
+	$sCanonical = oos_href_link($aContents['sitemap'], '', 'SSL', FALSE, TRUE);
+	
     // assign Smarty variables;
     $smarty->assign(
         array(
             'breadcrumb'    => $oBreadcrumb->trail(),
-            'heading_title' => $aLang['heading_title']
+            'heading_title' => $aLang['heading_title'],
+			'canonical'		=> $sCanonical
         )
     );
 
     $smarty->assign('sitemap', $oSitemap->buildTree());
-  }
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading'], $contents_cache_id));
-  
-  $smarty->setCaching(false);
+}
+#$smarty->setCaching(false);
 
   // display the template
 $smarty->display($aTemplate['page']);

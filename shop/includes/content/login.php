@@ -119,7 +119,6 @@ if (isset($_GET['login']) && ($_GET['login'] == 'fail')) {
 }
 
 $aTemplate['page'] = $sTheme . '/page/user_login.html';
-$aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
 $nPageType = OOS_PAGE_TYPE_SERVICE;
 
@@ -139,8 +138,6 @@ $smarty->assign(
           'info_message' => $info_message
       )
 );
-
-$smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
 
 
 // display the template

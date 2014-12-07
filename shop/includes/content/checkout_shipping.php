@@ -183,7 +183,6 @@ if (!isset($_SESSION['customer_id'])) {
   $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
 
   $aTemplate['page'] = $sTheme . '/page/checkout_shipping.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
 
@@ -233,9 +232,6 @@ if (!isset($_SESSION['customer_id'])) {
   // JavaScript
   $smarty->assign('popup_window', 'checkout_shipping.js');
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
- 
 
-  // display the template
+// display the template
 $smarty->display($aTemplate['page']);
-

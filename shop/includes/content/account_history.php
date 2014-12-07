@@ -79,7 +79,6 @@ if (!isset($_SESSION['customer_id'])) {
   $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_history'], '', 'SSL'));
 
   $aTemplate['page'] = $sTheme . '/page/account_history.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
@@ -102,8 +101,6 @@ if (!isset($_SESSION['customer_id'])) {
           'oos_history_array' => $aHistory
       )
   );
-
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
 
 
   // display the template

@@ -22,7 +22,6 @@
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
   $aTemplate['page'] = $sTheme . '/page/information.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/print_page.html';;
 
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
@@ -30,7 +29,7 @@
   
   $nInformationsID = isset($_GET[information_id]) ? $_GET[information_id]+0 : 1;
   $sGroup = trim($_SESSION['user']->group['text']);
-  $contents_cache_id = $sTheme . '|info|' . $sGroup . '|information|' . $nInformationsID . '|' . $sLanguage;
+  $nContentCacheID = $sTheme . '|info|' . $sGroup . '|information|' . $nInformationsID . '|' . $sLanguage;
 
   require_once MYOOS_INCLUDE_PATH . '/includes/oos_system.php';
   if (!isset($option)) {
@@ -44,7 +43,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 
 
 
-  if (!$smarty->isCached($aTemplate['page'], $contents_cache_id)) {
+  if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
     $informationtable = $oostable['information'];
     $information_descriptiontable = $oostable['information_description'];
     $sql = "SELECT i.information_id, i.information_image, id.information_name,
@@ -75,9 +74,8 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
   }
   
  
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading'], $contents_cache_id));
+
+$smarty->setCaching(false);
   
-  $smarty->setCaching(false);
-  
-  // display the template
+// display the template
 $smarty->display($aTemplate['page']);

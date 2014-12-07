@@ -282,7 +282,6 @@ if (!isset($_SESSION['customer_id'])) {
   ob_end_clean();
 
   $aTemplate['page'] = $sTheme . '/page/shipping_address.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
 
@@ -353,9 +352,5 @@ if (!isset($_SESSION['customer_id'])) {
   $state = oos_get_zone_name($country, $zone_id, $state);
   $smarty->assign('state', $state);
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
-
-
-  // display the template
+// display the template
 $smarty->display($aTemplate['page']);
-

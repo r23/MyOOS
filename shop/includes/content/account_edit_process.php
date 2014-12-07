@@ -224,7 +224,6 @@ if (!isset($_SESSION['customer_id'])) {
     ob_end_clean();
 
     $aTemplate['page'] = $sTheme . '/page/user_account_edit_process.html';
-    $aTemplate['page_heading'] = $sTheme . '/heading/page_heading.html';
 
     $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
@@ -313,8 +312,6 @@ if (!isset($_SESSION['customer_id'])) {
 
     $smarty->assign('newsletter_ids', array(0,1));
     $smarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));
-
-    $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
   
 
   $smarty->display($aTemplate['page']);
