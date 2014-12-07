@@ -66,7 +66,6 @@ $aContents['newsletters_unsubscribe_success'] = $prefix_filename . 'unsubscribe_
 $aContents['subscription_center'] = $prefix_filename . 'subscription_center';
 
 //products
-$aContents['cross_sell'] = $prefix_filename . 'cross_sell';
 $aContents['product_info'] = $prefix_filename . 'product_info';
 $aContents['products_new'] = $prefix_filename . 'new';
 $aContents['specials'] = $prefix_filename . 'specials';
