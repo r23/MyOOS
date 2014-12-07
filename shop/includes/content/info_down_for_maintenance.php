@@ -15,45 +15,45 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if (!$oEvent->installed_plugin('down_for_maintenance')) {
-    oos_redirect(oos_href_link($aContents['main']));
-  }
+if (!$oEvent->installed_plugin('down_for_maintenance')) {
+	oos_redirect(oos_href_link($aContents['main']));
+}
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/info_down_for_maintenance.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/info_down_for_maintenance.php';
 
-  $aTemplate['page'] = $sTheme . '/page/info.html';
+$aTemplate['page'] = $sTheme . '/page/info.html';
 
-  $nPageType = OOS_PAGE_TYPE_MAINPAGE;
-  $nContentCacheID = $sTheme . '|down_for_maintenance|' . $sLanguage;
+$nPageType = OOS_PAGE_TYPE_MAINPAGE;
+$nContentCacheID = $sTheme . '|down_for_maintenance|' . $sLanguage;
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
-  if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+if (!isset($option)) {
+	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
     require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
-  }
+}
 
 if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
 
-  if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
+if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['info_down_for_maintenance']));
-
+	$sCanonical = oos_href_link($aContents['info_down_for_maintenance'], '', 'SSL', FALSE, TRUE);
+	
     // assign Smarty variables;
     $smarty->assign(
         array(
             'breadcrumb'    => $oBreadcrumb->trail(),
-            'heading_title' => $aLang['heading_title']
+            'heading_title' => $aLang['heading_title'],
+			'canonical'		=> $sCanonical
         )
     );
-  }
+}
   
-$smarty->setCaching(false);
-
 // display the template
 $smarty->display($aTemplate['page']);

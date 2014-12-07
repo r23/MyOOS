@@ -113,9 +113,9 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
         )
     );
   }
-  $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation'], $nContentCacheID));
-  
-  $smarty->setCaching(false);
+
+$smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation'], $nContentCacheID));
+ 
 
 // display the template
 $smarty->display($aTemplate['page']);

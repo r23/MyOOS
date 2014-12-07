@@ -60,7 +60,6 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     $smarty->assign('sitemap', $oSitemap->buildTree());
 }
-$smarty->setCaching(false);
 
 // display the template
 $smarty->display($aTemplate['page']);

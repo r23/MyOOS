@@ -88,8 +88,6 @@ if (!$smarty->isCached($aTemplate['upcoming_products'], $nModulesCacheID)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/modules/upcoming_products.php';
 }
 $smarty->assign('upcoming_products', $smarty->fetch($aTemplate['upcoming_products'], $nModulesCacheID));
-$smarty->setCaching(false);
 
 // display the template
 $smarty->display($aTemplate['page']);
-
