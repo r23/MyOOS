@@ -32,7 +32,7 @@ define('DATE_TIME_FORMAT', DATE_FORMAT_LONG . ' %H:%M:%S');
 
 define('HTML_PARAMS','dir="LTR" lang="de"');
 define('CHARSET', 'UTF-8');
-define('INSTALLATION', 'myMyOOS [Shopsystem] Installation');
+define('INSTALLATION', 'MyOOS [Shopsystem] Installation');
 
 define('BTN_CONTINUE', 'Weiter');
 define('BTN_NEXT' ,'Weiter');

@@ -192,17 +192,16 @@ echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font
 
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (1, '', 1, 'languages', 'system', 1, 1, 0, " . $db->DBTimeStamp($today) . ", NULL, 'oos_block_select_option(array(\'left\', \'right\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (2, '', 1, 'currencies', 'system', 1, 2, 0, " . $db->DBTimeStamp($today) . ", NULL, 'oos_block_select_option(array(\'left\', \'right\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (3, 'left', 1, 'categories', 'categories', 1, 3, 0, " . $db->DBTimeStamp($today) . ",  NULL, 'oos_block_select_option(array(\'left\', \'right\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (4, 'left', 0, 'manufacturers', 'manufacturers', 1, 4, 0, " . $db->DBTimeStamp($today) . ", NULL, 'oos_block_select_option(array(\'left\', \'right\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (5, 'left', 1, 'whats_new', '', 1, 5, 0, " . $db->DBTimeStamp($today) . ",  NULL, 'oos_block_select_option(array(\'left\', \'right\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (3, '', 1, 'information', 'system', 1, 27, 0, " . $db->DBTimeStamp($today) . ",  NULL, 'oos_block_select_option(array(\'left\', \'right\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (6, 'left', 1, 'add_a_quickie', 'system', 1, 6, 0, " . $db->DBTimeStamp($today) . ",  NULL, 'oos_block_select_option(array(\'left\', \'right\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (7, 'left', 1, 'search', 'system', 1, 7, 0, " . $db->DBTimeStamp($today) . ",  NULL, 'oos_block_select_option(array(\'left\', \'right\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
+
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (4, 'left', 1, 'categories', 'categories', 1, 3, 0, " . $db->DBTimeStamp($today) . ",  NULL, 'oos_block_select_option(array(\'left\', \'right\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (5, 'left', 0, 'manufacturers', 'manufacturers', 1, 4, 0, " . $db->DBTimeStamp($today) . ", NULL, 'oos_block_select_option(array(\'left\', \'right\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (6, 'left', 1, 'whats_new', '', 1, 5, 0, " . $db->DBTimeStamp($today) . ",  NULL, 'oos_block_select_option(array(\'left\', \'right\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
+
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (7, 'left', 1, 'add_a_quickie', 'system', 1, 6, 0, " . $db->DBTimeStamp($today) . ",  NULL, 'oos_block_select_option(array(\'left\', \'right\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (8, 'left', 1, 'products_history', '', 1, 10, 0, " . $db->DBTimeStamp($today) . ",  NULL, 'oos_block_select_option(array(\'left\', \'right\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (10, 'left', 0, 'affiliate', '', 1, 10, 0, " . $db->DBTimeStamp($today) . ",  NULL, 'oos_block_select_option(array(\'left\', \'right\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (11, 'left', 0, 'web_search', 'system', 0, 11, 0, " . $db->DBTimeStamp($today) . ",  NULL, 'oos_block_select_option(array(\'left\', \'right\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (12, 'left', 1, 'service', 'system', 1, 12, 0, " . $db->DBTimeStamp($today) . ",  NULL, 'oos_block_select_option(array(\'left\', \'right\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (13, 'right', 1, 'shopping_cart', '', 1, 13, 0, " . $db->DBTimeStamp($today) . ", NULL, 'oos_block_select_option(array(\'left\', \'right\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
 
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (15, 'right', 1, 'myworld', '', 1, 15, 1, " . $db->DBTimeStamp($today) . ", NULL, 'oos_block_select_option(array(\'left\', \'right\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
@@ -220,9 +219,6 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (30, 'right', 0, 'newsletter', 'system', 1, 30, 0, " . $db->DBTimeStamp($today) . ",  NULL, 'oos_block_select_option(array(\'left\', \'right\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (31, 'right', 1, 'products_xsell', 'xsell_products', 1, 31, 0, " . $db->DBTimeStamp($today) . ",  NULL, 'oos_block_select_option(array(\'left\', \'right\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (35, 'right', 0, 'account', '', 1, 35, 1, " . $db->DBTimeStamp($today) . ", NULL, 'oos_block_select_option(array(\'left\', \'right\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
-
-
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "block " . UPDATED .'</font>';
 
@@ -232,20 +228,21 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, b
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (2, 1, 'Währungen')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (2, 2, 'Currencies')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (3, 1, 'Kategorien')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (3, 2, 'Categories')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (3, 1, 'Informationen')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (3, 2, 'Information')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (4, 1, 'Hersteller')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (4, 2, 'Manufacturers')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (5, 1, 'Neue Produkte')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (5, 2, 'What\'s New?')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (4, 1, 'Kategorien')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (4, 2, 'Categories')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (6, 1, 'Schnelleinkauf')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (6, 2, 'Add a Quickie!')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (5, 1, 'Hersteller')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (5, 2, 'Manufacturers')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (7, 1, 'Schnellsuche')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (7, 2, 'Quick Find')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (6, 1, 'Neue Produkte')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (6, 2, 'What\'s New?')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
+
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (7, 1, 'Schnelleinkauf')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (7, 2, 'Add a Quickie!')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
 
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (8, 1, 'Besuchte Produkte')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (8, 2, 'Products History')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
@@ -283,11 +280,6 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, b
 
 // 25 Newsfeed
 // 26 Customers Info 
-
-
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (27, 1, 'Informationen')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (27, 2, 'Information')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
-
 
 // 29 Google Translato
 

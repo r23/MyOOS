@@ -53,20 +53,7 @@
  // Set the level of error reporting
   error_reporting(E_ALL & ~E_NOTICE);
 
-  if (strlen(ini_get("safe_mode"))< 1) {
-    @set_time_limit(0);
-  }
-  define('OOS_VALID_MOD', 'yes');
 
-  if (file_exists($file='../includes/oos_version.php')) {
-    @include $file;
-  }
-
-  require '../includes/configure.php';
-
-  if (OOS_VERSION_MINOR > 6) {
-    require '../includes/functions/function_global.php';
-  }
   require '../includes/functions/function_kernel.php';
 
   if (OOS_DB_TYPE == '') {
@@ -126,12 +113,6 @@
     case "Finish":
       print_oosFinish();
       break;
-
-    case "OOS 1.4.0":
-      oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-      oosDoUpgrade140($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-      print_Next();
-    break;
 
     case "OOS 1.6.0":
       oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);

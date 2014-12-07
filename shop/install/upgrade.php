@@ -43,11 +43,6 @@
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
 
-function oosDoUpgrade140 ($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype) {
-    global $db, $currentlang, $update;
-    include("oos140.php");
-}
-
 function oosDoUpgrade160 ($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype) {
     global $db, $currentlang, $update;
     include("oos160.php");

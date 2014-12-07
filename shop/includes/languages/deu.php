@@ -162,6 +162,17 @@ $aLang['text_date_account_created'] = 'Zugang erstellt am:';
 $aLang['text_yourstore'] = 'Ihre persönliche Seite';
 $aLang['edit_yourimage'] = 'Bild bearbeiten';
 
+//footer
+$aLang['get_in_touch_with_us'] = $sServer . ' entdecken';
+$aLang['header_title_service'] = 'Shop Service';
+$aLang['block_service_new'] = 'Neue Produkte';
+$aLang['block_service_specials'] = 'Angebote';
+$aLang['block_service_sitemap'] = 'Sitemap';
+$aLang['block_service_advanced_search'] = 'Erweiterte Suche';
+$aLang['block_service_reviews'] = 'Meinungen';
+$aLang['block_service_shopping_cart'] = 'Warenkorb';
+$aLang['block_service_contact'] = 'Kontakt';
+
 
 // javascript messages
 $aLang['js_error'] = 'Notwendige Angaben fehlen!\nBitte richtig ausfüllen.\n\n';

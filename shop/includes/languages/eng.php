@@ -166,6 +166,17 @@ $aLang['text_date_account_created'] = 'Account Created:';
 $aLang['text_yourstore'] = 'Your Participation';
 $aLang['edit_yourimage'] = 'Your Image';
 
+// footer
+$aLang['get_in_touch_with_us'] = 'Get in touch with us';
+$aLang['header_title_service'] = 'Shop service';
+$aLang['block_service_new'] = 'New Products';
+$aLang['block_service_specials'] = 'Specials';
+$aLang['block_service_sitemap'] = 'Sitemap';
+$aLang['block_service_advanced_search'] = 'Advanced Search';
+$aLang['block_service_reviews'] = 'Reviews';
+$aLang['block_service_shopping_cart'] = 'Cart Contents';
+$aLang['block_service_contact'] = 'Contact';
+
 
 // javascript messages
 $aLang['js_error'] = 'Errors have occured during the process of your form!\nPlease make the following corrections:\n\n';
