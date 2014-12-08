@@ -7,33 +7,21 @@
         {include file="phoenix/system/_message.tpl"}
     {/foreach}
 {/if}
-<!-- body //-->
-<table width="870" border="0" align="center" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
-{foreach item=block from=$oos_blockleft}
-   {include file="phoenix/system/_block.tpl"}
-{/foreach}
-    </table></td>
-    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-    <td width="100%" valign="top">
-    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td>{$oosPageHeading}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
+
+	<section id="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
 {if $cart_count_contents gt 0 }
-      <tr>
-        <td>
-<form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=update_product}" method="post">
-{if $mySystem.sed}
-    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-	<input type="hidden" name="formid" value="{$mySystem.formid}">
-{/if}		
-		{$hidden_field}
-          <table border="0" width="100%" cellspacing="0" cellpadding="2">{$shopping_cart_detail}</table></td>
+
+	<form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=update_product}" method="post">
+	{if $mySystem.sed}
+		<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+		<input type="hidden" name="formid" value="{$mySystem.formid}">
+	{/if}		
+	{$hidden_field}
+          <table border="0" width="100%" cellspacing="0" cellpadding="2">{$shopping_cart_detail}
       </tr>
   {if $smarty.session.error_cart_msg != ''}
       <tr>
@@ -64,30 +52,18 @@
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main">{html_image_submit image="update_cart.gif" alt=$lang.image_button_update_cart}</td>
-{if isset($back_link) }
-            <td class="main"><a href="{$back_link}">{html_image_button image="continue_shopping.gif" alt=$lang.image_button_continue_shopping}</a></td>
-{/if}
             <td align="right" class="main">{if $smarty.session.member->group.show_price eq 1 }<a href="{html_href_link content=$filename.checkout_shipping connection=SSL}">{html_image_button image="checkout.gif" alt=$lang.image_button_continue}</a>{/if}</td>
           </tr>
         </table></form></td>
-      </tr>
+         </table>
 {else}
-      <tr>
-        <td align="center" class="main">{$lang.text_cart_empty}</td>
-      </tr>
-      <tr>
-        <td align="right" class="main"><br><a href="{html_href_link content=$filename.main}">{html_image_button image="continue.gif" alt=$lang.image_button_continue}</a></td>
-      </tr>
+				<div class="alert alert-info" role="alert">
+					{$lang.text_cart_empty}
+				</div>
 {/if}
-    </table>
-</td>
-    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
-{foreach item=block from=$oos_blockright}
-   {include file="phoenix/system/_block.tpl"}
-{/foreach}
-    </table></td>
-  </tr>
-</table>
-<!-- body_eof //-->
+            </div>
+        </div>
+    </div>
+    </section>
+
 {include file="phoenix/system/_footer.tpl"}

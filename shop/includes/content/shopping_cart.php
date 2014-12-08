@@ -33,7 +33,8 @@ if (isset($_SESSION)) {
 		if ($_SESSION['cart']->count_contents() > 0) {
 
 			$products = $_SESSION['cart']->get_products();
-			for ($i=0, $n=count($products); $i<$n; $i++) {
+			$n = count($products);
+			for ($i=0, $n = count($products); $i<$n; $i++) {
 
 				// Push all attributes information in an array
 				if (isset($products[$i]['attributes']) && is_array($products[$i]['attributes'])) {
@@ -104,51 +105,33 @@ if (isset($_SESSION)) {
 }
 
 
-  // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['shopping_cart']));
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['shopping_cart']));
+$sCanonical = oos_href_link($aContents['shopping_cart'], '', 'NONSSL', FALSE, TRUE);
+  
+$aTemplate['page'] = $sTheme . '/page/shopping_cart.html';
 
-  $aTemplate['page'] = $sTheme . '/page/shopping_cart.html';
+$nPageType = OOS_PAGE_TYPE_CATALOG;
 
-  $nPageType = OOS_PAGE_TYPE_CATALOG;
+require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+if (!isset($option)) {
+	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+}
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
-  if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
-  }
-
-  // assign Smarty variables;
-  $smarty->assign(
+// assign Smarty variables;
+$smarty->assign(
       array(
-          'breadcrumb'    => $oBreadcrumb->trail(),
-          'heading_title' => $aLang['heading_title'],
-
+          'breadcrumb'		=> $oBreadcrumb->trail(),
+          'heading_title'	=> $aLang['heading_title'],
+			'canonical'		=> $sCanonical,
+			
           'hidden_field'         => $hidden_field,
           'shopping_cart_detail' => $shopping_cart_detail,
           'any_out_of_stock'     => $any_out_of_stock
        )
-  );
-
-
-  
-if (isset($_SESSION)) { 
-	if (is_object($_SESSION['cart'])) {
-		$smarty->assign(
-			array(
-				'oos_cart_total'       => $oCurrencies->format($_SESSION['cart']->show_total()),
-				'any_out_of_stock'     => $any_out_of_stock
-				)
-			);
-	}
-	
-	$back = count($_SESSION['navigation']->path)-2;
-	if (isset($_SESSION['navigation']->path[$back])) {
-		$back_link = oos_href_link($_SESSION['navigation']->path[$back]['content'], $_SESSION['navigation']->path[$back]['get'], $_SESSION['navigation']->path[$back]['mode']);
-		$smarty->assign('back_link', $back_link);
-	}
-}
+);
 
 
 // display the template
 $smarty->display($aTemplate['page']);
-  
