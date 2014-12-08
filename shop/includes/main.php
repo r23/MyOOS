@@ -294,6 +294,4 @@ if ( isset($_GET['action']) || isset($_POST['action']) ) {
 // split-page-results
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
 // infobox
-require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_boxes.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_coupon.php';
-
