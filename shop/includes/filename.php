@@ -55,7 +55,6 @@ $aContents['main'] = $prefix_filename . 'main';
 $aContents['shop'] = $prefix_filename . 'shop';
 $aContents['redirect'] = $prefix_filename . 'redirect';
 $aContents['shopping_cart'] = $prefix_filename . 'shopping_cart';
-$aContents['info_shopping_cart'] = $prefix_filename . 'info_shopping_cart';
 $aContents['wishlist'] = $prefix_filename . 'wishlist';
 $aContents['contact_us'] = $prefix_filename . 'contact_us';
 

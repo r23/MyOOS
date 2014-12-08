@@ -39,5 +39,13 @@ $aLang['entry_remember_me'] = 'Einlogautomatik<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbs
 $aLang['text_password_forgotten'] = 'Sie haben Ihr Passwort vergessen? Dann klicken Sie <u>hier</u>';
 
 $aLang['text_login_error'] = '<font color="#ff0000"><b>FEHLER:</b></font> Keine &Uuml;bereinstimmung der eingebenen \'eMail-Adresse\' und/oder dem \'Passwort\'.';
-$aLang['text_visitors_cart'] = '<font color="#ff0000"><b>ACHTUNG:</b></font> Ihre Besuchereingaben werden automatisch mit Ihrem Kundenkonto verbunden. <a href="javascript:session_win(\'' . oos_href_link($aContents['info_shopping_cart']) . '\');">[Mehr Information]</a>';
+$aLang['text_visitors_cart'] = '<font color="#ff0000"><b>ACHTUNG:</b></font> Ihre Besuchereingaben werden automatisch mit Ihrem Kundenkonto verbunden.[Mehr Information]</a>';
 
+$aLang['sub_heading_title'] = 'Warenkorb';
+$aLang['sub_heading_title_1'] = 'Besucherwarenkorb';
+$aLang['sub_heading_title_2'] = 'Kundenwarenkorb';
+$aLang['sub_heading_title_3'] = 'Information';
+$aLang['sub_heading_text_1'] = 'Jeder Besucher unseres Online-Shops bekommt einen \'Besucherwarenkorb\'. Damit kann er seine ausgew&auml;hlten Produkte sammeln. Sobald der Besucher den Online-Shop verl&auml;sst, verf&auml;llt dessen Inhalt.';
+$aLang['sub_heading_text_2'] = 'Jeder angemeldete Kunde verf&uuml;gt &uuml;ber einen \'Kundenwarenkorb\' zum Einkaufen, mit dem er auch zu einem sp&auml;terem Zeitpunkt den Einkauf beenden kann. Jeder Artikel bleibt darin registriert bis der Kunde zur Kasse geht, oder die Produkte darin l&ouml;scht.';
+$aLang['sub_heading_text_3'] = 'Die Besuchereingaben werden automatisch bei der Registrierung als Kunde in den Kundenwarenkorb &uuml;bernommen.';
+$aLang['text_close_window'] = '<b><u>[Fenster schliessen]</b></u>';

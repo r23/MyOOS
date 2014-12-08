@@ -47,7 +47,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['sitemap']));
-	$sCanonical = oos_href_link($aContents['sitemap'], '', 'SSL', FALSE, TRUE);
+	$sCanonical = oos_href_link($aContents['sitemap'], '', 'NONSSL', FALSE, TRUE);
 	
     // assign Smarty variables;
     $smarty->assign(
