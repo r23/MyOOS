@@ -246,8 +246,5 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
     $smarty->setCaching(false);
   }
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
-
-
-  // display the template
+// display the template
 $smarty->display($aTemplate['page']);
