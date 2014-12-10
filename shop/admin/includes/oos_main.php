@@ -51,7 +51,7 @@ $request = Request::createFromGlobals();
 
 
 require 'includes/oos_filename.php';
-require_once MYOOS_INCLUDE_PATH . 'includes/oos_tables.php';
+require_once MYOOS_INCLUDE_PATH . 'includes/tables.php';
 
 require_once MYOOS_INCLUDE_PATH . 'includes/functions/function_global.php';
 require 'includes/functions/function_kernel.php';

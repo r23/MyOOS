@@ -104,7 +104,7 @@ if (!isset($_SESSION['customer_id'])) {
 
 // clear cache
       require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
-      $oSmarty =& new Template;
+      $oSmarty = new Template;
 
       $sLocaleDir = $smarty->template_dir;
       $aSkins = array();
