@@ -46,6 +46,8 @@
 <body>
 <div class="wrapper">
 
+	<!-- start header -->
+	<header>
     <div class="header header-static">
         <div class="topbar">
             <div class="container">
@@ -75,7 +77,10 @@
 								{else}
 									<li>
 								{/if}
-										<a href="{html_href_link content=$page_file oos_get=$currency_get_parameters currency=$currencies.id connection=$request_type}">{$currencies.text} {if $currencies.id == $currency}<i class="fa fa-check"></i>{/if}</a></li>
+										<a href="{html_href_link content=$page_file oos_get=$currency_get_parameters currency=$currencies.id connection=$request_type}">
+											{$currencies.text} {if $currencies.id == $currency}<i class="fa fa-check"></i>{/if}
+										</a>
+									</li>
 							{/foreach}
                                 </ul>
                             </li>
@@ -90,7 +95,9 @@
 								{else}
 									<li>
 								{/if}
-										<a href="{html_href_link content=$page_file oos_get=$lang_get_parameters language=$languages.iso_639_2 connection=$request_type}">{$languages.name} ({$languages.iso_639_2}){if $languages.iso_639_2 == $language}<i class="fa fa-check"></i>{/if}</a>
+										<a href="{html_href_link content=$page_file oos_get=$lang_get_parameters language=$languages.iso_639_2 connection=$request_type}">
+											{$languages.name} ({$languages.iso_639_2}){if $languages.iso_639_2 == $language}<i class="fa fa-check"></i>{/if}
+										</a>
 									</li>
 							{/foreach}
                                 </ul>
@@ -101,14 +108,25 @@
                 </div>
             </div><!--/container-->
         </div>
+        <!-- navbar -->
+        <div class="navbar navbar-default mega-menu" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{html_href_link content=$filename.main}">
+                        <img id="logo-header" src="{$theme_image}/logo.gif" alt="{$smarty.const.STORE_NAME}" title="{$smarty.const.STORE_NAME}">
+                    </a>
+					
+                </div>
+            </div>    
+        </div>            
+        <!-- end navbar -->
     </div>
-
-
-<!-- header //-->
-<table width="870" align="center" cellpadding="0" cellspacing="0">
-   <tr>
-      <td class="block_head"><a href="{html_href_link content=$filename.main}"><img src="{$theme_image}/logo.gif" border="0" width="140" height="179" alt="{$smarty.const.STORE_NAME}" title=" {$smarty.const.STORE_NAME} "></a></td>
-   </tr>
-</table>
-
-<!-- header_eof //-->
+	</header>
+	<!-- end header -->

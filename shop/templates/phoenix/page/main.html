@@ -6,33 +6,84 @@
     {/foreach}
 {/if}
 
+	<section id="featured">
+	<!-- start slider -->
+		{$featured}
+	<!-- end slider -->
+	</section>
+	<section class="callaction">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="text">
+					{$lang.text_main}
+				</div>
+			</div>
+		</div>
+	</div>
+	</section>
+	<section id="content">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				{$new_spezials}			
+			</div>
+		</div>
+		<!-- divider -->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="solidline">
+				</div>
+			</div>
+		</div>
+		<!-- end divider -->
+		<div class="row">
+			<div class="col-md-12">
+				{$new_products}
+			</div>
+		</div>
+		<!-- divider -->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="solidline">
+				</div>
+			</div>
+		</div>
+		<!-- end divider -->
+		<div class="row">
+			<div class="col-md-12">
+				{$mod_manufacturers}
+			</div>
+		</div>
+		<!-- divider -->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="solidline">
+				</div>
+			</div>
+		</div>
+		<!-- end divider -->
+		<div class="row">
+			<div class="col-md-12">
+				{$upcoming_products}
+			</div>
+		</div>
+	</div>
+	</section>
+	<section id="bottom">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="aligncenter">
+					<div id="twitter-wrapper">
+						<div id="twitter">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</section>
 
-    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td></td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-{if $customer_greeting}
-         <tr>
-           <td class="main">{$customer_greeting}</td>
-         </tr>
-{/if}
-          <tr>
-            <td class="main"><br>{$lang.text_main}</td>
-          </tr>
-{$new_spezials}
-{$featured}
-{$new_products}
-{$upcoming_products}
-        </table></td>
-      </tr>
-    </table>
-</td>
 
-
-<!-- body_eof //-->
 {include file="phoenix/system/_footer.tpl"}
