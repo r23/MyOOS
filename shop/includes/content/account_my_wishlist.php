@@ -34,8 +34,10 @@ if (!isset($_SESSION['customer_id'])) {
 }  
 
 $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
-  
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_my_wishlist.php';
+
+// split-page-results
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_my_wishlist.php';
 
   $customers_wishlisttable = $oostable['customers_wishlist'];
   $wishlist_result_raw = "SELECT products_id, customers_wishlist_date_added

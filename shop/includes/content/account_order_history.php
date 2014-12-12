@@ -35,8 +35,9 @@ if (!isset($_SESSION['customer_id'])) {
 
 $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
 
-
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_order_history.php';
+// split-page-results
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_order_history.php';
 
   $aTemplate['page'] = $sTheme . '/page/account_order_history.html';
   $aTemplate['pagination'] = $sTheme . '/system/_pagination.tpl';

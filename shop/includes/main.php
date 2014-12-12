@@ -33,7 +33,7 @@ if (is_readable('includes/local/configure.php')) {
 }
 
 // Version information
-define('OOS_VERSION', '2.0.32 -dev');
+define('OOS_VERSION', '2.0.33 -dev');
 // Complete software name string
 define('OOS_FULL_NAME', 'MyOOS ' . OOS_VERSION);
 
@@ -88,6 +88,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 // require  validation functions (right now only email address)
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
 
+// todo remove
   if (isset($_POST)) {
     foreach ($_POST as $key=>$value) {
       $$key = oos_prepare_input($value);
@@ -96,7 +97,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php'
 
 
 // initialize the logger class
-
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_user.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_products_history.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shopping_cart.php';
@@ -153,6 +153,8 @@ if (isset($_POST[$sSid]) && !empty($_POST[$sSid])){
    $session->start();
 }
 
+// Cross-Site Scripting attack defense
+oos_secure_input();
 
 
 // set the language
@@ -273,8 +275,6 @@ if ( empty( $sContent ) || !is_string( $sContent ) ) {
     $sContent = $aContents['main'];
 }  
   
-// Cross-Site Scripting attack defense
-oos_secure_input();
 
 // initialize the message stack for output messages
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_message_stack.php';
@@ -284,14 +284,10 @@ $oMessage = new messageStack;
 $sTheme = STORE_TEMPLATES;
 $aTemplate = array();
 
-$today = date("Y-m-d H:i:s");
-
 // Shopping cart actions
 if ( isset($_GET['action']) || isset($_POST['action']) ) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/cart_actions.php';
 }
 
-// split-page-results
-require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
 // infobox
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_coupon.php';

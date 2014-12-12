@@ -44,6 +44,7 @@ if ( $session->hasStarted() === FALSE ) $session->start();
                   AND customers_id = '" . intval($_SESSION['customer_id']) . "'";
         $check = $dbconn->Execute($sql);
         if ($check->fields['total'] < 1) {
+		  $today = date("Y-m-d H:i:s");
           $products_notificationstable = $oostable['products_notifications'];
           $sql = "INSERT INTO $products_notificationstable
                   (products_id,

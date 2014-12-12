@@ -22,7 +22,8 @@
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/wishlist.php';
-
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php'; 
+  
   if (isset($_GET['wlid'])) $wlid =  oos_db_prepare_input($_GET['wlid']);
   if (strlen($wlid) < 10) unset($wlid); 
   $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;

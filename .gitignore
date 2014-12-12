@@ -2,10 +2,6 @@
 blog/wordpress/wp-config.php
 shop/includes/local/
 
-shop/themes/myoos/less/bootstrap.min.less
-
-shop/admin/less/bootstrap.min.less
-
 shop/admin/temp/cache/
 shop/admin/temp/templates_c/
 
@@ -14,9 +10,9 @@ shop/temp/shop/templates_c/
 
 /nbproject/private/
 /blog/wordpress/nbproject/private/
-/mobil/MyOOSCordova/nbproject/private/
-/forum/phpBB3/nbproject/private/
 /shop/nbproject/private/
-bootstrap.min.less
-font-awesome.min.less
+/shop/themes/phoenix/less/bootstrap.min.less
+/shop/themes/phoenix/less/font-awesome.min.less
 /shop/themes/phoenix/less/style.min.less
+/xibo/nbproject/private/
+/forum/nbproject/private/

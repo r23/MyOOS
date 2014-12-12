@@ -434,6 +434,7 @@ if ( $session->hasStarted() === FALSE ) $session->start();
                         AND customers_id = '" . intval($_SESSION['customer_id']) . "'";
           $check = $dbconn->Execute($check_sql);
           if ($check->fields['total'] < 1) {
+		    $today = date("Y-m-d H:i:s");
             $sql = "INSERT INTO $products_notificationstable
                     (products_id, customers_id, 
                      date_added) VALUES (" . $dbconn->qstr($notify[$i]) . ','

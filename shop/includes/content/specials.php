@@ -25,6 +25,7 @@
     oos_redirect(oos_href_link($aContents['main']));
   }
 
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php'; 
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_specials.php';
 
   $aTemplate['page'] = $sTheme . '/products/specials.html';

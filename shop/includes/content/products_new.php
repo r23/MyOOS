@@ -22,6 +22,11 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
+// split-page-results
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_new.php';
+
+
 $aTemplate['page'] = $sTheme . '/page/products_new.html';
 $aTemplate['pagination'] = $sTheme . '/system/_pagination.tpl';
 
@@ -42,9 +47,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 }
 
 if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_new.php';
-
-    $productstable  = $oostable['products'];
+	$productstable  = $oostable['products'];
     $specialsstable = $oostable['specials'];
     $manufacturersstable = $oostable['manufacturers'];
     $products_descriptiontable = $oostable['products_description'];
