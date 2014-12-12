@@ -22,9 +22,8 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-
 $aTemplate['page'] = $sTheme . '/page/products_new.html';
-$aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.html';
+$aTemplate['pagination'] = $sTheme . '/system/_pagination.tpl';
 
 $nPageType = OOS_PAGE_TYPE_CATALOG;
 
@@ -60,7 +59,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                                     $specialsstable s ON p.products_id = s.products_id
                                WHERE p.products_status >= '1'
                                ORDER BY p.products_date_added DESC, pd.products_name";
-    $products_new_split = new splitPageResults($_GET['page'], MAX_DISPLAY_PRODUCTS_NEW, $products_new_result_raw, $products_new_numrows);
+    $products_new_split = new splitPageResults($nPage, MAX_DISPLAY_PRODUCTS_NEW, $products_new_result_raw, $products_new_numrows);
     $products_new_result = $dbconn->Execute($products_new_result_raw);
 
     $products_new_array = array();
@@ -117,8 +116,6 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
     // links breadcrumb
     $oBreadcrumb->add($aLang['header_title_catalog'], oos_href_link($aContents['shop']));
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['products_new']));
-	
-	$nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
 	$sCanonical = oos_href_link($aContents['products_new'], 'page='. $nPage, 'NONSSL', FALSE, TRUE);
 	
     // assign Smarty variables;
@@ -129,18 +126,16 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 		   'robots'				=> 'noindex,follow,noodp,noydir',
 		   'canonical'			=> $sCanonical,
 
-           'oos_page_split'         => $products_new_split->display_count($products_new_numrows, MAX_DISPLAY_PRODUCTS_NEW, $_GET['page'], $aLang['text_display_number_of_products_new']),
-           'oos_display_links'      => $products_new_split->display_links($products_new_numrows, MAX_DISPLAY_PRODUCTS_NEW, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),
-           'oos_page_numrows'       => $products_new_numrows,
+           'page_split'			=> $products_new_split->display_count($products_new_numrows, MAX_DISPLAY_PRODUCTS_NEW, $nPage, $aLang['text_display_number_of_products_new']),
+           'display_links'		=> $products_new_split->display_links($products_new_numrows, MAX_DISPLAY_PRODUCTS_NEW, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
+           'numrows'			=> $products_new_numrows,
 
            'products_image_box'     => SMALL_IMAGE_WIDTH + 10,
            'oos_products_new_array' => $products_new_array
-       )
+		)
     );
 }
-
-
-# $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation'], $nContentCacheID));
+$smarty->assign('pagination', $smarty->fetch($aTemplate['pagination'], $nContentCacheID));
 
 // display the template
 $smarty->display($aTemplate['page']);

@@ -17,14 +17,14 @@
       <tr>
        <td><hr size="1" noshade></td>
       </tr>
-{if $oos_page_numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
-   {$oosPageNavigation}
+{if $numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+   {$pagination}
 {/if}
   <tr>
     <td>{include file="oos/products/slavery_product_listing.html"}</td>
   </tr>
-{if $oos_page_numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
-   {$oosPageNavigation}
+{if $numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+   {$pagination}
 {/if}
      </table>
 	 

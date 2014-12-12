@@ -80,7 +80,6 @@
        global $aLang, $sContent;
 
        $display_link = '';
-       $class = 'class="pageResults"';
 
        if ( oos_is_not_null($parameters) && (substr($parameters, -5) != '&amp;') ) $parameters .= '&amp;';
 
@@ -91,7 +90,7 @@
        if ($query_numrows % $max_rows_per_page) $num_pages++; // has remainder so add one page 
 
         // previous button - not displayed on first page
-       if ($current_page_number > 1) $display_link .= '<a href="' . oos_href_link($sContent, $parameters . 'page=' . ($current_page_number - 1)) . '" ' . $class . ' title=" ' . $aLang['prevnext_title_previous_page'] . ' ">[<u>' . $aLang['prevnext_button_prev'] . '</u>]</a>&nbsp;&nbsp;';
+       if ($current_page_number > 1) $display_link .= '<li><a href="' . oos_href_link($sContent, $parameters . 'page=' . ($current_page_number - 1)) . '"  title=" ' . $aLang['prevnext_title_previous_page'] . ' "><span aria-hidden="true">&laquo;</span><span class="sr-only">' . $aLang['prevnext_button_prev'] . '</span></a></li>';
 
        // check if num_pages > $max_page_links
        $cur_window_num = intval($current_page_number / $max_page_links);
@@ -101,22 +100,22 @@
        if ($num_pages % $max_page_links) $max_window_num++;
 
        // previous window of pages
-       if ($cur_window_num > 1) $display_link .= '<a href="' . oos_href_link($sContent, $parameters . 'page=' . (($cur_window_num - 1) * $max_page_links)) . '" ' . $class . ' title=" ' . sprintf($aLang['prevnext_title_prev_set_of_no_page'], $max_page_links) . ' ">...</a>';
+       if ($cur_window_num > 1) $display_link .= '<li><a href="' . oos_href_link($sContent, $parameters . 'page=' . (($cur_window_num - 1) * $max_page_links)) . '" ' . $class . ' title=" ' . sprintf($aLang['prevnext_title_prev_set_of_no_page'], $max_page_links) . ' "></a></li>';
 
        // page nn button
        for ($jump_to_page = 1 + (($cur_window_num - 1) * $max_page_links); ($jump_to_page <= ($cur_window_num * $max_page_links)) && ($jump_to_page <= $num_pages); $jump_to_page++) {
          if ($jump_to_page == $current_page_number) {
-           $display_link .= '&nbsp;<b>' . $jump_to_page . '</b>&nbsp;';
+           $display_link .= '<li class="active"><a href="' . oos_href_link($sContent, $parameters . 'page=' . $jump_to_page) . '" title=" ' . sprintf($aLang['prevnext_title_page_no'], $jump_to_page) . ' ">' . $jump_to_page . '<span class="sr-only"></span></a></li>';
          } else {
-           $display_link .= '&nbsp;<a href="' . oos_href_link($sContent, $parameters . 'page=' . $jump_to_page) . '" ' . $class . ' title=" ' . sprintf($aLang['prevnext_title_page_no'], $jump_to_page) . ' "><u>' . $jump_to_page . '</u></a>&nbsp;';
+           $display_link .= '<li><a href="' . oos_href_link($sContent, $parameters . 'page=' . $jump_to_page) . '" title=" ' . sprintf($aLang['prevnext_title_page_no'], $jump_to_page) . ' ">' . $jump_to_page . '</a></li>';
          }
        }
 
        // next window of pages
-       if ($cur_window_num < $max_window_num) $display_link .= '<a href="' . oos_href_link($sContent, $parameters . 'page=' . (($cur_window_num) * $max_page_links + 1)) . '" ' . $class . ' title=" ' . sprintf($aLang['prevnext_title_next_set_of_no_page'], $max_page_links) . ' ">...</a>&nbsp;';
+       if ($cur_window_num < $max_window_num) $display_link .= '<li><a href="' . oos_href_link($sContent, $parameters . 'page=' . (($cur_window_num) * $max_page_links + 1)) . '" title=" ' . sprintf($aLang['prevnext_title_next_set_of_no_page'], $max_page_links) . ' "></a></li>';
 
        // next button
-       if (($current_page_number < $num_pages) && ($num_pages != 1)) $display_link .= '&nbsp;<a href="' . oos_href_link($sContent, $parameters . 'page=' . ($current_page_number + 1)) . '" ' . $class . ' title=" ' . $aLang['prevnext_title_next_page'] . ' ">[<u>' . $aLang['prevnext_button_next'] . '</u>]</a>&nbsp;';
+       if (($current_page_number < $num_pages) && ($num_pages != 1)) $display_link .= '<li><a href="' . oos_href_link($sContent, $parameters . 'page=' . ($current_page_number + 1)) . '" title=" ' . $aLang['prevnext_title_next_page'] . ' "><span aria-hidden="true">&raquo;</span><span class="sr-only">' . $aLang['prevnext_button_next'] . '</span></a></li>';
 
 
        return $display_link;

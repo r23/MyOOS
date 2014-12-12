@@ -74,5 +74,3 @@ if (is_readable('includes/content/' . $sContent . '.php')) {
 }
 
 include 'includes/nice_exit.php';
-
-

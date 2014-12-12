@@ -24,8 +24,8 @@
       <tr>
         <td height="10"></td>
       </tr>
-{if $oos_page_numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '1' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
-   {$oosPageNavigation}
+{if $numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '1' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+   {$pagination}
 {/if}
       <tr>
         <td><table border="0" cellspacing="0" cellpadding="2">
@@ -44,8 +44,8 @@
 {/section}
         </table></td>
       </tr>
-{if $oos_page_numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
-  {$oosPageNavigation}
+{if $numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+  {$pagination}
 {/if}
     </table>
 

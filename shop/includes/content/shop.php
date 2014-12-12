@@ -187,7 +187,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 
     $aTemplate['page'] = $sTheme . '/system/products.html';
     $aTemplate['page_heading'] = $sTheme . '/system/index_products_heading.html';
-    $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.html';
+    $aTemplate['pagination'] = $sTheme . '/system/_pagination.tpl';
 
     $nPageType = OOS_PAGE_TYPE_CATALOG;
 
@@ -575,7 +575,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
         require_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
       }
     }
-    $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation'], $nContentCacheID));
+    $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination'], $nContentCacheID));
     $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading'], $nContentCacheID));
     
     $smarty->setCaching(false);

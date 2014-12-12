@@ -25,12 +25,13 @@
 
   if (isset($_GET['wlid'])) $wlid =  oos_db_prepare_input($_GET['wlid']);
   if (strlen($wlid) < 10) unset($wlid); 
+  $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
 
   $wishlist_result_raw = "SELECT products_id, customers_wishlist_date_added
                          FROM " . $oostable['customers_wishlist'] . " 
                          WHERE customers_wishlist_link_id = '" . oos_db_input($wlid) . "'
                          ORDER BY customers_wishlist_date_added"; 
-  $wishlist_split = new splitPageResults($_GET['page'], MAX_DISPLAY_WISHLIST_PRODUCTS, $wishlist_result_raw, $wishlist_numrows);
+  $wishlist_split = new splitPageResults($nPage, MAX_DISPLAY_WISHLIST_PRODUCTS, $wishlist_result_raw, $wishlist_numrows);
   $wishlist_result = $dbconn->Execute($wishlist_result_raw);
   if (!$wishlist_result->RecordCount()) {
     oos_redirect(oos_href_link($aContents['main'], '', 'NONSSL'));
@@ -142,7 +143,7 @@
   $oBreadcrumb->add($customer. $aLang['navbar_title'], oos_href_link($aContents['wishlist']));
 
   $aTemplate['page'] = $sTheme . '/page/wishlist.html';
-  $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.html';
+  $aTemplate['pagination'] = $sTheme . '/system/_pagination.tpl';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
 
@@ -159,15 +160,15 @@
           'heading_title' => $customer . $aLang['heading_title'],
 		  'robots'		=> 'noindex,nofollow,noodp,noydir',
 
-          'oos_page_split'    => $wishlist_split->display_count($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, $_GET['page'], $aLang['text_display_number_of_wishlist']),
-          'oos_display_links' => $wishlist_split->display_links($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),
-          'oos_page_numrows'  => $wishlist_numrows,
+          'page_split'    => $wishlist_split->display_count($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, $nPage, $aLang['text_display_number_of_wishlist']),
+          'display_links' => $wishlist_split->display_links($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
+          'numrows'  => $wishlist_numrows,
 
           'wishlist_array'    => $aWishlist
       )
   );
 
-  $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation']));
+  $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination']));
 
 
 // display the template

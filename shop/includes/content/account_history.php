@@ -33,7 +33,11 @@ if (!isset($_SESSION['customer_id'])) {
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_history.php';
+$nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
+
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_history.php';
+
+
 
   $orderstable = $oostable['orders'];
   $orders_totaltable = $oostable['orders_total'];
@@ -49,7 +53,7 @@ if (!isset($_SESSION['customer_id'])) {
                          WHERE o.customers_id = '" . intval($_SESSION['customer_id']) . "'
                            AND ot.class = 'ot_total'
                          ORDER BY orders_id DESC";
-  $history_split = new splitPageResults($_GET['page'], MAX_DISPLAY_ORDER_HISTORY, $history_result_raw, $history_numrows);
+  $history_split = new splitPageResults($nPage, MAX_DISPLAY_ORDER_HISTORY, $history_result_raw, $history_numrows);
   $history_result = $dbconn->Execute($history_result_raw);
 
   $aHistory = array();
@@ -95,9 +99,9 @@ if (!isset($_SESSION['customer_id'])) {
           'heading_title'	=> $aLang['heading_title'],
 		  'robots'			=> 'noindex,nofollow,noodp,noydir',
 
-          'oos_page_split'    => $history_split->display_count($history_numrows, MAX_DISPLAY_ORDER_HISTORY, $_GET['page'], $aLang['text_display_number_of_orders']),
-          'oos_display_links' => $history_split->display_links($history_numrows, MAX_DISPLAY_ORDER_HISTORY, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),
-          'oos_page_numrows'  => $history_numrows,
+          'page_split'    => $history_split->display_count($history_numrows, MAX_DISPLAY_ORDER_HISTORY, $nPage, $aLang['text_display_number_of_orders']),
+          'display_links' => $history_split->display_links($history_numrows, MAX_DISPLAY_ORDER_HISTORY, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
+          'numrows'  => $history_numrows,
 
           'oos_history_array' => $aHistory
       )

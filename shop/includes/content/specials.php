@@ -28,7 +28,7 @@
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_specials.php';
 
   $aTemplate['page'] = $sTheme . '/products/specials.html';
-  $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.html';
+  $aTemplate['pagination'] = $sTheme . '/system/_pagination.tpl';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
   $sGroup = trim($_SESSION['user']->group['text']);
@@ -62,7 +62,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
                              AND pd.products_languages_id = '" . intval($nLanguageID) . "'
                              AND s.status = '1'
                            ORDER BY s.specials_date_added DESC";
-    $specials_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SPECIAL_PRODUCTS, $specials_result_raw, $specials_numrows);
+    $specials_split = new splitPageResults($nPage, MAX_DISPLAY_SPECIAL_PRODUCTS, $specials_result_raw, $specials_numrows);
     $specials_result = $dbconn->Execute($specials_result_raw);
 
     $aSpecials = array();
@@ -105,16 +105,16 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
             'breadcrumb'     => $oBreadcrumb->trail(),
             'heading_title'  => $aLang['heading_title'],
 
-            'oos_page_split'     => $specials_split->display_count($specials_numrows, MAX_DISPLAY_SPECIAL_PRODUCTS, $_GET['page'], $aLang['text_display_number_of_specials']),
-            'oos_display_links'  => $specials_split->display_links($specials_numrows, MAX_DISPLAY_SPECIAL_PRODUCTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),
-            'oos_page_numrows'   => $specials_numrows,
+            'page_split'     => $specials_split->display_count($specials_numrows, MAX_DISPLAY_SPECIAL_PRODUCTS, $nPage, $aLang['text_display_number_of_specials']),
+            'display_links'  => $specials_split->display_links($specials_numrows, MAX_DISPLAY_SPECIAL_PRODUCTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
+            'numrows'   => $specials_numrows,
 
             'oos_specials_array' => $aSpecials
         )
     );
   }
 
-$smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation'], $nContentCacheID));
+$smarty->assign('pagination', $smarty->fetch($aTemplate['pagination'], $nContentCacheID));
  
 
 // display the template

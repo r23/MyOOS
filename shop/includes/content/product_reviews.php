@@ -75,7 +75,7 @@
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['product_reviews'], $get_params));
 
   $aTemplate['page'] = $sTheme . '/page/product_reviews.html';
-  $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.html';
+  $aTemplate['pagination'] = $sTheme . '/system/_pagination.tpl';
 
   $nPageType = OOS_PAGE_TYPE_REVIEWS;
 
@@ -94,7 +94,7 @@
       )
   );
 
-  $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation']));
+  $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination']));
 
 
   // display the template

@@ -18,17 +18,23 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 // start the session
 if ( $session->hasStarted() === FALSE ) $session->start();
   
-  if (!isset($_SESSION['customer_id'])) {
+if (!isset($_SESSION['customer_id'])) {
+  	// navigation history
+	if (!isset($_SESSION['navigation'])) {
+		$_SESSION['navigation'] = new oosNavigationHistory();
+	} 
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
-  }
+}  
 
+$nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
+  
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_my_wishlist.php';
 
   $customers_wishlisttable = $oostable['customers_wishlist'];
@@ -37,7 +43,7 @@ if ( $session->hasStarted() === FALSE ) $session->start();
                           WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'
                             AND customers_wishlist_link_id = '" . oos_db_input($_SESSION['customer_wishlist_link_id']) . "' 
                        ORDER BY customers_wishlist_date_added";
-  $wishlist_split = new splitPageResults($_GET['page'], MAX_DISPLAY_WISHLIST_PRODUCTS, $wishlist_result_raw, $wishlist_numrows);
+  $wishlist_split = new splitPageResults($nPage, MAX_DISPLAY_WISHLIST_PRODUCTS, $wishlist_result_raw, $wishlist_numrows);
   $wishlist_result = $dbconn->Execute($wishlist_result_raw);
 
   $aWishlist = array();
@@ -153,7 +159,7 @@ if ( $session->hasStarted() === FALSE ) $session->start();
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['account_my_wishlist']));
 
   $aTemplate['page'] = $sTheme . '/page/my_wishlist.html';
-  $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.html';
+  $aTemplate['pagination'] = $sTheme . '/system/_pagination.tpl';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
 
@@ -170,14 +176,14 @@ if ( $session->hasStarted() === FALSE ) $session->start();
            'heading_title' 	=> $aLang['heading_title'],
 		   'robots'			=> 'noindex,nofollow,noodp,noydir',
 
-           'oos_page_split' => $wishlist_split->display_count($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, $_GET['page'], $aLang['text_display_number_of_wishlist']),
-           'oos_display_links' => $wishlist_split->display_links($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),
-           'oos_page_numrows' => $wishlist_numrows,
+           'page_split' => $wishlist_split->display_count($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, $nPage, $aLang['text_display_number_of_wishlist']),
+           'display_links' => $wishlist_split->display_links($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
+           'numrows' => $wishlist_numrows,
 
            'wishlist_array' => $aWishlist
        )
   );
-  $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation']));
+  $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination']));
 
 
   // display the template

@@ -165,7 +165,7 @@
   }
 
   $aOption['slavery_products'] = $sTheme . '/products/slavery_product_listing.html';
-  $aOption['slavery_page_navigation'] = $sTheme . '/heading/page_navigation.html';
+  $aOption['slavery_page_navigation'] = $sTheme . '/system/_pagination.tpl';
 
   include_once MYOOS_INCLUDE_PATH . '/includes/modules/slavery_listing.php';
 

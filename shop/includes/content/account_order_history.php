@@ -33,10 +33,13 @@ if (!isset($_SESSION['customer_id'])) {
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
 
+$nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
+
+
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_order_history.php';
 
   $aTemplate['page'] = $sTheme . '/page/account_order_history.html';
-  $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.html';
+  $aTemplate['pagination'] = $sTheme . '/system/_pagination.tpl';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
 
@@ -92,7 +95,7 @@ if (!isset($_SESSION['customer_id'])) {
                             AND pd.products_id IN ($product_ids)
                             AND pd.products_languages_id = '" .  intval($nLanguageID) . "'";
 
-    $order_history_split = new splitPageResults($_GET['page'], MAX_DISPLAY_PRODUCTS_NEW, $order_history_raw, $order_history_numrows);
+    $order_history_split = new splitPageResults($nPage, MAX_DISPLAY_PRODUCTS_NEW, $order_history_raw, $order_history_numrows);
     $order_history_result = $dbconn->Execute($order_history_raw);
 
     $order_history_array = array();
@@ -145,9 +148,9 @@ if (!isset($_SESSION['customer_id'])) {
     // assign Smarty variables;
     $smarty->assign(
         array(
-           'oos_page_split'          => $order_history_split->display_count($order_history_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], $aLang['text_display_number_of_products']),
-           'oos_display_links'       => $order_history_split->display_links($order_history_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),
-           'oos_page_numrows'        => $order_history_numrows,
+           'page_split'          => $order_history_split->display_count($order_history_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, $aLang['text_display_number_of_products']),
+           'display_links'       => $order_history_split->display_links($order_history_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
+           'numrows'        => $order_history_numrows,
 
            'products_image_box'      => SMALL_IMAGE_WIDTH + 10,
            'oos_order_history_array' => $order_history_array
@@ -170,7 +173,7 @@ if (!isset($_SESSION['customer_id'])) {
   );
 
 
-  $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation']));
+  $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination']));
 
 // display the template
 $smarty->display($aTemplate['page']);

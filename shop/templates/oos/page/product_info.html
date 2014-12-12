@@ -145,14 +145,14 @@ document.write('<a href="javascript:popupWindow(\'{html_href_link content=$filen
 </form>
 
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
-{if $oos_page_numrows gt 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
-   {$oosPageNavigation}
+{if $numrows gt 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+   {$pagination}
 {/if}
 <tr>
 	<td>{include file="oos/products/slavery_product_listing.html"}</td>
 </tr>
-{if $oos_page_numrows gt 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
-   {$oosPageNavigation}
+{if $numrows gt 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+   {$pagination}
 {/if}
 <tr>
 	<td><br>{$xsell_products}</td>

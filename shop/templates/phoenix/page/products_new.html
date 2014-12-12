@@ -7,6 +7,56 @@
         {include file="phoenix/system/_message.tpl"}
     {/foreach}
 {/if}
+
+	<section id="content">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				{$new_spezials}			
+			</div>
+		</div>
+		<!-- divider -->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="solidline">
+				</div>
+			</div>
+		</div>
+		<!-- end divider -->
+		<div class="row">
+			<div class="col-md-12">
+				{$new_products}
+			</div>
+		</div>
+		<!-- divider -->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="solidline">
+				</div>
+			</div>
+		</div>
+		<!-- end divider -->
+		<div class="row">
+			<div class="col-md-12">
+				{$mod_manufacturers}
+			</div>
+		</div>
+		<!-- divider -->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="solidline">
+				</div>
+			</div>
+		</div>
+		<!-- end divider -->
+		<div class="row">
+			<div class="col-md-12">
+				{$upcoming_products}
+			</div>
+		</div>
+	</div>
+	</section>
+
 <!-- body //-->
 <table width="870" border="0" align="center" cellspacing="0" cellpadding="0">
   <tr>
@@ -24,8 +74,8 @@
       <tr>
         <td height="10"></td>
       </tr>
-{if $oos_page_numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '1' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
-   {$oosPageNavigation}
+{if $numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '1' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+   {$pagination}
 {/if}
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -80,8 +130,8 @@
 {/section}
         </table></td>
       </tr>
-{if $oos_page_numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
-   {$oosPageNavigation}
+{if $numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+   {$pagination}
 {/if}
     </table>
 </td>

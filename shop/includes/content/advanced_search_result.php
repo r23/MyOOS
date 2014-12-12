@@ -350,7 +350,7 @@ if ($error == 1) {
     $listing_sql = $select_str . $from_str . $where_str . $order_str;
 
     $aTemplate['page'] = $sTheme . '/page/advanced_search_result.html';
-    $aTemplate['page_navigation'] = $sTheme . '/heading/page_navigation.html';
+    $aTemplate['pagination'] = $sTheme . '/system/_pagination.tpl';
 
     $nPageType = OOS_PAGE_TYPE_CATALOG;
 
@@ -373,7 +373,7 @@ if ($error == 1) {
 
     $smarty->assign('oos_get_all_get_params', oos_get_all_get_parameters(array('sort', 'page')));
 
-    $smarty->assign('oosPageNavigation', $smarty->fetch($aTemplate['page_navigation']));
+    $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination']));
 
 
     // display the template
