@@ -711,7 +711,7 @@ final class Cachify {
 	* Verarbeitung der Plugin-Meta-Aktionen
 	*
 	* @since   0.5
-	* @change  2.2.0
+	* @change  2.2.1
     *
     * @hook    mixed  cachify_user_can_flush_cache
 	*
@@ -733,6 +733,11 @@ final class Cachify {
 		/* Skip if not necessary */
 		if ( ! is_admin_bar_showing() OR ! apply_filters('cachify_user_can_flush_cache', current_user_can('manage_options')) ) {
 			return;
+		}
+
+		/* Load on demand */
+		if ( ! function_exists('is_plugin_active_for_network') ) {
+			require_once( ABSPATH. 'wp-admin/includes/plugin.php' );
 		}
 
 		/* Multisite & Network */
