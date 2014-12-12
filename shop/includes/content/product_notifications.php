@@ -99,8 +99,9 @@ if (!isset($_SESSION['customer_id'])) {
   // assign Smarty variables;
   $smarty->assign(
       array(
-          'breadcrumb' => $oBreadcrumb->trail(),
-          'heading_title' => $aLang['heading_title']
+          'breadcrumb'	=> $oBreadcrumb->trail(),
+          'heading_title' => $aLang['heading_title'],
+		  'robots'		=> 'noindex,nofollow,noodp,noydir'
       )
   );
 

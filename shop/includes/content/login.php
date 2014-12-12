@@ -133,6 +133,7 @@ $smarty->assign(
       array(
           'breadcrumb'    => $oBreadcrumb->trail(),
           'heading_title' => $aLang['heading_title'],
+		  'robots'		=> 'noindex,follow,noodp,noydir',
 
           'popup_window' => 'popup_window.js',
           'info_message' => $info_message

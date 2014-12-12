@@ -303,6 +303,7 @@ if (!isset($_SESSION['customer_id'])) {
         array(
             'breadcrumb'    => $oBreadcrumb->trail(),
             'heading_title' => $aLang['heading_title'],
+			'robots'		=> 'noindex,nofollow,noodp,noydir',
 
             'email_address'     => $email_address,
             'show_password'     => $show_password

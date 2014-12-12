@@ -122,13 +122,14 @@ if (!isset($option)) {
 // assign Smarty variables;
 $smarty->assign(
       array(
-          'breadcrumb'		=> $oBreadcrumb->trail(),
-          'heading_title'	=> $aLang['heading_title'],
-			'canonical'		=> $sCanonical,
+		'breadcrumb'	=> $oBreadcrumb->trail(),
+		'heading_title'	=> $aLang['heading_title'],
+		'robots'		=> 'noindex,follow,noodp,noydir',
+		'canonical'		=> $sCanonical,
 			
-          'hidden_field'         => $hidden_field,
-          'shopping_cart_detail' => $shopping_cart_detail,
-          'any_out_of_stock'     => $any_out_of_stock
+		'hidden_field'         => $hidden_field,
+		'shopping_cart_detail' => $shopping_cart_detail,
+		'any_out_of_stock'     => $any_out_of_stock
        )
 );
 

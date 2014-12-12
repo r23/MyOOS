@@ -91,8 +91,9 @@ if (!isset($_SESSION['customer_id'])) {
 // assign Smarty variables;
   $smarty->assign(
       array(
-          'breadcrumb'    => $oBreadcrumb->trail(),
-          'heading_title' => $aLang['heading_title'],
+          'breadcrumb'		=> $oBreadcrumb->trail(),
+          'heading_title'	=> $aLang['heading_title'],
+		  'robots'			=> 'noindex,nofollow,noodp,noydir',
 
           'oos_page_split'    => $history_split->display_count($history_numrows, MAX_DISPLAY_ORDER_HISTORY, $_GET['page'], $aLang['text_display_number_of_orders']),
           'oos_display_links' => $history_split->display_links($history_numrows, MAX_DISPLAY_ORDER_HISTORY, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),

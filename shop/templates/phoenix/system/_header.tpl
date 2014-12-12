@@ -14,11 +14,12 @@
 {*
 	END OF COPYRIGHT
 *}
-<meta name="Language" content="{$smarty.session.languages_name}">
+<meta name="Language" content="{$smarty.session.languages_name}" />
 <meta name="Content-Language" content="{$smarty.session.iso_639_1}">
-<meta name="resource-type" content="document">
-<meta name="creation" content="{$smarty.now|date_format:"%a,%d %b %Y"}">	
-<meta name="robots" content="index,follow,noodp,noydir"/>
+<meta name="resource-type" content="document" />
+<meta name="creation" content="{$smarty.now|date_format:"%a,%d %b %Y"}" />	
+{assign var='robots' value=$robots|default:'index,follow,noodp,noydir'}
+<meta name="robots" content="{$robots}" />
 {if $canonical}
 <link rel="canonical" href="{$canonical}" />
 {/if}

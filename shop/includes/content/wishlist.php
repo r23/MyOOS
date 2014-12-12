@@ -157,6 +157,7 @@
       array(
           'breadcrumb'    => $oBreadcrumb->trail(),
           'heading_title' => $customer . $aLang['heading_title'],
+		  'robots'		=> 'noindex,nofollow,noodp,noydir',
 
           'oos_page_split'    => $wishlist_split->display_count($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, $_GET['page'], $aLang['text_display_number_of_wishlist']),
           'oos_display_links' => $wishlist_split->display_links($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_parameters(array('page', 'info'))),

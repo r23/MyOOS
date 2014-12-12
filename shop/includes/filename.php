@@ -66,7 +66,7 @@ $aContents['subscription_center'] = $prefix_filename . 'subscription_center';
 
 //products
 $aContents['product_info'] = $prefix_filename . 'product_info';
-$aContents['products_new'] = $prefix_filename . 'new';
+$aContents['products_new'] = $prefix_filename . 'products_new';
 $aContents['specials'] = $prefix_filename . 'specials';
 $aContents['popup_image'] = $prefix_filename . 'popup_image';
 $aContents['popup_print'] = $prefix_filename . 'popup_print';

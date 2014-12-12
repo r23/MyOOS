@@ -289,6 +289,7 @@ if ($_SESSION['navigation']->snapshot['content'] != $aContents['account_address_
 
   $smarty->assign(
       array(
+		'robots'			=> 'noindex,nofollow,noodp,noydir',
           'gender'         => $gender,
           'firstname'      => $firstname,
           'lastname'       => $lastname,

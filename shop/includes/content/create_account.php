@@ -56,10 +56,11 @@ $smarty->assign('oos_js', $javascript);
 // assign Smarty variables;
 $smarty->assign(
 	array(
-	'breadcrumb'=> $oBreadcrumb->trail(),
-	'heading_title' => $aLang['heading_title']
-
- ));
+		'breadcrumb'	=> $oBreadcrumb->trail(),
+		'heading_title' => $aLang['heading_title'],
+		'robots'		=> 'noindex,follow,noodp,noydir'
+	)
+);
 
 $smarty->assign('account', $account);
 $smarty->assign('email_address', $email_address);

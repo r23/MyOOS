@@ -121,6 +121,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
       array(
           'breadcrumb'         => $oBreadcrumb->trail(),
           'heading_title'      => $aLang['heading_title'],
+		  'robots'			=> 'noindex,nofollow,noodp,noydir',
 
           'oos_address_book_array' => $aAddressBook
       )

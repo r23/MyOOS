@@ -77,17 +77,18 @@ if (!isset($option)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
-  // assign Smarty variables;
+// assign Smarty variables;
 $smarty->assign(
-      array(
-          'breadcrumb'       => $oBreadcrumb->trail(),
-          'heading_title'    => $aLang['heading_title'],
-
-          'account'              => $account,
-          'gender'               => $gender,
-          'oos_get_country_name' => $sCountryName,
-          'newsletter'           => $newsletter
-      )
+	array(
+		'breadcrumb'       => $oBreadcrumb->trail(),
+		'heading_title'    => $aLang['heading_title'],
+		'robots'		=> 'noindex,follow,noodp,noydir',
+		
+		'account'              => $account,
+		'gender'               => $gender,
+		'oos_get_country_name' => $sCountryName,
+		'newsletter'           => $newsletter
+	)
 );
 
 

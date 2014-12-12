@@ -217,6 +217,7 @@ if (!isset($_SESSION['customer_id'])) {
       array(
           'breadcrumb'    => $oBreadcrumb->trail(),
           'heading_title' => $aLang['heading_title'],
+		'robots'		=> 'noindex,nofollow,noodp,noydir',
 
           'sess_method'       => $sess_method,
 
