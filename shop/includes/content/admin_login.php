@@ -67,6 +67,8 @@ $bError = FALSE;
 // start the session
 if ( $session->hasStarted() === FALSE ) $session->start();
 
+// require  validation functions (right now only email address)
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/admin_login.php';
 
 if (isset($_SESSION['customer_id'])) {

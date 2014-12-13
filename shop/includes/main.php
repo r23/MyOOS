@@ -82,12 +82,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_output.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_encoded.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_coupon.php';
 
-// require  the password crypto functions
-require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
-
-// require  validation functions (right now only email address)
-require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
-
 // todo remove
   if (isset($_POST)) {
     foreach ($_POST as $key=>$value) {

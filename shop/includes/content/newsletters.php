@@ -26,6 +26,10 @@
 
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/newsletters.php';
 
+// require  validation functions (right now only email address)
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
+  
+  
   if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
     if (!oos_validate_is_email($email_address)) {
       oos_redirect(oos_href_link($aContents['newsletters'], 'email=nonexistent', 'SSL'));

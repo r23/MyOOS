@@ -21,6 +21,11 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
+// require  the password crypto functions
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
+// require  validation functions (right now only email address)
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
+
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_password_forgotten.php';
 
   if (isset($_GET['action']) && ($_GET['action'] == 'process')) {

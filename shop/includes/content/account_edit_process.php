@@ -34,6 +34,11 @@ if (!isset($_SESSION['customer_id'])) {
     oos_redirect(oos_href_link($aContents['account_edit'], '', 'SSL'));
   }
 
+  
+  // require  the password crypto functions
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
+// require  validation functions (right now only email address)
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_account_edit_process.php';
   require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
 

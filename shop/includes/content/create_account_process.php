@@ -28,7 +28,11 @@
 
 // start the session
 if ( $session->hasStarted() === FALSE ) $session->start();  
-  
+
+// require  the password crypto functions
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
+// require  validation functions (right now only email address)
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';  
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account_process.php';
   require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
 
