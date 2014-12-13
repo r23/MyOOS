@@ -52,4 +52,3 @@ if ($languages_result->RecordCount() >= 2) {
 }
 
 $smarty->assign('languages_block', $languages_block);
-

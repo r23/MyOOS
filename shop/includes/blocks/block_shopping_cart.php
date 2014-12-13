@@ -19,19 +19,12 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
-
-$cart_products = array();
-$gv_coupon_show = 0;
-$gv_amount_show = 0;
-
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 $cart_products = array();
-$gv_amount_show = 0;
 $gv_coupon_show = 0;
+$gv_amount_show = 0;
 
 if (isset($_SESSION)) { 
  
@@ -71,15 +64,3 @@ $smarty->assign(
 		'gv_coupon_show' => $gv_coupon_show
 	)
 );
-
-
-
-  $smarty->assign(
-      array(
-          'block_heading_shopping_cart' => $block_heading,
-          'cart_products'  => $cart_products,
-          'gv_amount_show' => $gv_amount_show,
-          'gv_coupon_show' => $gv_coupon_show
-     )
-  );
-

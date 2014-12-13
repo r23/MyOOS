@@ -614,7 +614,14 @@ $idxflds = 'name';
 idxsql($idxname, $table, $idxflds);
 
 
-
+$table = $prefix_table . 'limit-login';
+$flds = "
+  limit-login_id I NOTNULL AUTO PRIMARY,
+  ip_address C(15) NOTNULL,,
+  counter I1 DEFAULT '0',
+  time_last_click C(14) NOTNULL
+";
+dosql($table, $flds);
 
 
 $table = $prefix_table . 'logsql';
@@ -1116,30 +1123,6 @@ $flds = "
 ";
 dosql($table, $flds);
 
-
-$table = $prefix_table . 'search_queries';
-$flds = "
-  search_id I NOTNULL AUTO PRIMARY,
-  search_text C(32)
-";
-dosql($table, $flds);
-
-$table = $prefix_table . 'search_queries_sorted';
-$flds = "
-  search_id I NOTNULL AUTO PRIMARY,
-  search_text C(32) NOTNULL,
-  search_count I NOTNULL DEFAULT '0'
-";
-dosql($table, $flds);
-
-
-$table = $prefix_table . 'searchword_swap';
-$flds = "
-  sws_id I NOTNULL AUTO PRIMARY,
-  sws_word C(100) NOTNULL,
-  sws_replacement C(100) NOTNULL
-";
-dosql($table, $flds);
 
 
 $table = $prefix_table . 'sessions';

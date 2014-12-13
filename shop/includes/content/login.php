@@ -22,10 +22,16 @@
 
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
- 
+
+$bError = FALSE;
+
+// start the session
+if ( $session->hasStarted() === FALSE ) $session->start();
+
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_login.php';
   
-if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
+if ( isset($_POST['action']) && ($_POST['action'] == 'process') && 
+	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){
 
     $email_address = oos_prepare_input($_POST['email_address']);
     $password = oos_prepare_input($_POST['password']);
@@ -38,6 +44,9 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
         oos_redirect(oos_href_link($aContents['forbiden']));
     }
 
+	/* Check if it is ok to login */
+
+	
 	// Check if email exists
 	$customerstable = $oostable['customers'];
 	$sql = "SELECT customers_id, customers_gender, customers_firstname, customers_lastname,
@@ -49,13 +58,13 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
 	$check_customer_result = $dbconn->Execute($sql);
 
 	if (!$check_customer_result->RecordCount()) {
-		$_GET['login'] = 'fail';
+		$bError = TRUE;
 	} else {
 		$check_customer = $check_customer_result->fields;
 
 		// Check that password is good
 		if (!oos_validate_password($password, $check_customer['customers_password'])) {
-			$_GET['login'] = 'fail';
+			$bError = TRUE;
 		} else {
 			$address_booktable = $oostable['address_book'];
 			$sql = "SELECT entry_country_id, entry_zone_id
@@ -71,8 +80,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
 								WHERE customers_id = '" . intval($check_customer['customers_id']) . "'");
 			}
 
-			// start the session
-			if ( $session->hasStarted() === FALSE ) $session->start();
+
 
 			$_SESSION['customer_wishlist_link_id'] = $check_customer['customers_wishlist_link_id'];
 			$_SESSION['customer_id'] = $check_customer['customers_id'];
@@ -110,12 +118,14 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['login'], '', 'SSL'));
+$sCanonical = oos_href_link($aContents['login'], '', 'SSL', FALSE, TRUE);
 
-$info_message = '';
-if (isset($_GET['login']) && ($_GET['login'] == 'fail')) {
-	$info_message = $aLang['text_login_error'];
-} elseif (is_object($_SESSION['cart'])) {
-	$info_message = $aLang['text_visitors_cart'];
+if (isset($bError) && ($bError == TRUE)) {
+    $sErrorMessage = $aLang['text_login_error'];
+} 
+  
+if (isset($_SESSION) && ($_SESSION['cart']->count_contents())) {
+    $sInfoMessage = $aLang['text_visitors_cart'];
 }
 
 $aTemplate['page'] = $sTheme . '/page/user_login.html';
@@ -131,15 +141,15 @@ if (!isset($option)) {
 // assign Smarty variables;
 $smarty->assign(
       array(
-          'breadcrumb'    => $oBreadcrumb->trail(),
-          'heading_title' => $aLang['heading_title'],
-		  'robots'		=> 'noindex,follow,noodp,noydir',
+          'breadcrumb'		=> $oBreadcrumb->trail(),
+          'heading_title'	=> $aLang['heading_title'],
+		  'robots'			=> 'noindex,follow,noodp,noydir',
+		  'canonical'		=> $sCanonical,
 
           'popup_window' => 'popup_window.js',
           'info_message' => $info_message
       )
 );
-
 
 // display the template
 $smarty->display($aTemplate['page']);

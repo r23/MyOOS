@@ -28,6 +28,7 @@ if ( $session->hasStarted() === FALSE ) $session->start();
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['create_account']));
+$sCanonical = oos_href_link($aContents['create_account'], '', 'SSL', FALSE, TRUE);
 
 $snapshot = count($_SESSION['navigation']->snapshot); 
 if (isset($_GET['email_address'])) {
@@ -58,7 +59,8 @@ $smarty->assign(
 	array(
 		'breadcrumb'	=> $oBreadcrumb->trail(),
 		'heading_title' => $aLang['heading_title'],
-		'robots'		=> 'noindex,follow,noodp,noydir'
+		'robots'		=> 'noindex,follow,noodp,noydir',
+		'canonical'		=> $sCanonical
 	)
 );
 
@@ -73,7 +75,7 @@ if ((CUSTOMER_NOT_LOGIN == 'true') or (MAKE_PASSWORD == 'true')) {
 $smarty->assign('show_password', $show_password);
 
 $smarty->assign('snapshot', $snapshot);
-$smarty->assign('login_orgin_text', sprintf($aLang['text_origin_login'], oos_href_link($aContents['login'], oos_get_all_get_parameters(), 'SSL')));
+$smarty->assign('login_orgin_text', sprintf($aLang['text_origin_login'], oos_href_link($aContents['login'], '', 'SSL')));
 
 $smarty->assign('newsletter_ids', array(0,1));
 $smarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));

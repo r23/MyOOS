@@ -7,6 +7,13 @@
         {include file="phoenix/system/_message.tpl"}
     {/foreach}
 {/if}
+
+{if $snapshot > 0 }
+<div class="alert alert-danger" role="alert">
+  <a href="#" class="alert-link">...</a>
+</div>
+{/if}
+
 <!-- body //-->
 <table width="870" border="0" align="center" cellspacing="0" cellpadding="0">
   <tr>

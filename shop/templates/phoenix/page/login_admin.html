@@ -11,9 +11,7 @@
 <table width="870" border="0" align="center" cellspacing="0" cellpadding="0">
   <tr>
     <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
-{foreach item=block from=$oos_blockleft}
-   {include file="phoenix/system/_block.tpl"}
-{/foreach}
+
     </table></td>
     <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
     <td width="100%" valign="top">
@@ -35,11 +33,17 @@
 
 {if ( $login_result_values.man_key2 eq $newkey2 and $login_result_values.status != 0 ) }
     <tr>
-      <td><form name="login" method="post" action="{html_href_link content=$filename.admin_login action=login_process connection=SSL}">
+      <td>
+	  
+<form role="form" name="admin_login" action="{html_get_link connection=SSL}" method="post">
 {if $mySystem.sed}
-    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+	<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 	<input type="hidden" name="formid" value="{$mySystem.formid}">
-{/if}	  
+{/if}
+	<input type="hidden" name="action" value="login_process">
+	<input type="hidden" name="content" value="{$filename.admin_login}">
+	  
+  
 	  
 	  <table border="0" width="70%" cellspacing="0" cellpadding="2">
          <tr>
@@ -86,11 +90,9 @@
 </td>
     <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
     <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
-{foreach item=block from=$oos_blockright}
-   {include file="phoenix/system/_block.tpl"}
-{/foreach}
+
     </table></td>
   </tr>
 </table>
 <!-- body_eof //-->
-{include file="phoenix/system/_header.tpl"}
+{include file="phoenix/system/_footer.tpl"}
