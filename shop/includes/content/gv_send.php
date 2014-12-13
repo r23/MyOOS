@@ -27,8 +27,8 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 // require  validation functions (right now only email address)
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_send.php';
-  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_http_client.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_send.php';
+
 
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id'])) {
