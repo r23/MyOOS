@@ -259,7 +259,6 @@ $aLang['entry_newsletter_text'] = '';
 $aLang['entry_newsletter_yes'] = 'Subscribed';
 $aLang['entry_newsletter_no'] = 'Unsubscribed';
 $aLang['entry_newsletter_error'] = '';
-$aLang['entry_password'] = 'Password:';
 $aLang['entry_password_confirmation'] = 'Password Confirmation:';
 $aLang['entry_password_confirmation_text'] = '&nbsp;<small><font color="#AABBDD">require_onced</font></small>';
 $aLang['entry_password_error'] = '&nbsp;<small><font color="#FF0000">min ' . ENTRY_PASSWORD_MIN_LENGTH . ' chars</font></small>';

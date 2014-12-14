@@ -252,7 +252,6 @@ $aLang['entry_newsletter_text'] = '';
 $aLang['entry_newsletter_yes'] = 'abonniert';
 $aLang[''] = 'nicht abonniert';
 $aLang['entry_newsletter_error'] = '';
-$aLang['entry_password'] = 'Passwort:';
 $aLang['entry_password_confirmation'] = 'Bestätigung:';
 $aLang['entry_password_error'] = 'mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Zeichen';
 $aLang['password_hidden'] = '--VERSTECKT--';

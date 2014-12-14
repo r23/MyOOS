@@ -29,13 +29,15 @@ if (isset($_GET['origin']) && ($_GET['origin'] == $aContents['checkout_payment']
 }
 
 $aLang['heading_new_customer'] = 'New Customer';
-$aLang['text_new_customer'] = 'I am a new customer.';
-$aLang['text_new_customer_introduction'] = 'By creating an account at ' . STORE_NAME . ' you will be able to shop faster, be up to date on an orders status, and keep track of the orders you have previously made.';
+$aLang['text_new_customer'] = 'Not registered?';
+$aLang['link_new_customer'] = 'Create an Account.';
 
 $aLang['heading_returning_customer'] = 'Returning Customer';
 $aLang['text_returning_customer'] = 'I am a returning customer.';
 
-$aLang['text_password_forgotten'] = 'Password forgotten? Click here.';
+$aLang['text_password_forgotten'] = 'Lost your password?';
+$aLang['link_password_forgotten'] = 'Click here to recover.';
+
 
 $aLang['text_login_error'] = '<strong>ERROR:</strong> No match for \'E-Mail Address\' and/or \'Password\'.';
 $aLang['text_visitors_cart'] = '<strong>NOTE:</strong> Your &quot;Visitors Cart&quot; contents will be merged with your &quot;Members Cart&quot; contents once you have logged on. [More Info]</a>';

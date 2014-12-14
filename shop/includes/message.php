@@ -92,11 +92,11 @@ if (isset($_SESSION)) {
 		$_SESSION['success_message'] = '';
 	}
 	
-	if (isset($_SESSION['error_search_msg']) && !empty($_SESSION['error_search_msg'])) {
+	if (isset($_SESSION['error_message']) && !empty($_SESSION['error_message'])) {
 		$aInfoMessage[] = array('type' => 'danger',
 								'title' => $aLang['danger'],
-								'text' => (string)$_SESSION['error_search_msg']);
-		$_SESSION['error_search_msg'] = '';
+								'text' => (string)$_SESSION['error_message']);
+		$_SESSION['error_message'] = '';
 	}		
 	
 	if (isset($_SESSION['error_cart_msg']) && !empty($_SESSION['error_cart_msg'])) {

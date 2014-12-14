@@ -36,7 +36,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
     $email_address = oos_prepare_input($_POST['email_address']);
 
     if ( empty( $email_address ) || !is_string( $email_address ) ) {
-        $_SESSION['error_search_msg'] = $aLang['text_no_email_address_found'];
+        $_SESSION['error_message'] = $aLang['text_no_email_address_found'];
         oos_redirect(oos_href_link($aContents['password_forgotten'], '', 'SSL'));
     }
 	
@@ -106,10 +106,11 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		
         oos_mail($check_customer['customers_firstname'] . " " . $check_customer['customers_lastname'], $email_address, $aLang['email_password_reminder_subject'], $email_txt, $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
  
+		$_SESSION['password_forgotten_count'] = 1;
         $_SESSION['success_message'] = $aLang['text_password_sent'];
         oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
     } else {
-        $_SESSION['error_search_msg'] = $aLang['text_no_email_address_found'];
+        $_SESSION['error_message'] = $aLang['text_no_email_address_found'];
         oos_redirect(oos_href_link($aContents['password_forgotten'], '', 'SSL'));
     }
 

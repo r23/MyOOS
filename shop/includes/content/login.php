@@ -42,15 +42,25 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
     $password = oos_prepare_input($_POST['password']);
 	
     if ( empty( $email_address ) || !is_string( $email_address ) ) {
-        oos_redirect(oos_href_link($aContents['forbiden']));
+        $_SESSION['error_message'] = $aLang['text_login_error'];
+        oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
     }
 
     if ( empty( $password ) || !is_string( $password ) ) {
-        oos_redirect(oos_href_link($aContents['forbiden']));
+        $_SESSION['error_message'] = $aLang['text_login_error'];
+        oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
     }
 
 	/* Check if it is ok to login */
+    if (!isset($_SESSION['password_forgotten_count'])) {
+        $_SESSION['login_count'] = 1;
+    } else {
+        $_SESSION['login_count'] ++;
+    }
 
+    if ( $_SESSION['login_count'] > 3) {
+        oos_redirect(oos_href_link($aContents['forbiden']));
+    }
 	
 	// Check if email exists
 	$customerstable = $oostable['customers'];
@@ -86,7 +96,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			}
 
 
-
+			$_SESSION['login_count'] = 1;
 			$_SESSION['customer_wishlist_link_id'] = $check_customer['customers_wishlist_link_id'];
 			$_SESSION['customer_id'] = $check_customer['customers_id'];
 			$_SESSION['customer_default_address_id'] = $check_customer['customers_default_address_id'];
@@ -147,12 +157,9 @@ if (!isset($option)) {
 $smarty->assign(
       array(
           'breadcrumb'		=> $oBreadcrumb->trail(),
-          'heading_title'	=> $aLang['heading_title'],
+          'heading_title'	=> $aLang['navbar_title'],
 		  'robots'			=> 'noindex,follow,noodp,noydir',
-		  'canonical'		=> $sCanonical,
-
-          'popup_window' => 'popup_window.js',
-          'info_message' => $info_message
+		  'canonical'		=> $sCanonical
       )
 );
 

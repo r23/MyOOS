@@ -1249,7 +1249,7 @@ function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_htm
 	// (Re)create it, if it's gone missing
 	if ( !is_object( $oEmail ) || !is_a( $oEmail, 'PHPMailer' ) ) {
 		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.phpmailer.php';
-		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class-smtp.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.smtp.php';
 		// Instantiate a new mail object
 		$oEmail = new PHPMailer( true );
 	}

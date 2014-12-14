@@ -31,7 +31,7 @@ if ( $session->hasStarted() === FALSE ) $session->start();
 // if the customer is not logged on, redirect them to the login page
   if (!isset($_SESSION['customer_id'])) {
     $_SESSION['navigation']->set_snapshot();
-    oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
+    oos_redirect(oos_href_link($aContents['login'], 'origin=' . $aContents['checkout_payment'], 'SSL'));
   }
 
   if (oos_empty($_SESSION['user']->group['payment'])) {
