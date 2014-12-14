@@ -34,7 +34,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){
 
     $email_address = oos_prepare_input($_POST['email_address']);
-	
+
     if ( empty( $email_address ) || !is_string( $email_address ) ) {
         $_SESSION['error_search_msg'] = $aLang['text_no_email_address_found'];
         oos_redirect(oos_href_link($aContents['password_forgotten'], '', 'SSL'));
@@ -45,7 +45,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
     } else {
         $_SESSION['password_forgotten_count'] ++;
     }
-	
+
     if ( $_SESSION['password_forgotten_count'] > 3) {
         oos_redirect(oos_href_link($aContents['forbiden']));
     }
@@ -94,15 +94,17 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 				'services_url'	=> COMMUNITY,
 				'blog_url'		=> BLOG_URL,
 				'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', 'NONSSL', FALSE, TRUE),
+				'login_url'		=> oos_href_link($aContents['login'], '', 'SSL', FALSE, TRUE),
+				'greet'			=> $sGreet,
 				'password' 		=> $newpass
 			)
 		);
 
-		// create mails
-		$email_html = $smarty->fetch('/email/' . $sLanguage . '/password_verification_mail.html');
-		$email_txt = $smarty->fetch('/email/' . $sLanguage . '/password_verification_mail.tpl');
+		// create mails	
+		$email_html = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/password_forgotten.html');
+		$email_txt = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/password_forgotten.tpl');
 		
-        oos_mail($check_customer['customers_firstname'] . " " . $check_customer['customers_lastname'], $email_address, $aLang['email_password_reminder_subject'], nl2br(sprintf($aLang['email_password_reminder_body'], $newpass)), $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+        oos_mail($check_customer['customers_firstname'] . " " . $check_customer['customers_lastname'], $email_address, $aLang['email_password_reminder_subject'], $email_txt, $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
  
         $_SESSION['success_message'] = $aLang['text_password_sent'];
         oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
@@ -134,7 +136,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
             'breadcrumb'    => $oBreadcrumb->trail(),
             'heading_title' => $aLang['heading_title'],
 			'robots'		=> 'noindex,follow,noodp,noydir',
-			'canonical'         => $sCanonical
+			'canonical'		=> $sCanonical
         )
     );
 
