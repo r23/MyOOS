@@ -7,92 +7,45 @@
         {include file="phoenix/system/_message.tpl"}
     {/foreach}
 {/if}
-<!-- body //-->
-<table width="870" border="0" align="center" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
 
-    </table></td>
-    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-    <td width="100%" valign="top">
-    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td>{$oosPageHeading}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-{if $info_message != '' }
-      <tr>
-        <td class="smallText">{$info_message}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-{/if}
+	<section id="content">
+	<div class="container">
+	    <div class="row">
+			<div class="col-sm-6 col-sm-offset-3">
+				<div class="sign-form">
+					<h3 class="first-child">{$lang.heading_admin_login}</h3>
+					<hr>
+					{if ( $login_result_values.man_key2 eq $newkey2 and $login_result_values.status != 0 ) }
+					<form role="form" name="admin_login" action="{html_get_link connection=SSL}" method="post">
+					{if $mySystem.sed}
+						<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+						<input type="hidden" name="formid" value="{$mySystem.formid}">
+					{/if}
+						<input type="hidden" name="action" value="login_process">
+						<input type="hidden" name="content" value="{$filename.admin_login}">
+						<input type="hidden" name="email_address" value="{$email_address}">
+						<input type="hidden" name="keya" value="{$verif_key}">
+						<input type="hidden" name="keyb" value="{$newkey2}">
+	
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-user"></i></span>
+						<input type="email" class="form-control" id="email" placeholder="{$email_address}" data-original-title="" title="">
+					</div>
+					<br>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+						<input type="text" class="form-control" id="key" placeholder="{$newkey2}" data-original-title="" title="">
+					</div>
+					<br>
+					<button type="submit" class="btn btn-color">{$lang.button_login}</button>
+					<hr>
+					</form>
+					{/if}
+				</div>
+			</div>
+		</div> <!-- / .row -->
+	</div> <!-- / .container -->
+	</section>
 
-{if ( $login_result_values.man_key2 eq $newkey2 and $login_result_values.status != 0 ) }
-    <tr>
-      <td>
-	  
-<form role="form" name="admin_login" action="{html_get_link connection=SSL}" method="post">
-{if $mySystem.sed}
-	<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-	<input type="hidden" name="formid" value="{$mySystem.formid}">
-{/if}
-	<input type="hidden" name="action" value="login_process">
-	<input type="hidden" name="content" value="{$filename.admin_login}">
-	  
-  
-	  
-	  <table border="0" width="70%" cellspacing="0" cellpadding="2">
-         <tr>
-            <td class="main" width="50%" valign="top"><b>{$lang.heading_admin_login}</b></td>
-          </tr>
-          <tr>
-            <td width="50%" height="100%" valign="top"><table border="0" width="100%" height="100%" cellspacing="0" cellpadding="1" class="infoBox">
-              <tr>
-                <td>
-	          <table border="0" width="100%" height="100%" cellspacing="0" cellpadding="2" class="infoBoxContents">
-                  <tr>
-                    <td colspan="2"><td height="10"></td>
-                  </tr>
-                  <tr>
-                    <td class="main" colspan="2"></td>
-                  </tr>
-                  <tr>
-                    <td colspan="2"><td height="10"></td>
-                  </tr>
-                  <tr>
-                    <td class="main"><b>{$lang.entry_email_address}</b></td>
-                    <td class="main">{$email_address}</td>
-                  </tr>
-                  <tr>
-                    <td class="main"><b>{$lang.entry_key}</b></td>
-                    <td class="main">{$newkey2}</td>
-                  </tr><input type="hidden" name="email_addressa" value="{$email_address}">
-                    <input type="hidden" name="keya" value="{$verif_key}">
-                    <input type="hidden" name="keyb" value="{$newkey2}">
-                  <tr><td colspan="2"><td height="10"></td></tr>
-                  <tr><td class="smallText" colspan="2"></td></tr>
-                  <tr><td colspan="2"><td height="10"></td></tr>
-                </table></td>
-              </tr>
-            </table></td>
-          </tr>
-          <tr>
-            <td width="50%" align="right" valign="top">{html_image_submit image="sign_in.gif" alt=$lang.image_button_login}</td>
-          </tr>
-	    </table></form></td>
-      </tr>
-{/if}
-    </table>
-</td>
-    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
-
-    </table></td>
-  </tr>
-</table>
 <!-- body_eof //-->
 {include file="phoenix/system/_footer.tpl"}

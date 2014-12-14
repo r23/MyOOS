@@ -61,7 +61,6 @@ if ($login['status'] == '0') {
 	oos_redirect(oos_href_link($aContents['forbiden']));
 }
 
-
 $bError = FALSE;
 
 // start the session
@@ -103,9 +102,12 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'login_process') &&
         oos_redirect(oos_href_link($aContents['forbiden']));
     }
 
+/*
+	// todo: $keya not null
     if ( empty( $keya ) || !is_string( $keya ) ) {
         oos_redirect(oos_href_link($aContents['forbiden']));
     }  
+*/
 
     if ( empty( $keyb ) || !is_string( $keyb ) ) {
         oos_redirect(oos_href_link($aContents['forbiden']));
@@ -134,7 +136,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'login_process') &&
                    customers_email_address, customers_default_address_id, customers_max_order
             FROM $customerstable
             WHERE customers_login = '1'
-              AND customers_email_address = '" . oos_db_input($email_addressb) . "'";
+              AND customers_email_address = '" . oos_db_input($email_address) . "'";
 	$check_customer_result = $dbconn->Execute($sql);
 
     if (!$check_customer_result->RecordCount()) {
@@ -179,11 +181,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'login_process') &&
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['login'], '', 'SSL'));
 $sCanonical = oos_href_link($aContents['login'], '', 'SSL', FALSE, TRUE);
- 
-if (isset($_SESSION) && ($_SESSION['cart']->count_contents())) {
-    $sInfoMessage = $aLang['text_visitors_cart'];
-}
- 
+
 $aTemplate['page'] = $sTheme . '/page/login_admin.html';
 
 $nPageType = OOS_PAGE_TYPE_SERVICE;

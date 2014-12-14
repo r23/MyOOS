@@ -25,7 +25,6 @@ $aLang['heading_title'] = 'Admin-Login';
 $aLang['entry_key'] = 'Secure Key'; // should be empty
 
 $aLang['heading_admin_login'] = 'Anmeldung unter einem Kunden-Konto';
-$aLang['entry_email_address'] = 'E-Mail Address:';
 
 $aLang['text_login_error'] = '<font color="#ff0000"><b>ERROR:</b></font> No match for \'E-Mail Address\' and/or \'Password\'.';
 $aLang['text_login_error2'] = '<font color="#ff0000"><b>NO ACCESS GRANTED: Due to prior chargebacks or other fraud, your account is blacklisted on our site.<br /><br /> We no longer accept online orders from this account.<br /><br />If you wish to order, you will need to get in touch with us by phone and pay by money order or bank transfer before we ship.<br /><br />Order will be shipped with Signature Confirmation surcahrge.<br /><br /> We will need to receive by mail or fax a SIGNED purchase order before shipping.<br /><br />The order will be shipped to a verified address only. </b></font><br /><br />';

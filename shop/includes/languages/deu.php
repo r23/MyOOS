@@ -226,7 +226,6 @@ $aLang['entry_last_name'] = 'Nachname:';
 $aLang['entry_last_name_error'] = 'mindestens ' . ENTRY_LAST_NAME_MIN_LENGTH . ' Buchstaben';
 $aLang['entry_date_of_birth'] = 'Geburtsdatum:';
 $aLang['entry_date_of_birth_text'] = '(z.B. 21.05.1970)';
-$aLang['entry_email_address'] = 'eMail-Adresse:';
 $aLang['entry_email_address_error'] = 'mindestens ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' Buchstaben';
 $aLang['entry_email_address_check_error'] = 'ungültige eMail-Adresse!';
 $aLang['entry_email_address_error_exists'] = 'Diese eMail-Adresse existiert schon!';
