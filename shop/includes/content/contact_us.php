@@ -18,47 +18,54 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/contact_us.php';
 // require  validation functions (right now only email address)
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/contact_us.php'; 
   
-  
-  $error = 'false';
-  if (isset($_GET['action']) && ($_GET['action'] == 'send')) {
-    if (oos_validate_is_email(trim($email))) {
-      oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $aLang['email_subject'], $enquiry, $name, $email);
-      oos_redirect(oos_href_link($aContents['contact_us'], 'action=success'));
-    } else {
-      $error = 'true';
-    }
-  }
+$error = 'false';
+if (isset($_GET['action']) && ($_GET['action'] == 'send')) {
 
-  // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['contact_us']));
+	$email_address = oos_prepare_input($_POST['email']);
+	
+	if ( empty( $email_address ) || !is_string( $email_address ) ) {
+		oos_redirect(oos_href_link($aContents['forbiden']));
+	}
 
-  $aTemplate['page'] = $sTheme . '/system/contact_us.html';
+	if (oos_validate_is_email(trim($email))) {
+		oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $aLang['email_subject'], $enquiry, $name, $email_address);
+		oos_redirect(oos_href_link($aContents['contact_us'], 'action=success'));
+	} else {
+		$error = 'true';
+	}
+}
 
-  $nPageType = OOS_PAGE_TYPE_MAINPAGE;
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['contact_us']));
+$sCanonical = oos_href_link($aContents['contact_us'], '', 'NONSSL', FALSE, TRUE);
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
-  if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
-  }
+$aTemplate['page'] = $sTheme . '/page/contact_us.html';
 
-  // assign Smarty variables;
-  $smarty->assign(
-      array(
-          'breadcrumb'    => $oBreadcrumb->trail(),
-          'heading_title' => $aLang['heading_title'],
+$nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
-          'error'             => $error
-      )
-  );
+require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+if (!isset($option)) {
+	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+}
 
+// assign Smarty variables;
+$smarty->assign(
+		array(
+			'breadcrumb'	=> $oBreadcrumb->trail(),
+			'heading_title' => $aLang['heading_title'],
+			'canonical'		=> $sCanonical,
+
+			'error' => $error
+		)
+);
 
 // display the template
 $smarty->display($aTemplate['page']);

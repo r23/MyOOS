@@ -129,7 +129,7 @@ if (isset($bError) && ($bError == TRUE)) {
     $sErrorMessage = $aLang['text_login_error'];
 } 
   
-if (isset($_SESSION) && ($_SESSION['cart']->count_contents())) {
+if (isset($_SESSION) && is_object($_SESSION['cart']) && ($_SESSION['cart']->count_contents()) ) {
     $sInfoMessage = $aLang['text_visitors_cart'];
 }
 

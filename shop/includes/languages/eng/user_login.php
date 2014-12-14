@@ -35,11 +35,10 @@ $aLang['text_new_customer_introduction'] = 'By creating an account at ' . STORE_
 $aLang['heading_returning_customer'] = 'Returning Customer';
 $aLang['text_returning_customer'] = 'I am a returning customer.';
 
-$aLang['entry_remember_me'] = 'Remember me<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:win_autologon(\'' . oos_href_link($aContents['info_autologon']) . '\');"><b><u>Read this first!</u></b></a>';
 $aLang['text_password_forgotten'] = 'Password forgotten? Click here.';
 
-$aLang['text_login_error'] = '<font color="#ff0000"><b>ERROR:</b></font> No match for \'E-Mail Address\' and/or \'Password\'.';
-$aLang['text_visitors_cart'] = '<font color="#ff0000"><b>NOTE:</b></font> Your &quot;Visitors Cart&quot; contents will be merged with your &quot;Members Cart&quot; contents once you have logged on. [More Info]</a>';
+$aLang['text_login_error'] = '<strong>ERROR:</strong> No match for \'E-Mail Address\' and/or \'Password\'.';
+$aLang['text_visitors_cart'] = '<strong>NOTE:</strong> Your &quot;Visitors Cart&quot; contents will be merged with your &quot;Members Cart&quot; contents once you have logged on. [More Info]</a>';
 
 $aLang['sub_heading_title'] = 'Visitors Cart / Members Cart';
 $aLang['sub_heading_title_1'] = 'Visitors Cart';

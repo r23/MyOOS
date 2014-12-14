@@ -231,7 +231,6 @@ $aLang['entry_last_name_error'] = '&nbsp;<small><font color="#FF0000">min ' . EN
 $aLang['entry_date_of_birth'] = 'Date of Birth:';
 $aLang['entry_date_of_birth_error'] = '&nbsp;<small><font color="#FF0000">(eg. 05/21/1970)</font></small>';
 $aLang['entry_date_of_birth_text'] = '(eg. 05/21/1970)';
-$aLang['entry_email_address'] = 'E-Mail Address:';
 $aLang['entry_email_address_error'] = '&nbsp;<small><font color="#FF0000">min ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' chars</font></small>';
 $aLang['entry_email_address_check_error'] = '&nbsp;<small><font color="#FF0000">Your email address doesn\'t appear to be valid!</font></small>';
 $aLang['entry_email_address_error_exists'] = '&nbsp;<small><font color="#FF0000">email address already exists!</font></small>';
