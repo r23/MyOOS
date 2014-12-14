@@ -16,3 +16,5 @@ shop/temp/shop/templates_c/
 /shop/themes/phoenix/less/style.min.less
 /xibo/nbproject/private/
 /forum/nbproject/private/
+/blog/wordpress/wp-content/themes/myoos/less/bootstrap.min.less
+/blog/wordpress/wp-content/themes/myoos/less/font-awesome.min.less

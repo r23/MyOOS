@@ -1,5 +1,5 @@
 {
-	"name":"r23/MyOOS",
+	"name":"MyOOS/MyOOS",
 	"description":"MyOOS Open Source Shopsystem ",
 	"keywords":["Shopsystem", "eCommerce"],
 	"homepage": "https://github.com/r23/MyOOS",
@@ -15,6 +15,6 @@
 	],
 	"require":{
 		"php":">=5.3",
-	},
+	}
 
 }
