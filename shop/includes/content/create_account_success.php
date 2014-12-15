@@ -34,7 +34,6 @@
   }
 
   $aTemplate['page'] = $sTheme . '/page/user_create_account_success.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/success_page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 
@@ -55,8 +54,7 @@
       )
   );
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
-  
+ 
 
-  // display the template
+// display the template
 $smarty->display($aTemplate['page']);

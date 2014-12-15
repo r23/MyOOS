@@ -20,7 +20,6 @@
   $oBreadcrumb->add($aLang['navbar_title_2']);
 
   $aTemplate['page'] = $sTheme . '/page/newsletters_unsubscribe_success.html';
-  $aTemplate['page_heading'] = $sTheme . '/heading/success_page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
@@ -41,8 +40,6 @@
 
   $smarty->assign('origin_href', $origin_href);
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
 
-
-  // display the template
+// display the template
 $smarty->display($aTemplate['page']);
