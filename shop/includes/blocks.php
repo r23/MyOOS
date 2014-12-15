@@ -85,12 +85,11 @@ $n = count($aContentBlock);
 for ($i = 0, $n; $i < $n; $i++) {
 	switch ($aContentBlock[$i]['side']) {
 
-		case 'left':
-			$smarty->append('oos_blockleft', array('content' => $aContentBlock[$i]['block_content']));
+		case 'sidebar':
+			$smarty->append('sidebar', array('content' => $aContentBlock[$i]['block_content']));
 			break;
-
-		case 'right':
-			$smarty->append('oos_blockright', array('content' => $aContentBlock[$i]['block_content']));
+			
+		default:
 			break;
 
 	}

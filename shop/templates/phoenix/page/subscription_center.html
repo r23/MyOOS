@@ -11,9 +11,7 @@
 <table width="870" border="0" align="center" cellspacing="0" cellpadding="0">
   <tr>
     <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
-{foreach item=block from=$oos_blockleft}
-   {include file="phoenix/system/_block.tpl"}
-{/foreach}
+
     </table></td>
     <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
     <td width="100%" valign="top">
@@ -56,7 +54,7 @@
 </td>
     <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
     <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
-{foreach item=block from=$oos_blockright}
+{foreach item=block from=$sidebar}
    {include file="phoenix/system/_block.tpl"}
 {/foreach}
     </table></td>

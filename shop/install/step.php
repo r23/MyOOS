@@ -56,7 +56,7 @@ error_reporting(E_ALL & ~E_NOTICE);
 
 define('OOS_VALID_MOD', 'yes');
 // Version information
-define('OOS_VERSION', '2.0.32 -dev');
+define('OOS_VERSION', '2.0.33 -dev');
 
 require_once '../includes/functions/function_global.php';
 require_once '../includes/functions/function_kernel.php';
