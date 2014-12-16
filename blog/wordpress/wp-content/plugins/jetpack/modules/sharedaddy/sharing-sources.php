@@ -72,12 +72,12 @@ abstract class Sharing_Source {
 			$klasses[] = 'no-icon';
 
 		return sprintf(
-			'<a rel="nofollow" class="%s" href="%s"%s title="%s"%s><span%s>%s</span></a>',
+			'<a rel="nofollow" data-shared="%s" class="%s" href="%s"%s title="%s"><span%s>%s</span></a>',
+			( $id ? esc_attr( $id ) : '' ),
 			implode( ' ', $klasses ),
 			$url,
 			( $this->open_links == 'new' ) ? ' target="_blank"' : '',
 			$title,
-			( $id ? ' id="' . esc_attr( $id ) . '"' : '' ),
 			( $this->button_style == 'icon' ) ? '></span><span class="sharing-screen-reader-text"' : '',
 
 			$text
@@ -97,21 +97,22 @@ abstract class Sharing_Source {
 		return false;
 	}
 
-	public function display_preview() {
+	public function display_preview( $echo = true, $force_smart = false, $button_style = null ) {
 		$text = '&nbsp;';
-		if ( !$this->smart )
-			if ( $this->button_style != 'icon' )
+		$button_style = ( ! empty( $button_style ) ) ? $button_style : $this->button_style;
+		if ( !$this->smart && ! $force_smart )
+			if ( $button_style != 'icon' )
 				$text = $this->get_name();
 
 		$klasses = array( 'share-'.$this->get_class(), 'sd-button' );
 
-		if ( $this->button_style == 'icon' || $this->button_style == 'icon-text' )
+		if ( $button_style == 'icon' || $button_style == 'icon-text' )
 			$klasses[] = 'share-icon';
 
-		if ( $this->button_style == 'icon' )
+		if ( $button_style == 'icon' )
 			$klasses[] = 'no-text';
 
-		if ( $this->button_style == 'text' )
+		if ( $button_style == 'text' )
 			$klasses[] = 'no-icon';
 
 		$link = sprintf(
@@ -120,10 +121,13 @@ abstract class Sharing_Source {
 			$this->get_name(),
 			$text
 		);
-		?>
-		<div class="option option-smart-<?php echo $this->smart ? 'on' : 'off'; ?>">
-		<?php echo $link; ?>
-		</div><?php
+
+		$smart = ( $this->smart || $force_smart ) ? 'on' : 'off';
+		$return = "<div class='option option-smart-$smart'>$link</div>";
+		if ( $echo )
+			echo $return;
+
+		return $return;
 	}
 
 	public function get_total( $post = false ) {
@@ -200,6 +204,7 @@ abstract class Sharing_Advanced_Source extends Sharing_Source {
 
 class Share_Email extends Sharing_Source {
 	var $shortname = 'email';
+	var $genericon = '\f410';
 	public function __construct( $id, array $settings ) {
 		parent::__construct( $id, $settings );
 
@@ -330,6 +335,7 @@ class Share_Email extends Sharing_Source {
 
 class Share_Twitter extends Sharing_Source {
 	var $shortname = 'twitter';
+	var $genericon = '\f202';
 	// 'https://dev.twitter.com/docs/api/1.1/get/help/configuration' ( 2013/06/24 ) short_url_length is 22
 	var $short_url_length = 24;
 
@@ -352,17 +358,20 @@ class Share_Twitter extends Sharing_Source {
 
 		/*
 		 * Hack to remove the unwanted behavior of adding 'via @jetpack' which
-		 * was introduced with the adding of the Twitter cards. 
+		 * was introduced with the adding of the Twitter cards.
 		 * This should be a temporary solution until a better method is setup.
 		 */
 		if( 'jetpack' == $twitter_site_tag_value ) {
 			$twitter_site_tag_value = '';
 		}
 
+		$twitter_site_tag_value = apply_filters( 'jetpack_sharing_twitter_via', $twitter_site_tag_value, $post->ID );
+
 		// Strip out anything other than a letter, number, or underscore.
 		// This will prevent the inadvertent inclusion of an extra @, as well as normalizing the handle.
 		$twitter_site_tag_value = preg_replace( '/[^\da-z_]+/i', '', $twitter_site_tag_value );
-		return apply_filters( 'jetpack_sharing_twitter_via', $twitter_site_tag_value, $post->ID );
+
+		return $twitter_site_tag_value;
 	}
 
 	public function get_related_accounts( $post ) {
@@ -470,6 +479,7 @@ class Share_Twitter extends Sharing_Source {
 
 class Share_Stumbleupon extends Sharing_Source {
 	var $shortname = 'stumbleupon';
+	var $genericon = '\f223';
 	public function __construct( $id, array $settings ) {
 		parent::__construct( $id, $settings );
 
@@ -508,6 +518,7 @@ class Share_Stumbleupon extends Sharing_Source {
 
 class Share_Reddit extends Sharing_Source {
 	var $shortname = 'reddit';
+	var $genericon = '\f222';
 	public function __construct( $id, array $settings ) {
 		parent::__construct( $id, $settings );
 
@@ -542,6 +553,7 @@ class Share_Reddit extends Sharing_Source {
 
 class Share_LinkedIn extends Sharing_Source {
 	var $shortname = 'linkedin';
+	var $genericon = '\f207';
 	public function __construct( $id, array $settings ) {
 		parent::__construct( $id, $settings );
 
@@ -615,6 +627,7 @@ class Share_LinkedIn extends Sharing_Source {
 
 class Share_Facebook extends Sharing_Source {
 	var $shortname = 'facebook';
+	var $genericon = '\f204';
 	private $share_type = 'default';
 
 	public function __construct( $id, array $settings ) {
@@ -729,6 +742,7 @@ class Share_Facebook extends Sharing_Source {
 
 class Share_Print extends Sharing_Source {
 	var $shortname = 'print';
+	var $genericon = '\f469';
 	public function __construct( $id, array $settings ) {
 		parent::__construct( $id, $settings );
 
@@ -749,6 +763,7 @@ class Share_Print extends Sharing_Source {
 
 class Share_PressThis extends Sharing_Source {
 	var $shortname = 'pressthis';
+	var $genericon = '\f205';
 	public function __construct( $id, array $settings ) {
 		parent::__construct( $id, $settings );
 
@@ -810,6 +825,7 @@ class Share_PressThis extends Sharing_Source {
 
 class Share_GooglePlus1 extends Sharing_Source {
 	var $shortname = 'googleplus1';
+	var $genericon = '\f218';
 	private $state = false;
 
 	public function __construct( $id, array $settings ) {
@@ -1036,7 +1052,7 @@ class Share_Custom extends Sharing_Advanced_Source {
 		);
 	}
 
-	public function display_preview() {
+	public function display_preview( $echo = true, $force_smart = false, $button_style = null ) {
 		$opts = $this->get_options();
 
 		$text = '&nbsp;';
@@ -1071,9 +1087,9 @@ class Share_Custom extends Sharing_Advanced_Source {
 	}
 }
 
-
 class Share_Tumblr extends Sharing_Source {
 	var $shortname = 'tumblr';
+	var $genericon = '\f214';
 	public function __construct( $id, array $settings ) {
 		parent::__construct( $id, $settings );
 		if ( 'official' == $this->button_style )
@@ -1119,6 +1135,7 @@ class Share_Tumblr extends Sharing_Source {
 
 class Share_Pinterest extends Sharing_Source {
 	var $shortname = 'pinterest';
+	var $genericon = '\f209';
 
 	public function __construct( $id, array $settings ) {
 		parent::__construct( $id, $settings );
@@ -1197,6 +1214,7 @@ class Share_Pinterest extends Sharing_Source {
 
 class Share_Pocket extends Sharing_Source {
 	var $shortname = 'pocket';
+	var $genericon = '\f224';
 
 	public function __construct( $id, array $settings ) {
 		parent::__construct( $id, $settings );

@@ -133,7 +133,25 @@ class WPCOM_JSON_API_GET_Site_Endpoint extends WPCOM_JSON_API_Endpoint {
 							'img' => (string) remove_query_arg( 's', blavatar_url( $domain, 'img' ) ),
 							'ico' => (string) remove_query_arg( 's', blavatar_url( $domain, 'ico' ) ),
 						);
-					}
+					} else {
+                        // This is done so that we can access the updated blavatar on .com via the /me/sites endpoint
+                        if( is_jetpack_site() ) {
+
+							$site_icon_url = get_option( 'jetpack_site_icon_url' );
+							if( ! $site_icon_url ) {
+								$site_icon_url = get_option( 'site_icon_url' );
+							} else {
+								// clean up site_icon_url was only set during 3.3 beta 2 of jetpack
+								delete_option( 'site_icon_url' );
+							}
+							if( $site_icon_url ) {
+								$response[ $key ] = array(
+									'img' => (string) jetpack_photon_url( $site_icon_url, array() , 'https' ),
+									'ico' => (string) jetpack_photon_url( $site_icon_url, array( 'w' => 16 ), 'https' )
+								);
+							}
+                        }
+                   }
 				} elseif ( function_exists( 'jetpack_site_icon_url' ) && function_exists( 'jetpack_photon_url' ) ) {
 					$response[ $key ] = array(
 						'img' => (string) jetpack_photon_url( jetpack_site_icon_url( get_current_blog_id() , 80 ), array( 'w' => 80 ), 'https' ),
@@ -277,6 +295,18 @@ class WPCOM_JSON_API_GET_Site_Endpoint extends WPCOM_JSON_API_Endpoint {
 
 				if ( $is_jetpack ) {
 					$response['options']['jetpack_version'] = get_option( 'jetpack_version' );
+
+                    if( get_option( 'jetpack_main_network_site' ) ) {
+	                    $response['options']['main_network_site'] = (string) rtrim( get_option( 'jetpack_main_network_site' ), '/' );
+	                    delete_option( 'main_network_site' ); // clean up after on self
+                    } elseif( get_option( 'main_network_site' ) ) { // This was only set for 3.3 beta 2 sites and should be removed after
+	                    $response['options']['main_network_site'] = (string) rtrim( get_option( 'main_network_site' ), '/' );
+                    }
+
+					// Sites have to prove that they are not main_network site.
+					// If the sync happends right then we should be able to see that we are not dealing with a network site
+					$response['options']['is_multi_network'] = (bool) get_option( 'jetpack_is_main_network', true  );
+
 				}
 
 				if ( ! current_user_can( 'edit_posts' ) )
@@ -341,6 +371,54 @@ class WPCOM_JSON_API_List_Post_Formats_Endpoint extends WPCOM_JSON_API_Endpoint 
 		$response['formats'] = $supported_formats;
 
 		return $response;
+	}
+}
+
+class WPCOM_JSON_API_List_Post_Types_Endpoint extends WPCOM_JSON_API_Endpoint {
+	static $post_type_keys_to_include = array( 'name', 'label', 'description' );
+
+	// /sites/%s/post-types -> $blog_id
+	function callback( $path = '', $blog_id = 0 ) {
+		$blog_id = $this->api->switch_to_blog_and_validate_user( $this->api->get_blog_id( $blog_id ) );
+		if ( is_wp_error( $blog_id ) ) {
+			return $blog_id;
+		}
+
+		if ( defined( 'IS_WPCOM' ) && IS_WPCOM ) {
+			$this->load_theme_functions();
+		}
+
+		$args = $this->query_args();
+		$queryable_only = isset( $args['api_queryable'] ) && $args['api_queryable'];
+
+		// Get a list of available post types
+		$post_types = get_post_types( array( 'public' => true ) );
+		$formatted_post_type_objects = array();
+
+		// Retrieve post type object for each post type
+		foreach ( $post_types as $post_type ) {
+			// Skip non-queryable if filtering on queryable only
+			$is_queryable = $this->is_post_type_allowed( $post_type );
+			if ( $queryable_only && ! $is_queryable ) {
+				continue;
+			}
+
+			$post_type_object = get_post_type_object( $post_type );
+			$formatted_post_type_object = array();
+
+			// Include only the desired keys in the response
+			foreach ( self::$post_type_keys_to_include as $key ) {
+				$formatted_post_type_object[ $key ] = $post_type_object->{ $key };
+			}
+			$formatted_post_type_object['api_queryable'] = $is_queryable;
+
+			$formatted_post_type_objects[] = $formatted_post_type_object;
+		}
+
+		return array(
+			'found' => count( $formatted_post_type_objects ),
+			'post_types' => $formatted_post_type_objects
+		);
 	}
 }
 

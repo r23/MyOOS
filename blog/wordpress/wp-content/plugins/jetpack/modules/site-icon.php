@@ -2,7 +2,7 @@
 
 /**
  * Module Name: Site Icon
- * Module Description: Add an site icon to your site.
+ * Module Description: Add a site icon to your site.
  * Sort Order: 22
  * First Introduced: 3.2
  * Requires Connection: No
@@ -12,3 +12,5 @@
 
 include dirname( __FILE__ ) . '/site-icon/jetpack-site-icon.php';
 include dirname( __FILE__ ) . '/site-icon/site-icon-functions.php';
+
+Jetpack_Sync::sync_options( __FILE__, 'jetpack_site_icon_url' );

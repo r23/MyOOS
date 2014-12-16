@@ -39,8 +39,10 @@ class Sharing_Service {
 	/**
 	 * Gets a list of all available service names and classes
 	 */
-	private function get_all_services() {
+	public function get_all_services( $include_custom = true ) {
 		// Default services
+		// if you update this list, please update the REST API tests
+		// in bin/tests/api/suites/SharingTest.php
 		$services = array(
 			'email'         => 'Share_Email',
 			'print'         => 'Share_Print',
@@ -56,10 +58,12 @@ class Sharing_Service {
 			'pocket'        => 'Share_Pocket',
 		);
 
-		// Add any custom services in
-		$options = $this->get_global_options();
-		foreach ( (array)$options['custom'] AS $custom_id ) {
-			$services[$custom_id] = 'Share_Custom';
+		if ( $include_custom ) {
+			// Add any custom services in
+			$options = $this->get_global_options();
+			foreach ( (array) $options['custom'] AS $custom_id ) {
+				$services[$custom_id] = 'Share_Custom';
+			}
 		}
 
 		return apply_filters( 'sharing_services', $services );
@@ -80,6 +84,9 @@ class Sharing_Service {
 
 			// Add a new custom service
 			$options['global']['custom'][] = $service_id;
+			if ( false !== $this->global ) {
+				$this->global['custom'][] = $service_id;
+			}
 
 			update_option( 'sharing-options', $options );
 
@@ -418,7 +425,7 @@ function sharing_add_footer() {
 
 	if ( apply_filters( 'sharing_js', true ) && sharing_maybe_enqueue_scripts() ) {
 
-		if ( is_array( $jetpack_sharing_counts ) && count( $jetpack_sharing_counts ) ) :
+		if ( apply_filters( 'jetpack_sharing_counts', true ) && is_array( $jetpack_sharing_counts ) && count( $jetpack_sharing_counts ) ) :
 			$sharing_post_urls = array_filter( $jetpack_sharing_counts );
 			if ( $sharing_post_urls ) :
 ?>
@@ -431,8 +438,11 @@ function sharing_add_footer() {
 		endif;
 
 		wp_enqueue_script( 'sharing-js' );
-		$recaptcha__options = array( 'lang' => get_base_recaptcha_lang_code() );
-		wp_localize_script('sharing-js', 'recaptcha_options', $recaptcha__options);
+		$sharing_js_options = array(
+			'lang'   => get_base_recaptcha_lang_code(),
+			'counts' => apply_filters( 'jetpack_sharing_counts', true )
+		);
+		wp_localize_script( 'sharing-js', 'sharing_js_options', $sharing_js_options);
 	}
 
 	$sharer = new Sharing_Service();

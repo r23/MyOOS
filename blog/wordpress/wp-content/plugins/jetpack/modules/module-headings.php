@@ -62,7 +62,7 @@ _x( 'Write posts or pages in plain-text Markdown syntax.', 'Module Description',
 
 // modules/minileven.php
 _x( 'Mobile Theme', 'Module Name', 'jetpack' );
-_x( 'Optimize your site with a mobile-friendly theme for tablets and phones.', 'Module Description', 'jetpack' );
+_x( 'Optimize your site with a mobile-friendly theme for smartphones.', 'Module Description', 'jetpack' );
 
 // modules/monitor.php
 _x( 'Monitor', 'Module Name', 'jetpack' );
@@ -106,7 +106,7 @@ _x( 'Enable WP.me-powered shortlinks for all posts and pages.', 'Module Descript
 
 // modules/site-icon.php
 _x( 'Site Icon', 'Module Name', 'jetpack' );
-_x( 'Add an site icon to your site.', 'Module Description', 'jetpack' );
+_x( 'Add a site icon to your site.', 'Module Description', 'jetpack' );
 
 // modules/sso.php
 _x( 'Jetpack Single Sign On', 'Module Name', 'jetpack' );
@@ -134,7 +134,7 @@ _x( 'Verify your site or domain with Google Webmaster Tools, Pinterest, and othe
 
 // modules/videopress.php
 _x( 'VideoPress', 'Module Name', 'jetpack' );
-_x( 'Upload and host video right on your site. (Subscription required.)', 'Module Description', 'jetpack' );
+_x( 'Upload and embed videos right on your site. (Subscription required.)', 'Module Description', 'jetpack' );
 
 // modules/widget-visibility.php
 _x( 'Widget Visibility', 'Module Name', 'jetpack' );

@@ -1,46 +1,114 @@
-var WPCOMSharing = {
-	done_urls : [],
-	get_counts : function( url ) {
-		if ( 'undefined' != typeof WPCOMSharing.done_urls[ WPCOM_sharing_counts[ url ] ] )
-			return;
+if ( sharing_js_options && sharing_js_options.counts ) {
+	var WPCOMSharing = {
+		done_urls : [],
+		twitter_count : {},
+		get_counts : function( url ) {
+			var https_url, http_url, urls, id, service, service_urls, service_url;
 
-		if ( jQuery( '#sharing-facebook-' + WPCOM_sharing_counts[ url ] ).length )
-			jQuery.getScript( 'https://graph.facebook.com/?ids=' + encodeURIComponent( url ) + '&format=json&callback=WPCOMSharing.update_facebook_count' );
-		if ( jQuery( '#sharing-twitter-' + WPCOM_sharing_counts[ url ] ).length )
-			jQuery.getScript( window.location.protocol + '//cdn.api.twitter.com/1/urls/count.json?callback=WPCOMSharing.update_twitter_count&url=' + encodeURIComponent( url ) );
-		if ( jQuery( '#sharing-linkedin-' + WPCOM_sharing_counts[ url ] ).length )
-			jQuery.getScript( window.location.protocol + '//www.linkedin.com/countserv/count/share?format=jsonp&callback=WPCOMSharing.update_linkedin_count&url=' + encodeURIComponent( url ) );
+			id = WPCOM_sharing_counts[ url ];
 
-		WPCOMSharing.done_urls[ WPCOM_sharing_counts[ url ] ] = true;
-	},
-	update_facebook_count : function( data ) {
-		if ( 'undefined' != typeof data && 'undefined' != typeof Object.keys(data) && Object.keys(data).length > 0 && 'undefined' != typeof data[Object.keys(data)[0]].shares ) {
-			WPCOMSharing.inject_share_count( 'sharing-facebook-' + WPCOM_sharing_counts[ Object.keys(data)[0] ], data[Object.keys(data)[0]].shares );
+			if ( 'undefined' != typeof WPCOMSharing.done_urls[ id ] ) {
+				return;
+			}
+
+			// get both the http and https version of these URLs
+			https_url = encodeURIComponent( url.replace( /^http:\/\//i, 'https://' ) );
+			http_url  = encodeURIComponent( url.replace( /^https:\/\//i, 'http://' ) );
+
+			urls = {
+				facebook: [
+					'https://graph.facebook.com/?ids=' +
+					http_url +
+					',' +
+					https_url +
+					'&format=json&callback=WPCOMSharing.update_facebook_count'
+				],
+				twitter: [
+					window.location.protocol +
+						'//cdn.api.twitter.com/1/urls/count.json?callback=WPCOMSharing.update_twitter_count&url=' +
+						http_url,
+					window.location.protocol +
+						'//cdn.api.twitter.com/1/urls/count.json?callback=WPCOMSharing.update_twitter_count&url=' +
+						https_url
+				],
+				// LinkedIn actually gets the share count for both the http and https version automatically -- so we don't need to do extra magic
+				linkedin: [
+					window.location.protocol +
+						'//www.linkedin.com/countserv/count/share?format=jsonp&callback=WPCOMSharing.update_linkedin_count&url=' +
+						encodeURIComponent( url )
+				]
+			};
+
+			for ( service in urls ) {
+				if ( ! jQuery( 'a[data-shared=sharing-' + service + '-' + id  + ']' ).length ) {
+					continue;
+				}
+
+				while ( ( service_url = urls[ service ].pop() ) ) {
+					jQuery.getScript( service_url );
+				}
+			}
+
+			WPCOMSharing.done_urls[ id ] = true;
+		},
+		// get the version of the url that was stored in the dom (sharing-$service-URL)
+		get_permalink: function( url ) {
+			if ( 'https:' == window.location.protocol ) {
+				return url.replace( /^http:\/\//i, 'https://' );
+			} else {
+				return url.replace( /^https:\/\//i, 'http://' );
+			}
+		},
+		update_facebook_count : function( data ) {
+			var shareCount = 0;
+			if ( 'undefined' != typeof data && 'undefined' != typeof Object.keys(data) && Object.keys(data).length > 0 ) {
+				if ( 'undefined' != typeof data[Object.keys(data)[0]].shares ) {
+					shareCount += data[Object.keys(data)[0]].shares;
+				}
+
+				if ( 'undefined' != typeof data[Object.keys(data)[1]].shares ) {
+					shareCount += data[Object.keys(data)[1]].shares;
+				}
+
+				if ( shareCount > 0 ) {
+					WPCOMSharing.inject_share_count( 'sharing-facebook-' + WPCOM_sharing_counts[ WPCOMSharing.get_permalink( Object.keys(data)[0] ) ], shareCount );
+				}
+			}
+		},
+		update_twitter_count : function( data ) {
+			if ( 'number' === typeof data.count ) {
+				var permalink = WPCOMSharing.get_permalink( data.url );
+
+				if ( ! WPCOMSharing.twitter_count[ permalink ] ) {
+					WPCOMSharing.twitter_count[ permalink ] = 0;
+				}
+
+				WPCOMSharing.twitter_count[ permalink ] += data.count;
+
+				if ( WPCOMSharing.twitter_count[ permalink ] > 0 ) {
+					WPCOMSharing.inject_share_count( 'sharing-twitter-' + WPCOM_sharing_counts[ permalink ], WPCOMSharing.twitter_count[ permalink ] );
+				}
+			}
+		},
+		update_linkedin_count : function( data ) {
+			if ( 'undefined' != typeof data.count && ( data.count * 1 ) > 0 ) {
+				WPCOMSharing.inject_share_count( 'sharing-linkedin-' + WPCOM_sharing_counts[ data.url ], data.count );
+			}
+		},
+		inject_share_count : function( id, count ) {
+			var $share = jQuery( 'a[data-shared=' + id + '] > span');
+			$share.find( '.share-count' ).remove();
+			$share.append( '<span class="share-count">' + WPCOMSharing.format_count( count ) + '</span>' );
+		},
+		format_count : function( count ) {
+			if ( count < 1000 )
+				return count;
+			if ( count >= 1000 && count < 10000 )
+				return String( count ).substring( 0, 1 ) + 'K+';
+			return '10K+';
 		}
-	},
-	update_twitter_count : function( data ) {
-		if ( 'undefined' != typeof data.count && ( data.count * 1 ) > 0 ) {
-			if ( 'undefined' == typeof WPCOM_sharing_counts[ data.url ] )
-				data.url = data.url.replace(/\/$/, "");
-			WPCOMSharing.inject_share_count( 'sharing-twitter-' + WPCOM_sharing_counts[ data.url ], data.count );
-		}
-	},
-	update_linkedin_count : function( data ) {
-		if ( 'undefined' != typeof data.count && ( data.count * 1 ) > 0 ) {
-			WPCOMSharing.inject_share_count( 'sharing-linkedin-' + WPCOM_sharing_counts[ data.url ], data.count );
-		}
-	},
-	inject_share_count : function( dom_id, count ) {
-		jQuery( '#' + dom_id + ' span:first').append( '<span class="share-count">' + WPCOMSharing.format_count( count ) + '</span>' );
-	},
-	format_count : function( count ) {
-		if ( count < 1000 )
-			return count;
-		if ( count >= 1000 && count < 10000 )
-			return String( count ).substring( 0, 1 ) + 'K+';
-		return '10K+';
-	}
-};
+	};
+}
 
 (function($){
 	var $body, $sharing_email;
@@ -278,7 +346,7 @@ var WPCOMSharing = {
 						key = $( '#recaptcha_public_key' ).val();
 
 					// Update the recaptcha
-					Recaptcha.create( key, 'sharing_recaptcha', { lang : recaptcha_options.lang } );
+					Recaptcha.create( key, 'sharing_recaptcha', { lang : sharing_js_options.lang } );
 
 					// Show dialog
 					$sharing_email.css( {

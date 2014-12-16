@@ -90,6 +90,8 @@ class Jetpack_Heartbeat {
 		Jetpack_Options::update_option( 'last_heartbeat', time() );
 
 		$jetpack->do_stats( 'server_side' );
+
+		do_action( 'jetpack_heartbeat' );
 	}
 
 	public static function generate_stats_array( $prefix = '' ) {
@@ -101,12 +103,19 @@ class Jetpack_Heartbeat {
 		$return["{$prefix}branch"]         = floatval( JETPACK__VERSION );
 		$return["{$prefix}wp-branch"]      = floatval( get_bloginfo( 'version' ) );
 		$return["{$prefix}php-branch"]     = floatval( PHP_VERSION );
+		$return["{$prefix}public"]         = Jetpack_Options::get_option( 'public' );
 		$return["{$prefix}ssl"]            = Jetpack::permit_ssl();
 		$return["{$prefix}language"]       = get_bloginfo( 'language' );
 		$return["{$prefix}charset"]        = get_bloginfo( 'charset' );
 		$return["{$prefix}is-multisite"]   = is_multisite() ? 'multisite' : 'singlesite';
 		$return["{$prefix}identitycrisis"] = Jetpack::check_identity_crisis( 1 ) ? 'yes' : 'no';
 		$return["{$prefix}plugins"]        = implode( ',', Jetpack::get_active_plugins() );
+
+		// is-multi-network can have three values, `single-site`, `single-network`, and `multi-network`
+		$return["{$prefix}is-multi-network"] = 'single-site';
+		if ( is_multisite() ) {
+			$return["{$prefix}is-multi-network"] = Jetpack::is_multi_network() ? 'multi-network' : 'single-network';
+		}
 
 		if ( ! empty( $_SERVER['SERVER_ADDR'] ) || ! empty( $_SERVER['LOCAL_ADDR'] ) ) {
 			$ip     = ! empty( $_SERVER['SERVER_ADDR'] ) ? $_SERVER['SERVER_ADDR'] : $_SERVER['LOCAL_ADDR'];
