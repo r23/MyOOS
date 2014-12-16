@@ -3,59 +3,30 @@
 {include file="phoenix/system/_breadcrumbs.tpl"}
 
 {if $message}
-    {foreach item=info from=$message}
+    {foreach $message as $info}
         {include file="phoenix/system/_message.tpl"}
     {/foreach}
 {/if}
 
 	<section id="content">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				{$new_spezials}			
-			</div>
-		</div>
-		<!-- divider -->
-		<div class="row">
-			<div class="col-md-12">
-				<div class="solidline">
-				</div>
-			</div>
-		</div>
-		<!-- end divider -->
-		<div class="row">
-			<div class="col-md-12">
-				{$new_products}
-			</div>
-		</div>
-		<!-- divider -->
-		<div class="row">
-			<div class="col-md-12">
-				<div class="solidline">
-				</div>
-			</div>
-		</div>
-		<!-- end divider -->
-		<div class="row">
-			<div class="col-md-12">
-				{$mod_manufacturers}
-			</div>
-		</div>
-		<!-- divider -->
-		<div class="row">
-			<div class="col-md-12">
-				<div class="solidline">
-				</div>
-			</div>
-		</div>
-		<!-- end divider -->
-		<div class="row">
-			<div class="col-md-12">
-				{$upcoming_products}
-			</div>
-		</div>
-	</div>
-	</section>
+	<div class="container">  
+        <div class="row">
+            <div class="col-md-3">
+			{foreach $sidebar as $panel}
+				{if $panel.content}
+					<div class="panel-group" id="accordion-v{$panel@iteration}">
+						{$panel.content}
+					</div><!-- .panel group-->	
+				{/if}
+			{/foreach}
+            </div><!-- .col -->		
+		
+            <div class="col-md-9">
+
+            </div><!-- .col -->
+        </div><!-- .row -->      
+    </div><!-- .container -->
+	</section>	
 
 <!-- body //-->
 <table width="870" border="0" align="center" cellspacing="0" cellpadding="0">
@@ -135,11 +106,8 @@
 </td>
     <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
     <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
-{foreach item=block from=$sidebar}
-   {include file="phoenix/system/_block.tpl"}
-{/foreach}
     </table></td>
   </tr>
 </table>
-<!-- body_eof //-->
+
 {include file="phoenix/system/_footer.tpl"}

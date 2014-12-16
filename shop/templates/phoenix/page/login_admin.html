@@ -3,7 +3,7 @@
 {include file="phoenix/system/_breadcrumbs.tpl"}
 
 {if $message}
-    {foreach item=info from=$message}
+    {foreach $message as $info}
         {include file="phoenix/system/_message.tpl"}
     {/foreach}
 {/if}

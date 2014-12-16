@@ -15,7 +15,7 @@
 						<li><a href="{html_href_link content=$filename.product_notifications connection=SSL}">{$lang.login_block_product_notifications}</a></li>
 				{/if}						
 					</ul>
-					</div><!-- /.col -->
+					</div><!-- .col -->
 					
 					<div class="col-md-3 col-sm-6 inner">
 						<h4>{$block_heading_information}</h4>
@@ -25,7 +25,7 @@
 							<li><a href="{html_href_link content=$filename.information information_id=$info.information_id}" title="{$info.information_name}">{$info.information_name}</a></li>
 						{/foreach}	
 						</ul>
-					</div><!-- /.col -->
+					</div><!-- .col -->
 					
 					
 					<div class="col-md-3 col-sm-6 inner">
@@ -41,7 +41,7 @@
 						<li><a href="{html_href_link content=$filename.shopping_cart}" title="{$lang.block_service_shopping_cart}"><i class="fa fa-shopping-cart"></i> {$lang.block_service_shopping_cart}</a></li>
 
 					</ul>
-					</div><!-- /.col -->
+					</div><!-- .col -->
 					
 					<div class="col-md-3 col-sm-6 inner">
 						<h4>{$lang.get_in_touch_with_us}</h4>
@@ -53,9 +53,9 @@
 							<i class="fa fa-phone"></i> {$smarty.const.STORE_ADDRESS_TELEPHONE_NUMBER} <br>
 							<a href="{html_href_link content=$filename.contact_us}" title="{$lang.block_service_contact}"><i class="fa fa-envelope-o"></i> {$smarty.const.STORE_ADDRESS_EMAIL}</a>
 						</p>
-					</div><!-- /.col -->
+					</div><!-- .col -->
 					
-				</div><!-- /.row --> 
+				</div><!-- .row --> 
 			</div><!-- .container -->
 		  
 			<div class="footer-bottom">
