@@ -55,9 +55,9 @@
         </tr>
       <tr>
         <td><a href="index.htm" target="_self" onmouseover="MM_swapImage('home','','images/home_up.png',1)" onmouseout="MM_swapImgRestore()"><img src="images/home.png" alt="www.oos-shop.de [Home]" name="home" width="70" height="41" border="0" id="home" /></a></td>
-        <td><a href="http://developer.berlios.de/projects/oos/" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('service','','images/service_up.png',1)"><img src="images/service.png" alt="www.oos-shop.de [Service]" name="service" width="68" height="41" border="0" id="service" /></a></td>
-        <td><a href="http://www.oos-shop.de/modules.php?name=Top" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('news','','images/news_up.png',1)"><img src="images/news.png" alt="www.oos-shop.de [News]" name="news" width="68" height="41" border="0" id="news" /></a></td>
-        <td><a href="http://developer.berlios.de/project/showfiles.php?group_id=814" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('download','','images/download_up.png',1)"><img src="images/download.png" alt="www.oos-shop.de [Download]" name="Download" width="69" height="41" border="0" id="download" /></a></td>
+        <td><a href="http://foren.myoos.de/" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('service','','images/service_up.png',1)"><img src="images/service.png" alt="www.oos-shop.de [Service]" name="service" width="68" height="41" border="0" id="service" /></a></td>
+        <td><a href="http://blog.myoos.de/" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('news','','images/news_up.png',1)"><img src="images/news.png" alt="www.oos-shop.de [News]" name="news" width="68" height="41" border="0" id="news" /></a></td>
+        <td><a href="https://github.com/r23/MyOOS/" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('download','','images/download_up.png',1)"><img src="images/download.png" alt="www.oos-shop.de [Download]" name="Download" width="69" height="41" border="0" id="download" /></a></td>
       </tr>
     </table>  </td>
   </tr>

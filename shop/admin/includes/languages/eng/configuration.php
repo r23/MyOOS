@@ -267,6 +267,12 @@ define('ACCOUNT_SUBURB_DESC', 'Stadtteil wird angezeigt');
 define('ACCOUNT_STATE_TITLE', 'Bundesland');
 define('ACCOUNT_STATE_DESC', 'Bundesland wird angezeigt');
 
+define('NEWSLETTER_TITLE', 'Newsletter');
+define('NEWSLETTER_DESC', 'Would you like to send newsletter?');
+
+define('PRODUCTS_NOTIFICATIONS_TITLE', 'Products notifications');
+define('PRODUCTS_NOTIFICATIONS_DESC', 'Would you like to send Products notifications?');
+
 define('STORE_ORIGIN_COUNTRY_TITLE', 'Country Code');
 define('STORE_ORIGIN_COUNTRY_DESC', 'Enter the &quot;ISO 3166&quot; Country Code of the Store to be used in shipping quotes.  To find your country code, visit the <A HREF=\"http://www.din.de/gremien/nas/nabd/iso3166ma/codlstp1/index.html\" TARGET=\"_blank\">ISO 3166 Maintenance Agency</A>.');
 
@@ -440,39 +446,6 @@ define('SHOW_OPTIONS_DESC', 'M&ouml;chten Sie die Produktoptionen anzeigen?');
 
 define('SHOW_OPTIONS_PRICE_TITLE', 'Preis der Produktoptionen');
 define('SHOW_OPTIONS_PRICE_DESC', 'M&ouml;chten Sie die Preise der Produktoptionen anzeigen?');
-
-define('TICKET_ENTRIES_MIN_LENGTH_TITLE', 'Supporttickets');
-define('TICKET_ENTRIES_MIN_LENGTH_DESC', 'Die mindest Zeichen der Supporttickets');
-
-define('TICKET_ADMIN_NAME_TITLE', 'Ticket Admin Name');
-define('TICKET_ADMIN_NAME_DESC', 'The name of Admin');
-
-define('TICKET_USE_STATUS_TITLE', 'Statusanzeige im Shop');
-define('TICKET_USE_STATUS_DESC', 'M&ouml;chten Sie den Supportticketstatus anzeigen?');
-
-define('TICKET_ALLOW_CUSTOMER_TO_CHANGE_STATUS_TITLE', 'Allow customer');
-define('TICKET_ALLOW_CUSTOMER_TO_CHANGE_STATUS_DESC', 'Allow customer to change status when replying');
-
-define('TICKET_USE_DEPARTMENT_TITLE', 'Use Department');
-define('TICKET_USE_DEPARTMENT_DESC', 'Use Department in Catalog');
-
-define('TICKET_ALLOW_CUSTOMER_TO_CHANGE_DEPARTMENT_TITLE', 'Department');
-define('TICKET_ALLOW_CUSTOMER_TO_CHANGE_DEPARTMENT_DESC', 'Allow customer to change status when replying');
-
-define('TICKET_USE_PRIORITY_TITLE', 'Use Priority');
-define('TICKET_USE_PRIORITY_DESC', 'Use Priority in Catalog');
-
-define('TICKET_USE_ORDER_IDS_TITLE', 'Order Id');
-define('TICKET_USE_ORDER_IDS_DESC', 'If customer is logged in, his orderid \'s are shown');
-
-define('TICKET_USE_SUBJECT_TITLE', 'Show Subject');
-define('TICKET_USE_SUBJECT_DESC', 'Show Subject');
-
-define('TICKET_CHANGE_CUSTOMER_LOGIN_REQUIREMENT_TITLE', 'Login');
-define('TICKET_CHANGE_CUSTOMER_LOGIN_REQUIREMENT_DESC', 'if you set this to true you can allow - notallow registered customers to view tickets without beeing logged in');
-
-define('TICKET_CUSTOMER_LOGIN_REQUIREMENT_DEFAULT_TITLE', 'Shop - Login');
-define('TICKET_CUSTOMER_LOGIN_REQUIREMENT_DEFAULT_DESC', '0 registered Customer must not be logged in to view ticket<br>1 registered Customer must  be logged in to view ticket');
 
 define('SECURITY_CODE_LENGTH_TITLE', 'Redeem Code');
 define('SECURITY_CODE_LENGTH_DESC', 'Set the length of the redeem code, the longer the more secure');

@@ -157,9 +157,10 @@ $aLang['pull_down_default'] = 'Please Select';
 $aLang['type_below'] = 'Type Below';
 
 //newsletter
-$aLang['block_newsletters_subscribe'] = 'Subscribe';
+$aLang['block_newsletters_subscribe'] = 'subscribe to our weekly <strong>newsletter</strong>';
 $aLang['block_newsletters_unsubscribe'] = 'Unsubscribe';
-
+$aLang['entry_newsletter_no'] = 'No';
+$aLang['entry_newsletter_yes'] = 'Yes';
 
 //myworld
 $aLang['text_date_account_created'] = 'Account Created:';

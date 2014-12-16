@@ -576,37 +576,13 @@ function print_ConfigServerInfo() {
        '  <td align="center">' . "\n";
   echo '<form name="admin" action="step.php" method="post">' . "\n";
   print_FormHidden();
-  echo '<input type="hidden" name="op" value="Design_Optionen">' . "\n" .
+  echo '<input type="hidden" name="op" value="Admin">' . "\n" .
        '<input type="submit" value="' . BTN_NEXT . '">' . "\n" .
        '</form></td>' . "\n" .
        ' </tr>' . "\n" .
        '</table></form>' . "\n";
 }
 
-
-function print_DesignOptionen() {
-
-  $aRewrite = array();
-  $aRewrite = array('none'       => 'Disable URL Rewriting',
-                    'errordocs'  => 'Use Apache errorhandling',
-                    'rewrite'    => 'Use Apache mod_rewrite');
-
-  echo '<form action="step.php" method="post"><center>' . "\n" .
-       '<table class="content">' . "\n" .
-       ' <tr>' . "\n" .
-       '   <td align="left"><font class="oos-title">' . INSTALL_REWRITE . '</font><br/>' .
-       '<font class="oos-normal">' . INSTALL_REWRITE_DESC . ':&nbsp;</font></td>' . "\n" .
-       '   <td>' . oos_guessInput('rewrite', $aRewrite, $_POST['host_conf']) . '</td>' . "\n" .
-       ' </tr>' . "\n" .
-       '</table>' . "\n" .
-       '<br /><br />' . "\n";
-  print_FormHidden();
-  echo '<input type="hidden" name="op" value="Admin">' . "\n" .
-       '<input type="submit" value="' . BTN_NEXT . '"><br />' . "\n" .
-       '</form></center>' . "\n" .
-       '<br />';
-
-}
 
 
 function print_ChangeServer() {

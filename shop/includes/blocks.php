@@ -16,15 +16,15 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  $aContentBlock = array();
+$aContentBlock = array();
 
-  $blocktable = $oostable['block'];
-  $block_infotable = $oostable['block_info'];
-  $block_to_page_typetable = $oostable['block_to_page_type'];
-  $block_sql = "SELECT b.block_id, b.block_side, b.block_status, b.block_file, b.block_type,
+$blocktable = $oostable['block'];
+$block_infotable = $oostable['block_info'];
+$block_to_page_typetable = $oostable['block_to_page_type'];
+$block_sql = "SELECT b.block_id, b.block_side, b.block_status, b.block_file, b.block_type,
                        b.block_sort_order, b.block_login_flag, b.block_cache, bi.block_name
                 FROM $blocktable b,
                      $block_to_page_typetable b2p,
@@ -34,13 +34,13 @@
                   AND bi.block_id = b2p.block_id
                   AND bi.block_languages_id = '" .  intval($nLanguageID) . "'
                   AND b2p.page_type_id = '" . intval($nPageType) . "'";
-  if (isset($_SESSION['customer_id'])) {
-    $block_sql .= "  AND ( b.block_login_flag = '0' OR b.block_login_flag = '1')";
-  } else {
-    $block_sql .= "  AND b.block_login_flag = '0'";
-  }
-  $block_sql .= " ORDER BY b.block_side, b.block_sort_order ASC";
-  $block_result = $dbconn->GetAll($block_sql);
+if (isset($_SESSION['customer_id'])) {
+	$block_sql .= " AND ( b.block_login_flag = '0' OR b.block_login_flag = '1')";
+} else {
+	$block_sql .= " AND b.block_login_flag = '0'";
+}
+$block_sql .= " ORDER BY b.block_side, b.block_sort_order ASC";
+$block_result = $dbconn->GetAll($block_sql);
 
 foreach ($block_result as $block) {
 	$block_heading = $block['block_name'];
@@ -51,7 +51,7 @@ foreach ($block_result as $block) {
 		continue;
 	}
 
-    if (!empty($block_side)) {
+	if (!empty($block_side)) {
         $block_tpl = $sTheme . '/blocks/' . $block_file . '.html';
     }	
 	
@@ -72,14 +72,15 @@ foreach ($block_result as $block) {
 			$block_content = $smarty->fetch($block_tpl);
 		}
     }
-	
-    $aContentBlock[] = array('side' => $block_side,
-                             'block_content' => $block_content );
-
+	if (!empty($block_content)) {
+		$aContentBlock[] = array(
+								'side' => $block_side,
+								'block_content' => $block_content
+							);
+	}
 
   }
 
-  
  
 $n = count($aContentBlock);
 for ($i = 0, $n; $i < $n; $i++) {

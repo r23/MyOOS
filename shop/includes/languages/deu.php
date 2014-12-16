@@ -152,7 +152,8 @@ $aLang['pull_down_default'] = 'Bitte wählen';
 $aLang['type_below'] = 'bitte unten eingeben';
 
 //newsletter
-$aLang['block_newsletters_subscribe'] = 'Eintragen';
+$aLang['block_newsletters_subscribe'] = 'Abonnieren Sie unseren wöchentlichen <strong>Newsletter</strong>';
+$aLang['block_newsletters_placeholder'] = 'Ihre E-Mail-Adresse eingeben...';
 $aLang['block_newsletters_unsubscribe'] = 'Austragen';
 $aLang['entry_newsletter_no'] = 'Nein';
 $aLang['entry_newsletter_yes'] = 'Ja';

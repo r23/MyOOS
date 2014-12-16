@@ -263,6 +263,12 @@ define('ACCOUNT_SUBURB_DESC', 'Stadtteil wird angezeigt und kann eingegeben werd
 define('ACCOUNT_STATE_TITLE', 'Bundesland');
 define('ACCOUNT_STATE_DESC', 'Die Anzeige und Eingabe des Bundeslandes wird erm&ouml;glicht. Die Eingabe ist bei Anzeige zwingend notwendig.');
 
+define('NEWSLETTER_TITLE', 'Newsletter');
+define('NEWSLETTER_DESC', 'M&ouml;chten Sie einen Newsletter anbieten?');
+
+define('PRODUCTS_NOTIFICATIONS_TITLE', 'Produkt-Meldungen');
+define('PRODUCTS_NOTIFICATIONS_DESC', 'M&ouml;chten Sie Produkt-Meldungen per Mail anbieten?');
+
 define('STORE_ORIGIN_COUNTRY_TITLE', 'L&auml;ndercode');
 define('STORE_ORIGIN_COUNTRY_DESC', 'Eingabe des &quot;ISO 3166&quot;-L&auml;ndercodes des Shops, der im Versandbereich benutzt werden soll. Zum Finden Ihres L&auml;ndercodes besuchen Sie die <a href="http://www.din.de/gremien/nas/nabd/iso3166ma/codlstp1/index.html" target="_blank">ISO 3166');
 
@@ -437,39 +443,6 @@ define('SHOW_OPTIONS_DESC', 'M&ouml;chten Sie die Produktoptionen anzeigen?');
 
 define('SHOW_OPTIONS_PRICE_TITLE', 'Preis der Produktoptionen');
 define('SHOW_OPTIONS_PRICE_DESC', 'M&ouml;chten Sie die Preise der Produktoptionen anzeigen?');
-
-define('TICKET_ENTRIES_MIN_LENGTH_TITLE', 'Supporttickets');
-define('TICKET_ENTRIES_MIN_LENGTH_DESC', 'Die minimale Zeichenanzahl f&uuml;r Supporttickets');
-
-define('TICKET_ADMIN_NAME_TITLE', 'Ticket Admin Name');
-define('TICKET_ADMIN_NAME_DESC', 'Name des Administrators');
-
-define('TICKET_USE_STATUS_TITLE', 'Statusanzeige im Shop');
-define('TICKET_USE_STATUS_DESC', 'M&ouml;chten Sie den Supportticketstatus anzeigen?');
-
-define('TICKET_ALLOW_CUSTOMER_TO_CHANGE_STATUS_TITLE', 'Erlaube &Auml;nderungen vom Kunden');
-define('TICKET_ALLOW_CUSTOMER_TO_CHANGE_STATUS_DESC', 'Erlaube dem Kunden beim Antworten den Status zu &auml;ndern.');
-
-define('TICKET_USE_DEPARTMENT_TITLE', 'Benutze Abteilung');
-define('TICKET_USE_DEPARTMENT_DESC', 'Zeige die Abteilung im Ticket an.');
-
-define('TICKET_ALLOW_CUSTOMER_TO_CHANGE_DEPARTMENT_TITLE', 'Abteilung');
-define('TICKET_ALLOW_CUSTOMER_TO_CHANGE_DEPARTMENT_DESC', 'Erlaube dem Kunden beim Antworten die Abteilung zu &auml;ndern.');
-
-define('TICKET_USE_PRIORITY_TITLE', 'Benutze Priorit&auml;t');
-define('TICKET_USE_PRIORITY_DESC', 'Use Priority in Catalog');
-
-define('TICKET_USE_ORDER_IDS_TITLE', 'Auftragsnummer');
-define('TICKET_USE_ORDER_IDS_DESC', 'Wenn der Benutzer angemeldet ist, sind seine Auftragsnummern sichtbar.');
-
-define('TICKET_USE_SUBJECT_TITLE', 'Show Subject');
-define('TICKET_USE_SUBJECT_DESC', 'Show Subject');
-
-define('TICKET_CHANGE_CUSTOMER_LOGIN_REQUIREMENT_TITLE', 'Login');
-define('TICKET_CHANGE_CUSTOMER_LOGIN_REQUIREMENT_DESC', 'if you set this to true you can allow - notallow registered customers to view tickets without beeing logged in');
-
-define('TICKET_CUSTOMER_LOGIN_REQUIREMENT_DEFAULT_TITLE', 'Shop - Login');
-define('TICKET_CUSTOMER_LOGIN_REQUIREMENT_DEFAULT_DESC', '0 registered Customer must not be logged in to view ticket<br>1 registered Customer must  be logged in to view ticket');
 
 define('SECURITY_CODE_LENGTH_TITLE', 'Einl&ouml;sungscode');
 define('SECURITY_CODE_LENGTH_DESC', 'Setzt die L&auml;nge des Einl&ouml;ngscodes, je l&auml;nger dieser ist, desto sicherer ist er.');

@@ -151,10 +151,6 @@ require_once '../includes/lib/adodb/adodb.inc.php';
       print_ConfigServerInfo();
       break;
 
-    case 'Design_Optionen':
-      print_DesignOptionen();
-      break;
-
     case 'Confirm':
       print_Confirm();
       break;

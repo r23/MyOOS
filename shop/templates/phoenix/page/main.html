@@ -6,6 +6,7 @@
     {/foreach}
 {/if}
 
+	<!-- start content -->
 	<section id="featured">
 	<!-- start slider -->
 		{$featured}
@@ -84,6 +85,9 @@
 		</div>
 	</div>
 	</section>
-
+	<!-- end content -->
+{if $smarty.const.NEWSLETTER eq true}
+	{include file="phoenix/system/_newsletter.tpl"}
+{/if}
 
 {include file="phoenix/system/_footer.tpl"}
