@@ -107,7 +107,7 @@
                         </ul>
                     </div>
                 </div>
-            </div><!--/container-->
+            </div><!--end container-->
         </div>
         <!-- navbar -->
         <div class="navbar navbar-default mega-menu" role="navigation">

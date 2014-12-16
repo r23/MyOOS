@@ -21,7 +21,7 @@
 						<h4>{$block_heading_information}</h4>
 						
 						<ul class="link-list">
-						{foreach item=info from=$information}
+						{foreach $information as $info}
 							<li><a href="{html_href_link content=$filename.information information_id=$info.information_id}" title="{$info.information_name}">{$info.information_name}</a></li>
 						{/foreach}	
 						</ul>
@@ -56,7 +56,7 @@
 					</div><!-- .col -->
 					
 				</div><!-- .row --> 
-			</div><!-- .container -->
+			</div><!--end container-->
 		  
 			<div class="footer-bottom">
 				<div class="container inner"> 				
@@ -82,7 +82,7 @@
 						<li><a href="#" data-toggle="tooltip" data-placement="top" title="Pinterest"><i class="fa fa-pinterest-square"></i></a></li>
 						<li><a href="#" data-toggle="tooltip" data-placement="top" title="Google plus"><i class="fa fa-google-plus"></i></a></li>
 					</ul>
-				</div><!-- .container -->
+				</div><!--end container-->
 			</div><!-- .footer-bottom -->
 		</footer>	
 

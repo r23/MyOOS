@@ -8,6 +8,7 @@
     {/foreach}
 {/if}
 
+	<!-- start content -->
 	<section id="content">
     <div class="container">
         <div class="row">
@@ -36,7 +37,7 @@
 
 					<li>{$lang.heading_information}
 						<ul>
-						{foreach item=info from=$information}
+						{foreach $information as $info}
 							<li><a href="{html_href_link content=$filename.information information_id=$info.information_id}" title="{$info.information_name}">{$info.information_name}</a></li>
 						{/foreach}
 							<li><a href="{html_href_link content=$filename.contact_us}" title="{$lang.block_service_contact}">{$lang.block_service_contact}</a></li>
