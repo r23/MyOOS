@@ -25,12 +25,12 @@
     var $ini_array;
     var $global_fields;
 
-    function referrer() {
+    public function __construct() {
       $this->reset();
     }
 
 
-    function _safe_set (&$var_true, $var_false = "") {
+    public function _safe_set (&$var_true, $var_false = "") {
       if (!isset ($var_true)) {
         $var_true = $var_false;
       }
@@ -38,7 +38,7 @@
     }
 
 
-    function getKeywords()  {
+    public function getKeywords()  {
       $url = oos_server_get_var('HTTP_REFERER');
 
       if (empty ($url) || $this->ini_array === FALSE) {
@@ -81,7 +81,7 @@
 
 
 
-    function reset() {
+    public function reset() {
       $this->ini_file = 'includes/ini/engines.ini';
       $this->ini_array = @parse_ini_file ($this->ini_file, true);
 

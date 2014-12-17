@@ -28,11 +28,11 @@
     var $group;
     var $groupID;
 
-    function oosUser() {
+    public function __construct() {
       $this->reset();
     }
 
-    function anonymous() {
+    public function anonymous() {
 
       // Get database information
       $dbconn =& oosDBGetConn();
@@ -65,7 +65,7 @@
 
     }
 
-    function restore_group() {
+    public function restore_group() {
 
       if (!isset($_SESSION['customer_id'])) return FALSE;
 
@@ -104,7 +104,7 @@
     }
 
 
-    function reset() {
+    public function reset() {
 
       $this->group = array();
 
@@ -112,7 +112,7 @@
       if (isset($_SESSION['groupID'])) unset($_SESSION['groupID']);
     }
 
-    function generate_group_id($length = 5) {
+    public function generate_group_id($length = 5) {
       return oos_create_random_value($length, 'digits');
     }
   }

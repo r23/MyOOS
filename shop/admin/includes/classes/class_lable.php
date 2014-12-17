@@ -29,7 +29,7 @@
     var $customer;
     var $delivery;
 
-    function lable($order_id) {
+	public function __construct($order_id) {
       $this->info = array();
       $this->totals = array();
       $this->products = array();
@@ -39,7 +39,7 @@
       $this->query($order_id);
     }
 
-    function query($order_id) {
+    public function query($order_id) {
 
       // Get database information
       $dbconn =&oosDBGetConn();
@@ -165,4 +165,3 @@
       }
     }
   }
-?>

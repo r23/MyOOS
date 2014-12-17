@@ -38,19 +38,19 @@
     /**
      * Constructor of our Class
      */
-     function oosNavigationHistory() {
+	public function __construct() {
        $this->reset();
      }
 
 
-     function reset() {
+     public function reset() {
        $this->path = array();
        $this->snapshot = array();
      }
 
 
 
-    function set_snapshot($page = '') {
+    public function set_snapshot($page = '') {
       global $sContent, $request_type;
 	  
       if (is_array($page)) {
@@ -70,11 +70,11 @@
     }
 
 
-    function clear_snapshot() {
+    public function clear_snapshot() {
       $this->snapshot = array();
     }
 
-    function set_path_as_snapshot($history = 0) {
+    public function set_path_as_snapshot($history = 0) {
       $pos = (count($this->path)-1-$history);
       $this->snapshot = array('content' => $this->path[$pos]['content'],
                               'mode' => $this->path[$pos]['mode'],
@@ -82,7 +82,7 @@
     }
 
 
-    function debug() {
+    public function debug() {
       for ($i=0, $n=count($this->path); $i<$n; $i++) {
         echo $this->path[$i]['content'] . '&' . $this->path[$i]['get'] . '<br />';
         echo '<br />';

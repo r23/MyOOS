@@ -72,7 +72,7 @@
     /**
      * GoogleSitemap class constructor
      */
-     function GoogleSitemap(){
+	public function __construct() {
 
        $this->filename = "sitemap";
        $this->savepath = OOS_ABSOLUTE_PATH;
@@ -82,13 +82,13 @@
 
 
     /**
-     * Function to save the sitemap data to file as either XML or XML.GZ format
+     * function to save the sitemap data to file as either XML or XML.GZ format
      *
      * @param string $data XML data
      * @param string $type Feed type (index, products, categories)
      * @return boolean
      */
-     function SaveFile($data, $type){
+     public function SaveFile($data, $type){
        $filename = $this->savepath . $this->filename . $type;
        $compress = defined('GOOGLE_SITEMAP_COMPRESS') ? GOOGLE_SITEMAP_COMPRESS : 'false';
        if ($type == 'index') $compress = 'false';
@@ -126,12 +126,12 @@
 
 
     /**
-     * Function to compress a normal file
+     * public function to compress a normal file
      *
      * @param string $file
      * @return boolean
      */
-     function CompressFile($file){
+     public function CompressFile($file){
        $source = $this->savepath . $file . '.xml';
        $filename = $this->savepath . $file . '.xml.gz';
        $error_encountered = FALSE;
@@ -155,12 +155,12 @@
 
 
     /**
-     * Function to generate sitemap file from data
+     * public function to generate sitemap file from data
      *
      * @param array $data
      * @param string $file
      */
-     function GenerateSitemap($data, $file) {
+     public function GenerateSitemap($data, $file) {
        $content = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
        $content .= '<urlset xmlns="http://www.google.com/schemas/sitemap/0.84">' . "\n";
        foreach ($data as $url){
@@ -177,11 +177,11 @@
 
 
     /**
-     * Function to generate sitemap index file 
+     * public function to generate sitemap index file 
      *
      * @return boolean
      */
-     function GenerateSitemapIndex(){
+     public function GenerateSitemapIndex(){
        $content = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
        $content .= '<sitemapindex xmlns="http://www.google.com/schemas/sitemap/0.84">' . "\n";
        $pattern = defined('GOOGLE_SITEMAP_COMPRESS')
@@ -202,11 +202,11 @@
 
 
     /**
-     * Function to generate product sitemap data
+     * public function to generate product sitemap data
      *
      * @return boolean
      */
-     function GenerateProductSitemap(){
+     public function GenerateProductSitemap(){
 
        $dbconn =& oosDBGetConn();
        $oostable =& oosDBGetTables();
@@ -264,7 +264,7 @@
      *
      * @return boolean
      */
-     function GenerateCategorySitemap(){
+     public function GenerateCategorySitemap(){
 
        $dbconn =& oosDBGetConn();
        $oostable =& oosDBGetTables();
@@ -316,12 +316,12 @@
 
 
     /**
-     * Function to retrieve full cPath from category ID 
+     * public function to retrieve full cPath from category ID 
      *
      * @param mixed $cID Could contain cPath or single category_id
      * @return string Full cPath string
      */
-     function GetFullcPath($cID){
+     public function GetFullcPath($cID){
 	   if ( preg_match('/_/', $cID) ){
          return $cID;
        } else {
@@ -336,12 +336,12 @@
 
 
     /**
-     * Recursion function to retrieve parent categories from category ID
+     * Recursion public function to retrieve parent categories from category ID
      *
      * @param mixed $categories Passed by reference
      * @param integer $categories_id
      */
-     function GetParentCategories(&$categories, $categories_id) {
+     public function GetParentCategories(&$categories, $categories_id) {
 
        $dbconn =& oosDBGetConn();
        $oostable =& oosDBGetTables();
@@ -366,12 +366,12 @@
 
 
     /**
-     * Utility function to read and return the contents of a GZ formatted file
+     * Utility public function to read and return the contents of a GZ formatted file
      *
      * @param string $file File to open
      * @return string
      */
-     function ReadGZ( $file ){
+     public function ReadGZ( $file ){
        $file = $this->savepath . $file;
        $lines = gzfile($file);
        return implode('', $lines);
@@ -379,11 +379,11 @@
 
 
     /**
-     * Utility function to generate the submit URL 
+     * Utility public function to generate the submit URL 
      *
      * @return string
      */
-     function GenerateSubmitURL(){
+     public function GenerateSubmitURL(){
        $url = urlencode($this->base_url . 'sitemapindex.xml');
        return htmlspecialchars(utf8_encode('http://www.google.com/webmasters/sitemaps/ping?sitemap=' . $url));
      }

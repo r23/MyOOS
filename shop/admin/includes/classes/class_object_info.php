@@ -25,10 +25,9 @@
   class objectInfo {
 
 // class constructor
-    function objectInfo($aObject) {
+	public function __construct($aObject) {
       foreach ($aObject as $key => $value) {
         $this->$key = $value;
       }
     }
   }
-?>

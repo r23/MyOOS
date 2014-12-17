@@ -32,7 +32,7 @@
     var $message_location;
 
 
-    function upload($file = '', $destination = '', $permissions = '644', $extensions = array('jpg', 'jpeg', 'gif', 'png', 'eps', 'cdr', 'ai', 'pdf', 'tif', 'tiff', 'bmp')) {
+	public function __construct($file = '', $destination = '', $permissions = '644', $extensions = array('jpg', 'jpeg', 'gif', 'png', 'eps', 'cdr', 'ai', 'pdf', 'tif', 'tiff', 'bmp')) {
       $this->set_file($file);
       $this->set_destination($destination);
       $this->set_permissions($permissions);
@@ -52,7 +52,7 @@
     }
 
 
-    function parse($key = '') {
+    public function parse($key = '') {
       global $oMessage, $aLang;
 
       if (isset($_FILES[$this->file])) {
@@ -119,7 +119,7 @@
       }
     }
 
-    function save() {
+    public function save() {
       global $oMessage, $aLang;
 
       if (substr($this->destination, -1) != '/') $this->destination .= '/';
@@ -141,27 +141,27 @@
       }
     }
 
-    function set_file($file) {
+    public function set_file($file) {
       $this->file = $file;
     }
 
-    function set_destination($destination) {
+    public function set_destination($destination) {
       $this->destination = $destination;
     }
 
-    function set_permissions($permissions) {
+    public function set_permissions($permissions) {
       $this->permissions = octdec($permissions);
     }
 
-    function set_filename($filename) {
+    public function set_filename($filename) {
       $this->filename = $filename;
     }
 
-    function set_tmp_filename($filename) {
+    public function set_tmp_filename($filename) {
       $this->tmp_filename = $filename;
     }
 
-    function set_extensions($extensions) {
+    public function set_extensions($extensions) {
       if (oos_is_not_null($extensions)) {
         if (is_array($extensions)) {
           $this->extensions = $extensions;
@@ -173,7 +173,7 @@
       }
     }
 
-    function check_destination() {
+    public function check_destination() {
       global $oMessage, $aLang;
 
       if (!is_writeable($this->destination)) {
@@ -197,7 +197,7 @@
       }
     }
 
-    function set_output_messages($location) {
+    public function set_output_messages($location) {
       switch ($location) {
         case 'session':
           $this->message_location = 'session';

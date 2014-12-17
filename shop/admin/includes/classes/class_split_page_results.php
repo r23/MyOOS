@@ -24,7 +24,7 @@
 
   class splitPageResults {
 
-    function splitPageResults(&$current_page_number, $max_rows_per_page, &$sql_result, &$query_num_rows) {
+    public function __construct(&$current_page_number, $max_rows_per_page, &$sql_result, &$query_num_rows) {
 
       // Get database information
       $dbconn =& oosDBGetConn();
@@ -59,7 +59,7 @@
     }
 
 
-    function display_links($query_numrows, $max_rows_per_page, $max_page_links, $current_page_number, $parameters = '', $page_name = 'page') {
+    public function display_links($query_numrows, $max_rows_per_page, $max_page_links, $current_page_number, $parameters = '', $page_name = 'page') {
 	  global $session;
 	  
       if ( oos_is_not_null($parameters) && (substr($parameters, -1) != '&') ) $parameters .= '&';
@@ -112,7 +112,7 @@
     }
 
 
-    function display_count($query_numrows, $max_rows_per_page, $current_page_number, $text_output) {
+    public function display_count($query_numrows, $max_rows_per_page, $current_page_number, $text_output) {
       $to_num = ($max_rows_per_page * $current_page_number);
       if ($to_num > $query_numrows) $to_num = $query_numrows;
       $from_num = ($max_rows_per_page * ($current_page_number - 1));

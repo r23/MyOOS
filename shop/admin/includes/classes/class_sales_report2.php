@@ -27,7 +27,7 @@
   class sales_report {
     var $mode, $globalStartDate, $startDate, $endDate, $actDate, $showDate, $showDateEnd, $sortString, $status, $outlet;
 
-    function sales_report($mode, $startDate = 0, $endDate = 0, $sort = 0, $statusFilter = 0, $filter = 0) {
+	public function __construct($mode, $startDate = 0, $endDate = 0, $sort = 0, $statusFilter = 0, $filter = 0) {
 
       // startDate and endDate have to be a unix timestamp. Use mktime !
       // if set then both have to be valid startDate and endDate
@@ -114,7 +114,7 @@
 
     }
 
-    function getNext() {
+    public function getNext() {
 
       // Get database information
       $dbconn =& oosDBGetConn();
@@ -251,4 +251,3 @@
     }
 }
 
-?>

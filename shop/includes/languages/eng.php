@@ -158,6 +158,7 @@ $aLang['type_below'] = 'Type Below';
 
 //newsletter
 $aLang['block_newsletters_subscribe'] = 'subscribe to our weekly <strong>newsletter</strong>';
+$aLang['block_newsletters_placeholder'] = 'Email your email...';
 $aLang['block_newsletters_unsubscribe'] = 'Unsubscribe';
 $aLang['entry_newsletter_no'] = 'No';
 $aLang['entry_newsletter_yes'] = 'Yes';

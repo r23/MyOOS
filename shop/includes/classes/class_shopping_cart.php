@@ -30,11 +30,11 @@
     var $cartID;
     var $content_type;
 
-    function shoppingCart() {
+	public function __construct() {
 		$this->reset();
     }
 
-    function restore_contents() {
+    public function restore_contents() {
 
       if (!isset($_SESSION['customer_id'])) return FALSE;
 
@@ -159,7 +159,7 @@
       $this->cleanup();
     }
 
-    function reset($reset_database = FALSE) {
+    public function reset($reset_database = FALSE) {
 
       $this->contents = array();
       $this->total = 0;
@@ -182,7 +182,7 @@
     }
 
 
-    function add_cart($products_id, $nQuantity = '1', $attributes = '', $notify = TRUE, $towlid = '') {
+    public function add_cart($products_id, $nQuantity = '1', $attributes = '', $notify = TRUE, $towlid = '') {
 
       // Get database information
       $dbconn =& oosDBGetConn();
@@ -292,7 +292,7 @@
     }
 
 
-    function update_quantity($products_id, $nQuantity = '', $attributes = '', $towlid = '') {
+    public function update_quantity($products_id, $nQuantity = '', $attributes = '', $towlid = '') {
 
       $sProductsId = oos_get_uprid($products_id, $attributes);
       $nProductsId = oos_get_product_id($sProductsId);
@@ -361,7 +361,7 @@
       }
     }
 
-    function cleanup() {
+    public function cleanup() {
 
       // Get database information
       $dbconn =& oosDBGetConn();
@@ -389,7 +389,7 @@
     }
 
 
-    function count_contents() {  // get total number of items in cart
+    public function count_contents() {  // get total number of items in cart
       $total_items = 0;
       if (is_array($this->contents)) {
         reset($this->contents);
@@ -402,7 +402,7 @@
     }
 
 
-    function get_quantity($products_id) {
+    public function get_quantity($products_id) {
       if (isset($this->contents[$products_id])) {
         $nQuantity = $this->contents[$products_id]['qty'];
         if (DECIMAL_CART_QUANTITY != 'true') {
@@ -414,7 +414,7 @@
       }
     }
 
-    function in_cart($products_id) {
+    public function in_cart($products_id) {
       if (isset($this->contents[$products_id])) {
         return true;
       } else {
@@ -422,7 +422,7 @@
       }
     }
 
-    function remove($products_id) {
+    public function remove($products_id) {
 
       // Get database information
       $dbconn =& oosDBGetConn();
@@ -441,11 +441,11 @@
       $this->cartID = $this->generate_cart_id();
     }
 
-    function remove_all() {
+    public function remove_all() {
       $this->reset();
     }
 
-    function get_product_id_list() {
+    public function get_product_id_list() {
       $product_id_list = '';
       if (is_array($this->contents)) {
         reset($this->contents);
@@ -457,7 +457,7 @@
       return substr($product_id_list, 2);
     }
 
-    function get_numeric_product_id_list() {
+    public function get_numeric_product_id_list() {
       $product_id_list = '';
       if (is_array($this->contents)) {
         reset($this->contents);
@@ -469,7 +469,7 @@
       return substr($product_id_list, 2);
     }
 
-    function calculate() {
+    public function calculate() {
 
       $this->total_virtual = 0; // Gift Voucher System
       $this->weight_virtual = 0;
@@ -557,7 +557,7 @@
     }
 
 
-    function products_price_actual($product_id, $actual_price, $products_qty) {
+    public function products_price_actual($product_id, $actual_price, $products_qty) {
 
       $new_price = $actual_price;
 
@@ -572,7 +572,7 @@
     }
 
 
-    function attributes_price($products_id) {
+    public function attributes_price($products_id) {
 
       $attributes_price = 0;
 
@@ -603,7 +603,7 @@
       return $attributes_price;
     }
 
-    function get_products() {
+    public function get_products() {
 
       if (!is_array($this->contents)) return FALSE;
 
@@ -677,36 +677,36 @@
       return $products_array;
     }
 
-    function show_total() {
+    public function show_total() {
       $this->calculate();
 
       return $this->total;
     }
 
-    function show_weight() {
+    public function show_weight() {
       $this->calculate();
 
       return $this->weight;
     }
 
-    function show_total_virtual() {
+    public function show_total_virtual() {
       $this->calculate();
 
       return $this->total_virtual;
     }
 
-    function show_weight_virtual() {
+    public function show_weight_virtual() {
       $this->calculate();
 
       return $this->weight_virtual;
     }
 
 
-    function generate_cart_id($length = 5) {
+    public function generate_cart_id($length = 5) {
       return oos_create_random_value($length, 'digits');
     }
 
-    function get_content_type() {
+    public function get_content_type() {
 
       $this->content_type = FALSE;
 
@@ -808,10 +808,10 @@
       return $this->content_type;
     }
 
-    function unserialize($broken) {
+    public function unserialize($broken) {
       for(reset($broken);$kv=each($broken);) {
         $key=$kv['key'];
-        if (gettype($this->$key)!="user function")
+        if (gettype($this->$key)!="user public function")
         $this->$key=$kv['value'];
       }
     }
@@ -824,7 +824,7 @@
     * which is less than or equal to MINIMUM_WEIGHT
     * otherwise we just don't count gift certificates
     */
-    function count_contents_virtual() {  // get total number of items in cart disregard gift vouchers
+    public function count_contents_virtual() {  // get total number of items in cart disregard gift vouchers
 
       // Get database information
       $dbconn =& oosDBGetConn();

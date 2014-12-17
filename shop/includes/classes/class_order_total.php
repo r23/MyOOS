@@ -26,7 +26,7 @@
     var $modules;
 
 // class constructor
-    function order_total() {
+	public function __construct() {
       global $aLang;
 
       if (defined('MODULE_ORDER_TOTAL_INSTALLED') && oos_is_not_null(MODULE_ORDER_TOTAL_INSTALLED)) {
@@ -45,7 +45,7 @@
       }
     }
 
-    function process() {
+    public function process() {
       $order_total_array = array();
       if (is_array($this->modules)) {
         reset($this->modules);
@@ -71,7 +71,7 @@
       return $order_total_array;
     }
 
-    function output() {
+    public function output() {
       $output_string = '';
       if (is_array($this->modules)) {
         reset($this->modules);
@@ -93,17 +93,17 @@
     }
 
    /**
-    * This function is called in checkout payment after display of payment methods. It actually calls
-    * two credit class functions.
+    * This public function is called in checkout payment after display of payment methods. It actually calls
+    * two credit class public functions.
     *
     * use_credit_amount() is normally a checkbox used to decide whether the credit amount should be applied to reduce
     * the order total. Whether this is a Gift Voucher, or discount coupon or reward points etc.
     *
-    * The second function called is credit_selection(). This in the credit classes already made is usually a redeem box.
+    * The second public function called is credit_selection(). This in the credit classes already made is usually a redeem box.
     * for entering a Gift Voucher number. Note credit classes can decide whether this part is displayed depending on
     * E.g. a setting in the admin section.
     */
-    function credit_selection() {
+    public function credit_selection() {
       global $aLang;
 
       $selection_string = '';
@@ -159,7 +159,7 @@
 
 
 
-    function sendFax(){
+    public function sendFax(){
 
       if (is_array($this->modules)) {
         reset($this->modules);
@@ -172,7 +172,7 @@
       }
     }
 
-    function sendSMS(){
+    public function sendSMS(){
 
       if (is_array($this->modules)) {
         reset($this->modules);
@@ -193,7 +193,7 @@
     * to the Gift Voucher account.
     * Another use would be to check if the product would give reward points and add these to the points/reward account.
     */
-    function update_credit_account($i) {
+    public function update_credit_account($i) {
       if (MODULE_ORDER_TOTAL_INSTALLED) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
@@ -207,13 +207,13 @@
 
 
    /**
-    * This function is called in checkout confirmation.
+    * This public function is called in checkout confirmation.
     * It's main use is for credit classes that use the credit_selection() method. This is usually for
-    * entering redeem codes(Gift Vouchers/Discount Coupons). This function is used to validate these codes.
+    * entering redeem codes(Gift Vouchers/Discount Coupons). This public function is used to validate these codes.
     * If they are valid then the necessary actions are taken, if not valid we are returned to checkout payment
     * with an error
     */
-    function collect_posts() {
+    public function collect_posts() {
 
       if (MODULE_ORDER_TOTAL_INSTALLED) {
         reset($this->modules);
@@ -229,12 +229,12 @@
     }
 
    /**
-    * pre_confirmation_check is called on checkout confirmation. It's function is to decide whether the
+    * pre_confirmation_check is called on checkout confirmation. It's public function is to decide whether the
     * credits available are greater than the order total. If they are then a variable (credit_covers) is set to
     * true. This is used to bypass the payment method. In other words if the Gift Voucher is more than the order
     * total, we don't want to go to paypal etc.
     */
-    function pre_confirmation_check() {
+    public function pre_confirmation_check() {
       global $payment, $oOrder, $credit_covers;
 
       $credit_covers = FALSE;
@@ -256,11 +256,11 @@
     }
 
    /**
-    * this function is called in checkout process. it tests whether a decision was made at checkout payment to use
+    * this public function is called in checkout process. it tests whether a decision was made at checkout payment to use
     * the credit amount be applied aginst the order. If so some action is taken. E.g. for a Gift voucher the account
     * is reduced the order total amount.
     */
-    function apply_credit() {
+    public function apply_credit() {
       if (MODULE_ORDER_TOTAL_INSTALLED) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
@@ -275,7 +275,7 @@
    /**
     * Called in checkout process to clear session variables created by each credit class module.
     */
-    function clear_posts() {
+    public function clear_posts() {
 
       if (MODULE_ORDER_TOTAL_INSTALLED) {
         reset($this->modules);
@@ -290,11 +290,11 @@
 
 
    /**
-    * Called at various times. This function calulates the total value of the order that the
+    * Called at various times. This public function calulates the total value of the order that the
     * credit will be appled aginst. This varies depending on whether the credit class applies
     * to shipping & tax
     */
-    function get_order_total_main($class, $order_total) {
+    public function get_order_total_main($class, $order_total) {
       global $credit, $oOrder;
 
       if ($GLOBALS[$class]->include_tax == 'false') $order_total=$order_total-$oOrder->info['tax'];

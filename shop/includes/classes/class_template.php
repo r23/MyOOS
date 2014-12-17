@@ -26,16 +26,13 @@ require_once MYOOS_INCLUDE_PATH . '/includes/lib/smarty/libs/Smarty.class.php';
  * @see Smarty, libs/Smarty/Smarty.class.php
  * @link http://smarty.net/manual/en/
  */
-class myOOS_Smarty extends Smarty
-{
+class myOOS_Smarty extends Smarty {
 
-	function trigger_error($error_msg, $error_type = E_USER_WARNING)
-	{
+	function trigger_error($error_msg, $error_type = E_USER_WARNING) {
 		throw new SmartyException($error_msg);
 	}
 
-	public function __construct()
-	{
+	public function __construct() {
 
 		// Class Constructor.
 		// These automatically get set with each new instance.
@@ -46,8 +43,7 @@ class myOOS_Smarty extends Smarty
 		$this->right_delimiter =  '}';
 
 		$dir = OOS_TEMP_PATH;
-		if (substr($dir, -1) != "/")
-		{
+		if (substr($dir, -1) != "/") {
 			$dir = $dir."/";
 		}
 

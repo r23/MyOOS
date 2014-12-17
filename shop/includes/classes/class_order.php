@@ -29,7 +29,7 @@
     var $delivery;
     var $content_type;
 
-    function order($order_id = '') {
+	public function __construct( $order_id = '') {
       $this->info = array();
       $this->totals = array();
       $this->products = array();
@@ -43,7 +43,7 @@
       }
     }
 
-    function query($order_id) {
+    public function query($order_id) {
 
       $order_id = oos_db_prepare_input($order_id);
       $nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_LANGUAGE_ID;
@@ -208,7 +208,7 @@
       $orders_products_result->Close();
     }
 
-    function cart() {
+    public function cart() {
       global $oCurrencies;
 
       $this->content_type = $_SESSION['cart']->get_content_type();

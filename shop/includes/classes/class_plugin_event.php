@@ -23,7 +23,7 @@
   class plugin_event {
     var $aEventPlugins, $aPlugins;
 
-    function plugin_event() {
+	public function __construct() {
       $this->aEventPlugins = explode(';', MODULE_PLUGIN_EVENT_INSTALLED);
     }
 

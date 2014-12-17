@@ -25,7 +25,7 @@
     var $keys;
 
 // class constructor
-    function paymentModuleInfo($pmInfo_array) {
+	public function __construct($pmInfo_array) {
 
       $this->payment_code = $pmInfo_array['payment_code'];
 
@@ -47,4 +47,3 @@
       }
     }
   }
-?>

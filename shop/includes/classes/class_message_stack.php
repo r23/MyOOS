@@ -30,7 +30,7 @@
 
   class messageStack {
 
-    function messageStack() {
+    public function __construct() {
       global $messageToStack;
 
       $this->messages = array();
@@ -45,11 +45,11 @@
     }
 
 // class methods
-    function add($class, $message, $type = 'error') {
+    public function add($class, $message, $type = 'error') {
       $this->messages[] = array('class' => $class, 'type' => $type, 'text' => $message);
     }
 
-    function add_session($class, $message, $type = 'error') {
+    public function add_session($class, $message, $type = 'error') {
 
       if (!isset($_SESSION['messageToStack'])) {
         $messageToStack = array();
@@ -62,11 +62,11 @@
       $this->add($class, $message, $type);
     }
 
-    function reset() {
+    public function reset() {
       $this->messages = array();
     }
 
-    function output($class) {
+    public function output($class) {
       $output = array();
       for ($i=0, $n=count($this->messages); $i<$n; $i++) {
         if ($this->messages[$i]['class'] == $class) {
@@ -77,7 +77,7 @@
       return $output;
     }
 
-    function size($class) {
+    public function size($class) {
       $count = 0;
 
       for ($i=0, $n=count($this->messages); $i<$n; $i++) {

@@ -25,7 +25,7 @@
     var $modules;
 
 // class constructor
-    function shipping($module = '') {
+   public function __construct($module = '') {
       global $aLang;
 
       if (defined('MODULE_SHIPPING_INSTALLED') && oos_is_not_null(MODULE_SHIPPING_INSTALLED)) {
@@ -54,7 +54,7 @@
       }
     }
 
-    function quote($method = '', $module = '') {
+    public function quote($method = '', $module = '') {
       global $total_weight, $shipping_weight, $shipping_quoted, $shipping_num_boxes;
 
       $quotes_array = array();
@@ -99,7 +99,7 @@
       return $quotes_array;
     }
 
-    function cheapest() {
+    public function cheapest() {
       if (is_array($this->modules)) {
         $rates = array();
 

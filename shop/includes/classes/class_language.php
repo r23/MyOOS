@@ -30,7 +30,7 @@ class language {
     var $languages;
     var $_languages = array();
 
-    function language() {
+    public function __construct() {
 
         $dbconn =& oosDBGetConn();
         $oostable =& oosDBGetTables();

@@ -26,7 +26,7 @@
     var $currencies;
 
 // class constructor
-    function currencies() {
+	public function __construct() {
 
       $this->currencies = array();
 
@@ -52,7 +52,7 @@
     }
 
 // class methods
-    function format($number, $calculate_currency_value = true, $currency_type = DEFAULT_CURRENCY, $currency_value = '') {
+    public function format($number, $calculate_currency_value = true, $currency_type = DEFAULT_CURRENCY, $currency_value = '') {
       if ($calculate_currency_value) {
         $rate = ($currency_value) ? $currency_value : $this->currencies[$currency_type]['value'];
         $format_string = $this->currencies[$currency_type]['symbol_left'] . number_format($number * $rate, $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$currency_type]['thousands_point']) . $this->currencies[$currency_type]['symbol_right'];
@@ -62,22 +62,20 @@
       return $format_string;
     }
 
-    function format_prm($number) {
+    public function format_prm($number) {
       $format_string = number_format($number, 2, ',', '');
       return $format_string;
     }
 
-    function get_value($code) {
+    public function get_value($code) {
       return $this->currencies[$code]['value'];
     }
 
-    function display_price($products_price, $products_tax, $quantity = 1) {
+    public function display_price($products_price, $products_tax, $quantity = 1) {
       return $this->format(oos_add_tax($products_price, $products_tax) * $quantity);
     }
 
-    function psm_price($products_price, $products_tax, $quantity = 1) {
+    public function psm_price($products_price, $products_tax, $quantity = 1) {
       return $this->format_prm(oos_add_tax($products_price, $products_tax) * $quantity);
     }
   }
-
-?>

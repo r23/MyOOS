@@ -45,7 +45,7 @@
      * @access    public
      * @author    r23 <info@r23.de>
      */
-      function oosProductsHistory() {
+     public function __construct() {
         $this->reset();
       }
 
@@ -53,7 +53,7 @@
      /**
      * @param $products_id
      */
-      function add_current_products($products_id) {
+      public function add_current_products($products_id) {
         if (!$this->in_history($products_id)) {
           if ($this->count_history() >= MAX_DISPLAY_PRODUCTS_IN_PRODUCTS_HISTORY_BOX) {
             $temp = array_shift($this->products_history); 
@@ -67,7 +67,7 @@
      * @param $products_id
      * @return boolean
      */
-      function in_history($products_id) {
+      public function in_history($products_id) {
         if (in_array ($products_id, $this->products_history)) {
           return true;
         } else {
@@ -79,7 +79,7 @@
      /**
      * get total number of products
      */
-      function count_history() {
+      public function count_history() {
         return count($this->products_history);
       }
 
@@ -87,7 +87,7 @@
      /**
      * get Product's id
      */
-      function get_product_id_list() {
+      public function get_product_id_list() {
         $product_id_list = '';
         if (is_array($this->products_history)) {
           reset($this->products_history);
@@ -103,7 +103,7 @@
      /**
      *
      */
-      function reset() {
+      public function reset() {
         $this->products_history = array();
       }
     }

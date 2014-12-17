@@ -24,7 +24,7 @@
   class currencies {
     var $currencies;
 
-    function currencies() {
+	public function __construct() {
 
       $this->currencies = array();
 
@@ -43,7 +43,7 @@
       }
     }
 
-    function format($number, $calculate_currency_value = TRUE, $currency_type = '', $currency_value = '') {
+    public function format($number, $calculate_currency_value = TRUE, $currency_type = '', $currency_value = '') {
 
       if (empty($currency_type) || ($this->exists($currency_type) == FALSE)) {
         $currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
@@ -60,7 +60,7 @@
     }
 
 
-    function exists($code) {
+    public function exists($code) {
       if (isset($this->currencies[$code])) {
         return true;
       }
@@ -68,19 +68,19 @@
       return FALSE;
     }
 
-    function get_value($code) {
+    public function get_value($code) {
       return $this->currencies[$code]['value'];
     }
 
-    function get_decimal_places($code) {
+    public function get_decimal_places($code) {
       return $this->currencies[$code]['decimal_places'];
     }
 
-    function get_currencies_info($code) {
+    public function get_currencies_info($code) {
       return $this->currencies[$code];
     }
 
-    function display_price($products_price, $products_tax, $quantity = 1) {
+    public function display_price($products_price, $products_tax, $quantity = 1) {
       global $oEvent, $aLang;
 
       $show_what_price = '';

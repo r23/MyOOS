@@ -46,7 +46,7 @@
         $category_product_count_start_string = '&nbsp;(',
         $category_product_count_end_string = ')';
 
-    function oosCategoryTree() {
+    public function __construct() {
 
       if (SHOW_COUNTS == 'true') {
         $this->show_category_product_count = TRUE;
@@ -86,7 +86,7 @@
       }
     }
 
-    function setData(&$data_array) {
+    public function setData(&$data_array) {
       if (is_array($data_array)) {
         $this->data = array();
 
@@ -96,7 +96,7 @@
       }
     }
 
-    function buildBranch($parent_id, $level = 0) {
+    public function buildBranch($parent_id, $level = 0) {
       $result = $this->parent_group_start_string;
 
       $aContents = oos_get_content();
@@ -179,7 +179,7 @@
     }
 
 
-    function buildBranchArray($parent_id, $level = 0, $result = '') {
+    public function buildBranchArray($parent_id, $level = 0, $result = '') {
       if (empty($result)) {
         $result = array();
       }
@@ -211,7 +211,7 @@
     }
 
 
-    function buildBreadcrumb($category_id, $level = 0) {
+    public function buildBreadcrumb($category_id, $level = 0) {
       $breadcrumb = '';
 
       foreach ($this->data as $parent => $categories) {
@@ -233,15 +233,15 @@
       return $breadcrumb;
     }
 
-    function buildTree() {
+    public function buildTree() {
       return $this->buildBranch($this->root_category_id);
     }
 
-    function getTree($parent_id = '') {
+    public function getTree($parent_id = '') {
       return $this->buildBranchArray((empty($parent_id) ? $this->root_category_id : $parent_id));
     }
 
-    function calculateCategoryProductCount() {
+    public function calculateCategoryProductCount() {
       foreach ($this->data as $parent => $categories) {
         foreach ($categories as $id => $info) {
           $this->data[$parent][$id]['count'] = $this->countCategoryProducts($id);
@@ -263,7 +263,7 @@
       }
     }
 
-    function countCategoryProducts($category_id) {
+    public function countCategoryProducts($category_id) {
 
       // Get database information
       $dbconn =& oosDBGetConn();
@@ -283,39 +283,39 @@
       return $count;
     }
 
-    function setRootCategoryID($root_category_id) {
+    public function setRootCategoryID($root_category_id) {
       $this->root_category_id = $root_category_id;
     }
 
-    function setMaximumLevel($max_level) {
+    public function setMaximumLevel($max_level) {
       $this->max_level = $max_level;
     }
 
-    function setRootString($root_start_string, $root_end_string) {
+    public function setRootString($root_start_string, $root_end_string) {
       $this->root_start_string = $root_start_string;
       $this->root_end_string = $root_end_string;
     }
 
-    function setParentString($parent_start_string, $parent_end_string) {
+    public function setParentString($parent_start_string, $parent_end_string) {
       $this->parent_start_string = $parent_start_string;
       $this->parent_end_string = $parent_end_string;
     }
 
-    function setParentGroupString($parent_group_start_string, $parent_group_end_string) {
+    public function setParentGroupString($parent_group_start_string, $parent_group_end_string) {
       $this->parent_group_start_string = $parent_group_start_string;
       $this->parent_group_end_string = $parent_group_end_string;
     }
 
-    function setChildString($child_start_string, $child_end_string) {
+    public function setChildString($child_start_string, $child_end_string) {
       $this->child_start_string = $child_start_string;
       $this->child_end_string = $child_end_string;
     }
 
-    function setBreadcrumbSeparator($breadcrumb_separator) {
+    public function setBreadcrumbSeparator($breadcrumb_separator) {
       $this->breadcrumb_separator = $breadcrumb_separator;
     }
 
-    function setBreadcrumbUsage($breadcrumb_usage) {
+    public function setBreadcrumbUsage($breadcrumb_usage) {
       if ($breadcrumb_usage === TRUE) {
         $this->breadcrumb_usage = TRUE;
       } else {
@@ -323,19 +323,19 @@
       }
     }
 
-    function setSpacerString($spacer_string, $spacer_multiplier = 2) {
+    public function setSpacerString($spacer_string, $spacer_multiplier = 2) {
       $this->spacer_string = $spacer_string;
       $this->spacer_multiplier = $spacer_multiplier;
     }
 
-    function setCategoryPath($cpath, $cpath_start_string = '', $cpath_end_string = '') {
+    public function setCategoryPath($cpath, $cpath_start_string = '', $cpath_end_string = '') {
       $this->follow_cpath = TRUE;
       $this->cpath_array = explode($this->breadcrumb_separator, $cpath);
       $this->cpath_start_string = $cpath_start_string;
       $this->cpath_end_string = $cpath_end_string;
     }
 
-    function setFollowCategoryPath($follow_cpath) {
+    public function setFollowCategoryPath($follow_cpath) {
       if ($follow_cpath === TRUE) {
         $this->follow_cpath = TRUE;
       } else {
@@ -343,12 +343,12 @@
       }
     }
 
-    function setCategoryPathString($cpath_start_string, $cpath_end_string) {
+    public function setCategoryPathString($cpath_start_string, $cpath_end_string) {
       $this->cpath_start_string = $cpath_start_string;
       $this->cpath_end_string = $cpath_end_string;
     }
 
-    function setShowCategoryProductCount($show_category_product_count) {
+    public function setShowCategoryProductCount($show_category_product_count) {
       if ($show_category_product_count === TRUE) {
         $this->show_category_product_count = TRUE;
       } else {
@@ -356,7 +356,7 @@
       }
     }
 
-    function setShowImageFolder($show_image_folder) {
+    public function setShowImageFolder($show_image_folder) {
       if ($show_image_folder === TRUE) {
         $this->show_image_folder = TRUE;
       } else {
@@ -364,7 +364,7 @@
       }
     }
 
-    function setCategoryProductCountString($category_product_count_start_string, $category_product_count_end_string) {
+    public function setCategoryProductCountString($category_product_count_start_string, $category_product_count_end_string) {
       $this->category_product_count_start_string = $category_product_count_start_string;
       $this->category_product_count_end_string = $category_product_count_end_string;
     }
