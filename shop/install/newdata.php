@@ -733,8 +733,7 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "page_type (page_type_id
 $result = $db->Execute("INSERT INTO " . $prefix_table . "page_type (page_type_id, page_type_languages_id, page_type_name) VALUES (3, 2, 'Products')") OR die ("<b>".NOTUPDATED . $prefix_table . "page_type</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "page_type (page_type_id, page_type_languages_id, page_type_name) VALUES (3, 1, 'Produkte')") OR die ("<b>".NOTUPDATED . $prefix_table . "page_type</b>");
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "page_type (page_type_id, page_type_languages_id, page_type_name) VALUES (4, 2, 'News')") OR die ("<b>".NOTUPDATED . $prefix_table . "page_type</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "page_type (page_type_id, page_type_languages_id, page_type_name) VALUES (4, 1, 'News')") OR die ("<b>".NOTUPDATED . $prefix_table . "page_type</b>");
+// news 
 
 $result = $db->Execute("INSERT INTO " . $prefix_table . "page_type (page_type_id, page_type_languages_id, page_type_name) VALUES (5, 2, 'Service')") OR die ("<b>".NOTUPDATED . $prefix_table . "page_type</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "page_type (page_type_id, page_type_languages_id, page_type_name) VALUES (5, 1, 'Service')") OR die ("<b>".NOTUPDATED . $prefix_table . "page_type</b>");

@@ -1,8 +1,8 @@
-    <!-- Newsletter -->
+    <!-- newsletter -->
     <div class="subscribe">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 md-margin-bottom-20">
+                <div class="col-md-8">
                     <h2>{$lang.block_newsletters_subscribe}</h2>
                 </div>  
                 <div class="col-md-4">
@@ -16,4 +16,4 @@
             </div>
         </div><!--end container-->
     </div>
-    <!-- End Newsletter ===-->
+    <!-- end newsletter ===-->

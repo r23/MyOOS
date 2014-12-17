@@ -13,7 +13,13 @@
 	<div class="container">  
         <div class="row">
             <div class="col-md-3">
-			{foreach $sidebar as $panel}
+							<div class="widget">
+					<form class="form-search">
+						<input placeholder="Type something" type="text" class="input-medium search-query">
+						<button type="submit" class="btn btn-square btn-theme">Search</button>
+					</form>
+				</div>
+			{foreach $sidebar as $panel}				
 				{if $panel.content}
 					<div class="panel-group" id="accordion-v{$panel@iteration}">
 						{$panel.content}
@@ -112,5 +118,9 @@
     </table></td>
   </tr>
 </table>
+
+{if $smarty.const.NEWSLETTER eq true}
+	{include file="phoenix/system/_newsletter.tpl"}
+{/if}
 
 {include file="phoenix/system/_footer.tpl"}
