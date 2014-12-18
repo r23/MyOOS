@@ -636,19 +636,6 @@ $flds = "
 dosql($table, $flds);
 
 
-$table = $prefix_table . 'maillist';
-$flds = "
-   maillist_id I NOTNULL AUTO PRIMARY,
-   customers_gender C(1) NOTNULL,
-   customers_firstname C(32) NOTNULL,
-   customers_lastname C(32) NOTNULL,
-   customers_email_address C(96) NOTNULL,
-   customers_newsletter C(1) DEFAULT '0',
-   customers_actkey C(32)
-";
-dosql($table, $flds);
-
-
 $table = $prefix_table . 'manual_info';
 $flds = "
   man_info_id I NOTNULL AUTO PRIMARY,
@@ -709,6 +696,31 @@ $flds = "
 dosql($table, $flds);
 
 
+$table = $prefix_table . 'newsletter_recipients';
+$flds = "
+	recipients_id I NOTNULL AUTO PRIMARY,
+	customers_gender C(1) NOTNULL,
+	customers_firstname C(32) NOTNULL,
+	customers_lastname C(32) NOTNULL,
+	customers_email_address C(96) NOTNULL,
+	date_added T,
+	man_key C(32) NOTNULL,
+	key_sent T,
+	status I1 DEFAULT '0'
+";
+dosql($table, $flds);
+
+
+$table = $prefix_table . 'newsletter_recipients_history';
+$flds = "
+  recipients_status_history_id I NOTNULL AUTO PRIMARY,
+  recipients_id I NOTNULL DEFAULT '0',
+  new_value I1 NOTNULL DEFAULT '0',
+  old_value I1 DEFAULT NULL,
+  date_added T,
+  customer_notified I1 DEFAULT '0'
+";
+dosql($table, $flds);
 
 
 

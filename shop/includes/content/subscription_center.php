@@ -48,14 +48,14 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
                     WHERE customers_id = '" . $check_customer['customers_id'] . "'");
       oos_redirect(oos_href_link($aContents['newsletters_unsubscribe_success']));
     } else {
-      $maillisttable = $oostable['maillist'];
+      $newsletter_recipientstable = $oostable['newsletter_recipients'];
       $sql = "SELECT customers_firstname
-              FROM $maillisttable
+              FROM $newsletter_recipientstable
               WHERE customers_email_address = '" . oos_db_input($email_address) . "'";
       $check_mail_customer_result = $dbconn->Execute($sql);
       if ($check_mail_customer_result->RecordCount()) {
-        $maillisttable = $oostable['maillist'];
-        $dbconn->Execute("UPDATE $maillisttable
+        $newsletter_recipientstable = $oostable['newsletter_recipients'];
+        $dbconn->Execute("UPDATE $newsletter_recipientstable
                           SET customers_newsletter = '0'
                           WHERE customers_email_address = '" . oos_db_input($email_address) . "'");
         oos_redirect(oos_href_link($aContents['newsletters_unsubscribe_success']));

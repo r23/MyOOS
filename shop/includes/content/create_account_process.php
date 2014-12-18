@@ -404,13 +404,13 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php'
                                                               '0',
                                                               now())");
 
-    $maillisttable = $oostable['maillist'];
+    $newsletter_recipientstable = $oostable['newsletter_recipients'];
     $sql = "SELECT customers_firstname
-            FROM $maillisttable
+            FROM $newsletter_recipientstable
             WHERE customers_email_address = '" . oos_db_input($email_address) . "'";
     $check_mail_customer_result = $dbconn->Execute($sql);
     if ($check_mail_customer_result->RecordCount()) {
-      $dbconn->Execute("UPDATE " . $oostable['maillist'] . "
+      $dbconn->Execute("UPDATE " . $oostable['newsletter_recipients'] . "
                     SET customers_newsletter = '0' 
                     WHERE customers_email_address = '" . oos_db_input($email_address) . "'");
     }
