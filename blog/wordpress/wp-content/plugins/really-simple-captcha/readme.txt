@@ -2,9 +2,9 @@
 Contributors: takayukister
 Donate link: http://contactform7.com/donate/
 Tags: captcha
-Requires at least: 3.7
-Tested up to: 3.8.1
-Stable tag: 1.8
+Requires at least: 3.9
+Tested up to: 4.1
+Stable tag: 1.8.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,23 +91,12 @@ If you have any further questions, please submit them [to the support forum](htt
 
 == Changelog ==
 
+= 1.8.0.1 =
+
+* The required WordPress version changed to 3.9 and higher.
+* Tested on WordPress 4.1.
+
 = 1.8 =
 
 * The required WordPress version changed to 3.7 and higher.
 * Introduce normalize_path() to normalize file paths on different file systems.
-
-= 1.7 =
-
-* The required WordPress version changed to 3.5 and higher.
-* Remove spaces from response automatically as some users misthink there are spaces between letters.
-
-= 1.6 =
-
-* Bundled font changed to Gentium Basic 1.1.
-* Some workarounds for infrequently reported problems on Windows server.
-* Do temp file cleanup every time before generating CAPTCHA image.
-
-= 1.5 =
-
-* The required WordPress version changed to 3.2 and higher.
-* Use plain text file as answer file (again). This time, hash value generated with hash_hmac() is stored in the file.
