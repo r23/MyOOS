@@ -27,8 +27,11 @@ if(!defined('OOS_VALID_MOD'))die('Direct Access to this location is not allowed.
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/newsletters.php';
 // require  validation functions (right now only email address)
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
+// require  the password crypto functions
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 
-if ( isset($_POST['action']) && ($_POST['action'] == 'process'){
+
+if ( isset($_POST['action']) && ($_POST['action'] == 'process') {
 
     $email_address = oos_prepare_input($_POST['email_address']);
 
@@ -79,21 +82,96 @@ dosql($table, $flds);
 */
 	
 	
-      $customerstable = $oostable['customers'];
-      $sql = "SELECT customers_firstname, customers_lastname, customers_id
-              FROM " .$customerstable . "
+		$newsletter_recipients = $oostable['newsletter_recipients'];
+		$sql = "SELECT recipients_id
+              FROM $newsletter_recipients
               WHERE customers_email_address = '" . oos_db_input($email_address) . "'";
-      $check_customer_result = $dbconn->Execute($sql);
+		$check_recipients_result = $dbconn->Execute($sql);
 
-      if ($check_customer_result->RecordCount()) {
-        $check_customer = $check_customer_result->fields;
-//todo opt - in 
+		if ($check_recipients_result->RecordCount()) {
+			$check_recipients = $check_customer_result->fields;
+
+			// start the session
+			if ( $session->hasStarted() === FALSE ) $session->start();	
+	
+			$_SESSION['error_message'] = $aLang['entry_email_address_error_exists'];
+			oos_redirect(oos_href_link($aContents['newsletters'], '', 'SSL'));		
+		} else {
+			$random = oos_create_random_value(25);
+			$befor = oos_create_random_value(4);
+			
+/subscribe/confirm?u=$befor_insert_id_f00d&e=$random		
+		
+			$newsletter_recipients = $oostable['newsletter_recipients'];
+			$dbconn->Execute("INSERT INTO $newsletter_recipients 
+                            (customers_email_address, man_key, key_sent, status) VALUES ('" . oos_db_input($email_address) . "'
+																						'" . oos_db_input($random) . "'
+																						now(),
+																						'0')");
+
+			$insert_id = $dbconn->Insert_ID();	  
+			$newsletter_recipients = $oostable['newsletter_recipients_history'];
+			$dbconn->Execute("INSERT INTO $newsletter_recipients 
+                          (recipients_id, date_added) VALUES ('" . intval($insert_id) . "',
+                                                      now(),
+                                                      '" . oos_db_input($remote) . "')");	  
+	  
+        // Crypted password mods - create a new password, update the database and mail it to them
+        $newpass = oos_create_random_value(25);
+        $crypted_password = oos_encrypt_password($newpass);
+
         $customerstable = $oostable['customers'];
         $dbconn->Execute("UPDATE $customerstable
-						  SET customers_newsletter = '1'
-						  WHERE customers_id = '" . $check_customer['customers_id'] . "'");
-        oos_redirect(oos_href_link($aContents['newsletters_subscribe_success']));
-      } else {
+                        SET customers_password = '" . oos_db_input($crypted_password) . "'
+                        WHERE customers_id = '" . $check_customer['customers_id'] . "'");
+
+		$customers_name = $check_customer['customers_firstname'] . '. ' . $check_customer['customers_lastname'];				
+						
+		switch ($check_customer['customers_gender']) {
+			case 'm':
+				$sGreet = sprintf ($aLang['email_greet_mr'], $customers_name);
+				break;
+			case 'f':
+				$sGreet = sprintf ($aLang['email_greet_ms'], $customers_name);
+				break;
+			default:
+				$sGreet = $aLang['email_greet_none'];
+		}
+					
+		//smarty
+		require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
+		$smarty = new myOOS_Smarty();						
+
+		// dont allow cache
+		$smarty->caching = false;
+
+		$smarty->assign(
+			array(
+				'shop_name'		=> STORE_NAME,
+				'shop_url'		=> OOS_HTTP_SERVER . OOS_SHOP,
+				'shop_logo'		=> STORE_LOGO,
+				'services_url'	=> COMMUNITY,
+				'blog_url'		=> BLOG_URL,
+				'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', 'NONSSL', FALSE, TRUE),
+				'login_url'		=> oos_href_link($aContents['login'], '', 'SSL', FALSE, TRUE),
+				'greet'			=> $sGreet,
+				'password' 		=> $newpass
+			)
+		);
+
+		// create mails	
+		$email_html = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/password_forgotten.html');
+		$email_txt = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/password_forgotten.tpl');
+		
+        oos_mail($check_customer['customers_firstname'] . " " . $check_customer['customers_lastname'], $email_address, $aLang['email_password_reminder_subject'], $email_txt, $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+ 
+		$_SESSION['password_forgotten_count'] = 1;
+        $_SESSION['success_message'] = $aLang['text_password_sent'];
+        oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));	  
+	  
+	  
+	  
+	  
         $newsletter_recipientstable = $oostable['newsletter_recipients'];
         $sql = "SELECT customers_firstname
                 FROM " . $newsletter_recipientstable . "

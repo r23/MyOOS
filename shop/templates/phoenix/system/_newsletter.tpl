@@ -13,11 +13,12 @@
 						<input type="hidden" name="action" value="process">
 						<input type="hidden" name="content" value="{$filename.newsletters}">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="{$lang.block_newsletters_placeholder}">
+                        <input type="text" class="form-control" name="email_address" placeholder="{$lang.block_newsletters_placeholder}">
                         <span class="input-group-btn">
                             <button class="btn" type="button"><i class="fa fa-envelope-o"></i></button>
                         </span>
-                    </div>    
+                    </div>
+				</form>
                 </div>
             </div>
         </div><!--end container-->
