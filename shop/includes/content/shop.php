@@ -59,6 +59,7 @@
     $aTemplate['page_heading'] = $sTheme . '/system/nested_heading.html';
 
     $nPageType = OOS_PAGE_TYPE_CATALOG;
+	$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
     $sGroup = trim($_SESSION['user']->group['text']);
     $nContentCacheID = $sTheme . '|shop|nested|' . intval($nCurrentCategoryId) . '|' . $sCategory . '|' . $sGroup . '|' . $sLanguage;
@@ -190,6 +191,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
     $aTemplate['pagination'] = $sTheme . '/system/_pagination.tpl';
 
     $nPageType = OOS_PAGE_TYPE_CATALOG;
+	$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
     $nManufacturersID = isset($_GET['manufacturers_id']) ? $_GET['manufacturers_id']+0 : 0;
     $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;

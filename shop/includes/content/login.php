@@ -146,6 +146,7 @@ if (isset($_SESSION) && is_object($_SESSION['cart']) && ($_SESSION['cart']->coun
 $aTemplate['page'] = $sTheme . '/page/user_login.html';
 
 $nPageType = OOS_PAGE_TYPE_SERVICE;
+$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {

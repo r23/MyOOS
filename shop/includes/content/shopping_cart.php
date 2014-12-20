@@ -112,6 +112,7 @@ $sCanonical = oos_href_link($aContents['shopping_cart'], '', 'NONSSL', FALSE, TR
 $aTemplate['page'] = $sTheme . '/page/shopping_cart.html';
 
 $nPageType = OOS_PAGE_TYPE_CATALOG;
+$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {

@@ -33,7 +33,7 @@ if (is_readable('includes/local/configure.php')) {
 }
 
 // Version information
-define('OOS_VERSION', '2.0.33 -dev');
+define('OOS_VERSION', '2.0.34 -dev');
 // Complete software name string
 define('OOS_FULL_NAME', 'MyOOS ' . OOS_VERSION);
 
@@ -282,5 +282,3 @@ if ( isset($_GET['action']) || isset($_POST['action']) ) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/cart_actions.php';
 }
 
-// infobox
-require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_coupon.php';

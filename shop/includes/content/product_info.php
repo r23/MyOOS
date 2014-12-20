@@ -59,6 +59,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
     $aTemplate['page'] = $sTheme . '/page/info.html';
 
     $nPageType = OOS_PAGE_TYPE_PRODUCTS;
+	$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
     require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
     if (!isset($option)) {
@@ -104,6 +105,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
     $aTemplate['page_heading'] = $sTheme . '/products/product_heading.html';
 
     $nPageType = OOS_PAGE_TYPE_PRODUCTS;
+	$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
     require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
     if (!isset($option)) {

@@ -46,6 +46,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/review
   $aTemplate['pagination'] = $sTheme . '/system/_pagination.tpl';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
+  $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
   $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
   $sGroup = trim($_SESSION['user']->group['text']);

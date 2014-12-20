@@ -109,6 +109,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
   $aTemplate['page'] = $sTheme . '/page/address_book.html';
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
+  $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
   require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
   if (!isset($option)) {

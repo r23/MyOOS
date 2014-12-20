@@ -27,6 +27,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/info_d
 $aTemplate['page'] = $sTheme . '/page/info.html';
 
 $nPageType = OOS_PAGE_TYPE_MAINPAGE;
+$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
+
 $nContentCacheID = $sTheme . '|down_for_maintenance|' . $sLanguage;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';

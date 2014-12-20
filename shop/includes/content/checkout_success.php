@@ -99,6 +99,7 @@ if ( $session->hasStarted() === FALSE ) $session->start();
   $aTemplate['page_heading'] = $sTheme . '/page/checkout_success_page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
+  $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
   require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
   if (!isset($option)) {

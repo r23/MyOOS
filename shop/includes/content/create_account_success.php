@@ -36,6 +36,7 @@
   $aTemplate['page'] = $sTheme . '/page/user_create_account_success.html';
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
+  $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
   require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
   if (!isset($option)) {

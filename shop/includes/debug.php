@@ -38,7 +38,6 @@
   *
   * send 404 error reporting email to the webmaster
   */
-  define('SEND_404_ERROR', 'true');
   define('WEBMASTER_NAME', STORE_OWNER);
   define('WEBMASTER_EMAIL_ADDRESS', STORE_OWNER_EMAIL_ADDRESS);
   define('REPORTLEVEL_404', '2');   // 0 = don't use the email capabilities at all
@@ -100,10 +99,12 @@
 
       @error_log($sErr, 3, OOS_TEMP_PATH . 'logs/php_error.log');
 
+	  // todo - send mail
+	  /*
       if ($sErrNo == E_USER_ERROR){
         oos_mail(WEBMASTER_NAME, WEBMASTER_NAME_EMAIL_ADDRESS, '[ERROR] Critical User Error', nl2br($sErr), WEBMASTER_NAME, WEBMASTER_NAME_EMAIL_ADDRESS, '1');
       }
+	  */
     }
   }
 
-?>

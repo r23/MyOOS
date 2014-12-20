@@ -24,6 +24,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 $aTemplate['page'] = $sTheme . '/page/information.html';
 
 $nPageType = OOS_PAGE_TYPE_MAINPAGE;
+$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
   
 $nInformationsID = isset($_GET[information_id]) ? $_GET[information_id]+0 : 1;
 $sGroup = trim($_SESSION['user']->group['text']);

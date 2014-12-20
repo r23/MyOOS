@@ -253,6 +253,7 @@ if ($_SESSION['navigation']->snapshot['content'] != $aContents['account_address_
   $aTemplate['page'] = $sTheme . '/page/address_book_process.html';
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
+  $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
   require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
   if (!isset($option)) {

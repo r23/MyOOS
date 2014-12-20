@@ -58,10 +58,10 @@ $aContents['shopping_cart'] = $prefix_filename . 'shopping_cart';
 $aContents['wishlist'] = $prefix_filename . 'wishlist';
 $aContents['contact_us'] = $prefix_filename . 'contact_us';
 
-//newsletters
-$aContents['newsletters'] = $prefix_filename . 'newsletters';
-$aContents['newsletters_subscribe'] = $prefix_filename . 'newsletters_subscribe';
-$aContents['newsletters_unsubscribe'] = $prefix_filename . 'newsletters_unsubscribe';
+//newsletter
+$aContents['newsletter'] = $prefix_filename . 'newsletter';
+$aContents['newsletter_subscribe'] = $prefix_filename . 'newsletter_subscribe';
+$aContents['newsletter_unsubscribe'] = $prefix_filename . 'newsletter_unsubscribe';
 $aContents['subscription_center'] = $prefix_filename . 'subscription_center';
 
 //products

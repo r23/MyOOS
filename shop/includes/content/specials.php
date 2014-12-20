@@ -25,13 +25,15 @@
     oos_redirect(oos_href_link($aContents['main']));
   }
 
-require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php'; 
+  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php'; 
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_specials.php';
 
   $aTemplate['page'] = $sTheme . '/products/specials.html';
   $aTemplate['pagination'] = $sTheme . '/system/_pagination.tpl';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
+  $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
+  
   $sGroup = trim($_SESSION['user']->group['text']);
   $nPage = isset($_GET[page]) ? $_GET[page]+0 : 1;
   $nContentCacheID = $sTheme . '|info|' . $sGroup . '|spezials|' . $nPage . '|' . $sLanguage;

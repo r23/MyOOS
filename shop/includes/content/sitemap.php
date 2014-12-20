@@ -26,6 +26,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/sitema
 $aTemplate['page'] = $sTheme . '/page/sitemap.html';
 
 $nPageType = OOS_PAGE_TYPE_MAINPAGE;
+$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 $sGroup = trim($_SESSION['user']->group['text']);
 $nContentCacheID = $sTheme . '|info|' . $sGroup . '|sitemap|' . $sLanguage;
