@@ -258,7 +258,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_plugin_event.php';
 $oEvent = new plugin_event;
 $oEvent->getInstance();
 
-
 // determine the page directory
 if (isset($_GET['content'])) {
 	$sContent = oos_var_prep_for_os($_GET['content']);

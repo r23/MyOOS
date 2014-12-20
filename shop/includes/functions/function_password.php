@@ -45,12 +45,12 @@ function oos_validate_password($sPlain, $sEncrypted) {
 }
 
 
- /**
-  * This function makes a new password from a plaintext password.
-  *
-  * @param $sPlain
-  * @return string
-  */
+/**
+ * This function makes a new password from a plaintext password.
+ *
+ * @param $sPlain
+ * @return string
+ */
 function oos_encrypt_password($sPlain) {
 
 	if (!class_exists('PasswordHash')) {
@@ -61,5 +61,3 @@ function oos_encrypt_password($sPlain) {
 
     return $oHasher->HashPassword($sPlain);
 }
-
-

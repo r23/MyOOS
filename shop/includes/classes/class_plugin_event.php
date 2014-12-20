@@ -27,7 +27,7 @@
       $this->aEventPlugins = explode(';', MODULE_PLUGIN_EVENT_INSTALLED);
     }
 
-    function getInstance() {
+    public function getInstance() {
       $this->aPlugins = array();
 
       foreach ($this->aEventPlugins as $event) {
@@ -36,24 +36,12 @@
     }
 
 
-    function load_plugin($sInstance, $sPluginPath = '') {
+    public function load_plugin($sInstance, $sPluginPath = '') {
 
       $sName = 'oos_event_' . $sInstance;
 
       if (!class_exists($sName)) {
         if (empty($sPluginPath)) {
-/*
-          $dbconn =& oosDBGetConn();
-          $oostable =& oosDBGetTables();
-
-          $sql = "SELECT path FROM plugins WHERE name = '" . oos_db_input($sInstance) . "'";
-          $path_result = $dbconn->Execute($sql); 
-
-          if ($path_result->RecordCount() > 0) {
-            $sPluginPath = $path_result->fields['path']
-          }
-*/
-
           if (empty($sPluginPath)) {
             $sPluginPath = $sName;
           }
@@ -86,7 +74,7 @@
     }
 
 
-    function introspect() {
+    public function introspect() {
       $this->aPlugins = array();
 
       foreach ($this->aEventPlugins as $event) {
@@ -95,12 +83,12 @@
     }
 
 
-    function get_intro($event) {
+    public function get_intro($event) {
       @call_user_func(array('oos_event_' . $event, 'intro'));
     }
 
 
-    function installed_plugin($event) {
+    public function installed_plugin($event) {
        return in_array($event, $this->aEventPlugins);
     }
   }

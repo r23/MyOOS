@@ -1232,7 +1232,9 @@ function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_htm
 
 	global $oEvent, $oEmail;
 
-	if (!$oEvent->installed_plugin('mail')) return FALSE;
+	if ( !is_object( $oEvent ) || (!$oEvent->installed_plugin('mail')) ) {
+		return FALSE;
+	}
 
     if (preg_match('~[\r\n]~', $to_name)) return FALSE;
     if (preg_match('~[\r\n]~', $to_email_address)) return FALSE;
@@ -1290,7 +1292,6 @@ function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_htm
 
 
     // Build the text version
-
     if (EMAIL_USE_HTML == 'true') {
 		$oEmail->IsHTML(true);
 		$oEmail->Body = $email_html;

@@ -97,73 +97,57 @@ dosql($table, $flds);
 			$_SESSION['error_message'] = $aLang['entry_email_address_error_exists'];
 			oos_redirect(oos_href_link($aContents['newsletters'], '', 'SSL'));		
 		} else {
-			$random = oos_create_random_value(25);
-			$befor = oos_create_random_value(4);
-			
-/subscribe/confirm?u=$befor_insert_id_f00d&e=$random		
-		
+			$sRandom = oos_create_random_value(25);
+			$sBefor = oos_create_random_value(4);
+	
 			$newsletter_recipients = $oostable['newsletter_recipients'];
 			$dbconn->Execute("INSERT INTO $newsletter_recipients 
-                            (customers_email_address, man_key, key_sent, status) VALUES ('" . oos_db_input($email_address) . "'
-																						'" . oos_db_input($random) . "'
-																						now(),
-																						'0')");
+                            (customers_email_address,
+							mail_key,
+							key_sent,
+							status) VALUES ('" . oos_db_input($email_address) . "'
+											'" . oos_db_input($sRandom) . "'
+											now(),
+											'0')");
 
-			$insert_id = $dbconn->Insert_ID();	  
+			$nInsert_ID = $dbconn->Insert_ID();	  
 			$newsletter_recipients = $oostable['newsletter_recipients_history'];
 			$dbconn->Execute("INSERT INTO $newsletter_recipients 
-                          (recipients_id, date_added) VALUES ('" . intval($insert_id) . "',
-                                                      now(),
-                                                      '" . oos_db_input($remote) . "')");	  
-	  
-        // Crypted password mods - create a new password, update the database and mail it to them
-        $newpass = oos_create_random_value(25);
-        $crypted_password = oos_encrypt_password($newpass);
+                          (recipients_id,
+						  date_added) VALUES ('" . intval($nInsert_ID) . "',
+                                               now())");
+											   
+			$sStr =  $sBefor . $nInsert_ID . 'f00d';
+            $sSha1 = sha1($sStr);
 
-        $customerstable = $oostable['customers'];
-        $dbconn->Execute("UPDATE $customerstable
-                        SET customers_password = '" . oos_db_input($crypted_password) . "'
-                        WHERE customers_id = '" . $check_customer['customers_id'] . "'");
+            $newsletter_recipients = $oostable['newsletter_recipients'];
+            $dbconn->Execute("UPDATE $newsletter_recipients
+                          SET mail_sha1 = '" . oos_db_input($sSha1) . "'
+                          WHERE recipients_id = ('" . intval($nInsert_ID) . "'");			
+			//smarty
+			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
+			$smarty = new myOOS_Smarty();						
 
-		$customers_name = $check_customer['customers_firstname'] . '. ' . $check_customer['customers_lastname'];				
-						
-		switch ($check_customer['customers_gender']) {
-			case 'm':
-				$sGreet = sprintf ($aLang['email_greet_mr'], $customers_name);
-				break;
-			case 'f':
-				$sGreet = sprintf ($aLang['email_greet_ms'], $customers_name);
-				break;
-			default:
-				$sGreet = $aLang['email_greet_none'];
-		}
-					
-		//smarty
-		require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
-		$smarty = new myOOS_Smarty();						
+			// dont allow cache
+			$smarty->caching = false;
 
-		// dont allow cache
-		$smarty->caching = false;
+			$smarty->assign(
+				array(
+					'shop_name'		=> STORE_NAME,
+					'shop_url'		=> OOS_HTTP_SERVER . OOS_SHOP,
+					'shop_logo'		=> STORE_LOGO,
+					'services_url'	=> COMMUNITY,
+					'blog_url'		=> BLOG_URL,
+					'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', 'NONSSL', FALSE, TRUE),
+					'subscribe'		=> oos_href_link($aContents['newsletters_subscribe'], 'subscribe=confirm&u=' .  $sSha1 . '&id=' . $sStr '&e=' . $random, 'SSL', FALSE, TRUE)
+				)
+			);
 
-		$smarty->assign(
-			array(
-				'shop_name'		=> STORE_NAME,
-				'shop_url'		=> OOS_HTTP_SERVER . OOS_SHOP,
-				'shop_logo'		=> STORE_LOGO,
-				'services_url'	=> COMMUNITY,
-				'blog_url'		=> BLOG_URL,
-				'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', 'NONSSL', FALSE, TRUE),
-				'login_url'		=> oos_href_link($aContents['login'], '', 'SSL', FALSE, TRUE),
-				'greet'			=> $sGreet,
-				'password' 		=> $newpass
-			)
-		);
-
-		// create mails	
-		$email_html = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/password_forgotten.html');
-		$email_txt = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/password_forgotten.tpl');
+			// create mails	
+			$email_html = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/newsletters_subscribe.html');
+			$email_txt = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/newsletters_subscribe.tpl');
 		
-        oos_mail($check_customer['customers_firstname'] . " " . $check_customer['customers_lastname'], $email_address, $aLang['email_password_reminder_subject'], $email_txt, $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+			oos_mail($check_customer['customers_firstname'] . " " . $check_customer['customers_lastname'], $email_address, $aLang['email_password_reminder_subject'], $email_txt, $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
  
 		$_SESSION['password_forgotten_count'] = 1;
         $_SESSION['success_message'] = $aLang['text_password_sent'];
@@ -182,14 +166,14 @@ dosql($table, $flds);
           $dbconn->Execute("UPDATE " . $newsletter_recipientstable . "
                             SET customers_newsletter = '1'
                             WHERE customers_email_address = '" . oos_db_input($email_address) . "'");
-          oos_redirect(oos_href_link($aContents['newsletters_subscribe_success']));
+          oos_redirect(oos_href_link($aContents['newsletters_subscribe']));
         } else {
           $sql_data_array = array('customers_firstname' => $firstname,
                                   'customers_lastname' => $lastname,
                                   'customers_email_address' => $email_address,
                                   'customers_newsletter' => 1);
           oos_db_perform($oostable['newsletter_recipients'], $sql_data_array);
-          oos_redirect(oos_href_link($aContents['newsletters_subscribe_success']));
+          oos_redirect(oos_href_link($aContents['newsletters_subscribe']));
         }
       }
     }

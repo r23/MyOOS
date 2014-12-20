@@ -704,7 +704,8 @@ $flds = "
 	customers_lastname C(32) NOTNULL,
 	customers_email_address C(96) NOTNULL,
 	date_added T,
-	man_key C(32) NOTNULL,
+	mail_key C(32) NOTNULL,
+	mail_sha1 C(232) NOTNULL,
 	key_sent T,
 	status I1 DEFAULT '0'
 ";
