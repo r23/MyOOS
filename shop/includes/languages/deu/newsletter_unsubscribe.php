@@ -1,6 +1,6 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: newsletters_newsletters.php,v 1.3 2007/06/12 16:51:19 r23 Exp $
+   $Id: newsletter_unsubscribe_success.php,v 1.3 2007/06/12 16:36:39 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
@@ -11,7 +11,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-$aLang['navbar_title'] = 'Ihr Newsletters';
-$aLang['heading_title'] = 'Abonnieren Sie unseren Newletter';
 
+$aLang['navbar_title_1'] = 'Newsletter';
+$aLang['navbar_title_2'] = 'Erfolg';
+$aLang['heading_title'] = 'Sie wurden aus der Mailingliste ausgetragen!';
+$aLang['text_main'] = '';
 

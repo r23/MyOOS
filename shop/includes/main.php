@@ -270,6 +270,7 @@ if ( empty( $sContent ) || !is_string( $sContent ) ) {
   
 
 // initialize the message stack for output messages
+$aInfoMessage = array();
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_message_stack.php';
 $oMessage = new messageStack;
 
@@ -279,6 +280,12 @@ $aTemplate = array();
 
 // Shopping cart actions
 if ( isset($_GET['action']) || isset($_POST['action']) ) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/cart_actions.php';
+	if ( isset($_POST['action']) && ($_POST['action'] == 'process') ) {
+		// require  validation functions (right now only email address)
+		require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';	
+		require_once MYOOS_INCLUDE_PATH . '/includes/process_actions.php';
+	} else {
+		require_once MYOOS_INCLUDE_PATH . '/includes/cart_actions.php';
+	}
 }
 

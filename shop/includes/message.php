@@ -28,8 +28,6 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 <div class="alert alert-danger">...</div>
 */
 
-$aInfoMessage = array();
-
 // check if the 'install' directory exists, and warn of its existence
 if (WARN_INSTALL_EXISTENCE == 'true') {
     if (file_exists(dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/install')) {

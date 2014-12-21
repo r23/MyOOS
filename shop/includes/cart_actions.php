@@ -21,13 +21,10 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-// start the session
-if ( $session->hasStarted() === FALSE ) $session->start(); 
-  
-  if (DISPLAY_CART == 'true') {
+if (DISPLAY_CART == 'true') {
     $goto_file = $aContents['shopping_cart'];
     $parameters = array('action', 'category', 'products_id', 'pid');
-  } else {
+} else {
     $goto_file = $sContent;
     if ($_GET['action'] == 'buy_now') {
       $parameters = array('action', 'pid', 'cart_quantity');
@@ -50,8 +47,11 @@ if ( $session->hasStarted() === FALSE ) $session->start();
 
 
 
-  switch ($action) {
-    case 'update_product' :
+switch ($action) {
+	case 'update_product' :
+		// start the session
+		if ( $session->hasStarted() === FALSE ) $session->start();
+		
       // customer wants to update the product quantity in their shopping cart
       for ($i=0; $i<count($_POST['products_id']);$i++) {
         if (in_array($_POST['products_id'][$i], (is_array($_POST['cart_delete']) ? $_POST['cart_delete'] : array())) or $_POST['cart_quantity'][$i] == 0) {
@@ -81,8 +81,10 @@ if ( $session->hasStarted() === FALSE ) $session->start();
       oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters), 'NONSSL'));
       break;
 
-    case 'add_product' :
-
+	case 'add_product' :
+		// start the session
+		if ( $session->hasStarted() === FALSE ) $session->start();
+	
       // customer adds a product from the products page
       if (isset($_POST['products_id']) && is_numeric($_POST['products_id'])) {
         $real_ids = $_POST['id'];
@@ -199,8 +201,10 @@ if ( $session->hasStarted() === FALSE ) $session->start();
       }
       break;
 
-    case 'remove_wishlist' :
-
+	case 'remove_wishlist' :
+		// start the session
+		if ( $session->hasStarted() === FALSE ) $session->start();
+		
       if (isset($_SESSION['customer_id']) && isset($_GET['pid'])) {
         $customers_wishlisttable = $oostable['customers_wishlist'];
         $dbconn->Execute("DELETE FROM $customers_wishlisttable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($_GET['pid']) . "'");
@@ -210,7 +214,10 @@ if ( $session->hasStarted() === FALSE ) $session->start();
       }
       break;
 
-    case 'add_wishlist' :
+	case 'add_wishlist' :
+		// start the session
+		if ( $session->hasStarted() === FALSE ) $session->start();
+		
       if (isset($_GET['products_id']) && is_numeric($_GET['products_id']) && isset($_SESSION['customer_id'])) {
         if (oos_has_product_attributes($_GET['products_id'])) {
           oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['products_id']));
@@ -232,6 +239,9 @@ if ( $session->hasStarted() === FALSE ) $session->start();
       break;
 
     case 'buy_now' :
+		// start the session
+		if ( $session->hasStarted() === FALSE ) $session->start();
+		
       if (isset($_GET['products_id'])) {
         if (oos_has_product_attributes($_GET['products_id'])) {
           oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['products_id']));
@@ -301,6 +311,9 @@ if ( $session->hasStarted() === FALSE ) $session->start();
 
 
     case 'buy_slave' :
+		// start the session
+		if ( $session->hasStarted() === FALSE ) $session->start();
+		
       if (isset($_GET['slave_id'])) {
         if (oos_has_product_attributes($_GET['slave_id'])) {
           oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['slave_id']));
@@ -364,7 +377,9 @@ if ( $session->hasStarted() === FALSE ) $session->start();
       break;
 
     case 'add_a_quickie' :
-
+		// start the session
+		if ( $session->hasStarted() === FALSE ) $session->start();
+		
       if (DECIMAL_CART_QUANTITY == 'true') {
         $_POST['cart_quantity'] = str_replace(',', '.', $_POST['cart_quantity']);
         $cart_quantity = oos_prepare_input($_POST['cart_quantity']);
@@ -451,6 +466,9 @@ if ( $session->hasStarted() === FALSE ) $session->start();
       break;
 
     case 'notify_remove' :
+		// start the session
+		if ( $session->hasStarted() === FALSE ) $session->start();
+		
       $products_notificationstable = $oostable['products_notifications'];
       if (isset($_SESSION['customer_id']) && isset($_GET['products_id'])) {
         if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
@@ -470,6 +488,9 @@ if ( $session->hasStarted() === FALSE ) $session->start();
       break;
 
     case 'cust_order' :
+		// start the session
+		if ( $session->hasStarted() === FALSE ) $session->start();
+		
       if (isset($_SESSION['customer_id']) && isset($_GET['pid'])) {
         if (oos_has_product_attributes($_GET['pid'])) {
           oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['pid']));
@@ -483,6 +504,9 @@ if ( $session->hasStarted() === FALSE ) $session->start();
       break;
 
     case 'cust_wishlist_add_product' :
+		// start the session
+		if ( $session->hasStarted() === FALSE ) $session->start();
+		
       if (isset($_SESSION['customer_id']) && isset($_POST['products_id'])) {
         if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
 
@@ -516,6 +540,9 @@ if ( $session->hasStarted() === FALSE ) $session->start();
       break;
 
     case 'frend_wishlist_add_product' :
+		// start the session
+		if ( $session->hasStarted() === FALSE ) $session->start();
+		
       if (isset($_POST['products_id']) && is_numeric($_POST['cart_quantity'])) {
 
         $cart_qty = $_SESSION['cart']->get_quantity(oos_get_uprid($_POST['products_id'], $_POST['id']));

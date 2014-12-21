@@ -157,9 +157,12 @@ $aLang['pull_down_default'] = 'Please Select';
 $aLang['type_below'] = 'Type Below';
 
 //newsletter
-$aLang['block_newsletters_subscribe'] = 'subscribe to our weekly <strong>newsletter</strong>';
-$aLang['block_newsletters_placeholder'] = 'Email your email...';
-$aLang['block_newsletters_unsubscribe'] = 'Unsubscribe';
+$aLang['block_newsletter_subscribe'] = 'subscribe to our weekly <strong>newsletter</strong>';
+$aLang['block_newsletter_placeholder'] = 'Email your email...';
+$aLang['block_newsletter_unsubscribe'] = 'Unsubscribe';
+$aLang['error_email_address'] =  '<strong>Your e-mail address:</strong> None or invalid input!';
+$aLang['newsletter_email_info'] =  'Your e-mail adress has been registered in our system.<br />An e-mail with a confirmation link has been send out. Click the link in order to complete registration!';
+$aLang['newsletter_email_subject'] = 'Your newsletter account';
 $aLang['entry_newsletter_no'] = 'No';
 $aLang['entry_newsletter_yes'] = 'Yes';
 
@@ -449,22 +452,4 @@ $aLang['text_shipping'] = 'excl. <a href="%s"><u>Shipping cost</u></a>.';
 
 $aLang['price'] = 'Preis';
 $aLang['price_from'] = 'from';
-/*
-  The following copyright announcement can only be
-  appropriately modified or removed if the layout of
-  the site theme has been modified to distinguish
-  itself from the default osCommerce-copyrighted
-  theme.
-
-  For more information please read the following
-  Frequently Asked Questions entry on the osCommerce
-  support site:
-
-  http://www.oscommerce.com/community.php/faq,26/q,50
-
-  Please leave this comment intact together with the
-  following copyright announcement.
-*/
-define('FOOTER_TEXT_BODY', 'Copyright &copy; 2003 <a href="http://www.oscommerce.com" target="_blank">osCommerce</a><br>Powered by <a href="http://www.oscommerce.com" target="_blank">osCommerce</a>');
-
 

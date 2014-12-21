@@ -110,7 +110,7 @@ $aLang['block_notifications_notify'] = 'Benachrichtigen Sie mich über Aktuelles
 $aLang['block_notifications_notify_remove'] = 'Benachrichtigen Sie mich nicht mehr zum Artikel <b>%s</b>';
 
 // wishlist block text in tempalate/your theme/block/wishlist.html
-$aLang['block_wishlist_empty'] = 'Sie haben keine Produkte in Ihrem Wunschzettel';
+$aLang['block_wishlist_empty'] = 'Sie haben keine Produkte auf Ihrem Merkzettel';
 
 // manufacturer box text
 $aLang['block_manufacturer_info_homepage'] = '%s Homepage';
@@ -152,9 +152,12 @@ $aLang['pull_down_default'] = 'Bitte wählen';
 $aLang['type_below'] = 'bitte unten eingeben';
 
 //newsletter
-$aLang['block_newsletters_subscribe'] = 'Abonnieren Sie unseren wöchentlichen <strong>Newsletter</strong>';
-$aLang['block_newsletters_placeholder'] = 'Ihre E-Mail-Adresse eingeben...';
-$aLang['block_newsletters_unsubscribe'] = 'Austragen';
+$aLang['block_newsletter_subscribe'] = 'Abonnieren Sie unseren wöchentlichen <strong>Newsletter</strong>';
+$aLang['block_newsletter_placeholder'] = 'Ihre E-Mail-Adresse eingeben...';
+$aLang['block_newsletter_unsubscribe'] = 'Austragen';
+$aLang['error_email_address'] =  '<strong>FEHLER Ihre E-Mail-Adresse:</strong> Keine oder ungültige Eingabe!';
+$aLang['newsletter_email_info'] =  'Ihre E-Mail-Adresse wurde in unser System eingetragen.<br />Gleichzeitig wurde Ihnen vom System eine E-Mail mit einem Aktivierungslink geschickt. Bitte klicken Sie nach dem Erhalt der E-Mail auf den Link, um Ihre Eintragung zu bestätigen.';
+$aLang['newsletter_email_subject'] = 'Ihre Newsletter Anmeldung';
 $aLang['entry_newsletter_no'] = 'Nein';
 $aLang['entry_newsletter_yes'] = 'Ja';
 
@@ -251,7 +254,7 @@ $aLang['entry_fax_number_text'] = '';
 $aLang['entry_newsletter'] = 'Newsletter:';
 $aLang['entry_newsletter_text'] = '';
 $aLang['entry_newsletter_yes'] = 'abonniert';
-$aLang[''] = 'nicht abonniert';
+$aLang['entry_newsletter_no'] = 'nicht abonniert';
 $aLang['entry_newsletter_error'] = '';
 $aLang['entry_password_confirmation'] = 'Bestätigung:';
 $aLang['entry_password_error'] = 'mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Zeichen';
@@ -446,21 +449,4 @@ $aLang['text_shipping'] = 'zzgl. <a href="%s"><u>Versandkosten</u></a>.';
 $aLang['price'] = 'Preis';
 $aLang['price_from'] = 'Ab';
 
-/*
-  The following copyright announcement can only be
-  appropriately modified or removed if the layout of
-  the site theme has been modified to distinguish
-  itself from the default osCommerce-copyrighted
-  theme.
-
-  For more information please read the following
-  Frequently Asked Questions entry on the osCommerce
-  support site:
-
-  http://www.oscommerce.com/community.php/faq,26/q,50
-
-  Please leave this comment intact together with the
-  following copyright announcement.
-*/
-define('FOOTER_TEXT_BODY', 'Copyright &copy; 2003 <a href="http://www.oscommerce.com" target="_blank">osCommerce</a><br>Powered by <a href="http://www.oscommerce.com" target="_blank">osCommerce</a>');
 

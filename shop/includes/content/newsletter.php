@@ -24,14 +24,13 @@
 
 if(!defined('OOS_VALID_MOD'))die('Direct Access to this location is not allowed.');
 
-require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/newsletters.php';
-// require  validation functions (right now only email address)
-require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/newsletter.php';
+
 // require  the password crypto functions
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 
+if ( isset($_POST['action']) && ($_POST['action'] == 'process') ) {
 
-if ( isset($_POST['action']) && ($_POST['action'] == 'process') {
 
     $email_address = oos_prepare_input($_POST['email_address']);
 
@@ -40,7 +39,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') {
 		if ( $session->hasStarted() === FALSE ) $session->start();	
 	
         $_SESSION['error_message'] = $aLang['entry_email_address_error'];
-        oos_redirect(oos_href_link($aContents['newsletters'], '', 'SSL'));
+        oos_redirect(oos_href_link($aContents['newsletter'], '', 'SSL'));
     }
 
 	
@@ -49,39 +48,8 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') {
 		if ( $session->hasStarted() === FALSE ) $session->start();	
 	
         $_SESSION['error_message'] = $aLang['entry_email_address_check_error'];	
-		oos_redirect(oos_href_link($aContents['newsletters'], '', 'SSL'));
+		oos_redirect(oos_href_link($aContents['newsletter'], '', 'SSL'));
     } else {
-
-	/*
-
-	$oostable['newsletter_recipients'] = $prefix_table . 'newsletter_recipients';
-$flds = "
-	recipients_id I NOTNULL AUTO PRIMARY,
-	customers_gender C(1) NOTNULL,
-	customers_firstname C(32) NOTNULL,
-	customers_lastname C(32) NOTNULL,
-	date_added T,
-	man_key C(32) NOTNULL,
-	key_sent T,
-	status I1 DEFAULT '0'
-";
-dosql($table, $flds);
-
-
-$oostable['newsletter_recipients_history'] = $prefix_table . 'newsletter_recipients_history';
-$flds = "
-  recipients_status_history_id I NOTNULL AUTO PRIMARY,
-  recipients_id I NOTNULL DEFAULT '0',
-  new_value I1 NOTNULL DEFAULT '0',
-  old_value I1 DEFAULT NULL,
-  date_added T,
-  customer_notified I1 DEFAULT '0'
-";
-dosql($table, $flds);
-
-*/
-	
-	
 		$newsletter_recipients = $oostable['newsletter_recipients'];
 		$sql = "SELECT recipients_id
               FROM $newsletter_recipients
@@ -95,7 +63,7 @@ dosql($table, $flds);
 			if ( $session->hasStarted() === FALSE ) $session->start();	
 	
 			$_SESSION['error_message'] = $aLang['entry_email_address_error_exists'];
-			oos_redirect(oos_href_link($aContents['newsletters'], '', 'SSL'));		
+			oos_redirect(oos_href_link($aContents['newsletter'], '', 'SSL'));		
 		} else {
 			$sRandom = oos_create_random_value(25);
 			$sBefor = oos_create_random_value(4);
@@ -139,68 +107,43 @@ dosql($table, $flds);
 					'services_url'	=> COMMUNITY,
 					'blog_url'		=> BLOG_URL,
 					'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', 'NONSSL', FALSE, TRUE),
-					'subscribe'		=> oos_href_link($aContents['newsletters_subscribe'], 'subscribe=confirm&u=' .  $sSha1 . '&id=' . $sStr '&e=' . $random, 'SSL', FALSE, TRUE)
+					'subscribe'		=> oos_href_link($aContents['newsletter_subscribe'], 'subscribe=confirm&u=' .  $sSha1 . '&id=' . $sStr . '&e=' . $random, 'SSL', FALSE, TRUE)
 				)
 			);
 
 			// create mails	
-			$email_html = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/newsletters_subscribe.html');
-			$email_txt = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/newsletters_subscribe.tpl');
+			$email_html = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/newsletter_subscribe.html');
+			$email_txt = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/newsletter_subscribe.tpl');
 		
 			oos_mail($check_customer['customers_firstname'] . " " . $check_customer['customers_lastname'], $email_address, $aLang['email_password_reminder_subject'], $email_txt, $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
- 
-		$_SESSION['password_forgotten_count'] = 1;
-        $_SESSION['success_message'] = $aLang['text_password_sent'];
-        oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));	  
-	  
-	  
-	  
-	  
-        $newsletter_recipientstable = $oostable['newsletter_recipients'];
-        $sql = "SELECT customers_firstname
-                FROM " . $newsletter_recipientstable . "
-                WHERE customers_email_address = '" . oos_db_input($email_address) . "'";
-        $check_mail_customer_result = $dbconn->Execute($sql);
-        if ($check_mail_customer_result->RecordCount()) {
-          $newsletter_recipientstable = $oostable['newsletter_recipients'];
-          $dbconn->Execute("UPDATE " . $newsletter_recipientstable . "
-                            SET customers_newsletter = '1'
-                            WHERE customers_email_address = '" . oos_db_input($email_address) . "'");
-          oos_redirect(oos_href_link($aContents['newsletters_subscribe']));
-        } else {
-          $sql_data_array = array('customers_firstname' => $firstname,
-                                  'customers_lastname' => $lastname,
-                                  'customers_email_address' => $email_address,
-                                  'customers_newsletter' => 1);
-          oos_db_perform($oostable['newsletter_recipients'], $sql_data_array);
-          oos_redirect(oos_href_link($aContents['newsletters_subscribe']));
+           oos_redirect(oos_href_link($aContents['newsletter_subscribe']));
         }
       }
-    }
-  } else {
 
-    $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['newsletters'], '', 'SSL'));
+} 
 
-    $aTemplate['page'] = $sTheme . '/page/newsletters.html';
+$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['newsletter'], '', 'SSL'));
+$sCanonical = oos_href_link($aContents['newsletter'], '', 'SSL', FALSE, TRUE);
 
-    $nPageType = OOS_PAGE_TYPE_SERVICE;
+$aTemplate['page'] = $sTheme . '/page/newsletter.html';
 
-    require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
-    if (!isset($option)) {
-      require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-      require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
-    }
+$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
+$nPageType = OOS_PAGE_TYPE_SERVICE;
 
-    // assign Smarty variables;
-    $smarty->assign(
-        array(
-            'breadcrumb' => $oBreadcrumb->trail(),
-            'heading_title' => $aLang['heading_title']
-        )
-    );
-
-  
-
-    // display the template
-	$smarty->display($aTemplate['page']);
+require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+if (!isset($option)) {
+	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
+
+// assign Smarty variables;
+$smarty->assign(
+	array(
+		'breadcrumb' 	=> $oBreadcrumb->trail(),
+		'heading_title' => $aLang['navbar_title'],
+		'canonical'		=> $sCanonical
+	)
+);
+
+// display the template
+$smarty->display($aTemplate['page']);
