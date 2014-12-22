@@ -60,9 +60,6 @@ $aContents['contact_us'] = $prefix_filename . 'contact_us';
 
 //newsletter
 $aContents['newsletter'] = $prefix_filename . 'newsletter';
-$aContents['newsletter_subscribe'] = $prefix_filename . 'newsletter_subscribe';
-$aContents['newsletter_unsubscribe'] = $prefix_filename . 'newsletter_unsubscribe';
-$aContents['subscription_center'] = $prefix_filename . 'subscription_center';
 
 //products
 $aContents['product_info'] = $prefix_filename . 'product_info';
@@ -107,4 +104,3 @@ $aContents['checkout_process'] = $prefix_filename . 'checkout_process';
 $aContents['checkout_shipping'] = $prefix_filename . 'checkout_shipping';
 $aContents['checkout_shipping_address'] = $prefix_filename . 'checkout_shipping_address';
 $aContents['checkout_success'] = $prefix_filename . 'checkout_success';
-

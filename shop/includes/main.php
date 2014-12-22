@@ -22,7 +22,7 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 // debug
-$debug = 'true';
+$debug = '1';
 
 
 // Set the local configuration parameters - mainly for developers

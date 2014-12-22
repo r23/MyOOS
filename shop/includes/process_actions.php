@@ -26,18 +26,14 @@ $email_address = oos_prepare_input($_POST['email_address']);
 
 if ( empty( $email_address ) || !is_string( $email_address ) ) {
 	$bError = TRUE;
-	$aInfoMessage[] = array(
-						'type' => 'danger',
-						'text' => $aLang['error_email_address']
-					);
+	$aInfoMessage[] = array('type' => 'danger',
+							'text' => $aLang['error_email_address']	);
 } 
 
 if ( ($bError === FALSE) && (!oos_validate_is_email($email_address)) ) {
 	$bError = TRUE;
-	$aInfoMessage[] = array(
-						'type' => 'danger',
-						'text' => $aLang['error_email_address']
-					);
+	$aInfoMessage[] = array('type' => 'danger',
+							'text' => $aLang['error_email_address']);
 } 
 
 if ( isset($_POST['newsletter']) 
@@ -47,17 +43,19 @@ if ( isset($_POST['newsletter'])
 	$newsletter_recipients = $oostable['newsletter_recipients'];
 	$sql = "SELECT recipients_id
               FROM $newsletter_recipients
-              WHERE customers_email_address = '" . oos_db_input($email_address) . "'";
+              WHERE customers_email_address = '" . oos_db_input($email_address) . "'
+			  AND status = '1'";
 	$check_recipients_result = $dbconn->Execute($sql);
 
 	if ($check_recipients_result->RecordCount()) {
 		$bError = TRUE;
-		$aInfoMessage[] = array(
-						'type' => 'danger',
-						'text' => $aLang['entry_email_address_error_exists']
-					);
+		$aInfoMessage[] = array('type' => 'danger',
+								'text' => $aLang['entry_email_address_error_exists']);
 
 	} else {
+		$newsletter_recipients = $oostable['newsletter_recipients'];
+		$dbconn->Execute("DELETE FROM $newsletter_recipients WHERE customers_email_address = '" . oos_db_input($email_address) . "'"); 
+
 		$sRandom = oos_create_random_value(25);
 		$sBefor = oos_create_random_value(4);
 	
@@ -100,7 +98,7 @@ if ( isset($_POST['newsletter'])
 					'services_url'	=> COMMUNITY,
 					'blog_url'		=> BLOG_URL,
 					'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', 'NONSSL', FALSE, TRUE),
-					'subscribe'		=> oos_href_link($aContents['newsletter'], 'subscribe=confirm&u=' .  $sSha1 . '&id=' . $sStr . '&e=' . $random, 'SSL', FALSE, TRUE)
+					'subscribe'		=> oos_href_link($aContents['newsletter'], 'subscribe=confirm&u=' .  $sSha1 . '&id=' . $sStr . '&e=' . $sRandom, 'SSL', FALSE, TRUE)
 				)
 		);
 
@@ -110,10 +108,8 @@ if ( isset($_POST['newsletter'])
 		
 		oos_mail('', $email_address, $aLang['newsletter_email_subject'], $email_txt, $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 
-		$aInfoMessage[] = array(
-						'type' => 'success',
-						'text' => $aLang['newsletter_email_info']
-					);
+		$aInfoMessage[] = array('type' => 'success',
+								'text' => $aLang['newsletter_email_info']);
 
 	}
 } 

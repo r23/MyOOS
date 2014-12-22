@@ -29,97 +29,50 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/newsle
 // require  the password crypto functions
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 
-if ( isset($_POST['action']) && ($_POST['action'] == 'process') ) {
+if ( isset($_GET['subscribe']) && ($_GET['subscribe'] == 'confirm') ) {
 
+    $sU = oos_prepare_input($_GET['u']);
+    $sID = oos_prepare_input($_GET['id']);
+    $sE = oos_prepare_input($_GET['e']);
 
-    $email_address = oos_prepare_input($_POST['email_address']);
+	if ( empty( $sU ) || !is_string( $sU ) ) {
+		oos_redirect(oos_href_link($aContents['forbiden']));
+	}
+	if ( empty( $sID ) || !is_string( $sID ) ) {
+		oos_redirect(oos_href_link($aContents['forbiden']));
+	} 
+	if ( empty( $sE ) || !is_string( $sE ) ) {
+		oos_redirect(oos_href_link($aContents['forbiden']));
+	}
 
-    if ( empty( $email_address ) || !is_string( $email_address ) ) {
-		// start the session
-		if ( $session->hasStarted() === FALSE ) $session->start();	
+	$sSha1 = sha1($sID);
+    if ( $sSha1 != $sU ) {
+		oos_redirect(oos_href_link($aContents['forbiden']));
+	}
+
+	$pos = strpos ($sID, "f00d");
+	if ($pos === FALSE) {
+		oos_redirect(oos_href_link($aContents['forbiden']));
+	} else {
+		$sID = substr($sID, 4, -4);
+	}
+    
+	$newsletter_recipients = $oostable['newsletter_recipients'];
+	$sql = "UPDATE $newsletter_recipients
+               SET date_added = now(),
+				  status = '1'
+			WHERE recipients_id = '" . intval($sID) . "'
+			AND mail_key = '" . oos_db_input($sE) . "'";	
+	$dbconn->Execute($sql);
 	
-        $_SESSION['error_message'] = $aLang['entry_email_address_error'];
-        oos_redirect(oos_href_link($aContents['newsletter'], '', 'SSL'));
-    }
-
-	
-    if (!oos_validate_is_email($email_address)) {
-		// start the session
-		if ( $session->hasStarted() === FALSE ) $session->start();	
-	
-        $_SESSION['error_message'] = $aLang['entry_email_address_check_error'];	
-		oos_redirect(oos_href_link($aContents['newsletter'], '', 'SSL'));
-    } else {
-		$newsletter_recipients = $oostable['newsletter_recipients'];
-		$sql = "SELECT recipients_id
-              FROM $newsletter_recipients
-              WHERE customers_email_address = '" . oos_db_input($email_address) . "'";
-		$check_recipients_result = $dbconn->Execute($sql);
-
-		if ($check_recipients_result->RecordCount()) {
-			$check_recipients = $check_customer_result->fields;
-
-			// start the session
-			if ( $session->hasStarted() === FALSE ) $session->start();	
-	
-			$_SESSION['error_message'] = $aLang['entry_email_address_error_exists'];
-			oos_redirect(oos_href_link($aContents['newsletter'], '', 'SSL'));		
-		} else {
-			$sRandom = oos_create_random_value(25);
-			$sBefor = oos_create_random_value(4);
-	
-			$newsletter_recipients = $oostable['newsletter_recipients'];
-			$dbconn->Execute("INSERT INTO $newsletter_recipients 
-                            (customers_email_address,
-							mail_key,
-							key_sent,
-							status) VALUES ('" . oos_db_input($email_address) . "'
-											'" . oos_db_input($sRandom) . "'
-											now(),
-											'0')");
-
-			$nInsert_ID = $dbconn->Insert_ID();	  
-			$newsletter_recipients = $oostable['newsletter_recipients_history'];
-			$dbconn->Execute("INSERT INTO $newsletter_recipients 
-                          (recipients_id,
-						  date_added) VALUES ('" . intval($nInsert_ID) . "',
-                                               now())");
-											   
-			$sStr =  $sBefor . $nInsert_ID . 'f00d';
-            $sSha1 = sha1($sStr);
-
-            $newsletter_recipients = $oostable['newsletter_recipients'];
-            $dbconn->Execute("UPDATE $newsletter_recipients
-                          SET mail_sha1 = '" . oos_db_input($sSha1) . "'
-                          WHERE recipients_id = ('" . intval($nInsert_ID) . "'");			
-			//smarty
-			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
-			$smarty = new myOOS_Smarty();						
-
-			// dont allow cache
-			$smarty->caching = false;
-
-			$smarty->assign(
-				array(
-					'shop_name'		=> STORE_NAME,
-					'shop_url'		=> OOS_HTTP_SERVER . OOS_SHOP,
-					'shop_logo'		=> STORE_LOGO,
-					'services_url'	=> COMMUNITY,
-					'blog_url'		=> BLOG_URL,
-					'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', 'NONSSL', FALSE, TRUE),
-					'subscribe'		=> oos_href_link($aContents['newsletter_subscribe'], 'subscribe=confirm&u=' .  $sSha1 . '&id=' . $sStr . '&e=' . $random, 'SSL', FALSE, TRUE)
-				)
-			);
-
-			// create mails	
-			$email_html = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/newsletter_subscribe.html');
-			$email_txt = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/newsletter_subscribe.tpl');
-		
-			oos_mail($check_customer['customers_firstname'] . " " . $check_customer['customers_lastname'], $email_address, $aLang['email_password_reminder_subject'], $email_txt, $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
-           oos_redirect(oos_href_link($aContents['newsletter_subscribe']));
-        }
-      }
-
+	$newsletter_recipients_history = $oostable['newsletter_recipients_history'];
+	$dbconn->Execute("INSERT INTO $newsletter_recipients_history 
+					(recipients_id,
+					new_value,
+					date_added) VALUES ('" . intval($sID) . "',
+									  '1',
+                                      now())");
+	oos_redirect(oos_href_link($aContents['newsletter'], 'subscribe=success', 'SSL'));							  
 } 
 
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['newsletter'], '', 'SSL'));

@@ -165,6 +165,8 @@ $aLang['newsletter_email_info'] =  'Your e-mail adress has been registered in ou
 $aLang['newsletter_email_subject'] = 'Your newsletter account';
 $aLang['entry_newsletter_no'] = 'No';
 $aLang['entry_newsletter_yes'] = 'Yes';
+$aLang['text_email_active'] = 'Your e-mail address has successfully been registered for the newsletter!';
+$aLang['text_email_active_error'] = 'An error occured, your e-mail address has not been registered for the newsletter!';
 
 //myworld
 $aLang['text_date_account_created'] = 'Account Created:';

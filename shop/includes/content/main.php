@@ -60,35 +60,35 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 
 
 if ($oEvent->installed_plugin('spezials')) {
-	if (!$smarty->isCached($aTemplate['new_spezials'], $nModulesCacheID)) {
+	if (!$smarty->isCached($aTemplate['new_spezials'], $sModulesCacheID)) {
 		require_once MYOOS_INCLUDE_PATH . '/includes/modules/new_spezials.php';
 	}
-	$smarty->assign('new_spezials', $smarty->fetch($aTemplate['new_spezials'], $nModulesCacheID));
+	$smarty->assign('new_spezials', $smarty->fetch($aTemplate['new_spezials'], $sModulesCacheID));
 }
  
 if ($oEvent->installed_plugin('featured')) {
-	if (!$smarty->isCached($aTemplate['featured'], $nModulesCacheID)) {
+	if (!$smarty->isCached($aTemplate['featured'], $sModulesCacheID)) {
 		require_once MYOOS_INCLUDE_PATH . '/includes/modules/featured.php';
 	}
-	$smarty->assign('featured', $smarty->fetch($aTemplate['featured'], $nModulesCacheID));
+	$smarty->assign('featured', $smarty->fetch($aTemplate['featured'], $sModulesCacheID));
 }
 
-if (!$smarty->isCached($aTemplate['new_products'], $nModulesCacheID)) {
+if (!$smarty->isCached($aTemplate['new_products'], $sModulesCacheID)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/modules/new_products.php';
 }
-$smarty->assign('new_products', $smarty->fetch($aTemplate['new_products'], $nModulesCacheID));
+$smarty->assign('new_products', $smarty->fetch($aTemplate['new_products'], $sModulesCacheID));
 
 if ($oEvent->installed_plugin('manufacturers')) {
-	if (!$smarty->isCached($aTemplate['mod_manufacturers'], $nModulesCacheID)) {
+	if (!$smarty->isCached($aTemplate['mod_manufacturers'], $sModulesCacheID)) {
 		require_once MYOOS_INCLUDE_PATH . '/includes/modules/mod_manufacturers.php';
 	}
-    $smarty->assign('mod_manufacturers', $smarty->fetch($aTemplate['mod_manufacturers'], $nModulesCacheID));
+    $smarty->assign('mod_manufacturers', $smarty->fetch($aTemplate['mod_manufacturers'], $sModulesCacheID));
 }
 
-if (!$smarty->isCached($aTemplate['upcoming_products'], $nModulesCacheID)) {
+if (!$smarty->isCached($aTemplate['upcoming_products'], $sModulesCacheID)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/modules/upcoming_products.php';
 }
-$smarty->assign('upcoming_products', $smarty->fetch($aTemplate['upcoming_products'], $nModulesCacheID));
+$smarty->assign('upcoming_products', $smarty->fetch($aTemplate['upcoming_products'], $sModulesCacheID));
 
 // display the template
 $smarty->display($aTemplate['page']);

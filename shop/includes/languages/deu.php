@@ -160,6 +160,9 @@ $aLang['newsletter_email_info'] =  'Ihre E-Mail-Adresse wurde in unser System ei
 $aLang['newsletter_email_subject'] = 'Bitte bestätigen Sie Ihre Anmeldung';
 $aLang['entry_newsletter_no'] = 'Nein';
 $aLang['entry_newsletter_yes'] = 'Ja';
+$aLang['text_email_active'] = 'Ihre E-Mail-Adresse wurde erfolgreich für den Newsletterempfang freigeschaltet!';
+$aLang['text_email_active_error'] = 'Es ist ein Fehler aufgetreten, Ihre E-Mail-Adresse wurde nicht freigeschaltet!';
+
 
 //myworld
 $aLang['text_date_account_created'] = 'Zugang erstellt am:';
