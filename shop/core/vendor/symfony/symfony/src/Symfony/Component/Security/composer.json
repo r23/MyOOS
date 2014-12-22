@@ -29,11 +29,11 @@
     },
     "require-dev": {
         "symfony/routing": "~2.2",
-        "symfony/validator": "~2.2,<2.5.0",
+        "symfony/validator": "~2.5",
         "doctrine/common": "~2.2",
         "doctrine/dbal": "~2.2",
         "psr/log": "~1.0",
-        "ircmaxell/password-compat": "1.0.*",
+        "ircmaxell/password-compat": "~1.0",
         "symfony/expression-language": "~2.4"
     },
     "suggest": {
@@ -52,7 +52,7 @@
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-            "dev-master": "2.5-dev"
+            "dev-master": "2.6-dev"
         }
     }
 }

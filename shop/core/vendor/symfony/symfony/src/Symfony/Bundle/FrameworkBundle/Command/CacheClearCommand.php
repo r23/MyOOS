@@ -55,8 +55,8 @@ EOF
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $realCacheDir = $this->getContainer()->getParameter('kernel.cache_dir');
-        $oldCacheDir  = $realCacheDir.'_old';
-        $filesystem   = $this->getContainer()->get('filesystem');
+        $oldCacheDir = $realCacheDir.'_old';
+        $filesystem = $this->getContainer()->get('filesystem');
 
         if (!is_writable($realCacheDir)) {
             throw new \RuntimeException(sprintf('Unable to write in the "%s" directory', $realCacheDir));
@@ -127,6 +127,9 @@ EOF
         $tempKernel = $this->getTempKernel($realKernel, $namespace, $realKernelClass, $warmupDir);
         $tempKernel->boot();
 
+        $tempKernelReflection = new \ReflectionObject($tempKernel);
+        $tempKernelFile = $tempKernelReflection->getFileName();
+
         // warmup temporary dir
         $warmer = $tempKernel->getContainer()->get('cache_warmer');
         if ($enableOptionalWarmers) {
@@ -147,7 +150,7 @@ EOF
         }
 
         // fix references to cached files with the real cache directory name
-        $search  = array($warmupDir, str_replace('\\', '\\\\', $warmupDir));
+        $search = array($warmupDir, str_replace('\\', '\\\\', $warmupDir));
         $replace = str_replace('\\', '/', $realCacheDir);
         foreach (Finder::create()->files()->in($warmupDir) as $file) {
             $content = str_replace($search, $replace, file_get_contents($file));
@@ -155,13 +158,16 @@ EOF
         }
 
         // fix references to kernel/container related classes
-        $search  = $tempKernel->getName().ucfirst($tempKernel->getEnvironment());
+        $search = $tempKernel->getName().ucfirst($tempKernel->getEnvironment());
         $replace = $realKernel->getName().ucfirst($realKernel->getEnvironment());
         foreach (Finder::create()->files()->name($search.'*')->in($warmupDir) as $file) {
             $content = str_replace($search, $replace, file_get_contents($file));
             file_put_contents(str_replace($search, $replace, $file), $content);
             unlink($file);
         }
+
+        // remove temp kernel file after cache warmed up
+        @unlink($tempKernelFile);
     }
 
     /**
@@ -201,13 +207,30 @@ namespace $namespace
         {
             return '$rootDir';
         }
+
+        protected function buildContainer()
+        {
+            \$container = parent::buildContainer();
+
+            // filter container's resources, removing reference to temp kernel file
+            \$resources = \$container->getResources();
+            \$filteredResources = array();
+            foreach (\$resources as \$resource) {
+                if ((string) \$resource !== __FILE__) {
+                    \$filteredResources[] = \$resource;
+                }
+            }
+
+            \$container->setResources(\$filteredResources);
+
+            return \$container;
+        }
     }
 }
 EOF;
         $this->getContainer()->get('filesystem')->mkdir($warmupDir);
         file_put_contents($file = $warmupDir.'/kernel.tmp', $code);
         require_once $file;
-        @unlink($file);
         $class = "$namespace\\$class";
 
         return new $class($parent->getEnvironment(), $parent->isDebug());

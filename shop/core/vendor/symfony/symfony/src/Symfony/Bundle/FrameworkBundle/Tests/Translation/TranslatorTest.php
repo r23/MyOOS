@@ -12,7 +12,6 @@
 namespace Symfony\Bundle\FrameworkBundle\Tests\Translation;
 
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Translation\MessageCatalogue;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Translation\MessageSelector;
@@ -103,78 +102,6 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
         $translator->trans('foo');
     }
 
-    /**
-     * @dataProvider getGetLocaleData
-     */
-    public function testGetLocale($inRequestScope)
-    {
-        $requestStack = new RequestStack();
-        if ($inRequestScope) {
-            $request = $this->getMock('Symfony\Component\HttpFoundation\Request');
-            $request
-                ->expects($this->any())
-                ->method('getLocale')
-                ->will($this->returnValue('en'))
-            ;
-
-            $requestStack->push($request);
-        }
-
-        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
-        $container
-            ->expects($this->once())
-            ->method('get')
-            ->with('request_stack')
-            ->will($this->returnValue($requestStack))
-        ;
-
-        $translator = new Translator($container, new MessageSelector());
-
-        if ($inRequestScope) {
-            $this->assertSame('en', $translator->getLocale());
-        } else {
-            $this->assertNull($translator->getLocale());
-        }
-    }
-
-    public function getGetLocaleData()
-    {
-        return array(
-            array(false),
-            array(true),
-        );
-    }
-
-    public function testGetLocaleWithInvalidLocale()
-    {
-        $request = $this->getMock('Symfony\Component\HttpFoundation\Request');
-
-        $request
-            ->expects($this->any())
-            ->method('getLocale')
-            ->will($this->returnValue('foo bar'))
-        ;
-        $request
-            ->expects($this->once())
-            ->method('getDefaultLocale')
-            ->will($this->returnValue('en-US'))
-        ;
-
-        $requestStack = new RequestStack();
-        $requestStack->push($request);
-
-        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
-        $container
-            ->expects($this->once())
-            ->method('get')
-            ->with('request_stack')
-            ->will($this->returnValue($requestStack))
-        ;
-
-        $translator = new Translator($container, new MessageSelector());
-        $this->assertSame('en-US', $translator->getLocale());
-    }
-
     protected function getCatalogue($locale, $messages)
     {
         $catalogue = new MessageCatalogue($locale);
@@ -199,8 +126,8 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
             ->expects($this->at(1))
             ->method('load')
             ->will($this->returnValue($this->getCatalogue('en', array(
-                'foo'    => 'foo (EN)',
-                'bar'    => 'bar (EN)',
+                'foo' => 'foo (EN)',
+                'bar' => 'bar (EN)',
                 'choice' => '{0} choice 0 (EN)|{1} choice 1 (EN)|]1,Inf] choice inf (EN)',
             ))))
         ;

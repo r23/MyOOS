@@ -22,6 +22,16 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
+    private $debug;
+
+    /**
+     * @param bool $debug Whether debugging is enabled or not
+     */
+    public function __construct($debug)
+    {
+        $this->debug = (bool) $debug;
+    }
+
     /**
      * Generates the configuration tree builder.
      *
@@ -81,6 +91,7 @@ class Configuration implements ConfigurationInterface
         $this->addCsrfSection($rootNode);
         $this->addFormSection($rootNode);
         $this->addEsiSection($rootNode);
+        $this->addSsiSection($rootNode);
         $this->addFragmentsSection($rootNode);
         $this->addProfilerSection($rootNode);
         $this->addRouterSection($rootNode);
@@ -91,6 +102,7 @@ class Configuration implements ConfigurationInterface
         $this->addValidationSection($rootNode);
         $this->addAnnotationsSection($rootNode);
         $this->addSerializerSection($rootNode);
+        $this->addPropertyAccessSection($rootNode);
 
         return $treeBuilder;
     }
@@ -146,6 +158,17 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
         ;
+    }
+
+    private function addSsiSection(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('ssi')
+                    ->info('ssi configuration')
+                    ->canBeEnabled()
+                ->end()
+            ->end();
     }
 
     private function addFragmentsSection(ArrayNodeDefinition $rootNode)
@@ -291,7 +314,7 @@ class Configuration implements ConfigurationInterface
         $organizeUrls = function ($urls) {
             $urls += array(
                 'http' => array(),
-                'ssl'  => array(),
+                'ssl' => array(),
             );
 
             foreach ($urls as $i => $url) {
@@ -428,6 +451,7 @@ class Configuration implements ConfigurationInterface
                     ->canBeEnabled()
                     ->children()
                         ->scalarNode('fallback')->defaultValue('en')->end()
+                        ->booleanNode('logging')->defaultValue($this->debug)->end()
                     ->end()
                 ->end()
             ->end()
@@ -474,7 +498,7 @@ class Configuration implements ConfigurationInterface
                     // API version already during container configuration
                     // (to adjust service classes etc.)
                     // See https://github.com/symfony/symfony/issues/11580
-                    $v['validation']['api'] = version_compare(PHP_VERSION, '5.3.9', '<')
+                    $v['validation']['api'] = PHP_VERSION_ID < 50309
                         ? '2.4'
                         : '2.5-bc';
 
@@ -508,6 +532,22 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('serializer')
                     ->info('serializer configuration')
                     ->canBeEnabled()
+                ->end()
+            ->end()
+        ;
+    }
+
+    private function addPropertyAccessSection(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('property_access')
+                    ->addDefaultsIfNotSet()
+                    ->info('Property access configuration')
+                    ->children()
+                        ->booleanNode('magic_call')->defaultFalse()->end()
+                        ->booleanNode('throw_exception_on_invalid_index')->defaultFalse()->end()
+                    ->end()
                 ->end()
             ->end()
         ;

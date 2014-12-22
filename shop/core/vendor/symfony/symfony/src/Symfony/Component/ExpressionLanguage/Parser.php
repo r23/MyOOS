@@ -38,37 +38,37 @@ class Parser
 
         $this->unaryOperators = array(
             'not' => array('precedence' => 50),
-            '!'   => array('precedence' => 50),
-            '-'   => array('precedence' => 500),
-            '+'   => array('precedence' => 500),
+            '!' => array('precedence' => 50),
+            '-' => array('precedence' => 500),
+            '+' => array('precedence' => 500),
         );
         $this->binaryOperators = array(
-            'or'      => array('precedence' => 10,  'associativity' => Parser::OPERATOR_LEFT),
-            '||'      => array('precedence' => 10,  'associativity' => Parser::OPERATOR_LEFT),
-            'and'     => array('precedence' => 15,  'associativity' => Parser::OPERATOR_LEFT),
-            '&&'      => array('precedence' => 15,  'associativity' => Parser::OPERATOR_LEFT),
-            '|'       => array('precedence' => 16,  'associativity' => Parser::OPERATOR_LEFT),
-            '^'       => array('precedence' => 17,  'associativity' => Parser::OPERATOR_LEFT),
-            '&'       => array('precedence' => 18,  'associativity' => Parser::OPERATOR_LEFT),
-            '=='      => array('precedence' => 20,  'associativity' => Parser::OPERATOR_LEFT),
-            '==='     => array('precedence' => 20,  'associativity' => Parser::OPERATOR_LEFT),
-            '!='      => array('precedence' => 20,  'associativity' => Parser::OPERATOR_LEFT),
-            '!=='     => array('precedence' => 20,  'associativity' => Parser::OPERATOR_LEFT),
-            '<'       => array('precedence' => 20,  'associativity' => Parser::OPERATOR_LEFT),
-            '>'       => array('precedence' => 20,  'associativity' => Parser::OPERATOR_LEFT),
-            '>='      => array('precedence' => 20,  'associativity' => Parser::OPERATOR_LEFT),
-            '<='      => array('precedence' => 20,  'associativity' => Parser::OPERATOR_LEFT),
-            'not in'  => array('precedence' => 20,  'associativity' => Parser::OPERATOR_LEFT),
-            'in'      => array('precedence' => 20,  'associativity' => Parser::OPERATOR_LEFT),
+            'or' => array('precedence' => 10,  'associativity' => Parser::OPERATOR_LEFT),
+            '||' => array('precedence' => 10,  'associativity' => Parser::OPERATOR_LEFT),
+            'and' => array('precedence' => 15,  'associativity' => Parser::OPERATOR_LEFT),
+            '&&' => array('precedence' => 15,  'associativity' => Parser::OPERATOR_LEFT),
+            '|' => array('precedence' => 16,  'associativity' => Parser::OPERATOR_LEFT),
+            '^' => array('precedence' => 17,  'associativity' => Parser::OPERATOR_LEFT),
+            '&' => array('precedence' => 18,  'associativity' => Parser::OPERATOR_LEFT),
+            '==' => array('precedence' => 20,  'associativity' => Parser::OPERATOR_LEFT),
+            '===' => array('precedence' => 20,  'associativity' => Parser::OPERATOR_LEFT),
+            '!=' => array('precedence' => 20,  'associativity' => Parser::OPERATOR_LEFT),
+            '!==' => array('precedence' => 20,  'associativity' => Parser::OPERATOR_LEFT),
+            '<' => array('precedence' => 20,  'associativity' => Parser::OPERATOR_LEFT),
+            '>' => array('precedence' => 20,  'associativity' => Parser::OPERATOR_LEFT),
+            '>=' => array('precedence' => 20,  'associativity' => Parser::OPERATOR_LEFT),
+            '<=' => array('precedence' => 20,  'associativity' => Parser::OPERATOR_LEFT),
+            'not in' => array('precedence' => 20,  'associativity' => Parser::OPERATOR_LEFT),
+            'in' => array('precedence' => 20,  'associativity' => Parser::OPERATOR_LEFT),
             'matches' => array('precedence' => 20,  'associativity' => Parser::OPERATOR_LEFT),
-            '..'      => array('precedence' => 25,  'associativity' => Parser::OPERATOR_LEFT),
-            '+'       => array('precedence' => 30,  'associativity' => Parser::OPERATOR_LEFT),
-            '-'       => array('precedence' => 30,  'associativity' => Parser::OPERATOR_LEFT),
-            '~'       => array('precedence' => 40,  'associativity' => Parser::OPERATOR_LEFT),
-            '*'       => array('precedence' => 60,  'associativity' => Parser::OPERATOR_LEFT),
-            '/'       => array('precedence' => 60,  'associativity' => Parser::OPERATOR_LEFT),
-            '%'       => array('precedence' => 60,  'associativity' => Parser::OPERATOR_LEFT),
-            '**'      => array('precedence' => 200, 'associativity' => Parser::OPERATOR_RIGHT),
+            '..' => array('precedence' => 25,  'associativity' => Parser::OPERATOR_LEFT),
+            '+' => array('precedence' => 30,  'associativity' => Parser::OPERATOR_LEFT),
+            '-' => array('precedence' => 30,  'associativity' => Parser::OPERATOR_LEFT),
+            '~' => array('precedence' => 40,  'associativity' => Parser::OPERATOR_LEFT),
+            '*' => array('precedence' => 60,  'associativity' => Parser::OPERATOR_LEFT),
+            '/' => array('precedence' => 60,  'associativity' => Parser::OPERATOR_LEFT),
+            '%' => array('precedence' => 60,  'associativity' => Parser::OPERATOR_LEFT),
+            '**' => array('precedence' => 200, 'associativity' => Parser::OPERATOR_RIGHT),
         );
     }
 
@@ -336,7 +336,7 @@ class Parser
 
                 $node = new Node\GetAttrNode($node, $arg, $arguments, $type);
             } elseif ('[' === $token->value) {
-                if ($node instanceof Node\GetAttrNode && Node\GetAttrNode::METHOD_CALL === $node->attributes['type'] && version_compare(PHP_VERSION, '5.4.0', '<')) {
+                if ($node instanceof Node\GetAttrNode && Node\GetAttrNode::METHOD_CALL === $node->attributes['type'] && PHP_VERSION_ID < 50400) {
                     throw new SyntaxError('Array calls on a method call is only supported on PHP 5.4+', $token->cursor);
                 }
 

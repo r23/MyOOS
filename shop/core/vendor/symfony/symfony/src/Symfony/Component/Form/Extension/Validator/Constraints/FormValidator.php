@@ -102,16 +102,18 @@ class FormValidator extends ConstraintValidator
                 $this->buildViolation($config->getOption('invalid_message'))
                     ->setParameters(array_replace(array('{{ value }}' => $clientDataAsString), $config->getOption('invalid_message_parameters')))
                     ->setInvalidValue($form->getViewData())
-                    ->setCode(Form::ERR_INVALID)
+                    ->setCode(Form::NOT_SYNCHRONIZED_ERROR)
+                    ->setCause($form->getTransformationFailure())
                     ->addViolation();
             }
         }
 
         // Mark the form with an error if it contains extra fields
-        if (count($form->getExtraData()) > 0) {
+        if (!$config->getOption('allow_extra_fields') && count($form->getExtraData()) > 0) {
             $this->buildViolation($config->getOption('extra_fields_message'))
                 ->setParameter('{{ extra_fields }}', implode('", "', array_keys($form->getExtraData())))
                 ->setInvalidValue($form->getExtraData())
+                ->setCode(Form::NO_SUCH_FIELD_ERROR)
                 ->addViolation();
         }
     }
@@ -119,9 +121,9 @@ class FormValidator extends ConstraintValidator
     /**
      * Returns whether the data of a form may be walked.
      *
-     * @param  FormInterface $form The form to test.
+     * @param FormInterface $form The form to test.
      *
-     * @return bool    Whether the graph walker may walk the data.
+     * @return bool Whether the graph walker may walk the data.
      */
     private static function allowDataWalking(FormInterface $form)
     {
@@ -151,7 +153,7 @@ class FormValidator extends ConstraintValidator
     /**
      * Returns the validation groups of the given form.
      *
-     * @param  FormInterface $form The form.
+     * @param FormInterface $form The form.
      *
      * @return array The validation groups.
      */

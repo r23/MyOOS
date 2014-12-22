@@ -12,7 +12,6 @@
 namespace Symfony\Bundle\SecurityBundle\Tests\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\Reference;
-
 use Symfony\Component\DependencyInjection\Parameter;
 use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\SecurityExtension;
@@ -26,9 +25,9 @@ abstract class CompleteConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $container = $this->getContainer('container1');
         $this->assertEquals(array(
-            'ROLE_ADMIN'       => array('ROLE_USER'),
+            'ROLE_ADMIN' => array('ROLE_USER'),
             'ROLE_SUPER_ADMIN' => array('ROLE_USER', 'ROLE_ADMIN', 'ROLE_ALLOWED_TO_SWITCH'),
-            'ROLE_REMOTE'      => array('ROLE_USER', 'ROLE_ADMIN'),
+            'ROLE_REMOTE' => array('ROLE_USER', 'ROLE_ADMIN'),
         ), $container->getParameter('security.role_hierarchy.roles'));
     }
 
@@ -78,12 +77,14 @@ abstract class CompleteConfigurationTest extends \PHPUnit_Framework_TestCase
                 'security.channel_listener',
                 'security.logout_listener.secure',
                 'security.authentication.listener.x509.secure',
+                'security.authentication.listener.remote_user.secure',
                 'security.authentication.listener.form.secure',
                 'security.authentication.listener.basic.secure',
                 'security.authentication.listener.digest.secure',
+                'security.authentication.listener.rememberme.secure',
                 'security.authentication.listener.anonymous.secure',
-                'security.access_listener',
                 'security.authentication.switchuser_listener.secure',
+                'security.access_listener',
             ),
             array(
                 'security.channel_listener',
@@ -216,6 +217,20 @@ abstract class CompleteConfigurationTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($container->hasDefinition('security.acl.dbal.provider'));
         $this->assertEquals('foo', (string) $container->getAlias('security.acl.provider'));
+    }
+
+    public function testRememberMeThrowExceptionsDefault()
+    {
+        $container = $this->getContainer('container1');
+        $this->assertTrue($container->getDefinition('security.authentication.listener.rememberme.secure')->getArgument(5));
+    }
+
+    public function testRememberMeThrowExceptions()
+    {
+        $container = $this->getContainer('remember_me_options');
+        $service = $container->getDefinition('security.authentication.listener.rememberme.main');
+        $this->assertEquals('security.authentication.rememberme.services.persistent.main', $service->getArgument(1));
+        $this->assertFalse($service->getArgument(5));
     }
 
     protected function getContainer($file)

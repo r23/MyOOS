@@ -42,5 +42,13 @@
             <argument type="service" id="uri_signer" />
             <call method="setFragmentPath"><argument>%fragment.path%</argument></call>
         </service>
+
+        <service id="fragment.renderer.ssi" class="Symfony\Component\HttpKernel\Fragment\SsiFragmentRenderer">
+            <tag name="kernel.fragment_renderer" />
+            <argument type="service" id="ssi" on-invalid="null" />
+            <argument type="service" id="fragment.renderer.inline" />
+            <argument type="service" id="uri_signer" />
+            <call method="setFragmentPath"><argument>%fragment.path%</argument></call>
+        </service>
     </services>
 </container>

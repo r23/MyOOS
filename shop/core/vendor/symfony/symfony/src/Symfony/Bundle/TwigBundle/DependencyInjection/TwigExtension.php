@@ -41,7 +41,7 @@ class TwigExtension extends Extension
                 foreach ($config['globals'] as $name => $value) {
                     if (is_array($value) && isset($value['key'])) {
                         $config['globals'][$name] = array(
-                            'key'   => $name,
+                            'key' => $name,
                             'value' => $config['globals'][$name],
                         );
                     }
@@ -55,7 +55,7 @@ class TwigExtension extends Extension
 
         $container->setParameter('twig.exception_listener.controller', $config['exception_controller']);
 
-        $container->setParameter('twig.form.resources', $config['form']['resources']);
+        $container->setParameter('twig.form.resources', $config['form_themes']);
 
         $twigFilesystemLoaderDefinition = $container->getDefinition('twig.loader.filesystem');
 

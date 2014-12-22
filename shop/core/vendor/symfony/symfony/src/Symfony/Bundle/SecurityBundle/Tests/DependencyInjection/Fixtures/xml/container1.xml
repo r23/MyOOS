@@ -54,7 +54,9 @@
             <anonymous />
             <switch-user />
             <x509 />
+            <remote-user />
             <logout />
+            <remember-me key="TheyKey"/>
         </firewall>
 
         <firewall name="host" pattern="/test" host="foo\.example\.org" methods="GET,POST">

@@ -46,6 +46,12 @@
             </argument>
         </service>
 
+        <service id="translator.logging" class="Symfony\Component\Translation\LoggingTranslator" public="false">
+            <argument type="service" id="translator.logging.inner" />
+            <argument type="service" id="logger" />
+            <tag name="monolog.logger" channel="translation" />
+        </service>
+
         <service id="translator" class="%translator.identity.class%">
             <argument type="service" id="translator.selector" />
         </service>

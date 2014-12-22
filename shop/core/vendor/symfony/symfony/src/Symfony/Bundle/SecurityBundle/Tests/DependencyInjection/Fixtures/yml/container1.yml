@@ -52,7 +52,10 @@ security:
             anonymous: true
             switch_user: true
             x509: true
+            remote_user: true
             logout: true
+            remember_me:
+                key: TheKey
         host:
             pattern: /test
             host: foo\.example\.org

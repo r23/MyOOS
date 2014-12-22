@@ -7,6 +7,32 @@ in 2.3 minor versions.
 To get the diff for a specific change, go to https://github.com/symfony/symfony/commit/XXX where XXX is the change hash
 To get the diff between two versions, go to https://github.com/symfony/symfony/compare/v2.3.0...v2.3.1
 
+* 2.3.22 (2014-11-20)
+
+ * bug #12525 [Bundle][FrameworkBundle] be smarter when guessing the document root (xabbuh)
+ * bug #12296 [SecurityBundle] Authentication entry point is only registered with firewall exception listener, not with authentication listeners (rjkip)
+ * bug #12393 [DependencyInjection] inlined factory not referenced (boekkooi)
+ * bug #12436 [Filesystem] Fixed case for empty folder (yosmanyga)
+ * bug #12370 [Yaml] improve error message for multiple documents (xabbuh)
+ * bug #12170 [Form] fix form handling with OPTIONS request method (Tobion)
+ * bug #12235 [Validator] Fixed Regex::getHtmlPattern() to work with complex and negated patterns (webmozart)
+ * bug #12326 [Session] remove invalid hack in session regenerate (Tobion)
+ * bug #12341 [Kernel] ensure session is saved before sending response (Tobion)
+ * bug #12329 [Routing] serialize the compiled route to speed things up (Tobion)
+ * bug #12316 Break infinite loop while resolving aliases (chx)
+ * bug #12313 [Security][listener] change priority of switchuser (aitboudad)
+
+* 2.3.21 (2014-10-24)
+
+ * bug #11696 [Form] Fix #11694 - Enforce options value type check in some form types (kix)
+ * bug #12209 [FrameworkBundle] Fixed ide links (hason)
+ * bug #12208 Add missing argument (WouterJ)
+ * bug #12197 [TwigBundle] do not pass a template reference to twig (Tobion)
+ * bug #12196 [TwigBundle] show correct fallback exception template in debug mode (Tobion)
+ * bug #12187 [CssSelector] don't raise warnings when exception is thrown (xabbuh)
+ * bug #11998 [Intl] Integrated ICU data into Intl component #2 (webmozart)
+ * bug #11920 [Intl] Integrated ICU data into Intl component #1 (webmozart)
+
 * 2.3.20 (2014-09-28)
 
  * bug #9453 [Form][DateTime] Propagate invalid_message & invalid_message_parameters to date & time (egeloen)

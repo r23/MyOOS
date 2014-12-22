@@ -55,6 +55,7 @@
             <argument type="service" id="security.context" />
             <argument /> <!-- Key -->
             <argument type="service" id="logger" on-invalid="null" />
+            <argument type="service" id="security.authentication.manager" />
         </service>
 
         <service id="security.authentication.provider.anonymous" class="%security.authentication.provider.anonymous.class%" public="false">
@@ -120,8 +121,19 @@
             <argument type="service" id="event_dispatcher" on-invalid="null" />
         </service>
 
+        <service id="security.authentication.custom_success_handler" class="Symfony\Component\Security\Http\Authentication\CustomAuthenticationSuccessHandler" abstract="true" public="false">
+            <argument /> <!-- The custom success handler service id -->
+            <argument type="collection" /> <!-- Options -->
+            <argument /> <!-- Provider-shared Key -->
+        </service>
+
         <service id="security.authentication.success_handler" class="%security.authentication.success_handler.class%" abstract="true" public="false">
             <argument type="service" id="security.http_utils" />
+            <argument type="collection" /> <!-- Options -->
+        </service>
+
+        <service id="security.authentication.custom_failure_handler" class="Symfony\Component\Security\Http\Authentication\CustomAuthenticationFailureHandler" abstract="true" public="false">
+            <argument /> <!-- The custom failure handler service id -->
             <argument type="collection" /> <!-- Options -->
         </service>
 
@@ -169,6 +181,16 @@
             <argument /> <!-- Provider-shared Key -->
             <argument /> <!-- x509 user -->
             <argument /> <!-- x509 credentials -->
+            <argument type="service" id="logger" on-invalid="null" />
+            <argument type="service" id="event_dispatcher" on-invalid="null"/>
+        </service>
+
+        <service id="security.authentication.listener.remote_user" class="Symfony\Component\Security\Http\Firewall\RemoteUserAuthenticationListener" public="false" abstract="true">
+            <tag name="monolog.logger" channel="security" />
+            <argument type="service" id="security.context" />
+            <argument type="service" id="security.authentication.manager" />
+            <argument /> <!-- Provider-shared Key -->
+            <argument /> <!-- REMOTE_USER server env var -->
             <argument type="service" id="logger" on-invalid="null" />
             <argument type="service" id="event_dispatcher" on-invalid="null"/>
         </service>

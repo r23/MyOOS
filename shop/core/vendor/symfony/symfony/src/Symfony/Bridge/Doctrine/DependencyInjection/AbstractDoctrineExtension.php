@@ -52,7 +52,7 @@ abstract class AbstractDoctrineExtension extends Extension
             foreach (array_keys($container->getParameter('kernel.bundles')) as $bundle) {
                 if (!isset($objectManager['mappings'][$bundle])) {
                     $objectManager['mappings'][$bundle] = array(
-                        'mapping'   => true,
+                        'mapping' => true,
                         'is_bundle' => true,
                     );
                 }
@@ -65,8 +65,8 @@ abstract class AbstractDoctrineExtension extends Extension
             }
 
             $mappingConfig = array_replace(array(
-                'dir'    => false,
-                'type'   => false,
+                'dir' => false,
+                'type' => false,
                 'prefix' => false,
             ), (array) $mappingConfig);
 
@@ -382,9 +382,9 @@ abstract class AbstractDoctrineExtension extends Extension
 
         if (!isset($cacheDriver['namespace'])) {
             // generate a unique namespace for the given application
-            $env        = $container->getParameter('kernel.root_dir').$container->getParameter('kernel.environment');
-            $hash       = hash('sha256', $env);
-            $namespace  = 'sf2'.$this->getMappingResourceExtension().'_'.$objectManagerName.'_'.$hash;
+            $env = $container->getParameter('kernel.root_dir').$container->getParameter('kernel.environment');
+            $hash = hash('sha256', $env);
+            $namespace = 'sf2'.$this->getMappingResourceExtension().'_'.$objectManagerName.'_'.$hash;
 
             $cacheDriver['namespace'] = $namespace;
         }
@@ -394,6 +394,36 @@ abstract class AbstractDoctrineExtension extends Extension
         $container->setDefinition($cacheDriverServiceId, $cacheDef);
 
         return $cacheDriverServiceId;
+    }
+
+    /**
+     * Returns a modified version of $managerConfigs.
+     *
+     * The manager called $autoMappedManager will map all bundles that are not mepped by other managers.
+     *
+     * @param array $managerConfigs
+     * @param array $bundles
+     *
+     * @return array The modified version of $managerConfigs.
+     */
+    protected function fixManagersAutoMappings(array $managerConfigs, array $bundles)
+    {
+        if ($autoMappedManager = $this->validateAutoMapping($managerConfigs)) {
+            foreach (array_keys($bundles) as $bundle) {
+                foreach ($managerConfigs as $manager) {
+                    if (isset($manager['mappings'][$bundle])) {
+                        continue 2;
+                    }
+                }
+                $managerConfigs[$autoMappedManager]['mappings'][$bundle] = array(
+                    'mapping' => true,
+                    'is_bundle' => true,
+                );
+            }
+            $managerConfigs[$autoMappedManager]['auto_mapping'] = false;
+        }
+
+        return $managerConfigs;
     }
 
     /**
@@ -429,4 +459,31 @@ abstract class AbstractDoctrineExtension extends Extension
      * @return string
      */
     abstract protected function getMappingResourceExtension();
+
+    /**
+     * Search for a manager that is declared as 'auto_mapping' = true.
+     *
+     * @param array $managerConfigs
+     *
+     * @return null|string The name of the manager. If no one manager is found, returns null
+     *
+     * @throws \LogicException
+     */
+    private function validateAutoMapping(array $managerConfigs)
+    {
+        $autoMappedManager = null;
+        foreach ($managerConfigs as $name => $manager) {
+            if (!$manager['auto_mapping']) {
+                continue;
+            }
+
+            if (null !== $autoMappedManager) {
+                throw new \LogicException(sprintf('You cannot enable "auto_mapping" on more than one manager at the same time (found in "%s" and %s").', $autoMappedManager, $name));
+            }
+
+            $autoMappedManager = $name;
+        }
+
+        return $autoMappedManager;
+    }
 }

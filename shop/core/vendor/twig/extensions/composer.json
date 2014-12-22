@@ -2,7 +2,7 @@
     "name": "twig/extensions",
     "description": "Common additional features for Twig that do not directly belong in core",
     "keywords": ["i18n","text"],
-    "homepage": "https://github.com/fabpot/Twig-extensions",
+    "homepage": "http://twig.sensiolabs.org/doc/extensions/index.html",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -14,12 +14,18 @@
     "require": {
         "twig/twig": "~1.12"
     },
+    "require-dev": {
+        "symfony/translation": "~2.3"
+    },
+    "suggest": {
+        "symfony/translation": "Allow the time_diff output to be translated"
+    },
     "autoload": {
         "psr-0": { "Twig_Extensions_": "lib/" }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.1.x-dev"
+            "dev-master": "1.2.x-dev"
         }
     }
 }

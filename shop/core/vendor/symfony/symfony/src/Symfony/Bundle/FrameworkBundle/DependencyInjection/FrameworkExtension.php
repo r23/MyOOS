@@ -57,21 +57,6 @@ class FrameworkExtension extends Extension
         // Property access is used by both the Form and the Validator component
         $loader->load('property_access.xml');
 
-        $loader->load('debug_prod.xml');
-
-        if ($container->getParameter('kernel.debug')) {
-            $loader->load('debug.xml');
-
-            $definition = $container->findDefinition('http_kernel');
-            $definition->replaceArgument(2, new Reference('debug.controller_resolver'));
-
-            // replace the regular event_dispatcher service with the debug one
-            $definition = $container->findDefinition('event_dispatcher');
-            $definition->setPublic(false);
-            $container->setDefinition('debug.event_dispatcher.parent', $definition);
-            $container->setAlias('event_dispatcher', 'debug.event_dispatcher');
-        }
-
         $configuration = $this->getConfiguration($configs, $container);
         $config = $this->processConfiguration($configuration, $configs);
 
@@ -121,6 +106,7 @@ class FrameworkExtension extends Extension
 
         $this->registerValidationConfiguration($config['validation'], $container, $loader);
         $this->registerEsiConfiguration($config['esi'], $container, $loader);
+        $this->registerSsiConfiguration($config['ssi'], $container, $loader);
         $this->registerFragmentsConfiguration($config['fragments'], $container, $loader);
         $this->registerProfilerConfiguration($config['profiler'], $container, $loader);
         $this->registerTranslatorConfiguration($config['translator'], $container);
@@ -131,12 +117,38 @@ class FrameworkExtension extends Extension
 
         $this->registerAnnotationsConfiguration($config['annotations'], $container, $loader);
 
+        $this->registerPropertyAccessConfiguration($config['property_access'], $container);
+
         if (isset($config['serializer']) && $config['serializer']['enabled']) {
             $loader->load('serializer.xml');
         }
 
+        $loader->load('debug_prod.xml');
+        $definition = $container->findDefinition('debug.debug_handlers_listener');
+
+        if ($container->hasParameter('templating.helper.code.file_link_format')) {
+            $definition->replaceArgument(5, '%templating.helper.code.file_link_format%');
+        }
+
+        if ($container->getParameter('kernel.debug')) {
+            $loader->load('debug.xml');
+
+            $definition = $container->findDefinition('http_kernel');
+            $definition->replaceArgument(2, new Reference('debug.controller_resolver'));
+
+            // replace the regular event_dispatcher service with the debug one
+            $definition = $container->findDefinition('event_dispatcher');
+            $definition->setPublic(false);
+            $container->setDefinition('debug.event_dispatcher.parent', $definition);
+            $container->setAlias('event_dispatcher', 'debug.event_dispatcher');
+        } else {
+            $definition->replaceArgument(2, E_COMPILE_ERROR | E_PARSE | E_ERROR | E_CORE_ERROR);
+        }
+
         $this->addClassesToCompile(array(
             'Symfony\\Component\\Config\\FileLocator',
+
+            'Symfony\\Component\\Debug\\ErrorHandler',
 
             'Symfony\\Component\\EventDispatcher\\Event',
             'Symfony\\Component\\EventDispatcher\\ContainerAwareEventDispatcher',
@@ -158,6 +170,14 @@ class FrameworkExtension extends Extension
             // Cannot be included because annotations will parse the big compiled class file
             // 'Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller',
         ));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getConfiguration(array $config, ContainerBuilder $container)
+    {
+        return new Configuration($container->getParameter('kernel.debug'));
     }
 
     /**
@@ -208,6 +228,22 @@ class FrameworkExtension extends Extension
     }
 
     /**
+     * Loads the SSI configuration.
+     *
+     * @param array            $config    An SSI configuration array
+     * @param ContainerBuilder $container A ContainerBuilder instance
+     * @param XmlFileLoader    $loader    An XmlFileLoader instance
+     */
+    private function registerSsiConfiguration(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    {
+        if (!$this->isConfigEnabled($container, $config)) {
+            return;
+        }
+
+        $loader->load('ssi.xml');
+    }
+
+    /**
      * Loads the fragments configuration.
      *
      * @param array            $config    A fragments configuration array
@@ -254,15 +290,15 @@ class FrameworkExtension extends Extension
 
         // Choose storage class based on the DSN
         $supported = array(
-            'sqlite'    => 'Symfony\Component\HttpKernel\Profiler\SqliteProfilerStorage',
-            'mysql'     => 'Symfony\Component\HttpKernel\Profiler\MysqlProfilerStorage',
-            'file'      => 'Symfony\Component\HttpKernel\Profiler\FileProfilerStorage',
-            'mongodb'   => 'Symfony\Component\HttpKernel\Profiler\MongoDbProfilerStorage',
-            'memcache'  => 'Symfony\Component\HttpKernel\Profiler\MemcacheProfilerStorage',
+            'sqlite' => 'Symfony\Component\HttpKernel\Profiler\SqliteProfilerStorage',
+            'mysql' => 'Symfony\Component\HttpKernel\Profiler\MysqlProfilerStorage',
+            'file' => 'Symfony\Component\HttpKernel\Profiler\FileProfilerStorage',
+            'mongodb' => 'Symfony\Component\HttpKernel\Profiler\MongoDbProfilerStorage',
+            'memcache' => 'Symfony\Component\HttpKernel\Profiler\MemcacheProfilerStorage',
             'memcached' => 'Symfony\Component\HttpKernel\Profiler\MemcachedProfilerStorage',
-            'redis'     => 'Symfony\Component\HttpKernel\Profiler\RedisProfilerStorage',
+            'redis' => 'Symfony\Component\HttpKernel\Profiler\RedisProfilerStorage',
         );
-        list($class, ) = explode(':', $config['dsn'], 2);
+        list($class,) = explode(':', $config['dsn'], 2);
         if (!isset($supported[$class])) {
             throw new \LogicException(sprintf('Driver "%s" is not supported for the profiler.', $class));
         }
@@ -425,9 +461,9 @@ class FrameworkExtension extends Extension
 
         $links = array(
             'textmate' => 'txmt://open?url=file://%%f&line=%%l',
-            'macvim'   => 'mvim://open?url=file://%%f&line=%%l',
-            'emacs'    => 'emacs://open?url=file://%%f&line=%%l',
-            'sublime'  => 'subl://open?url=file://%%f&line=%%l',
+            'macvim' => 'mvim://open?url=file://%%f&line=%%l',
+            'emacs' => 'emacs://open?url=file://%%f&line=%%l',
+            'sublime' => 'subl://open?url=file://%%f&line=%%l',
         );
 
         $container->setParameter('templating.helper.code.file_link_format', isset($links[$ide]) ? $links[$ide] : $ide);
@@ -463,19 +499,6 @@ class FrameworkExtension extends Extension
             new Reference('templating.asset.default_package'),
             $namedPackages,
         ));
-
-        // Apply request scope to assets helper if one or more packages are request-scoped
-        $requireRequestScope = array_reduce(
-            $namedPackages,
-            function ($v, Reference $ref) use ($container) {
-                return $v || 'request' === $container->getDefinition($ref)->getScope();
-            },
-            'request' === $defaultPackage->getScope()
-        );
-
-        if ($requireRequestScope) {
-            $container->getDefinition('templating.helper.assets')->setScope('request');
-        }
 
         if (!empty($config['loaders'])) {
             $loaders = array_map(function ($loader) { return new Reference($loader); }, $config['loaders']);
@@ -614,6 +637,8 @@ class FrameworkExtension extends Extension
             $config['fallback'] = array($config['fallback']);
         }
         $translator->addMethodCall('setFallbackLocales', array($config['fallback']));
+
+        $container->setParameter('translator.logging', $config['logging']);
 
         // Discover translation directories
         $dirs = array();
@@ -801,6 +826,15 @@ class FrameworkExtension extends Extension
             ;
             $container->setAlias('annotation_reader', 'annotations.cached_reader');
         }
+    }
+
+    private function registerPropertyAccessConfiguration(array $config, ContainerBuilder $container)
+    {
+        $container
+            ->getDefinition('property_accessor')
+            ->replaceArgument(0, $config['magic_call'])
+            ->replaceArgument(1, $config['throw_exception_on_invalid_index'])
+        ;
     }
 
     /**

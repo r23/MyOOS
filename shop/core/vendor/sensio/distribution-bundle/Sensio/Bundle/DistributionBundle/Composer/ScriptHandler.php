@@ -511,9 +511,18 @@ EOF;
 
     protected static function getPhpArguments()
     {
-        $phpFinder = new PhpExecutableFinder();
+        $arguments = array();
 
-        return method_exists($phpFinder, 'findArguments') ? $phpFinder->findArguments() : array();
+        $phpFinder = new PhpExecutableFinder();
+        if (method_exists($phpFinder, 'findArguments')) {
+            $arguments = $phpFinder->findArguments();
+        }
+
+        if (false !== $ini = php_ini_loaded_file()) {
+            $arguments[] = '--php-ini='.$ini;
+        }
+
+        return $arguments;
     }
 
     /**

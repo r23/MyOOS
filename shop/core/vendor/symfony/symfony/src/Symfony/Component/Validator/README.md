@@ -37,12 +37,12 @@ $validator = Validation::createValidator();
 $constraint = new Assert\Collection(array(
     'name' => new Assert\Collection(array(
         'first_name' => new Assert\Length(array('min' => 101)),
-        'last_name'  => new Assert\Length(array('min' => 1)),
+        'last_name' => new Assert\Length(array('min' => 1)),
     )),
-    'email'    => new Assert\Email(),
-    'simple'   => new Assert\Length(array('min' => 102)),
-    'gender'   => new Assert\Choice(array(3, 4)),
-    'file'     => new Assert\File(),
+    'email' => new Assert\Email(),
+    'simple' => new Assert\Length(array('min' => 102)),
+    'gender' => new Assert\Choice(array(3, 4)),
+    'file' => new Assert\File(),
     'password' => new Assert\Length(array('min' => 60)),
 ));
 
@@ -113,7 +113,7 @@ https://github.com/fabpot/Silex/blob/master/src/Silex/Provider/ValidatorServiceP
 
 Documentation:
 
-http://symfony.com/doc/2.5/book/validation.html
+http://symfony.com/doc/2.6/book/validation.html
 
 JSR-303 Specification:
 

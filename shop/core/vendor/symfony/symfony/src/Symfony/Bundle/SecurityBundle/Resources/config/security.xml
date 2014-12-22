@@ -51,10 +51,18 @@
 
     <services>
         <service id="security.context" class="%security.context.class%">
+            <argument type="service" id="security.token_storage" />
+            <argument type="service" id="security.authorization_checker" />
+        </service>
+
+        <service id="security.authorization_checker" class="Symfony\Component\Security\Core\Authorization\AuthorizationChecker">
+            <argument type="service" id="security.token_storage" />
             <argument type="service" id="security.authentication.manager" />
             <argument type="service" id="security.access.decision_manager" />
             <argument>%security.access.always_authenticate_before_granting%</argument>
         </service>
+
+        <service id="security.token_storage" class="Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage" />
 
         <!-- Authentication related services -->
         <service id="security.authentication.manager" class="%security.authentication.manager.class%" public="false">
@@ -80,9 +88,19 @@
 
         <service id="security.encoder_factory" alias="security.encoder_factory.generic"></service>
 
+        <service id="security.user_password_encoder.generic" class="Symfony\Component\Security\Core\Encoder\UserPasswordEncoder" public="false">
+            <argument type="service" id="security.encoder_factory"></argument>
+        </service>
+
+        <service id="security.password_encoder" alias="security.user_password_encoder.generic"></service>
+
         <service id="security.user_checker" class="%security.user_checker.class%" public="false" />
 
         <service id="security.expression_language" class="%security.expression_language.class%" public="false" />
+
+        <service id="security.authentication_utils" class="Symfony\Component\Security\Http\Authentication\AuthenticationUtils">
+            <argument type="service" id="request_stack" />
+        </service>
 
         <!-- Authorization related services -->
         <service id="security.access.decision_manager" class="%security.access.decision_manager.class%" public="false">

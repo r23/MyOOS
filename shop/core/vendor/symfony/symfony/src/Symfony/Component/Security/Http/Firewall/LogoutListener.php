@@ -60,8 +60,8 @@ class LogoutListener implements ListenerInterface
         $this->httpUtils = $httpUtils;
         $this->options = array_merge(array(
             'csrf_parameter' => '_csrf_token',
-            'intention'      => 'logout',
-            'logout_path'    => '/logout',
+            'intention' => 'logout',
+            'logout_path' => '/logout',
         ), $options);
         $this->successHandler = $successHandler;
         $this->csrfTokenManager = $csrfTokenManager;
@@ -86,7 +86,7 @@ class LogoutListener implements ListenerInterface
      *
      * @param GetResponseEvent $event A GetResponseEvent instance
      *
-     * @throws LogoutException if the CSRF token is invalid
+     * @throws LogoutException   if the CSRF token is invalid
      * @throws \RuntimeException if the LogoutSuccessHandlerInterface instance does not return a response
      */
     public function handle(GetResponseEvent $event)

@@ -52,12 +52,12 @@
 {% endblock choice_widget_expanded %}
 
 {% block choice_widget_collapsed -%}
-    {% if required and empty_value is none and not empty_value_in_choices and not multiple -%}
+    {% if required and placeholder is none and not placeholder_in_choices and not multiple -%}
         {% set required = false %}
     {%- endif -%}
     <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
-        {% if empty_value is not none -%}
-            <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ empty_value|trans({}, translation_domain) }}</option>
+        {% if placeholder is not none -%}
+            <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ placeholder|trans({}, translation_domain) }}</option>
         {%- endif %}
         {%- if preferred_choices|length > 0 -%}
             {% set options = preferred_choices %}
@@ -95,14 +95,14 @@
 {% block datetime_widget -%}
     {% if widget == 'single_text' %}
         {{- block('form_widget_simple') -}}
-    {% else %}
+    {% else -%}
         <div {{ block('widget_container_attributes') }}>
             {{- form_errors(form.date) -}}
             {{- form_errors(form.time) -}}
             {{- form_widget(form.date) -}}
             {{- form_widget(form.time) -}}
         </div>
-    {% endif %}
+    {%- endif %}
 {%- endblock datetime_widget %}
 
 {% block date_widget -%}
@@ -132,7 +132,7 @@
 
 {% block number_widget -%}
     {# type="number" doesn't work with floats #}
-    {% set type = type|default('text') %}
+    {%- set type = type|default('text') %}
     {{- block('form_widget_simple') -}}
 {%- endblock number_widget %}
 
@@ -162,7 +162,7 @@
 
 {% block password_widget -%}
     {% set type = type|default('password') %}
-    {{ block('form_widget_simple') }}
+    {{- block('form_widget_simple') -}}
 {%- endblock password_widget %}
 
 {% block hidden_widget -%}
@@ -177,7 +177,14 @@
 
 {% block button_widget -%}
     {% if label is empty -%}
-        {% set label = name|humanize %}
+        {%- if label_format is not empty -%}
+            {% set label = label_format|replace({
+                '%name%': name,
+                '%id%': id,
+            }) %}
+        {%- else -%}
+            {% set label = name|humanize %}
+        {%- endif -%}
     {%- endif -%}
     <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>{{ label|trans({}, translation_domain) }}</button>
 {%- endblock button_widget %}
@@ -203,7 +210,14 @@
             {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
         {%- endif %}
         {% if label is empty -%}
-            {% set label = name|humanize %}
+            {%- if label_format is not empty -%}
+                {% set label = label_format|replace({
+                    '%name%': name,
+                    '%id%': id,
+                }) %}
+            {%- else -%}
+                {% set label = name|humanize %}
+            {%- endif -%}
         {%- endif -%}
         <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, translation_domain) }}</label>
     {%- endif %}
@@ -254,7 +268,7 @@
     {%- else -%}
         {% set form_method = "POST" %}
     {%- endif -%}
-    <form name="{{ form.vars.name }}" method="{{ form_method|lower }}" action="{{ action }}"{% for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}{% if multipart %} enctype="multipart/form-data"{% endif %}>
+    <form name="{{ name }}" method="{{ form_method|lower }}" action="{{ action }}"{% for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}{% if multipart %} enctype="multipart/form-data"{% endif %}>
     {%- if form_method != method -%}
         <input type="hidden" name="_method" value="{{ method }}" />
     {%- endif -%}

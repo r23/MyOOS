@@ -107,19 +107,19 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     0 => array(
-                        'name'    => 'something',
-                    ),
-                    5 => array(
-                        0         => 'this won\'t work too',
-                        'new_key' => 'some other value',
-                    ),
-                    'string_key'  => 'just value',
-                ),
-                array(
-                    0 => array (
                         'name' => 'something',
                     ),
-                    5 => array (
+                    5 => array(
+                        0 => 'this won\'t work too',
+                        'new_key' => 'some other value',
+                    ),
+                    'string_key' => 'just value',
+                ),
+                array(
+                    0 => array(
+                        'name' => 'something',
+                    ),
+                    5 => array(
                         0 => 'this won\'t work too',
                         'new_key' => 'some other value',
                     ),

@@ -26,8 +26,8 @@ use Symfony\Component\Security\Acl\Model\SecurityIdentityInterface;
 class PermissionGrantingStrategy implements PermissionGrantingStrategyInterface
 {
     const EQUAL = 'equal';
-    const ALL   = 'all';
-    const ANY   = 'any';
+    const ALL = 'all';
+    const ANY = 'any';
 
     private $auditLogger;
 
@@ -130,13 +130,13 @@ class PermissionGrantingStrategy implements PermissionGrantingStrategyInterface
      * @param SecurityIdentityInterface[] $sids               An array of SecurityIdentityInterface implementations
      * @param bool                        $administrativeMode True turns off audit logging
      *
-     * @return bool    true, or false; either granting, or denying access respectively.
+     * @return bool true, or false; either granting, or denying access respectively.
      *
      * @throws NoAceFoundException
      */
     private function hasSufficientPermissions(AclInterface $acl, array $aces, array $masks, array $sids, $administrativeMode)
     {
-        $firstRejectedAce  = null;
+        $firstRejectedAce = null;
 
         foreach ($masks as $requiredMask) {
             foreach ($sids as $sid) {

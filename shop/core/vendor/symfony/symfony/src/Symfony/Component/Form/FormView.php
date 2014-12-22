@@ -24,7 +24,7 @@ class FormView implements \ArrayAccess, \IteratorAggregate, \Countable
      */
     public $vars = array(
         'value' => null,
-        'attr'  => array(),
+        'attr' => array(),
     );
 
     /**
@@ -58,7 +58,7 @@ class FormView implements \ArrayAccess, \IteratorAggregate, \Countable
     /**
      * Returns whether the view was already rendered.
      *
-     * @return bool    Whether this view's widget is rendered.
+     * @return bool Whether this view's widget is rendered.
      */
     public function isRendered()
     {
