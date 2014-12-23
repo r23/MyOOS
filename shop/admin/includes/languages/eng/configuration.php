@@ -613,8 +613,6 @@ define('OOS_META_INDEX_PAGE_DESC', 'M&ouml;chten Sie eine Index-Seite mit allen 
 define('OOS_META_INDEX_PATH_TITLE', 'Path to IndexSite');
 define('OOS_META_INDEX_PATH_DESC', 'Path to store File for Spider');
 
-define('MULTIPLE_CATEGORIES_USE_TITLE', 'Use Multiple Categories');
-define('MULTIPLE_CATEGORIES_USE_DESC', 'Set to true or false in order to add product to multiple categories with one click.');
 
 define('SLAVE_LIST_IMAGE_TITLE', 'Display Slave Image');
 define('SLAVE_LIST_IMAGE_DESC', 'Do you want to display the Product Image?');

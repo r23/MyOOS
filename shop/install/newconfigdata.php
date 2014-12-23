@@ -365,7 +365,6 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configur
 //28
 
 //29
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MULTIPLE_CATEGORIES_USE', 'true', '29', '1', NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 
 
 //30
@@ -419,7 +418,7 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (co
 // $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (26, 26, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
 // $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (27, 27, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
 // $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (28, 28, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (29, 29, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
+// $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (29, 29, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
 
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (30, 30, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
 

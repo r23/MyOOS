@@ -613,9 +613,6 @@ define('OOS_META_INDEX_PATH_DESC', 'Die Datei f&uuml;r die Suchmaschinen soll in
 define('ENABLE_SPIDER_FRIENDLY_LINKS_TITLE', 'Spider-frundliche Links');
 define('ENABLE_SPIDER_FRIENDLY_LINKS_DESC', 'Erm&ouml;gliche Spider-freundliche Links (empfohlen). ACHTUNG: Es sind ggf. &Auml;nderungen in der Konfiguration des Webservers notwendig!');
 
-define('MULTIPLE_CATEGORIES_USE_TITLE', 'Multi-Kategorien nutzen');
-define('MULTIPLE_CATEGORIES_USE_DESC', 'Auf true setzen, um das Hinzuf&uuml;gen eines Produkts zu mehreren Kategorien mit einem Klick zu erm&ouml;glichen.');
-
 define('OOS_SPAW_TITLE', 'SPAW PHP WYSIWYG Editor');
 define('OOS_SPAW_DESC', 'SPAW PHP WYSIWYG bei der Datenerfassung verwenden?');
 

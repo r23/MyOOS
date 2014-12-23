@@ -271,10 +271,8 @@
             oos_db_perform($oostable['products'], $sql_data_array);
             $products_id = $dbconn->Insert_ID();
 
-            if (MULTIPLE_CATEGORIES_USE == 'false') {
-              $products_to_categoriestable = $oostable['products_to_categories'];
-              $dbconn->Execute("INSERT INTO $products_to_categoriestable (products_id, categories_id) VALUES ('" . $products_id . "', '" . $current_category_id . "')");
-            }
+            $products_to_categoriestable = $oostable['products_to_categories'];
+            $dbconn->Execute("INSERT INTO $products_to_categoriestable (products_id, categories_id) VALUES ('" . $products_id . "', '" . $current_category_id . "')");
 
           } elseif ($action == 'update_product') {
             $update_sql_data = array('products_last_modified' => 'now()');
@@ -283,22 +281,8 @@
 
             oos_db_perform($oostable['products'], $sql_data_array, 'update', 'products_id = \'' . oos_db_input($products_id) . '\'');
 
-            if (MULTIPLE_CATEGORIES_USE == 'true') {
-              $products_to_categoriestable = $oostable['products_to_categories'];
-              $dbconn->Execute("DELETE FROM $products_to_categoriestable WHERE products_id = '". $products_id . "'");
-            }
           }
-          if (MULTIPLE_CATEGORIES_USE == 'true') {
-            if (isset($_POST['categories_ids']) && !empty($_POST['categories_ids']) && is_array($_POST['categories_ids'])) {
-              $selected_catids = $_POST['categories_ids'];
-            } else {
-              $selected_catids = array('0');
-            }
-            foreach ($selected_catids as $current_category_id)  {
-              $products_to_categoriestable = $oostable['products_to_categories'];
-              $dbconn->Execute("INSERT INTO $products_to_categoriestable (products_id, categories_id) values ('" . $products_id . "', '" . $current_category_id . "')");
-            }
-          }
+
           if (oos_empty($_GET['cPath'])) {
             $cPath = $current_category_id;
           }
@@ -411,24 +395,6 @@ function popupImageWindow(url) {
       // Move that ADOdb pointer!
       $manufacturers_result->MoveNext();
     }
-    if (MULTIPLE_CATEGORIES_USE == 'true') {
-      $categories_array_selected = array(array('id' => ''));
-      if (isset($_GET['action']) && ($_GET['action'] == 'new_product') && (isset($_GET['cPath'])) )  {
-        $categories_array_selected = array(array('id' => (int)$_GET['cPath']));
-      }
-
-      $products_to_categoriestable = $oostable['products_to_categories'];
-      $categories_result_selected = $dbconn->Execute("SELECT categories_id FROM $products_to_categoriestable WHERE products_id = '" . $_GET['pID'] . "'");
-      while ($categories_selected = $categories_result_selected->fields) {
-        $categories_array_selected[] = array('id' => $categories_selected['categories_id']);
-
-         // Move that ADOdb pointer!
-        $categories_result_selected->MoveNext();
-      }
-
-      $categories_array = array(array('id' => '', 'text' => TEXT_NONE));
-      $categories_array = oos_get_category_tree();
-    }
 
     $tax_class_array = array();
     $tax_class_array = array(array('id' => '0', 'text' => TEXT_NONE));
@@ -527,16 +493,6 @@ function calcBasePriceFactor() {
             <td class="main"><?php echo TEXT_PRODUCTS_STATUS; ?></td>
             <td class="main"><?php echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_pull_down_menu('products_status', $products_status_array, $pInfo->products_status); ?></td>
           </tr>
-<?php
-   if (MULTIPLE_CATEGORIES_USE == 'true') {
-?>
-          <tr>
-            <td class="main"><?php echo TEXT_CATEGORIES; ?></td>
-            <td class="main"><?php echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_m_select_menu('categories_ids[]', $categories_array, $categories_array_selected, 'size=10'); ?></td>
-          </tr>
-<?php
-  }
-?>
           <tr>
             <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
           </tr>
