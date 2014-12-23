@@ -59,12 +59,6 @@
           }
           if (is_uploaded_file($products_image['tmp_name'])) {
             $products_image = oos_copy_uploaded_file($products_image, $image_directory);
-            if (OOS_IMAGE_SWF == 'true') {
-              include 'includes/classes/class_image2swf.php';
-              $swf = new Image2swf;
-              $filename = explode("[/\\.]", $products_image_name);
-              $swf->Main(OOS_ABSOLUTE_PATH . OOS_IMAGES . $products_image_name, $filename[0]);  
-            }
           } else {
             $products_image = oos_db_prepare_input($_POST['products_previous_image']);
           }
@@ -956,12 +950,6 @@ function calcBasePriceFactor() {
       }
       if (is_uploaded_file($products_image['tmp_name'])) {
         $products_image_name = oos_copy_uploaded_file($products_image, $image_directory);
-        if (OOS_IMAGE_SWF == 'true') {
-          include 'includes/classes/class_image2swf.php';
-          $swf = new Image2swf;
-          $filename = explode("[/\\.]", $products_image_name);
-          $swf->Main(OOS_ABSOLUTE_PATH . OOS_IMAGES . $products_image_name, $filename[0]);   
-        }
       } else {
         $products_image_name = $_POST['products_previous_image'];
       }

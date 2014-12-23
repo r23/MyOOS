@@ -538,12 +538,6 @@ define('OOS_WATERMARK_DESC', 'M&ouml;chten Sie im grossen Bild ein Wasserzeichen
 define('OOS_WATERMARK_QUALITY_TITLE', 'Qualit&auml;t vom Wasserzeichen');
 define('OOS_WATERMARK_QUALITY_DESC', 'Hier legen Sie die Qualit&auml;t vom Wasserzeichen fest');
 
-define('OOS_IMAGE_SWF_TITLE', 'Ming');
-define('OOS_IMAGE_SWF_DESC', 'Ist Ming installiert?');
-
-define('OOS_SWF_MOVIECLIP_TITLE', 'Flash-Film');
-define('OOS_SWF_MOVIECLIP_DESC', 'M&ouml;chten Sie das kleine Produktbild in einen Flash-Film umwandeln?');
-
 define('OOS_SWF_BGCOLOUR_R_TITLE', 'Hintergrund vom Flashfilm R');
 define('OOS_SWF_BGCOLOUR_R_DESC', 'Rot Wert f&uuml;r kleines Produktbild im Flashfilm');
 
