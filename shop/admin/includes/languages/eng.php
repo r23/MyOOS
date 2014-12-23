@@ -128,11 +128,6 @@ define('BOX_CONTENT_NEWS', 'News');
 define('BOX_CONTENT_INFORMATION', 'Information');
 define('BOX_CONTENT_PAGE_TYPE', 'Conten Page Type');
 
-// categories box text in includes/boxes/newsfeed.php
-define('BOX_HEADING_NEWSFEED', 'News Feed');
-define('BOX_NEWSFEED_MANAGER', 'News Feed Manager');
-define('BOX_NEWSFEED_CATEGORIES', 'News Feed Categories');
-
 // customers box text in includes/boxes/customers.php
 define('BOX_HEADING_CUSTOMERS', 'Customers');
 define('BOX_CUSTOMERS_CUSTOMERS', 'Customers');
@@ -155,20 +150,14 @@ define('BOX_REPORTS_PRODUCTS_PURCHASED', 'Products Purchased');
 define('BOX_REPORTS_ORDERS_TOTAL', 'Customer Orders-Total');
 define('BOX_REPORTS_STOCK_LEVEL', 'Low Stock Report');
 define('BOX_REPORTS_SALES_REPORT2', 'SalesReport2');
-define('BOX_REPORTS_KEYWORDS', 'Keyword Manager');
-define('BOX_REPORTS_REFERER' , 'HTTP Referers');
 
 // tools text in includes/boxes/tools.php
 define('BOX_HEADING_TOOLS', 'Tools');
-define('BOX_TOOLS_BACKUP', 'Database Backup');
-define('BOX_TOOLS_BANNER_MANAGER', 'Banner Manager');
 define('BOX_TOOLS_DEFINE_LANGUAGE', 'Define Languages');
 define('BOX_TOOLS_FILE_MANAGER', 'File Manager');
 define('BOX_TOOLS_MAIL', 'Send Email');
 define('BOX_TOOLS_NEWSLETTER_MANAGER', 'Newsletter Manager');
-define('BOX_TOOLS_SERVER_INFO', 'Server Info');
 define('BOX_TOOLS_WHOS_ONLINE', 'Who\'s Online');
-define('BOX_TOOLS_KEYWORD_SHOW', 'Keyword Show');
 define('BOX_HEADING_ADMINISTRATORS', 'Administrators');
 define('BOX_ADMINISTRATORS_SETUP', 'Set Up');
 
@@ -178,12 +167,6 @@ define('BOX_LOCALIZATION_CURRENCIES', 'Currencies');
 define('BOX_LOCALIZATION_LANGUAGES', 'Languages');
 define('BOX_LOCALIZATION_CUSTOMERS_STATUS', 'Customers Status');
 define('BOX_LOCALIZATION_ORDERS_STATUS', 'Orders Status');
-
-// links box text in includes/boxes/links.php
-define('BOX_HEADING_LINKS', 'Links Manager');
-define('BOX_CONTENT_LINKS', 'Links');
-define('BOX_CONTENT_LINK_CATEGORIES', 'Link Categories');
-define('BOX_CONTENT_LINKS_CONTACT', 'Links Contact');
 
 // export
 define('BOX_HEADING_EXPORT', 'Export');

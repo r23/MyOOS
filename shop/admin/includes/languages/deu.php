@@ -157,8 +157,7 @@ define('BOX_REPORTS_PRODUCTS_PURCHASED', 'gekaufte Artikel');
 define('BOX_REPORTS_ORDERS_TOTAL', 'Kunden-Bestellstatistik');
 define('BOX_REPORTS_STOCK_LEVEL', 'Lagerbestand');
 define('BOX_REPORTS_SALES_REPORT2', 'Umsatzbericht');
-define('BOX_REPORTS_KEYWORDS', 'Keyword Manager');
-define('BOX_REPORTS_REFERER' , 'HTTP Referers');
+
 
 // tools text in includes/boxes/tools.php
 define('BOX_HEADING_TOOLS', 'Hilfsprogramme');
@@ -169,9 +168,7 @@ define('BOX_TOOLS_DEFINE_LANGUAGE', 'Sprachen definieren');
 define('BOX_EXPORT_PREISSUCHMASCHINE', 'Export preissuchmaschine.de');
 define('BOX_TOOLS_MAIL', 'eMail versenden');
 define('BOX_TOOLS_NEWSLETTER_MANAGER', 'Rundschreiben Manager');
-define('BOX_TOOLS_SERVER_INFO', 'Server Info');
 define('BOX_TOOLS_WHOS_ONLINE', 'Wer ist Online');
-define('BOX_TOOLS_KEYWORD_SHOW', 'Keyword Show');
 define('BOX_HEADING_ADMINISTRATORS', 'Administrators');
 define('BOX_ADMINISTRATORS_SETUP', 'Set Up');
 
@@ -182,17 +179,11 @@ define('BOX_LOCALIZATION_LANGUAGES', 'Sprachen');
 define('BOX_LOCALIZATION_CUSTOMERS_STATUS', 'Kundengruppen');
 define('BOX_LOCALIZATION_ORDERS_STATUS', 'Bestellstatus');
 
-// links box text in includes/boxes/links.php
-define('BOX_HEADING_LINKS', 'Links Manager');
-define('BOX_CONTENT_LINKS', 'Links');
-define('BOX_CONTENT_LINK_CATEGORIES', 'Link Kategorien');
-define('BOX_CONTENT_LINKS_CONTACT', 'Kontakt Linkpartner');
 
 // export
 define('BOX_HEADING_EXPORT', 'Export');
 define('BOX_EXPORT_PREISSUCHMASCHINE', 'Export preissuchmaschine.de');
 define('BOX_EXPORT_GOOGLEBASE', 'Googlebase');
-
 
 
 //rss
