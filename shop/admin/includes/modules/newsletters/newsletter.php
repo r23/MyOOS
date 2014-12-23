@@ -22,6 +22,9 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
+// todo:
+// remove link http://exampel.org/shop/index.php?action=process&newsletter=remove&email_address=
+
 class newsletter {
     var $show_choose_audience, $title, $content;
 

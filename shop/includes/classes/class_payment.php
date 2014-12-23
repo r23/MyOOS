@@ -80,7 +80,7 @@
     public function update_status() {
       if (is_array($this->modules)) {
         if (is_object($GLOBALS[$this->selected_module])) {
-          if (public function_exists('method_exists')) {
+          if (function_exists('method_exists')) {
             if (method_exists($GLOBALS[$this->selected_module], 'update_status')) {
               $GLOBALS[$this->selected_module]->update_status();
             }

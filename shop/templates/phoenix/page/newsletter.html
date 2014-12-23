@@ -1,0 +1,57 @@
+{include file="phoenix/system/_header.tpl"}
+
+{include file="phoenix/system/_breadcrumbs.tpl"}
+
+{if $message}
+    {foreach $message as $info}
+        {include file="phoenix/system/_message.tpl"}
+    {/foreach}
+{/if}
+
+
+	<!-- start content -->
+	<section id="content">
+	<div class="container"> 
+		<div class="row">
+		{if $smarty.get.subscribe eq 'success' }
+            <div class="col-md-12">
+				<div class="alert alert-success" role="alert">
+					{$lang.text_email_active}
+				</div>
+            </div>	
+		{elseif $smarty.get.unsubscribe eq 'success' }
+            <div class="col-md-12">
+				<div class="alert alert-success" role="alert">
+					{$lang.text_email_del}
+				</div>
+            </div>		
+		{else}
+			<div class="col-sm-6 col-sm-offset-3">
+				<div class="sign-form">
+			  <h3 class="first-child">{$lang.heading_title}</h3>
+			  <hr>
+				<form role="form" name="subscribe" action="{html_get_link connection=SSL}" method="post">
+					{if $mySystem.sed}
+						<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+					{/if}
+						<input type="hidden" name="action" value="process">
+						<input type="hidden" name="content" value="{$filename.newsletter}">
+
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-user"></i></span>
+							<input type="email_address" name="email_address" class="form-control" id="email_address" placeholder="{$lang.entry_email_address}" data-original-title="" title="">
+						</div>
+						<br>
+						<button type="submit" class="btn btn-color">{$lang.button_login}</button>
+						<hr>
+					</form>
+
+				</div>
+			</div>
+		{/if}
+		</div> <!-- .row -->   
+	</div> <!--end container-->
+	</section>	
+	<!-- end content -->
+
+{include file="phoenix/system/_footer.tpl"}

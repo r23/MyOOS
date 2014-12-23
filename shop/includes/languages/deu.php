@@ -162,7 +162,8 @@ $aLang['entry_newsletter_no'] = 'Nein';
 $aLang['entry_newsletter_yes'] = 'Ja';
 $aLang['text_email_active'] = 'Ihre E-Mail-Adresse wurde erfolgreich für den Newsletterempfang freigeschaltet!';
 $aLang['text_email_active_error'] = 'Es ist ein Fehler aufgetreten, Ihre E-Mail-Adresse wurde nicht freigeschaltet!';
-
+$aLang['text_email_del'] = 'Ihre E-Mail-Adresse wurde aus unserer Newsletterdatenbank gelöscht.';
+$aLang['text_email_del_error'] = 'Es ist ein Fehler aufgetreten, Ihre E-Mail-Adresse wurde nicht gelöscht!';
 
 //myworld
 $aLang['text_date_account_created'] = 'Zugang erstellt am:';

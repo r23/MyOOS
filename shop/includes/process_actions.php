@@ -21,8 +21,12 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 $bError = FALSE;
 
-// Newsletter	
-$email_address = oos_prepare_input($_POST['email_address']);
+// Newsletter
+if ( isset($_GET['email_address']) ) {
+	$email_address = oos_prepare_input($_GET['email_address']);
+} else {
+	$email_address = oos_prepare_input($_POST['email_address']);
+}
 
 if ( empty( $email_address ) || !is_string( $email_address ) ) {
 	$bError = TRUE;
@@ -72,9 +76,9 @@ if ( isset($_POST['newsletter'])
 		$nInsert_ID = $dbconn->Insert_ID();	  
 		$newsletter_recipients = $oostable['newsletter_recipients_history'];
 		$dbconn->Execute("INSERT INTO $newsletter_recipients 
-                          (recipients_id,
-						  date_added) VALUES ('" . intval($nInsert_ID) . "',
-                                               now())");
+                                    (recipients_id,
+                                    date_added) VALUES ('" . intval($nInsert_ID) . "',
+                                                        now())");
 											   
 		$sStr =  $sBefor . $nInsert_ID . 'f00d';
 		$sSha1 = sha1($sStr);
@@ -111,5 +115,43 @@ if ( isset($_POST['newsletter'])
 		$aInfoMessage[] = array('type' => 'success',
 								'text' => $aLang['newsletter_email_info']);
 
+	}
+} 
+
+
+
+if ( isset($_GET['newsletter']) 
+	&& ($_GET['newsletter'] == 'remove') 
+	&& ($bError === FALSE) ) {
+
+	$newsletter_recipients = $oostable['newsletter_recipients'];
+	$sql = "SELECT recipients_id
+              FROM $newsletter_recipients
+              WHERE customers_email_address = '" . oos_db_input($email_address) . "'
+			  AND status = '1'";
+	$check_recipients_result = $dbconn->Execute($sql);
+
+	if ($check_recipients_result->RecordCount()) {
+		$result = $check_recipients_result->fields;
+		$recipients_id = $result['recipients_id'];
+		$newsletter_recipients = $oostable['newsletter_recipients'];
+		$sql = "UPDATE $newsletter_recipients
+               SET status = '0'
+				WHERE recipients_id = '" . intval($recipients_id) . "'";	
+		$dbconn->Execute($sql);
+	
+		$newsletter_recipients_history = $oostable['newsletter_recipients_history'];
+		$dbconn->Execute("INSERT INTO $newsletter_recipients_history 
+					(recipients_id,
+					new_value,
+					date_added) VALUES ('" . intval($recipients_id) . "',
+									  '0',
+                                      now())");
+
+		oos_redirect(oos_href_link($aContents['newsletter'], 'unsubscribe=success', 'SSL'));						
+	} else {
+		$bError = TRUE;
+		$aInfoMessage[] = array('type' => 'danger',
+								'text' => $aLang['text_email_del_error']);
 	}
 } 

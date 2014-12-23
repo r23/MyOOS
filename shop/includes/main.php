@@ -279,8 +279,9 @@ $sTheme = STORE_TEMPLATES;
 $aTemplate = array();
 
 // Shopping cart actions
-if ( isset($_GET['action']) || isset($_POST['action']) ) {
-	if ( isset($_POST['action']) && ($_POST['action'] == 'process') ) {
+if ( isset($_GET['action']) || isset($_POST['action']) )  {
+	if ( isset($_POST['action']) && ($_POST['action'] == 'process')
+      || isset($_GET['action']) && ($_GET['action'] == 'process') ) {
 		// require  validation functions (right now only email address)
 		require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';	
 		require_once MYOOS_INCLUDE_PATH . '/includes/process_actions.php';
