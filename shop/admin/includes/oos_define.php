@@ -33,8 +33,6 @@ if(!defined('MYOOS_INCLUDE_PATH')) {
 	define('MYOOS_INCLUDE_PATH', OOS_ABSOLUTE_PATH);
 }
   
-  
-  define('OOS_PRICE_IS_BRUTTO', 'true');  // Price with Tax
   define('OOS_BASE_PRICE', 'true');
   
   define('DECIMAL_CART_QUANTITY', 'false');

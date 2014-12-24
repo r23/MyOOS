@@ -73,14 +73,6 @@
   if (isset($_POST['stock_update']) && !empty($_POST['stock_update'])) {
 
     foreach ($_POST['stock_update'] as $key => $items) {
-      if (OOS_PRICE_IS_BRUTTO == 'true' && isset($items['price'])){
-        $tax_ratestable = $oostable['tax_rates'];
-        $query = "SELECT tax_rate
-                  FROM $tax_ratestable
-                  WHERE tax_class_id = '" . $items['tax_class_id'] . "'";
-        $tax_rate = $dbconn->GetOne($query);
-        $items['price'] = ($items['price']/($tax_rate+100)*100);
-      }
 
       // update the quantity in stock
       $productstable = $oostable['products'];
@@ -146,18 +138,7 @@
       echo '</td><td class="dataTableContent" align="left"><input type="text" size="3" name="stock_update[' . $product['products_id'] . '][weight]" value="' . $product['products_weight'] . '"><i>';
 
       $oosPrice = $product['products_price'];
-      if (OOS_PRICE_IS_BRUTTO == 'true'){
-        $oosPriceNetto = round($oosPrice,TAX_DECIMAL_PLACES);
-        $tax_ratestable = $oostable['tax_rates'];
-        $query = "SELECT tax_rate
-                  FROM $tax_ratestable
-                  WHERE tax_class_id = '" . $product['products_tax_class_id'] . "'";
-        $tax_rate = $dbconn->GetOne($query);
-        $oosPrice = ($oosPrice*($tax_rate+100)/100);
-        $oosPrice = round($oosPrice,TAX_DECIMAL_PLACES);
-      }
-      echo '</td><td class="dataTableContent" align="left"><input type="text" size="5" name="stock_update[' . $product['products_id'] . '][price]" value="' . $oosPrice . '"><i>';
-      if (OOS_PRICE_IS_BRUTTO == 'true') echo " - " . TEXT_TAX_INFO . ' ' .  $currencies->format($oosPriceNetto) . '</i>';
+      echo '</td><td class="dataTableContent" align="left"><input type="text" size="5" name="stock_update[' . $product['products_id'] . '][price]" value="' . $oosPrice . '">';
       echo '<input type="hidden" name="stock_update[' . $product['products_id'] . '][tax_class_id]" value="' . $product['products_tax_class_id'] . '">';
       echo '</td><td class="dataTableContent" align="left"><input type="text" size="4" name="stock_update[' . $product['products_id'] . '][stock]" value="' . $product['products_quantity'] . '"><i>';
       echo (($product['products_status'] != 3) ? '<font color="ff0000"><b>not active</b></font>' : '<font color="009933"><b>active</b></font>');

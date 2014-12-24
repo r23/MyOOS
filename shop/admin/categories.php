@@ -1107,20 +1107,6 @@ function popupImageWindow(url) {
             $oosPrice = $pInfo->products_price;
             $oosPriceList = $pInfo->products_price_list;
 
-            if (OOS_PRICE_IS_BRUTTO == 'true' && ($_GET['read'] == 'only' || $action != 'new_product_preview') ){
-              $oosPriceNetto = round($oosPrice,TAX_DECIMAL_PLACES);
-              $oosPriceListNetto = round($oosPriceList,TAX_DECIMAL_PLACES);
-              $tax_result = $dbconn->Execute("SELECT tax_rate FROM " . $oostable['tax_rates'] . " WHERE tax_class_id = '" . $pInfo->products_tax_class_id . "' ");
-              $tax = $tax_result->fields;
-              $oosPrice = ($oosPrice*($tax[tax_rate]+100)/100);
-              $oosPriceList = ($oosPriceList*($tax[tax_rate]+100)/100);
-
-              if (isset($specials) && is_array($specials)) {
-                $oosSpecialsPriceNetto = round($specials['specials_new_products_price'],TAX_DECIMAL_PLACES);
-                $oosSpecialsPrice = round(($specials['specials_new_products_price']*($tax[tax_rate]+100)/100),TAX_DECIMAL_PLACES);
-              }
-            }
-
             $oosPrice = round($oosPrice,TAX_DECIMAL_PLACES);
             $oosPriceList = round($oosPriceList,TAX_DECIMAL_PLACES);
 
@@ -1140,38 +1126,22 @@ function popupImageWindow(url) {
 
             if ( $pInfo->products_discount1_qty > 0 ) {
               $oosDiscount1 = $pInfo->products_discount1;
-              if (OOS_PRICE_IS_BRUTTO == 'true') {
-                $oosDiscount1Netto = round($oosDiscount1,TAX_DECIMAL_PLACES);
-                $oosDiscount1 = ($oosDiscount1*($tax[tax_rate]+100)/100); 
-              }
               $oosDiscount1 = round($oosDiscount1,TAX_DECIMAL_PLACES);
               $contents[] = array('text' => '<br /><br /><b>' . TEXT_DISCOUNTS_TITLE . ':</b>');
               $contents[] = array('text' => '&nbsp;&nbsp; ' . ($pInfo->products_discount1_qty < 10 ? '&nbsp;' : '') . $pInfo->products_discount1_qty . ' ' . $currencies->format($oosDiscount1) . ' - ' . TEXT_TAX_INFO . $currencies->format($oosDiscount1Netto));
             }
             if ( $pInfo->products_discount2_qty > 0 ) {
               $oosDiscount2 = $pInfo->products_discount2; 
-              if (OOS_PRICE_IS_BRUTTO == 'true') {
-                $oosDiscount2Netto = round($oosDiscount2,TAX_DECIMAL_PLACES);
-                $oosDiscount2 = ($oosDiscount2*($tax[tax_rate]+100)/100); 
-              }
               $oosDiscount2 = round($oosDiscount2,TAX_DECIMAL_PLACES);
               $contents[] = array('text' => '&nbsp;&nbsp; ' . ($pInfo->products_discount2_qty < 10 ? '&nbsp;' : '') . $pInfo->products_discount2_qty . ' ' . $currencies->format($oosDiscount2) . ' - ' . TEXT_TAX_INFO . $currencies->format($oosDiscount2Netto));
             }
             if ( $pInfo->products_discount3_qty > 0 ) {
               $oosDiscount3 = $pInfo->products_discount3; 
-              if (OOS_PRICE_IS_BRUTTO == 'true') {
-                $oosDiscount3Netto = round($oosDiscount3,TAX_DECIMAL_PLACES);
-                $oosDiscount3 = ($oosDiscount3*($tax[tax_rate]+100)/100); 
-              }
               $oosDiscount3 = round($oosDiscount3,TAX_DECIMAL_PLACES);
               $contents[] = array('text' => '&nbsp;&nbsp; ' . ($pInfo->products_discount3_qty < 10 ? '&nbsp;' : '') . $pInfo->products_discount3_qty . ' ' . $currencies->format($oosDiscount3) . ' - ' . TEXT_TAX_INFO . $currencies->format($oosDiscount3Netto));
             }
             if ( $pInfo->products_discount4_qty > 0 ) {
                $oosDiscount4 = $pInfo->products_discount4; 
-               if (OOS_PRICE_IS_BRUTTO == 'true') {
-                 $oosDiscount4Netto = round($oosDiscount4,TAX_DECIMAL_PLACES);
-                 $oosDiscount4 = ($oosDiscount4*($tax[tax_rate]+100)/100);  
-               }
               $oosDiscount4 = round($oosDiscount4,TAX_DECIMAL_PLACES);
               $contents[] = array('text' => '&nbsp;&nbsp; ' . ($pInfo->products_discount4_qty < 10 ? '&nbsp;' : '') . $pInfo->products_discount4_qty . ' ' . $currencies->format($oosDiscount4) . ' - ' . TEXT_TAX_INFO . $currencies->format($oosDiscount4Netto));
             }

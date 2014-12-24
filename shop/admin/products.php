@@ -63,18 +63,6 @@
             $products_image = oos_db_prepare_input($_POST['products_previous_image']);
           }
 
-
-        if (OOS_PRICE_IS_BRUTTO == 'true' && $_POST['products_price']){
-          $tax_ratestable = $oostable['tax_rates'];
-          $tax_result = $dbconn->Execute("SELECT tax_rate FROM $tax_ratestable WHERE tax_class_id = '".$_POST['products_tax_class_id']."' ");
-          $tax = $tax_result->fields;
-          $_POST['products_price'] = ($_POST['products_price']/($tax[tax_rate]+100)*100);
-          $_POST['products_price_list'] = ($_POST['products_price_list']/($tax[tax_rate]+100)*100);
-          $_POST['products_discount1'] = ($_POST['products_discount1']/($tax[tax_rate]+100)*100);
-          $_POST['products_discount2'] = ($_POST['products_discount2']/($tax[tax_rate]+100)*100);
-          $_POST['products_discount3'] = ($_POST['products_discount3']/($tax[tax_rate]+100)*100);
-          $_POST['products_discount4'] = ($_POST['products_discount4']/($tax[tax_rate]+100)*100);
-        }
         if ( isset($_POST['edit_x']) || isset($_POST['edit_y']) ) {
           $action = 'new_product';
         } else {
@@ -510,16 +498,8 @@ function calcBasePriceFactor() {
             <td class="main">
 <?php
    $oosPrice = $pInfo->products_price; 
-   if (OOS_PRICE_IS_BRUTTO == 'true'){
-     $oosPriceNetto = round($oosPrice,TAX_DECIMAL_PLACES);
-     $tax_ratestable = $oostable['tax_rates'];
-     $tax_result = $dbconn->Execute("SELECT tax_rate FROM $tax_ratestable WHERE tax_class_id = '" . $pInfo->products_tax_class_id . "' ");
-     $tax = $tax_result->fields;
-     $oosPrice = ($oosPrice*($tax[tax_rate]+100)/100);
-   }
    $oosPrice = round($oosPrice,TAX_DECIMAL_PLACES);
    echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_input_field('products_price', $oosPrice);
-   if (OOS_PRICE_IS_BRUTTO == 'true') echo " - " . TEXT_TAX_INFO . $oosPriceNetto;
 ?>
       </td>
     </tr>
@@ -528,13 +508,8 @@ function calcBasePriceFactor() {
             <td class="main">
 <?php
    $oosPriceList = $pInfo->products_price_list; 
-   if (OOS_PRICE_IS_BRUTTO == 'true'){
-     $oosPriceListNetto = round($oosPriceList,TAX_DECIMAL_PLACES);
-     $oosPriceList = ($oosPriceList*($tax[tax_rate]+100)/100);
-   }
    $oosPriceList = round($oosPriceList,TAX_DECIMAL_PLACES);
    echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_input_field('products_price_list', $oosPriceList);
-   if (OOS_PRICE_IS_BRUTTO == 'true') echo " - " . TEXT_TAX_INFO . $oosPriceListNetto;
 ?> 
             </td>
           </tr>
@@ -616,12 +591,6 @@ function calcBasePriceFactor() {
    $oosDiscount2 = $pInfo->products_discount2;
    $oosDiscount3 = $pInfo->products_discount3;
    $oosDiscount4 = $pInfo->products_discount4;
-   if (OOS_PRICE_IS_BRUTTO == 'true'){
-     $oosDiscount1 = ($oosDiscount1*($tax[tax_rate]+100)/100);
-     $oosDiscount2 = ($oosDiscount2*($tax[tax_rate]+100)/100);
-     $oosDiscount3 = ($oosDiscount3*($tax[tax_rate]+100)/100);
-     $oosDiscount4 = ($oosDiscount4*($tax[tax_rate]+100)/100);
-   }
    $oosDiscount1 = round($oosDiscount1,TAX_DECIMAL_PLACES);
    $oosDiscount2 = round($oosDiscount2,TAX_DECIMAL_PLACES);
    $oosDiscount3 = round($oosDiscount3,TAX_DECIMAL_PLACES);
@@ -727,13 +696,6 @@ function calcBasePriceFactor() {
             <td class="pageHeading"><?php echo oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . $pInfo->products_name; ?></td>
 <?php
   $oosPrice = $pInfo->products_price; 
-  if (OOS_PRICE_IS_BRUTTO == 'true' && ($_GET['read'] == 'only' || $action != 'new_product_preview') ){
-    $oosPriceNetto=round($oosPrice,TAX_DECIMAL_PLACES);
-    $tax_ratestable = $oostable['tax_rates'];
-    $tax_result = $dbconn->Execute("SELECT tax_rate FROM $tax_ratestable WHERE tax_class_id = '" . $pInfo->products_tax_class_id . "' ");
-    $tax = $tax_result->fields;
-    $oosPrice= ($oosPrice*($tax[tax_rate]+100)/100);
-  }
   $oosPrice=round($oosPrice,TAX_DECIMAL_PLACES);
 ?>
       <td class="pageHeading" align="right"><?php echo $currencies->format($oosPrice); ?></td>

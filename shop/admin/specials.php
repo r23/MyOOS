@@ -107,18 +107,7 @@
           $new_special_insert = $new_special_insert_result->fields;
           $_POST['products_price'] = $new_special_insert['products_price'];
           $_POST['specials_price'] = ($_POST['products_price'] - (($_POST['specials_price'] / 100) * $_POST['products_price']));
-        } elseif (OOS_PRICE_IS_BRUTTO == 'true') {
-          $tax_ratestable = $oostable['tax_rates'];
-          $productstable = $oostable['products'];
-          $sql = "SELECT tr.tax_rate
-                  FROM $tax_ratestable tr,
-                       $productstable p
-                  WHERE tr.tax_class_id = p. products_tax_class_id
-                    AND p.products_id = '" . $_POST['products_id'] . "' ";
-          $tax_result = $dbconn->Execute($sql);
-          $tax = $tax_result->fields;
-          $_POST['specials_price'] = ($_POST['specials_price']/($tax[tax_rate]+100)*100);
-        }
+        } 
 
         $expires_date = '';
         if ($_POST['day'] && $_POST['month'] && $_POST['year']) {
@@ -134,18 +123,7 @@
         // update a product on special
         if (substr($_POST['specials_price'], -1) == '%') {
           $_POST['specials_price'] = ($_POST['products_price'] - (($_POST['specials_price'] / 100) * $_POST['products_price']));
-        } elseif (OOS_PRICE_IS_BRUTTO == 'true') {
-          $tax_ratestable = $oostable['tax_rates'];
-          $productstable = $oostable['products'];
-          $sql = "SELECT tr.tax_rate
-                  FROM $tax_ratestable tr,
-                       $productstable p
-                  WHERE tr.tax_class_id = p. products_tax_class_id
-                    AND p.products_id = '" . $_POST['products_up_id'] . "' ";
-          $tax_result = $dbconn->Execute($sql);
-          $tax = $tax_result->fields;
-           $_POST['specials_price'] = ($_POST['specials_price']/($tax[tax_rate]+100)*100);
-        }
+        } 
         $expires_date = '';
         if ($_POST['day'] && $_POST['month'] && $_POST['year']) {
           $expires_date = $_POST['year'];
@@ -256,16 +234,6 @@
 <?php
     $in_price = $sInfo->products_price; 
     $in_new_price = $sInfo->specials_new_products_price;
-    if (OOS_PRICE_IS_BRUTTO == 'true'){
-      $in_price_netto = round($in_price,TAX_DECIMAL_PLACES);
-      $in_new_price_netto = round($in_new_price,TAX_DECIMAL_PLACES);
-
-      $tax_ratestable = $oostable['tax_rates'];
-      $tax_result = $dbconn->Execute("SELECT tax_rate FROM $tax_ratestable WHERE tax_class_id = '" . $sInfo->products_tax_class_id . "' ");
-      $tax = $tax_result->fields;
-      $in_price = ($in_price*($tax[tax_rate]+100)/100);
-      $in_new_price = ($in_new_price*($tax[tax_rate]+100)/100);
-    }
     $in_price=round($in_price,TAX_DECIMAL_PLACES);
     $in_new_price=round($in_new_price,TAX_DECIMAL_PLACES);
 
@@ -342,13 +310,6 @@
 
       $in_price = $sInfo->products_price; 
       $in_new_price = $sInfo->specials_new_products_price;
-      if (OOS_PRICE_IS_BRUTTO == 'true') {
-        $tax_ratestable = $oostable['tax_rates'];
-        $tax_result = $dbconn->Execute("SELECT tax_rate FROM $tax_ratestable WHERE tax_class_id = '" . $sInfo->products_tax_class_id . "' ");
-        $tax = $tax_result->fields;
-        $specials['products_price']= round(($specials['products_price']*($tax[tax_rate]+100)/100),TAX_DECIMAL_PLACES);
-        $specials['specials_new_products_price'] =  round(($specials['specials_new_products_price']*($tax[tax_rate]+100)/100),TAX_DECIMAL_PLACES);
-      }
 ?>
                 <td  class="dataTableContent"><?php echo $specials['products_name']; ?></td>
                 <td  class="dataTableContent" align="right"><span class="oldPrice"><?php echo $currencies->format($specials['products_price']); ?></span> <span class="specialPrice"><?php echo $currencies->format($specials['specials_new_products_price']); ?></span></td>
@@ -413,15 +374,6 @@
 
         $in_price = $sInfo->products_price; 
         $in_new_price = $sInfo->specials_new_products_price;
-        if (OOS_PRICE_IS_BRUTTO == 'true') {
-          $in_price_netto = round($in_price,TAX_DECIMAL_PLACES);
-          $in_new_price_netto = round($in_new_price,TAX_DECIMAL_PLACES);
-          $tax_ratestable = $oostable['tax_rates'];
-          $tax_result = $dbconn->Execute("SELECT tax_rate FROM $tax_ratestable WHERE tax_class_id = '" . $sInfo->products_tax_class_id . "' ");
-          $tax = $tax_result->fields;
-          $in_price = ($in_price*($tax[tax_rate]+100)/100);
-          $in_new_price = ($in_new_price*($tax[tax_rate]+100)/100);
-        }
         $in_price=round($in_price,TAX_DECIMAL_PLACES);
         $in_new_price=round($in_new_price,TAX_DECIMAL_PLACES);
         $contents[] = array('text' => '<br />' . TEXT_INFO_ORIGINAL_PRICE . ' ' . $currencies->format($in_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_price_netto));

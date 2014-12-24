@@ -671,6 +671,8 @@
                                     'attributes' => (isset($this->contents[$products_id]['attributes']) ? $this->contents[$products_id]['attributes'] : ''),
                                     'attributes_values' => (isset($this->contents[$products_id]['attributes_values']) ? $this->contents[$products_id]['attributes_values'] : ''),
                                     'towlid' => $this->contents[$products_id]['towlid']);
+									
+															
         }
       }
 

@@ -109,9 +109,6 @@ if ( $q1 < $q0 ) {
  
   if ( $q1 > 0 ) {
     $oosDiscount1=$pInfo->products_discount1; 
-    if (OOS_PRICE_IS_BRUTTO == 'true') {
-      $oosDiscount1 = ($oosDiscount1*($tax[tax_rate]+100)/100);	
-    }
     $oosDiscount1 = round($oosDiscount1,TAX_DECIMAL_PLACES);
     echo '<td class="DiscountPrice" align="center">';
     echo $currencies->format($oosDiscount1);
@@ -120,9 +117,6 @@ if ( $q1 < $q0 ) {
 
   if ( $q2 > 0 ) {
     $oosDiscount2=$pInfo->products_discount2; 
-    if (OOS_PRICE_IS_BRUTTO == 'true') {
-      $oosDiscount2 = ($oosDiscount2*($tax[tax_rate]+100)/100);	
-    }
     $oosDiscount2 = round($oosDiscount2,TAX_DECIMAL_PLACES);
     echo '<td class="DiscountPrice" align="center">';
     echo $currencies->format($oosDiscount2);
@@ -131,9 +125,6 @@ if ( $q1 < $q0 ) {
 
   if ( $q3 > 0 ) {
     $oosDiscount3=$pInfo->products_discount3; 
-    if (OOS_PRICE_IS_BRUTTO == 'true') {
-      $oosDiscount3 = ($oosDiscount3*($tax[tax_rate]+100)/100);	
-    }
     $oosDiscount3 = round($oosDiscount3,TAX_DECIMAL_PLACES);
     echo '<td class="DiscountPrice" align="center">';
     echo $currencies->format($oosDiscount3);
@@ -142,9 +133,6 @@ if ( $q1 < $q0 ) {
 
   if ( $q4 > 0 ) {
     $oosDiscount4=$pInfo->products_discount4; 
-    if (OOS_PRICE_IS_BRUTTO == 'true') {
-      $oosDiscount4 = ($oosDiscount4*($tax[tax_rate]+100)/100);	
-    }
     $oosDiscount4 = round($oosDiscount4,TAX_DECIMAL_PLACES);
     echo '<td class="DiscountPrice" align="center">';
     echo $currencies->format($oosDiscount4);

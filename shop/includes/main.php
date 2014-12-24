@@ -82,14 +82,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_output.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_encoded.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_coupon.php';
 
-// todo remove
-  if (isset($_POST)) {
-    foreach ($_POST as $key=>$value) {
-      $$key = oos_prepare_input($value);
-    }
-  }
-
-
 // initialize the logger class
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_user.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_products_history.php';
