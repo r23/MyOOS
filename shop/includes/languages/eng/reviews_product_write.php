@@ -26,8 +26,8 @@ $aLang['sub_title_product'] = 'Product:';
 $aLang['sub_title_from'] = 'From:';
 $aLang['sub_title_review'] = 'Review:';
 $aLang['sub_title_rating'] = 'Rating:';
-$aLang['text_no_html'] = '<small><font color="#ff0000"><b>NOTE:</b></font></small>&nbsp;HTML is not translated!';
-$aLang['text_bad'] = '<small><font color="#ff0000"><b>BAD</b></font></small>';
-$aLang['text_good'] = '<small><font color="#ff0000"><b>GOOD</b></font></small>';
+$aLang['text_no_html'] = '<small><font color="#ff0000"><strong>NOTE:</strong></font></small>&nbsp;HTML is not translated!';
+$aLang['text_bad'] = '<small><font color="#ff0000"><strong>BAD</strong></font></small>';
+$aLang['text_good'] = '<small><font color="#ff0000"><strong>GOOD</strong></font></small>';
 $aLang['error_invalid_product'] = 'That product is no longer available. Please try again.';
 

@@ -24,7 +24,7 @@
 $aLang['navbar_title'] = 'Gift Voucher FAQ';
 $aLang['heading_title'] = 'Gift Voucher FAQ';
 
-$aLang['text_information'] = 'Purchasing Gift Vouchers.</b><br />
+$aLang['text_information'] = 'Purchasing Gift Vouchers.</strong><br />
 <p>Gift Vouchers are purchased just like any other item in our store. You can 
   pay for them using the stores standard payment method(s).
   Once purchased the value of the Gift Voucher will be added to your own personal 
@@ -32,7 +32,7 @@ $aLang['text_information'] = 'Purchasing Gift Vouchers.</b><br />
   notice that the amount now shows in he Shopping Cart box, and also provides a 
   link to a page where you can send the Gift Voucher to some one via email.</p>
 <br />
-<b>How to Send Gift Vouchers.</b><br />
+<strong>How to Send Gift Vouchers.</strong><br />
 <p>To send a Gift Voucher you need to go to our Send Gift Voucher Page. You can 
   find the link to this page in the Shopping Cart Box in the right hand column of 
   each page.
@@ -46,7 +46,7 @@ $aLang['text_information'] = 'Purchasing Gift Vouchers.</b><br />
   you will be given the opportunity to change this as much as you want before 
   the email is actually sent.</p>
 <br />
-<b>Buying with Gift Vouchers.</b><br />
+<strong>Buying with Gift Vouchers.</strong><br />
   <p>If you have funds in your Gift Voucher Account, you can use those funds to 
   purchase other items in out store. At the checkout stage, an extra box will 
   appear. Ticking this box will apply those funds in your Gift Voucher Account. 
@@ -56,7 +56,7 @@ $aLang['text_information'] = 'Purchasing Gift Vouchers.</b><br />
   your purchase the balance will bel left in you Gift Voucher Account for the 
   future.</p>
 <br />
-<b>Redeeming Gift Vouchers.</b><br />
+<strong>Redeeming Gift Vouchers.</strong><br />
   <p>If you receive a Gift Voucher by email it will contain details of who sent
   you the Gift Voucher, along with possibly a short message from them. The Email
   will also contain the Gift Voucher Number. It is probably a good idea to print
@@ -77,7 +77,7 @@ validated and added to your Gift Voucher account. You Can then use the amount to
 
 </p>
 <br />
-<b>When problems occur.</b><br />
+<strong>When problems occur.</strong><br />
   <p>For any queries regarding the Gift Voucher System, please contact the store 
   by email at '. STORE_OWNER_EMAIL_ADDRESS . '. Please make sure you give 
   as much information as possible in the email. ';

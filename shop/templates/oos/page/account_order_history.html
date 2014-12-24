@@ -15,7 +15,7 @@
 {section name=i loop=$oos_order_history_array}
           <tr>
             <td width="{$products_image_box}" valign="top" class="main"><a href="{product_info_link products_id=$oos_order_history_array[i].id}">{small_product_image image=$oos_order_history_array[i].image alt=$oos_order_history_array[i].name|strip_tags}</a></td>
-            <td valign="top" class="main"><a href="{product_info_link products_id=$oos_order_history_array[i].id}"><b><u>{$oos_order_history_array[i].name}</u></b></a><br>
+            <td valign="top" class="main"><a href="{product_info_link products_id=$oos_order_history_array[i].id}"><strong><u>{$oos_order_history_array[i].name}</u></strong></a><br>
             {if ($smarty.const.SHOW_DATE_ADDED_AVAILABLE eq 'true')}
               {$lang.text_date_added}{$oos_order_history_array[i].date_added|oos_date_short}<br>
             {/if}

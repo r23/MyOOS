@@ -34,7 +34,7 @@
 
   if ($sContent == $aContents['shopping_cart']) {
     $colspan++;
-    $shopping_cart_detail .= '    <td align="center" class="smallText"><b>' . $aLang['table_heading_remove'] . '</b></td>' . "\n";
+    $shopping_cart_detail .= '    <td align="center" class="smallText"><strong>' . $aLang['table_heading_remove'] . '</strong></td>' . "\n";
   }
 
   $shopping_cart_detail .= '    <td align="center" class="tableHeading">' . $aLang['table_heading_quantity'] . '</td>' . "\n";
@@ -51,7 +51,7 @@
   if ($sContent == $aContents['shopping_cart']) {
     if ($_SESSION['user']->group['discount'] != 0) {
       $colspan++;
-      $shopping_cart_detail .= '<td align="right" class="tableHeading"><b>' . $aLang['table_heading_discount'] . '</b></td>';
+      $shopping_cart_detail .= '<td align="right" class="tableHeading"><strong>' . $aLang['table_heading_discount'] . '</strong></td>';
     }
   }
 
@@ -110,9 +110,9 @@
 
     // Product name, with or without link
     if ($sContent == $aContents['shopping_cart']) {
-      $shopping_cart_detail .= '    <td valign="top" class="main"><a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $products[$i]['id']) . '"><b>' . $products[$i]['name'] . '</b></a>';
+      $shopping_cart_detail .= '    <td valign="top" class="main"><a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $products[$i]['id']) . '"><strong>' . $products[$i]['name'] . '</strong></a>';
     } else {
-      $shopping_cart_detail .= '    <td valign="top" class="main"><b>' . $products[$i]['name'] . '</b>';
+      $shopping_cart_detail .= '    <td valign="top" class="main"><strong>' . $products[$i]['name'] . '</strong>';
     }
 
     // Display marker if stock quantity insufficient
@@ -158,9 +158,9 @@
 
     // Product price 
     if ($sContent != $aContents['account_history_info']) {
-      $shopping_cart_detail .= '    <td align="right" valign="top" class="main"><b>' . $oCurrencies->display_price($products[$i]['price'], oos_get_tax_rate($products[$i]['tax_class_id']), $products[$i]['quantity']) . '</b>';
+      $shopping_cart_detail .= '    <td align="right" valign="top" class="main"><strong>' . $oCurrencies->display_price($products[$i]['price'], oos_get_tax_rate($products[$i]['tax_class_id']), $products[$i]['quantity']) . '</strong>';
     } else {
-      $shopping_cart_detail .= '    <td align="right" valign="top" class="main"><b>' . $oCurrencies->display_price($products[$i]['price'], $products[$i]['tax'], $products[$i]['quantity']) . '</b>';
+      $shopping_cart_detail .= '    <td align="right" valign="top" class="main"><strong>' . $oCurrencies->display_price($products[$i]['price'], $products[$i]['tax'], $products[$i]['quantity']) . '</strong>';
     }
 
     // Product options prices

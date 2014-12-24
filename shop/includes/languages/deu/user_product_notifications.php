@@ -28,8 +28,8 @@ $aLang['text_product_notifications_introduction'] = 'Mit der Benachrichtigungsfu
 $aLang['heading_global_product_notifications'] = 'Globale Benachrichtigung (&uuml;ber alle Produkte)';
 $aLang['heading_product_notifications'] = 'Benachrichtigungen (&uuml;ber einzelne Produkte)';
 
-$aLang['text_global_product_notifications_disabled'] = 'Ihre globale Benachrichtigung ist zur Zeit <b>deaktiviert</b>.';
-$aLang['text_global_product_notifications_enabled'] = 'Ihre globale Benachrichtigung ist zur Zeit <b>aktiviert</b>.';
+$aLang['text_global_product_notifications_disabled'] = 'Ihre globale Benachrichtigung ist zur Zeit <strong>deaktiviert</strong>.';
+$aLang['text_global_product_notifications_enabled'] = 'Ihre globale Benachrichtigung ist zur Zeit <strong>aktiviert</strong>.';
 
 $aLang['text_global_product_notifications_description_disabled'] = 'Wenn Sie von uns &uuml;ber alle Produkte aktuell informiert werden m&ouml;chten, aktivieren Sie bitte diese Option unterhalb.';
 $aLang['text_global_product_notifications_description_enabled'] = 'Wenn Sie von uns nicht mehr aktuell informiert werden m&ouml;chten, deaktivieren Sie bitte diese Option unterhalb.';

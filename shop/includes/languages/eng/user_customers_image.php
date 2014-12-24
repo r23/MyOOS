@@ -30,7 +30,7 @@ $aLang['text_help_3'] = 'Click';
 
 $aLang['text_image_nonexistent'] = 'IMAGE DOES NOT EXIST';
 
-$aLang['text_customers_image_delete'] = '<b>Delete</b> this Image from the Server?';
+$aLang['text_customers_image_delete'] = '<strong>Delete</strong> this Image from the Server?';
 
 $aLang['text_customers_image'] = 'Image:';
 

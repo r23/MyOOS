@@ -22,5 +22,5 @@
 
 $aLang['navbar_title'] = 'Create an Account';
 $aLang['heading_title'] = 'My Account Information';
-$aLang['text_origin_login'] = '<font color="#FF0000"><small><b>NOTE:</b></font></small> If you already have an account with us, please login at the <a href="%s"><u>login page</u></a>.';
+$aLang['text_origin_login'] = '<font color="#FF0000"><small><strong>NOTE:</strong></font></small> If you already have an account with us, please login at the <a href="%s"><u>login page</u></a>.';
 

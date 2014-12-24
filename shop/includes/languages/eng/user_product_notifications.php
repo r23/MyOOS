@@ -29,8 +29,8 @@ $aLang['text_product_notifications_introduction'] = 'The product notification li
 $aLang['heading_global_product_notifications'] = 'Global Product Notifications';
 $aLang['heading_product_notifications'] = 'Product Notifications';
 
-$aLang['text_global_product_notifications_disabled'] = 'Your current global product notification status is <b>disabled</b>.';
-$aLang['text_global_product_notifications_enabled'] = 'Your current global product notification status is <b>enabled</b>.';
+$aLang['text_global_product_notifications_disabled'] = 'Your current global product notification status is <strong>disabled</strong>.';
+$aLang['text_global_product_notifications_enabled'] = 'Your current global product notification status is <strong>enabled</strong>.';
 
 $aLang['text_global_product_notifications_description_disabled'] = 'If you wish to be notified on all our product updates, please enable the global product notification feature by selecting the option below.';
 $aLang['text_global_product_notifications_description_enabled'] = 'If you no longer wish to be notified on all our product updates, please disable the global product notification feature by deselecting the option below.';

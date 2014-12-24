@@ -63,7 +63,7 @@
     if ($coupon['coupon_minimum_order'] > 0 ) $text_coupon_help .= sprintf($aLang['text_coupon_help_minorder'], $oCurrencies->format($coupon['coupon_minimum_order']));
 
     $text_coupon_help .= sprintf($aLang['text_coupon_help_date'], oos_date_short($coupon['coupon_start_date']),oos_date_short($coupon['coupon_expire_date'])); 
-    $text_coupon_help .= '<b>' . $aLang['text_coupon_help_restrict'] . '</b>';
+    $text_coupon_help .= '<strong>' . $aLang['text_coupon_help_restrict'] . '</strong>';
     $text_coupon_help .= '<br /><br />' . $aLang['text_coupon_help_categories'];
 
     $couponstable = $oostable['coupons'];

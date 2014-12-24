@@ -113,7 +113,7 @@
         $header_string = '<tr>' . "\n";
         $header_string .= '   <td><table border="0" width="100%" cellspacing="0" cellpadding="2">' . "\n";
         $header_string .= '      <tr>' . "\n";
-        $header_string .= '        <td class="main"><b>' . decode($aLang['table_heading_credit']) . '</b></td>' . "\n";
+        $header_string .= '        <td class="main"><strong>' . decode($aLang['table_heading_credit']) . '</strong></td>' . "\n";
         $header_string .= '      </tr>' . "\n";
         $header_string .= '    </table></td>' . "\n";
         $header_string .= '  </tr>' . "\n";
@@ -142,7 +142,7 @@
               } elseif ( (MODULE_ORDER_TOTAL_GV_STATUS == 'true') && (MODULE_ORDER_TOTAL_COUPON_STATUS == 'true') ) {
                 $output_string .= '     <td class="main"></td>';
               } else {
-                $output_string .= '     <td class="main"><b>' . $GLOBALS[$class]->header . '</b></td>';
+                $output_string .= '     <td class="main"><strong>' . $GLOBALS[$class]->header . '</strong></td>';
               }
               $output_string .= '<td width="10"></td>';
               $output_string .= '  </tr>' . "\n"; 

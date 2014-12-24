@@ -52,7 +52,7 @@ define('MODULE_SHIPPING_FEDEXEU_TAX_CLASS_TITLE', 'Steuersatz');
 define('MODULE_SHIPPING_FEDEXEU_TAX_CLASS_DESC', 'W&auml;hlen Sie den MwSt.-Satz f&uuml;r diese Versandart aus.');
 
 define('MODULE_SHIPPING_FEDEXEU_ZONE_TITLE', 'Versand Zone');
-define('MODULE_SHIPPING_FEDEXEU_ZONE_DESC', 'Geben Sie <b>einzeln</b> die Zonen an, in welche ein Versand m&ouml;glich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
+define('MODULE_SHIPPING_FEDEXEU_ZONE_DESC', 'Geben Sie <strong>einzeln</strong> die Zonen an, in welche ein Versand m&ouml;glich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
 
 define('MODULE_SHIPPING_FEDEXEU_SORT_ORDER_TITLE', 'Reihenfolge der Anzeige');
 define('MODULE_SHIPPING_FEDEXEU_SORT_ORDER_DESC', 'Niedrigste wird zuerst angezeigt');
@@ -61,10 +61,10 @@ define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_1_TITLE', 'Europazone 1 L&auml;nder');
 define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_1_DESC', 'Eurozone');
 
 define('MODULE_SHIPPING_FEDEXEU_COST_PAK_1_TITLE', 'Tariftabelle f&uuml;r Zone 1 bis 2.50 kg PAK');
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_1_DESC', 'Tarif Tabelle f&uuml;r die Zone 1, basiered auf <b>\'PAK\'</b> bis 2.50 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_1_DESC', 'Tarif Tabelle f&uuml;r die Zone 1, basiered auf <strong>\'PAK\'</strong> bis 2.50 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_FEDEXEU_COST_BOX_1_TITLE', 'Tariftabelle f&uuml;r Zone 1 bis 10 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_1_DESC', 'Tarif Tabelle f&uuml;r die Zone 1, basiered auf <b>\'BOX\'</b> bis 10 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_1_DESC', 'Tarif Tabelle f&uuml;r die Zone 1, basiered auf <strong>\'BOX\'</strong> bis 10 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_1_TITLE', 'Erh&ouml;hungszuschlag bis 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_1_DESC', 'Erh&ouml;hungszuschlag pro bersteigende 0,50 kg in EUR');
@@ -79,10 +79,10 @@ define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_2_TITLE', 'Europazone 2 L&auml;nder');
 define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_2_DESC', 'Durch Komma getrennt Liste der L&auml;nder als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone 2 sind.');
 
 define('MODULE_SHIPPING_FEDEXEU_COST_PAK_2_TITLE', 'Tariftabelle f&uuml;r Zone 2 bis 2.50 kg PAK');
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_2_DESC', 'Tarif Tabelle f&uuml;r die Zone 2, basiered auf <b>\'PAK\'</b> bis 2.50 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_2_DESC', 'Tarif Tabelle f&uuml;r die Zone 2, basiered auf <strong>\'PAK\'</strong> bis 2.50 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_FEDEXEU_COST_BOX_2_TITLE', 'Tariftabelle f&uuml;r Zone 2 bis 10 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_2_DESC', 'Tarif Tabelle f&uuml;r die Zone 2, basiered auf <b>\'BOX\'</b> bis 10 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_2_DESC', 'Tarif Tabelle f&uuml;r die Zone 2, basiered auf <strong>\'BOX\'</strong> bis 10 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_2_TITLE', 'Erh&ouml;hungszuschlag bis 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_2_DESC', 'Erh&ouml;hungszuschlag pro bersteigende 0,50 kg in EUR');
@@ -97,10 +97,10 @@ define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_3_TITLE', 'Europazone 3 L&auml;nder');
 define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_3_DESC', 'Durch Komma getrennt Liste der L&auml;nder als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone 3 sind.');
 
 define('MODULE_SHIPPING_FEDEXEU_COST_PAK_3_TITLE', 'Tariftabelle f&uuml;r Zone 3 bis 2.50 kg PAK');
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_3_DESC', 'Tarif Tabelle f&uuml;r die Zone 3, basiered auf <b>\'PAK\'</b> bis 2.50 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_3_DESC', 'Tarif Tabelle f&uuml;r die Zone 3, basiered auf <strong>\'PAK\'</strong> bis 2.50 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_FEDEXEU_COST_BOX_3_TITLE', 'Tariftabelle f&uuml;r Zone 3 bis 10 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_3_DESC', 'Tarif Tabelle f&uuml;r die Zone 3, basiered auf <b>\'BOX\'</b> bis 10 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_3_DESC', 'Tarif Tabelle f&uuml;r die Zone 3, basiered auf <strong>\'BOX\'</strong> bis 10 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_3_TITLE', 'Erh&ouml;hungszuschlag bis 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_3_DESC', 'Erh&ouml;hungszuschlag pro bersteigende 0,50 kg in EUR');
@@ -115,10 +115,10 @@ define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_4_TITLE', 'Weltzone A L&auml;nder');
 define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_4_DESC', 'Durch Komma getrennt Liste der L&auml;nder als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone A sind.');
 
 define('MODULE_SHIPPING_FEDEXEU_COST_PAK_4_TITLE', 'Tariftabelle f&uuml;r Zone A bis 2.50 kg PAK');
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_4_DESC', 'Tarif Tabelle f&uuml;r die Zone A, basiered auf <b>\'PAK\'</b> bis 2.50 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_4_DESC', 'Tarif Tabelle f&uuml;r die Zone A, basiered auf <strong>\'PAK\'</strong> bis 2.50 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_FEDEXEU_COST_BOX_4_TITLE', 'Tariftabelle f&uuml;r Zone A bis 10 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_4_DESC', 'Tarif Tabelle f&uuml;r die Zone A, basiered auf <b>\'BOX\'</b> bis 10 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_4_DESC', 'Tarif Tabelle f&uuml;r die Zone A, basiered auf <strong>\'BOX\'</strong> bis 10 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_4_TITLE', 'Erh&ouml;hungszuschlag bis 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_4_DESC', 'Erh&ouml;hungszuschlag pro bersteigende 0,50 kg in EUR');
@@ -133,10 +133,10 @@ define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_5_TITLE', 'Weltzone B L&auml;nder');
 define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_5_DESC', 'Durch Komma getrennt Liste der L&auml;nder als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone B sind.');
 
 define('MODULE_SHIPPING_FEDEXEU_COST_PAK_5_TITLE', 'Tariftabelle f&uuml;r Zone B bis 2.50 kg PAK');
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_5_DESC', 'Tarif Tabelle f&uuml;r die Zone B, basiered auf <b>\'PAK\'</b> bis 2.50 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_5_DESC', 'Tarif Tabelle f&uuml;r die Zone B, basiered auf <strong>\'PAK\'</strong> bis 2.50 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_FEDEXEU_COST_BOX_5_TITLE', 'Tariftabelle f&uuml;r Zone B bis 10 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_5_DESC', 'Tarif Tabelle f&uuml;r die Zone B, basiered auf <b>\'BOX\'</b> bis 10 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_5_DESC', 'Tarif Tabelle f&uuml;r die Zone B, basiered auf <strong>\'BOX\'</strong> bis 10 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_5_TITLE', 'Erh&ouml;hungszuschlag bis 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_5_DESC', 'Erh&ouml;hungszuschlag pro bersteigende 0,50 kg in EUR');
@@ -151,10 +151,10 @@ define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_6_TITLE', 'Weltzone C L&auml;nder');
 define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_6_DESC', 'Durch Komma getrennt Liste der L&auml;nder als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone C sind.');
 
 define('MODULE_SHIPPING_FEDEXEU_COST_PAK_6_TITLE', 'Tariftabelle f&uuml;r Zone C bis 2.50 kg PAK');
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_6_DESC', 'Tarif Tabelle f&uuml;r die Zone C, basiered auf <b>\'PAK\'</b> bis 2.50 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_6_DESC', 'Tarif Tabelle f&uuml;r die Zone C, basiered auf <strong>\'PAK\'</strong> bis 2.50 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_FEDEXEU_COST_BOX_6_TITLE', 'Tariftabelle f&uuml;r Zone C bis 10 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_6_DESC', 'Tarif Tabelle f&uuml;r die Zone C, basiered auf <b>\'BOX\'</b> bis 10 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_6_DESC', 'Tarif Tabelle f&uuml;r die Zone C, basiered auf <strong>\'BOX\'</strong> bis 10 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_6_TITLE', 'Erh&ouml;hungszuschlag bis 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_6_DESC', 'Erh&ouml;hungszuschlag pro bersteigende 0,50 kg in EUR');
@@ -169,10 +169,10 @@ define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_7_TITLE', 'Weltzone D L&auml;nder');
 define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_7_DESC', 'Durch Komma getrennt Liste der L&auml;nder als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone D sind.');
 
 define('MODULE_SHIPPING_FEDEXEU_COST_PAK_7_TITLE', 'Tariftabelle f&uuml;r Zone D bis 2.50 kg PAK');
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_7_DESC', 'Tarif Tabelle f&uuml;r die Zone D, basiered auf <b>\'PAK\'</b> bis 2.50 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_7_DESC', 'Tarif Tabelle f&uuml;r die Zone D, basiered auf <strong>\'PAK\'</strong> bis 2.50 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_FEDEXEU_COST_BOX_7_TITLE', 'Tariftabelle f&uuml;r Zone D bis 10 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_7_DESC', 'Tarif Tabelle f&uuml;r die Zone D, basiered auf <b>\'BOX\'</b> bis 10 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_7_DESC', 'Tarif Tabelle f&uuml;r die Zone D, basiered auf <strong>\'BOX\'</strong> bis 10 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_7_TITLE', 'Erh&ouml;hungszuschlag bis 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_7_DESC', 'Erh&ouml;hungszuschlag pro bersteigende 0,50 kg in EUR');
@@ -187,10 +187,10 @@ define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_8_TITLE', 'Weltzone E L&auml;nder');
 define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_8_DESC', 'Durch Komma getrennt Liste der L&auml;nder als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone E sind.');
 
 define('MODULE_SHIPPING_FEDEXEU_COST_PAK_8_TITLE', 'Tariftabelle f&uuml;r Zone E bis 2.50 kg PAK');
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_8_DESC', 'Tarif Tabelle f&uuml;r die Zone E, basiered auf <b>\'PAK\'</b> bis 2.50 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_8_DESC', 'Tarif Tabelle f&uuml;r die Zone E, basiered auf <strong>\'PAK\'</strong> bis 2.50 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_FEDEXEU_COST_BOX_8_TITLE', 'Tariftabelle f&uuml;r Zone E bis 10 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_8_DESC', 'Tarif Tabelle f&uuml;r die Zone E, basiered auf <b>\'BOX\'</b> bis 10 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_8_DESC', 'Tarif Tabelle f&uuml;r die Zone E, basiered auf <strong>\'BOX\'</strong> bis 10 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_8_TITLE', 'Erh&ouml;hungszuschlag bis 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_8_DESC', 'Erh&ouml;hungszuschlag pro bersteigende 0,50 kg in EUR');

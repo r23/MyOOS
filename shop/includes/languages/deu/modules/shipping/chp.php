@@ -51,7 +51,7 @@ define('MODULE_SHIPPING_CHP_TAX_CLASS_TITLE', 'Steuersatz');
 define('MODULE_SHIPPING_CHP_TAX_CLASS_DESC', 'W&uuml;hlen Sie den MwSt.-Satz f&uuml;r diese Versandart aus.');
 
 define('MODULE_SHIPPING_CHP_ZONE_TITLE', 'Versand Zone');
-define('MODULE_SHIPPING_CHP_ZONE_DESC', 'Geben Sie <b>einzeln</b> die Zonen an, in welche ein Versand m&ouml;glich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
+define('MODULE_SHIPPING_CHP_ZONE_DESC', 'Geben Sie <strong>einzeln</strong> die Zonen an, in welche ein Versand m&ouml;glich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
 
 define('MODULE_SHIPPING_CHP_SORT_ORDER_TITLE', 'Reihenfolge der Anzeige');
 define('MODULE_SHIPPING_CHP_SORT_ORDER_DESC', 'Niedrigste wird zuerst angezeigt.');
@@ -60,85 +60,85 @@ define('MODULE_SHIPPING_CHP_COUNTRIES_1_TITLE', 'Tarifzone 0 L�der');
 define('MODULE_SHIPPING_CHP_COUNTRIES_1_DESC', 'Inlandszone');
 
 define('MODULE_SHIPPING_CHP_COST_ECO_1_TITLE', 'Tariftabelle fr Zone 0 bis 30 kg ECO');
-define('MODULE_SHIPPING_CHP_COST_ECO_1_DESC', 'Tarif Tabelle fr die Inlandszone, basiered auf <b>\'ECO\'</b> bis 30 kg Versandgewicht.');
+define('MODULE_SHIPPING_CHP_COST_ECO_1_DESC', 'Tarif Tabelle fr die Inlandszone, basiered auf <strong>\'ECO\'</strong> bis 30 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_CHP_COST_PRI_1_TITLE', 'Tariftabelle fr Zone 0 bis 30 kg PRI');
-define('MODULE_SHIPPING_CHP_COST_PRI_1_DESC', 'Tarif Tabelle fr die Inlandszone, basiered auf <b>\'PRI\'</b> bis 30 kg Versandgewicht.');
+define('MODULE_SHIPPING_CHP_COST_PRI_1_DESC', 'Tarif Tabelle fr die Inlandszone, basiered auf <strong>\'PRI\'</strong> bis 30 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_CHP_COST_URG_1_TITLE', 'Tariftabelle fr Zone 0 bis 30 kg URG');
-define('MODULE_SHIPPING_CHP_COST_URG_1_DESC', 'Tarif Tabelle fr die Zone 0, basiered auf <b>\'URG\'</b> bis 30 kg Versandgewicht.');
+define('MODULE_SHIPPING_CHP_COST_URG_1_DESC', 'Tarif Tabelle fr die Zone 0, basiered auf <strong>\'URG\'</strong> bis 30 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_CHP_COUNTRIES_2_TITLE', 'Tarifzone 1 L�der');
 define('MODULE_SHIPPING_CHP_COUNTRIES_2_DESC', 'Durch Komma getrennt Liste der L�der als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone 1 sind.');
 
 define('MODULE_SHIPPING_CHP_COST_ECO_2_TITLE', 'Tariftabelle fr Zone 1 bis 30 kg ECO');
-define('MODULE_SHIPPING_CHP_COST_ECO_2_DESC', 'Tarif Tabelle fr die Zone 1, basiered auf <b>\'ECO\'</b> bis 30 kg Versandgewicht.');
+define('MODULE_SHIPPING_CHP_COST_ECO_2_DESC', 'Tarif Tabelle fr die Zone 1, basiered auf <strong>\'ECO\'</strong> bis 30 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_CHP_COST_PRI_2_TITLE', 'Tariftabelle fr Zone 1 bis 30 kg PRI');
-define('MODULE_SHIPPING_CHP_COST_PRI_2_DESC', 'Tarif Tabelle fr die Zone 1, basiered auf <b>\'PRI\'</b> bis 30 kg Versandgewicht.');
+define('MODULE_SHIPPING_CHP_COST_PRI_2_DESC', 'Tarif Tabelle fr die Zone 1, basiered auf <strong>\'PRI\'</strong> bis 30 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_CHP_COST_URG_2_TITLE', 'Tariftabelle fr Zone 1 bis 30 kg URG');
-define('MODULE_SHIPPING_CHP_COST_URG_2_DESC', 'Tarif Tabelle fr die Zone 1, basiered auf <b>\'URG\'</b> bis 30 kg Versandgewicht.');
+define('MODULE_SHIPPING_CHP_COST_URG_2_DESC', 'Tarif Tabelle fr die Zone 1, basiered auf <strong>\'URG\'</strong> bis 30 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_CHP_COUNTRIES_3_TITLE', 'Tarifzone 2 L�der');
 define('MODULE_SHIPPING_CHP_COUNTRIES_3_DESC', 'Durch Komma getrennt Liste der L�der als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone 2 sind.');
 
 define('MODULE_SHIPPING_CHP_COST_ECO_3_TITLE', 'Tariftabelle fr Zone 2 bis 30 kg ECO');
-define('MODULE_SHIPPING_CHP_COST_ECO_3_DESC', 'Tarif Tabelle fr die Zone 2, basiered auf <b>\'ECO\'</b> bis 30 kg Versandgewicht.');
+define('MODULE_SHIPPING_CHP_COST_ECO_3_DESC', 'Tarif Tabelle fr die Zone 2, basiered auf <strong>\'ECO\'</strong> bis 30 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_CHP_COST_PRI_3_TITLE', 'Tariftabelle fr Zone 2 bis 30 kg PRI');
-define('MODULE_SHIPPING_CHP_COST_PRI_3_DESC', 'Tarif Tabelle fr die Zone 2, basiered auf <b>\'PRI\'</b> bis 30 kg Versandgewicht.');
+define('MODULE_SHIPPING_CHP_COST_PRI_3_DESC', 'Tarif Tabelle fr die Zone 2, basiered auf <strong>\'PRI\'</strong> bis 30 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_CHP_COST_URG_3_TITLE', 'Tariftabelle fr Zone 2 bis 30 kg URG');
-define('MODULE_SHIPPING_CHP_COST_URG_3_DESC', 'Tarif Tabelle fr die Zone 2, basiered auf <b>\'URG\'</b> bis 30 kg Versandgewicht.');
+define('MODULE_SHIPPING_CHP_COST_URG_3_DESC', 'Tarif Tabelle fr die Zone 2, basiered auf <strong>\'URG\'</strong> bis 30 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_CHP_COUNTRIES_4_TITLE', 'Tarifzone 3 L�der');
 define('MODULE_SHIPPING_CHP_COUNTRIES_4_DESC', 'Durch Komma getrennt Liste der L�der als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone 3 sind.');
 
 define('MODULE_SHIPPING_CHP_COST_ECO_4_TITLE', 'Tariftabelle fr Zone 3 bis 30 kg ECO');
-define('MODULE_SHIPPING_CHP_COST_ECO_4_DESC', 'Tarif Tabelle fr die Zone 3, basiered auf <b>\'ECO\'</b> bis 30 kg Versandgewicht.');
+define('MODULE_SHIPPING_CHP_COST_ECO_4_DESC', 'Tarif Tabelle fr die Zone 3, basiered auf <strong>\'ECO\'</strong> bis 30 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_CHP_COST_PRI_4_TITLE', 'Tariftabelle fr Zone 3 bis 30 kg PRI');
-define('MODULE_SHIPPING_CHP_COST_PRI_4_DESC', 'Tarif Tabelle fr die Zone 3, basiered auf <b>\'PRI\'</b> bis 30 kg Versandgewicht.');
+define('MODULE_SHIPPING_CHP_COST_PRI_4_DESC', 'Tarif Tabelle fr die Zone 3, basiered auf <strong>\'PRI\'</strong> bis 30 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_CHP_COST_URG_4_TITLE', 'Tariftabelle fr Zone 3 bis 30 kg URG');
-define('MODULE_SHIPPING_CHP_COST_URG_4_DESC', 'Tarif Tabelle fr die Zone 3, basiered auf <b>\'URG\'</b> bis 30 kg Versandgewicht.');
+define('MODULE_SHIPPING_CHP_COST_URG_4_DESC', 'Tarif Tabelle fr die Zone 3, basiered auf <strong>\'URG\'</strong> bis 30 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_CHP_COUNTRIES_5_TITLE', 'Tarifzone 4 L�der');
 define('MODULE_SHIPPING_CHP_COUNTRIES_5_DESC', 'Durch Komma getrennt Liste der L�der als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone 4 sind.');
 
 define('MODULE_SHIPPING_CHP_COST_ECO_5_TITLE', 'Tariftabelle fr Zone 4 bis 30 kg ECO');
-define('MODULE_SHIPPING_CHP_COST_ECO_5_DESC', 'Tarif Tabelle fr die Zone 4, basiered auf <b>\'ECO\'</b> bis 30 kg Versandgewicht.');
+define('MODULE_SHIPPING_CHP_COST_ECO_5_DESC', 'Tarif Tabelle fr die Zone 4, basiered auf <strong>\'ECO\'</strong> bis 30 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_CHP_COST_PRI_5_TITLE', 'Tariftabelle fr Zone 4 bis 30 kg PRI');
-define('MODULE_SHIPPING_CHP_COST_PRI_5_DESC', 'Tarif Tabelle fr die Zone 4, basiered auf <b>\'PRI\'</b> bis 30 kg Versandgewicht.');
+define('MODULE_SHIPPING_CHP_COST_PRI_5_DESC', 'Tarif Tabelle fr die Zone 4, basiered auf <strong>\'PRI\'</strong> bis 30 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_CHP_COST_URG_5_TITLE', 'Tariftabelle fr Zone 4 bis 30 kg URG');
-define('MODULE_SHIPPING_CHP_COST_URG_5_DESC', 'Tarif Tabelle fr die Zone 4, basiered auf <b>\'URG\'</b> bis 30 kg Versandgewicht.');
+define('MODULE_SHIPPING_CHP_COST_URG_5_DESC', 'Tarif Tabelle fr die Zone 4, basiered auf <strong>\'URG\'</strong> bis 30 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_CHP_COUNTRIES_6_TITLE', 'Tarifzone 5 L�der');
 define('MODULE_SHIPPING_CHP_COUNTRIES_6_DESC', 'Durch Komma getrennt Liste der L�der als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone 5 sind.');
 
 define('MODULE_SHIPPING_CHP_COST_ECO_6_TITLE', 'Tariftabelle fr Zone 5 bis 30 kg ECO');
-define('MODULE_SHIPPING_CHP_COST_ECO_6_DESC', 'Tarif Tabelle fr die Zone 5, basiered auf <b>\'ECO\'</b> bis 30 kg Versandgewicht.');
+define('MODULE_SHIPPING_CHP_COST_ECO_6_DESC', 'Tarif Tabelle fr die Zone 5, basiered auf <strong>\'ECO\'</strong> bis 30 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_CHP_COST_PRI_6_TITLE', 'Tariftabelle fr Zone 5 bis 30 kg PRI');
-define('MODULE_SHIPPING_CHP_COST_PRI_6_DESC', 'Tarif Tabelle fr die Zone 5, basiered auf <b>\'PRI\'</b> bis 30 kg Versandgewicht.');
+define('MODULE_SHIPPING_CHP_COST_PRI_6_DESC', 'Tarif Tabelle fr die Zone 5, basiered auf <strong>\'PRI\'</strong> bis 30 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_CHP_COST_URG_6_TITLE', 'Tariftabelle fr Zone 5 bis 30 kg URG');
-define('MODULE_SHIPPING_CHP_COST_URG_6_DESC', 'Tarif Tabelle fr die Zone 5, basiered auf <b>\'URG\'</b> bis 30 kg Versandgewicht.');
+define('MODULE_SHIPPING_CHP_COST_URG_6_DESC', 'Tarif Tabelle fr die Zone 5, basiered auf <strong>\'URG\'</strong> bis 30 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_CHP_COUNTRIES_7_TITLE', 'Tarifzone 6 L�der');
 define('MODULE_SHIPPING_CHP_COUNTRIES_7_DESC', 'Durch Komma getrennt Liste der L�der als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone 6 sind.');
 
 define('MODULE_SHIPPING_CHP_COST_ECO_7_TITLE', 'Tariftabelle fr Zone 6 bis 30 kg ECO');
-define('MODULE_SHIPPING_CHP_COST_ECO_7_DESC', 'Tarif Tabelle fr die Zone 6, basiered auf <b>\'ECO\'</b> bis 30 kg Versandgewicht.');
+define('MODULE_SHIPPING_CHP_COST_ECO_7_DESC', 'Tarif Tabelle fr die Zone 6, basiered auf <strong>\'ECO\'</strong> bis 30 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_CHP_COST_PRI_7_TITLE', 'Tariftabelle fr Zone 6 bis 30 kg PRI');
-define('MODULE_SHIPPING_CHP_COST_PRI_7_DESC', 'Tarif Tabelle fr die Zone 6, basiered auf <b>\'PRI\'</b> bis 30 kg Versandgewicht.');
+define('MODULE_SHIPPING_CHP_COST_PRI_7_DESC', 'Tarif Tabelle fr die Zone 6, basiered auf <strong>\'PRI\'</strong> bis 30 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_CHP_COST_URG_7_TITLE', 'Tariftabelle fr Zone 6 bis 30 kg URG');
-define('MODULE_SHIPPING_CHP_COST_URG_7_DESC', 'Tarif Tabelle fr die Zone 6, basiered auf <b>\'URG\'</b> bis 30 kg Versandgewicht.');
+define('MODULE_SHIPPING_CHP_COST_URG_7_DESC', 'Tarif Tabelle fr die Zone 6, basiered auf <strong>\'URG\'</strong> bis 30 kg Versandgewicht.');
 
 
 $aLang['module_shipping_chp_text_title'] = 'Schweizerische Post';

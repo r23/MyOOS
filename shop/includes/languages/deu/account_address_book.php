@@ -29,6 +29,6 @@ $aLang['table_heading_name'] = 'Name';
 $aLang['table_heading_location'] = 'Wohnort';
 
 $aLang['text_no_entries_in_address_book'] = 'Sie haben noch keine Eintr&auml;ge in Ihrem Adressbuch!';
-$aLang['text_maximum_entries'] = '<font color="#ff0000"><b>Hinweis:</b></font> Ihnen stehen %s Adressbucheintr&auml;ge zur Verf&uuml;gung!';
-$aLang['text_maximum_entries_reached'] = '<font color="#ff0000"><b>ACHTUNG:</b></font> Sie haben die maximale Anzahl (%s) an Adressbucheintr&auml;gen erreicht!';
+$aLang['text_maximum_entries'] = '<font color="#ff0000"><strong>Hinweis:</strong></font> Ihnen stehen %s Adressbucheintr&auml;ge zur Verf&uuml;gung!';
+$aLang['text_maximum_entries_reached'] = '<font color="#ff0000"><strong>ACHTUNG:</strong></font> Sie haben die maximale Anzahl (%s) an Adressbucheintr&auml;gen erreicht!';
 

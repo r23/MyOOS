@@ -38,7 +38,7 @@
       global $oOrder, $oCurrencies;
 
       $this->output[] = array('title' => $this->title . ':',
-                              'text' => '<b>' . $oCurrencies->format($oOrder->info['total'], true, $oOrder->info['currency'], $oOrder->info['currency_value']) . '</b>',
+                              'text' => '<strong>' . $oCurrencies->format($oOrder->info['total'], true, $oOrder->info['currency'], $oOrder->info['currency_value']) . '</strong>',
                               'value' => $oOrder->info['total']);
     }
 

@@ -32,7 +32,7 @@ define('MODULE_SHIPPING_ITEM_TAX_CLASS_TITLE', 'Steuerklasse');
 define('MODULE_SHIPPING_ITEM_TAX_CLASS_DESC', 'Folgende Steuerklasse an Versandkosten anwenden.');
 
 define('MODULE_SHIPPING_ITEM_ZONE_TITLE', 'Erlaubte Versandzonen');
-define('MODULE_SHIPPING_ITEM_ZONE_DESC', 'Geben Sie <b>einzeln</b> die Zonen an, in welche ein Versand m&ouml;glich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
+define('MODULE_SHIPPING_ITEM_ZONE_DESC', 'Geben Sie <strong>einzeln</strong> die Zonen an, in welche ein Versand m&ouml;glich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
 
 define('MODULE_SHIPPING_ITEM_SORT_ORDER_TITLE', 'Sortierreihenfolge');
 define('MODULE_SHIPPING_ITEM_SORT_ORDER_DESC', 'Reihenfolge der Anzeige');

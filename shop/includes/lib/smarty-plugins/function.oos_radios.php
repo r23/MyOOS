@@ -139,7 +139,7 @@ function oos_function_oos_radios_output($name, $value, $output, $selected, $extr
           $_output .= '<td width="23"></td><td class="main" valign="top">';
       }
    }
-   $_output .= '<b>' . $output . '<b>';
+   $_output .= '<strong>' . $output . '<strong>';
 
    if ($labels) $_output .= '</td><td class="main" valign="top" align="right">';
 

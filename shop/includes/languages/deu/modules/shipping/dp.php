@@ -29,7 +29,7 @@ define('MODULE_SHIPPING_DP_TAX_CLASS_TITLE', 'Steuersatz');
 define('MODULE_SHIPPING_DP_TAX_CLASS_DESC', 'W&uuml;hlen Sie den MwSt.-Satz f&uuml;r diese Versandart aus.');
 
 define('MODULE_SHIPPING_DP_ZONE_TITLE', 'Versand Zone');
-define('MODULE_SHIPPING_DP_ZONE_DESC', 'Geben Sie <b>einzeln</b> die Zonen an, in welche ein Versand m&ouml;glich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
+define('MODULE_SHIPPING_DP_ZONE_DESC', 'Geben Sie <strong>einzeln</strong> die Zonen an, in welche ein Versand m&ouml;glich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
 
 define('MODULE_SHIPPING_DP_SORT_ORDER_TITLE', 'Reihenfolge der Anzeige');
 define('MODULE_SHIPPING_DP_SORT_ORDER_DESC', 'Niedrigste wird zuerst angezeigt.');

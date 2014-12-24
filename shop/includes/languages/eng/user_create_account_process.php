@@ -27,10 +27,10 @@ $aLang['email_subject'] = 'Welcome to ' . STORE_NAME;
 $aLang['email_greet_mr'] = 'Dear Mr. ' . stripslashes($lastname) . ',' . "\n\n";
 $aLang['email_greet_ms'] = 'Dear Ms. ' . stripslashes($lastname) . ',' . "\n\n";
 $aLang['email_greet_none'] = 'Dear ' . stripslashes($firstname) . ',' . "\n\n";
-$aLang['email_welcome'] = 'We welcome you to <b>' . STORE_NAME . '</b>.' . "\n\n";
-$aLang['email_text'] = 'You can now take part in the <b>various services</b> we have to offer you. Some of these services include:' . "\n\n" . '<li><b>Permanent Cart</b> - Any products added to your online cart remain there until you remove them, or check them out.' . "\n" . '<li><b>Address Book</b> - We can now deliver your products to another address other than yours! This is perfect to send birthday gifts direct to the birthday-person themselves.' . "\n" . '<li><b>Order History</b> - View your history of purchases that you have made with us.' . "\n" . '<li><b>Products Reviews</b> - Share your opinions on products with our other customers.' . "\n\n";
+$aLang['email_welcome'] = 'We welcome you to <strong>' . STORE_NAME . '</strong>.' . "\n\n";
+$aLang['email_text'] = 'You can now take part in the <strong>various services</strong> we have to offer you. Some of these services include:' . "\n\n" . '<li><strong>Permanent Cart</strong> - Any products added to your online cart remain there until you remove them, or check them out.' . "\n" . '<li><strong>Address Book</strong> - We can now deliver your products to another address other than yours! This is perfect to send birthday gifts direct to the birthday-person themselves.' . "\n" . '<li><strong>Order History</strong> - View your history of purchases that you have made with us.' . "\n" . '<li><strong>Products Reviews</strong> - Share your opinions on products with our other customers.' . "\n\n";
 $aLang['email_contact'] = 'For help with any of our online services, please email the store-owner: ' . STORE_OWNER_EMAIL_ADDRESS . '.' . "\n\n";
-$aLang['email_warning'] = '<b>Note:</b> This email address was given to us by one of our customers. If you did not signup to be a member, please send a email to ' . STORE_OWNER_EMAIL_ADDRESS . '.' . "\n";
+$aLang['email_warning'] = '<strong>Note:</strong> This email address was given to us by one of our customers. If you did not signup to be a member, please send a email to ' . STORE_OWNER_EMAIL_ADDRESS . '.' . "\n";
 
 $aLang['email_gv_incentive_header'] = 'As part of our welcome to new customers, we have sent you an e-Gift Voucher worth %s';
 $aLang['email_gv_redeem'] = 'The redeem code for is %s, you can enter the redeem code when checking out, after making a purchase';

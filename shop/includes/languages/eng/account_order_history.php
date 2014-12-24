@@ -15,7 +15,7 @@ $aLang['heading_title'] = 'Your personal shopping list';
 
 $aLang['text_no_products'] = 'Your personal shopping list makes buying ' . STORE_NAME . ' items very convenient: all items you order in our shop are automatically saved in your shopping list. So if you wish to order items repeatedly you just have to go to your shopping list and enter the desired amount for each item. Then just click "add items to cart" to fill up your shopping cart with these items.
 This saves precious time because you don\'t have to go through the tedious search process every time.<br><br>
-<b>Your shopping list is empty at this time.</b><br>
+<strong>Your shopping list is empty at this time.</strong><br>
 <br>
 This is how you can add items to your shopping list:<br>
 <br>

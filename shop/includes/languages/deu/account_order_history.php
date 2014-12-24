@@ -15,7 +15,7 @@ $aLang['heading_title'] = 'Einkaufsliste';
 
 $aLang['text_no_products'] = 'Mittels Ihrer Einkaufsliste kaufen Sie bequem ein: alle bestellten Artikel werden automatisch darin gespeichert. Sie k&ouml;nnen die Einkaufliste jederzeit in den Warenkorb laden, ohne lange nach Ihren Lieblingsartikeln suchen zu m&uuml;ssen.<br>
 <br>
-<b>Ihre Einkaufsliste ist derzeit leer.</b><br>
+<strong>Ihre Einkaufsliste ist derzeit leer.</strong><br>
 <br>
 So k&ouml;nnen Sie die Einkaufsliste f&uuml;llen:<br>
 <br>

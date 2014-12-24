@@ -106,8 +106,8 @@ $aLang['block_reviews_text_of_5_stars'] = '%s von 5 Sternen!';
 $aLang['block_shopping_cart_empty'] = '0 Produkte';
 
 // notifications block text in tempalate/your theme/block/products_notifications.php
-$aLang['block_notifications_notify'] = 'Benachrichtigen Sie mich über Aktuelles zum Artikel <b>%s</b>';
-$aLang['block_notifications_notify_remove'] = 'Benachrichtigen Sie mich nicht mehr zum Artikel <b>%s</b>';
+$aLang['block_notifications_notify'] = 'Benachrichtigen Sie mich über Aktuelles zum Artikel <strong>%s</strong>';
+$aLang['block_notifications_notify_remove'] = 'Benachrichtigen Sie mich nicht mehr zum Artikel <strong>%s</strong>';
 
 // wishlist block text in tempalate/your theme/block/wishlist.html
 $aLang['block_wishlist_empty'] = 'Sie haben keine Produkte auf Ihrem Merkzettel';
@@ -268,12 +268,12 @@ $aLang['entry_info_text'] = 'notwendige Eingabe';
 
 // constants for use in oos_prev_next_display function
 $aLang['text_result_page'] = 'Seiten:';
-$aLang['text_display_number_of_products'] = 'angezeigte Produkte: <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)';
-$aLang['text_display_number_of_orders'] = 'angezeigte Bestellungen: <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)';
-$aLang['text_display_number_of_reviews'] = 'angezeigte Meinungen: <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)';
-$aLang['text_display_number_of_products_new'] = 'angezeigte neue Produkte: <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)';
-$aLang['text_display_number_of_specials'] = 'angezeigte Angebote <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)';
-$aLang['text_display_number_of_wishlist'] = 'angezeigt Wunschprodukte <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)';
+$aLang['text_display_number_of_products'] = 'angezeigte Produkte: <strong>%d</strong> bis <strong>%d</strong> (von <strong>%d</strong> insgesamt)';
+$aLang['text_display_number_of_orders'] = 'angezeigte Bestellungen: <strong>%d</strong> bis <strong>%d</strong> (von <strong>%d</strong> insgesamt)';
+$aLang['text_display_number_of_reviews'] = 'angezeigte Meinungen: <strong>%d</strong> bis <strong>%d</strong> (von <strong>%d</strong> insgesamt)';
+$aLang['text_display_number_of_products_new'] = 'angezeigte neue Produkte: <strong>%d</strong> bis <strong>%d</strong> (von <strong>%d</strong> insgesamt)';
+$aLang['text_display_number_of_specials'] = 'angezeigte Angebote <strong>%d</strong> bis <strong>%d</strong> (von <strong>%d</strong> insgesamt)';
+$aLang['text_display_number_of_wishlist'] = 'angezeigt Wunschprodukte <strong>%d</strong> bis <strong>%d</strong> (von <strong>%d</strong> insgesamt)';
 
 $aLang['prevnext_title_first_page'] = 'erste Seite';
 $aLang['prevnext_title_previous_page'] = 'vorherige Seite';
@@ -411,8 +411,8 @@ $aLang['err404'] = '404 Fehlermeldung';
 $aLang['err404_page_not_found'] = 'Die angeforderte Seite wurde nicht gefunden bei';
 $aLang['err404_sorry'] = 'Die angeforderte Seite';
 $aLang['err404_doesntexist'] = 'existiert nicht bei';
-$aLang['err404_mailed'] = '<b>Details zum Fehler wurden automatisch an den Webmaster gesendet.</b>';
-$aLang['err404_commonm'] = '<b>Typische Fehler</b>';
+$aLang['err404_mailed'] = '<strong>Details zum Fehler wurden automatisch an den Webmaster gesendet.</strong>';
+$aLang['err404_commonm'] = '<strong>Typische Fehler</strong>';
 $aLang['err404_commonh'] = 'Namenskonventionen nicht beachtet';
 $aLang['err404_urlend'] = 'die angegebene URL endet mit';
 $aLang['err404_allpages'] = 'alle Seiten bei';
@@ -441,7 +441,7 @@ $aLang['sub_title_ot_discount'] = 'Pauschalrabatt:';
 $aLang['text_new_customer_introduction_newsletter'] = 'By subscribing to newsletter from ' .  STORE_NAME . ' you will stay informed of all news info.';
 $aLang['text_new_customer_ip'] = 'This account has been created by this computer IP : ';
 $aLang['text_customer_account_password_security'] = 'For you\'r own security we are not able to know this password. If you forgot it, you can request a new one.';
-$aLang['text_login_need_upgrade_csnewsletter'] = '<font color="#ff0000"><b>NOTE:</b></font>You have already subscribed to an account for &quot;Newsletter &quot;. You need to upgade this account to be able to buy.';
+$aLang['text_login_need_upgrade_csnewsletter'] = '<font color="#ff0000"><strong>NOTE:</strong></font>You have already subscribed to an account for &quot;Newsletter &quot;. You need to upgade this account to be able to buy.';
 
 // use TimeBasedGreeting
 

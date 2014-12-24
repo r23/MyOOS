@@ -17,7 +17,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main"><b>{$lang.table_heading_shipping_address}</b></td>
+            <td class="main"><strong>{$lang.table_heading_shipping_address}</strong></td>
           </tr>
         </table></td>
       </tr>
@@ -30,7 +30,7 @@
                 <td class="main" width="50%" valign="top">{$lang.text_choose_shipping_destination}<br><br><a href="{html_href_link content=$filename.checkout_shipping_address connection=SSL}">{html_image_button image="change_address.gif" alt=$lang.image_button_change_address}</a></td>
                 <td align="right" width="50%" valign="top"><table border="0" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="main" align="center" valign="top"><b>{$lang.title_shipping_address}</b><br><img src="{$theme_image}/arrow_south_east.gif" border="0" alt=" " width="50" height="31"></td>
+                    <td class="main" align="center" valign="top"><strong>{$lang.title_shipping_address}</strong><br><img src="{$theme_image}/arrow_south_east.gif" border="0" alt=" " width="50" height="31"></td>
                     <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
                     <td class="main" valign="top">{oos_address_label customers_id=$smarty.session.customer_id address_id=$smarty.session.sendto}</td>
                     <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
@@ -48,7 +48,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main"><b>{$lang.table_heading_shipping_method}</b></td>
+            <td class="main"><strong>{$lang.table_heading_shipping_method}</strong></td>
           </tr>
         </table></td>
       </tr>
@@ -60,7 +60,7 @@
               <tr>
                 <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
                 <td class="main" width="50%" valign="top">{$lang.text_choose_shipping_method}</td>
-                <td class="main" width="50%" valign="top" align="right"><b>{$lang.title_please_select}</b><br><img src="{$theme_image}/arrow_east_south.gif" border="0" alt=" " width="40" height="32"></td>
+                <td class="main" width="50%" valign="top" align="right"><strong>{$lang.title_please_select}</strong><br><img src="{$theme_image}/arrow_east_south.gif" border="0" alt=" " width="40" height="32"></td>
                 <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
               </tr>
     {elseif $free_shipping eq false }
@@ -77,7 +77,7 @@
                 <td colspan="2" width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                    <td class="main" colspan="3"><b>{$lang.free_shipping_title}</b>&nbsp;{$quotes[i].icon}</td>
+                    <td class="main" colspan="3"><strong>{$lang.free_shipping_title}</strong>&nbsp;{$quotes[i].icon}</td>
                     <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
                   </tr>
                   <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, 0)">
@@ -96,7 +96,7 @@
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                    <td class="main" colspan="3"><b>{$quotes[i].module}</b>&nbsp;{$quotes[i].icon}</td>
+                    <td class="main" colspan="3"><strong>{$quotes[i].module}</strong>&nbsp;{$quotes[i].icon}</td>
                     <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
                   </tr>
         {if isset($quotes[i].error)}
@@ -144,7 +144,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main"><b>{$lang.table_heading_comments}</b></td>
+            <td class="main"><strong>{$lang.table_heading_comments}</strong></td>
           </tr>
         </table></td>
       </tr>
@@ -171,7 +171,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main"><b>{$lang.table_heading_campaigns}</b></td>
+            <td class="main"><strong>{$lang.table_heading_campaigns}</strong></td>
           </tr>
         </table></td>
       </tr>
@@ -194,7 +194,7 @@
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                <td class="main"><b>{$lang.title_continue_checkout_procedure}</b><br>{$lang.text_continue_checkout_procedure}</td>
+                <td class="main"><strong>{$lang.title_continue_checkout_procedure}</strong><br>{$lang.text_continue_checkout_procedure}</td>
                 <td class="main" align="right">{html_image_submit image="continue.gif" alt=$lang.image_button_continue}</td>
                 <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
               </tr>

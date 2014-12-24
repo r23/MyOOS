@@ -18,7 +18,7 @@
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
 {if $smarty.const.ACCOUNT_GENDER eq 'true'}
   <tr>
-    <td class="main"><b>{$lang.entry_gender}</b></td>
+    <td class="main"><strong>{$lang.entry_gender}</strong></td>
     <td class="main">
     {if $process eq 'true'}
       {if $gender_error eq 'true'}
@@ -38,7 +38,7 @@
   </tr>
 {/if}
   <tr>
-    <td class="main"><b>{$lang.entry_first_name}</b></td>
+    <td class="main"><strong>{$lang.entry_first_name}</strong></td>
     <td class="main">
   {if $process eq 'true'}
     {if $firstname_error eq 'true'}
@@ -52,7 +52,7 @@
     </td>
   </tr>
   <tr>
-    <td class="main"><b>{$lang.entry_last_name}</b></td>
+    <td class="main"><strong>{$lang.entry_last_name}</strong></td>
     <td class="main">
   {if $process eq 'true'}
     {if $lastname_error eq 'true'}
@@ -67,7 +67,7 @@
   </tr>
 {if $smarty.const.ACCOUNT_COMPANY eq 'true'}
   <tr>
-    <td class="main"><b>{$lang.entry_company}</b></td>
+    <td class="main"><strong>{$lang.entry_company}</strong></td>
     <td class="main">
     {if $process eq 'true'}
        {$company}<input type=hidden name="company" value="{$company}">
@@ -78,7 +78,7 @@
   </tr>
 {/if}
   <tr>
-    <td class="main"><b>{$lang.entry_street_address}</b></td>
+    <td class="main"><strong>{$lang.entry_street_address}</strong></td>
     <td class="main">
   {if $process eq 'true'}
     {if $street_address_error eq 'true'}
@@ -93,7 +93,7 @@
   </tr>
 {if $smarty.const.ACCOUNT_SUBURB eq 'true'}
   <tr>
-    <td class="main"><b>{$lang.entry_suburb}</b></td>
+    <td class="main"><strong>{$lang.entry_suburb}</strong></td>
     <td class="main">
     {if $process eq 'true'}
       {$suburb}<input type=hidden name="suburb" value="{$suburb}">
@@ -104,7 +104,7 @@
   </tr>
 {/if}
   <tr>
-    <td class="main"><b>{$lang.entry_post_code}</b></td>
+    <td class="main"><strong>{$lang.entry_post_code}</strong></td>
     <td class="main">
   {if $process eq 'true'}
     {if $postcode_error eq 'true'}
@@ -118,7 +118,7 @@
     </td>
   </tr>
   <tr>
-    <td class="main"><b>{$lang.entry_city}</b></td>
+    <td class="main"><strong>{$lang.entry_city}</strong></td>
     <td class="main">
   {if $process eq 'true'}
     {if $city_error eq 'true'}
@@ -133,7 +133,7 @@
   </tr>
 {if $smarty.const.ACCOUNT_STATE eq 'true'}
   <tr>
-    <td class="main"><b>{$lang.entry_state}</b></td>
+    <td class="main"><strong>{$lang.entry_state}</strong></td>
     <td class="main">
     {if $process eq 'true'}
       {if $state_error eq 'true'}
@@ -152,7 +152,7 @@
   </tr>
 {/if}
   <tr>
-    <td class="main"><b>{$lang.entry_country}</b></td>
+    <td class="main"><strong>{$lang.entry_country}</strong></td>
     <td class="main">
   {if $process eq 'true'}
     {if $country_error eq 'true'}

@@ -116,4 +116,3 @@
       return oos_create_random_value($length, 'digits');
     }
   }
-?>

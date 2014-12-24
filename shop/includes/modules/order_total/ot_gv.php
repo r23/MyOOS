@@ -59,7 +59,7 @@
         $oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
         if ($od_amount > 0) {
           $this->output[] = array('title' => '<font color="#FF0000">' . $this->title . ':</font>',
-                                  'text' => '<b><font color="#FF0000"> - ' . $oCurrencies->format($od_amount) . '</font></b>',
+                                  'text' => '<strong><font color="#FF0000"> - ' . $oCurrencies->format($od_amount) . '</font></strong>',
                                   'value' => $sod_amount);
         }
       }
@@ -84,7 +84,7 @@
       $output_string = '';
       if ($this->selection_test()) {
         $output_string .=  '    <td colspan="2" align="right" class="main">';
-        $output_string .= '<b>' . $this->checkbox . '</b>' . '</td>' . "\n";
+        $output_string .= '<strong>' . $this->checkbox . '</strong>' . '</td>' . "\n";
       }
       return $output_string;
     }

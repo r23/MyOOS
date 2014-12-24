@@ -25,7 +25,7 @@ $aLang['navbar_title'] = 'Gutscheine, Fragen und Antworten';
 $aLang['heading_title'] = 'Gutscheine, Fragen und Antworten';
 
 $aLang['text_information'] = '
-<b>Kauf von Gutscheinen</b><br />
+<strong>Kauf von Gutscheinen</strong><br />
 <p>Gutscheine werden wie jedes andere Produkt in unserem Shop behandelt.
   Sie k&ouml;nnen die Gutscheine mit jeder Zahlungsmethode, welche wir in unserem Shop anbieten, bezahlen.
   Sobald die Zahlung erfolgt ist, sehen Sie den Wert des Gutscheins in Ihrem Gutscheinkonto unterhalb
@@ -34,7 +34,7 @@ $aLang['text_information'] = '
 
 <br /><br />
 
-<b>Versenden von Gutscheinen</b><br/>
+<strong>Versenden von Gutscheinen</strong><br/>
 Um einen Gutschein zu versenden, m&uuml;ssen Sie auf die entsprechende Seite
   wechseln. Sie finden den Link zu der entsprechenden Seite unter Ihrem Warenkorb in der rechten
   Spalte oben auf jeder Seite, sofern Sie ein Guthaben auf Ihrem Gutscheinkonto haben.
@@ -46,7 +46,7 @@ Um einen Gutschein zu versenden, m&uuml;ssen Sie auf die entsprechende Seite
   die M&ouml;glichkeit beliebig viele Änderungen an Ihren Eingaben durchzuf&uuml;hren.</p>
 <br /><br />
 
-<b>Einkauf mit einem Gutschein</b><br />
+<strong>Einkauf mit einem Gutschein</strong><br />
   <p>Sofern ein Guthaben auf Ihrem Gutscheinkonto vorhanden ist, k&ouml;nnen Sie dieses
     f&uuml;r den Kauf beliebiger Produkte aus unserem Shop nutzen. Beim Abschluß der Bestellung erscheint eine
     zusätzliche Abfrage. Wenn Sie diese auswählen wird Ihr Gutschein f&uuml;r die Bestellung verwendet. Bitte
@@ -56,7 +56,7 @@ Um einen Gutschein zu versenden, m&uuml;ssen Sie auf die entsprechende Seite
 
 <br /><br />
 
-<b>Einl&ouml;sen von Gutscheinen</b><br />
+<strong>Einl&ouml;sen von Gutscheinen</strong><br />
   <p>Wenn Sie einen Gutschein per E-Mail empfangen, enthält die Mail einige
   Informationen. Sie erfahren wer Ihnen den Gutschein gesendet hat. Sofern der Absender eine kurze
   Nachricht beigef&uuml;gt hat, k&ouml;nnen Sie diese ebenfalls lesen. Die E-Mail enthält ebenfalls einen Gutscheincode.
@@ -72,7 +72,7 @@ Um einen Gutschein zu versenden, m&uuml;ssen Sie auf die entsprechende Seite
      das Guthaben f&uuml;r beliebige Einkäufe in unserem Shop nutzen.</p>
 <br /><br />
 
-<b>Bei Problemen</b><br/>
+<strong>Bei Problemen</strong><br/>
   <p> Sollten Probleme mit dem Gutscheinsystem auftreten, &uuml;berpr&uuml;fen Sie bitte alle
   Ihre Eingaben sorgfältig! Falls Sie weiterhin Probleme mit unserem Gutscheinsystem haben, kontaktieren Sie
   uns bitte per E-Mail &uuml;ber '. STORE_OWNER_EMAIL_ADDRESS . '. Bitte geben Sie uns dabei soviele Informationen wie

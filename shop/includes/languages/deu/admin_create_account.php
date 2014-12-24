@@ -28,6 +28,6 @@
 
 $aLang['navbar_title'] = 'Konto erstellen';
 $aLang['heading_title'] = 'Die pers&ouml;nlichen Daten';
-$aLang['TEXT_ORIGIN_LOGIN'] = '<font color="#FF0000"><small><b>ACHTUNG:</b></font></small> Wenn Sie bereits ein Konto besitzen, so melden Sie sich bitte <a href="%s"><u><b>hier</b></u></a> an.';
+$aLang['TEXT_ORIGIN_LOGIN'] = '<font color="#FF0000"><small><strong>ACHTUNG:</strong></font></small> Wenn Sie bereits ein Konto besitzen, so melden Sie sich bitte <a href="%s"><u><strong>hier</strong></u></a> an.';
 
 

@@ -24,7 +24,7 @@
       </tr>
 {if $valid_product eq false }
           <tr>
-            <td class="main"><br><b>{$lang.error_invalid_product}</b></td>
+            <td class="main"><br><strong>{$lang.error_invalid_product}</strong></td>
           </tr>
 {else}
       <tr>
@@ -37,14 +37,14 @@
 {/if}
 
           <tr>
-            <td class="main"><b>{$lang.sub_title_product}</b> {$product_info.products_name}</td>
+            <td class="main"><strong>{$lang.sub_title_product}</strong> {$product_info.products_name}</td>
             <td rowspan="4" valign="top" align="right"><br><a href="{product_info_link products_id=$smarty.get.products_id}">{small_product_image image=$product_info.products_image alt=$product_info.products_name|strip_tags hspace=5 vspace=5}</a></td>
           </tr>
           <tr>
-            <td class="main"><b>{$lang.sub_title_from}</b> {$customer_info.customers_firstname} {$customer_info.customers_lastname}</td>
+            <td class="main"><strong>{$lang.sub_title_from}</strong> {$customer_info.customers_firstname} {$customer_info.customers_lastname}</td>
           </tr>
           <tr>
-            <td class="main"><br><b>{$lang.sub_title_review}</b></td>
+            <td class="main"><br><strong>{$lang.sub_title_review}</strong></td>
           </tr>
           <tr>
             <td>
@@ -59,7 +59,7 @@
         </table></td>
       </tr>
       <tr>
-        <td class="main"><br><b>{$lang.sub_title_rating}</b> {$lang.text_bad} <input type="radio" name="rating" value="1"> <input type="radio" name="rating" value="2"> <input type="radio" name="rating" value="3"> <input type="radio" name="rating" value="4"> <input type="radio" name="rating" value="5"> {$lang.text_good}</td>
+        <td class="main"><br><strong>{$lang.sub_title_rating}</strong> {$lang.text_bad} <input type="radio" name="rating" value="1"> <input type="radio" name="rating" value="2"> <input type="radio" name="rating" value="3"> <input type="radio" name="rating" value="4"> <input type="radio" name="rating" value="5"> {$lang.text_good}</td>
       </tr>
       <tr>
         <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">

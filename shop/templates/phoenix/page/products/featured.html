@@ -16,7 +16,7 @@
        <tr>
          <td align="left" width="{$smarty.const.SMALL_IMAGE_WIDTH}" class="smallText"><a href="{product_info_link products_id=$featured_array[i].products_id}">{small_product_image image=$featured_array[i].products_image alt=$featured_array[i].products_name|strip_tags}</a></td>
          <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-         <td valign="top" class="smallText"><a href="{product_info_link products_id=$featured_array[i].products_id}"><b>{$featured_array[i].products_name}</b></a><br>
+         <td valign="top" class="smallText"><a href="{product_info_link products_id=$featured_array[i].products_id}"><strong>{$featured_array[i].products_name}</strong></a><br>
            <br>{$featured_array[i].products_description|truncate:120:" [...]":false|close_tags}<br>
        </tr>
        <tr>

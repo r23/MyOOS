@@ -31,7 +31,7 @@ $aLang['text_help_3'] = '';
 
 $aLang['text_image_nonexistent'] = 'BILD EXISTIERT NICHT';
 
-$aLang['text_customers_image_delete'] = '<b>L&ouml;schen</b> des Bildes?';
+$aLang['text_customers_image_delete'] = '<strong>L&ouml;schen</strong> des Bildes?';
 
 $aLang['text_customers_image'] = 'Aktuelles Bild:';
 

@@ -59,7 +59,7 @@
 						<ul class="nav navbar-nav navbar-right">
 						{if $languages_block eq 'true'}		
 							<li id="language-menu" class="dropdown">
-								<a href="#" id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown">{$language} <b class="caret"></b></a>
+								<a href="#" id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown">{$language} <b class="caret"></strong></a>
 								<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
 							{foreach item=languages from=$languages_contents}
 									<li role="presentation"><a role="menuitem" tabindex="-1" href="{html_href_link content=$content_file oos_get=$lang_get_parameters language=$languages.iso_639_2 connection=$request_type}" title="{$languages.iso_639_2}" >{$languages.name} {if $languages.iso_639_2 == $language}<i class="fa fa-check"></i>{/if}</a></li>
@@ -70,7 +70,7 @@
 
 						{if $currency_block eq 'true'}		
 							<li id="fat-menu" class="dropdown">
-								<a href="#" id="drop2" role="button" class="dropdown-toggle" data-toggle="dropdown">{$currency} <b class="caret"></b></a>
+								<a href="#" id="drop2" role="button" class="dropdown-toggle" data-toggle="dropdown">{$currency} <b class="caret"></strong></a>
 								<ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
 							{foreach item=currencies from=$currencies_contents}
 									<li role="presentation"><a role="menuitem" tabindex="-1" href="{html_href_link content=$content_file oos_get=$currency_get_parameters currency=$currencies.id connection=$request_type}" title="{$currencies.iso_639_2}" >{$currencies.text} {if $currencies.id == $currency}<i class="fa fa-check"></i>{/if}</a></li>

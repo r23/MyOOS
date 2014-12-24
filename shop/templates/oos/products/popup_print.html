@@ -49,7 +49,7 @@
 {if $smarty.const.PRODUCT_LIST_MODEL > 0}
                <tr><td height="10"></td></tr>
                <tr>
-               <td class="main"><b>{$lang.table_heading_model}</b> {$product_info.products_model}</td>
+               <td class="main"><strong>{$lang.table_heading_model}</strong> {$product_info.products_model}</td>
                </tr>
 {/if}
 
@@ -71,7 +71,7 @@
 
 
                <tr><td height="15"></td></tr>
-               <tr><td><b>{$lang.price}: </b>&nbsp;
+               <tr><td><strong>{$lang.price}: </strong>&nbsp;
 
 {if (!empty($info_special_price))}
    <s>{$info_product_price}</s><br>
@@ -115,7 +115,7 @@
 
 {if $oEvent->installed_plugin('sufu')}
        <tr><td height="10"></td></tr>
-       <tr><td class="main"><b>URL:</b><br> {html_href_link content=$filename.product_info products_id=$product_info.products_id connection='NONSSL' add_session_id='false' search_engine_safe='true'}</a>
+       <tr><td class="main"><strong>URL:</strong><br> {html_href_link content=$filename.product_info products_id=$product_info.products_id connection='NONSSL' add_session_id='false' search_engine_safe='true'}</a>
 {/if}
 
 

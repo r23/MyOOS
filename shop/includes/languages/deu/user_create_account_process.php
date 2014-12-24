@@ -27,10 +27,10 @@ $aLang['email_subject'] = 'Willkommen zu ' . STORE_NAME;
 $aLang['email_greet_mr'] = 'Sehr geehrter Herr ' . stripslashes($lastname) . ',' . "\n\n";
 $aLang['email_greet_ms'] = 'Sehr geehrte Frau ' . stripslashes($lastname) . ',' . "\n\n";
 $aLang['email_greet_none'] = 'Sehr geehrte ' . stripslashes($firstname) . ',' . "\n\n";
-$aLang['email_welcome'] = 'willkommen zu <b>' . STORE_NAME . '</b>.' . "\n\n";
-$aLang['email_text'] = 'Sie können jetzt unseren <b>Online-Service</b> nutzen. Der Service bietet unter anderem:' . "\n\n" . '<li><b>Kundenwarenkorb</b> - Jeder Artikel bleibt registriert bis Sie zur Kasse gehen, oder die Produkte aus dem Warenkorb entfernen.' . "\n" . '<li><b>Adressbuch</b> - Wir können jetzt die Produkte zu der von Ihnen ausgesuchten Adresse senden. Der perfekte Weg ein Geburtstagsgeschenk zu versenden.' . "\n" . '<li><b>Vorherige Bestellungen</b> - Sie können jederzeit Ihre vorherigen Bestellungen überprüfen.' . "\n" . '<li><b>Meinungen über Produkte</b> - Teilen Sie Ihre Meinung zu unseren Produkten mit anderen Kunden.' . "\n\n";
+$aLang['email_welcome'] = 'willkommen zu <strong>' . STORE_NAME . '</strong>.' . "\n\n";
+$aLang['email_text'] = 'Sie können jetzt unseren <strong>Online-Service</strong> nutzen. Der Service bietet unter anderem:' . "\n\n" . '<li><strong>Kundenwarenkorb</strong> - Jeder Artikel bleibt registriert bis Sie zur Kasse gehen, oder die Produkte aus dem Warenkorb entfernen.' . "\n" . '<li><strong>Adressbuch</strong> - Wir können jetzt die Produkte zu der von Ihnen ausgesuchten Adresse senden. Der perfekte Weg ein Geburtstagsgeschenk zu versenden.' . "\n" . '<li><strong>Vorherige Bestellungen</strong> - Sie können jederzeit Ihre vorherigen Bestellungen überprüfen.' . "\n" . '<li><strong>Meinungen über Produkte</strong> - Teilen Sie Ihre Meinung zu unseren Produkten mit anderen Kunden.' . "\n\n";
 $aLang['email_contact'] = 'Falls Sie Fragen zu unserem Kunden-Service haben, wenden Sie sich bitte an den Vertrieb: ' . STORE_OWNER_EMAIL_ADDRESS . '.' . "\n\n";
-$aLang['email_warning'] = '<b>Achtung:</b> Diese eMail-Adresse wurde uns von einem Kunden bekannt gegeben. Falls Sie sich nicht angemeldet haben, senden Sie bitte eine eMail an ' . STORE_OWNER_EMAIL_ADDRESS . '.' . "\n";
+$aLang['email_warning'] = '<strong>Achtung:</strong> Diese eMail-Adresse wurde uns von einem Kunden bekannt gegeben. Falls Sie sich nicht angemeldet haben, senden Sie bitte eine eMail an ' . STORE_OWNER_EMAIL_ADDRESS . '.' . "\n";
 
 $aLang['email_gv_incentive_header'] = 'Um Sie als Neukunden zu begrüßen, haben wir Ihnen einen Gutschein über %s gesendet.';
 $aLang['email_gv_redeem'] = 'Der Gutscheincode lautet: %s. Sie können diesen, beim Abschluß Ihrer Bestellung eingeben';

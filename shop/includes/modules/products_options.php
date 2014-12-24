@@ -39,7 +39,7 @@
     $products_attributes = $dbconn->Execute($attributes_sql);
     if ($products_attributes->fields['total'] > 0) {
 
-      $options .= '<b>' . $aLang['text_product_options'] . '</b><br />' .
+      $options .= '<strong>' . $aLang['text_product_options'] . '</strong><br />' .
                   '<table border="0" cellpadding="0" cellspacing="0">';
 
 

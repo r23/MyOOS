@@ -112,8 +112,8 @@ $aLang['block_reviews_text_of_5_stars'] = '%s of 5 Stars!';
 $aLang['block_shopping_cart_empty'] = '0 items';
 
 // notifications block text in tempalate/your theme/block/products_notifications.html
-$aLang['block_notifications_notify'] = 'Notify me of updates to <b>%s</b>';
-$aLang['block_notifications_notify_remove'] = 'Do not notify me of updates to <b>%s</b>';
+$aLang['block_notifications_notify'] = 'Notify me of updates to <strong>%s</strong>';
+$aLang['block_notifications_notify_remove'] = 'Do not notify me of updates to <strong>%s</strong>';
 
 // wishlist block text in tempalate/your theme/block/wishlist.html
 $aLang['block_wishlist_empty'] = 'You have no items on your Wishlist';
@@ -278,12 +278,12 @@ $aLang['entry_info_text'] = 'require_onced';
 
 // constants for use in oos_prev_next_display function
 $aLang['text_result_page'] = 'Result Pages:';
-$aLang['text_display_number_of_products'] = 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> products)';
-$aLang['text_display_number_of_orders'] = 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> orders)';
-$aLang['text_display_number_of_reviews'] = 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> reviews)';
-$aLang['text_display_number_of_products_new'] = 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> new products)';
-$aLang['text_display_number_of_specials'] = 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> specials)';
-$aLang['text_display_number_of_wishlist'] = 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> products)';
+$aLang['text_display_number_of_products'] = 'Displaying <strong>%d</strong> to <strong>%d</strong> (of <strong>%d</strong> products)';
+$aLang['text_display_number_of_orders'] = 'Displaying <strong>%d</strong> to <strong>%d</strong> (of <strong>%d</strong> orders)';
+$aLang['text_display_number_of_reviews'] = 'Displaying <strong>%d</strong> to <strong>%d</strong> (of <strong>%d</strong> reviews)';
+$aLang['text_display_number_of_products_new'] = 'Displaying <strong>%d</strong> to <strong>%d</strong> (of <strong>%d</strong> new products)';
+$aLang['text_display_number_of_specials'] = 'Displaying <strong>%d</strong> to <strong>%d</strong> (of <strong>%d</strong> specials)';
+$aLang['text_display_number_of_wishlist'] = 'Displaying <strong>%d</strong> to <strong>%d</strong> (of <strong>%d</strong> products)';
 
 $aLang['prevnext_title_first_page'] = 'First Page';
 $aLang['prevnext_title_previous_page'] = 'Previous Page';
@@ -417,8 +417,8 @@ $aLang['err404'] = '404 Error Message';
 $aLang['err404_page_not_found'] = 'Page Not Found on';
 $aLang['err404_sorry'] = 'We\'re sorry. The page you requested';
 $aLang['err404_doesntexist'] = 'doesn\'t exist on';
-$aLang['err404_mailed'] = '<b>The details of this error have automatically been mailed to the webmaster.</b>';
-$aLang['err404_commonm'] = '<b>Common Mistakes</b>';
+$aLang['err404_mailed'] = '<strong>The details of this error have automatically been mailed to the webmaster.</strong>';
+$aLang['err404_commonm'] = '<strong>Common Mistakes</strong>';
 $aLang['err404_commonh'] = 'Here are the most common mistakes in accessing';
 $aLang['err404_urlend'] = 'URL ends with';
 $aLang['err404_allpages'] = 'all pages on';
@@ -447,7 +447,7 @@ $aLang['sub_title_ot_discount'] = 'Global Discount:';
 $aLang['text_new_customer_introduction_newsletter'] = 'By subscribing to newsletter from ' .  STORE_NAME . ' you will stay informed of all news info.';
 $aLang['text_new_customer_ip'] = 'This account has been created by this computer IP : ';
 $aLang['text_customer_account_password_security'] = 'For you\'r own security we are not able to know or retrieve this password. If you forgot it, you can request a new one.';
-$aLang['text_login_need_upgrade_csnewsletter'] = '<font color="#ff0000"><b>NOTE:</b></font>You have already subscribed to an account for &quot;Newsletter &quot;. You need to upgade this account to be able to buy.';
+$aLang['text_login_need_upgrade_csnewsletter'] = '<font color="#ff0000"><strong>NOTE:</strong></font>You have already subscribed to an account for &quot;Newsletter &quot;. You need to upgade this account to be able to buy.';
 
 
 $aLang['text_taxt_incl'] = 'incl. Tax';

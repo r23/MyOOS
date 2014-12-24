@@ -478,7 +478,7 @@
     if (!is_array($aExclude)) $aExclude = array();
 
     $aParameters = array('formid', 'content', 'x', 'y');
-
+	
     $sUrl = '';
     if (is_array($_POST) && (count($_POST) > 0)) {
       reset($_POST);
@@ -694,55 +694,60 @@
 
 
 
- /**
-  * Add tax to a products price
-  *
-  * @param $class_id
-  * @param $country_id
-  * @param $zone_id
-  */
-  function oos_get_tax_description($class_id, $country_id, $zone_id) {
+/**
+ * Add tax to a products price
+ *
+ * @param $class_id
+ * @param $country_id
+ * @param $zone_id
+ */
+function oos_get_tax_description($class_id, $country_id, $zone_id) {
     global $aLang;
 
 	static $tax_rates = array();
-	
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
 
-    $tax_ratestable = $oostable['tax_rates'];
-    $geo_zonestable = $oostable['geo_zones'];
-    $zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
-    $query = "SELECT tax_description
-              FROM $tax_ratestable tr LEFT JOIN
-                   $zones_to_geo_zonestable za
-                ON (tr.tax_zone_id = za.geo_zone_id) LEFT JOIN
+	if (!isset($tax_rates[$class_id][$country_id][$zone_id]['description'])) {
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
+
+		$tax_ratestable = $oostable['tax_rates'];
+		$geo_zonestable = $oostable['geo_zones'];
+		$zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
+		$query = "SELECT tax_description
+				FROM $tax_ratestable tr LEFT JOIN
+					$zones_to_geo_zonestable za
+					ON (tr.tax_zone_id = za.geo_zone_id) LEFT JOIN
                    $geo_zonestable tz
-                ON (tz.geo_zone_id = tr.tax_zone_id)
-            WHERE  (za.zone_country_id is null or za.zone_country_id = '0' OR
-                    za.zone_country_id = '" . intval($country_id) . "') AND
-                   (za.zone_id is null or za.zone_id = '0' OR
-                    za.zone_id = '" . intval($zone_id) . "') AND
-                    tr.tax_class_id = '" . intval($class_id) . "'
-           ORDER BY tr.tax_priority";
-    $tax_result = $dbconn->Execute($query);
+					ON (tz.geo_zone_id = tr.tax_zone_id)
+				WHERE  (za.zone_country_id is null or za.zone_country_id = '0' OR
+						za.zone_country_id = '" . intval($country_id) . "') AND
+					(za.zone_id is null or za.zone_id = '0' OR
+						za.zone_id = '" . intval($zone_id) . "') AND
+						tr.tax_class_id = '" . intval($class_id) . "'
+			ORDER BY tr.tax_priority";
+		$tax_result = $dbconn->Execute($query);
 
-    if ($tax_result->RecordCount() > 0) {
-      $tax_description = '';
-      while ($tax = $tax_result->fields) {
-        $tax_description .= $tax['tax_description'] . ' + ';
+		if ($tax_result->RecordCount() > 0) {
+			$tax_description = '';
+			while ($tax = $tax_result->fields) {
+				$tax_description .= $tax['tax_description'] . ' + ';
 
-        // Move that ADOdb pointer!
-        $tax_result->MoveNext();
-      }
+				// Move that ADOdb pointer!
+				$tax_result->MoveNext();
+			}
 
-      $tax_description = substr($tax_description, 0, -3);
+			$tax_description = substr($tax_description, 0, -3);
 
-      return $tax_description;
-    } else {
-      return $aLang['text_unknown_tax_rate'];
-    }
-  }
+			$tax_rates[$class_id][$country_id][$zone_id]['description'] = $tax_description;
+		} else {
+			$tax_rates[$class_id][$country_id][$zone_id]['description'] = $aLang['text_unknown_tax_rate'];
+		}
+	}
+
+    return $tax_rates[$class_id][$country_id][$zone_id]['description'];
+	
+}
 
 
  /**
@@ -761,21 +766,15 @@
   }
 
 
- /**
-  * Calculates Tax rounding the result
-  *
-  * @param $price
-  * @param $tax
-  */
-  function oos_calculate_tax($price, $tax) {
-
-    if ($tax > 0) {
-      return $price * $tax / 100;
-    } else {
-      return 0;
-    }
-
-  }
+/**
+ * Calculates Tax rounding the result
+ *
+ * @param $price
+ * @param $tax
+ */
+function oos_calculate_tax($price, $tax) {
+	return $price * $tax / 100;
+}
 
 
   function oos_get_categories($aCategories = '', $parent_id = '0', $indent = '') {
@@ -1066,7 +1065,7 @@ function oos_output_string($sStr, $aTranslate = null)
   */
   function oos_remove_tags($source) {
 
-    $allowedTags = '<h1><b><i><a><ul><li><pre><hr><br><blockquote>';
+    $allowedTags = '<h1><strong><i><a><ul><li><pre><hr><br><blockquote>';
     $source = strip_tags($source, $allowedTags);
 
     return $source;

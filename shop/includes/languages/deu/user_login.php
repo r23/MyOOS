@@ -48,4 +48,4 @@ $aLang['sub_heading_title_3'] = 'Information';
 $aLang['sub_heading_text_1'] = 'Jeder Besucher unseres Online-Shops bekommt einen \'Besucherwarenkorb\'. Damit kann er seine ausgew&auml;hlten Produkte sammeln. Sobald der Besucher den Online-Shop verl&auml;sst, verf&auml;llt dessen Inhalt.';
 $aLang['sub_heading_text_2'] = 'Jeder angemeldete Kunde verf&uuml;gt &uuml;ber einen \'Kundenwarenkorb\' zum Einkaufen, mit dem er auch zu einem sp&auml;terem Zeitpunkt den Einkauf beenden kann. Jeder Artikel bleibt darin registriert bis der Kunde zur Kasse geht, oder die Produkte darin l&ouml;scht.';
 $aLang['sub_heading_text_3'] = 'Die Besuchereingaben werden automatisch bei der Registrierung als Kunde in den Kundenwarenkorb &uuml;bernommen.';
-$aLang['text_close_window'] = '<b><u>[Fenster schliessen]</b></u>';
+$aLang['text_close_window'] = '<strong><u>[Fenster schliessen]</strong></u>';

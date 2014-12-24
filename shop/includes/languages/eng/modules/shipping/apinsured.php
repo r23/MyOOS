@@ -58,7 +58,7 @@ define('MODULE_SHIPPING_AP_INSURED_TAX_CLASS_TITLE', 'Steuersatz');
 define('MODULE_SHIPPING_AP_INSURED_TAX_CLASS_DESC', 'W&auml;hlen Sie den MwSt.-Satz f&uuml;r diese Versandart aus.');
 
 define('MODULE_SHIPPING_AP_INSURED_ZONE_TITLE', 'Versand Zone');
-define('MODULE_SHIPPING_AP_INSURED_ZONE_DESC', 'Geben Sie <b>einzeln</b> die Zonen an, in welche ein Versand m&ouml;glich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
+define('MODULE_SHIPPING_AP_INSURED_ZONE_DESC', 'Geben Sie <strong>einzeln</strong> die Zonen an, in welche ein Versand m&ouml;glich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
 
 define('MODULE_SHIPPING_AP_INSURED_SORT_ORDER_TITLE', 'Reihenfolge der Anzeige');
 define('MODULE_SHIPPING_AP_INSURED_SORT_ORDER_DESC', 'Niedrigste wird zuerst angezeigt.');
@@ -67,43 +67,43 @@ define('MODULE_SHIPPING_AP_INSURED_COUNTRIES_1_TITLE', 'Zone 1a L&auml;nder');
 define('MODULE_SHIPPING_AP_INSURED_COUNTRIES_1_DESC', 'Durch Komma getrennt Liste der L&auml;nder als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone 1a sind.');
 
 define('MODULE_SHIPPING_AP_INSURED_COST_1_TITLE', 'Zone 1a Tarif Tabelle bis 20 kg');
-define('MODULE_SHIPPING_AP_INSURED_COST_1_DESC', 'Tarif Tabelle f&uuml;r die Zone 1a, basiered auf <b>\'Schnelles Paket\'</b> bis 20 kg Versandgewicht.');
+define('MODULE_SHIPPING_AP_INSURED_COST_1_DESC', 'Tarif Tabelle f&uuml;r die Zone 1a, basiered auf <strong>\'Schnelles Paket\'</strong> bis 20 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_AP_INSURED_COUNTRIES_2_TITLE', 'Zone 1b L&auml;nder');
 define('MODULE_SHIPPING_AP_INSURED_COUNTRIES_2_DESC', 'Durch Komma getrennt Liste der L&auml;nder als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone 1b sind.');
 
 define('MODULE_SHIPPING_AP_INSURED_COST_2_TITLE', 'Zone 1b Tarif Tabelle bis 20 kg');
-define('MODULE_SHIPPING_AP_INSURED_COST_2_DESC', 'Tarif Tabelle f&uuml;r die Zone 1b, basiered auf <b>\'Schnelles Paket\'</b> bis 20 kg Versandgewicht.');
+define('MODULE_SHIPPING_AP_INSURED_COST_2_DESC', 'Tarif Tabelle f&uuml;r die Zone 1b, basiered auf <strong>\'Schnelles Paket\'</strong> bis 20 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_AP_INSURED_COUNTRIES_3_TITLE', 'Zone 2 L&auml;nder');
 define('MODULE_SHIPPING_AP_INSURED_COUNTRIES_3_DESC', 'Durch Komma getrennt Liste der L&auml;nder als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone 2 sind.');
 
 define('MODULE_SHIPPING_AP_INSURED_COST_3_TITLE', 'Zone 2 Tarif Tabelle bis 20 kg');
-define('MODULE_SHIPPING_AP_INSURED_COST_3_DESC', 'Tarif Tabelle f&uuml;r die Zone 2, basiered auf <b>\'Schnelles Paket\'</b> bis 20 kg Versandgewicht.');
+define('MODULE_SHIPPING_AP_INSURED_COST_3_DESC', 'Tarif Tabelle f&uuml;r die Zone 2, basiered auf <strong>\'Schnelles Paket\'</strong> bis 20 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_AP_INSURED_COUNTRIES_4_TITLE', 'Zone 3 L&auml;nder');
 define('MODULE_SHIPPING_AP_INSURED_COUNTRIES_4_DESC', 'Durch Komma getrennt Liste der L&auml;nder als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone 3 sind.');
 
 define('MODULE_SHIPPING_AP_INSURED_COST_4_TITLE', 'Zone 3 Tarif Tabelle bis 20 kg');
-define('MODULE_SHIPPING_AP_INSURED_COST_4_DESC', 'Tarif Tabelle f&uuml;r die Zone 3, basiered auf <b>\'Schnelles Paket\'</b> bis 20 kg Versandgewicht.');
+define('MODULE_SHIPPING_AP_INSURED_COST_4_DESC', 'Tarif Tabelle f&uuml;r die Zone 3, basiered auf <strong>\'Schnelles Paket\'</strong> bis 20 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_AP_INSURED_COUNTRIES_5_TITLE', 'Zone 4 L&auml;nder');
 define('MODULE_SHIPPING_AP_INSURED_COUNTRIES_5_DESC', 'Durch Komma getrennt Liste der L&auml;nder als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone 4 sind.');
 
 define('MODULE_SHIPPING_AP_INSURED_COST_5_TITLE', 'Zone 4 Tarif Tabelle bis 20 kg');
-define('MODULE_SHIPPING_AP_INSURED_COST_5_DESC', 'Tarif Tabelle f&uuml;r die Zone 4, basiered auf <b>\'Schnelles Paket\'</b> bis 20 kg Versandgewicht.');
+define('MODULE_SHIPPING_AP_INSURED_COST_5_DESC', 'Tarif Tabelle f&uuml;r die Zone 4, basiered auf <strong>\'Schnelles Paket\'</strong> bis 20 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_AP_INSURED_COUNTRIES_6_TITLE', 'Zone 4 L&auml;nder');
 define('MODULE_SHIPPING_AP_INSURED_COUNTRIES_6_DESC', 'Durch Komma getrennt Liste der L&auml;nder als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone 4 sind.');
 
 define('MODULE_SHIPPING_AP_INSURED_COST_6_TITLE', 'Zone 4 Tarif Tabelle bis 20 kg');
-define('MODULE_SHIPPING_AP_INSURED_COST_6_DESC', 'Tarif Tabelle f&uuml;r die Zone 4, basiered auf <b>\'Schnelles Paket\'</b> bis 20 kg Versandgewicht.');
+define('MODULE_SHIPPING_AP_INSURED_COST_6_DESC', 'Tarif Tabelle f&uuml;r die Zone 4, basiered auf <strong>\'Schnelles Paket\'</strong> bis 20 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_AP_INSURED_COUNTRIES_7_TITLE', 'Zone 5 L&auml;nder');
 define('MODULE_SHIPPING_AP_INSURED_COUNTRIES_7_DESC', 'Durch Komma getrennt Liste der L&auml;nder als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone 5 sind.');
 
 define('MODULE_SHIPPING_AP_INSURED_COST_7_TITLE', 'Zone 5 Tarif Tabelle bis 20 kg');
-define('MODULE_SHIPPING_AP_INSURED_COST_7_DESC', 'Tarif Tabelle f&uuml;r die Zone 5, basiered auf <b>\'Schnelles Paket\'</b> bis 20 kg Versandgewicht.');
+define('MODULE_SHIPPING_AP_INSURED_COST_7_DESC', 'Tarif Tabelle f&uuml;r die Zone 5, basiered auf <strong>\'Schnelles Paket\'</strong> bis 20 kg Versandgewicht.');
 
 define('MODULE_SHIPPING_AP_INSURED_COUNTRIES_8_TITLE', 'Zone Inland');
 define('MODULE_SHIPPING_AP_INSURED_COUNTRIES_8_DESC', 'Inlandszone');

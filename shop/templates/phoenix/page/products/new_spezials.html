@@ -18,7 +18,7 @@
            <a href="{product_info_link products_id=$new_spezials_array[i].products_id}">{small_product_image image=$new_spezials_array[i].products_image alt=$new_spezials_array[i].products_name|strip_tags}</a><br>
          </td>
          <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-         <td valign="top" class="smallText"><a href="{product_info_link products_id=$new_spezials_array[i].products_id}"><b>{$new_spezials_array[i].products_name}</b></a><br>
+         <td valign="top" class="smallText"><a href="{product_info_link products_id=$new_spezials_array[i].products_id}"><strong>{$new_spezials_array[i].products_name}</strong></a><br>
            <br>{$new_spezials_array[i].products_description|truncate:120:" [...]":false|close_tags}<br>
          </td>
        </tr>

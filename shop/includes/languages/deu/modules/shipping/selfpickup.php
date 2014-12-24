@@ -23,7 +23,7 @@ define('MODULE_SHIPPING_SELFPICKUP_STATUS_TITLE', 'Selbstabholung aktivieren');
 define('MODULE_SHIPPING_SELFPICKUP_STATUS_DESC', 'M&ouml;chten Sie Selbstabholung anbieten?');
 
 define('MODULE_SHIPPING_SELFPICKUP_ZONE_TITLE', 'Erlaubte Versandzonen');
-define('MODULE_SHIPPING_SELFPICKUP_ZONE_DESC', 'Geben Sie <b>einzeln</b> die Zonen an, in welche ein Versand m&ouml;glich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
+define('MODULE_SHIPPING_SELFPICKUP_ZONE_DESC', 'Geben Sie <strong>einzeln</strong> die Zonen an, in welche ein Versand m&ouml;glich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
 
 define('MODULE_SHIPPING_SELFPICKUP_SORT_ORDER_TITLE', 'Sortierreihenfolge');
 define('MODULE_SHIPPING_SELFPICKUP_SORT_ORDER_DESC', 'Reihenfolge der Anzeige');

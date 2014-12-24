@@ -23,7 +23,7 @@
  *
  * {$xxx|highlight_char:none:b}	 {* you cannot leave a param empty, so none is no class *}
  * Output:
- *   <b>x</b>xx
+ *   <strong>x</strong>xx
  *
  * </pre>
  * @author Mark Hewitt <mark at formfunction dot co dot za>
