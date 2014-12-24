@@ -895,7 +895,7 @@ $flds = "
   products_reorder_level I4 NOTNULL DEFAULT '5',
   products_model C(12) NULL,
   products_ean C(13) NULL,
-  products_image C(64) NULL,
+  products_image C(255) NULL,
   products_subimage1 C(64) NULL,
   products_subimage2 C(64) NULL,
   products_subimage3 C(64) NULL,
@@ -903,7 +903,6 @@ $flds = "
   products_subimage5 C(64) NULL,
   products_subimage6 C(64) NULL,
   products_movie C(64) NULL,
-  products_zoomify C(64) NULL,
   products_price N '15.8' NOTNULL DEFAULT '0.00000000',
   products_base_price N '10.6' NOTNULL DEFAULT '1.000000',
   products_product_quantity N '10.2' NOTNULL DEFAULT '1.00',
@@ -984,7 +983,13 @@ $idxname = 'idx_products_name';
 $idxflds = 'products_name';
 idxsql($idxname, $table, $idxflds);
 
-
+$table = $prefix_table . 'products_images';
+$flds = "
+  image_id I DEFAULT '0' NOTNULL PRIMARY,
+  products_id I NOTNULL DEFAULT '1' PRIMARY,
+  image_name C(255) NOTNULL,
+";
+dosql($table, $flds);
 
 $table = $prefix_table . 'products_notifications';
 $flds = "

@@ -235,7 +235,6 @@
                                   'products_subimage4' => (($products_subimage4 == 'none') ? '' : oos_db_prepare_input($products_subimage4)),
                                   'products_subimage5' => (($products_subimage5 == 'none') ? '' : oos_db_prepare_input($products_subimage5)),
                                   'products_subimage6' => (($products_subimage6 == 'none') ? '' : oos_db_prepare_input($products_subimage6)),
-                                  'products_zoomify' => (($products_zoomify == 'none') ? '' : oos_db_prepare_input($products_zoomify)),
                                   'products_price' => oos_db_prepare_input($_POST['products_price']),
                                   'products_base_price' => $products_base_price,
                                   'products_product_quantity' => $products_product_quantity,
@@ -349,7 +348,7 @@ function popupImageWindow(url) {
                                                  p.products_quantity, p.products_reorder_level, p.products_model,
                                                  p.products_ean, p.products_image, p.products_subimage1,
                                                  p.products_subimage2, p.products_subimage3, p.products_subimage4,
-                                                 p.products_subimage5, p.products_subimage6, p.products_zoomify,
+                                                 p.products_subimage5, p.products_subimage6, 
                                                  p.products_price, p.products_base_price, p.products_base_quantity,
                                                  p.products_product_quantity, p.products_base_unit,
                                                  p.products_weight, p.products_date_added, p.products_last_modified,
@@ -611,24 +610,7 @@ function calcBasePriceFactor() {
 ?>
             <td class="main"><?php echo '&nbsp;' . oos_draw_file_field('products_image') . oos_draw_hidden_field('products_previous_image', $pInfo->products_image); ?></td>
           </tr>
-
 <?php
-  if (is_dir(OOS_SHOP_ZOOMIFY)) {
-?>
-          <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_ZOOMIFY; ?></td>
-<?php
-   if (oos_is_not_null($pInfo->products_zoomify)) {
-// todo pupup window for zoomify
-//     echo '            <td align="center"><a href="javascript:popupImageWindow(\'' . oos_href_link_admin($aContents['popup_image_product'], 'bimage=' . $pInfo->products_image) . '\')">' . oos_image(OOS_SHOP_IMAGES . $pInfo->products_image, $pInfo->products_name, '', '80') . '</a></td>';
-   } else {
-     echo '            <td colspan="2">' . oos_draw_separator('trans.gif', '80', '1') . '</td>';
-   }
-?>
-            <td class="main"><?php echo '&nbsp;' . oos_draw_input_field('products_zoomify', $pInfo->products_zoomify); ?></td> 
-          </tr>
-<?php
-  }
   if (OOS_MO_PIC == 'true') {
 ?>
           <tr>
@@ -978,7 +960,7 @@ function calcBasePriceFactor() {
 
       $products_sort_order = $_POST['products_sort_order'];
     } else {
-      $product_result = $dbconn->Execute("SELECT pd.products_name, pd.products_description, pd.products_description_meta, products_keywords_meta, pd.products_url, p.products_id, p.products_quantity, p.products_reorder_level, p.products_model, p.products_ean, p.products_image, p.products_subimage1, p.products_subimage2, p.products_subimage3, p.products_subimage4, p.products_subimage5, p.products_subimage6, p.products_zoomify, p.products_price, p.products_base_price, p.products_base_unit, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.products_units_id, p.manufacturers_id, p.products_price_list, p.products_discount_allowed, p.products_quantity_order_min, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd WHERE p.products_id = '" . $_GET['pID'] . "' and p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
+      $product_result = $dbconn->Execute("SELECT pd.products_name, pd.products_description, pd.products_description_meta, products_keywords_meta, pd.products_url, p.products_id, p.products_quantity, p.products_reorder_level, p.products_model, p.products_ean, p.products_image, p.products_subimage1, p.products_subimage2, p.products_subimage3, p.products_subimage4, p.products_subimage5, p.products_subimage6, p.products_price, p.products_base_price, p.products_base_unit, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.products_units_id, p.manufacturers_id, p.products_price_list, p.products_discount_allowed, p.products_quantity_order_min, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd WHERE p.products_id = '" . $_GET['pID'] . "' and p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
       $product = $product_result->fields;
 
       $pInfo = new objectInfo($product);

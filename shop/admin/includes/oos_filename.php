@@ -93,7 +93,6 @@
   $aContents['recover_cart_sales'] = $prefix_filename . 'recover_cart_sales.php';
   $aContents['reviews'] = $prefix_filename . 'reviews.php';
 
-  $aContents['server_info'] = $prefix_filename . 'server_info.php';
   $aContents['shipping_modules'] = $prefix_filename . 'shipping_modules.php';
   $aContents['specials'] = $prefix_filename . 'specials.php';
   $aContents['stats_customers'] = $prefix_filename . 'stats_customers.php';

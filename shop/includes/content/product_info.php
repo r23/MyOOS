@@ -38,7 +38,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
                               pd.products_description_meta, p.products_model,
                               p.products_quantity, p.products_image, p.products_subimage1, p.products_subimage2,
                               p.products_subimage3, p.products_subimage4, p.products_subimage5, p.products_subimage6,
-                              p.products_movie, p.products_zoomify, p.products_discount_allowed, p.products_price,
+                              p.products_movie, p.products_discount_allowed, p.products_price,
                               p.products_base_price, p.products_base_unit, p.products_quantity_order_min, p.products_quantity_order_units,
                               p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4,
                               p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty,

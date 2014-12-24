@@ -47,7 +47,6 @@ define('TEXT_PRODUCTS_UNIT', 'Verpackungseinheit');
 
 define('TEXT_PRODUCTS_IMAGE_REMOVE', '<b>Entfernen</b> des Bildes vom Artikel?');
 define('TEXT_PRODUCTS_IMAGE_DELETE', '<b>L&ouml;schen</b> des Bildes vom Server?');
-define('TEXT_PRODUCTS_ZOOMIFY', 'Zoomify');
 
 define('TEXT_PRODUCTS_STATUS', 'Produktstatus:');
 define('TEXT_CATEGORIES', 'Kategorien:');
