@@ -85,6 +85,7 @@ $oostable['products'] = $prefix_table . 'products';
 $oostable['products_attributes'] = $prefix_table . 'products_attributes';
 $oostable['products_attributes_download'] = $prefix_table . 'products_attributes_download';
 $oostable['products_description'] = $prefix_table . 'products_description';
+$oostable['products_images'] = $prefix_table . 'products_images';
 $oostable['products_notifications'] = $prefix_table . 'products_notifications';
 $oostable['products_options'] = $prefix_table . 'products_options';
 $oostable['products_options_types'] = $prefix_table . 'products_options_types';
