@@ -550,9 +550,6 @@ define('OOS_SWF_BGCOLOUR_B_DESC', 'Blau Wert f&uuml;r kleines Produktbild im Fla
 define('OOS_RANDOM_PICTURE_NAME_TITLE', 'Filename');
 define('OOS_RANDOM_PICTURE_NAME_DESC', 'Random Filename');
 
-define('OOS_MO_PIC_TITLE', 'Mehr Produktbilder');
-define('OOS_MO_PIC_DESC', 'Weitere Produktbilder auf der Produktinfoseite zeigen?');
-
 define('PSM_TITLE', 'Preissuchmaschine');
 define('PSM_DESC', 'M&ouml;chten Sie Die Schnittstelle zur Preissuchmaschine verwenden? Hierf&uuml;r ist eine Anmeldung bei <A HREF=\"http://www.preissuchmaschine.de/psm_frontend/main.asp?content=mitmachenreissuchmaschine\" TARGET=\"_blank\">http://www.preissuchmaschine.de</A> n');
 

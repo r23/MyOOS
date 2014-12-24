@@ -35,7 +35,6 @@
   * Stop from parsing any further PHP code
   */
   function oos_exit() {
-   oos_session_close();
    exit();
   }
 
@@ -206,60 +205,6 @@
     $products_name = $dbconn->GetOne($query);
 
     return $products_name;
-  }
-
-
- /**
-  * Return News Author Name
-  *
-  * @param $nNewsAuthorId
-  * @return string
-  */
-  function oos_get_news_author_name($nNewsAuthorId) {
-
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
-
-    $admintable = $oostable['admin'];
-    $query  = "SELECT admin_firstname, admin_lastname
-               FROM $admintable
-               WHERE admin_id  = '" . intval($nNewsAuthorId) . "'";
-    $result = $dbconn->Execute($query);
-
-    $sAdminName = $result->fields['admin_firstname'] . ' ' . $result->fields['admin_lastname'];
-
-    // Close result set
-    $result->Close();
-
-    return $sAdminName;
-  }
-
-
- /**
-  * Return News Average Rating
-  *
-  * @param $nNewsId
-  * @return string
-  */
-  function oos_get_news_reviews($nNewsId) {
-
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
-
-    $news_reviewstable = $oostable['news_reviews'];
-    $query  = "SELECT (avg(news_reviews_rating ) / 5 * 100) AS average_rating
-               FROM $news_reviewstable
-               WHERE news_id  = '" . intval($nNewsId)  . "'";
-    $result = $dbconn->Execute($query);
-
-    $sAverage = $result->fields['average_rating'];
-
-    // Close result set
-    $result->Close();
-
-    return $sAverage;
   }
 
 
@@ -680,6 +625,7 @@
       return 0;
     }
 
+    static $tax_rates = array();
 
     if ( ($country_id == -1) && ($zone_id == -1) ) {
       if (!isset($_SESSION['customer_id'])) {
@@ -695,10 +641,11 @@
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $tax_ratestable = $oostable['tax_rates'];
-    $geo_zonestable = $oostable['geo_zones'];
-    $zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
-    $query = "SELECT SUM(tax_rate) AS tax_rate
+    if (!isset($tax_rates[$class_id][$country_id][$zone_id]['rate'])) {
+		$tax_ratestable = $oostable['tax_rates'];
+		$geo_zonestable = $oostable['geo_zones'];
+		$zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
+		$query = "SELECT SUM(tax_rate) AS tax_rate
               FROM  $tax_ratestable tr LEFT JOIN
                     $zones_to_geo_zonestable za
                   ON (tr.tax_zone_id = za.geo_zone_id) LEFT JOIN
@@ -709,13 +656,23 @@
                     (za.zone_id is null or za.zone_id = '0' or za.zone_id = '" . intval($zone_id) . "') AND
                      tr.tax_class_id = '" . intval($class_id) . "'
             GROUP BY tr.tax_priority";
-    if (USE_DB_CACHE_LEVEL_HIGH == 'true') {
-      $tax_result = $dbconn->CacheExecute(30, $query);
-    } else {
-      $tax_result = $dbconn->Execute($query);
-    }
-    if (!$tax_result) {return 0;}
+		$tax_result = $dbconn->Execute($query);
+		if (!$tax_result) {return 0;}
 
+		if ($tax_result->RecordCount() > 0) {			
+			$tax_multiplier = 1.0;
+			while ($tax = $tax_result->fields) {
+				$tax_multiplier *= 1.0 + ($tax['tax_rate'] / 100);			
+				$tax_result->MoveNext();
+			}
+
+			$tax_rates[$class_id][$country_id][$zone_id]['rate'] = ($tax_multiplier - 1.0) * 100;
+		} else {
+			$tax_rates[$class_id][$country_id][$zone_id]['rate'] = 0;
+		}
+    }	
+/*	
+	
     if ($tax_result->RecordCount() > 0) {
       $tax_multiplier = 0;
       while ($tax = $tax_result->fields) {
@@ -731,6 +688,9 @@
       return 0;
     }
   }
+*/
+    return $tax_rates[$class_id][$country_id][$zone_id]['rate'];
+}
 
 
 
@@ -744,6 +704,8 @@
   function oos_get_tax_description($class_id, $country_id, $zone_id) {
     global $aLang;
 
+	static $tax_rates = array();
+	
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
@@ -773,9 +735,6 @@
         // Move that ADOdb pointer!
         $tax_result->MoveNext();
       }
-
-      // Close result set
-      $tax_result->Close();
 
       $tax_description = substr($tax_description, 0, -3);
 

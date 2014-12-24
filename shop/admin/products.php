@@ -63,72 +63,6 @@
             $products_image = oos_db_prepare_input($_POST['products_previous_image']);
           }
 
-          // copy subimage1 only if modified
-          if ( ($_POST['products_subimage1'] != 'none') && (isset($_FILES['products_subimage1'])) ) {
-            $products_subimage1 = oos_get_uploaded_file('products_subimage1');
-            $subimage1_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
-          }
-          if (is_uploaded_file($products_subimage1['tmp_name'])) {
-            $products_subimage1 = oos_copy_uploaded_file($products_subimage1, $subimage1_directory);
-          } else {
-            $products_subimage1 = oos_db_prepare_input($_POST['products_previous_subimage1']);
-          }
-
-          // copy subimage2 only if modified
-          if ( ($_POST['products_subimage2'] != 'none') && (isset($_FILES['products_subimage2'])) ) {
-            $products_subimage2 = oos_get_uploaded_file('products_subimage2');
-            $subimage2_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
-          }
-          if (is_uploaded_file($products_subimage2['tmp_name'])) {
-            $products_subimage2 = oos_copy_uploaded_file($products_subimage2, $subimage2_directory);
-          } else {
-            $products_subimage2 = oos_db_prepare_input($_POST['products_previous_subimage2']);
-          }
-
-          // copy subimage3 only if modified
-          if ( ($_POST['products_subimage3'] != 'none') && (isset($_FILES['products_subimage3'])) ) {
-            $products_subimage3 = oos_get_uploaded_file('products_subimage3');
-            $subimage3_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
-          }
-          if (is_uploaded_file($products_subimage3['tmp_name'])) {
-            $products_subimage3 = oos_copy_uploaded_file($products_subimage3, $subimage3_directory);
-          } else {
-            $products_subimage3 = oos_db_prepare_input($_POST['products_previous_subimage3']);
-          }
-
-          // copy subimage4 only if modified
-          if ( ($_POST['products_subimage4'] != 'none') && (isset($_FILES['products_subimage4'])) ) {
-            $products_subimage4 = oos_get_uploaded_file('products_subimage4');
-            $subimage4_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
-          }
-          if (is_uploaded_file($products_subimage4['tmp_name'])) {
-            $products_subimage4 = oos_copy_uploaded_file($products_subimage4, $subimage4_directory);
-          } else {
-            $products_subimage4 = oos_db_prepare_input($_POST['products_previous_subimage4']);
-          }
-
-          // copy subimage5 only if modified
-          if ( ($_POST['products_subimage5'] != 'none') && (isset($_FILES['products_subimage5'])) ) {
-            $products_subimage5 = oos_get_uploaded_file('products_subimage5');
-            $subimage5_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
-          }
-          if (is_uploaded_file($products_subimage5['tmp_name'])) {
-            $products_subimage5 = oos_copy_uploaded_file($products_subimage5, $subimage5_directory);
-          } else {
-            $products_subimage5 = oos_db_prepare_input($_POST['products_previous_subimage5']);
-          }
-
-          // copy subimage6 only if modified
-          if ( ($_POST['products_subimage6'] != 'none') && (isset($_FILES['products_subimage6'])) ) {
-            $products_subimage6 = oos_get_uploaded_file('products_subimage6');
-            $subimage6_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
-          }
-          if (is_uploaded_file($products_subimage6['tmp_name'])) {
-            $products_subimage6 = oos_copy_uploaded_file($products_subimage6, $subimage6_directory);
-          } else {
-            $products_subimage6 = oos_db_prepare_input($_POST['products_previous_subimage6']);
-          }
-        }
 
         if (OOS_PRICE_IS_BRUTTO == 'true' && $_POST['products_price']){
           $tax_ratestable = $oostable['tax_rates'];
@@ -149,56 +83,9 @@
               oos_remove_product_image($products_image);
             }
           }
-          if ($_POST['delete_subimage1'] == 'yes') {
-            if (oos_duplicate_product_subimage_check($products_subimage1)) {
-              oos_remove_product_subimage($products_subimage1);
-            }
-          }
-          if ($_POST['delete_subimage2'] == 'yes') {
-            if (oos_duplicate_product_subimage_check($products_subimage2)) {
-              oos_remove_product_subimage($products_subimage2);
-            }
-          }
-          if ($_POST['delete_subimage3'] == 'yes') {
-            if (oos_duplicate_product_subimage_check($products_subimage3)) {
-              oos_remove_product_subimage($products_subimage3);
-            }
-          }
-          if ($_POST['delete_subimage4'] == 'yes') {
-            if (oos_duplicate_product_subimage_check($products_subimage4)) {
-              oos_remove_product_subimage($products_subimage4);
-            }
-          }
-          if ($_POST['delete_subimage5'] == 'yes') {
-            if (oos_duplicate_product_subimage_check($products_subimage5)) {
-              oos_remove_product_subimage($products_subimage5);
-            }
-          }
-          if ($_POST['delete_subimage6'] == 'yes') {
-            if (oos_duplicate_product_subimage_check($products_subimage6)) {
-              oos_remove_product_subimage($products_subimage6);
-            }
-          }
+
           if ( ($_POST['delete_image'] == 'yes') || ($_POST['remove_image'] == 'yes') ) {
             $products_image = 'none';
-          }
-          if ( ($_POST['delete_subimage1'] == 'yes') || ($_POST['remove_subimage1'] == 'yes') ) {
-            $products_subimage1 = 'none';
-          }
-          if ( ($_POST['delete_subimage2'] == 'yes') || ($_POST['remove_subimage2'] == 'yes') ) {
-            $products_subimage2 = 'none';
-          }
-          if ( ($_POST['delete_subimage3'] == 'yes') || ($_POST['remove_subimage3'] == 'yes') ) {
-            $products_subimage3 = 'none';
-          }
-          if ( ($_POST['delete_subimage4'] == 'yes') || ($_POST['remove_subimage4'] == 'yes') ) {
-            $products_subimage4 = 'none';
-          }
-          if ( ($_POST['delete_subimage5'] == 'yes') || ($_POST['remove_subimage5'] == 'yes') ) {
-            $products_subimage5 = 'none';
-          }
-          if ( ($_POST['delete_subimage6'] == 'yes') || ($_POST['remove_subimage6'] == 'yes') ) {
-            $products_subimage6 = 'none';
           }
 
           $products_id = oos_db_prepare_input($_GET['pID']);
@@ -229,12 +116,6 @@
                                   'products_model' => oos_db_prepare_input($_POST['products_model']),
                                   'products_ean' => oos_db_prepare_input($_POST['products_ean']),
                                   'products_image' => (($products_image == 'none') ? '' : oos_db_prepare_input($products_image)),
-                                  'products_subimage1' => (($products_subimage1 == 'none') ? '' : oos_db_prepare_input($products_subimage1)),
-                                  'products_subimage2' => (($products_subimage2 == 'none') ? '' : oos_db_prepare_input($products_subimage2)),
-                                  'products_subimage3' => (($products_subimage3 == 'none') ? '' : oos_db_prepare_input($products_subimage3)),
-                                  'products_subimage4' => (($products_subimage4 == 'none') ? '' : oos_db_prepare_input($products_subimage4)),
-                                  'products_subimage5' => (($products_subimage5 == 'none') ? '' : oos_db_prepare_input($products_subimage5)),
-                                  'products_subimage6' => (($products_subimage6 == 'none') ? '' : oos_db_prepare_input($products_subimage6)),
                                   'products_price' => oos_db_prepare_input($_POST['products_price']),
                                   'products_base_price' => $products_base_price,
                                   'products_product_quantity' => $products_product_quantity,
@@ -346,9 +227,7 @@ function popupImageWindow(url) {
       $product_result = $dbconn->Execute("SELECT pd.products_name, pd.products_description, pd.products_url,
                                                  pd.products_description_meta, pd.products_keywords_meta, p.products_id,
                                                  p.products_quantity, p.products_reorder_level, p.products_model,
-                                                 p.products_ean, p.products_image, p.products_subimage1,
-                                                 p.products_subimage2, p.products_subimage3, p.products_subimage4,
-                                                 p.products_subimage5, p.products_subimage6, 
+                                                 p.products_ean, p.products_image, 
                                                  p.products_price, p.products_base_price, p.products_base_quantity,
                                                  p.products_product_quantity, p.products_base_unit,
                                                  p.products_weight, p.products_date_added, p.products_last_modified,
@@ -541,7 +420,6 @@ function calcBasePriceFactor() {
           </tr>
 <?php
     }
-    if (OOS_META_PRODUKT == "Meta Tag with article edit") {
       for ($i=0; $i < count($languages); $i++) {
 ?>
             <tr>
@@ -555,7 +433,6 @@ function calcBasePriceFactor() {
               </table></td>
             </tr>
 <?php
-      }
       for ($i=0; $i < count($languages); $i++) {
 ?>
             <tr>
@@ -610,84 +487,6 @@ function calcBasePriceFactor() {
 ?>
             <td class="main"><?php echo '&nbsp;' . oos_draw_file_field('products_image') . oos_draw_hidden_field('products_previous_image', $pInfo->products_image); ?></td>
           </tr>
-<?php
-  if (OOS_MO_PIC == 'true') {
-?>
-          <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_SUBIMAGE1; ?></td>
-<?php 
-     if (oos_is_not_null($pInfo->products_subimage1)) {
-       echo '            <td align="center"><a href="javascript:popupImageWindow(\'' . oos_href_link_admin($aContents['popup_subimage_product'], 'bimage=' . $pInfo->products_subimage1) . '\')">' . oos_image(OOS_SHOP_IMAGES . $pInfo->products_subimage1, $pInfo->products_name, '', '80') . '</a></td>';
-       echo '            <td><span class="smallText">&nbsp;' . oos_draw_checkbox_field('remove_subimage1', 'yes') . TEXT_PRODUCTS_IMAGE_REMOVE . '<br />&nbsp;' . oos_draw_checkbox_field('delete_subimage1', 'yes') . TEXT_PRODUCTS_IMAGE_DELETE . '<br /><br />&nbsp;<b>' . TEXT_PRODUCTS_IMAGE . '</b>&nbsp;' .  $pInfo->products_subimage1 . '</span></td>';
-     } else {
-       echo '            <td colspan="2">' . oos_draw_separator('trans.gif', '80', '1') . '</td>';
-     }
-?>
-            <td class="main"><?php echo '&nbsp;' . oos_draw_file_field('products_subimage1') . oos_draw_hidden_field('products_previous_subimage1', $pInfo->products_subimage1); ?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_SUBIMAGE2; ?></td>
-<?php 
-     if (oos_is_not_null($pInfo->products_subimage2)) {
-       echo '            <td align="center"><a href="javascript:popupImageWindow(\'' . oos_href_link_admin($aContents['popup_subimage_product'], 'bimage=' . $pInfo->products_subimage2) . '\')">' . oos_image(OOS_SHOP_IMAGES . $pInfo->products_subimage2, $pInfo->products_name, '', '80') . '</a></td>';
-       echo '            <td><span class="smallText">&nbsp;' . oos_draw_checkbox_field('remove_subimage2', 'yes') . TEXT_PRODUCTS_IMAGE_REMOVE . '<br />&nbsp;' . oos_draw_checkbox_field('delete_subimage2', 'yes') . TEXT_PRODUCTS_IMAGE_DELETE . '<br /><br />&nbsp;<b>' . TEXT_PRODUCTS_IMAGE . '</b>&nbsp;' .  $pInfo->products_subimage2 . '</span></td>';
-     } else {
-       echo '            <td colspan="2">' . oos_draw_separator('trans.gif', '80', '1') . '</td>';
-     }
-?>
-            <td class="main"><?php echo '&nbsp;' . oos_draw_file_field('products_subimage2') . oos_draw_hidden_field('products_previous_subimage2', $pInfo->products_subimage2); ?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_SUBIMAGE3; ?></td>
-<?php 
-     if (oos_is_not_null($pInfo->products_subimage3)) {
-       echo '            <td align="center"><a href="javascript:popupImageWindow(\'' . oos_href_link_admin($aContents['popup_subimage_product'], 'bimage=' . $pInfo->products_subimage3) . '\')">' . oos_image(OOS_SHOP_IMAGES . $pInfo->products_subimage3, $pInfo->products_name, '', '80') . '</a></td>';
-       echo '            <td><span class="smallText">&nbsp;' . oos_draw_checkbox_field('remove_subimage3', 'yes') . TEXT_PRODUCTS_IMAGE_REMOVE . '<br />&nbsp;' . oos_draw_checkbox_field('delete_subimage3', 'yes') . TEXT_PRODUCTS_IMAGE_DELETE . '<br /><br />&nbsp;<b>' . TEXT_PRODUCTS_IMAGE . '</b>&nbsp;' .  $pInfo->products_subimage3 . '</span></td>';
-     } else {
-       echo '            <td colspan="2">' . oos_draw_separator('trans.gif', '80', '1') . '</td>';
-     }
-?>
-            <td class="main"><?php echo '&nbsp;' . oos_draw_file_field('products_subimage3') . oos_draw_hidden_field('products_previous_subimage3', $pInfo->products_subimage3); ?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_SUBIMAGE4; ?></td>
-<?php 
-     if (oos_is_not_null($pInfo->products_subimage4)) {
-       echo '            <td align="center"><a href="javascript:popupImageWindow(\'' . oos_href_link_admin($aContents['popup_subimage_product'], 'bimage=' . $pInfo->products_subimage4) . '\')">' . oos_image(OOS_SHOP_IMAGES . $pInfo->products_subimage4, $pInfo->products_name, '', '80') . '</a></td>';
-       echo '            <td><span class="smallText">&nbsp;' . oos_draw_checkbox_field('remove_subimage4', 'yes') . TEXT_PRODUCTS_IMAGE_REMOVE . '<br />&nbsp;' . oos_draw_checkbox_field('delete_subimage4', 'yes') . TEXT_PRODUCTS_IMAGE_DELETE . '<br /><br />&nbsp;<b>' . TEXT_PRODUCTS_IMAGE . '</b>&nbsp;' .  $pInfo->products_subimage4 . '</span></td>';
-     } else {
-       echo '            <td colspan="2">' . oos_draw_separator('trans.gif', '80', '1') . '</td>';
-     }
-?>
-            <td class="main"><?php echo '&nbsp;' . oos_draw_file_field('products_subimage4') . oos_draw_hidden_field('products_previous_subimage4', $pInfo->products_subimage4); ?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_SUBIMAGE5; ?></td>
-<?php 
-     if (oos_is_not_null($pInfo->products_subimage5)) {
-       echo '            <td align="center"><a href="javascript:popupImageWindow(\'' . oos_href_link_admin($aContents['popup_subimage_product'], 'bimage=' . $pInfo->products_subimage5) . '\')">' . oos_image(OOS_SHOP_IMAGES . $pInfo->products_subimage5, $pInfo->products_name, '', '80') . '</a></td>';
-       echo '            <td><span class="smallText">&nbsp;' . oos_draw_checkbox_field('remove_subimage5', 'yes') . TEXT_PRODUCTS_IMAGE_REMOVE . '<br />&nbsp;' . oos_draw_checkbox_field('delete_subimage5', 'yes') . TEXT_PRODUCTS_IMAGE_DELETE . '<br /><br />&nbsp;<b>' . TEXT_PRODUCTS_IMAGE . '</b>&nbsp;' .  $pInfo->products_subimage5 . '</span></td>';
-     } else {
-       echo '            <td colspan="2">' . oos_draw_separator('trans.gif', '80', '1') . '</td>';
-     }
-?>
-            <td class="main"><?php echo '&nbsp;' . oos_draw_file_field('products_subimage5') . oos_draw_hidden_field('products_previous_subimage5', $pInfo->products_subimage5); ?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_SUBIMAGE6; ?></td>
-<?php 
-     if (oos_is_not_null($pInfo->products_subimage6)) {
-       echo '            <td align="center"><a href="javascript:popupImageWindow(\'' . oos_href_link_admin($aContents['popup_subimage_product'], 'bimage=' . $pInfo->products_subimage6) . '\')">' . oos_image(OOS_SHOP_IMAGES . $pInfo->products_subimage6, $pInfo->products_name, '', '80') . '</a></td>';
-       echo '            <td><span class="smallText">&nbsp;' . oos_draw_checkbox_field('remove_subimage6', 'yes') . TEXT_PRODUCTS_IMAGE_REMOVE . '<br />&nbsp;' . oos_draw_checkbox_field('delete_subimage6', 'yes') . TEXT_PRODUCTS_IMAGE_DELETE . '<br /><br />&nbsp;<b>' . TEXT_PRODUCTS_IMAGE . '</b>&nbsp;' .  $pInfo->products_subimage6 . '</span></td>';
-     } else {
-       echo '            <td colspan="2">' . oos_draw_separator('trans.gif', '80', '1') . '</td>';
-     }
-?>
-            <td class="main"><?php echo '&nbsp;' . oos_draw_file_field('products_subimage6') . oos_draw_hidden_field('products_previous_subimage6', $pInfo->products_subimage6); ?></td>
-          </tr>
-<?php
-  }
-?>
         </table><br />
         <table border="0" cellspacing="0" cellpadding="2">
           <tr>
@@ -892,86 +691,14 @@ function calcBasePriceFactor() {
         $products_image_name = $_POST['products_previous_image'];
       }
 
-      // copy subimage1 only if modified
-      if ( ($_POST['products_subimage1'] != 'none') && (isset($_FILES['products_subimage1'])) ) {
-        $products_subimage1 = oos_get_uploaded_file('products_subimage1');
-        $subimage1_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
-      }
-      if (is_uploaded_file($products_subimage1['tmp_name'])) {
-        $products_subimage1_name = oos_copy_uploaded_file($products_subimage1, $subimage1_directory);
-      } else {
-        $products_subimage1_name = $_POST['products_previous_subimage1'];
-      }
-
-      // copy subimage2 only if modified
-      if ( ($_POST['products_subimage2'] != 'none') && (isset($_FILES['products_subimage2'])) ) {
-        $products_subimage2 = oos_get_uploaded_file('products_subimage2');
-        $subimage2_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
-      }
-      if (is_uploaded_file($products_subimage2['tmp_name'])) {
-        $products_subimage2_name = oos_copy_uploaded_file($products_subimage2, $subimage2_directory);
-      } else {
-        $products_subimage2_name = $_POST['products_previous_subimage2'];
-      }
-
-      // copy subimage3 only if modified
-      if ( ($_POST['products_subimage3'] != 'none') && (isset($_FILES['products_subimage3'])) ) {
-        $products_subimage3 = oos_get_uploaded_file('products_subimage3');
-        $subimage3_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
-      }
-      if (is_uploaded_file($products_subimage3['tmp_name'])) {
-        $products_subimage3_name = oos_copy_uploaded_file($products_subimage3, $subimage3_directory);
-      } else {
-        $products_subimage3_name = $_POST['products_previous_subimage3'];
-      }
-
-      // copy subimage4 only if modified
-      if ( ($_POST['products_subimage4'] != 'none') && (isset($_FILES['products_subimage4'])) ) {
-        $products_subimage4 = oos_get_uploaded_file('products_subimage4');
-        $subimage4_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
-      }
-      if (is_uploaded_file($products_subimage4['tmp_name'])) {
-        $products_subimage4_name = oos_copy_uploaded_file($products_subimage4, $subimage4_directory);
-      } else {
-        $products_subimage4_name = $_POST['products_previous_subimage4'];
-      }
-
-      // copy subimage5 only if modified
-      if ( ($_POST['products_subimage5'] != 'none') && (isset($_FILES['products_subimage5'])) ) {
-        $products_subimage5 = oos_get_uploaded_file('products_subimage5');
-        $subimage5_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
-      }
-      if (is_uploaded_file($products_subimage5['tmp_name'])) {
-        $products_subimage5_name = oos_copy_uploaded_file($products_subimage5, $subimage5_directory);
-      } else {
-        $products_subimage5_name = $_POST['products_previous_subimage5'];
-      }
-
-      // copy subimage6 only if modified
-      if ( ($_POST['products_subimage6'] != 'none') && (isset($_FILES['products_subimage6'])) ) {
-        $products_subimage6 = oos_get_uploaded_file('products_subimage6');
-        $subimage6_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
-      }
-      if (is_uploaded_file($products_subimage6['tmp_name'])) {
-        $products_subimage6_name = oos_copy_uploaded_file($products_subimage6, $subimage6_directory);
-      } else {
-        $products_subimage6_name = $_POST['products_previous_subimage6'];
-      }
 
       $products_sort_order = $_POST['products_sort_order'];
     } else {
-      $product_result = $dbconn->Execute("SELECT pd.products_name, pd.products_description, pd.products_description_meta, products_keywords_meta, pd.products_url, p.products_id, p.products_quantity, p.products_reorder_level, p.products_model, p.products_ean, p.products_image, p.products_subimage1, p.products_subimage2, p.products_subimage3, p.products_subimage4, p.products_subimage5, p.products_subimage6, p.products_price, p.products_base_price, p.products_base_unit, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.products_units_id, p.manufacturers_id, p.products_price_list, p.products_discount_allowed, p.products_quantity_order_min, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd WHERE p.products_id = '" . $_GET['pID'] . "' and p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
+      $product_result = $dbconn->Execute("SELECT pd.products_name, pd.products_description, pd.products_description_meta, products_keywords_meta, pd.products_url, p.products_id, p.products_quantity, p.products_reorder_level, p.products_model, p.products_ean, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.products_units_id, p.manufacturers_id, p.products_price_list, p.products_discount_allowed, p.products_quantity_order_min, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd WHERE p.products_id = '" . $_GET['pID'] . "' and p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
       $product = $product_result->fields;
 
       $pInfo = new objectInfo($product);
       $products_image_name = $pInfo->products_image;
-      $products_subimage1_name = $pInfo->products_subimage1;
-      $products_subimage2_name = $pInfo->products_subimage2;
-      $products_subimage3_name = $pInfo->products_subimage3;
-      $products_subimage4_name = $pInfo->products_subimage4;
-      $products_subimage5_name = $pInfo->products_subimage5;
-      $products_subimage6_name = $pInfo->products_subimage6;
-
     }
 
     $form_action = ($_GET['pID']) ? 'update_product' : 'insert_product';
@@ -1043,51 +770,6 @@ function calcBasePriceFactor() {
 <?php
       }
 ?>
-          <tr>
-            <td colspan="2" class="main" align="right">
-<table align="center">
-      <tr>
-<?php
-    if ( (!$delete_subimage1) && (!$remove_subimage1) ) {
-      echo '<td align="center" class="main"><a href="javascript:popupImageWindow(\''. oos_href_link_admin($aContents['popup_subimage_product'], 'bimage=' . $products_subimage1_name) . '\')">' . (($products_subimage1_name) ? oos_image(OOS_SHOP_IMAGES . $products_subimage1_name, $pInfo->products_name, '', '80', 'align="right" hspace="5" vspace="5"') : '') . '</a></td>';
-    } else {
-      echo '<td></td>';
-    }
-    if ( (!$delete_subimage2) && (!$remove_subimage2) ) {
-      echo '<td align="center" class="main"><a href="javascript:popupImageWindow(\''. oos_href_link_admin($aContents['popup_subimage_product'], 'bimage=' . $products_subimage2_name) . '\')">' . (($products_subimage2_name) ? oos_image(OOS_SHOP_IMAGES . $products_subimage2_name, $pInfo->products_name, '', '80', 'align="right" hspace="5" vspace="5"') : '') . '</a></td>';
-    } else {
-      echo '<td></td>';
-    }
-    if ( (!$delete_subimage3) && (!$remove_subimage3) ) {
-      echo '<td align="center" class="main"><a href="javascript:popupImageWindow(\''. oos_href_link_admin($aContents['popup_subimage_product'], 'bimage=' .  $products_subimage3_name) . '\')">' . (($products_subimage3_name) ?oos_image(OOS_SHOP_IMAGES . $products_subimage3_name, $pInfo->products_name, '', '80', 'align="right" hspace="5" vspace="5"') : '') . '</a></td>';
-    } else {
-      echo '<td></td>';
-    }
-?>
-      </tr>
-      <tr>
-<?php
-    if ( (!$delete_subimage4) && (!$remove_subimage4) ) {
-      echo '<td align="center" class="main"><a href="javascript:popupImageWindow(\''. oos_href_link_admin($aContents['popup_subimage_product'], 'bimage=' .  $products_subimage4_name) . '\')">' . (($products_subimage4_name) ? oos_image(OOS_SHOP_IMAGES . $products_subimage4_name, $pInfo->products_name, '', '80', 'align="right" hspace="5" vspace="5"') : '') . '</a></td>';
-    } else {
-      echo '<td></td>';
-    }
-    if ( (!$delete_subimage5) && (!$remove_subimage5) ) {
-      echo '<td align="center" class="main"><a href="javascript:popupImageWindow(\''. oos_href_link_admin($aContents['popup_subimage_product'], 'bimage=' .  $products_subimage5_name) . '\')">' . (($products_subimage5_name) ? oos_image(OOS_SHOP_IMAGES . $products_subimage5_name, $pInfo->products_name, '', '80', 'align="right" hspace="5" vspace="5"') : '') . '</a></td>';
-    } else {
-      echo '<td></td>';
-    }
-    if ( (!$delete_subimage6) && (!$remove_subimage6) ) {
-      echo '<td align="center" class="main"><a href="javascript:popupImageWindow(\''. oos_href_link_admin($aContents['popup_subimage_product'], 'bimage=' .  $products_subimage6_name) . '\')">' . (($products_subimage6_name) ? oos_image(OOS_SHOP_IMAGES . $products_subimage6_name, $pInfo->products_name, '', '80', 'align="right" hspace="5" vspace="5"') : '') . '</a></td>';
-    } else {
-      echo '<td></td>';
-    }
-?>
-      </tr>
-</table>
-
-          </td>
-        </tr>
 <?php
       if ($pInfo->products_date_available > date('Y-m-d')) {
 ?>
@@ -1151,12 +833,6 @@ function calcBasePriceFactor() {
         echo oos_draw_hidden_field('products_url[' . $languages[$i]['id'] . ']', htmlspecialchars(stripslashes($products_url[$languages[$i]['id']])));
       }
       echo oos_draw_hidden_field('products_image', stripslashes($products_image_name));
-      echo oos_draw_hidden_field('products_subimage1', stripslashes($products_subimage1_name));
-      echo oos_draw_hidden_field('products_subimage2', stripslashes($products_subimage2_name));
-      echo oos_draw_hidden_field('products_subimage3', stripslashes($products_subimage3_name));
-      echo oos_draw_hidden_field('products_subimage4', stripslashes($products_subimage4_name));
-      echo oos_draw_hidden_field('products_subimage5', stripslashes($products_subimage5_name));
-      echo oos_draw_hidden_field('products_subimage6', stripslashes($products_subimage6_name));
 
       if (isset($_POST['categories_ids'])) {
         $selected_catids = $_POST['categories_ids'];
