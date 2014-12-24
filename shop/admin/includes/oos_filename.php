@@ -80,9 +80,7 @@
   $aContents['plugins'] = $prefix_filename . 'plugins.php';
   $aContents['popup_google_map'] = $prefix_filename . 'popup_google_map.php';
   $aContents['popup_image'] = $prefix_filename . 'popup_image.php';
-  $aContents['popup_image_news'] = $prefix_filename . 'popup_image_news.php';
   $aContents['popup_image_product'] = $prefix_filename . 'popup_image_product.php';
-  $aContents['popup_subimage_product'] = $prefix_filename . 'popup_subimage_product.php';
   $aContents['products'] = $prefix_filename . 'products.php';
   $aContents['products_attributes'] = $prefix_filename . 'products_attributes.php';
   $aContents['products_attributes_add'] = $prefix_filename . 'products_attributes_add.php';

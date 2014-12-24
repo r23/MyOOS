@@ -48,7 +48,7 @@
       $filename = $filename[0];
       $page_key = array_search($filename, $aContents);
 
-      if ($filename != $aContents['default'] && $filename != $aContents['forbiden'] && $filename != $aContents['logoff'] && $filename != $aContents['admin_account']  && $filename != $aContents['popup_image'] && $filename != $aContents['packingslip'] && $filename != $aContents['popup_image_product']  && $filename != $aContents['popup_image_news'] && $filename != $aContents['popup_subimage_product'] && $filename != $aContents['invoice'] && $filename != $aContents['edit_orders']) {
+      if ($filename != $aContents['default'] && $filename != $aContents['forbiden'] && $filename != $aContents['logoff'] && $filename != $aContents['admin_account']  && $filename != $aContents['popup_image'] && $filename != $aContents['packingslip'] && $filename != $aContents['popup_image_product']  && $filename != $aContents['invoice'] && $filename != $aContents['edit_orders']) {
         $admin_filestable = $oostable['admin_files'];
         $query = "SELECT admin_files_name
                   FROM $admin_filestable
