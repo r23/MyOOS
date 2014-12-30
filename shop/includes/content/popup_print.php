@@ -24,7 +24,7 @@
 
   //smarty
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
-  $oSmarty = new Template;
+ $smarty = new myOOS_Smarty();
 
   /**
    * Smarty Cache Handler

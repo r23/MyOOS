@@ -21,20 +21,17 @@
 /** ensure this file is being required by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if (!defined('OOS_BASE_PRICE')) {
-    define('OOS_BASE_PRICE', 'false');
-  }
-  if (isset($_GET['products_id'])) {
-    if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
-  } else {
-    oos_redirect(oos_href_link($aContents['main']));
-  }
+if (isset($_GET['products_id'])) {
+	if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
+} else {
+	oos_redirect(oos_href_link($aContents['main']));
+}
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_info.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_info.php';
 
-  $productstable = $oostable['products'];
-  $products_descriptiontable = $oostable['products_description'];
-  $product_info_sql = "SELECT p.products_id, pd.products_name, pd.products_description, pd.products_url,
+$productstable = $oostable['products'];
+$products_descriptiontable = $oostable['products_description'];
+$product_info_sql = "SELECT p.products_id, pd.products_name, pd.products_description, pd.products_url,
                               pd.products_description_meta, p.products_model,
                               p.products_quantity, p.products_image, 
                               p.products_discount_allowed, p.products_price,
@@ -49,31 +46,36 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
                           AND p.products_id = '" . intval($nProductsId) . "'
                           AND pd.products_id = p.products_id
                           AND pd.products_languages_id = '" . intval($nLanguageID) . "'";
-  $product_info_result = $dbconn->Execute($product_info_sql);
+$product_info_result = $dbconn->Execute($product_info_sql);
 
-  if (!$product_info_result->RecordCount()) {
-    // product not found
+if (!$product_info_result->RecordCount()) {
+	// product not found
+	header('HTTP/1.0 404 Not Found');
     $aLang['text_information'] = $aLang['text_product_not_found'];
 
     $aTemplate['page'] = $sTheme . '/page/info.html';
 
-    $nPageType = OOS_PAGE_TYPE_PRODUCTS;
+    $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 	$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
     require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
-    if (!isset($option)) {
-      require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-      require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+	if (!isset($option)) {
+		require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
     }
 
+    $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['products_new']));
+	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsId, 'NONSSL', FALSE, TRUE);	
+	
     $smarty->assign(
         array(
             'breadcrumb'    => $oBreadcrumb->trail(),
-            'heading_title' => $aLang['text_product_not_found']
+            'heading_title' => $aLang['text_product_not_found'],
+			'canonical'		=> $sCanonical	
         )
     );
 
-  } else {
+} else {
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "UPDATE $products_descriptiontable"
@@ -91,7 +93,8 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
     } else {
       $oBreadcrumb->add($product_info['products_name'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $nProductsId));
     }
-
+	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsId, 'NONSSL', FALSE, TRUE);	
+	
 
     // Meta Tags
     $sPagetitle = OOS_META_TITLE . ' - ' . $product_info['products_name'];
@@ -104,7 +107,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
     $aTemplate['page_heading'] = $sTheme . '/products/product_heading.html';
 
     $nPageType = OOS_PAGE_TYPE_PRODUCTS;
-	$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
+	$sPagetitle = $product_info['products_name'] . ' ' . OOS_META_TITLE;
 
     require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
     if (!isset($option)) {

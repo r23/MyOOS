@@ -19,40 +19,45 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
- /**
-  * kernel
-  *
-  * @package kernel
-  * @copyright (C) 2014 by the MyOOS Development Team.
-  * @license GPL <http://www.gnu.org/licenses/gpl.html>
-  * @link http://www.oos-shop.de/
-  */
+/**
+ * kernel
+ *
+ * @package kernel
+ * @copyright (C) 2014 by the MyOOS Development Team.
+ * @license GPL <http://www.gnu.org/licenses/gpl.html>
+ * @link http://www.oos-shop.de/
+ */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
- /**
-  * Stop from parsing any further PHP code
-  */
-  function oos_exit() {
-   exit();
-  }
+/**
+ * Stop from parsing any further PHP code
+ */
+function oos_exit() {
+	exit();
+}
 
 
- /**
-  * Redirect to another page or site
-  *
-  * @param $sUrl
-  * @return string
-  */
-  function oos_redirect($sUrl) {
-    if (ENABLE_SSL == 'true'){
-      if (strtolower(oos_server_get_var('HTTPS')) == 'on' || (oos_server_get_var('HTTPS') == '1') || oos_server_has_var('SSL_PROTOCOL')) { // We are loading an SSL page
-        if (substr($sUrl, 0, strlen(OOS_HTTP_SERVER)) == OOS_HTTP_SERVER) { // NONSSL url
-          $sUrl = OOS_HTTPS_SERVER . substr($sUrl, strlen(OOS_HTTP_SERVER)); // Change it to SSL
-        }
-      }
-    }
+/**
+ * Redirect to another page or site
+ *
+ * @param $sUrl
+ * @return string
+ */
+function oos_redirect($sUrl) {
+	global $request_type;
+
+	if ( (strstr($sUrl, "\n") != false) || (strstr($sUrl, "\r") != false) ) { 
+		$aContents = oos_get_content();
+		oos_redirect(oos_href_link($aContents['main'], '', 'NONSSL', FALSE, TRUE));
+	}
+
+    if ( (ENABLE_SSL == true) && ($request_type == 'SSL') ) {
+		if (substr($sUrl, 0, strlen(OOS_HTTP_SERVER)) == OOS_HTTP_SERVER) { // NONSSL url
+			$sUrl = OOS_HTTPS_SERVER . substr($sUrl, strlen(OOS_HTTP_SERVER)); // Change it to SSL
+		}
+    }	
 
     // clean URL
     if (strpos($sUrl, '&amp;') !== FALSE) $sUrl = str_replace('&amp;', '&', $sUrl);
@@ -60,7 +65,7 @@
 
     header('Location: ' . $sUrl);
     oos_exit();
-  }
+}
 
 
  /**
@@ -637,11 +642,11 @@
       }
     }
 
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
-
     if (!isset($tax_rates[$class_id][$country_id][$zone_id]['rate'])) {
+	    // Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
+
 		$tax_ratestable = $oostable['tax_rates'];
 		$geo_zonestable = $oostable['geo_zones'];
 		$zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];

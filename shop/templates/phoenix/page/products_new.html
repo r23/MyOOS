@@ -11,32 +11,30 @@
 	<!-- start content -->
 	<section id="content">
 	<div class="container">  
-        <div class="row">
-            <div class="col-md-3">
-							<div class="widget">
-					<form class="form-search">
-						<input placeholder="Type something" type="text" class="input-medium search-query">
-						<button type="submit" class="btn btn-square btn-theme">Search</button>
-					</form>
-				</div>
-			{foreach $sidebar as $panel}				
+		<div class="row">
+
+			<!-- left column -->
+			<div class="col-lg-9 col-md-9">
+			
+			</div><!-- .col -->
+
+			<!-- sidebar-->
+			<div class="col-lg-3 col-md-3">
+			{foreach $sidebar as $panel}
 				{if $panel.content}
-					<div class="panel-group" id="accordion-v{$panel@iteration}">
-						{$panel.content}
-					</div><!-- .panel group-->	
+				<div class="panel-group" id="accordion-v{$panel@iteration}">
+					{$panel.content}
+				</div><!-- .panel group-->
 				{/if}
 			{/foreach}
-            </div><!-- .col -->		
-		
-            <div class="col-md-9">
-
             </div><!-- .col -->
-        </div><!-- .row -->      
-    </div><!--end container-->
-	</section>	
+			<!-- end sidebar -->
+		</div><!-- .row -->      
+	</div><!--end container-->
+	</section>
 	<!-- end content -->
-	
-	
+
+
 <!-- body //-->
 <table width="870" border="0" align="center" cellspacing="0" cellpadding="0">
   <tr>

@@ -129,7 +129,7 @@
 
   //smarty
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
-  $oSmarty = new Template;
+ $smarty = new myOOS_Smarty();
 
   $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
   $cid += 0;

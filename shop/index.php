@@ -65,12 +65,13 @@ if(!defined('MYOOS_INCLUDE_PATH')) {
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-if (is_readable('includes/content/' . $sContent . '.php')) {
+if ( empty( $sContent ) || !is_string( $sContent ) ) {
+	oos_redirect(oos_href_link($aContents['forbiden']));
+} elseif (is_readable('includes/content/' . $sContent . '.php')) {
     require_once MYOOS_INCLUDE_PATH . '/includes/content/' . $sContent . '.php';
 } else {
     // Module not found
     oos_redirect(oos_href_link($aContents['main']));
-
 }
 
-include 'includes/nice_exit.php';
+require 'includes/nice_exit.php';
