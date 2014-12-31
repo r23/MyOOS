@@ -72,7 +72,6 @@ $aLang['header_title_my_account'] = 'My Account';
 $aLang['header_title_cart_contents'] = 'Cart Contents';
 $aLang['header_title_checkout'] = 'Checkout';
 $aLang['header_title_top'] = 'Top';
-$aLang['header_title_catalog'] = 'Catalog';
 $aLang['header_title_logoff'] = 'Log Off';
 $aLang['header_title_login'] = 'Log In';
 $aLang['header_select_language'] = 'Your Language';

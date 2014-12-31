@@ -161,7 +161,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
   }
 
   // links breadcrumb
-  $oBreadcrumb->add($aLang['header_title_catalog'], oos_href_link($aContents['shop']));
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['account_order_history']));
 
 

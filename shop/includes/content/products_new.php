@@ -118,7 +118,6 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 	}
 
     // links breadcrumb
-    $oBreadcrumb->add($aLang['header_title_catalog'], oos_href_link($aContents['shop']));
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['products_new']));
 	$sCanonical = oos_href_link($aContents['products_new'], 'page='. $nPage, 'NONSSL', FALSE, TRUE);
 	

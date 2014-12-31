@@ -66,7 +66,6 @@ $aLang['header_title_my_account'] = 'Mein Konto';
 $aLang['header_title_cart_contents'] = 'Warenkorb';
 $aLang['header_title_checkout'] = 'Kasse';
 $aLang['header_title_top'] = 'Startseite';
-$aLang['header_title_catalog'] = 'Katalog';
 $aLang['header_title_logoff'] = 'Abmelden';
 $aLang['header_title_login'] = 'Anmelden';
 $aLang['header_title_whats_new'] = 'Neue Produkte';

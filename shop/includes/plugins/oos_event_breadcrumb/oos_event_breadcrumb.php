@@ -51,7 +51,7 @@
     }
 
     function create_plugin_instance() {
-      global $oBreadcrumb, $aLang, $aCategoryPath;
+      global $oBreadcrumb, $aLang, $sCanonical, $aCategoryPath;
 
       $dbconn =& oosDBGetConn();
       $oostable =& oosDBGetTables();
@@ -63,11 +63,14 @@
       $oBreadcrumb = new breadcrumb();
 
       $oBreadcrumb->add($aLang['header_title_top'], oos_href_link($aContents['main']));
-
+      $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
+	  
       // add category names or the manufacturer name to the breadcrumb trail
       if (isset($aCategoryPath) && (count($aCategoryPath) > 0)) {
         $nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_LANGUAGE_ID;
-        for ($i=0, $n=count($aCategoryPath); $i<$n; $i++) {
+		
+		$n = count($aCategoryPath);
+        for ($i = 0, $n; $i < $n; $i++) {
           $categories_descriptiontable = $oostable['categories_description'];
           $categories_sql = "SELECT categories_name
                              FROM $categories_descriptiontable
@@ -76,6 +79,7 @@
           $categories = $dbconn->Execute($categories_sql);
           if ($categories->RecordCount() > 0) {
             $oBreadcrumb->add($categories->fields['categories_name'], oos_href_link($aContents['shop'], 'category=' . implode('_', array_slice($aCategoryPath, 0, ($i+1)))));
+			$sCanonical = oos_href_link($aContents['shop'], 'category=' . implode('_', array_slice($aCategoryPath, 0, ($i+1))) . '&page=' . $nPage, 'NONSSL', FALSE, TRUE);
           } else {
             break;
           }
@@ -89,8 +93,8 @@
         $manufacturers = $dbconn->Execute($manufacturers_sql);
 
         if ($manufacturers->RecordCount() > 0) {
-          $oBreadcrumb->add($aLang['header_title_catalog'], oos_href_link($aContents['shop']));
-          $oBreadcrumb->add($manufacturers->fields['manufacturers_name'], oos_href_link($aContents['shop'], 'manufacturers_id=' . $_GET['manufacturers_id']));
+          $oBreadcrumb->add($manufacturers->fields['manufacturers_name'], oos_href_link($aContents['shop'], 'manufacturers_id=' . $manufacturers_id));
+		  $sCanonical = oos_href_link($aContents['shop'], 'manufacturers_id=' . $manufacturers_id . '&page=' . $nPage, 'NONSSL', FALSE, TRUE);
         }
       }
 
