@@ -451,43 +451,38 @@ if ($category_depth == 'nested') {
       } else {
         $sort_col = substr($_GET['sort'], 0 , 1);
         $sort_order = substr($_GET['sort'], 1);
-        $listing_sql .= ' ORDER BY ';
 
         switch ($aColumnList[$sort_col-1]) {
           case 'PRODUCT_LIST_MODEL':
-            $listing_sql .= "p.products_model " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+            $listing_sql .= " ORDER BY p.products_model " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
             break;
 
           case 'PRODUCT_LIST_NAME':
-            $listing_sql .= "pd.products_name " . ($sort_order == 'd' ? 'desc' : '');
+            $listing_sql .= " ORDER BY pd.products_name " . ($sort_order == 'd' ? 'desc' : '');
             break;
 
           case 'PRODUCT_LIST_MANUFACTURER':
-            $listing_sql .= "m.manufacturers_name " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+            $listing_sql .= " ORDER BY m.manufacturers_name " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
             break;
 
           case 'PRODUCT_LIST_QUANTITY':
-            $listing_sql .= "p.products_quantity " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+            $listing_sql .= " ORDER BY p.products_quantity " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
             break;
 
           case 'PRODUCT_LIST_IMAGE':
-            $listing_sql .= "pd.products_name";
+            $listing_sql .= " ORDER BY pd.products_name";
             break;
 
           case 'PRODUCT_LIST_WEIGHT':
-            $listing_sql .= "p.products_weight " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+            $listing_sql .= " ORDER BY p.products_weight " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
             break;
 
           case 'PRODUCT_LIST_PRICE':
-            $listing_sql .= "final_price " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+            $listing_sql .= " ORDER BY final_price " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
             break;
 
           case 'PRODUCT_LIST_SORT_ORDER':
-            $listing_sql .= "p.products_sort_order " . ($sort_order == 'd' ? "desc" : '') . ", pd.products_name";
-            break;
-
-          default:
-            $listing_sql .= "pd.products_name";
+            $listing_sql .= " ORDER BY p.products_sort_order " . ($sort_order == 'd' ? "desc" : '') . ", pd.products_name";
             break;
 
         }
