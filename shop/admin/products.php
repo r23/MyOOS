@@ -62,6 +62,7 @@
           } else {
             $products_image = oos_db_prepare_input($_POST['products_previous_image']);
           }
+        }
 
         if ( isset($_POST['edit_x']) || isset($_POST['edit_y']) ) {
           $action = 'new_product';

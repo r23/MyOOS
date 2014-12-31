@@ -79,7 +79,7 @@
           $categories = $dbconn->Execute($categories_sql);
           if ($categories->RecordCount() > 0) {
             $oBreadcrumb->add($categories->fields['categories_name'], oos_href_link($aContents['shop'], 'category=' . implode('_', array_slice($aCategoryPath, 0, ($i+1)))));
-			$sCanonical = oos_href_link($aContents['shop'], 'category=' . implode('_', array_slice($aCategoryPath, 0, ($i+1))) . '&page=' . $nPage, 'NONSSL', FALSE, TRUE);
+			$sCanonical = oos_href_link($aContents['shop'], 'category=' . implode('_', array_slice($aCategoryPath, 0, ($i+1))) . '&amp;page=' . $nPage, 'NONSSL', FALSE, TRUE);
           } else {
             break;
           }
@@ -94,7 +94,7 @@
 
         if ($manufacturers->RecordCount() > 0) {
           $oBreadcrumb->add($manufacturers->fields['manufacturers_name'], oos_href_link($aContents['shop'], 'manufacturers_id=' . $manufacturers_id));
-		  $sCanonical = oos_href_link($aContents['shop'], 'manufacturers_id=' . $manufacturers_id . '&page=' . $nPage, 'NONSSL', FALSE, TRUE);
+		  $sCanonical = oos_href_link($aContents['shop'], 'manufacturers_id=' . $manufacturers_id . '&amp;page=' . $nPage, 'NONSSL', FALSE, TRUE);
         }
       }
 

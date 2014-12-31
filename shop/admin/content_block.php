@@ -59,7 +59,7 @@
                                 'block_login_flag' => $block_login_flag);
         if ($action == 'insert') {
           $insert_sql_data = array('date_added' => 'now()',
-                                   'set_function' => 'oos_block_select_option(array(\'left\', \'right\'),');
+                                   'set_function' => 'oos_block_select_option(array(\'\', \'sidebar\'),');
 
           $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
@@ -247,7 +247,7 @@
       $contents[] = array('text' => '<br /><b>' . TEXT_BLOCK_NAME . ':</b>' .$block_inputs_string);
       $contents[] = array('text' => '<br /><b>' . TEXT_BLOCK_FUNCTION . ':</b><br />' . oos_draw_input_field('function'));
       $contents[] = array('text' => '<br /><b>' . TEXT_BLOCK_CACHE . ':</b><br />' . oos_draw_input_field('block_cache'));
-      $contents[] = array('text' => '<br /><b>' . TABLE_HEADING_COLUMN . ':</b><br />' . oos_block_select_option(array('left', 'right'), 'block_side'));
+      $contents[] = array('text' => '<br /><b>' . TABLE_HEADING_COLUMN . ':</b><br />' . oos_block_select_option(array('', 'sidebar'), 'block_side'));
       $contents[] = array('text' => '<br /><b>'  . TABLE_HEADING_STATUS . ':</b> ' . oos_draw_pull_down_menu('block_status', $block_status_array));
       $contents[] = array('text' => '<br /><b>'  . TEXT_BLOCK_LOGIN . '</b> ' . oos_draw_pull_down_menu('block_login_flag', $block_login_flag_array));
       $contents[] = array('text' => '<br /><b>'  . TEXT_BLOCK_PAGE . '</b><br />' . oos_select_block_to_page());

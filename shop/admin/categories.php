@@ -522,7 +522,6 @@ function popupImageWindow(url) {
             </tr>
 <?php
       }
-      if (OOS_META_KATEGORIEN == 'Meta Tag with categories edit') {
         for ($i=0; $i < count($languages); $i++) {
 ?>
             <tr>
@@ -549,7 +548,6 @@ function popupImageWindow(url) {
             </tr>
 <?php
      }
-   }
 ?>
             <tr>
               <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>

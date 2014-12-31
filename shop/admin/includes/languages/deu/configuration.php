@@ -600,9 +600,6 @@ define('OOS_META_REVISIT_AFTER_DESC', 'Wann soll die Suchmaschine Ihre Seite wie
 define('OOS_META_PRODUKT_TITLE', 'Pflege im Artikel');
 define('OOS_META_PRODUKT_DESC', 'M&ouml;chten Sie Keywords und Description f&uuml;r jeden Artikel pflegen?');
 
-define('OOS_META_KATEGORIEN_TITLE', 'Pflege in Kategorien');
-define('OOS_META_KATEGORIEN_DESC', 'M&ouml;chten Sie Keywords und Description f&uuml;r jede Kategorie pflegen');
-
 define('OOS_META_INDEX_PAGE_TITLE', 'Index Seite erzeugen');
 define('OOS_META_INDEX_PAGE_DESC', 'M&ouml;chten Sie eine Index-Seite mit allen Artikeln f&uuml;r Suchmaschinen erzeugen?');
 
