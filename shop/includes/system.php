@@ -49,14 +49,14 @@ if (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
 } else {
 	$nManufacturersID = 0;
 }
-$oos_manufacturers_cache_id = $sTheme . '|block|manufacturers|' . $sLanguage . '|' . $nManufacturersID;
-$oos_manufacturer_info_cache_id = $sTheme . '|block|manufacturer_info|' . $sLanguage . '|' . $nManufacturersID;
+$sManufacturersCacheID = $sTheme . '|block|manufacturers|' . $sLanguage . '|' . $nManufacturersID;
+$sManufacturersInfoCacheID = $sTheme . '|block|manufacturer_info|' . $sLanguage . '|' . $nManufacturersID;
 
 if (isset($_GET['products_id'])) {
-	if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
-	$oos_manufacturer_info_cache_id = $sTheme . '|block|manufacturer_info|' . $sLanguage . '|' . intval($nProductsId);
-	$oos_products_info_cache_id = $sTheme . '|products_info|' . $sLanguage . '|' . intval($nProductsId);
-	$oos_xsell_products_cache_id= $sTheme . '|block|products|' . $sLanguage . '|' . intval($nProductsId);
+	if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
+	$sManufacturersInfoCacheID = $sTheme . '|block|manufacturer_info|' . $sLanguage . '|' . intval($nProductsID);
+	$sProductsInfoCacheID = $sTheme . '|products_info|' . $sLanguage . '|' . intval($nProductsID);
+	$sXsellProductsCacheID = $sTheme . '|block|products|' . $sLanguage . '|' . intval($nProductsID);
 }
 
 // Meta-Tags

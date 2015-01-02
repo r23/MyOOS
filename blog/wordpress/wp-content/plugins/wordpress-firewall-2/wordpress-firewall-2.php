@@ -222,8 +222,14 @@ function WP_firewall_check_exclusions() {
 						'#\.dll$#i', '#\.rb$#i', '#\.py$#i', '#\.exe$#i', '#\.php[3-6]?$#i', '#\.pl$#i', 
 						'#\.perl$#i', '#\.ph[34]$#i', '#\.phl$#i', '#\.phtml$#i', '#\.phtm$#i'
 					);
+				$sFilename = $file['name'];
+
+				if ( empty( $sFilename ) || !is_string( $sFilename ) ) {
+					WP_firewall_send_log_message('$_FILE', 'expects parameter sFilename is array', 'executable-file-upload-attack', 'Executable File Upload');
+					WP_firewall_send_redirect();
+				}					
 				 foreach($file_extensions as $regex) {
-					if(preg_match($regex, $file['name'])) {
+					if(preg_match($regex, $sFilename)) {
 						// no ip check, should there be one?
 				 		WP_firewall_send_log_message('$_FILE', $file['name'], 'executable-file-upload-attack', 'Executable File Upload');
 						WP_firewall_send_redirect();	
