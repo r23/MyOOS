@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -18,8 +18,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
  /**
   * Generate a path to categories
@@ -27,19 +27,19 @@
   * @param $current_category_id
   * @return string
   */
-  function oos_get_path($current_category_id = '', $parent_id = '', $gparent_id = '') {
-    global $aCategoryPath;
+function oos_get_path($current_category_id = '', $parent_id = '', $gparent_id = '') {
+	global $aCategoryPath;
 
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+	// Get database information
+	$dbconn =& oosDBGetConn();
+	$oostable =& oosDBGetTables();
 
-    if (oos_is_not_null($current_category_id)) {
+	if (!empty($current_category_id)) {
       $cp_size = count($aCategoryPath);
       if ($cp_size == 0) {
-        $sCategory_new = $current_category_id;
+        $sCategoryNew = $current_category_id;
       } else {
-        $sCategory_new = '';
+        $sCategoryNew = '';
         if (oos_empty($parent_id) || oos_empty($gparent_id) ) {
           $categoriestable = $oostable['categories'];
           $query = "SELECT c.parent_id, p.parent_id as gparent_id
@@ -54,24 +54,24 @@
         }
         if ($parent_id == $gparent_id) {
           for ($i=0; $i < ($cp_size - 1); $i++) {
-            $sCategory_new .= '_' . $aCategoryPath[$i];
+            $sCategoryNew .= '_' . $aCategoryPath[$i];
           }
         } else {
           for ($i=0; $i < $cp_size; $i++) {
-            $sCategory_new .= '_' . $aCategoryPath[$i];
+            $sCategoryNew .= '_' . $aCategoryPath[$i];
           }
         }
-        $sCategory_new .= '_' . $current_category_id;
+        $sCategoryNew .= '_' . $current_category_id;
 
-        if (substr($sCategory_new, 0, 1) == '_') {
-          $sCategory_new = substr($sCategory_new, 1);
+        if (substr($sCategoryNew, 0, 1) == '_') {
+          $sCategoryNew = substr($sCategoryNew, 1);
         }
       }
     } else {
-      $sCategory_new = implode('_', $aCategoryPath);
+      $sCategoryNew = implode('_', $aCategoryPath);
     }
 
-    return 'category=' . $sCategory_new;
+    return $sCategoryNew;
   }
 
 

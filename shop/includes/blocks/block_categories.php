@@ -97,7 +97,7 @@
   * @return string
   */
   function oos_show_category($nCounter) {
-    global $nPrevID, $aFoo, $aCategories, $sCategory_new, $id, $parent_child, $nCurrentCategoryId;
+    global $nPrevID, $aFoo, $aCategories, $sCategory_new, $id, $parent_child, $nCurrentCategoryID;
 
     $aCategory = array('counter' => $nCounter);
 
@@ -107,7 +107,7 @@
       $aCategory['isSelected'] = 0;
     }
 
-    if ($nCounter == $nCurrentCategoryId) {
+    if ($nCounter == $nCurrentCategoryID) {
       $aCategory['isActive'] = 1;
     } else {
       $aCategory['isActive'] = 0;

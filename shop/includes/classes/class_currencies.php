@@ -58,13 +58,15 @@
 
       return $format_string;
     }
-
+	
+    public function calculate_price($products_price, $products_tax, $quantity = 1) {
+      return oos_round(oos_add_tax($products_price, $products_tax), $this->currencies[$_SESSION['currency']]['decimal_places']) * $quantity;
+    }
 
     public function exists($code) {
       if (isset($this->currencies[$code])) {
-        return true;
+        return TRUE;
       }
-
       return FALSE;
     }
 
@@ -80,24 +82,18 @@
       return $this->currencies[$code];
     }
 
-    public function display_price($products_price, $products_tax, $quantity = 1) {
-      global $oEvent, $aLang;
+	public function display_price($products_price, $products_tax, $quantity = 1) {
+		global $oEvent, $aLang;
 
-      $show_what_price = '';
-      switch (true) {
-        case ($oEvent->installed_plugin('down_for_maintenance')):
-           $show_what_price = $aLang['down_for_maintenance_no_prices_display'];
-           break;
-
-        case ($_SESSION['user']->group['show_price'] != 1) && (!isset($_SESSION['affiliate_id'])):
-            $show_what_price = $aLang['no_login_no_prices_display'];
-            break;
-
-        default:
-            $show_what_price = $this->format(oos_add_tax($products_price, $products_tax) * $quantity);
-            break;
-      }
-      return $show_what_price;
+		if ($oEvent->installed_plugin('down_for_maintenance')) {
+			return $aLang['down_for_maintenance_no_prices_display'];
+		}
+		
+		if ( LOGIN_FOR_PRICE == 'true' && ($_SESSION['user']->group['show_price'] != 1) ) {
+			return $aLang['no_login_no_prices_display'];
+		}
+		
+		return $this->format($this->calculate_price($products_price, $products_tax, $quantity));
     }
 }
 

@@ -1,0 +1,33 @@
+{if $new_products_array}
+
+<div class="heading margin-bottom-40">
+	<h2>{$block_heading_new_products}</h2>
+</div>
+	{foreach item=new_product from=$new_products_array}
+            <div class="col-md-3 col-sm-6 md-margin-bottom-30">
+                <div class="product-img">
+                    <a href="{product_info_link products_id=$new_product.products_id}"><img class="full-width img-responsive" src="{$new_product.products_image}" alt="{$new_product.products_name}"></a>
+                </div> 
+                <div class="product-description product-description-brd">
+                    <div class="overflow-h margin-bottom-5">
+                        <div class="pull-left">
+                            <h4 class="title-price"><a href="{product_info_link products_id=$new_product.products_id}">{$new_product.products_name}</a></h4>
+                        </div>    
+                        <div class="product-price">
+						{if (!empty($new_product.new_product_special_price))}
+							<s>{$new_product.new_product_price}{$new_product.new_product_units}</s><br>
+							<span class="special_price">{$new_product.new_product_special_price}</span><br>
+						{else}
+							{if $new_product.new_max_product_discount != 0}
+								<s>{$new_product.new_product_price}</s>&nbsp;-{$new_product.new_max_product_discount}%<br>
+								<span class="discount_price">{$new_product.new_product_discount_price}{$new_product.new_product_units}</span><br>
+							{else}
+								{$new_product.new_product_price}{$new_product.new_product_units}<br>
+							{/if}
+						{/if}
+                        </div>
+                    </div>    
+                </div>
+            </div>
+	{/foreach}
+{/if}

@@ -28,7 +28,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
   // define our listing functions
   include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_listing.php';
 
-  $listing_numrows_sql = $listing_sql;
+  $listing_numrows_sql = $listing_sql; 
   $listing_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $listing_sql, $listing_numrows);
   // fix counted products
   $listing_numrows = $dbconn->Execute($listing_numrows_sql);

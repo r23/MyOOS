@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -41,16 +41,16 @@ $smarty->assignByRef("oEvent", $oEvent);
 $sCacheID			= $sTheme . '|block|' . $sLanguage;
 $sSystemCacheID		= $sTheme . '|block|' . $sLanguage;
 $sCategoriesCacheID	= $sTheme . '|block|categories|' . $sLanguage . '|' . $sCategory;
-$sModulesCacheID	= $sTheme . '|modules|' . $sLanguage . '|' . $_SESSION['currency'];
+$sModulesCacheID	= $sTheme . '|modules|' . $sLanguage . '|' . $sCurrency;
 
 
 if (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
-	$nManufacturersId = intval($_GET['manufacturers_id']);
+	$nManufacturersID = intval($_GET['manufacturers_id']);
 } else {
-	$nManufacturersId= 0;
+	$nManufacturersID = 0;
 }
-$oos_manufacturers_cache_id = $sTheme . '|block|manufacturers|' . $sLanguage . '|' . $nManufacturersId;
-$oos_manufacturer_info_cache_id = $sTheme . '|block|manufacturer_info|' . $sLanguage . '|' . $nManufacturersId;
+$oos_manufacturers_cache_id = $sTheme . '|block|manufacturers|' . $sLanguage . '|' . $nManufacturersID;
+$oos_manufacturer_info_cache_id = $sTheme . '|block|manufacturer_info|' . $sLanguage . '|' . $nManufacturersID;
 
 if (isset($_GET['products_id'])) {
 	if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
@@ -142,9 +142,6 @@ if ($_SESSION['user']->group['show_price'] == 1) {
 		$sPAngV = $aLang['tax_info_excl'];
 	}
 }
-
-$sPAngV .= ', <br />';
-$sPAngV .= sprintf($aLang['text_shipping'], oos_href_link($aContents['information'], 'information_id=2'));
 
 
 $smarty->assign(

@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -35,5 +35,5 @@ define('OOS_PAGE_TYPE_ACCOUNT',   8);
 define('OOS_PAGE_TYPE_REVIEWS',   9);
 
 define('MAKE_PASSWORD', 'true'); // OOS create the Password for login; 
-
+define('LOGIN_FOR_PRICE', 'false');
 

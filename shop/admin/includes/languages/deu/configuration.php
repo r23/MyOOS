@@ -142,9 +142,6 @@ define('MIN_DISPLAY_XSELL_PRODUCTS_DESC', 'Minimale Anzahl von Produkten, die im
 define('MIN_DISPLAY_PRODUCTS_NEWSFEED_TITLE', 'Neue Produkte im Newsfeed');
 define('MIN_DISPLAY_PRODUCTS_NEWSFEED_DESC', 'Minimale Anzahl von Produkten, die im \'Newsfeed\'-Block angezeigt werden.');
 
-define('MIN_DISPLAY_NEW_NEWS_TITLE', 'News Meldungen');
-define('MIN_DISPLAY_NEW_NEWS_DESC', 'Minimale Anzahl von Meldungen, die auf der \'Startseite\' angezeigt werden.');
-
 define('MAX_ADDRESS_BOOK_ENTRIES_TITLE', 'Anzahl Adressbucheintr&auml;ge');
 define('MAX_ADDRESS_BOOK_ENTRIES_DESC', 'Maximale Anzahl von Adressbucheintr&auml;gen, die ein Kunde besitzen darf.');
 
@@ -162,12 +159,6 @@ define('MAX_DISPLAY_UPCOMING_PRODUCTS_DESC', 'Maximale Anzahl der erwarteten Pro
 
 define('MAX_RANDOM_SELECT_NEW_TITLE', 'Zuf&auml;llige Produktanzeigen');
 define('MAX_RANDOM_SELECT_NEW_DESC', 'Die Menge der neuen Produkte, aus denen per Zufall ein Produkt angezeigt wird');
-
-define('MAX_DISPLAY_NEW_NEWS_TITLE', 'Anzahl der News Meldungen');
-define('MAX_DISPLAY_NEW_NEWS_DESC', 'Maximale Anzahl von Meldungen, die auf der Startseite angezeigt werden');
-
-define('MAX_DISPLAY_CATEGORIES_PER_ROW_TITLE', 'Anzahl Kategorien pro Zeile');
-define('MAX_DISPLAY_CATEGORIES_PER_ROW_DESC', 'Anzahl der Kategorien, die pro Zeile maximal angezeigt werden');
 
 define('MAX_DISPLAY_PRODUCTS_NEW_TITLE', 'Anzahl neue Produkte');
 define('MAX_DISPLAY_PRODUCTS_NEW_DESC', 'Anzahl der neuen Produkte, die in der &Uuml;bersicht der neuen Produkte maximal angezeigt werden');
@@ -198,9 +189,6 @@ define('MAX_DISPLAY_PRODUCTS_NEWSFEED_DESC', 'Maximale Anzahl von Produkten, die
 
 define('MAX_RANDOM_SELECT_NEWSFEED_TITLE', 'Newsfeed');
 define('MAX_RANDOM_SELECT_NEWSFEED_DESC', 'Die Menge der Newsfeeds, aus denen per Zufall ein Newsfeed angezeigt wird');
-
-define('MAX_DISPLAY_NEW_NEWS_TITLE', 'Anzahl der News Meldungen');
-define('MAX_DISPLAY_NEW_NEWS_DESC', 'Maximale Anzahl von Meldungen, die auf der Startseite angezeigt werden');
 
 define('MAX_DISPLAY_PRODUCTS_IN_PRODUCTS_HISTORY_BOX_TITLE', 'Anzahl der k&uuml;rzlich besuchten Produkte');
 define('MAX_DISPLAY_PRODUCTS_IN_PRODUCTS_HISTORY_BOX_DESC', 'Maximale Anzahl von Produkten, die im \'Products History\'-Block angezeigt werden. Dies sind die Produkte, die sich der Shopbesucher k&uuml;rzlich angesehen hat.');

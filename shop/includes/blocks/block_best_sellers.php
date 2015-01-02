@@ -25,7 +25,7 @@
 
   $best_sellers_block = 'false';
 
-  if (isset($nCurrentCategoryId) && ($nCurrentCategoryId > 0)) {
+  if (isset($nCurrentCategoryID) && ($nCurrentCategoryID > 0)) {
     $productstable = $oostable['products'];
     $products_descriptiontable = $oostable['products_description'];
     $products_to_categoriestable = $oostable['products_to_categories'];
@@ -42,7 +42,7 @@
                 AND pd.products_languages_id = '" .  intval($nLanguageID) . "'
                 AND p.products_id = p2c.products_id
                 AND p2c.categories_id = c.categories_id
-                AND '" . intval($nCurrentCategoryId) . "' IN (c.categories_id, c.parent_id)
+                AND '" . intval($nCurrentCategoryID) . "' IN (c.categories_id, c.parent_id)
               ORDER BY p.products_ordered DESC, pd.products_name";
   } else {
     $productstable = $oostable['products'];

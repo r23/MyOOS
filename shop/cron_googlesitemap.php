@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Google XML Sitemap Feed Cron Script
 
@@ -24,7 +24,7 @@
    ---------------------------------------------------------------------- */
 
   define('OOS_VALID_MOD', 'yes');
-  require 'includes/oos_main.php';
+  require 'includes/main.php';
 
   //Settings - changes made here
   define('GOOGLE_SITEMAP_COMPRESS', 'false'); // Option to compress the files
@@ -93,5 +93,5 @@
 
   echo '</pre>';
 
-  include 'includes/oos_nice_exit.php';
+  include 'includes/nice_exit.php';
 

@@ -51,7 +51,7 @@
     }
 
     function create_plugin_instance() {
-      global $sCategory, $aCategoryPath, $nCurrentCategoryId;
+      global $sCategory, $aCategoryPath, $nCurrentCategoryID;
 
       include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_category_tree.php';
 
@@ -67,9 +67,9 @@
         $aCategoryPath = oos_parse_category_path($sCategory);
         $sCategory = implode('_', $aCategoryPath);
 
-        $nCurrentCategoryId = end($aCategoryPath);
+        $nCurrentCategoryID = end($aCategoryPath);
       } else {
-        $nCurrentCategoryId = 0;
+        $nCurrentCategoryID = 0;
       }
 
       return true;

@@ -149,9 +149,6 @@ define('MIN_DISPLAY_XSELL_PRODUCTS_DESC', 'Minimum Anzahl von Produkten, die in 
 define('MIN_DISPLAY_PRODUCTS_NEWSFEED_TITLE', 'Neue Produkte im Newsfeed');
 define('MIN_DISPLAY_PRODUCTS_NEWSFEED_DESC', 'Minimum Anzahl von Produkten, die im \'Newsfeed\' angezeigt werden');
 
-define('MIN_DISPLAY_NEW_NEWS_TITLE', 'News Meldungen');
-define('MIN_DISPLAY_NEW_NEWS_DESC', 'Minimum Anzahl von Meldungen, die auf der \'Startseite\' angezeigt werden');
-
 define('MAX_ADDRESS_BOOK_ENTRIES_TITLE', 'Address Book Entries');
 define('MAX_ADDRESS_BOOK_ENTRIES_DESC', 'Maximum address book entries a customer is allowed to have');
 
@@ -169,9 +166,6 @@ define('MAX_DISPLAY_UPCOMING_PRODUCTS_DESC', 'Maximum number of products expecte
 
 define('MAX_RANDOM_SELECT_NEW_TITLE', 'Selection of Random New Products');
 define('MAX_RANDOM_SELECT_NEW_DESC', 'How many records to select from to choose one random new product to display');
-
-define('MAX_DISPLAY_CATEGORIES_PER_ROW_TITLE', 'Categories To List Per Row');
-define('MAX_DISPLAY_CATEGORIES_PER_ROW_DESC', 'How many categories to list per row');
 
 define('MAX_DISPLAY_PRODUCTS_NEW_TITLE', 'New Products Listing');
 define('MAX_DISPLAY_PRODUCTS_NEW_DESC', 'Maximum number of new products to display in new products page');
@@ -202,9 +196,6 @@ define('MAX_DISPLAY_PRODUCTS_NEWSFEED_DESC', 'Maximale Anzahl von Produkten, die
 
 define('MAX_RANDOM_SELECT_NEWSFEED_TITLE', 'Newsfeed');
 define('MAX_RANDOM_SELECT_NEWSFEED_DESC', 'Die Menge der Newsfeeds, aus denen per Zufall ein Newsfeed angezeigt wird');
-
-define('MAX_DISPLAY_NEW_NEWS_TITLE', 'Anzahl der News Meldungen');
-define('MAX_DISPLAY_NEW_NEWS_DESC', 'Maximale Anzahl von Meldungen, die auf der Startseite angezeigt werden');
 
 define('MAX_DISPLAY_PRODUCTS_IN_PRODUCTS_HISTORY_BOX_TITLE', 'Anzahl der Products History');
 define('MAX_DISPLAY_PRODUCTS_IN_PRODUCTS_HISTORY_BOX_DESC', 'Maximale Anzahl von Produkten, die im \'Products History\'-Block angezeigt werden');

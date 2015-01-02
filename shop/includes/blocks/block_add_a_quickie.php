@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -18,15 +18,13 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if (!isset($block_get_parameters)) {
-    $block_get_parameters = oos_get_all_get_parameters(array('action'));
-    $block_get_parameters = oos_remove_trailing($block_get_parameters);
-    $smarty->assign('get_params', $block_get_parameters);
-  }
+if (!isset($block_get_parameters)) {
+	$block_get_parameters = oos_get_all_get_parameters(array('action'));
+	$block_get_parameters = oos_remove_trailing($block_get_parameters);
+	$smarty->assign('get_params', $block_get_parameters);
+}
 
-  $smarty->assign('block_heading_add_product_id', $block_heading);
-
-
+$smarty->assign('block_heading_add_product_id', $block_heading);
