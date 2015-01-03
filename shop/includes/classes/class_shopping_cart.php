@@ -189,13 +189,13 @@
       $oostable =& oosDBGetTables();
 
       $sProductsId = oos_get_uprid($products_id, $attributes);
-      $nProductsId = oos_get_product_id($sProductsId);
+      $nProductsID = oos_get_product_id($sProductsId);
 
-      if (is_numeric($nProductsId) && is_numeric($nQuantity)) {
+      if (is_numeric($nProductsID) && is_numeric($nQuantity)) {
         $productstable = $oostable['products'];
         $check_product_sql = "SELECT products_status
                               FROM $productstable
-                              WHERE products_id = '" . intval($nProductsId) . "'";
+                              WHERE products_id = '" . intval($nProductsID) . "'";
         $products_status = $dbconn->GetOne($check_product_sql);
         if ($products_status >= '1') {
 
@@ -203,7 +203,7 @@
             $productstable = $oostable['products'];
             $decimal_sql = "SELECT products_quantity_decimal
                               FROM $productstable
-                             WHERE products_id = '" . intval($nProductsId) . "'";
+                             WHERE products_id = '" . intval($nProductsID) . "'";
             $products_quantity_decimal = $dbconn->GetOne($decimal_sql);
             if ($products_quantity_decimal == 0) {
               $nQuantity = intval($nQuantity);
@@ -295,9 +295,9 @@
     public function update_quantity($products_id, $nQuantity = '', $attributes = '', $towlid = '') {
 
       $sProductsId = oos_get_uprid($products_id, $attributes);
-      $nProductsId = oos_get_product_id($sProductsId);
+      $nProductsID = oos_get_product_id($sProductsId);
 
-      if (is_numeric($nProductsId) && isset($this->contents[$sProductsId]) && is_numeric($nQuantity)) {
+      if (is_numeric($nProductsID) && isset($this->contents[$sProductsId]) && is_numeric($nQuantity)) {
 
         // Get database information
         $dbconn =& oosDBGetConn();
@@ -307,7 +307,7 @@
           $productstable = $oostable['products'];
           $decimal_sql = "SELECT products_quantity_decimal
                             FROM $productstable
-                           WHERE products_id = '" . intval($nProductsId) . "'";
+                           WHERE products_id = '" . intval($nProductsID) . "'";
           $products_quantity_decimal = $dbconn->GetOne($decimal_sql);
           if ($products_quantity_decimal == 0) {
             $nQuantity = intval($nQuantity);

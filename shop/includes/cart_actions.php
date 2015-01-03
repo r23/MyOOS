@@ -471,14 +471,14 @@ switch ($action) {
 		
       $products_notificationstable = $oostable['products_notifications'];
       if (isset($_SESSION['customer_id']) && isset($_GET['products_id'])) {
-        if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
+        if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
         $check_sql = "SELECT COUNT(*) AS total
                       FROM $products_notificationstable
-                      WHERE products_id = '" . intval($nProductsId) . "'
+                      WHERE products_id = '" . intval($nProductsID) . "'
                       AND customers_id = '" . intval($_SESSION['customer_id']) . "'";
         $check = $dbconn->Execute($check_sql);
         if ($check->fields['total'] > 0) {
-          $dbconn->Execute("DELETE FROM $products_notificationstable WHERE products_id = '" . intval($nProductsId) . "' AND customers_id = '" . intval($_SESSION['customer_id']) . "'");
+          $dbconn->Execute("DELETE FROM $products_notificationstable WHERE products_id = '" . intval($nProductsID) . "' AND customers_id = '" . intval($_SESSION['customer_id']) . "'");
         }
         oos_redirect(oos_href_link($sContent, oos_get_all_get_parameters(array('action'))));
       } else {

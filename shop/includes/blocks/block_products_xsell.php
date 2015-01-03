@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -15,7 +15,7 @@
   $xsell_block = 'false';
 
   if (isset($_GET['products_id'])) {
-    if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
+    if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
 
     $productstable = $oostable['products'];
     $products_xselltable = $oostable['products_xsell'];
@@ -25,7 +25,7 @@
             FROM $products_xselltable xp,
                  $productstable p,
                  $products_descriptiontable pd
-            WHERE xp.products_id = '" . intval($nProductsId) . "'
+            WHERE xp.products_id = '" . intval($nProductsID) . "'
               AND xp.xsell_id = p.products_id
               AND p.products_id = pd.products_id
               AND pd.products_languages_id = '" . intval($nLanguageID) . "'

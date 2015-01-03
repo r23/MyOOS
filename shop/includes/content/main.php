@@ -32,7 +32,7 @@ $aTemplate['page'] = $sTheme . '/page/main.html';
 if ($oEvent->installed_plugin('spezials')) $aTemplate['new_spezials'] = $sTheme . '/page/products/new_spezials.html';
 if ($oEvent->installed_plugin('featured')) $aTemplate['featured'] = $sTheme . '/page/products/featured.html';
 if ($oEvent->installed_plugin('manufacturers')) $aTemplate['mod_manufacturers'] = $sTheme . '/page/products/manufacturers.html';
-$aTemplate['new_products'] = $sTheme . '/page/products/new_products.html';
+$aTemplate['new_products'] = $sTheme . '/products/_new_products.html';
 $aTemplate['upcoming_products'] = $sTheme . '/page/products/upcoming_products.html';
 
 $nPageType = OOS_PAGE_TYPE_MAINPAGE;

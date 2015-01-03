@@ -22,7 +22,7 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 if (isset($_GET['products_id'])) {
-	if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
+	if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
 } else {
 	oos_redirect(oos_href_link($aContents['main']));
 }
@@ -43,7 +43,7 @@ $product_info_sql = "SELECT p.products_id, pd.products_name, pd.products_descrip
                         FROM $productstable p,
                              $products_descriptiontable pd
                         WHERE p.products_status >= '1'
-                          AND p.products_id = '" . intval($nProductsId) . "'
+                          AND p.products_id = '" . intval($nProductsID) . "'
                           AND pd.products_id = p.products_id
                           AND pd.products_languages_id = '" . intval($nLanguageID) . "'";
 $product_info_result = $dbconn->Execute($product_info_sql);
@@ -65,7 +65,7 @@ if (!$product_info_result->RecordCount()) {
     }
 
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['products_new']));
-	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsId, 'NONSSL', FALSE, TRUE);	
+	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, 'NONSSL', FALSE, TRUE);	
 	
     $smarty->assign(
         array(
@@ -82,23 +82,12 @@ if (!$product_info_result->RecordCount()) {
         . " SET products_viewed = products_viewed+1"
         . " WHERE products_id = ?"
         . "   AND products_languages_id = ?";
-    $result = $dbconn->Execute($query, array((int)$nProductsId, (int)$nLanguageID));
+    $result = $dbconn->Execute($query, array((int)$nProductsID, (int)$nLanguageID));
     $product_info = $product_info_result->fields;
 
-
-
-    // links breadcrumb
-    if (SHOW_PRODUCTS_MODEL == 'true') {
-      $oBreadcrumb->add($product_info['products_model'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $nProductsId));
-    } else {
-      $oBreadcrumb->add($product_info['products_name'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $nProductsId));
-    }
-	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsId, 'NONSSL', FALSE, TRUE);	
-	
-
     // Meta Tags
-    $sPagetitle = OOS_META_TITLE . ' - ' . $product_info['products_name'];
-    $sDescription = substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '',$product_info['products_description'])),0 , 250);
+    $sPagetitle = $product_info['products_name'] . ' ' . OOS_META_TITLE;
+    $sDescription = $product_info['products_description_meta'];
 
     $aTemplate['page'] = $sTheme . '/page/product_info.html';
     $aTemplate['also_purchased_products'] = $sTheme . '/products/also_purchased_products.html';
@@ -107,7 +96,6 @@ if (!$product_info_result->RecordCount()) {
     $aTemplate['page_heading'] = $sTheme . '/products/product_heading.html';
 
     $nPageType = OOS_PAGE_TYPE_PRODUCTS;
-	$sPagetitle = $product_info['products_name'] . ' ' . OOS_META_TITLE;
 
     require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
     if (!isset($option)) {
@@ -115,13 +103,18 @@ if (!$product_info_result->RecordCount()) {
       require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
     }
 
+    // links breadcrumb
+    if (SHOW_PRODUCTS_MODEL == 'true') {
+      $oBreadcrumb->add($product_info['products_model'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $nProductsID));
+    } else {
+      $oBreadcrumb->add($product_info['products_name'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $nProductsID));
+    }
+	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, 'NONSSL', FALSE, TRUE);		
+	
     // products history
 	if (isset($_SESSION)) {
-		$_SESSION['products_history']->add_current_products($nProductsId);
+		$_SESSION['products_history']->add_current_products($nProductsID);
 	}
-	
-    // JavaScript 
-    $smarty->assign('popup_window', 'popup_window.js');
 
     $info_product_price = '';
     $info_product_special_price = '';
@@ -133,7 +126,6 @@ if (!$product_info_result->RecordCount()) {
     $info_special_price = '';
     $info_product_special_price = '';
 
-    if ($_SESSION['user']->group['show_price'] == 1 ) {
       $info_product_price = $oCurrencies->display_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
 
       if ($info_special_price = oos_get_products_special_price($product_info['products_id'])) {
@@ -155,8 +147,9 @@ if (!$product_info_result->RecordCount()) {
           $info_base_product_special_price = $oCurrencies->display_price($info_product_special_price * $product_info['products_base_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
         }
       }
-    }
 
+
+	  
     // assign Smarty variables;
     $smarty->assign(
         array(
@@ -178,12 +171,12 @@ if (!$product_info_result->RecordCount()) {
 
     if ($oEvent->installed_plugin('reviews')) {
       $reviewstable = $oostable['reviews'];
-      $reviews_sql = "SELECT COUNT(*) AS total FROM $reviewstable WHERE products_id = '" . intval($nProductsId) . "'";
+      $reviews_sql = "SELECT COUNT(*) AS total FROM $reviewstable WHERE products_id = '" . intval($nProductsID) . "'";
       $reviews = $dbconn->Execute($reviews_sql);
       $reviews_total = $reviews->fields['total'];
       $smarty->assign('reviews_total', $reviews_total);
     }
-
+		  
 
     $discounts_price = 'false';
     if ( (oos_empty($info_special_price)) && ( ($product_info['products_discount4_qty'] > 0 || $product_info['products_discount3_qty'] > 0 || $product_info['products_discount2_qty'] > 0 || $product_info['products_discount1_qty'] > 0 )) ){
@@ -225,30 +218,30 @@ if (!$product_info_result->RecordCount()) {
     $smarty->assign('redirect', oos_href_link($aContents['redirect'], 'action=url&amp;goto=' . urlencode($product_info['products_url']), 'NONSSL', false, false));
     $smarty->assign('oosDate', date('Y-m-d H:i:s'));
 
-
-if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
-	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
-}
-    if (!$smarty->isCached($aTemplate['xsell_products'], $oos_products_info_cache_id)) {
+	if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
+		$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
+	}
+/*
+    if (!$smarty->isCached($aTemplate['xsell_products'], $sProductsInfoCacheID)) {
       require_once MYOOS_INCLUDE_PATH . '/includes/modules/xsell_products.php';
     }
-    $smarty->assign('xsell_products', $smarty->fetch($aTemplate['xsell_products'], $oos_products_info_cache_id));
+    $smarty->assign('xsell_products', $smarty->fetch($aTemplate['xsell_products'], $sProductsInfoCacheID));
 
-    if (!$smarty->isCached($aTemplate['up_sell_products'], $oos_products_info_cache_id)) {
+    if (!$smarty->isCached($aTemplate['up_sell_products'], $sProductsInfoCacheID)) {
       require_once MYOOS_INCLUDE_PATH . '/includes/modules/up_sell_products.php';
     }
-    $smarty->assign('up_sell_products', $smarty->fetch($aTemplate['up_sell_products'], $oos_products_info_cache_id));
+    $smarty->assign('up_sell_products', $smarty->fetch($aTemplate['up_sell_products'], $sProductsInfoCacheID));
 
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/slavery_products.php';
 
-    if (!$smarty->isCached($aTemplate['also_purchased_products'], $oos_products_info_cache_id)) {
+    if (!$smarty->isCached($aTemplate['also_purchased_products'], $sProductsInfoCacheID)) {
       require_once MYOOS_INCLUDE_PATH . '/includes/modules/also_purchased_products.php';
       $smarty->assign('oos_also_purchased_array', $aPurchased);
     }
-    $smarty->assign('also_purchased_products', $smarty->fetch($aTemplate['also_purchased_products'], $oos_products_info_cache_id));
-
+    $smarty->assign('also_purchased_products', $smarty->fetch($aTemplate['also_purchased_products'], $sProductsInfoCacheID));
+*/
     $smarty->setCaching(false);
-  }
+}
 
 // display the template
 $smarty->display($aTemplate['page']);

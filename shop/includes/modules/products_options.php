@@ -22,7 +22,7 @@
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
   if (isset($_GET['products_id'])) {
-    if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
+    if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
     if (!isset($sProductsId)) $sProductsId = oos_var_prep_for_os($_GET['products_id']);
 
     $options = '';
@@ -33,7 +33,7 @@
     $attributes_sql = "SELECT COUNT(*) AS total
                        FROM $products_optionstable popt,
                             $products_attributestable patrib
-                       WHERE patrib.products_id = '" . intval($nProductsId) . "'
+                       WHERE patrib.products_id = '" . intval($nProductsID) . "'
                          AND patrib.options_id = popt.products_options_id
                          AND popt.products_options_languages_id = '" . intval($nLanguageID) . "'";
     $products_attributes = $dbconn->Execute($attributes_sql);
@@ -56,7 +56,7 @@
                                   popt.products_options_comment
                            FROM $products_optionstable popt,
                                 $products_attributestable patrib
-                           WHERE patrib.products_id='" . intval($nProductsId) . "'
+                           WHERE patrib.products_id='" . intval($nProductsID) . "'
                              AND patrib.options_id = popt.products_options_id
                              AND popt.products_options_languages_id = '" . intval($nLanguageID) . "' 
                            ORDER BY popt.products_options_name";
@@ -71,7 +71,7 @@
             $products_attributestable = $oostable['products_attributes'];
             $products_attribs_sql = "SELECT DISTINCT patrib.options_values_price, patrib.price_prefix
                                      FROM $products_attributestable patrib
-                                     WHERE patrib.products_id = '" . intval($nProductsId) . "'
+                                     WHERE patrib.products_id = '" . intval($nProductsID) . "'
                                        AND patrib.options_id = '" . $products_options_name['products_options_id'] . "'";
             $products_attribs_result = $dbconn->Execute($products_attribs_sql);
             $products_attribs_array = $products_attribs_result->fields;
@@ -96,7 +96,7 @@
                                             pa.options_values_price, pa.price_prefix, pa.options_sort_order
                                      FROM $products_attributestable pa,
                                           $products_options_valuestable pov
-                                     WHERE pa.products_id = '" . intval($nProductsId) . "' 
+                                     WHERE pa.products_id = '" . intval($nProductsID) . "' 
                                        AND pa.options_id = '" . $products_options_name['products_options_id'] . "' 
                                        AND pa.options_values_id = pov.products_options_values_id 
                                        AND pov.products_options_values_languages_id = '" . intval($nLanguageID) . "'  
@@ -153,7 +153,7 @@
                                             pa.options_values_price, pa.price_prefix, pa.options_sort_order
                                      FROM $products_attributestable pa,
                                           $products_options_valuestable pov
-                                     WHERE pa.products_id = '" . intval($nProductsId) . "'
+                                     WHERE pa.products_id = '" . intval($nProductsID) . "'
                                        AND pa.options_id = '" . $products_options_name['products_options_id'] . "'
                                        AND pa.options_values_id = pov.products_options_values_id
                                        AND pov.products_options_values_languages_id = '" . intval($nLanguageID) . "'  
@@ -188,7 +188,7 @@
             $products_attributestable = $oostable['products_attributes'];
             $products_attribs_sql = "SELECT DISTINCT patrib.options_values_price, patrib.price_prefix
                                      FROM $products_attributestable patrib
-                                     WHERE patrib.products_id= '" . intval($nProductsId) . "'
+                                     WHERE patrib.products_id= '" . intval($nProductsID) . "'
                                        AND patrib.options_id = '" . $products_options_name['products_options_id'] . "'";
             $products_attribs_result = $dbconn->Execute($products_attribs_sql);
             $products_attribs_array = $products_attribs_result->fields;
@@ -224,7 +224,7 @@
                                             pa.options_values_price, pa.price_prefix, pa.options_sort_order
                                      FROM $products_attributestable pa,
                                           $products_options_valuestable pov
-                                     WHERE pa.products_id = '" . intval($nProductsId) . "'
+                                     WHERE pa.products_id = '" . intval($nProductsID) . "'
                                        AND pa.options_id = '" . $products_options_name['products_options_id'] . "' 
                                        AND pa.options_values_id = pov.products_options_values_id 
                                        AND pov.products_options_values_languages_id = '" .  intval($nLanguageID) . "'

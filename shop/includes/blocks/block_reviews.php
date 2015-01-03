@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -44,8 +44,8 @@
                         AND p.products_id = pd.products_id
                         AND pd.products_languages_id = '" . intval($nLanguageID) . "'";
     if (isset($_GET['products_id'])) {
-      if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
-      $random_select .= " AND p.products_id = '" . intval($nProductsId) . "'";
+      if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
+      $random_select .= " AND p.products_id = '" . intval($nProductsID) . "'";
     }
     $random_select .= " ORDER BY r.reviews_id DESC";
     $random_product = oos_random_select($random_select, MAX_RANDOM_SELECT_REVIEWS);

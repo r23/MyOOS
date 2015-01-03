@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -406,22 +406,33 @@
         $this->info['subtotal'] += $shown_price;
 
         $products_tax = $this->products[$index]['tax'];
+		$products_tax_description = $this->products[$index]['tax_description'];
         if ($_SESSION['user']->group['show_price_tax'] == 1) {
-          $this->info['tax'] += $shown_price - ($shown_price / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
-          $this->info['tax_groups']["$products_tax"] += $shown_price - ($shown_price / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+			$this->info['tax'] += $shown_price - ($shown_price / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+			if (isset($this->info['tax_groups']["$products_tax_description"])) {
+				$this->info['tax_groups']["$products_tax_description"] += $shown_price - ($shown_price / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+			} else {
+				$this->info['tax_groups']["$products_tax_description"] = $shown_price - ($shown_price / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+			}
         } else {
-          $this->info['tax'] += ($products_tax / 100) * $shown_price;
-          $this->info['tax_groups']["$products_tax"] += ($products_tax / 100) * $shown_price;
+			$this->info['tax'] += ($products_tax / 100) * $shown_price;
+			if (isset($this->info['tax_groups']["$products_tax_description"])) {
+				$this->info['tax_groups']["$products_tax"] += ($products_tax / 100) * $shown_price;
+			} else {
+				$this->info['tax_groups']["$products_tax"] = ($products_tax / 100) * $shown_price;
+			}
         }
 
+		
+		
         $index++;
       }
 
-      if ($_SESSION['user']->group['show_price_tax'] == 1) {
-        $this->info['total'] = $this->info['subtotal'] + $this->info['shipping_cost'];
-      } else {
-        $this->info['total'] = $this->info['subtotal'] + $this->info['tax'] + $this->info['shipping_cost'];
-      }
-    }
-  }
+		if ($_SESSION['user']->group['show_price_tax'] == 1) {
+			$this->info['total'] = $this->info['subtotal'] + $this->info['shipping_cost'];
+		} else {
+			$this->info['total'] = $this->info['subtotal'] + $this->info['tax'] + $this->info['shipping_cost'];
+		}
+	}
+}
 

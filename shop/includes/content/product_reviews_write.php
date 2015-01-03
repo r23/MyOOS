@@ -38,7 +38,7 @@ if (!isset($_SESSION['customer_id'])) {
 }
 
   if (isset($_GET['products_id'])) {
-    if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
+    if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
   } else {
     oos_redirect(oos_href_link($aContents['main']));
   }
@@ -50,7 +50,7 @@ if (!isset($_SESSION['customer_id'])) {
   $sql = "SELECT pd.products_name, p.products_image
           FROM $productstable p,
                $products_descriptiontable pd
-          WHERE p.products_id = '" . intval($nProductsId) . "'
+          WHERE p.products_id = '" . intval($nProductsID) . "'
             AND pd.products_id = p.products_id
             AND pd.products_languages_id = '" .  intval($nLanguageID) . "'
             AND p.products_status >= '1'";
@@ -78,7 +78,7 @@ if (!isset($_SESSION['customer_id'])) {
                    customers_id,
                    customers_name,
                    reviews_rating,
-                   date_added) VALUES ('" . intval($nProductsId) . "',
+                   date_added) VALUES ('" . intval($nProductsID) . "',
                                        '" . intval($_SESSION['customer_id']) . "',
                                        '" . oos_db_input($customers_name) . "',
                                        '" . oos_db_input($rating) . "',

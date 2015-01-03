@@ -88,7 +88,7 @@
     $select_column_list .= ', ';
   }
 
-  if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
+  if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
 
   $productstable = $oostable['products'];
   $products_to_mastertable = $oostable['products_to_master'];
@@ -113,7 +113,7 @@
                     AND pd.products_id = p.products_id
                     AND pd.products_languages_id = '" . intval($nLanguageID) . "'
                     AND p.products_id = pm.slave_id AND
-                      pm.master_id = '" . intval($nProductsId) . "'";
+                      pm.master_id = '" . intval($nProductsID) . "'";
 
   if ( (!isset($_GET['sort'])) || (!preg_match('/[1-8][ad]/', $_GET['sort'])) || (substr($_GET['sort'], 0, 1) > count($column_list)) ) {
     for ($col=0, $n=count($column_list); $col<$n; $col++) {

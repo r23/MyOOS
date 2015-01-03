@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -26,7 +26,7 @@
   $manufacturer_info_block = 'false';
 
   if (isset($_GET['products_id'])) {
-    if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
+    if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
 
     $manufacturerstable = $oostable['manufacturers'];
     $manufacturers_infotable = $oostable['manufacturers_info'];
@@ -37,7 +37,7 @@
                 ON (m.manufacturers_id = mi.manufacturers_id
                AND mi.manufacturers_languages_id = '" . intval($nLanguageID) . "'),
                    $productstable p
-              WHERE p.products_id = '" . intval($nProductsId) . "'
+              WHERE p.products_id = '" . intval($nProductsID) . "'
                 AND p.manufacturers_id = m.manufacturers_id";
     $manufacturer_result = $dbconn->Execute($query);
 

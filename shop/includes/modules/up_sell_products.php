@@ -26,7 +26,7 @@
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
   if (isset($_GET['products_id']) && is_numeric(MAX_DISPLAY_XSELL_PRODUCTS)) {
-    if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
+    if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
 
     $products_up_selltable = $oostable['products_up_sell'];
     $productstable = $oostable['products'];
@@ -35,7 +35,7 @@
             FROM $products_up_selltable xp,
                  $productstable p,
                  $products_descriptiontable pd
-            WHERE xp.products_id = '" . intval($nProductsId) . "'
+            WHERE xp.products_id = '" . intval($nProductsID) . "'
               AND xp.up_sell_id = p.products_id
               AND p.products_id = pd.products_id
               AND pd.products_languages_id = '" . intval($nLanguageID) . "'

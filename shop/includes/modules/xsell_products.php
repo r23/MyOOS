@@ -28,7 +28,7 @@
   if (!is_numeric(MAX_DISPLAY_XSELL_PRODUCTS)) return FALSE;
 
   if (isset($_GET['products_id'])) {
-    if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
+    if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
 
     $productstable = $oostable['products'];
     $products_xselltable = $oostable['products_xsell'];
@@ -38,7 +38,7 @@
             FROM $products_xselltable xp,
                  $productstable p,
                  $products_descriptiontable pd
-            WHERE xp.products_id = '" . intval($nProductsId) . "'
+            WHERE xp.products_id = '" . intval($nProductsID) . "'
               AND xp.xsell_id = p.products_id
               AND p.products_id = pd.products_id
               AND pd.products_languages_id = '" . intval($nLanguageID) . "'

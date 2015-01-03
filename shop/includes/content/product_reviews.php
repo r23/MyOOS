@@ -26,7 +26,7 @@
   }
 
   if (isset($_GET['products_id'])) {
-    if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
+    if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
   } else {
     oos_redirect(oos_href_link($aContents['reviews']));
   }
@@ -44,7 +44,7 @@
                $productstable p ON pd.products_id = p.products_id
           WHERE pd.products_languages_id = '" .  intval($nLanguageID) . "'
             AND p.products_status >= '1'
-            AND pd.products_id = '" . intval($nProductsId) . "'";
+            AND pd.products_id = '" . intval($nProductsID) . "'";
   $product_info_result = $dbconn->Execute($sql);
   if (!$product_info_result->RecordCount()) oos_redirect(oos_href_link($aContents['reviews']));
   $product_info = $product_info_result->fields;
@@ -52,7 +52,7 @@
   $reviewstable  = $oostable['reviews'];
   $sql = "SELECT reviews_rating, reviews_id, customers_name, date_added, reviews_read
           FROM $reviewstable
-          WHERE products_id = '" . intval($nProductsId) . "'
+          WHERE products_id = '" . intval($nProductsID) . "'
           ORDER BY reviews_id DESC";
   $reviews_result = $dbconn->Execute($sql);
   $aReviews = array();
@@ -68,9 +68,9 @@
   // add the products model or products_name to the breadcrumb trail
   // links breadcrumb
   if (SHOW_PRODUCTS_MODEL == 'true') {
-    $oBreadcrumb->add($product_info['products_model'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $nProductsId));
+    $oBreadcrumb->add($product_info['products_model'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $nProductsID));
   } else {
-    $oBreadcrumb->add($product_info['products_name'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $nProductsId));
+    $oBreadcrumb->add($product_info['products_name'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $nProductsID));
   }
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['product_reviews'], $get_params));
 

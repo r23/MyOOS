@@ -24,7 +24,7 @@
   $aPurchased = array();
 
   if (isset($_GET['products_id']) && is_numeric(MAX_DISPLAY_ALSO_PURCHASED)) {
-    if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
+    if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
 
     $orders_productstable = $oostable['orders_products'];
     $orderstable = $oostable['orders'];
@@ -34,9 +34,9 @@
                  $orders_productstable opb,
                  $orderstable o,
                  $productstable p
-            WHERE opa.products_id = '" . intval($nProductsId) . "'
+            WHERE opa.products_id = '" . intval($nProductsID) . "'
               AND opa.orders_id = opb.orders_id
-              AND opb.products_id != '" . intval($nProductsId) . "'
+              AND opb.products_id != '" . intval($nProductsID) . "'
               AND opb.products_id = p.products_id
               AND opb.orders_id = o.orders_id
               AND p.products_status >= '1'

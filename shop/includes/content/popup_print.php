@@ -17,7 +17,7 @@
   }
 
   if (isset($_GET['products_id'])) {
-    if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
+    if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
   }
 
   $aTemplate['popup_print'] = $sTheme . '/products/popup_print.html';
@@ -37,7 +37,7 @@
   $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
   $sGroup = trim($_SESSION['user']->group['text']);
-  $popup_cache_id = $sTheme . '|products|' . $sGroup . '|print|' . $nProductsId . '|' . $sLanguage;
+  $popup_cache_id = $sTheme . '|products|' . $sGroup . '|print|' . $nProductsID . '|' . $sLanguage;
 
   if (!$smarty->isCached($aTemplate['popup_print'], $popup_cache_id )) {
     require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_info.php';
@@ -56,7 +56,7 @@
                           FROM $productstable p,
                                $products_descriptiontable pd
                           WHERE p.products_status >= '1' 
-                            AND p.products_id = '" . intval($nProductsId) . "' 
+                            AND p.products_id = '" . intval($nProductsID) . "' 
                             AND pd.products_id = p.products_id 
                             AND pd.products_languages_id = '" . intval($nLanguageID) . "'";
     $product_info_result = $dbconn->Execute($product_info_sql);

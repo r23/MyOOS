@@ -20,8 +20,8 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']); 
-  $the_special = oos_get_products_special_price($nProductsId);
+  if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']); 
+  $the_special = oos_get_products_special_price($nProductsID);
 
   $q0 = $product_info['products_quantity_order_min'];
   $q1 = $product_info['products_discount1_qty'];

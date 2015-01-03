@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -26,7 +26,7 @@
   $notifications_block = 'false';
 
   if (isset($_GET['products_id'])) {
-    if (!isset($nProductsId)) $nProductsId = oos_get_product_id($_GET['products_id']);
+    if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
     $notifications_block = 'true';
 
     if (!isset($block_get_parameters)) {
@@ -39,7 +39,7 @@
       $products_notificationstable = $oostable['products_notifications'];
       $query = "SELECT COUNT(*) AS total
                 FROM $products_notificationstable
-                WHERE products_id = '" . intval($nProductsId) . "'
+                WHERE products_id = '" . intval($nProductsID) . "'
                   AND customers_id = '" . intval($_SESSION['customer_id']) . "'";
       $check = $dbconn->Execute($query);
       $notification_exists = (($check->fields['total'] > 0) ? true : false);
@@ -47,7 +47,7 @@
       $notification_exists = FALSE;
     }
 
-    $products_name = oos_get_products_name($nProductsId);
+    $products_name = oos_get_products_name($nProductsID);
 
     $smarty->assign(
         array(
