@@ -48,13 +48,6 @@
 
   $shopping_cart_detail .= '    <td class="tableHeading">' . $aLang['table_heading_products'] . '</td>' . "\n";
 
-  if ($sContent == $aContents['shopping_cart']) {
-    if ($_SESSION['user']->group['discount'] != 0) {
-      $colspan++;
-      $shopping_cart_detail .= '<td align="right" class="tableHeading"><strong>' . $aLang['table_heading_discount'] . '</strong></td>';
-    }
-  }
-
   if ($sContent != $aContents['shopping_cart']) {
     $colspan++;
     $shopping_cart_detail .= '    <td align="center" class="tableHeading">' . $aLang['table_heading_tax'] . '</td>' . "\n";
@@ -140,23 +133,13 @@
 
     $shopping_cart_detail .= '</td>' . "\n";
 
-    if ($sContent == $aContents['shopping_cart']) {
-      if ($_SESSION['user']->group['discount'] != 0) {
-        $max_product_discount = min($products[$i]['discount_allowed'] , $_SESSION['user']->group['discount']);
-        if ( ($max_product_discount > 0) && ($products[$i]['spezial'] == 'false') ) {
-          $shopping_cart_detail .= '    <td align="right" valign="top" class="main">-' . number_format($max_product_discount, 2) . '%</td>';
-        } else {
-          $shopping_cart_detail .= '    <td align="right" valign="top" class="main">&nbsp</td>';
-        }
-      }
-    }
 
     // Tax (not in shopping cart, tax rate may be unknown)
     if ($sContent != $aContents['shopping_cart']) {
       $shopping_cart_detail .= '    <td align="center" valign="top" class="main">' . number_format($products[$i]['tax'], TAX_DECIMAL_PLACES) . '%</td>' . "\n";
     }
 
-    // Product price 
+    // Product price
     if ($sContent != $aContents['account_history_info']) {
       $shopping_cart_detail .= '    <td align="right" valign="top" class="main"><strong>' . $oCurrencies->display_price($products[$i]['price'], oos_get_tax_rate($products[$i]['tax_class_id']), $products[$i]['quantity']) . '</strong>';
     } else {

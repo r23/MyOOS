@@ -83,7 +83,7 @@
     $oostable =& oosDBGetTables();
 
     $query = "SELECT customers_status_id, customers_status_name, customers_status_image,
-                     customers_status_discount, customers_status_ot_discount_flag,
+                     customers_status_ot_discount_flag,
                      customers_status_ot_discount, customers_status_payment
               FROM " . $oostable['customers_status'] . "
               WHERE customers_status_languages_id = '" . intval($_SESSION['language_id']) . "'
@@ -96,7 +96,6 @@
                                             'text' => $customers_statuses['customers_status_name'],
                                             'cs_public' => $customers_statuses['customers_status_public'],
                                             'cs_image' => $customers_statuses['customers_status_image'],
-                                            'cs_discount' => $customers_statuses['customers_status_discount'],
                                             'cs_ot_discount_flag' => $customers_statuses['customers_status_ot_discount_flag'],
                                             'cs_ot_discount' => $customers_statuses['customers_status_ot_discount'],
                                             'cs_staffelpreis' => $customers_statuses['customers_status_qty_discounts'],
@@ -104,9 +103,6 @@
       // Move that ADOdb pointer!
       $result->MoveNext();
     }
-
-    // Close result set
-    $result->Close();
 
     return $customers_statuses_array;
   }
@@ -129,7 +125,7 @@
     $oostable =& oosDBGetTables();
 
     $query = "SELECT customers_status, customers_status_name, customers_status_public, customers_status_image,
-                     customers_status_discount, customers_status_ot_discount_flag, customers_status_ot_discount,
+                     customers_status_ot_discount_flag, customers_status_ot_discount,
                      customers_status_qty_discounts, customers_status_payment
               FROM " . $oostable['customers'] . " LEFT JOIN
                    " . $oostable['customers_status'] . " ON

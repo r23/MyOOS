@@ -46,7 +46,7 @@
   $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
   if (!empty($action)) {
-    switch ($action) { 
+    switch ($action) {
       case 'insert':
       case 'save':
         $customers_status_id = oos_db_prepare_input($_GET['cID']);
@@ -64,7 +64,6 @@
                                   'customers_status_public' => $customers_status_public,
                                   'customers_status_show_price' => $customers_status_show_price,
                                   'customers_status_show_price_tax' => $customers_status_show_price_tax,
-                                  'customers_status_discount' => $customers_status_discount,
                                   'customers_status_ot_discount_flag' => $customers_status_ot_discount_flag,
                                   'customers_status_ot_discount' => $customers_status_ot_discount,
                                   'customers_status_ot_minimum' => $customers_status_ot_minimum,
@@ -151,7 +150,7 @@
         break;
     }
   }
-  require 'includes/oos_header.php'; 
+  require 'includes/oos_header.php';
 ?>
 <!-- body //-->
 <table border="0" width="100%" cellspacing="2" cellpadding="2">
@@ -176,11 +175,10 @@
               <tr class="dataTableHeadingRow">
                 <td class="dataTableHeadingContent" align="left" width="8%"><?php echo 'icon'; ?></td>
                 <td class="dataTableHeadingContent" align="left" width="40%"><?php echo TABLE_HEADING_CUSTOMERS_STATUS; ?></td>
-                <td class="dataTableHeadingContent" align="center" width="5%"></td>
-                <td class="dataTableHeadingContent" align="center" width="5%"><?php echo '%'; ?></td>
+                <td class="dataTableHeadingContent" align="center" width="10%"></td>
                 <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_AMOUNT; ?></td>
                 <td class="dataTableHeadingContent" align="center"><?php echo '%'; ?></td>
-                <td class="dataTableHeadingContent" width="10%"><?php echo TABLE_HEADING_CUSTOMERS_QTY_DISCOUNTS; ?></td>
+                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_CUSTOMERS_QTY_DISCOUNTS; ?></td>
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
@@ -196,16 +194,16 @@
   $customers_status_show_price_tax_array =   array(array('id' => '0', 'text' => ENTRY_TAX_NO),
                                                    array('id' => '1', 'text' => ENTRY_TAX_YES) );
   $customers_status_result_raw = "SELECT
-                                     customers_status_id, customers_status_name, customers_status_public, 
-                                     customers_status_show_price, customers_status_show_price_tax, 
-                                     customers_status_image, customers_status_discount, 
+                                     customers_status_id, customers_status_name, customers_status_public,
+                                     customers_status_show_price, customers_status_show_price_tax,
+                                     customers_status_image,
                                      customers_status_ot_discount_flag , customers_status_ot_discount,
-                                     customers_status_ot_minimum, customers_status_qty_discounts, 
-                                     customers_status_payment 
+                                     customers_status_ot_minimum, customers_status_qty_discounts,
+                                     customers_status_payment
                                   FROM
-                                     " . $oostable['customers_status'] . " 
+                                     " . $oostable['customers_status'] . "
                                   WHERE
-                                     customers_status_languages_id = '" . intval($_SESSION['language_id']) . "' 
+                                     customers_status_languages_id = '" . intval($_SESSION['language_id']) . "'
                                   ORDER BY
                                      customers_status_id";
   $customers_status_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $customers_status_result_raw, $customers_status_result_numrows);
@@ -241,9 +239,8 @@
       }
 
       echo '</td>';
-      echo '<td class="smallText" align="right">' . $customers_status['customers_status_discount'] . '%</td>';
       echo '<td class="dataTableContent" align="center">' . $currencies->format($customers_status['customers_status_ot_minimum']) . '</td>';
-      echo '<td class="dataTableContent" align="right">' . $customers_status['customers_status_ot_discount'] . '%</td>';
+      echo '<td class="dataTableContent" align="center">' . $customers_status['customers_status_ot_discount'] . '%</td>';
       echo '<td class="dataTableContent" align="center">';
 
       if ($customers_status['customers_status_qty_discounts'] == '1') {
@@ -304,7 +301,6 @@
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_PUBLIC_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_PUBLIC . '</b> ' . oos_draw_pull_down_menu('customers_status_public', $customers_status_public_array, $cInfo->customers_status_public ))  ;
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_SHOW_PRICE_INTRO     . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_SHOW_PRICE . '</b> ' . oos_draw_pull_down_menu('customers_status_show_price', $customers_status_show_price_array, $cInfo->customers_status_show_price ))  ;
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_SHOW_PRICE_TAX_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_SHOW_PRICE_TAX . '</b> ' . oos_draw_pull_down_menu('customers_status_show_price_tax', $customers_status_show_price_tax_array, $cInfo->customers_status_show_price_tax ))  ;
-      $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_PRICE_INTRO . '<br /><b>' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_PRICE . '</b><br />' . oos_draw_input_field('customers_status_discount', $cInfo->customers_status_discount));
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_OT_XMEMBER_INTRO . '<br /><b>' . ENTRY_OT_XMEMBER . '</b> ' . oos_draw_pull_down_menu('customers_status_ot_discount_flag', $customers_status_ot_discount_flag_array, $cInfo->customers_status_ot_discount_flag). '<br />' . TEXT_INFO_CUSTOMERS_STATUS_MINIMUM_AMOUNT_OT_XMEMBER_INTRO . '<br /><b>' . ENTRY_MINIMUM_AMOUNT_OT_XMEMBER . '</b><br />' . oos_draw_input_field('customers_status_ot_minimum', $cInfo->customers_status_ot_minimum) . '<br />' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_PRICE . '<br />' . oos_draw_input_field('customers_status_ot_discount', $cInfo->customers_status_ot_discount));
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_STAFFELPREIS_INTRO . '<br /><b>' . ENTRY_STAFFELPREIS . '</b> ' . oos_draw_pull_down_menu('customers_status_qty_discounts', $customers_status_qty_discounts_array, $cInfo->customers_status_qty_discounts ))  ;
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_PAYMENT_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_PAYMENT . '</b><br /> ' . oos_installed_payment($cInfo->customers_status_payment))  ;
@@ -327,7 +323,6 @@
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_PUBLIC_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_PUBLIC . '</b> ' . oos_draw_pull_down_menu('customers_status_public', $customers_status_public_array, $cInfo->customers_status_public ))  ;
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_SHOW_PRICE_INTRO     . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_SHOW_PRICE . '</b> ' . oos_draw_pull_down_menu('customers_status_show_price', $customers_status_show_price_array, $cInfo->customers_status_show_price ))  ;
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_SHOW_PRICE_TAX_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_SHOW_PRICE_TAX . '</b> ' . oos_draw_pull_down_menu('customers_status_show_price_tax', $customers_status_show_price_tax_array, $cInfo->customers_status_show_price_tax ))  ;
-      $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_PRICE_INTRO . '<br /><b>' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_PRICE . '</b> ' . oos_draw_input_field('customers_status_discount', $cInfo->customers_status_discount));
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_OT_XMEMBER_INTRO . '<br /><b>' . ENTRY_OT_XMEMBER . '</b> ' . oos_draw_pull_down_menu('customers_status_ot_discount_flag', $customers_status_ot_discount_flag_array, $cInfo->customers_status_ot_discount_flag). '<br />' . TEXT_INFO_CUSTOMERS_STATUS_MINIMUM_AMOUNT_OT_XMEMBER_INTRO . '<br /><b>' . ENTRY_MINIMUM_AMOUNT_OT_XMEMBER . '</b><br />' . oos_draw_input_field('customers_status_ot_minimum', $cInfo->customers_status_ot_minimum) . '<br />' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_PRICE . '<br />' . oos_draw_input_field('customers_status_ot_discount', $cInfo->customers_status_ot_discount));
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_STAFFELPREIS_INTRO . '<br /><b>' . ENTRY_STAFFELPREIS . '</b> ' . oos_draw_pull_down_menu('customers_status_qty_discounts', $customers_status_qty_discounts_array, $cInfo->customers_status_qty_discounts))  ;
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_PAYMENT_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_PAYMENT . '</b><br />'.  oos_installed_payment($cInfo->customers_status_payment));
@@ -355,7 +350,6 @@
           $customers_status_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_get_customer_status_name($cInfo->customers_status_id, $languages[$i]['id']);
         }
         $contents[] = array('text' => $customers_status_inputs_string);
-        $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_PRICE_INTRO . '<br /><b>' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_PRICE . ' ' . $cInfo->customers_status_discount . '%</b>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_OT_XMEMBER_INTRO . '<br /><b>' . ENTRY_OT_XMEMBER . ' ' . $customers_status_ot_discount_flag_array[$cInfo->customers_status_ot_discount_flag]['text'] . ' (' . $cInfo->customers_status_ot_discount_flag . ')' . '</b><br />' . ENTRY_MINIMUM_AMOUNT_OT_XMEMBER . ':<br /><b>' .  $currencies->format($cInfo->customers_status_ot_minimum) . ' - ' . $cInfo->customers_status_ot_discount . '%</b>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_STAFFELPREIS_INTRO . '<br /><b>' . ENTRY_STAFFELPREIS . ' ' . $customers_status_qty_discounts_array[$cInfo->customers_status_qty_discounts]['text'] . ' (' . $cInfo->customers_status_qty_discounts . ')</b>' );
         $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_PAYMENT_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_PAYMENT . '</b>' );

@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -116,7 +116,7 @@
         }
         //customers_status
         $customers_status_result = $dbconn->Execute("SELECT customers_status_id, customers_status_name, customers_status_image, 
-                                                        customers_status_discount, customers_status_ot_discount_flag,
+                                                        customers_status_ot_discount_flag,
                                                         customers_status_ot_discount, customers_status_ot_minimum, customers_status_public,
                                                         customers_status_show_price, customers_status_show_price_tax,
                                                         customers_status_qty_discounts, customers_status_payment
@@ -128,7 +128,6 @@
                        customers_status_languages_id,
                        customers_status_name,
                        customers_status_image,
-                       customers_status_discount,
                        customers_status_ot_discount_flag,
                        customers_status_ot_discount,
                        customers_status_ot_minimum,
@@ -141,7 +140,6 @@
                                '" . intval($insert_id) . "',
                                '" . oos_db_input($customers_status['customers_status_name']) . "',
                                '" . oos_db_input($customers_status['customers_status_image']) . "',
-                               '" . oos_db_input($customers_status['customers_status_discount']) . "',
                                '" . oos_db_input($customers_status['customers_status_ot_discount_flag']) . "',
                                '" . oos_db_input($customers_status['customers_status_ot_discount']) . "',
                                '" . oos_db_input($customers_status['customers_status_ot_minimum']) . "',

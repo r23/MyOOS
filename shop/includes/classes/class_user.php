@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -56,7 +56,6 @@
                            'show_price' => $customer_status['customers_status_show_price'],
                            'show_price_tax' => $customer_status['customers_status_show_price_tax'],
                            'image' => $customer_status['customers_status_image'],
-                           'discount' => $customer_status['customers_status_discount'],
                            'ot_discount_flag' => $customer_status['customers_status_ot_discount_flag'],
                            'ot_discount' => $customer_status['customers_status_ot_discount'],
                            'ot_minimum' => $customer_status['customers_status_ot_minimum'],
@@ -79,7 +78,7 @@
       $customers_statustable = $oostable['customers_status'];
       $sql = "SELECT c.customers_status, cs.customers_status_id, cs.customers_status_name, cs.customers_status_public, 
                      cs.customers_status_show_price, cs.customers_status_show_price_tax, cs.customers_status_image, 
-                     cs.customers_status_discount, cs.customers_status_ot_discount_flag, cs.customers_status_ot_minimum, 
+                     cs.customers_status_ot_discount_flag, cs.customers_status_ot_minimum, 
                      cs.customers_status_ot_discount, cs.customers_status_qty_discounts, cs.customers_status_payment
                 FROM $customerstable AS c LEFT JOIN
                      $customers_statustable AS cs
@@ -94,7 +93,6 @@
                            'show_price' => $customer_status['customers_status_show_price'],
                            'show_price_tax' => $customer_status['customers_status_show_price_tax'],
                            'image' => $customer_status['customers_status_image'],
-                           'discount' => $customer_status['customers_status_discount'],
                            'ot_discount_flag' => $customer_status['customers_status_ot_discount_flag'],
                            'ot_discount' => $customer_status['customers_status_ot_discount'],
                            'ot_minimum' => $customer_status['customers_status_ot_minimum'],

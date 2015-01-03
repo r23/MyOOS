@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -34,7 +34,6 @@ define('TABLE_HEADING_AMOUNT', 'Minimum Amount');
 define('TEXT_INFO_EDIT_INTRO', 'Please make any necessary changes');
 define('TEXT_INFO_CUSTOMERS_STATUS_NAME', 'Customers Status:');
 define('TEXT_INFO_CUSTOMERS_STATUS_IMAGE', 'Customers Status Image:');
-define('TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_PRICE_INTRO', 'Enter the discount percentage from 0 to 100% that will be used for each diplayed price in shop');
 define('TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_PRICE', 'Discount (0 to 100):');
 define('TEXT_INFO_INSERT_INTRO', 'Please enter the new customers status with its related data');
 define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this order status?');

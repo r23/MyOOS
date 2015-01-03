@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -62,7 +62,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
 
     $wishlist_product_price = '';
     $wishlist_product_special_price = '';
-    $wishlist_product_discount = 0;
     $wishlist_product_discount_price = '';
     $wishlist_base_product_price = '';
     $wishlist_base_product_special_price = '';
@@ -72,14 +71,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
 
     if ($wishlist_special_price = oos_get_products_special_price($wl_products_id)) {
       $wishlist_product_special_price = $oCurrencies->display_price($wishlist_special_price, oos_get_tax_rate($wishlist_product['products_tax_class_id']));
-    } else {
-      $wishlist_product_discount = min($wishlist_product['products_discount_allowed'], $_SESSION['user']->group['discount']);
-
-      if ($wishlist_product_discount != 0 ) {
-        $wishlist_special_price = $wishlist_product['products_price']*(100-$wishlist_product_discount)/100;
-        $wishlist_product_discount_price = $oCurrencies->display_price($wishlist_special_price, oos_get_tax_rate($wishlist_product['products_tax_class_id']));
-      }
-    }
+    } 
 
     if ($wishlist_product['products_base_price'] != 1) {
       $wishlist_base_product_price = $oCurrencies->display_price($wishlist_product['products_price'] * $wishlist_product['products_base_price'], oos_get_tax_rate($wishlist_product['products_tax_class_id']));
@@ -130,7 +122,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
                          'products_name' => $wishlist_product['products_name'],
                          'product_price' => $wishlist_product_price,
                          'product_special_price' => $wishlist_product_special_price,
-                         'max_product_discount' => $wishlist_product_discount,
                          'product_discount_price' => $wishlist_product_discount_price,
                          'base_product_price' => $wishlist_base_product_price,
                          'base_product_special_price' => $wishlist_base_product_special_price,

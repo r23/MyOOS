@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -48,7 +48,6 @@
 
       $featured_product_price = '';
       $featured_product_special_price = '';
-      $featured_max_product_discount = 0;
       $featured_product_discount_price = '';
       $featured_base_product_price = '';
       $featured_base_product_special_price = '';
@@ -61,13 +60,7 @@
 
       if (oos_is_not_null($featured_special_price)) {
         $featured_product_special_price = $oCurrencies->display_price($featured_special_price, oos_get_tax_rate($featured['products_tax_class_id']));
-      } else {
-        $featured_max_product_discount = min($featured['products_discount_allowed'],$_SESSION['user']->group['discount']);
-        if ($featured_max_product_discount != 0 ) {
-          $featured_special_price = $featured['products_price']*(100-$featured_max_product_discount)/100;
-          $featured_product_discount_price = $oCurrencies->display_price($featured_special_price, oos_get_tax_rate($featured['products_tax_class_id']));
-        }
-      }
+      } 
 
       if ($featured['products_base_price'] != 1) {
         $featured_base_product_price = $oCurrencies->display_price($featured['products_price'] * $featured['products_base_price'], oos_get_tax_rate($featured['products_tax_class_id']));
@@ -86,7 +79,6 @@
                            'products_units' => $featured_units,
                            'featured_product_price' => $featured_product_price,
                            'featured_product_special_price' => $featured_product_special_price,
-                           'featured_max_product_discount' => $featured_max_product_discount,
                            'featured_product_discount_price' => $featured_product_discount_price,
                            'featured_base_product_price' => $featured_base_product_price,
                            'featured_base_product_special_price' => $featured_base_product_special_price,

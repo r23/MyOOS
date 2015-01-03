@@ -70,7 +70,6 @@ while ($new_products = $new_products_result->fields) {
 
 	$new_product_price = '';
 	$new_product_special_price = '';
-	$new_max_product_discount = 0;
 	$new_product_discount_price = '';
 	$new_base_product_price = '';
 	$new_base_product_special_price = '';
@@ -83,13 +82,7 @@ while ($new_products = $new_products_result->fields) {
 
     if (oos_is_not_null($new_special_price)) {
 		$new_product_special_price = $oCurrencies->display_price($new_special_price, oos_get_tax_rate($new_products['products_tax_class_id']));
-    } else {
-		$new_max_product_discount = min($new_products['products_discount_allowed'],$_SESSION['user']->group['discount']);
-		if ($new_max_product_discount != 0 ) {
-			$new_special_price = $new_products['products_price']*(100-$new_max_product_discount)/100;
-			$new_product_discount_price = $oCurrencies->display_price($new_special_price, oos_get_tax_rate($new_products['products_tax_class_id']));
-		}
-    }
+    } 
 
     if ($new_products['products_base_price'] != 1) {
 		$new_base_product_price = $oCurrencies->display_price($new_products['products_price'] * $new_products['products_base_price'], oos_get_tax_rate($new_products['products_tax_class_id']));
@@ -108,7 +101,6 @@ while ($new_products = $new_products_result->fields) {
                                   'new_product_units' => $new_product_units,
                                   'new_product_price' => $new_product_price,
                                   'new_product_special_price' => $new_product_special_price,
-                                  'new_max_product_discount' => $new_max_product_discount,
                                   'new_product_discount_price' => $new_product_discount_price,
                                   'new_base_product_price' => $new_base_product_price,
                                   'new_base_product_special_price' => $new_base_product_special_price,

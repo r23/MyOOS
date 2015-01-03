@@ -836,7 +836,6 @@ function popupGoogleMap(url) {
       $cs_id           = $customer_status['customers_status'];
       $cs_name         = $customer_status['customers_status_name'];
       $cs_image        = $customer_status['customers_status_image'];
-      $cs_discount     = $customer_status['customers_status_discount'];
       $cs_ot_discount_flag  = $customer_status['customers_status_ot_discount_flag'];
       $cs_ot_discount       = $customer_status['customers_status_ot_discount'];
       $cs_qty_discounts     = $customer_status['customers_status_qty_discounts'];

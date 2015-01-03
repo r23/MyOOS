@@ -71,7 +71,6 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
 		$new_product_price = '';
 		$new_product_special_price = '';
-		$new_max_product_discount = 0;
 		$new_special_price = '';
 		$new_product_discount_price = '';
 		$new_base_product_price = '';
@@ -83,13 +82,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 		if (isset($products_new['specials_new_products_price'])) {
 			$new_special_price = $products_new['specials_new_products_price'];
 			$new_product_special_price = $oCurrencies->display_price($new_special_price, oos_get_tax_rate($products_new['products_tax_class_id']));
-		} else {
-			$new_max_product_discount = min($products_new['products_discount_allowed'],$_SESSION['user']->group['discount']);
-			if ($new_max_product_discount != 0) {
-				$new_special_price = $products_new['products_price']*(100-$new_max_product_discount)/100;
-				$new_product_discount_price = $oCurrencies->display_price($new_special_price, oos_get_tax_rate($products_new['products_tax_class_id']));
-			}
-		}
+		} 
 
 		if ($products_new['products_base_price'] != 1) {
 			$new_base_product_price = $oCurrencies->display_price($products_new['products_price'] * $products_new['products_base_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
@@ -105,7 +98,6 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                                     'new_product_price' => $new_product_price,
                                     'new_product_units' => $new_product_units,
                                     'new_product_special_price' => $new_product_special_price,
-                                    'new_max_product_discount' => $new_max_product_discount,
                                     'new_special_price' => $new_special_price,
                                     'new_product_discount_price' => $new_product_discount_price,
                                     'new_base_product_price' => $new_base_product_price,

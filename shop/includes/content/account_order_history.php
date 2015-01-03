@@ -105,7 +105,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
 
       $new_product_price = '';
       $new_product_special_price = '';
-      $new_max_product_discount = 0;
       $new_special_price = '';
       $new_product_discount_price = '';
       $new_base_product_price = '';
@@ -115,13 +114,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
       if (isset($order_history['specials_new_products_price'])) {
         $new_special_price = $order_history['specials_new_products_price'];
         $new_product_special_price = $oCurrencies->display_price($new_special_price, oos_get_tax_rate($order_history['products_tax_class_id']));
-      } else {
-        $new_max_product_discount = min($order_history['products_discount_allowed'],$_SESSION['user']->group['discount']);
-        if ($new_max_product_discount != 0) {
-          $new_special_price = $order_history['products_price']*(100-$new_max_product_discount)/100;
-          $new_product_discount_price = $oCurrencies->display_price($new_special_price, oos_get_tax_rate($order_history['products_tax_class_id']));
-        }
-      }
+      } 
 
       if ($order_history['products_base_price'] != 1) {
         $new_base_product_price = $oCurrencies->display_price($order_history['products_price'] * $order_history['products_base_price'], oos_get_tax_rate($order_history['products_tax_class_id']));
@@ -135,7 +128,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
                                     'image' => $order_history['products_image'],
                                     'new_product_price' => $new_product_price,
                                     'new_product_special_price' => $new_product_special_price,
-                                    'new_max_product_discount' => $new_max_product_discount,
                                     'new_special_price' => $new_special_price,
                                     'new_product_discount_price' => $new_product_discount_price,
                                     'new_base_product_price' => $new_base_product_price,

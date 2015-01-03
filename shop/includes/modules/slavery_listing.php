@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -162,7 +162,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
 
               unset($pl_price_discount);
               unset($pl_special_price);
-              unset($pl_max_product_discount);
               unset($pl_base_product_price);
               unset($pl_base_product_special_price);
 
@@ -179,14 +178,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
               if (oos_is_not_null($listing['specials_new_products_price'])) {
                 $pl_special_price = $listing['specials_new_products_price'];
                 $pl_product_special_price = $oCurrencies->display_price($pl_special_price, oos_get_tax_rate($listing['products_tax_class_id']));
-              } else {
-                $pl_max_product_discount =  min($listing['products_discount_allowed'],$_SESSION['user']->group['discount']);
-
-                if ($pl_max_product_discount != 0 ) {
-                  $pl_special_price = $listing['products_price']*(100-$pl_max_product_discount)/100;
-                  $pl_product_special_price = $oCurrencies->display_price($pl_special_price, oos_get_tax_rate($listing['products_tax_class_id']));
-                }
-              }
+              } 
 
               if ($listing['products_base_price'] != 1) {
                 $pl_base_product_price = $oCurrencies->display_price($listing['products_price'] * $listing['products_base_price'], oos_get_tax_rate($listing['products_tax_class_id']));
@@ -203,19 +195,12 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
                 $lc_text .= '&nbsp;<span class="special_price">' . $pl_product_special_price . $sUnits . '</span>';
                 if ($listing['products_base_price'] != 1)  $lc_text .= '<br /><span class="special_base_price">' . $listing['products_base_unit'] . ' = ' . $pl_base_product_special_price . '</span></s><br />';
               } else {
-                if ($pl_max_product_discount != 0 ) {
-                  $lc_text = '&nbsp;<s>' . $pl_product_price . $sUnits . '</s>&nbsp;-' . number_format($pl_max_product_discount, 2) . '%<br />';
-                  $lc_text .= '&nbsp;<span class="discount_price">' . $pl_product_special_price . $sUnits . '</span>';
-                  if ($listing['products_base_price'] != 1)  $lc_text .= '<br /><span class="special_base_price">' . $listing['products_base_unit'] . ' = ' . $pl_base_product_special_price . '</span></s><br />';
-
-                } else {
                   if (isset($pl_price_discount)) {
                     $lc_text = $aLang['price_from'] . '&nbsp;' . $pl_price_discount . $sUnits . '<br />';
                   } else {
                     $lc_text = '&nbsp;' . $pl_product_price . $sUnits . '<br />';
                     if ($listing['products_base_price'] != 1)  $lc_text .= '<span class="base_price">' . $listing['products_base_unit'] . ' = ' . $pl_base_product_price . '</span><br />';
                   }
-                }
               }
               $lc_text .= '&nbsp;<span class="pangv">' . $sPAngV . '</span><br />';
               break;

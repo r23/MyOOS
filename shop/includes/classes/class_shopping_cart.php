@@ -505,8 +505,6 @@
           } else {
             $products_price = $product['products_price'];
           }
-          $max_product_discount = min($product['products_discount_allowed'], $_SESSION['user']->group['discount']);
-          $products_price = $products_price*(100-$max_product_discount)/100;
 
           $products_weight = $product['products_weight'];
           $bSpezialPrice = FALSE;
@@ -634,8 +632,6 @@
           } else {
             $products_price = $products['products_price'];
           }
-          $max_product_discount = min($products['products_discount_allowed'], $_SESSION['user']->group['discount']);
-          $products_price = $products_price*(100-$max_product_discount)/100;
 
           $spezial_price = 'false';
           $specialstable = $oostable['specials'];

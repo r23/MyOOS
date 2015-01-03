@@ -77,7 +77,6 @@
 
       $info_product_price = '';
       $info_product_special_price = '';
-      $info_product_discount = 0;
       $info_product_discount_price = '';
       $info_base_product_price = '';
       $info_base_product_special_price = '';
@@ -90,15 +89,7 @@
 
         if ($info_special_price = oos_get_products_special_price($product_info['products_id'])) {
           $info_product_special_price = $oCurrencies->display_price($info_special_price, oos_get_tax_rate($product_info['products_tax_class_id']));
-        } else {
-          $info_product_discount = min($product_info['products_discount_allowed'], $_SESSION['user']->group['discount']);
-
-          if ($info_product_discount != 0 ) {
-            $info_product_special_price = $product_info['products_price']*(100-$info_product_discount)/100;
-            $info_product_discount_price = $oCurrencies->display_price($info_product_special_price, oos_get_tax_rate($product_info['products_tax_class_id']));
-          }
-
-        }
+        } 
 
         if ($product_info['products_base_price'] != 1) {
           $info_base_product_price = $oCurrencies->display_price($product_info['products_price'] * $product_info['products_base_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
@@ -137,7 +128,6 @@
               'info_product_price'              => $info_product_price,
               'info_special_price'              => $info_special_price,
               'info_product_special_price'      => $info_product_special_price,
-              'info_max_product_discount'       => $info_product_discount,
               'info_product_discount_price'     => $info_product_discount_price,
               'info_base_product_price'         => $info_base_product_price,
               'info_base_product_special_price' => $info_base_product_special_price

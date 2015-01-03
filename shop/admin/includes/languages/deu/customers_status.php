@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -33,10 +33,9 @@ define('TABLE_HEADING_AMOUNT', 'Bestellwert');
 define('TEXT_INFO_EDIT_INTRO', 'Bitte nehmen Sie alle n&ouml;tigen Einstellungen vor');
 define('TEXT_INFO_CUSTOMERS_STATUS_NAME', 'Kundengruppe:');
 define('TEXT_INFO_CUSTOMERS_STATUS_IMAGE', 'Kundengruppe Bild:');
-define('TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_PRICE_INTRO', 'Geben Sie einen Rabatt zwischen 0 und 100% an, der bei jedem angezeigten Produkt verwendet wird.');
 define('TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_PRICE', 'Rabatt (0 bis 100%):');
 define('TEXT_INFO_INSERT_INTRO', 'Bitte erstellen Sie eine neue Kundengruppe mit den gew&uuml;nschten Einstellungen');
-define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, da�Sie diese Kundengruppe l&ouml;schen wollen?');
+define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Kundengruppe l&ouml;schen wollen?');
 define('TEXT_INFO_HEADING_NEW_CUSTOMERS_STATUS', 'Neue Kundengruppe');
 define('TEXT_INFO_HEADING_EDIT_CUSTOMERS_STATUS', 'Kundengruppe &auml;ndern');
 define('TEXT_INFO_HEADING_DELETE_CUSTOMERS_STATUS', 'Kundengruppe l&ouml;schen');

@@ -39,7 +39,6 @@
     $random_product['products_name'] = oos_get_products_name($random_product['products_id']);
     $whats_new_product_price = '';
     $whats_new_product_special_price = '';
-    $whats_new_max_product_discount = 0;
     $whats_new_product_discount_price = '';
     $whats_new_base_product_price = '';
     $whats_new_base_product_special_price = '';
@@ -51,13 +50,7 @@
 
       if (oos_is_not_null($whats_new_product_price)) {
         $whats_new_product_special_price = $oCurrencies->display_price($whats_new_special_price, oos_get_tax_rate($random_product['products_tax_class_id']));
-      } else {
-        $whats_new_max_product_discount = min($random_product['products_discount_allowed'],$_SESSION['user']->group['discount']);
-        if ($whats_new_max_product_discount != 0 ) {
-          $whats_new_special_price = $random_product['products_price']*(100-$whats_new_max_product_discount)/100;
-          $whats_new_product_discount_price = $oCurrencies->display_price($whats_new_special_price, oos_get_tax_rate($random_product['products_tax_class_id']));
-        }
-      }
+      } 
 
       if ($random_product['products_base_price'] != 1) {
         $whats_new_base_product_price = $oCurrencies->display_price($random_product['products_price'] * $random_product['products_base_price'], oos_get_tax_rate($random_product['products_tax_class_id']));
@@ -71,7 +64,6 @@
         array(
             'whats_new_product_price'              => $whats_new_product_price,
             'whats_new_product_special_price'      => $whats_new_product_special_price,
-            'whats_new_max_product_discount'       => $whats_new_max_product_discount,
             'whats_new_product_discount_price'     => $whats_new_product_discount_price,
             'whats_new_base_product_price'         => $whats_new_base_product_price,
             'whats_new_base_product_special_price' => $whats_new_base_product_special_price,
