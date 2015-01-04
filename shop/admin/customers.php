@@ -246,7 +246,7 @@
         break;
     }
   }
-  require 'includes/oos_header.php';
+  require 'includes/header.php';
 
   if ($action == 'edit') {
 ?>

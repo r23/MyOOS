@@ -225,7 +225,7 @@
   include '../includes/classes/class_order.php';
 
   $no_js_general = true;
-  require 'includes/oos_header.php';
+  require 'includes/header.php';
 ?>
 <?php
   if (defined('GOOGLE_MAP_API_KEY')) {

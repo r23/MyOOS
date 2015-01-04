@@ -1,6 +1,6 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: oos_header.php,v 1.1 2007/06/08 15:20:14 r23 Exp $
+   $Id: header.php,v 1.1 2007/06/08 15:20:14 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/

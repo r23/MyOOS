@@ -26,7 +26,7 @@
   $productstable = $oostable['products'];
   $dbconn->Execute("UPDATE $productstable SET products_date_available = '' WHERE to_days(now()) > to_days(products_date_available)");
 
-  require 'includes/oos_header.php'; 
+  require 'includes/header.php'; 
 ?>
 <!-- body //-->
 <table border="0" width="100%" cellspacing="2" cellpadding="2">

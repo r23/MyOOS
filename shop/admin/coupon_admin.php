@@ -222,7 +222,7 @@
         }
     }
   }
-  require 'includes/oos_header.php';
+  require 'includes/header.php';
 ?>
 <link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">
 <script language="JavaScript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>

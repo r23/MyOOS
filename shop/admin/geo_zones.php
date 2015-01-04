@@ -130,7 +130,7 @@
         break;
     }
   }
-  require 'includes/oos_header.php';
+  require 'includes/header.php';
 
   if (isset($_GET['zID'])  && (($saction == 'edit') || ($saction == 'new'))) {
 ?>

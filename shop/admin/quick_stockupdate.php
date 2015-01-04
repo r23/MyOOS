@@ -27,7 +27,7 @@
   require '../includes/classes/class_currencies.php';
   $currencies = new currencies();
 
-  require 'includes/oos_header.php';
+  require 'includes/header.php';
 ?>
 <!-- body //-->
 <table border="0" width="100%" cellspacing="2" cellpadding="2">

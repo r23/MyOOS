@@ -191,7 +191,7 @@
     $messageStack->add(ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST, 'error');
   }
   $no_js_general = true;
-  require 'includes/oos_header.php';
+  require 'includes/header.php';
 
 ?>
 <script language="javascript"><!--

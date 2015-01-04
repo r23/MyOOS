@@ -389,7 +389,7 @@
   }
   $lang_select_array = array(array('id' => '0', 'text' => TEXT_ALL_LANGUAGES),
                              array('id' => '1', 'text' => TEXT_ACTIVE_LANGUAGES));
-  require 'includes/oos_header.php'; 
+  require 'includes/header.php'; 
 ?>
 <!-- body //-->
 <table border="0" width="100%" cellspacing="2" cellpadding="2">

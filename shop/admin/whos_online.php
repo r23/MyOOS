@@ -34,7 +34,7 @@
   $dbconn->Execute("DELETE FROM $whos_onlinetable WHERE time_last_click < '" . $xx_mins_ago . "'");
 
   $no_js_general = true;
-  require 'includes/oos_header.php';
+  require 'includes/header.php';
 ?>
 <!-- body //-->
 <table border="0" width="100%" cellspacing="2" cellpadding="2">

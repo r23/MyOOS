@@ -193,7 +193,7 @@
         break;
     }
   }
-  require 'includes/oos_header.php';
+  require 'includes/header.php';
   require 'includes/account_check.js.php';
 ?>
 <!-- body //-->
