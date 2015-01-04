@@ -553,7 +553,7 @@ if ($srExp < 2) {
 
 <?php
   if ($srExp < 1) {
-    require 'includes/oos_footer.php';
+    require 'includes/footer.php';
   }
 ?>
 </body>

@@ -343,7 +343,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
         </table></td>
       </tr>
       <tr>
-        <td><?php require 'includes/oos_footer.php'; ?></td>
+        <td><?php require 'includes/footer.php'; ?></td>
       </tr>
     </table></td>
   </tr>

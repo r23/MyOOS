@@ -318,7 +318,7 @@
 </table>
 <!-- body_eof //-->
 
-<?php require 'includes/oos_footer.php'; ?>
+<?php require 'includes/footer.php'; ?>
 <br />
 </body>
 </html>

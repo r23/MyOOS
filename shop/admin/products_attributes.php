@@ -1068,7 +1068,7 @@ function go_option() {
 </table>
 <!-- body_text_eof //-->
 
-<?php require 'includes/oos_footer.php'; ?>
+<?php require 'includes/footer.php'; ?>
 <br />
 </body>
 </html>
