@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   define('OOS_VALID_MOD', 'yes');
-  require 'includes/oos_main.php';
+  require 'includes/main.php';
 
   $no_js_general = true;
   require 'includes/header.php'; 

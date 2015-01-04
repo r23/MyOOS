@@ -24,7 +24,7 @@
    ---------------------------------------------------------------------- */
 
   define('OOS_VALID_MOD', 'yes');
-  require 'includes/oos_main.php';
+  require 'includes/main.php';
 
 // define our edit_orders functions
   require 'includes/functions/function_categories.php';

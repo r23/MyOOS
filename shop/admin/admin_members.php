@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   define('OOS_VALID_MOD', 'yes');
-  require 'includes/oos_main.php';
+  require 'includes/main.php';
 
   $current_boxes = OOS_ABSOLUTE_PATH . 'admin/includes/boxes/';
   $action = (isset($_GET['action']) ? $_GET['action'] : '');

@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   define('OOS_VALID_MOD', 'yes');
-  require 'includes/oos_main.php';
+  require 'includes/main.php';
 
   if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
     $log_times = $_POST['log_times']+1;

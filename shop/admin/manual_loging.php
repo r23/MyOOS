@@ -52,7 +52,7 @@
    ---------------------------------------------------------------------- */
 
   define('OOS_VALID_MOD', 'yes');
-  require 'includes/oos_main.php';
+  require 'includes/main.php';
 
   function oos_set_login_status($man_info_id, $status) {
 

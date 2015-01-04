@@ -21,7 +21,7 @@
    ---------------------------------------------------------------------- */
 
   define('OOS_VALID_MOD', 'yes');
-  require 'includes/oos_main.php';
+  require 'includes/main.php';
   require 'includes/functions/function_products_attributes.php';
 
   $languages = oos_get_languages();

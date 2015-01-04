@@ -18,7 +18,7 @@
    ---------------------------------------------------------------------- */
 
   define('OOS_VALID_MOD', 'yes');
-  require 'includes/oos_main.php';
+  require 'includes/main.php';
   require 'includes/functions/function_block.php';
 
   $action = (isset($_GET['action']) ? $_GET['action'] : '');

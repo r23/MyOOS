@@ -22,7 +22,7 @@
   $xx_mins_ago = (time() - 900);
 
   define('OOS_VALID_MOD', 'yes');
-  require 'includes/oos_main.php';
+  require 'includes/main.php';
 
   require 'includes/classes/class_currencies.php';
   $currencies = new currencies();

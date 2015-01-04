@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   define('OOS_VALID_MOD', 'yes');
-  require 'includes/oos_main.php';
+  require 'includes/main.php';
 
   function oos_get_manufacturer_url($manufacturer_id, $lang_id = '') {
 

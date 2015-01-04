@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   define('OOS_VALID_MOD', 'yes');
-  require 'includes/oos_main.php';
+  require 'includes/main.php';
 
   $cat = array(array('title' => BOX_HEADING_MY_ACCOUNT,
                      'access' => true,

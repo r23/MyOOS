@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   define('OOS_VALID_MOD', 'yes');
-  require 'includes/oos_main.php';
+  require 'includes/main.php';
 
   if (isset($_GET['action']) && ($_GET['action'] == 'reset')) {
     $products_descriptiontable = $oostable['products_description'];

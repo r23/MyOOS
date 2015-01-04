@@ -11,7 +11,7 @@
    ---------------------------------------------------------------------- */
 
   define('OOS_VALID_MOD', 'yes');
-  require 'includes/oos_main.php';
+  require 'includes/main.php';
 
   if (!defined('OOS_UPDATE_PATH')) {
     define('OOS_UPDATE_PATH', OOS_EXPORT_PATH );

@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   define('OOS_VALID_MOD', 'yes');
-  require 'includes/oos_main.php';
+  require 'includes/main.php';
 
   if (!defined('CATEGORIES_DEFAULT_STATUS')) {
     define('DEFAULT_CATEGORIES_STATUS', '1');

@@ -21,7 +21,7 @@
    ---------------------------------------------------------------------- */
 
   define('OOS_VALID_MOD', 'yes');
-  require 'includes/oos_main.php';
+  require 'includes/main.php';
 
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">

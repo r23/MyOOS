@@ -18,7 +18,7 @@
    ---------------------------------------------------------------------- */
 
   define('OOS_VALID_MOD', 'yes');
-  require 'includes/oos_main.php';
+  require 'includes/main.php';
 
   function oos_get_products_status_name($products_status_id, $lang_id = '') {
 
