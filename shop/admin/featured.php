@@ -378,4 +378,4 @@
 <br />
 </body>
 </html>
-<?php require 'includes/oos_nice_exit.php'; ?>
+<?php require 'includes/nice_exit.php'; ?>

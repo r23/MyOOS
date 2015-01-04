@@ -77,4 +77,4 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
 </tr></table>
 </body>
 </html>
-<?php require 'includes/oos_nice_exit.php'; ?>
+<?php require 'includes/nice_exit.php'; ?>
