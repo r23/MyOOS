@@ -12,6 +12,7 @@ namespace DI;
 use DI\Definition\ClassDefinition;
 use DI\Definition\Definition;
 use DI\Definition\DefinitionManager;
+use DI\Definition\Resolver\ArrayDefinitionResolver;
 use DI\Definition\Resolver\FunctionCallDefinitionResolver;
 use DI\Definition\ValueDefinition;
 use DI\Definition\Helper\DefinitionHelper;
@@ -75,8 +76,11 @@ class Container implements ContainerInteropInterface, ContainerInterface, Factor
 
         // Definition resolvers
         $wrapperContainer = $wrapperContainer ?: $this;
+        $arrayDefinitionResolver = new ArrayDefinitionResolver($wrapperContainer);
         $this->definitionResolvers = array(
             'DI\Definition\ValueDefinition'               => new ValueDefinitionResolver(),
+            'DI\Definition\ArrayDefinition'               => $arrayDefinitionResolver,
+            'DI\Definition\ArrayDefinitionExtension'      => $arrayDefinitionResolver,
             'DI\Definition\FactoryDefinition'             => new FactoryDefinitionResolver($wrapperContainer),
             'DI\Definition\AliasDefinition'               => new AliasDefinitionResolver($wrapperContainer),
             'DI\Definition\ClassDefinition'               => new ClassDefinitionResolver($wrapperContainer, $proxyFactory),

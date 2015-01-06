@@ -13,7 +13,6 @@ use Piwik\ArchiveProcessor;
 use Piwik\Db;
 use Piwik\Piwik;
 use Piwik\Plugin\Manager as PluginManager;
-use Piwik\Plugins\UserSettings\UserSettings;
 use Piwik\Plugins\DevicesDetection\Visitor;
 
 require_once PIWIK_INCLUDE_PATH . '/plugins/DevicesDetection/functions.php';
@@ -49,13 +48,16 @@ class DevicesDetection extends \Piwik\Plugin
         $instance = new Visitor($details);
 
         $visitor['deviceType']               = $instance->getDeviceType();
+        $visitor['operatingSystem']          = $instance->getOperatingSystem();
+        $visitor['operatingSystemCode']      = $instance->getOperatingSystemCode();
+        $visitor['operatingSystemIcon']      = $instance->getOperatingSystemIcon();
         $visitor['browserFamily']            = $instance->getBrowserEngine();
         $visitor['browserFamilyDescription'] = $instance->getBrowserEngineDescription();
-
-        if (!PluginManager::getInstance()->isPluginActivated('UserSettings')) {
-            $instance = new UserSettings();
-            $instance->extendVisitorDetails($visitor, $details);
-        }
+        $visitor['browser']                  = $instance->getBrowser();
+        $visitor['browserName']              = $instance->getBrowserName();
+        $visitor['browserIcon']              = $instance->getBrowserIcon();
+        $visitor['browserCode']              = $instance->getBrowserCode();
+        $visitor['browserVersion']           = $instance->getBrowserVersion();
     }
 
 }

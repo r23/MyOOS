@@ -7,19 +7,19 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Zend_' => array($baseDir . '/libs'),
-    'UnitTests\\' => array($vendorDir . '/mnapoli/php-di/tests'),
     'UnitTest' => array($vendorDir . '/mnapoli/phpdocreader/tests'),
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
+    'Symfony\\Component\\EventDispatcher\\' => array($vendorDir . '/symfony/event-dispatcher'),
     'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
+    'Symfony\\Bridge\\Monolog\\' => array($vendorDir . '/symfony/monolog-bridge'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'PhpDocReader' => array($vendorDir . '/mnapoli/phpdocreader/src'),
     'PEAR_' => array($baseDir . '/libs'),
     'MyCLabs' => array($vendorDir . '/myclabs/php-enum/src'),
     'JShrink' => array($vendorDir . '/tedivm/jshrink/src'),
-    'IntegrationTests\\' => array($vendorDir . '/mnapoli/php-di/tests'),
     'HTML_' => array($baseDir . '/libs'),
     'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),
     'Doctrine\\Common\\Cache\\' => array($vendorDir . '/doctrine/cache/lib'),
     'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib'),
-    'DI\\' => array($vendorDir . '/mnapoli/php-di/src'),
     'Archive_' => array($baseDir . '/libs'),
 );

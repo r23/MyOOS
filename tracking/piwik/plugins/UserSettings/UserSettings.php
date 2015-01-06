@@ -24,27 +24,40 @@ class UserSettings extends \Piwik\Plugin
     {
         return array(
             'Metrics.getDefaultMetricTranslations' => 'addMetricTranslations',
-            'Live.getAllVisitorDetails'            => 'extendVisitorDetails'
+            'Request.getRenamedModuleAndAction'    => 'renameDeprecatedModuleAndAction',
         );
     }
 
-    public function extendVisitorDetails(&$visitor, $details)
+    /**
+     * Maps the deprecated actions that were 'moved' to DevicesDetection plugin
+     *
+     * @deprecated since 2.10.0 and will be removed from May 1st 2015
+     * @param $module
+     * @param $action
+     */
+    public function renameDeprecatedModuleAndAction(&$module, &$action)
     {
-        $instance = new Visitor($details);
+        $movedMethods = array(
+            'getBrowser' => 'getBrowsers',
+            'getBrowserVersion' => 'getBrowserVersions',
+            'getMobileVsDesktop' => 'getType',
+            'getOS' => 'getOsVersions',
+            'getOSFamily' => 'getOsFamilies',
+            'getBrowserType' => 'getBrowserEngines',
+        );
 
-        $visitor['operatingSystem']          = $instance->getOperatingSystem();
-        $visitor['operatingSystemCode']      = $instance->getOperatingSystemCode();
-        $visitor['operatingSystemShortName'] = $instance->getOperatingSystemShortName();
-        $visitor['operatingSystemIcon']      = $instance->getOperatingSystemIcon();
-        $visitor['browserName']              = $instance->getBrowser();
-        $visitor['browserIcon']              = $instance->getBrowserIcon();
-        $visitor['browserCode']              = $instance->getBrowserCode();
-        $visitor['browserVersion']           = $instance->getBrowserVersion();
-        $visitor['screenType']               = $instance->getScreenType();
-        $visitor['resolution']               = $instance->getResolution();
-        $visitor['screenTypeIcon']           = $instance->getScreenTypeIcon();
-        $visitor['plugins']                  = $instance->getPlugins();
-        $visitor['pluginsIcons']             = $instance->getPluginIcons();
+        if ($module == 'UserSettings' && array_key_exists($action, $movedMethods)) {
+            $module = 'DevicesDetection';
+            $action = $movedMethods[$action];
+        }
+
+        if ($module == 'UserSettings' && ($action == 'getResolution' || $action == 'getConfiguration')) {
+            $module = 'Resolution';
+        }
+
+        if ($module == 'UserSettings' && $action == 'getPlugin') {
+            $module = 'DevicePlugins';
+        }
     }
 
     public function addMetricTranslations(&$translations)

@@ -13,8 +13,7 @@ use Piwik\Access;
 use Piwik\Common;
 use Piwik\Date;
 use Piwik\Db;
-use Piwik\IP;
-use Piwik\MetricsFormatter;
+use Piwik\Metrics\Formatter;
 use Piwik\Network\IPUtils;
 use Piwik\Option;
 use Piwik\Piwik;
@@ -41,7 +40,7 @@ use Piwik\UrlHelper;
  * Some methods will affect all websites globally: "setGlobalExcludedIps" will set the list of IPs to be excluded on all websites,
  * "setGlobalExcludedQueryParameters" will set the list of URL parameters to remove from URLs for all websites.
  * The existing values can be fetched via "getExcludedIpsGlobal" and "getExcludedQueryParametersGlobal".
- * See also the documentation about <a href='http://piwik.org/docs/manage-websites/' target='_blank'>Managing Websites</a> in Piwik.
+ * See also the documentation about <a href='http://piwik.org/docs/manage-websites/' rel='noreferrer' target='_blank'>Managing Websites</a> in Piwik.
  * @method static \Piwik\Plugins\SitesManager\API getInstance()
  */
 class API extends \Piwik\Plugin\API
@@ -183,6 +182,7 @@ class API extends \Piwik\Plugin\API
         $site = $this->getModel()->getSiteFromId($idSite);
 
         Site::setSitesFromArray(array($site));
+
         return $site;
     }
 
@@ -599,9 +599,6 @@ class API extends \Piwik\Plugin\API
         }
 
         $this->getModel()->deleteSite($idSite);
-
-        // we do not delete logs here on purpose (you can run these queries on the log_ tables to delete all data)
-        Cache::deleteCacheWebsiteAttributes($idSite);
 
         /**
          * Triggered after a site has been deleted.
@@ -1157,7 +1154,7 @@ class API extends \Piwik\Plugin\API
      */
     public function getCurrencyList()
     {
-        $currencies = MetricsFormatter::getCurrencyList();
+        $currencies = Formatter::getCurrencyList();
         return array_map(function ($a) {
             return $a[1] . " (" . $a[0] . ")";
         }, $currencies);
@@ -1170,7 +1167,7 @@ class API extends \Piwik\Plugin\API
      */
     public function getCurrencySymbols()
     {
-        $currencies = MetricsFormatter::getCurrencyList();
+        $currencies = Formatter::getCurrencyList();
         return array_map(function ($a) {
             return $a[0];
         }, $currencies);

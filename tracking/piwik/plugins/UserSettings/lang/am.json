@@ -1,13 +1,5 @@
 {
     "UserSettings": {
-        "BrowserFamilies": "የማሰሺያ ቤተሰቦች",
-        "Browsers": "ማሰሻዎች",
-        "ColumnBrowser": "ማሰሺያ",
-        "ColumnBrowserFamily": "የማሰሻ ቤተሰብ",
-        "ColumnConfiguration": "ውቅረት",
-        "ColumnResolution": "ጥራት",
-        "ColumnTypeOfScreen": "የማያ ዓይነት",
-        "Configurations": "ውቅረቶች",
         "Language_aa": "አፋርኛ",
         "Language_ab": "አብሐዚኛ",
         "Language_af": "አፍሪካንስኛ",
@@ -163,14 +155,6 @@
         "Language_zh": "ቻይንኛ",
         "Language_zu": "ዙሉኛ",
         "LanguageCode": "የቋንቋ ኮድ",
-        "Resolutions": "ጥራቶች",
-        "VisitorSettings": "የጎበኚዎች ቅንብሮች",
-        "WideScreen": "ሰፊ ማያ",
-        "WidgetBrowsers": "የጎብኚ ማሰሻዎች",
-        "WidgetGlobalVisitors": "የሁሉም ጎብኚዎች ውቅረት",
-        "WidgetOperatingSystems": "ስርዓተ ክወናዎች",
-        "WidgetPlugins": "የተሰኪዎች ዝርዝር",
-        "WidgetResolutions": "የማያ ጥራቶች",
-        "WidgetWidescreen": "የተለመደ \/ ሰፊ ማያ"
+        "VisitorSettings": "የጎበኚዎች ቅንብሮች"
     }
 }

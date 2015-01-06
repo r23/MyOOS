@@ -12,12 +12,12 @@ namespace Piwik;
 use Exception;
 use Piwik\API\Request;
 use Piwik\API\ResponseBuilder;
+use Piwik\Container\StaticContainer;
 use Piwik\Exception\AuthenticationFailedException;
 use Piwik\Http\Router;
 use Piwik\Plugin\Controller;
 use Piwik\Plugin\Report;
 use Piwik\Plugin\Widgets;
-use Piwik\Plugins\CoreAdminHome\CustomLogo;
 use Piwik\Session;
 
 /**
@@ -229,7 +229,7 @@ class FrontController extends Singleton
                 Profiler::printQueryCount();
             }
         } catch (Exception $e) {
-            Log::verbose($e);
+            Log::debug($e);
         }
     }
 
@@ -310,20 +310,22 @@ class FrontController extends Singleton
 
         Registry::set('timer', new Timer);
 
+        $exceptionToThrow = self::createConfigObject();
+
+        $tmpPath = StaticContainer::getContainer()->get('path.tmp');
+
         $directoriesToCheck = array(
-            '/tmp/',
-            '/tmp/assets/',
-            '/tmp/cache/',
-            '/tmp/logs/',
-            '/tmp/tcpdf/',
-            '/tmp/templates_c/',
+            $tmpPath,
+            $tmpPath . '/assets/',
+            $tmpPath . '/cache/',
+            $tmpPath . '/logs/',
+            $tmpPath . '/tcpdf/',
+            $tmpPath . '/templates_c/',
         );
 
         Translate::loadEnglishTranslation();
 
         Filechecks::dieIfDirectoriesNotWritable($directoriesToCheck);
-
-        $exceptionToThrow = self::createConfigObject();
 
         $this->handleMaintenanceMode();
         $this->handleProfiler();
@@ -395,6 +397,8 @@ class FrontController extends Singleton
          * _Note: At this point the user is not authenticated yet._
          */
         Piwik::postEvent('Request.dispatchCoreAndPluginUpdatesScreen');
+
+        Updater::throwIfPiwikVersionIsOlderThanDBSchema();
 
         \Piwik\Plugin\Manager::getInstance()->installLoadedPlugins();
 
@@ -475,7 +479,7 @@ class FrontController extends Singleton
             throw new Exception("Invalid module name '$module'");
         }
 
-        $module = Request::renameModule($module);
+        list($module, $action) = Request::getRenamedModuleAndAction($module, $action);
 
         if (!\Piwik\Plugin\Manager::getInstance()->isPluginActivated($module)) {
             throw new PluginDeactivatedException($module);
@@ -605,50 +609,6 @@ class FrontController extends Singleton
          * @param array $parameters The arguments passed to the controller action.
          */
         Piwik::postEvent('Request.dispatch.end', array(&$result, $module, $action, $parameters));
-        return $result;
-    }
-
-    /**
-     * Returns HTML that displays an exception's error message (and possibly stack trace).
-     * The result of this method is echo'd by dispatch.php.
-     *
-     * @param Exception $ex The exception to use when generating the error page's HTML.
-     * @return string The HTML to echo.
-     */
-    public function getErrorResponse(Exception $ex)
-    {
-        $debugTrace = $ex->getTraceAsString();
-
-        $message = $ex->getMessage();
-
-        if (!method_exists($ex, 'isHtmlMessage') || !$ex->isHtmlMessage()) {
-            $message = Common::sanitizeInputValue($message);
-        }
-
-        $logo = new CustomLogo();
-
-        $logoHeaderUrl = false;
-        $logoFaviconUrl = false;
-        try {
-            $logoHeaderUrl = $logo->getHeaderLogoUrl();
-            $logoFaviconUrl = $logo->getPathUserFavicon();
-        } catch (Exception $ex) {
-            Log::debug($ex);
-        }
-
-        $result = Piwik_GetErrorMessagePage($message, $debugTrace, true, true, $logoHeaderUrl, $logoFaviconUrl);
-
-        /**
-         * Triggered before a Piwik error page is displayed to the user.
-         *
-         * This event can be used to modify the content of the error page that is displayed when
-         * an exception is caught.
-         *
-         * @param string &$result The HTML of the error page.
-         * @param Exception $ex The Exception displayed in the error page.
-         */
-        Piwik::postEvent('FrontController.modifyErrorPage', array(&$result, $ex));
-
         return $result;
     }
 }

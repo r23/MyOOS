@@ -29,6 +29,37 @@
   version: '$1'
 
 ##########
+# Windows Mobile
+##########
+- regex: 'Windows Phone (?:OS)?[ ]?(\d+[\.\d]+)'
+  name: 'Windows Phone'
+  version: '$1'
+  
+  
+- regex: 'XBLWP7|Windows Phone'
+  name: 'Windows Phone'
+  version: ''
+
+- regex: 'Windows CE'
+  name: 'Windows CE'
+  version: ''
+  
+  
+- regex: '(?:IEMobile|Windows Mobile)(?: (\d+[\.\d]+))?'
+  name: 'Windows Mobile'
+  version: '$1'
+  
+  
+- regex: 'Windows NT 6.2; ARM;'
+  name: 'Windows RT'
+  version: ''
+  
+- regex: 'Windows NT 6.3; ARM;'
+  name: 'Windows RT 8.1'
+  version: ''
+  
+
+##########
 # Android
 ##########
 - regex: '(?:Android|Adr)[ /](?:[a-z]+ )?(\d+[\.\d]+)'
@@ -75,34 +106,6 @@
 # generic linux match -> end of file
 
 ##########
-# Windows Mobile
-##########
-- regex: 'Windows Phone (?:OS)?[ ]?(\d+[\.\d]+)'
-  name: 'Windows Phone'
-  version: '$1'
-  
-  
-- regex: 'XBLWP7|Windows Phone'
-  name: 'Windows Phone'
-  version: ''
-
-- regex: 'Windows CE'
-  name: 'Windows CE'
-  version: ''
-  
-  
-- regex: '(?:IEMobile|Windows Mobile)(?: (\d+[\.\d]+))?'
-  name: 'Windows Mobile'
-  version: '$1'
-  
-  
-- regex: 'Windows NT 6.2; ARM;'
-  name: 'Windows RT'
-  version: ''
-  
-
-
-##########
 # webOS
 ##########
 - regex: '(?:webOS|Palm webOS)(?:/(\d+[\.\d]+))?'
@@ -122,6 +125,10 @@
 ##########
 # Windows
 ##########
+- regex: 'CYGWIN_NT-10.0|Windows NT 10.0|Windows 10'
+  name: 'Windows 10'
+  version: '10'
+
 - regex: 'CYGWIN_NT-6.4|Windows NT 6.4|Windows 10'
   name: 'Windows 10'
   version: '10'

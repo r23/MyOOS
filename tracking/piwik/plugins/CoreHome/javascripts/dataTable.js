@@ -67,7 +67,7 @@ DataTable.registerFooterIconHandler = function (id, handler) {
 /**
  * Returns the first datatable div displaying a specific report.
  *
- * @param {string} report  The report, eg, UserSettings.getWideScreen
+ * @param {string} report  The report, eg, UserSettings.getLanguage
  * @return {Element} The datatable div displaying the report, or undefined if
  *                   it cannot be found.
  */
@@ -1708,7 +1708,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
     },
 
     handleSummaryRow: function (domElem) {
-        var details = _pk_translate('General_LearnMore', [' (<a href="http://piwik.org/faq/how-to/faq_54/" target="_blank">', '</a>)']);
+        var details = _pk_translate('General_LearnMore', [' (<a href="http://piwik.org/faq/how-to/faq_54/" rel="noreferrer"  target="_blank">', '</a>)']);
 
         domElem.find('tr.summaryRow').each(function () {
             var labelSpan = $(this).find('.label .value');
@@ -1890,11 +1890,26 @@ var switchToHtmlTable = function (dataTable, viewDataTable) {
     dataTable.notifyWidgetParametersChange(dataTable.$element, {viewDataTable: viewDataTable});
 };
 
+var switchToEcommerceView = function (dataTable, viewDataTable) {
+    if (viewDataTable == 'ecommerceOrder') {
+        dataTable.param.abandonedCarts = '0';
+    } else {
+        dataTable.param.abandonedCarts = '1';
+    }
+
+    var viewDataTable = dataTable.param.viewDataTable;
+    if (viewDataTable == 'ecommerceOrder' || viewDataTable == 'ecommerceAbandonedCart') {
+        viewDataTable = 'table';
+    }
+
+    switchToHtmlTable(dataTable, viewDataTable);
+};
+
 DataTable.registerFooterIconHandler('table', switchToHtmlTable);
 DataTable.registerFooterIconHandler('tableAllColumns', switchToHtmlTable);
 DataTable.registerFooterIconHandler('tableGoals', switchToHtmlTable);
-DataTable.registerFooterIconHandler('ecommerceOrder', switchToHtmlTable);
-DataTable.registerFooterIconHandler('ecommerceAbandonedCart', switchToHtmlTable);
+DataTable.registerFooterIconHandler('ecommerceOrder', switchToEcommerceView);
+DataTable.registerFooterIconHandler('ecommerceAbandonedCart', switchToEcommerceView);
 
 // generic function to handle switch to graph visualizations
 DataTable.switchToGraph = function (dataTable, viewDataTable) {

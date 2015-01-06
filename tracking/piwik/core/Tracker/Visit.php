@@ -11,6 +11,9 @@ namespace Piwik\Tracker;
 
 use Piwik\Common;
 use Piwik\Config;
+use Piwik\DataAccess\ArchiveInvalidator;
+use Piwik\Date;
+use Piwik\Exception\UnexpectedWebsiteFoundException;
 use Piwik\Network\IPUtils;
 use Piwik\Piwik;
 use Piwik\Plugin\Dimension\VisitDimension;
@@ -152,11 +155,7 @@ class Visit implements VisitInterface
 
         $this->visitorInfo = $visitor->getVisitorInfo();
 
-        $isLastActionInTheSameVisit = $this->isLastActionInTheSameVisit($visitor);
-
-        if (!$isLastActionInTheSameVisit) {
-            Common::printDebug("Visitor detected, but last action was more than 30 minutes ago...");
-        }
+        $isNewVisit = $this->isVisitNew($visitor, $action);
 
         // Known visit when:
         // ( - the visitor has the Piwik cookie with the idcookie ID used by Piwik to match the visitor
@@ -165,9 +164,7 @@ class Visit implements VisitInterface
         // )
         // AND
         // - the last page view for this visitor was less than 30 minutes ago @see isLastActionInTheSameVisit()
-        if ($visitor->isVisitorKnown()
-            && $isLastActionInTheSameVisit
-        ) {
+        if (!$isNewVisit) {
             $idReferrerActionUrl  = $this->visitorInfo['visit_exit_idaction_url'];
             $idReferrerActionName = $this->visitorInfo['visit_exit_idaction_name'];
 
@@ -203,9 +200,7 @@ class Visit implements VisitInterface
         // - the visitor has the Piwik cookie but the last action was performed more than 30 min ago @see isLastActionInTheSameVisit()
         // - the visitor doesn't have the Piwik cookie, and couldn't be matched in @see recognizeTheVisitor()
         // - the visitor does have the Piwik cookie but the idcookie and idvisit found in the cookie didn't match to any existing visit in the DB
-        if (!$visitor->isVisitorKnown()
-            || !$isLastActionInTheSameVisit
-        ) {
+        if ($isNewVisit) {
             $this->handleNewVisit($visitor, $action, $visitIsConverted);
             if (!is_null($action)) {
                 $action->record($visitor, 0, 0);
@@ -226,6 +221,8 @@ class Visit implements VisitInterface
         }
         unset($this->goalManager);
         unset($action);
+
+        $this->markArchivedReportsAsInvalidIfArchiveAlreadyFinished();
     }
 
     /**
@@ -386,7 +383,10 @@ class Visit implements VisitInterface
     protected function getSettingsObject()
     {
         if (is_null($this->userSettings)) {
-            $this->userSettings = new Settings( $this->request, $this->getVisitorIp() );
+            // Note: this config settig is also checked in the InterSites plugin
+            $isSameFingerprintAcrossWebsites = (bool)Config::getInstance()->Tracker['enable_fingerprinting_across_websites'];
+
+            $this->userSettings = new Settings( $this->request, $this->getVisitorIp(), $isSameFingerprintAcrossWebsites );
         }
 
         return $this->userSettings;
@@ -427,7 +427,7 @@ class Visit implements VisitInterface
 
     private static function toCanonicalHost($host)
     {
-        $hostLower = mb_strtolower($host, 'UTF-8');
+        $hostLower = Common::mb_strtolower($host, 'UTF-8');
         return str_replace('www.', '', $hostLower);
     }
 
@@ -547,6 +547,16 @@ class Visit implements VisitInterface
         return $valuesToUpdate;
     }
 
+    private function triggerPredicateHookOnDimensions($dimensions, $hook, Visitor $visitor, Action $action = null)
+    {
+        foreach ($dimensions as $dimension) {
+            if ($dimension->$hook($this->request, $visitor, $action)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected function getAllVisitDimensions()
     {
         $dimensions = VisitDimension::getAllDimensions();
@@ -594,5 +604,53 @@ class Visit implements VisitInterface
     protected function insertNewVisit($visit)
     {
         return $this->getModel()->createVisit($visit);
+    }
+
+    /**
+     * Determines if the tracker if the current action should be treated as the start of a new visit or
+     * an action in an existing visit.
+     *
+     * @param Visitor $visitor The current visit/visitor information.
+     * @param Action|null $action The current action being tracked.
+     * @return bool
+     */
+    public function isVisitNew(Visitor $visitor, Action $action = null)
+    {
+        $isLastActionInTheSameVisit = $this->isLastActionInTheSameVisit($visitor);
+
+        if (!$isLastActionInTheSameVisit) {
+            Common::printDebug("Visitor detected, but last action was more than 30 minutes ago...");
+
+            return true;
+        }
+
+        $shouldForceNewVisit = $this->triggerPredicateHookOnDimensions($this->getAllVisitDimensions(), 'shouldForceNewVisit', $visitor, $action);
+        if ($shouldForceNewVisit) {
+            return true;
+        }
+
+        return !$visitor->isVisitorKnown();
+    }
+
+    private function markArchivedReportsAsInvalidIfArchiveAlreadyFinished()
+    {
+        $idSite = (int) $this->request->getIdSite();
+        $time   = $this->request->getCurrentTimestamp();
+
+        try {
+            $site = Cache::getCacheWebsiteAttributes($idSite);
+        } catch (UnexpectedWebsiteFoundException $e) {
+            return;
+        }
+        if(!isset($site['timezone'])) {
+            return;
+        }
+
+        $date = Date::factory((int) $time, $site['timezone']);
+
+        if (!$date->isToday()) { // we don't have to handle in case date is in future as it is not allowed by tracker
+            $invalidReport = new ArchiveInvalidator();
+            $invalidReport->rememberToInvalidateArchivedReportsLater($idSite, $date);
+        }
     }
 }

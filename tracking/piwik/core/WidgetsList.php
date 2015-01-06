@@ -8,7 +8,7 @@
  */
 namespace Piwik;
 
-use Piwik\Cache\PluginAwareStaticCache;
+use Piwik\Cache as PiwikCache;
 use Piwik\Plugin\Report;
 use Piwik\Plugin\Widgets;
 
@@ -63,9 +63,11 @@ class WidgetsList extends Singleton
      */
     public static function get()
     {
-        $cache = self::getCacheForCompleteList();
-        if (!self::$listCacheToBeInvalidated && $cache->has()) {
-            return $cache->get();
+        $cache   = self::getCacheForCompleteList();
+        $cacheId = self::getCacheId();
+
+        if (!self::$listCacheToBeInvalidated && $cache->contains($cacheId)) {
+            return $cache->fetch($cacheId);
         }
 
         self::addWidgets();
@@ -83,7 +85,7 @@ class WidgetsList extends Singleton
             $widgets[$category] = $v;
         }
 
-        $cache->set($widgets);
+        $cache->save($cacheId, $widgets);
         self::$listCacheToBeInvalidated = false;
 
         return $widgets;
@@ -159,6 +161,30 @@ class WidgetsList extends Singleton
     }
 
     /**
+     * Returns the unique id of an widget with the given parameters
+     *
+     * @param $controllerName
+     * @param $controllerAction
+     * @param array $customParameters
+     * @return string
+     */
+    public static function getWidgetUniqueId($controllerName, $controllerAction, $customParameters = array())
+    {
+        $widgetUniqueId = 'widget' . $controllerName . $controllerAction;
+
+        foreach ($customParameters as $name => $value) {
+            if (is_array($value)) {
+                // use 'Array' for backward compatibility;
+                // could we switch to using $value[0]?
+                $value = 'Array';
+            }
+            $widgetUniqueId .= $name . $value;
+        }
+
+        return $widgetUniqueId;
+    }
+
+    /**
      * Adds a report to the list of dashboard widgets.
      *
      * @param string $widgetCategory The widget category. This can be a translation token.
@@ -171,16 +197,7 @@ class WidgetsList extends Singleton
     public static function add($widgetCategory, $widgetName, $controllerName, $controllerAction, $customParameters = array())
     {
         $widgetName     = Piwik::translate($widgetName);
-        $widgetUniqueId = 'widget' . $controllerName . $controllerAction;
-
-        foreach ($customParameters as $name => $value) {
-            if (is_array($value)) {
-                // use 'Array' for backward compatibility;
-                // could we switch to using $value[0]?
-                $value = 'Array';
-            }
-            $widgetUniqueId .= $name . $value;
-        }
+        $widgetUniqueId = self::getWidgetUniqueId($controllerName, $controllerAction, $customParameters);
 
         if (!array_key_exists($widgetCategory, self::$widgets)) {
             self::$widgets[$widgetCategory] = array();
@@ -255,11 +272,16 @@ class WidgetsList extends Singleton
     {
         self::$widgets    = array();
         self::$hookCalled = false;
-        self::getCacheForCompleteList()->clear();
+        self::getCacheForCompleteList()->delete(self::getCacheId());
+    }
+
+    private static function getCacheId()
+    {
+        return CacheId::pluginAware('WidgetsList');
     }
 
     private static function getCacheForCompleteList()
     {
-        return new PluginAwareStaticCache('WidgetsList');
+        return PiwikCache::getTransientCache();
     }
 }

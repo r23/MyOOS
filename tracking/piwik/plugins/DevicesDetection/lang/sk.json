@@ -1,0 +1,10 @@
+{
+    "DevicesDetection": {
+        "BrowserFamily": "Rodina prehliadača",
+        "Browsers": "Prehliadače",
+        "ColumnBrowser": "Prehliadač",
+        "ColumnOperatingSystem": "Operačný systém",
+        "OperatingSystems": "Operačný systém",
+        "WidgetBrowsers": "Prehliadače návštevníkov"
+    }
+}

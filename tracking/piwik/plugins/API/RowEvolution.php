@@ -10,6 +10,7 @@ namespace Piwik\Plugins\API;
 
 use Exception;
 use Piwik\API\DataTableManipulator\LabelFilter;
+use Piwik\API\DataTablePostProcessor;
 use Piwik\API\Request;
 use Piwik\API\ResponseBuilder;
 use Piwik\Common;
@@ -48,7 +49,7 @@ class RowEvolution
             throw new Exception("Row evolutions can not be processed with this combination of \'date\' and \'period\' parameters.");
         }
 
-        $label = ResponseBuilder::unsanitizeLabelParameter($label);
+        $label = DataTablePostProcessor::unsanitizeLabelParameter($label);
         $labels = Piwik::getArrayFromApiParameter($label);
 
         $metadata = $this->getRowEvolutionMetaData($idSite, $period, $date, $apiModule, $apiAction, $language, $idGoal);
@@ -279,9 +280,8 @@ class RowEvolution
         // note: some reports should not be filtered with AddColumnProcessedMetrics
         // specifically, reports without the Metrics::INDEX_NB_VISITS metric such as Goals.getVisitsUntilConversion & Goal.getDaysToConversion
         // this is because the AddColumnProcessedMetrics filter removes all datable rows lacking this metric
-        if ( isset($metadata['metrics']['nb_visits'])
-            && !empty($label)) {
-            $parameters['filter_add_columns_when_show_all_columns'] = '1';
+        if (isset($metadata['metrics']['nb_visits'])) {
+            $parameters['filter_add_columns_when_show_all_columns'] = '0';
         }
 
         $url = Url::getQueryStringFromParameters($parameters);

@@ -55,7 +55,7 @@ aws_keyname = ""
 aws_pem_file = "<path to pem file>"
 aws_securitygroups[] = "default"
 aws_region = "us-east-1"
-aws_ami = "ami-609c1e08"
+aws_ami = "ami-ac24bac4"
 aws_instance_type = "c3.large"
 
 [log]
@@ -65,7 +65,7 @@ log_writers[] = screen
 ; log level, everything logged w/ this level or one of greater severity
 ; will be logged. everything else will be ignored. possible values are:
 ; NONE, ERROR, WARN, INFO, DEBUG, VERBOSE
-log_level = ERROR
+log_level = WARN
 
 ; if set to 1, only requests done in CLI mode (eg. the ./console core:archive cron run) will be logged
 ; NOTE: log_only_when_debug_parameter will also be checked for
@@ -77,6 +77,31 @@ log_only_when_debug_parameter = 0
 
 ; if configured to log in a file, log entries will be made to this file
 logger_file_path = tmp/logs/piwik.log
+
+[Cache]
+; available backends are 'file', 'array', 'null', 'redis', 'chained'
+; 'array' will cache data only during one request
+; 'null' will not cache anything at all
+; 'file' will cache on the filesystem
+; 'redis' will cache on a Redis server, use this if you are running Piwik with multiple servers. Further configuration in [RedisCache] is needed
+; 'chained' will chain multiple cache backends. Further configuration in [ChainedCache] is needed
+backend = chained
+
+[ChainedCache]
+; The chained cache will always try to read from the fastest backend first (the first listed one) to avoid requesting
+; the same cache entry from the slowest backend multiple times in one request.
+backends[] = array
+backends[] = file
+
+[RedisCache]
+; Redis server configuration.
+host = "127.0.0.1"
+port = 6379
+timeout = 0.0
+password = ""
+database = 14
+; In case you are using queued tracking: Make sure to configure a different database! Otherwise queued requests might
+; be flushed
 
 [Debug]
 ; if set to 1, the archiving process will always be triggered, even if the archive has already been computed
@@ -449,6 +474,10 @@ api_service_url = http://api.piwik.org
 ; eg. $period=range&date=previous10 becomes $period=day&date=previous10. Use this setting to override the $period value.
 graphs_default_period_to_plot_when_period_range = day
 
+; When the ImageGraph plugin is activated, enabling this option causes the image graphs to show the evolution
+; within the selected period instead of the evolution across the last n periods.
+graphs_show_evolution_within_selected_period = 0
+
 ; The Overlay plugin shows the Top X following pages, Top X downloads and Top X outlinks which followed
 ; a view of the current page. The value X can be set here.
 overlay_following_pages_limit = 300
@@ -510,6 +539,13 @@ pivot_by_filter_enable_fetch_by_segment = 0
 pivot_by_filter_default_column_limit = 10
 
 [Tracker]
+
+; Piwik uses "Privacy by default" model. When one of your users visit multiple of your websites tracked in this Piwik,
+; Piwik will create for this user a fingerprint that will be different across the multiple websites.
+; If you want to track unique users across websites (for example when using the InterSites plugin) you may set this setting to 1.
+; Note: setting this to 0 increases your users' privacy.
+enable_fingerprinting_across_websites = 0
+
 ; Piwik uses first party cookies by default. If set to 1,
 ; the visit ID cookie will be set on the Piwik server domain as well
 ; this is useful when you want to do cross websites analysis
@@ -579,6 +615,16 @@ campaign_var_name = "pk_cpn,pk_campaign,piwik_campaign,utm_campaign,utm_source,u
 ; Includes by default the GA style campaign keyword parameter utm_term
 campaign_keyword_var_name = "pk_kwd,pk_keyword,piwik_kwd,utm_term"
 
+; if set to 1, actions that contain different campaign information from the visitor's ongoing visit will
+; be treated as the start of a new visit. This will include situations when campaign information was absent before,
+; but is present now.
+create_new_visit_when_campaign_changes = 1
+
+; if set to 1, actions that contain different website referrer information from the visitor's ongoing visit
+; will be treatedas the start of a new visit. This will include situations when website referrer information was
+; absent before, but is present now.
+create_new_visit_when_website_referrer_changes = 0
+
 ; maximum length of a Page Title or a Page URL recorded in the log_action.name table
 page_maximum_length = 1024;
 
@@ -596,7 +642,7 @@ bulk_requests_use_transaction = 1
 ; Comma separated list of known Referrer Spammers, ie. bot visits that set a fake Referrer field.
 ; All Visits with a Referrer URL host set to one of these will be excluded.
 ; If you find new spam entries in Referrers>Websites, please report them here: https://github.com/piwik/piwik/issues/5099
-referrer_urls_spam = "semalt.com"
+referrer_urls_spam = "semalt.com,buttons-for-website.com,7makemoneyonline.com"
 
 ; DO NOT USE THIS SETTING ON PUBLICLY AVAILABLE PIWIK SERVER
 ; !!! Security risk: if set to 0, it would allow anyone to push data to Piwik with custom dates in the past/future and even with fake IPs!
@@ -658,6 +704,7 @@ username = ; Proxy username: optional; if specified, password is mandatory
 password = ; Proxy password: optional; if specified, username is mandatory
 
 [Plugins]
+; list of plugins (in order they will be loaded) that are activated by default in the Piwik platform
 Plugins[] = CorePluginsAdmin
 Plugins[] = CoreAdminHome
 Plugins[] = CoreHome
@@ -708,6 +755,9 @@ Plugins[] = ZenMode
 Plugins[] = LeftMenu
 Plugins[] = Morpheus
 Plugins[] = Contents
+Plugins[] = BulkTracking
+Plugins[] = Resolution
+Plugins[] = DevicePlugins
 
 [PluginsInstalled]
 PluginsInstalled[] = Login

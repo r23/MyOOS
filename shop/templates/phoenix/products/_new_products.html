@@ -18,12 +18,7 @@
 							<s>{$new_product.new_product_price}{$new_product.new_product_units}</s><br>
 							<span class="special_price">{$new_product.new_product_special_price}</span><br>
 						{else}
-							{if $new_product.new_max_product_discount != 0}
-								<s>{$new_product.new_product_price}</s>&nbsp;-{$new_product.new_max_product_discount}%<br>
-								<span class="discount_price">{$new_product.new_product_discount_price}{$new_product.new_product_units}</span><br>
-							{else}
-								{$new_product.new_product_price}{$new_product.new_product_units}<br>
-							{/if}
+							{$new_product.new_product_price}{$new_product.new_product_units}
 						{/if}
                         </div>
                     </div>    

@@ -14,10 +14,16 @@ use DeviceDetector\Parser\Bot;
 use DeviceDetector\Parser\OperatingSystem;
 use DeviceDetector\Parser\Client\ClientParserAbstract;
 use DeviceDetector\Parser\Device\DeviceParserAbstract;
+use DeviceDetector\Parser\VendorFragment;
 use \Spyc;
 
 class DeviceDetector
 {
+    /**
+     * Current version number of DeviceDetector
+     */
+    const VERSION = '2.7';
+
     /**
      * Holds all registered client types
      * @var array
@@ -236,8 +242,39 @@ class DeviceDetector
         return $this->matchUserAgent($regex);
     }
 
+    /**
+     * Returns if the parsed UA contains the 'Android; Tablet;' fragment
+     *
+     * @return bool
+     */
+    protected function hasAndroidTableFragment()
+    {
+        $regex = 'Android; Tablet;';
+        return $this->matchUserAgent($regex);
+    }
+
+    /**
+     * Returns if the parsed UA contains the 'Android; Mobile;' fragment
+     *
+     * @return bool
+     */
+    protected function hasAndroidMobileFragment()
+    {
+        $regex = 'Android; Mobile;';
+        return $this->matchUserAgent($regex);
+    }
+
     public function isMobile()
     {
+        if (!empty($this->device) && in_array($this->device, array(
+                DeviceParserAbstract::DEVICE_TYPE_FEATURE_PHONE,
+                DeviceParserAbstract::DEVICE_TYPE_SMARTPHONE,
+                DeviceParserAbstract::DEVICE_TYPE_TABLET,
+                DeviceParserAbstract::DEVICE_TYPE_CAMERA
+            ))) {
+            return true;
+        }
+
         $osShort = $this->getOs('short_name');
         if (empty($osShort) || self::UNKNOWN == $osShort) {
             return false;
@@ -472,6 +509,28 @@ class DeviceDetector
         }
 
         /**
+         * If no brand has been assigned try to match by known vendor fragments
+         */
+        if (empty($this->brand)) {
+            $vendorParser = new VendorFragment($this->getUserAgent());
+            $this->brand = $vendorParser->parse();
+        }
+
+        /**
+         * Some user agents simply contain the fragment 'Android; Tablet;', so we assume those devices as tablets
+         */
+        if (is_null($this->device) && $this->hasAndroidTableFragment()) {
+            $this->device = DeviceParserAbstract::DEVICE_TYPE_TABLET;
+        }
+
+        /**
+         * Some user agents simply contain the fragment 'Android; Mobile;', so we assume those devices as tablets
+         */
+        if (is_null($this->device) && $this->hasAndroidMobileFragment()) {
+            $this->device = DeviceParserAbstract::DEVICE_TYPE_SMARTPHONE;
+        }
+
+        /**
          * Android up to 3.0 was designed for smartphones only. But as 3.0, which was tablet only, was published
          * too late, there were a bunch of tablets running with 2.x
          * With 4.0 the two trees were merged and it is for smartphones and tablets
@@ -488,6 +547,13 @@ class DeviceDetector
         }
 
         /**
+         * All detected feature phones running android are more likely a smartphone
+         */
+        if ($this->device == DeviceParserAbstract::DEVICE_TYPE_FEATURE_PHONE && $this->getOs('short_name') == 'AND') {
+            $this->device = DeviceParserAbstract::DEVICE_TYPE_SMARTPHONE;
+        }
+
+        /**
          * According to http://msdn.microsoft.com/en-us/library/ie/hh920767(v=vs.85).aspx
          * Internet Explorer 10 introduces the "Touch" UA string token. If this token is present at the end of the
          * UA string, the computer has touch capability, and is running Windows 8 (or later).
@@ -496,7 +562,7 @@ class DeviceDetector
          * As most touch enabled devices are tablets and only a smaller part are desktops/notebooks we assume that
          * all Windows 8 touch devices are tablets.
          */
-        if (is_null($this->device) && in_array($this->getOs('short_name'), array('WI8', 'W81', 'WRT')) && $this->isTouchEnabled()) {
+        if (is_null($this->device) && in_array($this->getOs('short_name'), array('WI8', 'W81', 'WRT', 'WR2')) && $this->isTouchEnabled()) {
             $this->device = DeviceParserAbstract::DEVICE_TYPE_TABLET;
         }
 
@@ -543,7 +609,7 @@ class DeviceDetector
         $processed = array(
             'user_agent'     => $deviceDetector->getUserAgent(),
             'os'             => $deviceDetector->getOs(),
-            'client'        => $deviceDetector->getClient(),
+            'client'         => $deviceDetector->getClient(),
             'device'         => array(
                 'type'       => $deviceDetector->getDeviceName(),
                 'brand'      => $deviceDetector->getBrand(),

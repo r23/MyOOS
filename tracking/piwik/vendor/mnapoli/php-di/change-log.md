@@ -5,10 +5,15 @@
 Improvements:
 
 - Lighter package: requires 4 less Composer dependencies by default
+- [#207](https://github.com/mnapoli/PHP-DI/issues/207): Support for `DI\link()` in arrays
 
 BC breaks:
 
 - [#198](https://github.com/mnapoli/PHP-DI/issues/198) `ocramius/proxy-manager` is not installed by default anymore, you need to require it in `composer.json` if you want to use **lazy injection**
+
+Internal changes in case you were replacing/extending some parts:
+
+- `DI\Definition\Source\ChainableDefinitionSource` is now an abstract class (was previously an interface).
 
 ## 4.4
 

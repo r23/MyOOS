@@ -1,15 +1,5 @@
 {
     "UserSettings": {
-        "BrowserFamilies": "Па сямействе браўзараў",
-        "Browsers": "Па браўзарах",
-        "ColumnBrowser": "Браўзэр",
-        "ColumnBrowserFamily": "Сямейства браўзэраў",
-        "ColumnBrowserVersion": "Версія браўзэра",
-        "ColumnConfiguration": "Канфігурацыя",
-        "ColumnOperatingSystem": "Аперацыйная сістэма",
-        "ColumnResolution": "Дазвол",
-        "ColumnTypeOfScreen": "Тып экрана",
-        "Configurations": "Па канфігурацыі",
         "Language_ab": "абхазская",
         "Language_af": "афрыкаанс",
         "Language_am": "амхарская",
@@ -125,20 +115,7 @@
         "Language_zh": "кітайская",
         "Language_zu": "зулу",
         "LanguageCode": "Код мовы",
-        "OperatingSystems": "Па аперацыйных сістэмах",
         "PluginDescription": "Справаздачы наладак карыстальнікаў: Браўзэр, Сямейства Браўзэр сям'і, Аперацыйная сістэма, Плагіны, Глабальныя параметры.",
-        "PluginDetectionDoesNotWorkInIE": "Заўважце: Плагіны не вызначаюцца ў Internet Explorer. Гэта справаздача заснавана на не-IE браўзарах.",
-        "Resolutions": "Па дазволе манітораў",
-        "VisitorSettings": "Налады карыстача",
-        "WideScreen": "Па шырыні экрана",
-        "WidgetBrowsers": "Браўзары карыстачоў",
-        "WidgetBrowsersDocumentation": "Гэтая справаздача змяшчае інфармацыю аб тым, які браўзэр выкарыстоўвалі наведвальнікі. Кожная версія браўзэра пералічана асобна.",
-        "WidgetGlobalVisitors": "Глабальная канфігурацыя",
-        "WidgetGlobalVisitorsDocumentation": "Гэтая справаздача паказвае найбольш распаўсюджаныя агульныя канфігурацыі, якія мелі вашы наведвальнікі. Канфігурацыя - гэта спалучэнне аперацыйнай сістэмы, тыпу браўзэра і дазволу экрана.",
-        "WidgetOperatingSystems": "Аперацыйныя сістэмы",
-        "WidgetPlugins": "Спіс плагінаў",
-        "WidgetPluginsDocumentation": "Гэтая справаздача паказвае, якія плагіны были ўключаны ў браўзэраў Вашых наведвальнікаў. Гэтая інфармацыя можа мець важнае значэнне для выбару правільнага спосабу дастаўкі кантэнту.",
-        "WidgetResolutions": "Дазвол манітораў",
-        "WidgetWidescreen": "Звычайны \/ Шырокаэкранны"
+        "VisitorSettings": "Налады карыстача"
     }
 }

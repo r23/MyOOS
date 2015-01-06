@@ -10,8 +10,9 @@
         "Deactivate": "Onemogoči",
         "Inactive": "Neaktivno",
         "LicenseHomepage": "Spletna stran licence",
-        "MainDescription": "Vtičniki razširjajo Piwik-ovo funkcionalnost. Ko je vtičnik enkrat nameščen, ga lahko tukaj aktivirate oziroma deaktivirate.",
+        "OncePluginIsInstalledYouMayActivateHere": "Ko je vtičnik enkrat nameščen, ga lahko tukaj aktivirate oziroma deaktivirate.",
         "PluginHomepage": "Spletna stran vtičnika",
+        "PluginsExtendPiwik": "Vtičniki razširjajo Piwik-ovo funkcionalnost.",
         "PluginsManagement": "Urejanje Vtičnikov",
         "Status": "Status",
         "Version": "Različica"

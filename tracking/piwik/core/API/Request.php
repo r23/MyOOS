@@ -46,7 +46,7 @@ use Piwik\Log;
  *
  * **Basic Usage**
  *
- *     $request = new Request('method=UserSettings.getWideScreen&idSite=1&date=yesterday&period=week'
+ *     $request = new Request('method=UserSettings.getLanguage&idSite=1&date=yesterday&period=week'
  *                          . '&format=xml&filter_limit=5&filter_offset=0')
  *     $result = $request->process();
  *     echo $result;
@@ -54,7 +54,7 @@ use Piwik\Log;
  * **Getting a unrendered DataTable**
  *
  *     // use the convenience method 'processRequest'
- *     $dataTable = Request::processRequest('UserSettings.getWideScreen', array(
+ *     $dataTable = Request::processRequest('UserSettings.getLanguage', array(
  *         'idSite' => 1,
  *         'date' => 'yesterday',
  *         'period' => 'week',
@@ -78,16 +78,24 @@ class Request
      * forwarded to request array before it is returned.
      *
      * @param string|array $request The base request string or array, eg,
-     *                              `'module=UserSettings&action=getWidescreen'`.
+     *                              `'module=UserSettings&action=getLanguage'`.
+     * @param array $defaultRequest Default query parameters. If a query parameter is absent in `$request`, it will be loaded
+     *                              from this. Defaults to `$_GET + $_POST`.
      * @return array
      */
-    public static function getRequestArrayFromString($request)
+    public static function getRequestArrayFromString($request, $defaultRequest = null)
     {
-        $defaultRequest = $_GET + $_POST;
+        if ($defaultRequest === null) {
+            $defaultRequest = $_GET + $_POST;
 
-        $requestRaw = self::getRequestParametersGET();
-        if (!empty($requestRaw['segment'])) {
-            $defaultRequest['segment'] = $requestRaw['segment'];
+            $requestRaw = self::getRequestParametersGET();
+            if (!empty($requestRaw['segment'])) {
+                $defaultRequest['segment'] = $requestRaw['segment'];
+            }
+
+            if (empty($defaultRequest['format_metrics'])) {
+                $defaultRequest['format_metrics'] = 'bc';
+            }
         }
 
         $requestArray = $defaultRequest;
@@ -117,14 +125,17 @@ class Request
      * Constructor.
      *
      * @param string|array $request Query string that defines the API call (must at least contain a **method** parameter),
-     *                              eg, `'method=UserSettings.getWideScreen&idSite=1&date=yesterday&period=week&format=xml'`
+     *                              eg, `'method=UserSettings.getLanguage&idSite=1&date=yesterday&period=week&format=xml'`
      *                              If a request is not provided, then we use the values in the `$_GET` and `$_POST`
      *                              superglobals.
+     * @param array $defaultRequest Default query parameters. If a query parameter is absent in `$request`, it will be loaded
+     *                              from this. Defaults to `$_GET + $_POST`.
      */
-    public function __construct($request = null)
+    public function __construct($request = null, $defaultRequest = null)
     {
-        $this->request = self::getRequestArrayFromString($request);
+        $this->request = self::getRequestArrayFromString($request, $defaultRequest);
         $this->sanitizeRequest();
+        $this->renameModuleAndActionInRequest();
     }
 
     /**
@@ -132,19 +143,23 @@ class Request
      * we rewrite to correct renamed plugin: Referrers
      *
      * @param $module
-     * @return string
+     * @param $action
+     * @return array( $module, $action )
      * @ignore
      */
-    public static function renameModule($module)
+    public static function getRenamedModuleAndAction($module, $action)
     {
-        $moduleToRedirect = array(
-            'Referers'   => 'Referrers',
-            'PDFReports' => 'ScheduledReports',
-        );
-        if (isset($moduleToRedirect[$module])) {
-            return $moduleToRedirect[$module];
-        }
-        return $module;
+        /**
+         * This event is posted in the Request dispatcher and can be used
+         * to overwrite the Module and Action to dispatch.
+         * This is useful when some Controller methods or API methods have been renamed or moved to another plugin.
+         *
+         * @param $module string
+         * @param $action string
+         */
+        Piwik::postEvent('Request.getRenamedModuleAndAction', array(&$module, &$action));
+
+        return array($module, $action);
     }
 
     /**
@@ -203,7 +218,7 @@ class Request
 
             list($module, $method) = $this->extractModuleAndMethod($moduleMethod);
 
-            $module = $this->renameModule($module);
+            list($module, $method) = $this->getRenamedModuleAndAction($module, $method);
 
             if (!\Piwik\Plugin\Manager::getInstance()->isPluginActivated($module)) {
                 throw new PluginDeactivatedException($module);
@@ -289,9 +304,13 @@ class Request
      * @param string $method The API method to call, ie, `'Actions.getPageTitles'`.
      * @param array $paramOverride The parameter name-value pairs to use instead of what's
      *                             in `$_GET` & `$_POST`.
+     * @param array $defaultRequest Default query parameters. If a query parameter is absent in `$request`, it will be loaded
+     *                              from this. Defaults to `$_GET + $_POST`.
+     *
+     *                              To avoid using any parameters from $_GET or $_POST, set this to an empty `array()`.
      * @return mixed The result of the API request. See {@link process()}.
      */
-    public static function processRequest($method, $paramOverride = array())
+    public static function processRequest($method, $paramOverride = array(), $defaultRequest = null)
     {
         $params = array();
         $params['format'] = 'original';
@@ -300,7 +319,7 @@ class Request
         $params = $paramOverride + $params;
 
         // process request
-        $request = new Request($params);
+        $request = new Request($params, $defaultRequest);
         return $request->process();
     }
 
@@ -397,5 +416,16 @@ class Request
             }
         }
         return $segmentRaw;
+    }
+
+    private function renameModuleAndActionInRequest()
+    {
+        if (empty($this->request['apiModule'])) {
+            return;
+        }
+        if (empty($this->request['apiAction'])) {
+            $this->request['apiAction'] = null;
+        }
+        list($this->request['apiModule'], $this->request['apiAction']) = $this->getRenamedModuleAndAction($this->request['apiModule'], $this->request['apiAction']);
     }
 }

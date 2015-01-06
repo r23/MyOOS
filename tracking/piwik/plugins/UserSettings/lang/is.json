@@ -1,14 +1,5 @@
 {
     "UserSettings": {
-        "BrowserFamilies": "Vafrafjölskyldur",
-        "Browsers": "Vafrar",
-        "ColumnBrowser": "Vafri",
-        "ColumnBrowserFamily": "Vafrafjölskylda",
-        "ColumnConfiguration": "Uppsetning",
-        "ColumnOperatingSystem": "Stýrikerfi",
-        "ColumnResolution": "Skjáupplausn",
-        "ColumnTypeOfScreen": "Skjátegund",
-        "Configurations": "Uppsetningar",
         "Language_aa": "afár",
         "Language_ab": "abkasíska",
         "Language_ae": "avestíska",
@@ -194,17 +185,7 @@
         "Language_zh": "kínverska",
         "Language_zu": "súlú",
         "LanguageCode": "Kóði tungumáls",
-        "OperatingSystems": "Stýrikerfi",
         "PluginDescription": "Gefur skýrslu um ýmsar stillingar gesta:Vafra, Vafrafjölskyldu, Stýrikerfi, Íbætur, Skjáupplausn, altækar stillingar.",
-        "PluginDetectionDoesNotWorkInIE": "Ath: uppgötvun á íbótum virkar ekki með Internet Explorer. Þessi skýrsla er aðeins unnin út frá öðrum vöfrum en IE.",
-        "Resolutions": "Skjáupplausnir",
-        "VisitorSettings": "Stillingar gesta",
-        "WideScreen": "Breiðskjár",
-        "WidgetBrowsers": "Vafrar gesta",
-        "WidgetGlobalVisitors": "Altæk gestastilling",
-        "WidgetOperatingSystems": "Stýrikerfi",
-        "WidgetPlugins": "Listi yfir íbætur",
-        "WidgetResolutions": "Skjáupplausnir",
-        "WidgetWidescreen": "Normal\/Breiðtjald"
+        "VisitorSettings": "Stillingar gesta"
     }
 }

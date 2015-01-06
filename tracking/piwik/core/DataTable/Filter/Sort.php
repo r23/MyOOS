@@ -73,16 +73,8 @@ class Sort extends BaseFilter
      */
     public function numberSort($a, $b)
     {
-        $valA = $a->getColumn($this->columnToSort);
-        $valB = $b->getColumn($this->columnToSort);
-
-        if ($valA === false) {
-            $valA = null;
-        }
-
-        if ($valB === false) {
-            $valB = null;
-        }
+        $valA = $this->getColumnValue($a);
+        $valB = $this->getColumnValue($b);
 
         return !isset($valA)
         && !isset($valB)
@@ -118,16 +110,8 @@ class Sort extends BaseFilter
      */
     function naturalSort($a, $b)
     {
-        $valA = $a->getColumn($this->columnToSort);
-        $valB = $b->getColumn($this->columnToSort);
-
-        if ($valA === false) {
-            $valA = null;
-        }
-
-        if ($valB === false) {
-            $valB = null;
-        }
+        $valA = $this->getColumnValue($a);
+        $valB = $this->getColumnValue($b);
 
         return !isset($valA)
         && !isset($valB)
@@ -153,16 +137,8 @@ class Sort extends BaseFilter
      */
     function sortString($a, $b)
     {
-        $valA = $a->getColumn($this->columnToSort);
-        $valB = $b->getColumn($this->columnToSort);
-
-        if ($valA === false) {
-            $valA = null;
-        }
-
-        if ($valB === false) {
-            $valB = null;
-        }
+        $valA = $this->getColumnValue($a);
+        $valB = $this->getColumnValue($b);
 
         return !isset($valA)
         && !isset($valB)
@@ -179,6 +155,18 @@ class Sort extends BaseFilter
             );
     }
 
+    protected function getColumnValue(Row $table )
+    {
+        $value = $table->getColumn($this->columnToSort);
+
+        if ($value === false
+            || is_array($value)
+        ) {
+            return null;
+        }
+        return $value;
+    }
+
     /**
      * Sets the column to be used for sorting
      *
@@ -192,7 +180,7 @@ class Sort extends BaseFilter
             return $this->columnToSort;
         }
 
-        $columnIdToName = Metrics::getMappingFromIdToName();
+        $columnIdToName = Metrics::getMappingFromNameToId();
         // sorting by "nb_visits" but the index is Metrics::INDEX_NB_VISITS in the table
         if (isset($columnIdToName[$this->columnToSort])) {
             $column = $columnIdToName[$this->columnToSort];

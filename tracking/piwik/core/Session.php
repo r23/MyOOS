@@ -9,6 +9,7 @@
 namespace Piwik;
 
 use Exception;
+use Piwik\Container\StaticContainer;
 use Piwik\Exception\MissingFilePermissionException;
 use Piwik\Session\SaveHandler\DbTable;
 use Zend_Session;
@@ -120,7 +121,7 @@ class Session extends Zend_Session
             $enableDbSessions = '';
             if (DbHelper::isInstalled()) {
                 $enableDbSessions = "<br/>If you still experience issues after trying these changes,
-			            			we recommend that you <a href='http://piwik.org/faq/how-to-install/#faq_133' target='_blank'>enable database session storage</a>.";
+			            			we recommend that you <a href='http://piwik.org/faq/how-to-install/#faq_133' rel='noreferrer' target='_blank'>enable database session storage</a>.";
             }
 
             $pathToSessions = Filechecks::getErrorMessageMissingPermissions(Filesystem::getPathToPiwikRoot() . '/tmp/sessions/');

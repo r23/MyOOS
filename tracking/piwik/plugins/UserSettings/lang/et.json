@@ -1,17 +1,6 @@
 {
     "UserSettings": {
-        "BrowserFamilies": "Sirvijate tüübid",
         "BrowserLanguage": "Veebisirvija keel",
-        "Browsers": "Veebisirvijad",
-        "ColumnBrowser": "Veebisirvija",
-        "ColumnBrowserFamily": "Sirvija tüüp",
-        "ColumnBrowserVersion": "Sirvija versioon",
-        "ColumnConfiguration": "Konfiguratsioon",
-        "ColumnOperatingSystem": "Operatsioonisüsteem",
-        "ColumnResolution": "Resolutsioon",
-        "ColumnTypeOfScreen": "Ekraani tüüp",
-        "Configurations": "Konfiguratsioonid",
-        "GamingConsole": "Mängukonsool",
         "Language_aa": "afari",
         "Language_ab": "abhaasi",
         "Language_ae": "avesta",
@@ -197,19 +186,6 @@
         "Language_zh": "hiina",
         "Language_zu": "suulu",
         "LanguageCode": "Keele kood",
-        "MobileVsDesktop": "Mobiilne või paikne seade",
-        "OperatingSystemFamily": "OP-süsteemi tüüp",
-        "OperatingSystems": "Operatsioonisüsteemid",
-        "PluginDetectionDoesNotWorkInIE": "Märge: Lisatarkvara tuvastamine ei tööta Internet Exploreriga külastajatel. See raport kuvab andmeid mitte-IE veebisirvikute kohta.",
-        "Resolutions": "Ekraani resolutsioonid",
-        "VisitorSettings": "Külastajate seaded",
-        "WideScreen": "Laiekraan",
-        "WidgetBrowsers": "Külastajate veebisirvijad",
-        "WidgetBrowserVersion": "Veebisirvija versioon",
-        "WidgetGlobalVisitors": "Kohalike külastajate seaded",
-        "WidgetOperatingSystems": "Operatsioonisüsteemid",
-        "WidgetPlugins": "Sirviku lisatarkvarad",
-        "WidgetResolutions": "Ekraani resolutsioonid",
-        "WidgetWidescreen": "Normaal \/ Laiekraan"
+        "VisitorSettings": "Külastajate seaded"
     }
 }

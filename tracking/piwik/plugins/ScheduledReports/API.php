@@ -21,6 +21,7 @@ use Piwik\Plugins\SegmentEditor\API as APISegmentEditor;
 use Piwik\Plugins\SitesManager\API as SitesManagerApi;
 use Piwik\ReportRenderer;
 use Piwik\Site;
+use Piwik\Tracker;
 use Piwik\Translate;
 
 /**
@@ -31,7 +32,7 @@ use Piwik\Translate;
  *
  * You can also get the list of all existing reports via "getReports", create new reports via "addReport",
  * or manage existing reports with "updateReport" and "deleteReport".
- * See also the documentation about <a href='http://piwik.org/docs/email-reports/' target='_blank'>Scheduled Email reports</a> in Piwik.
+ * See also the documentation about <a href='http://piwik.org/docs/email-reports/' rel='noreferrer' target='_blank'>Scheduled Email reports</a> in Piwik.
  *
  * @method static \Piwik\Plugins\ScheduledReports\API getInstance()
  */
@@ -554,7 +555,8 @@ class API extends \Piwik\Plugin\API
         $this->getModel()->updateReport($report['idreport'], array('ts_last_sent' => $now));
 
         // If running from piwik.php with debug, do not delete the PDF after sending the email
-        if (!isset($GLOBALS['PIWIK_TRACKER_DEBUG']) || !$GLOBALS['PIWIK_TRACKER_DEBUG']) {
+        $tracker = new Tracker();
+        if (!$tracker->isDebugModeEnabled()) {
             @chmod($outputFilename, 0600);
         }
     }

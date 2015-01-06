@@ -1,14 +1,5 @@
 {
     "UserSettings": {
-        "BrowserFamilies": "Nabigatzaile-familiak",
-        "Browsers": "Nabigatzaileak",
-        "ColumnBrowser": "Nabigatzailea",
-        "ColumnBrowserFamily": "Nabigatzaile-familia",
-        "ColumnConfiguration": "Konfigurazioa",
-        "ColumnOperatingSystem": "Sistema eragilea",
-        "ColumnResolution": "Bereizmena",
-        "ColumnTypeOfScreen": "Pantaila mota",
-        "Configurations": "Konfigurazioak",
         "Language_ab": "abkhazera",
         "Language_af": "afrikaans",
         "Language_ak": "Akanera",
@@ -155,15 +146,6 @@
         "Language_zh": "txinera",
         "Language_zu": "zuluera",
         "LanguageCode": "Hizkuntza-kodea",
-        "OperatingSystems": "Sistema eragileak",
-        "Resolutions": "Bereizmenak",
-        "VisitorSettings": "Bisitariaren ezarpenak",
-        "WideScreen": "Pantaila panoramikoa",
-        "WidgetBrowsers": "Bisitarien nabigatzaileak",
-        "WidgetGlobalVisitors": "Bisitarien konfigurazioa",
-        "WidgetOperatingSystems": "Sistema eragileak",
-        "WidgetPlugins": "Pluginen zerrenda",
-        "WidgetResolutions": "Pantailaren bereizmenak",
-        "WidgetWidescreen": "Normala \/ Panoramikoa"
+        "VisitorSettings": "Bisitariaren ezarpenak"
     }
 }

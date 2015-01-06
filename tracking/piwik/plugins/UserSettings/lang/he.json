@@ -1,8 +1,5 @@
 {
     "UserSettings": {
-        "ColumnBrowser": "דפדפן",
-        "ColumnBrowserFamily": "משפחת דפדפן",
-        "ColumnBrowserVersion": "גרסת דפדפן",
         "Language_aa": "אפארית",
         "Language_ab": "אבחזית",
         "Language_ae": "אבסטן",
@@ -187,7 +184,6 @@
         "Language_za": "ז'ואנג",
         "Language_zh": "סינית",
         "Language_zu": "זולו",
-        "LanguageCode": "קוד שפה",
-        "WidgetResolutions": "רזולוציית מסך"
+        "LanguageCode": "קוד שפה"
     }
 }

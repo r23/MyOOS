@@ -131,17 +131,17 @@
     },
     {
         "name": "doctrine/annotations",
-        "version": "v1.2.1",
-        "version_normalized": "1.2.1.0",
+        "version": "v1.2.3",
+        "version_normalized": "1.2.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/annotations.git",
-            "reference": "6a6bec0670bb6e71a263b08bc1b98ea242928633"
+            "reference": "eeda578cbe24a170331a1cfdf78be723412df7a4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/annotations/zipball/6a6bec0670bb6e71a263b08bc1b98ea242928633",
-            "reference": "6a6bec0670bb6e71a263b08bc1b98ea242928633",
+            "url": "https://api.github.com/repos/doctrine/annotations/zipball/eeda578cbe24a170331a1cfdf78be723412df7a4",
+            "reference": "eeda578cbe24a170331a1cfdf78be723412df7a4",
             "shasum": ""
         },
         "require": {
@@ -152,7 +152,7 @@
             "doctrine/cache": "1.*",
             "phpunit/phpunit": "4.*"
         },
-        "time": "2014-09-25 16:45:30",
+        "time": "2014-12-20 20:49:38",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -238,18 +238,12 @@
     },
     {
         "name": "doctrine/cache",
-        "version": "v1.3.1",
-        "version_normalized": "1.3.1.0",
+        "version": "dev-filecache-race-condition-fix",
+        "version_normalized": "dev-filecache-race-condition-fix",
         "source": {
             "type": "git",
-            "url": "https://github.com/doctrine/cache.git",
-            "reference": "cf483685798a72c93bf4206e3dd6358ea07d64e7"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/cache/zipball/cf483685798a72c93bf4206e3dd6358ea07d64e7",
-            "reference": "cf483685798a72c93bf4206e3dd6358ea07d64e7",
-            "shasum": ""
+            "url": "https://github.com/piwik/cache.git",
+            "reference": "c5a6d2ade84241128fcf95eca386e07b11ffa347"
         },
         "require": {
             "php": ">=5.3.2"
@@ -259,26 +253,30 @@
         },
         "require-dev": {
             "phpunit/phpunit": ">=3.7",
+            "predis/predis": "~0.8",
             "satooshi/php-coveralls": "~0.6"
         },
-        "time": "2014-09-17 14:24:04",
+        "time": "2014-12-28 23:29:42",
         "type": "library",
         "extra": {
             "branch-alias": {
                 "dev-master": "1.4.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-0": {
                 "Doctrine\\Common\\Cache\\": "lib/"
             }
         },
-        "notification-url": "https://packagist.org/downloads/",
         "license": [
             "MIT"
         ],
         "authors": [
+            {
+                "name": "Guilherme Blanco",
+                "email": "guilhermeblanco@gmail.com"
+            },
             {
                 "name": "Roman Borschel",
                 "email": "roman@code-factory.org"
@@ -286,10 +284,6 @@
             {
                 "name": "Benjamin Eberlei",
                 "email": "kontakt@beberlei.de"
-            },
-            {
-                "name": "Guilherme Blanco",
-                "email": "guilhermeblanco@gmail.com"
             },
             {
                 "name": "Jonathan Wage",
@@ -343,12 +337,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/mnapoli/PHP-DI.git",
-            "reference": "dad96f16334492ff387a4f8bc48c5f9f0e01e4a7"
+            "reference": "4676e15f7f014185864fd5f8f0b3cdbd678067d0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/mnapoli/PHP-DI/zipball/dad96f16334492ff387a4f8bc48c5f9f0e01e4a7",
-            "reference": "dad96f16334492ff387a4f8bc48c5f9f0e01e4a7",
+            "url": "https://api.github.com/repos/mnapoli/PHP-DI/zipball/4676e15f7f014185864fd5f8f0b3cdbd678067d0",
+            "reference": "4676e15f7f014185864fd5f8f0b3cdbd678067d0",
             "shasum": ""
         },
         "require": {
@@ -366,7 +360,7 @@
         "suggest": {
             "ocramius/proxy-manager": "Install it if you want to use lazy injection"
         },
-        "time": "2014-11-10 01:38:05",
+        "time": "2014-12-17 04:49:43",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -375,10 +369,8 @@
         },
         "installation-source": "source",
         "autoload": {
-            "psr-0": {
-                "DI\\": "src/",
-                "IntegrationTests\\": "tests/",
-                "UnitTests\\": "tests/"
+            "psr-4": {
+                "DI\\": "src/DI/"
             },
             "files": [
                 "src/DI/functions.php"
@@ -394,6 +386,55 @@
             "container",
             "dependency injection",
             "di"
+        ]
+    },
+    {
+        "name": "piwik/cache",
+        "version": "0.2.3",
+        "version_normalized": "0.2.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/piwik/component-cache.git",
+            "reference": "a08383ef0824bedb193c26393a83904355f94543"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/piwik/component-cache/zipball/a08383ef0824bedb193c26393a83904355f94543",
+            "reference": "a08383ef0824bedb193c26393a83904355f94543",
+            "shasum": ""
+        },
+        "require": {
+            "doctrine/cache": "dev-filecache-race-condition-fix as 1.3.1",
+            "php": ">=5.3.2"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.0"
+        },
+        "time": "2014-12-29 00:00:08",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Piwik\\Cache\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "LGPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "The Piwik Team",
+                "email": "hello@piwik.org",
+                "homepage": "http://piwik.org/the-piwik-team/"
+            }
+        ],
+        "description": "PHP caching library based on Doctrine cache",
+        "keywords": [
+            "array",
+            "cache",
+            "file",
+            "redis"
         ]
     },
     {
@@ -484,17 +525,17 @@
     },
     {
         "name": "piwik/device-detector",
-        "version": "2.6",
-        "version_normalized": "2.6.0.0",
+        "version": "2.8",
+        "version_normalized": "2.8.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/piwik/device-detector.git",
-            "reference": "60831e80b45d296e19b07cde198fe8dff7311bec"
+            "reference": "228a3b3ea17b67305a972b4e00c25f0926d3e016"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/piwik/device-detector/zipball/60831e80b45d296e19b07cde198fe8dff7311bec",
-            "reference": "60831e80b45d296e19b07cde198fe8dff7311bec",
+            "url": "https://api.github.com/repos/piwik/device-detector/zipball/228a3b3ea17b67305a972b4e00c25f0926d3e016",
+            "reference": "228a3b3ea17b67305a972b4e00c25f0926d3e016",
             "shasum": ""
         },
         "require": {
@@ -504,7 +545,7 @@
         "require-dev": {
             "phpunit/phpunit": "4.0.*"
         },
-        "time": "2014-10-30 13:45:01",
+        "time": "2015-01-01 16:13:46",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -566,19 +607,59 @@
         ]
     },
     {
+        "name": "psr/log",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/log.git",
+            "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/log/zipball/fe0936ee26643249e916849d48e3a51d5f5e278b",
+            "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b",
+            "shasum": ""
+        },
+        "time": "2012-12-21 11:40:51",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Psr\\Log\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common interface for logging libraries",
+        "keywords": [
+            "log",
+            "psr",
+            "psr-3"
+        ]
+    },
+    {
         "name": "symfony/console",
-        "version": "v2.5.6",
-        "version_normalized": "2.5.6.0",
+        "version": "v2.6.1",
+        "version_normalized": "2.6.1.0",
         "target-dir": "Symfony/Component/Console",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/Console.git",
-            "reference": "6f177fca24200a5b97aef5ce7a5c98124a0f0db0"
+            "reference": "ef825fd9f809d275926547c9e57cbf14968793e8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/Console/zipball/6f177fca24200a5b97aef5ce7a5c98124a0f0db0",
-            "reference": "6f177fca24200a5b97aef5ce7a5c98124a0f0db0",
+            "url": "https://api.github.com/repos/symfony/Console/zipball/ef825fd9f809d275926547c9e57cbf14968793e8",
+            "reference": "ef825fd9f809d275926547c9e57cbf14968793e8",
             "shasum": ""
         },
         "require": {
@@ -586,17 +667,19 @@
         },
         "require-dev": {
             "psr/log": "~1.0",
-            "symfony/event-dispatcher": "~2.1"
+            "symfony/event-dispatcher": "~2.1",
+            "symfony/process": "~2.1"
         },
         "suggest": {
             "psr/log": "For using the console logger",
-            "symfony/event-dispatcher": ""
+            "symfony/event-dispatcher": "",
+            "symfony/process": ""
         },
-        "time": "2014-10-05 13:57:04",
+        "time": "2014-12-02 20:19:20",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.5-dev"
+                "dev-master": "2.6-dev"
             }
         },
         "installation-source": "dist",
@@ -620,6 +703,200 @@
             }
         ],
         "description": "Symfony Console Component",
+        "homepage": "http://symfony.com"
+    },
+    {
+        "name": "symfony/event-dispatcher",
+        "version": "v2.6.1",
+        "version_normalized": "2.6.1.0",
+        "target-dir": "Symfony/Component/EventDispatcher",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/EventDispatcher.git",
+            "reference": "720fe9bca893df7ad1b4546649473b5afddf0216"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/720fe9bca893df7ad1b4546649473b5afddf0216",
+            "reference": "720fe9bca893df7ad1b4546649473b5afddf0216",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "psr/log": "~1.0",
+            "symfony/config": "~2.0",
+            "symfony/dependency-injection": "~2.6",
+            "symfony/expression-language": "~2.6",
+            "symfony/stopwatch": "~2.2"
+        },
+        "suggest": {
+            "symfony/dependency-injection": "",
+            "symfony/http-kernel": ""
+        },
+        "time": "2014-12-02 20:19:20",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.6-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Component\\EventDispatcher\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Symfony Community",
+                "homepage": "http://symfony.com/contributors"
+            },
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            }
+        ],
+        "description": "Symfony EventDispatcher Component",
+        "homepage": "http://symfony.com"
+    },
+    {
+        "name": "monolog/monolog",
+        "version": "1.11.0",
+        "version_normalized": "1.11.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Seldaek/monolog.git",
+            "reference": "ec3961874c43840e96da3a8a1ed20d8c73d7e5aa"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/ec3961874c43840e96da3a8a1ed20d8c73d7e5aa",
+            "reference": "ec3961874c43840e96da3a8a1ed20d8c73d7e5aa",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0",
+            "psr/log": "~1.0"
+        },
+        "provide": {
+            "psr/log-implementation": "1.0.0"
+        },
+        "require-dev": {
+            "aws/aws-sdk-php": "~2.4, >2.4.8",
+            "doctrine/couchdb": "~1.0@dev",
+            "graylog2/gelf-php": "~1.0",
+            "phpunit/phpunit": "~3.7.0",
+            "raven/raven": "~0.5",
+            "ruflin/elastica": "0.90.*",
+            "videlalvaro/php-amqplib": "~2.4"
+        },
+        "suggest": {
+            "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
+            "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
+            "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
+            "ext-mongo": "Allow sending log messages to a MongoDB server",
+            "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
+            "raven/raven": "Allow sending log messages to a Sentry server",
+            "rollbar/rollbar": "Allow sending log messages to Rollbar",
+            "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
+            "videlalvaro/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib"
+        },
+        "time": "2014-09-30 13:30:58",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.11.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Monolog\\": "src/Monolog"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jordi Boggiano",
+                "email": "j.boggiano@seld.be",
+                "homepage": "http://seld.be"
+            }
+        ],
+        "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
+        "homepage": "http://github.com/Seldaek/monolog",
+        "keywords": [
+            "log",
+            "logging",
+            "psr-3"
+        ]
+    },
+    {
+        "name": "symfony/monolog-bridge",
+        "version": "v2.6.1",
+        "version_normalized": "2.6.1.0",
+        "target-dir": "Symfony/Bridge/Monolog",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/MonologBridge.git",
+            "reference": "98a8debb952b8a7e0fff31fbce0f5e965dc1f499"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/MonologBridge/zipball/98a8debb952b8a7e0fff31fbce0f5e965dc1f499",
+            "reference": "98a8debb952b8a7e0fff31fbce0f5e965dc1f499",
+            "shasum": ""
+        },
+        "require": {
+            "monolog/monolog": "~1.11",
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "symfony/console": "~2.3",
+            "symfony/event-dispatcher": "~2.2",
+            "symfony/http-kernel": "~2.2"
+        },
+        "suggest": {
+            "symfony/console": "For the possibility to show log messages in console commands depending on verbosity settings. You need version ~2.3 of the console for it.",
+            "symfony/event-dispatcher": "Needed when using log messages in console commands",
+            "symfony/http-kernel": "For using the debugging handlers together with the response life cycle of the HTTP kernel."
+        },
+        "time": "2014-12-02 20:19:20",
+        "type": "symfony-bridge",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.6-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Bridge\\Monolog\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Symfony Community",
+                "homepage": "http://symfony.com/contributors"
+            },
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            }
+        ],
+        "description": "Symfony Monolog Bridge",
         "homepage": "http://symfony.com"
     },
     {
@@ -667,23 +944,23 @@
     },
     {
         "name": "twig/twig",
-        "version": "v1.16.2",
-        "version_normalized": "1.16.2.0",
+        "version": "v1.16.3",
+        "version_normalized": "1.16.3.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/fabpot/Twig.git",
-            "reference": "42f758d9fe2146d1f0470604fc05ee43580873fc"
+            "url": "https://github.com/twigphp/Twig.git",
+            "reference": "6dc11a1e8ecfc30e2c68aaeb218148409d8e68af"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fabpot/Twig/zipball/42f758d9fe2146d1f0470604fc05ee43580873fc",
-            "reference": "42f758d9fe2146d1f0470604fc05ee43580873fc",
+            "url": "https://api.github.com/repos/twigphp/Twig/zipball/6dc11a1e8ecfc30e2c68aaeb218148409d8e68af",
+            "reference": "6dc11a1e8ecfc30e2c68aaeb218148409d8e68af",
             "shasum": ""
         },
         "require": {
             "php": ">=5.2.4"
         },
-        "time": "2014-10-17 12:53:44",
+        "time": "2014-12-25 19:58:19",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -714,7 +991,7 @@
             },
             {
                 "name": "Twig Team",
-                "homepage": "https://github.com/fabpot/Twig/graphs/contributors",
+                "homepage": "http://twig.sensiolabs.org/contributors",
                 "role": "Contributors"
             }
         ],

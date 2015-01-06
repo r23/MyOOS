@@ -471,7 +471,13 @@ class Common
             $ok = false;
 
             if ($varType === 'string') {
-                if (is_string($value)) $ok = true;
+                if (is_string($value) || is_int($value)) {
+                    $ok = true;
+                } else if (is_float($value)) {
+                    $value = Common::forceDotAsSeparatorForDecimalPoint($value);
+                    $ok    = true;
+                }
+
             } elseif ($varType === 'integer') {
                 if ($value == (string)(int)$value) $ok = true;
             } elseif ($varType === 'float') {
@@ -512,7 +518,13 @@ class Common
      */
     public static function generateUniqId()
     {
-        return md5(uniqid(rand(), true));
+        if (function_exists('mt_rand')) {
+            $rand = mt_rand();
+        } else {
+            $rand = rand();
+        }
+
+        return md5(uniqid($rand, true));
     }
 
     /**
@@ -1176,10 +1188,12 @@ class Common
         }
 
         if (strpos(PHP_SAPI, '-fcgi') === false) {
-            $key = $_SERVER['SERVER_PROTOCOL'];
+            $key = 'HTTP/1.1';
 
-            if (strlen($key) > 15 || empty($key)) {
-                $key = 'HTTP/1.1';
+            if (array_key_exists('SERVER_PROTOCOL', $_SERVER)
+                && strlen($_SERVER['SERVER_PROTOCOL']) < 15
+                && strlen($_SERVER['SERVER_PROTOCOL']) > 1) {
+                $key = $_SERVER['SERVER_PROTOCOL'];
             }
 
         } else {
@@ -1219,15 +1233,17 @@ class Common
         $var = null;
     }
 
-    public static function printDebug($info = '')
+    /**
+     * @todo This method is weird, it's debugging statements but seem to only work for the tracker, maybe it
+     * should be moved elsewhere
+     */
+    public static function  printDebug($info = '')
     {
         if (isset($GLOBALS['PIWIK_TRACKER_DEBUG']) && $GLOBALS['PIWIK_TRACKER_DEBUG']) {
 
             if (is_object($info)) {
                 $info = var_export($info, true);
             }
-
-            Log::getInstance()->setLogLevel(Log::DEBUG);
 
             if (is_array($info) || is_object($info)) {
                 $info = Common::sanitizeInputValues($info);

@@ -9,7 +9,9 @@
 namespace Piwik;
 
 use Exception;
+use Piwik\Container\StaticContainer;
 use Piwik\Tracker\Cache;
+use Piwik\Cache as PiwikCache;
 
 /**
  * Contains helper functions that deal with the filesystem.
@@ -26,6 +28,7 @@ class Filesystem
         AssetManager::getInstance()->removeMergedAssets($pluginName);
         View::clearCompiledTemplates();
         Cache::deleteTrackerCache();
+        PiwikCache::flushAll();
         self::clearPhpCaches();
     }
 
@@ -413,7 +416,7 @@ class Filesystem
      */
     private static function getChmodForPath($path)
     {
-        $pathIsTmp = self::getPathToPiwikRoot() . '/tmp';
+        $pathIsTmp = StaticContainer::getContainer()->get('path.tmp');
         if (strpos($path, $pathIsTmp) === 0) {
             // tmp/* folder
             return 0750;

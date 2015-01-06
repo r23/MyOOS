@@ -9,6 +9,7 @@
 namespace Piwik\Plugins\CoreHome\DataTableRowAction;
 
 use Exception;
+use Piwik\API\DataTablePostProcessor;
 use Piwik\API\Request;
 use Piwik\API\ResponseBuilder;
 use Piwik\Common;
@@ -80,12 +81,12 @@ class RowEvolution
      * @param null|string $graphType
      * @throws Exception
      */
-    public function __construct($idSite, $date, $graphType = null)
+    public function __construct($idSite, $date, $graphType = 'graphEvolution')
     {
         $this->apiMethod = Common::getRequestVar('apiMethod', '', 'string');
         if (empty($this->apiMethod)) throw new Exception("Parameter apiMethod not set.");
 
-        $this->label = ResponseBuilder::getLabelFromRequest($_GET);
+        $this->label = DataTablePostProcessor::getLabelFromRequest($_GET);
         if (!is_array($this->label)) {
             throw new Exception("Expected label to be an array, got instead: " . $this->label);
         }
@@ -229,14 +230,6 @@ class RowEvolution
             list($first, $last) = $this->getFirstAndLastDataPointsForMetric($metric);
             $details = Piwik::translate('RowEvolution_MetricBetweenText', array($first, $last));
 
-            // TODO: this check should be determined by metric metadata, not hardcoded here
-            if ($metric == 'nb_users'
-                && $first == 0
-                && $last == 0
-            ) {
-                continue;
-            }
-
             if ($change !== false) {
                 $lowerIsBetter = Metrics::isLowerValueBetter($metric);
                 if (substr($change, 0, 1) == '+') {
@@ -274,6 +267,15 @@ class RowEvolution
             if (!empty($metricData['logo'])) {
                 $newMetric['logo'] = $metricData['logo'];
             }
+
+            // TODO: this check should be determined by metric metadata, not hardcoded here
+            if ($metric == 'nb_users'
+                && $first == 0
+                && $last == 0
+            ) {
+                $newMetric['hide'] = true;
+            }
+
             $metrics[] = $newMetric;
             $i++;
         }

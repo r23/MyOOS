@@ -46,7 +46,7 @@ class Db
             return Tracker::getDatabase();
         }
 
-        if (self::$connection === null) {
+        if (!self::hasDatabaseObject()) {
             self::createDatabaseObject();
         }
 
@@ -101,6 +101,16 @@ class Db
         $db = @Adapter::factory($dbConfig['adapter'], $dbConfig);
 
         self::$connection = $db;
+    }
+
+    /**
+     * Detect whether a database object is initialized / created or not.
+     *
+     * @internal
+     */
+    public static function hasDatabaseObject()
+    {
+        return isset(self::$connection);
     }
 
     /**
@@ -700,7 +710,7 @@ class Db
 
     private static function logSql($functionName, $sql, $parameters = array())
     {
-        // NOTE: at the moment we dont log bind in order to avoid sensitive information leaks
-        Log::verbose("Db::%s() executing SQL:\n%s", $functionName, $sql);
+        // NOTE: at the moment we don't log parameters in order to avoid sensitive information leaks
+        Log::debug("Db::%s() executing SQL: %s", $functionName, $sql);
     }
 }

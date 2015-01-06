@@ -20,6 +20,7 @@ use Piwik\Plugins\UsersManager\API as APIUsersManager;
 use Piwik\Plugins\UsersManager\Model as UserModel;
 use Piwik\ReportRenderer;
 use Piwik\ScheduledTime;
+use Piwik\Tracker;
 use Piwik\View;
 use Zend_Mime;
 use Piwik\Config;
@@ -93,7 +94,15 @@ class ScheduledReports extends \Piwik\Plugin
             'SegmentEditor.deactivate'                  => 'segmentDeactivation',
             'SegmentEditor.update'                      => 'segmentUpdated',
             'Translate.getClientSideTranslationKeys'    => 'getClientSideTranslationKeys',
+            'Request.getRenamedModuleAndAction'         => 'renameDeprecatedModuleAndAction',
         );
+    }
+
+    public function renameDeprecatedModuleAndAction(&$module, &$action)
+    {
+        if($module == 'PDFReports') {
+            $module = 'ScheduledReports';
+        }
     }
 
     public function getClientSideTranslationKeys(&$translationKeys)
@@ -406,7 +415,8 @@ class ScheduledReports extends \Piwik\Plugin
             } catch (Exception $e) {
 
                 // If running from piwik.php with debug, we ignore the 'email not sent' error
-                if (!isset($GLOBALS['PIWIK_TRACKER_DEBUG']) || !$GLOBALS['PIWIK_TRACKER_DEBUG']) {
+                $tracker = new Tracker();
+                if (!$tracker->isDebugModeEnabled()) {
                     throw new Exception("An error occured while sending '$filename' " .
                         " to " . implode(', ', $mail->getRecipients()) .
                         ". Error was '" . $e->getMessage() . "'");
