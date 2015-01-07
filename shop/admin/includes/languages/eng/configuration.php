@@ -312,9 +312,6 @@ define('PRODUCT_LIST_FILTER_DESC', 'Do you want to display the Category/Manufact
 define('PRODUCT_LIST_SORT_ORDER_TITLE', 'Display Product Sort Order');
 define('PRODUCT_LIST_SORT_ORDER_DESC', 'Do you want to display the Product Sort Order column?');
 
-define('PREV_NEXT_BAR_LOCATION_TITLE', 'Location of Prev/Next Navigation Bar (1-top, 2-bottom, 3-both)');
-define('PREV_NEXT_BAR_LOCATION_DESC', 'Sets the location of the Prev/Next Navigation Bar (1-top, 2-bottom, 3-both)');
-
 define('STOCK_CHECK_TITLE', 'Check stock level');
 define('STOCK_CHECK_DESC', 'Check to see if sufficent stock is available');
 

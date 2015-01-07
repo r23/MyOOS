@@ -32,13 +32,13 @@
       <tr>
        <td><hr size="1" noshade></td>
       </tr>
-{if $numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+{if $numrows  > 1 }
    {$pagination}
 {/if}
   <tr>
     <td>{include file="phoenix/products/slavery_product_listing.html"}</td>
   </tr>
-{if $numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+{if $numrows > 1 }
    {$pagination}
 {/if}
      </table>

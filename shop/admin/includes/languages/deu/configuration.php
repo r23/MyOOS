@@ -305,9 +305,6 @@ define('PRODUCT_LIST_FILTER_DESC', 'M&ouml;chten Sie den Kategorie/Hersteller Fi
 define('PRODUCT_LIST_SORT_ORDER_TITLE', 'Display Product Sort Order');
 define('PRODUCT_LIST_SORT_ORDER_DESC', 'Do you want to display the Product Sort Order column?');
 
-define('PREV_NEXT_BAR_LOCATION_TITLE', 'Position der Zur&uuml;ck/Vor Navigation');
-define('PREV_NEXT_BAR_LOCATION_DESC', 'Legt die Position der Zur&uuml;ck/Vor Navigation fest (1:oben, 2:unten, 3:beides)');
-
 define('STOCK_CHECK_TITLE', 'Bestandspr&uuml;fung');
 define('STOCK_CHECK_DESC', 'Soll der Shop eine Bestandspr&uuml;fung durchf&uuml;hren?');
 

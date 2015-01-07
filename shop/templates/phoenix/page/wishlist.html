@@ -23,7 +23,7 @@
       <tr>
         <td height="10"></td>
       </tr>
-{if $numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '1' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+{if $numrows > 1 }
   {$pagination}
 {/if}
       <tr>
@@ -99,7 +99,7 @@
           </tr>
         </table></td>
       </tr>
-{if $numrows > 0  && ( $smarty.const.PREV_NEXT_BAR_LOCATION eq '2' or $smarty.const.PREV_NEXT_BAR_LOCATION eq '3' )}
+{if $numrows > 1 }
   {$pagination}
 {/if}
     </table>
