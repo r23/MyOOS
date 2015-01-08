@@ -306,9 +306,6 @@ define('PRODUCT_LIST_WEIGHT_DESC', 'Do you want to display the Product Weight?')
 define('PRODUCT_LIST_BUY_NOW_TITLE', 'Display Buy Now column');
 define('PRODUCT_LIST_BUY_NOW_DESC', 'Do you want to display the Buy Now column?');
 
-define('PRODUCT_LIST_FILTER_TITLE', 'Display Category/Manufacturer Filter (0=disable; 1=enable)');
-define('PRODUCT_LIST_FILTER_DESC', 'Do you want to display the Category/Manufacturer Filter?');
-
 define('PRODUCT_LIST_SORT_ORDER_TITLE', 'Display Product Sort Order');
 define('PRODUCT_LIST_SORT_ORDER_DESC', 'Do you want to display the Product Sort Order column?');
 

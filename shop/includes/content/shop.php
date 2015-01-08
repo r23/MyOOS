@@ -479,7 +479,6 @@ if ($category_depth == 'nested') {
 
 // optional Product List Filter
       $product_filter_select = '';
-      if (PRODUCT_LIST_FILTER > 0) {
         $filterlist_result = $dbconn->Execute($filterlist_sql);
         if ($filterlist_result->RecordCount() > 1) {
           $product_filter_select .= '            <td align="center" class="main">' . $aLang['text_show'] . '<select size="1" onChange="if(options[selectedIndex].value) window.location.href=(options[selectedIndex].value)">';
@@ -511,7 +510,7 @@ if ($category_depth == 'nested') {
           }
           $product_filter_select .= '</select></td>' . "\n";
         }
-      }
+
 // Get the right image for the top-right
       $image = 'list.gif';
        if (isset($_GET['manufacturers_id']) && !empty($_GET['manufacturers_id'])) {

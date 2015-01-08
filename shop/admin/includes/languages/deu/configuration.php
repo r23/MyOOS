@@ -299,9 +299,6 @@ define('PRODUCT_LIST_WEIGHT_DESC', 'M&ouml;chten Sie das Artikelgewicht anzeigen
 define('PRODUCT_LIST_BUY_NOW_TITLE', 'Jetzt Kaufen anzeigen');
 define('PRODUCT_LIST_BUY_NOW_DESC', 'M&ouml;chten Sie den \'Jetzt Kaufen\' Button anzeigen?');
 
-define('PRODUCT_LIST_FILTER_TITLE', 'Kategorie/Hersteller Filter anzeigen');
-define('PRODUCT_LIST_FILTER_DESC', 'M&ouml;chten Sie den Kategorie/Hersteller Filter anzeigen (0:aus,1:an)?');
-
 define('PRODUCT_LIST_SORT_ORDER_TITLE', 'Display Product Sort Order');
 define('PRODUCT_LIST_SORT_ORDER_DESC', 'Do you want to display the Product Sort Order column?');
 
