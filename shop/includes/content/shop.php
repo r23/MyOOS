@@ -158,7 +158,7 @@ if ($category_depth == 'nested') {
 		$smarty->assign('new_products', $smarty->fetch($aTemplate['new_products'], $sContentCacheID));
 		
 		// assign Smarty variables;
-		if ( (ALLOW_CATEGORY_DESCRIPTIONS == 'true') && (!empty($category['categories_heading_title'])) ) {
+		if (!empty($category['categories_heading_title'])) {
 			$sPagetitle = $category['categories_name'] . ' ' . OOS_META_TITLE;
 			$smarty->assign('pagetitle',  $sPagetitle);
 			$smarty->assign('heading_title', $category['categories_heading_title']);
@@ -197,10 +197,9 @@ if ($category_depth == 'nested') {
     }
 
 	// index_products_heading.html
-    if (ALLOW_CATEGORY_DESCRIPTIONS == 'true') {
-		$categoriestable = $oostable['categories'];
-		$categories_descriptiontable = $oostable['categories_description'];
-		$sql = "SELECT cd.categories_name, cd.categories_heading_title, cd.categories_description,
+	$categoriestable = $oostable['categories'];
+	$categories_descriptiontable = $oostable['categories_description'];
+	$sql = "SELECT cd.categories_name, cd.categories_heading_title, cd.categories_description,
                      cd.categories_description_meta, cd.categories_keywords_meta,
                      c.categories_image
               FROM $categoriestable c,
@@ -208,14 +207,13 @@ if ($category_depth == 'nested') {
               WHERE c.categories_id = '" . intval($nCurrentCategoryID) . "'
                 AND cd.categories_id = '" . intval($nCurrentCategoryID) . "'
                 AND cd.categories_languages_id = '" .  intval($nLanguageID) . "'";
-		$category = $dbconn->GetRow($sql);
+	$category = $dbconn->GetRow($sql);
 
-		if (empty($category['categories_description_meta'])) {
-			$smarty->assign('meta_description', substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '',$category['categories_description'])),0 , 250));
-		} else {
-			$smarty->assign('meta_description', $category['categories_description_meta']);
-		}
-    }
+	if (empty($category['categories_description_meta'])) {
+		$smarty->assign('meta_description', substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '',$category['categories_description'])),0 , 250));
+	} else {
+		$smarty->assign('meta_description', $category['categories_description_meta']);
+	}
 
 	if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 		$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);

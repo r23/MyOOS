@@ -91,9 +91,7 @@
 
       case 'new_category':
       case 'edit_category':
-        if (ALLOW_CATEGORY_DESCRIPTIONS == 'true') {
           $action = $action . '_ACD';
-        }
         break;
 
       case 'insert_category':
@@ -130,13 +128,12 @@
             $categories_name_array = $_POST['categories_name'];
             $lang_id = $languages[$i]['id'];
             $sql_data_array = array('categories_name' => oos_db_prepare_input($categories_name_array[$lang_id]));
-            if (ALLOW_CATEGORY_DESCRIPTIONS == 'true') {
-              $sql_data_array = array('categories_name' => oos_db_prepare_input($_POST['categories_name'][$lang_id]),
-                                      'categories_heading_title' => oos_db_prepare_input($_POST['categories_heading_title'][$lang_id]),
-                                      'categories_description' => oos_db_prepare_input($_POST['categories_description'][$lang_id]),
-                                      'categories_description_meta' => oos_db_prepare_input($_POST['categories_description_meta'][$lang_id]),
-                                      'categories_keywords_meta' => oos_db_prepare_input($_POST['categories_keywords_meta'][$lang_id]));
-            }
+            $sql_data_array = array('categories_name' => oos_db_prepare_input($_POST['categories_name'][$lang_id]),
+                                    'categories_heading_title' => oos_db_prepare_input($_POST['categories_heading_title'][$lang_id]),
+                                    'categories_description' => oos_db_prepare_input($_POST['categories_description'][$lang_id]),
+                                    'categories_description_meta' => oos_db_prepare_input($_POST['categories_description_meta'][$lang_id]),
+                                    'categories_keywords_meta' => oos_db_prepare_input($_POST['categories_keywords_meta'][$lang_id]));
+
 
             if ($action == 'insert_category') {
               $insert_sql_data = array('categories_id' => $categories_id,
@@ -149,12 +146,13 @@
               oos_db_perform($oostable['categories_description'], $sql_data_array, 'update', 'categories_id = \'' . $categories_id . '\' and categories_languages_id = \'' . $languages[$i]['id'] . '\'');
             }
           }
-
+/*
           if (ALLOW_CATEGORY_DESCRIPTIONS == 'true') {
             $categories_image = (($categories_image == 'none') ? '' : oos_db_prepare_input($categories_image));
             $dbconn->Execute("UPDATE " . $oostable['categories'] . " SET categories_image = '" . oos_db_input($categories_image) . "' WHERE categories_id = '" .  oos_db_input($categories_id) . "'");
             $categories_image = '';
           } else {
+*/
             $categories_image = oos_get_uploaded_file('categories_image');
             $image_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
 
@@ -162,7 +160,7 @@
               $dbconn->Execute("UPDATE " . $oostable['categories'] . " SET categories_image = '" . $categories_image['name'] . "' WHERE categories_id = '" . oos_db_input($categories_id) . "'");
               oos_get_copy_uploaded_file($categories_image, $image_directory);
             }
-          }
+#          }
           oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories_id));
         }
         break;

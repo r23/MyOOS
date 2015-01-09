@@ -459,9 +459,6 @@ define('DISPLAY_CART_DESC', 'Zeigt den Warenkorb an, nachdem diesem ein Produkt 
 define('ALLOW_GUEST_TO_TELL_A_FRIEND_TITLE', 'Empfehlen auch f&uuml;r G&auml;ste');
 define('ALLOW_GUEST_TO_TELL_A_FRIEND_DESC', 'G&auml;sten erlauben, ein Produkt zu empfehlen');
 
-define('ALLOW_CATEGORY_DESCRIPTIONS_TITLE', 'Erlaube Kategorienbeschreibung');
-define('ALLOW_CATEGORY_DESCRIPTIONS_DESC', 'Erlaubt eine ausf&uuml;hrliche Beschreibung der einzelnen Kategorien');
-
 define('ALLOW_NEWS_CATEGORY_DESCRIPTIONS_TITLE', 'Erlaube News-Kategorienbeschreibung');
 define('ALLOW_NEWS_CATEGORY_DESCRIPTIONS_DESC', 'Erlaubt eine ausf&uuml;hrliche Beschreibung der einzelnen News-Kategorien');
 

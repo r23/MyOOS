@@ -15,7 +15,32 @@
 
 			<!-- left column -->
 			<div class="col-lg-9 col-md-9">
+{if $category.categories_name}		
+
+{/if}
+				<div class="row margin-bottom-5">
+					<div class="col-sm-4 result-category">{$category.categories_name}
+					</div>
+					<div class="col-sm-8">
+					
+				{$product_filter_select}
+					
+					</div>
+				</div>				
 			
+			
+				<div class="row margin-bottom-5">
+					<div class="col-sm-4 result-category">{$category.categories_name}
+					</div>
+					<div class="col-sm-8">
+					
+				{$product_filter_select}
+					
+					</div>
+				</div>			
+			
+{include file="phoenix/products/_product_listing.html"}			
+
 			</div><!-- .col -->
 
 			<!-- sidebar-->
@@ -47,7 +72,7 @@
   </form>
 </table></td>
       </tr>
-{if $smarty.const.ALLOW_CATEGORY_DESCRIPTIONS eq 'true' && $category.categories_description != '' }
+{if $category.categories_description != '' }
       <tr>
         <td height="10"></td>
       </tr>
