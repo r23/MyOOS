@@ -657,7 +657,8 @@ $table = $prefix_table . 'manufacturers';
 $flds = "
   manufacturers_id I NOTNULL AUTO PRIMARY,
   manufacturers_name C(32) NOTNULL,
-  manufacturers_image C(64),
+  manufacturers_image C(255),
+  teaser_brand_image C(255),
   date_added T,
   last_modified T
 ";

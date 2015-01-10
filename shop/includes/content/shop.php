@@ -509,28 +509,19 @@ if ($category_depth == 'nested') {
           $product_filter_select .= '</select></td>' . "\n";
         }
 
-// Get the right image for the top-right
-      $image = 'list.gif';
-       if (isset($_GET['manufacturers_id']) && !empty($_GET['manufacturers_id'])) {
-        $nManufacturersID = intval($_GET['manufacturers_id']);
-        $manufacturerstable = $oostable['manufacturers'];
-        $sql = "SELECT manufacturers_image
+	// Get the image for the top
+	if (isset($_GET['manufacturers_id']) && !empty($_GET['manufacturers_id'])) {
+		$nManufacturersID = intval($_GET['manufacturers_id']);
+		$manufacturerstable = $oostable['manufacturers'];
+		$sql = "SELECT teaser_brand_image
                 FROM $manufacturerstable
                 WHERE manufacturers_id = '" . intval($nManufacturersID) . "'";
-        $image_value = $dbconn->GetOne($sql);
-      } elseif ($nCurrentCategoryID) {
-        $categoriestable = $oostable['categories'];
-        $sql = "SELECT categories_image
-                FROM $categoriestable
-                WHERE categories_id = '" . intval($nCurrentCategoryID) . "'";
-        $image_value = $dbconn->GetOne($sql);
-      }
+		$image = $dbconn->GetOne($sql);
+	} elseif ($nCurrentCategoryID) {
+		$image = $category['categories_image'];
+	}
 
-      if (!empty($image_value)) {
-		$image = $image_value;
-      }
-
-      // assign Smarty variables;
+	// assign Smarty variables;
       $smarty->assign(
           array(
               'product_filter_select' => $product_filter_select,

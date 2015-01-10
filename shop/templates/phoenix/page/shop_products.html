@@ -15,19 +15,13 @@
 
 			<!-- left column -->
 			<div class="col-lg-9 col-md-9">
-{if $category.categories_name}		
-
-{/if}
-				<div class="row margin-bottom-5">
-					<div class="col-sm-4 result-category">{$category.categories_name}
+			{if $image}
+				<div class="row">			
+					<div class="display">
+			    	   <img src="{$image}" title="{$category.categories_name}" />
 					</div>
-					<div class="col-sm-8">
-					
-				{$product_filter_select}
-					
-					</div>
-				</div>				
-			
+				</div>
+			{/if}		
 			
 				<div class="row margin-bottom-5">
 					<div class="col-sm-4 result-category">{$category.categories_name}
