@@ -88,7 +88,6 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configur
 
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MIN_DISPLAY_ALSO_PURCHASED', '1', 2, 16, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MIN_DISPLAY_XSELL_PRODUCTS', '1', 2, 17, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MIN_DISPLAY_PRODUCTS_NEWSFEED', '1', 2, 19, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 
 //3
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MAX_ADDRESS_BOOK_ENTRIES', '5', 3, 1, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");

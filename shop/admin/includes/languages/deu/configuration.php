@@ -88,9 +88,6 @@ define('DISPLAY_CONDITIONS_ON_CHECKOUT_DESC', 'Im Bestellvorgang Ihre Allgemeine
 define('PRODUCTS_OPTIONS_SORT_BY_PRICE_TITLE', 'Sortierung Produktoptionen');
 define('PRODUCTS_OPTIONS_SORT_BY_PRICE_DESC', 'M&ouml;chten Sie die Produktopionen nach Preisen sortieren?');
 
-define('WEB_SEARCH_GOOGLE_KEY_TITLE', 'Google API Lizenzschl&uuml;ssel');
-define('WEB_SEARCH_GOOGLE_KEY_DESC', 'Google API Lizenzschl&uuml;ssel (kostenlos!) <a href="http://www.google.com/apis" target="_blank">http://www.google.com/apis</a>.');
-
 define('ENTRY_FIRST_NAME_MIN_LENGTH_TITLE', 'Vorname');
 define('ENTRY_FIRST_NAME_MIN_LENGTH_DESC', 'Mindestl&auml;nge des Vornames');
 
@@ -138,9 +135,6 @@ define('MIN_DISPLAY_ALSO_PURCHASED_DESC', 'Minimale Anzahl von Produkten, die im
 
 define('MIN_DISPLAY_XSELL_PRODUCTS_TITLE', 'Produkt-Empfehlungen');
 define('MIN_DISPLAY_XSELL_PRODUCTS_DESC', 'Minimale Anzahl von Produkten, die im \'Produkt-Empfehlungen\'-Block angezeigt werden.');
-
-define('MIN_DISPLAY_PRODUCTS_NEWSFEED_TITLE', 'Neue Produkte im Newsfeed');
-define('MIN_DISPLAY_PRODUCTS_NEWSFEED_DESC', 'Minimale Anzahl von Produkten, die im \'Newsfeed\'-Block angezeigt werden.');
 
 define('MAX_ADDRESS_BOOK_ENTRIES_TITLE', 'Anzahl Adressbucheintr&auml;ge');
 define('MAX_ADDRESS_BOOK_ENTRIES_DESC', 'Maximale Anzahl von Adressbucheintr&auml;gen, die ein Kunde besitzen darf.');
