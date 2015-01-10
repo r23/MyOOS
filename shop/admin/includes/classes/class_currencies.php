@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -62,11 +62,6 @@
       return $format_string;
     }
 
-    public function format_prm($number) {
-      $format_string = number_format($number, 2, ',', '');
-      return $format_string;
-    }
-
     public function get_value($code) {
       return $this->currencies[$code]['value'];
     }
@@ -75,7 +70,4 @@
       return $this->format(oos_add_tax($products_price, $products_tax) * $quantity);
     }
 
-    public function psm_price($products_price, $products_tax, $quantity = 1) {
-      return $this->format_prm(oos_add_tax($products_price, $products_tax) * $quantity);
-    }
   }

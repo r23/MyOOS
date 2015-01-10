@@ -304,7 +304,6 @@ $aLang['button_quick_find'] = 'Schnellsuche';
 $aLang['button_remove_notifications'] = 'Benachrichtigungen löschen';
 $aLang['button_reviews'] = 'Bewertungen';
 $aLang['button_search'] = 'Suchen';
-$aLang['button_tell_a_friend'] = 'Weiterempfehlen';
 $aLang['button_update'] = 'Aktualisieren';
 $aLang['button_update_cart'] = 'Warenkorb aktualisieren';
 $aLang['button_write_review'] = 'Bewertung schreiben';

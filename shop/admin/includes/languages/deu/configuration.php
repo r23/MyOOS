@@ -432,44 +432,11 @@ define('SHOW_DATE_ADDED_AVAILABLE_DESC', 'M&ouml;chten Sie im Shop das Datum von
 define('SHOW_COUNTS_TITLE', 'Artikelanzahl hinter den Kategorienamen');
 define('SHOW_COUNTS_DESC', 'Anzeigen, wieviele Produkte in jeder Kategorie vorhanden sind');
 
-define('CATEGORIES_SCROLL_BOX_LEN_TITLE', 'Kategorie-Menge');
-define('CATEGORIES_SCROLL_BOX_LEN_DESC', 'Wenn Sie die Kategorien als Auswahlliste anzeigen wollen, legen Sie hier die L&auml;nge fest');
-
-define('SHOPPING_CART_IMAGE_ON_TITLE', 'Bild im Warenkorbinhalt');
-define('SHOPPING_CART_IMAGE_ON_DESC', 'M&ouml;chten Sie in der Detailansicht vom Warenkorb das Porduktbild anzeigen?');
-
-define('SHOPPING_CART_MINI_IMAGE_TITLE', 'Bildverkleinerung');
-define('SHOPPING_CART_MINI_IMAGE_DESC', 'Wert f&uuml;r die Verkleinerung in der Detailansicht vom Warenkorb');
-
 define('DISPLAY_CART_TITLE', 'Warenkorb anzeigen');
 define('DISPLAY_CART_DESC', 'Zeigt den Warenkorb an, nachdem diesem ein Produkt hinzugef&uuml;gt wurde');
 
-define('ALLOW_GUEST_TO_TELL_A_FRIEND_TITLE', 'Empfehlen auch f&uuml;r G&auml;ste');
-define('ALLOW_GUEST_TO_TELL_A_FRIEND_DESC', 'G&auml;sten erlauben, ein Produkt zu empfehlen');
-
-define('ALLOW_NEWS_CATEGORY_DESCRIPTIONS_TITLE', 'Erlaube News-Kategorienbeschreibung');
-define('ALLOW_NEWS_CATEGORY_DESCRIPTIONS_DESC', 'Erlaubt eine ausf&uuml;hrliche Beschreibung der einzelnen News-Kategorien');
-
 define('SHOW_PRODUCTS_MODEL_TITLE', 'Navigation mit Bestellnummer');
 define('SHOW_PRODUCTS_MODEL_DESC', 'M&ouml;chten Sie die auf der Produkt-Informations-Seite die Bestellnummer in der Navation anzeigen?');
-
-define('BLOCK_BEST_SELLERS_IMAGE_TITLE', 'Bild im Block Verkaufschlager');
-define('BLOCK_BEST_SELLERS_IMAGE_DESC', 'Bild im Content-Block Verkaufschlager anzeigen?');
-
-define('BLOCK_PRODUCTS_HISTORY_IMAGE_TITLE', 'Bild im Block besuchte Produkte');
-define('BLOCK_PRODUCTS_HISTORY_IMAGE_DESC', 'Bild im Content-Block gekaufte Produkte anzeigen?');
-
-define('BLOCK_WISHLIST_IMAGE_TITLE', 'Bild im Block Wunschliste');
-define('BLOCK_WISHLIST_IMAGE_DESC', 'Bild im Content-Block Wunschliste anzeigen?');
-
-define('BLOCK_XSELL_PRODUCTS_IMAGE_TITLE', 'Bild im Block &auml;hnliche Produkte');
-define('BLOCK_XSELL_PRODUCTS_IMAGE_DESC', 'Bild im Content-Block &auml;hnliche Produkte anzeigen?');
-
-define('OOS_GD_LIB_VERSION_TITLE', 'GD-Bibliothek');
-define('OOS_GD_LIB_VERSION_DESC', '1 f&uuml;r alte GD-Lib Version (1.x)<br> 2 f&uuml;r aktuelle GD-Lib Version (2.x)');
-
-define('OOS_SMALLIMAGE_WAY_OF_RESIZE_TITLE', 'Bildbearbeitung kleines Bild');
-define('OOS_SMALLIMAGE_WAY_OF_RESIZE_DESC', '0: proportionale Verkleinerung; Breite oder H&ouml;he ist die maximale Gr&ouml;&szlig;e<br> 1: Bild wird proportional in das neue Bild kopiert. Die Hintergrundfarbe wird  ber&uuml;cksichtigt.<br> 2: ein Ausschnitt wird in das neue Bild kopiert');
 
 define('OOS_SMALL_IMAGE_WIDTH_TITLE', 'Breite kleine Bilder');
 define('OOS_SMALL_IMAGE_WIDTH_DESC', 'Die Breite von kleinen Bildern in Pixeln');
@@ -477,53 +444,11 @@ define('OOS_SMALL_IMAGE_WIDTH_DESC', 'Die Breite von kleinen Bildern in Pixeln')
 define('OOS_SMALL_IMAGE_HEIGHT_TITLE', 'H&ouml;he kleine Bilder');
 define('OOS_SMALL_IMAGE_HEIGHT_DESC', 'Die H&ouml;he von kleinen Bildern in Pixeln');
 
-define('OOS_IMAGE_BGCOLOUR_R_TITLE', 'Hintergrund kleines Bild R');
-define('OOS_IMAGE_BGCOLOUR_R_DESC', 'Rotwert f&uuml;r kleines Produktbild');
-
-define('OOS_IMAGE_BGCOLOUR_G_TITLE', 'Hintergrund kleines Bild G');
-define('OOS_IMAGE_BGCOLOUR_G_DESC', 'Gr&uuml;nwert f&uuml;r kleines Produktbild');
-
-define('OOS_IMAGE_BGCOLOUR_B_TITLE', 'Hintergrund kleines Bild B');
-define('OOS_IMAGE_BGCOLOUR_B_DESC', 'Blauwert f&uuml;r kleines Produktbild');
-
-define('OOS_BIGIMAGE_WAY_OF_RESIZE_TITLE', 'Bildbearbeitung grosses Bild');
-define('OOS_BIGIMAGE_WAY_OF_RESIZE_DESC', '0: proportionale Verkleinerung; Breite oder H&ouml;he ist die maximale Gr&ouml;&szlig;e<br> 1: Bild wird proportional in das neue Bild kopiert. Die Hintergrundfarbe wird  ber&uuml;cksichtigt.<br> 2: ein Ausschnitt wird in das neue Bild kopiert');
-
 define('OOS_BIGIMAGE_WIDTH_TITLE', 'Breite grosses Bild');
 define('OOS_BIGIMAGE_WIDTH_DESC', 'Breite vom grossen Bild in Pixel');
 
 define('OOS_BIGIMAGE_HEIGHT_TITLE', 'H&ouml;he grosses Bild');
 define('OOS_BIGIMAGE_HEIGHT_DESC', 'H&ouml;he vom grossen Bild in Pixel');
-
-define('OOS_WATERMARK_TITLE', 'Wasserzeichen');
-define('OOS_WATERMARK_DESC', 'M&ouml;chten Sie im grossen Bild ein Wasserzeichen einf&uuml;gen?');
-
-define('OOS_WATERMARK_QUALITY_TITLE', 'Qualit&auml;t vom Wasserzeichen');
-define('OOS_WATERMARK_QUALITY_DESC', 'Hier legen Sie die Qualit&auml;t vom Wasserzeichen fest');
-
-define('OOS_SWF_BGCOLOUR_R_TITLE', 'Hintergrund vom Flashfilm R');
-define('OOS_SWF_BGCOLOUR_R_DESC', 'Rotwert f&uuml;r kleines Produktbild im Flashfilm');
-
-define('OOS_SWF_BGCOLOUR_G_TITLE', 'Hintergrund vom Flashfilm G');
-define('OOS_SWF_BGCOLOUR_G_DESC', 'Gr&uuml;nwert f&uuml;r kleines Produktbild im Flashfilm');
-
-define('OOS_SWF_BGCOLOUR_B_TITLE', 'Hintergrund vom Flashfilm B');
-define('OOS_SWF_BGCOLOUR_B_DESC', 'Blauwert f&uuml;r kleines Produktbild im Flashfilm');
-
-define('OOS_RANDOM_PICTURE_NAME_TITLE', 'Dateiname');
-define('OOS_RANDOM_PICTURE_NAME_DESC', 'Zuf&auml;llig erzeugter Dateiname f&uuml;r die Grafik');
-
-define('OOS_MO_PIC_TITLE', 'Mehr Produktbilder');
-define('OOS_MO_PIC_DESC', 'Weitere Produktbilder auf der Produktinfoseite zeigen?');
-
-define('PSM_TITLE', 'Preissuchmaschine');
-define('PSM_DESC', 'M&ouml;chten Sie Die Schnittstelle zur Preissuchmaschine verwenden? Hierf&uuml;r ist eine Anmeldung bei <a href="http://www.preissuchmaschine.de/psm_frontend/main.asp?content=mitmachenreissuchmaschine" target="_blank">http://www.preissuchmaschine.de</a> n');
-
-define('OOS_PSM_DIR_TITLE', 'Verzeichnis Preissuchmaschine');
-define('OOS_PSM_DIR_DESC', 'Die Datei f&uuml;r die Preissuchmaschine soll in diesem Shop-Verzeichnis gespeichert werden.');
-
-define('OOS_PSM_FILE_TITLE', 'Dateiname');
-define('OOS_PSM_FILE_DESC', 'Die Datei f&uuml;r die Preissuchmaschine');
 
 define('OOS_META_TITLE_TITLE', 'Shop Titel');
 define('OOS_META_TITLE_DESC', 'Der Titel');

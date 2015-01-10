@@ -450,34 +450,11 @@ define('SHOPPING_CART_MINI_IMAGE_DESC', 'Wert f&uuml;r die Verkleinerung in der 
 define('DISPLAY_CART_TITLE', 'Display Cart After Adding Product');
 define('DISPLAY_CART_DESC', 'Display the shopping cart after adding a product (or return back to their origin)');
 
-define('ALLOW_GUEST_TO_TELL_A_FRIEND_TITLE', 'Allow Guest To Tell A Friend');
-define('ALLOW_GUEST_TO_TELL_A_FRIEND_DESC', 'Allow guests to tell a friend about a product');
-
-
 define('ALLOW_NEWS_CATEGORY_DESCRIPTIONS_TITLE', 'Erlaube News-Kategorienbeschreibung');
 define('ALLOW_NEWS_CATEGORY_DESCRIPTIONS_DESC', 'Erlaubt eine ausf&uuml;hrliche Beschreibung der einzelnen News-Kategorien');
 
 define('SHOW_PRODUCTS_MODEL_TITLE', 'Navigation mit Bestellummer');
 define('SHOW_PRODUCTS_MODEL_DESC', 'M&ouml;chten Sie die auf der Produkt-Informations-Seite die Bestellnummer in der Navation anzeigen?');
-
-define('BLOCK_BEST_SELLERS_IMAGE_TITLE', 'Bild im Block Verkaufschlager');
-define('BLOCK_BEST_SELLERS_IMAGE_DESC', 'Bild im Content-Block Verkaufschlager anzeigen?');
-
-define('BLOCK_PRODUCTS_HISTORY_IMAGE_TITLE', 'Bild im Block gekaufte Produkte');
-define('BLOCK_PRODUCTS_HISTORY_IMAGE_DESC', 'Bild im Content-Block gekaufte Produkte anzeigen?');
-
-define('BLOCK_WISHLIST_IMAGE_TITLE', 'Bild im Block Wunschliste');
-define('BLOCK_WISHLIST_IMAGE_DESC', 'Bild im Content-Block Wunschliste anzeigen?');
-
-define('BLOCK_XSELL_PRODUCTS_IMAGE_TITLE', 'Bild im Block �nliche Produkte');
-define('BLOCK_XSELL_PRODUCTS_IMAGE_DESC', 'Bild im Content-Block �nliche Produkte anzeigen?');
-
-
-define('OOS_GD_LIB_VERSION_TITLE', 'GD-Bibliothek');
-define('OOS_GD_LIB_VERSION_DESC', '1 f&uuml;r alte GD-Lib Version (1.x)<br> 2 f&uuml;r aktuelle GD-Lib Version (2.x)');
-
-define('OOS_SMALLIMAGE_WAY_OF_RESIZE_TITLE', 'Bildbearbeitung kleines Bild');
-define('OOS_SMALLIMAGE_WAY_OF_RESIZE_DESC', '0: proportionale Verkleinerung; Breite oder H&ouml;he ist die maximale Gr&ouml;&szlig;e<br> 1: Bild wird proportional in das neue Bild kopiert. Die Hintergrundfarbe wird  ber&uuml;cksichtigt.<br> 2: ein Ausschnitt wird in das neue Bild kopiert');
 
 define('OOS_SMALL_IMAGE_WIDTH_TITLE', 'Small Image Width');
 define('OOS_SMALL_IMAGE_WIDTH_DESC', 'The pixel width of small images');
@@ -485,50 +462,11 @@ define('OOS_SMALL_IMAGE_WIDTH_DESC', 'The pixel width of small images');
 define('OOS_SMALL_IMAGE_HEIGHT_TITLE', 'Small Image Height');
 define('OOS_SMALL_IMAGE_HEIGHT_DESC', 'The pixel height of small images');
 
-define('OOS_IMAGE_BGCOLOUR_R_TITLE', 'Hintergrund kleines Bild R');
-define('OOS_IMAGE_BGCOLOUR_R_DESC', 'Rot Wert f&uuml;r kleines Produktbild');
-
-define('OOS_IMAGE_BGCOLOUR_G_TITLE', 'Hintergrund kleines Bild G');
-define('OOS_IMAGE_BGCOLOUR_G_DESC', 'Gr&uuml;n Wert f&uuml;r kleines Produktbild');
-
-define('OOS_IMAGE_BGCOLOUR_B_TITLE', 'Hintergrund kleines Bild B');
-define('OOS_IMAGE_BGCOLOUR_B_DESC', 'Blau Wert f&uuml;r kleines Produktbild');
-
-define('OOS_BIGIMAGE_WAY_OF_RESIZE_TITLE', 'Bildbearbeitung grosses Bild');
-define('OOS_BIGIMAGE_WAY_OF_RESIZE_DESC', '0: proportionale Verkleinerung; Breite oder H&ouml;he ist die maximale Gr&ouml;&szlig;e<br> 1: Bild wird proportional in das neue Bild kopiert. Die Hintergrundfarbe wird  ber&uuml;cksichtigt.<br> 2: ein Ausschnitt wird in das neue Bild kopiert');
-
 define('OOS_BIGIMAGE_WIDTH_TITLE', 'Breite grosses Bild');
 define('OOS_BIGIMAGE_WIDTH_DESC', 'Breite vom grossen Bild in Pixel');
 
 define('OOS_BIGIMAGE_HEIGHT_TITLE', 'H&ouml;he grosses Bild');
 define('OOS_BIGIMAGE_HEIGHT_DESC', 'H&ouml;he vom grossen Bild in Pixel');
-
-define('OOS_WATERMARK_TITLE', 'Wasserzeichen');
-define('OOS_WATERMARK_DESC', 'M&ouml;chten Sie im grossen Bild ein Wasserzeichen einf&uuml;gen?');
-
-define('OOS_WATERMARK_QUALITY_TITLE', 'Qualit&auml;t vom Wasserzeichen');
-define('OOS_WATERMARK_QUALITY_DESC', 'Hier legen Sie die Qualit&auml;t vom Wasserzeichen fest');
-
-define('OOS_SWF_BGCOLOUR_R_TITLE', 'Hintergrund vom Flashfilm R');
-define('OOS_SWF_BGCOLOUR_R_DESC', 'Rot Wert f&uuml;r kleines Produktbild im Flashfilm');
-
-define('OOS_SWF_BGCOLOUR_G_TITLE', 'Hintergrund vom Flashfilm G');
-define('OOS_SWF_BGCOLOUR_G_DESC', 'Gr&uuml;n Wert f&uuml;r kleines Produktbild im Flashfilm');
-
-define('OOS_SWF_BGCOLOUR_B_TITLE', 'Hintergrund vom Flashfilm B');
-define('OOS_SWF_BGCOLOUR_B_DESC', 'Blau Wert f&uuml;r kleines Produktbild im Flashfilm');
-
-define('OOS_RANDOM_PICTURE_NAME_TITLE', 'Filename');
-define('OOS_RANDOM_PICTURE_NAME_DESC', 'Random Filename');
-
-define('PSM_TITLE', 'Preissuchmaschine');
-define('PSM_DESC', 'M&ouml;chten Sie Die Schnittstelle zur Preissuchmaschine verwenden? Hierf&uuml;r ist eine Anmeldung bei <A HREF=\"http://www.preissuchmaschine.de/psm_frontend/main.asp?content=mitmachenreissuchmaschine\" TARGET=\"_blank\">http://www.preissuchmaschine.de</A> n');
-
-define('OOS_PSM_DIR_TITLE', 'Verzeichnis Preissuchmaschine');
-define('OOS_PSM_DIR_DESC', 'Die Datei f&uuml;r die Preissuchmaschine soll in diesem Shop-Verzeichnis gespeichert werden.');
-
-define('OOS_PSM_FILE_TITLE', 'Dateiname');
-define('OOS_PSM_FILE_DESC', 'Die Datei f&uuml;r die Preissuchmaschine');
 
 define('OOS_META_TITLE_TITLE', 'Shop Titel');
 define('OOS_META_TITLE_DESC', 'Der Titel');

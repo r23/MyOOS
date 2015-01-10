@@ -35,13 +35,8 @@
 
 function oos_copy_uploaded_file($filename, $target) {
   if (substr($target, -1) != '/') $target .= '/';
-  if (OOS_RANDOM_PICTURE_NAME == 'true') {
-    $picture_tempname = oos_get_random_picture_name(26);
-    $picture_tempname .= '.';
-    $picture_tempname .= oos_get_extension($filename['name']);
-  } else {
-    $picture_tempname = $filename['name'];
-  }
+  $picture_tempname = $filename['name'];
+
   $picture_name = oos_str_strip_all($picture_tempname);
   // Big Image
   // path for big image:
@@ -72,25 +67,6 @@ function oos_str_strip_all ($str) {
   // 12 abc def/ghi\jkl'&%$mno\n343dd -> 12abcdyY8-._efghijkl343ddi
   // Use to get usefull Filenames for pictures
   return preg_replace ("/[^[:alnum:]._-]/", "", $str);
-}
-
-
-function oos_get_random_picture_name($length = 24) {
-  $sStr = "";
-
-  for ($index = 1; $index <= $length; $index++) {
-    // Pick random number between 1 and 62
-    $randomNumber = rand(1, 62);
-    // Select random character based on mapping.
-    if ($randomNumber < 11) {
-      $sStr .= Chr($randomNumber + 48 - 1); // [ 1,10] => [0,9]
-    } else if ($randomNumber < 37) {
-      $sStr .= Chr($randomNumber + 65 - 10); // [11,36] => [A,Z]
-    } else {
-      $sStr .= Chr($randomNumber + 97 - 36); // [37,62] => [a,z]
-    }
-  }
-    return $sStr;
 }
 
 
@@ -214,7 +190,7 @@ function oos_resize_image($pic,$image_new,$new_width,$new_height,$fixed=0) {
            $fh = fopen($image_new,'w');
            fclose($fh);
            if ($imageInfo[2]==1) imagegif($dst_img,$image_new);
-           if ($imageInfo[2]==2) imagejpeg($dst_img,$image_new,OOS_WATERMARK_QUALITY);
+           if ($imageInfo[2]==2) imagejpeg($dst_img,$image_new,90);
            if ($imageInfo[2]==3) imagepng($dst_img,$image_new);
            return true;
          }
@@ -282,7 +258,7 @@ function oos_alpha_image($pic, $image_new, $new_width, $new_height) {
          fclose($fh);
 
          if ($imageInfo[2]==1) imagegif($dst_img,$image_new);
-         if ($imageInfo[2]==2) imagejpeg($dst_img,$image_new,OOS_WATERMARK_QUALITY);
+         if ($imageInfo[2]==2) imagejpeg($dst_img,$image_new,90);
          if ($imageInfo[2]==3) imagepng($dst_img,$image_new);
 
          return true;
