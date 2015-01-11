@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -40,7 +40,7 @@ if (file_exists('../includes/local/configure.php')) include('../includes/local/c
 
 // Include application configuration parameters
 require '../includes/configure.php';
-require 'includes/oos_define.php';
+require 'includes/define.php';
 
 
 use Symfony\Component\HttpFoundation\Request;
@@ -50,7 +50,7 @@ $request = Request::createFromGlobals();
 
 
 
-require 'includes/oos_filename.php';
+require 'includes/filename.php';
 require_once MYOOS_INCLUDE_PATH . 'includes/tables.php';
 
 require_once MYOOS_INCLUDE_PATH . 'includes/functions/function_global.php';
@@ -111,9 +111,6 @@ while ($configuration = $configuration_result->fields) {
     // Move that ADOdb pointer!
 	$configuration_result->MoveNext();
 }
-
-// some code to solve compatibility issues
-require 'includes/functions/function_compatibility.php';
 
 // language
 if (!isset($_SESSION['language']) || isset($_GET['language'])) {

@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -129,7 +129,6 @@
   </tr>
 </table>
 <!-- body_text_eof //-->
-<br />
-</body>
-</html>
+
+<?php require 'includes/bottom.php'; ?>
 <?php require 'includes/nice_exit.php'; ?>

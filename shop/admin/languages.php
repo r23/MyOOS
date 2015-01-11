@@ -570,8 +570,6 @@
 </table>
 <!-- body_eof //-->
 
-<?php require 'includes/footer.php'; ?>
-<br />
-</body>
-</html>
+
+<?php require 'includes/bottom.php'; ?>
 <?php require 'includes/nice_exit.php'; ?>

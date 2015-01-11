@@ -438,20 +438,8 @@ define('SHOW_DATE_ADDED_AVAILABLE_DESC', 'M&ouml;chten Sie im Shop das Datum von
 define('SHOW_COUNTS_TITLE', 'Artikelanzahl in den jeweiligen Kategorien');
 define('SHOW_COUNTS_DESC', 'Anzeigen, wieviele Produkte in jeder Kategorie vorhanden sind');
 
-define('CATEGORIES_SCROLL_BOX_LEN_TITLE', 'Kategorie-Menge');
-define('CATEGORIES_SCROLL_BOX_LEN_DESC', 'Wenn Sie die Kategorien als Auswahlliste anzeigen wollen, legen Sie hier die L&auml;nge fest');
-
-define('SHOPPING_CART_IMAGE_ON_TITLE', 'Bild im Warenkorbinhalt');
-define('SHOPPING_CART_IMAGE_ON_DESC', 'M&ouml;chten Sie in der Detailansicht vom Warenkorb das Porduktbild anzeigen?');
-
-define('SHOPPING_CART_MINI_IMAGE_TITLE', 'Bildverkleinerung');
-define('SHOPPING_CART_MINI_IMAGE_DESC', 'Wert f&uuml;r die Verkleinerung in der Detailansicht vom Warenkorb');
-
 define('DISPLAY_CART_TITLE', 'Display Cart After Adding Product');
 define('DISPLAY_CART_DESC', 'Display the shopping cart after adding a product (or return back to their origin)');
-
-define('ALLOW_NEWS_CATEGORY_DESCRIPTIONS_TITLE', 'Erlaube News-Kategorienbeschreibung');
-define('ALLOW_NEWS_CATEGORY_DESCRIPTIONS_DESC', 'Erlaubt eine ausf&uuml;hrliche Beschreibung der einzelnen News-Kategorien');
 
 define('SHOW_PRODUCTS_MODEL_TITLE', 'Navigation mit Bestellummer');
 define('SHOW_PRODUCTS_MODEL_DESC', 'M&ouml;chten Sie die auf der Produkt-Informations-Seite die Bestellnummer in der Navation anzeigen?');

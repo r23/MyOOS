@@ -19,23 +19,23 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
 ?>
 <!DOCTYPE html>
-<html <?php echo HTML_PARAMS; ?>>
-<meta charset="<?php echo CHARSET; ?>">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Type" content="text/html;charset=<?php echo CHARSET; ?>">
-
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title><?php echo TITLE; ?></title>
-  <meta http-equiv="expires" content="0" >
+	<title><?php echo TITLE; ?></title>
+	<meta http-equiv="expires" content="0" >
 
-<!--[if lt IE 7]>
-<script defer type="text/javascript" src="includes/pngfix.js"></script>
-<![endif]-->
+	<!-- Bootstrap style  --> 
+	<link href="themes/phoenix/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="themes/phoenix/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="themes/phoenix/css/style.min.css" rel="stylesheet" />
 
   <script type="text/javascript" src="includes/imgswap.js"></script>
 <?php
@@ -54,6 +54,8 @@
 <?php
   }
 ?>
+
+
 <?php
   if ($messageStack->size > 0) {
     echo $messageStack->output();
@@ -69,3 +71,6 @@
     <td class="headerBarContent" align="right"><?php echo '<a href="http://www.oos-shop.de/" class="headerLink">' . HEADER_TITLE_SUPPORT_SITE . '</a> &nbsp;|&nbsp; <a href="' . oos_catalog_link($oosCatalogFilename['default']) . '" class="headerLink">' . HEADER_TITLE_ONLINE_CATALOG . '</a>&nbsp;|&nbsp; <a href="' . oos_href_link_admin($aContents['default'], '', 'NONSSL') . '" class="headerLink">' . HEADER_TITLE_ADMINISTRATION . '</a>'; ?>&nbsp;&nbsp;</td>
   </tr>
 </table>
+
+
+

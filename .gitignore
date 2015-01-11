@@ -18,3 +18,6 @@ shop/temp/shop/templates_c/
 /forum/nbproject/private/
 /blog/wordpress/wp-content/themes/myoos/less/bootstrap.min.less
 /blog/wordpress/wp-content/themes/myoos/less/font-awesome.min.less
+/shop/admin/less/bootstrap.min.less
+/shop/admin/less/font-awesome.min.less
+/shop/admin/less/style.min.less

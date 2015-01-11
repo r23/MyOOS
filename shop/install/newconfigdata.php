@@ -112,13 +112,19 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configur
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MAX_DISPLAY_PRODUCTS_IN_PRODUCTS_HISTORY_BOX', '3', 3, 27, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 
 //4
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('HEADING_IMAGE_WIDTH', '57', 4, 3, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('HEADING_IMAGE_HEIGHT', '40', 4, 4, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SUBCATEGORY_IMAGE_WIDTH', '100', 4, 5, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('HEADING_IMAGE_WIDTH', '57', 4, 1, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('HEADING_IMAGE_HEIGHT', '40', 4, 2, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SUBCATEGORY_IMAGE_WIDTH', '100', 4, 3, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SUBCATEGORY_IMAGE_HEIGHT', '57', 4, 6, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('CONFIG_CALCULATE_IMAGE_SIZE', 'true', 4, 7, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('IMAGE_REQUIRED', 'true', 4, 8, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SUBCATEGORY_IMAGE_HEIGHT', '57', 4, 4, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('CONFIG_CALCULATE_IMAGE_SIZE', 'true', 4, 5, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('IMAGE_REQUIRED', 'true', 4, 6, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_SMALL_IMAGE_WIDTH', '110',  4, 7, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_SMALL_IMAGE_HEIGHT', '110', 4, 8, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_BIGIMAGE_WIDTH', '600', 4, 9, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_BIGIMAGE_HEIGHT', '600', 4, 10, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+
 
 //5
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('CUSTOMER_NOT_LOGIN', 'false', 5, 1, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
@@ -267,92 +273,42 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configur
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('STOCK_REORDER_LEVEL', '5', 9, 5, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 
 //10
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('DOWNLOAD_ENABLED', 'false', 10, 1, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('DOWNLOAD_BY_REDIRECT', 'false', 10, 2, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('DOWNLOAD_MAX_DAYS', '7', 10, 3, NULL, " . $db->DBTimeStamp($today) . ", NULL, '')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('DOWNLOAD_MAX_COUNT', '5', 10, 4, NULL, " . $db->DBTimeStamp($today) . ", NULL, '')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('DOWNLOADS_CONTROLLER_ORDERS_STATUS', '2', 10, 5, NULL, " . $db->DBTimeStamp($today) . ", NULL, '')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 
 //11
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('USE_CACHE', 'false', 11, 1, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SECURITY_CODE_LENGTH', '10', 11, 1, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('NEW_SIGNUP_GIFT_VOUCHER_AMOUNT', '10', 11, 2, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('NEW_SIGNUP_DISCOUNT_COUPON', '3', 11, 3, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 
 //12
-// email
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('STORE_TEMPLATES', 'phoenix', 12, 1, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SHOW_DATE_ADDED_AVAILABLE', 'true', 12, 2, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SHOW_COUNTS', 'false', 12, 3, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('DISPLAY_CART', 'false', 12, 4, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SHOW_PRODUCTS_MODEL', 'false', 12, 5, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('USE_CACHE', 'false', 12, 6, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 
 //13
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('DOWNLOAD_ENABLED', 'false', 13, 1, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('DOWNLOAD_BY_REDIRECT', 'false', 13, 2, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('DOWNLOAD_MAX_DAYS', '7', 13, 3, NULL, " . $db->DBTimeStamp($today) . ", NULL, '')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('DOWNLOAD_MAX_COUNT', '5', 13, 4, NULL, " . $db->DBTimeStamp($today) . ", NULL, '')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('DOWNLOADS_CONTROLLER_ORDERS_STATUS', '2', 13, 5, NULL, " . $db->DBTimeStamp($today) . ", NULL, '')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-
-//14
-// GZIP_COMPRESSION
-
-//6-0
-// TICKET
-
-//15 AFFILIATE
-
-//16 webprinter
-
-//17
-// PDF_DATA_SHEET
-
-//18
-// TICKET
-
-//19
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SECURITY_CODE_LENGTH', '10', 19, 1, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('NEW_SIGNUP_GIFT_VOUCHER_AMOUNT', '10', 19, 2, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('NEW_SIGNUP_DISCOUNT_COUPON', '3', 19, 3, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-
-//20
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('STORE_TEMPLATES', 'phoenix', 20, 1, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SHOW_DATE_ADDED_AVAILABLE', 'true', 20, 2, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SHOW_COUNTS', 'false', 20, 3, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('DISPLAY_CART', 'false', 20, 8, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SHOW_PRODUCTS_MODEL', 'false', 20, 12, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-
-//21
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_SMALL_IMAGE_WIDTH', '110',  21, 3, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_SMALL_IMAGE_HEIGHT', '110', 21, 4, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_BIGIMAGE_WIDTH', '600', 21, 9, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_BIGIMAGE_HEIGHT', '600', 21, 10, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-
-//22
-// DOWN_FOR_MAINTENANCE
-
-
-//23
-// PSM
-
-//24
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_META_TITLE', 'osis online shop', 24, 1, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_META_DESCRIPTION', 'Eine umfassende Internet Shop Lösung mit Datenbankanbindung',  24, 2, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_META_AUTHOR', 'MyOOS [Shopsystem]', 24, 5, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_META_COPYRIGHT', 'OSIS Online Shop', 24, 7, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-
-
-//25
-// FEATURED
-
-//26
-
-//27
-
-//28
-
-//29
-
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_META_TITLE', 'osis online shop', 13, 1, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_META_DESCRIPTION', 'Eine umfassende Internet Shop Lösung mit Datenbankanbindung',  13, 2, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_META_AUTHOR', 'MyOOS [Shopsystem]', 13, 5, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_META_COPYRIGHT', 'OSIS Online Shop', 13, 7, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 
 //30
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SLAVE_LIST_IMAGE', '1', '30', '1', NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SLAVE_LIST_MANUFACTURER', '0', 30, 2, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SLAVE_LIST_MODEL', '0',  30, 3, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SLAVE_LIST_NAME', '2', 30, 4, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SLAVE_LIST_PRICE', '3', 30, 5, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SLAVE_LIST_QUANTITY', '0', 30, 6, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SLAVE_LIST_WEIGHT', '0', 30, 7, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SLAVE_LIST_BUY_NOW', '4', 30, 8, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SLAVE_LIST_IMAGE', '1', '14', '1', NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SLAVE_LIST_MANUFACTURER', '0', 14, 2, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SLAVE_LIST_MODEL', '0',  14, 3, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SLAVE_LIST_NAME', '2', 14, 4, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SLAVE_LIST_PRICE', '3', 14, 5, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SLAVE_LIST_QUANTITY', '0', 14, 6, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SLAVE_LIST_WEIGHT', '0', 14, 7, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SLAVE_LIST_BUY_NOW', '4', 14, 8, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 
-//31
+
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "configuration " . UPDATED .'</font>';
 
@@ -365,40 +321,12 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (co
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (7, 7, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (8, 8, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (9, 9, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-// $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (10, 10, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
 
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (10, 10, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (11, 11, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-// todo remove $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (12, 12, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (12, 12, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (13, 13, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-// todo remove GZIP_COMPRESSION $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (14, 14, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-
-// todo remove AFFILIATE $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (15, 15, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-
-// todo remove webPrinter $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (16, 16, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-
-// $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (17, 17, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-// $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (18, 18, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (19, 19, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (20, 20, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (21, 21, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-
-// todo: remove DOWN_FOR_MAINTENANCE group $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (22, 22, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-
-// $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (23, 23, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (24, 24, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-
-// todo: remove FEATURED   $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (25, 25, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-
-// $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (26, 26, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-// $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (27, 27, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-// $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (28, 28, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-// $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (29, 29, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (30, 30, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-
-// $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (31, 31, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
-
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration_group (configuration_group_id, sort_order, visible) VALUES (14, 14, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration_group</b>");
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "configuration_group " . UPDATED .'</font>';
 
