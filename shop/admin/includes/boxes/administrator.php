@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -18,25 +18,26 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-?>
-<!-- catalog //-->
-          <tr>
-            <td>
-<?php
-  $heading = array();
-  $contents = array();
 
-  $heading[] = array('text'  => BOX_HEADING_ADMINISTRATOR,
-                     'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=administrator'));
+$bActive = false;
+if ($_SESSION['selected_box'] == 'administrator' ) {
+	$bActive = true;
+}
+   
+$aBlocks[] = array(
+	'heading' => BOX_HEADING_ADMINISTRATOR,
+	'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=administrator'),
+	'icon' => 'fa fa-user',
+	'active' => $bActive,
+	'contents' => array(
+		array(
+			'title' => BOX_ADMINISTRATOR_MEMBERS,
+			'link' => oos_admin_files_boxes('admin_members', 'selected_box=administrator')
+		),
+		array(
+			'title' => BOX_ADMINISTRATOR_BOXES,
+			'link' => oos_admin_files_boxes('admin_files', 'selected_box=administrator')
+		),	
+	),
+);
 
-  if ($_SESSION['selected_box'] == 'administrator' ) {
-    $contents[] = array('text'  => oos_admin_files_boxes('admin_members', 'selected_box=administrator', BOX_ADMINISTRATOR_MEMBERS) .
-                                   oos_admin_files_boxes('admin_files', 'selected_box=administrator', BOX_ADMINISTRATOR_BOXES));
-  }
-
-  $box = new box;
-  echo $box->menuBox($heading, $contents);
-?>
-            </td>
-          </tr>
-<!-- catalog_eof //-->

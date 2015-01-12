@@ -97,9 +97,7 @@
   }
 
 
-  function oos_admin_files_boxes($filename, $parameters, $sub_box_name) {
-
-    $sub_boxes = '';
+  function oos_admin_files_boxes($filename, $parameters) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -116,13 +114,10 @@
     $result = $dbconn->Execute($query);
 
     if ($result->RecordCount()) {
-	  $sub_boxes = '<a href="' . oos_href_link_admin($aContents[$filename], $parameters) . '" class="menuBoxContentLink" title="' . $sub_box_name . '">' . $sub_box_name . '</a><br>';
+		return oos_href_link_admin($aContents[$filename], $parameters);
     }
 
-    // Close result set
-    $result->Close();
-
-    return $sub_boxes;
+    return; 
   }
 
 

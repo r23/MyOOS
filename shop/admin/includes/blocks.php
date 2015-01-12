@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -19,54 +19,83 @@
    Released under the GNU General Public License
    ----------------------------------------------------------------------  */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
+$aBlocks = array();
 
-  if (oos_admin_check_boxes('administrator.php') == true) {
-    include 'includes/boxes/administrator.php';
-  }
-  if (oos_admin_check_boxes('configuration.php') == true) {
-    include 'includes/boxes/configuration.php';
-  }
-  if (oos_admin_check_boxes('catalog.php') == true) {
-    include 'includes/boxes/catalog.php';
-  }
-  if (oos_admin_check_boxes('content.php') == true) {
-    include 'includes/boxes/content.php';
-  }
-  if (oos_admin_check_boxes('modules.php') == true) {
-    include 'includes/boxes/modules.php';
-  }
-  if (oos_admin_check_boxes('plugins.php') == true) {
-    include 'includes/boxes/plugins.php';
-  }
-  if (oos_admin_check_boxes('customers.php') == true) {
-    include 'includes/boxes/customers.php';
-  }
-  if (oos_admin_check_boxes('taxes.php') == true) {
+if (oos_admin_check_boxes('administrator.php') == true) {
+	include 'includes/boxes/administrator.php';
+}
+if (oos_admin_check_boxes('configuration.php') == true) {
+	include 'includes/boxes/configuration.php';
+}
+if (oos_admin_check_boxes('catalog.php') == true) {
+	include 'includes/boxes/catalog.php';
+}
+if (oos_admin_check_boxes('content.php') == true) {
+	include 'includes/boxes/content.php';
+}
+if (oos_admin_check_boxes('modules.php') == true) {
+	include 'includes/boxes/modules.php';
+}
+if (oos_admin_check_boxes('plugins.php') == true) {
+	include 'includes/boxes/plugins.php';
+}
+if (oos_admin_check_boxes('customers.php') == true) {
+	include 'includes/boxes/customers.php';
+}
+if (oos_admin_check_boxes('taxes.php') == true) {
     include 'includes/boxes/taxes.php';
-  }
-  if (oos_admin_check_boxes('localization.php') == true) {
-    include 'includes/boxes/localization.php';
-  }
+}
+if (oos_admin_check_boxes('localization.php') == true) {
+	include 'includes/boxes/localization.php';
+}
 
-  if (oos_admin_check_boxes('reports.php') == true) {
+if (oos_admin_check_boxes('reports.php') == true) {
     include 'includes/boxes/reports.php';
-  }
-  if (oos_admin_check_boxes('tools.php') == true) {
-    include 'includes/boxes/tools.php';
-  }
-  if (oos_admin_check_boxes('links.php') == true) {
-    include 'includes/boxes/links.php';
-  }
-  if (oos_admin_check_boxes('gv_admin.php') == true) {
-    include 'includes/boxes/gv_admin.php'; 
-  }
+}
+if (oos_admin_check_boxes('tools.php') == true) {
+	include 'includes/boxes/tools.php';
+}
 
-  if (oos_admin_check_boxes('export.php') == true) {
+if (oos_admin_check_boxes('gv_admin.php') == true) {
+	include 'includes/boxes/gv_admin.php'; 
+}
+
+if (oos_admin_check_boxes('export.php') == true) {
     include 'includes/boxes/export.php';
-  }
-  if (oos_admin_check_boxes('information.php') == true) {
-    include 'includes/boxes/information.php';
-  }
+}
+if (oos_admin_check_boxes('information.php') == true) {
+	include 'includes/boxes/information.php';
+}
+
+if (is_array($aBlocks)) {
+
+	echo '       <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">';
+				
+				
+	foreach ($aBlocks as $panels ) {
+		if ($panels['active']) {
+			echo '<li class="active">';
+		} else {
+			echo '<li>';
+		}
+		echo '<a href="' . $panels['link'] . '"><i class="' . $panels['icon'] . '"></i>' .
+			'<span class="nav-label">' . $panels['heading'] . '</span><span class="fa arrow"></span></a>' .
+			'<ul class="nav nav-second-level">';
+	  
+
+		foreach ($panels['contents'] as $contents) {
+			echo '<li><a href="' . $contents['link'] . '">' . $contents['title'] . '</a></li>';
+		}
+
+		echo '</ul></li>';
+	}
+
+	
+	echo '         </div>
+        </nav>';
+}		

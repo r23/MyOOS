@@ -182,7 +182,6 @@ define('BOX_LOCALIZATION_ORDERS_STATUS', 'Bestellstatus');
 
 // export
 define('BOX_HEADING_EXPORT', 'Export');
-define('BOX_EXPORT_PREISSUCHMASCHINE', 'Export preissuchmaschine.de');
 define('BOX_EXPORT_GOOGLEBASE', 'Googlebase');
 
 

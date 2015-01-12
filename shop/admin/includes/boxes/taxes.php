@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -18,28 +18,38 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-?>
-<!-- taxes //-->
-          <tr>
-            <td>
-<?php
-  $heading = array();
-  $contents = array();
 
-  $heading[] = array('text'  => BOX_HEADING_LOCATION_AND_TAXES,
-                     'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=taxes'));
+$bActive = false;
+if ($_SESSION['selected_box'] == 'taxes' ) {
+	$bActive = true;
+}
 
-  if ($_SESSION['selected_box'] == 'taxes' ) {
-    $contents[] = array('text'  => oos_admin_files_boxes('countries', 'selected_box=taxes', BOX_TAXES_COUNTRIES) .
-                                   oos_admin_files_boxes('zones', 'selected_box=taxes', BOX_TAXES_ZONES) .
-                                   oos_admin_files_boxes('geo_zones', 'selected_box=taxes', BOX_TAXES_GEO_ZONES) .
-                                   oos_admin_files_boxes('tax_classes', 'selected_box=taxes', BOX_TAXES_TAX_CLASSES) .
-                                   oos_admin_files_boxes('tax_rates', 'selected_box=taxes', BOX_TAXES_TAX_RATES));
-  }
+$aBlocks[] = array(
+	'heading' => BOX_HEADING_LOCATION_AND_TAXES,
+	'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=taxes'),
+	'icon' => 'fa fa-globe',
+	'active' => $bActive,
+	'contents' => array(
+		array(
+			'title' => BOX_TAXES_COUNTRIES,
+			'link' => oos_admin_files_boxes('countries', 'selected_box=taxes')
+		),
+		array(
+			'title' => BOX_TAXES_ZONES,
+			'link' => oos_admin_files_boxes('zones', 'selected_box=taxes')
+		),
+		array(
+			'title' => BOX_TAXES_GEO_ZONES,
+			'link' => oos_admin_files_boxes('geo_zones', 'selected_box=taxes')
+		),
+		array(
+			'title' => BOX_TAXES_TAX_CLASSES,
+			'link' =>  oos_admin_files_boxes('tax_classes', 'selected_box=taxes')
+		),
+		array(
+			'title' => BOX_TAXES_TAX_RATES,
+			'link' => oos_admin_files_boxes('tax_rates', 'selected_box=taxes')
+		),	
+	),
+);
 
-  $box = new box;
-  echo $box->menuBox($heading, $contents);
-?>
-            </td>
-          </tr>
-<!-- taxes_eof //-->

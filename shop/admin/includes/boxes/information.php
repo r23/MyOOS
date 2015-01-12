@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -16,24 +16,23 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-?>
-<!-- information //-->
-          <tr>
-            <td>
-<?php
-  $heading = array();
-  $contents = array();
 
-  $heading[] = array('text'  => BOX_HEADING_INFORMATION,
-                     'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=information'));
+   
+$bActive = false;
+if ($_SESSION['selected_box'] == 'information' ) {
+	$bActive = true;
+}
 
-  if ($_SESSION['selected_box'] == 'information' ) {
-    $contents[] = array('text'  => oos_admin_files_boxes('information', 'selected_box=information', BOX_INFORMATION));
-  }
+$aBlocks[] = array(
+	'heading' => BOX_HEADING_INFORMATION,
+	'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=information'),
+	'icon' => 'fa fa-tasks',
+	'active' => $bActive,
+	'contents' => array(
+		array(
+			'title' => BOX_INFORMATION,
+			'link' => oos_admin_files_boxes('information', 'selected_box=information')
+		),
 
-  $box = new box;
-  echo $box->menuBox($heading, $contents);
-?>
-            </td>
-          </tr>
-<!-- information //-->
+	),
+);

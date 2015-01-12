@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -19,33 +19,28 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  include 'includes/languages/' . $_SESSION['language'] . '/configuration_group.php';
-?>
-<!-- configuration //-->
-          <tr>
-            <td>
-<?php
-  $heading = array();
-  $contents = array();
+include 'includes/languages/' . $_SESSION['language'] . '/configuration_group.php';
 
-  $heading[] = array('text'  => BOX_HEADING_CONFIGURATION,
-                     'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=configuration'));
+$bActive = false;
+if ($_SESSION['selected_box'] == 'configuration' ) {  
+	$bActive = true;
+}
 
-  if ($_SESSION['selected_box'] == 'configuration' ) {
-    $cfg_groups = '';
-    $configuration_groups_result = $dbconn->Execute("SELECT configuration_group_id as cgID FROM " . $oostable['configuration_group'] . " where visible = '1' ORDER BY sort_order");
-    while ($configuration_groups = $configuration_groups_result->fields) {
-      $cfg_groups .= '<a href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $configuration_groups['cgID'], 'NONSSL') . '" class="menuBoxContentLink">' . constant(strtoupper($configuration_groups['cgID'] . '_TITLE')) . '</a><br />';
+$aBlocks[] = array(
+	'heading' => BOX_HEADING_CONFIGURATION,
+	'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=configuration'),
+	'icon' => 'fa fa-cogs',
+	'active' => $bActive
+);
 
-      // Move that ADOdb pointer!
-      $configuration_groups_result->MoveNext();
-    }
-    $contents[] = array('text'  => $cfg_groups);
-  }
+$configuration_groups_result = $dbconn->Execute("SELECT configuration_group_id as cgID FROM " . $oostable['configuration_group'] . " where visible = '1' ORDER BY sort_order");
+while ($configuration_groups = $configuration_groups_result->fields) {
+	$aBlocks[sizeof($aBlocks)-1]['contents'][] = array(
+			'title' => constant(strtoupper($configuration_groups['cgID'] . '_TITLE')),
+			'link' => oos_href_link_admin($aContents['configuration'], 'gID=' . $configuration_groups['cgID'], 'NONSSL')
+		);
 
-  $box = new box;
-  echo $box->menuBox($heading, $contents);
-?>
-            </td>
-          </tr>
-<!-- configuration_eof //-->
+	// Move that ADOdb pointer!
+	$configuration_groups_result->MoveNext();
+}
+

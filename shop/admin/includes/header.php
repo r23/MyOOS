@@ -33,44 +33,42 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 	<meta http-equiv="expires" content="0" >
 
 	<!-- Bootstrap style  --> 
-	<link href="themes/phoenix/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="themes/phoenix/css/font-awesome.min.css" rel="stylesheet" />
-	<link href="themes/phoenix/css/style.min.css" rel="stylesheet" />
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<link href="css/font-awesome.min.css" rel="stylesheet" />
+	<link href="css/style.min.css" rel="stylesheet" />
 
-  <script type="text/javascript" src="includes/imgswap.js"></script>
+
 <?php
   if ($no_js_general == 'true') {
 ?>
+    <script type="text/javascript" src="includes/general.js"></script>
+
+
+  <script type="text/javascript" src="includes/imgswap.js"></script>
    <link rel="StyleSheet" href="includes/stylesheet.css" type="text/css" >
 </head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<body>
 <?php
   } else {
-?>
-    <script type="text/javascript" src="includes/general.js"></script>
+
+  /*
     <link rel="StyleSheet" href="includes/stylesheet.css" type="text/css" >
+*/
+?>
+
 </head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onload="SetFocus();">
+<body>
 <?php
   }
 ?>
-
 
 <?php
   if ($messageStack->size > 0) {
     echo $messageStack->output();
   }
 ?>
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
-  <tr>
-    <td></td>
-    <td align="right"><?php echo '<a href="http://www.oos-shop.de/" target="_blank">' . oos_image(OOS_IMAGES . 'support.png', HEADER_TITLE_SUPPORT_SITE, '50', '50') . '</a>&nbsp;&nbsp;<a href="' . oos_catalog_link($oosCatalogFilename['default']) . '">' . oos_image(OOS_IMAGES . 'checkout.png', HEADER_TITLE_ONLINE_CATALOG, '50', '50') . '</a>&nbsp;&nbsp;<a href="' . oos_href_link_admin($aContents['default'], '', 'NONSSL') . '">' . oos_image(OOS_IMAGES . 'administration.png', HEADER_TITLE_ADMINISTRATION, '50', '50') . '</a>'; ?>&nbsp;&nbsp;</td>
-  </tr>
-  <tr class="headerBar">
-    <td class="headerBarContent">&nbsp;&nbsp;<?php if (isset($_SESSION['login_id'])) { echo '<a href="' . oos_href_link_admin($aContents['admin_account'], '', 'SSL') . '" class="headerLink">' . HEADER_TITLE_ACCOUNT . '</a> | <a href="' . oos_href_link_admin($aContents['logoff'], '', 'NONSSL') . '" class="headerLink">' . HEADER_TITLE_LOGOFF . '</a>'; } else { echo '<a href="' . oos_href_link_admin($aContents['default'], '', 'NONSSL') . '" class="headerLink">' . HEADER_TITLE_TOP . '</a>'; }?></td>
-    <td class="headerBarContent" align="right"><?php echo '<a href="http://www.oos-shop.de/" class="headerLink">' . HEADER_TITLE_SUPPORT_SITE . '</a> &nbsp;|&nbsp; <a href="' . oos_catalog_link($oosCatalogFilename['default']) . '" class="headerLink">' . HEADER_TITLE_ONLINE_CATALOG . '</a>&nbsp;|&nbsp; <a href="' . oos_href_link_admin($aContents['default'], '', 'NONSSL') . '" class="headerLink">' . HEADER_TITLE_ADMINISTRATION . '</a>'; ?>&nbsp;&nbsp;</td>
-  </tr>
-</table>
+
+
 
 
 

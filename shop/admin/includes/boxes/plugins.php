@@ -5,28 +5,25 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-?>
-<!-- plugins //-->
-          <tr>
-            <td>
-<?php
-  $heading = array();
-  $contents = array();
-
-  $heading[] = array('text'  => BOX_HEADING_PLUGINS,
-                     'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=plugins'));
-
-  if ($_SESSION['selected_box'] == 'plugins' ) {
-    $contents[] = array('text'  => '<a href="' . oos_href_link_admin($aContents['plugins'], '', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_PLUGINS_EVENT . '</a>');
-  }
-
-  $box = new box;
-  echo $box->menuBox($heading, $contents);
-?>
-            </td>
-          </tr>
-<!-- plugins_eof //-->
+   
+$bActive = false;
+if ($_SESSION['selected_box'] == 'plugins' ) {
+	$bActive = true;
+}
+  
+$aBlocks[] = array(
+	'heading' => BOX_HEADING_PLUGINS,
+	'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=plugins'),
+	'icon' => 'fa fa-plug',
+	'active' => $bActive,
+	'contents' => array(
+		array(
+			'title' => BOX_PLUGINS_EVENT,
+			'link' => oos_href_link_admin($aContents['plugins'], '', 'NONSSL')
+		),	
+	),
+);

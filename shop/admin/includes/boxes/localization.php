@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -18,29 +18,26 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-?>
-<!-- localization //-->
-          <tr>
-            <td>
-<?php
 
-# echo BOX_LOCALIZATION_CURRENCIES;
+$bActive = false;
+if ($_SESSION['selected_box'] == 'localization' ) {
+	$bActive = true;
+}
+  
+$aBlocks[] = array(
+	'heading' => BOX_HEADING_LOCALIZATION,
+	'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=localization'),
+	'icon' => 'fa fa-language',
+	'active' => $bActive,
+	'contents' => array(
+		array(
+			'title' => BOX_LOCALIZATION_CURRENCIES,
+			'link' => oos_admin_files_boxes('currencies', 'selected_box=localization')
+		),
+		array(
+			'title' => BOX_LOCALIZATION_LANGUAGES,
+			'link' => oos_admin_files_boxes('languages', 'selected_box=localization')
+		),	
+	),
+);
 
-
-  $heading = array();
-  $contents = array();
-
-  $heading[] = array('text'  => BOX_HEADING_LOCALIZATION,
-                     'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=localization'));
-
-  if ($_SESSION['selected_box'] == 'localization' ) {
-    $contents[] = array('text'  => oos_admin_files_boxes('currencies', 'selected_box=localization', BOX_LOCALIZATION_CURRENCIES) .
-                                   oos_admin_files_boxes('languages', 'selected_box=localization', BOX_LOCALIZATION_LANGUAGES));
-  }
-
-  $box = new box;
-  echo $box->menuBox($heading, $contents);
-?>
-            </td>
-          </tr>
-<!-- localization_eof //-->

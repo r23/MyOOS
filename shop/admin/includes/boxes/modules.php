@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -18,26 +18,30 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-?>
-<!-- modules //-->
-          <tr>
-            <td>
-<?php
-  $heading = array();
-  $contents = array();
 
-  $heading[] = array('text'  => BOX_HEADING_MODULES,
-                     'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=modules'));
+$bActive = false;
+if ($_SESSION['selected_box'] == 'modules' ) {
+	$bActive = true;
+}
 
-  if ($_SESSION['selected_box'] == 'modules' ) {
-    $contents[] = array('text'  => '<a href="' . oos_href_link_admin($aContents['modules'], 'set=payment', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_MODULES_PAYMENT . '</a><br />' .
-                                   '<a href="' . oos_href_link_admin($aContents['modules'], 'set=shipping', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_MODULES_SHIPPING . '</a><br />' .
-                                   '<a href="' . oos_href_link_admin($aContents['modules'], 'set=ordertotal', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_MODULES_ORDER_TOTAL . '</a>');
-  }
+$aBlocks[] = array(
+	'heading' => BOX_HEADING_MODULES,
+	'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=modules'),
+	'icon' => 'fa fa-edit',
+	'active' => $bActive,
+	'contents' => array(
+		array(
+			'title' => BOX_MODULES_PAYMENT,
+			'link' =>  oos_href_link_admin($aContents['modules'], 'set=payment', 'NONSSL')
+		),
+		array(
+			'title' => BOX_MODULES_SHIPPING,
+			'link' => oos_href_link_admin($aContents['modules'], 'set=shipping', 'NONSSL')
+		),
+		array(
+			'title' => BOX_MODULES_ORDER_TOTAL,
+			'link' => oos_href_link_admin($aContents['modules'], 'set=ordertotal', 'NONSSL')
+		),	
+	),
+);
 
-  $box = new box;
-  echo $box->menuBox($heading, $contents);
-?>
-            </td>
-          </tr>
-<!-- modules_eof //-->

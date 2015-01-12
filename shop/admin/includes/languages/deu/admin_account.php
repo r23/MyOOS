@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -52,7 +52,7 @@ define('JS_ALERT_EMAIL',            '- Benötigt: Email-Adresse \n');
 define('JS_ALERT_PASSWORD',         '- Benötigt: Passwort \n');
 define('JS_ALERT_FIRSTNAME_LENGTH', '- Die Länge des Vornamens muss über ');
 define('JS_ALERT_LASTNAME_LENGTH',  '- Die Länge des Nachnamens muss über ');
-define('JS_ALERT_PASSWORD_LENGTH',  '- Die Länge des Pa�ortes muss über  ');
+define('JS_ALERT_PASSWORD_LENGTH',  '- Die Länge des Passwortes muss über  ');
 define('JS_ALERT_EMAIL_FORMAT',     '- Das Format der Email-Adresse ist ungültig! \n');
 define('JS_ALERT_EMAIL_USED',       '- Diese Email-Adresse wird schon verwendet! \n');
 define('JS_ALERT_PASSWORD_CONFIRM', '- Im Passwort-Bestätigungsfeld ist keine Eintragung vorgenommen worden! \n');

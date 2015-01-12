@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -16,25 +16,27 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-?>
-<!-- export //-->
-          <tr>
-            <td>
-<?php
-  $heading = array();
-  $contents = array();
 
-  $heading[] = array('text'  => BOX_HEADING_EXPORT,
-                     'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=export'));
 
-  if ($_SESSION['selected_box'] == 'export' ) {
-    $contents[] = array('text'  => oos_admin_files_boxes('export_googlebase', 'selected_box=export', BOX_EXPORT_GOOGLEBASE) .
-                                   oos_admin_files_boxes('export_preissuchmaschine', 'selected_box=export', BOX_EXPORT_PREISSUCHMASCHINE));
-  }
+$bActive = false;
+if ($_SESSION['selected_box'] == 'export' ) {
+	$bActive = true;
+}
+  
+$aBlocks[] = array(
+	'heading' => BOX_HEADING_EXPORT,
+	'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=tools'),
+	'icon' => 'fa fa-database',
+	'active' => $bActive,
+	'contents' => array(
+		array(
+			'title' => BOX_EXPORT_GOOGLEBASE,
+			'link' => oos_admin_files_boxes('export_googlebase', 'selected_box=export')
+		),
+		array(
+			'title' => BOX_CATALOG_EXPORT_EXCEL,
+			'link' => oos_admin_files_boxes('export_excel', 'selected_box=export')
+		),	
+	),
+);
 
-  $box = new box;
-  echo $box->menuBox($heading, $contents);
-?>
-            </td>
-          </tr>
-<!-- export_eof //-->

@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -18,26 +18,29 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-?>
-<!-- tools //-->
-          <tr>
-            <td>
-<?php
-  $heading = array();
-  $contents = array();
 
-  $heading[] = array('text'  => BOX_HEADING_TOOLS,
-                     'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=tools'));
-
-  if ($_SESSION['selected_box'] == 'tools' ) {
-    $contents[] = array('text'  => oos_admin_files_boxes('mail', 'selected_box=tools', BOX_TOOLS_MAIL) .
-                                   oos_admin_files_boxes('newsletters', 'selected_box=tools', BOX_TOOLS_NEWSLETTER_MANAGER) .
-                                   oos_admin_files_boxes('whos_online', 'selected_box=tools', BOX_TOOLS_WHOS_ONLINE));
-  }
-
-  $box = new box;
-  echo $box->menuBox($heading, $contents);
-?>
-            </td>
-          </tr>
-<!-- tools_eof //-->
+$bActive = false;
+if ($_SESSION['selected_box'] == 'tools' ) {
+	$bActive = true;
+}
+  
+$aBlocks[] = array(
+	'heading' => BOX_HEADING_TOOLS,
+	'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=tools'),
+	'icon' => 'fa fa-database',
+	'active' => $bActive,
+	'contents' => array(
+		array(
+			'title' => BOX_TOOLS_MAIL,
+			'link' => oos_admin_files_boxes('mail', 'selected_box=tools')
+		),
+		array(
+			'title' => BOX_TOOLS_NEWSLETTER_MANAGER,
+			'link' => oos_admin_files_boxes('newsletters', 'selected_box=tools')
+		),
+		array(
+			'title' => BOX_TOOLS_WHOS_ONLINE,
+			'link' => oos_admin_files_boxes('whos_online', 'selected_box=tools')
+		),	
+	),
+);

@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2013 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -22,27 +22,34 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-?>
-<!-- gv_admin //-->
-          <tr>
-            <td>
-<?php
-  $heading = array();
-  $contents = array();
 
-  $heading[] = array('text'  => BOX_HEADING_GV_ADMIN,
-                     'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=gv_admin'));
+$bActive = false;
+if ($_SESSION['selected_box'] == 'gv_admin' ) {
+	$bActive = true;
+}
+  
+$aBlocks[] = array(
+	'heading' => BOX_HEADING_GV_ADMIN,
+	'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=gv_admin'),
+	'icon' => 'fa fa-certificate',
+	'active' => $bActive,
+	'contents' => array(
+		array(
+			'title' => BOX_COUPON_ADMIN,
+			'link' => oos_admin_files_boxes('coupon_admin', 'selected_box=gv_admin')
+		),
+		array(
+			'title' => BOX_GV_ADMIN_QUEUE,
+			'link' =>  oos_admin_files_boxes('gv_queue', 'selected_box=gv_admin')
+		),
+		array(
+			'title' => BOX_GV_ADMIN_MAIL,
+			'link' => oos_admin_files_boxes('gv_mail', 'selected_box=gv_admin')
+		),
+		array(
+			'title' => BOX_GV_ADMIN_SENT,
+			'link' => oos_admin_files_boxes('gv_sent', 'selected_box=gv_admin')
+		),
+	),
+);
 
-  if ($_SESSION['selected_box'] == 'gv_admin' ) {
-    $contents[] = array('text'  => oos_admin_files_boxes('coupon_admin', 'selected_box=gv_admin', BOX_COUPON_ADMIN) .
-                                   oos_admin_files_boxes('gv_queue', 'selected_box=gv_admin', BOX_GV_ADMIN_QUEUE) .
-                                   oos_admin_files_boxes('gv_mail', 'selected_box=gv_admin', BOX_GV_ADMIN_MAIL) .
-                                   oos_admin_files_boxes('gv_sent', 'selected_box=gv_admin', BOX_GV_ADMIN_SENT));
-  }
-
-  $box = new box;
-  echo $box->menuBox($heading, $contents);
-?>
-            </td>
-          </tr>
-<!-- gv_admin_eof //-->
