@@ -42,10 +42,11 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
   if ($no_js_general == 'true') {
 ?>
     <script type="text/javascript" src="includes/general.js"></script>
-
-
-  <script type="text/javascript" src="includes/imgswap.js"></script>
+<?php
+/*
    <link rel="StyleSheet" href="includes/stylesheet.css" type="text/css" >
+*/
+?>
 </head>
 <body>
 <?php

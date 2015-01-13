@@ -23,7 +23,7 @@ $aBlocks[] = array(
 	'contents' => array(
 		array(
 			'title' => BOX_PLUGINS_EVENT,
-			'link' => oos_href_link_admin($aContents['plugins'], '', 'NONSSL')
+			'link' => oos_href_link_admin($aContents['plugins'], 'selected_box=plugins', 'NONSSL')
 		),	
 	),
 );

@@ -201,13 +201,18 @@ function popupImageWindow(url) {
 //--></script>
 <div id="spiffycalendar" class="text"></div>
 <!-- body //-->
-<table border="0" width="100%" cellspacing="2" cellpadding="2">
-  <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
-<?php require 'includes/blocks.php'; ?>
-    </table></td>
+<div id="wrapper">
+	<?php require 'includes/blocks.php'; ?>
+		<div id="page-wrapper" class="gray-bg">
+			<div class="row border-bottom">
+			<?php require 'includes/menue.php'; ?>
+			</div>
+
+			<div class="wrapper wrapper-content animated fadeInRight">
+				<div class="row">
+					<div class="col-lg-12">
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+	<table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
   if ($action == 'new_product') {
     if (isset($_GET['pID']) && empty($_POST)) {
@@ -818,11 +823,18 @@ function calcBasePriceFactor() {
     }
   }
 ?>
-    </table></td>
+    </table>
 <!-- body_text_eof //-->
-  </tr>
-</table>
-<!-- body_eof //-->
 
-<?php require 'includes/bottom.php'; ?>
-<?php require 'includes/nice_exit.php'; ?>
+				</div>
+			</div>
+        </div>
+
+	</div>
+</div>
+
+
+<?php 
+	require 'includes/bottom.php';
+	require 'includes/nice_exit.php';
+?>

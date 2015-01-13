@@ -37,7 +37,7 @@ $configuration_groups_result = $dbconn->Execute("SELECT configuration_group_id a
 while ($configuration_groups = $configuration_groups_result->fields) {
 	$aBlocks[sizeof($aBlocks)-1]['contents'][] = array(
 			'title' => constant(strtoupper($configuration_groups['cgID'] . '_TITLE')),
-			'link' => oos_href_link_admin($aContents['configuration'], 'gID=' . $configuration_groups['cgID'], 'NONSSL')
+			'link' => oos_href_link_admin($aContents['configuration'], 'selected_box=configuration&amp;gID=' . $configuration_groups['cgID'], 'NONSSL')
 		);
 
 	// Move that ADOdb pointer!

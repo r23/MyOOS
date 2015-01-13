@@ -466,8 +466,6 @@ define('TEXT_DISPLAY_NUMBER_OF_MEMBERS', 'Zeige an <b>%d</b> bis <b>%d</b> (von 
 
 define('PULL_DOWN_DEFAULT', 'Bitte wählen');
 
-define('BOX_REPORTS_RECOVER_CART_SALES', 'Recover Carts');
-define('BOX_TOOLS_RECOVER_CART', 'Recover Carts');
 
 // BOF: WebMakers.com Added: All Add-Ons
 // Download Controller

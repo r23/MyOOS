@@ -19,12 +19,17 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-   
+$bActive = false;
+if ($_SESSION['selected_box'] == 'customers' ) {
+	$bActive = true;
+}
+      
    
 $aBlocks[] = array(
 	'heading' => BOX_HEADING_CUSTOMERS,
 	'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=customers'),
 	'icon' => 'fa fa-users',
+	'active' => $bActive,
 	'contents' => array(
 		array(
 			'title' => BOX_CUSTOMERS_CUSTOMERS,

@@ -50,9 +50,5 @@ $aBlocks[] = array(
 			'title' => BOX_REPORTS_SALES_REPORT2,
 			'link' => oos_admin_files_boxes('stats_sales_report2', 'selected_box=reports')
 		),
-		array(
-			'title' => BOX_REPORTS_RECOVER_CART_SALES,
-			'link' => oos_admin_files_boxes('stats_recover_cart_sales', 'selected_box=reports')
-		),		
 	),
 );

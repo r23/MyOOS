@@ -227,25 +227,18 @@
   $no_js_general = true;
   require 'includes/header.php';
 ?>
-<?php
-  if (defined('GOOGLE_MAP_API_KEY')) {
-?>
-<script language="javascript"><!--
-function popupGoogleMap(url) {
-  window.open(url,'popupImageWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=yes,copyhistory=no,width=550,height=400,screenX=150,screenY=150,top=150,left=150')
-}
-//--></script>
-<?php
-  }
-?>
-<!-- body //-->
-<table border="0" width="100%" cellspacing="2" cellpadding="2">
-  <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
-<?php require 'includes/blocks.php'; ?>
-    </table></td>
+<div id="wrapper">
+	<?php require 'includes/blocks.php'; ?>
+		<div id="page-wrapper" class="gray-bg">
+			<div class="row border-bottom">
+			<?php require 'includes/menue.php'; ?>
+			</div>
+
+			<div class="wrapper wrapper-content animated fadeInRight">
+				<div class="row">
+					<div class="col-lg-12">
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+	<table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
   if (($action == 'edit') && ($order_exists == true)) {
     $order = new order($oID);
@@ -282,19 +275,7 @@ function popupGoogleMap(url) {
               <tr>
                 <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '5'); ?></td>
               </tr>
-<?php
-      if (defined('GOOGLE_MAP_API_KEY')) {
-?>
-              <tr>
-                <td class="main" valign="top"><b>Google Map</b></td>
-                <td class="main"><?php echo '<a href="javascript:popupGoogleMap(\'' . $aContents['popup_google_map'] . '?query=' . rawurlencode($order->customer['city']. ', '.$order->customer['country']) . '\')">' . oos_image(OOS_IMAGES . 'icon_popup.gif', 'View Google Map'); ?></a></td>
-              </tr>
-              <tr>
-                <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '5'); ?></td>
-              </tr>
-<?php
-      }
-?>
+
               <tr>
                 <td class="main"><b><?php echo ENTRY_TELEPHONE; ?></b></td>
                 <td class="main"><?php echo $order->customer['telephone']; ?></td>
@@ -313,19 +294,6 @@ function popupGoogleMap(url) {
                 <td class="main" valign="top"><b><?php echo ENTRY_SHIPPING_ADDRESS; ?></b></td>
                 <td class="main"><?php echo oos_address_format($order->delivery['format_id'], $order->delivery, 1, '&nbsp;', '<br />'); ?></td>
               </tr>
-<?php
-      if (defined('GOOGLE_MAP_API_KEY')) {
-?>
-              <tr>
-                <td class="main" valign="top"><b>Google Map</b></td>
-                <td class="main"><?php echo '<a href="javascript:popupGoogleMap(\'' . $aContents['popup_google_map'] . '?query=' . rawurlencode($order->delivery['city']. ', '.$order->delivery['country']) . '\')">' . oos_image(OOS_IMAGES . 'icon_popup.gif', 'View Google Map'); ?></a></td>
-              </tr>
-              <tr>
-                <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '5'); ?></td>
-              </tr>
-<?php
-      }
-?>
 
             </table></td>
             <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
@@ -333,19 +301,6 @@ function popupGoogleMap(url) {
                 <td class="main" valign="top"><b><?php echo ENTRY_BILLING_ADDRESS; ?></b></td>
                 <td class="main"><?php echo oos_address_format($order->billing['format_id'], $order->billing, 1, '&nbsp;', '<br />'); ?></td>
               </tr>
-<?php
-      if (defined('GOOGLE_MAP_API_KEY')) {
-?>
-              <tr>
-                <td class="main" valign="top"><b>Google Map</b></td>
-                <td class="main"><?php echo '<a href="javascript:popupGoogleMap(\'' . $aContents['popup_google_map'] . '?query=' . rawurlencode($order->billing['city']. ', '.$order->billing['country']) . '\')">' . oos_image(OOS_IMAGES . 'icon_popup.gif', 'View Google Map'); ?></a></td>
-              </tr>
-              <tr>
-                <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '5'); ?></td>
-              </tr>
-<?php
-      }
-?>
             </table></td>
           </tr>
         </table></td>
@@ -758,13 +713,18 @@ function popupGoogleMap(url) {
 <?php
   }
 ?>
-    </table></td>
+    </table>
 <!-- body_text_eof //-->
-  </tr>
-</table>
-<!-- body_eof //-->
+
+				</div>
+			</div>
+        </div>
+
+	</div>
+</div>
 
 
-
-<?php require 'includes/bottom.php'; ?>
-<?php require 'includes/nice_exit.php'; ?>
+<?php 
+	require 'includes/bottom.php';
+	require 'includes/nice_exit.php';
+?>

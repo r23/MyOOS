@@ -419,20 +419,19 @@
   $no_js_general = true;
   require 'includes/header.php';
 ?>
-<script language="javascript"><!--
-function popupImageWindow(url) {
-  window.open(url,'popupImageWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=yes,copyhistory=no,width=100,height=100,screenX=150,screenY=150,top=150,left=150')
-}
-//--></script>
-<div id="spiffycalendar" class="text"></div>
-<!-- body //-->
-<table border="0" width="100%" cellspacing="2" cellpadding="2">
-  <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
-<?php require 'includes/blocks.php'; ?>
-    </table></td>
+<div id="wrapper">
+	<?php require 'includes/blocks.php'; ?>
+		<div id="page-wrapper" class="gray-bg">
+			<div class="row border-bottom">
+			<?php require 'includes/menue.php'; ?>
+			</div>
+
+			<div class="wrapper wrapper-content animated fadeInRight">
+				<div class="row">
+					<div class="col-lg-12">
+					
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
     if ($action == 'new_category_ACD' || $action == 'edit_category_ACD') {
       if (isset($_GET['cID']) && empty($_POST)) {
@@ -1166,13 +1165,18 @@ function popupImageWindow(url) {
 <?php
   }
 ?>
-    </table></td>
+    </table>
 <!-- body_text_eof //-->
-  </tr>
-</table>
-<!-- body_eof //-->
+
+				</div>
+			</div>
+        </div>
+
+	</div>
+</div>
 
 
-
-<?php require 'includes/bottom.php'; ?>
-<?php require 'includes/nice_exit.php'; ?>
+<?php 
+	require 'includes/bottom.php';
+	require 'includes/nice_exit.php';
+?>

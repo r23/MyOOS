@@ -78,7 +78,7 @@ if (is_array($aBlocks)) {
 				
 				
 	foreach ($aBlocks as $panels ) {
-		if ($panels['active']) {
+		if ($panels['active'] == true) {
 			echo '<li class="active">';
 		} else {
 			echo '<li>';

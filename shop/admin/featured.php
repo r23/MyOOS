@@ -138,14 +138,9 @@
         break;
     }
   }
+  require 'includes/header.php'; 
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?> - Administration [OOS]</title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript" src="includes/general.js"></script>
+
 <?php
   if ( ($action == 'new') || ($action == 'edit') ) {
 ?>
@@ -154,21 +149,18 @@
 <?php
   }
 ?>
-</head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
-<div id="popupcalendar" class="text"></div>
-<!-- header //-->
-<?php require 'includes/header.php'; ?>
-<!-- header_eof //-->
+<div id="wrapper">
+	<?php require 'includes/blocks.php'; ?>
+		<div id="page-wrapper" class="gray-bg">
+			<div class="row border-bottom">
+			<?php require 'includes/menue.php'; ?>
+			</div>
 
-<!-- body //-->
-<table border="0" width="100%" cellspacing="2" cellpadding="2">
-  <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
-<?php require 'includes/blocks.php'; ?>
-    </table></td>
+			<div class="wrapper wrapper-content animated fadeInRight">
+				<div class="row">
+					<div class="col-lg-12">
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -368,12 +360,17 @@
           </tr>
         </table></td>
       </tr>
-    </table></td>
+    </table>
 <!-- body_text_eof //-->
-  </tr>
-</table>
-<!-- body_eof //-->
+				</div>
+			</div>
+        </div>
+
+	</div>
+</div>
 
 
-<?php require 'includes/bottom.php'; ?>
-<?php require 'includes/nice_exit.php'; ?>
+<?php 
+	require 'includes/bottom.php';
+	require 'includes/nice_exit.php';
+?>

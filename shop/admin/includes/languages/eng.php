@@ -446,9 +446,6 @@ define('TEXT_DISPLAY_NUMBER_OF_MEMBERS', 'Displaying <b>%d</b> to <b>%d</b> (of 
 
 define('PULL_DOWN_DEFAULT', 'Please Select');
 
-define('BOX_REPORTS_RECOVER_CART_SALES', 'Recover Carts');
-define('BOX_TOOLS_RECOVER_CART', 'Recover Carts');
-
 // BOF: WebMakers.com Added: All Add-Ons
 // Download Controller
 // Add a new Order Status to the orders_status table - Updated

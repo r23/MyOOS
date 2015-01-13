@@ -82,14 +82,19 @@
   require 'includes/header.php';
   require 'includes/account_check.js.php';
 ?>
-<!-- body //-->
-<table border="0" width="100%" cellspacing="2" cellpadding="2">
-  <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
-<?php require 'includes/blocks.php'; ?>
-    </table></td>
-<!-- body_text //-->
-    <td width="100%" valign="top">
+
+<div id="wrapper">
+	<?php require 'includes/blocks.php'; ?>
+		<div id="page-wrapper" class="gray-bg">
+			<div class="row border-bottom">
+			<?php require 'includes/menue.php'; ?>
+			</div>
+
+			<div class="wrapper wrapper-content animated fadeInRight">
+				<div class="row">
+					<div class="col-lg-12">
+
+				<!-- body_text //-->
       <?php if ($action == 'edit_process') { echo oos_draw_form('account', $aContents['admin_account'], 'action=save_account', 'post', 'enctype="multipart/form-data"'); } elseif ($action == 'check_account') { echo oos_draw_form('account', $aContents['admin_account'], 'action=check_password', 'post', 'enctype="multipart/form-data"'); } else { echo oos_draw_form('account', $aContents['admin_account'], 'action=check_account', 'post', 'enctype="multipart/form-data"'); } ?>
       <table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
@@ -230,12 +235,18 @@
           </tr>
         </table></td>
       </tr>
-    </table></form></td>
+    </table></form>
 <!-- body_text_eof //-->
-  </tr>
-</table>
-<!-- body_eof //-->
+
+				</div>
+			</div>
+        </div>
+
+	</div>
+</div>
 
 
-<?php require 'includes/bottom.php'; ?>
-<?php require 'includes/nice_exit.php'; ?>
+<?php 
+	require 'includes/bottom.php';
+	require 'includes/nice_exit.php';
+?>

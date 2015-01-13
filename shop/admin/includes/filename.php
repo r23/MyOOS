@@ -88,18 +88,14 @@
   $aContents['products_status'] = $prefix_filename . 'products_status.php';
   $aContents['products_units'] = $prefix_filename . 'products_units.php';
   $aContents['quick_stockupdate'] = $prefix_filename . 'quick_stockupdate.php';
-  $aContents['recover_cart_sales'] = $prefix_filename . 'recover_cart_sales.php';
   $aContents['reviews'] = $prefix_filename . 'reviews.php';
 
   $aContents['shipping_modules'] = $prefix_filename . 'shipping_modules.php';
   $aContents['specials'] = $prefix_filename . 'specials.php';
   $aContents['stats_customers'] = $prefix_filename . 'stats_customers.php';
-  $aContents['stats_keywords'] = $prefix_filename . 'stats_keywords.php';
   $aContents['stats_low_stock'] = $prefix_filename . 'stats_low_stock.php';
   $aContents['stats_products_purchased'] = $prefix_filename . 'stats_products_purchased.php';
   $aContents['stats_products_viewed'] = $prefix_filename . 'stats_products_viewed.php';
-  $aContents['stats_recover_cart_sales'] = $prefix_filename . 'stats_recover_cart_sales.php';
-  $aContents['stats_referer'] = $prefix_filename . 'stats_referer.php';
   $aContents['stats_sales_report2'] = $prefix_filename . 'stats_sales_report2.php';
   $aContents['tax_classes'] = $prefix_filename . 'tax_classes.php';
   $aContents['tax_rates'] = $prefix_filename . 'tax_rates.php';
