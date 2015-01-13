@@ -171,36 +171,29 @@
 
   if ($srExp < 2) {
     // not for csv export
-?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-  <title><?php echo TITLE; ?> - Administration [OOS]</title>
-  <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-</head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF"><!-- header //-->
-<?php
+	require 'includes/header.php';
+
     if ($srExp < 1) {
       require 'includes/header.php';
     }
 ?>
-<!-- body //-->
-<table border="0" width="100%" cellspacing="2" cellpadding="2">
-  <tr>
 <?php
     if ($srExp < 1) {
 ?>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top">
-      <table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft"> 
-<?php require 'includes/blocks.php'; ?>
-      </table>
-    </td>
+<div id="wrapper">
+	<?php require 'includes/blocks.php'; ?>
+		<div id="page-wrapper" class="gray-bg">
+			<div class="row border-bottom">
+			<?php require 'includes/menue.php'; ?>
+			</div>
+
+			<div class="wrapper wrapper-content animated fadeInRight">
+				<div class="row">
+					<div class="col-lg-12">
 <!-- body_text //-->
 <?php
     } // end sr_exp
 ?>
-    <td width="100%" valign="top">
       <table border="0" width="100%" cellspacing="0" cellpadding="2">
         <tr>
           <td colspan=2>
@@ -545,15 +538,17 @@ if ($srExp < 2) {
           </td>
         </tr>
       </table>
-    </td>
 <!-- body_text_eof //-->
-  </tr>
-</table>
-<!-- body_eof //-->
+				</div>
+			</div>
+        </div>
+
+	</div>
+</div>
 
 
-<?php require 'includes/bottom.php'; ?>
-<?php
-  require 'includes/nice_exit.php';
+<?php 
+	require 'includes/bottom.php';
+	require 'includes/nice_exit.php';
 }
 ?>

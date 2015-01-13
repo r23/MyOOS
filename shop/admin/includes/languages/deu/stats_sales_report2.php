@@ -22,10 +22,10 @@
 
 define('HEADING_TITLE', 'Verkaufs Report');
 
-define('REPORT_TYPE_YEARLY', 'J�rlich');
+define('REPORT_TYPE_YEARLY', 'Jährlich');
 define('REPORT_TYPE_MONTHLY', 'Monatlich');
-define('REPORT_TYPE_WEEKLY', 'W�hentlich');
-define('REPORT_TYPE_DAILY', 'T�lich');
+define('REPORT_TYPE_WEEKLY', 'Wöchentlich');
+define('REPORT_TYPE_DAILY', 'Täglich');
 define('REPORT_START_DATE', 'von Datum');
 define('REPORT_END_DATE', 'bis Datum (inklusive)');
 define('REPORT_DETAIL', 'Detail');
