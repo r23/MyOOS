@@ -22,17 +22,8 @@
   define('OOS_VALID_MOD', 'yes');
   require 'includes/main.php';
 
-  //CAPTCHA
-  if (!defined('SHOW_CAPTCHA')) {
-    define('SHOW_CAPTCHA', 'false');
-  }
-
   if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
 
-    //Check if userinput and CAPTCHA String are equal
-    if ( (SHOW_CAPTCHA == 'true') && ($_SESSION['oos_captcha_string'] != $_POST['captchastring'])) {
-      $_GET['login'] = 'fail';
-    } else {
       // Check if email exists
       $check_admin_result = $dbconn->Execute("SELECT admin_id as login_id, admin_groups_id as login_groups_id, admin_firstname as login_firstname, admin_email_address as login_email_address, admin_password as login_password, admin_modified as login_modified, admin_logdate as login_logdate, admin_lognum as login_lognum FROM " . $oostable['admin'] . " WHERE admin_email_address = '" . oos_db_input($email_address) . "'");
       if (!$check_admin_result->RecordCount()) {
@@ -67,7 +58,6 @@
           }
         }
       }
-    }
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">

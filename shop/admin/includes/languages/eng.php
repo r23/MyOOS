@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -63,7 +63,7 @@ define('HTML_PARAMS','lang="en"');
 define('CHARSET', 'utf-8');
 
 // page title
-define('TITLE', 'OSIS Online Shop');
+define('TITLE', 'MyOOS [Shopsystem]');
 
 // header text in includes/header.php
 define('HEADER_TITLE_TOP', 'Administration');
@@ -72,7 +72,7 @@ define('HEADER_TITLE_ONLINE_CATALOG', 'Online Catalog');
 define('HEADER_TITLE_ADMINISTRATION', 'Administration');
 define('HEADER_TITLE_LOGOFF', 'Logoff');
 
-$aLang['header_title_top'] = 'Administration';
+$aLang['header_title_top'] = 'Welcome to MyOOS [Shopsystem]';
 $aLang['header_title_support_site'] = 'Support Site';
 $aLang['header_title_online_catalog'] = 'Online Catalog';
 $aLang['header_title_administration'] = 'Administration';

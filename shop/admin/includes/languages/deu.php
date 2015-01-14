@@ -64,7 +64,7 @@ define('HTML_PARAMS',' lang="de"');
 define('CHARSET', 'utf-8');
 
 // page title
-define('TITLE', 'OSIS Online Shop');
+define('TITLE', 'MyOOS [Shopsystem] ');
 
 // header text in includes/header.php
 define('HEADER_TITLE_TOP', 'Administration');
@@ -73,7 +73,7 @@ define('HEADER_TITLE_ONLINE_CATALOG', 'Online Katalog');
 define('HEADER_TITLE_ADMINISTRATION', 'Administration');
 define('HEADER_TITLE_LOGOFF', 'Logoff');
 
-$aLang['header_title_top'] = 'Administration';
+$aLang['header_title_top'] = 'Willkommen bei MyOOS [Shopsystem]';
 $aLang['header_title_support_site'] = 'Supportseite';
 $aLang['header_title_online_catalog'] = 'Online Katalog';
 $aLang['header_title_administration'] = 'Administration';

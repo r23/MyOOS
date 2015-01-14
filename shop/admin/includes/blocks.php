@@ -24,6 +24,14 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 
 $aBlocks = array();
 
+$aBlocks[] = array(
+	'heading' => 'Dashboard',
+	'link' => oos_href_link_admin($aContents['default']),
+	'icon' => 'fa fa-th-large',
+	'active' => false
+);
+
+
 if (oos_admin_check_boxes('administrator.php') == true) {
 	include 'includes/boxes/administrator.php';
 }
@@ -84,18 +92,19 @@ if (is_array($aBlocks)) {
 			echo '<li>';
 		}
 		echo '<a href="' . $panels['link'] . '"><i class="' . $panels['icon'] . '"></i>' .
-			'<span class="nav-label">' . $panels['heading'] . '</span><span class="fa arrow"></span></a>' .
-			'<ul class="nav nav-second-level">';
-	  
+			'<span class="nav-label">' . $panels['heading'] . '</span><span class="fa arrow"></span></a>';
 
-		foreach ($panels['contents'] as $contents) {
-			echo '<li><a href="' . $contents['link'] . '">' . $contents['title'] . '</a></li>';
+		if (is_array($panels['contents'])) {
+			echo '<ul class="nav nav-second-level">';
+				foreach ($panels['contents'] as $contents) {
+					echo '<li><a href="' . $contents['link'] . '">' . $contents['title'] . '</a></li>';
+				}
+			echo '</ul>';
 		}
-
-		echo '</ul></li>';
+		echo '</li>';
 	}
 
 	
-	echo '         </div>
+	echo '     </ul></div>
         </nav>';
 }		

@@ -174,8 +174,8 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
 
   $contents[] = array('params' => 'class="infoBox"',
                       'text'  => '<a href="http://www.oos-shop.de/" target="_blank">' . BOX_ENTRY_HAMPEAGE . '</a><br />' .
-                                 '<a href="http://developer.berlios.de/mail/?group_id=814" target="_blank">' . BOX_ENTRY_MAILING_LISTS . '</a><br />' .
-                                 '<a href="http://www.oos-shop.de/modules.php?name=FAQ" target="_blank">' . BOX_ENTRY_FAQ . '</a><br />');
+                                 '<a href="https://github.com/r23/MyOOS/" target="_blank">GitHub</a><br />' .
+                                 '<a href="http://doku.oos-shop.de/" target="_blank">' . BOX_ENTRY_FAQ . '</a><br />');
 
   $box = new box;
   echo $box->menuBox($heading, $contents);
