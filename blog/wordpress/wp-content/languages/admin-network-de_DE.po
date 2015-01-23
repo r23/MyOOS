@@ -144,7 +144,7 @@ msgstr "Füge die bezeichneten Zeilen Code zur wp-config.php (kurz vor <code>/*.
 msgid "Subdirectory networks may not be fully compatible with custom wp-content directories."
 msgstr "Netzwerkinstallationen in Unterverzeichnissen sind nicht vollkommen kompatibel mit benutzerdefinierten wp-content Verzeichnissen."
 
-#: wp-admin/network/site-users.php:276 wp-admin/network/user-new.php:102
+#: wp-admin/network/site-users.php:278 wp-admin/network/user-new.php:102
 msgid "Add User"
 msgstr "Benutzer hinzufügen"
 
@@ -160,7 +160,7 @@ msgid "<a href=\"http://codex.wordpress.org/Network_Admin_Themes_Screen\" target
 msgstr "<a href=\"http://codex.wordpress.org/Network_Admin_Themes_Screen\" target=\"_blank\">Dokumentation von Network Themes [en]</a>"
 
 #: wp-admin/network/site-info.php:104 wp-admin/network/site-settings.php:94
-#: wp-admin/network/site-themes.php:146 wp-admin/network/site-users.php:189
+#: wp-admin/network/site-themes.php:146 wp-admin/network/site-users.php:191
 msgid "Info"
 msgstr "Info"
 
@@ -209,7 +209,7 @@ msgctxt "themes per page (screen options)"
 msgid "Themes"
 msgstr "Themes"
 
-#: wp-admin/network/site-users.php:228
+#: wp-admin/network/site-users.php:230
 msgid "Enter the username and email."
 msgstr "Bitte Benutzernamen und E-Mail-Adresse eingeben"
 
@@ -217,15 +217,15 @@ msgstr "Bitte Benutzernamen und E-Mail-Adresse eingeben"
 msgid "Site: %s"
 msgstr "Seite: %s"
 
-#: wp-admin/network/site-users.php:216
+#: wp-admin/network/site-users.php:218
 msgid "Select a user to change role."
 msgstr "Bitte einen Benutzer auswählen, um die Rolle ändern zu können."
 
-#: wp-admin/network/site-users.php:222
+#: wp-admin/network/site-users.php:224
 msgid "Select a user to remove."
 msgstr "Bitte einen Benutzer auswählen, um diesen löschen zu können."
 
-#: wp-admin/network/site-users.php:225
+#: wp-admin/network/site-users.php:227
 msgid "User created."
 msgstr "Der Benutzer wurde angelegt."
 
@@ -237,7 +237,7 @@ msgstr "Der Benutzer konnte nicht hinzugefügt werden."
 msgid "<a href=\"http://codex.wordpress.org/Network_Admin_Settings_Screen\" target=\"_blank\">Documentation on Network Settings</a>"
 msgstr "<a href=\"http://codex.wordpress.org/Network_Admin_Settings_Screen\" target=\"_blank\">Dokumentation der Netzwerkeinstellungen (en)</a>"
 
-#: wp-admin/network/site-users.php:207
+#: wp-admin/network/site-users.php:209
 msgid "User is already a member of this site."
 msgstr "Benutzer ist schon ein Mitglied dieser Seite."
 
@@ -245,7 +245,7 @@ msgstr "Benutzer ist schon ein Mitglied dieser Seite."
 msgid "Warning! User %s cannot be deleted."
 msgstr "Warnung! Benutzer %s kann nicht gelöscht werden."
 
-#: wp-admin/network/site-users.php:210
+#: wp-admin/network/site-users.php:212
 msgid "Enter the username of an existing user."
 msgstr "Gib den Benutzernamen eines bestehenden Benutzers ein."
 
@@ -1068,7 +1068,7 @@ msgstr "Der Benutzername und das Passwort werden an die angegebene E-Mail-Adress
 msgid "Confirm"
 msgstr "Bestätigen"
 
-#: wp-admin/network/site-users.php:308 wp-admin/network/user-new.php:98
+#: wp-admin/network/site-users.php:310 wp-admin/network/user-new.php:98
 msgid "Username and password will be mailed to the above email address."
 msgstr "Benutzername und Passwort werden an die angegebene E-Mail-Adresse versandt."
 
@@ -1095,7 +1095,7 @@ msgstr "Seite erstellen"
 msgid "Site Address"
 msgstr "Seiten-Adresse"
 
-#: wp-admin/network/site-users.php:231
+#: wp-admin/network/site-users.php:233
 msgid "Duplicated username or email address."
 msgstr "Schon vorhandener Benutzername oder vorhandene E-Mail-Adresse."
 
