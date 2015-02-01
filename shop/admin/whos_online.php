@@ -19,15 +19,29 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  $xx_mins_ago = (time() - 900);
+$xx_mins_ago = (time() - 900);
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
-  require 'includes/classes/class_currencies.php';
-  $currencies = new currencies();
+ /**
+  * Return session_save_path
+  *
+  * @private
+  */
+  function oos_session_save_path($sPath = '') {
+     if (!empty($sPath)) {
+       return session_save_path($sPath);
+     } else {
+       return session_save_path();
+     }
+   }
 
-  require '../includes/classes/class_shopping_cart.php';
+
+require 'includes/classes/class_currencies.php';
+$currencies = new currencies();
+
+require '../includes/classes/class_shopping_cart.php';
 
 // remove entries that have expired
   $whos_onlinetable = $oostable['whos_online'];

@@ -43,7 +43,7 @@
       $customers_statustable = $oostable['customers_status'];
       $sql = "SELECT customers_status_id, customers_status_name, customers_status_public,
                      customers_status_show_price, customers_status_show_price_tax, customers_status_image,
-                     customers_status_discount, customers_status_ot_discount_flag, customers_status_ot_discount,
+                     customers_status_ot_discount_flag, customers_status_ot_discount,
                      customers_status_ot_minimum, customers_status_qty_discounts, customers_status_payment
                FROM $customers_statustable
               WHERE customers_status_id = '" . DEFAULT_CUSTOMERS_STATUS_ID . "' AND

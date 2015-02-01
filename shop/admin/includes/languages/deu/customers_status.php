@@ -50,7 +50,7 @@ define('ENTRY_MINIMUM_AMOUNT_OT_XMEMBER', 'Mindest-Bestellwert');
 define('TEXT_INFO_CUSTOMERS_STATUS_STAFFELPREIS_INTRO', 'Sie k&ouml;nnen Kunden dieser Gruppe erlauben zu Staffelpreisen einzukaufen. Ein gesetzter Kundenrabatt erg&auml;nzt sich dazu.');
 define('ENTRY_STAFFELPREIS', 'Staffelpreis:');
 
-define('TEXT_INFO_CUSTOMERS_STATUS_PUBLIC_INTRO', 'Sie k&ouml;nnen die Informationen der Gruppe f&uuml;r den Kunden im Shop ver�fentlichen.  ');
+define('TEXT_INFO_CUSTOMERS_STATUS_PUBLIC_INTRO', 'Sie k&ouml;nnen die Informationen der Gruppe f&uuml;r den Kunden im Shop ver&ouml;ffentlichen.  ');
 define('ENTRY_CUSTOMERS_STATUS_PUBLIC', 'Ver&ouml;ffentlichen : ');
 
 define('TEXT_INFO_CUSTOMERS_STATUS_SHOW_PRICE_INTRO', 'Sie k&ouml;nnen die Preise anzeigen oder vor dem Besucher verstecken. Sollen die Preise nicht angezeigt werden, ist eine Bestellung von Kunden dieser Gruppe nicht m&ouml;glich. ');

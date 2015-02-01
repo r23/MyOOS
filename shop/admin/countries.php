@@ -124,7 +124,7 @@
   if (empty($action)) {
 ?>
                   <tr>
-                    <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['countries'], 'page=' . $_GET['page'] . '&action=new') . '">' . oos_button('new_country','new_country_off.gif', IMAGE_NEW_COUNTRY) . '</a>'; ?></td>
+                    <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['countries'], 'page=' . $_GET['page'] . '&action=new') . '">' . oos_button('new_country', IMAGE_NEW_COUNTRY) . '</a>'; ?></td>
                   </tr>
 <?php
   }
