@@ -21,14 +21,19 @@
 DEFINE('XIBO', true);
 include_once("lib/xmds.inc.php");
 
-$method     = Kit::GetParam('method', _REQUEST, _WORD, '');
-$service    = Kit::GetParam('service', _REQUEST, _WORD, 'rest');
-$response   = Kit::GetParam('response', _REQUEST, _WORD, 'xml');
+$method = Kit::GetParam('method', _REQUEST, _WORD, '');
+$service = Kit::GetParam('service', _REQUEST, _WORD, 'rest');
+$response = Kit::GetParam('response', _REQUEST, _WORD, 'xml');
+$version = Kit::GetParam('v', _REQUEST, _INT, 3);
 $serviceResponse = new XiboServiceResponse();
+
+// Version Request?
+if (isset($_GET['what']))
+    die(Config::Version('XmdsVersion'));
 
 // Is the WSDL being requested.
 if (isset($_GET['wsdl']) || isset($_GET['WSDL']))
-    $serviceResponse->WSDL();
+    $serviceResponse->WSDL($version);
 
 // Is the XRDS being requested
 if (isset($_GET['xrds']))
@@ -45,17 +50,63 @@ if (defined('XMDS') || $method != '')
     {
         case 'soap':
 
-            Kit::ClassLoader('xmdssoap');
+            // Check to see if we have a file attribute set (for HTTP file downloads)
+            if (isset($_GET['file'])) {
+                // Check send file mode is enabled
+                $sendFileMode = Config::GetSetting('SENDFILE_MODE');
+
+                if ($sendFileMode == 'Off') {
+                    Debug::LogEntry('audit', 'HTTP GetFile request received but SendFile Mode is Off. Issuing 404', 'services');
+                    header('HTTP/1.0 404 Not Found');
+                    exit;
+                }
+
+                // Check nonce, output appropriate headers, log bandwidth and stop.
+                $nonce = new Nonce();
+                if (!$file = $nonce->Details(Kit::GetParam('file', _GET, _STRING))) {
+                    Debug::LogEntry('audit', 'HTTP GetFile request received but unable to find XMDS Nonce. Issuing 404', 'services');
+                    // 404
+                    header('HTTP/1.0 404 Not Found');
+                }
+                else {
+                    // Issue magic packet
+                    // Send via Apache X-Sendfile header?
+                    if ($sendFileMode == 'Apache') {
+                        Debug::LogEntry('audit', 'HTTP GetFile request redirecting to ' . Config::GetSetting('LIBRARY_LOCATION') . $file['storedAs'], 'services');
+                        header('X-Sendfile: ' . Config::GetSetting('LIBRARY_LOCATION') . $file['storedAs']);
+                    }
+                    // Send via Nginx X-Accel-Redirect?
+                    else if ($sendFileMode == 'Nginx') {
+                        header('X-Accel-Redirect: /download/' . $file['storedAs']);
+                    }
+                    else {
+                        header('HTTP/1.0 404 Not Found');
+                    }
+
+                    // Log bandwidth
+                    $bandwidth = new Bandwidth();
+                    $bandwidth->Log($file['displayId'], 4, $file['size']);
+                }
+                exit;
+            }
 
             try
             {
-                $soap = new SoapServer('lib/service/service.wsdl');
-                $soap->setClass('XMDSSoap');
+                $wsdl = 'lib/service/service_v' . $version . '.wsdl';
+
+                if (!file_exists($wsdl)) {
+                    $serviceResponse->ErrorServerError('Your client is not the correct version to communicate with this CMS.');
+                }
+
+                //$soap = new SoapServer($wsdl);
+                $soap = new SoapServer($wsdl, array('cache_wsdl' => WSDL_CACHE_NONE));
+                $soap->setClass('XMDSSoap' . $version);
                 $soap->handle();
             }
             catch (Exception $e)
             {
-                $serviceResponse->ErrorServerError('Unable to create SOAP Server');
+                Debug::LogEntry('error', $e->getMessage());
+                $serviceResponse->ErrorServerError('Unable to create SOAP Server: ' . $e->getMessage());
             }
 
             break;
@@ -96,6 +147,15 @@ if (defined('XMDS') || $method != '')
                         Kit::ClassLoader($userClass[0]);
 
                         // Create a user.
+                        // We need to set up our user with an old style database object
+                        $db = new database();
+
+                        if (!$db->connect_db($dbhost, $dbuser, $dbpass))
+                            die('Database connection problem.');
+
+                        if (!$db->select_db($dbname))
+                            die('Database connection problem.');
+
                         $user = new User($db);
 
                         // Log this user in.
@@ -131,14 +191,14 @@ if (defined('XMDS') || $method != '')
                 case 'json':
                     Kit::ClassLoader('RestJson');
                     
-                    $rest = new RestJson($db, $user, $_REQUEST);
+                    $rest = new RestJson($user, $_REQUEST);
 
                     break;
 
                 case 'xml':
                     Kit::ClassLoader('RestXml');
 
-                    $rest = new RestXml($db, $user, $_REQUEST);
+                    $rest = new RestXml($user, $_REQUEST);
 
                     break;
 

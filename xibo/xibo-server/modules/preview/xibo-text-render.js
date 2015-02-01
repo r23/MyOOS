@@ -18,51 +18,23 @@
 * along with Xibo.  If not, see <http://www.gnu.org/licenses/>.
 */
 jQuery.fn.extend({
-    xiboRender: function(options, items) {
-
-        //console.log("[Xibo] Render");
+    xiboTextRender: function(options, items) {
 
         // Default options
         var defaults = {
-            "type": "ticker",
-            "direction": "single",
+            "fx": "none",
             "duration": "50",
             "durationIsPerItem": false,
             "numItems": 0,
             "takeItemsFrom": "start",
             "itemsPerPage": 0,
-            "scrollSpeed": "2",
-            "scaleMode": "scale",
+            "speed": "2",
             "previewWidth": 0,
             "previewHeight": 0,
             "scaleOverride": 0
         };
 
-        var options = $.extend({}, defaults, options);
-
-        // Set the width, height
-        if (options.previewWidth == 0 && options.previewHeight == 0) {
-            options.width = $(window).width();
-            options.height = $(window).height();
-        }
-        else {
-            // We are a preview
-            options.width = options.previewWidth;
-            options.height = options.previewHeight;
-        }
-
-        // Scale Factor
-        options.scaleFactor = Math.min(options.width / options.originalWidth, options.height / options.originalHeight);
-
-        // Are we overriding the scale factor?
-        // We would only do this from the layout designer
-        if (options.scaleOverride != 0) {
-            options.originalWidth = options.previewWidth;
-            options.originalHeight = options.previewHeight;
-            options.scaleFactor = options.scaleOverride;
-        }
-
-        //console.log("Scale Factor: " + options.scaleFactor);
+        options = $.extend({}, defaults, options);
 
         // For each matched element
         this.each(function() {
@@ -70,60 +42,34 @@ jQuery.fn.extend({
             //console.log("[Xibo] Selected: " + this.tagName.toLowerCase());
             //console.log("[Xibo] Options: " + JSON.stringify(options));
             
-            // Set the dimensions of the window correctly (no matter what, we will zoom this)
-            $(this).css({
-                width: options.originalWidth,
-                height: options.originalHeight
-            });
-
-            // Deal with the array of items.
-            if (options.type == "ticker") {
-                // This is a ticker - expect an array of items that we need to work on.
-                //console.log("[Xibo] Ticker");
-                //console.log("[Xibo] There are " + items.length + " items.");
-
-                // What source does this data come from?
-                if (options.sourceid == undefined) {
-                    console.error("Source ID undefined - assuming 1");
-                    options.sourceid = 1;                
-                }
-
-                //console.log("[Xibo] SourceId: " + options.sourceid);
-
-                if (options.sourceid == 1) {
-                    // 1st Objective - filter the items array we have been given
-                    // settings involved: 
-                    //  items, 
-                    //  numItems (ticker number of items from the start/end),
-                    //  takeItemsFrom (ticker sort or reverse sort the array)
-                    if (options.takeItemsFrom == "end") {
-                        //console.log("[Xibo] Reversing items");
-                        items.reverse();
-                    }
-
-                    // Make sure the num items is not greater than the actual number of items
-                    //console.log("[Xibo] Module requested " + options.numItems + " there are " + items.length + " in the array of items");
-
-                    if (options.numItems > items.length || options.numItems == 0)
-                        options.numItems = items.length;
-
-                    // Get a new array with only the first N elements
-                    items = items.slice(0, options.numItems);
-
-                    // Reverse the items again (so they are in the correct order)
-                    if (options.takeItemsFrom == "end") {
-                        //console.log("[Xibo] Reversing items");
-                        items.reverse();
-                    }
-                }
-                else {
-                    options.numItems = items.length;
-                }
+            // 1st Objective - filter the items array we have been given
+            // settings involved: 
+            //  items, 
+            //  numItems (ticker number of items from the start/end),
+            //  takeItemsFrom (ticker sort or reverse sort the array)
+            if (options.takeItemsFrom == "end") {
+                //console.log("[Xibo] Reversing items");
+                items.reverse();
             }
 
+            // Make sure the num items is not greater than the actual number of items
+            //console.log("[Xibo] Module requested " + options.numItems + " there are " + items.length + " in the array of items");
+
+            if (options.numItems > items.length || options.numItems === 0)
+                options.numItems = items.length;
+
+            // Get a new array with only the first N elements
+            items = items.slice(0, options.numItems);
+
+            // Reverse the items again (so they are in the correct order)
+            if (options.takeItemsFrom == "end") {
+                //console.log("[Xibo] Reversing items");
+                items.reverse();
+            }
+                
             // 2nd objective - put the items on the page
             // settings involved:
-            //  direction (if we are single we might need to configure some pages for this)
+            //  fx (if we are single we might need to configure some pages for this)
             //  itemsPerPage (tells us how many items to put on per page)
             //console.log("[Xibo] Putting " + options.numItems + " Items on the page"); 
 
@@ -135,19 +81,26 @@ jQuery.fn.extend({
             var itemsThisPage = 1;
 
             //console.log("[Xibo] We need to have " + numberOfPages + " pages");
-
             var appendTo = this;
             
             // Loop around each of the items we have been given and append them to this element (in a div)
             for (var i = 0; i < items.length; i++) {
 
-                // If we need to set pages, have we switched over to a new page?
-                if (options.direction == "single" && (options.itemsPerPage > 0 && (itemsThisPage >= options.itemsPerPage || i == 0))) {
-                    // Append a new page to the body
-                    appendTo = $("<div/>").addClass("page").appendTo(this);
+                // We don't add any pages for marquee / none transitions.
+                if (options.fx != "none" &&
+                    options.fx != "marqueeLeft" &&
+                    options.fx != "marqueeRight" &&
+                    options.fx != "marqueeUp" &&
+                    options.fx != "marqueeDown") {
 
-                    // Reset the row count on this page
-                    itemsThisPage = 0;
+                    // If we need to set pages, have we switched over to a new page?
+                    if (options.itemsPerPage > 1 && (itemsThisPage >= options.itemsPerPage || i === 0)) {
+                        // Append a new page to the body
+                        appendTo = $("<div/>").addClass("page").appendTo(this);
+
+                        // Reset the row count on this page
+                        itemsThisPage = 0;
+                    }
                 }
 
                 // For each item output a DIV
@@ -157,75 +110,75 @@ jQuery.fn.extend({
 
                 itemsThisPage++;
             }
-
-            // 3rd Objective Scale the entire thing according to the scaleMode
-            // settings involved:
-            //  scaleMode
-            if (options.scaleMode == "fit") {
-
-                //console.log("[Xibo] Applying jQuery FitText");
-
-                // Remove the font-size property of all children
-                $("*", this).css("font-size", "");
-
-                // Run the Fit Text plugin
-                $(this).fitText(1.75);
-            }
-
-            // Now make it size correctly
-            // What IE are we?
-            if ($("body").hasClass('ie7') || $("body").hasClass('ie8')) {
-                $(this).css({
-                    "filter": "progid:DXImageTransform.Microsoft.Matrix(M11=" + options.scaleFactor + ", M12=0, M21=0, M22=" + options.scaleFactor + ", SizingMethod='auto expand'"
-                });
-            }
-            else {
-                $(this).css({
-                    "transform": "scale(" + options.scaleFactor + ")",
-                    "transform-origin": "0 0"
-                });
-            }
             
             // 4th objective - move the items around, start the timer
             // settings involved:
-            //  direction (the way we are moving effects the HTML required)
-            //  scrollSpeed (how fast we need to move)
-            //  scaleMode (using CSS zoom speeds up or slows down the movement)
+            //  fx (the way we are moving effects the HTML required)
+            //  speed (how fast we need to move)
             var marquee = false;
 
-            if (options.direction == "single") {
+            if (options.fx == "none") {
+                // Do nothing
+            }
+            else if (options.fx != "marqueeLeft" && options.fx != "marqueeRight" && options.fx != "marqueeUp" && options.fx != "marqueeDown") {
+
+                // Make sure the speed is something sensible
+                options.speed = (options.speed <= 200) ? 1000 : options.speed;
 
                 // Cycle slides are either page or item
-                var slides = (options.itemsPerPage > 0) ? "> .page" : "> .item";
-                var numberOfSlides = (options.itemsPerPage > 0) ? numberOfPages : numberOfItems;
+                var slides = (options.itemsPerPage > 1) ? ".page" : ".item";
 
+                // If we only have 1 item, then we are in trouble and need to duplicate it.
+                if ($(slides).length <= 1 && options.type == 'text') {
+                    // Change our slide tag to be the paragraphs inside
+                    slides = slides + ' p';
+
+                    // Change the number of items
+                    numberOfItems = $(slides).length;
+                }
+
+                var numberOfSlides = (options.itemsPerPage > 1) ? numberOfPages : numberOfItems;
                 var duration = (options.durationIsPerItem) ? options.duration : options.duration / numberOfSlides;
 
                 //console.log("[Xibo] initialising the cycle2 plugin with " + numberOfSlides + " slides and selector " + slides + ". Duration per slide is " + duration + " seconds.");
 
-                // Cycle handles this for us
-                $(this).cycle({
-                    fx: options.transition,
-                    timeout: (duration * 1000),
-                    slides: slides
-                });
-            }
-            else if (options.direction == "left" || options.direction == "right") {
-                marquee = true;
-                
-                // Stack the articles up and move them across the screen
-                $(' .item', this).css({
-                    display: "inline",
-                    "padding-left": "4px"
+                // Set the content div to the height of the original window
+                $(this).css("height", options.originalHeight);
+
+                // Set the width on the cycled slides
+                $(slides, this).css({
+                    width: options.originalWidth,
+                    height: options.originalHeight
                 });
 
-                $(' .item p', this).css({
-                    display: "inline"
+                // Cycle handles this for us
+                $(this).cycle({
+                    fx: options.fx,
+                    speed: options.speed,
+                    timeout: (duration * 1000),
+                    slides: "> " + slides
                 });
             }
-            else if (options.direction == "up" || options.direction == "down") {
+            else if (options.fx == "marqueeLeft" || options.fx == "marqueeRight") {
+                marquee = true;
+                options.direction = ((options.fx == "marqueeLeft") ? "left" : "right");
+
+                // Make sure the speed is something sensible
+                options.speed = (options.speed == 0) ? 1 : options.speed;
+                
+                // Stack the articles up and move them across the screen
+                $('.item, .item p', this).css({
+                    display: "inline",
+                    "padding-left": "10px"
+                });
+            }
+            else if (options.fx == "marqueeUp" || options.fx == "marqueeDown") {
                 // We want a marquee
                 marquee = true;
+                options.direction = ((options.fx == "marqueeUp") ? "up" : "down");
+
+                // Make sure the speed is something sensible
+                options.speed = (options.speed == 0) ? 1 : options.speed;
             }
 
             if (marquee) {
@@ -234,7 +187,7 @@ jQuery.fn.extend({
                 var scroller = $("<div/>")
                     .addClass("scroll")
                     .attr({
-                        scrollamount: options.scrollSpeed,
+                        scrollamount: options.speed,
                         scaleFactor: options.scaleFactor,
                         behaviour: "scroll",
                         direction: options.direction,
@@ -246,95 +199,18 @@ jQuery.fn.extend({
 
                 // Set some options on the extra DIV and make it a marquee
                 $(this).find('.scroll').marquee();
+
+                // Correct for up / down
+                if (options.fx == "marqueeUp" || options.fx == "marqueeDown")
+                    $(this).children().children().css({"white-space": "normal", float: "none"});
             }
 
-            // Correct the Up and Down scrolling so that half the article is not cut
-            if (options.direction == "up" || options.direction == "down") {
-                $(this).children().children().css("white-space", "normal");
-            }
-        });
-    },
-    dataSetRender: function(options) {
-
-        // Any options?
-        if (options === undefined || options === null) {
-            options = {
-                duration : 5,
-                transition: "fade",
-                rowsPerPage: 0,
-                "previewWidth": 0,
-                "previewHeight": 0,
-                "scaleOverride": 0
-            };
-        }
-
-        $(this).each(function() {
-
-            // Set the width, height and scale factor
-            if (options.previewWidth == 0 && options.previewHeight == 0) {
-                options.width = $(window).width();
-                options.height = $(window).height();
-            }
-            else {
-                options.width = options.previewWidth;
-                options.height = options.previewHeight;
-            }
-
-            // Scale Factor
-            options.scaleFactor = Math.min(options.width / options.originalWidth, options.height / options.originalHeight);
-
-            // Are we overriding the scale factor?
-            // We would only do this from the layout designer
-            if (options.scaleOverride != 0) {
-                options.originalWidth = options.previewWidth;
-                options.originalHeight = options.previewHeight;
-                options.scaleFactor = options.scaleOverride;
-            }
-
-            $("body").css({
-                width: options.originalWidth,
-                height: options.originalHeight
+            // Protect against images that don't load
+            $(this).find("img").error(function () {
+                $(this).unbind("error").attr("src", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNiYAAAAAkAAxkR2eQAAAAASUVORK5CYII=");
             });
-
-            // What IE are we?
-            if ($("body").hasClass('ie7') || $("body").hasClass('ie8')) {
-                $("body").css({
-                    "filter": "progid:DXImageTransform.Microsoft.Matrix(M11=" + options.scaleFactor + ", M12=0, M21=0, M22=" + options.scaleFactor + ", SizingMethod='auto expand'"
-                });
-            }
-            else {
-                $("body").css({
-                    "transform": "scale(" + options.scaleFactor + ")",
-                    "transform-origin": "0 0"
-                });
-            }
-
-            var numberItems = $(this).attr("totalPages");
-
-            if (options.rowsPerPage > 0) {
-                // Cycle handles this for us
-                $(this).cycle({
-                    fx: options.transition,
-                    timeout: (options.duration * 1000) / numberItems,
-                    slides: '> table'
-                });
-            }
         });
+
+        return $(this);
     }
 });
-
-if ( ! window.console ) {
-
-    (function() {
-      var names = ["log", "debug", "info", "warn", "error",
-          "assert", "dir", "dirxml", "group", "groupEnd", "time",
-          "timeEnd", "count", "trace", "profile", "profileEnd"],
-          i, l = names.length;
-
-      window.console = {};
-
-      for ( i = 0; i < l; i++ ) {
-        window.console[ names[i] ] = function() {};
-      }
-    }());
-}

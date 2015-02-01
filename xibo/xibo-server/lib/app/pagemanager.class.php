@@ -26,8 +26,8 @@ class PageManager
     private $db;
     private $user;
 
-    private $p;
-    private $q;
+    public $p;
+    public $q;
 
     private $page;
     private $path;
@@ -36,9 +36,13 @@ class PageManager
     private $authed;
     private $thePage;
     
-    // Maintain a list of pages/functions we are allowed to get to without going through the authentication system
-    private $nonAuthedPages = array('index', 'clock');
+    // Maintain a list of pages / functions we are allowed to get to without going through the authentication system
+    private $nonAuthedPages = array('index', 'clock', 'error');
+    private $nonAuthedPagesWithoutFunctionCall = array('error');
     private $nonAuthedFunctions = array('login', 'logout', 'GetClock', 'About');
+
+    // Maintain a list of pages we can get to that are not checked in the database but require a valid login
+    private $nonPageAuthedPages = array('upgrade');
 	
     function __construct(database $db, user $user, $page)
     {
@@ -56,7 +60,7 @@ class PageManager
         $this->authed = false;
 
         // Create a theme
-		new Theme($db, $user);
+		new Theme($user);
 		Theme::SetPagename($this->p);
     }
 	
@@ -69,10 +73,11 @@ class PageManager
         $user =& $this->user;
         
         // The user MUST be logged in unless they are trying to assess some of the public facing pages
-        if (in_array($this->p, $this->nonAuthedPages) && in_array($this->q, $this->nonAuthedFunctions))
+        if ((in_array($this->p, $this->nonAuthedPages) && in_array($this->q, $this->nonAuthedFunctions)) 
+            || (in_array($this->p, $this->nonAuthedPagesWithoutFunctionCall) && $this->q == ''))
         {
             // Automatically authed
-            $this->authed = true;
+            $this->authed = true;        
         }
         else
         {
@@ -80,7 +85,34 @@ class PageManager
             if (!$user->attempt_login($this->ajax))
                 return false;
 
-            $this->authed = $user->PageAuth($this->p);
+            if (in_array($this->p, $this->nonPageAuthedPages))
+                $this->authed = true;
+            else
+                $this->authed = $user->PageAuth($this->p);
+
+            // Any actions to run before we get started?
+            $this->processActions();
+
+            // Process notifications
+            $this->processNotifications();
+        }
+    }
+
+    private function processActions()
+    {
+        if (Config::GetSetting('DEFAULTS_IMPORTED') == 0) {
+
+            $layout = new Layout();
+            $layout->importFolder('theme' . DIRECTORY_SEPARATOR . Theme::ThemeFolder() . DIRECTORY_SEPARATOR . 'layouts');
+
+            Config::ChangeSetting('DEFAULTS_IMPORTED', 1);
+        }
+    }
+
+    private function processNotifications()
+    {
+        if ($this->user->usertypeid == 1 && file_exists('install.php')) {
+            Theme::Set('notifications', array(__('There is a problem with this installation. "install.php" should be deleted.')));
         }
     }
 	
@@ -130,6 +162,9 @@ class PageManager
         }
         else 
         {
+            Theme::Set('sidebar_html', $this->thePage->sideBarContent());
+            Theme::Set('action_menu', $this->thePage->actionMenu());
+
             // Display a page instead
 			Theme::Render('header');
 			

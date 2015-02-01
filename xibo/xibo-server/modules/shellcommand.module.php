@@ -25,7 +25,6 @@ class shellcommand extends Module
     {
         // Must set the type of the class
         $this->type = 'shellcommand';
-        $this->displayType = 'Shell Command';
 
         // Must call the parent class
         parent::__construct($db, $user, $mediaid, $layoutid, $regionid, $lkid);
@@ -37,6 +36,7 @@ class shellcommand extends Module
      */
     public function AddForm()
     {
+        $this->response = new ResponseManager();
         $db =& $this->db;
         $user =& $this->user;
         $layoutid = $this->layoutid;
@@ -46,10 +46,16 @@ class shellcommand extends Module
         Theme::Set('form_action', 'index.php?p=module&mod=' . $this->type . '&q=Exec&method=AddMedia');
         Theme::Set('form_meta', '<input type="hidden" name="layoutid" value="' . $layoutid . '"><input type="hidden" id="iRegionId" name="regionid" value="' . $regionid . '"><input type="hidden" name="showRegionOptions" value="' . $this->showRegionOptions . '" />');
         
+        $formFields = array();
+        
+        $formFields[] = FormManager::AddText('windowsCommand', __('Windows Command'), NULL, 
+            __('Enter a Windows Command Line compatible command'), 'w');
+        
+        $formFields[] = FormManager::AddText('linuxCommand', __('Android / Linux Command'), NULL, 
+            __('Enter an Android / Linux Command Line compatible command'), 'l');
 
-        $form = Theme::RenderReturn('media_form_shellcommand_add');
+        Theme::Set('form_fields', $formFields);
 
-        $this->response->html = $form;
         if ($this->showRegionOptions)
         {
             $this->response->AddButton(__('Cancel'), 'XiboSwapDialog("index.php?p=timeline&layoutid=' . $layoutid . '&regionid=' . $regionid . '&q=RegionOptions")');
@@ -58,6 +64,8 @@ class shellcommand extends Module
         {
             $this->response->AddButton(__('Cancel'), 'XiboDialogClose()');
         }
+
+        $this->response->html = Theme::RenderReturn('form_render');
         $this->response->AddButton(__('Save'), '$("#ModuleForm").submit()');
         $this->response->dialogTitle = __('Add Shell Command');
         $this->response->dialogSize 	= true;
@@ -73,6 +81,7 @@ class shellcommand extends Module
      */
     public function EditForm()
     {
+        $this->response = new ResponseManager();
         $db =& $this->db;
         $layoutid = $this->layoutid;
         $regionid = $this->regionid;
@@ -89,13 +98,17 @@ class shellcommand extends Module
         Theme::Set('form_id', 'ModuleForm');
         Theme::Set('form_action', 'index.php?p=module&mod=' . $this->type . '&q=Exec&method=EditMedia');
         Theme::Set('form_meta', '<input type="hidden" name="layoutid" value="' . $layoutid . '"><input type="hidden" id="iRegionId" name="regionid" value="' . $regionid . '"><input type="hidden" name="showRegionOptions" value="' . $this->showRegionOptions . '" /><input type="hidden" id="mediaid" name="mediaid" value="' . $mediaid . '">');
-        		
-        Theme::Set('windowsCommand', htmlentities(urldecode($this->GetOption('windowsCommand'))));
-        Theme::Set('linuxCommand', htmlentities(urldecode($this->GetOption('linuxCommand'))));
+        
+        $formFields = array();
+        
+        $formFields[] = FormManager::AddText('windowsCommand', __('Windows Command'), htmlentities(urldecode($this->GetOption('windowsCommand'))), 
+            __('Enter a Windows Command Line compatible command'), 'w');
+        
+        $formFields[] = FormManager::AddText('linuxCommand', __('Android / Linux Command'), htmlentities(urldecode($this->GetOption('linuxCommand'))), 
+            __('Enter an Android / Linux Command Line compatible command'), 'l');
 
-
-        $this->response->html = Theme::RenderReturn('media_form_shellcommand_edit');
-
+        Theme::Set('form_fields', $formFields);
+        
         if ($this->showRegionOptions)
         {
             $this->response->AddButton(__('Cancel'), 'XiboSwapDialog("index.php?p=timeline&layoutid=' . $layoutid . '&regionid=' . $regionid . '&q=RegionOptions")');
@@ -105,6 +118,7 @@ class shellcommand extends Module
             $this->response->AddButton(__('Cancel'), 'XiboDialogClose()');
         }
 
+        $this->response->html = Theme::RenderReturn('form_render');
         $this->response->AddButton(__('Save'), '$("#ModuleForm").submit()');
         $this->response->dialogTitle = __('Edit Shell Command');
         $this->response->dialogSize 	= true;
@@ -120,6 +134,7 @@ class shellcommand extends Module
      */
     public function AddMedia()
     {
+        $this->response = new ResponseManager();
         $db =& $this->db;
 
         $layoutid = $this->layoutid;
@@ -167,6 +182,7 @@ class shellcommand extends Module
      */
     public function EditMedia()
     {
+        $this->response = new ResponseManager();
         $db =& $this->db;
 
         $layoutid = $this->layoutid;

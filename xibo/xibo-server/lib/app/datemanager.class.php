@@ -22,48 +22,84 @@ defined('XIBO') or die("Sorry, you are not allowed to directly access this page.
 
 class DateManager
 {
-	private $db;
-	
-	public function __construct(database $db)
-	{
-		$this->db 	=& $db;
-	}
-	
-	public static function GetClock()
-	{
-		return date("H:i T");
-	}
-	
-	public static function GetSystemClock()
-	{
-		return gmdate("H:i T");
-	}
-	
-	public static function GetLocalDate($format = 'Y-m-d H:i:s', $timestamp = '')
-	{
-		if ($timestamp == '')
-		{
-			$timestamp = time();
-		}
-		
-		return date($format, $timestamp);
-	}
-	
-	public static function GetSystemDate($format = 'Y-m-d H:i:s', $timestamp = '')
-	{
-		if ($timestamp == '')
-		{
-			$timestamp = time();
-		}
-		
-		return gmdate($format, $timestamp);
-	}
+    public static function getClock()
+    {
+        return date("H:i T");
+    }
+    
+    public static function getSystemClock()
+    {
+        return gmdate("H:i T");
+    }
+    
+    public static function getLocalDate($timestamp = NULL, $format = NULL)
+    {
+        if ($timestamp == NULL)
+            $timestamp = time();
+
+        if ($format == NULL)
+            $format = DateManager::getDefaultFormat();
+        
+        return (DateManager::getCalendarType() == 'Jalali') ? JDateTime::date($format, $timestamp, false) : date($format, $timestamp);
+    }
+    
+    public static function getSystemDate($timestamp = NULL, $format = NULL)
+    {
+        if ($timestamp == NULL)
+            $timestamp = time();
+
+        if ($format == NULL)
+            $format = 'Y-m-d H:i:s';
+
+        // Always return ISO formatted dates
+        return date($format, $timestamp);
+    }
 
     /**
-     * Gets an ISO date from a US formatted date string
-     * @param <string> $date
+     * Get the Calendar Type
+     * @return string
      */
-    public static function GetDateFromString($date)
+    public static function getCalendarType()
+    {
+        return Config::GetSetting('CALENDAR_TYPE');
+    }
+
+    /**
+     * Get the default date format
+     * @return string
+     */
+    public static function getDefaultFormat()
+    {
+        return Config::GetSetting('DATE_FORMAT');
+    }
+
+    /**
+     * Gets a Unix Timestamp from a textual date time string
+     * @param string $date
+     * @return int
+     */
+    public static function getDateFromString($date)
+    {
+        $timestamp = strtotime($date);
+
+        // If we are Jalali, then we want to convert from Jalali back to Gregorian. Otherwise assume input is already Gregorian.
+        if (Config::GetSetting('CALENDAR_TYPE') == 'Jalali') {
+            // Split the time stamp into its component parts and pass it to the conversion.
+            $date = jDateTime::toGregorian(date('Y', $timestamp), date('m', $timestamp), date('d', $timestamp));
+
+            // Convert that back into a date using strtotime - the date is now Gregorian
+            $timestamp = strtotime($date[0] . '-' . $date[1] . '-' . $date[2] . ' ' . date('H') . ':' . date('i') . ':' . date('s'));
+        }
+
+        return $timestamp;
+    }
+
+    /**
+     * Gets a Unix Timestamp from a textual UTC date time string
+     * @param $date
+     * @return int
+     */
+    public static function getDateFromGregorianString($date)
     {
         return strtotime($date);
     }

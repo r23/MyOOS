@@ -31,9 +31,10 @@ class Data
          * Data Class
          * @param database $db
          */
-	public function __construct(database $db)
+	public function __construct(database $db = null)
 	{
-		$this->db =& $db;
+		if ($db != null)
+			$this->db =& $db;
 		
 		$this->error		= false;
 		$this->errorNo 		= 0;
@@ -42,7 +43,7 @@ class Data
 	
 	/**
 	 * Gets the error state
-	 * @return 
+	 * @return bool
 	 */
 	public function IsError()
 	{
@@ -51,7 +52,7 @@ class Data
 	
 	/**
 	 * Gets the Error Number
-	 * @return 
+	 * @return int
 	 */
 	public function GetErrorNumber()
 	{
@@ -60,7 +61,7 @@ class Data
 	
 	/**
 	 * Gets the Error Message
-	 * @return 
+	 * @return string
 	 */
 	public function GetErrorMessage()
 	{
@@ -69,9 +70,9 @@ class Data
 	
 	/**
 	 * Sets the Error for this Data object
-	 * @return 
-	 * @param $errNo Object
-	 * @param $errMessage Object
+	 * @return bool
+	 * @param $errNo mixed
+	 * @param $errMessage string
 	 */
 	protected function SetError($errNo, $errMessage = '')
 	{

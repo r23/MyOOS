@@ -1,8 +1,53 @@
 var text_callback = function(dialog)
 {
+    // Set the text template based on the selected template id
+    if ($("#ta_text").val() == "" && !$("#overrideTemplate").is(":checked")) {
+        // Set something sensible based on the color of the layout background
+        var color = $c.complement($("#layout").data().backgroundColor);
+
+        // Get the current template selected
+        var templateId = $("#templateId").val();
+            
+        $.each($('.bootbox').data().extra, function(index, value) {
+            if (value.id == templateId) {
+                // Substitute the #Color# references with the suggested complimentary color
+                $("#ta_text").val(value.template.replace(/#Color#/g, color));
+                $("#ta_css").val(value.css);
+            }
+        });
+    }
+
+    // Register an onchange listener to do the same if the template is changed
+    $("#templateId").on('change', function() {
+        // Check to see if the override template check box is unchecked
+        if (!$("#overrideTemplate").is(":checked")) {
+
+            var color = $c.complement($("#layout").data().backgroundColor);
+            var templateId = $("#templateId").val();
+            
+            $.each($('.bootbox').data().extra, function(index, value) {
+                if (value.id == templateId) {
+                    CKEDITOR.instances["ta_text"].setData(value.template.replace(/#Color#/g, color));
+                    $("#ta_css").val(value.css);
+                }
+            });
+        }
+    });
+
     // Conjure up a text editor
     CKEDITOR.replace("ta_text");
-    CKEDITOR.config.contentsCss = 'body {background-color:' + $('#layout').css('background-color') + ';} html.cke_panel_container body { background-color: #FFF;}';
+    
+    CKEDITOR.instances["ta_text"].on('instanceReady', function() {
+        var scale = $('#layout').attr('designer_scale');
+
+        $("#cke_ta_text .cke_contents").css({
+            background: $('#layout').css('background-color'),
+        });
+        
+        $("#cke_ta_text iframe").css({
+            "background": "transparent"
+        });
+    });
 
     // Make sure when we close the dialog we also destroy the editor
     dialog.on("hide", function() {
@@ -15,42 +60,25 @@ var text_callback = function(dialog)
     $('.ckeditor_snippits', dialog).dblclick(function(){
         // Linked to?
         var linkedTo = $(this).attr("linkedto");
+        var text;
 
         if (CKEDITOR.instances[linkedTo] != undefined) {
             if ($(this).attr("datasetcolumnid") != undefined)
-                var text = "[" + $(this).html() + "|" + $(this).attr("datasetcolumnid") + "]"
+                text = "[" + $(this).html() + "|" + $(this).attr("datasetcolumnid") + "]";
             else
-                var text = "[" + $(this).html() + "]"
+                text = "[" + $(this).html() + "]";
 
             CKEDITOR.instances[linkedTo].insertText(text);
         }
 
         return false;
     });
-    
-    return false;
-}
 
-var microblog_callback = function(dialog)
-{
-    // Conjure up a text editor
-    CKEDITOR.replace("ta_template");
-    CKEDITOR.replace("ta_nocontent");
-    CKEDITOR.config.contentsCss = 'body {background-color:' + $('#layout').css('background-color'); + ';}';
-
-    // Make sure when we close the dialog we also destroy the editor
-    dialog.on("hide", function() {
-        if (CKEDITOR.instances["ta_template"] != undefined) {
-            CKEDITOR.instances["ta_template"].destroy();
-        }
-        
-        if (CKEDITOR.instances["ta_nocontent"] != undefined) {
-            CKEDITOR.instances["ta_nocontent"].destroy();
-        }
-    });
+    // Turn the background colour into a picker
+    $("#backgroundColor").colorpicker();
 
     return false;
-}
+};
 
 var datasetview_callback = function(dialog)
 {
@@ -101,18 +129,18 @@ function MembersSubmit() {
 /**
  * Layout Assignment Form Callback
  */
-var LayoutAssignCallback = function()
+var LayoutAssignCallback = function(gridId)
 {
     // Attach a click handler to all of the little pointers in the grid.
-    $("#LayoutAssignTable .layout_assign_list_select").click(function(){
+    $("#" + gridId).find(".layout_assign_list_select").click(function(){
         // Get the row that this is in.
-        var row = $(this).parent().parent();
+        var row = $(this).closest("tr");
 
         // Construct a new list item for the lower list and append it.
         var newItem = $("<li/>", {
-            text: row.attr("litext"),
-            id: row.attr("rowid"),
-            "class": "li-sortable",
+            text: row.data().litext,
+            id: row.data().rowid,
+            "class": "btn btn-sm btn-default",
             dblclick: function(){
                 $(this).remove();
             }
@@ -122,7 +150,7 @@ var LayoutAssignCallback = function()
 
         // Add a span to that new item
         $("<span/>", {
-            "class": "icon-minus-sign",
+            "class": "glyphicon glyphicon-minus-sign",
             click: function(){
                 $(this).parent().remove();
             }
@@ -137,13 +165,13 @@ var LayoutAssignCallback = function()
     });
 
     $("#LayoutAssignSortable").sortable().disableSelection();
-}
+};
 
 function LayoutsSubmit(campaignId) {
     // Serialise the form and then submit it via Ajax.
     var layouts = $("#LayoutAssignSortable").sortable('serialize');
 
-    layouts = layouts + "&CampaignID=" + campaignId + "&token=" + $('#LayoutAssignTable input[name=token]').val();
+    layouts = layouts + "&CampaignID=" + campaignId + "&assign_token=" + $("#LayoutAssignSortable input[name='assign_token']").val();
     
     $.ajax({
         type: "post",
@@ -284,13 +312,11 @@ function DisplayGroupMembersSubmit() {
 function MediaFormInitUpload(dialog) {
     // URL for the file upload handler
     var url = $('#fileupload').attr("action");
-    //var url = "upload.php";
-
+    
     // Initialize the jQuery File Upload widget:
     $('#fileupload').fileupload({
-        // Uncomment the following to send cross-domain cookies:
-        //xhrFields: {withCredentials: true},
-        url: url
+        url: url,
+        disableImageResize: false
     });
 
     // Upload server status check for browsers with CORS support:
@@ -306,12 +332,6 @@ function MediaFormInitUpload(dialog) {
         });
     }
     
-    // Initialize the jQuery File Upload widget:
-    $('#fileupload').fileupload('option', {
-        url: url,
-        disableImageResize: false
-    });
-
     // Enable iframe cross-domain access via redirect option:
     $('#fileupload').fileupload(
         'option',
@@ -328,6 +348,8 @@ function MediaFormInitUpload(dialog) {
             return false;
         }
         data.formData = inputs.serializeArray().concat($("#fileupload").serializeArray());
+
+        inputs.filter("input").prop("disabled", true);
     });
 }
 
@@ -355,7 +377,7 @@ var FileAssociationsCallback = function()
 
         // Add a span to that new item
         $("<span/>", {
-            "class": "icon-minus-sign",
+            "class": "glyphicon glyphicon-minus-sign",
             click: function(){
                 $(this).parent().remove();
                 $(".modal-body .XiboGrid").each(function(){
@@ -374,7 +396,7 @@ var FileAssociationsCallback = function()
     });
 
     // Attach a click handler to all of the little points in the trough
-    $("#FileAssociationsSortable li .icon-minus-sign").click(function() {
+    $("#FileAssociationsSortable li .glyphicon-minus-sign").click(function() {
 
         // Remove this and refresh the table
         $(this).parent().remove();
@@ -382,7 +404,7 @@ var FileAssociationsCallback = function()
     });
 
     $("#FileAssociationsSortable").sortable().disableSelection();
-}
+};
 
 var FileAssociationsSubmit = function(displayGroupId)
 {
@@ -397,4 +419,62 @@ var FileAssociationsSubmit = function(displayGroupId)
         data: mediaList,
         success: XiboSubmitResponse
     });
-}
+};
+
+var forecastIoFormSetup = function() {
+    $('#color').colorpicker();
+
+    // If all 3 of the template fields are empty, then the template should be reapplied.
+    if (!$("#overrideTemplate").is(":checked") && ($("#currentTemplate").val() == "" || $("#dailyTemplate").val() == "" || $("#styleSheet").val() == "")) {
+        // Reapply
+        var templateId = $("#templateId").val();
+
+        $.each($('.bootbox').data().extra, function(index, value) {
+            if (value.id == templateId) {
+                $("#currentTemplate").val(value.main);
+                $("#dailyTemplate").val(value.daily);
+                $("#styleSheet").val(value.css);
+            }
+        });
+    }
+
+    $("#templateId").on('change', function() {
+        // Check to see if the override template check box is unchecked
+        if (!$("#overrideTemplate").is(":checked")) {
+
+            var templateId = $("#templateId").val();
+
+            $.each($('.bootbox').data().extra, function(index, value) {
+                if (value.id == templateId) {
+                    $("#currentTemplate").val(value.main);
+                    $("#dailyTemplate").val(value.daily);
+                    $("#styleSheet").val(value.css);
+                }
+            });
+        }
+    });
+};
+
+var requestTab = function(tabName, url) {
+    // Fill a new tab with the forecast information and then switch to that tab.
+    $.ajax({
+        type: "post",
+        url: url+"&ajax=true",
+        cache: false,
+        data: "tab="+tabName,
+        success: function(response, status, xhr) {
+            $(".tab-content #" + tabName).html(response);
+
+            $('.nav-tabs a[href="#' + tabName + '"]').tab('show');
+        }
+    });
+};
+
+var settingsUpdated = function(response) {
+    if (response.success) {
+        $("#SettingsForm input[name='token']").val($(response.nextToken).val());
+    }
+    else {
+        SystemMessage((response.message == "") ? translation.failure : response.message, true);
+    }
+};

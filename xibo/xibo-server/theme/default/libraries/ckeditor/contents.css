@@ -13,16 +13,16 @@ body
 	color: #333;
 
 	/* Remove the background color to make it transparent */
-	background-color: #fff;
+	background-color: transparent;
 
 	margin: 20px;
 }
 
-.cke_editable
+/*.cke_editable
 {
 	font-size: 13px;
 	line-height: 1.6em;
-}
+}*/
 
 blockquote
 {
@@ -103,4 +103,9 @@ pre
 span[lang]
 {
    font-style: italic;
+}
+
+.cke_panel_listItem a span
+{
+    font-size: 12px !important;
 }

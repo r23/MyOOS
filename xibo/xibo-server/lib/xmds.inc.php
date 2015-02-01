@@ -1,7 +1,7 @@
 <?php
 /*
  * Xibo - Digital Signage - http://www.xibo.org.uk
- * Copyright (C) 2006,2007,2008 Daniel Garner and James Packer
+ * Copyright (C) 2006-2014 Daniel Garner
  *
  * This file is part of Xibo.
  *
@@ -31,12 +31,19 @@ require_once('lib/app/debug.class.php');
 require_once('lib/app/kit.class.php');
 require_once('lib/app/permissionmanager.class.php');
 require_once("lib/app/responsemanager.class.php");
+require_once("lib/app/helpmanager.class.php");
+require_once("lib/app/datemanager.class.php");
 require_once('lib/data/data.class.php');
+require_once('lib/data/nonce.data.class.php');
+require_once('lib/data/bandwidth.data.class.php');
+require_once('lib/pages/base.class.php');
 require_once('config/db_config.php');
 require_once('config/config.class.php');
 include_once('lib/data/stat.data.class.php');
-require_once('lib/data/data.class.php');
 require_once('lib/data/display.data.class.php');
+require_once('lib/data/file.data.class.php');
+require_once("lib/app/cache.class.php");
+require_once("lib/app/thememanager.class.php");
 require_once('lib/service/serviceresponse.class.php');
 require_once('modules/module_user_general.php');
 require_once('lib/modules/module.interface.php');
@@ -77,16 +84,35 @@ if (file_exists("upgrade.php")) {
 //parse and init the settings.xml
 Config::Load();
 
-//create a DB
-$db = new database();
-
-if (!$db->connect_db($dbhost, $dbuser, $dbpass)) trigger_error($db->error(), E_USER_ERROR);
-if (!$db->select_db($dbname)) trigger_error($db->error(), E_USER_ERROR);
+// Define an auto-load function
+spl_autoload_register(function ($class) {
+    Kit::ClassLoader($class);
+});
 
 // Error Handling (our error handler requires a DB connection
 set_error_handler(array(new Debug(), "ErrorHandler"));
 
 date_default_timezone_set(Config::GetSetting('defaultTimezone'));
+
+// Deal with HTTPS/STS config
+if (Kit::isSSL()) {
+    Kit::IssueStsHeaderIfNecessary();
+}
+else {
+    if (Config::GetSetting('FORCE_HTTPS', 0) == 1) {
+        $redirect = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        header("Location: $redirect");
+        exit();
+    }
+}
+
+// What is the production mode of the server?
+if(Config::GetSetting('SERVER_MODE') == 'Test') 
+    ini_set('display_errors', 1);
+
+// Debugging?
+if (Debug::getLevel(Config::GetSetting('audit')) == 10)
+    error_reporting(E_ALL);
 
 // Work out the location of this service
 $serviceLocation = Kit::GetXiboRoot();

@@ -22,9 +22,157 @@ defined('XIBO') or die("Sorry, you are not allowed to directly access this page.
 
 class Media extends Data
 {
+    private $_moduleFiles;
+
     private $moduleInfoLoaded;
     private $regionSpecific;
     private $validExtensions;
+
+    public $mediaId;
+    public $ownerId;
+    public $parentId;
+
+    public $name;
+    public $mediaType;
+    public $storedAs;
+    public $fileName;
+    public $tags;
+    
+    public $fileSize;
+    public $duration;
+    public $valid;
+    public $moduleSystemFile;
+    public $expires;
+
+    public static function Entries($sort_order = array('name'), $filter_by = array())
+    {
+        $entries = array();
+        
+        try {
+            $dbh = PDOConnect::init();
+
+            $params = array();
+            $SQL  = '';
+            $SQL .= "SELECT  media.mediaID, ";
+            $SQL .= "   media.name, ";
+            $SQL .= "   media.type, ";
+            $SQL .= "   media.duration, ";
+            $SQL .= "   media.userID, ";
+            $SQL .= "   media.FileSize, ";
+            $SQL .= "   media.storedAs, ";
+            $SQL .= "   media.valid, ";
+            $SQL .= "   media.moduleSystemFile, ";
+            $SQL .= "   media.expires, ";
+            $SQL .= "   IFNULL((SELECT parentmedia.mediaid FROM media parentmedia WHERE parentmedia.editedmediaid = media.mediaid),0) AS ParentID, ";
+            
+            if (Kit::GetParam('showTags', $filter_by, _INT) == 1)
+                $SQL .= " tag.tag AS tags, ";
+            else
+                $SQL .= " (SELECT GROUP_CONCAT(DISTINCT tag) FROM tag INNER JOIN lktagmedia ON lktagmedia.tagId = tag.tagId WHERE lktagmedia.mediaId = media.mediaID GROUP BY lktagmedia.mediaId) AS tags, ";
+            
+            $SQL .= "   media.originalFileName ";
+            $SQL .= " FROM media ";
+            $SQL .= "   LEFT OUTER JOIN media parentmedia ";
+            $SQL .= "   ON parentmedia.MediaID = media.MediaID ";
+
+            if (Kit::GetParam('showTags', $filter_by, _INT) == 1) {
+                $SQL .= " LEFT OUTER JOIN lktagmedia ON lktagmedia.mediaId = media.mediaId ";
+                $SQL .= " LEFT OUTER JOIN tag ON tag.tagId = lktagmedia.tagId";
+            }
+
+            $SQL .= " WHERE media.isEdited = 0 ";
+
+            if (Kit::GetParam('allModules', $filter_by, _INT) == 0) {
+                $SQL .= "AND media.type <> 'module'";
+            }
+            
+            if (Kit::GetParam('name', $filter_by, _STRING) != '') {
+                // convert into a space delimited array
+                $names = explode(' ', Kit::GetParam('name', $filter_by, _STRING));
+                $i = 0;
+                foreach($names as $searchName) {
+                    $i++;
+                    // Not like, or like?
+                    if (substr($searchName, 0, 1) == '-') {
+                        $SQL .= " AND media.name NOT LIKE :notLike ";
+                        $params['notLike'] = '%' . ltrim($searchName, '-') . '%';
+                    }
+                    else {
+                        $SQL .= " AND media.name LIKE :like ";
+                        $params['like'] = '%' . $searchName . '%';
+                    }
+                }
+            }
+
+            if (Kit::GetParam('mediaId', $filter_by, _INT, -1) != -1) {
+                $SQL .= " AND media.mediaId = :mediaId ";
+                $params['mediaId'] = Kit::GetParam('mediaId', $filter_by, _INT);
+            }
+
+            if (Kit::GetParam('type', $filter_by, _STRING) != '') {
+                $SQL .= 'AND media.type = :type';
+                $params['type'] = Kit::GetParam('type', $filter_by, _STRING);
+            }
+
+            if (Kit::GetParam('storedAs', $filter_by, _STRING) != '') {
+                $SQL .= 'AND media.storedAs = :storedAs';
+                $params['storedAs'] = Kit::GetParam('storedAs', $filter_by, _STRING);
+            }
+
+            if (Kit::GetParam('ownerid', $filter_by, _INT) != 0) {
+                $SQL .= " AND media.userid = :ownerId ";
+                $params['ownerId'] = Kit::GetParam('ownerid', $filter_by, _INT);
+            }
+            
+            if (Kit::GetParam('retired', $filter_by, _INT, -1) == 1)
+                $SQL .= " AND media.retired = 1 ";
+            
+            if (Kit::GetParam('retired', $filter_by, _INT, -1) == 0)
+                $SQL .= " AND media.retired = 0 ";
+
+            // Expired files?
+            if (Kit::GetParam('expires', $filter_by, _INT) != 0) {
+                $SQL .= ' AND media.expires < :expires AND IFNULL(media.expires, 0) <> 0 ';
+                $params['expires'] = Kit::GetParam('expires', $filter_by, _INT);
+            }
+            
+            // Sorting?
+            if (is_array($sort_order))
+                $SQL .= 'ORDER BY ' . implode(',', $sort_order);
+
+            //Debug::Audit(sprintf('Retrieving list of media with SQL: %s. Params: %s', $SQL, var_export($params, true)));
+        
+            $sth = $dbh->prepare($SQL);
+            $sth->execute($params);
+
+            foreach ($sth->fetchAll() as $row) {
+                $media = new Media();
+                $media->mediaId = Kit::ValidateParam($row['mediaID'], _INT);
+                $media->name = Kit::ValidateParam($row['name'], _STRING);
+                $media->mediaType = Kit::ValidateParam($row['type'], _WORD);
+                $media->duration = Kit::ValidateParam($row['duration'], _DOUBLE);
+                $media->ownerId = Kit::ValidateParam($row['userID'], _INT);
+                $media->fileSize = Kit::ValidateParam($row['FileSize'], _INT);
+                $media->parentId = Kit::ValidateParam($row['ParentID'], _INT);
+                $media->fileName = Kit::ValidateParam($row['originalFileName'], _STRING);
+                $media->tags = Kit::ValidateParam($row['tags'], _STRING);
+                $media->storedAs = Kit::ValidateParam($row['storedAs'], _STRING);
+                $media->valid = Kit::ValidateParam($row['valid'], _INT);
+                $media->moduleSystemFile = Kit::ValidateParam($row['moduleSystemFile'], _INT);
+                $media->expires = Kit::ValidateParam($row['expires'], _INT);
+
+                $entries[] = $media;
+            }
+        
+            return $entries;  
+        }
+        catch (Exception $e) {
+            
+            Debug::LogEntry('error', $e->getMessage(), get_class(), __FUNCTION__);
+        
+            return false;
+        }
+    }
 
     /**
      * Adds a new media record
@@ -69,15 +217,17 @@ class Media extends Data
                 throw new Exception("Error Processing Request", 1);
                 
             // Check the extension is valid for that media type
-            if (!$this->IsValidFile($extension))
+            if (!$this->IsValidFile($type, $extension)) {
+                Debug::Error('Invalid extension: ' . $extension);
                 $this->ThrowError(18, __('Invalid file extension'));
+            }
     
             // Validation
             if (strlen($name) > 100)
                 $this->ThrowError(10, __('The name cannot be longer than 100 characters'));
     
             // Test the duration (except for video and localvideo which can have a 0)
-            if ($duration == 0 && $type != 'video' && $type != 'localvideo' && $type != 'genericfile')
+            if ($duration == 0 && $type != 'video' && $type != 'localvideo' && $type != 'genericfile' && $type != 'font')
                 $this->ThrowError(11, __('You must enter a duration.'));
     
             // Check the naming of this item to ensure it doesnt conflict
@@ -143,6 +293,10 @@ class Media extends Data
                 $security = new MediaGroupSecurity($this->db);
                 $security->LinkEveryone($mediaId, 1, 0, 0);
             }
+
+            // Set some properties
+            $this->storedAs = $mediaId . '.' . $extension;
+            $this->mediaId = $mediaId;
     
             return $mediaId;  
         }
@@ -164,7 +318,7 @@ class Media extends Data
      * @param <type> $duration
      * @return <bool>
      */
-    public function Edit($mediaId, $name, $duration, $userId)
+    public function Edit($mediaId, $name, $duration, $userId, $tags = '')
     {
         Debug::LogEntry('audit', 'IN', 'Media', 'Edit');
 
@@ -186,7 +340,7 @@ class Media extends Data
             if (strlen($name) > 100)
                 $this->ThrowError(10, __('The name cannot be longer than 100 characters'));
     
-            if ($duration == 0 && $type != 'video' && $type != 'localvideo' && $type != 'genericfile')
+            if ($duration == 0 && $type != 'video' && $type != 'localvideo' && $type != 'genericfile' && $type != 'font')
                 $this->ThrowError(11, __('You must enter a duration.'));
     
             // Any media (not this one) already has this name?
@@ -207,6 +361,20 @@ class Media extends Data
                     'name' => $name,
                     'duration' => $duration
                 ));
+
+            // Update the tags.
+            if ($tags != '') {
+                // Convert to an array.
+                $tags = explode(',', $tags);
+
+                // Untag all existing tags.
+                $this->unTagAll($mediaId);
+
+                // Loop through the new ones and tag accordingly.
+                foreach ($tags as $tag) {
+                    $this->tag($tag, $mediaId);
+                }
+            }
     
             return true;  
         }
@@ -323,8 +491,6 @@ class Media extends Data
     {
         Debug::LogEntry('audit', 'IN', 'Media', 'Delete');
         
-        Kit::ClassLoader('lkmediadisplaygroup');
-
         try {
             $dbh = PDOConnect::init();
         
@@ -350,7 +516,6 @@ class Media extends Data
             $fileName = Kit::ValidateParam($row['StoredAs'], _STRING);
     
             // Remove permission assignments
-            Kit::ClassLoader('mediagroupsecurity');
             $security = new MediaGroupSecurity($this->db);
     
             if (!$security->UnlinkAll($mediaId))
@@ -456,15 +621,16 @@ class Media extends Data
         return true;
     }
 
-    private function IsValidFile($extension)
+    private function IsValidFile($type, $extension)
     {
-        Debug::LogEntry('audit', 'IN', 'Media', 'IsValidFile');
-        
+        // Load some information about this module
         if (!$this->moduleInfoLoaded)
         {
-            if (!$this->LoadModuleInfo())
+            if (!$this->LoadModuleInfo($type))
                 return false;
         }
+
+        Debug::Audit('Valid Extensions: ' . var_export($this->validExtensions, true));
 
         // TODO: Is this search case sensitive?
         return in_array($extension, $this->validExtensions);
@@ -637,6 +803,390 @@ class Media extends Data
         
             if (!$this->IsError())
                 $this->SetError(26, __('Error copying media.'));
+        
+            return false;
+        }
+    }
+
+    /**
+     * Adds module files from a folder.
+     * The entire folder will be added as module files
+     * @param string  $folder The path to the folder to add.
+     * @param boolean $force  Whether or not each individual module should be force updated if it exists already
+     */
+    public function addModuleFileFromFolder($folder, $force = false) 
+    {
+        if (!is_dir($folder))
+            return $this->SetError(__('Not a folder'));
+
+        foreach (array_diff(scandir($folder), array('..', '.')) as $file) {
+
+            //Debug::Audit('Found file: ' . $file);
+
+            $this->addModuleFile($folder . DIRECTORY_SEPARATOR . $file, $force);
+        }
+    }
+
+    /**
+     * Adds a module file from a URL
+     */
+    public function addModuleFileFromUrl($url, $name, $expires, $moduleSystemFile = false, $force = false)
+    {
+        // See if we already have it
+        // It doesn't matter that we might have already done this, its cached.
+        $media = $this->moduleFileExists($name);
+
+        //Debug::Audit('Module File: ' . var_export($media, true));
+
+        if ($media === false || $force) {
+            Debug::Audit('Adding: ' . $url . ' with Name: ' . $name . '. Expiry: ' . date('Y-m-d h:i:s', $expires));
+            
+            $fileName = Config::GetSetting('LIBRARY_LOCATION') . 'temp' . DIRECTORY_SEPARATOR . $name;
+            
+            // Put in a temporary folder
+            @file_put_contents($fileName, @fopen($url, 'r'));
+            
+            $media = $this->addModuleFile($fileName, $expires, $moduleSystemFile, true);
+
+            // Tidy temp
+            unlink($fileName);
+        }
+
+        return $media;
+    }
+
+    /**
+     * Adds a module file. 
+     * Module files are hidden from the UI and supplementary files that will be used
+     * by the module that added them.
+     * @param string  $file  The path to the file that needs adding
+     * @param boolean $force Whether to force an update to the file or not
+     */
+    public function addModuleFile($file, $expires = 0, $moduleSystemFile = true, $force = false)
+    {
+        try {
+            $name = basename($file);
+
+            $media = $this->moduleFileExists($name);
+
+            //Debug::Audit('Module File: ' . var_export($media, true));
+
+            $dbh = PDOConnect::init();
+            
+            // Do we need to update this module file (meaning, is it out of date)
+            // Why might it be out of date?
+            //  - an upgrade might of invalidated it
+            // How can we tell?
+            // - valid flag on the media
+            if ($media !== false && $media['valid'] == 0) {
+                Debug::Audit('Media not valid, forcing update.');
+                $force = true;
+            }
+
+            // Force will be set by now. 
+            if (!$force && $media !== false) {
+                // Nibble on the update date
+                $sth = $dbh->prepare('UPDATE `media` SET expires = :expires WHERE mediaId = :mediaId');
+                $sth->execute(array(
+                        'mediaId' => $media['mediaId'],
+                        'expires' => $expires
+                    ));
+
+                // Need to return the media object
+                return $media;
+            }
+
+            $libraryFolder = Config::GetSetting('LIBRARY_LOCATION');
+
+            // Get the name
+            $storedAs = $libraryFolder . $name;
+
+            Debug::Audit('Updating: ' . $name);
+             
+            // Now copy the file
+            if (!@copy($file, $storedAs))
+                $this->ThrowError(15, 'Error storing file.');
+
+            // Calculate the MD5 and the file size
+            $md5        = md5_file($storedAs);
+            $fileSize   = filesize($storedAs);
+        
+            if ($media !== false) {
+                
+                $SQL = "UPDATE `media` SET md5 = :md5, filesize = :filesize, expires = :expires WHERE mediaId = :mediaId ";
+
+                $sth = $dbh->prepare($SQL);
+                $sth->execute(array(
+                        'mediaId' => $media['mediaId'],
+                        'filesize' => $fileSize,
+                        'md5' => $md5,
+                        'expires' => $expires
+                    ));
+
+                // Update the media array for returning
+                $media['expires'] = $expires;
+            }
+            else {
+                // All OK to insert this record
+                $SQL  = "INSERT INTO media (name, type, duration, originalFilename, userID, retired, moduleSystemFile, storedAs, FileSize, MD5, expires) ";
+                $SQL .= "VALUES (:name, :type, :duration, :originalfilename, 1, :retired, :moduleSystemFile, :storedas, :filesize, :md5, :expires) ";
+
+                $sth = $dbh->prepare($SQL);
+                $sth->execute(array(
+                        'name' => $name,
+                        'type' => 'module',
+                        'duration' => 10,
+                        'originalfilename' => $name,
+                        'retired' => 0,
+                        'storedas' => $name,
+                        'filesize' => $fileSize,
+                        'md5' => $md5,
+                        'moduleSystemFile' => (($moduleSystemFile) ? 1 : 0),
+                        'expires' => $expires
+                    ));
+
+                $media = array('mediaId' => $dbh->lastInsertId(), 'storedAs' => $name, 'expires' => $expires);
+            }
+
+            // Add to the cache
+            $this->_moduleFiles[$name] = $media;
+
+            return $media;
+        }
+        catch (Exception $e) {
+            
+            Debug::LogEntry('error', $e->getMessage(), get_class(), __FUNCTION__);
+        
+            if (!$this->IsError())
+                $this->SetError(1, __('Unknown Error'));
+        
+            return false;
+        }
+    }
+
+    /**
+     * Remove a module file
+     * @param  int $mediaId  The MediaID of the module to remove
+     * @param  string $storedAs The Location of the File as it is stored
+     * @return boolean True or False
+     */
+    public function removeModuleFile($mediaId, $storedAs)
+    {
+        try {
+            $dbh = PDOConnect::init();
+
+            Debug::Audit('Removing: ' . $storedAs . ' ID:' . $mediaId);
+        
+            // Delete the links
+            $sth = $dbh->prepare('DELETE FROM lklayoutmedia WHERE mediaId = :mediaId AND regionId = :regionId');
+            $sth->execute(array(
+                    'mediaId' => $mediaId,
+                    'regionId' => 'module'
+                ));
+    
+            // Delete the media
+            $sth = $dbh->prepare('DELETE FROM media WHERE mediaId = :mediaId');
+            $sth->execute(array(
+                    'mediaId' => $mediaId
+                ));
+    
+            // Delete the file itself (and any thumbs, etc)
+            return $this->DeleteMediaFile($storedAs);
+        }
+        catch (Exception $e) {
+            
+            Debug::LogEntry('error', $e->getMessage());
+        
+            if (!$this->IsError())
+                $this->SetError(1, __('Unknown Error'));
+        
+            return false;
+        }
+    }
+
+    /**
+     * Does the module file exist?
+     * Checks to see if the module file specified exists or not
+     * @param  string $file The path
+     * @return int The MediaId or false
+     */
+    public function moduleFileExists($file)
+    {
+        try {
+            if ($this->_moduleFiles == NULL || count($this->_moduleFiles) < 1) {
+                $dbh = PDOConnect::init();
+            
+                $sth = $dbh->prepare('SELECT storedAs, mediaId, valid, expires FROM `media` WHERE type = :type');
+                $sth->execute(array(
+                        'type' => 'module'
+                    ));
+                
+                $this->_moduleFiles = array();
+
+                foreach ($sth->fetchAll() as $moduleFile)
+                    $this->_moduleFiles[$moduleFile['storedAs']] = array('mediaId' => $moduleFile['mediaId'], 'valid' => $moduleFile['valid'], 'expires' => $moduleFile['expires'], 'storedAs' => $moduleFile['storedAs']);
+            }
+
+            //Debug::Audit(var_export($this->_moduleFiles, true));
+
+            // Return the value (the ID) or false
+            return (array_key_exists($file, $this->_moduleFiles) ? $this->_moduleFiles[$file] : false);
+        }
+        catch (Exception $e) {
+            
+            Debug::LogEntry('error', $e->getMessage(), get_class(), __FUNCTION__);
+        
+            if (!$this->IsError())
+                $this->SetError(1, __('Unknown Error'));
+        
+            return false;
+        }
+    }
+
+    /**
+     * Installs all files related to the enabled modules
+     */
+    public static function installAllModuleFiles()
+    {
+        $media = new Media();
+
+        // Do this for all enabled modules
+        foreach ($media->ModuleList() as $module) {
+            $type = ucfirst($module['module']);
+
+            include_once('modules/' . strtolower($type) . '.module.php');
+            $moduleObject = new $type(new database(), new User());
+
+            // Install Files for this module
+            $moduleObject->InstallFiles();
+        }
+    }
+
+    /**
+     * Removes all expired media files
+     */
+    public static function removeExpiredFiles()
+    {
+        $media = new Media();
+
+        // Get a list of all expired files and delete them
+        foreach (Media::Entries(NULL, array('expires' => time(), 'allModules' => 1)) as $entry) {
+            // If the media type is a module, then pretend its a generic file
+            if ($entry->mediaType == 'module') {
+                // Find and remove any links to layouts.
+                $media->removeModuleFile($entry->mediaId, $entry->storedAs);
+            }
+            else {
+                // Create a module for it and issue a delete
+                include_once('modules/' . $entry->type . '.module.php');
+                $moduleObject = new $entry->type(new database(), new User());
+
+                // Remove it from all assigned layout
+                $moduleObject->UnassignFromAll($entry->mediaId);
+                
+                // Delete it
+                $media->Delete($entry->mediaId);
+            }
+        }
+    }
+
+    /**
+     * Links a layout and tag
+     * @param string $tag The Tag
+     * @param int $mediaId The Layout
+     */
+    public function tag($tag, $mediaId)
+    {
+        $tagObject = new Tag();
+        if (!$tagId = $tagObject->add($tag))
+            return $this->SetError($tagObject->GetErrorMessage());
+
+        try {
+            $dbh = PDOConnect::init();
+
+            // See if this tag exists
+            $sth = $dbh->prepare('SELECT * FROM `lktagmedia` WHERE mediaId = :mediaId AND tagId = :tagId');
+            $sth->execute(array(
+                    'tagId' => $tagId,
+                    'mediaId' => $mediaId
+                ));
+
+            if (!$row = $sth->fetch()) {
+        
+                $sth = $dbh->prepare('INSERT INTO `lktagmedia` (tagId, mediaId) VALUES (:tagId, :mediaId)');
+                $sth->execute(array(
+                        'tagId' => $tagId,
+                        'mediaId' => $mediaId
+                    ));
+          
+                return $dbh->lastInsertId();
+            }
+            else {
+                return Kit::ValidateParam($row['lkTagMediaId'], _INT);
+            }
+        }
+        catch (Exception $e) {
+            
+            Debug::LogEntry('error', $e->getMessage(), get_class(), __FUNCTION__);
+        
+            if (!$this->IsError())
+                $this->SetError(1, __('Unknown Error'));
+        
+            return false;
+        }
+    }
+
+    /**
+     * Untag a layout
+     * @param  string $tag The Tag
+     * @param  int $mediaId The Layout Id
+     */
+    public function unTag($tag, $mediaId) {
+        try {
+            $dbh = PDOConnect::init();
+        
+            $sth = $dbh->prepare('DELETE FROM `lktagmedia` WHERE tagId IN (SELECT tagId FROM tag WHERE tag = :tag) AND mediaId = :mediaId)');
+            $sth->execute(array(
+                    'tag' => $tag,
+                    'mediaId' => $mediaId
+                ));
+          
+            return true;
+        }
+        catch (Exception $e) {
+            
+            Debug::LogEntry('error', $e->getMessage(), get_class(), __FUNCTION__);
+        
+            if (!$this->IsError())
+                $this->SetError(1, __('Unknown Error'));
+        
+            return false;
+        }
+    }
+
+    /**
+     * Untag all tags on a layout
+     * @param  [int] $mediaId The Layout Id
+     */
+    public function unTagAll($mediaId) {
+        Debug::Audit('IN');
+
+        try {
+            $dbh = PDOConnect::init();
+        
+            $sth = $dbh->prepare('DELETE FROM `lktagmedia` WHERE mediaId = :mediaId');
+            $sth->execute(array(
+                    'mediaId' => $mediaId
+                ));
+          
+            return true;
+        }
+        catch (Exception $e) {
+            
+            Debug::LogEntry('error', $e->getMessage(), get_class(), __FUNCTION__);
+        
+            if (!$this->IsError())
+                $this->SetError(1, __('Unknown Error'));
         
             return false;
         }

@@ -18,62 +18,77 @@
  * along with Xibo.  If not, see <http://www.gnu.org/licenses/>.
  */
 $(document).ready(function(){
-	
-	// Set the height of the grid to be something sensible for the current screen resolution
-	$('#LayoutJumpList .XiboGrid').css("height", $(window).height() - 200);
     
-	$('#JumpListHeader').click(function(){
-       if ($('#JumpListOpenClose').html() == "^")
-           $('#JumpListOpenClose').html("v");
-       else
-           $('#JumpListOpenClose').html("^");
-       
-       $('#' + $(this).attr('JumpListGridID')).slideToggle("slow", "swing");
-	});
+    // Set the height of the grid to be something sensible for the current screen resolution
+    $("#layoutJumpList").change(function(){
+        window.location = 'index.php?p=layout&modify=true&layoutid=' + $(this).val();
+    }).selectpicker();
 
-	$("#layout").each(function(){
+    $("#layout").each(function() {
 
-		$(this).find(".region")
-			.draggable({
-		            containment: this,
-		            stop: regionPositionUpdate,
-		            drag: updateRegionInfo
-        		})
-			.resizable({
-		            containment: this,
-		            minWidth: 25,
-		            minHeight: 25,
-		            stop: regionPositionUpdate,
-		            resize: updateRegionInfo
-		        });
+        // Only enable drag / drop if we are within a certain limit
+        if ($(this).attr("designer_scale") > 0.41) {
 
-		// Preview
-		$('.regionPreview', this).each(function(){
+            $(this).find(".region")
+                .draggable({
+                        containment: this,
+                        stop: regionPositionUpdate,
+                        drag: updateRegionInfo
+                    })
+                .resizable({
+                        containment: this,
+                        minWidth: 25,
+                        minHeight: 25,
+                        stop: regionPositionUpdate,
+                        resize: updateRegionInfo
+                    });
+        }
+
+        $(this).find(".region")
+            .hover(function() {
+                    $(this).find(".regionInfo").show();
+                    $(this).find(".previewNav").show();
+                },
+                function() {
+                    $(this).find(".regionInfo").hide();
+                    $(this).find(".previewNav").hide();
+                });
+
+        // Preview
+        $('.regionPreview', this).each(function(){
             new Preview(this);
-		});
+        });
 
         // Set an interval
         XiboPing('index.php?p=layout&q=LayoutStatus&layoutId=' + $(this).attr("layoutid"), '.layout-status');
 
         setInterval("XiboPing('index.php?p=layout&q=LayoutStatus&layoutId=" + $(this).attr("layoutid") + "', '.layout-status')", 1000 * 60); // Every minute
-	});
+    });
 
     $('.RegionOptionsMenuItem').click(function() {
 
-        var width   = $(this).closest('.region').css("width");
-        var height  = $(this).closest('.region').css("height");
-        var top     = $(this).closest('.region').css("top");
-        var left    = $(this).closest('.region').css("left");
-        var regionid = $(this).closest('.region').attr("regionid");
-        var layoutid = $(this).closest('.region').attr("layoutid");
-        var scale = $(this).closest('.region').attr("scale");
-        var layoutWidth = $(this).closest('.layout').css("width");
-        var layoutHeight = $(this).closest('.layout').css("height");
+        // If any regions have been moved, then save them.
+        if ($("#layout-save-all").length > 0) {
+            SystemMessage(translations.savePositionsFirst, true);
+            return;
+        }
 
-        var url = "index.php?p=timeline&q=ManualRegionPositionForm&layoutid=" + layoutid + "&regionid=" + regionid + "&top=" + top + "&left=" + left + "&width=" + width + "&height=" + height + "&scale=" + scale + "&layoutWidth=" + layoutWidth + "&layoutHeight=" + layoutHeight;
+        var data = {
+            layoutid: $(this).closest('.region').attr("layoutid"),
+            regionid: $(this).closest('.region').attr("regionid"),
+            scale: $(this).closest('.region').attr("tip_scale"),
+            zoom: $(this).closest('.layout').attr("zoom")
+        };
 
-        XiboFormRender(url);
+        var url = "index.php?p=timeline&q=ManualRegionPositionForm";
+
+        XiboFormRender(url, data);
     });
+
+    setTimeout(function() {
+        $(".region .regionInfo").hide("200");
+        $(".region .previewNav").hide("200");
+    }, 1000);
 
 });
 
@@ -86,18 +101,15 @@ $(document).ready(function(){
 function updateRegionInfo(e, ui) {
 
     var pos = $(this).position();
-    var scale = $(this).attr("scale");
-    $('.region-tip', this).html(Math.round($(this).width() * scale, 0) + " x " + Math.round($(this).height() * scale, 0) + " (" + Math.round(pos.left * scale, 0) + "," + Math.round(pos.top * scale, 0) + ")");
+    var scale = ($(this).closest('.layout').attr("version") == 1) ? (1 / $(this).attr("tip_scale")) : $(this).attr("designer_scale");
+    $('.region-tip', this).html(Math.round($(this).width() / scale, 0) + " x " + Math.round($(this).height() / scale, 0) + " (" + Math.round(pos.left / scale, 0) + "," + Math.round(pos.top / scale, 0) + ")");
 }
 
 function regionPositionUpdate(e, ui) {
 
-	var width 	= $(this).css("width");
-	var height 	= $(this).css("height");
-	var top 	= $(this).css("top");
-	var left 	= $(this).css("left");
-	var regionid = $(this).attr("regionid");
-	var layoutid = $(this).attr("layoutid");
+    var width   = $(this).css("width");
+    var height  = $(this).css("height");
+    var regionid = $(this).attr("regionid");
 
     // Update the region width / height attributes
     $(this).attr("width", width).attr("height", height);
@@ -109,27 +121,40 @@ function regionPositionUpdate(e, ui) {
     // Expose a new button to save the positions
     if ($("#layout-save-all").length <= 0) {
 
-	    $("<button/>",  {
-	    		"class": "btn",
-	    		id: "layout-save-all",
-	    		html: translations.save_position_button
-		    })
-	    	.click(function() {
-	    		// Save positions for all layouts / regions
-	    		savePositions();
-	    		return false;
-		    })
-		    .appendTo(".layout-meta");
+        $("<button/>",  {
+                "class": "btn",
+                id: "layout-save-all",
+                html: translations.save_position_button
+            })
+            .click(function() {
+                // Save positions for all layouts / regions
+                savePositions();
+                return false;
+            })
+            .appendTo(".layout-meta");
+
+        $("<button/>",  {
+                "class": "btn",
+                id: "layout-revert",
+                html: translations.revert_position_button
+            })
+            .click(function() {
+                // Reload
+                location.reload();
+                return false;
+            })
+            .appendTo(".layout-meta");
     }
 }
 
 function savePositions() {
 
-	// Ditch the button
-	$("#layout-save-all").remove();
+    // Ditch the button
+    $("#layout-save-all").remove();
+    $("#layout-revert").remove();
 
-	// Update all layouts
-	$("#layout").each(function(){
+    // Update all layouts
+    $("#layout").each(function(){
 
         // Store the Layout ID
         var layoutid = $(this).attr("layoutid");
@@ -137,32 +162,33 @@ function savePositions() {
         // Build an array of
         var regions = new Array();
 
-		$(this).find(".region").each(function(){
-
+        $(this).find(".region").each(function(){
+            var designer_scale = $(this).attr("designer_scale");
+            var position = $(this).position();
             var region = {
-                width: $(this).css("width"),
-                height: $(this).css("height"),
-                top: $(this).css("top"),
-                left: $(this).css("left"),
+                width: $(this).width() / designer_scale,
+                height: $(this).height() / designer_scale,
+                top: position.top / designer_scale,
+                left: position.left / designer_scale,
                 regionid: $(this).attr("regionid")
-            }
+            };
 
             // Update the region width / height attributes
             $(this).attr("width", region.width).attr("height", region.height);
 
             // Add to the array
             regions.push(region);
-		});
+        });
 
         $.ajax({
-                type: "post", 
-                url: "index.php?p=timeline&q=RegionChange&layoutid="+layoutid+"&ajax=true", 
-                cache: false, 
-                dataType: "json", 
+                type: "post",
+                url: "index.php?p=timeline&q=RegionChange&layoutid="+layoutid+"&ajax=true",
+                cache: false,
+                dataType: "json",
                 data: {regions : JSON.stringify(regions) },
                 success: XiboSubmitResponse
             });
-	});
+    });
 }
 
 function XiboAssignToLayout(layoutId, regionId) {
@@ -196,28 +222,6 @@ function setFullScreenLayout() {
     $('#left', '.XiboForm').val('0');
 }
 
-function transitionFormLoad() {
-    $("#transitionType").change(transitionSelectListChanged);
-    
-    // Fire once for initialisation
-    transitionSelectListChanged();
-}
-
-function transitionSelectListChanged() {
-    // See if we need to disable any of the other form elements based on this selection
-    var selectionOption = $("#transitionType option:selected");
-    
-    if (!selectionOption.hasClass("hasDuration"))
-        $("tr.transitionDuration").hide();
-    else
-        $("tr.transitionDuration").show();
-        
-    if (!selectionOption.hasClass("hasDirection"))
-        $("tr.transitionDirection").hide();
-    else
-        $("tr.transitionDirection").show();
-}
-
 var LoadTimeLineCallback = function() {
 
     // Refresh the preview
@@ -227,19 +231,29 @@ var LoadTimeLineCallback = function() {
     $("li.timelineMediaListItem").hover(function() {
 
         var position = $(this).position();
+        var scale = $('#layout').attr('designer_scale');
 
-        //Change the hidden div's content
+        // Change the hidden div's content
         $("div#timelinePreview")
             .html($("div.timelineMediaPreview", this).html())
-            .css("margin-top", position.top + $('#timelineControl').closest('.modal-body').scrollTop())
+            .css({
+                "margin-top": position.top + $('#timelineControl').closest('.modal-body').scrollTop()
+            })
             .show();
+
+        $("#timelinePreview .hoverPreview").css({
+            width: $("div#timelinePreview").width() / scale,
+            transform: "scale(" + scale + ")",
+            "transform-origin": "0 0 ",
+            background: $('#layout').css('background-color')
+        })
 
     }, function() {
         return false;
     });
 
     $(".timelineSortableListOfMedia").sortable();
-}
+};
 
 
 var XiboTimelineSaveOrder = function(mediaListId, layoutId, regionId) {
@@ -293,7 +307,7 @@ var LibraryAssignCallback = function()
 
         // Add a span to that new item
         $("<span/>", {
-            "class": "icon-minus-sign",
+            "class": "glyphicon glyphicon-minus-sign",
             click: function(){
                 $(this).parent().remove();
             }
@@ -322,11 +336,15 @@ var LibraryAssignSubmit = function(layoutId, regionId)
         data: mediaList,
         success: XiboSubmitResponse
     });
-}
+};
 
 var background_button_callback = function() {
-	//Want to attach an onchange event to the drop down for the bg-image
-	var id = $('#bg_image').val();
+    //Want to attach an onchange event to the drop down for the bg-image
+    var id = $('#bg_image').val();
 
-	$('#bg_image_image').attr("src", "index.php?p=module&mod=image&q=Exec&method=GetResource&mediaid=" + id + "&width=80&height=80&dynamic");
-}
+    $('#bg_image_image').attr("src", "index.php?p=module&mod=image&q=Exec&method=GetResource&mediaid=" + id + "&width=200&height=200&dynamic");
+};
+
+var backGroundFormSetup = function() {
+    $('#bg_color').colorpicker({format: "hex"});
+};

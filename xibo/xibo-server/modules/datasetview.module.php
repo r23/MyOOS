@@ -28,10 +28,18 @@ class datasetview extends Module
     {
         // Must set the type of the class
         $this->type= 'datasetview';
-        $this->displayType = __('DataSet View');
 
         // Must call the parent class
         parent::__construct($db, $user, $mediaid, $layoutid, $regionid, $lkid);
+    }
+
+    public function InstallFiles()
+    {
+        $media = new Media();
+        $media->addModuleFile('modules/preview/vendor/jquery-1.11.1.min.js');
+        $media->addModuleFile('modules/preview/vendor/jquery-cycle-2.1.6.min.js');
+        $media->addModuleFile('modules/preview/xibo-layout-scaler.js');
+        $media->addModuleFile('modules/preview/xibo-dataset-render.js');
     }
 
     /**
@@ -40,6 +48,7 @@ class datasetview extends Module
      */
     public function AddForm()
     {
+        $this->response = new ResponseManager();
         $db =& $this->db;
         $user =& $this->user;
 
@@ -50,14 +59,24 @@ class datasetview extends Module
         Theme::Set('form_id', 'ModuleForm');
         Theme::Set('form_action', 'index.php?p=module&mod=' . $this->type . '&q=Exec&method=AddMedia');
         Theme::Set('form_meta', '<input type="hidden" name="layoutid" value="' . $layoutid . '"><input type="hidden" id="iRegionId" name="regionid" value="' . $regionid . '"><input type="hidden" name="showRegionOptions" value="' . $this->showRegionOptions . '" />');
-
-        // Data set list
-        Theme::Set('dataset_field_list', $user->DataSetList());
         
-        $form = Theme::RenderReturn('media_form_datasetview_add');
+        $formFields = array();
+        $formFields[] = FormManager::AddCombo(
+                    'datasetid', 
+                    __('DataSet'), 
+                    NULL,
+                    $user->DataSetList(),
+                    'datasetid',
+                    'dataset',
+                    __('Please select the DataSet to use as a source of data for this view.'), 
+                    'd');
 
+        $formFields[] = FormManager::AddNumber('duration', __('Duration'), NULL, 
+            __('The duration in seconds this counter should be displayed'), 'd', 'required');
+
+        Theme::Set('form_fields', $formFields);
         
-        $this->response->SetFormRequestResponse($form, __('Add DataSet View'), '350px', '275px');
+        $this->response->SetFormRequestResponse(NULL, __('Add DataSet View'), '350px', '275px');
 
         // Cancel button
         if ($this->showRegionOptions)
@@ -80,6 +99,7 @@ class datasetview extends Module
      */
     public function EditForm()
     {
+        $this->response = new ResponseManager();
         $db =& $this->db;
         $user =& $this->user;
 
@@ -102,36 +122,29 @@ class datasetview extends Module
         Theme::Set('form_action', 'index.php?p=module&mod=' . $this->type . '&q=Exec&method=EditMedia');
         Theme::Set('form_meta', '<input type="hidden" name="layoutid" value="' . $layoutid . '"><input type="hidden" id="iRegionId" name="regionid" value="' . $regionid . '"><input type="hidden" name="showRegionOptions" value="' . $this->showRegionOptions . '" /><input type="hidden" name="datasetid" value="' . $dataSetId . '"><input type="hidden" id="mediaid" name="mediaid" value="' . $mediaid . '">');
 
-        Theme::Set('dataSetId', $dataSetId);
-        $dataSetName = $db->GetSingleValue(sprintf('SELECT dataset FROM `dataset` WHERE DataSetID = %d', $dataSetId), 'dataset', _STRING);
-        Theme::Set('dataSetName', $dataSetName);
-        Theme::Set('updateInterval', $this->GetOption('updateInterval', 0));
-        Theme::Set('upperLimit', $this->GetOption('upperLimit'));
-        Theme::Set('lowerLimit', $this->GetOption('lowerLimit'));
-        Theme::Set('filter', $this->GetOption('filter'));
-        Theme::Set('ordering', $this->GetOption('ordering'));
-        Theme::Set('rowsPerPage', $this->GetOption('rowsPerPage'));
-        Theme::Set('showHeadings', $this->GetOption('showHeadings'));
-        Theme::Set('showHeadingsChecked', ($this->GetOption('showHeadings') == 1) ? ' checked' : '');
-        Theme::Set('duration', $this->duration);
+        // We want 2 tabs
+        $tabs = array();
+        $tabs[] = FormManager::AddTab('general', __('General'));
+        $tabs[] = FormManager::AddTab('advanced', __('Advanced'));
+        Theme::Set('form_tabs', $tabs);
 
+        $formFields = array();
+        
+        $formFields[] = FormManager::AddNumber('duration', __('Duration'), $this->duration, 
+            __('The duration in seconds this item should be displayed'), 'd', 'required', '', ($this->auth->modifyPermissions));
+
+        $formFields[] = FormManager::AddNumber('ordering', __('Order'), $this->GetOption('ordering'), 
+            __('Please enter a SQL clause for how this dataset should be ordered'), 'o');
+
+        $formFields[] = FormManager::AddText('filter', __('Filter'), $this->GetOption('filter'), 
+            __('Please enter a SQL clause to filter this DataSet.'), 'f');
+
+        $formFields[] = FormManager::AddCheckbox('showHeadings', __('Show the table headings?'), 
+            $this->GetOption('showHeadings'), __('Should the Table headings be shown?'), 
+            'h');
+
+        // Handle the columns
         $columns = $this->GetOption('columns');
-        Theme::Set('columns', $columns);
-
-        // Get the embedded HTML out of RAW
-        $rawXml = new DOMDocument();
-        $rawXml->loadXML($this->GetRaw());
-        $rawNodes = $rawXml->getElementsByTagName('styleSheet');
-
-        if ($rawNodes->length == 0)
-        {
-            Theme::Set('styleSheet', $this->DefaultStyleSheet());
-        }
-        else
-        {
-            $rawNode = $rawNodes->item(0);
-            Theme::Set('styleSheet', $rawNode->nodeValue);
-        }
 
         if ($columns != '')
         {
@@ -172,26 +185,50 @@ class datasetview extends Module
 
         Theme::Set('columns_selected_list', $columnsSelected);
         Theme::Set('columns_available_list', $columnsNotSelected);
-        Theme::Set('durationFieldEnabled', (($this->auth->modifyPermissions) ? '' : ' readonly'));
 
-        // Render the Theme
-        $form = Theme::RenderReturn('media_form_datasetview_edit');
+        // Add the columns in as a RAW message
+        $formFields[] = FormManager::AddRaw(Theme::RenderReturn('media_form_datasetview_edit'));
 
-        $this->response->SetFormRequestResponse($form, sprintf(__('Edit DataSet View for DataSet %s'), $dataSetName), '650px', '575px');
+        Theme::Set('form_fields_general', $formFields);
+        
+        // Advanced Tab
+        $formFields = array();
+        $formFields[] = FormManager::AddNumber('lowerLimit', __('Lower Row Limit'), $this->GetOption('lowerLimit'), 
+            __('Please enter the Lower Row Limit for this DataSet (enter 0 for no limit)'), 'l');
+
+        $formFields[] = FormManager::AddNumber('upperLimit', __('Upper Row Limit'), $this->GetOption('upperLimit'), 
+            __('Please enter the Upper Row Limit for this DataSet (enter 0 for no limit)'), 'u');
+
+        $formFields[] = FormManager::AddNumber('updateInterval', __('Update Interval (mins)'), $this->GetOption('updateInterval', 5), 
+            __('Please enter the update interval in minutes. This should be kept as high as possible. For example, if the data will only change once per day this could be set to 60.'),
+            'n', 'required');
+
+        $formFields[] = FormManager::AddNumber('rowsPerPage', __('Rows per page'), $this->GetOption('rowsPerPage'), 
+            __('Please enter the number of rows per page. 0 for no pages.'), 'u');
+
+        // Get the embedded HTML out of RAW
+        $rawXml = new DOMDocument();
+        $rawXml->loadXML($this->GetRaw());
+        $rawNodes = $rawXml->getElementsByTagName('styleSheet');
+
+        if ($rawNodes->length != 0)
+            $rawNode = $rawNodes->item(0);
+        
+        $formFields[] = FormManager::AddMultiText('styleSheet', NULL, (($rawNodes->length == 0) ? $this->DefaultStyleSheet() : $rawNode->nodeValue), 
+            __('Enter a style sheet for the table'), 's', 10);
+
+        Theme::Set('form_fields_advanced', $formFields);
+
+        $this->response->SetFormRequestResponse(NULL, 'Edit DataSet View for DataSet', '650px', '575px');
 
         // Cancel button
         if ($this->showRegionOptions)
-        {
             $this->response->AddButton(__('Cancel'), 'XiboSwapDialog("index.php?p=timeline&layoutid=' . $layoutid . '&regionid=' . $regionid . '&q=RegionOptions")');
-        }
         else
-        {
             $this->response->AddButton(__('Cancel'), 'XiboDialogClose()');
-        }
-
+        
         $this->response->AddButton(__('Save'), 'DataSetViewSubmit()');
         $this->response->callBack = 'datasetview_callback';
-        $this->response->dialogClass = 'modal-big';
 
         return $this->response;
     }
@@ -202,8 +239,7 @@ class datasetview extends Module
      */
     public function AddMedia()
     {
-        $db =& $this->db;
-
+        $this->response = new ResponseManager();
         $layoutid = $this->layoutid;
         $regionid = $this->regionid;
 
@@ -246,7 +282,7 @@ class datasetview extends Module
 
         // Link
         Kit::ClassLoader('dataset');
-        $dataSet = new DataSet($db);
+        $dataSet = new DataSet($this->db);
         $dataSet->LinkLayout($dataSetId, $this->layoutid, $this->regionid, $this->mediaid);
 
         //Set this as the session information
@@ -268,8 +304,7 @@ class datasetview extends Module
      */
     public function EditMedia()
     {
-        $db =& $this->db;
-
+        $this->response = new ResponseManager();
         $layoutid = $this->layoutid;
         $regionid = $this->regionid;
         $mediaid = $this->mediaid;
@@ -356,8 +391,8 @@ class datasetview extends Module
         return $this->response;
     }
 
-    public function DeleteMedia() {
-
+    public function DeleteMedia()
+    {
         $dataSetId = $this->GetOption('datasetid');
 
         Debug::LogEntry('audit', sprintf('Deleting Media with DataSetId %d', $dataSetId), 'datasetview', 'DeleteMedia');
@@ -369,45 +404,25 @@ class datasetview extends Module
         return parent::DeleteMedia();
     }
 
-    public function Preview($width, $height)
-    {
-        if ($this->previewEnabled == 0)
-            return parent::Preview ($width, $height);
-        
-        $layoutId = $this->layoutid;
-        $regionId = $this->regionid;
-
-        $mediaId = $this->mediaid;
-        $lkId = $this->lkid;
-        $mediaType = $this->type;
-        $mediaDuration = $this->duration;
-
-        $widthPx    = $width.'px';
-        $heightPx   = $height.'px';
-
-        return '<iframe scrolling="no" src="index.php?p=module&mod=' . $mediaType . '&q=Exec&method=GetResource&preview=true&raw=true&scale_override=1&layoutid=' . $layoutId . '&regionid=' . $regionId . '&mediaid=' . $mediaId . '&lkid=' . $lkId . '&width=' . $width . '&height=' . $height . '" width="' . $widthPx . '" height="' . $heightPx . '" style="border:0;"></iframe>';
-    }
-
     public function GetResource($displayId = 0)
     {
-        $db =& $this->db;
+        // Load in the template
+        if ($this->layoutSchemaVersion == 1)
+            $template = file_get_contents('modules/preview/Html4TransitionalTemplate.html');
+        else
+            $template = file_get_contents('modules/preview/HtmlTemplate.html');
+
+        $isPreview = (Kit::GetParam('preview', _REQUEST, _WORD, 'false') == 'true');
+
+        // Replace the View Port Width?
+        if ($isPreview)
+            $template = str_replace('[[ViewPortWidth]]', $this->width, $template);
 
         // Get the embedded HTML out of RAW
-        $rawXml = new DOMDocument();
-        $rawXml->loadXML($this->GetRaw());
-        $rawNodes = $rawXml->getElementsByTagName('styleSheet');
-
-        if ($rawNodes->length == 0)
-        {
-            $styleSheet = $this->DefaultStyleSheet();
-        }
-        else
-        {
-            $rawNode = $rawNodes->item(0);
-            $styleSheet = $rawNode->nodeValue;
-        }
+        $styleSheet = $this->GetRawNode('styleSheet', $this->DefaultStyleSheet());
 
         $options = array(
+            'type' => $this->type,
             'duration' => $this->duration,
             'originalWidth' => $this->width,
             'originalHeight' => $this->height,
@@ -417,23 +432,30 @@ class datasetview extends Module
             'scaleOverride' => Kit::GetParam('scale_override', _GET, _DOUBLE, 0)
         );
 
-        $headContent  = '<style type="text/css">' . $styleSheet . '</style>';
-        $headContent .= '<script type="text/javascript">';
-        $headContent .= '   function init() { ';
-        $headContent .= '       $("#DataSetTableContainer").dataSetRender(options);';
-        $headContent .= '   } ';
-        $headContent .= '   var options = ' . json_encode($options) . ';';
-        $headContent .= '</script>';
-
-        // Load the HtmlTemplate
-        $template = file_get_contents('modules/preview/HtmlTemplateForGetResource.html');
-
-        // Preview?
-        if (isset($_GET['preview']))
-            $template = str_replace('[[ViewPortWidth]]', $this->width . 'px', $template);
+        // Add our fonts.css file
+        $headContent = '<link href="' . (($isPreview) ? 'modules/preview/' : '') . 'fonts.css" rel="stylesheet" media="screen">';
+        $headContent .= '<style type="text/css">' . file_get_contents(Theme::ItemPath('css/client.css')) . '</style>';
+        $headContent .= '<style type="text/css">' . $styleSheet . '</style>';
 
         $template = str_replace('<!--[[[HEADCONTENT]]]-->', $headContent, $template);
-        $template = str_replace('<!--[[[BODYCONTENT]]]-->', $this->DataSetTableHtml($displayId), $template);
+
+        $template = str_replace('<!--[[[BODYCONTENT]]]-->', $this->DataSetTableHtml($displayId, $isPreview), $template);
+
+        // Build some JS nodes
+        $javaScriptContent  = '<script type="text/javascript" src="' . (($isPreview) ? 'modules/preview/vendor/' : '') . 'jquery-1.11.1.min.js"></script>';
+        $javaScriptContent .= '<script type="text/javascript" src="' . (($isPreview) ? 'modules/preview/vendor/' : '') . 'jquery-cycle-2.1.6.min.js"></script>';
+        $javaScriptContent .= '<script type="text/javascript" src="' . (($isPreview) ? 'modules/preview/' : '') . 'xibo-layout-scaler.js"></script>';
+        $javaScriptContent .= '<script type="text/javascript" src="' . (($isPreview) ? 'modules/preview/' : '') . 'xibo-dataset-render.js"></script>';
+
+        $javaScriptContent .= '<script type="text/javascript">';
+        $javaScriptContent .= '   var options = ' . json_encode($options) . ';';
+        $javaScriptContent .= '   $(document).ready(function() { ';
+        $javaScriptContent .= '       $("#DataSetTableContainer").dataSetRender(options); $("body").xiboLayoutScaler(options);';
+        $javaScriptContent .= '   }); ';
+        $javaScriptContent .= '</script>';
+
+        // Replace the Head Content with our generated javascript
+        $template = str_replace('<!--[[[JAVASCRIPTCONTENT]]]-->', $javaScriptContent, $template);
 
         return $template;
     }
@@ -488,7 +510,7 @@ END;
         return $styleSheet;
     }
 
-    public function DataSetTableHtml($displayId = 0)
+    public function DataSetTableHtml($displayId = 0, $isPreview = true)
     {
         $db =& $this->db;
 
@@ -504,11 +526,17 @@ END;
 
         if ($columnIds == '')
             return 'No columns';
+
+        // Set an expiry time for the media
+        $media = new Media();
+        $layout = new Layout();
+        $expires = time() + ($this->GetOption('updateInterval', 3600) * 60);
             
         // Create a data set view object, to get the results.
-        Kit::ClassLoader('dataset');
         $dataSet = new DataSet($db);
-        $dataSetResults = $dataSet->DataSetResults($dataSetId, $columnIds, $filter, $ordering, $lowerLimit, $upperLimit, $displayId);
+        if (!$dataSetResults = $dataSet->DataSetResults($dataSetId, $columnIds, $filter, $ordering, $lowerLimit, $upperLimit, $displayId)) {
+            return;
+        }
 
         $rowCount = 1;
         $rowCountThisPage = 1;
@@ -542,7 +570,7 @@ END;
                     $table .= ' <tr class="HeaderRow">';
 
                     foreach($dataSetResults['Columns'] as $col)
-                        $table .= '<th class="DataSetColumnHeaderCell">' . $col . '</th>';
+                        $table .= '<th class="DataSetColumnHeaderCell">' . $col['Text'] . '</th>';
 
                     $table .= ' </tr>';
                     $table .= '</thead>';
@@ -553,8 +581,25 @@ END;
 
             $table .= '<tr class="DataSetRow DataSetRow' . (($rowCount % 2) ? 'Odd' : 'Even') . '" id="row_' . $rowCount . '">';
 
-            for($i = 0; $i < count($dataSetResults['Columns']); $i++)
-                $table .= '<td class="DataSetColumn" id="column_' . ($i + 1) . '"><span class="DataSetCellSpan" id="span_' . $rowCount . '_' . ($i + 1) . '">' . $row[$i] . '</span></td>';
+            // Output each cell for these results
+            for($i = 0; $i < count($dataSetResults['Columns']); $i++) {
+
+                // Pull out the cell for this row / column
+                $replace = $row[$i];
+
+                // What if this column is an image column type?
+                if ($dataSetResults['Columns'][$i]['DataTypeID'] == 4) {
+                    // Download the image, alter the replace to wrap in an image tag
+                    $file = $media->addModuleFileFromUrl(str_replace(' ', '%20', htmlspecialchars_decode($replace)), 'datasetview_' . md5($dataSetId . $dataSetResults['Columns'][$i]['DataSetColumnID'] . $replace), $expires);
+
+                    // Tag this layout with this file
+                    $layout->AddLk($this->layoutid, 'module', $file['mediaId']);
+
+                    $replace = ($isPreview) ? '<img src="index.php?p=module&mod=image&q=Exec&method=GetResource&mediaid=' . $file['mediaId'] . '" />' : '<img src="' . $file['storedAs'] . '" />';
+                }
+
+                $table .= '<td class="DataSetColumn" id="column_' . ($i + 1) . '"><span class="DataSetCellSpan" id="span_' . $rowCount . '_' . ($i + 1) . '">' . $replace . '</span></td>';
+            }
 
             $table .= '</tr>';
 

@@ -30,27 +30,10 @@ defined('XIBO') or die("Sorry, you are not allowed to directly access this page.
 <div id="LayoutAssign" class="well">
 	<div>
     	<ul id="LayoutAssignSortable">
+    		<?php echo Kit::Token('assign_token'); ?>
     		<?php foreach(Theme::Get('layouts_assigned') as $row) { ?>
-    		<li id="<?php echo $row['list_id']; ?>" class="li-sortable"><?php echo $row['layout']; ?><span class="icon-minus-sign"></span></li>
+    		<li id="LayoutID_<?php echo $row->layoutId; ?>" class="btn btn-sm btn-default"><?php echo $row->layout; ?> <span class="glyphicon glyphicon-minus-sign"></span></li>
 			<?php } ?>
     	</ul>
     </div>
-</div>
-<div class="XiboGrid" id="<?php echo Theme::Get('id'); ?>">
-	<div class="XiboFilter">
-		<div class="FilterDiv" id="Filter">
-			<form>
-				<?php echo Theme::Get('form_meta'); ?>
-			
-				<table class="filterform">
-					<tr>
-						<td><?php echo Theme::Translate('Name') ?></td>
-						<td><input type="text" name="filter_name" value="<?php echo Theme::Get('filter_name'); ?>"></td>
-					</tr>
-				</table>
-			</form>
-		</div>
-	</div>
-	<div class="XiboData"></div>
-	<?php echo Theme::Get('pager'); ?>
 </div>

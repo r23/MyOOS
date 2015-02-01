@@ -22,6 +22,58 @@ defined('XIBO') or die("Sorry, you are not allowed to directly access this page.
 
 class UserGroup extends Data
 {
+    public function GetPermissionsForObject($object, $idCol, $objectId, $clause = '') 
+    {
+        try {
+            $dbh = PDOConnect::init();
+
+            $params = array('id' => $objectId);
+            $SQL  = 'SELECT joinedGroup.groupid, joinedGroup.group, view, edit, del, joinedGroup.isuserspecific ';
+            $SQL .= '  FROM (
+                    SELECT `group`.*
+                      FROM `group`
+                        LEFT OUTER JOIN lkusergroup
+                        ON lkusergroup.GroupID = group.GroupID
+                     WHERE IsUserSpecific = 0
+                    UNION ALL
+                    SELECT `group`.*
+                      FROM `group`
+                        INNER JOIN lkusergroup
+                        ON lkusergroup.GroupID = group.GroupID
+                            AND IsUserSpecific = 1
+                        INNER JOIN `user`
+                        ON lkusergroup.UserID = user.UserID
+                            AND retired = 0
+                ) joinedGroup ';
+            $SQL .= '   LEFT OUTER JOIN ' . $object;
+            $SQL .= '   ON ' . $object . '.GroupID = joinedGroup.GroupID ';
+
+            if ($clause != '') {
+                $SQL .= $clause;
+            }
+            else {
+                $SQL .= '       AND ' . $object . '.' . $idCol . ' = :id ';
+                $params = array('id' => $objectId);
+            }
+
+            $SQL .= 'ORDER BY joinedGroup.IsEveryone DESC, joinedGroup.IsUserSpecific, joinedGroup.`Group`; ';
+        
+            $sth = $dbh->prepare($SQL);
+            $sth->execute($params);
+
+            return $sth->fetchAll();
+        }
+        catch (Exception $e) {
+            
+            Debug::LogEntry('error', $e->getMessage());
+        
+            if (!$this->IsError())
+                $this->SetError(1, __('Unknown Error'));
+        
+            return false;
+        }
+    }
+
     /**
      * Adds a User Group to Xibo
      * @return
@@ -107,23 +159,41 @@ class UserGroup extends Data
     /**
      * Deletes an Xibo User Group
      * @return
-     * @param $userGroupID Object
+     * @param $userGroupId Object
      */
-    public function Delete($userGroupID)
+    public function Delete($userGroupId)
     {
-        Debug::LogEntry('audit', 'IN', 'UserGroup', 'Delete');
+        Debug::Audit('IN: ' . $userGroupId);
 
         try {
             $dbh = PDOConnect::init();
             
-            $params = array('groupid' => $userGroupID);
+            $params = array('groupid' => $userGroupId);
+
+            // Delete all permissions
+            $sth = $dbh->prepare('DELETE FROM `lkcampaigngroup` WHERE GroupID = :groupid');
+            $sth->execute($params);
+            $sth = $dbh->prepare('DELETE FROM `lkdatasetgroup` WHERE GroupID = :groupid');
+            $sth->execute($params);
+            $sth = $dbh->prepare('DELETE FROM `lkdisplaygroupgroup` WHERE GroupID = :groupid');
+            $sth->execute($params);
+            $sth = $dbh->prepare('DELETE FROM `lklayoutmediagroup` WHERE GroupID = :groupid');
+            $sth->execute($params);
+            $sth = $dbh->prepare('DELETE FROM `lklayoutregiongroup` WHERE GroupID = :groupid');
+            $sth->execute($params);
+            $sth = $dbh->prepare('DELETE FROM `lkmediagroup` WHERE GroupID = :groupid');
+            $sth->execute($params);
+
+            // Remove linked users
+            $sth = $dbh->prepare('DELETE FROM `lkusergroup` WHERE GroupID = :groupid');
+            $sth->execute($params);
 
             // Delete all menu links
-            $sth = $dbh->prepare('DELETE FROM lkmenuitemgroup WHERE GroupID = :groupid');
+            $sth = $dbh->prepare('DELETE FROM `lkmenuitemgroup` WHERE GroupID = :groupid');
             $sth->execute($params);
 
             // Delete all page links
-            $sth = $dbh->prepare('DELETE FROM lkpagegroup WHERE GroupID = :groupid');
+            $sth = $dbh->prepare('DELETE FROM `lkpagegroup` WHERE GroupID = :groupid');
             $sth->execute($params);
 
             // Delete the user group

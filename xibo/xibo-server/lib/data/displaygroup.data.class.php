@@ -22,12 +22,12 @@ defined('XIBO') or die("Sorry, you are not allowed to directly access this page.
 
 class DisplayGroup extends Data
 {
-    public function __construct(database $db)
+    public function __construct()
     {
         include_once('lib/data/schedule.data.class.php');
         include_once('lib/data/displaygroupsecurity.data.class.php');
         
-        parent::__construct($db);
+        parent::__construct();
     }
     
     /**
@@ -332,7 +332,7 @@ class DisplayGroup extends Data
      * @param $displayID Object
      * @param $display Object
      */
-    public function EditDisplayGroup($displayID, $display)
+    public function EditDisplayGroup($displayID, $display, $description = '')
     {
         Debug::LogEntry('audit', 'IN', 'DisplayGroup', 'EditDisplayGroup');
         
@@ -375,10 +375,11 @@ class DisplayGroup extends Data
             }
             
             // Update the Display group name
-            $sth = $dbh->prepare('UPDATE displaygroup SET DisplayGroup = :displaygroup WHERE  DisplayGroupID = :displaygroupid');
+            $sth = $dbh->prepare('UPDATE displaygroup SET DisplayGroup = :displaygroup, description = :description WHERE  DisplayGroupID = :displaygroupid');
             $sth->execute(array(
                     'displaygroupid' => $displayGroupID,
-                    'displaygroup' => $display
+                    'displaygroup' => $display,
+                    'description' => $description,
                 ));
             
             Debug::LogEntry('audit', 'OUT', 'DisplayGroup', 'EditDisplayGroup');

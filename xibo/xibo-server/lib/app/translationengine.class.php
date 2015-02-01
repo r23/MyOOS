@@ -1,7 +1,7 @@
 <?php
 /*
  * Xibo - Digital Signage - http://www.xibo.org.uk
- * Copyright (C) 2009 Daniel Garner
+ * Copyright (C) 2009-14 Daniel Garner
  *
  * This file is part of Xibo.
  *
@@ -24,101 +24,148 @@ require_once("3rdparty/php-gettext/streams.php");
 require_once("3rdparty/php-gettext/gettext.php");
 $transEngine = '';
 $stream = '';
- 
+
 class TranslationEngine
-{	
+{
+    private static $locale;
+    private static $jsLocale;
+
 	/**
-	 * Gets and Sets the Local 
-	 * @return 
+	 * Gets and Sets the Locale
+     * @param $language string[optional] The Language to Load
 	 */
-	public static function InitLocale()
+	public static function InitLocale($language = NULL)
 	{
-            $localeDir	= 'locale';
-            $default    = Config::GetSetting('DEFAULT_LANGUAGE');
-            
-            global $transEngine;
-            global $stream;
+        $localeDir	= 'locale';
+        $default = ($language == NULL) ? Config::GetSetting('DEFAULT_LANGUAGE') : $language;
 
-            //Debug::LogEntry('audit', 'IN', 'TranslationEngine', 'InitLocal');
+        global $transEngine;
+        global $stream;
 
-            // Try to get the local firstly from _REQUEST (post then get)
-            $lang = Kit::GetParam('lang', _REQUEST, _WORD, '');
+        //Debug::LogEntry('audit', 'IN', 'TranslationEngine', 'InitLocal');
+        // Build an array of supported languages
+        $supportedLanguages = scandir($localeDir);
 
-            // Build an array of supported languages
-            $supportedLangs = scandir($localeDir);
+        // Try to get the local firstly from _REQUEST (post then get)
+        $requestedLanguage = Kit::GetParam('lang', _REQUEST, _WORD, '');
+        $foundLanguage = '';
 
-            if ($lang != '')
-            {
-                // Set the language
-                Debug::LogEntry('audit', 'Set the Language from REQUEST [' . $lang . ']', 'TranslationEngine', 'InitLocal');
+        // If we don't have a language, try from HTTP accept
+        if ($requestedLanguage == '' && Config::GetSetting('DETECT_LANGUAGE') == 1) {
+            // Parse the language header and build a preference array
+            $languagePreferenceArray = TranslationEngine::parseHttpAcceptLanguageHeader();
 
-                // Is this language supported?
-                // if not just use the default (eb_GB).
-                if (!in_array($lang . '.mo', $supportedLangs))
-                {
-                    trigger_error(sprintf('Language not supported. %s', $lang));
+            if (count($languagePreferenceArray) > 0) {
 
-                    // Use the default language instead.
-                    $lang = $default;
-                }
-            }
-            else
-            {
-                $langs = Kit::GetParam('HTTP_ACCEPT_LANGUAGE', $_SERVER, _STRING);
+                // Go through the list until we have a match
+                foreach ($languagePreferenceArray as $languagePreference => $preferenceRating) {
 
-                if ($langs != '')
-                {
-                    //Debug::LogEntry('audit', ' HTTP_ACCEPT_LANGUAGE [' . $langs . ']', 'TranslationEngine', 'InitLocal');
-                    $langs = explode(',', $langs);
+                    // We don't ship an en.mo, so fudge in a case where we automatically convert that to en_GB
+                    if ($languagePreference == 'en')
+                        $languagePreference = 'en_GB';
 
-                    foreach ($langs as $lang)
-                    {
-                        // Remove any quality rating (as we aren't interested)
-                        $rawLang = explode(';', $lang);
-                        $lang = str_replace("-", "_", $rawLang[0]);
-
-                        if (in_array($lang . '.mo', $supportedLangs))
-                        {
-                            //Debug::LogEntry('audit', 'Obtained the Language from HTTP_ACCEPT_LANGUAGE [' . $lang . ']', 'TranslationEngine', 'InitLocal');
-                            break;
-                        }
-
-                        // Set lang as the default
-                        $lang = $default;
+                    if (in_array(str_replace('-', '_', $languagePreference) . '.mo', $supportedLanguages)) {
+                        $foundLanguage = $languagePreference;
+                        break;
                     }
                 }
-                else
-                {
-                    $lang = $default;
-                }
             }
+        }
+        else {
+            // Requested language is not empty, so check it
+            // This may also be because the headers are empty for some reason
 
-            // We have the language
-            //Debug::LogEntry('audit', 'Creating new file streamer for '. $localeDir . '/' . $lang . '.mo', 'TranslationEngine', 'InitLocal');
+            // Firstly, Sanitize it
+            $requestedLanguage = str_replace('-', '_', $requestedLanguage);
 
-            if (!$stream = new CachedFileReader($localeDir . '/' . $lang . '.mo'))
-            {
-                trigger_error('Unable to translate this language');
-                $transEngine = false;
-                
-                return;
+            // Check its valid
+            if (in_array($requestedLanguage . '.mo', $supportedLanguages)) {
+                $foundLanguage = $requestedLanguage;
             }
+            else {
+                // Fall back
+                $foundLanguage = 'en_GB';
+            }
+        }
 
-            $transEngine    = new gettext_reader($stream);
+        // Are we still empty?
+        if ($foundLanguage == '')
+            $foundLanguage = $default;
+
+        //Debug::LogEntry('audit', 'Creating new file streamer for '. $localeDir . '/' . $foundLanguage . '.mo', 'TranslationEngine', 'InitLocal');
+        if (!$stream = new CachedFileReader($localeDir . '/' . $foundLanguage . '.mo')) {
+            $transEngine = false;
+            return;
+        }
+
+        $transEngine = new gettext_reader($stream);
+        self::$locale = $foundLanguage;
+        self::$jsLocale = str_replace('_', '-', $foundLanguage);
 	}
+
+    /**
+     * Get the Locale
+     * @param null $characters The number of characters to take from the beginning of the local string
+     * @return mixed
+     */
+    public static function GetLocale($characters = null) {
+        return ($characters == null) ? self::$locale : substr(self::$locale, 0, $characters);
+    }
+
+    public static function GetJsLocale() {
+        return self::$jsLocale;
+    }
+
+    /**
+     * Parse the HttpAcceptLanguage Header
+     * Inspired by: http://www.thefutureoftheweb.com/blog/use-accept-language-header
+     * @param null $header
+     * @return array Language array where the key is the language identifier and the value is the preference double.
+     */
+    public static function parseHttpAcceptLanguageHeader($header = null)
+    {
+        if ($header == null)
+            $header = Kit::GetParam('HTTP_ACCEPT_LANGUAGE', $_SERVER, _STRING);
+
+        $languages = array();
+
+        if ($header != '') {
+            // break up string into pieces (languages and q factors)
+            preg_match_all('/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.[0-9]+))?/i', $header, $langParse);
+
+            if (count($langParse[1])) {
+                // create a list like "en" => 0.8
+                $languages = array_combine($langParse[1], $langParse[4]);
+
+                // set default to 1 for any without q factor
+                foreach ($languages as $lang => $val) {
+                    if ($val === '')
+                        $languages[$lang] = 1;
+                }
+
+                // sort list based on value
+                arsort($languages, SORT_NUMERIC);
+            }
+        }
+
+        return $languages;
+    }
 }
 
 /**
  * Global Translation Function
- * @return 
- * @param $string Object
- */ 
-function __($string, $args = null)
+ * @return string
+ * @param $string string
+ */
+function __($string)
 {
 	global $transEngine;
-        
+
     if ($transEngine != '')
 	   $string = $transEngine->translate($string);
+
+    $args = func_get_args();
+    array_shift($args);
 
     if (count($args) > 0)
         $string = vsprintf($string, $args);

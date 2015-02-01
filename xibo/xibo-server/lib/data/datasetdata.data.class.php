@@ -24,11 +24,11 @@ class DataSetData extends Data
 {
     private $updateWatermark;
 
-    public function __construct(database $db) {
+    public function __construct() {
 
         $this->updateWatermark = true;
 
-        parent::__construct($db);
+        parent::__construct();
     }
 
     /**
@@ -355,13 +355,17 @@ class DataSetData extends Data
                 $rowNumber++;
             }
 
+            // Close the file
+            fclose($handle);
+
+            // Change the auto detect setting back
             ini_set('auto_detect_line_endings', false);
 
             // Delete the temporary file
             @unlink($csvFile);
 
             // TODO: Update list content definitions
-            $this->updateWatermark = true;
+
             $this->UpdateWatermark($dataSetId);
 
             return true;

@@ -20,19 +20,8 @@
  */
 defined('XIBO') or die("Sorry, you are not allowed to directly access this page.<br /> Please press the back button in your browser.");
 
-class helpDAO
-{
-    private $db;
-    private $user;
+class helpDAO extends baseDAO {
     private $helpLink;
-
-    function __construct(database $db, user $user)
-    {
-        $this->db =& $db;
-        $this->user =& $user;
-
-        return true;
-    }
 
     /**
      * No display page functionaility
@@ -43,71 +32,26 @@ class helpDAO
         // Configure the theme
         $id = uniqid();
         Theme::Set('id', $id);
-        Theme::Set('help_form_add_url', 'index.php?p=help&q=AddForm');
         Theme::Set('form_meta', '<input type="hidden" name="p" value="help"><input type="hidden" name="q" value="Grid">');
         Theme::Set('pager', ResponseManager::Pager($id));
 
-        // Render the Theme and output
-        Theme::Render('help_page');
+        // Call to render the template
+        Theme::Set('header_text', __('Help Links'));
+        Theme::Set('form_fields', array());
+        Theme::Render('grid_render');
     }
 
-    /**
-     * Displays the particular help subject / page
-     * @return
-     */
-    function Display()
-    {
-        $db =& $this->db;
-        $user =& $this->user;
+    function actionMenu() {
 
-        $response	= new ResponseManager();
-        $width          = 1000;
-        $height         = 650;
-
-        $topic	 	= Kit::GetParam('Topic', _REQUEST, _WORD);
-        $category 	= Kit::GetParam('Category', _REQUEST, _WORD, 'General');
-
-        if ($topic != '')
-        {
-            Debug::LogEntry('audit', 'Help requested for Topic = ' . $topic);
-
-            // Look up this help topic / category in the db
-            $SQL = "SELECT Link FROM help WHERE Topic = '%s' and Category = '%s'";
-            $SQL = sprintf($SQL, $db->escape_string($topic), $db->escape_string($category));
-
-            Debug::LogEntry('audit', $SQL);
-
-            if(!$results = $db->query($SQL))
-            {
-                trigger_error($db->error());
-                trigger_error(__('Error getting Help Link'), E_USER_ERROR);
-            }
-
-            if ($db->num_rows($results) != 0)
-            {
-                $row 	= $db->get_row($results);
-                $link 	= $row[0];
-
-                // Store the link for the requested help page
-                $this->helpLink = $link;
-            }
-            else
-            {
-                trigger_error(sprintf(__('No help file found for Topic %s and Category %s.'), $topic, $category), E_USER_ERROR);
-            }
-        }
-        else
-        {
-            trigger_error(__('You must specify a help page.'), E_USER_ERROR);
-        }
-
-        $helpLink 	= $this->helpLink;
-        $out 		= '<iframe class="full-iframe" src="' . $helpLink . '"></iframe>';
-
-        $response->SetFormRequestResponse($out, __('Help'), $width, $height);
-        $response->Respond();
-
-        return true;
+        return array(
+                array('title' => __('Add Help Link'),
+                    'class' => 'XiboFormButton',
+                    'selected' => false,
+                    'link' => 'index.php?p=help&q=AddForm',
+                    'help' => __('Add a new Help page'),
+                    'onclick' => ''
+                    )
+            );
     }
 
     public function Grid()
@@ -131,6 +75,13 @@ SQL;
             trigger_error($db->error());
             trigger_error(__('Error getting list of helplinks'), E_USER_ERROR);
         }
+
+        $cols = array(
+                array('name' => 'topic', 'title' => __('Topic')),
+                array('name' => 'category', 'title' => __('Category')),
+                array('name' => 'link', 'title' => __('Link'))
+            );
+        Theme::Set('table_cols', $cols);
 
         $rows = array();
 
@@ -173,7 +124,7 @@ SQL;
 
         Theme::Set('table_rows', $rows);
         
-        $output = Theme::RenderReturn('help_page_grid');
+        $output = Theme::RenderReturn('table_render');
 
         $response->SetGridResponse($output);
         $response->Respond();
@@ -181,17 +132,25 @@ SQL;
 
     public function AddForm()
     {
-        $db =& $this->db;
-        $user =& $this->user;
         $response = new ResponseManager();
         
         // Set some information about the form
         Theme::Set('form_id', 'HelpAddForm');
         Theme::Set('form_action', 'index.php?p=help&q=Add');
 
-        $form = Theme::RenderReturn('help_form_add');
+        $formFields = array();
+        $formFields[] = FormManager::AddText('Topic', __('Topic'), NULL, 
+            __('The Topic for this Help Link'), 't', 'maxlength="254" required');
 
-        $response->SetFormRequestResponse($form, __('Add Help Link'), '350px', '325px');
+        $formFields[] = FormManager::AddText('Category', __('Category'), NULL, 
+            __('The Category for this Help Link'), 'c', 'maxlength="254" required');
+
+        $formFields[] = FormManager::AddText('Link', __('Link'), NULL, 
+            __('The Link to open for this help topic and category'), 'c', 'maxlength="254" required');
+
+        Theme::Set('form_fields', $formFields);
+
+        $response->SetFormRequestResponse(NULL, __('Add Help Link'), '350px', '325px');
         $response->AddButton(__('Cancel'), 'XiboDialogClose()');
         $response->AddButton(__('Save'), '$("#HelpAddForm").submit()');
         $response->Respond();
@@ -223,13 +182,19 @@ SQL;
         Theme::Set('form_action', 'index.php?p=help&q=Edit');
         Theme::Set('form_meta', '<input type="hidden" name="HelpID" value="' . $helpId . '" />');
 
-        Theme::Set('topic', Kit::ValidateParam($row['Topic'], _STRING));
-        Theme::Set('category', Kit::ValidateParam($row['Category'], _STRING));
-        Theme::Set('link', Kit::ValidateParam($row['Link'], _STRING));
+        $formFields = array();
+        $formFields[] = FormManager::AddText('Topic', __('Topic'), Kit::ValidateParam($row['Topic'], _STRING), 
+            __('The Topic for this Help Link'), 't', 'maxlength="254" required');
 
-        $form = Theme::RenderReturn('help_form_edit');
+        $formFields[] = FormManager::AddText('Category', __('Category'), Kit::ValidateParam($row['Category'], _STRING), 
+            __('The Category for this Help Link'), 'c', 'maxlength="254" required');
 
-        $response->SetFormRequestResponse($form, __('Edit Help Link'), '350px', '325px');
+        $formFields[] = FormManager::AddText('Link', __('Link'), Kit::ValidateParam($row['Link'], _STRING), 
+            __('The Link to open for this help topic and category'), 'c', 'maxlength="254" required');
+
+        Theme::Set('form_fields', $formFields);
+
+        $response->SetFormRequestResponse(NULL, __('Edit Help Link'), '350px', '325px');
         $response->AddButton(__('Cancel'), 'XiboDialogClose()');
         $response->AddButton(__('Save'), '$("#HelpEditForm").submit()');
         $response->Respond();
@@ -249,9 +214,9 @@ SQL;
         Theme::Set('form_action', 'index.php?p=help&q=Delete');
         Theme::Set('form_meta', '<input type="hidden" name="HelpID" value="' . $helpId . '" />');
 
-        $form = Theme::RenderReturn('help_form_delete');
+        Theme::Set('form_fields', array(FormManager::AddMessage(__('Are you sure you want to delete?'))));
 
-        $response->SetFormRequestResponse($form, __('Delete Help Link'), '350px', '175px');
+        $response->SetFormRequestResponse(NULL, __('Delete Help Link'), '350px', '175px');
         $response->AddButton(__('No'), 'XiboDialogClose()');
         $response->AddButton(__('Yes'), '$("#HelpDeleteForm").submit()');
         $response->Respond();

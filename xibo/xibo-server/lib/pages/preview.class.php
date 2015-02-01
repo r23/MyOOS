@@ -20,10 +20,7 @@
  */
 defined('XIBO') or die("Sorry, you are not allowed to directly access this page.<br /> Please press the back button in your browser.");
 
-class previewDAO 
-{
-    private $db;
-    private $user;
+class previewDAO extends baseDAO {
     private $auth;
 	private $has_permissions = true;
 	
@@ -41,46 +38,25 @@ class previewDAO
         $this->user =& $user;
         $this->layoutid = Kit::GetParam('layoutid', _REQUEST, _INT);
 
-        // Include the layout data class
-        include_once("lib/data/layout.data.class.php");
-
         //if we have modify selected then we need to get some info
         if ($this->layoutid != '')
         {
             // get the permissions
             Debug::LogEntry('audit', 'Loading permissions for layoutid ' . $this->layoutid);
 
-            $this->auth = $user->LayoutAuth($this->layoutid, true);
+            $layout = $this->user->LayoutList(NULL, array('layoutId' => $this->layoutid));
 
-            if (!$this->auth->view)
-                trigger_error(__("You do not have permissions to view this layout"), E_USER_ERROR);
+            if (count($layout) <= 0)
+                trigger_error(__('You do not have permissions to view this layout'), E_USER_ERROR);
 
-            $sql  = " SELECT layout, description, userid, retired, tags, xml FROM layout ";
-            $sql .= sprintf(" WHERE layoutID = %d ", $this->layoutid);
+            $layout = $layout[0];
 
-            if (!$results = $db->query($sql))
-            {
-                trigger_error($db->error());
-                trigger_error(__("Cannot retrieve the Information relating to this layout. The layout may be corrupt."), E_USER_ERROR);
-            }
-
-            if ($db->num_rows($results) == 0)
-                $this->has_permissions = false;
-
-            while($aRow = $db->get_row($results))
-            {
-                $this->layout = Kit::ValidateParam($aRow[0], _STRING);
-                $this->description 	= Kit::ValidateParam($aRow[1], _STRING);
-                $this->retired = Kit::ValidateParam($aRow[3], _INT);
-                $this->tags = Kit::ValidateParam($aRow[4], _STRING);
-                $this->xml = $aRow[5];
-            }
+            $this->layout = $layout['layout'];
+            $this->description = $layout['description'];
+            $this->retired = $layout['retired'];
+            $this->tags = $layout['tags'];
+            $this->xml = $layout['xml'];
         }
-    }
-	
-    function displayPage() 
-    {
-        return false;
     }
 
     function render()
@@ -90,6 +66,8 @@ class previewDAO
         // Render a specific layout in the previewer
         // layoutid must be provided
         $pfl = __('Preview for Layout');
+
+        $previewCss = Theme::ItemPath('css/html-preview.css');
         
         $output = <<<EOT
             <!DOCTYPE html>
@@ -97,7 +75,7 @@ class previewDAO
                 <head>
                     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
                     <title>$pfl $this->layoutid</title> 
-                    <link rel="stylesheet" type="text/css" href="modules/preview/html-preview.css" />
+                    <link rel="stylesheet" type="text/css" href="$previewCss" />
                     <script type="text/JavaScript" src="theme/default/libraries/jquery/jquery-1.9.1.js"></script>
                     <script type="text/JavaScript" src="modules/preview/html5Preloader.js"></script>
                     <script type="text/JavaScript" src="modules/preview/html-preview.js"></script>

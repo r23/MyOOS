@@ -23,7 +23,6 @@ defined('XIBO') or die("Sorry, you are not allowed to directly access this page.
 class Theme {
 	private static $instance = null;
 	
-	private $db;
 	private $user;
 	private $helpManager;
 	private $dateManager;
@@ -33,18 +32,15 @@ class Theme {
 	private $vars = null;
 	private $config = null;
 	
-	public function __construct(database $db, user $user) {
+	public function __construct(user $user, $theme = NULL) {
 
 		// Store some things for the Theme engine to use
-		$this->db =& $db;
 		$this->user =& $user;
-		$this->help = new HelpManager($db, $user);
-		$this->dateManager = new DateManager($db);
-
-		// TODO: Perhaps we also allow the user to configure their own theme for their session?
+		$this->help = new HelpManager();
+		$this->dateManager = new DateManager();
 
 		// What is the currently selected theme?
-		$globalTheme = Config::GetSetting('GLOBAL_THEME_NAME');
+		$globalTheme = ($theme == NULL) ? Config::GetSetting('GLOBAL_THEME_NAME') : $theme;
 
 		// Is this theme valid?
 		if (!is_dir('theme/' . $globalTheme))
@@ -85,8 +81,12 @@ class Theme {
 		if (file_exists('theme/' . $theme->name . '/html/' . $item . '.php')) {
 			include('theme/' . $theme->name . '/html/' . $item . '.php');
 		}
+		// Check the module theme folder
+		else if (file_exists('modules/theme/' . $item . '.php')) {
+			include('modules/theme/' . $item . '.php');	
+		}
 		// If not, then use the default folder
-		elseif (file_exists('theme/default/html/' . $item . '.php')) {
+		else if (file_exists('theme/default/html/' . $item . '.php')) {
 			include('theme/default/html/' . $item . '.php');
 		}
 		else
@@ -152,12 +152,52 @@ class Theme {
 	}
 
 	/**
+	 * Get Item Path
+	 * @param string $item The Item required
+	 */
+	public static function ItemPath($item) {
+
+		$theme = Theme::GetInstance();
+		
+		// See if we have the requested file in the theme folder
+		if (file_exists('theme/' . $theme->name . '/' . $item)) {
+			return 'theme/' . $theme->name . '/' . $item;
+		}
+		// If not, then use the default folder
+		elseif (file_exists('theme/default/' . $item)) {
+			return 'theme/default/' . $item;
+		}
+		else
+			return '';
+	}
+
+	/**
+	 * Get Item Path
+	 * @param string $item The Item required
+	 */
+	public static function Script($item) {
+
+		$theme = Theme::GetInstance();
+		
+		// See if we have the requested file in the theme folder
+		if (file_exists('theme/' . $theme->name . '/' . $item)) {
+			return '<script src="theme/' . $theme->name . '/' . $item . '"></script>';
+		}
+		// If not, then use the default folder
+		elseif (file_exists('theme/default/' . $item)) {
+			return '<script src="theme/default/' . $item . '"></script>';
+		}
+		else
+			return '';
+	}
+
+	/**
 	 * Translate a string into the user language
 	 * @param string $string The String to Translate
 	 * @param array $args   Variables to insert (will replace %d %s in order)
 	 */
-	public static function Translate($string, $args = null) {
-		return __($string, $args);
+	public static function Translate($string) {
+		return call_user_func_array('__', func_get_args());
 	}
 
 	public static function Set($key, $value) {
@@ -179,6 +219,22 @@ class Theme {
 			$return = $return . Kit::Token();
 		}
 		return $return;
+	}
+
+	public static function SetTranslation($key, $value) {
+		// Get existing translations
+		$translations = Theme::Get('translations');
+
+		if ($translations == '') {
+			$translations = array();
+		}
+		else {
+			$translations = json_decode($translations, true);
+		}
+
+		$translations[$key] = $value;
+
+		Theme::Set('translations', json_encode($translations));
 	}
 
 	public static function Prepare($string) {
@@ -217,17 +273,21 @@ class Theme {
 		return Theme::GetInstance()->config['theme_name'];
 	}
 
+	public static function SourceLink() {
+		return (isset(Theme::GetInstance()->config['cms_source_url']) ? Theme::GetInstance()->config['cms_source_url'] : 'https://launchpad.net/xibo/1.7');
+	}
+
 	public static function ThemeFolder() {
 		return Theme::GetInstance()->name;
 	}
 
-	public static function GetConfig($settingName) {
+	public static function GetConfig($settingName, $default = null) {
 		$theme = Theme::GetInstance();
 
 		if (isset($theme->config[$settingName]))
 			return $theme->config[$settingName];
 		else
-			return '';
+			return $default;
 	}
 
 	/**
@@ -240,7 +300,7 @@ class Theme {
 		$theme = Theme::GetInstance();
 		$array = array();
 
-		if (!$menu = new MenuManager($theme->db, $theme->user, $menu))
+		if (!$menu = new MenuManager($theme->user, $menu))
 			trigger_error($menu->message, E_USER_ERROR);
 					
 		while ($menuItem = $menu->GetNextMenuItem()) {
@@ -282,7 +342,7 @@ class Theme {
      */
     public static function SelectList($listName, $listValues, $idColumn, $nameColumn, $selectedId = null, $callBack = '', $classColumn = '', $styleColumn = '')
     {
-    	$list = '<select name="' . $listName . '" id="' . $listName . '"' . $callBack . '>';
+    	$list = '<select class="form-control" name="' . $listName . '" id="' . $listName . '"' . $callBack . '>';
 
         foreach ($listValues as $listItem)
         {

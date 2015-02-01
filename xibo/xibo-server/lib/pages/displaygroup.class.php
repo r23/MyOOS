@@ -20,20 +20,11 @@
  */
 defined('XIBO') or die("Sorry, you are not allowed to directly access this page.<br /> Please press the back button in your browser.");
 
-class displaygroupDAO
-{
-    private $db;
-    private $user;
-    
-    function __construct(database $db, user $user) 
-    {
-        $this->db   =& $db;
-        $this->user =& $user;
-    
-        include_once('lib/data/displaygroup.data.class.php');
-        include_once('lib/data/displaygroupsecurity.data.class.php');       
-    }
-    
+include_once('lib/data/displaygroup.data.class.php');
+include_once('lib/data/displaygroupsecurity.data.class.php');
+
+class displaygroupDAO extends baseDAO
+{    
     /**
      * Display Group Page Render
      */
@@ -42,13 +33,27 @@ class displaygroupDAO
         // Configure the theme
         $id = uniqid();
         Theme::Set('id', $id);
-        Theme::Set('displaygroup_form_add_url', 'index.php?p=displaygroup&q=AddForm');
         Theme::Set('form_meta', '<input type="hidden" name="p" value="displaygroup"><input type="hidden" name="q" value="Grid">');
         Theme::Set('filter_id', 'XiboFilterPinned' . uniqid('filter'));
         Theme::Set('pager', ResponseManager::Pager($id));
 
-        // Render the Theme and output
-        Theme::Render('displaygroup_page');
+        // Call to render the template
+        Theme::Set('header_text', __('Display Groups'));
+        Theme::Set('form_fields', array());
+        Theme::Render('grid_render');
+    }
+
+    function actionMenu() {
+
+        return array(
+                array('title' => __('Add Display Group'),
+                    'class' => 'XiboFormButton',
+                    'selected' => false,
+                    'link' => 'index.php?p=displaygroup&q=AddForm',
+                    'help' => __('Add a new Display Group'),
+                    'onclick' => ''
+                    )
+            );                   
     }
     
     /**
@@ -65,6 +70,12 @@ class displaygroupDAO
 
         if (!is_array($displayGroups))
             trigger_error(__('Cannot get list of display groups.'), E_USER_ERROR);
+
+        $cols = array(
+                array('name' => 'displaygroup', 'title' => __('Name')),
+                array('name' => 'description', 'title' => __('Description'))
+            );
+        Theme::Set('table_cols', $cols);
 
         $rows = array();
 
@@ -132,7 +143,7 @@ class displaygroupDAO
 
         Theme::Set('table_rows', $rows);
 
-        $output = Theme::RenderReturn('displaygroup_page_grid');
+        $output = Theme::RenderReturn('table_render');
 
         $response->SetGridResponse($output);
         $response->Respond();
@@ -150,9 +161,15 @@ class displaygroupDAO
         Theme::Set('form_id', 'DisplayGroupAddForm');
         Theme::Set('form_action', 'index.php?p=displaygroup&q=Add');
 
-        $form = Theme::RenderReturn('displaygroup_form_add');
+        $formFields[] = FormManager::AddText('group', __('Name'), NULL, 
+            __('The Name for this Group'), 'n', 'required');
 
-        $response->SetFormRequestResponse($form, __('Add Display Group'), '350px', '275px');
+        $formFields[] = FormManager::AddText('desc', __('Description'), NULL, 
+            __('A short description of this Group'), 'd', 'maxlength="254"');
+
+        Theme::Set('form_fields', $formFields);
+
+        $response->SetFormRequestResponse(NULL, __('Add Display Group'), '350px', '275px');
         $response->AddButton(__('Help'), 'XiboHelpRender("' . HelpManager::Link('DisplayGroup', 'Add') . '")');
         $response->AddButton(__('Cancel'), 'XiboDialogClose()');
         $response->AddButton(__('Save'), '$("#DisplayGroupAddForm").submit()');
@@ -190,17 +207,20 @@ class displaygroupDAO
         if (count($row) <= 0)
             trigger_error(__('No display group found.'), E_USER_ERROR);
         
-        Theme::Set('displaygroup', Kit::ValidateParam($row['DisplayGroup'], _STRING));
-        Theme::Set('description', Kit::ValidateParam($row['Description'], _STRING));
-        
         // Set some information about the form
         Theme::Set('form_id', 'DisplayGroupEditForm');
         Theme::Set('form_action', 'index.php?p=displaygroup&q=Edit');
         Theme::Set('form_meta', '<input type="hidden" name="DisplayGroupID" value="' . $displayGroupID . '" />');
         
-        $form = Theme::RenderReturn('displaygroup_form_edit');
+        $formFields[] = FormManager::AddText('group', __('Name'), Kit::ValidateParam($row['DisplayGroup'], _STRING), 
+            __('The Name for this Group'), 'n', 'required');
 
-        $response->SetFormRequestResponse($form, __('Edit Display Group'), '350px', '275px');
+        $formFields[] = FormManager::AddText('desc', __('Description'), Kit::ValidateParam($row['Description'], _STRING), 
+            __('A short description of this Group'), 'd', 'maxlength="254"');
+
+        Theme::Set('form_fields', $formFields);
+
+        $response->SetFormRequestResponse(NULL, __('Edit Display Group'), '350px', '275px');
         $response->AddButton(__('Help'), 'XiboHelpRender("' . HelpManager::Link('DisplayGroup', 'Edit') . '")');
         $response->AddButton(__('Cancel'), 'XiboDialogClose()');
         $response->AddButton(__('Save'), '$("#DisplayGroupEditForm").submit()');
@@ -226,9 +246,9 @@ class displaygroupDAO
         Theme::Set('form_action', 'index.php?p=displaygroup&q=Delete');
         Theme::Set('form_meta', '<input type="hidden" name="DisplayGroupID" value="' . $displayGroupID . '" />');
 
-        $form = Theme::RenderReturn('displaygroup_form_delete');
+        Theme::Set('form_fields', array(FormManager::AddMessage(__('Are you sure you want to delete this display? This cannot be undone.'))));
         
-        $response->SetFormRequestResponse($form, __('Delete Display Group'), '350px', '175px');
+        $response->SetFormRequestResponse(NULL, __('Delete Display Group'), '350px', '175px');
         $response->AddButton(__('Help'), 'XiboHelpRender("' . HelpManager::Link('DisplayGroup', 'Delete') . '")');
         $response->AddButton(__('No'), 'XiboDialogClose()');
         $response->AddButton(__('Yes'), '$("#DisplayGroupDeleteForm").submit()');
@@ -502,50 +522,41 @@ class displaygroupDAO
         Theme::Set('form_action', 'index.php?p=displaygroup&q=Permissions');
         Theme::Set('form_meta', '<input type="hidden" name="displayGroupId" value="' . $displayGroupId . '" />');
 
-        // List of all Groups with a view/edit/delete checkbox
-        $SQL = '';
-        $SQL .= 'SELECT `group`.GroupID, `group`.`Group`, View, Edit, Del, `group`.IsUserSpecific ';
-        $SQL .= '  FROM `group` ';
-        $SQL .= '   LEFT OUTER JOIN lkdisplaygroupgroup ';
-        $SQL .= '   ON lkdisplaygroupgroup.GroupID = group.GroupID ';
-        $SQL .= '       AND lkdisplaygroupgroup.DisplayGroupID = %d ';
-        $SQL .= 'ORDER BY `group`.IsEveryone DESC, `group`.IsUserSpecific, `group`.`Group` ';
+        // List of all Groups with a view / edit / delete check box
+        $permissions = new UserGroup();
+        if (!$result = $permissions->GetPermissionsForObject('lkdisplaygroupgroup', 'DisplayGroupID', $displayGroupId))
+            trigger_error($permissions->GetErrorMessage(), E_USER_ERROR);
 
-        $SQL = sprintf($SQL, $displayGroupId);
-
-        if (!$results = $db->query($SQL))
-        {
-            trigger_error($db->error());
-            trigger_error(__('Unable to get permissions for this DisplayGroup'), E_USER_ERROR);
-        }
+        if (count($result) <= 0)
+            trigger_error(__('Unable to get permissions for this Display Group'), E_USER_ERROR);
 
         $checkboxes = array();
 
-        while ($row = $db->get_assoc_row($results))
-        {
-            $groupId = $row['GroupID'];
-            $rowClass = ($row['IsUserSpecific'] == 0) ? 'strong_text' : '';
+        foreach ($result as $row) {
+            $groupId = $row['groupid'];
+            $rowClass = ($row['isuserspecific'] == 0) ? 'strong_text' : '';
 
             $checkbox = array(
                     'id' => $groupId,
-                    'name' => Kit::ValidateParam($row['Group'], _STRING),
+                    'name' => Kit::ValidateParam($row['group'], _STRING),
                     'class' => $rowClass,
                     'value_view' => $groupId . '_view',
-                    'value_view_checked' => (($row['View'] == 1) ? 'checked' : ''),
+                    'value_view_checked' => (($row['view'] == 1) ? 'checked' : ''),
                     'value_edit' => $groupId . '_edit',
-                    'value_edit_checked' => (($row['Edit'] == 1) ? 'checked' : ''),
+                    'value_edit_checked' => (($row['edit'] == 1) ? 'checked' : ''),
                     'value_del' => $groupId . '_del',
-                    'value_del_checked' => (($row['Del'] == 1) ? 'checked' : ''),
+                    'value_del_checked' => (($row['del'] == 1) ? 'checked' : ''),
                 );
 
             $checkboxes[] = $checkbox;
         }
 
-        Theme::Set('form_rows', $checkboxes);
+        $formFields = array();
+        $formFields[] = FormManager::AddPermissions('groupids[]', $checkboxes);
+        
+        Theme::Set('form_fields', $formFields);
 
-        $form = Theme::RenderReturn('displaygroup_form_permissions');
-
-        $response->SetFormRequestResponse($form, __('Permissions'), '350px', '500px');
+        $response->SetFormRequestResponse(NULL, __('Permissions'), '350px', '500px');
         $response->AddButton(__('Help'), 'XiboHelpRender("' . HelpManager::Link('DisplayGroup', 'Permissions') . '")');
         $response->AddButton(__('Cancel'), 'XiboDialogClose()');
         $response->AddButton(__('Save'), '$("#DisplayGroupPermissionsForm").submit()');
@@ -651,7 +662,7 @@ class displaygroupDAO
         $id = uniqid();
         Theme::Set('id', $id);
         Theme::Set('form_meta', '<input type="hidden" name="p" value="displaygroup"><input type="hidden" name="q" value="FileAssociationsView"><input type="hidden" name="displaygroupid" value="' . $displayGroupId . '">');
-        Theme::Set('pager', ResponseManager::Pager($id));
+        Theme::Set('pager', ResponseManager::Pager($id, 'grid_pager'));
         
         // Module types filter
         $modules = $this->user->ModuleAuth(0, '', -1);
@@ -745,7 +756,7 @@ class displaygroupDAO
         }
 
         // Get a list of media
-        $mediaList = $user->MediaList($mediatype, $name);
+        $mediaList = $user->MediaList(NULL, array('type' => $mediatype, 'name' => $name));
 
         $rows = array();
 
@@ -830,7 +841,7 @@ class displaygroupDAO
         Theme::Set('displays', $displays);
 
         // Present a list of possible files to choose from (generic file module)
-        $mediaList = $this->user->MediaList('genericfile');
+        $mediaList = $this->user->MediaList(NULL, array('type' => 'genericfile'));
         array_unshift($mediaList, array('mediaid' => 0, 'media' => ''));
         Theme::Set('media_field_list', $mediaList);
 
