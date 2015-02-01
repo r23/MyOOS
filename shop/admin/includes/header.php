@@ -38,31 +38,10 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 	<link href="css/style.min.css" rel="stylesheet" />
 
 
-<?php
-  if ($no_js_general == 'true') {
-?>
-    <script type="text/javascript" src="includes/general.js"></script>
-<?php
-/*
    <link rel="StyleSheet" href="includes/stylesheet.css" type="text/css" >
-*/
-?>
+ 
 </head>
 <body>
-<?php
-  } else {
-
-  /*
-    <link rel="StyleSheet" href="includes/stylesheet.css" type="text/css" >
-*/
-?>
-
-</head>
-<body>
-<?php
-  }
-?>
-
 <?php
   if ($messageStack->size > 0) {
     echo $messageStack->output();

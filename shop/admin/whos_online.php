@@ -33,7 +33,6 @@
   $whos_onlinetable = $oostable['whos_online'];
   $dbconn->Execute("DELETE FROM $whos_onlinetable WHERE time_last_click < '" . $xx_mins_ago . "'");
 
-  $no_js_general = true;
   require 'includes/header.php';
 ?>
 <div id="wrapper">

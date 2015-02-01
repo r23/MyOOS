@@ -134,7 +134,7 @@
   } else {
     $messageStack->add(ERROR_EXPORT_DIRECTORY_DOES_NOT_EXIST, 'error');
   }
-  $no_js_general = true;
+
   require 'includes/header.php'; 
 ?>
 <div id="wrapper">

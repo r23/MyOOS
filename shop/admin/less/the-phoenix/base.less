@@ -1,0 +1,289 @@
+body {
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #2f4050;
+  font-size: 13px;
+  color: @text-color;
+  overflow-x: hidden;
+
+}
+
+body.boxed-layout #wrapper {
+  background-color: #2f4050;
+  max-width: @boxed-width;
+  margin: 0 auto;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.block {
+  display: block;
+}
+
+.clear {
+  display: block;
+  overflow: hidden;
+}
+
+a {
+  cursor: pointer;
+}
+
+a:hover, a:focus {
+  text-decoration: none;
+}
+
+.border-bottom {
+  border-bottom: 1px solid @border-color !important;
+}
+
+.font-bold {
+  font-weight: 600;
+}
+
+.font-noraml {
+  font-weight: 400;
+}
+
+
+/* WRAPPERS */
+
+#wrapper {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.wrapper {
+  padding: 0 20px;
+}
+
+.wrapper-content {
+  padding: 20px 10px 40px;
+}
+
+#page-wrapper {
+  padding: 0 15px;
+  min-height: 568px;
+  position: relative !important;
+}
+
+@media (min-width: 768px) {
+  #page-wrapper {
+    position: inherit;
+    margin: 0 0 0 240px;
+    min-height: 1000px;
+  }
+}
+
+.title-action {
+  text-align: right;
+  padding-top: 30px;
+}
+
+
+body.mini-navbar .footer.fixed, body.body-small.mini-navbar .footer.fixed {
+  margin: 0 0 0 70px;
+}
+
+body.fixed-sidebar.body-small.mini-navbar .footer.fixed {
+  margin: 0 0 0 @sidebar-width;
+}
+
+body.body-small .footer.fixed {
+  margin-left: 0px;
+}
+
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  background: none;
+  border-color: #DDDDDD #DDDDDD rgba(0, 0, 0, 0);
+  border-bottom: @gray;
+  border-image: none;
+  border-style: solid;
+  border-width: 1px;
+  color: #555555;
+  cursor: default;
+}
+
+.nav.nav-tabs li {
+  background: none;
+  border: none;
+}
+
+.nav-tabs > li > a {
+  color: #A7B1C2;
+  font-weight: 600;
+  padding: 10px 20px 10px 25px;
+}
+
+.nav-tabs > li > a:hover, .nav-tabs > li > a:focus {
+  background-color: #e6e6e6;
+  color: @text-color;
+}
+
+.ui-tab .tab-content {
+  padding: 20px 0px;
+}
+
+/* GLOBAL  */
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.no-borders {
+  border: none !important;
+}
+
+.no-margins {
+  margin: 0 !important;
+}
+
+.no-top-border {
+  border-top: 0 !important;
+}
+
+.ibox-content.text-box {
+  padding-bottom: 0px;
+  padding-top: 15px;
+}
+
+.border-left-right {
+  border-left: 1px solid @border-color;
+  border-right: 1px solid @border-color;
+  border-top: none;
+  border-bottom: none;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+
+.nav.navbar-top-links .link-block a {
+  font-size: 12px;
+}
+
+.link-block a {
+  font-size: 10px;
+  color: inherit;
+
+}
+
+body.mini-navbar .branding {
+  display: none;
+}
+
+
+.ui-draggable .ibox-title {
+  cursor: move;
+}
+
+
+/* BACKGROUNDS */
+
+.gray-bg {
+  background-color: @gray;
+}
+
+.white-bg {
+  background-color: #ffffff;
+}
+
+.navy-bg {
+  background-color: @navy;
+  color: #ffffff;
+}
+
+.blue-bg {
+  background-color: @blue;
+  color: #ffffff;
+}
+
+.lazur-bg {
+  background-color: @lazur;
+  color: #ffffff;
+}
+
+.yellow-bg {
+  background-color: @yellow;
+  color: #ffffff;
+}
+
+.red-bg {
+  background-color: @red;
+  color: #ffffff;
+}
+
+.black-bg {
+  background-color: #262626;
+}
+
+.panel-primary {
+  border-color: @navy;
+}
+
+.panel-primary > .panel-heading {
+  background-color: @navy;
+  border-color: @navy;
+}
+
+/* COLORS */
+
+.text-navy {
+  color: @navy;
+}
+
+.text-primary {
+  color: inherit;
+}
+
+.text-success {
+  color: @blue;
+}
+
+.text-info {
+  color: @lazur;
+}
+
+.text-warning {
+  color: @yellow;
+}
+
+.text-danger {
+  color: @red;
+}
+
+.text-muted {
+  color: #888888;
+}
+
+
+/* MARGINS & PADDINGS */
+
+
+.m-r-sm {
+  margin-right: 10px;
+}
+
+
+.space-15 {
+  margin: 15px 0;
+}
+
+.space-20 {
+  margin: 20px 0;
+}
+
+.space-25 {
+  margin: 25px 0;
+}
+
+.space-30 {
+  margin: 30px 0;
+}
+

@@ -24,7 +24,8 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 // debug
 $debug = '1';
 
-
+date_default_timezone_set('Europe/Berlin'); 
+  
 // Set the local configuration parameters - mainly for developers
 if (is_readable('includes/local/configure.php')) {
     require_once MYOOS_INCLUDE_PATH . '/includes/local/configure.php';
@@ -33,7 +34,7 @@ if (is_readable('includes/local/configure.php')) {
 }
 
 // Version information
-define('OOS_VERSION', '2.0.34 -dev');
+define('OOS_VERSION', '2.0.35 -dev');
 // Complete software name string
 define('OOS_FULL_NAME', 'MyOOS ' . OOS_VERSION);
 

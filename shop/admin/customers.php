@@ -378,14 +378,6 @@ function check_form() {
 }
 //--></script>
 <?php
-  } else {
-?>
-<script language="javascript"><!--
-function popupGoogleMap(url) {
-  window.open(url,'popupImageWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=yes,copyhistory=no,width=550,height=400,screenX=150,screenY=150,top=150,left=150')
-}
-//--></script>
-<?php
   }
 ?>
 <div id="wrapper">

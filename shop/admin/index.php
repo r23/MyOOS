@@ -138,10 +138,6 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
 .messageStackSuccess { font-family: Verdana, Arial, sans-serif; font-size: 10px; background-color: #99ff00; }
 //--></style>
 
-<!--[if lt IE 7]>
-<script defer type="text/javascript" src="includes.giffix.js"></script>
-<![endif]-->
-  <script type="text/javascript" src="includes/imgswap.js"></script>
 
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">

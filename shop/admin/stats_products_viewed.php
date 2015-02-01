@@ -32,7 +32,6 @@
     $messageStack->add(TEXT_VIEWS_RESET, 'success');
   }
 
-  $no_js_general = true;
   require 'includes/header.php';
 ?>
 <div id="wrapper">

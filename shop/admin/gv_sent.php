@@ -29,7 +29,6 @@
   require 'includes/classes/class_currencies.php';
   $currencies = new currencies();
 
-  $no_js_general = true;
   require 'includes/header.php'; 
 ?>
 <div id="wrapper">

@@ -224,7 +224,6 @@
 
   include '../includes/classes/class_order.php';
 
-  $no_js_general = true;
   require 'includes/header.php';
 ?>
 <div id="wrapper">

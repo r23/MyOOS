@@ -65,7 +65,6 @@
 
   if (!$lng_exists) $_GET['lngdir'] = $_SESSION['language'];
 
-  $no_js_general = true;
   require 'includes/header.php'; 
 ?>
 <div id="wrapper">

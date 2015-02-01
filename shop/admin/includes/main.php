@@ -23,11 +23,13 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 // debug
-$debug = 'true';
+$debug = '1';
 
 // for debug set the level of error reporting
 error_reporting(E_ALL & ~E_NOTICE);
 //   error_reporting(0);
+
+date_default_timezone_set('Europe/Berlin'); 
 
 
 // Disable use_trans_sid as oos_href_link_admin() does this manually
@@ -70,13 +72,6 @@ require_once MYOOS_INCLUDE_PATH . '/core/lib/Phoenix/Core/Session.php';
 $session = new Phoenix_Session();
 $session->setName('PHOENIXADMINSID');
 $session->start();
-
-/*
-
-if (!isset($_SESSION)) {
-	$_SESSION = array();
-}
-*/
 
 // require the database functions
 if (!defined('ADODB_LOGSQL_TABLE')) {
@@ -148,8 +143,6 @@ if (!isset($_SESSION['language']) || isset($_GET['language']))
 		$_SESSION['languages_name'] = $oLang->language['name'];
 
 }
-
-
 
 
 // require the language translations

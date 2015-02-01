@@ -119,7 +119,7 @@
         break;
     }
   }
-  $no_js_general = true;
+
   require 'includes/header.php'; 
 ?>
 <div id="wrapper">

@@ -180,7 +180,7 @@
   if (isset($_GET['mail_sent_to'])) {
     $messageStack->add(sprintf(NOTICE_EMAIL_SENT_TO, $_GET['mail_sent_to']), 'notice');
   }
-  $no_js_general = true;
+
   require 'includes/header.php'; 
 ?>
 <div id="wrapper">
