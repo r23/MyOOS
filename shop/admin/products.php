@@ -640,11 +640,11 @@ function calcBasePriceFactor() {
 <?php
     if (NEW_PRODUCT_PREVIEW == 'true') {
 ?>
-        <td class="main" align="right"><?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))) . oos_image_swap_submits('preview', 'preview_off.gif', IMAGE_PREVIEW) . '&nbsp;&nbsp;<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $_GET['pID']) . '">' . oos_image_swap_button('cancel', 'cancel_off.gif', IMAGE_CANCEL) . '</a>'; ?></td>
+        <td class="main" align="right"><?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))) . oos_submit_button('preview', IMAGE_PREVIEW) . '&nbsp;&nbsp;<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $_GET['pID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>'; ?></td>
 <?php
     } else {
 ?>
-        <td class="main" align="right"><?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))) . oos_image_swap_submits('save', 'save_off.gif', IMAGE_SAVE) . '&nbsp;&nbsp;<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $_GET['pID']) . '">' . oos_image_swap_button('cancel', 'cancel_off.gif', IMAGE_CANCEL) . '</a>'; ?></td>
+        <td class="main" align="right"><?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))) . oos_submit_button('save', IMAGE_SAVE) . '&nbsp;&nbsp;<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $_GET['pID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>'; ?></td>
 <?php
     }
 ?>
@@ -777,7 +777,7 @@ function calcBasePriceFactor() {
       }
 ?>
       <tr>
-        <td align="right"><?php echo '<a href="' . oos_href_link_admin($back_url, $back_url_params, 'NONSSL') . '">' . oos_image_swap_button('back', 'back_off.gif', IMAGE_BACK) . '</a>'; ?></td>
+        <td align="right"><?php echo '<a href="' . oos_href_link_admin($back_url, $back_url_params, 'NONSSL') . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
       </tr>
 <?php
     } else {
@@ -809,14 +809,14 @@ function calcBasePriceFactor() {
         }
       }
 
-      echo oos_image_swap_submits('back', 'back_off.gif', IMAGE_BACK, 'name="edit"') . '&nbsp;&nbsp;';
+      echo oos_submit_button('back', IMAGE_BACK, 'name="edit"') . '&nbsp;&nbsp;';
 
       if (isset($_GET['pID'])) {
-        echo oos_image_swap_submits('update', 'update_off.gif', IMAGE_UPDATE);
+        echo oos_submit_button('update', IMAGE_UPDATE);
       } else {
-        echo oos_image_swap_submits('insert', 'insert_off.gif', IMAGE_INSERT);
+        echo oos_submit_button('insert', BUTTON_INSERT);
       }
-      echo '&nbsp;&nbsp;<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $_GET['pID']) . '">' . oos_image_swap_button('cancel', 'cancel_off.gif', IMAGE_CANCEL) . '</a>';
+      echo '&nbsp;&nbsp;<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $_GET['pID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>';
 ?></td>
       </form></tr>
 <?php

@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -19,16 +19,16 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
- /**
-  * html output
-  *
-  * @link http://www.oos-shop.de/
-  * @package Admin html output
-  * @version $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/08 14:02:48 $
-  */
+/**
+ * html output
+ *
+ * @link http://www.oos-shop.de/
+ * @package Admin html output
+ * @version $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/08 14:02:48 $
+ */
 
 
  /**
@@ -130,20 +130,6 @@
 
 
  /**
-  * The HTML form submit button wrapper function
-  * Outputs a button in the selected language
-  *
-  * @param $image
-  * @param $alt
-  * @param $params
-  * @return string
-  */
-  function oos_image_submit($image, $alt, $params = '') {
-     return '<input type="image" src="' . OOS_IMAGES . 'buttons/' . $_SESSION['language'] . '/' . $image . '" border="0" alt="' . $alt . '"' . (($params) ? ' ' . $params : '') . '>';
-  }
-
-
- /**
   * Draw a 1 pixel black line
   */
   function oos_black_line() {
@@ -164,66 +150,30 @@
   }
 
 
- /**
-  * Output a function button in the selected language
-  *
-  * @param $image
-  * @param $alt
-  * @param $params
-  * @return string
-  */
-  function oos_image_button($image, $alt = '', $params = '') {
-     return oos_image(OOS_IMAGES . 'buttons/' . $_SESSION['language'] . '/' . $image, $alt, '', '', $params);
-  }
+/**
+ * Output a function button in the selected language
+ *
+ * @param $image
+ * @param $alt
+ * @param $params
+ * @return string
+ */
+function oos_button($id, $alt = '', $params = '') {
+	return '<button class="btn btn-sm btn-primary margin-bottom-20"><strong>' . $alt . '</strong></button>';
+}
 
 
- /**
-  * @return string
-  */
-  function oos_image_swap($id, $src, $alt = '', $width = '', $height = '', $params = '') {
-    $image = '<img id="' . $id . '" src="' . $src . '" border="0" alt="' . $alt . '"';
-    if ($alt) {
-      $image .= ' title=" ' . $alt . ' "';
-    }
-    if ($width) {
-      $image .= ' width="' . $width . '"';
-    }
-    if ($height) {
-      $image .= ' height="' . $height . '"';
-    }
-    if ($params) {
-      $image .= ' ' . $params;
-    }
-    $image .= ' onmouseover="imgSwap(this)" onmouseout="imgSwap(this)"';
-    $image .= ' />';
-
-    return $image;
-  }
-
- /**
-  * Output a function button in the selected language
-  *
-  * @param $image
-  * @param $alt
-  * @param $params
-  * @return string
-  */
-  function oos_image_swap_button($id, $image, $alt = '', $params = '') {
-     return oos_image_swap($id, OOS_IMAGES . 'buttons/' . $_SESSION['language'] . '/' . $image, $alt, '', '', $params);
-  }
-
-
- /**
-  * Outputs a submit button
-  *
-  * @param $image
-  * @param $alt
-  * @param $params
-  * @return string
-  */
-  function oos_image_swap_submits($id,$image, $alt, $params = '') {
-     return '<input type="image" id="' . $id . '" src="' . OOS_IMAGES . 'buttons/' . $_SESSION['language'] . '/' . $image . '" border="0" onmouseover="imgSwap(this)" onmouseout="imgSwap(this)" alt="' . $alt . '"' . (($params) ? ' ' . $params : '') . '>';
-  }
+/**
+ * Outputs a submit button
+ *
+ * @param $image
+ * @param $alt
+ * @param $params
+ * @return string
+ */
+function oos_submit_button($id, $alt, $params = '') {
+	return '<button class="btn btn-sm btn-primary margin-bottom-20" type="submit"><strong>' . $alt . '</strong></button>';
+}
 
 
  /**

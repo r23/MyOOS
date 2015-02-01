@@ -122,7 +122,7 @@
                 <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
               </tr>
               <tr>
-                <td align="right"><?php if ($file_writeable) { echo oos_image_swap_submits('save','save_off.gif', IMAGE_SAVE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['define_language'], 'lngdir=' . $_GET['lngdir']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a>'; } else { echo '<a href="' . oos_href_link_admin($aContents['define_language'], 'lngdir=' . $_GET['lngdir']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; } ?></td>
+                <td align="right"><?php if ($file_writeable) { echo oos_submit_button('save', IMAGE_SAVE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['define_language'], 'lngdir=' . $_GET['lngdir']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>'; } else { echo '<a href="' . oos_href_link_admin($aContents['define_language'], 'lngdir=' . $_GET['lngdir']) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; } ?></td>
               </tr>
             </table></td>
           </form></tr>
@@ -136,7 +136,7 @@
             <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
           </tr>
           <tr>
-            <td><?php echo '<a href="' . oos_href_link_admin($aContents['define_language'], 'lngdir=' . $_GET['lngdir']) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?></td>
+            <td><?php echo '<a href="' . oos_href_link_admin($aContents['define_language'], 'lngdir=' . $_GET['lngdir']) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
           </tr>
 <?php
     }

@@ -418,7 +418,7 @@
                 <table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
                     <td><?php ?>&nbsp;</td>
-                    <td align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['coupon_admin']) . '">' . oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL) . '</a> ' . oos_image_swap_submits('send_mail','send_mail_off.gif', IMAGE_SEND_EMAIL); ?></td>
+                    <td align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['coupon_admin']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a> ' . oos_submit_button('send_mail', IMAGE_SEND_EMAIL); ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -516,7 +516,7 @@
                 <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
               </tr>
               <tr>
-                <td colspan="2" align="right"><?php echo oos_image_swap_submits('send_mail','send_mail_off.gif', IMAGE_SEND_EMAIL); ?></td>
+                <td colspan="2" align="right"><?php echo oos_submit_button('send_mail', IMAGE_SEND_EMAIL); ?></td>
               </tr>
             </table></td>
           </form></tr>
@@ -655,8 +655,8 @@
     echo oos_draw_hidden_field('coupon_finishdate', date('Y-m-d', mktime(0, 0, 0, $_POST['coupon_finishdate_month'],$_POST['coupon_finishdate_day'] ,$_POST['coupon_finishdate_year'] )));
 ?>
      <tr>
-        <td align="left"><?php echo oos_image_swap_submits('confirm','confirm_off.gif',COUPON_BUTTON_CONFIRM); ?></td>
-        <td align="left"><?php echo oos_image_swap_submits('back','back_off.gif',COUPON_BUTTON_BACK, 'name=back'); ?></td>
+        <td align="left"><?php echo oos_submit_button('confirm', COUPON_BUTTON_CONFIRM); ?></td>
+        <td align="left"><?php echo oos_submit_button('back', COUPON_BUTTON_BACK, 'name=back'); ?></td>
       </td>
       </tr>
 
@@ -809,8 +809,8 @@
         <td align="left" class="main"><?php echo COUPON_FINISHDATE_HELP; ?></td>
       </tr>
       <tr>
-        <td align="left"><?php echo oos_image_swap_submits('preview','preview_off.gif',COUPON_BUTTON_PREVIEW); ?></td>
-        <td align="left"><?php echo '&nbsp;&nbsp;<a href="' . oos_href_link_admin('coupon_admin.php', ''); ?>"><?php echo oos_image_swap_button('cancel','cancel_off.gif', IMAGE_CANCEL); ?></a>
+        <td align="left"><?php echo oos_submit_button('preview', COUPON_BUTTON_PREVIEW); ?></td>
+        <td align="left"><?php echo '&nbsp;&nbsp;<a href="' . oos_href_link_admin('coupon_admin.php', ''); ?>"><?php echo oos_button('cancel', BUTTON_CANCEL); ?></a>
       </td>
       </tr>
       </td></table></form>
@@ -928,7 +928,7 @@
               </tr>
 
               <tr>
-                <td align="right" colspan="2" class="smallText"><?php echo '<a href="' . oos_href_link_admin('coupon_admin.php', 'page=' . $_GET['page'] . '&cID=' . $cInfo->coupon_id . '&action=new') . '">' . oos_image_swap_button('insert','insert_off.gif', IMAGE_INSERT) . '</a>'; ?></td>
+                <td align="right" colspan="2" class="smallText"><?php echo '<a href="' . oos_href_link_admin('coupon_admin.php', 'page=' . $_GET['page'] . '&cID=' . $cInfo->coupon_id . '&action=new') . '">' . oos_button('insert', BUTTON_INSERT) . '</a>'; ?></td>
               </tr>
             </table></td>
           </tr>
@@ -967,8 +967,8 @@
       }
       if ($action == 'voucherdelete') {
         $contents[] = array('text'=> TEXT_CONFIRM_DELETE . '</br></br>' . 
-                '<a href="' . oos_href_link_admin('coupon_admin.php','action=confirmdelete&cID='.$_GET['cID'],'NONSSL').'">'.oos_image_swap_button('confirm','confirm_off.gif','Confirm Delete Voucher').'</a>' .
-                '<a href="' . oos_href_link_admin('coupon_admin.php','cID='.$cInfo->coupon_id,'NONSSL').'">'.oos_image_swap_button('cancel','cancel_off.gif','Cancel').'</a>'
+                '<a href="' . oos_href_link_admin('coupon_admin.php','action=confirmdelete&cID='.$_GET['cID'],'NONSSL').'">'.oos_button('confirm','Confirm Delete Voucher').'</a>' .
+                '<a href="' . oos_href_link_admin('coupon_admin.php','cID='.$cInfo->coupon_id,'NONSSL').'">'.oos_button('cancel', BUTTON_CANCEL).'</a>'
                 );
       } else { 
         $prod_details = NONE;
@@ -994,10 +994,10 @@
                      COUPON_CATEGORIES . '&nbsp;::&nbsp; ' . $cat_details . '<br />' .
                      DATE_CREATED . '&nbsp;::&nbsp; ' . oos_date_short($cInfo->date_created) . '<br />' .
                      DATE_MODIFIED . '&nbsp;::&nbsp; ' . oos_date_short($cInfo->date_modified) . '<br /><br />' .
-                     '<center><a href="' . oos_href_link_admin('coupon_admin.php','action=email&cID='.$cInfo->coupon_id,'NONSSL').'">'.oos_image_swap_button('email','email_off.gif','Email Voucher').'</a>' .
-                     '<a href="' . oos_href_link_admin('coupon_admin.php','action=voucheredit&cID='.$cInfo->coupon_id,'NONSSL').'">'.oos_image_swap_button('edit','edit_off.gif','Edit Voucher').'</a>' .
-                     '<a href="' . oos_href_link_admin('coupon_admin.php','action=voucherdelete&cID='.$cInfo->coupon_id,'NONSSL').'">'.oos_image_swap_button('delete','delete_off.gif','Delete Voucher').'</a>' .
-                     '<br /><a href="' . oos_href_link_admin('coupon_admin.php','action=voucherreport&cID='.$cInfo->coupon_id,'NONSSL').'">'.oos_image_swap_button('report','report_off.gif','Voucher Report').'</a></center>'
+                     '<center><a href="' . oos_href_link_admin('coupon_admin.php','action=email&cID='.$cInfo->coupon_id,'NONSSL').'">'.oos_button('email', 'Email Voucher').'</a>' .
+                     '<a href="' . oos_href_link_admin('coupon_admin.php','action=voucheredit&cID='.$cInfo->coupon_id,'NONSSL').'">'.oos_button('edit', 'Edit Voucher').'</a>' .
+                     '<a href="' . oos_href_link_admin('coupon_admin.php','action=voucherdelete&cID='.$cInfo->coupon_id,'NONSSL').'">'.oos_button('delete', 'Delete Voucher').'</a>' .
+                     '<br /><a href="' . oos_href_link_admin('coupon_admin.php','action=voucherreport&cID='.$cInfo->coupon_id,'NONSSL').'">'.oos_button('report', 'Voucher Report').'</a></center>'
                      );
         }
         break;

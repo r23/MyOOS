@@ -47,7 +47,7 @@
 			<div class="clr"></div>
 			<div class="smallText"><?php echo TEXT_MAIN; ?></div>
 			<div id="break"></div>
-			<div align="left"><a href="<?php echo oos_href_link_admin($aContents['login'], '', 'SSL') . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK); ?></a></div> 
+			<div align="left"><a href="<?php echo oos_href_link_admin($aContents['login'], '', 'SSL') . '">' . oos_button('back', IMAGE_BACK); ?></a></div> 
 
 
 		</div>

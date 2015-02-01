@@ -179,9 +179,9 @@ function selectAll(FormName, SelectBox) {
             $confirm_string .= oos_draw_hidden_field('chosen[]', $chosen[$i]);
           }
         }
-        $confirm_string .= oos_image_submit('send.gif', IMAGE_SEND) . ' ';
+        $confirm_string .= oos_button('send', IMAGE_SEND) . ' ';
       }
-      $confirm_string .= '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID'] . '&action=send') . '">' . oos_image_button('back.gif', IMAGE_BACK) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '">' . oos_image_button('cancel_off.gif', IMAGE_CANCEL) . '</a></td>' . "\n" .
+      $confirm_string .= '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID'] . '&action=send') . '">' . oos_button('back', IMAGE_BACK) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a></td>' . "\n" .
                          '  </tr>' . "\n" .
                          '</table>';
 

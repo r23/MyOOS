@@ -499,7 +499,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?> #<?php echo $oID; ?></td>
             <td class="pageHeading" align="right"><?php echo oos_draw_separator('trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
-            <td class="pageHeading" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?></td>
+            <td class="pageHeading" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
           </tr>
         </table></td>
       </tr>
@@ -930,7 +930,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
       </tr>
 
       <tr>
-  <td align='center' valign="top"><?php echo oos_image_swap_submits('update','update_off.gif', IMAGE_UPDATE); ?></td>
+  <td align='center' valign="top"><?php echo oos_submit_button('update', IMAGE_UPDATE); ?></td>
       </tr>
       </form>
 <?php
@@ -943,7 +943,7 @@ if($action == "add_product") {
           <tr>
             <td class="pageHeading"><?php echo ADDING_TITLE; ?> #<?php echo $oID; ?></td>
             <td class="pageHeading" align="right"><?php echo oos_draw_separator('trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
-            <td class="pageHeading" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_image_swap_button('back','back_off.gif', IMAGE_BACK) . '</a>'; ?></td>
+            <td class="pageHeading" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
           </tr>
         </table></td>
       </tr>

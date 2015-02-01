@@ -109,7 +109,7 @@
 
     $cPath = oos_get_product_path($pInfo->products_id);
 
-    $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories'], 'pID=' . $pInfo->products_id . '&cPath=' . $cPath . '&action=new_product') . '">' . oos_image_swap_button('edit','edit_off.gif', IMAGE_EDIT) . '</a>');
+    $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories'], 'pID=' . $pInfo->products_id . '&cPath=' . $cPath . '&action=new_product') . '">' . oos_button('edit', BUTTON_EDIT) . '</a>');
     $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_EXPECTED . ' ' . oos_date_short($pInfo->products_date_available));
   }
 
