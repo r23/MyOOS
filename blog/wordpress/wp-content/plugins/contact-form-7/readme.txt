@@ -2,9 +2,9 @@
 Contributors: takayukister
 Donate link: http://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
-Requires at least: 3.9
+Requires at least: 4.0
 Tested up to: 4.1
-Stable tag: 4.0.3
+Stable tag: 4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,7 +60,7 @@ The following are other recommended plugins by the author of Contact Form 7.
 * Greek (el) - Nick Mouratidis, Pr. friedlich, John D. Dimoferlias
 * Gujarati (gu_IN) - Apoto
 * Haitian (ht) - Lam Tu Do
-* Hebrew (he_IL) - Yaron Ofer, Arik Galansky
+* Hebrew (he_IL) - Yaron Ofer, Arik Galansky, Ahrale
 * Hindi (hi_IN) - Tarun Joshi, Ashish
 * Hungarian (hu_HU) - Andras Hirschler, János Csárdi-Braunstein, Farkas Győző
 * Indian Bengali (bn_IN) - Suman Manna
@@ -124,6 +124,16 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 == Changelog ==
 
 For more information, see [Releases](http://contactform7.com/category/releases/).
+
+= 4.1 =
+
+* Added maxlength and minlength options to several form-tag types.
+* Added [count] form-tag type that represents character count for form fields.
+* Introduced WPCF7_Validation class to handle the user-input validation process.
+* Added the front-end URL normalization for [url] fields.
+* Added default:get, default:post and default:post_meta options to get default values from the context.
+* Translations for Turkish, German, Portuguese, Dutch, and Hebrew have been updated.
+* WordPress 4.0 or higher is required.
 
 = 4.0.3 =
 

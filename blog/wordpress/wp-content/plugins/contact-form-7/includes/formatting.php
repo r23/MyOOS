@@ -60,6 +60,22 @@ function wpcf7_autop( $pee, $br = 1 ) {
 	return $pee;
 }
 
+function wpcf7_sanitize_query_var( $text ) {
+	$text = wp_unslash( $text );
+	$text = wp_check_invalid_utf8( $text );
+
+	if ( false !== strpos( $text, '<' ) ) {
+		$text = wp_pre_kses_less_than( $text );
+		$text = wp_strip_all_tags( $text );
+	}
+
+	$text = preg_replace( '/%[a-f0-9]{2}/i', '', $text );
+	$text = preg_replace( '/ +/', ' ', $text );
+	$text = trim( $text, ' ' );
+
+	return $text;
+}
+
 function wpcf7_strip_quote( $text ) {
 	$text = trim( $text );
 
@@ -117,20 +133,28 @@ function wpcf7_strip_newline( $str ) {
 }
 
 function wpcf7_canonicalize( $text ) {
-	if ( function_exists( 'mb_convert_kana' ) && 'UTF-8' == get_option( 'blog_charset' ) )
+	if ( function_exists( 'mb_convert_kana' )
+	&& 'UTF-8' == get_option( 'blog_charset' ) ) {
 		$text = mb_convert_kana( $text, 'asKV', 'UTF-8' );
+	}
 
 	$text = strtolower( $text );
 	$text = trim( $text );
 	return $text;
 }
 
+/**
+ * Check whether a string is a valid NAME token.
+ *
+ * ID and NAME tokens must begin with a letter ([A-Za-z])
+ * and may be followed by any number of letters, digits ([0-9]),
+ * hyphens ("-"), underscores ("_"), colons (":"), and periods (".").
+ *
+ * @see http://www.w3.org/TR/html401/types.html#h-6.2
+ *
+ * @return bool True if it is a valid name, false if not.
+ */
 function wpcf7_is_name( $string ) {
-	// See http://www.w3.org/TR/html401/types.html#h-6.2
-	// ID and NAME tokens must begin with a letter ([A-Za-z])
-	// and may be followed by any number of letters, digits ([0-9]),
-	// hyphens ("-"), underscores ("_"), colons (":"), and periods (".").
-
 	return preg_match( '/^[A-Za-z][-A-Za-z0-9_:.]*$/', $string );
 }
 

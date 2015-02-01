@@ -28,6 +28,12 @@ function wpcf7_quiz_shortcode_handler( $tag ) {
 
 	$atts['size'] = $tag->get_size_option( '40' );
 	$atts['maxlength'] = $tag->get_maxlength_option();
+	$atts['minlength'] = $tag->get_minlength_option();
+
+	if ( $atts['maxlength'] && $atts['minlength'] && $atts['maxlength'] < $atts['minlength'] ) {
+		unset( $atts['maxlength'], $atts['minlength'] );
+	}
+
 	$atts['class'] = $tag->get_class_option( $class );
 	$atts['id'] = $tag->get_id_option();
 	$atts['tabindex'] = $tag->get_option( 'tabindex', 'int', true );
@@ -36,7 +42,7 @@ function wpcf7_quiz_shortcode_handler( $tag ) {
 
 	$pipes = $tag->pipes;
 
-	if ( is_a( $pipes, 'WPCF7_Pipes' ) && ! $pipes->zero() ) {
+	if ( $pipes instanceof WPCF7_Pipes && ! $pipes->zero() ) {
 		$pipe = $pipes->random_pipe();
 		$question = $pipe->before;
 		$answer = $pipe->after;
@@ -82,12 +88,7 @@ function wpcf7_quiz_validation_filter( $result, $tag ) {
 		: '';
 
 	if ( $answer_hash != $expected_hash ) {
-		$result['valid'] = false;
-		$result['reason'][$name] = wpcf7_get_message( 'quiz_answer_not_correct' );
-	}
-
-	if ( isset( $result['reason'][$name] ) && $id = $tag->get_id_option() ) {
-		$result['idref'][$name] = $id;
+		$result->invalidate( $tag, wpcf7_get_message( 'quiz_answer_not_correct' ) );
 	}
 
 	return $result;
@@ -117,7 +118,7 @@ function wpcf7_quiz_ajax_refill( $items ) {
 		if ( empty( $name ) )
 			continue;
 
-		if ( is_a( $pipes, 'WPCF7_Pipes' ) && ! $pipes->zero() ) {
+		if ( $pipes instanceof WPCF7_Pipes && ! $pipes->zero() ) {
 			$pipe = $pipes->random_pipe();
 			$question = $pipe->before;
 			$answer = $pipe->after;

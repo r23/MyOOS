@@ -216,6 +216,12 @@ function wpcf7_format_atts( $atts ) {
 	}
 
 	foreach ( $atts as $key => $value ) {
+		$key = strtolower( trim( $key ) );
+
+		if ( ! preg_match( '/^[a-z_:][a-z_:.0-9-]*$/', $key ) ) {
+			continue;
+		}
+
 		$value = trim( $value );
 
 		if ( '' !== $value ) {
@@ -274,7 +280,7 @@ function wpcf7_load_modules() {
 		'acceptance', 'flamingo',
 		'akismet', 'jetpack', 'submit', 'captcha', 'number',
 		'text', 'checkbox', 'quiz', 'textarea', 'date',
-		'response', 'file', 'select', 'listo' );
+		'response', 'file', 'select', 'listo', 'count' );
 
 	foreach ( $mods as $mod ) {
 		$file = trailingslashit( $dir ) . $mod . '.php';
@@ -415,6 +421,39 @@ function wpcf7_build_query( $args, $key = '' ) {
 	}
 
 	return implode( $sep, $ret );
+}
+
+/**
+ * Returns the number of code units in a string.
+ *
+ * @see http://www.w3.org/TR/html5/infrastructure.html#code-unit-length
+ *
+ * @return int|bool The number of code units, or false if mb_convert_encoding is not available.
+ */
+function wpcf7_count_code_units( $string ) {
+	static $use_mb = null;
+
+	if ( is_null( $use_mb ) ) {
+		$use_mb = function_exists( 'mb_convert_encoding' );
+	}
+
+	if ( ! $use_mb ) {
+		return false;
+	}
+
+	$string = (string) $string;
+
+	$encoding = mb_detect_encoding( $string, mb_detect_order(), true );
+
+	if ( $encoding ) {
+		$string = mb_convert_encoding( $string, 'UTF-16', $encoding );
+	} else {
+		$string = mb_convert_encoding( $string, 'UTF-16', 'UTF-8' );
+	}
+
+	$byte_count = mb_strlen( $string, '8bit' );
+
+	return floor( $byte_count / 2 );
 }
 
 ?>

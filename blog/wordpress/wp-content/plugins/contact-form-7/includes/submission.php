@@ -70,7 +70,7 @@ class WPCF7_Submission {
 	}
 
 	private function setup_posted_data() {
-		$posted_data = (array) $_POST;
+		$posted_data = $this->sanitize_posted_data( $_POST );
 
 		$tags = $this->contact_form->form_scan_shortcode();
 
@@ -89,7 +89,7 @@ class WPCF7_Submission {
 			$pipes = $tag['pipes'];
 
 			if ( WPCF7_USE_PIPE
-			&& is_a( $pipes, 'WPCF7_Pipes' )
+			&& $pipes instanceof WPCF7_Pipes
 			&& ! $pipes->zero() ) {
 				if ( is_array( $value) ) {
 					$new_value = array();
@@ -110,6 +110,17 @@ class WPCF7_Submission {
 		$this->posted_data = apply_filters( 'wpcf7_posted_data', $posted_data );
 
 		return $this->posted_data;
+	}
+
+	private function sanitize_posted_data( $value ) {
+		if ( is_array( $value ) ) {
+			$value = array_map( array( $this, 'sanitize_posted_data' ), $value );
+		} elseif ( is_string( $value ) ) {
+			$value = wp_check_invalid_utf8( $value );
+			$value = wp_kses_no_null( $value );
+		}
+
+		return $value;
 	}
 
 	private function submit() {
@@ -164,10 +175,8 @@ class WPCF7_Submission {
 			return false;
 		}
 
-		$result = array(
-			'valid' => true,
-			'reason' => array(),
-			'idref' => array() );
+		require_once WPCF7_PLUGIN_DIR . '/includes/validation.php';
+		$result = new WPCF7_Validation();
 
 		$tags = $this->contact_form->form_scan_shortcode();
 
@@ -176,26 +185,11 @@ class WPCF7_Submission {
 				$result, $tag );
 		}
 
-		$result = apply_filters( 'wpcf7_validate', $result );
+		$result = apply_filters( 'wpcf7_validate', $result, $tags );
 
-		if ( $result['valid'] ) {
-			return true;
-		} else {
-			foreach ( (array) $result['reason'] as $name => $reason ) {
-				$field = array( 'reason' => $reason );
+		$this->invalid_fields = $result->get_invalid_fields();
 
-				if ( isset( $result['idref'][$name] )
-				&& wpcf7_is_name( $result['idref'][$name] ) ) {
-					$field['idref'] = $result['idref'][$name];
-				} else {
-					$field['idref'] = null;
-				}
-
-				$this->invalid_fields[$name] = $field;
-			}
-
-			return false;
-		}
+		return $result->is_valid();
 	}
 
 	private function accepted() {

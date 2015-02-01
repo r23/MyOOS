@@ -30,27 +30,36 @@ function wpcf7_textarea_shortcode_handler( $tag ) {
 	$atts['cols'] = $tag->get_cols_option( '40' );
 	$atts['rows'] = $tag->get_rows_option( '10' );
 	$atts['maxlength'] = $tag->get_maxlength_option();
+	$atts['minlength'] = $tag->get_minlength_option();
+
+	if ( $atts['maxlength'] && $atts['minlength'] && $atts['maxlength'] < $atts['minlength'] ) {
+		unset( $atts['maxlength'], $atts['minlength'] );
+	}
+
 	$atts['class'] = $tag->get_class_option( $class );
 	$atts['id'] = $tag->get_id_option();
 	$atts['tabindex'] = $tag->get_option( 'tabindex', 'int', true );
 
-	if ( $tag->has_option( 'readonly' ) )
+	if ( $tag->has_option( 'readonly' ) ) {
 		$atts['readonly'] = 'readonly';
+	}
 
-	if ( $tag->is_required() )
+	if ( $tag->is_required() ) {
 		$atts['aria-required'] = 'true';
+	}
 
 	$atts['aria-invalid'] = $validation_error ? 'true' : 'false';
 
-	$value = (string) reset( $tag->values );
-
-	if ( '' !== $tag->content )
-		$value = $tag->content;
+	$value = empty( $tag->content )
+		? (string) reset( $tag->values )
+		: $tag->content;
 
 	if ( $tag->has_option( 'placeholder' ) || $tag->has_option( 'watermark' ) ) {
 		$atts['placeholder'] = $value;
 		$value = '';
 	}
+
+	$value = $tag->get_default_option( $value );
 
 	$value = wpcf7_get_hangover( $tag->name, $value );
 
@@ -80,15 +89,27 @@ function wpcf7_textarea_validation_filter( $result, $tag ) {
 
 	$value = isset( $_POST[$name] ) ? (string) $_POST[$name] : '';
 
-	if ( 'textarea*' == $type ) {
-		if ( '' == $value ) {
-			$result['valid'] = false;
-			$result['reason'][$name] = wpcf7_get_message( 'invalid_required' );
-		}
+	if ( $tag->is_required() && '' == $value ) {
+		$result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );
 	}
 
-	if ( isset( $result['reason'][$name] ) && $id = $tag->get_id_option() ) {
-		$result['idref'][$name] = $id;
+	if ( ! empty( $value ) ) {
+		$maxlength = $tag->get_maxlength_option();
+		$minlength = $tag->get_minlength_option();
+
+		if ( $maxlength && $minlength && $maxlength < $minlength ) {
+			$maxlength = $minlength = null;
+		}
+
+		$code_units = wpcf7_count_code_units( $value );
+
+		if ( false !== $code_units ) {
+			if ( $maxlength && $maxlength < $code_units ) {
+				$result->invalidate( $tag, wpcf7_get_message( 'invalid_too_long' ) );
+			} elseif ( $minlength && $code_units < $minlength ) {
+				$result->invalidate( $tag, wpcf7_get_message( 'invalid_too_short' ) );
+			}
+		}
 	}
 
 	return $result;
