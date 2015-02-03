@@ -344,7 +344,7 @@ td.style.backgroundColor="DFE4F4";
                 </tr>
                 <tr class="dataTableHeadingRow">
                   <td align="right"><?php echo oos_info_image($products_name['products_image'], $products_name['products_name']);?></td>
-                  <td align="right" valign="bottom"><?php echo oos_submit_button('update', IMAGE_UPDATE) . '<br /><br /><a href="'.oos_href_link_admin($aContents['xsell_products'], 'men_id=catalog').'">' . oos_button('cancel', BUTTON_CANCEL)) . '</a>';?></td>
+                  <td align="right" valign="bottom"><?php echo oos_submit_button('update', IMAGE_UPDATE) . '<br /><br /><a href="'.oos_href_link_admin($aContents['xsell_products'], 'men_id=catalog').'">' . oos_button('cancel', BUTTON_CANCEL) . '</a>';?></td>
                 </tr>
               </table></td>
             </tr>

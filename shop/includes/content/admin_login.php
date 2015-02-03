@@ -205,6 +205,15 @@ $smarty->assign(
 
 
 if (isset($_GET['action']) && ($_GET['action'] == 'login_admin')) {
+
+    $email_address = oos_prepare_input($_POST['email_address']);
+    $keya = oos_prepare_input($_POST['keya']);
+    $keyb = oos_prepare_input($_POST['keyb']);
+	
+    if ( empty( $email_address ) || !is_string( $email_address ) ) {
+        oos_redirect(oos_href_link($aContents['forbiden']));
+    }
+
 	require_once MYOOS_INCLUDE_PATH . '/includes/modules/key_generate.php';
 	
 	$manual_infotable = $oostable['manual_info'];
