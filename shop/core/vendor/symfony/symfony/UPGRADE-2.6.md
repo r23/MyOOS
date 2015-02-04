@@ -1,6 +1,12 @@
 UPGRADE FROM 2.5 to 2.6
 =======================
 
+Known Backwards-Compatibility Breaks
+------------------------------------
+
+* If you use the `PdoSessionHandler`, the session table now has a different
+  schema and must be modified. Look below for more details.
+
 Form
 ----
 
@@ -106,6 +112,22 @@ HttpFoundation
 --------------
 
  * The `PdoSessionHandler` to store sessions in a database changed significantly.
+   This introduced a **backwards-compatibility** break in the schema of the
+   session table. The following changes must be made to your session table:
+
+   - Add a new integer column called `sess_lifetime`. Assuming you have the
+     default column and table names, in MySQL this would be:
+       ALTER TABLE `session` ADD `sess_lifetime` INT NOT NULL ;
+   - Change the data column (default: `sess_value`) to be a Blob type. In
+     MySQL this would be:
+      ALTER TABLE `session` CHANGE `sess_value` `session_value` BLOB NOT NULL;
+
+   There is also an [issue](https://github.com/symfony/symfony/issues/12834)
+   that affects Windows servers.
+
+   A legacy class, `LegacyPdoSessionHandler` has been created to ease backwards-compatibility issues when upgrading.
+
+   The changes to the `PdoSessionHandler` are:
    - By default, it now implements session locking to prevent loss of data by concurrent access to the same session.
      - It does so using a transaction between opening and closing a session. For this reason, it's not
        recommended to use the same database connection that you also use for your application logic.
@@ -372,7 +394,7 @@ With `LoggingTranslator`, a new translator class is introduced with Symfony
 2.6. By default, the `@translator` service is referring to this class in the
 debug environment.
 
-If you have own services that depend on the `@translator` service and expect
+If you have your own services that depend on the `@translator` service and expect
 this service to be an instance of either
 `Symfony\Component\Translation\Translator` or
 `Symfony\Bundle\FrameworkBundle\Translation\Translator`, e.g. by type-hinting

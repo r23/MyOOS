@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Security\Acl\Model;
 
+use Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException;
+
 /**
  * Provides support for creating and storing ACL instances.
  *
@@ -24,7 +26,7 @@ interface MutableAclProviderInterface extends AclProviderInterface
      * @param ObjectIdentityInterface $oid
      *
      * @throws AclAlreadyExistsException when there already is an ACL for the given
-     *                                       object identity
+     *                                   object identity
      *
      * @return MutableAclInterface
      */

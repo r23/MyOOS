@@ -80,8 +80,9 @@ abstract class AbstractCloner implements ClonerInterface
         ':stream-context' => 'Symfony\Component\VarDumper\Caster\ResourceCaster::castStreamContext',
     );
 
-    protected $maxItems = 250;
+    protected $maxItems = 2500;
     protected $maxString = -1;
+    protected $useExt;
 
     private $casters = array();
     private $prevErrorHandler;
@@ -98,6 +99,7 @@ abstract class AbstractCloner implements ClonerInterface
             $casters = static::$defaultCasters;
         }
         $this->addCasters($casters);
+        $this->useExt = extension_loaded('symfony_debug');
     }
 
     /**
@@ -172,8 +174,8 @@ abstract class AbstractCloner implements ClonerInterface
     /**
      * Casts an object to an array representation.
      *
-     * @param Stub   $stub     The Stub for the casted object.
-     * @param bool   $isNested True if the object is nested in the dumped structure.
+     * @param Stub $stub     The Stub for the casted object.
+     * @param bool $isNested True if the object is nested in the dumped structure.
      *
      * @return array The object casted as array.
      */
@@ -223,8 +225,8 @@ abstract class AbstractCloner implements ClonerInterface
     /**
      * Casts a resource to an array representation.
      *
-     * @param Stub     $stub     The Stub for the casted resource.
-     * @param bool     $isNested True if the object is nested in the dumped structure.
+     * @param Stub $stub     The Stub for the casted resource.
+     * @param bool $isNested True if the object is nested in the dumped structure.
      *
      * @return array The resource casted as array.
      */

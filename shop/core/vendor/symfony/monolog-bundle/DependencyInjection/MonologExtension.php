@@ -11,6 +11,8 @@
 
 namespace Symfony\Bundle\MonologBundle\DependencyInjection;
 
+use Monolog\Formatter\ElasticaFormatter;
+use Monolog\Logger;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -18,6 +20,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Elastica\Client;
 
 /**
  * MonologExtension is an extension for the Monolog library.
@@ -135,6 +138,7 @@ class MonologExtension extends Extension
                 $handler['path'],
                 $handler['level'],
                 $handler['bubble'],
+                $handler['file_permission'],
             ));
             break;
 
@@ -148,8 +152,7 @@ class MonologExtension extends Extension
                 $handler['bubble'],
                 isset($handler['verbosity_levels']) ? $handler['verbosity_levels'] : array()
             ));
-            $definition->addTag('kernel.event_listener', array('event' => 'console.command', 'method' => 'onCommand', 'priority' => 255));
-            $definition->addTag('kernel.event_listener', array('event' => 'console.terminate', 'method' => 'onTerminate', 'priority' => -255));
+            $definition->addTag('kernel.event_subscriber');
             break;
 
         case 'firephp':
@@ -229,6 +232,36 @@ class MonologExtension extends Extension
             ));
             break;
 
+        case 'elasticsearch':
+            if (isset($handler['elasticsearch']['id'])) {
+                $clientId = $handler['elasticsearch']['id'];
+            } else {
+                // elastica client new definition
+                $elasticaClient = new Definition('%monolog.elastica.client.class%');
+                $elasticaClient->setArguments(array(
+                    array(
+                        'host' => $handler['elasticsearch']['host'],
+                        'port' => $handler['elasticsearch']['port']
+                    )
+                ));
+
+                $clientId = uniqid('monolog.elastica.client.');
+                $elasticaClient->setPublic(false);
+                $container->setDefinition($clientId, $elasticaClient);
+            }
+
+            // elastica handler definition
+            $definition->setArguments(array(
+                new Reference($clientId),
+                array(
+                    'index' => $handler['index'],
+                    'type'  => $handler['document_type'],
+                ),
+                $handler['level'],
+                $handler['bubble']
+            ));
+            break;
+
         case 'chromephp':
             $definition->setArguments(array(
                 $handler['level'],
@@ -243,6 +276,7 @@ class MonologExtension extends Extension
                 $handler['max_files'],
                 $handler['level'],
                 $handler['bubble'],
+                $handler['file_permission'],
             ));
             break;
 
@@ -307,6 +341,7 @@ class MonologExtension extends Extension
             break;
 
         case 'group':
+        case 'whatfailuregroup':
             $references = array();
             foreach ($handler['members'] as $nestedHandler) {
                 $nestedHandlerId = $this->getHandlerId($nestedHandler);
@@ -357,6 +392,7 @@ class MonologExtension extends Extension
                 }
             } else {
                 $message = new Definition('Swift_Message');
+                $message->setLazy(true);
                 $message->setFactoryMethod('createMessage');
                 $message->setPublic(false);
                 $message->addMethodCall('setFrom', array($handler['from_email']));
@@ -369,7 +405,6 @@ class MonologExtension extends Extension
                     $mailer = 'mailer';
                 }
                 $message->setFactoryService($mailer);
-
 
                 if (isset($handler['content_type'])) {
                     $message->addMethodCall('setContentType', array($handler['content_type']));
@@ -442,6 +477,20 @@ class MonologExtension extends Extension
             ));
             break;
 
+        case 'slack':
+            $definition->setArguments(array(
+                $handler['token'],
+                $handler['channel'],
+                $handler['bot_name'],
+                $handler['use_attachment'],
+                $handler['icon_emoji'],
+                $handler['level'],
+                $handler['bubble'],
+                $handler['use_short_attachment'],
+                $handler['include_extra'],
+            ));
+            break;
+
         case 'cube':
             $definition->setArguments(array(
                 $handler['url'],
@@ -468,15 +517,14 @@ class MonologExtension extends Extension
             break;
 
         case 'raven':
-            $clientId = 'monolog.raven.client.' . sha1($handler['dsn']);
             if (null !== $handler['client_id']) {
                 $clientId = $handler['client_id'];
-            }
-            if (!$container->hasDefinition($clientId)) {
+            } else {
                 $client = new Definition("Raven_Client", array(
                     $handler['dsn']
                 ));
                 $client->setPublic(false);
+                $clientId = 'monolog.raven.client.'.sha1($handler['dsn']);
                 $container->setDefinition($clientId, $client);
             }
             $definition->setArguments(array(

@@ -239,7 +239,7 @@ class ScriptHandler
         $kernelFile = $appDir.'/AppKernel.php';
 
         $fs = new Filesystem();
-        $fs->mirror(__DIR__.'/../Resources/skeleton/acme-demo-bundle', $rootDir.'/src', null, array('override'));
+        $fs->mirror(__DIR__.'/../Resources/skeleton/acme-demo-bundle', $rootDir.'/src', null, array('override' => true));
 
         $ref = '$bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();';
         $bundleDeclaration = "\$bundles[] = new Acme\\DemoBundle\\AcmeDemoBundle();";
@@ -319,7 +319,7 @@ security:
 
     # with these settings you can restrict or allow access for different parts
     # of your application based on roles, ip, host or methods
-    # http://symfony.com/doc/current/book/security.html#security-book-access-control-matching-options
+    # http://symfony.com/doc/current/cookbook/security/access_control.html
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
 EOF;

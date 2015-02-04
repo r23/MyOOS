@@ -12,7 +12,6 @@
 namespace Symfony\Bundle\WebProfilerBundle\Tests\DependencyInjection;
 
 use Symfony\Bundle\WebProfilerBundle\Tests\TestCase;
-
 use Symfony\Bundle\WebProfilerBundle\DependencyInjection\WebProfilerExtension;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -25,7 +24,7 @@ class WebProfilerExtensionTest extends TestCase
 {
     private $kernel;
     /**
-     * @var Symfony\Component\DependencyInjection\Container $container
+     * @var \Symfony\Component\DependencyInjection\Container
      */
     private $container;
 

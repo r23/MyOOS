@@ -13,6 +13,7 @@
 
 namespace Doctrine\ORM\Tools\Pagination;
 
+use Doctrine\ORM\Query\AST\PathExpression;
 use Doctrine\ORM\Query\SqlWalker;
 use Doctrine\ORM\Query\AST\SelectStatement;
 use Doctrine\DBAL\Platforms\PostgreSqlPlatform;
@@ -92,25 +93,22 @@ class LimitSubqueryOutputWalker extends SqlWalker
      */
     public function walkSelectStatement(SelectStatement $AST)
     {
-        if ($this->platform instanceof PostgreSqlPlatform) {
-            // Set every select expression as visible(hidden = false) to
-            // make $AST to have scalar mappings properly
-            $hiddens = array();
-            foreach ($AST->selectClause->selectExpressions as $idx => $expr) {
-                $hiddens[$idx] = $expr->hiddenAliasResultVariable;
-                $expr->hiddenAliasResultVariable = false;
-            }
+        // Set every select expression as visible(hidden = false) to
+        // make $AST have scalar mappings properly - this is relevant for referencing selected
+        // fields from outside the subquery, for example in the ORDER BY segment
+        $hiddens = array();
 
-            $innerSql = parent::walkSelectStatement($AST);
-
-            // Restore hiddens
-            foreach ($AST->selectClause->selectExpressions as $idx => $expr) {
-                $expr->hiddenAliasResultVariable = $hiddens[$idx];
-            }
-        } else {
-            $innerSql = parent::walkSelectStatement($AST);
+        foreach ($AST->selectClause->selectExpressions as $idx => $expr) {
+            $hiddens[$idx] = $expr->hiddenAliasResultVariable;
+            $expr->hiddenAliasResultVariable = false;
         }
 
+        $innerSql = parent::walkSelectStatement($AST);
+
+        // Restore hiddens
+        foreach ($AST->selectClause->selectExpressions as $idx => $expr) {
+            $expr->hiddenAliasResultVariable = $hiddens[$idx];
+        }
 
         // Find out the SQL alias of the identifier column of the root entity.
         // It may be possible to make this work with multiple root entities but that
@@ -196,12 +194,14 @@ class LimitSubqueryOutputWalker extends SqlWalker
         $orderBy         = array();
         if (isset($AST->orderByClause)) {
             foreach ($AST->orderByClause->orderByItems as $item) {
-                $possibleAliases = (is_object($item->expression))
-                    ? array_keys($this->rsm->fieldMappings, $item->expression->field)
-                    : array_keys($this->rsm->scalarMappings, $item->expression);
+                $expression = $item->expression;
+
+                $possibleAliases = $expression instanceof PathExpression
+                    ? array_keys($this->rsm->fieldMappings, $expression->field)
+                    : array_keys($this->rsm->scalarMappings, $expression);
 
                 foreach ($possibleAliases as $alias) {
-                    if (!is_object($item->expression) || $this->rsm->columnOwnerMap[$alias] == $item->expression->identificationVariable) {
+                    if (!is_object($expression) || $this->rsm->columnOwnerMap[$alias] == $expression->identificationVariable) {
                         $sqlOrderColumns[] = $alias;
                         $orderBy[]         = $alias . ' ' . $item->type;
                         break;

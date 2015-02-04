@@ -20,7 +20,7 @@ class ExceptionControllerTest extends TestCase
 {
     public function testOnlyClearOwnOutputBuffers()
     {
-        $flatten = $this->getMock('Symfony\Component\HttpKernel\Exception\FlattenException');
+        $flatten = $this->getMock('Symfony\Component\Debug\Exception\FlattenException');
         $flatten
             ->expects($this->once())
             ->method('getStatusCode')
@@ -52,6 +52,7 @@ class ExceptionControllerTest extends TestCase
         );
 
         $request = Request::create('whatever', 'GET');
+        $request->headers->set('X-Php-Ob-Level', 1);
         $request->attributes->set('showException', false);
         $exception = FlattenException::create(new \Exception(), 404);
         $controller = new ExceptionController($twig, /* "showException" defaults to --> */ true);
@@ -71,6 +72,7 @@ class ExceptionControllerTest extends TestCase
         );
 
         $request = Request::create('whatever');
+        $request->headers->set('X-Php-Ob-Level', 1);
         $request->setRequestFormat('txt');
         $exception = FlattenException::create(new \Exception());
         $controller = new ExceptionController($twig, false);

@@ -32,6 +32,7 @@ class ChoiceType extends AbstractType
 {
     /**
      * Caches created choice lists.
+     *
      * @var array
      */
     private $choiceListCache = array();
@@ -61,7 +62,6 @@ class ChoiceType extends AbstractType
                 $placeholderView = new ChoiceView(null, '', $options['placeholder']);
 
                 // "placeholder" is a reserved index
-                // see also ChoiceListInterface::getIndicesForChoices()
                 $this->addSubForms($builder, array('placeholder' => $placeholderView), $options);
             }
 

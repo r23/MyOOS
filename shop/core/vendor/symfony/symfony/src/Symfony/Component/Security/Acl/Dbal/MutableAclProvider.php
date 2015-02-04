@@ -114,6 +114,7 @@ class MutableAclProvider extends AclProvider implements MutableAclProviderInterf
      * ACL entries have the CASCADE option on their foreign key so they will also get deleted
      *
      * @param SecurityIdentityInterface $sid
+     *
      * @throws \InvalidArgumentException
      */
     public function deleteSecurityIdentity(SecurityIdentityInterface $sid)
@@ -151,7 +152,7 @@ class MutableAclProvider extends AclProvider implements MutableAclProviderInterf
     }
 
     /**
-     * Implementation of PropertyChangedListener
+     * Implementation of PropertyChangedListener.
      *
      * This allows us to keep track of which values have been changed, so we don't
      * have to do a full introspection when ->updateAcl() is called.
@@ -368,7 +369,7 @@ class MutableAclProvider extends AclProvider implements MutableAclProviderInterf
      * Updates a user security identity when the user's username changes
      *
      * @param UserSecurityIdentity $usid
-     * @param string $oldUsername
+     * @param string               $oldUsername
      */
     public function updateUserSecurityIdentity(UserSecurityIdentity $usid, $oldUsername)
     {
@@ -653,7 +654,9 @@ QUERY;
      * Constructs the SQL to delete a security identity.
      *
      * @param SecurityIdentityInterface $sid
+     *
      * @throws \InvalidArgumentException
+     *
      * @return string
      */
     protected function getDeleteSecurityIdentityIdSql(SecurityIdentityInterface $sid)
@@ -692,7 +695,8 @@ QUERY;
      * Constructs the SQL for updating a user security identity.
      *
      * @param UserSecurityIdentity $usid
-     * @param string $oldUsername
+     * @param string               $oldUsername
+     *
      * @return string
      */
     protected function getUpdateUserSecurityIdentitySql(UserSecurityIdentity $usid, $oldUsername)
@@ -738,7 +742,7 @@ QUERY;
     }
 
     /**
-     * Creates the ACL for the passed object identity
+     * Creates the ACL for the passed object identity.
      *
      * @param ObjectIdentityInterface $oid
      */
@@ -849,7 +853,6 @@ QUERY;
     {
         $sids = new \SplObjectStorage();
         $classIds = new \SplObjectStorage();
-        $currentIds = array();
         foreach ($changes[1] as $field => $new) {
             for ($i = 0, $c = count($new); $i<$c; $i++) {
                 $ace = $new[$i];
@@ -877,8 +880,6 @@ QUERY;
                     $aceIdProperty = new \ReflectionProperty('Symfony\Component\Security\Acl\Domain\Entry', 'id');
                     $aceIdProperty->setAccessible(true);
                     $aceIdProperty->setValue($ace, intval($aceId));
-                } else {
-                    $currentIds[$ace->getId()] = true;
                 }
             }
         }
@@ -927,7 +928,6 @@ QUERY;
 
         $sids = new \SplObjectStorage();
         $classIds = new \SplObjectStorage();
-        $currentIds = array();
         for ($i = 0, $c = count($new); $i<$c; $i++) {
             $ace = $new[$i];
 
@@ -954,8 +954,6 @@ QUERY;
                 $aceIdProperty = new \ReflectionProperty($ace, 'id');
                 $aceIdProperty->setAccessible(true);
                 $aceIdProperty->setValue($ace, intval($aceId));
-            } else {
-                $currentIds[$ace->getId()] = true;
             }
         }
     }

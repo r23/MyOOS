@@ -15,6 +15,7 @@ use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\PropertyAccess\Tests\Fixtures\TestClass;
 use Symfony\Component\PropertyAccess\Tests\Fixtures\TestClassMagicCall;
 use Symfony\Component\PropertyAccess\Tests\Fixtures\TestClassMagicGet;
+use Symfony\Component\PropertyAccess\Tests\Fixtures\Ticket5775Object;
 
 class PropertyAccessorTest extends \PHPUnit_Framework_TestCase
 {
@@ -276,6 +277,12 @@ class PropertyAccessorTest extends \PHPUnit_Framework_TestCase
         $this->propertyAccessor->setValue($value, 'foobar', 'bam');
     }
 
+    public function testGetValueWhenArrayValueIsNull()
+    {
+        $this->propertyAccessor = new PropertyAccessor(false, true);
+        $this->assertNull($this->propertyAccessor->getValue(array('index' => array('nullable' => null)), '[index][nullable]'));
+    }
+
     /**
      * @dataProvider getValidPropertyPaths
      */
@@ -447,5 +454,14 @@ class PropertyAccessorTest extends \PHPUnit_Framework_TestCase
             array((object) array('%!@$§' => 'Bernhard'), '%!@$§', 'Bernhard'),
             array((object) array('property' => (object) array('%!@$§' => 'Bernhard')), 'property.%!@$§', 'Bernhard'),
         );
+    }
+
+    public function testTicket5755()
+    {
+        $object = new Ticket5775Object();
+
+        $this->propertyAccessor->setValue($object, 'property', 'foobar');
+
+        $this->assertEquals('foobar', $object->getProperty());
     }
 }
