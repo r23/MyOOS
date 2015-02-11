@@ -1,7 +1,7 @@
 === Jetpack by WordPress.com ===
 Contributors: automattic, alternatekev, andy, apeatling, azaozz, barry, beaulebens, blobaugh, cfinke, chellycat, danielbachhuber, daniloercoli, designsimply, dsmart, eoigal, ethitter, gibrown, georgestephanis, hew, hugobaeta, iammattthomas, jblz, jeherve, jkudish, Joen, johnjamesjacoby, jshreve, kraftbj, lancewillett, martinremy, matt, matveb, maverick3x6, mcsf, mdawaffe, migueluy, nickmomrik, obenland, pento, professor44, richardmtl, roccotripaldi, sdquirk, stephdau, tmoorewp, Viper007Bond, westi, yoavf
 Tags: WordPress.com, statistics, stats, views, tweets, twitter, widget, gravatar, hovercards, profile, equations, latex, math, maths, youtube, shortcode, archives, audio, blip, bliptv, dailymotion, digg, flickr, googlevideo, google, googlemaps, kyte, kytetv, livevideo, redlasso, rockyou, rss, scribd, slide, slideshare, soundcloud, vimeo, shortlinks, wp.me, subscriptions, notifications, notes, json, api, rest, mosaic, gallery, slideshow, videopress, monitor, search, omnisearch, sso, jet pack
-Stable tag: 3.3
+Stable tag: 3.3.1
 Requires at least: 3.9
 Tested up to: 4.1
 
@@ -99,6 +99,21 @@ Learn more (and get detailed instructions) in our [contribute guide](http://jetp
 8. Mobile Theme
 
 == Changelog ==
+
+= 3.3.1 =
+Release Date: February 11th, 2015
+
+* Bug Fix: JSON API: Minor versioning data.
+* Bug Fix: Markdown: Re-run KSES after processing to account for syntax changes.
+* Bug Fix: Media Extractor: Don't call a gallery a gallery if it hasn't got any pictures!
+* Bug Fix: Module Management: Handle a core api change for folks running trunk.
+* Bug Fix: Related Posts: CSS -- better clear rows.
+* Bug Fix: Sharing: Including sharing account on Pinterest unofficial buttons as well.
+* Bug Fix: Sharing: Properly version external assets by Jetpack release version.
+* Bug Fix: Shortcodes: Soundcloud: Backport API compatibility fixes.
+* Bug Fix: Shortcodes: Flickr: Tidy up our regex url pattern matching.
+* Bug Fix: Subscriptions: Don't add 'Email Address' as the value -- we have placeholders!
+* Bug Fix: Widgets: Gallery Widget: Allow folks to upload images from the widget area in the customizer.
 
 = 3.3 =
 Release Date: December 15th, 2014
