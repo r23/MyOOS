@@ -14,7 +14,7 @@ if ( ! function_exists( 'add_filter' ) ) {
  * @internal Nobody should be able to overrule the real version number as this can cause serious issues
  * with the options, so no if ( ! defined() )
  */
-define( 'WPSEO_VERSION', '1.7.1' );
+define( 'WPSEO_VERSION', '1.7.3' );
 
 if ( ! defined( 'WPSEO_PATH' ) ) {
 	define( 'WPSEO_PATH', plugin_dir_path( WPSEO_FILE ) );
@@ -34,57 +34,15 @@ if ( ! defined( 'WPSEO_CSSJS_SUFFIX' ) ) {
 /**
  * Auto load our class files
  *
- * @param   string $class Class name
+ * @param string $class Class name
  *
- * @return    void
+ * @return void
  */
 function wpseo_auto_load( $class ) {
 	static $classes = null;
 
 	if ( $classes === null ) {
 		$classes = array(
-			'wpseo_admin'                        => WPSEO_PATH . 'admin/class-admin.php',
-			'wpseo_bulk_title_editor_list_table' => WPSEO_PATH . 'admin/class-bulk-title-editor-list-table.php',
-			'wpseo_bulk_description_list_table'  => WPSEO_PATH . 'admin/class-bulk-description-editor-list-table.php',
-			'wpseo_bulk_index_editor_list_table' => WPSEO_PATH . 'admin/class-bulk-index-editor-list-table.php',
-			'wpseo_bulk_list_table'              => WPSEO_PATH . 'admin/class-bulk-editor-list-table.php',
-			'wpseo_admin_pages'                  => WPSEO_PATH . 'admin/class-config.php',
-			'wpseo_metabox'                      => WPSEO_PATH . 'admin/class-metabox.php',
-			'wpseo_snippet_preview'              => WPSEO_PATH . 'admin/class-snippet-preview.php',
-			'wpseo_social_admin'                 => WPSEO_PATH . 'admin/class-opengraph-admin.php',
-			'wpseo_pointers'                     => WPSEO_PATH . 'admin/class-pointers.php',
-			'wpseo_sitemaps_admin'               => WPSEO_PATH . 'admin/class-sitemaps-admin.php',
-			'wpseo_taxonomy'                     => WPSEO_PATH . 'admin/class-taxonomy.php',
-			'yoast_i18n'                         => WPSEO_PATH . 'admin/includes/i18n-module/i18n-module.php',
-			'yoast_tracking'                     => WPSEO_PATH . 'admin/class-tracking.php',
-			'yoast_plugin_conflict'              => WPSEO_PATH . 'admin/class-yoast-plugin-conflict.php',
-			'wpseo_plugin_conflict'              => WPSEO_PATH . 'admin/class-plugin-conflict.php',
-			'yoast_textstatistics'               => WPSEO_PATH . 'admin/TextStatistics.php',
-			'wpseo_breadcrumbs'                  => WPSEO_PATH . 'frontend/class-breadcrumbs.php',
-			'wpseo_frontend'                     => WPSEO_PATH . 'frontend/class-frontend.php',
-			'wpseo_opengraph'                    => WPSEO_PATH . 'frontend/class-opengraph.php',
-			'wpseo_twitter'                      => WPSEO_PATH . 'frontend/class-twitter.php',
-			'wpseo_googleplus'                   => WPSEO_PATH . 'frontend/class-googleplus.php',
-			'wpseo_rewrite'                      => WPSEO_PATH . 'inc/class-rewrite.php',
-			'wpseo_sitemaps'                     => WPSEO_PATH . 'inc/class-sitemaps.php',
-			'wpseo_options'                      => WPSEO_PATH . 'inc/class-wpseo-options.php',
-			'wpseo_option'                       => WPSEO_PATH . 'inc/class-wpseo-options.php',
-			'wpseo_option_wpseo'                 => WPSEO_PATH . 'inc/class-wpseo-options.php',
-			'wpseo_option_permalinks'            => WPSEO_PATH . 'inc/class-wpseo-options.php',
-			'wpseo_option_titles'                => WPSEO_PATH . 'inc/class-wpseo-options.php',
-			'wpseo_option_social'                => WPSEO_PATH . 'inc/class-wpseo-options.php',
-			'wpseo_option_rss'                   => WPSEO_PATH . 'inc/class-wpseo-options.php',
-			'wpseo_option_internallinks'         => WPSEO_PATH . 'inc/class-wpseo-options.php',
-			'wpseo_option_xml'                   => WPSEO_PATH . 'inc/class-wpseo-options.php',
-			'wpseo_option_ms'                    => WPSEO_PATH . 'inc/class-wpseo-options.php',
-			'wpseo_taxonomy_meta'                => WPSEO_PATH . 'inc/class-wpseo-options.php',
-			'wpseo_meta'                         => WPSEO_PATH . 'inc/class-wpseo-meta.php',
-			'wpseo_replace_vars'                 => WPSEO_PATH . 'inc/class-wpseo-replace-vars.php',
-			'yoast_license_manager'              => WPSEO_PATH . 'admin/license-manager/class-license-manager.php',
-			'yoast_plugin_license_manager'       => WPSEO_PATH . 'admin/license-manager/class-plugin-license-manager.php',
-			'yoast_product'                      => WPSEO_PATH . 'admin/license-manager/class-product.php',
-			'yoast_notification_center'          => WPSEO_PATH . 'admin/class-yoast-notification-center.php',
-			'yoast_notification'                 => WPSEO_PATH . 'admin/class-yoast-notification.php',
 			'wp_list_table'                      => ABSPATH . 'wp-admin/includes/class-wp-list-table.php',
 			'walker_category'                    => ABSPATH . 'wp-includes/category-template.php',
 			'pclzip'                             => ABSPATH . 'wp-admin/includes/class-pclzip.php',
@@ -93,9 +51,13 @@ function wpseo_auto_load( $class ) {
 
 	$cn = strtolower( $class );
 
-	if ( isset( $classes[ $cn ] ) ) {
+	if ( ! class_exists( $class ) && isset( $classes[ $cn ] ) ) {
 		require_once( $classes[ $cn ] );
 	}
+}
+
+if ( file_exists( WPSEO_PATH . '/vendor/autoload_52.php' ) ) {
+	require WPSEO_PATH . '/vendor/autoload_52.php';
 }
 
 if ( function_exists( 'spl_autoload_register' ) ) {
@@ -174,14 +136,14 @@ function _wpseo_activate() {
 	}
 	WPSEO_Options::ensure_options_exist();
 
-	flush_rewrite_rules();
+	add_action( 'shutdown', 'flush_rewrite_rules' );
 
 	wpseo_add_capabilities();
 
-	WPSEO_Options::schedule_yoast_tracking( null, get_option( 'wpseo' ) );
+	WPSEO_Utils::schedule_yoast_tracking( null, get_option( 'wpseo' ) );
 
 	// Clear cache so the changes are obvious.
-	WPSEO_Options::clear_cache();
+	WPSEO_Utils::clear_cache();
 
 	do_action( 'wpseo_activate' );
 }
@@ -192,15 +154,15 @@ function _wpseo_activate() {
 function _wpseo_deactivate() {
 	require_once( WPSEO_PATH . 'inc/wpseo-functions.php' );
 
-	flush_rewrite_rules();
+	add_action( 'shutdown', 'flush_rewrite_rules' );
 
 	wpseo_remove_capabilities();
 
 	// Force unschedule
-	WPSEO_Options::schedule_yoast_tracking( null, get_option( 'wpseo' ), true );
+	WPSEO_Utils::schedule_yoast_tracking( null, get_option( 'wpseo' ), true );
 
 	// Clear cache so the changes are obvious.
-	WPSEO_Options::clear_cache();
+	WPSEO_Utils::clear_cache();
 
 	do_action( 'wpseo_deactivate' );
 }
@@ -294,7 +256,7 @@ function wpseo_frontend_init() {
  */
 function wpseo_frontend_head_init() {
 	$options = WPSEO_Options::get_all();
-	if ( $options['twitter'] === true && is_singular() ) {
+	if ( $options['twitter'] === true ) {
 		add_action( 'wpseo_head', array( 'WPSEO_Twitter', 'get_instance' ), 40 );
 	}
 
@@ -308,91 +270,10 @@ function wpseo_frontend_head_init() {
 }
 
 /**
- * Register the promotion class for our GlotPress instance
- *
- * @link https://github.com/Yoast/i18n-module
- *
- * @return yoast_i18n
- */
-function register_i18n_promo_class() {
-	return new yoast_i18n(
-		array(
-			'textdomain'     => 'wordpress-seo',
-			'project_slug'   => 'wordpress-seo',
-			'plugin_name'    => 'WordPress SEO by Yoast',
-			'hook'           => 'wpseo_admin_footer',
-			'glotpress_url'  => 'http://translate.yoast.com/',
-			'glotpress_name' => 'Yoast Translate',
-			'glotpress_logo' => 'https://cdn.yoast.com/wp-content/uploads/i18n-images/Yoast_Translate.svg',
-			'register_url'   => 'http://translate.yoast.com/projects#utm_source=plugin&utm_medium=promo-box&utm_campaign=wpseo-i18n-promo',
-		)
-	);
-}
-
-/**
  * Used to load the required files on the plugins_loaded hook, instead of immediately.
  */
 function wpseo_admin_init() {
-	global $pagenow;
-
-	$GLOBALS['wpseo_admin'] = new WPSEO_Admin;
-
-	$options = WPSEO_Options::get_all();
-	if ( isset( $_GET['wpseo_restart_tour'] ) ) {
-		$options['ignore_tour'] = false;
-		update_option( 'wpseo', $options );
-	}
-
-	if ( $options['yoast_tracking'] === true ) {
-		/**
-		 * @internal this is not a proper lean loading implementation (method_exist will autoload the class),
-		 * but it can't be helped as there are other plugins out there which also use versions
-		 * of the Yoast Tracking class and we need to take that into account unfortunately
-		 */
-		if ( method_exists( 'Yoast_Tracking', 'get_instance' ) ) {
-			add_action( 'yoast_tracking', array( 'Yoast_Tracking', 'get_instance' ) );
-		} else {
-			$GLOBALS['yoast_tracking'] = new Yoast_Tracking;
-		}
-	}
-
-	/**
-	 * Filter: 'wpseo_always_register_metaboxes_on_admin' - Allow developers to change whether
-	 * the WPSEO metaboxes are only registered on the typical pages (lean loading) or always
-	 * registered when in admin.
-	 *
-	 * @api bool Whether to always register the metaboxes or not. Defaults to false.
-	 */
-	if ( in_array( $pagenow, array(
-			'edit.php',
-			'post.php',
-			'post-new.php'
-		) ) || apply_filters( 'wpseo_always_register_metaboxes_on_admin', false )
-	) {
-		$GLOBALS['wpseo_metabox'] = new WPSEO_Metabox;
-		if ( $options['opengraph'] === true || $options['twitter'] === true || $options['googleplus'] === true ) {
-			$GLOBALS['wpseo_social'] = new WPSEO_Social_Admin;
-		}
-	}
-
-	if ( in_array( $pagenow, array( 'edit-tags.php' ) ) ) {
-		$GLOBALS['wpseo_taxonomy'] = new WPSEO_Taxonomy;
-	}
-
-	if ( in_array( $pagenow, array( 'admin.php' ) ) ) {
-		// @todo [JRF => whomever] Can we load this more selectively ? like only when $_GET['page'] is one of ours ?
-		$GLOBALS['wpseo_admin_pages'] = new WPSEO_Admin_Pages;
-
-		$GLOBALS['WPSEO_i18n'] = register_i18n_promo_class();
-	}
-
-	if ( $options['tracking_popup_done'] === false || $options['ignore_tour'] === false ) {
-		add_action( 'admin_enqueue_scripts', array( 'WPSEO_Pointers', 'get_instance' ) );
-	}
-
-	if ( $options['enablexmlsitemap'] === true ) {
-		$GLOBALS['wpseo_sitemaps_admin'] = new WPSEO_Sitemaps_Admin;
-	}
+	new WPSEO_Admin_Init();
 }
 
 
