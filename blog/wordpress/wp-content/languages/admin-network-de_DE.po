@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Network Admin package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-08-26 07:40:51+0000\n"
+"PO-Revision-Date: 2015-02-18 11:05:07+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -67,10 +67,6 @@ msgstr "Um nach einem Benutzer zu suchen, <strong>gib eine E-Mail-Adresse oder B
 msgid "Options saved."
 msgstr "Optionen gespeichert."
 
-#: wp-admin/network/index.php:27
-msgid "Add and manage sites or users"
-msgstr "Neue Seiten oder Benutzer hinzufügen oder bearbeiten"
-
 #: wp-admin/network/index.php:26
 msgid "From here you can:"
 msgstr "Von hier aus kannst Du:"
@@ -102,6 +98,10 @@ msgstr "Installiere und aktiviere Themen oder Plugins"
 #: wp-admin/network/index.php:38
 msgid "The Right Now widget on this screen provides current user and site counts on your network."
 msgstr "Das \"Auf einen Blick\"-Widget in dieser Ansicht zeigt die aktuellen Benutzerzugriffszahlen sowie Seitenzahlen Deines Netzwerks."
+
+#: wp-admin/network/index.php:27
+msgid "Add and manage sites or users"
+msgstr "Neue Webseiten oder Benutzer hinzufügen oder bearbeiten"
 
 #: wp-admin/network/menu.php:59 wp-admin/network/upgrade.php:18
 #: wp-admin/network/upgrade.php:42 wp-admin/network/upgrade.php:107
@@ -277,11 +277,6 @@ msgstr "Nein, bringe mich zurück zur Theme-Liste"
 msgid "Site options updated."
 msgstr "Seitenoptionen aktualisiert."
 
-#: wp-admin/network/sites.php:25
-msgctxt "sites per page (screen options)"
-msgid "Sites"
-msgstr "Seiten"
-
 #: wp-admin/network/site-new.php:17
 msgid "You do not have sufficient permissions to add sites to this network."
 msgstr "Du hast nicht genügend Rechte, Seiten diesem Netzwerk hinzuzufügen."
@@ -315,10 +310,6 @@ msgstr "Updates"
 msgctxt "site"
 msgid "Add New"
 msgstr "Hinzufügen"
-
-#: wp-admin/network/menu.php:17
-msgid "All Sites"
-msgstr "Alle Seiten"
 
 #: wp-admin/network/site-new.php:107
 msgid "Site added. <a href=\"%1$s\">Visit Dashboard</a> or <a href=\"%2$s\">Edit Site</a>"
@@ -409,6 +400,15 @@ msgstr "Im Netzwerk aktivierte Themes werden in dieser Ansicht nicht angezeigt."
 #: wp-admin/network/site-themes.php:54 wp-admin/network/site-users.php:49
 msgid "Invalid site ID."
 msgstr "Ungültige Seiten-ID."
+
+#: wp-admin/network/menu.php:17
+msgid "All Sites"
+msgstr "Alle Webseiten"
+
+#: wp-admin/network/sites.php:25
+msgctxt "sites per page (screen options)"
+msgid "Sites"
+msgstr "Webseiten"
 
 #: wp-admin/network/users.php:41
 msgid "Warning! User cannot be deleted. The user %s is a network administrator."

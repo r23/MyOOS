@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-01-15 15:00:33+0000\n"
+"PO-Revision-Date: 2015-02-04 11:42:29+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,11 +10,11 @@ msgstr ""
 "X-Generator: GlotPress/1.0-alpha-1000\n"
 "Project-Id-Version: Administration\n"
 
-#: wp-admin/about.php:137
+#: wp-admin/about.php:145
 msgid "Expanded JavaScript APIs in the customizer enable a new media experience as well as dynamic and contextual controls, sections, and panels."
 msgstr "Erweiterte JavaScript APIs erlauben nun dynamische und kontextbezogene Kontrollelemente, Module und Bedienfelder sowie ein neues Medien-Erlebnis."
 
-#: wp-admin/about.php:134
+#: wp-admin/about.php:142
 msgid "Metadata, date, and term queries now support advanced conditional logic, like nested clauses and multiple operators &mdash; %s."
 msgstr "Metadaten-, Datums- und Begriffs-Abfragen unterstützen nun erweiterte Logik wie verschachtelte Bedingungen und mehrere Operatoren zugleich &mdash; %s."
 
@@ -30,11 +30,11 @@ msgstr "Ablenkungsfreies Schreiben"
 msgid "You can enable distraction-free writing mode using the icon to the right. This feature is not available for old browsers or devices with small screens, and requires that the full-height editor be enabled in Screen Options."
 msgstr "Du kannst den Modus für das ablenkungsfreie Schreiben über das letzte Icon in der oberen Reihe aktivieren. Diese Funktion ist nicht in älteren Browsern oder Geräten mit kleinen Bildschirmen verfügbar und setzt voraus, dass die Anzeige des Editors in voller Höhe in den Bildschirm-Optionen aktiviert wurde."
 
-#: wp-admin/about.php:103
+#: wp-admin/about.php:111
 msgid "Embedding videos from Vine is as simple as pasting a URL onto its own line in a post. See the <a href=\"%s\">full list</a> of supported embeds."
 msgstr "Das Einbinden von Vine Videos ist so einfach wie das Einfügen einer URL in einer eigenen Zeile in einem Beitrag. Für weitere unterstütze Medien schaue dir die <a href=\"%s\">vollständige Liste</a> an."
 
-#: wp-admin/about.php:116
+#: wp-admin/about.php:124
 msgid "The <a href=\"%s\">plugin installer</a> suggests plugins for you to try. Recommendations are based on the plugins you and other users have installed."
 msgstr "Beim <a href=\"%s\">Installieren neuer Plugins</a> werden dir nun Plugins empfohlen. Die Empfehlungen basieren auf Plugins, welche du und andere Anwender installiert haben."
 
@@ -42,80 +42,80 @@ msgstr "Beim <a href=\"%s\">Installieren neuer Plugins</a> werden dir nun Plugin
 msgid "These suggestions are based on the plugins you and other users have installed."
 msgstr "Diese Empfehlungen basieren auf Plugins, welche du und andere Anwender installiert haben."
 
-#: wp-admin/about.php:109
+#: wp-admin/about.php:117
 msgid "If you&#8217;ve ever worried you forgot to sign out from a shared computer, you can now go to <a href=\"%s\">your profile</a> and log out everywhere."
 msgstr "Hattest du schonmal die Sorge, dich von einem öffentlichen Computer nicht abgemeldet zu haben? Dann kannst du dich jetzt in <a href=\"%s\">deinem Profil</a> ganz entspannt von überall abmelden."
 
-#: wp-admin/about.php:45
+#: wp-admin/about.php:53
 msgid "Introducing Twenty&nbsp;Fifteen"
 msgstr "Vorstellung von Twenty&nbsp;Fifteen"
 
-#: wp-admin/about.php:77
+#: wp-admin/about.php:85
 msgid "Sometimes, you just need to concentrate on putting your thoughts into words. Try turning on <strong>distraction-free writing mode</strong>. When you start typing, all the distractions will fade away, letting you focus solely on your writing. All your editing tools instantly return when you need them."
 msgstr "Manchmal möchtest du dich einfach darauf konzentrieren, deine Gedanken in die richtigen Worte zu fassen. Probiere dazu den Modus für <strong>ablenkungsfreies Schreiben</strong> aus. Sobald du anfängst zu schreiben, wird alles ausgeblendet, was dich ablenkt. So kannst du dich völlig auf das Schreiben konzentrieren. Alle Bearbeitungs-Werkzeuge sind direkt wieder da, sobald du sie benötigst."
 
-#: wp-admin/about.php:54
+#: wp-admin/about.php:62
 msgid "The straightforward typography is readable on any screen size."
 msgstr "Die gradlinige Typografie lässt sich auf jeder Bildschirmgröße lesen."
 
-#: wp-admin/about.php:52
+#: wp-admin/about.php:60
 msgid "Our newest default theme, Twenty Fifteen, is a blog-focused theme designed for clarity."
 msgstr "Unser neuestes Standard-Theme Twenty Fifteen ist für Blogs konzipiert und auf ein klares Erscheinungsbild ausgerichtet."
 
-#: wp-admin/about.php:53
+#: wp-admin/about.php:61
 msgid "Twenty Fifteen has flawless language support, with help from <a href=\"%s\">Google&#8217;s Noto font family</a>."
 msgstr "Mit Hilfe von <a href=\"%s\">Googles Schriftfamilie Noto</a> bietet Twenty Fifteen eine makellose Sprachunterstützung."
 
-#: wp-admin/about.php:145
+#: wp-admin/about.php:153
 msgid "%s tells WordPress to handle the complexities of document titles."
 msgstr "%s ermöglicht WordPress die Behandlung auch komplexer Dokumententitel. "
 
-#: wp-admin/about.php:133
+#: wp-admin/about.php:141
 msgid "Complex Queries"
 msgstr "Komplexe Abfragen"
 
-#: wp-admin/about.php:102
+#: wp-admin/about.php:110
 msgid "Vine embeds"
 msgstr "Einbettung von Vine"
 
-#: wp-admin/about.php:108
+#: wp-admin/about.php:116
 msgid "Log out everywhere"
 msgstr "Überall abmelden"
 
-#: wp-admin/about.php:68
+#: wp-admin/about.php:76
 msgid "Distraction-free writing"
 msgstr "Ablenkungsfreies Schreiben"
 
-#: wp-admin/about.php:84
+#: wp-admin/about.php:92
 msgid "The Finer Points"
 msgstr "Die Feinheiten"
 
-#: wp-admin/about.php:89
+#: wp-admin/about.php:97
 msgid "Choose a language"
 msgstr "Wähle eine Sprache"
 
-#: wp-admin/about.php:55
+#: wp-admin/about.php:63
 msgid "Your content always takes center stage, whether viewed on a phone, tablet, laptop, or desktop computer."
 msgstr "Deine Inhalte stehen immer im Mittelpunkt, ganz gleich, ob sie auf einem Smartphone, Tablet, Laptop oder Desktop-Computer angesehen werden."
 
-#: wp-admin/about.php:148
+#: wp-admin/about.php:156
 msgid "Developer Reference"
 msgstr "Entwicklerreferenz"
 
-#: wp-admin/about.php:149
+#: wp-admin/about.php:157
 msgid "Continued improvements to inline code documentation have made the <a href=\"%s\">developer reference</a> more complete than ever."
 msgstr "Die Dokumentation im Code wurde fortgesetzt und vervollständigt die <a href=\"%s\">Entwicklerreferenz</a> nun mehr als je zuvor."
 
-#: wp-admin/about.php:92
+#: wp-admin/about.php:100
 msgid "Right now, WordPress %1$s is already translated into %2$s languages, with more always in progress. You can switch to any translation on the <a href=\"%3$s\">General Settings</a> screen."
 msgstr "Aktuell liegt WordPress %1$s bereits in %2$s Sprachen vor und weitere Übersetzungen sind in Arbeit. Du kannst über das Menü für <a href=\"%3$s\">Allgemeine Einstellungen</a> zu jeder Übersetzung wechseln."
 
-#: wp-admin/about.php:114
+#: wp-admin/about.php:122
 msgid "Plugin recommendations"
 msgstr "Empfehlungen für Plugins"
 
 #. translators: %s: "<title>" tag
-#: wp-admin/about.php:142
+#: wp-admin/about.php:150
 msgid "%s tags in themes"
 msgstr "%s-Tags in Themes"
 
@@ -274,15 +274,15 @@ msgid "All categories"
 msgstr "Alle Kategorien"
 
 #. translators: 1: User's display name.
-#: wp-admin/includes/ajax-actions.php:2797
+#: wp-admin/includes/ajax-actions.php:2827
 msgid "%s has been logged out."
 msgstr "%s wurde abgemeldet."
 
-#: wp-admin/includes/ajax-actions.php:2708
+#: wp-admin/includes/ajax-actions.php:2738
 msgid "This preview is unavailable in the editor."
 msgstr "Die Vorschau ist im Editor nicht verfügbar."
 
-#: wp-admin/includes/ajax-actions.php:1847
+#: wp-admin/includes/ajax-actions.php:1859
 msgid "You don't have permission to attach files to this post."
 msgstr "Du hast keine Berechtigung, um an diesen Beitrag Dateien anzuhängen."
 
@@ -329,15 +329,15 @@ msgstr "Du kannst jetzt eigene Hintergründe unter <a href=\"%1$s\">Anpassen</a>
 msgid "Filter by comment type"
 msgstr "Nach Kommentarart filtern"
 
-#: wp-admin/includes/ajax-actions.php:2793
+#: wp-admin/includes/ajax-actions.php:2823
 msgid "You are now logged out everywhere else."
 msgstr "Du bist nun von allen anderen Geräten abgemeldet."
 
-#: wp-admin/includes/ajax-actions.php:2785
+#: wp-admin/includes/ajax-actions.php:2815
 msgid "Could not log out user sessions. Please try again."
 msgstr "Die Sitzungen konnten nicht abgemeldet werden. Bitte versuche es noch einmal."
 
-#: wp-admin/includes/ajax-actions.php:1838
+#: wp-admin/includes/ajax-actions.php:1845
 msgid "You don't have permission to upload files."
 msgstr "Du hast keine Berechtigung, um Dateien hochzuladen."
 
@@ -405,7 +405,7 @@ msgstr "Anklicken eines Elements öffnet ein Dialogfeld mit den Anhang-Detailinf
 msgid "To delete media items, click the Bulk Select button at the top of the screen. Select any items you wish to delete, then click the Delete Selected button. Clicking the Cancel Selection button takes you back to viewing your media."
 msgstr "Zum Löschen von Mediendateien klicke den Knopf zur Mehrfachauswahl am oberen Bildschirmrand an. Wähle die Elemente, die Du löschen möchtest und klicke dann auf den Knopf zum Löschen der ausgewählten Elemente. Durch Drücken des Abbrechen-Knopfes gelangst du in die Ansicht deiner Mediendateien zurück."
 
-#: wp-admin/about.php:136
+#: wp-admin/about.php:144
 msgid "Customizer API"
 msgstr "Customizer API"
 
@@ -535,7 +535,7 @@ msgstr "Du kannst Themes nach Autor oder Schlagwort suchen oder mit Hilfe der Kr
 msgid "The WordPress team is willing to help you. Forward this email to %s and the team will work with you to make sure your site is working."
 msgstr "Das WordPress-Team möchte dir gerne helfen. Leite diese E-Mail an %s weiter. Das Team wird sich mit dir in Verbindung setzen, um sicherzustellen, dass deine Website funktioniert."
 
-#: wp-admin/includes/ajax-actions.php:2678
+#: wp-admin/includes/ajax-actions.php:2708
 msgid "%s failed to embed."
 msgstr "%s konnte nicht eingebunden werden."
 
@@ -2193,7 +2193,7 @@ msgid "Uploaded to"
 msgstr "Hochgeladen zu "
 
 #: wp-admin/custom-background.php:432 wp-admin/custom-header.php:871
-#: wp-admin/includes/ajax-actions.php:1862
+#: wp-admin/includes/ajax-actions.php:1879
 msgid "The uploaded file is not a valid image. Please try again."
 msgstr "Die hochgeladene Datei ist kein gültiges Bild. Bitte erneut versuchen"
 
@@ -2983,6 +2983,16 @@ msgctxt "start of week"
 msgid "1"
 msgstr "1"
 
+#. translators: default GMT offset or timezone string. Must be either a valid
+#. offset (-12 to 14)
+#. or a valid timezone string (America/New_York). See
+#. http:us3.php.net/manual/en/timezones.php
+#. for all timezone strings supported by PHP.
+#: wp-admin/includes/schema.php:361
+msgctxt "default GMT offset or timezone string"
+msgid "0"
+msgstr "Europe/Berlin"
+
 #: wp-admin/includes/theme.php:171 wp-admin/includes/update.php:373
 msgid "There is a new version of %1$s available. <a href=\"%2$s\" class=\"thickbox\" title=\"%3$s\">View version %4$s details</a>. <em>Automatic update is unavailable for this theme.</em>"
 msgstr "Es ist eine neue Version von %1$s verfügbar. <a href=\"%2$s\" class=\"thickbox\" title=\"%3$s\">Details der Version %4$s ansehen</a>. <em>Automatisches Update ist nicht verfügbar für dieses Theme.</em>"
@@ -3535,7 +3545,7 @@ msgid "Show Toolbar when viewing site"
 msgstr "Werkzeugleiste für mich auf der Website anzeigen"
 
 #. translators: 1: WordPress version number, 2: plural number of bugs.
-#: wp-admin/about.php:195
+#: wp-admin/about.php:46 wp-admin/about.php:203
 msgid "<strong>Version %1$s</strong> addressed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> hat %2$s Fehler behoben."
@@ -3543,7 +3553,7 @@ msgstr[1] "<strong>Version %1$s</strong> hat %2$s Fehler behoben."
 
 #. translators: 1: WordPress version number, 2: plural number of bugs. Singular
 #. security issue.
-#: wp-admin/about.php:199
+#: wp-admin/about.php:207
 msgid "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> behob eine Sicherheitslücke sowie %2$s Fehler."
@@ -3551,13 +3561,13 @@ msgstr[1] "<strong>Version %1$s</strong> behob eine Sicherheitslücke sowie %2$s
 
 #. translators: 1: WordPress version number, 2: plural number of bugs. More
 #. than one security issue.
-#: wp-admin/about.php:203
+#: wp-admin/about.php:211
 msgid "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> behob Sicherheitslücken sowie %2$s Fehler."
 msgstr[1] "<strong>Version %1$s</strong> behob Sicherheitslücken sowie %2$s Fehler."
 
-#: wp-admin/about.php:206
+#: wp-admin/about.php:48 wp-admin/about.php:214
 msgid "For more information, see <a href=\"%s\">the release notes</a>."
 msgstr "Weitere Informationen findest du in den <a href=\"%s\">Veröffentlichtungsmitteilungen</a>."
 
@@ -3565,7 +3575,7 @@ msgstr "Weitere Informationen findest du in den <a href=\"%s\">Veröffentlichtun
 msgid "Welcome to your WordPress Dashboard! This is the screen you will see when you log in to your site, and gives you access to all the site management features of WordPress. You can get help for any screen by clicking the Help tab in the upper corner."
 msgstr "Willkommen in deinem WordPress Dashboard! Diese Seite wird immer angezeigt, wenn Du dich anmeldest und gibt Dir den Zugang zu allen Einstellungsmöglichkeiten von WordPress. Hilfe bekommst Du auf jeder Seite, in dem Du auf die Registerkarte \"Hilfe\" in der oberen rechten Ecke klickst."
 
-#: wp-admin/about.php:186
+#: wp-admin/about.php:45 wp-admin/about.php:194
 msgid "Maintenance Release"
 msgid_plural "Maintenance Releases"
 msgstr[0] "Wartungs-Update"
@@ -3575,20 +3585,20 @@ msgstr[1] "Wartungs-Updates"
 msgid "What&#8217;s New"
 msgstr "Was gibt's Neues"
 
-#: wp-admin/about.php:187
+#: wp-admin/about.php:195
 msgid "Security Release"
 msgid_plural "Security Releases"
 msgstr[0] "Sicherheitsupdate"
 msgstr[1] "Sicherheitsupdates"
 
-#: wp-admin/about.php:188
+#: wp-admin/about.php:196
 msgid "Maintenance and Security Release"
 msgid_plural "Maintenance and Security Releases"
 msgstr[0] "Wartungs- und Sicherheitsupdate"
 msgstr[1] "Wartungs- und Sicherheitsupdates"
 
 #. translators: 1: WordPress version number.
-#: wp-admin/about.php:191
+#: wp-admin/about.php:199
 msgid "<strong>Version %1$s</strong> addressed a security issue."
 msgid_plural "<strong>Version %1$s</strong> addressed some security issues."
 msgstr[0] "<strong>Version %1$s</strong> hat eine Sicherheitslücke behoben."
@@ -3598,7 +3608,7 @@ msgstr[1] "<strong>Version %1$s</strong> hat ein paar Sicherheitslücken behoben
 msgid "This screen allows you to choose your default permalink structure. You can choose from common settings or create custom URL structures."
 msgstr "Auf dieser Seite kannst du deine gewünschte Permalinkstruktur einstellen. Du kannst entweder aus üblichen Vorlagen wählen oder eine eigene Struktur definieren."
 
-#: wp-admin/about.php:158
+#: wp-admin/about.php:166
 msgid "Return to Updates"
 msgstr "Zurück zu Aktualisierungen"
 
@@ -3907,11 +3917,11 @@ msgstr "Das direkte Einbinden von wp-admin/includes/template.php um add_meta_box
 msgid "Welcome to WordPress %s"
 msgstr "Willkommen bei WordPress %s"
 
-#: wp-admin/about.php:158
+#: wp-admin/about.php:166
 msgid "Return to Dashboard &rarr; Updates"
 msgstr "Zu Dashboard  &rarr; Aktualisierungen zurückkehren"
 
-#: wp-admin/about.php:162
+#: wp-admin/about.php:170
 msgid "Go to Dashboard &rarr; Home"
 msgstr "Gehe zu Dashboard &rarr; Startseite"
 
@@ -3923,7 +3933,7 @@ msgstr "WordPress wird von einem weltumspannenden Team passionierter Leute entwi
 msgid "Core Developers"
 msgstr "Entwickler"
 
-#: wp-admin/about.php:129
+#: wp-admin/about.php:137
 msgid "Under the Hood"
 msgstr "Unter der Haube"
 
@@ -6576,7 +6586,7 @@ msgid_plural "Drop-ins <span class=\"count\">(%s)</span>"
 msgstr[0] "DropIns <span class=\"count\">(%s)</span>"
 msgstr[1] "DropIns <span class=\"count\">(%s)</span>"
 
-#: wp-admin/about.php:162
+#: wp-admin/about.php:170
 msgid "Go to Dashboard"
 msgstr "Gehe zum Dashboard"
 
@@ -8877,7 +8887,7 @@ msgstr "Populäre Schlagwörter"
 msgid "No plugins match your request."
 msgstr "Es passen keine Plugins zu deiner Anfrage."
 
-#: wp-admin/includes/ajax-actions.php:2627
+#: wp-admin/includes/ajax-actions.php:2657
 #: wp-admin/includes/plugin-install.php:471
 msgid "(based on %s rating)"
 msgid_plural "(based on %s ratings)"
@@ -9350,11 +9360,11 @@ msgstr "Wähle bitte eine Datei"
 msgid "The uploaded file could not be moved to %s."
 msgstr "Die hochgeladene Datei konnte nicht nach %s verschoben werden."
 
-#: wp-admin/edit-form-advanced.php:541 wp-admin/includes/ajax-actions.php:2059
+#: wp-admin/edit-form-advanced.php:541 wp-admin/includes/ajax-actions.php:2089
 msgid "Last edited by %1$s on %2$s at %3$s"
 msgstr "Zuletzt geändert von %1$s am %2$s um %3$s"
 
-#: wp-admin/edit-form-advanced.php:543 wp-admin/includes/ajax-actions.php:2061
+#: wp-admin/edit-form-advanced.php:543 wp-admin/includes/ajax-actions.php:2091
 msgid "Last edited on %1$s at %2$s"
 msgstr "Zuletzt geändert am %1$s um %2$s"
 
@@ -10412,7 +10422,7 @@ msgstr "&raquo;"
 msgid "Comment %d does not exist"
 msgstr "Kommentar %d existiert nicht"
 
-#: wp-admin/includes/taxonomy.php:113
+#: wp-admin/includes/taxonomy.php:116
 msgid "You did not enter a category name."
 msgstr "Du hast keinen Kategorienamen angegeben."
 

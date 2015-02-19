@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-12-09 13:04:43+0000\n"
+"PO-Revision-Date: 2015-02-11 15:00:32+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,10 +11,18 @@ msgstr ""
 "Project-Id-Version: Development\n"
 
 #: views/config.php:97
-msgid "Spam in the <a href=\"%s\">spam folder</a> older than 1 day is deleted automatically."
+msgid "Spam in the <a href=\"%1$s\">spam folder</a> older than 1 day is deleted automatically."
 msgid_plural "Spam in the <a href=\"%1$s\">spam folder</a> older than %2$d days is deleted automatically."
-msgstr[0] "Spam im <a href=\"%s\">Spam-Ordner</a>, der älter als 1 Tag ist, wird automatisch gelöscht."
-msgstr[1] "Spam im <a href=\"%1$s\">Spam-Ordner</a>, der älter als %2$d Tage ist, wird automatisch gelöscht."
+msgstr[0] "Spam, der länger als 1 Tag im <a href=\"%1$s\">Spam-Ordner</a> war, wird automatisch gelöscht."
+msgstr[1] "Spam, der länger als %2$d Tage im <a href=\"%1$s\">Spam-Ordner</a> war, wird automatisch gelöscht."
+
+#. Description of the plugin/theme
+msgid "Used by millions, Akismet is quite possibly the best way in the world to <strong>protect your blog from comment and trackback spam</strong>. It keeps your site protected from spam even while you sleep. To get started: 1) Click the \"Activate\" link to the left of this description, 2) <a href=\"http://akismet.com/get/\">Sign up for an Akismet API key</a>, and 3) Go to your Akismet configuration page, and save your API key."
+msgstr "Akismet wird von Millionen benutzt und ist möglicherweise die beste Art und Weise auf der Welt, um <strong>deinen Blog vor Kommentar- und Trackback-Spam zu schützen</strong>. Es schützt deine Seite sogar während du schläfst vor Spam. Um zu beginnen: 1) Klicke den \"Aktivieren\" Link links neben dieser Beschreibung, 2) <a href=\"http://akismet.com/get/\">Registriere dich, um einen Akismet API Schlüssel zu erhalten</a> und 3) Gehe auf Ihre Akismet Konfigurationsseite und speichere deinen API Schlüssel."
+
+#. Plugin URI of the plugin/theme
+msgid "http://akismet.com/"
+msgstr "http://akismet.com/"
 
 #: views/notice.php:21
 msgid "Some comments have not yet been checked for spam by Akismet. They have been temporarily held for moderation and will automatically be rechecked later."
@@ -107,10 +115,6 @@ msgstr "Dein Abonnement fehlt."
 #: views/notice.php:95
 msgid "You're using your Akismet key on more sites than your Pro subscription allows."
 msgstr "Du benutzt deinen Akismet-Schlüssel auf mehr Seiten, als es dein Pro-Abonnement erlaubt."
-
-#: views/notice.php:96
-msgid "If you would like to use Akismet on more than 10 sites, you will need to <a href=\"%s\" target=\"_blank\">upgrade to an Enterprise subscription</a>. If you have any questions, please <a href=\"%s\" target=\"_blank\">get in touch with our support team</a>"
-msgstr "Wenn du Akismet auf mehr als 10 Seiten verwenden möchtest, musst du zu einem <a href=\"%s\" target=\"_blank\">Enterprise-Abonnement upgraden</a>. Wenn du Fragen hast, <a href=\"%s\" target=\"_blank\">nimm Kontakt mit unserem Support-Team auf.</a>"
 
 #: views/notice.php:98
 msgid "You're using Akismet on far too many sites for your Pro subscription."
@@ -257,6 +261,14 @@ msgstr "Akismet beseitigt den Kommentar-und Trackback Spam auf deiner Website."
 #: views/strict.php:4
 msgid "Strict: silently discard the worst and most pervasive spam."
 msgstr "Strikt: stillschweigend den schlimmsten und dem am weitesten verbreiteten Spam löschen."
+
+#. Author URI of the plugin/theme
+msgid "http://automattic.com/wordpress-plugins/"
+msgstr "http://automattic.com/wordpress-plugins/"
+
+#. Author of the plugin/theme
+msgid "Automattic"
+msgstr "Automattic"
 
 #: class.akismet-admin.php:217
 msgid "Akismet Support"
@@ -536,6 +548,8 @@ msgstr "Kommentar wurde als Spam markiert, da er einen Begriff aus der Kommentar
 msgid "Akismet was unable to check this comment (response: %s), will automatically retry again later."
 msgstr "Akismet war es nicht möglich, diesen Kommentar zu überprüfen (Antwort: %s). Akismet wird später eine erneute Überprüfung durchführen."
 
+#. #-#-#-#-#  akismet.pot (Akismet 3.0.5b1)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
 #: class.akismet-admin.php:76 class.akismet-admin.php:78
 #: class.akismet-admin.php:757 views/config.php:3
 msgid "Akismet"
