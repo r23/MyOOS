@@ -11,12 +11,13 @@ namespace DI;
 
 use DI\Definition\DefinitionManager;
 use DI\Definition\Source\AnnotationDefinitionSource;
+use DI\Definition\Source\ArrayDefinitionSource;
 use DI\Definition\Source\ChainableDefinitionSource;
 use DI\Definition\Source\PHPFileDefinitionSource;
 use DI\Definition\Source\ReflectionDefinitionSource;
 use DI\Proxy\ProxyFactory;
 use Doctrine\Common\Cache\Cache;
-use Interop\Container\ContainerInterface as ContainerInteropInterface;
+use Interop\Container\ContainerInterface;
 use InvalidArgumentException;
 
 /**
@@ -74,7 +75,7 @@ class ContainerBuilder
 
     /**
      * If PHP-DI is wrapped in another container, this references the wrapper.
-     * @var ContainerInteropInterface
+     * @var ContainerInterface
      */
     private $wrapperContainer;
 
@@ -231,10 +232,10 @@ class ContainerBuilder
      * If PHP-DI's container is wrapped by another container, we can
      * set this so that PHP-DI will use the wrapper rather than itself for building objects.
      *
-     * @param ContainerInteropInterface $otherContainer
+     * @param ContainerInterface $otherContainer
      * @return $this
      */
-    public function wrapContainer(ContainerInteropInterface $otherContainer)
+    public function wrapContainer(ContainerInterface $otherContainer)
     {
         $this->wrapperContainer = $otherContainer;
 
@@ -244,18 +245,19 @@ class ContainerBuilder
     /**
      * Add definitions to the container.
      *
-     * @param string|ChainableDefinitionSource $definitions A file name (the file contains definitions)
-     *                                                      or a ChainableDefinitionSource object.
+     * @param string|array|ChainableDefinitionSource $definitions Can be an array of definitions,
+     *                                                            the name of a file containing definitions
+     *                                                            or a ChainableDefinitionSource object.
      * @return $this
      */
     public function addDefinitions($definitions)
     {
-        // File
         if (is_string($definitions)) {
+            // File
             $definitions = new PHPFileDefinitionSource($definitions);
-        }
-
-        if (! $definitions instanceof ChainableDefinitionSource) {
+        } elseif (is_array($definitions)) {
+            $definitions = new ArrayDefinitionSource($definitions);
+        } elseif (! $definitions instanceof ChainableDefinitionSource) {
             throw new InvalidArgumentException(sprintf(
                 '%s parameter must be a string or implement ChainableDefinitionSource, %s given',
                 'ContainerBuilder::addDefinitions()',

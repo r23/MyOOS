@@ -47,8 +47,6 @@ class Console extends Application
             // Piwik not installed yet, no config file?
         }
 
-        Translate::reloadLanguage('en');
-
         $commands = $this->getAvailableCommands();
 
         foreach ($commands as $command) {
@@ -158,7 +156,7 @@ class Console extends Application
     private function initLoggerOutput(OutputInterface $output)
     {
         /** @var ConsoleHandler $consoleLogHandler */
-        $consoleLogHandler = StaticContainer::getContainer()->get('Symfony\Bridge\Monolog\Handler\ConsoleHandler');
+        $consoleLogHandler = StaticContainer::get('Symfony\Bridge\Monolog\Handler\ConsoleHandler');
         $consoleLogHandler->setOutput($output);
     }
 

@@ -28,7 +28,7 @@ use Piwik\Session;
  *     public function myControllerAction()
  *     {
  *         $url = Url::getCurrentQueryStringWithParametersModified(array(
- *             'module' => 'UserSettings',
+ *             'module' => 'DevicesDetection',
  *             'action' => 'index'
  *         ));
  *         Url::redirectToUrl($url);
@@ -471,6 +471,7 @@ class Url
         if (UrlHelper::isLookLikeUrl($url)
             || strpos($url, 'index.php') === 0
         ) {
+            Common::sendResponseCode(302);
             Common::sendHeader("Location: $url");
         } else {
             echo "Invalid URL to redirect to.";

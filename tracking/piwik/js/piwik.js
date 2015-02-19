@@ -2131,8 +2131,8 @@ if (typeof Piwik !== 'object') {
                 // Current URL and Referrer URL
                 locationArray = urlFixup(documentAlias.domain, windowAlias.location.href, getReferrer()),
                 domainAlias = domainFixup(locationArray[0]),
-                locationHrefAlias = locationArray[1],
-                configReferrerUrl = locationArray[2],
+                locationHrefAlias = decodeWrapper(locationArray[1]),
+                configReferrerUrl = decodeWrapper(locationArray[2]),
 
                 enableJSErrorTracking = false,
 
@@ -2811,7 +2811,7 @@ if (typeof Piwik !== 'object') {
                 }
 
                 newVisitor = id[0];
-                uuid = id[1];
+                uuid = asyncTracker.getVisitorId();
                 createTs = id[2];
                 visitCount = id[3];
                 currentVisitTs = id[4];
@@ -2916,7 +2916,7 @@ if (typeof Piwik !== 'object') {
                     '&h=' + now.getHours() + '&m=' + now.getMinutes() + '&s=' + now.getSeconds() +
                     '&url=' + encodeWrapper(purify(currentUrl)) +
                     (configReferrerUrl.length ? '&urlref=' + encodeWrapper(purify(configReferrerUrl)) : '') +
-                    (configUserId.length ? '&uid=' + encodeWrapper(configUserId) : '') +
+                    ((configUserId && configUserId.length) ? '&uid=' + encodeWrapper(configUserId) : '') +
                     '&_id=' + uuid + '&_idts=' + createTs + '&_idvc=' + visitCount +
                     '&_idn=' + newVisitor + // currently unused
                     (campaignNameDetected.length ? '&_rcn=' + encodeWrapper(campaignNameDetected) : '') +
@@ -4082,7 +4082,7 @@ if (typeof Piwik !== 'object') {
                  * @return string Visitor ID in hexits (or null, if not yet known)
                  */
                 getVisitorId: function () {
-                    return (loadVisitorIdCookie())[1];
+                    return configUserId.length ? sha1(configUserId).substr(0, 16) : (loadVisitorIdCookie())[1];
                 },
 
                 /**
@@ -5147,7 +5147,7 @@ if (typeof Piwik !== 'object') {
 
         asyncTracker = new Tracker();
 
-        var applyFirst = {setTrackerUrl: 1, setAPIUrl: 1, setSiteId: 1, disableCookies: 1, enableLinkTracking: 1};
+        var applyFirst = {setTrackerUrl: 1, setAPIUrl: 1, setUserId: 1, setSiteId: 1, disableCookies: 1, enableLinkTracking: 1};
         var methodName;
 
         // find the call to setTrackerUrl or setSiteid (if any) and call them first

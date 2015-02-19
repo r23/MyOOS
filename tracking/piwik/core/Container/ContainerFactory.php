@@ -12,6 +12,8 @@ use DI\Container;
 use DI\ContainerBuilder;
 use Doctrine\Common\Cache\ArrayCache;
 use Piwik\Config;
+use Piwik\Development;
+use Piwik\Plugin\Manager;
 
 /**
  * Creates a configured DI container.
@@ -21,7 +23,7 @@ class ContainerFactory
     /**
      * Optional environment config to load.
      *
-     * @var bool
+     * @var string|null
      */
     private $environment;
 
@@ -40,10 +42,6 @@ class ContainerFactory
      */
     public function create()
     {
-        if (!class_exists('DI\ContainerBuilder')) {
-            throw new \Exception('DI\ContainerBuilder could not be found, maybe you are using Piwik from git and need to update Composer: php composer.phar update');
-        }
-
         $builder = new ContainerBuilder();
 
         $builder->useAnnotations(false);
@@ -54,6 +52,14 @@ class ContainerFactory
 
         // Global config
         $builder->addDefinitions(PIWIK_USER_PATH . '/config/global.php');
+
+        // Plugin configs
+        $this->addPluginConfigs($builder);
+
+        // Development config
+        if (Development::isEnabled()) {
+            $builder->addDefinitions(PIWIK_USER_PATH . '/config/environment/dev.php');
+        }
 
         // User config
         if (file_exists(PIWIK_USER_PATH . '/config/config.php')) {
@@ -75,5 +81,20 @@ class ContainerFactory
         $file = sprintf('%s/config/environment/%s.php', PIWIK_USER_PATH, $this->environment);
 
         $builder->addDefinitions($file);
+    }
+
+    private function addPluginConfigs(ContainerBuilder $builder)
+    {
+        $plugins = Manager::getInstance()->getActivatedPluginsFromConfig();
+
+        foreach ($plugins as $plugin) {
+            $file = Manager::getPluginsDirectory() . $plugin . '/config/config.php';
+
+            if (! file_exists($file)) {
+                continue;
+            }
+
+            $builder->addDefinitions($file);
+        }
     }
 }

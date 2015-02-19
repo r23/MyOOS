@@ -14,6 +14,7 @@ use DI\Definition\Definition;
 use DI\Definition\DefinitionManager;
 use DI\Definition\Resolver\ArrayDefinitionResolver;
 use DI\Definition\Resolver\FunctionCallDefinitionResolver;
+use DI\Definition\Resolver\StringDefinitionResolver;
 use DI\Definition\ValueDefinition;
 use DI\Definition\Helper\DefinitionHelper;
 use DI\Definition\Resolver\AliasDefinitionResolver;
@@ -24,7 +25,7 @@ use DI\Definition\Resolver\ValueDefinitionResolver;
 use DI\Definition\Resolver\EnvironmentVariableDefinitionResolver;
 use DI\Proxy\ProxyFactory;
 use Exception;
-use Interop\Container\ContainerInterface as ContainerInteropInterface;
+use Interop\Container\ContainerInterface;
 use InvalidArgumentException;
 
 /**
@@ -32,7 +33,7 @@ use InvalidArgumentException;
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
  */
-class Container implements ContainerInteropInterface, ContainerInterface, FactoryInterface, InvokerInterface
+class Container implements ContainerInterface, FactoryInterface, InvokerInterface
 {
     /**
      * Map of entries with Singleton scope that are already resolved.
@@ -63,14 +64,14 @@ class Container implements ContainerInteropInterface, ContainerInterface, Factor
      *
      * @see ContainerBuilder
      *
-     * @param DefinitionManager         $definitionManager
-     * @param ProxyFactory              $proxyFactory
-     * @param ContainerInteropInterface $wrapperContainer If the container is wrapped by another container.
+     * @param DefinitionManager  $definitionManager
+     * @param ProxyFactory       $proxyFactory
+     * @param ContainerInterface $wrapperContainer If the container is wrapped by another container.
      */
     public function __construct(
         DefinitionManager $definitionManager,
         ProxyFactory $proxyFactory,
-        ContainerInteropInterface $wrapperContainer = null
+        ContainerInterface $wrapperContainer = null
     ) {
         $this->definitionManager = $definitionManager;
 
@@ -86,6 +87,7 @@ class Container implements ContainerInteropInterface, ContainerInterface, Factor
             'DI\Definition\ClassDefinition'               => new ClassDefinitionResolver($wrapperContainer, $proxyFactory),
             'DI\Definition\FunctionCallDefinition'        => new FunctionCallDefinitionResolver($wrapperContainer),
             'DI\Definition\EnvironmentVariableDefinition' => new EnvironmentVariableDefinitionResolver($wrapperContainer),
+            'DI\Definition\StringDefinition'              => new StringDefinitionResolver($wrapperContainer),
         );
 
         // Auto-register the container

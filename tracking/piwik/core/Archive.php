@@ -558,7 +558,6 @@ class Archive
      */
     private function get($archiveNames, $archiveDataType, $idSubtable = null)
     {
-        $this->invalidatedReportsIfNeeded();
 
         if (!is_array($archiveNames)) {
             $archiveNames = array($archiveNames);
@@ -657,6 +656,8 @@ class Archive
      */
     private function cacheArchiveIdsAfterLaunching($archiveGroups, $plugins)
     {
+        $this->invalidatedReportsIfNeeded();
+
         $today = Date::today();
 
         foreach ($this->params->getPeriods() as $period) {
@@ -828,7 +829,7 @@ class Archive
     /**
      * Returns the name of the plugin that archives a given report.
      *
-     * @param string $report Archive data name, eg, `'nb_visits'`, `'UserSettings_...'`, etc.
+     * @param string $report Archive data name, eg, `'nb_visits'`, `'DevicesDetection_...'`, etc.
      * @return string Plugin name.
      * @throws \Exception If a plugin cannot be found or if the plugin for the report isn't
      *                    activated.

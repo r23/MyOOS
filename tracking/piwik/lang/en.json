@@ -1,7 +1,4 @@
 {
-    "DoNotTrack": {
-        "PluginDescription": "Ignore visits with X-Do-Not-Track or DNT header."
-    },
     "General": {
         "AbandonedCarts": "Abandoned Carts",
         "AboutPiwikX": "About Piwik %s",
@@ -124,7 +121,7 @@
         "Discount": "Discount",
         "DisplaySimpleTable": "Display simple table",
         "DisplayTableWithGoalMetrics": "Display a table with Goals metrics",
-        "DisplayTableWithMoreMetrics": "Display a table with more metrics",
+        "DisplayTableWithMoreMetrics": "Display a table with Visitor engagement metrics",
         "Documentation": "Documentation",
         "Donate": "Donate",
         "Done": "Done",
@@ -188,7 +185,7 @@
         "Forums": "Forums",
         "FromReferrer": "from",
         "GeneralInformation": "General Information",
-        "GeneralSettings": "General Settings",
+        "General": "General",
         "GetStarted": "Get started",
         "GiveUsYourFeedback": "Give us Feedback!",
         "Goal": "Goal",
@@ -430,6 +427,7 @@
         "VisitorIP": "Visitor IP",
         "Visitors": "Visitors",
         "VisitsWith": "Visits with %s",
+        "VisitorSettings": "Visitor Settings",
         "VisitType": "Visitor type",
         "VisitTypeExample": "For example, to select all visitors who have returned to the website, including those who have bought something in their previous visits, the API request would contain %s",
         "Warning": "Warning",
@@ -445,6 +443,7 @@
         "WeeklyReports": "Weekly reports",
         "WellDone": "Well done!",
         "Widgets": "Widgets",
+	"Widget": "Widget",
         "XComparedToY": "%1$s compared to %2$s",
         "XFromY": "%1$s from %2$s",
         "YearlyReport": "yearly",

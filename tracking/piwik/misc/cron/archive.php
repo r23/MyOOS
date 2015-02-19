@@ -9,6 +9,8 @@
  * @package Piwik
  */
 
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use Piwik\Container\StaticContainer;
 use Symfony\Bridge\Monolog\Handler\ConsoleHandler;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -64,8 +66,15 @@ if (isset($_SERVER['argv']) && Piwik\Console::isSupported()) {
         // just like for CLI
         StaticContainer::setEnvironment('cli');
         /** @var ConsoleHandler $consoleLogHandler */
-        $consoleLogHandler = StaticContainer::getContainer()->get('Symfony\Bridge\Monolog\Handler\ConsoleHandler');
+        $consoleLogHandler = StaticContainer::get('Symfony\Bridge\Monolog\Handler\ConsoleHandler');
         $consoleLogHandler->setOutput(new ConsoleOutput(OutputInterface::VERBOSITY_VERBOSE));
+    } else {
+        // HTTP request: logs needs to be dumped in the HTTP response (on top of existing log destinations)
+        /** @var \Monolog\Logger $logger */
+        $logger = StaticContainer::get('Psr\Log\LoggerInterface');
+        $handler = new StreamHandler('php://output', Logger::INFO);
+        $handler->setFormatter(StaticContainer::get('Piwik\Plugins\Monolog\Formatter\LineMessageFormatter'));
+        $logger->pushHandler($handler);
     }
 
     $archiver = new Piwik\CronArchive();

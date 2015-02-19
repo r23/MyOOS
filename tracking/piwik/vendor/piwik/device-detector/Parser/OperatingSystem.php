@@ -41,6 +41,7 @@ class OperatingSystem extends ParserAbstract
         'BMP' => 'Brew',
         'CES' => 'CentOS',
         'COS' => 'Chrome OS',
+        'CYN' => 'CyanogenMod',
         'DEB' => 'Debian',
         'DFB' => 'DragonFly',
         'FED' => 'Fedora',
@@ -60,7 +61,9 @@ class OperatingSystem extends ParserAbstract
         'MAC' => 'Mac',
         'MDR' => 'Mandriva',
         'SMG' => 'MeeGo',
+        'MCD' => 'MocorDroid',
         'MIN' => 'Mint',
+        'MLD' => 'MildWild',
         'NBS' => 'NetBSD',
         'WII' => 'Nintendo',
         'NDS' => 'Nintendo Mobile',
@@ -71,6 +74,7 @@ class OperatingSystem extends ParserAbstract
         'PS3' => 'PlayStation',
         'RHT' => 'Red Hat',
         'ROS' => 'RISC OS',
+        'RZD' => 'RazoDroiD',
         'SAB' => 'Sabayon',
         'SSE' => 'SUSE',
         'SAF' => 'Sailfish OS',
@@ -86,24 +90,10 @@ class OperatingSystem extends ParserAbstract
         'UBT' => 'Ubuntu',
         'WTV' => 'WebTV',
         'WIN' => 'Windows',
-        'W10' => 'Windows 10',
-        'W2K' => 'Windows 2000',
-        'W31' => 'Windows 3.1',
-        'WI7' => 'Windows 7',
-        'WI8' => 'Windows 8',
-        'W81' => 'Windows 8.1',
-        'W95' => 'Windows 95',
-        'W98' => 'Windows 98',
         'WCE' => 'Windows CE',
-        'WME' => 'Windows ME',
         'WMO' => 'Windows Mobile',
-        'WNT' => 'Windows NT',
         'WPH' => 'Windows Phone',
         'WRT' => 'Windows RT',
-        'WR2' => 'Windows RT 8.1',
-        'WS3' => 'Windows Server 2003',
-        'WVI' => 'Windows Vista',
-        'WXP' => 'Windows XP',
         'XBX' => 'Xbox',
         'XBT' => 'Xubuntu',
         'YNS' => 'YunOs',
@@ -118,7 +108,7 @@ class OperatingSystem extends ParserAbstract
      * @var array
      */
     protected static $osFamilies = array(
-        'Android'               => array('AND'),
+        'Android'               => array('AND', 'CYN', 'RZD', 'MLD', 'MCD'),
         'AmigaOS'               => array('AMG'),
         'Apple TV'              => array('ATV'),
         'BlackBerry'            => array('BLB', 'QNX'),
@@ -138,8 +128,8 @@ class OperatingSystem extends ParserAbstract
         'Symbian'               => array('SYM', 'SYS', 'SY3', 'S60', 'S40'),
         'Unix'                  => array('SOS', 'AIX', 'HPX', 'BSD', 'NBS', 'OBS', 'DFB', 'SYL', 'IRI', 'T64', 'INF'),
         'WebTV'                 => array('WTV'),
-        'Windows'               => array('WI7', 'WI8', 'W81', 'W10', 'WVI', 'WS3', 'WXP', 'W2K', 'WNT', 'WME', 'W98', 'W95', 'WRT', 'WR2', 'W31', 'WIN'),
-        'Windows Mobile'        => array('WPH', 'WMO', 'WCE')
+        'Windows'               => array('WIN'),
+        'Windows Mobile'        => array('WPH', 'WMO', 'WCE', 'WRT')
     );
 
     /**
@@ -226,11 +216,7 @@ class OperatingSystem extends ParserAbstract
     {
         if (array_key_exists($os, self::$operatingSystems)) {
             $osFullName = self::$operatingSystems[$os];
-            if (in_array($os, self::$osFamilies['Windows'])) {
-                return $osFullName;
-            } else {
-                return trim($osFullName . " " . $ver);
-            }
+            return trim($osFullName . " " . $ver);
         }
         return false;
     }

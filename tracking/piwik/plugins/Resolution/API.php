@@ -37,13 +37,15 @@ class API extends \Piwik\Plugin\API
     public function getResolution($idSite, $period, $date, $segment = false)
     {
         $dataTable = $this->getDataTable(Archiver::RESOLUTION_RECORD_NAME, $idSite, $period, $date, $segment);
+        $dataTable->filter('AddSegmentValue');
         return $dataTable;
     }
 
     public function getConfiguration($idSite, $period, $date, $segment = false)
     {
         $dataTable = $this->getDataTable(Archiver::CONFIGURATION_RECORD_NAME, $idSite, $period, $date, $segment);
-        $dataTable->queueFilter('ColumnCallbackReplace', array('label', __NAMESPACE__ . '\getConfigurationLabel'));
+        // use GroupBy filter to avoid duplicate rows if old reports are displayed
+        $dataTable->queueFilter('GroupBy', array('label', __NAMESPACE__ . '\getConfigurationLabel'));
         return $dataTable;
     }
 }

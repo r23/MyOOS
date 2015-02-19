@@ -1,7 +1,4 @@
 {
-    "DoNotTrack": {
-        "PluginDescription": "Αγνοήστε τις επισκέψεις με X-Do-Not-Track ή DNT κεφαλίδα."
-    },
     "General": {
         "AbandonedCarts": "Εγκαταλειμμένα Καλάθια Αγορών",
         "AboutPiwikX": "Σχετικά με το Piwik %s",
@@ -188,8 +185,8 @@
         "ForExampleShort": "π.χ.",
         "Forums": "Φόρουμ",
         "FromReferrer": "από",
+        "General": "Γενικά",
         "GeneralInformation": "Γενικές Πληροφορίες",
-        "GeneralSettings": "Γενικές Ρυθμίσεις",
         "GetStarted": "Ξεκινήστε",
         "GiveUsYourFeedback": "Έχετε παρατηρήσεις;",
         "Goal": "Στόχος",
@@ -429,6 +426,7 @@
         "VisitorID": "Κωδικός Επισκέπτη",
         "VisitorIP": "IP Επισκέπτη",
         "Visitors": "Επισκέπτες",
+        "VisitorSettings": "Ρυθμίσεις επισκέπτη",
         "VisitsWith": "Επισκέψεις με %s",
         "VisitType": "Τύπος Επισκέπτη",
         "VisitTypeExample": "Για παράδειγμα, για να επιλέξετε όλους τους επισκέπτες που έχουν επιστρέψει στην ιστοσελίδα και να περιλάβετε αυτούς που έχουν αγοράσει κάτι στις προηγούμενες επισκέψεις, το αίτημα API θα περιέχει %s",
@@ -444,6 +442,7 @@
         "WeeklyReport": "εβδομαδιαία",
         "WeeklyReports": "Εβδομαδιαίες αναφορές",
         "WellDone": "Συγχαρητήρια!",
+        "Widget": "Γραφικό Συστατικό",
         "Widgets": "Μικροεφαρμογές",
         "XComparedToY": "Το %1$s σε σύγκριση με το %2$s",
         "XFromY": "%1$s από %2$s",

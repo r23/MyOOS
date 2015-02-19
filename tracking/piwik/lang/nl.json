@@ -1,7 +1,4 @@
 {
-    "DoNotTrack": {
-        "PluginDescription": "Negeer bezoeken met X-Do-Not-Track of DNT header."
-    },
     "General": {
         "AbandonedCarts": "Niet afgeronde bestellingen",
         "AboutPiwikX": "Over Piwik %s",
@@ -182,7 +179,6 @@
         "Forums": "Forums",
         "FromReferrer": "van",
         "GeneralInformation": "Algemene informatie",
-        "GeneralSettings": "Algemene instellingen",
         "GetStarted": "Aan de slag",
         "GiveUsYourFeedback": "Geef ons commentaar",
         "Goal": "Doel",
@@ -419,6 +415,7 @@
         "VisitorID": "Bezoekers ID",
         "VisitorIP": "Bezoekers IP",
         "Visitors": "Bezoekers",
+        "VisitorSettings": "Bezoekers Instellingen",
         "VisitsWith": "Bezoeken met %s",
         "VisitType": "Type bezoeker",
         "VisitTypeExample": "Om bijvoorbeeld het aantal terugkerende bezoekers (inclusief die bezoekers die iets gekocht hebben) te selecteren moet de API %s bevatten",

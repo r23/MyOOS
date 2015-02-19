@@ -325,10 +325,10 @@ class Plugin
         $componentFile = sprintf('%s/plugins/%s/%s.php', PIWIK_INCLUDE_PATH, $this->pluginName, $componentName);
 
         if ($this->cache->contains($cacheId)) {
-            $klassName = $this->cache->fetch($cacheId);
+            $classname = $this->cache->fetch($cacheId);
 
-            if (empty($klassName)) {
-                return; // might by "false" in case has no menu, widget, ...
+            if (empty($classname)) {
+                return null; // might by "false" in case has no menu, widget, ...
             }
 
             if (file_exists($componentFile)) {
@@ -339,27 +339,27 @@ class Plugin
             $this->cache->save($cacheId, false); // prevent from trying to load over and over again for instance if there is no Menu for a plugin
 
             if (!file_exists($componentFile)) {
-                return;
+                return null;
             }
 
             require_once $componentFile;
 
-            $klassName = sprintf('Piwik\\Plugins\\%s\\%s', $this->pluginName, $componentName);
+            $classname = sprintf('Piwik\\Plugins\\%s\\%s', $this->pluginName, $componentName);
 
-            if (!class_exists($klassName)) {
-                return;
+            if (!class_exists($classname)) {
+                return null;
             }
 
-            if (!empty($expectedSubclass) && !is_subclass_of($klassName, $expectedSubclass)) {
+            if (!empty($expectedSubclass) && !is_subclass_of($classname, $expectedSubclass)) {
                 Log::warning(sprintf('Cannot use component %s for plugin %s, class %s does not extend %s',
-                    $componentName, $this->pluginName, $klassName, $expectedSubclass));
-                return;
+                    $componentName, $this->pluginName, $classname, $expectedSubclass));
+                return null;
             }
 
-            $this->cache->save($cacheId, $klassName);
+            $this->cache->save($cacheId, $classname);
         }
 
-        return new $klassName;
+        return new $classname;
     }
 
     public function findMultipleComponents($directoryWithinPlugin, $expectedSubclass)

@@ -8,8 +8,8 @@
 
 namespace DeviceDetector;
 
-use DeviceDetector\Cache\CacheInterface;
-use DeviceDetector\Cache\CacheStatic;
+use DeviceDetector\Cache\StaticCache;
+use DeviceDetector\Cache\Cache;
 use DeviceDetector\Parser\Bot;
 use DeviceDetector\Parser\OperatingSystem;
 use DeviceDetector\Parser\Client\ClientParserAbstract;
@@ -22,7 +22,7 @@ class DeviceDetector
     /**
      * Current version number of DeviceDetector
      */
-    const VERSION = '2.7';
+    const VERSION = '3.0';
 
     /**
      * Holds all registered client types
@@ -35,7 +35,7 @@ class DeviceDetector
      *
      * @var array
      */
-    protected static $desktopOsArray = array('AmigaOS', 'IBM', 'GNU/Linux', 'Mac', 'Unix', 'Windows', 'BeOS');
+    protected static $desktopOsArray = array('AmigaOS', 'IBM', 'GNU/Linux', 'Mac', 'Unix', 'Windows', 'BeOS', 'Chrome OS');
 
     /**
      * Constant used as value for unknown browser / os
@@ -93,7 +93,7 @@ class DeviceDetector
 
     /**
      * Holds the cache class used for caching the parsed yml-Files
-     * @var CacheInterface
+     * @var \DeviceDetector\Cache\Cache|\Doctrine\Common\Cache\CacheProvider
      */
     protected $cache = null;
 
@@ -119,6 +119,7 @@ class DeviceDetector
         $this->addDeviceParser('Console');
         $this->addDeviceParser('CarBrowser');
         $this->addDeviceParser('Camera');
+        $this->addDeviceParser('PortableMediaPlayer');
         $this->addDeviceParser('Mobile');
     }
 
@@ -270,7 +271,8 @@ class DeviceDetector
                 DeviceParserAbstract::DEVICE_TYPE_FEATURE_PHONE,
                 DeviceParserAbstract::DEVICE_TYPE_SMARTPHONE,
                 DeviceParserAbstract::DEVICE_TYPE_TABLET,
-                DeviceParserAbstract::DEVICE_TYPE_CAMERA
+                DeviceParserAbstract::DEVICE_TYPE_CAMERA,
+                DeviceParserAbstract::DEVICE_TYPE_PORTABLE_MEDIA_PAYER,
             ))) {
             return true;
         }
@@ -530,6 +532,10 @@ class DeviceDetector
             $this->device = DeviceParserAbstract::DEVICE_TYPE_SMARTPHONE;
         }
 
+        $osShortName = $this->getOs('short_name');
+        $osFamily = OperatingSystem::getOsFamily($osShortName);
+        $osVersion = $this->getOs('version');
+
         /**
          * Android up to 3.0 was designed for smartphones only. But as 3.0, which was tablet only, was published
          * too late, there were a bunch of tablets running with 2.x
@@ -538,10 +544,10 @@ class DeviceDetector
          * So were are expecting that all devices running Android < 2 are smartphones
          * Devices running Android 3.X are tablets. Device type of Android 2.X and 4.X+ are unknown
          */
-        if (is_null($this->device) && $this->getOs('short_name') == 'AND' && $this->getOs('version') != '') {
-            if (version_compare($this->getOs('version'), '2.0') == -1) {
+        if (is_null($this->device) && $osShortName == 'AND' && $osVersion != '') {
+            if (version_compare($osVersion, '2.0') == -1) {
                 $this->device = DeviceParserAbstract::DEVICE_TYPE_SMARTPHONE;
-            } else if (version_compare($this->getOs('version'), '3.0') >= 0 AND version_compare($this->getOs('version'), '4.0') == -1) {
+            } else if (version_compare($osVersion, '3.0') >= 0 AND version_compare($osVersion, '4.0') == -1) {
                 $this->device = DeviceParserAbstract::DEVICE_TYPE_TABLET;
             }
         }
@@ -549,7 +555,7 @@ class DeviceDetector
         /**
          * All detected feature phones running android are more likely a smartphone
          */
-        if ($this->device == DeviceParserAbstract::DEVICE_TYPE_FEATURE_PHONE && $this->getOs('short_name') == 'AND') {
+        if ($this->device == DeviceParserAbstract::DEVICE_TYPE_FEATURE_PHONE && $osFamily == 'Android') {
             $this->device = DeviceParserAbstract::DEVICE_TYPE_SMARTPHONE;
         }
 
@@ -562,7 +568,8 @@ class DeviceDetector
          * As most touch enabled devices are tablets and only a smaller part are desktops/notebooks we assume that
          * all Windows 8 touch devices are tablets.
          */
-        if (is_null($this->device) && in_array($this->getOs('short_name'), array('WI8', 'W81', 'WRT', 'WR2')) && $this->isTouchEnabled()) {
+
+        if (is_null($this->device) && ($osShortName == 'WRT' || ($osShortName == 'WIN' && version_compare($osVersion, '8.0'))) && $this->isTouchEnabled()) {
             $this->device = DeviceParserAbstract::DEVICE_TYPE_TABLET;
         }
 
@@ -624,19 +631,24 @@ class DeviceDetector
     /**
      * Sets the Cache class
      *
-     * Note: The given class needs to have a 'get' and 'set' method to be used
-     *
-     * @param $cache
+     * @param Cache|\Doctrine\Common\Cache\CacheProvider $cache
+     * @throws \Exception
      */
-    public function setCache(CacheInterface $cache)
+    public function setCache($cache)
     {
-        $this->cache = $cache;
+        if ($cache instanceof Cache ||
+            (class_exists('\Doctrine\Common\Cache\CacheProvider') && $cache instanceof \Doctrine\Common\Cache\CacheProvider)) {
+            $this->cache = $cache;
+            return;
+        }
+
+        throw new \Exception('Cache not supported');
     }
 
     /**
      * Returns Cache object
      *
-     * @return CacheInterface
+     * @return \Doctrine\Common\Cache\CacheProvider
      */
     public function getCache()
     {
@@ -644,6 +656,6 @@ class DeviceDetector
             return $this->cache;
         }
 
-        return new CacheStatic();
+        return new StaticCache();
     }
 }

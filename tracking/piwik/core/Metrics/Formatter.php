@@ -8,7 +8,9 @@
 namespace Piwik\Metrics;
 
 use Piwik\Common;
+use Piwik\Container\StaticContainer;
 use Piwik\DataTable;
+use Piwik\Intl\Data\Provider\CurrencyDataProvider;
 use Piwik\Piwik;
 use Piwik\Plugin\Metric;
 use Piwik\Plugin\ProcessedMetric;
@@ -132,10 +134,15 @@ class Formatter
         }
 
         $units = array('B', 'K', 'M', 'G', 'T');
+        $numUnits = count($units) - 1;
 
         $currentUnit = null;
         foreach ($units as $idx => $currentUnit) {
-            if ($size >= 1024 && $unit != $currentUnit && $idx != count($units) - 1) {
+            if ($unit && $unit !== $currentUnit) {
+                $size = $size / 1024;
+            } elseif ($unit && $unit === $currentUnit) {
+                break;
+            } elseif ($size >= 1024 && $idx != $numUnits) {
                 $size = $size / 1024;
             } else {
                 break;
@@ -222,17 +229,15 @@ class Formatter
      *
      * @return array An array mapping currency codes to their respective currency symbols
      *               and a description, eg, `array('USD' => array('$', 'US dollar'))`.
+     *
+     * @deprecated Use Piwik\Intl\Data\Provider\CurrencyDataProvider instead.
+     * @see \Piwik\Intl\Data\Provider\CurrencyDataProvider::getCurrencyList()
      */
     public static function getCurrencyList()
     {
-        static $currenciesList = null;
-
-        if (is_null($currenciesList)) {
-            require_once PIWIK_INCLUDE_PATH . '/core/DataFiles/Currencies.php';
-            $currenciesList = $GLOBALS['Piwik_CurrencyList'];
-        }
-
-        return $currenciesList;
+        /** @var CurrencyDataProvider $dataProvider */
+        $dataProvider = StaticContainer::get('Piwik\Intl\Data\Provider\CurrencyDataProvider');
+        return $dataProvider->getCurrencyList();
     }
 
     /**

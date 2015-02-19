@@ -25,7 +25,7 @@ class CliMulti {
     public $supportsAsync = null;
 
     /**
-     * @var \Piwik\CliMulti\Process[]
+     * @var Process[]
      */
     private $processes = array();
 
@@ -36,7 +36,7 @@ class CliMulti {
     private $concurrentProcessesLimit = null;
 
     /**
-     * @var \Piwik\CliMulti\Output[]
+     * @var Output[]
      */
     private $outputs = array();
 
@@ -229,7 +229,7 @@ class CliMulti {
 
     public static function getTmpPath()
     {
-        return StaticContainer::getContainer()->get('path.tmp') . '/climulti';
+        return StaticContainer::get('path.tmp') . '/climulti';
     }
 
     private function executeAsyncCli($url, Output $output, $cmdId)

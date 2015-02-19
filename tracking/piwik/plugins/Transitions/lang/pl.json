@@ -9,6 +9,8 @@
         "IncomingTraffic": "Ruch przychodzący",
         "LoopsInline": "%s odświeżeń stron",
         "OutgoingTraffic": "Ruch wychodzący",
-        "ToFollowingSiteSearchesInline": "%s wewnętrzne wyszukiwania"
+        "ToFollowingSiteSearches": "Wyszukania Wewnętrzne",
+        "ToFollowingSiteSearchesInline": "%s wewnętrzne wyszukiwania",
+        "XOutOfYVisits": "%s (z %s)"
     }
 }

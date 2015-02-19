@@ -15,7 +15,6 @@ return array(
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'PhpDocReader' => array($vendorDir . '/mnapoli/phpdocreader/src'),
     'PEAR_' => array($baseDir . '/libs'),
-    'MyCLabs' => array($vendorDir . '/myclabs/php-enum/src'),
     'JShrink' => array($vendorDir . '/tedivm/jshrink/src'),
     'HTML_' => array($baseDir . '/libs'),
     'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),

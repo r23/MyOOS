@@ -64,16 +64,8 @@ log_writers[] = screen
 
 ; log level, everything logged w/ this level or one of greater severity
 ; will be logged. everything else will be ignored. possible values are:
-; NONE, ERROR, WARN, INFO, DEBUG, VERBOSE
+; ERROR, WARN, INFO, DEBUG
 log_level = WARN
-
-; if set to 1, only requests done in CLI mode (eg. the ./console core:archive cron run) will be logged
-; NOTE: log_only_when_debug_parameter will also be checked for
-log_only_when_cli = 0
-
-; if set to 1, only requests with "&debug" parameter will be logged
-; NOTE: log_only_when_cli will also be checked for
-log_only_when_debug_parameter = 0
 
 ; if configured to log in a file, log entries will be made to this file
 logger_file_path = tmp/logs/piwik.log
@@ -269,10 +261,22 @@ time_before_today_archive_considered_outdated = 150
 ; This setting is only used if it hasn't been overriden via the UI yet, or if enable_general_settings_admin=0
 enable_browser_archiving_triggering = 1
 
+; By default, Piwik will force archiving of range periods from browser requests, even if enable_browser_archiving_triggering
+; is set to 0. This can sometimes create too much of a demand on system resources. Setting this option to 0 and setting
+; enable_browser_archiving_triggering to 0 will make sure ranges are not archived on browser request. Since the cron
+; archiver does not archive ranges, you must either disable ranges or make sure the ranges users' want to see will be
+; processed somehow.
+archiving_range_force_on_browser_request = 1
+
 ; By default Piwik runs OPTIMIZE TABLE SQL queries to free spaces after deleting some data.
 ; If your Piwik tracks millions of pages, the OPTIMIZE TABLE queries might run for hours (seen in "SHOW FULL PROCESSLIST \g")
 ; so you can disable these special queries here:
 enable_sql_optimize_queries = 1
+
+; By default Piwik is purging complete date range archives to free spaces after deleting some data.
+; If you are pre-processing custom ranges using CLI task to make them easily available in UI,
+; you can prevent this action from happening by setting this parameter to value bigger than 1
+purge_date_range_archives_after_X_days = 1
 
 ; MySQL minimum required version
 ; note: timezone support added in 4.1.3
@@ -659,7 +663,7 @@ tracking_requests_require_authentication = 1
 ; for which all reports should be Archived during the cron execution
 ; All segment values MUST be URL encoded.
 ;Segments[]="visitorType==new"
-;Segments[]="visitorType==returning"
+;Segments[]="visitorType==returning,visitorType==returningCustomer"
 
 ; If you define Custom Variables for your visitor, for example set the visit type
 ;Segments[]="customVariableName1==VisitType;customVariableValue1==Customer"
@@ -720,8 +724,10 @@ Plugins[] = Dashboard
 Plugins[] = MultiSites
 Plugins[] = Referrers
 Plugins[] = UserSettings
+Plugins[] = UserLanguage
 Plugins[] = DevicesDetection
 Plugins[] = Goals
+Plugins[] = Ecommerce
 Plugins[] = SEO
 Plugins[] = Events
 Plugins[] = UserCountry
@@ -733,6 +739,7 @@ Plugins[] = ExampleAPI
 Plugins[] = ExampleRssWidget
 Plugins[] = Provider
 Plugins[] = Feedback
+Plugins[] = Monolog
 
 Plugins[] = Login
 Plugins[] = UsersManager

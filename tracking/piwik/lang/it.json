@@ -1,7 +1,4 @@
 {
-    "DoNotTrack": {
-        "PluginDescription": "Ignora le visite con l'header X-Do-Not-Track o DNT."
-    },
     "General": {
         "AbandonedCarts": "Ordini abbandonati",
         "AboutPiwikX": "Informazioni su Piwik %s",
@@ -188,8 +185,8 @@
         "ForExampleShort": "es.",
         "Forums": "Forums",
         "FromReferrer": "da",
+        "General": "Generale",
         "GeneralInformation": "Informazioni generali",
-        "GeneralSettings": "Impostazioni Generali",
         "GetStarted": "Inizia",
         "GiveUsYourFeedback": "Suggerimenti?",
         "Goal": "Goal",
@@ -429,6 +426,7 @@
         "VisitorID": "ID visitatore",
         "VisitorIP": "IP visitatore",
         "Visitors": "Visitatori",
+        "VisitorSettings": "Impostazioni visitatori",
         "VisitsWith": "Visite con %s",
         "VisitType": "Tipo di visitatore",
         "VisitTypeExample": "Ad esempio, per selezionare tutti i visitatori che sono ritornati al sito Web, compresi quelli che hanno comprato qualcosa nella loro precedenti visite, la richiesta di API conterrebbe %s",
@@ -444,6 +442,7 @@
         "WeeklyReport": "settimanale",
         "WeeklyReports": "Reports settimanali",
         "WellDone": "Ben fatto!",
+        "Widget": "Widget",
         "Widgets": "Widgets",
         "XComparedToY": "%1$s confrontato con %2$s",
         "XFromY": "%1$s da %2$s",

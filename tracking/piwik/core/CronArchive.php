@@ -850,6 +850,7 @@ class CronArchive
         } else {
             $message .= "Response was '$response'";
         }
+
         $this->logError($message);
         return false;
     }
@@ -1038,6 +1039,9 @@ class CronArchive
         return in_array($token_auth, $this->validTokenAuths);
     }
 
+    /**
+     * @param string|bool $piwikUrl
+     */
     protected function initPiwikHost($piwikUrl = false)
     {
         // If core:archive command run as a web cron, we use the current hostname+path
@@ -1515,10 +1519,10 @@ class CronArchive
                 continue;
             }
 
-            $defaultReport = $userPreferences[APIUsersManager::PREFERENCE_DEFAULT_REPORT];
-            if (is_numeric($defaultReport)) {
+            if (isset($userPreferences[APIUsersManager::PREFERENCE_DEFAULT_REPORT])
+                && is_numeric($userPreferences[APIUsersManager::PREFERENCE_DEFAULT_REPORT])) {
                 // If user selected one particular website ID
-                $idSites = array($defaultReport);
+                $idSites = array($userPreferences[APIUsersManager::PREFERENCE_DEFAULT_REPORT]);
             } else {
                 // If user selected "All websites"  or some other random value, we pre-process all websites that he has access to
                 $idSites = APISitesManager::getInstance()->getSitesIdWithAtLeastViewAccess($userLogin);

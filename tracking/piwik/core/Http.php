@@ -47,7 +47,7 @@ class Http
 
     protected static function isCurlEnabled()
     {
-        return function_exists('curl_init');
+        return function_exists('curl_init') && function_exists('curl_exec');
     }
 
     /**
@@ -444,6 +444,7 @@ class Http
                 // only get header info if not saving directly to file
                 CURLOPT_HEADER         => is_resource($file) ? false : true,
                 CURLOPT_CONNECTTIMEOUT => $timeout,
+                CURLOPT_TIMEOUT        => $timeout,
             );
             // Case core:archive command is triggering archiving on https:// and the certificate is not valid
             if ($acceptInvalidSslCertificate) {
