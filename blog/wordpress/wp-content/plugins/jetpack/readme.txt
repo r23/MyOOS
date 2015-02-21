@@ -1,7 +1,7 @@
 === Jetpack by WordPress.com ===
 Contributors: automattic, alternatekev, andy, apeatling, azaozz, barry, beaulebens, blobaugh, cfinke, chellycat, danielbachhuber, daniloercoli, designsimply, dsmart, eoigal, ethitter, gibrown, georgestephanis, hew, hugobaeta, iammattthomas, jblz, jeherve, jkudish, Joen, johnjamesjacoby, jshreve, kraftbj, lancewillett, martinremy, matt, matveb, maverick3x6, mcsf, mdawaffe, migueluy, nickmomrik, obenland, pento, professor44, richardmtl, roccotripaldi, sdquirk, stephdau, tmoorewp, Viper007Bond, westi, yoavf
 Tags: WordPress.com, statistics, stats, views, tweets, twitter, widget, gravatar, hovercards, profile, equations, latex, math, maths, youtube, shortcode, archives, audio, blip, bliptv, dailymotion, digg, flickr, googlevideo, google, googlemaps, kyte, kytetv, livevideo, redlasso, rockyou, rss, scribd, slide, slideshare, soundcloud, vimeo, shortlinks, wp.me, subscriptions, notifications, notes, json, api, rest, mosaic, gallery, slideshow, videopress, monitor, search, omnisearch, sso, jet pack
-Stable tag: 3.3.1
+Stable tag: 3.3.2
 Requires at least: 3.9
 Tested up to: 4.1
 
@@ -99,6 +99,15 @@ Learn more (and get detailed instructions) in our [contribute guide](http://jetp
 8. Mobile Theme
 
 == Changelog ==
+
+= 3.3.2 =
+Release Date: February 19th, 2015
+
+* Enhancement: Updated translation files.
+* Enhancement: Heartbeat: Correctly stat new datasets.
+* Bug Fix: Widget Visibility: Correct some caching of visibility results that may get evaluated too soon.
+* Bug Fix: Contact Form: Hardening.
+* Bug Fix: Photon: Make sure our gallery filter can parse array inputs as well as the default html.
 
 = 3.3.1 =
 Release Date: February 11th, 2015
