@@ -402,7 +402,8 @@
           }
         }
 
-        $shown_price = oos_add_tax($this->products[$index]['final_price'], $this->products[$index]['tax']) * $this->products[$index]['qty'];
+		$shown_price = $oCurrencies->calculate_price($this->products[$index]['final_price'], $this->products[$index]['tax'], $this->products[$index]['qty']);
+       # $shown_price = oos_add_tax($this->products[$index]['final_price'], $this->products[$index]['tax']) * $this->products[$index]['qty'];
         $this->info['subtotal'] += $shown_price;
 
         $products_tax = $this->products[$index]['tax'];

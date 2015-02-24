@@ -8,9 +8,9 @@
 {foreach item=category from=$categories_contents}
 	{if $category.isGroupStart eq 1}<ul>{/if}
 	{if $category.isActive eq 1}
-       <li class="active"><a href="{if $category.parent eq 0}{html_href_link content=$filename.shop category=$category.counter}{else}{html_href_link content=$filename.shop category=$category.path}{/if}" title=" {$category.name} "><strong>{$category.name}</strong></a>
+       <li class="active"><a href="{if $category.parent eq 0}{html_href_link modul=$modules.main file=$filename.shop cPath=$category.counter}{else}{html_href_link modul=$modules.main file=$filename.shop cPath=$category.path}{/if}" title=" {$category.name} "><strong>{$category.name}</strong></a>
   {else}
-      <li><a href="{if $category.parent eq 0}{html_href_link content=$filename.shop category=$category.counter}{else}{html_href_link content=$filename.shop category=$category.path}{/if}" title=" {$category.name} ">{$category.name}</a>
+      <li><a href="{if $category.parent eq 0}{html_href_link modul=$modules.main file=$filename.shop cPath=$category.counter}{else}{html_href_link modul=$modules.main file=$filename.shop cPath=$category.path}{/if}" title=" {$category.name} ">{$category.name}</a>
   {/if}
   	{if $category.isSelected eq 1}
 		      {if $category.isHasSubElements eq 0}

@@ -470,6 +470,7 @@
     }
 
     public function calculate() {
+      global $oCurrencies;
 
       $this->total_virtual = 0; // Gift Voucher System
       $this->weight_virtual = 0;
@@ -523,7 +524,7 @@
 
           $this->total_virtual +=  oos_add_tax($products_price, $products_tax) * $nQuantity * $no_count;
           $this->weight_virtual += ($nQuantity * $products_weight) * $no_count;
-          $this->total += oos_add_tax($products_price, $products_tax) * $nQuantity;
+          $this->total += $oCurrencies->calculate_price($products_price, $products_tax, $nQuantity);
           $this->weight += ($nQuantity * $products_weight);
         }
 
@@ -545,9 +546,9 @@
             }
 
             if ($attribute_price['price_prefix'] == '+') {
-              $this->total += $nQuantity * oos_add_tax($sAttributesPrice, $products_tax);
+              $this->total += $oCurrencies->calculate_price($sAttributesPrice, $products_tax, $nQuantity);
             } else {
-              $this->total -= $nQuantity * oos_add_tax($sAttributesPrice, $products_tax);
+              $this->total -= $oCurrencies->calculate_price($sAttributesPrice, $products_tax, $nQuantity);
             }
           }
         }

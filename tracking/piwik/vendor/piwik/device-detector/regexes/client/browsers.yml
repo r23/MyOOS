@@ -258,6 +258,13 @@
   engine:
     default: 'Blink'
 
+#Vivaldi
+- regex: 'Vivaldi(?:/(\d+[\.\d]+))?'
+  name: 'Vivaldi'
+  version: '$1'
+  engine:
+    default: 'Blink'
+
 #Midori
 - regex: 'Midori(?:/(\d+[\.\d]+))?'
   name: 'Midori'
@@ -317,6 +324,11 @@
 # Sogou Explorer
 - regex: 'SE (\d+[\.\d]+)'
   name: 'Sogou Explorer'
+  version: '$1'
+
+# QQ Browser
+- regex: 'QQBrowser/([\.\d]+)'
+  name: 'QQ Browser'
   version: '$1'
 
 #Chrome
@@ -752,5 +764,3 @@
   version: '$1'
   engine:
     default: 'WebKit'
-
-

@@ -548,17 +548,17 @@
     },
     {
         "name": "piwik/device-detector",
-        "version": "3.0",
-        "version_normalized": "3.0.0.0",
+        "version": "3.0.1",
+        "version_normalized": "3.0.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/piwik/device-detector.git",
-            "reference": "a5f58033107262f5067b9cdfb3751816a5d3dc87"
+            "reference": "87720bc573642ad96ae9bdc42d82a843a8e65899"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/piwik/device-detector/zipball/a5f58033107262f5067b9cdfb3751816a5d3dc87",
-            "reference": "a5f58033107262f5067b9cdfb3751816a5d3dc87",
+            "url": "https://api.github.com/repos/piwik/device-detector/zipball/87720bc573642ad96ae9bdc42d82a843a8e65899",
+            "reference": "87720bc573642ad96ae9bdc42d82a843a8e65899",
             "shasum": ""
         },
         "require": {
@@ -571,7 +571,7 @@
         "suggest": {
             "doctrine/cache": "Can directly be used for caching purpose"
         },
-        "time": "2015-01-31 20:48:03",
+        "time": "2015-02-21 19:36:09",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
