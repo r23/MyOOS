@@ -265,7 +265,7 @@ $lang = array_merge($lang, array(
 
 // Feeds
 $lang = array_merge($lang, array(
-	'ACP_FEED_MANAGEMENT'				=> 'Allgemeine Feed-Einstellungen',
+	'ACP_FEED_MANAGEMENT'				=> 'Feeds',
 	'ACP_FEED_MANAGEMENT_EXPLAIN'		=> 'Dieses Modul stellt verschiedene ATOM-Feeds zur Verfügung. Es wandelt BBCode um, so dass er in externen Feeds dargestellt werden kann.',
 
 	'ACP_FEED_GENERAL'					=> 'Allgemeine Feed-Einstellungen',

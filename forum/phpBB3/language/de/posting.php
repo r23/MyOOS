@@ -268,8 +268,8 @@ $lang = array_merge($lang, array(
 	'URL_IS_OFF'				=> '[url] ist <em>ausgeschaltet</em>',
 	'URL_IS_ON'					=> '[url] ist <em>eingeschaltet</em>',
 	'USER_CANNOT_BUMP'			=> 'Du darfst in diesem Forum keine Themen als neu markieren.',
-	'USER_CANNOT_DELETE'		=> 'Du darfst deine Beiträge in diesem Forum nicht löschen.',
-	'USER_CANNOT_EDIT'			=> 'Du darfst deine Beiträge in diesem Forum nicht ändern.',
+	'USER_CANNOT_DELETE'		=> 'Du darfst keine Beiträge in diesem Forum löschen.',
+	'USER_CANNOT_EDIT'			=> 'Du darfst keine Beiträge in diesem Forum ändern.',
 	'USER_CANNOT_REPLY'			=> 'Du darfst keine Antworten zu Themen in diesem Forum erstellen.',
 	'USER_CANNOT_FORUM_POST'	=> 'Du kannst in diesem Forum keine Beiträge schreiben, weil der Forentyp dies nicht unterstützt.',
 

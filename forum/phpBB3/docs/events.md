@@ -456,6 +456,46 @@ mcp_ban_unban_before
 * Since: 3.1.0-RC3
 * Purpose: Add additional fields to the unban form in MCP
 
+mcp_front_latest_logs_after
+===
+* Locations:
+    + styles/prosilver/template/mcp_front.html
+    + styles/subsilver2/template/mcp_front.html
+* Since: 3.1.3-RC1
+* Purpose: Add content after latest logs list
+
+mcp_front_latest_logs_before
+===
+* Locations:
+    + styles/prosilver/template/mcp_front.html
+    + styles/subsilver2/template/mcp_front.html
+* Since: 3.1.3-RC1
+* Purpose: Add content before latest logs list
+
+mcp_front_latest_reported_before
+===
+* Locations:
+    + styles/prosilver/template/mcp_front.html
+    + styles/subsilver2/template/mcp_front.html
+* Since: 3.1.3-RC1
+* Purpose: Add content before latest reported posts list
+
+mcp_front_latest_reported_pms_before
+===
+* Locations:
+    + styles/prosilver/template/mcp_front.html
+    + styles/subsilver2/template/mcp_front.html
+* Since: 3.1.3-RC1
+* Purpose: Add content before latest reported private messages list
+
+mcp_front_latest_unapproved_before
+===
+* Locations:
+    + styles/prosilver/template/mcp_front.html
+    + styles/subsilver2/template/mcp_front.html
+* Since: 3.1.3-RC1
+* Purpose: Add content before latest unapproved posts list
+
 memberlist_body_username_append
 ===
 * Locations:
@@ -634,6 +674,14 @@ overall_footer_after
     + styles/subsilver2/template/overall_footer.html
 * Since: 3.1.0-a1
 * Purpose: Add content at the end of the file, directly prior to the `</body>` tag
+
+overall_footer_body_after
+===
+* Locations:
+    + styles/prosilver/template/overall_footer.html
+    + styles/subsilver2/template/overall_footer.html
+* Since: 3.1.3-RC1
+* Purpose: Add content before the `</body>` tag but after the $SCRIPTS var, i.e. after the js scripts have been loaded
 
 overall_footer_breadcrumb_append
 ===
@@ -1406,6 +1454,22 @@ viewtopic_body_poll_question_prepend
     + styles/subsilver2/template/viewtopic_body.html
 * Since: 3.1.0-b3
 * Purpose: Add content directly before the poll question on the View topic screen
+
+viewtopic_body_post_author_after
+===
+* Locations:
+    + styles/prosilver/template/viewtopic_body.html
+    + styles/subsilver2/template/viewtopic_body.html
+* Since: 3.1.3-RC1
+* Purpose: Add content directly after the post author on the view topic screen
+
+viewtopic_body_post_author_before
+===
+* Locations:
+    + styles/prosilver/template/viewtopic_body.html
+    + styles/subsilver2/template/viewtopic_body.html
+* Since: 3.1.3-RC1
+* Purpose: Add content directly before the post author on the view topic screen
 
 viewtopic_body_post_buttons_after
 ===

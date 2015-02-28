@@ -1063,7 +1063,7 @@ class session
 
 		$name_data = rawurlencode($config['cookie_name'] . '_' . $name) . '=' . rawurlencode($cookiedata);
 		$expire = gmdate('D, d-M-Y H:i:s \\G\\M\\T', $cookietime);
-		$domain = (!$config['cookie_domain'] || $config['cookie_domain'] == 'localhost' || $config['cookie_domain'] == '127.0.0.1') ? '' : '; domain=' . $config['cookie_domain'];
+		$domain = (!$config['cookie_domain'] || $config['cookie_domain'] == '127.0.0.1' || strpos($config['cookie_domain'], '.') === false) ? '' : '; domain=' . $config['cookie_domain'];
 
 		header('Set-Cookie: ' . $name_data . (($cookietime) ? '; expires=' . $expire : '') . '; path=' . $config['cookie_path'] . $domain . ((!$config['cookie_secure']) ? '' : '; secure') . ';' . (($httponly) ? ' HttpOnly' : ''), false);
 	}
@@ -1082,7 +1082,7 @@ class session
 	*/
 	function check_ban($user_id = false, $user_ips = false, $user_email = false, $return = false)
 	{
-		global $config, $db;
+		global $config, $db, $phpbb_dispatcher;
 
 		if (defined('IN_CHECK_BAN') || defined('SKIP_CHECK_BAN'))
 		{
@@ -1195,6 +1195,20 @@ class session
 			}
 		}
 		$db->sql_freeresult($result);
+
+		/**
+		* Event to set custom ban type
+		*
+		* @event core.session_set_custom_ban
+		* @var	bool		return				If $return is false this routine does not return on finding a banned user, it outputs a relevant message and stops execution
+		* @var	bool		banned				Check if user already banned
+		* @var	array|false	ban_row				Ban data
+		* @var	string		ban_triggered_by	Method that caused ban, can be your custom method
+		* @since 3.1.3-RC1
+		*/
+		$ban_row = isset($ban_row) ? $ban_row : false;
+		$vars = array('return', 'banned', 'ban_row', 'ban_triggered_by');
+		extract($phpbb_dispatcher->trigger_event('core.session_set_custom_ban', compact($vars)));
 
 		if ($banned && !$return)
 		{

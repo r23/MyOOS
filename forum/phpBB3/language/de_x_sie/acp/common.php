@@ -78,7 +78,7 @@ $lang = array_merge($lang, array(
 	'ACP_CLIENT_COMMUNICATION'	=> 'Client-Kommunikation',
 	'ACP_COOKIE_SETTINGS'		=> 'Cookies',
 	'ACP_CONTACT'				=> 'Kontaktseite',
-	'ACP_CONTACT_SETTINGS'		=> 'Kontaktseiten-Einstellungen',
+	'ACP_CONTACT_SETTINGS'		=> 'Kontaktseite',
 	'ACP_CRITICAL_LOGS'			=> 'Fehler-Protokoll',
 	'ACP_CUSTOM_PROFILE_FIELDS'	=> 'Benutzerdefinierte Profilfelder',
 
@@ -162,7 +162,7 @@ $lang = array_merge($lang, array(
 	'ACP_RESTORE'				=> 'Wiederherstellen',
 
 	'ACP_FEED'					=> 'Feed-Verwaltung',
-	'ACP_FEED_SETTINGS'			=> 'Feed-Einstellungen',
+	'ACP_FEED_SETTINGS'			=> 'Feeds',
 
 	'ACP_SEARCH'				=> 'Such-Konfiguration',
 	'ACP_SEARCH_INDEX'			=> 'Such-Indizes',
@@ -560,6 +560,7 @@ $lang = array_merge($lang, array(
 	'LOG_LOCK_POST'				=> '<strong>Beitrag gesperrt</strong><br />» %s',
 	'LOG_MERGE'					=> '<strong>Beiträge zusammengeführt</strong> in Thema<br />» %s',
 	'LOG_MOVE'					=> '<strong>Thema verschoben</strong><br />» von %1$s nach %2$s',
+	'LOG_MOVED_TOPIC'			=> '<strong>Thema verschoben</strong><br />» %s',
 	'LOG_PM_REPORT_CLOSED'		=> '<strong>Meldung zu Privater Nachricht geschlossen</strong><br />» %s',
 	'LOG_PM_REPORT_DELETED'		=> '<strong>Meldung zu Privater Nachricht gelöscht</strong><br />» %s',
 	'LOG_POST_APPROVED'			=> '<strong>Beitrag freigegeben</strong><br />» %s',

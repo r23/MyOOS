@@ -74,7 +74,8 @@ $lang = array_merge($lang, array(
 	'NO_RECENT_SEARCHES'	=> 'In der letzten Zeit wurden keine Suchanfragen durchgeführt.',
 	'NO_SEARCH'				=> 'Sie sind leider nicht berechtigt, die Suche zu verwenden.',
 	'NO_SEARCH_RESULTS'		=> 'Es wurden keine passenden Ergebnisse gefunden.',
-	'NO_SEARCH_TIME'		=> array(
+	'NO_SEARCH_LOAD'		=> 'Leider kann die Suche derzeit nicht genutzt werden, da der Server stark ausgelastet ist. Bitte versuchen Sie es später noch einmal.',
+		'NO_SEARCH_TIME'		=> array(
 		1	=> 'Die Suche steht Ihnen momentan leider nicht zur Verfügung. Bitte versuchen Sie es in %d Sekunde erneut.',
 		2	=> 'Die Suche steht Ihnen momentan leider nicht zur Verfügung. Bitte versuchen Sie es in %d Sekunden erneut.',
 	),
