@@ -242,7 +242,7 @@ abstract class Module implements ModuleInterface
             $layoutXpath = new DOMXPath($layoutDoc);
 
             // Get the media node and extract the info
-            if ($lkid != '')
+            if ($lkid != null && $lkid != '')
                 $mediaNodeXpath = $layoutXpath->query("//region[@id='$regionid']/media[@lkid='$lkid']");
             else
                 $mediaNodeXpath = $layoutXpath->query("//region[@id='$regionid']/media[@id='$mediaid']");
@@ -298,8 +298,6 @@ abstract class Module implements ModuleInterface
                 $this->assignedMedia = false;
 
                 try {
-                    $dbh = PDOConnect::init();
-                
                     // Load what we know about this media into the object
                     // this is unauthenticated at this point
                     $rows = Media::Entries(NULL, array('mediaId' => $mediaid, 'allModules' => 1));
@@ -1324,11 +1322,13 @@ END;
         
                         // Create a new media node use it to swap the nodes over
                         Debug::LogEntry('audit', 'Creating new module with MediaID: ' . $newMediaId . ' LayoutID: ' . $layoutId . ' and RegionID: ' . $regionId, 'region', 'ReplaceMediaInAllLayouts');
-                        require_once('modules/' . $type . '.module.php');
-        
-                        // Create a new module as if we were assigning it for the first time
-                        if (!$module = new $type($this->db, $this->user, $newMediaId))
+                        try {
+                            $module = ModuleFactory::createForMedia($type, $newMediaId, $this->db, $this->user);
+                        }
+                        catch (Exception $e) {
+                            Debug::Error($e->getMessage());
                             return false;
+                        }
         
                         // Sets the URI field
                         if (!$module->SetRegionInformation($layoutId, $regionId))
