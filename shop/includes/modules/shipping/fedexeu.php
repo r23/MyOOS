@@ -120,7 +120,7 @@
         $methods = array();
 
         if ($fedexeu_cost_pak != '') {
-          $fedexeu_table_pak = explode("[:,]" , $fedexeu_cost_pak);
+          $fedexeu_table_pak = preg_split("/[:,]/" , $fedexeu_cost_pak);
 
           for ($i=0; $i<count($fedexeu_table_pak); $i+=2) {
             if ($shipping_weight <= $fedexeu_table_pak[$i]) {

@@ -146,7 +146,7 @@
         }
 
         if ($chp_cost_pri != '') {
-          $chp_table_pri = explode("[:,]" , $chp_cost_pri);
+          $chp_table_pri = preg_split("/[:,]/" , $chp_cost_pri);
 
           for ($i=0; $i<count($chp_table_pri); $i+=2) {
             if ($shipping_weight <= $chp_table_pri[$i]) {

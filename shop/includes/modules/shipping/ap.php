@@ -113,7 +113,7 @@
         $shipping = -1;
         $ap_cost = constant('MODULE_SHIPPING_AP_COST_' . $i);
 
-        $ap_table = explode("[:,]" , $ap_cost);
+        $ap_table = preg_split("/[:,]/" , $ap_cost);
         for ($i=0; $i<count($ap_table); $i+=2) {
           if ($shipping_weight <= $ap_table[$i]) {
             $shipping = $ap_table[$i+1];
