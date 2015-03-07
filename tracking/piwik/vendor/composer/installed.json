@@ -600,17 +600,17 @@
     },
     {
         "name": "piwik/ini",
-        "version": "1.0.1",
-        "version_normalized": "1.0.1.0",
+        "version": "1.0.3",
+        "version_normalized": "1.0.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/piwik/component-ini.git",
-            "reference": "2230c365f1cf09bb97f451fb3053092be32da5ad"
+            "reference": "5863e8a006d490c2eb50e32ef08c1c684dff0ed0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/piwik/component-ini/zipball/2230c365f1cf09bb97f451fb3053092be32da5ad",
-            "reference": "2230c365f1cf09bb97f451fb3053092be32da5ad",
+            "url": "https://api.github.com/repos/piwik/component-ini/zipball/5863e8a006d490c2eb50e32ef08c1c684dff0ed0",
+            "reference": "5863e8a006d490c2eb50e32ef08c1c684dff0ed0",
             "shasum": ""
         },
         "require": {
@@ -619,7 +619,7 @@
         "require-dev": {
             "phpunit/phpunit": "~4.0"
         },
-        "time": "2015-01-08 04:07:36",
+        "time": "2015-03-03 22:19:39",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
