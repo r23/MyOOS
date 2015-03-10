@@ -8,11 +8,11 @@ Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://antispambee.com
 License: GPLv2 or later
-Version: 2.6.4
+Version: 2.6.5
 */
 
 /*
-Copyright (C)  2009-2014 Sergej Müller
+Copyright (C)  2009-2015 Sergej Müller
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -57,7 +57,7 @@ class Antispam_Bee {
 	* "Konstruktor" der Klasse
 	*
 	* @since   0.1
-	* @change  2.6.3
+	* @change  2.6.4
 	*/
 
   	public static function init()
@@ -109,7 +109,7 @@ class Antispam_Bee {
 						'load_plugin_lang'
 					)
 				);
-				add_action(
+				add_filter(
 					'dashboard_glance_items',
 					array(
 						__CLASS__,
@@ -338,7 +338,7 @@ class Antispam_Bee {
 	* Initialisierung der internen Variablen
 	*
 	* @since   2.4
-	* @change  2.6.4
+	* @change  2.6.5
 	*/
 
 	private static function _init_internal_vars()
@@ -353,6 +353,7 @@ class Antispam_Bee {
 				'regexp_check'		=> 1,
 				'spam_ip' 			=> 1,
 				'already_commented'	=> 1,
+				'gravatar_check'	=> 0,
 				'time_check'		=> 0,
 				'ignore_pings' 		=> 0,
 				'always_allowed' 	=> 0,
@@ -526,8 +527,7 @@ class Antispam_Bee {
 			$input,
 			array(
 				'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=ZAQUT9RLPW8QN" target="_blank">PayPal</a>',
-				'<a href="https://flattr.com/t/1323822" target="_blank">Flattr</a>',
-				'<a href="https://www.amazon.de/registry/wishlist/2U5I7F9649LOJ/" target="_blank">Wishlist</a>'
+				'<a href="https://flattr.com/t/1323822" target="_blank">Flattr</a>'
 			)
 		);
 	}
@@ -670,35 +670,36 @@ class Antispam_Bee {
 	* Anzeige des Spam-Counters auf dem Dashboard
 	*
 	* @since   0.1
-	* @change  2.6.0
+	* @change  2.6.5
+	*
+	* @param   array  $items  Array with dashboard items
+	* @return  array  $items  Array with dashboard items
 	*/
 
-	public static function add_dashboard_count()
+	public static function add_dashboard_count( $items = array() )
 	{
-		/* Aktiv? */
-		if ( ! self::get_option('dashboard_count') ) {
-			return;
-		}
+		/* Skip */
+        if ( ! current_user_can('manage_options') OR ! self::get_option('dashboard_count') ) {
+            return $items;
+        }
 
-		/* Add list item icon */
-		echo '<style>#dashboard_right_now .ab-count a:before {content: "\f117"}</style>';
+        /* Icon styling */
+        echo '<style>#dashboard_right_now .ab-count:before {content: "\f117"}</style>';
 
-		/* Ausgabe */
-		echo sprintf(
-			'<li class="ab-count">
-				<a href="%s">
-					%s %s
-				</a>
-			</li>',
-			add_query_arg(
-				array(
-					'page' => 'antispam_bee'
-				),
-				admin_url('options-general.php')
-			),
-			esc_html( self::_get_spam_count() ),
-			esc_html__('Blocked', 'antispam_bee')
-		);
+        /* Right now item */
+        $items[] = sprintf(
+        	'<a href="%s" class="ab-count">%s %s</a>',
+        	add_query_arg(
+        	    array(
+        	        'page' => 'antispam_bee'
+        	    ),
+        	    admin_url('options-general.php')
+        	),
+        	esc_html( self::_get_spam_count() ),
+        	esc_html__('Blocked', 'antispam_bee')
+        );
+
+        return $items;
 	}
 
 
@@ -1143,7 +1144,8 @@ class Antispam_Bee {
 			array(
 				__CLASS__,
 				'get_client_ip'
-			)
+			),
+			1
 		);
 
 		/* Request params */
@@ -1346,7 +1348,7 @@ class Antispam_Bee {
 	* Prüfung den Kommentar
 	*
 	* @since   2.4
-	* @change  2.6.4
+	* @change  2.6.5
 	*
 	* @param   array  $comment  Daten des Kommentars
 	* @return  array            Array mit dem Verdachtsgrund [optional]
@@ -1386,8 +1388,13 @@ class Antispam_Bee {
 		$options = self::get_options();
 
 		/* Bereits kommentiert? */
-		if ( $options['already_commented'] && !empty($email) && self::_is_approved_email($email) ) {
+		if ( $options['already_commented'] && ! empty($email) && self::_is_approved_email($email) ) {
 			return;
+		}
+
+		/* Check for a Gravatar */
+		if ( $options['gravatar_check'] && ! empty($email) && self::_has_valid_gravatar($email) ) {
+		    return;
 		}
 
 		/* Bot erkannt */
@@ -1461,6 +1468,36 @@ class Antispam_Bee {
 			);
 		}
 	}
+
+
+	/**
+	* Check for a Gravatar image
+	*
+	* @since   2.6.5
+	* @change  2.6.5
+	*
+	* @param   string	$email  Input email
+	* @return  boolean       	Check status (true = Gravatar available)
+	*/
+
+    private static function _has_valid_gravatar($email) {
+        $response = wp_safe_remote_get(
+            sprintf(
+                'https://www.gravatar.com/avatar/%s?d=404',
+                md5( strtolower( trim($email) ) )
+            )
+        );
+
+        if ( is_wp_error($response) ) {
+            return null;
+        }
+
+        if ( wp_remote_retrieve_response_code($response) === 200 ) {
+            return true;
+        }
+
+        return false;
+    }
 
 
 	/**
@@ -1576,7 +1613,7 @@ class Antispam_Bee {
 				}
 
 				/* Perform regex */
-				if ( preg_match('/' .$regexp. '/isu', $comment[$field]) ) {
+				if ( @preg_match('/' .$regexp. '/isu', $comment[$field]) ) {
 					$hits[$field] = true;
 				}
 			}
@@ -1977,7 +2014,7 @@ class Antispam_Bee {
 	* Check for an IPv4 address
 	*
 	* @since   2.4
-	* @change  2.6.2
+	* @change  2.6.4
 	*
 	* @param   string   $ip  IP to validate
 	* @return  integer       TRUE if IPv4
@@ -1985,7 +2022,11 @@ class Antispam_Bee {
 
 	private static function _is_ipv4($ip)
 	{
-		return preg_match('/^\d{1,3}(\.\d{1,3}){3,3}$/', $ip);
+		if ( function_exists('filter_var') ) {
+			return filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) !== false;
+		} else {
+			return preg_match('/^\d{1,3}(\.\d{1,3}){3,3}$/', $ip);
+		}
 	}
 
 
@@ -1993,7 +2034,7 @@ class Antispam_Bee {
 	* Check for an IPv6 address
 	*
 	* @since   2.6.2
-	* @change  2.6.2
+	* @change  2.6.4
 	*
 	* @param   string   $ip  IP to validate
 	* @return  boolean       TRUE if IPv6
@@ -2001,7 +2042,11 @@ class Antispam_Bee {
 
 	private static function _is_ipv6($ip)
 	{
-		return ! self::_is_ipv4($ip);
+		if ( function_exists('filter_var') ) {
+			return filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 ) !== false;
+		} else {
+			return ! self::_is_ipv4($ip);
+		}
 	}
 
 

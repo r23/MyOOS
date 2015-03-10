@@ -64,6 +64,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 			'ignore_reasons' 	=> (array)self::get_key($_POST, 'ab_ignore_reasons'),
 
 			'bbcode_check'		=> (int)(!empty($_POST['ab_bbcode_check'])),
+			'gravatar_check'	=> (int)(!empty($_POST['ab_gravatar_check'])),
 			'dnsbl_check'		=> (int)(!empty($_POST['ab_dnsbl_check'])),
 
 			'country_code' 		=> (int)(!empty($_POST['ab_country_code'])),
@@ -211,8 +212,16 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 							<li>
 								<input type="checkbox" name="ab_already_commented" id="ab_already_commented" value="1" <?php checked($options['already_commented'], 1) ?> />
 								<label for="ab_already_commented">
-									<?php esc_html_e('Trust approved commentators', 'antispam_bee') ?>
-									<span><?php esc_html_e('No check for already commenting users', 'antispam_bee') ?></span>
+									<?php esc_html_e('Trust approved commenters', 'antispam_bee') ?>
+									<span><?php esc_html_e('Always approve previously approved users', 'antispam_bee') ?></span>
+								</label>
+							</li>
+
+							<li>
+								<input type="checkbox" name="ab_gravatar_check" id="ab_gravatar_check" value="1" <?php checked($options['gravatar_check'], 1) ?> />
+								<label for="ab_gravatar_check">
+									<?php esc_html_e('Trust commenters with a Gravatar', 'antispam_bee') ?>
+									<span><?php _e('Check if commenter has a Gravatar image', 'antispam_bee') ?></span>
 								</label>
 							</li>
 
@@ -235,7 +244,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 							<li>
 								<input type="checkbox" name="ab_advanced_check" id="ab_advanced_check" value="1" <?php checked($options['advanced_check'], 1) ?> />
 								<label for="ab_advanced_check">
-									<?php esc_html_e('Validate the ip address of commentators', 'antispam_bee') ?>
+									<?php esc_html_e('Validate the ip address of commenters', 'antispam_bee') ?>
 									<span><?php esc_html_e('Validity check for used ip address', 'antispam_bee') ?></span>
 								</label>
 							</li>
@@ -332,7 +341,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 								<input type="checkbox" name="ab_email_notify" id="ab_email_notify" value="1" <?php checked($options['email_notify'], 1) ?> />
 								<label for="ab_email_notify">
 									<?php esc_html_e('Notification by email', 'antispam_bee') ?>
-									<span><?php esc_html_e('Sending an alert to the admin', 'antispam_bee') ?></span>
+									<span><?php esc_html_e('Notify admins by e-mail about incoming spam', 'antispam_bee') ?></span>
 								</label>
 							</li>
 
@@ -359,7 +368,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 								<input type="checkbox" name="ab_ignore_filter" id="ab_ignore_filter" value="1" <?php checked($options['ignore_filter'], 1) ?> />
 								<label>
 									<?php echo sprintf(
-										esc_html__('Limit on %s', 'antispam_bee'),
+										esc_html__('Limit approval to %s', 'antispam_bee'),
 										self::_build_select(
 											'ab_ignore_type',
 											array(
@@ -369,7 +378,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 											$options['ignore_type']
 										)
 									); ?>
-									<span><?php esc_html_e('Another type of spam will be deleted immediately', 'antispam_bee') ?></span>
+									<span><?php esc_html_e('Other types of spam will be deleted immediately', 'antispam_bee') ?></span>
 								</label>
 							</li>
 
@@ -377,7 +386,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 								<input type="checkbox" name="ab_reasons_enable" id="ab_reasons_enable" value="1" <?php checked($options['reasons_enable'], 1) ?> />
 								<label for="ab_reasons_enable">
 									<?php esc_html_e('Delete comments by spam reasons', 'antispam_bee') ?>
-									<span><?php esc_html_e('Multiple choice by pressing Ctrl/CMD', 'antispam_bee') ?></span>
+									<span><?php esc_html_e('For multiple selections press Ctrl/CMD', 'antispam_bee') ?></span>
 								</label>
 
 								<ul>
@@ -410,7 +419,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 								<input type="checkbox" name="ab_dashboard_chart" id="ab_dashboard_chart" value="1" <?php checked($options['dashboard_chart'], 1) ?> />
 								<label for="ab_dashboard_chart">
 									<?php esc_html_e('Statistics on the dashboard', 'antispam_bee') ?>
-									<span><?php esc_html_e('Spam detection rate with daily values', 'antispam_bee') ?></span>
+									<span><?php esc_html_e('Daily updates of spam detection rate', 'antispam_bee') ?></span>
 								</label>
 							</li>
 

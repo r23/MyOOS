@@ -3,7 +3,7 @@ Contributors: sergej.mueller
 Tags: comment, spam, antispam, comments, trackback, protection, prevention
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZAQUT9RLPW8QN
 Requires at least: 3.8
-Tested up to: 4.0
+Tested up to: 4.1.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -103,6 +103,21 @@ Fragen rund ums Plugin werden gern per E-Mail beantwortet. Beachtet auch die [Gu
 
 
 == Changelog ==
+
+= 2.6.5 =
+
+* **English**
+    * Fix: Return parameters on `dashboard_glance_items` callback / thx [@toscho](https://twitter.com/toscho)
+    * New function: Trust commenters with a Gravatar / thx [@glueckpress](https://twitter.com/glueckpress)
+    * Additional plausibility checks and filters
+    * *Release time investment (Development & QA): 12 h*
+
+* **Deutsch**
+    * Fix: Parameter-Rückgabe bei `dashboard_glance_items` / thx [@toscho](https://twitter.com/toscho)
+    * Neue Funktion: [Kommentatoren mit Gravatar vertrauen](http://playground.ebiene.de/antispam-bee-wordpress-plugin/#gravatar_check) / thx [@glueckpress](https://twitter.com/glueckpress)
+    * Zusätzliche Plausibilitätsprüfungen und Filter
+    * *Release-Zeitaufwand (Development & QA): 12 Stunden*
+
 
 = 2.6.4 =
 

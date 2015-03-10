@@ -3,21 +3,28 @@ msgstr ""
 "Project-Id-Version: Antispam Bee\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-21 22:20+0300\n"
-"PO-Revision-Date: 2013-12-20 11:18+0100\n"
-"Last-Translator: Sergej Müller\n"
+"PO-Revision-Date: Tue Mar 10 2015 08:17:13 GMT+0100 (CET)\n"
+"Last-Translator: glueckpress <caspar@glueckpress.com>\n"
 "Language-Team: Andrey Ananin\n"
-"Language: \n"
+"Language: Russian\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && "
+"n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;"
+"__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
+"_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;"
+"esc_attr__:1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;"
+"esc_html_x:1,2c;comments_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-Language: Russian\n"
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
-"X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
+"X-Loco-Target-Locale: ru_RU\n"
+"X-Generator: Loco - https://localise.biz/"
 
 #: ../antispam_bee.php:421
 msgid "Settings"
@@ -101,11 +108,11 @@ msgid "Filter in the execution order"
 msgstr "Фильтрация в порядке выполнения"
 
 #: ../inc/gui.class.php:207
-msgid "Trust approved commentators"
+msgid "Trust approved commenters"
 msgstr "Доверять одобренным комментаторам"
 
 #: ../inc/gui.class.php:208
-msgid "No check for already commenting users"
+msgid "Always approve previously approved users"
 msgstr "Не проверять для пользов. с коммент."
 
 msgid "BBCode is spam"
@@ -119,11 +126,15 @@ msgid "Use a public antispam database"
 msgstr "Использовать общую БД антиспама"
 
 #: ../inc/gui.class.php:216
-msgid "Matching the ip address with <a href=\"https://dnsbl.tornevall.org\" target=\"_blank\">Tornevall</a>"
-msgstr "Проверять IP-адрес в <a href=\"https://dnsbl.tornevall.org\" target=\"_blank\">Tornevall</a>"
+msgid ""
+"Matching the ip address with <a href=\"https://dnsbl.tornevall.org\" "
+"target=\"_blank\">Tornevall</a>"
+msgstr ""
+"Проверять IP-адрес в <a href=\"https://dnsbl.tornevall.org\" "
+"target=\"_blank\">Tornevall</a>"
 
 #: ../inc/gui.class.php:223
-msgid "Validate the ip address of commentators"
+msgid "Validate the ip address of commenters"
 msgstr "Проверять IP-адреса пользователей"
 
 #: ../inc/gui.class.php:224
@@ -179,7 +190,7 @@ msgid "Notification by email"
 msgstr "Уведомление по email"
 
 #: ../inc/gui.class.php:304
-msgid "Sending an alert to the admin"
+msgid "Notify admins by e-mail about incoming spam"
 msgstr "Послать предупреждение администратору"
 
 #: ../inc/gui.class.php:311
@@ -201,11 +212,11 @@ msgstr "Очистить БД от старых записей"
 
 #: ../inc/gui.class.php:331
 #, php-format
-msgid "Limit on %s"
+msgid "Limit approval to %s"
 msgstr "Ограничить на %s"
 
 #: ../inc/gui.class.php:341
-msgid "Another type of spam will be deleted immediately"
+msgid "Other types of spam will be deleted immediately"
 msgstr "Другой тип спама будет сразу удален"
 
 #: ../inc/gui.class.php:348
@@ -213,7 +224,7 @@ msgid "Delete comments by spam reasons"
 msgstr "Удалять комментарии по причине спама"
 
 #: ../inc/gui.class.php:349
-msgid "Multiple choice by pressing Ctrl/CMD"
+msgid "For multiple selections press Ctrl/CMD"
 msgstr "Множеств. выбор нажатием Ctrl/CMD"
 
 #: ../inc/gui.class.php:372
@@ -229,7 +240,7 @@ msgid "Statistics on the dashboard"
 msgstr "Статистика в консоли"
 
 #: ../inc/gui.class.php:382
-msgid "Spam detection rate with daily values"
+msgid "Daily updates of spam detection rate"
 msgstr "Частота выявления спама по дням"
 
 #: ../inc/gui.class.php:389
@@ -259,4 +270,3 @@ msgstr "Проверять коммент. на страницах архива"
 #: ../inc/gui.class.php:422
 msgid "Save Changes"
 msgstr "Сохранить изменения"
-
