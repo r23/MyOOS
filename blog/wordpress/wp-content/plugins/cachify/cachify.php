@@ -8,11 +8,11 @@ Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://cachify.de
 License: GPLv2 or later
-Version: 2.2.1
+Version: 2.2.2
 */
 
 /*
-Copyright (C)  2011-2014 Sergej Müller
+Copyright (C)  2011-2015 Sergej Müller
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

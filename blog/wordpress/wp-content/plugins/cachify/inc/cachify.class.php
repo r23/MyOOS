@@ -74,7 +74,7 @@ final class Cachify {
 	* Konstruktor der Klasse
 	*
 	* @since   1.0.0
-	* @change  2.2.0
+	* @change  2.2.2
 	*
 	* @param   void
 	* @return  void
@@ -119,6 +119,13 @@ final class Cachify {
 		);
 		add_action(
 			'switch_theme',
+			array(
+				__CLASS__,
+				'flush_total_cache'
+			)
+		);
+		add_action(
+			'wp_trash_post',
 			array(
 				__CLASS__,
 				'flush_total_cache'
@@ -206,7 +213,7 @@ final class Cachify {
 				)
 			);
 
-			add_action(
+			add_filter(
 				'dashboard_glance_items',
 				array(
 					__CLASS__,
@@ -604,11 +611,19 @@ final class Cachify {
 	* Anzeige des Spam-Counters auf dem Dashboard
 	*
 	* @since   2.0.0
-	* @change  2.1.3
+	* @change  2.2.2
+	*
+	* @param   array  $items  Initial array with dashboard items
+	* @return  array  $items  Merged array with dashboard items
 	*/
 
-	public static function add_dashboard_count()
+	public static function add_dashboard_count( $items = array() )
 	{
+		/* Skip */
+        if ( ! current_user_can('manage_options') ) {
+            return $items;
+        }
+
 		/* Cache size */
 		$size = self::get_cache_size();
 
@@ -620,13 +635,9 @@ final class Cachify {
 			)
 		);
 
-		/* Print the link */
-		echo sprintf(
-			'<li>
-				<a href="%s" class="cachify-icon cachify-icon--%s" title="%s: %s">
-					%s Cache
-				</a>
-			</li>',
+		/* Right now item */
+		$items[] = sprintf(
+			'<a href="%s" class="cachify-icon cachify-icon--%s" title="%s: %s">%s Cache</a>',
 			add_query_arg(
 				array(
 					'page' => 'cachify'
@@ -634,10 +645,12 @@ final class Cachify {
 				admin_url('options-general.php')
 			),
 			esc_attr(strtolower($method)),
-			__('Caching method', 'cachify'),
+			esc_html__('Caching method', 'cachify'),
 			esc_attr($method),
-			( empty($size) ? __('Empty', 'cachify') : size_format($size) )
+			( empty($size) ? esc_html__('Empty', 'cachify') : size_format($size) )
 		);
+
+		return $items;
 	}
 
 
@@ -677,7 +690,7 @@ final class Cachify {
 	* Hinzufügen eines Admin-Bar-Menüs
 	*
 	* @since   1.2
-	* @change  2.2.0
+	* @change  2.2.2
     *
     * @hook    mixed   cachify_user_can_flush_cache
 	*
@@ -698,10 +711,10 @@ final class Cachify {
 		$wp_admin_bar->add_menu(
 			array(
 				'id' 	 => 'cachify',
-				'href'   => wp_nonce_url( add_query_arg('_cachify', 'flush'), '_cachify_flush_nonce'),
+				'href'   => wp_nonce_url( add_query_arg('_cachify', 'flush'), '_cachify__flush_nonce'),
 				'parent' => 'top-secondary',
 				'title'	 => '<span class="ab-icon dashicons"></span>',
-				'meta'   => array( 'title' => __('Flush the cachify cache', 'cachify') )
+				'meta'   => array( 'title' => esc_html__('Flush the cachify cache', 'cachify') )
 			)
 		);
 	}
@@ -711,7 +724,7 @@ final class Cachify {
 	* Verarbeitung der Plugin-Meta-Aktionen
 	*
 	* @since   0.5
-	* @change  2.2.1
+	* @change  2.2.2
     *
     * @hook    mixed  cachify_user_can_flush_cache
 	*
@@ -726,7 +739,7 @@ final class Cachify {
 		}
 
         /* Check nonce */
-        if ( empty($_GET['_wpnonce']) OR ! wp_verify_nonce($_GET['_wpnonce'], '_cachify_flush_nonce') ) {
+        if ( empty($_GET['_wpnonce']) OR ! wp_verify_nonce($_GET['_wpnonce'], '_cachify__flush_nonce') ) {
             return;
         }
 
@@ -800,7 +813,7 @@ final class Cachify {
 	* Hinweis nach erfolgreichem Cache-Leeren
 	*
 	* @since   1.2
-	* @change  2.2.0
+	* @change  2.2.2
     *
     * @hook    mixed  cachify_user_can_flush_cache
 	*/
@@ -814,7 +827,7 @@ final class Cachify {
 
 		echo sprintf(
 			'<div id="message" class="updated"><p><strong>%s</strong></p></div>',
-			__('Cachify cache is flushed.', 'cachify')
+			esc_html__('Cachify cache is flushed.', 'cachify')
 		);
 	}
 
@@ -937,7 +950,7 @@ final class Cachify {
 	* Removes the post type cache on post updates
 	*
 	* @since   2.0.3
-	* @change  2.1.7
+	* @change  2.2.2
 	*
 	* @param   integer  $post_ID  Post ID
 	*/
@@ -960,7 +973,7 @@ final class Cachify {
 		}
 
 		/* Security */
-		check_admin_referer(CACHIFY_BASE, '_cachify_status_nonce');
+		check_admin_referer(CACHIFY_BASE, '_cachify__status_nonce_' .$post_ID);
 
 		/* Check user role */
 		if ( ! current_user_can('publish_posts') ) {
@@ -1104,14 +1117,14 @@ final class Cachify {
 	* Prüfung auf Mobile Devices
 	*
 	* @since   0.9.1
-	* @change  2.0.7
+	* @change  2.2.2
 	*
 	* @return  boolean  TRUE bei Mobile
 	*/
 
 	private static function _is_mobile()
 	{
-		return ( strpos(TEMPLATEPATH, 'wptouch') or strpos(TEMPLATEPATH, 'carrington') or strpos(TEMPLATEPATH, 'jetpack') or strpos(TEMPLATEPATH, 'handheld') );
+		return ( strpos(TEMPLATEPATH, 'wptouch') OR strpos(TEMPLATEPATH, 'carrington') OR strpos(TEMPLATEPATH, 'jetpack') OR strpos(TEMPLATEPATH, 'handheld') );
 	}
 
 
@@ -1423,7 +1436,7 @@ final class Cachify {
 	* Display a combo select on post publish box
 	*
 	* @since   2.1.3
-	* @change  2.1.7
+	* @change  2.2.2
 	*/
 
 	public static function print_flush_dropdown()
@@ -1444,7 +1457,7 @@ final class Cachify {
 		}
 
 		/* Security */
-		wp_nonce_field(CACHIFY_BASE, '_cachify_status_nonce');
+		wp_nonce_field(CACHIFY_BASE, '_cachify__status_nonce_' .$GLOBALS['post']->ID);
 
 		/* Already saved? */
 		$current_action = (int)get_user_meta(
@@ -1455,7 +1468,10 @@ final class Cachify {
 
 		/* Init vars */
 		$dropdown_options = '';
-		$available_options = array(__('Total cache', 'cachify'), __('Page cache', 'cachify'));
+		$available_options = array(
+			esc_html__('Total cache', 'cachify'),
+			esc_html__('Page cache', 'cachify')
+		);
 
 		/* Select options */
 		foreach( $available_options as $key => $value ) {
@@ -1484,12 +1500,12 @@ final class Cachify {
 	 				<a href="#" class="cancel-cachify-status hide-if-no-js button-cancel">%6$s</a>
 	 			</div>
 			</div>',
-			__('Remove', 'cachify'),
+			esc_html__('Remove', 'cachify'),
 			$available_options[$current_action],
-			__('Edit'),
+			esc_html__('Edit'),
 			$dropdown_options,
-			__('OK'),
-			__('Cancel')
+			esc_html__('OK'),
+			esc_html__('Cancel')
 		);
 	}
 
@@ -1498,12 +1514,12 @@ final class Cachify {
 	* Einfügen der Optionsseite
 	*
 	* @since   1.0
-	* @change  2.0.2
+	* @change  2.2.2
 	*/
 
 	public static function add_page()
 	{
-		$page = add_options_page(
+		add_options_page(
 			'Cachify',
 			'Cachify',
 			'manage_options',
@@ -1529,9 +1545,9 @@ final class Cachify {
 	{
 		/* Defaults */
 		$methods = array(
-			self::METHOD_DB  => __('Database', 'cachify'),
+			self::METHOD_DB  => esc_html__('Database', 'cachify'),
 			self::METHOD_APC => 'APC',
-			self::METHOD_HDD => __('Hard disk', 'cachify'),
+			self::METHOD_HDD => esc_html__('Hard disk', 'cachify'),
 			self::METHOD_MMC => 'Memcached'
 		);
 
@@ -1566,7 +1582,7 @@ final class Cachify {
 	private static function _minify_select()
 	{
 		return array(
-			self::MINIFY_DISABLED  => __('No minify', 'cachify'),
+			self::MINIFY_DISABLED  => esc_html__('No minify', 'cachify'),
 			self::MINIFY_HTML_ONLY => 'HTML',
 			self::MINIFY_HTML_JS   => 'HTML + Inline JavaScript'
 		);
@@ -1632,7 +1648,7 @@ final class Cachify {
 				'cachify_method_tip',
 				sprintf(
 					'%s [<a href="http://playground.ebiene.de/cachify-wordpress-cache/" target="_blank">?</a>]',
-					__('The server configuration file (e.g. .htaccess) needs to be adjusted', 'cachify')
+					esc_html__('The server configuration file (e.g. .htaccess) needs to be adjusted', 'cachify')
 				),
 				'updated'
 			);
@@ -1655,7 +1671,7 @@ final class Cachify {
 	* Darstellung der Optionsseite
 	*
 	* @since   1.0
-	* @change  2.1.9
+	* @change  2.2.2
 	*/
 
 	public static function options_page()
@@ -1680,7 +1696,7 @@ final class Cachify {
 				<table class="form-table">
 					<tr valign="top">
 						<th scope="row">
-							<?php _e('Cache method', 'cachify') ?>
+							<?php esc_html_e('Cache method', 'cachify') ?>
 						</th>
 						<td>
 							<label for="cachify_cache_method">
@@ -1695,32 +1711,32 @@ final class Cachify {
 
 					<tr valign="top">
 						<th scope="row">
-							<?php _e('Cache expiration', 'cachify') ?>
+							<?php esc_html_e('Cache expiration', 'cachify') ?>
 						</th>
 						<td>
 							<label for="cachify_cache_expires">
 								<input type="number" min="0" step="1" name="cachify[cache_expires]" id="cachify_cache_expires" value="<?php echo esc_attr($options['cache_expires']) ?>" class="small-text" />
-								<?php _e('Hours', 'cachify') ?>
+								<?php esc_html_e('Hours', 'cachify') ?>
 							</label>
 						</td>
 					</tr>
 
 					<tr valign="top">
 						<th scope="row">
-							<?php _e('Cache generation', 'cachify') ?>
+							<?php esc_html_e('Cache generation', 'cachify') ?>
 						</th>
 						<td>
 							<fieldset>
 								<label for="cachify_only_guests">
 									<input type="checkbox" name="cachify[only_guests]" id="cachify_only_guests" value="1" <?php checked('1', $options['only_guests']); ?> />
-									<?php _e('No cache generation by logged in users', 'cachify') ?>
+									<?php esc_html_e('No cache generation by logged in users', 'cachify') ?>
 								</label>
 
 								<br />
 
 								<label for="cachify_reset_on_comment">
 									<input type="checkbox" name="cachify[reset_on_comment]" id="cachify_reset_on_comment" value="1" <?php checked('1', $options['reset_on_comment']); ?> />
-									<?php _e('Flush the cache at new comments', 'cachify') ?>
+									<?php esc_html_e('Flush the cache at new comments', 'cachify') ?>
 								</label>
 							</fieldset>
 						</td>
@@ -1728,7 +1744,7 @@ final class Cachify {
 
 					<tr valign="top">
 						<th scope="row">
-							<?php _e('Cache exceptions', 'cachify') ?>
+							<?php esc_html_e('Cache exceptions', 'cachify') ?>
 						</th>
 						<td>
 							<fieldset>
@@ -1749,7 +1765,7 @@ final class Cachify {
 
 					<tr valign="top">
 						<th scope="row">
-							<?php _e('Cache minify', 'cachify') ?>
+							<?php esc_html_e('Cache minify', 'cachify') ?>
 						</th>
 						<td>
 							<label for="cachify_compress_html">
@@ -1769,7 +1785,7 @@ final class Cachify {
 							<?php submit_button() ?>
 						</th>
 						<td>
-							<a href="http://playground.ebiene.de/cachify-wordpress-cache/" target="_blank"><?php _e('Manual', 'cachify') ?></a> &bull; <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=ZAQUT9RLPW8QN" target="_blank">PayPal</a> &bull; <a href="https://flattr.com/t/1327625" target="_blank">Flattr</a> &bull; <a href="https://www.amazon.de/registry/wishlist/2U5I7F9649LOJ/" target="_blank">Wishlist</a>
+							<a href="http://playground.ebiene.de/cachify-wordpress-cache/" target="_blank"><?php esc_html_e('Manual', 'cachify') ?></a> &bull; <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=ZAQUT9RLPW8QN" target="_blank">PayPal</a> &bull; <a href="https://flattr.com/t/1327625" target="_blank">Flattr</a> &bull; <a href="https://www.amazon.de/registry/wishlist/2U5I7F9649LOJ/" target="_blank">Wishlist</a>
 						</td>
 					</tr>
 				</table>
