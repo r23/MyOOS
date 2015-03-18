@@ -16,7 +16,7 @@ class WPCOM_JSON_API_GET_Site_Endpoint extends WPCOM_JSON_API_Endpoint {
 		'visible'           => '(bool) If this site is visible in the user\'s site list',
 		'is_private'        => '(bool) If the site is a private site or not',
 		'is_following'      => '(bool) If the current user is subscribed to this site in the reader',
-		'options'           => '(array) An array of options/settings for the blog. Only viewable by users with access to the site. Note: Post formats is deprecated, please see /sites/$id/post-formats/',
+		'options'           => '(array) An array of options/settings for the blog. Only viewable by users with post editing rights to the site. Note: Post formats is deprecated, please see /sites/$id/post-formats/',
 		'meta'              => '(object) Meta data',
 	);
 
@@ -138,12 +138,6 @@ class WPCOM_JSON_API_GET_Site_Endpoint extends WPCOM_JSON_API_Endpoint {
                         if( is_jetpack_site() ) {
 
 							$site_icon_url = get_option( 'jetpack_site_icon_url' );
-							if( ! $site_icon_url ) {
-								$site_icon_url = get_option( 'site_icon_url' );
-							} else {
-								// clean up site_icon_url was only set during 3.3 beta 2 of jetpack
-								delete_option( 'site_icon_url' );
-							}
 							if( $site_icon_url ) {
 								$response[ $key ] = array(
 									'img' => (string) jetpack_photon_url( $site_icon_url, array() , 'https' ),
@@ -238,6 +232,14 @@ class WPCOM_JSON_API_GET_Site_Endpoint extends WPCOM_JSON_API_Endpoint {
 					}
 				}
 
+				$is_redirect = false;
+
+				if ( function_exists( 'get_primary_domain_mapping_record' ) ) {
+					if ( get_primary_domain_mapping_record()->type == 1 ) {
+						$is_redirect = true;
+					}
+				}
+
 				if ( function_exists( 'get_mime_types' ) ) {
 					$allowed_file_types = get_mime_types();
 				} else {
@@ -265,8 +267,10 @@ class WPCOM_JSON_API_GET_Site_Endpoint extends WPCOM_JSON_API_Endpoint {
 					'login_url'               => wp_login_url(),
 					'admin_url'               => get_admin_url(),
 					'is_mapped_domain'        => $is_mapped_domain,
+					'is_redirect'             => $is_redirect,
 					'unmapped_url'            => get_site_url( $blog_id ),
 					'featured_images_enabled' => current_theme_supports( 'post-thumbnails' ),
+					'theme_slug'              => get_option( 'stylesheet' ),
 					'header_image'            => get_theme_mod( 'header_image_data' ),
 					'background_color'        => get_theme_mod( 'background_color' ),
 					'image_default_link_type' => get_option( 'image_default_link_type' ),
@@ -296,16 +300,20 @@ class WPCOM_JSON_API_GET_Site_Endpoint extends WPCOM_JSON_API_Endpoint {
 				if ( $is_jetpack ) {
 					$response['options']['jetpack_version'] = get_option( 'jetpack_version' );
 
+					// If we are not on WPCOM, force WordPress to re-calculate available updates.
+					if ( ! defined( 'IS_WPCOM' ) || ! IS_WPCOM ) {
+						wp_get_update_data();
+					}
+					$response['options']['updates'] = Jetpack_Options::get_option( 'updates', array() );
+
                     if( get_option( 'jetpack_main_network_site' ) ) {
 	                    $response['options']['main_network_site'] = (string) rtrim( get_option( 'jetpack_main_network_site' ), '/' );
-	                    delete_option( 'main_network_site' ); // clean up after on self
-                    } elseif( get_option( 'main_network_site' ) ) { // This was only set for 3.3 beta 2 sites and should be removed after
-	                    $response['options']['main_network_site'] = (string) rtrim( get_option( 'main_network_site' ), '/' );
                     }
 
 					// Sites have to prove that they are not main_network site.
 					// If the sync happends right then we should be able to see that we are not dealing with a network site
 					$response['options']['is_multi_network'] = (bool) get_option( 'jetpack_is_main_network', true  );
+					$response['options']['is_multi_site'] = (bool) get_option( 'jetpack_is_multi_site', true );
 
 				}
 
@@ -375,7 +383,7 @@ class WPCOM_JSON_API_List_Post_Formats_Endpoint extends WPCOM_JSON_API_Endpoint 
 }
 
 class WPCOM_JSON_API_List_Post_Types_Endpoint extends WPCOM_JSON_API_Endpoint {
-	static $post_type_keys_to_include = array( 'name', 'label', 'description' );
+	static $post_type_keys_to_include = array( 'name', 'label', 'description', 'map_meta_cap' );
 
 	// /sites/%s/post-types -> $blog_id
 	function callback( $path = '', $blog_id = 0 ) {
@@ -421,4 +429,3 @@ class WPCOM_JSON_API_List_Post_Types_Endpoint extends WPCOM_JSON_API_Endpoint {
 		);
 	}
 }
-

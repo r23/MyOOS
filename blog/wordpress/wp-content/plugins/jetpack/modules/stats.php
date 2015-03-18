@@ -3,10 +3,11 @@
  * Module Name: WordPress.com Stats
  * Module Description: Monitor your stats with clear, concise reports and no additional load on your server.
  * Sort Order: 1
+ * Recommendation Order: 2
  * First Introduced: 1.1
  * Requires Connection: Yes
  * Auto Activate: Yes
- * Module Tags: WordPress.com Stats
+ * Module Tags: WordPress.com Stats, Recommended
  */
 
 if ( defined( 'STATS_VERSION' ) ) {
@@ -58,12 +59,21 @@ function stats_load() {
 
 	add_action( 'jetpack_admin_menu', 'stats_admin_menu' );
 
-	add_action( 'wp_dashboard_setup', 'stats_register_dashboard_widget' );
+	// Map stats caps
+	add_filter( 'map_meta_cap', 'stats_map_meta_caps', 10, 4 );
+
+	if ( isset( $_GET['oldwidget'] ) ) {
+		// Old one.
+		add_action( 'wp_dashboard_setup', 'stats_register_dashboard_widget' );
+	} elseif ( current_user_can( 'view_stats' ) ) {
+		// New way.
+		add_action( 'admin_head', 'stats_dashboard_head' );
+		add_action( 'wp_dashboard_setup', 'stats_register_widget_control_callback' ); // hacky but works
+		add_action( 'jetpack_dashboard_widget', 'stats_jetpack_dashboard_widget' );
+	}
 
 	add_filter( 'jetpack_xmlrpc_methods', 'stats_xmlrpc_methods' );
 
-	// Map stats caps
-	add_filter( 'map_meta_cap', 'stats_map_meta_caps', 10, 4 );
 
 	add_filter( 'pre_option_db_version', 'stats_ignore_db_version' );
 }
@@ -145,20 +155,17 @@ function stats_template_redirect() {
 		$post = '0';
 	}
 
-	$http = is_ssl() ? 'https' : 'http';
-	$week = gmdate( 'YW' );
-
+	$script = set_url_scheme( '//stats.wp.com/e-' . gmdate( 'YW' ) . '.js' );
 	$data = stats_array( compact( 'v', 'j', 'blog', 'post', 'tz' ) );
 
 	$stats_footer = <<<END
+<script type='text/javascript' src='{$script}' async defer></script>
+<script type='text/javascript'>
+	_stq = window._stq || [];
+	_stq.push([ 'view', {{$data}} ]);
+	_stq.push([ 'clickTrackerInit', '{$blog}', '{$post}' ]);
+</script>
 
-	<script src="$http://stats.wp.com/e-$week.js" type="text/javascript"></script>
-	<script type="text/javascript">
-	st_go({{$data}});
-	var load_cmc = function(){linktracker_init($blog,$post,2);};
-	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
-	else load_cmc();
-	</script>
 END;
 }
 
@@ -274,6 +281,7 @@ function stats_admin_path() {
 function stats_reports_load() {
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'postbox' );
+	wp_enqueue_script( 'underscore' );
 
 	add_action( 'admin_print_styles', 'stats_reports_css' );
 
@@ -351,8 +359,10 @@ function stats_reports_page() {
 	<h2><?php esc_html_e( 'Site Stats', 'jetpack'); ?> <a style="font-size:13px;" href="<?php echo esc_url( admin_url('admin.php?page=jetpack&configure=stats') ); ?>"><?php esc_html_e( 'Configure', 'jetpack'); ?></a></h2>
 </div>
 <div id="stats-loading-wrap" class="wrap">
-<p class="hide-if-no-js"><img width="32" height="32" alt="<?php esc_attr_e( 'Loading&hellip;', 'jetpack' ); ?>" src="<?php echo esc_url( apply_filters( 'jetpack_static_url', "{$http}://en.wordpress.com/i/loading/loading-64.gif" ) ); ?>" /></p>
-<p style="font-size: 11pt; margin: 0;"><a href="http://wordpress.com/my-stats/?blog=<?php echo $blog_id; ?>"><?php esc_html_e( 'View stats on WordPress.com right now', 'jetpack' ); ?></a></p>
+<p class="hide-if-no-js"><img width="32" height="32" alt="<?php esc_attr_e( 'Loading&hellip;', 'jetpack' ); ?>" src="<?php 
+/** This filter is documented in modules/shortcodes/audio.php */
+echo esc_url( apply_filters( 'jetpack_static_url', "{$http}://en.wordpress.com/i/loading/loading-64.gif" ) ); ?>" /></p>
+<p style="font-size: 11pt; margin: 0;"><a href="https://wordpress.com/stats/<?php echo $blog_id; ?>"><?php esc_html_e( 'View stats on WordPress.com right now', 'jetpack' ); ?></a></p>
 <p class="hide-if-js"><?php esc_html_e( 'Your Site Stats work better with Javascript enabled.', 'jetpack' ); ?><br />
 <a href="<?php echo esc_url( $nojs_url ); ?>"><?php esc_html_e( 'View Site Stats without Javascript', 'jetpack' ); ?></a>.</p>
 </div>
@@ -372,6 +382,9 @@ function stats_reports_page() {
 		'ssl' => is_ssl(),
 		'j' => sprintf( '%s:%s', JETPACK__API_VERSION, JETPACK__VERSION ),
 	);
+	if ( get_locale() !== 'en_US' ) {
+		$q['jp_lang'] = get_locale();
+	}
 	$args = array(
 		'view' => array( 'referrers', 'postviews', 'searchterms', 'clicks', 'post', 'table' ),
 		'numdays' => 'int',
@@ -411,10 +424,10 @@ function stats_reports_page() {
 	if ( isset( $_GET['chart'] ) ) {
 		if ( preg_match( '/^[a-z0-9-]+$/', $_GET['chart'] ) ) {
 			$chart = sanitize_title( $_GET['chart'] );
-			$url = 'http://' . STATS_DASHBOARD_SERVER . "/wp-includes/charts/{$chart}.php";
+			$url = 'https://' . STATS_DASHBOARD_SERVER . "/wp-includes/charts/{$chart}.php";
 		}
 	} else {
-		$url = 'http://' . STATS_DASHBOARD_SERVER . "/wp-admin/index.php";
+		$url = 'https://' . STATS_DASHBOARD_SERVER . "/wp-admin/index.php";
 	}
 
 	$url = add_query_arg( $q, $url );
@@ -452,7 +465,7 @@ function stats_convert_admin_urls( $html ) {
 }
 
 function stats_convert_image_urls( $html ) {
-	$url = set_url_scheme( 'http://' . STATS_DASHBOARD_SERVER );
+	$url = set_url_scheme( 'https://' . STATS_DASHBOARD_SERVER );
 	$html = preg_replace( '|(["\'])(/i/stats.+)\\1|', '$1' . $url . '$2$1', $html );
 	return $html;
 }
@@ -792,6 +805,68 @@ function stats_dashboard_widget_control() {
 	<?php
 }
 
+function stats_jetpack_dashboard_widget() {
+	?>
+	<h3>
+		<span class="js-toggle-stats_dashboard_widget_control">
+			<?php esc_html_e( 'Configure', 'jetpack' ); ?>
+		</span>
+		<?php esc_html_e( 'Site Stats', 'jetpack' ); ?>
+	</h3>
+	<form id="stats_dashboard_widget_control" action="<?php esc_url( admin_url() ); ?>" method="post">
+		<?php stats_dashboard_widget_control(); ?>
+		<?php wp_nonce_field( 'edit-dashboard-widget_dashboard_stats', 'dashboard-widget-nonce' ); ?>
+		<input type="hidden" name="widget_id" value="dashboard_stats" />
+		<?php submit_button( __( 'Submit', 'jetpack' ) ); ?>
+	</form>
+	<div id="dashboard_stats">
+		<div class="inside">
+			<div style="height: 250px;"></div>
+		</div>
+	</div>
+	<script>
+		jQuery(document).ready(function($){
+			$('.js-toggle-stats_dashboard_widget_control').click(function(e){
+				e.preventDefault();
+				$(this).parent().toggleClass('controlVisible');
+				$('#stats_dashboard_widget_control').slideToggle();
+			});
+		});
+	</script>
+	<style>
+		.js-toggle-stats_dashboard_widget_control {
+			display: none;
+			float: right;
+			font-weight: 400;
+			color: #444;
+			font-size: .8em;
+			text-decoration: underline;
+			cursor: pointer;
+		}
+		h3:hover .js-toggle-stats_dashboard_widget_control,
+		h3.controlVisible .js-toggle-stats_dashboard_widget_control {
+			display:block;
+		}
+		#stats_dashboard_widget_control {
+			display: none;
+			padding: 0 10px;
+			overflow: hidden;
+		}
+		#stats_dashboard_widget_control .button-primary {
+			float: right;
+		}
+		#dashboard_stats {
+			box-sizing: border-box;
+			width: 100%;
+			padding: 0 10px;
+		}
+	</style>
+	<?php
+}
+
+function stats_register_widget_control_callback() {
+	$GLOBALS['wp_dashboard_control_callbacks']['dashboard_stats'] = 'stats_dashboard_widget_control';
+}
 // Javascript and CSS for dashboard widget
 function stats_dashboard_head() { ?>
 <script type="text/javascript">
@@ -805,7 +880,7 @@ jQuery(window).load( function() {
 	} );
 
 	function resizeChart() {
-		var dashStats = jQuery( '#dashboard_stats.postbox div.inside' );
+		var dashStats = jQuery( '#dashboard_stats div.inside' );
 
 		if ( dashStats.find( '.dashboard-widget-control-form' ).length ) {
 			return;
@@ -816,7 +891,11 @@ jQuery(window).load( function() {
 			var h = parseInt( dashStats.parent().height() ) - parseInt( dashStats.prev().height() );
 			var args = 'width=' + dashStats.width() + '&height=' + h.toString();
 		} else {
-			var args = 'width=' + ( dashStats.prev().width() * 2 ).toString();
+			if ( jQuery('#dashboard_stats' ).hasClass('postbox') ) {
+				var args = 'width=' + ( dashStats.prev().width() * 2 ).toString();
+			} else {
+				var args = 'width=' + ( dashStats.width() * 2 ).toString();
+			}
 		}
 
 		dashStats.not( '.dashboard-widget-control' ).load( 'admin.php?page=stats&noheader&dashboard&' + args );
@@ -922,7 +1001,7 @@ function stats_dashboard_widget_content() {
 		'j' => sprintf( '%s:%s', JETPACK__API_VERSION, JETPACK__VERSION ),
 	);
 
-	$url = 'http://' . STATS_DASHBOARD_SERVER . "/wp-admin/index.php";
+	$url = 'https://' . STATS_DASHBOARD_SERVER . "/wp-admin/index.php";
 
 	$url = add_query_arg( $q, $url );
 	$method = 'GET';
@@ -1064,7 +1143,7 @@ function stats_get_csv( $table, $args = null ) {
 	$args['table'] = $table;
 	$args['blog_id'] = Jetpack_Options::get_option( 'id' );
 
-	$stats_csv_url = add_query_arg( $args, 'http://stats.wordpress.com/csv.php' );
+	$stats_csv_url = add_query_arg( $args, 'https://stats.wordpress.com/csv.php' );
 
 	$key = md5( $stats_csv_url );
 

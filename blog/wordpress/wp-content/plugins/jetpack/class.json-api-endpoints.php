@@ -1,6 +1,6 @@
 <?php
 
-define( 'WPCOM_JSON_API__CURRENT_VERSION', '1' );
+require_once( dirname( __FILE__ ) . '/json-api-config.php' );
 
 // Endpoint
 abstract class WPCOM_JSON_API_Endpoint {
@@ -51,8 +51,8 @@ abstract class WPCOM_JSON_API_Endpoint {
 			'false' => '',
 			'true'  => 'Output pretty JSON',
 		),
-		'meta' => "(string) Optional. Loads data from the endpoints found in the 'meta' part of the response. Comma separated list. Example: meta=site,likes",
-		'fields' => '(string) Optional. Returns specified fields only. Comma separated list. Example: fields=ID,title',
+		'meta' => "(string) Optional. Loads data from the endpoints found in the 'meta' part of the response. Comma-separated list. Example: meta=site,likes",
+		'fields' => '(string) Optional. Returns specified fields only. Comma-separated list. Example: fields=ID,title',
 		// Parameter name => description (default value is empty)
 		'callback' => '(string) An optional JSONP callback function.',
 	);
@@ -378,8 +378,8 @@ abstract class WPCOM_JSON_API_Endpoint {
 					}
 
 					$return[$key] = $files;
+					break;
 				}
-				break;
 			} else {
 				// no break - treat as 'array'
 			}
@@ -552,6 +552,17 @@ abstract class WPCOM_JSON_API_Endpoint {
 				'module_tags' => '(array)    The module\'s tags.'
 			);
 			$return[$key] = (object) $this->cast_and_filter( $value, apply_filters( 'wpcom_json_api_plugin_cast_and_filter', $docs ), false, $for_output );
+			break;
+		case 'sharing_button' :
+			$docs = array(
+				'ID'         => '(string)',
+				'name'       => '(string)',
+				'URL'        => '(string)',
+				'icon'       => '(string)',
+				'enabled'    => '(bool)',
+				'visibility' => '(string)',
+			);
+			$return[$key] = (array) $this->cast_and_filter( $value, $docs, false, $for_output );
 			break;
 
 		default :
@@ -792,7 +803,10 @@ EOPHP;
 			$curl .= " \\\n";
 		}
 
-		$curl .= ' ' . escapeshellarg( $this->example_request );
+		// Escape square brackets to prevent curl "[globbing] bad range specification" errors
+		$example_request = strtr( $this->example_request, array( '[' => '\[', ']' => '\]' ) );
+
+		$curl .= ' ' . escapeshellarg( $example_request );
 
 		$curl = '[sourcecode language="bash" wraplines="false" light="true" autolink="false" htmlscript="false"]' . $curl . '[/sourcecode]';
 		$curl = apply_filters( 'the_content', $curl );
@@ -872,7 +886,10 @@ EOPHP;
 	 */
 	function generate_documentation() {
 		$format       = str_replace( '%d', '%s', $this->path );
-		$path_labeled = vsprintf( $format, array_keys( $this->path_labels ) );
+		$path_labeled = $format;
+		if ( ! empty( $this->path_labels ) ) {
+			$path_labeled = vsprintf( $format, array_keys( $this->path_labels ) );
+		}
 		$boolean_arg  = array( 'false', 'true' );
 		$naeloob_arg  = array( 'true', 'false' );
 
@@ -986,7 +1003,7 @@ EOPHP;
 			}
 		}
 
-		if ( -1 == get_option( 'blog_public' ) && !current_user_can( 'read_post', $post->ID ) ) {
+		if ( -1 == get_option( 'blog_public' ) && ! apply_filters( 'wpcom_json_api_user_can_view_post', current_user_can( 'read_post', $post->ID ), $post ) ) {
 			return new WP_Error( 'unauthorized', 'User cannot view post', array( 'status_code' => 403, 'error' => 'private_blog' ) );
 		}
 
@@ -1028,7 +1045,7 @@ EOPHP;
 					return null;
 				$is_jetpack = true === apply_filters( 'is_jetpack_site', false, get_current_blog_id() );
 				$post_id = $author->ID;
-				if ( $is_jetpack ) {
+				if ( $is_jetpack && ( defined( 'IS_WPCOM' ) && IS_WPCOM ) ) { 
 					$ID    = get_post_meta( $post_id, '_jetpack_post_author_external_id', true );
 					$email = get_post_meta( $post_id, '_jetpack_author_email', true );
 					$login = '';
@@ -1107,6 +1124,12 @@ EOPHP;
 			'metadata'         => wp_get_attachment_metadata( $media_item->ID ),
 		);
 
+		if ( defined( 'IS_WPCOM' ) && IS_WPCOM && is_array( $response['metadata'] ) && ! empty( $response['metadata']['file'] ) ) {
+			remove_filter( '_wp_relative_upload_path', 'wpcom_wp_relative_upload_path', 10 );
+			$response['metadata']['file'] = _wp_relative_upload_path( $response['metadata']['file'] );
+			add_filter( '_wp_relative_upload_path', 'wpcom_wp_relative_upload_path', 10, 2 );
+		}
+
 		$response['meta'] = (object) array(
 			'links' => (object) array(
 				'self' => (string) $this->get_media_link( $this->api->get_blog_id_for_output(), $media_id ),
@@ -1140,6 +1163,7 @@ EOPHP;
 			'title'        => $media_item->post_title,
 			'caption'      => $media_item->post_excerpt,
 			'description'  => $media_item->post_content,
+			'alt'          => get_post_meta( $media_item->ID, '_wp_attachment_image_alt', true )
 		);
 
 		if ( in_array( $ext, array( 'jpg', 'jpeg', 'png', 'gif' ) ) ) {
@@ -1466,15 +1490,38 @@ EOPHP;
 	}
 
 	function get_publicize_connections_link( $keyring_token_id, $path = '' ) {
-		return $this->get_link( '.1/me/publicize-connections/?keyring_token_ID=%d', $keyring_token_id, $path );
+		return $this->get_link( '.1/me/publicize-connections/?keyring_connection_ID=%d', $keyring_token_id, $path );
 	}
 
-	function get_keyring_token_link( $keyring_token_id, $path = '' ) {
-		return $this->get_link( '.1/me/keyring-tokens/%d', $keyring_token_id, $path );
+	function get_keyring_connection_link( $keyring_token_id, $path = '' ) {
+		return $this->get_link( '.1/me/keyring-connections/%d', $keyring_token_id, $path );
 	}
 
 	function get_external_service_link( $external_service, $path = '' ) {
 		return $this->get_link( '.1/meta/external-services/%s', $external_service, $path );
+	}
+
+
+	/**
+	* Check whether a user can view or edit a post type
+	* @param string $post_type              post type to check
+	* @param string $context                'display' or 'edit'
+	* @return bool
+	*/
+	function current_user_can_access_post_type( $post_type, $context='display' ) {
+		$post_type_object = get_post_type_object( $post_type );
+		if ( ! $post_type_object ) {
+			return false;
+		}
+
+		switch( $context ) {
+			case 'edit':
+				return current_user_can( $post_type_object->cap->edit_posts );
+			case 'display':
+				return $post_type_object->public || current_user_can( $post_type_object->cap->read_private_posts );
+			default:
+				return false;
+		}
 	}
 
 	function is_post_type_allowed( $post_type ) {
@@ -1614,7 +1661,7 @@ EOPHP;
 
 		$tmp = download_url( $url );
 		if ( is_wp_error( $tmp ) ) {
-			return false;
+			return $tmp;
 		}
 
 		if ( ! file_is_displayable_image( $tmp ) ) {
@@ -1630,6 +1677,10 @@ EOPHP;
 
 		$id = media_handle_sideload( $file_array, $parent_post_id );
 		@unlink( $tmp );
+
+		if ( is_wp_error( $id ) ) {
+			return $id;
+		}
 
 		if ( ! $id || ! is_int( $id ) ) {
 			return false;
@@ -1681,6 +1732,19 @@ EOPHP;
 		return $mimes;
 	}
 
+	function is_current_site_multi_user() {
+		$users = wp_cache_get( 'site_user_count', 'WPCOM_JSON_API_Endpoint' );
+		if ( false === $users ) {
+			$user_query = new WP_User_Query( array(
+				'blog_id' => get_current_blog_id(),
+				'fields'  => 'ID',
+			) );
+			$users = (int) $user_query->get_total();
+			wp_cache_set( 'site_user_count', $users, 'WPCOM_JSON_API_Endpoint', DAY_IN_SECONDS );
+		}
+		return $users > 1;
+	}
+
 	/**
 	 * Return endpoint response
 	 *
@@ -1692,6 +1756,7 @@ EOPHP;
 	 *	$data: HTTP 200, json_encode( $data ) response body
 	 */
 	abstract function callback( $path = '' );
+
 
 }
 

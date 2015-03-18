@@ -11,6 +11,8 @@ class Jetpack_Sync {
 	// We keep track of all the options registered for sync so that we can sync them all if needed
 	var $sync_options = array();
 
+	var $sync_constants = array();
+
 	// Keep trac of status transitions, which we wouldn't always know about on the Jetpack Servers but are important when deciding what to do with the sync.
 	var $post_transitions = array();
 	var $comment_transitions = array();
@@ -22,6 +24,12 @@ class Jetpack_Sync {
 		// WP Cron action.  Only used on upgrade
 		add_action( 'jetpack_sync_all_registered_options', array( $this, 'sync_all_registered_options' ) );
 		add_action( 'jetpack_heartbeat',  array( $this, 'sync_all_registered_options' ) );
+
+		// Sync constants on heartbeat and plugin upgrade and connects
+		add_action( 'jetpack_sync_all_registered_options', array( $this, 'sync_all_constants' ) );
+		add_action( 'jetpack_heartbeat',  array( $this, 'sync_all_constants' ) );
+
+		add_action( 'jetpack_activate_module', array( $this, 'sync_module_constants' ), 10, 1 );
 	}
 
 /* Static Methods for Modules */
@@ -33,7 +41,7 @@ class Jetpack_Sync {
 	 *	post_stati => array( post_status slugs ): The post stati to sync.  Default: publish
 	 */
 	static function sync_posts( $file, array $settings = null ) {
-		if( is_network_admin() ) return;
+		if ( is_network_admin() ) return;
 		$jetpack = Jetpack::init();
 		$args = func_get_args();
 		return call_user_func_array( array( $jetpack->sync, 'posts' ), $args );
@@ -48,7 +56,7 @@ class Jetpack_Sync {
 	 * 	comment_stati => array( comment_status slugs ): The comment stati to sync.  Default: approved
 	 */
 	static function sync_comments( $file, array $settings = null ) {
-		if( is_network_admin() ) return;
+		if ( is_network_admin() ) return;
 		$jetpack = Jetpack::init();
 		$args = func_get_args();
 		return call_user_func_array( array( $jetpack->sync, 'comments' ), $args );
@@ -60,10 +68,21 @@ class Jetpack_Sync {
 	 * @param string $option ...
 	 */
 	static function sync_options( $file, $option /*, $option, ... */ ) {
-		if( is_network_admin() ) return;
+		if ( is_network_admin() ) return;
 		$jetpack = Jetpack::init();
 		$args = func_get_args();
 		return call_user_func_array( array( $jetpack->sync, 'options' ), $args );
+	}
+	/**
+	 * @param string $file __FILE__
+	 * @param string $option, Option name to sync
+	 * @param string $option ...
+	 */
+	static function sync_constant( $file, $constant ) {
+		if ( is_network_admin() ) return;
+		$jetpack = Jetpack::init();
+		$args = func_get_args();
+		return call_user_func_array( array( $jetpack->sync, 'constant' ), $args );
 	}
 
 /* Internal Methods */
@@ -195,7 +214,13 @@ class Jetpack_Sync {
 				break;
 			case 'option' :
 				foreach ( $sync_operations as $option => $settings ) {
-					$sync_data['option'][$option] = array( 'value' => get_option( $option ) );
+					$sync_data['option'][ $option ] = array( 'value' => get_option( $option ) );
+				}
+				break;
+
+			case 'constant' :
+				foreach( $sync_operations as $constant => $settings ) {
+					$sync_data['constant'][ $constant ] = array( 'value' => $this->get_constant( $constant ) );
 				}
 				break;
 
@@ -211,8 +236,8 @@ class Jetpack_Sync {
 				}
 				break;
 			}
-		}
 
+		}
 		Jetpack::xmlrpc_async_call( 'jetpack.syncContent', $sync_data );
 	}
 
@@ -731,12 +756,68 @@ class Jetpack_Sync {
 
 	function sync_all_registered_options( $options = array() ) {
 		if ( 'jetpack_sync_all_registered_options' == current_filter() ) {
-			$all_registered_options = array_unique( call_user_func_array( 'array_merge', $this->sync_options ) );
-			foreach ( $all_registered_options as $option ) {
-				$this->added_option_action( $option );
-			}
+			add_action( 'shutdown', array( $this, 'register_all_options' ), 8 );
 		} else {
 			wp_schedule_single_event( time(), 'jetpack_sync_all_registered_options', array( $this->sync_options ) );
+		}
+	}
+
+	/**
+	 * All the options that are defined in modules as well as class.jetpack.php will get synced.
+	 * Registers all options to be synced.
+	 */
+	function register_all_options() {
+		$all_registered_options = array_unique( call_user_func_array( 'array_merge', $this->sync_options ) );
+		foreach ( $all_registered_options as $option ) {
+			$this->added_option_action( $option );
+		}
+	}
+
+/* Constants Sync */
+
+	function sync_all_constants() {
+		// list of contants to sync needed by Jetpack
+		$constants = array(
+			'EMPTY_TRASH_DAYS',
+			'WP_POST_REVISIONS',
+			'UPDATER_DISABLED',
+			'AUTOMATIC_UPDATER_DISABLED',
+			'ABSPATH',
+			'WP_CONTENT_DIR'
+			);
+
+		// add the constant to sync.
+		foreach( $constants as $contant ) {
+			$this->register_constant( $contant );
+		}
+
+		add_action( 'shutdown', array( $this, 'register_all_module_constants' ), 8 );
+
+	}
+
+	function register_all_module_constants() {
+		// also add the contstants from each module to be synced.
+		foreach( $this->sync_constants as $module ) {
+			foreach( $module as $constant ) {
+				$this->register_constant( $constant );
+			}
+		}
+	}
+
+	/**
+	 * Sync constants required by the module that was just activated.
+ 	 * If you add Jetpack_Sync::sync_constant( __FILE__, 'HELLO_WORLD' );
+	 * to the module it will start syncing the constant after the constant has been updated.
+	 *
+	 * This function gets called on module activation.
+	 */
+	function sync_module_constants( $module ) {
+
+		if ( isset( $this->sync_constants[ $module ] ) && is_array( $this->sync_constants[ $module ] ) ) {
+			// also add the contstants from each module to be synced.
+			foreach( $this->sync_constants[ $module ] as $constant ) {
+				$this->register_constant(  $constant );
+			}
 		}
 	}
 
@@ -870,4 +951,79 @@ EOT;
 		return (int) $results['results']['total'];
 	}
 
+	/**
+	 * Sometimes we need to fake options to be able to sync data with .com
+	 * This is a helper function. That will make it easier to do just that.
+	 *
+	 * It will make sure that the options are synced when do_action( 'jetpack_sync_all_registered_options' );
+	 *
+	 * Which should happen everytime we update Jetpack to a new version or daily by Jetpack_Heartbeat.
+	 *
+	 * $callback is a function that is passed into a filter that returns the value of the option.
+	 * This value should never be false. Since we want to short circuit the get_option function
+	 * to return the value of the our callback.
+	 *
+	 * You can also trigger an update when a something else changes by calling the
+	 * do_action( 'add_option_jetpack_' . $option, 'jetpack_'.$option, $callback_function );
+	 * on the action that should that would trigger the update.
+	 *
+	 *
+	 * @param  string $option   Option will always be prefixed with Jetpack and be saved on .com side
+	 * @param  string or array  $callback
+	 */
+	function mock_option( $option , $callback ) {
+
+		add_filter( 'pre_option_jetpack_'. $option, $callback );
+		// This shouldn't happen but if it does we return the same as before.
+		add_filter( 'option_jetpack_'. $option, $callback );
+		// Instead of passing a file we just pass in a string.
+		$this->options( 'mock-option' , 'jetpack_' . $option );
+
+	}
+	/**
+	 * Sometimes you need to sync constants to .com
+	 * Using the function will allow you to do just that.
+	 *
+	 * @param  'string' $constant Constants defined in code.
+	 *
+	 */
+	function register_constant( $constant ) {
+		$this->register( 'constant', $constant );
+	}
+	/**
+	 * Simular to $this->options() function.
+	 * Add the constant to be synced to .com when we activate the module.
+	 * As well as on heartbeat and plugin upgrade and connection to .com.
+	 *
+	 * @param string $file
+	 * @param string $constant
+	 */
+	function constant( $file, $constant ) {
+		$constants = func_get_args();
+		$file = array_shift( $constants );
+
+		$module_slug = Jetpack::get_module_slug( $file );
+
+		if ( ! isset( $this->sync_constants[ $module_slug ] ) ) {
+			$this->sync_constants[ $module_slug ] = array();
+		}
+
+		foreach ( $constants as $constant ) {
+			$this->sync_constants[ $module_slug ][] = $constant;
+		}
+	}
+
+	/**
+	 * Helper function to return the constants value.
+	 *
+	 * @param  string $constant
+	 * @return value of the constant or null if the constant is set to false or doesn't exits.
+	 */
+	static function get_constant( $constant ) {
+		if ( defined( $constant ) ) {
+			return constant( $constant );
+		}
+
+		return null;
+	}
 }

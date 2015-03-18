@@ -111,24 +111,7 @@ class Jetpack_Heartbeat {
 		$return["{$prefix}identitycrisis"] = Jetpack::check_identity_crisis( 1 ) ? 'yes' : 'no';
 		$return["{$prefix}plugins"]        = implode( ',', Jetpack::get_active_plugins() );
 
-		switch ( Jetpack_Options::get_option( 'json_api_full_management', null ) ) {
-			case null:
-				$return["{$prefix}full_manage"] = 'unset';
-				break;
-			case false:
-				$return["{$prefix}full_manage"] = 'false';
-				break;
-			case true:
-				$return["{$prefix}full_manage"] = 'true';
-				break;
-			default:
-				$return["{$prefix}full_manage"] = Jetpack_Options::get_option( 'json_api_full_management', null );
-		}
-
-		if ( ! Jetpack_Options::get_option( 'public' ) ) {
-			// Also flag things as private since we don't provide the user with option to easy opt into if the site is private
-			$return["{$prefix}full_manage"] = 'private-' . $return["{$prefix}full_manage"];
-		}
+		$return["{$prefix}manage-enabled"] = Jetpack::is_module_active( 'manage' );
 
 		// is-multi-network can have three values, `single-site`, `single-network`, and `multi-network`
 		$return["{$prefix}is-multi-network"] = 'single-site';
@@ -141,7 +124,6 @@ class Jetpack_Heartbeat {
 			$ip_arr = array_map( 'intval', explode( '.', $ip ) );
 			if ( 4 == count( $ip_arr ) ) {
 				$return["{$prefix}ip-2-octets"] = implode( '.', array_slice( $ip_arr, 0, 2 ) );
-				$return["{$prefix}ip-3-octets"] = implode( '.', array_slice( $ip_arr, 0, 3 ) );
 			}
 		}
 

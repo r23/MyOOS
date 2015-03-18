@@ -90,7 +90,21 @@ class Jetpack_Twitter_Timeline_Widget extends WP_Widget {
 				echo ' ' . esc_attr( $att ) . '="' . esc_attr( $instance[$att] ) . '"';
 		}
 
-		echo '>' . esc_html__( 'My Tweets', 'jetpack' ) . '</a>';
+		echo '>';
+
+		$timeline_placeholder = __( 'My Tweets', 'jetpack' );
+
+		/**
+		 * Filter the Timeline placeholder text
+		 *
+		 * @since 3.4
+		 *
+		 * @param string $timeline_placeholder Timeline placeholder text
+		 */
+		$timeline_placeholder = apply_filters( 'jetpack_twitter_timeline_placeholder', $timeline_placeholder );
+
+		echo esc_html( $timeline_placeholder ) . '</a>';
+
 		// End tag output
 
 		echo $args['after_widget'];
@@ -115,8 +129,8 @@ class Jetpack_Twitter_Timeline_Widget extends WP_Widget {
 		$instance['title']         = sanitize_text_field( $new_instance['title'] );
 		$instance['width']         = (int) $new_instance['width'];
 		$instance['height']        = (int) $new_instance['height'];
-		$instance['width']         = ( 0 !== (int) $new_instance['width'] )  ? (int) $new_instance['width']  : 225;
-		$instance['height']        = ( 0 !== (int) $new_instance['height'] ) ? (int) $new_instance['height'] : 400;
+		$instance['width']         = ( 0 !== (int) $new_instance['width'] )  ? (int) $new_instance['width']  : '';
+		$instance['height']        = ( 0 !== (int) $new_instance['height'] ) ? (int) $new_instance['height'] : '';
 		$instance['tweet-limit']   = ( 0 !== (int) $new_instance['tweet-limit'] ) ? (int) $new_instance['tweet-limit'] : null;
 
 		// If they entered something that might be a full URL, try to parse it out

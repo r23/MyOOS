@@ -43,6 +43,7 @@ function jetpack_instagram_embed_reversal( $content ) {
 			$url = esc_url( $url_matches[0] );
 
 			$content = preg_replace( $replace_regex, sprintf( "\n\n%s\n\n", $url ), $content );
+			/** This action is documented in modules/shortcodes/youtube.php */
 			do_action( 'jetpack_embed_to_shortcode', 'instagram', $url );
 		}
 	}
@@ -104,7 +105,18 @@ function jetpack_instagram_handler( $matches, $atts, $url ) {
 
 	$url = esc_url_raw( add_query_arg( $url_args, 'https://api.instagram.com/oembed/' ) );
 
-	// Don't use object caching here by default, but give themes ability to turn it on.
+	/**
+	 * Filter Object Caching for response from Instagram.
+	 *
+	 * Allow enabling of object caching for the response sent by Instagram when querying for Instagram image HTML.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @param bool false Object caching is off by default.
+	 * @param array $matches Array of Instagram URLs found in the post.
+	 * @param array $atts Instagram Shortcode attributes.
+	 * @param string $passed_url Instagram API URL.
+	 */
 	$response_body_use_cache = apply_filters( 'instagram_cache_oembed_api_response_body', false, $matches, $atts, $passed_url );
 	$response_body = false;
 	if ( $response_body_use_cache ) {
@@ -150,12 +162,12 @@ function jetpack_instagram_add_script() {
 // [instagram url="http://instagram.com/p/PSbF9sEIGP/" width="300"]
 add_shortcode( 'instagram', 'jetpack_shortcode_instagram' );
 function jetpack_shortcode_instagram( $atts ) {
-	global $wp_embed;	
+	global $wp_embed;
 
 	if ( empty( $atts['url'] ) || ! preg_match( '#http(s?)://instagr(\.am|am\.com)/p/([^/]*)#i', $atts['url'] ) )
 		return;
 
-	return $wp_embed->shortcode( $atts, $atts['url'] );	
+	return $wp_embed->shortcode( $atts, $atts['url'] );
 }
 
 function jetpack_instagram_iframe_embed( $url, $atts ) {

@@ -68,6 +68,8 @@ class Jetpack_Site_Icon {
 		add_filter( 'display_media_states',   array( $this, 'add_media_state' ) );
 		add_action( 'admin_init',             array( $this, 'admin_init' ) );
 		add_action( 'admin_init',             array( $this, 'delete_site_icon_hook' ) );
+		add_action( 'atom_head', array( $this, 'atom_icon' ) );
+		add_action( 'rss2_head', array( $this, 'rss2_icon' ) );
 
 		add_action( 'admin_print_styles-options-general.php', array( $this, 'add_general_options_styles' ) );
 
@@ -91,11 +93,16 @@ class Jetpack_Site_Icon {
 	/**
 	 * Add meta elements to a blog header to light up Blavatar icons recognized by user agents.
 	 * @link http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#rel-icon HTML5 specification link icon
-	 * @todo change Blavatar ico sizes once all Blavatars have been backfilled to new code
-	 * @todo update apple-touch-icon to support retina display 114px and iPad 72px
+	 *
 	 */
 	public function site_icon_add_meta() {
-
+		/**
+		 * Toggles the Favicon meta elements from being loaded.
+		 *
+		 * @since 3.2.0
+		 *
+		 * @param bool Output Site Icon Meta Elements.
+		 */
 		if ( apply_filters( 'site_icon_has_favicon', false ) ) {
 			return;
 		}
@@ -110,6 +117,49 @@ class Jetpack_Site_Icon {
 			echo '<meta name="msapplication-TileImage" content="' . esc_url( $url_114 ) . '"/>' . "\n";
 		}
 
+	}
+	/**
+	 * Display icons in RSS2.
+	 */
+	public function rss2_icon() {
+		/** This filter is documented in modules/site-icon/jetpack-site-icon.php */
+		if ( apply_filters( 'site_icon_has_favicon', false ) ) {
+			return;
+		}
+
+		$rss_title = get_wp_title_rss();
+		if ( empty( $rss_title ) ) {
+			$rss_title = get_bloginfo_rss( 'name' );
+		}
+
+		$icon  = jetpack_site_icon_url( null,  32);
+		if( $icon  ) {
+			echo '
+	<image>
+		<url>' . convert_chars( $icon ) . '</url>
+		<title>' . $rss_title . '</title>
+		<link>' .  bloginfo_rss('url') . '</link>
+		<width>32</width>
+		<height>32</height>
+	</image> '."\n";
+		}
+	}
+
+	/**
+	 * Display icons in atom feeds.
+	 *
+	 */
+	public function atom_icon() {
+		/** This filter is documented in modules/site-icon/jetpack-site-icon.php */
+		if ( apply_filters( 'site_icon_has_favicon', false ) ) {
+			return;
+		}
+
+		$url  = jetpack_site_icon_url( null,  32 );
+		if( $url  ) {
+			echo '
+	<icon>' . $url . '</icon> '."\n";
+		}
 	}
 
 	/**
@@ -189,7 +239,6 @@ class Jetpack_Site_Icon {
 			Jetpack_Options::update_option( 'site_icon_id', get_option( 'site_icon_id' ) );
 			Jetpack_Options::update_option( 'site_icon_url', jetpack_site_icon_url( get_current_blog_id(), 512 ) );
 			delete_option( 'site_icon_id' );
-			delete_option( 'site_icon_url' ); // @todo don't include in 3.3
 		}
 	}
 
@@ -689,8 +738,11 @@ class Jetpack_Site_Icon {
 	 */
 	public static function additional_sizes( $sizes ) {
 		/**
-		 * site_icon_image_sizes
-		 * filter the different dimentions that the image should be saved in
+		 * Filter the different dimensions that a site icon is saved in.
+		 *
+		 * @since 3.2.0
+		 *
+		 * @param array $site_icon_sizes Sizes available for the Site Icon.  Default is array(256, 128, 80, 64, 32, 16).
 		 */
 		self::$site_icon_sizes = apply_filters( 'site_icon_image_sizes', self::$site_icon_sizes );
 		// use a natural sort of numbers
@@ -726,7 +778,7 @@ class Jetpack_Site_Icon {
 	 * @return array
 	 */
 	public static function intermediate_image_sizes( $sizes ) {
-
+		/** This filter is documented in modules/site-icon/jetpack-site-icon.php */
 		self::$site_icon_sizes = apply_filters( 'site_icon_image_sizes', self::$site_icon_sizes );
 		foreach( self::$site_icon_sizes as $size ) {
 			$sizes[] = 'site_icon-'.$size;

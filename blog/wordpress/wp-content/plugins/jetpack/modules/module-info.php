@@ -451,6 +451,23 @@ function jetpack_enhanced_distribution_more_link() {
 }
 add_action( 'jetpack_learn_more_button_enhanced-distribution', 'jetpack_enhanced_distribution_more_link' );
 
+// Protect
+function jetpack_protect_more_info() { ?>
+	<p><?php esc_html_e( 'Jetpack Protect is a cloud-powered brute force attack prevention tool. We leverage the millions of WordPress sites to identify and block malicious IPs.
+
+Jetpack Protect tracks failed login attempts across all installed users of the plugin.  If any single IP has too many failed attempts in a short period of time, they are blocked from logging in to any site with this plugin installed.
+
+Jetpack Protect is derived from BruteProtect, and will disable BruteProtect on your site if it is currently enabled.', 'jetpack' ); ?></p><?php
+}
+
+add_action( 'jetpack_module_more_info_protect', 'jetpack_protect_more_info' );
+add_action( 'jetpack_module_more_info_connected_protect', 'jetpack_protect_more_info' );
+
+function jetpack_protect_more_link() {
+	echo '<a class="button-secondary more-info-link" href="http://jetpack.me/support/protect/">' . esc_html__( 'Learn More', 'jetpack' ) . '</a>';
+}
+add_action( 'jetpack_learn_more_button_protect', 'jetpack_protect_more_link' );
+
 // JSON API
 function jetpack_json_api_more_info() { ?>
 	<p><?php esc_html_e( 'Jetpack will allow you to authorize applications and services to securely connect to your blog and allow them to use your content in new ways and offer you new functionality.', 'jetpack' ); ?>
@@ -771,7 +788,7 @@ add_action( 'jetpack_learn_more_button_widget-visibility', 'jetpack_widget_visib
 function jetpack_videopress_more_info() {
 	?>
 	<p><?php printf(
-		__( 'With the VideoPress module you can easily upload videos to your WordPress site and embed them in your posts and pages. This module requires a WordPress.com account with an active <a href="%1$s" target="_blank">VideoPress subscription</a>. Once you have purchased a VideoPress subscription, <a href="%1$s">click here to configure VideoPress</a>.', 'jetpack' ),
+		__( 'With the VideoPress module you can easily upload videos to your WordPress site and embed them in your posts and pages. This module requires a WordPress.com account with an active <a href="%1$s" target="_blank">VideoPress subscription</a>. Once you have purchased a VideoPress subscription, <a href="%2$s">click here to configure VideoPress</a>.', 'jetpack' ),
 		'http://store.wordpress.com/premium-upgrades/videopress/',
 		Jetpack::admin_url( 'page=jetpack&configure=videopress' )
 	); ?></p>
@@ -908,7 +925,8 @@ function jetpack_custom_content_types_more_info() { ?>
 	</div>
 
 	<p><?php esc_html_e( 'Organize and display different types of content on your site, separate from posts and pages.', 'jetpack' ); ?></p>
-	<p><?php printf( __( 'To enable the Portfolio content type, head over to <a href="%s">Settings &rarr; Writing &rarr; Your Custom Content Types</a> and make sure that "Portfolio Projects" is checked. You can now add projects under the new "Portfolio" menu item in your sidebar. After you\'ve added some projects, they\'ll be visible on your website at http://<strong>yourgroovysite.com</strong>/portfolio/.', 'jetpack' ), admin_url( 'options-writing.php#cpt-options' ) ); ?></p>
+	<p><?php printf( __( 'To enable a custom content type, head over to <a href="%s">Settings &rarr; Writing &rarr; Your Custom Content Types</a> to activate either "Portfolio Projects” or “Testimonials” by checking the corresponding checkbox. You can now add projects and testimonials under the new "Portfolio” or “Testimonials” menu item in your sidebar.', 'jetpack' ), admin_url( 'options-writing.php#cpt-options' ) ); ?></p>
+	<p><?php printf( __( 'Once added, your custom content will be visible on your website at %s/portfolio/ or %s/testimonial/, or you may add them with <a href="http://jetpack.me/support/custom-content-types/" target="_blank">shortcodes</a>.', 'jetpack' ), get_site_url(), get_site_url() ); ?></p>
 <?php
 }
 add_action( 'jetpack_module_more_info_custom-content-types', 'jetpack_custom_content_types_more_info' );
@@ -939,3 +957,28 @@ function jetpack_site_icon_more_link() {
 }
 add_action( 'jetpack_learn_more_button_site-icon', 'jetpack_site_icon_more_link' );
 // Site Icon: STOP
+
+// Manage: Start
+function jetpack_custom_jetpack_manage() { ?>
+
+
+	<div class="jp-info-img">
+		<img class="jp-info-img" src="<?php echo plugins_url( basename( dirname( dirname( __FILE__ ) ) ) . '/images/screenshots/manage.png' ) ?>" alt="<?php esc_attr_e( 'Manage all of your WordPress sites, self-hosted or not, from WordPress.com', 'jetpack' ) ?>" width="300" height="150" />
+	</div>
+
+	<p><em><?php esc_html_e( 'Enabling Manage allows you to update your self-hosted WordPress sites along with any WordPress.com sites you have, all in one simple dashboard.', 'jetpack' ); ?></em></p>
+	<p><strong><?php _e( 'Plugins', 'jetpack' ); ?></strong><br />
+		<?php printf( __( 'Now you can update plugins, set plugins to automatically update, and activate or deactivate plugins on a per-site basis or in bulk from <a href="%s">wordpress.com/plugins</a>.', 'jetpack' ), 'https://wordpress.com/plugins' ); ?></p>
+
+	<p><strong><?php _e( 'Posts and Pages', 'jetpack' ); ?></strong><br />
+		<?php printf( __( 'Add a new post or page to any of your sites from a single interface.', 'jetpack' ) ); ?></p>
+
+<?php
+}
+add_action( 'jetpack_module_more_info_manage', 'jetpack_custom_jetpack_manage' );
+
+function jetpack_manage_more_link() {
+	echo '<a class="button-secondary more-info-link" href="http://jetpack.me/support/site-management/">' . __( 'Learn More', 'jetpack' ) . '</a>';
+}
+add_action( 'jetpack_learn_more_button_manage', 'jetpack_manage_more_link' );
+// Manage: STOP

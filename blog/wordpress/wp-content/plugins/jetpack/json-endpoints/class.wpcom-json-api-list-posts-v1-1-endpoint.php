@@ -43,30 +43,75 @@ class WPCOM_JSON_API_List_Posts_v1_1_Endpoint extends WPCOM_JSON_API_Post_v1_1_E
 		// determine statuses
 		$status = $args['status'];
 		$status = ( $status ) ? explode( ',', $status ) : array( 'publish' );
-		if ( in_array( 'any', $status ) ) {
-			$status = array();
-		} else {
+		if ( is_user_logged_in() ) {
 			$statuses_whitelist = array(
 				'publish',
-				'trash',
 				'pending',
 				'draft',
 				'future',
 				'private',
+				'trash',
+				'any',
 			);
 			$status = array_intersect( $status, $statuses_whitelist );
+		} else {
+			// logged-out users can see only published posts
+			$statuses_whitelist = array( 'publish', 'any' );
+			$status = array_intersect( $status, $statuses_whitelist );
+
+			if ( empty( $status ) ) {
+				// requested only protected statuses? nothing for you here
+				return array( 'found' => 0, 'posts' => array() );
+			}
+			// clear it (AKA published only) because "any" includes protected
+			$status = array();
 		}
+
+		if ( isset( $args['type'] ) &&
+			   ! in_array( $args['type'], array( 'post', 'page', 'revision', 'any' ) ) &&
+			   defined( 'IS_WPCOM' ) && IS_WPCOM ) {
+			$this->load_theme_functions();
+		}
+
+		// let's be explicit about defaulting to 'post'
+		$args['type'] = isset( $args['type'] ) ? $args['type'] : 'post';
+
+		// make sure the user can read or edit the requested post type(s)
+		if ( is_array( $args['type'] ) ) {
+			$allowed_types = array();
+			foreach ( $args['type'] as $post_type ) {
+				if ( $this->current_user_can_access_post_type( $post_type, $args['context'] ) ) {
+				   	$allowed_types[] = $post_type;
+				}
+			}
+
+			if ( empty( $allowed_types ) ) {
+				return array( 'found' => 0, 'posts' => array() );
+			}
+			$args['type'] = $allowed_types;
+		}
+		else {
+			if ( ! $this->current_user_can_access_post_type( $args['type'], $args['context'] ) ) {
+				return array( 'found' => 0, 'posts' => array() );
+			}
+		}
+
 
 		$query = array(
 			'posts_per_page' => $args['number'],
 			'order'          => $args['order'],
 			'orderby'        => $args['order_by'],
-			'post_type'      => isset( $args['type'] ) ? $args['type'] : null,
+			'post_type'      => $args['type'],
 			'post_status'    => $status,
 			'post_parent'    => isset( $args['parent_id'] ) ? $args['parent_id'] : null,
 			'author'         => isset( $args['author'] ) && 0 < $args['author'] ? $args['author'] : null,
 			's'              => isset( $args['search'] ) ? $args['search'] : null,
+			'fields'         => 'ids',
 		);
+
+		if ( ! is_user_logged_in () ) {
+			$query['has_password'] = false;
+		}
 
 		if ( isset( $args['meta_key'] ) ) {
 			$show = false;
@@ -92,11 +137,34 @@ class WPCOM_JSON_API_List_Posts_v1_1_Endpoint extends WPCOM_JSON_API_Post_v1_1_E
 			if ( is_array( $sticky ) ) {
 				$query['post__not_in'] = $sticky;
 			}
+		} else if ( $args['sticky'] === 'require' ) {
+			$sticky = get_option( 'sticky_posts' );
+			if ( is_array( $sticky ) ) {
+				$query['post__in'] = $sticky;
+			}
 		}
 
 		if ( isset( $args['exclude'] ) ) {
 			$excluded_ids = (array) $args['exclude'];
 			$query['post__not_in'] = isset( $query['post__not_in'] ) ? array_merge( $query['post__not_in'], $excluded_ids ) : $excluded_ids;
+		}
+
+		if ( isset( $args['exclude_tree'] ) && is_post_type_hierarchical( $args['type'] ) ) {
+			// get_page_children is a misnomer; it supports all hierarchical post types
+			$page_args = array(
+					'child_of' => $args['exclude_tree'],
+					'post_type' => $args['type'],
+					// since we're looking for things to exclude, be aggressive
+					'post_status' => 'publish,draft,pending,private,future,trash',
+				);
+			$post_descendants = get_pages( $page_args );
+
+			$exclude_tree = array( $args['exclude_tree'] );
+			foreach ( $post_descendants as $child ) {
+				$exclude_tree[] = $child->ID;
+			}
+
+			$query['post__not_in'] = isset( $query['post__not_in'] ) ? array_merge( $query['post__not_in'], $exclude_tree ) : $exclude_tree;
 		}
 
 		if ( isset( $args['category'] ) ) {
@@ -139,11 +207,11 @@ class WPCOM_JSON_API_List_Posts_v1_1_Endpoint extends WPCOM_JSON_API_Post_v1_1_E
 			$this->date_range['after'] = $args['after'];
 		}
 
-		if ( isset ( $args['modified_before'] ) ) {
-			$this->modified_range['before'] = $args['modified_before'];
+		if ( isset( $args['modified_before_gmt'] ) ) {
+			$this->modified_range['before'] = $args['modified_before_gmt'];
 		}
-		if ( isset ( $args['modified_after'] ) ) {
-			$this->modified_range['after'] = $args['modified_after'];
+		if ( isset( $args['modified_after_gmt'] ) ) {
+			$this->modified_range['after'] = $args['modified_after_gmt'];
 		}
 
 		if ( $this->date_range ) {
@@ -154,7 +222,7 @@ class WPCOM_JSON_API_List_Posts_v1_1_Endpoint extends WPCOM_JSON_API_Post_v1_1_E
 			add_filter( 'posts_where', array( $this, 'handle_modified_range' ) );
 		}
 
-		if ( isset ( $args['page_handle'] ) ) {
+		if ( isset( $args['page_handle'] ) ) {
 			$page_handle = wp_parse_args( $args['page_handle'] );
 			if ( isset( $page_handle['value'] ) && isset( $page_handle['id'] ) ) {
 				// we have a valid looking page handle
@@ -185,6 +253,11 @@ class WPCOM_JSON_API_List_Posts_v1_1_Endpoint extends WPCOM_JSON_API_Post_v1_1_E
 			$this->date_range = array();
 		}
 
+		if ( $this->modified_range ) {
+			remove_filter( 'posts_where', array( $this, 'handle_modified_range' ) );
+			$this->modified_range = array();
+		}
+
 		if ( $this->page_handle ) {
 			remove_filter( 'posts_where', array( $this, 'handle_where_for_page_handle' ) );
 
@@ -198,20 +271,10 @@ class WPCOM_JSON_API_List_Posts_v1_1_Endpoint extends WPCOM_JSON_API_Post_v1_1_E
 				$return[$key] = (int) $wp_query->found_posts;
 				break;
 			case 'posts' :
-				if ( isset( $args['exclude_tree'] ) && is_post_type_hierarchical( $args['type'] ) ) {
-					// get_page_children is a misnomer; it supports all hierarchical post types
-					$post_descendants = get_page_children( $args['exclude_tree'], $wp_query->posts );
-					$exclude_tree = array( $args['exclude_tree'] );
-					foreach ( $post_descendants as $child ) {
-						$exclude_tree[] = $child->ID;
-					}
-				}
-
 				$posts = array();
-				foreach ( $wp_query->posts as $post ) {
-					$the_post = $this->get_post_by( 'ID', $post->ID, $args['context'] );
-					$is_excluded_from_tree = isset( $exclude_tree ) && in_array( $post->ID, $exclude_tree );
-					if ( $the_post && ! is_wp_error( $the_post ) && ! $is_excluded_from_tree ) {
+				foreach ( $wp_query->posts as $post_ID ) {
+					$the_post = $this->get_post_by( 'ID', $post_ID, $args['context'] );
+					if ( $the_post && ! is_wp_error( $the_post ) ) {
 						$posts[] = $the_post;
 					} else {
 						$excluded_count++;

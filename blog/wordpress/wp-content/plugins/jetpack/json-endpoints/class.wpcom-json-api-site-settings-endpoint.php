@@ -8,7 +8,7 @@ class WPCOM_JSON_API_Site_Settings_Endpoint extends WPCOM_JSON_API_Endpoint {
  		'description'       => '(string) Tagline or description of site',
  		'URL'               => '(string) Full URL to the site',
 		'lang'              => '(string) Primary language code of the site',
-		'settings'          => '(array) An array of options/settings for the blog. Only viewable by users with access to the site.',
+		'settings'          => '(array) An array of options/settings for the blog. Only viewable by users with post editing rights to the site.',
 	);
 
 	// GET /sites/%s/settings
@@ -22,7 +22,7 @@ class WPCOM_JSON_API_Site_Settings_Endpoint extends WPCOM_JSON_API_Endpoint {
 		if ( defined( 'IS_WPCOM' ) && IS_WPCOM ) {
 			$this->load_theme_functions();
 		}
-		
+
 		if ( ! is_user_logged_in() ) {
 			return new WP_Error( 'Unauthorized', 'You must be logged-in to manage settings.', 401 );
 		} else if ( ! current_user_can( 'manage_options' ) ) {
@@ -76,6 +76,7 @@ class WPCOM_JSON_API_Site_Settings_Endpoint extends WPCOM_JSON_API_Endpoint {
 
 		$response_format = self::$site_format;
 		$blog_id = (int) $this->api->get_blog_id_for_output();
+		$is_jetpack = true === apply_filters( 'is_jetpack_site', false, $blog_id );
 
 		foreach ( array_keys( $response_format ) as $key ) {
 			switch ( $key ) {
@@ -153,6 +154,8 @@ class WPCOM_JSON_API_Site_Settings_Endpoint extends WPCOM_JSON_API_Endpoint {
 					'disabled_likes'          => (bool) get_option( 'disabled_likes' ),
 					'disabled_reblogs'        => (bool) get_option( 'disabled_reblogs' ),
 					'jetpack_comment_likes_enabled' => (bool) get_option( 'jetpack_comment_likes_enabled', false ),
+					'twitter_via'             => (string) get_option( 'twitter_via' ),
+					'jetpack-twitter-cards-site-tag' => (string) get_option( 'jetpack-twitter-cards-site-tag' ),
 				);
 
 				if ( class_exists( 'Sharing_Service' ) ) {
@@ -162,6 +165,10 @@ class WPCOM_JSON_API_Site_Settings_Endpoint extends WPCOM_JSON_API_Endpoint {
 					$response[ $key ]['sharing_label'] = (string) $sharing['sharing_label'];
 					$response[ $key ]['sharing_show'] = (array) $sharing['show'];
 					$response[ $key ]['sharing_open_links'] = (string) $sharing['open_links'];
+				}
+
+				if ( function_exists( 'jetpack_protect_format_whitelist' ) ) {
+					$response[ $key ]['jetpack_protect_whitelist'] = jetpack_protect_format_whitelist();
 				}
 
 				if ( ! current_user_can( 'edit_posts' ) )
@@ -206,6 +213,15 @@ class WPCOM_JSON_API_Site_Settings_Endpoint extends WPCOM_JSON_API_Endpoint {
 						$updated[ $key ] = $value;
 					};
 					break;
+				case 'jetpack_protect_whitelist':
+					if ( function_exists( 'jetpack_protect_save_whitelist' ) ) {
+						$result = jetpack_protect_save_whitelist( $value );
+						if ( is_wp_error( $result ) ) {
+							return $result;
+						}
+						$updated[ $key ] = jetpack_protect_format_whitelist();
+					}
+					break;
 				case 'jetpack_sync_non_public_post_stati':
 					Jetpack_Options::update_option( 'sync_non_public_post_stati', $value );
 					break;
@@ -241,7 +257,7 @@ class WPCOM_JSON_API_Site_Settings_Endpoint extends WPCOM_JSON_API_Endpoint {
 					}
 					break;
 				case 'wga':
-					if ( ! isset( $value['code'] ) || ! preg_match( '/^UA-[\d-]+$/', $value['code'] ) ) {
+					if ( ! isset( $value['code'] ) || ! preg_match( '/^$|^UA-[\d-]+$/i', $value['code'] ) ) {
 						return new WP_Error( 'invalid_code', 'Invalid UA ID' );
 					}
 					$wga = get_option( 'wga', array() );
@@ -249,6 +265,12 @@ class WPCOM_JSON_API_Site_Settings_Endpoint extends WPCOM_JSON_API_Endpoint {
 					if ( update_option( 'wga', $wga ) ) {
 						$updated[ $key ] = $value;
 					}
+
+					$enabled_or_disabled = $wga['code'] ? 'enabled' : 'disabled';
+					bump_stats_extras( 'google-analytics', $enabled_or_disabled );
+
+					$business_plugins = WPCOM_Business_Plugins::instance();
+					$business_plugins->activate_plugin( 'wp-google-analytics' );
 					break;
 
 				case 'jetpack_comment_likes_enabled':
