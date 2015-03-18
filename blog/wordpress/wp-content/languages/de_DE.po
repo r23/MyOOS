@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-02-18 11:03:48+0000\n"
+"PO-Revision-Date: 2015-03-17 11:02:14+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,12 +19,12 @@ msgstr "ltr"
 #: wp-includes/link-template.php:2314
 msgctxt "next post"
 msgid "Next"
-msgstr "Nächster"
+msgstr "Weiter"
 
 #: wp-includes/link-template.php:2313
 msgctxt "previous post"
 msgid "Previous"
-msgstr "Vorheriger"
+msgstr "Zurück"
 
 #: wp-includes/class-wp-editor.php:998
 #: wp-includes/js/tinymce/wp-mce-help.php:118 wp-includes/script-loader.php:98
@@ -1620,7 +1620,7 @@ msgid "A monthly archive of your site&#8217;s Posts."
 msgstr "Ein monatliches Archiv der Beiträge deiner Website."
 
 #. translators: If there are characters in your language that are not supported
-#. * by Open Sans, translate this to 'off'. Do not translate into your own
+#. by Open Sans, translate this to 'off'. Do not translate into your own
 #. language.
 #: wp-includes/script-loader.php:590
 msgctxt "Open Sans font: on or off"
@@ -1643,9 +1643,8 @@ msgid "Default"
 msgstr "Standard"
 
 #. translators: To add an additional Open Sans character subset specific to
-#. your language,
-#. * translate this to 'greek', 'cyrillic' or 'vietnamese'. Do not translate
-#. into your own language.
+#. your language, translate this to 'greek', 'cyrillic' or 'vietnamese'. Do not
+#. translate into your own language.
 #: wp-includes/script-loader.php:596
 msgctxt "Open Sans font: add new subset (greek, cyrillic, vietnamese)"
 msgid "no-subset"
@@ -1688,11 +1687,10 @@ msgid "http://codex.wordpress.org/Function_Reference/is_main_query"
 msgstr "http://codex.wordpress.org/Function_Reference/is_main_query"
 
 #. translators: This is a comma-separated list of very common words that should
-#. be excluded from a search,
-#. * like a, an, and the. These are usually called "stopwords". You should
-#. not simply translate these individual
-#. * words into your language. Instead, look for and provide commonly
-#. accepted stopwords in your language.
+#. be excluded from a search, like a, an, and the. These are usually called
+#. "stopwords". You should not simply translate these individual words into
+#. your language. Instead, look for and provide commonly accepted stopwords in
+#. your language.
 #: wp-includes/query.php:2147
 msgctxt "Comma-separated list of search stopwords in your language"
 msgid "about,an,are,as,at,be,by,com,for,from,how,in,is,it,of,on,or,that,the,this,to,was,what,when,where,who,will,with,www"
@@ -1941,10 +1939,9 @@ msgid "Caption this image&hellip;"
 msgstr "Beschreibe dieses Bild&#160;&hellip; "
 
 #. translators: This is a would-be plural string used in the media manager.
-#. If there is not a word you can use in your language to avoid issues
-#. with the
-#. lack of plural support here, turn it into "selected: %d" then translate
-#. it.
+#. If there is not a word you can use in your language to avoid issues with
+#. the 		   lack of plural support here, turn it into "selected: %d" then
+#. translate it.
 #: wp-includes/media.php:2920
 msgid "%d selected"
 msgstr "%d ausgewählt"
@@ -2726,13 +2723,11 @@ msgstr[0] "Dein Theme unterstützt %s Menü. Wähle, welches Menü du gerne verw
 msgstr[1] "Dein Theme unterstützt %s Menüs. Wähle, welches Menü du in der jeweiligen Position verwenden möchtest."
 
 #. translators: If your word count is based on single characters (East Asian
-#. characters),
-#. enter 'characters'. Otherwise, enter 'words'. Do not translate into your
-#. own language.
+#. characters), 	   enter 'characters'. Otherwise, enter 'words'. Do not
+#. translate into your own language.
 #. translators: If your word count is based on single characters (East Asian
-#. characters),
-#. enter 'characters'. Otherwise, enter 'words'. Do not translate into
-#. your own language.
+#. characters), 		   enter 'characters'. Otherwise, enter 'words'. Do not
+#. translate into your own language.
 #: wp-includes/formatting.php:2603 wp-includes/script-loader.php:374
 msgctxt "word count: words or characters?"
 msgid "words"

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-02-04 11:42:29+0000\n"
+"PO-Revision-Date: 2015-03-16 07:26:18+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2536,10 +2536,6 @@ msgstr "%s auswählen"
 msgid "Main content"
 msgstr "Hauptinhalt"
 
-#: wp-admin/edit-tags.php:347
-msgid "Tags can be selectively converted to categories using the <a href=\"%s\">tag to category converter</a>."
-msgstr "Tags können selektiv in Kategorien mithilfe des <a href=\"%s\"> Tags zum </a> Tag umgewandelt werden."
-
 #: wp-admin/admin-header.php:193
 msgid "Skip to main content"
 msgstr "Zum Hauptinhalt springen"
@@ -2555,6 +2551,10 @@ msgstr "Eine Seite zu erstellen ist sehr ähnlich wie das Erstellen eines Beitra
 #: wp-admin/custom-header.php:585
 msgid "You can select an image to be shown at the top of your site by uploading from your computer or choosing from your media library. After selecting an image you will be able to crop it."
 msgstr "Du kannst ein Bild auswählen, welches im oberen Bereich deiner Webseite angezeigt wird, indem du es vom Computer hochlädst oder eines aus der Mediathek wählst. Nach dem Auswählen kannst du das Bild zuschneiden."
+
+#: wp-admin/edit-tags.php:347
+msgid "Tags can be selectively converted to categories using the <a href=\"%s\">tag to category converter</a>."
+msgstr "Schlagworte können selektiv mithilfe des <a href=\"%s\">Kategorie und Schlagwort-Konverters</a> in Kategorien umgewandelt werden."
 
 #: wp-admin/custom-header.php:179
 msgid "You can set a custom image header for your site. Simply upload the image and crop it, and the new header will go live immediately. Alternatively, you can use an image that has already been uploaded to your Media Library by clicking the &#8220;Choose Image&#8221; button."
@@ -2984,10 +2984,9 @@ msgid "1"
 msgstr "1"
 
 #. translators: default GMT offset or timezone string. Must be either a valid
-#. offset (-12 to 14)
-#. or a valid timezone string (America/New_York). See
-#. http:us3.php.net/manual/en/timezones.php
-#. for all timezone strings supported by PHP.
+#. offset (-12 to 14) 	   or a valid timezone string (America/New_York). See
+#. http:us3.php.net/manual/en/timezones.php 	   for all timezone strings
+#. supported by PHP.
 #: wp-admin/includes/schema.php:361
 msgctxt "default GMT offset or timezone string"
 msgid "0"
