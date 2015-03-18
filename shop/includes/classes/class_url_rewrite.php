@@ -109,7 +109,7 @@
         } else {
           $remove = array('-m-', '-c-');
         }
-        $path = str_replace($remove, '', $path);
+        $path = str_replace($remove, '-', $path);
         if (strpos($path, '//') !== FALSE) $path = str_replace('//', '/', $path);
         if (substr($path, -1) == '/') $path = substr($path, 0, -1);
 
