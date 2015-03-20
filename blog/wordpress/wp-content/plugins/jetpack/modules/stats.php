@@ -8,6 +8,7 @@
  * Requires Connection: Yes
  * Auto Activate: Yes
  * Module Tags: WordPress.com Stats, Recommended
+ * Feature: Recommended
  */
 
 if ( defined( 'STATS_VERSION' ) ) {
@@ -1143,7 +1144,7 @@ function stats_get_csv( $table, $args = null ) {
 	$args['table'] = $table;
 	$args['blog_id'] = Jetpack_Options::get_option( 'id' );
 
-	$stats_csv_url = add_query_arg( $args, 'https://stats.wordpress.com/csv.php' );
+	$stats_csv_url = add_query_arg( $args, 'http://stats.wordpress.com/csv.php' );
 
 	$key = md5( $stats_csv_url );
 
