@@ -12,6 +12,8 @@ matrix:
   allow_failures:
     - php: hhvm
 
+sudo: false
+
 before_script:
   - composer require satooshi/php-coveralls:dev-master --dev --no-progress --prefer-source
 

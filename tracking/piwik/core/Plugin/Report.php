@@ -14,6 +14,7 @@ use Piwik\Cache;
 use Piwik\CacheId;
 use Piwik\Columns\Dimension;
 use Piwik\DataTable;
+use Piwik\DataTable\Filter\Sort;
 use Piwik\Menu\MenuReporting;
 use Piwik\Metrics;
 use Piwik\Cache as PiwikCache;
@@ -180,6 +181,27 @@ class Report
      * @api
      */
     protected $order = 1;
+
+    /**
+     * Separator for building recursive labels (or paths)
+     * @var string
+     * @api
+     */
+    protected $recursiveLabelSeparator = ' - ';
+
+    /**
+     * Default sort column. Either a column name or a column id.
+     *
+     * @var string|int
+     */
+    protected $defaultSortColumn = 'nb_visits';
+
+    /**
+     * Default sort desc. If true will sort by default desc, if false will sort by default asc
+     *
+     * @var bool
+     */
+    protected $defaultSortOrderDesc = true;
 
     /**
      * @var array
@@ -354,6 +376,15 @@ class Report
                                $this->order);
             }
         }
+    }
+
+    /**
+     * @ignore
+     * @see $recursiveLabelSeparator
+     */
+    public function getRecursiveLabelSeparator()
+    {
+        return $this->recursiveLabelSeparator;
     }
 
     /**
@@ -560,6 +591,26 @@ class Report
         $report['order'] = $this->order;
 
         return $report;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getDefaultSortColumn()
+    {
+        return $this->defaultSortColumn;
+    }
+
+    /**
+     * @ignore
+     */
+    public function getDefaultSortOrder()
+    {
+        if ($this->defaultSortOrderDesc) {
+            return Sort::ORDER_DESC;
+        }
+
+        return Sort::ORDER_ASC;
     }
 
     /**

@@ -2,6 +2,40 @@
 
 This is a changelog for Piwik platform developers. All changes for our HTTP API's, Plugins, Themes, etc will be listed here.
 
+## Piwik 2.12.0
+
+### Breaking Changes
+* The deprecated method `Period::factory()` has been removed. Use `Period\Factory` instead.
+* The deprecated method `Config::getConfigSuperUserForBackwardCompatibility()` has been removed.
+* The deprecated methods `MenuAdmin::addEntry()` and `MenuAdmin::removeEntry()` have been removed. Use `Piwik\Plugin\Menu` instead.
+* The deprecated methods `MenuTop::addEntry()` and `MenuTop::removeEntry()` have been removed. Use `Piwik\Plugin\Menu` instead.
+* The deprecated method `SettingsPiwik::rewriteTmpPathWithInstanceId()` has been removed.
+* The following deprecated methods from the `Piwik\IP` class have been removed, use `Piwik\Network\IP` instead:
+  * `sanitizeIp()`
+  * `sanitizeIpRange()`
+  * `P2N()`
+  * `N2P()`
+  * `prettyPrint()`
+  * `isIPv4()`
+  * `long2ip()`
+  * `isIPv6()`
+  * `isMappedIPv4()`
+  * `getIPv4FromMappedIPv6()`
+  * `getIpsForRange()`
+  * `isIpInRange()`
+  * `getHostByAddr()`
+
+### Deprecations
+* `API` classes should no longer have a protected constructor. Classes with a protected constructor will generate a notice in the logs and should expose a public constructor instead.
+* Update classes should not declare static `getSql()` and `update()` methods anymore. It is still supported to use those, but developers should instead override the `Updates::getMigrationQueries()` and `Updates::doUpdate()` instance methods.
+
+### New features
+* `API` classes can now use dependency injection in their constructor to inject other instances.
+
+### New commands
+* There is now a command `core:purge-old-archive-data` that can be used to manually purge temporary, error-ed and invalidated archives from one or more archive tables.
+* There is now a command `usercountry:attribute` that can be used to re-attribute geolocated location data to existing visits and conversions. If you have visits that were tracked before setting up GeoIP, you can use this command to add location data to them.
+
 ## Piwik 2.11.0
 
 ### Breaking Changes

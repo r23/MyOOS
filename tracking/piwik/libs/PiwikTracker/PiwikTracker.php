@@ -1166,7 +1166,7 @@ class PiwikTracker
     }
 
     /**
-     * Some Tracking API functionnality requires express authentication, using either the
+     * Some Tracking API functionality requires express authentication, using either the
      * Super User token_auth, or a user with 'admin' access to the website.
      *
      * The following features require access:
@@ -1325,6 +1325,8 @@ class PiwikTracker
                 CURLOPT_HTTPHEADER     => array(
                     'Accept-Language: ' . $this->acceptLanguage
                 ));
+
+            if (defined('PATH_TO_CERTIFICATES_FILE')) $options[CURLOPT_CAINFO] = PATH_TO_CERTIFICATES_FILE;
 
             switch ($method) {
                 case 'POST':

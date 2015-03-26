@@ -59,6 +59,9 @@ class DataTablePostProcessor
      */
     private $formatter;
 
+    private $callbackBeforeGenericFilters;
+    private $callbackAfterGenericFilters;
+
     /**
      * Constructor.
      */
@@ -66,11 +69,31 @@ class DataTablePostProcessor
     {
         $this->apiModule = $apiModule;
         $this->apiMethod = $apiMethod;
-        $this->request = $request;
+        $this->setRequest($request);
 
         $this->report = Report::factory($apiModule, $apiMethod);
         $this->apiInconsistencies = new Inconsistencies();
-        $this->formatter = new Formatter();
+        $this->setFormatter(new Formatter());
+    }
+
+    public function setFormatter(Formatter $formatter)
+    {
+        $this->formatter = $formatter;
+    }
+
+    public function setRequest($request)
+    {
+        $this->request = $request;
+    }
+
+    public function setCallbackBeforeGenericFilters($callbackBeforeGenericFilters)
+    {
+        $this->callbackBeforeGenericFilters = $callbackBeforeGenericFilters;
+    }
+
+    public function setCallbackAfterGenericFilters($callbackAfterGenericFilters)
+    {
+        $this->callbackAfterGenericFilters = $callbackAfterGenericFilters;
     }
 
     /**
@@ -85,22 +108,27 @@ class DataTablePostProcessor
         //       this is non-trivial since it will require, eg, to make sure processed metrics aren't added
         //       after pivotBy is handled.
         $dataTable = $this->applyPivotByFilter($dataTable);
-        $dataTable = $this->applyFlattener($dataTable);
         $dataTable = $this->applyTotalsCalculator($dataTable);
+        $dataTable = $this->applyFlattener($dataTable);
+
+        if ($this->callbackBeforeGenericFilters) {
+            call_user_func($this->callbackBeforeGenericFilters, $dataTable);
+        }
 
         $dataTable = $this->applyGenericFilters($dataTable);
-
         $this->applyComputeProcessedMetrics($dataTable);
+
+        if ($this->callbackAfterGenericFilters) {
+            call_user_func($this->callbackAfterGenericFilters, $dataTable);
+        }
 
         // we automatically safe decode all datatable labels (against xss)
         $dataTable->queueFilter('SafeDecodeLabel');
-
         $dataTable = $this->convertSegmentValueToSegment($dataTable);
         $dataTable = $this->applyQueuedFilters($dataTable);
         $dataTable = $this->applyRequestedColumnDeletion($dataTable);
         $dataTable = $this->applyLabelFilter($dataTable);
         $dataTable = $this->applyMetricsFormatting($dataTable);
-
         return $dataTable;
     }
 
@@ -145,7 +173,13 @@ class DataTablePostProcessor
             if (Common::getRequestVar('include_aggregate_rows', '0', 'string', $this->request) == '1') {
                 $flattener->includeAggregateRows();
             }
-            $dataTable = $flattener->flatten($dataTable);
+
+            $recursiveLabelSeparator = ' - ';
+            if ($this->report) {
+                $recursiveLabelSeparator = $this->report->getRecursiveLabelSeparator();
+            }
+
+            $dataTable = $flattener->flatten($dataTable, $recursiveLabelSeparator);
         }
         return $dataTable;
     }
@@ -157,8 +191,8 @@ class DataTablePostProcessor
     public function applyTotalsCalculator($dataTable)
     {
         if (1 == Common::getRequestVar('totals', '1', 'integer', $this->request)) {
-            $reportTotalsCalculator = new ReportTotalsCalculator($this->apiModule, $this->apiMethod, $this->request);
-            $dataTable     = $reportTotalsCalculator->calculate($dataTable);
+            $calculator = new ReportTotalsCalculator($this->apiModule, $this->apiMethod, $this->request, $this->report);
+            $dataTable  = $calculator->calculate($dataTable);
         }
         return $dataTable;
     }
@@ -173,7 +207,7 @@ class DataTablePostProcessor
         if (0 == Common::getRequestVar('disable_generic_filters', '0', 'string', $this->request)) {
             $this->applyProcessedMetricsGenericFilters($dataTable);
 
-            $genericFilter = new DataTableGenericFilter($this->request);
+            $genericFilter = new DataTableGenericFilter($this->request, $this->report);
 
             $self = $this;
             $report = $this->report;
