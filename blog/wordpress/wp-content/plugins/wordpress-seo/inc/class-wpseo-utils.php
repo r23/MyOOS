@@ -216,6 +216,7 @@ class WPSEO_Utils {
 			default:
 				$score = __( 'Bad', 'wordpress-seo' );
 				$css   = 'bad';
+				break;
 		}
 
 		if ( $css_value ) {
@@ -261,6 +262,7 @@ class WPSEO_Utils {
 			$filtered = str_replace( $match[1], '', $filtered );
 			$found    = true;
 		}
+		unset( $match );
 
 		if ( $found ) {
 			// Strip out the whitespace that may now exist after removing the octets.
@@ -379,6 +381,7 @@ class WPSEO_Utils {
 				return false;
 			}
 		}
+
 		return false;
 	}
 
@@ -440,6 +443,7 @@ class WPSEO_Utils {
 				return false;
 			}
 		}
+
 		return false;
 	}
 
@@ -515,6 +519,21 @@ class WPSEO_Utils {
 	 */
 	public static function clear_sitemap_cache( $types = array() ) {
 		global $wpdb;
+
+		if ( wp_using_ext_object_cache() ) {
+			return;
+		}
+
+		if ( ! apply_filters( 'wpseo_enable_xml_sitemap_transient_caching', true ) ) {
+			return;
+		}
+
+		// not sure about efficiency, but that's what code elsewhere does R.
+		$options = WPSEO_Options::get_all();
+
+		if ( true !== $options['enablexmlsitemap'] ) {
+			return;
+		}
 
 		$query = "DELETE FROM $wpdb->options WHERE";
 
@@ -614,7 +633,7 @@ class WPSEO_Utils {
 					$result = bcdiv( $number1, $number2, $precision ); // string, or NULL if right_operand is 0
 				}
 				elseif ( $number2 != 0 ) {
-					$result = ($number1 / $number2);
+					$result = ( $number1 / $number2 );
 				}
 
 				if ( ! isset( $result ) ) {
@@ -629,7 +648,7 @@ class WPSEO_Utils {
 					$result = bcmod( $number1, $number2, $precision ); // string, or NULL if modulus is 0.
 				}
 				elseif ( $number2 != 0 ) {
-					$result = ($number1 % $number2);
+					$result = ( $number1 % $number2 );
 				}
 
 				if ( ! isset( $result ) ) {
@@ -681,44 +700,7 @@ class WPSEO_Utils {
 	 * @return mixed
 	 */
 	public static function filter_input( $type, $variable_name, $filter = FILTER_DEFAULT ) {
-		if ( function_exists( 'filter_input' ) ) {
-			return filter_input( $type, $variable_name, $filter );
-		}
-		else {
-			switch ( $type ) {
-				case INPUT_GET:
-					$type = $_GET;
-					break;
-				case INPUT_POST:
-					$type = $_POST;
-					break;
-				case INPUT_SERVER:
-					$type = $_SERVER;
-					break;
-				default:
-					return false;
-					break;
-			}
-
-			if ( isset( $type[ $variable_name ] ) ) {
-				$out = $type[ $variable_name ];
-			}
-			else {
-				return false;
-			}
-
-			switch ( $filter ) {
-				case FILTER_VALIDATE_INT:
-					return self::emulate_filter_int( $out );
-					break;
-				case FILTER_VALIDATE_BOOLEAN:
-					return self::emulate_filter_bool( $out );
-					break;
-				default:
-					return (string) $out;
-					break;
-			}
-		}
+		return filter_input( $type, $variable_name, $filter );
 	}
 
 	/**
@@ -729,11 +711,34 @@ class WPSEO_Utils {
 	 * @return string
 	 */
 	public static function trim_nbsp_from_string( $string ) {
-		$find    = array( '&nbsp;', chr( 0xC2 ) . chr( 0xA0 ) );
-		$string  = str_replace( $find, ' ', $string );
-		$string  = trim( $string );
+		$find   = array( '&nbsp;', chr( 0xC2 ) . chr( 0xA0 ) );
+		$string = str_replace( $find, ' ', $string );
+		$string = trim( $string );
 
 		return $string;
+	}
+
+	/**
+	 * Check if a string is a valid datetime
+	 *
+	 * @param string $datetime
+	 *
+	 * @return bool
+	 */
+	public static function is_valid_datetime( $datetime ) {
+		if ( substr( $datetime, 0, 1 ) != '-' ) {
+			try {
+				// Use the DateTime class ( PHP 5.2 > ) to check if the string is a valid datetime
+				if ( new DateTime( $datetime ) !== false ) {
+					return true;
+				}
+			}
+			catch( Exception $exc ) {
+				return false;
+			}
+		}
+
+		return false;
 	}
 
 } /* End of class WPSEO_Utils */

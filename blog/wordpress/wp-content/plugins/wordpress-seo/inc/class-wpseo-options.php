@@ -228,6 +228,107 @@ abstract class WPSEO_Option {
 		return $new_value;
 	}
 
+	/**
+	 * Validate webmaster tools & Pinterest verification strings
+	 *
+	 * @param string $key
+	 * @param array  $dirty
+	 * @param array  $old
+	 * @param array  $clean (passed by reference)
+	 */
+	public function validate_verification_string( $key, $dirty, $old, &$clean ) {
+		if ( isset( $dirty[ $key ] ) && $dirty[ $key ] !== '' ) {
+			$meta = $dirty[ $key ];
+			if ( strpos( $meta, 'content=' ) ) {
+				// Make sure we only have the real key, not a complete meta tag
+				preg_match( '`content=([\'"])?([^\'"> ]+)(?:\1|[ />])`', $meta, $match );
+				if ( isset( $match[2] ) ) {
+					$meta = $match[2];
+				}
+				unset( $match );
+			}
+
+			$meta = sanitize_text_field( $meta );
+			if ( $meta !== '' ) {
+				$regex   = '`^[A-Fa-f0-9_-]+$`';
+				$service = '';
+
+				switch ( $key ) {
+					case 'googleverify':
+						$regex   = '`^[A-Za-z0-9_-]+$`';
+						$service = 'Google Webmaster tools';
+						break;
+
+					case 'msverify':
+						$service = 'Bing Webmaster tools';
+						break;
+
+					case 'pinterestverify':
+						$service = 'Pinterest';
+						break;
+
+					case 'yandexverify':
+						$service = 'Yandex Webmaster tools';
+						break;
+
+					case 'alexaverify':
+						$regex   = '`^[A-Za-z0-9_-]{20,}$`';
+						$service = 'Alexa ID';
+				}
+
+				if ( preg_match( $regex, $meta ) ) {
+					$clean[ $key ] = $meta;
+				}
+				else {
+					if ( isset( $old[ $key ] ) && preg_match( $regex, $old[ $key ] ) ) {
+						$clean[ $key ] = $old[ $key ];
+					}
+					if ( function_exists( 'add_settings_error' ) ) {
+						add_settings_error(
+							$this->group_name, // slug title of the setting
+							'_' . $key, // suffix-id for the error message box
+							sprintf( __( '%s does not seem to be a valid %s verification string. Please correct.', 'wordpress-seo' ), '<strong>' . esc_html( $meta ) . '</strong>', $service ), // the error message
+							'error' // error type, either 'error' or 'updated'
+						);
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 *
+	 *
+	 * @param string $key
+	 * @param array  $dirty
+	 * @param array  $old
+	 * @param array  $clean (passed by reference)
+	 */
+	public function validate_url( $key, $dirty, $old, &$clean ) {
+		if ( isset( $dirty[ $key ] ) && $dirty[ $key ] !== '' ) {
+			$url = WPSEO_Utils::sanitize_url( $dirty[ $key ] );
+			if ( $url !== '' ) {
+				$clean[ $key ] = $url;
+			}
+			else {
+				if ( isset( $old[ $key ] ) && $old[ $key ] !== '' ) {
+					$url = WPSEO_Utils::sanitize_url( $old[ $key ] );
+					if ( $url !== '' ) {
+						$clean[ $key ] = $url;
+					}
+				}
+				if ( function_exists( 'add_settings_error' ) ) {
+					$url = WPSEO_Utils::sanitize_url( $dirty[ $key ] );
+					add_settings_error(
+						$this->group_name, // slug title of the setting
+						'_' . $key, // suffix-id for the error message box
+						sprintf( __( '%s does not seem to be a valid url. Please correct.', 'wordpress-seo' ), '<strong>' . esc_html( $url ) . '</strong>' ), // the error message
+						'error' // error type, either 'error' or 'updated'
+					);
+				}
+			}
+		}
+	}
 
 	/**
 	 * Remove the default filters.
@@ -781,10 +882,13 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 
 		// Form fields:
 		'alexaverify'                     => '', // text field
+		'company_logo'                    => '',
+		'company_name'                    => '',
+		'company_or_person'               => '',
 		'disableadvanced_meta'            => true,
 		'googleverify'                    => '', // text field
 		'msverify'                        => '', // text field
-		'pinterestverify'                 => '',
+		'person_name'                     => '',
 		'yandexverify'                    => '',
 		'yoast_tracking'                  => false,
 	);
@@ -807,16 +911,13 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 		'ignore_page_comments',
 		'ignore_permalink',
 		'ignore_tour',
-
 		/* theme dependent */
 		'theme_description_found',
 		'theme_has_description',
-
 		/* privacy */
 		'alexaverify',
 		'googleverify',
 		'msverify',
-		'pinterestverify',
 		'yandexverify',
 	);
 
@@ -902,71 +1003,32 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 					}
 					break;
 
+				case 'company_or_person':
+					if ( isset( $dirty[ $key ] ) && $dirty[ $key ] !== '' ) {
+						if ( in_array( $dirty[ $key ], array( 'company', 'person' ) ) ) {
+							$clean[ $key ] = $dirty[ $key ];
+						}
+					}
+					break;
 
 				/* text fields */
+				case 'company_name':
+				case 'person_name':
+					if ( isset( $dirty[ $key ] ) && $dirty[ $key ] !== '' ) {
+						$clean[ $key ] = sanitize_text_field( $dirty[ $key ] );
+					}
+					break;
+
+				case 'company_logo':
+					$this->validate_url( $key, $dirty, $old, $clean );
+					break;
+
+				/* verification strings */
 				case 'alexaverify':
 				case 'googleverify':
 				case 'msverify':
-				case 'pinterestverify':
 				case 'yandexverify':
-					if ( isset( $dirty[ $key ] ) && $dirty[ $key ] !== '' ) {
-						$meta = $dirty[ $key ];
-						if ( strpos( $meta, 'content=' ) ) {
-							// Make sure we only have the real key, not a complete meta tag
-							preg_match( '`content=([\'"])?([^\'"> ]+)(?:\1|[ />])`', $meta, $match );
-							if ( isset( $match[2] ) ) {
-								$meta = $match[2];
-							}
-							unset( $match );
-						}
-
-						$meta = sanitize_text_field( $meta );
-						if ( $meta !== '' ) {
-							$regex   = '`^[A-Fa-f0-9_-]+$`';
-							$service = '';
-
-							switch ( $key ) {
-								case 'googleverify':
-									$regex   = '`^[A-Za-z0-9_-]+$`';
-									$service = 'Google Webmaster tools';
-									break;
-
-								case 'msverify':
-									$service = 'Bing Webmaster tools';
-									break;
-
-								case 'pinterestverify':
-									$service = 'Pinterest';
-									break;
-
-								case 'yandexverify':
-									$service = 'Yandex Webmaster tools';
-									break;
-
-								case 'alexaverify':
-									$regex   = '`^[A-Za-z0-9_-]{20,}$`';
-									$service = 'Alexa ID';
-							}
-
-							if ( preg_match( $regex, $meta ) ) {
-								$clean[ $key ] = $meta;
-							}
-							else {
-								if ( isset( $old[ $key ] ) && preg_match( $regex, $old[ $key ] ) ) {
-									$clean[ $key ] = $old[ $key ];
-								}
-								if ( function_exists( 'add_settings_error' ) ) {
-									add_settings_error(
-										$this->group_name, // slug title of the setting
-										'_' . $key, // suffix-id for the error message box
-										sprintf( __( '%s does not seem to be a valid %s verification string. Please correct.', 'wordpress-seo' ), '<strong>' . esc_html( $meta ) . '</strong>', $service ), // the error message
-										'error' // error type, either 'error' or 'updated'
-									);
-								}
-							}
-						}
-						unset( $meta, $regex, $service );
-					}
+					$this->validate_verification_string( $key, $dirty, $old, $clean );
 					break;
 
 
@@ -1000,8 +1062,10 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 
 
 				/* boolean (checkbox) fields */
-				case 'disableadvanced_meta':
-				case 'yoast_tracking':
+				/* Covers
+				 * 		'disableadvanced_meta'
+				 * 		'yoast_tracking'
+				 */
 				default:
 					$clean[ $key ] = ( isset( $dirty[ $key ] ) ? WPSEO_Utils::validate_bool( $dirty[ $key ] ) : false );
 					break;
@@ -1122,26 +1186,13 @@ class WPSEO_Option_Permalinks extends WPSEO_Option {
 		'cleanpermalink-googlesitesearch' => false,
 		'cleanreplytocom'                 => false,
 		'cleanslugs'                      => true,
-		'force_transport'                 => 'default',
+		'hide-feedlinks'   => false,
+		'hide-rsdlink'     => false,
+		'hide-shortlink'   => false,
+		'hide-wlwmanifest' => false,
 		'redirectattachment'              => false,
 		'stripcategorybase'               => false,
 		'trailingslash'                   => false,
-	);
-
-
-	/**
-	 * @var  array $force_transport_options Available options for the force_transport setting
-	 *                      Used for input validation
-	 *
-	 * @static
-	 *
-	 * @internal Important: Make sure the options added to the array here are in line with the keys
-	 * for the options set for the select box in the admin/pages/permalinks.php file
-	 */
-	public static $force_transport_options = array(
-		'default', // = leave as-is
-		'http',
-		'https',
 	);
 
 
@@ -1187,25 +1238,6 @@ class WPSEO_Option_Permalinks extends WPSEO_Option {
 
 		foreach ( $clean as $key => $value ) {
 			switch ( $key ) {
-				case 'force_transport':
-					if ( isset( $dirty[ $key ] ) && in_array( $dirty[ $key ], self::$force_transport_options, true ) ) {
-						$clean[ $key ] = $dirty[ $key ];
-					}
-					else {
-						if ( isset( $old[ $key ] ) && in_array( $old[ $key ], self::$force_transport_options, true ) ) {
-							$clean[ $key ] = $old[ $key ];
-						}
-						if ( function_exists( 'add_settings_error' ) ) {
-							add_settings_error(
-								$this->group_name, // slug title of the setting
-								'_' . $key, // suffix-id for the error message box
-								__( 'Invalid transport mode set for the canonical settings. Value reset to default.', 'wordpress-seo' ), // the error message
-								'error' // error type, either 'error' or 'updated'
-							);
-						}
-					}
-					break;
-
 				/* text fields */
 				case 'cleanpermalink-extravars':
 					if ( isset( $dirty[ $key ] ) && $dirty[ $key ] !== '' ) {
@@ -1214,14 +1246,20 @@ class WPSEO_Option_Permalinks extends WPSEO_Option {
 					break;
 
 				/* boolean (checkbox) fields */
-				case 'cleanpermalinks':
-				case 'cleanpermalink-googlesitesearch':
-				case 'cleanpermalink-googlecampaign':
-				case 'cleanreplytocom':
-				case 'cleanslugs':
-				case 'redirectattachment':
-				case 'stripcategorybase':
-				case 'trailingslash':
+				/* Covers:
+				 * 		'cleanpermalinks'
+				 * 		'cleanpermalink-googlesitesearch'
+				 *		'cleanpermalink-googlecampaign'
+				 *		'cleanreplytocom'
+				 *		'cleanslugs'
+				 *		'hide-rsdlink'
+				 *		'hide-wlwmanifest'
+				 *		'hide-shortlink'
+				 *		'hide-feedlinks'
+				 *		'redirectattachment'
+				 *		'stripcategorybase'
+				 *		'trailingslash'
+				 */
 				default:
 					$clean[ $key ] = ( isset( $dirty[ $key ] ) ? WPSEO_Utils::validate_bool( $dirty[ $key ] ) : false );
 					break;
@@ -1274,10 +1312,6 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 		// Form fields
 		'forcerewritetitle'      => false,
 		'separator'              => 'sc-dash',
-		'hide-feedlinks'         => false,
-		'hide-rsdlink'           => false,
-		'hide-shortlink'         => false,
-		'hide-wlwmanifest'       => false,
 		'noodp'                  => false,
 		'noydir'                 => false,
 		'usemetakeywords'        => false,
@@ -1578,27 +1612,24 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 					break;
 
 				/* boolean fields */
-				case 'forcerewritetitle':
-				case 'usemetakeywords':
-				case 'noodp':
-				case 'noydir':
-				case 'hide-rsdlink':
-				case 'hide-wlwmanifest':
-				case 'hide-shortlink':
-				case 'hide-feedlinks':
-				case 'disable-author':
-				case 'disable-date':
-					/* Covers:
-							 'noindex-subpages-wpseo', 'noindex-author-wpseo', 'noindex-archive-wpseo'
-							 'noindex-' . $pt->name
-							 'noindex-ptarchive-' . $pt->name
-							 'noindex-tax-' . $tax->name */
-				case 'noindex-':
-				case 'showdate-': /* 'showdate-'. $pt->name */
-					/* Covers:
-							 'hideeditbox-'. $pt->name
-							 'hideeditbox-tax-' . $tax->name */
-				case 'hideeditbox-':
+				/* Covers:
+				 *		'noindex-subpages-wpseo', 'noindex-author-wpseo', 'noindex-archive-wpseo'
+				 *		'noindex-' . $pt->name
+				 *		'noindex-ptarchive-' . $pt->name
+				 *		'noindex-tax-' . $tax->name
+				 *		'forcerewritetitle':
+				 *		'usemetakeywords':
+				 *		'noodp':
+				 *		'noydir':
+				 *		'disable-author':
+				 *		'disable-date':
+				 *		'noindex-'
+				 *		'showdate-'
+				 *		'showdate-'. $pt->name
+				 *		'hideeditbox-'
+				 *	 	'hideeditbox-'. $pt->name
+				 *		'hideeditbox-tax-' . $tax->name
+				 */
 				default:
 					$clean[ $key ] = ( isset( $dirty[ $key ] ) ? WPSEO_Utils::validate_bool( $dirty[ $key ] ) : false );
 					break;
@@ -1751,7 +1782,7 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 					}
 				}
 			}
-			unset( $rename, $taxonomy_names, $post_type_names, $tax, $old_prefix, $new_prefix );
+			unset( $rename, $taxonomy_names, $post_type_names, $defaults, $tax, $old_prefix, $new_prefix );
 		}
 
 
@@ -1773,14 +1804,17 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 
 
 					/* boolean fields */
-					case 'noindex-':
-					case 'showdate-':
-					case 'hideeditbox-':
+					/* Covers:
+					 * 		'noindex-'
+					 * 		'showdate-'
+					 * 		'hideeditbox-'
+					 */
 					default:
 						$option_value[ $key ] = WPSEO_Utils::validate_bool( $value );
 						break;
 				}
 			}
+			unset( $key, $value, $switch_key );
 		}
 
 		return $option_value;
@@ -2112,9 +2146,11 @@ class WPSEO_Option_InternalLinks extends WPSEO_Option {
 
 
 				/* boolean fields */
-				case 'breadcrumbs-blog-remove':
-				case 'breadcrumbs-boldlast':
-				case 'breadcrumbs-enable':
+				/* Covers:
+				 * 		'breadcrumbs-blog-remove'
+				 * 		'breadcrumbs-boldlast'
+				 * 		'breadcrumbs-enable'
+				 */
 				default:
 					$clean[ $key ] = ( isset( $dirty[ $key ] ) ? WPSEO_Utils::validate_bool( $dirty[ $key ] ) : false );
 					break;
@@ -2276,8 +2312,6 @@ class WPSEO_Option_XML extends WPSEO_Option {
 		'disable_author_noposts' => true,
 		'enablexmlsitemap'       => true,
 		'entries-per-page'       => 1000,
-		'xml_ping_yahoo'         => false,
-		'xml_ping_ask'           => false,
 
 		/**
 		 * Uses enrich_defaults to add more along the lines of:
@@ -2341,8 +2375,9 @@ class WPSEO_Option_XML extends WPSEO_Option {
 
 				unset( $user_role );
 			}
+			unset( $role_name, $role_value );
 		}
-		unset( $filtered_user_roles );
+		unset( $user_roles, $filtered_user_roles );
 
 		$post_type_names     = get_post_types( array( 'public' => true ), 'names' );
 		$filtered_post_types = apply_filters( 'wpseo_sitemaps_supported_post_types', $post_type_names );
@@ -2358,7 +2393,7 @@ class WPSEO_Option_XML extends WPSEO_Option {
 			}
 			unset( $pt );
 		}
-		unset( $filtered_post_types );
+		unset( $post_type_names, $filtered_post_types );
 
 		$taxonomy_objects    = get_taxonomies( array( 'public' => true ), 'objects' );
 		$filtered_taxonomies = apply_filters( 'wpseo_sitemaps_supported_taxonomies', $taxonomy_objects );
@@ -2370,7 +2405,7 @@ class WPSEO_Option_XML extends WPSEO_Option {
 			}
 			unset( $tax );
 		}
-		unset( $filtered_taxonomies );
+		unset( $taxonomy_objects, $filtered_taxonomies );
 
 	}
 
@@ -2421,14 +2456,17 @@ class WPSEO_Option_XML extends WPSEO_Option {
 
 
 				/* boolean fields */
-				case 'disable_author_sitemap':
-				case 'disable_author_noposts':
-				case 'enablexmlsitemap':
-				case 'user_role-': /* 'user_role' . $role_name . '-not_in_sitemap' fields */
-				case 'post_types-': /* 'post_types-' . $pt->name . '-not_in_sitemap' fields */
-				case 'taxonomies-': /* 'taxonomies-' . $tax->name . '-not_in_sitemap' fields */
-				case 'xml_ping_yahoo':
-				case 'xml_ping_ask':
+				/* Covers:
+				 *		'disable_author_sitemap':
+				 * 		'disable_author_noposts':
+				 * 		'enablexmlsitemap':
+				 * 		'user_role-':
+				 * 		'user_role' . $role_name . '-not_in_sitemap' fields
+				 * 		'post_types-':
+				 * 		'post_types-' . $pt->name . '-not_in_sitemap' fields
+				 * 		'taxonomies-':
+				 *		'taxonomies-' . $tax->name . '-not_in_sitemap' fields
+				 */
 				default:
 					$clean[ $key ] = ( isset( $dirty[ $key ] ) ? WPSEO_Utils::validate_bool( $dirty[ $key ] ) : false );
 					break;
@@ -2501,16 +2539,23 @@ class WPSEO_Option_Social extends WPSEO_Option {
 		'fbconnectkey'       => '',
 		// Form fields:
 		'facebook_site'      => '', // text field
+		'instagram_url'      => '',
+		'linkedin_url'       => '',
+		'myspace_url'        => '',
 		'og_default_image'   => '', // text field
 		'og_frontpage_title' => '', // text field
 		'og_frontpage_desc'  => '', // text field
 		'og_frontpage_image' => '', // text field
 		'opengraph'          => true,
 		'googleplus'         => false,
+		'pinterest_url'      => '',
+		'pinterestverify'    => '',
 		'plus-publisher'     => '', // text field
 		'twitter'            => false,
 		'twitter_site'       => '', // text field
 		'twitter_card_type'  => 'summary',
+		'youtube_url'        => '',
+		'google_plus_url'    => '',
 		// Form field, but not always available:
 		'fbadminapp'         => 0, // app id from fbapps list
 	);
@@ -2524,6 +2569,7 @@ class WPSEO_Option_Social extends WPSEO_Option {
 		'fbapps',
 		'fbconnectkey',
 		'fbadminapp',
+		'pinterestverify',
 	);
 
 
@@ -2680,35 +2726,21 @@ class WPSEO_Option_Social extends WPSEO_Option {
 
 				/* url text fields - no ftp allowed */
 				case 'facebook_site':
+				case 'instagram_url':
+				case 'linkedin_url':
+				case 'myspace_url':
+				case 'pinterest_url':
 				case 'plus-publisher':
 				case 'og_default_image':
 				case 'og_frontpage_image':
-					if ( isset( $dirty[ $key ] ) && $dirty[ $key ] !== '' ) {
-						$url = WPSEO_Utils::sanitize_url( $dirty[ $key ] );
-						if ( $url !== '' ) {
-							$clean[ $key ] = $url;
-						}
-						else {
-							if ( isset( $old[ $key ] ) && $old[ $key ] !== '' ) {
-								$url = WPSEO_Utils::sanitize_url( $old[ $key ] );
-								if ( $url !== '' ) {
-									$clean[ $key ] = $url;
-								}
-							}
-							if ( function_exists( 'add_settings_error' ) ) {
-								$url = WPSEO_Utils::sanitize_url( $dirty[ $key ] );
-								add_settings_error(
-									$this->group_name, // slug title of the setting
-									'_' . $key, // suffix-id for the error message box
-									sprintf( __( '%s does not seem to be a valid url. Please correct.', 'wordpress-seo' ), '<strong>' . esc_html( $url ) . '</strong>' ), // the error message
-									'error' // error type, either 'error' or 'updated'
-								);
-							}
-						}
-						unset( $url );
-					}
+				case 'youtube_url':
+				case 'google_plus_url':
+					$this->validate_url( $key, $dirty, $old, $clean );
 					break;
 
+				case 'pinterestverify':
+					$this->validate_verification_string( $key, $dirty, $old, $clean );
+					break;
 
 				/* twitter user name */
 				case 'twitter_site':
@@ -2747,7 +2779,7 @@ class WPSEO_Option_Social extends WPSEO_Option {
 					break;
 
 				case 'twitter_card_type':
-					if ( isset( $dirty[ $key ] ) && $dirty[ $key ] !== '' && isset( self::$twitter_card_types[ $dirty[ $key ] ] ) ) {
+					if ( isset( $dirty[ $key ], self::$twitter_card_types[ $dirty[ $key ] ] ) && $dirty[ $key ] !== '' ) {
 						$clean[ $key ] = $dirty[ $key ];
 					}
 					break;
@@ -2766,7 +2798,7 @@ class WPSEO_Option_Social extends WPSEO_Option {
 		 * Will not always exist in form - if not available it means that fbapps is empty,
 		 * so leave the clean default.
 		 */
-		if ( ( isset( $dirty['fbadminapp'] ) && $dirty['fbadminapp'] != 0 ) && isset( $clean['fbapps'][ $dirty['fbadminapp'] ] ) ) {
+		if ( isset( $dirty['fbadminapp'], $clean['fbapps'][ $dirty['fbadminapp'] ] ) && $dirty['fbadminapp'] != 0 ) {
 			$clean['fbadminapp'] = $dirty['fbadminapp'];
 		}
 
@@ -2825,9 +2857,9 @@ class WPSEO_Option_Social extends WPSEO_Option {
 					$fbapps[ $app_id ] = sanitize_text_field( $display_name );
 				}
 			}
-			unset( $app_id, $display_name );
-
 			$option_value['fbapps'] = $fbapps;
+
+			unset( $app_id, $display_name, $fbapps );
 		}
 
 		return $option_value;
@@ -3314,7 +3346,7 @@ class WPSEO_Taxonomy_Meta extends WPSEO_Option {
 					break;
 
 				case 'wpseo_sitemap_include':
-					if ( isset( $meta_data[ $key ] ) && isset( self::$sitemap_include_options[ $meta_data[ $key ] ] ) ) {
+					if ( isset( $meta_data[ $key ], self::$sitemap_include_options[ $meta_data[ $key ] ] ) ) {
 						$clean[ $key ] = $meta_data[ $key ];
 					}
 					break;
@@ -3325,6 +3357,7 @@ class WPSEO_Taxonomy_Meta extends WPSEO_Option {
 						if ( $url !== '' ) {
 							$clean[ $key ] = $url;
 						}
+						unset( $url );
 					}
 					break;
 
@@ -3706,11 +3739,13 @@ class WPSEO_Options {
 					self::$option_instances[ $option ]->clean( $current_version );
 				}
 			}
+			unset( $option );
 		}
 		else {
 			foreach ( self::$option_instances as $instance ) {
 				$instance->clean( $current_version );
 			}
+			unset( $instance );
 
 			// If we've done a full clean-up, we can safely remove this really old option
 			delete_option( 'wpseo_indexation' );
@@ -3778,6 +3813,7 @@ class WPSEO_Options {
 					update_option( $option_name, get_option( $option_name ) );
 				}
 			}
+			unset( $option_names );
 		}
 		else {
 			// Reset MS blog based on network default blog setting
