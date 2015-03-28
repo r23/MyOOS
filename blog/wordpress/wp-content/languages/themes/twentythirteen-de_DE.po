@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Twenty Thirteen package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-12-09 20:40:52+0000\n"
+"PO-Revision-Date: 2015-03-26 14:33:58+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,61 +10,237 @@ msgstr ""
 "X-Generator: GlotPress/1.0-alpha-1000\n"
 "Project-Id-Version: Twenty Thirteen\n"
 
-#. translators: %s: Name of current post
-#: content-aside.php:16 content-audio.php:27 content-chat.php:26
-#: content-gallery.php:27 content-image.php:26 content-link.php:27
-#: content-quote.php:16 content-status.php:16 content-video.php:26
-#: content.php:44 functions.php:478
-msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
-msgstr "%s weiterlesen <span class=\"meta-nav\">&rarr;</span>"
+#: content-aside.php:27 content-aside.php:35 content-audio.php:38
+#: content-chat.php:36 content-gallery.php:46 content-image.php:42
+#: content-link.php:19 content-quote.php:32 content-status.php:26
+#: content-video.php:42 content.php:31 image.php:44 page.php:39
+msgid "Edit"
+msgstr "Bearbeiten"
 
-#: 404.php:16
-msgid "Not Found"
-msgstr "Nicht gefunden"
+#: content-none.php:18
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr "Bereit, um deinen ersten Beitrag zu veröffentlichen? <a href=\"%1$s\">Starte hier</a>."
 
-#. Description of the plugin/theme
-msgid "The 2013 theme for WordPress takes us back to the blog, featuring a full range of post formats, each displayed beautifully in their own unique way. Design details abound, starting with a vibrant color scheme and matching header images, beautiful typography and icons, and a flexible layout that looks great on any device, big or small."
-msgstr "Das 2013 Theme für WordPress bringt uns zurück zum Blog. Es wird eine Bandbreite an Beitragsformaten unterstützt. Jedes Beitragsformat wird auf einzigartige Weise angezeigt. Viele kleine Details im Design runden das Aussehen der Webseite ab. Verschiedene Farbvariationen und passende Kopfgrafiken, schöne Schriften und Icons. Das flexible Layout passt sich optimal an die verschiedenen Endgeräte an. Egal ob kleiner Bildschirm auf dem Smartphone oder Tablet-PC. "
+#: image.php:22
+msgid "<span class=\"attachment-meta\">Published on <time class=\"entry-date\" datetime=\"%1$s\">%2$s</time> in <a href=\"%3$s\" title=\"Return to %4$s\" rel=\"gallery\">%5$s</a></span>"
+msgstr "<span class=\"attachment-meta\">Veröffentlicht am <time class=\"entry-date\" datetime=\"%1$s\">%2$s</time> in <a href=\"%3$s\" title=\"Zurück zu %4$s\" rel=\"gallery\">%5$s</a>.</span>"
 
-#: functions.php:233
-msgid "Appears in the footer section of the site."
-msgstr "Erscheint in der Fußzeile der Seite."
+#: 404.php:22
+msgid "It looks like nothing was found at this location. Maybe try a search?"
+msgstr "Es sieht so aus, als ob wir nicht das finden konnten, wonach du gesucht hast. Möglicherweise hilft eine Suche."
 
-#. Theme URI of the plugin/theme
-msgid "http://wordpress.org/themes/twentythirteen"
-msgstr "http://wordpress.org/themes/twentythirteen"
+#: functions.php:270
+msgid "<span class=\"meta-nav\">&larr;</span> Older posts"
+msgstr "<span class=\"meta-nav\">&larr;</span> Ältere Artikel"
 
-#: inc/back-compat.php:37 inc/back-compat.php:47 inc/back-compat.php:60
-msgid "Twenty Thirteen requires at least WordPress version 3.6. You are running version %s. Please upgrade and try again."
-msgstr "Twenty Thirteen benötigt mindestens WordPress Version 3.6. Du benutzt Version %s. Bitte aktualisieren und erneut versuchen."
+#. Translators: used between list items, there is a space after the comma.
+#: functions.php:328 functions.php:334
+msgid ", "
+msgstr ", "
 
-#: image.php:38
-msgid "Link to full-size image"
-msgstr "Link zum Bild in Originalgröße"
+#: content-none.php:27
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgstr "Es sieht so aus, als ob wir nicht das finden konnten, wonach du gesucht hast. Möglicherweise hilft eine Suche."
 
-#: functions.php:231
-msgid "Main Widget Area"
-msgstr "Haupt-Widgetbereich"
+#: functions.php:300
+msgid "Post navigation"
+msgstr "Beitragsnavigation"
 
-#: functions.php:241
-msgid "Secondary Widget Area"
-msgstr "Zweiter Widgetbereich"
+#. Theme Name of the plugin/theme
+msgid "Twenty Thirteen"
+msgstr "Twenty Thirteen"
 
-#: functions.php:243
-msgid "Appears on posts and pages in the sidebar."
-msgstr "Erscheint bei Beiträgen und Seiten in der Seitenleiste."
+#. Author of the plugin/theme
+msgid "the WordPress team"
+msgstr "das WordPress Team"
 
-#: image.php:39
-msgid "Full resolution"
-msgstr "Volle Auflösung"
+#: content-gallery.php:43 content-image.php:39 content-quote.php:29
+#: content-video.php:39 content.php:56
+msgid "One comment so far"
+msgstr "Bisher ein Kommentar"
 
-#: 404.php:21
-msgid "This is somewhat embarrassing, isn&rsquo;t it?"
-msgstr "Das ist etwas peinlich, nicht wahr?"
+#: tag.php:21
+msgid "Tag Archives: %s"
+msgstr "Schlagwort-Archiv: %s"
 
-#: archive.php:29
-msgid "Daily Archives: %s"
-msgstr "Archiv für den Tag: %s"
+#: taxonomy-post_format.php:23
+msgid "%s Archives"
+msgstr "%s Archiv"
+
+#: search.php:18
+msgid "Search Results for: %s"
+msgstr "Suchergebnisse für: %s"
+
+#: inc/custom-header.php:59
+msgctxt "header image description"
+msgid "Star"
+msgstr "Sterne"
+
+#: inc/custom-header.php:54
+msgctxt "header image description"
+msgid "Diamond"
+msgstr "Diamanten"
+
+#: image.php:51
+msgid "<span class=\"meta-nav\">&larr;</span> Previous"
+msgstr "<span class=\"meta-nav\">&larr;</span> Zurück"
+
+#: image.php:52
+msgid "Next <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Weiter <span class=\"meta-nav\">&rarr;</span>"
+
+#: inc/custom-header.php:49
+msgctxt "header image description"
+msgid "Circle"
+msgstr "Kreise"
+
+#: header.php:44
+msgid "Skip to content"
+msgstr "Zum Inhalt springen"
+
+#: functions.php:322
+msgid "Sticky"
+msgstr "Sticky"
+
+#: functions.php:343
+msgid "View all posts by %s"
+msgstr "Zeige alle Artikel von %s"
+
+#: functions.php:363
+msgctxt "1: post format name. 2: date"
+msgid "%1$s on %2$s"
+msgstr "%1$s um %2$s"
+
+#: header.php:43
+msgid "Menu"
+msgstr "Menü"
+
+#: functions.php:266
+msgid "Posts navigation"
+msgstr "Beitrags-Navigation"
+
+#: functions.php:303
+msgctxt "Previous post link"
+msgid "<span class=\"meta-nav\">&larr;</span> %title"
+msgstr "<span class=\"meta-nav\">&larr;</span> %title"
+
+#: functions.php:304
+msgctxt "Next post link"
+msgid "%title <span class=\"meta-nav\">&rarr;</span>"
+msgstr "%title <span class=\"meta-nav\">&rarr;</span>"
+
+#. Translators: If there are characters in your language that are not supported
+#. by Bitter, translate this to 'off'. Do not translate into your own language.
+#: functions.php:134
+msgctxt "Bitter font: on or off"
+msgid "on"
+msgstr "on"
+
+#: functions.php:218
+msgid "Page %s"
+msgstr "Seite %s"
+
+#: functions.php:274
+msgid "Newer posts <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Neuere Artikel <span class=\"meta-nav\">&rarr;</span>"
+
+#. Translators: If there are characters in your language that are not supported
+#. by Source Sans Pro, translate this to 'off'. Do not translate into your own
+#. language.
+#: functions.php:128
+msgctxt "Source Sans Pro font: on or off"
+msgid "on"
+msgstr "on"
+
+#: footer.php:19
+msgid "Proudly powered by %s"
+msgstr "Stolz präsentiert von %s"
+
+#: functions.php:97
+msgid "Navigation Menu"
+msgstr "Navigation Menü"
+
+#. #-#-#-#-#  twentythirteen.pot (Twenty Thirteen 1.4)  #-#-#-#-#
+#. Author URI of the plugin/theme
+#: footer.php:19
+msgid "http://wordpress.org/"
+msgstr "http://wordpress.org/"
+
+#: footer.php:19
+msgid "Semantic Personal Publishing Platform"
+msgstr "Semantic Personal Publishing Platform"
+
+#: content-none.php:12
+msgid "Nothing Found"
+msgstr "Nichts gefunden"
+
+#: content-none.php:22
+msgid "Sorry, but nothing matched your search terms. Please try again with different keywords."
+msgstr "Entschuldige, aber es konnte nichts gefunden werden. Versuche es mit anderen Schlüsselwörtern erneut."
+
+#: content-gallery.php:43 content-image.php:39 content-quote.php:29
+#: content-video.php:39 content.php:56
+msgid "Leave a comment"
+msgstr "Hinterlasse einen Kommentar"
+
+#: content-gallery.php:43 content-image.php:39 content-quote.php:29
+#: content-video.php:39 content.php:56
+msgid "View all % comments"
+msgstr "Zeige alle % Kommentare"
+
+#: functions.php:369
+msgid "Permalink to %s"
+msgstr "Permanentlink zu %s"
+
+#: comments.php:52
+msgid "Comments are closed."
+msgstr "Kommentare sind geschlossen."
+
+#: content-aside.php:20 content-audio.php:31 content-chat.php:30
+#: content-gallery.php:31 content-image.php:30 content-link.php:31
+#: content-quote.php:20 content-status.php:20 content-video.php:30
+#: content.php:48 image.php:70 page.php:35
+msgid "Pages:"
+msgstr "Seiten:"
+
+#: comments.php:46
+msgid "&larr; Older Comments"
+msgstr "&larr; Ältere Kommentare"
+
+#: comments.php:47
+msgid "Newer Comments &rarr;"
+msgstr "Neuere Kommentare &rarr;"
+
+#: category.php:19
+msgid "Category Archives: %s"
+msgstr "Kategorie-Archiv: %s"
+
+#: comments.php:25
+msgctxt "comments title"
+msgid "One thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] "Ein Gedanke zu &bdquo;%2$s&ldquo;"
+msgstr[1] "%1$s Gedanken zu &bdquo;%2$s&ldquo;"
+
+#: comments.php:45
+msgid "Comment navigation"
+msgstr "Kommentar-Navigation"
+
+#: archive.php:35
+msgid "Archives"
+msgstr "Archiv"
+
+#: author-bio.php:26
+msgid "About %s"
+msgstr "Über %s"
+
+#: author-bio.php:30
+msgid "View all posts by %s <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Zeige alle Artikel von %s <span class=\"meta-nav\">&rarr;</span>"
+
+#: author.php:31
+msgid "All posts by %s"
+msgstr "Alle Artikel von %s"
 
 #: archive.php:31
 msgid "Monthly Archives: %s"
@@ -84,235 +260,58 @@ msgctxt "yearly archives date format"
 msgid "Y"
 msgstr "Y"
 
-#: archive.php:35
-msgid "Archives"
-msgstr "Archiv"
+#: 404.php:21
+msgid "This is somewhat embarrassing, isn&rsquo;t it?"
+msgstr "Das ist etwas peinlich, nicht wahr?"
 
-#: author-bio.php:26
-msgid "About %s"
-msgstr "Über %s"
+#: archive.php:29
+msgid "Daily Archives: %s"
+msgstr "Archiv für den Tag: %s"
 
-#: author-bio.php:30
-msgid "View all posts by %s <span class=\"meta-nav\">&rarr;</span>"
-msgstr "Zeige alle Artikel von %s <span class=\"meta-nav\">&rarr;</span>"
+#: image.php:39
+msgid "Full resolution"
+msgstr "Volle Auflösung"
 
-#: author.php:31
-msgid "All posts by %s"
-msgstr "Alle Artikel von %s"
+#: image.php:38
+msgid "Link to full-size image"
+msgstr "Link zum Bild in Originalgröße"
 
-#: category.php:19
-msgid "Category Archives: %s"
-msgstr "Kategorie-Archiv: %s"
+#: functions.php:231
+msgid "Main Widget Area"
+msgstr "Haupt-Widgetbereich"
 
-#: comments.php:25
-msgctxt "comments title"
-msgid "One thought on &ldquo;%2$s&rdquo;"
-msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
-msgstr[0] "Ein Gedanke zu &bdquo;%2$s&ldquo;"
-msgstr[1] "%1$s Gedanken zu &bdquo;%2$s&ldquo;"
+#: functions.php:241
+msgid "Secondary Widget Area"
+msgstr "Zweiter Widgetbereich"
 
-#: comments.php:45
-msgid "Comment navigation"
-msgstr "Kommentar-Navigation"
+#: functions.php:243
+msgid "Appears on posts and pages in the sidebar."
+msgstr "Erscheint bei Beiträgen und Seiten in der Seitenleiste."
 
-#: comments.php:46
-msgid "&larr; Older Comments"
-msgstr "&larr; Ältere Kommentare"
+#: inc/back-compat.php:37 inc/back-compat.php:47 inc/back-compat.php:60
+msgid "Twenty Thirteen requires at least WordPress version 3.6. You are running version %s. Please upgrade and try again."
+msgstr "Twenty Thirteen benötigt mindestens WordPress Version 3.6. Du benutzt Version %s. Bitte aktualisieren und erneut versuchen."
 
-#: comments.php:47
-msgid "Newer Comments &rarr;"
-msgstr "Neuere Kommentare &rarr;"
+#. Theme URI of the plugin/theme
+msgid "http://wordpress.org/themes/twentythirteen"
+msgstr "http://wordpress.org/themes/twentythirteen"
 
-#: comments.php:52
-msgid "Comments are closed."
-msgstr "Kommentare sind geschlossen."
+#: functions.php:233
+msgid "Appears in the footer section of the site."
+msgstr "Erscheint in der Fußzeile der Seite."
 
-#: content-aside.php:20 content-audio.php:31 content-chat.php:30
-#: content-gallery.php:31 content-image.php:30 content-link.php:31
-#: content-quote.php:20 content-status.php:20 content-video.php:30
-#: content.php:48 image.php:70 page.php:35
-msgid "Pages:"
-msgstr "Seiten:"
+#. Description of the plugin/theme
+msgid "The 2013 theme for WordPress takes us back to the blog, featuring a full range of post formats, each displayed beautifully in their own unique way. Design details abound, starting with a vibrant color scheme and matching header images, beautiful typography and icons, and a flexible layout that looks great on any device, big or small."
+msgstr "Das 2013 Theme für WordPress bringt uns zurück zum Blog. Es wird eine Bandbreite an Beitragsformaten unterstützt. Jedes Beitragsformat wird auf einzigartige Weise angezeigt. Viele kleine Details im Design runden das Aussehen der Webseite ab. Verschiedene Farbvariationen und passende Kopfgrafiken, schöne Schriften und Icons. Das flexible Layout passt sich optimal an die verschiedenen Endgeräte an. Egal ob kleiner Bildschirm auf dem Smartphone oder Tablet-PC. "
 
-#: functions.php:369
-msgid "Permalink to %s"
-msgstr "Permanentlink zu %s"
+#. translators: %s: Name of current post
+#: content-aside.php:16 content-audio.php:27 content-chat.php:26
+#: content-gallery.php:27 content-image.php:26 content-link.php:27
+#: content-quote.php:16 content-status.php:16 content-video.php:26
+#: content.php:44 functions.php:478
+msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
+msgstr "%s weiterlesen <span class=\"meta-nav\">&rarr;</span>"
 
-#: content-gallery.php:43 content-image.php:39 content-quote.php:29
-#: content-video.php:39 content.php:56
-msgid "Leave a comment"
-msgstr "Hinterlasse einen Kommentar"
-
-#: content-gallery.php:43 content-image.php:39 content-quote.php:29
-#: content-video.php:39 content.php:56
-msgid "View all % comments"
-msgstr "Zeige alle % Kommentare"
-
-#: content-none.php:12
-msgid "Nothing Found"
-msgstr "Nichts gefunden"
-
-#: content-none.php:22
-msgid "Sorry, but nothing matched your search terms. Please try again with different keywords."
-msgstr "Entschuldige, aber es konnte nichts gefunden werden. Versuche es mit anderen Schlüsselwörtern erneut."
-
-#. #-#-#-#-#  twentythirteen.pot (Twenty Thirteen 1.4)  #-#-#-#-#
-#. Author URI of the plugin/theme
-#: footer.php:19
-msgid "http://wordpress.org/"
-msgstr "http://wordpress.org/"
-
-#: footer.php:19
-msgid "Semantic Personal Publishing Platform"
-msgstr "Semantic Personal Publishing Platform"
-
-#: footer.php:19
-msgid "Proudly powered by %s"
-msgstr "Stolz präsentiert von %s"
-
-#: functions.php:97
-msgid "Navigation Menu"
-msgstr "Navigation Menü"
-
-#. Translators: If there are characters in your language that are not
-#. * supported by Source Sans Pro, translate this to 'off'. Do not translate
-#. * into your own language.
-#: functions.php:128
-msgctxt "Source Sans Pro font: on or off"
-msgid "on"
-msgstr "on"
-
-#. Translators: If there are characters in your language that are not
-#. * supported by Bitter, translate this to 'off'. Do not translate into your
-#. * own language.
-#: functions.php:134
-msgctxt "Bitter font: on or off"
-msgid "on"
-msgstr "on"
-
-#: functions.php:218
-msgid "Page %s"
-msgstr "Seite %s"
-
-#: functions.php:274
-msgid "Newer posts <span class=\"meta-nav\">&rarr;</span>"
-msgstr "Neuere Artikel <span class=\"meta-nav\">&rarr;</span>"
-
-#: functions.php:266
-msgid "Posts navigation"
-msgstr "Beitrags-Navigation"
-
-#: functions.php:303
-msgctxt "Previous post link"
-msgid "<span class=\"meta-nav\">&larr;</span> %title"
-msgstr "<span class=\"meta-nav\">&larr;</span> %title"
-
-#: functions.php:304
-msgctxt "Next post link"
-msgid "%title <span class=\"meta-nav\">&rarr;</span>"
-msgstr "%title <span class=\"meta-nav\">&rarr;</span>"
-
-#: functions.php:322
-msgid "Sticky"
-msgstr "Sticky"
-
-#: functions.php:343
-msgid "View all posts by %s"
-msgstr "Zeige alle Artikel von %s"
-
-#: functions.php:363
-msgctxt "1: post format name. 2: date"
-msgid "%1$s on %2$s"
-msgstr "%1$s um %2$s"
-
-#: header.php:43
-msgid "Menu"
-msgstr "Menü"
-
-#: header.php:44
-msgid "Skip to content"
-msgstr "Zum Inhalt springen"
-
-#: image.php:51
-msgid "<span class=\"meta-nav\">&larr;</span> Previous"
-msgstr "<span class=\"meta-nav\">&larr;</span> Zurück"
-
-#: image.php:52
-msgid "Next <span class=\"meta-nav\">&rarr;</span>"
-msgstr "Weiter <span class=\"meta-nav\">&rarr;</span>"
-
-#: inc/custom-header.php:49
-msgctxt "header image description"
-msgid "Circle"
-msgstr "Kreise"
-
-#: inc/custom-header.php:54
-msgctxt "header image description"
-msgid "Diamond"
-msgstr "Diamanten"
-
-#: inc/custom-header.php:59
-msgctxt "header image description"
-msgid "Star"
-msgstr "Sterne"
-
-#: search.php:18
-msgid "Search Results for: %s"
-msgstr "Suchergebnisse für: %s"
-
-#: tag.php:21
-msgid "Tag Archives: %s"
-msgstr "Schlagwort-Archiv: %s"
-
-#: taxonomy-post_format.php:23
-msgid "%s Archives"
-msgstr "%s Archiv"
-
-#. Theme Name of the plugin/theme
-msgid "Twenty Thirteen"
-msgstr "Twenty Thirteen"
-
-#. Author of the plugin/theme
-msgid "the WordPress team"
-msgstr "das WordPress Team"
-
-#: content-gallery.php:43 content-image.php:39 content-quote.php:29
-#: content-video.php:39 content.php:56
-msgid "One comment so far"
-msgstr "Bisher ein Kommentar"
-
-#: functions.php:300
-msgid "Post navigation"
-msgstr "Beitragsnavigation"
-
-#: functions.php:270
-msgid "<span class=\"meta-nav\">&larr;</span> Older posts"
-msgstr "<span class=\"meta-nav\">&larr;</span> Ältere Artikel"
-
-#. Translators: used between list items, there is a space after the comma.
-#: functions.php:328 functions.php:334
-msgid ", "
-msgstr ", "
-
-#: content-none.php:27
-msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
-msgstr "Es sieht so aus, als ob wir nicht das finden konnten, wonach du gesucht hast. Möglicherweise hilft eine Suche."
-
-#: image.php:22
-msgid "<span class=\"attachment-meta\">Published on <time class=\"entry-date\" datetime=\"%1$s\">%2$s</time> in <a href=\"%3$s\" title=\"Return to %4$s\" rel=\"gallery\">%5$s</a></span>"
-msgstr "<span class=\"attachment-meta\">Veröffentlicht am <time class=\"entry-date\" datetime=\"%1$s\">%2$s</time> in <a href=\"%3$s\" title=\"Zurück zu %4$s\" rel=\"gallery\">%5$s</a>.</span>"
-
-#: 404.php:22
-msgid "It looks like nothing was found at this location. Maybe try a search?"
-msgstr "Es sieht so aus, als ob wir nicht das finden konnten, wonach du gesucht hast. Möglicherweise hilft eine Suche."
-
-#: content-aside.php:27 content-aside.php:35 content-audio.php:38
-#: content-chat.php:36 content-gallery.php:46 content-image.php:42
-#: content-link.php:19 content-quote.php:32 content-status.php:26
-#: content-video.php:42 content.php:31 image.php:44 page.php:39
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#: content-none.php:18
-msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
-msgstr "Bereit, um deinen ersten Beitrag zu veröffentlichen? <a href=\"%1$s\">Starte hier</a>."
+#: 404.php:16
+msgid "Not Found"
+msgstr "Nicht gefunden"
