@@ -6,12 +6,12 @@ Plugin URI: http://wordpress.org/extend/plugins/wp-piwik/
 
 Description: Adds Piwik stats to your dashboard menu and Piwik code to your wordpress header.
 
-Version: 0.9.9.12
+Version: 0.9.9.16
 Author: Andr&eacute; Br&auml;kling
 Author URI: http://www.braekling.de
 
 ****************************************************************************************** 
-	Copyright (C) 2009-2014 Andre Braekling (email: webmaster@braekling.de)
+	Copyright (C) 2009-2015 Andre Braekling (email: webmaster@braekling.de)
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -39,8 +39,8 @@ if (!class_exists('wp_piwik')) {
 class wp_piwik {
 
 	private static
-		$intRevisionId = 93000,
-		$strVersion = '0.9.9.12',
+		$intRevisionId = 96000,
+		$strVersion = '0.9.9.16',
 		$blog_id,
 		$intDashboardID = 30,
 		$strPluginBasename = NULL,
@@ -79,46 +79,58 @@ class wp_piwik {
 			$this->applySettings();
 		if ($this->isPHPMode())
 			self::definePiwikConstants();
-		$this->loadLanguage();
+		if (is_admin() || $this->isAddShortcode())
+			$this->loadLanguage();
 	}
 	
 	private function addActions() {
-		add_action('admin_menu', array($this, 'buildAdminMenu'));
-		add_action('admin_post_save_wp-piwik_stats', array(&$this, 'onStatsPageSaveChanges'));
-		add_action('load-post.php', array(&$this, 'postMetaboxes'));
-		add_action('load-post-new.php', array(&$this, 'postMetaboxes'));
-		if ($this->isNetworkMode())
-			add_action('network_admin_menu', array($this, 'buildNetworkAdminMenu'));
-		if ($this->isDashboardActive())
-			add_action('wp_dashboard_setup', array($this, 'extendWordPressDashboard'));
+		if (is_admin()) {
+			add_action('admin_menu', array($this, 'buildAdminMenu'));
+			add_action('admin_post_save_wp-piwik_stats', array(&$this, 'onStatsPageSaveChanges'));
+			add_action('load-post.php', array(&$this, 'postMetaboxes'));
+			add_action('load-post-new.php', array(&$this, 'postMetaboxes'));
+			if ($this->isNetworkMode())
+				add_action('network_admin_menu', array($this, 'buildNetworkAdminMenu'));
+			if ($this->isDashboardActive())
+				add_action('wp_dashboard_setup', array($this, 'extendWordPressDashboard'));
+			if (self::$settings->getGlobalOption('add_post_annotations'))
+				add_action('transition_post_status', array($this, 'onPostStatusTransition'),10,3);
+		}
 		if ($this->isToolbarActive()) {
+			// is_admin_bar_showing() would be great to use, but it will break P3 Plugin Performance Profiler (https://wordpress.org/plugins/p3-profiler/)
 			add_action(is_admin()?'admin_head':'wp_head', array($this, 'loadToolbarRequirements'));
 			add_action('admin_bar_menu', array(&$this, 'extendWordPressToolbar'), 1000);
 		}
 		if ($this->isTrackingActive()) {
-			add_action(self::$settings->getGlobalOption('track_codeposition') == 'footer'?'wp_footer':'wp_head', array($this, 'addJavascriptCode'));
-			if ($this->isAddNoScriptCode())
-				add_action('wp_footer', array($this, 'addNoscriptCode'));
-			if ($this->isAdminTrackingActive())
-				add_action('admin_head', array($this, 'addAdminHeaderTracking'));
+			if (!is_admin()) {
+				add_action(self::$settings->getGlobalOption('track_codeposition') == 'footer'?'wp_footer':'wp_head', array($this, 'addJavascriptCode'));
+				if ($this->isAddNoScriptCode())
+					add_action('wp_footer', array($this, 'addNoscriptCode'));
+			}
+			else {
+				if ($this->isAdminTrackingActive())
+					add_action('admin_head', array($this, 'addAdminHeaderTracking'));
+			}
 		}
-		if (self::$settings->getGlobalOption('add_post_annotations'))
-			add_action('transition_post_status', array($this, 'onPostStatusTransition'),10,3);
 	}
 
 	private function addFilters() {
-		add_filter('plugin_row_meta', array($this, 'setPluginMeta'), 10, 2);
-		add_filter('screen_layout_columns', array(&$this, 'onScreenLayoutColumns'), 10, 2);
-		if ($this->isTrackingActive()) {
-			if ($this->isTrackFeed()) {
-				add_filter('the_excerpt_rss', array(&$this, 'addFeedTracking'));
-				add_filter('the_content', array(&$this, 'addFeedTracking'));
+		if (is_admin()) {
+			add_filter('plugin_row_meta', array($this, 'setPluginMeta'), 10, 2);
+			add_filter('screen_layout_columns', array(&$this, 'onScreenLayoutColumns'), 10, 2);
+		}
+		else {
+			if ($this->isTrackingActive()) {
+				if ($this->isTrackFeed()) {
+					add_filter('the_excerpt_rss', array(&$this, 'addFeedTracking'));
+					add_filter('the_content', array(&$this, 'addFeedTracking'));
+				}
+				if ($this->isAddFeedCampaign())
+					add_filter('post_link', array(&$this, 'addFeedCampaign'));
 			}
-			if ($this->isAddFeedCampaign())
-				add_filter('post_link', array(&$this, 'addFeedCampaign'));
 		}
 	}
-		
+
 	private function addShortcodes() {
 		if ($this->isAddShortcode())
 			add_shortcode('wp-piwik', array(&$this, 'shortcode'));
@@ -164,7 +176,7 @@ class wp_piwik {
 			__('Next you should connect to Piwik','wp-piwik'):
 			__('Please validate your configuration','wp-piwik')
 		);
-		$link = sprintf('<a href="'.getSettingsURL.'?page=%s">%s</a>', self::$strPluginBasename, __('Settings', 'wp-piwik'));
+		$link = sprintf('<a href="'.$this->getSettingsURL().'?page=%s">%s</a>', self::$strPluginBasename, __('Settings', 'wp-piwik'));
 		printf('<div class="updated fade"><p>%s<strong>%s:</strong> %s: %s</p></div>', $text, __('Important', 'wp-piwik'), $notice, $link);
 	}
 	
@@ -757,12 +769,14 @@ class wp_piwik {
 		if (class_exists('Piwik\API\Request'))
 			$objRequest = new Piwik\API\Request($strParams);
 		else serialize(array('result' => 'error', 'message' => __('Class Piwik\API\Request does not exists.','wp-piwik')));
+		$result = $objRequest->process();
 		if (!headers_sent()) {
 			ob_end_clean();
-			ob_start;
+			header("Content-Type: text/html", true);
+			ob_start();
 			echo $current;
 		}
-		return $objRequest->process();		
+		return $result;
 	}
 
 	/**
@@ -849,14 +863,14 @@ class wp_piwik {
 		$strCode = html_entity_decode($strCode);
 		// Change code if js/index.php should be used
 		if (self::$settings->getGlobalOption('track_mode') == 1) {
-			$strCode = str_replace('piwik.js', 'js/', $strCode);
-			$strCode = str_replace('piwik.php', 'js/', $strCode);
+			$strCode = str_replace('piwik.js', 'js/index.php/'.self::$strVersion, $strCode);
+			$strCode = str_replace('piwik.php', 'js/index.php/'.self::$strVersion, $strCode);
 		} elseif (self::$settings->getGlobalOption('track_mode') == 2) {
 			$strCode = str_replace('piwik.js', 'piwik.php', $strCode);
-			$strURL = str_replace('https://', '://', self::$settings->getGlobalOption('piwik_url'));
-			$strURL = str_replace('http://', '://', $strURL);
-			$strProxy = str_replace('https://', '://', plugins_url('wp-piwik'));
-			$strProxy = str_replace('http://', '://', $strProxy);
+			$strURL = str_replace('https://', '//', self::$settings->getGlobalOption('piwik_url'));
+			$strURL = str_replace('http://', '//', $strURL);
+			$strProxy = str_replace('https://', '//', plugins_url('wp-piwik'));
+			$strProxy = str_replace('http://', '//', $strProxy);
 			$strProxy .= '/';
 			$strCode = str_replace($strURL, $strProxy, $strCode);
 		}
@@ -1313,6 +1327,10 @@ class wp_piwik {
 				</form>
 			</div>
 			<div>
+				<a href="bitcoin:3N8od4UQA3jDpP5KodkxSqENaRSMWEaTHp">Bitcoin<br />
+				<img style="border:none;" src="<?php echo $this->getPluginURL(); ?>bitcoin.png" width="100" height="100" alt="Bitcoin Address" title="3N8od4UQA3jDpP5KodkxSqENaRSMWEaTHp" /></a>
+			</div>
+			<div>
 				<a href="http://www.amazon.de/gp/registry/wishlist/111VUJT4HP1RA?reveal=unpurchased&amp;filter=all&amp;sort=priority&amp;layout=standard&amp;x=12&amp;y=14"><?php _e('My Amazon.de wishlist', 'wp-piwik'); ?></a>
 			</div>
 			<div>
@@ -1321,7 +1339,7 @@ class wp_piwik {
 		</div>
 <?php /***************************************************************************/
 		}
-		echo '<form class="'.($strTab != 'sitebrowser'?'wp-piwik-settings':'').'" method="post" action="'.admin_url(($pagenow == 'settings.php'?'network/':'').$pagenow.'?page=wp-piwik/wp-piwik.php&tab='.$strTab).'">';
+		echo '<form class="'.($strTab != 'sitebrowser'?'wp-piwik-settings':'').'" method="post">';
 		echo '<input type="hidden" name="action" value="save_wp-piwik_settings" />';
 		wp_nonce_field('wp-piwik_settings');
 		// Show settings
@@ -1451,7 +1469,6 @@ class wp_piwik {
 
 	private static function definePiwikConstants() {
 		if (!defined('PIWIK_INCLUDE_PATH')) {
-			@header('Content-type: text/xml');
 			define('PIWIK_INCLUDE_PATH', self::$settings->getGlobalOption('piwik_path'));
 			define('PIWIK_USER_PATH', self::$settings->getGlobalOption('piwik_path'));
 			define('PIWIK_ENABLE_DISPATCH', false);

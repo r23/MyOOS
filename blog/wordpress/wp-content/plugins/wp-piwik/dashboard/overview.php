@@ -32,7 +32,7 @@
 					foreach ($aryDay as $strKey => $strValue) {
 						$intValCnt++;
 						if (!in_array($strKey, array('max_actions','bounce_rate','nb_actions_per_visit','avg_time_on_site')))
-							$aryTmp[$strKey] += $strValue;
+							{ if (isset($aryTmp[$strKey])) $aryTmp[$strKey] += $strValue; }
 						elseif ($aryTmp[$strKey] < $strValue)
 							$aryTmp[$strKey] = $strValue;
 					}

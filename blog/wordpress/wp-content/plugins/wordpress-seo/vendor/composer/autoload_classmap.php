@@ -46,6 +46,7 @@ return array(
     'WPSEO_Taxonomy' => $baseDir . '/admin/class-taxonomy.php',
     'WPSEO_Taxonomy_Meta' => $baseDir . '/inc/class-wpseo-options.php',
     'WPSEO_Twitter' => $baseDir . '/frontend/class-twitter.php',
+    'WPSEO_Upgrade' => $baseDir . '/inc/class-upgrade.php',
     'WPSEO_Utils' => $baseDir . '/inc/class-wpseo-utils.php',
     'Yoast_API_Request' => $vendorDir . '/yoast/license-manager/class-api-request.php',
     'Yoast_Form' => $baseDir . '/admin/class-yoast-form.php',

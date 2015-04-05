@@ -10,6 +10,7 @@ $aryData = $this->callPiwikAPI('VisitsSummary.get',
 
 $this->strResult = '<table><tr><th colspan="2">'.__('Overview', 'wp-piwik').($this->aryAttributes['title']?' '.$this->aryAttributes['title']:'').'</th></tr>';
 
+if (!function_exists('summize')) {
 function summize($aryData) {
 	$aryTmp = array();
 	foreach ($aryData as $aryValues)
@@ -19,6 +20,7 @@ function summize($aryData) {
 	$aryTmp['bounce_rate'] = ($aryTmp['nb_uniq_visitors']==0?0:round($aryTmp['bounce_count']/$aryTmp['nb_visits']*100,2)).'%';	
 	
 	return $aryTmp;
+}
 }
 
 if (is_array($aryData)) {

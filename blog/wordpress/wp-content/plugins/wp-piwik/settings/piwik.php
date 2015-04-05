@@ -13,7 +13,7 @@ if (!$bolFOpen && !$bolCURL) {
 			<li><?php _e('your Piwik base URL (like http://mydomain.com/piwik) or your Piwik server path (like /var/www/mydomain.com/httpdocs/piwik/)', 'wp-piwik'); ?></li>
 			<li><?php _e('your personal Piwik authentification token. You can get the token on the API page inside your Piwik interface. It looks like &quot;1234a5cd6789e0a12345b678cd9012ef&quot;.', 'wp-piwik'); ?></li>
 		</ol>
-		<?php _e('No idea what I\'m talking about?', 'wp-piwik'); ?> <a href="http://peepbo.de/board/viewtopic.php?f=5&t=10"><?php _e('Get help.', 'wp-piwik'); ?></a>
+		<?php _e('No idea what I\'m talking about?', 'wp-piwik'); ?> <a href="https://wordpress.org/plugins/wp-piwik/faq/"><?php _e('Get help.', 'wp-piwik'); ?></a>
 	<?php if (!is_plugin_active_for_network('wp-piwik/wp-piwik.php')) { ?>
 		<p><?php _e('<strong>Important note:</strong> If you do not host this blog on your own, your site admin is able to get your auth token from the database.', 'wp-piwik'); ?></p>
 	<?php } ?>

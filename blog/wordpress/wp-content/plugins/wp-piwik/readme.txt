@@ -1,9 +1,9 @@
 === WP-Piwik ===
 
 Contributors: Braekling
-Requires at least: 3.8
-Tested up to: 3.9.1
-Stable tag: 0.9.9.12
+Requires at least: 3.0
+Tested up to: 4.1.1
+Stable tag: 0.9.9.16
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6046779
 Tags: statistics, stats, analytics, piwik, wpmu
 
@@ -13,7 +13,7 @@ This plugin adds a Piwik stats site to your WordPress or WordPress multisite das
 
 This plugin adds a Piwik stats site to your WordPress dashboard. It's also able to add the Piwik tracking code to your blog using wp_footer.
 
-You need a running **Piwik 2.0.2 or higher** installation and at least view access to your stats. Also **PHP 5.3 or higher** is strictly required.
+You need a running **Piwik 2.7.0 or higher** installation and at least view access to your stats. Also **PHP 5.3 or higher** is strictly required.
 
 Look at the [Piwik website](http://piwik.org/) to get further information about Piwik.
 
@@ -60,13 +60,13 @@ Thank you all!
 
 WP-Piwik requires Piwik. If you did not install Piwik yet, first get it at the [Piwik website](http://www.piwik.org). 
 
-If Piwik works, you'll be able to configure WP-Piwik: The Piwik URL is the same URL you use to access your Piwik, e.g. for the demo site: http://demo.piwik.org. The auth token is some kind of secret password, which allows WP-Piwik to get the necessary data from Piwik. The super user's auth token, i.e. a full access password for your Piwik, can be found on Piwik's API site. You can find a detailed description [here](http://peepbo.de/board/viewtopic.php?f=5&t=10).
+If Piwik works, you'll be able to configure WP-Piwik: The Piwik URL is the same URL you use to access your Piwik, e.g. for the demo site: http://demo.piwik.org. The auth token is some kind of secret password, which allows WP-Piwik to get the necessary data from Piwik. To get your auth token, log in to Piwik, click at your user name (top right) and click at "API" (left sidebar menu). E.g., on (this demo site)[http://demo.piwik.org/index.php?module=API&action=listAllAPI&idSite=7&period=day&date=yesterday] you can see the auth token "anonymous".
 
 = How to reset/remove all WP-Piwik settings without uninstalling? =
 
 Login to your admin dashboard and open http://YOUR_BLOG_URL/wp-admin/options-general.php?page=wp-piwik/wp-piwik.php&tab=support&mode=resetconfirmed&full=1
 
-= Tracking does not work on HostGator! =
+= Tracking does not work on HostGator! / The test script shows an empty response. =
 
 Try to enable the "avoid mod_security" option (WP-Piwik settings, Tracking tab) or create a mod_security whitelist.
 
@@ -121,9 +121,30 @@ Add WP-Piwik to your /wp-content/plugins folder and enable it as [Network Plugin
 
 == Upgrade Notice ==
 
-Please update Piwik if not done yet (Piwik 2.0 or higher is recommended)!
+Please update Piwik if not done yet (Piwik 2.7 or higher is recommended). 
 
 == Changelog ==
+
+= 0.9.9.16 =
+* Bugfix: PHP API causes plain text output issue (see 0.9.9.11)
+* Bugfix: Shortcode output translated
+
+= 0.9.9.15 =
+* Bugfix: One more commit error.
+* Bugfix: Adding up problem related to the overview widget.
+* Bugfix: Fixes missing brackets on ob_start.
+* Hotfix: Adds /0.9.9.15 to js/index.php to force a reload.
+* Bugifx: Replaced broken support link.
+* Added a bitcoin donation link.
+
+= 0.9.9.14 =
+* Bugfix: Commit errors in 0.9.9.13.
+
+= 0.9.9.13 =
+* Improvement: Only activate/ load admin components if an admin page is actually loaded. Thanks to Michael!
+* Bugfix: Proxy tracking will work again. Piwik 2.7 or higher is recommended.
+* Bugfix: Avoid a PHP notice in dashboard.
+* NOTE: If you update Piwik and use the "add tracking code" feature, please also update your WP-Piwik tracking code: Just open the WP-Piwik tracking code settings and save them again. 
 
 = 0.9.9.12 =
 * Bugfix: Avoid forced relogin on site change (WP network)
@@ -144,7 +165,7 @@ Please update Piwik if not done yet (Piwik 2.0 or higher is recommended)!
 * Feature: Show page views (actions) in "visitors last 30"
 
 = 0.9.9.9 =
-* Update: PHP API will use namespaces (Piwik 2.x compatibility, PHP 5.3+ required)
+* Update: PHP API will use namespaces (Piwik 2.x compatibility)
 * Update: Piwik URL isn't necessary to use PHP API anymore.
 * Feature: Limit cookie lifetime
 * Feature: Track visitors across all subdomains

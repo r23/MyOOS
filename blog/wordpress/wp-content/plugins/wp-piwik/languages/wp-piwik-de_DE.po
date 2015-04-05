@@ -364,8 +364,8 @@ msgstr "Vielen Dank an <strong>Dich</strong> f&uuml;r die Nutzung meines Plugins
 msgid "Changes saved"
 msgstr "&Auml;nderungen gespeichert"
 
-msgid "installed"
-msgstr "installiert"
+msgid "%s %s installed."
+msgstr "%s %s installiert."
 
 msgid "Next you should connect to Piwik"
 msgstr "Als n&auml;chstes solltest Du eine Verbindung zu Piwik herstellen"
@@ -756,6 +756,9 @@ msgstr "Besucher &uuml;ber alle Subdomains aufzeichnen"
 
 msgid "Adds *.-prefix to cookie domain."
 msgstr "F&uuml;gt ein *.-Pr&auml;fix zur Cookie Domain hinzu."
+
+msgid "WP-Piwik requires at least PHP 5.3. You are using the deprecated version %s. Please update PHP to use WP-Piwik."
+msgstr "WP-Piwik ben&ouml;tigt zumindest PHP 5.3. Du verwendest die veraltete Version %s. Bitte aktualisiere PHP um WP-Piwik zu nutzen."
 
 msgid "Track visitors across all alias URLs"
 msgstr "Besucher &uuml;ber alle alternative URLs aufzeichnen"
