@@ -698,7 +698,7 @@ msgid "Keyword: post name."
 msgstr "Schl&uuml;sselwort: Name des Beitrags."
 
 msgid "Enable to track posts in feeds via tracking pixel."
-msgstr "Aktivieren, um Beir&auml;ge im Feed via Tracking-Pixel zu z&auml;hlen."
+msgstr "Aktivieren, um Beitr&auml;ge im Feed via Tracking-Pixel zu z&auml;hlen."
 
 msgid "Enable to track users on admin pages (remember to configure the tracking filter appropriately)."
 msgstr "Aktivieren, um Nutzer auf Admin-Seiten zu z&auml;hlen (bitte den Tracking Filter entsprechend konfigurieren)."
@@ -765,3 +765,21 @@ msgstr "Besucher &uuml;ber alle alternative URLs aufzeichnen"
 
 msgid "Adds *.-prefix to tracked domain."
 msgstr "F&uuml;gt ein *.-Pr&auml;fix zur getrackten Domain hinzu."
+
+msgid "Add new file types for download tracking"
+msgstr "Neue Dateitypen f&uuml;r das Download-Tracking hinzuf&uuml;gen"
+
+msgid "Add file extensions for download tracking, divided by a vertical bar (&#124;), see"
+msgstr "F&uuml;ge weitere Dateiendungen getrennt durch einen senkrechten Strich (&#124;) f&uuml;r das Download-Tracking hinzu, siehe"
+
+msgid "Force Piwik to use a specific protocol"
+msgstr "Zwinge Piwik ein konkretes Protokoll zu verwenden"
+
+msgid "Disabled (default)"
+msgstr "Deaktiviert (Standard)"
+
+msgid "Choose if you want to explicitly force Piwik to use HTTP or HTTPS. Does not work with a CDN URL."
+msgstr "Ausw&auml;hlen, um Piwik ausdr&uuml;cklich dazu zu zwingen, HTTP oder HTTPS zu verwenden. Funktioniert nicht mit einer CDN URL."
+
+msgid "To use this plugin you will need your own Piwik instance. If you do not already have a Piwik setup, you have two simple options: use either <a href='%s'>Self-hosted</a> or <a href='%s'>Cloud-hosted</a>."
+msgstr "Um dieses Plugin zu nutzen, wird eine Piwik-Instanz ben&ouml;tigt. Sofern Du &uuml;ber keine verf&uuml;gst, hast Du zwei einfache M&ouml;glichkeiten: entweder Du <a href='%s'>hostest Piwik selbst</a> oder Du <a href='%s'>verwendest die Cloud</a>."

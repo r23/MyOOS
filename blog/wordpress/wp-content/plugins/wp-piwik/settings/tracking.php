@@ -52,7 +52,7 @@ if (self::$settings->getGlobalOption('add_tracking_code')) {
 
 <tr><th><?php _e('Use proxy script', 'wp-piwik'); ?>:</th><td>
 	<input type="radio" value="2" id="wp-piwik_proxy" name="wp-piwik_trackingmode"<?php echo (self::$settings->getGlobalOption('track_mode')==2?' checked="checked"':''); ?> />
-	<label for="wp-piwik_compress"><?php _e('WP-Piwik will use the piwik.php proxy script. See', 'wp-piwik'); ?> <a href="http://piwik.org/faq/how-to/#faq_132">Piwik FAQ</a>.</label>
+	<label for="wp-piwik_proxy"><?php _e('WP-Piwik will use the piwik.php proxy script. See', 'wp-piwik'); ?> <a href="http://piwik.org/faq/how-to/#faq_132">Piwik FAQ</a>.</label>
 </td></tr>
 
 <tr><th><?php _e('JavaScript code position', 'wp-piwik'); ?>:</th><td>
@@ -81,7 +81,7 @@ if (self::$settings->getGlobalOption('add_tracking_code')) {
 <tr><th><?php _e('Limit cookie lifetime', 'wp-piwik'); ?>:</th><td>
 	<input type="checkbox" value="1" id="wp-piwik_limit_cookies" name="wp-piwik_limit_cookies"<?php echo (self::$settings->getGlobalOption('limit_cookies')?' checked="checked"':''); ?> />
 	<label for="wp-piwik_limit_cookies"><?php echo _e('Limit cookie lifetime as follows', 'wp-piwik'); ?>:</label><br />
-	<?php echo _e('Visitor timeout (seconds)', 'wp-piwik'); ?>: <input type="text" name="wp-piwik_limit_cookies_visitor" value="<?php echo self::$settings->getGlobalOption('limit_cookies_visitor'); ?>"><br /><?php echo _e('Session timeout (seconds)', 'wp-piwik'); ?>: <input type="text" name="wp-piwik_limit_cookies_session" value="<?php echo self::$settings->getGlobalOption('limit_cookies_session'); ?>"></td></tr>
+	<?php echo _e('Visitor timeout (seconds)', 'wp-piwik'); ?>: <input type="text" name="wp-piwik_limit_cookies_visitor" value="<?php echo self::$settings->getGlobalOption('limit_cookies_visitor'); ?>" /><br /><?php echo _e('Session timeout (seconds)', 'wp-piwik'); ?>: <input type="text" name="wp-piwik_limit_cookies_session" value="<?php echo self::$settings->getGlobalOption('limit_cookies_session'); ?>" /></td></tr>
 
 <tr><th><?php _e('Track visitors across all subdomains', 'wp-piwik'); ?>:</th><td>
 	<input type="checkbox" value="1" id="wp-piwik_track_across" name="wp-piwik_track_across"<?php echo (self::$settings->getGlobalOption('track_across')?' checked="checked"':''); ?> />
@@ -108,6 +108,11 @@ if (self::$settings->getGlobalOption('add_tracking_code')) {
 	<label for="wp-piwik_annotations"><?php echo _e('Add a Piwik annotation on each new post, see', 'wp-piwik'); ?> <a href="http://piwik.org/docs/annotations/">Piwik Docs</a>.</label>
 </td></tr>
 
+<tr><th><?php _e('Add new file types for download tracking', 'wp-piwik'); ?>:</th><td>
+	<input type="text" name="wp-piwik_add_download_extensions" value="<?php echo self::$settings->getGlobalOption('add_download_extensions'); ?>" />
+	<label for="wp-piwik_annotations"><?php echo _e('Add file extensions for download tracking, divided by a vertical bar (&#124;), see', 'wp-piwik'); ?> <a href="https://developer.piwik.org/guides/tracking-javascript-guide#file-extensions-for-tracking-downloads">Piwik Docs</a>.</label>
+</td></tr>
+
 <tr><th><?php _e('Show custom variables box', 'wp-piwik'); ?>:</th><td>
 	<input type="checkbox" value="1" id="wp-piwik_customvars" name="wp-piwik_customvars"<?php echo (self::$settings->getGlobalOption('add_customvars_box')?' checked="checked"':''); ?> />
 	<label for="wp-piwik_customvars"><?php echo _e('Show a custom vars edit box on post edit page.', 'wp-piwik'); ?></label>
@@ -126,6 +131,13 @@ if (self::$settings->getGlobalOption('add_tracking_code')) {
 <tr><th><?php _e('CDN URL', 'wp-piwik'); ?>:</th><td>
 	http://<input type="text" value="<?php echo self::$settings->getGlobalOption('track_cdnurl'); ?>" id="wp-piwik_cdnurl" name="wp-piwik_cdnurl" /> https://<input type="text" value="<?php echo self::$settings->getGlobalOption('track_cdnurlssl'); ?>" id="wp-piwik_cdnurlssl" name="wp-piwik_cdnurlssl" /><br />
 	<label for="wp-piwik_reqpost"><?php _e('Leave blank if you do not want to define a CDN URL or you do not know what this is.', 'wp-piwik'); ?></label>
+</td></tr>
+
+<tr><th><?php _e('Force Piwik to use a specific protocol', 'wp-piwik'); ?>:</th><td>
+	<input type="radio" value="" id="wp-piwik_force_protocol_none" name="wp-piwik_force_protocol"<?php echo (!self::$settings->getGlobalOption('force_protocol')?' checked="checked"':''); ?> /> <?php _e('Disabled (default)', 'wp-piwik'); ?> &nbsp; &nbsp; 
+	<input type="radio" value="http" id="wp-piwik_force_protocol_http" name="wp-piwik_force_protocol"<?php echo (self::$settings->getGlobalOption('force_protocol')=="http"?' checked="checked"':''); ?> /> HTTP &nbsp; &nbsp; 
+	<input type="radio" value="https" id="wp-piwik_force_protocol_https" name="wp-piwik_force_protocol"<?php echo (self::$settings->getGlobalOption('force_protocol')=="https"?' checked="checked"':''); ?> /> HTTPS (SSL) <br />
+	<label for="wp-piwik_force_protocol_none"><?php _e('Choose if you want to explicitly force Piwik to use HTTP or HTTPS. Does not work with a CDN URL.', 'wp-piwik'); ?></label>
 </td></tr>
 
 <tr><th><?php _e('Track admin pages', 'wp-piwik'); ?>:</th><td>

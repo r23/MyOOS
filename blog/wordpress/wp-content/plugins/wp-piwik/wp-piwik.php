@@ -6,7 +6,7 @@ Plugin URI: http://wordpress.org/extend/plugins/wp-piwik/
 
 Description: Adds Piwik stats to your dashboard menu and Piwik code to your wordpress header.
 
-Version: 0.9.9.16
+Version: 0.9.9.18
 Author: Andr&eacute; Br&auml;kling
 Author URI: http://www.braekling.de
 
@@ -39,8 +39,8 @@ if (!class_exists('wp_piwik')) {
 class wp_piwik {
 
 	private static
-		$intRevisionId = 96000,
-		$strVersion = '0.9.9.16',
+		$intRevisionId = 98004,
+		$strVersion = '0.9.9.18',
 		$blog_id,
 		$intDashboardID = 30,
 		$strPluginBasename = NULL,
@@ -754,11 +754,6 @@ class wp_piwik {
 			return;
 		if (PIWIK_INCLUDE_PATH === FALSE)
 			return serialize(array('result' => 'error', 'message' => __('Could not resolve','wp-piwik').' &quot;'.htmlentities(self::$settings->getGlobalOption('piwik_path')).'&quot;: '.__('realpath() returns false','wp-piwik').'.'));
-		if (!headers_sent()) {
-			$current = ob_get_contents();
-			ob_end_clean();
-			ob_start();
-		}
 		if (file_exists(PIWIK_INCLUDE_PATH . "/index.php"))
 			require_once PIWIK_INCLUDE_PATH . "/index.php";
 		if (file_exists(PIWIK_INCLUDE_PATH . "/core/API/Request.php"))
@@ -771,10 +766,7 @@ class wp_piwik {
 		else serialize(array('result' => 'error', 'message' => __('Class Piwik\API\Request does not exists.','wp-piwik')));
 		$result = $objRequest->process();
 		if (!headers_sent()) {
-			ob_end_clean();
 			header("Content-Type: text/html", true);
-			ob_start();
-			echo $current;
 		}
 		return $result;
 	}
@@ -863,21 +855,28 @@ class wp_piwik {
 		$strCode = html_entity_decode($strCode);
 		// Change code if js/index.php should be used
 		if (self::$settings->getGlobalOption('track_mode') == 1) {
-			$strCode = str_replace('piwik.js', 'js/index.php/'.self::$strVersion, $strCode);
-			$strCode = str_replace('piwik.php', 'js/index.php/'.self::$strVersion, $strCode);
+			$strCode = str_replace('piwik.js', 'js/index.php', $strCode);
+			$strCode = str_replace('piwik.php', 'js/index.php', $strCode);
 		} elseif (self::$settings->getGlobalOption('track_mode') == 2) {
 			$strCode = str_replace('piwik.js', 'piwik.php', $strCode);
 			$strURL = str_replace('https://', '//', self::$settings->getGlobalOption('piwik_url'));
 			$strURL = str_replace('http://', '//', $strURL);
-			$strProxy = str_replace('https://', '//', plugins_url('wp-piwik'));
+			$strProxy = str_replace('https://', '//', plugins_url('wp-piwik').'/proxy');
 			$strProxy = str_replace('http://', '//', $strProxy);
 			$strProxy .= '/';
 			$strCode = str_replace($strURL, $strProxy, $strCode);
 		}
 		$strCode = str_replace('//";','/"',$strCode);
+		if (self::$settings->getGlobalOption('force_protocol')) {
+			$strCode = str_replace('"//', '"'.self::$settings->getGlobalOption('force_protocol').'://',$strCode);
+		}
 		if (self::$settings->getGlobalOption('track_cdnurl')||self::$settings->getGlobalOption('track_cdnurlssl')) {
 			$strCode = str_replace("var d=doc", "var ucdn=(('https:' == document.location.protocol) ? 'https://".(self::$settings->getGlobalOption('track_cdnurlssl')?self::$settings->getGlobalOption('track_cdnurlssl'):self::$settings->getGlobalOption('track_cdnurl'))."/' : 'http://".(self::$settings->getGlobalOption('track_cdnurl')?self::$settings->getGlobalOption('track_cdnurl'):self::$settings->getGlobalOption('track_cdnurlssl'))."/');\nvar d=doc", $strCode);
 			$strCode = str_replace("g.src=u+", "g.src=ucdn+", $strCode);
+		}
+		// Change code if file extensions for download tracking are added
+		if (self::$settings->getGlobalOption('add_download_extensions')) {
+			$strCode = str_replace("_paq.push(['trackPageView']);", "_paq.push(['addDownloadExtensions', '".(self::$settings->getGlobalOption('add_download_extensions'))."']);\n_paq.push(['trackPageView']);", $strCode);
 		}
 		// Change code if POST is forced to be used
 		if (self::$settings->getGlobalOption('track_post') && self::$settings->getGlobalOption('track_mode') != 2) $strCode = str_replace("_paq.push(['trackPageView']);", "_paq.push(['setRequestMethod', 'POST']);\n_paq.push(['trackPageView']);", $strCode);
@@ -1245,8 +1244,11 @@ class wp_piwik {
 				self::$settings->setGlobalOption('limit_cookies', (isset($_POST['wp-piwik_limit_cookies'])?$_POST['wp-piwik_limit_cookies']:false));
 				self::$settings->setGlobalOption('limit_cookies_visitor', (isset($_POST['wp-piwik_limit_cookies_visitor'])?(int)$_POST['wp-piwik_limit_cookies_visitor']:1209600));
 				self::$settings->setGlobalOption('limit_cookies_session', (isset($_POST['wp-piwik_limit_cookies_session'])?(int)$_POST['wp-piwik_limit_cookies_session']:0));
+				self::$settings->setGlobalOption('add_download_extensions', (isset($_POST['wp-piwik_add_download_extensions'])?trim($_POST['wp-piwik_add_download_extensions']):''));
+				self::$settings->setGlobalOption('force_protocol', (isset($_POST['wp-piwik_force_protocol'])?trim($_POST['wp-piwik_force_protocol']):''));				
 				self::$settings->setOption('tracking_code', $this->callPiwikAPI('SitesManager.getJavascriptTag'));
 			break;
+			case 'homepage':
 			case 'piwik':
 				self::$settings->setGlobalOption('piwik_token', (isset($_POST['wp-piwik_token'])?$_POST['wp-piwik_token']:''));
 				self::$settings->setGlobalOption('piwik_url', self::checkURL((isset($_POST['wp-piwik_url'])?$_POST['wp-piwik_url']:'')));

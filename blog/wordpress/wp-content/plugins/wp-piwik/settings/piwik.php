@@ -4,10 +4,15 @@ $bolFOpen = ini_get('allow_url_fopen');
 if (!$bolFOpen && !$bolCURL) {
 ?><tr>	
 	<td colspan="2">
-		<strong><?php _e('Error: cURL is not enabled and fopen is not allowed to open URLs. WP-Piwik won\'t be able to connect to Piwik.'); ?></strong>
+		<strong><?php _e('Error: cURL is not enabled and fopen is not allowed to open URLs. WP-Piwik won\'t be able to connect to Piwik.', 'wp-piwik'); ?></strong>
 	</td>
 </tr><?php } else { ?><tr>
 	<td colspan="2">
+		<?php printf(__("To use this plugin you will need your own Piwik instance. If you do not already have a Piwik setup, you have two simple options: use either <a href='%s'>Self-hosted</a> or <a href='%s'>Cloud-hosted</a>.", 'wp-piwik'), 'http://piwik.org/', 'http://piwik.org/hosting/'); ?>
+	</td>
+</tr>
+<tr>
+	<td colspan="2">				
 		<?php _e('To enable Piwik statistics, please enter', 'wp-piwik'); ?>:
 		<ol>
 			<li><?php _e('your Piwik base URL (like http://mydomain.com/piwik) or your Piwik server path (like /var/www/mydomain.com/httpdocs/piwik/)', 'wp-piwik'); ?></li>

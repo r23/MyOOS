@@ -1,0 +1,1105 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP-Piwik\n"
+"POT-Creation-Date: 2015-04-08 23:28+0100\n"
+"PO-Revision-Date: 2015-04-08 23:28+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: wp-piwik/classes/WP_Piwik.php:126
+#: wp-piwik/wp-piwik.php:174
+#, php-format
+msgid "%s %s installed."
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:128
+#: wp-piwik/wp-piwik.php:176
+msgid "Next you should connect to Piwik"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:129
+#: wp-piwik/wp-piwik.php:177
+msgid "Please validate your configuration"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:131
+#: wp-piwik/classes/WP_Piwik.php:529
+#: wp-piwik/classes/WP_Piwik.php:1234
+#: wp-piwik/wp-piwik.php:179
+#: wp-piwik/wp-piwik.php:577
+#: wp-piwik/wp-piwik.php:1300
+msgid "Settings"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:132
+#: wp-piwik/wp-piwik.php:180
+msgid "Important"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:260
+#: wp-piwik/wp-piwik.php:308
+msgid "Piwik Custom Variables"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:274
+#: wp-piwik/wp-piwik.php:322
+msgid "Name"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:274
+#: wp-piwik/wp-piwik.php:322
+msgid "Value"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:283
+#: wp-piwik/wp-piwik.php:331
+msgid "Set custom variables for a page view"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:283
+#: wp-piwik/wp-piwik.php:331
+msgid "More information"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:328
+#: wp-piwik/classes/WP_Piwik.php:369
+#: wp-piwik/wp-piwik.php:376
+#: wp-piwik/wp-piwik.php:417
+msgid "Piwik Statistics"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:487
+#: wp-piwik/classes/WP_Piwik.php:966
+#: wp-piwik/classes/WP_Piwik_MetaBox_PerPost_Stats.php:30
+#: wp-piwik/dashboard/overview.php:56
+#: wp-piwik/shortcodes/overview.php:40
+#: wp-piwik/wp-piwik.php:535
+#: wp-piwik/wp-piwik.php:1028
+msgid "Visitors"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:507
+#: wp-piwik/classes/WP_Piwik.php:957
+#: wp-piwik/dashboard/seo.php:20
+#: wp-piwik/wp-piwik.php:555
+#: wp-piwik/wp-piwik.php:1019
+msgid "SEO"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:707
+#: wp-piwik/wp-piwik.php:756
+msgid "Could not resolve"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:707
+#: wp-piwik/wp-piwik.php:756
+msgid "realpath() returns false"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:714
+#: wp-piwik/wp-piwik.php:763
+msgid "Class Piwik\\FrontController does not exists."
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:717
+#: wp-piwik/wp-piwik.php:766
+msgid "Class Piwik\\API\\Request does not exists."
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:956
+#: wp-piwik/dashboard/overview.php:23
+#: wp-piwik/shortcodes/overview.php:11
+#: wp-piwik/wp-piwik.php:1018
+msgid "Overview"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:958
+#: wp-piwik/dashboard/pages.php:13
+#: wp-piwik/wp-piwik.php:1020
+msgid "Pages"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:959
+#: wp-piwik/dashboard/keywords.php:12
+#: wp-piwik/wp-piwik.php:1021
+msgid "Keywords"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:960
+#: wp-piwik/dashboard/websites.php:12
+#: wp-piwik/wp-piwik.php:1022
+msgid "Websites"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:961
+#: wp-piwik/dashboard/plugins.php:12
+#: wp-piwik/dashboard/plugins.php:33
+#: wp-piwik/wp-piwik.php:1023
+msgid "Plugins"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:962
+#: wp-piwik/dashboard/search.php:12
+#: wp-piwik/wp-piwik.php:1024
+msgid "Site Search Keywords"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:963
+#: wp-piwik/dashboard/noresult.php:12
+#: wp-piwik/wp-piwik.php:1025
+msgid "Site Search without Results"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:967
+#: wp-piwik/dashboard/browserdetails.php:39
+#: wp-piwik/dashboard/browsers.php:13
+#: wp-piwik/dashboard/browsers.php:40
+#: wp-piwik/wp-piwik.php:1029
+msgid "Browser"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:968
+#: wp-piwik/dashboard/browserdetails.php:12
+#: wp-piwik/wp-piwik.php:1030
+msgid "Browser Details"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:969
+#: wp-piwik/dashboard/screens.php:12
+#: wp-piwik/dashboard/screens.php:39
+#: wp-piwik/wp-piwik.php:1031
+msgid "Resolution"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:970
+#: wp-piwik/dashboard/systems.php:12
+#: wp-piwik/dashboard/systems.php:40
+#: wp-piwik/wp-piwik.php:1032
+msgid "Operating System"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:1042
+#: wp-piwik/classes/WP_Piwik.php:1116
+#: wp-piwik/wp-piwik.php:1104
+#: wp-piwik/wp-piwik.php:1178
+msgid "Statistics"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:1052
+#: wp-piwik/wp-piwik.php:1114
+msgid "Currently shown stats:"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:1099
+#: wp-piwik/wp-piwik.php:1161
+msgid "Cheatin&#8217; uh?"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:1113
+#: wp-piwik/wp-piwik.php:1175
+msgid "Home"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:1114
+#: wp-piwik/classes/WP_Piwik.php:1120
+#: wp-piwik/wp-piwik.php:1176
+#: wp-piwik/wp-piwik.php:1182
+msgid "Piwik Settings"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:1115
+#: wp-piwik/wp-piwik.php:1177
+msgid "Tracking"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:1117
+#: wp-piwik/classes/WP_Piwik.php:1121
+#: wp-piwik/classes/WP_Piwik.php:1293
+#: wp-piwik/wp-piwik.php:1179
+#: wp-piwik/wp-piwik.php:1183
+#: wp-piwik/wp-piwik.php:1372
+msgid "Support"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:1118
+#: wp-piwik/classes/WP_Piwik.php:1122
+#: wp-piwik/wp-piwik.php:1180
+#: wp-piwik/wp-piwik.php:1184
+msgid "Credits"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:1232
+#: wp-piwik/wp-piwik.php:1298
+msgid "Changes saved"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:1240
+#: wp-piwik/wp-piwik.php:1306
+msgid "Donate"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:1241
+#: wp-piwik/wp-piwik.php:1307
+msgid "If you like WP-Piwik, you can support its development by a donation:"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:1257
+#: wp-piwik/wp-piwik.php:1336
+msgid "My Amazon.de wishlist"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:1260
+#: wp-piwik/settings/support.php:5
+#: wp-piwik/wp-piwik.php:1339
+msgid "Please don't forget to vote the compatibility at the"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:1275
+#: wp-piwik/wp-piwik.php:1354
+msgid "Save settings"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik.php:1293
+#: wp-piwik/wp-piwik.php:1372
+msgid "An error occured"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik_MetaBox_PerPost_Stats.php:10
+msgid "Piwik Statistics (last 30 days)"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik_MetaBox_PerPost_Stats.php:31
+#: wp-piwik/dashboard/overview.php:57
+#: wp-piwik/shortcodes/overview.php:41
+msgid "Unique visitors"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik_MetaBox_PerPost_Stats.php:32
+#: wp-piwik/dashboard/overview.php:58
+#: wp-piwik/shortcodes/overview.php:42
+msgid "Page views"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik_MetaBox_PerPost_Stats.php:33
+#: wp-piwik/dashboard/overview.php:61
+#: wp-piwik/shortcodes/overview.php:45
+msgid "Time/visit"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik_MetaBox_PerPost_Stats.php:34
+#: wp-piwik/dashboard/overview.php:62
+#: wp-piwik/shortcodes/overview.php:46
+msgid "Bounce count"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik_MetaBox_PerPost_Stats.php:35
+msgid "Exit count"
+msgstr ""
+
+#: wp-piwik/classes/WP_Piwik_MetaBox_PerPost_Stats.php:37
+msgid "Avg. generation time"
+msgstr ""
+
+#: wp-piwik/dashboard/browserdetails.php:16
+#: wp-piwik/dashboard/browsers.php:17
+#: wp-piwik/dashboard/keywords.php:14
+#: wp-piwik/dashboard/noresult.php:14
+#: wp-piwik/dashboard/overview.php:26
+#: wp-piwik/dashboard/pages.php:16
+#: wp-piwik/dashboard/plugins.php:26
+#: wp-piwik/dashboard/screens.php:16
+#: wp-piwik/dashboard/search.php:14
+#: wp-piwik/dashboard/seo.php:17
+#: wp-piwik/dashboard/systems.php:16
+#: wp-piwik/dashboard/visitors.php:32
+#: wp-piwik/dashboard/websites.php:15
+msgid "Piwik error"
+msgstr ""
+
+#: wp-piwik/dashboard/browserdetails.php:25
+#: wp-piwik/dashboard/browsers.php:26
+#: wp-piwik/dashboard/pages.php:45
+#: wp-piwik/dashboard/screens.php:25
+#: wp-piwik/dashboard/systems.php:25
+msgid "Others"
+msgstr ""
+
+#: wp-piwik/dashboard/browserdetails.php:40
+#: wp-piwik/dashboard/browsers.php:41
+#: wp-piwik/dashboard/keywords.php:19
+#: wp-piwik/dashboard/pages.php:24
+#: wp-piwik/dashboard/screens.php:40
+#: wp-piwik/dashboard/systems.php:41
+#: wp-piwik/dashboard/visitors.php:64
+#: wp-piwik/dashboard/websites.php:22
+msgid "Unique"
+msgstr ""
+
+#: wp-piwik/dashboard/browserdetails.php:41
+#: wp-piwik/dashboard/browsers.php:42
+#: wp-piwik/dashboard/plugins.php:35
+#: wp-piwik/dashboard/screens.php:41
+#: wp-piwik/dashboard/systems.php:42
+msgid "Percent"
+msgstr ""
+
+#: wp-piwik/dashboard/browserdetails.php:55
+#: wp-piwik/dashboard/browsers.php:56
+#: wp-piwik/dashboard/keywords.php:25
+#: wp-piwik/dashboard/noresult.php:25
+#: wp-piwik/dashboard/pages.php:43
+#: wp-piwik/dashboard/plugins.php:51
+#: wp-piwik/dashboard/screens.php:55
+#: wp-piwik/dashboard/search.php:25
+#: wp-piwik/dashboard/systems.php:56
+#: wp-piwik/dashboard/websites.php:29
+msgid "No data available."
+msgstr ""
+
+#: wp-piwik/dashboard/keywords.php:19
+#: wp-piwik/dashboard/noresult.php:19
+#: wp-piwik/dashboard/search.php:19
+msgid "Keyword"
+msgstr ""
+
+#: wp-piwik/dashboard/noresult.php:19
+#: wp-piwik/dashboard/search.php:19
+msgid "Requests"
+msgstr ""
+
+#: wp-piwik/dashboard/noresult.php:19
+#: wp-piwik/dashboard/search.php:19
+#: wp-piwik/dashboard/visitors.php:65
+msgid "Bounced"
+msgstr ""
+
+#: wp-piwik/dashboard/overview.php:59
+#: wp-piwik/shortcodes/overview.php:43
+msgid "Max. page views in one visit"
+msgstr ""
+
+#: wp-piwik/dashboard/overview.php:60
+#: wp-piwik/shortcodes/overview.php:44
+msgid "Total time spent"
+msgstr ""
+
+#: wp-piwik/dashboard/overview.php:64
+#: wp-piwik/settings/views.php:40
+msgid "Shortcut"
+msgstr ""
+
+#: wp-piwik/dashboard/pages.php:23
+msgid "Page"
+msgstr ""
+
+#: wp-piwik/dashboard/pages.php:25
+#: wp-piwik/dashboard/plugins.php:34
+#: wp-piwik/dashboard/visitors.php:63
+msgid "Visits"
+msgstr ""
+
+#: wp-piwik/dashboard/visitors.php:54
+msgid ""
+"The graph contains the values shown in the table below (visitors / unique / "
+"bounces). The red line show a linear trendline (unique)."
+msgstr ""
+
+#: wp-piwik/dashboard/visitors.php:62
+msgid "Date"
+msgstr ""
+
+#: wp-piwik/dashboard/visitors.php:66
+msgid "Page Views"
+msgstr ""
+
+#: wp-piwik/dashboard/visitors.php:83
+msgid "Unique TOTAL"
+msgstr ""
+
+#: wp-piwik/dashboard/visitors.php:83
+msgid "Sum"
+msgstr ""
+
+#: wp-piwik/dashboard/visitors.php:83
+msgid "Avg"
+msgstr ""
+
+#: wp-piwik/dashboard/websites.php:21
+msgid "Website"
+msgstr ""
+
+#: wp-piwik/settings/credits.php:3
+msgid "Thank you very much for your donation"
+msgstr ""
+
+#: wp-piwik/settings/credits.php:3
+msgid "the Piwik team itself"
+msgstr ""
+
+#: wp-piwik/settings/credits.php:3
+msgid ", and all people flattering this"
+msgstr ""
+
+#: wp-piwik/settings/credits.php:8
+msgid ""
+"Graphs powered by <a href=\"http://www.jqplot.com/\">jqPlot</a> (License: "
+"GPL 2.0 and MIT) and <a href=\"http://omnipotent.net/jquery.sparkline/"
+"\">jQuery Sparklines</a> (License: New BSD License)."
+msgstr ""
+
+#: wp-piwik/settings/credits.php:13
+msgid "Metabox support inspired by"
+msgstr ""
+
+#: wp-piwik/settings/credits.php:14
+msgid "Tabbed settings page suggested by the"
+msgstr ""
+
+#: wp-piwik/settings/credits.php:19
+msgid "Thank you very much"
+msgstr ""
+
+#: wp-piwik/settings/credits.php:19
+msgid ", and"
+msgstr ""
+
+#: wp-piwik/settings/credits.php:19
+msgid "for your translation work"
+msgstr ""
+
+#: wp-piwik/settings/credits.php:24
+msgid ""
+"Thank you very much, all users who send me mails containing criticism, "
+"commendation, feature requests and bug reports! You help me to make WP-Piwik "
+"much better."
+msgstr ""
+
+#: wp-piwik/settings/credits.php:29
+msgid ""
+"Thank <strong>you</strong> for using my plugin. It is the best commendation "
+"if my piece of code is really used!"
+msgstr ""
+
+#: wp-piwik/settings/homepage.php:4
+msgid "Thanks for using WP-Piwik!"
+msgstr ""
+
+#: wp-piwik/settings/homepage.php:8
+msgid "You are using Piwik"
+msgstr ""
+
+#: wp-piwik/settings/homepage.php:8
+msgid "and"
+msgstr ""
+
+#: wp-piwik/settings/homepage.php:8
+msgid "in network mode"
+msgstr ""
+
+#: wp-piwik/settings/homepage.php:10
+msgid "Auto site configuration is"
+msgstr ""
+
+#: wp-piwik/settings/homepage.php:10
+#: wp-piwik/settings/homepage.php:11
+#: wp-piwik/settings/support.php:20
+msgid "enabled"
+msgstr ""
+
+#: wp-piwik/settings/homepage.php:10
+#: wp-piwik/settings/homepage.php:11
+msgid "disabled"
+msgstr ""
+
+#: wp-piwik/settings/homepage.php:11
+msgid "Tracking code insertion is"
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:7
+#: wp-piwik/settings/sitebrowser.php:7
+#: wp-piwik/settings/tracking.php:7
+#: wp-piwik/settings/views.php:7
+msgid ""
+"Error: cURL is not enabled and fopen is not allowed to open URLs. WP-Piwik "
+"won't be able to connect to Piwik."
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:11
+#, php-format
+msgid ""
+"To use this plugin you will need your own Piwik instance. If you do not "
+"already have a Piwik setup, you have two simple options: use either <a "
+"href='%s'>Self-hosted</a> or <a href='%s'>Cloud-hosted</a>."
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:16
+msgid "To enable Piwik statistics, please enter"
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:18
+msgid ""
+"your Piwik base URL (like http://mydomain.com/piwik) or your Piwik server "
+"path (like /var/www/mydomain.com/httpdocs/piwik/)"
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:19
+msgid ""
+"your personal Piwik authentification token. You can get the token on the API "
+"page inside your Piwik interface. It looks like "
+"&quot;1234a5cd6789e0a12345b678cd9012ef&quot;."
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:21
+msgid "No idea what I'm talking about?"
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:21
+msgid "Get help."
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:23
+msgid ""
+"<strong>Important note:</strong> If you do not host this blog on your own, "
+"your site admin is able to get your auth token from the database."
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:27
+msgid "Piwik URL"
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:33
+msgid "Piwik path"
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:39
+msgid "Invalid path. Please enter the file path to Piwik."
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:43
+msgid "Auth token"
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:48
+msgid "Enable cache"
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:50
+msgid "Cache API calls, which not contain today's values, for a week"
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:54
+msgid "Auto config"
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:57
+msgid ""
+"Check this to automatically choose your blog from your Piwik sites by URL. "
+"If your blog is not added to Piwik yet, WP-Piwik will add a new site."
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:65
+msgid ""
+"Please check URL and auth token. You need at least view access to one site."
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:73
+msgid "Choose site"
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:87
+msgid "Determined site"
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:100
+msgid "Expert Settings"
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:102
+msgid "Connection timeout"
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:109
+msgid "Disable SSL peer verification"
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:111
+msgid "not recommended"
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:114
+msgid "User agent"
+msgstr ""
+
+#: wp-piwik/settings/piwik.php:126
+msgid ""
+"Further expert settings require cURL. See <a href=\"http://www.php.net/"
+"manual/curl.setup.php\">PHP manual</a>"
+msgstr ""
+
+#: wp-piwik/settings/sitebrowser.php:26
+msgid "ID"
+msgstr ""
+
+#: wp-piwik/settings/sitebrowser.php:27
+msgid "Title"
+msgstr ""
+
+#: wp-piwik/settings/sitebrowser.php:28
+msgid "URL"
+msgstr ""
+
+#: wp-piwik/settings/sitebrowser.php:29
+msgid "Site ID (Piwik)"
+msgstr ""
+
+#: wp-piwik/settings/support.php:2
+msgid "WordPress.org forum about WP-Piwik"
+msgstr ""
+
+#: wp-piwik/settings/support.php:9
+msgid "Debugging"
+msgstr ""
+
+#: wp-piwik/settings/support.php:10
+msgid ""
+"Either allow_url_fopen has to be enabled <em>or</em> cURL has to be "
+"available:"
+msgstr ""
+
+#: wp-piwik/settings/support.php:13
+msgid "cURL is"
+msgstr ""
+
+#: wp-piwik/settings/support.php:14
+#: wp-piwik/settings/support.php:19
+msgid "not"
+msgstr ""
+
+#: wp-piwik/settings/support.php:15
+msgid "available"
+msgstr ""
+
+#: wp-piwik/settings/support.php:18
+msgid "allow_url_fopen is"
+msgstr ""
+
+#: wp-piwik/settings/support.php:28
+msgid "Test script result"
+msgstr ""
+
+#: wp-piwik/settings/support.php:32
+msgid "Please confirm your reset request"
+msgstr ""
+
+#: wp-piwik/settings/support.php:32
+msgid ""
+"YES, please reset <strong>all</strong> WP-Piwik settings <strong>except</"
+"strong> auth token and Piwi URL."
+msgstr ""
+
+#: wp-piwik/settings/support.php:38
+msgid "WP-Piwik reset done"
+msgstr ""
+
+#: wp-piwik/settings/support.php:43
+msgid "Get more debug information"
+msgstr ""
+
+#: wp-piwik/settings/support.php:45
+msgid "Run test script"
+msgstr ""
+
+#: wp-piwik/settings/support.php:46
+msgid "Get site configuration details"
+msgstr ""
+
+#: wp-piwik/settings/support.php:47
+msgid "Reset WP-Piwik settings except auth token and Piwik URL"
+msgstr ""
+
+#: wp-piwik/settings/support.php:47
+msgid ""
+"This will not affect Piwik itself. Resetting large networks may take some "
+"minutes."
+msgstr ""
+
+#: wp-piwik/settings/support.php:49
+msgid ""
+"You have to enter your auth token and the Piwik URL before you can access "
+"more debug functions."
+msgstr ""
+
+#: wp-piwik/settings/support.php:52
+msgid "Latest support threads on WordPress.org"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:10
+msgid "Add tracking code"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:14
+msgid ""
+"If your template uses wp_footer(), WP-Piwik can automatically add the Piwik "
+"javascript code to your blog."
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:31
+msgid "Tracking code preview"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:37
+msgid "&lt;noscript&gt; code preview"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:43
+msgid "Default tracking"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:45
+msgid "WP-Piwik uses the Piwik default tracking code."
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:48
+msgid "Use js/index.php"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:50
+msgid ""
+"WP-Piwik can automatically use js/index.php instead of piwik.js and piwik."
+"php. See"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:53
+msgid "Use proxy script"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:55
+msgid "WP-Piwik will use the piwik.php proxy script. See"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:58
+msgid "JavaScript code position"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:60
+msgid "Footer"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:61
+msgid "Header"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:63
+msgid ""
+"Choose whether the JavaScript code is added to the footer or the header."
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:66
+msgid "Add &lt;noscript&gt;"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:68
+msgid "Adds the &lt;noscript&gt; code to your footer."
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:68
+#: wp-piwik/settings/tracking.php:73
+#: wp-piwik/settings/tracking.php:123
+msgid "Disabled in proxy mode."
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:71
+msgid "Add rec parameter to noscript code"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:73
+msgid "Enable tracking for visitors without JavaScript (not recommended). See"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:76
+msgid "Disable cookies"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:78
+msgid "Disable all tracking cookies for a visitor."
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:81
+msgid "Limit cookie lifetime"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:83
+msgid "Limit cookie lifetime as follows"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:84
+msgid "Visitor timeout (seconds)"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:84
+msgid "Session timeout (seconds)"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:86
+msgid "Track visitors across all subdomains"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:88
+msgid "Adds *.-prefix to cookie domain."
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:91
+msgid "Track visitors across all alias URLs"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:93
+msgid "Adds *.-prefix to tracked domain."
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:96
+msgid "Track search"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:98
+msgid "Use Piwik's advanced Site Search Analytics feature. See"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:101
+msgid "Track 404"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:103
+msgid "WP-Piwik can automatically add a 404-category to track 404-page-visits."
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:106
+msgid "Add annotation on new post"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:108
+msgid "Add a Piwik annotation on each new post, see"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:111
+msgid "Add new file types for download tracking"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:113
+msgid ""
+"Add file extensions for download tracking, divided by a vertical bar "
+"(&#124;), see"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:116
+msgid "Show custom variables box"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:118
+msgid "Show a custom vars edit box on post edit page."
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:121
+msgid "Avoid mod_security"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:123
+msgid ""
+"WP-Piwik can automatically force the Tracking Code to sent data in POST. See"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:126
+msgid "Add data-cfasync=false"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:128
+msgid ""
+"Adds data-cfasync=false to the script tag, e.g., to ask Rocket Loader to "
+"ignore the script."
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:131
+msgid "CDN URL"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:133
+msgid ""
+"Leave blank if you do not want to define a CDN URL or you do not know what "
+"this is."
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:136
+msgid "Force Piwik to use a specific protocol"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:137
+msgid "Disabled (default)"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:140
+msgid ""
+"Choose if you want to explicitly force Piwik to use HTTP or HTTPS. Does not "
+"work with a CDN URL."
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:143
+msgid "Track admin pages"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:145
+msgid ""
+"Enable to track users on admin pages (remember to configure the tracking "
+"filter appropriately)."
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:148
+msgid "Track RSS feeds"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:150
+msgid "Enable to track posts in feeds via tracking pixel."
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:153
+msgid "Track RSS feed links as campaign"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:155
+msgid "This will add Piwik campaign parameters to the RSS feed links."
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:156
+msgid "Campaign"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:156
+msgid "Keyword: post name."
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:159
+msgid "Tracking filter"
+msgstr ""
+
+#: wp-piwik/settings/tracking.php:166
+msgid "Choose users by user role you do <strong>not</strong> want to track."
+msgstr ""
+
+#: wp-piwik/settings/views.php:10
+msgid "WP-Piwik display name"
+msgstr ""
+
+#: wp-piwik/settings/views.php:12
+msgid "Plugin name shown in WordPress."
+msgstr ""
+
+#: wp-piwik/settings/views.php:14
+msgid "Default date"
+msgstr ""
+
+#: wp-piwik/settings/views.php:16
+#: wp-piwik/settings/views.php:24
+msgid "yesterday"
+msgstr ""
+
+#: wp-piwik/settings/views.php:17
+#: wp-piwik/settings/views.php:25
+msgid "today"
+msgstr ""
+
+#: wp-piwik/settings/views.php:19
+msgid "Default date shown on statistics page."
+msgstr ""
+
+#: wp-piwik/settings/views.php:21
+msgid "Home Dashboard"
+msgstr ""
+
+#: wp-piwik/settings/views.php:23
+msgid "Hide overview"
+msgstr ""
+
+#: wp-piwik/settings/views.php:24
+#: wp-piwik/settings/views.php:25
+#: wp-piwik/settings/views.php:26
+msgid "Show overview"
+msgstr ""
+
+#: wp-piwik/settings/views.php:26
+msgid "last 30 days"
+msgstr ""
+
+#: wp-piwik/settings/views.php:28
+msgid "Chart"
+msgstr ""
+
+#: wp-piwik/settings/views.php:29
+msgid "SEO <em>(slow!)</em>"
+msgstr ""
+
+#: wp-piwik/settings/views.php:30
+msgid ""
+"Configure WP-Piwik widgets to be shown on your WordPress Home Dashboard."
+msgstr ""
+
+#: wp-piwik/settings/views.php:32
+msgid "Show graph on WordPress Toolbar"
+msgstr ""
+
+#: wp-piwik/settings/views.php:34
+msgid "Display the last 30 days visitor stats on WordPress Toolbar."
+msgstr ""
+
+#: wp-piwik/settings/views.php:36
+msgid "SEO data"
+msgstr ""
+
+#: wp-piwik/settings/views.php:38
+msgid "Display SEO ranking data on statistics page. <em>(Slow!)</em>"
+msgstr ""
+
+#: wp-piwik/settings/views.php:42
+msgid "Display a shortcut to Piwik itself."
+msgstr ""
+
+#: wp-piwik/settings/views.php:44
+msgid "Display to"
+msgstr ""
+
+#: wp-piwik/settings/views.php:51
+msgid "Choose user roles allowed to see the statistics page."
+msgstr ""
+
+#: wp-piwik/settings/views.php:53
+msgid "Disable time limit"
+msgstr ""
+
+#: wp-piwik/settings/views.php:55
+msgid "Use set_time_limit(0) if stats page causes a time out."
+msgstr ""
+
+#: wp-piwik/settings/views.php:57
+msgid "Show per post stats"
+msgstr ""
+
+#: wp-piwik/settings/views.php:59
+msgid "Show stats about single posts at the post edit admin page."
+msgstr ""
+
+#: wp-piwik/settings/views.php:61
+msgid "Enable shortcodes"
+msgstr ""
+
+#: wp-piwik/settings/views.php:63
+msgid "Enable shortcodes in post or page content."
+msgstr ""
+
+#: wp-piwik/shortcodes/overview.php:28
+msgid "Error"
+msgstr ""
+
+#: wp-piwik/shortcodes/overview.php:48
+msgid "No data available"
+msgstr ""
