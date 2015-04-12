@@ -43,9 +43,7 @@
 
 .ab-wrap {
     color: #2f353e;
-    height: 1%;
     margin: 0 0 0 -10px;
-    overflow: hidden;
     padding: 20px 0 0 0;
     text-rendering: optimizeLegibility;
 }
@@ -227,6 +225,7 @@
     text-align: center;
     border-top: 1px solid #e0e5e9;
     border-bottom: 1px solid #e0e5e9;
+    margin-right: 20px;
 }
 .ab-column--service p {
     margin: 8px 0;

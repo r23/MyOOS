@@ -36,7 +36,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 		}
 
 		/* Referer prüfen */
-		check_admin_referer('antispam_bee');
+		check_admin_referer('_antispam_bee__settings_nonce');
 
 		/* Optionen ermitteln */
 		$options = array(
@@ -189,7 +189,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 			<form action="<?php echo admin_url('admin-post.php') ?>" method="post">
 				<input type="hidden" name="action" value="ab_save_changes" />
 
-				<?php wp_nonce_field('antispam_bee') ?>
+				<?php wp_nonce_field('_antispam_bee__settings_nonce') ?>
 
 				<?php $options = self::get_options() ?>
 

@@ -8,7 +8,7 @@ Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://antispambee.com
 License: GPLv2 or later
-Version: 2.6.5
+Version: 2.6.6
 */
 
 /*
@@ -672,8 +672,8 @@ class Antispam_Bee {
 	* @since   0.1
 	* @change  2.6.5
 	*
-	* @param   array  $items  Array with dashboard items
-	* @return  array  $items  Array with dashboard items
+	* @param   array  $items  Initial array with dashboard items
+    * @return  array  $items  Merged array with dashboard items
 	*/
 
 	public static function add_dashboard_count( $items = array() )
@@ -1277,7 +1277,7 @@ class Antispam_Bee {
 	* Prüfung der Trackbacks
 	*
 	* @since   2.4
-	* @change  2.6.1
+	* @change  2.6.6
 	*
 	* @param   array  $comment  Daten des Trackbacks
 	* @return  array            Array mit dem Verdachtsgrund [optional]
@@ -1339,6 +1339,13 @@ class Antispam_Bee {
 		if ( $options['country_code'] && self::_is_country_spam($ip) ) {
 			return array(
 				'reason' => 'country'
+			);
+		}
+
+		/* Translate API */
+		if ( $options['translate_api'] && self::_is_lang_spam($body) ) {
+			return array(
+				'reason' => 'lang'
 			);
 		}
 	}
@@ -1646,18 +1653,18 @@ class Antispam_Bee {
 
 		/* Default */
 		$filter = array('`comment_author_IP` = %s');
-		$params = array($ip);
+		$params = array( wp_unslash($ip) );
 
 		/* URL abgleichen */
 		if ( ! empty($url) ) {
 			$filter[] = '`comment_author_url` = %s';
-			$params[] = $url;
+			$params[] = wp_unslash($url);
 		}
 
 		/* E-Mail abgleichen */
 		if ( ! empty($email) ) {
 			$filter[] = '`comment_author_email` = %s';
-			$params[] = $email;
+			$params[] = wp_unslash($email);
 		}
 
 		/* Query ausführen */
@@ -1823,7 +1830,7 @@ class Antispam_Bee {
 		$result = $wpdb->get_var(
 			$wpdb->prepare(
 				"SELECT `comment_ID` FROM `$wpdb->comments` WHERE `comment_approved` = '1' AND `comment_author_email` = %s LIMIT 1",
-				(string)$email
+				wp_unslash($email)
 			)
 		);
 
@@ -1883,63 +1890,66 @@ class Antispam_Bee {
 
 
 	/**
-	* Prüfung auf unerwünschte Sprachen
-	*
-	* @since   2.0
-	* @change  2.6.2
-	*
-	* @param   string   $content  Inhalt des Kommentars
-	* @return  boolean 	          TRUE bei Spam
-	*/
+    * Prüfung auf unerwünschte Sprachen
+    *
+    * @since   2.0
+    * @change  2.6.6
+    *
+    * @param   string   $content  Inhalt des Kommentars
+    * @return  boolean            TRUE bei Spam
+    */
 
-	private static function _is_lang_spam($content)
-	{
-		/* Init */
-		$lang = self::get_option('translate_lang');
+    private static function _is_lang_spam($comment_content)
+    {
+        /* User defined language */
+        $allowed_lang = self::get_option('translate_lang');
 
-		/* Formatieren */
-		$content = wp_strip_all_tags($content);
+        /* Make comment text plain */
+        $comment_text = wp_strip_all_tags($comment_content);
 
-		/* Keine Daten? */
-		if ( empty($lang) or empty($content) ) {
-			return false;
-		}
+        /* Skip if empty values */
+        if ( empty($allowed_lang) OR empty($comment_text) ) {
+            return false;
+        }
 
-		/* Formatieren */
-		$content = rawurlencode(
-			( function_exists('mb_substr') ? mb_substr($content, 0, 200) : substr($content, 0, 200) )
-		);
+        /* Trim comment text */
+        if ( ! $query_text = wp_trim_words($comment_text, 10, '') ) {
+            return false;
+        }
 
-		/* IP abfragen */
-		$response = wp_safe_remote_request(
-			esc_url_raw(
-				sprintf(
-					'https://translate.google.com/translate_a/t?client=x&text=%s',
-					$content
-				),
-				'http'
-			)
-		);
+        /* Start request */
+        $response = wp_safe_remote_request(
+            add_query_arg(
+                array(
+                    'q'   => rawurlencode($query_text),
+                    'key' => base64_decode( strrev('rl1NTlGNDFnNrZlQI5WLnhUcDJ0SZBlTZlWb6NUVu9FR5NVY6lUQ') )
+                ),
+                'https://www.googleapis.com' . '/language/translate/v2/detect'
+            )
+        );
 
-		/* Fehler? */
-		if ( is_wp_error($response) ) {
-			return false;
-		}
+        /* Skip on error */
+        if ( is_wp_error($response) OR wp_remote_retrieve_response_code($response) !== 200 ) {
+            return false;
+        }
 
-		/* Parsen */
-		preg_match(
-			'/"src":"(\\D{2})"/',
-			wp_remote_retrieve_body($response),
-			$matches
-		);
+        /* Get JSON from content */
+        if ( ! $json = wp_remote_retrieve_body($response) ) {
+            return false;
+        }
 
-		/* Fehler? */
-		if ( empty($matches[1]) ) {
-			return false;
-		}
+        /* Decode JSON */
+        if ( ! $obj = json_decode($json, true) ) {
+            return false;
+        }
 
-		return ( strtolower($matches[1]) != $lang );
-	}
+        /* Get detected language */
+        if ( ! $detected_lang = @$obj['data']['detections'][0][0]['language'] ) {
+            return false;
+        }
+
+        return ( $detected_lang != $allowed_lang );
+    }
 
 
 	/**

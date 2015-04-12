@@ -104,6 +104,17 @@ Fragen rund ums Plugin werden gern per E-Mail beantwortet. Beachtet auch die [Gu
 
 == Changelog ==
 
+= 2.6.6 =
+
+* **Deutsch**
+    * (Testweise) Umstellung auf die offizielle Google Translation API
+    * [Weitere Informationen zum Hintergrund der Umstellung auf Google+](https://plus.google.com/u/0/+SergejMüller/posts/ZyquhoYjUyF)
+    * *Release-Zeitaufwand (Development & QA): 2,5 Stunden*
+
+* **English**
+    * Switch to the official Google Translation API
+    * *Release time investment (Development & QA): 2,5 h*
+
 = 2.6.5 =
 
 * **English**
