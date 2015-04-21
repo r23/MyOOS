@@ -166,11 +166,11 @@ class yoast_i18n {
 	private function promo_message() {
 		$message = false;
 
-		if ( $this->translation_loaded && $this->percent_translated < 90 ) {
+		if ( $this->translation_exists && $this->translation_loaded && $this->percent_translated < 90 ) {
 			$message = __( 'As you can see, there is a translation of this plugin in %1$s. This translation is currently %3$d%% complete. We need your help to make it complete and to fix any errors. Please register at %4$s to help complete the translation to %1$s!', $this->textdomain );
 		} else if ( ! $this->translation_loaded && $this->translation_exists ) {
 			$message = __( 'You\'re using WordPress in %1$s. While %2$s has been translated to %1$s for %3$d%%, it\'s not been shipped with the plugin yet. You can help! Register at %4$s to help complete the translation to %1$s!', $this->textdomain );
-		} else if ( ! $this->translation_loaded && ! $this->translation_exists ) {
+		} else if ( ! $this->translation_exists ) {
 			$message = __( 'You\'re using WordPress in a language we don\'t support yet. We\'d love for %2$s to be translated in that language too, but unfortunately, it isn\'t right now. You can change that! Register at %4$s to help translate it!', $this->textdomain );
 		}
 
@@ -190,7 +190,7 @@ class yoast_i18n {
 
 		if ( $message ) {
 			echo '<div id="i18n_promo_box" style="border:1px solid #ccc;background-color:#fff;padding:10px;max-width:650px;">';
-			echo '<a href="' . add_query_arg( array( 'remove_i18n_promo' => '1' ) ) . '" style="color:#333;text-decoration:none;font-weight:bold;font-size:16px;border:1px solid #ccc;padding:1px 4px;" class="alignright">X</a>';
+			echo '<a href="' . esc_url( add_query_arg( array( 'remove_i18n_promo' => '1' ) ) ) . '" style="color:#333;text-decoration:none;font-weight:bold;font-size:16px;border:1px solid #ccc;padding:1px 4px;" class="alignright">X</a>';
 			echo '<h2>' . sprintf( __( 'Translation of %s', $this->textdomain ), $this->plugin_name ) . '</h2>';
 			if ( isset( $this->glotpress_logo ) && '' != $this->glotpress_logo ) {
 				echo '<a href="' . $this->register_url . '"><img class="alignright" style="margin:15px 5px 5px 5px;width:200px;" src="' . $this->glotpress_logo . '" alt="' . $this->glotpress_name . '"/></a>';
@@ -267,7 +267,7 @@ class yoast_i18n {
 	 * @access private
 	 */
 	private function parse_translation_set( $set ) {
-		if ( $this->translation_exists ) {
+		if ( $this->translation_exists && is_object( $set ) ) {
 			$this->locale_name        = $set->name;
 			$this->percent_translated = $set->percent_translated;
 		} else {

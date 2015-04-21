@@ -11,6 +11,14 @@ $product = $this->product;
 
 $this->show_license_form_heading();
 
+if( $api_host_available['availability'] === false ){
+	echo '<p style="color: red; max-width: 600px;"><strong>' . sprintf( __( 'We couldn\'t create a connection to our API to verify your license key(s). Please ask your hosting company to allow outgoing connections from your server to %s.', $product->get_text_domain() ), $api_host_available['url'] ) . '</strong></p>';
+}
+
+if( $api_host_available['curl_version'] !== false && version_compare( $api_host_available['curl_version'], '7.20.0', '<')){
+	echo '<p style="color: red; max-width: 600px;"><strong>' . sprintf( __( 'Your server has an outdated version of the PHP module cURL (Version: %s). Please ask your hosting company to update this to a recent version of cURL. You can read more about that in our %sKnowledge base%s.', $product->get_text_domain() ), $api_host_available['curl_version'], '<a href="http://kb.yoast.com/article/90-is-my-curl-up-to-date" target="_blank">', '</a>' ) . '</strong></p>';
+}
+
 // Output form tags if we're not embedded in another form
 if( ! $embedded ) {
 	echo '<form method="post" action="">';
@@ -84,7 +92,7 @@ if( $this->license_is_valid() ) {
 if( ! $embedded ) {
 
 	// only show "Save Changes" button if license is not activated and not defined with a constant
-	if( $readonly === false ) {
+	if( $readonly === false && $api_host_available['availability'] === true ) {
 		submit_button();
 	}
 

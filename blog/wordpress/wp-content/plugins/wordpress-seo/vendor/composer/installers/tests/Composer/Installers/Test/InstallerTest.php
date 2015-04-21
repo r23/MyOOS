@@ -85,12 +85,14 @@ class InstallerTest extends TestCase
     {
         return array(
             array('agl-module', true),
+            array('aimeos-extension', true),
             array('annotatecms-module', true),
             array('annotatecms-component', true),
             array('annotatecms-service', true),
             array('bitrix-module', true),
             array('bitrix-component', true),
             array('bitrix-theme', true),
+            array('bonefish-package', true),
             array('cakephp', false),
             array('cakephp-', false),
             array('cakephp-app', false),
@@ -142,6 +144,8 @@ class InstallerTest extends TestCase
             array('phpbb-extension', true),
             array('pimcore-plugin', true),
             array('ppi-module', true),
+            array('prestashop-module', true),
+            array('prestashop-theme', true),
             array('puppet-module', true),
             array('redaxo-addon', true),
             array('redaxo-bestyle-plugin', true),
@@ -170,6 +174,8 @@ class InstallerTest extends TestCase
             array('zend-library', true),
             array('zikula-module', true),
             array('zikula-theme', true),
+            array('kodicms-plugin', true),
+            array('kodicms-media', true),
         );
     }
 
@@ -195,12 +201,14 @@ class InstallerTest extends TestCase
     {
         return array(
             array('agl-module', 'More/MyTestPackage/', 'agl/my_test-package'),
+            array('aimeos-extension', 'ext/ai-test/', 'author/ai-test'),
             array('annotatecms-module', 'addons/modules/my_module/', 'vysinsky/my_module'),
             array('annotatecms-component', 'addons/components/my_component/', 'vysinsky/my_component'),
             array('annotatecms-service', 'addons/services/my_service/', 'vysinsky/my_service'),
             array('bitrix-module', 'local/modules/my_module/', 'author/my_module'),
             array('bitrix-component', 'local/components/my_component/', 'author/my_component'),
             array('bitrix-theme', 'local/templates/my_theme/', 'author/my_theme'),
+            array('bonefish-package', 'Packages/bonefish/package/', 'bonefish/package'),
             array('cakephp-plugin', 'Plugin/Ftp/', 'shama/ftp'),
             array('chef-cookbook', 'Chef/mre/my_cookbook/', 'mre/my_cookbook'),
             array('chef-role', 'Chef/roles/my_role/', 'mre/my_role'),
@@ -252,6 +260,8 @@ class InstallerTest extends TestCase
             array('october-plugin', 'plugins/shama/my_plugin/', 'shama/my_plugin'),
             array('october-theme', 'themes/my_theme/', 'shama/my_theme'),
             array('piwik-plugin', 'plugins/VisitSummary/', 'shama/visit-summary'),
+            array('prestashop-module', 'modules/a-module/', 'vendor/a-module'),
+            array('prestashop-theme', 'themes/a-theme/', 'vendor/a-theme'),
             array('phpbb-extension', 'ext/test/foo/', 'test/foo'),
             array('phpbb-style', 'styles/foo/', 'test/foo'),
             array('phpbb-language', 'language/foo/', 'test/foo'),
@@ -291,6 +301,8 @@ class InstallerTest extends TestCase
             array('zend-extra', 'extras/library/zend_test/', 'shama/zend_test'),
             array('zikula-module', 'modules/my-test_module/', 'my/test_module'),
             array('zikula-theme', 'themes/my-test_theme/', 'my/test_theme'),
+            array('kodicms-media', 'cms/media/vendor/my_media/', 'shama/my_media'),
+            array('kodicms-plugin', 'cms/plugins/my_plugin/', 'shama/my_plugin'),
         );
     }
 

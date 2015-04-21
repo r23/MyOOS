@@ -1,17 +1,17 @@
 [
     {
         "name": "composer/installers",
-        "version": "v1.0.20",
-        "version_normalized": "1.0.20.0",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/composer/installers.git",
-            "reference": "1bff8aa77a18f3616f468ed8000cf86a5725bac3"
+            "reference": "f8c20b427de1cfe7a28a015c1640ce4e4eef1e33"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/composer/installers/zipball/1bff8aa77a18f3616f468ed8000cf86a5725bac3",
-            "reference": "1bff8aa77a18f3616f468ed8000cf86a5725bac3",
+            "url": "https://api.github.com/repos/composer/installers/zipball/f8c20b427de1cfe7a28a015c1640ce4e4eef1e33",
+            "reference": "f8c20b427de1cfe7a28a015c1640ce4e4eef1e33",
             "shasum": ""
         },
         "replace": {
@@ -22,7 +22,7 @@
             "composer/composer": "1.0.*@dev",
             "phpunit/phpunit": "4.1.*"
         },
-        "time": "2015-01-11 03:51:11",
+        "time": "2015-03-26 16:11:30",
         "type": "composer-installer",
         "extra": {
             "class": "Composer\\Installers\\Installer",
@@ -30,7 +30,7 @@
                 "dev-master": "1.0-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-0": {
                 "Composer\\Installers\\": "src/"
@@ -59,6 +59,7 @@
             "Thelia",
             "WolfCMS",
             "agl",
+            "aimeos",
             "annotatecms",
             "bitrix",
             "cakephp",
@@ -97,27 +98,27 @@
     },
     {
         "name": "xrstf/composer-php52",
-        "version": "v1.0.17",
-        "version_normalized": "1.0.17.0",
+        "version": "dev-default",
+        "version_normalized": "9999999-dev",
         "source": {
             "type": "hg",
             "url": "https://bitbucket.org/xrstf/composer-php52",
-            "reference": "70b853668d6c3f97b63dafcfaeebb622bf08fd30"
+            "reference": "717c00a8bec1b40401384536d2ebaea57c7c35d4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://bitbucket.org/xrstf/composer-php52/get/70b853668d6c3f97b63dafcfaeebb622bf08fd30.zip",
-            "reference": "70b853668d6c3f97b63dafcfaeebb622bf08fd30",
+            "url": "https://bitbucket.org/xrstf/composer-php52/get/717c00a8bec1b40401384536d2ebaea57c7c35d4.zip",
+            "reference": "717c00a8bec1b40401384536d2ebaea57c7c35d4",
             "shasum": ""
         },
-        "time": "2015-02-01 14:28:15",
+        "time": "2015-02-01 13:29:12",
         "type": "library",
         "extra": {
             "branch-alias": {
                 "dev-default": "1.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-0": {
                 "xrstf\\Composer52": "lib/"
@@ -136,15 +137,15 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Yoast/i18n-module.git",
-            "reference": "8554e74de5706538bb354133a6384e3b57d1df4b"
+            "reference": "6d366c5b19d2068e3bb1c9bb4b9d17c0dd9566a8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Yoast/i18n-module/zipball/8554e74de5706538bb354133a6384e3b57d1df4b",
-            "reference": "8554e74de5706538bb354133a6384e3b57d1df4b",
+            "url": "https://api.github.com/repos/Yoast/i18n-module/zipball/6d366c5b19d2068e3bb1c9bb4b9d17c0dd9566a8",
+            "reference": "6d366c5b19d2068e3bb1c9bb4b9d17c0dd9566a8",
             "shasum": ""
         },
-        "time": "2015-01-19 09:14:41",
+        "time": "2015-04-15 06:48:03",
         "type": "library",
         "installation-source": "source",
         "autoload": {
@@ -176,15 +177,15 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Yoast/License-Manager.git",
-            "reference": "590ec054383c5e609c78cd4aee03bc8e9d9742cc"
+            "reference": "8caf52202bf51011686e31c9a43b18731047f1be"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Yoast/License-Manager/zipball/590ec054383c5e609c78cd4aee03bc8e9d9742cc",
-            "reference": "590ec054383c5e609c78cd4aee03bc8e9d9742cc",
+            "url": "https://api.github.com/repos/Yoast/License-Manager/zipball/8caf52202bf51011686e31c9a43b18731047f1be",
+            "reference": "8caf52202bf51011686e31c9a43b18731047f1be",
             "shasum": ""
         },
-        "time": "2015-01-19 09:14:58",
+        "time": "2015-03-16 11:51:33",
         "type": "library",
         "installation-source": "source",
         "autoload": {
