@@ -97,6 +97,9 @@ class Grunion_Contact_Form_Plugin {
 			'capability_type'   => 'page'
 		) );
 
+		// Add to REST API post type whitelist
+		add_filter( 'rest_api_allowed_post_types', array( $this, 'allow_feedback_rest_api_type' ) );
+
 		// Add "spam" as a post status
 		register_post_status( 'spam', array(
 			'label'                  => 'Spam',
@@ -131,6 +134,14 @@ class Grunion_Contact_Form_Plugin {
 		} else {
 			wp_register_style( 'grunion.css', GRUNION_PLUGIN_URL . 'css/grunion.css', array(), JETPACK__VERSION );
 		}
+	}
+
+	/**
+	 * Add to REST API post type whitelist
+	 */
+	function allow_feedback_rest_api_type( $post_types ) {
+		$post_types[] = 'feedback';
+		return $post_types;
 	}
 
 	/**
@@ -884,18 +895,18 @@ class Grunion_Contact_Form extends Crunion_Contact_Form_Shortcode {
 		global $post;
 
 		// Set up the default subject and recipient for this form
-		$default_to = get_option( 'admin_email' );
+		$default_to = '';
 		$default_subject = "[" . get_option( 'blogname' ) . "]";
 
 		if ( !empty( $attributes['widget'] ) && $attributes['widget'] ) {
+			$default_to .= get_option( 'admin_email' );
 			$attributes['id'] = 'widget-' . $attributes['widget'];
-
 			$default_subject = sprintf( _x( '%1$s Sidebar', '%1$s = blog name', 'jetpack' ), $default_subject );
 		} else if ( $post ) {
 			$attributes['id'] = $post->ID;
 			$default_subject = sprintf( _x( '%1$s %2$s', '%1$s = blog name, %2$s = post title', 'jetpack' ), $default_subject, Grunion_Contact_Form_Plugin::strip_tags( $post->post_title ) );
 			$post_author = get_userdata( $post->post_author );
-			$default_to = $post_author->user_email;
+			$default_to .= $post_author->user_email;
 		}
 
 		// Keep reference to $this for parsing form fields
@@ -1302,6 +1313,11 @@ class Grunion_Contact_Form extends Crunion_Contact_Form_Shortcode {
 		}
 
 		$to = $valid_emails;
+
+		// Last ditch effort to set a recipient if somehow none have been set.
+		if ( empty( $to ) ) {
+			$to = get_option( 'admin_email' );
+		}
 
 		// Make sure we're processing the form we think we're processing... probably a redundant check.
 		if ( $widget ) {

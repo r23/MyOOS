@@ -21,7 +21,7 @@ class Jetpack_Gallery_Widget extends WP_Widget {
 		);
 		$control_ops 	= array( 'width' => 250 );
 
-		add_action( 'admin_init', array( $this, 'admin_init' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 
 		$this->WP_Widget( 'gallery', apply_filters( 'jetpack_widget_name', __( 'Gallery', 'jetpack' ) ), $widget_ops, $control_ops );
 	}
@@ -31,6 +31,8 @@ class Jetpack_Gallery_Widget extends WP_Widget {
 	 * @param array $instance The settings for the particular instance of the widget
 	 */
 	public function widget( $args, $instance ) {
+		$instance = wp_parse_args( (array) $instance, $this->defaults() );
+
 		$this->enqueue_frontend_scripts();
 
 		extract( $args );
@@ -357,11 +359,16 @@ class Jetpack_Gallery_Widget extends WP_Widget {
 		wp_enqueue_script( 'gallery-widget' );
 	}
 
-	public function admin_init() {
+	public function enqueue_admin_scripts() {
 		global $pagenow;
 
-		if ( 'widgets.php' == $pagenow ) {
+		if ( 'widgets.php' == $pagenow || 'customize.php' == $pagenow ) {
 			wp_enqueue_media();
+
+			wp_enqueue_script( 'gallery-widget-admin', plugins_url( '/gallery/js/admin.js', __FILE__ ), array(
+				'media-models',
+				'media-views'
+			) );
 
 			$js_settings = array(
 				'thumbSize' => self::THUMB_SIZE
@@ -369,9 +376,9 @@ class Jetpack_Gallery_Widget extends WP_Widget {
 
 			wp_localize_script( 'gallery-widget-admin', '_wpGalleryWidgetAdminSettings', $js_settings );
 			if( is_rtl() ) {
-				wp_enqueue_style( 'gallery-widget-admin', plugins_url( '/gallery/css/rtl/admin-rtl.css', __FILE__ ) );	
+				wp_enqueue_style( 'gallery-widget-admin', plugins_url( '/gallery/css/rtl/admin-rtl.css', __FILE__ ) );
 			} else {
-				wp_enqueue_style( 'gallery-widget-admin', plugins_url( '/gallery/css/admin.css', __FILE__ ) );	
+				wp_enqueue_style( 'gallery-widget-admin', plugins_url( '/gallery/css/admin.css', __FILE__ ) );
 			}
 		}
 	}

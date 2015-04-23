@@ -1,8 +1,8 @@
 === Jetpack by WordPress.com ===
 Contributors: automattic, alternatekev, andy, apeatling, azaozz, barry, beaulebens, blobaugh, cfinke, chellycat, danielbachhuber, daniloercoli, designsimply, dsmart, eoigal, ethitter, gibrown, georgestephanis, hew, hugobaeta, iammattthomas, jblz, jeherve, jkudish, Joen, johnjamesjacoby, jshreve, kraftbj, lancewillett, martinremy, matt, matveb, maverick3x6, mcsf, mdawaffe, migueluy, nickmomrik, obenland, pento, professor44, richardmtl, roccotripaldi, samhotchkiss, sdquirk, stephdau, tmoorewp, Viper007Bond, westi, yoavf, zinigor
 Tags: WordPress.com, statistics, stats, views, tweets, twitter, widget, gravatar, hovercards, profile, equations, latex, math, maths, youtube, shortcode, archives, audio, blip, bliptv, dailymotion, digg, flickr, googlevideo, google, googlemaps, kyte, kytetv, livevideo, redlasso, rockyou, rss, scribd, slide, slideshare, soundcloud, vimeo, shortlinks, wp.me, subscriptions, notifications, notes, json, api, rest, mosaic, gallery, slideshow, videopress, monitor, search, omnisearch, sso, jet pack
-Stable tag: 3.4.3
-Requires at least: 4.0
+Stable tag: 3.5
+Requires at least: 4.1
 Tested up to: 4.2
 
 Your WordPress, Streamlined.
@@ -100,7 +100,33 @@ Learn more (and get detailed instructions) in our [contribute guide](http://jetp
 
 == Changelog ==
 
+= 3.5 =
+Release Date: April 23rd, 2015
+
+Release Post: http://jetpack.me/2015/04/23/jetpack-3-5-menu-management/
+
+Jetpack 3.5 introduces the ability to manage your site's menus directly from WordPress.com and several bug fixes and enhancements.  This upgrade is recommended for all users.
+
+* Enhancement: General: Change security reporting to use a transient instead of option to reduce backup load
+* Enhancement: General: Improve module search
+* Enhancement: JSON API: Allow users to manage menus through WordPress.com
+* Enhancement: Sharing: Reduce spam through email sharing
+* Bug Fix: Custom CSS: Improve recall of CSS revisions
+* Bug Fix: Extra Sidebar Widgets: Change class name for Contact Info widget
+* Bug Fix: Extra Sidebar Widgets: Fix errors when adding widgets via the customizer
+* Bug Fix: Extra Sidebar Widgets: Fix PHP notices in RSS widget
+* Bug Fix: General: Fix redirect loop on activation
+* Bug Fix: General: Styling fixes
+* Bug Fix: Protect: Add IP translation fallback when inet_pton is not available
+* Bug Fix: Protect: Always allow login from local IDs
+* Bug Fix: Protect: Sanitize displayed IP after block
+* Bug Fix: Publicize: Prevent generating Facebook profile links for app-scoped user IDs
+* Bug Fix: Subscriptions: Improve error handling
+* Bug Fix: Theme Tools: Include breadcrumb code
+* Misc: Extra Sidebar Widgets: Remove Readmill Widget
+
 = 3.4.3 =
+Release Date: April 20th, 2015
 
 * Security hardening.
 
@@ -111,7 +137,6 @@ Release Date: April 19th, 2015
 * Bug Fix: Javascript errors on wp-admin due to stats display code
 * Bug Fix: Potential fatal error from improperly called function
 * Bug Fix: Potential fatal error when protect servers are unreachable for WordPress Multisite
-
 
 = 3.4.1 =
 Release Date: March 19th, 2015
@@ -125,6 +150,7 @@ Release Date: March 19th, 2015
 
 = 3.4 =
 Release Date: March 18th, 2015
+
 Release Post: http://jetpack.me/2015/03/17/jetpack-3-4-protect-secure-and-simplify/
 
 * Enhancement : Config Settings: provide a notification for users that update features settings

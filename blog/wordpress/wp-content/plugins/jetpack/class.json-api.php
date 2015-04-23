@@ -28,6 +28,9 @@ class WPCOM_JSON_API {
 	var $trapped_error = null;
 	var $did_output = false;
 
+	/**
+	 * @return WPCOM_JSON_API instance
+	 */
 	static function init( $method = null, $url = null, $post_body = null ) {
 		if ( !self::$self ) {
 			$class = function_exists( 'get_called_class' ) ? get_called_class() : __CLASS__;
@@ -205,6 +208,12 @@ class WPCOM_JSON_API {
 			$endpoint_path        = $endpoint_path_versions[0];
 			$endpoint_min_version = $endpoint_path_versions[1];
 			$endpoint_max_version = $endpoint_path_versions[2];
+
+			// Make sure max_version is not less than min_version
+			if ( version_compare( $endpoint_max_version, $endpoint_min_version, '<' ) ) {
+				$endpoint_max_version = $endpoint_min_version;
+			}
+
 			foreach ( $methods as $method ) {
 				if ( !isset( $endpoints_by_method[$method] ) ) {
 					continue;

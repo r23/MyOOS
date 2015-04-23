@@ -6,7 +6,7 @@
 	var $thumbs;
 
 	$(function(){
-		$( '.widgets-holder-wrap, .editwidget, .wp-core-ui' ).on( 'click', '.gallery-widget-choose-images', function( event ) {
+		$( document.body ) .on( 'click', '.widget-content .gallery-widget-choose-images', function( event ) {
 			event.preventDefault();
 
 			var widget_form = $( this ).closest( 'form' );
@@ -214,7 +214,7 @@
 
 			var id_string = ids.join( ',' );
 
-			$ids.val( id_string );
+			$ids.val( id_string ).trigger( 'change' );
 
 			setupThumbs( selection, $thumbs );
 		}, this );

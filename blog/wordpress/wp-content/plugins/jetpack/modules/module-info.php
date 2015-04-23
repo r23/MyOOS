@@ -5,6 +5,8 @@
  * jetpack_module_more_info_<module-slug> hooks are for pre-connection information
  * jetpack_module_more_info_connected_<module-slug> hooks are used once the user
  * 		is connected to show them links to admin panels, usage info etc.
+ * jetpack_search_terms_<module-slug> filters are searchable from the settings page.
+ *      Separate your search terms by comma, and please send translation context with _x()
  */
 
 // VaultPress (stub)
@@ -210,6 +212,12 @@ function stats_load_more_link( $description ) {
 }
 add_filter( 'jetpack_learn_more_button_stats', 'stats_load_more_link' );
 
+function jetpack_stats_search_terms( $terms ) {
+	$terms = _x( 'statistics, tracking, analytics, views, traffic', 'search terms', 'jetpack' );
+	return $terms;
+}
+add_filter( 'jetpack_search_terms_stats', 'jetpack_stats_search_terms' );
+
 // Publicize
 function publicize_more_info() { ?>
 	<div class="jp-info-img">
@@ -398,8 +406,7 @@ function jetpack_widgets_more_info_connected() { ?>
 	<p><?php printf( __( '<strong>The Gravatar Widget</strong> allows you to pull in your Gravatar image along with some of your Gravatar profile data.', 'jetpack' ) ); ?></p>
 	<p><?php printf( __( '<strong>The Gallery Widget</strong> provides you with a simple way to display a photo gallery or slideshow in your blog’s sidebar. Requires the Tiled Gallery module.', 'jetpack' ) ); ?></p>
 	<p><?php printf( __( '<strong>The Display WordPress Posts Widget</strong> lets you display up to ten recent posts from another WordPress.com blog, or a self-hosted WordPress site with Jetpack enabled.', 'jetpack' ) ); ?></p>
-	<p><?php printf( __( '<strong>Retired: The Readmill Widget</strong> allows your readers to send a book to their device with one click.', 'jetpack' ) ); ?></p>
-	<!--<p><?php printf( __( '<strong>The Upcoming Events Widget</strong> allows you to use an iCalendar link to display a list of events on your site.', 'jetpack' ) ); ?></p>-->
+	<p><?php printf( __( '<strong>The Upcoming Events Widget</strong> allows you to use an iCalendar link to display a list of events on your site.', 'jetpack' ) ); ?></p>
 
 	<p><?php esc_html_e( 'Each of these widgets has a number of customization options.', 'jetpack' ); ?>  <?php printf( __( 'To use the widgets, go to Appearance &#8594; <a href="%s">Widgets</a>. Drag them into one of your sidebars and configure away.', 'jetpack' ), admin_url( 'widgets.php' ) ); ?></p>
 <?php
@@ -467,6 +474,12 @@ function jetpack_protect_more_link() {
 	echo '<a class="button-secondary more-info-link" href="http://jetpack.me/support/protect/">' . esc_html__( 'Learn More', 'jetpack' ) . '</a>';
 }
 add_action( 'jetpack_learn_more_button_protect', 'jetpack_protect_more_link' );
+
+function jetpack_protect_search_terms( $terms ) {
+	$terms = _x( 'security, secure, protection, botnet, brute force', 'search terms', 'jetpack' );
+	return $terms;
+}
+add_filter( 'jetpack_search_terms_protect', 'jetpack_protect_search_terms' );
 
 // JSON API
 function jetpack_json_api_more_info() { ?>

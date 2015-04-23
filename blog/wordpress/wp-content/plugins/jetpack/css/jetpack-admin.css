@@ -1224,9 +1224,6 @@ ul#adminmenu a.toplevel_page_jetpack:after {
   border-color: #8ac9e8;
   background: #f8fcfe;
 }
-.module:nth-of-type(n+10) {
-  display: none;
-}
 .module h3 {
   cursor: pointer;
   margin: 0 0 0.5em;
@@ -1243,9 +1240,6 @@ ul#adminmenu a.toplevel_page_jetpack:after {
 .module:hover, .module:focus {
   border-color: #8ac9e8;
   background: #f8fcfe;
-}
-.module:nth-of-type(n+10) {
-  display: none;
 }
 .module.active {
   border-color: #2ea2cc;

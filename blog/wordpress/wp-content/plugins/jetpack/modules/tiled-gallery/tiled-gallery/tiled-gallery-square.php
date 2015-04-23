@@ -6,20 +6,19 @@ class Jetpack_Tiled_Gallery_Layout_Square extends Jetpack_Tiled_Gallery_Layout {
 	protected $type = 'square';
 
 	private function compute_items() {
-		
 		$content_width = Jetpack_Tiled_Gallery::get_content_width();
 		$images_per_row = $this->columns;
 		$margin = 2;
 
 		$margin_space = ( $images_per_row * $margin ) * 2;
 		$size = floor( ( $content_width - $margin_space ) / $images_per_row );
+		$img_size = $remainder_size = $size;
 		$remainder = count( $this->attachments ) % $images_per_row;
 		if ( $remainder > 0 ) {
 			$remainder_space = ( $remainder * $margin ) * 2;
 			$remainder_size = floor( ( $content_width - $remainder_space ) / $remainder );
 		}
 
-		$items = array();
 		$c = 1;
 		$items_in_row = 0;
 		$rows = array();
@@ -68,4 +67,4 @@ class Jetpack_Tiled_Gallery_Layout_Square extends Jetpack_Tiled_Gallery_Layout {
 		return parent::HTML( array( 'rows' => $this->compute_items() ) );
 	}
 }
-?>
+

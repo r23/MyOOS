@@ -4,20 +4,20 @@
  *
  * Zu diesen Einstellungen gehören: MySQL-Zugangsdaten, Tabellenpräfix,
  * Secret-Keys, Sprache und ABSPATH. Mehr Informationen zur wp-config.php gibt es
- * auf der {@link http://codex.wordpress.org/Editing_wp-config.php wp-config.php editieren}
+ * auf der {@link https://codex.wordpress.org/Editing_wp-config.php wp-config.php editieren}
  * Seite im Codex. Die Informationen für die MySQL-Datenbank bekommst du von deinem Webhoster.
  *
  * Diese Datei wird von der wp-config.php-Erzeugungsroutine verwendet. Sie wird ausgeführt,
  * wenn noch keine wp-config.php (aber eine wp-config-sample.php) vorhanden ist,
  * und die Installationsroutine (/wp-admin/install.php) aufgerufen wird.
- * Man kann aber auch direkt in dieser Datei alle Eingaben vornehmen und sie von
- * wp-config-sample.php in wp-config.php umbenennen und die Installation starten.
+ * Man kann aber auch diese Datei nach "wp-config.php" kopieren, alle fehlenden Werte
+ * ergänzen und die Installation anschließend starten.
  *
  * @package WordPress
  */
 
-/**  MySQL Einstellungen - diese Angaben bekommst du von deinem Webhoster. */
-/**  Ersetze database_name_here mit dem Namen der Datenbank, die du verwenden möchtest. */
+// ** MySQL Einstellungen - diese Angaben bekommst du von deinem Webhoster. ** //
+/** Ersetze database_name_here mit dem Namen der Datenbank, die du verwenden möchtest. */
 define('DB_NAME', 'database_name_here');
 
 /** Ersetze username_here mit deinem MySQL-Datenbank-Benutzernamen */
@@ -44,7 +44,7 @@ define('DB_COLLATE', '');
  * Bitte trage für jeden KEY eine eigene Phrase ein. Du kannst die Schlüssel jederzeit wieder ändern,
  * alle angemeldeten Benutzer müssen sich danach erneut anmelden.
  *
- * @seit 2.6.0
+ * @since 2.6.0
  */
 define('AUTH_KEY',         'put your unique phrase here');
 define('SECURE_AUTH_KEY',  'put your unique phrase here');
@@ -60,8 +60,8 @@ define('NONCE_SALT',       'put your unique phrase here');
 /**
  * WordPress Datenbanktabellen-Präfix
  *
- *  Wenn du verschiedene Präfixe benutzt, kannst du innerhalb einer Datenbank
- *  verschiedene WordPress-Installationen betreiben. Nur Zahlen, Buchstaben und Unterstriche bitte!
+ * Wenn du verschiedene Präfixe benutzt, kannst du innerhalb einer Datenbank
+ * verschiedene WordPress-Installationen betreiben. Nur Zahlen, Buchstaben und Unterstriche bitte!
  */
 $table_prefix  = 'wp_';
 
