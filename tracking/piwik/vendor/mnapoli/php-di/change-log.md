@@ -6,7 +6,8 @@ Improvements:
 
 - Lighter package: requires 4 less Composer dependencies by default
 - [#207](https://github.com/mnapoli/PHP-DI/issues/207): Support for `DI\link()` in arrays
-- (#226](https://github.com/mnapoli/PHP-DI/pull/226): `DI\factory()` can now be omitted with closures:
+- [#208](https://github.com/mnapoli/PHP-DI/issues/208): Support for nested definitions
+- [#226](https://github.com/mnapoli/PHP-DI/pull/226): `DI\factory()` can now be omitted with closures:
 
     ```php
     // before
@@ -18,16 +19,29 @@ Improvements:
         return new Foo();
     }
     ```
+- [#235](https://github.com/mnapoli/PHP-DI/issues/235) `DI\link()` is now deprecated in favor of `DI\get()`. There is no BC break as `DI\link()` still works.
+- [#193](https://github.com/mnapoli/PHP-DI/issues/193) `DI\object()->method()` now supports calling the same method twice (or more).
+- [#248](https://github.com/mnapoli/PHP-DI/issues/248): New `DI\decorate()` function to decorate a previously defined entry:
+
+    ```php
+    // file A.php
+    ProductDaoInterface::class => DI\get(ProductDaoDatabase::class)
+    // file B.php
+    ProductDaoInterface::class => DI\decorate(function ($previous, ContainerInterface $c) {
+        return new ProductDaoCached($previous, $c->get('cache.backend'));
+    })
+    ```
 
 BC breaks:
 
+- [#251](https://github.com/mnapoli/PHP-DI/issues/251) Annotations are disabled by default, if you use annotations enable them with `$containerBuilder->useAnnotations(true)`.
 - [#198](https://github.com/mnapoli/PHP-DI/issues/198) `ocramius/proxy-manager` is not installed by default anymore, you need to require it in `composer.json` if you want to use **lazy injection**
-- Closure definitions are now converted into factory definitions automatically. If you ever defined a closure as a value (e.g. to have the closure injected and now executed), you need to wrap the closure with the new `DI\value()` helper.
+- Closures are now converted into factory definitions automatically. If you ever defined a closure as a value (e.g. to have the closure injected in a class), you need to wrap the closure with the new `DI\value()` helper.
 - [#223](https://github.com/mnapoli/PHP-DI/issues/223) `DI\ContainerInterface` was deprecated since v4.1 and has been removed
 
 Internal changes in case you were replacing/extending some parts:
 
-- `DI\Definition\Source\ChainableDefinitionSource` is now an abstract class (was previously an interface).
+- the definition sources architecture has been refactored, if you defined custom definition sources you will need to update your code (it should be much easier now)
 
 ## 4.4
 

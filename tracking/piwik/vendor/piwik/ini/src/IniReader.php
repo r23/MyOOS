@@ -89,10 +89,8 @@ class IniReader
         if ($this->useNativeFunction) {
             $array = $this->readWithNativeFunction($ini);
         } else {
-            $array = $this->readWithAlternativeImplementation($ini, true);
+            $array = $this->readWithAlternativeImplementation($ini);
         }
-
-        $array = $this->decode($array, $array);
 
         return $array;
     }
@@ -221,7 +219,9 @@ class IniReader
             }
         }
 
-        return $result + $globals;
+        $finalResult = $result + $globals;
+
+        return $this->decode($finalResult, $finalResult);
     }
 
     /**

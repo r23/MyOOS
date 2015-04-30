@@ -32,6 +32,7 @@ abstract class DeviceParserAbstract extends ParserAbstract
     const DEVICE_TYPE_SMART_DISPLAY        = 7;
     const DEVICE_TYPE_CAMERA               = 8;
     const DEVICE_TYPE_PORTABLE_MEDIA_PAYER = 9;
+    const DEVICE_TYPE_PHABLET              = 10;
 
     /**
      * Detectable device types
@@ -48,7 +49,8 @@ abstract class DeviceParserAbstract extends ParserAbstract
         'car browser'           => self::DEVICE_TYPE_CAR_BROWSER,
         'smart display'         => self::DEVICE_TYPE_SMART_DISPLAY,
         'camera'                => self::DEVICE_TYPE_CAMERA,
-        'portable media player' => self::DEVICE_TYPE_PORTABLE_MEDIA_PAYER
+        'portable media player' => self::DEVICE_TYPE_PORTABLE_MEDIA_PAYER,
+        'phablet'               => self::DEVICE_TYPE_PHABLET
     );
 
     /**
@@ -82,6 +84,7 @@ abstract class DeviceParserAbstract extends ParserAbstract
         'BS' => 'BenQ-Siemens',
         'BU' => 'Blu',
         'BX' => 'bq',
+        'CS' => 'Casio',
         'CA' => 'Cat',
         'CE' => 'Celkon',
         'CC' => 'ConCorde',
@@ -108,6 +111,7 @@ abstract class DeviceParserAbstract extends ParserAbstract
         'DP' => 'Dopod',
         'EB' => 'E-Boda',
         'EC' => 'Ericsson',
+        'ES' => 'ECS',
         'EI' => 'Ezio',
         'EP' => 'Easypix',
         'ER' => 'Ericy',
@@ -125,11 +129,13 @@ abstract class DeviceParserAbstract extends ParserAbstract
         'GR' => 'Gradiente',
         'GU' => 'Grundig',
         'HA' => 'Haier',
+        'HI' => 'Hisense',
         'HP' => 'HP',
         'HT' => 'HTC',
         'HU' => 'Huawei',
         'HX' => 'Humax',
         'HY' => 'Hyrican',
+        'HN' => 'Hyundai',
         'IA' => 'Ikea',
         'IB' => 'iBall',
         'IY' => 'iBerry',
@@ -159,6 +165,7 @@ abstract class DeviceParserAbstract extends ParserAbstract
         'LC' => 'LCT',
         'LE' => 'Lenovo',
         'LN' => 'Lenco',
+        'LP' => 'Le Pan',
         'LG' => 'LG',
         'LO' => 'Loewe',
         'LM' => 'Logicom',
@@ -206,6 +213,7 @@ abstract class DeviceParserAbstract extends ParserAbstract
         'QU' => 'Quechua',
         'OY' => 'Oysters',
         'RA' => 'Ramos',
+        'RI' => 'Rikomagic',
         'RM' => 'RIM',
         'RO' => 'Rover',
         'SA' => 'Samsung',
@@ -217,6 +225,7 @@ abstract class DeviceParserAbstract extends ParserAbstract
         'SH' => 'Sharp',
         'SI' => 'Siemens',
         'SN' => 'Sendo',
+        'SC' => 'Smartfren',
         'SO' => 'Sony',
         'SP' => 'Spice',
         'SU' => 'SuperSonic',
@@ -231,6 +240,7 @@ abstract class DeviceParserAbstract extends ParserAbstract
         'TE' => 'Telit',
         'TH' => 'TiPhone',
         'TB' => 'Tecno Mobile',
+        'TD' => 'Tesco',
         'TI' => 'TIANYU',
         'TL' => 'Telefunken',
         'TM' => 'T-Mobile',
@@ -380,6 +390,10 @@ abstract class DeviceParserAbstract extends ParserAbstract
             }
 
             $this->model = trim($this->buildModel($modelRegex['model'], $modelMatches));
+
+            if (isset($modelRegex['brand']) && $brandId = array_search($modelRegex['brand'], self::$deviceBrands)) {
+                $this->brand = $brandId;
+            }
 
             if (isset($modelRegex['device']) && in_array($modelRegex['device'], self::$deviceTypes)) {
                 $this->deviceType = self::$deviceTypes[$modelRegex['device']];

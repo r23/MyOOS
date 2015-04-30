@@ -12,7 +12,7 @@ namespace DI;
 use DI\Definition\EntryReference;
 use DI\Definition\Helper\ArrayDefinitionExtensionHelper;
 use DI\Definition\Helper\FactoryDefinitionHelper;
-use DI\Definition\Helper\ClassDefinitionHelper;
+use DI\Definition\Helper\ObjectDefinitionHelper;
 use DI\Definition\Helper\EnvironmentVariableDefinitionHelper;
 use DI\Definition\Helper\ValueDefinitionHelper;
 use DI\Definition\Helper\StringDefinitionHelper;
@@ -38,11 +38,11 @@ if (! function_exists('DI\object')) {
      * @param string|null $className Class name of the object.
      *                               If null, the name of the entry (in the container) will be used as class name.
      *
-     * @return ClassDefinitionHelper
+     * @return ObjectDefinitionHelper
      */
     function object($className = null)
     {
-        return new ClassDefinitionHelper($className);
+        return new ObjectDefinitionHelper($className);
     }
 }
 
@@ -61,9 +61,46 @@ if (! function_exists('DI\factory')) {
     }
 }
 
+if (! function_exists('DI\decorate')) {
+    /**
+     * Decorate the previous definition using a callable.
+     *
+     * Example:
+     *
+     *     'foo' => decorate(function ($foo, $container) {
+     *         return new CachedFoo($foo, $container->get('cache'));
+     *     })
+     *
+     * @param callable $callable The callable takes the decorated object as first parameter and
+     *                           the container as second.
+     *
+     * @return FactoryDefinitionHelper
+     */
+    function decorate($callable)
+    {
+        return new FactoryDefinitionHelper($callable, true);
+    }
+}
+
+if (! function_exists('DI\get')) {
+    /**
+     * Helper for referencing another container entry in an object definition.
+     *
+     * @param string $entryName
+     *
+     * @return EntryReference
+     */
+    function get($entryName)
+    {
+        return new EntryReference($entryName);
+    }
+}
+
 if (! function_exists('DI\link')) {
     /**
      * Helper for referencing another container entry in an object definition.
+     *
+     * @deprecated \DI\link() has been replaced by \DI\get()
      *
      * @param string $entryName
      *
@@ -99,12 +136,12 @@ if (! function_exists('DI\add')) {
      *
      * Example:
      *
-     *     'log.backends' => DI\add(DI\link('My\Custom\LogBackend'))
+     *     'log.backends' => DI\add(DI\get('My\Custom\LogBackend'))
      *
      * or:
      *
      *     'log.backends' => DI\add([
-     *         DI\link('My\Custom\LogBackend')
+     *         DI\get('My\Custom\LogBackend')
      *     ])
      *
      * @param mixed|array $values A value or an array of values to add to the array.

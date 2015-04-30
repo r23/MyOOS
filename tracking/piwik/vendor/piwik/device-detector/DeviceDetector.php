@@ -22,7 +22,7 @@ class DeviceDetector
     /**
      * Current version number of DeviceDetector
      */
-    const VERSION = '3.0.1';
+    const VERSION = '3.1.1';
 
     /**
      * Holds all registered client types
@@ -271,6 +271,7 @@ class DeviceDetector
                 DeviceParserAbstract::DEVICE_TYPE_FEATURE_PHONE,
                 DeviceParserAbstract::DEVICE_TYPE_SMARTPHONE,
                 DeviceParserAbstract::DEVICE_TYPE_TABLET,
+                DeviceParserAbstract::DEVICE_TYPE_PHABLET,
                 DeviceParserAbstract::DEVICE_TYPE_CAMERA,
                 DeviceParserAbstract::DEVICE_TYPE_PORTABLE_MEDIA_PAYER,
             ))) {

@@ -25,6 +25,10 @@
   name: 'MediaMonkey'
   version: '$1'
 
+- regex: 'Miro(?:/(\d+[\.\d]+))?'
+  name: 'Miro'
+  version: '$1'
+
 - regex: 'NexPlayer(?:/(\d+[\.\d]+))?'
   name: 'NexPlayer'
   version: '$1'
@@ -47,6 +51,10 @@
 
 - regex: 'VLC(?:/([\d\.]+))?'
   name: 'VLC'
+  version: '$1'
+
+- regex: 'Winamp(?:MPEG)?(?:/(\d+[\.\d]+))?'
+  name: 'Winamp'
   version: '$1'
 
 - regex: 'Windows-Media-Player(?:/(\d+[\.\d]+))?'

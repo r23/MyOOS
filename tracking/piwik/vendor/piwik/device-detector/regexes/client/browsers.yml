@@ -5,9 +5,9 @@
 # @license http://www.gnu.org/licenses/lgpl.html LGPL v3 or later
 ###############
 
-#newer versions of IE
+# Spartan (newer versions of IE)
 - regex: 'Edge[ /](\d+[\.\d]+)'
-  name: 'Internet Explorer'
+  name: 'Project Spartan'
   version: '$1'
   engine:
     default: 'Edge'
@@ -54,6 +54,15 @@
   version: ''
   engine:
     default: '' # multiple
+
+#Amigo
+- regex: 'Chrome/(\d+[\.\d]+).*MRCHROME'
+  name: 'Amigo'
+  version: '$1'
+  engine:
+    default: 'WebKit'
+    versions:
+      28: 'Blink'
 
 #Bunjalloo
 - regex: 'Bunjalloo(?:/(\d+[\.\d]+))?'
@@ -697,6 +706,16 @@
   name: 'Obigo'
   version: ''
 
+#Odyssey Web Browser
+- regex: 'Odyssey Web Browser(?:.*OWB/(\d+[\.\d]+))?'
+  name: 'Odyssey Web Browser'
+  version: '$1'
+
+#Off By One
+- regex: 'OffByOne'
+  name: 'Off By One'
+  version: ''
+
 #Oregano
 - regex: 'Oregano(?:[ /](\d+[\.\d]+))?'
   name: 'Oregano'
@@ -730,6 +749,11 @@
 - regex: 'Sunrise(?:Browser)?(?:/(\d+[\.\d]+))?'
   name: 'Sunrise'
   version: '$1'
+
+# WeTab Browser
+- regex: 'WeTab-Browser'
+  name: 'WeTab Browser'
+  version: ''
 
 #Xiino
 - regex: 'Xiino(?:/(\d+[\.\d]+))?'
