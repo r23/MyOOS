@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-04-22 19:04:54+0000\n"
+"PO-Revision-Date: 2015-05-02 22:22:49+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -126,7 +126,7 @@ msgstr[1] "%1$s Antworten zu %2$s"
 msgid "Your theme supports one menu. Select which menu you would like to use."
 msgstr "Dein Theme unterstützt ein Menü. Wähle aus, welches Menü genutzt werden soll."
 
-#: wp-includes/taxonomy.php:4173
+#: wp-includes/taxonomy.php:4169
 msgid "Could not split shared term."
 msgstr "Der gemeinsam genutzte Begriff konnte nicht aufgeteilt werden."
 
@@ -736,7 +736,7 @@ msgstr "(ohne Bezeichnung)"
 
 #. translators: %s: taxonomy label, %l: list of terms formatted as per
 #. $term_template
-#: wp-includes/taxonomy.php:4483
+#: wp-includes/taxonomy.php:4479
 msgid "%s: %l."
 msgstr "%s: %l."
 
@@ -860,6 +860,10 @@ msgstr "Rasteransicht"
 msgid "Your browser does not support direct access to the clipboard. Please use keyboard shortcuts or your browser&#8217;s edit menu instead."
 msgstr "Dein Browser unterstützt keinen direkten Zugriff auf die Zwischenablage. Bitte verwende stattdessen Tastaturkürzel oder die Bearbeiten-Funktion deines Browsers."
 
+#: wp-includes/class-wp-customize-control.php:1149
+msgid "While you can crop images to your liking after clicking <strong>Add new image</strong>, your theme recommends a header width of <strong>%s</strong> pixels."
+msgstr "Nachdem du <strong>Bild hinzufügen</strong> angeklickt hast, kannst du Bilder nach deinen Vorstellungen zuschneiden. Dein Theme empfiehlt jedoch eine Header-Breite von <strong>%s</strong> Pixeln."
+
 #: wp-comments-post.php:139
 msgid "<strong>ERROR</strong>: The comment could not be saved. Please try again later."
 msgstr "<strong>FEHLER</strong>: Der Kommentar konnte nicht gespeichert werden. Bitte versuche es später noch einmal."
@@ -875,10 +879,6 @@ msgstr "Widgets sind eigenständige Inhaltsabschnitte. Widgets können in vorges
 #: wp-includes/class-wp-customize-control.php:1147
 msgid "While you can crop images to your liking after clicking <strong>Add new image</strong>, your theme recommends a header size of <strong>%s &times; %s</strong> pixels."
 msgstr "Nachdem du <strong>Bild hinzufügen</strong> angeklickt hast, kannst du Bilder nach deinem Geschmack zuschneiden. Dein Theme empfiehlt jedoch eine Header-Größe von <strong>%s &times; %s</strong> Pixeln."
-
-#: wp-includes/class-wp-customize-control.php:1149
-msgid "While you can crop images to your liking after clicking <strong>Add new image</strong>, your theme recommends a header width of <strong>%s</strong> pixels."
-msgstr "Nachdem du <strong>Bild hinzufügen</strong> angeklickt hast, kannst du Bilder nach deinem Geschmack zuschneiden. Dein Theme empfiehlt jedoch eine Header-Breite von <strong>%s</strong> Pixeln."
 
 #: wp-includes/class-wp-customize-control.php:1151
 msgid "While you can crop images to your liking after clicking <strong>Add new image</strong>, your theme recommends a header height of <strong>%s</strong> pixels."
@@ -4898,7 +4898,7 @@ msgid "Invalid Taxonomy"
 msgstr "Ungültige Taxonomie"
 
 #: wp-includes/taxonomy.php:1318 wp-includes/taxonomy.php:3382
-#: wp-includes/taxonomy.php:4351
+#: wp-includes/taxonomy.php:4347
 msgid "Empty Term"
 msgstr "Leerer Ausdruck"
 
@@ -4921,7 +4921,7 @@ msgstr "Der Begriff konnte nicht in die Datenbank eingefügt werden"
 msgid "The slug &#8220;%s&#8221; is already in use by another term"
 msgstr "Die Titelform &#8220;%s&#8221; wird bereits verwendet"
 
-#: wp-includes/taxonomy.php:4554
+#: wp-includes/taxonomy.php:4550
 msgid "Invalid object ID"
 msgstr "Ungültige Objekt-ID"
 
@@ -5592,7 +5592,7 @@ msgstr "Nicht genehmigt"
 msgid "Duplicate comment detected; it looks as though you&#8217;ve already said that!"
 msgstr "Doppelter Kommentar wurde entdeckt. Es sieht stark danach aus, dass du das schon einmal gesagt hast!"
 
-#: wp-includes/comment.php:2368
+#: wp-includes/comment.php:2375
 msgid "Could not update comment status"
 msgstr "Der Kommentarstatus konnte nicht aktualisiert werden"
 
@@ -5915,7 +5915,7 @@ msgstr "<strong>Fehler:</strong> Bitte gib deine E-Mail-Adresse ein."
 msgid "<strong>ERROR</strong>: The email address isn&#8217;t correct."
 msgstr "<strong>Fehler:</strong> Die E-Mail-Adresse ist ungültig."
 
-#: wp-includes/wp-db.php:2835
+#: wp-includes/wp-db.php:2991
 msgid "<strong>ERROR</strong>: WordPress %1$s requires MySQL %2$s or higher"
 msgstr "<strong>Fehler:</strong> WordPress %1$s benötigt mindestens MySQL %2$s"
 
