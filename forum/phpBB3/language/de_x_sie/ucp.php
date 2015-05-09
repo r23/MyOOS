@@ -304,7 +304,7 @@ $lang = array_merge($lang, array(
 	'GRAVATAR_AVATAR_SIZE_EXPLAIN'	=> 'Geben Sie die Breite und die Höhe des Avatars an. Sie können die Felder auch leer lassen, um eine automatische Erkennung zu versuchen.',
 
 	'HIDE_ONLINE'				=> 'Verberge meinen Online-Status',
-	'HIDE_ONLINE_EXPLAIN'		=> 'Wenn Sie diese Einstellung ändern, wird Sie erst bei Ihrem nächsten Besuch des Boards aktiv.',
+	'HIDE_ONLINE_EXPLAIN'		=> 'Wenn Sie diese Einstellung ändern, wird sie erst bei Ihrem nächsten Besuch des Boards aktiv.',
 	'HOLD_NEW_MESSAGES'			=> 'Akzeptiere keine neuen Nachrichten (Neue Nachrichten werden zurückgehalten, bis ausreichend Speicherplatz vorhanden ist)',
 	'HOLD_NEW_MESSAGES_SHORT'	=> 'Neue Nachrichten werden zurückgehalten',
 

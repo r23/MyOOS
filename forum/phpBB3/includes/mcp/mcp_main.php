@@ -226,6 +226,31 @@ class mcp_main
 			break;
 
 			default:
+				if ($quickmod)
+				{
+					switch ($action)
+					{
+						case 'lock':
+						case 'unlock':
+						case 'make_announce':
+						case 'make_sticky':
+						case 'make_global':
+						case 'make_normal':
+						case 'make_onindex':
+						case 'move':
+						case 'fork':
+						case 'delete_topic':
+							trigger_error('TOPIC_NOT_EXIST');
+						break;
+
+						case 'lock_post':
+						case 'unlock_post':
+						case 'delete_post':
+							trigger_error('POST_NOT_EXIST');
+						break;
+					}
+				}
+
 				trigger_error('NO_MODE', E_USER_ERROR);
 			break;
 		}
@@ -1276,6 +1301,7 @@ function mcp_fork_topic($topic_ids)
 
 					$db->sql_query('INSERT INTO ' . POLL_OPTIONS_TABLE . ' ' . $db->sql_build_array('INSERT', $sql_ary));
 				}
+				$db->sql_freeresult($result);
 			}
 
 			$sql = 'SELECT *

@@ -2,7 +2,7 @@ Subject: Benachrichtigung über neues Thema — „{FORUM_NAME}“
 
 Hallo {USERNAME},
 
-du erhältst diese Benachrichtigung, weil du das Forum „{FORUM_NAME}“ auf „{SITENAME}“ abonniert hast. Seit deinem letzten Besuch wurde in diesem Forum ein neues Thema<!-- IF AUTHOR_NAME --> von {AUTHOR_NAME}<!-- ENDIF --> erstellt: „{TOPIC_TITLE}“. Du erhältst keine weitere Benachrichtigung, bis du das Forum besucht hast.
+du erhältst diese Benachrichtigung, weil du das Forum „{FORUM_NAME}“ auf „{SITENAME}“ abonniert hast. Seit deinem letzten Besuch wurde in diesem Forum ein neues Thema<!-- IF AUTHOR_NAME !== '' --> von {AUTHOR_NAME}<!-- ENDIF --> erstellt: „{TOPIC_TITLE}“. Du erhältst keine weitere Benachrichtigung, bis du das Forum besucht hast.
 
 Du kannst dir das Forum ansehen, wenn du folgenden Link aufrufst:
 {U_FORUM}
