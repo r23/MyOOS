@@ -2,8 +2,8 @@
 
 Contributors: Braekling
 Requires at least: 4.0
-Tested up to: 4.1.1
-Stable tag: 0.9.9.18
+Tested up to: 4.2.2
+Stable tag: 0.10.0.7
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6046779
 Tags: statistics, stats, analytics, piwik, wpmu
 
@@ -49,7 +49,7 @@ See section "Installation".
 * Graphs powered by [jqPlot](http://www.jqplot.com/) (GPL 2.0 and MIT) and  and [jQuery Sparklines](http://omnipotent.net/jquery.sparkline/) (New BSD License).
 * Metabox support inspired by [Heiko Rabe's metabox demo plugin](http://www.code-styling.de/english/how-to-use-wordpress-metaboxes-at-own-plugins).
 * Translation credits see plugin settings
-* Donations: Marco L., Rolf W., Tobias U., Lars K., Donna F., Kevin D., Ramos S., Thomas M., John C., Andreas G., Ben M., Myra R. I., Carlos U. R.-S., Oleg I., M. N., Daniel K., James L., Jochen K., the Piwik team itself, and all people flattering this.
+* Donations: Marco L., Rolf W., Tobias U., Lars K., Donna F., Kevin D., Ramos S., Thomas M., John C., Andreas G., Ben M., Myra R. I., Carlos U. R.-S., Oleg I., M. N., Daniel K., James L., Jochen K., Cyril P., Thomas K., the Piwik team itself, and all people flattering this.
 * All users who send me mails containing criticism, commendation, feature requests and bug reports - you help me to make WP-Piwik much better!
 
 Thank you all!
@@ -60,11 +60,17 @@ Thank you all!
 
 To use this plugin you will need your own Piwik instance. If you do not already have a Piwik setup, you have two simple options: use either [Self-hosted](http://piwik.org/) or [Cloud-hosted](http://piwik.org/hosting/). 
 
-As soon as Piwik works, you'll be able to configure WP-Piwik: The Piwik URL is the same URL you use to access your Piwik, e.g. for the demo site: http://demo.piwik.org. The auth token is some kind of secret password, which allows WP-Piwik to get the necessary data from Piwik. To get your auth token, log in to Piwik, click at your user name (top right) and click at "API" (left sidebar menu). E.g., on (this demo site)[http://demo.piwik.org/index.php?module=API&action=listAllAPI&idSite=7&period=day&date=yesterday] you can see the auth token "anonymous".
+As soon as Piwik works, you'll be able to configure WP-Piwik: The Piwik URL is the same URL you use to access your Piwik, e.g. for the demo site: http://demo.piwik.org. The auth token is some kind of secret password, which allows WP-Piwik to get the necessary data from Piwik. To get your auth token, log in to Piwik, click at your user name (top right) and click at "API" (left sidebar menu).
 
-= How to reset/remove all WP-Piwik settings without uninstalling? =
+= Can I contribute to WP-Piwik as translator? =
 
-Login to your admin dashboard and open http://YOUR_BLOG_URL/wp-admin/options-general.php?page=wp-piwik/wp-piwik.php&tab=support&mode=resetconfirmed&full=1
+You like to contribute to WP-Piwik translations? Please use the [Transifex translation community](https://www.transifex.com/projects/p/wp-piwik/).
+
+Of course, I will add missing languages if requested, and I will also upload the existing language files of older WP-Piwik releases.
+
+If you can't (or don not want to) use transifex, you can also translate languages/wp-piwik.pot delivered with WP-Piwik.
+
+Thank you very much! :-)
 
 = Tracking does not work on HostGator! / The test script shows an empty response. =
 
@@ -75,12 +81,8 @@ Try to enable the "avoid mod_security" option (WP-Piwik settings, Tracking tab) 
 See [this support thread](http://wordpress.org/support/topic/plugin-wp-piwik-https-ssl-support?replies=3).
 
 = Overview shortcode shows no unique visitors using a yearly range. =
+
 See [Piwik FAQ](http://piwik.org/faq/how-to/#faq_113).
-
-= Can I also access some Piwik values using a PHP call? =
-
-Yes, you can access also available shortcodes using PHP, too. See this example:
-echo $GLOBALS['wp_piwik']->shortcode(array('module' => 'post', 'range' => 'last300', 'key' => 'sum_daily_nb_uniq_visitors'));
 
 == Installation ==
 
@@ -121,9 +123,39 @@ Add WP-Piwik to your /wp-content/plugins folder and enable it as [Network Plugin
 
 == Upgrade Notice ==
 
-Please update Piwik if not done yet (Piwik 2.7 or higher is recommended). 
+This is a full refactored version of WP-Piwik. Please check your settings after updating and make sure everything is working as expected. If you want to upgrade from 0.8.x to 0.10.x, please install 0.9.9.18 first: https://downloads.wordpress.org/plugin/wp-piwik.0.9.9.18.zip
 
 == Changelog ==
+
+= 0.10.0.7 =
+* Bugfix: Opt-out shortcode output fix
+* Bugfix: Opt-out shortcode will also work in "pro" and "php" mode
+* Bugfix: Sitebrowser link (settings page, support) fixed
+* Bugfix: Removed test script errors and notices
+* Bugfix: Keep sure the revion ID is stored and avoid re-installing the plugin again and again
+* Bugfix: http/pro - after configuration the settings page had to be reloaded once to start working
+* Typo fixes
+ 
+= 0.10.0.6 =
+* Bugfix: Option storage bug if WP-Piwik is used as single site plugin on blog networks
+* Bugfix: WP-Piwik will work without Piwik superuser access, again
+* Bugfix: Choosing the site without auto config works again
+
+= 0.10.0.5 =
+* Bugfix: In some cases the update message did not disappear -> fixed
+* Important change: If you want to upgrade from 0.8.x to 0.10.x, please install 0.9.9.18 first: https://downloads.wordpress.org/plugin/wp-piwik.0.9.9.18.zip
+
+= 0.10.0.4 =
+* Bugfix: Settings link in admin notices fixed
+* Bugfix: Shortcode result will appear where expected
+* Bugfix: 0.9.9.18 settings will be kept (if WP-Piwik was not reconfigured after updating to 0.10.0.3, yet)
+* Feature: If Piwik returns an error instead of a tracking code, this error will be visible
+
+= 0.10.0.3 =
+* Public beta of WP-Piwik 1.0
+* Full refactored code
+* Feature: Limit referral cookie lifetime
+* Feature: Enable content tracking
 
 = 0.9.9.18 =
 * Improvement: Define additional file extensions for tracking downloads

@@ -8,7 +8,7 @@ Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://antispambee.com
 License: GPLv2 or later
-Version: 2.6.6
+Version: 2.6.7
 */
 
 /*
@@ -362,13 +362,6 @@ class Antispam_Bee {
 				'dashboard_count' 	=> 0,
 
 				/* Filter */
-				'country_code' 		=> 0,
-				'country_black'		=> '',
-				'country_white'		=> '',
-
-				'translate_api' 	=> 0,
-				'translate_lang'	=> '',
-
 				'dnsbl_check'		=> 0,
 				'bbcode_check'		=> 1,
 
@@ -391,10 +384,8 @@ class Antispam_Bee {
 				'empty'		=> 'Empty Data',
 				'server'	=> 'Fake IP',
 				'localdb'	=> 'Local DB Spam',
-				'country'	=> 'Country Check',
 				'dnsbl'		=> 'DNSBL Spam',
 				'bbcode'	=> 'BBCode',
-				'lang'		=> 'Comment Language',
 				'regexp'	=> 'RegExp'
 			)
 		);
@@ -1334,20 +1325,6 @@ class Antispam_Bee {
 				'reason' => 'dnsbl'
 			);
 		}
-
-		/* Country Code prüfen */
-		if ( $options['country_code'] && self::_is_country_spam($ip) ) {
-			return array(
-				'reason' => 'country'
-			);
-		}
-
-		/* Translate API */
-		if ( $options['translate_api'] && self::_is_lang_spam($body) ) {
-			return array(
-				'reason' => 'lang'
-			);
-		}
 	}
 
 
@@ -1458,20 +1435,6 @@ class Antispam_Bee {
 		if ( $options['dnsbl_check'] && self::_is_dnsbl_spam($ip) ) {
 			return array(
 				'reason' => 'dnsbl'
-			);
-		}
-
-		/* Country Code prüfen */
-		if ( $options['country_code'] && self::_is_country_spam($ip) ) {
-			return array(
-				'reason' => 'country'
-			);
-		}
-
-		/* Translate API */
-		if ( $options['translate_api'] && self::_is_lang_spam($body) ) {
-			return array(
-				'reason' => 'lang'
 			);
 		}
 	}
@@ -1683,75 +1646,6 @@ class Antispam_Bee {
 
 
 	/**
-	* Prüfung auf erlaubten Ländercodes
-	*
-	* @since   0.1
-	* @change  2.5.1
-	*
-	* @param   string	$ip  IP-Adresse
-	* @return  boolean       TRUE bei unerwünschten Ländercodes
-	*/
-
-	private static function _is_country_spam($ip)
-	{
-		/* Optionen */
-		$options = self::get_options();
-
-		/* White & Black */
-		$white = preg_split(
-			'/ /',
-			$options['country_white'],
-			-1,
-			PREG_SPLIT_NO_EMPTY
-		);
-		$black = preg_split(
-			'/ /',
-			$options['country_black'],
-			-1,
-			PREG_SPLIT_NO_EMPTY
-		);
-
-		/* Leere Listen? */
-		if ( empty($white) && empty($black) ) {
-			return false;
-		}
-
-		/* IP abfragen */
-		$response = wp_safe_remote_request(
-			esc_url_raw(
-				sprintf(
-					'https://geoip.maxmind.com/a?l=%s&i=%s',
-					strrev('1Lbn0ZsL08e1'),
-					self::_anonymize_ip($ip)
-				),
-				'https'
-			)
-		);
-
-		/* Fehler? */
-		if ( is_wp_error($response) ) {
-			return false;
-		}
-
-		/* Land auslesen */
-		$country = wp_remote_retrieve_body($response);
-
-		/* Kein Land? */
-		if ( empty($country) ) {
-			return false;
-		}
-
-		/* Blacklist */
-		if ( !empty($black) ) {
-			return ( in_array($country, $black) ? true : false );
-		}
-
-		/* Whitelist */
-		return ( in_array($country, $white) ? false : true );
-	}
-
-
-	/**
 	* Prüfung auf DNSBL Spam
 	*
 	* @since   2.4.5
@@ -1887,69 +1781,6 @@ class Antispam_Bee {
 
 		return false;
 	}
-
-
-	/**
-    * Prüfung auf unerwünschte Sprachen
-    *
-    * @since   2.0
-    * @change  2.6.6
-    *
-    * @param   string   $content  Inhalt des Kommentars
-    * @return  boolean            TRUE bei Spam
-    */
-
-    private static function _is_lang_spam($comment_content)
-    {
-        /* User defined language */
-        $allowed_lang = self::get_option('translate_lang');
-
-        /* Make comment text plain */
-        $comment_text = wp_strip_all_tags($comment_content);
-
-        /* Skip if empty values */
-        if ( empty($allowed_lang) OR empty($comment_text) ) {
-            return false;
-        }
-
-        /* Trim comment text */
-        if ( ! $query_text = wp_trim_words($comment_text, 10, '') ) {
-            return false;
-        }
-
-        /* Start request */
-        $response = wp_safe_remote_request(
-            add_query_arg(
-                array(
-                    'q'   => rawurlencode($query_text),
-                    'key' => base64_decode( strrev('rl1NTlGNDFnNrZlQI5WLnhUcDJ0SZBlTZlWb6NUVu9FR5NVY6lUQ') )
-                ),
-                'https://www.googleapis.com' . '/language/translate/v2/detect'
-            )
-        );
-
-        /* Skip on error */
-        if ( is_wp_error($response) OR wp_remote_retrieve_response_code($response) !== 200 ) {
-            return false;
-        }
-
-        /* Get JSON from content */
-        if ( ! $json = wp_remote_retrieve_body($response) ) {
-            return false;
-        }
-
-        /* Decode JSON */
-        if ( ! $obj = json_decode($json, true) ) {
-            return false;
-        }
-
-        /* Get detected language */
-        if ( ! $detected_lang = @$obj['data']['detections'][0][0]['language'] ) {
-            return false;
-        }
-
-        return ( $detected_lang != $allowed_lang );
-    }
 
 
 	/**

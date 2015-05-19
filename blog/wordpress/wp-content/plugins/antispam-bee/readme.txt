@@ -3,7 +3,7 @@ Contributors: sergej.mueller
 Tags: comment, spam, antispam, comments, trackback, protection, prevention
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZAQUT9RLPW8QN
 Requires at least: 3.8
-Tested up to: 4.1.1
+Tested up to: 4.2.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -104,11 +104,21 @@ Fragen rund ums Plugin werden gern per E-Mail beantwortet. Beachtet auch die [Gu
 
 == Changelog ==
 
+= 2.6.7 =
+
+* **Deutsch**
+    * Entfernung der Funktionen *Kommentare nur in einer Sprache zulassen* und *Bestimmte Länder blockieren bzw. erlauben* aus finanziellen Gründen
+    * [Weitere Informationen zum Hintergrund](https://plus.google.com/u/0/+SergejMüller/posts/ZyquhoYjUyF)
+
+* **English**
+    * Removal of functions *Block comments from specific countries* and *Allow comments only in certain language* for financial reasons
+
+
 = 2.6.6 =
 
 * **Deutsch**
     * (Testweise) Umstellung auf die offizielle Google Translation API
-    * [Weitere Informationen zum Hintergrund der Umstellung auf Google+](https://plus.google.com/u/0/+SergejMüller/posts/ZyquhoYjUyF)
+    * [Weitere Informationen zum Hintergrund](https://plus.google.com/u/0/+SergejMüller/posts/ZyquhoYjUyF)
     * *Release-Zeitaufwand (Development & QA): 2,5 Stunden*
 
 * **English**

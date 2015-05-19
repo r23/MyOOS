@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-05-02 22:22:49+0000\n"
+"PO-Revision-Date: 2015-05-17 18:19:04+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -126,6 +126,10 @@ msgstr[1] "%1$s Antworten zu %2$s"
 msgid "Your theme supports one menu. Select which menu you would like to use."
 msgstr "Dein Theme unterstützt ein Menü. Wähle aus, welches Menü genutzt werden soll."
 
+#: wp-includes/user.php:153
+msgid "<strong>ERROR</strong>: The password you entered for the username <strong>%1$s</strong> is incorrect. <a href=\"%2$s\">Lost your password?</a>"
+msgstr "<strong>FEHLER</strong>: Das Passwort, das du für den Benutzernamen <strong>%1$s</strong> eingegeben hast, stimmt nicht. <a href=\"%2$s\">Hast du dein Passwort vergessen?</a> "
+
 #: wp-includes/taxonomy.php:4169
 msgid "Could not split shared term."
 msgstr "Der gemeinsam genutzte Begriff konnte nicht aufgeteilt werden."
@@ -155,10 +159,6 @@ msgstr "Zu diesem Elternteil gibt es bereits einen Begriff mit dieser Bezeichnun
 #: wp-includes/script-loader.php:400
 msgid "Site Preview"
 msgstr "Vorschau der Website"
-
-#: wp-includes/user.php:153
-msgid "<strong>ERROR</strong>: The password you entered for the username <strong>%1$s</strong> is incorrect. <a href=\"%2$s\">Lost your password?</a>"
-msgstr "<strong>FEHLER</strong>: Das Passwort, dass du für den Benutzernamen <strong>%1$s</strong> eingegeben hast, stimmt nicht. <a href=\"%2$s\">Hast du dein Passwort vergessen?</a> "
 
 #: wp-includes/user.php:137
 msgid "<strong>ERROR</strong>: Invalid username. <a href=\"%s\">Lost your password?</a>"

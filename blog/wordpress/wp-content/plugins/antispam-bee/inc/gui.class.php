@@ -65,14 +65,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 
 			'bbcode_check'		=> (int)(!empty($_POST['ab_bbcode_check'])),
 			'gravatar_check'	=> (int)(!empty($_POST['ab_gravatar_check'])),
-			'dnsbl_check'		=> (int)(!empty($_POST['ab_dnsbl_check'])),
-
-			'country_code' 		=> (int)(!empty($_POST['ab_country_code'])),
-			'country_black'		=> sanitize_text_field(self::get_key($_POST, 'ab_country_black')),
-			'country_white'		=> sanitize_text_field(self::get_key($_POST, 'ab_country_white')),
-
-			'translate_api' 	=> (int)(!empty($_POST['ab_translate_api'])),
-			'translate_lang'	=> sanitize_text_field(self::get_key($_POST, 'ab_translate_lang'))
+			'dnsbl_check'		=> (int)(!empty($_POST['ab_dnsbl_check']))
 		);
 
 		/* Keine Tagmenge eingetragen? */
@@ -80,45 +73,10 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 			$options['cronjob_enable'] = 0;
 		}
 
-
-		/* Translate API */
-		if ( !empty($options['translate_lang']) ) {
-			if ( !preg_match('/^(de|en|fr|it|es)$/', $options['translate_lang']) ) {
-				$options['translate_lang'] = '';
-			}
-		}
-		if ( empty($options['translate_lang']) ) {
-			$options['translate_api'] = 0;
-		}
-
 		/* Liste der Spamgründe */
 		if ( empty($options['reasons_enable']) ) {
 			$options['ignore_reasons'] = array();
 		}
-
-		/* Blacklist reinigen */
-		if ( !empty($options['country_black']) ) {
-			$options['country_black'] = preg_replace(
-				'/[^A-Z ]/',
-				'',
-				strtoupper($options['country_black'])
-			);
-		}
-
-		/* Whitelist reinigen */
-		if ( !empty($options['country_white']) ) {
-			$options['country_white'] = preg_replace(
-				'/[^A-Z ]/',
-				'',
-				strtoupper($options['country_white'])
-			);
-		}
-
-		/* Leere Listen? */
-		if ( empty($options['country_black']) && empty($options['country_white']) ) {
-			$options['country_code'] = 0;
-		}
-
 
 		/* Cron stoppen? */
 		if ( $options['cronjob_enable'] && !self::get_option('cronjob_enable') ) {
@@ -271,50 +229,6 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 									<?php esc_html_e('Use a public antispam database', 'antispam_bee') ?>
 									<span><?php _e('Matching the ip address with <a href="https://dnsbl.tornevall.org" target="_blank">Tornevall</a>', 'antispam_bee') ?></span>
 								</label>
-							</li>
-
-							<li>
-								<input type="checkbox" name="ab_country_code" id="ab_country_code" value="1" <?php checked($options['country_code'], 1) ?> />
-								<label for="ab_country_code">
-									<?php esc_html_e('Block comments from specific countries', 'antispam_bee') ?>
-									<span><?php esc_html_e('Filtering the requests depending on country', 'antispam_bee') ?></span>
-								</label>
-
-								<ul>
-									<li>
-										<input type="text" name="ab_country_black" id="ab_country_black" value="<?php echo esc_attr($options['country_black']); ?>" class="ab-medium-field code" />
-										<label for="ab_country_black">
-											Blacklist <a href="http://www.iso.org/iso/country_names_and_code_elements" target="_blank">ISO Codes</a>
-										</label>
-									</li>
-									<li>
-										<input type="text" name="ab_country_white" id="ab_country_white" value="<?php echo esc_attr($options['country_white']); ?>" class="ab-medium-field code" />
-										<label for="ab_country_white">
-											Whitelist <a href="http://www.iso.org/iso/country_names_and_code_elements" target="_blank">ISO Codes</a>
-										</label>
-									</li>
-								</ul>
-							</li>
-
-							<li>
-								<input type="checkbox" name="ab_translate_api" id="ab_translate_api" value="1" <?php checked($options['translate_api'], 1) ?> />
-								<label for="ab_translate_api">
-									<?php esc_html_e('Allow comments only in certain language', 'antispam_bee') ?>
-									<span><?php esc_html_e('Detection and approval in specified language', 'antispam_bee') ?></span>
-								</label>
-
-								<ul>
-									<li>
-										<select name="ab_translate_lang">
-											<?php foreach( array('de' => 'German', 'en' => 'English', 'fr' => 'French', 'it' => 'Italian', 'es' => 'Spanish') as $k => $v ) { ?>
-												<option <?php selected($options['translate_lang'], $k); ?> value="<?php echo esc_attr($k) ?>"><?php esc_html_e($v, 'antispam_bee') ?></option>
-											<?php } ?>
-										</select>
-										<label for="ab_translate_lang">
-											<?php esc_html_e('Language', 'antispam_bee') ?>
-										</label>
-									</li>
-								</ul>
 							</li>
 						</ul>
 					</div>
