@@ -205,7 +205,7 @@
           if ($get_result['restrict_to_products'] || $get_result['restrict_to_categories']) {
             for ($i=0; $i<count($oOrder->products); $i++) {
               if ($get_result['restrict_to_products']) {
-                $pr_ids = explode("[,]", $get_result['restrict_to_products']);
+                $pr_ids = preg_split("/[,]/", $get_result['restrict_to_products']);
                 for ($ii = 0; $ii < count($pr_ids); $ii++) {
                   if ($pr_ids[$ii] == oos_get_product_id($oOrder->products[$i]['id'])) {
                     if ($get_result['coupon_type'] == 'P') {
@@ -218,10 +218,10 @@
                   }
                 }
               } else {
-                $cat_ids = explode("[,]", $get_result['restrict_to_categories']);
+                $cat_ids = preg_split("/[,]/", $get_result['restrict_to_categories']);
                 for ($i=0; $i<count($oOrder->products); $i++) {
                   $my_path = oos_get_product_path(oos_get_product_id($oOrder->products[$i]['id']));
-                  $sub_cat_ids = explode("[_]", $my_path);
+                  $sub_cat_ids = preg_split("/[_]/", $my_path);
                   for ($iii = 0; $iii < count($sub_cat_ids); $iii++) {
                     for ($ii = 0; $ii < count($cat_ids); $ii++) {
                       if ($sub_cat_ids[$iii] == $cat_ids[$ii]) {
@@ -289,13 +289,13 @@
           $valid_product = FALSE;
 
           if ($get_result['restrict_to_products']) {
-            $pr_ids = explode("[,]", $get_result['restrict_to_products']);
+            $pr_ids = preg_split("/[,]/", $get_result['restrict_to_products']);
             for ($p = 0; $p < count($pr_ids); $p++) {
               if ($pr_ids[$p] == $t_prid) $valid_product = TRUE;
             }
           }
           if ($get_result['restrict_to_categories']) {
-            $cat_ids = explode("[,]", $get_result['restrict_to_categories']);
+            $cat_ids = preg_split("/[,]/", $get_result['restrict_to_categories']);
             for ($c = 0; $c < count($cat_ids); $c++) {
 
               $products_to_categoriestable = $oostable['products_to_categories'];
@@ -456,7 +456,7 @@
      $get_result = $coupon_get->fields;
      $in_cat = TRUE;
      if ($get_result['restrict_to_categories']) {
-       $cat_ids = explode("[,]", $get_result['restrict_to_categories']);
+       $cat_ids = preg_split("/[,]/", $get_result['restrict_to_categories']);
        $in_cat=false;
        for ($i = 0; $i < count($cat_ids); $i++) {
          if (is_array($this->contents)) {
@@ -476,7 +476,7 @@
      $in_cart = TRUE;
      if ($get_result['restrict_to_products']) {
 
-       $pr_ids = explode("[,]", $get_result['restrict_to_products']);
+       $pr_ids = preg_split("/[,]/", $get_result['restrict_to_products']);
 
        $in_cart=false;
        $products_array = $_SESSION['cart']->get_products();

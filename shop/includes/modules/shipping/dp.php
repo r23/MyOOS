@@ -78,7 +78,7 @@
 
       for ($i=1; $i<=$this->num_dp; $i++) {
         $countries_table = constant('MODULE_SHIPPING_DP_COUNTRIES_' . $i);
-        $country_zones = explode("[,]", $countries_table);
+		$country_zones = preg_split("/[,]/", $countries_table);
         if (in_array($dest_country, $country_zones)) {
           $dest_zone = $i;
           break;

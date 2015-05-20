@@ -104,7 +104,7 @@
 
       for ($j=1; $j<=$this->num_chp; $j++) {
         $countries_table = constant('MODULE_SHIPPING_CHP_COUNTRIES_' . $j);
-        $country_zones = explode("[,]", $countries_table);
+        $country_zones = preg_split("/[,]/", $countries_table);
         if (in_array($dest_country, $country_zones)) {
           $dest_zone = $j;
           break;
@@ -122,7 +122,7 @@
         $methods = array();
 
         if ($chp_cost_eco != '') {
-          $chp_table_eco = explode("[:,]" , $chp_cost_eco);
+          $chp_table_eco = preg_split("/[:,]/" , $chp_cost_eco);
 
           for ($i=0; $i<count($chp_table_eco); $i+=2) {
             if ($shipping_weight <= $chp_table_eco[$i]) {
@@ -170,7 +170,7 @@
         }
 
         if ($chp_cost_urg != '') {
-          $chp_table_urg = explode("[:,]" , $chp_cost_urg);
+          $chp_table_urg = preg_split("/[:,]/" , $chp_cost_urg);
 
           for ($i=0; $i<count($chp_table_urg); $i+=2) {
             if ($shipping_weight <= $chp_table_urg[$i]) {

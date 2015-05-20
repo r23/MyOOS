@@ -103,7 +103,7 @@
 
       for ($j=1; $j<=$this->num_fedexeu; $j++) {
         $countries_table = constant('MODULE_SHIPPING_FEDEXEU_COUNTRIES_' . $j);
-        $country_zones = explode("[,]", $countries_table);
+        $country_zones = preg_split("/[,]/", $countries_table);
         if (in_array($dest_country, $country_zones)) {
           $dest_zone = $j;
           break;
@@ -144,7 +144,7 @@
         }
 
         if ($fedexeu_cost_box != '') {
-          $fedexeu_table_box = explode("[:,]" , $fedexeu_cost_box);
+          $fedexeu_table_box = preg_split("/[:,]/" , $fedexeu_cost_box);
           if ( ($shipping_weight > 10) and ($shipping_weight <= 20) ) {
             $shipping_box = number_format((($shipping_weight - 10)* 2 + 0.5), 0) * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_' .$j) + $fedexeu_table_box[count ($fedexeu_table_box)-1];
           } elseif ( ($shipping_weight > 20) and ($shipping_weight <= 40) ) {
