@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-05-17 18:19:04+0000\n"
+"PO-Revision-Date: 2015-06-10 12:25:41+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -50,7 +50,7 @@ msgstr "https://codex.wordpress.org/"
 #. translators: 1: the id argument, 2: sidebar name, 3: recommended id value
 #: wp-includes/widgets.php:823
 msgid "No %1$s was set in the arguments array for the \"%2$s\" sidebar. Defaulting to \"%3$s\". Manually set the %1$s to \"%3$s\" to silence this notice and keep existing sidebar content."
-msgstr "Es wurde kein %1$s im Parameter-Array definiert für die Seitenleiste \"%2$s\". Standardwert ist \"%3$s\". Um diesen Hinweis zu entfernen und den existierenden Seitenleisteninhalt zu behalten, kann %1$s manuell auf \"%3$s\" gestellt werden."
+msgstr "Es wurde kein %1$s im Parameter-Array definiert für die Seitenleiste „%2$s“. Standardwert ist „%3$s“. Um diesen Hinweis zu entfernen und den existierenden Seitenleisteninhalt zu behalten, kann %1$s manuell auf „%3$s“ gestellt werden."
 
 #: wp-includes/js/tinymce/wp-mce-help.php:108
 msgid "Macintosh uses Ctrl + Alt + letter."
@@ -701,17 +701,17 @@ msgstr "Ausgewähltes in den Papierkorb werfen"
 msgid "Untrash Selected"
 msgstr "Ausgewähltes wiederherstellen"
 
-#: wp-includes/media-template.php:434 wp-includes/media-template.php:537
-msgid "Untrash"
-msgstr "Wiederherstellen"
-
 #: wp-includes/media.php:3032
 msgid ""
 "You are about to trash these items.\n"
 "  'Cancel' to stop, 'OK' to delete."
 msgstr ""
 "Du bist dabei, diese Elemente in den Papierkorb zu werfen.\n"
-"\"Abbrechen\" oder zum Löschen \"OK\" wählen."
+"„Abbrechen“ oder zum Löschen „OK“ wählen."
+
+#: wp-includes/media-template.php:434 wp-includes/media-template.php:537
+msgid "Untrash"
+msgstr "Wiederherstellen"
 
 #: wp-includes/class-wp-customize-panel.php:301
 msgid "Press return or enter to open this panel"
@@ -739,6 +739,14 @@ msgstr "(ohne Bezeichnung)"
 #: wp-includes/taxonomy.php:4479
 msgid "%s: %l."
 msgstr "%s: %l."
+
+#: wp-includes/media.php:3031
+msgid ""
+"You are about to permanently delete these items.\n"
+"  'Cancel' to stop, 'OK' to delete."
+msgstr ""
+"Du bist dabei, diese Elemente unwiderruflich zu löschen.\n"
+"Wähle „Abbrechen“ oder „OK“ zum Löschen."
 
 #: wp-includes/media.php:1499
 msgid "Bitrate"
@@ -823,14 +831,6 @@ msgstr "Alle Daten"
 #: wp-includes/media.php:3027
 msgid "Unattached"
 msgstr "Nicht angehangen"
-
-#: wp-includes/media.php:3031
-msgid ""
-"You are about to permanently delete these items.\n"
-"  'Cancel' to stop, 'OK' to delete."
-msgstr ""
-"Du bist dabei, diese Elemente unwiderruflich zu löschen.\n"
-"Wähle \"Abbrechen\" oder \"OK\" zum Löschen."
 
 #: wp-includes/media.php:3040
 msgid "Filter by date"
@@ -1954,7 +1954,7 @@ msgstr "Bedaure, dieser Schlüssel ist abgelaufen. Bitte erneut versuchen."
 
 #: wp-includes/class-wp-theme.php:220
 msgid "The theme directory \"%s\" does not exist."
-msgstr "Das Theme-Verzeichnis \"%s\" existiert nicht. "
+msgstr "Das Theme-Verzeichnis „%s“ existiert nicht. "
 
 #: wp-includes/query.php:724
 msgid "In <code>%1$s</code>, use the <code>%2$s</code> method, not the <code>%3$s</code> function. See %4$s."
@@ -2036,7 +2036,7 @@ msgstr "Vollbild einschalten"
 
 #: wp-includes/script-loader.php:328
 msgid "Captions/Subtitles"
-msgstr "Bildunterschriften / Untertitel"
+msgstr "Untertitel"
 
 #: wp-includes/formatting.php:2565
 msgid "%s week"
@@ -2044,17 +2044,17 @@ msgid_plural "%s weeks"
 msgstr[0] "%s Woche"
 msgstr[1] "%s Wochen"
 
-#: wp-includes/formatting.php:2570
-msgid "%s month"
-msgid_plural "%s months"
-msgstr[0] "%s Monat"
-msgstr[1] "%s Monate"
-
 #: wp-includes/formatting.php:2575
 msgid "%s year"
 msgid_plural "%s years"
 msgstr[0] "%s Jahr"
-msgstr[1] "%s Jahre"
+msgstr[1] "%s Jahren"
+
+#: wp-includes/formatting.php:2570
+msgid "%s month"
+msgid_plural "%s months"
+msgstr[0] "%s Monat"
+msgstr[1] "%s Monaten"
 
 #: wp-includes/nav-menu.php:668 wp-includes/nav-menu.php:731
 #: wp-includes/post-template.php:1388 wp-includes/post-template.php:1478
@@ -2724,7 +2724,7 @@ msgstr "Private Beiträge können leider nicht oben gehalten werden."
 
 #: wp-includes/class-wp-customize-manager.php:1414
 msgid "You can edit your menu content on the Menus screen in the Appearance section."
-msgstr "Du kannst deine Menüinhalte unter \"Menüs\" im Bereich Design bearbeiten."
+msgstr "Du kannst deine Menüinhalte unter „Menüs“ im Bereich Design bearbeiten."
 
 #: wp-includes/class-wp-customize-control.php:1012
 #: wp-includes/class-wp-customize-manager.php:1306
@@ -2942,7 +2942,7 @@ msgstr "Das Stylesheet ist nicht lesbar."
 
 #: wp-includes/class-wp-theme.php:279 wp-includes/class-wp-theme.php:283
 msgid "The \"%s\" theme is not a valid parent theme."
-msgstr "Das \"%s\" Theme ist kein gültiges Elterntheme."
+msgstr "Das „%s“ Theme ist kein gültiges Elterntheme."
 
 #: wp-includes/class-wp-customize-manager.php:1411
 msgid "Navigation"
@@ -3103,18 +3103,6 @@ msgctxt "monthly archives date format"
 msgid "F Y"
 msgstr "F Y"
 
-#. translators: opening curly double quote
-#: wp-includes/formatting.php:62 wp-includes/formatting.php:3927
-msgctxt "opening curly double quote"
-msgid "&#8220;"
-msgstr "&#8220;"
-
-#. translators: closing curly double quote
-#: wp-includes/formatting.php:64
-msgctxt "closing curly double quote"
-msgid "&#8221;"
-msgstr "&#8221;"
-
 #. translators: apostrophe, for example in 'cause or can't
 #: wp-includes/formatting.php:67
 msgctxt "apostrophe"
@@ -3145,6 +3133,18 @@ msgctxt "prime"
 msgid "&#8242;"
 msgstr "&#8242;"
 
+#. translators: opening curly double quote
+#: wp-includes/formatting.php:62 wp-includes/formatting.php:3927
+msgctxt "opening curly double quote"
+msgid "&#8220;"
+msgstr "&#8222;"
+
+#. translators: closing curly double quote
+#: wp-includes/formatting.php:64
+msgctxt "closing curly double quote"
+msgid "&#8221;"
+msgstr "&#8220;"
+
 #: wp-signup.php:127
 msgid "Allow search engines to index this site."
 msgstr "Suchmaschinen dürfen diese Website indexieren."
@@ -3163,15 +3163,15 @@ msgstr "Du kannst die Datei <code>wp-config.php</code> durch das Webinterface er
 
 #: wp-activate.php:98
 msgid "Your site at <a href=\"%1$s\">%2$s</a> is active. You may now log in to your site using your chosen username of &#8220;%3$s&#8221;. Please check your email inbox at %4$s for your password and login instructions. If you do not receive an email, please check your junk or spam folder. If you still do not receive an email within an hour, you can <a href=\"%5$s\">reset your password</a>."
-msgstr "Deine Seite <a href=\"%1$s\">%2$s</a> ist aktiviert. Du kannst dich nun mit dem gewählten Benutzername &#8220;%3$s&#8221; einloggen. Bitte überprüfe deinen E-Mail-Posteingang %4$s für dein Passwort und die Login-Instruktionen. Falls du keine E-Mail erhalten hast, überprüfe bitte auch deinen Spam-Ordner. Solltest du nicht innerhalb von einer Stunde eine E-Mail erhalten haben, kannst du dein <a href=\"%5$s\">Passwort zurücksetzen</a> lassen."
-
-#: wp-activate.php:96
-msgid "Your account has been activated. You may now <a href=\"%1$s\">log in</a> to the site using your chosen username of &#8220;%2$s&#8221;. Please check your email inbox at %3$s for your password and login instructions. If you do not receive an email, please check your junk or spam folder. If you still do not receive an email within an hour, you can <a href=\"%4$s\">reset your password</a>."
-msgstr "Dein Benutzerkonto wurde aktiviert. Du kannst dich nun mit dem gewählten Benutzername &#8220;%2$s&#8221; <a href=\"%1$s\">anmelden</a>. Bitte überprüfe deinen E-Mail-Posteingang %3$s für dein Passwort und die Login-Instruktionen. Falls du keine E-Mail erhalten hast, überprüfe bitte auch deinen Spam-Ordner. Solltest du nicht innerhalb von einer Stunde eine E-Mail erhalten haben, kannst du dein <a href=\"%4$s\">Passwort zurücksetzen</a>."
+msgstr "Deine Seite <a href=\"%1$s\">%2$s</a> ist aktiviert. Du kannst dich nun mit dem gewählten Benutzername &#8222;%3$s&#8220; einloggen. Bitte überprüfe deinen E-Mail-Posteingang %4$s für dein Passwort und die Login-Instruktionen. Falls du keine E-Mail erhalten hast, überprüfe bitte auch deinen Spam-Ordner. Solltest du nicht innerhalb von einer Stunde eine E-Mail erhalten haben, kannst du dein <a href=\"%5$s\">Passwort zurücksetzen</a> lassen."
 
 #: wp-signup.php:376
 msgid "<a href=\"http://%1$s\">http://%2$s</a> is your new site. <a href=\"%3$s\">Log in</a> as &#8220;%4$s&#8221; using your existing password."
-msgstr "<a href=\"http://%1$s\">http://%2$s</a> ist deine neue Website. <a href=\"%3$s\">Melde dich an </a> als &#8220;%4$s&#8221; und verwende dein existierendes Passwort."
+msgstr "<a href=\"http://%1$s\">http://%2$s</a> ist deine neue Website. <a href=\"%3$s\">Melde dich an </a> als &#8222;%4$s&#8220; und verwende dein existierendes Passwort."
+
+#: wp-activate.php:96
+msgid "Your account has been activated. You may now <a href=\"%1$s\">log in</a> to the site using your chosen username of &#8220;%2$s&#8221;. Please check your email inbox at %3$s for your password and login instructions. If you do not receive an email, please check your junk or spam folder. If you still do not receive an email within an hour, you can <a href=\"%4$s\">reset your password</a>."
+msgstr "Dein Benutzerkonto wurde aktiviert. Du kannst dich nun mit dem gewählten Benutzername &#8222;%2$s&#8220; <a href=\"%1$s\">anmelden</a>. Bitte überprüfe deinen E-Mail-Posteingang %3$s für dein Passwort und die Login-Instruktionen. Falls du keine E-Mail erhalten hast, überprüfe bitte auch deinen Spam-Ordner. Solltest du nicht innerhalb von einer Stunde eine E-Mail erhalten haben, kannst du dein <a href=\"%4$s\">Passwort zurücksetzen</a>."
 
 #: wp-mail.php:255
 msgid "Mission complete. Message <strong>%s</strong> deleted."
@@ -3200,13 +3200,13 @@ msgstr[1] "%s Kommentare warten auf Moderation"
 msgid "%s exceeds the maximum upload size for the multi-file uploader when used in your browser."
 msgstr "%s übersteigt das Upload-Limit für den Mehrdateien-Uploader."
 
-#: wp-includes/script-loader.php:268
-msgid "&#8220;%s&#8221; has failed to upload."
-msgstr "&#8220;%s&#8221; konnte nicht hochgeladen werden."
-
 #: wp-includes/script-loader.php:259
 msgid "Please try uploading this file with the %1$sbrowser uploader%2$s."
 msgstr "Bitte versuche diese Datei mit dem %1$sBrowser-Uploader%2$s hochzuladen."
+
+#: wp-includes/script-loader.php:268
+msgid "&#8220;%s&#8221; has failed to upload."
+msgstr "&#8222;%s&#8220; konnte nicht hochgeladen werden."
 
 #: wp-includes/class-wp-editor.php:1272
 msgid "Blockquote (Alt + Shift + Q)"
@@ -3720,7 +3720,7 @@ msgstr "Es sind nur Kleinbuchstaben und Ziffern erlaubt."
 
 #: wp-includes/query.php:2429
 msgid "\"caller_get_posts\" is deprecated. Use \"ignore_sticky_posts\" instead."
-msgstr "\"caller_get_posts\" ist veraltet. Bitte benutze stattdessen \"ignore_sticky_posts\"."
+msgstr "„caller_get_posts“ ist veraltet. Bitte benutze stattdessen „ignore_sticky_posts“."
 
 #: wp-includes/taxonomy.php:91
 msgid "Link Category"
@@ -4297,7 +4297,7 @@ msgstr "Es wurden noch keine Menüs erstellt. <a href=\"%s\">Erstelle welche</a>
 msgid ""
 "You are about to permanently delete this menu. \n"
 " 'Cancel' to stop, 'OK' to delete."
-msgstr "Du bist dabei dieses Menü endgültig zu löschen. Klicke auf \"Abbrechen\", um den Vorgang zu beenden, oder auf \"OK\", um das Menü zu löschen."
+msgstr "Du bist dabei dieses Menü endgültig zu löschen. Klicke auf „Abbrechen“, um den Vorgang zu beenden, oder auf „OK“, um das Menü zu löschen."
 
 #: wp-includes/link-template.php:3361
 msgid "This is the short link."
@@ -4379,13 +4379,33 @@ msgstr "Erstelle eine <em>weitere</em> %s Website in Sekunden"
 msgid "Gimme a site!"
 msgstr "Gib mir eine Website!"
 
-#: wp-signup.php:268
-msgid "Sites you are already a member of:"
-msgstr "Du bist bereits Mitglied der folgenden Webseiten:"
+#: wp-includes/pluggable.php:1577
+msgid "A new comment on the post \"%s\" is waiting for your approval"
+msgstr "Ein neuer Kommentar zum Beitrag „%s“ wartet auf deine Freigabe"
+
+#: wp-includes/pluggable.php:1569
+msgid "A new pingback on the post \"%s\" is waiting for your approval"
+msgstr "Ein neuer Pingback zum Beitrag „%s“ wartet auf deine Freigabe"
+
+#: wp-includes/pluggable.php:1561
+msgid "A new trackback on the post \"%s\" is waiting for your approval"
+msgstr "Ein neuer Trackback zum Beitrag „%s“ wartet auf deine Freigabe"
+
+#: wp-includes/pluggable.php:1436
+msgid "New pingback on your post \"%s\""
+msgstr "Neuer Pingback zum Beitrag „%s“"
+
+#: wp-includes/pluggable.php:1446
+msgid "New comment on your post \"%s\""
+msgstr "Neuer Kommentar zum Beitrag „%s“"
 
 #: wp-includes/pluggable.php:1426
 msgid "New trackback on your post \"%s\""
-msgstr "Neuer Trackback zum Beitrag \"%s\""
+msgstr "Neuer Trackback zum Beitrag „%s“"
+
+#: wp-signup.php:268
+msgid "Sites you are already a member of:"
+msgstr "Du bist bereits Mitglied der folgenden Webseiten:"
 
 #: wp-includes/ms-load.php:408
 msgid "If you are the owner of this network please check that MySQL is running properly and all tables are error free."
@@ -4394,26 +4414,6 @@ msgstr "Wenn du der Besitzer dieses Netzwerks bist, überprüfe bitte, dass MySQ
 #: wp-includes/ms-load.php:407
 msgid "If your site does not display, please contact the owner of this network."
 msgstr "Wenn deine Seite nicht angezeigt wird, nimm bitte Kontakt zum Betreiber des Netzwerks auf."
-
-#: wp-includes/pluggable.php:1446
-msgid "New comment on your post \"%s\""
-msgstr "Neuer Kommentar zum Beitrag \"%s\""
-
-#: wp-includes/pluggable.php:1436
-msgid "New pingback on your post \"%s\""
-msgstr "Neuer Pingback zum Beitrag \"%s\""
-
-#: wp-includes/pluggable.php:1561
-msgid "A new trackback on the post \"%s\" is waiting for your approval"
-msgstr "Ein neuer Trackback zum Beitrag \"%s\" wartet auf deine Freigabe"
-
-#: wp-includes/pluggable.php:1569
-msgid "A new pingback on the post \"%s\" is waiting for your approval"
-msgstr "Ein neuer Pingback zum Beitrag \"%s\" wartet auf deine Freigabe"
-
-#: wp-includes/pluggable.php:1577
-msgid "A new comment on the post \"%s\" is waiting for your approval"
-msgstr "Ein neuer Kommentar zum Beitrag \"%s\" wartet auf deine Freigabe"
 
 #: wp-includes/default-widgets.php:1316
 msgid "Taxonomy:"
@@ -4917,10 +4917,6 @@ msgstr "Für diesen Begriff ist ein Name erforderlich"
 msgid "Could not insert term into the database"
 msgstr "Der Begriff konnte nicht in die Datenbank eingefügt werden"
 
-#: wp-includes/taxonomy.php:3464
-msgid "The slug &#8220;%s&#8221; is already in use by another term"
-msgstr "Die Titelform &#8220;%s&#8221; wird bereits verwendet"
-
 #: wp-includes/taxonomy.php:4550
 msgid "Invalid object ID"
 msgstr "Ungültige Objekt-ID"
@@ -5185,11 +5181,6 @@ msgstr "&raquo;"
 msgid "%1$s %2$s Feed"
 msgstr "%1$s %2$s Feed"
 
-#. translators: 1: blog name, 2: separator(raquo), 3: search phrase
-#: wp-includes/general-template.php:2269
-msgid "%1$s %2$s Search Results for &#8220;%3$s&#8221; Feed"
-msgstr "%1$s %2$s Suchergebnisse für &#8220;%3$s&#8221; Feed"
-
 #: wp-includes/general-template.php:2642
 msgid "&laquo; Previous"
 msgstr "&laquo; Zurück"
@@ -5252,41 +5243,6 @@ msgstr "Freitag"
 #: wp-includes/locale.php:126
 msgid "Saturday"
 msgstr "Samstag"
-
-#. translators: one-letter abbreviation of the weekday
-#: wp-includes/locale.php:107
-msgid "S_Sunday_initial"
-msgstr "S_Sonntag_initial"
-
-#. translators: one-letter abbreviation of the weekday
-#: wp-includes/locale.php:108
-msgid "M_Monday_initial"
-msgstr "M_Montag_initial"
-
-#. translators: one-letter abbreviation of the weekday
-#: wp-includes/locale.php:109
-msgid "T_Tuesday_initial"
-msgstr "D_Dienstag_initial"
-
-#. translators: one-letter abbreviation of the weekday
-#: wp-includes/locale.php:110
-msgid "W_Wednesday_initial"
-msgstr "M_Mittwoch_initial"
-
-#. translators: one-letter abbreviation of the weekday
-#: wp-includes/locale.php:111
-msgid "T_Thursday_initial"
-msgstr "D_Donnerstag_initial"
-
-#. translators: one-letter abbreviation of the weekday
-#: wp-includes/locale.php:112
-msgid "F_Friday_initial"
-msgstr "F_Freitag_initial"
-
-#. translators: one-letter abbreviation of the weekday
-#: wp-includes/locale.php:113
-msgid "S_Saturday_initial"
-msgstr "S_Samstag_initial"
 
 #. translators: three-letter abbreviation of the weekday
 #: wp-includes/locale.php:120
@@ -5383,66 +5339,6 @@ msgstr "November"
 msgid "December"
 msgstr "Dezember"
 
-#. translators: three-letter abbreviation of the month
-#: wp-includes/locale.php:144
-msgid "Jan_January_abbreviation"
-msgstr "Jan_Januar_abbreviation"
-
-#. translators: three-letter abbreviation of the month
-#: wp-includes/locale.php:145
-msgid "Feb_February_abbreviation"
-msgstr "Feb_Februar_abbreviation"
-
-#. translators: three-letter abbreviation of the month
-#: wp-includes/locale.php:146
-msgid "Mar_March_abbreviation"
-msgstr "Mrz_März_abbreviation"
-
-#. translators: three-letter abbreviation of the month
-#: wp-includes/locale.php:147
-msgid "Apr_April_abbreviation"
-msgstr "Apr_April_abbreviation"
-
-#. translators: three-letter abbreviation of the month
-#: wp-includes/locale.php:148
-msgid "May_May_abbreviation"
-msgstr "Mai_Mai_abbreviation"
-
-#. translators: three-letter abbreviation of the month
-#: wp-includes/locale.php:149
-msgid "Jun_June_abbreviation"
-msgstr "Jun_Juni_abbreviation"
-
-#. translators: three-letter abbreviation of the month
-#: wp-includes/locale.php:150
-msgid "Jul_July_abbreviation"
-msgstr "Jul_Juli_abbreviation"
-
-#. translators: three-letter abbreviation of the month
-#: wp-includes/locale.php:151
-msgid "Aug_August_abbreviation"
-msgstr "Aug_August_abbreviation"
-
-#. translators: three-letter abbreviation of the month
-#: wp-includes/locale.php:152
-msgid "Sep_September_abbreviation"
-msgstr "Sep_September_abbreviation"
-
-#. translators: three-letter abbreviation of the month
-#: wp-includes/locale.php:153
-msgid "Oct_October_abbreviation"
-msgstr "Okt_Oktober_abbreviation"
-
-#. translators: three-letter abbreviation of the month
-#: wp-includes/locale.php:154
-msgid "Nov_November_abbreviation"
-msgstr "Nov_November_abbreviation"
-
-#. translators: three-letter abbreviation of the month
-#: wp-includes/locale.php:155
-msgid "Dec_December_abbreviation"
-msgstr "Dez_Dezember_abbreviation"
-
 #: wp-includes/locale.php:162
 msgid "am"
 msgstr "am"
@@ -5458,21 +5354,6 @@ msgstr "AM"
 #: wp-includes/locale.php:165
 msgid "PM"
 msgstr "PM"
-
-#. translators: 1: blog name, 2: post title
-#: wp-includes/pluggable.php:1455
-msgid "[%1$s] Comment: \"%2$s\""
-msgstr "[%1$s] Kommentar: \"%2$s\""
-
-#. translators: 1: blog name, 2: post title
-#: wp-includes/pluggable.php:1433
-msgid "[%1$s] Trackback: \"%2$s\""
-msgstr "[%1$s] Trackback: \"%2$s\""
-
-#. translators: 1: blog name, 2: post title
-#: wp-includes/pluggable.php:1443
-msgid "[%1$s] Pingback: \"%2$s\""
-msgstr "[%1$s] Pingback: \"%2$s\""
 
 #: wp-includes/pluggable.php:1465 wp-includes/pluggable.php:1591
 msgid "Delete it: %s"
@@ -5499,10 +5380,6 @@ msgid "Currently %s comment is waiting for approval. Please visit the moderation
 msgid_plural "Currently %s comments are waiting for approval. Please visit the moderation panel:"
 msgstr[0] "Zurzeit wartet %s Kommentar auf Freigabe. Bitte gehe zur Moderationsansicht:"
 msgstr[1] "Zurzeit warten %s Kommentare auf Freigabe. Bitte gehe zur Moderationsansicht:"
-
-#: wp-includes/pluggable.php:1598
-msgid "[%1$s] Please moderate: \"%2$s\""
-msgstr "[%1$s] Bitte moderiere: \"%2$s\""
 
 #: wp-includes/pluggable.php:1661
 msgid "Password Lost and Changed for user: %s"
@@ -6094,10 +5971,6 @@ msgstr "Ein Fehler ist aufgetreten – der Feed funktioniert zur Zeit nicht. Pro
 msgid "Merge table cells"
 msgstr "Zellen verbinden"
 
-#: wp-includes/js/tinymce/wp-mce-help.php:123
-msgid "Insert More Tag"
-msgstr "\"Weiterlesen\"-Link einfügen"
-
 #: wp-includes/ms-functions.php:531
 msgid "That email address has already been used. Please check your inbox for an activation email. It will become available in a couple of days if you do nothing."
 msgstr "Diese E-Mail-Adresse wurde bereits verwendet. Bitte schau in deinem Postfach nach der Aktivierungsmail. Falls du keine bekommen oder die Mail bereits gelöscht hast, kannst du dich in ein paar Tagen erneut mit dieser E-Mail-Adresse registrieren."
@@ -6313,6 +6186,137 @@ msgstr "Weiter"
 msgid "Crunching&hellip;"
 msgstr "Verarbeiten&#160;&hellip;"
 
+#. translators: 1: blog name, 2: post title
+#: wp-includes/pluggable.php:1443
+msgid "[%1$s] Pingback: \"%2$s\""
+msgstr "[%1$s] Pingback: „%2$s“"
+
+#: wp-includes/js/tinymce/wp-mce-help.php:123
+msgid "Insert More Tag"
+msgstr "„Weiterlesen“-Link einfügen"
+
+#: wp-includes/class-wp-theme.php:267
+msgid "The parent theme is missing. Please install the \"%s\" parent theme."
+msgstr "Das übergeordnete Theme fehlt. Bitte installiere das übergeordnete Theme „%s“, da du Child-Themes sonst nicht nutzen kannst."
+
+#: wp-includes/pluggable.php:1598
+msgid "[%1$s] Please moderate: \"%2$s\""
+msgstr "[%1$s] Bitte moderiere: „%2$s“"
+
+#. translators: 1: blog name, 2: post title
+#: wp-includes/pluggable.php:1433
+msgid "[%1$s] Trackback: \"%2$s\""
+msgstr "[%1$s] Trackback: „%2$s“"
+
+#. translators: 1: blog name, 2: post title
+#: wp-includes/pluggable.php:1455
+msgid "[%1$s] Comment: \"%2$s\""
+msgstr "[%1$s] Kommentar: „%2$s“"
+
+#. translators: 1: blog name, 2: separator(raquo), 3: search phrase
+#: wp-includes/general-template.php:2269
+msgid "%1$s %2$s Search Results for &#8220;%3$s&#8221; Feed"
+msgstr "%1$s %2$s Suchergebnisse für &#8222;%3$s&#8220; Feed"
+
+#: wp-includes/taxonomy.php:3464
+msgid "The slug &#8220;%s&#8221; is already in use by another term"
+msgstr "Die Titelform &#8222;%s&#8220; wird bereits verwendet"
+
+#. translators: one-letter abbreviation of the weekday
+#: wp-includes/locale.php:113
+msgid "S_Saturday_initial"
+msgstr "S"
+
+#. translators: one-letter abbreviation of the weekday
+#: wp-includes/locale.php:112
+msgid "F_Friday_initial"
+msgstr "F"
+
+#. translators: one-letter abbreviation of the weekday
+#: wp-includes/locale.php:111
+msgid "T_Thursday_initial"
+msgstr "D"
+
+#. translators: one-letter abbreviation of the weekday
+#: wp-includes/locale.php:110
+msgid "W_Wednesday_initial"
+msgstr "M"
+
+#. translators: one-letter abbreviation of the weekday
+#: wp-includes/locale.php:109
+msgid "T_Tuesday_initial"
+msgstr "D"
+
+#. translators: one-letter abbreviation of the weekday
+#: wp-includes/locale.php:108
+msgid "M_Monday_initial"
+msgstr "M"
+
+#. translators: one-letter abbreviation of the weekday
+#: wp-includes/locale.php:107
+msgid "S_Sunday_initial"
+msgstr "S"
+
+#. translators: three-letter abbreviation of the month
+#: wp-includes/locale.php:144
+msgid "Jan_January_abbreviation"
+msgstr "Jan"
+
+#. translators: three-letter abbreviation of the month
+#: wp-includes/locale.php:145
+msgid "Feb_February_abbreviation"
+msgstr "Feb"
+
+#. translators: three-letter abbreviation of the month
+#: wp-includes/locale.php:146
+msgid "Mar_March_abbreviation"
+msgstr "Mrz"
+
+#. translators: three-letter abbreviation of the month
+#: wp-includes/locale.php:147
+msgid "Apr_April_abbreviation"
+msgstr "Apr"
+
+#. translators: three-letter abbreviation of the month
+#: wp-includes/locale.php:148
+msgid "May_May_abbreviation"
+msgstr "Mai"
+
+#. translators: three-letter abbreviation of the month
+#: wp-includes/locale.php:149
+msgid "Jun_June_abbreviation"
+msgstr "Jun"
+
+#. translators: three-letter abbreviation of the month
+#: wp-includes/locale.php:150
+msgid "Jul_July_abbreviation"
+msgstr "Jul"
+
+#. translators: three-letter abbreviation of the month
+#: wp-includes/locale.php:151
+msgid "Aug_August_abbreviation"
+msgstr "Aug"
+
+#. translators: three-letter abbreviation of the month
+#: wp-includes/locale.php:152
+msgid "Sep_September_abbreviation"
+msgstr "Sep"
+
+#. translators: three-letter abbreviation of the month
+#: wp-includes/locale.php:153
+msgid "Oct_October_abbreviation"
+msgstr "Okt"
+
+#. translators: three-letter abbreviation of the month
+#: wp-includes/locale.php:154
+msgid "Nov_November_abbreviation"
+msgstr "Nov"
+
+#. translators: three-letter abbreviation of the month
+#: wp-includes/locale.php:155
+msgid "Dec_December_abbreviation"
+msgstr "Dez"
+
 #: wp-includes/script-loader.php:577
 msgid "Could not set that as the thumbnail image. Try a different attachment."
 msgstr "Das Bild konnte nicht als Vorschaubild gesetzt werden. Versuche es mit einem anderen."
@@ -6338,10 +6342,6 @@ msgstr "Spalte davor einfügen"
 #: wp-includes/class-wp-editor.php:930
 msgid "Insert column after"
 msgstr "Spalte danach einfügen"
-
-#: wp-includes/class-wp-theme.php:267
-msgid "The parent theme is missing. Please install the \"%s\" parent theme."
-msgstr "Das übergeordnete Theme fehlt. Bitte installiere das übergeordnete Theme \"%s\", da du Child-Themes sonst nicht nutzen kannst."
 
 #: wp-includes/ms-load.php:425
 msgid "What do I do now?"
@@ -6760,17 +6760,9 @@ msgstr "E-Mail: %s"
 msgid "Number of comments to show:"
 msgstr "Wieviele Kommentare sollen angezeigt werden:"
 
-#: wp-includes/deprecated.php:3222
-msgid "File &#8220;%s&#8221; doesn&#8217;t exist?"
-msgstr "Existiert die Datei &#8220;%s&#8221; nicht?"
-
 #: wp-includes/deprecated.php:3225
 msgid "The GD image library is not installed."
 msgstr "Die GD Image Library ist nicht installiert."
-
-#: wp-includes/deprecated.php:3232
-msgid "File &#8220;%s&#8221; is not an image."
-msgstr "Die Datei &#8220;%s&#8221; ist kein Bild."
 
 #: wp-includes/media.php:2997
 msgid "Add Media"
@@ -6802,12 +6794,6 @@ msgstr "Mittelgroß"
 #: wp-includes/media-template.php:930
 msgid "Size"
 msgstr "Größe"
-
-#: wp-includes/class-wp-editor.php:942 wp-includes/media-template.php:396
-#: wp-includes/media-template.php:575 wp-includes/media-template.php:833
-#: wp-includes/media-template.php:898
-msgid "Caption"
-msgstr "Beschriftung"
 
 #: wp-includes/class-wp-editor.php:943 wp-includes/media-template.php:608
 msgid "Alignment"
@@ -7163,6 +7149,20 @@ msgstr "Verwerfen"
 #: wp-includes/admin-bar.php:758 wp-includes/admin-bar.php:769
 msgid "Header"
 msgstr "Header"
+
+#: wp-includes/class-wp-editor.php:942 wp-includes/media-template.php:396
+#: wp-includes/media-template.php:575 wp-includes/media-template.php:833
+#: wp-includes/media-template.php:898
+msgid "Caption"
+msgstr "Bildunterschrift"
+
+#: wp-includes/deprecated.php:3222
+msgid "File &#8220;%s&#8221; doesn&#8217;t exist?"
+msgstr "Existiert die Datei &#8222;%s&#8220; nicht?"
+
+#: wp-includes/deprecated.php:3232
+msgid "File &#8220;%s&#8221; is not an image."
+msgstr "Die Datei &#8222;%s&#8220; ist kein Bild."
 
 #: wp-includes/media-template.php:690 wp-includes/media-template.php:765
 #: wp-includes/media-template.php:939 wp-includes/media.php:2761
