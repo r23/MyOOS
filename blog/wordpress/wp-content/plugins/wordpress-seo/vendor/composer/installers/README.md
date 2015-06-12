@@ -36,7 +36,6 @@ is not needed to install packages with these frameworks:
 | Aimeos       | `aimeos-extension`
 | Asgard       | `asgard-module`<br>`asgard-theme`
 | AGL          | `agl-module`
-| Bonefish     | `bonefish-package`
 | AnnotateCms  | `annotatecms-module`<br>`annotatecms-component`<br>`annotatecms-service`
 | Bitrix       | `bitrix-module`<br>`bitrix-component`<br>`bitrix-theme`
 | CakePHP 2+   | **`cakephp-plugin`**
@@ -56,7 +55,6 @@ is not needed to install packages with these frameworks:
 | Hurad        | `hurad-plugin`<br>`hurad-theme`
 | Joomla       | `joomla-component`<br>`joomla-module`<br>`joomla-template`<br>`joomla-plugin`<br>`joomla-library`
 | Kirby        | **`kirby-plugin`**
-| KodiCMS      | `kodicms-plugin`<br>`kodicms-media`
 | Kohana       | **`kohana-module`**
 | Laravel      | `laravel-library`
 | Lithium      | **`lithium-library`<br>`lithium-source`**

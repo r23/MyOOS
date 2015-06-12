@@ -87,7 +87,7 @@ abstract class Widget {
 	 */
 	public function show() {
 		$response = self::$wpPiwik->request ( $this->apiID [$this->method] );
-		if (! empty ( $response ['result'] ) && $response ['result'] = 'error')
+		if (! empty ( $response ['result'] ) && $response ['result'] == 'error')
 			$this->out( '<strong>' . __ ( 'Piwik error', 'wp-piwik' ) . ':</strong> ' . htmlentities ( $response ['message'], ENT_QUOTES, 'utf-8' ) );
 		else {
 			if (isset ( $response [0] ['nb_uniq_visitors'] ))
@@ -148,7 +148,7 @@ abstract class Widget {
 	 * @param string $javaScript
 	 *        	array of javascript code to apply on body rows
 	 */
-	protected function table($thead, $tbody = array(), $tfoot = array(), $class = false, $javaScript = array()) {
+	protected function table($thead, $tbody = array(), $tfoot = array(), $class = false, $javaScript = array(), $classes = array()) {
 		$this->out( '<div class="table"><table class="widefat wp-piwik-table">' );
 		if ($this->isShortcode && $this->title) {
 			$colspan = !empty ( $tbody ) ? count( $tbody[0] ) : 2 ;
@@ -157,7 +157,7 @@ abstract class Widget {
 		if (! empty ( $thead ))
 			$this->tabHead ( $thead, $class );
 		if (! empty ( $tbody ))
-			$this->tabBody ( $tbody, $class, $javaScript );
+			$this->tabBody ( $tbody, $class, $javaScript, $classes );
 		else
 			$this->out( '<tr><td colspan="10">' . __ ( 'No data available.', 'wp-piwik' ) . '</td></tr>' );
 		if (! empty ( $tfoot ))
@@ -191,10 +191,10 @@ abstract class Widget {
 	 * @param unknown $javaScript
 	 *        	array of javascript code to apply (one item per row)
 	 */
-	private function tabBody($tbody, $class = false, $javaScript = array()) {
+	private function tabBody($tbody, $class = false, $javaScript = array(), $classes = array()) {
 		$this->out( '<tbody' . ($class ? ' class="' . $class . '"' : '') . '>' );
 		foreach ( $tbody as $key => $trow )
-			$this->tabRow ( $trow, isset( $javaScript [$key] ) ?$javaScript [$key] : '');
+			$this->tabRow ( $trow, isset( $javaScript [$key] ) ?$javaScript [$key] : '', isset ( $classes [$key] ) ?$classes [$key] : '');
 		$this->out( '</tbody>' );
 	}
 	
@@ -222,8 +222,8 @@ abstract class Widget {
 	 * @param string $javaScript
 	 *        	javascript code to apply
 	 */
-	private function tabRow($trow, $javaScript = '') {
-		$this->out( '<tr' . (! empty ( $javaScript ) ? ' onclick="' . $javaScript . '"' : '') . '>' );
+	private function tabRow($trow, $javaScript = '', $class = '') {
+		$this->out( '<tr' . (! empty ( $javaScript ) ? ' onclick="' . $javaScript . '"' : '') . (! empty ( $class ) ? ' class="' . $class . '"' : '') . '>' );
 		$count = 0;
 		foreach ( $trow as $tcell )
 			$this->out( '<td' . ($count ++ ? ' class="right"' : '') . '>' . $tcell . '</td>' );
@@ -352,8 +352,10 @@ abstract class Widget {
 		$this->out( '<div id="wp-piwik_stats_' . $this->getName () . '_graph" style="height:310px;width:100%"></div>' );
 		$this->out( '<script type="text/javascript">$plotBrowsers = $j.jqplot("wp-piwik_stats_' . $this->getName () . '_graph", [[' );
 		$list = '';
-		foreach ( $data as $dataSet )
+		foreach ( $data as $key => $dataSet ) {
 			$list .= '["' . $dataSet [0] . '", ' . $dataSet [1] . '],';
+			if ($key == 'Others') break;
+		}
 		$this->out( substr ( $list, 0, - 1 ) );
 		$this->out( ']], {seriesDefaults:{renderer:$j.jqplot.PieRenderer, rendererOptions:{sliceMargin:8}},legend:{show:true}});</script>' );
 	}

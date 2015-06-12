@@ -18,9 +18,17 @@ class Settings extends \WP_Piwik\Admin {
 			new \WP_Piwik\Admin\Sitebrowser(self::$wpPiwik);
 			return;
 		}
-		global $wp_roles;
-		if (isset ( $_POST ) && isset ( $_POST ['wp-piwik'] ))
+		if (isset($_GET['clear']) && $_GET['clear']) {
+			$this->clear($_GET['clear'] == 2);
+			self::$wpPiwik->resetRequest();
+			echo '<form method="post" action="?page='.$_GET['page'].'"><input type="submit" value="'.__('Reload', 'wp-piwik').'" /></form>';
+			return;
+		} elseif (isset ( $_POST ) && isset ( $_POST ['wp-piwik'] )) {
 			$this->showBox ( 'updated', 'yes', __ ( 'Changes saved.' ) );
+			self::$wpPiwik->resetRequest();
+			self::$wpPiwik->updateTrackingCode();
+		}
+		global $wp_roles;
 		?>
 <div id="plugin-options-wrap" class="widefat">
 	<?php 
@@ -28,7 +36,7 @@ class Settings extends \WP_Piwik\Admin {
 		if (isset($_GET['testscript']) && $_GET['testscript'])
 			$this->runTestscript();
 	?>
-	<form method="post">
+	<form method="post" action="?page=<?php echo $_GET['page']; ?>">
 		<input type="hidden" name="wp-piwik[revision]" value="<?php echo self::$settings->getGlobalOption('revision'); ?>" />
 		<?php wp_nonce_field('wp-piwik_settings'); ?>
 		<table class="wp-piwik-form">
@@ -36,12 +44,12 @@ class Settings extends \WP_Piwik\Admin {
 			<?php
 		$submitButton = '<tr><td colspan="2"><p class="submit"><input name="Submit" type="submit" class="button-primary" value="' . esc_attr__ ( 'Save Changes' ) . '" /></p></td></tr>';
 		printf ( '<tr><td colspan="2">%s</td></tr>', __ ( 'Thanks for using WP-Piwik!', 'wp-piwik' ) );
-		// $this->showDonation();
 		if (self::$wpPiwik->isConfigured ()) {
 			$piwikVersion = self::$wpPiwik->request ( 'global.getPiwikVersion' );
-			if (! empty ( $piwikVersion ) && ! is_array ( $piwikVersion ))
+			if (! empty ( $piwikVersion ) && ! is_array ( $piwikVersion )) {
 				$this->showText ( sprintf ( __ ( 'WP-Piwik %s is successfully connected to Piwik %s.', 'wp-piwik' ), self::$wpPiwik->getPluginVersion (), $piwikVersion ) . ' ' . (! self::$wpPiwik->isNetworkMode () ? sprintf ( __ ( 'You are running WordPress %s.', 'wp-piwik' ), get_bloginfo ( 'version' ) ) : sprintf ( __ ( 'You are running a WordPress %s blog network (WPMU). WP-Piwik will handle your sites as different websites.', 'wp-piwik' ), get_bloginfo ( 'version' ) )) );
-			else {
+				$this->showDonation();
+			} else {
 				$this->showBox ( 'error', 'no', sprintf ( __ ( 'WP-Piwik %s was not able to connect to Piwik using your configuration. Check the &raquo;Connect to Piwik&laquo; section below.', 'wp-piwik' ), self::$wpPiwik->getPluginVersion () ) );
 			}
 		} else
@@ -112,14 +120,12 @@ class Settings extends \WP_Piwik\Admin {
 					foreach ($piwikSiteList as $details)
 						$piwikSiteDetails[$details['idsite']] = $details;
 				unset($piwikSiteList);
-				if (($piwikSiteId == 'n/a'))
-					$piwikSiteDescription = 'n/a';
-				elseif (! self::$settings->getGlobalOption ( 'auto_site_config' ))
-					$piwikSiteDescription = __ ( 'Save settings to start estimation.', 'wp-piwik' );
-				else
+				if ( $piwikSiteId != 'n/a' && isset( $piwikSiteDetails ) && is_array( $piwikSiteDetails ) )
 					$piwikSiteDescription = $piwikSiteDetails [$piwikSiteId] ['name'] . ' (' . $piwikSiteDetails [$piwikSiteId] ['main_url'] . ')';
+				else 
+					$piwikSiteDescription = 'n/a';
 				echo '<tr class="wp-piwik-auto-option' . (! self::$settings->getGlobalOption ( 'auto_site_config' ) ? ' hidden' : '') . '"><th scope="row">' . __ ( 'Determined site', 'wp-piwik' ) . ':</th><td>' . $piwikSiteDescription . '</td></tr>';
-				if (is_array ( $piwikSiteDetails ))
+				if (isset ( $piwikSiteDetails ) && is_array ( $piwikSiteDetails ))
 					foreach ( $piwikSiteDetails as $key => $siteData )
 						$siteList [$siteData['idsite']] = $siteData ['name'] . ' (' . $siteData ['main_url'] . ')';
 					if (isset($siteList))
@@ -221,13 +227,13 @@ class Settings extends \WP_Piwik\Admin {
 		
 		$this->showCheckbox ( 'disable_cookies', __ ( 'Disable cookies', 'wp-piwik' ), __ ( 'Disable all tracking cookies for a visitor.', 'wp-piwik' ), $isNotGeneratedTracking, $fullGeneratedTrackingGroup );
 		
-		$this->showCheckbox ( 'limit_cookies', __ ( 'Limit cookie lifetime', 'wp-piwik' ), __ ( 'You can limit the cookie lifetime to avoid tracking your users over a longer period as necessary.', 'wp-piwik' ), $isNotGeneratedTracking, $fullGeneratedTrackingGroup, true, '$j(\'tr.wp-piwik-cookielifetime-option\').toggle(\'wp-piwik-hidden\');' );
-		
-		$this->showInput ( 'limit_cookies_visitor', __ ( 'Visitor timeout (seconds)', 'wp-piwik' ), false, $isNotGeneratedTracking || ! self::$settings->getGlobalOption ( 'limit_cookies' ), $fullGeneratedTrackingGroup.' wp-piwik-cookielifetime-option' );
+		$this->showCheckbox ( 'limit_cookies', __ ( 'Limit cookie lifetime', 'wp-piwik' ), __ ( 'You can limit the cookie lifetime to avoid tracking your users over a longer period as necessary.', 'wp-piwik' ), $isNotGeneratedTracking, $fullGeneratedTrackingGroup, true, '$j(\'tr.wp-piwik-cookielifetime-option\').toggleClass(\'wp-piwik-hidden\');' );
 
-		$this->showInput ( 'limit_cookies_session', __ ( 'Session timeout (seconds)', 'wp-piwik' ), false, $isNotGeneratedTracking || ! self::$settings->getGlobalOption ( 'limit_cookies' ), $fullGeneratedTrackingGroup . ' wp-piwik-cookielifetime-option' );
+		$this->showInput ( 'limit_cookies_visitor', __ ( 'Visitor timeout (seconds)', 'wp-piwik' ), false, $isNotGeneratedTracking || ! self::$settings->getGlobalOption ( 'limit_cookies' ), $fullGeneratedTrackingGroup.' wp-piwik-cookielifetime-option'. (self::$settings->getGlobalOption ( 'limit_cookies' )? '': ' wp-piwik-hidden') );
 
-		$this->showInput ( 'limit_cookies_referral', __ ( 'Referral timeout (seconds)', 'wp-piwik' ), false, $isNotGeneratedTracking || ! self::$settings->getGlobalOption ( 'limit_cookies' ), $fullGeneratedTrackingGroup . ' wp-piwik-cookielifetime-option' );
+		$this->showInput ( 'limit_cookies_session', __ ( 'Session timeout (seconds)', 'wp-piwik' ), false, $isNotGeneratedTracking || ! self::$settings->getGlobalOption ( 'limit_cookies' ), $fullGeneratedTrackingGroup .' wp-piwik-cookielifetime-option'. (self::$settings->getGlobalOption ( 'limit_cookies' )? '': ' wp-piwik-hidden') );
+
+		$this->showInput ( 'limit_cookies_referral', __ ( 'Referral timeout (seconds)', 'wp-piwik' ), false, $isNotGeneratedTracking || ! self::$settings->getGlobalOption ( 'limit_cookies' ), $fullGeneratedTrackingGroup .' wp-piwik-cookielifetime-option'. (self::$settings->getGlobalOption ( 'limit_cookies' )? '': ' wp-piwik-hidden') );
 		
 		$this->showCheckbox ( 'track_admin', __ ( 'Track admin pages', 'wp-piwik' ), __ ( 'Enable to track users on admin pages (remember to configure the tracking filter appropriately).', 'wp-piwik' ), $isNotTracking, $fullGeneratedTrackingGroup . ' wp-piwik-track-option-manually' );
 		
@@ -255,6 +261,17 @@ class Settings extends \WP_Piwik\Admin {
 		
 		$this->showCheckbox ( 'cache', __ ( 'Enable cache', 'wp-piwik' ), __ ( 'Cache API calls, which not contain today\'s values, for a week.', 'wp-piwik' ) );
 		
+		if (function_exists('curl_init') && ini_get('allow_url_fopen'))
+			$this->showSelect ( 'http_connection', __ ( 'HTTP connection via', 'wp-piwik' ), array (
+				'curl' => __ ( 'cURL', 'wp-piwik' ),
+				'fopen' => __ ( 'fopen', 'wp-piwik' )
+			), __('Choose whether WP-Piwik should use cURL or fopen to connect to Piwik in HTTP or Pro mode.', 'wp-piwik' ) );
+
+		$this->showSelect ( 'http_method', __ ( 'HTTP method', 'wp-piwik' ), array (
+				'post' => __ ( 'POST', 'wp-piwik' ),
+				'get' => __ ( 'GET', 'wp-piwik' )
+		), __('Choose whether WP-Piwik should use POST or GET in HTTP or Pro mode.', 'wp-piwik' ) );
+		
 		$this->showCheckbox ( 'disable_timelimit', __ ( 'Disable time limit', 'wp-piwik' ), __ ( 'Use set_time_limit(0) if stats page causes a time out.', 'wp-piwik' ) );
 		
 		$this->showInput ( 'connection_timeout', __ ( 'Connection timeout', 'wp-piwik' ), 'Define a connection timeout for all HTTP requests done by WP-Piwik in seconds.' );
@@ -269,15 +286,21 @@ class Settings extends \WP_Piwik\Admin {
 		
 		$this->showCheckbox ( 'track_datacfasync', __ ( 'Add data-cfasync=false', 'wp-piwik' ), __ ( 'Adds data-cfasync=false to the script tag, e.g., to ask Rocket Loader to ignore the script.' . ' ' . sprintf ( __ ( 'See %sCloudFlare Knowledge Base%s.', 'wp-piwik' ), '<a href="https://support.cloudflare.com/hc/en-us/articles/200169436-How-can-I-have-Rocket-Loader-ignore-my-script-s-in-Automatic-Mode-">', '</a>' ), 'wp-piwik' ) );
 		
-		$this->showInput ( 'track_cdnurl', __ ( 'CDN URL', 'wp-piwik' ), 'Enter URL if you want to load the tracking code via CDN.' );
+		$this->showInput ( 'track_cdnurl', __ ( 'CDN URL', 'wp-piwik' ).' http://', 'Enter URL if you want to load the tracking code via CDN.' );
 		
-		$this->showInput ( 'track_cdnurlssl', __ ( 'CDN URL (SSL)', 'wp-piwik' ), 'Enter URL if you want to load the tracking code via a separate SSL CDN.' );
+		$this->showInput ( 'track_cdnurlssl', __ ( 'CDN URL (SSL)', 'wp-piwik' ).' https://', 'Enter URL if you want to load the tracking code via a separate SSL CDN.' );
 		
 		$this->showSelect ( 'force_protocol', __ ( 'Force Piwik to use a specific protocol', 'wp-piwik' ), array (
 				'disabled' => __ ( 'Disabled (default)', 'wp-piwik' ),
 				'http' => __ ( 'http', 'wp-piwik' ),
 				'https' => __ ( 'https (SSL)', 'wp-piwik' ) 
 		), __ ( 'Choose if you want to explicitly force Piwik to use HTTP or HTTPS. Does not work with a CDN URL.', 'wp-piwik' ) );
+
+		$this->showSelect ( 'update_notice', __ ( 'Update notice', 'wp-piwik' ), array (
+				'enabled' => __ ( 'Show always if WP-Piwik is updated', 'wp-piwik' ),
+				'script' => __ ( 'Show only if WP-Piwik is updated and settings were changed', 'wp-piwik' ),
+				'disabled' => __ ( 'Disabled', 'wp-piwik' ) 
+		), __ ( 'Choose if you want to get an update notice if WP-Piwik is updated.', 'wp-piwik' ) );
 		
 		echo $submitButton;
 		?>
@@ -345,8 +368,9 @@ class Settings extends \WP_Piwik\Admin {
 	 * @param boolean $isReadonly set textarea to read only (default: false)
 	 * @param boolean $global set to false if the textarea shows a site-specific option (default: true)
 	 */
-	private function showTextarea($id, $name, $rows, $description, $isHidden, $groupName, $hideDescription = true, $onChange = '', $isReadonly = false, $global = true) {
-		printf ( '<tr class="' . $groupName . ($isHidden ? ' hidden' : '') . '"><th scope="row"><label for="%2$s">%s</label>:</th><td><textarea cols="80" rows="' . $rows . '" id="%s" name="wp-piwik[%2$s]" onchange="%s"' . ($isReadonly ? ' readonly="readonly"' : '') . '>' . ($global ? self::$settings->getGlobalOption ( $id ) : self::$settings->getOption ( $id )) . '</textarea> %s</td></tr>', $name, $id, $onChange, $this->getDescription ( $id, $description, $hideDescription ) );
+	private function showTextarea($id, $name, $rows, $description, $isHidden, $groupName, $hideDescription = true, $onChange = '', $isReadonly = false, $global = true) {		
+		printf ( 
+			'<tr class="' . $groupName . ($isHidden ? ' hidden' : '') . '"><th scope="row"><label for="%2$s">%s</label>:</th><td><textarea cols="80" rows="' . $rows . '" id="%s" name="wp-piwik[%2$s]" onchange="%s"' . ($isReadonly ? ' readonly="readonly"' : '') . '>%s</textarea> %s</td></tr>', $name, $id, $onChange, ($global ? self::$settings->getGlobalOption ( $id ) : self::$settings->getOption ( $id )), $this->getDescription ( $id, $description, $hideDescription ) );
 	}
 	
 	/**
@@ -541,8 +565,15 @@ class Settings extends \WP_Piwik\Admin {
 				echo ' <strong>'.(ini_get('allow_url_fopen')?'':__('not','wp-piwik')).' ';
 				_e('enabled','wp-piwik');
 			?></strong>.</li>
+			<li><?php echo (((function_exists('curl_init') && ini_get('allow_url_fopen') && self::$settings->getGlobalOption('http_connection') == 'curl') || (function_exists('curl_init') && !ini_get('allow_url_fopen')))?__('cURL', 'wp-piwik'):__('fopen', 'wp-piwik')).' ('.(self::$settings->getGlobalOption('http_method')=='post'?__('POST','wp-piwik'):__('GET','wp-piwik')).') '.__('is used.', 'wp-piwik'); ?></li>
 		</ol>
-		<p><a href="<?php echo admin_url( (self::$settings->checkNetworkActivation () ? 'network/settings' : 'options-general').'.php?page='.$_GET['page'].'&testscript=1' ); ?>">Run testscript</a>. <a href="<?php echo admin_url( 'options-general.php?page='.$_GET['page'].'&sitebrowser=1' ); ?>">Sitebrowser</a>.</p>
+		<p><?php _e('Tools', 'wp-piwik'); ?>:</p>
+		<ol>
+			<li><a href="<?php echo admin_url( (self::$settings->checkNetworkActivation () ? 'network/settings' : 'options-general').'.php?page='.$_GET['page'].'&testscript=1' ); ?>"><?php _e('Run testscript', 'wp-piwik'); ?></a></li>
+			<li><a href="<?php echo admin_url( (self::$settings->checkNetworkActivation () ? 'network/settings' : 'options-general').'.php?page='.$_GET['page'].'&sitebrowser=1' ); ?>"><?php _e('Sitebrowser', 'wp-piwik'); ?></a></li>
+			<li><a href="<?php echo admin_url( (self::$settings->checkNetworkActivation () ? 'network/settings' : 'options-general').'.php?page='.$_GET['page'].'&clear=1' ); ?>"><?php _e('Clear cache', 'wp-piwik'); ?></a></li>
+			<li><a onclick="return confirm('<?php _e('Are you sure you want to clear all settings?', 'wp-piwik'); ?>')" href="<?php echo admin_url( (self::$settings->checkNetworkActivation () ? 'network/settings' : 'options-general').'.php?page='.$_GET['page'].'&clear=2' ); ?>"><?php _e('Reset WP-Piwik', 'wp-piwik'); ?></a></li>
+		</ol>
 		<h3><?php _e('Latest support threads on WordPress.org', 'wp-piwik'); ?></h3><?php 
 		$supportThreads = $this->readRSSFeed('http://wordpress.org/support/rss/plugin/wp-piwik');
 		if (!empty($supportThreads)) {
@@ -587,12 +618,43 @@ class Settings extends \WP_Piwik\Admin {
 	}
 	
 	/**
+	 * Clear cache and reset settings
+	 *
+	 * @param boolean $clearSettings set to true to reset settings (default: false)
+	 */
+	private function clear($clearSettings = false) {
+		if ($clearSettings) {
+			self::$settings->resetSettings();
+			$this->showBox ( 'updated', 'yes', __ ( 'Settings cleared (except connection settings).' ) );
+		}
+		global $wpdb;		
+		if (self::$settings->checkNetworkActivation()) {
+			$aryBlogs = \WP_Piwik\Settings::getBlogList();
+			if (is_array($aryBlogs))
+				foreach ($aryBlogs as $aryBlog) {
+					switch_to_blog($aryBlog['blog_id']);
+					$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_wp-piwik_%'");
+					$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_timeout_wp-piwik_%'");
+					restore_current_blog();
+				}
+		} else {
+			$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_wp-piwik_%'");
+			$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_timeout_wp-piwik_%'");
+		}
+		$this->showBox ( 'updated', 'yes', __ ( 'Cache cleared.' ) );
+	}
+	
+	/**
 	 * Execute test script and display results
 	 */
 	private function runTestscript() { ?>
 		<div class="wp-piwik-debug">
 		<h2>Testscript Result</h2>
-		<?php if (self::$wpPiwik->isConfigured()) { ?>
+		<?php 
+			if (self::$wpPiwik->isConfigured()) { 
+				if (isset($_GET['testscript_id']) && $_GET['testscript_id']) 
+					switch_to_blog((int) $_GET['testscript_id']);
+		?>
 		<textarea cols="80" rows="10"><?php 
 			echo '`WP-Piwik '.self::$wpPiwik->getPluginVersion()."\nMode: ".self::$settings->getGlobalOption('piwik_mode')."\n\n";
 		?>Test 1/3: global.getPiwikVersion<?php 
@@ -613,10 +675,15 @@ class Settings extends \WP_Piwik\Admin {
 				'url' => get_bloginfo ( 'url' )
 			) );
 			echo "\n\n";  var_dump( self::$wpPiwik->request( $id ) ); echo "\n";
-			var_dump( self::$wpPiwik->request( $id, true ) ); echo "`";
+			var_dump( self::$wpPiwik->request( $id, true ) ); echo "\n";
+			echo "\n\n";  var_dump( self::$settings->getDebugData() ); echo "`";
 			$GLOBALS ['wp-piwik_debug'] = false;
 		?></textarea>
-		<?php } else echo '<p>Please configure WP-Piwik first.</p>'; ?>
+		<?php
+				if (isset($_GET['testscript_id']) && $_GET['testscript_id']) 
+					restore_current_blog();
+			} else echo '<p>Please configure WP-Piwik first.</p>'; 
+		?>
 		</div>	
 	<?php }
 	

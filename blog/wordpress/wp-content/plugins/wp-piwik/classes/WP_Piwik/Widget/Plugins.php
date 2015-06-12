@@ -14,7 +14,7 @@
 				'date'  => $timeSettings['date']
 			);
 			$this->title = $prefix.__('Plugins', 'wp-piwik').' ('.__($timeSettings['description'],'wp-piwik').')';
-			$this->method = 'UserSettings.getPlugin';
+			$this->method = 'DevicePlugins.getPlugin';
 		}
 		
 		public function show() {

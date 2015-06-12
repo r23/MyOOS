@@ -12,7 +12,7 @@ class WP_Piwik {
 	 *
 	 * @var Runtime environment variables
 	 */
-	private static $revisionId = 2015051501, $version = '0.10.0.7', $blog_id, $pluginBasename = NULL, $logger, $settings, $request;
+	private static $revisionId = 2015060801, $version = '1.0.2', $blog_id, $pluginBasename = NULL, $logger, $settings, $request;
 	
 	/**
 	 * Constructor class to configure and register all WP-Piwik components
@@ -26,7 +26,6 @@ class WP_Piwik {
 		$this->addFilters ();
 		$this->addActions ();
 		$this->addShortcodes ();
-		self::$settings->save ();
 	}
 	
 	/**
@@ -47,6 +46,7 @@ class WP_Piwik {
 			$this->updatePlugin ();
 		if ($this->isConfigSubmitted ())
 			$this->applySettings ();
+		self::$settings->save ();
 	}
 	
 	/**
@@ -212,15 +212,19 @@ class WP_Piwik {
 	private function updatePlugin() {
 		self::$logger->log ( 'Upgrade WP-Piwik to ' . self::$version );
 		$patches = glob ( dirname ( __FILE__ ) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'update' . DIRECTORY_SEPARATOR . '*.php' );
+		$isPatched = false;
 		if (is_array ( $patches )) {
-			sort ( $patches );
+			sort ( $patches );			
 			foreach ( $patches as $patch ) {
 				$patchVersion = ( int ) pathinfo ( $patch, PATHINFO_FILENAME );
-				if ($patchVersion && self::$settings->getGlobalOption ( 'revision' ) < $patchVersion)
+				if ($patchVersion && self::$settings->getGlobalOption ( 'revision' ) < $patchVersion) {
 					self::includeFile ( 'update' . DIRECTORY_SEPARATOR . $patchVersion );
+					$isPatched = true;
+				}
 			}
 		}
-		$this->addNotice ( 'update', sprintf ( __ ( '%s updated to %s.', 'wp-piwik' ), self::$settings->getGlobalOption ( 'plugin_display_name' ), self::$version ), __ ( 'Please validate your configuration', 'wp-piwik' ) );
+		if ((self::$settings->getGlobalOption('update_notice') == 'enabled') || ((self::$settings->getGlobalOption('update_notice') == 'script') && $isPatched))
+			$this->addNotice ( 'update', sprintf ( __ ( '%s updated to %s.', 'wp-piwik' ), self::$settings->getGlobalOption ( 'plugin_display_name' ), self::$version ), __ ( 'Please validate your configuration', 'wp-piwik' ) );
 		$this->installPlugin ( true );
 	}
 	
@@ -445,14 +449,20 @@ class WP_Piwik {
 					'date' => 'last30' 
 			) );
 			$unique = $this->request ( $id );
-			if (is_array ( $unique )) {
-				$graph = "<script type='text/javascript'>var \$jSpark = jQuery.noConflict();\$jSpark(function() {var piwikSparkVals=[" . implode ( ',', $unique ) . "];\$jSpark('.wp-piwik_dynbar').sparkline(piwikSparkVals, {type: 'bar', barColor: '#ccc', barWidth:2});});</script><span class='wp-piwik_dynbar'>Loading...</span>";
-				$toolbar->add_menu ( array (
-						'id' => 'wp-piwik_stats',
-						'title' => $graph,
-						'href' => $this->getStatsURL () 
-				) );
+			$url = is_network_admin () ? $this->getSettingsURL () : false;
+			$content = is_network_admin () ? __('Configure WP-Piwik', 'wp-piwik') : '';
+			// Leave if result array does contain a message instead of valid data
+			if (isset($unique['result']))
+				$content .= '<!-- '.$unique['result'].': '.($unique['message']?$unique['message']:'...').' -->';
+			elseif (is_array ( $unique ) ) {
+				$content = "<script type='text/javascript'>var \$jSpark = jQuery.noConflict();\$jSpark(function() {var piwikSparkVals=[" . implode ( ',', $unique ) . "];\$jSpark('.wp-piwik_dynbar').sparkline(piwikSparkVals, {type: 'bar', barColor: '#ccc', barWidth:2});});</script><span class='wp-piwik_dynbar'>Loading...</span>";
+				$url = $this->getStatsURL ();
 			}
+			$toolbar->add_menu ( array (
+				'id' => 'wp-piwik_stats',
+				'title' => $content,
+				'href' => $url
+			) );
 		}
 	}
 	
@@ -558,7 +568,6 @@ class WP_Piwik {
 	 */
 	private function applySettings() {
 		self::$settings->applyChanges ( $_POST ['wp-piwik'] );
-		echo 'Settings gespeichert';
 		if (self::$settings->getGlobalOption ( 'auto_site_config' ) && self::isConfigured ()) {
 			if ($this->isPHPMode () && ! defined ( 'PIWIK_INCLUDE_PATH' ))
 				self::definePiwikConstants ();
@@ -596,8 +605,10 @@ class WP_Piwik {
 	 */
 	private function isInstalled() {
 		$oldSettings = $this->getWordPressOption ( 'wp-piwik_global-settings', false );
-		if ($oldSettings && isset( $oldSettings['revision'] ))
+		if ($oldSettings && isset( $oldSettings['revision'] )) {
+			self::log('Save old settings');
 			self::$settings->setGlobalOption ( 'revision', $oldSettings['revision'] );
+		} else self::log( 'Current revision '.self::$settings->getGlobalOption ( 'revision' ) );
 		return self::$settings->getGlobalOption ( 'revision' ) > 0;
 	}
 	
@@ -922,11 +933,20 @@ class WP_Piwik {
 	public function request($id, $debug = false) {
 		if ( self::$settings->getGlobalOption ( 'piwik_mode' ) == 'disabled' )
 			return 'n/a';
-		if (! isset ( self::$request ))
+		if (! isset ( self::$request ) || empty ( self::$request ))
 			self::$request = (self::$settings->getGlobalOption ( 'piwik_mode' ) == 'http' || self::$settings->getGlobalOption ( 'piwik_mode' ) == 'pro' ? new WP_Piwik\Request\Rest ( $this, self::$settings ) : new WP_Piwik\Request\Php ( $this, self::$settings ));
 		if ($debug)
 			return self::$request->getDebug ( $id );
 		return self::$request->perform ( $id );
+	}
+	
+	/**
+	 * Reset request object
+	 */
+	public function resetRequest() {
+		if (is_object(self::$request))
+			self::$request->reset();
+		self::$request = NULL;
 	}
 	
 	/**
@@ -1025,7 +1045,7 @@ class WP_Piwik {
 			return null;
 		$id = WP_Piwik\Request::register ( 'SitesManager.addSite', array (
 				'urls' => $isCurrent ? get_bloginfo ( 'url' ) : get_blog_details ( $blogId )->siteurl,
-				'siteName' => $isCurrent ? get_bloginfo ( 'name' ) : get_blog_details ( $blogId )->blogname 
+				'siteName' => urlencode( $isCurrent ? get_bloginfo ( 'name' ) : get_blog_details ( $blogId )->blogname )
 		) );
 		$result = $this->request ( $id );
 		self::$logger->log ( 'Get Piwik ID: WordPress site ' . ($isCurrent ? get_bloginfo ( 'url' ) : get_blog_details ( $blogId )->siteurl) . ' = Piwik ID ' . ( int ) $result );
@@ -1064,7 +1084,7 @@ class WP_Piwik {
 	 * @return string tracking code
 	 */
 	public function updateTrackingCode($siteId = false, $blogId = null) {
-		if (! $siteId)
+		if (!$siteId)
 			$siteId = $this->getPiwikSiteId ();
 		if (self::$settings->getGlobalOption ( 'track_mode' ) == 'disabled' || self::$settings->getGlobalOption ( 'track_mode' ) == 'manually')
 			return false;
@@ -1138,6 +1158,7 @@ class WP_Piwik {
 		new \WP_Piwik\Widget\BrowserDetails ( $this, self::$settings, $this->statsPageId );
 		new \WP_Piwik\Widget\Screens ( $this, self::$settings, $this->statsPageId );
 		new \WP_Piwik\Widget\Systems ( $this, self::$settings, $this->statsPageId );
+		new \WP_Piwik\Widget\SystemDetails ( $this, self::$settings, $this->statsPageId );
 	}
 	
 	/**

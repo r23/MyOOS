@@ -12,6 +12,14 @@
 			self::register('API.getPiwikVersion', array());
 		}
 		
+		public function reset() {
+			self::$debug = null;
+			self::$requests = array();
+			self::$results = array();
+			self::$isCacheable = array();
+			self::$piwikVersion = null;
+		}
+		
 		public static function register($method, $parameter) {
 			if ($method == 'API.getPiwikVersion')
 				$id = 'global.getPiwikVersion';
@@ -32,6 +40,7 @@
 				self::$requests[$id] = array('method' => $method, 'parameter' => $parameter);
 			return $id;
 		}
+		
 		private static function parameterToString($parameter) {
 			$return = '';
 			if (is_array($parameter))
@@ -42,8 +51,10 @@
 		
 		public function perform($id) {
 			if ( self::$settings->getGlobalOption('cache') && false !== ( $cached = get_transient( 'wp-piwik_c_'.md5(self::$isCacheable[$id] ) ) ) ) {
-				self::$wpPiwik->log("Deliver cached data: ".$id);
-				return $cached;
+				if (!empty ( $cached ) && !(! empty ( $cached['result'] ) &&  $cached['result'] == 'error') ) { 
+					self::$wpPiwik->log("Deliver cached data: ".$id);
+					return $cached;
+				}
 			}
 			self::$wpPiwik->log("Perform request: ".$id);
 			if (!isset(self::$requests[$id]))
@@ -51,7 +62,7 @@
 			elseif (!isset(self::$results[$id])) {
 				$this->request($id);
 			}
-			if ( isset ( self::$results[$id] )) {
+			if ( isset ( self::$results[$id] ) ) {
 				if ( self::$settings->getGlobalOption('cache') && self::$isCacheable[$id] ) {
 					set_transient( 'wp-piwik_c_'.md5(self::$isCacheable[$id]) , self::$results[$id], WEEK_IN_SECONDS );
 				}

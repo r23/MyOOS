@@ -23,6 +23,7 @@ class Settings {
 	private $checkSettings = array (
 			'piwik_url' => 'checkPiwikUrl',
 			'piwik_token' => 'checkPiwikToken',
+			'site_id' => 'requestPiwikSiteID',
 			'tracking_code' => 'prepareTrackingCode',
 			'noscript_code' => 'prepareNocscriptCode' 
 	);
@@ -82,6 +83,8 @@ class Settings {
 			'track_feed_campaign' => 'feed',
 			// User settings: Expert configuration
 			'cache' => true,
+			'http_connection' => 'curl',
+			'http_method' => 'post',
 			'disable_timelimit' => false,
 			'connection_timeout' => 5,
 			'disable_ssl_verify' => false,
@@ -90,7 +93,8 @@ class Settings {
 			'track_datacfasync' => false,
 			'track_cdnurl' => '',
 			'track_cdnurlssl' => '',
-			'force_protocol' => 'disabled' 
+			'force_protocol' => 'disabled',
+			'update_notice' => 'enabled'
 	), $settings = array (
 			'name' => '',
 			'site_id' => NULL,
@@ -131,7 +135,7 @@ class Settings {
 		}
 		self::$wpPiwik->log ( 'Save settings' );
 		foreach ( $this->globalSettings as $key => $value ) {
-			if (is_plugin_active_for_network ( 'wp-piwik/wp-piwik.php' ))
+			if ( $this->checkNetworkActivation() )
 				update_site_option ( 'wp-piwik_global-' . $key, $value );
 			else
 				update_option ( 'wp-piwik_global-' . $key, $value );
@@ -182,7 +186,7 @@ class Settings {
 	 */
 	public function getOption($key, $blogID = null) {
 		if ($this->checkNetworkActivation () && ! empty ( $blogID )) {
-			return get_blog_option ( $blogID, $key );
+			return get_blog_option ( $blogID, 'wp-piwik-'.$key );
 		}
 		return isset ( $this->settings [$key] ) ? $this->settings [$key] : self::$defaultSettings ['settings'] [$key];
 	}
@@ -215,48 +219,40 @@ class Settings {
 		$this->settingsChanged = true;
 		self::$wpPiwik->log ( 'Changed option ' . $key . ': ' . $value );
 		if ($this->checkNetworkActivation () && ! empty ( $blogID )) {
-			add_blog_option ( $blogID, $key, $value );
+			add_blog_option ( $blogID, 'wp-piwik-'.$key, $value );
 		} else
 			$this->settings [$key] = $value;
 	}
 	
 	/**
 	 * Reset settings to default
-	 *
-	 * @param bool $resetAll
-	 *        	set to true to clear authentification settings, too
 	 */
-	public function resetSettings($resetAll = false) {
+	public function resetSettings() {
 		self::$wpPiwik->log ( 'Reset WP-Piwik settings' );
 		global $wpdb;
-		$keepSettings = array (
-				'piwik_token' => $this->getGlobalOption ( 'piwik_token' ),
-				'piwik_url' => $this->getGlobalOption ( 'piwik_url' ),
-				'piwik_path' => $this->getGlobalOption ( 'piwik_path' ),
-				'piwik_mode' => $this->getGlobalOption ( 'piwik_mode' ) 
-		);
-		if (is_plugin_active_for_network ( 'wp-piwik/wp-piwik.php' )) {
-			delete_site_option ( 'wp-piwik_global-settings' );
-			$blogs = $wpdb->get_results ( 'SELECT blog_id FROM ' . $wpdb->blogs . ' ORDER BY blog_id' );
-			foreach ( $blogs as $blog )
-				foreach ( $this->settings as $key => $value )
-					delete_blog_option ( $blog->blog_id, 'wp-piwik-' . $key );
-			if (! $resetAll)
-				update_site_option ( 'wp-piwik_global-settings', $keepSettings );
-		} else {
-			foreach ( $this->globalSettings as $key => $value )
-				delete_option ( 'wp-piwik_global-' . $key );
-			foreach ( $this->settings as $key => $value )
-				delete_option ( 'wp-piwik-' . $key );
+		if ( $this->checkNetworkActivation() ) {
+			$aryBlogs = self::getBlogList();
+			if (is_array($aryBlogs))
+				foreach ($aryBlogs as $aryBlog) {
+					switch_to_blog($aryBlog['blog_id']);
+					$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE 'wp-piwik-%'");
+					restore_current_blog();
+				}
+			$wpdb->query("DELETE FROM $wpdb->sitemeta WHERE meta_key LIKE 'wp-piwik_global-%'");
 		}
-		$this->globalSettings = self::$defaultSettings ['globalSettings'];
-		$this->settings = self::$defaultSettings ['settings'];
-		if (! $resetAll) {
-			self::$wpPiwik->log ( 'Restore connection settings' );
-			foreach ( $keepSettings as $key => $value )
-				$this->setGlobalOption ( $key, $value );
-		}
-		$this->save ();
+		else $wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE 'wp-piwik_global-%'");
+	}
+	
+	/**
+	 * Get blog list
+	 */
+	public static function getBlogList($limit = null, $page = null) {
+		if ( !\wp_is_large_network() )
+			return \wp_get_sites ( array('limit' => $limit, 'offset' => $page?($page - 1) * $limit:null));
+		if ($limit && $page) 
+			$queryLimit = ' LIMIT '.(int) (($page - 1) * $limit).','.(int) $limit;
+		global $wpdb;
+		return $wpdb->get_results('SELECT blog_id FROM '.$wpdb->blogs.' ORDER BY blog_id'.$queryLimit, ARRAY_A);
 	}
 	
 	/**
@@ -334,6 +330,21 @@ class Settings {
 	}
 	
 	/**
+	 * Request the site ID (if not set before)
+	 *
+	 * @param string $value
+	 *        	tracking code
+	 * @param array $in
+	 *        	configuration set
+	 * @return int Piwik site ID
+	 */
+	private function requestPiwikSiteID($value, $in) {
+		if ($in ['auto_site_config'] && ! $value)
+			return self::$wpPiwik->getPiwikSiteId();
+		return $value;
+	}
+	
+	/**
 	 * Prepare the tracking code
 	 *
 	 * @param string $value
@@ -367,5 +378,19 @@ class Settings {
 		if ($in ['track_mode'] == 'manually')
 			return stripslashes ( $value );
 		return $value;
+	}
+	
+	/**
+	 * Get debug data
+	 *
+	 * @return array WP-Piwik settings for debug output
+	 */
+	public function getDebugData() {
+		$debug = array(
+			'global_settings' => $this->globalSettings,
+			'settings' => $this->settings
+		);
+		$debug['global_settings']['piwik_token'] = !empty($debug['global_settings']['piwik_token'])?'set':'not set';
+		return $debug;
 	}
 }

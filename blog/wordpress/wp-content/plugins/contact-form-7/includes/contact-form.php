@@ -543,6 +543,49 @@ class WPCF7_ContactForm {
 		return apply_filters( 'wpcf7_form_elements', $this->form_do_shortcode() );
 	}
 
+	public function collect_mail_tags( $args = '' ) {
+		$args = wp_parse_args( $args, array(
+			'exclude' => array(
+				'acceptance', 'captchac', 'captchar', 'quiz', 'count' ) ) );
+
+		$tags = $this->form_scan_shortcode();
+		$mailtags = array();
+
+		foreach ( $tags as $tag ) {
+			$type = trim( $tag['type'], ' *' );
+
+			if ( empty( $type ) || in_array( $type, $args['exclude'] ) ) {
+				continue;
+			}
+
+			$mailtags[] = $tag['name'];
+		}
+
+		$mailtags = array_unique( array_filter( $mailtags ) );
+
+		return apply_filters( 'wpcf7_collect_mail_tags', $mailtags );
+	}
+
+	public function suggest_mail_tags( $for = 'mail' ) {
+		$mail = wp_parse_args( $this->prop( $for ), array(
+			'active' => false, 'recipient' => '', 'sender' => '',
+			'subject' => '', 'body' => '', 'additional_headers' => '',
+			'attachments' => '', 'use_html' => false, 'exclude_blank' => false ) );
+
+		$mail = array_filter( $mail );
+
+		foreach ( (array) $this->collect_mail_tags() as $mail_tag ) {
+			$pattern = sprintf( '/\[(_[a-z]+_)?%s([ \t]+[^]]+)?\]/',
+				preg_quote( $mail_tag, '/' ) );
+			$used = preg_grep( $pattern, $mail );
+
+			echo sprintf(
+				'<span class="%1$s">[%2$s]</span>',
+				'mailtag code ' . ( $used ? 'used' : 'unused' ),
+				esc_html( $mail_tag ) );
+		}
+	}
+
 	public function submit( $ajax = false ) {
 		$submission = WPCF7_Submission::get_instance( $this );
 
@@ -720,6 +763,28 @@ class WPCF7_ContactForm {
 
 		return false;
 	}
+
+	public function shortcode( $args = '' ) {
+		$args = wp_parse_args( $args, array(
+			'use_old_format' => false ) );
+
+		$title = str_replace( array( '"', '[', ']' ), '', $this->title );
+
+		if ( $args['use_old_format'] ) {
+			$old_unit_id = (int) get_post_meta( $this->id, '_old_cf7_unit_id', true );
+
+			if ( $old_unit_id ) {
+				$shortcode = sprintf( '[contact-form %1$d "%2$s"]', $old_unit_id, $title );
+			} else {
+				$shortcode = '';
+			}
+		} else {
+			$shortcode = sprintf( '[contact-form-7 id="%1$d" title="%2$s"]',
+				$this->id, $title );
+		}
+
+		return apply_filters( 'wpcf7_contact_form_shortcode', $shortcode, $args, $this );
+	}
 }
 
 function wpcf7_contact_form( $id ) {
@@ -812,4 +877,39 @@ function wpcf7_form_controls_class( $type, $default = '' ) {
 	return implode( ' ', $classes );
 }
 
-?>
+function wpcf7_contact_form_tag_func( $atts, $content = null, $code = '' ) {
+	if ( is_feed() ) {
+		return '[contact-form-7]';
+	}
+
+	if ( 'contact-form-7' == $code ) {
+		$atts = shortcode_atts( array(
+			'id' => 0,
+			'title' => '',
+			'html_id' => '',
+			'html_name' => '',
+			'html_class' => '',
+			'output' => 'form' ), $atts );
+
+		$id = (int) $atts['id'];
+		$title = trim( $atts['title'] );
+
+		if ( ! $contact_form = wpcf7_contact_form( $id ) ) {
+			$contact_form = wpcf7_get_contact_form_by_title( $title );
+		}
+
+	} else {
+		if ( is_string( $atts ) ) {
+			$atts = explode( ' ', $atts, 2 );
+		}
+
+		$id = (int) array_shift( $atts );
+		$contact_form = wpcf7_get_contact_form_by_old_id( $id );
+	}
+
+	if ( ! $contact_form ) {
+		return '[contact-form-7 404 "Not Found"]';
+	}
+
+	return $contact_form->form_html( $atts );
+}

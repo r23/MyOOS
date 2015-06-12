@@ -146,7 +146,7 @@ class yoast_i18n {
 	private function hide_promo() {
 		$hide_promo = get_transient( 'yoast_i18n_' . $this->project_slug . '_promo_hide' );
 		if ( ! $hide_promo ) {
-			if ( filter_input( INPUT_GET, 'remove_i18n_promo', FILTER_NULL_ON_FAILURE ) ) {
+			if ( filter_input( INPUT_GET, 'remove_i18n_promo', FILTER_VALIDATE_INT ) === 1 ) {
 				// No expiration time, so this would normally not expire, but it wouldn't be copied to other sites etc.
 				set_transient( 'yoast_i18n_' . $this->project_slug . '_promo_hide', true );
 				$hide_promo = true;
@@ -209,11 +209,11 @@ class yoast_i18n {
 	 * @return object|null
 	 */
 	private function find_or_initialize_translation_details() {
-		$set = get_transient( 'yoast_i18n_' . $this->project_slug );
+		$set = get_transient( 'yoast_i18n_' . $this->project_slug . '_' . $this->locale );
 
 		if ( ! $set ) {
 			$set = $this->retrieve_translation_details();
-			set_transient( 'yoast_i18n_' . $this->project_slug, $set, DAY_IN_SECONDS );
+			set_transient( 'yoast_i18n_' . $this->project_slug . '_' . $this->locale, $set, DAY_IN_SECONDS );
 		}
 
 		return $set;

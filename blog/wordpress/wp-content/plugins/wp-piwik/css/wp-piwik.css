@@ -29,3 +29,25 @@ table.wp-piwik_menu-tab th {
 div.wp-piwik-debug {
 	padding:10px;
 }
+
+tr.wp-piwik-hideDetails {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+div.wp-piwik-donate {
+	float:right;
+	width:220px;
+	background:#ffc;
+	padding:10px;
+	border:1px solid black;
+	margin: 10px 10px;
+}
+
+div.wp-piwik-donate div {
+	width:190px;
+	text-align:center;
+	border:solid black;
+	border-width:1px 0 0 0 ;
+	padding:5px
+}

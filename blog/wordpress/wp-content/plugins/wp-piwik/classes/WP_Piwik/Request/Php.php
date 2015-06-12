@@ -9,7 +9,7 @@
 			$url = self::$settings->getGlobalOption('piwik_url');
 			foreach (self::$requests as $requestID => $config) {
 				if (!isset(self::$results[$requestID])) {
-					$params = 'module=API&format=php&'.$this->buildURL($config, true);
+					$params = 'module=API&format=php&'.$this->buildURL($config);
 					$map[$count] = $requestID;
 					$result = $this->call($id, $url, $params);
 					self::$results[$map[$count]] = $result;
@@ -35,6 +35,7 @@
 			else serialize(array('result' => 'error', 'message' => __('Class Piwik\API\Request does not exists.','wp-piwik')));
 			if (isset($request))
 				$result = $request->process();
+			else $result = null;
 			if (!headers_sent())
 				header("Content-Type: text/html", true);
 			$result = $this->unserialize($result);

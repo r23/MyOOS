@@ -71,18 +71,24 @@ $settings = array (
 global $wpdb;
 
 if (function_exists('is_multisite') && is_multisite()) {
-	$aryBlogs = $wpdb->get_results('SELECT blog_id FROM '.$wpdb->blogs.' ORDER BY blog_id');
+	if ( !wp_is_large_network() )
+		$aryBlogs = wp_get_sites ( array('limit' => $limit, 'offset' => $page?($page - 1) * $limit:null));
+	else {
+		if ($limit && $page) 
+			$queryLimit = 'LIMIT '.(int) (($page - 1) * $limit).','.(int) $limit.' ';
+		$aryBlogs = $wpdb->get_results('SELECT blog_id FROM '.$wpdb->blogs.' '.$queryLimit.'ORDER BY blog_id', ARRAY_A);
+	}
+
 	if (is_array($aryBlogs))
 		foreach ($aryBlogs as $aryBlog) {
 			foreach ($settings as $key) {
-				delete_blog_option($aryBlog->blog_id, 'wp-piwik-'.$key);
+				delete_blog_option($aryBlog['blog_id'], 'wp-piwik-'.$key);
 			}
-			switch_to_blog($aryBlog->blog_id);
+			switch_to_blog($aryBlog['blog_id']);
 			$wpdb->query("DELETE FROM $wpdb->postmeta WHERE meta_key LIKE 'wp-piwik_%'");
 			$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_wp-piwik_%'");
 			$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_timeout_wp-piwik_%'");
 			restore_current_blog();
-			
 		}
 	foreach ($globalSettings as $key)
 		delete_site_option('wp-piwik_global-'.$key);

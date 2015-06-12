@@ -12,16 +12,16 @@ if (self::$settings->checkNetworkActivation ()) {
 $oldOptions = get_option ( 'wp-piwik_settings', array () );
 delete_option('wp-piwik_settings');
 	
-if (function_exists('is_multisite') && is_multisite()) {
+if (self::$settings->checkNetworkActivation ()) {
 	global $wpdb;
-	$aryBlogs = $wpdb->get_results('SELECT blog_id FROM '.$wpdb->blogs.' ORDER BY blog_id');
+	$aryBlogs = \WP_Piwik\Settings::getBlogList();
 	if (is_array($aryBlogs))
 		foreach ($aryBlogs as $aryBlog) {
-			$oldOptions = get_blog_option ( $aryBlog->blog_id, 'wp-piwik_settings', array () );
+			$oldOptions = get_blog_option ( $aryBlog['blog_id'], 'wp-piwik_settings', array () );
 			if (!$this->isConfigured())
 				foreach ( $oldOptions as $key => $value )
-					self::$settings->setOption ( $key, $value, $aryBlog->blog_id );
-			delete_blog_option($aryBlog->blog_id, 'wp-piwik_settings');
+					self::$settings->setOption ( $key, $value, $aryBlog['blog_id'] );
+			delete_blog_option($aryBlog['blog_id'], 'wp-piwik_settings');
 		}
 }
 
