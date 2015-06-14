@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-06-10 12:25:41+0000\n"
+"PO-Revision-Date: 2015-06-12 09:28:00+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3115,23 +3115,23 @@ msgctxt "double prime"
 msgid "&#8243;"
 msgstr "&#8243;"
 
-#. translators: opening curly single quote
-#: wp-includes/formatting.php:75
-msgctxt "opening curly single quote"
-msgid "&#8216;"
-msgstr "&#8216;"
-
-#. translators: closing curly single quote
-#: wp-includes/formatting.php:77
-msgctxt "closing curly single quote"
-msgid "&#8217;"
-msgstr "&#8217;"
-
 #. translators: prime, for example in 9' (nine feet)
 #: wp-includes/formatting.php:70
 msgctxt "prime"
 msgid "&#8242;"
 msgstr "&#8242;"
+
+#. translators: closing curly single quote
+#: wp-includes/formatting.php:77
+msgctxt "closing curly single quote"
+msgid "&#8217;"
+msgstr "&#8216;"
+
+#. translators: opening curly single quote
+#: wp-includes/formatting.php:75
+msgctxt "opening curly single quote"
+msgid "&#8216;"
+msgstr "&#8218;"
 
 #. translators: opening curly double quote
 #: wp-includes/formatting.php:62 wp-includes/formatting.php:3927
