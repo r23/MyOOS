@@ -155,7 +155,7 @@ $lang = array_merge($lang, array(
 	'PRUNE_OLD_POLLS'			=> 'Abgeschlossene Umfragen automatisch löschen',
 	'PRUNE_OLD_POLLS_EXPLAIN'	=> 'Löscht Themen mit Umfragen, in denen im angegebenen Zeitraum keine Abstimmung erfolgte.',
 
-	'REDIRECT_ACL'	=> 'Nun kannst du für dieses Forum %sBefugnisse vergeben%s.',
+	'REDIRECT_ACL'	=> 'Nun kannst du für dieses Forum %sBerechtigungen vergeben%s.',
 
 	'SYNC_IN_PROGRESS'			=> 'Synchronisiere Foren',
 	'SYNC_IN_PROGRESS_EXPLAIN'	=> 'Es wird Thema %1$d von %2$d synchronisiert.',

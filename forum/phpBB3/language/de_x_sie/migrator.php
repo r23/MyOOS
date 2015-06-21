@@ -54,6 +54,13 @@ $lang = array_merge($lang, array(
 	'MIGRATION_NOT_VALID'				=> '%s ist keine gültige Migration.',
 	'MIGRATION_SCHEMA_DONE'				=> 'Installiertes Schema: %1$s; Dauer: %2$.2f Sekunden',
 	'MIGRATION_SCHEMA_RUNNING'			=> 'Installiere Schema: %s.',
+	
+	'MIGRATION_INVALID_DATA_MISSING_CONDITION'		=> 'Eine Migration ist ungültig. Einer Hilfsfunktion für bedingte Anweisungen fehlt eine Bedingung. („An if statement helper is missing a condition.“)',
+	'MIGRATION_INVALID_DATA_MISSING_STEP'			=> 'Eine Migration ist ungültig. Einer Hilfsfunktion für bedingte Anweisungen fehlt ein gültiger Aufruf eines Migrationsschritts. („An if statement helper is missing a valid call to a migration step.“)',
+	'MIGRATION_INVALID_DATA_CUSTOM_NOT_CALLABLE'	=> 'Eine Migration ist ungültig. Der Aufruf einer benutzerdefinierten Rückruffunktion ist gescheitert. („A custom callable function could not be called.“)',
+	'MIGRATION_INVALID_DATA_UNKNOWN_TYPE'			=> 'Eine Migration ist ungültig. Ein unbekannter Migrationstool-Typ wurde gefunden. („An unknown migration tool type was encountered.“)',
+	'MIGRATION_INVALID_DATA_UNDEFINED_TOOL'			=> 'Eine Migration ist ungültig. Ein undefiniertes Migrationstool wurde gefunden. („An undefined migration tool was encountered.“)',
+	'MIGRATION_INVALID_DATA_UNDEFINED_METHOD'		=> 'Eine Migration ist ungültig. Eine undefinierte Migrationstool-Methode wurde gefunden. („An undefined migration tool method was encountered.“)',
 
 	'MODULE_ERROR'						=> 'Bei der Erstellung eines Moduls ist ein Fehler aufgetreten: %s',
 	'MODULE_INFO_FILE_NOT_EXIST'		=> 'Eine erforderliche Informationsdatei für ein Modul existiert nicht: %2$s',

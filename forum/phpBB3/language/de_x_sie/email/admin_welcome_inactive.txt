@@ -10,9 +10,9 @@ Benutzername: {USERNAME}
 Board-URL:    {U_BOARD}
 ----------------------------
 
-Ihr Account ist momentan inaktiv und muss erst durch einen Administrator des Boards aktiviert werden, bevor Sie ihn verwenden können. Es wird eine weitere E-Mail versandt, sobald dies geschehen ist.
+Ihr Benutzerkonto ist momentan inaktiv und muss erst durch einen Administrator des Boards aktiviert werden, bevor Sie es verwenden können. Es wird eine weitere E-Mail versandt, sobald dies geschehen ist.
 
-Ihr Passwort wurde sicher in unserer Datenbank gespeichert und kann nicht wiederhergestellt werden. Falls es vergessen werden sollte, können Sie es über die E-Mail-Adresse, die Ihrem Account zugeordnet ist, zurücksetzen lassen.
+Ihr Passwort wurde sicher in unserer Datenbank gespeichert und kann nicht wiederhergestellt werden. Falls es vergessen werden sollte, können Sie es über die E-Mail-Adresse, die Ihrem Benutzerkonto zugeordnet ist, zurücksetzen lassen.
 
 Vielen Dank für Ihre Registrierung.
 

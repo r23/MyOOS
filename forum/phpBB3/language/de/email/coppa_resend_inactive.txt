@@ -32,9 +32,9 @@ Datum: _______________
 
 -------------------------- HIER AUSSCHNEIDEN -------------------------
 
-Sobald der Administrator dieses Formular per Fax oder Post erhalten hat, wird er deinen Account aktivieren.
+Sobald der Administrator dieses Formular per Fax oder Post erhalten hat, wird er dein Benutzerkonto aktivieren.
 
-Dein Passwort wurde sicher in unserer Datenbank gespeichert und kann nicht wiederhergestellt werden. Falls es vergessen werden sollte, kannst du es über die E-Mail-Adresse, die deinem Account zugeordnet ist, zurücksetzen lassen.
+Dein Passwort wurde sicher in unserer Datenbank gespeichert und kann nicht wiederhergestellt werden. Falls es vergessen werden sollte, kannst du es über die E-Mail-Adresse, die deinem Benutzerkonto zugeordnet ist, zurücksetzen lassen.
 
 Vielen Dank für deine Registrierung.
 

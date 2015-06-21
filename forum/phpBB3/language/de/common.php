@@ -319,8 +319,8 @@ $lang = array_merge($lang, array(
 		2	=> '%d unsichtbare Mitglieder',
 	),
 	'HIDDEN_USERS_TOTAL'		=> array(
-		1	=> '%d unsichtbares',
-		2	=> '%d unsichtbare',
+		1	=> '%d unsichtbares Mitglied',
+		2	=> '%d unsichtbare Mitglieder',
 	),
 	'HIDE_GUESTS'					=> 'Gäste ausblenden',
 	'HIDE_ME'						=> 'Meinen Online-Status während dieser Sitzung verbergen',
@@ -624,8 +624,8 @@ $lang = array_merge($lang, array(
 		2	=> 'Es sind %1$d Mitglieder und %2$s online',
 	),
 	'REG_USERS_TOTAL'			=> array(
-		1	=> '%d registrierter',
-		2	=> '%d registrierte',
+		1	=> '%d sichtbares Mitglied',
+		2	=> '%d sichtbare Mitglieder',
 	),
 	'REMOVE'					=> 'Löschen',
 	'REMOVE_INSTALL'			=> 'Bitte lösche, verschiebe oder benenne das Installations-Verzeichnis „install“ um, bevor du das Board benutzt. Solange dieses Verzeichnis existiert, ist nur der Administrations-Bereich zugänglich.',

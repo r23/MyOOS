@@ -4,7 +4,7 @@ Herzlichen Glückwunsch!
 
 Sie haben phpBB erfolgreich auf Ihrem Server installiert.
 
-Diese E-Mail enthält wichtige Informationen über Ihre Installation, die Sie gut aufbewahren sollten. Ihr Passwort wurde sicher in unserer Datenbank gespeichert und kann nicht wiederhergestellt werden. Falls es vergessen werden sollte, können Sie es über die E-Mail-Adresse, die Ihrem Account zugeordnet ist, zurücksetzen lassen.
+Diese E-Mail enthält wichtige Informationen über Ihre Installation, die Sie gut aufbewahren sollten. Ihr Passwort wurde sicher in unserer Datenbank gespeichert und kann nicht wiederhergestellt werden. Falls es vergessen werden sollte, können Sie es über die E-Mail-Adresse, die Ihrem Benutzerkonto zugeordnet ist, zurücksetzen lassen.
 
 ----------------------------
 Benutzername: {USERNAME}

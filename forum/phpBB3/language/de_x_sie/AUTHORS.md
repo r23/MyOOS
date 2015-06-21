@@ -19,6 +19,7 @@ Das aktuelle Team online: https://www.phpbb.de/go/ubersetzerteam
 * BlackHawk87/Crizz0 (Christian Schnegelberger) [2014 - ]
 * mungo (Ingo Migliarina) [2003 - ]
 * nickvergessen (Joas Schilling) [2014 - ]
+* gn#36 (Martin Beckmann) [2015 - ]
 
 
 ## Ehemalige Mitglieder

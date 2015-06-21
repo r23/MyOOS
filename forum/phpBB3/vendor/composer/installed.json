@@ -671,12 +671,12 @@
         "version_normalized": "1.13.2.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/fabpot/Twig.git",
+            "url": "https://github.com/twigphp/Twig.git",
             "reference": "6d6a1009427d1f398c9d40904147bf9f723d5755"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fabpot/Twig/zipball/6d6a1009427d1f398c9d40904147bf9f723d5755",
+            "url": "https://api.github.com/repos/twigphp/Twig/zipball/6d6a1009427d1f398c9d40904147bf9f723d5755",
             "reference": "6d6a1009427d1f398c9d40904147bf9f723d5755",
             "shasum": ""
         },
@@ -703,14 +703,11 @@
         "authors": [
             {
                 "name": "Fabien Potencier",
-                "email": "fabien@symfony.com",
-                "homepage": "http://fabien.potencier.org",
-                "role": "Lead Developer"
+                "email": "fabien@symfony.com"
             },
             {
                 "name": "Armin Ronacher",
-                "email": "armin.ronacher@active-4.com",
-                "role": "Project Founder"
+                "email": "armin.ronacher@active-4.com"
             }
         ],
         "description": "Twig, the flexible, fast, and secure template language for PHP",

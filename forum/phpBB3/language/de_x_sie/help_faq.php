@@ -196,11 +196,11 @@ $help = array(
 	),
 	array(
 		0 => 'Was sind Bekanntmachungen?',
-		1 => 'Bekanntmachungen beinhalten meist wichtige Informationen zu dem Bereich des Boards, in dem Sie sich befinden. Sie sollten sie stets lesen. Bekanntmachungen erscheinen oben auf jeder Seite des Forums, in dem sie erstellt wurden. Wie bei globalen Bekanntmachungen hängt es von Ihren Befugnissen ab, ob Sie Bekanntmachungen erstellen können oder nicht; die Befugnisse stellt die Board-Administration ein.',
+		1 => 'Bekanntmachungen beinhalten meist wichtige Informationen zu dem Bereich des Boards, in dem Sie sich befinden. Sie sollten sie stets lesen. Bekanntmachungen erscheinen oben auf jeder Seite des Forums, in dem sie erstellt wurden. Wie bei globalen Bekanntmachungen hängt es von Ihren Berechtigungen ab, ob Sie Bekanntmachungen erstellen können oder nicht. Die Berechtigungen werden von der Board-Administration vergeben.',
 	),
 	array(
 		0 => 'Was sind wichtige Themen?',
-		1 => 'Wichtige Themen eines Forums erscheinen unter den Ankündigungen und sind nur auf der ersten Seite zu sehen. Sie haben meist einen wichtigen Inhalt, weswegen Sie sie lesen sollten. Wie bei den Bekanntmachungen hängt es von Ihren Befugnissen ab, ob Sie wichtige Themen erstellen können oder nicht; die Befugnisse stellt die Board-Administration ein.',
+		1 => 'Wichtige Themen eines Forums erscheinen unter den Ankündigungen und sind nur auf der ersten Seite zu sehen. Sie haben meist einen wichtigen Inhalt, weswegen Sie sie lesen sollten. Wie bei den Bekanntmachungen hängt es von Ihren Berechtigungen ab, ob Sie wichtige Themen erstellen können oder nicht; die Berechtigungen stellt die Board-Administration ein.',
 	),
 	array(
 		0 => 'Was sind geschlossene Themen?',
@@ -221,7 +221,7 @@ $help = array(
 	),
 	array(
 		0 => 'Was sind Administratoren?',
-		1 => 'Administratoren haben die umfassendsten Rechte im Forum. Sie können jede Art von Aktion im Forum ausführen; z.&nbsp;B. Berechtigungen setzen, Mitglieder sperren, Benutzergruppen erstellen, Moderationsrechte vergeben usw. Die Rechte, die ein Administrator hat, sind allerdings davon abhängig, welche Rechte ihnen ein Gründer des Forums oder ein anderer Administrator erteilt hat. Administratoren können auch volle Moderatorenbefugnisse haben, wenn ihnen das entsprechende Recht erteilt wurde.',
+		1 => 'Administratoren haben die umfassendsten Rechte im Forum. Sie können jede Art von Aktion im Forum ausführen; z.&nbsp;B. Berechtigungen setzen, Mitglieder sperren, Benutzergruppen erstellen, Moderationsrechte vergeben usw. Die Rechte, die ein Administrator hat, sind allerdings davon abhängig, welche Rechte ihnen ein Gründer des Forums oder ein anderer Administrator erteilt hat. Administratoren können auch volle Moderationsberechtigungen haben, wenn ihnen das entsprechende Recht erteilt wurde.',
 	),
 	array(
 		0 => 'Was sind Moderatoren?',

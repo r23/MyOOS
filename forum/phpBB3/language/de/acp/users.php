@@ -46,7 +46,7 @@ $lang = array_merge($lang, array(
 	'BAN_ALREADY_ENTERED'	=> 'Die Sperre wurde bereits früher erfolgreich erstellt. Die Liste der Sperren wurde nicht aktualisiert.',
 	'BAN_SUCCESSFUL'		=> 'Sperre erfolgreich hinzugefügt.',
 
-	'CANNOT_BAN_ANONYMOUS'			=> 'Du kannst den Gast-Account nicht sperren. Berechtigungen für Gäste können im Register „Berechtigungen“ geändert werden.',
+	'CANNOT_BAN_ANONYMOUS'			=> 'Du kannst das Gast-Benutzerkonto nicht sperren. Berechtigungen für Gäste können im Register „Berechtigungen“ geändert werden.',
 	'CANNOT_BAN_FOUNDER'			=> 'Du kannst keine Gründer sperren.',
 	'CANNOT_BAN_YOURSELF'			=> 'Du kannst dich nicht selber sperren.',
 	'CANNOT_DEACTIVATE_BOT'			=> 'Du kannst keine Benutzerkonten von Bots deaktivieren. Deaktiviere stattdessen den Bot in den Einstellungen für Spiders/Robots.',

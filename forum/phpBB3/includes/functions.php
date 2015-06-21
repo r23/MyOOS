@@ -1159,7 +1159,7 @@ function markread($mode, $forum_id = false, $topic_id = false, $post_time = 0, $
 	/**
 	 * This event is used for performing actions directly before marking forums,
 	 * topics or posts as read.
-	 * 
+	 *
 	 * It is also possible to prevent the marking. For that, the $should_markread parameter
 	 * should be set to FALSE.
 	 *
@@ -2389,7 +2389,7 @@ function redirect($url, $return = false, $disable_cd_check = false)
 	}
 
 	// Redirect via an HTML form for PITA webservers
-	if (@preg_match('#Microsoft|WebSTAR|Xitami#', getenv('SERVER_SOFTWARE')))
+	if (@preg_match('#WebSTAR|Xitami#', getenv('SERVER_SOFTWARE')))
 	{
 		header('Refresh: 0; URL=' . $url);
 
