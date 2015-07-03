@@ -132,6 +132,27 @@ function myoos_scripts() {
 add_action( 'wp_enqueue_scripts', 'myoos_scripts' );
 
 /**
+ * Remove version numbers and meta generator
+ */
+remove_action('wp_head', 'wp_generator');
+
+
+function _remove_version() {
+    return '';
+}
+add_filter('the_generator', '_remove_version');
+
+function _remove_script_version( $src ){
+    if ( strpos( $src, 'ver=' ) )
+        $src = remove_query_arg( 'ver', $src );
+    return $src;
+}
+add_filter( 'script_loader_src', '_remove_script_version', 9999 );
+add_filter( 'style_loader_src', '_remove_script_version', 9999 );
+
+
+
+/**
  * Implement the Custom Header feature.
  */
 require MYOOS_THEME_TEMPLATE . '/inc/custom-header.php';
