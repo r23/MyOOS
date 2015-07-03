@@ -4,7 +4,7 @@ Donate link: http://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 4.1
 Tested up to: 4.2.2
-Stable tag: 4.2
+Stable tag: 4.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,9 +49,9 @@ The following are other recommended plugins by the author of Contact Form 7.
 * Croatian (hr) - tolingo Translation Services, Marko Puskaric
 * Czech (cs_CZ) - Korry, Radovan Fiser, Tomas Vesely, Pavel Bilek, Vladislav Šenk
 * Danish (da_DK) - Jens Griebel, Georg S. Adamsen
-* Dutch (nl_NL) - Chris Devriese, Martin Hein, Rene, TenSheep, Tim de Hoog
+* Dutch (nl_NL) - Chris Devriese, Martin Hein, Rene, TenSheep, Tim de Hoog, Henk Buma
 * Esperanto (eo_EO) - Arkadiusz Zychewicz
-* Estonian (et) - Peeter Rahuvarm, Egon Elbre
+* Estonian (et) - Peeter Rahuvarm, Egon Elbre, Tanel Jüris
 * Finnish (fi) - Miika Turunen, Mediajalostamo, Jani Alha
 * French (fr_FR) - Jillij, Oncle Tom, Maître Mô, Emmanuel Simond, Hédi Sellami
 * Galician (gl_ES) - Arume Desenvolvementos Informáticos
@@ -125,30 +125,14 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 
 For more information, see [Releases](http://contactform7.com/category/releases/).
 
+= 4.2.1 =
+
+* Corrected admin script dependencies.
+* Shows a hint for keyboard operation in the editor screen.
+* Translations for Estonian, Portuguese, Dutch, and Turkish have been updated.
+
 = 4.2 =
 
 * Renewal of the editor screen.
 * Translation for Slovene has been updated.
 * WordPress 4.1 or higher is required.
-
-= 4.1.2 =
-
-* Added role="form" to wrapper div elements.
-* Added wrapping label elements to quiz question strings.
-* Translation for Portuguese has been updated.
-
-= 4.1.1 =
-
-* Security enhancement: use wp_rand() instead of mt_rand() for CAPTCHA file name generation to make it harder for attackers to predict its next value.
-* Modified wpcf7_plugin_url(): use plugins_url() internally.
-* Translations for Russian, Hungarian, Swedish, German, and Turkish have been updated.
-
-= 4.1 =
-
-* Added maxlength and minlength options to several form-tag types.
-* Added [count] form-tag type that represents character count for form fields.
-* Introduced WPCF7_Validation class to handle the user-input validation process.
-* Added the front-end URL normalization for [url] fields.
-* Added default:get, default:post and default:post_meta options to get default values from the context.
-* Translations for Turkish, German, Portuguese, Dutch, and Hebrew have been updated.
-* WordPress 4.0 or higher is required.
