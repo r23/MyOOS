@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-06-10 12:07:51+0000\n"
+"PO-Revision-Date: 2015-06-19 15:30:54+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -6108,7 +6108,7 @@ msgstr "Installiere den LiveJournal Importer, um Beiträge von LiveJournal über
 #: wp-admin/includes/class-wp-upgrader-skins.php:384
 #: wp-admin/includes/class-wp-upgrader-skins.php:684
 msgid "Return to WordPress Updates"
-msgstr "Zurück zu WordPress Aktualisieren gehen"
+msgstr "Zurück zu WordPress-Aktualisierungen gehen"
 
 #: wp-admin/edit-form-advanced.php:362
 msgid "<strong>Publish</strong> - You can set the terms of publishing your post in the Publish box. For Status, Visibility, and Publish (immediately), click on the Edit link to reveal more options. Visibility includes options for password-protecting a post or making it stay at the top of your blog indefinitely (sticky). Publish (immediately) allows you to set a future or past date and time, so you can schedule a post to be published in the future or backdate a post."
