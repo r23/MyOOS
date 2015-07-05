@@ -93,6 +93,20 @@ function myoos_content_width() {
 }
 add_action( 'after_setup_theme', 'myoos_content_width', 0 );
 
+/*
+ * Loads the Options Panel
+ *
+ * If you're loading from a child theme use stylesheet_directory
+ * instead of template_directory
+ */
+
+define( 'OPTIONS_FRAMEWORK_DIRECTORY', MYOOS_THEME_URL . '/inc/admin/' );
+require_once dirname( __FILE__ ) . '/inc/admin/options-framework.php';
+
+// Loads options.php from child or parent theme
+$optionsfile = locate_template( 'options.php' );
+load_template( $optionsfile );
+
 
 /**
  * Register widget area.
@@ -180,4 +194,4 @@ require MYOOS_THEME_TEMPLATE . '/inc/jetpack.php';
 /**
  * Load custom nav walker
  */
-require get_template_directory() . '/inc/wp_bootstrap_navwalker.php';
+require MYOOS_THEME_TEMPLATE . '/inc/wp_bootstrap_navwalker.php';
