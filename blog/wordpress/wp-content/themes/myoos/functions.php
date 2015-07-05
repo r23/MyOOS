@@ -176,3 +176,8 @@ require MYOOS_THEME_TEMPLATE . '/inc/customizer.php';
  * Load Jetpack compatibility file.
  */
 require MYOOS_THEME_TEMPLATE . '/inc/jetpack.php';
+
+/**
+ * Load custom nav walker
+ */
+require get_template_directory() . '/inc/wp_bootstrap_navwalker.php';
