@@ -66,17 +66,25 @@ function stats_load() {
 	if ( isset( $_GET['oldwidget'] ) ) {
 		// Old one.
 		add_action( 'wp_dashboard_setup', 'stats_register_dashboard_widget' );
-	} elseif ( current_user_can( 'view_stats' ) ) {
-		// New way.
-		add_action( 'load-index.php', 'stats_enqueue_dashboard_head' );
-		add_action( 'wp_dashboard_setup', 'stats_register_widget_control_callback' ); // hacky but works
-		add_action( 'jetpack_dashboard_widget', 'stats_jetpack_dashboard_widget' );
+	} else {
+		add_action( 'admin_init', 'stats_merged_widget_admin_init' );
 	}
 
 	add_filter( 'jetpack_xmlrpc_methods', 'stats_xmlrpc_methods' );
 
 
 	add_filter( 'pre_option_db_version', 'stats_ignore_db_version' );
+}
+
+/**
+ * Delay conditional for current_user_can to after init.
+ */
+function stats_merged_widget_admin_init() {
+	if ( current_user_can( 'view_stats' ) ) {
+		add_action( 'load-index.php', 'stats_enqueue_dashboard_head' );
+		add_action( 'wp_dashboard_setup', 'stats_register_widget_control_callback' ); // hacky but works
+		add_action( 'jetpack_dashboard_widget', 'stats_jetpack_dashboard_widget' );
+	}
 }
 
 function stats_enqueue_dashboard_head() {
@@ -123,7 +131,7 @@ function stats_map_meta_caps( $caps, $cap, $user_id, $args ) {
 function stats_template_redirect() {
 	global $wp_the_query, $current_user, $stats_footer;
 
-	if ( is_feed() || is_robots() || is_trackback() )
+	if ( is_feed() || is_robots() || is_trackback() || is_preview() )
 		return;
 
 	$options = stats_get_options();
@@ -363,7 +371,7 @@ function stats_reports_page() {
 		// No JS fallback message
 ?>
 <div class="wrap">
-	<h2><?php esc_html_e( 'Site Stats', 'jetpack'); ?> <a style="font-size:13px;" href="<?php echo esc_url( admin_url('admin.php?page=jetpack&configure=stats') ); ?>"><?php esc_html_e( 'Configure', 'jetpack'); ?></a></h2>
+	<h2><?php esc_html_e( 'Site Stats', 'jetpack'); ?> <?php if ( current_user_can( 'jetpack_manage_modules' ) ) : ?><a style="font-size:13px;" href="<?php echo esc_url( admin_url('admin.php?page=jetpack&configure=stats') ); ?>"><?php esc_html_e( 'Configure', 'jetpack'); ?></a><?php endif; ?></h2>
 </div>
 <div id="stats-loading-wrap" class="wrap">
 <p class="hide-if-no-js"><img width="32" height="32" alt="<?php esc_attr_e( 'Loading&hellip;', 'jetpack' ); ?>" src="<?php
@@ -1023,7 +1031,8 @@ function stats_dashboard_widget_content() {
 
 	$post_ids = array();
 
-	$csv_args = array( 'top' => '&limit=8', 'search' => '&limit=5' );
+	$csv_end_date = date( 'Y-m-d', current_time( 'timestamp' ) );
+	$csv_args = array( 'top' => "&limit=8&end=$csv_end_date", 'search' => "&limit=5&end=$csv_end_date" );
 	/* translators: Stats dashboard widget postviews list: "$post_title $views Views" */
 	$printf = __( '%1$s %2$s Views' , 'jetpack' );
 
@@ -1138,6 +1147,35 @@ function stats_print_wp_remote_error( $get, $url ) {
 	<?php
 }
 
+/**
+ * Get stats from WordPress.com
+ *
+ * @param string $table The stats which you want to retrieve: postviews, or searchterms
+ * @param array $args {
+ *     An associative array of arguments.
+ *
+ *      @type bool    $end        The last day of the desired time frame. Format is 'Y-m-d' (e.g. 2007-05-01)
+ *                                and default timezone is UTC date. Default value is Now.
+ *      @type string  $days       The length of the desired time frame. Default is 30. Maximum 90 days.
+ *      @type int     $limit      The maximum number of records to return. Default is 10. Maximum 100.
+ *      @type int     $post_id    The ID of the post to retrieve stats data for
+ *      @type string  $summarize  If present, summarizes all matching records. Default Null.
+ *
+ * }
+ *
+ * @return array {
+ *      An array of post view data, each post as an array
+ *
+ *      array {
+ *          The post view data for a single post
+ *
+ *          @type string  $post_id         The ID of the post
+ *          @type string  $post_title      The title of the post
+ *          @type string  $post_permalink  The permalink for the post
+ *          @type string  $views           The number of views for the post within the $num_days specified
+ *      }
+ * }
+ */
 function stats_get_csv( $table, $args = null ) {
 	$defaults = array( 'end' => false, 'days' => false, 'limit' => 3, 'post_id' => false, 'summarize' => '' );
 
@@ -1223,6 +1261,74 @@ function stats_str_getcsv( $csv ) {
 	while ( false !== $row = fgetcsv( $temp, 2000 ) )
 		$data[] = $row;
 	fclose( $temp );
+
+	return $data;
+}
+
+/**
+ * Abstract out building the rest api stats path.
+ *
+ * @param  string $resource
+ * @return string
+ */
+function jetpack_stats_api_path( $resource = '' ) {
+	$resource = ltrim( $resource, '/' );
+	return sprintf( '/sites/%d/stats/%s', stats_get_option( 'blog_id' ), $resource );
+}
+
+/**
+ * Fetches stats data from the REST API.  Caches locally for 5 minutes.
+ *
+ * @link: https://developer.wordpress.com/docs/api/1.1/get/sites/%24site/stats/
+ *
+ * @param  array|string   $args     The args that are passed to the endpoint
+ * @param  string         $resource Optional sub-endpoint following /stats/
+ * @return array|WP_Error
+ */
+function stats_get_from_restapi( $args = array(), $resource = '' ) {
+	$endpoint    = jetpack_stats_api_path( $resource );
+	$api_version = '1.1';
+	$args        = wp_parse_args( $args, array() );
+	$cache_key   = md5( implode( '|', array( $endpoint, $api_version, serialize( $args ) ) ) );
+
+	// Get cache
+	$stats_cache = Jetpack_Options::get_option( 'restapi_stats_cache', array() );
+	if ( ! is_array( $stats_cache ) ) {
+		$stats_cache = array();
+	}
+
+	// Return or expire this key
+	if ( isset( $stats_cache[ $cache_key ] ) ) {
+		$time = key( $stats_cache[ $cache_key ] );
+		if ( time() - $time < ( 5 * MINUTE_IN_SECONDS ) ) {
+			$cached_stats = $stats_cache[ $cache_key ][ $time ];
+			$cached_stats = (object) array_merge( array( 'cached_at' => $time ), (array) $cached_stats );
+			return $cached_stats;
+		}
+		unset( $stats_cache[ $cache_key ] );
+	}
+
+	// Do the dirty work.
+	$response = Jetpack_Client::wpcom_json_api_request_as_blog( $endpoint, $api_version, $args );
+	if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
+		// If bad, just return it, don't cache.
+		return $response;
+	}
+
+	$data = json_decode( wp_remote_retrieve_body( $response ) );
+
+	// Expire old keys
+	foreach ( $stats_cache as $k => $cache ) {
+		if ( ! is_array( $cache ) || ( 5 * MINUTE_IN_SECONDS ) < time() - key( $cache ) ) {
+			unset( $stats_cache[ $k ] );
+		}
+	}
+
+	// Set cache
+	$stats_cache[ $cache_key ] = array(
+		time() => $data,
+	);
+	Jetpack_Options::update_option( 'restapi_stats_cache', $stats_cache, false );
 
 	return $data;
 }

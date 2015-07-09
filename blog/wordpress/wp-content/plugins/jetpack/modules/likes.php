@@ -564,7 +564,12 @@ class Jetpack_Likes {
 		add_action( "admin_print_scripts-edit.php", array( $this, 'enqueue_admin_scripts' ) );
 
 		if ( $this->in_jetpack ) {
-			Jetpack_Sync::sync_posts( __FILE__ );
+			$post_stati = get_post_stati( array( 'public' => true ) ); // All public post stati
+			$post_stati[] = 'private';                                 // Content from private stati will be redacted
+			Jetpack_Sync::sync_posts( __FILE__, array(
+				'post_types' => get_post_types( array( 'public' => true ) ),
+				'post_stati' => $post_stati,
+				) );
 		}
 	}
 
@@ -595,14 +600,7 @@ class Jetpack_Likes {
 			wp_enqueue_script( 'postmessage', '/wp-content/js/postmessage.js', array( 'jquery' ), JETPACK__VERSION, false );
 			wp_enqueue_script( 'jquery_inview', '/wp-content/js/jquery/jquery.inview.js', array( 'jquery' ), JETPACK__VERSION, false );
 			wp_enqueue_script( 'jetpack_resize', '/wp-content/js/jquery/jquery.jetpack-resize.js', array( 'jquery' ), JETPACK__VERSION, false );
-
-
-			// @todo: Remove this opt-out filter in the future
-			if ( apply_filters( 'wpl_sharing_2014_1', true ) ) {
-				wp_enqueue_style( 'jetpack_likes', plugins_url( 'jetpack-likes.css', __FILE__ ), array(), JETPACK__VERSION );
-			} else {
-				wp_enqueue_style( 'jetpack_likes', plugins_url( 'jetpack-likes-legacy.css', __FILE__ ), array(), JETPACK__VERSION );
-			}
+			wp_enqueue_style( 'jetpack_likes', plugins_url( 'jetpack-likes.css', __FILE__ ), array(), JETPACK__VERSION );
 		}
 	}
 
@@ -847,12 +845,7 @@ class Jetpack_Likes {
 
 		$likes_locale = ( '' == $_locale || 'en' == $_locale ) ? '' : '&amp;lang=' . strtolower( $_locale );
 
-		// @todo: Remove this opt-out filter in the future
-		if ( apply_filters( 'wpl_sharing_2014_1', true ) ) {
-			$src = sprintf( '%1$s://widgets.wp.com/likes/master.html?ver=%2$s#ver=%2$s%3$s&amp;mp6=%4$d', $protocol, $this->version, $likes_locale, apply_filters( 'mp6_enabled', 0 ) );
-		} else {
-			$src = sprintf( '%1$s://widgets.wp.com/likes/master-legacy.html?ver=%2$s#ver=%2$s%3$s&amp;mp6=%4$d', $protocol, $this->version, $likes_locale, apply_filters( 'mp6_enabled', 0 ) );
-		}
+		$src = sprintf( '%1$s://widgets.wp.com/likes/master.html?ver=%2$s#ver=%2$s%3$s&amp;mp6=%4$d', $protocol, $this->version, $likes_locale, apply_filters( 'mp6_enabled', 0 ) );
 
 		$likersText = wp_kses( __( '<span>%d</span> bloggers like this:', 'jetpack' ), array( 'span' => array() ) );
 		?>
@@ -906,7 +899,7 @@ class Jetpack_Likes {
 	 */
 	function is_likes_visible() {
 
-		global $post;              // Used to apply 'sharing_show' filter
+		global $post, $wp_current_filter;              // Used to apply 'sharing_show' filter
 
 		// Never show on feeds or previews
 		if ( is_feed() || is_preview() || is_comments_popup() ) {
@@ -925,6 +918,10 @@ class Jetpack_Likes {
 
 			if ( post_password_required() )
 				$enabled = false;
+
+			if ( in_array( 'get_the_excerpt', (array) $wp_current_filter ) ) {
+				$enabled = false;
+			}
 
 			// Sharing Setting Overrides ****************************************
 

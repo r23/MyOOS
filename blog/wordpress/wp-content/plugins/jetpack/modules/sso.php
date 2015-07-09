@@ -360,6 +360,10 @@ class Jetpack_SSO {
 		} elseif ( 'jetpack-sso' === $action ) {
 			if ( isset( $_GET['result'], $_GET['user_id'], $_GET['sso_nonce'] ) && 'success' == $_GET['result'] ) {
 				$this->handle_login();
+				wp_enqueue_script( 'jquery' );
+				wp_enqueue_style( 'genericons' );
+				add_action( 'login_footer', array( $this, 'login_form' ) );
+				add_action( 'login_footer', array( $this, 'login_footer' ) );
 			} else {
 				if ( Jetpack::check_identity_crisis() ) {
 					wp_die( __( "Error: This site's Jetpack connection is currently experiencing problems.", 'jetpack' ) );
@@ -779,7 +783,7 @@ class Jetpack_SSO {
 	 * @return string
 	 **/
 	public function error_msg_enable_two_step( $message ) {
-		$err = __( sprintf( 'This site requires two step authentication be enabled for your user account on WordPress.com. Please visit the <a href="%1$s"> Security Settings</a> page to enable two step', 'https://wordpress.com/settings/security/' ) , 'jetpack' );
+		$err = __( sprintf( 'This site requires two step authentication be enabled for your user account on WordPress.com. Please visit the <a href="%1$s"> Security Settings</a> page to enable two step', 'https://wordpress.com/me/security/two-step' ) , 'jetpack' );
 
 		$message .= sprintf( '<p class="message" id="login_error">%s</p>', $err );
 
@@ -906,9 +910,9 @@ class Jetpack_SSO {
 								<span class="two_step">
 									<?php
 										if( $user_data->two_step_enabled ) {
-											?> <p class="enabled"><a href="https://wordpress.com/settings/security/"><?php _e( 'Two step Enabled', 'jetpack' ); ?></a></p> <?php
+											?> <p class="enabled"><a href="https://wordpress.com/me/security/two-step"><?php _e( 'Two-Step Authentication Enabled', 'jetpack' ); ?></a></p> <?php
 										} else {
-											?> <p class="disabled"><a href="https://wordpress.com/settings/security/"><?php _e( 'Two step Disabled', 'jetpack' ); ?></a></p> <?php
+											?> <p class="disabled"><a href="https://wordpress.com/me/security/two-step"><?php _e( 'Two-Step Authentication Disabled', 'jetpack' ); ?></a></p> <?php
 										}
 									?>
 								</span>

@@ -3,17 +3,23 @@
  * These functions are shared by the Protect module and its related json-endpoints
  */
 
-function jetpack_protect_format_whitelist( $whitelist = null ) {
+/**
+ * Returns an array of IP objects that will never be blocked by the Protect module
+ *
+ * The array is segmented into a local whitelist which applies only to the current site
+ * and a global whitelist which, for multisite installs, applies to the entire networko
+ *
+ * @return array
+ */
+function jetpack_protect_format_whitelist() {
 
-	if( ! $whitelist ) {
-		$whitelist = get_site_option( 'jetpack_protect_whitelist', array() );
-	}
+	$local_whitelist = jetpack_protect_get_local_whitelist();
 
 	$formatted = array(
-		'local'         => array(), // todo remove 'local' when we merge next iteration on calypso
+		'local'         => array(),
 	);
 
-	foreach( $whitelist as $item ) {
+	foreach( $local_whitelist as $item ) {
 		if ( $item->range ) {
 			$formatted['local'][] = $item->range_low . ' - ' . $item->range_high;
 		} else {
@@ -21,15 +27,85 @@ function jetpack_protect_format_whitelist( $whitelist = null ) {
 		}
 	}
 
+	if ( is_multisite() && current_user_can( 'manage_network' ) ) {
+		$formatted['global'] = array();
+		$global_whitelist = jetpack_protect_get_global_whitelist();
+
+		if ( false === $global_whitelist ) {
+			// if the global whitelist has never been set, check for a legacy option set prior to 3.6
+			$global_whitelist = get_site_option( 'jetpack_protect_whitelist', array() );
+		}
+
+		foreach( $global_whitelist as $item ) {
+			if ( $item->range ) {
+				$formatted['global'][] = $item->range_low . ' - ' . $item->range_high;
+			} else {
+				$formatted['global'][] = $item->ip_address;
+			}
+		}
+	}
+
 	return $formatted;
 }
 
-function jetpack_protect_save_whitelist( $whitelist ) {
+/**
+ * Gets the local Protect whitelist
+ *
+ * The 'local' part of the whitelist only really applies to multisite installs,
+ * which can have a network wide whitelist, as well as a local list that applies
+ * only to the current site. On single site installs, there will only be a local
+ * whitelist.
+ *
+ * @return array A list of IP Address objects or an empty array
+ */
+function jetpack_protect_get_local_whitelist() {
+	$whitelist = Jetpack_Options::get_option( 'protect_whitelist' );
+
+	if ( false === $whitelist ) {
+		// The local whitelist has never been set
+		if ( is_multisite() ) {
+			// On a multisite, we can check for a legacy site_option that existed prior to v 3.6, or default to an empty array
+			$whitelist = get_site_option( 'jetpack_protect_whitelist', array() );
+		} else {
+			// On a single site, we can just use an empty array
+			$whitelist = array();
+		}
+	}
+
+	return $whitelist;
+}
+
+/**
+ * Get the global, network-wide whitelist
+ *
+ * It will revert to the legacy site_option if jetpack_protect_global_whitelist has never been set
+ *
+ * @return array
+ */
+function jetpack_protect_get_global_whitelist() {
+	$whitelist = get_site_option( 'jetpack_protect_global_whitelist' );
+
+	if ( false === $whitelist ) {
+		// The global whitelist has never been set. Check for legacy site_option, or default to an empty array
+		$whitelist = get_site_option( 'jetpack_protect_whitelist', array() );
+	}
+	return $whitelist;
+}
+
+function jetpack_protect_save_whitelist( $whitelist, $global = false ) {
 	$whitelist_error    = false;
 	$new_items          = array();
 
 	if ( ! is_array( $whitelist ) ) {
 		return new WP_Error( 'invalid_parameters', __( 'Expecting an array', 'jetpack' ) );
+	}
+
+	if( $global && ! is_multisite() ) {
+		return new WP_Error( 'invalid_parameters', __( 'Cannot use global flag on non-multisites', 'jetpack' ) );
+	}
+
+	if ( $global && ! current_user_can( 'manage_network' ) ) {
+		return new WP_Error( 'permission_denied', __( 'Only super admins can edit the global whitelist', 'jetpack' ) );
 	}
 
 	// validate each item
@@ -89,44 +165,53 @@ function jetpack_protect_save_whitelist( $whitelist ) {
 		return new WP_Error( 'invalid_ip', __( 'One of your IP addresses was not valid.', 'jetpack' ) );
 	}
 
-	update_site_option( 'jetpack_protect_whitelist', $new_items );
+	if ( $global ) {
+		update_site_option( 'jetpack_protect_global_whitelist', $new_items );
+		// once a user has saved their global whitelist, we can permanently remove the legacy option
+		delete_site_option( 'jetpack_protect_whitelist' );
+	} else {
+		Jetpack_Options::update_option( 'protect_whitelist', $new_items );
+	}
+
 	return true;
 }
 
 function jetpack_protect_get_ip() {
+	
+	$trusted_header = get_site_option( 'trusted_ip_header' );
 
-	$server_headers = array(
-		'HTTP_CLIENT_IP',
-		'HTTP_CF_CONNECTING_IP',
-		'HTTP_X_FORWARDED_FOR',
-		'HTTP_X_FORWARDED',
-		'HTTP_X_CLUSTER_CLIENT_IP',
-		'HTTP_FORWARDED_FOR',
-		'HTTP_FORWARDED',
-		'REMOTE_ADDR'
-	);
-
-	foreach( $server_headers as $key ) {
-
-		if ( ! array_key_exists( $key, $_SERVER ) ) {
+	if( isset( $trusted_header ) && isset( $_SERVER[ $trusted_header ] ) ) {
+		$ip = $_SERVER[ $trusted_header ];
+	} else {
+		$ip = $_SERVER['REMOTE_ADDR'];
+	}
+	
+	$ips = array_reverse( explode( ', ', $ip ) );
+	
+	$ip_list_has_nonprivate_ip = false;
+	foreach( $ips as $ip ) {
+		$ip = jetpack_clean_ip( $ip );
+		
+		// If the IP is in a private or reserved range, keep looking
+		if ( $ip == '127.0.0.1' || $ip == '::1' || jetpack_protect_ip_is_private( $ip ) ) {
 			continue;
-		}
-
-		foreach( explode( ',', $_SERVER[ $key ] ) as $ip ) {
-			$ip = trim( $ip ); // just to be safe
-
-			// Check for IPv4 IP cast as IPv6
-			if ( preg_match('/^::ffff:(\d+\.\d+\.\d+\.\d+)$/', $ip, $matches ) ) {
-				$ip = $matches[1];
-			}
-
-			// If the IP is in a private or reserved range, return REMOTE_ADDR to help prevent spoofing
-			if ( $ip == '127.0.0.1' || $ip == '::1' || jetpack_protect_ip_is_private( $ip ) ) {
-				return $_SERVER[ 'REMOTE_ADDR' ];
-			}
+		} else {
 			return $ip;
 		}
 	}
+	
+	return jetpack_clean_ip( $_SERVER['REMOTE_ADDR'] );
+}
+
+function jetpack_clean_ip( $ip ) {
+	$ip = trim( $ip );
+	
+	// Check for IPv4 IP cast as IPv6
+	if ( preg_match('/^::ffff:(\d+\.\d+\.\d+\.\d+)$/', $ip, $matches ) ) {
+		$ip = $matches[1];
+	}
+	
+	return $ip;
 }
 
 /**
@@ -180,4 +265,41 @@ function jetpack_convert_ip_address( $ip ) {
 		return inet_pton( $ip );
 	}
 	return ip2long( $ip );
+}
+
+/**
+ * Checks that a given IP address is within a given low - high range.
+ * Servers that support inet_pton will use that function to convert the ip to number,
+ * while other servers will use ip2long.
+ *
+ * NOTE: servers that do not support inet_pton cannot support ipv6.
+ *
+ * @param $ip
+ * @param $range_low
+ * @param $range_high
+ *
+ * @return bool
+ */
+function jetpack_protect_ip_address_is_in_range( $ip, $range_low, $range_high ) {
+	// inet_pton will give us binary string of an ipv4 or ipv6
+	// we can then use strcmp to see if the address is in range
+	if ( function_exists( 'inet_pton' ) ) {
+		$ip_num  = inet_pton( $ip );
+		$ip_low  = inet_pton( $range_low );
+		$ip_high = inet_pton( $range_high );
+		if ( $ip_num && $ip_low && $ip_high && strcmp( $ip_num, $ip_low ) >= 0 && strcmp( $ip_num, $ip_high ) <= 0 ) {
+			return true;
+		}
+		// ip2long will give us an integer of an ipv4 address only. it will produce FALSE for ipv6
+	} else {
+		$ip_num  = ip2long( $ip );
+		$ip_low  = ip2long( $range_low );
+		$ip_high = ip2long( $range_high );
+		if ( $ip_num && $ip_low && $ip_high && $ip_num >= $ip_low && $ip_num <= $ip_high ) {
+			return true;
+		}
+	}
+
+	return false;
+
 }

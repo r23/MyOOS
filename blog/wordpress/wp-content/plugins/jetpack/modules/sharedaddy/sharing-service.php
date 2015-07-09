@@ -49,7 +49,6 @@ class Sharing_Service {
 			'facebook'      => 'Share_Facebook',
 			'linkedin'      => 'Share_LinkedIn',
 			'reddit'        => 'Share_Reddit',
-			'stumbleupon'   => 'Share_Stumbleupon',
 			'twitter'       => 'Share_Twitter',
 			'press-this'    => 'Share_PressThis',
 			'google-plus-1' => 'Share_GooglePlus1',
@@ -240,7 +239,7 @@ class Sharing_Service {
 
 		// Defaults
 		$options['global'] = array(
-			'button_style'  => 'icon',
+			'button_style'  => 'icon-text',
 			'sharing_label' => $this->default_sharing_label,
 			'open_links'    => 'same',
 			'show'          => array(),
@@ -504,6 +503,15 @@ function sharing_add_footer() {
 		if ( apply_filters( 'jetpack_sharing_counts', true ) && is_array( $jetpack_sharing_counts ) && count( $jetpack_sharing_counts ) ) :
 			$sharing_post_urls = array_filter( $jetpack_sharing_counts );
 			if ( $sharing_post_urls ) :
+
+				/**
+				 * Defines whether a blog is a Jetpack site.
+				 *
+				 * @since 3.6.0
+				 *
+				 * @param bool false    Assumption on whether a blog is a Jetpack site.
+				 * @param int  $blog_id A blog ID to check.
+				 */
 				$is_jetpack = true === apply_filters( 'is_jetpack_site', false, get_current_blog_id() );
 				$site_id = $is_jetpack ? Jetpack_Options::get_option( 'id' ) : get_current_blog_id();
 ?>
@@ -544,13 +552,8 @@ function sharing_add_header() {
 	}
 
 	if ( count( $enabled['all'] ) > 0 && sharing_maybe_enqueue_scripts() ) {
-		// @todo: Remove this opt-out filter in the future
-		if ( ( ! defined( 'IS_WPCOM' ) ) || ( ! IS_WPCOM ) || apply_filters( 'wpl_sharing_2014_1', true ) ) {
-			wp_enqueue_style( 'sharedaddy', plugin_dir_url( __FILE__ ) .'sharing.css', array(), JETPACK__VERSION );
-			wp_enqueue_style( 'genericons' );
-		} else {
-			wp_enqueue_style( 'sharedaddy', plugin_dir_url( __FILE__ ) .'sharing-legacy.css', array(), JETPACK__VERSION );
-		}
+		wp_enqueue_style( 'sharedaddy', plugin_dir_url( __FILE__ ) .'sharing.css', array(), JETPACK__VERSION );
+		wp_enqueue_style( 'genericons' );
 	}
 
 }
@@ -577,7 +580,7 @@ function sharing_display( $text = '', $echo = false ) {
 	if ( empty( $post ) )
 		return $text;
 
-	if ( is_preview() || is_admin() ) {
+	if ( ( is_preview() || is_admin() ) && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
 		return $text;
 	}
 
@@ -641,7 +644,7 @@ function sharing_display( $text = '', $echo = false ) {
 	// Private post?
 	$post_status = get_post_status( $post->ID );
 
-	if ( $post_status == 'private' ) {
+	if ( 'private' === $post_status ) {
 		$show = false;
 	}
 

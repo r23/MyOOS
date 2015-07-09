@@ -23,7 +23,7 @@ class Jetpack_Gallery_Widget extends WP_Widget {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 
-		$this->WP_Widget( 'gallery', apply_filters( 'jetpack_widget_name', __( 'Gallery', 'jetpack' ) ), $widget_ops, $control_ops );
+		parent::__construct( 'gallery', apply_filters( 'jetpack_widget_name', __( 'Gallery', 'jetpack' ) ), $widget_ops, $control_ops );
 	}
 
 	/**
@@ -366,9 +366,11 @@ class Jetpack_Gallery_Widget extends WP_Widget {
 			wp_enqueue_media();
 
 			wp_enqueue_script( 'gallery-widget-admin', plugins_url( '/gallery/js/admin.js', __FILE__ ), array(
-				'media-models',
-				'media-views'
-			) );
+					'media-models',
+					'media-views'
+				),
+				'20150501'
+			);
 
 			$js_settings = array(
 				'thumbSize' => self::THUMB_SIZE

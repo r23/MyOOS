@@ -1,6 +1,9 @@
 <?php
 
 class Jetpack_Client {
+	const WPCOM_JSON_API_HOST    = 'public-api.wordpress.com';
+	const WPCOM_JSON_API_VERSION = '1.1';
+
 	/**
 	 * Makes an authorized remote request using Jetpack_Signature
 	 *
@@ -131,6 +134,21 @@ class Jetpack_Client {
 	 * @return array|WP_Error WP HTTP response on success
 	 */
 	public static function _wp_remote_request( $url, $args, $set_fallback = false ) {
+		/**
+		 * SSL verification (`sslverify`) for the JetpackClient remote request 
+		 * defaults to off, use this filter to force it on.
+		 * 
+		 * Return `true` to ENABLE SSL verification, return `false`
+		 * to DISABLE SSL verification.
+		 * 
+		 * @since 3.6
+		 * 
+		 * @param bool Whether to force `sslverify` or not.
+		 */
+		if ( apply_filters( 'jetpack_client_verify_ssl_certs', false ) ) {
+			return wp_remote_request( $url, $args );
+		}
+		
 		$fallback = Jetpack_Options::get_option( 'fallback_no_verify_ssl_certs' );
 		if ( false === $fallback ) {
 			Jetpack_Options::update_option( 'fallback_no_verify_ssl_certs', 0 );
@@ -216,4 +234,49 @@ class Jetpack_Client {
 			}
 		}
 	}
+
+	/**
+	 * Query the WordPress.com REST API using the blog token
+	 *
+	 * @param string  $path
+	 * @param string  $version
+	 * @param array   $args
+	 * @param string  $body
+	 * @return array|WP_Error $response Data.
+	 */
+	static function wpcom_json_api_request_as_blog( $path, $version = self::WPCOM_JSON_API_VERSION, $args = array(), $body = null ) {
+		$filtered_args = array_intersect_key( $args, array(
+			'method'      => 'string',
+			'timeout'     => 'int',
+			'redirection' => 'int',
+		) );
+
+		/**
+		 * Determines whether Jetpack can send outbound https requests to the WPCOM api.
+		 *
+		 * @since 3.6.0
+		 *
+		 * @param bool $proto Defaults to true.
+		 */
+		$proto = apply_filters( 'jetpack_can_make_outbound_https', true ) ? 'https' : 'http';
+
+		// unprecedingslashit
+		$_path = preg_replace( '/^\//', '', $path );
+
+		// Use GET by default whereas `remote_request` uses POST
+		if ( isset( $filtered_args['method'] ) && strtoupper( $filtered_args['method'] === 'POST' ) ) {
+			$request_method = 'POST';
+		} else {
+			$request_method = 'GET';
+		}
+
+		$validated_args = array_merge( $filtered_args, array(
+			'url'     => sprintf( '%s://%s/rest/v%s/%s', $proto, self::WPCOM_JSON_API_HOST, $version, $_path ),
+			'blog_id' => (int) Jetpack_Options::get_option( 'id' ),
+			'method'  => $request_method,
+		) );
+
+		return Jetpack_Client::remote_request( $validated_args, $body );
+	}
+
 }

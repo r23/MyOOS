@@ -104,6 +104,11 @@ abstract class WPCOM_JSON_API_Endpoint {
 	 */
 	var $allow_unauthorized_request = false;
 
+	/**
+	 * @var bool Set to true if the endpoint should accept site based (not user based) authentication.
+	 */
+	var $allow_jetpack_site_auth = false;
+
 	function __construct( $args ) {
 		$defaults = array(
 			'in_testing'           => false,
@@ -132,6 +137,7 @@ abstract class WPCOM_JSON_API_Endpoint {
 			'custom_fields_filtering' => false,
 			'allow_cross_origin_request' => false,
 			'allow_unauthorized_request' => false,
+			'allow_jetpack_site_auth'    => false,
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -159,8 +165,8 @@ abstract class WPCOM_JSON_API_Endpoint {
 		$this->can_use_user_details_instead_of_blog_membership = $args['can_use_user_details_instead_of_blog_membership'];
 
 		$this->allow_cross_origin_request = (bool) $args['allow_cross_origin_request'];
-
 		$this->allow_unauthorized_request = (bool) $args['allow_unauthorized_request'];
+		$this->allow_jetpack_site_auth    = (bool) $args['allow_jetpack_site_auth'];
 
 		$this->version     = $args['version'];
 
@@ -628,6 +634,7 @@ abstract class WPCOM_JSON_API_Endpoint {
 	 * Echoes HTML.
 	 */
 	function document( $show_description = true ) {
+		global $wpdb;
 		$original_post = isset( $GLOBALS['post'] ) ? $GLOBALS['post'] : 'unset';
 		unset( $GLOBALS['post'] );
 
@@ -646,28 +653,46 @@ abstract class WPCOM_JSON_API_Endpoint {
 <p><strong>This endpoint is deprecated in favor of version <?php echo floatval( $this->new_version ); ?></strong></p>
 <?php } ?>
 
-<section class="resource-url">
-	<h2 id="apidoc-resource-url">Resource URL</h2>
+<section class="resource-info">
+	<h2 id="apidoc-resource-info">Resource Information</h2>
+
 	<table class="api-doc api-doc-resource-parameters api-doc-resource">
-		<thead>
-			<tr>
-				<th class="api-index-title" scope="column">Type</th>
-				<th class="api-index-title" scope="column">URL and Format</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr class="api-index-item">
-				<th scope="row" class="parameter api-index-item-title"><?php echo wp_kses_post( $doc['method'] ); ?></th>
-				<?php
-				$version = WPCOM_JSON_API__CURRENT_VERSION;
-				if ( !empty( $this->max_version ) ) {
-					$version = $this->max_version;
-				}
-				?>
-				<td class="type api-index-item-title" style="white-space: nowrap;">https://public-api.wordpress.com/rest/v<?php echo floatval( $version ); ?><?php echo wp_kses_post( $doc['path_labeled'] ); ?></td>
-			</tr>
-		</tbody>
+
+	<thead>
+		<tr>
+			<th class="api-index-title" scope="column">&nbsp;</th>
+			<th class="api-index-title" scope="column">&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+
+		<tr class="api-index-item">
+			<th scope="row" class="parameter api-index-item-title">Method</th>
+			<td class="type api-index-item-title"><?php echo wp_kses_post( $doc['method'] ); ?></td>
+		</tr>
+
+		<tr class="api-index-item">
+			<th scope="row" class="parameter api-index-item-title">URL</th>
+			<?php
+			$version = WPCOM_JSON_API__CURRENT_VERSION;
+			if ( !empty( $this->max_version ) ) {
+				$version = $this->max_version;
+			}
+			?>
+			<td class="type api-index-item-title">https://public-api.wordpress.com/rest/v<?php echo floatval( $version ); ?><?php echo wp_kses_post( $doc['path_labeled'] ); ?></td>
+		</tr>
+
+		<tr class="api-index-item">
+			<th scope="row" class="parameter api-index-item-title">Requires authentication?</th>
+			<?php
+			$requires_auth = $wpdb->get_row( $wpdb->prepare( "SELECT requires_authentication FROM rest_api_documentation WHERE `version` = %s AND `path` = %s AND `method` = %s LIMIT 1", $version, untrailingslashit( $doc['path_labeled'] ), $doc['method'] ) );
+			?>
+			<td class="type api-index-item-title"><?php echo ( true === (bool) $requires_auth->requires_authentication ? 'Yes' : 'No' ); ?></td>
+		</tr>
+
+	</tbody>
 	</table>
+
 </section>
 
 <?php
@@ -718,146 +743,6 @@ abstract class WPCOM_JSON_API_Endpoint {
 </table>
 </section>
 <?php endforeach; ?>
-
-<?php
-		// If no example was hardcoded in the doc, try to get some
-		if ( empty( $this->example_response ) ) {
-
-			// Examples for endpoint documentation response
-			$response_key  = 'dev_example_response_' . $this->version . '_' . $this->method . '_' . sanitize_key( $this->path );
-			$response_body = wp_cache_get( $response_key );
-
-			// Response doesn't exist, so run the request
-			if ( false === $response_body ) {
-
-				// Only trust GET request
-				if ( 'GET' === $this->method ) {
-					$response      = wp_remote_get( $this->example_request );
-					$response_body = wp_remote_retrieve_body( $response );
-
-					// Only cache if there's a result
-					if ( ! is_wp_error( $response ) && strlen( $response_body ) ) {
-						wp_cache_set( $response_key, $response_body );
-					} else {
-						wp_cache_delete( $response_key );
-					}
-				}
-			}
-
-		// Example response was passed into the constructor via params
-		} else {
-			$response_body = $this->example_response;
-		}
-
-		// Wrap the response in a sourcecode shortcode
-		if ( !empty( $response_body ) && !is_wp_error( $response ) ) {
-			$response_body = '[sourcecode language="javascript" wraplines="false" light="true" autolink="false" htmlscript="false"]' . $response_body . '[/sourcecode]';
-			$response_body = apply_filters( 'the_content', $response_body );
-			$this->example_response = $response_body;
-		}
-
-		$curl = 'curl';
-
-		$php_opts = array( 'ignore_errors' => true );
-
-		if ( 'GET' !== $this->method ) {
-			$php_opts['method'] = $this->method;
-		}
-
-		if ( $this->example_request_data ) {
-			if ( isset( $this->example_request_data['headers'] ) && is_array( $this->example_request_data['headers'] ) ) {
-				$php_opts['header'] = array();
-				foreach ( $this->example_request_data['headers'] as $header => $value ) {
-					$curl .= " \\\n -H " . escapeshellarg( "$header: $value" );
-					$php_opts['header'][] = "$header: $value";
-				}
-			}
-
-			if ( isset( $this->example_request_data['body'] ) && is_array( $this->example_request_data['body'] ) ) {
-				$php_opts['content'] = $this->example_request_data['body'];
-				$php_opts['header'][] = 'Content-Type: application/x-www-form-urlencoded';
-				foreach ( $this->example_request_data['body'] as $key => $value ) {
-					$curl .= " \\\n --data-urlencode " . escapeshellarg( "$key=$value" );
-				}
-			}
-		}
-
-		if ( $php_opts ) {
-			$php_opts_exported = var_export( array( 'http' => $php_opts ), true );
-			if ( !empty( $php_opts['content'] ) ) {
-				$content_exported = preg_quote( var_export( $php_opts['content'], true ), '/' );
-				$content_exported = '\\s*' . str_replace( "\n", "\n\\s*", $content_exported ) . '\\s*';
-				$php_opts_exported = preg_replace_callback( "/$content_exported/", array( $this, 'add_http_build_query_to_php_content_example' ), $php_opts_exported );
-			}
-			$php = <<<EOPHP
-<?php
-
-\$options  = $php_opts_exported;
-
-\$context  = stream_context_create( \$options );
-\$response = file_get_contents(
-  '$this->example_request',
-  false,
-  \$context
-);
-\$response = json_decode( \$response );
-
-?>
-EOPHP;
-		} else {
-			$php = <<<EOPHP
-<?php
-
-\$response = file_get_contents( '$this->example_request' );
-\$response = json_decode( \$response );
-
-?>
-EOPHP;
-		}
-
-		if ( false !== strpos( $curl, "\n" ) ) {
-			$curl .= " \\\n";
-		}
-
-		// Escape square brackets to prevent curl "[globbing] bad range specification" errors
-		$example_request = strtr( $this->example_request, array( '[' => '\[', ']' => '\]' ) );
-
-		$curl .= ' ' . escapeshellarg( $example_request );
-
-		$curl = '[sourcecode language="bash" wraplines="false" light="true" autolink="false" htmlscript="false"]' . $curl . '[/sourcecode]';
-		$curl = apply_filters( 'the_content', $curl );
-
-		$php = '[sourcecode language="php" wraplines="false" light="true" autolink="false" htmlscript="false"]' . $php . '[/sourcecode]';
-		$php = apply_filters( 'the_content', $php );
-?>
-
-<?php if ( ! empty( $this->example_request ) || ! empty( $this->example_request_data ) || ! empty( $this->example_response ) ) : ?>
-
-	<section class="example-response">
-		<h2 id="apidoc-example">Example</h2>
-
-		<section>
-			<h3>cURL</h3>
-			<?php echo wp_kses_post( $curl ); ?>
-		</section>
-
-		<section>
-			<h3>PHP</h3>
-			<?php echo wp_kses_post( $php ); ?>
-		</section>
-
-		<?php if ( ! empty( $this->example_response ) ) : ?>
-
-			<section>
-				<h3>Response Body</h3>
-				<?php echo $this->example_response; ?>
-			</section>
-
-		<?php endif; ?>
-
-	</section>
-
-<?php endif; ?>
 
 <?php
 		if ( 'unset' !== $original_post ) {
@@ -1187,8 +1072,10 @@ EOPHP;
 			$metadata = wp_get_attachment_metadata( $media_item->ID );
 			$response['height'] = $metadata['height'];
 			$response['width']  = $metadata['width'];
-			foreach ( $metadata['sizes'] as $size => $size_details ) {
-				$response['thumbnails'][ $size ] = dirname( $response['URL'] ) . '/' . $size_details['file'];
+			if ( is_array( $metadata['sizes'] ) ) {
+			      	foreach ( $metadata['sizes'] as $size => $size_details ) {
+			      	      	$response['thumbnails'][ $size ] = dirname( $response['URL'] ) . '/' . $size_details['file'];
+			      	}
 			}
 			$response['exif']   = $metadata['image_meta'];
 		}
@@ -1410,7 +1297,7 @@ EOPHP;
 
 	// Load the functions.php file for the current theme to get its post formats, CPTs, etc.
 	function load_theme_functions() {
-		// the theme info we care about is found either within functions.php or one of the jetpack files. it might also make sense to load inc/wpcom.php and includes/wpcom.php if there is a need for it
+		// the theme info we care about is found either within functions.php or one of the jetpack files.
 		$function_files = array( '/functions.php', '/inc/jetpack.compat.php', '/inc/jetpack.php', '/includes/jetpack.compat.php' );
 
 		// Is this a child theme? Load the child theme's functions file.
@@ -1427,6 +1314,9 @@ EOPHP;
 				require_once(  get_template_directory() . $function_file );
 			}
 		}
+		
+		// add inc/wpcom.php and/or includes/wpcom.php
+		wpcom_load_theme_compat_file();
 
 		// since the stuff we care about (CPTS, post formats, are usually on setup or init hooks, we want to load those)
 		$this->copy_hooks( 'after_setup_theme', 'restapi_theme_after_setup_theme', WP_CONTENT_DIR . '/themes' );
@@ -1645,6 +1535,8 @@ EOPHP;
 			$base        = substr( $base, 0, - 1 ) . $api_version;
 		}
 
+		// escape any % in the relative path before running it through sprintf again
+		$relative_path = str_replace( '%', '%%', $relative_path );
 		// http, WPCOM_JSON_API__BASE, ...    , path
 		// %s  , %s                  , $format, %s
 		return esc_url_raw( sprintf( "%s://%s$relative_path", $this->api->public_api_scheme, $base ) );

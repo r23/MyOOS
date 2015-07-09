@@ -87,7 +87,22 @@ class Jetpack_Display_Posts_Widget extends WP_Widget {
 		$site_hash = $this->get_site_hash( $instance['url'] );
 		$data_from_cache = get_transient( 'display_posts_post_info_' . $site_hash );
 		if ( false === $data_from_cache ) {
-			$response = wp_remote_get( sprintf( 'https://public-api.wordpress.com/rest/v1/sites/%d/posts/', $site_info->ID ) );
+			$response = wp_remote_get(
+				sprintf(
+					'https://public-api.wordpress.com/rest/v1/sites/%1$d/posts/%2$s',
+					$site_info->ID,
+					/**
+					 * Filters the parameters used to fetch for posts in the Display Posts Widget.
+					 *
+					 * @see https://developer.wordpress.com/docs/api/1.1/get/sites/%24site/posts/
+					 *
+					 * @since 3.6.0
+					 *
+					 * @param string $args Extra parameters to filter posts returned from the WordPress.com REST API.
+					 */
+					apply_filters( 'jetpack_display_posts_widget_posts_params', '' )
+				)
+			 );
 			set_transient( 'display_posts_post_info_' . $site_hash, $response, 10 * MINUTE_IN_SECONDS );
 		} else {
 			$response = $data_from_cache;
@@ -116,10 +131,24 @@ class Jetpack_Display_Posts_Widget extends WP_Widget {
 			$single_post = $posts_info->posts[$i];
 			$post_title = ( $single_post->title ) ? $single_post->title : '( No Title )';
 
-			echo '<h4><a href="' . esc_url( $single_post->URL ) . '">' . esc_html( $post_title ) . '</a></h4>' . "\n";
+			$target = '';
+			if ( $instance['open_in_new_window'] == true ) {
+ 				 $target = ' target="_blank"';
+			}
+			echo '<h4><a href="' . esc_url( $single_post->URL ) . '"' . $target . '>' . esc_html( $post_title ) . '</a></h4>' . "\n";
 			if ( ( $instance['featured_image'] == true ) && ( ! empty ( $single_post->featured_image) ) ) {
 				$featured_image = ( $single_post->featured_image ) ? $single_post->featured_image  : '';
-				echo '<a title="' . esc_attr( $post_title ) . '" href="' . esc_url( $single_post->URL ) . '"><img src="' . $featured_image . '" alt="' . esc_attr( $post_title ) . '"/></a>';
+				/**
+				 * Allows setting up custom Photon parameters to manipulate the image output in the Display Posts widget.
+				 *
+				 * @see https://developer.wordpress.com/docs/photon/
+				 *
+				 * @since 3.6.0
+				 *
+				 * @param array $args Array of Photon Parameters.
+				 */
+				$image_params = apply_filters( 'jetpack_display_posts_widget_image_params', array() );
+				echo '<a title="' . esc_attr( $post_title ) . '" href="' . esc_url( $single_post->URL ) . '"><img src="' . jetpack_photon_url( $featured_image, $image_params ) . '" alt="' . esc_attr( $post_title ) . '"/></a>';
 			}
 
 			if ( $instance['show_excerpts'] == true ) {
@@ -133,32 +162,37 @@ class Jetpack_Display_Posts_Widget extends WP_Widget {
 	}
 
 	public function form( $instance ) {
-		if ( isset( $instance[ 'title' ] ) ) {
-			$title = $instance[ 'title' ];
+		if ( isset( $instance['title'] ) ) {
+			$title = $instance['title'];
 		} else {
 			$title = __( 'Recent Posts', 'jetpack' );
 		}
 
-		if ( isset( $instance[ 'url' ] ) ) {
-			$url = $instance[ 'url' ];
+		if ( isset( $instance['url'] ) ) {
+			$url = $instance['url'];
 		} else {
 			$url = '';
 		}
 
-		if ( isset( $instance[ 'number_of_posts' ] ) ) {
-			$number_of_posts = $instance[ 'number_of_posts' ];
+		if ( isset( $instance['number_of_posts'] ) ) {
+			$number_of_posts = $instance['number_of_posts'];
 		} else {
 			$number_of_posts = 5;
 		}
 
-		if ( isset( $instance[ 'featured_image'] ) ) {
-			$featured_image = $instance[ 'featured_image'];
+		$open_in_new_window = false;
+		if ( isset( $instance['open_in_new_window'] ) ) {
+		    $open_in_new_window = $instance['open_in_new_window'];
+		}
+
+		if ( isset( $instance['featured_image'] ) ) {
+			$featured_image = $instance['featured_image'];
 		} else {
 			$featured_image = false;
 		}
 
-		if ( isset( $instance[ 'show_excerpts'] ) ) {
-			$show_excerpts = $instance[ 'show_excerpts'];
+		if ( isset( $instance['show_excerpts'] ) ) {
+			$show_excerpts = $instance['show_excerpts'];
 		} else {
 			$show_excerpts = false;
 		}
@@ -185,6 +219,9 @@ class Jetpack_Display_Posts_Widget extends WP_Widget {
 					}
 				?>
 			</select>
+		</p>
+			<label for="<?php echo $this->get_field_id( 'open_in_new_window' ); ?>"><?php _e( 'Open links in new window/tab:', 'jetpack' ); ?></label>
+			<input type="checkbox" name="<?php echo $this->get_field_name( 'open_in_new_window' ); ?>" <?php checked( $open_in_new_window, 1 ); ?> />
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'featured_image' ); ?>"><?php _e( 'Show Featured Image:', 'jetpack' ); ?></label>
@@ -215,6 +252,7 @@ class Jetpack_Display_Posts_Widget extends WP_Widget {
 		}
 
 		$instance['number_of_posts'] = ( ! empty( $new_instance['number_of_posts'] ) ) ? intval( $new_instance['number_of_posts'] ) : '';
+		$instance['open_in_new_window'] = ( ! empty( $new_instance['open_in_new_window'] ) ) ? true : '';
 		$instance['featured_image'] = ( ! empty( $new_instance['featured_image'] ) ) ? true : '';
 		$instance['show_excerpts'] = ( ! empty( $new_instance['show_excerpts'] ) ) ? true : '';
 		return $instance;

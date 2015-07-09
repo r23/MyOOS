@@ -1,9 +1,9 @@
 === Jetpack by WordPress.com ===
 Contributors: automattic, alternatekev, andy, apeatling, azaozz, barry, beaulebens, blobaugh, cfinke, chellycat, danielbachhuber, daniloercoli, designsimply, dsmart, eoigal, ethitter, gibrown, georgestephanis, hew, hugobaeta, iammattthomas, jblz, jeherve, jkudish, Joen, johnjamesjacoby, jshreve, kraftbj, lancewillett, martinremy, matt, matveb, maverick3x6, mcsf, mdawaffe, migueluy, nickmomrik, obenland, pento, professor44, richardmtl, roccotripaldi, samhotchkiss, sdquirk, stephdau, tmoorewp, Viper007Bond, westi, yoavf, zinigor
-Tags: WordPress.com, statistics, stats, views, tweets, twitter, widget, gravatar, hovercards, profile, equations, latex, math, maths, youtube, shortcode, archives, audio, blip, bliptv, dailymotion, digg, flickr, googlevideo, google, googlemaps, kyte, kytetv, livevideo, redlasso, rockyou, rss, scribd, slide, slideshare, soundcloud, vimeo, shortlinks, wp.me, subscriptions, notifications, notes, json, api, rest, mosaic, gallery, slideshow, videopress, monitor, search, omnisearch, sso, jet pack
-Stable tag: 3.5.3
+Tags: WordPress.com, jet pack, comments, contact, gallery, performance, sharing, security, shortcodes, stats, subscriptions, widgets
+Stable tag: 3.6
 Requires at least: 4.1.1
-Tested up to: 4.2.1
+Tested up to: 4.2.2
 
 Your WordPress, Streamlined.
 
@@ -35,7 +35,7 @@ Your WordPress, Streamlined.
 * Integration with social networks including Twitter, Facebook, Tumblr, Path, and LinkedIn.
 * For the Math geeks, a simple way to include beautiful mathematical expressions.
 * A widget for displaying recent tweets.
-* Your readers can easily share your posts via email or their favorite social networks. 
+* Your readers can easily share your posts via email or their favorite social networks.
 * Improved writing thanks to an AI-based spell, style, and grammar checker.
 * Turn WordPress  galleries into a gorgeous full-screen photo browsing experience.
 * A CSS editor that lets you customize your site design without modifying your theme.
@@ -99,6 +99,48 @@ Learn more (and get detailed instructions) in our [contribute guide](http://jetp
 8. Mobile Theme
 
 == Changelog ==
+
+= 3.6 =
+Release Date: July 6th, 2015
+
+* Enhancement: CLI: Add a number of Jetpack CLI improvements: see http://jetpack.me/support/jetpack-cli
+* Enhancement: Custom CSS: Add more Flexbox support and other enhancements
+* Enhancement: Extra Sidebar Widgets: FB Like Box: New version of facebook likebox
+* Enhancement: Extra Sidebar Widgets: New Social Media Icons widget
+* Enhancement: Extra Sidebar Widgets: Top Posts Widget: Choose what Post Types to display
+* Enhancement: General: Save on some requests! print CSS inline when there isn't much of it
+* Enhancement: Likes: Likes can now be shown on all post types
+* Enhancement: Minileven: Add Featured Image to Gallery Post Format and Pages
+* Enhancement: Mobile Theme: Add div wrapping View Mobile Site link to allow for easier CSS customizations
+* Enhancement: My Jetpack: Add My Jetpack page for Jetpack connection management
+* Enhancement: Omnisearch: Link to edit post in titles
+* Enhancement: Protect: When status is blocked, use a captcha
+* Enhancement: Protect: Learn Trusted Headers locally and cache blocks properly
+* Enhancement: REST API: Add locale support
+* Enhancement: Sharing: Retire StumbleUpon
+* Enhancement: Sharing:	Upgrade to reCAPTCHA 2.0 for Email Sharing
+* Enhancement: Shortcode Embeds: Add Mesh oembed support
+* Enhancement: Shortcode Embeds: New Wufoo Shortcode from WordPress.com
+* Enhancement: Shortcode Embeds: Mixcloud: handle accented characters in URLs
+* Enhancement: Site Logo: Adding itemprops to support logo schema.
+* Enhancement: Slideshow Gallery: New parameters *size* and *autostart*
+* Enhancement: Slideshow Gallery: Use more reliable CSS for resizing instead of js
+* Enhancement: Stats: No longer track stats for preview pages
+* Enhancement: Tiled Gallery: Improve the shapes and distributions of shapes in the Tiled Gallery, based on observations for its usage.
+* Enhancement: Protect: Whitelist for multisite globally and locally
+* Enhancement: Sharing: LinkedIn always uses https for share counts. (saved extra http request)
+* Bug Fix: Carousel: Jetpack Carousel now supports HTML5 gallery
+* Bug Fix: Extra Sidebar Widgets: Choose Images button works in accessibility mode
+* Bug Fix: General: Fix: Cannot remove hooks from filter 'jetpack_get_available_modules'
+* Bug Fix: Infinite Scroll: Check that search terms exist before matching against post title. fixes #2075
+* Bug Fix: Likes: Never double show on search results
+* Bug Fix: Notifications: Notifications didn't load on wp-admin/network pages
+* Bug Fix: Sharing: Fix Facebook share button not showing for Australian & Canadian locale
+* Bug Fix: Shortcode Embed: Slideshare Shortcode now fixed
+* Bug Fix: SSO: Hide login no matter what when using the filter to do so
+* Bug Fix: Subs Widget: Don't hide email input if submit failed
+* Bug Fix: Tiled Gallery: Show columns setting for Thumbnail Grid when Tiled Mosaic galleries are the default
+* Bug Fix: Twitter Cards: Remove deprecated card types
 
 = 3.5.3 =
 Release Date: May 6th, 2015
@@ -180,9 +222,9 @@ Release Post: http://jetpack.me/2015/03/17/jetpack-3-4-protect-secure-and-simpli
 * Enhancement : Custom Content Type: Add option to add Testimonial Custom Content Type in admin
 * Enhancement : Custom Content Type: bring consistency between the portfolio and testimonial shared codebase
 * Enhancement : Custom Content Type: code cleanup
-* Enhancement : Custom Content Type: register namespaced 'jetpack_portfolio' shortcode/use a prefix for shortcode for Portfolio 
+* Enhancement : Custom Content Type: register namespaced 'jetpack_portfolio' shortcode/use a prefix for shortcode for Portfolio
 * Enhancement : Custom Content Type: set shortcode image size to 'large' and add jetpack_portfolio_thumbnail_size filter to allow themes to set their own size for Portfolio
-* Enhancement : Custom Content Type: testimonial shortcode enhancement 
+* Enhancement : Custom Content Type: testimonial shortcode enhancement
 * Enhancement : Extra Sidebar Widgets: Add subscription widget wildcard
 * Enhancement : Extra Sidebar Widgets: Likes and Sharing Shortcodes
 * Enhancement : Extra Sidebar Widgets: Minor fixes to Facebook widget plugin for SSL
