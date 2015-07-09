@@ -1,8 +1,0 @@
-{
-    "MultiSites": {
-        "Evolution": "推移",
-        "LoadingWebsites": "ウェブサイトをロード中",
-        "TopLinkTooltip": "あなたの全ウェブサイトに対するウェブ解析統計情報を比較してください。",
-        "Pagination": "%s の %s - %s"
-    }
-}
