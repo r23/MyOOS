@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Network Admin package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-06-28 12:38:48+0000\n"
+"PO-Revision-Date: 2015-07-05 13:57:22+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -402,11 +402,11 @@ msgstr "Falls der Vorgang aus irgendeinem Grund abbricht, so wird er automatisch
 
 #: wp-admin/network/upgrade.php:26
 msgid "If a version update to core has not happened, clicking this button won&#8217;t affect anything."
-msgstr "Falls jedoch keine Aktualisierungen zu tätigen sind, macht ein Klick auf die Schaltfläche auch nichts kaputt."
+msgstr "Falls jedoch keine Aktualisierungen zu tätigen sind, macht ein Klick auf den Button auch nichts kaputt."
 
 #: wp-admin/network/upgrade.php:25
 msgid "Only use this screen once you have updated to a new version of WordPress through Updates/Available Updates (via the Network Administration navigation menu or the Toolbar). Clicking the Upgrade Network button will step through each site in the network, five at a time, and make sure any database updates are applied."
-msgstr "Verwende diese Seite nur, wenn Du auf eine neue Version von WordPress durch Aktualisierungen/Verfügbare Aktualisierungen aktualisiert hast, etwa über das Netzwerk-Administrationsmenü oder die Toolbar. Durch Klicken auf die Schaltfläche Netzwerk-Aktualisierung wirst Du durch jede Website im Netz Schritt für Schritt geführt (in Paketen von je fünf Webseiten). Stelle bitte sicher, dass alle Datenbank-Updates angewendet werden."
+msgstr "Verwende diese Seite nur, wenn Du auf eine neue Version von WordPress durch Aktualisierungen/Verfügbare Aktualisierungen aktualisiert hast, etwa über das Netzwerk-Administrationsmenü oder die Toolbar. Durch Klicken auf den Button Netzwerk-Aktualisierung wirst Du durch jede Website im Netz Schritt für Schritt geführt (in Paketen von je fünf Webseiten). Stelle bitte sicher, dass alle Datenbank-Updates angewendet werden."
 
 #: wp-admin/network/themes.php:297
 msgid "You cannot delete a theme while it is active on the main site."

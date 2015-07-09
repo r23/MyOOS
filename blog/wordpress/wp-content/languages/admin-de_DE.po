@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-07-04 19:52:42+0000\n"
+"PO-Revision-Date: 2015-07-05 15:35:03+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3344,7 +3344,7 @@ msgstr "WordPress kann automatisch nach häufigen Datenbank Problemen suchen und
 
 #: wp-admin/maint/repair.php:113
 msgid "One or more database tables are unavailable. To allow WordPress to attempt to repair these tables, press the &#8220;Repair Database&#8221; button. Repairing can take a while, so please be patient."
-msgstr "Mindestens eine Datenbanktabelle ist nicht erreichbar. WordPress kann versuchen, diese Tabellen zu reparieren. Klicke dazu auf die Schaltfläche &#8222;Datenbank reparieren&#8220;. Die Reparatur kann etwas Zeit in Anspruch nehmen, habe also bitte etwas Geduld."
+msgstr "Mindestens eine Datenbanktabelle ist nicht erreichbar. WordPress kann versuchen, diese Tabellen zu reparieren. Klicke dazu auf den Button &#8222;Datenbank reparieren&#8220;. Die Reparatur kann etwas Zeit in Anspruch nehmen, habe also bitte etwas Geduld."
 
 #: wp-admin/maint/repair.php:109
 msgid "Repairs complete. Please remove the following line from wp-config.php to prevent this page from being used by unauthorized users."
@@ -5390,7 +5390,7 @@ msgstr "Link besuchen"
 
 #: wp-admin/includes/meta-boxes.php:766
 msgid "Need help? Use the Help tab in the upper right of your screen."
-msgstr "Benötigst du Hilfe? Klicke auf die Schaltfläche &#8222;Hilfe&#8220; in der rechten oberen Ecke des Bildschirms."
+msgstr "Benötigst du Hilfe? Klicke auf den Button &#8222;Hilfe&#8220; in der rechten oberen Ecke des Bildschirms."
 
 #: wp-admin/includes/meta-boxes.php:716
 msgid "(no parent)"
@@ -9501,7 +9501,7 @@ msgstr ""
 
 #: wp-admin/edit-form-advanced.php:337 wp-admin/media.php:76
 msgid "For images only, you can click on Edit Image under the thumbnail to expand out an inline image editor with icons for cropping, rotating, or flipping the image as well as for undoing and redoing. The boxes on the right give you more options for scaling the image, for cropping it, and for cropping the thumbnail in a different way than you crop the original image. You can click on Help in those boxes to get more information."
-msgstr "Bei Bildern kannst du auf die Schaltfläche <em>Bild bearbeiten</em> unter dem Vorschaubild klicken und es dann zum Beispiel zuschneiden, skalieren, drehen oder spiegeln. Während der Bearbeitung lassen sich einzelne Arbeitsschritte auch rückgängig machen."
+msgstr "Bei Bildern kannst du auf den Button <em>Bild bearbeiten</em> unter dem Vorschaubild klicken und es dann zum Beispiel zuschneiden, skalieren, drehen oder spiegeln. Während der Bearbeitung lassen sich einzelne Arbeitsschritte auch rückgängig machen."
 
 #: wp-admin/edit-form-advanced.php:336
 msgid "This screen allows you to edit four fields for metadata in a file within the media library."
@@ -9521,7 +9521,7 @@ msgstr "Über Seiten"
 
 #: wp-admin/edit-form-advanced.php:317
 msgid "Creating a Page is very similar to creating a Post, and the screens can be customized in the same way using drag and drop, the Screen Options tab, and expanding/collapsing boxes as you choose. This screen also has the distraction-free writing space, available in both the Visual and Text modes via the Fullscreen buttons. The Page editor mostly works the same as the Post editor, but there are some Page-specific features in the Page Attributes box:"
-msgstr "Eine Seite zu erstellen ist sehr ähnlich wie das Erstellen eines Beitrags und der Bildschirm kann genauso per Ziehen und Ablegen, die Registerlasche für Anzeige-Optionen und das beliebige Vergrößern der Kästchen an die Bedürfnisse angepasst werden. Über die Schaltfläche Vollbildschirm kommst Du in den ablenkungsfreien Schreibmodus, bei dem du sowohl den visuellen als auch den Text-Editor verwenden kannst. Der Seiten-Editor funktioniert im Wesentlichen wie der Beitrags-Editor, aber unter Attribute gibt es einige Seiten-spezifische Einstellungsmöglichkeiten."
+msgstr "Eine Seite zu erstellen ist sehr ähnlich wie das Erstellen eines Beitrags und der Bildschirm kann genauso per Ziehen und Ablegen, die Registerlasche für Anzeige-Optionen und das beliebige Vergrößern der Kästchen an die Bedürfnisse angepasst werden. Über den Button Vollbildschirm kommst Du in den ablenkungsfreien Schreibmodus, bei dem du sowohl den visuellen als auch den Text-Editor verwenden kannst. Der Seiten-Editor funktioniert im Wesentlichen wie der Beitrags-Editor, aber unter Attribute gibt es einige Seiten-spezifische Einstellungsmöglichkeiten."
 
 #: wp-admin/edit-form-advanced.php:316
 msgid "Pages are similar to Posts in that they have a title, body text, and associated metadata, but they are different in that they are not part of the chronological blog stream, kind of like permanent posts. Pages are not categorized or tagged, but can have a hierarchy. You can nest Pages under other Pages by making one the &#8220;Parent&#8221; of the other, creating a group of Pages."
@@ -9567,7 +9567,7 @@ msgstr "<strong>Beitrags-Editor</strong> – Gib den Text für deinen Beitrag ei
 msgid "<strong>Title</strong> - Enter a title for your post. After you enter a title, you&#8217;ll see the permalink below, which you can edit."
 msgstr ""
 "<strong>Titel</strong> – Im ersten Eingabefeld dieser Seite musst du einen Titel für deinen Beitrag eintragen. \n"
-"Nachdem ein Titel eingegeben wurde, wird unter dem Eingabefeld der Permalink angezeigt, unter dem der Beitrag nach dem Veröffentlichen (Schaltfläche \"Veröffentlichen\") erreichbar ist."
+"Nachdem ein Titel eingegeben wurde, wird unter dem Eingabefeld der Permalink angezeigt, unter dem der Beitrag nach dem Veröffentlichen (Button \"Veröffentlichen\") erreichbar ist."
 
 #: wp-admin/edit-form-advanced.php:291
 msgid "Customizing This Display"
@@ -10017,7 +10017,7 @@ msgstr "Sollte dein Theme mehr als ein Standard-Header-Bild haben oder du mehr a
 
 #: wp-admin/custom-header.php:107
 msgid "Some themes come with additional header images bundled. If you see multiple images displayed, select the one you&#8217;d like and click the &#8220;Save Changes&#8221; button."
-msgstr "Manche Themes bringen mehrere verschiedene Bilder mit, aus denen du wählen kannst. Klicke anschließend auf die Schaltfläche &#8222;Speichern&#8220;, um ein gewähltes Bild zu übernehmen."
+msgstr "Manche Themes bringen mehrere verschiedene Bilder mit, aus denen du wählen kannst. Klicke anschließend auf den Button &#8222;Speichern&#8220;, um ein gewähltes Bild zu übernehmen."
 
 #: wp-admin/custom-header.php:106
 msgid "You can set a custom image header for your site. Simply upload the image and crop it, and the new header will go live immediately. Alternatively, you can use an image that has already been uploaded to your Media Library by clicking the &#8220;Choose Image&#8221; button."
@@ -10118,7 +10118,7 @@ msgstr "Vergiss nicht, zum Schluss auf <em>Änderungen übernehmen</em> zu klick
 
 #: wp-admin/custom-background.php:90
 msgid "You can also choose a background color by clicking the Select Color button and either typing in a legitimate HTML hex value, e.g. &#8220;#ff0000&#8221; for red, or by choosing a color using the color picker."
-msgstr "Du kannst die Hintergrundfarbe durch Klicken auf die Schaltfläche &#8222;Farbe wählen&#8220; auswählen oder einen gültigen HTML Hex-Wert eingeben. Bspw: &#8222;#ff0000&#8220; für Rot oder wähle eine Farbe aus dem Farbwähler"
+msgstr "Du kannst die Hintergrundfarbe durch Klicken auf den Button &#8222;Farbe wählen&#8220; auswählen oder einen gültigen HTML Hex-Wert eingeben. Bspw: &#8222;#ff0000&#8220; für Rot oder wähle eine Farbe aus dem Farbwähler"
 
 #: wp-admin/custom-background.php:89
 msgid "To use a background image, simply upload it or choose an image that has already been uploaded to your Media Library by clicking the &#8220;Choose Image&#8221; button. You can display a single instance of your image, or tile it to fill the screen. You can have your background fixed in place, so your site content moves on top of it, or you can have it scroll with your site."
