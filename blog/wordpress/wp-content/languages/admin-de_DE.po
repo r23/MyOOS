@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-07-05 15:35:03+0000\n"
+"PO-Revision-Date: 2015-07-09 09:31:02+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2424,7 +2424,7 @@ msgstr "Einstellungen &rsaquo; Medien"
 
 #: wp-admin/options-general.php:366 wp-admin/options-general.php:370
 msgid "The %s constant in your %s file is no longer needed."
-msgstr "Der %s Wert in deiner %s Datei wird nicht länger benötigt."
+msgstr "Die Konstante %s in deiner Datei %s wird nicht länger benötigt."
 
 #: wp-admin/options-general.php:366
 msgid "Note:"
