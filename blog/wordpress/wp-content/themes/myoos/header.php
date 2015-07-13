@@ -38,11 +38,10 @@
 		
 							<!-- Toggle get grouped for better mobile display -->
 							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-responsive-collapse">
-								<span class="sr-only"><?php esc_html_e( 'Toggle navigation', 'myoos' ); ?>Toggle navigation</span>
+								<span class="sr-only"><?php esc_html_e( 'Toggle navigation', 'myoos' ); ?></span>
 								<span class="fa fa-bars"></span>
 							</button>
 							<!-- End Toggle -->
-
 	
 							<?php if ( get_header_image() ) : ?>
 							

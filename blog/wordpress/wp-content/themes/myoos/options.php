@@ -20,20 +20,20 @@ function optionsframework_options() {
 
 	// Test data
 	$test_array = array(
-		'one' => __( 'One', 'theme-textdomain' ),
-		'two' => __( 'Two', 'theme-textdomain' ),
-		'three' => __( 'Three', 'theme-textdomain' ),
-		'four' => __( 'Four', 'theme-textdomain' ),
-		'five' => __( 'Five', 'theme-textdomain' )
+		'one' => __( 'One', 'myoos' ),
+		'two' => __( 'Two', 'myoos' ),
+		'three' => __( 'Three', 'myoos' ),
+		'four' => __( 'Four', 'myoos' ),
+		'five' => __( 'Five', 'myoos' )
 	);
 
 	// Multicheck Array
 	$multicheck_array = array(
-		'one' => __( 'French Toast', 'theme-textdomain' ),
-		'two' => __( 'Pancake', 'theme-textdomain' ),
-		'three' => __( 'Omelette', 'theme-textdomain' ),
-		'four' => __( 'Crepe', 'theme-textdomain' ),
-		'five' => __( 'Waffle', 'theme-textdomain' )
+		'one' => __( 'French Toast', 'myoos' ),
+		'two' => __( 'Pancake', 'myoos' ),
+		'three' => __( 'Omelette', 'myoos' ),
+		'four' => __( 'Crepe', 'myoos' ),
+		'five' => __( 'Waffle', 'myoos' )
 	);
 
 	// Multicheck Defaults
