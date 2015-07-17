@@ -727,6 +727,7 @@ return array(
     'Piwik\\Plugins\\CoreAdminHome\\CustomLogo' => $baseDir . '/plugins/CoreAdminHome/CustomLogo.php',
     'Piwik\\Plugins\\CoreAdminHome\\Menu' => $baseDir . '/plugins/CoreAdminHome/Menu.php',
     'Piwik\\Plugins\\CoreAdminHome\\Model\\DuplicateActionRemover' => $baseDir . '/plugins/CoreAdminHome/Model/DuplicateActionRemover.php',
+    'Piwik\\Plugins\\CoreAdminHome\\OptOutManager' => $baseDir . '/plugins/CoreAdminHome/OptOutManager.php',
     'Piwik\\Plugins\\CoreAdminHome\\Tasks' => $baseDir . '/plugins/CoreAdminHome/Tasks.php',
     'Piwik\\Plugins\\CoreAdminHome\\Tasks\\ArchivesToPurgeDistributedList' => $baseDir . '/plugins/CoreAdminHome/Tasks/ArchivesToPurgeDistributedList.php',
     'Piwik\\Plugins\\CoreAdminHome\\tests\\Fixture\\DuplicateActions' => $baseDir . '/plugins/CoreAdminHome/tests/Fixture/DuplicateActions.php',

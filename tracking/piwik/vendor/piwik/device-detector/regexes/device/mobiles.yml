@@ -54,7 +54,7 @@ SFR:
 
 # HTC
 HTC:
-  regex: 'HTC|Sprint (?:APA|ATP)|ADR(?!910L)[a-z0-9]+|NexusHD2|Amaze[ _]4G Build|(Desire|Sensation|Evo ?3D)[ _]?([^;/]+) Build|(Amaze[ _]4G|One ?[XELSV\+]+) Build|SPV E6[05]0'
+  regex: 'HTC|Sprint (?:APA|ATP)|ADR(?!910L)[a-z0-9]+|NexusHD2|Amaze[ _]4G Build|(Desire|Sensation|Evo ?3D)[ _]?([^;/]+) Build|(Amaze[ _]4G|One ?[XELSV\+]+) Build|SPV E6[05]0|One M8'
   device: 'smartphone'
   models:
     # explicit smartphone models
@@ -101,6 +101,8 @@ HTC:
     - regex: '(ADR.+) Build'
       model: '$1'
     - regex: '(ADR[a-z0-9]+)'
+      model: '$1'
+    - regex: '(One M8)'
       model: '$1'
 
 # NOKIA
@@ -352,13 +354,19 @@ Airness:
 
 # Alcatel
 Alcatel:
-  regex: 'Alcatel|Alc[a-z0-9]+|One ?Touch'
+  regex: 'Alcatel|Alc[a-z0-9]+|One[ _]?Touch|Smart ?Tab ?4G'
   device: 'smartphone'
   models:
+    - regex: 'Smart ?Tab ?4G'
+      device: 'tablet'
+      model: 'Vodafone Smart Tab 4G'
+
     - regex: '(?:Alcatel[ _])?One[ _]?Touch[ _]((?:T[0-9]+|TAB[^/;]+|EVO[78](?:HD)?)) Build'
       device: 'tablet'
       model: 'One Touch $1'
     - regex: '(?:Alcatel[ _])?One[ _]?Touch([^/;]*) Build'
+      model: 'One Touch$1'
+    - regex: '(?:Alcatel[ _])?One[ _]?Touch([^/;\)]*)\)'
       model: 'One Touch$1'
     - regex: 'Alcatel UP'
       model: ''
@@ -1402,7 +1410,7 @@ Hi-Level:
 
 # Huawei
 Huawei:
-  regex: '(HW-)?Huawei|Ideos|vodafone[a-z0-9]+'
+  regex: '(HW-)?Huawei|Ideos'
   device: 'smartphone'
   models:
     - regex: '(MediaPad[^/;]*) Build'
@@ -1419,8 +1427,6 @@ Huawei:
       model: '$1'
     - regex: 'Huawei; ([a-z0-9 \-]+)'
       model: '$1'
-    - regex: 'vodafone([a-z0-9]+)'
-      model: 'Vodafone $1'
 
 # Hyundai
 Hyundai:
@@ -1653,9 +1659,22 @@ Lenco:
 
 # lenovo
 Lenovo:
-  regex: '(?:LNV-)?Lenovo|IdeaTab|IdeaPad|Thinkpad|Yoga Tablet'
+  regex: '(?:LNV-)?Lenovo|IdeaTab|IdeaPad|Thinkpad|Yoga Tablet|Smart ?Tab ?III? ?[7|10]'
   device: 'smartphone'
   models:
+    - regex: 'Smart ?Tab ?II ?7'
+      model: 'Vodafone Smart Tab II 7'
+      device: 'tablet'
+    - regex: 'Smart ?Tab ?II ?10'
+      model: 'Vodafone Smart Tab II 10'
+      device: 'tablet'
+    - regex: 'Smart ?Tab ?III ?7'
+      model: 'Vodafone Smart Tab III 7'
+      device: 'tablet'
+    - regex: 'Smart ?Tab ?III ?10'
+      model: 'Vodafone Smart Tab III 10'
+      device: 'tablet'
+
     - regex: 'Lenovo (B[0-9]+[^/;]*) Build'
       model: 'IdeaTab $1'
       device: 'tablet'
@@ -3234,12 +3253,20 @@ Zopo:
 
 # ZTE
 ZTE:
-  regex: 'ZTE|Z331|N799D|([a-z0-9]+)_USA_Cricket'
+  regex: 'ZTE|Z331|N799D|([a-z0-9]+)_USA_Cricket|SmartTab[7|10]'
   device: 'smartphone'
   models:
     # explicit smartphone models
     - regex: 'N799D'
       model: 'MTS Blaze 4'
+
+    # explicit table models
+    - regex: 'SmartTab7'
+      model: 'Vodafone Smart Tab 7'
+      device: 'tablet'
+    - regex: 'SmartTab10'
+      model: 'Vodafone Smart Tab 10'
+      device: 'tablet'
 
     - regex: '([a-z0-9]+)_USA_Cricket'
       model: '$1'
@@ -3260,3 +3287,11 @@ ZTE:
 #Nokia:
 #  regex: 'Symbian'
 #  device: 'feature phone'
+
+# OnePlus
+OnePlus:
+  regex: 'A0001 Build'
+  device: 'smartphone'
+  models:
+    - regex: 'A0001'
+      model: 'One'
