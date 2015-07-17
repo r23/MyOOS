@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Network Admin package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-07-05 13:57:22+0000\n"
+"PO-Revision-Date: 2015-07-13 14:52:11+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -586,7 +586,11 @@ msgstr "Hier siehst du alle Seiten deines Netzwerks."
 
 #: wp-admin/network/sites.php:31
 msgid "Add New takes you to the Add New Site screen. You can search for a site by Name, ID number, or IP address. Screen Options allows you to choose how many sites to display on one page."
-msgstr "Neu hinzufügen bringt dich in den Neu Hinzufügen Bereich. Da kannst du die Seiten nach der ID Nummer, Name oder IP-Adresse suchen. Die Optionen lassen dich auswählen, wie viele Einträge pro Seite dargestellt werden."
+msgstr ""
+"Ein Klick auf den Button \"Blog erstellen\" bringt dich zum unteren Teil dieser Seite, wo die entsprechenden Eingabefelder zum Anlegen eines neuen Blogs sind. \n"
+"\n"
+"Nutze die Suchfunktion, um bestimmte Blogs anhand von Name, ID oder IP-Adresse des Blog-Erstellers zu suchen. \n"
+"Über \"Optionen einblenden\" (nur sichtbar, wenn die Hilfe geschlossen), kannst du festlegen, wie viele Blogs auf einmal in dieser Übersicht angezeigt werden sollen."
 
 #: wp-admin/network/site-users.php:308 wp-admin/network/user-new.php:99
 msgid "Username and password will be mailed to the above email address."
