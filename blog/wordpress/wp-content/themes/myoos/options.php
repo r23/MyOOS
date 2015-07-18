@@ -98,6 +98,35 @@ function optionsframework_options() {
 		'type' => 'heading'
 	);
 
+
+	$options[] = array(
+		'name' => __('Do You want to display image slider on the Home Page?', 'myoos' ),
+		'desc' => __('Check if you want to enable slider', 'myoos' ),
+		'id'   => 'myoos_slider_checkbox',
+		'std'  => 0,
+		'type' => 'checkbox'
+	);	
+
+	$options[] = array(
+		'name'    => esc_html__('Slider Category', 'myoos'),
+		'desc'    => esc_html__('Select a category for the featured post slider', 'myoos'),
+		'id'      => 'myoos_slide_categories',
+		'type'    => 'select',
+		'class'   => 'hidden',
+		'options' => $options_categories
+	);
+
+	$options[] = array(
+		'name'  => esc_html__('Number of slide items', 'myoos'),
+		'desc'  => esc_html__('Enter the number of slide items', 'myoos'),
+		'id'    => 'myoos_slide_number',
+		'std'   => '3',
+		'class' => 'hidden',
+		'type'  => 'text'
+	);	
+	
+	
+	
 	$options[] = array(
 		'name' => __( 'Input Text Mini', 'myoos' ),
 		'desc' => __( 'A mini text input field.', 'myoos' ),

@@ -139,6 +139,17 @@ function myoos_scripts() {
 	wp_enqueue_style( 'google_fonts', '//fonts.googleapis.com/css?family=Megrim|Raleway|Open+Sans:400,400italic,700,700italic', false, null, 'all' );
 	wp_enqueue_style( 'font_awesome', MYOOS_THEME_URL . '/css/font-awesome.min.css', false, '4.3.0', 'all' );
 
+	// Add slider CSS only if is front page ans slider is enabled
+	if( ( is_home() || is_front_page() ) && of_get_option('myoos_slider_checkbox') == 1 ) {
+		wp_enqueue_style( 'flexslider', MYOOS_THEME_URL . '/css/flexslider.min.css' );
+	}
+	
+	// Add slider JS only if is front page ans slider is enabled
+	if( ( is_home() || is_front_page() ) && of_get_option('myoos_slider_checkbox') == 1 ) {
+		// Add slider JS only if is front page ans slider is enabled
+		wp_enqueue_script( 'flexslider', MYOOS_THEME_URL . '/js/jquery.flexslider-min.js', array('jquery'), '2.2.5', true );
+	}
+	
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
