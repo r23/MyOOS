@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: myoos\n"
 "POT-Creation-Date: 2015-07-13 20:01+0200\n"
-"PO-Revision-Date: 2015-07-14 00:43+0200\n"
+"PO-Revision-Date: 2015-07-19 19:35+0200\n"
 "Last-Translator: r23 <info@r23.de>\n"
 "Language-Team: r23 <info@r23.de>\n"
 "MIME-Version: 1.0\n"
@@ -99,7 +99,7 @@ msgstr "Navigation ein-/ausblenden"
 #: inc/admin/includes/class-options-framework-admin.php:91
 #: inc/admin/includes/class-options-framework-admin.php:92
 msgid "Theme Options"
-msgstr "Theme-Einstellungen"
+msgstr "Einstellungen"
 
 #: inc/admin/includes/class-options-framework-admin.php:203
 msgid "Save Options"
@@ -432,6 +432,26 @@ msgstr "Waffel"
 #: options.php:97
 msgid "Basic Settings"
 msgstr "Grundeinstellungen"
+
+#: options.php:103
+msgid "Do You want to display image slider on the Home Page?"
+msgstr "Möchtest du die Galerie auf der Startseite anzeigen?"
+
+#: options.php:104
+msgid "Check if you want to enable slider"
+msgstr "Flexslider auf der Startseite anzeigen"
+
+#: options.php:111
+msgid "Slider Category"
+msgstr "Kategorie:"
+
+#: options.php:112
+msgid "Select a category for the featured post slider"
+msgstr "Wählen Sie eine Kategorie für die vorgestellten Beitrag Slider"
+
+#: options.php:120
+msgid "Number of slide items"
+msgstr "Anzahl der Galerie Elemente"
 
 #: options.php:102
 msgid "Input Text Mini"
