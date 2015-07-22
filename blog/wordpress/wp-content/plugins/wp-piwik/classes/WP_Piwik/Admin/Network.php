@@ -5,7 +5,7 @@
 	class Network extends \WP_Piwik\Admin\Statistics {
 
 		public function show() {
-			parent::show(true);
+			parent::show();
 		}
 		
 		public function printAdminScripts() {

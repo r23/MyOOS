@@ -81,6 +81,7 @@ class Settings {
 			'track_feed' => false,
 			'track_feed_addcampaign' => false,
 			'track_feed_campaign' => 'feed',
+			'track_heartbeat' => 0,
 			// User settings: Expert configuration
 			'cache' => true,
 			'http_connection' => 'curl',
@@ -156,9 +157,8 @@ class Settings {
 			) as $strCap ) {
 				$aryCaps = $this->getGlobalOption ( 'capability_' . $strCap );
 				if (isset ( $aryCaps [$strKey] ) && $aryCaps [$strKey])
-					$objRole->add_cap ( 'wp-piwik_' . $strCap );
-				else
-					$objRole->remove_cap ( 'wp-piwik_' . $strCap );
+					$wp_roles->add_cap ( $strKey, 'wp-piwik_' . $strCap );
+				else $wp_roles->remove_cap ( $strKey, 'wp-piwik_' . $strCap );
 			}
 		}
 		$this->settingsChanged = false;
@@ -360,9 +360,10 @@ class Settings {
 				add_site_option ( 'wp-piwik-manually', $value );
 			return $value;
 		}
-		$result = self::$wpPiwik->updateTrackingCode ();
-		$this->setOption ( 'noscript_code', $result ['noscript'] );
-		return $result ['script'];
+		/*$result = self::$wpPiwik->updateTrackingCode ();
+		echo '<pre>'; print_r($result); echo '</pre>';
+		$this->setOption ( 'noscript_code', $result ['noscript'] );*/
+		return; // $result ['script'];
 	}
 	
 	/**
@@ -377,7 +378,7 @@ class Settings {
 	private function prepareNocscriptCode($value, $in) {
 		if ($in ['track_mode'] == 'manually')
 			return stripslashes ( $value );
-		return $value;
+		return $this->getOption ( 'noscript_code' );
 	}
 	
 	/**

@@ -1,10 +1,6 @@
 # Copyright (C) 2015 WP-Piwik
 # This file is distributed under the same license as the WP-Piwik package.
 # Translators:
-# Amin Yazdi <m.aminyazdi@gmail.com>, 2015
-# Andr&eacute; Br&auml;kling <webmaster@braekling.de>, 2011
-# André Bräkling, 2015
-# WebNashr <info@webnashr.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: WP-Piwik\n"
@@ -12,36 +8,36 @@ msgstr ""
 "POT-Creation-Date: 2015-07-22 10:25:29+00:00\n"
 "PO-Revision-Date: 2015-07-22 10:33+0000\n"
 "Last-Translator: André Bräkling\n"
-"Language-Team: Persian (Iran) (http://www.transifex.com/projects/p/wp-piwik/language/fa_IR/)\n"
+"Language-Team: German (Switzerland) (http://www.transifex.com/projects/p/wp-piwik/language/de_CH/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fa_IR\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: de_CH\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: classes/WP_Piwik/Admin/Settings.php:24
 msgid "Reload"
-msgstr "بارگذاری مجدد"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:27
 msgid "Changes saved."
-msgstr "تغییرات ذخیره شد."
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:45
 msgid "Save Changes"
-msgstr "ذخیره‌ی تغییرات"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:46
 msgid "Thanks for using WP-Piwik!"
-msgstr "بابت استفاده از WP-Piwik از شما ممنونیم!"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:50
 msgid "WP-Piwik %s is successfully connected to Piwik %s."
-msgstr "WP-Piwik %s با موفقیت به Piwik %s متصل شد."
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:50
 msgid "You are running WordPress %s."
-msgstr "شما از وردپرس %s استفاده می کنید."
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:50
 msgid ""
@@ -63,27 +59,27 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:60
 msgid "Connect to Piwik"
-msgstr "اتصال به پیویک"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:65
 msgid "Show Statistics"
-msgstr "آمار"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:69
 msgid "Enable Tracking"
-msgstr "فعال کردن ردگیری"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:74
 msgid "Expert Settings"
-msgstr "تنظیمات حرفه ای"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:78 classes/WP_Piwik.php:923
 msgid "Support"
-msgstr "پشتیبانی"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:82
 msgid "Credits"
-msgstr "دست‌اندرکاران"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:95
 msgid ""
@@ -95,15 +91,15 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:95
 msgid "Self-hosted"
-msgstr "هاست خودم"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:95
 msgid "or"
-msgstr "یا"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:95
 msgid "Cloud-hosted"
-msgstr "هاست کلود"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:98
 msgid ""
@@ -114,16 +110,16 @@ msgstr ""
 #: classes/WP_Piwik/Admin/Settings.php:98
 #: classes/WP_Piwik/Template/MetaBoxCustomVars.php:30
 msgid "More information"
-msgstr "اطلاعات بیشتر"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:100
 msgid "You can choose between three connection methods:"
-msgstr "شما می توانید بین سه روش اتصال را انتخاب کنید:"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:100
 #: classes/WP_Piwik/Admin/Settings.php:103
 msgid "Self-hosted (HTTP API, default)"
-msgstr "میزبانی خود (اچ تی تی پی API، به طور پیش فرض)"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:100
 msgid ""
@@ -134,7 +130,7 @@ msgstr ""
 #: classes/WP_Piwik/Admin/Settings.php:100
 #: classes/WP_Piwik/Admin/Settings.php:104
 msgid "Self-hosted (PHP API)"
-msgstr "میزبانی خود (API PHP)"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:100
 msgid ""
@@ -145,25 +141,25 @@ msgstr ""
 #: classes/WP_Piwik/Admin/Settings.php:100
 #: classes/WP_Piwik/Admin/Settings.php:105
 msgid "Cloud-hosted (Piwik Pro)"
-msgstr "هاست کلود(پیویک حرفه ای)"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:100
 msgid ""
 "If you are using a cloud-hosted Piwik by Piwik Pro, you can simply use this "
 "option."
-msgstr "اگر از میزبانی کلود استفاده میکنید ، میتوانید از این گذینه استفاده کنید"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:101
 msgid "Piwik Mode"
-msgstr "حالت پیویک"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:102
 msgid "Disabled (WP-Piwik will not connect to Piwik)"
-msgstr "غیر فعال کردن پیویک( پلاگاین به پیویک وصل نمیشود)"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:108
 msgid "Piwik URL"
-msgstr "آدرس پیویک"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:108
 msgid ""
@@ -173,15 +169,15 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:109
 msgid "Piwik path"
-msgstr "مسیر پیویک"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:109
 msgid "Enter the file path to your Piwik instance, e.g. /var/www/piwik/."
-msgstr "مسیر فایل را وارد کنید به عنوان مثال  e.g. /var/www/piwik"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:110
 msgid "Piwik user"
-msgstr "کاربر پیویک"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:110
 msgid ""
@@ -191,7 +187,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:111
 msgid "Auth token"
-msgstr "نشانه اعتبارسنجی"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:111
 msgid ""
@@ -205,7 +201,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:116
 msgid "Auto config"
-msgstr "تنظیم خودکار"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:116
 msgid ""
@@ -219,41 +215,41 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:132
 msgid "Select site"
-msgstr "انتخاب سایت"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:140
 msgid "Piwik default date"
-msgstr "تاریخ پیش‌گزیده پیویک"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:141
 #: classes/WP_Piwik/Admin/Settings.php:154
 msgid "Today"
-msgstr "امروز"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:142
 #: classes/WP_Piwik/Admin/Settings.php:153
 msgid "Yesterday"
-msgstr "دیروز"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:143
 msgid "Current month"
-msgstr "ماه جاری"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:144
 msgid "Last month"
-msgstr "ماه گذشته"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:145
 msgid "Current week"
-msgstr "هفته جاری"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:146
 msgid "Last week"
-msgstr "هفته‌ی گذشته"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:147
 msgid "Default date shown on statistics page."
-msgstr "داده‌های پیش‌گزیده نمایش داده شده در صفحه آمار"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:149
 msgid "Show SEO data"
@@ -266,7 +262,7 @@ msgstr ""
 #: classes/WP_Piwik/Admin/Settings.php:149
 #: classes/WP_Piwik/Admin/Settings.php:160
 msgid "Slow!"
-msgstr "کند!"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:151
 msgid "Dashboard overview"
@@ -278,11 +274,11 @@ msgstr ""
 #: classes/WP_Piwik/Admin/Settings.php:213
 #: classes/WP_Piwik/Admin/Settings.php:304
 msgid "Disabled"
-msgstr "غیرفعال"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:155
 msgid "Last 30 days"
-msgstr "30 روز گذشته"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:156
 msgid "Enable WP-Piwik dashboard widget &quot;Overview&quot;."
@@ -318,7 +314,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:171
 msgid "Choose user roles allowed to see the statistics page."
-msgstr "انتخاب کاربرانی که مجازند صفحه آمار ر اببینند."
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:173
 msgid "Show per post stats"
@@ -334,7 +330,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:175
 msgid "Display a shortcut to Piwik itself."
-msgstr "نمایش یک میان‌بر به پیویک اصلی."
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:177
 msgid "WP-Piwik display name"
@@ -432,11 +428,11 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:202
 msgid "Footer"
-msgstr "پابرگ"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:203
 msgid "Header"
-msgstr "تیتر"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:204
 msgid ""
@@ -506,7 +502,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:220
 msgid "Track 404"
-msgstr "ره‌گیری 404 (صفحه یافت نشد)"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:220
 msgid ""
@@ -541,7 +537,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:228
 msgid "Disable cookies"
-msgstr "غیرفعال‌سازی کوکی ها"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:228
 msgid "Disable all tracking cookies for a visitor."
@@ -581,11 +577,11 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:241
 msgid "Tracking filter"
-msgstr "پالایه ره‌گیری"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:245
 msgid "Choose users by user role you do <strong>not</strong> want to track."
-msgstr "کاربرانی را که <strong>نمی‌خواهید</strong> رهگیری شوند با توجه به وظیفه انتخاب کنید."
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:247
 msgid "Track subdomains in the same website"
@@ -677,12 +673,12 @@ msgstr ""
 #: classes/WP_Piwik/Admin/Settings.php:273
 #: classes/WP_Piwik/Admin/Settings.php:571
 msgid "POST"
-msgstr "نوشته"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:274
 #: classes/WP_Piwik/Admin/Settings.php:571
 msgid "GET"
-msgstr "دریافت"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:275
 msgid "Choose whether WP-Piwik should use POST or GET in HTTP or Pro mode."
@@ -690,7 +686,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:277
 msgid "Disable time limit"
-msgstr "غیرفعال‌سازی محدودیت زمان"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:277
 msgid "Use set_time_limit(0) if stats page causes a time out."
@@ -698,7 +694,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:279
 msgid "Connection timeout"
-msgstr "تماس برقرار نشد"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:281
 msgid "Disable SSL peer verification"
@@ -706,7 +702,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:281
 msgid "not recommended"
-msgstr "توصیه نشده"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:283
 msgid "User agent"
@@ -718,7 +714,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:284
 msgid "empty"
-msgstr "واژه خالی"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:285
 msgid "Define a specific user agent"
@@ -746,7 +742,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:296
 msgid "Disabled (default)"
-msgstr "غیرفعال(پیش فرض)"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:297
 msgid "http"
@@ -780,15 +776,15 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:466
 msgid "Donate"
-msgstr "اهداء کردن"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:468
 msgid "If you like WP-Piwik, you can support its development by a donation:"
-msgstr "اگر افزونه پیویک برای وردپرس را دوست دارید، با کمک مالی از آن حمایت کنید:"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:506
 msgid "My Amazon.de wishlist"
-msgstr "لیست علاقه مندی های من در Amazon.de"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:509
 #: classes/WP_Piwik/Admin/Settings.php:556
@@ -797,11 +793,11 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:540
 msgid "Thank you very much for your donation"
-msgstr "از شما به خاطر هدایایتان تشکر می‌کنم"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:540
 msgid "the Piwik team itself"
-msgstr "تیم پیویک"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:540
 msgid ", and all people flattering this"
@@ -825,24 +821,24 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:544
 msgid "Thank you very much"
-msgstr "از شما بسیار متشکریم"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:544
 msgid "for your translation work"
-msgstr "برای فعالیت شما در ترجمه"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:545
 msgid ""
 "Thank you very much, all users who send me mails containing criticism, "
 "commendation, feature requests and bug reports! You help me to make WP-Piwik"
 " much better."
-msgstr "از شما بسیار متشکریم، تمام کاربرانی که به من ایمیل زدند، تشکر کردند، و درخواست ویژگی یا گزارش باگ انجام دادند. ش ما کمک کردید که پیویک وردپرس بسیار بهتر شود."
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:546
 msgid ""
 "Thank <strong>you</strong> for using my plugin. It is the best commendation "
 "if my piece of code is really used!"
-msgstr "از <strong>شما</strong> به خاطر استفاده از این افزونه متشکریم. بهترین تقدیر این است که کدی که من نوشتم واقعاً استفاده شود."
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:555
 msgid "The best place to get help:"
@@ -854,7 +850,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:558
 msgid "Debugging"
-msgstr "اشکال زدایی"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:559
 msgid ""
@@ -869,11 +865,11 @@ msgstr ""
 #: classes/WP_Piwik/Admin/Settings.php:563
 #: classes/WP_Piwik/Admin/Settings.php:568
 msgid "not"
-msgstr "نیست"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:564
 msgid "available"
-msgstr "در دسترس"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:567
 msgid "allow_url_fopen is"
@@ -881,11 +877,11 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:569
 msgid "enabled"
-msgstr "فعال"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:571
 msgid "is used."
-msgstr "استفاده شده"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:573
 msgid "Determined Piwik base URL is"
@@ -893,11 +889,11 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:577
 msgid "Tools"
-msgstr "ابزارها"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:579
 msgid "Run testscript"
-msgstr "اجرای اسکریپت"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:580
 msgid "Sitebrowser"
@@ -905,7 +901,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:581
 msgid "Clear cache"
-msgstr "پاکسازی کش"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:582
 msgid "Are you sure you want to clear all settings?"
@@ -925,51 +921,51 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:651
 msgid "Cache cleared."
-msgstr "کش پاک شد"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Sitebrowser.php:17
 msgid "site"
-msgstr "سایت‌"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Sitebrowser.php:18
 msgid "sites"
-msgstr "سایت‌ها"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Sitebrowser.php:24
 msgid "No site configured yet."
-msgstr "سایت هنوز پیکربندی نشده"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Sitebrowser.php:29
 msgid "Blog ID"
-msgstr "شناسه وبلاگ"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Sitebrowser.php:30
 msgid "Title"
-msgstr "عنوان"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Sitebrowser.php:31
 msgid "URL"
-msgstr "نشانی وب"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Sitebrowser.php:32
 msgid "Site ID (Piwik)"
-msgstr "شناسه سایت (پیویک)"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Sitebrowser.php:79
 msgid "Site not created yet."
-msgstr "وب سایت هنوزایجاد نشده است."
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Statistics.php:12
 msgid "Statistics"
-msgstr "آمار"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Statistics.php:20
 msgid "Currently shown stats:"
-msgstr "آمار در حال نمایش:"
+msgstr ""
 
 #: classes/WP_Piwik/Request/Php.php:27
 msgid "Could not resolve"
-msgstr "عملیات ناموفق"
+msgstr ""
 
 #: classes/WP_Piwik/Request/Php.php:27
 msgid "realpath() returns false"
@@ -985,15 +981,15 @@ msgstr ""
 
 #: classes/WP_Piwik/Template/MetaBoxCustomVars.php:10
 msgid "Piwik Custom Variables"
-msgstr "متغیر های سفارشی Piwik"
+msgstr ""
 
 #: classes/WP_Piwik/Template/MetaBoxCustomVars.php:21
 msgid "Name"
-msgstr "نام"
+msgstr ""
 
 #: classes/WP_Piwik/Template/MetaBoxCustomVars.php:21
 msgid "Value"
-msgstr "مقدار"
+msgstr ""
 
 #: classes/WP_Piwik/Template/MetaBoxCustomVars.php:30
 msgid "Set custom variables for a page view"
@@ -1001,7 +997,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Widget/BrowserDetails.php:18
 msgid "Browser Details"
-msgstr "جزئیات مرورگرها"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/BrowserDetails.php:37
 #: classes/WP_Piwik/Widget/Browsers.php:37
@@ -1015,12 +1011,12 @@ msgstr "جزئیات مرورگرها"
 #: classes/WP_Piwik/Widget/Systems.php:33
 #: classes/WP_Piwik/Widget/Visitors.php:35 classes/WP_Piwik/Widget.php:91
 msgid "Piwik error"
-msgstr "خطای پیویک"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/BrowserDetails.php:39
 #: classes/WP_Piwik/Widget/Browsers.php:39
 msgid "Browser"
-msgstr "مرورگر"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/BrowserDetails.php:39
 #: classes/WP_Piwik/Widget/Browsers.php:39
@@ -1029,7 +1025,7 @@ msgstr "مرورگر"
 #: classes/WP_Piwik/Widget/Systems.php:35
 #: classes/WP_Piwik/Widget/Visitors.php:57 classes/WP_Piwik/Widget.php:100
 msgid "Unique"
-msgstr "یکتا"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/BrowserDetails.php:39
 #: classes/WP_Piwik/Widget/Browsers.php:39
@@ -1038,7 +1034,7 @@ msgstr "یکتا"
 #: classes/WP_Piwik/Widget/SystemDetails.php:35
 #: classes/WP_Piwik/Widget/Systems.php:35
 msgid "Percent"
-msgstr "درصد"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/BrowserDetails.php:66
 #: classes/WP_Piwik/Widget/Browsers.php:66
@@ -1046,17 +1042,17 @@ msgstr "درصد"
 #: classes/WP_Piwik/Widget/SystemDetails.php:62
 #: classes/WP_Piwik/Widget/Systems.php:62
 msgid "Others"
-msgstr "غیره"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Browsers.php:18
 msgid "Browsers"
-msgstr "مرورگر"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Chart.php:19
 #: classes/WP_Piwik/Widget/Overview.php:41 classes/WP_Piwik/Widget/Post.php:37
 #: classes/WP_Piwik/Widget/Visitors.php:17
 msgid "Visitors"
-msgstr "بازدیدکنندگان"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Chart.php:71
 msgid ""
@@ -1066,166 +1062,166 @@ msgstr ""
 
 #: classes/WP_Piwik/Widget/Keywords.php:16
 msgid "Keywords"
-msgstr "کلیدواژه‌ها"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Noresult.php:16
 #: classes/WP_Piwik/Widget/Search.php:16
 msgid "Site Search"
-msgstr "جستجو در سایت"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Noresult.php:25
 #: classes/WP_Piwik/Widget/Search.php:25
 msgid "Keyword"
-msgstr "کلیدواژه"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Noresult.php:25
 #: classes/WP_Piwik/Widget/Search.php:25
 msgid "Requests"
-msgstr "تعداد"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Noresult.php:25
 #: classes/WP_Piwik/Widget/Search.php:25
 #: classes/WP_Piwik/Widget/Visitors.php:57
 msgid "Bounced"
-msgstr "بازگشت"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Overview.php:17 classes/WP_Piwik/Widget/Post.php:18
 msgid "Overview"
-msgstr "نمای کلی"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Overview.php:42 classes/WP_Piwik/Widget/Post.php:38
 msgid "Unique visitors"
-msgstr "بازدیدکنندگان یکتا"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Overview.php:43 classes/WP_Piwik/Widget/Post.php:39
 msgid "Page views"
-msgstr "نمایش‌های صفحه"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Overview.php:44 classes/WP_Piwik/Widget/Post.php:40
 msgid "Total time spent"
-msgstr "کل زمان سپری شده"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Overview.php:45 classes/WP_Piwik/Widget/Post.php:42
 msgid "Bounce count"
-msgstr "تعداد بازگشت"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Overview.php:48 classes/WP_Piwik/Widget/Post.php:41
 msgid "Time/visit"
-msgstr "زمان/بازدید"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Overview.php:48
 msgid "Max. page views in one visit"
-msgstr "حداکثر تعداد نمایش‌های صفحه در یک بازدید"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Overview.php:49 classes/WP_Piwik/Widget/Post.php:46
 msgid "Shortcut"
-msgstr "میان‌بر"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Pages.php:16
 msgid "Pages"
-msgstr "برگه‌ها "
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Plugins.php:16
 msgid "Plugins"
-msgstr "افزونه‌ها"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Plugins.php:25
 msgid "Plugin"
-msgstr "افزونه"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Plugins.php:25
 #: classes/WP_Piwik/Widget/Visitors.php:57 classes/WP_Piwik/Widget.php:102
 msgid "Visits"
-msgstr "بازدیدها"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Post.php:43
 msgid "Min. generation time"
-msgstr "حداقل زمان ایجاد  "
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Post.php:44
 msgid "Max. generation time"
-msgstr "حداکثر زمان ایجاد ."
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Referrers.php:16
 msgid "Referrers"
-msgstr "ارجاع‌دهنده‌ها"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Screens.php:16
 msgid "Resolutions"
-msgstr "وضوح تصویر"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Screens.php:37
 msgid "Resolution"
-msgstr "وضوح تصویر"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Seo.php:13
 msgid "SEO"
-msgstr "SEO"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/SystemDetails.php:14
 msgid "Operation System Details"
-msgstr "جزئیات سیستم عامل"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/SystemDetails.php:35
 #: classes/WP_Piwik/Widget/Systems.php:35
 msgid "Operation System"
-msgstr "سیستم عامل"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Systems.php:14
 msgid "Operation Systems"
-msgstr "سیستم عامل‌ها"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Visitors.php:57
 msgid "Date"
-msgstr "تاریخ"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Visitors.php:57
 msgid "Page Views"
-msgstr "تعداد نمایش صفحه"
+msgstr ""
 
 #: classes/WP_Piwik/Widget.php:104
 msgid "Hits"
-msgstr "تعداد بازدید ها"
+msgstr ""
 
 #: classes/WP_Piwik/Widget.php:106
 msgid "Actions"
-msgstr "کارها"
+msgstr ""
 
 #: classes/WP_Piwik/Widget.php:162
 msgid "No data available."
-msgstr "داده‌ای در دسترس نیست"
+msgstr ""
 
 #: classes/WP_Piwik/Widget.php:293
 msgid "week"
-msgstr "هفته"
+msgstr ""
 
 #: classes/WP_Piwik.php:193
 msgid "%s %s installed."
-msgstr " نصب شده"
+msgstr ""
 
 #: classes/WP_Piwik.php:193
 msgid "Next you should connect to Piwik"
-msgstr "سپس باید به پیویک متصل شوید"
+msgstr ""
 
 #: classes/WP_Piwik.php:227
 msgid "%s updated to %s."
-msgstr "%s. به روز رسانی به %s"
+msgstr ""
 
 #: classes/WP_Piwik.php:227
 msgid "Please validate your configuration"
-msgstr "لطفاً صحت تنظیمات خود را بررسی کنید"
+msgstr ""
 
 #: classes/WP_Piwik.php:259 classes/WP_Piwik.php:481
 msgid "Settings"
-msgstr "تنظیمات"
+msgstr ""
 
 #: classes/WP_Piwik.php:262
 msgid "Important"
-msgstr "مهم"
+msgstr ""
 
 #: classes/WP_Piwik.php:343 classes/WP_Piwik.php:365
 msgid "Piwik Statistics"
-msgstr "آمار"
+msgstr ""
 
 #: classes/WP_Piwik.php:453
 msgid "Configure WP-Piwik"
@@ -1233,11 +1229,11 @@ msgstr ""
 
 #: classes/WP_Piwik.php:923
 msgid "An error occured"
-msgstr "خطائی رخ داده است"
+msgstr ""
 
 #: classes/WP_Piwik.php:1191
 msgid "Cheatin&#8217; uh?"
-msgstr "کلک میزنی،‌ها؟"
+msgstr ""
 
 #: wp-piwik.php:60
 msgid ""
@@ -1247,7 +1243,7 @@ msgstr ""
 
 #. Plugin Name of the plugin/theme
 msgid "WP-Piwik"
-msgstr "آمار"
+msgstr ""
 
 #. Plugin URI of the plugin/theme
 msgid "http://wordpress.org/extend/plugins/wp-piwik/"
@@ -1261,8 +1257,8 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "Andr&eacute; Br&auml;kling"
-msgstr "آندرکوت بروملینگ"
+msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "http://www.braekling.de"
-msgstr "http://www.braekling.de"
+msgstr ""

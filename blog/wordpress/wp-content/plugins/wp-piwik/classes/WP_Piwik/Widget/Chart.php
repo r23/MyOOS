@@ -2,7 +2,9 @@
 
 	namespace WP_Piwik\Widget;
 
-	class Chart extends \WP_Piwik\Widget {
+	use WP_Piwik\Widget;
+
+	class Chart extends Widget {
 	
 		public $className = __CLASS__;
 

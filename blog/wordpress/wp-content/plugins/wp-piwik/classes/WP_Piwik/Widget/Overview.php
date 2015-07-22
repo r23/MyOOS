@@ -25,12 +25,13 @@
 			else {
 				if ($this->parameter['date'] == 'last30') {
 					$result = array();
-					foreach ($response as $data)
-						foreach ($data as $key => $value)
-							if (isset($result[$key]))
-								$result[$key] += $value;
-							else
-								$result[$key] = $value;
+					if (is_array($response))
+						foreach ($response as $data)
+							foreach ($data as $key => $value)
+								if (isset($result[$key]))
+									$result[$key] += $value;
+								else
+									$result[$key] = $value;
 					$response = $result;	
 				}
 				$time = isset($response['sum_visit_length'])?$this->timeFormat($response['sum_visit_length']):'-';

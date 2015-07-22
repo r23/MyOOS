@@ -83,7 +83,7 @@
 		
 		protected function unserialize($str) {
 			self::$wpPiwik->log("Result string: ".$str);
-		    return ($str == serialize(false) || @unserialize($str) !== false)?unserialize($str):array();
+		    return ($str == json_decode(false, true) || @json_decode($str, true) !== false)?json_decode($str, true):array();
 		}
 		
 		abstract protected function request($id);

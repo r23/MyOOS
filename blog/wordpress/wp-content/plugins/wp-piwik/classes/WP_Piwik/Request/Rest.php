@@ -9,7 +9,7 @@
 			$url = self::$settings->getGlobalOption('piwik_mode') == 'http'?
 				self::$settings->getGlobalOption('piwik_url'):
 				'https://'.self::$settings->getGlobalOption('piwik_user').'.piwik.pro/';
-			$params = 'module=API&method=API.getBulkRequest&format=php';
+			$params = 'module=API&method=API.getBulkRequest&format=json';
 			foreach (self::$requests as $requestID => $config) {
 				if (!isset(self::$results[$requestID])) {
 					$params .= '&urls['.$count.']='.urlencode($this->buildURL($config));

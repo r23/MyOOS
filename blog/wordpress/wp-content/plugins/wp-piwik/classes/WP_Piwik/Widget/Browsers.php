@@ -2,7 +2,9 @@
 
 	namespace WP_Piwik\Widget;
 
-	class Browsers extends \WP_Piwik\Widget {
+	use WP_Piwik\Widget;
+
+	class Browsers extends Widget {
 	
 		public $className = __CLASS__;
 
