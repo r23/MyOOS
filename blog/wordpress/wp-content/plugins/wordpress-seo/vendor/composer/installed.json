@@ -131,6 +131,46 @@
         "homepage": "http://www.xrstf.de/"
     },
     {
+        "name": "yoast/api-libs",
+        "version": "2.0",
+        "version_normalized": "2.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Yoast/api-libs.git",
+            "reference": "e7361081a1d6ae79c0b96c8363379435ea736ef8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Yoast/api-libs/zipball/e7361081a1d6ae79c0b96c8363379435ea736ef8",
+            "reference": "e7361081a1d6ae79c0b96c8363379435ea736ef8",
+            "shasum": ""
+        },
+        "time": "2015-07-14 10:25:59",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "class-api-libs.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Team Yoast",
+                "email": "support@yoast.com",
+                "homepage": "https://yoast.com"
+            }
+        ],
+        "description": "Shared API libraries for Yoast projects.",
+        "homepage": "https://github.com/Yoast/api-libs",
+        "keywords": [
+            "wordpress"
+        ]
+    },
+    {
         "name": "yoast/i18n-module",
         "version": "1.0",
         "version_normalized": "1.0.0.0",
