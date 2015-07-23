@@ -1668,33 +1668,29 @@ msgstr "&larr; Zurück zum Beitrags-Editor"
 msgid "Compare Revisions of &#8220;%1$s&#8221;"
 msgstr "Vergleiche Überarbeitungen von &#8220;%1$s&#8221;"
 
-#: wp-admin/post.php:287
+#: wp-admin/post.php:288
 msgid "This item has already been deleted."
 msgstr "Dieses Element wurde schon gelöscht."
 
-#: wp-admin/post.php:275
+#: wp-admin/post.php:276
 msgid "You are not allowed to move this item out of the Trash."
 msgstr "Du verfügst nicht über ausreichende Rechte, um dieses Element aus dem Papierkorb wiederherzustellen."
 
-#: wp-admin/post.php:269
+#: wp-admin/post.php:270
 msgid "The item you are trying to restore from the Trash no longer exists."
 msgstr "Das Element dass du aus dem Papierkorb wiederherstellen wolltest, existiert nicht mehr."
 
-#: wp-admin/post.php:256
+#: wp-admin/post.php:257
 msgid "You cannot move this item to the Trash. %s is currently editing."
 msgstr "Du kannst dieses Element nicht in den Papierkorb verschieben. %s bearbeitet es gerade."
 
-#: wp-admin/post.php:246
+#: wp-admin/post.php:247
 msgid "The item you are trying to move to the Trash no longer exists."
 msgstr "Das Element, welches du in den Papierkorb verschieben wolltest, existiert nicht mehr."
 
-#: wp-admin/post.php:159
+#: wp-admin/post.php:160
 msgid "You can&#8217;t edit this item because it is in the Trash. Please restore it and try again."
 msgstr "Du kannst dieses Element nicht bearbeiten, da es im Papierkorb liegt. Stelle es wieder her und versuche es dann erneut."
-
-#: wp-admin/post.php:119
-msgid "Oops, you don&#8217;t have access to add new drafts."
-msgstr "Ups, du hast keine Berechtigung, auf neue Entwürfe zuzugreifen."
 
 #: wp-admin/post.php:116
 msgid "Unable to submit this form, please refresh and try again."
@@ -6294,202 +6290,202 @@ msgstr "Hauptindex-Template"
 msgid "Displaying %s&#8211;%s of %s"
 msgstr "Angezeigt %s&#8211;%s von %s"
 
-#: wp-admin/includes/dashboard.php:1335
+#: wp-admin/includes/dashboard.php:1339
 msgid "https://codex.wordpress.org/First_Steps_With_WordPress"
 msgstr "https://codex.wordpress.org/First_Steps_With_WordPress"
 
-#: wp-admin/includes/dashboard.php:1335
+#: wp-admin/includes/dashboard.php:1339
 msgid "Learn more about getting started"
 msgstr "Erfahre mehr über den Einstieg"
 
-#: wp-admin/includes/dashboard.php:1333
+#: wp-admin/includes/dashboard.php:1337
 msgid "Turn comments on or off"
 msgstr "Kommentare ein- oder ausschalten"
 
-#: wp-admin/includes/dashboard.php:1328
+#: wp-admin/includes/dashboard.php:1332
 msgid "Manage menus"
 msgstr "Menüs verwalten"
 
-#: wp-admin/includes/dashboard.php:1326
+#: wp-admin/includes/dashboard.php:1330
 msgid "Manage widgets"
 msgstr "Widgets verwalten"
 
-#: wp-admin/includes/dashboard.php:1323
+#: wp-admin/includes/dashboard.php:1327
 msgid "Manage <a href=\"%1$s\">widgets</a> or <a href=\"%2$s\">menus</a>"
 msgstr "Verwalten von <a href=\"%1$s\">Widgets</a> oder <a href=\"%2$s\">Menüs</a>"
 
-#: wp-admin/includes/dashboard.php:1318
+#: wp-admin/includes/dashboard.php:1322
 msgid "More Actions"
 msgstr "Weitere Aktionen"
 
-#: wp-admin/includes/dashboard.php:1314
+#: wp-admin/includes/dashboard.php:1318
 msgid "View your site"
 msgstr "Besuche deine Seite"
 
-#: wp-admin/includes/dashboard.php:1312
+#: wp-admin/includes/dashboard.php:1316
 msgid "Add an About page"
 msgstr "Eine \"Über uns\"-Seite erstellen"
 
-#: wp-admin/includes/dashboard.php:1311
+#: wp-admin/includes/dashboard.php:1315
 msgid "Write your first blog post"
 msgstr "Deinen ersten Blogbeitrag schreiben"
 
-#: wp-admin/includes/dashboard.php:1309
+#: wp-admin/includes/dashboard.php:1313
 msgid "Add a blog post"
 msgstr "einen Blogbeitrag erstellen"
 
-#: wp-admin/includes/dashboard.php:1305 wp-admin/includes/dashboard.php:1308
+#: wp-admin/includes/dashboard.php:1309 wp-admin/includes/dashboard.php:1312
 msgid "Add additional pages"
 msgstr "zusätzliche Seiten hinzufügen"
 
-#: wp-admin/includes/dashboard.php:1304 wp-admin/includes/dashboard.php:1307
+#: wp-admin/includes/dashboard.php:1308 wp-admin/includes/dashboard.php:1311
 msgid "Edit your front page"
 msgstr "Editiere deine Startseite"
 
-#: wp-admin/includes/dashboard.php:1301
+#: wp-admin/includes/dashboard.php:1305
 msgid "Next Steps"
 msgstr "Nächster Schritt"
 
-#: wp-admin/includes/dashboard.php:1297
+#: wp-admin/includes/dashboard.php:1301
 msgid "or, <a href=\"%s\">change your theme completely</a>"
 msgstr "oder <a href=\"%s\">das komplette Theme ändern</a>"
 
-#: wp-admin/includes/dashboard.php:1293 wp-admin/includes/dashboard.php:1295
+#: wp-admin/includes/dashboard.php:1297 wp-admin/includes/dashboard.php:1299
 msgid "Customize Your Site"
 msgstr "Jetzt anpassen"
 
-#: wp-admin/includes/dashboard.php:1292
+#: wp-admin/includes/dashboard.php:1296
 msgid "Get Started"
 msgstr "Jetzt loslegen"
 
-#: wp-admin/includes/dashboard.php:1288
+#: wp-admin/includes/dashboard.php:1292
 msgid "We&#8217;ve assembled some links to get you started:"
 msgstr "Wir haben einige Links zusammengestellt, um dir den Start zu erleichtern:"
 
-#: wp-admin/includes/dashboard.php:1287
+#: wp-admin/includes/dashboard.php:1291
 msgid "Welcome to WordPress!"
 msgstr "Willkommen bei WordPress!"
 
-#: wp-admin/includes/dashboard.php:1201
+#: wp-admin/includes/dashboard.php:1205
 msgid "<a href=\"%1$s\" class=\"update-browser-link\">Update %2$s</a> or learn how to <a href=\"%3$s\" class=\"browse-happy-link\">browse happy</a>"
 msgstr "<a href=\"%1$s\" class=\"update-browser-link\">Aktualisiere %2$s</a> oder informiere dich über Alternativen bei <a href=\"%3$s\" class=\"browse-happy-link\">browse happy</a>"
 
-#: wp-admin/includes/dashboard.php:1184
+#: wp-admin/includes/dashboard.php:1188
 msgid "It looks like you're using an old version of <a href='%s'>%s</a>. For the best WordPress experience, please update your browser."
 msgstr "Du scheinst eine alte Version von <a href='%s'>%s</a> zu verwenden. Für das beste Nutzungserlebnis mit WordPress solltest du deinen Browser auf die aktuellste Version aktualisieren."
 
-#: wp-admin/includes/dashboard.php:1182
+#: wp-admin/includes/dashboard.php:1186
 msgid "It looks like you're using an insecure version of <a href='%s'>%s</a>. Using an outdated browser makes your computer unsafe. For the best WordPress experience, please update your browser."
 msgstr "Es scheint, als würdest du eine unsichere Version von <a href='%s'>%s</a> verwenden. Die Nutzung eines veralteten Browsers kann deinen Computer gefährden. Um das optimale Nutzungserlebnis mit WordPress zu haben, solltest du deinen Browser auf eine neue Version aktualisieren."
 
 #. translators: 1: number of megabytes, 2: percentage
-#: wp-admin/includes/dashboard.php:1158
+#: wp-admin/includes/dashboard.php:1162
 msgid "%1$s MB (%2$s%%) Space Used"
 msgstr "%1$s MB (%2$s%%) verwendeter Speicherplatz"
 
-#: wp-admin/includes/dashboard.php:1152 wp-admin/includes/dashboard.php:1165
+#: wp-admin/includes/dashboard.php:1156 wp-admin/includes/dashboard.php:1169
 msgid "Manage Uploads"
 msgstr "Uploads verwalten"
 
 #. translators: number of megabytes
-#: wp-admin/includes/dashboard.php:1146
+#: wp-admin/includes/dashboard.php:1150
 msgid "%s MB Space Allowed"
 msgstr "%s MB freier Speicherplatz"
 
-#: wp-admin/includes/dashboard.php:1140
+#: wp-admin/includes/dashboard.php:1144
 msgid "Storage Space"
 msgstr "Speicherplatz"
 
-#: wp-admin/includes/dashboard.php:1106
+#: wp-admin/includes/dashboard.php:1110
 msgid "Popular Plugin"
 msgstr "Beliebtes Plugin"
 
-#: wp-admin/includes/dashboard.php:996
+#: wp-admin/includes/dashboard.php:1000
 msgid "Other WordPress News"
 msgstr "Weitere WordPress-News"
 
-#: wp-admin/includes/dashboard.php:987
+#: wp-admin/includes/dashboard.php:991
 msgid "https://planet.wordpress.org/feed/"
 msgstr "http://planet.wpde.org/de/small-feed/"
 
-#: wp-admin/includes/dashboard.php:978
+#: wp-admin/includes/dashboard.php:982
 msgid "https://planet.wordpress.org/"
 msgstr "http://planet.wpde.org/"
 
-#: wp-admin/includes/dashboard.php:963
+#: wp-admin/includes/dashboard.php:967
 msgid "WordPress Blog"
 msgstr "WordPress-Blog"
 
-#: wp-admin/includes/dashboard.php:954
+#: wp-admin/includes/dashboard.php:958
 msgid "http://wordpress.org/news/feed/"
 msgstr "http://de.wordpress.org/category/release/feed/"
 
-#: wp-admin/includes/dashboard.php:945
+#: wp-admin/includes/dashboard.php:949
 msgid "http://wordpress.org/news/"
 msgstr "https://de.wordpress.org/category/release/"
 
-#: wp-admin/includes/dashboard.php:832
+#: wp-admin/includes/dashboard.php:836
 msgid "This widget requires JavaScript."
 msgstr "Dieses Widget benötigt JavaScript."
 
-#: wp-admin/includes/dashboard.php:832
+#: wp-admin/includes/dashboard.php:836
 msgid "Loading&#8230;"
 msgstr "Wird geladen&#8230;"
 
 #. translators: 1: relative date, 2: time, 3: post edit link or permalink, 4:
 #. post title
-#: wp-admin/includes/dashboard.php:733
+#: wp-admin/includes/dashboard.php:737
 msgid "<span>%1$s, %2$s</span> <a href=\"%3$s\">%4$s</a>"
 msgstr "<span>%1$s, %2$s</span> <a href=\"%3$s\">%4$s</a>"
 
 #. translators: date and time format for recent posts on the dashboard, see
 #. http:php.net/date
-#: wp-admin/includes/dashboard.php:726
+#: wp-admin/includes/dashboard.php:730
 msgid "M jS"
 msgstr "d.m."
 
-#: wp-admin/includes/dashboard.php:723
+#: wp-admin/includes/dashboard.php:727
 msgid "Tomorrow"
 msgstr "Morgen"
 
-#: wp-admin/includes/dashboard.php:721
+#: wp-admin/includes/dashboard.php:725
 msgid "Today"
 msgstr "Heute"
 
-#: wp-admin/includes/dashboard.php:660
+#: wp-admin/includes/dashboard.php:664
 msgid "No activity yet!"
 msgstr "Bisher keine Aktivitäten!"
 
-#: wp-admin/includes/dashboard.php:651
+#: wp-admin/includes/dashboard.php:655
 msgid "Recently Published"
 msgstr "Kürzlich veröffentlicht"
 
-#: wp-admin/includes/dashboard.php:644
+#: wp-admin/includes/dashboard.php:648
 msgid "Publishing Soon"
 msgstr "In Kürze veröffentlichen"
 
 #. translators: %1$s is type of comment, %2$s is link to the post
-#: wp-admin/includes/dashboard.php:620
+#: wp-admin/includes/dashboard.php:624
 msgctxt "dashboard"
 msgid "%1$s on %2$s"
 msgstr "%1$s bei %2$s"
 
-#: wp-admin/includes/dashboard.php:601
+#: wp-admin/includes/dashboard.php:605
 msgid "[Pending]"
 msgstr "[Ausstehend]"
 
 #. translators: 1: comment author, 2: post link, 3: notification if the comment
 #. is pending
-#: wp-admin/includes/dashboard.php:600
+#: wp-admin/includes/dashboard.php:604
 msgid "From %1$s on %2$s%3$s"
 msgstr "Von %1$s zu %2$s%3$s"
 
-#: wp-admin/includes/dashboard.php:501
+#: wp-admin/includes/dashboard.php:505
 msgctxt "drafts"
 msgid "View all"
 msgstr "Alles anzeigen"
 
-#: wp-admin/includes/dashboard.php:460
+#: wp-admin/includes/dashboard.php:464
 msgid "What&#8217;s on your mind?"
 msgstr "Was beschäftigt dich?"
 
@@ -6572,7 +6568,7 @@ msgstr "Alle ansehen"
 msgid "WordPress News"
 msgstr "WordPress Nachrichten"
 
-#: wp-admin/includes/dashboard.php:47 wp-admin/includes/dashboard.php:503
+#: wp-admin/includes/dashboard.php:47 wp-admin/includes/dashboard.php:507
 msgid "Drafts"
 msgstr "Entwürfe"
 
@@ -7300,7 +7296,7 @@ msgid "Version:"
 msgstr "Version:"
 
 #: wp-admin/includes/class-wp-theme-install-list-table.php:370
-#: wp-admin/includes/dashboard.php:1106 wp-admin/theme-install.php:210
+#: wp-admin/includes/dashboard.php:1110 wp-admin/theme-install.php:210
 #: wp-admin/theme-install.php:228
 msgid "Install"
 msgstr "Installieren"
@@ -8284,7 +8280,7 @@ msgstr ""
 #: wp-admin/includes/class-wp-media-list-table.php:340
 #: wp-admin/includes/class-wp-posts-list-table.php:731
 #: wp-admin/includes/class-wp-terms-list-table.php:329
-#: wp-admin/includes/dashboard.php:510
+#: wp-admin/includes/dashboard.php:514
 msgid "Edit &#8220;%s&#8221;"
 msgstr "&#8220;%s&#8221; bearbeiten"
 
@@ -8428,7 +8424,7 @@ msgid "Y/m/d \\a\\t g:i a"
 msgstr "d.m.Y \\u\\m G:i"
 
 #: wp-admin/includes/class-wp-comments-list-table.php:489
-#: wp-admin/includes/dashboard.php:557
+#: wp-admin/includes/dashboard.php:561
 msgid "Reply to this comment"
 msgstr "Auf diesen Kommentar antworten"
 
@@ -8444,31 +8440,31 @@ msgid "Edit this item inline"
 msgstr "Dieses Element direkt mit QuickEdit bearbeiten"
 
 #: wp-admin/includes/class-wp-comments-list-table.php:479
-#: wp-admin/includes/dashboard.php:562
+#: wp-admin/includes/dashboard.php:566
 msgid "Move this comment to the trash"
 msgstr "Diesen Kommentar in den Papierkorb legen"
 
 #. translators: mark as spam link
 #: wp-admin/includes/class-wp-comments-list-table.php:467
-#: wp-admin/includes/dashboard.php:558
+#: wp-admin/includes/dashboard.php:562
 msgctxt "verb"
 msgid "Spam"
 msgstr "Spam"
 
 #: wp-admin/includes/class-wp-comments-list-table.php:467
-#: wp-admin/includes/dashboard.php:558
+#: wp-admin/includes/dashboard.php:562
 msgid "Mark this comment as spam"
 msgstr "Diesen Kommentar als Spam markieren"
 
 #: wp-admin/includes/class-wp-comments-list-table.php:459
 #: wp-admin/includes/class-wp-comments-list-table.php:462
-#: wp-admin/includes/dashboard.php:554
+#: wp-admin/includes/dashboard.php:558
 msgid "Approve this comment"
 msgstr "Diesen Kommentar genehmigen"
 
 #: wp-admin/includes/class-wp-comments-list-table.php:457
 #: wp-admin/includes/class-wp-comments-list-table.php:463
-#: wp-admin/includes/dashboard.php:555
+#: wp-admin/includes/dashboard.php:559
 msgid "Unapprove this comment"
 msgstr "Kommentar zurückweisen"
 
@@ -8545,14 +8541,14 @@ msgstr "Als Spam markieren"
 #: wp-admin/includes/class-wp-comments-list-table.php:225
 #: wp-admin/includes/class-wp-comments-list-table.php:459
 #: wp-admin/includes/class-wp-comments-list-table.php:462
-#: wp-admin/includes/dashboard.php:554
+#: wp-admin/includes/dashboard.php:558
 msgid "Approve"
 msgstr "Genehmigen"
 
 #: wp-admin/includes/class-wp-comments-list-table.php:223
 #: wp-admin/includes/class-wp-comments-list-table.php:457
 #: wp-admin/includes/class-wp-comments-list-table.php:463
-#: wp-admin/includes/dashboard.php:555
+#: wp-admin/includes/dashboard.php:559
 msgid "Unapprove"
 msgstr "Zurückweisen"
 
@@ -8612,11 +8608,11 @@ msgstr "Der Link konnte nicht in die Datenbank eingefügt werden"
 msgid "Could not update link in the database"
 msgstr "Der Link konnte nicht in der Datenbank aktualisiert werden"
 
-#: wp-admin/includes/ajax-actions.php:2944
+#: wp-admin/includes/ajax-actions.php:2951
 msgid "Unable to connect to the filesystem. Please confirm your credentials."
 msgstr "Es ist nicht möglich, eine Verbindung mit dem Dateisystem herzustellen. Bitte überprüfe deine Zugangsdaten."
 
-#: wp-admin/includes/ajax-actions.php:2901
+#: wp-admin/includes/ajax-actions.php:2904
 msgid "You do not have sufficient permissions to update plugins on this site."
 msgstr "Du hast keine ausreichende Berechtigung, um Plugins in dieser Website zu aktualisieren."
 
@@ -9060,16 +9056,16 @@ msgstr "Bildschirminhalt"
 msgid "This screen provides access to all of your posts. You can customize the display of this screen to suit your workflow."
 msgstr "Auf dieser Seite siehst du all deine Beiträge. Du kannst über <em>Optionen</em> die Darstellung an deine Bedürfnisse anpassen."
 
-#: wp-admin/edit.php:131 wp-admin/edit.php:134 wp-admin/post.php:299
-#: wp-admin/post.php:302 wp-admin/upload.php:156
+#: wp-admin/edit.php:131 wp-admin/edit.php:134 wp-admin/post.php:300
+#: wp-admin/post.php:303 wp-admin/upload.php:156
 msgid "Error in deleting."
 msgstr "Beim Löschen ist ein Fehler aufgetreten."
 
-#: wp-admin/edit.php:127 wp-admin/post.php:293
+#: wp-admin/edit.php:127 wp-admin/post.php:294
 msgid "You are not allowed to delete this item."
 msgstr "Du hast keine Berechtigung, dieses Element zu löschen."
 
-#: wp-admin/edit.php:115 wp-admin/post.php:278
+#: wp-admin/edit.php:115 wp-admin/post.php:279
 msgid "Error in restoring from Trash."
 msgstr "Beim herausholen aus dem Papierkorb ist ein Fehler aufgetreten."
 
@@ -9077,11 +9073,11 @@ msgstr "Beim herausholen aus dem Papierkorb ist ein Fehler aufgetreten."
 msgid "You are not allowed to restore this item from the Trash."
 msgstr "Du darfst nicht dieses Element aus dem Papierkorb wiederherstellen."
 
-#: wp-admin/edit.php:101 wp-admin/post.php:260
+#: wp-admin/edit.php:101 wp-admin/post.php:261
 msgid "Error in moving to Trash."
 msgstr "Fehler beim verschieben in den Papierkorb."
 
-#: wp-admin/edit.php:93 wp-admin/post.php:252
+#: wp-admin/edit.php:93 wp-admin/post.php:253
 msgid "You are not allowed to move this item to the Trash."
 msgstr "Es ist dir nicht erlaubt dieses Element in den Papierkorb zu legen."
 
@@ -9240,7 +9236,7 @@ msgstr "Du kannst Links in einzelne Gruppen ordnen, indem du Linkkategorien verw
 msgid "You can use categories to define sections of your site and group related posts. The default category is &#8220;Uncategorized&#8221; until you change it in your <a href=\"%s\">writing settings</a>."
 msgstr "Du kannst Beiträge gruppieren und ordnen, in dem du Kategorien verwendest. Als Standardkategorie wird <em>Allgemein</em> verwendet, was du aber <a href=\"%s\">ändern kannst</a>."
 
-#: wp-admin/edit-tags.php:127 wp-admin/edit-tags.php:143 wp-admin/post.php:150
+#: wp-admin/edit-tags.php:127 wp-admin/edit-tags.php:143 wp-admin/post.php:151
 msgid "You attempted to edit an item that doesn&#8217;t exist. Perhaps it was deleted?"
 msgstr "Du versuchst ein Element zu bearbeiten, welches nicht existiert. Vermutlich wurde es gelöscht."
 
@@ -9720,7 +9716,7 @@ msgstr "Dieser Kommentar befindet sich bereits im Papierkorb."
 
 #: wp-admin/edit-comments.php:209 wp-admin/edit-comments.php:215
 #: wp-admin/includes/class-wp-comments-list-table.php:483
-#: wp-admin/includes/dashboard.php:556
+#: wp-admin/includes/dashboard.php:560
 msgid "Edit comment"
 msgstr "Kommentar bearbeiten"
 
@@ -10425,12 +10421,12 @@ msgid "Edit"
 msgstr "Bearbeiten"
 
 #: wp-admin/async-upload.php:57 wp-admin/edit-tags.php:252
-#: wp-admin/includes/post.php:1726 wp-admin/post.php:156
+#: wp-admin/includes/post.php:1726 wp-admin/post.php:157
 msgid "You are not allowed to edit this item."
 msgstr "Du hast nicht die nötigen Rechte, um dieses Element zu bearbeiten."
 
-#: wp-admin/async-upload.php:55 wp-admin/post.php:153 wp-admin/post.php:249
-#: wp-admin/post.php:272 wp-admin/post.php:290
+#: wp-admin/async-upload.php:55 wp-admin/post.php:154 wp-admin/post.php:250
+#: wp-admin/post.php:273 wp-admin/post.php:291
 msgid "Unknown post type."
 msgstr "Unbekannter Inhaltstyp."
 
@@ -10647,8 +10643,8 @@ msgid "What&#8217;s New"
 msgstr "Was gibt's Neues"
 
 #: wp-admin/about.php:31 wp-admin/credits.php:87 wp-admin/freedoms.php:24
-#: wp-admin/includes/ajax-actions.php:2897
-#: wp-admin/includes/ajax-actions.php:2935
+#: wp-admin/includes/ajax-actions.php:2900
+#: wp-admin/includes/ajax-actions.php:2941
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:406
 #: wp-admin/includes/class-wp-plugins-list-table.php:557
 #: wp-admin/includes/update.php:164 wp-admin/includes/update.php:188
