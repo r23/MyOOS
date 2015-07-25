@@ -43,6 +43,20 @@ function myoos_setup() {
 	 */
 	add_theme_support( 'post-thumbnails' );
 
+	add_image_size( 'myoos-thumb', 300, 240, true );           // Thumb
+	add_image_size( 'myoos-blog', 800, 480, true );            // Blog
+	add_image_size( 'myoos-half', 585, 456, true );            // Half
+	add_image_size( 'myoos-one-third', 360, 288, true );       // One third
+	add_image_size( 'myoos-two-thirds', 750, 600, true );      // Two thirds
+	add_image_size( 'myoos-full', 1130, 904, true );           // Whole
+	add_image_size( 'myoos-square', 350, 350, true );          // Square
+	add_image_size( 'myoos-square-big', 700, 700, true );      // Square Big
+	add_image_size( 'myoos-wide', 700, 350, true );            // Wide
+	add_image_size( 'myoos-tall', 350, 700, true );            // Tall
+
+	
+	
+	
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
 		'primary' => esc_html__( 'Primary Menu', 'myoos' ),
@@ -72,6 +86,10 @@ function myoos_setup() {
 		'link',
 	) );
 
+	
+	
+	
+	
 	// Set up the WordPress core custom background feature.
 	add_theme_support( 'custom-background', apply_filters( 'myoos_custom_background_args', array(
 		'default-color' => 'ffffff',
@@ -80,6 +98,7 @@ function myoos_setup() {
 }
 endif; // myoos_setup
 add_action( 'after_setup_theme', 'myoos_setup' );
+
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -125,6 +144,14 @@ function myoos_widgets_init() {
 	) );
 }
 add_action( 'widgets_init', 'myoos_widgets_init' );
+
+
+/**
+ *  Allow Shortcodes in Widget Text
+ */
+add_filter('widget_text', 'do_shortcode');
+
+
 
 /**
  * Enqueue scripts and styles.
