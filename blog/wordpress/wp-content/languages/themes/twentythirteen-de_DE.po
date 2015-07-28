@@ -2,13 +2,17 @@
 # This file is distributed under the same license as the Twenty Thirteen package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-06-28 12:38:25+0000\n"
+"PO-Revision-Date: 2015-07-26 22:13:48+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/1.0-alpha-1000\n"
+"X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Twenty Thirteen\n"
+
+#. Author URI of the plugin/theme
+msgid "https://wordpress.org/"
+msgstr "https://wordpress.org/"
 
 #. Author of the plugin/theme
 msgid "the WordPress team"
@@ -19,8 +23,8 @@ msgid "The 2013 theme for WordPress takes us back to the blog, featuring a full 
 msgstr "Das 2013 Theme für WordPress bringt uns zurück zum Blog. Es wird eine Bandbreite an Beitragsformaten unterstützt. Jedes Beitragsformat wird auf einzigartige Weise angezeigt. Viele kleine Details im Design runden das Aussehen der Webseite ab. Verschiedene Farbvariationen und passende Kopfgrafiken, schöne Schriften und Icons. Das flexible Layout passt sich optimal an die verschiedenen Endgeräte an. Egal ob kleiner Bildschirm auf dem Smartphone oder Tablet-PC. "
 
 #. Theme URI of the plugin/theme
-msgid "http://wordpress.org/themes/twentythirteen"
-msgstr "http://wordpress.org/themes/twentythirteen"
+msgid "https://wordpress.org/themes/twentythirteen/"
+msgstr "https://wordpress.org/themes/twentythirteen/"
 
 #. Theme Name of the plugin/theme
 msgid "Twenty Thirteen"
@@ -180,8 +184,6 @@ msgstr "Stolz präsentiert von %s"
 msgid "Semantic Personal Publishing Platform"
 msgstr "Semantic Personal Publishing Platform"
 
-#. #-#-#-#-#  twentythirteen.pot (Twenty Thirteen 1.4)  #-#-#-#-#
-#. Author URI of the plugin/theme
 #: footer.php:19
 msgid "http://wordpress.org/"
 msgstr "http://wordpress.org/"
