@@ -57,18 +57,30 @@ class WPCF7_Integration {
 		$args = wp_parse_args( $args, array(
 			'include' => array() ) );
 
+		$singular = false;
 		$services = (array) $this->services;
 
 		if ( ! empty( $args['include'] ) ) {
 			$services = array_intersect_key( $services,
 				array_flip( (array) $args['include'] ) );
+
+			if ( 1 == count( $services ) ) {
+				$singular = true;
+			}
 		}
+
+		if ( empty( $services ) ) {
+			return;
+		}
+
+		$action = wpcf7_current_action();
 
 		foreach ( $services as $name => $service ) {
 			$cats = array_intersect_key( $this->categories,
 				array_flip( $service->get_categories() ) );
 ?>
 <div class="card<?php echo $service->is_active() ? ' active' : ''; ?>" id="<?php echo esc_attr( $name ); ?>">
+<?php $service->icon(); ?>
 <h3 class="title"><?php echo esc_html( $service->get_title() ); ?></h3>
 <div class="infobox">
 <?php echo esc_html( implode( ', ', $cats ) ); ?>
@@ -78,7 +90,13 @@ class WPCF7_Integration {
 <br class="clear" />
 
 <div class="inside">
-<?php $service->display(); ?>
+<?php
+			if ( $singular ) {
+				$service->display( $action );
+			} else {
+				$service->display();
+			}
+?>
 </div>
 </div>
 <?php
@@ -98,16 +116,19 @@ abstract class WPCF7_Service {
 	public function get_categories() {
 	}
 
+	public function icon() {
+	}
+
 	public function link() {
 	}
 
 	public function load( $action = '' ) {
 	}
 
-	public function display() {
+	public function display( $action = '' ) {
 	}
 
-	public function admin_notice() {
+	public function admin_notice( $message = '' ) {
 	}
 
 }

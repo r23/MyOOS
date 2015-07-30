@@ -11,6 +11,11 @@ span.shortcode {
 	margin: 2px 0;
 }
 
+span.shortcode.old {
+	background: #777;
+	color: #fff;
+}
+
 span.shortcode > input {
 	background: inherit;
 	color: inherit;
@@ -281,6 +286,7 @@ span.shortcode > input {
 .card {
 	background: #fff none repeat scroll 0 0;
 	border: 1px solid #e5e5e5;
+	border-left: 4px solid #e5e5e5;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
 	margin-top: 20px;
 	max-width: 520px;
@@ -290,12 +296,17 @@ span.shortcode > input {
 }
 
 .card.active {
-	background-color: #f7fcfe;
+	border-color: #00a0d2;
+}
+
+.card img.icon {
+	float: left;
+	margin: 8px 8px 8px -8px;
 }
 
 .card h3.title {
 	float: left;
-	max-width: 260px;
+	max-width: 240px;
 }
 
 .card .infobox {
@@ -305,4 +316,13 @@ span.shortcode > input {
 	margin: 2px 0 5px;
 	line-height: 1.5;
 	max-width: 240px;
+}
+
+.card .inside .form-table th {
+	padding: 15px 10px 15px 0;
+	width: 160px;
+}
+
+.card .inside .form-table td {
+	padding: 10px 10px;
 }
