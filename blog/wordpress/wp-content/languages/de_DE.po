@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the 4.2.x package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-07-05 15:36:06+0000\n"
+"PO-Revision-Date: 2015-07-28 16:26:14+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -304,7 +304,7 @@ msgstr "Passwort vergessen?"
 
 #: wp-login.php:759 wp-login.php:942
 msgid "Password Lost and Found"
-msgstr "Passwortfundbüro"
+msgstr "Passwort-Fundbüro"
 
 #: wp-login.php:751
 msgid "A password will be e-mailed to you."
