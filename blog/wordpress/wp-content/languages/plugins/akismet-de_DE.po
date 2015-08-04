@@ -1,14 +1,26 @@
-# Translation of Development in German
-# This file is distributed under the same license as the Development package.
+# Translation of Development (trunk) in German
+# This file is distributed under the same license as the Development (trunk) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-07-18 14:14:40+0000\n"
+"PO-Revision-Date: 2015-08-01 15:48:27+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/1.0-alpha-1000\n"
-"Project-Id-Version: Development\n"
+"X-Generator: GlotPress/1.0-alpha-1100\n"
+"Project-Id-Version: Development (trunk)\n"
+
+#: views/notice.php:94
+msgid "Your API key is no longer valid. Please enter a new key or contact support@akismet.com."
+msgstr "Dein API-Schlüssel ist nicht mehr gültig. Bitte gebe einen neuen Schlüssel ein oder kontaktiere support@akismet.com."
+
+#: views/notice.php:81 views/notice.php:108 views/notice.php:115
+msgid "Please <a href=\"%s\" target=\"_blank\">contact our support team</a> with any questions."
+msgstr "Bitte <a href=\"%s\" target=\"_blank\">kontaktiere unser Support-Team</a> bei offenen Fragen."
+
+#: class.akismet-admin.php:569
+msgid "%1$s changed the comment status to %2$s."
+msgstr "%1$s hat den Kommentarstatus in „%2$s“ geändert."
 
 #: views/notice.php:98
 msgid "The key you entered could not be verified."
@@ -524,7 +536,7 @@ msgstr "Kommentarstatus wurde geändert zu %s"
 msgid "Akismet cleared this comment during an automatic retry."
 msgstr "Akismet hat diesen Kommentar durch eine erneute Überprüfung als frei von Spam erkannt. "
 
-#. #-#-#-#-#  akismet.pot (Akismet 3.1.4a1)  #-#-#-#-#
+#. #-#-#-#-#  tmp-akismet.pot (Akismet 3.1.4a1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: class.akismet-admin.php:76 class.akismet-admin.php:78
 #: class.akismet-admin.php:842 views/config.php:3
