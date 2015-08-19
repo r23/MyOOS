@@ -74,6 +74,7 @@ return array(
     'Yoast_Notification' => $baseDir . '/admin/class-yoast-notification.php',
     'Yoast_Notification_Center' => $baseDir . '/admin/class-yoast-notification-center.php',
     'Yoast_Plugin_Conflict' => $baseDir . '/admin/class-yoast-plugin-conflict.php',
+    'Yoast_Plugin_Conflict_Ajax' => $baseDir . '/admin/ajax/class-yoast-plugin-conflict-ajax.php',
     'Yoast_Plugin_License_Manager' => $vendorDir . '/yoast/license-manager/class-plugin-license-manager.php',
     'Yoast_Plugin_Update_Manager' => $vendorDir . '/yoast/license-manager/class-plugin-update-manager.php',
     'Yoast_Product' => $vendorDir . '/yoast/license-manager/class-product.php',

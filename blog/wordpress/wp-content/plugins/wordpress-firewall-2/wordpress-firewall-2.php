@@ -348,7 +348,7 @@ function WP_firewall_array_flatten($array, &$newArray, $prefix='', $delimiter=']
 			if($level == 0) {
 				$newPrefix = $key . '[';
 			}
-			$newArray =& WP_firewall_array_flatten($child, $newArray, $newPrefix, $delimiter, $level+1);
+			$newArray = WP_firewall_array_flatten($child, $newArray, $newPrefix, $delimiter, $level+1);
 		} else {
 			(!$level) ? $post='' : $post=']';
 			$newArray[$prefix . $key . $post] = $child;
