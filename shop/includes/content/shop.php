@@ -514,17 +514,8 @@ if ($category_depth == 'nested') {
 		$nManufacturersID = intval($_GET['manufacturers_id']);
 		$manufacturerstable = $oostable['manufacturers'];
 		$sql = "SELECT teaser_brand_image
-                FROM $manufacturerstable
-                WHERE manufacturers_id = '" . intval($nManufacturersID) . "'";
-				AND pd.products_id = p.products_id
-				AND pd.products_languages_id = '" . intval($nLanguageID) . "'";
-                        FROM $productstable p,
-                             $products_descriptiontable pd
-                        WHERE p.products_status >= '1'
-                          AND p.products_id = '" . intval($nProductsID) . "'
-                          AND pd.products_id = p.products_id
-                          AND pd.products_languages_id = '" . intval($nLanguageID) . "'";				
-				
+                        FROM $manufacturerstable
+                        WHERE manufacturers_id = '" . intval($nManufacturersID) . "'";			
 		$image = $dbconn->GetOne($sql);
 	} elseif ($nCurrentCategoryID) {
 		$image = $category['categories_image'];
