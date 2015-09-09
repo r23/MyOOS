@@ -1,21 +1,28 @@
-# First, deny access to all files in this directory
-<Files "*">
 <IfModule mod_version.c>
 	<IfVersion < 2.4>
-		Order Deny,Allow
-		Deny from All
+		<Files "*.php">
+			Order Allow,Deny
+			Deny from All
+		</Files>
 	</IfVersion>
 	<IfVersion >= 2.4>
-		Require all denied
+		<Files "*.php">
+			Require all denied
+		</Files>
 	</IfVersion>
 </IfModule>
 <IfModule !mod_version.c>
 	<IfModule !mod_authz_core.c>
-		Order Deny,Allow
-		Deny from All
+		<Files "*.php">
+			Order Allow,Deny
+			Deny from All
+		</Files>
 	</IfModule>
 	<IfModule mod_authz_core.c>
-		Require all denied
+		<Files "*.php">
+			Require all denied
+		</Files>
 	</IfModule>
 </IfModule>
-</Files>
+
+

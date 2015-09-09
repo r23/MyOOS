@@ -54,9 +54,9 @@ function myoos_setup() {
 	add_image_size( 'myoos-wide', 700, 350, true );            // Wide
 	add_image_size( 'myoos-tall', 350, 700, true );            // Tall
 
-	
-	
-	
+
+
+
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
 		'primary' => esc_html__( 'Primary Menu', 'myoos' ),
@@ -86,10 +86,10 @@ function myoos_setup() {
 		'link',
 	) );
 
-	
-	
-	
-	
+
+
+
+
 	// Set up the WordPress core custom background feature.
 	add_theme_support( 'custom-background', apply_filters( 'myoos_custom_background_args', array(
 		'default-color' => 'ffffff',
@@ -170,13 +170,13 @@ function myoos_scripts() {
 	if( ( is_home() || is_front_page() ) && of_get_option('myoos_slider_checkbox') == 1 ) {
 		wp_enqueue_style( 'flexslider', MYOOS_THEME_URL . '/css/flexslider.min.css' );
 	}
-	
+
 	// Add slider JS only if is front page ans slider is enabled
 	if( ( is_home() || is_front_page() ) && of_get_option('myoos_slider_checkbox') == 1 ) {
 		// Add slider JS only if is front page ans slider is enabled
 		wp_enqueue_script( 'flexslider', MYOOS_THEME_URL . '/js/jquery.flexslider-min.js', array('jquery'), '2.2.5', true );
 	}
-	
+
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
@@ -202,7 +202,18 @@ function _remove_script_version( $src ){
 add_filter( 'script_loader_src', '_remove_script_version', 9999 );
 add_filter( 'style_loader_src', '_remove_script_version', 9999 );
 
+/**
+ * Puts a link to MyOOS Community in the WordPress admin footer.
+ */
+function myoos_footer_text($default) {
+	$default .= ' <span id="footer-myoos">' . __('| MyOOS integration by <a href="http://foren.myoos.de/">MyOOS Community</a>.', 'myoos') . '</span>';
+	return $default;
+}
 
+
+if ( is_admin() ) {
+	add_filter( 'admin_footer_text', 'myoos_footer_text' );
+}
 
 /**
  * Implement the Custom Header feature.

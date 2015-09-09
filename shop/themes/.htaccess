@@ -1,4 +1,28 @@
-<Files *.php>
-Order Deny,Allow
-Deny from all
-</Files>
+<IfModule mod_version.c>
+	<IfVersion < 2.4>
+		<Files "*.php">
+			Order Allow,Deny
+			Deny from All
+		</Files>
+	</IfVersion>
+	<IfVersion >= 2.4>
+		<Files "*.php">
+			Require all denied
+		</Files>
+	</IfVersion>
+</IfModule>
+<IfModule !mod_version.c>
+	<IfModule !mod_authz_core.c>
+		<Files "*.php">
+			Order Allow,Deny
+			Deny from All
+		</Files>
+	</IfModule>
+	<IfModule mod_authz_core.c>
+		<Files "*.php">
+			Require all denied
+		</Files>
+	</IfModule>
+</IfModule>
+
+

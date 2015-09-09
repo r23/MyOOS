@@ -26,7 +26,7 @@ $smarty = new myOOS_Smarty();
 //debug
 if ($debug == 1) {
 	$smarty->force_compile   = TRUE;
-	$smarty->debugging       = TRUE;
+	$smarty->debugging       = FALSE;
 	$smarty->clearAllCache();
 	$smarty->clearCompiledTemplate();
 }
