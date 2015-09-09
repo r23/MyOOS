@@ -60,12 +60,15 @@ abstract class Kernel implements KernelInterface, TerminableInterface
     protected $startTime;
     protected $loadClassCache;
 
-    const VERSION = '2.6.5';
-    const VERSION_ID = '20605';
+    const VERSION = '2.7.4';
+    const VERSION_ID = '20704';
     const MAJOR_VERSION = '2';
-    const MINOR_VERSION = '6';
-    const RELEASE_VERSION = '5';
+    const MINOR_VERSION = '7';
+    const RELEASE_VERSION = '4';
     const EXTRA_VERSION = '';
+
+    const END_OF_MAINTENANCE = '05/2018';
+    const END_OF_LIFE = '05/2019';
 
     /**
      * Constructor.
@@ -86,14 +89,21 @@ abstract class Kernel implements KernelInterface, TerminableInterface
             $this->startTime = microtime(true);
         }
 
-        $this->init();
+        $defClass = new \ReflectionMethod($this, 'init');
+        $defClass = $defClass->getDeclaringClass()->name;
+
+        if (__CLASS__ !== $defClass) {
+            @trigger_error(sprintf('Calling the %s::init() method is deprecated since version 2.3 and will be removed in 3.0. Move your logic to the constructor method instead.', $defClass), E_USER_DEPRECATED);
+            $this->init();
+        }
     }
 
     /**
-     * @deprecated Deprecated since version 2.3, to be removed in 3.0. Move your logic in the constructor instead.
+     * @deprecated since version 2.3, to be removed in 3.0. Move your logic in the constructor instead.
      */
     public function init()
     {
+        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.3 and will be removed in 3.0. Move your logic to the constructor method instead.', E_USER_DEPRECATED);
     }
 
     public function __clone()
@@ -211,10 +221,12 @@ abstract class Kernel implements KernelInterface, TerminableInterface
      *
      * @api
      *
-     * @deprecated Deprecated since version 2.6, to be removed in 3.0.
+     * @deprecated since version 2.6, to be removed in 3.0.
      */
     public function isClassInActiveBundle($class)
     {
+        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.6 and will be removed in version 3.0.', E_USER_DEPRECATED);
+
         foreach ($this->getBundles() as $bundle) {
             if (0 === strpos($class, $bundle->getNamespace())) {
                 return true;
@@ -243,7 +255,7 @@ abstract class Kernel implements KernelInterface, TerminableInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @throws \RuntimeException if a custom resource is hidden by a resource in a derived bundle
      */
@@ -344,7 +356,7 @@ abstract class Kernel implements KernelInterface, TerminableInterface
     {
         if (null === $this->rootDir) {
             $r = new \ReflectionObject($this);
-            $this->rootDir = str_replace('\\', '/', dirname($r->getFileName()));
+            $this->rootDir = dirname($r->getFileName());
         }
 
         return $this->rootDir;
@@ -537,7 +549,7 @@ abstract class Kernel implements KernelInterface, TerminableInterface
             $fresh = false;
         }
 
-        require_once $cache;
+        require_once $cache->getPath();
 
         $this->container = new $class();
         $this->container->set('kernel', $this);
@@ -662,7 +674,7 @@ abstract class Kernel implements KernelInterface, TerminableInterface
     {
         $container = new ContainerBuilder(new ParameterBag($this->getKernelParameters()));
 
-        if (class_exists('ProxyManager\Configuration')) {
+        if (class_exists('ProxyManager\Configuration') && class_exists('Symfony\Bridge\ProxyManager\LazyProxy\Instantiator\RuntimeInstantiator')) {
             $container->setProxyInstantiator(new RuntimeInstantiator());
         }
 
@@ -682,11 +694,11 @@ abstract class Kernel implements KernelInterface, TerminableInterface
         // cache the container
         $dumper = new PhpDumper($container);
 
-        if (class_exists('ProxyManager\Configuration')) {
-            $dumper->setProxyDumper(new ProxyDumper());
+        if (class_exists('ProxyManager\Configuration') && class_exists('Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper')) {
+            $dumper->setProxyDumper(new ProxyDumper(md5($cache->getPath())));
         }
 
-        $content = $dumper->dump(array('class' => $class, 'base_class' => $baseClass, 'file' => (string) $cache));
+        $content = $dumper->dump(array('class' => $class, 'base_class' => $baseClass, 'file' => $cache->getPath()));
         if (!$this->debug) {
             $content = static::stripComments($content);
         }

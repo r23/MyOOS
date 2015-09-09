@@ -11,9 +11,9 @@
 
 namespace Symfony\Component\PropertyAccess;
 
+use Symfony\Component\PropertyAccess\Exception\InvalidArgumentException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\PropertyAccess\Exception\OutOfBoundsException;
-use Symfony\Component\PropertyAccess\Exception\UnexpectedTypeException;
 
 /**
  * Default implementation of {@link PropertyPathInterface}.
@@ -70,13 +70,13 @@ class PropertyPath implements \IteratorAggregate, PropertyPathInterface
      *
      * @param PropertyPath|string $propertyPath The property path as string or instance
      *
-     * @throws UnexpectedTypeException      If the given path is not a string
+     * @throws InvalidArgumentException     If the given path is not a string
      * @throws InvalidPropertyPathException If the syntax of the property path is not valid
      */
     public function __construct($propertyPath)
     {
         // Can be used as copy constructor
-        if ($propertyPath instanceof PropertyPath) {
+        if ($propertyPath instanceof self) {
             /* @var PropertyPath $propertyPath */
             $this->elements = $propertyPath->elements;
             $this->singulars = $propertyPath->singulars;
@@ -87,7 +87,12 @@ class PropertyPath implements \IteratorAggregate, PropertyPathInterface
             return;
         }
         if (!is_string($propertyPath)) {
-            throw new UnexpectedTypeException($propertyPath, 'string or Symfony\Component\PropertyAccess\PropertyPath');
+            throw new InvalidArgumentException(sprintf(
+                'The property path constructor needs a string or an instance of '.
+                '"Symfony\Component\PropertyAccess\PropertyPath". '.
+                'Got: "%s"',
+                is_object($propertyPath) ? get_class($propertyPath) : gettype($propertyPath)
+            ));
         }
 
         if ('' === $propertyPath) {

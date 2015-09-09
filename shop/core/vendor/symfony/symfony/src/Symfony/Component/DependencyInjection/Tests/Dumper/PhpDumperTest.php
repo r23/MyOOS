@@ -48,8 +48,8 @@ class PhpDumperTest extends \PHPUnit_Framework_TestCase
             '.' => 'dot as a key',
             '.\'\'.' => 'concatenation as a key',
             '\'\'.' => 'concatenation from the start key',
-            'optimize concatenation' => "string1%some_string%string2",
-            'optimize concatenation with empty string' => "string1%empty_value%string2",
+            'optimize concatenation' => 'string1%some_string%string2',
+            'optimize concatenation with empty string' => 'string1%empty_value%string2',
             'optimize concatenation from the start' => '%empty_value%start',
             'optimize concatenation at the end' => 'end%empty_value%',
         ));
@@ -122,6 +122,16 @@ class PhpDumperTest extends \PHPUnit_Framework_TestCase
             $this->assertInstanceOf('\Symfony\Component\DependencyInjection\Exception\RuntimeException', $e, '->dump() throws a RuntimeException if the container to be dumped has reference to objects or resources');
             $this->assertEquals('Unable to dump a service container if a parameter is an object or a resource.', $e->getMessage(), '->dump() throws a RuntimeException if the container to be dumped has reference to objects or resources');
         }
+    }
+
+    /**
+     * @group legacy
+     */
+    public function testLegacySynchronizedServices()
+    {
+        $container = include self::$fixturesPath.'/containers/container20.php';
+        $dumper = new PhpDumper($container);
+        $this->assertEquals(str_replace('%path%', str_replace('\\', '\\\\', self::$fixturesPath.DIRECTORY_SEPARATOR.'includes'.DIRECTORY_SEPARATOR), file_get_contents(self::$fixturesPath.'/php/services20.php')), $dumper->dump(), '->dump() dumps services');
     }
 
     public function testServicesWithAnonymousFactories()

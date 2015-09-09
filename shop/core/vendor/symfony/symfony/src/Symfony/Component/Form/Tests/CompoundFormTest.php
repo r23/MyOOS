@@ -350,7 +350,7 @@ class CompoundFormTest extends AbstractFormTest
             ->with('bar', $this->isInstanceOf('\RecursiveIteratorIterator'))
             ->will($this->returnCallback(function ($data, \RecursiveIteratorIterator $iterator) use ($child, $test) {
                 $test->assertInstanceOf('Symfony\Component\Form\Util\InheritDataAwareIterator', $iterator->getInnerIterator());
-                $test->assertSame(array($child), iterator_to_array($iterator));
+                $test->assertSame(array($child->getName() => $child), iterator_to_array($iterator));
             }));
 
         $form->initialize();
@@ -807,6 +807,9 @@ class CompoundFormTest extends AbstractFormTest
         $this->assertEquals(array('extra' => 'data'), $form->getExtraData());
     }
 
+    /**
+     * @group legacy
+     */
     public function testGetErrorsAsStringDeep()
     {
         $parent = $this->getBuilder()
@@ -826,6 +829,9 @@ class CompoundFormTest extends AbstractFormTest
         );
     }
 
+    /**
+     * @group legacy
+     */
     public function testGetErrorsAsStringDeepWithIndentation()
     {
         $parent = $this->getBuilder()

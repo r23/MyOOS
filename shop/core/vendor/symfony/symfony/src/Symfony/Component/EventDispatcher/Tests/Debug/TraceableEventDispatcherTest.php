@@ -12,6 +12,7 @@
 namespace Symfony\Component\EventDispatcher\Tests\Debug;
 
 use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\Event;
@@ -109,8 +110,8 @@ class TraceableEventDispatcherTest extends \PHPUnit_Framework_TestCase
         $tdispatcher->addListener('foo', $listener1 = function () {; });
         $tdispatcher->addListener('foo', $listener2 = function () {; });
 
-        $logger->expects($this->at(0))->method('debug')->with("Notified event \"foo\" to listener \"closure\".");
-        $logger->expects($this->at(1))->method('debug')->with("Notified event \"foo\" to listener \"closure\".");
+        $logger->expects($this->at(0))->method('debug')->with('Notified event "foo" to listener "closure".');
+        $logger->expects($this->at(1))->method('debug')->with('Notified event "foo" to listener "closure".');
 
         $tdispatcher->dispatch('foo');
     }
@@ -124,9 +125,9 @@ class TraceableEventDispatcherTest extends \PHPUnit_Framework_TestCase
         $tdispatcher->addListener('foo', $listener1 = function (Event $event) { $event->stopPropagation(); });
         $tdispatcher->addListener('foo', $listener2 = function () {; });
 
-        $logger->expects($this->at(0))->method('debug')->with("Notified event \"foo\" to listener \"closure\".");
-        $logger->expects($this->at(1))->method('debug')->with("Listener \"closure\" stopped propagation of the event \"foo\".");
-        $logger->expects($this->at(2))->method('debug')->with("Listener \"closure\" was not called for event \"foo\".");
+        $logger->expects($this->at(0))->method('debug')->with('Notified event "foo" to listener "closure".');
+        $logger->expects($this->at(1))->method('debug')->with('Listener "closure" stopped propagation of the event "foo".');
+        $logger->expects($this->at(2))->method('debug')->with('Listener "closure" was not called for event "foo".');
 
         $tdispatcher->dispatch('foo');
     }
@@ -173,6 +174,19 @@ class TraceableEventDispatcherTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($nestedCall);
         $dispatcher->dispatch('foo');
         $this->assertTrue($nestedCall);
+    }
+
+    public function testListenerCanRemoveItselfWhenExecuted()
+    {
+        $eventDispatcher = new TraceableEventDispatcher(new EventDispatcher(), new Stopwatch());
+        $listener1 = function ($event, $eventName, EventDispatcherInterface $dispatcher) use (&$listener1) {
+            $dispatcher->removeListener('foo', $listener1);
+        };
+        $eventDispatcher->addListener('foo', $listener1);
+        $eventDispatcher->addListener('foo', function () {});
+        $eventDispatcher->dispatch('foo');
+
+        $this->assertCount(1, $eventDispatcher->getListeners('foo'), 'expected listener1 to be removed');
     }
 }
 

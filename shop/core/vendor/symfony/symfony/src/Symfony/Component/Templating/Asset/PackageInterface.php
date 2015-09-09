@@ -15,6 +15,8 @@ namespace Symfony\Component\Templating\Asset;
  * Asset package interface.
  *
  * @author Kris Wallsmith <kris@symfony.com>
+ *
+ * @deprecated since 2.7, will be removed in 3.0. Use the Asset component instead.
  */
 interface PackageInterface
 {

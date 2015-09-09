@@ -123,7 +123,7 @@ class ArgvInput extends Input
     private function parseShortOptionSet($name)
     {
         $len = strlen($name);
-        for ($i = 0; $i < $len; $i++) {
+        for ($i = 0; $i < $len; ++$i) {
             if (!$this->definition->hasShortcut($name[$i])) {
                 throw new \RuntimeException(sprintf('The "-%s" option does not exist.', $name[$i]));
             }
@@ -215,13 +215,13 @@ class ArgvInput extends Input
 
         $option = $this->definition->getOption($name);
 
-        // Convert false values (from a previous call to substr()) to null
-        if (false === $value) {
+        // Convert empty values to null
+        if (!isset($value[0])) {
             $value = null;
         }
 
         if (null !== $value && !$option->acceptValue()) {
-            throw new \RuntimeException(sprintf('The "--%s" option does not accept a value.', $name, $value));
+            throw new \RuntimeException(sprintf('The "--%s" option does not accept a value.', $name));
         }
 
         if (null === $value && $option->acceptValue() && count($this->parsed)) {

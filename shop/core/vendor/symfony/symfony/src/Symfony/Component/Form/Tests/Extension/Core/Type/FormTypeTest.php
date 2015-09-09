@@ -637,6 +637,9 @@ class FormTypeTest extends BaseTypeTest
         $this->assertSame('0', $view->vars['label']);
     }
 
+    /**
+     * @group legacy
+     */
     public function testCanGetErrorsWhenButtonInForm()
     {
         $builder = $this->factory->createBuilder('form', null, array(

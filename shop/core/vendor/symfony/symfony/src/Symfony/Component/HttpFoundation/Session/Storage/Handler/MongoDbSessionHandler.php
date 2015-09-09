@@ -155,7 +155,7 @@ class MongoDbSessionHandler implements \SessionHandlerInterface
     public function read($sessionId)
     {
         $dbData = $this->getCollection()->findOne(array(
-            $this->options['id_field']   => $sessionId,
+            $this->options['id_field'] => $sessionId,
             $this->options['expiry_field'] => array('$gte' => new \MongoDate()),
         ));
 
@@ -177,7 +177,7 @@ class MongoDbSessionHandler implements \SessionHandlerInterface
     }
 
     /**
-     * Return a Mongo instance
+     * Return a Mongo instance.
      *
      * @return \Mongo
      */

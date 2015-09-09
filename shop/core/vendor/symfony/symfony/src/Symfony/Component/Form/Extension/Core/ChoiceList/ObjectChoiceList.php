@@ -2,14 +2,16 @@
 
 /*
  * This file is part of the Symfony package.
-*
-* (c) Fabien Potencier <fabien@symfony.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*/
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Symfony\Component\Form\Extension\Core\ChoiceList;
+
+@trigger_error('The '.__NAMESPACE__.'\ObjectChoiceList class is deprecated since version 2.7 and will be removed in 3.0. Use Symfony\Component\Form\ChoiceList\ArrayChoiceList instead.', E_USER_DEPRECATED);
 
 use Symfony\Component\Form\Exception\StringCastException;
 use Symfony\Component\Form\Exception\InvalidArgumentException;
@@ -32,6 +34,9 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
  * </code>
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
+ *
+ * @deprecated since Symfony 2.7, to be removed in version 3.0.
+ *             Use {@link \Symfony\Component\Form\ChoiceList\ArrayChoiceList} instead.
  */
 class ObjectChoiceList extends ChoiceList
 {
@@ -187,10 +192,12 @@ class ObjectChoiceList extends ChoiceList
     /**
      * {@inheritdoc}
      *
-     * @deprecated Deprecated since version 2.4, to be removed in 3.0.
+     * @deprecated since version 2.4, to be removed in 3.0.
      */
     public function getIndicesForChoices(array $choices)
     {
+        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.4 and will be removed in 3.0.', E_USER_DEPRECATED);
+
         if (!$this->valuePath) {
             return parent::getIndicesForChoices($choices);
         }

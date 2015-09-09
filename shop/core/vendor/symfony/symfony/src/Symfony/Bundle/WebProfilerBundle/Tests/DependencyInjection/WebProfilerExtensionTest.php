@@ -52,10 +52,9 @@ class WebProfilerExtensionTest extends TestCase
         $this->container->addScope(new Scope('request'));
         $this->container->register('request', 'Symfony\\Component\\HttpFoundation\\Request')->setScope('request');
         $this->container->register('router', $this->getMockClass('Symfony\\Component\\Routing\\RouterInterface'));
-        $this->container->register('templating.helper.assets', $this->getMockClass('Symfony\\Component\\Templating\\Helper\\AssetsHelper'));
-        $this->container->register('templating.helper.router', $this->getMockClass('Symfony\\Bundle\\FrameworkBundle\\Templating\\Helper\\RouterHelper'))
-            ->addArgument(new Reference('router'));
         $this->container->register('twig', 'Twig_Environment');
+        $this->container->register('twig_loader', 'Twig_Loader_Array')->addArgument(array());
+        $this->container->register('twig', 'Twig_Environment')->addArgument(new Reference('twig_loader'));
         $this->container->setParameter('kernel.bundles', array());
         $this->container->setParameter('kernel.cache_dir', __DIR__);
         $this->container->setParameter('kernel.debug', false);

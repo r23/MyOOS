@@ -95,12 +95,39 @@ UPGRADE FROM 2.x to 3.0
    been removed in favor of `Definition::setFactory()`. Services defined using
    YAML or XML use the same syntax as configurators.
 
+ * Synchronized services are deprecated and the following methods have been
+   removed: `ContainerBuilder::synchronize()`, `Definition::isSynchronized()`,
+   and `Definition::setSynchronized()`.
+
 ### EventDispatcher
 
  * The interface `Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcherInterface`
    extends `Symfony\Component\EventDispatcher\EventDispatcherInterface`.
 
 ### Form
+
+ * The option "precision" was renamed to "scale".
+
+   Before:
+
+   ```php
+   $builder->add('length', 'number', array(
+      'precision' => 3,
+   ));
+   ```
+
+   After:
+
+   ```php
+   $builder->add('length', 'number', array(
+      'scale' => 3,
+   ));
+   ```
+
+ * The method `AbstractType::setDefaultOptions(OptionsResolverInterface $resolver)` and
+   `AbstractTypeExtension::setDefaultOptions(OptionsResolverInterface $resolver)` have been
+   renamed. You should use `AbstractType::configureOptions(OptionsResolver $resolver)` and
+   `AbstractTypeExtension::configureOptions(OptionsResolver $resolver)` instead.
 
  * The methods `Form::bind()` and `Form::isBound()` were removed. You should
    use `Form::submit()` and `Form::isSubmitted()` instead.
@@ -272,12 +299,24 @@ UPGRADE FROM 2.x to 3.0
    ```php
    echo $form->getErrors(true, false);
    ```
+   * The `Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceList` class has been removed in
+     favor of `Symfony\Component\Form\ChoiceList\ArrayChoiceList`.
 
-   ```php
-   echo $form->getErrors(true, false);
-   ```
+   * The `Symfony\Component\Form\Extension\Core\ChoiceList\LazyChoiceList` class has been removed in
+     favor of `Symfony\Component\Form\ChoiceList\LazyChoiceList`.
+
+   * The `Symfony\Component\Form\Extension\Core\ChoiceList\ObjectChoiceList` class has been removed in
+     favor of `Symfony\Component\Form\ChoiceList\ArrayChoiceList`.
+
+   * The `Symfony\Component\Form\Extension\Core\ChoiceList\SimpleChoiceList` class has been removed in
+     favor of `Symfony\Component\Form\ChoiceList\ArrayChoiceList`.
 
 ### FrameworkBundle
+
+ * The `config:debug`, `container:debug`, `router:debug`, `translation:debug`
+   and `yaml:lint` commands have been deprecated since Symfony 2.7 and will
+   be removed in Symfony 3.0. Use the `debug:config`, `debug:container`,
+   `debug:router`, `debug:translation` and `lint:yaml` commands instead.
 
  * The `getRequest` method of the base `Controller` class has been deprecated
    since Symfony 2.4 and must be therefore removed in 3.0. The only reliable
@@ -316,6 +355,51 @@ UPGRADE FROM 2.x to 3.0
 
  * The `request` service was removed. You must inject the `request_stack`
    service instead.
+
+ * The `templating.helper.assets` was removed in Symfony 3.0. You should
+   use the `assets.package` service instead.
+
+   Before:
+
+   ```php
+   use Symfony\Component\Templating\Helper\CoreAssetsHelper;
+
+   class DemoService
+   {
+       private $assetsHelper;
+
+       public function __construct(CoreAssetsHelper $assetsHelper)
+       {
+           $this->assetsHelper = $assetsHelper;
+       }
+
+       public function testMethod()
+       {
+           return $this->assetsHelper->getUrl('thumbnail.png', null, $this->assetsHelper->getVersion());
+       }
+   }
+   ```
+
+   After:
+
+   ```php
+   use Symfony\Component\Asset\Packages;
+
+   class DemoService
+   {
+       private $assetPackages;
+
+       public function __construct(Packages $assetPackages)
+       {
+           $this->assetPackages = $assetPackages;
+       }
+
+       public function testMethod()
+       {
+           return $this->assetPackages->getUrl('thumbnail.png').$this->assetPackages->getVersion();
+       }
+   }
+   ```
 
  * The `enctype` method of the `form` helper was removed. You should use the
    new method `start` instead.
@@ -368,6 +452,21 @@ UPGRADE FROM 2.x to 3.0
    ```
 
  * The `RouterApacheDumperCommand` was removed.
+
+ * The `templating.helper.router` service was moved to `templating_php.xml`. You
+   have to ensure that the PHP templating engine is enabled to be able to use it:
+
+   ```yaml
+   framework:
+       templating:
+           engines: ['php']
+   ```
+
+ * The `form.csrf_provider` service is removed as it implements an adapter for
+   the new token manager to the deprecated
+   `Symfony\Component\Form\Extension\Csrf\CsrfProvider\CsrfProviderInterface`
+   interface.
+   The `security.csrf.token_manager` should be used instead.
 
 ### HttpKernel
 
@@ -508,6 +607,9 @@ UPGRADE FROM 2.x to 3.0
 
 ### Twig Bridge
 
+ * The `twig:lint` command has been deprecated since Symfony 2.7 and will be
+   removed in Symfony 3.0. Use the `lint:twig` command instead.
+
  * The `render` tag is deprecated in favor of the `render` function.
 
  * The `form_enctype` helper was removed. You should use the new `form_start`
@@ -559,6 +661,11 @@ UPGRADE FROM 2.x to 3.0
        ...
    {{ form_end(form) }}
    ```
+
+### TwigBundle
+
+ * The `twig:debug` command has been deprecated since Symfony 2.7 and will be
+   removed in Symfony 3.0. Use the `debug:twig` command instead.
 
 ### Validator
 
@@ -975,6 +1082,22 @@ UPGRADE FROM 2.x to 3.0
    ```php
    $parameters = $violation->getParameters();
    $plural = $violation->getPlural();
+   ```
+
+ * The class `Symfony\Component\Validator\DefaultTranslator` was removed. You
+   should use `Symfony\Component\Translation\IdentityTranslator` instead.
+
+   Before:
+
+   ```php
+   $translator = new \Symfony\Component\Validator\DefaultTranslator();
+   ```
+
+   After:
+
+   ```php
+   $translator = new \Symfony\Component\Translation\IdentityTranslator();
+   $translator->setLocale('en');
    ```
 
 ### Yaml

@@ -3,7 +3,7 @@
 /*
  * This file is part of the SensioLabs Security Checker.
  *
- * (c) 2013 Fabien Potencier
+ * (c) Fabien Potencier
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -40,7 +40,7 @@ class SimpleFormatter implements FormatterInterface
             $style = 'info';
         }
 
-        $output->writeln(sprintf('<%s>[%s] %d packages have known vulnerabilities</>', $style, $status, $count));
+        $output->writeln(sprintf('<%s>[%s] %d %s known vulnerabilities</>', $style, $status, $count, 1 === $count ? 'package has' : 'packages have'));
 
         if (0 !== $count) {
             $output->write("\n");

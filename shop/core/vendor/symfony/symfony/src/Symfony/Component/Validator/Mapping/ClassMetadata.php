@@ -129,14 +129,16 @@ class ClassMetadata extends ElementMetadata implements ClassMetadataInterface
     /**
      * {@inheritdoc}
      *
-     * @deprecated Deprecated since version 2.5, to be removed in Symfony 3.0.
+     * @deprecated since version 2.5, to be removed in 3.0.
      */
     public function accept(ValidationVisitorInterface $visitor, $value, $group, $propertyPath, $propagatedGroup = null)
     {
+        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.5 and will be removed in 3.0.', E_USER_DEPRECATED);
+
         if (null === $propagatedGroup && Constraint::DEFAULT_GROUP === $group
                 && ($this->hasGroupSequence() || $this->isGroupSequenceProvider())) {
             if ($this->hasGroupSequence()) {
-                $groups = $this->getGroupSequence();
+                $groups = $this->getGroupSequence()->groups;
             } else {
                 $groups = $value->getGroupSequence();
             }
@@ -371,10 +373,12 @@ class ClassMetadata extends ElementMetadata implements ClassMetadataInterface
      *
      * @param MemberMetadata $metadata
      *
-     * @deprecated Deprecated since version 2.6, to be removed in 3.0.
+     * @deprecated since version 2.6, to be removed in 3.0.
      */
     protected function addMemberMetadata(MemberMetadata $metadata)
     {
+        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.6 and will be removed in 3.0. Use the addPropertyMetadata() method instead.', E_USER_DEPRECATED);
+
         $this->addPropertyMetadata($metadata);
     }
 
@@ -385,10 +389,12 @@ class ClassMetadata extends ElementMetadata implements ClassMetadataInterface
      *
      * @return bool
      *
-     * @deprecated Deprecated since version 2.6, to be removed in 3.0. Use {@link hasPropertyMetadata} instead.
+     * @deprecated since version 2.6, to be removed in 3.0. Use {@link hasPropertyMetadata} instead.
      */
     public function hasMemberMetadatas($property)
     {
+        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.6 and will be removed in 3.0. Use the hasPropertyMetadata() method instead.', E_USER_DEPRECATED);
+
         return $this->hasPropertyMetadata($property);
     }
 
@@ -399,10 +405,12 @@ class ClassMetadata extends ElementMetadata implements ClassMetadataInterface
      *
      * @return MemberMetadata[] An array of MemberMetadata
      *
-     * @deprecated Deprecated since version 2.6, to be removed in 3.0. Use {@link getPropertyMetadata} instead.
+     * @deprecated since version 2.6, to be removed in 3.0. Use {@link getPropertyMetadata} instead.
      */
     public function getMemberMetadatas($property)
     {
+        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.6 and will be removed in 3.0. Use the getPropertyMetadata() method instead.', E_USER_DEPRECATED);
+
         return $this->getPropertyMetadata($property);
     }
 
@@ -471,7 +479,7 @@ class ClassMetadata extends ElementMetadata implements ClassMetadataInterface
      */
     public function hasGroupSequence()
     {
-        return count($this->groupSequence) > 0;
+        return $this->groupSequence && count($this->groupSequence->groups) > 0;
     }
 
     /**

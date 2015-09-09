@@ -3,7 +3,7 @@
     "type": "library",
     "description": "Symfony BrowserKit Component",
     "keywords": [],
-    "homepage": "http://symfony.com",
+    "homepage": "https://symfony.com",
     "license": "MIT",
     "authors": [
         {
@@ -12,11 +12,11 @@
         },
         {
             "name": "Symfony Community",
-            "homepage": "http://symfony.com/contributors"
+            "homepage": "https://symfony.com/contributors"
         }
     ],
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.3.9",
         "symfony/dom-crawler": "~2.0,>=2.0.5"
     },
     "require-dev": {
@@ -28,13 +28,12 @@
         "symfony/process": ""
     },
     "autoload": {
-        "psr-0": { "Symfony\\Component\\BrowserKit\\": "" }
+        "psr-4": { "Symfony\\Component\\BrowserKit\\": "" }
     },
-    "target-dir": "Symfony/Component/BrowserKit",
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-            "dev-master": "2.6-dev"
+            "dev-master": "2.7-dev"
         }
     }
 }

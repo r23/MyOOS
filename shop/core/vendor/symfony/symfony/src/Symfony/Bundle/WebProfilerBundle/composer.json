@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "Symfony WebProfilerBundle",
     "keywords": [],
-    "homepage": "http://symfony.com",
+    "homepage": "https://symfony.com",
     "license": "MIT",
     "authors": [
         {
@@ -12,14 +12,14 @@
         },
         {
             "name": "Symfony Community",
-            "homepage": "http://symfony.com/contributors"
+            "homepage": "https://symfony.com/contributors"
         }
     ],
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.3.9",
         "symfony/http-kernel": "~2.4",
         "symfony/routing": "~2.2",
-        "symfony/twig-bridge": "~2.2"
+        "symfony/twig-bridge": "~2.7"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "~2.7",
@@ -29,13 +29,12 @@
         "symfony/stopwatch": "~2.2"
     },
     "autoload": {
-        "psr-0": { "Symfony\\Bundle\\WebProfilerBundle\\": "" }
+        "psr-4": { "Symfony\\Bundle\\WebProfilerBundle\\": "" }
     },
-    "target-dir": "Symfony/Bundle/WebProfilerBundle",
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-            "dev-master": "2.6-dev"
+            "dev-master": "2.7-dev"
         }
     }
 }

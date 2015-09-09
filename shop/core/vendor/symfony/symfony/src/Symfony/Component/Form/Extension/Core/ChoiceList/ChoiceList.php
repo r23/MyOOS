@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Form\Extension\Core\ChoiceList;
 
+@trigger_error('The '.__NAMESPACE__.'\ChoiceList class is deprecated since version 2.7 and will be removed in 3.0. Use Symfony\Component\Form\ChoiceList\ArrayChoiceList instead.', E_USER_DEPRECATED);
+
 use Symfony\Component\Form\FormConfigBuilder;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Form\Exception\InvalidConfigurationException;
@@ -29,10 +31,13 @@ use Symfony\Component\Form\Extension\Core\View\ChoiceView;
  * <code>
  * $choices = array(true, false);
  * $labels = array('Agree', 'Disagree');
- * $choiceList = new ChoiceList($choices, $labels);
+ * $choiceList = new ArrayChoiceList($choices, $labels);
  * </code>
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
+ *
+ * @deprecated since version 2.7, to be removed in 3.0.
+ *             Use {@link \Symfony\Component\Form\ChoiceList\ArrayChoiceList} instead.
  */
 class ChoiceList implements ChoiceListInterface
 {
@@ -199,10 +204,12 @@ class ChoiceList implements ChoiceListInterface
     /**
      * {@inheritdoc}
      *
-     * @deprecated Deprecated since version 2.4, to be removed in 3.0.
+     * @deprecated since version 2.4, to be removed in 3.0.
      */
     public function getIndicesForChoices(array $choices)
     {
+        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.4 and will be removed in 3.0.', E_USER_DEPRECATED);
+
         $choices = $this->fixChoices($choices);
         $indices = array();
 
@@ -225,10 +232,12 @@ class ChoiceList implements ChoiceListInterface
     /**
      * {@inheritdoc}
      *
-     * @deprecated Deprecated since version 2.4, to be removed in 3.0.
+     * @deprecated since version 2.4, to be removed in 3.0.
      */
     public function getIndicesForValues(array $values)
     {
+        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.4 and will be removed in 3.0.', E_USER_DEPRECATED);
+
         $values = $this->fixValues($values);
         $indices = array();
 

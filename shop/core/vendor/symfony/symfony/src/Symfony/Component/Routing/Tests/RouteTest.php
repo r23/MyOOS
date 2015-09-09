@@ -164,7 +164,10 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($route->hasScheme('httpS'));
     }
 
-    public function testSchemeIsBC()
+    /**
+     * @group legacy
+     */
+    public function testLegacySchemeRequirement()
     {
         $route = new Route('/');
         $route->setRequirement('_scheme', 'http|https');
@@ -189,7 +192,10 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array('GET', 'POST'), $route->getMethods(), '->setMethods() accepts an array of methods and uppercases them');
     }
 
-    public function testMethodIsBC()
+    /**
+     * @group legacy
+     */
+    public function testLegacyMethodRequirement()
     {
         $route = new Route('/');
         $route->setRequirement('_method', 'GET|POST');
@@ -223,8 +229,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
      */
     public function testLegacyPattern()
     {
-        $this->iniSet('error_reporting', -1 & ~E_USER_DEPRECATED);
-
         $route = new Route('/{foo}');
         $this->assertEquals('/{foo}', $route->getPattern());
 

@@ -247,7 +247,7 @@ class XmlReferenceDumper
     }
 
     /**
-     * Outputs a single config reference line
+     * Outputs a single config reference line.
      *
      * @param string $text
      * @param int    $indent
@@ -257,7 +257,7 @@ class XmlReferenceDumper
         $indent = strlen($text) + $indent;
         $format = '%'.$indent.'s';
 
-        $this->reference .= sprintf($format, $text)."\n";
+        $this->reference .= sprintf($format, $text).PHP_EOL;
     }
 
     /**

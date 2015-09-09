@@ -18,7 +18,6 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Parameter;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\ExpressionLanguage\Expression;
 
 /**
@@ -33,20 +32,6 @@ class YamlDumper extends Dumper
     private $dumper;
 
     /**
-     * Constructor.
-     *
-     * @param ContainerBuilder $container The service container to dump
-     *
-     * @api
-     */
-    public function __construct(ContainerBuilder $container)
-    {
-        parent::__construct($container);
-
-        $this->dumper = new YmlDumper();
-    }
-
-    /**
      * Dumps the service container as an YAML string.
      *
      * @param array $options An array of options
@@ -57,6 +42,14 @@ class YamlDumper extends Dumper
      */
     public function dump(array $options = array())
     {
+        if (!class_exists('Symfony\Component\Yaml\Dumper')) {
+            throw new RuntimeException('Unable to dump the container as the Symfony Yaml Component is not installed.');
+        }
+
+        if (null === $this->dumper) {
+            $this->dumper = new YmlDumper();
+        }
+
         return $this->addParameters()."\n".$this->addServices();
     }
 
@@ -71,8 +64,12 @@ class YamlDumper extends Dumper
     private function addService($id, $definition)
     {
         $code = "    $id:\n";
-        if ($definition->getClass()) {
-            $code .= sprintf("        class: %s\n", $definition->getClass());
+        if ($class = $definition->getClass()) {
+            if ('\\' === substr($class, 0, 1)) {
+                $class = substr($class, 1);
+            }
+
+            $code .= sprintf("        class: %s\n", $class);
         }
 
         if (!$definition->isPublic()) {
@@ -103,24 +100,24 @@ class YamlDumper extends Dumper
             $code .= sprintf("        synthetic: true\n");
         }
 
-        if ($definition->isSynchronized()) {
+        if ($definition->isSynchronized(false)) {
             $code .= sprintf("        synchronized: true\n");
         }
 
-        if ($definition->getFactoryClass()) {
-            $code .= sprintf("        factory_class: %s\n", $definition->getFactoryClass());
+        if ($definition->getFactoryClass(false)) {
+            $code .= sprintf("        factory_class: %s\n", $definition->getFactoryClass(false));
         }
 
         if ($definition->isLazy()) {
             $code .= sprintf("        lazy: true\n");
         }
 
-        if ($definition->getFactoryMethod()) {
-            $code .= sprintf("        factory_method: %s\n", $definition->getFactoryMethod());
+        if ($definition->getFactoryMethod(false)) {
+            $code .= sprintf("        factory_method: %s\n", $definition->getFactoryMethod(false));
         }
 
-        if ($definition->getFactoryService()) {
-            $code .= sprintf("        factory_service: %s\n", $definition->getFactoryService());
+        if ($definition->getFactoryService(false)) {
+            $code .= sprintf("        factory_service: %s\n", $definition->getFactoryService(false));
         }
 
         if ($definition->getArguments()) {
@@ -219,7 +216,7 @@ class YamlDumper extends Dumper
     }
 
     /**
-     * Dumps callable to YAML format
+     * Dumps callable to YAML format.
      *
      * @param callable $callable
      *

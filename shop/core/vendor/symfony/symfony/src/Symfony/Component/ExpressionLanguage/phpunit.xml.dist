@@ -14,6 +14,7 @@
     <php>
         <ini name="error_reporting" value="-1" />
     </php>
+
     <testsuites>
         <testsuite name="Symfony ExpressionLanguage Component Test Suite">
             <directory>./Tests/</directory>

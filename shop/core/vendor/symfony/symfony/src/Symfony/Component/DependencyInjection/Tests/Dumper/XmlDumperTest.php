@@ -44,10 +44,32 @@ class XmlDumperTest extends \PHPUnit_Framework_TestCase
         $this->assertXmlStringEqualsXmlFile(self::$fixturesPath.'/xml/services8.xml', $dumper->dump(), '->dump() dumps parameters');
     }
 
+    /**
+     * @group legacy
+     */
+    public function testLegacyAddService()
+    {
+        $container = include self::$fixturesPath.'/containers/legacy-container9.php';
+        $dumper = new XmlDumper($container);
+
+        $this->assertEquals(str_replace('%path%', self::$fixturesPath.DIRECTORY_SEPARATOR.'includes'.DIRECTORY_SEPARATOR, file_get_contents(self::$fixturesPath.'/xml/legacy-services9.xml')), $dumper->dump(), '->dump() dumps services');
+
+        $dumper = new XmlDumper($container = new ContainerBuilder());
+        $container->register('foo', 'FooClass')->addArgument(new \stdClass());
+        try {
+            $dumper->dump();
+            $this->fail('->dump() throws a RuntimeException if the container to be dumped has reference to objects or resources');
+        } catch (\Exception $e) {
+            $this->assertInstanceOf('\RuntimeException', $e, '->dump() throws a RuntimeException if the container to be dumped has reference to objects or resources');
+            $this->assertEquals('Unable to dump a service container if a parameter is an object or a resource.', $e->getMessage(), '->dump() throws a RuntimeException if the container to be dumped has reference to objects or resources');
+        }
+    }
+
     public function testAddService()
     {
         $container = include self::$fixturesPath.'/containers/container9.php';
         $dumper = new XmlDumper($container);
+
         $this->assertEquals(str_replace('%path%', self::$fixturesPath.DIRECTORY_SEPARATOR.'includes'.DIRECTORY_SEPARATOR, file_get_contents(self::$fixturesPath.'/xml/services9.xml')), $dumper->dump(), '->dump() dumps services');
 
         $dumper = new XmlDumper($container = new ContainerBuilder());
@@ -65,21 +87,21 @@ class XmlDumperTest extends \PHPUnit_Framework_TestCase
     {
         $container = include self::$fixturesPath.'/containers/container11.php';
         $dumper = new XmlDumper($container);
-        $this->assertEquals("<?xml version=\"1.0\" encoding=\"utf-8\"?>
-<container xmlns=\"http://symfony.com/schema/dic/services\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd\">
+        $this->assertEquals('<?xml version="1.0" encoding="utf-8"?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
   <services>
-    <service id=\"foo\" class=\"FooClass\">
-      <argument type=\"service\">
-        <service class=\"BarClass\">
-          <argument type=\"service\">
-            <service class=\"BazClass\"/>
+    <service id="foo" class="FooClass">
+      <argument type="service">
+        <service class="BarClass">
+          <argument type="service">
+            <service class="BazClass"/>
           </argument>
         </service>
       </argument>
     </service>
   </services>
 </container>
-", $dumper->dump());
+', $dumper->dump());
     }
 
     public function testDumpEntities()
@@ -145,9 +167,18 @@ class XmlDumperTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array('container8'),
+            array('container9'),
             array('container11'),
             array('container12'),
             array('container14'),
         );
+    }
+
+    public function testDumpInlinedServices()
+    {
+        $container = include self::$fixturesPath.'/containers/container21.php';
+        $dumper = new XmlDumper($container);
+
+        $this->assertEquals(file_get_contents(self::$fixturesPath.'/xml/services21.xml'), $dumper->dump());
     }
 }

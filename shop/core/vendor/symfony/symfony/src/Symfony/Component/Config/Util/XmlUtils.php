@@ -196,7 +196,7 @@ class XmlUtils
                 return '0' == $value[0] ? octdec($value) : (((string) $raw === (string) $cast) ? $cast : $raw);
             case isset($value[1]) && '-' === $value[0] && ctype_digit(substr($value, 1)):
                 $raw = $value;
-                $cast = intval($value);
+                $cast = (int) $value;
 
                 return '0' == $value[1] ? octdec($value) : (((string) $raw === (string) $cast) ? $cast : $raw);
             case 'true' === $lowercaseValue:
@@ -207,6 +207,8 @@ class XmlUtils
                 return bindec($value);
             case is_numeric($value):
                 return '0x' === $value[0].$value[1] ? hexdec($value) : (float) $value;
+            case preg_match('/^0x[0-9a-f]++$/i', $value):
+                return hexdec($value);
             case preg_match('/^(-|\+)?[0-9]+(\.[0-9]+)?$/', $value):
                 return (float) $value;
             default:

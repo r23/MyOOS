@@ -49,8 +49,8 @@ class ProcessFailedExceptionTest extends \PHPUnit_Framework_TestCase
         $cmd = 'php';
         $exitCode = 1;
         $exitText = 'General error';
-        $output = "Command output";
-        $errorOutput = "FATAL: Unexpected error";
+        $output = 'Command output';
+        $errorOutput = 'FATAL: Unexpected error';
 
         $process = $this->getMock(
             'Symfony\Component\Process\Process',
@@ -91,7 +91,7 @@ class ProcessFailedExceptionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Tests that ProcessFailedException does not extract information from
-     * process output if it was previously disabled
+     * process output if it was previously disabled.
      */
     public function testDisabledOutputInFailedExceptionDoesNotPopulateOutput()
     {

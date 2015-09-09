@@ -63,10 +63,10 @@ class MutableAclProvider extends AclProvider implements MutableAclProviderInterf
             $this->connection->executeQuery($this->getInsertObjectIdentityRelationSql($pk, $pk));
 
             $this->connection->commit();
-        } catch (\Exception $failed) {
+        } catch (\Exception $e) {
             $this->connection->rollBack();
 
-            throw $failed;
+            throw $e;
         }
 
         // re-read the ACL from the database to ensure proper caching, etc.
@@ -91,10 +91,10 @@ class MutableAclProvider extends AclProvider implements MutableAclProviderInterf
             $this->deleteObjectIdentity($oidPK);
 
             $this->connection->commit();
-        } catch (\Exception $failed) {
+        } catch (\Exception $e) {
             $this->connection->rollBack();
 
-            throw $failed;
+            throw $e;
         }
 
         // evict the ACL from the in-memory identity map
@@ -111,7 +111,7 @@ class MutableAclProvider extends AclProvider implements MutableAclProviderInterf
 
     /**
      * Deletes the security identity from the database.
-     * ACL entries have the CASCADE option on their foreign key so they will also get deleted
+     * ACL entries have the CASCADE option on their foreign key so they will also get deleted.
      *
      * @param SecurityIdentityInterface $sid
      *
@@ -338,10 +338,10 @@ class MutableAclProvider extends AclProvider implements MutableAclProviderInterf
             }
 
             $this->connection->commit();
-        } catch (\Exception $failed) {
+        } catch (\Exception $e) {
             $this->connection->rollBack();
 
-            throw $failed;
+            throw $e;
         }
 
         $this->propertyChanges->offsetSet($acl, array());
@@ -366,7 +366,7 @@ class MutableAclProvider extends AclProvider implements MutableAclProviderInterf
     }
 
     /**
-     * Updates a user security identity when the user's username changes
+     * Updates a user security identity when the user's username changes.
      *
      * @param UserSecurityIdentity $usid
      * @param string               $oldUsername
@@ -854,7 +854,7 @@ QUERY;
         $sids = new \SplObjectStorage();
         $classIds = new \SplObjectStorage();
         foreach ($changes[1] as $field => $new) {
-            for ($i = 0, $c = count($new); $i<$c; $i++) {
+            for ($i = 0, $c = count($new); $i < $c; ++$i) {
                 $ace = $new[$i];
 
                 if (null === $ace->getId()) {
@@ -895,7 +895,7 @@ QUERY;
     {
         $currentIds = array();
         foreach ($changes[1] as $field => $new) {
-            for ($i = 0, $c = count($new); $i < $c; $i++) {
+            for ($i = 0, $c = count($new); $i < $c; ++$i) {
                 $ace = $new[$i];
 
                 if (null !== $ace->getId()) {
@@ -905,7 +905,7 @@ QUERY;
         }
 
         foreach ($changes[0] as $old) {
-            for ($i = 0, $c = count($old); $i < $c; $i++) {
+            for ($i = 0, $c = count($old); $i < $c; ++$i) {
                 $ace = $old[$i];
 
                 if (!isset($currentIds[$ace->getId()])) {
@@ -928,7 +928,7 @@ QUERY;
 
         $sids = new \SplObjectStorage();
         $classIds = new \SplObjectStorage();
-        for ($i = 0, $c = count($new); $i<$c; $i++) {
+        for ($i = 0, $c = count($new); $i < $c; ++$i) {
             $ace = $new[$i];
 
             if (null === $ace->getId()) {
@@ -969,7 +969,7 @@ QUERY;
         list($old, $new) = $changes;
         $currentIds = array();
 
-        for ($i = 0, $c = count($new); $i<$c; $i++) {
+        for ($i = 0, $c = count($new); $i < $c; ++$i) {
             $ace = $new[$i];
 
             if (null !== $ace->getId()) {
@@ -977,7 +977,7 @@ QUERY;
             }
         }
 
-        for ($i = 0, $c = count($old); $i < $c; $i++) {
+        for ($i = 0, $c = count($old); $i < $c; ++$i) {
             $ace = $old[$i];
 
             if (!isset($currentIds[$ace->getId()])) {

@@ -33,7 +33,7 @@ abstract class AbstractToken implements TokenInterface
     /**
      * Constructor.
      *
-     * @param RoleInterface[] $roles An array of roles
+     * @param RoleInterface[]|string[] $roles An array of roles
      *
      * @throws \InvalidArgumentException
      */
@@ -231,7 +231,7 @@ abstract class AbstractToken implements TokenInterface
     public function __toString()
     {
         $class = get_class($this);
-        $class = substr($class, strrpos($class, '\\')+1);
+        $class = substr($class, strrpos($class, '\\') + 1);
 
         $roles = array();
         foreach ($this->roles as $role) {
@@ -248,7 +248,7 @@ abstract class AbstractToken implements TokenInterface
         }
 
         if ($this->user instanceof EquatableInterface) {
-            return ! (bool) $this->user->isEqualTo($user);
+            return !(bool) $this->user->isEqualTo($user);
         }
 
         if ($this->user->getPassword() !== $user->getPassword()) {

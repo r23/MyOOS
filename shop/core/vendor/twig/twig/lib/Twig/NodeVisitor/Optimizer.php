@@ -19,13 +19,13 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Twig_NodeVisitor_Optimizer implements Twig_NodeVisitorInterface
+class Twig_NodeVisitor_Optimizer extends Twig_BaseNodeVisitor
 {
-    const OPTIMIZE_ALL         = -1;
-    const OPTIMIZE_NONE        = 0;
-    const OPTIMIZE_FOR         = 2;
-    const OPTIMIZE_RAW_FILTER  = 4;
-    const OPTIMIZE_VAR_ACCESS  = 8;
+    const OPTIMIZE_ALL = -1;
+    const OPTIMIZE_NONE = 0;
+    const OPTIMIZE_FOR = 2;
+    const OPTIMIZE_RAW_FILTER = 4;
+    const OPTIMIZE_VAR_ACCESS = 8;
 
     protected $loops = array();
     protected $loopsTargets = array();
@@ -50,13 +50,13 @@ class Twig_NodeVisitor_Optimizer implements Twig_NodeVisitorInterface
     /**
      * {@inheritdoc}
      */
-    public function enterNode(Twig_NodeInterface $node, Twig_Environment $env)
+    protected function doEnterNode(Twig_Node $node, Twig_Environment $env)
     {
         if (self::OPTIMIZE_FOR === (self::OPTIMIZE_FOR & $this->optimizers)) {
             $this->enterOptimizeFor($node, $env);
         }
 
-        if (!version_compare(phpversion(), '5.4.0RC1', '>=') && self::OPTIMIZE_VAR_ACCESS === (self::OPTIMIZE_VAR_ACCESS & $this->optimizers) && !$env->isStrictVariables() && !$env->hasExtension('sandbox')) {
+        if (PHP_VERSION_ID < 50400 && self::OPTIMIZE_VAR_ACCESS === (self::OPTIMIZE_VAR_ACCESS & $this->optimizers) && !$env->isStrictVariables() && !$env->hasExtension('sandbox')) {
             if ($this->inABody) {
                 if (!$node instanceof Twig_Node_Expression) {
                     if (get_class($node) !== 'Twig_Node') {
@@ -76,7 +76,7 @@ class Twig_NodeVisitor_Optimizer implements Twig_NodeVisitorInterface
     /**
      * {@inheritdoc}
      */
-    public function leaveNode(Twig_NodeInterface $node, Twig_Environment $env)
+    protected function doLeaveNode(Twig_Node $node, Twig_Environment $env)
     {
         $expression = $node instanceof Twig_Node_Expression;
 
@@ -129,6 +129,8 @@ class Twig_NodeVisitor_Optimizer implements Twig_NodeVisitorInterface
      *
      * @param Twig_NodeInterface $node A Node
      * @param Twig_Environment   $env  The current Twig environment
+     *
+     * @return Twig_NodeInterface
      */
     protected function optimizePrintNode(Twig_NodeInterface $node, Twig_Environment $env)
     {
@@ -153,6 +155,8 @@ class Twig_NodeVisitor_Optimizer implements Twig_NodeVisitorInterface
      *
      * @param Twig_NodeInterface $node A Node
      * @param Twig_Environment   $env  The current Twig environment
+     *
+     * @return Twig_NodeInterface
      */
     protected function optimizeRawFilter(Twig_NodeInterface $node, Twig_Environment $env)
     {

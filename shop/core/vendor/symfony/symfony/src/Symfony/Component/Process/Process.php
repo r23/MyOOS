@@ -254,8 +254,6 @@ class Process
      * @param callable|null $callback A PHP callback to run whenever there is some
      *                                output available on STDOUT or STDERR
      *
-     * @return Process The process itself
-     *
      * @throws RuntimeException When process can't be launched
      * @throws RuntimeException When process is already running
      * @throws LogicException   In case a callback is provided and output has been disabled
@@ -798,7 +796,7 @@ class Process
         $timeoutMicro = microtime(true) + $timeout;
         if ($this->isRunning()) {
             if ('\\' === DIRECTORY_SEPARATOR && !$this->isSigchildEnabled()) {
-                exec(sprintf("taskkill /F /T /PID %d 2>&1", $this->getPid()), $output, $exitCode);
+                exec(sprintf('taskkill /F /T /PID %d 2>&1', $this->getPid()), $output, $exitCode);
                 if ($exitCode > 0) {
                     throw new RuntimeException('Unable to kill the process');
                 }
@@ -1065,11 +1063,14 @@ class Process
      *
      * @return string|null The current contents
      *
-     * @deprecated Deprecated since version 2.5, to be removed in 3.0.
+     * @deprecated since version 2.5, to be removed in 3.0.
+     *             Use setInput() instead.
      *             This method is deprecated in favor of getInput.
      */
     public function getStdin()
     {
+        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.5 and will be removed in 3.0. Use the getInput() method instead.', E_USER_DEPRECATED);
+
         return $this->getInput();
     }
 
@@ -1090,14 +1091,16 @@ class Process
      *
      * @return self The current Process instance
      *
-     * @deprecated Deprecated since version 2.5, to be removed in 3.0.
-     *             This method is deprecated in favor of setInput.
+     * @deprecated since version 2.5, to be removed in 3.0.
+     *             Use setInput() instead.
      *
      * @throws LogicException           In case the process is running
      * @throws InvalidArgumentException In case the argument is invalid
      */
     public function setStdin($stdin)
     {
+        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.5 and will be removed in 3.0. Use the setInput() method instead.', E_USER_DEPRECATED);
+
         return $this->setInput($stdin);
     }
 
@@ -1106,11 +1109,13 @@ class Process
      *
      * This content will be passed to the underlying process standard input.
      *
-     * @param string|null $input The content
+     * @param mixed $input The content
      *
      * @return self The current Process instance
      *
      * @throws LogicException In case the process is running
+     *
+     * Passing an object as an input is deprecated since version 2.5 and will be removed in 3.0.
      */
     public function setInput($input)
     {

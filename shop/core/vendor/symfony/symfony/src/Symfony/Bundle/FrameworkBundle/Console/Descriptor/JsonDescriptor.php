@@ -11,10 +11,6 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Console\Descriptor;
 
-if (!defined('JSON_PRETTY_PRINT')) {
-    define('JSON_PRETTY_PRINT', 128);
-}
-
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -174,7 +170,13 @@ class JsonDescriptor extends Descriptor
      */
     private function writeData(array $data, array $options)
     {
-        $this->write(json_encode($data, (isset($options['json_encoding']) ? $options['json_encoding'] : 0) | JSON_PRETTY_PRINT)."\n");
+        $flags = isset($options['json_encoding']) ? $options['json_encoding'] : 0;
+
+        if (defined('JSON_PRETTY_PRINT')) {
+            $flags |= JSON_PRETTY_PRINT;
+        }
+
+        $this->write(json_encode($data, $flags)."\n");
     }
 
     /**
@@ -215,21 +217,25 @@ class JsonDescriptor extends Descriptor
             'public' => $definition->isPublic(),
             'synthetic' => $definition->isSynthetic(),
             'lazy' => $definition->isLazy(),
-            'synchronized' => $definition->isSynchronized(),
-            'abstract' => $definition->isAbstract(),
-            'file' => $definition->getFile(),
         );
 
-        if ($definition->getFactoryClass()) {
-            $data['factory_class'] = $definition->getFactoryClass();
+        if (method_exists($definition, 'isSynchronized')) {
+            $data['synchronized'] = $definition->isSynchronized(false);
         }
 
-        if ($definition->getFactoryService()) {
-            $data['factory_service'] = $definition->getFactoryService();
+        $data['abstract'] = $definition->isAbstract();
+        $data['file'] = $definition->getFile();
+
+        if ($definition->getFactoryClass(false)) {
+            $data['factory_class'] = $definition->getFactoryClass(false);
         }
 
-        if ($definition->getFactoryMethod()) {
-            $data['factory_method'] = $definition->getFactoryMethod();
+        if ($definition->getFactoryService(false)) {
+            $data['factory_service'] = $definition->getFactoryService(false);
+        }
+
+        if ($definition->getFactoryMethod(false)) {
+            $data['factory_method'] = $definition->getFactoryMethod(false);
         }
 
         if ($factory = $definition->getFactory()) {

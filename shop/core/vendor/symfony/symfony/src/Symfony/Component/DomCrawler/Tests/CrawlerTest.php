@@ -81,6 +81,7 @@ class CrawlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Symfony\Component\DomCrawler\Crawler::addHtmlContent
+     * @requires extension mbstring
      */
     public function testAddHtmlContentCharset()
     {
@@ -115,6 +116,7 @@ class CrawlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Symfony\Component\DomCrawler\Crawler::addHtmlContent
+     * @requires extension mbstring
      */
     public function testAddHtmlContentCharsetGbk()
     {
@@ -235,7 +237,7 @@ EOF
         $this->assertEquals('中文', $crawler->filterXPath('//span')->text(), '->addContent() guess wrong charset');
 
         $crawler = new Crawler();
-        $crawler->addContent(mb_convert_encoding('<html><head><meta charset="Shift_JIS"></head><body>日本語</body></html>', 'SJIS', 'UTF-8'));
+        $crawler->addContent(iconv('UTF-8', 'SJIS', '<html><head><meta charset="Shift_JIS"></head><body>日本語</body></html>'));
         $this->assertEquals('日本語', $crawler->filterXPath('//body')->text(), '->addContent() can recognize "Shift_JIS" in html5 meta charset tag');
     }
 
@@ -984,6 +986,13 @@ HTML;
             array('/basepath', '', 'http://domain.com/registration', 'http://domain.com/registration', '<base> tag does work with a path and empty form action'),
             array('http://base.com', '', 'http://domain.com/path/form', 'http://domain.com/path/form', '<base> tag does work with a URL and an empty form action'),
         );
+    }
+
+    public function testCountOfNestedElements()
+    {
+        $crawler = new Crawler('<html><body><ul><li>List item 1<ul><li>Sublist item 1</li><li>Sublist item 2</ul></li></ul></body></html>');
+
+        $this->assertCount(1, $crawler->filter('li:contains("List item 1")'));
     }
 
     public function createTestCrawler($uri = null)

@@ -22,7 +22,7 @@ class ClassMapGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function prepare_workspace()
     {
-        $this->workspace = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.time().rand(0, 1000);
+        $this->workspace = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.time().mt_rand(0, 1000);
         mkdir($this->workspace, 0777, true);
         $this->workspace = realpath($this->workspace);
     }
@@ -47,7 +47,7 @@ class ClassMapGeneratorTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider getTestCreateMapTests
      */
-    public function testDump($directory, $expected)
+    public function testDump($directory)
     {
         $this->prepare_workspace();
 
@@ -115,6 +115,12 @@ class ClassMapGeneratorTest extends \PHPUnit_Framework_TestCase
             ));
         }
 
+        if (PHP_VERSION_ID >= 50500) {
+            $data[] = array(__DIR__.'/Fixtures/php5.5', array(
+                'ClassCons\\Foo' => __DIR__.'/Fixtures/php5.5/class_cons.php',
+            ));
+        }
+
         return $data;
     }
 
@@ -134,10 +140,10 @@ class ClassMapGeneratorTest extends \PHPUnit_Framework_TestCase
     protected function assertEqualsNormalized($expected, $actual, $message = null)
     {
         foreach ($expected as $ns => $path) {
-            $expected[$ns] = strtr($path, '\\', '/');
+            $expected[$ns] = str_replace('\\', '/', $path);
         }
         foreach ($actual as $ns => $path) {
-            $actual[$ns] = strtr($path, '\\', '/');
+            $actual[$ns] = str_replace('\\', '/', $path);
         }
         $this->assertEquals($expected, $actual, $message);
     }

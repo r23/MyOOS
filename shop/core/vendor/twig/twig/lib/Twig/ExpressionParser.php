@@ -315,7 +315,7 @@ class Twig_ExpressionParser
     {
         switch ($name) {
             case 'parent':
-                $args = $this->parseArguments();
+                $this->parseArguments();
                 if (!count($this->parser->getBlockStack())) {
                     throw new Twig_Error_Syntax('Calling "parent" outside a block is forbidden', $line, $this->parser->getFilename());
                 }
@@ -387,7 +387,13 @@ class Twig_ExpressionParser
                     throw new Twig_Error_Syntax(sprintf('Dynamic macro names are not supported (called on "%s")', $node->getAttribute('name')), $token->getLine(), $this->parser->getFilename());
                 }
 
-                $node = new Twig_Node_Expression_MethodCall($node, 'get'.$arg->getAttribute('value'), $arguments, $lineno);
+                $name = $arg->getAttribute('value');
+
+                if ($this->parser->isReservedMacroName($name)) {
+                    throw new Twig_Error_Syntax(sprintf('"%s" cannot be called as macro as it is a reserved keyword', $name), $token->getLine(), $this->parser->getFilename());
+                }
+
+                $node = new Twig_Node_Expression_MethodCall($node, 'get'.$name, $arguments, $lineno);
                 $node->setAttribute('safe', true);
 
                 return $node;
@@ -468,6 +474,10 @@ class Twig_ExpressionParser
      *
      * @param bool $namedArguments Whether to allow named arguments or not
      * @param bool $definition     Whether we are parsing arguments for a function definition
+     *
+     * @return Twig_Node
+     *
+     * @throws Twig_Error_Syntax
      */
     public function parseArguments($namedArguments = false, $definition = false)
     {
@@ -568,6 +578,16 @@ class Twig_ExpressionParser
             throw new Twig_Error_Syntax($message, $line, $this->parser->getFilename());
         }
 
+        if ($function instanceof Twig_SimpleFunction && $function->isDeprecated()) {
+            $message = sprintf('Twig Function "%s" is deprecated', $function->getName());
+            if ($test->getAlternative()) {
+                $message .= sprintf('. Use "%s" instead', $function->getAlternative());
+            }
+            $message .= sprintf(' in %s at line %d.', $this->parser->getFilename(), $line);
+
+            @trigger_error($message, E_USER_DEPRECATED);
+        }
+
         if ($function instanceof Twig_SimpleFunction) {
             return $function->getNodeClass();
         }
@@ -586,6 +606,16 @@ class Twig_ExpressionParser
             }
 
             throw new Twig_Error_Syntax($message, $line, $this->parser->getFilename());
+        }
+
+        if ($filter instanceof Twig_SimpleFilter && $filter->isDeprecated()) {
+            $message = sprintf('Twig Filter "%s" is deprecated', $filter->getName());
+            if ($test->getAlternative()) {
+                $message .= sprintf('. Use "%s" instead', $filter->getAlternative());
+            }
+            $message .= sprintf(' in %s at line %d.', $this->parser->getFilename(), $line);
+
+            @trigger_error($message, E_USER_DEPRECATED);
         }
 
         if ($filter instanceof Twig_SimpleFilter) {

@@ -21,7 +21,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\Options;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -119,7 +119,7 @@ class FormTypeCsrfExtension extends AbstractTypeExtension
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         // BC clause for the "intention" option
         $csrfTokenId = function (Options $options) {
@@ -133,7 +133,7 @@ class FormTypeCsrfExtension extends AbstractTypeExtension
             }
 
             return $options['csrf_provider'] instanceof CsrfTokenManagerAdapter
-                ? $options['csrf_provider']->getTokenManager()
+                ? $options['csrf_provider']->getTokenManager(false)
                 : new CsrfProviderAdapter($options['csrf_provider']);
         };
 

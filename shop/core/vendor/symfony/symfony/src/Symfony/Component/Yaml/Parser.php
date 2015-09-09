@@ -93,8 +93,8 @@ class Parser
                 // array
                 if (!isset($values['value']) || '' == trim($values['value'], ' ') || 0 === strpos(ltrim($values['value'], ' '), '#')) {
                     $c = $this->getRealCurrentLineNb() + 1;
-                    $parser = new Parser($c);
-                    $parser->refs = & $this->refs;
+                    $parser = new self($c);
+                    $parser->refs = &$this->refs;
                     $data[] = $parser->parse($this->getNextEmbedBlock(null, true), $exceptionOnInvalidType, $objectSupport, $objectForMap);
                 } else {
                     if (isset($values['leadspaces'])
@@ -102,8 +102,8 @@ class Parser
                     ) {
                         // this is a compact notation element, add to next block and parse
                         $c = $this->getRealCurrentLineNb();
-                        $parser = new Parser($c);
-                        $parser->refs = & $this->refs;
+                        $parser = new self($c);
+                        $parser->refs = &$this->refs;
 
                         $block = $values['value'];
                         if ($this->isNextLineIndented()) {
@@ -114,6 +114,9 @@ class Parser
                     } else {
                         $data[] = $this->parseValue($values['value'], $exceptionOnInvalidType, $objectSupport, $objectForMap);
                     }
+                }
+                if ($isRef) {
+                    $this->refs[$isRef] = end($data);
                 }
             } elseif (preg_match('#^(?P<key>'.Inline::REGEX_QUOTED_STRING.'|[^ \'"\[\{].*?) *\:(\s+(?P<value>.+?))?\s*$#u', $this->currentLine, $values) && (false === strpos($values['key'], ' #') || in_array($values['key'][0], array('"', "'")))) {
                 if ($context && 'sequence' == $context) {
@@ -159,8 +162,8 @@ class Parser
                             $value = $this->getNextEmbedBlock();
                         }
                         $c = $this->getRealCurrentLineNb() + 1;
-                        $parser = new Parser($c);
-                        $parser->refs = & $this->refs;
+                        $parser = new self($c);
+                        $parser->refs = &$this->refs;
                         $parsed = $parser->parse($value, $exceptionOnInvalidType, $objectSupport, $objectForMap);
 
                         if (!is_array($parsed)) {
@@ -210,8 +213,8 @@ class Parser
                         }
                     } else {
                         $c = $this->getRealCurrentLineNb() + 1;
-                        $parser = new Parser($c);
-                        $parser->refs = & $this->refs;
+                        $parser = new self($c);
+                        $parser->refs = &$this->refs;
                         $value = $parser->parse($this->getNextEmbedBlock(), $exceptionOnInvalidType, $objectSupport, $objectForMap);
                         // Spec: Keys MUST be unique; first one wins.
                         // But overwriting is allowed when a merge node is used in current block.
@@ -227,6 +230,9 @@ class Parser
                         $data[$key] = $value;
                     }
                 }
+                if ($isRef) {
+                    $this->refs[$isRef] = $data[$key];
+                }
             } else {
                 // multiple documents are not supported
                 if ('---' === $this->currentLine) {
@@ -234,7 +240,7 @@ class Parser
                 }
 
                 // 1-liner optionally followed by newline(s)
-                if ($this->lines[0] === trim($value)) {
+                if (is_string($value) && $this->lines[0] === trim($value)) {
                     try {
                         $value = Inline::parse($this->lines[0], $exceptionOnInvalidType, $objectSupport, $objectForMap, $this->refs);
                     } catch (ParseException $e) {
@@ -283,10 +289,6 @@ class Parser
                 }
 
                 throw new ParseException($error, $this->getRealCurrentLineNb() + 1, $this->currentLine);
-            }
-
-            if ($isRef) {
-                $this->refs[$isRef] = end($data);
             }
         }
 
@@ -356,7 +358,7 @@ class Parser
             return;
         }
 
-        if ($inSequence && $oldLineIndentation === $newIndent && '-' === $data[0][0]) {
+        if ($inSequence && $oldLineIndentation === $newIndent && isset($data[0][0]) && '-' === $data[0][0]) {
             // the previous line contained a dash but no item content, this line is a sequence item with the same indentation
             // and therefore no nested list or mapping
             $this->moveToPreviousLine();
@@ -546,9 +548,9 @@ class Parser
 
         // deal with trailing newlines as indicated
         if ('' === $indicator) {
-            $text = preg_replace('/\n+$/s', "\n", $text);
+            $text = preg_replace('/\n+$/', "\n", $text);
         } elseif ('-' === $indicator) {
-            $text = preg_replace('/\n+$/s', '', $text);
+            $text = preg_replace('/\n+$/', '', $text);
         }
 
         return $text;
@@ -647,7 +649,7 @@ class Parser
             $value = $trimmedValue;
 
             // remove end of the document marker (...)
-            $value = preg_replace('#\.\.\.\s*$#s', '', $value);
+            $value = preg_replace('#\.\.\.\s*$#', '', $value);
         }
 
         return $value;

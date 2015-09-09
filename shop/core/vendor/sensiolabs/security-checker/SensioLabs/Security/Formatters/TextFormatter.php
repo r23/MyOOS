@@ -3,7 +3,7 @@
 /*
  * This file is part of the SensioLabs Security Checker.
  *
- * (c) 2013 Fabien Potencier
+ * (c) Fabien Potencier
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -42,7 +42,8 @@ class TextFormatter implements FormatterInterface
             $style = 'bg=green;fg=white';
         }
 
-        $output->writeln($this->formatter->formatBlock(array('['.$status.']', $count.' packages have known vulnerabilities'), $style, true));
+        $message = sprintf('%d %s known vulnerabilities', $count, 1 === $count ? 'package has' : 'packages have');
+        $output->writeln($this->formatter->formatBlock(array('['.$status.']', $message), $style, true));
         $output->write("\n");
 
         if (0 !== $count) {
@@ -66,8 +67,8 @@ class TextFormatter implements FormatterInterface
             }
         }
 
-        $output->writeln("<bg=yellow;fg=white>            </> This checker can only detect vulnerabilities that are referenced");
-        $output->writeln("<bg=yellow;fg=white> Disclaimer </> in the SensioLabs security advisories database. Execute this");
+        $output->writeln('<bg=yellow;fg=white>            </> This checker can only detect vulnerabilities that are referenced');
+        $output->writeln('<bg=yellow;fg=white> Disclaimer </> in the SensioLabs security advisories database. Execute this');
         $output->writeln("<bg=yellow;fg=white>            </> command regularly to check the newly discovered vulnerabilities.\n");
     }
 }

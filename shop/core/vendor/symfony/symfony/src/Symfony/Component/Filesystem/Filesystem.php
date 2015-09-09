@@ -43,10 +43,9 @@ class Filesystem
 
         $this->mkdir(dirname($targetFile));
 
-        if (!$override && is_file($targetFile) && null === parse_url($originFile, PHP_URL_HOST)) {
+        $doCopy = true;
+        if (!$override && null === parse_url($originFile, PHP_URL_HOST) && is_file($targetFile)) {
             $doCopy = filemtime($originFile) > filemtime($targetFile);
-        } else {
-            $doCopy = true;
         }
 
         if ($doCopy) {
@@ -69,8 +68,11 @@ class Filesystem
                 throw new IOException(sprintf('Failed to copy "%s" to "%s".', $originFile, $targetFile), 0, null, $originFile);
             }
 
-            if (stream_is_local($originFile) && $bytesCopied !== filesize($originFile)) {
-                throw new IOException(sprintf('Failed to copy the whole content of "%s" to "%s %g bytes copied".', $originFile, $targetFile, $bytesCopied), 0, null, $originFile);
+            // Like `cp`, preserve executable permission bits
+            @chmod($targetFile, fileperms($targetFile) | (fileperms($originFile) & 0111));
+
+            if (stream_is_local($originFile) && $bytesCopied !== ($bytesOrigin = filesize($originFile))) {
+                throw new IOException(sprintf('Failed to copy the whole content of "%s" to "%s" (%g of %g bytes copied).', $originFile, $targetFile, $bytesCopied, $bytesOrigin), 0, null, $originFile);
             }
         }
     }
@@ -242,7 +244,7 @@ class Filesystem
                 $this->chgrp(new \FilesystemIterator($file), $group, true);
             }
             if (is_link($file) && function_exists('lchgrp')) {
-                if (true !== @lchgrp($file, $group)) {
+                if (true !== @lchgrp($file, $group) || (defined('HHVM_VERSION') && !posix_getgrnam($group))) {
                     throw new IOException(sprintf('Failed to chgrp file "%s".', $file), 0, null, $file);
                 }
             } else {
@@ -303,16 +305,14 @@ class Filesystem
             }
         }
 
-        if (!$ok) {
-            if (true !== @symlink($originDir, $targetDir)) {
-                $report = error_get_last();
-                if (is_array($report)) {
-                    if ('\\' === DIRECTORY_SEPARATOR && false !== strpos($report['message'], 'error code(1314)')) {
-                        throw new IOException('Unable to create symlink due to error code 1314: \'A required privilege is not held by the client\'. Do you have the required Administrator-rights?');
-                    }
+        if (!$ok && true !== @symlink($originDir, $targetDir)) {
+            $report = error_get_last();
+            if (is_array($report)) {
+                if ('\\' === DIRECTORY_SEPARATOR && false !== strpos($report['message'], 'error code(1314)')) {
+                    throw new IOException('Unable to create symlink due to error code 1314: \'A required privilege is not held by the client\'. Do you have the required Administrator-rights?', 0, null, $targetDir);
                 }
-                throw new IOException(sprintf('Failed to create symbolic link from "%s" to "%s".', $originDir, $targetDir), 0, null, $targetDir);
             }
+            throw new IOException(sprintf('Failed to create symbolic link from "%s" to "%s".', $originDir, $targetDir), 0, null, $targetDir);
         }
     }
 
@@ -328,8 +328,8 @@ class Filesystem
     {
         // Normalize separators on Windows
         if ('\\' === DIRECTORY_SEPARATOR) {
-            $endPath = strtr($endPath, '\\', '/');
-            $startPath = strtr($startPath, '\\', '/');
+            $endPath = str_replace('\\', '/', $endPath);
+            $startPath = str_replace('\\', '/', $startPath);
         }
 
         // Split the paths into arrays
@@ -339,7 +339,7 @@ class Filesystem
         // Find for which directory the common path stops
         $index = 0;
         while (isset($startPathArr[$index]) && isset($endPathArr[$index]) && $startPathArr[$index] === $endPathArr[$index]) {
-            $index++;
+            ++$index;
         }
 
         // Determine how deep the start path is relative to the common path (ie, "web/bundles" = 2 levels)
@@ -351,9 +351,9 @@ class Filesystem
         $endPathRemainder = implode('/', array_slice($endPathArr, $index));
 
         // Construct $endPath from traversing to the common path, then to the remaining $endPath
-        $relativePath = $traverser.(strlen($endPathRemainder) > 0 ? $endPathRemainder.'/' : '');
+        $relativePath = $traverser.('' !== $endPathRemainder ? $endPathRemainder.'/' : '');
 
-        return (strlen($relativePath) === 0) ? './' : $relativePath;
+        return '' === $relativePath ? './' : $relativePath;
     }
 
     /**
@@ -438,17 +438,13 @@ class Filesystem
      */
     public function isAbsolutePath($file)
     {
-        if (strspn($file, '/\\', 0, 1)
+        return (strspn($file, '/\\', 0, 1)
             || (strlen($file) > 3 && ctype_alpha($file[0])
                 && substr($file, 1, 1) === ':'
                 && (strspn($file, '/\\', 2, 1))
             )
             || null !== parse_url($file, PHP_URL_SCHEME)
-        ) {
-            return true;
-        }
-
-        return false;
+        );
     }
 
     /**
@@ -479,6 +475,10 @@ class Filesystem
 
         $this->rename($tmpFile, $filename, true);
         if (null !== $mode) {
+            if (func_num_args() > 2) {
+                @trigger_error('Support for modifying file permissions is deprecated since version 2.3.12 and will be removed in 3.0.', E_USER_DEPRECATED);
+            }
+
             $this->chmod($filename, $mode);
         }
     }

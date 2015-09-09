@@ -42,20 +42,25 @@ class TwigEngine extends BaseEngine implements EngineInterface
     }
 
     /**
-     * @deprecated Deprecated since version 2.3, to be removed in 3.0. Inject the escaping
-     *             strategy on Twig_Environment instead
+     * @deprecated since version 2.7, to be removed in 3.0.
+     *             Inject the escaping strategy on \Twig_Environment instead.
      */
     public function setDefaultEscapingStrategy($strategy)
     {
+        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.7 and will be removed in 3.0. Inject the escaping strategy in the Twig_Environment object instead.', E_USER_DEPRECATED);
+
         $this->environment->getExtension('escaper')->setDefaultStrategy($strategy);
     }
 
     /**
-     * @deprecated Deprecated since version 2.3, to be removed in 3.0. Use TwigDefaultEscapingStrategy instead.
+     * @deprecated since version 2.7, to be removed in 3.0.
+     *             Use the 'filename' strategy instead.
      */
     public function guessDefaultEscapingStrategy($filename)
     {
-        return TwigDefaultEscapingStrategy::guess($filename);
+        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.7 and will be removed in 3.0. Use the Twig_FileExtensionEscapingStrategy::guess method instead.', E_USER_DEPRECATED);
+
+        return \Twig_FileExtensionEscapingStrategy::guess($filename);
     }
 
     /**
@@ -70,7 +75,7 @@ class TwigEngine extends BaseEngine implements EngineInterface
                 try {
                     // try to get the real file name of the template where the error occurred
                     $e->setTemplateFile(sprintf('%s', $this->locator->locate($this->parser->parse($e->getTemplateFile()))));
-                } catch (\Exception $ex) {
+                } catch (\Exception $e2) {
                 }
             }
 

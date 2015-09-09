@@ -191,6 +191,7 @@ class Configuration implements ConfigurationInterface
     {
         $node
             ->children()
+                ->scalarNode('url')->info('A URL with connection information; any parameter value parsed from this string will override explicitly set parameters')->end()
                 ->scalarNode('dbname')->end()
                 ->scalarNode('host')->defaultValue('localhost')->end()
                 ->scalarNode('port')->defaultNull()->end()
@@ -453,6 +454,7 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('default_repository_class')->defaultValue('Doctrine\ORM\EntityRepository')->end()
                     ->scalarNode('auto_mapping')->defaultFalse()->end()
                     ->scalarNode('naming_strategy')->defaultValue('doctrine.orm.naming_strategy.default')->end()
+                    ->scalarNode('quote_strategy')->defaultValue('doctrine.orm.quote_strategy.default')->end()
                     ->scalarNode('entity_listener_resolver')->defaultNull()->end()
                     ->scalarNode('repository_factory')->defaultNull()->end()
                 ->end()

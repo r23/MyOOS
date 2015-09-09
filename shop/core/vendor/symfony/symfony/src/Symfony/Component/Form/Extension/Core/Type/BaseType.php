@@ -15,13 +15,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Encapsulates common logic of {@link FormType} and {@link ButtonType}.
  *
  * This type does not appear in the form's type inheritance chain and as such
- * cannot be extended (via {@link FormTypeExtension}s) nor themed.
+ * cannot be extended (via {@link \Symfony\Component\Form\FormExtensionInterface}) nor themed.
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
@@ -57,7 +57,7 @@ abstract class BaseType extends AbstractType
                 $uniqueBlockPrefix = '_'.$blockName;
             }
 
-            if (!$translationDomain) {
+            if (null === $translationDomain) {
                 $translationDomain = $view->parent->vars['translation_domain'];
             }
 
@@ -80,10 +80,6 @@ abstract class BaseType extends AbstractType
             array_unshift($blockPrefixes, $type->getName());
         }
         $blockPrefixes[] = $uniqueBlockPrefix;
-
-        if (!$translationDomain) {
-            $translationDomain = 'messages';
-        }
 
         $view->vars = array_replace($view->vars, array(
             'form' => $view,
@@ -111,7 +107,7 @@ abstract class BaseType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'block_name' => null,
@@ -123,8 +119,6 @@ abstract class BaseType extends AbstractType
             'auto_initialize' => true,
         ));
 
-        $resolver->setAllowedTypes(array(
-            'attr' => 'array',
-        ));
+        $resolver->setAllowedTypes('attr', 'array');
     }
 }

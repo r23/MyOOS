@@ -177,7 +177,7 @@ class StopwatchEvent
         $stopped = count($periods);
         $left = count($this->started) - $stopped;
 
-        for ($i = 0; $i < $left; $i++) {
+        for ($i = 0; $i < $left; ++$i) {
             $index = $stopped + $i;
             $periods[] = new StopwatchPeriod($this->started[$index], $this->getNow());
         }
@@ -233,5 +233,13 @@ class StopwatchEvent
         }
 
         return round($time, 1);
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return sprintf('%s: %.2F MiB - %d ms', $this->getCategory(), $this->getMemory() / 1024 / 1024, $this->getDuration());
     }
 }

@@ -3,7 +3,7 @@
     "type": "symfony-bridge",
     "description": "Symfony Doctrine Bridge",
     "keywords": [],
-    "homepage": "http://symfony.com",
+    "homepage": "https://symfony.com",
     "license": "MIT",
     "authors": [
         {
@@ -12,18 +12,18 @@
         },
         {
             "name": "Symfony Community",
-            "homepage": "http://symfony.com/contributors"
+            "homepage": "https://symfony.com/contributors"
         }
     ],
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.3.9",
         "doctrine/common": "~2.3"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "~2.7",
         "symfony/stopwatch": "~2.2",
         "symfony/dependency-injection": "~2.2",
-        "symfony/form": "~2.3,>=2.3.8",
+        "symfony/form": "~2.7,>=2.7.1",
         "symfony/http-kernel": "~2.2",
         "symfony/property-access": "~2.3",
         "symfony/security": "~2.2",
@@ -42,13 +42,12 @@
         "doctrine/orm": ""
     },
     "autoload": {
-        "psr-0": { "Symfony\\Bridge\\Doctrine\\": "" }
+        "psr-4": { "Symfony\\Bridge\\Doctrine\\": "" }
     },
-    "target-dir": "Symfony/Bridge/Doctrine",
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-            "dev-master": "2.6-dev"
+            "dev-master": "2.7-dev"
         }
     }
 }

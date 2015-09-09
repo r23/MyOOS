@@ -30,20 +30,23 @@ class DebugClassLoader
     private $isFinder;
     private $wasFinder;
     private static $caseCheck;
+    private static $deprecated = array();
+    private static $php7Reserved = array('int', 'float', 'bool', 'string', 'true', 'false', 'null');
+    private static $darwinCache = array('/' => array('/', array()));
 
     /**
      * Constructor.
      *
-     * @param callable|object $classLoader
+     * @param callable|object $classLoader Passing an object is @deprecated since version 2.5 and support for it will be removed in 3.0
      *
      * @api
-     * @deprecated since 2.5, passing an object is deprecated and support for it will be removed in 3.0
      */
     public function __construct($classLoader)
     {
         $this->wasFinder = is_object($classLoader) && method_exists($classLoader, 'findFile');
 
         if ($this->wasFinder) {
+            @trigger_error('The '.__METHOD__.' method will no longer support receiving an object into its $classLoader argument in 3.0.', E_USER_DEPRECATED);
             $this->classLoader = array($classLoader, 'loadClass');
             $this->isFinder = true;
         } else {
@@ -59,9 +62,7 @@ class DebugClassLoader
     /**
      * Gets the wrapped class loader.
      *
-     * @return callable|object a class loader
-     *
-     * @deprecated since 2.5, returning an object is deprecated and support for it will be removed in 3.0
+     * @return callable|object A class loader. Since version 2.5, returning an object is @deprecated and support for it will be removed in 3.0
      */
     public function getClassLoader()
     {
@@ -69,7 +70,7 @@ class DebugClassLoader
     }
 
     /**
-     * Wraps all autoloaders
+     * Wraps all autoloaders.
      */
     public static function enable()
     {
@@ -117,16 +118,18 @@ class DebugClassLoader
     }
 
     /**
-     * Finds a file by class name
+     * Finds a file by class name.
      *
      * @param string $class A class name to resolve to file
      *
      * @return string|null
      *
-     * @deprecated Deprecated since 2.5, to be removed in 3.0.
+     * @deprecated since version 2.5, to be removed in 3.0.
      */
     public function findFile($class)
     {
+        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.5 and will be removed in 3.0.', E_USER_DEPRECATED);
+
         if ($this->wasFinder) {
             return $this->classLoader[0]->findFile($class);
         }
@@ -175,6 +178,39 @@ class DebugClassLoader
             if ($name !== $class && 0 === strcasecmp($name, $class)) {
                 throw new \RuntimeException(sprintf('Case mismatch between loaded and declared class names: %s vs %s', $class, $name));
             }
+
+            if (in_array(strtolower($refl->getShortName()), self::$php7Reserved)) {
+                @trigger_error(sprintf('%s uses a reserved class name (%s) that will break on PHP 7 and higher', $name, $refl->getShortName()), E_USER_DEPRECATED);
+            } elseif (preg_match('#\n \* @deprecated (.*?)\r?\n \*(?: @|/$)#s', $refl->getDocComment(), $notice)) {
+                self::$deprecated[$name] = preg_replace('#\s*\r?\n \* +#', ' ', $notice[1]);
+            } else {
+                if (2 > $len = 1 + (strpos($name, '\\', 1 + strpos($name, '\\')) ?: strpos($name, '_'))) {
+                    $len = 0;
+                    $ns = '';
+                } else {
+                    switch ($ns = substr($name, 0, $len)) {
+                        case 'Symfony\Bridge\\':
+                        case 'Symfony\Bundle\\':
+                        case 'Symfony\Component\\':
+                            $ns = 'Symfony\\';
+                            $len = strlen($ns);
+                            break;
+                    }
+                }
+                $parent = $refl->getParentClass();
+
+                if (!$parent || strncmp($ns, $parent->name, $len)) {
+                    if ($parent && isset(self::$deprecated[$parent->name]) && strncmp($ns, $parent->name, $len)) {
+                        @trigger_error(sprintf('The %s class extends %s that is deprecated %s', $name, $parent->name, self::$deprecated[$parent->name]), E_USER_DEPRECATED);
+                    }
+
+                    foreach ($refl->getInterfaceNames() as $interface) {
+                        if (isset(self::$deprecated[$interface]) && strncmp($ns, $interface, $len) && !($parent && $parent->implementsInterface($interface))) {
+                            @trigger_error(sprintf('The %s %s %s that is deprecated %s', $name, $refl->isInterface() ? 'interface extends' : 'class implements', $interface, self::$deprecated[$interface]), E_USER_DEPRECATED);
+                        }
+                    }
+                }
+            }
         }
 
         if ($file) {
@@ -185,33 +221,73 @@ class DebugClassLoader
 
                 throw new \RuntimeException(sprintf('The autoloader expected class "%s" to be defined in file "%s". The file was found but the class was not in it, the class name or namespace probably has a typo.', $class, $file));
             }
-            if (self::$caseCheck && preg_match('#([/\\\\][a-zA-Z_\x7F-\xFF][a-zA-Z0-9_\x7F-\xFF]*)+\.(php|hh)$#D', $file, $tail)) {
+            if (self::$caseCheck && preg_match('#(?:[/\\\\][a-zA-Z_\x7F-\xFF][a-zA-Z0-9_\x7F-\xFF]*+)++\.(?:php|hh)$#D', $file, $tail)) {
                 $tail = $tail[0];
-                $real = $refl->getFilename();
+                $tailLen = strlen($tail);
+                $real = $refl->getFileName();
 
                 if (2 === self::$caseCheck) {
                     // realpath() on MacOSX doesn't normalize the case of characters
-                    $cwd = getcwd();
-                    $basename = strrpos($real, '/');
-                    chdir(substr($real, 0, $basename));
-                    $basename = substr($real, $basename + 1);
-                    // glob() patterns are case-sensitive even if the underlying fs is not
-                    if (!in_array($basename, glob($basename.'*', GLOB_NOSORT), true)) {
-                        $real = getcwd().'/';
-                        $h = opendir('.');
-                        while (false !== $f = readdir($h)) {
-                            if (0 === strcasecmp($f, $basename)) {
-                                $real .= $f;
-                                break;
+
+                    $i = 1 + strrpos($real, '/');
+                    $file = substr($real, $i);
+                    $real = substr($real, 0, $i);
+
+                    if (isset(self::$darwinCache[$real])) {
+                        $kDir = $real;
+                    } else {
+                        $kDir = strtolower($real);
+
+                        if (isset(self::$darwinCache[$kDir])) {
+                            $real = self::$darwinCache[$kDir][0];
+                        } else {
+                            $dir = getcwd();
+                            chdir($real);
+                            $real = getcwd().'/';
+                            chdir($dir);
+
+                            $dir = $real;
+                            $k = $kDir;
+                            $i = strlen($dir) - 1;
+                            while (!isset(self::$darwinCache[$k])) {
+                                self::$darwinCache[$k] = array($dir, array());
+                                self::$darwinCache[$dir] = &self::$darwinCache[$k];
+
+                                while ('/' !== $dir[--$i]) {
+                                }
+                                $k = substr($k, 0, ++$i);
+                                $dir = substr($dir, 0, $i--);
                             }
                         }
-                        closedir($h);
                     }
-                    chdir($cwd);
+
+                    $dirFiles = self::$darwinCache[$kDir][1];
+
+                    if (isset($dirFiles[$file])) {
+                        $kFile = $file;
+                    } else {
+                        $kFile = strtolower($file);
+
+                        if (!isset($dirFiles[$kFile])) {
+                            foreach (scandir($real, 2) as $f) {
+                                if ('.' !== $f[0]) {
+                                    $dirFiles[$f] = $f;
+                                    if ($f === $file) {
+                                        $kFile = $k = $file;
+                                    } elseif ($f !== $k = strtolower($f)) {
+                                        $dirFiles[$k] = $f;
+                                    }
+                                }
+                            }
+                            self::$darwinCache[$kDir][1] = $dirFiles;
+                        }
+                    }
+
+                    $real .= $dirFiles[$kFile];
                 }
 
-                if (0 === substr_compare($real, $tail, -strlen($tail), strlen($tail), true)
-                  && 0 !== substr_compare($real, $tail, -strlen($tail), strlen($tail), false)
+                if (0 === substr_compare($real, $tail, -$tailLen, $tailLen, true)
+                  && 0 !== substr_compare($real, $tail, -$tailLen, $tailLen, false)
                 ) {
                     throw new \RuntimeException(sprintf('Case mismatch between class and source file names: %s vs %s', $class, $real));
                 }

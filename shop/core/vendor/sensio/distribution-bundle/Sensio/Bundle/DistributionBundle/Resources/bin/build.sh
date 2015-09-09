@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # This file is part of the Symfony Standard Edition.
 #
@@ -32,7 +32,6 @@ fi
 # avoid the creation of ._* files
 export COPY_EXTENDED_ATTRIBUTES_DISABLE=true
 export COPYFILE_DISABLE=true
-export SENSIOLABS_FORCE_ACME_DEMO=true
 
 # Temp dir
 rm -rf /tmp/Symfony
@@ -49,7 +48,7 @@ fi
 cd /tmp/Symfony
 
 # cleanup
-sudo rm -rf app/cache/* app/logs/* .git*
+rm -rf app/cache/* app/logs/* .git*
 chmod 777 app/cache app/logs
 find . -name .DS_Store | xargs rm -rf -
 
@@ -60,8 +59,8 @@ cd /tmp/Symfony
 TARGET=/tmp/Symfony/vendor
 
 # Doctrine
-cd $TARGET/doctrine/orm && rm -rf UPGRADE* build* bin tests tools lib/vendor
-cd $TARGET/doctrine/dbal && rm -rf bin build* tests lib/vendor
+cd $TARGET/doctrine/orm && rm -rf UPGRADE* build* tests tools lib/vendor
+cd $TARGET/doctrine/dbal && rm -rf build* tests lib/vendor
 cd $TARGET/doctrine/common && rm -rf build* tests lib/vendor
 if [ -d $TARGET/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle ]; then
     cd $TARGET/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle && rm -rf Tests Resources/doc
@@ -77,7 +76,11 @@ cd $TARGET/monolog/monolog && rm -rf README.markdown phpunit.xml* tests
 
 # Sensio
 cd $TARGET/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle && rm -rf phpunit.xml* Tests CHANGELOG* Resources/doc
-cd $TARGET/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle && rm -rf phpunit.xml* Tests CHANGELOG* Resources/doc
+if [ -d $TARGET/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle ]; then
+    cd $TARGET/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle && rm -rf phpunit.xml* Tests CHANGELOG* Resources/doc
+else
+    cd $TARGET/sensio/framework-extra-bundle && rm -rf phpunit.xml* Tests CHANGELOG* Resources/doc
+fi
 cd $TARGET/sensio/generator-bundle/Sensio/Bundle/GeneratorBundle && rm -rf phpunit.xml* Tests CHANGELOG* Resources/doc
 
 # Swiftmailer
@@ -106,7 +109,6 @@ fi
 
 # Twig
 cd $TARGET/twig/twig && rm -rf AUTHORS CHANGELOG README.markdown bin doc package.xml.tpl phpunit.xml* test
-cd $TARGET/twig/extensions && rm -rf README doc phpunit.xml* test
 
 # cleanup
 find $TARGET -name .git | xargs rm -rf -
@@ -114,14 +116,15 @@ find $TARGET -name .gitignore | xargs rm -rf -
 find $TARGET -name .gitmodules | xargs rm -rf -
 find $TARGET -name .svn | xargs rm -rf -
 
+# With vendors
 cd /tmp
 tar zcpf $DIR/Symfony_Standard_Vendors_$VERSION.tgz Symfony
-sudo rm -f $DIR/Symfony_Standard_Vendors_$VERSION.zip
+rm -f $DIR/Symfony_Standard_Vendors_$VERSION.zip
 zip -rq $DIR/Symfony_Standard_Vendors_$VERSION.zip Symfony
 
 # Without vendors
 cd /tmp
 rm -rf Symfony/vendor
 tar zcpf $DIR/Symfony_Standard_$VERSION.tgz Symfony
-sudo rm -f $DIR/Symfony_Standard_$VERSION.zip
+rm -f $DIR/Symfony_Standard_$VERSION.zip
 zip -rq $DIR/Symfony_Standard_$VERSION.zip Symfony

@@ -66,6 +66,20 @@ abstract class AbstractDescriptorTest extends \PHPUnit_Framework_TestCase
         return $this->getContainerBuilderDescriptionTestData(ObjectsProvider::getContainerBuilders());
     }
 
+    /**
+     * @dataProvider provideLegacySynchronizedServiceDefinitionTestData
+     * @group legacy
+     */
+    public function testLegacyDescribeSynchronizedServiceDefinition(Definition $definition, $expectedDescription)
+    {
+        $this->assertDescription($expectedDescription, $definition);
+    }
+
+    public function provideLegacySynchronizedServiceDefinitionTestData()
+    {
+        return $this->getDescriptionTestData(ObjectsProvider::getLegacyContainerDefinitions());
+    }
+
     /** @dataProvider getDescribeContainerDefinitionTestData */
     public function testDescribeContainerDefinition(Definition $definition, $expectedDescription)
     {
@@ -98,7 +112,7 @@ abstract class AbstractDescriptorTest extends \PHPUnit_Framework_TestCase
     {
         $data = $this->getDescriptionTestData(ObjectsProvider::getContainerParameter());
 
-        array_push($data[0], array('parameter' => 'database_name'));
+        $data[0][] = array('parameter' => 'database_name');
 
         return $data;
     }
