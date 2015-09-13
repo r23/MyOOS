@@ -32,7 +32,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 if (WARN_INSTALL_EXISTENCE == 'true') {
     if (file_exists(dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/install')) {
         $aInfoMessage[] = array('type' => 'danger',
-								'text' => $aLang['warning_install_directory_exists']);
+				'text' => $aLang['warning_install_directory_exists']);
     }
 }
 
@@ -42,7 +42,7 @@ if (WARN_CONFIG_WRITEABLE == 'true') {
             && (is_writeable(dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php')) )
     {
         $aInfoMessage[] = array('type' => 'danger',
-								'text' => $aLang['warning_config_file_writeable']);
+				'text' => $aLang['warning_config_file_writeable']);
     }
 }
 
@@ -85,22 +85,22 @@ if (isset($_SESSION)) {
 
 	if (isset($_SESSION['success_message']) && !empty($_SESSION['success_message'])) {
 		$aInfoMessage[] = array('type' => 'success',
-								'title' => $aLang['success'],
-								'text' => (string)$_SESSION['success_message']);
+					'title' => $aLang['success'],
+					'text' => (string)$_SESSION['success_message']);
 		$_SESSION['success_message'] = '';
 	}
 	
 	if (isset($_SESSION['error_message']) && !empty($_SESSION['error_message'])) {
 		$aInfoMessage[] = array('type' => 'danger',
-								'title' => $aLang['danger'],
-								'text' => (string)$_SESSION['error_message']);
+					'title' => $aLang['danger'],
+					'text' => (string)$_SESSION['error_message']);
 		$_SESSION['error_message'] = '';
 	}		
 	
 	if (isset($_SESSION['error_cart_msg']) && !empty($_SESSION['error_cart_msg'])) {
 		$aInfoMessage[] = array('type' => 'danger',
-								'title' => $aLang['danger'],
-								'text' => (string)$_SESSION['error_cart_msg']);
+					'title' => $aLang['danger'],
+					'text' => (string)$_SESSION['error_cart_msg']);
 		$_SESSION['error_cart_msg'] = '';
 	}	
 }
@@ -111,4 +111,3 @@ if ($oMessage->size('upload') > 0) {
 }
 
 $smarty->assign('message', $aInfoMessage);
-

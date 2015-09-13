@@ -6,5 +6,5 @@ Disallow: /js/
 Disallow: /media/
 Disallow: /pub/
 Disallow: /themes/
-Disallow: /*OOSSID
-Disallow: /*OOSADMINSID
+Disallow: /*PHOENIXSID
+Disallow: /*PHOENIXADMINSID

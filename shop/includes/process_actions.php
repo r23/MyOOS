@@ -31,13 +31,13 @@ if ( isset($_GET['email_address']) ) {
 if ( empty( $email_address ) || !is_string( $email_address ) ) {
 	$bError = TRUE;
 	$aInfoMessage[] = array('type' => 'danger',
-							'text' => $aLang['error_email_address']	);
+				'text' => $aLang['error_email_address']	);
 } 
 
 if ( ($bError === FALSE) && (!oos_validate_is_email($email_address)) ) {
 	$bError = TRUE;
 	$aInfoMessage[] = array('type' => 'danger',
-							'text' => $aLang['error_email_address']);
+				'text' => $aLang['error_email_address']);
 } 
 
 if ( isset($_POST['newsletter']) 
@@ -54,7 +54,7 @@ if ( isset($_POST['newsletter'])
 	if ($check_recipients_result->RecordCount()) {
 		$bError = TRUE;
 		$aInfoMessage[] = array('type' => 'danger',
-								'text' => $aLang['entry_email_address_error_exists']);
+					'text' => $aLang['entry_email_address_error_exists']);
 
 	} else {
 		$newsletter_recipients = $oostable['newsletter_recipients'];
@@ -63,7 +63,6 @@ if ( isset($_POST['newsletter'])
 		$sRandom = oos_create_random_value(25);
 		$sBefor = oos_create_random_value(4);
 	
-		$newsletter_recipients = $oostable['newsletter_recipients'];
 		$dbconn->Execute("INSERT INTO $newsletter_recipients 
                             (customers_email_address,
 							mail_key,
@@ -152,6 +151,6 @@ if ( isset($_GET['newsletter'])
 	} else {
 		$bError = TRUE;
 		$aInfoMessage[] = array('type' => 'danger',
-								'text' => $aLang['text_email_del_error']);
+					'text' => $aLang['text_email_del_error']);
 	}
-} 
+}

@@ -194,9 +194,6 @@ if (!isset($_SESSION['currency']) || isset($_GET['currency'])) {
 }
 
 
-//for debugging purposes
-require_once MYOOS_INCLUDE_PATH . '/includes/debug.php';
-
 if ( $session->hasStarted() === TRUE ) {
     if (!(preg_match('/^[a-z0-9]{26}$/i', $session->getId()) || preg_match('/^[a-z0-9]{32}$/i', $session->getId()))) {
         $session->regenerate(TRUE);

@@ -38,16 +38,16 @@ $smarty->assignByRef("oEvent", $oEvent);
 #  $smarty->register_object("cart", $_SESSION['cart'],array('count_contents', 'get_products'));
 
 // cache_id
-$sCacheID			= $sTheme . '|block|' . $sLanguage;
+$sCacheID		= $sTheme . '|block|' . $sLanguage;
 $sSystemCacheID		= $sTheme . '|block|' . $sLanguage;
 $sCategoriesCacheID	= $sTheme . '|block|categories|' . $sLanguage . '|' . $sCategory;
 $sModulesCacheID	= $sTheme . '|modules|' . $sLanguage . '|' . $sCurrency;
 
 
 if (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
-	$nManufacturersID = intval($_GET['manufacturers_id']);
+    $nManufacturersID = intval($_GET['manufacturers_id']);
 } else {
-	$nManufacturersID = 0;
+    $nManufacturersID = 0;
 }
 $sManufacturersCacheID = $sTheme . '|block|manufacturers|' . $sLanguage . '|' . $nManufacturersID;
 $sManufacturersInfoCacheID = $sTheme . '|block|manufacturer_info|' . $sLanguage . '|' . $nManufacturersID;
@@ -65,20 +65,20 @@ if (empty($sDescription)) $sDescription = OOS_META_DESCRIPTION;
 
 $smarty->assign(
 	array(
-		'filename'			=> $aContents,
-		'page_file'			=> $sContent,
+		'filename'		=> $aContents,
+		'page_file'		=> $sContent,
 
 		'request_type'		=> $request_type,
 
-		'theme_set'			=> $sTheme,
+		'theme_set'		=> $sTheme,
 		'theme_image'		=> 'themes/' . $sTheme . '/images',
-		'theme'				=> 'themes/' . $sTheme,
+		'theme'			=> 'themes/' . $sTheme,
 
-		'lang'				=> $aLang,
-		'language'			=> $sLanguage,
-		'currency'			=> $sCurrency,
+		'lang'			=> $aLang,
+		'language'		=> $sLanguage,
+		'currency'		=> $sCurrency,
 		
-		'pagetitle'			=> $sPagetitle,
+		'pagetitle'		=> $sPagetitle,
 		'meta_description'	=> $sDescription
 )
 );
@@ -115,8 +115,8 @@ if (isset($_SESSION)) {
 
 $smarty->assign(
 	array(
-		'mySystem'				=> $aSystem,
-		'cart_show_total'		=> $cart_show_total,
+		'mySystem'              => $aSystem,
+		'cart_show_total'	=> $cart_show_total,
 		'cart_count_contents'	=> $cart_count_contents
 	)
 );
