@@ -624,6 +624,11 @@ if ($mode != 'edit')
 	$post_data['enable_urls']		= true;
 }
 
+if ($mode == 'post')
+{
+	$post_data['topic_status']		= ($request->is_set_post('lock_topic') && $auth->acl_gets('m_lock', 'f_user_lock', $forum_id)) ? ITEM_LOCKED : ITEM_UNLOCKED;
+}
+
 $post_data['enable_magic_url'] = $post_data['drafts'] = false;
 
 // User own some drafts?
@@ -1325,7 +1330,6 @@ if ($submit || $preview || $refresh)
 				'enable_urls'			=> (bool) $post_data['enable_urls'],
 				'enable_indexing'		=> (bool) $post_data['enable_indexing'],
 				'message_md5'			=> (string) $message_md5,
-				'post_time'				=> (isset($post_data['post_time'])) ? (int) $post_data['post_time'] : $current_time,
 				'post_checksum'			=> (isset($post_data['post_checksum'])) ? (string) $post_data['post_checksum'] : '',
 				'post_edit_reason'		=> $post_data['post_edit_reason'],
 				'post_edit_user'		=> ($mode == 'edit') ? $user->data['user_id'] : ((isset($post_data['post_edit_user'])) ? (int) $post_data['post_edit_user'] : 0),
@@ -1340,6 +1344,7 @@ if ($submit || $preview || $refresh)
 				'message'				=> $message_parser->message,
 				'attachment_data'		=> $message_parser->attachment_data,
 				'filename_data'			=> $message_parser->filename_data,
+				'topic_status'			=> $post_data['topic_status'],
 
 				'topic_visibility'			=> (isset($post_data['topic_visibility'])) ? $post_data['topic_visibility'] : false,
 				'post_visibility'			=> (isset($post_data['post_visibility'])) ? $post_data['post_visibility'] : false,
@@ -1374,10 +1379,9 @@ if ($submit || $preview || $refresh)
 			* @var	string	post_author_name	Author name for guest posts
 			* @var	bool	update_message		Boolean if the post message was changed
 			* @var	bool	update_subject		Boolean if the post subject was changed
-			* @var	bool	submit		Whether or not the form has been submitted
-			* @var	array	error		Any error strings; a non-empty array aborts form submission.
 			*				NOTE: Should be actual language strings, NOT language keys.
 			* @since 3.1.0-RC5
+			* @changed 3.1.6-RC1 remove submit and error from event  Submit and Error are checked previously prior to running event
 			*/
 			$vars = array(
 				'post_data',
@@ -1391,8 +1395,6 @@ if ($submit || $preview || $refresh)
 				'post_author_name',
 				'update_message',
 				'update_subject',
-				'submit',
-				'error',
 			);
 			extract($phpbb_dispatcher->trigger_event('core.posting_modify_submit_post_before', compact($vars)));
 
@@ -1416,10 +1418,9 @@ if ($submit || $preview || $refresh)
 			* @var	bool	update_message		Boolean if the post message was changed
 			* @var	bool	update_subject		Boolean if the post subject was changed
 			* @var	string	redirect_url		URL the user is going to be redirected to
-			* @var	bool	submit		Whether or not the form has been submitted
-			* @var	array	error		Any error strings; a non-empty array aborts form submission.
 			*				NOTE: Should be actual language strings, NOT language keys.
 			* @since 3.1.0-RC5
+			* @changed 3.1.6-RC1 remove submit and error from event  Submit and Error are checked previously prior to running event
 			*/
 			$vars = array(
 				'post_data',
@@ -1434,8 +1435,6 @@ if ($submit || $preview || $refresh)
 				'update_message',
 				'update_subject',
 				'redirect_url',
-				'submit',
-				'error',
 			);
 			extract($phpbb_dispatcher->trigger_event('core.posting_modify_submit_post_after', compact($vars)));
 
@@ -1573,11 +1572,21 @@ if (!sizeof($error) && $preview)
 	}
 }
 
+// Remove quotes that would become nested too deep before decoding the text
+$generate_quote = ($mode == 'quote' && !$submit && !$preview && !$refresh);
+if ($generate_quote && $config['max_quote_depth'] > 0)
+{
+	$tmp_bbcode_uid = $message_parser->bbcode_uid;
+	$message_parser->bbcode_uid = $post_data['bbcode_uid'];
+	$message_parser->remove_nested_quotes($config['max_quote_depth'] - 1);
+	$message_parser->bbcode_uid = $tmp_bbcode_uid;
+}
+
 // Decode text for message display
 $post_data['bbcode_uid'] = ($mode == 'quote' && !$preview && !$refresh && !sizeof($error)) ? $post_data['bbcode_uid'] : $message_parser->bbcode_uid;
 $message_parser->decode_message($post_data['bbcode_uid']);
 
-if ($mode == 'quote' && !$submit && !$preview && !$refresh)
+if ($generate_quote)
 {
 	if ($config['allow_bbcode'])
 	{
@@ -1768,7 +1777,7 @@ $page_data = array(
 	'S_SIGNATURE_CHECKED'		=> ($sig_checked) ? ' checked="checked"' : '',
 	'S_NOTIFY_ALLOWED'			=> (!$user->data['is_registered'] || ($mode == 'edit' && $user->data['user_id'] != $post_data['poster_id']) || !$config['allow_topic_notify'] || !$config['email_enable']) ? false : true,
 	'S_NOTIFY_CHECKED'			=> ($notify_checked) ? ' checked="checked"' : '',
-	'S_LOCK_TOPIC_ALLOWED'		=> (($mode == 'edit' || $mode == 'reply' || $mode == 'quote') && ($auth->acl_get('m_lock', $forum_id) || ($auth->acl_get('f_user_lock', $forum_id) && $user->data['is_registered'] && !empty($post_data['topic_poster']) && $user->data['user_id'] == $post_data['topic_poster'] && $post_data['topic_status'] == ITEM_UNLOCKED))) ? true : false,
+	'S_LOCK_TOPIC_ALLOWED'		=> (($mode == 'edit' || $mode == 'reply' || $mode == 'quote' || $mode == 'post') && ($auth->acl_get('m_lock', $forum_id) || ($auth->acl_get('f_user_lock', $forum_id) && $user->data['is_registered'] && !empty($post_data['topic_poster']) && $user->data['user_id'] == $post_data['topic_poster'] && $post_data['topic_status'] == ITEM_UNLOCKED))) ? true : false,
 	'S_LOCK_TOPIC_CHECKED'		=> ($lock_topic_checked) ? ' checked="checked"' : '',
 	'S_LOCK_POST_ALLOWED'		=> ($mode == 'edit' && $auth->acl_get('m_edit', $forum_id)) ? true : false,
 	'S_LOCK_POST_CHECKED'		=> ($lock_post_checked) ? ' checked="checked"' : '',
@@ -1835,6 +1844,7 @@ if (($mode == 'post' || ($mode == 'edit' && $post_id == $post_data['topic_first_
 * @var	int	post_id		ID of the post
 * @var	int	topic_id	ID of the topic
 * @var	int	forum_id	ID of the forum
+* @var	int	draft_id	ID of the draft
 * @var	bool	submit		Whether or not the form has been submitted
 * @var	bool	preview		Whether or not the post is being previewed
 * @var	bool	save		Whether or not a draft is being saved
@@ -1857,6 +1867,7 @@ if (($mode == 'post' || ($mode == 'edit' && $post_id == $post_data['topic_first_
 *		delete, cancel, refresh, error, page_data, message_parser
 * @change 3.1.2-RC1 Removed 'delete' var as it does not exist
 * @change 3.1.5-RC1 Added poll variables to the page_data array
+* @change 3.1.6-RC1 Added 'draft_id' var
 */
 $vars = array(
 	'post_data',
@@ -1870,6 +1881,7 @@ $vars = array(
 	'post_id',
 	'topic_id',
 	'forum_id',
+	'draft_id',
 	'submit',
 	'preview',
 	'save',

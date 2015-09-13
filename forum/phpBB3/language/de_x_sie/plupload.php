@@ -42,7 +42,7 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'PLUPLOAD_ADD_FILES'		=> 'Dateien hinzufügen',
-	'PLUPLOAD_ADD_FILES_TO_QUEUE'	=> 'Fügen Sie die hochzuladenden Dateien der Warteschlange hinzu und klicken Sie auf die Schaltfläche „Warteschlange hochladen“.',
+	'PLUPLOAD_ADD_FILES_TO_QUEUE'	=> 'Fügen Sie die anzuhängenden Dateien der Warteschlange hinzu und klicken Sie auf die Schaltfläche „Warteschlange hochladen“.',
 	'PLUPLOAD_ALREADY_QUEUED'	=> '%s ist bereits in der Warteschlange vorhanden.',
 	'PLUPLOAD_CLOSE'			=> 'Schließen',
 	'PLUPLOAD_DRAG'				=> 'Ziehen Sie neue Dateien in diesen Bereich.',

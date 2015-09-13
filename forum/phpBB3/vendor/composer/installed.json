@@ -667,27 +667,27 @@
     },
     {
         "name": "twig/twig",
-        "version": "v1.13.2",
-        "version_normalized": "1.13.2.0",
+        "version": "v1.20.0",
+        "version_normalized": "1.20.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/twigphp/Twig.git",
-            "reference": "6d6a1009427d1f398c9d40904147bf9f723d5755"
+            "reference": "1ea4e5f81c6d005fe84d0b38e1c4f1955eb86844"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/twigphp/Twig/zipball/6d6a1009427d1f398c9d40904147bf9f723d5755",
-            "reference": "6d6a1009427d1f398c9d40904147bf9f723d5755",
+            "url": "https://api.github.com/repos/twigphp/Twig/zipball/1ea4e5f81c6d005fe84d0b38e1c4f1955eb86844",
+            "reference": "1ea4e5f81c6d005fe84d0b38e1c4f1955eb86844",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.2.4"
+            "php": ">=5.2.7"
         },
-        "time": "2013-08-03 15:35:31",
+        "time": "2015-08-12 15:56:39",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.13-dev"
+                "dev-master": "1.20-dev"
             }
         },
         "installation-source": "dist",
@@ -703,11 +703,19 @@
         "authors": [
             {
                 "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
+                "email": "fabien@symfony.com",
+                "homepage": "http://fabien.potencier.org",
+                "role": "Lead Developer"
             },
             {
                 "name": "Armin Ronacher",
-                "email": "armin.ronacher@active-4.com"
+                "email": "armin.ronacher@active-4.com",
+                "role": "Project Founder"
+            },
+            {
+                "name": "Twig Team",
+                "homepage": "http://twig.sensiolabs.org/contributors",
+                "role": "Contributors"
             }
         ],
         "description": "Twig, the flexible, fast, and secure template language for PHP",

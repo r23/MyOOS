@@ -791,28 +791,6 @@ class bbcode_firstpass extends bbcode
 				else if (preg_match('#^quote(?:=&quot;(.*?)&quot;)?$#is', $buffer, $m) && substr($out, -1, 1) == '[')
 				{
 					$this->parsed_items['quote']++;
-
-					// the buffer holds a valid opening tag
-					if ($config['max_quote_depth'] && sizeof($close_tags) >= $config['max_quote_depth'])
-					{
-						if ($config['max_quote_depth'] == 1)
-						{
-							// Depth 1 - no nesting is allowed
-							$error_ary['quote_depth'] = $user->lang('QUOTE_NO_NESTING');
-						}
-						else
-						{
-							// There are too many nested quotes
-							$error_ary['quote_depth'] = $user->lang('QUOTE_DEPTH_EXCEEDED', (int) $config['max_quote_depth']);
-						}
-
-						$out .= $buffer . $tok;
-						$tok = '[]';
-						$buffer = '';
-
-						continue;
-					}
-
 					array_push($close_tags, '/quote:' . $this->bbcode_uid);
 
 					if (isset($m[1]) && $m[1])
@@ -1277,6 +1255,12 @@ class parse_message extends bbcode_firstpass
 			return $update_this_message ? $this->warn_msg : $return_message;
 		}
 
+		// Remove quotes that are nested too deep
+		if ($config['max_quote_depth'] > 0)
+		{
+			$this->remove_nested_quotes($config['max_quote_depth']);
+		}
+
 		// Check for "empty" message. We do not check here for maximum length, because bbcode, smilies, etc. can add to the length.
 		// The maximum length check happened before any parsings.
 		if ($mode === 'post' && utf8_clean_string($this->message) === '')
@@ -1316,6 +1300,29 @@ class parse_message extends bbcode_firstpass
 			$tmp_message = $this->message;
 			$return_message = &$this->message;
 		}
+
+		$text = $this->message;
+		$uid = $this->bbcode_uid;
+
+		/**
+		* Event to modify the text before it is parsed
+		*
+		* @event core.modify_format_display_text_before
+		* @var string	text				The message text to parse
+		* @var string	uid					The bbcode uid
+		* @var bool		allow_bbcode		Do we allow bbcodes
+		* @var bool		allow_magic_url		Do we allow magic urls
+		* @var bool		allow_smilies		Do we allow smilies
+		* @var bool		update_this_message	Do we update the internal message
+		*									with the parsed result
+		* @since 3.1.6-RC1
+		*/
+		$vars = array('text', 'uid', 'allow_bbcode', 'allow_magic_url', 'allow_smilies', 'update_this_message');
+		extract($phpbb_dispatcher->trigger_event('core.modify_format_display_text_before', compact($vars)));
+
+		$this->message = $text;
+		$this->bbcode_uid = $uid;
+		unset($text, $uid);
 
 		if ($this->message_status == 'plain')
 		{
@@ -1853,6 +1860,50 @@ class parse_message extends bbcode_firstpass
 		}
 
 		$poll['poll_max_options'] = ($poll['poll_max_options'] < 1) ? 1 : (($poll['poll_max_options'] > $config['max_poll_options']) ? $config['max_poll_options'] : $poll['poll_max_options']);
+	}
+
+	/**
+	* Remove nested quotes at given depth in current parsed message
+	*
+	* @param  integer $max_depth Depth limit
+	* @return null
+	*/
+	public function remove_nested_quotes($max_depth)
+	{
+		// Capture all [quote] and [/quote] tags
+		preg_match_all('(\\[/?quote(?:=&quot;(.*?)&quot;)?:' . $this->bbcode_uid . '\\])', $this->message, $matches, PREG_OFFSET_CAPTURE);
+
+		// Iterate over the quote tags to mark the ranges that must be removed
+		$depth = 0;
+		$ranges = array();
+		$start_pos = 0;
+		foreach ($matches[0] as $match)
+		{
+			if ($match[0][1] === '/')
+			{
+				--$depth;
+				if ($depth == $max_depth)
+				{
+					$end_pos = $match[1] + strlen($match[0]);
+					$length = $end_pos - $start_pos;
+					$ranges[] = array($start_pos, $length);
+				}
+			}
+			else
+			{
+				++$depth;
+				if ($depth == $max_depth + 1)
+				{
+					$start_pos = $match[1];
+				}
+			}
+		}
+
+		foreach (array_reverse($ranges) as $range)
+		{
+			list($start_pos, $length) = $range;
+			$this->message = substr_replace($this->message, '', $start_pos, $length);
+		}
 	}
 
 	/**

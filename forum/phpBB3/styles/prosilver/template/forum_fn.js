@@ -34,7 +34,7 @@ function popup(url, width, height, name) {
 function pageJump(item) {
 	'use strict';
 
-	var page = item.val(),
+	var page = parseInt(item.val(), 10),
 		perPage = item.attr('data-per-page'),
 		baseUrl = item.attr('data-base-url'),
 		startName = item.attr('data-start-name');
@@ -156,7 +156,11 @@ function selectCode(a) {
 		// Safari and Chrome
 		if (s.setBaseAndExtent) {
 			var l = (e.innerText.length > 1) ? e.innerText.length - 1 : 1;
-			s.setBaseAndExtent(e, 0, e, l);
+			try {
+				s.setBaseAndExtent(e, 0, e, l);
+			} catch (error) {
+				s.setBaseAndExtent(e, 0, e, 1);
+			}
 		}
 		// Firefox and Opera
 		else {

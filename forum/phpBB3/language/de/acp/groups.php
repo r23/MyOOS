@@ -117,7 +117,7 @@ $lang = array_merge($lang, array(
 
 	'LEGEND_EXPLAIN'				=> 'Diese Gruppen werden in der Gruppen-Legende angezeigt:',
 	'LEGEND_SETTINGS'				=> 'Einstellungen für Legende',
-	'LEGEND_SORT_GROUPNAME'			=> 'Legende bei Name der Gruppe sortieren',
+	'LEGEND_SORT_GROUPNAME'			=> 'Legende nach Gruppennamen sortieren',
 	'LEGEND_SORT_GROUPNAME_EXPLAIN'	=> 'Die unten stehende Sortierung wird ignoriert, wenn diese Option aktiviert ist.',
 
 	'MANAGE_LEGEND'			=> 'Gruppen-Legende verwalten',

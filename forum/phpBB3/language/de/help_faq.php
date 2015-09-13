@@ -329,7 +329,7 @@ $help = array(
 	),
 	array(
 		0 => 'Welche Dateianhänge sind in diesem Forum zulässig?',
-		1 => 'Die Board-Administration kann bestimmte Dateitypen zulassen oder verbieten. Falls du dir nicht sicher bist, welche Dateitypen du hochladen kannst und du Unterstützung benötigst, wende dich bitte an die Board-Administration.',
+		1 => 'Die Board-Administration kann bestimmte Dateitypen zulassen oder verbieten. Falls du dir nicht sicher bist, welche Dateitypen du anhängen kannst und du Unterstützung benötigst, wende dich bitte an die Board-Administration.',
 	),
 	array(
 		0 => 'Kann ich eine Übersicht all meiner Dateianhänge erhalten?',

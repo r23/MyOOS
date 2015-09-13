@@ -76,4 +76,6 @@ $lang = array_merge($lang, array(
 	'THOSE_MISSING_LANG_VARIABLES'		=> 'Die folgenden Sprachvariablen fehlen im „%s“-Sprachpaket',
 
 	'UNINSTALLED_LANGUAGE_PACKS'	=> 'Deinstallierte Sprachpakete',
+
+	'BROWSE_LANGUAGE_PACKS_DATABASE'	=> 'phpBB-Sprachpaket-Datenbank',
 ));

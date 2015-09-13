@@ -461,7 +461,7 @@ function mcp_post_details($id, $mode, $action)
 */
 function change_poster(&$post_info, $userdata)
 {
-	global $auth, $db, $config, $phpbb_root_path, $phpEx, $user;
+	global $auth, $db, $config, $phpbb_root_path, $phpEx, $user, $phpbb_dispatcher;
 
 	if (empty($userdata) || $userdata['user_id'] == $post_info['user_id'])
 	{
@@ -558,6 +558,17 @@ function change_poster(&$post_info, $userdata)
 	}
 
 	$post_info = $post_info[$post_id];
+
+	/**
+	* This event allows you to perform additional tasks after changing a post's poster
+	*
+	* @event core.mcp_change_poster_after
+	* @var	array	userdata	Information on a post's new poster
+	* @var	array	post_info	Information on the affected post
+	* @since 3.1.6-RC1
+	*/
+	$vars = array('userdata', 'post_info');
+	extract($phpbb_dispatcher->trigger_event('core.mcp_change_poster_after', compact($vars)));
 
 	// Now add log entry
 	add_log('mod', $post_info['forum_id'], $post_info['topic_id'], 'LOG_MCP_CHANGE_POSTER', $post_info['topic_title'], $from_username, $to_username);

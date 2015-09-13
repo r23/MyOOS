@@ -363,7 +363,7 @@ $lang = array_merge($lang, array(
 
 	'NOTIFICATIONS_MARK_ALL_READ'						=> 'Alle Benachrichtigungen als gelesen markieren',
 	'NOTIFICATIONS_MARK_ALL_READ_CONFIRM'				=> 'Bist du dir sicher, dass du alle Benachrichtigungen als gelesen markieren möchtest?',
-	'NOTIFICATIONS_MARK_ALL_READ_SUCCESS'				=> 'Alle Benachrichtiungen wurden als gelesen markiert.',
+	'NOTIFICATIONS_MARK_ALL_READ_SUCCESS'				=> 'Alle Benachrichtigungen wurden als gelesen markiert.',
 	'NOTIFICATION_GROUP_MISCELLANEOUS'					=> 'Weitere Benachrichtigungen',
 	'NOTIFICATION_GROUP_MODERATION'						=> 'Benachrichtigungen für Moderatoren',
 	'NOTIFICATION_GROUP_ADMINISTRATION'					=> 'Benachrichtigungen für Administratoren',
@@ -607,7 +607,7 @@ $lang = array_merge($lang, array(
 	'UNWATCH_MARKED'				=> 'Ausgewählte Abonnements beenden',
 	'UPLOAD_AVATAR_FILE'			=> 'Von deinem Rechner hochladen',
 	'UPLOAD_AVATAR_URL'				=> 'Von URL hochladen',
-	'UPLOAD_AVATAR_URL_EXPLAIN'		=> 'Gib die URL an, an der sich das Avatar-Bild befindet. Es wird dann auf diese Site hochgeladen.',
+	'UPLOAD_AVATAR_URL_EXPLAIN'		=> 'Gib die URL an, an der sich das Avatar-Bild befindet. Es wird dann auf dieses Board übertragen.',
 	'USERNAME_ALPHA_ONLY_EXPLAIN'	=> 'Der Benutzername muss zwischen %1$s und %2$s lang sein und darf nur aus alphanumerischen Zeichen bestehen.',
 	'USERNAME_ALPHA_SPACERS_EXPLAIN'=> 'Der Benutzername muss zwischen %1$s und %2$s lang sein und darf nur aus alphanumerischen, Leer- und -+_[]-Zeichen bestehen.',
 	'USERNAME_ASCII_EXPLAIN'		=> 'Der Benutzername muss zwischen %1$s und %2$s lang sein und darf nur aus ASCII-Zeichen (also keinen Sonderzeichen oder Umlauten) bestehen.',
