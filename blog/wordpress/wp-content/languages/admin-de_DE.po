@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-09-04 18:35:43+0000\n"
+"PO-Revision-Date: 2015-09-08 13:22:20+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1131,7 +1131,7 @@ msgctxt "Plugin Installer"
 msgid "Recommended"
 msgstr "Empfohlen"
 
-#: wp-admin/includes/upgrade.php:364
+#: wp-admin/includes/upgrade.php:365
 msgid ""
 "Your new WordPress site has been successfully set up at:\n"
 "\n"
@@ -5310,12 +5310,12 @@ msgstr ""
 "\n"
 "Ziehe den folgenden Link in deine Favoritenleiste oder füge ihn über einen Rechtsklick zu deinen Favoriten hinzu, um einen schnelle Zugriff zu gewährleisten."
 
-#: wp-admin/includes/upgrade.php:225
+#: wp-admin/includes/upgrade.php:226
 msgid "Sample Page"
 msgstr "Beispiel-Seite"
 
 #. translators: Default page slug
-#: wp-admin/includes/upgrade.php:227
+#: wp-admin/includes/upgrade.php:228
 msgid "sample-page"
 msgstr "beispiel-seite"
 
@@ -6295,7 +6295,7 @@ msgstr "Du hast nicht die benötigten Rechte, um Beiträge oder Entwürfe zu ers
 msgid "My Site"
 msgstr "Meine Website"
 
-#: wp-admin/includes/upgrade.php:380
+#: wp-admin/includes/upgrade.php:381
 msgid "New WordPress Site"
 msgstr "Neue WordPress Website"
 
@@ -7664,10 +7664,6 @@ msgstr "Dieses Update ausblenden"
 msgid "Bring back this update"
 msgstr "Dieses Update wiederbringen"
 
-#: wp-admin/update-core.php:108
-msgid "This localized version contains both the translation and various other localization fixes. You can skip upgrading if you want to keep your current translation."
-msgstr "Die lokalisierte Version beinhaltet beides, die Übersetzung und verschiedenene andere Lokalisationsanpassungen. Du kannst die Aktualisierung abbrechen, wenn du deine momentane Übersetzung beibehalten möchtest."
-
 #: wp-admin/update-core.php:124 wp-admin/update-core.php:136
 msgid "Show hidden updates"
 msgstr "Versteckte Updates anzeigen"
@@ -8299,6 +8295,10 @@ msgstr "Ansehen"
 #: wp-admin/options-discussion.php:171
 msgid "Hold a comment in the queue if it contains %s or more links. (A common characteristic of comment spam is a large number of hyperlinks.)"
 msgstr "Einen Kommentar in die Warteschlange schieben, wenn er %s oder mehr Links enthält. (Eine hohe Anzahl von Links ist ein typisches Merkmal von Kommentar-Spam.)"
+
+#: wp-admin/update-core.php:108
+msgid "This localized version contains both the translation and various other localization fixes. You can skip upgrading if you want to keep your current translation."
+msgstr "Die lokalisierte Version beinhaltet beides, die Übersetzung und verschiedene andere Lokalisationsanpassungen. Du kannst die Aktualisierung abbrechen, wenn du deine momentane Übersetzung beibehalten möchtest."
 
 #: wp-admin/includes/class-wp-upgrader.php:1234
 msgid "Theme installed successfully."
