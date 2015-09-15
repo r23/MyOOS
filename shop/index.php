@@ -23,24 +23,6 @@
 error_reporting(E_ALL);
 // error_reporting(E_ALL & ~E_STRICT);
    
-   
-/**
- * Test to make sure that MyOOS is running on PHP 5.2.3 or newer. Once you are
- * sure that your environment is compatible with MyOOS, you can comment this
- * line out. When running an application on a new server, uncomment this line
- * to check the PHP version quickly.
- */
-if (version_compare(PHP_VERSION, '5.2.3', '<')) {
-    header('Content-type: text/html; charset=utf-8', true, 503);
-
-    echo '<h2>Fehler</h2>';
-    echo 'Auf Ihrem Server läuft PHP version ' . PHP_VERSION . ', MyOOS benötigt mindestens PHP 5.2.3';
-
-    echo '<h2>Error</h2>';
-    echo 'Your server is running PHP version ' . PHP_VERSION . ' but MyOOS requires at least PHP 5.2.3';
-    return;
-}
-
 //setting basic configuration parameters
 if (function_exists('ini_set')) {
 	ini_set('session.use_trans_sid', 0);
@@ -56,13 +38,9 @@ use Symfony\Component\HttpFoundation\Request;
 $autoloader = require_once __DIR__ . '/core/vendor/autoload.php';
 $request = Request::createFromGlobals();
 
-define('MYOOS_DOCUMENT_ROOT', dirname(__FILE__)=='/'?'':dirname(__FILE__));
+define('MYOOS_INCLUDE_PATH', dirname(__FILE__)=='/'?'':dirname(__FILE__));
 
-if(!defined('MYOOS_INCLUDE_PATH')) {
-	define('MYOOS_INCLUDE_PATH', MYOOS_DOCUMENT_ROOT);
-}
-
-define('OOS_VALID_MOD', 'yes');
+define('OOS_VALID_MOD', true);
 require 'includes/main.php';
 
 if ( empty( $sContent ) || !is_string( $sContent ) ) {

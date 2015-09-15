@@ -11,5 +11,4 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-phpinfo()
-
+phpinfo ();

@@ -53,8 +53,25 @@
 // Set the level of error reporting
 error_reporting(E_ALL & ~E_NOTICE);
 
+/**
+ * Test to make sure that MyOOS is running on PHP 5.5.9 or newer. Once you are
+ * sure that your environment is compatible with MyOOS, you can comment this
+ * line out. When running an application on a new server, uncomment this line
+ * to check the PHP version quickly.
+ */
+if (version_compare(PHP_VERSION, '5.5.9', '<')) {
+    header('Content-type: text/html; charset=utf-8', true, 503);
 
-define('OOS_VALID_MOD', 'yes');
+    echo '<h2>Fehler</h2>';
+    echo 'Auf Ihrem Server läuft PHP version ' . PHP_VERSION . ', MyOOS benötigt mindestens PHP 5.5.9';
+
+    echo '<h2>Error</h2>';
+    echo 'Your server is running PHP version ' . PHP_VERSION . ' but MyOOS requires at least PHP 5.5.9';
+    return;
+}
+
+
+define('OOS_VALID_MOD', true);
 // Version information
 define('OOS_VERSION', '2.0.33 -dev');
 
