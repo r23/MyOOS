@@ -2,9 +2,9 @@
 Contributors: takayukister
 Donate link: http://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
-Requires at least: 4.1
-Tested up to: 4.3
-Stable tag: 4.2.2
+Requires at least: 4.2
+Tested up to: 4.3.1
+Stable tag: 4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,7 +27,6 @@ It is hard to continue development and support for this free plugin without cont
 The following are other recommended plugins by the author of Contact Form 7.
 
 * [Flamingo](http://wordpress.org/extend/plugins/flamingo/) - With Flamingo, you can save submitted messages via contact forms in the database.
-* [Really Simple CAPTCHA](http://wordpress.org/extend/plugins/really-simple-captcha/) - Really Simple CAPTCHA is a simple CAPTCHA module which works well with Contact Form 7.
 * [Bogo](http://wordpress.org/extend/plugins/bogo/) - Bogo is a straight-forward multilingual plugin that doesn't cause headaches.
 
 = Translators =
@@ -46,9 +45,9 @@ The following are other recommended plugins by the author of Contact Form 7.
 * Central Kurdish (ckb) - Mahr Hassan
 * Chinese (China; zh_CN) - Soz, Keefe Dunn, Stella Hu
 * Chinese (Taiwan; zh_TW) - James Wu
-* Croatian (hr) - tolingo Translation Services, Marko Puskaric
+* Croatian (hr) - tolingo Translation Services, Marko Puskaric, Sanjin Barac
 * Czech (cs_CZ) - Korry, Radovan Fiser, Tomas Vesely, Pavel Bilek, Vladislav Šenk
-* Danish (da_DK) - Jens Griebel, Georg S. Adamsen
+* Danish (da_DK) - Jens Griebel, Georg S. Adamsen, Thomas Blomberg Hansen
 * Dutch (nl_NL) - Chris Devriese, Martin Hein, Rene, TenSheep, Tim de Hoog, Henk Buma
 * Esperanto (eo_EO) - Arkadiusz Zychewicz
 * Estonian (et) - Peeter Rahuvarm, Egon Elbre, Tanel Jüris
@@ -76,7 +75,7 @@ The following are other recommended plugins by the author of Contact Form 7.
 * Malayalam (ml_IN) - RAHUL.S.A
 * Maltese (mt_MT) - Ajoft Technologies
 * Norwegian (nb_NO) - Kjetil M. Bergem, aanvik.net, Peter Holme
-* Persian (Farsi; fa_IR) - Mohammad Musavi, Mohsen Firoozmandan, Ghaem Omidi
+* Persian (Farsi; fa_IR) - Mohammad Musavi, Mohsen Firoozmandan, Ghaem Omidi, Ehsan Np
 * Polish (pl_PL) - Zbigniew Czernik, Daniel Fruzynski, RafalDesign, Bartosz Arendt
 * Portuguese (Brazil; pt_BR) - Leonardo Pinheiro, Henrique Vianna, Caciano Gabriel Batista, Gervásio Antônio, Gilvanilson Santos
 * Portuguese (Portugal; pt_PT) - Hugo Baeta, Pedro Nave, Pedro Mendonça
@@ -124,6 +123,12 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 == Changelog ==
 
 For more information, see [Releases](http://contactform7.com/category/releases/).
+
+= 4.3 =
+
+* reCAPTCHA module has been introduced.
+* Translations for Croatian, Danish, Persian, and Swedish have been updated.
+* WordPress 4.2 or higher is required.
 
 = 4.2.2 =
 

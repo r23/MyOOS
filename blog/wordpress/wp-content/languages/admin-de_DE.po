@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-09-08 13:22:20+0000\n"
+"PO-Revision-Date: 2015-09-17 08:26:37+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,10 +27,6 @@ msgstr "Taxonomie-Roadmap"
 msgid "Template Hierarchy"
 msgstr "Template-Hierarchie"
 
-#: wp-admin/about.php:101 wp-admin/credits.php:83 wp-admin/freedoms.php:22
-msgid "Thank you for updating! WordPress %s makes it even easier to format your content and customize your site."
-msgstr "Danke für's Aktualisieren! WordPress %s macht es jetzt noch einfacher, deinen Inhalt zu formatieren und deine Website individuell zu gestalten."
-
 #: wp-admin/about.php:84
 msgid "Terms shared across multiple taxonomies are now split into separate terms."
 msgstr "Terme, die über verschiedene Taxonomien gleichzeitig genutzt wurden, sind jetzt in unterschiedliche Terme geteilt worden."
@@ -38,6 +34,10 @@ msgstr "Terme, die über verschiedene Taxonomien gleichzeitig genutzt wurden, si
 #: wp-admin/about.php:77
 msgid "Wherever you are on the front-end, you can click the customize link in the toolbar to swiftly make changes to your site."
 msgstr "Wo immer du im Frontend bist, kannst du in der Toolbar den Link zum Customizer klicken um Änderungen an deiner Website vorzunehmen."
+
+#: wp-admin/about.php:101 wp-admin/credits.php:83 wp-admin/freedoms.php:22
+msgid "Thank you for updating! WordPress %s makes it even easier to format your content and customize your site."
+msgstr "Danke fürs Aktualisieren! WordPress %s macht es jetzt noch einfacher, deinen Inhalt zu formatieren und deine Website individuell zu gestalten."
 
 #: wp-admin/about.php:72
 msgid "All new pages that you create will have comments turned off. Keep discussions to your blog, right where they&#8217;re supposed to happen."
@@ -4165,7 +4165,7 @@ msgid "Show Toolbar when viewing site"
 msgstr "Werkzeugleiste für mich auf der Website anzeigen"
 
 #. translators: 1: WordPress version number, 2: plural number of bugs.
-#: wp-admin/about.php:197
+#: wp-admin/about.php:205
 msgid "<strong>Version %1$s</strong> addressed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> hat %2$s Fehler behoben."
@@ -4173,7 +4173,7 @@ msgstr[1] "<strong>Version %1$s</strong> hat %2$s Fehler behoben."
 
 #. translators: 1: WordPress version number, 2: plural number of bugs. Singular
 #. security issue.
-#: wp-admin/about.php:201
+#: wp-admin/about.php:209
 msgid "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> behob eine Sicherheitslücke sowie %2$s Fehler."
@@ -4181,13 +4181,13 @@ msgstr[1] "<strong>Version %1$s</strong> behob eine Sicherheitslücke sowie %2$s
 
 #. translators: 1: WordPress version number, 2: plural number of bugs. More
 #. than one security issue.
-#: wp-admin/about.php:205
+#: wp-admin/about.php:112 wp-admin/about.php:213
 msgid "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> behob Sicherheitslücken sowie %2$s Fehler."
 msgstr[1] "<strong>Version %1$s</strong> behob Sicherheitslücken sowie %2$s Fehler."
 
-#: wp-admin/about.php:208
+#: wp-admin/about.php:114 wp-admin/about.php:216
 msgid "For more information, see <a href=\"%s\">the release notes</a>."
 msgstr "Weitere Informationen findest du in den <a href=\"%s\">Veröffentlichtungsmitteilungen</a>."
 
@@ -4195,7 +4195,7 @@ msgstr "Weitere Informationen findest du in den <a href=\"%s\">Veröffentlichtun
 msgid "Welcome to your WordPress Dashboard! This is the screen you will see when you log in to your site, and gives you access to all the site management features of WordPress. You can get help for any screen by clicking the Help tab in the upper corner."
 msgstr "Willkommen in deinem WordPress Dashboard! Diese Seite wird immer angezeigt, wenn Du Dich anmeldest und gibt Dir den Zugang zu allen Einstellungsmöglichkeiten von WordPress. Hilfe bekommst Du auf jeder Seite, indem Du auf die Registerkarte \"Hilfe\" in der oberen rechten Ecke klickst."
 
-#: wp-admin/about.php:188
+#: wp-admin/about.php:196
 msgid "Maintenance Release"
 msgid_plural "Maintenance Releases"
 msgstr[0] "Wartungs-Update"
@@ -4205,20 +4205,20 @@ msgstr[1] "Wartungs-Updates"
 msgid "What&#8217;s New"
 msgstr "Was gibt's Neues"
 
-#: wp-admin/about.php:189
+#: wp-admin/about.php:197
 msgid "Security Release"
 msgid_plural "Security Releases"
 msgstr[0] "Sicherheitsupdate"
 msgstr[1] "Sicherheitsupdates"
 
-#: wp-admin/about.php:190
+#: wp-admin/about.php:111 wp-admin/about.php:198
 msgid "Maintenance and Security Release"
 msgid_plural "Maintenance and Security Releases"
 msgstr[0] "Wartungs- und Sicherheitsupdate"
 msgstr[1] "Wartungs- und Sicherheitsupdates"
 
 #. translators: 1: WordPress version number.
-#: wp-admin/about.php:193
+#: wp-admin/about.php:201
 msgid "<strong>Version %1$s</strong> addressed a security issue."
 msgid_plural "<strong>Version %1$s</strong> addressed some security issues."
 msgstr[0] "<strong>Version %1$s</strong> hat eine Sicherheitslücke behoben."
@@ -4228,7 +4228,7 @@ msgstr[1] "<strong>Version %1$s</strong> hat ein paar Sicherheitslücken behoben
 msgid "This screen allows you to choose your default permalink structure. You can choose from common settings or create custom URL structures."
 msgstr "Auf dieser Seite kannst du deine gewünschte Permalinkstruktur einstellen. Du kannst entweder aus üblichen Vorlagen wählen oder eine eigene Struktur definieren."
 
-#: wp-admin/about.php:173
+#: wp-admin/about.php:181
 msgid "Return to Updates"
 msgstr "Zurück zu Aktualisierungen"
 
@@ -4534,11 +4534,11 @@ msgstr "Das direkte Einbinden von wp-admin/includes/template.php um add_meta_box
 msgid "Welcome to WordPress %s"
 msgstr "Willkommen bei WordPress %s"
 
-#: wp-admin/about.php:176
+#: wp-admin/about.php:184
 msgid "Go to Dashboard &rarr; Home"
 msgstr "Zum Dashboard &rarr; Home"
 
-#: wp-admin/about.php:173
+#: wp-admin/about.php:181
 msgid "Return to Dashboard &rarr; Updates"
 msgstr "Zum Dashboard  &rarr; Aktualisierungen zurückkehren"
 
@@ -4550,7 +4550,7 @@ msgstr "WordPress wird von einem weltumspannenden Team passionierter Leute entwi
 msgid "Core Developers"
 msgstr "Entwickler"
 
-#: wp-admin/about.php:159
+#: wp-admin/about.php:167
 msgid "Under the Hood"
 msgstr "Unter der Haube"
 
@@ -6771,7 +6771,7 @@ msgstr "Die Sommerzeit beginnt am: <code>%s</code>."
 msgid "This timezone does not observe daylight saving time."
 msgstr "In dieser Zeitzone gibt es keine Sommerzeit."
 
-#: wp-admin/about.php:176
+#: wp-admin/about.php:184
 msgid "Go to Dashboard"
 msgstr "Zum Dashboard"
 
