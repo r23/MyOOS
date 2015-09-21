@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Network Admin package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-09-04 18:46:16+0000\n"
+"PO-Revision-Date: 2015-09-19 16:06:28+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -36,11 +36,11 @@ msgstr "Du bist dabei, den Spam-Status der Website %s zu entfernen."
 
 #: wp-admin/network/sites.php:60
 msgid "You are about to archive the site %s."
-msgstr "Du bist gerade dabei, die Website %s zu archivieren."
+msgstr "Du bist dabei, die Website %s zu archivieren."
 
 #: wp-admin/network/sites.php:59
 msgid "You are about to unarchive the site %s."
-msgstr "Du bist gerade dabei, die Website %s wieder zu aktivieren."
+msgstr "Du bist dabei, die Website %s wieder zu aktivieren."
 
 #: wp-admin/network/sites.php:58
 msgid "You are about to deactivate the site %s"

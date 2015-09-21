@@ -1,14 +1,14 @@
-# Translation of Development in German
-# This file is distributed under the same license as the Development package.
+# Translation of 4.3.x in German
+# This file is distributed under the same license as the 4.3.x package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-09-08 08:57:09+0000\n"
+"PO-Revision-Date: 2015-09-19 16:05:50+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/1.0-alpha-1100\n"
-"Project-Id-Version: Development\n"
+"Project-Id-Version: 4.3.x\n"
 
 #. translators: 'rtl' or 'ltr'. This sets the text direction for WordPress.
 #: wp-includes/locale.php:185
@@ -22,7 +22,7 @@ msgstr "Suchergebnisse löschen"
 
 #: wp-includes/class-wp-editor.php:1058
 msgid "The following formatting shortcuts are replaced when pressing Enter. Press Escape or the Undo button to undo."
-msgstr "Die folgenden Formatier-Shortcuts werden nach dem Drücken der Enter-Taste ersetzt. Drücken der Escape-Taste oder des Undo-Button setzt es wieder zurück."
+msgstr "Die folgenden Formatier-Shortcuts werden nach dem Drücken der Enter-Taste ersetzt. Drücken der Escape-Taste oder des Undo-Buttons setzt sie wieder zurück."
 
 #. translators: %s: Title of a section with menu items
 #: wp-includes/class-wp-customize-nav-menus.php:768
@@ -90,7 +90,7 @@ msgstr "Keine Einträge"
 
 #: wp-includes/class-wp-customize-control.php:1932
 msgid "Menu options"
-msgstr "Menü Optionen"
+msgstr "Menü-Optionen"
 
 #: wp-login.php:762
 msgid "Registration confirmation will be e-mailed to you."
@@ -163,11 +163,7 @@ msgstr "Zum Menü hinzufügen: %1$s (%2$s)"
 
 #: wp-includes/class-wp-editor.php:1056
 msgid "When starting a new paragraph with one of these formatting shortcuts followed by a space, the formatting will be applied automatically. Press Backspace or Escape to undo."
-msgstr "Wenn ein neuer Absatz nach einem dieser Muster, gefolgt von einem Leerzeichen, anfängt, wird die Formatierung automatisch eingefügt. Drücken Sie bitte die Löschen-Taste oder Escape, um das rückgängig zu machen."
-
-#: wp-includes/wp-db.php:1299 wp-includes/wp-db.php:1316
-msgid "WordPress database error:"
-msgstr "WordPress Datenbank-Fehler:"
+msgstr "Wenn ein neuer Absatz nach einem dieser Muster, gefolgt von einem Leerzeichen, anfängt, wird die Formatierung automatisch eingefügt. Drücke bitte die Löschen- oder die Escape-Taste, um das rückgängig zu machen."
 
 #: wp-login.php:532
 msgid "Your password reset link appears to be invalid. Please request a new link below."
@@ -177,6 +173,10 @@ msgstr "Dein Link zum Zurücksetzen des Passworts scheint ungültig zu sein. Bit
 msgid "Your password reset link has expired. Please request a new link below."
 msgstr "Dein Link zum Zurücksetzen des Passworts ist abgelaufen. Bitte fordere nachstehend einen neuen Link an."
 
+#: wp-includes/wp-db.php:1299 wp-includes/wp-db.php:1316
+msgid "WordPress database error:"
+msgstr "WordPress-Datenbank-Fehler:"
+
 #: wp-includes/ms-functions.php:498
 msgid "Username may not be longer than 60 characters."
 msgstr "Der Benutzername darf nicht länger als 60 Zeichen sein."
@@ -185,17 +185,9 @@ msgstr "Der Benutzername darf nicht länger als 60 Zeichen sein."
 msgid "To set your password, visit the following address:"
 msgstr "Unter der folgenden Adresse kannst du dein Passwort festlegen:"
 
-#: wp-includes/class-wp-customize-nav-menus.php:455
-msgid "Menus can be displayed in locations defined by your theme or in <a href=\"%s\">widget areas</a> by adding a &#8220;Custom Menu&#8221; widget."
-msgstr "Menüs können in Bereichen angezeigt werden, die in deinem Theme festgelegt wurden oder in den <a href=\"%s\">Widget-Bereichen</a> durch Hinzufügen des &#8220;Individuelles Menü&#8221; Widgets."
-
 #: wp-includes/functions.php:3457
 msgid "The called constructor method for %1$s is <strong>deprecated</strong> since version %2$s! Use %3$s instead."
 msgstr "Die verwendete Konstruktoren-Methode für %1$s ist seit Version %2$s <strong>veraltet</strong>! Verwende stattdessen %3$s."
-
-#: wp-includes/class-wp-customize-control.php:1581
-msgid "When in reorder mode, additional controls to reorder menu items will be available in the items list above."
-msgstr "Wird der Sortiermodus aufgerufen, stehen in der obigen Liste zusätzlichen Bedienelemente zur Sortierung der Menüeinträge zur Verfügung."
 
 #: wp-includes/class-wp-customize-nav-menus.php:457
 msgid "Menus can be displayed in locations defined by your theme."
@@ -252,6 +244,14 @@ msgstr "Menüeinträge neu anordnen"
 #: wp-includes/class-wp-customize-section.php:427
 msgid "Active theme"
 msgstr "Aktives Theme"
+
+#: wp-includes/class-wp-customize-control.php:1581
+msgid "When in reorder mode, additional controls to reorder menu items will be available in the items list above."
+msgstr "Wird der Sortiermodus aufgerufen, stehen in der obigen Liste zusätzliche Bedienelemente zur Sortierung der Menüeinträge zur Verfügung."
+
+#: wp-includes/class-wp-customize-nav-menus.php:455
+msgid "Menus can be displayed in locations defined by your theme or in <a href=\"%s\">widget areas</a> by adding a &#8220;Custom Menu&#8221; widget."
+msgstr "Menüs können in Bereichen angezeigt werden, die in deinem Theme festgelegt wurden oder in den <a href=\"%s\">Widget-Bereichen</a> durch Hinzufügen des &#8220;Individuelles Menü&#8221;-Widgets."
 
 #: wp-includes/user.php:2272
 msgid "[%s] Notice of Email Change"
