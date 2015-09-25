@@ -4,7 +4,7 @@ Donate link: https://app.etapestry.com/hosted/BoweryResidentsCommittee/OnlineDon
 Tags: Responsive, Images, Responsive Images, SRCSET, Picturefill
 Requires at least: 4.1
 Tested up to: 4.3
-Stable tag: 2.4.0
+Stable tag: 2.5.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -25,6 +25,14 @@ This plugin works by including all available image sizes for each image upload. 
 3. If you'd like to enable the advanced image compression feature, Please see the instructions at https://github.com/ResponsiveImagesCG/wp-tevko-responsive-images/tree/dev#advanced-image-compression
 
 == Changelog ==
+
+= 2.5.0 =
+* Responsify all post images by adding `srcset` and `sizes` through a display filter.
+* Improve method used to build paths in `tevkori_get_srcset_array()`
+* Adds linthub config files
+* Returns single source arrays in `tevkori_get_srcset_array()`
+* Add tests for PHP7 to our Travis matrix
+* Add test coverage for `tevkori_filter_attachment_image_attributes()` 
 
 = 2.4.0 =
 * Added filter for tevkori_get_sizes, with tests

@@ -2,8 +2,8 @@
 
 Contributors: Braekling
 Requires at least: 4.0
-Tested up to: 4.2.2
-Stable tag: 1.0.3
+Tested up to: 4.2.4
+Stable tag: 1.0.4
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6046779
 Tags: statistics, stats, analytics, piwik, wpmu
 
@@ -17,11 +17,9 @@ To use this plugin you will need your own Piwik instance. If you do not already 
 
 **Requirements:** PHP 5.4 (or higher), WordPress 4.0 (or higher), Piwik 2.9 (or higher; 2.14.1 or higher recommended)
  
-**Languages:** English, Dutch, French, German, Greek, Italian, Portuguese (Brazil). Partially supported: Albanian, Azerbaijani, Belarusian, Chinese (simplified), Lithuanian, Norwegian, Persian, Romanian, Russian, Spanish, Swedish, Turkish, Ukrainian
+**Languages:** English, Dutch, French, German, Greek, Hungarian, Italian, Portuguese (Brazil). Partially supported: Albanian, Azerbaijani, Belarusian, Chinese (simplified),  Hindi, Lithuanian, Luxembourgish, Norwegian, Persian, Romanian, Russian, Spanish, Swedish, Turkish, Ukrainian
 
 **Note:** If you vote "It's broken", please tell me about your problem. It's hard to fix a bug I don't know about! ;-)
-
-*This plugin is not created or provided by the Piwik project team.*
 
 = Shortcodes =
 You can use following shortcodes if activated:
@@ -41,7 +39,7 @@ is equal to *[wp-piwik module="overview" title="" period="day" date="yesterday"]
 = Credits =
 
 * Graphs powered by [jqPlot](http://www.jqplot.com/) (GPL 2.0 and MIT) and  and [jQuery Sparklines](http://omnipotent.net/jquery.sparkline/) (New BSD License).
-* Donations: Marco L., Rolf W., Tobias U., Lars K., Donna F., Kevin D., Ramos S., Thomas M., John C., Andreas G., Ben M., Myra R. I., Carlos U. R.-S., Oleg I., M. N., Daniel K., James L., Jochen K., Cyril P., Thomas K., the Piwik team itself, and all people flattering this.
+* Donations: Marco L., Rolf W., Tobias U., Lars K., Donna F., Kevin D., Ramos S., Thomas M., John C., Andreas G., Ben M., Myra R. I., Carlos U. R.-S., Oleg I., M. N., Daniel K., James L., Jochen K., Cyril P., Thomas K., Patrik K., Zach, Sebastian W., the Piwik team itself, and all people flattering this.
 * All users who send me mails containing criticism, commendation, feature requests and bug reports - you help me to make WP-Piwik much better!
 
 Thank you all!
@@ -121,6 +119,14 @@ Add WP-Piwik to your /wp-content/plugins folder and enable it as [Network Plugin
 After several changes related to Piwik 2.14.1 and to prepare Piwik 3, I recommend to create a backup of your current system before updating Piwik and/or WP-Piwik. If you want to upgrade WP-Piwik from 0.8.x, please install 0.9.9.18 first: https://downloads.wordpress.org/plugin/wp-piwik.0.9.9.18.zip
 
 == Changelog ==
+
+= 1.0.4 =
+* Several language updates.
+* Feature: Offer setDownloadExtensions option (see expert settings).
+* Feature: Consider configured HHTP connection method in proxy script.
+* Widget: Visitor country added.
+* Bugfix: Annotations on scheduled posts will work.
+* Bugfix: Donation button will work again.
 
 = 1.0.3 =
 * Several language updates.
