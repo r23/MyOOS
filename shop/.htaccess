@@ -85,7 +85,7 @@
 # Customize what Apache returns to the client in case of an error.
 # https://httpd.apache.org/docs/current/mod/core.html#errordocument
 
-# ErrorDocument 404 /404.html
+ErrorDocument 404 /404.html
 
 # ----------------------------------------------------------------------
 # | Error prevention                                                   |
@@ -585,7 +585,25 @@ AddDefaultCharset utf-8
 #     Header always set Strict-Transport-Security "max-age=16070400; includeSubDomains"
 # </IfModule>
 
+# ----------------------------------------------------------------------
+# | Reducing MIME type security risks                                  |
+# ----------------------------------------------------------------------
 
+# Prevent some browsers from MIME-sniffing the response.
+#
+# This reduces exposure to drive-by download attacks and cross-origin
+# data leaks, and should be left uncommented, especially if the server
+# is serving user-uploaded content or content that could potentially be
+# treated as executable by the browser.
+#
+# http://www.slideshare.net/hasegawayosuke/owasp-hasegawa
+# http://blogs.msdn.com/b/ie/archive/2008/07/02/ie8-security-part-v-comprehensive-protection.aspx
+# https://msdn.microsoft.com/en-us/library/ie/gg622941.aspx
+# https://mimesniff.spec.whatwg.org/
+
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>
 
 # ----------------------------------------------------------------------
 # | Reflected Cross-Site Scripting (XSS) attacks                       |
@@ -964,284 +982,3 @@ FileETag None
 #     RewriteCond %{REQUEST_FILENAME} !-f
 #     RewriteRule ^(.+)\.(\d+)\.(bmp|css|cur|gif|ico|jpe?g|js|png|svgz?|webp|webmanifest)$ $1.$3 [L]
 # </IfModule>
-
-
-# ----------------------------------------------------------------------
-# A little more security
-# ----------------------------------------------------------------------
-
-
-# Do we want to advertise the exact version number of Apache we're running?
-# Probably not.
-## This can only be enabled if used in httpd.conf - It will not work in .htaccess
-# ServerTokens Prod
-
-
-# "-Indexes" will have Apache block users from browsing folders without a default document
-# Usually you should leave this activated, because you shouldn't allow everybody to surf through
-# every folder on your server (which includes rather private places like CMS system folders).
-Options -Indexes
-
-
-# Block access to "hidden" directories whose names begin with a period. This
-# includes directories used by version control systems such as Subversion or Git.
-<IfModule mod_rewrite.c>
-  RewriteRule "(^|/)\." - [F]
-</IfModule>
-
-
-# If your server is not already configured as such, the following directive
-# should be uncommented in order to set PHP's register_globals option to OFF.
-# This closes a major security hole that is abused by most XSS (cross-site
-# scripting) attacks. For more information: http://php.net/register_globals
-#
-# IF REGISTER_GLOBALS DIRECTIVE CAUSES 500 INTERNAL SERVER ERRORS :
-#
-# Your server does not allow PHP directives to be set via .htaccess. In that
-# case you must make this change in your php.ini file instead. If you are
-# using a commercial web host, contact the administrators for assistance in
-# doing this. Not all servers allow local php.ini files, and they should
-# include all PHP configurations (not just this one), or you will effectively
-# reset everything to PHP defaults. Consult www.php.net for more detailed
-# information about setting PHP directives.
-
-# php_flag register_globals Off
-
-# Rename session cookie to something else, than PHPSESSID
-# php_value session.name sid
-
-# Do not show you are using PHP
-# Note: Move this line to php.ini since it won't work in .htaccess
-# php_flag expose_php Off
-
-# Level of log detail - log all errors
-# php_value error_reporting -1
-
-# Write errors to log file
-# php_flag log_errors On
-
-# Do not display errors in browser (production - Off, development - On)
-# php_flag display_errors Off
-
-# Do not display startup errors (production - Off, development - On)
-# php_flag display_startup_errors Off
-
-# Format errors in plain text
-# Note: Leave this setting 'On' for xdebug's var_dump() output
-# php_flag html_errors Off
-
-# Show multiple occurrence of error
-# php_flag ignore_repeated_errors Off
-
-# Show same errors from different sources
-# php_flag ignore_repeated_source Off
-
-# Size limit for error messages
-# php_value log_errors_max_len 1024
-
-# Don't precede error with string (doesn't accept empty string, use whitespace if you need)
-# php_value error_prepend_string " "
-
-# Don't prepend to error (doesn't accept empty string, use whitespace if you need)
-# php_value error_append_string " "
-
-# Increase cookie security
-<IfModule php5_module>
-	php_value session.cookie_httponly true
-</IfModule>
-
-
-# Protect files and directories from prying eyes.
-<FilesMatch "\.(engine|inc|info|install|make|module|profile|test|po|sh|.*sql|theme|tpl(\.php)?|xtmpl)(~|\.sw[op]|\.bak|\.orig|\.save)?$|^(\..*|Entries.*|Repository|Root|Tag|Template)$|^#.*#$|\.php(~|\.sw[op]|\.bak|\.orig\.save)$">
-	<IfModule mod_authz_core.c>
-		Require all denied
-	</IfModule>
-	<IfModule !mod_authz_core.c>
-		Order allow,deny
-		Deny from all
-	</IfModule> 
-</FilesMatch>
-
-# Protect file 
-<files .htaccess>
-	<IfModule mod_authz_core.c>
-		Require all denied
-	</IfModule>
-	<IfModule !mod_authz_core.c>
-		Order allow,deny
-		Deny from all
-	</IfModule>
-</files>
-<files readme.html>
-	<IfModule mod_authz_core.c>
-		Require all denied
-	</IfModule>
-	<IfModule !mod_authz_core.c>
-		Order allow,deny
-		Deny from all
-	</IfModule>
-</files>
-<files readme.txt>
-	<IfModule mod_authz_core.c>
-		Require all denied
-	</IfModule>
-	<IfModule !mod_authz_core.c>
-		Order allow,deny
-		Deny from all
-	</IfModule>
-</files>
-<files install.php>
-	<IfModule mod_authz_core.c>
-		Require all denied
-	</IfModule>
-	<IfModule !mod_authz_core.c>
-		Order allow,deny
-		Deny from all
-	</IfModule>
-</files>
-<files wp-config.php>
-	<IfModule mod_authz_core.c>
-		Require all denied
-	</IfModule>
-	<IfModule !mod_authz_core.c>
-		Order allow,deny
-		Deny from all
-	</IfModule>
-</files>
-
-#<Files xmlrpc.php>
-#    Order Deny,Allow
-#    Deny from all
-#</Files>
-
-#<IfModule mod_setenvif.c>
-#    <Files xmlrpc.php>
-#        BrowserMatch "Poster" allowed
-#        BrowserMatch "WordPress" allowed
-#        BrowserMatch "Windows Live Writer" allowed
-#        BrowserMatch "wp-iphone" allowed
-#        BrowserMatch "wp-android" allowed
-#        BrowserMatch "wp-windowsphone" allowed
-#
-#        Order Deny,Allow
-#        Deny from All
-#        Allow from env=allowed
-#    </Files>
-#</IfModule>
-
-
-
-# ----------------------------------------------------------------------
-# | Reducing MIME type security risks                                  |
-# ----------------------------------------------------------------------
-
-# Prevent some browsers from MIME-sniffing the response.
-#
-# This reduces exposure to drive-by download attacks and cross-origin
-# data leaks, and should be left uncommented, especially if the server
-# is serving user-uploaded content or content that could potentially be
-# treated as executable by the browser.
-#
-# http://www.slideshare.net/hasegawayosuke/owasp-hasegawa
-# http://blogs.msdn.com/b/ie/archive/2008/07/02/ie8-security-part-v-comprehensive-protection.aspx
-# https://msdn.microsoft.com/en-us/library/ie/gg622941.aspx
-# https://mimesniff.spec.whatwg.org/
-#
-# https://github.com/blueimp/jQuery-File-Upload/wiki/Security
-
-# ForceType application/octet-stream
-# Header set Content-Disposition attachment
-<IfModule mod_headers.c>
-     <FilesMatch "(?i)\.(gif|jpe?g|png)$">
-       ForceType none
-       Header unset Content-Disposition
-     </FilesMatch>
-     Header set X-Content-Type-Options nosniff
-</IfModule>
-
-<IfModule mod_rewrite.c>
-	RewriteEngine On
-	RewriteBase /
-	RewriteRule ^sitemap_index\.xml$ /index.php?sitemap=1 [L]
-	RewriteRule ^([^/]+?)-sitemap([0-9]+)?.xml$ /index.php?sitemap=$1&sitemap_n=$2 [L]
-</IfModule>
-
-<IfModule mod_rewrite.c>
-	RewriteEngine On
-
-	# Rules to protect wp-includes
-	RewriteRule ^wp-admin/includes/ - [F]
-	RewriteRule !^wp-includes/ - [S=3]
-	RewriteCond %{SCRIPT_FILENAME} !^(.*)wp-includes/ms-files.php
-	RewriteRule ^wp-includes/[^/]+\.php$ - [F]
-	RewriteRule ^wp-includes/js/tinymce/langs/.+\.php - [F]
-	RewriteRule ^wp-includes/theme-compat/ - [F]
-	
-	# Rules to prevent php execution in uploads
-	RewriteRule ^wp\-content/uploads/.*\.(?:php[1-6]?|pht|phtml?)$ - [NC,F]
-		
-	# Rules to block unneeded HTTP methods
-	RewriteCond %{REQUEST_METHOD} ^(TRACE|DELETE|TRACK) [NC]
-	RewriteRule ^(.*)$ - [F]
-		
-	# Rules to block suspicious URIs
-	RewriteCond %{QUERY_STRING} \.\.\/ [NC,OR]
-	RewriteCond %{QUERY_STRING} ^.*\.(bash|git|hg|log|svn|swp|cvs) [NC,OR]
-	RewriteCond %{QUERY_STRING} etc/passwd [NC,OR]
-	RewriteCond %{QUERY_STRING} boot\.ini [NC,OR]
-	RewriteCond %{QUERY_STRING} ftp\:  [NC,OR]
-	RewriteCond %{QUERY_STRING} http\:  [NC,OR]
-	RewriteCond %{QUERY_STRING} https\:  [NC,OR]
-	RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
-	RewriteCond %{QUERY_STRING} mosConfig_[a-zA-Z_]{1,21}(=|%3D) [NC,OR]
-	RewriteCond %{QUERY_STRING} base64_encode.*\(.*\) [NC,OR]
-	RewriteCond %{QUERY_STRING} ^.*(%24&x).* [NC,OR]
-	RewriteCond %{QUERY_STRING} ^.*(127\.0).* [NC,OR]
-	RewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]
-	RewriteCond %{QUERY_STRING} ^.*(request|concat|insert|union|declare).* [NC]
-	RewriteCond %{QUERY_STRING} !^loggedout=true
-	RewriteCond %{QUERY_STRING} !^action=jetpack-sso
-	RewriteCond %{QUERY_STRING} !^action=rp
-	RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$
-	RewriteCond %{HTTP_REFERER} !^http://maps\.googleapis\.com(.*)$
-	RewriteRule ^(.*)$ - [F]
-	
-	RewriteCond %{REQUEST_METHOD} POST
-	RewriteCond %{REQUEST_URI} /wp-comments-post\.php$
-	RewriteCond %{HTTP_USER_AGENT} ^$ [OR]
-	RewriteCond %{HTTP_REFERER} !^https?://(([^/]+\.)?localhost|jetpack\.wordpress\.com/jetpack-comment)(/|$) [NC]
-	RewriteRule ^.* - [F]	
-</IfModule>
-
-
-# BEGINN CACHIFY
-# <IfModule mod_rewrite.c>
-#   RewriteEngine On
- 
-# <IfModule mod_mime.c>
-#   RewriteCond %{REQUEST_URI} /$
-#   RewriteCond %{REQUEST_URI} !^/wp-admin/.*
-#   RewriteCond %{REQUEST_METHOD} !=POST
-#   RewriteCond %{QUERY_STRING} =""
-#   RewriteCond %{HTTP_COOKIE} !(wp-postpass|wordpress_logged_in|comment_author)_
-#   RewriteCond %{HTTP:Accept-Encoding} gzip
-#   RewriteCond %{DOCUMENT_ROOT}/wp-content/cache/cachify/%{HTTP_HOST}%{REQUEST_URI}/index.html.gz -f
-#   RewriteRule ^(.*) /wp-content/cache/cachify/%{HTTP_HOST}/$1/index.html.gz [L]
- 
-#   AddType text/html .gz
-#   AddEncoding gzip .gz
-# </IfModule>	
- 
-#  RewriteCond %{REQUEST_URI} /$
-#  RewriteCond %{REQUEST_URI} !^/wp-admin/.*
-#  RewriteCond %{REQUEST_METHOD} !=POST
-#  RewriteCond %{QUERY_STRING} =""
-#  RewriteCond %{HTTP_COOKIE} !(wp-postpass|wordpress_logged_in|comment_author)_
-#  RewriteCond %{DOCUMENT_ROOT}/wp-content/cache/cachify/%{HTTP_HOST}%{REQUEST_URI}/index.html -f
-#  RewriteRule ^(.*) /wp-content/cache/cachify/%{HTTP_HOST}/$1/index.html [L]
-# </IfModule>
-
-
-# BEGIN WordPress
-
-# END WordPress
