@@ -8,7 +8,7 @@
  * Plugin Name:       RICG Responsive Images
  * Plugin URI:        http://www.smashingmagazine.com/2015/02/24/ricg-responsive-images-for-wordpress/
  * Description:       Bringing automatic default responsive images to wordpress
- * Version:           2.5.0
+ * Version:           2.5.1
  * Author:            The RICG
  * Author URI:        http://responsiveimages.org/
  * License:           GPL-2.0+
@@ -294,6 +294,38 @@ function tevkori_filter_content_images( $content ) {
 	$uploads_dir = wp_upload_dir();
 	$path_to_upload_dir = $uploads_dir['baseurl'];
 
+	preg_match_all( '|<img ([^>]+' . $path_to_upload_dir . '[^>]+)[\s?][\/?]>|i', $content, $matches );
+
+	$images = $matches[0];
+	$ids = array();
+
+	foreach( $images as $image ) {
+		if ( preg_match( '/wp-image-([0-9]+)/i', $image, $class_id ) ) {
+			(int) $id = $class_id[1];
+			if( $id ) {
+				$ids[] = $id;
+			}
+		}
+	}
+
+	if ( 0 < count( $ids ) ) {
+		/**
+		 * Warm object caches for use with wp_get_attachment_metadata.
+		 *
+		 * To avoid making a database call for each image, WP_Query is called
+		 * as a single query with the IDs of all images in the post. This warms
+		 * the object cache with the meta information for all images.
+		 *
+		 * This loop is not used directly.
+		 **/
+		$attachments = new WP_Query(array(
+			'post_type'  => 'attachment',
+			'posts_per_page' => '-1',
+			'post_status' => 'inherit',
+			'post__in' => $ids,
+		));
+	}
+
 	$content = preg_replace_callback(
 		'|<img ([^>]+' . $path_to_upload_dir . '[^>]+)[\s?][\/?]>|i',
 		'_tevkori_filter_content_images_callback',
@@ -342,22 +374,23 @@ function _tevkori_filter_content_images_callback( $image ) {
 	}
 
 	if ( $id && false === $size ) {
-		preg_match( '/width="([0-9]+)"/', $atts, $width );
-		preg_match( '/height="([0-9]+)"/', $atts, $height );
-
-		$size = array(
-			(int) $width[1],
-			(int) $height[1]
-		);
+		if ( preg_match( '/ width="([0-9]+)"/', $atts, $width ) && preg_match( '/ height="([0-9]+)"/', $atts, $height ) ) {
+			$size = array(
+				(int) $width[1],
+				(int) $height[1]
+			);
+		}
 	}
 
 	/*
-	 * If attempts to get values for ID and size failed, use the
-	 * src to query for matching values in '_wp_attachment_metadata'.
+	 * If attempts to parse the size value failed, attempt to use the image
+	 * metadata to match the `src` angainst the available sizes for an attachment.
 	 */
-	if ( false === $id || false === $size ) {
+	if ( ! $size && ! empty( $id ) && $meta = wp_get_attachment_metadata( $id ) ) {
+
 		preg_match( '/src="([^"]+)"/', $atts, $url );
 
+		// Sanity check the `src` value and bail early it doesn't exist.
 		if ( ! $url[1] ) {
 			return $image_html;
 		}
@@ -365,52 +398,20 @@ function _tevkori_filter_content_images_callback( $image ) {
 		$image_filename = basename( $url[1] );
 
 		/*
-		 * If we already have an ID, we use it to get the attachment metadata
-		 * using 'wp_get_attachment_metadata()'. Otherwise, we'll use the image
-		 * 'src' url to query the postmeta table for both the attachement ID and
-		 * metadata, which we'll use later to get the size.
+		 * First, see if the file is the full size image. If not, we loop through
+		 * the intermediate sizes until we find a match.
 		 */
-		if ( ! empty( $id ) ) {
-			$meta = wp_get_attachment_metadata( $id );
+		if ( $image_filename === basename( $meta['file'] ) ) {
+			$size = 'full';
 		} else {
-			global $wpdb;
-			$meta_object = $wpdb->get_row( $wpdb->prepare(
-				"SELECT `post_id`, `meta_value` FROM $wpdb->postmeta WHERE `meta_key` = '_wp_attachment_metadata' AND `meta_value` LIKE %s",
-				'%' . $image_filename . '%'
-			) );
-
-			// If the query is successful, we can determine the ID and size.
-			if ( is_object( $meta_object ) ) {
-				$id = $meta_object->post_id;
-
-				// Unserialize the meta_value returned in our query.
-				$meta = maybe_unserialize( $meta_object->meta_value );
-			} else {
-				$meta = false;
-			}
-		}
-
-		/*
-		 * Now that we have the attachment ID and metadata, we can retrieve the
-		 * size by matching the original image's 'src' filename with the sizes
-		 * included in the attachment metadata.
-		 */
-		if ( $id && $meta ) {
-			/*
-			 * First, see if the file is the full size image. If not, we loop through
-			 * the intermediate sizes until we find a match.
-			 */
-			if ( $image_filename === basename( $meta['file'] ) ) {
-				$size = 'full';
-			} else {
-				foreach( $meta['sizes'] as $image_size => $image_size_data ) {
-					if ( $image_filename === $image_size_data['file'] ) {
-						$size = $image_size;
-						break;
-					}
+			foreach( $meta['sizes'] as $image_size => $image_size_data ) {
+				if ( $image_filename === $image_size_data['file'] ) {
+					$size = $image_size;
+					break;
 				}
 			}
 		}
+
 	}
 
 	// If we have an ID and size, try for 'srcset' and 'sizes' and update the markup.

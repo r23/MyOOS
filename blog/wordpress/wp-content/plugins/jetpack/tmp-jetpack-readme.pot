@@ -1,0 +1,558 @@
+msgid ""
+msgstr "MIME-Version: 1.0\n"
+
+#. Name.
+msgid "Jetpack by WordPress.com"
+msgstr ""
+
+#. Short description.
+msgid "Your WordPress, Streamlined."
+msgstr ""
+
+#. Screenshot description.
+msgid "Stats chart."
+msgstr ""
+
+#. Screenshot description.
+msgid "Sharing buttons."
+msgstr ""
+
+#. Screenshot description.
+msgid "Subscriptions widget."
+msgstr ""
+
+#. Screenshot description.
+msgid "Gravatar Hovercards settings."
+msgstr ""
+
+#. Screenshot description.
+msgid "Spelling and Grammar demo."
+msgstr ""
+
+#. Screenshot description.
+msgid "Gallery Carousel."
+msgstr ""
+
+#. Screenshot description.
+msgid "CSS Editor"
+msgstr ""
+
+#. Screenshot description.
+msgid "Mobile Theme"
+msgstr ""
+
+#. Found in description list item.
+msgid "<strong>Customization.</strong> Make your WordPress site uniquely yours with <em>Custom CSS</em>, <em>Carousels</em>, spam-free <em>Contact Forms</em>, <em>Sidebar Widgets</em>, <em>Infinite Scroll</em>, and <em>Tiled Galleries</em>."
+msgstr ""
+
+#. Found in description list item.
+msgid "<strong>Mobile theme.</strong> Instant and customizable lightweight responsive theme designed for phones and tablets."
+msgstr ""
+
+#. Found in description list item.
+msgid "<strong>Content tools.</strong> Create and publish richer content with <em>Post by Email</em>, <em>Shortcode Embeds</em>, <em>Markdown</em>, <em>Beautiful Math</em>, <em>Spelling</em>, and <em>VideoPress</em>."
+msgstr ""
+
+#. Found in description list item.
+msgid "<strong>Visitor engagement.</strong> Increase your traffic and keep visitors coming back with <em>Enhanced Distribution</em>, spam-free <em>Comments</em>, <em>Shortlinks</em>, <em>Likes</em>, <em>Notifications</em>, <em>Related Posts</em>, <em>Publicize</em>, <em>Social Sharing</em>, <em>Subscriptions</em>, and <em>Site Verification Tools</em>."
+msgstr ""
+
+#. Found in description list item.
+msgid "<strong>Site performance.</strong> Speed up image delivery with the <em>Photon CDN</em> and access to visitor <em>Stats</em>."
+msgstr ""
+
+#. Found in description list item.
+msgid "<strong>Security.</strong> Keep your WordPress site up, safe, and protected with <em>Single Sign On</em>, <em>Jetpack Monitor</em>, and <em>Akismet</em> anti-spam."
+msgstr ""
+
+#. Found in description list item.
+msgid "Simple, concise stats with no additional load on your server."
+msgstr ""
+
+#. Found in description list item.
+msgid "Email subscriptions for your blog's posts and your post's comments."
+msgstr ""
+
+#. Found in description list item.
+msgid "Social networking enabled comment system."
+msgstr ""
+
+#. Found in description list item.
+msgid "Likes, allowing your readers to show their appreciation of your posts."
+msgstr ""
+
+#. Found in description list item.
+msgid "Monitor and manage your site's activity with Notifications."
+msgstr ""
+
+#. Found in description list item.
+msgid "Simple, Akismet-backed contact forms."
+msgstr ""
+
+#. Found in description list item.
+msgid "The WP.me URL shortener."
+msgstr ""
+
+#. Found in description list item.
+msgid "Hovercard popups for your commenters via Gravatar."
+msgstr ""
+
+#. Found in description list item.
+msgid "Easily embedded media from popular sites like YouTube, Digg, and Vimeo."
+msgstr ""
+
+#. Found in description list item.
+msgid "The ability to post to your blog from any email client."
+msgstr ""
+
+#. Found in description list item.
+msgid "Integration with social networks including Twitter, Facebook, Tumblr, Path, and LinkedIn."
+msgstr ""
+
+#. Found in description list item.
+msgid "For the Math geeks, a simple way to include beautiful mathematical expressions."
+msgstr ""
+
+#. Found in description list item.
+msgid "A widget for displaying recent tweets."
+msgstr ""
+
+#. Found in description list item.
+msgid "Your readers can easily share your posts via email or their favorite social networks."
+msgstr ""
+
+#. Found in description list item.
+msgid "Improved writing thanks to an AI-based spell, style, and grammar checker."
+msgstr ""
+
+#. Found in description list item.
+msgid "Turn WordPress  galleries into a gorgeous full-screen photo browsing experience."
+msgstr ""
+
+#. Found in description list item.
+msgid "A CSS editor that lets you customize your site design without modifying your theme."
+msgstr ""
+
+#. Found in description list item.
+msgid "A mobile theme that automatically streamlines your site for visitors on mobile devices."
+msgstr ""
+
+#. Found in description list item.
+msgid "Mobile push notifications for new comments via WordPress mobile apps."
+msgstr ""
+
+#. Found in description list item.
+msgid "Allowing applications to securely authenticate and access your site with your permission."
+msgstr ""
+
+#. Found in description list item.
+msgid "Creative formats for your image galleries: mosaic, circles, squares, and a slideshow view."
+msgstr ""
+
+#. Found in description list item.
+msgid "Add post sliders and other highlights to your theme with Featured Content."
+msgstr ""
+
+#. Found in description list item.
+msgid "Omnisearch: Search posts, pages, comments, media, and plugins from one search box."
+msgstr ""
+
+#. Found in description list item.
+msgid "Configure widgets to appear only on certain pages."
+msgstr ""
+
+#. Found in description list item.
+msgid "Upload and insert videos into your posts thanks to VideoPress."
+msgstr ""
+
+#. Found in description list item.
+msgid "Link WordPress and your Google+ Profile to add multiple Google features to your site."
+msgstr ""
+
+#. Found in description list item.
+msgid "Sign in to your self-hosted WordPress site using your WordPress.com account."
+msgstr ""
+
+#. Found in description list item.
+msgid "Receive alerts the moment that site downtime is detected."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "<a href=\"http://jetpack.me/\">Jetpack</a> adds powerful features previously only available to WordPress.com users including customization, traffic, mobile, content, and performance tools."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "<strong>Features include:</strong>"
+msgstr ""
+
+#. Found in description paragraph.
+msgid "<strong>Our users love:</strong>"
+msgstr ""
+
+#. Found in installation list item.
+msgid "Install Jetpack either via the WordPress.org plugin directory, or by uploading the files to your server."
+msgstr ""
+
+#. Found in installation list item.
+msgid "After activating Jetpack, connect to WordPress.com to enable the Jetpack features."
+msgstr ""
+
+#. Found in installation list item.
+msgid "Click the Connect button and log in to a WordPress.com account to authorize the Jetpack connection."
+msgstr ""
+
+#. Found in installation list item.
+msgid "If you don't yet have a WordPress.com account, you can quickly create one after clicking the Connect button."
+msgstr ""
+
+#. Found in installation list item.
+msgid "That's it.  You're ready to go!"
+msgstr ""
+
+#. Found in installation paragraph.
+msgid "If you need additional help <a href=\"http://jetpack.me/support/installing-jetpack/\">read our detailed instructions, including a video walkthrough</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: REST API: Fixed an error when saving drafts and publishing posts"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: General: Added inline documentation for various filters and functions"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: General: Added custom capabilities for module management on multi-site installs"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: General: Cleaned up old changelog entries from readme"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: General: Cleaned up unused i18n textdomains"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: General: Updated the new settings page to look better in various translations"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: REST API: Added new endpoints to manage users"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: Sharing: Updated the Google logo"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Carousel: Page scroll no longer disappears after closing the carousel"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Contact Form: Fields are sent and displayed in the correct order"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Contact Form: No longer showing a notice on AJAX actions in feedback lists"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Contact Form: Made using more than two notification emails possible"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Contact Form: Mitigate a potential stored XSS vulnerability. Thanks to Marc-Alexandre Montpas (Sucuri)"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: General: Mitigate a potential information disclosure. Thanks to Jaime Delgado Horna"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: General: Fixed a locale error in the notifications popout"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: General: Fixed a possible fatal error in the client area"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: General: Fixed compatibility issues with certain use cases"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: General: Disabled connection warnings for multisites with domain mapping"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: General: Updated translations for correct link display in admin notices"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: REST API: Fixed a fatal error in one of the endpoints"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Sharing: Fixed OpenGraph tags for Instagram embeds"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Sharing: Fixed compatibility issues with bbPress"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Widget Visibility: Fixed a fatal error in case of a missing tag"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "New admin page interface to easily configure Jetpack"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Added staging site support for testing a connected Jetpack site"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: CLI: Added a possibility to change all options with confirmation for some of them"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: Gallery: Added filters to allow new gallery types to be declared"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: General: Added inline documentation for actions, filters, etc."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: General: Changed class variable declarations keyword from var to public"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: General: Made the Settings page module toggle buttons more accessible"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: General: The admin bar now loads new notifications popout"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: General: Renamed some modules to avoid redundant prefixes"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: General: Switched to the WordPress Core's spinner image"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: General: Updated the bot list"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: Manage: Added the ability to activate a network-wide plugin on a single site from WordPress.com"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: Photon: Added a way to check image URLs against custom domains"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: Photon: Added prompts on the media upload page telling the user about Photon"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: Publicize: Added width and height values to OpenGraph tags for default images"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: Related Posts: Added a filter to allow disabling nofollow"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: REST API: Added new API endpoints to extend API functionality"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: REST API: Added new fields to existing API endpoints"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: Sharing: Added a possibility to opt-out of sharing for a single post"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: Sharing: Added bbPress support"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: Sharing: Added more configuration to the Likes modal"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: Sharing: Made the reddit button open a new tab"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: Sharing: Removed unused files"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: Shortcodes: Added auto embed option inside comments"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: Shortcodes: Added autohide parameter to the YouTube shortcode"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: Subscriptions: added an action that triggers at the end of the subscription process"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: VideoPress: Videos are now embedded using a new player"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: Widget Visibility: Added parent page logic"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: Widget Visibility: Added support for split terms"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: Widgets: Added actions to the Social Media widget"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Enhancement: Widgets: Switched the Display Posts widget to the new API version"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: General: Fixed scrolling to top after modal window closing"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Infinite Scroll: Added a check for cases when output buffering is disabled"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Infinite Scroll: Added translation to the copyright message"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Manage: Fixed automatic update synchronization on WordPress multisite network admin"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Manage: Redirects back to WordPress.com are allowed from the customizer view"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Media: Fixed duplicate images bug in the Media Extractor"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Publicize: Made it possible to remove previously set message"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Sharing: Added a thumbnail image to OpenGraph tags on pages with DailyMotion embeds"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Sharing: Fixed Twitter Cards tags escaping"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Sharing: Made OpenGraph tags for title and description use proper punctuation"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Sharing: Made sure Likes can be disabled on the front page"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Shortcodes: Fixed Facebook embeds by placing the scipt in the footer"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Shortcodes: Fixed PollDaddy shortcode issues over SSL connections"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Shortcodes: Made responsive video wrappers only wrap video embeds"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Shortcodes: Made SoundCloud accept percents for dimensions"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Social Links: Fixed a possible conflict with another class"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug Fix: Stats: Made sure the Stats URL is always escaped properly"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Release date: September 29th, 2015"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Release date: September 28th, 2015"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Release date: September 9th, 2015"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Feature Enhancements:"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Additional changes:"
+msgstr ""
+
+#. Found in faq header.
+msgid "I already have a WordPress account, but it's not working, what's going on?"
+msgstr ""
+
+#. Found in faq header.
+msgid "How do I view my stats?"
+msgstr ""
+
+#. Found in faq header.
+msgid "How do I contribute to Jetpack?"
+msgstr ""
+
+#. Found in faq list item.
+msgid "Join our Beta Test group."
+msgstr ""
+
+#. Found in faq list item.
+msgid "Give us a hand answering questions in our <a href=\"http://wordpress.org/support/plugin/jetpack\">support forum</a>."
+msgstr ""
+
+#. Found in faq list item.
+msgid "Report bugs, with reproduction steps, or post patches on <a href=\"https://github.com/Automattic/Jetpack\">GitHub</a>."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "Jetpack requires a connection to <a href=\"http://wordpress.com/\">WordPress.com</a> to enable all features. This is a different account than the one you use to log into your self-hosted WordPress. If you can log into http://wordpress.com, then you already have a WordPress.com account. If you can't, then you can easily create one as part of the installation of Jetpack."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "Once you've installed Jetpack, your stats will be available via the \"Site Stats\" menu which appears in the new Jetpack menu (under your Dashboard menu within WordPress)."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "Easy! There are opportunities for developers at all levels to contribute:"
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "Learn more (and get detailed instructions) in our <a href=\"http://jetpack.me/contribute/\">contribute guide</a>."
+msgstr ""

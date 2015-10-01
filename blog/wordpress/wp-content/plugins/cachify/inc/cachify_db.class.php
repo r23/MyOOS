@@ -133,9 +133,6 @@ final class Cachify_DB {
 
 		/* Löschen */
 		$wpdb->query("DELETE FROM `" .$wpdb->options. "` WHERE `option_name` LIKE ('\_transient%.cachify')");
-
-		/* Optimieren */
-		$wpdb->query("OPTIMIZE TABLE `" .$wpdb->options. "`");
 	}
 
 

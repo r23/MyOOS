@@ -140,16 +140,22 @@ We use a hook because if you attempt to dequeue a script before it's enqueued, w
 
 ## Version
 
-2.5.0
+2.5.1
 
 ## Changelog
+
+- Query all images in single request before replacing
+- Minor fix to prevent a potential undefined variable notice
+- Remove third fallback query from the display filter
+
+**2.5.0**
 
 - Responsify all post images by adding `srcset` and `sizes` through a display filter.
 - Improve method used to build paths in `tevkori_get_srcset_array()`
 - Adds linthub config files
 - Returns single source arrays in `tevkori_get_srcset_array()`
 - Add tests for PHP7 to our Travis matrix
-- Add test coverage for `tevkori_filter_attachment_image_attributes()` 
+- Add test coverage for `tevkori_filter_attachment_image_attributes()`
 
 **2.4.0**
 

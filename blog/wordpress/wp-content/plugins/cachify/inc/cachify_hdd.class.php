@@ -336,19 +336,25 @@ final class Cachify_HDD {
 
 	private static function _file_path($path = NULL)
 	{
-
-		return trailingslashit(
-			sprintf(
-				'%s%s%s%s',
-				CACHIFY_CACHE_DIR,
-				DIRECTORY_SEPARATOR,
-				$_SERVER['HTTP_HOST'],
-				parse_url(
-					( $path ? $path : $_SERVER['REQUEST_URI'] ),
-					PHP_URL_PATH
-				)
+		$path = sprintf(
+			'%s%s%s%s',
+			CACHIFY_CACHE_DIR,
+			DIRECTORY_SEPARATOR,
+			parse_url(
+				'http://' .strtolower($_SERVER['HTTP_HOST']),
+				PHP_URL_HOST
+			),
+			parse_url(
+				( $path ? $path : $_SERVER['REQUEST_URI'] ),
+				PHP_URL_PATH
 			)
 		);
+
+		if ( validate_file($path) > 0 ) {
+			wp_die('Invalide file path.');
+		}
+
+		return trailingslashit($path);
 	}
 
 

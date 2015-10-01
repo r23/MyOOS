@@ -149,6 +149,17 @@ final class Cachify {
 			)
 		);
 
+		/* Flush (post) cache if comment is made from frontend or backend */
+		add_action(
+			'pre_comment_approved',
+			array(
+				__CLASS__,
+				'pre_comment'
+			),
+			99,
+			2
+		);
+
 		/* Backend */
 		if ( is_admin() ) {
 			add_action(
@@ -248,15 +259,6 @@ final class Cachify {
 		/* Frontend */
 		} else {
 			add_action(
-				'pre_comment_approved',
-				array(
-					__CLASS__,
-					'pre_comment'
-				),
-				99,
-				2
-			);
-			add_action(
 				'template_redirect',
 				array(
 					__CLASS__,
@@ -284,7 +286,7 @@ final class Cachify {
 
 	public static function on_deactivation()
 	{
-		self::flush_total_cache();
+		self::flush_total_cache(true);
 	}
 
 
@@ -357,7 +359,7 @@ final class Cachify {
 		);
 
 		/* Flush */
-		self::flush_total_cache();
+		self::flush_total_cache(true);
 	}
 
 
@@ -433,7 +435,7 @@ final class Cachify {
 		delete_option('cachify');
 
 		/* Cache leeren */
-		self::flush_total_cache();
+		self::flush_total_cache(true);
 	}
 
 
@@ -571,7 +573,7 @@ final class Cachify {
 						),
 						admin_url('options-general.php')
 					),
-					__('Settings')
+					__( 'Settings', 'cachify' )
 				)
 			)
 		);
@@ -599,9 +601,7 @@ final class Cachify {
 		return array_merge(
 			$input,
 			array(
-				'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=ZAQUT9RLPW8QN" target="_blank">PayPal</a>',
-				'<a href="https://flattr.com/t/1327625" target="_blank">Flattr</a>',
-				'<a href="https://www.amazon.de/registry/wishlist/2U5I7F9649LOJ/" target="_blank">Wishlist</a>'
+				'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LG5VC9KXMAYXJ" target="_blank">PayPal</a>'
 			)
 		);
 	}
@@ -711,7 +711,7 @@ final class Cachify {
 		$wp_admin_bar->add_menu(
 			array(
 				'id' 	 => 'cachify',
-				'href'   => wp_nonce_url( add_query_arg('_cachify', 'flush'), '_cachify__flush_nonce'),
+				'href'   => wp_nonce_url( add_query_arg('_cachify', 'flush'), '_cachify__flush_nonce'), // esc_url in /wp-includes/class-wp-admin-bar.php#L438
 				'parent' => 'top-secondary',
 				'title'	 => '<span class="ab-icon dashicons"></span>',
 				'meta'   => array( 'title' => esc_html__('Flush the cachify cache', 'cachify') )
@@ -797,7 +797,7 @@ final class Cachify {
 		}
 
 		if ( ! is_admin() ) {
-			wp_redirect(
+			wp_safe_redirect(
 				remove_query_arg(
 					'_cachify',
 					wp_get_referer()
@@ -826,7 +826,7 @@ final class Cachify {
 		}
 
 		echo sprintf(
-			'<div id="message" class="updated"><p><strong>%s</strong></p></div>',
+			'<div class="notice notice-success is-dismissible"><p>%s</p></div>',
 			esc_html__('Cachify cache is flushed.', 'cachify')
 		);
 	}
@@ -972,8 +972,10 @@ final class Cachify {
 			return self::flush_total_cache();
 		}
 
-		/* Security */
-		check_admin_referer(CACHIFY_BASE, '_cachify__status_nonce_' .$post_ID);
+		/* Check nonce */
+		if ( ! isset($_POST['_cachify__status_nonce_' .$post_ID]) OR ! wp_verify_nonce($_POST['_cachify__status_nonce_' .$post_ID], CACHIFY_BASE) ) {
+			return;
+		}
 
 		/* Check user role */
 		if ( ! current_user_can('publish_posts') ) {
@@ -1297,19 +1299,28 @@ final class Cachify {
 	* @change  2.0
 	*/
 
-	public static function flush_total_cache()
+	public static function flush_total_cache($clear_all_methods = false)
 	{
-		/* DB */
-		Cachify_DB::clear_cache();
+		if ( $clear_all_methods ) {
+			/* DB */
+			Cachify_DB::clear_cache();
 
-		/* APC */
-		Cachify_APC::clear_cache();
+			/* APC */
+			Cachify_APC::clear_cache();
 
-		/* HDD */
-		Cachify_HDD::clear_cache();
+			/* HDD */
+			Cachify_HDD::clear_cache();
 
-		/* MEMCACHED */
-		Cachify_MEMCACHED::clear_cache();
+			/* MEMCACHED */
+			Cachify_MEMCACHED::clear_cache();
+		} else {
+			call_user_func(
+				array(
+					self::$method,
+					'clear_cache'
+				)
+			);
+		}
 
 		/* Transient */
 		delete_transient('cachify_cache_size');
@@ -1500,12 +1511,12 @@ final class Cachify {
 	 				<a href="#" class="cancel-cachify-status hide-if-no-js button-cancel">%6$s</a>
 	 			</div>
 			</div>',
-			esc_html__('Remove', 'cachify'),
+			esc_html__( 'Remove', 'cachify' ),
 			$available_options[$current_action],
-			esc_html__('Edit'),
+			esc_html__( 'Edit', 'cachify' ),
 			$dropdown_options,
-			esc_html__('OK'),
-			esc_html__('Cancel')
+			esc_html__( 'OK', 'cachify' ),
+			esc_html__( 'Cancel', 'cachify' )
 		);
 	}
 
@@ -1520,8 +1531,8 @@ final class Cachify {
 	public static function add_page()
 	{
 		add_options_page(
-			'Cachify',
-			'Cachify',
+			__( 'Cachify', 'cachify' ),
+			__( 'Cachify', 'cachify' ),
 			'manage_options',
 			'cachify',
 			array(
@@ -1638,8 +1649,13 @@ final class Cachify {
 
 	public static function validate_options($data)
 	{
+		/* Empty data? */
+		if ( empty($data) ) {
+			return;
+		}
+
 		/* Cache leeren */
-		self::flush_total_cache();
+		self::flush_total_cache(true);
 
 		/* Hinweis */
 		if ( self::$options['use_apc'] != $data['use_apc'] && $data['use_apc'] >= self::METHOD_APC ) {
@@ -1647,7 +1663,7 @@ final class Cachify {
 				'cachify_method_tip',
 				'cachify_method_tip',
 				sprintf(
-					'%s [<a href="http://playground.ebiene.de/cachify-wordpress-cache/" target="_blank">?</a>]',
+					'%s [<a href="https://github.com/pluginkollektiv/cachify/wiki" target="_blank">?</a>]',
 					esc_html__('The server configuration file (e.g. .htaccess) needs to be adjusted', 'cachify')
 				),
 				'updated'
@@ -1785,7 +1801,7 @@ final class Cachify {
 							<?php submit_button() ?>
 						</th>
 						<td>
-							<a href="http://playground.ebiene.de/cachify-wordpress-cache/" target="_blank"><?php esc_html_e('Manual', 'cachify') ?></a> &bull; <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=ZAQUT9RLPW8QN" target="_blank">PayPal</a> &bull; <a href="https://flattr.com/t/1327625" target="_blank">Flattr</a> &bull; <a href="https://www.amazon.de/registry/wishlist/2U5I7F9649LOJ/" target="_blank">Wishlist</a>
+							<a href="https://github.com/pluginkollektiv/cachify/wiki" target="_blank"><?php esc_html_e('Manual', 'cachify') ?></a> &bull; <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LG5VC9KXMAYXJ" target="_blank">PayPal</a>
 						</td>
 					</tr>
 				</table>
