@@ -26,8 +26,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
 if(!defined('MYOOS_INCLUDE_PATH')) {
 	define('MYOOS_INCLUDE_PATH', OOS_ABSOLUTE_PATH);
@@ -39,6 +39,5 @@ if(!defined('MYOOS_INCLUDE_PATH')) {
 
   define('NEW_PRODUCT_PREVIEW', 'false');
 
-  define('IMGSWAP', 'true');
   define('IMGLENS', 'true');
 
