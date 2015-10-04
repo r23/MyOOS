@@ -33,11 +33,7 @@ if(!defined('MYOOS_INCLUDE_PATH')) {
 	define('MYOOS_INCLUDE_PATH', OOS_ABSOLUTE_PATH);
 }
   
-  define('OOS_BASE_PRICE', 'true');
-  
-  define('DECIMAL_CART_QUANTITY', 'false');
-
-  define('NEW_PRODUCT_PREVIEW', 'false');
-
-  define('IMGLENS', 'true');
+define('OOS_BASE_PRICE', 'true');
+define('DECIMAL_CART_QUANTITY', 'false');
+define('NEW_PRODUCT_PREVIEW', 'false');
 

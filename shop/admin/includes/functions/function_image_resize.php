@@ -173,15 +173,6 @@ function oos_resize_image($pic,$image_new,$new_width,$new_height,$fixed=0) {
                imagecopyresampled($tmp_img,$src_img,0,0,0,0,$width_big,$height_big,imagesx($src_img),imagesy($src_img));
                imagecopy($dst_img,$tmp_img,0,0,0,0,$new_width,$new_height);
 
-               if (IMGLENS == 'true') {
-                 $trans = imagecolorallocatealpha($dst_img, 255, 255, 255, 25);
-                 imagefilledrectangle($dst_img, 0, $new_height-9, $new_width, $new_height, $trans);
-
-                 $magnifier = imagecreatefromstring(gzuncompress(base64_decode("eJzrDPBz5+WS4mJgYOD19HAJAtLcIMzBBiRXrilXA1IsxU6eIRxAUMOR0gHkcxZ4RBYD1QiBMOOlu3V/gIISJa4RJc5FqYklmfl5CiGZuakMBoZ6hkZ6RgYGJs77ex2BalRBaoLz00rKE4tSGXwTk4vyc1NTMhMV3DKLUsvzi7KLFXwjFEAa2svWnGdgYPTydHEMqZhTOsE++1CAyNHzm2NZjgau+dAmXlAwoatQmOld3t/NPxlLMvY7sovPzXHf7re05BPzjpQTMkZTPjm1HlHkv6clYWK43Zt16rcDjdZ/3j2cd7qD4/HHH3GaprFrw0QZDHicORXl2JsPsveVTDz//L3N+WpxJ5Hff+10Tjdd2/Vi17vea79Om5w9zzyne9GLnWGrN8atby/ayXPOsu2w4quvVtxNCVVz5nAf3nDpZckBCedpqSc28WTOWnT7rZNXZSlPvFybie9EFc6y3bIMCn3JAoJ+kyyfn9qWq+LZ9Las26Jv482cDRE6Ci0B6gVbo2oj9KabzD8vyMK4ZMqMs2kSvW4chz88SXNzmeGjtj1QZK9M3HHL8L7HITX3t19//VVY8CYDg9Kvy2vDXu+6mGGxNOiltMPsjn/t9eJr0ja/FOdi5TyQ9Lz3fOqstOr99/dnro2vZ1jy76D/vYivPsBoYPB09XNZ55TQBAAJjs5s</body>")));
-                 imagealphablending( $dst_img, true);
-                 imagecopy( $dst_img, $magnifier, $new_width-15, $new_height-14, 0, 0, 11, 11);
-                 imagedestroy($magnifier);
-               }
 
              break;
 
