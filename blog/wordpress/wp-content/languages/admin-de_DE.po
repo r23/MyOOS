@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-09-17 08:26:37+0000\n"
+"PO-Revision-Date: 2015-09-30 07:30:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -9270,10 +9270,6 @@ msgstr "Aktiviere dieses Plugin"
 msgid "Return to Plugins page"
 msgstr "Zurück zur Plugin-Seite"
 
-#: wp-admin/includes/class-wp-upgrader-skins.php:550
-msgid "Successfully installed the plugin <strong>%s %s</strong>."
-msgstr "Das Plugins <strong>%s %s</strong> wurde erfolgreich installiert."
-
 #: wp-admin/includes/class-wp-upgrader-skins.php:576
 msgid "Return to Plugin Installer"
 msgstr "Zurück zur Plugin-Installation"
@@ -10291,6 +10287,10 @@ msgstr "Kommentar unwiderruflich löschen"
 #: wp-admin/includes/nav-menu.php:965
 msgid "Most Used"
 msgstr "Häufig genutzt"
+
+#: wp-admin/includes/class-wp-upgrader-skins.php:550
+msgid "Successfully installed the plugin <strong>%s %s</strong>."
+msgstr "Das Plugin <strong>%s %s</strong> wurde erfolgreich installiert."
 
 #: wp-admin/comment.php:129
 msgid "You are about to move the following comment to the Trash:"

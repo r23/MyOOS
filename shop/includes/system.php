@@ -38,7 +38,7 @@ $smarty->assignByRef("oEvent", $oEvent);
 #  $smarty->register_object("cart", $_SESSION['cart'],array('count_contents', 'get_products'));
 
 // cache_id
-$sCacheID		= $sTheme . '|block|' . $sLanguage;
+$sCacheID			= $sTheme . '|block|' . $sLanguage;
 $sSystemCacheID		= $sTheme . '|block|' . $sLanguage;
 $sCategoriesCacheID	= $sTheme . '|block|categories|' . $sLanguage . '|' . $sCategory;
 $sModulesCacheID	= $sTheme . '|modules|' . $sLanguage . '|' . $sCurrency;
