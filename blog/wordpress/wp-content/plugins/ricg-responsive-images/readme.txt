@@ -4,7 +4,7 @@ Donate link: https://app.etapestry.com/hosted/BoweryResidentsCommittee/OnlineDon
 Tags: Responsive, Images, Responsive Images, SRCSET, Picturefill
 Requires at least: 4.1
 Tested up to: 4.3
-Stable tag: 2.5.1
+Stable tag: 2.5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -25,6 +25,16 @@ This plugin works by including all available image sizes for each image upload. 
 3. If you'd like to enable the advanced image compression feature, Please see the instructions at https://github.com/ResponsiveImagesCG/wp-tevko-responsive-images/tree/dev#advanced-image-compression
 
 == Changelog ==
+
+= 2.5.2 =
+* Numerous performance and usability improvements
+* Pass height and width to `tevkori_get_sizes()
+* Improved regex in display filter
+* Avoid calling `wp_get_attachment_image_src()` in srcset functions
+* Improved coding standards
+* Removed second regular expression in content filter
+* Improved cache warning function
+* Change default `$size` value for all function to 'medium'
 
 = 2.5.1 =
 * Query all images in single request before replacing

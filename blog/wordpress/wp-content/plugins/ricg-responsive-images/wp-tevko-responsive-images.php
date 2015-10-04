@@ -8,7 +8,7 @@
  * Plugin Name:       RICG Responsive Images
  * Plugin URI:        http://www.smashingmagazine.com/2015/02/24/ricg-responsive-images-for-wordpress/
  * Description:       Bringing automatic default responsive images to wordpress
- * Version:           2.5.1
+ * Version:           2.5.2
  * Author:            The RICG
  * Author URI:        http://responsiveimages.org/
  * License:           GPL-2.0+
@@ -54,23 +54,31 @@ add_action( 'wp_enqueue_scripts', 'tevkori_get_picturefill' );
  * @since 2.2.0
  *
  * @param int    $id   Image attachment ID.
- * @param string $size Optional. Name of image size. Default value: 'thumbnail'.
+ * @param string $size Optional. Name of image size. Default value: 'medium'.
  * @param array  $args {
  *     Optional. Arguments to retrieve posts.
  *
  *     @type array|string $sizes An array or string containing of size information.
+ *     @type int          $width A single width value used in the default `sizes` string.
  * }
  * @return string|bool A valid source size value for use in a 'sizes' attribute or false.
  */
-function tevkori_get_sizes( $id, $size = 'thumbnail', $args = null ) {
+function tevkori_get_sizes( $id, $size = 'medium', $args = null ) {
 
-	// See which image is being returned and bail if none is found.
-	if ( ! $img = image_downsize( $id, $size ) ) {
+	// Try to get the image width from `$args` before calling `image_downsize()`.
+	if ( is_array( $args ) && ! empty( $args['width'] ) ) {
+		$img_width = (int) $args['width'];
+	} elseif ( $img = image_downsize( $id, $size ) ) {
+		$img_width = $img[1];
+	}
+
+	// Bail early if ``$image_width` isn't set.
+	if ( ! $img_width ) {
 		return false;
 	}
 
-	// Get the image width.
-	$img_width = $img[1] . 'px';
+	// Set the image width in pixels.
+	$img_width = $img_width . 'px';
 
 	// Set up our default values.
 	$defaults = array(
@@ -148,15 +156,16 @@ function tevkori_get_sizes( $id, $size = 'thumbnail', $args = null ) {
  * @since 2.2.0
  *
  * @param int    $id   Image attachment ID.
- * @param string $size Optional. Name of image size. Default value: 'thumbnail'.
+ * @param string $size Optional. Name of image size. Default value: 'medium'.
  * @param array  $args {
  *     Optional. Arguments to retrieve posts.
  *
  *     @type array|string $sizes An array or string containing of size information.
+ *     @type int          $width A single width value used in the default `sizes` string.
  * }
  * @return string|bool A valid source size list as a 'sizes' attribute or false.
  */
-function tevkori_get_sizes_string( $id, $size = 'thumbnail', $args = null ) {
+function tevkori_get_sizes_string( $id, $size = 'medium', $args = null ) {
 	$sizes = tevkori_get_sizes( $id, $size, $args );
 
 	return $sizes ? 'sizes="' . $sizes . '"' : false;
@@ -166,38 +175,42 @@ function tevkori_get_sizes_string( $id, $size = 'thumbnail', $args = null ) {
  * Get an array of image sources candidates for use in a 'srcset' attribute.
  *
  * @param int    $id   Image attachment ID.
- * @param string $size Optional. Name of image size. Default value: 'thumbnail'.
+ * @param string $size Optional. Name of image size. Default value: 'medium'.
  * @return array|bool  An array of of srcset values or false.
  */
-function tevkori_get_srcset_array( $id, $size = 'thumbnail' ) {
+function tevkori_get_srcset_array( $id, $size = 'medium' ) {
 	$arr = array();
 
-	// See which image is being returned and bail if none is found.
-	if ( ! $img = wp_get_attachment_image_src( $id, $size ) ) {
+	// Get the intermediate size.
+	$image = image_get_intermediate_size( $id, $size );
+	// Get the post meta.
+	$img_meta = wp_get_attachment_metadata( $id );
+
+	// Extract the height and width from the intermediate or the full size.
+	$img_width = ( $image ) ? $image['width'] : $img_meta['width'];
+	$img_height = ( $image ) ? $image['height'] : $img_meta['height'];
+
+	// Bail early if the width isn't greater that zero.
+	if ( ! $img_width > 0 ) {
 		return false;
 	}
 
-	// Break image data into url, width, and height.
-	list( $img_url, $img_width, $img_height ) = $img;
-
-	// If we have no width to work with, we should bail (see issue #118).
-	if ( 0 == $img_width ) {
-		return false;
+	// Use the url from the intermediate size or build the url from the metadata.
+	if ( ! empty( $image['url'] ) ) {
+		$img_url = $image['url'];
+	} else {
+		$uploads_dir = wp_upload_dir();
+		$img_file = ( $image ) ? path_join( dirname( $img_meta['file'] ) , $image['file'] ) : $img_meta['file'];
+		$img_url = $uploads_dir['baseurl'] . '/' . $img_file;
 	}
 
-	// Get the image meta data and bail if none is found.
-	if ( ! is_array( $img_meta = wp_get_attachment_metadata( $id ) ) ) {
-		return false;
-	}
-
-	// Build an array with image sizes.
 	$img_sizes = $img_meta['sizes'];
 
 	// Add full size to the img_sizes array.
 	$img_sizes['full'] = array(
 		'width'  => $img_meta['width'],
 		'height' => $img_meta['height'],
-		'file'   => basename( $img_meta['file'] )
+		'file'   => wp_basename( $img_meta['file'] )
 	);
 
 	// Calculate the image aspect ratio.
@@ -205,8 +218,8 @@ function tevkori_get_srcset_array( $id, $size = 'thumbnail' ) {
 
 	/*
 	 * Images that have been edited in WordPress after being uploaded will
-	 * contain a unique hash. We look for that hash and use it later to filter
-	 * out images that are leftovers from previous renditions.
+	 * contain a unique hash. Look for that hash and use it later to filter
+	 * out images that are leftovers from previous versions.
 	 */
 	$img_edited = preg_match( '/-e[0-9]{13}/', $img_url, $img_edit_hash );
 
@@ -248,10 +261,10 @@ function tevkori_get_srcset_array( $id, $size = 'thumbnail' ) {
  * @since 2.3.0
  *
  * @param int    $id   Image attachment ID.
- * @param string $size Optional. Name of image size. Default value: 'thumbnail'.
+ * @param string $size Optional. Name of image size. Default value: 'medium'.
  * @return string|bool A 'srcset' value string or false.
  */
-function tevkori_get_srcset( $id, $size = 'thumbnail' ) {
+function tevkori_get_srcset( $id, $size = 'medium' ) {
 	$srcset_array = tevkori_get_srcset_array( $id, $size );
 
 	if ( count( $srcset_array ) <= 1 ) {
@@ -267,10 +280,10 @@ function tevkori_get_srcset( $id, $size = 'thumbnail' ) {
  * @since 2.1.0
  *
  * @param int    $id   Image attachment ID.
- * @param string $size Optional. Name of image size. Default value: 'thumbnail'.
+ * @param string $size Optional. Name of image size. Default value: 'medium'.
  * @return string|bool A full 'srcset' string or false.
  */
-function tevkori_get_srcset_string( $id, $size = 'thumbnail' ) {
+function tevkori_get_srcset_string( $id, $size = 'medium' ) {
 	$srcset_value = tevkori_get_srcset( $id, $size );
 
 	if ( empty( $srcset_value ) ) {
@@ -294,7 +307,9 @@ function tevkori_filter_content_images( $content ) {
 	$uploads_dir = wp_upload_dir();
 	$path_to_upload_dir = $uploads_dir['baseurl'];
 
-	preg_match_all( '|<img ([^>]+' . $path_to_upload_dir . '[^>]+)[\s?][\/?]>|i', $content, $matches );
+	// Pattern for matching all images with a `src` from the uploads directory.
+	$pattern = '|<img ([^>]+' . preg_quote( $path_to_upload_dir ) . '[^>]+)>|i';
+	preg_match_all( $pattern, $content, $matches );
 
 	$images = $matches[0];
 	$ids = array();
@@ -302,35 +317,31 @@ function tevkori_filter_content_images( $content ) {
 	foreach( $images as $image ) {
 		if ( preg_match( '/wp-image-([0-9]+)/i', $image, $class_id ) ) {
 			(int) $id = $class_id[1];
-			if( $id ) {
+			if ( $id ) {
 				$ids[] = $id;
 			}
 		}
 	}
 
 	if ( 0 < count( $ids ) ) {
-		/**
+		/*
 		 * Warm object caches for use with wp_get_attachment_metadata.
 		 *
-		 * To avoid making a database call for each image, WP_Query is called
-		 * as a single query with the IDs of all images in the post. This warms
-		 * the object cache with the meta information for all images.
-		 *
-		 * This loop is not used directly.
+		 * To avoid making a database call for each image, a single query
+		 * warms the object cache with the meta information for all images.
 		 **/
-		$attachments = new WP_Query(array(
-			'post_type'  => 'attachment',
-			'posts_per_page' => '-1',
-			'post_status' => 'inherit',
-			'post__in' => $ids,
-		));
+		_prime_post_caches( $ids, false, true );
 	}
 
-	$content = preg_replace_callback(
-		'|<img ([^>]+' . $path_to_upload_dir . '[^>]+)[\s?][\/?]>|i',
-		'_tevkori_filter_content_images_callback',
-		$content
-	);
+	foreach( $matches[0] as $k => $image ) {
+		$match = array( $image, $matches[1][$k] );
+		$needle = $image;
+		$replacement = _tevkori_filter_content_images_callback( $match );
+		if ( false === $replacement ) {
+			continue;
+		}
+		$content = str_replace( $image, $replacement, $content );
+	}
 
 	return $content;
 }
@@ -348,7 +359,6 @@ function _tevkori_filter_content_images_callback( $image ) {
 	}
 
 	list( $image_html, $atts ) = $image;
-	$id = $size = false;
 
 	// Bail early if a 'srcset' attribute already exists.
 	if ( false !== strpos( $atts, 'srcset=' ) ) {
@@ -366,31 +376,27 @@ function _tevkori_filter_content_images_callback( $image ) {
 	}
 
 	// Grab ID and size info from core classes.
-	if ( preg_match( '/wp-image-([0-9]+)/i', $atts, $class_id ) ) {
-		(int) $id = $class_id[1];
-	}
-	if ( preg_match( '/size-([^\s|"]+)/i', $atts, $class_size ) ) {
-		$size = $class_size[1];
-	}
+	$id = preg_match( '/wp-image-([0-9]+)/i', $atts, $class_id ) ? (int) $class_id[1] : false;
+	$size = preg_match( '/size-([^\s|"]+)/i', $atts, $class_size ) ? $class_size[1] : false;
+	$width = preg_match( '/ width="([0-9]+)"/', $atts, $atts_width ) ? (int) $atts_width[1] : false;
+	$height = preg_match( '/ height="([0-9]+)"/', $atts, $atts_height ) ? (int) $atts_height[1] : false;
 
 	if ( $id && false === $size ) {
-		if ( preg_match( '/ width="([0-9]+)"/', $atts, $width ) && preg_match( '/ height="([0-9]+)"/', $atts, $height ) ) {
-			$size = array(
-				(int) $width[1],
-				(int) $height[1]
-			);
-		}
+		$size = array(
+			$width,
+			$height
+		);
 	}
 
 	/*
 	 * If attempts to parse the size value failed, attempt to use the image
-	 * metadata to match the `src` angainst the available sizes for an attachment.
+	 * metadata to match the 'src' angainst the available sizes for an attachment.
 	 */
 	if ( ! $size && ! empty( $id ) && $meta = wp_get_attachment_metadata( $id ) ) {
 
 		preg_match( '/src="([^"]+)"/', $atts, $url );
 
-		// Sanity check the `src` value and bail early it doesn't exist.
+		// Sanity check the 'src' value and bail early it doesn't exist.
 		if ( ! $url[1] ) {
 			return $image_html;
 		}
@@ -416,7 +422,18 @@ function _tevkori_filter_content_images_callback( $image ) {
 
 	// If we have an ID and size, try for 'srcset' and 'sizes' and update the markup.
 	if ( $id && $size && $srcset = tevkori_get_srcset_string( $id, $size ) ) {
-		$sizes = tevkori_get_sizes_string( $id, $size );
+
+		// Pass height and width to `tevkori_get_sizes_string()`.
+		$args = array(
+			'width'  => $width,
+			'height' => $height,
+		);
+
+		$sizes = tevkori_get_sizes_string( $id, $size, $args );
+
+		// Strip trailing slashes and whitespaces from the `$atts` string.
+		$atts = trim( rtrim( $atts, '/' ) );
+
 		$image_html = "<img " . $atts . " " . $srcset . " " . $sizes . " />";
 	};
 

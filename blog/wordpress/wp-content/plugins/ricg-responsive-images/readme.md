@@ -140,9 +140,20 @@ We use a hook because if you attempt to dequeue a script before it's enqueued, w
 
 ## Version
 
-2.5.1
+2.5.2
 
 ## Changelog
+
+- Numerous performance and usability improvements
+- Pass height and width to `tevkori_get_sizes()
+- Improved regex in display filter
+- Avoid calling `wp_get_attachment_image_src()` in srcset functions
+- Improved coding standards
+- Removed second regular expression in content filter
+- Improved cache warning function
+- Change default `$size` value for all function to 'medium'
+
+**2.5.1**
 
 - Query all images in single request before replacing
 - Minor fix to prevent a potential undefined variable notice
