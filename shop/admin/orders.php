@@ -252,7 +252,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo oos_draw_separator('trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right"></td>
             <td class="pageHeading" align="right">
             <?php echo '<a href="' . oos_href_link_admin($aContents['edit_orders'], oos_get_all_get_params(array('action'))) . '">' . oos_button('edit', BUTTON_EDIT) . '</a> &nbsp; '; ?>
             <?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?>
@@ -563,7 +563,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo oos_draw_separator('trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right"></td>
             <td align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr><?php echo oos_draw_form('orders', $aContents['orders'], '', 'get'); ?>
                 <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . oos_draw_input_field('oID', '', 'size="12"') . oos_draw_hidden_field('action', 'edit'); ?></td>

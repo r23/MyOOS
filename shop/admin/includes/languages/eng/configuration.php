@@ -194,12 +194,6 @@ define('SMALL_IMAGE_WIDTH_DESC', 'The pixel width of small images');
 define('SMALL_IMAGE_HEIGHT_TITLE', 'Small Image Height');
 define('SMALL_IMAGE_HEIGHT_DESC', 'The pixel height of small images');
 
-define('HEADING_IMAGE_WIDTH_TITLE', 'Heading Image Width');
-define('HEADING_IMAGE_WIDTH_DESC', 'The pixel width of heading images');
-
-define('HEADING_IMAGE_HEIGHT_TITLE', 'Heading Image Height');
-define('HEADING_IMAGE_HEIGHT_DESC', 'The pixel height of heading images');
-
 define('SUBCATEGORY_IMAGE_WIDTH_TITLE', 'Subcategory Image Width');
 define('SUBCATEGORY_IMAGE_WIDTH_DESC', 'The pixel width of subcategory images');
 

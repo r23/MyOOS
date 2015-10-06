@@ -466,16 +466,18 @@
 
       $text_new_or_edit = ($action=='new_category_ACD') ? TEXT_INFO_HEADING_NEW_CATEGORY : TEXT_INFO_HEADING_EDIT_CATEGORY;
 ?>
+<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
+
         <tr>
           <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
             <tr>
               <td class="pageHeading"><?php echo sprintf($text_new_or_edit, oos_output_generated_category_path($current_category_id)); ?></td>
-              <td class="pageHeading" align="right"><?php echo oos_draw_separator('trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+              <td class="pageHeading" align="right"></td>
             </tr>
           </table></td>
         </tr>
         <tr>
-          <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+          <td></td>
         </tr>
         <tr><?php echo oos_draw_form('new_category', $aContents['categories'], 'cPath=' . $cPath . '&cID=' . $_GET['cID'] . '&action=new_category_preview', 'post', 'enctype="multipart/form-data"'); ?>
           <td><table border="0" cellspacing="0" cellpadding="2">
@@ -731,7 +733,7 @@
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo oos_draw_separator('trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right"></td>
             <td align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr><?php echo oos_draw_form('search', $aContents['categories'], '', 'get'); ?>
                 <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . oos_draw_input_field('search', $_GET['search']); ?></td>
@@ -1051,7 +1053,7 @@
             $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=edit_category') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=delete_category') . '">' . oos_button('delete',  IMAGE_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=move_category') . '">' . oos_button('move', IMAGE_MOVE) . '</a>');
             $contents[] = array('text' =>  TEXT_CATEGORIES . ' ' . oos_get_categories_name($cPath) . ' ' . oos_get_categories_name($cID) . '<br />' . TEXT_DATE_ADDED . ' ' . oos_date_short($cInfo->date_added));
             if (oos_is_not_null($cInfo->last_modified)) $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($cInfo->last_modified));
-            $contents[] = array('text' => '<br />' . oos_info_image($cInfo->categories_image, $cInfo->categories_name, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT) . '<br />' . $cInfo->categories_image);
+            $contents[] = array('text' => '<br />' . oos_info_image($cInfo->categories_image, $cInfo->categories_name) . '<br />' . $cInfo->categories_image);
             $contents[] = array('text' => '<br />' . TEXT_SUBCATEGORIES . ' ' . $cInfo->childs_count . '<br />' . TEXT_PRODUCTS . ' ' . $cInfo->products_count);
           } elseif (isset($pInfo) && is_object($pInfo)) { // product info box contents
             $heading[] = array('text' => '<b>' . $pInfo->products_name . '</b>');

@@ -498,7 +498,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?> #<?php echo $oID; ?></td>
-            <td class="pageHeading" align="right"><?php echo oos_draw_separator('trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right"></td>
             <td class="pageHeading" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
           </tr>
         </table></td>
@@ -942,7 +942,7 @@ if($action == "add_product") {
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo ADDING_TITLE; ?> #<?php echo $oID; ?></td>
-            <td class="pageHeading" align="right"><?php echo oos_draw_separator('trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right"></td>
             <td class="pageHeading" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
           </tr>
         </table></td>

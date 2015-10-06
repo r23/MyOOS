@@ -187,12 +187,6 @@ define('SMALL_IMAGE_WIDTH_DESC', 'Die Breite von kleinen Bildern in Pixeln');
 define('SMALL_IMAGE_HEIGHT_TITLE', 'H&ouml;he kleine Bilder');
 define('SMALL_IMAGE_HEIGHT_DESC', 'Die H&ouml;he von kleinen Bildern in Pixeln');
 
-define('HEADING_IMAGE_WIDTH_TITLE', 'Breite &Uuml;berschrift-Bilder');
-define('HEADING_IMAGE_WIDTH_DESC', 'Die Breite von Bildern, die als &Uuml;berschrift verwendet werden, in Pixeln');
-
-define('HEADING_IMAGE_HEIGHT_TITLE', 'H&ouml;he &Uuml;berschrift-Bilder');
-define('HEADING_IMAGE_HEIGHT_DESC', 'Die H&ouml;he von Bildern, die als &Uuml;berschrift verwendet werden, in Pixeln');
-
 define('SUBCATEGORY_IMAGE_WIDTH_TITLE', 'Breite Unterkategorie-Bilder');
 define('SUBCATEGORY_IMAGE_WIDTH_DESC', 'Die Breite von Unterkategorie-Bildern in Pixeln');
 

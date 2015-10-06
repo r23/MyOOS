@@ -431,7 +431,7 @@ function check_form() {
    echo  $customers_statuses_array[$customers['customers_status']]['text'] . ' - ' . $customers_statuses_array[$customers['customers_status']]['cs_ot_discount_flag']; 
 ?>
             </td>
-            <td class="pageHeading" align="right"><?php echo oos_draw_separator('trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right"></td>
           </tr>
         </table></td>
       </tr>
@@ -644,7 +644,7 @@ function check_form() {
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo oos_draw_separator('trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right"></td>
             <td align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                <tr><?php echo oos_draw_form('search', $aContents['customers'], '', 'get'); ?>
                  <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . oos_draw_input_field('search'); ?></td>

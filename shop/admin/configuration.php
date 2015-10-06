@@ -56,7 +56,7 @@
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo constant(strtoupper((int)$_GET['gID'] . '_TITLE')); ?></td>
-            <td class="pageHeading" align="right"><?php echo oos_draw_separator('trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right"></td>
           </tr>
         </table></td>
       </tr>
