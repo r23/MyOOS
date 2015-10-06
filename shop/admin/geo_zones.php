@@ -178,7 +178,7 @@ function update_zone(theForm) {
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr> 
             <td class="pageHeading"><?php echo HEADING_TITLE; if (isset($_GET['zone'])) echo '<br /><span class="smallText">' . oosGetGeoZoneName($_GET['zone']) . '</span>'; ?></td>
-            <td class="pageHeading" align="right"><?php echo oos_draw_separator('trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right"></td>
           </tr>
         </table></td>
       </tr>

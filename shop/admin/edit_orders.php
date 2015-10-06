@@ -636,7 +636,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
 <!-- End Addresses Block -->
 
       <tr>
-  <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+  <td></td>
       </tr>
 
 <!-- Begin Phone/Email Block -->
@@ -654,7 +654,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
       </tr>
 <!-- End Phone/Email Block -->
       <tr>
-  <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+  <td></td>
       </tr>
 
 <!-- Begin Payment Block -->
@@ -672,7 +672,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
   <?php if ($order->info['cc_type'] || $order->info['cc_owner'] || $order->info['payment_method'] == "Credit Card" || $order->info['cc_number']) { ?>
     <!-- Begin Credit Card Info Block -->
     <tr>
-      <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+      <td colspan="2"></td>
     </tr>
     <tr>
       <td class="main"><?php echo ENTRY_CREDIT_CARD_TYPE; ?></td>
@@ -696,7 +696,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
       </tr>
 <!-- End Payment Block -->
       <tr>
-  <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+  <td></td>
       </tr>
 
 <!-- Begin Products Listing Block -->
@@ -845,7 +845,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
   </table></td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
 
       <tr>
@@ -894,7 +894,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
         <td class="main"><br /><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '5'); ?></td>
+        <td></td>
       </tr>
       <tr>
         <td class="main">
@@ -910,7 +910,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
         </td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
 
       <tr>

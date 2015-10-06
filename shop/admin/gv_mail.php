@@ -227,13 +227,13 @@
           <tr><?php echo oos_draw_form('mail', $aContents['gv_mail'], 'action=send_email_to_user'); ?>
             <td><table border="0" width="100%" cellpadding="0" cellspacing="2">
               <tr>
-                <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+                <td></td>
               </tr>
               <tr>
                 <td class="smallText"><b><?php echo TEXT_CUSTOMER; ?></b><br /><?php echo $mail_sent_to; ?></td>
               </tr>
               <tr>
-                <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+                <td></td>
               </tr>
               <tr>
                 <td class="smallText"><b><?php echo TEXT_FROM_NAME; ?></b><br /><?php echo htmlspecialchars(stripslashes($_POST['from_name'])); ?></td>
@@ -242,25 +242,25 @@
                 <td class="smallText"><b><?php echo TEXT_FROM_MAIL; ?></b><br /><?php echo htmlspecialchars(stripslashes($_POST['from_mail'])); ?></td>
               </tr> 
               <tr>
-                <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+                <td></td>
               </tr>
               <tr>
                 <td class="smallText"><b><?php echo TEXT_SUBJECT; ?></b><br /><?php echo htmlspecialchars(stripslashes($_POST['subject'])); ?></td>
               </tr>
               <tr>
-                <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+                <td></td>
               </tr>
               <tr>
                 <td class="smallText"><b><?php echo TEXT_AMOUNT; ?></b><br /><?php echo nl2br(htmlspecialchars(stripslashes($_POST['amount']))); ?></td>
               </tr>
               <tr>
-                <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+                <td></td>
               </tr>
               <tr>
                 <td class="smallText"><b><?php echo TEXT_MESSAGE; ?></b><br /><?php echo nl2br(htmlspecialchars(stripslashes($_POST['message']))); ?></td>
               </tr>
               <tr>
-                <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+                <td></td>
               </tr>
               <tr>
                 <td>
@@ -288,7 +288,7 @@
           <tr><?php echo oos_draw_form('mail', $aContents['gv_mail'], 'action=preview'); ?>
             <td><table border="0" cellpadding="0" cellspacing="2">
               <tr>
-                <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+                <td colspan="2"></td>
               </tr>
 <?php
     $customers = array();
@@ -311,14 +311,14 @@
                 <td><?php echo oos_draw_pull_down_menu('customers_email_address', $customers, $_GET['customer']);?></td>
               </tr>
               <tr>
-                <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+                <td colspan="2"></td>
               </tr>
                <tr>
                 <td class="main"><?php echo TEXT_TO; ?></td>
                 <td><?php echo oos_draw_input_field('email_to'); ?></td>
               </tr>
               <tr>
-                <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+                <td colspan="2"></td>
               </tr>
               <tr>
                 <td class="main"><?php echo TEXT_FROM_NAME; ?></td>
@@ -329,28 +329,28 @@
                 <td><?php echo oos_draw_input_field('from_mail',STORE_OWNER_EMAIL_ADDRESS); ?></td></td>
               </tr>
               <tr>
-                <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+                <td colspan="2"></td>
               </tr>
               <tr>
                 <td class="main"><?php echo TEXT_SUBJECT; ?></td>
                 <td><?php echo oos_draw_input_field('subject'); ?></td>
               </tr>
               <tr>
-                <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+                <td colspan="2"></td>
               </tr>
               <tr>
                 <td valign="top" class="main"><?php echo TEXT_AMOUNT; ?></td>
                 <td><?php echo oos_draw_input_field('amount'); ?></td>
               </tr>
               <tr>
-                <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+                <td colspan="2"></td>
               </tr>
               <tr>
                 <td valign="top" class="main"><?php echo TEXT_MESSAGE; ?></td>
                 <td><?php echo oos_draw_textarea_field('message', 'soft', '60', '15'); ?></td>
               </tr>
               <tr>
-                <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+                <td colspan="2"></td>
               </tr>
               <tr>
                 <td colspan="2" align="right"><?php echo oos_submit_button('send_mail', IMAGE_SEND_EMAIL); ?></td>

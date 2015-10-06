@@ -141,13 +141,13 @@ td.style.backgroundColor="DFE4F4";
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
         <tr>
-          <td><?php echo oos_draw_separator('trans.gif', '100%', '10');?></td>
+          <td></td>
         </tr>
         <tr>
           <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
         </tr>
         <tr>
-          <td><?php echo oos_draw_separator('trans.gif', '100%', '15');?></td>
+          <td></td>
         </tr>
       </table>  
 
@@ -216,7 +216,7 @@ td.style.backgroundColor="DFE4F4";
       } else {
 ?>
         <tr>
-          <td class="dataTableContent"><?php echo oos_draw_separator('trans.gif', '100%', '10');?></td>
+          <td class="dataTableContent"></td>
         </tr>
 <?php
       }

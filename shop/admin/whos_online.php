@@ -141,7 +141,7 @@ require '../includes/classes/class_shopping_cart.php';
       }
 
       if (count($products) > 0) {
-        $contents[] = array('text' => oos_draw_separator('pixel_black.gif', '100%', '1'));
+        $contents[] = array('text' => '');
         $contents[] = array('align' => 'right', 'text'  => TEXT_SHOPPING_CART_SUBTOTAL . ' ' . $currencies->format($cart->show_total(), true, $currency));
       } else {
         $contents[] = array('text' => '&nbsp;');

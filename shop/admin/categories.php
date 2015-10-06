@@ -492,7 +492,7 @@
       }
 ?>
             <tr>
-              <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+              <td colspan="2"></td>
             </tr>
 <?php
       for ($i=0; $i < count($languages); $i++) {
@@ -505,7 +505,7 @@
       }
 ?>
             <tr>
-              <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+              <td colspan="2"></td>
             </tr>
 <?php
       for ($i=0; $i < count($languages); $i++) {
@@ -549,27 +549,27 @@
      }
 ?>
             <tr>
-              <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+              <td colspan="2"></td>
             </tr>
             <tr>
             <tr>
               <td class="main"><?php echo TEXT_EDIT_CATEGORIES_IMAGE; ?></td>
-              <td class="main"><?php echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_file_field('categories_image') . '<br />' . oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . $cInfo->categories_image . oos_draw_hidden_field('categories_previous_image', $cInfo->categories_image); ?></td>
+              <td class="main">&nbsp;'<?php echo oos_draw_file_field('categories_image') . '<br />&nbsp;' . $cInfo->categories_image . oos_draw_hidden_field('categories_previous_image', $cInfo->categories_image); ?></td>
             </tr>
             <tr>
-              <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+              <td colspan="2"></td>
             </tr>
             <tr>
               <td class="main"><?php echo TEXT_EDIT_SORT_ORDER; ?></td>
-              <td class="main"><?php echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_input_field('sort_order', $cInfo->sort_order, 'size="2"'); ?></td>
+              <td class="main">&nbsp;'<?php echo oos_draw_input_field('sort_order', $cInfo->sort_order, 'size="2"'); ?></td>
             </tr>
             <tr>
-              <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+              <td colspan="2"></td>
             </tr>
           </table></td>
         </tr>
         <tr>
-          <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+          <td></td>
         </tr>
         <tr>
           <td class="main" align="right"><?php echo oos_draw_hidden_field('categories_date_added', (($cInfo->date_added) ? $cInfo->date_added : date('Y-m-d'))) . oos_draw_hidden_field('parent_id', $cInfo->parent_id) . oos_submit_button('preview', IMAGE_PREVIEW) . '&nbsp;&nbsp;<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $_GET['cID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>'; ?></td>
@@ -642,7 +642,7 @@
         </table></td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr>
         <td class="main">

@@ -55,19 +55,19 @@ class newsletter {
                         '    <td class="main"><font color="#ff0000"><b>' . sprintf(TEXT_COUNT_CUSTOMERS, $mail['total']) . '</b></font></td>' . "\n" .
                         '  </tr>' . "\n" .
                         '  <tr>' . "\n" .
-                        '    <td>' . oos_draw_separator('trans.gif', '1', '10') . '</td>' . "\n" .
+                        '    <td></td>' . "\n" .
                         '  </tr>' . "\n" .
                         '  <tr>' . "\n" .
                         '    <td class="main"><b>' . $this->title . '</b></td>' . "\n" .
                         '  </tr>' . "\n" .
                         '  <tr>' . "\n" .
-                        '    <td>' . oos_draw_separator('trans.gif', '1', '10') . '</td>' . "\n" .
+                        '    <td></td>' . "\n" .
                         '  </tr>' . "\n" .
                         '  <tr>' . "\n" .
                         '    <td class="main"><tt>' . nl2br($this->content) . '</tt></td>' . "\n" .
                         '  </tr>' . "\n" .
                         '  <tr>' . "\n" .
-                        '    <td>' . oos_draw_separator('trans.gif', '1', '10') . '</td>' . "\n" .
+                        '    <td></td>' . "\n" .
                         '  </tr>' . "\n" .
                         '  <tr>' . "\n" .
                         '    <td align="right"><a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID'] . '&action=confirm_send') . '">' . oos_button('send', IMAGE_SEND) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a></td>' . "\n" .

@@ -110,13 +110,13 @@
         </table></td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr>
         <td class="main"><b><?php echo ENTRY_RATING; ?></b>&nbsp;<?php echo TEXT_BAD; ?>&nbsp;<?php for ($i=1; $i<=5; $i++) echo oos_draw_radio_field('reviews_rating', $i, '', $rInfo->reviews_rating) . '&nbsp;'; echo TEXT_GOOD; ?></td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr>
         <td align="right" class="main"><?php echo oos_draw_hidden_field('reviews_id', $rInfo->reviews_id) . oos_draw_hidden_field('products_id', $rInfo->products_id) . oos_draw_hidden_field('customers_name', $rInfo->customers_name) . oos_draw_hidden_field('products_name', $rInfo->products_name) . oos_draw_hidden_field('products_image', $rInfo->products_image) . oos_draw_hidden_field('date_added', $rInfo->date_added) . oos_submit_button('preview', IMAGE_PREVIEW) . ' <a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $_GET['page'] . '&rID=' . $_GET['rID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>'; ?></td>
@@ -159,13 +159,13 @@
         </table></td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr>
         <td class="main"><b><?php echo ENTRY_RATING; ?></b>&nbsp;<?php echo oos_image(OOS_SHOP_IMAGES . 'stars_' . $rInfo->reviews_rating . '.gif', sprintf(TEXT_OF_5_STARS, $rInfo->reviews_rating)); ?>&nbsp;<small>[<?php echo sprintf(TEXT_OF_5_STARS, $rInfo->reviews_rating); ?>]</small></td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
 <?php
     if (oos_is_not_null($_POST)) {

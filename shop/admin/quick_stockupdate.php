@@ -57,7 +57,7 @@
               <td valign="top">
                 <table border="0" width="100%" cellspacing="0" cellpadding="1">
                   <tr class="dataTableHeadingRow">
-                    <td class="dataTableHeadingContent"><?php echo oos_draw_separator('trans.gif', '100%', '1'); ?></td>
+                    <td class="dataTableHeadingContent"></td>
                   </tr>
                   <tr>
                     <td class="main"><?php echo HEADING_INTRO; ?></td>

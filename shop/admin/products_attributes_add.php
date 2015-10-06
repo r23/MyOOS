@@ -155,7 +155,7 @@ function go_option() {
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE_ATRIB; ?>&nbsp;</td>
-            <td>&nbsp;<?php echo oos_image(OOS_IMAGES . 'trans.gif', '', '1', '53'); ?>&nbsp;</td>
+            <td>&nbsp;<?php echo oos_image(OOS_IMAGES . , '', '1', '53'); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>

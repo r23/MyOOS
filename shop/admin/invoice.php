@@ -64,7 +64,7 @@
             <td class="main"><?php echo oos_address_format($order->billing['format_id'], $order->billing, 1, '&nbsp;', '<br />'); ?></td>
           </tr>
           <tr>
-            <td><?php echo oos_draw_separator('trans.gif', '1', '5'); ?></td>
+            <td></td>
           </tr>
           <tr>
             <td class="main"><?php echo $order->customer['telephone']; ?></td>
@@ -85,7 +85,7 @@
     </table></td>
   </tr>
   <tr>
-    <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+    <td></td>
   </tr>
   <tr>
     <td><table border="0" cellspacing="0" cellpadding="2">
@@ -104,7 +104,7 @@
     </table></td>
   </tr>
   <tr>
-    <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+    <td></td>
   </tr>
   <tr>
     <td><table border="0" width="100%" cellspacing="0" cellpadding="2">

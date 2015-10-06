@@ -45,7 +45,7 @@ osCommerce provides no warranty and is redistributable under the <a href="http:/
     </td>
   </tr>
   <tr>
-    <td><?php echo oos_image(OOS_IMAGES . 'trans.gif', '', '1', '5'); ?></td>
+    <td><?php echo oos_image(OOS_IMAGES . , '', '1', '5'); ?></td>
   </tr>
   <tr>
     <td align="center" class="smallText">Powered by <a href="http://www.oscommerce.com" target="_blank">osCommerce</a></td>

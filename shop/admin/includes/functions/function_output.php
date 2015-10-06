@@ -137,19 +137,6 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
   }
 
 
- /**
-  * Output a separator either through whitespace, or with an image
-  *
-  * @param $image
-  * @param $width
-  * @param $height
-  * @return string
-  */
-  function oos_draw_separator($image = 'pixel_black.gif', $width = '100%', $height = '1') {
-    return oos_image(OOS_IMAGES . $image, '', $width, $height);
-  }
-
-
 /**
  * Output a function button in the selected language
  *

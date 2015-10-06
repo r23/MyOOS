@@ -119,7 +119,7 @@
                 <td class="main"><?php echo oos_draw_textarea_field('file_contents', 'soft', '80', '20', $file_contents, (($file_writeable) ? '' : 'readonly')); ?></td>
               </tr>
               <tr>
-                <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+                <td></td>
               </tr>
               <tr>
                 <td align="right"><?php if ($file_writeable) { echo oos_submit_button('save', IMAGE_SAVE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['define_language'], 'lngdir=' . $_GET['lngdir']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>'; } else { echo '<a href="' . oos_href_link_admin($aContents['define_language'], 'lngdir=' . $_GET['lngdir']) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; } ?></td>
@@ -133,7 +133,7 @@
             <td class="main"><b><?php echo TEXT_FILE_DOES_NOT_EXIST; ?></b></td>
           </tr>
           <tr>
-            <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+            <td></td>
           </tr>
           <tr>
             <td><?php echo '<a href="' . oos_href_link_admin($aContents['define_language'], 'lngdir=' . $_GET['lngdir']) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
@@ -169,7 +169,7 @@
             </table></td>
           </tr>
           <tr>
-            <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+            <td></td>
           </tr>
 <?php
   }

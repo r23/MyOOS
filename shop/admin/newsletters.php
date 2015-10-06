@@ -165,7 +165,7 @@
     }
 ?>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr><?php echo oos_draw_form('newsletter', $aContents['newsletters'], 'page=' . $_GET['page'] . '&action=' . $form_action); if ($form_action == 'update') echo oos_draw_hidden_field('newsletter_id', $nID); ?>
         <td><table border="0" cellspacing="0" cellpadding="2">
@@ -174,14 +174,14 @@
             <td class="main"><?php echo oos_draw_pull_down_menu('module', $modules_array, $nInfo->module); ?></td>
           </tr>
           <tr>
-            <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+            <td colspan="2"></td>
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_NEWSLETTER_TITLE; ?></td>
             <td class="main"><?php echo oos_draw_input_field('title', $nInfo->title, '', true); ?></td>
           </tr>
           <tr>
-            <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+            <td colspan="2"></td>
           </tr>
           <tr>
             <td class="main" valign="top"><?php echo TEXT_NEWSLETTER_CONTENT; ?></td>
@@ -190,7 +190,7 @@
         </table></td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -283,13 +283,13 @@
   $module->send($nInfo->newsletters_id);
 ?>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr>
         <td class="main"><font color="#ff0000"><b><?php echo TEXT_FINISHED_SENDING_EMAILS; ?></b></font></td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr>
         <td><?php echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>

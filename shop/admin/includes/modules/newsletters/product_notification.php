@@ -155,19 +155,19 @@ function selectAll(FormName, SelectBox) {
                         '    <td class="main"><font color="#ff0000"><b>' . sprintf(TEXT_COUNT_CUSTOMERS, count($audience)) . '</b></font></td>' . "\n" .
                         '  </tr>' . "\n" .
                         '  <tr>' . "\n" .
-                        '    <td>' . oos_draw_separator('trans.gif', '1', '10') . '</td>' . "\n" .
+                        '    <td></td>' . "\n" .
                         '  </tr>' . "\n" .
                         '  <tr>' . "\n" .
                         '    <td class="main"><b>' . $this->title . '</b></td>' . "\n" .
                         '  </tr>' . "\n" .
                         '  <tr>' . "\n" .
-                        '    <td>' . oos_draw_separator('trans.gif', '1', '10') . '</td>' . "\n" .
+                        '    <td></td>' . "\n" .
                         '  </tr>' . "\n" .
                         '  <tr>' . "\n" .
                         '    <td class="main"><tt>' . nl2br($this->content) . '</tt></td>' . "\n" .
                         '  </tr>' . "\n" .
                         '  <tr>' . "\n" .
-                        '    <td>' . oos_draw_separator('trans.gif', '1', '10') . '</td>' . "\n" .
+                        '    <td></td>' . "\n" .
                         '  </tr>' . "\n" .
                         '  <tr>' . oos_draw_form('confirm', $aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID'] . '&action=confirm_send') . "\n" .
                         '    <td align="right">';

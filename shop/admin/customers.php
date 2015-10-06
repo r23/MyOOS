@@ -436,7 +436,7 @@ function check_form() {
         </table></td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr><?php echo oos_draw_form('customers', $aContents['customers'], oos_get_all_get_params(array('action')) . 'action=update', 'post', 'onSubmit="return check_form();"') . oos_draw_hidden_field('default_address_id', $cInfo->customers_default_address_id); ?>
         <td class="formAreaTitle"><?php echo CATEGORY_PERSONAL; ?></td>
@@ -490,7 +490,7 @@ function check_form() {
     if (ACCOUNT_COMPANY == 'true') {
 ?>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr>
         <td class="formAreaTitle"><?php echo CATEGORY_COMPANY; ?></td>
@@ -535,7 +535,7 @@ function check_form() {
 ?>
 
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr>
         <td class="formAreaTitle"><?php echo CATEGORY_MAX_ORDER; ?></td>
@@ -550,7 +550,7 @@ function check_form() {
       </tr>
       <tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr>
         <td class="formAreaTitle"><?php echo CATEGORY_ADDRESS; ?></td>
@@ -600,7 +600,7 @@ function check_form() {
         </table></td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr>
         <td class="formAreaTitle"><?php echo CATEGORY_CONTACT; ?></td>
@@ -618,7 +618,7 @@ function check_form() {
         </table></td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr>
         <td class="formAreaTitle"><?php echo CATEGORY_OPTIONS; ?></td>
@@ -632,7 +632,7 @@ function check_form() {
         </table></td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr>
         <td align="right" class="main"><?php echo oos_submit_button('update', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('action'))) .'">' . oos_button('cancel', BUTTON_CANCEL) . '</a>'; ?></td>

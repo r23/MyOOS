@@ -357,30 +357,30 @@ function calcBasePriceFactor() {
         </table></td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr><?php echo oos_draw_form('new_product', $aContents['products'], 'cPath=' . $cPath . '&pID=' . $_GET['pID'] . '&action=' . $form_action, 'post', 'enctype="multipart/form-data"'); ?>
         <td><table border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_STATUS; ?></td>
-            <td class="main"><?php echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_pull_down_menu('products_status', $products_status_array, $pInfo->products_status); ?></td>
+            <td class="main">&nbsp;'<?php echo oos_draw_pull_down_menu('products_status', $products_status_array, $pInfo->products_status); ?></td>
           </tr>
           <tr>
-            <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+            <td colspan="2"></td>
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_DATE_AVAILABLE; ?><br /><small>(YYYY-MM-DD)</small></td>
-            <td class="main"><?php echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;'; ?><script language="javascript">dateAvailable.writeControl(); dateAvailable.dateFormat="yyyy-MM-dd";</script></td>
+            <td class="main">&nbsp;<script language="javascript">dateAvailable.writeControl(); dateAvailable.dateFormat="yyyy-MM-dd";</script></td>
           </tr>
           <tr>
-            <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+            <td colspan="2"></td>
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_MANUFACTURER; ?></td>
-            <td class="main"><?php echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_pull_down_menu('manufacturers_id', $manufacturers_array, $pInfo->manufacturers_id); ?></td>
+            <td class="main">&nbsp;<?php echo oos_draw_pull_down_menu('manufacturers_id', $manufacturers_array, $pInfo->manufacturers_id); ?></td>
           </tr>
           <tr>
-            <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+            <td colspan="2"></td>
           </tr>
 <?php
     for ($i = 0, $n = count($languages); $i < $n; $i++) {
@@ -393,7 +393,7 @@ function calcBasePriceFactor() {
     }
 ?>
           <tr>
-            <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+            <td colspan="2"></td>
           </tr>
 <?php
     for ($i = 0, $n = count($languages); $i < $n; $i++) {
@@ -444,28 +444,28 @@ function calcBasePriceFactor() {
     }
 ?>
           <tr>
-            <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+            <td colspan="2"></td>
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_QUANTITY; ?></td>
-            <td class="main"><?php echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_input_field('products_quantity', $pInfo->products_quantity) . ' Min: ' . oos_draw_input_field('products_quantity_order_min', ($pInfo->products_quantity_order_min==0 ? 1 : $pInfo->products_quantity_order_min)) . ' Units: ' . oos_draw_input_field('products_quantity_order_units', $pInfo->products_quantity_order_units); ?></td>
+            <td class="main">&nbsp;<?php echo oos_draw_input_field('products_quantity', $pInfo->products_quantity) . ' Min: ' . oos_draw_input_field('products_quantity_order_min', ($pInfo->products_quantity_order_min==0 ? 1 : $pInfo->products_quantity_order_min)) . ' Units: ' . oos_draw_input_field('products_quantity_order_units', $pInfo->products_quantity_order_units); ?></td>
           </tr>
 <?php
   if (STOCK_CHECK == 'true') {
 ?>
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_REORDER_LEVEL; ?></td>
-            <td class="main"><?php echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_input_field('products_reorder_level', $pInfo->products_reorder_level); ?></td> 
+            <td class="main">&nbsp;<?php echo oos_draw_input_field('products_reorder_level', $pInfo->products_reorder_level); ?></td> 
 <?php
   }
 ?>
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_MODEL; ?></td>
-            <td class="main"><?php echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_input_field('products_model', $pInfo->products_model); ?></td>
+            <td class="main">&nbsp;<?php echo oos_draw_input_field('products_model', $pInfo->products_model); ?></td>
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_EAN; ?></td>
-            <td class="main"><?php echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_input_field('products_ean', $pInfo->products_ean); ?></td>
+            <td class="main">&nbsp;<?php echo oos_draw_input_field('products_ean', $pInfo->products_ean); ?></td>
           </tr>
         </table><br />
         <table border="0" cellspacing="0" cellpadding="2">
@@ -476,7 +476,7 @@ function calcBasePriceFactor() {
      echo '            <td align="center"><a href="javascript:popupImageWindow(\'' . oos_href_link_admin($aContents['popup_image_product'], 'bimage=' . $pInfo->products_image) . '\')">' . oos_image(OOS_SHOP_IMAGES . $pInfo->products_image, $pInfo->products_name, '', '80') . '</a></td>';
      echo '            <td><span class="smallText">&nbsp;' . oos_draw_checkbox_field('remove_image', 'yes') . TEXT_PRODUCTS_IMAGE_REMOVE . '<br />&nbsp;' . oos_draw_checkbox_field('delete_image', 'yes') . TEXT_PRODUCTS_IMAGE_DELETE . '<br /><br />&nbsp;<b>' . TEXT_PRODUCTS_IMAGE . '</b>&nbsp;' .  $pInfo->products_image . '</span></td>';
    } else {
-     echo '            <td colspan="2">' . oos_draw_separator('trans.gif', '80', '1') . '</td>';
+     echo '            <td colspan="2"></td>';
    }
 ?>
             <td class="main"><?php echo '&nbsp;' . oos_draw_file_field('products_image') . oos_draw_hidden_field('products_previous_image', $pInfo->products_image); ?></td>
@@ -484,7 +484,7 @@ function calcBasePriceFactor() {
         </table><br />
         <table border="0" cellspacing="0" cellpadding="2">
           <tr>
-            <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+            <td colspan="2"></td>
           </tr>
 <?php
     for ($i = 0, $n = count($languages); $i < $n; $i++) {
@@ -497,7 +497,7 @@ function calcBasePriceFactor() {
     }
 ?>
           <tr>
-            <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+            <td colspan="2"></td>
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_PRICE; ?></td>
@@ -505,7 +505,7 @@ function calcBasePriceFactor() {
 <?php
    $oosPrice = $pInfo->products_price; 
    $oosPrice = round($oosPrice,TAX_DECIMAL_PLACES);
-   echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_input_field('products_price', $oosPrice);
+   echo '&nbsp;' . oos_draw_input_field('products_price', $oosPrice);
 ?>
       </td>
     </tr>
@@ -515,7 +515,7 @@ function calcBasePriceFactor() {
 <?php
    $oosPriceList = $pInfo->products_price_list; 
    $oosPriceList = round($oosPriceList,TAX_DECIMAL_PLACES);
-   echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_input_field('products_price_list', $oosPriceList);
+   echo '&nbsp;' . oos_draw_input_field('products_price_list', $oosPriceList);
 ?> 
             </td>
           </tr>
@@ -525,13 +525,13 @@ function calcBasePriceFactor() {
         </table><br />
         <table border="0" cellspacing="0" cellpadding="2">
           <tr>
-            <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+            <td colspan="2"></td>
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR; ?></td>
             <td class="main"><table border="0">
                 <tr>
-                  <td class="main"><br /><?php echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_input_field('products_base_price', $pInfo->products_base_price); ?></td>
+                  <td class="main"><br />&nbsp;' . oos_draw_input_field('products_base_price', $pInfo->products_base_price); ?></td>
                   <td class="main"><br /> <- </td>
                   <td class="main"><?php echo TEXT_PRODUCTS_PRODUCT_QUANTITY . '<br />' . oos_draw_input_field('products_product_quantity', $pInfo->products_product_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
                   <td class="main"><?php echo TEXT_PRODUCTS_BASE_QUANTITY . '<br />' . oos_draw_input_field('products_base_quantity', $pInfo->products_base_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
@@ -541,7 +541,7 @@ function calcBasePriceFactor() {
           </tr>
           <tr>
              <td class="main"><?php echo TEXT_PRODUCTS_BASE_UNIT; ?></td>
-             <td class="main"><?php echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_input_field('products_base_unit', $pInfo->products_base_unit); ?></td>
+             <td class="main">&nbsp;<?php echo oos_draw_input_field('products_base_unit', $pInfo->products_base_unit); ?></td>
            </tr>
         </table><br />
         <table border="0" cellspacing="0" cellpadding="2">
@@ -550,31 +550,31 @@ function calcBasePriceFactor() {
 ?>
 
           <tr>
-            <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+            <td colspan="2"></td>
           </tr>
            <tr>
              <td class="main"><?php echo TEXT_PRODUCTS_UNIT; ?></td>
-            <td class="main"><?php echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_pull_down_menu('products_units_id', $products_units_array, $pInfo->products_units_id); ?></td>
+            <td class="main">&nbsp;' . oos_draw_pull_down_menu('products_units_id', $products_units_array, $pInfo->products_units_id); ?></td>
           </tr>
 <?php
   if (DECIMAL_CART_QUANTITY == 'true') {
 ?>
           <tr>
-            <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+            <td colspan="2"></td>
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_DECIMAL_QUANTITY; ?></td>
-            <td class="main"><?php echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_pull_down_menu('products_quantity_decimal', $decimal_quantity_array, $pInfo->products_quantity_decimal); ?></td>
+            <td class="main">&nbsp;<?php echo oos_draw_pull_down_menu('products_quantity_decimal', $decimal_quantity_array, $pInfo->products_quantity_decimal); ?></td>
           </tr>
 <?php
   }
 ?>
           <tr>
-            <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+            <td colspan="2"></td>
           </tr>
            <tr>
              <td class="main"><?php echo TEXT_PRODUCTS_DISCOUNT_ALLOWED; ?></td>
-             <td class="main"><?php echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_input_field('products_discount_allowed', number_format($pInfo->products_discount_allowed, 2)); ?> %</td>
+             <td class="main">&nbsp;' . oos_draw_input_field('products_discount_allowed', number_format($pInfo->products_discount_allowed, 2)); ?> %</td>
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_DISCOUNTS_TITLE; ?></td>
@@ -611,30 +611,30 @@ function calcBasePriceFactor() {
             </td>
           </tr>
           <tr>
-            <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+            <td colspan="2"></td>
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_TAX_CLASS; ?></td>
-            <td class="main"><?php echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_pull_down_menu('products_tax_class_id', $tax_class_array, $pInfo->products_tax_class_id); ?></td>
+            <td class="main">&nbsp;<?php echo oos_draw_pull_down_menu('products_tax_class_id', $tax_class_array, $pInfo->products_tax_class_id); ?></td>
           </tr>
           <tr>
-            <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+            <td colspan="2"></td>
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_WEIGHT; ?></td>
-            <td class="main"><?php echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_input_field('products_weight', $pInfo->products_weight); ?></td>
+            <td class="main">&nbsp;<?php echo oos_draw_input_field('products_weight', $pInfo->products_weight); ?></td>
           </tr>
           <tr>
-            <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+            <td colspan="2"></td>
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_SORT_ORDER; ?></td>
-            <td class="main"><?php echo oos_draw_separator('trans.gif', '24', '15') . '&nbsp;' . oos_draw_input_field('products_sort_order', $pInfo->products_sort_order); ?></td>
+            <td class="main">&nbsp;<?php echo oos_draw_input_field('products_sort_order', $pInfo->products_sort_order); ?></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr>
 <?php
@@ -715,7 +715,7 @@ function calcBasePriceFactor() {
         </table></td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr>
         <td class="main">
@@ -730,7 +730,7 @@ function calcBasePriceFactor() {
       if ($pInfo->products_url) {
 ?>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr>
         <td class="main"><?php echo sprintf(TEXT_PRODUCT_MORE_INFORMATION, $pInfo->products_url); ?></td>
@@ -754,7 +754,7 @@ function calcBasePriceFactor() {
       }
 ?>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
 <?php
     }

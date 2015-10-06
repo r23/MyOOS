@@ -272,7 +272,7 @@
                 <td class="main"><?php echo oos_address_format($order->customer['format_id'], $order->customer, 1, '&nbsp;', '<br />'); ?></td>
               </tr>
               <tr>
-                <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '5'); ?></td>
+                <td colspan="2"></td>
               </tr>
 
               <tr>
@@ -305,7 +305,7 @@
         </table></td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr>
         <td><table border="0" cellspacing="0" cellpadding="2">
@@ -329,7 +329,7 @@
     if (oos_is_not_null($order->info['cc_type']) || oos_is_not_null($order->info['cc_owner']) || oos_is_not_null($order->info['cc_number'])) {
 ?>
           <tr>
-            <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+            <td colspan="2"></td>
           </tr>
           <tr>
             <td class="main"><?php echo ENTRY_CREDIT_CARD_TYPE; ?></td>
@@ -356,7 +356,7 @@
     if (($banktransfer['banktransfer_bankname']) || ($banktransfer['banktransfer_blz']) || ($banktransfer['banktransfer_number'])) {
 ?>
           <tr>
-            <td colspan="2"><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+            <td colspan="2"></td>
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_BANK_NAME; ?></td>
@@ -422,7 +422,7 @@
         </table></td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -488,7 +488,7 @@
         </table></td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr>
         <td class="main"><table border="1" cellspacing="0" cellpadding="5">
@@ -529,13 +529,13 @@
         <td class="main"><br /><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '5'); ?></td>
+        <td></td>
       </tr>
       <tr><?php echo oos_draw_form('status', $aContents['orders'], oos_get_all_get_params(array('action')) . 'action=update_order'); ?>
         <td class="main"><?php echo oos_draw_textarea_field('comments', 'soft', '60', '5'); ?></td>
       </tr>
       <tr>
-        <td><?php echo oos_draw_separator('trans.gif', '1', '10'); ?></td>
+        <td></td>
       </tr>
       <tr>
         <td><table border="0" cellspacing="0" cellpadding="2">
