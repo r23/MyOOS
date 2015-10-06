@@ -324,6 +324,7 @@ function popupImageWindow(url) {
 <script language="javascript">
   var dateAvailable = new ctlSpiffyCalendarBox("dateAvailable", "new_product", "products_date_available","btnDate1","<?php echo $pInfo->products_date_available; ?>",scBTNMODE_CUSTOMBLUE);
 </script>
+<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 <?php
   if (OOS_BASE_PRICE == 'true') {
 ?>
@@ -363,7 +364,7 @@ function calcBasePriceFactor() {
         <td><table border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_STATUS; ?></td>
-            <td class="main">&nbsp;'<?php echo oos_draw_pull_down_menu('products_status', $products_status_array, $pInfo->products_status); ?></td>
+            <td class="main">&nbsp;<?php echo oos_draw_pull_down_menu('products_status', $products_status_array, $pInfo->products_status); ?></td>
           </tr>
           <tr>
             <td colspan="2"></td>
@@ -412,6 +413,10 @@ function calcBasePriceFactor() {
               </tr>
             </table></td>
           </tr>
+		  
+		<script>
+			CKEDITOR.replace( 'products_description_<?php echo $languages[$i]['id']; ?>');
+		</script>	  
 <?php
     }
       for ($i=0; $i < count($languages); $i++) {
@@ -531,7 +536,7 @@ function calcBasePriceFactor() {
             <td class="main"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR; ?></td>
             <td class="main"><table border="0">
                 <tr>
-                  <td class="main"><br />&nbsp;' . oos_draw_input_field('products_base_price', $pInfo->products_base_price); ?></td>
+                  <td class="main"><br />&nbsp;'<?php echo oos_draw_input_field('products_base_price', $pInfo->products_base_price); ?></td>
                   <td class="main"><br /> <- </td>
                   <td class="main"><?php echo TEXT_PRODUCTS_PRODUCT_QUANTITY . '<br />' . oos_draw_input_field('products_product_quantity', $pInfo->products_product_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
                   <td class="main"><?php echo TEXT_PRODUCTS_BASE_QUANTITY . '<br />' . oos_draw_input_field('products_base_quantity', $pInfo->products_base_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
@@ -554,7 +559,7 @@ function calcBasePriceFactor() {
           </tr>
            <tr>
              <td class="main"><?php echo TEXT_PRODUCTS_UNIT; ?></td>
-            <td class="main">&nbsp;' . oos_draw_pull_down_menu('products_units_id', $products_units_array, $pInfo->products_units_id); ?></td>
+            <td class="main">&nbsp;<?php echo oos_draw_pull_down_menu('products_units_id', $products_units_array, $pInfo->products_units_id); ?></td>
           </tr>
 <?php
   if (DECIMAL_CART_QUANTITY == 'true') {
@@ -574,7 +579,7 @@ function calcBasePriceFactor() {
           </tr>
            <tr>
              <td class="main"><?php echo TEXT_PRODUCTS_DISCOUNT_ALLOWED; ?></td>
-             <td class="main">&nbsp;' . oos_draw_input_field('products_discount_allowed', number_format($pInfo->products_discount_allowed, 2)); ?> %</td>
+             <td class="main">&nbsp;<?php echo oos_draw_input_field('products_discount_allowed', number_format($pInfo->products_discount_allowed, 2)); ?> %</td>
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_DISCOUNTS_TITLE; ?></td>

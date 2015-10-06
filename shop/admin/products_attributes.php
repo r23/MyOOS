@@ -463,7 +463,7 @@ function go_option() {
 ?>
               <tr>
                 <td colspan="3" class="pageHeading">&nbsp;<?php echo $values_values['products_options_values_name']; ?>&nbsp;</td>
-                <td>&nbsp;<?php echo oos_image(OOS_IMAGES . , '', '1', '53'); ?>&nbsp;</td>
+                <td>&nbsp;&nbsp;</td>
               </tr>
               <tr>
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -532,7 +532,7 @@ function go_option() {
 ?>
               <tr>
                 <td colspan="3" class="pageHeading">&nbsp;<?php echo HEADING_TITLE_VAL; ?>&nbsp;</td>
-                <td>&nbsp;<?php echo oos_image(OOS_IMAGES . , '', '1', '53'); ?>&nbsp;</td>
+                <td>&nbsp;&nbsp;</td>
               </tr>
               <tr>
                 <td colspan="4" class="smallText">
@@ -716,7 +716,7 @@ function go_option() {
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE_ATRIB; ?>&nbsp;</td>
-            <td>&nbsp;<?php echo oos_image(OOS_IMAGES . , '', '1', '53'); ?>&nbsp;</td>
+            <td>&nbsp;&nbsp;</td>
           </tr>
         </table></td>
       </tr>

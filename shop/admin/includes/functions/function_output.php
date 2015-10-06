@@ -380,6 +380,32 @@ function oos_submit_button($id, $alt, $params = '') {
   * @param $reinsert_value
   * @return string
   */
+  function oos_draw_editor_field($name, $wrap, $width, $height, $text = '', $params = '', $reinsert_value = true) {
+    $field = '<textarea name="' . $name . '" wrap="' . $wrap . '" cols="' . $width . '" rows="' . $height . '"';
+    if ($params) $field .= ' ' . $params;
+    $field .= '>';
+    if ( ($GLOBALS[$name]) && ($reinsert_value) ) {
+      $field .= htmlspecialchars(trim($GLOBALS[$name]));
+    } elseif ($text != '') {
+      $field .= htmlspecialchars(trim($text));
+    }
+    $field .= '</textarea>';
+
+    return $field;
+  }
+
+ /**
+  * Output a form textarea field
+  *
+  * @param $name
+  * @param $wrap
+  * @param $width
+  * @param $height
+  * @param $text
+  * @param $params
+  * @param $reinsert_value
+  * @return string
+  */
   function oos_draw_textarea_field($name, $wrap, $width, $height, $text = '', $params = '', $reinsert_value = true) {
     $field = '<textarea name="' . $name . '" wrap="' . $wrap . '" cols="' . $width . '" rows="' . $height . '"';
     if ($params) $field .= ' ' . $params;
@@ -393,6 +419,7 @@ function oos_submit_button($id, $alt, $params = '') {
 
     return $field;
   }
+
 
 
  /**

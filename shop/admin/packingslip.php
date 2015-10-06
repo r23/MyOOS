@@ -52,7 +52,7 @@
   <tr>
     <td><table width="100%" border="0" cellspacing="0" cellpadding="2">
       <tr>
-        <td colspan="2"><?php echo oos_draw_separator(); ?></td>
+        <td colspan="2"></td>
       </tr>
       <tr>
         <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">

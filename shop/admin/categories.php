@@ -426,12 +426,31 @@
 			<?php require 'includes/menue.php'; ?>
 			</div>
 
+			<!-- body_text //-->
 			<div class="wrapper wrapper-content">
 				<div class="row">
-					<div class="col-lg-12">
-					
-<!-- body_text //-->
-    <table border="0" width="100%" cellspacing="0" cellpadding="2">
+					<div class="col-lg-12">	
+ 
+ 
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-lg-12">
+					<h2>Data Tables</h2>
+					<ol class="breadcrumb">
+						<li>
+							<a href="index.html">Home</a>
+						</li>
+						<li>
+							<a>Tables</a>
+						</li>
+							<li class="active">
+								<strong>Data Tables</strong>
+						</li>
+					</ol>
+				</div>
+			</div>
+		
+
+    
 <?php
     if ($action == 'new_category_ACD' || $action == 'edit_category_ACD') {
       if (isset($_GET['cID']) && empty($_POST)) {
@@ -519,6 +538,10 @@
                 </tr>
               </table></td>
             </tr>
+			
+		<script>
+			CKEDITOR.replace( 'categories_description[<?php echo $languages[$i]['id']; ?>]');
+		</script>
 <?php
       }
         for ($i=0; $i < count($languages); $i++) {
@@ -576,6 +599,9 @@
         </form></tr>
 <?php 
   } elseif ($action == 'new_category_preview') {
+?>
+<table border="0" width="100%" cellspacing="0" cellpadding="2">	
+<?php 
     if (oos_is_not_null($_POST)) {
       $cInfo = new objectInfo($_POST);
       $categories_name = $_POST['categories_name'];
@@ -715,6 +741,9 @@
 <?php
     }
   } else {
+?>
+<table border="0" width="100%" cellspacing="0" cellpadding="2">	
+<?php
     $image_icon_status_array = array();
     $image_icon_status_array = array(array('id' => '0', 'text' => TEXT_PRODUCT_NOT_AVAILABLE));
     $image_icon_status_result = $dbconn->Execute("SELECT products_status_id, products_status_name FROM " . $oostable['products_status'] . " WHERE products_status_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_status_id");
