@@ -430,27 +430,7 @@
 			<div class="wrapper wrapper-content">
 				<div class="row">
 					<div class="col-lg-12">	
- 
- 
-			<div class="row wrapper border-bottom white-bg page-heading">
-				<div class="col-lg-12">
-					<h2>Data Tables</h2>
-					<ol class="breadcrumb">
-						<li>
-							<a href="index.html">Home</a>
-						</li>
-						<li>
-							<a>Tables</a>
-						</li>
-							<li class="active">
-								<strong>Data Tables</strong>
-						</li>
-					</ol>
-				</div>
-			</div>
-		
-
-    
+     
 <?php
     if ($action == 'new_category_ACD' || $action == 'edit_category_ACD') {
       if (isset($_GET['cID']) && empty($_POST)) {

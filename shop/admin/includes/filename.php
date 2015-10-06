@@ -30,8 +30,6 @@
   $aContents['admin_account'] = $prefix_filename . 'admin_account.php';
   $aContents['admin_files'] = $prefix_filename . 'admin_files.php';
   $aContents['admin_members'] = $prefix_filename . 'admin_members.php';
-
-  $aContents['advanced_search_result'] = $prefix_filename . 'advanced_search_result.php';
   $aContents['cache'] = $prefix_filename . 'cache.php';
   $aContents['campaigns'] = $prefix_filename . 'campaigns.php';
   $aContents['catalog_product_info'] = $prefix_filename . 'product_info.php';
@@ -113,7 +111,6 @@
 
   $oosCatalogFilename = array();
   $oosCatalogFilename['account_history_info'] = $prefix_catalog_filename . 'account_history_info';
-  $oosCatalogFilename['advanced_search_result'] = $prefix_catalog_filename . 'advanced_search_result';
   $oosCatalogFilename['default'] = $prefix_catalog_filename . 'main';
   $oosCatalogFilename['gv_redeem'] = $prefix_catalog_filename . 'gv_redeem';
   $oosCatalogFilename['product_info'] = $prefix_catalog_filename . 'product_info'; 
