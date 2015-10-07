@@ -86,10 +86,6 @@ $aBlocks[] = array(
 			'title' => BOX_CATALOG_REVIEWS,
 			'link' => oos_admin_files_boxes('reviews', 'selected_box=catalog')
 		),
-		array(
-			'title' => BOX_CATALOG_QUICK_STOCKUPDATE,
-			'link' => oos_admin_files_boxes('quick_stockupdate', 'selected_box=catalog')
-		)
 				
 	),
 );
