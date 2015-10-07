@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: categories.php,v 1.138 2002/11/18 21:38:22 dgw_ 
+   File: categories.php,v 1.138 2002/11/18 21:38:22 dgw_
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -19,22 +19,18 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
-  if (!defined('CATEGORIES_DEFAULT_STATUS')) {
-    define('DEFAULT_CATEGORIES_STATUS', '1');
-  }
+require 'includes/functions/function_categories.php';
+require 'includes/functions/function_image_resize.php';
+require 'includes/classes/class_currencies.php';
 
-  require 'includes/functions/function_categories.php';
-  require 'includes/functions/function_image_resize.php';
+$currencies = new currencies();
 
-  require 'includes/classes/class_currencies.php';
-  $currencies = new currencies();
+$action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-  $action = (isset($_GET['action']) ? $_GET['action'] : '');
-
-  if (!empty($action)) {
+if (!empty($action)) {
     switch ($action) {
       case 'new_slave_product':
         $product_check = false;
@@ -56,7 +52,7 @@
                                   'master_id' => $_GET['pID']);
           oos_db_perform($oostable['products_to_master'], $sql_data_array, 'insert');
           $messageStack->add_session('This product was successfully added as a slave', 'success');
-        } else { 
+        } else {
           $messageStack->add_session('This product does not exist or is already a slave', 'error');
         }
         oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $_GET['cPath'] . '&pID=' . $_GET['pID'] . '&action=slave_products'));
@@ -105,9 +101,8 @@
           $sql_data_array = array('sort_order' => $sort_order);
 
           if ($action == 'insert_category') {
-            $categories_status = 
             $insert_sql_data = array('parent_id' => $current_category_id,
-                                     'date_added' => 'now()', 
+                                     'date_added' => 'now()',
                                      'categories_status' => DEFAULT_CATEGORIES_STATUS);
 
             $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
@@ -310,7 +305,7 @@
                           products_discount4_qty,
                           products_discounts_id,
                           products_slave_visible,
-                          products_sort_order) 
+                          products_sort_order)
                           VALUES ('" . $product['products_quantity'] . "',
                                   '" . $product['products_reorder_level'] . "',
                                   '" . $product['products_model'] . "',
@@ -359,7 +354,7 @@
                                     '" . addslashes($description['products_description']) . "',
                                     '" . $description['products_url'] . "', '0',
                                     '" . addslashes($description['products_description_meta']) . "',
-                                    '" . addslashes($description['products_keywords_meta']) . "')"); 
+                                    '" . addslashes($description['products_keywords_meta']) . "')");
 
               // Move that ADOdb pointer!
               $description_result->MoveNext();
@@ -385,7 +380,7 @@
                          options_values_id,
                          options_values_price,
                          price_prefix,
-                         options_sort_order) 
+                         options_sort_order)
                          VALUES ('" . $products_id_to . "',
                                  '" . $products_copy_from['options_id'] . "',
                                  '" . $products_copy_from['options_values_id'] . "',
@@ -408,16 +403,16 @@
         oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $categories_id . '&pID=' . $products_id));
         break;
     }
-  }
+}
 
 // check if the catalog image directory exists
-  if (is_dir(OOS_ABSOLUTE_PATH . OOS_IMAGES)) {
+if (is_dir(OOS_ABSOLUTE_PATH . OOS_IMAGES)) {
     if (!is_writeable(OOS_ABSOLUTE_PATH . OOS_IMAGES)) $messageStack->add(ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE, 'error');
-  } else {
+} else {
     $messageStack->add(ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST, 'error');
-  }
+}
 
-  require 'includes/header.php';
+require 'includes/header.php';
 ?>
 <div id="wrapper">
 	<?php require 'includes/blocks.php'; ?>
@@ -426,11 +421,10 @@
 			<?php require 'includes/menue.php'; ?>
 			</div>
 
-			<!-- body_text //-->
 			<div class="wrapper wrapper-content">
 				<div class="row">
-					<div class="col-lg-12">	
-     
+					<div class="col-lg-12">
+ 
 <?php
     if ($action == 'new_category_ACD' || $action == 'edit_category_ACD') {
       if (isset($_GET['cID']) && empty($_POST)) {
@@ -467,18 +461,31 @@
 ?>
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 
+	<!-- Breadcrumbs  -->
+	<div class="row wrapper border-bottom white-bg page-heading">
+		<div class="col-lg-10">
+			<h2><?php echo sprintf($text_new_or_edit, oos_output_generated_category_path($current_category_id)); ?></h2>
+			<ol class="breadcrumb">
+				<li>
+					<a href="<?php echo oos_href_link_admin($aContents['default']); ?>">Home</a>
+				</li>
+				<li>
+					<a href="<?php echo oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
+				</li>
+				<li class="active">
+					<strong><?php echo sprintf($text_new_or_edit, oos_output_generated_category_path($current_category_id)); ?></strong>
+				</li>
+			</ol>
+		</div>
+		<div class="col-lg-2">
+
+		</div>
+	</div><!--/ End Breadcrumbs -->	
+
+<?php echo oos_draw_form('new_category', $aContents['categories'], 'cPath=' . $cPath . '&cID=' . $_GET['cID'] . '&action=new_category_preview', 'post', 'enctype="multipart/form-data"'); ?>
+	
+<table border="0" width="100%" cellspacing="0" cellpadding="2">	
         <tr>
-          <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-            <tr>
-              <td class="pageHeading"><?php echo sprintf($text_new_or_edit, oos_output_generated_category_path($current_category_id)); ?></td>
-              <td class="pageHeading" align="right"></td>
-            </tr>
-          </table></td>
-        </tr>
-        <tr>
-          <td></td>
-        </tr>
-        <tr><?php echo oos_draw_form('new_category', $aContents['categories'], 'cPath=' . $cPath . '&cID=' . $_GET['cID'] . '&action=new_category_preview', 'post', 'enctype="multipart/form-data"'); ?>
           <td><table border="0" cellspacing="0" cellpadding="2">
 <?php
       for ($i=0; $i < count($languages); $i++) {
@@ -518,7 +525,7 @@
                 </tr>
               </table></td>
             </tr>
-			
+
 		<script>
 			CKEDITOR.replace( 'categories_description[<?php echo $languages[$i]['id']; ?>]');
 		</script>
@@ -576,13 +583,20 @@
         </tr>
         <tr>
           <td class="main" align="right"><?php echo oos_draw_hidden_field('categories_date_added', (($cInfo->date_added) ? $cInfo->date_added : date('Y-m-d'))) . oos_draw_hidden_field('parent_id', $cInfo->parent_id) . oos_submit_button('preview', IMAGE_PREVIEW) . '&nbsp;&nbsp;<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $_GET['cID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>'; ?></td>
-        </form></tr>
-<?php 
-  } elseif ($action == 'new_category_preview') {
+        </tr>
+		    </table>
+<!-- body_text_eof //-->
+</form>
+<?php
+} elseif ($action == 'new_category_preview') {
+	$form_action = ($_GET['cID']) ? 'update_category' : 'insert_category';
+
+    echo oos_draw_form($form_action, $aContents['categories'], 'cPath=' . $cPath . '&cID=' . $_GET['cID'] . '&action=' . $form_action, 'post', 'enctype="multipart/form-data"');	  
 ?>
-<table border="0" width="100%" cellspacing="0" cellpadding="2">	
-<?php 
+<table border="0" width="100%" cellspacing="0" cellpadding="2">
+<?php
     if (oos_is_not_null($_POST)) {
+
       $cInfo = new objectInfo($_POST);
       $categories_name = $_POST['categories_name'];
       $categories_heading_title = $_POST['categories_heading_title'];
@@ -611,7 +625,7 @@
                        c.categories_image, c.sort_order, c.date_added, c.last_modified
                 FROM $categoriestable c,
                      $categories_descriptiontable cd
-                WHERE c.categories_id = cd.categories_id AND 
+                WHERE c.categories_id = cd.categories_id AND
                       c.categories_id = '" . intval($_GET['cID']) . "'";
       $category_result = $dbconn->Execute($query);
       $category = $category_result->fields;
@@ -620,9 +634,6 @@
       $categories_image_name = $cInfo->categories_image;
     }
 
-    $form_action = ($_GET['cID']) ? 'update_category' : 'insert_category';
-
-    echo oos_draw_form($form_action, $aContents['categories'], 'cPath=' . $cPath . '&cID=' . $_GET['cID'] . '&action=' . $form_action, 'post', 'enctype="multipart/form-data"');
 
     $languages = oos_get_languages();
     for ($i=0; $i < count($languages); $i++) {
@@ -639,11 +650,15 @@
         $cInfo->categories_description_meta = oos_db_prepare_input($categories_description_meta[$languages[$i]['id']]);
         $cInfo->categories_keywords_meta = oos_db_prepare_input($categories_keywords_meta[$languages[$i]['id']]);
       }
+	  
 ?>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading"><?php echo oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . $cInfo->categories_heading_title; ?></td>
+            <td class="pageHeading"><?php echo oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . $cInfo->categories_name; ?></td>
+          </tr>		
+          <tr>
+            <td class="pageHeading">&nbsp;<?php echo $cInfo->categories_heading_title; ?></td>
           </tr>
         </table></td>
       </tr>
@@ -652,7 +667,7 @@
       </tr>
       <tr>
         <td class="main">
-<?php 
+<?php
   if (oos_is_not_null($categories_image_name))  {
     echo oos_image(OOS_SHOP_IMAGES . $categories_image_name, $cInfo->categories_name, '', '', 'align="right" hspace="5" vspace="5"');
   } else {
@@ -709,21 +724,18 @@
       echo oos_draw_hidden_field('categories_image', stripslashes($categories_image_name));
 
       echo oos_submit_button('back', IMAGE_BACK, 'name="edit"') . '&nbsp;&nbsp;';
-
-      if (isset($_GET['cID'])) {
-        echo oos_submit_button('update', IMAGE_UPDATE);
-      } else {
-        echo oos_submit_button('insert', BUTTON_INSERT);
-      }
+      echo oos_submit_button('save', IMAGE_SAVE);
+ 
       echo '&nbsp;&nbsp;<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $_GET['cID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>';
 ?></td>
-      </form></tr>
+      </form></tr>	  
 <?php
     }
-  } else {
 ?>
-<table border="0" width="100%" cellspacing="0" cellpadding="2">	
+	    </table>
+<!-- body_text_eof //-->
 <?php
+  } else {
     $image_icon_status_array = array();
     $image_icon_status_array = array(array('id' => '0', 'text' => TEXT_PRODUCT_NOT_AVAILABLE));
     $image_icon_status_result = $dbconn->Execute("SELECT products_status_id, products_status_name FROM " . $oostable['products_status'] . " WHERE products_status_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_status_id");
@@ -738,11 +750,31 @@
     // Close result set
     $image_icon_status_result->Close();
 ?>
+	<!-- Breadcrumbs  -->
+	<div class="row wrapper border-bottom white-bg page-heading">
+		<div class="col-lg-10">
+			<h2><?php echo HEADING_TITLE; ?></h2>
+			<ol class="breadcrumb">
+				<li>
+					<a href="<?php echo oos_href_link_admin($aContents['default']); ?>">Home</a>
+				</li>
+				<li>
+					<a href="<?php echo oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
+				</li>
+				<li class="active">
+					<strong><?php echo HEADING_TITLE; ?></strong>
+				</li>
+			</ol>
+		</div>
+		<div class="col-lg-2">
+
+		</div>
+	</div><!--/ End Breadcrumbs -->	
+	
+<table border="0" width="100%" cellspacing="0" cellpadding="2">	
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"></td>
             <td align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr><?php echo oos_draw_form('search', $aContents['categories'], '', 'get'); ?>
                 <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . oos_draw_input_field('search', $_GET['search']); ?></td>
@@ -777,7 +809,7 @@
       $categories_count++;
       $rows++;
 
-// Get parent_id for subcategories if search 
+// Get parent_id for subcategories if search
       if (isset($_GET['search'])) $cPath= $categories['parent_id'];
 
       if ((!isset($_GET['cID']) && !isset($_GET['pID']) || (isset($_GET['cID']) && ($_GET['cID'] == $categories['categories_id']))) && !isset($cInfo) && (substr($action, 0, 3) != 'new')) {
@@ -826,7 +858,7 @@
       $products_count++;
       $rows++;
 
-// Get categories_id for product if search 
+// Get categories_id for product if search
       if (isset($_GET['search'])) $cPath=$products['categories_id'];
 
       if ((!isset($_GET['pID']) && !isset($_GET['cID']) || (isset($_GET['pID']) && ($_GET['pID'] == $products['products_id']))) && !isset($pInfo)  && !isset($cInfo) && (substr($action, 0, 3) != 'new')) {
@@ -854,7 +886,7 @@
           echo oos_image(OOS_IMAGES . 'icon_status_red.gif', $image_icon_status_array[0]['text'], 10, 10);
         break;
 
-     case '1': 
+     case '1':
           echo oos_image(OOS_IMAGES . 'icon_status_blue.gif', $image_icon_status_array[1]['text'], 10, 10);
        break;
 
@@ -938,11 +970,11 @@
           $slave_products = $slave_products_result->fields;
           if($slave_products['products_slave_visible'] == 1){
             $contents[] = array('text' => ' ' . $slave_products['products_name'] . ' ' . '<a href="' . oos_href_link_admin($aContents['categories'], oos_get_all_get_params(array('action', 'pID')) . 'slave_id=' . $slave_table['slave_id'] . '&master_id=' . $pInfo->products_id . '&action=slave_delete') . '">' . oos_image(OOS_IMAGES . 'delete_slave_off.gif', 'Delete Slave') . '</a>'.
-            '<a href="' . oos_href_link_admin($aContents['categories'], oos_get_all_get_params(array('action')) . 'visible=0&slave_id=' . $slave_table['slave_id'] . '&master_id=' . $pInfo->products_id . '&action=slave_visible') . '">'. 
+            '<a href="' . oos_href_link_admin($aContents['categories'], oos_get_all_get_params(array('action')) . 'visible=0&slave_id=' . $slave_table['slave_id'] . '&master_id=' . $pInfo->products_id . '&action=slave_visible') . '">'.
             oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT) . '</a>');
           } else {
             $contents[] = array('text' => ' ' . $slave_products['products_name'] . ' ' . '<a href="' . oos_href_link_admin($aContents['categories'], oos_get_all_get_params(array('action', 'pID')) . 'slave_id=' . $slave_table['slave_id'] . '&master_id=' . $pInfo->products_id . '&action=slave_delete') . '">' . oos_image(OOS_IMAGES . 'delete_slave_off.gif', 'Delete Slave') . '</a>'.
-            '<a href="' . oos_href_link_admin($aContents['categories'], oos_get_all_get_params(array('action')) . 'visible=1&slave_id=' . $slave_table['slave_id'] . '&master_id=' . $pInfo->products_id . '&action=slave_visible') . '">'. 
+            '<a href="' . oos_href_link_admin($aContents['categories'], oos_get_all_get_params(array('action')) . 'visible=1&slave_id=' . $slave_table['slave_id'] . '&master_id=' . $pInfo->products_id . '&action=slave_visible') . '">'.
             oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT) . '</a>');
           }
           // Move that ADOdb pointer!
@@ -1137,17 +1169,17 @@
               $contents[] = array('text' => '&nbsp;&nbsp; ' . ($pInfo->products_discount1_qty < 10 ? '&nbsp;' : '') . $pInfo->products_discount1_qty . ' ' . $currencies->format($oosDiscount1) . ' - ' . TEXT_TAX_INFO . $currencies->format($oosDiscount1Netto));
             }
             if ( $pInfo->products_discount2_qty > 0 ) {
-              $oosDiscount2 = $pInfo->products_discount2; 
+              $oosDiscount2 = $pInfo->products_discount2;
               $oosDiscount2 = round($oosDiscount2,TAX_DECIMAL_PLACES);
               $contents[] = array('text' => '&nbsp;&nbsp; ' . ($pInfo->products_discount2_qty < 10 ? '&nbsp;' : '') . $pInfo->products_discount2_qty . ' ' . $currencies->format($oosDiscount2) . ' - ' . TEXT_TAX_INFO . $currencies->format($oosDiscount2Netto));
             }
             if ( $pInfo->products_discount3_qty > 0 ) {
-              $oosDiscount3 = $pInfo->products_discount3; 
+              $oosDiscount3 = $pInfo->products_discount3;
               $oosDiscount3 = round($oosDiscount3,TAX_DECIMAL_PLACES);
               $contents[] = array('text' => '&nbsp;&nbsp; ' . ($pInfo->products_discount3_qty < 10 ? '&nbsp;' : '') . $pInfo->products_discount3_qty . ' ' . $currencies->format($oosDiscount3) . ' - ' . TEXT_TAX_INFO . $currencies->format($oosDiscount3Netto));
             }
             if ( $pInfo->products_discount4_qty > 0 ) {
-               $oosDiscount4 = $pInfo->products_discount4; 
+               $oosDiscount4 = $pInfo->products_discount4;
               $oosDiscount4 = round($oosDiscount4,TAX_DECIMAL_PLACES);
               $contents[] = array('text' => '&nbsp;&nbsp; ' . ($pInfo->products_discount4_qty < 10 ? '&nbsp;' : '') . $pInfo->products_discount4_qty . ' ' . $currencies->format($oosDiscount4) . ' - ' . TEXT_TAX_INFO . $currencies->format($oosDiscount4Netto));
             }
@@ -1173,11 +1205,12 @@
           </tr>
         </table></td>
       </tr>
+    </table>
+<!-- body_text_eof //-->	  
 <?php
   }
 ?>
-    </table>
-<!-- body_text_eof //-->
+
 
 				</div>
 			</div>
@@ -1187,7 +1220,7 @@
 </div>
 
 
-<?php 
+<?php
 	require 'includes/bottom.php';
 	require 'includes/nice_exit.php';
 ?>
