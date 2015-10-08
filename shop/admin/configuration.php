@@ -49,17 +49,29 @@
 			<div class="wrapper wrapper-content">
 				<div class="row">
 					<div class="col-lg-12">
-					
+			<!-- Breadcrumbs  -->
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-lg-10">
+					<h2><?php echo constant(strtoupper((int)$_GET['gID'] . '_TITLE')); ?></h2>
+					<ol class="breadcrumb">
+						<li>
+							<a href="<?php echo oos_href_link_admin($aContents['default']); ?>">Home</a>
+						</li>
+						<li>
+							<a href="<?php echo oos_href_link_admin($aContents['configuration'], 'selected_box=configuration&gID=1') . '">' . BOX_HEADING_CONFIGURATION . '</a>'; ?>
+						</li>
+						<li class="active">
+							<strong><?php echo constant(strtoupper((int)$_GET['gID'] . '_TITLE')); ?></strong>
+						</li>
+					</ol>
+				</div>
+				<div class="col-lg-2">
+
+				</div>
+			</div><!--/ End Breadcrumbs -->						
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo constant(strtoupper((int)$_GET['gID'] . '_TITLE')); ?></td>
-            <td class="pageHeading" align="right"></td>
-          </tr>
-        </table></td>
-      </tr>
+
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
