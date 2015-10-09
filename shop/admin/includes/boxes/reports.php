@@ -31,12 +31,12 @@ $aBlocks[] = array(
 	'active' => $bActive,
 	'contents' => array(
 		array(
-			'title' => BOX_REPORTS_PRODUCTS_VIEWED,
-			'link' =>  oos_admin_files_boxes('stats_products_viewed', 'selected_box=reports')
-		),
-		array(
 			'title' => BOX_REPORTS_PRODUCTS_PURCHASED,
 			'link' => oos_admin_files_boxes('stats_products_purchased', 'selected_box=reports')
+		),	
+		array(
+			'title' => BOX_REPORTS_PRODUCTS_VIEWED,
+			'link' =>  oos_admin_files_boxes('stats_products_viewed', 'selected_box=reports')
 		),
 		array(
 			'title' => BOX_REPORTS_STOCK_LEVEL,
