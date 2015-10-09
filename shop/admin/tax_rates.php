@@ -137,6 +137,27 @@
 			<div class="wrapper wrapper-content">
 				<div class="row">
 					<div class="col-lg-12">
+
+			<!-- Breadcrumbs  -->
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-lg-10">
+					<h2><?php echo HEADING_TITLE; ?></h2>
+					<ol class="breadcrumb">
+						<li>
+							<a href="<?php echo oos_href_link_admin($aContents['default']); ?>">Home</a>
+						</li>
+						<li>
+							<a href="<?php echo oos_href_link_admin(oos_selected_file('taxes.php'), 'selected_box=taxes') . '">' . BOX_HEADING_LOCATION_AND_TAXES . '</a>'; ?>
+						</li>
+						<li class="active">
+							<strong><?php echo HEADING_TITLE; ?></strong>
+						</li>
+					</ol>
+				</div>
+				<div class="col-lg-2">
+
+				</div>
+			</div><!--/ End Breadcrumbs -->						
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
