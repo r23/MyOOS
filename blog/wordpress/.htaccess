@@ -1090,15 +1090,7 @@ Options -Indexes
 		Deny from all
 	</IfModule>
 </files>
-<files install.php>
-	<IfModule mod_authz_core.c>
-		Require all denied
-	</IfModule>
-	<IfModule !mod_authz_core.c>
-		Order allow,deny
-		Deny from all
-	</IfModule>
-</files>
+
 <files wp-config.php>
 	<IfModule mod_authz_core.c>
 		Require all denied
@@ -1109,11 +1101,25 @@ Options -Indexes
 	</IfModule>
 </files>
 
-#<Files xmlrpc.php>
-#    Order Deny,Allow
-#    Deny from all
-#</Files>
+#<files install.php>
+#	<IfModule mod_authz_core.c>
+#		Require all denied
+#	</IfModule>
+#	<IfModule !mod_authz_core.c>
+#		Order allow,deny
+#		Deny from all
+#	</IfModule>
+#</files>
 
+#<files xmlrpc.php>
+#	<IfModule mod_authz_core.c>
+#		Require all denied
+#	</IfModule>
+#	<IfModule !mod_authz_core.c>
+#		Order allow,deny
+#		Deny from all
+#	</IfModule>
+#</files>
 #<IfModule mod_setenvif.c>
 #    <Files xmlrpc.php>
 #        BrowserMatch "Poster" allowed
