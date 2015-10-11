@@ -128,16 +128,11 @@ define('BOX_CONTENT_NEWS', 'Nachrichten');
 define('BOX_CONTENT_INFORMATION', 'Informationen');
 define('BOX_CONTENT_PAGE_TYPE', 'Content Seiten Type');
 
-// categories box text in includes/boxes/newsfeed.php
-define('BOX_HEADING_NEWSFEED', 'News Feed');
-define('BOX_NEWSFEED_MANAGER', 'News Feed Manager');
-define('BOX_NEWSFEED_CATEGORIES', 'News Feed Kategorien');
-
-
 // customers box text in includes/boxes/customers.php
 define('BOX_HEADING_CUSTOMERS', 'Kunden');
 define('BOX_CUSTOMERS_CUSTOMERS', 'Kunden');
 define('BOX_CUSTOMERS_ORDERS', 'Bestellungen');
+define('BOX_ORDERS_STATUS', 'Bestellstatus');
 define('BOX_CAMPAIGNS', 'Kampagnen');
 define('BOX_ADMIN_LOGIN', 'Admin login');
 
@@ -176,17 +171,10 @@ define('BOX_HEADING_LOCALIZATION', 'Sprachen/W&auml;hrungen');
 define('BOX_LOCALIZATION_CURRENCIES', 'W&auml;hrungen');
 define('BOX_LOCALIZATION_LANGUAGES', 'Sprachen');
 define('BOX_LOCALIZATION_CUSTOMERS_STATUS', 'Kundengruppen');
-define('BOX_LOCALIZATION_ORDERS_STATUS', 'Bestellstatus');
-
 
 // export
 define('BOX_HEADING_EXPORT', 'Export');
 define('BOX_EXPORT_GOOGLEBASE', 'Googlebase');
-
-
-//rss
-define('BOX_HEADING_RSS', 'RSS');
-define('BOX_RSS_CONF', 'RSS');
 
 //information
 define('BOX_HEADING_INFORMATION', 'Information');

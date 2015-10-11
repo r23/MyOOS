@@ -131,6 +131,7 @@ define('BOX_CONTENT_PAGE_TYPE', 'Conten Page Type');
 define('BOX_HEADING_CUSTOMERS', 'Customers');
 define('BOX_CUSTOMERS_CUSTOMERS', 'Customers');
 define('BOX_CUSTOMERS_ORDERS', 'Orders');
+define('BOX_ORDERS_STATUS', 'Orders Status');
 define('BOX_CAMPAIGNS', 'Campaigns');
 define('BOX_ADMIN_LOGIN', 'Admin login');
 
@@ -165,15 +166,11 @@ define('BOX_HEADING_LOCALIZATION', 'Localization');
 define('BOX_LOCALIZATION_CURRENCIES', 'Currencies');
 define('BOX_LOCALIZATION_LANGUAGES', 'Languages');
 define('BOX_LOCALIZATION_CUSTOMERS_STATUS', 'Customers Status');
-define('BOX_LOCALIZATION_ORDERS_STATUS', 'Orders Status');
 
 // export
 define('BOX_HEADING_EXPORT', 'Export');
 define('BOX_EXPORT_GOOGLEBASE', 'Googlebase');
 
-//rss
-define('BOX_HEADING_RSS', 'RSS');
-define('BOX_RSS_CONF', 'RSS');
 
 //information
 define('BOX_HEADING_INFORMATION', 'Information');

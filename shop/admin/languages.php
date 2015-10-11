@@ -401,23 +401,29 @@
 			<div class="wrapper wrapper-content">
 				<div class="row">
 					<div class="col-lg-12">
+
+			<!-- Breadcrumbs  -->
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-lg-10">
+					<h2><?php echo HEADING_TITLE; ?></h2>
+					<ol class="breadcrumb">
+						<li>
+							<a href="<?php echo oos_href_link_admin($aContents['default']); ?>">Home</a>
+						</li>
+						<li>
+							<a href="<?php echo oos_href_link_admin($aContents['currencies'], 'selected_box=localization') . '">' . BOX_HEADING_LOCALIZATION . '</a>'; ?>
+						</li>
+						<li class="active">
+							<strong><?php echo HEADING_TITLE; ?></strong>
+						</li>
+					</ol>
+				</div>
+				<div class="col-lg-2">
+
+				</div>
+			</div><!--/ End Breadcrumbs -->						
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-            <tr><?php echo oos_draw_form('search', $aContents['languages'], '', 'get'); ?>
-              <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . oos_draw_input_field('search'); ?></td>
-              </form></tr>
-            <tr><?php echo oos_draw_form('status', $aContents['languages'], '', 'get'); ?>
-              <td class="smallText" align="right"><?php echo HEADING_TITLE_STATUS . ' ' . oos_draw_pull_down_menu('status', $lang_select_array, '0', 'onChange="this.form.submit();"'); ?></td>
-            </form></tr>
-           </table></td>
-          </tr>
-        </table></td>
-      </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -430,22 +436,8 @@
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
-  $search = '';
-  if (isset($_GET['search']) && oos_is_not_null($_GET['search'])) {
-    $keywords = oos_db_prepare_input($_GET['search']);
-    $search = "WHERE name like '%" . $keywords . "%' OR iso_639_2 like '%" . $keywords . "%' OR iso_639_1 like '%" . $keywords . "'";
-  }
-  if (isset($_GET['status'])) {
-    $status = oos_db_prepare_input($_GET['status']);
-    if (!empty($_GET['search'])) {
-      $seach .= "AND status = '" . $status . "'";
-    } else {
-      $search ="WHERE status = '" . $status . "'";
-    }
-  }
   $languages_result_raw = "SELECT languages_id, name, iso_639_2, iso_639_1, status, sort_order 
                           FROM " . $oostable['languages'] . "
-                               " . $search . "
                           ORDER BY sort_order";
   $languages_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $languages_result_raw, $languages_result_numrows);
   $languages_result = $dbconn->Execute($languages_result_raw);

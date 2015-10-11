@@ -241,21 +241,36 @@
 			<div class="wrapper wrapper-content">
 				<div class="row">
 					<div class="col-lg-12">
+
+
 					
 <!-- body_text //-->
 <?php 
   switch ($action) {
   case 'voucherreport':
 ?>
+			<!-- Breadcrumbs  -->
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-lg-10">
+					<h2><?php echo HEADING_TITLE; ?></h2>
+					<ol class="breadcrumb">
+						<li>
+							<a href="<?php echo oos_href_link_admin($aContents['default']); ?>">Home</a>
+						</li>
+						<li>
+							<a href="<?php echo oos_href_link_admin($aContents['coupon_admin'], 'selected_box=gv_admin') . '">' . BOX_HEADING_GV_ADMIN . '</a>'; ?>
+						</li>
+						<li class="active">
+							<strong><?php echo HEADING_TITLE; ?></strong>
+						</li>
+					</ol>
+				</div>
+				<div class="col-lg-2">
+
+				</div>
+			</div><!--/ End Breadcrumbs -->
+
 	<table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"></td>
-          </tr>
-        </table></td>
-      </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -356,15 +371,29 @@
       break;
     }
 ?>
+			<!-- Breadcrumbs  -->
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-lg-10">
+					<h2><?php echo HEADING_TITLE; ?></h2>
+					<ol class="breadcrumb">
+						<li>
+							<a href="<?php echo oos_href_link_admin($aContents['default']); ?>">Home</a>
+						</li>
+						<li>
+							<a href="<?php echo oos_href_link_admin($aContents['coupon_admin'], 'selected_box=gv_admin') . '">' . BOX_HEADING_GV_ADMIN . '</a>'; ?>
+						</li>
+						<li class="active">
+							<strong><?php echo HEADING_TITLE; ?></strong>
+						</li>
+					</ol>
+				</div>
+				<div class="col-lg-2">
+
+				</div>
+			</div><!--/ End Breadcrumbs -->
+
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"></td>
-          </tr>
-        </table></td>
-      </tr>
+
       <tr>
           <tr><?php echo oos_draw_form('mail', $aContents['coupon_admin'], 'action=send_email_to_user&cID=' . $_GET['cID']); ?>
             <td><table border="0" width="100%" cellpadding="0" cellspacing="2">
@@ -437,7 +466,28 @@
                                              coupon_languages_id = '" . intval($_SESSION['language_id']) . "'");
     $coupon_name = $coupon_name_result->fields;
 ?>
-      <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+			<!-- Breadcrumbs  -->
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-lg-10">
+					<h2><?php echo HEADING_TITLE; ?></h2>
+					<ol class="breadcrumb">
+						<li>
+							<a href="<?php echo oos_href_link_admin($aContents['default']); ?>">Home</a>
+						</li>
+						<li>
+							<a href="<?php echo oos_href_link_admin($aContents['coupon_admin'], 'selected_box=gv_admin') . '">' . BOX_HEADING_GV_ADMIN . '</a>'; ?>
+						</li>
+						<li class="active">
+							<strong><?php echo HEADING_TITLE; ?></strong>
+						</li>
+					</ol>
+				</div>
+				<div class="col-lg-2">
+
+				</div>
+			</div><!--/ End Breadcrumbs -->
+
+<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -527,15 +577,29 @@
     break;
   case 'update_preview':
 ?>
+
+			<!-- Breadcrumbs  -->
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-lg-10">
+					<h2><?php echo HEADING_TITLE; ?></h2>
+					<ol class="breadcrumb">
+						<li>
+							<a href="<?php echo oos_href_link_admin($aContents['default']); ?>">Home</a>
+						</li>
+						<li>
+							<a href="<?php echo oos_href_link_admin($aContents['coupon_admin'], 'selected_box=gv_admin') . '">' . BOX_HEADING_GV_ADMIN . '</a>'; ?>
+						</li>
+						<li class="active">
+							<strong><?php echo HEADING_TITLE; ?></strong>
+						</li>
+					</ol>
+				</div>
+				<div class="col-lg-2">
+
+				</div>
+			</div><!--/ End Breadcrumbs -->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"></td>
-          </tr>
-        </table></td>
-      </tr>
+
       <tr>
       <td>
 <?php echo oos_draw_form('coupon', 'coupon_admin.php', 'action=update_confirm&oldaction=' . $_GET['oldaction'] . '&cID=' . $_GET['cID']); ?>
@@ -703,15 +767,29 @@
 // set some defaults
     if (!$coupon_uses_user) $coupon_uses_user=1;
 ?>
+
+			<!-- Breadcrumbs  -->
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-lg-10">
+					<h2><?php echo HEADING_TITLE; ?></h2>
+					<ol class="breadcrumb">
+						<li>
+							<a href="<?php echo oos_href_link_admin($aContents['default']); ?>">Home</a>
+						</li>
+						<li>
+							<a href="<?php echo oos_href_link_admin($aContents['coupon_admin'], 'selected_box=gv_admin') . '">' . BOX_HEADING_GV_ADMIN . '</a>'; ?>
+						</li>
+						<li class="active">
+							<strong><?php echo HEADING_TITLE; ?></strong>
+						</li>
+					</ol>
+				</div>
+				<div class="col-lg-2">
+
+				</div>
+			</div><!--/ End Breadcrumbs -->
+
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"></td>
-          </tr>
-        </table></td>
-      </tr>
       <tr>
       <td>
 <?php 
@@ -821,11 +899,32 @@
     break;
   default:
 ?>
+			<!-- Breadcrumbs  -->
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-lg-10">
+					<h2><?php echo HEADING_TITLE; ?></h2>
+					<ol class="breadcrumb">
+						<li>
+							<a href="<?php echo oos_href_link_admin($aContents['default']); ?>">Home</a>
+						</li>
+						<li>
+							<a href="<?php echo oos_href_link_admin($aContents['coupon_admin'], 'selected_box=gv_admin') . '">' . BOX_HEADING_GV_ADMIN . '</a>'; ?>
+						</li>
+						<li class="active">
+							<strong><?php echo HEADING_TITLE; ?></strong>
+						</li>
+					</ol>
+				</div>
+				<div class="col-lg-2">
+
+				</div>
+			</div><!--/ End Breadcrumbs -->
+			
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
+            <td class="pageHeading"></td>
             <td class="main"><?php echo oos_draw_form('status', $aContents['coupon_admin'], '', 'get'); ?>
 <?php
     $status_array[] = array('id' => 'Y', 'text' => TEXT_COUPON_ACTIVE);
@@ -920,6 +1019,7 @@
     // Close result set
     $cc_result->Close();
 ?>
+
           <tr>
             <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
@@ -1010,6 +1110,8 @@
     echo '            </td>' . "\n";
     }
 ?>
+          </tr>
+        </table></td>
       </tr>
     </table>
 <!-- body_text_eof //-->

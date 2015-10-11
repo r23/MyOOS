@@ -44,15 +44,15 @@ $aBlocks[] = array(
 			'link' => oos_admin_files_boxes('customers_status','selected_box=customers')
 		),
 		array(
-			'title' => BOX_CUSTOMERS_CUSTOMERS,
+			'title' => BOX_ORDERS_STATUS,
 			'link' => oos_admin_files_boxes('orders_status', 'selected_box=customers')
 		),
 		array(
-			'title' => BOX_CUSTOMERS_ORDERS,
+			'title' => BOX_CAMPAIGNS,
 			'link' => oos_admin_files_boxes('campaigns', 'selected_box=customers')
 		),
 		array(
-			'title' => BOX_LOCALIZATION_CUSTOMERS_STATUS,
+			'title' => BOX_ADMIN_LOGIN,
 			'link' => oos_admin_files_boxes('manual_loging', 'selected_box=customers')
 		),
 	),

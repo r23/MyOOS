@@ -67,7 +67,7 @@
                array('title' => BOX_HEADING_LOCATION_AND_TAXES,
                      'access' => oos_admin_check_boxes('taxes.php'),
                      'image' => 'location.gif',
-                     'href' => oos_href_link_admin(oos_selected_file('taxes.php'), 'selected_box=taxes'),
+                     'href' => oos_href_link_admin($aContents['countries'], 'selected_box=taxes'),
                      'children' => array(array('title' => BOX_TAXES_COUNTRIES, 'link' => oos_href_link_admin($aContents['countries'], 'selected_box=taxes'),
                                                'access' => oos_admin_check_boxes('countries', 'sub_boxes')),
                                          array('title' => BOX_TAXES_GEO_ZONES, 'link' => oos_href_link_admin($aContents['geo_zones'], 'selected_box=taxes'),

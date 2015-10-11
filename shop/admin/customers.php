@@ -390,8 +390,7 @@ function check_form() {
 			<div class="wrapper wrapper-content">
 				<div class="row">
 					<div class="col-lg-12">
-<!-- body_text //-->
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
+
 <?php
   if ($action == 'edit') {
     $customerstable = $oostable['customers'];
@@ -418,10 +417,32 @@ function check_form() {
     $vat_id_status_array = array(array('id' => '1', 'text' => ENTRY_VAT_ID_STATUS_YES),
                                  array('id' => '0', 'text' => ENTRY_VAT_ID_STATUS_NO));
 ?>
+			<!-- Breadcrumbs  -->
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-lg-10">
+					<h2><?php echo HEADING_TITLE . ' : ' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname ; ?></h2>
+					<ol class="breadcrumb">
+						<li>
+							<a href="<?php echo oos_href_link_admin($aContents['default']); ?>">Home</a>
+						</li>
+						<li>
+							<a href="<?php echo oos_href_link_admin($aContents['customers'], 'selected_box=customers') . '">' . BOX_HEADING_CUSTOMERS . '</a>'; ?>
+						</li>
+						<li class="active">
+							<strong><?php echo HEADING_TITLE . ' : ' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname ; ?></strong>
+						</li>
+					</ol>
+				</div>
+				<div class="col-lg-2">
+
+				</div>
+			</div><!--/ End Breadcrumbs -->					
+<!-- body_text //-->
+	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE . ' : ' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname ; ?></td>
+            <td class="pageHeading"></td>
             <td class="main">
 <?php
    echo '<br />' . HEADING_TITLE_STATUS;
@@ -640,10 +661,32 @@ function check_form() {
 <?php
   } else {
 ?>
+			<!-- Breadcrumbs  -->
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-lg-10">
+					<h2><?php echo HEADING_TITLE; ?></h2>
+					<ol class="breadcrumb">
+						<li>
+							<a href="<?php echo oos_href_link_admin($aContents['default']); ?>">Home</a>
+						</li>
+						<li>
+							<a href="<?php echo oos_href_link_admin($aContents['customers'], 'selected_box=customers') . '">' . BOX_HEADING_CUSTOMERS . '</a>'; ?>
+						</li>
+						<li class="active">
+							<strong><?php echo HEADING_TITLE; ?></strong>
+						</li>
+					</ol>
+				</div>
+				<div class="col-lg-2">
+
+				</div>
+			</div><!--/ End Breadcrumbs -->					
+<!-- body_text //-->
+	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
+            <td class="pageHeading"></td>
             <td class="pageHeading" align="right"></td>
             <td align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                <tr><?php echo oos_draw_form('search', $aContents['customers'], '', 'get'); ?>

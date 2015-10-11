@@ -147,7 +147,7 @@
 							<a href="<?php echo oos_href_link_admin($aContents['default']); ?>">Home</a>
 						</li>
 						<li>
-							<a href="<?php echo oos_href_link_admin(oos_selected_file('taxes.php'), 'selected_box=taxes') . '">' . BOX_HEADING_LOCATION_AND_TAXES . '</a>'; ?>
+							<a href="<?php echo oos_href_link_admin($aContents['countries'], 'selected_box=taxes') . '">' . BOX_HEADING_LOCATION_AND_TAXES . '</a>'; ?>
 						</li>
 						<li class="active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
