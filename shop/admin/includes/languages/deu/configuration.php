@@ -327,9 +327,6 @@ define('DOWNLOAD_MAX_DAYS_DESC', 'Setzt die Anzahl der Tage, nach denen der Link
 define('DOWNLOAD_MAX_COUNT_TITLE', 'Maximale Anzahl der Downloads');
 define('DOWNLOAD_MAX_COUNT_DESC', 'Setzt die maximal m&ouml;gliche Anzahl der Downloads, 0 hei&szlig;t dass kein Download erlaubt ist.');
 
-define('DOWNLOADS_ORDERS_STATUS_UPDATED_VALUE_TITLE', 'Downloads Controller Update Status Value');
-define('DOWNLOADS_ORDERS_STATUS_UPDATED_VALUE_DESC', 'What orders_status resets the Download days and Max Downloads - Default is 4');
-
 define('DOWNLOADS_CONTROLLER_ON_HOLD_MSG_TITLE', 'Downloads Controller Download on hold message');
 define('DOWNLOADS_CONTROLLER_ON_HOLD_MSG_DESC', 'Downloads Controller Download on hold message');
 

@@ -452,12 +452,6 @@ define('TEXT_DISPLAY_NUMBER_OF_MEMBERS', 'Zeige an <b>%d</b> bis <b>%d</b> (von 
 
 define('PULL_DOWN_DEFAULT', 'Bitte wählen');
 
-
-// BOF: WebMakers.com Added: All Add-Ons
-// Download Controller
-// Add a new Order Status to the orders_status table - Updated
-define('ORDERS_STATUS_UPDATED_VALUE','4'); // set to the Updated status to update max days and max count
-
 // Quantity Definitions
 require('includes/languages/' . $_SESSION['language'] . '/' . 'quantity_control.php');
 

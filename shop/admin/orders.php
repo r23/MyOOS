@@ -116,7 +116,7 @@
         $check_status_result = $dbconn->Execute("SELECT customers_name, customers_email_address, orders_status, date_purchased, orders_language FROM $orderstable WHERE orders_id = '" . oos_db_input($oID) . "'");
         $check_status = $check_status_result->fields;
 
-        if ($check_status['orders_status'] != $status || $comments != '' || ($status == DOWNLOADS_ORDERS_STATUS_UPDATED_VALUE) ) {
+        if ($check_status['orders_status'] != $status || $comments != '' ) {
           $orderstable = $oostable['orders'];
           $dbconn->Execute("UPDATE $orderstable SET orders_status = '" . oos_db_input($status) . "', last_modified = now() WHERE orders_id = '" . oos_db_input($oID) . "'");
 
@@ -124,10 +124,8 @@
           $check_status_result2 = $dbconn->Execute("SELECT customers_name, customers_email_address, orders_status, date_purchased FROM $orderstable WHERE orders_id = '" . oos_db_input($oID) . "'");
           $check_status2 = $check_status_result2->fields;
 
-          if ( $check_status2['orders_status'] == DOWNLOADS_ORDERS_STATUS_UPDATED_VALUE ) {
-            $orders_products_downloadtable = $oostable['orders_products_download'];
-            $dbconn->Execute("UPDATE $orders_products_downloadtable SET download_maxdays = '" . oos_db_input(DOWNLOAD_MAX_DAYS) . "', download_count = '" . oos_db_input(DOWNLOAD_MAX_COUNT) . "' WHERE orders_id = '" . oos_db_input($oID) . "'");
-          }
+          $orders_products_downloadtable = $oostable['orders_products_download'];
+          $dbconn->Execute("UPDATE $orders_products_downloadtable SET download_maxdays = '" . oos_db_input(DOWNLOAD_MAX_DAYS) . "', download_count = '" . oos_db_input(DOWNLOAD_MAX_COUNT) . "' WHERE orders_id = '" . oos_db_input($oID) . "'");
 
           $customer_notified = '0';
 
