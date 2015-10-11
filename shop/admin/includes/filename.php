@@ -45,13 +45,11 @@
   $aContents['customers_status'] = $prefix_filename . 'customers_status.php';
   $aContents['coupon_admin'] = $prefix_filename . 'coupon_admin.php';
   $aContents['default'] = $prefix_filename . 'index.php';
-  $aContents['define_language'] = $prefix_filename . 'define_language.php';
   $aContents['easypopulate'] = $prefix_filename . 'easypopulate.php';
   $aContents['edit_orders'] = $prefix_filename . 'edit_orders.php';
   $aContents['export_excel'] = $prefix_filename . 'export_excel.php';
   $aContents['import_excel'] = $prefix_filename . 'import_excel.php';
   $aContents['featured'] = $prefix_filename . 'featured.php';
-  $aContents['file_manager'] = $prefix_filename . 'file_manager.php';
   $aContents['forbiden'] = $prefix_filename . 'forbiden.php';
   $aContents['geo_zones'] = $prefix_filename . 'geo_zones.php';
   $aContents['gv_queue'] = $prefix_filename . 'gv_queue.php';

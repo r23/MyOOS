@@ -103,7 +103,6 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_file
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('categories', 0, 3, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('products', 0, 3, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('products_attributes', 0, 3, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('products_attributes_add', 0, 3, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('manufacturers', 0, 3, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('reviews', 0, 3, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('products_status', 0, 3, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
@@ -130,7 +129,6 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_file
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('customers_status', 0, 6, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('orders_status', 0, 6, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('manual_loging', 0, 6, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('popup_google_map', 0, 6, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('campaigns', 0, 6, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 
 
@@ -168,10 +166,8 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_file
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('stats_sales_report2', 0, 16, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 
 //tools.php
-$result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('define_language', 0, 17, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('mail', 0, 17, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('newsletters', 0, 17, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('server_info', 0, 17, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('whos_online', 0, 17, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 
 

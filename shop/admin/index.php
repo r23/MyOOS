@@ -26,7 +26,7 @@
                      'access' => true,
                      'image' => 'my_account.gif',
                      'href' => oos_href_link_admin($aContents['admin_account']),
-                     'children' => array(array('title' => BOX_MY_ACCOUNT, 'link' => oos_href_link_admin($aContents['admin_account']),
+                     'children' => array(array('title' => BOX_MY_ACCOUNT, 'link' => oos_href_link_admin($aContents['admin_account'], 'selected_box=administrator'),
                                                'access' => true),
                                          array('title' => BOX_MY_ACCOUNT_LOGOFF, 'link' => oos_href_link_admin($aContents['logoff']),
                                                'access' => true))),
