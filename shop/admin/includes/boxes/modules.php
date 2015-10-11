@@ -32,15 +32,15 @@ $aBlocks[] = array(
 	'contents' => array(
 		array(
 			'title' => BOX_MODULES_PAYMENT,
-			'link' =>  oos_href_link_admin($aContents['modules'], 'set=payment', 'NONSSL')
+			'link' =>  oos_href_link_admin($aContents['modules'], 'selected_box=modules&set=payment', 'NONSSL')
 		),
 		array(
 			'title' => BOX_MODULES_SHIPPING,
-			'link' => oos_href_link_admin($aContents['modules'], 'set=shipping', 'NONSSL')
+			'link' => oos_href_link_admin($aContents['modules'], 'selected_box=modules&set=shipping', 'NONSSL')
 		),
 		array(
 			'title' => BOX_MODULES_ORDER_TOTAL,
-			'link' => oos_href_link_admin($aContents['modules'], 'set=ordertotal', 'NONSSL')
+			'link' => oos_href_link_admin($aContents['modules'], 'selected_box=modules&set=ordertotal', 'NONSSL')
 		),	
 	),
 );
