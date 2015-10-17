@@ -53,13 +53,13 @@
 ?>
 <div id="wrapper">
 	<?php require 'includes/blocks.php'; ?>
-		<div id="page-wrapper" class="white-bg">
+		<div id="page-wrapper" class="gray-bg">
 			<div class="row border-bottom">
 			<?php require 'includes/menue.php'; ?>
 			</div>
 
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper page-heading">
+			<div class="row wrapper white-bg page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">

@@ -233,24 +233,18 @@
 <!-- body //-->
 <div id="wrapper">
 	<?php require 'includes/blocks.php'; ?>
-		<div id="page-wrapper" class="white-bg">
+		<div id="page-wrapper" class="gray-bg">
 			<div class="row border-bottom">
 			<?php require 'includes/menue.php'; ?>
 			</div>
-
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">
-
-
-					
+				
 <!-- body_text //-->
 <?php 
   switch ($action) {
   case 'voucherreport':
 ?>
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper page-heading">
+			<div class="row wrapper white-bg page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -269,7 +263,10 @@
 
 				</div>
 			</div><!--/ End Breadcrumbs -->
-
+			
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">	
 	<table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -372,7 +369,7 @@
     }
 ?>
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper page-heading">
+			<div class="row wrapper white-bg page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -391,7 +388,10 @@
 
 				</div>
 			</div><!--/ End Breadcrumbs -->
-
+			
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">	
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
 
       <tr>
@@ -467,7 +467,7 @@
     $coupon_name = $coupon_name_result->fields;
 ?>
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper page-heading">
+			<div class="row wrapper white-bg page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -486,7 +486,10 @@
 
 				</div>
 			</div><!--/ End Breadcrumbs -->
-
+			
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">	
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -579,7 +582,7 @@
 ?>
 
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper page-heading">
+			<div class="row wrapper white-bg page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -598,6 +601,9 @@
 
 				</div>
 			</div><!--/ End Breadcrumbs -->
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">				
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
 
       <tr>
@@ -769,7 +775,7 @@
 ?>
 
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper page-heading">
+			<div class="row wrapper white-bg page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -788,7 +794,10 @@
 
 				</div>
 			</div><!--/ End Breadcrumbs -->
-
+			
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">	
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
       <td>
@@ -900,7 +909,7 @@
   default:
 ?>
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper page-heading">
+			<div class="row wrapper white-bg page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -920,6 +929,10 @@
 				</div>
 			</div><!--/ End Breadcrumbs -->
 			
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">
+				
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">

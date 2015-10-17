@@ -416,14 +416,11 @@ require 'includes/header.php';
 ?>
 <div id="wrapper">
 	<?php require 'includes/blocks.php'; ?>
-	<div id="page-wrapper" class="white-bg">
+	<div id="page-wrapper" class="gray-bg">
 		<div class="row border-bottom">
 			<?php require 'includes/menue.php'; ?>
 		</div>
 
-		<div class="wrapper wrapper-content">
-			<div class="row">
-				<div class="col-lg-12">
 <?php
 if ($action == 'new_category_ACD' || $action == 'edit_category_ACD') {
 	if (isset($_GET['cID']) && empty($_POST)) {
@@ -463,7 +460,7 @@ if ($action == 'new_category_ACD' || $action == 'edit_category_ACD') {
 ?>
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 	<!-- Breadcrumbs  -->
-	<div class="row wrapper page-heading">
+	<div class="row wrapper white-bg page-heading">
 		<div class="col-lg-10">
 			<h2><?php echo sprintf($text_new_or_edit, oos_output_generated_category_path($current_category_id)); ?></h2>
 			<ol class="breadcrumb">
@@ -482,7 +479,10 @@ if ($action == 'new_category_ACD' || $action == 'edit_category_ACD') {
 
 		</div>
 	</div><!--/ End Breadcrumbs -->	
-	
+
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">	
 <?php echo oos_draw_form('new_category', $aContents['categories'], 'cPath=' . $cPath . '&cID=' . $_GET['cID'] . '&action=new_category_preview', 'post', TRUE, 'enctype="multipart/form-data"'); ?>
 	<?php echo oos_draw_hidden_field('categories_date_added', (($cInfo->date_added) ? $cInfo->date_added : date('Y-m-d'))) . oos_draw_hidden_field('parent_id', $cInfo->parent_id) . oos_draw_hidden_field('categories_previous_image', $cInfo->categories_image); ?>
 
@@ -753,7 +753,7 @@ if ($action == 'new_category_ACD' || $action == 'edit_category_ACD') {
 ?>
 
 	<!-- Breadcrumbs  -->
-	<div class="row wrapper page-heading">
+	<div class="row wrapper white-bg page-heading">
 		<div class="col-lg-10">
 			<h2><?php echo HEADING_TITLE; ?></h2>
 			<ol class="breadcrumb">
@@ -773,6 +773,9 @@ if ($action == 'new_category_ACD' || $action == 'edit_category_ACD') {
 		</div>
 	</div><!--/ End Breadcrumbs -->	
 	
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">		
 <table border="0" width="100%" cellspacing="0" cellpadding="2">	
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">

@@ -382,14 +382,11 @@ function check_form() {
 ?>
 <div id="wrapper">
 	<?php require 'includes/blocks.php'; ?>
-		<div id="page-wrapper" class="white-bg">
+		<div id="page-wrapper" class="gray-bg">
 			<div class="row border-bottom">
 			<?php require 'includes/menue.php'; ?>
 			</div>
 
-		<div class="wrapper wrapper-content">
-			<div class="row">
-				<div class="col-lg-12">
 <?php
   if ($action == 'edit') {
     $customerstable = $oostable['customers'];
@@ -417,7 +414,7 @@ function check_form() {
                                  array('id' => '0', 'text' => ENTRY_VAT_ID_STATUS_NO));
 ?>
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper page-heading">
+			<div class="row wrapper white-bg page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE . ' : ' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname ; ?></h2>
 					<ol class="breadcrumb">
@@ -436,7 +433,10 @@ function check_form() {
 
 				</div>
 			</div><!--/ End Breadcrumbs -->	
-				
+			
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">					
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
@@ -662,7 +662,7 @@ function check_form() {
   } else {
 ?>
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper page-heading">
+			<div class="row wrapper white-bg page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -681,7 +681,10 @@ function check_form() {
 
 				</div>
 			</div><!--/ End Breadcrumbs -->
-				
+			
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">				
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
