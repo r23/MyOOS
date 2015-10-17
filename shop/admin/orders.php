@@ -231,10 +231,10 @@
 			<?php require 'includes/menue.php'; ?>
 			</div>
 
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">
-
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">
+			
 <?php
   if (($action == 'edit') && ($order_exists == true)) {
     $order = new order($oID);
@@ -246,7 +246,7 @@
     $the_customers_fax = $the_extra_result->fields['customers_fax'];
 ?>
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -264,7 +264,8 @@
 				<div class="col-lg-2">
 
 				</div>
-			</div><!--/ End Breadcrumbs -->						
+			</div><!--/ End Breadcrumbs -->
+		
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
@@ -486,7 +487,7 @@
              '            <td class="dataTableContent" colspan="2" valign="top" align="right">Enter Serial #:&nbsp;</td>' . "\n";
 
         echo '            <td class="dataTableContent" colspan="7" valign="top">' . 
-                          oos_draw_form('serial_form', $aContents['orders'], 'action=update_serial&oID=' . $oID . '&serial=' . $order->products[$i]['id'], 'post', '') . 
+                          oos_draw_form('serial_form', $aContents['orders'], 'action=update_serial&oID=' . $oID . '&serial=' . $order->products[$i]['id'], 'post', FALSE) . 
                           oos_draw_input_field('serial_number', $serial_number, '', false, 'text', true) . '&nbsp;&nbsp;' . oos_submit_button('update', IMAGE_UPDATE) . '</td>' . "\n" .
              '          </tr>' . "\n";
       }
@@ -550,7 +551,7 @@
       <tr>
         <td></td>
       </tr>
-      <tr><?php echo oos_draw_form('status', $aContents['orders'], oos_get_all_get_params(array('action')) . 'action=update_order'); ?>
+      <tr><?php echo oos_draw_form('status', $aContents['orders'], oos_get_all_get_params(array('action')) . 'action=update_order', 'post', FALSE); ?>
         <td class="main"><?php echo oos_draw_textarea_field('comments', 'soft', '60', '5'); ?></td>
       </tr>
       <tr>
@@ -579,7 +580,7 @@
   } else {
 ?>
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -597,7 +598,8 @@
 				<div class="col-lg-2">
 
 				</div>
-			</div><!--/ End Breadcrumbs -->						
+			</div><!--/ End Breadcrumbs -->
+				
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
@@ -606,10 +608,10 @@
             <td class="pageHeading"></td>
             <td class="pageHeading" align="right"></td>
             <td align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-              <tr><?php echo oos_draw_form('orders', $aContents['orders'], '', 'get'); ?>
+              <tr><?php echo oos_draw_form('orders', $aContents['orders'], '', 'get', FALSE); ?>
                 <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . oos_draw_input_field('oID', '', 'size="12"') . oos_draw_hidden_field('action', 'edit'); ?></td>
               </form></tr>
-              <tr><?php echo oos_draw_form('status', $aContents['orders'], '', 'get'); ?>
+              <tr><?php echo oos_draw_form('status', $aContents['orders'], '', 'get', FALSE); ?>
                 <td class="smallText" align="right"><?php echo HEADING_TITLE_STATUS . ' ' . oos_draw_pull_down_menu('status', array_merge(array(array('id' => '', 'text' => TEXT_ALL_ORDERS)), $orders_statuses), '', 'onChange="this.form.submit();"'); ?></td>
               </form></tr>
             </table></td>
@@ -718,7 +720,7 @@
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_ORDER . '</b>');
 
-      $contents = array('form' => oos_draw_form('orders', $aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=deleteconfirm'));
+      $contents = array('form' => oos_draw_form('orders', $aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO . '<br /><br /><b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>');
       $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('restock') . ' ' . TEXT_INFO_RESTOCK_PRODUCT_QUANTITY);
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');

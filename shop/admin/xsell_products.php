@@ -134,12 +134,13 @@ td.style.backgroundColor="DFE4F4";
 			<div class="row border-bottom">
 			<?php require 'includes/menue.php'; ?>
 			</div>
-
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">
+			
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">
+				
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -157,7 +158,8 @@ td.style.backgroundColor="DFE4F4";
 				<div class="col-lg-2">
 
 				</div>
-			</div><!--/ End Breadcrumbs -->						
+			</div><!--/ End Breadcrumbs -->
+			
 <!-- body_text //-->
 
 
@@ -268,7 +270,7 @@ td.style.backgroundColor="DFE4F4";
 ?>
   <table border="0" cellspacing="0" cellpadding="0" bgcolor="#999999" align="center">
     <tr>
-      <td><?php echo oos_draw_form('update_cross', $aContents['xsell_products'], oos_get_all_get_params(array('action')) . 'action=update_cross', 'post');?><table cellpadding="1" cellspacing="1" border="0">
+      <td><?php echo oos_draw_form('update_cross', $aContents['xsell_products'], oos_get_all_get_params(array('action')) . 'action=update_cross', 'post', TRUE);?><table cellpadding="1" cellspacing="1" border="0">
         <tr>
           <td colspan="6"><table cellpadding="3" cellspacing="0" border="0" width="100%">
             <tr class="dataTableHeadingRow">
@@ -346,7 +348,7 @@ td.style.backgroundColor="DFE4F4";
 ?>
   <table border="0" cellspacing="0" cellpadding="0" bgcolor="#999999" align="center">
     <tr>
-      <td><?php echo oos_draw_form('update_sort', $aContents['xsell_products'], oos_get_all_get_params(array('action')) . 'action=update_sort', 'post');?><table cellpadding="1" cellspacing="1" border="0">
+      <td><?php echo oos_draw_form('update_sort', $aContents['xsell_products'], oos_get_all_get_params(array('action')) . 'action=update_sort', 'post', TRUE);?><table cellpadding="1" cellspacing="1" border="0">
         <tr>
           <td colspan="6"><table cellpadding="3" cellspacing="0" border="0" width="100%">
             <tr class="dataTableHeadingRow">

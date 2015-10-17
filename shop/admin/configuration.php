@@ -46,11 +46,13 @@
 			<?php require 'includes/menue.php'; ?>
 			</div>
 
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">
+				
+			
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo constant(strtoupper((int)$_GET['gID'] . '_TITLE')); ?></h2>
 					<ol class="breadcrumb">
@@ -68,7 +70,9 @@
 				<div class="col-lg-2">
 
 				</div>
-			</div><!--/ End Breadcrumbs -->						
+			</div><!--/ End Breadcrumbs -->	
+
+				
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
 
@@ -145,7 +149,7 @@
       }
 
 
-      $contents = array('form' => oos_draw_form('configuration', $aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=save'));
+      $contents = array('form' => oos_draw_form('configuration', $aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=save', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
       $contents[] = array('text' => '<br /><b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b><br />' . constant(strtoupper($cInfo->configuration_key . '_DESC')) . '<br />' . $value_field);
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('update', IMAGE_UPDATE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');

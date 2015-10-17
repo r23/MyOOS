@@ -163,12 +163,12 @@
 			<?php require 'includes/menue.php'; ?>
 			</div>
 
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">
 
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -186,8 +186,8 @@
 				<div class="col-lg-2">
 
 				</div>
-			</div><!--/ End Breadcrumbs -->					
-
+			</div><!--/ End Breadcrumbs -->	
+			
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
 
@@ -376,7 +376,7 @@
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_SPECIALS . '</b>');
 
-      $contents = array('form' => oos_draw_form('specials', $aContents['specials'], 'page=' . $_GET['page'] . '&sID=' . $sInfo->specials_id . '&action=deleteconfirm'));
+      $contents = array('form' => oos_draw_form('specials', $aContents['specials'], 'page=' . $_GET['page'] . '&sID=' . $sInfo->specials_id . '&action=deleteconfirm', 'post',  FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $sInfo->products_name . '</b>');
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['specials'], 'page=' . $_GET['page'] . '&sID=' . $sInfo->specials_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');

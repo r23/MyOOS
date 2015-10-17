@@ -63,7 +63,7 @@
 					<div class="col-lg-12">
 
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -105,7 +105,7 @@
     $rInfo_array = array_merge($reviews, $products, $products_name);
     $rInfo = new objectInfo($rInfo_array);
 ?>
-      <tr><?php echo oos_draw_form('review', $aContents['reviews'], 'page=' . $_GET['page'] . '&rID=' . $_GET['rID'] . '&action=preview'); ?>
+      <tr><?php echo oos_draw_form('review', $aContents['reviews'], 'page=' . $_GET['page'] . '&rID=' . $_GET['rID'] . '&action=preview', 'post', FALSE); ?>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="main" valign="top"><b><?php echo ENTRY_PRODUCT; ?></b> <?php echo $rInfo->products_name; ?><br /><b><?php echo ENTRY_FROM; ?></b> <?php echo $rInfo->customers_name; ?><br /><br /><b><?php echo ENTRY_DATE; ?></b> <?php echo oos_date_short($rInfo->date_added); ?></td>
@@ -157,7 +157,7 @@
       $rInfo = new objectInfo($rInfo_array);
     }
 ?>
-      <tr><?php echo oos_draw_form('update', $aContents['reviews'], 'page=' . $_GET['page'] . '&rID=' . $_GET['rID'] . '&action=update', 'post', 'enctype="multipart/form-data"'); ?>
+      <tr><?php echo oos_draw_form('update', $aContents['reviews'], 'page=' . $_GET['page'] . '&rID=' . $_GET['rID'] . '&action=update', 'post', TRUE, 'enctype="multipart/form-data"'); ?>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="main" valign="top"><b><?php echo ENTRY_PRODUCT; ?></b> <?php echo $rInfo->products_name; ?><br /><b><?php echo ENTRY_FROM; ?></b> <?php echo $rInfo->customers_name; ?><br /><br /><b><?php echo ENTRY_DATE; ?></b> <?php echo oos_date_short($rInfo->date_added); ?></td>
@@ -284,7 +284,7 @@
       case 'delete':
         $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_REVIEW . '</b>');
 
-        $contents = array('form' => oos_draw_form('reviews', $aContents['reviews'], 'page=' . $_GET['page'] . '&rID=' . $rInfo->reviews_id . '&action=deleteconfirm'));
+        $contents = array('form' => oos_draw_form('reviews', $aContents['reviews'], 'page=' . $_GET['page'] . '&rID=' . $rInfo->reviews_id . '&action=deleteconfirm', 'post',  FALSE));
         $contents[] = array('text' => TEXT_INFO_DELETE_REVIEW_INTRO);
         $contents[] = array('text' => '<br /><b>' . $rInfo->products_name . '</b>');
         $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $_GET['page'] . '&rID=' . $rInfo->reviews_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');

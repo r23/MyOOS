@@ -505,7 +505,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
       </tr>
 
 <!-- Begin Addresses Block -->
-      <tr><?php echo oos_draw_form('edit_order', "edit_orders.php", oos_get_all_get_params(array('action','paycc')) . 'action=update_order'); ?>
+      <tr><?php echo oos_draw_form('edit_order', "edit_orders.php", oos_get_all_get_params(array('action','paycc')) . 'action=update_order', 'post', FALSE); ?>
       <td>
       <table width="100%" border="0"><tr> <td><div align="center">
       <table width="548" border="0" align="center">

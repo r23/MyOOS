@@ -114,12 +114,12 @@
 			<?php require 'includes/menue.php'; ?>
 			</div>
 
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">
-					
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">
+				
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -214,7 +214,7 @@
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_CURRENCY . '</b>');
 
-      $contents = array('form' => oos_draw_form('currencies', $aContents['currencies'], 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id . '&action=insert'));
+      $contents = array('form' => oos_draw_form('currencies', $aContents['currencies'], 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id . '&action=insert', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
       $contents[] = array('text' => '<br />' . TEXT_INFO_CURRENCY_TITLE . '<br />' . oos_draw_input_field('title'));
       $contents[] = array('text' => '<br />' . TEXT_INFO_CURRENCY_CODE . '<br />' . oos_draw_input_field('code'));
@@ -231,7 +231,7 @@
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_CURRENCY . '</b>');
 
-      $contents = array('form' => oos_draw_form('currencies', $aContents['currencies'], 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id . '&action=save'));
+      $contents = array('form' => oos_draw_form('currencies', $aContents['currencies'], 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id . '&action=save', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
       $contents[] = array('text' => '<br />' . TEXT_INFO_CURRENCY_TITLE . '<br />' . oos_draw_input_field('title', $cInfo->title));
       $contents[] = array('text' => '<br />' . TEXT_INFO_CURRENCY_CODE . '<br />' . oos_draw_input_field('code', $cInfo->code));

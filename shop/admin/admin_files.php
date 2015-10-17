@@ -79,12 +79,13 @@
 			<?php require 'includes/menue.php'; ?>
 			</div>
 
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">
-
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">		
+				
+			
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -102,7 +103,8 @@
 				<div class="col-lg-2">
 
 				</div>
-			</div><!--/ End Breadcrumbs -->	 				
+			</div><!--/ End Breadcrumbs -->	
+		
 <!-- body_text //-->
     <table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
@@ -307,7 +309,7 @@
                         'text' => $val);
       }
 
-      $contents = array('form' => oos_draw_form('store_file', $aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id'] . '&action=file_store', 'post', 'enctype="multipart/form-data"')); 
+      $contents = array('form' => oos_draw_form('store_file', $aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id'] . '&action=file_store', 'post', FALSE, 'enctype="multipart/form-data"')); 
       $contents[] = array('text' => '<b>' . TEXT_INFO_NEW_FILE_BOX .  ucfirst(substr_replace ($current_box['admin_box_name'], '', -4)) . '</b>');
       $contents[] = array('text' => TEXT_INFO_NEW_FILE_INTRO );
       $contents[] = array('align' => 'left', 'text' => '<br />&nbsp;' . oos_draw_pull_down_menu('admin_files_name', $show, $show)); 
@@ -318,7 +320,7 @@
     case 'remove_file': 
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_FILE . '</b>');
 
-      $contents = array('form' => oos_draw_form('remove_file', $aContents['admin_files'], 'action=file_remove&cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id'], 'post', 'enctype="multipart/form-data"')); 
+      $contents = array('form' => oos_draw_form('remove_file', $aContents['admin_files'], 'action=file_remove&cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id'], 'post',  FALSE, 'enctype="multipart/form-data"')); 
       $contents[] = array('text' => oos_draw_hidden_field('admin_files_id', $_GET['fID']));
       $contents[] = array('text' =>  sprintf(TEXT_INFO_DELETE_FILE_INTRO, $fInfo->admin_files_name, ucfirst(substr_replace ($current_box['admin_box_name'], '', -4))) );    
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('confirm', IMAGE_CONFIRM) . ' <a href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $_GET['fID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');    
@@ -331,7 +333,7 @@
           $contents[] = array('text' => '<b>' . $cInfo->admin_boxes_name . ' ' . TEXT_INFO_DEFAULT_BOXES_NOT_INSTALLED . '</b><br />&nbsp;');
           $contents[] = array('text' => TEXT_INFO_DEFAULT_BOXES_INTRO);
         } else {
-          $contents = array('form' => oos_draw_form('newfile', $aContents['admin_files'], 'cPath=' . $cInfo->admin_boxes_id . '&action=store_file', 'post', 'enctype="multipart/form-data"')); 
+          $contents = array('form' => oos_draw_form('newfile', $aContents['admin_files'], 'cPath=' . $cInfo->admin_boxes_id . '&action=store_file', 'post',  FALSE, 'enctype="multipart/form-data"')); 
           $contents[] = array('align' => 'center', 'text' => oos_submit_button('admin_files', BUTTON_INSERT_FILE) );
           $contents[] = array('text' => oos_draw_hidden_field('this_category', $cInfo->admin_boxes_id));
           $contents[] = array('text' => '<br />' . TEXT_INFO_DEFAULT_BOXES_INTRO);

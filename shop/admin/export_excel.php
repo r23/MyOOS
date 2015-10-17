@@ -143,13 +143,13 @@
 			<div class="row border-bottom">
 			<?php require 'includes/menue.php'; ?>
 			</div>
-
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">
-
+			
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">
+				
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -167,7 +167,8 @@
 				<div class="col-lg-2">
 
 				</div>
-			</div><!--/ End Breadcrumbs -->					
+			</div><!--/ End Breadcrumbs -->	
+
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
@@ -235,7 +236,7 @@
     case 'backup':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_BACKUP . '</b>');
 
-      $contents = array('form' => oos_draw_form('backup', $aContents['export_excel'], 'action=make_file_now'));
+      $contents = array('form' => oos_draw_form('backup', $aContents['export_excel'], 'action=make_file_now', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_NEW_BACKUP);
 
 
@@ -255,7 +256,7 @@
     case 'delete':
       $heading[] = array('text' => '<b>' . $buInfo->date . '</b>');
 
-      $contents = array('form' => oos_draw_form('delete', $aContents['export_excel'], 'file=' . $buInfo->file . '&action=deleteconfirm'));
+      $contents = array('form' => oos_draw_form('delete', $aContents['export_excel'], 'file=' . $buInfo->file . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $buInfo->file . '</b>');
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['export_excel'], 'file=' . $buInfo->file) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');

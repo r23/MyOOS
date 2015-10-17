@@ -37,13 +37,13 @@
 			<div class="row border-bottom">
 			<?php require 'includes/menue.php'; ?>
 			</div>
-
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">
-
+		
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">
+				
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -62,7 +62,7 @@
 
 				</div>
 			</div><!--/ End Breadcrumbs -->					
-
+	
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>

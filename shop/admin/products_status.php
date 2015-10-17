@@ -123,17 +123,18 @@
 ?>
 <div id="wrapper">
 	<?php require 'includes/blocks.php'; ?>
-		<div id="page-wrapper" class="white-bg">
-			<div class="row border-bottom">
-			<?php require 'includes/menue.php'; ?>
-			</div>
+	<div id="page-wrapper" class="white-bg">
+		<div class="row border-bottom">
+		<?php require 'includes/menue.php'; ?>
+		</div>
 
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">
 
+			
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -151,7 +152,8 @@
 				<div class="col-lg-2">
 
 				</div>
-			</div><!--/ End Breadcrumbs -->					
+			</div><!--/ End Breadcrumbs -->
+				
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
@@ -213,7 +215,7 @@
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_ORDERS_STATUS . '</b>');
 
-      $contents = array('form' => oos_draw_form('status', $aContents['products_status'], 'page=' . $_GET['page'] . '&action=insert'));
+      $contents = array('form' => oos_draw_form('status', $aContents['products_status'], 'page=' . $_GET['page'] . '&action=insert', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
 
       $products_status_inputs_string = '';
@@ -230,7 +232,7 @@
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_ORDERS_STATUS . '</b>');
 
-      $contents = array('form' => oos_draw_form('status', $aContents['products_status'], 'page=' . $_GET['page'] . '&psID=' . $psInfo->products_status_id  . '&action=save'));
+      $contents = array('form' => oos_draw_form('status', $aContents['products_status'], 'page=' . $_GET['page'] . '&psID=' . $psInfo->products_status_id  . '&action=save', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
 
       $products_status_inputs_string = '';
@@ -247,7 +249,7 @@
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_ORDERS_STATUS . '</b>');
 
-      $contents = array('form' => oos_draw_form('status', $aContents['products_status'], 'page=' . $_GET['page'] . '&psID=' . $psInfo->products_status_id  . '&action=deleteconfirm'));
+      $contents = array('form' => oos_draw_form('status', $aContents['products_status'], 'page=' . $_GET['page'] . '&psID=' . $psInfo->products_status_id  . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $psInfo->products_status_name . '</b>');
       if ($remove_status) $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $_GET['page'] . '&psID=' . $psInfo->products_status_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');

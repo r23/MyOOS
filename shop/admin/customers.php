@@ -387,10 +387,9 @@ function check_form() {
 			<?php require 'includes/menue.php'; ?>
 			</div>
 
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">
-
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">
 <?php
   if ($action == 'edit') {
     $customerstable = $oostable['customers'];
@@ -418,7 +417,7 @@ function check_form() {
                                  array('id' => '0', 'text' => ENTRY_VAT_ID_STATUS_NO));
 ?>
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE . ' : ' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname ; ?></h2>
 					<ol class="breadcrumb">
@@ -436,7 +435,8 @@ function check_form() {
 				<div class="col-lg-2">
 
 				</div>
-			</div><!--/ End Breadcrumbs -->					
+			</div><!--/ End Breadcrumbs -->	
+				
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
@@ -459,7 +459,7 @@ function check_form() {
       <tr>
         <td></td>
       </tr>
-      <tr><?php echo oos_draw_form('customers', $aContents['customers'], oos_get_all_get_params(array('action')) . 'action=update', 'post', 'onSubmit="return check_form();"') . oos_draw_hidden_field('default_address_id', $cInfo->customers_default_address_id); ?>
+      <tr><?php echo oos_draw_form('customers', $aContents['customers'], oos_get_all_get_params(array('action')) . 'action=update', 'post', TRUE, 'onSubmit="return check_form();"') . oos_draw_hidden_field('default_address_id', $cInfo->customers_default_address_id); ?>
         <td class="formAreaTitle"><?php echo CATEGORY_PERSONAL; ?></td>
       </tr>
       <tr>
@@ -662,7 +662,7 @@ function check_form() {
   } else {
 ?>
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -680,7 +680,8 @@ function check_form() {
 				<div class="col-lg-2">
 
 				</div>
-			</div><!--/ End Breadcrumbs -->					
+			</div><!--/ End Breadcrumbs -->
+				
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
@@ -689,10 +690,10 @@ function check_form() {
             <td class="pageHeading"></td>
             <td class="pageHeading" align="right"></td>
             <td align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-               <tr><?php echo oos_draw_form('search', $aContents['customers'], '', 'get'); ?>
+               <tr><?php echo oos_draw_form('search', $aContents['customers'], '', 'get', FALSE); ?>
                  <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . oos_draw_input_field('search'); ?></td>
                </form></tr>
-              <tr><?php echo oos_draw_form('status', $aContents['customers'], '', 'get'); ?>
+              <tr><?php echo oos_draw_form('status', $aContents['customers'], '', 'get', FALSE); ?>
               <td class="smallText" align="right"><?php echo HEADING_TITLE_STATUS . ' ' . oos_draw_pull_down_menu('status', array_merge(array(array('id' => '0', 'text' => TEXT_ALL_CUSTOMERS)), $customers_statuses_array), '0', 'onChange="this.form.submit();"'); ?></td>
           </form></tr>
         </table></td>
@@ -822,7 +823,7 @@ function check_form() {
     case 'confirm':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_CUSTOMER . '</b>');
 
-      $contents = array('form' => oos_draw_form('customers', $aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=deleteconfirm'));
+      $contents = array('form' => oos_draw_form('customers', $aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_DELETE_INTRO . '<br /><br /><b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>');
       if ($cInfo->number_of_reviews > 0) $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('delete_reviews', 'on', true) . ' ' . sprintf(TEXT_DELETE_REVIEWS, $cInfo->number_of_reviews));
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
@@ -830,7 +831,7 @@ function check_form() {
 
     case 'editstatus':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_STATUS_CUSTOMER . '</b>');
-      $contents = array('form' => oos_draw_form('customers', $aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=statusconfirm'));
+      $contents = array('form' => oos_draw_form('customers', $aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=statusconfirm', 'post', FALSE));
       $contents[] = array('text' => '<br />' . oos_draw_pull_down_menu('pdm_status', array_merge(array(array('id' => '0', 'text' => PULL_DOWN_DEFAULT)), $customers_statuses_array), $cInfo->customers_status) );
       $contents[] = array('text' => '<table border="0" cellspacing="0" cellpadding="5"><tr><td class="smallText" align="center">' . TABLE_HEADING_NEW_VALUE .' </td><td class="smallText" align="center">' . TABLE_HEADING_DATE_ADDED . '</td></tr>');
 

@@ -203,12 +203,12 @@
 			<?php require 'includes/menue.php'; ?>
 			</div>
 
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">
-					
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">		
+			
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -226,7 +226,8 @@
 				<div class="col-lg-2">
 
 				</div>
-			</div><!--/ End Breadcrumbs -->						
+			</div><!--/ End Breadcrumbs -->	
+
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
@@ -240,9 +241,9 @@
    $group_name = $dbconn->GetRow($group_name_query);
 
    if ($_GET['gPath'] == 1) {
-     echo oos_draw_form('defineForm', $aContents['admin_members'], 'gID=' . $_GET['gPath']);
+     echo oos_draw_form('defineForm', $aContents['admin_members'], 'gID=' . $_GET['gPath'], 'post',  FALSE,);
    } elseif ($_GET['gPath'] != 1) {
-     echo oos_draw_form('defineForm', $aContents['admin_members'], 'gID=' . $_GET['gPath'] . '&action=group_define', 'post', 'enctype="multipart/form-data"');
+     echo oos_draw_form('defineForm', $aContents['admin_members'], 'gID=' . $_GET['gPath'] . '&action=group_define', 'post',  FALSE, 'enctype="multipart/form-data"');
      echo oos_draw_hidden_field('admin_groups_id', $_GET['gPath']);
    }
 ?>
@@ -450,7 +451,7 @@
     case 'new_member':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW . '</b>');
 
-      $contents = array('form' => oos_draw_form('newmember', $aContents['admin_members'], 'action=member_new&page=' . $_GET['page'], 'post', 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('newmember', $aContents['admin_members'], 'action=member_new&page=' . $_GET['page'], 'post', FALSE, 'enctype="multipart/form-data"'));
       if ($_GET['error']) {
         $contents[] = array('text' => TEXT_INFO_ERROR);
       }
@@ -475,7 +476,7 @@
     case 'edit_member':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW . '</b>');
 
-      $contents = array('form' => oos_draw_form('newmember', $aContents['admin_members'], 'action=member_edit&page=' . $_GET['page'] . '&mID=' . $_GET['mID'], 'post', 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('newmember', $aContents['admin_members'], 'action=member_edit&page=' . $_GET['page'] . '&mID=' . $_GET['mID'], 'post', FALSE, 'enctype="multipart/form-data"'));
       if ($_GET['error']) {
         $contents[] = array('text' => TEXT_INFO_ERROR);
       }
@@ -506,7 +507,7 @@
       if ($mInfo->admin_id == 1 || $mInfo->admin_email_address == STORE_OWNER_EMAIL_ADDRESS) {
         $contents[] = array('align' => 'center', 'text' => '<br /><a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->admin_id) . '">' . oos_button('back', IMAGE_BACK) . '</a><br />&nbsp;');
       } else {
-        $contents = array('form' => oos_draw_form('edit', $aContents['admin_members'], 'action=member_delete&page=' . $_GET['page'] . '&mID=' . $admin['admin_id'], 'post', 'enctype="multipart/form-data"'));
+        $contents = array('form' => oos_draw_form('edit', $aContents['admin_members'], 'action=member_delete&page=' . $_GET['page'] . '&mID=' . $admin['admin_id'], 'post', FALSE, 'enctype="multipart/form-data"'));
         $contents[] = array('text' => oos_draw_hidden_field('admin_id', $mInfo->admin_id));
         $contents[] = array('align' => 'center', 'text' =>  sprintf(TEXT_INFO_DELETE_INTRO, $mInfo->admin_firstname . ' ' . $mInfo->admin_lastname));
         $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $_GET['mID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
@@ -516,7 +517,7 @@
     case 'new_group':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_GROUPS . '</b>');
 
-      $contents = array('form' => oos_draw_form('new_group', $aContents['admin_members'], 'action=group_new&gID=' . $gInfo->admin_groups_id, 'post', 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('new_group', $aContents['admin_members'], 'action=group_new&gID=' . $gInfo->admin_groups_id, 'post', FALSE, 'enctype="multipart/form-data"'));
       if ($_GET['gName'] == 'false') {
         $contents[] = array('text' => TEXT_INFO_GROUPS_NAME_FALSE . '<br />&nbsp;');
       } elseif ($_GET['gName'] == 'used') {
@@ -531,7 +532,7 @@
     case 'edit_group':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_GROUP . '</b>');
 
-      $contents = array('form' => oos_draw_form('edit_group', $aContents['admin_members'], 'action=group_edit&gID=' . $_GET['gID'], 'post', 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('edit_group', $aContents['admin_members'], 'action=group_edit&gID=' . $_GET['gID'], 'post', FALSE, 'enctype="multipart/form-data"'));
       if ($_GET['gName'] == 'false') {
         $contents[] = array('text' => TEXT_INFO_GROUPS_NAME_FALSE . '<br />&nbsp;');
       } elseif ($_GET['gName'] == 'used') {
@@ -544,7 +545,7 @@
     case 'del_group':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_GROUPS . '</b>');
 
-      $contents = array('form' => oos_draw_form('delete_group', $aContents['admin_members'], 'action=group_delete&gID=' . $gInfo->admin_groups_id, 'post', 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('delete_group', $aContents['admin_members'], 'action=group_delete&gID=' . $gInfo->admin_groups_id, 'post', FALSE, 'enctype="multipart/form-data"'));
       if ($gInfo->admin_groups_id == 1) {
         $contents[] = array('align' => 'center', 'text' => sprintf(TEXT_INFO_DELETE_GROUPS_INTRO_NOT, $gInfo->admin_groups_name));
         $contents[] = array('align' => 'center', 'text' => '<br /><a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET['gID']) . '">' . oos_button('back', IMAGE_BACK) . '</a><br />&nbsp;');
@@ -581,7 +582,7 @@
         } else {
           $checkEmail = "false";
         }
-      $contents = array('form' => oos_draw_form('show_group', $aContents['admin_members'], 'action=show_group&gID=groups', 'post', 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('show_group', $aContents['admin_members'], 'action=show_group&gID=groups', 'post', FALSE, 'enctype="multipart/form-data"'));
       $contents[] = array('text' => $define_files['admin_files_name'] . oos_draw_input_field('level_edit', $checkEmail));
       break;
 

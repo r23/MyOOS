@@ -146,13 +146,13 @@
 			<div class="row border-bottom">
 			<?php require 'includes/menue.php'; ?>
 			</div>
-
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">
-
+			
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">
+				
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -170,7 +170,8 @@
 				<div class="col-lg-2">
 
 				</div>
-			</div><!--/ End Breadcrumbs -->					
+			</div><!--/ End Breadcrumbs -->
+
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
 
@@ -252,7 +253,7 @@
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_HEADING_NEW_INFORMATION . '</b>');
 
-      $contents = array('form' => oos_draw_form('information', $aContents['information'], 'action=insert', 'post', 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('information', $aContents['information'], 'action=insert', 'post', FALSE, 'enctype="multipart/form-data"'));
       $contents[] = array('text' => TEXT_NEW_INTRO);
 
       $informations_name_inputs_string = '';
@@ -284,7 +285,7 @@
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_HEADING_EDIT_INFORMATION . '</b>');
 
-      $contents = array('form' => oos_draw_form('information', $aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=save', 'post', 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('information', $aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=save', 'post', FALSE, 'enctype="multipart/form-data"'));
       $contents[] = array('text' => TEXT_EDIT_INTRO);
 
       $informations_name_inputs_string = '';
@@ -316,7 +317,7 @@
       if ($mInfo->information_id > 5) {
         $heading[] = array('text' => '<b>' . TEXT_HEADING_DELETE_INFORMATION . '</b>');
 
-        $contents = array('form' => oos_draw_form('information', $aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=deleteconfirm'));
+        $contents = array('form' => oos_draw_form('information', $aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=deleteconfirm', 'post', FALSE));
         $contents[] = array('text' => TEXT_DELETE_INTRO);
         $contents[] = array('text' => '<br /><b>' . $mInfo->information_name . '</b>');
         $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('delete_image', '', true) . ' ' . TEXT_DELETE_IMAGE);

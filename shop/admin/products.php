@@ -360,7 +360,7 @@ function calcBasePriceFactor() {
       <tr>
         <td></td>
       </tr>
-      <tr><?php echo oos_draw_form('new_product', $aContents['products'], 'cPath=' . $cPath . '&pID=' . $_GET['pID'] . '&action=' . $form_action, 'post', 'enctype="multipart/form-data"'); ?>
+      <tr><?php echo oos_draw_form('new_product', $aContents['products'], 'cPath=' . $cPath . '&pID=' . $_GET['pID'] . '&action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"'); ?>
         <td><table border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_STATUS; ?></td>
@@ -683,7 +683,7 @@ function calcBasePriceFactor() {
 
     $form_action = ($_GET['pID']) ? 'update_product' : 'insert_product';
 
-    echo oos_draw_form($form_action, $aContents['products'], 'cPath=' . $cPath . '&pID=' . $_GET['pID'] . '&action=' . $form_action, 'post', 'enctype="multipart/form-data"');
+    echo oos_draw_form($form_action, $aContents['products'], 'cPath=' . $cPath . '&pID=' . $_GET['pID'] . '&action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"');
 
     $languages = oos_get_languages();
     for ($i = 0, $n = count($languages); $i < $n; $i++) {

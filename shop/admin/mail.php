@@ -107,12 +107,12 @@
 			<?php require 'includes/menue.php'; ?>
 			</div>
 
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">
 
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -131,7 +131,7 @@
 
 				</div>
 			</div><!--/ End Breadcrumbs -->	
-			
+		
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
@@ -152,7 +152,7 @@
         break;
     }
 ?>
-          <tr><?php echo oos_draw_form('mail', $aContents['mail'], 'action=send_email_to_user'); ?>
+          <tr><?php echo oos_draw_form('mail', $aContents['mail'], 'action=send_email_to_user', 'post', TRUE); ?>
             <td><table border="0" width="100%" cellpadding="0" cellspacing="2">
               <tr>
                 <td></td>
@@ -207,7 +207,7 @@
 <?php
   } else {
 ?>
-          <tr><?php echo oos_draw_form('mail', $aContents['mail'], 'action=preview'); ?>
+          <tr><?php echo oos_draw_form('mail', $aContents['mail'], 'action=preview', 'post', FALSE); ?>
             <td><table border="0" cellpadding="0" cellspacing="2">
               <tr>
                 <td colspan="2"></td>

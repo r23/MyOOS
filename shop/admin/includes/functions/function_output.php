@@ -47,7 +47,7 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
     if ($connection == 'NONSSL') {
       $link = OOS_HTTP_SERVER . OOS_SHOP . 'admin/';
     } elseif ($connection == 'SSL') {
-      if (ENABLE_SSL == 'true') {
+      if (ENABLE_SSL == 'TRUE') {
         $link = OOS_HTTPS_SERVER . OOS_SHOP . 'admin/';
       } else {
         $link = OOS_HTTP_SERVER . OOS_SHOP . 'admin/';
@@ -80,7 +80,7 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
     if ($connection == 'NONSSL') {
       $link = OOS_HTTP_SERVER . OOS_SHOP;
     } elseif ($connection == 'SSL') {
-      if (ENABLE_SSL_SHOP == 'true') {
+      if (ENABLE_SSL_SHOP == 'TRUE') {
         $link = OOS_HTTPS_SERVER . OOS_SHOP;
       } else {
         $link = OOS_HTTP_SERVER . OOS_SHOP;
@@ -235,7 +235,7 @@ function oos_submit_button($id, $alt, $params = '') {
   * @param $params
   * @return string
   */
-  function oos_draw_form($name, $action, $parameters = '', $method = 'post', $params = '') {
+  function oos_draw_form($name, $action, $parameters = '', $method = 'post', $parsley_validate = TRUE, $params = '') {
     $form = '<form name="' . $name . '" action="';
     if ($parameters) {
       $form .= oos_href_link_admin($action, $parameters);
@@ -243,6 +243,11 @@ function oos_submit_button($id, $alt, $params = '') {
       $form .= oos_href_link_admin($action);
     }
     $form .= '" method="' . $method . '"';
+
+	if ($parsley_validate == TRUE) {
+		$form .= ' data-parsley-validate ';
+	}	
+	
     if ($params) {
       $form .= ' ' . $params;
     }
@@ -261,19 +266,33 @@ function oos_submit_button($id, $alt, $params = '') {
   * @param $required
   * @param $type
   * @param $reinsert_value
+  * @param $placeholder
   * @return string
   */
-  function oos_draw_input_field($name, $value = '', $parameters = '', $required = false, $type = 'text', $reinsert_value = true) {
+function oos_draw_input_field($name, $value = '', $parameters = '', $required = FALSE, $type = 'text', $reinsert_value = TRUE , $placeholder = '') {
     $field = '<input type="' . $type . '" name="' . $name . '"';
-    if ( ($GLOBALS[$name]) && ($reinsert_value) ) {
-      $field .= ' value="' . htmlspecialchars(trim($GLOBALS[$name])) . '"';
-    } elseif ($value != '') {
-      $field .= ' value="' . htmlspecialchars(trim($value)) . '"';
+	
+	if ( ($reinsert_value == TRUE) && ( (isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name])) ) ) {
+		if (isset($_GET[$name]) && is_string($_GET[$name])) {
+			$value = stripslashes($_GET[$name]);
+		} elseif (isset($_POST[$name]) && is_string($_POST[$name])) {
+			$value = stripslashes($_POST[$name]);
+		}
+	}
+    if (oos_is_not_null($value)) {
+		$field .= ' value="' . oos_output_string($value) . '"';
     }
-    if ($parameters != '') {
-      $field .= ' ' . $parameters;
-    }
-    $field .= '>';
+    if ($required) $field .= ' required';	
+
+    if (oos_is_not_null($parameters)) {
+		$field .= ' ' . $parameters;
+    }	
+
+    if (oos_is_not_null($placeholder)) {
+		$field .= ' placeholder="' . oos_output_string($placeholder) . '"';
+    }	
+	
+    $field .= ' class="form-control" />';
 
     if ($required) $field .= TEXT_FIELD_REQUIRED;
 
@@ -289,8 +308,8 @@ function oos_submit_button($id, $alt, $params = '') {
   * @param $required
   * @return string
   */
-  function oos_draw_password_field($name, $value = '', $parameters = 'maxlength="40"', $required = false) {
-    $field = oos_draw_input_field($name, $value, $parameters, $required, 'password', false);
+  function oos_draw_password_field($name, $value = '', $parameters = 'maxlength="40"', $required = FALSE) {
+    $field = oos_draw_input_field($name, $value, $parameters, $required, 'password', FALSE);
 
     return $field;
   }
@@ -303,7 +322,7 @@ function oos_submit_button($id, $alt, $params = '') {
   * @param $required
   * @return string
   */
-  function oos_draw_file_field($name, $required = false) {
+  function oos_draw_file_field($name, $required = FALSE) {
     $field = oos_draw_input_field($name, '', '', $required, 'file');
 
     return $field;
@@ -321,13 +340,14 @@ function oos_submit_button($id, $alt, $params = '') {
   * @param $parameter
   * @return string
   */
-  function oos_draw_selection_field($name, $type, $value = '', $checked = false, $compare = '', $parameter = '') {
+function oos_draw_selection_field($name, $type, $value = '', $checked = FALSE, $compare = '', $parameter = '') {
     $selection = '<input type="' . $type . '" name="' . $name . '"';
     if ($value != '') {
       $selection .= ' value="' . $value . '"';
     }
-    if ( ($checked == true) || ($GLOBALS[$name] == 'on') || ($value && ($GLOBALS[$name] == $value)) || ($value && ($value == $compare)) ) {
-      $selection .= ' CHECKED';
+    if ( ($checked == TRUE) || (isset($_GET[$name]) && is_string($_GET[$name]) && (($_GET[$name] == 'on') || (stripslashes($_GET[$name]) == $value))) || (isset($_POST[$name]) && is_string($_POST[$name]) && (($_POST[$name] == 'on') || (stripslashes($_POST[$name]) == $value))) || (oos_is_not_null($compare) && ($value == $compare)) ) {
+	
+      $selection .= ' checked="checked"';
     }
     if ($parameter != '') {
       $selection .= ' ' . $parameter;
@@ -348,7 +368,7 @@ function oos_submit_button($id, $alt, $params = '') {
   * @param $parameter
   * @return string
   */
-  function oos_draw_checkbox_field($name, $value = '', $checked = false, $compare = '', $parameter = '') {
+  function oos_draw_checkbox_field($name, $value = '', $checked = FALSE, $compare = '', $parameter = '') {
     return oos_draw_selection_field($name, 'checkbox', $value, $checked, $compare, $parameter);
   }
 
@@ -363,7 +383,7 @@ function oos_submit_button($id, $alt, $params = '') {
   * @param $parameter
   * @return string
   */
-  function oos_draw_radio_field($name, $value = '', $checked = false, $compare = '', $parameter = '') {
+  function oos_draw_radio_field($name, $value = '', $checked = FALSE, $compare = '', $parameter = '') {
     return oos_draw_selection_field($name, 'radio', $value, $checked, $compare, $parameter);
   }
 
@@ -380,19 +400,27 @@ function oos_submit_button($id, $alt, $params = '') {
   * @param $reinsert_value
   * @return string
   */
-  function oos_draw_editor_field($name, $wrap, $width, $height, $text = '', $params = '', $reinsert_value = true) {
-    $field = '<textarea name="' . $name . '" wrap="' . $wrap . '" cols="' . $width . '" rows="' . $height . '"';
-    if ($params) $field .= ' ' . $params;
+  function oos_draw_textarea_field($name, $wrap, $width, $height, $text = '', $params = '', $reinsert_value = TRUE) {
+    # $field = '<textarea class="form-control" placeholder="Textarea" rows="rows="' . $height . '"></textarea>
+    $field = '<textarea class="form-control" name="' . $name . '" wrap="' . $wrap . '" cols="' . $width . '" rows="' . $height . '"';
+
+	if (oos_is_not_null($params)) $field .= ' ' . $params;
+	
     $field .= '>';
-    if ( ($GLOBALS[$name]) && ($reinsert_value) ) {
-      $field .= htmlspecialchars(trim($GLOBALS[$name]));
-    } elseif ($text != '') {
-      $field .= htmlspecialchars(trim($text));
-    }
+	
+	if ( ($reinsert_value == TRUE) && ( (isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name])) ) ) {
+		if (isset($_GET[$name]) && is_string($_GET[$name])) {
+			$field .= oos_output_string_protected(stripslashes($_GET[$name]));
+		} elseif (isset($_POST[$name]) && is_string($_POST[$name])) {
+			$field .= oos_output_string_protected(stripslashes($_POST[$name]));
+		}		
+	} elseif (oos_is_not_null($text)) {
+		$field .= oos_output_string_protected($text);
+	}
     $field .= '</textarea>';
 
     return $field;
-  }
+}
 
  /**
   * Output a form textarea field
@@ -406,21 +434,27 @@ function oos_submit_button($id, $alt, $params = '') {
   * @param $reinsert_value
   * @return string
   */
-  function oos_draw_textarea_field($name, $wrap, $width, $height, $text = '', $params = '', $reinsert_value = true) {
+function oos_draw_editor_field($name, $wrap, $width, $height, $text = '', $params = '', $reinsert_value = TRUE) {
+
     $field = '<textarea name="' . $name . '" wrap="' . $wrap . '" cols="' . $width . '" rows="' . $height . '"';
-    if ($params) $field .= ' ' . $params;
+	if (oos_is_not_null($params)) $field .= ' ' . $params;
+	
     $field .= '>';
-    if ( ($GLOBALS[$name]) && ($reinsert_value) ) {
-      $field .= htmlspecialchars(trim($GLOBALS[$name]));
-    } elseif ($text != '') {
-      $field .= htmlspecialchars(trim($text));
-    }
+	
+	if ( ($reinsert_value == TRUE) && ( (isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name])) ) ) {
+
+		if (isset($_GET[$name]) && is_string($_GET[$name])) {
+			$field .= oos_output_string_protected(stripslashes($_GET[$name]));
+		} elseif (isset($_POST[$name]) && is_string($_POST[$name])) {
+			$field .= oos_output_string_protected(stripslashes($_POST[$name]));
+		}		
+	} elseif (oos_is_not_null($text)) {
+		$field .= oos_output_string_protected($text);
+	}
     $field .= '</textarea>';
-
+	
     return $field;
-  }
-
-
+}
 
  /**
   * Output a form hidden field
@@ -430,13 +464,19 @@ function oos_submit_button($id, $alt, $params = '') {
   * @return string
   */
   function oos_draw_hidden_field($name, $value = '') {
-    $field = '<input type="hidden" name="' . $name . '" value="';
-    if ($value != '') {
-      $field .= trim($value);
-    } else {
-      $field .= trim($GLOBALS[$name]);
+    $field = '<input type="hidden" name="' . $name . '"';
+
+    if (oos_is_not_null($value)) {
+		$field .= ' value="' . oos_output_string($value) . '"';
+	} elseif ( (isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name])) ) {
+		if ( (isset($_GET[$name]) && is_string($_GET[$name])) ) {
+			$field .= ' value="' . oos_output_string(stripslashes($_GET[$name])) . '"';
+		} elseif ( (isset($_POST[$name]) && is_string($_POST[$name])) ) {
+			$field .= ' value="' . oos_output_string(stripslashes($_POST[$name])) . '"';
+		}
     }
-    $field .= '">';
+
+    $field .= '>';
 
     return $field;
   }
@@ -486,7 +526,7 @@ function oos_submit_button($id, $alt, $params = '') {
   * @param $required
   * @return string
   */
-  function oos_draw_pull_down_menu($name, $values, $default = '', $params = '', $required = false) {
+  function oos_draw_pull_down_menu($name, $values, $default = '', $params = '', $required = FALSE) {
     $field = '<select name="' . $name . '"';
     if ($params) $field .= ' ' . $params;
     $field .= '>';

@@ -52,12 +52,12 @@ define('TEXT_INFO_EXPIRES_DATE', 'G&uuml;ltig bis:');
 
 define('TEXT_EDIT_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nderungen durch.');
 define('TEXT_EDIT_CATEGORIES_ID', 'Kategorie ID:');
-define('TEXT_EDIT_CATEGORIES_NAME', 'Kategorie Name:');
-define('TEXT_EDIT_CATEGORIES_IMAGE', 'Kategorie Bild:');
-define('TEXT_EDIT_CATEGORIES_HEADING_TITLE', 'Kategorie &Uuml;berschrift');
+define('TEXT_EDIT_CATEGORIES_NAME', 'Kategorie Name');
+define('TEXT_EDIT_CATEGORIES_IMAGE', 'Kategorie Bild');
+define('TEXT_EDIT_CATEGORIES_HEADING_TITLE', 'Meta Tag Titel');
 define('TEXT_EDIT_CATEGORIES_DESCRIPTION', 'Kategorie Beschreibung');
-define('TEXT_EDIT_CATEGORIES_DESCRIPTION_META', 'Kategorie Beschreibung f&uuml;r Description Tag (max. 250 Zeichen)');
-define('TEXT_EDIT_CATEGORIES_KEYWORDS_META', 'Kategorie Suchworte f&uuml;r Keyword Tag (Stichworte durch Komma getrennt - max. 250 Zeichen)');
+define('TEXT_EDIT_CATEGORIES_DESCRIPTION_META', 'Meta Tag Beschreibung');
+define('TEXT_EDIT_CATEGORIES_KEYWORDS_META', 'Meta Tag Suchworte');
 define('TEXT_EDIT_SORT_ORDER', 'Sortierreihenfolge:');
 define('TEXT_TAX_INFO', 'Netto:');
 define('TEXT_PRODUCTS_LIST_PRICE', 'empf VK:');

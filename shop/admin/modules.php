@@ -93,12 +93,12 @@
 			<?php require 'includes/menue.php'; ?>
 			</div>
 
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">
-
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">
+				
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -116,8 +116,8 @@
 				<div class="col-lg-2">
 
 				</div>
-			</div><!--/ End Breadcrumbs -->	
-					
+			</div><!--/ End Breadcrumbs -->
+				
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
@@ -253,7 +253,7 @@
 
       $heading[] = array('text' => '<b>' . $mInfo->title . '</b>');
 
-      $contents = array('form' => oos_draw_form('modules', $aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $_GET['module'] . '&action=save'));
+      $contents = array('form' => oos_draw_form('modules', $aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $_GET['module'] . '&action=save', 'post', FALSE));
       $contents[] = array('text' => $keys);
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('update', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $_GET['module']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       break;

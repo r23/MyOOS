@@ -83,23 +83,13 @@ function setFocus() {
 	<div class="login">
 		<div class="login-form">
 			<img src="images/login.gif" alt="Login" />
-		<?php echo oos_draw_form('login', $aContents['login'], 'action=process'); ?>
+		<?php echo oos_draw_form('login', $aContents['login'], 'action=process', 'post', TRUE); ?>
 			<div class="form-block">
 			<div class="inputlabel"><?php echo ENTRY_EMAIL_ADDRESS; ?></div>
 			<div><?php echo oos_draw_input_field('email_address', '', 'class="inputbox" size="15"'); ?></div>
 
 			<div class="inputlabel"><?php echo ENTRY_PASSWORD; ?></div>
 			<div><?php echo oos_draw_password_field('password', '', 'class="inputbox" size="15"'); ?></div>
-<?php
-  if (SHOW_CAPTCHA == 'true') {
-?>
-			<div class="clr"></div>
-			<div><img src="./captcha.php" alt="CAPTCHA"></div>
-                        <div class="inputlabel"><?php echo SECURITYCODE; ?></div>
-			<div><?php echo oos_draw_input_field('captchastring', '', 'class="inputbox" size="15"'); ?></div>
-<?php
-  }
-?>
 
 	        	<div align="left"><input type="submit" name="submit" class="button" value="Login" /></div>
                         <div class="ctr"><a href="<?php echo oos_href_link_admin($aContents['password_forgotten'], '', 'SSL') . '">' . TEXT_PASSWORD_FORGOTTEN; ?></a></div>

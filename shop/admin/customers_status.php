@@ -158,13 +158,13 @@
 			<div class="row border-bottom">
 			<?php require 'includes/menue.php'; ?>
 			</div>
-
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">
-					
+			
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">	
+				
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -182,7 +182,8 @@
 				<div class="col-lg-2">
 
 				</div>
-			</div><!--/ End Breadcrumbs -->							
+			</div><!--/ End Breadcrumbs -->	
+
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
@@ -305,7 +306,7 @@
   switch ($action) {
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_CUSTOMERS_STATUS . '</b>');
-      $contents = array('form' => oos_draw_form('status', $aContents['customers_status'], 'page=' . $_GET['page'] . '&action=insert', 'post', 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('status', $aContents['customers_status'], 'page=' . $_GET['page'] . '&action=insert', 'post', FALSE, 'enctype="multipart/form-data"'));
       $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
       $customers_status_inputs_string = '';
       $languages = oos_get_languages();
@@ -327,7 +328,7 @@
 
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_CUSTOMERS_STATUS . '</b>');
-      $contents = array('form' => oos_draw_form('status', $aContents['customers_status'], 'page=' . $_GET['page'] . '&cID=' . $cInfo->customers_status_id  .'&action=save', 'post', 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('status', $aContents['customers_status'], 'page=' . $_GET['page'] . '&cID=' . $cInfo->customers_status_id  .'&action=save', 'post', FALSE, 'enctype="multipart/form-data"'));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
       $customers_status_inputs_string = '';
       $languages = oos_get_languages();
@@ -350,7 +351,7 @@
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_CUSTOMERS_STATUS . '</b>');
 
-      $contents = array('form' => oos_draw_form('status', $aContents['customers_status'], 'page=' . $_GET['page'] . '&cID=' . $cInfo->customers_status_id  . '&action=deleteconfirm'));
+      $contents = array('form' => oos_draw_form('status', $aContents['customers_status'], 'page=' . $_GET['page'] . '&cID=' . $cInfo->customers_status_id  . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $cInfo->customers_status_name . '</b>');
       if ($remove_status) $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $_GET['page'] . '&cID=' . $cInfo->customers_status_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');

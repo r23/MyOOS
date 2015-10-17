@@ -250,7 +250,7 @@
   case 'voucherreport':
 ?>
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -372,7 +372,7 @@
     }
 ?>
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -395,7 +395,7 @@
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
 
       <tr>
-          <tr><?php echo oos_draw_form('mail', $aContents['coupon_admin'], 'action=send_email_to_user&cID=' . $_GET['cID']); ?>
+          <tr><?php echo oos_draw_form('mail', $aContents['coupon_admin'], 'action=send_email_to_user&cID=' . $_GET['cID'], 'post', FALSE); ?>
             <td><table border="0" width="100%" cellpadding="0" cellspacing="2">
               <tr>
                 <td></td>
@@ -467,7 +467,7 @@
     $coupon_name = $coupon_name_result->fields;
 ?>
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -498,7 +498,7 @@
       </tr>
       <tr>
 
-          <tr><?php echo oos_draw_form('mail', $aContents['coupon_admin'], 'action=preview_email&cID='. $_GET['cID']); ?>
+          <tr><?php echo oos_draw_form('mail', $aContents['coupon_admin'], 'action=preview_email&cID='. $_GET['cID'], 'post', FALSE); ?>
             <td><table border="0" cellpadding="0" cellspacing="2">
               <tr>
                 <td colspan="2"></td>
@@ -579,7 +579,7 @@
 ?>
 
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -602,7 +602,7 @@
 
       <tr>
       <td>
-<?php echo oos_draw_form('coupon', 'coupon_admin.php', 'action=update_confirm&oldaction=' . $_GET['oldaction'] . '&cID=' . $_GET['cID']); ?>
+<?php echo oos_draw_form('coupon', 'coupon_admin.php', 'action=update_confirm&oldaction=' . $_GET['oldaction'] . '&cID=' . $_GET['cID'], 'post', FALSE); ?>
       <table border="0" width="100%" cellspacing="0" cellpadding="6">
 <?php
         $languages = oos_get_languages();
@@ -769,7 +769,7 @@
 ?>
 
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -793,7 +793,7 @@
       <tr>
       <td>
 <?php 
-    echo oos_draw_form('coupon', 'coupon_admin.php', 'action=update&oldaction='.$action . '&cID=' . $_GET['cID']); 
+    echo oos_draw_form('coupon', 'coupon_admin.php', 'action=update&oldaction='.$action . '&cID=' . $_GET['cID'], 'post', FALSE); 
 ?>
       <table border="0" width="100%" cellspacing="0" cellpadding="6">
 <?php
@@ -900,7 +900,7 @@
   default:
 ?>
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -925,7 +925,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"></td>
-            <td class="main"><?php echo oos_draw_form('status', $aContents['coupon_admin'], '', 'get'); ?>
+            <td class="main"><?php echo oos_draw_form('status', $aContents['coupon_admin'], '', 'get', FALSE); ?>
 <?php
     $status_array[] = array('id' => 'Y', 'text' => TEXT_COUPON_ACTIVE);
     $status_array[] = array('id' => 'N', 'text' => TEXT_COUPON_INACTIVE);

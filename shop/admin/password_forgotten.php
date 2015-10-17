@@ -99,7 +99,7 @@ function setFocus() {
 
 		<div class="login-form">
 		
-		<?php echo oos_draw_form('login', $aContents['password_forgotten'], 'action=process'); ?>
+		<?php echo oos_draw_form('login', $aContents['password_forgotten'], 'action=process', 'post', TRUE); ?>
 		<?php echo oos_draw_hidden_field('log_times', $log_times); ?>
 		
 			<img src="images/login.gif" alt="<?php echo HEADING_PASSWORD_FORGOTTEN; ?>" />

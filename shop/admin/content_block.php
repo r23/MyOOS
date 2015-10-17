@@ -129,12 +129,13 @@
 			<?php require 'includes/menue.php'; ?>
 			</div>
 
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">
-					
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">
+				
+			
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -152,7 +153,8 @@
 				<div class="col-lg-2">
 
 				</div>
-			</div><!--/ End Breadcrumbs -->						
+			</div><!--/ End Breadcrumbs -->	
+	
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
@@ -253,7 +255,7 @@
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_HEADING_NEW_BLOCK . '</b>');
 
-      $contents = array('form' => oos_draw_form('block', $aContents['content_block'], 'action=insert', 'post', 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('block', $aContents['content_block'], 'action=insert', 'post', FALSE, 'enctype="multipart/form-data"'));
       $contents[] = array('text' => TEXT_NEW_INTRO);
 
       $block_inputs_string = '';
@@ -277,7 +279,7 @@
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_HEADING_EDIT_BLOCK . '</b>');
 
-      $contents = array('form' => oos_draw_form('block', $aContents['content_block'], 'page=' . $_GET['page'] . '&bID=' . $bInfo->block_id . '&action=save', 'post', 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('block', $aContents['content_block'], 'page=' . $_GET['page'] . '&bID=' . $bInfo->block_id . '&action=save', 'post', FALSE, 'enctype="multipart/form-data"'));
       $contents[] = array('text' => TEXT_EDIT_INTRO);
 
       $block_inputs_string = '';
@@ -303,7 +305,7 @@
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_HEADING_DELETE_BLOCK . '</b>');
 
-      $contents = array('form' => oos_draw_form('block', $aContents['content_block'], 'page=' . $_GET['page'] . '&bID=' . $bInfo->block_id . '&action=deleteconfirm'));
+      $contents = array('form' => oos_draw_form('block', $aContents['content_block'], 'page=' . $_GET['page'] . '&bID=' . $bInfo->block_id . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $bInfo->block_name . '</b>');
 

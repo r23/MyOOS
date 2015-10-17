@@ -133,13 +133,13 @@
 			<div class="row border-bottom">
 			<?php require 'includes/menue.php'; ?>
 			</div>
-
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">
-
+			
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">
+			
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -157,7 +157,8 @@
 				<div class="col-lg-2">
 
 				</div>
-			</div><!--/ End Breadcrumbs -->						
+			</div><!--/ End Breadcrumbs -->	
+				
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
@@ -235,7 +236,7 @@
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_TAX_RATE . '</b>');
 
-      $contents = array('form' => oos_draw_form('rates', $aContents['tax_rates'], 'page=' . $_GET['page'] . '&action=insert'));
+      $contents = array('form' => oos_draw_form('rates', $aContents['tax_rates'], 'page=' . $_GET['page'] . '&action=insert', 'post',  FALSE));
       $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
       $contents[] = array('text' => '<br />' . TEXT_INFO_CLASS_TITLE . '<br />' . oosTaxClassesPullDown('name="tax_class_id" style="font-size:10px"'));
       $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_NAME . '<br />' . oosGeoZonesPullDown('name="tax_zone_id" style="font-size:10px"'));
@@ -247,7 +248,7 @@
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_TAX_RATE . '</b>');
 
-      $contents = array('form' => oos_draw_form('rates', $aContents['tax_rates'], 'page=' . $_GET['page'] . '&tID=' . $trInfo->tax_rates_id  . '&action=save'));
+      $contents = array('form' => oos_draw_form('rates', $aContents['tax_rates'], 'page=' . $_GET['page'] . '&tID=' . $trInfo->tax_rates_id  . '&action=save', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
       $contents[] = array('text' => '<br />' . TEXT_INFO_CLASS_TITLE . '<br />' . oosTaxClassesPullDown('name="tax_class_id" style="font-size:10px"', $trInfo->tax_class_id));
       $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_NAME . '<br />' . oosGeoZonesPullDown('name="tax_zone_id" style="font-size:10px"', $trInfo->geo_zone_id));
@@ -260,7 +261,7 @@
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_TAX_RATE . '</b>');
 
-      $contents = array('form' => oos_draw_form('rates', $aContents['tax_rates'], 'page=' . $_GET['page'] . '&tID=' . $trInfo->tax_rates_id  . '&action=deleteconfirm'));
+      $contents = array('form' => oos_draw_form('rates', $aContents['tax_rates'], 'page=' . $_GET['page'] . '&tID=' . $trInfo->tax_rates_id  . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $trInfo->tax_class_title . ' ' . number_format($trInfo->tax_rate, TAX_DECIMAL_PLACES) . '%</b>');
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $_GET['page'] . '&tID=' . $trInfo->tax_rates_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');

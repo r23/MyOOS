@@ -474,13 +474,13 @@ function oos_output_string($sStr, $aTranslate = null)
   }
 
 
-  function oos_get_languages() {
+function oos_get_languages() {
 
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+	// Get database information
+	$dbconn =& oosDBGetConn();
+	$oostable =& oosDBGetTables();
 
-    $languages_array = array();
+    $aLanguages = array();
 
     $languagestable = $oostable['languages'];
     $query = "SELECT languages_id, name, iso_639_2, iso_639_1
@@ -489,22 +489,19 @@ function oos_output_string($sStr, $aTranslate = null)
               ORDER BY sort_order";
     $result = $dbconn->Execute($query);
 
-    while ($languages = $result->fields) {
-      $languages_array[] = array('id' => $languages['languages_id'],
-                                 'name' => $languages['name'],
-                                 'iso_639_2' => $languages['iso_639_2'],
-                                 'iso_639_1' => $languages['iso_639_1']
-                                );
+	while ($languages = $result->fields) {
+		$aLanguages[] = array('id' => $languages['languages_id'],
+									'name' => $languages['name'],
+									'iso_639_2' => $languages['iso_639_2'],
+									'iso_639_1' => $languages['iso_639_1']
+								);
 
-      // Move that ADOdb pointer!
-      $result->MoveNext();
-    }
+		// Move that ADOdb pointer!
+		$result->MoveNext();
+	}
 
-    // Close result set
-    $result->Close();
-
-    return $languages_array;
-  }
+	return $aLanguages;
+}
 
  /**
   * Return Products Name

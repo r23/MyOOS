@@ -149,7 +149,7 @@
 					<div class="col-lg-12">
 					
 			<!-- Breadcrumbs  -->
-			<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="row wrapper page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -167,7 +167,8 @@
 				<div class="col-lg-2">
 
 				</div>
-			</div><!--/ End Breadcrumbs -->						
+			</div><!--/ End Breadcrumbs -->	
+				
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
@@ -238,7 +239,7 @@
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_PAGE_TYPE . '</b>');
 
-      $contents = array('form' => oos_draw_form('status', $aContents['content_page_type'], 'page=' . $_GET['page'] . '&action=insert'));
+      $contents = array('form' => oos_draw_form('status', $aContents['content_page_type'], 'page=' . $_GET['page'] . '&action=insert', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
 
       $page_type_inputs_string = '';
@@ -253,7 +254,7 @@
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_PAGE_TYPE . '</b>');
 
-      $contents = array('form' => oos_draw_form('status', $aContents['content_page_type'], 'page=' . $_GET['page'] . '&ptID=' . $oInfo->page_type_id  . '&action=save'));
+      $contents = array('form' => oos_draw_form('status', $aContents['content_page_type'], 'page=' . $_GET['page'] . '&ptID=' . $oInfo->page_type_id  . '&action=save', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
 
       $page_type_inputs_string = '';
@@ -269,7 +270,7 @@
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_PAGE_TYPE . '</b>');
 
-      $contents = array('form' => oos_draw_form('status', $aContents['content_page_type'], 'page=' . $_GET['page'] . '&ptID=' . $oInfo->page_type_id  . '&action=deleteconfirm'));
+      $contents = array('form' => oos_draw_form('status', $aContents['content_page_type'], 'page=' . $_GET['page'] . '&ptID=' . $oInfo->page_type_id  . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $oInfo->page_type_name . '</b>');
       if ($remove_status) $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $_GET['page'] . '&ptID=' . $oInfo->page_type_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
