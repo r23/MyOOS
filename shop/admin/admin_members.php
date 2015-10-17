@@ -241,7 +241,7 @@
    $group_name = $dbconn->GetRow($group_name_query);
 
    if ($_GET['gPath'] == 1) {
-     echo oos_draw_form('defineForm', $aContents['admin_members'], 'gID=' . $_GET['gPath'], 'post',  FALSE,);
+     echo oos_draw_form('defineForm', $aContents['admin_members'], 'gID=' . $_GET['gPath'], 'post', FALSE);
    } elseif ($_GET['gPath'] != 1) {
      echo oos_draw_form('defineForm', $aContents['admin_members'], 'gID=' . $_GET['gPath'] . '&action=group_define', 'post',  FALSE, 'enctype="multipart/form-data"');
      echo oos_draw_hidden_field('admin_groups_id', $_GET['gPath']);

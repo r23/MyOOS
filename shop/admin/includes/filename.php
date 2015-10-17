@@ -30,14 +30,11 @@
   $aContents['admin_account'] = $prefix_filename . 'admin_account.php';
   $aContents['admin_files'] = $prefix_filename . 'admin_files.php';
   $aContents['admin_members'] = $prefix_filename . 'admin_members.php';
-  $aContents['cache'] = $prefix_filename . 'cache.php';
   $aContents['campaigns'] = $prefix_filename . 'campaigns.php';
   $aContents['catalog_product_info'] = $prefix_filename . 'product_info.php';
   $aContents['categories'] = $prefix_filename . 'categories.php';
   $aContents['configuration'] = $prefix_filename . 'configuration.php';
   $aContents['content_block'] = $prefix_filename . 'content_block.php';
-  $aContents['content_information'] = $prefix_filename . 'content_information.php';
-  $aContents['content_news'] = $prefix_filename . 'content_news.php';
   $aContents['content_page_type'] = $prefix_filename . 'content_page_type.php';
   $aContents['countries'] = $prefix_filename . 'countries.php';
   $aContents['currencies'] = $prefix_filename . 'currencies.php';
@@ -45,7 +42,6 @@
   $aContents['customers_status'] = $prefix_filename . 'customers_status.php';
   $aContents['coupon_admin'] = $prefix_filename . 'coupon_admin.php';
   $aContents['default'] = $prefix_filename . 'index.php';
-  $aContents['easypopulate'] = $prefix_filename . 'easypopulate.php';
   $aContents['edit_orders'] = $prefix_filename . 'edit_orders.php';
   $aContents['export_excel'] = $prefix_filename . 'export_excel.php';
   $aContents['import_excel'] = $prefix_filename . 'import_excel.php';
@@ -58,7 +54,6 @@
   $aContents['invoice'] = $prefix_filename . 'invoice.php';
   $aContents['information'] = $prefix_filename . 'information.php';
   $aContents['login'] = $prefix_filename . 'login.php';
-  $aContents['login_create'] = $prefix_filename . 'login_create.php';
   $aContents['logoff'] = $prefix_filename . 'logoff.php';
   $aContents['languages'] = $prefix_filename . 'languages.php';
   $aContents['listcategories'] = $prefix_filename . 'listcategories.php';
@@ -72,9 +67,7 @@
   $aContents['orders_status'] = $prefix_filename . 'orders_status.php';
   $aContents['packingslip'] = $prefix_filename . 'packingslip.php';
   $aContents['password_forgotten'] = $prefix_filename . 'password_forgotten.php';
-
   $aContents['plugins'] = $prefix_filename . 'plugins.php';
-  $aContents['popup_google_map'] = $prefix_filename . 'popup_google_map.php';
   $aContents['popup_image'] = $prefix_filename . 'popup_image.php';
   $aContents['popup_image_product'] = $prefix_filename . 'popup_image_product.php';
   $aContents['products'] = $prefix_filename . 'products.php';
@@ -83,9 +76,7 @@
   $aContents['products_expected'] = $prefix_filename . 'products_expected.php';
   $aContents['products_status'] = $prefix_filename . 'products_status.php';
   $aContents['products_units'] = $prefix_filename . 'products_units.php';
-  $aContents['quick_stockupdate'] = $prefix_filename . 'quick_stockupdate.php';
   $aContents['reviews'] = $prefix_filename . 'reviews.php';
-
   $aContents['shipping_modules'] = $prefix_filename . 'shipping_modules.php';
   $aContents['specials'] = $prefix_filename . 'specials.php';
   $aContents['stats_customers'] = $prefix_filename . 'stats_customers.php';
