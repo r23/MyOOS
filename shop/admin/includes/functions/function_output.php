@@ -39,32 +39,35 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
   * @param $connection
   * @return string
   */
-  function oos_href_link_admin($page = '', $parameters = '', $connection = 'NONSSL') {
+function oos_href_link_admin($page = '', $parameters = '', $connection = 'NONSSL') {
+  
+	$page = oos_output_string($page);
 
-    if ($page == '') {
-      die('</td></tr></table></td></tr></table><br /><br /><font color="#ff0000"><b>Error!</b></font><br /><br /><b>Unable to determine the page link!<br /><br />Function used:<br /><br />oos_href_link_admin(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</b>');
-    }
-    if ($connection == 'NONSSL') {
-      $link = OOS_HTTP_SERVER . OOS_SHOP . 'admin/';
-    } elseif ($connection == 'SSL') {
-      if (ENABLE_SSL == 'TRUE') {
-        $link = OOS_HTTPS_SERVER . OOS_SHOP . 'admin/';
-      } else {
-        $link = OOS_HTTP_SERVER . OOS_SHOP . 'admin/';
-      }
-    } else {
-      die('</td></tr></table></td></tr></table><br /><br /><font color="#ff0000"><b>Error!</b></font><br /><br /><b>Unable to determine connection method on a link!<br /><br />Known methods: NONSSL SSL<br /><br />Function used:<br /><br />oos_href_link_admin(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</b>');
-    }
-    if ($parameters == '') {
-      $link = $link . $page . '?' . SID;
-    } else {
-      $link = $link . $page . '?' . $parameters . '&' . SID;
-    }
+	if ($page == '') {
+		die('<div class="alert alert-danger" role="alert"><strong>Error!</strong> Unable to determine the page link!<br /><br />Function used:<br /><br />oos_href_link_admin(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</div>');
+	}
+	if ($connection == 'NONSSL') {
+		$link = OOS_HTTP_SERVER . OOS_SHOP . 'admin/';
+	} elseif ($connection == 'SSL') {
+		if (ENABLE_SSL == 'TRUE') {
+			$link = OOS_HTTPS_SERVER . OOS_SHOP . 'admin/';
+		} else {
+			$link = OOS_HTTP_SERVER . OOS_SHOP . 'admin/';
+		}
+	} else {
+		die('<div class="alert alert-danger" role="alert"><strong>Error!</strong> Unable to determine connection method on a link!<br /><br />Known methods: NONSSL SSL<br /><br />Function used:<br /><br />oos_href_link_admin(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</div>');
+	}
 
-    while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
+	if (oos_is_not_null($parameters)) {
+		$link = $link . $page . '?' . oos_output_string($parameters) . '&' . SID;
+	} else {
+		$link = $link . $page . '?' . SID;		
+	}
 
-    return $link;
-  }
+	while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
+
+	return $link;
+}
 
 
  /**
@@ -76,27 +79,36 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
   * @param $connection
   * @return string
   */
-  function oos_catalog_link($page = '', $parameters = '', $connection = 'NONSSL') {
-    if ($connection == 'NONSSL') {
-      $link = OOS_HTTP_SERVER . OOS_SHOP;
-    } elseif ($connection == 'SSL') {
-      if (ENABLE_SSL_SHOP == 'TRUE') {
-        $link = OOS_HTTPS_SERVER . OOS_SHOP;
-      } else {
-        $link = OOS_HTTP_SERVER . OOS_SHOP;
-      }
-    } else {
-      die('</td></tr></table></td></tr></table><br /><br /><font color="#ff0000"><b>Error!</b></font><br /><br /><b>Unable to determine connection method on a link!<br /><br />Known methods: NONSSL SSL<br /><br />Function used:<br /><br />oos_href_link_admin(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</b>');
+function oos_catalog_link($page = '', $parameters = '', $connection = 'NONSSL') {
+	
+	$page = oos_output_string($page);
+
+	if ($page == '') {
+		die('<div class="alert alert-danger" role="alert"><strong>Error!</strong> Unable to determine the page link!<br /><br />Function used:<br /><br />oos_href_link_admin(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</div>');
+	}	  
+	  
+	if ($connection == 'NONSSL') {
+		$link = OOS_HTTP_SERVER . OOS_SHOP;
+	} elseif ($connection == 'SSL') {
+		if (ENABLE_SSL_SHOP == 'TRUE') {
+			$link = OOS_HTTPS_SERVER . OOS_SHOP;
+		} else {
+			$link = OOS_HTTP_SERVER . OOS_SHOP;
+		}
+	} else {
+		die('<div class="alert alert-danger" role="alert"><strong>Error!</strong>Unable to determine connection method on a link!<br /><br />Known methods: NONSSL SSL<br /><br />Function used:<br /><br />oos_href_link_admin(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</div>');
     }
-    if (oos_is_not_null($parameters)) {
-      $link .= 'index.php?content=' . $page . '&' . $parameters;
-    } else {
-      $link .= 'index.php?content=' . $page;
+
+	if (oos_is_not_null($parameters)) {
+		$link .= 'index.php?content=' . $page . '&' . oos_output_string($parameters);
+	} else {
+		$link .= 'index.php?content=' . $page;
     }
+
     while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
 
     return $link;
-  }
+}
 
 
  /**
@@ -140,26 +152,24 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 /**
  * Output a function button in the selected language
  *
- * @param $image
- * @param $alt
+ * @param $title
  * @param $params
  * @return string
  */
-function oos_button($id, $alt = '', $params = '') {
-	return '<button class="btn btn-sm btn-primary margin-bottom-20"><strong>' . $alt . '</strong></button>';
+function oos_button($id, $title = '', $params = '') {
+	return '<button class="btn btn-sm btn-primary margin-bottom-20"><strong>' . $title . '</strong></button>';
 }
 
 
 /**
  * Outputs a submit button
  *
- * @param $image
- * @param $alt
+ * @param $title
  * @param $params
  * @return string
  */
-function oos_submit_button($id, $alt, $params = '') {
-	return '<button class="btn btn-sm btn-primary margin-bottom-20" type="submit"><strong>' . $alt . '</strong></button>';
+function oos_submit_button($id, $title = '', $params = '') {
+	return '<button class="btn btn-sm btn-primary margin-bottom-20" type="submit"><strong>' . $title . '</strong></button>';
 }
 
 
@@ -292,7 +302,7 @@ function oos_draw_input_field($name, $value = '', $parameters = '', $required = 
 		$field .= ' placeholder="' . oos_output_string($placeholder) . '"';
     }	
 	
-    $field .= ' class="form-control" />';
+    $field .= ' class="form-control">';
 
     if ($required) $field .= TEXT_FIELD_REQUIRED;
 
@@ -401,7 +411,7 @@ function oos_draw_selection_field($name, $type, $value = '', $checked = FALSE, $
   * @return string
   */
   function oos_draw_textarea_field($name, $wrap, $width, $height, $text = '', $params = '', $reinsert_value = TRUE) {
-    # $field = '<textarea class="form-control" placeholder="Textarea" rows="rows="' . $height . '"></textarea>
+
     $field = '<textarea class="form-control" name="' . $name . '" wrap="' . $wrap . '" cols="' . $width . '" rows="' . $height . '"';
 
 	if (oos_is_not_null($params)) $field .= ' ' . $params;
@@ -410,12 +420,12 @@ function oos_draw_selection_field($name, $type, $value = '', $checked = FALSE, $
 	
 	if ( ($reinsert_value == TRUE) && ( (isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name])) ) ) {
 		if (isset($_GET[$name]) && is_string($_GET[$name])) {
-			$field .= oos_output_string_protected(stripslashes($_GET[$name]));
+			$field .= htmlspecialchars(stripslashes($_GET[$name]));
 		} elseif (isset($_POST[$name]) && is_string($_POST[$name])) {
-			$field .= oos_output_string_protected(stripslashes($_POST[$name]));
+			$field .= htmlspecialchars(stripslashes($_POST[$name]));
 		}		
 	} elseif (oos_is_not_null($text)) {
-		$field .= oos_output_string_protected($text);
+		$field .= htmlspecialchars($text);
 	}
     $field .= '</textarea>';
 
@@ -444,12 +454,12 @@ function oos_draw_editor_field($name, $wrap, $width, $height, $text = '', $param
 	if ( ($reinsert_value == TRUE) && ( (isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name])) ) ) {
 
 		if (isset($_GET[$name]) && is_string($_GET[$name])) {
-			$field .= oos_output_string_protected(stripslashes($_GET[$name]));
+			$field .= htmlspecialchars(stripslashes($_GET[$name]));
 		} elseif (isset($_POST[$name]) && is_string($_POST[$name])) {
-			$field .= oos_output_string_protected(stripslashes($_POST[$name]));
+			$field .= htmlspecialchars(stripslashes($_POST[$name]));
 		}		
 	} elseif (oos_is_not_null($text)) {
-		$field .= oos_output_string_protected($text);
+		$field .= htmlspecialchars($text);
 	}
     $field .= '</textarea>';
 	
