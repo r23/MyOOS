@@ -20,3 +20,7 @@ shop/temp/shop/templates_c/
 /shop/admin/less/style.min.less
 /blog/wordpress/wp-content/themes/myoos/less/style.min.less
 /blog/wordpress/wp-content/themes/myoos/less/flexslider.min.less
+nbproject
+/forum/nbproject
+/shop/nbproject
+/xibo/nbproject
