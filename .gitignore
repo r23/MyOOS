@@ -2,9 +2,6 @@
 blog/wordpress/wp-config.php
 shop/includes/local/
 
-shop/admin/temp/cache/
-shop/admin/temp/templates_c/
-
 shop/temp/shop/cache/
 shop/temp/shop/templates_c/
 
