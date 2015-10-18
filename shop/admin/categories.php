@@ -482,9 +482,14 @@ if ($action == 'new_category_ACD' || $action == 'edit_category_ACD') {
 
 		<div class="wrapper wrapper-content">
 			<div class="row">
-				<div class="col-lg-12">	
-<?php echo oos_draw_form('new_category', $aContents['categories'], 'cPath=' . $cPath . '&cID=' . $_GET['cID'] . '&action=new_category_preview', 'post', TRUE, 'enctype="multipart/form-data"'); ?>
-	<?php echo oos_draw_hidden_field('categories_date_added', (($cInfo->date_added) ? $cInfo->date_added : date('Y-m-d'))) . oos_draw_hidden_field('parent_id', $cInfo->parent_id) . oos_draw_hidden_field('categories_previous_image', $cInfo->categories_image); ?>
+				<div class="col-lg-12">
+<?php
+	$form_action = ($_GET['cID']) ? 'update_category' : 'insert_category';
+	echo oos_draw_form('new_category', $aContents['categories'], 'cPath=' . $cPath . '&cID=' . $_GET['cID'] . '&action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"');
+		echo oos_draw_hidden_field('categories_date_added', (($cInfo->date_added) ? $cInfo->date_added : date('Y-m-d')));
+		echo oos_draw_hidden_field('parent_id', $cInfo->parent_id);
+		echo oos_draw_hidden_field('categories_previous_image', $cInfo->categories_image);
+?>
 
         <div class="wrapper wrapper-content">
 
@@ -522,13 +527,13 @@ if ($action == 'new_category_ACD' || $action == 'edit_category_ACD') {
 													<?php echo oos_draw_editor_field('categories_description[' . $languages[$i]['id'] . ']', 'soft', '70', '15', (($categories_description[$languages[$i]['id']]) ? stripslashes($categories_description[$languages[$i]['id']]) : oos_get_category_description($cInfo->categories_id, $languages[$i]['id']))); ?>
                                                 </div>
                                             </div>
-		<script>
-			CKEDITOR.replace( 'categories_description[<?php echo $languages[$i]['id']; ?>]');
-		</script>											
+												<script>
+													CKEDITOR.replace( 'categories_description[<?php echo $languages[$i]['id']; ?>]');
+												</script>											
                                             <div class="form-group"><label class="col-sm-2 control-label"><?php echo TEXT_EDIT_CATEGORIES_HEADING_TITLE; ?>:</label>
                                                 <div class="col-sm-10"><?php echo oos_draw_input_field('categories_heading_title[' . $languages[$i]['id'] . ']', (($categories_heading_title[$languages[$i]['id']]) ? stripslashes($categories_heading_title[$languages[$i]['id']]) : oos_get_category_heading_title($cInfo->categories_id, $languages[$i]['id'])), '', FALSE, 'text', TRUE, '...'); ?></div>
                                             </div>
-                                            <div class="form-group"><label class="col-sm-2 control-label"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_DESCRIPTION_META; ?>:</label>
+                                            <div class="form-group"><label class="col-sm-2 control-label"><?php echo TEXT_EDIT_CATEGORIES_DESCRIPTION_META; ?>:</label>
                                                 <div class="col-sm-10"><?php echo oos_draw_textarea_field('categories_description_meta[' . $languages[$i]['id'] . ']', 'soft', '70', '2', (($categories_description_meta[$languages[$i]['id']]) ? stripslashes($categories_description_meta[$languages[$i]['id']]) : oos_get_category_description_meta($cInfo->categories_id, $languages[$i]['id']))); ?></div>
                                             </div>
                                             <div class="form-group"><label class="col-sm-2 control-label"><?php echo TEXT_EDIT_CATEGORIES_KEYWORDS_META; ?>:</label>
@@ -547,7 +552,7 @@ if ($action == 'new_category_ACD' || $action == 'edit_category_ACD') {
 
                                         <fieldset class="form-horizontal">
                                             <div class="form-group"><label class="col-sm-2 control-label">ID:</label>
-                                                <div class="col-sm-10"><input type="text" class="form-control" placeholder="543"></div>
+                                                <div class="col-sm-10"><?php echo oos_draw_input_field('sort_order', $cInfo->sort_order, 'size="2"'); ?></div>
                                             </div>
                                             <div class="form-group"><label class="col-sm-2 control-label"><?php echo TEXT_EDIT_SORT_ORDER; ?>:</label>
                                                 <div class="col-sm-10"><?php echo oos_draw_input_field('sort_order', $cInfo->sort_order, 'size="2"'); ?></div>
@@ -982,43 +987,6 @@ if ($action == 'new_category_ACD' || $action == 'edit_category_ACD') {
           // Move that ADOdb pointer!
           $slave_table_result->MoveNext();
         }
-        break;
-
-      case 'new_category':
-        $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_CATEGORY . '</b>');
-
-        $contents = array('form' => oos_draw_form('newcategory', $aContents['categories'], 'action=insert_category&cPath=' . $cPath, 'post', FALSE, 'enctype="multipart/form-data"'));
-        $contents[] = array('text' => TEXT_NEW_CATEGORY_INTRO);
-
-        $category_inputs_string = '';
-        $languages = oos_get_languages();
-        for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $category_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('categories_name[' . $languages[$i]['id'] . ']');
-        }
-
-        $contents[] = array('text' => '<br />' . TEXT_CATEGORIES_NAME . $category_inputs_string);
-        $contents[] = array('text' => '<br />' . TEXT_CATEGORIES_IMAGE . '<br />' . oos_draw_file_field('categories_image'));
-        $contents[] = array('text' => '<br />' . TEXT_SORT_ORDER . '<br />' . oos_draw_input_field('sort_order', '', 'size="2"'));
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('save', IMAGE_SAVE) . ' <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
-        break;
-
-      case 'edit_category':
-        $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_CATEGORY . '</b>');
-
-        $contents = array('form' => oos_draw_form('categories', $aContents['categories'], 'action=update_category&cPath=' . $cPath, 'post', FALSE, 'enctype="multipart/form-data"') . oos_draw_hidden_field('categories_id', $cInfo->categories_id));
-        $contents[] = array('text' => TEXT_EDIT_INTRO);
-
-        $category_inputs_string = '';
-        $languages = oos_get_languages();
-        for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $category_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('categories_name[' . $languages[$i]['id'] . ']', oos_get_category_name($cInfo->categories_id, $languages[$i]['id']));
-        }
-
-        $contents[] = array('text' => '<br />' . TEXT_EDIT_CATEGORIES_NAME . $category_inputs_string);
-        $contents[] = array('text' => '<br />' . oos_image(OOS_SHOP_IMAGES . $cInfo->categories_image, $cInfo->categories_name) . '<br />' . OOS_SHOP_IMAGES . '<br /><b>' . $cInfo->categories_image . '</b>');
-        $contents[] = array('text' => '<br />' . TEXT_EDIT_CATEGORIES_IMAGE . '<br />' . oos_draw_file_field('categories_image'));
-        $contents[] = array('text' => '<br />' . TEXT_EDIT_SORT_ORDER . '<br />' . oos_draw_input_field('sort_order', $cInfo->sort_order, 'size="2"'));
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('save', IMAGE_SAVE) . ' <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
         break;
 
       case 'delete_category':
