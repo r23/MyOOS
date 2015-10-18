@@ -279,7 +279,7 @@ function oos_submit_button($id, $title = '', $params = '') {
   * @param $placeholder
   * @return string
   */
-function oos_draw_input_field($name, $value = '', $parameters = '', $required = FALSE, $type = 'text', $reinsert_value = TRUE , $placeholder = '') {
+function oos_draw_input_field($name, $value = '', $parameters = '', $required = FALSE, $type = 'text', $reinsert_value = TRUE, $disabled = FALSE, $placeholder = '') {
     $field = '<input type="' . $type . '" name="' . $name . '"';
 	
 	if ( ($reinsert_value == TRUE) && ( (isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name])) ) ) {
@@ -296,8 +296,10 @@ function oos_draw_input_field($name, $value = '', $parameters = '', $required = 
 
     if (oos_is_not_null($parameters)) {
 		$field .= ' ' . $parameters;
-    }	
-
+    }
+	if ($disabled == TRUE) {	
+		$field .= ' disabled="disabled"';
+	}
     if (oos_is_not_null($placeholder)) {
 		$field .= ' placeholder="' . oos_output_string($placeholder) . '"';
     }	

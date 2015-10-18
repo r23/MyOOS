@@ -519,7 +519,7 @@ if ($action == 'new_category_ACD' || $action == 'edit_category_ACD') {
                                         <fieldset class="form-horizontal">
 									
                                             <div class="form-group"><label class="col-sm-2 control-label"><?php echo TEXT_EDIT_CATEGORIES_NAME; ?>:</label>
-                                                <div class="col-sm-10"><?php echo oos_draw_input_field('categories_name[' . $languages[$i]['id'] . ']', (($categories_name[$languages[$i]['id']]) ? stripslashes($categories_name[$languages[$i]['id']]) : oos_get_category_name($cInfo->categories_id, $languages[$i]['id'])), '', TRUE, 'text', TRUE, TEXT_EDIT_CATEGORIES_NAME); ?></div>
+                                                <div class="col-sm-10"><?php echo oos_draw_input_field('categories_name[' . $languages[$i]['id'] . ']', (($categories_name[$languages[$i]['id']]) ? stripslashes($categories_name[$languages[$i]['id']]) : oos_get_category_name($cInfo->categories_id, $languages[$i]['id'])), '', TRUE, 'text', TRUE, FALSE, TEXT_EDIT_CATEGORIES_NAME); ?></div>
                                             </div>
 
                                             <div class="form-group"><label class="col-sm-2 control-label"><?php echo TEXT_EDIT_CATEGORIES_DESCRIPTION; ?>:</label>
@@ -531,7 +531,7 @@ if ($action == 'new_category_ACD' || $action == 'edit_category_ACD') {
 													CKEDITOR.replace( 'categories_description[<?php echo $languages[$i]['id']; ?>]');
 												</script>											
                                             <div class="form-group"><label class="col-sm-2 control-label"><?php echo TEXT_EDIT_CATEGORIES_HEADING_TITLE; ?>:</label>
-                                                <div class="col-sm-10"><?php echo oos_draw_input_field('categories_heading_title[' . $languages[$i]['id'] . ']', (($categories_heading_title[$languages[$i]['id']]) ? stripslashes($categories_heading_title[$languages[$i]['id']]) : oos_get_category_heading_title($cInfo->categories_id, $languages[$i]['id'])), '', FALSE, 'text', TRUE, '...'); ?></div>
+                                                <div class="col-sm-10"><?php echo oos_draw_input_field('categories_heading_title[' . $languages[$i]['id'] . ']', (($categories_heading_title[$languages[$i]['id']]) ? stripslashes($categories_heading_title[$languages[$i]['id']]) : oos_get_category_heading_title($cInfo->categories_id, $languages[$i]['id'])), '', FALSE, 'text', TRUE, FALSE, '...'); ?></div>
                                             </div>
                                             <div class="form-group"><label class="col-sm-2 control-label"><?php echo TEXT_EDIT_CATEGORIES_DESCRIPTION_META; ?>:</label>
                                                 <div class="col-sm-10"><?php echo oos_draw_textarea_field('categories_description_meta[' . $languages[$i]['id'] . ']', 'soft', '70', '2', (($categories_description_meta[$languages[$i]['id']]) ? stripslashes($categories_description_meta[$languages[$i]['id']]) : oos_get_category_description_meta($cInfo->categories_id, $languages[$i]['id']))); ?></div>
@@ -550,9 +550,9 @@ if ($action == 'new_category_ACD' || $action == 'edit_category_ACD') {
                                 <div id="tab-<?php echo $nTab; ?>" class="tab-pane">
                                     <div class="panel-body">
 
-                                        <fieldset class="form-horizontal">
+										<fieldset class="form-horizontal">
                                             <div class="form-group"><label class="col-sm-2 control-label">ID:</label>
-                                                <div class="col-sm-10"><?php echo oos_draw_input_field('sort_order', $cInfo->sort_order, 'size="2"'); ?></div>
+                                                <div class="col-sm-10"><?php echo oos_draw_input_field('categories_id', $cInfo->categories_id, '', FALSE, 'text', TRUE, TRUE, '...'); ?></div>
                                             </div>
                                             <div class="form-group"><label class="col-sm-2 control-label"><?php echo TEXT_EDIT_SORT_ORDER; ?>:</label>
                                                 <div class="col-sm-10"><?php echo oos_draw_input_field('sort_order', $cInfo->sort_order, 'size="2"'); ?></div>
