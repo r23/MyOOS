@@ -85,25 +85,23 @@ if (!empty($action)) {
         oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $_GET['cPath']));
         break;
 
-      case 'new_category':
-      case 'edit_category':
-          $action = $action . '_ACD';
-        break;
-
       case 'insert_category':
-      case 'update_category':
-        if (isset($_POST['edit_x']) || isset($_POST['edit_y'])) {
-          $action = 'edit_category_ACD';
-        } else {
+      case 'update_category': 
+          if (isset($_POST['categories_status'])) {
+			  $nStatus = 1;
+		  } else {
+			  $nStatus = 0;
+		  }
+
           if ($categories_id == '') {
-            $categories_id = oos_db_prepare_input($_GET['cID']);
+				$categories_id = oos_db_prepare_input($_GET['cID']);
           }
           $sql_data_array = array('sort_order' => $sort_order);
 
           if ($action == 'insert_category') {
             $insert_sql_data = array('parent_id' => $current_category_id,
                                      'date_added' => 'now()',
-                                     'categories_status' => DEFAULT_CATEGORIES_STATUS);
+                                     'categories_status' => $nStatus);
 
             $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
@@ -111,7 +109,8 @@ if (!empty($action)) {
 
             $categories_id = $dbconn->Insert_ID();
           } elseif ($action == 'update_category') {
-            $update_sql_data = array('last_modified' => 'now()');
+            $update_sql_data = array('last_modified' => 'now()',
+									 'categories_status' => $nStatus);
 
             $sql_data_array = array_merge($sql_data_array, $update_sql_data);
 
@@ -157,7 +156,7 @@ if (!empty($action)) {
             }
 #          }
           oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories_id));
-        }
+
         break;
 
       case 'delete_category_confirm':
@@ -422,13 +421,28 @@ require 'includes/header.php';
 		</div>
 
 <?php
-if ($action == 'new_category_ACD' || $action == 'edit_category_ACD') {
+if ($action == 'new_category' || $action == 'edit_category') {
+    $parameters = array('categories_name' => '',
+                       'categories_heading_title' => '',
+                       'categories_description' => '',
+                       'categories_description_meta' => '',
+                       'categories_keywords_meta' => '',		   
+                       'categories_id' => '',
+                       'parent_id' => '',
+                       'sort_order' => '',
+                       'date_added' => '',
+                       'categories_status' => 1,
+                       'products_weight' => '',
+                       'last_modified' => '');
+
+	$cInfo = new objectInfo($parameters);	
+	
 	if (isset($_GET['cID']) && empty($_POST)) {
         $categoriestable = $oostable['categories'];
         $categories_descriptiontable = $oostable['categories_description'];
         $query = "SELECT c.categories_id, cd.categories_name, cd.categories_heading_title,
                          cd.categories_description, cd.categories_description_meta, cd.categories_keywords_meta,
-                         c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified
+                         c.categories_image, c.parent_id, c.sort_order, c.date_added, c.categories_status, c.last_modified
                   FROM $categoriestable c,
                        $categories_descriptiontable cd
                   WHERE c.categories_id = '" . intval($_GET['cID']) . "' AND
@@ -447,9 +461,8 @@ if ($action == 'new_category_ACD' || $action == 'edit_category_ACD') {
         $categories_description_meta = $_POST['categories_description_meta'];
         $categories_keywords_meta = $_POST['categories_keywords_meta'];
         $categories_url = $_POST['categories_url'];
-	} else {
-        $cInfo = new objectInfo(array());
-	}
+		$categories_status = $_POST['categories_status'];
+	} 
 
 	$languages = oos_get_languages();
 
@@ -555,17 +568,19 @@ if ($action == 'new_category_ACD' || $action == 'edit_category_ACD') {
                                                 <div class="col-sm-10"><?php echo oos_draw_input_field('categories_id', $cInfo->categories_id, '', FALSE, 'text', TRUE, TRUE, '...'); ?></div>
                                             </div>
                                             <div class="form-group"><label class="col-sm-2 control-label"><?php echo TEXT_EDIT_SORT_ORDER; ?>:</label>
-                                                <div class="col-sm-10"><?php echo oos_draw_input_field('sort_order', $cInfo->sort_order, 'size="2"'); ?></div>
+                                                <div class="col-sm-10"><?php echo oos_draw_input_field('sort_order', $cInfo->sort_order); ?></div>
 										
                                             </div>
-                                            <div class="form-group"><label class="col-sm-2 control-label">Status:</label>
+                                            <div class="form-group"><label class="col-sm-2 control-label"><?php echo TEXT_EDIT_STATUS; ?>:</label>
                                                 <div class="col-sm-10">
-                                                    <select class="form-control" >
-                                                        <option>option 1</option>
-                                                        <option>option 2</option>
-                                                    </select>
+													<label class="switch">
+														<?php echo oos_draw_checkbox_field('categories_status', '', ($cInfo->categories_status == 1 ? TRUE : FALSE)); ?>
+													<span></span>
+													</label>					
+					  
                                                 </div>
                                             </div>
+																				
                                         </fieldset>
 
 
@@ -589,7 +604,9 @@ if ($action == 'new_category_ACD' || $action == 'edit_category_ACD') {
 
         </div>	
 
-		  <?php echo oos_submit_button('preview', IMAGE_PREVIEW) . '&nbsp;&nbsp;<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $_GET['cID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>'; ?></td>
+		  <?php echo oos_submit_button('save', IMAGE_SAVE); 
+		  # echo oos_submit_button('preview', IMAGE_PREVIEW) . '&nbsp;&nbsp;<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $_GET['cID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>';
+		  ?>
 
 <!-- body_text_eof //-->
 </form>

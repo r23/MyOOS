@@ -59,6 +59,7 @@ define('TEXT_EDIT_CATEGORIES_DESCRIPTION', 'Kategorie Beschreibung');
 define('TEXT_EDIT_CATEGORIES_DESCRIPTION_META', 'Meta Tag Beschreibung');
 define('TEXT_EDIT_CATEGORIES_KEYWORDS_META', 'Meta Tag Suchworte');
 define('TEXT_EDIT_SORT_ORDER', 'Sortierreihenfolge');
+define('TEXT_EDIT_STATUS', 'Status');
 define('TEXT_TAX_INFO', 'Netto:');
 define('TEXT_PRODUCTS_LIST_PRICE', 'empf VK:');
 define('TEXT_PRODUCTS_DISCOUNT_ALLOWED', 'Discountmaximum:');
