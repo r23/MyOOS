@@ -27,15 +27,16 @@ use Piwik\View;
 class LanguagesManager extends \Piwik\Plugin
 {
     /**
-     * @see Piwik\Plugin::getListHooksRegistered
+     * @see Piwik\Plugin::registerEvents
      */
-    public function getListHooksRegistered()
+    public function registerEvents()
     {
         return array(
             'AssetManager.getStylesheetFiles'            => 'getStylesheetFiles',
             'AssetManager.getJavaScriptFiles'            => 'getJsFiles',
             'Config.NoConfigurationFile'                 => 'initLanguage',
             'Request.dispatchCoreAndPluginUpdatesScreen' => 'initLanguage',
+            'Request.dispatch'                           => 'initLanguage',
             'Platform.initialized'                       => 'initLanguage',
             'UsersManager.deleteUser'                    => 'deleteUserLanguage',
             'Template.topBar'                            => 'addLanguagesManagerToOtherTopBar',

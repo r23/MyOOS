@@ -29,6 +29,9 @@ $dd->setCache(new Doctrine\Common\Cache\PhpFileCache('./tmp/'));
 // OPTIONAL: If called, getBot() will only return true if a bot was detected  (speeds up detection a bit)
 $dd->discardBotInformation();
 
+// OPTIONAL: If called, bot detection will completely be skipped (bots will be detected as regular devices then)
+$dd->skipBotDetection();
+
 $dd->parse();
 
 if ($dd->isBot()) {
@@ -98,19 +101,19 @@ phpunit
 
 The lists below are auto generated and updated from time to time. Some of them might not be complete.
 
-*Last update: 2015/06/23*
+*Last update: 2015/09/09*
 
 ### List of detected operating systems:
 
-AIX, Android, AmigaOS, Apple TV, Arch Linux, BackTrack, Bada, BeOS, BlackBerry OS, BlackBerry Tablet OS, Brew, CentOS, Chrome OS, CyanogenMod, Debian, DragonFly, Fedora, Firefox OS, FreeBSD, Gentoo, Google TV, HP-UX, Haiku OS, IRIX, Inferno, Knoppix, Kubuntu, GNU/Linux, Lubuntu, VectorLinux, Mac, Mandriva, MeeGo, MocorDroid, Mint, MildWild, MorphOS, NetBSD, Nintendo, Nintendo Mobile, OS/2, OSF1, OpenBSD, PlayStation Portable, PlayStation, Red Hat, RISC OS, RazoDroiD, Sabayon, SUSE, Sailfish OS, Slackware, Solaris, Syllable, Symbian, Symbian OS, Symbian OS Series 40, Symbian OS Series 60, Symbian^3, Tizen, Ubuntu, WebTV, Windows, Windows CE, Windows Mobile, Windows Phone, Windows RT, Xbox, Xubuntu, YunOs, iOS, palmOS, webOS
+AIX, Android, AmigaOS, Apple TV, Arch Linux, BackTrack, Bada, BeOS, BlackBerry OS, BlackBerry Tablet OS, Brew, CentOS, Chrome OS, CyanogenMod, Debian, DragonFly, Fedora, Firefox OS, FreeBSD, Gentoo, Google TV, HP-UX, Haiku OS, IRIX, Inferno, Knoppix, Kubuntu, GNU/Linux, Lubuntu, VectorLinux, Mac, Mandriva, MeeGo, MocorDroid, Mint, MildWild, MorphOS, NetBSD, MTK / Nucleus, Nintendo, Nintendo Mobile, OS/2, OSF1, OpenBSD, PlayStation Portable, PlayStation, Red Hat, RISC OS, RazoDroiD, Sabayon, SUSE, Sailfish OS, Slackware, Solaris, Syllable, Symbian, Symbian OS, Symbian OS Series 40, Symbian OS Series 60, Symbian^3, ThreadX, Tizen, Ubuntu, WebTV, Windows, Windows CE, Windows Mobile, Windows Phone, Windows RT, Xbox, Xubuntu, YunOs, iOS, palmOS, webOS
 
 ### List of detected browsers:
 
-360 Phone Browser, Avant Browser, ABrowse, ANTGalio, Amaya, Amigo, Android Browser, Arora, Amiga Voyager, Amiga Aweb, BlackBerry Browser, Baidu Browser, Baidu Spark, Beonex, Bunjalloo, BrowseX, Camino, Comodo Dragon, Charon, Chrome Frame, Chrome, Chrome Mobile iOS, Conkeror, Chrome Mobile, CoolNovo, CometBird, ChromePlus, Chromium, Cheshire, Dolphin, Dillo, Elinks, Epiphany, Espial TV Browser, Firebird, Fluid, Fennec, Firefox, Flock, Fireweb Navigator, Galeon, Google Earth, HotJava, Iceape, IBrowse, iCab, IceDragon, Iceweasel, Internet Explorer, IE Mobile, Iron, Jasmine, Kindle Browser, K-meleon, Konqueror, Kapiko, Kazehakase, Liebao, Links, Lunascape, Lynx, MicroB, NCSA Mosaic, Mercury, Mobile Safari, Midori, MIUI Browser, Mobile Silk, Maxthon, Nokia Browser, Nokia OSS Browser, Nokia Ovi Browser, NetFront, NetFront Life, NetPositive, Netscape, Obigo, Odyssey Web Browser, Off By One, Opera Mini, Opera Mobile, Opera, Opera Next, Oregano, Openwave Mobile Browser, OmniWeb, Palm Blazer, Pale Moon, Palm Pre, Puffin, Palm WebPro, Phoenix, Polaris, Microsoft Edge, QQ Browser, Rekonq, RockMelt, Sailfish Browser, SEMC-Browser, Sogou Explorer, Safari, Shiira, Sleipnir, SeaMonkey, Snowshoe, Sunrise, Swiftfox, Tizen Browser, UC Browser, Vivaldi, WebPositive, wOSBrowser, WeTab Browser, Yandex Browser, Xiino
+360 Phone Browser, Avant Browser, ABrowse, ANTGalio, Amaya, Amigo, Android Browser, Arora, Amiga Voyager, Amiga Aweb, BlackBerry Browser, Baidu Browser, Baidu Spark, Beonex, Bunjalloo, BrowseX, Camino, Comodo Dragon, Charon, Chrome Frame, Chrome, Chrome Mobile iOS, Conkeror, Chrome Mobile, CoolNovo, CometBird, ChromePlus, Chromium, Cheshire, Deepnet Explorer, Dolphin, Dillo, Elinks, Epiphany, Espial TV Browser, Firebird, Fluid, Fennec, Firefox, Flock, Fireweb Navigator, Galeon, Google Earth, HotJava, Iceape, IBrowse, iCab, IceDragon, Iceweasel, Internet Explorer, IE Mobile, Iron, Jasmine, Kindle Browser, K-meleon, Konqueror, Kapiko, Kazehakase, Liebao, Links, Lunascape, Lynx, MicroB, NCSA Mosaic, Mercury, Mobile Safari, Midori, MIUI Browser, Mobile Silk, Maxthon, Nokia Browser, Nokia OSS Browser, Nokia Ovi Browser, NetFront, NetFront Life, NetPositive, Netscape, Obigo, Odyssey Web Browser, Off By One, ONE Browser, Opera Mini, Opera Mobile, Opera, Opera Next, Oregano, Openwave Mobile Browser, OmniWeb, Palm Blazer, Pale Moon, Palm Pre, Puffin, Palm WebPro, Phoenix, Polaris, Microsoft Edge, QQ Browser, Rekonq, RockMelt, Sailfish Browser, SEMC-Browser, Sogou Explorer, Safari, Shiira, Sleipnir, SeaMonkey, Snowshoe, Sunrise, Swiftfox, Tizen Browser, UC Browser, Vivaldi, WebPositive, wOSBrowser, WeTab Browser, Yandex Browser, Xiino
 
 ### List of detected browser engines:
 
-WebKit, Blink, Trident, Text-based, Dillo, iCab, Presto, Gecko, KHTML, NetFront
+WebKit, Blink, Trident, Text-based, Dillo, iCab, Presto, Gecko, KHTML, NetFront, Edge
 
 ### List of detected libraries:
 
@@ -122,8 +125,7 @@ Banshee, Clementine, FlyCast, Instacast, iTunes, Kodi, MediaMonkey, Miro, NexPla
 
 ### List of detected mobile apps:
 
-AndroidDownloadManager, FeedR, Sina Weibo, WeChat  and *mobile apps using [AFNetworking](https://github.com/AFNetworking/AFNetworking)*
-
+AndroidDownloadManager, Facebook, FeedR, Google Play Newsstand, Google Plus, Sina Weibo, WeChat, YouTube  and *mobile apps using [AFNetworking](https://github.com/AFNetworking/AFNetworking)*
 
 ### List of detected PIMs (personal information manager):
 
@@ -131,8 +133,8 @@ Airmail, Barca, Lotus Notes, Microsoft Outlook, Outlook Express, Postbox, The Ba
 
 ### List of detected feed readers:
 
-Akregator, Apple PubSub, FeedDemon, Feeddler RSS Reader, JetBrains Omea Reader, Liferea, NetNewsWire, Newsbeuter, NewsBlur, NewsBlur Mobile App, Pulp, ReadKit, Reeder, RSS Bandit, RSS Junkie, RSSOwl
+Akregator, Apple PubSub, FeedDemon, Feeddler RSS Reader, JetBrains Omea Reader, Liferea, NetNewsWire, Newsbeuter, NewsBlur, NewsBlur Mobile App, Pulp, ReadKit, Reeder, RSS Bandit, RSS Junkie, RSSOwl, Stringer
 
 ### List of brands with detected devices:
 
-3Q, Acer, Airness, Alcatel, Arnova, Amoi, Apple, Archos, Asus, Avvio, Audiovox, Axxion, BBK, Becker, Bird, Beetel, Bmobile, Barnes & Noble, BangOlufsen, BenQ, BenQ-Siemens, Blu, bq, CUBOT, Casio, Cat, Celkon, ConCorde, Cherry Mobile, Cricket, Compal, CnM, Crius Mea, CreNova, Capitel, Compaq, Coolpad, Cowon, Cube, Coby Kyros, Danew, Denver, Dbtel, DoCoMo, Dicam, Dell, DMM, Doogee, Dopod, E-Boda, Ericsson, ECS, Ezio, Elephone, Easypix, Ericy, eTouch, Evertek, Ezze, Fly, Fujitsu, Garmin-Asus, Gateway, Gemini, Gionee, Gigabyte, Gigaset, Google, Gradiente, Grundig, Haier, Hisense, Hi-Level, HP, HTC, Huawei, Humax, Hyrican, Hyundai, Ikea, iBall, iBerry, iKoMo, i-mate, Infinix, Innostream, Inkti, Intex, i-mobile, INQ, Intek, Inverto, iTel, Jiayu, Jolla, Karbonn, KDDI, Kindle, Konka, K-Touch, KT-Tech, Kyocera, Kazam, Lava, Lanix, LCT, Lenovo, Lenco, Le Pan, LG, Loewe, Logicom, Lexibook, Manta Multimedia, Mobistel, Medion, Meizu, Metz, MEU, MicroMax, MediaTek, Mio, Mpman, Motorola, Microsoft, MSI, Memup, Mitsubishi, M.T.T., MyPhone, NEC, NGM, Nintendo, Nokia, Nikon, Newgen, Nexian, Onda, OPPO, Orange, O2, OUYA, Opsson, Panasonic, PEAQ, Philips, Polaroid, Palm, phoneOne, Pantech, PolyPad, Positivo, Prestigio, Qilive, Qtek, Quechua, Oysters, Ramos, Rikomagic, RIM, Rover, Samsung, Sega, Sony Ericsson, Softbank, SFR, Sagem, Sharp, Siemens, Sendo, Smartfren, Sony, Spice, SuperSonic, Selevision, Sanyo, Symphony, Smart, Storex, Sumvision, Tesla, TCL, Telit, TiPhone, Tecno Mobile, Tesco, TIANYU, Telefunken, T-Mobile, Thomson, Tolino, Toplux, Toshiba, TechnoTrend, Tunisie Telecom, Turbo-X, TVC, TechniSat, teXet, Unowhy, UTStarcom, Videocon, Vertu, Vitelcom, VK Mobile, ViewSonic, Vestel, Vivo, Voxtel, Videoweb, Web TV, WellcoM, Wiko, Wolder, Wonu, Woxter, Xiaomi, Unknown, Yarvik, Yuandao, Yusun, Zonda, Zopo, ZTE
+3Q, Acer, Ainol, Airness, Alcatel, Altech UEC, Arnova, Amazon, Amoi, Apple, Archos, ARRIS, Airties, Asus, Avvio, Audiovox, Axxion, BBK, Becker, Bird, Beetel, Bmobile, Barnes & Noble, BangOlufsen, BenQ, BenQ-Siemens, Blu, bq, Brondi, CUBOT, Casio, Cat, Celkon, ConCorde, Changhong, Cherry Mobile, Cricket, Crosscall, Compal, CnM, Crius Mea, CreNova, Capitel, Compaq, Coolpad, Cowon, Cube, Coby Kyros, Danew, Denver, Dbtel, DoCoMo, Dicam, Dell, DMM, Doogee, Doov, Dopod, Dune HD, E-Boda, Ericsson, ECS, Ezio, Elephone, Easypix, Ericy, eTouch, Evertek, Ezze, Fly, Fujitsu, Garmin-Asus, Gateway, Gemini, Gionee, Gigabyte, Gigaset, Google, Gradiente, Grundig, Haier, Hisense, Hi-Level, HP, HTC, Huawei, Humax, Hyrican, Hyundai, Ikea, iBall, i-Joy, iBerry, iKoMo, i-mate, Infinix, Innostream, Inkti, Intex, i-mobile, INQ, Intek, Inverto, iTel, Jiayu, Jolla, Karbonn, KDDI, Konka, Komu, K-Touch, KT-Tech, Kyocera, Kazam, Lava, Lanix, LCT, Lenovo, Lenco, Le Pan, LG, Loewe, Logicom, Lexibook, Manta Multimedia, Mobistel, Medion, Meizu, Metz, MEU, MicroMax, Mediacom, MediaTek, Mio, Mpman, Motorola, Microsoft, MSI, Memup, Mitsubishi, MLLED, M.T.T., MyPhone, NEC, NGM, Nintendo, Nokia, Nikon, Newgen, Nexian, Onda, OnePlus, OPPO, Orange, O2, OUYA, Opsson, Panasonic, PEAQ, Philips, Polaroid, Palm, phoneOne, Pantech, PolyPad, Positivo, Prestigio, PULID, Qilive, Qtek, Quechua, Overmax, Oysters, Ramos, Rikomagic, RIM, Rover, Samsung, Sega, Sony Ericsson, Sencor, Softbank, SFR, Sagem, Sharp, Siemens, Sendo, Skyworth, Smartfren, Sony, Spice, SuperSonic, Selevision, Sanyo, Symphony, Smart, Storex, Stonex, Sumvision, Tesla, TCL, Telit, TiPhone, Tecno Mobile, Tesco, TIANYU, Telefunken, Telenor, T-Mobile, Thomson, Tolino, Toplux, Toshiba, TechnoTrend, Trevi, Tunisie Telecom, Turbo-X, TVC, TechniSat, teXet, Unowhy, UTStarcom, Videocon, Vertu, Vitelcom, VK Mobile, ViewSonic, Vestel, Vivo, Voxtel, Vodafone, Videoweb, Walton, Web TV, WellcoM, Wexler, Wiko, Wolder, Wonu, Woxter, Xiaomi, Xolo, Unknown, Yarvik, Yuandao, Yusun, Zonda, Zopo, ZTE

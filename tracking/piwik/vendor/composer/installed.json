@@ -157,20 +157,20 @@
     },
     {
         "name": "pear/console_getopt",
-        "version": "v1.4.0",
-        "version_normalized": "1.4.0.0",
+        "version": "v1.4.1",
+        "version_normalized": "1.4.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/pear/Console_Getopt.git",
-            "reference": "ff3eecbbc5d6e9a243f70f7cf51ca7554e4bb470"
+            "reference": "82f05cd1aa3edf34e19aa7c8ca312ce13a6a577f"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/pear/Console_Getopt/zipball/ff3eecbbc5d6e9a243f70f7cf51ca7554e4bb470",
-            "reference": "ff3eecbbc5d6e9a243f70f7cf51ca7554e4bb470",
+            "url": "https://api.github.com/repos/pear/Console_Getopt/zipball/82f05cd1aa3edf34e19aa7c8ca312ce13a6a577f",
+            "reference": "82f05cd1aa3edf34e19aa7c8ca312ce13a6a577f",
             "shasum": ""
         },
-        "time": "2015-02-22 13:26:45",
+        "time": "2015-07-20 20:28:12",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -281,17 +281,17 @@
     },
     {
         "name": "php-di/invoker",
-        "version": "1.0.0",
-        "version_normalized": "1.0.0.0",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/PHP-DI/Invoker.git",
-            "reference": "7ea703c62dbb29d64763fa85258826034ce3c97d"
+            "reference": "2eb8f3a9b44c1427865134ef585d986ca89bce36"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/PHP-DI/Invoker/zipball/7ea703c62dbb29d64763fa85258826034ce3c97d",
-            "reference": "7ea703c62dbb29d64763fa85258826034ce3c97d",
+            "url": "https://api.github.com/repos/PHP-DI/Invoker/zipball/2eb8f3a9b44c1427865134ef585d986ca89bce36",
+            "reference": "2eb8f3a9b44c1427865134ef585d986ca89bce36",
             "shasum": ""
         },
         "require": {
@@ -301,7 +301,7 @@
             "athletic/athletic": "~0.1.8",
             "phpunit/phpunit": "~4.5"
         },
-        "time": "2015-04-24 10:18:34",
+        "time": "2015-09-02 16:01:10",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -326,17 +326,17 @@
     },
     {
         "name": "doctrine/annotations",
-        "version": "v1.2.6",
-        "version_normalized": "1.2.6.0",
+        "version": "v1.2.7",
+        "version_normalized": "1.2.7.0",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/annotations.git",
-            "reference": "f4a91702ca3cd2e568c3736aa031ed00c3752af4"
+            "reference": "f25c8aab83e0c3e976fd7d19875f198ccf2f7535"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/annotations/zipball/f4a91702ca3cd2e568c3736aa031ed00c3752af4",
-            "reference": "f4a91702ca3cd2e568c3736aa031ed00c3752af4",
+            "url": "https://api.github.com/repos/doctrine/annotations/zipball/f25c8aab83e0c3e976fd7d19875f198ccf2f7535",
+            "reference": "f25c8aab83e0c3e976fd7d19875f198ccf2f7535",
             "shasum": ""
         },
         "require": {
@@ -347,7 +347,7 @@
             "doctrine/cache": "1.*",
             "phpunit/phpunit": "4.*"
         },
-        "time": "2015-06-17 12:21:22",
+        "time": "2015-08-31 12:32:49",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -433,17 +433,17 @@
     },
     {
         "name": "doctrine/cache",
-        "version": "v1.4.1",
-        "version_normalized": "1.4.1.0",
+        "version": "v1.4.2",
+        "version_normalized": "1.4.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/cache.git",
-            "reference": "c9eadeb743ac6199f7eec423cb9426bc518b7b03"
+            "reference": "8c434000f420ade76a07c64cbe08ca47e5c101ca"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/cache/zipball/c9eadeb743ac6199f7eec423cb9426bc518b7b03",
-            "reference": "c9eadeb743ac6199f7eec423cb9426bc518b7b03",
+            "url": "https://api.github.com/repos/doctrine/cache/zipball/8c434000f420ade76a07c64cbe08ca47e5c101ca",
+            "reference": "8c434000f420ade76a07c64cbe08ca47e5c101ca",
             "shasum": ""
         },
         "require": {
@@ -457,7 +457,7 @@
             "predis/predis": "~1.0",
             "satooshi/php-coveralls": "~0.6"
         },
-        "time": "2015-04-15 00:11:59",
+        "time": "2015-08-31 12:36:41",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -613,17 +613,17 @@
     },
     {
         "name": "pear/archive_tar",
-        "version": "1.3.16",
-        "version_normalized": "1.3.16.0",
+        "version": "1.4.0",
+        "version_normalized": "1.4.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/pear/Archive_Tar.git",
-            "reference": "fd358553f84a4587ad38f6da98936af494dda94b"
+            "reference": "e337c40bf467a1fcde6b770fce8ca6dc32dcc38f"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/pear/Archive_Tar/zipball/fd358553f84a4587ad38f6da98936af494dda94b",
-            "reference": "fd358553f84a4587ad38f6da98936af494dda94b",
+            "url": "https://api.github.com/repos/pear/Archive_Tar/zipball/e337c40bf467a1fcde6b770fce8ca6dc32dcc38f",
+            "reference": "e337c40bf467a1fcde6b770fce8ca6dc32dcc38f",
             "shasum": ""
         },
         "require": {
@@ -638,8 +638,13 @@
             "ext-xz": "lzma2 compression support.",
             "ext-zlib": "Gzip compression support."
         },
-        "time": "2015-04-14 12:24:20",
+        "time": "2015-07-20 07:52:03",
         "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.4.x-dev"
+            }
+        },
         "installation-source": "dist",
         "autoload": {
             "psr-0": {
@@ -676,17 +681,17 @@
     },
     {
         "name": "piwik/decompress",
-        "version": "1.0.0",
-        "version_normalized": "1.0.0.0",
+        "version": "1.1.0",
+        "version_normalized": "1.1.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/piwik/component-decompress.git",
-            "reference": "54d8a6f83b367d1fa7823a342b154c895528f818"
+            "reference": "deca40d71d29d6140aad39db007aea82676b7631"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/piwik/component-decompress/zipball/54d8a6f83b367d1fa7823a342b154c895528f818",
-            "reference": "54d8a6f83b367d1fa7823a342b154c895528f818",
+            "url": "https://api.github.com/repos/piwik/component-decompress/zipball/deca40d71d29d6140aad39db007aea82676b7631",
+            "reference": "deca40d71d29d6140aad39db007aea82676b7631",
             "shasum": ""
         },
         "require": {
@@ -696,7 +701,7 @@
         "require-dev": {
             "phpunit/phpunit": "~4.5"
         },
-        "time": "2015-03-05 22:22:48",
+        "time": "2015-09-22 10:58:19",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -763,17 +768,17 @@
     },
     {
         "name": "piwik/device-detector",
-        "version": "3.3.0",
-        "version_normalized": "3.3.0.0",
+        "version": "3.4.2",
+        "version_normalized": "3.4.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/piwik/device-detector.git",
-            "reference": "657c1523d2b672c66d5eb8ac894483af8f255fa0"
+            "reference": "fcb61cc9e669653febdce2cd1a1f0833b569fbb6"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/piwik/device-detector/zipball/657c1523d2b672c66d5eb8ac894483af8f255fa0",
-            "reference": "657c1523d2b672c66d5eb8ac894483af8f255fa0",
+            "url": "https://api.github.com/repos/piwik/device-detector/zipball/fcb61cc9e669653febdce2cd1a1f0833b569fbb6",
+            "reference": "fcb61cc9e669653febdce2cd1a1f0833b569fbb6",
             "shasum": ""
         },
         "require": {
@@ -787,7 +792,7 @@
         "suggest": {
             "doctrine/cache": "Can directly be used for caching purpose"
         },
-        "time": "2015-07-12 15:44:37",
+        "time": "2015-09-09 20:28:18",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -885,20 +890,20 @@
     },
     {
         "name": "piwik/referrer-spam-blacklist",
-        "version": "1.0.5",
-        "version_normalized": "1.0.5.0",
+        "version": "1.0.6",
+        "version_normalized": "1.0.6.0",
         "source": {
             "type": "git",
             "url": "https://github.com/piwik/referrer-spam-blacklist.git",
-            "reference": "ee310007ebfe07ac7f502d85948edc56c49563c3"
+            "reference": "5414a855511c7bc761347a3091276c30ba30311d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/piwik/referrer-spam-blacklist/zipball/ee310007ebfe07ac7f502d85948edc56c49563c3",
-            "reference": "ee310007ebfe07ac7f502d85948edc56c49563c3",
+            "url": "https://api.github.com/repos/piwik/referrer-spam-blacklist/zipball/5414a855511c7bc761347a3091276c30ba30311d",
+            "reference": "5414a855511c7bc761347a3091276c30ba30311d",
             "shasum": ""
         },
-        "time": "2015-07-06 09:15:56",
+        "time": "2015-10-07 10:17:59",
         "type": "library",
         "installation-source": "dist",
         "notification-url": "https://packagist.org/downloads/",
@@ -949,18 +954,18 @@
     },
     {
         "name": "symfony/console",
-        "version": "v2.6.10",
-        "version_normalized": "2.6.10.0",
+        "version": "v2.6.11",
+        "version_normalized": "2.6.11.0",
         "target-dir": "Symfony/Component/Console",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/Console.git",
-            "reference": "042107bc202845086739414339e551fbe81293d7"
+            "reference": "0e5e18ae09d3f5c06367759be940e9ed3f568359"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/Console/zipball/042107bc202845086739414339e551fbe81293d7",
-            "reference": "042107bc202845086739414339e551fbe81293d7",
+            "url": "https://api.github.com/repos/symfony/Console/zipball/0e5e18ae09d3f5c06367759be940e9ed3f568359",
+            "reference": "0e5e18ae09d3f5c06367759be940e9ed3f568359",
             "shasum": ""
         },
         "require": {
@@ -977,7 +982,7 @@
             "symfony/event-dispatcher": "",
             "symfony/process": ""
         },
-        "time": "2015-07-13 09:09:47",
+        "time": "2015-07-26 09:08:40",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1009,8 +1014,8 @@
     },
     {
         "name": "symfony/event-dispatcher",
-        "version": "v2.6.10",
-        "version_normalized": "2.6.10.0",
+        "version": "v2.6.11",
+        "version_normalized": "2.6.11.0",
         "target-dir": "Symfony/Component/EventDispatcher",
         "source": {
             "type": "git",
@@ -1070,17 +1075,17 @@
     },
     {
         "name": "monolog/monolog",
-        "version": "1.15.0",
-        "version_normalized": "1.15.0.0",
+        "version": "1.17.1",
+        "version_normalized": "1.17.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Seldaek/monolog.git",
-            "reference": "dc5150cc608f2334c72c3b6a553ec9668a4156b0"
+            "reference": "0524c87587ab85bc4c2d6f5b41253ccb930a5422"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/dc5150cc608f2334c72c3b6a553ec9668a4156b0",
-            "reference": "dc5150cc608f2334c72c3b6a553ec9668a4156b0",
+            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/0524c87587ab85bc4c2d6f5b41253ccb930a5422",
+            "reference": "0524c87587ab85bc4c2d6f5b41253ccb930a5422",
             "shasum": ""
         },
         "require": {
@@ -1097,7 +1102,7 @@
             "php-console/php-console": "^3.1.3",
             "phpunit/phpunit": "~4.5",
             "phpunit/phpunit-mock-objects": "2.3.0",
-            "raven/raven": "~0.8",
+            "raven/raven": "~0.11",
             "ruflin/elastica": ">=0.90 <3.0",
             "swiftmailer/swiftmailer": "~5.3",
             "videlalvaro/php-amqplib": "~2.4"
@@ -1114,11 +1119,11 @@
             "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
             "videlalvaro/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib"
         },
-        "time": "2015-07-12 13:54:09",
+        "time": "2015-08-31 09:17:37",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.15.x-dev"
+                "dev-master": "1.16.x-dev"
             }
         },
         "installation-source": "dist",
@@ -1148,8 +1153,8 @@
     },
     {
         "name": "symfony/monolog-bridge",
-        "version": "v2.6.10",
-        "version_normalized": "2.6.10.0",
+        "version": "v2.6.11",
+        "version_normalized": "2.6.11.0",
         "target-dir": "Symfony/Bridge/Monolog",
         "source": {
             "type": "git",
@@ -1209,23 +1214,23 @@
     },
     {
         "name": "tecnick.com/tcpdf",
-        "version": "6.2.9",
-        "version_normalized": "6.2.9.0",
+        "version": "6.2.11",
+        "version_normalized": "6.2.11.0",
         "source": {
             "type": "git",
             "url": "https://github.com/tecnickcom/TCPDF.git",
-            "reference": "fa6ab8a1e1fbabb9e6cfd2f807514fa1497240e4"
+            "reference": "354433a33946ae7497c3eab291eaaf814bccbfab"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/fa6ab8a1e1fbabb9e6cfd2f807514fa1497240e4",
-            "reference": "fa6ab8a1e1fbabb9e6cfd2f807514fa1497240e4",
+            "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/354433a33946ae7497c3eab291eaaf814bccbfab",
+            "reference": "354433a33946ae7497c3eab291eaaf814bccbfab",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2015-06-18 09:12:38",
+        "time": "2015-08-02 12:30:27",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -1270,7 +1275,8 @@
             "pdf",
             "pdf417",
             "qrcode"
-        ]
+        ],
+        "abandoned": "tecnickcom/tcpdf"
     },
     {
         "name": "tedivm/jshrink",
@@ -1317,27 +1323,31 @@
     },
     {
         "name": "twig/twig",
-        "version": "v1.18.2",
-        "version_normalized": "1.18.2.0",
+        "version": "v1.21.1",
+        "version_normalized": "1.21.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/twigphp/Twig.git",
-            "reference": "e8e6575abf6102af53ec283f7f14b89e304fa602"
+            "reference": "ca8d3aa90b6a01c82e07909fe815d6b443e75a23"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/twigphp/Twig/zipball/e8e6575abf6102af53ec283f7f14b89e304fa602",
-            "reference": "e8e6575abf6102af53ec283f7f14b89e304fa602",
+            "url": "https://api.github.com/repos/twigphp/Twig/zipball/ca8d3aa90b6a01c82e07909fe815d6b443e75a23",
+            "reference": "ca8d3aa90b6a01c82e07909fe815d6b443e75a23",
             "shasum": ""
         },
         "require": {
             "php": ">=5.2.7"
         },
-        "time": "2015-06-06 23:31:24",
+        "require-dev": {
+            "symfony/debug": "~2.7",
+            "symfony/phpunit-bridge": "~2.7"
+        },
+        "time": "2015-08-26 08:58:31",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.18-dev"
+                "dev-master": "1.21-dev"
             }
         },
         "installation-source": "dist",

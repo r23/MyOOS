@@ -33,10 +33,9 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 	<meta http-equiv="expires" content="0" >
 
 	<!-- Bootstrap style  --> 
-	<link href="css/bootstrap.min.css" rel="stylesheet" />
-	<link href="css/font-awesome.min.css" rel="stylesheet" />
-	<link href="css/style.min.css" rel="stylesheet" />
-
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/font-awesome.min.css" rel="stylesheet">
+	<link href="css/style.min.css" rel="stylesheet">
 
    <link rel="StyleSheet" href="includes/stylesheet.css" type="text/css" >
  

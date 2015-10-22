@@ -39,6 +39,7 @@ import subprocess
 import functools
 import traceback
 import socket
+import textwrap
 
 try:
     import json
@@ -423,6 +424,18 @@ class Configuration(object):
             help="Enable debug output (specify multiple times for more verbose)",
         )
         option_parser.add_option(
+            '--debug-tracker', dest='debug_tracker', action='store_true', default=False,
+            help="Appends &debug=1 to tracker requests and prints out the result so the tracker can be debugged. If "
+            "using the log importer results in errors with the tracker or improperly recorded visits, this option can "
+            "be used to find out what the tracker is doing wrong. To see debug tracker output, you must also set the "
+            "[Tracker] debug_on_demand INI config to 1 in your Piwik's config.ini.php file."
+        )
+        option_parser.add_option(
+            '--debug-request-limit', dest='debug_request_limit', type='int', default=None,
+            help="Debug option that will exit after N requests are parsed. Can be used w/ --debug-tracker to limit the "
+            "output of a large log file."
+        )
+        option_parser.add_option(
             '--url', dest='piwik_url',
             help="REQUIRED Your Piwik server URL, eg. http://example.com/piwik/ or http://analytics.example.net",
         )
@@ -563,9 +576,14 @@ class Configuration(object):
                  "Overrides --log-format-name." % (', '.join(available_regex_groups))
         )
         option_parser.add_option(
+            '--log-date-format', dest='log_date_format', default=None,
+            help="Format string used to parse dates. You can specify any format that can also be specified to "
+                 "the strptime python function."
+        )
+        option_parser.add_option(
             '--log-hostname', dest='log_hostname', default=None,
-            help="Force this hostname for a log format that doesn't incldude it. All hits "
-            "will seem to came to this host"
+            help="Force this hostname for a log format that doesn't include it. All hits "
+            "will seem to come to this host"
         )
         option_parser.add_option(
             '--skip', dest='skip', default=0, type='int',
@@ -622,6 +640,10 @@ class Configuration(object):
             help="By default Piwik tracks as Downloads the most popular file extensions. If you set this parameter (format: pdf,doc,...) then files with an extension found in the list will be imported as Downloads, other file extensions downloads will be skipped."
         )
         option_parser.add_option(
+            '--add-download-extensions', dest='extra_download_extensions', default=None,
+            help="Add extensions that should be treated as downloads. See --download-extensions for more info."
+        )
+        option_parser.add_option(
             '--w3c-map-field', action='callback', callback=functools.partial(self._set_option_map, 'custom_w3c_fields'), type='string',
             help="Map a custom log entry field in your W3C log to a default one. Use this option to load custom log "
                  "files that use the W3C extended log format such as those from the Advanced Logging W3C module. Used "
@@ -675,16 +697,18 @@ class Configuration(object):
             help="Track an attribute through a custom variable with visit scope instead of through Piwik's normal "
                  "approach. For example, to track usernames as a custom variable instead of through the uid tracking "
                  "parameter, supply --regex-group-to-visit-cvar=\"userid=User Name\". This will track usernames in a "
-                 "custom variable named 'User Name'. See documentation for --log-format-regex for list of available "
-                 "regex groups."
+                 "custom variable named 'User Name'. The list of available regex groups can be found in the documentation "
+                 "for --log-format-regex (additional regex groups you may have defined "
+                 "in --log-format-regex can also be used)."
         )
         option_parser.add_option(
             '--regex-group-to-page-cvar', action='callback', callback=functools.partial(self._set_option_map, 'regex_group_to_page_cvars_map'), type='string',
             help="Track an attribute through a custom variable with page scope instead of through Piwik's normal "
                  "approach. For example, to track usernames as a custom variable instead of through the uid tracking "
                  "parameter, supply --regex-group-to-page-cvar=\"userid=User Name\". This will track usernames in a "
-                 "custom variable named 'User Name'. See documentation for --log-format-regex for list of available "
-                 "regex groups."
+                 "custom variable named 'User Name'. The list of available regex groups can be found in the documentation "
+                 "for --log-format-regex (additional regex groups you may have defined "
+                 "in --log-format-regex can also be used)."
         )
         option_parser.add_option(
             '--retry-max-attempts', dest='max_attempts', default=PIWIK_DEFAULT_MAX_ATTEMPTS, type='int',
@@ -760,7 +784,7 @@ class Configuration(object):
             logging.debug('Accepted hostnames: all')
 
         if self.options.log_format_regex:
-            self.format = RegexFormat('custom', self.options.log_format_regex)
+            self.format = RegexFormat('custom', self.options.log_format_regex, self.options.log_date_format)
         elif self.options.log_format_name:
             try:
                 self.format = FORMATS[self.options.log_format_name]
@@ -810,10 +834,13 @@ class Configuration(object):
         if self.options.recorders < 1:
             self.options.recorders = 1
 
+        download_extensions = DOWNLOAD_EXTENSIONS
         if self.options.download_extensions:
-            self.options.download_extensions = set(self.options.download_extensions.split(','))
-        else:
-            self.options.download_extensions = DOWNLOAD_EXTENSIONS
+            download_extensions = set(self.options.download_extensions.split(','))
+
+        if self.options.extra_download_extensions:
+            download_extensions.update(self.options.extra_download_extensions.split(','))
+        self.options.download_extensions = download_extensions
 
         if self.options.regex_groups_to_ignore:
             self.options.regex_groups_to_ignore = set(self.options.regex_groups_to_ignore.split(','))
@@ -949,6 +976,9 @@ class Statistics(object):
         self.count_lines_parsed = self.Counter()
         self.count_lines_recorded = self.Counter()
 
+        # requests that the Piwik tracker considered invalid (or failed to track)
+        self.invalid_lines = []
+
         # Do not match the regexp.
         self.count_lines_invalid = self.Counter()
         # No site ID found by the resolver.
@@ -1005,8 +1035,19 @@ class Statistics(object):
             )
 
     def print_summary(self):
+        invalid_lines_summary = ''
+        if self.invalid_lines:
+            invalid_lines_summary = '''Invalid log lines
+-----------------
+
+The following lines were not tracked by Piwik, either due to a malformed tracker request or error in the tracker:
+
+%s
+
+''' % textwrap.fill(", ".join(self.invalid_lines), 80)
+
         print '''
-Logs import summary
+%(invalid_lines)sLogs import summary
 -------------------
 
     %(count_lines_recorded)d requests imported successfully
@@ -1094,7 +1135,8 @@ Processing your log data
             self.count_lines_recorded.value,
             self.time_start, self.time_stop,
         )),
-    'url': config.options.piwik_url
+    'url': config.options.piwik_url,
+    'invalid_lines': invalid_lines_summary
 }
 
     ##
@@ -1162,6 +1204,9 @@ class Piwik(object):
             data = urllib.urlencode(args)
         elif not isinstance(data, basestring) and headers['Content-type'] == 'application/json':
             data = json.dumps(data)
+
+            if args:
+                path = path + '?' + urllib.urlencode(args)
 
         headers['User-Agent'] = 'Piwik/LogImport'
 
@@ -1539,8 +1584,9 @@ class Recorder(object):
         if hit.query_string and not config.options.strip_query_string:
             path += config.options.query_string_delimiter + hit.query_string
 
-        # only prepend main url if it's a path
-        url = (main_url if path.startswith('/') else '') + path[:1024]
+        # only prepend main url / host if it's a path
+        url_prefix = self._get_host_with_protocol(hit.host, main_url) if hasattr(hit, 'host') else main_url
+        url = (url_prefix if path.startswith('/') else '') + path[:1024]
 
         # handle custom variables before generating args dict
         if config.options.enable_bots:
@@ -1566,7 +1612,11 @@ class Recorder(object):
         if config.options.replay_tracking:
             # prevent request to be force recorded when option replay-tracking
             args['rec'] = '0'
-
+            
+        # idsite is already determined by resolver
+        if 'idsite' in hit.args:
+            del hit.args['idsite']
+            
         args.update(hit.args)
 
         if hit.is_download:
@@ -1608,6 +1658,12 @@ class Recorder(object):
 
         return args
 
+    def _get_host_with_protocol(self, host, main_url):
+        if '://' not in host:
+            parts = urlparse.urlparse(main_url)
+            host = parts.scheme + '://' + host
+        return host
+
     def _record_hits(self, hits):
         """
         Inserts several hits into Piwik.
@@ -1618,17 +1674,51 @@ class Recorder(object):
                 'requests': [self._get_hit_args(hit) for hit in hits]
             }
             try:
-                piwik.call(
-                    '/piwik.php', args={},
+                args = {}
+
+                if config.options.debug_tracker:
+                    args['debug'] = '1'
+
+                response = piwik.call(
+                    '/piwik.php', args=args,
                     expected_content=None,
                     headers={'Content-type': 'application/json'},
                     data=data,
                     on_failure=self._on_tracking_failure
                 )
+
+                if config.options.debug_tracker:
+                    logging.debug('tracker response:\n%s' % response)
+
+                # check for invalid requests
+                try:
+                    response = json.loads(response)
+                except:
+                    logging.info("bulk tracking returned invalid JSON")
+
+                    # don't display the tracker response if we're debugging the tracker.
+                    # debug tracker output will always break the normal JSON output.
+                    if not config.options.debug_tracker:
+                        logging.info("tracker response:\n%s" % response)
+
+                    response = {}
+                
+                if ('invalid_indices' in response and isinstance(response['invalid_indices'], list) and
+                    response['invalid_indices']):
+                    invalid_count = len(response['invalid_indices'])
+
+                    invalid_lines = [str(hits[index].lineno) for index in response['invalid_indices']]
+                    invalid_lines_str = ", ".join(invalid_lines)
+
+                    stats.invalid_lines.extend(invalid_lines)
+
+                    logging.info("The Piwik tracker identified %s invalid requests on lines: %s" % (invalid_count, invalid_lines_str))
+                elif 'invalid' in response and response['invalid'] > 0:
+                    logging.info("The Piwik tracker identified %s invalid requests." % response['invalid'])
             except Piwik.Error, e:
                 # if the server returned 400 code, BulkTracking may not be enabled
                 if e.code == 400:
-                    fatal_error("Server returned status 400 (Bad Request).\nIs the BulkTracking plugin disabled?")
+                    fatal_error("Server returned status 400 (Bad Request).\nIs the BulkTracking plugin disabled?", hits[0].filename, hits[0].lineno)
 
                 raise
 
@@ -1951,6 +2041,8 @@ class Parser(object):
             logging.info("--dump-log-regex option used, aborting log import.")
             os._exit(0)
 
+        valid_lines_count = 0
+
         hits = []
         for lineno, line in enumerate(file):
             try:
@@ -1967,6 +2059,13 @@ class Parser(object):
             if not match:
                 invalid_line(line, 'line did not match')
                 continue
+
+            valid_lines_count = valid_lines_count + 1
+            if config.options.debug_request_limit and valid_lines_count >= config.options.debug_request_limit:
+                if len(hits) > 0:
+                    Recorder.add_hits(hits)
+                logging.info("Exceeded limit specified in --debug-request-limit, exiting.")
+                return
 
             hit = Hit(
                 filename=filename,
@@ -2084,8 +2183,8 @@ class Parser(object):
             date_string = format.get('date')
             try:
                 hit.date = datetime.datetime.strptime(date_string, format.date_format)
-            except ValueError:
-                invalid_line(line, 'invalid date')
+            except ValueError, e:
+                invalid_line(line, 'invalid date or invalid format: %s' % str(e))
                 continue
 
             # Parse timezone and substract its value from the date

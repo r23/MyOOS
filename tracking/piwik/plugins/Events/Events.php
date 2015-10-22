@@ -16,9 +16,9 @@ use Piwik\Plugin\ViewDataTable;
 class Events extends \Piwik\Plugin
 {
     /**
-     * @see Piwik\Plugin::getListHooksRegistered
+     * @see Piwik\Plugin::registerEvents
      */
-    public function getListHooksRegistered()
+    public function registerEvents()
     {
         return array(
             'Metrics.getDefaultMetricDocumentationTranslations' => 'addMetricDocumentationTranslations',
@@ -197,13 +197,16 @@ class Events extends \Piwik\Plugin
 
     }
 
-    private function addTooltipEventValue($view)
+    private function addTooltipEventValue(ViewDataTable $view)
     {
         // Creates the tooltip message for Event Value column
         $tooltipCallback = function ($hits, $min, $max, $avg) {
             if (!$hits) {
                 return false;
             }
+
+            $avg = $avg ?: 0;
+
             $msgEventMinMax = Piwik::translate("Events_EventValueTooltip", array($hits, "<br />", $min, $max));
             $msgEventAvg = Piwik::translate("Events_AvgEventValue", $avg);
             return $msgEventMinMax . "<br/>" . $msgEventAvg;

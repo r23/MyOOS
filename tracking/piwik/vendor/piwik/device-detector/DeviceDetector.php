@@ -47,7 +47,7 @@ class DeviceDetector
     /**
      * Current version number of DeviceDetector
      */
-    const VERSION = '3.3.0';
+    const VERSION = '3.4.2';
 
     /**
      * Holds all registered client types
@@ -110,11 +110,16 @@ class DeviceDetector
      * If $discardBotInformation is set to true, this property will be set to
      * true if parsed UA is identified as bot, additional information will be not available
      *
+     * If $skipBotDetection is set to true, bot detection will not be performed and isBot will
+     * always be false
+     *
      * @var array|boolean
      */
     protected $bot = null;
 
     protected $discardBotInformation = false;
+
+    protected $skipBotDetection = false;
 
     /**
      * Holds the cache class used for caching the parsed yml-Files
@@ -258,6 +263,18 @@ class DeviceDetector
     public function discardBotInformation($discard=true)
     {
         $this->discardBotInformation = $discard;
+    }
+
+    /**
+     * Sets whether to skip bot detection.
+     * It is needed if we want bots to be processed as a simple clients. So we can detect if it is mobile client,
+     * or desktop, or enything else. By default all this information is not retrieved for the bots.
+     *
+     * @param bool $skip
+     */
+    public function skipBotDetection($skip=true)
+    {
+        $this->skipBotDetection = $skip;
     }
 
     /**
@@ -514,6 +531,11 @@ class DeviceDetector
      */
     protected function parseBot()
     {
+        if ($this->skipBotDetection) {
+            $this->bot = false;
+            return false;
+        }
+
         $botParser = new Bot();
         $botParser->setUserAgent($this->getUserAgent());
         $botParser->setCache($this->getCache());
@@ -615,6 +637,13 @@ class DeviceDetector
 
         if (is_null($this->device) && ($osShortName == 'WRT' || ($osShortName == 'WIN' && version_compare($osVersion, '8.0'))) && $this->isTouchEnabled()) {
             $this->device = DeviceParserAbstract::DEVICE_TYPE_TABLET;
+        }
+
+        /**
+         * All devices running Opera TV Store are assumed to be a tv
+         */
+        if ($this->matchUserAgent('Opera TV Store')) {
+            $this->device = DeviceParserAbstract::DEVICE_TYPE_TV;
         }
 
         // set device type to desktop for all devices running a desktop os that were not detected as an other device type

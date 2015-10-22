@@ -10,6 +10,7 @@ namespace Piwik\Plugins\SitesManager;
 
 use Piwik\Common;
 use Piwik\Archive\ArchiveInvalidator;
+use Piwik\Container\StaticContainer;
 use Piwik\Db;
 use Piwik\Plugins\PrivacyManager\PrivacyManager;
 use Piwik\Measurable\Settings\Storage;
@@ -26,9 +27,9 @@ class SitesManager extends \Piwik\Plugin
     const KEEP_URL_FRAGMENT_NO = 2;
 
     /**
-     * @see Piwik\Plugin::getListHooksRegistered
+     * @see Piwik\Plugin::registerEvents
      */
-    public function getListHooksRegistered()
+    public function registerEvents()
     {
         return array(
             'AssetManager.getJavaScriptFiles'        => 'getJsFiles',
@@ -69,7 +70,7 @@ class SitesManager extends \Piwik\Plugin
         // we do not delete logs here on purpose (you can run these queries on the log_ tables to delete all data)
         Cache::deleteCacheWebsiteAttributes($idSite);
 
-        $archiveInvalidator = new ArchiveInvalidator();
+        $archiveInvalidator = StaticContainer::get('Piwik\Archive\ArchiveInvalidator');
         $archiveInvalidator->forgetRememberedArchivedReportsToInvalidateForSite($idSite);
 
         $measurableStorage = new Storage(Db::get(), $idSite);
@@ -117,6 +118,7 @@ class SitesManager extends \Piwik\Plugin
         $array['hosts'] = $this->getTrackerHosts($idSite);
 
         $website = API::getInstance()->getSiteFromId($idSite);
+        $array['exclude_unknown_urls'] = $website['exclude_unknown_urls'];
         $array['excluded_ips'] = $this->getTrackerExcludedIps($website);
         $array['excluded_parameters'] = self::getTrackerExcludedQueryParameters($website);
         $array['excluded_user_agents'] = self::getExcludedUserAgents($website);
@@ -125,6 +127,7 @@ class SitesManager extends \Piwik\Plugin
         $array['sitesearch_keyword_parameters'] = $this->getTrackerSearchKeywordParameters($website);
         $array['sitesearch_category_parameters'] = $this->getTrackerSearchCategoryParameters($website);
         $array['timezone'] = $this->getTimezoneFromWebsite($website);
+        $array['ts_created'] = $website['ts_created'];
     }
 
     /**
@@ -286,6 +289,8 @@ class SitesManager extends \Piwik\Plugin
         $translationKeys[] = "SitesManager_Currency";
         $translationKeys[] = "SitesManager_ShowTrackingTag";
         $translationKeys[] = "SitesManager_AliasUrlHelp";
+        $translationKeys[] = "SitesManager_OnlyMatchedUrlsAllowed";
+        $translationKeys[] = "SitesManager_OnlyMatchedUrlsAllowedHelp";
         $translationKeys[] = "SitesManager_KeepURLFragmentsLong";
         $translationKeys[] = "SitesManager_HelpExcludedIps";
         $translationKeys[] = "SitesManager_ListOfQueryParametersToExclude";

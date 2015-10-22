@@ -18,9 +18,9 @@ use Piwik\Settings\UserSetting;
 class CoreAdminHome extends \Piwik\Plugin
 {
     /**
-     * @see Piwik\Plugin::getListHooksRegistered
+     * @see Piwik\Plugin::registerEvents
      */
-    public function getListHooksRegistered()
+    public function registerEvents()
     {
         return array(
             'AssetManager.getStylesheetFiles' => 'getStylesheetFiles',
@@ -38,7 +38,6 @@ class CoreAdminHome extends \Piwik\Plugin
     public function getStylesheetFiles(&$stylesheets)
     {
         $stylesheets[] = "libs/jquery/themes/base/jquery-ui.min.css";
-        $stylesheets[] = "plugins/CoreAdminHome/stylesheets/menu.less";
         $stylesheets[] = "plugins/Morpheus/stylesheets/base.less";
         $stylesheets[] = "plugins/Morpheus/stylesheets/main.less";
         $stylesheets[] = "plugins/CoreAdminHome/stylesheets/generalSettings.less";

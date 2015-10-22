@@ -16,6 +16,9 @@
 $piwik_errorMessage = '';
 
 // Minimum requirement: stream_resolve_include_path, working json_encode in 5.3.3, namespaces in 5.3
+// NOTE: when changing this variable, we also need to update
+// 1) api.piwik.org
+// 2) tests/travis/generator/Generator.php
 $piwik_minimumPHPVersion = '5.3.3';
 $piwik_currentPHPVersion = PHP_VERSION;
 $minimumPhpInvalid = version_compare($piwik_minimumPHPVersion, $piwik_currentPHPVersion) > 0;
@@ -159,8 +162,7 @@ if (!function_exists('Piwik_GetErrorMessagePage')) {
         $content = '<h2>' . $message . '</h2>
                     <p>'
             . $optionalLinkBack
-            . ' | <a href="index.php">Go to Piwik</a> |
-                       <a href="index.php?module=Login">Login</a>'
+            . ' | <a href="index.php">Go to Piwik</a>'
             . '</p>'
             . ' ' . (Piwik_ShouldPrintBackTraceWithMessage() ? $optionalTrace : '')
             . ' ' . $optionalLinks;

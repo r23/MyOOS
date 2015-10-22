@@ -2,6 +2,54 @@
 
 This is a changelog for Piwik platform developers. All changes for our HTTP API's, Plugins, Themes, etc will be listed here.
 
+## Piwik 2.15.0 
+
+### New commands
+ *  New command `diagnostics:analyze-archive-table` that analyzes archive tables
+ *  New command `database:optimize-archive-tables` to optimize archive tables and possibly save disk space (even if on InnoDB)
+ *  New Command `core:invalidate-report-data` to invalidate archive data (w/ period cascading) ([FAQ](https://piwik.org/faq/how-to/faq_155/))
+
+### New APIs and features
+* Piwik 2.15.0 is now mostly compatible with PHP7. 
+* The JavaScript Tracker `piwik.js` got a new method `logAllContentBlocksOnPage` to log all found content blocks within a page to the console. This is useful to debug / test content tracking. It can be triggered via `_paq.push(['logAllContentBlocksOnPage'])`
+* The Class `Piwik\Plugins\Login\Controller` is now considered a public API.
+* The new method `Piwik\Menu\MenuAbstract::registerMenuIcon()` can be used to define an icon for a menu category to replace the default arrow icon.
+* New event `CronArchive.getIdSitesNotUsingTracker` that allows you to set a list of idSites that do not use the Tracker API to make sure we archive these sites if needed.
+* New events `CronArchive.init.start` which is triggered when the CLI archiver starts and `CronArchive.end` when the archiver ended.
+* Piwik tracker can now be configured with strict Content Security Policy ([CSP FAQ](https://piwik.org/faq/general/faq_20904/)).
+* Super Users can choose whether to use the latest stable release or latest Long Term Support release. 
+
+### Breaking Changes
+* The method `Dimension::getId()` has been set as `final`. It is not allowed to overwrite this method.
+* We fixed a bug where the API method `Sites.getPatternMatchSites` only returned a very limited number of websites by default. We now return all websites by default unless a limit is specified specifically.
+* Handling of localized date, time and range formats has been changed. Patterns no longer contain placeholders like %shortDay%, but work with CLDR pattern instead. You can use one of the predefined format constants in Date class for using getLocalized().
+* As we are now using CLDR formats for all languages, some time formats were even changed in english. Attributes like prettyDate in API responses might so have been changed slightly.
+* The config `enable_measure_piwik_usage_in_idsite` which is used to track the Piwik usage with Piwik was removed and replaced by a new plugin `AnonymousPiwikUsageMeasurement`
+
+### Deprecations
+* The following HTTP API methods have been deprecated and will be removed in Piwik 3.0:
+ * `SitesManager.getSitesIdWithVisits` 
+ * `API.getLastDate` 
+* The following events have been deprecated and will be removed in Piwik 3.0. Use [dimensions](http://developer.piwik.org/guides/dimensions) instead.
+ * `Tracker.existingVisitInformation`
+ * `Tracker.getVisitFieldsToPersist`
+ * `Tracker.newConversionInformation`
+ * `Tracker.newVisitorInformation`
+ * `Tracker.recordAction`
+ * `Tracker.recordEcommerceGoal`
+ * `Tracker.recordStandardGoals`
+* The Platform API method `\Piwik\Plugin::getListHooksRegistered()` has been deprecated and will be removed in Piwik 3.0. Use `\Piwik\Plugin::registerEvents()` instead.
+
+
+### Internal changes
+* When logging in, the username is now case insensitive 
+* URLs with emojis and any other unicode character will be tracked, with special characters replaced with `�`
+* A permanent warning notification is now displayed when PHP is 5.4.* or older, since it has reached End Of Life 
+* In `piwik.js` we replaced [JSON2](https://github.com/douglascrockford/JSON-js) with [JSON3](https://bestiejs.github.io/json3/) to implement CSP (Content Security Policy) as JSON3 does not use `eval()`. JSON3 will be used if a browser does not provide a native JSON API. We are using `JSON3` in a way that it will not conflict if your website is using `JSON3` as well.
+* The option `branch` of the console command `development:sync-system-test-processed` was removed as it is no longer needed.
+* All numbers in reports will now appear formatted (eg. `1,000,000` instead of `1000000`)
+* Database connections now use `UTF-8` charset explicitely to force UTF-8 data handling
+
 ## Piwik 2.14.0
 
 ### Breaking Changes

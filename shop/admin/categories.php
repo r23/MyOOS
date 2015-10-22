@@ -470,6 +470,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 	  
 	// form-validation
 	$bForm = TRUE;
+
 ?>
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 	<!-- Breadcrumbs  -->
@@ -502,6 +503,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 		echo oos_draw_hidden_field('categories_date_added', (($cInfo->date_added) ? $cInfo->date_added : date('Y-m-d')));
 		echo oos_draw_hidden_field('parent_id', $cInfo->parent_id);
 		echo oos_draw_hidden_field('categories_previous_image', $cInfo->categories_image);
+		echo oos_hide_session_id();
 ?>
 
         <div class="wrapper wrapper-content">
@@ -604,9 +606,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
         </div>	
 
-		  <?php echo oos_submit_button('save', IMAGE_SAVE); 
-		  # echo oos_submit_button('preview', IMAGE_PREVIEW) . '&nbsp;&nbsp;<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $_GET['cID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>';
-		  ?>
+		  <?php echo oos_submit_button('save', IMAGE_SAVE);   ?>
 
 <!-- body_text_eof //-->
 </form>
@@ -769,9 +769,6 @@ if ($action == 'new_category' || $action == 'edit_category') {
       // Move that ADOdb pointer!
       $image_icon_status_result->MoveNext();
     }
-
-    // Close result set
-    $image_icon_status_result->Close();
 ?>
 
 	<!-- Breadcrumbs  -->

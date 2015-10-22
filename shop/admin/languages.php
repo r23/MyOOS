@@ -94,6 +94,29 @@
           // Move that ADOdb pointer!
           $categories_result->MoveNext();
         }
+
+        // categories_images
+        $categories_images_result = $dbconn->Execute("SELECT ci.categories_images_id, cid.categories_images_title, cid.categories_images_caption, cid.categories_description
+                                          FROM " . $oostable['categories_images'] . " ci LEFT JOIN
+                                               " . $oostable['categories_description'] . " cid
+                                             ON ci.categories_images_id = cid.categories_images_id
+                                          WHERE cid.categories_images_languages_id = '" . intval($_SESSION['language_id']) . "'");
+        while ($categories_images = $categories_images_result->fields) {		
+          $dbconn->Execute("INSERT INTO " . $oostable['categories_images_description'] . "
+                      (categories_images_id,
+                       categories_images_languages_id,
+                       categories_images_title,
+                       categories_images_caption,
+                       categories_images_description) 
+                       VALUES ('" . $categories_images['categories_images_id'] . "',
+                               '" . intval($insert_id) . "',
+                               '" . oos_db_input($categories_images['categories_images_title']) . "',
+                               '" . oos_db_input($categories_images['categories_images_caption']) . "',
+                               '" . oos_db_input($categories_images['categories_images_description']) . "')");
+
+          // Move that ADOdb pointer!
+          $categories_images->MoveNext();
+        }		
         //coupons_description
         $coupon_result = $dbconn->Execute("SELECT c.coupon_id, cd.coupon_name, cd.coupon_description
                                       FROM " . $oostable['coupons'] . " c LEFT JOIN
@@ -358,6 +381,7 @@
         $dbconn->Execute("DELETE FROM " . $oostable['languages'] . " WHERE languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['block_info'] . " WHERE block_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['categories_description'] . " WHERE categories_languages_id = '" . intval($lID) . "'");
+        $dbconn->Execute("DELETE FROM " . $oostable['categories_images_description'] . " WHERE categories_images_languages_id = '" . intval($lID) . "'");			
         $dbconn->Execute("DELETE FROM " . $oostable['coupons_description']  . " WHERE coupon_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['customers_status']  . " WHERE customers_status_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['information_description']  . " WHERE information_languages_id = '" . intval($lID) . "'");

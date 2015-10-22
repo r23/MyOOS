@@ -11,7 +11,6 @@ use Invoker\ParameterResolver\NumericArrayResolver;
 use Invoker\ParameterResolver\ParameterResolver;
 use Invoker\ParameterResolver\ResolverChain;
 use Invoker\Reflection\CallableReflection;
-use ReflectionFunctionAbstract;
 
 /**
  * Invoke a callable.
@@ -44,34 +43,34 @@ class Invoker implements InvokerInterface
         if ($this->container) {
             $callable = $this->resolveCallableFromContainer($callable);
         }
-        $this->assertIsCallable($callable);
+
+        if (! is_callable($callable)) {
+            throw new NotCallableException(sprintf(
+                '%s is not a callable',
+                is_object($callable) ? 'Instance of ' . get_class($callable) : var_export($callable, true)
+            ));
+        }
 
         $callableReflection = CallableReflection::create($callable);
 
         $args = $this->parameterResolver->getParameters($callableReflection, $parameters, array());
 
-        $this->assertMandatoryParametersAreResolved($args, $callableReflection);
-
-        // Sort by array key because invokeArgs ignores numeric keys
+        // Sort by array key because call_user_func_array ignores numeric keys
         ksort($args);
 
-        if ($callableReflection instanceof \ReflectionFunction) {
-            return $callableReflection->invokeArgs($args);
+        // Check all parameters are resolved
+        $diff = array_diff_key($callableReflection->getParameters(), $args);
+        if (! empty($diff)) {
+            /** @var \ReflectionParameter $parameter */
+            $parameter = reset($diff);
+            throw new NotEnoughParametersException(sprintf(
+                'Unable to invoke the callable because no value was given for parameter %d ($%s)',
+                $parameter->getPosition() + 1,
+                $parameter->name
+            ));
         }
 
-        /** @var \ReflectionMethod $callableReflection */
-        if ($callableReflection->isStatic()) {
-            // Static method
-            $object = null;
-        } elseif (is_object($callable)) {
-            // Callable object
-            $object = $callable;
-        } else {
-            // Object method
-            $object = $callable[0];
-        }
-
-        return $callableReflection->invokeArgs($object, $args);
+        return call_user_func_array($callable, $args);
     }
 
     /**
@@ -111,6 +110,11 @@ class Invoker implements InvokerInterface
      */
     private function resolveCallableFromContainer($callable)
     {
+        // Shortcut for a very common use case
+        if ($callable instanceof \Closure) {
+            return $callable;
+        }
+
         $isStaticCallToNonStaticMethod = false;
 
         // If it's already a callable there is nothing to do
@@ -137,6 +141,7 @@ class Invoker implements InvokerInterface
         // e.g. ['some-container-entry', 'methodToCall']
         if (is_array($callable) && is_string($callable[0])) {
             if ($this->container->has($callable[0])) {
+                // Replace the container entry name by the actual object
                 $callable[0] = $this->container->get($callable[0]);
                 return $callable;
             } elseif ($isStaticCallToNonStaticMethod) {
@@ -161,20 +166,6 @@ class Invoker implements InvokerInterface
     }
 
     /**
-     * @param callable $callable
-     * @throws NotCallableException
-     */
-    private function assertIsCallable($callable)
-    {
-        if (! is_callable($callable)) {
-            throw new NotCallableException(sprintf(
-                '%s is not a callable',
-                is_object($callable) ? 'Instance of ' . get_class($callable) : var_export($callable, true)
-            ));
-        }
-    }
-
-    /**
      * Check if the callable represents a static call to a non-static method.
      *
      * @param mixed $callable
@@ -190,24 +181,5 @@ class Invoker implements InvokerInterface
         }
 
         return false;
-    }
-
-    private function assertMandatoryParametersAreResolved($parameters, ReflectionFunctionAbstract $reflection)
-    {
-        $parameterCount = $reflection->getNumberOfRequiredParameters();
-
-        // TODO is there a more efficient way?
-        for ($i = 0; $i < $parameterCount; $i++) {
-            if (! array_key_exists($i, $parameters)) {
-                $reflectionParameters = $reflection->getParameters();
-                $parameter = $reflectionParameters[$i];
-
-                throw new NotEnoughParametersException(sprintf(
-                    'Unable to invoke the callable because no value was given for parameter %d ($%s)',
-                    $i + 1,
-                    $parameter->name
-                ));
-            }
-        }
     }
 }

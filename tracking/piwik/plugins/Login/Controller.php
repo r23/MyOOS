@@ -24,7 +24,7 @@ use Piwik\View;
 
 /**
  * Login controller
- *
+ * @api
  */
 class Controller extends \Piwik\Plugin\Controller
 {
@@ -176,7 +176,7 @@ class Controller extends \Piwik\Plugin\Controller
             </div>',
             Piwik::translate('General_Error'),
             htmlentities($errorMessage, Common::HTML_ENCODING_QUOTE_STYLE, 'UTF-8', $doubleEncode = false),
-            'index.php?module=Login',
+            'index.php?module=' . Piwik::getLoginPluginName(),
             Piwik::translate('Login_LogIn')
         );
     }

@@ -1,7 +1,7 @@
 {
     "API": {
         "LoadedAPIs": "Lastet %s API",
-        "QuickDocumentationTitle": "API hurtigdokumentasjon",
-        "UserAuthentication": "Brukerautentisering"
+        "UserAuthentication": "Brukerautentisering",
+        "Glossary": "Ordliste"
     }
 }

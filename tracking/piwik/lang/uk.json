@@ -156,7 +156,6 @@
         "SmtpUsername": "SMTP логін",
         "Table": "Таблиця",
         "TagCloud": "Хмара тегів",
-        "TranslatorEmail": "joseph.chereshnovsky@gmail.com, x.meglio@gmail.com",
         "TranslatorName": "<a href=\"http:\/\/webdevbyjoss.blogspot.com\/\">Joseph Chereshnovsky<\/a>, Anton Andriyevskyy",
         "Unknown": "Невідомо",
         "Username": "Логін",
@@ -176,7 +175,6 @@
         "Widgets": "Віджет",
         "YearsDays": "%1$s років %2$s днів",
         "Yes": "Так",
-        "YouAreViewingDemoShortMessage": "Зараз переглядається демонстраційний варіант Piwik",
         "YouMustBeLoggedIn": "Треба увійти в систему щоб отримати доступ до цих функцій.",
         "YourChangesHaveBeenSaved": "Зміни збережено."
     }

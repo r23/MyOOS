@@ -130,9 +130,15 @@ class Common
             return self::$isCliMode;
         }
 
-        $remoteAddr = @$_SERVER['REMOTE_ADDR'];
-        return PHP_SAPI == 'cli' ||
-        (self::isPhpCgiType() && empty($remoteAddr));
+        if(PHP_SAPI == 'cli'){
+            return true;
+        }
+        
+        if(self::isPhpCgiType() && (!isset($_SERVER['REMOTE_ADDR']) || empty($_SERVER['REMOTE_ADDR']))){
+            return true;
+        }
+        
+        return false;
     }
 
     /**
@@ -1274,15 +1280,17 @@ class Common
                 $info = var_export($info, true);
             }
 
+            $logger = StaticContainer::get('Psr\Log\LoggerInterface');
+
             if (is_array($info) || is_object($info)) {
                 $info = Common::sanitizeInputValues($info);
                 $out = var_export($info, true);
                 foreach (explode("\n", $out) as $line) {
-                    echo $line . "\n";
+                    $logger->debug($line);
                 }
             } else {
                 foreach (explode("\n", $info) as $line) {
-                    echo $line . "\n";
+                    $logger->debug($line);
                 }
             }
         }

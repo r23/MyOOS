@@ -1,8 +1,10 @@
 {
     "CoreAdminHome": {
+        "AddNewTrustedHost": "Přidat nového důvěryhodného hostitele",
         "Administration": "Administrace",
         "ArchivingSettings": "Archivování nastavení",
         "BrandingSettings": "Nastavení označení",
+        "ReleaseChannel": "Kanál vydání",
         "ClickHereToOptIn": "Klikněte zde pro přihlášení.",
         "ClickHereToOptOut": "Klikněte zde pro vyloučení.",
         "CustomLogoFeedbackInfo": "Pokud přizpůsobíte logo Piwiku, možná by vás zajímalo, jak skrýt odkaz %s v horním menu, Pokud to chcete provést, zakažte plugin zpětné vazby na stránce %sSpravovat zásuvné moduly%s.",
@@ -45,8 +47,6 @@
         "JSTrackingIntro3": "Ve velké většině případů (blogy, CMS) můžete použít zásuvný modul, který zajistí technické detaily. Podívejte se na %1$sSeznam integračních zásuvných modulů%2$s. Pokud ještě neexistuje, upravte šablony stránek a umístěte sledovací kód do zápatí.",
         "JSTrackingIntro4": "Pokud nechcete ke sledování návštěvníků použít javascript, %1$svygenerujte obrázkový sledovací tag níže%2$s.",
         "JSTrackingIntro5": "Pokud chcete ne jen sledovat zobrazení stránek, podívejte se na %1$sdokumentaci javascriptového sledování%2$s, kde naleznete seznam dostupných funkcí. S použitím těchto funkcí můžete sledovat cíle, vlastní proměnné, objednávky v e-obchodech, opuštěné košíky a mnoho dalšího.",
-        "LatestBetaRelease": "Poslední testovací verze",
-        "LatestStableRelease": "Poslední stabilní verze",
         "LogoNotWriteableInstruction": "Pokud chcete místo výcchozího loga použít vlastní, je nutné, abyste měli práva k zápisu adresáře %1$s. Piwik potřebuje práva k zápisu log umístěných v souborech %2$s.",
         "FileUploadDisabled": "Nahrávání souborů je zakázáno v konfiguraci PHP. Pokud chcete nahrát svoje vlastní logo, nastavte %s v souboru php.ini a restartujte webový server.",
         "LogoUpload": "Vyberte logo, které chcete nahrát",
@@ -70,8 +70,10 @@
         "PluginSettingsIntro": "Zde můžete změnit nastavení pro následující zásuvné moduly třetích stran:",
         "PluginSettingsValueNotAllowed": "Hodnota pro pole \"%s\" zásuvného modulu \"%s\" není povolena",
         "PluginSettingsSaveFailed": "Nepodařilo se uložit nastavení zásuvného modulu",
+        "SendPluginUpdateCommunication": "Pokud bude k dispozici aktualizace pluginu, odeslat e-mail.",
         "SendPluginUpdateCommunicationHelp": "Super uživatelům bude odeslán e-mail, když bude k dispozici aktualizace zásuvného modulu.",
         "StableReleases": "Piwik je důležitý nástroj pro měření, doporučujeme vždy používat nejnovější vydání. Pokud používáte nejnovější beta verzi a našli jste chyby, prosíme o jejich nahlášení %spřímo zde %s.",
+        "LtsReleases": "LTS (verze s dlouhodobou podporou) dostávají pouze bezpečnostní a jiné opravy chyb.",
         "SystemPluginSettings": "Systémová nastavení zásuvných modulů",
         "TrackAGoal": "Sledovat cíl",
         "TrackingCode": "Sledovací kód",
@@ -84,6 +86,7 @@
         "YouAreOptedIn": "Aktuálně nejste vyloučen.",
         "YouAreOptedOut": "Aktuálně jste vyloučen.",
         "YouMayOptOut": "Zde se můžete rozhodnout, zda se smí ve Vašem prohlížeči ukládat jedinečná analytická data “ Cookies” , a zda umožníte provozovateli webové stránky shromažďovat a analyzovat různé statistické údaje.",
-        "YouMayOptOutBis": "Pokud jste se rozhodli že ne, klikněte na přiložený odkaz pro uložení deaktivačního Cookie ve Vašem prohlížeči."
+        "YouMayOptOutBis": "Pokud jste se rozhodli že ne, klikněte na přiložený odkaz pro uložení deaktivačního Cookie ve Vašem prohlížeči.",
+        "OptingYouOut": "Vylučování, prosím čekejte..."
     }
 }

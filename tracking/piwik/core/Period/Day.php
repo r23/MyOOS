@@ -9,6 +9,7 @@
 namespace Piwik\Period;
 
 use Exception;
+use Piwik\Date;
 use Piwik\Period;
 use Piwik\Piwik;
 
@@ -16,6 +17,8 @@ use Piwik\Piwik;
  */
 class Day extends Period
 {
+    const PERIOD_ID = 1;
+
     protected $label = 'day';
 
     /**
@@ -38,9 +41,7 @@ class Day extends Period
     {
         //"Mon 15 Aug"
         $date     = $this->getDateStart();
-        $template = $this->translator->translate('CoreHome_ShortDateFormat');
-
-        $out = $date->getLocalized($template);
+        $out = $date->getLocalized(Date::DATE_FORMAT_DAY_MONTH);
         return $out;
     }
 
@@ -53,9 +54,7 @@ class Day extends Period
     {
         //"Mon 15 Aug"
         $date     = $this->getDateStart();
-        $template = $this->translator->translate('CoreHome_DateFormat');
-
-        $out = $date->getLocalized($template);
+        $out = $date->getLocalized(Date::DATE_FORMAT_LONG);
         return $out;
     }
 
@@ -101,5 +100,15 @@ class Day extends Period
     public function __toString()
     {
         return $this->toString();
+    }
+
+    public function getImmediateChildPeriodLabel()
+    {
+        return null;
+    }
+
+    public function getParentPeriodLabel()
+    {
+        return 'week';
     }
 }

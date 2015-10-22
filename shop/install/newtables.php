@@ -107,7 +107,7 @@ $flds = "
   admin_firstname C(32) NOTNULL,
   admin_lastname C(32) NULL,
   admin_email_address C(96) NOTNULL,
-  admin_telephone C(32) NOTNULL,
+  admin_telephone C(32),
   admin_fax C(32),
   admin_password C(40) NOTNULL,
   admin_created T,
@@ -186,7 +186,7 @@ $flds = "
   block_type I2 NOTNULL DEFAULT '1',
   block_sort_order I2 DEFAULT NULL,
   block_login_flag I2 NOTNULL DEFAULT '0',
-  block_author_name C(32) NOTNULL,
+  block_author_name C(32),
   block_author_www C(255),
   block_modules_group C(32) NOTNULL,
   date_added T,
@@ -237,7 +237,7 @@ idxsql($idxname, $table, $idxflds);
 $table = $prefix_table . 'categories';
 $flds = "
   categories_id I NOTNULL AUTO PRIMARY,
-  categories_image C(64) NULL,
+  categories_image C(64),  
   parent_id I NOTNULL DEFAULT '0',
   access I NOTNULL DEFAULT '0',
   sort_order I1,
@@ -258,15 +258,41 @@ $flds = "
   categories_id I NOTNULL DEFAULT '0' PRIMARY,
   categories_languages_id I NOTNULL DEFAULT '1' PRIMARY,
   categories_name C(32) NOTNULL,
-  categories_heading_title C(64) NULL,
+  categories_heading_title C(64),
   categories_description X,
-  categories_description_meta C(250) NOTNULL,
-  categories_keywords_meta C(250) NOTNULL
+  categories_description_meta C(250),
+  categories_keywords_meta C(250)
 ";
 dosql($table, $flds);
 
 $idxname = 'idx_categories_name';
 $idxflds = 'categories_name';
+idxsql($idxname, $table, $idxflds);
+
+
+$table = $prefix_table . 'categories_images';
+$flds = "
+  categories_images_id I NOTNULL AUTO PRIMARY,
+  categories_id I NOTNULL,
+  categories_image C(64),
+  sort_order I1,
+  date_added T,
+  last_modified T
+";
+dosql($table, $flds);
+
+$table = $prefix_table . 'categories_images_description';
+$flds = "
+  categories_images_id I NOTNULL DEFAULT '0' PRIMARY,
+  categories_images_languages_id I NOTNULL DEFAULT '1' PRIMARY,
+  categories_images_title C(64),  
+  categories_images_caption C(250),
+  categories_images_description X,
+";
+dosql($table, $flds);
+
+$idxname = 'idx_categories_images_title';
+$idxflds = 'categories_images_title';
 idxsql($idxname, $table, $idxflds);
 
 

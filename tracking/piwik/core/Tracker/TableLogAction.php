@@ -10,6 +10,8 @@
 namespace Piwik\Tracker;
 
 use Piwik\Common;
+use Piwik\Config;
+use Piwik\Container\StaticContainer;
 use Piwik\Segment\SegmentExpression;
 
 /**
@@ -188,11 +190,8 @@ class TableLogAction
         // special case
         $sql = TableLogAction::getSelectQueryWhereNameContains($matchType, $actionType);
 
-        return array(
-            // mark that the returned value is an sql-expression instead of a literal value
-            'SQL'  => $sql,
-            'bind' => $valueToMatch,
-        );
+        $cache = StaticContainer::get('Piwik\Tracker\TableLogAction\Cache');
+        return $cache->getIdActionFromSegment($valueToMatch, $sql);
     }
 
     /**
@@ -203,6 +202,8 @@ class TableLogAction
     private static function guessActionTypeFromSegment($segmentName)
     {
         $exactMatch = array(
+            'outlinkUrl'         => Action::TYPE_OUTLINK,
+            'downloadUrl'        => Action::TYPE_DOWNLOAD,
             'eventAction'        => Action::TYPE_EVENT_ACTION,
             'eventCategory'      => Action::TYPE_EVENT_CATEGORY,
             'eventName'          => Action::TYPE_EVENT_NAME,
