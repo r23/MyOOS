@@ -36,7 +36,10 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/style.min.css" rel="stylesheet">
-
+	
+	<link href="css/plugins/dropzone/basic.css" rel="stylesheet">	
+	<link href="css/plugins/dropzone/dropzone.css" rel="stylesheet">
+	
    <link rel="StyleSheet" href="includes/stylesheet.css" type="text/css" >
  
 </head>

@@ -17,6 +17,17 @@ if ($bForm == TRUE) {
 <script type="text/javascript" src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script type="text/javascript" src="js/general.js"></script>
 
+<script type="text/javascript" src="js/plugins/dropzone/dropzone.min.js"></script>
+<script type="text/javascript">
+    // jQuery
+	$(document).ready(function(){
+		$("div#myDrop").dropzone({ 
+			url: "/file/post" 
+		});
+		Dropzone.autoDiscover = false;
+		Dropzone.options.myAwesomeDropzone = false;
+    });
+</script>
 
 <!-- HTML5 shim and Respond.js IE support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>

@@ -60,6 +60,7 @@ define('TEXT_EDIT_CATEGORIES_DESCRIPTION_META', 'Meta Tag Description');
 define('TEXT_EDIT_CATEGORIES_KEYWORDS_META', 'Meta Tag Keywords');
 define('TEXT_EDIT_CATEGORIES_IMAGE', 'Category Image:');
 define('TEXT_EDIT_SORT_ORDER', 'Sort Order');
+define('TEXT_EDIT_STATUS', 'Status');
 define('TEXT_TAX_INFO', ' ex VAT:');
 define('TEXT_PRODUCTS_LIST_PRICE', 'List:');
 define('TEXT_PRODUCTS_DISCOUNT_ALLOWED', 'Max Discount Allowed:');

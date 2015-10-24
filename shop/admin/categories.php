@@ -26,6 +26,13 @@ require 'includes/functions/function_categories.php';
 require 'includes/functions/function_image_resize.php';
 require 'includes/classes/class_currencies.php';
 
+if (isset($_POST)) {
+  echo '<pre>';
+  print_r($_POST);
+  echo '</pre>';
+exit;
+}
+
 $currencies = new currencies();
 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
@@ -590,11 +597,24 @@ if ($action == 'new_category' || $action == 'edit_category') {
                                 </div>
 
                                 <div id="tab-<?php echo $nTab+1; ?>" class="tab-pane">
-                                    <div class="panel-body">
 
+                                      <div class="panel-body">
+<div class="dropzone dz-clickable" id="myDrop">
+    <div class="dz-default dz-message">
+        <span>Drop files here to upload</span>
+    </div>
+	<div class="fallback">
+		<input name="file" type="file" multiple />
+	</div>	
+</div>
+								  
+									  
+									  
                                         <div class="table-responsive">
+
+
               <?php echo TEXT_EDIT_CATEGORIES_IMAGE; ?>
-              <?php echo oos_draw_file_field('categories_image') . '<br />&nbsp;' . $cInfo->categories_image; ?>
+
                                         </div>
 
                                     </div>
@@ -607,9 +627,14 @@ if ($action == 'new_category' || $action == 'edit_category') {
         </div>	
 
 		  <?php echo oos_submit_button('save', IMAGE_SAVE);   ?>
+</form>
+
+
+
+
+
 
 <!-- body_text_eof //-->
-</form>
 <?php
 } elseif ($action == 'new_category_preview') {
 	$form_action = ($_GET['cID']) ? 'update_category' : 'insert_category';
