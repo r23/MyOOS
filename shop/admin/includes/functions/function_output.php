@@ -246,7 +246,7 @@ function oos_submit_button($id, $title = '', $params = '') {
   * @return string
   */
   function oos_draw_form($name, $action, $parameters = '', $method = 'post', $parsley_validate = TRUE, $params = '') {
-    $form = '<form name="' . $name . '" action="';
+    $form = '<form id="fileupload" name="' . $name . '" action="';
     if ($parameters) {
       $form .= oos_href_link_admin($action, $parameters);
     } else {
