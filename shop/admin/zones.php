@@ -165,7 +165,7 @@ require 'includes/header.php';
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_ZONE . '</b>');
 
-      $contents = array('form' => oos_draw_form('zones', $aContents['zones'], 'page=' . $nPage . '&action=insert', 'post',  FALSE));
+      $contents = array('form' => oos_draw_form('id', 'zones', $aContents['zones'], 'page=' . $nPage . '&action=insert', 'post',  FALSE));
       $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
       $contents[] = array('text' => '<br />' . TEXT_INFO_ZONES_NAME . '<br />' . oos_draw_input_field('zone_name'));
       $contents[] = array('text' => '<br />' . TEXT_INFO_ZONES_CODE . '<br />' . oos_draw_input_field('zone_code'));
@@ -176,7 +176,7 @@ require 'includes/header.php';
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_ZONE . '</b>');
 
-      $contents = array('form' => oos_draw_form('zones', $aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id . '&action=save', 'post',  FALSE));
+      $contents = array('form' => oos_draw_form('id', 'zones', $aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id . '&action=save', 'post',  FALSE));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
       $contents[] = array('text' => '<br />' . TEXT_INFO_ZONES_NAME . '<br />' . oos_draw_input_field('zone_name', $cInfo->zone_name));
       $contents[] = array('text' => '<br />' . TEXT_INFO_ZONES_CODE . '<br />' . oos_draw_input_field('zone_code', $cInfo->zone_code));
@@ -187,7 +187,7 @@ require 'includes/header.php';
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_ZONE . '</b>');
 
-      $contents = array('form' => oos_draw_form('zones', $aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id . '&action=deleteconfirm', 'post',  FALSE));
+      $contents = array('form' => oos_draw_form('id', 'zones', $aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id . '&action=deleteconfirm', 'post',  FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $cInfo->zone_name . '</b>');
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');

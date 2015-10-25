@@ -252,7 +252,7 @@
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_HEADING_NEW_INFORMATION . '</b>');
 
-      $contents = array('form' => oos_draw_form('information', $aContents['information'], 'action=insert', 'post', FALSE, 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('id', 'information', $aContents['information'], 'action=insert', 'post', FALSE, 'enctype="multipart/form-data"'));
       $contents[] = array('text' => TEXT_NEW_INTRO);
 
       $informations_name_inputs_string = '';
@@ -284,7 +284,7 @@
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_HEADING_EDIT_INFORMATION . '</b>');
 
-      $contents = array('form' => oos_draw_form('information', $aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=save', 'post', FALSE, 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('id', 'information', $aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=save', 'post', FALSE, 'enctype="multipart/form-data"'));
       $contents[] = array('text' => TEXT_EDIT_INTRO);
 
       $informations_name_inputs_string = '';
@@ -316,7 +316,7 @@
       if ($mInfo->information_id > 5) {
         $heading[] = array('text' => '<b>' . TEXT_HEADING_DELETE_INFORMATION . '</b>');
 
-        $contents = array('form' => oos_draw_form('information', $aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=deleteconfirm', 'post', FALSE));
+        $contents = array('form' => oos_draw_form('id', 'information', $aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=deleteconfirm', 'post', FALSE));
         $contents[] = array('text' => TEXT_DELETE_INTRO);
         $contents[] = array('text' => '<br /><b>' . $mInfo->information_name . '</b>');
         $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('delete_image', '', true) . ' ' . TEXT_DELETE_IMAGE);

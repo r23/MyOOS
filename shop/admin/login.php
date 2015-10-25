@@ -83,7 +83,7 @@ function setFocus() {
 	<div class="login">
 		<div class="login-form">
 			<img src="images/login.gif" alt="Login" />
-		<?php echo oos_draw_form('login', $aContents['login'], 'action=process', 'post', TRUE); ?>
+		<?php echo oos_draw_form('id', 'login', $aContents['login'], 'action=process', 'post', TRUE); ?>
 			<div class="form-block">
 			<div class="inputlabel"><?php echo ENTRY_EMAIL_ADDRESS; ?></div>
 			<div><?php echo oos_draw_input_field('email_address', '', 'class="inputbox" size="15"'); ?></div>

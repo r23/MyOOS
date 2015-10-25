@@ -174,7 +174,7 @@
   switch ($action) {
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_OVERSTOCK . '</b>');
-      $contents = array('form' => oos_draw_form('palm_daily', $aContents['manual_loging'], 'page=' . $_GET['page'] . '&sID=' . $sInfo->man_info_id . '&action=deleteconfirm', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'palm_daily', $aContents['manual_loging'], 'page=' . $_GET['page'] . '&sID=' . $sInfo->man_info_id . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $sInfo->contact_info_name . '</b>');
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $_GET['page'] . '&sID=' . $sInfo->man_info_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');

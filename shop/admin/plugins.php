@@ -285,7 +285,7 @@
 
       $heading[] = array('text' => '<b>' . $pInfo->name . '</b>');
 
-      $contents = array('form' => oos_draw_form('plugins', $aContents['plugins'], 'plugin=' . $_GET['plugin'] . '&action=save', 'post',  FALSE));
+      $contents = array('form' => oos_draw_form('id', 'plugins', $aContents['plugins'], 'plugin=' . $_GET['plugin'] . '&action=save', 'post',  FALSE));
       $contents[] = array('text' => $keys);
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('update', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $_GET['plugin']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       break;

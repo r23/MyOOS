@@ -180,7 +180,7 @@
       <tr>
         <td></td>
       </tr>
-      <tr><?php echo oos_draw_form('newsletter', $aContents['newsletters'], 'page=' . $_GET['page'] . '&action=' . $form_action); if ($form_action == 'update') echo oos_draw_hidden_field('newsletter_id', $nID); ?>
+      <tr><?php echo oos_draw_form('id', 'newsletter', $aContents['newsletters'], 'page=' . $_GET['page'] . '&action=' . $form_action, 'post', FALSE); if ($form_action == 'update') echo oos_draw_hidden_field('newsletter_id', $nID); ?>
         <td><table border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo TEXT_NEWSLETTER_MODULE; ?></td>
@@ -375,7 +375,7 @@
     case 'delete':
       $heading[] = array('text' => '<b>' . $nInfo->title . '</b>');
 
-      $contents = array('form' => oos_draw_form('newsletters', $aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $nInfo->newsletters_id . '&action=deleteconfirm', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'newsletters', $aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $nInfo->newsletters_id . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $nInfo->title . '</b>');
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete',IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');

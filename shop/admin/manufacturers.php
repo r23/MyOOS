@@ -235,7 +235,7 @@
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_HEADING_NEW_MANUFACTURER . '</b>');
 
-      $contents = array('form' => oos_draw_form('manufacturers', $aContents['manufacturers'], 'action=insert', 'post', FALSE, 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('id', 'manufacturers', $aContents['manufacturers'], 'action=insert', 'post', FALSE, 'enctype="multipart/form-data"'));
       $contents[] = array('text' => TEXT_NEW_INTRO);
       $contents[] = array('text' => '<br />' . TEXT_MANUFACTURERS_NAME . '<br />' . oos_draw_input_field('manufacturers_name'));
       $contents[] = array('text' => '<br />' . TEXT_MANUFACTURERS_IMAGE . '<br />' . oos_draw_file_field('manufacturers_image'));
@@ -253,7 +253,7 @@
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_HEADING_EDIT_MANUFACTURER . '</b>');
 
-      $contents = array('form' => oos_draw_form('manufacturers', $aContents['manufacturers'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->manufacturers_id . '&action=save', 'post', FALSE, 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('id', 'manufacturers', $aContents['manufacturers'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->manufacturers_id . '&action=save', 'post', FALSE, 'enctype="multipart/form-data"'));
       $contents[] = array('text' => TEXT_EDIT_INTRO);
       $contents[] = array('text' => '<br />' . TEXT_MANUFACTURERS_NAME . '<br />' . oos_draw_input_field('manufacturers_name', $mInfo->manufacturers_name));
       $contents[] = array('text' => '<br />' . TEXT_MANUFACTURERS_IMAGE . '<br />' . oos_draw_file_field('manufacturers_image') . '<br />' . $mInfo->manufacturers_image);
@@ -271,7 +271,7 @@
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_HEADING_DELETE_MANUFACTURER . '</b>');
 
-      $contents = array('form' => oos_draw_form('manufacturers', $aContents['manufacturers'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->manufacturers_id . '&action=deleteconfirm', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'manufacturers', $aContents['manufacturers'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->manufacturers_id . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $mInfo->manufacturers_name . '</b>');
       $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('delete_image', '', true) . ' ' . TEXT_DELETE_IMAGE);

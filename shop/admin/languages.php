@@ -527,7 +527,7 @@
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_LANGUAGE . '</b>');
 
-      $contents = array('form' => oos_draw_form('languages', $aContents['languages'], 'action=insert', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'languages', $aContents['languages'], 'action=insert', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_NAME . '<br />' . oos_draw_input_field('name'));
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_ISO_639_2 . '<br />' . oos_draw_input_field('iso_639_2'));
@@ -538,7 +538,7 @@
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_LANGUAGE . '</b>');
 
-      $contents = array('form' => oos_draw_form('languages', $aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id . '&action=save', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'languages', $aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id . '&action=save', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_NAME . '<br />' . oos_draw_input_field('name', $lInfo->name));
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_ISO_639_2 . '<br />' . oos_draw_input_field('iso_639_2', $lInfo->iso_639_2));

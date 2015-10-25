@@ -90,7 +90,7 @@
 			<?php require 'includes/menue.php'; ?>
 		</div>
 
-      <?php if ($action == 'edit_process') { echo oos_draw_form('account', $aContents['admin_account'], 'action=save_account', 'post', FALSE, 'enctype="multipart/form-data"'); } elseif ($action == 'check_account') { echo oos_draw_form('account', $aContents['admin_account'], 'action=check_password', 'post', FALSE, 'enctype="multipart/form-data"'); } else { echo oos_draw_form('account', $aContents['admin_account'], 'action=check_account', 'post', FALSE,'enctype="multipart/form-data"'); } ?>
+      <?php if ($action == 'edit_process') { echo oos_draw_form('id', 'account', $aContents['admin_account'], 'action=save_account', 'post', FALSE, 'enctype="multipart/form-data"'); } elseif ($action == 'check_account') { echo oos_draw_form('id', 'account', $aContents['admin_account'], 'action=check_password', 'post', FALSE, 'enctype="multipart/form-data"'); } else { echo oos_draw_form('id', 'account', $aContents['admin_account'], 'action=check_account', 'post', FALSE,'enctype="multipart/form-data"'); } ?>
 			<!-- Breadcrumbs  -->
 			<div class="row wrapper white-bg page-heading">
 				<div class="col-lg-10">

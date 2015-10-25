@@ -151,7 +151,7 @@
         break;
     }
 ?>
-          <tr><?php echo oos_draw_form('mail', $aContents['mail'], 'action=send_email_to_user', 'post', TRUE); ?>
+          <tr><?php echo oos_draw_form('id', 'mail', $aContents['mail'], 'action=send_email_to_user', 'post', TRUE); ?>
             <td><table border="0" width="100%" cellpadding="0" cellspacing="2">
               <tr>
                 <td></td>
@@ -206,7 +206,7 @@
 <?php
   } else {
 ?>
-          <tr><?php echo oos_draw_form('mail', $aContents['mail'], 'action=preview', 'post', FALSE); ?>
+          <tr><?php echo oos_draw_form('id', 'mail', $aContents['mail'], 'action=preview', 'post', FALSE); ?>
             <td><table border="0" cellpadding="0" cellspacing="2">
               <tr>
                 <td colspan="2"></td>

@@ -147,7 +147,7 @@
       }
 
 
-      $contents = array('form' => oos_draw_form('configuration', $aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=save', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'configuration', $aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=save', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
       $contents[] = array('text' => '<br /><b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b><br />' . constant(strtoupper($cInfo->configuration_key . '_DESC')) . '<br />' . $value_field);
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('update', IMAGE_UPDATE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');

@@ -269,7 +269,7 @@ td.style.backgroundColor="DFE4F4";
 ?>
   <table border="0" cellspacing="0" cellpadding="0" bgcolor="#999999" align="center">
     <tr>
-      <td><?php echo oos_draw_form('update_cross', $aContents['xsell_products'], oos_get_all_get_params(array('action')) . 'action=update_cross', 'post', TRUE);?><table cellpadding="1" cellspacing="1" border="0">
+      <td><?php echo oos_draw_form('id', 'update_cross', $aContents['xsell_products'], oos_get_all_get_params(array('action')) . 'action=update_cross', 'post', TRUE);?><table cellpadding="1" cellspacing="1" border="0">
         <tr>
           <td colspan="6"><table cellpadding="3" cellspacing="0" border="0" width="100%">
             <tr class="dataTableHeadingRow">
@@ -347,7 +347,7 @@ td.style.backgroundColor="DFE4F4";
 ?>
   <table border="0" cellspacing="0" cellpadding="0" bgcolor="#999999" align="center">
     <tr>
-      <td><?php echo oos_draw_form('update_sort', $aContents['xsell_products'], oos_get_all_get_params(array('action')) . 'action=update_sort', 'post', TRUE);?><table cellpadding="1" cellspacing="1" border="0">
+      <td><?php echo oos_draw_form('id', 'update_sort', $aContents['xsell_products'], oos_get_all_get_params(array('action')) . 'action=update_sort', 'post', TRUE);?><table cellpadding="1" cellspacing="1" border="0">
         <tr>
           <td colspan="6"><table cellpadding="3" cellspacing="0" border="0" width="100%">
             <tr class="dataTableHeadingRow">

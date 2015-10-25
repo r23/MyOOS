@@ -213,7 +213,7 @@
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_CURRENCY . '</b>');
 
-      $contents = array('form' => oos_draw_form('currencies', $aContents['currencies'], 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id . '&action=insert', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'currencies', $aContents['currencies'], 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id . '&action=insert', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
       $contents[] = array('text' => '<br />' . TEXT_INFO_CURRENCY_TITLE . '<br />' . oos_draw_input_field('title'));
       $contents[] = array('text' => '<br />' . TEXT_INFO_CURRENCY_CODE . '<br />' . oos_draw_input_field('code'));
@@ -230,7 +230,7 @@
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_CURRENCY . '</b>');
 
-      $contents = array('form' => oos_draw_form('currencies', $aContents['currencies'], 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id . '&action=save', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'currencies', $aContents['currencies'], 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id . '&action=save', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
       $contents[] = array('text' => '<br />' . TEXT_INFO_CURRENCY_TITLE . '<br />' . oos_draw_input_field('title', $cInfo->title));
       $contents[] = array('text' => '<br />' . TEXT_INFO_CURRENCY_CODE . '<br />' . oos_draw_input_field('code', $cInfo->code));

@@ -129,7 +129,7 @@
   }
 ?>
 
-<?php echo oos_draw_form('update_product', $aContents['import_excel'], '&split=0', 'post', 'enctype="multipart/form-data"'); ?>
+<?php echo oos_draw_form('id', 'update_product', $aContents['import_excel'], '&split=0', 'post', FALSE, 'enctype="multipart/form-data"'); ?>
 
               <p>
                 <div align = "left">

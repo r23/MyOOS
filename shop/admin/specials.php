@@ -374,7 +374,7 @@
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_SPECIALS . '</b>');
 
-      $contents = array('form' => oos_draw_form('specials', $aContents['specials'], 'page=' . $_GET['page'] . '&sID=' . $sInfo->specials_id . '&action=deleteconfirm', 'post',  FALSE));
+      $contents = array('form' => oos_draw_form('id', 'specials', $aContents['specials'], 'page=' . $_GET['page'] . '&sID=' . $sInfo->specials_id . '&action=deleteconfirm', 'post',  FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $sInfo->products_name . '</b>');
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['specials'], 'page=' . $_GET['page'] . '&sID=' . $sInfo->specials_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');

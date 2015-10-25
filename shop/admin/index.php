@@ -251,7 +251,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
                 <td width="460" valign="center"><table border="0" width="460" height="375" cellspacing="1" cellpadding="1">
                   <tr>
                     <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-                      <tr><?php echo oos_draw_form('languages', 'index.php', '', 'get'); ?>
+                      <tr><?php echo oos_draw_form('id', 'languages', 'index.php', '', 'get', FALSE); ?>
                         <td class="heading"><?php echo HEADING_TITLE; ?></td>
                         <td align="right"><?php echo oos_draw_pull_down_menu('language', $languages_array, $languages_selected, 'onChange="this.form.submit();"'); ?></td>
                       </form></tr>

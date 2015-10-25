@@ -213,7 +213,7 @@
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_ORDERS_STATUS . '</b>');
 
-      $contents = array('form' => oos_draw_form('status', $aContents['products_status'], 'page=' . $_GET['page'] . '&action=insert', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'status', $aContents['products_status'], 'page=' . $_GET['page'] . '&action=insert', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
 
       $products_status_inputs_string = '';
@@ -230,7 +230,7 @@
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_ORDERS_STATUS . '</b>');
 
-      $contents = array('form' => oos_draw_form('status', $aContents['products_status'], 'page=' . $_GET['page'] . '&psID=' . $psInfo->products_status_id  . '&action=save', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'status', $aContents['products_status'], 'page=' . $_GET['page'] . '&psID=' . $psInfo->products_status_id  . '&action=save', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
 
       $products_status_inputs_string = '';
@@ -247,7 +247,7 @@
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_ORDERS_STATUS . '</b>');
 
-      $contents = array('form' => oos_draw_form('status', $aContents['products_status'], 'page=' . $_GET['page'] . '&psID=' . $psInfo->products_status_id  . '&action=deleteconfirm', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'status', $aContents['products_status'], 'page=' . $_GET['page'] . '&psID=' . $psInfo->products_status_id  . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $psInfo->products_status_name . '</b>');
       if ($remove_status) $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $_GET['page'] . '&psID=' . $psInfo->products_status_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');

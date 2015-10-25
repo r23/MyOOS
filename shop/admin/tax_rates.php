@@ -235,7 +235,7 @@
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_TAX_RATE . '</b>');
 
-      $contents = array('form' => oos_draw_form('rates', $aContents['tax_rates'], 'page=' . $_GET['page'] . '&action=insert', 'post',  FALSE));
+      $contents = array('form' => oos_draw_form('id', 'rates', $aContents['tax_rates'], 'page=' . $_GET['page'] . '&action=insert', 'post',  FALSE));
       $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
       $contents[] = array('text' => '<br />' . TEXT_INFO_CLASS_TITLE . '<br />' . oosTaxClassesPullDown('name="tax_class_id" style="font-size:10px"'));
       $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_NAME . '<br />' . oosGeoZonesPullDown('name="tax_zone_id" style="font-size:10px"'));
@@ -247,7 +247,7 @@
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_TAX_RATE . '</b>');
 
-      $contents = array('form' => oos_draw_form('rates', $aContents['tax_rates'], 'page=' . $_GET['page'] . '&tID=' . $trInfo->tax_rates_id  . '&action=save', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'rates', $aContents['tax_rates'], 'page=' . $_GET['page'] . '&tID=' . $trInfo->tax_rates_id  . '&action=save', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
       $contents[] = array('text' => '<br />' . TEXT_INFO_CLASS_TITLE . '<br />' . oosTaxClassesPullDown('name="tax_class_id" style="font-size:10px"', $trInfo->tax_class_id));
       $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_NAME . '<br />' . oosGeoZonesPullDown('name="tax_zone_id" style="font-size:10px"', $trInfo->geo_zone_id));
@@ -260,7 +260,7 @@
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_TAX_RATE . '</b>');
 
-      $contents = array('form' => oos_draw_form('rates', $aContents['tax_rates'], 'page=' . $_GET['page'] . '&tID=' . $trInfo->tax_rates_id  . '&action=deleteconfirm', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'rates', $aContents['tax_rates'], 'page=' . $_GET['page'] . '&tID=' . $trInfo->tax_rates_id  . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $trInfo->tax_class_title . ' ' . number_format($trInfo->tax_rate, TAX_DECIMAL_PLACES) . '%</b>');
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $_GET['page'] . '&tID=' . $trInfo->tax_rates_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');

@@ -235,7 +235,7 @@
     case 'backup':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_BACKUP . '</b>');
 
-      $contents = array('form' => oos_draw_form('backup', $aContents['export_excel'], 'action=make_file_now', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'backup', $aContents['export_excel'], 'action=make_file_now', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_NEW_BACKUP);
 
 
@@ -255,7 +255,7 @@
     case 'delete':
       $heading[] = array('text' => '<b>' . $buInfo->date . '</b>');
 
-      $contents = array('form' => oos_draw_form('delete', $aContents['export_excel'], 'file=' . $buInfo->file . '&action=deleteconfirm', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'delete', $aContents['export_excel'], 'file=' . $buInfo->file . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $buInfo->file . '</b>');
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['export_excel'], 'file=' . $buInfo->file) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');

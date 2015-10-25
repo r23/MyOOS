@@ -253,7 +253,7 @@
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_HEADING_NEW_BLOCK . '</b>');
 
-      $contents = array('form' => oos_draw_form('block', $aContents['content_block'], 'action=insert', 'post', FALSE, 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('id', 'block', $aContents['content_block'], 'action=insert', 'post', FALSE, 'enctype="multipart/form-data"'));
       $contents[] = array('text' => TEXT_NEW_INTRO);
 
       $block_inputs_string = '';
@@ -277,7 +277,7 @@
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_HEADING_EDIT_BLOCK . '</b>');
 
-      $contents = array('form' => oos_draw_form('block', $aContents['content_block'], 'page=' . $_GET['page'] . '&bID=' . $bInfo->block_id . '&action=save', 'post', FALSE, 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('id', 'block', $aContents['content_block'], 'page=' . $_GET['page'] . '&bID=' . $bInfo->block_id . '&action=save', 'post', FALSE, 'enctype="multipart/form-data"'));
       $contents[] = array('text' => TEXT_EDIT_INTRO);
 
       $block_inputs_string = '';
@@ -303,7 +303,7 @@
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_HEADING_DELETE_BLOCK . '</b>');
 
-      $contents = array('form' => oos_draw_form('block', $aContents['content_block'], 'page=' . $_GET['page'] . '&bID=' . $bInfo->block_id . '&action=deleteconfirm', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'block', $aContents['content_block'], 'page=' . $_GET['page'] . '&bID=' . $bInfo->block_id . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $bInfo->block_name . '</b>');
 

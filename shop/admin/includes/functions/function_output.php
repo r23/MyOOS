@@ -245,20 +245,20 @@ function oos_submit_button($id, $title = '', $params = '') {
   * @param $params
   * @return string
   */
-  function oos_draw_form($name, $action, $parameters = '', $method = 'post', $parsley_validate = TRUE, $params = '') {
-    $form = '<form id="fileupload" name="' . $name . '" action="';
-    if ($parameters) {
+  function oos_draw_form($id, $name, $action, $parameters = '', $method = 'post', $parsley_validate = TRUE, $params = '') {
+    $form = '<form id="' . oos_output_string($name) . 'fileupload" name="' . oos_output_string($name) . '" action="';
+    if (oos_is_not_null($parameters)) {
       $form .= oos_href_link_admin($action, $parameters);
     } else {
       $form .= oos_href_link_admin($action);
     }
-    $form .= '" method="' . $method . '"';
+    $form .= '" method="' . oos_output_string($method) . '"';
 
 	if ($parsley_validate == TRUE) {
 		$form .= ' data-parsley-validate ';
 	}	
 	
-    if ($params) {
+    if (oos_is_not_null($params)) {
       $form .= ' ' . $params;
     }
     $form .= '>';

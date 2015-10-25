@@ -169,7 +169,7 @@ function selectAll(FormName, SelectBox) {
                         '  <tr>' . "\n" .
                         '    <td></td>' . "\n" .
                         '  </tr>' . "\n" .
-                        '  <tr>' . oos_draw_form('confirm', $aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID'] . '&action=confirm_send') . "\n" .
+                        '  <tr>' . oos_draw_form('id', 'confirm', $aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID'] . '&action=confirm_send', 'post', FALSE) . "\n" .
                         '    <td align="right">';
       if (count($audience) > 0) {
         if ($_GET['global'] == 'true') {

@@ -76,7 +76,7 @@
       }
 
       if ($num_pages > 1) {
-        $display_links = oos_draw_form('pages', basename($_SERVER['PHP_SELF']), '', 'get');
+        $display_links = oos_draw_form('id', 'pages', basename($_SERVER['PHP_SELF']), '', 'get', FALSE);
 
         if ($current_page_number > 1) {
           $display_links .= '<a href="' . oos_href_link_admin(basename($_SERVER['PHP_SELF']), $parameters . $page_name . '=' . ($current_page_number - 1), 'NONSSL') . '" class="splitPageLink">' . PREVNEXT_BUTTON_PREV . '</a>&nbsp;&nbsp;';
