@@ -414,12 +414,12 @@ if (is_dir(OOS_ABSOLUTE_PATH . OOS_IMAGES)) {
 require 'includes/header.php';
 ?>
 <div id="wrapper">
-	<?php require 'includes/blocks.php'; ?>
-	<div id="page-wrapper" class="gray-bg">
-		<div class="row border-bottom">
+  	<?php require 'includes/blocks.php'; ?>
+		<div id="page-wrapper" class="gray-bg">
+			<div class="row border-bottom">
 			<?php require 'includes/menue.php'; ?>
-		</div>
-
+			</div>
+		
 <?php
 if ($action == 'new_category' || $action == 'edit_category') {
     $parameters = array('categories_name' => '',
@@ -527,7 +527,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                             </ul>
                             <div class="tab-content">
 <?php
-      for ($i=0; $i < count($languages); $i++) {
+		for ($i=0; $i < count($languages); $i++) {
 ?>		  
                                 <div id="tab-<?php echo $i; ?>" class="tab-pane <?php if ($i == 0) echo 'active'; ?>" >
                                     <div class="panel-body">
@@ -561,7 +561,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                                     </div>
                                 </div>
 <?php
-      }
+		}
 ?>								
                                 <div id="tab-<?php echo $nTab; ?>" class="tab-pane">
                                     <div class="panel-body">
@@ -602,10 +602,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         										
 											</div>
 										</div>
-
-					  
-									  
-									  
+								  
                                         <div class="table-responsive">
 											<table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
                                         </div>

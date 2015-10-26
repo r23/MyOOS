@@ -93,6 +93,8 @@ if ($bUpload == TRUE) {
 } 
 ?>
 
+<script type="text/javascript" src="js/general.js"></script>
+
 <!-- HTML5 shim and Respond.js IE support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
     <script src="js/plugin/respond.js"></script>
