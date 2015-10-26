@@ -15,12 +15,18 @@ if ($bForm == TRUE) {
 <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script type="text/javascript" src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script type="text/javascript" src="js/general.js"></script>
-
 
 <?php
 if ($bUpload == TRUE) {
 ?>
+<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included-->
+<script src="js/jquery-ui/ui/widget.js"></script>
+<!-- The Templates plugin is included to render the upload/download listings-->
+<script src="js/plugins/blueimp/tmpl.js"></script>
+<!-- The Load Image plugin is included for the preview images and image resizing functionality-->
+<script src="js/plugins/blueimp/load-image.all.min.js"></script>
+<!-- The Canvas to Blob plugin is included for image resizing functionality-->
+<script src="js/plugins/blueimp/canvas-to-blob.js"></script>
 <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
 <script src="js/plugins/jquery-file-upload/jquery.iframe-transport.js"></script>
 <!-- The basic File Upload plugin -->
@@ -37,9 +43,7 @@ if ($bUpload == TRUE) {
 <script src="js/plugins/jquery-file-upload/jquery.fileupload-validate.js"></script>
 <!-- The File Upload user interface plugin -->
 <script src="js/plugins/jquery-file-upload/jquery.fileupload-ui.js"></script>
-<!-- The File Upload jQuery UI plugin -->
-<script src="js/plugins/jquery-file-upload/jquery.fileupload-jquery-ui.js"></script>
-<script>
+<script type="text/javascript">
 (function(window, document, $, undefined){
 
     $(function () {
@@ -49,7 +53,7 @@ if ($bUpload == TRUE) {
         $('#fileupload').fileupload({
             // Uncomment the following to send cross-domain cookies:
             //xhrFields: {withCredentials: true},
-            // url: '<?php echo OOS_HTTP_SERVER . OOS_SHOP . 'admin/upload.php'; ?>'
+            url: 'http://localhost/entw/MyOOS/shop/admin/upload.php'
         });
 
         // Enable iframe cross-domain access via redirect option:
@@ -80,24 +84,11 @@ if ($bUpload == TRUE) {
     });
 
 })(window, document, window.jQuery);
-
-// Initialize the jQuery UI theme switcher:
-$('#theme-switcher').change(function () {
-    var theme = $('#theme');
-    theme.prop(
-        'href',
-        theme.prop('href').replace(
-            /[\w\-]+\/jquery-ui.css/,
-            $(this).val() + '/jquery-ui.css'
-        )
-    );
-});
 </script>
 <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
 <!--[if (gte IE 8)&(lt IE 10)]>
 <script src="js/plugins/jquery-file-upload/cors/jquery.xdr-transport.js"></script>
 <![endif]-->
-
 <?php
 } 
 ?>

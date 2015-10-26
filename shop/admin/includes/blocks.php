@@ -28,53 +28,53 @@ $aBlocks[] = array(
 	'heading' => 'Dashboard',
 	'link' => oos_href_link_admin($aContents['default']),
 	'icon' => 'fa fa-th-large',
-	'active' => false
+	'active' => FALSE
 );
 
 
-if (oos_admin_check_boxes('administrator.php') == true) {
+if (oos_admin_check_boxes('administrator.php') == TRUE) {
 	include 'includes/boxes/administrator.php';
 }
-if (oos_admin_check_boxes('configuration.php') == true) {
+if (oos_admin_check_boxes('configuration.php') == TRUE) {
 	include 'includes/boxes/configuration.php';
 }
-if (oos_admin_check_boxes('catalog.php') == true) {
+if (oos_admin_check_boxes('catalog.php') == TRUE) {
 	include 'includes/boxes/catalog.php';
 }
-if (oos_admin_check_boxes('content.php') == true) {
+if (oos_admin_check_boxes('content.php') == TRUE) {
 	include 'includes/boxes/content.php';
 }
-if (oos_admin_check_boxes('modules.php') == true) {
+if (oos_admin_check_boxes('modules.php') == TRUE) {
 	include 'includes/boxes/modules.php';
 }
-if (oos_admin_check_boxes('plugins.php') == true) {
+if (oos_admin_check_boxes('plugins.php') == TRUE) {
 	include 'includes/boxes/plugins.php';
 }
-if (oos_admin_check_boxes('customers.php') == true) {
+if (oos_admin_check_boxes('customers.php') == TRUE) {
 	include 'includes/boxes/customers.php';
 }
-if (oos_admin_check_boxes('taxes.php') == true) {
+if (oos_admin_check_boxes('taxes.php') == TRUE) {
     include 'includes/boxes/taxes.php';
 }
-if (oos_admin_check_boxes('localization.php') == true) {
+if (oos_admin_check_boxes('localization.php') == TRUE) {
 	include 'includes/boxes/localization.php';
 }
 
-if (oos_admin_check_boxes('reports.php') == true) {
+if (oos_admin_check_boxes('reports.php') == TRUE) {
     include 'includes/boxes/reports.php';
 }
-if (oos_admin_check_boxes('tools.php') == true) {
+if (oos_admin_check_boxes('tools.php') == TRUE) {
 	include 'includes/boxes/tools.php';
 }
 
-if (oos_admin_check_boxes('gv_admin.php') == true) {
+if (oos_admin_check_boxes('gv_admin.php') == TRUE) {
 	include 'includes/boxes/gv_admin.php'; 
 }
 
-if (oos_admin_check_boxes('export.php') == true) {
+if (oos_admin_check_boxes('export.php') == TRUE) {
     include 'includes/boxes/export.php';
 }
-if (oos_admin_check_boxes('information.php') == true) {
+if (oos_admin_check_boxes('information.php') == TRUE) {
 	include 'includes/boxes/information.php';
 }
 
@@ -86,7 +86,7 @@ if (is_array($aBlocks)) {
 				
 				
 	foreach ($aBlocks as $panels ) {
-		if ($panels['active'] == true) {
+		if ($panels['active'] == TRUE) {
 			echo '<li class="active">';
 		} else {
 			echo '<li>';
