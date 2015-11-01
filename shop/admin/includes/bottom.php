@@ -53,7 +53,7 @@ if ($bUpload == TRUE) {
         $('#fileupload').fileupload({
             // Uncomment the following to send cross-domain cookies:
             //xhrFields: {withCredentials: true},
-            url: 'http://localhost/entw/MyOOS/shop/admin/upload.php'
+            url: '<?php echo OOS_HTTPS_SERVER . OOS_SHOP . 'admin/upload.php'; ?>'
         });
 
         // Enable iframe cross-domain access via redirect option:

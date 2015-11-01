@@ -39,7 +39,7 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
   * @param $connection
   * @return string
   */
-function oos_href_link_admin($page = '', $parameters = '', $connection = 'NONSSL') {
+function oos_href_link_admin($page = '', $parameters = '', $connection = 'SSL') {
   
 	$page = oos_output_string($page);
 
