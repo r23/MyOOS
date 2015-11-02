@@ -31,10 +31,12 @@ $aBlocks[] = array(
 	'active' => $bActive,
 	'contents' => array(
 		array(
+			'code' => $aContents['admin_members'],
 			'title' => BOX_ADMINISTRATOR_MEMBERS,
 			'link' => oos_admin_files_boxes('admin_members', 'selected_box=administrator')
 		),
 		array(
+			'code' => $aContents['admin_files'],
 			'title' => BOX_ADMINISTRATOR_BOXES,
 			'link' => oos_admin_files_boxes('admin_files', 'selected_box=administrator')
 		),	

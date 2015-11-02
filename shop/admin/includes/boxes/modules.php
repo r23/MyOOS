@@ -31,14 +31,17 @@ $aBlocks[] = array(
 	'active' => $bActive,
 	'contents' => array(
 		array(
+			'code' => 'payment',
 			'title' => BOX_MODULES_PAYMENT,
 			'link' =>  oos_href_link_admin($aContents['modules'], 'selected_box=modules&set=payment', 'NONSSL')
 		),
 		array(
+			'code' => 'shipping',
 			'title' => BOX_MODULES_SHIPPING,
 			'link' => oos_href_link_admin($aContents['modules'], 'selected_box=modules&set=shipping', 'NONSSL')
 		),
 		array(
+			'code' => 'ordertotal',
 			'title' => BOX_MODULES_ORDER_TOTAL,
 			'link' => oos_href_link_admin($aContents['modules'], 'selected_box=modules&set=ordertotal', 'NONSSL')
 		),	

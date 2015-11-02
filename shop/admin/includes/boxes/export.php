@@ -30,10 +30,12 @@ $aBlocks[] = array(
 	'active' => $bActive,
 	'contents' => array(
 		array(
+			'code' => $aContents['export_googlebase'],
 			'title' => BOX_EXPORT_GOOGLEBASE,
 			'link' => oos_admin_files_boxes('export_googlebase', 'selected_box=export')
 		),
 		array(
+			'code' => $aContents['export_excel'],
 			'title' => BOX_CATALOG_EXPORT_EXCEL,
 			'link' => oos_admin_files_boxes('export_excel', 'selected_box=export')
 		),	

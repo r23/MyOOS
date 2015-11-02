@@ -1,5 +1,5 @@
-# Translation of 4.3.x in German
-# This file is distributed under the same license as the 4.3.x package.
+# Translation of Development in German
+# This file is distributed under the same license as the Development package.
 msgid ""
 msgstr ""
 "PO-Revision-Date: 2015-09-19 16:05:50+0000\n"
@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/1.0-alpha-1100\n"
-"Project-Id-Version: 4.3.x\n"
+"Project-Id-Version: Development\n"
 
 #. translators: 'rtl' or 'ltr'. This sets the text direction for WordPress.
 #: wp-includes/locale.php:185

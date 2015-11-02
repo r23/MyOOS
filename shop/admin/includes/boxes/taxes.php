@@ -31,22 +31,27 @@ $aBlocks[] = array(
 	'active' => $bActive,
 	'contents' => array(
 		array(
+			'code' => $aContents['countries'],
 			'title' => BOX_TAXES_COUNTRIES,
 			'link' => oos_admin_files_boxes('countries', 'selected_box=taxes')
 		),
 		array(
+			'code' => $aContents['zones'],
 			'title' => BOX_TAXES_ZONES,
 			'link' => oos_admin_files_boxes('zones', 'selected_box=taxes')
 		),
 		array(
+			'code' => $aContents['geo_zones'],
 			'title' => BOX_TAXES_GEO_ZONES,
 			'link' => oos_admin_files_boxes('geo_zones', 'selected_box=taxes')
 		),
 		array(
+			'code' => $aContents['tax_classes'],
 			'title' => BOX_TAXES_TAX_CLASSES,
 			'link' =>  oos_admin_files_boxes('tax_classes', 'selected_box=taxes')
 		),
 		array(
+			'code' => $aContents['tax_rates'],
 			'title' => BOX_TAXES_TAX_RATES,
 			'link' => oos_admin_files_boxes('tax_rates', 'selected_box=taxes')
 		),	

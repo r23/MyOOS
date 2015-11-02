@@ -36,6 +36,7 @@ $aBlocks[] = array(
 $configuration_groups_result = $dbconn->Execute("SELECT configuration_group_id as cgID FROM " . $oostable['configuration_group'] . " where visible = '1' ORDER BY sort_order");
 while ($configuration_groups = $configuration_groups_result->fields) {
 	$aBlocks[sizeof($aBlocks)-1]['contents'][] = array(
+			'code' => $configuration_groups['cgID'],
 			'title' => constant(strtoupper($configuration_groups['cgID'] . '_TITLE')),
 			'link' => oos_href_link_admin($aContents['configuration'], 'selected_box=configuration&amp;gID=' . $configuration_groups['cgID'], 'NONSSL')
 		);

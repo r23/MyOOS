@@ -81,15 +81,28 @@
   }
   require 'includes/header.php'; 
 ?>
-<div id="wrapper">
-	<?php require 'includes/blocks.php'; ?>
-		<div id="page-wrapper" class="gray-bg">
-			<div class="row border-bottom">
-			<?php require 'includes/menue.php'; ?>
-			</div>		
+<div class="wrapper">
+	<!-- Header //-->
+	<header class="topnavbar-wrapper">
+		<!-- Top Navbar //-->
+		<?php require 'includes/menue.php'; ?>
+	</header>
+	<!-- END Header //-->
+	<aside class="aside">
+		<!-- Sidebar //-->
+		<div class="aside-inner">
+			<?php require 'includes/blocks.php'; ?>
+		</div>
+		<!-- END Sidebar (left) //-->
+	</aside>
+	
+	<!-- Main section //-->
+	<section>
+		<!-- Page content //-->
+		<div class="content-wrapper">
 			
-			<!-- Breadcrumbs  -->
-			<div class="row wrapper white-bg page-heading">
+			<!-- Breadcrumbs //-->
+			<div class="row white-bg page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
@@ -107,9 +120,8 @@
 				<div class="col-lg-2">
 
 				</div>
-			</div><!--/ End Breadcrumbs -->
+			</div><!--/ End Breadcrumbs //-->
 			
-		<div class="wrapper wrapper-content">
 			<div class="row">
 				<div class="col-lg-12">	
 <!-- body_text //-->
@@ -205,11 +217,16 @@
 
 				</div>
 			</div>
-        </div>
 
-	</div>
+
+
+		</div>
+	</section>
+	<!-- Page footer //-->
+	<footer>
+		<span>&copy; 2015 - <a href="http://www.oos-shop.de/" target="_blank">MyOOS [Shopsystem]</a></span>
+	</footer>
 </div>
-
 
 <?php 
 	require 'includes/bottom.php';

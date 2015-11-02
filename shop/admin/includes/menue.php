@@ -16,34 +16,59 @@ $reviews_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable[
 $reviews = $reviews_result->fields;   
    
 ?>
-
-<nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+<nav role="navigation" class="navbar topnavbar">
+	<!-- Logo //-->
 	<div class="navbar-header">
-		<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+		<a href="<?php echo oos_href_link_admin($aContents['default']); ?>" class="navbar-brand">
+			<div class="brand-logo">
+				<img src="images/myoos.png" alt=" MyOOS [Shopsystem]" class="img-responsive">
+			</div>
+			<div class="brand-logo-collapsed">
+				<img src="images/myoos-single.png" alt=" MyOOS [Shopsystem]" class="img-responsive">
+			</div>
+		</a>
 	</div>
-	<ul class="nav navbar-top-links navbar-right">
-		<li>
-			<span class="m-r-sm text-muted welcome-message"><?php echo $aLang['header_title_top']; ?></span>
-		</li>
-		<li>
-			<a class="count-info" href="<?php echo oos_admin_files_boxes('reviews', 'selected_box=catalog'); ?>">
-				<i class="fa fa-comment"></i>  <span class="label label-warning"><?php echo $reviews['count']; ?></span>
-			</a>
-		</li>
-		<li>
-			<a class="count-info" href="<?php echo oos_admin_files_boxes('orders', 'selected_box=customers');  ?>">
-				<i class="fa fa-bell"></i>  <span class="label label-primary"><?php echo $orders['count']; ?></span>
-			</a>
-		</li>
-		<li>
-			<a href="<?php echo oos_catalog_link($oosCatalogFilename['default']); ?>">
-				<i class="fa fa-shopping-cart"></i><?php echo HEADER_TITLE_ONLINE_CATALOG; ?>
-			</a>
-		</li>
-		<li>
-			<a href="<?php echo oos_href_link_admin($aContents['logoff'], '', 'SSL'); ?>">
-				<i class="fa fa-sign-out"></i><?php echo $aLang['header_title_logoff']; ?>
-			</a>
-		</li>
-	</ul>
+	<!-- End Logo //-->
+	<div class="nav-wrapper">
+		<ul class="nav navbar-nav">
+			<li>
+				<a href="#" data-toggle-state="aside-collapsed" class="hidden-xs">
+					<i class="fa fa-navicon"></i>
+				</a>
+				<a href="#" data-toggle-state="aside-toggled" data-no-persist="true" class="visible-xs sidebar-toggle">
+					<i class="fa fa-navicon"></i>
+				</a>
+			</li>
+		</ul>
+		<!-- Right Navbar //-->
+		<ul class="nav navbar-nav navbar-right">
+			<!-- Fullscreen (only desktops) //-->
+			<li class="visible-lg">
+				<a href="#" data-toggle-fullscreen="">
+					<i class="fa fa-expand"></i>
+				</a>
+			</li>
+			<li>
+				<a href="<?php echo oos_href_link_admin('reviews', 'selected_box=catalog'); ?>">
+					<i class="fa fa-comment"></i><span class="label label-warning"><?php echo $reviews['count']; ?></span>
+				</a>
+			</li>
+			<li>
+				<a href="<?php echo oos_href_link_admin('orders', 'selected_box=customers'); ?>">
+					<i class="fa fa-bell"></i><span class="label label-primary"><?php echo $orders['count']; ?></span>
+				</a>
+			</li>			
+			<li>
+				<a href="<?php echo oos_catalog_link($oosCatalogFilename['default']); ?>">
+					<i class="fa fa-shopping-cart"></i><?php echo HEADER_TITLE_ONLINE_CATALOG; ?>
+				</a>
+			</li>
+			<li>
+				<a href="<?php echo oos_href_link_admin($aContents['logoff']); ?>">
+					<i class="fa fa-sign-out"></i><?php echo $aLang['header_title_logoff']; ?>
+				</a>
+			</li>			
+		</ul>
+	</div>
 </nav>
+<!-- End Top Navbar //-->

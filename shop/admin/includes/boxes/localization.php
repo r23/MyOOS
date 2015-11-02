@@ -31,10 +31,12 @@ $aBlocks[] = array(
 	'active' => $bActive,
 	'contents' => array(
 		array(
+			'code' => $aContents['currencies'],
 			'title' => BOX_LOCALIZATION_CURRENCIES,
 			'link' => oos_admin_files_boxes('currencies', 'selected_box=localization')
 		),
 		array(
+			'code' => $aContents['languages'],
 			'title' => BOX_LOCALIZATION_LANGUAGES,
 			'link' => oos_admin_files_boxes('languages', 'selected_box=localization')
 		),	

@@ -972,6 +972,20 @@ function oos_get_languages() {
     return $extension;
   }
 
+  
+function oos_strtolower ($sStr) {
+	$sStr = strtolower($sStr);
+	// Strip non-alpha & non-numeric except ._-:
+	return preg_replace ("/[^[:alnum:]]/", "", $sStr);
+}  
+  
+function oos_strtoupper ($sStr) {
+	$sStr = strtoupper($sStr);
+	// Strip non-alpha & non-numeric except ._-:
+	return preg_replace ("/[^[:alnum:]]/", "", $sStr);
+}    
+
+  
 
   /**
    * Mail function (uses phpMailer)

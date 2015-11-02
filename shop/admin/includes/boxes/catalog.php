@@ -36,7 +36,7 @@ $aBlocks[] = array(
 		),
 		array(
 			'title' => BOX_CATALOG_QADD_PRODUCT,
-			'link' => oos_href_link_admin($aContents['products'], 'action=new_product', 'NONSSL')
+			'link' => oos_href_link_admin($aContents['products'], 'action=new_product')
 		),
 		array(
 			'title' => BOX_CATALOG_SPECIALS,

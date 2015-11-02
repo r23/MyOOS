@@ -24,12 +24,15 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 
 $aBlocks = array();
 
+/*
 $aBlocks[] = array(
 	'heading' => 'Dashboard',
 	'link' => oos_href_link_admin($aContents['default']),
 	'icon' => 'fa fa-th-large',
 	'active' => FALSE
 );
+*/
+$aBlocks[] = array();
 
 
 if (oos_admin_check_boxes('administrator.php') == TRUE) {
@@ -53,9 +56,11 @@ if (oos_admin_check_boxes('plugins.php') == TRUE) {
 if (oos_admin_check_boxes('customers.php') == TRUE) {
 	include 'includes/boxes/customers.php';
 }
+
 if (oos_admin_check_boxes('taxes.php') == TRUE) {
     include 'includes/boxes/taxes.php';
 }
+
 if (oos_admin_check_boxes('localization.php') == TRUE) {
 	include 'includes/boxes/localization.php';
 }
@@ -78,33 +83,59 @@ if (oos_admin_check_boxes('information.php') == TRUE) {
 	include 'includes/boxes/information.php';
 }
 
-if (is_array($aBlocks)) {
 
-	echo '       <nav class="navbar-default navbar-static-side" role="navigation">
-            <div class="sidebar-collapse">
-                <ul class="nav" id="side-menu">';
-				
+if (is_array($aBlocks)) {
+    $php_self = basename($_SERVER['PHP_SELF']);
+
+	echo '<nav data-sidebar-anyclick-close="" class="sidebar">' . "\n" .
+		'	<!-- START sidebar nav //-->' . "\n" .
+		'	<ul class="nav">' . "\n" .
+		'		<!-- Iterates over all sidebar items //-->' . "\n" .
+		'		<li class="nav-heading ">' . "\n" .
+		'			<span data-localize="sidebar.heading.HEADER">Dashboard</span>' . "\n" .
+		'		</li>' . "\n";				
 				
 	foreach ($aBlocks as $panels ) {
 		if ($panels['active'] == TRUE) {
-			echo '<li class="active">';
+			echo '<li class="active">' . "\n";
 		} else {
-			echo '<li>';
+			echo '<li>' . "\n";
 		}
-		echo '<a href="' . $panels['link'] . '"><i class="' . $panels['icon'] . '"></i>' .
-			'<span class="nav-label">' . $panels['heading'] . '</span><span class="fa arrow"></span></a>';
+		
+        # <li class="nav-heading ">
+        #    <span data-localize="sidebar.heading.COMPONENTS">Components</span>
+        # </li>
 
+		if (!empty($panels)) {		
+			echo '<a href="' . $panels['link'] . '#' . oos_strtolower($panels['heading']) . '" title="' . $panels['heading'] . '" data-toggle="collapse">' . "\n" .
+				'	<i class="' . $panels['icon'] . '"></i>' . "\n" .
+				'  <span data-localize="sidebar.nav.' . oos_strtolower($panels['heading']) . '.' . oos_strtoupper($panels['heading']) . '">' . $panels['heading'] . '</span>' . "\n" .
+				'</a>' . "\n";			
+		}
+			
 		if (is_array($panels['contents'])) {
-			echo '<ul class="nav nav-second-level">';
+			echo '<ul id="' . oos_strtolower($panels['heading']) . '" class="nav sidebar-subnav collapse">' . "\n" .
+				 '	<li class="sidebar-subnav-header">' . $panels['heading'] . '</li>' . "\n";
 				foreach ($panels['contents'] as $contents) {
-					echo '<li><a href="' . $contents['link'] . '">' . $contents['title'] . '</a></li>';
+					if ( ( $php_self == $contents['code'] ) 
+						|| ((isset($_GET['gID'])) && ($_GET['gID'] == $contents['code']))
+						|| ((isset($_GET['set'])) && ($_GET['set'] == $contents['code'])) ) {
+						echo '<li class="active">' . "\n";
+					} else {
+						echo '<li>' . "\n";
+					}
+					
+					echo '  <a href="' . $contents['link'] . '" title="' . $contents['title'] . '">' . "\n" .
+						 '    <span data-localize="sidebar.nav.' . oos_strtolower($panels['heading']) . '.' . oos_strtoupper($contents['title']) . '">' . $contents['title'] . '</span>' . "\n" .
+						 '  </a>' . "\n" .
+						 '</li>' . "\n";
 				}
-			echo '</ul>';
+			echo '</ul>' . "\n";
 		}
-		echo '</li>';
+		echo '</li>' . "\n";
 	}
-
+		  
 	
-	echo '     </ul></div>
-        </nav>';
+	echo '     </ul>' . "\n" .
+         '</nav>' . "\n";
 }		

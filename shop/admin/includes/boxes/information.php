@@ -30,6 +30,7 @@ $aBlocks[] = array(
 	'active' => $bActive,
 	'contents' => array(
 		array(
+			'code' => $aContents['information'],
 			'title' => BOX_INFORMATION,
 			'link' => oos_admin_files_boxes('information', 'selected_box=information')
 		),

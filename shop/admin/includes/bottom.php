@@ -13,9 +13,9 @@ if ($bForm == TRUE) {
 <!-- JS Global Compulsory -->           
 <script type="text/javascript" src="js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script type="text/javascript" src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
+<script type="text/javascript" src="js/plugins/screenfull/dist/screenfull.min.js"></script>
+<script type="text/javascript" src="js/plugins/jquery-storage-api/jquery.storageapi.min.js"></script>
 <?php
 if ($bUpload == TRUE) {
 ?>

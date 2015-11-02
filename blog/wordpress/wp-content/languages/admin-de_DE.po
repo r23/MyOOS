@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-09-30 07:30:55+0000\n"
+"PO-Revision-Date: 2015-10-26 23:06:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3798,11 +3798,6 @@ msgstr "[%s] Neue E-Mail Adresse"
 msgid "Sorry, you must delete files before you can upload any more."
 msgstr "Leider musst du Dateien löschen, bevor du noch mehr hochladen kannst."
 
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:320
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:395
-msgid "Network Disable"
-msgstr "Netzwerk deaktivieren"
-
 #: wp-admin/includes/class-wp-ms-users-list-table.php:93
 msgctxt "user"
 msgid "Mark as Spam"
@@ -3908,6 +3903,11 @@ msgstr "Website anzeigen"
 #: wp-admin/includes/ms.php:796
 msgid "Primary Site"
 msgstr "Primäre Website"
+
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:320
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:395
+msgid "Network Disable"
+msgstr "Netzwerkweit deaktivieren"
 
 #: wp-admin/my-sites.php:94
 msgid "Global Settings"

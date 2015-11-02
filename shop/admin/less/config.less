@@ -21,6 +21,129 @@
 @brand-danger:          #d9534f;
 
 
+
+//== Colors
+//
+
+@color__background-body: #fff;
+@color__background-screen: #f1f1f1;
+@color__background-hr: #ccc;
+@color__background-button: #e6e6e6;
+@color__background-pre: #eee;
+@color__background-ins: #fff9c0;
+
+@color__text-screen: #21759b;
+@color__text-input: #666;
+@color__text-input-focus: #111;
+@color__link: royalblue;
+@color__link-visited: purple;
+@color__link-hover: midnightblue;
+@color__text-main: #656565;
+
+@color__border-button: #ccc #ccc #bbb;
+@color__border-button-hover: #ccc #bbb #aaa;
+@color__border-button-focus: #aaa #bbb #bbb;
+@color__border-input: #ccc;
+@color__border-abbr: #666;
+
+//== Typography
+//
+//## Font, line-height, and color for body text, headings, and more.
+
+@font__main: "Source Sans Pro", sans-serif;
+@font__code: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+@font__pre: "Courier 10 Pitch", Courier, monospace;
+@font__line-height-body: 1.5;
+@font__line-height-pre: 1.6;
+
+@size__site-main: 100%;
+@size__site-sidebar: 25%;
+
+
+@font-size-base:          14px;
+@font-size-large:         ceil((@font-size-base * 1.25)); // ~18px
+@font-size-small:         ceil((@font-size-base * 0.85)); // ~12px
+
+@font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
+@font-size-h2:            floor((@font-size-base * 2.15)); // ~30px
+@font-size-h3:            ceil((@font-size-base * 1.7)); // ~24px
+@font-size-h4:            ceil((@font-size-base * 1.25)); // ~18px
+@font-size-h5:            @font-size-base;
+@font-size-h6:            ceil((@font-size-base * 0.85)); // ~12px
+
+//== Media queries breakpoints
+//
+//## Define the breakpoints at which your layout will change, adapting to different screen sizes.
+
+@mq-desktop-lg:                           1200px; 	// @screen-lg-desktop; 
+@mq-desktop:                              992px; 	// @screen-desktop;
+@mq-tablet:                               768px;    // @screen-sm-min;
+@mq-mobile:                               480px;    // @screen-phone;
+
+@desktop-lg:                              ~"only screen and (min-width: @{mq-desktop-lg})";
+@desktop:                                 ~"only screen and (min-width: @{mq-desktop})";
+@tablet:                                  ~"only screen and (min-width: @{mq-tablet})";
+@mobile:                                  ~"only screen and (min-width: @{mq-mobile})";
+
+
+// Inverse version media queries (for use with max-width)
+// Some components needs to be strictly defined only for mobile
+
+@mq-up-to-desktop-lg:                           (@mq-desktop-lg - 1); // Usually 1199px
+@mq-up-to-desktop:                              (@mq-desktop - 1);    // Usually 991px
+@mq-up-to-tablet:                               (@mq-tablet - 1);     // Usually 767px
+@mq-up-to-mobile:                               (@mq-mobile - 1);      // Usually 479px
+
+@upto-desktop-lg:                              ~"only screen and (max-width: @{mq-up-to-desktop-lg})";
+@upto-desktop:                                 ~"only screen and (max-width: @{mq-up-to-desktop})";
+@upto-tablet:                                  ~"only screen and (max-width: @{mq-up-to-tablet})";
+@upto-mobile:                                  ~"only screen and (max-width: @{mq-up-to-mobile})";
+
+@landscape:                                    ~"(max-device-width: @{mq-tablet}) and (orientation:landscape)";
+
+
+//
+// Horizontal top navbar 
+// based on the bootstrap navbar styles and markup
+// ----------------------------------------------------
+
+@nav-header-wd:                 @aside-wd;
+@nav-header-wd-toggled:         @aside-wd-collapsed;
+
+@nav-top-bg:                    #23b7e5;
+@nav-top-bg-start:              @nav-top-bg;
+@nav-top-bg-end:                lighten(@nav-top-bg, 10%);
+@nav-header-bg:                 transparent;
+
+@nav-top-item-mobile:           @nav-top-bg;
+@nav-top-item-mobile-active:    darken(@nav-top-item-mobile, 20%);
+
+@nav-top-item-desktop:          #fff;
+@nav-top-item-desktop-active:   @nav-top-item-mobile-active;
+
+
+
+@sidebar-bg:                      @aside-bg;
+
+@sidebar-item-color:              #515253;
+@sidebar-item-color-active:       @nav-top-bg;
+@sidebar-item-bg-active:          darken(@sidebar-bg, 1%);
+
+@sidebar-icon-color:              inherits;
+@sidebar-icon-color-active:       @nav-top-bg;
+
+@sidebar-bullet-color:            rgba(0,0,0,.25);
+@sidebar-bullet-color-active:     @sidebar-icon-color-active;
+
+@sidebar-heading-color:           #919DA8;
+@sidebar-label-color:             @sidebar-item-color;
+
+@submenu-header-hg:               40px;   // Submenu header when hover collapse sidebar
+@sidebar-item-border-wd:          3px;
+@scrollbar-wd:                    17px;
+
+
+
 //== Scaffolding
 //
 //## Settings for some of the most global styles.
@@ -38,64 +161,22 @@
 @link-hover-decoration: underline;
 
 
-//== Typography
-//
-//## Font, line-height, and color for body text, headings, and more.
 
-@font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
-@font-family-serif:       Georgia, "Times New Roman", Times, serif;
-//** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
-@font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
-@font-family-base:        @font-family-sans-serif;
+@aside-wd:                                220px;
+@aside-wd-collapsed:                      70px;
+@aside-bg:                                #fff;
 
-@font-size-base:          14px;
-@font-size-large:         ceil((@font-size-base * 1.25)); // ~18px
-@font-size-small:         ceil((@font-size-base * 0.85)); // ~12px
+@content-bg:                              @body-bg;
+@content-heading-bg:                      #fafbfc;
+@content-heading-border:                  #cfdbe2;
+@content-padding:                         20px;
 
-@font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
-@font-size-h2:            floor((@font-size-base * 2.15)); // ~30px
-@font-size-h3:            ceil((@font-size-base * 1.7)); // ~24px
-@font-size-h4:            ceil((@font-size-base * 1.25)); // ~18px
-@font-size-h5:            @font-size-base;
-@font-size-h6:            ceil((@font-size-base * 0.85)); // ~12px
+@footer-hg:                               60px;
 
-//** Unit-less `line-height` for use in components like buttons.
-@line-height-base:        1.428571429; // 20/14
-//** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
-@line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
+@navbar-hg:                               55px; //@navbar-height;
 
-//** By default, this inherits from the `<body>`.
-@headings-font-family:    inherit;
-@headings-font-weight:    500;
-@headings-line-height:    1.1;
-@headings-color:          inherit;
-
-@navy: #1ab394;       // Primary color
-@dark-gray: #c2c2c2;  // Default color
-@blue: #1c84c6;       // Success color
-@lazur: #23c6c8;      // Info color
-@yellow: #f8ac59;     // Warrning color
-@red: #ED5565;        // Danger color
-
-// Various colors
-@text-color: #676a6c;   // Body text
-@gray: #f3f3f4;         // Background wrapper color
-@light-gray: #D1DADE;   // Default label, badget
-@label-badget-color: #5E5E5E;
-
-// IBOX colors ( default panel colors)
-@border-color: #e7eaec;     // IBox border
-@ibox-title-bg:#ffffff;     // IBox Background header
-@ibox-content-bg:#ffffff;   // IBox Background content
-
-//Sidebar width
-@sidebar-width: 220px;
-
-// Boxed layout width
-@boxed-width: 1200px;
-
-//Border radius for buttons
-@btn-border-radius: 3px;
+@boxed-max-width:                         1140px;
+@z-index-main-section:                    111;
 
 //Navigation
 @nav-bg: #2F4050;

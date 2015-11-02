@@ -82,13 +82,25 @@
   require 'includes/header.php';
   require 'includes/account_check.js.php';
 ?>
-
-<div id="wrapper">
-	<?php require 'includes/blocks.php'; ?>
-	<div id="page-wrapper" class="gray-bg">
-		<div class="row border-bottom">
-			<?php require 'includes/menue.php'; ?>
+<div class="wrapper">
+	<!-- Header //-->
+	<header class="topnavbar-wrapper">
+		<!-- Top Navbar //-->
+		<?php require 'includes/menue.php'; ?>
+	</header>
+	<!-- END Header //-->
+	<aside class="aside">
+		<!-- Sidebar //-->
+		<div class="aside-inner">
+			<?php require 'includes/blocks.php'; ?>
 		</div>
+		<!-- END Sidebar (left) //-->
+	</aside>
+	
+	<!-- Main section //-->
+	<section>
+		<!-- Page content //-->
+		<div class="content-wrapper">
 
       <?php if ($action == 'edit_process') { echo oos_draw_form('id', 'account', $aContents['admin_account'], 'action=save_account', 'post', FALSE, 'enctype="multipart/form-data"'); } elseif ($action == 'check_account') { echo oos_draw_form('id', 'account', $aContents['admin_account'], 'action=check_password', 'post', FALSE, 'enctype="multipart/form-data"'); } else { echo oos_draw_form('id', 'account', $aContents['admin_account'], 'action=check_account', 'post', FALSE,'enctype="multipart/form-data"'); } ?>
 			<!-- Breadcrumbs  -->
@@ -255,7 +267,12 @@
 			</div>
         </div>
 
-	</div>
+		</div>
+	</section>
+	<!-- Page footer //-->
+	<footer>
+		<span>&copy; 2015 - <a href="http://www.oos-shop.de/" target="_blank">MyOOS [Shopsystem]</a></span>
+	</footer>
 </div>
 
 

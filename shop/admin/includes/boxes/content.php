@@ -29,10 +29,12 @@ $aBlocks[] = array(
 	'active' => $bActive,
 	'contents' => array(
 		array(
+			'code' => $aContents['content_block'],
 			'title' => BOX_CONTENT_BLOCK,
 			'link' => oos_admin_files_boxes('content_block', 'selected_box=content')
 		),
 		array(
+			'code' => $aContents['content_page_type'],
 			'title' => BOX_CONTENT_PAGE_TYPE,
 			'link' => oos_admin_files_boxes('content_page_type', 'selected_box=content')
 		),	
