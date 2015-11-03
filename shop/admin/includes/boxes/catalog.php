@@ -31,58 +31,72 @@ $aBlocks[] = array(
 	'active' => $bActive,
 	'contents' => array(
 		array(
+			'code' => $aContents['categories'],
 			'title' => BOX_CATALOG_CATEGORIES_PRODUCTS,
 			'link' => oos_admin_files_boxes('categories', 'selected_box=catalog')
 		),
 		array(
+			'code' => $aContents['products'],
 			'title' => BOX_CATALOG_QADD_PRODUCT,
 			'link' => oos_href_link_admin($aContents['products'], 'action=new_product')
 		),
 		array(
+			'code' => $aContents['specials'],
 			'title' => BOX_CATALOG_SPECIALS,
 			'link' => oos_admin_files_boxes('specials', 'selected_box=catalog')
 		),
 		array(
+			'code' => $aContents['products_expected'],
 			'title' => BOX_CATALOG_PRODUCTS_EXPECTED,
 			'link' => oos_admin_files_boxes('products_expected', 'selected_box=catalog')
 		),
 		array(
+			'code' => $aContents['featured'],
 			'title' => BOX_CATALOG_PRODUCTS_FEATURED,
 			'link' => oos_admin_files_boxes('featured', 'selected_box=catalog')
 		),
 		array(
+			'code' => $aContents['products_attributes'],
 			'title' => BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES,
 			'link' => oos_admin_files_boxes('products_attributes', 'selected_box=catalog')
 		),
 		array(
+			'code' => $aContents['products_status'],
 			'title' => BOX_CATALOG_PRODUCTS_STATUS,
 			'link' => oos_admin_files_boxes('products_status', 'selected_box=catalog')
 		),
 		array(
+			'code' => $aContents['products_units'],
 			'title' => BOX_CATALOG_PRODUCTS_UNITS,
 			'link' => oos_admin_files_boxes('products_units', 'selected_box=catalog')
 		),
 		array(
+			'code' => $aContents['xsell_products'],
 			'title' => BOX_CATALOG_XSELL_PRODUCTS,
 			'link' =>  oos_admin_files_boxes('xsell_products', 'selected_box=catalog')
 		),
 		array(
+			'code' => $aContents['up_sell_products'],
 			'title' => BOX_CATALOG_UP_SELL_PRODUCTS,
 			'link' => oos_admin_files_boxes('up_sell_products', 'selected_box=catalog')
 		),
 		array(
+		'code' => $aContents['export_excel'],
 			'title' => BOX_CATALOG_EXPORT_EXCEL,
 			'link' => oos_admin_files_boxes('export_excel', 'selected_box=catalog')
 		),
 		array(
+		'code' => $aContents['import_excel'],
 			'title' => BOX_CATALOG_IMPORT_EXCEL,
 			'link' => oos_admin_files_boxes('import_excel', 'selected_box=catalog')
 		),
 		array(
+			'code' => $aContents['manufacturers'],
 			'title' => BOX_CATALOG_MANUFACTURERS,
 			'link' => oos_admin_files_boxes('manufacturers', 'selected_box=catalog')
 		),
 		array(
+			'code' => $aContents['reviews'],
 			'title' => BOX_CATALOG_REVIEWS,
 			'link' => oos_admin_files_boxes('reviews', 'selected_box=catalog')
 		),

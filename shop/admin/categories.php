@@ -413,12 +413,25 @@ if (is_dir(OOS_ABSOLUTE_PATH . OOS_IMAGES)) {
 
 require 'includes/header.php';
 ?>
-<div id="wrapper">
-  	<?php require 'includes/blocks.php'; ?>
-		<div id="page-wrapper" class="gray-bg">
-			<div class="row border-bottom">
-			<?php require 'includes/menue.php'; ?>
-			</div>
+<div class="wrapper">
+	<!-- Header //-->
+	<header class="topnavbar-wrapper">
+		<!-- Top Navbar //-->
+		<?php require 'includes/menue.php'; ?>
+	</header>
+	<!-- END Header //-->
+	<aside class="aside">
+		<!-- Sidebar //-->
+		<div class="aside-inner">
+			<?php require 'includes/blocks.php'; ?>
+		</div>
+		<!-- END Sidebar (left) //-->
+	</aside>
+	
+	<!-- Main section //-->
+	<section>
+		<!-- Page content //-->
+		<div class="content-wrapper">
 		
 <?php
 if ($action == 'new_category' || $action == 'edit_category') {
