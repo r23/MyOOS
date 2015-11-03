@@ -23,7 +23,7 @@
   require 'includes/main.php';
 
   $current_boxes = OOS_ABSOLUTE_PATH . 'admin/includes/boxes/';
-  $current_files = OOS_ABSOLUTE_PATH . 'admin/';
+  $current_files = OOS_ABSOLUTE_PATH . OOS_ADMIN;
 
   $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
@@ -299,7 +299,7 @@
       $file_result->Close();
 
       $file_dir = array();
-      $dir = dir(OOS_ABSOLUTE_PATH . 'admin/');
+      $dir = dir(OOS_ABSOLUTE_PATH . OOS_ADMIN);
 
       while ($file = $dir->read()) {
         if ((substr("$file", -4) == '.php') && $file != $aContents['default'] && $file != $aContents['login'] && $file != $aContents['logoff'] && $file != $aContents['forbiden'] && $file != $aContents['popup_image'] && $file != $aContents['password_forgotten'] && $file != $aContents['admin_account'] && $file != 'invoice.php' && $file != 'packingslip.php') {

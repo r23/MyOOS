@@ -31,6 +31,8 @@ define('OOS_HTTP_SERVER', ''); // No trailing slash
 define('OOS_HTTPS_SERVER', ''); // No trailing slash
 define('ENABLE_SSL', '');
 define('OOS_SHOP', '');
+define('OOS_ADMIN', 'admin/');
+
 
 define('OOS_IMAGES', 'images/');
 define('OOS_POPUP_IMAGES', 'images_big/');

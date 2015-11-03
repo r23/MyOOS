@@ -47,12 +47,12 @@ function oos_href_link_admin($page = '', $parameters = '', $connection = 'SSL') 
 		die('<div class="alert alert-danger" role="alert"><strong>Error!</strong> Unable to determine the page link!<br /><br />Function used:<br /><br />oos_href_link_admin(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</div>');
 	}
 	if ($connection == 'NONSSL') {
-		$link = OOS_HTTP_SERVER . OOS_SHOP . 'admin/';
+		$link = OOS_HTTP_SERVER . OOS_SHOP . OOS_ADMIN;
 	} elseif ($connection == 'SSL') {
 		if (ENABLE_SSL == 'TRUE') {
-			$link = OOS_HTTPS_SERVER . OOS_SHOP . 'admin/';
+			$link = OOS_HTTPS_SERVER . OOS_SHOP . OOS_ADMIN;
 		} else {
-			$link = OOS_HTTP_SERVER . OOS_SHOP . 'admin/';
+			$link = OOS_HTTP_SERVER . OOS_SHOP . OOS_ADMIN;
 		}
 	} else {
 		die('<div class="alert alert-danger" role="alert"><strong>Error!</strong> Unable to determine connection method on a link!<br /><br />Known methods: NONSSL SSL<br /><br />Function used:<br /><br />oos_href_link_admin(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</div>');

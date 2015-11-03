@@ -54,7 +54,7 @@
           oos_db_perform($oostable['admin'], $sql_data_array);
           $admin_id = $dbconn->Insert_ID();
 
-          oos_mail($_POST['admin_firstname'] . ' ' . $_POST['admin_lastname'], $_POST['admin_email_address'], ADMIN_EMAIL_SUBJECT, sprintf(ADMIN_EMAIL_TEXT, $_POST['admin_firstname'], OOS_HTTP_SERVER . OOS_SHOP . 'admin/', $_POST['admin_email_address'], $newpass, STORE_OWNER), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+          oos_mail($_POST['admin_firstname'] . ' ' . $_POST['admin_lastname'], $_POST['admin_email_address'], ADMIN_EMAIL_SUBJECT, sprintf(ADMIN_EMAIL_TEXT, $_POST['admin_firstname'], OOS_HTTP_SERVER . OOS_SHOP . OOS_ADMIN, $_POST['admin_email_address'], $newpass, STORE_OWNER), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 
           oos_redirect_admin(oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $admin_id));
         }
@@ -86,7 +86,7 @@
 
           oos_db_perform($oostable['admin'], $sql_data_array, 'update', 'admin_id = \'' . $admin_id . '\'');
 
-          oos_mail($_POST['admin_firstname'] . ' ' . $_POST['admin_lastname'], $_POST['admin_email_address'], ADMIN_EMAIL_SUBJECT, sprintf(ADMIN_EMAIL_TEXT, $_POST['admin_firstname'], OOS_HTTP_SERVER . OOS_SHOP . 'admin/', $_POST['admin_email_address'], $hiddenPassword, STORE_OWNER), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+          oos_mail($_POST['admin_firstname'] . ' ' . $_POST['admin_lastname'], $_POST['admin_email_address'], ADMIN_EMAIL_SUBJECT, sprintf(ADMIN_EMAIL_TEXT, $_POST['admin_firstname'], OOS_HTTP_SERVER . OOS_SHOP . OOS_ADMIN, $_POST['admin_email_address'], $hiddenPassword, STORE_OWNER), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 
           oos_redirect_admin(oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $admin_id));
         }
