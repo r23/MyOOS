@@ -452,6 +452,3 @@ define('TEXT_DISPLAY_NUMBER_OF_MEMBERS', 'Zeige an <b>%d</b> bis <b>%d</b> (von 
 
 define('PULL_DOWN_DEFAULT', 'Bitte wählen');
 
-// Quantity Definitions
-require('includes/languages/' . $_SESSION['language'] . '/' . 'quantity_control.php');
-

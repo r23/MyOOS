@@ -440,7 +440,3 @@ define('TEXT_DISPLAY_NUMBER_OF_FILENAMES', 'Displaying <b>%d</b> to <b>%d</b> (o
 define('TEXT_DISPLAY_NUMBER_OF_MEMBERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> members)');
 
 define('PULL_DOWN_DEFAULT', 'Please Select');
-
-// Quantity Definitions
-require('includes/languages/' . $_SESSION['language'] . '/' . 'quantity_control.php');
-

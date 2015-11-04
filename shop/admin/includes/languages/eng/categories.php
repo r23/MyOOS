@@ -126,3 +126,18 @@ define('IMAGE_SLAVE','Slave Products');
 define('TEXT_CURRENT_SLAVE_PRODUCTS','<b>Current Slave products:</b>');
 define('IMAGE_DELETE_SLAVE','Delete this slave product');
 
+// Qty Min/Units and List/Rebates
+// categories.php definitions
+define('CAT_CATEGORY_ID_TEXT','ID # ');
+define('CAT_PRODUCT_ID_TEXT','ID # ');
+define('CAT_ATTRIBUTES_BASE_PRICE_TEXT',' Attribute Base Price: ');
+define('CAT_LIST_PRICE_TEXT','<br /> List: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+define('CAT_REBATE_PRICE_TEXT','<br /> Rebate: ');
+define('CAT_QUANTITY_MIN_TEXT','<br /> Min: &nbsp;&nbsp;');
+define('CAT_QUANTITY_UNITS_TEXT','<br /> Units: ');
+
+// Attribute Copy Option
+define('TEXT_COPY_ATTRIBUTES_ONLY','Only used for Duplicate Products ...');
+define('TEXT_COPY_ATTRIBUTES','Copy Product Attribuites to Duplicate?');
+define('TEXT_COPY_ATTRIBUTES_YES','Yes');
+define('TEXT_COPY_ATTRIBUTES_NO','No');

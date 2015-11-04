@@ -123,3 +123,19 @@ define('IMAGE_SLAVE','Slave Products');
 define('TEXT_CURRENT_SLAVE_PRODUCTS','<b>Current Slave products:</b>');
 define('IMAGE_DELETE_SLAVE','Delete this slave product');
 
+// Qty Min/Units and List/Rebates
+// categories.php definitions
+define('CAT_CATEGORY_ID_TEXT','ID # ');
+define('CAT_PRODUCT_ID_TEXT','ID # ');
+define('CAT_ATTRIBUTES_BASE_PRICE_TEXT',' Basispreis : ');
+define('CAT_LIST_PRICE_TEXT','<br /> empf. VK.:');
+define('CAT_REBATE_PRICE_TEXT','<br /> Rabate: ');
+define('CAT_QUANTITY_MIN_TEXT','<br /> Mindestbestellmenge:');
+define('CAT_QUANTITY_UNITS_TEXT','<br />Verpackungseinheit: ');
+
+// Attribute Copy Option
+define('TEXT_COPY_ATTRIBUTES_ONLY','Nur Produktinformationen kopieren ...');
+define('TEXT_COPY_ATTRIBUTES','Artikeloptionen kopieren?');
+define('TEXT_COPY_ATTRIBUTES_YES' ,'Ja');
+define('TEXT_COPY_ATTRIBUTES_NO' ,'Nein');
+

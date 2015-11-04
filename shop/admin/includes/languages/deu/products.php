@@ -72,3 +72,7 @@ define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Fehler: Produkte k&ouml;nnen nicht
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis \'images\' im Katalogverzeichnis ist schreibgesch&uuml;tzt: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
 define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Verzeichnis \'images\' im Katalogverzeichnis ist nicht vorhanden: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
 
+define('TEXT_DISCOUNTS_TITLE', 'Staffelpreise');
+define('TEXT_DISCOUNTS_BREAKS', 'Staffel');
+define('TEXT_DISCOUNTS_QTY', 'Menge');
+define('TEXT_DISCOUNTS_PRICE', 'Preis');
