@@ -47,6 +47,8 @@ define('OOS_ABSOLUTE_PATH', '');
 define('OOS_DOWNLOAD_PATH', OOS_ABSOLUTE_PATH . 'download/');
 define('OOS_DOWNLOAD_PATH_PUBLIC', OOS_ABSOLUTE_PATH . 'pub/');
 define('OOS_FEEDS_EXPORT_PATH', OOS_ABSOLUTE_PATH . 'feed/');
+define('OOS_EXPORT_PATH', OOS_ABSOLUTE_PATH . OOS_ADMIN . 'export/');
+
 
 define('OOS_UPLOADS', OOS_ABSOLUTE_PATH . OOS_IMAGES . 'uploads/');
 

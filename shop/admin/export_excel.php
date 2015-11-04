@@ -124,10 +124,10 @@
   }
 
 // check if the backup directory exists
-  $dir_ok = false;
+  $dir_ok = FALSE;
   if (is_dir(oos_get_local_path(OOS_EXPORT_PATH))) {
     if (is_writeable(oos_get_local_path(OOS_EXPORT_PATH))) {
-      $dir_ok = true;
+      $dir_ok = TRUE;
     } else {
       $messageStack->add(ERROR_EXPORT_DIRECTORY_NOT_WRITEABLE, 'error');
     }
@@ -194,36 +194,39 @@
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
-  if ($dir_ok) {
-    $dir = dir(OOS_EXPORT_PATH);
-    $contents = array();
-    while ($file = $dir->read()) {
-      if (!is_dir(OOS_EXPORT_PATH . $file)) {
-        $contents[] = $file;
-      }
-    }
+if ($dir_ok) {
+	$dir = dir(OOS_EXPORT_PATH);
+	$contents = array();
+	while ($file = $dir->read()) {
+        if ( ($file != '.') && ($file != '..') && ($file != '.htaccess') ) {
+			if (!is_dir(OOS_EXPORT_PATH . $file)) {
+				$contents[] = $file;
+			}
+		}
+	}
     sort($contents);
-
+	
     for ($files = 0, $count = count($contents); $files < $count; $files++) {
-      $entry = $contents[$files];
+		$entry = $contents[$files];
 
-      $check = 0;
+		$check = 0;
 
-      if (((!$_GET['file']) || ($_GET['file'] == $entry)) && (!$buInfo) && ($action != 'backup')) {
-        $file_array['file'] = $entry;
-        $file_array['date'] = date(PHP_DATE_TIME_FORMAT, filemtime(OOS_EXPORT_PATH . $entry));
-        $file_array['size'] = number_format(filesize(OOS_EXPORT_PATH . $entry)) . ' bytes';
-        switch (substr($entry, -3)) {
-          case 'zip': $file_array['compression'] = 'ZIP'; break;
-          case '.gz': $file_array['compression'] = 'GZIP'; break;
-          default: $file_array['compression'] = TEXT_NO_EXTENSION; break;
-        }
+		if ((!isset($_GET['file']) || (isset($_GET['file']) && ($_GET['file'] == $entry))) && !isset($buInfo) && ($action != 'backup')) {
+			$file_array['file'] = $entry;
+			$file_array['date'] = date(PHP_DATE_TIME_FORMAT, filemtime(OOS_EXPORT_PATH . $entry));
+			$file_array['size'] = number_format(filesize(OOS_EXPORT_PATH . $entry)) . ' bytes';
+			
+			switch (substr($entry, -3)) {
+				case 'zip': $file_array['compression'] = 'ZIP'; break;
+				case '.gz': $file_array['compression'] = 'GZIP'; break;
+				default: $file_array['compression'] = TEXT_NO_EXTENSION; break;
+			}
 
-        $buInfo = new objectInfo($file_array);
-      }
+			$buInfo = new objectInfo($file_array);
+		}
 
-      echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'">' . "\n";
-      $onclick_link = 'file=' . $entry;
+		echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'">' . "\n";
+		$onclick_link = 'file=' . $entry;
 ?>
                 <td class="dataTableContent" onclick="document.location.href='<?php echo oos_href_link_admin($aContents['export_excel'], $onclick_link); ?>'"><?php echo '<a href="' . oos_href_link_admin($aContents['export_excel'], 'action=download&file=' . $entry) . '">' . oos_image(OOS_IMAGES . 'icons/file_download.gif', ICON_FILE_DOWNLOAD) . '</a>&nbsp;' . $entry; ?></td>
                 <td class="dataTableContent" align="center" onclick="document.location.href='<?php echo oos_href_link_admin($aContents['export_excel'], $onclick_link); ?>'"><?php echo date(PHP_DATE_TIME_FORMAT, filemtime(OOS_EXPORT_PATH . $entry)); ?></td>
@@ -233,7 +236,7 @@
 <?php
     }
     $dir->close();
-  }
+}
 ?>
               <tr>
                 <td class="smallText" colspan="3"><?php echo TEXT_EXPORT_DIRECTORY . ' ' . OOS_EXPORT_PATH; ?></td>
@@ -250,16 +253,14 @@
 
       $contents = array('form' => oos_draw_form('id', 'backup', $aContents['export_excel'], 'action=make_file_now', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_NEW_BACKUP);
-
-
-      $contents[] = array('text' => '<br />' . oos_draw_radio_field('compress', 'no', true) . ' ' . TEXT_INFO_USE_NO_COMPRESSION);
+      
       if (file_exists(LOCAL_EXE_GZIP)) $contents[] = array('text' => '<br />' . oos_draw_radio_field('compress', 'gzip') . ' ' . TEXT_INFO_USE_GZIP);
       if (file_exists(LOCAL_EXE_ZIP)) $contents[] = array('text' => oos_draw_radio_field('compress', 'zip') . ' ' . TEXT_INFO_USE_ZIP);
 
-      if ($dir_ok == true) {
+      if ($dir_ok == TRUE) {
         $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('download', 'yes') . ' ' . TEXT_INFO_DOWNLOAD_ONLY . '*<br /><br />*' . TEXT_INFO_BEST_THROUGH_HTTPS);
       } else {
-        $contents[] = array('text' => '<br />' . oos_draw_radio_field('download', 'yes', true) . ' ' . TEXT_INFO_DOWNLOAD_ONLY . '*<br /><br />*' . TEXT_INFO_BEST_THROUGH_HTTPS);
+        $contents[] = array('text' => '<br />' . oos_draw_radio_field('download', 'yes', TRUE) . ' ' . TEXT_INFO_DOWNLOAD_ONLY . '*<br /><br />*' . TEXT_INFO_BEST_THROUGH_HTTPS);
       }
 
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('backup', IMAGE_BACKUP) . '&nbsp;<a href="' . oos_href_link_admin($aContents['export_excel']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
