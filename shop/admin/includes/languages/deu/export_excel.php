@@ -49,11 +49,11 @@ define('TEXT_EXPORT_DIRECTORY', 'Sicherungsverzeichnis:');
 define('TEXT_FORGET', '(<u> vergessen</u>)');
 define('TEXT_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Sicherung l&ouml;schen m&ouml;chten?');
 
-define('ERROR_EXPORT_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Sicherungsverzeichnis ist nicht vorhanden.');
-define('ERROR_EXPORT_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Sicherungsverzeichnis ist schreibgesch&uuml;tzt.');
-define('ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE', 'Fehler: Download Link nicht akzeptabel.');
+define('ERROR_EXPORT_DIRECTORY_DOES_NOT_EXIST', '<strong>Fehler!</strong> Das Sicherungsverzeichnis ist nicht vorhanden.');
+define('ERROR_EXPORT_DIRECTORY_NOT_WRITEABLE', '<strong>Fehler!</strong> Das Sicherungsverzeichnis ist schreibgesch&uuml;tzt.');
+define('ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE', '<strong>Fehler!</strong> Download Link nicht akzeptabel.');
 
-define('SUCCESS_DATABASE_SAVED', 'Erfolg: Die Datenbank wurde gesichert.');
-define('SUCCESS_DATABASE_RESTORED', 'Erfolg: Die Datenbank wurde wiederhergestellt.');
-define('SUCCESS_EXPORT_DELETED', 'Erfolg: Die Sicherungsdatei wurde gel&ouml;scht.');
+define('SUCCESS_DATABASE_SAVED', '<strong>Erfolg!</strong> Die Datenbank wurde gesichert.');
+define('SUCCESS_DATABASE_RESTORED', '<strong>Erfolg!</strong> Die Datenbank wurde wiederhergestellt.');
+define('SUCCESS_EXPORT_DELETED', '<strong>Erfolg!</strong> Die Sicherungsdatei wurde gel&ouml;scht.');
 

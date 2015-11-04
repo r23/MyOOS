@@ -47,9 +47,9 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 </head>
 <body>
 <?php
-  if ($messageStack->size > 0) {
-    echo $messageStack->output();
-  }
+if ($messageStack->size > 0) {
+	echo $messageStack->output();
+}
 ?>
 
 

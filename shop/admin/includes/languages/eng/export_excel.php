@@ -50,11 +50,11 @@ define('TEXT_NO_EXTENSION', 'None');
 define('TEXT_EXPORT_DIRECTORY', 'Backup Directory:');
 define('TEXT_FORGET', '(<u>forget</u>)');
 
-define('ERROR_EXPORT_DIRECTORY_DOES_NOT_EXIST', 'Error: Backup directory does not exist. Please set this in configure.php.');
-define('ERROR_EXPORT_DIRECTORY_NOT_WRITEABLE', 'Error: Backup directory is not writeable.');
-define('ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE', 'Error: Download link not acceptable.');
+define('ERROR_EXPORT_DIRECTORY_DOES_NOT_EXIST', 'Error!</strong> Backup directory does not exist. Please set this in configure.php.');
+define('ERROR_EXPORT_DIRECTORY_NOT_WRITEABLE', 'Error!</strong> Backup directory is not writeable.');
+define('ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE', 'Error!</strong> Download link not acceptable.');
 
-define('SUCCESS_DATABASE_SAVED', 'Success: The database has been saved.');
-define('SUCCESS_DATABASE_RESTORED', 'Success: The database has been restored.');
-define('SUCCESS_EXPORT_DELETED', 'Success: The backup has been removed.');
+define('SUCCESS_DATABASE_SAVED', 'Success!</strong> The database has been saved.');
+define('SUCCESS_DATABASE_RESTORED', 'Success!</strong> The database has been restored.');
+define('SUCCESS_EXPORT_DELETED', 'Success!</strong> The backup has been removed.');
 

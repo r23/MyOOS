@@ -137,11 +137,10 @@ if (!isset($_SESSION['language']) || isset($_GET['language']))
 
     $sLanguage = $oLang->language['iso_639_2'];
     $nLanguageID = $oLang->language['id'];
-		$_SESSION['language'] = $oLang->language['iso_639_2'];
-		$_SESSION['language_id'] = $oLang->language['id'];
-		$_SESSION['iso_639_1'] = $oLang->language['iso_639_1'];
-		$_SESSION['languages_name'] = $oLang->language['name'];
-
+	$_SESSION['language'] = $oLang->language['iso_639_2'];
+	$_SESSION['language_id'] = $oLang->language['id'];
+	$_SESSION['iso_639_1'] = $oLang->language['iso_639_1'];
+	$_SESSION['languages_name'] = $oLang->language['name'];
 }
 
 

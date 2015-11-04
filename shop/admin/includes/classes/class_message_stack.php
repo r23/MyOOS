@@ -26,50 +26,46 @@
    if ($messageStack->size > 0) echo $messageStack->output();
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-  class messageStack extends tableBlock {
+class messageStack {
     var $size = 0;
 
 	public function __construct() {
-      global $messageToStack;
 
-      $this->errors = array();
+		$this->errors = array();
 
-      if (isset($_SESSION['messageToStack'])) {
-         $messageToStack =& $_SESSION['messageToStack'];
-      }
-      for ($i=0; $i < count($messageToStack); $i++) {
-        $this->add($messageToStack[$i]['text'], $messageToStack[$i]['type']);
-      }
-      unset($_SESSION['messageToStack']);
-    }
+		if (isset($_SESSION['messageToStack'])) {
+			for ($i = 0, $n = sizeof($_SESSION['messageToStack']); $i < $n; $i++) {
+			$this->add($_SESSION['messageToStack'][$i]['text'], $_SESSION['messageToStack'][$i]['type']);
+		}
+		unset($_SESSION['messageToStack']);
+		}
+	}
 
-    public function add($message, $type = 'error') {
-      if ($type == 'error') {
-        $this->errors[] = array('params' => 'class="messageStackError"', 'text' => oos_image(OOS_IMAGES . 'icons/error.gif', ICON_ERROR) . '&nbsp;' . $message);
-      } elseif ($type == 'warning') {
-        $this->errors[] = array('params' => 'class="messageStackWarning"', 'text' => oos_image(OOS_IMAGES . 'icons/warning.gif', ICON_WARNING) . '&nbsp;' . $message);
-      } elseif ($type == 'success') {
-        $this->errors[] = array('params' => 'class="messageStackSuccess"', 'text' => oos_image(OOS_IMAGES . 'icons/success.gif', ICON_SUCCESS) . '&nbsp;' . $message);
-      } else {
-        $this->errors[] = array('params' => 'class="messageStackError"', 'text' => $message);
-      }
+	public function add($message, $type = 'error') {
+	
+		if ($type == 'error') {
+			$this->errors[] = array('params' => 'alert-danger', 'text' => $message);
+		} elseif ($type == 'warning') {
+			$this->errors[] = array('params' => 'alert-warning', 'text' => $message);
+		} elseif ($type == 'success') {
+			$this->errors[] = array('params' => 'alert-success', 'text' =>  $message);
+		} else {
+			$this->errors[] = array('params' => 'alert-info', 'text' => $message);
+		}
 
-      $this->size++;
-    }
+		$this->size++;
+	}
 
     public function add_session($message, $type = 'error') {
-      global $messageToStack;
+		if (!isset($_SESSION['messageToStack'])) {
+			$_SESSION['messageToStack'] = array();
+		}
 
-      if (!isset($_SESSION['messageToStack'])) {
-        $_SESSION['messageToStack'] = array();
-      }
-
-      $_SESSION['messageToStack'][] = array('text' => $message, 'type' => $type);
-
-    }
+		$_SESSION['messageToStack'][] = array('text' => $message, 'type' => $type);
+	}
 
     public function reset() {
       $this->errors = array();
@@ -77,7 +73,22 @@
     }
 
     public function output() {
-      $this->table_data_parameters = 'class="messageBox"';
-      return $this->tableBlock($this->errors);
+		$sMessageBox =	'';	
+
+		$aContents = $this->errors;
+
+		for ($i = 0, $n = count($aContents); $i < $n; $i++) {
+			$sMessageBox .=	'<div class="alert';
+			if (isset($aContents[$i]['params']) && oos_is_not_null($aContents[$i]['params'])) {
+				$sMessageBox .= ' ' . $aContents[$i]['params'];
+			}
+			$sMessageBox .= '" role="alert">';
+			if (isset($aContents[$i]['text']) && oos_is_not_null($aContents[$i]['text'])) {			
+				$sMessageBox .= ' ' . $aContents[$i]['text'];
+			}
+			$sMessageBox .= '</div>' . "\n";
+		}
+			
+		return $sMessageBox;
     }
-  }
+}
