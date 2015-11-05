@@ -487,13 +487,13 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
 ?>
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
-	<!-- Breadcrumbs  -->
+	<!-- Breadcrumbs //-->
 	<div class="row wrapper white-bg page-heading">
 		<div class="col-lg-10">
 			<h2><?php echo sprintf($text_new_or_edit, oos_output_generated_category_path($current_category_id)); ?></h2>
 			<ol class="breadcrumb">
 				<li>
-					<a href="<?php echo oos_href_link_admin($aContents['default']); ?>">Home</a>
+					<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 				</li>
 				<li>
 					<a href="<?php echo oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
@@ -506,7 +506,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 		<div class="col-lg-2">
 
 		</div>
-	</div><!--/ End Breadcrumbs -->	
+	</div><!-- END Breadcrumbs //-->	
 
 		<div class="wrapper wrapper-content">
 			<div class="row">
@@ -872,13 +872,13 @@ if ($action == 'new_category' || $action == 'edit_category') {
     }
 ?>
 
-	<!-- Breadcrumbs  -->
+	<!-- Breadcrumbs //-->
 	<div class="row wrapper white-bg page-heading">
 		<div class="col-lg-10">
 			<h2><?php echo HEADING_TITLE; ?></h2>
 			<ol class="breadcrumb">
 				<li>
-					<a href="<?php echo oos_href_link_admin($aContents['default']); ?>">Home</a>
+					<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 				</li>
 				<li>
 					<a href="<?php echo oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
@@ -891,7 +891,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 		<div class="col-lg-2">
 
 		</div>
-	</div><!--/ End Breadcrumbs -->	
+	</div><!-- END Breadcrumbs //-->	
 	
 		<div class="wrapper wrapper-content">
 			<div class="row">

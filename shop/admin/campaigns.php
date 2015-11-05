@@ -171,13 +171,13 @@
 		<!-- Page content //-->
 		<div class="content-wrapper">
 			
-			<!-- Breadcrumbs  -->
+			<!-- Breadcrumbs //-->
 			<div class="row wrapper white-bg page-heading">
 				<div class="col-lg-10">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
 						<li>
-							<a href="<?php echo oos_href_link_admin($aContents['default']); ?>">Home</a>
+							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
 						<li>
 							<a href="<?php echo oos_href_link_admin($aContents['customers'], 'selected_box=customers') . '">' . BOX_HEADING_CUSTOMERS . '</a>'; ?>
@@ -190,7 +190,7 @@
 				<div class="col-lg-2">
 
 				</div>
-			</div><!--/ End Breadcrumbs -->	
+			</div><!-- END Breadcrumbs //-->	
 			
 		<div class="wrapper wrapper-content">
 			<div class="row">

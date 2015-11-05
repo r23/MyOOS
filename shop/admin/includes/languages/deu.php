@@ -67,7 +67,7 @@ define('CHARSET', 'utf-8');
 define('TITLE', 'MyOOS [Shopsystem] ');
 
 // header text in includes/header.php
-define('HEADER_TITLE_TOP', 'Administration');
+define('HEADER_TITLE_TOP', 'Home');
 define('HEADER_TITLE_SUPPORT_SITE', 'Supportseite');
 define('HEADER_TITLE_ONLINE_CATALOG', 'Online Katalog');
 define('HEADER_TITLE_ADMINISTRATION', 'Administration');
