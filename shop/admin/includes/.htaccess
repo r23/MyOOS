@@ -1,22 +1,11 @@
-# $Id: .htaccess,v 1.1 2007/09/10 20:53:16 r23 Exp $
-#
-# This is used with Apache WebServers
-# The following blocks direct HTTP requests in this directory recursively
-#
-# For this to work, you must include the parameter 'Limit' to the AllowOverride configuration
-#
-# Example:
-#
-#<Directory "/usr/local/apache/htdocs">
-#  AllowOverride Limit
-#
-# 'All' with also work. (This configuration is in your apache/conf/httpd.conf file)
-#
-# This does not affect PHP include/require functions
-#
-# Example: http://server/catalog/includes/application_top.php will not work
+<Files ~ "\.php$">
+    # Deny all requests from Apache 2.4+.
+    <IfModule mod_authz_core.c>
+          Require all denied
+    </IfModule>
 
-<Files *.php>
-Order Deny,Allow
-Deny from all
+    # Deny all requests from Apache 2.0-2.2.
+    <IfModule !mod_authz_core.c>
+        Deny from all
+    </IfModule>
 </Files>
