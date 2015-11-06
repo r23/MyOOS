@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine off
+</IfModule>
+
+# Uncomment the following lines to prevent unauthorized login:
+#AuthName "Authorization required"
+#AuthType Basic
+#AuthUserFile ".../.htpasswd"
+#require valid-user
+
