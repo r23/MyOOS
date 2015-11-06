@@ -1,7 +1,7 @@
 <?php
 
 /**
- * hacked up version of php-respimg <https://github.com/nwtn/php-respimg>
+ * Hacked up version of php-respimg: https://github.com/nwtn/php-respimg
  *
  * @package wp-respimg
  * @version 0.0.1
@@ -35,9 +35,10 @@ class Respimg extends Imagick {
 	 *
 	 * @access	public
 	 *
-	 * @param	integer	$columns		The number of columns in the output image. 0 = maintain aspect ratio based on $rows.
-	 * @param	integer	$rows			The number of rows in the output image. 0 = maintain aspect ratio based on $columns.
-	 * @param	bool	$optim			Whether you intend to perform optimization on the resulting image. Note that setting this to `true` doesn’t actually perform any optimization.
+	 * @param integer $columns The number of columns in the output image. 0 = maintain aspect ratio based on $rows.
+	 * @param integer $rows    The number of rows in the output image. 0 = maintain aspect ratio based on $columns.
+	 * @param bool    $optim   Whether you intend to perform optimization on the resulting image.
+	 *                         Note that setting this to 'true' doesn't actually perform any optimization.
 	 */
 
 	public function smartResize( $columns, $rows, $optim = false ) {
@@ -61,41 +62,41 @@ class Respimg extends Imagick {
 		if ( ! $optim ) {
 			$this->stripImage();
 		}
-
 	}
-
 
 	/**
 	 * Changes the size of an image to the given dimensions and removes any associated profiles.
 	 *
 	 * `thumbnailImage` changes the size of an image to the given dimensions and
-	 * removes any associated profiles.  The goal is to produce small low cost
+	 * removes any associated profiles. The goal is to produce small low cost
 	 * thumbnail images suited for display on the Web.
 	 *
 	 * With the original Imagick thumbnailImage implementation, there is no way to choose a
 	 * resampling filter. This class recreates Imagick’s C implementation and adds this
 	 * additional feature.
 	 *
-	 * Note: <https://github.com/mkoppanen/imagick/issues/90> has been filed for this issue.
+	 * Note: https://github.com/mkoppanen/imagick/issues/90 has been filed for this issue.
 	 *
 	 * @access	public
 	 *
-	 * @param	integer	$columns		The number of columns in the output image. 0 = maintain aspect ratio based on $rows.
-	 * @param	integer	$rows			The number of rows in the output image. 0 = maintain aspect ratio based on $columns.
-	 * @param	bool	$bestfit		Treat $columns and $rows as a bounding box in which to fit the image.
-	 * @param	bool	$fill			Fill in the bounding box with the background colour.
-	 * @param	integer	$filter			The resampling filter to use. Refer to the list of filter constants at <http://php.net/manual/en/imagick.constants.php>.
+	 * @param integer $columns The number of columns in the output image. 0 = maintain aspect ratio based on $rows.
+	 * @param integer $rows    The number of rows in the output image. 0 = maintain aspect ratio based on $columns.
+	 * @param bool    $bestfit Treat $columns and $rows as a bounding box in which to fit the image.
+	 * @param bool    $fill    Fill in the bounding box with the background colour.
+	 * @param integer $filter  The resampling filter to use. Refer to the list of filter constants at <http://php.net/manual/en/imagick.constants.php>.
 	 *
-	 * @return	bool	Indicates whether the operation was performed successfully.
+	 * @return bool Indicates whether the operation was performed successfully.
 	 */
 
 	public function thumbnailImage( $columns, $rows, $bestfit = false, $fill = false, $filter = Imagick::FILTER_TRIANGLE ) {
 
-		// sample factor; defined in original ImageMagick thumbnailImage function
-		// the scale to which the image should be resized using the `sample` function
+		/*
+		 * Sample factor; defined in original ImageMagick thumbnailImage function
+		 * the scale to which the image should be resized using the 'sample' function.
+		 */
 		$SampleFactor = 5;
 
-		// filter whitelist
+		// Filter whitelist.
 		$filters = array(
 			Imagick::FILTER_POINT,
 			Imagick::FILTER_BOX,
@@ -114,23 +115,23 @@ class Respimg extends Imagick {
 			Imagick::FILTER_SINC
 		);
 
-		// Parse parameters given to function
+		// Parse parameters given to function.
 		$columns = (double) $columns;
 		$rows = (double) $rows;
 		$bestfit = (bool) $bestfit;
 		$fill = (bool) $fill;
 
-		// We can’t resize to (0,0)
+		// We can’t resize to (0,0).
 		if ( $rows < 1 && $columns < 1 ) {
 			return false;
 		}
 
-		// Set a default filter if an acceptable one wasn’t passed
+		// Set a default filter if an acceptable one wasn’t passed.
 		if ( ! in_array( $filter, $filters ) ) {
 			$filter = Imagick::FILTER_TRIANGLE;
 		}
 
-		// figure out the output width and height
+		// Figure out the output width and height.
 		$width = (double) $this->getImageWidth();
 		$height = (double) $this->getImageHeight();
 		$new_width = $columns;
@@ -144,8 +145,10 @@ class Respimg extends Imagick {
 			$new_width = round( $y_factor * $width );
 		}
 
-		// if bestfit is true, the new_width/new_height of the image will be different than
-		// the columns/rows parameters; those will define a bounding box in which the image will be fit
+		/*
+		 * If bestfit is true, the new_width/new_height of the image will be different than
+		 * the columns/rows parameters; those will define a bounding box in which the image will be fit.
+		 */
 		if ( $bestfit && $x_factor > $y_factor ) {
 			$x_factor = $y_factor;
 			$new_width = round( $y_factor * $width );
@@ -160,8 +163,10 @@ class Respimg extends Imagick {
 			$new_height = 1;
 		}
 
-		// if we’re resizing the image to more than about 1/3 it’s original size
-		// then just use the resize function
+		/*
+		 * If we’re resizing the image to more than about 1/3 it’s original size
+		 * then just use the resize function.
+		 */
 		if ( ( $x_factor * $y_factor ) > 0.1 ) {
 			$this->resizeImage( $new_width, $new_height, $filter, 1 );
 
@@ -215,8 +220,10 @@ class Respimg extends Imagick {
 			$this->setImageProperty( 'Thumb::Document::Pages', '' );
 		}
 
-		// In case user wants to fill use extent for it rather than creating a new canvas
-		// …fill out the bounding box
+		/*
+		 * In case user wants to fill use extent for it rather than creating a new canvas
+		 * fill out the bounding box.
+		 */
 		if ( $bestfit && $fill && ( $new_width != $columns || $new_height != $rows ) ) {
 			$extent_x = 0;
 			$extent_y = 0;
@@ -233,7 +240,5 @@ class Respimg extends Imagick {
 		}
 
 		return true;
-
 	}
-
 }

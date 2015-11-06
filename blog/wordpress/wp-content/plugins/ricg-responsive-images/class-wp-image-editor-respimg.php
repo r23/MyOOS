@@ -11,7 +11,7 @@ require_once( ABSPATH . WPINC . '/class-wp-image-editor.php' );
 require_once( ABSPATH . WPINC . '/class-wp-image-editor-imagick.php' );
 
 /**
- * WordPress Image Editor Class for Image Manipulation through Imagick PHP Module with php-respimg
+ * WordPress Image Editor Class for Image Manipulation through Imagick PHP Module with php-respimg.
  *
  * @package wp-respimg
  * @uses WP_Image_Editor_Imagick Extends class
@@ -34,8 +34,11 @@ class WP_Image_Editor_Respimg extends WP_Image_Editor_Imagick {
 			return new WP_Error( 'error_loading_image', __('File doesn&#8217;t exist?'), $this->file );
 		}
 
-		/** This filter is documented in wp-includes/class-wp-image-editor-imagick.php */
-		// Even though Imagick uses less PHP memory than GD, set higher limit for users that have low PHP.ini limits
+		/*
+		 * This filter is documented in wp-includes/class-wp-image-editor-imagick.php
+		 *
+		 * Even though Imagick uses less PHP memory than GD, set higher limit for users that have low PHP.ini limits.
+		 */
 		@ini_set( 'memory_limit', apply_filters( 'image_memory_limit', WP_MAX_MEMORY_LIMIT ) );
 
 		try {
@@ -44,7 +47,7 @@ class WP_Image_Editor_Respimg extends WP_Image_Editor_Imagick {
 			if ( ! $this->image->valid() ) {
 				return new WP_Error( 'invalid_image', __('File is not an image.'), $this->file);
 			}
-			// Select the first frame to handle animated images properly
+			// Select the first frame to handle animated images properly.
 			if ( is_callable( array( $this->image, 'setIteratorIndex' ) ) ) {
 				$this->image->setIteratorIndex(0);
 			}
@@ -200,8 +203,10 @@ class WP_Image_Editor_Respimg extends WP_Image_Editor_Imagick {
 			$this->image->setImagePage( $src_w, $src_h, 0, 0);
 
 			if ( $dst_w || $dst_h ) {
-				// If destination width/height isn't specified, use same as
-				// width/height from source.
+				/*
+				 * If destination width/height isn't specified, use same as
+				 * width/height from source.
+				 */
 				if ( ! $dst_w ) {
 					$dst_w = $src_w;
 				}
@@ -222,5 +227,4 @@ class WP_Image_Editor_Respimg extends WP_Image_Editor_Imagick {
 		}
 		return $this->update_size();
 	}
-
 }
