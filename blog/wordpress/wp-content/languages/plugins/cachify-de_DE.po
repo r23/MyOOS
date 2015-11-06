@@ -1,0 +1,129 @@
+# Translation of Stable (latest release) in German
+# This file is distributed under the same license as the Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2015-10-12 12:23:00+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/1.0-alpha-1100\n"
+"Project-Id-Version: Stable (latest release)\n"
+
+#: inc/cachify.class.php:576
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: inc/cachify.class.php:648
+msgid "Caching method"
+msgstr "Caching-Methode"
+
+#: inc/cachify.class.php:650
+msgid "Empty"
+msgstr "Leerer"
+
+#: inc/cachify.class.php:717
+msgid "Flush the cachify cache"
+msgstr "Cachify-Cache leeren"
+
+#: inc/cachify.class.php:830
+msgid "Cachify cache is flushed."
+msgstr "Cachify-Cache ist geleert."
+
+#: inc/cachify.class.php:1483
+msgid "Total cache"
+msgstr "Gesamtcache"
+
+#: inc/cachify.class.php:1484
+msgid "Page cache"
+msgstr "Seitencache"
+
+#: inc/cachify.class.php:1514
+msgid "Remove"
+msgstr "Löschen"
+
+#: inc/cachify.class.php:1516
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: inc/cachify.class.php:1518
+msgid "OK"
+msgstr "OK"
+
+#: inc/cachify.class.php:1519
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. #-#-#-#-#  tmp-cachify.pot (Cachify 2.2.3)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: inc/cachify.class.php:1534 inc/cachify.class.php:1535
+msgid "Cachify"
+msgstr "Cachify"
+
+#: inc/cachify.class.php:1559
+msgid "Database"
+msgstr "Datenbank"
+
+#: inc/cachify.class.php:1561
+msgid "Hard disk"
+msgstr "Festplatte"
+
+#: inc/cachify.class.php:1596
+msgid "No minify"
+msgstr "Keine Minimierung"
+
+#: inc/cachify.class.php:1667
+msgid "The server configuration file (e.g. .htaccess) needs to be adjusted"
+msgstr "Die Serverkonfigurationsdatei (z.B. .htaccess) muss jetzt erweitert werden"
+
+#: inc/cachify.class.php:1715
+msgid "Cache method"
+msgstr "Cache-Aufbewahrungsort"
+
+#: inc/cachify.class.php:1730
+msgid "Cache expiration"
+msgstr "Cache-Gültigkeit"
+
+#: inc/cachify.class.php:1735
+msgid "Hours"
+msgstr "Stunden"
+
+#: inc/cachify.class.php:1742
+msgid "Cache generation"
+msgstr "Cache-Generierung"
+
+#: inc/cachify.class.php:1748
+msgid "No cache generation by logged in users"
+msgstr "Kein Cache-Aufbau durch eingeloggte Nutzer"
+
+#: inc/cachify.class.php:1755
+msgid "Flush the cache at new comments"
+msgstr "Neue Kommentare leeren den Cache"
+
+#: inc/cachify.class.php:1763
+msgid "Cache exceptions"
+msgstr "Cache-Ausnahmen"
+
+#: inc/cachify.class.php:1784
+msgid "Cache minify"
+msgstr "Cache-Minimierung"
+
+#: inc/cachify.class.php:1804
+msgid "Manual"
+msgstr "Dokumentation"
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/cachify/"
+msgstr "https://wordpress.org/plugins/cachify/"
+
+#. Description of the plugin/theme
+msgid "Easy to use WordPress caching plugin. Serving static blog pages from database, disk, Memcached or APC."
+msgstr "Smarter Cache für WordPress. Zwischenspeicherung der Inhalte als statische Dateien wahlweise in der Datenbank, Festplatte, Memcached oder APC."
+
+#. Author of the plugin/theme
+msgid "pluginkollektiv"
+msgstr "pluginkollektiv"
+
+#. Author URI of the plugin/theme
+msgid "http://pluginkollektiv.org"
+msgstr "http://pluginkollektiv.org"
