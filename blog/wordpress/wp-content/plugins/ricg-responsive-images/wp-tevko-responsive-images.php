@@ -8,7 +8,7 @@
  * Plugin Name:       RICG Responsive Images
  * Plugin URI:        https://github.com/ResponsiveImagesCG/wp-tevko-responsive-images
  * Description:       Bringing automatic default responsive images to WordPress
- * Version:           3.0.0
+ * Version:           3.1.0
  * Author:            The RICG
  * Author URI:        http://responsiveimages.org/
  * License:           GPL-2.0+
@@ -61,18 +61,29 @@ function tevkori_get_picturefill() {
 add_action( 'wp_enqueue_scripts', 'tevkori_get_picturefill' );
 
 /**
- * Back compatability shim for 'data-sizes' attributes in content.
+ * Filter to add 'srcset' and 'sizes' attributes to post thumbnails and gallery images.
+ * The filter is added to the hook in wp-tevko-core-functions.php because
+ * it is only needed on a version of WordPress previous to 4.4.
  *
- * Prior to version 2.5 a 'srcset' and 'data-sizes' attribute were added to the image
- * while inserting the image in the content. We replace the 'data-sizes' attribute by
- * a 'sizes' attribute.
+ * @since 2.3.0
+ * @see 'wp_get_attachment_image_attributes'
  *
- * @since 3.0.0
- *
- * @param string $content The content to filter;
- * @return string The filtered content with `data-sizes` repaced by `sizes` attributes.
+ * @return array Attributes for image.
  */
-function tevkori_replace_data_sizes( $content ) {
-	return str_replace( ' data-sizes="', ' sizes="', $content );
+function tevkori_filter_attachment_image_attributes( $attr, $attachment, $size ) {
+	// Set 'srcset' and 'sizes' if not already present and both were returned.
+	if ( empty( $attr['srcset'] ) ) {
+		$srcset = wp_get_attachment_image_srcset( $attachment->ID, $size );
+		$sizes  = wp_get_attachment_image_sizes( $attachment->ID, $size );
+
+		if ( $srcset && $sizes ) {
+			$attr['srcset'] = $srcset;
+
+			if ( empty( $attr['sizes'] ) ) {
+				$attr['sizes'] = $sizes;
+			}
+		}
+	}
+
+	return $attr;
 }
-add_filter( 'the_content', 'tevkori_replace_data_sizes' );

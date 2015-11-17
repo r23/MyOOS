@@ -12,12 +12,12 @@ function _wp_upload_dir_baseurl() {
 
 	$blog_id = get_current_blog_id();
 
-	if ( empty( $baseurl[ $blog_id ] ) ) {
+	if ( empty( $baseurl[$blog_id] ) ) {
 		$uploads_dir = wp_upload_dir();
-		$baseurl[ $blog_id ] = $uploads_dir['baseurl'];
+		$baseurl[$blog_id] = $uploads_dir['baseurl'];
 	}
 
-	return $baseurl[ $blog_id ];
+	return $baseurl[$blog_id];
 }
 
 /**
@@ -55,9 +55,10 @@ function _wp_get_image_size_from_meta( $size_name, $image_meta ) {
  * @since 3.0.0
  *
  * @param int          $attachment_id Image attachment ID.
- * @param array|string $size          Image size. Accepts any valid image size, or an array of width and height
- *                                    values in pixels (in that order). Default 'medium'.
+ * @param array|string $size          Optional. Image size. Accepts any valid image size, or an array of
+ *                                    width and height values in pixels (in that order). Default 'medium'.
  * @param array        $image_meta    Optional. The image meta data as returned by 'wp_get_attachment_metadata()'.
+ *                                    Default null.
  * @return string|bool A 'srcset' value string or false.
  */
 function wp_get_attachment_image_srcset( $attachment_id, $size = 'medium', $image_meta = null ) {
@@ -75,7 +76,7 @@ function wp_get_attachment_image_srcset( $attachment_id, $size = 'medium', $imag
 		absint( $image[2] )
 	);
 
-	return wp_calculate_image_srcset( $image_src, $size_array, $image_meta, $attachment_id );
+	return wp_calculate_image_srcset( $size_array, $image_src, $image_meta, $attachment_id );
 }
 
 /**
@@ -83,13 +84,13 @@ function wp_get_attachment_image_srcset( $attachment_id, $size = 'medium', $imag
  *
  * @since 3.0.0
  *
- * @param string $image_name    The 'src' of the image.
  * @param array  $size_array    Array of width and height values in pixels (in that order).
+ * @param string $image_src     The 'src' of the image.
  * @param array  $image_meta    The image meta data as returned by 'wp_get_attachment_metadata()'.
- * @param int    $attachment_id Optional. The image attachment ID to pass to the filter.
+ * @param int    $attachment_id Optional. The image attachment ID to pass to the filter. Default 0.
  * @return string|bool          The 'srcset' attribute value. False on error or when only one source exists.
  */
-function wp_calculate_image_srcset( $image_src, $size_array, $image_meta, $attachment_id = 0 ) {
+function wp_calculate_image_srcset( $size_array, $image_src, $image_meta, $attachment_id = 0 ) {
 	if ( empty( $image_meta['sizes'] ) ) {
 		return false;
 	}
@@ -105,22 +106,23 @@ function wp_calculate_image_srcset( $image_src, $size_array, $image_meta, $attac
 		return false;
 	}
 
-	// Don't add srcset attributes to (animated) gifs that are inserted at full size.
-	if ( isset( $image_sizes['thumbnail']['mime-type'] ) && 'image/gif' === $image_sizes['thumbnail']['mime-type'] &&
-		false !== strpos( $image_src, $image_meta['file'] ) ) {
-
-		return false;
-	}
-
 	$image_basename = wp_basename( $image_meta['file'] );
 	$image_baseurl = _wp_upload_dir_baseurl();
 
-	// Add full size to the '$image_sizes' array.
-	$image_sizes['full'] = array(
-		'width'  => $image_meta['width'],
-		'height' => $image_meta['height'],
-		'file'   => $image_basename,
-	);
+	/*
+	 * WordPress flattens animated GIFs into one frame when generating intermediate sizes.
+	 * To avoid hiding animation in user content, if src is a full size GIF, a srcset attribute is not generated.
+	 * If src is an intermediate size GIF, the full size is excluded from srcset to keep a flattened GIF from becoming animated.
+	 */
+	if ( ! isset( $image_sizes['thumbnail']['mime-type'] ) || 'image/gif' !== $image_sizes['thumbnail']['mime-type'] ) {
+		$image_sizes['full'] = array(
+			'width'  => $image_meta['width'],
+			'height' => $image_meta['height'],
+			'file'   => $image_basename,
+		);
+	} elseif ( strpos( $image_src, $image_meta['file'] ) ) {
+		return false;
+	}
 
 	// Uploads are (or have been) in year/month sub-directories.
 	if ( $image_basename !== $image_meta['file'] ) {
@@ -146,7 +148,7 @@ function wp_calculate_image_srcset( $image_src, $size_array, $image_meta, $attac
 	/**
 	 * Filter the maximum image width to be included in a 'srcset' attribute.
 	 *
-	 * @since 4.4.0
+	 * @since 3.0.0
 	 *
 	 * @param int   $max_width  The maximum image width to be included in the 'srcset'. Default '1600'.
 	 * @param array $size_array Array of width and height values in pixels (in that order).
@@ -191,26 +193,27 @@ function wp_calculate_image_srcset( $image_src, $size_array, $image_meta, $attac
 	}
 
 	/**
-	 * Filter the output of 'wp_calculate_image_srcset()'.
+	 * Filter an image's 'srcset' sources.
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param array $sources       An array of sources to include in the 'srcset'. Each source
-	 *                             consists of an array containing the URL and the descriptor
-	 *                             type and value (default: the image width):
+	 * @param array  $sources {
+	 *     One or more arrays of source data to include in the 'srcset'.
 	 *
-	 *                             image width => array(
-	 *                                 'url'        => string,
-	 *                                 'descriptor' => string ('w' or 'x'),
-	 *                                 'value'      => integer (width or pixel density)
-	 *                             },
-	 *
-	 * @param int   $attachment_id Image attachment ID.
-	 * @param array $size_array    Array of width and height values in pixels (in that order).
-	 * @param array $image_meta    The image meta data as returned by 'wp_get_attachment_metadata()'.
-
+	 *     @type type array $width {
+	 *          @type type string $url        The URL of an image source.
+	 *          @type type string $descriptor The descriptor type used in the image candidate string,
+	 *                                        either 'w' or 'x'.
+	 *          @type type int    $value      The source width, if paired with a 'w' descriptor or a
+	 *                                        pixel density value if paired with an 'x' descriptor.
+	 *     }
+	 * }
+	 * @param array  $size_array    Array of width and height values in pixels (in that order).
+	 * @param string $image_src     The 'src' of the image.
+	 * @param array  $image_meta    The image meta data as returned by 'wp_get_attachment_metadata()'.
+	 * @param int    $attachment_id Image attachment ID or 0.
 	 */
-	$sources = apply_filters( 'wp_calculate_image_srcset', $sources, $attachment_id, $size_array, $image_meta );
+	$sources = apply_filters( 'wp_calculate_image_srcset', $sources, $size_array, $image_src, $image_meta, $attachment_id );
 
 	// Only return a 'srcset' value if there is more than one source.
 	if ( count( $sources ) < 2 ) {
@@ -227,20 +230,51 @@ function wp_calculate_image_srcset( $image_src, $size_array, $image_meta, $attac
 }
 
 /**
- * Create 'sizes' attribute value for an image.
+ * Retrieves the value for an image attachment's 'sizes' attribute.
  *
  * @since 3.0.0
  *
- * @param array|string $size          Image size. Accepts any valid image size name ('thumbnail', 'medium', etc.),
- *                                    or an array of width and height values in pixels (in that order).
+ * @param int          $attachment_id Image attachment ID.
+ * @param array|string $size          Optional. Image size. Accepts any valid image size, or an array of width
+ *                                    and height values in pixels (in that order). Default 'medium'.
  * @param array        $image_meta    Optional. The image meta data as returned by 'wp_get_attachment_metadata()'.
+ *                                    Default null.
+ * @return string|bool A valid source size value for use in a 'sizes' attribute or false.
+ */
+function wp_get_attachment_image_sizes( $attachment_id, $size = 'medium', $image_meta = null ) {
+	if ( ! $image = wp_get_attachment_image_src( $attachment_id, $size ) ) {
+		return false;
+	}
+
+	if ( ! is_array( $image_meta ) ) {
+		$image_meta = get_post_meta( $attachment_id, '_wp_attachment_metadata', true );
+	}
+
+	$image_src = $image[0];
+	$size_array = array(
+		absint( $image[1] ),
+		absint( $image[2] )
+	);
+
+	return wp_calculate_image_sizes( $size_array, $image_src, $image_meta, $attachment_id );
+}
+
+/**
+ * Creates a 'sizes' attribute value for an image.
+ *
+ * @since 3.1.0
+ *
+ * @param array|string $size          Image size to retrieve. Accepts any valid image size, or an array
+ *                                    of width and height values in pixels (in that order).
+ * @param string       $image_src     Optional. The URL to the image file. Default null.
+ * @param array        $image_meta    Optional. The image meta data as returned by 'wp_get_attachment_metadata()'. Default null.
  * @param int          $attachment_id Optional. Image attachment ID. Either `$image_meta` or `$attachment_id` is needed
- *                                    when using the image size name as argument for `$size`.
- * @param string       $image_src     Optional. The URL to the image file.
+ *                                    when using the image size name as argument for `$size`. Default 0.
+
  *
  * @return string|bool A valid source size value for use in a 'sizes' attribute or false.
  */
-function wp_get_attachment_image_sizes( $size, $image_meta = null, $attachment_id = 0, $image_src = null ) {
+function wp_calculate_image_sizes( $size, $image_src = null, $image_meta = null, $attachment_id = 0 ) {
 	$width = 0;
 
 	if ( is_array( $size ) ) {
@@ -266,18 +300,18 @@ function wp_get_attachment_image_sizes( $size, $image_meta = null, $attachment_i
 	$sizes = sprintf( '(max-width: %1$dpx) 100vw, %1$dpx', $width );
 
 	/**
-	 * Filter the output of 'wp_get_attachment_image_sizes()'.
+	 * Filter the output of 'wp_calculate_image_sizes()'.
 	 *
-	 * @since 3.0.0
+	 * @since 3.1.0
 	 *
 	 * @param string       $sizes         A source size value for use in a 'sizes' attribute.
-	 * @param array|string $size          Image size. Image size name, or an array of width and height
-	 *                                    values in pixels (in that order).
-	 * @param array        $image_meta    The image meta data as returned by 'wp_get_attachment_metadata()'.
-	 * @param int          $attachment_id Image attachment ID of the original image.
-	 * @param string       $image_src     Optional. The URL to the image file.
+	 * @param array|string $size          Requested size. Image size or array of width and height values
+	 *                                    in pixels (in that order).
+	 * @param string|null  $image_src     The URL to the image file or null.
+	 * @param array|null   $image_meta    The image meta data as returned by 'wp_get_attachment_metadata()' or null.
+	 * @param int          $attachment_id Image attachment ID of the original image or 0.
 	 */
-	return apply_filters( 'wp_get_attachment_image_sizes', $sizes, $size, $image_meta, $attachment_id, $image_src );
+	return apply_filters( 'wp_calculate_image_sizes', $sizes, $size, $image_src, $image_meta, $attachment_id );
 }
 
 /**
@@ -285,7 +319,7 @@ function wp_get_attachment_image_sizes( $size, $image_meta = null, $attachment_i
  *
  * @since 3.0.0
  *
- * @see 'wp_image_add_srcset_and_sizes()'
+ * @see wp_image_add_srcset_and_sizes()
  *
  * @param string $content The raw post content to be filtered.
  * @return string Converted content with 'srcset' and 'sizes' attributes added to images.
@@ -296,7 +330,7 @@ function wp_make_content_images_responsive( $content ) {
 	$selected_images = $attachment_ids = array();
 
 	foreach( $images as $image ) {
-		if ( false === strpos( $image, ' srcset="' ) && preg_match( '/wp-image-([0-9]+)/i', $image, $class_id ) &&
+		if ( false === strpos( $image, ' srcset=' ) && preg_match( '/wp-image-([0-9]+)/i', $image, $class_id ) &&
 			( $attachment_id = absint( $class_id[1] ) ) ) {
 
 			/*
@@ -374,8 +408,8 @@ function tevkori_get_media_embedded_in_content( $content, $types = null ) {
  *
  * @since 3.0.0
  *
- * @see 'wp_get_attachment_image_srcset()'
- * @see 'wp_get_attachment_image_sizes()'
+ * @see wp_calculate_image_srcset()
+ * @see wp_calculate_image_sizes()
  *
  * @param string $image         An HTML 'img' element to be filtered.
  * @param array  $image_meta    The image meta data as returned by 'wp_get_attachment_metadata()'.
@@ -388,17 +422,17 @@ function wp_image_add_srcset_and_sizes( $image, $image_meta, $attachment_id ) {
 		return $image;
 	}
 
-	$src = preg_match( '/src="([^"]+)"/', $image, $match_src ) ? $match_src[1] : '';
-	list( $src ) = explode( '?', $src );
+	$image_src = preg_match( '/src="([^"]+)"/', $image, $match_src ) ? $match_src[1] : '';
+	list( $image_src ) = explode( '?', $image_src );
 
 	// Return early if we couldn't get the image source.
-	if ( ! $src ) {
+	if ( ! $image_src ) {
 		return $image;
 	}
 
 	// Bail early if an image has been inserted and later edited.
 	if ( preg_match( '/-e[0-9]{13}/', $image_meta['file'], $img_edit_hash ) &&
-		strpos( wp_basename( $src ), $img_edit_hash[0] ) === false ) {
+		strpos( wp_basename( $image_src ), $img_edit_hash[0] ) === false ) {
 
 		return $image;
 	}
@@ -411,7 +445,7 @@ function wp_image_add_srcset_and_sizes( $image, $image_meta, $attachment_id ) {
 		 * If attempts to parse the size value failed, attempt to use the image meta data to match
 		 * the image file name from 'src' against the available sizes for an attachment.
 		 */
-		$image_filename = wp_basename( $src );
+		$image_filename = wp_basename( $image_src );
 
 		if ( $image_filename === wp_basename( $image_meta['file'] ) ) {
 			$width = (int) $image_meta['width'];
@@ -432,22 +466,34 @@ function wp_image_add_srcset_and_sizes( $image, $image_meta, $attachment_id ) {
 	}
 
 	$size_array = array( $width, $height );
-	$srcset = wp_calculate_image_srcset( $src, $size_array, $image_meta, $attachment_id );
+	$srcset = wp_calculate_image_srcset( $size_array, $image_src, $image_meta, $attachment_id );
 
 	if ( $srcset ) {
-		$sizes = wp_get_attachment_image_sizes( $size_array, $image_meta, $attachment_id, $src );
+		// Check if there is already a 'sizes' attribute.
+		$sizes = strpos( $image, ' sizes=' );
+
+		if ( ! $sizes ) {
+			$sizes = wp_calculate_image_sizes( $size_array, $image_src, $image_meta, $attachment_id );
+		}
 	}
 
 	if ( $srcset && $sizes ) {
 		// Format the 'srcset' and 'sizes' string and escape attributes.
-		$srcset_and_sizes = sprintf( ' srcset="%s" sizes="%s"', esc_attr( $srcset ), esc_attr( $sizes ) );
+		$attr = sprintf( ' srcset="%s"', esc_attr( $srcset ) );
+
+		if ( is_string( $sizes ) ) {
+			$attr .= sprintf( ' sizes="%s"', esc_attr( $sizes ) );
+		}
 
 		// Add 'srcset' and 'sizes' attributes to the image markup.
-		$image = preg_replace( '/<img ([^>]+?)[\/ ]*>/', '<img $1' . $srcset_and_sizes . ' />', $image );
+		$image = preg_replace( '/<img ([^>]+?)[\/ ]*>/', '<img $1' . $attr . ' />', $image );
 	}
 
 	return $image;
 }
 
-// Add the filter to add 'srcset' and 'sizes' attributes to post thumbnails and gallery images.
+/*
+ * Add the filter to add 'srcset' and 'sizes' attributes to post thumbnails and gallery images.
+ * 'tevkori_filter_attachment_image_attributes()' can be found in wp-tevko-responsive-images.php
+ */
 add_filter( 'wp_get_attachment_image_attributes', 'tevkori_filter_attachment_image_attributes', 0, 3 );

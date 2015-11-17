@@ -4,7 +4,7 @@ Donate link: https://app.etapestry.com/hosted/BoweryResidentsCommittee/OnlineDon
 Tags: Responsive, Images, Responsive Images, SRCSET, Picturefill
 Requires at least: 4.0
 Tested up to: 4.3
-Stable tag: 3.0.0
+Stable tag: 3.1.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -16,8 +16,11 @@ Bringing automatic default responsive images to WordPress.
 
 This plugin works by including all available image sizes for each image upload. Whenever WordPress outputs the image through the media uploader, or whenever a featured image is generated, those sizes will be included in the image tag via the srcset attribute.
 
-**Notice**
-As of version 2.5.0, the plugin adds `srcset` and `sizes` attributes to images on the front end instead of adding them to the image markup saved in posts.
+**Important notes**
+
+* Version 3.1.0 includes important changes that make this plugin compatible with WordPress version 4.4. Upgrading is highly recommended.
+
+* As of version 2.5.0, the plugin adds `srcset` and `sizes` attributes to images on the front end instead of adding them to the image markup saved in posts.
 
 **Full documentation and contributor guidelines can be found on [Github](https://github.com/ResponsiveImagesCG/wp-tevko-responsive-images)**
 
@@ -28,6 +31,16 @@ As of version 2.5.0, the plugin adds `srcset` and `sizes` attributes to images o
 3. If you'd like to enable the advanced image compression feature, Please see the instructions at https://github.com/ResponsiveImagesCG/wp-tevko-responsive-images/tree/dev#advanced-image-compression
 
 == Changelog ==
+
+= 3.1.0 =
+* Adds special handling of GIFs in srcset attributes to preserve animation.
+* Makes internal srcset/sizes functions more consistent.
+* Fixes a bug where functions hooked into `tevkori_image_sizes_args` were not firing.
+* Fixes a bug where custom sizes attributes added via the post editor were being overwritten.
+* Deprecates hook `wp_get_attachment_image_sizes`.
+* Fixes a bug where `the_post_thumbnail()` would fail to add srcset/sizes attributes.
+* Several improvements to internal inline documentation.
+* Major improvements to function/hook documentation in readme.md after 3.0.0 changes.
 
 = 3.0.0 =
 * Deprecates all core functions that will be merged into WordPress core in 4.4.

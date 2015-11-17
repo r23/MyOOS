@@ -1,11 +1,31 @@
 <?php
 /**
+ * Mark a filter hook as deprecated and inform when it has been used.
+ *
+ * @since 3.1.0
+ * @access private
+ *
+ * @param string $filter      The filter hook that was used.
+ * @param string $version     The version that deprecated the filter hook.
+ * @param string $replacement Optional. The filter hook that should have been used. Default null.
+ */
+function _tevkori_deprecated_filter( $filter, $version, $replacement = null ) {
+	if ( WP_DEBUG ) {
+		if ( ! is_null( $replacement ) ) {
+			trigger_error( sprintf( 'Filter hook %1$s is <strong>deprecated</strong> since version %2$s! Use %3$s instead.', $filter, $version, $replacement ) );
+		} else {
+			trigger_error( sprintf( 'Filter hook %1$s is <strong>deprecated</strong> since version %2$s with no alternative available.', $filter, $version ) );
+		}
+	}
+}
+
+/**
  * Returns an array of image sources for a 'srcset' attribute.
  *
  * @since 2.1.0
  * @deprecated 3.0.0 Use 'wp_get_attachment_image_srcset()'
- * @see 'wp_get_attachment_image_sizes()'
- * @see 'wp_calculate_image_srcset()'
+ *
+ * @see wp_get_attachment_image_srcset()
  *
  * @param int          $id   Image attachment ID.
  * @param array|string $size Image size. Accepts any valid image size, or an array of width and height
@@ -36,13 +56,17 @@ function tevkori_get_srcset_array( $id, $size = 'medium' ) {
 	 *
 	 * @since 2.4.0
 	 * @deprecated 3.0.0 Use 'wp_calculate_image_srcset'
-	 * @see 'wp_calculate_image_srcset'
+	 *
+	 * @see wp_calculate_image_srcset
 	 *
 	 * @param array        $arr   An array of image sources.
 	 * @param int          $id    Attachment ID for image.
 	 * @param array|string $size  Image size. Image size or an array of width and height
 	 *                            values in pixels (in that order).
 	 */
+	if ( has_filter( 'tevkori_srcset_array' ) ) {
+		_tevkori_deprecated_filter( 'tevkori_srcset_array', '3.0.0', 'wp_calculate_image_srcset' );
+	}
 	return apply_filters( 'tevkori_srcset_array', $arr, $id, $size );
 }
 
@@ -51,8 +75,8 @@ function tevkori_get_srcset_array( $id, $size = 'medium' ) {
  *
  * @since 2.3.0
  * @deprecated 3.0.0 Use 'wp_get_attachment_image_srcset()'
- * @see 'wp_get_attachment_image_sizes()'
- * @see 'wp_calculate_image_srcset()'
+ *
+ * @see wp_get_attachment_image_srcset()
  *
  * @param int          $id   Image attachment ID.
  * @param array|string $size Image size. Accepts any valid image size, or an array of width and height
@@ -76,8 +100,8 @@ function tevkori_get_srcset( $id, $size = 'medium' ) {
  *
  * @since 2.1.0
  * @deprecated 3.0.0 Use 'wp_get_attachment_image_srcset()'
- * @see 'wp_get_attachment_image_sizes()'
- * @see 'wp_calculate_image_srcset()'
+ *
+ * @see wp_get_attachment_image_srcset()
  *
  * @param int          $id   Image attachment ID.
  * @param array|string $size Image size. Accepts any valid image size, or an array of width and height
@@ -103,7 +127,8 @@ function tevkori_get_srcset_string( $id, $size = 'medium' ) {
  *
  * @since 2.2.0
  * @deprecated 3.0.0 Use 'wp_get_attachment_image_sizes()'
- * @see 'wp_get_attachment_image_sizes()'
+ *
+ * @see wp_get_attachment_image_sizes()
  *
  * @param int          $id   Image attachment ID.
  * @param array|string $size Image size. Accepts any valid image size, or an array of width and height
@@ -119,12 +144,18 @@ function tevkori_get_srcset_string( $id, $size = 'medium' ) {
 function tevkori_get_sizes( $id, $size = 'medium', $args = null ) {
 	_deprecated_function( __FUNCTION__, '3.0.0', 'wp_get_attachment_image_sizes()' );
 
-	if ( $args || has_filter( 'tevkori_image_sizes_args' ) ) {
-		// Try to get the image width from '$args' first.
+	/*
+	 * If this function is passed with an $args parameter, we need to parse the
+	 * $args parameter as we were doing previously, and then save it to a static
+	 * variable using '_tevkori_sizes_has_args()' which can be accessed from the
+	 * '_tevkori_image_sizes_args_shim()' filter in 'wp_calculate_image_sizes()'
+	 */
+	if ( $args ) {
+		// Try to get the image width from '$args' before calling 'image_downsize()'.
 		if ( is_array( $args ) && ! empty( $args['width'] ) ) {
 			$img_width = (int) $args['width'];
-		} elseif ( $img = image_get_intermediate_size( $id, $size ) ) {
-			$img_width = $img['width'];
+		} else {
+			$img_width = ( $img = image_downsize( $id, $size ) ) ? $img[1] : false;
 		}
 
 		// Bail early if '$img_width' isn't set.
@@ -134,7 +165,6 @@ function tevkori_get_sizes( $id, $size = 'medium', $args = null ) {
 
 		// Set the image width in pixels.
 		$img_width = $img_width . 'px';
-
 		// Set up our default values.
 		$defaults = array(
 			'sizes' => array(
@@ -151,72 +181,148 @@ function tevkori_get_sizes( $id, $size = 'medium', $args = null ) {
 
 		$args = wp_parse_args( $args, $defaults );
 
-		/**
-		* Filter arguments used to create the 'sizes' attribute value.
-		*
-		* @since 2.4.0
-		* @deprecated 3.0.0 Use 'wp_get_attachment_image_sizes'
-		* @see 'wp_get_attachment_image_sizes'
-		*
-		* @param array        $args An array of arguments used to create a 'sizes' attribute.
-		* @param int          $id   Post ID of the original image.
-		* @param array|string $size Image size. Image size or an array of width and height
-		*                           values in pixels (in that order).
-		*/
-		$args = apply_filters( 'tevkori_image_sizes_args', $args, $id, $size );
+		// Set our static sizes args.
+		_tevkori_sizes_has_args( $args );
 
-		// If sizes is passed as a string, just use the string.
-		if ( is_string( $args['sizes'] ) ) {
-			$size_list = $args['sizes'];
+		$sizes = wp_get_attachment_image_sizes( $id, $size );
 
-		// Otherwise, breakdown the array and build a sizes string.
-		} elseif ( is_array( $args['sizes'] ) ) {
+		// Unset our static sizes args.
+		_tevkori_sizes_has_args( false );
 
-			$size_list = '';
-
-			foreach ( $args['sizes'] as $size ) {
-
-				// Use 100vw as the size value unless something else is specified.
-				$size_value = ( $size['size_value'] ) ? $size['size_value'] : '100vw';
-
-				// If a media length is specified, build the media query.
-				if ( ! empty( $size['mq_value'] ) ) {
-
-					$media_length = $size['mq_value'];
-
-					// Use max-width as the media condition unless min-width is specified.
-					$media_condition = ( ! empty( $size['mq_name'] ) ) ? $size['mq_name'] : 'max-width';
-
-					// If a media length was set, create the media query.
-					$media_query = '(' . $media_condition . ": " . $media_length . ') ';
-
-				} else {
-
-					// If no media length was set, '$media_query' is blank.
-					$media_query = '';
-				}
-
-				// Add to the source size list string.
-				$size_list .= $media_query . $size_value . ', ';
-			}
-
-			// Remove the trailing comma and space from the end of the string.
-			$size_list = substr( $size_list, 0, -2 );
-		}
-
-		// If '$size_list' is defined set the string, otherwise set false.
-		return ( $size_list ) ? $size_list : false;
+		return $sizes;
 	} else {
-		return wp_get_attachment_image_sizes( $size, $image_meta = null, $id );
+		return wp_get_attachment_image_sizes( $id, $size );
 	}
 }
+
+/**
+ * Private function to cache '$args' param from 'tevkori_get_sizes()'.
+ *
+ * @since 3.1.0
+ * @access private
+ *
+ * @param array|bool $args Optional. The parsed value of the '$args' param from
+ *                         'tevkori_get_sizes()' or 'false' to unset the saved value.
+ * @return array|bool The cached '$args' value or false is none is set.
+ */
+function _tevkori_sizes_has_args( $args = null ) {
+	static $return_args = false;
+
+	if ( false === $args ) {
+		$return_args = false;
+	} elseif ( is_array( $args ) ) {
+		$return_args = $args;
+	}
+
+	return $return_args;
+}
+
+/**
+ * Provides backward compatibility of the 'tevkori_image_sizes_args' filter
+ * and the '$args' parameter of 'tevkori_get_sizes()'.
+ *
+ * @since 3.1.0
+ * @access private
+ *
+ * @see wp_calculate_image_srcset
+ *
+ * @return string A source size value for use in a 'sizes' attribute.
+ */
+function _tevkori_image_sizes_args_shim( $sizes, $size, $image_src, $image_meta, $id ) {
+	// Check for '$args' that were passed to 'tevkori_get_sizes()';
+	$args = _tevkori_sizes_has_args();
+
+	// Bail early if no '$args' were passed or the old filter wasn't used.
+	if ( ! $args && ! has_filter( 'tevkori_image_sizes_args' ) ) {
+		return $sizes;
+	}
+
+	// If no '$args' are present, we'll build the default '$args'.
+	if ( ! $args ) {
+		// Recreate default '$args'.
+		if ( is_array( $size ) ) {
+			$img_width = (int) $size[0];
+		} else {
+			$img = image_downsize( $id, $size );
+			$img_width = $img[1];
+		}
+
+		$args = array(
+			'sizes' => array(
+				array(
+					'size_value' => '100vw',
+					'mq_value'   => $img_width,
+					'mq_name'    => 'max-width'
+				),
+				array(
+					'size_value' => $img_width
+				),
+			)
+		);
+	}
+
+	/**
+	* Filter arguments used to create the 'sizes' attribute value.
+	*
+	* @since 2.4.0
+	* @deprecated 3.0.0 Use 'wp_calculate_image_sizes'
+	*
+	* @see wp_calculate_image_sizes
+	*
+	* @param array        $args An array of arguments used to create a 'sizes' attribute.
+	* @param int          $id   Post ID of the original image.
+	* @param array|string $size Image size. Image size or an array of width and height
+	*                           values in pixels (in that order).
+	*/
+	if ( has_filter( 'tevkori_image_sizes_args' ) ) {
+		_tevkori_deprecated_filter( 'tevkori_image_sizes_args', '3.0.0', 'wp_calculate_image_sizes' );
+	}
+	$args = apply_filters( 'tevkori_image_sizes_args', $args, $id, $size );
+
+	// If sizes is passed as a string, just use the string.
+	if ( is_string( $args['sizes'] ) ) {
+		$size_list = $args['sizes'];
+
+	// Otherwise, breakdown the array and build a sizes string.
+	} elseif ( is_array( $args['sizes'] ) ) {
+		$size_list = '';
+
+		foreach ( $args['sizes'] as $size ) {
+			// Use 100vw as the size value unless something else is specified.
+			$size_value = ( $size['size_value'] ) ? $size['size_value'] : '100vw';
+
+			// If a media length is specified, build the media query.
+			if ( ! empty( $size['mq_value'] ) ) {
+				$media_length = $size['mq_value'];
+
+				// Use max-width as the media condition unless min-width is specified.
+				$media_condition = ( ! empty( $size['mq_name'] ) ) ? $size['mq_name'] : 'max-width';
+
+				// If a media length was set, create the media query.
+				$media_query = '(' . $media_condition . ": " . $media_length . ') ';
+			} else {
+				// If no media length was set, '$media_query' is blank.
+				$media_query = '';
+			}
+			// Add to the source size list string.
+			$size_list .= $media_query . $size_value . ', ';
+		}
+		// Remove the trailing comma and space from the end of the string.
+		$size_list = substr( $size_list, 0, -2 );
+	}
+
+	// If '$size_list' is defined return the string, otherwise return '$sizes'.
+	return ( $size_list ) ? $size_list : $sizes;
+}
+add_filter( 'wp_calculate_image_sizes', '_tevkori_image_sizes_args_shim', 1, 5 );
 
 /**
  * Returns a 'sizes' attribute.
  *
  * @since 2.2.0
  * @deprecated 3.0.0 Use 'wp_get_attachment_image_sizes()'
- * @see 'wp_get_attachment_image_sizes()'
+ *
+ * @see wp_get_attachment_image_sizes()
  *
  * @param int          $id   Image attachment ID.
  * @param array|string $size Image size. Accepts any valid image size, or an array of width and height
@@ -232,10 +338,10 @@ function tevkori_get_sizes( $id, $size = 'medium', $args = null ) {
 function tevkori_get_sizes_string( $id, $size = 'medium', $args = null ) {
 	_deprecated_function( __FUNCTION__, '3.0.0', 'wp_get_attachment_image_sizes()' );
 
-	if ( $args || has_filter( 'tevkori_image_sizes_args' ) ) {
+	if ( $args ) {
 		$sizes = tevkori_get_sizes( $id, $size, $args );
 	} else {
-		$sizes = wp_get_attachment_image_sizes( $size, $image_meta = null, $id );
+		$sizes = wp_get_attachment_image_sizes( $id, $size );
 	}
 
 	return $sizes ? 'sizes="' . esc_attr( $sizes ) . '"' : false;
@@ -246,7 +352,8 @@ function tevkori_get_sizes_string( $id, $size = 'medium', $args = null ) {
  *
  * @since 2.5.0
  * @deprecated 3.0.0 Use 'wp_make_content_images_responsive()'
- * @see 'wp_make_content_images_responsive()'
+ *
+ * @see wp_make_content_images_responsive()
  *
  * @param string $content The raw post content to be filtered.
  * @return string Converted content with 'srcset' and 'sizes' added to images.
@@ -257,27 +364,51 @@ function tevkori_filter_content_images( $content ) {
 }
 
 /**
- * Filter to add 'srcset' and 'sizes' attributes to post thumbnails and gallery images.
+ * Backward compatibility shim for 'data-sizes' attributes in content.
  *
- * @since 2.3.0
- * @see 'wp_get_attachment_image_attributes'
+ * Prior to version 2.5 a 'srcset' and 'data-sizes' attribute were added to the image
+ * while inserting the image in the content. We replace the 'data-sizes' attribute by
+ * a 'sizes' attribute.
  *
- * @return array Attributes for image.
+ * @since 3.0.0
+ *
+ * @param string $content The content to filter;
+ * @return string The filtered content with `data-sizes` replaced by `sizes` attributes.
  */
-function tevkori_filter_attachment_image_attributes( $attr, $attachment, $size ) {
-	// Set 'srcset' and 'sizes' if not already present and both were returned.
-	if ( empty( $attr['srcset'] ) ) {
-		$srcset = wp_get_attachment_image_srcset( $attachment->ID, $size );
-		$sizes  = wp_get_attachment_image_sizes( $size, $image_meta = null, $attachment->ID );
-
-		if ( $srcset && $sizes ) {
-			$attr['srcset'] = $srcset;
-
-			if ( empty( $attr['sizes'] ) ) {
-				$attr['sizes'] = $sizes;
-			}
-		}
-	}
-
-	return $attr;
+function tevkori_replace_data_sizes( $content ) {
+	return str_replace( ' data-sizes="', ' sizes="', $content );
 }
+add_filter( 'the_content', 'tevkori_replace_data_sizes' );
+
+/**
+ * Backward compatibility shim for the deprecated 'wp_get_attachment_image_sizes' filter.
+ *
+ * @since 3.1.0
+ * @access private
+ *
+ * @see 'wp_calculate_image_sizes'
+ */
+function _wp_get_attachment_image_sizes_filter_shim( $sizes, $size, $image_src, $image_meta, $attachment_id ) {
+	if ( has_filter( 'wp_get_attachment_image_sizes' ) ) {
+		/**
+		 * Filter the output of 'wp_get_attachment_image_sizes()'.
+		 *
+		 * @since 3.0.0
+		 * @deprecated 3.1.0 Use 'wp_calculate_image_sizes'
+		 *
+		 * @see wp_calculate_image_sizes
+		 *
+		 * @param string       $sizes         A source size value for use in a 'sizes' attribute.
+		 * @param array|string $size          Image size. Image size name, or an array of width and height
+		 *                                    values in pixels (in that order).
+		 * @param array        $image_meta    The image meta data as returned by 'wp_get_attachment_metadata()'.
+		 * @param int          $attachment_id Image attachment ID of the original image.
+		 * @param string       $image_src     Optional. The URL to the image file.
+		 */
+		_tevkori_deprecated_filter( 'wp_get_attachment_image_sizes', '3.1.0', 'wp_calculate_image_sizes' );
+		return apply_filters( 'wp_get_attachment_image_sizes', $sizes, $size, $image_meta, $attachment_id, $image_src );
+	} else {
+		return $sizes;
+	}
+}
+add_filter( 'wp_calculate_image_sizes', '_wp_get_attachment_image_sizes_filter_shim', 10, 5 );
