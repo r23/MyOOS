@@ -177,8 +177,8 @@
 		<div class="content-wrapper">
 		
 			<!-- Breadcrumbs //-->
-			<div class="row wrapper white-bg page-heading">
-				<div class="col-lg-10">
+			<div class="row wrapper gray-bg page-heading">
+				<div class="col-lg-12">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
 						<li>
@@ -192,13 +192,12 @@
 						</li>
 					</ol>
 				</div>
-				<div class="col-lg-2">
-
-				</div>
-			</div><!-- END Breadcrumbs //-->	
-		<div class="wrapper wrapper-content">
-			<div class="row">
-				<div class="col-lg-12">				
+			</div>
+			<!-- END Breadcrumbs //-->
+			
+			<div class="wrapper wrapper-content">
+				<div class="row">
+					<div class="col-lg-12">				
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
 

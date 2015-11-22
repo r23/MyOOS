@@ -488,8 +488,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
 ?>
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 	<!-- Breadcrumbs //-->
-	<div class="row wrapper white-bg page-heading">
-		<div class="col-lg-10">
+	<div class="row wrapper gray-bg page-heading">
+		<div class="col-lg-12">
 			<h2><?php echo sprintf($text_new_or_edit, oos_output_generated_category_path($current_category_id)); ?></h2>
 			<ol class="breadcrumb">
 				<li>
@@ -503,14 +503,12 @@ if ($action == 'new_category' || $action == 'edit_category') {
 				</li>
 			</ol>
 		</div>
-		<div class="col-lg-2">
+	</div>
+	<!-- END Breadcrumbs //-->	
 
-		</div>
-	</div><!-- END Breadcrumbs //-->	
-
-		<div class="wrapper wrapper-content">
-			<div class="row">
-				<div class="col-lg-12">
+			<div class="wrapper wrapper-content">
+				<div class="row">
+					<div class="col-lg-12">	
 <?php
 	$form_action = ($_GET['cID']) ? 'update_category' : 'insert_category';
 	echo oos_draw_form('fileupload', 'new_category', $aContents['categories'], 'cPath=' . $cPath . (isset($_GET['cID']) ? '&cID=' . $_GET['cID'] : '') . '&action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"');
@@ -873,8 +871,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
 ?>
 
 	<!-- Breadcrumbs //-->
-	<div class="row wrapper white-bg page-heading">
-		<div class="col-lg-10">
+	<div class="row wrapper gray-bg page-heading">
+		<div class="col-lg-12">
 			<h2><?php echo HEADING_TITLE; ?></h2>
 			<ol class="breadcrumb">
 				<li>
@@ -888,10 +886,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
 				</li>
 			</ol>
 		</div>
-		<div class="col-lg-2">
-
-		</div>
-	</div><!-- END Breadcrumbs //-->	
+	</div>
+	<!-- END Breadcrumbs //-->
 	
 		<div class="wrapper wrapper-content">
 			<div class="row">

@@ -257,8 +257,8 @@
   case 'voucherreport':
 ?>
 			<!-- Breadcrumbs //-->
-			<div class="row wrapper white-bg page-heading">
-				<div class="col-lg-10">
+			<div class="row wrapper gray-bg page-heading">
+				<div class="col-lg-12">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
 						<li>
@@ -272,14 +272,12 @@
 						</li>
 					</ol>
 				</div>
-				<div class="col-lg-2">
-
-				</div>
-			</div><!-- END Breadcrumbs //-->
+			</div>
+			<!-- END Breadcrumbs //-->
 			
-		<div class="wrapper wrapper-content">
-			<div class="row">
-				<div class="col-lg-12">	
+			<div class="wrapper wrapper-content">
+				<div class="row">
+					<div class="col-lg-12">	
 	<table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -382,8 +380,8 @@
     }
 ?>
 			<!-- Breadcrumbs //-->
-			<div class="row wrapper white-bg page-heading">
-				<div class="col-lg-10">
+			<div class="row wrapper gray-bg page-heading">
+				<div class="col-lg-12">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
 						<li>
@@ -397,14 +395,13 @@
 						</li>
 					</ol>
 				</div>
-				<div class="col-lg-2">
-
-				</div>
-			</div><!-- END Breadcrumbs //-->
+			</div>
+			<!-- END Breadcrumbs //-->
 			
-		<div class="wrapper wrapper-content">
-			<div class="row">
-				<div class="col-lg-12">	
+			<div class="wrapper wrapper-content">
+				<div class="row">
+					<div class="col-lg-12">	
+					
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
 
       <tr>
@@ -480,8 +477,8 @@
     $coupon_name = $coupon_name_result->fields;
 ?>
 			<!-- Breadcrumbs //-->
-			<div class="row wrapper white-bg page-heading">
-				<div class="col-lg-10">
+			<div class="row wrapper gray-bg page-heading">
+				<div class="col-lg-12">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
 						<li>
@@ -495,10 +492,8 @@
 						</li>
 					</ol>
 				</div>
-				<div class="col-lg-2">
-
-				</div>
-			</div><!-- END Breadcrumbs //-->
+			</div>
+			<!-- END Breadcrumbs //-->
 			
 		<div class="wrapper wrapper-content">
 			<div class="row">
@@ -595,8 +590,8 @@
 ?>
 
 			<!-- Breadcrumbs //-->
-			<div class="row wrapper white-bg page-heading">
-				<div class="col-lg-10">
+			<div class="row wrapper gray-bg page-heading">
+				<div class="col-lg-12">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
 						<li>
@@ -610,13 +605,12 @@
 						</li>
 					</ol>
 				</div>
-				<div class="col-lg-2">
-
-				</div>
-			</div><!-- END Breadcrumbs //-->
-		<div class="wrapper wrapper-content">
-			<div class="row">
-				<div class="col-lg-12">				
+			</div>
+			<!-- END Breadcrumbs //-->
+			
+			<div class="wrapper wrapper-content">
+				<div class="row">
+					<div class="col-lg-12">				
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
 
       <tr>
@@ -788,8 +782,8 @@
 ?>
 
 			<!-- Breadcrumbs //-->
-			<div class="row wrapper white-bg page-heading">
-				<div class="col-lg-10">
+			<div class="row wrapper gray-bg page-heading">
+				<div class="col-lg-12">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
 						<li>
@@ -803,10 +797,8 @@
 						</li>
 					</ol>
 				</div>
-				<div class="col-lg-2">
-
-				</div>
-			</div><!-- END Breadcrumbs //-->
+			</div>
+			<!-- END Breadcrumbs //-->
 			
 		<div class="wrapper wrapper-content">
 			<div class="row">
@@ -922,8 +914,8 @@
   default:
 ?>
 			<!-- Breadcrumbs //-->
-			<div class="row wrapper white-bg page-heading">
-				<div class="col-lg-10">
+			<div class="row wrapper gray-bg page-heading">
+				<div class="col-lg-12">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
 						<li>
@@ -937,14 +929,12 @@
 						</li>
 					</ol>
 				</div>
-				<div class="col-lg-2">
-
-				</div>
-			</div><!-- END Breadcrumbs //-->
+			</div>
+			<!-- END Breadcrumbs //-->
 			
-		<div class="wrapper wrapper-content">
-			<div class="row">
-				<div class="col-lg-12">
+			<div class="wrapper wrapper-content">
+				<div class="row">
+					<div class="col-lg-12">	
 				
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>

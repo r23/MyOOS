@@ -93,37 +93,15 @@ html, body {
 
 // Page main content
 // -----------------------------
-.content-wrapper {
-  padding: 15px;
+.content-wrapper {  
+  padding-bottom: 15px;
+  padding-left: 15px;
   width: 100%;
   // styling to visually wrap the component
   border-top: 1px solid rgba(0,0,0,.15);
   margin-top: -1px;
 
-  > .unwrap {
-    margin: -15px; // expand over wrapper padding
-    @media @tablet {
-      margin: -20px; // expand over wrapper padding
-    }    
-  }
 
-  > h3,
-  > .content-heading {
-    font-size: @font-size-h3;
-	line-height: 1.1;
-    color: #929292;
-    margin: -15px;
-    margin-bottom: 20px;
-    padding: 15px;
-    font-weight: normal;
-    background-color: @content-heading-bg;
-    border-bottom: 1px solid @content-heading-border;
-    > small {
-      display: block;
-      font-size: 12px;
-      color: #909fa7;
-    }
-  }
   > button, > .btn {
     margin: 10px 10px 0 0;
   }
@@ -134,19 +112,15 @@ html, body {
     padding-right: 0;
   }
 
-  @media @tablet {
-    padding: @content-padding;
-    //overflow: auto; // required for portlets
-    > h3,
-    > .content-heading {
-      margin: -@content-padding;
-      margin-bottom: @content-padding;
-      padding: @content-padding;
-    }
-    > button, > .btn {
-      margin: 0;
-    }
-  }
+}
+
+.page-heading {
+    border-top-style: none;
+    border-top-width: 0;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-top: 0;
+    margin-bottom: 20px;
 }
 
 // Desktop layout

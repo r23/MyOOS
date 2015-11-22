@@ -28,6 +28,44 @@
 	## Captions
 	## Galleries
 --------------------------------------------------------------*/
+/* BACKGROUNDS */
+.gray-bg {
+  background-color: #fafbfc;
+}
+.white-bg {
+  background-color: #ffffff;
+}
+.black-bg {
+  background-color: #262626;
+}
+/* MARGINS & PADDINGS */
+.m-r-sm {
+  margin-right: 10px;
+}
+.space-15 {
+  margin: 15px 0;
+}
+.space-20 {
+  margin: 20px 0;
+}
+.space-25 {
+  margin: 25px 0;
+}
+.space-30 {
+  margin: 30px 0;
+}
+/* BREADCRUMB */
+.breadcrumb {
+  background-color: #fafbfc;
+  padding: 0;
+  margin-bottom: 0;
+}
+.breadcrumb > li a {
+  color: inherit;
+}
+.breadcrumb > .active {
+  color: inherit;
+}
 body,
 button,
 input,
@@ -188,36 +226,11 @@ body {
   z-index: 0;
 }
 .content-wrapper {
-  padding: 15px;
+  padding-bottom: 15px;
+  padding-left: 15px;
   width: 100%;
   border-top: 1px solid rgba(0, 0, 0, 0.15);
   margin-top: -1px;
-}
-.content-wrapper > .unwrap {
-  margin: -15px;
-}
-@media only screen and (min-width: 768px) {
-  .content-wrapper > .unwrap {
-    margin: -20px;
-  }
-}
-.content-wrapper > h3,
-.content-wrapper > .content-heading {
-  font-size: 24px;
-  line-height: 1.1;
-  color: #929292;
-  margin: -15px;
-  margin-bottom: 20px;
-  padding: 15px;
-  font-weight: normal;
-  background-color: #fafbfc;
-  border-bottom: 1px solid #cfdbe2;
-}
-.content-wrapper > h3 > small,
-.content-wrapper > .content-heading > small {
-  display: block;
-  font-size: 12px;
-  color: #909fa7;
 }
 .content-wrapper > button,
 .content-wrapper > .btn {
@@ -228,20 +241,13 @@ body {
   padding-left: 0;
   padding-right: 0;
 }
-@media only screen and (min-width: 768px) {
-  .content-wrapper {
-    padding: 20px;
-  }
-  .content-wrapper > h3,
-  .content-wrapper > .content-heading {
-    margin: -20px;
-    margin-bottom: 20px;
-    padding: 20px;
-  }
-  .content-wrapper > button,
-  .content-wrapper > .btn {
-    margin: 0;
-  }
+.page-heading {
+  border-top-style: none;
+  border-top-width: 0;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  padding-top: 0;
+  margin-bottom: 20px;
 }
 @media only screen and (min-width: 768px) {
   body {
