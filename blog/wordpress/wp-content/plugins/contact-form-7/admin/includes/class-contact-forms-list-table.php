@@ -128,10 +128,15 @@ class WPCF7_Contact_Form_List_Table extends WP_List_Table {
 	function column_author( $item ) {
 		$post = get_post( $item->id() );
 
-		if ( ! $post )
+		if ( ! $post ) {
 			return;
+		}
 
 		$author = get_userdata( $post->post_author );
+
+		if ( false === $author ) {
+			return;
+		}
 
 		return esc_html( $author->display_name );
 	}

@@ -181,10 +181,6 @@ function wpcf7_captcha_ajax_refill( $items ) {
 add_filter( 'wpcf7_messages', 'wpcf7_captcha_messages' );
 
 function wpcf7_captcha_messages( $messages ) {
-	if ( ! wpcf7_use_really_simple_captcha() ) {
-		return $messages;
-	}
-
 	return array_merge( $messages, array( 'captcha_not_match' => array(
 		'description' => __( "The code that sender entered does not match the CAPTCHA", 'contact-form-7' ),
 		'default' => __( 'Your entered code is incorrect.', 'contact-form-7' )

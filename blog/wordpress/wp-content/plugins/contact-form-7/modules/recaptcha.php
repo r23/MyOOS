@@ -34,12 +34,6 @@ class WPCF7_RECAPTCHA extends WPCF7_Service {
 	}
 
 	public function icon() {
-		$icon = sprintf(
-			'<img src="%1$s" alt="%2$s" width="%3$d" height="%4$d" class="icon" />',
-			wpcf7_plugin_url( 'images/service-icons/recaptcha-72x72.png' ),
-			esc_attr( __( 'reCAPTCHA Logo', 'contact-form-7' ) ),
-			36, 36 );
-		echo $icon;
 	}
 
 	public function link() {
@@ -319,6 +313,7 @@ function wpcf7_recaptcha_shortcode_handler( $tag ) {
 	$html = sprintf( '<div %1$s></div>', wpcf7_format_atts( $atts ) );
 	$html .= wpcf7_recaptcha_noscript(
 		array( 'sitekey' => $atts['data-sitekey'] ) );
+	$html = sprintf( '<div class="wpcf7-form-control-wrap">%s</div>', $html );
 
 	return $html;
 }
@@ -380,8 +375,7 @@ function wpcf7_recaptcha_check_with_google( $spam ) {
 		return $spam;
 	}
 
-	$response_token = isset( $_POST['g-recaptcha-response'] )
-		? $_POST['g-recaptcha-response'] : '';
+	$response_token = wpcf7_recaptcha_response();
 	$spam = ! $recaptcha->verify( $response_token );
 
 	return $spam;
@@ -470,4 +464,12 @@ function wpcf7_tag_generator_recaptcha( $contact_form, $args = '' ) {
 	</div>
 </div>
 <?php
+}
+
+function wpcf7_recaptcha_response() {
+	if ( isset( $_POST['g-recaptcha-response'] ) ) {
+		return $_POST['g-recaptcha-response'];
+	}
+
+	return false;
 }

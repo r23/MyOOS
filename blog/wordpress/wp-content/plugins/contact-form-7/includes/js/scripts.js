@@ -110,6 +110,13 @@
 			$(data.into).trigger('invalid.wpcf7'); // deprecated
 
 		} else if (1 == data.spam) {
+			$form.find('[name="g-recaptcha-response"]').each(function() {
+				if ('' == $(this).val()) {
+					var $recaptcha = $(this).closest('.wpcf7-form-control-wrap');
+					$recaptcha.wpcf7NotValidTip(_wpcf7.recaptchaEmpty);
+				}
+			});
+
 			$responseOutput.addClass('wpcf7-spam-blocked');
 			$form.addClass('spam');
 

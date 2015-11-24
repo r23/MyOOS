@@ -39,6 +39,8 @@ function wpcf7_flamingo_submit( $contactform, $result ) {
 		$exclude_names[] = $tag['name'];
 	}
 
+	$exclude_names[] = 'g-recaptcha-response';
+
 	foreach ( $posted_data as $key => $value ) {
 		if ( '_' == substr( $key, 0, 1 ) || in_array( $key, $exclude_names ) ) {
 			unset( $posted_data[$key] );
@@ -167,5 +169,3 @@ function wpcf7_flamingo_add_channel( $slug, $name = '' ) {
 
 	return (int) $channel['term_id'];
 }
-
-?>
