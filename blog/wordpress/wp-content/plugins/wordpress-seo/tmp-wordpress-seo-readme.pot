@@ -1,0 +1,1187 @@
+msgid ""
+msgstr "MIME-Version: 1.0\n"
+
+#. Name.
+msgid "Yoast SEO"
+msgstr ""
+
+#. Short description.
+msgid "Improve your WordPress SEO: Write better content and have a fully optimized WordPress site using Yoast SEO plugin."
+msgstr ""
+
+#. Screenshot description.
+msgid "The Yoast SEO plugin general meta box. You'll see this on edit post pages, for posts, pages and custom post types."
+msgstr ""
+
+#. Screenshot description.
+msgid "Some of the sites using this Yoast SEO plugin."
+msgstr ""
+
+#. Screenshot description.
+msgid "The Yoast SEO settings for a taxonomy."
+msgstr ""
+
+#. Screenshot description.
+msgid "The fully configurable XML sitemap for Yoast SEO."
+msgstr ""
+
+#. Screenshot description.
+msgid "Easily import SEO data from All In One SEO pack and HeadSpace2 SEO."
+msgstr ""
+
+#. Screenshot description.
+msgid "Example of the Page Analysis functionality."
+msgstr ""
+
+#. Screenshot description.
+msgid "The advanced section of the Yoast SEO meta box."
+msgstr ""
+
+#. Found in description header.
+msgid "Write better content with Yoast SEO"
+msgstr ""
+
+#. Found in description header.
+msgid "Page Analysis"
+msgstr ""
+
+#. Found in description header.
+msgid "Technical WordPress Search Engine Optimization"
+msgstr ""
+
+#. Found in description header.
+msgid "Meta &amp; Link Elements"
+msgstr ""
+
+#. Found in description header.
+msgid "XML Sitemaps"
+msgstr ""
+
+#. Found in description header.
+msgid "RSS Optimization"
+msgstr ""
+
+#. Found in description header.
+msgid "Breadcrumbs"
+msgstr ""
+
+#. Found in description header.
+msgid "Edit your .htaccess and robots.txt file"
+msgstr ""
+
+#. Found in description header.
+msgid "Social Integration"
+msgstr ""
+
+#. Found in description header.
+msgid "Multi-Site Compatible"
+msgstr ""
+
+#. Found in description header.
+msgid "Import &amp; Export functionality"
+msgstr ""
+
+#. Found in description header.
+msgid "Import functionality for other WordPress SEO plugins"
+msgstr ""
+
+#. Found in description header.
+msgid "Yoast SEO Plugin in your Language!"
+msgstr ""
+
+#. Found in description header.
+msgid "News SEO"
+msgstr ""
+
+#. Found in description header.
+msgid "Further Reading"
+msgstr ""
+
+#. Found in description header.
+msgid "Tags"
+msgstr ""
+
+#. Found in description list item.
+msgid "The <a href=\"http://kb.yoast.com/category/42-wordpress-seo\">Yoast SEO Knowledgebase</a>."
+msgstr ""
+
+#. Found in description list item.
+msgid "<a href=\"https://yoast.com/articles/wordpress-seo/\">WordPress SEO - The definitive Guide by Yoast</a>."
+msgstr ""
+
+#. Found in description list item.
+msgid "Once you have great SEO, you'll need the <a href=\"https://yoast.com/articles/wordpress-hosting/\">best WordPress Hosting</a>."
+msgstr ""
+
+#. Found in description list item.
+msgid "The <a href=\"https://yoast.com/wordpress/plugins/seo/\">Yoast SEO Plugin</a> official homepage."
+msgstr ""
+
+#. Found in description list item.
+msgid "Other <a href=\"https://yoast.com/wordpress/plugins/\">WordPress Plugins</a> by the same author."
+msgstr ""
+
+#. Found in description list item.
+msgid "Follow Yoast on <a href=\"https://facebook.com/yoast\">Facebook</a> &amp; <a href=\"http://twitter.com/yoast\">Twitter</a>."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "WordPress out of the box is already technically quite a good platform for SEO, this was true when Joost wrote his original <a href=\"https://yoast.com/articles/wordpress-seo/\">WordPress SEO</a> article in 2008 (and updated every few months) and it's still true today, but that doesn't mean you can't improve it further! This plugin is written from the ground up by Joost de Valk and his team at <a href=\"https://yoast.com/\">Yoast</a> to improve your site's SEO on <em>all</em> needed aspects. While this <a href=\"https://yoast.com/wordpress/plugins/seo/\">Yoast SEO plugin</a> goes the extra mile to take care of all the technical optimization, more on that below, it first and foremost helps you write better content.  Yoast SEO forces you to choose a focus keyword when you're writing your articles, and then makes sure you use that focus keyword everywhere."
+msgstr ""
+
+#. Found in description paragraph.
+msgid ""
+"<strong>Premium Support</strong><br />\n"
+"  The Yoast team does not provide support for the Yoast SEO plugin on the WordPress.org forums. One on one email support is available to people who bought the <a href=\"https://yoast.com/wordpress/plugins/seo-premium/\">Premium Yoast SEO plugin</a> only.\n"
+"  Note that the Premium SEO plugin has several extra features too so it might be well worth your investment!"
+msgstr ""
+
+#. Found in description paragraph.
+msgid "You should also check out the <a href=\"https://yoast.com/wordpress/plugins/local-seo/\">Local SEO</a>, <a href=\"https://yoast.com/wordpress/plugins/news-seo/\">News SEO</a> and <a href=\"https://yoast.com/wordpress/plugins/video-seo/\">Video SEO</a> extensions to Yoast SEO, these of course come with support too."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Take a look at the explanation of the General tab in Yoast SEO, this is one of the 13 tutorial videos included in the <a href=\"https://yoast.com/wordpress/plugins/seo-premium/\">Premium version of Yoast SEO</a>:"
+msgstr ""
+
+#. Found in description paragraph.
+msgid "https://www.youtube.com/watch?v=co5TjUwqWIQ&amp;w=532&amp;rel=0"
+msgstr ""
+
+#. Found in description paragraph.
+msgid ""
+"<strong>Bug Reports</strong><br />\n"
+"  Bug reports for Yoast SEO are <a href=\"https://github.com/Yoast/wordpress-seo\">welcomed on GitHub</a>. Please note GitHub is <em>not</em> a support forum and issues that aren't properly qualified as bugs will be closed."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Using the snippet preview you can see a rendering of what your post or page will look like in the search results, whether your title is too long or too short and your meta description makes sense in the context of a search result. This way the plugin will help you not only increase rankings but also increase the click through for organic search results."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "The Yoast SEO plugins <a href=\"https://yoast.com/content-seo-wordpress-linkdex/\">Page Analysis</a> functionality checks simple things you're bound to forget. It checks, for instance, if you have images in your post and whether they have an alt tag containing the focus keyword for that post. It also checks whether your posts are long enough, if you've written a meta description and if that meta description contains your focus keyword, if you've used any subheadings within your post, etc. etc."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "The plugin also allows you to write meta titles and descriptions for all your category, tag and custom taxonomy archives, giving you the option to further optimize those pages."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Combined, this plugin makes sure that your content is the type of content search engines will love!"
+msgstr ""
+
+#. Found in description paragraph.
+msgid "While out of the box WordPress is pretty good for SEO, it needs some tweaks here and there. This Yoast SEO plugin guides you through some of the settings needed, for instance by reminding you to enable pretty permalinks. But it also goes beyond that, by automatically optimizing and inserting the meta tags and link elements that Google and other search engines like so much:"
+msgstr ""
+
+#. Found in description paragraph.
+msgid "With the Yoast SEO plugin you can control which pages Google shows in its search results and which pages it doesn't show. By default, it will tell search engines to index all of your pages, including category and tag archives, but only show the first pages in the search results. It's not very useful for a user to end up on the third page of your \"personal\" category, right?"
+msgstr ""
+
+#. Found in description paragraph.
+msgid "WordPress itself only shows canonical link elements on single pages, Yoast SEO makes it output canonical link elements everywhere. Google has recently announced they would also use <code>rel=\"next\"</code> and <code>rel=\"prev\"</code> link elements in the <code>head</code> section of your paginated archives, this plugin adds those automatically, see [this post](https://yoast.com/rel-next-prev-paginated-archives/ title=\"rel=next &amp; rel=prev for paginated archives\") for more info."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Yoast SEO plugin has the most advanced XML Sitemaps functionality in any WordPress plugin. Once you check the box, it automatically creates XML sitemaps and notifies Google &amp; Bing of the sitemaps existence. These XML sitemaps include the images in your posts &amp; pages too, so that your images may be found better in the search engines too."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "These XML Sitemaps will even work on large sites, because of how they're created, using one index sitemap that links to sub-sitemaps for each 1,000 posts. They will also work with custom post types and custom taxonomies automatically, while giving you the option to remove those from the XML sitemap should you wish to."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Because of using <a href=\"https://yoast.com/xsl-stylesheet-xml-sitemap/\">XSL stylesheets for these XML Sitemaps</a>, the XML sitemaps are easily readable for the human eye too, so you can spot things that shouldn't be in there."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Are you being outranked by scrapers? Instead of cursing at them, use them to your advantage! By automatically adding a link to your RSS feed pointing back to the original article, you're telling the search engine where they should be looking for the original. This way, the Yoast SEO plugin increases your own chance of ranking for your chosen keywords and gets rid of scrapers in one go!"
+msgstr ""
+
+#. Found in description paragraph.
+msgid "If your theme is compatible, and themes based on Genesis or by WooThemes for instance often are, you can use the built-in Breadcrumbs functionality. This allows you to create an easy navigation that is great for both users and search engines and will support the search engines in understanding the structure of your site."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Making your theme compatible isn't hard either, check <a href=\"https://yoast.com/wordpress/plugins/breadcrumbs/\">these instructions</a>."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Using the built-in file editor you can edit your WordPress blogs .htaccess and robots.txt file, giving you direct access to the two most powerful files, from an SEO perspective, in your WordPress install."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "SEO and Social Media are heavily intertwined, that's why this plugin also comes with a Facebook OpenGraph implementation and will soon also support Google+ sharing tags."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "The Yoast SEO plugin, unlike some others, is fully Multi-Site compatible. The XML Sitemaps work fine in all setups and you even have the option, in the Network settings, to copy the settings from one blog to another, or make blogs default to the settings for a specific blog."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "If you have multiple blogs, setting up plugins like this one on all of them might seem like a daunting task. Except that it's not, because what you can do is simple: you set up the plugin once. You then export your settings and simply import them on all your other sites. It's that simple!"
+msgstr ""
+
+#. Found in description paragraph.
+msgid "If you've used All In One SEO Pack or HeadSpace2 before using this plugin, you might want to import all your old titles and descriptions. You can do that easily using the built-in import functionality. There's also import functionality for some of the older Yoast plugins like Robots Meta and RSS footer."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Should you have a need to import from another SEO plugin to Yoast SEO or from a theme like Genesis or Thesis, you can use the <a href=\"http://wordpress.org/extend/plugins/seo-data-transporter/\">SEO Data Transporter</a> plugin, that'll easily convert your SEO meta data from and to a whole set of plugins like Platinum SEO, SEO Ultimate, Greg's High Performance SEO and themes like Headway, Hybrid, WooFramework, Catalyst etc."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Read <a href=\"https://yoast.com/all-in-one-seo-pack-migration/\">this migration guide</a> if you still have questions about migrating from another SEO plugin to Yoast SEO."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Currently a huge translation project is underway, translating Yoast SEO in as much as 24 languages. So far, the translations for French and Dutch are complete, but we still need help on a lot of other languages, so if you're good at translating, please join us at <a href=\"http://translate.yoast.com\">translate.yoast.com</a>."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Be sure to also check out the premium <a href=\"https://yoast.com/wordpress/plugins/news-seo/\">News SEO module</a> if you need Google News Sitemaps. It tightly integrates with Yoast SEO to give you the combined power of News Sitemaps and full Search Engine Optimization."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "For more info, check out the following articles:"
+msgstr ""
+
+#. Found in description paragraph.
+msgid "seo, SEO, Yoast SEO, google, meta, meta description, search engine optimization, xml sitemap, xml sitemaps, google sitemap, sitemap, sitemaps, robots meta, rss, rss footer, yahoo, bing, news sitemaps, XML News Sitemaps, WordPress SEO, WordPress SEO by Yoast, yoast, multisite, canonical, nofollow, noindex, keywords, meta keywords, description, webmaster tools, google webmaster tools, seo pack"
+msgstr ""
+
+#. Found in installation list item.
+msgid "Upload the <code>wordpress-seo</code> folder to the <code>/wp-content/plugins/</code> directory"
+msgstr ""
+
+#. Found in installation list item.
+msgid "Activate the Yoast SEO plugin through the 'Plugins' menu in WordPress"
+msgstr ""
+
+#. Found in installation list item.
+msgid "Configure the plugin by going to the <code>SEO</code> menu that appears in your admin menu"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "<p>Enhancement: Made the \"Analyze entire site\" button have better color contrast and resemble JetPack. Thanks <a href=\"https://github.com/wpexplorer\">WPExplorer</a> for the contribution.</p>"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes JS errors in combination with Give plugin, CMB2 Framework, ACF layout builder and any other plugin that replaces the editor with something else. Thanks a lot <a href=\"https://github.com/seripap\">Daniel Seripap</a> for fixing."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes JavaScript error on post types without 'editor' capability. Thanks <a href=\"https://github.com/aaronhipple\">Aaron Hipple</a> for the fix and <a href=\"https://github.com/codeforest\">Zvonko Biškup</a> for testing."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a lot of text analysis issues for languages with non-latin scripts, including the \"0% keyword density\" issues."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes an issue where html tags were not stripped properly from taxonomy descriptions for custom taxonomies."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes possible \"URI too long\" errors when parsing shortcodes in the content before it is analyzed."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the snippet preview was broken."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where disabling the visual editor caused our content analysis to break."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the content analysis would break on installs that replace tinyMCE with ckEditor. Currently only supports the html editor."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where slug changes were not properly synchronized in the snippet preview."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where long slugs could be broken by wrongful synchronization with the snippet preview."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where digits were not analyzed well in the content, causing focus keywords or keyphrases with digits to no longer be matched."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the url in the snippet preview was not in line with permalink settings. Fixed for permalinks containing the post name."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where focus keyphrases of more than two words would not be recognized properly in the content."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the translation files were corrupted causing the translations to no longer work."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes caching problems. We've versioned file names for assets that have changed to circumvent caching strategies that consider preventing regular cache busting a good idea..."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where users where getting error notifications about how their site was not indexable when in fact no check had been performed yet."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a few broken links to help docs about the OnPage.org integration."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes an edgecase where the indexability check would go wrong for sites that filter the home url."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the admin email that was sent to report the current indexability status was not rendered as HTML."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds realtime content analysis to the Yoast SEO metabox for all post types and taxonomies."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds a tool to recalculate all SEO scores using the new client side analysis."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds a content analysis plugin for parsing shortcodes before the content is analyzed. This means the snippet preview will now take the rendered content of shortcodes into account."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds a content analysis plugin for parsing replace vars before the content is analyzed, allowing templates set in the Yoast SEO admin to work everywhere."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds a weekly check if the homepage is indexable (in collaboration with <a href=\"https://en.onpage.org/lp/yoast/\">OnPage.org</a>)."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds possibility to import titles, metas and settings from the WPSEO.de plugin."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds possibility to set Facebook (Opengraph), Twitter and Google+ metadata for taxonomies."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "We've completely revised the UX of the Yoast SEO metabox. We've introduced multiple sections which in turn can contain one or more tabs."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Makes the Yoast SEO metabox on the taxonomy edit page the same as on the post edit page."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Makes sure the capability for the General Settings menu is also <code>wpseo_manage_options_capability</code>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds a fix to the tour allowing for multiple plugins to use WP pointers at the same time."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Makes sure all Yoast SEO settings pages are also accessible through the WP admin bar."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the <code>og:image</code> would not be set, even when a default image was available."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the links in the sitemap would 'randomly' change from https to http or the other way around (in very rare circumstances)."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where it was not possible to upload different images for different social media in the post metabox."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where users would see the after-update notice, but were not allowed to visit the about page."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where we were not properly splitting taxonomy metadata when a shared taxonomy term got split through a Cron job, props <a href=\"https://github.com/danielhomer\">Daniel Homer</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds a JavaScript API for registering data modifications that is quite similar to <code>add_filter</code>/<code>apply_filters</code> in WordPress. Allows for filtering data before it is analyzed. See <a href=\"https://github.com/Yoast/YoastSEO.js\">YoastSEO.js</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds a JavaScript API for adding content analysis tests, see <a href=\"https://github.com/Yoast/YoastSEO.js\">YoastSEO.js</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "<code>wpseo_pre_analysis_post_content</code>. Alternative: <a href=\"https://github.com/Yoast/YoastSEO.js\">Modifications API</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "<code>wpseo_metadesc_length</code>. Functionality removed."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "<code>wpseo_metadesc_length_reason</code>. Functionality removed."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "<code>wpseo_body_length_score</code>. Alternative: <a href=\"https://github.com/Yoast/YoastSEO.js\">Content Checks API</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "<code>wpseo_linkdex_results</code>. Alternative: <a href=\"https://github.com/Yoast/YoastSEO.js\">Content Checks API</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "<code>wpseo_snippet</code>. Functionality removed."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes the Twitter image metatag that was invalidated after a recent API change by Twitter. Thanks <a href=\"https://github.com/andypiper\">Andy Piper</a> for notifying us."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Removes all tests directories from the release. Props <a href=\"https://github.com/EdwardBeckett\">Edward Beckett</a> for reporting."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Updated the minimum required version of WordPress to 4.0."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the focus keyword test in the Yoast SEO metabox was broken as a regression of removing the autocomplete functionality."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "<p>Removes the autocomplete functionality from the focus keyword field in the Yoast SEO metabox because Google is shutting down its autocomplete API <a href=\"http://googlewebmastercentral.blogspot.nl/2015/07/update-on-autocomplete-api.html\">as of August 10th</a>.</p>"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Introduces a dismissible notice encouraging users to connect with Google Search Console."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Improves the dashboard widget to only show posts which are actually editable by the current user."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Makes the plugin conflict notices persistent and dismissible. Once dismissed, it will no longer be shown for the specific set of conflicting plugins the notice has been dismissed for."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Contains a few textual improvements."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Makes sure the counts are updated correctly and intuitively when marking a Search Console issue as fixed."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where current_user_can was called before init, props <a href=\"https://github.com/claudiosmweb\">Claudio Sanches</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the article:publisher metatag was also included on pages that were not of type 'article'."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the link to the list of posts with the same focus keyword was broken for focus keywords containing a space."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where a h3 header was being closed with a h2 closing tag."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the Google Search Console issues table was giving errors on installs running on PHP 5.2."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the sitemap caches were no longer being cleared when running Yoast SEO in the upcoming 4.3 release of WordPress."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where non-admin users were no longer able to update their profile with Yoast SEO active."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where all labels in the Yoast SEO admin were bold."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Makes sure authors and editors cannot submit advanced metadata on a post when the advanced tab in the metabox has been disabled for them. Thanks Peter Allor from IBM for finding and reporting this issue."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where upgrading to version 2.3 would occasionally cause WSOD's on both admin and frontend. We were unable to pinpoint the exact conflicting plugins and themes, but we are quite confident it was caused by us using, and others hooking into, WP_Query too early."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds full integration with Google Search Console (formerly: Google Webmaster Tools). It is now possible to see all errors from Google straight in your WordPress install. If you have <a href=\"https://yoast.com/wordpress/plugins/seo-premium/#utm_source=wordpress-seo-config&amp;utm_medium=textlink&amp;utm_campaign=changelog\">Yoast SEO Premium</a>, you'll even be able to fix those errors by redirecting the broken urls."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds a dashboard widget showing published posts' SEO scores. Thanks <a href=\"https://github.com/bhubbard\">Brandon Hubbard</a> for the idea!"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds a customizer panel for Yoast SEO Breadcrumbs if breadcrumbs are enabled or the active theme has declared theme support for it. Props again to <a href=\"https://github.com/bhubbard\">Brandon Hubbard</a> for his awesome contribution."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Renames plugin from \"WordPress SEO by Yoast\" to \"Yoast SEO\"."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds a warning advising to change the tagline, if a site still has the default WordPress tagline \"just another WordPress site\"."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Changes the default columns visibility for the edit posts overview page. Only the SEO score column is now visible by default."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Contains several en_US string improvements, including a fix for a typo in the word \"typos\"... Thanks <a href=\"https://github.com/GaryJones\">Gary Jones</a> for redacting!"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds a filter to allow filtering the content before analysis in the Twitter class, props <a href=\"https://github.com/petenelson\">Pete Nelson</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds a link to our knowledge base on how to retrieve a Facebook admin user ID."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where sitemaps for taxonomies with no eligible terms were still included and responded with 404 errors when visited."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where breadcrumbs were wrongly nested on archive paginations, props <a href=\"https://github.com/fburatti\">Filippo Buratti</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the wrong separator was used after import/export."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where XML Sitemaps query invalidation caused other queries to fail as well."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the wrong placeholder was being used for the search term string in the JSON+LD Search markup."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the link to the newsletter signup in the tour was broken by uncommunicated changes in Mailchimp."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the Edit Files settings page in the network admin was broken, props <a href=\"https://github.com/ajaydsouza\">Ajay D'Souza</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a broken link in the advanced tab of the Yoast SEO metabox to the titles and meta's settings."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Removed the possibility to redirect a post in the advanced tab of the Yoast SEO metabox."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Moved the option to include a post in sitemap from the advanced tab of the Yoast SEO metabox to the sitemap settings."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Removed the option to configure sitemap priority in the advanced tab of the Yoast SEO metabox."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Added multiple checks to prevent plugin compatibility issue between Yoast SEO and old versions of Google Analytics by Yoast."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Updated the banners with new designs."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Makes sure users can close the tour by circumventing possible JavaScript caching issues that might occur."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Contains several accessibility improvements, including 'for' attributes for labels and several links to explanatory articles."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds support for creating partial sitemaps with WP CLI, props <a href=\"https://github.com/larsschenk\">Lars Schenk</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Add Google's mobile friendly test to the SEO toolbar, props <a href=\"https://github.com/bhubbard\">Brandon Hubbard</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Makes sure slugs are not being stripped if the remaining slug is less than 3 characters, props <a href=\"https://github.com/andyexeter\">andyexeter</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Shows an activation error when dependencies were not installed properly with composer."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Added a filter to allow the RSS footer to be dynamically shown/hidden, props <a href=\"https://github.com/hlashbrooke\">Hugh Lashbrooke</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Added many translator comments to help translators more easily get the context."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Made sure Open Graph article tags are added separately, following up on the Open Graph specification."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds recommended image sizes per Social network in the social tab of the  SEO metabox."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Removes the tracking functionality."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Shows a dismissible notice with a link to the about page that is shown after every update. The user is no longer being redirected and only has to dismiss the notice once for all sites (in case of multisite)."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds a link to the about page to the general tab of the settings dashboard."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Makes the tour dismissible on user level."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds Twitter profile to JSON LD output."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Twitter profile input field now also accepts full url and automatically strips it down to just the username."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Only adds the JSON LD output to the frontpage, since it's not needed on other pages."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Makes all Yoast SEO notices dismissible."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the widgets were removed from every XML file. This is now only the case for the sitemaps."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where validation errors were shown for the wrong variables in the titles and metas settings."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the SEO toolbar was broken."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a few typos, props <a href=\"https://github.com/GaryJones\">Gary Jones</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where links in tooltips were not impossible to click."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a broken link to the permalinks section of the advanced settings, props <a href=\"https://github.com/michaelnordmeyer\">Michael Nordmeyer</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes settings import on multisite."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the sitemap could contain datetimes in the wrong timezone."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the wrong Facebook user ID was added to the fb:admins meta tag. Adding FB admin user id is now a manual process."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixed Open Graph and Twitter cards on static posts pages"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where sitemap cache was not always cleared after saving the Yoast SEO settings."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a possible XSS vulnerability in the snippet preview. Thanks <a href=\"https://twitter.com/ccneill\">Charles Neill</a> and <a href=\"https://twitter.com/mazengamal\">Mazen Gamal</a> for discovering and responsibly disclosing this issue."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the JSON+LD output was outputted twice when company or person info wasn't set."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a compatibility issue with Video SEO and WooCommerce SEO add-ons causing WSOD on the frontend for video's and WooCommerce products."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a compatibility issue with BBPress caused by hooking <code>current_user_can</code> too early."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Added support for <a href=\"https://developers.google.com/structured-data/site-name\">website name JSON+LD markup</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Makes sure Twitter cards are by default enabled since they don't need to be validated anymore by Twitter."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Removes the Twitter url meta tag, since Twitter no longer uses it."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Shows a validation error when a user selects a featured image for a post that is smaller than 200x200 pixels."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Shows a validation error when a user tries to use shortcodes in the titles and meta's settings page that are incompatible with the type of content those titles and meta's are associated with."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Makes sure no taxonomy metadata is lost with the upcoming 4.2 version of WordPress."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Upgraded to Facebook Graph API 3.0 for fetching Facebook user ID's straight from Facebook."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Made the plugin conflict notices more user friendly, explaining better which piece of functionality might be impacted, offering a link to the corresponding settings and a button to deactivate the conflicting plugin."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the sitemaps were no longer being served from WP transient cache."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where breadcrumbs weren't nested properly."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a possible \"headers already sent\" error in the sitemaps."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a notice for the homepage URL in post type sitemaps."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes an \"undefined index\" notice on the sitemaps."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes an \"undefined index\" notice in the breadcrumbs."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where translations were not loaded when used as MU-plugin."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a JS error that was raised when editing post-types without a TinyMCE editor."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a possible XSS vulnerability. Thanks <a href=\"https://github.com/schmittjoh\">Johannes Schmitt</a> from <a href=\"https://scrutinizer-ci.com/\">Scrutinizer CI</a> for discovering and responsibly disclosing this issue."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes an issue where (in rare cases) people upgrading to 2.0 got stuck in a redirect loop on their admin."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a broken link in the Dutch translation, causing the Pinterest tab on the Social settings page to overflow into the Google+ tab."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a small typo on the about page."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Moved all advanced functionality to one \"Advanced\" submenu page."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Moved the bulk editor, the export functionality and the file editor to one \"Tools\" submenu page."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Improved consistency and usability of settings pages by having them use exactly the same, tab-based, styling."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Made it easy to output structured data for social profiles, person and company profiles, for use in Google Knowledge Graph."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Makes sure the user is redirected to the last active settings tab after saving."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where custom field variables were no longer working in the snippet preview."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the $post global was emptied by our Frontend class, causing conflicts with other plugins."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where variables weren't replaced in the og:description meta tag."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the breadcrumbs caused an undefined variable notice."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Contains an incredible amount of code style improvements, making the code cleaner and more readable."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Makes sure every function in the plugin is documented using PHPDoc by having it checked automatically by the Codesniffer."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Refactored a lot of legacy code in the admin, mainly with regard to the way output is rendered. Provides for a better separation of concerns, making the code more comprehensible and re-usable."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Deprecated a large amount of form methods and moved them to the <code>Yoast_Form</code> class. Click <a href=\"https://github.com/Yoast/wordpress-seo/blob/add975664d1f160eed262b02327a93bda5488f8b/admin/class-config.php#L172\">here</a> for the list of deprecated methods."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Deprecated a large amount of utility functions and moved them to the <code>WPSEO_Utils</code> class. Click <a href=\"https://github.com/Yoast/wordpress-seo/blob/add975664d1f160eed262b02327a93bda5488f8b/inc/wpseo-functions.php#L496\">here</a> for the list of deprecated functions."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Security fix: fixed possible CSRF and blind SQL injection vulnerabilities in bulk editor. Added strict sanitation to order_by and order params. Added extra nonce checks on requests sending additional parameters. Minimal capability needed to access the bulk editor is now Editor. Thanks <a href=\"https://github.com/ethicalhack3r\">Ryan Dewhurst</a> from WPScan for discovering and responsibly disclosing this issue."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Repair missing dependencies..."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the rel=\"next\" and rel=\"prev\" links were broken for all taxonomies."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Removes an obsolete quote from the html for the seo metabox."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the keyword analysis was broken."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where our plugin raised a fatal error in the wpseo_admin bar when the $wpseo_front global was used."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the translations were corrupted due to an issue with out glotpress grunt task."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Contains lots of performance optimizations, including removal of unnecessary inclusion and defined checks for every classfile, refactoring of frontend logic, cutting unnecessary inheritance chains et. al."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds Twitter gallery cards."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds Twitter cards for non singular pages (including Homepage)."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Allows archive titles &amp; meta to be set on non public post types that do have a public archive, props <a href=\"https://github.com/xeeeveee\">xeeeveee</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Huge performance gain for <code>enrich_defaults()</code>, props <a href=\"https://github.com/vdwijngaert\">Koen Van den Wijngaert</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Nextscripts removed from the OG conflict list."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Added full Composer support, switched to Composer for dependency management and autoloading."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where new posts weren't always added to the post sitemap properly in case of multiple sitemaps."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a grammatical error in the tutorial."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where %%currentyear%% shortcode wasn't parsed well in the meta description."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes an undefined index notice in the opengraph functionality."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where variable placeholders were not always assigned the correct value, props <a href=\"https://github.com/sozot\">Andy Sozot</a> for reporting and <a href=\"https://github.com/jrfnl\">Juliette</a> for fixing."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug with SEO score on servers using international number formats."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes broken backward compatibility / snippet preview, props <a href=\"https://github.com/jrfnl\">Juliette</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the %%page%% shortcode wasn't properly rendered in the titles and meta's."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where custom replacement variables where not properly rendered when using them in multiple fields."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes at least a large part of the keyword density 0% issues."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Corrected price on WooCommerce SEO banner."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Security fix: fixed possible cross scripting issue with encoded entities in a post title. This could potentially allow an author on your site to execute JavaScript when you visit that posts edit page, allowing them to do rights expansion or otherwise. Thanks to <a href=\"http://www.joehoyle.co.uk/\">Joe Hoyle</a> for responsibly disclosing this issue."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adds Twitter inputs to the Social tab."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Tries to purge Facebook cache when OpenGraph settings are edited."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Added a new box promoting our translation site for non en_US users."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Added several new tools (Pinterest Rich Pins, HTML Validation, CSS Validation, Google PageSpeed), props <a href=\"https://github.com/bhubbard\">bhubbard</a>"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Functionality change: when there's a featured image, output only that for both Twitter and FB, ignore other images in post."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "UX change: rework logic for showing networks on Social tab, social network no longer shows on social tabs if not enabled in admin."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Always output a specific Twitter title and description, as otherwise we can't overwrite them from metabox."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Check for conflicts with other plugins doing XML sitemaps or OpenGraph."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Qtip library replaced with Qtip2."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Merged several similar translation strings, props <a href=\"https://github.com/ramiy\">@ramiy</a>"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Several RTL improvements, props <a href=\"https://github.com/ramiy\">@ramiy</a>"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Several Typo fixes, props <a href=\"https://github.com/ramiy\">@ramiy</a>"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Updated Open Site Explorer Link, props <a href=\"https://github.com/bhubbard\">bhubbard</a>"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Updated all links to use // instead of https:// and http://, props <a href=\"https://github.com/bhubbard\">bhubbard</a>"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "When importing from AIOSEO, on finding GA settings, advertise Yoast GA plugin."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Makes sure stopwords are only removed from slug on publication."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Updated translations."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where the wrong image was being displayed in twitter cards."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where facebook would display the wrong image."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug where last modified in sitemap was broken."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixes a bug wher SEO-score heading made the table row jump on hover because there wasn't enough place left for the down arrow."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Removed a couple of languages that were not up to date."
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Release Date: November 25th, 2015"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Enhancement: Made the \"Analyze entire site\" button have better color contrast and resemble JetPack. Thanks <a href=\"https://github.com/wpexplorer\">WPExplorer</a> for the contribution."
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Bugfixes:"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Release Date: November 19th, 2015"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Enhancements:"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Release Date: November 18th, 2015"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Features:"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Other notable changes:"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Because we moved the entire content analysis to JavaScript, we had to remove the following PHP filters:"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Release Date: September 16th, 2015"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Release Date: August 6th, 2015"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Removes the autocomplete functionality from the focus keyword field in the Yoast SEO metabox because Google is shutting down its autocomplete API <a href=\"http://googlewebmastercentral.blogspot.nl/2015/07/update-on-autocomplete-api.html\">as of August 10th</a>."
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Release Date: July 23rd, 2015"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Release Date: July 22nd, 2015"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Release Date: July 21st, 2015"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Release Date: June 11th, 2015"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Release Date: June 10th, 2015"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Security:"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Release Date: April 21st, 2015"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Release Date: April 20th, 2015"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Release Date: April 1st, 2015"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Release Date: March 26th, 2015"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Under the hood:"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Release Date: March 11th, 2015"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Release Date: February 23rd, 2015"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Release Date: February 19th, 2015"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Release Date: February 17th, 2015"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "For the changelog of earlier versions, please refer to the separate changelog.txt file."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "You'll find the <a href=\"https://yoast.com/wordpress/plugins/seo/faq/\">FAQ on Yoast.com</a>."
+msgstr ""
