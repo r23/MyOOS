@@ -18,10 +18,7 @@
    ---------------------------------------------------------------------- */
 
    
-$bActive = false;
-if ($_SESSION['selected_box'] == 'information' ) {
-	$bActive = true;
-}
+$bActive = ($_SESSION['selected_box'] == 'information' ) ? TRUE : FALSE;
 
 $aBlocks[] = array(
 	'heading' => BOX_HEADING_INFORMATION,

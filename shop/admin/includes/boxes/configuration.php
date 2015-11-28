@@ -21,10 +21,7 @@
 
 include 'includes/languages/' . $_SESSION['language'] . '/configuration_group.php';
 
-$bActive = false;
-if ($_SESSION['selected_box'] == 'configuration' ) {  
-	$bActive = true;
-}
+$bActive = ($_SESSION['selected_box'] == 'configuration' ) ? TRUE : FALSE;
 
 $aBlocks[] = array(
 	'heading' => BOX_HEADING_CONFIGURATION,
@@ -33,12 +30,13 @@ $aBlocks[] = array(
 	'active' => $bActive
 );
 
-$configuration_groups_result = $dbconn->Execute("SELECT configuration_group_id as cgID FROM " . $oostable['configuration_group'] . " where visible = '1' ORDER BY sort_order");
+$configuration_groups_result = $dbconn->Execute("SELECT configuration_group_id AS cg_id FROM " . $oostable['configuration_group'] . " WHERE visible = '1' ORDER BY sort_order");
+
 while ($configuration_groups = $configuration_groups_result->fields) {
 	$aBlocks[sizeof($aBlocks)-1]['contents'][] = array(
-			'code' => $configuration_groups['cgID'],
-			'title' => constant(strtoupper($configuration_groups['cgID'] . '_TITLE')),
-			'link' => oos_href_link_admin($aContents['configuration'], 'selected_box=configuration&amp;gID=' . $configuration_groups['cgID'], 'NONSSL')
+			'code' => $configuration_groups['cg_id'],
+			'title' => constant(strtoupper($configuration_groups['cg_id'] . '_TITLE')),
+			'link' => oos_href_link_admin($aContents['configuration'], 'selected_box=configuration&amp;gID=' . $configuration_groups['cg_id'], 'NONSSL')
 		);
 
 	// Move that ADOdb pointer!

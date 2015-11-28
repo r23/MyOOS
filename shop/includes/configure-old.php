@@ -33,7 +33,6 @@ define('ENABLE_SSL', '');
 define('OOS_SHOP', '');
 define('OOS_ADMIN', 'admin/');
 
-
 define('OOS_IMAGES', 'images/');
 define('OOS_POPUP_IMAGES', 'images_big/');
 define('OOS_CUSTOMERS_IMAGES', 'ci/');
@@ -50,6 +49,7 @@ define('OOS_DOWNLOAD_PATH_PUBLIC', OOS_ABSOLUTE_PATH . 'pub/');
 define('OOS_FEEDS_EXPORT_PATH', OOS_ABSOLUTE_PATH . 'feed/');
 define('OOS_EXPORT_PATH', OOS_ABSOLUTE_PATH . OOS_ADMIN . 'export/');
 
+
 define('OOS_UPLOADS', OOS_ABSOLUTE_PATH . OOS_IMAGES . 'uploads/');
 
 
@@ -57,7 +57,7 @@ define('OOS_TEMP_PATH', OOS_ABSOLUTE_PATH . 'temp/');
 define('ADODB_ERROR_LOG_DEST', OOS_TEMP_PATH . 'logs/adodb_error.log');
 
 define('ADODB_ERROR_LOG_TYPE', 3);
-define('ADODB_ASSOC_CASE', 0); // assoc lowercase for ADODB_FETCH_ASSOC
+define('ADODB_ASSOC_CASE', 0); 
 
 
 define('OOS_DB_TYPE', '');

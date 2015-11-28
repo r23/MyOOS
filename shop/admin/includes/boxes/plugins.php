@@ -10,10 +10,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
    
-$bActive = false;
-if ($_SESSION['selected_box'] == 'plugins' ) {
-	$bActive = true;
-}
+$bActive = ($_SESSION['selected_box'] == 'plugins' ) ? TRUE : FALSE;
   
 $aBlocks[] = array(
 	'heading' => BOX_HEADING_PLUGINS,

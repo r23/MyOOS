@@ -38,12 +38,12 @@
       if ($_POST['product']) {
         foreach ($_POST['product'] as $temp_prod) {
           $products_xselltable = $oostable['products_xsell'];
-          $dbconn->Execute("DELETE FROM $products_xselltable WHERE xsell_id = '" . $temp_prod . "' AND products_id = '" . $_GET['add_related_product_ID'] . "'");
+          $dbconn->Execute("DELETE FROM $products_xselltable WHERE xsell_id = '" . $temp_prod . "' AND products_id = '" . $_GET['add_related_product_id'] . "'");
         }
       }
 
       $products_xselltable = $oostable['products_xsell'];
-      $sort_start_result = $dbconn->Execute("SELECT sort_order FROM $products_xselltable WHERE products_id = '" . $_GET['add_related_product_ID'] . "' ORDER BY sort_order desc LIMIT 1");
+      $sort_start_result = $dbconn->Execute("SELECT sort_order FROM $products_xselltable WHERE products_id = '" . $_GET['add_related_product_id'] . "' ORDER BY sort_order desc LIMIT 1");
       $sort_start = $sort_start_result->fields;
 
       $sort = (($sort_start['sort_order'] > 0) ? $sort_start['sort_order'] : '0');
@@ -51,7 +51,7 @@
         foreach ($_POST['cross'] as $temp) {
           $sort++;
           $insert_array = array();
-          $insert_array = array('products_id' => $_GET['add_related_product_ID'],
+          $insert_array = array('products_id' => $_GET['add_related_product_id'],
                                 'xsell_id' => $temp,
                                 'sort_order' => $sort);
           oos_db_perform($oostable['products_xsell'], $insert_array); 
@@ -174,7 +174,7 @@ td.style.backgroundColor="DFE4F4";
 
 
 <?php
-  if ($_GET['add_related_product_ID'] == ''){
+  if ($_GET['add_related_product_id'] == ''){
 ?>
       <table border="0" cellspacing="1" cellpadding="2" bgcolor="#999999" align="center">
         <tr class="dataTableHeadingRow">
@@ -197,7 +197,7 @@ td.style.backgroundColor="DFE4F4";
     $products_result = $dbconn->Execute($products_result_raw);
     while ($products = $products_result->fields) {
 ?>
-        <tr onMouseOver="cOn(this); this.style.cursor='pointer'; this.style.cursor='hand';" onMouseOut="cOut(this);" bgcolor='#DFE4F4' onClick=document.location.href="<?php echo oos_href_link_admin($aContents['xsell_products'], 'add_related_product_ID=' . $products['products_id'], 'NONSSL');?>">
+        <tr onMouseOver="cOn(this); this.style.cursor='pointer'; this.style.cursor='hand';" onMouseOut="cOut(this);" bgcolor='#DFE4F4' onClick=document.location.href="<?php echo oos_href_link_admin($aContents['xsell_products'], 'add_related_product_id=' . $products['products_id'], 'NONSSL');?>">
           <td class="dataTableContent" valign="top">&nbsp;<?php echo $products['products_id'];?>&nbsp;</td>
           <td class="dataTableContent" valign="top">&nbsp;<?php echo $products['products_model'];?>&nbsp;</td>
           <td class="dataTableContent" valign="top">&nbsp;<?php echo $products['products_name'];?>&nbsp;</td>
@@ -206,7 +206,7 @@ td.style.backgroundColor="DFE4F4";
       $productstable = $oostable['products'];
       $products_descriptiontable = $oostable['products_description'];
       $products_xselltable = $oostable['products_xsell'];
-      $products_cross_result = $dbconn->Execute("SELECT p.products_id, p.products_model, pd.products_name, p.products_id, x.products_id, x.xsell_id, x.sort_order, x.ID 
+      $products_cross_result = $dbconn->Execute("SELECT p.products_id, p.products_model, pd.products_name, p.products_id, x.products_id, x.xsell_id, x.sort_order, x.id 
                                                  FROM $productstable p,
                                                       $products_descriptiontable pd,
                                                       $products_xselltable x
@@ -244,8 +244,8 @@ td.style.backgroundColor="DFE4F4";
       }
 ?>
       </table></td>
-      <td class="dataTableContent" valign="top">&nbsp;<a href="<?php echo oos_href_link_admin($aContents['xsell_products'], oos_get_all_get_params(array('action')) . 'add_related_product_ID=' . $products['products_id'], 'NONSSL');?>"><?php echo TEXT_EDIT_SELLS;?></a>&nbsp;</td>
-      <td class="dataTableContent" valign="top" align="center">&nbsp;<?php echo (($i > 0) ? '<a href="' . oos_href_link_admin($aContents['xsell_products'], oos_get_all_get_params(array('action')) . 'sort=1&add_related_product_ID=' . $products['products_id'], 'NONSSL') .'">'.TEXT_SORT.'</a>&nbsp;' : '--')?></td>
+      <td class="dataTableContent" valign="top">&nbsp;<a href="<?php echo oos_href_link_admin($aContents['xsell_products'], oos_get_all_get_params(array('action')) . 'add_related_product_id=' . $products['products_id'], 'NONSSL');?>"><?php echo TEXT_EDIT_SELLS;?></a>&nbsp;</td>
+      <td class="dataTableContent" valign="top" align="center">&nbsp;<?php echo (($i > 0) ? '<a href="' . oos_href_link_admin($aContents['xsell_products'], oos_get_all_get_params(array('action')) . 'sort=1&add_related_product_id=' . $products['products_id'], 'NONSSL') .'">'.TEXT_SORT.'</a>&nbsp;' : '--')?></td>
     </tr>
 <?php
       // Move that ADOdb pointer!
@@ -265,13 +265,13 @@ td.style.backgroundColor="DFE4F4";
     </tr>
   </table>
 <?php
-  } elseif ($_GET['add_related_product_ID'] != '' && $_GET['sort'] == '') {
+  } elseif ($_GET['add_related_product_id'] != '' && $_GET['sort'] == '') {
     $productstable = $oostable['products'];
     $products_descriptiontable = $oostable['products_description'];
     $products_name_result = $dbconn->Execute("SELECT pd.products_name, p.products_model, p.products_image
                                           FROM $productstable p,
                                                $products_descriptiontable pd
-                                          WHERE p.products_id = '" . $_GET['add_related_product_ID'] . "'
+                                          WHERE p.products_id = '" . $_GET['add_related_product_id'] . "'
                                             AND p.products_id = pd.products_id
                                             AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
     $products_name = $products_name_result->fields;
@@ -284,7 +284,7 @@ td.style.backgroundColor="DFE4F4";
         <tr>
           <td colspan="6"><table cellpadding="3" cellspacing="0" border="0" width="100%">
             <tr class="dataTableHeadingRow">
-              <td valign="top" align="center" colspan="2"><span class="pageHeading"><?php echo TEXT_SETTING_SELLS.': '.$products_name['products_name'].' ('.TEXT_MODEL.': '.$products_name['products_model'].') ('.TEXT_PRODUCT_ID.': '.$_GET['add_related_product_ID'].')';?></span></td>
+              <td valign="top" align="center" colspan="2"><span class="pageHeading"><?php echo TEXT_SETTING_SELLS.': '.$products_name['products_name'].' ('.TEXT_MODEL.': '.$products_name['products_model'].') ('.TEXT_PRODUCT_ID.': '.$_GET['add_related_product_id'].')';?></span></td>
             </tr>
             <tr class="dataTableHeadingRow">
               <td align="right"><?php echo oos_info_image($products_name['products_image'], $products_name['products_name']);?></td>
@@ -313,7 +313,7 @@ td.style.backgroundColor="DFE4F4";
     $products_result = $dbconn->Execute($products_result_raw);
     while ($products = $products_result->fields) {
       $products_xselltable = $oostable['products_xsell'];
-      $xsold_result = $dbconn->Execute("SELECT * FROM $products_xselltable WHERE products_id = '" .$_GET['add_related_product_ID'] . "' AND xsell_id = '" . $products['products_id'] . "'");
+      $xsold_result = $dbconn->Execute("SELECT * FROM $products_xselltable WHERE products_id = '" .$_GET['add_related_product_id'] . "' AND xsell_id = '" . $products['products_id'] . "'");
 ?>
         <tr bgcolor='#DFE4F4'>
           <td class="dataTableContent" align="center">&nbsp;<?php echo $products['products_id'];?>&nbsp;</td>
@@ -342,13 +342,13 @@ td.style.backgroundColor="DFE4F4";
     </tr>
   </table>
 <?php
-  } elseif ($_GET['add_related_product_ID'] != '' && $_GET['sort'] != '') {
+  } elseif ($_GET['add_related_product_id'] != '' && $_GET['sort'] != '') {
     $productstable = $oostable['products'];
     $products_descriptiontable = $oostable['products_description'];
     $products_name_result = $dbconn->Execute("SELECT pd.products_name, p.products_model, p.products_image
                                           FROM $productstable p,
                                                $products_descriptiontable pd
-                                          WHERE p.products_id = '" . $_GET['add_related_product_ID'] . "'
+                                          WHERE p.products_id = '" . $_GET['add_related_product_id'] . "'
                                             AND p.products_id = pd.products_id
                                             AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
     $products_name = $products_name_result->fields;
@@ -362,7 +362,7 @@ td.style.backgroundColor="DFE4F4";
         <tr>
           <td colspan="6"><table cellpadding="3" cellspacing="0" border="0" width="100%">
             <tr class="dataTableHeadingRow">
-              <td valign="top" align="center" colspan="2"><span class="pageHeading"><?php echo 'Setting cross-sells for: '.$products_name['products_name'].' (Model: '.$products_name['products_model'].') (Product ID: '.$_GET['add_related_product_ID'].')';?></span></td>
+              <td valign="top" align="center" colspan="2"><span class="pageHeading"><?php echo 'Setting cross-sells for: '.$products_name['products_name'].' (Model: '.$products_name['products_model'].') (Product ID: '.$_GET['add_related_product_id'].')';?></span></td>
                 </tr>
                 <tr class="dataTableHeadingRow">
                   <td align="right"><?php echo oos_info_image($products_name['products_image'], $products_name['products_name']);?></td>
@@ -382,12 +382,12 @@ td.style.backgroundColor="DFE4F4";
     $productstable = $oostable['products'];
     $products_descriptiontable = $oostable['products_description'];
     $products_xselltable = $oostable['products_xsell'];
-    $products_result_raw = "SELECT p.products_id as products_id, p.products_price, p.products_image, p.products_model, pd.products_name, p.products_id, x.products_id as xproducts_id, x.xsell_id, x.sort_order, x.ID
+    $products_result_raw = "SELECT p.products_id AS products_id, p.products_price, p.products_image, p.products_model, pd.products_name, p.products_id, x.products_id AS xproducts_id, x.xsell_id, x.sort_order, x.id
                            FROM $productstable p,
                                 $products_descriptiontable pd,
                                 $products_xselltable x
                            WHERE x.xsell_id = p.products_id 
-                             AND x.products_id = '" . $_GET['add_related_product_ID'] . "'
+                             AND x.products_id = '" . $_GET['add_related_product_id'] . "'
                              AND p.products_id = pd.products_id 
                              AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'
                            ORDER BY x.sort_order asc";

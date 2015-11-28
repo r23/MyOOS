@@ -208,7 +208,7 @@
         $boxes[] = array('admin_boxes_name' => $boxes_file,
                          'admin_boxes_id' => 'b' . $none);
       } elseif ( (substr("$boxes_file", -4) == '.php') && (in_array($boxes_file, $installed_boxes))) {
-        $db_boxes_id_query = "SELECT admin_files_id as admin_boxes_id FROM " . $oostable['admin_files'] . " WHERE admin_files_is_boxes = 1 and admin_files_name = '" . $boxes_file . "'";
+        $db_boxes_id_query = "SELECT admin_files_id AS admin_boxes_id FROM " . $oostable['admin_files'] . " WHERE admin_files_is_boxes = 1 AND admin_files_name = '" . $boxes_file . "'";
         $db_boxes_id = $dbconn->GetRow($db_boxes_id_query);
 
         $boxes[] = array('admin_boxes_name' => $boxes_file,

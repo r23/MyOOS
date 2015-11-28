@@ -19,10 +19,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-$bActive = false;
-if ($_SESSION['selected_box'] == 'tools' ) {
-	$bActive = true;
-}
+$bActive = ($_SESSION['selected_box'] == 'tools' ) ? TRUE : FALSE;
   
 $aBlocks[] = array(
 	'heading' => BOX_HEADING_TOOLS,

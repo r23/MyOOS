@@ -19,10 +19,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-$bActive = false;
-if ($_SESSION['selected_box'] == 'customers' ) {
-	$bActive = true;
-}
+$bActive = ($_SESSION['selected_box'] == 'customers' ) ? TRUE : FALSE;
       
    
 $aBlocks[] = array(

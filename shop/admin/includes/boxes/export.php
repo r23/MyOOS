@@ -18,10 +18,8 @@
    ---------------------------------------------------------------------- */
 
 
-$bActive = false;
-if ($_SESSION['selected_box'] == 'export' ) {
-	$bActive = true;
-}
+$bActive = ($_SESSION['selected_box'] == 'export' ) ? TRUE : FALSE;
+
   
 $aBlocks[] = array(
 	'heading' => BOX_HEADING_EXPORT,

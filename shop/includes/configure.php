@@ -49,7 +49,6 @@ define('OOS_DOWNLOAD_PATH_PUBLIC', OOS_ABSOLUTE_PATH . 'pub/');
 define('OOS_FEEDS_EXPORT_PATH', OOS_ABSOLUTE_PATH . 'feed/');
 define('OOS_EXPORT_PATH', OOS_ABSOLUTE_PATH . OOS_ADMIN . 'export/');
 
-
 define('OOS_UPLOADS', OOS_ABSOLUTE_PATH . OOS_IMAGES . 'uploads/');
 
 
@@ -58,7 +57,6 @@ define('ADODB_ERROR_LOG_DEST', OOS_TEMP_PATH . 'logs/adodb_error.log');
 
 define('ADODB_ERROR_LOG_TYPE', 3);
 define('ADODB_ASSOC_CASE', 0); // assoc lowercase for ADODB_FETCH_ASSOC
-
 
 define('OOS_DB_TYPE', '');
 define('OOS_DB_SERVER', '');

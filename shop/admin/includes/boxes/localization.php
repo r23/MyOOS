@@ -19,10 +19,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-$bActive = false;
-if ($_SESSION['selected_box'] == 'localization' ) {
-	$bActive = true;
-}
+$bActive = ($_SESSION['selected_box'] == 'localization' ) ? TRUE : FALSE;
   
 $aBlocks[] = array(
 	'heading' => BOX_HEADING_LOCALIZATION,
