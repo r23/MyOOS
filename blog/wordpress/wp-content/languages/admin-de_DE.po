@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-10-26 23:06:55+0000\n"
+"PO-Revision-Date: 2015-12-01 09:00:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1988,12 +1988,6 @@ msgstr "Wenn gewünscht, kann WordPress diverse Dienste automatisch beim Veröff
 msgid "Post name"
 msgstr "Beitragsname"
 
-#: wp-admin/options-permalink.php:208 wp-admin/options-permalink.php:212
-#: wp-admin/options-permalink.php:220
-msgctxt "sample permalink structure"
-msgid "sample-post"
-msgstr "Beispielbeitrag"
-
 #: wp-admin/options-reading.php:126
 msgid "posts"
 msgstr "Beiträge"
@@ -2013,11 +2007,6 @@ msgstr "Wenn du <code>%category%</code> oder <code>%tag%</code> verwendest, dann
 #: wp-admin/options-writing.php:138
 msgid "Default Mail Category"
 msgstr "Standardkategorie für Beiträge per E-Mail"
-
-#: wp-admin/options-permalink.php:196 wp-admin/options-permalink.php:216
-msgctxt "sample permalink base"
-msgid "archives"
-msgstr "Archive"
 
 #: wp-admin/plugin-editor.php:248 wp-admin/theme-editor.php:209
 msgid "Look Up"
@@ -2331,6 +2320,17 @@ msgstr "WordPress benachrichtigt derzeit keine <a href=\"https://codex.wordpress
 #: wp-admin/options-writing.php:163
 msgid "When you publish a new post, WordPress automatically notifies the following site update services. For more about this, see <a href=\"https://codex.wordpress.org/Update_Services\">Update Services</a> on the Codex. Separate multiple service <abbr title=\"Universal Resource Locator\">URL</abbr>s with line breaks."
 msgstr "Wenn du einen Beitrag veröffentlichst, kann WordPress verschiedene Dienste darüber informieren. Um mehr darüber zu erfahren, besuche die Seite <a href=\"https://codex.wordpress.org/Update_Services\">Update-Services</a> im Codex. Bitte trenne mehrere <abbr title=\"Universal Resource Locator\">URL</abbr>s jeweils durch einen Zeilenumbruch."
+
+#: wp-admin/options-permalink.php:208 wp-admin/options-permalink.php:212
+#: wp-admin/options-permalink.php:220
+msgctxt "sample permalink structure"
+msgid "sample-post"
+msgstr "beispielbeitrag"
+
+#: wp-admin/options-permalink.php:196 wp-admin/options-permalink.php:216
+msgctxt "sample permalink base"
+msgid "archives"
+msgstr "archive"
 
 #: wp-admin/install.php:218
 msgid "Insufficient Requirements"
