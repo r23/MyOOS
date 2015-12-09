@@ -79,27 +79,27 @@ msgctxt "Used before post author name."
 msgid "Author"
 msgstr "Autor"
 
-#: inc/customizer.php:147
+#: inc/customizer.php:168
 msgid "Blue"
 msgstr "Blau"
 
-#: inc/customizer.php:125
+#: inc/customizer.php:146
 msgid "Pink"
 msgstr "Pink"
 
-#: inc/customizer.php:92
+#: inc/customizer.php:113
 msgid "Default"
 msgstr "Standard"
 
-#: inc/customizer.php:114
+#: inc/customizer.php:135
 msgid "Yellow"
 msgstr "Gelb"
 
-#: inc/customizer.php:103
+#: inc/customizer.php:124
 msgid "Dark"
 msgstr "Dunkel"
 
-#: inc/customizer.php:136
+#: inc/customizer.php:157
 msgid "Purple"
 msgstr "Violett"
 
@@ -240,7 +240,7 @@ msgstr "on"
 msgid "Widget Area"
 msgstr "Widgetbereich"
 
-#. #-#-#-#-#  twentyfifteen.pot (Twenty Fifteen 1.3)  #-#-#-#-#
+#. #-#-#-#-#  twentyfifteen.pot (Twenty Fifteen 1.4)  #-#-#-#-#
 #. Author URI of the plugin/theme
 #: footer.php:25
 msgid "https://wordpress.org/"
