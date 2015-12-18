@@ -1,14 +1,14 @@
-# Translation of Development in German
-# This file is distributed under the same license as the Development package.
+# Translation of Development (4.4.x) in German
+# This file is distributed under the same license as the Development (4.4.x) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-12-05 00:59:09+0000\n"
+"PO-Revision-Date: 2015-12-16 21:24:56+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/1.0-alpha-1100\n"
-"Project-Id-Version: Development\n"
+"Project-Id-Version: Development (4.4.x)\n"
 
 #. translators: 'rtl' or 'ltr'. This sets the text direction for WordPress.
 #: wp-includes/locale.php:201
@@ -666,7 +666,7 @@ msgctxt "adjective"
 msgid "Trash"
 msgstr "Papierkorb"
 
-#: wp-includes/comment-template.php:2110
+#: wp-includes/comment-template.php:2115
 msgid "<a href=\"%1$s\" aria-label=\"Logged in as %2$s. Edit your profile.\">Logged in as %2$s</a>. <a href=\"%3$s\">Log out?</a>"
 msgstr "<a href=\"%1$s\" aria-label=\"Angemeldet als %2$s. Bearbeite dein Profil.\">Angemeldet als %2$s</a>. <a href=\"%3$s\">Abmelden?</a>"
 
@@ -1679,19 +1679,19 @@ msgid "Select Year"
 msgstr "Jahr auswählen"
 
 #. translators: %s: post title
-#: wp-includes/comment-template.php:1467
+#: wp-includes/comment-template.php:1472
 msgid "Comments Off<span class=\"screen-reader-text\"> on %s</span>"
 msgstr "Kommentare deaktiviert<span class=\"screen-reader-text\"> für %s</span>"
 
 #. translators: 1: Number of comments 2: post title
-#: wp-includes/comment-template.php:1461
+#: wp-includes/comment-template.php:1466
 msgid "%1$s Comment<span class=\"screen-reader-text\"> on %2$s</span>"
 msgid_plural "%1$s Comments<span class=\"screen-reader-text\"> on %2$s</span>"
 msgstr[0] "%1$s Kommentar<span class=\"screen-reader-text\"> zu %2$s</span>"
 msgstr[1] "%1$s Kommentare<span class=\"screen-reader-text\"> zu %2$s</span>"
 
 #. translators: %s: post title
-#: wp-includes/comment-template.php:1456
+#: wp-includes/comment-template.php:1461
 msgid "1 Comment<span class=\"screen-reader-text\"> on %s</span>"
 msgstr "1 Kommentar<span class=\"screen-reader-text\"> zu %s</span>"
 
@@ -1701,7 +1701,7 @@ msgid "Link Text"
 msgstr "Linktext"
 
 #. translators: %s: post title
-#: wp-includes/comment-template.php:1451
+#: wp-includes/comment-template.php:1456
 msgid "No Comments<span class=\"screen-reader-text\"> on %s</span>"
 msgstr "Keine Kommentare<span class=\"screen-reader-text\"> zu %s</span>"
 
@@ -1932,7 +1932,7 @@ msgctxt "post format archive title"
 msgid "Videos"
 msgstr "Videos"
 
-#: wp-includes/comment-template.php:1558
+#: wp-includes/comment-template.php:1563
 msgid "Reply to %s"
 msgstr "Antworte auf %s"
 
@@ -5177,7 +5177,7 @@ msgstr "Die Konstante <code>VHOST</code> <strong>ist veraltet</strong>. Nutze di
 msgid "<strong>ERROR</strong>: This username is invalid because it uses illegal characters. Please enter a valid username."
 msgstr "<strong>Fehler:</strong> Dieser Benutzername kann nicht verwendet werden, da er ungültige Zeichen enthält. Bitte gib einen gültigen Benutzernamen an."
 
-#: wp-includes/comment-template.php:2094
+#: wp-includes/comment-template.php:2099
 msgid "Required fields are marked %s"
 msgstr "Erforderliche Felder sind markiert %s"
 
@@ -5343,7 +5343,7 @@ msgstr "Beim Versuch, dich zu dieser Website hinzufügen, trat ein Fehler auf. H
 msgid "This file is too big. Files must be less than %d KB in size."
 msgstr "Die Datei ist zu groß. Dateien dürfen nicht größer als %d KB sein."
 
-#: wp-includes/comment-template.php:2111
+#: wp-includes/comment-template.php:2116
 msgid "Your email address will not be published."
 msgstr "Deine E-Mail-Adresse wird nicht veröffentlicht."
 
@@ -6486,10 +6486,6 @@ msgstr "Anlage fehlt"
 msgid "%1$s [Autosave]"
 msgstr "%1$s [Automatische Speicherung]"
 
-#: wp-includes/post-template.php:1661
-msgid "%1$s [Current Revision]"
-msgstr "%1$s [Aktuelle Überarbeitung]"
-
 #: wp-includes/post.php:2982
 msgid "Content, title, and excerpt are empty."
 msgstr "Inhalt, Titel und Auszug sind leer."
@@ -6497,10 +6493,6 @@ msgstr "Inhalt, Titel und Auszug sind leer."
 #: wp-includes/post.php:3291
 msgid "The page template is invalid."
 msgstr "Das Seitentemplate ist ungültig."
-
-#: wp-includes/revision.php:268
-msgid "Cannot create a revision of a revision"
-msgstr "Kann keine Überarbeitung einer Überarbeitung erstellen."
 
 #: wp-includes/script-loader.php:92
 msgid "Close all open tags"
@@ -6847,11 +6839,11 @@ msgctxt "post"
 msgid "Pending"
 msgstr "Ausstehend"
 
-#: wp-includes/comment-template.php:2124
+#: wp-includes/comment-template.php:2129
 msgid "Cancel reply"
 msgstr "Antworten abbrechen"
 
-#: wp-includes/comment-template.php:2125
+#: wp-includes/comment-template.php:2130
 msgid "Post Comment"
 msgstr "Kommentar abschicken"
 
@@ -7307,6 +7299,14 @@ msgstr "Passwort vergessen"
 msgid "Home"
 msgstr "Startseite"
 
+#: wp-includes/post-template.php:1661
+msgid "%1$s [Current Revision]"
+msgstr "%1$s [Aktuelle Revision]"
+
+#: wp-includes/revision.php:268
+msgid "Cannot create a revision of a revision"
+msgstr "Kann keine Revision einer Revision erstellen."
+
 #: wp-includes/link-template.php:2260 wp-includes/link-template.php:2304
 msgid "&laquo; Previous Page"
 msgstr "&laquo; Vorherige Seite"
@@ -7356,7 +7356,7 @@ msgstr "Die Kommentarfunktion ist zur Zeit leider deaktiviert."
 msgid "Close this window."
 msgstr "Dieses Fenster schließen."
 
-#: wp-includes/comment-template.php:1476
+#: wp-includes/comment-template.php:1481
 msgid "Enter your password to view comments."
 msgstr "Auch die Kommentare sind durch das Passwort geschützt."
 
@@ -7557,7 +7557,7 @@ msgstr "<strong>Fehler:</strong> Bitte gib einen Benutzernamen ein."
 msgid "<strong>ERROR</strong>: This email is already registered, please choose another one."
 msgstr "<strong>Fehler:</strong> Diese E-Mail-Adresse wurde bereits registriert, bitte wähle eine andere."
 
-#: wp-includes/comment-template.php:2088
+#: wp-includes/comment-template.php:2093
 #: wp-includes/theme-compat/comments-popup.php:81 wp-login.php:721
 msgid "Email"
 msgstr "E-Mail-Adresse"
@@ -7571,7 +7571,7 @@ msgstr "Die Benutzung von <code>user_level</code> in Plugins und Themes ist vera
 msgid "Powered by WordPress, state-of-the-art semantic personal publishing platform."
 msgstr "Powered by WordPress, state-of-the-art semantic personal publishing platform."
 
-#: wp-includes/comment-template.php:2108
+#: wp-includes/comment-template.php:2113
 #: wp-includes/theme-compat/comments.php:82
 msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
 msgstr "Du musst <a href=\"%s\">angemeldet</a> sein, um einen Kommentar abzugeben."
@@ -7620,7 +7620,7 @@ msgstr "Erlaube Besuchern, neue Beiträge zu kommentieren"
 msgid "For some strange yet very annoying reason, this post could not be edited."
 msgstr "Aus einem seltsam unerfreulichen Grund kann dieser Beitrag nicht bearbeitet werden."
 
-#: wp-includes/comment-template.php:2090
+#: wp-includes/comment-template.php:2095
 #: wp-includes/theme-compat/comments.php:102
 msgid "Website"
 msgstr "Website"
@@ -7650,24 +7650,24 @@ msgstr "Meine Websites"
 msgid "Leave a comment"
 msgstr "Schreib einen Kommentar"
 
-#: wp-includes/comment-template.php:1670
+#: wp-includes/comment-template.php:1675
 msgid "Leave a Comment"
 msgstr "Schreib einen Kommentar"
 
-#: wp-includes/comment-template.php:1671
+#: wp-includes/comment-template.php:1676
 msgid "Log in to leave a Comment"
 msgstr "Melde dich an, um einen Kommentar zu schreiben"
 
-#: wp-includes/comment-template.php:1827 wp-includes/comment-template.php:2119
+#: wp-includes/comment-template.php:1832 wp-includes/comment-template.php:2124
 #: wp-includes/theme-compat/comments.php:75
 msgid "Leave a Reply to %s"
 msgstr "Schreib einen Kommentar zu %s"
 
-#: wp-includes/comment-template.php:1559
+#: wp-includes/comment-template.php:1564
 msgid "Log in to Reply"
 msgstr "Zum Kommentieren anmelden"
 
-#: wp-includes/comment-template.php:1739
+#: wp-includes/comment-template.php:1744
 msgid "Click here to cancel reply."
 msgstr "Hier klicken, um das Kommentieren abzubrechen."
 
@@ -7675,7 +7675,7 @@ msgstr "Hier klicken, um das Kommentieren abzubrechen."
 msgid "Sorry, you must be logged in to post a comment."
 msgstr "Sorry, du musst angemeldet sein, um einen Kommentar zu schreiben."
 
-#: wp-includes/comment-template.php:1826 wp-includes/comment-template.php:2118
+#: wp-includes/comment-template.php:1831 wp-includes/comment-template.php:2123
 #: wp-includes/theme-compat/comments.php:75
 msgid "Leave a Reply"
 msgstr "Schreib einen Kommentar"
@@ -7805,7 +7805,7 @@ msgstr "Plugins"
 msgid "Content"
 msgstr "Inhalt"
 
-#: wp-includes/comment-template.php:1557 wp-includes/script-loader.php:488
+#: wp-includes/comment-template.php:1562 wp-includes/script-loader.php:488
 msgid "Reply"
 msgstr "Antworten"
 
@@ -7865,7 +7865,7 @@ msgstr "Linkkategorie bearbeiten"
 msgid "Add Link"
 msgstr "Link hinzufügen"
 
-#: wp-includes/comment-template.php:2086
+#: wp-includes/comment-template.php:2091
 #: wp-includes/theme-compat/comments-popup.php:76
 #: wp-includes/theme-compat/comments.php:96
 msgid "Name"
@@ -7989,7 +7989,7 @@ msgstr "Autor"
 msgid "URL"
 msgstr "URL"
 
-#: wp-includes/comment-template.php:1041 wp-includes/comment-template.php:2106
+#: wp-includes/comment-template.php:1041 wp-includes/comment-template.php:2111
 msgctxt "noun"
 msgid "Comment"
 msgstr "Kommentar"
