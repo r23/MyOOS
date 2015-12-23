@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-12-13 11:57:06+0000\n"
+"PO-Revision-Date: 2015-12-22 12:47:08+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1963,13 +1963,13 @@ msgstr "Eingereicht am"
 msgid "You are only logged in at this location."
 msgstr "Du bist nur an diesem Ort angemeldet."
 
-#: wp-admin/edit-form-advanced.php:369
-msgid "You can enable distraction-free writing mode using the icon to the right. This feature is not available for old browsers or devices with small screens, and requires that the full-height editor be enabled in Screen Options."
-msgstr "Du kannst den Modus für das ablenkungsfreie Schreiben über das letzte Icon in der oberen Reihe aktivieren. Diese Funktion ist nicht in älteren Browsern oder Geräten mit kleinen Bildschirmen verfügbar und setzt voraus, dass die Anzeige des Editors in voller Höhe in den Bildschirm-Optionen aktiviert wurde."
-
 #: wp-admin/includes/plugin-install.php:334
 msgid "These suggestions are based on the plugins you and other users have installed."
 msgstr "Diese Empfehlungen basieren auf Plugins, welche du und andere Anwender installiert haben."
+
+#: wp-admin/edit-form-advanced.php:369
+msgid "You can enable distraction-free writing mode using the icon to the right. This feature is not available for old browsers or devices with small screens, and requires that the full-height editor be enabled in Screen Options."
+msgstr "Du kannst den Modus für das ablenkungsfreie Schreiben über das letzte Icon in der oberen Reihe aktivieren. Diese Funktion ist nicht in älteren Browsern oder Geräten mit kleinen Bildschirmen verfügbar und setzt voraus, dass die Anzeige des Editors in voller Höhe im Tab &#8222;Ansicht anpassen&#8220; aktiviert wurde."
 
 #: wp-admin/user-edit.php:548
 msgid "Log Out Everywhere"
@@ -2048,17 +2048,17 @@ msgstr "<strong>WordPress News</strong> &mdash; Neueste, offizielle Nachrichten 
 msgid "Enable full-height editor and distraction-free functionality."
 msgstr "Anzeige des Editors in voller Höhe zulassen und ablenkungsfreies Schreiben aktivieren."
 
-#: wp-admin/includes/dashboard.php:1057
-msgid "https://planet.wordpress.org/"
-msgstr "http://planet.wpde.org/"
-
-#: wp-admin/includes/dashboard.php:1066
-msgid "https://planet.wordpress.org/feed/"
-msgstr "http://planet.wpde.org/de/small-feed/"
-
 #: wp-admin/includes/class-wp-plugin-install-list-table.php:549
 msgid "Untested with your version of WordPress"
 msgstr "Ungetestet mit deiner Version von WordPress"
+
+#: wp-admin/includes/dashboard.php:1066
+msgid "https://planet.wordpress.org/feed/"
+msgstr "http://de.planetwp.org/de/small-feed/feed/"
+
+#: wp-admin/includes/dashboard.php:1057
+msgid "https://planet.wordpress.org/"
+msgstr "http://de.planetwp.org"
 
 #: wp-admin/includes/class-wp-links-list-table.php:113
 #: wp-admin/includes/class-wp-posts-list-table.php:437
@@ -2787,7 +2787,7 @@ msgstr "<strong>Schneller Entwurf</strong> &mdash; Ermöglicht Dir, neue Beiträ
 
 #: wp-admin/index.php:55
 msgid "<strong>Screen Options</strong> &mdash; Use the Screen Options tab to choose which Dashboard boxes to show."
-msgstr "<strong>Ansicht anpassen</strong> &mdash; Verwende den Tab \"Ansicht anpassen\" um auszuwählen, welche Kästchen im Dashboard angezeigt werden sollen."
+msgstr "<strong>Ansicht anpassen</strong> &mdash; Verwende den Tab &#8222;Ansicht anpassen&#8220; um auszuwählen, welche Kästchen im Dashboard angezeigt werden sollen."
 
 #: wp-admin/includes/dashboard.php:46
 msgid "Activity"
@@ -6662,7 +6662,7 @@ msgstr "Wähle zuerst in der Auswahlbox das zu bearbeitende Plugin und klicke da
 
 #: wp-admin/link-manager.php:49
 msgid "You can customize the display of this screen using the Screen Options tab and/or the dropdown filters above the links table."
-msgstr "Du kannst über den Tab &#8222;Ansicht anpassen&#8220; die Darstellung einrichten und auch diverse Auswahlfilter anwenden, die direkt über der Tabelle mit den Links angezeigt werden."
+msgstr "Du kannst über den Tab &#8222;Ansicht anpassen&#8220; die Darstellung anpassen und auch diverse Auswahlfilter anwenden, die direkt über der Tabelle mit den Links angezeigt werden."
 
 #: wp-admin/plugins.php:415
 msgid "Most of the time, plugins play nicely with the core of WordPress and with other plugins. Sometimes, though, a plugin&#8217;s code will get in the way of another plugin, causing compatibility issues. If your site starts doing strange things, this may be the problem. Try deactivating all your plugins and re-activating them in various combinations until you isolate which one(s) caused the issue."
