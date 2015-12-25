@@ -174,7 +174,7 @@ if (!isset($_SESSION['customer_id'])) {
 // a javascript force-selection method, also automatically select the cheapest shipping
 // method if more than one module is now enabled
   if ( !isset($_SESSION['shipping']) || ( isset($_SESSION['shipping']) && ($_SESSION['shipping'] == FALSE) && (oos_count_shipping_modules() > 1) ) ) $_SESSION['shipping'] = $shipping_modules->cheapest();
-  list ($sess_class, $sess_method) = explode ('_', $_SESSION['shipping']['id']);
+  list ($sess_class, $sess_method) = preg_split('/_/', $_SESSION['shipping']['id']);
 
   // links breadcrumb
   $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
