@@ -11,8 +11,6 @@
 
 namespace Symfony\Component\Form\ChoiceList;
 
-use Symfony\Component\Form\Exception\UnexpectedTypeException;
-
 /**
  * A list of choices with arbitrary data types.
  *
@@ -64,14 +62,16 @@ class ArrayChoiceList implements ChoiceListInterface
      *                                    incrementing integers are used as
      *                                    values
      */
-    public function __construct($choices, $value = null)
+    public function __construct($choices, callable $value = null)
     {
-        if (null !== $value && !is_callable($value)) {
-            throw new UnexpectedTypeException($value, 'null or callable');
-        }
-
         if ($choices instanceof \Traversable) {
             $choices = iterator_to_array($choices);
+        }
+
+        if (null === $value && $this->castableToString($choices)) {
+            $value = function ($choice) {
+                return (string) $choice;
+            };
         }
 
         if (null !== $value) {
@@ -206,5 +206,36 @@ class ArrayChoiceList implements ChoiceListInterface
             $keysByValues[$choiceValue] = $key;
             $structuredValues[$key] = $choiceValue;
         }
+    }
+
+    /**
+     * Checks whether the given choices can be cast to strings without
+     * generating duplicates.
+     *
+     * @param array      $choices The choices.
+     * @param array|null $cache   The cache for previously checked entries. Internal
+     *
+     * @return bool Returns true if the choices can be cast to strings and
+     *              false otherwise.
+     */
+    private function castableToString(array $choices, array &$cache = array())
+    {
+        foreach ($choices as $choice) {
+            if (is_array($choice)) {
+                if (!$this->castableToString($choice, $cache)) {
+                    return false;
+                }
+
+                continue;
+            } elseif (!is_scalar($choice)) {
+                return false;
+            } elseif (isset($cache[(string) $choice])) {
+                return false;
+            }
+
+            $cache[(string) $choice] = true;
+        }
+
+        return true;
     }
 }

@@ -16,8 +16,8 @@ namespace Symfony\Component\ClassLoader;
  *
  * It expects an object implementing a findFile method to find the file. This
  * allows using it as a wrapper around the other loaders of the component (the
- * ClassLoader and the UniversalClassLoader for instance) but also around any
- * other autoloaders following this convention (the Composer one for instance).
+ * ClassLoader for instance) but also around any other autoloaders following
+ * this convention (the Composer one for instance).
  *
  *     // with a Symfony autoloader
  *     use Symfony\Component\ClassLoader\ClassLoader;
@@ -44,8 +44,6 @@ namespace Symfony\Component\ClassLoader;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Kris Wallsmith <kris@symfony.com>
- *
- * @api
  */
 class ApcClassLoader
 {
@@ -66,8 +64,6 @@ class ApcClassLoader
      *
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
-     *
-     * @api
      */
     public function __construct($prefix, $decorated)
     {

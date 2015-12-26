@@ -63,11 +63,14 @@ class XmlUtilsTest extends \PHPUnit_Framework_TestCase
 
     public function testLoadFileWithInternalErrorsEnabled()
     {
-        libxml_use_internal_errors(true);
+        $internalErrors = libxml_use_internal_errors(true);
 
         $this->assertSame(array(), libxml_get_errors());
         $this->assertInstanceOf('DOMDocument', XmlUtils::loadFile(__DIR__.'/../Fixtures/Util/invalid_schema.xml'));
         $this->assertSame(array(), libxml_get_errors());
+
+        libxml_clear_errors();
+        libxml_use_internal_errors($internalErrors);
     }
 
     /**
@@ -147,7 +150,7 @@ class XmlUtilsTest extends \PHPUnit_Framework_TestCase
     public function testLoadEmptyXmlFile()
     {
         $file = __DIR__.'/../Fixtures/foo.xml';
-        $this->setExpectedException('InvalidArgumentException', 'File '.$file.' does not contain valid XML, it is empty.');
+        $this->setExpectedException('InvalidArgumentException', sprintf('File %s does not contain valid XML, it is empty.', $file));
         XmlUtils::loadFile($file);
     }
 
@@ -169,15 +172,10 @@ class XmlUtilsTest extends \PHPUnit_Framework_TestCase
             } catch (\InvalidArgumentException $e) {
                 $this->assertEquals(sprintf('File %s does not contain valid XML, it is empty.', $file), $e->getMessage());
             }
-        } catch (\Exception $e) {
+        } finally {
             restore_error_handler();
             error_reporting($errorReporting);
-
-            throw $e;
         }
-
-        restore_error_handler();
-        error_reporting($errorReporting);
 
         $disableEntities = libxml_disable_entity_loader(true);
         libxml_disable_entity_loader($disableEntities);

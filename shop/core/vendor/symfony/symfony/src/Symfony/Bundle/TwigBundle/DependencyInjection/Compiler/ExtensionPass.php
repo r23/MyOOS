@@ -28,10 +28,6 @@ class ExtensionPass implements CompilerPassInterface
             $container->getDefinition('twig.loader.filesystem')->addMethodCall('addPath', array(dirname(dirname($reflClass->getFileName())).'/Resources/views/Form'));
         }
 
-        if ($container->has('fragment.handler')) {
-            $container->getDefinition('twig.extension.actions')->addTag('twig.extension');
-        }
-
         if ($container->has('translator')) {
             $container->getDefinition('twig.extension.trans')->addTag('twig.extension');
         }
@@ -68,9 +64,7 @@ class ExtensionPass implements CompilerPassInterface
             $container->getDefinition('twig.extension.debug')->addTag('twig.extension');
         }
 
-        if ($container->has('templating')) {
-            $container->getDefinition('twig.cache_warmer')->addTag('kernel.cache_warmer');
-        } else {
+        if (!$container->has('templating')) {
             $loader = $container->getDefinition('twig.loader.native_filesystem');
             $loader->addTag('twig.loader');
             $loader->setMethodCalls($container->getDefinition('twig.loader.filesystem')->getMethodCalls());
@@ -80,11 +74,6 @@ class ExtensionPass implements CompilerPassInterface
 
         if ($container->has('assets.packages')) {
             $container->getDefinition('twig.extension.assets')->addTag('twig.extension');
-        }
-
-        if (method_exists('Symfony\Bridge\Twig\AppVariable', 'setContainer')) {
-            // we are on Symfony <3.0, where the setContainer method exists
-            $container->getDefinition('twig.app_variable')->addMethodCall('setContainer', array(new Reference('service_container')));
         }
     }
 }

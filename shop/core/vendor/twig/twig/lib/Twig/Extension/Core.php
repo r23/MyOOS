@@ -114,11 +114,6 @@ class Twig_Extension_Core extends Twig_Extension
         return $this->numberFormat;
     }
 
-    /**
-     * Returns the token parser instance to add to the existing list.
-     *
-     * @return Twig_TokenParser[] An array of Twig_TokenParser instances
-     */
     public function getTokenParsers()
     {
         return array(
@@ -140,11 +135,6 @@ class Twig_Extension_Core extends Twig_Extension
         );
     }
 
-    /**
-     * Returns a list of filters to add to the existing list.
-     *
-     * @return array An array of filters
-     */
     public function getFilters()
     {
         $filters = array(
@@ -152,7 +142,7 @@ class Twig_Extension_Core extends Twig_Extension
             new Twig_SimpleFilter('date', 'twig_date_format_filter', array('needs_environment' => true)),
             new Twig_SimpleFilter('date_modify', 'twig_date_modify_filter', array('needs_environment' => true)),
             new Twig_SimpleFilter('format', 'sprintf'),
-            new Twig_SimpleFilter('replace', 'strtr'),
+            new Twig_SimpleFilter('replace', 'twig_replace_filter'),
             new Twig_SimpleFilter('number_format', 'twig_number_format_filter', array('needs_environment' => true)),
             new Twig_SimpleFilter('abs', 'abs'),
             new Twig_SimpleFilter('round', 'twig_round'),
@@ -202,11 +192,6 @@ class Twig_Extension_Core extends Twig_Extension
         return $filters;
     }
 
-    /**
-     * Returns a list of global functions to add to the existing list.
-     *
-     * @return array An array of global functions
-     */
     public function getFunctions()
     {
         return array(
@@ -222,11 +207,6 @@ class Twig_Extension_Core extends Twig_Extension
         );
     }
 
-    /**
-     * Returns a list of tests to add to the existing list.
-     *
-     * @return array An array of tests
-     */
     public function getTests()
     {
         return array(
@@ -245,11 +225,6 @@ class Twig_Extension_Core extends Twig_Extension
         );
     }
 
-    /**
-     * Returns a list of operators to add to the existing list.
-     *
-     * @return array An array of operators
-     */
     public function getOperators()
     {
         return array(
@@ -340,12 +315,10 @@ class Twig_Extension_Core extends Twig_Extension
             }
         }
 
-        $message = sprintf('The test "%s" does not exist', $name);
-        if ($alternatives = $env->computeAlternatives($name, array_keys($env->getTests()))) {
-            $message = sprintf('%s. Did you mean "%s"', $message, implode('", "', $alternatives));
-        }
+        $e = new Twig_Error_Syntax(sprintf('Unknown "%s" test.', $name), $line, $parser->getFilename());
+        $e->addSuggestions($name, array_keys($env->getTests()));
 
-        throw new Twig_Error_Syntax($message, $line, $parser->getFilename());
+        throw $e;
     }
 
     protected function getTestNodeClass(Twig_Parser $parser, $test)
@@ -357,11 +330,6 @@ class Twig_Extension_Core extends Twig_Extension
         return $test instanceof Twig_Test_Node ? $test->getClass() : 'Twig_Node_Expression_Test';
     }
 
-    /**
-     * Returns the name of the extension.
-     *
-     * @return string The extension name
-     */
     public function getName()
     {
         return 'core';
@@ -536,17 +504,46 @@ function twig_date_converter(Twig_Environment $env, $date = null, $timezone = nu
         return $date;
     }
 
-    $asString = (string) $date;
-    if (ctype_digit($asString) || (!empty($asString) && '-' === $asString[0] && ctype_digit(substr($asString, 1)))) {
-        $date = '@'.$date;
+    if (null === $date || 'now' === $date) {
+        return new DateTime($date, false !== $timezone ? $timezone : $env->getExtension('core')->getTimezone());
     }
 
-    $date = new DateTime($date, $env->getExtension('core')->getTimezone());
+    $asString = (string) $date;
+    if (ctype_digit($asString) || (!empty($asString) && '-' === $asString[0] && ctype_digit(substr($asString, 1)))) {
+        $date = new DateTime('@'.$date);
+    } else {
+        $date = new DateTime($date, $env->getExtension('core')->getTimezone());
+    }
+
     if (false !== $timezone) {
         $date->setTimezone($timezone);
     }
 
     return $date;
+}
+
+/**
+ * Replaces strings within a string.
+ *
+ * @param string            $str  String to replace in
+ * @param array|Traversable $from Replace values
+ * @param string|null       $to   Replace to, deprecated (@see http://php.net/manual/en/function.strtr.php)
+ *
+ * @return string
+ */
+function twig_replace_filter($str, $from, $to = null)
+{
+    if ($from instanceof Traversable) {
+        $from = iterator_to_array($from);
+    } elseif (is_string($from) && is_string($to)) {
+        @trigger_error('Using "replace" with character by character replacement is deprecated and will be removed in Twig 2.0', E_USER_DEPRECATED);
+
+        return strtr($str, $from, $to);
+    } elseif (!is_array($from)) {
+        throw new Twig_Error_Runtime(sprintf('The "replace" filter expects an array or "Traversable" as replace values, got "%s".',is_object($from) ? get_class($from) : gettype($from)));
+    }
+
+    return strtr($str, $from);
 }
 
 /**
@@ -682,15 +679,23 @@ function _twig_markup2string(&$value)
  *  {# items now contains { 'apple': 'fruit', 'orange': 'fruit', 'peugeot': 'car' } #}
  * </pre>
  *
- * @param array $arr1 An array
- * @param array $arr2 An array
+ * @param array|Traversable $arr1 An array
+ * @param array|Traversable $arr2 An array
  *
  * @return array The merged array
  */
 function twig_array_merge($arr1, $arr2)
 {
-    if (!is_array($arr1) || !is_array($arr2)) {
-        throw new Twig_Error_Runtime(sprintf('The merge filter only works with arrays or hashes; %s and %s given.', gettype($arr1), gettype($arr2)));
+    if ($arr1 instanceof Traversable) {
+        $arr1 = iterator_to_array($arr1);
+    } elseif (!is_array($arr1)) {
+        throw new Twig_Error_Runtime(sprintf('The merge filter only works with arrays or "Traversable", got "%s" as first argument.', gettype($arr1)));
+    }
+
+    if ($arr2 instanceof Traversable) {
+        $arr2 = iterator_to_array($arr2);
+    } elseif (!is_array($arr2)) {
+        throw new Twig_Error_Runtime(sprintf('The merge filter only works with arrays or "Traversable", got "%s" as second argument.', gettype($arr2)));
     }
 
     return array_merge($arr1, $arr2);
@@ -812,9 +817,10 @@ function twig_join_filter($value, $glue = '')
  *  {# returns [aa, bb, cc] #}
  * </pre>
  *
- * @param string $value     A string
- * @param string $delimiter The delimiter
- * @param int    $limit     The limit
+ * @param Twig_Environment $env       A Twig_Environment instance
+ * @param string           $value     A string
+ * @param string           $delimiter The delimiter
+ * @param int              $limit     The limit
  *
  * @return array The split string as an array
  */
@@ -848,6 +854,9 @@ function twig_split_filter(Twig_Environment $env, $value, $delimiter, $limit = n
 // The '_default' filter is used internally to avoid using the ternary operator
 // which costs a lot for big contexts (before PHP 5.4). So, on average,
 // a function call is cheaper.
+/**
+ * @internal
+ */
 function _twig_default_filter($value, $default = '')
 {
     if (twig_test_empty($value)) {
@@ -874,7 +883,7 @@ function _twig_default_filter($value, $default = '')
  */
 function twig_get_array_keys_filter($array)
 {
-    if (is_object($array) && $array instanceof Traversable) {
+    if ($array instanceof Traversable) {
         return array_keys(iterator_to_array($array));
     }
 
@@ -896,7 +905,7 @@ function twig_get_array_keys_filter($array)
  */
 function twig_reverse_filter(Twig_Environment $env, $item, $preserveKeys = false)
 {
-    if (is_object($item) && $item instanceof Traversable) {
+    if ($item instanceof Traversable) {
         return array_reverse(iterator_to_array($item), $preserveKeys);
     }
 
@@ -928,18 +937,26 @@ function twig_reverse_filter(Twig_Environment $env, $item, $preserveKeys = false
 /**
  * Sorts an array.
  *
- * @param array $array
+ * @param array|Traversable $array
  *
  * @return array
  */
 function twig_sort_filter($array)
 {
+    if ($array instanceof Traversable) {
+        $array = iterator_to_array($array);
+    } elseif (!is_array($array)) {
+        throw new Twig_Error_Runtime(sprintf('The sort filter only works with arrays or "Traversable", got "%s".', gettype($array)));
+    }
+
     asort($array);
 
     return $array;
 }
 
-/* used internally */
+/**
+ * @internal
+ */
 function twig_in_filter($value, $compare)
 {
     if (is_array($compare)) {
@@ -973,7 +990,7 @@ function twig_escape_filter(Twig_Environment $env, $string, $strategy = 'html', 
     if (!is_string($string)) {
         if (is_object($string) && method_exists($string, '__toString')) {
             $string = (string) $string;
-        } else {
+        } elseif (in_array($strategy, array('html', 'js', 'css', 'html_attr', 'url'))) {
             return $string;
         }
     }
@@ -1107,7 +1124,9 @@ function twig_escape_filter(Twig_Environment $env, $string, $strategy = 'html', 
     }
 }
 
-/* used internally */
+/**
+ * @internal
+ */
 function twig_escape_filter_is_safe(Twig_Node $filterArgs)
 {
     foreach ($filterArgs as $arg) {
@@ -1304,9 +1323,8 @@ if (function_exists('mb_get_info')) {
      */
     function twig_capitalize_string_filter(Twig_Environment $env, $string)
     {
-        if (null !== ($charset = $env->getCharset())) {
-            return mb_strtoupper(mb_substr($string, 0, 1, $charset), $charset).
-                         mb_strtolower(mb_substr($string, 1, mb_strlen($string, $charset), $charset), $charset);
+        if (null !== $charset = $env->getCharset()) {
+            return mb_strtoupper(mb_substr($string, 0, 1, $charset), $charset).mb_strtolower(mb_substr($string, 1, mb_strlen($string, $charset), $charset), $charset);
         }
 
         return ucfirst(strtolower($string));
@@ -1354,7 +1372,9 @@ else {
     }
 }
 
-/* used internally */
+/**
+ * @internal
+ */
 function twig_ensure_traversable($seq)
 {
     if ($seq instanceof Traversable || is_array($seq)) {
@@ -1457,8 +1477,9 @@ function twig_include(Twig_Environment $env, $context, $template, $variables = a
 /**
  * Returns a template content without rendering it.
  *
- * @param string $name          The template name
- * @param bool   $ignoreMissing Whether to ignore missing templates or not
+ * @param Twig_Environment $env
+ * @param string           $name          The template name
+ * @param bool             $ignoreMissing Whether to ignore missing templates or not
  *
  * @return string The template source
  */

@@ -100,81 +100,9 @@ class GetSetMethodNormalizerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('bar', $obj->getBar());
     }
 
-    /**
-     * @group legacy
-     */
-    public function testLegacyDenormalizeOnCamelCaseFormat()
-    {
-        $this->normalizer->setCamelizedAttributes(array('camel_case'));
-        $obj = $this->normalizer->denormalize(
-            array('camel_case' => 'camelCase'),
-            __NAMESPACE__.'\GetSetDummy'
-        );
-
-        $this->assertEquals('camelCase', $obj->getCamelCase());
-    }
-
-    public function testNameConverterSupport()
-    {
-        $this->normalizer = new GetSetMethodNormalizer(null, new CamelCaseToSnakeCaseNameConverter());
-        $obj = $this->normalizer->denormalize(
-            array('camel_case' => 'camelCase'),
-            __NAMESPACE__.'\GetSetDummy'
-        );
-        $this->assertEquals('camelCase', $obj->getCamelCase());
-    }
-
     public function testDenormalizeNull()
     {
         $this->assertEquals(new GetSetDummy(), $this->normalizer->denormalize(null, __NAMESPACE__.'\GetSetDummy'));
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testLegacyCamelizedAttributesNormalize()
-    {
-        $obj = new GetCamelizedDummy('dunglas.fr');
-        $obj->setFooBar('les-tilleuls.coop');
-        $obj->setBar_foo('lostinthesupermarket.fr');
-
-        $this->normalizer->setCamelizedAttributes(array('kevin_dunglas'));
-        $this->assertEquals($this->normalizer->normalize($obj), array(
-            'kevin_dunglas' => 'dunglas.fr',
-            'fooBar' => 'les-tilleuls.coop',
-            'bar_foo' => 'lostinthesupermarket.fr',
-        ));
-
-        $this->normalizer->setCamelizedAttributes(array('foo_bar'));
-        $this->assertEquals($this->normalizer->normalize($obj), array(
-            'kevinDunglas' => 'dunglas.fr',
-            'foo_bar' => 'les-tilleuls.coop',
-            'bar_foo' => 'lostinthesupermarket.fr',
-        ));
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testLegacyCamelizedAttributesDenormalize()
-    {
-        $obj = new GetCamelizedDummy('dunglas.fr');
-        $obj->setFooBar('les-tilleuls.coop');
-        $obj->setBar_foo('lostinthesupermarket.fr');
-
-        $this->normalizer->setCamelizedAttributes(array('kevin_dunglas'));
-        $this->assertEquals($this->normalizer->denormalize(array(
-            'kevin_dunglas' => 'dunglas.fr',
-            'fooBar' => 'les-tilleuls.coop',
-            'bar_foo' => 'lostinthesupermarket.fr',
-        ), __NAMESPACE__.'\GetCamelizedDummy'), $obj);
-
-        $this->normalizer->setCamelizedAttributes(array('foo_bar'));
-        $this->assertEquals($this->normalizer->denormalize(array(
-            'kevinDunglas' => 'dunglas.fr',
-            'foo_bar' => 'les-tilleuls.coop',
-            'bar_foo' => 'lostinthesupermarket.fr',
-        ), __NAMESPACE__.'\GetCamelizedDummy'), $obj);
     }
 
     public function testConstructorDenormalize()
@@ -209,9 +137,6 @@ class GetSetMethodNormalizerTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorDenormalizeWithOptionalDefaultArgument()
     {
-        if (PHP_VERSION_ID <= 50316) {
-            $this->markTestSkipped('See https://bugs.php.net/62715');
-        }
         $obj = $this->normalizer->denormalize(
             array('bar' => 'test'),
             __NAMESPACE__.'\GetConstructorArgsWithDefaultValueDummy', 'any');
@@ -547,9 +472,22 @@ class GetSetMethodNormalizerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testDenormalizeShouldNotSetStaticAttribute()
+    {
+        $obj = $this->normalizer->denormalize(array('staticObject' => true), __NAMESPACE__.'\GetSetDummy');
+
+        $this->assertEquals(new GetSetDummy(), $obj);
+        $this->assertNull(GetSetDummy::getStaticObject());
+    }
+
     public function testNoTraversableSupport()
     {
         $this->assertFalse($this->normalizer->supportsNormalization(new \ArrayObject()));
+    }
+
+    public function testNoStaticGetSetSupport()
+    {
+        $this->assertFalse($this->normalizer->supportsNormalization(new ObjectWithJustStaticSetterDummy()));
     }
 
     public function testPrivateSetter()
@@ -566,6 +504,7 @@ class GetSetDummy
     private $baz;
     protected $camelCase;
     protected $object;
+    private static $staticObject;
 
     public function getFoo()
     {
@@ -625,6 +564,16 @@ class GetSetDummy
     public function getObject()
     {
         return $this->object;
+    }
+
+    public static function getStaticObject()
+    {
+        return self::$staticObject;
+    }
+
+    public static function setStaticObject($object)
+    {
+        self::$staticObject = $object;
     }
 }
 
@@ -795,5 +744,20 @@ class ObjectWithPrivateSetterDummy
 
     private function setFoo($foo)
     {
+    }
+}
+
+class ObjectWithJustStaticSetterDummy
+{
+    private static $foo = 'bar';
+
+    public static function getFoo()
+    {
+        return self::$foo;
+    }
+
+    public static function setFoo($foo)
+    {
+        self::$foo = $foo;
     }
 }

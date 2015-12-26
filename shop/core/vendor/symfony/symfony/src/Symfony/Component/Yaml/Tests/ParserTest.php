@@ -446,14 +446,11 @@ EOF;
         $this->parser->parse('foo: !!php/object:O:30:"Symfony\Tests\Component\Yaml\B":1:{s:1:"b";s:3:"foo";}', true, false);
     }
 
+    /**
+     * @requires extension iconv
+     */
     public function testNonUtf8Exception()
     {
-        if (!function_exists('iconv')) {
-            $this->markTestSkipped('Exceptions for non-utf8 charsets require the iconv() function.');
-
-            return;
-        }
-
         $yamls = array(
             iconv('UTF-8', 'ISO-8859-1', "foo: 'äöüß'"),
             iconv('UTF-8', 'ISO-8859-15', "euro: '€'"),
@@ -575,8 +572,6 @@ EOF
      *
      * @see http://yaml.org/spec/1.2/spec.html#id2759572
      * @see http://yaml.org/spec/1.1/#id932806
-     *
-     * @covers \Symfony\Component\Yaml\Parser::parse
      */
     public function testMappingDuplicateKeyBlock()
     {
@@ -596,9 +591,6 @@ EOD;
         $this->assertSame($expected, Yaml::parse($input));
     }
 
-    /**
-     * @covers \Symfony\Component\Yaml\Inline::parseMapping
-     */
     public function testMappingDuplicateKeyFlow()
     {
         $input = <<<EOD
@@ -620,6 +612,32 @@ hash:
 EOF;
 
         $this->assertEquals(array('hash' => null), Yaml::parse($input));
+    }
+
+    public function testCommentAtTheRootIndent()
+    {
+        $this->assertEquals(array(
+            'services' => array(
+                'app.foo_service' => array(
+                    'class' => 'Foo',
+                ),
+                'app/bar_service' => array(
+                    'class' => 'Bar',
+                ),
+            ),
+        ), Yaml::parse(<<<EOF
+# comment 1
+services:
+# comment 2
+    # comment 3
+    app.foo_service:
+        class: Foo
+# comment 4
+    # comment 5
+    app/bar_service:
+        class: Bar
+EOF
+        ));
     }
 
     public function testStringBlockWithComments()
@@ -746,6 +764,37 @@ foo: 1
 bar: 2
 EOF;
         $this->assertEquals(array('foo' => 1, 'bar' => 2), $this->parser->parse($yaml));
+    }
+
+    public function testFloatKeys()
+    {
+        $yaml = <<<EOF
+foo:
+    1.2: "bar"
+    1.3: "baz"
+EOF;
+
+        $expected = array(
+            'foo' => array(
+                '1.2' => 'bar',
+                '1.3' => 'baz',
+            ),
+        );
+
+        $this->assertEquals($expected, $this->parser->parse($yaml));
+    }
+
+    /**
+     * @expectedException Symfony\Component\Yaml\Exception\ParseException
+     * @expectedExceptionMessage A colon cannot be used in an unquoted mapping value.
+     */
+    public function testColonInMappingValueException()
+    {
+        $yaml = <<<EOF
+foo: bar: baz
+EOF;
+
+        $this->parser->parse($yaml);
     }
 }
 

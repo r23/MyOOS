@@ -37,9 +37,9 @@ class DoctrineExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('doctrine_minify_query', array($this, 'minifyQuery')),
-            new \Twig_SimpleFilter('doctrine_pretty_query', 'SqlFormatter::format', array('is_safe' => array('html'))),
-            new \Twig_SimpleFilter('doctrine_replace_query_parameters', array($this, 'replaceQueryParameters'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFilter('doctrine_minify_query', array($this, 'minifyQuery'), array('deprecated' => true)),
+            new \Twig_SimpleFilter('doctrine_pretty_query', array($this, 'formatQuery'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFilter('doctrine_replace_query_parameters', array($this, 'replaceQueryParameters')),
         );
     }
 
@@ -280,11 +280,10 @@ class DoctrineExtension extends \Twig_Extension
      *
      * @param string $query
      * @param array  $parameters
-     * @param bool   $highlight
      *
      * @return string
      */
-    public function replaceQueryParameters($query, array $parameters, $highlight = true)
+    public function replaceQueryParameters($query, array $parameters)
     {
         $i = 0;
 
@@ -305,12 +304,39 @@ class DoctrineExtension extends \Twig_Extension
             $query
         );
 
-        if ($highlight) {
-            $result = \SqlFormatter::highlight($result);
-            $result = str_replace(array('<pre ', '</pre>'), array('<span ', '</span>'), $result);
+        return $result;
+    }
+
+    /**
+     * Formats and/or highlights the given SQL statement.
+     *
+     * @param  string $sql
+     * @param  bool   $highlightOnly If true the query is not formatted, just highlighted
+     *
+     * @return string
+     */
+    public function formatQuery($sql, $highlightOnly = false)
+    {
+        \SqlFormatter::$pre_attributes = 'class="highlight highlight-sql"';
+        \SqlFormatter::$quote_attributes = 'class="string"';
+        \SqlFormatter::$backtick_quote_attributes = 'class="string"';
+        \SqlFormatter::$reserved_attributes = 'class="keyword"';
+        \SqlFormatter::$boundary_attributes = 'class="symbol"';
+        \SqlFormatter::$number_attributes = 'class="number"';
+        \SqlFormatter::$word_attributes = 'class="word"';
+        \SqlFormatter::$error_attributes = 'class="error"';
+        \SqlFormatter::$comment_attributes = 'class="comment"';
+        \SqlFormatter::$variable_attributes = 'class="variable"';
+
+        if ($highlightOnly) {
+            $html = \SqlFormatter::highlight($sql);
+            $html = preg_replace('/<pre class=".*">([^"]*+)<\/pre>/Us', '\1', $html);
+        } else {
+            $html = \SqlFormatter::format($sql);
+            $html = preg_replace('/<pre class="(.*)">([^"]*+)<\/pre>/Us', '<div class="\1"><pre>\2</pre></div>', $html);
         }
 
-        return $result;
+        return $html;
     }
 
     /**

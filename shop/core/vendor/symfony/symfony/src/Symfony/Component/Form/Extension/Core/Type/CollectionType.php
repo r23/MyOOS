@@ -27,15 +27,17 @@ class CollectionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         if ($options['allow_add'] && $options['prototype']) {
-            $prototype = $builder->create($options['prototype_name'], $options['type'], array_replace(array(
+            $prototype = $builder->create($options['prototype_name'], $options['entry_type'], array_replace(array(
                 'label' => $options['prototype_name'].'label__',
-            ), $options['options']));
+            ), $options['entry_options'], array(
+                'data' => $options['prototype_data'],
+            )));
             $builder->setAttribute('prototype', $prototype->getForm());
         }
 
         $resizeListener = new ResizeFormListener(
-            $options['type'],
-            $options['options'],
+            $options['entry_type'],
+            $options['entry_options'],
             $options['allow_add'],
             $options['allow_delete'],
             $options['delete_empty']
@@ -74,7 +76,7 @@ class CollectionType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $optionsNormalizer = function (Options $options, $value) {
+        $entryOptionsNormalizer = function (Options $options, $value) {
             $value['block_name'] = 'entry';
 
             return $value;
@@ -84,19 +86,20 @@ class CollectionType extends AbstractType
             'allow_add' => false,
             'allow_delete' => false,
             'prototype' => true,
+            'prototype_data' => null,
             'prototype_name' => '__name__',
-            'type' => 'text',
-            'options' => array(),
+            'entry_type' => __NAMESPACE__.'\TextType',
+            'entry_options' => array(),
             'delete_empty' => false,
         ));
 
-        $resolver->setNormalizer('options', $optionsNormalizer);
+        $resolver->setNormalizer('entry_options', $entryOptionsNormalizer);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'collection';
     }

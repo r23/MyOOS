@@ -24,19 +24,15 @@ use Symfony\Component\HttpFoundation\Request;
  * Controllers should be callables.
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
- *
- * @api
  */
 class FilterControllerEvent extends KernelEvent
 {
     /**
      * The current controller.
-     *
-     * @var callable
      */
     private $controller;
 
-    public function __construct(HttpKernelInterface $kernel, $controller, Request $request, $requestType)
+    public function __construct(HttpKernelInterface $kernel, callable $controller, Request $request, $requestType)
     {
         parent::__construct($kernel, $request, $requestType);
 
@@ -47,8 +43,6 @@ class FilterControllerEvent extends KernelEvent
      * Returns the current controller.
      *
      * @return callable
-     *
-     * @api
      */
     public function getController()
     {
@@ -61,50 +55,9 @@ class FilterControllerEvent extends KernelEvent
      * @param callable $controller
      *
      * @throws \LogicException
-     *
-     * @api
      */
-    public function setController($controller)
+    public function setController(callable $controller)
     {
-        // controller must be a callable
-        if (!is_callable($controller)) {
-            throw new \LogicException(sprintf('The controller must be a callable (%s given).', $this->varToString($controller)));
-        }
-
         $this->controller = $controller;
-    }
-
-    private function varToString($var)
-    {
-        if (is_object($var)) {
-            return sprintf('Object(%s)', get_class($var));
-        }
-
-        if (is_array($var)) {
-            $a = array();
-            foreach ($var as $k => $v) {
-                $a[] = sprintf('%s => %s', $k, $this->varToString($v));
-            }
-
-            return sprintf('Array(%s)', implode(', ', $a));
-        }
-
-        if (is_resource($var)) {
-            return sprintf('Resource(%s)', get_resource_type($var));
-        }
-
-        if (null === $var) {
-            return 'null';
-        }
-
-        if (false === $var) {
-            return 'false';
-        }
-
-        if (true === $var) {
-            return 'true';
-        }
-
-        return (string) $var;
     }
 }

@@ -21,14 +21,11 @@ namespace Symfony\Component\Debug;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Christophe Coevoet <stof@notk.org>
  * @author Nicolas Grekas <p@tchwork.com>
- *
- * @api
  */
 class DebugClassLoader
 {
     private $classLoader;
     private $isFinder;
-    private $wasFinder;
     private static $caseCheck;
     private static $deprecated = array();
     private static $php7Reserved = array('int', 'float', 'bool', 'string', 'true', 'false', 'null');
@@ -37,22 +34,12 @@ class DebugClassLoader
     /**
      * Constructor.
      *
-     * @param callable|object $classLoader Passing an object is @deprecated since version 2.5 and support for it will be removed in 3.0
-     *
-     * @api
+     * @param callable $classLoader A class loader
      */
-    public function __construct($classLoader)
+    public function __construct(callable $classLoader)
     {
-        $this->wasFinder = is_object($classLoader) && method_exists($classLoader, 'findFile');
-
-        if ($this->wasFinder) {
-            @trigger_error('The '.__METHOD__.' method will no longer support receiving an object into its $classLoader argument in 3.0.', E_USER_DEPRECATED);
-            $this->classLoader = array($classLoader, 'loadClass');
-            $this->isFinder = true;
-        } else {
-            $this->classLoader = $classLoader;
-            $this->isFinder = is_array($classLoader) && method_exists($classLoader[0], 'findFile');
-        }
+        $this->classLoader = $classLoader;
+        $this->isFinder = is_array($classLoader) && method_exists($classLoader[0], 'findFile');
 
         if (!isset(self::$caseCheck)) {
             self::$caseCheck = false !== stripos(PHP_OS, 'win') ? (false !== stripos(PHP_OS, 'darwin') ? 2 : 1) : 0;
@@ -62,11 +49,11 @@ class DebugClassLoader
     /**
      * Gets the wrapped class loader.
      *
-     * @return callable|object A class loader. Since version 2.5, returning an object is @deprecated and support for it will be removed in 3.0
+     * @return callable The wrapped class loader
      */
     public function getClassLoader()
     {
-        return $this->wasFinder ? $this->classLoader[0] : $this->classLoader;
+        return $this->classLoader;
     }
 
     /**
@@ -118,24 +105,6 @@ class DebugClassLoader
     }
 
     /**
-     * Finds a file by class name.
-     *
-     * @param string $class A class name to resolve to file
-     *
-     * @return string|null
-     *
-     * @deprecated since version 2.5, to be removed in 3.0.
-     */
-    public function findFile($class)
-    {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.5 and will be removed in 3.0.', E_USER_DEPRECATED);
-
-        if ($this->wasFinder) {
-            return $this->classLoader[0]->findFile($class);
-        }
-    }
-
-    /**
      * Loads the given class or interface.
      *
      * @param string $class The name of the class
@@ -151,21 +120,17 @@ class DebugClassLoader
         try {
             if ($this->isFinder) {
                 if ($file = $this->classLoader[0]->findFile($class)) {
-                    require $file;
+                    require_once $file;
                 }
             } else {
                 call_user_func($this->classLoader, $class);
                 $file = false;
             }
-        } catch (\Exception $e) {
+        } finally {
             ErrorHandler::unstackErrors();
-
-            throw $e;
         }
 
-        ErrorHandler::unstackErrors();
-
-        $exists = class_exists($class, false) || interface_exists($class, false) || (function_exists('trait_exists') && trait_exists($class, false));
+        $exists = class_exists($class, false) || interface_exists($class, false) || trait_exists($class, false);
 
         if ('\\' === $class[0]) {
             $class = substr($class, 1);
@@ -221,8 +186,22 @@ class DebugClassLoader
 
                 throw new \RuntimeException(sprintf('The autoloader expected class "%s" to be defined in file "%s". The file was found but the class was not in it, the class name or namespace probably has a typo.', $class, $file));
             }
-            if (self::$caseCheck && preg_match('#(?:[/\\\\][a-zA-Z_\x7F-\xFF][a-zA-Z0-9_\x7F-\xFF]*+)++\.(?:php|hh)$#D', $file, $tail)) {
-                $tail = $tail[0];
+            if (self::$caseCheck) {
+                $real = explode('\\', $class.strrchr($file, '.'));
+                $tail = explode(DIRECTORY_SEPARATOR, str_replace('/', DIRECTORY_SEPARATOR, $file));
+
+                $i = count($tail) - 1;
+                $j = count($real) - 1;
+
+                 while (isset($tail[$i], $real[$j]) && $tail[$i] === $real[$j]) {
+                    --$i;
+                    --$j;
+                }
+
+                array_splice($tail, 0, $i + 1);
+            }
+            if (self::$caseCheck && $tail) {
+                $tail = DIRECTORY_SEPARATOR.implode(DIRECTORY_SEPARATOR, $tail);
                 $tailLen = strlen($tail);
                 $real = $refl->getFileName();
 
@@ -289,7 +268,7 @@ class DebugClassLoader
                 if (0 === substr_compare($real, $tail, -$tailLen, $tailLen, true)
                   && 0 !== substr_compare($real, $tail, -$tailLen, $tailLen, false)
                 ) {
-                    throw new \RuntimeException(sprintf('Case mismatch between class and source file names: %s vs %s', $class, $real));
+                    throw new \RuntimeException(sprintf('Case mismatch between class and real file names: %s vs %s in %s', substr($tail, -$tailLen + 1), substr($real, -$tailLen + 1), substr($real, 0, -$tailLen + 1)));
                 }
             }
 

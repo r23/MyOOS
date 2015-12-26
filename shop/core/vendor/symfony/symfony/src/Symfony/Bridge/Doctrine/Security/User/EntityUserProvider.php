@@ -54,8 +54,8 @@ class EntityUserProvider implements UserProviderInterface
         if (null !== $this->property) {
             $user = $this->repository->findOneBy(array($this->property => $username));
         } else {
-            if (!$this->repository instanceof UserProviderInterface) {
-                throw new \InvalidArgumentException(sprintf('The Doctrine repository "%s" must implement UserProviderInterface.', get_class($this->repository)));
+            if (!$this->repository instanceof UserLoaderInterface) {
+                throw new \InvalidArgumentException(sprintf('The Doctrine repository "%s" must implement Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface.', get_class($this->repository)));
             }
 
             $user = $this->repository->loadUserByUsername($username);

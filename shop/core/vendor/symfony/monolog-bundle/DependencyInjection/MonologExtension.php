@@ -11,8 +11,6 @@
 
 namespace Symfony\Bundle\MonologBundle\DependencyInjection;
 
-use Monolog\Formatter\ElasticaFormatter;
-use Monolog\Logger;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -59,8 +57,8 @@ class MonologExtension extends Extension
 
             foreach ($config['handlers'] as $name => $handler) {
                 $handlers[$handler['priority']][] = array(
-                    'id'       => $this->buildHandler($container, $name, $handler),
-                    'channels' => empty($handler['channels']) ? null : $handler['channels']
+                    'id' => $this->buildHandler($container, $name, $handler),
+                    'channels' => empty($handler['channels']) ? null : $handler['channels'],
                 );
             }
 
@@ -125,7 +123,7 @@ class MonologExtension extends Extension
     {
         $handlerId = $this->getHandlerId($name);
         $definition = new Definition(sprintf('%%monolog.handler.%s.class%%', $handler['type']));
-        $handler['level'] =  $this->levelToMonologConst($handler['level']);
+        $handler['level'] = $this->levelToMonologConst($handler['level']);
 
         switch ($handler['type']) {
         case 'service':
@@ -150,7 +148,7 @@ class MonologExtension extends Extension
             $definition->setArguments(array(
                 null,
                 $handler['bubble'],
-                isset($handler['verbosity_levels']) ? $handler['verbosity_levels'] : array()
+                isset($handler['verbosity_levels']) ? $handler['verbosity_levels'] : array(),
             ));
             $definition->addTag('kernel.event_subscriber');
             break;
@@ -176,13 +174,13 @@ class MonologExtension extends Extension
                 $transport->setPublic(false);
                 $container->setDefinition($transportId, $transport);
 
-                $publisher = new Definition("%monolog.gelfphp.publisher.class%", array());
+                $publisher = new Definition('%monolog.gelfphp.publisher.class%', array());
                 $publisher->addMethodCall('addTransport', array(new Reference($transportId)));
                 $publisherId = uniqid('monolog.gelf.publisher.');
                 $publisher->setPublic(false);
                 $container->setDefinition($publisherId, $publisher);
             } elseif (class_exists('Gelf\MessagePublisher')) {
-                $publisher = new Definition("%monolog.gelf.publisher.class%", array(
+                $publisher = new Definition('%monolog.gelf.publisher.class%', array(
                     $handler['publisher']['hostname'],
                     $handler['publisher']['port'],
                     $handler['publisher']['chunk_size'],
@@ -209,13 +207,13 @@ class MonologExtension extends Extension
                 $server = 'mongodb://';
 
                 if (isset($handler['mongo']['user'])) {
-                    $server .= $handler['mongo']['user'] . ':' . $handler['mongo']['pass'] . '@';
+                    $server .= $handler['mongo']['user'].':'.$handler['mongo']['pass'].'@';
                 }
 
-                $server .= $handler['mongo']['host'] . ':' . $handler['mongo']['port'];
+                $server .= $handler['mongo']['host'].':'.$handler['mongo']['port'];
 
-                $client = new Definition("%monolog.mongo.client.class%", array(
-                    $server
+                $client = new Definition('%monolog.mongo.client.class%', array(
+                    $server,
                 ));
 
                 $clientId = uniqid('monolog.mongo.client.');
@@ -241,8 +239,8 @@ class MonologExtension extends Extension
                 $elasticaClient->setArguments(array(
                     array(
                         'host' => $handler['elasticsearch']['host'],
-                        'port' => $handler['elasticsearch']['port']
-                    )
+                        'port' => $handler['elasticsearch']['port'],
+                    ),
                 ));
 
                 $clientId = uniqid('monolog.elastica.client.');
@@ -255,10 +253,11 @@ class MonologExtension extends Extension
                 new Reference($clientId),
                 array(
                     'index' => $handler['index'],
-                    'type'  => $handler['document_type'],
+                    'type' => $handler['document_type'],
+                    'ignore_error' => $handler['ignore_error']
                 ),
                 $handler['level'],
-                $handler['bubble']
+                $handler['bubble'],
             ));
             break;
 
@@ -305,7 +304,7 @@ class MonologExtension extends Extension
                 $handler['buffer_size'],
                 $handler['bubble'],
                 $handler['stop_buffering'],
-                $handler['passthru_level']
+                $handler['passthru_level'],
             ));
             break;
 
@@ -324,7 +323,7 @@ class MonologExtension extends Extension
                 new Reference($nestedHandlerId),
                 $minLevelOrList,
                 $handler['max_level'],
-                $handler['bubble']
+                $handler['bubble'],
             ));
             break;
 
@@ -337,6 +336,7 @@ class MonologExtension extends Extension
                 $handler['buffer_size'],
                 $handler['level'],
                 $handler['bubble'],
+                $handler['flush_on_overflow'],
             ));
             break;
 
@@ -391,28 +391,21 @@ class MonologExtension extends Extension
                     $prototype = new Reference($handler['email_prototype']['id']);
                 }
             } else {
-                $message = new Definition('Swift_Message');
-                $message->setLazy(true);
-                $message->setFactoryMethod('createMessage');
-                $message->setPublic(false);
-                $message->addMethodCall('setFrom', array($handler['from_email']));
-                $message->addMethodCall('setTo', array($handler['to_email']));
-                $message->addMethodCall('setSubject', array($handler['subject']));
+                $messageFactory = new Definition('Symfony\Bundle\MonologBundle\SwiftMailer\MessageFactory');
+                $messageFactory->setLazy(true);
+                $messageFactory->setPublic(false);
+                $messageFactory->setArguments(array(
+                    new Reference($handler['mailer']),
+                    $handler['from_email'],
+                    $handler['to_email'],
+                    $handler['subject'],
+                    $handler['content_type']
+                ));
 
-                if (isset($handler['mailer'])) {
-                    $mailer = $handler['mailer'];
-                } else {
-                    $mailer = 'mailer';
-                }
-                $message->setFactoryService($mailer);
-
-                if (isset($handler['content_type'])) {
-                    $message->addMethodCall('setContentType', array($handler['content_type']));
-                }
-
-                $messageId = sprintf('%s.mail_prototype', $handlerId);
-                $container->setDefinition($messageId, $message);
-                $prototype = new Reference($messageId);
+                $messageFactoryId = sprintf('%s.mail_message_factory', $handlerId);
+                $container->setDefinition($messageFactoryId, $messageFactory);
+                // set the prototype as a callable
+                $prototype = array(new Reference($messageFactoryId), 'createMessage');
             }
             $definition->setArguments(array(
                 new Reference($handler['mailer']),
@@ -474,6 +467,8 @@ class MonologExtension extends Extension
                 $handler['notify'],
                 $handler['level'],
                 $handler['bubble'],
+                $handler['use_ssl'],
+                $handler['message_format'],
             ));
             break;
 
@@ -520,8 +515,8 @@ class MonologExtension extends Extension
             if (null !== $handler['client_id']) {
                 $clientId = $handler['client_id'];
             } else {
-                $client = new Definition("Raven_Client", array(
-                    $handler['dsn']
+                $client = new Definition('Raven_Client', array(
+                    $handler['dsn'],
                 ));
                 $client->setPublic(false);
                 $clientId = 'monolog.raven.client.'.sha1($handler['dsn']);
@@ -580,7 +575,7 @@ class MonologExtension extends Extension
             } else {
                 $config = $handler['config'] ?: array();
                 $config['access_token'] = $handler['token'];
-                $rollbar = new Definition("RollbarNotifier", array(
+                $rollbar = new Definition('RollbarNotifier', array(
                     $config,
                 ));
                 $rollbarId = 'monolog.rollbar.notifier.'.sha1(json_encode($config));

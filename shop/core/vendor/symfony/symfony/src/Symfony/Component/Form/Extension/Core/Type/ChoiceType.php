@@ -13,7 +13,6 @@ namespace Symfony\Component\Form\Extension\Core\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Factory\PropertyAccessDecorator;
-use Symfony\Component\Form\ChoiceList\LegacyChoiceListAdapter;
 use Symfony\Component\Form\ChoiceList\View\ChoiceGroupView;
 use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 use Symfony\Component\Form\ChoiceList\Factory\DefaultChoiceListFactory;
@@ -28,7 +27,6 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceListInterface as LegacyChoiceListInterface;
 use Symfony\Component\Form\Extension\Core\EventListener\MergeCollectionListener;
 use Symfony\Component\Form\Extension\Core\DataTransformer\ChoiceToValueTransformer;
 use Symfony\Component\Form\Extension\Core\DataTransformer\ChoicesToValuesTransformer;
@@ -54,10 +52,13 @@ class ChoiceType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $choiceList = $this->createChoiceList($options);
+        $builder->setAttribute('choice_list', $choiceList);
+
         if ($options['expanded']) {
             $builder->setDataMapper($options['multiple']
-                ? new CheckboxListMapper($options['choice_list'])
-                : new RadioListMapper($options['choice_list']));
+                ? new CheckboxListMapper($choiceList)
+                : new RadioListMapper($choiceList));
 
             // Initialize all choices before doing the index check below.
             // This helps in cases where index checks are optimized for non
@@ -66,12 +67,12 @@ class ChoiceType extends AbstractType
             // requires another SQL query. When the initialization is done first,
             // one SQL query is sufficient.
 
-            $choiceListView = $this->createChoiceListView($options['choice_list'], $options);
+            $choiceListView = $this->createChoiceListView($choiceList, $options);
             $builder->setAttribute('choice_list_view', $choiceListView);
 
             // Check if the choices already contain the empty value
             // Only add the placeholder option if this is not the case
-            if (null !== $options['placeholder'] && 0 === count($options['choice_list']->getChoicesForValues(array('')))) {
+            if (null !== $options['placeholder'] && 0 === count($choiceList->getChoicesForValues(array('')))) {
                 $placeholderView = new ChoiceView(null, '', $options['placeholder']);
 
                 // "placeholder" is a reserved name
@@ -141,10 +142,10 @@ class ChoiceType extends AbstractType
             }
         } elseif ($options['multiple']) {
             // <select> tag with "multiple" option
-            $builder->addViewTransformer(new ChoicesToValuesTransformer($options['choice_list']));
+            $builder->addViewTransformer(new ChoicesToValuesTransformer($choiceList));
         } else {
             // <select> tag without "multiple" option
-            $builder->addViewTransformer(new ChoiceToValueTransformer($options['choice_list']));
+            $builder->addViewTransformer(new ChoiceToValueTransformer($choiceList));
         }
 
         if ($options['multiple'] && $options['by_reference']) {
@@ -164,10 +165,13 @@ class ChoiceType extends AbstractType
             $choiceTranslationDomain = $view->vars['translation_domain'];
         }
 
+        /** @var ChoiceListInterface $choiceList */
+        $choiceList = $form->getConfig()->getAttribute('choice_list');
+
         /** @var ChoiceListView $choiceListView */
         $choiceListView = $form->getConfig()->hasAttribute('choice_list_view')
             ? $form->getConfig()->getAttribute('choice_list_view')
-            : $this->createChoiceListView($options['choice_list'], $options);
+            : $this->createChoiceListView($choiceList, $options);
 
         $view->vars = array_replace($view->vars, array(
             'multiple' => $options['multiple'],
@@ -194,7 +198,7 @@ class ChoiceType extends AbstractType
         }
 
         // Check if the choices already contain the empty value
-        $view->vars['placeholder_in_choices'] = 0 !== count($options['choice_list']->getChoicesForValues(array('')));
+        $view->vars['placeholder_in_choices'] = 0 !== count($choiceList->getChoicesForValues(array('')));
 
         // Only add the empty value option if this is not the case
         if (null !== $options['placeholder'] && !$view->vars['placeholder_in_choices']) {
@@ -202,7 +206,6 @@ class ChoiceType extends AbstractType
         }
 
         // BC
-        $view->vars['empty_value'] = $view->vars['placeholder'];
         $view->vars['empty_value_in_choices'] = $view->vars['placeholder_in_choices'];
 
         if ($options['multiple'] && !$options['expanded']) {
@@ -238,8 +241,6 @@ class ChoiceType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $choiceListFactory = $this->choiceListFactory;
-
         $emptyData = function (Options $options) {
             if ($options['multiple'] || $options['expanded']) {
                 return array();
@@ -248,42 +249,25 @@ class ChoiceType extends AbstractType
             return '';
         };
 
-        $emptyValue = function (Options $options) {
+        $placeholderDefault = function (Options $options) {
             return $options['required'] ? null : '';
         };
 
-        // for BC with the "empty_value" option
-        $placeholder = function (Options $options) {
-            return $options['empty_value'];
-        };
-
-        $choiceListNormalizer = function (Options $options, $choiceList) use ($choiceListFactory) {
-            if ($choiceList) {
-                @trigger_error('The "choice_list" option is deprecated since version 2.7 and will be removed in 3.0. Use "choice_loader" instead.', E_USER_DEPRECATED);
-
-                if ($choiceList instanceof LegacyChoiceListInterface) {
-                    return new LegacyChoiceListAdapter($choiceList);
-                }
-
-                return $choiceList;
+        $choicesAsValuesNormalizer = function (Options $options, $choicesAsValues) {
+            // Not set by the user
+            if (null === $choicesAsValues) {
+                return true;
             }
 
-            if (null !== $options['choice_loader']) {
-                return $choiceListFactory->createListFromLoader(
-                    $options['choice_loader'],
-                    $options['choice_value']
-                );
+            // Set by the user
+            if (true !== $choicesAsValues) {
+                throw new \RuntimeException('The "choices_as_values" option should not be used. Remove it and flip the contents of the "choices" option instead.');
             }
 
-            // Harden against NULL values (like in EntityType and ModelType)
-            $choices = null !== $options['choices'] ? $options['choices'] : array();
+            // To be uncommented in 3.1
+            //@trigger_error('The "choices_as_values" option is deprecated since version 3.1 and will be removed in 4.0. You should not use it anymore.', E_USER_DEPRECATED);
 
-            // BC when choices are in the keys, not in the values
-            if (!$options['choices_as_values']) {
-                return $choiceListFactory->createListFromFlippedChoices($choices, $options['choice_value'], false);
-            }
-
-            return $choiceListFactory->createListFromChoices($choices, $options['choice_value']);
+            return true;
         };
 
         $placeholderNormalizer = function (Options $options, $placeholder) {
@@ -317,9 +301,8 @@ class ChoiceType extends AbstractType
         $resolver->setDefaults(array(
             'multiple' => false,
             'expanded' => false,
-            'choice_list' => null, // deprecated
             'choices' => array(),
-            'choices_as_values' => false,
+            'choices_as_values' => null, // to be deprecated in 3.1
             'choice_loader' => null,
             'choice_label' => null,
             'choice_name' => null,
@@ -328,8 +311,7 @@ class ChoiceType extends AbstractType
             'preferred_choices' => array(),
             'group_by' => null,
             'empty_data' => $emptyData,
-            'empty_value' => $emptyValue, // deprecated
-            'placeholder' => $placeholder,
+            'placeholder' => $placeholderDefault,
             'error_bubbling' => false,
             'compound' => $compound,
             // The view data is always a string, even if the "data" option
@@ -339,15 +321,12 @@ class ChoiceType extends AbstractType
             'choice_translation_domain' => true,
         ));
 
-        $resolver->setNormalizer('choice_list', $choiceListNormalizer);
-        $resolver->setNormalizer('empty_value', $placeholderNormalizer);
         $resolver->setNormalizer('placeholder', $placeholderNormalizer);
         $resolver->setNormalizer('choice_translation_domain', $choiceTranslationDomainNormalizer);
+        $resolver->setNormalizer('choices_as_values', $choicesAsValuesNormalizer);
 
-        $resolver->setAllowedTypes('choice_list', array('null', 'Symfony\Component\Form\ChoiceList\ChoiceListInterface', 'Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceListInterface'));
         $resolver->setAllowedTypes('choices', array('null', 'array', '\Traversable'));
         $resolver->setAllowedTypes('choice_translation_domain', array('null', 'bool', 'string'));
-        $resolver->setAllowedTypes('choices_as_values', 'bool');
         $resolver->setAllowedTypes('choice_loader', array('null', 'Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface'));
         $resolver->setAllowedTypes('choice_label', array('null', 'callable', 'string', 'Symfony\Component\PropertyAccess\PropertyPath'));
         $resolver->setAllowedTypes('choice_name', array('null', 'callable', 'string', 'Symfony\Component\PropertyAccess\PropertyPath'));
@@ -360,7 +339,7 @@ class ChoiceType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'choice';
     }
@@ -424,15 +403,30 @@ class ChoiceType extends AbstractType
         );
 
         if ($options['multiple']) {
-            $choiceType = 'checkbox';
+            $choiceType = __NAMESPACE__.'\CheckboxType';
             // The user can check 0 or more checkboxes. If required
             // is true, he is required to check all of them.
             $choiceOpts['required'] = false;
         } else {
-            $choiceType = 'radio';
+            $choiceType = __NAMESPACE__.'\RadioType';
         }
 
         $builder->add($name, $choiceType, $choiceOpts);
+    }
+
+    private function createChoiceList(array $options)
+    {
+        if (null !== $options['choice_loader']) {
+            return $this->choiceListFactory->createListFromLoader(
+                $options['choice_loader'],
+                $options['choice_value']
+            );
+        }
+
+        // Harden against NULL values (like in EntityType and ModelType)
+        $choices = null !== $options['choices'] ? $options['choices'] : array();
+
+        return $this->choiceListFactory->createListFromChoices($choices, $options['choice_value']);
     }
 
     private function createChoiceListView(ChoiceListInterface $choiceList, array $options)

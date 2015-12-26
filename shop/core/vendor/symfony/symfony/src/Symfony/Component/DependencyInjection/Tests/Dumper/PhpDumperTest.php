@@ -124,16 +124,6 @@ class PhpDumperTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @group legacy
-     */
-    public function testLegacySynchronizedServices()
-    {
-        $container = include self::$fixturesPath.'/containers/container20.php';
-        $dumper = new PhpDumper($container);
-        $this->assertEquals(str_replace('%path%', str_replace('\\', '\\\\', self::$fixturesPath.DIRECTORY_SEPARATOR.'includes'.DIRECTORY_SEPARATOR), file_get_contents(self::$fixturesPath.'/php/services20.php')), $dumper->dump(), '->dump() dumps services');
-    }
-
     public function testServicesWithAnonymousFactories()
     {
         $container = include self::$fixturesPath.'/containers/container19.php';
@@ -217,5 +207,13 @@ class PhpDumperTest extends \PHPUnit_Framework_TestCase
 
         $dumper = new PhpDumper($container);
         $dumper->dump();
+    }
+
+    public function testDumpAutowireData()
+    {
+        $container = include self::$fixturesPath.'/containers/container24.php';
+        $dumper = new PhpDumper($container);
+
+        $this->assertEquals(file_get_contents(self::$fixturesPath.'/php/services24.php'), $dumper->dump());
     }
 }

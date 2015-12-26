@@ -19,8 +19,6 @@ use Symfony\Component\DependencyInjection\Exception\RuntimeException;
  * Holds parameters.
  *
  * @author Fabien Potencier <fabien@symfony.com>
- *
- * @api
  */
 class ParameterBag implements ParameterBagInterface
 {
@@ -31,8 +29,6 @@ class ParameterBag implements ParameterBagInterface
      * Constructor.
      *
      * @param array $parameters An array of parameters
-     *
-     * @api
      */
     public function __construct(array $parameters = array())
     {
@@ -41,8 +37,6 @@ class ParameterBag implements ParameterBagInterface
 
     /**
      * Clears all parameters.
-     *
-     * @api
      */
     public function clear()
     {
@@ -53,8 +47,6 @@ class ParameterBag implements ParameterBagInterface
      * Adds parameters to the service container parameters.
      *
      * @param array $parameters An array of parameters
-     *
-     * @api
      */
     public function add(array $parameters)
     {
@@ -67,8 +59,6 @@ class ParameterBag implements ParameterBagInterface
      * Gets the service container parameters.
      *
      * @return array An array of parameters
-     *
-     * @api
      */
     public function all()
     {
@@ -83,8 +73,6 @@ class ParameterBag implements ParameterBagInterface
      * @return mixed The parameter value
      *
      * @throws ParameterNotFoundException if the parameter is not defined
-     *
-     * @api
      */
     public function get($name)
     {
@@ -114,8 +102,6 @@ class ParameterBag implements ParameterBagInterface
      *
      * @param string $name  The parameter name
      * @param mixed  $value The parameter value
-     *
-     * @api
      */
     public function set($name, $value)
     {
@@ -128,8 +114,6 @@ class ParameterBag implements ParameterBagInterface
      * @param string $name The parameter name
      *
      * @return bool true if the parameter name is defined, false otherwise
-     *
-     * @api
      */
     public function has($name)
     {
@@ -140,8 +124,6 @@ class ParameterBag implements ParameterBagInterface
      * Removes a parameter.
      *
      * @param string $name The parameter name
-     *
-     * @api
      */
     public function remove($name)
     {
@@ -232,9 +214,7 @@ class ParameterBag implements ParameterBagInterface
             return $this->resolved ? $this->get($key) : $this->resolveValue($this->get($key), $resolving);
         }
 
-        $self = $this;
-
-        return preg_replace_callback('/%%|%([^%\s]+)%/', function ($match) use ($self, $resolving, $value) {
+        return preg_replace_callback('/%%|%([^%\s]+)%/', function ($match) use ($resolving, $value) {
             // skip %%
             if (!isset($match[1])) {
                 return '%%';
@@ -245,7 +225,7 @@ class ParameterBag implements ParameterBagInterface
                 throw new ParameterCircularReferenceException(array_keys($resolving));
             }
 
-            $resolved = $self->get($key);
+            $resolved = $this->get($key);
 
             if (!is_string($resolved) && !is_numeric($resolved)) {
                 throw new RuntimeException(sprintf('A string value must be composed of strings and/or numbers, but found parameter "%s" of type %s inside string value "%s".', $key, gettype($resolved), $value));
@@ -254,7 +234,7 @@ class ParameterBag implements ParameterBagInterface
             $resolved = (string) $resolved;
             $resolving[$key] = true;
 
-            return $self->isResolved() ? $resolved : $self->resolveString($resolved, $resolving);
+            return $this->isResolved() ? $resolved : $this->resolveString($resolved, $resolving);
         }, $value);
     }
 

@@ -102,6 +102,7 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
  *   - [buffer_size]: defaults to 0 (unlimited)
  *   - [level]: level name or int value, defaults to DEBUG
  *   - [bubble]: bool, defaults to true
+ *   - [flush_on_overflow]: bool, defaults to false
  *
  * - group:
  *   - members: the wrapped handlers by name
@@ -131,9 +132,11 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
  *   - to_email: optional if email_prototype is given
  *   - subject: optional if email_prototype is given
  *   - [email_prototype]: service id of a message, defaults to a default message with the three fields above
+ *   - [content_type]: optional if email_prototype is given, defaults to text/plain
  *   - [mailer]: mailer service, defaults to mailer
  *   - [level]: level name or int value, defaults to DEBUG
  *   - [bubble]: bool, defaults to true
+ *   - [lazy]: use service lazy loading, bool, defaults to true
  *
  * - native_mailer:
  *   - from_email: string
@@ -174,6 +177,8 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
  *   - [nickname]: defaults to Monolog
  *   - [level]: level name or int value, defaults to DEBUG
  *   - [bubble]: bool, defaults to true
+ *   - [use_ssl]: bool, defaults to true
+ *   - [message_format]: text or html, defaults to text
  *
  * - slack:
  *   - token: slack api token
@@ -318,11 +323,13 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('min_level')->defaultValue('DEBUG')->end() // filter
                             ->scalarNode('max_level')->defaultValue('EMERGENCY')->end() //filter
                             ->scalarNode('buffer_size')->defaultValue(0)->end() // fingers_crossed and buffer
+                            ->booleanNode('flush_on_overflow')->defaultFalse()->end() // buffer
                             ->scalarNode('handler')->end() // fingers_crossed and buffer
                             ->scalarNode('url')->end() // cube
                             ->scalarNode('exchange')->end() // amqp
                             ->scalarNode('exchange_name')->defaultValue('log')->end() // amqp
                             ->scalarNode('room')->end() // hipchat
+                            ->scalarNode('message_format')->defaultValue('text')->end() // hipchat
                             ->scalarNode('channel')->end() // slack
                             ->scalarNode('bot_name')->defaultValue('Monolog')->end() // slack
                             ->scalarNode('use_attachment')->defaultTrue()->end() // slack
@@ -333,7 +340,7 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('nickname')->defaultValue('Monolog')->end() // hipchat
                             ->scalarNode('token')->end() // pushover & hipchat & loggly & logentries & flowdock & rollbar & slack
                             ->scalarNode('source')->end() // flowdock
-                            ->booleanNode('use_ssl')->defaultTrue()->end() // logentries
+                            ->booleanNode('use_ssl')->defaultTrue()->end() // logentries & hipchat
                             ->variableNode('user') // pushover
                                 ->validate()
                                     ->ifTrue(function ($v) {
@@ -412,6 +419,7 @@ class Configuration implements ConfigurationInterface
                             ->end() // elasticsearch
                             ->scalarNode('index')->defaultValue('monolog')->end() // elasticsearch
                             ->scalarNode('document_type')->defaultValue('logs')->end() // elasticsearch
+                            ->scalarNode('ignore_error')->defaultValue(false)->end() // elasticsearch
                             ->arrayNode('config')
                                 ->canBeUnset()
                                 ->prototype('scalar')->end()
@@ -443,6 +451,7 @@ class Configuration implements ConfigurationInterface
                                     ->scalarNode('method')->defaultNull()->end()
                                 ->end()
                             ->end()
+                            ->booleanNode('lazy')->defaultValue(true)->end() // swift_mailer
                             ->scalarNode('connection_string')->end() // socket_handler
                             ->scalarNode('timeout')->end() // socket_handler
                             ->scalarNode('connection_timeout')->end() // socket_handler
@@ -640,6 +649,10 @@ class Configuration implements ConfigurationInterface
                         ->validate()
                             ->ifTrue(function ($v) { return 'hipchat' === $v['type'] && (empty($v['token']) || empty($v['room'])); })
                             ->thenInvalid('The token and room have to be specified to use a HipChatHandler')
+                        ->end()
+                        ->validate()
+                            ->ifTrue(function ($v) { return 'hipchat' === $v['type'] && !in_array($v['message_format'], array('text', 'html')); })
+                            ->thenInvalid('The message_format has to be "text" or "html" in a HipChatHandler')
                         ->end()
                         ->validate()
                             ->ifTrue(function ($v) { return 'slack' === $v['type'] && (empty($v['token']) || empty($v['channel'])); })

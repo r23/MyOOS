@@ -28,7 +28,7 @@ abstract class AbstractProcessTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         $phpBin = new PhpExecutableFinder();
-        self::$phpBin = $phpBin->find();
+        self::$phpBin = 'phpdbg' === PHP_SAPI ? 'php' : $phpBin->find();
     }
 
     public function testThatProcessDoesNotThrowWarningDuringRun()
@@ -74,12 +74,14 @@ abstract class AbstractProcessTest extends \PHPUnit_Framework_TestCase
 
     public function testStopWithTimeoutIsActuallyWorking()
     {
-        $this->verifyPosixIsEnabled();
+        if (!extension_loaded('pcntl')) {
+            $this->markTestSkipped('Extension pcntl is required.');
+        }
 
         // exec is mandatory here since we send a signal to the process
         // see https://github.com/symfony/symfony/issues/5030 about prepending
         // command with exec
-        $p = $this->getProcess('exec php '.__DIR__.'/NonStopableProcess.php 3');
+        $p = $this->getProcess('exec '.self::$phpBin.' '.__DIR__.'/NonStopableProcess.php 3');
         $p->start();
         usleep(100000);
         $start = microtime(true);
@@ -241,24 +243,6 @@ abstract class AbstractProcessTest extends \PHPUnit_Framework_TestCase
             array(null, null),
             array('24.5', 24.5),
             array('input data', 'input data'),
-        );
-    }
-
-    /**
-     * @dataProvider provideLegacyInputValues
-     * @group legacy
-     */
-    public function testLegacyValidInput($expected, $value)
-    {
-        $process = $this->getProcess(self::$phpBin.' -v');
-        $process->setInput($value);
-        $this->assertSame($expected, $process->getInput());
-    }
-
-    public function provideLegacyInputValues()
-    {
-        return array(
-            array('stringifiable', new Stringifiable()),
         );
     }
 
@@ -468,7 +452,7 @@ abstract class AbstractProcessTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('Windows does have /dev/tty support');
         }
 
-        $process = $this->getProcess('echo "foo" >> /dev/null && php -r "usleep(100000);"');
+        $process = $this->getProcess('echo "foo" >> /dev/null && '.self::$phpBin.' -r "usleep(100000);"');
         $process->setTty(true);
         $process->start();
         $this->assertTrue($process->isRunning());
@@ -722,17 +706,13 @@ abstract class AbstractProcessTest extends \PHPUnit_Framework_TestCase
 
     public function testProcessThrowsExceptionWhenExternallySignaled()
     {
-        if ('\\' === DIRECTORY_SEPARATOR) {
-            $this->markTestSkipped('Windows does not support POSIX signals');
-        }
-
         if (!function_exists('posix_kill')) {
-            $this->markTestSkipped('posix_kill is required for this test');
+            $this->markTestSkipped('Function posix_kill is required.');
         }
 
         $termSignal = defined('SIGKILL') ? SIGKILL : 9;
 
-        $process = $this->getProcess('exec php -r "while (true) {}"');
+        $process = $this->getProcess('exec '.self::$phpBin.' -r "while (true) {}"');
         $process->start();
         posix_kill($process->getPid(), $termSignal);
 
@@ -756,18 +736,6 @@ abstract class AbstractProcessTest extends \PHPUnit_Framework_TestCase
 
         // Ensure that restart returned a new process by check that the output is different
         $this->assertNotEquals($process1->getOutput(), $process2->getOutput());
-    }
-
-    public function testPhpDeadlock()
-    {
-        $this->markTestSkipped('Can cause PHP to hang');
-
-        // Sleep doesn't work as it will allow the process to handle signals and close
-        // file handles from the other end.
-        $process = $this->getProcess(self::$phpBin.' -r "while (true) {}"');
-        $process->start();
-
-        // PHP will deadlock when it tries to cleanup $process
     }
 
     public function testRunProcessWithTimeout()
@@ -904,7 +872,9 @@ abstract class AbstractProcessTest extends \PHPUnit_Framework_TestCase
 
     public function testSignal()
     {
-        $this->verifyPosixIsEnabled();
+        if (!extension_loaded('pcntl')) {
+            $this->markTestSkipped('Extension pcntl is required.');
+        }
 
         $process = $this->getProcess('exec php -f '.__DIR__.'/SignalListener.php');
         $process->start();
@@ -920,7 +890,9 @@ abstract class AbstractProcessTest extends \PHPUnit_Framework_TestCase
 
     public function testExitCodeIsAvailableAfterSignal()
     {
-        $this->verifyPosixIsEnabled();
+        if (!extension_loaded('pcntl')) {
+            $this->markTestSkipped('Extension pcntl is required.');
+        }
 
         $process = $this->getProcess('sleep 4');
         $process->start();
@@ -941,7 +913,10 @@ abstract class AbstractProcessTest extends \PHPUnit_Framework_TestCase
      */
     public function testSignalProcessNotRunning()
     {
-        $this->verifyPosixIsEnabled();
+        if (!extension_loaded('pcntl')) {
+            $this->markTestSkipped('Extension pcntl is required.');
+        }
+
         $process = $this->getProcess(self::$phpBin.' -v');
         $process->signal(SIGHUP);
     }
@@ -993,16 +968,6 @@ abstract class AbstractProcessTest extends \PHPUnit_Framework_TestCase
             array('hasBeenStopped'),
             array('getStopSignal'),
         );
-    }
-
-    private function verifyPosixIsEnabled()
-    {
-        if ('\\' === DIRECTORY_SEPARATOR) {
-            $this->markTestSkipped('POSIX signals do not work on Windows');
-        }
-        if (!defined('SIGUSR1')) {
-            $this->markTestSkipped('The pcntl extension is not enabled');
-        }
     }
 
     /**
@@ -1198,14 +1163,6 @@ abstract class AbstractProcessTest extends \PHPUnit_Framework_TestCase
      * @return Process
      */
     abstract protected function getProcess($commandline, $cwd = null, array $env = null, $input = null, $timeout = 60, array $options = array());
-}
-
-class Stringifiable
-{
-    public function __toString()
-    {
-        return 'stringifiable';
-    }
 }
 
 class NonStringifiable

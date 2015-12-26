@@ -15,6 +15,9 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Output\StreamOutput;
 
+/**
+ * @group time-sensitive
+ */
 class ProgressBarTest extends \PHPUnit_Framework_TestCase
 {
     public function testMultipleStart()
@@ -91,6 +94,53 @@ class ProgressBarTest extends \PHPUnit_Framework_TestCase
             $this->generateOutput(' 11/11 [============================] 100%'),
             stream_get_contents($output->getStream())
         );
+    }
+
+    public function testFormat()
+    {
+        $expected =
+            $this->generateOutput('  0/10 [>---------------------------]   0%').
+            $this->generateOutput(' 10/10 [============================] 100%').
+            $this->generateOutput(' 10/10 [============================] 100%')
+        ;
+
+        // max in construct, no format
+        $bar = new ProgressBar($output = $this->getOutputStream(), 10);
+        $bar->start();
+        $bar->advance(10);
+        $bar->finish();
+
+        rewind($output->getStream());
+        $this->assertEquals($expected, stream_get_contents($output->getStream()));
+
+        // max in start, no format
+        $bar = new ProgressBar($output = $this->getOutputStream());
+        $bar->start(10);
+        $bar->advance(10);
+        $bar->finish();
+
+        rewind($output->getStream());
+        $this->assertEquals($expected, stream_get_contents($output->getStream()));
+
+        // max in construct, explicit format before
+        $bar = new ProgressBar($output = $this->getOutputStream(), 10);
+        $bar->setFormat('normal');
+        $bar->start();
+        $bar->advance(10);
+        $bar->finish();
+
+        rewind($output->getStream());
+        $this->assertEquals($expected, stream_get_contents($output->getStream()));
+
+        // max in start, explicit format before
+        $bar = new ProgressBar($output = $this->getOutputStream());
+        $bar->setFormat('normal');
+        $bar->start(10);
+        $bar->advance(10);
+        $bar->finish();
+
+        rewind($output->getStream());
+        $this->assertEquals($expected, stream_get_contents($output->getStream()));
     }
 
     public function testCustomizations()
@@ -259,10 +309,6 @@ class ProgressBarTest extends \PHPUnit_Framework_TestCase
 
     public function testMultiByteSupport()
     {
-        if (!function_exists('mb_strlen') || (false === $encoding = mb_detect_encoding('■'))) {
-            $this->markTestSkipped('The mbstring extension is needed for multi-byte support');
-        }
-
         $bar = new ProgressBar($output = $this->getOutputStream());
         $bar->start();
         $bar->setBarCharacter('■');
@@ -492,9 +538,6 @@ class ProgressBarTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @requires extension mbstring
-     */
     public function testAnsiColorsAndEmojis()
     {
         $bar = new ProgressBar($output = $this->getOutputStream(), 15);

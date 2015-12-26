@@ -63,77 +63,6 @@ class PropertyNormalizerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('bar', $obj->getBar());
     }
 
-    /**
-     * @group legacy
-     */
-    public function testLegacyDenormalizeOnCamelCaseFormat()
-    {
-        $this->normalizer->setCamelizedAttributes(array('camel_case'));
-        $obj = $this->normalizer->denormalize(
-            array('camel_case' => 'value'),
-            __NAMESPACE__.'\PropertyDummy'
-        );
-        $this->assertEquals('value', $obj->getCamelCase());
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testLegacyCamelizedAttributesNormalize()
-    {
-        $obj = new PropertyCamelizedDummy('dunglas.fr');
-        $obj->fooBar = 'les-tilleuls.coop';
-        $obj->bar_foo = 'lostinthesupermarket.fr';
-
-        $this->normalizer->setCamelizedAttributes(array('kevin_dunglas'));
-        $this->assertEquals($this->normalizer->normalize($obj), array(
-            'kevin_dunglas' => 'dunglas.fr',
-            'fooBar' => 'les-tilleuls.coop',
-            'bar_foo' => 'lostinthesupermarket.fr',
-        ));
-
-        $this->normalizer->setCamelizedAttributes(array('foo_bar'));
-        $this->assertEquals($this->normalizer->normalize($obj), array(
-            'kevinDunglas' => 'dunglas.fr',
-            'foo_bar' => 'les-tilleuls.coop',
-            'bar_foo' => 'lostinthesupermarket.fr',
-        ));
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testLegacyCamelizedAttributesDenormalize()
-    {
-        $obj = new PropertyCamelizedDummy('dunglas.fr');
-        $obj->fooBar = 'les-tilleuls.coop';
-        $obj->bar_foo = 'lostinthesupermarket.fr';
-
-        $this->normalizer->setCamelizedAttributes(array('kevin_dunglas'));
-        $this->assertEquals($this->normalizer->denormalize(array(
-            'kevin_dunglas' => 'dunglas.fr',
-            'fooBar' => 'les-tilleuls.coop',
-            'bar_foo' => 'lostinthesupermarket.fr',
-        ), __NAMESPACE__.'\PropertyCamelizedDummy'), $obj);
-
-        $this->normalizer->setCamelizedAttributes(array('foo_bar'));
-        $this->assertEquals($this->normalizer->denormalize(array(
-            'kevinDunglas' => 'dunglas.fr',
-            'foo_bar' => 'les-tilleuls.coop',
-            'bar_foo' => 'lostinthesupermarket.fr',
-        ), __NAMESPACE__.'\PropertyCamelizedDummy'), $obj);
-    }
-
-    public function testNameConverterSupport()
-    {
-        $this->normalizer = new PropertyNormalizer(null, new CamelCaseToSnakeCaseNameConverter());
-        $obj = $this->normalizer->denormalize(
-            array('camel_case' => 'camelCase'),
-            __NAMESPACE__.'\PropertyDummy'
-        );
-        $this->assertEquals('camelCase', $obj->getCamelCase());
-    }
-
     public function testConstructorDenormalize()
     {
         $obj = $this->normalizer->denormalize(
@@ -409,6 +338,14 @@ class PropertyNormalizerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testDenormalizeShouldIgnoreStaticProperty()
+    {
+        $obj = $this->normalizer->denormalize(array('outOfScope' => true), __NAMESPACE__.'\PropertyDummy');
+
+        $this->assertEquals(new PropertyDummy(), $obj);
+        $this->assertEquals('out_of_scope', PropertyDummy::$outOfScope);
+    }
+
     /**
      * @expectedException \Symfony\Component\Serializer\Exception\LogicException
      * @expectedExceptionMessage Cannot normalize attribute "bar" because injected serializer is not a normalizer
@@ -429,10 +366,16 @@ class PropertyNormalizerTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertFalse($this->normalizer->supportsNormalization(new \ArrayObject()));
     }
+
+    public function testNoStaticPropertySupport()
+    {
+        $this->assertFalse($this->normalizer->supportsNormalization(new StaticPropertyDummy()));
+    }
 }
 
 class PropertyDummy
 {
+    public static $outOfScope = 'out_of_scope';
     public $foo;
     private $bar;
     protected $camelCase;
@@ -491,3 +434,9 @@ class PropertyCamelizedDummy
         $this->kevinDunglas = $kevinDunglas;
     }
 }
+
+class StaticPropertyDummy
+{
+    private static $property = 'value';
+}
+

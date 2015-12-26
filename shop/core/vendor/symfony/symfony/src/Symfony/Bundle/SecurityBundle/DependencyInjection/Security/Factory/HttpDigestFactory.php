@@ -61,7 +61,7 @@ class HttpDigestFactory implements SecurityFactoryInterface
             ->children()
                 ->scalarNode('provider')->end()
                 ->scalarNode('realm')->defaultValue('Secured Area')->end()
-                ->scalarNode('key')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('secret')->isRequired()->cannotBeEmpty()->end()
             ->end()
         ;
     }
@@ -76,7 +76,7 @@ class HttpDigestFactory implements SecurityFactoryInterface
         $container
             ->setDefinition($entryPointId, new DefinitionDecorator('security.authentication.digest_entry_point'))
             ->addArgument($config['realm'])
-            ->addArgument($config['key'])
+            ->addArgument($config['secret'])
         ;
 
         return $entryPointId;

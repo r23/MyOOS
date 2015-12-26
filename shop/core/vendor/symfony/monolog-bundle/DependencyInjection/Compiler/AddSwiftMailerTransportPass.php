@@ -24,7 +24,7 @@ use Symfony\Component\DependencyInjection\Reference;
 class AddSwiftMailerTransportPass implements CompilerPassInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {
@@ -32,23 +32,25 @@ class AddSwiftMailerTransportPass implements CompilerPassInterface
 
         foreach ($handlers as $id) {
             $definition = $container->getDefinition($id);
+            $mailerId = (string) $definition->getArgument(0);
 
-            if (
-                $container->hasAlias('swiftmailer.transport.real') ||
-                $container->hasDefinition('swiftmailer.transport.real')
-            ) {
-                $definition->addMethodCall(
-                    'setTransport',
-                    array(new Reference('swiftmailer.transport.real'))
-                );
-            } elseif (
-                $container->hasAlias('swiftmailer.transport') ||
-                $container->hasDefinition('swiftmailer.transport')
-            ) {
-                $definition->addMethodCall(
-                    'setTransport',
-                    array(new Reference('swiftmailer.transport'))
-                );
+            // Try to fetch the transport for a non-default mailer first, then go with the default swiftmailer
+            $possibleServices = array(
+                $mailerId.'.transport.real',
+                $mailerId.'.transport',
+                'swiftmailer.transport.real',
+                'swiftmailer.transport',
+            );
+
+            foreach ($possibleServices as $serviceId) {
+                if ($container->hasAlias($serviceId) || $container->hasDefinition($serviceId)) {
+                    $definition->addMethodCall(
+                        'setTransport',
+                        array(new Reference($serviceId))
+                    );
+
+                    break;
+                }
             }
         }
     }
