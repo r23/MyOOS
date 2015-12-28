@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Development (4.4.x) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-12-16 21:24:56+0000\n"
+"PO-Revision-Date: 2015-12-27 14:27:20+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -46,11 +46,11 @@ msgid "Read the <a href=\"%s\" target=\"_blank\">bug report</a> page. Some of th
 msgstr "Auf der <a href=\"%s\" target=\"_blank\">bug report</a> Seite findest du einige Richtlinien, die dir helfen können, herauszufinden, was falsch gelaufen ist. "
 
 #. translators: %s: Codex URL
-#: wp-includes/functions.php:3784
+#: wp-includes/functions.php:3789
 msgid "Please see <a href=\"%s\">Debugging in WordPress</a> for more information."
 msgstr "Weitere Informationen: <a href=\"%s\">Debugging in WordPress</a> (en)"
 
-#: wp-includes/functions.php:3785
+#: wp-includes/functions.php:3790
 msgid "https://codex.wordpress.org/Debugging_in_WordPress"
 msgstr "https://codex.wordpress.org/Debugging_in_WordPress"
 
@@ -135,7 +135,7 @@ msgctxt "genitive"
 msgid "December"
 msgstr "Dezember"
 
-#: wp-includes/taxonomy.php:1581 wp-includes/taxonomy.php:1663
+#: wp-includes/taxonomy.php:1584 wp-includes/taxonomy.php:1666
 msgid "Term meta cannot be added to terms that are shared between taxonomies."
 msgstr "Meta-Daten können nicht zu Begriffen hinzugefügt werden, die in Taxonomien geteilt werden. "
 
@@ -171,7 +171,7 @@ msgstr "Februar"
 
 #. translators: If months in your language require a genitive case, translate
 #. this to 'on'. Do not translate into your own language.
-#: wp-includes/functions.php:178
+#: wp-includes/functions.php:183
 msgctxt "decline months names: on or off"
 msgid "off"
 msgstr "off"
@@ -343,19 +343,19 @@ msgstr "Der Code, zur Zurücksetzung des Passworts, konnte nicht in der Datenban
 msgid "<strong>ERROR</strong>: Invalid username."
 msgstr "<strong>FEHLER</strong>: Ungültiger Benutzername."
 
-#: wp-includes/taxonomy.php:538
+#: wp-includes/taxonomy.php:541
 msgid "Tags list navigation"
 msgstr "Navigation der Schlagwortlisten"
 
-#: wp-includes/taxonomy.php:539
+#: wp-includes/taxonomy.php:542
 msgid "Tags list"
 msgstr "Schlagwortliste"
 
-#: wp-includes/taxonomy.php:539
+#: wp-includes/taxonomy.php:542
 msgid "Categories list"
 msgstr "Kategorienliste"
 
-#: wp-includes/taxonomy.php:538
+#: wp-includes/taxonomy.php:541
 msgid "Categories list navigation"
 msgstr "Navigation der Kategorienliste"
 
@@ -904,7 +904,7 @@ msgstr "Der Benutzername darf nicht länger als 60 Zeichen sein."
 msgid "To set your password, visit the following address:"
 msgstr "Unter der folgenden Adresse kannst du dein Passwort festlegen:"
 
-#: wp-includes/functions.php:3619
+#: wp-includes/functions.php:3624
 msgid "The called constructor method for %1$s is <strong>deprecated</strong> since version %2$s! Use %3$s instead."
 msgstr "Die verwendete Konstruktoren-Methode für %1$s ist seit Version %2$s <strong>veraltet</strong>! Verwende stattdessen %3$s."
 
@@ -1084,7 +1084,7 @@ msgstr ""
 "Bist du sicher, dass du diesen Kommentar bearbeiten möchtest?\n"
 "Deine Änderungen werden verworfen."
 
-#: wp-includes/taxonomy.php:537
+#: wp-includes/taxonomy.php:540
 msgid "No tags"
 msgstr "Keine Schlagwörter"
 
@@ -1514,7 +1514,7 @@ msgstr[1] "%1$s Antworten zu %2$s"
 msgid "Your theme supports one menu. Select which menu you would like to use."
 msgstr "Dein Theme unterstützt ein Menü. Wähle aus, welches Menü genutzt werden soll."
 
-#: wp-includes/taxonomy.php:3968
+#: wp-includes/taxonomy.php:3971
 msgid "Could not split shared term."
 msgstr "Der gemeinsam genutzte Begriff konnte nicht aufgeteilt werden."
 
@@ -1736,7 +1736,7 @@ msgctxt "previous post"
 msgid "Previous"
 msgstr "Zurück"
 
-#: wp-includes/taxonomy.php:536
+#: wp-includes/taxonomy.php:539
 msgid "No categories found."
 msgstr "Keine Kategorien gefunden."
 
@@ -1790,7 +1790,7 @@ msgstr "Die folgende Werte beschreiben kein gültiges Datum: Tag %1$s, Monat %2$
 msgid "You need to pass an array of types."
 msgstr "Du musst ein Array von Typen übergeben."
 
-#: wp-includes/taxonomy.php:2649
+#: wp-includes/taxonomy.php:2652
 msgid "A term with the name provided already exists in this taxonomy."
 msgstr "Ein Begriff mit dem gleichen Namen und Slug existiert bereits in dieser Taxonomy."
 
@@ -2105,7 +2105,7 @@ msgstr "(ohne Bezeichnung)"
 
 #. translators: %s: taxonomy label, %l: list of terms formatted as per
 #. $term_template
-#: wp-includes/taxonomy.php:4454
+#: wp-includes/taxonomy.php:4457
 msgid "%s: %l."
 msgstr "%s: %l."
 
@@ -2714,17 +2714,17 @@ msgid "Search"
 msgstr "Suche"
 
 #. translators: used to join items in a list with more than 2 items
-#: wp-includes/formatting.php:4068
+#: wp-includes/formatting.php:4074
 msgid "%s, %s"
 msgstr "%s, %s"
 
 #. translators: used to join last two items in a list with more than 2 times
-#: wp-includes/formatting.php:4070
+#: wp-includes/formatting.php:4076
 msgid "%s, and %s"
 msgstr "%s und %s"
 
 #. translators: used to join items in a list with only 2 items
-#: wp-includes/formatting.php:4072
+#: wp-includes/formatting.php:4078
 msgid "%s and %s"
 msgstr "%s und %s"
 
@@ -3262,7 +3262,7 @@ msgstr "Aktualisierungen der Übersetzung "
 msgid "The theme directory \"%s\" does not exist."
 msgstr "Das Theme-Verzeichnis „%s“ existiert nicht. "
 
-#: wp-includes/functions.php:1216
+#: wp-includes/functions.php:1221
 msgid "ERROR: This is not a valid feed template."
 msgstr "FEHLER: Dies ist keine gültige Feed-Vorlage. "
 
@@ -3446,7 +3446,7 @@ msgstr "%2$s %1$s %3$s, %4$s:%5$s"
 msgid "The site you were looking for, %s, does not exist, but you can create it now!"
 msgstr "Die Website, die du gesucht hast, %s, existiert nicht, aber du kannst sie jetzt erstellen!"
 
-#: wp-includes/functions.php:4945
+#: wp-includes/functions.php:4950
 msgid "The login page will open in a new window. After logging in you can close it and return to this page."
 msgstr "Die Login-Seite wird sich in einem neuen Fenster öffnen. Nach dem Einloggen kannst du das Fenster schließen und zu dieser Seite zurückkehren."
 
@@ -3477,11 +3477,11 @@ msgctxt "placeholder"
 msgid "Search &hellip;"
 msgstr "Suche&#160;&hellip;"
 
-#: wp-includes/functions.php:4943 wp-includes/script-loader.php:443
+#: wp-includes/functions.php:4948 wp-includes/script-loader.php:443
 msgid "Session expired"
 msgstr "Sitzung abgelaufen"
 
-#: wp-includes/taxonomy.php:536
+#: wp-includes/taxonomy.php:539
 msgid "No tags found."
 msgstr "Keine Schlagworte gefunden."
 
@@ -3859,7 +3859,7 @@ msgstr "Zur Galerie hinzufügen"
 msgid "Select Color"
 msgstr "Farbe wählen"
 
-#: wp-includes/taxonomy.php:2875
+#: wp-includes/taxonomy.php:2878
 msgid "Could not insert term relationship into the database"
 msgstr "Konnte keine Begriffsbeziehung in die Datenbank einfügen."
 
@@ -4146,8 +4146,8 @@ msgid "Sorry, your term could not be created. Something wrong happened."
 msgstr "Leider konnte dein Begriff nicht erstellt werden. Etwas ist falsch gelaufen."
 
 #: wp-includes/class-wp-xmlrpc-server.php:1878
-#: wp-includes/class-wp-xmlrpc-server.php:1976 wp-includes/taxonomy.php:2572
-#: wp-includes/taxonomy.php:3164
+#: wp-includes/class-wp-xmlrpc-server.php:1976 wp-includes/taxonomy.php:2575
+#: wp-includes/taxonomy.php:3167
 msgid "Parent term does not exist."
 msgstr "Eltern-Begriff existiert nicht."
 
@@ -4183,7 +4183,7 @@ msgstr "Leider ist das Löschen des Begriffs fehlgeschlagen."
 
 #: wp-includes/widgets/class-wp-widget-links.php:128
 msgid "Select Link Category:"
-msgstr "Wähle die Link-Kategorie:"
+msgstr "Linkkategorie auswählen:"
 
 #: wp-includes/class-wp-xmlrpc-server.php:445
 msgid "Template"
@@ -4394,7 +4394,7 @@ msgid "&#8216;"
 msgstr "&#8218;"
 
 #. translators: opening curly double quote
-#: wp-includes/formatting.php:88 wp-includes/formatting.php:4319
+#: wp-includes/formatting.php:88 wp-includes/formatting.php:4325
 msgctxt "opening curly double quote"
 msgid "&#8220;"
 msgstr "&#8222;"
@@ -4430,7 +4430,7 @@ msgstr "Deine Website <a href=\"%1$s\">%2$s</a> ist aktiviert. Du kannst dich nu
 msgid "<a href=\"%1$s\">%2$s</a> is your new site. <a href=\"%3$s\">Log in</a> as &#8220;%4$s&#8221; using your existing password."
 msgstr "<a href=\"%1$s\">%2$s</a> ist deine neue Website. <a href=\"%3$s\">Melde dich an</a> als &#8222;%4$s&#8220; und verwende dein existierendes Passwort."
 
-#: wp-includes/functions.php:1397
+#: wp-includes/functions.php:1402
 msgid "One or more database tables are unavailable. The database may need to be <a href=\"%s\">repaired</a>."
 msgstr "Eine oder mehrere Datenbanktabellen sind nicht erreichbar. Die Datenbank muss eventuell <a href=\"%s\">repariert</a> werden."
 
@@ -4530,11 +4530,11 @@ msgstr "Support-Foren"
 msgid "&hellip;"
 msgstr "&hellip;"
 
-#: wp-includes/functions.php:3504
+#: wp-includes/functions.php:3509
 msgid "Database Error"
 msgstr "Datenbankfehler"
 
-#: wp-includes/functions.php:3508 wp-includes/ms-load.php:286
+#: wp-includes/functions.php:3513 wp-includes/ms-load.php:286
 #: wp-includes/wp-db.php:1533
 msgid "Error establishing a database connection"
 msgstr "Fehler beim Aufbau einer Datenbankverbindung"
@@ -4554,12 +4554,12 @@ msgstr "WordPress.org"
 msgid "Network Admin: %s"
 msgstr "Netzwerkverwaltung: %s"
 
-#: wp-includes/taxonomy.php:521
+#: wp-includes/taxonomy.php:524
 msgctxt "taxonomy general name"
 msgid "Tags"
 msgstr "Schlagworte"
 
-#: wp-includes/taxonomy.php:522
+#: wp-includes/taxonomy.php:525
 msgctxt "taxonomy singular name"
 msgid "Tag"
 msgstr "Schlagwort"
@@ -4603,11 +4603,11 @@ msgctxt "add new from admin bar"
 msgid "User"
 msgstr "Benutzer"
 
-#: wp-includes/taxonomy.php:529
+#: wp-includes/taxonomy.php:532
 msgid "View Tag"
 msgstr "Schlagwort ansehen"
 
-#: wp-includes/taxonomy.php:529
+#: wp-includes/taxonomy.php:532
 msgid "View Category"
 msgstr "Kategorie ansehen"
 
@@ -4705,11 +4705,11 @@ msgstr "Bedingungsabfragen (Conditional Tags) funktionieren nicht, wenn die Beit
 msgid "The user is already active."
 msgstr "Der Benutzer ist bereits aktiviert."
 
-#: wp-includes/functions.php:3782
+#: wp-includes/functions.php:3787
 msgid "(This message was added in version %s.)"
 msgstr "(Diese Meldung wurde in Version %s hinzugefügt.)"
 
-#: wp-includes/functions.php:3787
+#: wp-includes/functions.php:3792
 msgid "%1$s was called <strong>incorrectly</strong>. %2$s %3$s"
 msgstr "%1$s wurde <strong>fehlerhaft aufgerufen</strong>. %2$s %3$s"
 
@@ -5047,57 +5047,57 @@ msgstr "Du befindest dich im Moment im Archiv der Kategorie %s."
 msgid "You have searched the %1$s blog archives for <strong>&#8216;%2$s&#8217;</strong>. If you are unable to find anything in these search results, you can try one of these links."
 msgstr "Du hast das %1$s Blogarchiv nach <strong>&#8216;%2$s&#8217;</strong> durchsucht. Wenn du nicht das Gewünschte gefunden hast, probier mal einen dieser Links."
 
-#: wp-includes/taxonomy.php:535
+#: wp-includes/taxonomy.php:538
 msgid "Choose from the most used tags"
 msgstr "Wähle aus den häufig genutzten Schlagwörtern"
 
-#: wp-includes/taxonomy.php:521
+#: wp-includes/taxonomy.php:524
 msgctxt "taxonomy general name"
 msgid "Categories"
 msgstr "Kategorien"
 
-#: wp-includes/taxonomy.php:522
+#: wp-includes/taxonomy.php:525
 msgctxt "taxonomy singular name"
 msgid "Category"
 msgstr "Kategorie"
 
-#: wp-includes/taxonomy.php:523
+#: wp-includes/taxonomy.php:526
 msgid "Search Tags"
 msgstr "Schlagwörter suchen"
 
-#: wp-includes/taxonomy.php:524
+#: wp-includes/taxonomy.php:527
 msgid "Popular Tags"
 msgstr "Beliebte Schlagwörter"
 
-#: wp-includes/taxonomy.php:525
+#: wp-includes/taxonomy.php:528
 msgid "All Tags"
 msgstr "Alle Schlagwörter"
 
-#: wp-includes/taxonomy.php:526
+#: wp-includes/taxonomy.php:529
 msgid "Parent Category"
 msgstr "Übergeordnete Kategorie"
 
-#: wp-includes/taxonomy.php:527
+#: wp-includes/taxonomy.php:530
 msgid "Parent Category:"
 msgstr "Übergeordnete Kategorie:"
 
-#: wp-includes/taxonomy.php:530
+#: wp-includes/taxonomy.php:533
 msgid "Update Tag"
 msgstr "Schlagwort aktualisieren"
 
-#: wp-includes/taxonomy.php:531
+#: wp-includes/taxonomy.php:534
 msgid "Add New Tag"
 msgstr "Neues Schlagwort erstellen"
 
-#: wp-includes/taxonomy.php:532
+#: wp-includes/taxonomy.php:535
 msgid "New Tag Name"
 msgstr "Neuer Schlagwortname"
 
-#: wp-includes/taxonomy.php:532
+#: wp-includes/taxonomy.php:535
 msgid "New Category Name"
 msgstr "Neuer Kategoriename"
 
-#: wp-includes/taxonomy.php:531
+#: wp-includes/taxonomy.php:534
 msgid "Add New Category"
 msgstr "Neue Kategorie erstellen"
 
@@ -5331,7 +5331,7 @@ msgstr "Diese E-Mail-Adresse scheint keine gültige E-Mail-Adresse zu sein. Bitt
 msgid "The Site address you entered did not appear to be a valid URL. Please enter a valid URL."
 msgstr "Die Website-Adresse die du eingegeben hast, scheint keine gültige URL zu sein. Bitte gebe eine gültige URL ein."
 
-#: wp-includes/taxonomy.php:2646
+#: wp-includes/taxonomy.php:2649
 msgid "A term with the name provided already exists with this parent."
 msgstr "Dieses Schlagwort mit dem gleichen übergeordneten Schlagwort gibt es bereits."
 
@@ -5430,7 +5430,7 @@ msgid ""
 " 'Cancel' to stop, 'OK' to delete."
 msgstr "Du bist dabei dieses Menü endgültig zu löschen. Klicke auf „Abbrechen“, um den Vorgang zu beenden, oder auf „OK“, um das Menü zu löschen."
 
-#: wp-includes/link-template.php:3643
+#: wp-includes/link-template.php:3647
 msgid "This is the short link."
 msgstr "Dies ist der Kurzlink."
 
@@ -6012,31 +6012,31 @@ msgstr "Entwurf wird gespeichert&#8230;"
 msgid "The changes you made will be lost if you navigate away from this page."
 msgstr "Beim Verlassen der Seite werden deine Änderungen verworfen."
 
-#: wp-includes/taxonomy.php:2928
+#: wp-includes/taxonomy.php:2931
 msgid "Invalid Taxonomy"
 msgstr "Ungültige Taxonomie"
 
-#: wp-includes/taxonomy.php:750 wp-includes/taxonomy.php:3137
-#: wp-includes/taxonomy.php:4322
+#: wp-includes/taxonomy.php:753 wp-includes/taxonomy.php:3140
+#: wp-includes/taxonomy.php:4325
 msgid "Empty Term"
 msgstr "Leerer Ausdruck"
 
 #: wp-includes/class-wp-xmlrpc-server.php:1404
 #: wp-includes/class-wp-xmlrpc-server.php:1956
 #: wp-includes/class-wp-xmlrpc-server.php:2047
-#: wp-includes/class-wp-xmlrpc-server.php:2118 wp-includes/taxonomy.php:2563
+#: wp-includes/class-wp-xmlrpc-server.php:2118 wp-includes/taxonomy.php:2566
 msgid "Invalid term ID"
 msgstr "Ungültige Begriffs-ID."
 
-#: wp-includes/taxonomy.php:2566 wp-includes/taxonomy.php:3161
+#: wp-includes/taxonomy.php:2569 wp-includes/taxonomy.php:3164
 msgid "A name is required for this term"
 msgstr "Für diesen Begriff ist ein Name erforderlich"
 
-#: wp-includes/taxonomy.php:2657
+#: wp-includes/taxonomy.php:2660
 msgid "Could not insert term into the database"
 msgstr "Der Begriff konnte nicht in die Datenbank eingefügt werden"
 
-#: wp-includes/taxonomy.php:4525
+#: wp-includes/taxonomy.php:4528
 msgid "Invalid object ID"
 msgstr "Ungültige Objekt-ID"
 
@@ -6048,7 +6048,7 @@ msgstr "Es fehlt ein Stylesheet."
 msgid "Template is missing."
 msgstr "Das Template fehlt."
 
-#: wp-includes/functions.php:4944 wp-includes/user.php:206
+#: wp-includes/functions.php:4949 wp-includes/user.php:206
 msgid "Please log in again."
 msgstr "Bitte melde dich nochmal an."
 
@@ -6187,35 +6187,35 @@ msgstr ", "
 msgid "%s is a protected WP option and may not be modified"
 msgstr "%s ist eine geschützte WP-Option und sollte nicht verändert werden"
 
-#: wp-includes/functions.php:1921 wp-includes/functions.php:2058
+#: wp-includes/functions.php:1926 wp-includes/functions.php:2063
 msgid "Unable to create directory %s. Is its parent directory writable by the server?"
 msgstr "Das Verzeichnis %s kann nicht angelegt werden. Ist das übergeordnete Verzeichnis durch den Server beschreibbar?"
 
-#: wp-includes/functions.php:2064
+#: wp-includes/functions.php:2069
 msgid "Could not write file %s"
 msgstr "Konnte folgende Datei nicht schreiben %s"
 
-#: wp-includes/functions.php:2414
+#: wp-includes/functions.php:2419
 msgid "WordPress Failure Notice"
 msgstr "WordPress-Fehlermeldung"
 
-#: wp-includes/functions.php:2533
+#: wp-includes/functions.php:2538
 msgid "&laquo; Back"
 msgstr "&laquo; Zurück"
 
-#: wp-includes/functions.php:2545 wp-load.php:92
+#: wp-includes/functions.php:2550 wp-load.php:92
 msgid "WordPress &rsaquo; Error"
 msgstr "WordPress &rsaquo; Fehler"
 
-#: wp-includes/functions.php:3568 wp-includes/functions.php:3672
+#: wp-includes/functions.php:3573 wp-includes/functions.php:3677
 msgid "%1$s is <strong>deprecated</strong> since version %2$s! Use %3$s instead."
 msgstr "%1$s ist seit Version %2$s <strong>veraltet</strong>! Benutze stattdessen %3$s."
 
-#: wp-includes/functions.php:3570 wp-includes/functions.php:3674
+#: wp-includes/functions.php:3575 wp-includes/functions.php:3679
 msgid "%1$s is <strong>deprecated</strong> since version %2$s with no alternative available."
 msgstr "%1$s ist seit Version %2$s <strong>veraltet</strong>. Es ist keine Alternative erhältlich."
 
-#: wp-includes/functions.php:4294
+#: wp-includes/functions.php:4299
 msgid "Select a city"
 msgstr "Wähle eine Stadt"
 
@@ -6685,7 +6685,7 @@ msgid_plural "Private <span class=\"count\">(%s)</span>"
 msgstr[0] "Privat <span class=\"count\">(%s)</span>"
 msgstr[1] "Private <span class=\"count\">(%s)</span>"
 
-#: wp-includes/functions.php:4339 wp-includes/functions.php:4343
+#: wp-includes/functions.php:4344 wp-includes/functions.php:4348
 msgid "UTC"
 msgstr "UTC"
 
@@ -6855,15 +6855,15 @@ msgstr "<strong>Fehler:</strong> Das Benutzerfeld ist leer."
 msgid "<strong>ERROR</strong>: The password field is empty."
 msgstr "<strong>Fehler:</strong> Das Passwortfeld ist leer."
 
-#: wp-includes/functions.php:2405
+#: wp-includes/functions.php:2410
 msgid "You are attempting to log out of %s"
 msgstr "Du hast vor, dich von der Website %s abzumelden"
 
-#: wp-includes/functions.php:3732
+#: wp-includes/functions.php:3737
 msgid "%1$s was called with an argument that is <strong>deprecated</strong> since version %2$s! %3$s"
 msgstr "%1$s wurde mit einem Parameter oder Argument aufgerufen, der seit Version %2$s <strong>veraltet ist</strong>! %3$s"
 
-#: wp-includes/functions.php:3734
+#: wp-includes/functions.php:3739
 msgid "%1$s was called with an argument that is <strong>deprecated</strong> since version %2$s with no alternative available."
 msgstr "%1$s wurde mit einem Parameter oder Argument aufgerufen, der seit Version %2$s <strong>veraltet ist</strong>! Es gibt jedoch keine alternative Möglichkeit."
 
@@ -6988,7 +6988,7 @@ msgstr "Speichere …"
 msgid "<strong>ERROR</strong>: Your account has been marked as a spammer."
 msgstr "<strong>Fehler:</strong> Dein Account wurde als Spam markiert."
 
-#: wp-includes/functions.php:2407
+#: wp-includes/functions.php:2412
 msgid "Do you really want to <a href='%s'>log out</a>?"
 msgstr "Willst du dich wirklich <a href='%s'>abmelden</a>?"
 
@@ -7034,7 +7034,7 @@ msgstr "Wie viele Einträge sollen angezeigt werden?"
 msgid "new WordPress Loop"
 msgstr "Neuer WordPress-Loop"
 
-#: wp-includes/functions.php:2411 wp-includes/ms-functions.php:1910
+#: wp-includes/functions.php:2416 wp-includes/ms-functions.php:1910
 msgid "Please try again."
 msgstr "Bitte noch mal versuchen."
 
@@ -7130,11 +7130,11 @@ msgstr "Ohne Titel"
 msgid "RSS Error: %s"
 msgstr "RSS-Fehler: %s"
 
-#: wp-includes/functions.php:2022
+#: wp-includes/functions.php:2027
 msgid "Empty filename"
 msgstr "Leerer Dateiname"
 
-#: wp-includes/functions.php:4347
+#: wp-includes/functions.php:4352
 msgid "Manual Offsets"
 msgstr "Manueller Zeitabstand"
 
@@ -7228,7 +7228,7 @@ msgstr "[%1$s] Kommentar: „%2$s“"
 msgid "%1$s %2$s Search Results for &#8220;%3$s&#8221; Feed"
 msgstr "%1$s %2$s Suchergebnisse für &#8222;%3$s&#8220; Feed"
 
-#: wp-includes/taxonomy.php:3221
+#: wp-includes/taxonomy.php:3224
 msgid "The slug &#8220;%s&#8221; is already in use by another term"
 msgstr "Die Titelform &#8222;%s&#8220; wird bereits verwendet"
 
@@ -7409,7 +7409,7 @@ msgstr "Zuletzt aktualisiert: %s"
 msgid "Bookmarks"
 msgstr "Lesezeichen"
 
-#: wp-includes/category-template.php:528 wp-includes/taxonomy.php:537
+#: wp-includes/category-template.php:528 wp-includes/taxonomy.php:540
 msgid "No categories"
 msgstr "Keine Kategorien"
 
@@ -7506,7 +7506,7 @@ msgstr "Visuell"
 msgid "Title:"
 msgstr "Titel:"
 
-#: wp-includes/taxonomy.php:533
+#: wp-includes/taxonomy.php:536
 msgid "Separate tags with commas"
 msgstr "Trenne Schlagwörter durch Kommas"
 
@@ -7520,7 +7520,7 @@ msgid "Strength indicator"
 msgstr "Passwortstärke"
 
 #: wp-includes/admin-bar.php:735 wp-includes/class-wp-customize-widgets.php:359
-#: wp-includes/functions.php:3445
+#: wp-includes/functions.php:3450
 msgid "Widgets"
 msgstr "Widgets"
 
@@ -7540,7 +7540,7 @@ msgstr "Datumsformat"
 msgid "Time Format"
 msgstr "Zeitformat"
 
-#: wp-includes/taxonomy.php:528
+#: wp-includes/taxonomy.php:531
 msgid "Edit Category"
 msgstr "Kategorie bearbeiten"
 
@@ -7703,7 +7703,7 @@ msgstr "Widerrufen"
 msgid "Redo"
 msgstr "Wiederholen"
 
-#: wp-includes/deprecated.php:3082 wp-includes/functions.php:2409
+#: wp-includes/deprecated.php:3082 wp-includes/functions.php:2414
 msgid "Are you sure you want to do this?"
 msgstr "Bist du sicher, dass du das tun möchtest?"
 
@@ -7772,7 +7772,7 @@ msgid "Uncategorized"
 msgstr "Allgemein"
 
 #: wp-includes/class-wp-editor.php:862 wp-includes/class-wp-editor.php:1402
-#: wp-includes/functions.php:4932 wp-includes/script-loader.php:256
+#: wp-includes/functions.php:4937 wp-includes/script-loader.php:256
 #: wp-includes/script-loader.php:337 wp-includes/script-loader.php:439
 msgid "Close"
 msgstr "Schließen"
@@ -7837,7 +7837,7 @@ msgstr "Senden"
 msgid "RSS"
 msgstr "RSS"
 
-#: wp-includes/functions.php:2026
+#: wp-includes/functions.php:2031
 msgid "Invalid file type"
 msgstr "Ungültiger Dateityp"
 
@@ -7852,10 +7852,6 @@ msgstr "Genehmigt"
 msgctxt "adjective"
 msgid "Spam"
 msgstr "Spam"
-
-#: wp-includes/taxonomy.php:93
-msgid "Link Categories"
-msgstr "Kategorien"
 
 #: wp-includes/taxonomy.php:98
 msgid "Edit Link Category"
@@ -7877,7 +7873,7 @@ msgstr "Name"
 msgid "Pages"
 msgstr "Seiten"
 
-#: wp-includes/taxonomy.php:528
+#: wp-includes/taxonomy.php:531
 msgid "Edit Tag"
 msgstr "Schlagwort bearbeiten"
 
@@ -7891,11 +7887,11 @@ msgstr "Schlagwörter"
 #: wp-includes/class-wp-xmlrpc-server.php:2034
 #: wp-includes/class-wp-xmlrpc-server.php:2105
 #: wp-includes/class-wp-xmlrpc-server.php:2163
-#: wp-includes/class-wp-xmlrpc-server.php:2258 wp-includes/taxonomy.php:665
-#: wp-includes/taxonomy.php:754 wp-includes/taxonomy.php:905
-#: wp-includes/taxonomy.php:1078 wp-includes/taxonomy.php:2297
-#: wp-includes/taxonomy.php:2548 wp-includes/taxonomy.php:2791
-#: wp-includes/taxonomy.php:3124
+#: wp-includes/class-wp-xmlrpc-server.php:2258 wp-includes/taxonomy.php:668
+#: wp-includes/taxonomy.php:757 wp-includes/taxonomy.php:908
+#: wp-includes/taxonomy.php:1081 wp-includes/taxonomy.php:2300
+#: wp-includes/taxonomy.php:2551 wp-includes/taxonomy.php:2794
+#: wp-includes/taxonomy.php:3127
 msgid "Invalid taxonomy"
 msgstr "Ungültige Taxonomie"
 
@@ -7949,7 +7945,7 @@ msgstr "Kategorien"
 msgid "Search Results for &#8220;%s&#8221;"
 msgstr "Suchergebnisse für &#8220;%s&#8221;"
 
-#: wp-includes/taxonomy.php:523
+#: wp-includes/taxonomy.php:526
 msgid "Search Categories"
 msgstr "Kategorien suchen"
 
@@ -8000,7 +7996,7 @@ msgstr "Kommentar"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: wp-includes/taxonomy.php:530
+#: wp-includes/taxonomy.php:533
 msgid "Update Category"
 msgstr "Kategorie aktualisieren"
 
@@ -8048,7 +8044,7 @@ msgstr "Öffentlich"
 msgid "Schedule"
 msgstr "Planen"
 
-#: wp-includes/taxonomy.php:525
+#: wp-includes/taxonomy.php:528
 msgid "All Categories"
 msgstr "Alle Kategorien"
 
@@ -8064,7 +8060,7 @@ msgstr "Fortgeschritten"
 msgid "Revisions"
 msgstr "Revisionen"
 
-#: wp-includes/taxonomy.php:534
+#: wp-includes/taxonomy.php:537
 msgid "Add or remove tags"
 msgstr "Schlagworte hinzufügen oder entfernen"
 
@@ -8145,6 +8141,10 @@ msgstr "Medium bearbeiten"
 #: wp-includes/widgets.php:175
 msgid "Sidebar"
 msgstr "Seitenleiste"
+
+#: wp-includes/taxonomy.php:93
+msgid "Link Categories"
+msgstr "Linkkategorien"
 
 #: wp-activate.php:81
 msgid "Activate"

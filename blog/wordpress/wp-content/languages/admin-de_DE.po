@@ -975,7 +975,7 @@ msgstr "Docs Committer"
 msgid "You&rsquo;re using the auto-generated password for your account. Would you like to change it?"
 msgstr "Du verwendest das automatisch generierte Passwort für dein Benutzerkonto. Möchtest du ein eigenes Passwort vergeben?"
 
-#: wp-admin/users.php:360
+#: wp-admin/users.php:361
 msgid "You have specified this user for removal:"
 msgstr "Du hast diesen Benutzer zum Löschen festgelegt:"
 
@@ -1555,7 +1555,7 @@ msgstr "Hauptmenü"
 msgid "Enter the location on the server where the public and private keys are located. If a passphrase is needed, enter that in the password field above."
 msgstr "Gib das Verzeichnis auf dem Server an, in dem der öffentliche sowie der private Schlüssel liegen. Falls eine Passphrase benötigt wird, gib diese im darüber liegenden Passwort-Feld ein."
 
-#: wp-admin/users.php:266
+#: wp-admin/users.php:267
 msgid "What should be done with content owned by these users?"
 msgstr "Was soll mit den Inhalten geschehen, die den folgenden Benutzern gehören?"
 
@@ -1577,11 +1577,11 @@ msgid_plural "%d media attachments permanently deleted."
 msgstr[0] "%d Medien-Anhang dauerhaft gelöscht."
 msgstr[1] "%d Medien-Anhänge dauerhaft gelöscht."
 
-#: wp-admin/users.php:241
+#: wp-admin/users.php:242
 msgid "You have specified these users for deletion:"
 msgstr "Du hast folgende Benutzer zum Löschen markiert:"
 
-#: wp-admin/users.php:419
+#: wp-admin/users.php:420
 msgid "%s user deleted."
 msgid_plural "%s users deleted."
 msgstr[0] "%s Benutzer entfernt."
@@ -2454,15 +2454,15 @@ msgstr "Details &amp; Vorschau"
 msgid "Delete brings you to the Delete Users screen for confirmation, where you can permanently remove a user from your site and delete their content. You can also delete multiple users at once by using Bulk Actions."
 msgstr "Löschen ruft zur Bestätigung ein Dialogfenster zum Löschen des Nutzers auf, in dem Du einen Nutzer dauerhaft von Deiner Website entfernen und dessen Inhalt löschen kannst. Mit der Sammelaktion kannst Du auch mehrere Nutzer auf einmal löschen."
 
-#: wp-admin/users.php:264
+#: wp-admin/users.php:265
 msgid "What should be done with content owned by this user?"
 msgstr "Was soll mit dem Inhalt dieses Nutzers passieren?"
 
-#: wp-admin/includes/ms.php:1057 wp-admin/users.php:272
+#: wp-admin/includes/ms.php:1057 wp-admin/users.php:273
 msgid "Attribute all content to:"
 msgstr "Diesem Nutzer den gesamten Inhalt zuordnen:"
 
-#: wp-admin/includes/ms.php:1055 wp-admin/users.php:270
+#: wp-admin/includes/ms.php:1055 wp-admin/users.php:271
 msgid "Delete all content."
 msgstr "Den gesamten Inhalt löschen."
 
@@ -3785,23 +3785,23 @@ msgstr "In der Spalte <strong>\"Als Antwort auf\"</strong> gibt es drei Elemente
 msgid "Used: %1$s%% of %2$s"
 msgstr "Verwendung: %1$s%% of %2$s"
 
-#: wp-admin/users.php:252 wp-admin/users.php:376
+#: wp-admin/users.php:253 wp-admin/users.php:377
 msgid "ID #%1$s: %2$s"
 msgstr "D #%1$s: %2$s"
 
-#: wp-admin/users.php:250
+#: wp-admin/users.php:251
 msgid "ID #%1$s: %2$s <strong>The current user will not be deleted.</strong>"
 msgstr "ID #%1$s: %2$s <strong>Der angemeldete User wird nicht gelöscht.</strong>"
 
-#: wp-admin/users.php:372
+#: wp-admin/users.php:373
 msgid "ID #%1$s: %2$s <strong>The current user will not be removed.</strong>"
 msgstr "ID #%1$s: %2$s <strong>Der angemeldete User wird nicht gelöscht.</strong>"
 
-#: wp-admin/users.php:374
+#: wp-admin/users.php:375
 msgid "ID #%1$s: %2$s <strong>You don't have permission to remove this user.</strong>"
 msgstr "ID #%1$s: %2$s <strong>Du hast keine Berechtigung, diesen User zu löschen.</strong>"
 
-#: wp-admin/users.php:234
+#: wp-admin/users.php:235
 msgid "Please select an option."
 msgstr "Bitte wähle eine Option"
 
@@ -4180,11 +4180,11 @@ msgstr "Deine <code>wp-config.php</code> Datei hat einen leeren Datenbank Tabell
 msgid "Revert to the <strong>Browser Uploader</strong> by clicking the link below the drag and drop box."
 msgstr "Kehre zu dem <strong>Browser Uploader</strong> zurück, indem du den Link unter der Drag-and-Drop Box klickst."
 
-#: wp-admin/users.php:417
+#: wp-admin/users.php:418
 msgid "User deleted."
 msgstr "Benutzer gelöscht"
 
-#: wp-admin/users.php:425
+#: wp-admin/users.php:426
 msgid "New user created. <a href=\"%s\">Edit user</a>"
 msgstr "Neuer Benutzer erstellen. <a href=\"%s\">Benutzer bearbeiten</a>"
 
@@ -5515,7 +5515,7 @@ msgstr "Editor"
 msgid "Installed Plugins"
 msgstr "Installierte Plugins"
 
-#: wp-admin/includes/ms.php:1085 wp-admin/users.php:286
+#: wp-admin/includes/ms.php:1085 wp-admin/users.php:287
 msgid "Confirm Deletion"
 msgstr "Löschen bestätigen"
 
@@ -5550,8 +5550,8 @@ msgstr "Benutzer hinzugefügt."
 msgid "Super Admin"
 msgstr "Super Administrator"
 
-#: wp-admin/users.php:300 wp-admin/users.php:308 wp-admin/users.php:335
-#: wp-admin/users.php:343
+#: wp-admin/users.php:301 wp-admin/users.php:309 wp-admin/users.php:336
+#: wp-admin/users.php:344
 msgid "You can&#8217;t remove users."
 msgstr "Du kannst keine Benutzer löschen."
 
@@ -5573,7 +5573,7 @@ msgid "Updates %s"
 msgstr "Aktualisierungen %s"
 
 #: wp-admin/includes/dashboard.php:406 wp-admin/includes/dashboard.php:408
-#: wp-admin/users.php:487
+#: wp-admin/users.php:488
 msgid "Search Users"
 msgstr "Suche Benutzer"
 
@@ -5587,7 +5587,7 @@ msgstr "Bestehenden Benutzer hinzufügen"
 msgid "Role"
 msgstr "Rolle"
 
-#: wp-admin/users.php:433
+#: wp-admin/users.php:434
 msgid "Changed roles."
 msgstr "Rollen gewechselt."
 
@@ -5612,7 +5612,7 @@ msgid "For more information:"
 msgstr "Für mehr Information:"
 
 #: wp-admin/menu.php:220 wp-admin/menu.php:222 wp-admin/user-edit.php:194
-#: wp-admin/users.php:474
+#: wp-admin/users.php:475
 msgctxt "user"
 msgid "Add New"
 msgstr "Neu hinzufügen"
@@ -5668,7 +5668,7 @@ msgstr "Installieren"
 #. translators: %s: search keywords
 #: wp-admin/edit-comments.php:197 wp-admin/edit-tags.php:311
 #: wp-admin/edit.php:307 wp-admin/link-manager.php:78 wp-admin/plugins.php:515
-#: wp-admin/upload.php:224 wp-admin/users.php:480
+#: wp-admin/upload.php:224 wp-admin/users.php:481
 msgid "Search results for &#8220;%s&#8221;"
 msgstr "Suchergebnisse für &#8222;%s&#8220;"
 
@@ -5678,7 +5678,7 @@ msgstr "Suchergebnisse für &#8222;%s&#8220;"
 msgid "You do not have sufficient permissions to manage options for this site."
 msgstr "Du hast nicht die erforderlichen Rechte, um Optionen für diese Website zu verwalten."
 
-#: wp-admin/users.php:444
+#: wp-admin/users.php:445
 msgid "User removed from this site."
 msgstr "Benutzer von diese Website entfernt."
 
@@ -5987,7 +5987,7 @@ msgstr "Hochgeladene Bilder"
 msgid "Layout"
 msgstr "Layout"
 
-#: wp-admin/users.php:239
+#: wp-admin/users.php:240
 msgid "You have specified this user for deletion:"
 msgstr "Du hast diesen Benutzer zum Löschen ausgewählt:"
 
@@ -6012,7 +6012,7 @@ msgstr "Dieses Plugin könnte noch auf anderen Seiten dieses Netzwerks aktiv sei
 msgid "You cannot delete a plugin while it is active on the main site."
 msgstr "Du kannst ein Plugin nicht löschen, so lang es noch auf der Haupt-Website aktiv ist."
 
-#: wp-admin/user-edit.php:196 wp-admin/users.php:476
+#: wp-admin/user-edit.php:196 wp-admin/users.php:477
 msgctxt "user"
 msgid "Add Existing"
 msgstr "Bestehenden hinzufügen"
@@ -6632,7 +6632,7 @@ msgid "Home: %s"
 msgstr "Startseite: %s"
 
 #: wp-admin/import.php:57 wp-admin/includes/network.php:105
-#: wp-admin/includes/network.php:122 wp-admin/users.php:234
+#: wp-admin/includes/network.php:122 wp-admin/users.php:235
 msgid "ERROR:"
 msgstr "FEHLER:"
 
@@ -7015,7 +7015,7 @@ msgstr "Benutze Press This, um Text, Bilder und Videos aus jeder beliebigen Webs
 msgid "&mdash; No role for this site &mdash;"
 msgstr "&mdash; Keine Benutzerrolle für diese Website &mdash;"
 
-#: wp-admin/users.php:357
+#: wp-admin/users.php:358
 msgid "Remove Users from Site"
 msgstr "Entferne Benutzer von dieser Website"
 
@@ -7147,23 +7147,23 @@ msgstr "Anzeigeoptionen"
 msgid "Remove Image"
 msgstr "Bild entfernen"
 
-#: wp-admin/users.php:362
+#: wp-admin/users.php:363
 msgid "You have specified these users for removal:"
 msgstr "Du hast folgende Benutzer zum Löschen ausgewählt:"
 
-#: wp-admin/users.php:384
+#: wp-admin/users.php:385
 msgid "Confirm Removal"
 msgstr "Löschen durchführen"
 
-#: wp-admin/users.php:386
+#: wp-admin/users.php:387
 msgid "There are no valid users selected for removal."
 msgstr "Es sind keine gültigen Benutzer zum Löschen ausgewählt."
 
-#: wp-admin/users.php:447
+#: wp-admin/users.php:448
 msgid "You can't remove the current user."
 msgstr "Du kannst den aktuellen Benutzer nicht löschen."
 
-#: wp-admin/users.php:448
+#: wp-admin/users.php:449
 msgid "Other users have been removed."
 msgstr "Andere Benutzer wurden entfernt."
 
@@ -8484,31 +8484,31 @@ msgstr "Du kannst diesen Benutzer nicht bearbeiten."
 msgid "You can&#8217;t delete users."
 msgstr "Du kannst keine Benutzer löschen."
 
-#: wp-admin/users.php:231
+#: wp-admin/users.php:232
 msgid "Delete Users"
 msgstr "Benutzer löschen"
 
-#: wp-admin/users.php:288
+#: wp-admin/users.php:289
 msgid "There are no valid users selected for deletion."
 msgstr "Es sind keine gültigen Benutzer zum Löschen ausgewählt."
 
-#: wp-admin/users.php:429
+#: wp-admin/users.php:430
 msgid "New user created."
 msgstr "Neuen Benutzer eingerichtet."
 
-#: wp-admin/users.php:436
+#: wp-admin/users.php:437
 msgid "The current user&#8217;s role must have user editing capabilities."
 msgstr "Die Rolle des aktuellen Benutzers muss die Befugnis zum Bearbeiten von Benutzern haben."
 
-#: wp-admin/users.php:437
+#: wp-admin/users.php:438
 msgid "Other user roles have been changed."
 msgstr "Die Rollen der anderen Benutzer sind verändert worden."
 
-#: wp-admin/users.php:440
+#: wp-admin/users.php:441
 msgid "You can&#8217;t delete the current user."
 msgstr "Du kannst diesen Benutzer nicht löschen."
 
-#: wp-admin/users.php:441
+#: wp-admin/users.php:442
 msgid "Other users have been deleted."
 msgstr "Andere Benutzer sind gelöscht worden."
 
