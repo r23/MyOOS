@@ -49,7 +49,7 @@ if ( empty( $sContent ) || !is_string( $sContent ) ) {
     require_once MYOOS_INCLUDE_PATH . '/includes/content/' . $sContent . '.php';
 } else {
     // Module not found
-    oos_redirect(oos_href_link($aContents['main']));
+    oos_redirect(oos_href_link($aContents['404']));
 }
 
 require 'includes/nice_exit.php';
