@@ -27,7 +27,5 @@ $aLang['page_advanced_search'] = 'Erweiterte Suche';
 $aLang['page_products_new'] = 'Neue Produkte';
 $aLang['page_specials'] = 'Angebote';
 $aLang['page_reviews'] = 'Meinungen';
-$aLang['page_affiliate'] = 'Affiliate';
 $aLang['page_service'] = 'Service';
-$aLang['page_mapquest'] = 'Stadtplan von unserem Standort';
 
