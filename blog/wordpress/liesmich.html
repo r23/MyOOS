@@ -9,7 +9,7 @@
 <body>
 <h1 id="logo">
 	<a href="https://wordpress.org/"><img alt="WordPress" src="wp-admin/images/wordpress-logo.png" /></a>
-	<br /> Version 4.2
+	<br /> Version 4.4.1
 </h1>
 <p style="text-align: center">WordPress ist eine zeitgemäße Plattform zum Veröffentlichen persönlicher Beiträge - <br />den Schwerpunkt bilden ästhetik, Webstandards und Benutzerfreundlichkeit.</p>
 
@@ -43,8 +43,10 @@
 
 <h2>Manuelles Update:</h2>
 <ol>
-	<li>Lösche Die alten WP Dateien, sichere aber diejenigen, die Du verändert hast.</li>
-	<li>Lade die neuen Dateien hoch.</li>
+
+	<li>Sichere alle eigenen Dateien, insbesondere die Konfigurationsdatei wp-config.php, den Ordner wp-content und (soweit vorhanden) die Datei .htaccess.</li>
+	<li>Lösche alle übrigen WordPress-Dateien.</li>
+	<li>Lade die neuen Dateien hoch. Achte darauf, dass deine eigenen Dateien im Ordner wp-content dabei nicht überschrieben werden.</li>
 	<li>Gehe mit Deinem Browser zu <span class="file"><a href="wp-admin/upgrade.php">/wp-admin/upgrade.php</a></span>.</li>
 </ol>
 
@@ -62,7 +64,7 @@
 
 <h2>Empfehlungen</h2>
 <ul>
-	<li><a href="http://php.net/">PHP</a> Version <strong>5.4</strong> oder höher.</li>
+	<li><a href="http://php.net/">PHP</a> Version <strong>5.6</strong> oder höher.</li>
 	<li><a href="http://www.mysql.com/">MySQL</a> Version <strong>5.5</strong> oder höher.</li>
 	<li>Das <a href="http://httpd.apache.org/docs/2.2/mod/mod_rewrite.html">mod_rewrite</a> Apache Modul.</li>
 	<li>Einen Link zu <a href="https://wordpress.org/">wordpress.org</a> auf deiner Seite.</li>
@@ -101,5 +103,6 @@
 
 <h1>Lizenz</h1>
 <p>WordPress steht unter der <abbr title="GNU General Public License">GPL</abbr>-Lizenz Version 2 oder (nach Ihrer Option) jeder späteren Version (siehe: <a href="license.txt">license.txt</a>)</p>
+
 </body>
 </html>
