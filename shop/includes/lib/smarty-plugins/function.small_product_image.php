@@ -72,6 +72,13 @@ function smarty_function_small_product_image($params, &$smarty)
         return FALSE;
     }
 
+    if (isset($template->smarty->security_policy)) {
+        // local file
+		if (!$template->smarty->security_policy->isTrustedResourceDir($image)) {
+			return;
+        }
+    }		
+	
     if ((empty($image) || ($image == OOS_IMAGES)) && (IMAGE_REQUIRED == 'true')) {
       if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'no_picture_' . $sLanguage . '.gif')) {
         $image = OOS_IMAGES . 'no_picture_' . $sLanguage . '.gif';

@@ -45,8 +45,7 @@ function smarty_function_html_oos_image($params, &$smarty)
     $width = '';
     $extra = '';
 
-    $basedir = isset($GLOBALS['HTTP_SERVER_VARS']['DOCUMENT_ROOT'])
-        ? $GLOBALS['HTTP_SERVER_VARS']['DOCUMENT_ROOT'] : '';
+    $basedir = isset($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : '';
 
 
     foreach($params as $_key => $_val) {
@@ -83,6 +82,13 @@ function smarty_function_html_oos_image($params, &$smarty)
     if ((empty($image) || ($image == OOS_IMAGES)) && (IMAGE_REQUIRED == 'false')) {
         return FALSE;
     }
+	
+    if (isset($template->smarty->security_policy)) {
+        // local file
+		if (!$template->smarty->security_policy->isTrustedResourceDir($image)) {
+			return;
+        }
+    }	
 
     if ( (CONFIG_CALCULATE_IMAGE_SIZE == 'true') && (empty($width) || empty($height)) ) {
         if ($image_size = @getimagesize($image)) {
@@ -103,4 +109,3 @@ function smarty_function_html_oos_image($params, &$smarty)
 
     return '<img src="'.$image.'" alt="'.$alt.'" border="'.$border.'" width="'.$width.'" height="'.$height.'"'.$extra.' />';
 }
-?>

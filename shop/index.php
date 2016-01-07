@@ -48,8 +48,8 @@ if ( empty( $sContent ) || !is_string( $sContent ) ) {
 } elseif (is_readable('includes/content/' . $sContent . '.php')) {
     require_once MYOOS_INCLUDE_PATH . '/includes/content/' . $sContent . '.php';
 } else {
-    // Module not found
-    oos_redirect(oos_href_link($aContents['404']));
+	$sContent = $aContents['404'];
+	require_once MYOOS_INCLUDE_PATH . '/includes/content/404.php'; // Module not found
 }
 
 require 'includes/nice_exit.php';
