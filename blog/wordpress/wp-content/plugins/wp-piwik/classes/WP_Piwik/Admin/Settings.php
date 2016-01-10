@@ -21,7 +21,7 @@ class Settings extends \WP_Piwik\Admin {
 		if (isset($_GET['clear']) && $_GET['clear']) {
 			$this->clear($_GET['clear'] == 2);
 			self::$wpPiwik->resetRequest();
-			echo '<form method="post" action="?page='.$_GET['page'].'"><input type="submit" value="'.__('Reload', 'wp-piwik').'" /></form>';
+			echo '<form method="post" action="?page='.htmlentities($_GET['page']).'"><input type="submit" value="'.__('Reload', 'wp-piwik').'" /></form>';
 			return;
 		} elseif (isset ( $_POST ) && isset ( $_POST ['wp-piwik'] )) {
 			$this->showBox ( 'updated', 'yes', __ ( 'Changes saved.' ) );
@@ -45,7 +45,7 @@ class Settings extends \WP_Piwik\Admin {
 				$this->showDonation();
 		}
 	?>
-	<form method="post" action="?page=<?php echo $_GET['page']; ?>">
+	<form method="post" action="?page=<?php echo htmlentities($_GET['page']); ?>">
 		<input type="hidden" name="wp-piwik[revision]" value="<?php echo self::$settings->getGlobalOption('revision'); ?>" />
 		<?php wp_nonce_field('wp-piwik_settings'); ?>
 		<table class="wp-piwik-form">
@@ -57,7 +57,11 @@ class Settings extends \WP_Piwik\Admin {
 			if (! empty ( $piwikVersion ) && !is_array( $piwikVersion )) {
 				$this->showText ( sprintf ( __ ( 'WP-Piwik %s is successfully connected to Piwik %s.', 'wp-piwik' ), self::$wpPiwik->getPluginVersion (), $piwikVersion ) . ' ' . (! self::$wpPiwik->isNetworkMode () ? sprintf ( __ ( 'You are running WordPress %s.', 'wp-piwik' ), get_bloginfo ( 'version' ) ) : sprintf ( __ ( 'You are running a WordPress %s blog network (WPMU). WP-Piwik will handle your sites as different websites.', 'wp-piwik' ), get_bloginfo ( 'version' ) )) );
 			} else {
-				$this->showBox ( 'error', 'no', sprintf ( __ ( 'WP-Piwik %s was not able to connect to Piwik using your configuration. Check the &raquo;Connect to Piwik&laquo; section below.', 'wp-piwik' ), self::$wpPiwik->getPluginVersion () ) );
+				$errorMessage = \WP_Piwik\Request::getLastError();
+				if ( empty( $errorMessage ) )
+					$this->showBox ( 'error', 'no', sprintf ( __ ( 'WP-Piwik %s was not able to connect to Piwik using your configuration. Check the &raquo;Connect to Piwik&laquo; section below.', 'wp-piwik' ), self::$wpPiwik->getPluginVersion () ) );
+				else 
+					$this->showBox ( 'error', 'no', sprintf ( __ ( 'WP-Piwik %s was not able to connect to Piwik using your configuration. During connection the following error occured: <br /><code>%s</code>', 'wp-piwik' ), self::$wpPiwik->getPluginVersion (), $errorMessage ) );
 			}
 		} else
 			$this->showBox ( 'error', 'no', sprintf ( __ ( 'WP-Piwik %s has to be connected to Piwik first. Check the &raquo;Connect to Piwik&laquo; section below.', 'wp-piwik' ), self::$wpPiwik->getPluginVersion () ) );
@@ -406,7 +410,7 @@ class Settings extends \WP_Piwik\Admin {
 	 * @param boolean $wide Create a wide box (default: false)
 	 */
 	private function showInput($id, $name, $description, $isHidden = false, $groupName = '', $rowName = false, $hideDescription = true, $wide = false) {
-		printf ( '<tr class="%s%s"%s><th scope="row"><label for="%5$s">%s:</label></th><td><input '.($wide?'class="wp-piwik-wide" ':'').'name="wp-piwik[%s]" id="%5$s" value="%s" /> %s</td></tr>', $isHidden ? 'hidden ' : '', $groupName ? $groupName : '', $rowName ? ' id="' . $groupName . '-' . $rowName . '"' : '', $name, $id, self::$settings->getGlobalOption ( $id ), !empty($description) ? $this->getDescription ( $id, $description, $hideDescription ) : '' );
+		printf ( '<tr class="%s%s"%s><th scope="row"><label for="%5$s">%s:</label></th><td><input '.($wide?'class="wp-piwik-wide" ':'').'name="wp-piwik[%s]" id="%5$s" value="%s" /> %s</td></tr>', $isHidden ? 'hidden ' : '', $groupName ? $groupName : '', $rowName ? ' id="' . $groupName . '-' . $rowName . '"' : '', $name, $id, htmlentities(self::$settings->getGlobalOption( $id ), ENT_QUOTES, 'UTF-8', false), !empty($description) ? $this->getDescription ( $id, $description, $hideDescription ) : '' );
 	}
 
 	/**
@@ -538,7 +542,7 @@ class Settings extends \WP_Piwik\Admin {
 	 */
 	public function showCredits() {
 		?>
-		<p><strong><?php _e('Thank you very much for your donation', 'wp-piwik'); ?>:</strong> Marco L., Rolf W., Tobias U., Lars K., Donna F., Kevin D., Ramos S., Thomas M., John C., Andreas G., Ben M., Myra R. I., Carlos U. R.-S., Oleg I., M. N., Daniel K., James L., Jochen K., Cyril P., Thomas K., Patrik K., Zach, Sebastian W., Peakkom, Patrik K., <?php _e('the Piwik team itself','wp-piwik');?><?php _e(', and all people flattering this','wp-piwik'); ?>!</p>
+		<p><strong><?php _e('Thank you very much for your donation', 'wp-piwik'); ?>:</strong> Marco L., Rolf W., Tobias U., Lars K., Donna F., Kevin D., Ramos S., Thomas M., John C., Andreas G., Ben M., Myra R. I., Carlos U. R.-S., Oleg I., M. N., Daniel K., James L., Jochen K., Cyril P., Thomas K., Patrik K., Zach, Sebastian W., Peakkom, Patrik K., Kati K., <?php _e('the Piwik team itself','wp-piwik');?><?php _e(', and all people flattering this','wp-piwik'); ?>!</p>
 		<p><?php _e('Graphs powered by <a href="http://www.jqplot.com/">jqPlot</a> (License: GPL 2.0 and MIT) and <a href="http://omnipotent.net/jquery.sparkline/">jQuery Sparklines</a> (License: New BSD License).','wp-piwik'); ?></p>
 		<p><?php _e('Thank you very much','wp-piwik'); ?> <a href="https://www.transifex.com/projects/p/wp-piwik/">Transifex Translation Community</a> <?php _e('for your translation work','wp-piwik'); ?>!</p>
 		<p><?php _e('Thank you very much, all users who send me mails containing criticism, commendation, feature requests and bug reports! You help me to make WP-Piwik much better.','wp-piwik'); ?></p>

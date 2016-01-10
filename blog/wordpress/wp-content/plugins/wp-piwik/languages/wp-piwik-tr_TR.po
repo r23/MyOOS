@@ -2,13 +2,14 @@
 # This file is distributed under the same license as the WP-Piwik package.
 # Translators:
 # Muhammet Kaan YEŞİLYURT <m.kaan@yesilyurt.com>, 2015
+# Ugur <ugur.eskici@hotmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: WP-Piwik\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-piwik\n"
 "POT-Creation-Date: 2015-07-22 10:25:29+00:00\n"
-"PO-Revision-Date: 2015-09-22 08:58+0000\n"
-"Last-Translator: Stefan Giehl <stefan@piwik.org>\n"
+"PO-Revision-Date: 2016-01-09 19:36+0000\n"
+"Last-Translator: André Bräkling\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/piwik/wp-piwik/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -397,7 +398,7 @@ msgstr ""
 #: classes/WP_Piwik/Admin/Settings.php:210
 #: classes/WP_Piwik/Admin/Settings.php:220
 msgid "See %sPiwik FAQ%s."
-msgstr ""
+msgstr "%sPiwik'in SSS%s dosyasına bakın."
 
 #: classes/WP_Piwik/Admin/Settings.php:190
 #: classes/WP_Piwik/Admin/Settings.php:196
@@ -954,7 +955,7 @@ msgstr "Site ID (Piwik)"
 
 #: classes/WP_Piwik/Admin/Sitebrowser.php:79
 msgid "Site not created yet."
-msgstr ""
+msgstr "Henüz site yaratılmadı."
 
 #: classes/WP_Piwik/Admin/Statistics.php:12
 msgid "Statistics"
@@ -970,7 +971,7 @@ msgstr "Çözülemedi"
 
 #: classes/WP_Piwik/Request/Php.php:27
 msgid "realpath() returns false"
-msgstr ""
+msgstr "realpath() 'yanlış' değeri döndürdü"
 
 #: classes/WP_Piwik/Request/Php.php:39
 msgid "Class Piwik\\FrontController does not exists."
@@ -982,7 +983,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Template/MetaBoxCustomVars.php:10
 msgid "Piwik Custom Variables"
-msgstr ""
+msgstr "Piwik Özel Değişkenleri"
 
 #: classes/WP_Piwik/Template/MetaBoxCustomVars.php:21
 msgid "Name"
@@ -1161,7 +1162,7 @@ msgstr "SEO"
 
 #: classes/WP_Piwik/Widget/SystemDetails.php:14
 msgid "Operation System Details"
-msgstr ""
+msgstr "Operasyon Sistem Detayları"
 
 #: classes/WP_Piwik/Widget/SystemDetails.php:35
 #: classes/WP_Piwik/Widget/Systems.php:35
@@ -1226,7 +1227,7 @@ msgstr "Piwik İstatistikleri"
 
 #: classes/WP_Piwik.php:453
 msgid "Configure WP-Piwik"
-msgstr ""
+msgstr "WP-Piwik Ayarlar"
 
 #: classes/WP_Piwik.php:923
 msgid "An error occured"
