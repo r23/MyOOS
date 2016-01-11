@@ -11,7 +11,7 @@ UPGRADE FROM 2.x to 3.0
    | `registerNamespaces()` | `addPrefixes()`
    | `registerPrefixes()` | `addPrefixes()`
    | `registerNamespaces()` | `addPrefix()`
-   | `registerPrefixes()` | `addPrefix()`
+   | `registerPrefix()` | `addPrefix()`
    | `getNamespaces()` | `getPrefixes()`
    | `getNamespaceFallbacks()` | `getFallbackDirs()`
    | `getPrefixFallbacks()` | `getFallbackDirs()`
@@ -105,6 +105,22 @@ UPGRADE FROM 2.x to 3.0
    removed: `ContainerBuilder::synchronize()`, `Definition::isSynchronized()`,
    and `Definition::setSynchronized()`.
 
+### DomCrawler
+
+ * The interface of the `Symfony\Component\DomCrawler\Crawler` changed. It does no longer implement `\Iterator` but `\IteratorAggregate`. If you rely on methods of the `\Iterator` interface, call the `getIterator` method of the `\IteratorAggregate` interface before. No changes are required in a `\Traversable`-aware control structure, such as `foreach`.
+
+   Before:
+
+   ```php
+   $crawler->current();
+   ```
+
+   After:
+
+   ```php
+   $crawler->getIterator()->current();
+   ```
+
 ### EventDispatcher
 
  * The method `getListenerPriority($eventName, $listener)` has been added to the
@@ -114,6 +130,12 @@ UPGRADE FROM 2.x to 3.0
 
 ### Form
 
+ * The `getBlockPrefix()` method was added to the `FormTypeInterface` in replacement of
+   the `getName()` method which has been has been removed.
+ * The `configureOptions()` method was added to the `FormTypeInterface` in replacement
+   of the `setDefaultOptions()` method which has been removed.
+ * The `getBlockPrefix()` method was added to the `ResolvedFormTypeInterface` in
+   replacement of the `getName()` method which has been has been removed.
  * The option "precision" was renamed to "scale".
 
    Before:
@@ -373,6 +395,42 @@ UPGRADE FROM 2.x to 3.0
        }
    }
    ```
+   
+ * In Symfony 2.7 a small BC break was introduced with the new choices_as_values
+   option. In order to have the choice values populated to the html value attribute
+   you had to define the choice_value option. This is now not any more needed.
+ 
+   Before:
+
+   ```php
+   $form->add('status', 'choice', array(
+       'choices' => array(
+           'Enabled' => Status::ENABLED,
+           'Disabled' => Status::DISABLED,
+           'Ignored' => Status::IGNORED,
+       ),
+       // choices_as_values defaults to true in Symfony 3.0
+       // and setting it to anything else is deprecated as of 3.0
+       'choices_as_values' => true,
+       // important if you rely on your option value attribute (e.g. for JavaScript)
+       // this will keep the same functionality as before
+       'choice_value' => function ($choice) {
+           return $choice;
+       },
+   ));
+   ```
+   
+   After:
+   
+   ```php
+   $form->add('status', ChoiceType::class, array(
+       'choices' => array(
+           'Enabled' => Status::ENABLED,
+           'Disabled' => Status::DISABLED,
+           'Ignored' => Status::IGNORED,
+       )
+   ));
+   ```   
 
  * The `request` service was removed. You must inject the `request_stack`
    service instead.

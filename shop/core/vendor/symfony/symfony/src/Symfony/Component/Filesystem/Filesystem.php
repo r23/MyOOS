@@ -192,11 +192,11 @@ class Filesystem
     public function chmod($files, $mode, $umask = 0000, $recursive = false)
     {
         foreach ($this->toIterator($files) as $file) {
-            if ($recursive && is_dir($file) && !is_link($file)) {
-                $this->chmod(new \FilesystemIterator($file), $mode, $umask, true);
-            }
             if (true !== @chmod($file, $mode & ~$umask)) {
                 throw new IOException(sprintf('Failed to chmod file "%s".', $file), 0, null, $file);
+            }
+            if ($recursive && is_dir($file) && !is_link($file)) {
+                $this->chmod(new \FilesystemIterator($file), $mode, $umask, true);
             }
         }
     }
@@ -443,13 +443,13 @@ class Filesystem
      */
     public function isAbsolutePath($file)
     {
-        return (strspn($file, '/\\', 0, 1)
+        return strspn($file, '/\\', 0, 1)
             || (strlen($file) > 3 && ctype_alpha($file[0])
                 && substr($file, 1, 1) === ':'
                 && (strspn($file, '/\\', 2, 1))
             )
             || null !== parse_url($file, PHP_URL_SCHEME)
-        );
+        ;
     }
 
     /**
