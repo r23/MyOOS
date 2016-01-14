@@ -4264,10 +4264,14 @@ function obtain_users_online_string($online_users, $item_id = 0, $item = 'forum'
 
 	if (sizeof($online_users['online_users']))
 	{
-		$sql = 'SELECT username, username_clean, user_id, user_type, user_allow_viewonline, user_colour
-				FROM ' . USERS_TABLE . '
-				WHERE ' . $db->sql_in_set('user_id', $online_users['online_users']) . '
-				ORDER BY username_clean ASC';
+		$sql_ary = array(
+			'SELECT'	=> 'u.username, u.username_clean, u.user_id, u.user_type, u.user_allow_viewonline, u.user_colour',
+			'FROM'		=> array(
+				USERS_TABLE	=> 'u',
+			),
+			'WHERE'		=> $db->sql_in_set('u.user_id', $online_users['online_users']),
+			'ORDER_BY'	=> 'u.username_clean ASC',
+		);
 
 		/**
 		* Modify SQL query to obtain online users data
@@ -4279,13 +4283,14 @@ function obtain_users_online_string($online_users, $item_id = 0, $item = 'forum'
 		* @var	string	item			Restrict online users to a certain
 		*								session item, e.g. forum for
 		*								session_forum_id
-		* @var	string	sql				SQL query to obtain users online data
+		* @var	string	sql_ary			SQL query to obtain users online data
 		* @since 3.1.4-RC1
+		* @changed 3.1.7-RC1			Change sql query into array and adjust var accordingly. Allows extension authors the ability to adjust the sql_ary.
 		*/
-		$vars = array('online_users', 'item_id', 'item', 'sql');
+		$vars = array('online_users', 'item_id', 'item', 'sql_ary');
 		extract($phpbb_dispatcher->trigger_event('core.obtain_users_online_string_sql', compact($vars)));
 
-		$result = $db->sql_query($sql);
+		$result = $db->sql_query($db->sql_build_query('SELECT', $sql_ary));
 		$rowset = $db->sql_fetchrowset($result);
 		$db->sql_freeresult($result);
 
@@ -4299,7 +4304,7 @@ function obtain_users_online_string($online_users, $item_id = 0, $item = 'forum'
 					$row['username'] = '<em>' . $row['username'] . '</em>';
 				}
 
-				if (!isset($online_users['hidden_users'][$row['user_id']]) || $auth->acl_get('u_viewonline'))
+				if (!isset($online_users['hidden_users'][$row['user_id']]) || $auth->acl_get('u_viewonline') || $row['user_id'] === $user->data['user_id'])
 				{
 					$user_online_link[$row['user_id']] = get_username_string(($row['user_type'] <> USER_IGNORE) ? 'full' : 'no_profile', $row['user_id'], $row['username'], $row['user_colour']);
 				}
@@ -4837,7 +4842,7 @@ function phpbb_get_avatar($row, $alt, $ignore_config = false, $lazy = false)
 	);
 
 	$phpbb_avatar_manager = $phpbb_container->get('avatar.manager');
-	$driver = $phpbb_avatar_manager->get_driver($row['avatar_type'], $ignore_config);
+	$driver = $phpbb_avatar_manager->get_driver($row['avatar_type'], !$ignore_config);
 	$html = '';
 
 	if ($driver)
@@ -4848,7 +4853,7 @@ function phpbb_get_avatar($row, $alt, $ignore_config = false, $lazy = false)
 			return $html;
 		}
 
-		$avatar_data = $driver->get_data($row, $ignore_config);
+		$avatar_data = $driver->get_data($row);
 	}
 	else
 	{
@@ -5389,6 +5394,8 @@ function page_footer($run_cron = true, $display_template = true, $exit_handler =
 	{
 		return;
 	}
+
+	$user->update_session_infos();
 
 	phpbb_check_and_display_sql_report($request, $auth, $db);
 

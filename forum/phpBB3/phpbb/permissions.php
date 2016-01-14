@@ -160,6 +160,28 @@ class permissions
 	}
 
 	/**
+	* Checks if a category has been defined
+	*
+	* @param	string	$category	Identifier of the category
+	* @return	bool	True if the category is defined, false otherwise
+	*/
+	public function category_defined($category)
+	{
+		return isset($this->categories[$category]);
+	}
+
+	/**
+	* Checks if a permission has been defined
+	*
+	* @param	string	$permission	Identifier of the permission
+	* @return	bool	True if the permission is defined, false otherwise
+	*/
+	public function permission_defined($permission)
+	{
+		return isset($this->permissions[$permission]);
+	}
+
+	/**
 	* Returns the language string of a permission
 	*
 	* @param	string	$permission	Identifier of the permission
@@ -285,8 +307,9 @@ class permissions
 		'm_split'	=> array('lang' => 'ACL_M_SPLIT', 'cat' => 'topic_actions'),
 		'm_merge'	=> array('lang' => 'ACL_M_MERGE', 'cat' => 'topic_actions'),
 
-		'm_warn'	=> array('lang' => 'ACL_M_WARN', 'cat' => 'misc'),
-		'm_ban'		=> array('lang' => 'ACL_M_BAN', 'cat' => 'misc'),
+		'm_warn'		=> array('lang' => 'ACL_M_WARN', 'cat' => 'misc'),
+		'm_pm_report'	=> array('lang' => 'ACL_M_PM_REPORT', 'cat' => 'misc'),
+		'm_ban'			=> array('lang' => 'ACL_M_BAN', 'cat' => 'misc'),
 
 		// Admin Permissions
 		'a_board'		=> array('lang' => 'ACL_A_BOARD', 'cat' => 'settings'),

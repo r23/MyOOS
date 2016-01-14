@@ -494,7 +494,7 @@ $lang = array_merge($lang, array(
 	'ALLOW_AUTOLOGIN'				=> 'Dauerhafte Anmeldungen erlauben',
 	'ALLOW_AUTOLOGIN_EXPLAIN'		=> 'Legt fest, ob sich Benutzer dauerhaft am Board anmelden können.',
 	'ALLOW_PASSWORD_RESET'			=> 'Zurücksetzen von Passwörtern zulassen',
-	'ALLOW_PASSWORD_RESET_EXPLAIN'	=> 'Legt fest, ob Benutzer die Funktion „Ich habe mein Passwort vergessen“ auf der Anmeldeseite nutzen können, um wieder Zugang zu ihrem Benutzerkonto bekommen zu können. Wenn Sie einen externen Authentifizierungsservice nutzen, möchten Sie diese Funktion möglicherweise deaktivieren.',
+	'ALLOW_PASSWORD_RESET_EXPLAIN'	=> 'Legt fest, ob Benutzer die Funktion „Ich habe mein Passwort vergessen“ auf der Anmeldeseite nutzen können, um wieder Zugang zu ihrem Benutzerkonto bekommen zu können. Wenn Sie einen externen Authentifizierungsdienst nutzen, möchten Sie diese Funktion möglicherweise deaktivieren.',
 	'AUTOLOGIN_LENGTH'				=> 'Verfallszeit für Anmelde-Schlüssel (in Tagen)',
 	'AUTOLOGIN_LENGTH_EXPLAIN'		=> 'Die Anzahl der Tage, nach denen ein Anmelde-Schlüssel für die dauerhafte Anmeldung verfällt. Der Schlüssel verfällt nie, wenn 0 als Wert eingestellt wird.',
 	'BROWSER_VALID'					=> 'Browser prüfen',
@@ -541,7 +541,7 @@ $lang = array_merge($lang, array(
 
 // Email Settings
 $lang = array_merge($lang, array(
-	'ACP_EMAIL_SETTINGS_EXPLAIN'	=> 'Diese Informationen werden benötigt, wenn das Board E-Mails an Ihre Benutzer sendet. Stellen Sie bitte sicher, dass die von Ihnen angegebene Adresse gültig ist; geblockte oder nicht zustellbare Nachrichten werden an diese Adresse geschickt. Falls Ihr Webhosting-Provider keinen PHP-basierten E-Mail Service anbietet, können Sie Ihre Nachrichten auch direkt über SMTP versenden. Dies erfordert die Angabe der Adresse eines geeigneten Servers (fragen Sie falls nötig Ihren Provider). Falls der Server eine Authentifizierung erfordert (und nur, wenn dies der Fall ist), geben Sie den Benutzernamen und das Passwort ein und wählen Sie eine Authentifizierungsmethode aus.',
+	'ACP_EMAIL_SETTINGS_EXPLAIN'	=> 'Diese Informationen werden benötigt, wenn das Board E-Mails an Ihre Benutzer sendet. Stellen Sie bitte sicher, dass die von Ihnen angegebene Adresse gültig ist; geblockte oder nicht zustellbare Nachrichten werden an diese Adresse geschickt. Falls Ihr Webhosting-Provider keinen PHP-basierten E-Mail-Dienst anbietet, können Sie Ihre Nachrichten auch direkt über SMTP versenden. Dies erfordert die Angabe der Adresse eines geeigneten Servers (fragen Sie falls nötig Ihren Provider). Falls der Server eine Authentifizierung erfordert (und nur, wenn dies der Fall ist), geben Sie den Benutzernamen und das Passwort ein und wählen Sie eine Authentifizierungsmethode aus.',
 
 	'ADMIN_EMAIL'					=> 'Antwort-E-Mail-Adresse',
 	'ADMIN_EMAIL_EXPLAIN'			=> 'Diese technische Kontakt-Adresse wird als Antwort-Adresse für alle E-Mails genommen. Sie wird in allen E-Mails als <samp>Rückleitungs</samp>- und <samp>Absender</samp>-Adresse verwendet.',

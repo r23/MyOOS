@@ -104,6 +104,7 @@ $lang = array_merge($lang, array(
 	'LOGIN_EXPLAIN_SEARCHUSER'	=> 'Sie müssen registriert und angemeldet sein, um nach Mitgliedern zu suchen.',
 	'LOGIN_EXPLAIN_VIEWPROFILE'	=> 'Sie müssen registriert und angemeldet sein, um Profile anzuschauen.',
 
+	'MANAGE_GROUP'				=> 'Gruppe verwalten',
 	'MORE_THAN'				=> 'Mehr als',
 
 	'NO_CONTACT_FORM'		=> 'Das Kontaktformular für die Board-Administration wurde deaktiviert.',

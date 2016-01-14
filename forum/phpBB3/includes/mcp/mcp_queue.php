@@ -72,6 +72,7 @@ class mcp_queue
 			case 'delete':
 				$post_id_list = $request->variable('post_id_list', array(0));
 				$topic_id_list = $request->variable('topic_id_list', array(0));
+				$delete_reason = $request->variable('delete_reason', '', true);
 
 				if (!empty($post_id_list))
 				{
@@ -80,7 +81,7 @@ class mcp_queue
 						global $phpbb_root_path, $phpEx;
 						include($phpbb_root_path . 'includes/mcp/mcp_main.' . $phpEx);
 					}
-					mcp_delete_post($post_id_list, false, '', $action);
+					mcp_delete_post($post_id_list, false, $delete_reason, $action);
 				}
 				else if (!empty($topic_id_list))
 				{
@@ -89,7 +90,7 @@ class mcp_queue
 						global $phpbb_root_path, $phpEx;
 						include($phpbb_root_path . 'includes/mcp/mcp_main.' . $phpEx);
 					}
-					mcp_delete_topic($topic_id_list, false, '', $action);
+					mcp_delete_topic($topic_id_list, false, $delete_reason, $action);
 				}
 				else
 				{
@@ -283,6 +284,7 @@ class mcp_queue
 				$template->assign_vars(array(
 					'S_MCP_QUEUE'			=> true,
 					'U_APPROVE_ACTION'		=> append_sid("{$phpbb_root_path}mcp.$phpEx", "i=queue&amp;p=$post_id&amp;f=$forum_id"),
+					'S_CAN_DELETE_POST'		=> $auth->acl_get('m_delete', $post_info['forum_id']),
 					'S_CAN_VIEWIP'			=> $auth->acl_get('m_info', $post_info['forum_id']),
 					'S_POST_REPORTED'		=> $post_info['post_reported'],
 					'S_POST_UNAPPROVED'		=> $post_info['post_visibility'] == ITEM_UNAPPROVED || $post_info['post_visibility'] == ITEM_REAPPROVE,
@@ -1130,6 +1132,11 @@ class mcp_queue
 			// Build a list of posts to be disapproved and get the related topics real replies count
 			foreach ($post_info as $post_id => $post_data)
 			{
+				if ($mode === 'unapproved_topics' && $post_data['post_visibility'] == ITEM_APPROVED)
+				{
+					continue;
+				}
+
 				$post_disapprove_list[$post_id] = $post_data['topic_id'];
 				if (!isset($topic_posts_unapproved[$post_data['topic_id']]))
 				{
@@ -1137,6 +1144,12 @@ class mcp_queue
 					$topic_posts_unapproved[$post_data['topic_id']] = 0;
 				}
 				$topic_posts_unapproved[$post_data['topic_id']]++;
+			}
+
+			// Do not try to disapprove if no posts are selected
+			if (empty($post_disapprove_list))
+			{
+				trigger_error('NO_POST_SELECTED');
 			}
 
 			// Now we build the log array
@@ -1240,7 +1253,7 @@ class mcp_queue
 						continue;
 					}
 
-					$post_data['disapprove_reason'] = '';
+					$post_data['disapprove_reason'] = $disapprove_reason;
 					if (isset($disapprove_reason_lang))
 					{
 						// Okay we need to get the reason from the posters language

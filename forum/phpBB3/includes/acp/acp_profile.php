@@ -33,8 +33,15 @@ class acp_profile
 		global $phpbb_root_path, $phpbb_admin_path, $phpEx, $table_prefix;
 		global $request, $phpbb_container, $phpbb_dispatcher;
 
-		include($phpbb_root_path . 'includes/functions_posting.' . $phpEx);
-		include($phpbb_root_path . 'includes/functions_user.' . $phpEx);
+		if (!function_exists('generate_smilies'))
+		{
+			include($phpbb_root_path . 'includes/functions_posting.' . $phpEx);
+		}
+
+		if (!function_exists('user_get_id_name'))
+		{
+			include($phpbb_root_path . 'includes/functions_user.' . $phpEx);
+		}
 
 		$user->add_lang(array('ucp', 'acp/profile'));
 		$this->tpl_name = 'acp_profile';
@@ -537,12 +544,13 @@ class acp_profile
 					}
 				}
 
-				$step = (isset($_REQUEST['next'])) ? $step + 1 : ((isset($_REQUEST['prev'])) ? $step - 1 : $step);
-
 				if (sizeof($error))
 				{
-					$step--;
 					$submit = false;
+				}
+				else
+				{
+					$step = (isset($_REQUEST['next'])) ? $step + 1 : ((isset($_REQUEST['prev'])) ? $step - 1 : $step);
 				}
 
 				// Build up the specific hidden fields
@@ -561,7 +569,7 @@ class acp_profile
 						$var = $profile_field->prepare_hidden_fields($step, $key, $action, $field_data);
 						if ($var !== null)
 						{
-							$_new_key_ary[$key] = $profile_field->prepare_hidden_fields($step, $key, $action, $field_data);
+							$_new_key_ary[$key] = $var;
 						}
 					}
 					$cp->vars = $field_data;
@@ -571,11 +579,7 @@ class acp_profile
 
 				if (!sizeof($error))
 				{
-					if ($step == 3 && (sizeof($this->lang_defs['iso']) == 1 || $save))
-					{
-						$this->save_profile_field($cp, $field_type, $action);
-					}
-					else if ($action == 'edit' && $save)
+					if (($step == 3 && (sizeof($this->lang_defs['iso']) == 1 || $save)) || ($action == 'edit' && $save))
 					{
 						$this->save_profile_field($cp, $field_type, $action);
 					}

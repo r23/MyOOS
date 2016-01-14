@@ -59,7 +59,7 @@ $lang = array_merge($lang, array(
 	'CLI_DESCRIPTION_ENABLE_EXTENSION'			=> 'Aktiviert die angegebene Erweiterung.',
 	'CLI_DESCRIPTION_FIND_MIGRATIONS'			=> 'Findet Migrationen, die von keinen anderen Migrationen vorausgesetzt werden.',
 	'CLI_DESCRIPTION_GET_CONFIG'				=> 'Gibt den Wert einer Konfigurations-Einstellung aus',
-	'CLI_DESCRIPTION_INCREMENT_CONFIG'			=> 'Erhöht eine Kofigurations-Einstellung',
+	'CLI_DESCRIPTION_INCREMENT_CONFIG'			=> 'Erhöht den ganzzahligen Wert einer Konfigurations-Einstellung',
 	'CLI_DESCRIPTION_LIST_EXTENSIONS'			=> 'Gibt alle in der Datenbank und im Dateisystem vorhandenen Erweiterungen aus.',
 	'CLI_DESCRIPTION_OPTION_SAFE_MODE'			=> 'Im abgesicherten Modus ausführen (ohne Erweiterungen).',
 	'CLI_DESCRIPTION_OPTION_SHELL'				=> 'Komandozeile starten.',
@@ -81,4 +81,9 @@ $lang = array_merge($lang, array(
 	'CLI_EXTENSIONS_ENABLED'			=> 'Aktiviert',
 
 	'CLI_FIXUP_RECALCULATE_EMAIL_HASH_SUCCESS'	=> 'Alle E-Mail-Hashes wurden erfolgreich neu ermittelt.',
+));
+
+// Additional help for commands.
+$lang = array_merge($lang, array(
+	'CLI_HELP_CRON_RUN'			=> $lang['CLI_DESCRIPTION_CRON_RUN'] . ' Optional können Sie den Namen eines Cron-Jobs angeben, um nur diesen auszuführen.',
 ));

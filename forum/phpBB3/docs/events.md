@@ -1,3 +1,15 @@
+acp_ban_cell_append
+===
+* Location: adm/style/acp_ban.html
+* Since: 3.1.7-RC1
+* Purpose: Add content at the end of the ban cell area
+
+acp_ban_cell_prepend
+===
+* Location: adm/style/acp_ban.html
+* Since: 3.1.7-RC1
+* Purpose: Add content at the start of the ban cell area
+
 acp_bbcodes_actions_append
 ===
 * Location: adm/style/acp_bbcodes.html
@@ -15,6 +27,30 @@ acp_bbcodes_edit_fieldsets_after
 * Location: adm/style/acp_bbcodes.html
 * Since: 3.1.0-a3
 * Purpose: Add settings to BBCode add/edit form
+
+acp_email_group_options_append
+===
+* Location: adm/style/acp_email.html
+* Since: 3.1.7-RC1
+* Purpose: Add content at the end of the group options select box 
+
+acp_email_group_options_prepend
+===
+* Location: adm/style/acp_email.html
+* Since: 3.1.7-RC1
+* Purpose: Add content at the start of the group options select box 
+
+acp_email_find_username_append
+===
+* Location: adm/style/acp_email.html
+* Since: 3.1.7-RC1
+* Purpose: Add content at the end of the fimd username link
+
+acp_email_find_username_prepend
+===
+* Location: adm/style/acp_email.html
+* Since: 3.1.7-RC1
+* Purpose: Add content at the start of the fimd username link
 
 acp_email_options_after
 ===
@@ -64,6 +100,18 @@ acp_forums_prune_settings_prepend
 * Since: 3.1.2-RC1
 * Purpose: Add settings to forums before prune settings section
 
+acp_forums_quick_select_button_append
+===
+* Location: adm/style/acp_forums.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after the quick select forum submit button
+
+acp_forums_quick_select_button_prepend
+===
+* Location: adm/style/acp_forums.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before the quick select forum submit button
+
 acp_forums_rules_settings_append
 ===
 * Location: adm/style/acp_forums.html
@@ -87,6 +135,66 @@ acp_group_options_after
 * Location: adm/style/acp_groups.html
 * Since: 3.1.0-b4
 * Purpose: Add addtional options to group settings (after GROUP_RECEIVE_PM)
+
+acp_groups_find_username_append
+===
+* Location: adm/style/acp_groups.html
+* Since: 3.1.7-RC1
+* Purpose: Add content at the end of the find username link
+
+acp_groups_find_username_prepend
+===
+* Location: adm/style/acp_groups.html
+* Since: 3.1.7-RC1
+* Purpose: Add content at the start of the find username link
+
+acp_groups_manage_after
+===
+* Location: adm/style/acp_groups.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after the manage groups table
+
+acp_groups_manage_before
+===
+* Location: adm/style/acp_groups.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before the manage groups table
+
+acp_groups_position_legend_add_button_after
+===
+* Location: adm/style/acp_groups_position.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after adding group to legend submit button
+
+acp_groups_position_legend_add_button_before
+===
+* Location: adm/style/acp_groups_position.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before adding group to legend submit button
+
+acp_groups_position_teampage_add_button_after
+===
+* Location: adm/style/acp_groups_position.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after adding group to teampage submit button
+
+acp_groups_position_teampage_add_button_before
+===
+* Location: adm/style/acp_groups_position.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before adding group to teampage submit button
+
+acp_logs_quick_select_forum_button_append
+===
+* Location: adm/style/acp_logs.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after the quick forum select form submit button
+
+acp_logs_quick_select_forum_button_prepend
+===
+* Location: adm/style/acp_logs.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before the quick forum select form submit button
 
 acp_main_actions_append
 ===
@@ -125,6 +233,102 @@ acp_overall_header_stylesheets_after
 * Purpose: Add assets after stylesheets within the `<head>` tags in the ACP.
 Note that INCLUDECSS will not work with this event.
 
+acp_permission_forum_copy_src_forum_append
+===
+* Location: adm/style/permission_forum_copy.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after the sourse forum select form
+
+acp_permission_forum_copy_src_forum_prepend
+===
+* Location: adm/style/permission_forum_copy.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before the sourse forum select form
+
+acp_permission_forum_copy_dest_forum_append
+===
+* Location: adm/style/permission_forum_copy.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after the destiny forum select form
+
+acp_permission_forum_copy_dest_forum_prepend
+===
+* Location: adm/style/permission_forum_copy.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before the destiny forum select form
+
+acp_permissions_add_group_options_append
+===
+* Location: adm/style/acp_permissions.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after the group multiple select form
+
+acp_permissions_add_group_options_prepend
+===
+* Location: adm/style/acp_permissions.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before the group multiple select form
+
+acp_permissions_find_username_append
+===
+* Location: adm/style/acp_permissions.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after the find username link
+
+acp_permissions_find_username_prepend
+===
+* Location: adm/style/acp_permissions.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before the find username link
+
+acp_permissions_select_forum_append
+===
+* Location: adm/style/acp_permissions.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after the forum select form label
+
+acp_permissions_select_forum_prepend
+===
+* Location: adm/style/acp_permissions.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before the forum select form label
+
+acp_permissions_select_group_after
+===
+* Location: adm/style/acp_permissions.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after the group select form in usergroup view
+
+acp_permissions_select_group_append
+===
+* Location: adm/style/acp_permissions.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after the group select form label
+
+acp_permissions_select_group_before
+===
+* Location: adm/style/acp_permissions.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before the group select form in usergroup view
+
+acp_permissions_select_group_prepend
+===
+* Location: adm/style/acp_permissions.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before the group select form label
+
+acp_permissions_select_multiple_forum_append
+===
+* Location: adm/style/acp_permissions.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after the forum multiple select form label
+
+acp_permissions_select_multiple_forum_prepend
+===
+* Location: adm/style/acp_permissions.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before the forum multiple select form label
+
 acp_posting_buttons_after
 ===
 * Locations:
@@ -145,6 +349,34 @@ acp_profile_contact_before
     + adm/style/acp_profile.html
 * Since: 3.1.6-RC1
 * Purpose: Add extra options to custom profile field configuration in the ACP
+
+acp_prune_forums_append
+===
+* Locations:
+    + adm/style/acp_prune_forums.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after the forum select form label
+
+acp_prune_forums_prepend
+===
+* Locations:
+    + adm/style/acp_prune_forums.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before the forum select form label
+
+acp_prune_users_find_username_append
+===
+* Locations:
+    + adm/style/acp_prune_users.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after the find username link
+
+acp_prune_users_find_username_prepend
+===
+* Locations:
+    + adm/style/acp_prune_users.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before the find username link
 
 acp_ranks_edit_after
 ===
@@ -189,6 +421,13 @@ acp_ranks_list_header_before
 * Since: 3.1.0-RC3
 * Purpose: Add content after the last header-column (but before the action column)
 in the ranks list in the ACP
+
+acp_styles_list_before
+===
+* Locations:
+    + adm/style/acp_styles.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before list of styles
 
 acp_users_profile_before
 ===
@@ -289,6 +528,18 @@ acp_users_prefs_view_prepend
 * Location: adm/style/acp_users_prefs.html
 * Since: 3.1.0-b3
 * Purpose: Add user options fieldset to the top of ACP users view prefs settings
+
+acp_users_select_group_after
+===
+* Location: adm/style/acp_users.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after group select form
+
+acp_users_select_group_before
+===
+* Location: adm/style/acp_users.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before group select form
 
 attachment_file_after
 ===
@@ -1235,6 +1486,22 @@ posting_poll_body_options_after
 * Since: 3.1.4-RC1
 * Purpose: Add content after the poll options on creating a poll
 
+posting_preview_poll_after
+===
+* Locations:
+    + styles/prosilver/template/posting_preview.html
+    + styles/subsilver2/template/posting_preview.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after the poll preview block
+
+posting_topic_title_after
+===
+* Locations:
+    + styles/prosilver/template/posting_layout.html
+    + styles/subsilver2/template/posting_body.html
+* Since: 3.1.7-RC1
+* Purpose: Allows to add some information after the topic title in the posting form
+
 posting_topic_title_before
 ===
 * Locations:
@@ -1275,6 +1542,22 @@ quickreply_editor_message_before
 * Since: 3.1.0-a4
 * Purpose: Add content before the quick reply textbox
 
+quickreply_editor_subject_before
+===
+* Locations:
+    + styles/prosilver/template/quickreply_editor.html
+    + styles/subsilver2/template/quickreply_editor.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before the quick reply subject textbox
+
+search_body_form_after
+===
+* Locations:
+    + styles/prosilver/template/search_body.html
+    + styles/subsilver2/template/search_body.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after the search form
+
 search_body_form_before
 ===
 * Locations:
@@ -1282,6 +1565,102 @@ search_body_form_before
     + styles/subsilver2/template/search_body.html
 * Since: 3.1.5-RC1
 * Purpose: Add content before the search form
+
+search_body_recent_search_after
+===
+* Locations:
+    + styles/prosilver/template/search_body.html
+    + styles/subsilver2/template/search_body.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after the recent search queries list
+
+search_body_recent_search_before
+===
+* Locations:
+    + styles/prosilver/template/search_body.html
+    + styles/subsilver2/template/search_body.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before the recent search queries list
+
+search_body_search_display_options_append
+===
+* Locations:
+    + styles/prosilver/template/search_body.html
+    + styles/subsilver2/template/search_body.html
+* Since: 3.1.7-RC1
+* Purpose: Put content at the bottom of the search query display options fields set
+
+search_body_search_display_options_prepend
+===
+* Locations:
+    + styles/prosilver/template/search_body.html
+    + styles/subsilver2/template/search_body.html
+* Since: 3.1.7-RC1
+* Purpose: Put content at the top of the search query display options fields set
+
+search_body_search_options_after
+===
+* Locations:
+    + styles/prosilver/template/search_body.html
+    + styles/subsilver2/template/search_body.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after the search query options fields set
+
+search_body_search_options_append
+===
+* Locations:
+    + styles/prosilver/template/search_body.html
+    + styles/subsilver2/template/search_body.html
+* Since: 3.1.7-RC1
+* Purpose: Put content at the bottom of the search query options fields set
+
+search_body_search_options_before
+===
+* Locations:
+    + styles/prosilver/template/search_body.html
+    + styles/subsilver2/template/search_body.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before the search query options fields set
+
+search_body_search_options_prepend
+===
+* Locations:
+    + styles/prosilver/template/search_body.html
+    + styles/subsilver2/template/search_body.html
+* Since: 3.1.7-RC1
+* Purpose: Put content at the top of the search query options fields set
+
+search_body_search_query_after
+===
+* Locations:
+    + styles/prosilver/template/search_body.html
+    + styles/subsilver2/template/search_body.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after the search query fields set
+
+search_body_search_query_append
+===
+* Locations:
+    + styles/prosilver/template/search_body.html
+    + styles/subsilver2/template/search_body.html
+* Since: 3.1.7-RC1
+* Purpose: Put content at the bottom of the search query fields set
+
+search_body_search_query_before
+===
+* Locations:
+    + styles/prosilver/template/search_body.html
+    + styles/subsilver2/template/search_body.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before the search query fields set
+
+search_body_search_query_prepend
+===
+* Locations:
+    + styles/prosilver/template/search_body.html
+    + styles/subsilver2/template/search_body.html
+* Since: 3.1.7-RC1
+* Purpose: Put content at the top of the search query fields set
 
 search_results_header_after
 ===
@@ -1754,6 +2133,38 @@ ucp_friend_list_after
 * Since: 3.1.0-a4
 * Purpose: Add optional elements after list of friends in UCP
 
+viewforum_body_topic_row_after
+===
+* Locations:
+    + styles/prosilver/template/viewforum_body.html
+    + styles/subsilver2/template/viewforum_body.html
+* Since: 3.1.7-RC1
+* Purpose: Add content after the topic list item.
+
+viewforum_body_topic_row_append
+===
+* Locations:
+    + styles/prosilver/template/viewforum_body.html
+    + styles/subsilver2/template/viewforum_body.html
+* Since: 3.1.7-RC1
+* Purpose: Add content at the start of the topic list item.
+
+viewforum_body_topic_row_before
+===
+* Locations:
+    + styles/prosilver/template/viewforum_body.html
+    + styles/subsilver2/template/viewforum_body.html
+* Since: 3.1.7-RC1
+* Purpose: Add content before the topic list item.
+
+viewforum_body_topic_row_prepend
+===
+* Locations:
+    + styles/prosilver/template/viewforum_body.html
+    + styles/subsilver2/template/viewforum_body.html
+* Since: 3.1.7-RC1
+* Purpose: Add content at the end of the topic list item.
+
 viewforum_buttons_bottom_before
 ===
 * Locations:
@@ -2022,6 +2433,14 @@ viewtopic_body_post_buttons_list_before
 * Purpose: Add post button custom list to posts (next to edit, quote etc),
 before the original list.
 
+viewtopic_body_post_subject_before
+===
+* Locations:
+    + styles/prosilver/template/viewtopic_body.html
+    + styles/subsilver2/template/viewtopic_body.html
+* Since: 3.1.7-RC1
+* Purpose: Add data before post icon and subject
+
 viewtopic_body_postrow_custom_fields_after
 ===
 * Locations:
@@ -2121,6 +2540,14 @@ viewtopic_body_topic_actions_before
     + styles/subsilver2/template/viewtopic_body.html
 * Since: 3.1.0-a4
 * Purpose: Add data before the topic actions buttons (after the posts sorting options)
+
+viewtopic_topic_title_after
+===
+* Locations:
+    + styles/prosilver/template/viewtopic_body.html
+    + styles/subsilver2/template/viewtopic_body.html
+* Since: 3.1.7-RC1
+* Purpose: Add content directly after the topic title link on the View topic screen (outside of the h2 HTML tag)
 
 viewtopic_topic_title_append
 ===
