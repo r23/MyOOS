@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-01-07 10:36:41+0000\n"
+"PO-Revision-Date: 2016-01-12 18:37:05+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3014,7 +3014,7 @@ msgstr "Deinerseits ist nichts weiter zu tun."
 
 #: wp-admin/includes/class-wp-upgrader.php:3266
 msgid "For more on version %s, see the About WordPress screen:"
-msgstr "Um mehr über Version %s zu erfahren, schau dir die \"Über WordPress\"-Seite an:"
+msgstr "Um mehr über Version %s zu erfahren, schau dir die „Über WordPress“-Seite an:"
 
 #: wp-admin/includes/class-wp-upgrader.php:1917
 msgid "The translation is up to date."
