@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Development (4.4.x) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-12-29 08:35:52+0000\n"
+"PO-Revision-Date: 2016-01-19 14:29:12+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1071,11 +1071,6 @@ msgstr "Nummerierte Liste Tag schließen"
 msgid "List item"
 msgstr "Listenpunkt"
 
-#. translators: Error string for a failed update
-#: wp-includes/script-loader.php:588
-msgid "Update Failed: %s"
-msgstr "Update fehlgeschlagen: %s"
-
 #: wp-includes/script-loader.php:489
 msgid ""
 "Are you sure you want to edit this comment?\n"
@@ -1091,6 +1086,11 @@ msgstr "Keine Schlagwörter"
 #: wp-includes/script-loader.php:109
 msgid "Inserted text"
 msgstr "Eingefügter Text"
+
+#. translators: Error string for a failed update
+#: wp-includes/script-loader.php:588
+msgid "Update Failed: %s"
+msgstr "Aktualisierung fehlgeschlagen: %s"
 
 #: wp-includes/script-loader.php:106
 msgid "Close blockquote tag"
