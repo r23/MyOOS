@@ -375,7 +375,7 @@ AddDefaultCharset utf-8
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# Option 1: rewrite www.example.com ? example.com
+# Option 1: rewrite www.example.com → example.com
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
@@ -386,7 +386,7 @@ AddDefaultCharset utf-8
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# Option 2: rewrite example.com ? www.example.com
+# Option 2: rewrite example.com  → www.example.com
 #
 # Be aware that the following might not be a good idea if you use "real"
 # subdomains for certain parts of your website.
@@ -552,7 +552,7 @@ AddDefaultCharset utf-8
         Satisfy All
     </IfModule>
 
-    # Apache ? 2.3
+    # Apache ≥ 2.3
     <IfModule mod_authz_core.c>
         Require all denied
     </IfModule>
@@ -585,7 +585,25 @@ AddDefaultCharset utf-8
 #     Header always set Strict-Transport-Security "max-age=16070400; includeSubDomains"
 # </IfModule>
 
+# ----------------------------------------------------------------------
+# | Reducing MIME type security risks                                  |
+# ----------------------------------------------------------------------
 
+# Prevent some browsers from MIME-sniffing the response.
+#
+# This reduces exposure to drive-by download attacks and cross-origin
+# data leaks, and should be left uncommented, especially if the server
+# is serving user-uploaded content or content that could potentially be
+# treated as executable by the browser.
+#
+# http://www.slideshare.net/hasegawayosuke/owasp-hasegawa
+# http://blogs.msdn.com/b/ie/archive/2008/07/02/ie8-security-part-v-comprehensive-protection.aspx
+# https://msdn.microsoft.com/en-us/library/ie/gg622941.aspx
+# https://mimesniff.spec.whatwg.org/
+
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>
 
 # ----------------------------------------------------------------------
 # | Reflected Cross-Site Scripting (XSS) attacks                       |
@@ -1135,35 +1153,6 @@ Options -Indexes
 #    </Files>
 #</IfModule>
 
-
-
-# ----------------------------------------------------------------------
-# | Reducing MIME type security risks                                  |
-# ----------------------------------------------------------------------
-
-# Prevent some browsers from MIME-sniffing the response.
-#
-# This reduces exposure to drive-by download attacks and cross-origin
-# data leaks, and should be left uncommented, especially if the server
-# is serving user-uploaded content or content that could potentially be
-# treated as executable by the browser.
-#
-# http://www.slideshare.net/hasegawayosuke/owasp-hasegawa
-# http://blogs.msdn.com/b/ie/archive/2008/07/02/ie8-security-part-v-comprehensive-protection.aspx
-# https://msdn.microsoft.com/en-us/library/ie/gg622941.aspx
-# https://mimesniff.spec.whatwg.org/
-#
-# https://github.com/blueimp/jQuery-File-Upload/wiki/Security
-
-# ForceType application/octet-stream
-# Header set Content-Disposition attachment
-<IfModule mod_headers.c>
-     <FilesMatch "(?i)\.(gif|jpe?g|png)$">
-       ForceType none
-       Header unset Content-Disposition
-     </FilesMatch>
-     Header set X-Content-Type-Options nosniff
-</IfModule>
 
 <IfModule mod_rewrite.c>
 	RewriteEngine On
