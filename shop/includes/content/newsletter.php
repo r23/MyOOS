@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -36,23 +36,23 @@ if ( isset($_GET['subscribe']) && ($_GET['subscribe'] == 'confirm') ) {
     $sE = oos_prepare_input($_GET['e']);
 
 	if ( empty( $sU ) || !is_string( $sU ) ) {
-		oos_redirect(oos_href_link($aContents['forbiden']));
+		oos_redirect(oos_href_link($aContents['403']));
 	}
 	if ( empty( $sID ) || !is_string( $sID ) ) {
-		oos_redirect(oos_href_link($aContents['forbiden']));
+		oos_redirect(oos_href_link($aContents['403']));
 	} 
 	if ( empty( $sE ) || !is_string( $sE ) ) {
-		oos_redirect(oos_href_link($aContents['forbiden']));
+		oos_redirect(oos_href_link($aContents['403']));
 	}
 
 	$sSha1 = sha1($sID);
     if ( $sSha1 != $sU ) {
-		oos_redirect(oos_href_link($aContents['forbiden']));
+		oos_redirect(oos_href_link($aContents['403']));
 	}
 
 	$pos = strpos ($sID, "f00d");
 	if ($pos === FALSE) {
-		oos_redirect(oos_href_link($aContents['forbiden']));
+		oos_redirect(oos_href_link($aContents['403']));
 	} else {
 		$sID = substr($sID, 4, -4);
 	}

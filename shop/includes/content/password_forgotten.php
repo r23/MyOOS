@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -47,7 +47,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
     }
 
     if ( $_SESSION['password_forgotten_count'] > 3) {
-        oos_redirect(oos_href_link($aContents['forbiden']));
+        oos_redirect(oos_href_link($aContents['403']));
     }
 
     $customerstable = $oostable['customers'];

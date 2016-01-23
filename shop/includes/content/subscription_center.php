@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -31,7 +31,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
 	$email_address = oos_prepare_input($_POST['email_address']);
 	
 	if ( empty( $email_address ) || !is_string( $email_address ) ) {
-		oos_redirect(oos_href_link($aContents['forbiden']));
+		oos_redirect(oos_href_link($aContents['403']));
 	}
   
     $customerstable = $oostable['customers'];
@@ -82,7 +82,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
         array(
             'breadcrumb' => $oBreadcrumb->trail(),
             'heading_title' => $aLang['heading_title'],
-			'robots'		=> 'noindex,follow,noodp,noydir',
+			'robots'		=> 'noindex,follow,noodp,noydir'
         )
     );
 

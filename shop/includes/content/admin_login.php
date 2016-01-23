@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -58,7 +58,7 @@ $manual_infotable = $oostable['manual_info'];
 $sql = "SELECT status FROM $manual_infotable WHERE man_info_id = '1'";
 $login = $dbconn->GetRow($sql);	
 if ($login['status'] == '0') {
-	oos_redirect(oos_href_link($aContents['forbiden']));
+	oos_redirect(oos_href_link($aContents['403']));
 }
 
 $bError = FALSE;
@@ -99,18 +99,18 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'login_process') &&
     $keyb = oos_prepare_input($_POST['keyb']);
 	
     if ( empty( $email_address ) || !is_string( $email_address ) ) {
-        oos_redirect(oos_href_link($aContents['forbiden']));
+        oos_redirect(oos_href_link($aContents['403']));
     }
 
 /*
 	// todo: $keya not null
     if ( empty( $keya ) || !is_string( $keya ) ) {
-        oos_redirect(oos_href_link($aContents['forbiden']));
+        oos_redirect(oos_href_link($aContents['403']));
     }  
 */
 
     if ( empty( $keyb ) || !is_string( $keyb ) ) {
-        oos_redirect(oos_href_link($aContents['forbiden']));
+        oos_redirect(oos_href_link($aContents['403']));
     }
 
     $manual_infotable = $oostable['manual_info'];
@@ -126,7 +126,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'login_process') &&
 							SET man_key = '',
 								man_key2 = ''
 						WHERE man_info_id = '1'");
-		oos_redirect(oos_href_link($aContents['forbiden']));
+		oos_redirect(oos_href_link($aContents['403']));
     }
 
     // Check if email exists
@@ -144,7 +144,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'login_process') &&
 		$dbconn->Execute("UPDATE " . $oostable['manual_info'] . "
 							SET man_key2  = ''
 						WHERE where man_info_id = '1'");
-		oos_redirect(oos_href_link($aContents['forbiden']));						
+		oos_redirect(oos_href_link($aContents['403']));						
     } else {
 		$check_customer = $check_customer_result->fields;
 		$login_result_values = $login_result->fields;
@@ -211,7 +211,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'login_admin')) {
     $keyb = oos_prepare_input($_POST['keyb']);
 	
     if ( empty( $email_address ) || !is_string( $email_address ) ) {
-        oos_redirect(oos_href_link($aContents['forbiden']));
+        oos_redirect(oos_href_link($aContents['403']));
     }
 
 	require_once MYOOS_INCLUDE_PATH . '/includes/modules/key_generate.php';
