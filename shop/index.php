@@ -44,12 +44,13 @@ define('OOS_VALID_MOD', true);
 require 'includes/main.php';
 
 if ( empty( $sContent ) || !is_string( $sContent ) ) {
-	oos_redirect(oos_href_link($aContents['forbiden']));
+	$sContent = $aContents['403'];
+	require_once MYOOS_INCLUDE_PATH . '/includes/content/error403.php'; // 403 Forbidden
 } elseif (is_readable('includes/content/' . $sContent . '.php')) {
     require_once MYOOS_INCLUDE_PATH . '/includes/content/' . $sContent . '.php';
 } else {
 	$sContent = $aContents['404'];
-	require_once MYOOS_INCLUDE_PATH . '/includes/content/404.php'; // Module not found
+	require_once MYOOS_INCLUDE_PATH . '/includes/content/error404.php'; // Module not found
 }
 
 require 'includes/nice_exit.php';

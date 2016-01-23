@@ -29,10 +29,10 @@ define('ACCOUNT_COMPANY_VAT_ID_CHECK', 'true');
 define('OOS_PAGE_TYPE_MAINPAGE',  1);
 define('OOS_PAGE_TYPE_CATALOG',   2);
 define('OOS_PAGE_TYPE_PRODUCTS',  3);
-define('OOS_PAGE_TYPE_SERVICE',   5);
-define('OOS_PAGE_TYPE_CHECKOUT',  6);
-define('OOS_PAGE_TYPE_ACCOUNT',   8);
-define('OOS_PAGE_TYPE_REVIEWS',   9);
+define('OOS_PAGE_TYPE_SERVICE',   4);
+define('OOS_PAGE_TYPE_CHECKOUT',  5);
+define('OOS_PAGE_TYPE_ACCOUNT',   6);
+define('OOS_PAGE_TYPE_REVIEWS',   7);
 
 define('MAKE_PASSWORD', 'true'); // OOS create the Password for login; 
 define('LOGIN_FOR_PRICE', 'false');

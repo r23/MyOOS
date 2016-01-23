@@ -23,62 +23,62 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
-  //Settings - changes made here
-  define('GOOGLE_SITEMAP_COMPRESS', 'false'); // Option to compress the files
+//Settings - changes made here
+define('GOOGLE_SITEMAP_COMPRESS', 'false'); // Option to compress the files
 
-  define('GOOGLE_SITEMAP_PROD_CHANGE_FREQ', 'weekly'); // Option for change frequency of products
-  define('GOOGLE_SITEMAP_CAT_CHANGE_FREQ', 'weekly'); // Option for change frequency of categories
-
-
-  //prevent script from running more than once a day
-  $configurationtable = $oostable['configuration'];
-  $sql = "SELECT configuration_value FROM $configurationtable WHERE configuration_key = 'CRON_GOOGLE_RUN'";
-  $prevent_result = $dbconn->Execute($sql);
-  if ($prevent_result->RecordCount() > 0) {
-    $prevent = $prevent_result->fields;
-    if ($prevent['configuration_value'] == date("Ymd")) {
-      die('Halt! Already executed - should not execute more than once a day.');
-    } else {
-      $configurationtable = $oostable['configuration'];
-      $dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . date("Ymd") . "' WHERE configuration_key = 'CRON_GOOGLE_RUN'");
-    }
-  } else {
-    $configurationtable = $oostable['configuration'];
-    $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id) VALUES ('CRON_GOOGLE_RUN', '" . date("Ymd") . "', '6')");
-  }
+define('GOOGLE_SITEMAP_PROD_CHANGE_FREQ', 'weekly'); // Option for change frequency of products
+define('GOOGLE_SITEMAP_CAT_CHANGE_FREQ', 'weekly'); // Option for change frequency of categories
 
 
-  include 'includes/classes/class_googlesitemap.php';
-  $oGoogle = new GoogleSitemap;
+//prevent script from running more than once a day
+$configurationtable = $oostable['configuration'];
+$sql = "SELECT configuration_value FROM $configurationtable WHERE configuration_key = 'CRON_GOOGLE_RUN'";
+$prevent_result = $dbconn->Execute($sql);
+if ($prevent_result->RecordCount() > 0) {
+	$prevent = $prevent_result->fields;
+	if ($prevent['configuration_value'] == date("Ymd")) {
+		die('Halt! Already executed - should not execute more than once a day.');
+	} else {
+		$configurationtable = $oostable['configuration'];
+		$dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . date("Ymd") . "' WHERE configuration_key = 'CRON_GOOGLE_RUN'");
+	}
+} else {
+	$configurationtable = $oostable['configuration'];
+	$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id) VALUES ('CRON_GOOGLE_RUN', '" . date("Ymd") . "', '6')");
+}
 
-  $submit = true;
-  echo '<pre>';
 
-  if ($oGoogle->GenerateProductSitemap()){
+include 'includes/classes/class_googlesitemap.php';
+$oGoogle = new GoogleSitemap;
+
+$submit = true;
+echo '<pre>';
+
+if ($oGoogle->GenerateProductSitemap()){
     echo 'Generated Google Product Sitemap Successfully' . "\n\n";
-  } else {
+} else {
     $submit = false;
     echo 'ERROR: Google Product Sitemap Generation FAILED!' . "\n\n";
-  }
+}
 
-  if ($oGoogle->GenerateCategorySitemap()){
+if ($oGoogle->GenerateCategorySitemap()){
     echo 'Generated Google Category Sitemap Successfully' . "\n\n";
-  } else {
+} else {
     $submit = false;
     echo 'ERROR: Google Category Sitemap Generation FAILED!' . "\n\n";
-  }
+}
 
-  if ($oGoogle->GenerateSitemapIndex()){
+if ($oGoogle->GenerateSitemapIndex()){
     echo 'Generated Google Sitemap Index Successfully' . "\n\n";
-  } else {
+} else {
     $submit = false;
     echo 'ERROR: Google Sitemap Index Generation FAILED!' . "\n\n";
-  }
+}
 
-  if ($submit){
+if ($submit){
     echo 'CONGRATULATIONS! All files generated successfully.' . "\n\n";
     echo 'If you have not already submitted the sitemap index to Google click the link below.' . "\n";
     echo 'Before you do I HIGHLY recommend that you view the XML files to make sure the data is correct.' . "\n\n";
@@ -87,11 +87,10 @@
     echo 'Here is your sitemap index: ' .$oGoogle->base_url . 'sitemapindex.xml' . "\n";
     echo 'Here is your product sitemap: ' . $oGoogle->base_url . 'sitemapproducts.xml' . "\n";
     echo 'Here is your category sitemap: ' . $oGoogle->base_url . 'sitemapcategories.xml' . "\n";
-  } else {
+} else {
     print_r($oGoogle->debug);
-  }
+}
+echo '</pre>';
 
-  echo '</pre>';
-
-  include 'includes/nice_exit.php';
+include 'includes/nice_exit.php';
 
