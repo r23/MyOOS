@@ -12,11 +12,11 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-http_response_code(404);
+http_response_code(403);
 
-$aTemplate['page'] = $sTheme . '/page/404.html';
+$aTemplate['page'] = $sTheme . '/page/403.html';
 
-$nPageType = OOS_PAGE_TYPE_MAINPAGE;
+$nPageType = OOS_PAGE_TYPE_SERVICE;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
   
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
