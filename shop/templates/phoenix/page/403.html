@@ -1,0 +1,24 @@
+{include file="phoenix/system/_header.tpl"}
+
+{include file="phoenix/system/_breadcrumbs.tpl"}
+
+{if $message}
+    {foreach $message as $info}
+        {include file="phoenix/system/_message.tpl"}
+    {/foreach}
+{/if}
+
+	<!-- start content -->
+	<section id="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+				{$lang.text_information}
+            </div>
+        </div>
+    </div>
+    </section>
+	<!-- end content -->
+
+	
+{include file="phoenix/system/_footer.tpl"}
