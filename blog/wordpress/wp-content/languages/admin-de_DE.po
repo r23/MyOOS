@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-01-12 18:37:05+0000\n"
+"PO-Revision-Date: 2016-01-21 14:09:02+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -317,7 +317,7 @@ msgstr "Dateien im Verzeichnis %s werden automatisch ausgeführt."
 msgid "You are not allowed to manage these items."
 msgstr "Du darfst diese Elemente nicht verwalten."
 
-#: wp-admin/widgets.php:431
+#: wp-admin/widgets.php:436
 msgid "This will clear all items from the inactive widgets list. You will not be able to restore any customizations."
 msgstr "Damit werden alle Elemente von deiner Liste inaktiver Widgets gelöscht. Du wirst keine Anpassungen wiederherstellen können."
 
@@ -329,7 +329,7 @@ msgstr "Benutzerliste"
 msgid "Users list navigation"
 msgstr "Navigation der Benutzerliste"
 
-#: wp-admin/widgets.php:423
+#: wp-admin/widgets.php:426
 msgid "Clear Inactive Widgets"
 msgstr "Inaktive Widgets löschen"
 
@@ -1290,9 +1290,7 @@ msgstr "<a href=\"https://codex.wordpress.org/Posts_Add_New_Screen\" target=\"_b
 
 #: wp-admin/update-core.php:552
 msgid "<a href=\"https://codex.wordpress.org/Dashboard_Updates_Screen\" target=\"_blank\">Documentation on Updating WordPress</a>"
-msgstr ""
-"<a href=\"https://codex.wordpress.org/Dashboard_Updates_Screen\" target=\"_blank\">Documentation on Updating WordPress (engl.)</a><br />\n"
-"<a href=\"http://doku.wpde.org/Upgrade\" target=\"_blank\">WordPress manuell aktualisieren</a>"
+msgstr "<a href=\"https://codex.wordpress.org/Dashboard_Updates_Screen\" target=\"_blank\">Documentation on Updating WordPress (engl.)</a>"
 
 #: wp-admin/options-media.php:34
 msgid "<a href=\"https://codex.wordpress.org/Settings_Media_Screen\" target=\"_blank\">Documentation on Media Settings</a>"
@@ -1332,9 +1330,7 @@ msgstr "<a href=\"https://codex.wordpress.org/Media_Add_New_Screen#Edit_Media\" 
 
 #: wp-admin/users.php:68
 msgid "<a href=\"https://codex.wordpress.org/Roles_and_Capabilities\" target=\"_blank\">Descriptions of Roles and Capabilities</a>"
-msgstr ""
-"<a href=\"https://codex.wordpress.org/Roles_and_Capabilities\" target=\"_blank\">Descriptions of Roles and Capabilities</a><br />\n"
-"<a href=\"http://faq.wpde.org/welche-benutzerrolle-bietet-welche-rechte/\" target=\"_blank\">Benutzerrollen – welche bieten welche Rechte?</a>"
+msgstr "<a href=\"https://codex.wordpress.org/Roles_and_Capabilities\" target=\"_blank\">Descriptions of Roles and Capabilities (engl.)</a>"
 
 #: wp-admin/options-permalink.php:45
 msgid "<a href=\"https://codex.wordpress.org/Using_Permalinks\" target=\"_blank\">Documentation on Using Permalinks</a>"
@@ -1362,9 +1358,7 @@ msgstr "<a href=\"https://codex.wordpress.org/Comment_Spam\" target=\"_blank\">D
 
 #: wp-admin/options-general.php:281
 msgid "<a href=\"https://codex.wordpress.org/Formatting_Date_and_Time\">Documentation on date and time formatting</a>."
-msgstr ""
-"<a href=\"https://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Documentation on date and time formatting (engl.)</a><br/>\n"
-"<a href=\"http://faq.wpde.org/datums-und-zeitformat-aendern/\" target=\"_blank\">Deutsches Zeitformat einstellen</a>"
+msgstr "<a href=\"https://codex.wordpress.org/Formatting_Date_and_Time\">Documentation on date and time formatting (engl.)</a>"
 
 #: wp-admin/update-core.php:77
 msgid "You can update to <a href=\"https://codex.wordpress.org/Version_%1$s\">WordPress %2$s</a> automatically or download the package and install it manually:"
@@ -1374,7 +1368,7 @@ msgstr "Du kannst automatisch auf <a href=\"https://codex.wordpress.org/Version_
 msgid "<strong>Important:</strong> before updating, please <a href=\"https://codex.wordpress.org/WordPress_Backups\">back up your database and files</a>. For help with updates, visit the <a href=\"https://codex.wordpress.org/Updating_WordPress\">Updating WordPress</a> Codex page."
 msgstr ""
 "<strong>Wichtig</strong>: Bevor du das Update durchführst, lege unbedingt eine Sicherheitskopie deiner Datenbank und der Dateien an!\n"
-"Eine Anleitung findest du im <a href=\"https://codex.wordpress.org/WordPress_Backups\">offiziellen Codex (engl.)</a> und in den <a href=\"http://faq.wpde.org/backup-von-wordpress-erstellen/\">WordPress Deutschland FAQ</a>. Weitere Informationen zum Update von WordPress erhältst du auf der Seite <a href=\"https://codex.wordpress.org/Updating_WordPress\">Updating WordPress (engl.)</a>."
+"Eine Anleitung findest du im <a href=\"https://codex.wordpress.org/WordPress_Backups\">offiziellen Codex (engl.)</a>. Weitere Informationen zum Aktualisieren von WordPress erhältst du auf der Seite <a href=\"https://codex.wordpress.org/Updating_WordPress\">Updating WordPress (engl.)</a>."
 
 #: wp-admin/theme-install.php:99
 msgid "<a href=\"https://codex.wordpress.org/Using_Themes#Adding_New_Themes\" target=\"_blank\">Documentation on Adding New Themes</a>"
@@ -2768,7 +2762,7 @@ msgstr "Vorheriges Theme anzeigen"
 msgid "Show next theme"
 msgstr "Nächstes Theme anzeigen"
 
-#: wp-admin/widgets.php:498
+#: wp-admin/widgets.php:504
 msgid "Add Widget"
 msgstr "Widget hinzufügen"
 
