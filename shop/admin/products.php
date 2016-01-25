@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -194,11 +194,6 @@
   require 'includes/header.php';
 
 ?>
-<script language="javascript"><!--
-function popupImageWindow(url) {
-  window.open(url,'popupImageWindow', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=yes,copyhistory=no,width=100,height=100,screenX=150,screenY=150,top=150,left=150')
-}
-//--></script>
 <div id="spiffycalendar" class="text"></div>
 <!-- body //-->
 <div class="wrapper">
@@ -488,14 +483,6 @@ function calcBasePriceFactor() {
         <table border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_IMAGE; ?></td>
-<?php 
-   if (oos_is_not_null($pInfo->products_image)) {
-     echo '            <td align="center"><a href="javascript:popupImageWindow(\'' . oos_href_link_admin($aContents['popup_image_product'], 'bimage=' . $pInfo->products_image) . '\')">' . oos_image(OOS_SHOP_IMAGES . $pInfo->products_image, $pInfo->products_name, '', '80') . '</a></td>';
-     echo '            <td><span class="smallText">&nbsp;' . oos_draw_checkbox_field('remove_image', 'yes') . TEXT_PRODUCTS_IMAGE_REMOVE . '<br />&nbsp;' . oos_draw_checkbox_field('delete_image', 'yes') . TEXT_PRODUCTS_IMAGE_DELETE . '<br /><br />&nbsp;<b>' . TEXT_PRODUCTS_IMAGE . '</b>&nbsp;' .  $pInfo->products_image . '</span></td>';
-   } else {
-     echo '            <td colspan="2"></td>';
-   }
-?>
             <td class="main"><?php echo '&nbsp;' . oos_draw_file_field('products_image') . oos_draw_hidden_field('products_previous_image', $pInfo->products_image); ?></td>
           </tr>
         </table><br />
@@ -738,7 +725,7 @@ function calcBasePriceFactor() {
         <td class="main">
 <?php 
       if ( (!$delete_image) && (!$remove_image) ) {
-        echo '<a href="javascript:popupImageWindow(\'' . oos_href_link_admin($aContents['popup_image_product'], 'bimage=' . $products_image_name) . '\')">' . (($products_image_name) ? oos_image(OOS_SHOP_IMAGES . $products_image_name, $pInfo->products_name, '', '80', 'align="right" hspace="5" vspace="5"') : '') . '</a>';
+        echo (($products_image_name) ? oos_image(OOS_SHOP_IMAGES . $products_image_name, $pInfo->products_name, '', '80', 'align="right" hspace="5" vspace="5"') : '');
       }
       echo $pInfo->products_description;
 ?></td>
