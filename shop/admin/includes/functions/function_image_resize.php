@@ -1,11 +1,10 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: function_image_resize.php,v 1.2 2008/06/04 14:41:37 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 

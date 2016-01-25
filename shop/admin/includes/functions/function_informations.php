@@ -1,11 +1,10 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: function_informations.php,v 1.1 2007/06/08 14:02:48 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2014 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */

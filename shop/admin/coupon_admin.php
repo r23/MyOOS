@@ -1,11 +1,10 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: coupon_admin.php,v 1.2 2007/11/15 20:24:55 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 

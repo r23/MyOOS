@@ -1,11 +1,10 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: campaigns.php,v 1.1 2007/06/08 17:14:40 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 

@@ -1,11 +1,10 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: reviews.php,v 1.2 2007/08/10 22:39:11 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2015 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
