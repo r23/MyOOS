@@ -52,7 +52,7 @@ function dosql($table, $flds) {
 
    $dict = NewDataDictionary($db);
    // $dict->debug = 1;
-   $taboptarray = array('mysql' => 'ENGINE=MyISAM DEFAULT CHARSET=utf8;', 'REPLACE');
+   $taboptarray = array('mysql' => 'ENGINE=InnoDB DEFAULT CHARSET=utf8;', 'REPLACE');
 
    $sqlarray = $dict->CreateTableSQL($table, $flds, $taboptarray);
    $dict->ExecuteSQLArray($sqlarray);
