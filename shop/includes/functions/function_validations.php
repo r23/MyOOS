@@ -72,17 +72,3 @@ function oos_validate_is_url($sUrl) {
 }
 
 
-/**
- * A list of all TLDs that result in two part
- * domain names.
- *
- * @return string
- * @access public
- * @static
- *
- * @TODO Pipe separated list.
- */
-function get_all_top_level_domains() {
-   return '^com$|^edu$|^net$|^org$|^gov$|^mil$|^int$|^biz$|^info$|^name$|^pro$|^aero$|^coop$|^museum$';
-}
-

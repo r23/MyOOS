@@ -102,7 +102,6 @@ $oosCatalogFilename['default'] = $prefix_catalog_filename . 'main';
 $oosCatalogFilename['gv_redeem'] = $prefix_catalog_filename . 'gv_redeem';
 $oosCatalogFilename['product_info'] = $prefix_catalog_filename . 'product_info'; 
 $oosCatalogFilename['login_admin'] = $prefix_catalog_filename . 'admin_login';
-$oosCatalogFilename['create_account_admin'] = $prefix_catalog_filename . 'create_account_admin';
 $oosCatalogFilename['wishlist'] = $prefix_catalog_filename . 'wishlist'; 
 $oosCatalogFilename['login'] = $prefix_catalog_filename . 'login';
 
