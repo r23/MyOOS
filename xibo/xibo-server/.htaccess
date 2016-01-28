@@ -1090,3 +1090,30 @@ Options -Indexes
 		Deny from all
 	</IfModule>
 </files>
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+		
+	# Rules to block unneeded HTTP methods
+	RewriteCond %{REQUEST_METHOD} ^(TRACE|DELETE|TRACK) [NC]
+	RewriteRule ^(.*)$ - [F]
+		
+	# Rules to block suspicious URIs
+	RewriteCond %{QUERY_STRING} \.\.\/ [NC,OR]
+	RewriteCond %{QUERY_STRING} ^.*\.(bash|git|hg|log|svn|swp|cvs) [NC,OR]
+	RewriteCond %{QUERY_STRING} etc/passwd [NC,OR]
+	RewriteCond %{QUERY_STRING} boot\.ini [NC,OR]
+	RewriteCond %{QUERY_STRING} ftp\:  [NC,OR]
+	RewriteCond %{QUERY_STRING} http\:  [NC,OR]
+	RewriteCond %{QUERY_STRING} https\:  [NC,OR]
+	RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+	RewriteCond %{QUERY_STRING} mosConfig_[a-zA-Z_]{1,21}(=|%3D) [NC,OR]
+	RewriteCond %{QUERY_STRING} base64_encode.*\(.*\) [NC,OR]
+	RewriteCond %{QUERY_STRING} ^.*(%24&x).* [NC,OR]
+	RewriteCond %{QUERY_STRING} ^.*(127\.0).* [NC,OR]
+	RewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]
+	RewriteCond %{QUERY_STRING} ^.*(request|concat|insert|union|declare).* [NC]
+	RewriteCond %{HTTP_REFERER} !^http://maps\.googleapis\.com(.*)$
+	RewriteRule ^(.*)$ - [F]
+		
+</IfModule>
