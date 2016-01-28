@@ -197,7 +197,7 @@ require '../includes/classes/class_shopping_cart.php';
 	</section>
 	<!-- Page footer //-->
 	<footer>
-		<span>&copy; 2015 - <a href="http://www.oos-shop.de/" target="_blank">MyOOS [Shopsystem]</a></span>
+		<span>&copy; 2016 - <a href="http://www.oos-shop.de/" target="_blank">MyOOS [Shopsystem]</a></span>
 	</footer>
 </div>
 
