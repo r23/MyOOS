@@ -18,46 +18,46 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
-  if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
+if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
+	// Check if email exists
+	$check_admin_result = $dbconn->Execute("SELECT admin_id as login_id, admin_groups_id as login_groups_id, admin_firstname as login_firstname, admin_email_address as login_email_address, admin_password as login_password, admin_modified as login_modified, admin_logdate as login_logdate, admin_lognum as login_lognum FROM " . $oostable['admin'] . " WHERE admin_email_address = '" . oos_db_input($email_address) . "'");
+	if (!$check_admin_result->RecordCount()) {
+		$_GET['login'] = 'fail';
+	} else {
+ 	
+		$check_admin = $check_admin_result->fields;
+		// Check that password is good
+		if (!oos_validate_password($password, $check_admin['login_password'])) {
+			$_GET['login'] = 'fail';
+		} else {
+			if (isset($_SESSION['password_forgotten'])) {
+				unset($_SESSION['password_forgotten']);
+			}
+			$_SESSION['login_id'] = $check_admin['login_id'];
+			$_SESSION['login_groups_id'] = $check_admin['login_groups_id'];
+			$_SESSION['login_first_name'] = $check_admin['login_firstname'];
 
-      // Check if email exists
-      $check_admin_result = $dbconn->Execute("SELECT admin_id as login_id, admin_groups_id as login_groups_id, admin_firstname as login_firstname, admin_email_address as login_email_address, admin_password as login_password, admin_modified as login_modified, admin_logdate as login_logdate, admin_lognum as login_lognum FROM " . $oostable['admin'] . " WHERE admin_email_address = '" . oos_db_input($email_address) . "'");
-      if (!$check_admin_result->RecordCount()) {
-        $_GET['login'] = 'fail';
-      } else {
-        $check_admin = $check_admin_result->fields;
-        // Check that password is good
-        if (!oos_validate_password($password, $check_admin['login_password'])) {
-          $_GET['login'] = 'fail';
-        } else {
-          if (isset($_SESSION['password_forgotten'])) {
-            unset($_SESSION['password_forgotten']);
-          }
-          $_SESSION['login_id'] = $check_admin['login_id'];
-          $_SESSION['login_groups_id'] = $check_admin['login_groups_id'];
-          $_SESSION['login_first_name'] = $check_admin['login_firstname'];
+			$login_email_address = $check_admin['login_email_address'];
+			$login_logdate = $check_admin['login_logdate'];
+			$login_lognum = $check_admin['login_lognum'];
+			$login_modified = $check_admin['login_modified'];
 
-          $login_email_address = $check_admin['login_email_address'];
-          $login_logdate = $check_admin['login_logdate'];
-          $login_lognum = $check_admin['login_lognum'];
-          $login_modified = $check_admin['login_modified'];
-
-          //$date_now = date('Ymd');
-          $dbconn->Execute("UPDATE " . $oostable['admin'] . "
+			//$date_now = date('Ymd');
+			$dbconn->Execute("UPDATE " . $oostable['admin'] . "
                         SET admin_logdate = now(), admin_lognum = admin_lognum+1
                         WHERE admin_id = '" . $_SESSION['login_id'] . "'");
 
-          if (($login_lognum == 0) || !($login_logdate) || ($login_email_address == 'admin@localhost') || ($login_modified == '0000-00-00 00:00:00')) {
-            oos_redirect_admin(oos_href_link_admin($aContents['admin_account']));
-          } else {
-            oos_redirect_admin(oos_href_link_admin($aContents['default']));
-          }
-        }
-      }
-  }
+			if (($login_lognum == 0) || !($login_logdate) || ($login_email_address == 'admin@localhost') || ($login_modified == '0000-00-00 00:00:00')) {
+				oos_redirect_admin(oos_href_link_admin($aContents['admin_account']));
+			} else {
+				oos_redirect_admin(oos_href_link_admin($aContents['default']));
+			}
+		}
+	}
+}
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>

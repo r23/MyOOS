@@ -308,7 +308,7 @@ function oos_draw_input_field($name, $value = '', $parameters = '', $required = 
     if ($required) $field .= TEXT_FIELD_REQUIRED;
 
     return $field;
-  }
+}
 
 
  /**
