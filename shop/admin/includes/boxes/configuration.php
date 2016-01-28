@@ -19,7 +19,6 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-include 'includes/languages/' . $_SESSION['language'] . '/configuration_group.php';
 
 $bActive = ($_SESSION['selected_box'] == 'configuration' ) ? TRUE : FALSE;
 

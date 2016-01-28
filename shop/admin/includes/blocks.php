@@ -22,8 +22,6 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-$aBlocks = array();
-
 /*
 $aBlocks[] = array(
 	'heading' => 'Dashboard',
@@ -56,26 +54,21 @@ if (oos_admin_check_boxes('plugins.php') == TRUE) {
 if (oos_admin_check_boxes('customers.php') == TRUE) {
 	include 'includes/boxes/customers.php';
 }
-
 if (oos_admin_check_boxes('taxes.php') == TRUE) {
     include 'includes/boxes/taxes.php';
 }
-
 if (oos_admin_check_boxes('localization.php') == TRUE) {
 	include 'includes/boxes/localization.php';
 }
-
 if (oos_admin_check_boxes('reports.php') == TRUE) {
     include 'includes/boxes/reports.php';
 }
 if (oos_admin_check_boxes('tools.php') == TRUE) {
 	include 'includes/boxes/tools.php';
 }
-
 if (oos_admin_check_boxes('gv_admin.php') == TRUE) {
 	include 'includes/boxes/gv_admin.php'; 
 }
-
 if (oos_admin_check_boxes('export.php') == TRUE) {
     include 'includes/boxes/export.php';
 }

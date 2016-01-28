@@ -35,7 +35,10 @@
         break;
     }
   }
-
+  
+  $sHeaderTitle = constant(strtoupper((int)$_GET['gID'] . '_TITLE')); 
+  define(HEADING_TITLE, $sHeaderTitle);
+  
   require 'includes/header.php';
 ?>
 <div class="wrapper">
@@ -61,7 +64,7 @@
 			<!-- Breadcrumbs //-->
 			<div class="row wrapper gray-bg page-heading">
 				<div class="col-lg-12">
-					<h2><?php echo constant(strtoupper((int)$_GET['gID'] . '_TITLE')); ?></h2>
+					<h2><?php echo $sHeaderTitle; ?></h2>
 					<ol class="breadcrumb">
 						<li>
 							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
@@ -70,7 +73,7 @@
 							<a href="<?php echo oos_href_link_admin($aContents['configuration'], 'selected_box=configuration&gID=1') . '">' . BOX_HEADING_CONFIGURATION . '</a>'; ?>
 						</li>
 						<li class="active">
-							<strong><?php echo constant(strtoupper((int)$_GET['gID'] . '_TITLE')); ?></strong>
+							<strong><?php echo $sHeaderTitle; ?></strong>
 						</li>
 					</ol>
 				</div>
