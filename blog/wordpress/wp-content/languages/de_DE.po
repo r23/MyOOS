@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Development (4.4.x) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-01-19 14:29:12+0000\n"
+"PO-Revision-Date: 2016-01-26 10:48:10+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3428,10 +3428,6 @@ msgstr "%1$s [Aktuelle Revision]"
 msgid "Have you entered your email correctly? You have entered %s, if it&#8217;s incorrect, you will not receive your email."
 msgstr "Hast du deine E-Mail richtig eingegeben? Du hast %s eingegeben, wenn diese nicht korrekt ist, erhältst du keine E-Mail."
 
-#: wp-includes/script-loader.php:157
-msgid "Your session has expired. You can log in again from this page or go to the login page."
-msgstr "Deine Session ist abgelaufen. Du kannst dich erneut einloggen oder zur Login-Seite gehen."
-
 #: wp-login.php:836
 msgid "Session expired. Please log in again. You will not move away from this page."
 msgstr "Die Session ist abgelaufen. Bitte melde dich erneut an. Du wirst diese Seite nicht verlassen müssen."
@@ -3446,9 +3442,13 @@ msgstr "%2$s %1$s %3$s, %4$s:%5$s"
 msgid "The site you were looking for, %s, does not exist, but you can create it now!"
 msgstr "Die Website, die du gesucht hast, %s, existiert nicht, aber du kannst sie jetzt erstellen!"
 
+#: wp-includes/script-loader.php:157
+msgid "Your session has expired. You can log in again from this page or go to the login page."
+msgstr "Deine Session ist abgelaufen. Du kannst dich erneut anmelden oder zur Anmeldeseite gehen."
+
 #: wp-includes/functions.php:4950
 msgid "The login page will open in a new window. After logging in you can close it and return to this page."
-msgstr "Die Login-Seite wird sich in einem neuen Fenster öffnen. Nach dem Einloggen kannst du das Fenster schließen und zu dieser Seite zurückkehren."
+msgstr "Die Anmeldeseite wird sich in einem neuen Fenster öffnen. Nach Anmeldung kannst du das Fenster schließen und zu dieser Seite zurückkehren."
 
 #. translators: post revision title: 1: author avatar, 2: author name, 3: time
 #. ago, 4: date
@@ -4422,13 +4422,13 @@ msgstr "Du kannst die Datei %s durch das Webinterface erstellen, aber das funkti
 msgid "Your account has been activated. You may now <a href=\"%1$s\">log in</a> to the site using your chosen username of &#8220;%2$s&#8221;. Please check your email inbox at %3$s for your password and login instructions. If you do not receive an email, please check your junk or spam folder. If you still do not receive an email within an hour, you can <a href=\"%4$s\">reset your password</a>."
 msgstr "Dein Benutzerkonto wurde aktiviert. Du kannst dich nun mit dem gewählten Benutzername &#8222;%2$s&#8220; <a href=\"%1$s\">anmelden</a>. Bitte überprüfe deinen E-Mail-Posteingang %3$s für dein Passwort und die Login-Instruktionen. Falls du keine E-Mail erhalten hast, überprüfe bitte auch deinen Spam-Ordner. Solltest du nicht innerhalb von einer Stunde eine E-Mail erhalten haben, kannst du dein <a href=\"%4$s\">Passwort zurücksetzen</a>."
 
-#: wp-activate.php:99
-msgid "Your site at <a href=\"%1$s\">%2$s</a> is active. You may now log in to your site using your chosen username of &#8220;%3$s&#8221;. Please check your email inbox at %4$s for your password and login instructions. If you do not receive an email, please check your junk or spam folder. If you still do not receive an email within an hour, you can <a href=\"%5$s\">reset your password</a>."
-msgstr "Deine Website <a href=\"%1$s\">%2$s</a> ist aktiviert. Du kannst dich nun mit dem gewählten Benutzername &#8222;%3$s&#8220; einloggen. Bitte überprüfe deinen E-Mail-Posteingang %4$s für dein Passwort und die Login-Instruktionen. Falls du keine E-Mail erhalten hast, überprüfe bitte auch deinen Spam-Ordner. Solltest du nicht innerhalb von einer Stunde eine E-Mail erhalten haben, kannst du dein <a href=\"%5$s\">Passwort zurücksetzen</a> lassen."
-
 #: wp-signup.php:457
 msgid "<a href=\"%1$s\">%2$s</a> is your new site. <a href=\"%3$s\">Log in</a> as &#8220;%4$s&#8221; using your existing password."
 msgstr "<a href=\"%1$s\">%2$s</a> ist deine neue Website. <a href=\"%3$s\">Melde dich an</a> als &#8222;%4$s&#8220; und verwende dein existierendes Passwort."
+
+#: wp-activate.php:99
+msgid "Your site at <a href=\"%1$s\">%2$s</a> is active. You may now log in to your site using your chosen username of &#8220;%3$s&#8221;. Please check your email inbox at %4$s for your password and login instructions. If you do not receive an email, please check your junk or spam folder. If you still do not receive an email within an hour, you can <a href=\"%5$s\">reset your password</a>."
+msgstr "Deine Website <a href=\"%1$s\">%2$s</a> ist aktiviert. Du kannst dich nun mit dem gewählten Benutzernamen &#8222;%3$s&#8220; anmelden. Bitte überprüfe deinen E-Mail-Posteingang %4$s für dein Passwort und die Anmelde-Instruktionen. Falls du keine E-Mail erhalten hast, überprüfe bitte auch deinen Spam-Ordner. Solltest du nicht innerhalb von einer Stunde eine E-Mail erhalten haben, kannst du dein <a href=\"%5$s\">Passwort zurücksetzen</a> lassen."
 
 #: wp-includes/functions.php:1402
 msgid "One or more database tables are unavailable. The database may need to be <a href=\"%s\">repaired</a>."
@@ -5382,7 +5382,7 @@ msgstr "Willkommen zurück, %s. Indem du dieses Formular ausfüllst, kannst du e
 
 #: wp-signup.php:811
 msgid "You must first <a href=\"%s\">log in</a>, and then you can create a new site."
-msgstr "Du musst dich zuerst <a href=\"%s\">einloggen</a>, um eine neue Website erstellen zu können."
+msgstr "Du musst dich zuerst <a href=\"%s\">anmelden</a>, um eine neue Website erstellen zu können."
 
 #: wp-includes/script-loader.php:577
 msgid "Are you sure you want to install this plugin?"
