@@ -25,7 +25,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/shop.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
 
-// the following cPath references come from oos_main.php
+// the following cPath references come from main.php
 $category_depth = 'top';
 $aLang['heading_title'] = $aLang['heading_title_top'];
 
@@ -358,7 +358,7 @@ if ($category_depth == 'nested') {
                            ORDER BY cd.categories_name";
 		} else {
 // show the products in a given categorie
-			if (isset($_GET['filter_id'])) && oos_is_not_null($_GET['filter_id'])) {
+			if ((isset($_GET['filter_id'])) && oos_is_not_null($_GET['filter_id'])) {
 				// We are asked to show only specific catgeory
 				$productstable = $oostable['products'];
 				$products_descriptiontable = $oostable['products_description'];
@@ -546,4 +546,3 @@ if ($category_depth == 'nested') {
 
 // display the template
 $smarty->display($aTemplate['page']);
-
