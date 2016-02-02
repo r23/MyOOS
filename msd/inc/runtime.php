@@ -6,7 +6,7 @@ if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
 
 if (function_exists("date_default_timezone_set")) date_default_timezone_set(@date_default_timezone_get());
 //Konstanten
-if (!defined('MSD_VERSION')) define('MSD_VERSION','1.24.4');
+if (!defined('MSD_VERSION')) define('MSD_VERSION','MyOOS Version 1.0.0-dev  based on MySQLDumper 1.24.4');
 if (!defined('MSD_OS')) define('MSD_OS',PHP_OS);
 if (!defined('MSD_OS_EXT')) define('MSD_OS_EXT',@php_uname());
 if (!defined('config') || !is_array($config)) $config=array();
@@ -134,4 +134,3 @@ function getServerProtocol()
 	return ( isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on' ) ? 'https://' : 'http://';
 }
 
-?>
