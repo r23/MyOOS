@@ -116,7 +116,7 @@ else
 
 $sqltmp=$sql['sql_statement'] . $sql['order_statement'] . ( strpos(strtolower($sql['sql_statement'] . $sql['order_statement']),' limit ') ? '' : $limit );
 if (!$skip_mysql_execution) $res=MSD_query($sqltmp);
-$numrows=@mysql_num_rows($res);
+$numrows=@mysqli_num_rows($res);
 if ($numrowsabs == -1) $numrowsabs=$numrows;
 if ($limitende > $numrowsabs) $limitende=$numrowsabs;
 
@@ -149,7 +149,7 @@ if ($numrowsabs > 0 && $Anzahl_SQLs <= 1)
 	{
 		//Infos und Header holen
 		//1.Datensatz fuer Feldinfos
-		$row=mysql_fetch_row($res);
+		$row=mysqli_fetch_row($res);
 		//Kompaktmodus-Switcher
 		$t='<td colspan="' . ( count($row) + 1 ) . '" align="left"><a href="sql.php?db=' . $db . '&amp;tablename=' . $tablename . '&amp;dbid=' . $dbid . '&amp;order=' . urlencode($order) . '&amp;orderdir=' . $orderdir . '&amp;limitstart=' . $limitstart . '&amp;sql_statement=' . urlencode($sql['sql_statement']) . '&amp;tdc=' . ( ( $tdcompact == 0 ) ? '1' : '0' ) . '">' . ( ( $tdcompact == 1 ) ? $lang['L_SQL_VIEW_STANDARD'] : $lang['L_SQL_VIEW_COMPACT'] ) . '</a>';
 		$t.='&nbsp;&nbsp;&nbsp;' . $lang['L_SQL_QUERYENTRY'] . ' ' . count($row) . ' ' . $lang['L_SQL_COLUMNS'];
@@ -221,7 +221,7 @@ if ($numrowsabs > 0 && $Anzahl_SQLs <= 1)
 		ksort($s);
 		for ($i=0; $i < $numrows; $i++)
 		{
-			$data[0]=mysql_fetch_array($res,MYSQL_ASSOC);
+			$data[0]=mysqli_fetch_array($res,MYSQL_ASSOC);
 			if ($showtables == 1 && $tabellenansicht == 1)
 			{
 				// Spalten sortieren, wenn wir uns in einer Tabellenuebersicht befinden
@@ -235,7 +235,7 @@ if ($numrowsabs > 0 && $Anzahl_SQLs <= 1)
 		$rownr=$limitstart + 1;
 		for ($i=0; $i < $numrows; $i++)
 		{
-			$row=$temp[$i]; // mysql_fetch_row($res);
+			$row=$temp[$i]; // mysqli_fetch_row($res);
 			$cl=( $i % 2 ) ? 'dbrow' : 'dbrow1';
 			$erste_spalte=1;
 

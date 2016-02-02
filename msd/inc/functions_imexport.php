@@ -38,12 +38,12 @@ function ExportCSV()
 		$res=MSD_query($sqlt);
 		if ($res)
 		{
-			$numfields=mysql_numrows($res);
+			$numfields=mysqli_num_rows($res);
 			if ($sql['export']['namefirstline'] == 1)
 			{
 				for ($feld=0; $feld < $numfields; $feld++)
 				{
-					$row=mysql_fetch_row($res);
+					$row=mysqli_fetch_row($res);
 					if ($sql['export']['enc'] != "") $t.=$sql['export']['enc'] . $row[0] . $sql['export']['enc'] . ( ( $feld + 1 < $numfields ) ? $sql['export']['trenn'] : '' );
 					else $t.=$row[0] . ( ( $feld + 1 < $numfields ) ? $sql['export']['trenn'] : '' );
 				}
@@ -55,10 +55,10 @@ function ExportCSV()
 		$res=MSD_query($sqlt);
 		if ($res)
 		{
-			$numrows=mysql_numrows($res);
+			$numrows=mysqli_num_rows($res);
 			for ($data=0; $data < $numrows; $data++)
 			{
-				$row=mysql_fetch_row($res);
+				$row=mysqli_fetch_row($res);
 				for ($feld=0; $feld < $numfields; $feld++)
 				{
 					if (!isset($row[$feld]) || is_null($row[$feld]))
@@ -145,7 +145,7 @@ function DoImport()
 	if ($sql['import']['tablecreate'] == 0)
 	{
 		$res=MSD_query("show fields FROM " . $sql['import']['table']);
-		$tabellenfelder=mysql_num_rows($res);
+		$tabellenfelder=mysqli_num_rows($res);
 		if ($importfelder != $tabellenfelder)
 		{
 			$r.='<br>' . sprintf($lang['L_CSV_FIELDCOUNT_NOMATCH'],$tabellenfelder,$importfelder);
@@ -207,7 +207,7 @@ function ImportCreateTable()
 	global $sql,$lang,$db,$config;
 	$tbl=Array();
 	$tabellen=mysql_list_tables($db,$config['dbconnection']);
-	$num_tables=mysql_num_rows($tabellen);
+	$num_tables=mysqli_num_rows($tabellen);
 	for ($i=0; $i < $num_tables; $i++)
 	{
 		$tbl[]=strtolower(mysql_tablename($tabellen,$i));
@@ -237,7 +237,7 @@ function ImportCreateTable()
 	else $create=substr($create,0,strlen($create) - 2);
 	
 	$create.=') ' . ( ( MSD_NEW_VERSION ) ? 'ENGINE' : 'TYPE' ) . "=MyISAM COMMENT='imported at " . date("l dS of F Y H:i:s A") . "'";
-	$res=mysql_query($create,$config['dbconnection']) || die(SQLError($create,mysql_error()));
+	$res=mysqli_query($create,$config['dbconnection']) || die(SQLError($create,mysqli_error()));
 	return 1;
 }
 
@@ -258,13 +258,13 @@ function ExportXML()
 		$res=MSD_query($sqlt);
 		if ($res)
 		{
-			$numfields=mysql_num_rows($res);
+			$numfields=mysqli_num_rows($res);
 			if ($sql['export']['xmlstructure'] == 1)
 			{
 				$t.=str_repeat($tab,$level++) . '<structure>' . "\n";
 				for ($feld=0; $feld < $numfields; $feld++)
 				{
-					$row=mysql_fetch_array($res);
+					$row=mysqli_fetch_array($res);
 					$t.=str_repeat($tab,$level++) . '<field no="' . $feld . '">' . "\n";
 					$t.=str_repeat($tab,$level) . '<name>' . $row['Field'] . '</name>' . "\n";
 					$t.=str_repeat($tab,$level) . '<type>' . $row['Type'] . '</type>' . "\n";
@@ -282,12 +282,12 @@ function ExportXML()
 		$res=MSD_query($sqlt);
 		if ($res)
 		{
-			$numrows=mysql_numrows($res);
+			$numrows=mysqli_num_rows($res);
 			for ($data=0; $data < $numrows; $data++)
 			{
 				$t.=str_repeat($tab,$level) . "<row>\n";
 				$level++;
-				$row=mysql_fetch_row($res);
+				$row=mysqli_fetch_row($res);
 				for ($feld=0; $feld < $numfields; $feld++)
 				{
 					$t.=str_repeat($tab,$level) . '<field no="' . $feld . '">' . $row[$feld] . '</field>' . "\n";
@@ -336,10 +336,10 @@ function ExportHTML()
 		{
 			$field=$fieldname=$fieldtyp=Array();
 			$structure="<table class=\"Table\">\n";
-			$numfields=mysql_numrows($res);
+			$numfields=mysqli_num_rows($res);
 			for ($feld=0; $feld < $numfields; $feld++)
 			{
-				$row=mysql_fetch_row($res);
+				$row=mysqli_fetch_row($res);
 				$field[$feld]=$row[0];
 				
 				if ($feld == 0)
@@ -369,7 +369,7 @@ function ExportHTML()
 		$res=MSD_query($dsql);
 		if ($res)
 		{
-			$anz=mysql_num_rows($res);
+			$anz=mysqli_num_rows($res);
 			$content.="<h3>Daten ($anz Datens&auml;tze)</h3>\n";
 			$content.="<table class=\"Table\">\n";
 			for ($feld=0; $feld < count($field); $feld++)
@@ -386,7 +386,7 @@ function ExportHTML()
 			}
 			for ($d=0; $d < $anz; $d++)
 			{
-				$row=mysql_fetch_row($res);
+				$row=mysqli_fetch_row($res);
 				$content.="<tr>\n";
 				for ($i=0; $i < count($row); $i++)
 				{

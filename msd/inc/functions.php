@@ -81,7 +81,7 @@ function DeleteFilesM($dir, $pattern="*.*")
 		$d=opendir($dir);
 		while ($file=readdir($d))
 		{
-			if (is_file($dir . $file) && ereg("^" . $pattern . "$",$file))
+			if (is_file($dir . $file) && preg_match("/^/" . $pattern . "$",$file))
 			{
 				if (unlink($dir . $file)) $deleted[$file]=true;
 				else $deleted[$file]=false;
@@ -148,8 +148,8 @@ function SetDefault($load_default=false)
 
 	$create_statement='CREATE TABLE `mysqldumper_test_abcxyvfgh` (`test` varchar(200) default NULL, `id` bigint(20) unsigned NOT NULL auto_increment,' . 'PRIMARY KEY  (`id`)) TYPE=MyISAM;';
 
-	$res=mysql_query("SHOW DATABASES",$config['dbconnection']);
-	WHILE ($row=mysql_fetch_row($res)) {
+	$res=mysqli_query("SHOW DATABASES",$config['dbconnection']);
+	WHILE ($row=mysqli_fetch_row($res)) {
 	    $found_dbs[] = $row[0];
 	}
 	$found_dbs = array_merge($oldDbArray, $found_dbs);
@@ -161,7 +161,7 @@ function SetDefault($load_default=false)
 	{
 	    $found_db = $found_dbs[$i];
 		// Testverbindung - Tabelle erstellen, nachschauen, ob es geklappt hat und dann wieder löschen
-		$use=@mysql_select_db($found_db);
+		$use=@mysqli_select_db($found_db);
 		if ($use)
 		{
 			if (isset($old_db) && $found_db == $old_db) $databases['db_selected_index']=$a;
@@ -632,7 +632,7 @@ function CreateDirsFTP()
 
 function ftp_mkdirs($config, $dirname)
 {
-	$dir=split("/",$dirname);
+	$dir=preg_split("/\//",$dirname);
 	for ($i=0; $i < count($dir) - 1; $i++)
 	{
 		$path.=$dir[$i] . "/";
@@ -662,10 +662,10 @@ function SearchDatabases($printout, $db='')
 	    $db_list[]=$db; // DB wurde manuell angegeben
 	}
 	// Datenbanken automatisch erkennen
-	$show_dbs=mysql_query("SHOW DATABASES",$config['dbconnection']);
+	$show_dbs=mysqli_query("SHOW DATABASES",$config['dbconnection']);
 	if (!$show_dbs === false)
 	{
-		WHILE ($row=mysql_fetch_row($show_dbs))
+		WHILE ($row=mysqli_fetch_row($show_dbs))
 		{
 			if (trim($row[0]) > '') $db_list[]=$row[0];
 		}
@@ -678,7 +678,7 @@ function SearchDatabases($printout, $db='')
 		for ($i=0; $i < sizeof($db_list); $i++)
 		{
 			// Test-Select um zu sehen, ob Berechtigungen existieren
-			if (!@mysql_query("SHOW TABLES FROM `" . $db_list[$i] . "`",$config['dbconnection']) === false)
+			if (!@mysqli_query("SHOW TABLES FROM `" . $db_list[$i] . "`",$config['dbconnection']) === false)
 			{
 				$databases['Name'][$i]=$db_list[$i];
 				$databases['praefix'][$i]='';
@@ -741,13 +741,13 @@ function my_quotes($value)
 function db_escape($string)
 {
 	global $config;
-	if (function_exists('mysql_real_escape_string'))
+	if (function_exists('mysqli_real_escape_string'))
 	{
-		$string=mysql_real_escape_string($string,$config['dbconnection']);
+		$string=mysqli_real_escape_string($string,$config['dbconnection']);
 	}
-	else if (function_exists('mysql_escape_string'))
+	else if (function_exists('mysqli_escape_string'))
 	{
-		$string=mysql_escape_string($string,$config['dbconnection']);
+		$string=mysqli_escape_string($string,$config['dbconnection']);
 	}
 	else $string=addslashes($string);
 	return $string;

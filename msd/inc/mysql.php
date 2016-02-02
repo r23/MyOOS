@@ -254,22 +254,23 @@ function MSD_mysql_connect($encoding='utf8', $keycheck_off=false, $actual_table=
     }
 	$port=( isset($config['dbport']) && !empty($config['dbport']) ) ? ':' . $config['dbport'] : '';
 	$socket=( isset($config['dbsocket']) && !empty($config['dbsocket']) ) ? ':' . $config['dbsocket'] : '';
-	$config['dbconnection']=@mysql_connect($config['dbhost'] . $port . $socket,$config['dbuser'],$config['dbpass']) or die(SQLError("Error establishing a database connection!", mysql_error()));
+	
+	$config['dbconnection']=mysqli_connect($config['dbhost'] . $port . $socket,$config['dbuser'],$config['dbpass']) or die(SQLError("Error establishing a database connection!", mysqli_error()));
 	if (!defined('MSD_MYSQL_VERSION')) GetMySQLVersion();
 
 	if (!isset($config['mysql_standard_character_set']) || $config['mysql_standard_character_set'] == '') get_sql_encodings();
 
 	if ($config['mysql_standard_character_set'] != $encoding)
 	{
-		$set_encoding=@mysql_query('SET NAMES \'' . $encoding . '\'',$config['dbconnection']);
+		$set_encoding=@mysqli_query('SET NAMES \'' . $encoding . '\'',$config['dbconnection']);
 		if ($set_encoding === false) $config['mysql_can_change_encoding']=false;
 		else $config['mysql_can_change_encoding']=true;
 	}
 	if ($keycheck_off) {
 	    // only called with this param when restoring
-	    mysql_query('SET FOREIGN_KEY_CHECKS=0',$config['dbconnection']);
+	    mysqli_query('SET FOREIGN_KEY_CHECKS=0',$config['dbconnection']);
 	    // also set SQL-Mode NO_AUTO_VALUE_ON_ZERO for magento users
-	    mysql_query('SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO"', $config['dbconnection']);
+	    mysqli_query('SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO"', $config['dbconnection']);
 	}
 	return $config['dbconnection'];
 }
@@ -277,7 +278,7 @@ function MSD_mysql_connect($encoding='utf8', $keycheck_off=false, $actual_table=
 function GetMySQLVersion()
 {
 	$res=MSD_query("select version()");
-	$row=mysql_fetch_array($res);
+	$row=mysqli_fetch_array($res);
 	$version=$row[0];
 	if (!defined('MSD_MYSQL_VERSION')) define('MSD_MYSQL_VERSION',$version);
 	$versions=explode('.',$version);
@@ -293,8 +294,8 @@ function MSD_query($query, $error_output=true)
 	global $config;
 	if (!isset($config['dbconnection'])) MSD_mysql_connect();
 	//echo "<br>Query: ".htmlspecialchars($query);
-	$res=mysql_query($query,$config['dbconnection']);
-	if (false === $res && $error_output) SQLError($query,mysql_error($config['dbconnection']));
+	$res=mysqli_query($query,$config['dbconnection']);
+	if (false === $res && $error_output) SQLError($query,mysqli_error($config['dbconnection']));
 	return $res;
 
 }
@@ -366,9 +367,9 @@ function Fieldlist($db, $tbl)
 	if ($res)
 	{
 		$fl='(';
-		for ($i=0; $i < mysql_num_rows($res); $i++)
+		for ($i=0; $i < mysqli_num_rows($res); $i++)
 		{
-			$row=mysql_fetch_row($res);
+			$row=mysqli_fetch_row($res);
 			$fl.='`' . $row[0] . '`,';
 		}
 		$fl=substr($fl,0,strlen($fl) - 1) . ')';
@@ -383,14 +384,14 @@ function getDBInfos()
 	for ($ii=0; $ii < count($databases['multi']); $ii++)
 	{
 		$dump['dbindex']=$flipped[$databases['multi'][$ii]];
-		$tabellen=mysql_query('SHOW TABLE STATUS FROM `' . $databases['Name'][$dump['dbindex']] . '`',$config['dbconnection']) or die('getDBInfos: ' . mysql_error());
-		$num_tables=mysql_num_rows($tabellen);
+		$tabellen=mysqli_query('SHOW TABLE STATUS FROM `' . $databases['Name'][$dump['dbindex']] . '`',$config['dbconnection']) or die('getDBInfos: ' . mysqli_error());
+		$num_tables=mysqli_num_rows($tabellen);
 		// Array mit den gewünschten Tabellen zusammenstellen... wenn Präfix angegeben, werden die anderen einfach nicht übernommen
 		if ($num_tables > 0)
 		{
 			for ($i=0; $i < $num_tables; $i++)
 			{
-				$row=mysql_fetch_array($tabellen);
+				$row=mysqli_fetch_array($tabellen);
 				if (isset($row['Type'])) $row['Engine']=$row['Type'];
 				if (isset($row['Comment']) && substr(strtoupper($row['Comment']),0,4) == 'VIEW') $dump['table_types'][]='VIEW';
 				else $dump['table_types'][]=strtoupper($row['Engine']);
@@ -403,11 +404,11 @@ function getDBInfos()
 				}
                     if ($config['optimize_tables_beforedump'] == 1 && $dump['table_offset'] == -1
                         && $databases['Name'][$dump['dbindex']]!='information_schema') {
-                        mysql_select_db($databases['Name'][$dump['dbindex']]);
+                        mysqli_select_db($databases['Name'][$dump['dbindex']]);
                         $opt = 'OPTIMIZE TABLE `' . $row['Name'] . '`';
-                        $res = mysql_query('OPTIMIZE TABLE `' . $row['Name'] . '`');
+                        $res = mysqli_query('OPTIMIZE TABLE `' . $row['Name'] . '`');
                         if ($res === false) {
-                            die("Error in ".$opt." -> ".mysql_error());
+                            die("Error in ".$opt." -> ".mysqli_error());
                         }
                     }
 
@@ -436,10 +437,10 @@ function getDBInfos()
 
 					// Get nr of records -> need to do it this way because of incorrect returns when using InnoDBs
 					$sql_2="SELECT count(*) as `count_records` FROM `" . $databases['Name'][$dump['dbindex']] . "`.`" . $row['Name'] . "`";
-					$res2=@mysql_query($sql_2);
+					$res2=@mysqli_query($sql_2);
 					if ($res2 === false)
 					{
-						$read_error='(' . mysql_errno() . ') ' . mysql_error();
+						$read_error='(' . mysql_errno() . ') ' . mysqli_error();
 						SQLError($read_error,$sql_2);
 						WriteLog($read_error);
 						if ($config['stop_with_error'] > 0)
@@ -449,7 +450,7 @@ function getDBInfos()
 					}
 					else
 					{
-						$row2=@mysql_fetch_array($res2);
+						$row2=@mysqli_fetch_array($res2);
 						$row['Rows']=$row2['count_records'];
 						$dump['totalrecords']+=$row['Rows'];
 					}

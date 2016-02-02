@@ -217,7 +217,7 @@ else
 				{
 					WriteToDumpFile(); // save data we have up to now
 					// error reading table definition
-					$read_create_error=sprintf($lang['L_FATAL_ERROR_DUMP'],$table,$adbname).': '.mysql_error($config['dbconnection']);
+					$read_create_error=sprintf($lang['L_FATAL_ERROR_DUMP'],$table,$adbname).': '.mysqli_error($config['dbconnection']);
 					Errorlog("DUMP",$databases['db_actual'],'',$read_create_error,0);
 					WriteLog($read_create_error);
 					if ($config['stop_with_error']>0)

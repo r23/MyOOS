@@ -114,14 +114,14 @@ function DBDetailInfo($index)
 	MSD_mysql_connect();
 	if (isset($databases['Name'][$index]))
 	{
-		mysql_select_db($databases['Name'][$index]);
+		mysqli_select_db($databases['Name'][$index]);
 		$databases['Detailinfo']['Name']=$databases['Name'][$index];
-		$res=@mysql_query('SHOW TABLE STATUS FROM `'.$databases['Name'][$index].'`');
-		if ($res) $databases['Detailinfo']['tables']=mysql_num_rows($res);
+		$res=@mysqli_query('SHOW TABLE STATUS FROM `'.$databases['Name'][$index].'`');
+		if ($res) $databases['Detailinfo']['tables']=mysqli_num_rows($res);
 		if ($databases['Detailinfo']['tables']>0)
 		{
 			$s1=$s2=0;
-            while ($row= mysql_fetch_array($res, MYSQL_ASSOC))
+            while ($row= mysqli_fetch_array($res, MYSQL_ASSOC))
 			{
 				$s1+=$row['Rows'];
 				$s2+=$row['Data_length']+$row['Index_length'];
@@ -423,9 +423,9 @@ function EmptyDB($dbn)
 {
 	global $config;
 	$t_sql=array();
-	@mysql_query('SET FOREIGN_KEY_CHECKS=0');
-	$res=mysql_query('SHOW TABLE STATUS FROM `'.$dbn.'`',$config['dbconnection']) or die('EmptyDB: '.mysql_error());
-	WHILE ($row=mysql_fetch_array($res,MYSQL_ASSOC))
+	@mysqli_query('SET FOREIGN_KEY_CHECKS=0');
+	$res=mysqli_query('SHOW TABLE STATUS FROM `'.$dbn.'`',$config['dbconnection']) or die('EmptyDB: '.mysqli_error());
+	WHILE ($row=mysqli_fetch_array($res,MYSQL_ASSOC))
 	{
 		if (substr(strtoupper($row['Comment']),0,4)=='VIEW')
 		{
@@ -440,10 +440,10 @@ function EmptyDB($dbn)
 	{
 		for ($i=0; $i<count($t_sql); $i++)
 		{
-			$res=mysql_query($t_sql[$i]) or die('EmptyDB-Error: '.mysql_error());
+			$res=mysqli_query($t_sql[$i]) or die('EmptyDB-Error: '.mysqli_error());
 		}
 	}
-	@mysql_query('SET FOREIGN_KEY_CHECKS=1');
+	@mysqli_query('SET FOREIGN_KEY_CHECKS=1');
 }
 
 function AutoDelete()
@@ -1180,13 +1180,14 @@ function get_sql_encodings()
 	$config['mysql_can_change_encoding']=false;
 	if (($v[0]<=4&&$v[1]<1)||$v[0]<=3)
 	{
+		
 		// MySQL < 4.1
 		$config['mysql_can_change_encoding']=false;
 		$sqlt='SHOW VARIABLES LIKE \'character_set%\'';
-		$res=MSD_query($sqlt) or die(SQLError($sqlt,mysql_error()));
+		$res=MSD_query($sqlt) or die(SQLError($sqlt,mysqli_error()));
 		if ($res)
 		{
-			WHILE ($row=mysql_fetch_row($res))
+			WHILE ($row=mysqli_fetch_row($res))
 			{
 				if ($row[0]=='character_set')
 				{
@@ -1207,11 +1208,11 @@ function get_sql_encodings()
 		// MySQL-Version >= 4.1
 		$config['mysql_can_change_encoding']=true;
 		$sqlt='SHOW CHARACTER SET';
-		$res=MSD_query($sqlt) or die(SQLError($sqlt,mysql_error()));
+		$res=MSD_query($sqlt) or die(SQLError($sqlt,mysqli_error()));
 
 		if ($res)
 		{
-			WHILE ($row=mysql_fetch_row($res))
+			WHILE ($row=mysqli_fetch_row($res))
 			{
 				$config['mysql_possible_character_sets'][]=$row[0].' - '.$row[1];
 			}
@@ -1219,11 +1220,11 @@ function get_sql_encodings()
 		}
 
 		$sqlt='SHOW VARIABLES LIKE \'character_set_connection\'';
-		$res=MSD_query($sqlt) or die(SQLError($sqlt,mysql_error()));
+		$res=MSD_query($sqlt) or die(SQLError($sqlt,mysqli_error()));
 
 		if ($res)
 		{
-			WHILE ($row=mysql_fetch_row($res))
+			WHILE ($row=mysqli_fetch_row($res))
 			{
 				$config['mysql_standard_character_set']=$row[1];
 			}

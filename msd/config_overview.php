@@ -355,7 +355,7 @@ if (isset($_POST['save']))
 		{
 			if (MSD_mysql_connect())
 			{
-				$res=@mysql_selectdb($to_add,$config['dbconnection']);
+				$res=@mysqli_select_db($to_add,$config['dbconnection']);
 				if (!$res === false)
 				{
 					$databases['Name'][] = $to_add;

@@ -6,7 +6,7 @@ $tpl->set_filenames(array(
 
 $sqledit="SHOW FIELDS FROM `$tablename`";
 $res=MSD_query($sqledit);
-$num=mysql_numrows($res);
+$num=mysqli_num_rows($res);
 
 $feldnamen="";
 for ($x=0; $x<$num; $x++)

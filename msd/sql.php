@@ -42,7 +42,7 @@ if (!$download)
 }
 //Variabeln
 $mysql_help_ref='http://dev.mysql.com/doc/';
-$mysql_errorhelp_ref='http://dev.mysql.com/doc/mysql/en/error-handling.html';
+$mysqli_errorhelp_ref='http://dev.mysql.com/doc/mysql/en/error-handling.html';
 $no_order=false;
 $tdcompact=(isset($_GET['tdc'])) ? $_GET['tdc'] : $config['interface_table_compact'];
 $db=(!isset($_GET['db'])) ? $databases['db_actual'] : $_GET['db'];
@@ -124,7 +124,7 @@ if ($sql_to_display_data==1)
 
 if (isset($_POST['tableselect'])&&$_POST['tableselect']!='1') $tablename=$_POST['tableselect'];
 MSD_mysql_connect();
-mysql_select_db($db,$config['dbconnection']);
+mysqli_select_db($db,$config['dbconnection']);
 
 ///*** EDIT / UPDATES / INSERTS ***///
 ///***                          ***///

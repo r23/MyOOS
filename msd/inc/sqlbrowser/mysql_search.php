@@ -4,10 +4,10 @@ if (!defined('MSD_VERSION')) die('No direct access.');
 $sql='SHOW TABLES FROM `'.$db.'`';
 $tables=ARRAY();
 $link=MSD_mysql_connect();
-$res=mysql_query($sql,$link);
+$res=mysqli_query($sql,$link);
 if (!$res===false)
 {
-	WHILE ($row=mysql_fetch_array($res,MYSQL_NUM))
+	WHILE ($row=mysqli_fetch_array($res,MYSQL_NUM))
 	{
 		$tables[]=$row[0];
 	}
@@ -70,7 +70,7 @@ function mysql_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzahl
 			
 			// Felder ermitteln
 			$sql='SHOW COLUMNS FROM `'.$db.'`.`'.$tables[$tabelle].'`';
-			$res=mysql_query($sql,$link);
+			$res=mysqli_query($sql,$link);
 			unset($felder);
 			if (!$res===false)
 			{
@@ -130,10 +130,10 @@ function mysql_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzahl
 		else
 			$sql='SELECT * FROM `'.$db.'`.`'.$tables[$tabelle].'` LIMIT '.$offset.','.$anzahl_ergebnisse;
 		
-		$res=@mysql_query($sql,$link);
+		$res=@mysqli_query($sql,$link);
 		if ($res)
 		{
-			WHILE ($row=mysql_fetch_array($res,MYSQL_ASSOC))
+			WHILE ($row=mysqli_fetch_array($res,MYSQL_ASSOC))
 			{
 				//Treffer markieren
 				foreach ($row as $key=>$val)
