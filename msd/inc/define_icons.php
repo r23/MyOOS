@@ -24,4 +24,3 @@ $icon['upload']='<img src="' . $config['files']['iconpath'] . 'openfile.gif" alt
 //other pics
 $icon['logo']=$config['theme'] . 'pics/h1_logo.gif';
 
-?>

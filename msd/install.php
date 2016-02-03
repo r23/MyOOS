@@ -107,7 +107,6 @@ function show_tooldivs(lab) {
 }
 </script>
 
-
 <?php
 if ($phase < 10)
 {
@@ -159,7 +158,7 @@ switch ($phase)
 		echo '<script language="JavaScript" type="text/javascript">show_tooldivs("' . $language . '");</script>';
 		break;
 	case 1: // checken
-		@chmod("config.php",0777);
+		@chmod("config.php",0666);
 		echo '<h6>' . $lang['L_DBPARAMETER'] . '</h6>';
 		if (!is_writable("config.php"))
 		{

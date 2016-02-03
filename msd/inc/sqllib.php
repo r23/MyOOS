@@ -50,4 +50,3 @@ $sqllib[$i]['name']=$lang['L_SQLLIB_ACTIVATEBOARD'] . ' [vBulletin]';
 $sqllib[$i]['sql']="UPDATE forum SET options = options + 1 WHERE NOT (options & 1)";
 $i++;
 
-?>

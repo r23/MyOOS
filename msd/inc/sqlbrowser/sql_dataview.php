@@ -100,7 +100,7 @@ else
 			$res=@MSD_query($sql_temp,false);
 			if ($res)
 			{
-				if ($row=mysql_fetch_object($res))
+				if ($row=mysqli_fetch_object($res))
 				{
 					$numrowsabs=$row->anzahl;
 				}

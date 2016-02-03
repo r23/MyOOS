@@ -22,4 +22,3 @@ foreach ($configurationfiles as $conf)
 	GetLanguageArray();
 	SetDefault();
 }
-?>

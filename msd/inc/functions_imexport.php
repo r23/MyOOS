@@ -206,11 +206,11 @@ function ImportCreateTable()
 {
 	global $sql,$lang,$db,$config;
 	$tbl=Array();
-	$tabellen=mysql_list_tables($db,$config['dbconnection']);
-	$num_tables=mysqli_num_rows($tabellen);
-	for ($i=0; $i < $num_tables; $i++)
-	{
-		$tbl[]=strtolower(mysql_tablename($tabellen,$i));
+	$sql = "SHOW TABLES FROM $db";
+	$tabellen=MSD_query($sql);
+	while ($row = mysqli_fetch_row($num_tables))
+	{	
+		$tbl[]=strtolower($row[0]);
 	}
 	$i=0;
 	$sql['import']['table']=$sql['import']['table'] . $i;

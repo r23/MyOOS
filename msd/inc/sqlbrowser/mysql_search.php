@@ -70,12 +70,12 @@ function mysql_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzahl
 			
 			// Felder ermitteln
 			$sql='SHOW COLUMNS FROM `'.$db.'`.`'.$tables[$tabelle].'`';
-			$res=mysqli_query($sql,$link);
+			$res=mysqli_query($link,$sql);
 			unset($felder);
 			if (!$res===false)
 			{
 				// Felder der Tabelle ermitteln
-				WHILE ($row=mysql_fetch_object($res))
+				WHILE ($row=mysqli_fetch_object($res))
 				{
 					$felder[]=$row->Field;
 				}

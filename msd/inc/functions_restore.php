@@ -306,7 +306,7 @@ function get_insert_syntax($table)
 	if ($res)
 	{
 		$insert='INSERT INTO `'.$table.'` (';
-		while ($row=mysql_fetch_object($res))
+		while ($row=mysqli_fetch_object($res))
 		{
 			$insert.='`'.$row->Field.'`,';
 		}

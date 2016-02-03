@@ -113,10 +113,11 @@ function DB_Exists($db)
 	global $config;
 	if (!isset($config['dbconnection'])) MSD_mysql_connect();
 	$erg=false;
-	$dbs=mysql_list_dbs($config['dbconnection']);
-	while ($row=mysql_fetch_object($dbs))
+
+	$dbs=MSD_query("SHOW DATABASES");
+	while ($row=mysqli_fetch_assoc($dbs))
 	{
-		if (strtolower($row->Database) == strtolower($db))
+		if (strtolower($row['Database']) == strtolower($db))
 		{
 			$erg=true;
 			break;
@@ -207,7 +208,9 @@ function DB_Copy($source, $destination, $drop_source=0, $insert_data=1)
         }
     }
 	$SQL_Array.="USE `$destination` ;\n";
-	$tabellen=mysql_list_tables($source,$config['dbconnection']);
+	$sql="SHOW TABLES FROM $source";
+	$tabellen=MSD_query($sql);
+
 	$num_tables=mysqli_num_rows($tabellen);
 	for ($i=0; $i < $num_tables; $i++)
 	{
@@ -1210,4 +1213,4 @@ function build_recordkey($data)
 	else return urlencode(serialize($data));
 }
 
-?>
+

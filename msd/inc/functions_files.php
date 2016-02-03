@@ -488,4 +488,3 @@ function get_pseudo_statusline($part,$filedestination)
 	return $ret;
 }
 
-?>

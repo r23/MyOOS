@@ -1230,6 +1230,7 @@ function get_sql_encodings()
 			}
 		}
 	}
+
 }
 
 /**
@@ -1320,4 +1321,3 @@ function fetchFileDataFromURL($url)
 	return $in;
 }
 
-?>

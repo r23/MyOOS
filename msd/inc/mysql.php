@@ -272,11 +272,13 @@ function MSD_mysql_connect($encoding='utf8', $keycheck_off=false, $actual_table=
 	    // also set SQL-Mode NO_AUTO_VALUE_ON_ZERO for magento users
 	    mysqli_query('SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO"', $config['dbconnection']);
 	}
+
 	return $config['dbconnection'];
 }
 
 function GetMySQLVersion()
 {
+
 	$res=MSD_query("select version()");
 	$row=mysqli_fetch_array($res);
 	$version=$row[0];
@@ -286,6 +288,7 @@ function GetMySQLVersion()
 	if ($versions[0] == 4 && $versions[1] >= 1) $new=true;
 	if ($versions[0] > 4) $new=true;
 	if (!defined('MSD_NEW_VERSION')) define('MSD_NEW_VERSION',$new);
+
 	return $version;
 }
 
@@ -293,8 +296,8 @@ function MSD_query($query, $error_output=true)
 {
 	global $config;
 	if (!isset($config['dbconnection'])) MSD_mysql_connect();
-	//echo "<br>Query: ".htmlspecialchars($query);
-	$res=mysqli_query($query,$config['dbconnection']);
+//	echo "<br>Query: ".htmlspecialchars($query);
+	$res=mysqli_query($config['dbconnection'],$query);
 	if (false === $res && $error_output) SQLError($query,mysqli_error($config['dbconnection']));
 	return $res;
 

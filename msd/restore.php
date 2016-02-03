@@ -306,4 +306,3 @@ else
 }
 echo $complete_page;
 ob_end_flush();
-?>

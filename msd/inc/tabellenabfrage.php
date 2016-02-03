@@ -169,4 +169,3 @@ $tpl->assign_vars(array(
 
 $tpl->pparse('show');
 ob_end_flush();
-?>
