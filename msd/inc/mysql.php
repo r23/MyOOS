@@ -262,15 +262,15 @@ function MSD_mysql_connect($encoding='utf8', $keycheck_off=false, $actual_table=
 
 	if ($config['mysql_standard_character_set'] != $encoding)
 	{
-		$set_encoding=@mysqli_query('SET NAMES \'' . $encoding . '\'',$config['dbconnection']);
+		$set_encoding=@mysqli_query($config['dbconnection'],'SET NAMES \'' . $encoding . '\'');
 		if ($set_encoding === false) $config['mysql_can_change_encoding']=false;
 		else $config['mysql_can_change_encoding']=true;
 	}
 	if ($keycheck_off) {
 	    // only called with this param when restoring
-	    mysqli_query('SET FOREIGN_KEY_CHECKS=0',$config['dbconnection']);
+	    mysqli_query($config['dbconnection'], 'SET FOREIGN_KEY_CHECKS=0');
 	    // also set SQL-Mode NO_AUTO_VALUE_ON_ZERO for magento users
-	    mysqli_query('SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO"', $config['dbconnection']);
+	    mysqli_query($config['dbconnection'], 'SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO"');
 	}
 
 	return $config['dbconnection'];

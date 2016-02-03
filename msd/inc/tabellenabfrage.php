@@ -26,7 +26,7 @@ if ($tblr == 'Backup')
 	$tbl_zeile='';
 	for ($i=0; $i < $numrows; $i++)
 	{
-		$row=mysqli_fetch_array($res,MYSQL_ASSOC);
+		$row=mysqli_fetch_array($res,MYSQLI_ASSOC);
 		//v($row);	
 		// Get nr of records -> need to do it this way because of incorrect returns when using InnoDBs
 		$sql_2="SELECT count(*) as `count_records` FROM `" . $databases['db_actual'] . "`.`" . $row['Name'] . "`";

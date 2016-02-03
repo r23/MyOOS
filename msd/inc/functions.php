@@ -148,7 +148,7 @@ function SetDefault($load_default=false)
 
 	$create_statement='CREATE TABLE `mysqldumper_test_abcxyvfgh` (`test` varchar(200) default NULL, `id` bigint(20) unsigned NOT NULL auto_increment,' . 'PRIMARY KEY  (`id`)) TYPE=MyISAM;';
 
-	$res=mysqli_query("SHOW DATABASES",$config['dbconnection']);
+	$res=mysqli_query($config['dbconnection'], "SHOW DATABASES");
 	WHILE ($row=mysqli_fetch_row($res)) {
 	    $found_dbs[] = $row[0];
 	}
@@ -662,7 +662,7 @@ function SearchDatabases($printout, $db='')
 	    $db_list[]=$db; // DB wurde manuell angegeben
 	}
 	// Datenbanken automatisch erkennen
-	$show_dbs=mysqli_query("SHOW DATABASES",$config['dbconnection']);
+	$show_dbs=mysqli_query($config['dbconnection'],"SHOW DATABASES");
 	if (!$show_dbs === false)
 	{
 		WHILE ($row=mysqli_fetch_row($show_dbs))
@@ -678,7 +678,7 @@ function SearchDatabases($printout, $db='')
 		for ($i=0; $i < sizeof($db_list); $i++)
 		{
 			// Test-Select um zu sehen, ob Berechtigungen existieren
-			if (!@mysqli_query("SHOW TABLES FROM `" . $db_list[$i] . "`",$config['dbconnection']) === false)
+			if (!@mysqli_query($config['dbconnection'], "SHOW TABLES FROM `" . $db_list[$i] . "`") === false)
 			{
 				$databases['Name'][$i]=$db_list[$i];
 				$databases['praefix'][$i]='';

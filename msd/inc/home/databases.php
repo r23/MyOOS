@@ -24,7 +24,7 @@ for ($i=0; $i<count($databases['Name']); $i++)
 	if (isset($_POST['optimize'.$i]))
 	{
 	    mysqli_select_db($databases['Name'][$i], $config['dbconnection']);
-        $res=mysqli_query('SHOW TABLES FROM `'.$databases['Name'][$i].'`',$config['dbconnection']);
+        $res=mysqli_query($config['dbconnection'], 'SHOW TABLES FROM `'.$databases['Name'][$i].'`');
 		$tabellen='';
 		WHILE ($row=mysqli_fetch_row($res))
 			$tabellen.='`'.$row[0].'`,';
@@ -74,7 +74,7 @@ for ($i=0; $i<count($databases['Name']); $i++)
 	else
 	{
 		mysqli_select_db($databases['Name'][$i],$config['dbconnection']);
-		$tabellen=mysqli_query('SHOW TABLES FROM `'.$databases['Name'][$i].'`',$config['dbconnection']);
+		$tabellen=mysqli_query($config['dbconnection'], 'SHOW TABLES FROM `'.$databases['Name'][$i].'`');
 		$num_tables=mysqli_num_rows($tabellen);
 		$tpl->assign_block_vars('ROW',array(
 			'ROWCLASS' => $rowclass,
@@ -120,7 +120,7 @@ if (isset($_GET['dbid']))
 		$sum_records=$sum_data_length='';
 		for ($i=0; $i<$numrows; $i++)
 		{
-			$row=mysqli_fetch_array($res,MYSQL_ASSOC);
+			$row=mysqli_fetch_array($res,MYSQLI_ASSOC);
 			// Get nr of records -> need to do it this way because of incorrect returns when using InnoDBs
 			$sql_2="SELECT count(*) as `count_records` FROM `".$databases['Name'][$dbid]."`.`".$row['Name']."`";
 			$res2=@mysqli_query($sql_2);
@@ -189,7 +189,7 @@ if (isset($_GET['dbid']))
                     $tmp_res=mysqli_query($sSql);
                 }
                 $res3=mysqli_query('SHOW INDEX FROM `'.$databases['Name'][$dbid]."`.`".$row['Name']."`");
-                WHILE ($row3 = mysqli_fetch_array($res3, MYSQL_ASSOC))
+                WHILE ($row3 = mysqli_fetch_array($res3, MYSQLI_ASSOC))
                 {
                     if ($row3['Comment']=="disabled") {
                         $keys_disabled = true;

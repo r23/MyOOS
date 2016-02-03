@@ -121,7 +121,7 @@ function DBDetailInfo($index)
 		if ($databases['Detailinfo']['tables']>0)
 		{
 			$s1=$s2=0;
-            while ($row= mysqli_fetch_array($res, MYSQL_ASSOC))
+            while ($row= mysqli_fetch_array($res, MYSQLI_ASSOC))
 			{
 				$s1+=$row['Rows'];
 				$s2+=$row['Data_length']+$row['Index_length'];
@@ -425,7 +425,7 @@ function EmptyDB($dbn)
 	$t_sql=array();
 	@mysqli_query('SET FOREIGN_KEY_CHECKS=0');
 	$res=mysqli_query('SHOW TABLE STATUS FROM `'.$dbn.'`',$config['dbconnection']) or die('EmptyDB: '.mysqli_error());
-	WHILE ($row=mysqli_fetch_array($res,MYSQL_ASSOC))
+	WHILE ($row=mysqli_fetch_array($res,MYSQLI_ASSOC))
 	{
 		if (substr(strtoupper($row['Comment']),0,4)=='VIEW')
 		{

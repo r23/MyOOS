@@ -221,7 +221,7 @@ if ($numrowsabs > 0 && $Anzahl_SQLs <= 1)
 		ksort($s);
 		for ($i=0; $i < $numrows; $i++)
 		{
-			$data[0]=mysqli_fetch_array($res,MYSQL_ASSOC);
+			$data[0]=mysqli_fetch_array($res,MYSQLI_ASSOC);
 			if ($showtables == 1 && $tabellenansicht == 1)
 			{
 				// Spalten sortieren, wenn wir uns in einer Tabellenuebersicht befinden

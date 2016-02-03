@@ -471,7 +471,7 @@ if ($table_edit_name!="")
 	{
 		for ($i=0; $i<$num; $i++)
 		{
-			$row=mysqli_fetch_array($res,MYSQL_ASSOC);
+			$row=mysqli_fetch_array($res,MYSQLI_ASSOC);
 			if (!isset($row['Comment'])) {
 			    $row['Comment'] = '';
 			}
@@ -554,7 +554,7 @@ if ($table_edit_name!="")
             echo '<table class="bdr">';
     		echo '<tr class="thead"><th>#</th><th>'.$lang['L_PRIMARYKEY_FIELD'].'</th><th>'.$lang['L_INFO_SIZE'].'</th>';
 
-			while ($row=mysqli_fetch_array($res, MYSQL_ASSOC))
+			while ($row=mysqli_fetch_array($res, MYSQLI_ASSOC))
 			{
 				$feldArray[$row['Field']]=$row['Type'];
 			}

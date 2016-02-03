@@ -118,9 +118,9 @@ if ($restore['filehandle'])
 		// Disable Keys of actual table to speed up restoring
 		if (is_array($restore['tables_to_restore'])&&sizeof($restore['tables_to_restore'])>0&&in_array($restore['actual_table'],$restore['tables_to_restore']))
 		{
-			@mysqli_query('/*!40000 ALTER TABLE `'.$restore['actual_table'].'` DISABLE KEYS */;',$config['dbconnection']);
+			@mysqli_query($config['dbconnection'], '/*!40000 ALTER TABLE `'.$restore['actual_table'].'` DISABLE KEYS */;');
 		}
-		elseif (sizeof($restore['tables_to_restore'])==0&&($restore['actual_table']>''&&$restore['actual_table']!='unbekannt')) @mysqli_query('/*!40000 ALTER TABLE `'.$restore['actual_table'].'` DISABLE KEYS */;',$config['dbconnection']);
+		elseif (sizeof($restore['tables_to_restore'])==0&&($restore['actual_table']>''&&$restore['actual_table']!='unbekannt')) @mysqli_query($config['dbconnection'], '/*!40000 ALTER TABLE `'.$restore['actual_table'].'` DISABLE KEYS */;');
 		
 		WHILE (($a<$restore['anzahl_zeilen'])&&(!$restore['fileEOF'])&&($dauer<$restore['max_zeit'])&&!$restore['EOB'])
 		{
@@ -128,15 +128,15 @@ if ($restore['filehandle'])
 			if ($sql_command>'')
 			{
 				//WriteLog(htmlspecialchars($sql_command));
-				$res=mysqli_query($sql_command,$config['dbconnection']);
+				$res=mysqli_query($config['dbconnection'], $sql_command);
 				if (!$res===false)
 				{
-					$anzsql=mysql_affected_rows($config['dbconnection']);
+					$anzsql=mysqli_affected_rows($config['dbconnection']);
 					// Anzahl der eingetragenen Datensaetze ermitteln (Indexaktionen nicht zaehlen)
 					$command=strtoupper(substr($sql_command,0,7));
 					if ($command=='INSERT ')
 					{
-						$anzsql=mysql_affected_rows($config['dbconnection']);
+						$anzsql=mysqli_affected_rows($config['dbconnection']);
 						if ($anzsql>0) $restore['eintraege_ready']+=$anzsql;
 					}
 				}

@@ -79,7 +79,7 @@ function SQL_ComboBox()
 function Table_ComboBox()
 {
 	global $db,$config,$lang,$nl;
-	$tabellen=mysqli_query('SHOW TABLES FROM `' . $db . '`',$config['dbconnection']);
+	$tabellen=mysqli_query($config['dbconnection'], 'SHOW TABLES FROM `' . $db . '`');
 	$num_tables = 0;
 	if (is_resource($tabellen)) {
     	$num_tables=mysqli_num_rows($tabellen);
@@ -97,7 +97,9 @@ function Table_ComboBox()
 function TableComboBox($default='')
 {
 	global $db,$config,$lang,$nl;
-	$tabellen=mysql_list_tables($db,$config['dbconnection']);
+	
+	$sql="SHOW TABLES FROM $db";
+	$tabellen=MSD_query($sql);	
 	$num_tables=mysqli_num_rows($tabellen);
 	$s='<option value="" ' . ( ( $default == '' ) ? 'selected' : '' ) . '>                 </option>' . $nl;
 	for ($i=0; $i < $num_tables; $i++)
@@ -870,7 +872,7 @@ function getFieldinfos($db, $tabelle)
 		$fields_infos[$i]['type']='';
 		$fields_infos[$i]['privileges']='';
 
-		$row=mysqli_fetch_array($res,MYSQL_ASSOC);
+		$row=mysqli_fetch_array($res,MYSQLI_ASSOC);
 		//v($row);
 		if (isset($row['Collation'])) $fields_infos[$i]['collate']=$row['Collation'];
 		if (isset($row['COLLATE'])) $fields_infos[$i]['collate']=$row['COLLATE']; // MySQL <4.1
@@ -901,7 +903,7 @@ function getFieldinfos($db, $tabelle)
 	// now get key definitions of the table and add info to fields
 	$sql='SHOW KEYS FROM `' . $db . '`.`' . $tabelle . '`';
 	$res=MSD_query($sql);
-	WHILE ($row=mysqli_fetch_array($res,MYSQL_ASSOC))
+	WHILE ($row=mysqli_fetch_array($res,MYSQLI_ASSOC))
 	{
 		//v($row);
 		$key_name=isset($row['Key_name']) ? $row['Key_name'] : '';
@@ -955,7 +957,7 @@ function getExtendedFieldInfo($db, $table)
 	$f=array(); //will hold all info
 	for ($x=0; $x < $num_fields; $x++)
 	{
-		$row=mysqli_fetch_array($res,MYSQL_ASSOC);
+		$row=mysqli_fetch_array($res,MYSQLI_ASSOC);
 		//v($row);
 		$i=$row['Field']; // define name of field as index of array
 		//define field defaults - this way the index of the array is defined anyway
@@ -1000,7 +1002,7 @@ function getExtendedFieldInfo($db, $table)
 	// now get key definitions of the table and add info to field-array
 	$sql='SHOW KEYS FROM `' . $db . '`.`' . $table . '`';
 	$res=MSD_query($sql);
-	WHILE ($row=mysqli_fetch_array($res,MYSQL_ASSOC))
+	WHILE ($row=mysqli_fetch_array($res,MYSQLI_ASSOC))
 	{
 		//echo "<br>Keys of $table: ";v($row);
 		$key_name=isset($row['Key_name']) ? $row['Key_name'] : '';

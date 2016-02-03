@@ -4,7 +4,7 @@ if (!defined('MSD_VERSION')) die('No direct access.');
 $sql='SHOW TABLES FROM `'.$db.'`';
 $tables=ARRAY();
 $link=MSD_mysql_connect();
-$res=mysqli_query($sql,$link);
+$res=mysqli_query($link, $sql);
 if (!$res===false)
 {
 	WHILE ($row=mysqli_fetch_array($res,MYSQL_NUM))
@@ -130,10 +130,10 @@ function mysql_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzahl
 		else
 			$sql='SELECT * FROM `'.$db.'`.`'.$tables[$tabelle].'` LIMIT '.$offset.','.$anzahl_ergebnisse;
 		
-		$res=@mysqli_query($sql,$link);
+		$res=@mysqli_query($link, $sql);
 		if ($res)
 		{
-			WHILE ($row=mysqli_fetch_array($res,MYSQL_ASSOC))
+			WHILE ($row=mysqli_fetch_array($res,MYSQLI_ASSOC))
 			{
 				//Treffer markieren
 				foreach ($row as $key=>$val)
