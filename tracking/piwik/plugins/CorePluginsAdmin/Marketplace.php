@@ -9,7 +9,6 @@
 namespace Piwik\Plugins\CorePluginsAdmin;
 
 use Piwik\Date;
-use Piwik\Piwik;
 use Piwik\Plugin\Dependency as PluginDependency;
 
 /**
@@ -114,14 +113,14 @@ class Marketplace
             $pluginsHavingUpdate = array();
         }
 
-        foreach ($pluginsHavingUpdate as &$updatePlugin) {
+        foreach ($pluginsHavingUpdate as $key => $updatePlugin) {
             foreach ($loadedPlugins as $loadedPlugin) {
                 if (!empty($updatePlugin['name'])
                     && $loadedPlugin->getPluginName() == $updatePlugin['name']
                 ) {
                     $updatePlugin['currentVersion'] = $loadedPlugin->getVersion();
                     $updatePlugin['isActivated'] = $pluginManager->isPluginActivated($updatePlugin['name']);
-                    $updatePlugin = $this->addMissingRequirements($updatePlugin);
+                    $pluginsHavingUpdate[$key] = $this->addMissingRequirements($updatePlugin);
                     break;
                 }
             }
@@ -129,9 +128,7 @@ class Marketplace
 
         // remove plugins that have updates but for some reason are not loaded
         foreach ($pluginsHavingUpdate as $key => $updatePlugin) {
-            if (empty($updatePlugin['currentVersion'])
-                || empty($updatePlugin['isActivated'])
-            ) {
+            if (empty($updatePlugin['currentVersion'])) {
                 unset($pluginsHavingUpdate[$key]);
             }
         }

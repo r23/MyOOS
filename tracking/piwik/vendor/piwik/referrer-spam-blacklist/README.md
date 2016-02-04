@@ -10,6 +10,8 @@ You can [download this file manually](https://github.com/piwik/referrer-spam-bla
 git clone https://github.com/piwik/referrer-spam-blacklist.git
 ```
 
+### PHP
+
 If you are using PHP, you can also install the list through Composer:
 
 ```
@@ -24,13 +26,41 @@ Here is an example using PHP:
 $list = file('spammers.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 ```
 
+### Nginx
+
+Nginx's `server` block can be configured to check the referer and return an error:
+
+```nginx
+if ($http_referer ~ '0n-line.tv') {return 403;}
+if ($http_referer ~ '100dollars-seo.com') {return 403;}
+...
+```
+When combined, list exceeds the max length for a single regex expression, so hosts must be broken up as shown above.
+
+Here is a bash script to create an nginx conf file:
+```bash
+sort spammers.txt | uniq | sed 's/\./\\\\./g' | while read host; 
+do 
+    echo "if (\$http_referer ~ '$host') {return 403;}" >> /etc/nginx/referer_spam.conf
+done;
+```
+
+you would then `include /etc/nginx/referer_spam.conf;` inside your `server` block
+
+Now as a daily cron job so the list stays up to date:
+
+```bash
+0 0 * * * cd /etc/nginx/referrer-spam-blacklist/ && git pull > /dev/null && echo "" > /etc/nginx/referer_spam.conf && sort spammers.txt | uniq | sed 's/\./\\\\\\\\./g' | while read host; do echo "if (\$http_referer ~ '$host') {return 403;}" >> /etc/nginx/referer_spam.conf; done; service nginx reload > /dev/null
+```
+
+
 ### In Piwik
 
 This list is included in each [Piwik](http://piwik.org) release so that referrer spam is filtered automatically. Piwik will also automatically update this list to its latest version every week.
 
 ## Contributing
 
-To add a new referrer spammer to the list, [click here to edit the spammers.txt file](https://github.com/piwik/referrer-spam-blacklist/edit/master/spammers.txt) and create a pull request. Alternatively you can create a [new issue](https://github.com/piwik/referrer-spam-blacklist/issues/new). In your issue or pull request please **explain where the referrer domain appeared and why you think it is a spammer**. You are highly encouraged to open **one pull request per new domain**.
+To add a new referrer spammer to the list, [click here to edit the spammers.txt file](https://github.com/piwik/referrer-spam-blacklist/edit/master/spammers.txt) and create a pull request. Alternatively you can create a [new issue](https://github.com/piwik/referrer-spam-blacklist/issues/new). In your issue or pull request please explain where the referrer domain appeared and why you think it is a spammer. **Please open one pull request per new domain**.
 
 If you open a pull request, it is appreciated if you keep one hostname per line, keep the list ordered alphabetically, and use [Linux line endings](http://en.wikipedia.org/wiki/Newline).
 

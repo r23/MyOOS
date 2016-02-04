@@ -38,6 +38,7 @@ class Live extends \Piwik\Plugin
     {
         $jsFiles[] = "libs/bower_components/visibilityjs/lib/visibility.core.js";
         $jsFiles[] = "plugins/Live/javascripts/live.js";
+        $jsFiles[] = "plugins/Live/javascripts/SegmentedVisitorLog.js";
         $jsFiles[] = "plugins/Live/javascripts/visitorProfile.js";
         $jsFiles[] = "plugins/Live/javascripts/visitorLog.js";
         $jsFiles[] = "plugins/Live/javascripts/rowaction.js";
@@ -54,5 +55,7 @@ class Live extends \Piwik\Plugin
         $translationKeys[] = "Live_RowActionTooltipDefault";
         $translationKeys[] = "Live_RowActionTooltipWithDimension";
         $translationKeys[] = "Live_SegmentedVisitorLogTitle";
+        $translationKeys[] = "General_Segment";
+        $translationKeys[] = "General_And";
     }
 }

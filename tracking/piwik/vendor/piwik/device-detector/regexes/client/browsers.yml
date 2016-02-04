@@ -12,6 +12,11 @@
   engine:
     default: 'Edge'
 
+# 360 Browser
+- regex: 'QIHU 360[ES]E'
+  name: '360 Browser'
+  version: ''
+
 # 360 Phone Browser
 - regex: '360 Aphone Browser(?: \((\d+[\.\d]+)(?:beta)?\))?'
   name: '360 Phone Browser'
@@ -49,6 +54,11 @@
 
 #MicroB
 - regex: 'Firefox.*Tablet browser (\d+[\.\d]+)'
+  name: 'MicroB'
+  version: '$1'
+  engine:
+    default: 'Gecko'
+- regex: 'Maemo Browser(?: (\d+[\.\d]+))?'
   name: 'MicroB'
   version: '$1'
   engine:
@@ -129,6 +139,13 @@
 #Kapiko
 - regex: 'Kapiko(?:/(\d+[\.\d]+))?'
   name: 'Kapiko'
+  version: '$1'
+  engine:
+    default: 'Gecko'
+
+#Kylo
+- regex: 'Kylo(?:/(\d+[\.\d]+))?'
+  name: 'Kylo'
   version: '$1'
   engine:
     default: 'Gecko'
@@ -304,7 +321,7 @@
   version: '$1'
 
 #Maxthon
-- regex: 'Maxthon[ /](\d+[\.\d]+)'
+- regex: '(?:Maxthon|MxBrowser)[ /](\d+[\.\d]+)'
   name: 'Maxthon'
   version: '$1'
   engine:
@@ -362,6 +379,19 @@
   name: 'MIUI Browser'
   version: '$1'
 
+# Coc Coc
+# This browser (http://coccoc.vn/) is built on top of Chromium with
+# additional features for Vietnamese users. Its regex has to be placed
+# before generic Chrome regex, or Chrome regex will match first and
+# the browser is mistaken as "Chrome".
+- regex: 'coc_coc_browser(?:/(\d+[\.\d]+))?'
+  name: 'Coc Coc'
+  version: '$1'
+  engine:
+    default: 'WebKit'
+    versions:
+      28: 'Blink'
+
 #Chrome
 - regex: 'CrMo(?:/(\d+[\.\d]+))?'
   name: 'Chrome Mobile'
@@ -375,7 +405,7 @@
   version: '$1'
   engine:
     default: 'WebKit'
-- regex: 'Chrome(?:/(\d+[\.\d]+))?.*Mobile'
+- regex: 'Chrome(?:/(\d+[\.\d]+))? Mobile'
   name: 'Chrome Mobile'
   version: '$1'
   engine:
@@ -444,7 +474,7 @@
   version: '$1'
   engine:
     default: 'Text-based'
-  
+
 #NCSA Mosaic
 - regex: 'NCSA_Mosaic(?:/(\d+[\.\d]+))?'
   name: 'NCSA Mosaic'
@@ -454,7 +484,7 @@
 - regex: 'ABrowse(?: (\d+[\.\d]+))?'
   name: 'ABrowse'
   version: '$1'
-  
+
 #Amaya
 - regex: 'amaya(?:/(\d+[\.\d]+))?'
   name: 'Amaya'
@@ -464,26 +494,26 @@
 - regex: 'AmigaVoyager(?:/(\d+[\.\d]+))?'
   name: 'Amiga Voyager'
   version: '$1'
-  
+
 #Amiga Aweb
 - regex: 'Amiga-Aweb(?:/(\d+[\.\d]+))?'
   name: 'Amiga Aweb'
   version: '$1'
-  
+
 #Arora
 - regex: 'Arora(?:/(\d+[\.\d]+))?'
   name: 'Arora'
   version: '$1'
   engine:
     default: 'WebKit'
-  
+
 #Beonex
 - regex: 'Beonex(?:/(\d+[\.\d]+))?'
   name: 'Beonex'
   version: '$1'
   engine:
     default: 'Gecko'
-  
+
 #BrowseX
 - regex: 'BrowseX \((\d+[\.\d]+)'
   name: 'BrowseX'
@@ -498,7 +528,7 @@
 - regex: 'Cheshire(?:/(\d+[\.\d]+))?'
   name: 'Cheshire'
   version: '$1'
-  
+
 #Dillo
 - regex: 'Dillo(?:/(\d+[\.\d]+))?'
   name: 'Dillo'
@@ -512,52 +542,52 @@
   version: '$1'
   engine:
     default: 'WebKit'
-  
+
 #Elinks
 - regex: 'Elinks(?:/(\d+[\.\d]+))?'
   name: 'Elinks'
   version: '$1'
   engine:
     default: 'Text-based'
-  
+
 #Firebird
 - regex: 'Firebird(?:/(\d+[\.\d]+))?'
   name: 'Firebird'
   version: '$1'
   engine:
     default: 'Gecko'
-  
+
 #Fluid
 - regex: 'Fluid(?:/(\d+[\.\d]+))?'
   name: 'Fluid'
   version: '$1'
   engine:
     default: 'WebKit'
-  
+
 #Galeon
 - regex: 'Galeon(?:/(\d+[\.\d]+))?'
   name: 'Galeon'
   version: '$1'
   engine:
     default: 'Gecko'
-  
+
 #Google Earth
 - regex: 'Google Earth(?:/(\d+[\.\d]+))?'
   name: 'Google Earth'
   version: '$1'
   engine:
     default: 'WebKit'
-  
+
 #HotJava
 - regex: 'HotJava(?:/(\d+[\.\d]+))?'
   name: 'HotJava'
   version: '$1'
-  
+
 #IBrowse
 - regex: 'IBrowse(?:[ /](\d+[\.\d]+))?'
   name: 'IBrowse'
   version: '$1'
-  
+
 #iCab
 - regex: 'iCab(?:[ /](\d+[\.\d]+))?'
   name: 'iCab'
@@ -629,19 +659,19 @@
   version: '$1'
   engine:
     default: '' # multi engine
-  
+
 #Kindle Browser
 - regex: 'Kindle/(\d+[\.\d]+)'
   name: 'Kindle Browser'
   version: '$1'
-  
+
 #K-meleon
 - regex: 'K-meleon(?:/(\d+[\.\d]+))?'
   name: 'K-meleon'
   version: '$1'
   engine:
     default: 'Gecko'
-  
+
 #Links
 - regex: 'Links(?: \((\d+[\.\d]+))?'
   name: 'Links'
@@ -653,19 +683,19 @@
 - regex: 'UP.Browser(?:/(\d+[\.\d]+))?'
   name: 'Openwave Mobile Browser'
   version: '$1'
-  
+
 #OmniWeb
 - regex: 'OmniWeb(?:/[v]?(\d+[\.\d]+))?'
   name: 'OmniWeb'
   version: '$1'
   engine:
     default: 'WebKit'
-  
+
 #Phoenix
 - regex: 'Phoenix(?:/(\d+[\.\d]+))?'
   name: 'Phoenix'
   version: '$1'
-  
+
 #Mobile Silk
 - regex: 'Silk(?:/(\d+[\.\d]+))?'
   name: 'Mobile Silk'
@@ -790,7 +820,7 @@
   version: ''
   engine:
     default: 'WebKit'
-  
+
 #Safari
 - regex: '(?:iPod|iPad|iPhone).+Version/(\d+[\.\d]+)'
   name: 'Mobile Safari'

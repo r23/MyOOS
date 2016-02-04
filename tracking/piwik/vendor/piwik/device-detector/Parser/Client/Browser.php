@@ -28,6 +28,7 @@ class Browser extends ClientParserAbstract
      */
     protected static $availableBrowsers = array(
         '36' => '360 Phone Browser',
+        '3B' => '360 Browser',
         'AA' => 'Avant Browser',
         'AB' => 'ABrowse',
         'AG' => 'ANTGalio',
@@ -44,6 +45,7 @@ class Browser extends ClientParserAbstract
         'BJ' => 'Bunjalloo',
         'BX' => 'BrowseX',
         'CA' => 'Camino',
+        'CC' => 'Coc Coc',
         'CD' => 'Comodo Dragon',
         'CX' => 'Charon',
         'CF' => 'Chrome Frame',
@@ -84,6 +86,7 @@ class Browser extends ClientParserAbstract
         'KM' => 'K-meleon',
         'KO' => 'Konqueror',
         'KP' => 'Kapiko',
+        'KY' => 'Kylo',
         'KZ' => 'Kazehakase',
         'LB' => 'Liebao',
         'LI' => 'Links',
@@ -156,7 +159,7 @@ class Browser extends ClientParserAbstract
         'BlackBerry Browser' => array('BB'),
         'Baidu'              => array('BD', 'BS'),
         'Amiga'              => array('AV', 'AW'),
-        'Chrome'             => array('CH', 'CD', 'CM', 'CI', 'CF', 'CN', 'CR', 'CP', 'IR', 'RM', 'AO', 'VI'),
+        'Chrome'             => array('CH', 'CC', 'CD', 'CM', 'CI', 'CF', 'CN', 'CR', 'CP', 'IR', 'RM', 'AO', 'VI'),
         'Firefox'            => array('FF', 'FE', 'SX', 'FB', 'PX', 'MB'),
         'Internet Explorer'  => array('IE', 'IM', 'PS'),
         'Konqueror'          => array('KO'),

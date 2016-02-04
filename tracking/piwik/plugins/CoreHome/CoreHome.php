@@ -133,6 +133,8 @@ class CoreHome extends \Piwik\Plugin
         $jsFiles[] = "plugins/CoreHome/angularjs/common/filters/length.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/common/filters/trim.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/common/filters/pretty-url.js";
+        $jsFiles[] = "plugins/CoreHome/angularjs/common/filters/htmldecode.js";
+        $jsFiles[] = "plugins/CoreHome/angularjs/common/filters/ucfirst.js";
 
         $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/directive.module.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/autocomplete-matched.js";
@@ -180,7 +182,6 @@ class CoreHome extends \Piwik\Plugin
         $translationKeys[] = 'General_Show';
         $translationKeys[] = 'General_Hide';
         $translationKeys[] = 'General_Website';
-        $translationKeys[] = 'General_ChooseWebsite';
         $translationKeys[] = 'Intl_Year_Short';
         $translationKeys[] = 'General_MultiSitesSummary';
         $translationKeys[] = 'General_SearchNoResults';
@@ -251,6 +252,7 @@ class CoreHome extends \Piwik\Plugin
         $translationKeys[] = 'Intl_Day_Min_StandAlone_6';
         $translationKeys[] = 'Intl_Day_Min_StandAlone_7';
         $translationKeys[] = 'General_And';
+        $translationKeys[] = 'General_All';
         $translationKeys[] = 'General_Search';
         $translationKeys[] = 'General_Clear';
         $translationKeys[] = 'General_MoreDetails';
@@ -275,5 +277,7 @@ class CoreHome extends \Piwik\Plugin
         $translationKeys[] = 'CoreHome_Segments';
         $translationKeys[] = 'CoreHome_MenuEntries';
         $translationKeys[] = 'SitesManager_Sites';
+        $translationKeys[] = 'CoreHome_ChangeCurrentWebsite';
+        $translationKeys[] = 'General_CreatedByUser';
     }
 }

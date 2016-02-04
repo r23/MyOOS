@@ -24,7 +24,7 @@
         "JavaScriptTracking": "Tracciamento JavaScript",
         "JSTracking_CampaignKwdParam": "Parametro Keyword Campagna",
         "JSTracking_CampaignNameParam": "Parametro Nome Campagna",
-        "JSTracking_CodeNote": "Assicurati che questo codice si trovi in ognuna delle pagine del tuo sito prima del tag %1$s.",
+        "JSTracking_CodeNoteBeforeClosingHead": "Assicurati che questo codice sia presente su ogni pagina del tuo sito. Ti raccomandiamo di incollarlo subito prima del tag %1$s di chiusura.",
         "JSTracking_CustomCampaignQueryParam": "Utilizza i nomi dei parametri di query personalizzati per il nome della campagna e parola chiave",
         "JSTracking_CustomCampaignQueryParamDesc": "Nota: %1$sPiwik rivelerà automaticamente i parametri di Google Analytics.%2$s",
         "JSTracking_DisableCookies": "Disabilita tutti i cookies di tracking",
@@ -49,6 +49,7 @@
         "JSTrackingIntro5": "Se volete fare altro oltre che tracciare le viste pagina, preghiamo di controllare la %1$sDocumentazione Piwik Javascript Tracking%2$s per l'elenco delle funzioni disponibili. Utilizzando queste funzioni potrete tracciare obiettivi, variabili personalizzate, ordini ecommerce, carrelli abbandonati e altro.",
         "LogoNotWriteableInstruction": "Per utilizzare il tuo logo personalizzato al posto del logo di Piwik, da' i permessi di scrittura a questa directory: %1$s Piwik necessita dell'accesso in scrittura per i tuoi loghi conservati nei files %2$s.",
         "FileUploadDisabled": "Il caricamento dei files non è abilitato nella configurazione del tuo PHP. Per caricare il tuo logo personalizzato devi impostare %s nel php.ini e riavviare il server.",
+        "LogoUploadFailed": "E' stato impossibile leggere il file caricato. Assicurati che il file abbia un formato valido.",
         "LogoUpload": "Seleziona un logo da caricare",
         "FaviconUpload": "Seleziona una Favicon da caricare",
         "LogoUploadHelp": "Carica un file nei formati %s con un'altezza minima di %s pixels",
@@ -56,7 +57,7 @@
         "MenuGeneralSettings": "Impostazioni generali",
         "MenuManage": "Gestione",
         "MenuDevelopment": "Sviluppo",
-        "OptOutComplete": "Opt-out completato; le tue visite a questo sito non verranno registrate dallo strumento di Web Analytics.",
+        "OptOutComplete": "Opt-out completato. Le tue visite a questo sito non verranno registrate dallo strumento di Web Analytics.",
         "OptOutCompleteBis": "Nota che se cancelli i tuoi cookie, cancelli anche il cookie di opt-out, e se cambi computer o browser web, devi fare la procedura di opt-out nuovamente.",
         "OptOutDntFound": "Non vieni tracciato poiché il tuo browser comunica che non lo desideri. Questa è un'impostazione del tuo browser, dunque non potrai effettuare l'opt-in finchè non disabiliti la funzionalità \"Non Tracciare\".",
         "OptOutExplanation": "Piwik è impegnato ad assicurare la riservatezza su Internet. Per dare ai tuoi ospiti la possibilità di escludersi dalle Statistiche Web Piwik, è possibile aggiungere il seguente codice HTML in una pagina del tuo sito web, ad esempio in una pagina sulla privacy.",
@@ -87,6 +88,8 @@
         "YouAreOptedOut": "Al momento non hai accettato il programma (opt-out).",
         "YouMayOptOut": "Puoi scegliere di non avere un cookie univoco di identificazione per web analytics assegnato al tuo computer al fine di evitare l'aggregazione e l'analisi dei dati raccolti su questo sito web.",
         "YouMayOptOutBis": "Per fare questa scelta, clicca qui di seguito per ricevere un cookie di opt-out.",
-        "OptingYouOut": "Sto acquisendo la tua rinuncia, attendi..."
+        "OptingYouOut": "Sto acquisendo la tua rinuncia, attendi...",
+        "ProtocolNotDetectedCorrectly": "Al momento stai guardando Piwik tramite una connessione sicura SSL (uso di https) ma Piwik ha potuto rilevare sul server solo una connessione non protetta.",
+        "ProtocolNotDetectedCorrectlySolution": "Per assicurarti che Piwik richieda e offra con sicurezza il tuo contenuto tramite HTTPS, puoi modificare il file %s e configurare le impostazioni del proxy, o puoi aggiungere la riga %s sotto la sezione %s. %sLeggi di più%s"
     }
 }

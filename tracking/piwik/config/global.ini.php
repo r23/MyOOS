@@ -36,6 +36,7 @@ port = 3306
 adapter = PDO\MYSQL
 type = InnoDB
 schema = Mysql
+charset = utf8
 
 [tests]
 ; needed in order to run tests.
@@ -44,6 +45,7 @@ schema = Mysql
 http_host   = localhost
 remote_addr = "127.0.0.1"
 request_uri = "@REQUEST_URI@"
+port =
 
 ; access key and secret as listed in AWS -> IAM -> Users
 aws_accesskey = ""
@@ -248,8 +250,9 @@ default_language = en
 datatable_default_limit = 10
 
 ; Each datatable report has a Row Limit selector at the bottom right.
-; By default you can select from 5 to 500 rows. You may customise the values below:
-datatable_row_limits = "5,10,25,50,100,250,500"
+; By default you can select from 5 to 500 rows. You may customise the values below
+; -1 will be displayed as 'all' and it will export all rows (filter_limit=-1)
+datatable_row_limits = "5,10,25,50,100,250,500,-1"
 
 ; default number of rows returned in API responses
 ; this value is overwritten by the '# Rows to display' selector.
@@ -559,6 +562,10 @@ pivot_by_filter_enable_fetch_by_segment = 0
 ; on a per-request basis;
 pivot_by_filter_default_column_limit = 10
 
+; If set to 0 it will disable Piwik Pro advertisements in some places. For example in the installation screen, the
+; Piwik Pro Ad widget will be removed etc.
+piwik_pro_ads_enabled = 1
+
 [Tracker]
 
 ; Piwik uses "Privacy by default" model. When one of your users visit multiple of your websites tracked in this Piwik,
@@ -651,6 +658,10 @@ create_new_visit_when_campaign_changes = 1
 ; will be treated as the start of a new visit. This will include situations when website referrer information was
 ; absent before, but is present now.
 create_new_visit_when_website_referrer_changes = 0
+
+; ONLY CHANGE THIS VALUE WHEN YOU DO NOT USE PIWIK ARCHIVING, SINCE THIS COULD CAUSE PARTIALLY MISSING ARCHIVE DATA
+; Whether to force a new visit at midnight for every visitor. Default 1.
+create_new_visit_after_midnight = 1
 
 ; maximum length of a Page Title or a Page URL recorded in the log_action.name table
 page_maximum_length = 1024;
@@ -783,6 +794,7 @@ Plugins[] = Resolution
 Plugins[] = DevicePlugins
 Plugins[] = Heartbeat
 Plugins[] = Intl
+Plugins[] = PiwikPro
 
 [PluginsInstalled]
 PluginsInstalled[] = Diagnostics
