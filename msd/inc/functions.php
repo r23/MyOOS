@@ -357,6 +357,8 @@ function WriteCronScript($restore_values=false)
 	global $nl,$config,$databases,$cron_db_array,$cron_dbpraefix_array,$cron_db_cbd_array,$cron_db_cad_array, $dontBackupDatabases;
 
 	if (!isset($databases['db_selected_index'])) $databases['db_selected_index']=0;
+	if (!isset($databases['command_before_dump'])) $databases['command_before_dump']="";
+	if (!isset($databases['command_after_dump'])) $databases['command_after_dump']="";	
 	if (!isset($databases['praefix'][$databases['db_selected_index']])) $databases['praefix'][$databases['db_selected_index']]="";
 	if (!isset($databases['db_actual_cronindex'])) $databases['db_actual_cronindex']=$databases['db_selected_index'];
 	if (!isset($config['email_maxsize'])) $config['email_maxsize']=$config['email_maxsize1'] * ( ( $config['email_maxsize2'] == 1 ) ? 1024 : 1024 * 1024 );
@@ -496,7 +498,7 @@ function WriteCronScript($restore_values=false)
 	$cronscript.='$log_maxsize=' . $config['log_maxsize'] . ';' . $nl;
 	$cronscript.='$complete_log=' . $config['cron_completelog'] . ';' . $nl;
 	$cronscript.='$my_comment="' . escape_specialchars(stripslashes($config['cron_comment'])) . '";' . $nl;
-	$cronscript.="?>";
+	$cronscript.="";
 
 	// Save config
 	$ret=true;
