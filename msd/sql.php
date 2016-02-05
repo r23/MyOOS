@@ -124,7 +124,7 @@ if ($sql_to_display_data==1)
 
 if (isset($_POST['tableselect'])&&$_POST['tableselect']!='1') $tablename=$_POST['tableselect'];
 MSD_mysql_connect();
-mysqli_select_db($db,$config['dbconnection']);
+mysqli_select_db($config['dbconnection'], $db);
 
 ///*** EDIT / UPDATES / INSERTS ***///
 ///***                          ***///

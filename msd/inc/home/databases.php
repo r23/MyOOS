@@ -23,7 +23,7 @@ for ($i=0; $i<count($databases['Name']); $i++)
 	}
 	if (isset($_POST['optimize'.$i]))
 	{
-	    mysqli_select_db($databases['Name'][$i], $config['dbconnection']);
+	    mysqli_select_db($config['dbconnection'], $databases['Name'][$i]);
         $res=mysqli_query($config['dbconnection'], 'SHOW TABLES FROM `'.$databases['Name'][$i].'`');
 		$tabellen='';
 		WHILE ($row=mysqli_fetch_row($res))
@@ -63,7 +63,7 @@ for ($i=0; $i<count($databases['Name']); $i++)
 	if ($i==$databases['db_selected_index']) $rowclass="dbrowsel";
 
 	//gibts die Datenbank überhaupt?
-	if (!mysqli_select_db($databases['Name'][$i],$config['dbconnection']))
+	if (!mysqli_select_db($config['dbconnection'], $databases['Name'][$i]))
 	{
 		$tpl->assign_block_vars('DB_NOT_FOUND',array(
 			'ROWCLASS' => $rowclass,
@@ -73,7 +73,7 @@ for ($i=0; $i<count($databases['Name']); $i++)
 	}
 	else
 	{
-		mysqli_select_db($databases['Name'][$i],$config['dbconnection']);
+		mysqli_select_db($config['dbconnection'], $databases['Name'][$i]);
 		$tabellen=mysqli_query($config['dbconnection'], 'SHOW TABLES FROM `'.$databases['Name'][$i].'`');
 		$num_tables=mysqli_num_rows($tabellen);
 		$tpl->assign_block_vars('ROW',array(
