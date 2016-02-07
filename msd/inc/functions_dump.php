@@ -157,7 +157,7 @@ function get_content($db,$table)
 	$ergebnisse=@mysqli_num_rows($result);
 	if ($ergebnisse!==false)
 	{
-		$num_felder=mysql_num_fields($result);
+		$num_felder=mysqli_field_count($result);
 		$first=1;
 		
 		if ($ergebnisse>$dump['restzeilen'])
