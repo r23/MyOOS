@@ -150,6 +150,8 @@ function get_content($db,$table)
 	$content='';
 	$complete=Fieldlist($db,$table).' ';
 	
+	if (!isset($config['dbconnection'])) MSD_mysql_connect();
+	
 	$table_ready=0;
 	$query='SELECT * FROM `'.$table.'` LIMIT '.$dump['zeilen_offset'].','.($dump['restzeilen']+1);
 	mysqli_select_db($config['dbconnection'], $db);
@@ -157,7 +159,9 @@ function get_content($db,$table)
 	$ergebnisse=@mysqli_num_rows($result);
 	if ($ergebnisse!==false)
 	{
-		$num_felder=mysqli_field_count($result);
+		// $num_felder=mysqli_field_count($result);
+		$num_felder=mysqli_field_count($config['dbconnection']);
+
 		$first=1;
 		
 		if ($ergebnisse>$dump['restzeilen'])
@@ -185,7 +189,7 @@ function get_content($db,$table)
 			{
 				if (!isset($row[$j])) $insert.='NULL,';
 				else 
-					if ($row[$j]!='') $insert.='\''.mysqli_escape_string($row[$j]).'\',';
+					if ($row[$j]!='') $insert.='\''.mysqli_real_escape_string($config['dbconnection'], $row[$j]).'\',';
 					else
 						$insert.='\'\',';
 			}
