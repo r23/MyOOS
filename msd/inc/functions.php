@@ -755,4 +755,3 @@ function db_escape($string)
 	return $string;
 }
 
-?>

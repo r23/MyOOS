@@ -551,4 +551,3 @@ function SendViaFTP($i,$source_file,$conn_msg=1)
 	// Schließen des FTP-Streams
 	@ftp_quit($conn_id);
 }
-?>

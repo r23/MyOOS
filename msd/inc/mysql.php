@@ -409,7 +409,7 @@ function getDBInfos()
                         && $databases['Name'][$dump['dbindex']]!='information_schema') {
                         mysqli_select_db($config['dbconnection'], $databases['Name'][$dump['dbindex']]);
                         $opt = 'OPTIMIZE TABLE `' . $row['Name'] . '`';
-                        $res = mysqli_query('OPTIMIZE TABLE `' . $row['Name'] . '`');
+                        $res = mysqli_query($config['dbconnection'], 'OPTIMIZE TABLE `' . $row['Name'] . '`');
                         if ($res === false) {
                             die("Error in ".$opt." -> ".mysqli_error());
                         }
