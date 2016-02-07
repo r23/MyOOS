@@ -231,7 +231,7 @@ function DB_Copy($source, $destination, $drop_source=0, $insert_data=1)
             return false;
         }
 	}
-    mysqli_select_db($destination);
+    mysqli_select_db($config['dbconnection'], $destination);
     $res=MSD_DoSQL($SQL_Array);
     if ($drop_source == 1 && $res) MSD_query("DROP DATABASE `$source`;");
     return $res;

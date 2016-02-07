@@ -129,7 +129,7 @@ function get_def($db,$table,$withdata=1)
 	}
 	else
 		$def.="DROP TABLE IF EXISTS `$table`;\n";
-	mysqli_select_db($db);
+	mysqli_select_db($config['dbconnection'], $db);
 	$result=mysqli_query($config['dbconnection'], 'SHOW CREATE TABLE `'.$table.'`');
 	$row=@mysqli_fetch_row($result);
 	if ($row===false) return false;
@@ -152,7 +152,7 @@ function get_content($db,$table)
 	
 	$table_ready=0;
 	$query='SELECT * FROM `'.$table.'` LIMIT '.$dump['zeilen_offset'].','.($dump['restzeilen']+1);
-	mysqli_select_db($db);
+	mysqli_select_db($config['dbconnection'], $db);
 	$result=mysqli_query($config['dbconnection'], $query);
 	$ergebnisse=@mysqli_num_rows($result);
 	if ($ergebnisse!==false)

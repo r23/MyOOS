@@ -102,7 +102,7 @@ if (isset($_GET['dbid']))
 
 	$numrows=0;
 	$res=@mysqli_query($config['dbconnection'], "SHOW TABLE STATUS FROM `".$databases['Name'][$dbid]."`");
-	mysqli_select_db($databases['Name'][$dbid]);
+	mysqli_select_db($config['dbconnection'], $databases['Name'][$dbid]);
 	if ($res) $numrows=mysqli_num_rows($res);
 	$tpl->assign_vars(array(
 		'DB_NAME' => $databases['Name'][$dbid],

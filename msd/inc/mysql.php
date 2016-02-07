@@ -407,7 +407,7 @@ function getDBInfos()
 				}
                     if ($config['optimize_tables_beforedump'] == 1 && $dump['table_offset'] == -1
                         && $databases['Name'][$dump['dbindex']]!='information_schema') {
-                        mysqli_select_db($databases['Name'][$dump['dbindex']]);
+                        mysqli_select_db($config['dbconnection'], $databases['Name'][$dump['dbindex']]);
                         $opt = 'OPTIMIZE TABLE `' . $row['Name'] . '`';
                         $res = mysqli_query('OPTIMIZE TABLE `' . $row['Name'] . '`');
                         if ($res === false) {

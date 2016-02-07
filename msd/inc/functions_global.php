@@ -114,7 +114,7 @@ function DBDetailInfo($index)
 	MSD_mysql_connect();
 	if (isset($databases['Name'][$index]))
 	{
-		mysqli_select_db($databases['Name'][$index]);
+		mysqli_select_db($config['dbconnection'], $databases['Name'][$index]);
 		$databases['Detailinfo']['Name']=$databases['Name'][$index];
 		$res=@mysqli_query($config['dbconnection'], 'SHOW TABLE STATUS FROM `'.$databases['Name'][$index].'`');
 		if ($res) $databases['Detailinfo']['tables']=mysqli_num_rows($res);

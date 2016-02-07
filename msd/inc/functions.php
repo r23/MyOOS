@@ -161,7 +161,7 @@ function SetDefault($load_default=false)
 	{
 	    $found_db = $found_dbs[$i];
 		// Testverbindung - Tabelle erstellen, nachschauen, ob es geklappt hat und dann wieder löschen
-		$use=@mysqli_select_db($found_db);
+		$use=@mysqli_select_db($config['dbconnection'], $found_db);
 		if ($use)
 		{
 			if (isset($old_db) && $found_db == $old_db) $databases['db_selected_index']=$a;
