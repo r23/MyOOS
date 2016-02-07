@@ -347,7 +347,7 @@ function ExportHTML()
 					$structure.="<tr class=\"Header\">\n";
 					for ($i=0; $i < count($row); $i++)
 					{
-						$str=mysql_fetch_field($res,$i);
+						$str=mysql_fetch_field($config['dbconnection'],$res,$i);
 						$fieldname[$i]=$str->name;
 						$fieldtyp[$i]=$str->type;
 						$structure.="<th>" . $str->name . "</th>\n";
