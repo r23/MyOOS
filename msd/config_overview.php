@@ -271,8 +271,8 @@ if (isset($_POST['save']))
 	{
 		$cron_db_array=implode("|",$databases['Name']);
 		$cron_dbpraefix_array=implode("|",$databases['praefix']);
-		$cron_db_cbd_array=implode("|",$databases['command_before_dump']);
-		$cron_db_cad_array=implode("|",$databases['command_after_dump']);
+		$cron_db_cbd_array = isset($databases['command_before_dump']) && !empty($databases['command_before_dump']) ? implode("|",$databases['command_before_dump']) : "";
+		$cron_db_cad_array = isset($databases['command_after_dump']) && !empty($databases['command_after_dump']) ? implode("|",$databases['command_after_dump']) : "";			
 	}
 
 	$config['ftp_transfer']=array();
