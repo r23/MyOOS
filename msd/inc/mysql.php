@@ -440,7 +440,7 @@ function getDBInfos()
 
 					// Get nr of records -> need to do it this way because of incorrect returns when using InnoDBs
 					$sql_2="SELECT count(*) as `count_records` FROM `" . $databases['Name'][$dump['dbindex']] . "`.`" . $row['Name'] . "`";
-					$res2=@mysqli_query($sql_2);
+					$res2=@mysqli_query($config['dbconnection'], $sql_2);
 					if ($res2 === false)
 					{
 						$read_error='(' . mysql_errno() . ') ' . mysqli_error();
