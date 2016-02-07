@@ -258,6 +258,8 @@ function get_sqlbefehl()
 
 function submit_create_action($sql)
 {
+	global $config;
+	
 	//executes a create command
 	$tablename=get_tablename($sql);
 	if (strtoupper(substr($sql,0,16))=='CREATE ALGORITHM')
@@ -268,7 +270,6 @@ function submit_create_action($sql)
 		{
 			if (strtoupper(substr($parts[$i],0,8))=='DEFINER=')
 			{
-				global $config;
 				$parts[$i]='DEFINER=`'.$config['dbuser'].'`@`'.$config['dbhost'].'`';
 				$sql=implode(' ',$parts);
 				$i=$count;
@@ -276,17 +277,17 @@ function submit_create_action($sql)
 		}
 	}
 
-	$res=@mysqli_query($sql);
+	$res=@mysqli_query($config['dbconnection'], $sql);
 	if ($res===false)
 	{
 		// erster Versuch fehlgeschlagen -> zweiter Versuch - vielleicht versteht der Server die Inline-Kommentare nicht?
 		$sql=del_inline_comments($sql);
-		$res=@mysqli_query(downgrade($sql));
+		$res=@mysqli_query($config['dbconnection'],  downgrade($sql));
 		if ($res===false)
 		{
 			// wieder nichts. Ok, haben wir hier einen alten MySQL-Server 3.x oder 4.0.x?
 			// versuchen wir es mal mit der alten Syntax
-			$res=@mysqli_query(downgrade($sql));
+			$res=@mysqli_query($config['dbconnection'], downgrade($sql));
 		}
 	}
 	if ($res===false)
@@ -300,9 +301,11 @@ function submit_create_action($sql)
 
 function get_insert_syntax($table)
 {
+	global $config;
+	
 	$insert='';
 	$sql='SHOW COLUMNS FROM `'.$table.'`';
-	$res=mysqli_query($sql);
+	$res=mysqli_query($config['dbconnection'], $sql);
 	if ($res)
 	{
 		$insert='INSERT INTO `'.$table.'` (';

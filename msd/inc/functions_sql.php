@@ -488,7 +488,7 @@ function GetCreateTable($db, $tabelle)
 {
 	global $config;
 	if (!isset($config['dbconnection'])) MSD_mysql_connect();
-	$res=mysqli_query("SHOW CREATE TABLE `$db`.`$tabelle`");
+	$res=mysqli_query($config['dbconnection'], "SHOW CREATE TABLE `$db`.`$tabelle`");
 	if ($res)
 	{
 		$row=mysqli_fetch_array($res);
@@ -592,7 +592,7 @@ function EngineCombo($default="")
 	}
 	else
 	{
-		$res=mysqli_query("SHOW ENGINES");
+		$res=mysqli_query($config['dbconnection'], "SHOW ENGINES");
 		$num=mysqli_num_rows($res);
 		for ($i=0; $i < $num; $i++)
 		{
@@ -613,7 +613,7 @@ function CharsetCombo($default="")
 	else
 	{
 		if (!isset($config['dbconnection'])) MSD_mysql_connect();
-		$res=mysqli_query("SHOW Charset");
+		$res=mysqli_query($config['dbconnection'], "SHOW Charset");
 		$num=mysqli_num_rows($res);
 		$r='<option value="" ' . ( ( $default == "" ) ? "selected" : "" ) . '></option>';
 		$charsets=array();
@@ -639,7 +639,7 @@ function GetCollationArray()
 	global $config;
 	if (!isset($config['dbconnection'])) MSD_mysql_connect();
 
-	$res=mysqli_query("SHOW Collation");
+	$res=mysqli_query($config['dbconnection'], "SHOW Collation");
 	$num=@mysqli_num_rows($res);
 	$r=Array();
 	if (is_array($r))

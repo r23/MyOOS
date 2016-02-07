@@ -72,14 +72,14 @@ function GetStatusLine($kind="php")
 	$r=0;
 	$t_zeile="$mysql_commentstring\n$mysql_commentstring TABLE-INFO\r\n";
 	MSD_mysql_connect();
-	$res=mysqli_query("SHOW TABLE STATUS FROM `".$databases['Name'][$dump['dbindex']]."`");
+	$res=mysqli_query($config['dbconnection'], "SHOW TABLE STATUS FROM `".$databases['Name'][$dump['dbindex']]."`");
 	$numrows=intval(@mysqli_num_rows($res));
 	for($i=0;$i<$numrows;$i++)
 	{
 		$erg=mysqli_fetch_array($res);
 		// Get nr of records -> need to do it this way because of incorrect returns when using InnoDBs
 		$sql_2="SELECT count(*) as `count_records` FROM `".$databases['Name'][$dump['dbindex']]."`.`".$erg['Name']."`";
-		$res2=@mysqli_query($sql_2);
+		$res2=@mysqli_query($config['dbconnection'], $sql_2);
 		if ($res2===false)
 		{
 			// error reading table definition

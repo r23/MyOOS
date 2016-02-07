@@ -387,7 +387,7 @@ function getDBInfos()
 	for ($ii=0; $ii < count($databases['multi']); $ii++)
 	{
 		$dump['dbindex']=$flipped[$databases['multi'][$ii]];
-		$tabellen=mysqli_query('SHOW TABLE STATUS FROM `' . $databases['Name'][$dump['dbindex']] . '`',$config['dbconnection']) or die('getDBInfos: ' . mysqli_error());
+		$tabellen=mysqli_query($config['dbconnection'], 'SHOW TABLE STATUS FROM `' . $databases['Name'][$dump['dbindex']] . '`',$config['dbconnection']) or die('getDBInfos: ' . mysqli_error());
 		$num_tables=mysqli_num_rows($tabellen);
 		// Array mit den gewünschten Tabellen zusammenstellen... wenn Präfix angegeben, werden die anderen einfach nicht übernommen
 		if ($num_tables > 0)

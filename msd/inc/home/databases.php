@@ -14,7 +14,7 @@ for ($i=0; $i<count($databases['Name']); $i++)
 	}
 	if (isset($_POST['kill'.$i]))
 	{
-		$res=mysqli_query('DROP DATABASE `'.$databases['Name'][$i].'`') or die(mysqli_error());
+		$res=mysqli_query($config['dbconnection'], 'DROP DATABASE `'.$databases['Name'][$i].'`') or die(mysqli_error());
 		$dba='<p class="green">'.$lang['L_DB'].' '.$databases['Name'][$i].' '.$lang['L_INFO_DELETED'].'</p>';
 		SetDefault();
 		include ($config['files']['parameter']);
@@ -32,7 +32,7 @@ for ($i=0; $i<count($databases['Name']); $i++)
 		if ($tabellen>"")
 		{
 			$query="OPTIMIZE TABLE ".$tabellen;
-			$res=mysqli_query($query) or die(mysqli_error()."");
+			$res=mysqli_query($config['dbconnection'], $query) or die(mysqli_error()."");
 		}
 		$_GET['dbid']=$i;
 		$dba='<p class="green">'.$lang['L_DB'].' <b>'.$databases['Name'][$i].'</b> '.$lang['L_INFO_OPTIMIZED'].'.</p>';
@@ -101,7 +101,7 @@ if (isset($_GET['dbid']))
 	$dbid=$_GET['dbid'];
 
 	$numrows=0;
-	$res=@mysqli_query("SHOW TABLE STATUS FROM `".$databases['Name'][$dbid]."`");
+	$res=@mysqli_query($config['dbconnection'], "SHOW TABLE STATUS FROM `".$databases['Name'][$dbid]."`");
 	mysqli_select_db($databases['Name'][$dbid]);
 	if ($res) $numrows=mysqli_num_rows($res);
 	$tpl->assign_vars(array(
@@ -123,7 +123,7 @@ if (isset($_GET['dbid']))
 			$row=mysqli_fetch_array($res,MYSQLI_ASSOC);
 			// Get nr of records -> need to do it this way because of incorrect returns when using InnoDBs
 			$sql_2="SELECT count(*) as `count_records` FROM `".$databases['Name'][$dbid]."`.`".$row['Name']."`";
-			$res2=@mysqli_query($sql_2);
+			$res2=@mysqli_query($config['dbconnection'], $sql_2);
 			if ($res2===false)
 			{
 				$row['Rows']=0;
@@ -163,13 +163,13 @@ if (isset($_GET['dbid']))
 
 				if ($checkit==$row['Name']||$repair==1)
 				{
-					$tmp_res=mysqli_query("REPAIR TABLE `".$row['Name']."`");
+					$tmp_res=mysqli_query($config['dbconnection'], "REPAIR TABLE `".$row['Name']."`");
 				}
 
 				if (($checkit==$row['Name']||$checkit=='ALL'))
 				{
 					// table needs to be checked
-					$tmp_res=mysqli_query('CHECK TABLE `'.$row['Name'].'`');
+					$tmp_res=mysqli_query($config['dbconnection'], 'CHECK TABLE `'.$row['Name'].'`');
 					if ($tmp_res)
 					{
 						$tmp_row=mysqli_fetch_row($tmp_res);

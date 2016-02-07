@@ -78,7 +78,7 @@ switch ($sysaction)
 		break;
 	case 5: //RESET MASTER
 		$msg="&gt; operating RESET MASTER<br>";
-		$res=@mysqli_query("RESET MASTER",$config['dbconnection']);
+		$res=@mysqli_query($config['dbconnection'], "RESET MASTER");
 		$meldung=mysqli_error($config['dbconnection']);
 		if ($meldung!="")
 		{

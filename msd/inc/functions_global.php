@@ -116,7 +116,7 @@ function DBDetailInfo($index)
 	{
 		mysqli_select_db($databases['Name'][$index]);
 		$databases['Detailinfo']['Name']=$databases['Name'][$index];
-		$res=@mysqli_query('SHOW TABLE STATUS FROM `'.$databases['Name'][$index].'`');
+		$res=@mysqli_query($config['dbconnection'], 'SHOW TABLE STATUS FROM `'.$databases['Name'][$index].'`');
 		if ($res) $databases['Detailinfo']['tables']=mysqli_num_rows($res);
 		if ($databases['Detailinfo']['tables']>0)
 		{
@@ -423,8 +423,8 @@ function EmptyDB($dbn)
 {
 	global $config;
 	$t_sql=array();
-	@mysqli_query('SET FOREIGN_KEY_CHECKS=0');
-	$res=mysqli_query('SHOW TABLE STATUS FROM `'.$dbn.'`',$config['dbconnection']) or die('EmptyDB: '.mysqli_error());
+	@mysqli_query($config['dbconnection'], 'SET FOREIGN_KEY_CHECKS=0');
+	$res=mysqli_query($config['dbconnection'], 'SHOW TABLE STATUS FROM `'.$dbn.'`') or die('EmptyDB: '.mysqli_error());
 	WHILE ($row=mysqli_fetch_array($res,MYSQLI_ASSOC))
 	{
 		if (substr(strtoupper($row['Comment']),0,4)=='VIEW')
@@ -440,10 +440,10 @@ function EmptyDB($dbn)
 	{
 		for ($i=0; $i<count($t_sql); $i++)
 		{
-			$res=mysqli_query($t_sql[$i]) or die('EmptyDB-Error: '.mysqli_error());
+			$res=mysqli_query($config['dbconnection'], $t_sql[$i]) or die('EmptyDB-Error: '.mysqli_error());
 		}
 	}
-	@mysqli_query('SET FOREIGN_KEY_CHECKS=1');
+	@mysqli_query($config['dbconnection'], 'SET FOREIGN_KEY_CHECKS=1');
 }
 
 function AutoDelete()

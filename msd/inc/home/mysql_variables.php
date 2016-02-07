@@ -14,7 +14,7 @@ echo '<p>&nbsp;</p>';
 switch ($var)
 {
 	case "variables":
-		$res=@mysqli_query("SHOW variables");
+		$res=@mysqli_query($config['dbconnection'], "SHOW variables");
 		if ($res) $numrows=mysqli_num_rows($res);
 		if ($numrows==0)
 		{
@@ -33,7 +33,7 @@ switch ($var)
 		echo '</table>';
 		break;
 	case "status":
-		$res=@mysqli_query("SHOW STATUS");
+		$res=@mysqli_query($config['dbconnection'], "SHOW STATUS");
 		if ($res) $numrows=mysqli_num_rows($res);
 		if ($numrows==0)
 		{
@@ -59,7 +59,7 @@ switch ($var)
 			$wait=(isset($_GET['wait'])) ? $_GET['wait'] : 0;
 			if ($wait==0)
 			{
-				$ret=mysqli_query("KILL ".$_GET['killid']);
+				$ret=mysqli_query($config['dbconnection'], "KILL ".$_GET['killid']);
 				$wait=2;
 			}
 			else
@@ -77,7 +77,7 @@ switch ($var)
 		}
 		
 		$killid=$wait=0;
-		$res=@mysqli_query("SHOW FULL PROCESSLIST ");
+		$res=@mysqli_query($config['dbconnection'], "SHOW FULL PROCESSLIST ");
 		if ($res) $numrows=mysqli_num_rows($res);
 		if ($numrows==0)
 		{
