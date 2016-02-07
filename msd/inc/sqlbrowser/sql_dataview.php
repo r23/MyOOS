@@ -159,7 +159,8 @@ if ($numrowsabs > 0 && $Anzahl_SQLs <= 1)
 
 		for ($x=0; $x < count($row); $x++)
 		{
-			$temp[$x]['data']=mysqli_fetch_field($res,$x);
+		    //	$temp[$x]['data']=mysqli_fetch_field($res,$x);
+			$temp[$x]['data']=mysqli_fetch_field($res);
 			$temp[$x]['sort']=add_sortkey($temp[$x]['data']->name);
 		}
 
@@ -180,8 +181,8 @@ if ($numrowsabs > 0 && $Anzahl_SQLs <= 1)
 			$fdesc[$temp[$x]['data']->name]['numeric']=isset($str->numeric) ? $str->numeric : '';
 			$fdesc[$temp[$x]['data']->name]['blob']=isset($str->blob) ? $str->blob : '';
 			$fdesc[$temp[$x]['data']->name]['type']=isset($str->type) ? $str->type : '';
-			$fdesc[$temp[$x]['data']->name]['unsigned']=$str->unsigned;
-			$fdesc[$temp[$x]['data']->name]['zerofill']=$str->zerofill;
+			$fdesc[$temp[$x]['data']->name]['unsigned']=isset($str->unsigned) ? $str->unsigned : '';
+			$fdesc[$temp[$x]['data']->name]['zerofill']=isset($str->zerofill) ? $str->zerofill : '';
 			$fdesc[$temp[$x]['data']->name]['Check_time']=isset($str->Check_time) ? $str->Check_time : '';
 			$fdesc[$temp[$x]['data']->name]['Checksum']=isset($str->Checksum) ? $str->Checksum : '';
 			$fdesc[$temp[$x]['data']->name]['Engine']=isset($str->Engine) ? $str->Engine : '';
@@ -191,7 +192,8 @@ if ($numrowsabs > 0 && $Anzahl_SQLs <= 1)
 			$tt=$lang['L_NAME'] . ': ' . $fdesc[$temp[$x]['data']->name]['name'] . ' Type: ' . $fdesc[$temp[$x]['data']->name]['type'] . " Max Length: " . $fdesc[$temp[$x]['data']->name]['max_length'] . " Unsigned: " . $fdesc[$temp[$x]['data']->name]['unsigned'] . " zerofill: " . $fdesc[$temp[$x]['data']->name]['zerofill'];
 
 			$pic='<img src="' . $icon['blank'] . '" alt="" width="1" height="1" border="0">';
-			if ($str->primary_key == 1 || $str->unique_key == 1)
+			if ( (isset($str->primary_key) && ($str->primary_key == 1)) || (isset($str->unique_key) && ($str->unique_key == 1)) )	
+			
 			{
 				if ($key == -1) $key=$temp[$x]['data']->name;
 				else $key.='|' . $temp[$x]['data']->name;
@@ -214,7 +216,7 @@ if ($numrowsabs > 0 && $Anzahl_SQLs <= 1)
 
 		$temp=array();
 		//und jetzt Daten holen
-		mysql_data_seek($res,0);
+		mysqli_data_seek($res,0);
 
 		$s=$keysort;
 		$s=array_flip($keysort);
