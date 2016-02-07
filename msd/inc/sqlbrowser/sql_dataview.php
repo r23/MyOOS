@@ -159,7 +159,7 @@ if ($numrowsabs > 0 && $Anzahl_SQLs <= 1)
 
 		for ($x=0; $x < count($row); $x++)
 		{
-			$temp[$x]['data']=mysql_fetch_field($config['dbconnection'],$res,$x);
+			$temp[$x]['data']=mysqli_fetch_field($res,$x);
 			$temp[$x]['sort']=add_sortkey($temp[$x]['data']->name);
 		}
 
