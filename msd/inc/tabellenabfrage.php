@@ -121,7 +121,7 @@ else
 		//Tabellenfinos lesen
 		gzseek($fp,$offset);
 		$eof=false;
-		WHILE (!$eof)
+		while (!$eof)
 		{
 			$line=$gz ? gzgets($fp,40960) : fgets($fp,40960);
 			

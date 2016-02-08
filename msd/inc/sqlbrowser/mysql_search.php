@@ -7,7 +7,7 @@ $link=MSD_mysql_connect();
 $res=mysqli_query($link, $sql);
 if (!$res===false)
 {
-	WHILE ($row=mysqli_fetch_array($res,MYSQL_NUM))
+	while ($row=mysqli_fetch_array($res,MYSQL_NUM))
 	{
 		$tables[]=$row[0];
 	}
@@ -75,7 +75,7 @@ function mysql_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzahl
 			if (!$res===false)
 			{
 				// Felder der Tabelle ermitteln
-				WHILE ($row=mysqli_fetch_object($res))
+				while ($row=mysqli_fetch_object($res))
 				{
 					$felder[]=$row->Field;
 				}
@@ -133,7 +133,7 @@ function mysql_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzahl
 		$res=@mysqli_query($link, $sql);
 		if ($res)
 		{
-			WHILE ($row=mysqli_fetch_array($res,MYSQLI_ASSOC))
+			while ($row=mysqli_fetch_array($res,MYSQLI_ASSOC))
 			{
 				//Treffer markieren
 				foreach ($row as $key=>$val)

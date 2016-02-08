@@ -16,6 +16,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+define('OOS_VALID_MOD', true);
+
 if (!@ob_start("ob_gzhandler")) @ob_start();
 function print_save_button()
 {
@@ -56,7 +58,7 @@ if (isset($_GET['config']))
 		$config['config_file']=$_GET['config'];
 		$_SESSION['config_file']=$config['config_file'];
 		$msg="<strong>" . sprintf($lang['L_CONFIG_LOADED'],$config['config_file']) . "</strong>";
-		$msg.='<script type="text/javascript" language="javascript">parent.MySQL_Dumper_menu.location.href="menu.php?config=' . $config['config_file'] . '";</script>';
+		$msg.='<script type="text/javascript" language="javascript">parent.MyOOS_Dumper_menu.location.href="menu.php?config=' . $config['config_file'] . '";</script>';
 	}
 	else
 	{
@@ -71,7 +73,7 @@ if (isset($_GET['config_delete']))
 	if ($del_config == $config['config_file'])
 	{
 		//aktuell gewaehlte Konfiguration wurde geloescht
-		$config['config_file']='mysqldumper';
+		$config['config_file']='myoosdumper';
 		$_SESSION['config_file']=$config['config_file'];
 		read_config($config['config_file']); // Standard laden
 	}
@@ -79,7 +81,7 @@ if (isset($_GET['config_delete']))
 	$del=@unlink($config['paths']['config'] . $del_config . '.php');
 	if ($del) $del=@unlink($config['paths']['config'] . $del_config . '.conf.php');
 	if ($del === false) $msg='<p class="error">' . sprintf($lang['L_ERROR_DELETING_CONFIGFILE'],$del_config) . '</p>';
-	else $msg='<p class="success">' . sprintf($lang['L_SUCCESS_DELETING_CONFIGFILE'],$del_config) . '</p>' . '<script type="text/javascript">parent.MySQL_Dumper_menu.location.href="menu.php?config=' . $config['config_file'] . '";</script>'; //refresh menu-frame
+	else $msg='<p class="success">' . sprintf($lang['L_SUCCESS_DELETING_CONFIGFILE'],$del_config) . '</p>' . '<script type="text/javascript">parent.MyOOS_Dumper_menu.location.href="menu.php?config=' . $config['config_file'] . '";</script>'; //refresh menu-frame
 	$sel='configs';
 }
 
@@ -160,7 +162,7 @@ if (isset($_POST['load']))
 {
 	$msg=SetDefault(true);
 	$msg=nl2br($msg) . "<br>" . $lang['L_LOAD_SUCCESS'] . "<br>";
-	echo '<script type="text/javascript">parent.MySQL_Dumper_menu.location.href="menu.php";</script>';
+	echo '<script type="text/javascript">parent.MyOOS_Dumper_menu.location.href="menu.php";</script>';
 }
 
 if (isset($_POST['save']))
@@ -340,7 +342,7 @@ if (isset($_POST['save']))
 		{
 			// neue Verbindungsdaten wurden akzeptiert -> manuelle DB-Liste von anderem User löschen
 			SetDefault();
-			$msg.='<script type="text/javascript">parent.MySQL_Dumper_menu.location.href="menu.php";</script>';
+			$msg.='<script type="text/javascript">parent.MyOOS_Dumper_menu.location.href="menu.php";</script>';
 		}
 		else
 		{
@@ -377,7 +379,7 @@ if (isset($_POST['save']))
 				{
 					$databases['Name'][] = $to_add;
 					//Menü aktualisieren, damit die DB in der Selectliste erscheint
-					echo '<script type="text/javascript">parent.MySQL_Dumper_menu.location.href="menu.php";</script>';
+					echo '<script type="text/javascript">parent.MyOOS_Dumper_menu.location.href="menu.php";</script>';
 				}
 				else
 					$add_db_message=sprintf($lang['L_DB_MANUAL_ERROR'],$to_add);
@@ -407,14 +409,14 @@ if (isset($_POST['save']))
 			//neue Sprache? Dann Menue links auch aktualisieren
 			if ($_SESSION['config']['language'] != $config['language'] || $_POST['scaption_old'] != $config['interface_server_caption'] || $oldtheme != $config['theme'] || $oldscposition != $config['interface_server_caption_position'])
 			{
-				$msg.='<script type="text/javascript">parent.MySQL_Dumper_menu.location.href="menu.php?config=' . urlencode($config['config_file']) . '";</script>';
+				$msg.='<script type="text/javascript">parent.MyOOS_Dumper_menu.location.href="menu.php?config=' . urlencode($config['config_file']) . '";</script>';
 				if (isset($_POST['cron_savepath_new']) && $_POST['cron_savepath_new'] > '') $msg.='<p class="success">' . $lang['L_SUCCESS_CONFIGFILE_CREATED'] . '</p>';
 			}
 			//Parameter laden
 			read_config($config['config_file']);
 			if ($config['logcompression'] != $oldlogcompression) DeleteLog();
 			$msg.='<p class="success">' . sprintf($lang['L_SAVE_SUCCESS'],$config['config_file']) . '</p>';
-			$msg.='<script type="text/javascript" language="javascript">parent.MySQL_Dumper_menu.location.href="menu.php?config=' . $config['config_file'] . '";</script>';
+			$msg.='<script type="text/javascript" language="javascript">parent.MyOOS_Dumper_menu.location.href="menu.php?config=' . $config['config_file'] . '";</script>';
 		}
 		else
 			$msg.='<p class="error">' . $lang['L_SAVE_ERROR'] . '</p>';
@@ -676,7 +678,7 @@ if (sizeof($configs) > 0)
 		$aus['conf'].='</table></td><td>';
 		$aus['conf'].='<a href="config_overview.php?config=' . urlencode($c) . '">' . $icon['edit'] . '</a>';
 
-		if ($c != 'mysqldumper') // && $old_config['config_file']!=$c)
+		if ($c != 'myoosdumper') // && $old_config['config_file']!=$c)
 $aus['conf'].='<a href="config_overview.php?config_delete=' . urlencode($c) . '" onclick="if(!confirm(\'' . sprintf($lang['L_CONFIRM_CONFIGFILE_DELETE'],$c) . '\')) return false;">' . $icon['delete'] . '</a>';
 		else $aus['conf'].='&nbsp;';
 

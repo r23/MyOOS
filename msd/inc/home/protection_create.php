@@ -56,7 +56,7 @@ if (isset($_POST['username']))
 	if (sizeof($error)==0)
 	{
 		$htaccess = "<IfModule mod_rewrite.c>\nRewriteEngine off\n</IfModule>\n";
-		$realm='MySQLDumper';
+		$realm='MyOOS-Dumper';
 		$htaccess.="AuthName \"".$realm."\"\nAuthType Basic\nAuthUserFile \""
 		  .$config['paths']['root'].".htpasswd\"\nrequire valid-user";
 		switch ($type)

@@ -16,8 +16,10 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+define('OOS_VALID_MOD', true);
+
 if (!@ob_start("ob_gzhandler")) @ob_start();
-session_name('MySQLDumper');
+session_name('MyOOSDumperID');
 session_start();
 $aus2=$page_parameter=$a=$out='';
 include_once ('./inc/functions_dump.php');
@@ -171,7 +173,7 @@ else
 	{
 		// SQL-Befehle ermitteln
 		$dump['restzeilen']=$dump['anzahl_zeilen'];
-		WHILE (($dump['table_offset']<$num_tables)&&($dump['restzeilen']>0))
+		while (($dump['table_offset']<$num_tables)&&($dump['restzeilen']>0))
 		{
 			$table=substr($dump['tables'][$dump['table_offset']],strpos($dump['tables'][$dump['table_offset']],'|')+1);
 			$adbname=substr($dump['tables'][$dump['table_offset']],0,strpos($dump['tables'][$dump['table_offset']],'|'));

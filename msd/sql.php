@@ -16,6 +16,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+define('OOS_VALID_MOD', true);
+
 if (!@ob_start("ob_gzhandler")) @ob_start();
 $download=(isset($_POST['f_export_submit'])&&(isset($_POST['f_export_sendresult'])&&$_POST['f_export_sendresult']==1));
 include ('./inc/header.php');

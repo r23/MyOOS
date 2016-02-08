@@ -443,7 +443,7 @@ function EmptyDB($dbn)
 	$t_sql=array();
 	@mysqli_query($config['dbconnection'], 'SET FOREIGN_KEY_CHECKS=0');
 	$res=mysqli_query($config['dbconnection'], 'SHOW TABLE STATUS FROM `'.$dbn.'`') or die('EmptyDB: '.mysqli_error());
-	WHILE ($row=mysqli_fetch_array($res,MYSQLI_ASSOC))
+	while ($row=mysqli_fetch_array($res,MYSQLI_ASSOC))
 	{
 		if (substr(strtoupper($row['Comment']),0,4)=='VIEW')
 		{
@@ -660,7 +660,7 @@ function zeit_format($t)
 	$tt_m=floor($t/60);
 	$tt_s=$t-($tt_m*60);
 	if ($tt_m<1) return floor($tt_s).' '.$lang['L_SECONDS'];
-	else if ($tt_m==1) return '1 '.$lang['L_MINUTE'].' '.floor($tt_s).' '.$lang['L_SECONDS'];
+	elseif ($tt_m==1) return '1 '.$lang['L_MINUTE'].' '.floor($tt_s).' '.$lang['L_SECONDS'];
 	else return $tt_m.' '.$lang['L_MINUTES'].' '.floor($tt_s).' '.$lang['L_SECONDS'];
 }
 
@@ -1205,7 +1205,7 @@ function get_sql_encodings()
 		$res=MSD_query($sqlt) or die(SQLError($sqlt,mysqli_error()));
 		if ($res)
 		{
-			WHILE ($row=mysqli_fetch_row($res))
+			while ($row=mysqli_fetch_row($res))
 			{
 				if ($row[0]=='character_set')
 				{
@@ -1230,7 +1230,7 @@ function get_sql_encodings()
 
 		if ($res)
 		{
-			WHILE ($row=mysqli_fetch_row($res))
+			while ($row=mysqli_fetch_row($res))
 			{
 				$config['mysql_possible_character_sets'][]=$row[0].' - '.$row[1];
 			}
@@ -1242,7 +1242,7 @@ function get_sql_encodings()
 
 		if ($res)
 		{
-			WHILE ($row=mysqli_fetch_row($res))
+			while ($row=mysqli_fetch_row($res))
 			{
 				$config['mysql_standard_character_set']=$row[1];
 			}

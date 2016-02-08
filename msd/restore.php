@@ -16,8 +16,10 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+define('OOS_VALID_MOD', true);
+
 if (!@ob_start("ob_gzhandler")) @ob_start();
-session_name('MySQLDumper');
+session_name('MyOOSDumperID');
 session_start();
 include ('./inc/functions.php');
 include ('./inc/functions_restore.php');
@@ -139,7 +141,7 @@ if ($restore['filehandle'])
 		}
 		elseif (sizeof($restore['tables_to_restore'])==0&&($restore['actual_table']>''&&$restore['actual_table']!='unbekannt')) @mysqli_query($config['dbconnection'], '/*!40000 ALTER TABLE `'.$restore['actual_table'].'` DISABLE KEYS */;');
 		
-		WHILE (($a<$restore['anzahl_zeilen'])&&(!$restore['fileEOF'])&&($dauer<$restore['max_zeit'])&&!$restore['EOB'])
+		while (($a<$restore['anzahl_zeilen'])&&(!$restore['fileEOF'])&&($dauer<$restore['max_zeit'])&&!$restore['EOB'])
 		{
 			$sql_command=get_sqlbefehl();
 			if ($sql_command>'')

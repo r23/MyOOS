@@ -16,6 +16,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+   
 if (!function_exists('get_page_parameter')) include ( './inc/functions_global.php' );
 
 if (!function_exists('str_ireplace')) // borrowed from http://www.dscripts.net
@@ -163,10 +166,10 @@ function SetDefault($load_default=false)
 	//DB-Liste holen
 	MSD_mysql_connect();
 
-	$create_statement='CREATE TABLE `mysqldumper_test_abcxyvfgh` (`test` varchar(200) default NULL, `id` bigint(20) unsigned NOT NULL auto_increment,' . 'PRIMARY KEY  (`id`)) TYPE=MyISAM;';
+	$create_statement='CREATE TABLE `myoosdumper_test_abcxyvfgh` (`test` varchar(200) default NULL, `id` bigint(20) unsigned NOT NULL auto_increment,' . 'PRIMARY KEY  (`id`)) TYPE=MyISAM;';
 
 	$res=mysqli_query($config['dbconnection'], "SHOW DATABASES");
-	WHILE ($row=mysqli_fetch_row($res)) {
+	while ($row=mysqli_fetch_row($res)) {
 	    $found_dbs[] = $row[0];
 	}
 	$found_dbs = array_merge($oldDbArray, $found_dbs);
@@ -532,9 +535,9 @@ function WriteCronScript($restore_values=false)
 		$ret=false;
 
 	// if standard config was deleted -> restore it with the actual values
-	if (!file_exists($config['paths']['config'] . "mysqldumper.conf.php"))
+	if (!file_exists($config['paths']['config'] . "myoosdumper.conf.php"))
 	{
-		$sfile=$config['paths']['config'] . 'mysqldumper.conf.php';
+		$sfile=$config['paths']['config'] . 'myoosdumper.conf.php';
 		if ($fp=fopen($sfile,"wb"))
 		{
 			if (!fwrite($fp,$cronscript)) $ret=false;
@@ -684,7 +687,7 @@ function SearchDatabases($printout, $db='')
 	$show_dbs=mysqli_query($config['dbconnection'],"SHOW DATABASES");
 	if (!$show_dbs === false)
 	{
-		WHILE ($row=mysqli_fetch_row($show_dbs))
+		while ($row=mysqli_fetch_row($show_dbs))
 		{
 			if (trim($row[0]) > '') $db_list[]=$row[0];
 		}
@@ -764,7 +767,7 @@ function db_escape($string)
 	{
 		$string=mysqli_real_escape_string($string,$config['dbconnection']);
 	}
-	else if (function_exists('mysqli_escape_string'))
+	elseif (function_exists('mysqli_escape_string'))
 	{
 		$string=mysqli_escape_string($string,$config['dbconnection']);
 	}

@@ -118,7 +118,7 @@ $config['auto_delete']=0;
 $config['max_backup_files']=3;
 
 //configuration file
-$config['cron_configurationfile']='mysqldumper.conf.php';
+$config['cron_configurationfile']='myoosdumper.conf.php';
 //path to perl, for windows use e.g. C:perlbinperl.exe
 $config['cron_perlpath']='/usr/bin/perl';
 //mailer use sendmail(1) or SMTP(0)

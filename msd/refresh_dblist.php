@@ -23,8 +23,11 @@
 // $configurationfiles=array('mysqldumper','db2');
 /////////////////////////////////////////////////////////////////////////
 $configurationfiles=array(
-						'mysqldumper'
+						'myoosdumper'
 );
+
+
+define('OOS_VALID_MOD', true);
 
 define('APPLICATION_PATH',realpath(dirname(__FILE__)));
 chdir(APPLICATION_PATH);

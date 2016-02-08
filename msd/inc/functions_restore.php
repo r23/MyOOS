@@ -30,7 +30,7 @@ function get_sqlbefehl()
 	if (!isset($restore['eintraege_ready'])) $restore['eintraege_ready']=0;
 
 	//Parsen
-	WHILE ($sqlparser_status!=100&&!$restore['fileEOF']&&!$restore['EOB'])
+	while ($sqlparser_status!=100&&!$restore['fileEOF']&&!$restore['EOB'])
 	{
 		//nächste Zeile lesen
 		$zeile=($restore['compressed']) ? gzgets($restore['filehandle']):fgets($restore['filehandle']);
@@ -382,7 +382,7 @@ function get_tablename($t)
 	if ($delimiter!='`') $delimiter=' ';
 	$found=false;
 	$position=1;
-	WHILE (!$found)
+	while (!$found)
 	{
 		if (substr($t,$position,1)==$delimiter) $found=true;
 		if ($position>=strlen($t)) $found=true;

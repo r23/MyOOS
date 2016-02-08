@@ -16,6 +16,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+define('OOS_VALID_MOD', true);
+
 if (!@ob_start("ob_gzhandler")) @ob_start();
 include_once ('./inc/header.php');
 include_once ('./inc/runtime.php');

@@ -1,21 +1,21 @@
 <div id="menu">
 <ul>
-	<li id="m1" class="active"><a href="main.php" target="MySQL_Dumper_content" onclick="setMenuActive('m1')">{L_HOME}</a></li>
-	<li id="m2" class=""><a href="config_overview.php" target="MySQL_Dumper_content" onclick="setMenuActive('m2')">{L_CONFIG}</a></li>
+	<li id="m1" class="active"><a href="main.php" target="MyOOS_Dumper_content" onclick="setMenuActive('m1')">{L_HOME}</a></li>
+	<li id="m2" class=""><a href="config_overview.php" target="MyOOS_Dumper_content" onclick="setMenuActive('m2')">{L_CONFIG}</a></li>
 	
 	<!-- BEGIN MAINTENANCE -->
 	<li id="m3" class=""><a href="filemanagement.php?action=dump"
-		target="MySQL_Dumper_content" onclick="setMenuActive('m3')">{L_DUMP}</a></li>
+		target="MyOOS_Dumper_content" onclick="setMenuActive('m3')">{L_DUMP}</a></li>
 	<li id="m4" class=""><a href="filemanagement.php?action=restore"
-		target="MySQL_Dumper_content" onclick="setMenuActive('m4')">{L_RESTORE}</a></li>
+		target="MyOOS_Dumper_content" onclick="setMenuActive('m4')">{L_RESTORE}</a></li>
 	<li id="m5" class=""><a href="filemanagement.php?action=files"
-		target="MySQL_Dumper_content" onclick="setMenuActive('m5')">{L_FILE_MANAGE}</a></li>
+		target="MyOOS_Dumper_content" onclick="setMenuActive('m5')">{L_FILE_MANAGE}</a></li>
 	<li id="m6" class=""><a	href="sql.php?db={DB_ACTUAL}&amp;dbid={DB_SELECTED_INDEX}"
-		target="MySQL_Dumper_content" onclick="setMenuActive('m6')">{L_SQL_BROWSER}</a></li>
-	<li id="m7" class=""><a href="log.php" target="MySQL_Dumper_content"
+		target="MyOOS_Dumper_content" onclick="setMenuActive('m6')">{L_SQL_BROWSER}</a></li>
+	<li id="m7" class=""><a href="log.php" target="MyOOS_Dumper_content"
 		onclick="setMenuActive('m7')">{L_LOG}</a></li>
 	<!-- END MAINTENANCE -->
-	<li id="m8" class=""><a href="help.php" target="MySQL_Dumper_content" onclick="setMenuActive('m8')">{L_CREDITS}</a></li>
+	<li id="m8" class=""><a href="help.php" target="MyOOS_Dumper_content" onclick="setMenuActive('m8')">{L_CREDITS}</a></li>
 </ul>
 </div>
 

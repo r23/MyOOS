@@ -16,6 +16,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+define('OOS_VALID_MOD', true);
  
 if (!@ob_start("ob_gzhandler")) @ob_start();
 include_once ('./inc/header.php');
@@ -52,12 +53,12 @@ if (isset($_POST['selected_config'])||isset($_GET['config']))
 			$_SESSION['config_file']=$new_config; //$config['config_file'];
 			$config_refresh='
 			<script language="JavaScript" type="text/javascript">
-			if (parent.MySQL_Dumper_content.location.href.indexOf("config_overview.php")!=-1)
+			if (parent.MyOOS_Dumper_content.location.href.indexOf("config_overview.php")!=-1)
 			{
-				var selected_div=parent.MySQL_Dumper_content.document.getElementById("sel").value;
+				var selected_div=parent.MyOOS_Dumper_content.document.getElementById("sel").value;
 			}
 			else selected_div=\'\';
-			parent.MySQL_Dumper_content.location.href=\'config_overview.php?config='.urlencode($new_config).'&sel=\'+selected_div</script>';
+			parent.MyOOS_Dumper_content.location.href=\'config_overview.php?config='.urlencode($new_config).'&sel=\'+selected_div</script>';
 		}
 		if (isset($_GET['config'])) $config_refresh=''; //Neu-Aufruf bei Uebergabe aus Content-Bereich verhindern
 	}

@@ -18,7 +18,7 @@
 
 $msd_path=realpath(dirname(__FILE__) . '/../') . '/';
 if (!defined('MSD_PATH')) define('MSD_PATH',$msd_path);
-session_name('MySQLDumper');
+session_name('MyOOSDumperID');
 session_start();
 if (!isset($download))
 {

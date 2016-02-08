@@ -16,6 +16,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+define('OOS_VALID_MOD', true);
+
 if (!@ob_start("ob_gzhandler")) @ob_start();
 $install_ftp_server=$install_ftp_user_name=$install_ftp_user_pass=$install_ftp_path="";
 $dbhost=$dbuser=$dbpass=$dbport=$dbsocket=$manual_db='';
@@ -78,17 +80,20 @@ $img_failed='<img src="' . $config['files']['iconpath'] . 'notok.gif" width="16"
 $href="install.php?language=$language&phase=$phase&connstr=$connstr";
 header('content-type: text/html; charset=utf-8');
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html>
 <head>
-<meta http-equiv="pragma" content="no-cache">
-<meta http-equiv="expires" content="0">
-<meta http-equiv="cache-control" content="must-revalidate">
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-<title>MySQLDumper - Installation</title>
+	<meta charset="utf-8" />
+	<meta name="robots" content="noindex,nofollow" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="cache-control" content="must-revalidate">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>MyOOS [Dumper]  - Installation</title>
 
-<link rel="stylesheet" type="text/css" href="css/msd/style.css">
-<script src="js/script.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="css/msd/style.css">
+	<script src="js/script.js" type="text/javascript"></script>
 <style type="text/css" media="screen">
 td {
 	border: 1px solid #ddd;
@@ -611,23 +616,23 @@ function rec_rmdir($path)
 				@closedir($dir); // Verzeichnis schliessen
 				return -2; // normalen Fehler melden
 			}
-			else if ($res == -2)
+			elseif ($res == -2)
 			{ // Fehler?
 				@closedir($dir); // Verzeichnis schliessen
 				return -2; // Fehler weitergeben
 			}
-			else if ($res == -3)
+			elseif ($res == -3)
 			{ // nicht unterstuetzer Dateityp?
 				@closedir($dir); // Verzeichnis schliessen
 				return -3; // Fehler weitergeben
 			}
-			else if ($res != 0)
+			elseif ($res != 0)
 			{ // das duerfe auch nicht passieren...
 				@closedir($dir); // Verzeichnis schliessen
 				return -2; // Fehler zurueck
 			}
 		}
-		else if (is_file($path . '/' . $entry) || is_link($path . '/' . $entry))
+		elseif (is_file($path . '/' . $entry) || is_link($path . '/' . $entry))
 		{
 			// ansonsten loesche diese Datei / diesen Link
 			$res=@unlink($path . '/' . $entry);

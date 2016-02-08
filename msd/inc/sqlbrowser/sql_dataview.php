@@ -65,7 +65,7 @@ if ($databases['Name'][$dbid]!=$databases['db_actual'])
 	$databases['db_actual']=$databases['Name'][$dbid];
 	// refresh menu to switch to actual database
 	echo '<script type="text/javascript" language="javascript">'
-		.'parent.MySQL_Dumper_menu.location.href=\'menu.php?dbindex='.$dbid.'\';</script>';
+		.'parent.MyOOS_Dumper_menu.location.href=\'menu.php?dbindex='.$dbid.'\';</script>';
 
 }
 echo '</p><p class="tablename">' . ( $tn != '' ? $lang['L_TABLE'] . ' <strong>`' . $databases['db_actual'] . '`.`' . $tn . '`</strong><br>' : '' );

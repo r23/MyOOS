@@ -35,7 +35,7 @@ for ($i=0; $i<count($databases['Name']); $i++)
 		$dba='<p class="green">'.$lang['L_DB'].' '.$databases['Name'][$i].' '.$lang['L_INFO_DELETED'].'</p>';
 		SetDefault();
 		include ($config['files']['parameter']);
-		echo '<script language="JavaScript">parent.MySQL_Dumper_menu.location.href="menu.php?action=dbrefresh";</script>';
+		echo '<script language="JavaScript">parent.MyOOS_Dumper_menu.location.href="menu.php?action=dbrefresh";</script>';
 		break;
 	}
 	if (isset($_POST['optimize'.$i]))
@@ -43,7 +43,7 @@ for ($i=0; $i<count($databases['Name']); $i++)
 	    mysqli_select_db($config['dbconnection'], $databases['Name'][$i]);
         $res=mysqli_query($config['dbconnection'], 'SHOW TABLES FROM `'.$databases['Name'][$i].'`');
 		$tabellen='';
-		WHILE ($row=mysqli_fetch_row($res))
+		while ($row=mysqli_fetch_row($res))
 			$tabellen.='`'.$row[0].'`,';
 		$tabellen=substr($tabellen,0,(strlen($tabellen)-1));
 		if ($tabellen>"")
@@ -206,7 +206,7 @@ if (isset($_GET['dbid']))
                     $tmp_res=mysqli_query($sSql);
                 }
                 $res3=mysqli_query('SHOW INDEX FROM `'.$databases['Name'][$dbid]."`.`".$row['Name']."`");
-                WHILE ($row3 = mysqli_fetch_array($res3, MYSQLI_ASSOC))
+                while ($row3 = mysqli_fetch_array($res3, MYSQLI_ASSOC))
                 {
                     if ($row3['Comment']=="disabled") {
                         $keys_disabled = true;

@@ -16,14 +16,13 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+ 
 error_reporting(E_ALL);
-if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
-    error_reporting(E_ALL & ~E_DEPRECATED);
-}
+
 
 if (function_exists("date_default_timezone_set")) date_default_timezone_set(@date_default_timezone_get());
 //Konstanten
-if (!defined('MSD_VERSION')) define('MSD_VERSION','MyOOS Version 1.0.0-dev  based on MySQLDumper 1.24.4');
+if (!defined('MSD_VERSION')) define('MSD_VERSION','1.0.0-dev based on MySQLDumper 1.24.4');
 if (!defined('MSD_OS')) define('MSD_OS',PHP_OS);
 if (!defined('MSD_OS_EXT')) define('MSD_OS_EXT',@php_uname());
 if (!defined('config') || !is_array($config)) $config=array();
@@ -46,7 +45,7 @@ else
 {
 	$config['config_file']='mysqldumper';
 	$_SESSION['config_file']='mysqldumper';
-	$config['cron_configurationfile']='mysqldumper.conf.php';
+	$config['cron_configurationfile']='myoosdumper.conf.php';
 }
 $config['files']['log']=$config['paths']['log'] . 'mysqldump.log';
 $config['files']['perllog']=$config['paths']['log'] . 'mysqldump_perl.log';

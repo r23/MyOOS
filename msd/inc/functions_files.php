@@ -17,6 +17,7 @@
    ---------------------------------------------------------------------- */
 
 if (!defined('MSD_VERSION')) die('No direct access.');
+
 function FilelisteCombo($fpath,$selected)
 {
 	$r='<select name="selectfile">';
@@ -366,7 +367,7 @@ function Converter($filesource,$filedestination,$cp)
 	$n=0;
 	$eof=($cps==1) ? gzeof($f):feof($f);
 	$splitable=false; // can the file be splitted? Try to avoid splitting before a command is completed
-	WHILE (!$eof)
+	while (!$eof)
 	{
 		$eof=($cps==1) ? gzeof($f):feof($f);
 		$zeile=($cps==1) ? gzgets($f,5144000):fgets($f,5144000);
@@ -399,7 +400,7 @@ function Converter($filesource,$filedestination,$cp)
 				case 'create tab':
 					{
 						$mode='create';
-						WHILE (substr(rtrim($zeile),-1)!=';')
+						while (substr(rtrim($zeile),-1)!=';')
 						{
 							$zeile.=fgets($f,8192);
 						}

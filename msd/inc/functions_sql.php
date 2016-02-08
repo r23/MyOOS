@@ -154,7 +154,7 @@ function Table_Exists($db, $table)
 	if ($res)
 	{
 		$tables=array();
-		WHILE ($row=mysqli_fetch_row($res))
+		while ($row=mysqli_fetch_row($res))
 		{
 			$tables[]=$row[0];
 		}
@@ -920,7 +920,7 @@ function getFieldinfos($db, $tabelle)
 	// now get key definitions of the table and add info to fields
 	$sql='SHOW KEYS FROM `' . $db . '`.`' . $tabelle . '`';
 	$res=MSD_query($sql);
-	WHILE ($row=mysqli_fetch_array($res,MYSQLI_ASSOC))
+	while ($row=mysqli_fetch_array($res,MYSQLI_ASSOC))
 	{
 		//v($row);
 		$key_name=isset($row['Key_name']) ? $row['Key_name'] : '';
@@ -1019,7 +1019,7 @@ function getExtendedFieldInfo($db, $table)
 	// now get key definitions of the table and add info to field-array
 	$sql='SHOW KEYS FROM `' . $db . '`.`' . $table . '`';
 	$res=MSD_query($sql);
-	WHILE ($row=mysqli_fetch_array($res,MYSQLI_ASSOC))
+	while ($row=mysqli_fetch_array($res,MYSQLI_ASSOC))
 	{
 		//echo "<br>Keys of $table: ";v($row);
 		$key_name=isset($row['Key_name']) ? $row['Key_name'] : '';

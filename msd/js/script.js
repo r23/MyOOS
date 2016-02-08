@@ -3,7 +3,7 @@ var NS=(document.layers);var IE=(document.all);function obj_enable(objid)
 function obj_disable(objid)
 {var e=document.getElementById(objid);e.disabled=true;}
 function setactiveMenuFromContent()
-{var a=parent.MySQL_Dumper_content.location.href;var menuid=1;if(a.indexOf("config_overview.php")!=-1)menuid=2;if(a.indexOf("filemanagement.php")!=-1)
+{var a=parent.MyOOS_Dumper_content.location.href;var menuid=1;if(a.indexOf("config_overview.php")!=-1)menuid=2;if(a.indexOf("filemanagement.php")!=-1)
 {if(a.indexOf("action=dump")!=-1)menuid=3;if(a.indexOf("action=restore")!=-1)menuid=4;if(a.indexOf("action=files")!=-1)menuid=5;}
 if(a.indexOf("sql.php")!=-1)menuid=6;if(a.indexOf("log.php")!=-1)menuid=7;if(a.indexOf("help.php")!=-1)menuid=8;setMenuActive('m'+menuid);}
 function setMenuActive(id){for(var i=1;i<=10;i++){var objid='m'+i;if(id==objid)

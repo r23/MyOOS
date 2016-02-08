@@ -16,6 +16,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+define('OOS_VALID_MOD', true);
+
 if (isset($_GET['action'])&&$_GET['action']=='dl') $download=true;
 include ('./inc/header.php');
 include_once ('./language/'.$config['language'].'/lang.php');
@@ -103,7 +105,7 @@ if (isset($_POST['dump_tbl']))
 	$databases['db_actual_tableselected']=substr($_POST['tbl_array'],0,strlen($_POST['tbl_array'])-1);
 	WriteParams();
 	$dump['fileoperations']=0;
-	echo '<script language="JavaScript" type="text/javascript">parent.MySQL_Dumper_content.location.href="dump.php?comment='.urlencode($dk).'&sel_dump_encoding='.$dump['sel_dump_encoding'].'&config='.urlencode($config['config_file']).'";</script></body></html>';
+	echo '<script language="JavaScript" type="text/javascript">parent.MyOOS_Dumper_content.location.href="dump.php?comment='.urlencode($dk).'&sel_dump_encoding='.$dump['sel_dump_encoding'].'&config='.urlencode($config['config_file']).'";</script></body></html>';
 	exit();
 }
 
@@ -125,7 +127,7 @@ if (isset($_POST['dump']))
 		WriteParams();
 
 		$dump['fileoperations']=0;
-		echo '<script language="JavaScript" type="text/javascript">parent.MySQL_Dumper_content.location.href="dump.php?comment='.urlencode($dk).'&sel_dump_encoding='.$dump['sel_dump_encoding'].'&config='.urlencode($config['config_file']).'";</script></body></html>';
+		echo '<script language="JavaScript" type="text/javascript">parent.MyOOS_Dumper_content.location.href="dump.php?comment='.urlencode($dk).'&sel_dump_encoding='.$dump['sel_dump_encoding'].'&config='.urlencode($config['config_file']).'";</script></body></html>';
 		exit();
 	}
 }
@@ -135,7 +137,7 @@ if (isset($_POST['restore_tbl']))
 {
 	$databases['db_actual_tableselected']=substr($_POST['tbl_array'],0,strlen($_POST['tbl_array'])-1);
 	WriteParams();
-	echo '<script language="JavaScript" type="text/javascript">parent.MySQL_Dumper_content.location.href="restore.php?filename='.urlencode($_POST['filename']).'";</script></body></html>';
+	echo '<script language="JavaScript" type="text/javascript">parent.MyOOS_Dumper_content.location.href="restore.php?filename='.urlencode($_POST['filename']).'";</script></body></html>';
 
 	exit();
 }
@@ -189,7 +191,7 @@ if (isset($_POST['restore']))
 
 			$databases['db_actual_tableselected']="";
 			WriteParams();
-			echo '<script language="JavaScript" type="text/javascript">parent.MySQL_Dumper_content.location.href="restore.php?filename='.$file.'&dump_encoding='.$dump_encoding.'&kind='.$kind.'";</script></body></html>';
+			echo '<script language="JavaScript" type="text/javascript">parent.MyOOS_Dumper_content.location.href="restore.php?filename='.$file.'&dump_encoding='.$dump_encoding.'&kind='.$kind.'";</script></body></html>';
 			exit();
 		}
 	}
