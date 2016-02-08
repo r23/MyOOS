@@ -83,7 +83,7 @@ if ($import == 1)
 	
 	$impaus.='<tr><td valign="top">' . $nl;
 	$impaus.='<table cellpadding="0" cellspacing="0">' . $nl;
-	$impaus.='<tr><td>' . $lang['L_IMPORTTABLE'] . '</td><td><select name="import_table">' . TableComboBox($sql['import']['table']) . '<option value="new" ' . ( ( $sql['import']['table'] == "import_" ) ? 'selected' : '' ) . '>== ' . $lang['L_NEWTABLE'] . ' ==</option></select></td></tr>' . $nl;
+	$impaus.='<tr><td>' . $lang['L_IMPORTTABLE'] . '</td><td><select name="import_table">' . TableComboBox($sql['import']['table']) . '<option value="new" ' . ( ( $sql['import']['table'] == "import_" ) ? ' selected="selected"' : '' ) . '>== ' . $lang['L_NEWTABLE'] . ' ==</option></select></td></tr>' . $nl;
 	$impaus.='<tr><td>' . $lang['L_IMPORTSOURCE'] . '</td>' . $nl;
 	$impaus.='<td><input type="radio" class="radio" name="import_source" value="0" ' . ( ( $sql['import']['import_source'] == 0 ) ? 'checked' : '' ) . ' onclick="check_csvdivs(1); return true">' . $lang['L_FROMTEXTBOX'] . '<br>' . $nl;
 	$impaus.='<input type="radio" class="radio" id="radio_csv0" name="import_source" value="1" ' . ( ( $sql['import']['import_source'] == 1 ) ? 'checked' : '' ) . ' onclick="check_csvdivs(1); return true">' . $lang['L_FROMFILE'] . '</td></tr>' . $nl;
@@ -214,7 +214,7 @@ else
 		for ($i=0; $i < $sql['export']['tablecount']; $i++)
 		{
 			$row=mysqli_fetch_array($res);
-			$tblstr.='<option value="' . $row['Name'] . '" ' . ( ( isset($sql['export']['tables']) && in_array($row['Name'],$sql['export']['tables']) ) ? "selected" : "" ) . '>' . $row['Name'] . ' (' . $row['Rows'] . ')</option>' . "\n";
+			$tblstr.='<option value="' . $row['Name'] . '" ' . ( ( isset($sql['export']['tables']) && in_array($row['Name'],$sql['export']['tables']) ) ? ' selected="selected"' : "" ) . '>' . $row['Name'] . ' (' . $row['Rows'] . ')</option>' . "\n";
 			$sql['export']['recordcount']+=$row['Rows'];
 		}
 	}

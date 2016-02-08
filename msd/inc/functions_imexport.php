@@ -208,7 +208,8 @@ function ImportCreateTable()
 	$tbl=Array();
 	$sql = "SHOW TABLES FROM $db";
 	$tabellen=MSD_query($sql);
-	while ($row = mysqli_fetch_row($num_tables))
+	// while ($row = mysqli_fetch_row($num_tables))
+	while ($row = mysqli_fetch_row($tabellen))		
 	{	
 		$tbl[]=strtolower($row[0]);
 	}

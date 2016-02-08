@@ -97,15 +97,14 @@ function Table_ComboBox()
 function TableComboBox($default='')
 {
 	global $db,$config,$lang,$nl;
-	
+
 	$sql="SHOW TABLES FROM $db";
 	$tabellen=MSD_query($sql);	
-	$num_tables=mysqli_num_rows($tabellen);
-	$s='<option value="" ' . ( ( $default == '' ) ? 'selected' : '' ) . '>                 </option>' . $nl;
-	for ($i=0; $i < $num_tables; $i++)
+	$s='<option value="" ' . ( ( $default == '' ) ? ' selected="selected"' : '' ) . '>                 </option>' . $nl;
+	while ($row = mysqli_fetch_row($tabellen))		
 	{
-		$t=mysql_tablename($tabellen,$i);
-		$s.='<option value="`' . $t . '`"' . ( ( $default == '`' . $t . '`' ) ? 'selected' : '' ) . '>`' . $t . '`</option>' . $nl;
+		$t= $row[0];
+		$s.='<option value="`' . $t . '`"' . ( ( $default == '`' . $t . '`' ) ? ' selected="selected"' : '' ) . '>`' . $t . '`</option>' . $nl;
 	}
 	return $s;
 }
@@ -212,11 +211,11 @@ function DB_Copy($source, $destination, $drop_source=0, $insert_data=1)
 	$SQL_Array.="USE `$destination` ;\n";
 	$sql="SHOW TABLES FROM $source";
 	$tabellen=MSD_query($sql);
-
-	$num_tables=mysqli_num_rows($tabellen);
-	for ($i=0; $i < $num_tables; $i++)
-	{
-		$table=mysql_tablename($tabellen,$i);
+	while ($row = mysqli_fetch_row($tabellen))		
+	{		
+		
+		$table=strtolower($row[0]);
+		$table.='xxxxxxxxxxxxxxxxralf';
 		$sqlt="SHOW CREATE TABLE `$source`.`$table`";
 		$res=MSD_query($sqlt);
 		if ($res)
@@ -578,17 +577,17 @@ function EngineCombo($default="")
 	global $config;
 	if (!$config['dbconnection']) MSD_mysql_connect();
 
-	$r='<option value="" ' . ( ( $default == "" ) ? "selected" : "" ) . '></option>';
+	$r='<option value="" ' . ( ( $default == "" ) ? ' selected="selected"' : "" ) . '></option>';
 	if (!MSD_NEW_VERSION)
 	{
 		//BDB | HEAP | ISAM | InnoDB | MERGE | MRG_MYISAM | MYISAM
-		$r.='<option value="BDB" ' . ( ( "BDB" == $default ) ? "selected" : "" ) . '>BDB</option>';
-		$r.='<option value="HEAP" ' . ( ( "HEAP" == $default ) ? "selected" : "" ) . '>HEAP</option>';
-		$r.='<option value="ISAM" ' . ( ( "ISAM" == $default ) ? "selected" : "" ) . '>ISAM</option>';
-		$r.='<option value="InnoDB" ' . ( ( "InnoDB" == $default ) ? "selected" : "" ) . '>InnoDB</option>';
-		$r.='<option value="MERGE" ' . ( ( "MERGE" == $default ) ? "selected" : "" ) . '>MERGE</option>';
-		$r.='<option value="MRG_MYISAM" ' . ( ( "MRG_MYISAM" == $default ) ? "selected" : "" ) . '>MRG_MYISAM</option>';
-		$r.='<option value="MYISAM" ' . ( ( "MyISAM" == $default ) ? "selected" : "" ) . '>MyISAM</option>';
+		$r.='<option value="BDB" ' . ( ( "BDB" == $default ) ? ' selected="selected"' : "" ) . '>BDB</option>';
+		$r.='<option value="HEAP" ' . ( ( "HEAP" == $default ) ? ' selected="selected"' : "" ) . '>HEAP</option>';
+		$r.='<option value="ISAM" ' . ( ( "ISAM" == $default ) ? ' selected="selected"' : "" ) . '>ISAM</option>';
+		$r.='<option value="InnoDB" ' . ( ( "InnoDB" == $default ) ? ' selected="selected"' : "" ) . '>InnoDB</option>';
+		$r.='<option value="MERGE" ' . ( ( "MERGE" == $default ) ? ' selected="selected"' : "" ) . '>MERGE</option>';
+		$r.='<option value="MRG_MYISAM" ' . ( ( "MRG_MYISAM" == $default ) ? ' selected="selected"' : "" ) . '>MRG_MYISAM</option>';
+		$r.='<option value="MYISAM" ' . ( ( "MyISAM" == $default ) ? ' selected="selected"' : "" ) . '>MyISAM</option>';
 	}
 	else
 	{
@@ -597,7 +596,7 @@ function EngineCombo($default="")
 		for ($i=0; $i < $num; $i++)
 		{
 			$row=mysqli_fetch_array($res);
-			$r.='<option value="' . $row['Engine'] . '" ' . ( ( $row['Engine'] == $default ) ? "selected" : "" ) . '>' . $row['Engine'] . '</option>';
+			$r.='<option value="' . $row['Engine'] . '" ' . ( ( $row['Engine'] == $default ) ? ' selected="selected"' : "" ) . '>' . $row['Engine'] . '</option>';
 		}
 	}
 	return $r;
@@ -615,7 +614,7 @@ function CharsetCombo($default="")
 		if (!isset($config['dbconnection'])) MSD_mysql_connect();
 		$res=mysqli_query($config['dbconnection'], "SHOW Charset");
 		$num=mysqli_num_rows($res);
-		$r='<option value="" ' . ( ( $default == "" ) ? "selected" : "" ) . '></option>';
+		$r='<option value="" ' . ( ( $default == "" ) ? ' selected="selected"' : "" ) . '></option>';
 		$charsets=array();
 		for ($i=0; $i < $num; $i++)
 		{
@@ -627,7 +626,7 @@ function CharsetCombo($default="")
 			$charsets=mu_sort($charsets,'Charset');
 			foreach ($charsets as $row)
 			{
-				$r.='<option value="' . $row['Charset'] . '" ' . ( ( $row['Charset'] == $default ) ? "selected" : "" ) . '>' . $row['Charset'] . '</option>';
+				$r.='<option value="' . $row['Charset'] . '" ' . ( ( $row['Charset'] == $default ) ? ' selected="selected"' : "" ) . '>' . $row['Charset'] . '</option>';
 			}
 		}
 		return $r;
@@ -811,7 +810,7 @@ function GetOptionsCombo($arr, $default)
 	$r='';
 	foreach ($arr as $s)
 	{
-		$r.='<option value="' . $s . '" ' . ( ( strtoupper($default) == strtoupper($s) ) ? "selected" : "" ) . '>' . $s . '</option>' . "\n";
+		$r.='<option value="' . $s . '" ' . ( ( strtoupper($default) == strtoupper($s) ) ? ' selected="selected"' : "" ) . '>' . $s . '</option>' . "\n";
 	}
 	return $r;
 }

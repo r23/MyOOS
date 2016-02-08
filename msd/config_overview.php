@@ -853,13 +853,13 @@ $aus['global3'].='<td>';
 $aus['global3'].='<table><tr><td>' . $lang['L_WIDTH'] . ':</td><td><input type="text" class="text" name="bb_width" value="' . $config['bb_width'] . '" size="3" maxlength="3">&nbsp;pixel</td></tr>';
 $aus['global3'].='<tr><td>' . $lang['L_BBTEXTCOLOR'] . ':&nbsp;</td>';
 $aus['global3'].='<td><select name="bb_textcolor">
-<option value="#000000" style="color :#000000;" ' . ( ( $config['bb_textcolor'] == "#000000" ? "selected" : "" ) ) . '>&nbsp;Textcolor&nbsp;</option>
-<option value="#000066" style="color :#000066;" ' . ( ( $config['bb_textcolor'] == "#000066" ? "selected" : "" ) ) . '>&nbsp;Textcolor&nbsp;</option>
-<option value="#800000" style="color :#800000;" ' . ( ( $config['bb_textcolor'] == "#800000" ? "selected" : "" ) ) . '>&nbsp;Textcolor&nbsp;</option>
-<option value="#990000" style="color :#990000;" ' . ( ( $config['bb_textcolor'] == "#990000" ? "selected" : "" ) ) . '>&nbsp;Textcolor&nbsp;</option>
-<option value="#006600" style="color :#006600;" ' . ( ( $config['bb_textcolor'] == "#006600" ? "selected" : "" ) ) . '>&nbsp;Textcolor&nbsp;</option>
-<option value="#996600" style="color :#996600;" ' . ( ( $config['bb_textcolor'] == "#996600" ? "selected" : "" ) ) . '>&nbsp;Textcolor&nbsp;</option>
-<option value="#999999" style="color :#999999;" ' . ( ( $config['bb_textcolor'] == "#999999" ? "selected" : "" ) ) . '>&nbsp;Textcolor&nbsp;</option>
+<option value="#000000" style="color :#000000;" ' . ( ( $config['bb_textcolor'] == "#000000" ? ' selected="selected"' : "" ) ) . '>&nbsp;Textcolor&nbsp;</option>
+<option value="#000066" style="color :#000066;" ' . ( ( $config['bb_textcolor'] == "#000066" ? ' selected="selected"' : "" ) ) . '>&nbsp;Textcolor&nbsp;</option>
+<option value="#800000" style="color :#800000;" ' . ( ( $config['bb_textcolor'] == "#800000" ? ' selected="selected"' : "" ) ) . '>&nbsp;Textcolor&nbsp;</option>
+<option value="#990000" style="color :#990000;" ' . ( ( $config['bb_textcolor'] == "#990000" ? ' selected="selected"' : "" ) ) . '>&nbsp;Textcolor&nbsp;</option>
+<option value="#006600" style="color :#006600;" ' . ( ( $config['bb_textcolor'] == "#006600" ? ' selected="selected"' : "" ) ) . '>&nbsp;Textcolor&nbsp;</option>
+<option value="#996600" style="color :#996600;" ' . ( ( $config['bb_textcolor'] == "#996600" ? ' selected="selected"' : "" ) ) . '>&nbsp;Textcolor&nbsp;</option>
+<option value="#999999" style="color :#999999;" ' . ( ( $config['bb_textcolor'] == "#999999" ? ' selected="selected"' : "" ) ) . '>&nbsp;Textcolor&nbsp;</option>
 </select></td></tr></table>';
 $aus['global3'].='</td></tr><tr><td>' . Help("","") . 'SQL-Grid:&nbsp;</td>';
 $aus['global3'].='<td><input type="radio" class="radio" name="interface_table_compact" value="0" ' . ( ( $config['interface_table_compact'] == 0 ) ? 'checked' : '' ) . '>&nbsp;normal&nbsp;&nbsp;&nbsp;';
