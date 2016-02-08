@@ -1,4 +1,22 @@
 <?php
+/* ----------------------------------------------------------------------
+
+   MyOOS [Dumper]
+   http://www.oos-shop.de/
+
+   Copyright (c) 2016 by the MyOOS Development Team.
+   ----------------------------------------------------------------------
+   Based on:
+
+   MySqlDumper
+   http://www.mysqldumper.de
+
+   Copyright (C)2004-2011 Daniel Schlichtholz (admin@mysqldumper.de)
+   ----------------------------------------------------------------------
+   Released under the GNU General Public License
+   ---------------------------------------------------------------------- */
+
+
 $msd_path=realpath(dirname(__FILE__) . '/../') . '/';
 if (!defined('MSD_PATH')) define('MSD_PATH',$msd_path);
 if (file_exists(MSD_PATH.'inc/runtime.php')) include (MSD_PATH.'inc/runtime.php');

@@ -1,4 +1,21 @@
 <?php
+/* ----------------------------------------------------------------------
+
+   MyOOS [Dumper]
+   http://www.oos-shop.de/
+
+   Copyright (c) 2016 by the MyOOS Development Team.
+   ----------------------------------------------------------------------
+   Based on:
+
+   MySqlDumper
+   http://www.mysqldumper.de
+
+   Copyright (C)2004-2011 Daniel Schlichtholz (admin@mysqldumper.de)
+   ----------------------------------------------------------------------
+   Released under the GNU General Public License
+   ---------------------------------------------------------------------- */
+
 if (!@ob_start("ob_gzhandler")) @ob_start();
 $install_ftp_server=$install_ftp_user_name=$install_ftp_user_pass=$install_ftp_path="";
 $dbhost=$dbuser=$dbpass=$dbport=$dbsocket=$manual_db='';

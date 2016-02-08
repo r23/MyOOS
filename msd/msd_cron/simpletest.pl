@@ -13,14 +13,30 @@
 #    Options ExecCGI
 #    AddHandler cgi-script cgi pl
 # </Directory>
-# 
+#
+#   MyOOS [Dumper]
+#   http://www.oos-shop.de/
+#
+#   Copyright (c) 2016 by the MyOOS Development Team.
+#   ----------------------------------------------------------------------
+#   Based on:
+#
+#   MySqlDumper
+#   http://www.mysqldumper.de
+#
+#   Copyright (C)2004-2011 Daniel Schlichtholz (admin@mysqldumper.de)
+#   ----------------------------------------------------------------------
+#   Released under the GNU General Public License
+#   ---------------------------------------------------------------------- 
+#
+#
 # This file is part of MySQLDumper released under the GNU/GPL 2 license
 # http://www.mysqldumper.net 
 # @package 			MySQLDumper
-# @version 			$Rev: 1351 $
-# @author 			$Author: jtietz $
-# @lastmodified 	$Date: 2011-01-16 20:55:42 +0100 (So, 16. Jan 2011) $
-# @filesource 		$URL: https://mysqldumper.svn.sourceforge.net/svnroot/mysqldumper/branches/msd1.24.3/msd_cron/simpletest.pl $
+# @version 			Rev: 1351 
+# @author 			Author: jtietz 
+# @lastmodified 	Date: 2011-01-16 20:55:42 +0100 (So, 16. Jan 2011) 
+# @filesource 		URL: https://mysqldumper.svn.sourceforge.net/svnroot/mysqldumper/branches/msd1.24.3/msd_cron/simpletest.pl 
 
 use strict;
 use CGI::Carp qw(warningsToBrowser fatalsToBrowser);  

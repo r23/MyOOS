@@ -1,4 +1,20 @@
 #!/usr/bin/perl -w
+#
+#   MyOOS [Dumper]
+#   http://www.oos-shop.de/
+#
+#   Copyright (c) 2016 by the MyOOS Development Team.
+#   ----------------------------------------------------------------------
+#   Based on:
+#
+#   MySqlDumper
+#   http://www.mysqldumper.de
+#
+#   Copyright (C)2004-2011 Daniel Schlichtholz (admin@mysqldumper.de)
+#   ----------------------------------------------------------------------
+#   Released under the GNU General Public License
+#   ---------------------------------------------------------------------- 
+#
 ########################################################################################
 # MySQLDumper CronDump
 #
@@ -10,10 +26,10 @@
 # This file is part of MySQLDumper released under the GNU/GPL 2 license
 # http://www.mysqldumper.net 
 # @package             MySQLDumper
-# @version             $Rev: 1371 $
-# @author             $Author: dsb1971 $
-# @lastmodified     $Date: 2011-01-24 21:15:21 +0100 (Mo, 24. Jan 2011) $
-# @filesource         $URL: https://mysqldumper.svn.sourceforge.net/svnroot/mysqldumper/branches/msd1.24.3/msd_cron/crondump.pl $
+# @version             Rev: 1371 $
+# @author              Author: dsb1971 $
+# @lastmodified        Date: 2011-01-24 21:15:21 +0100 (Mo, 24. Jan 2011) 
+# @filesource          URL: https://mysqldumper.svn.sourceforge.net/svnroot/mysqldumper/branches/msd1.24.3/msd_cron/crondump.pl 
 #
 ########################################################################################
 # Script-Version
