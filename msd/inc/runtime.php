@@ -43,8 +43,8 @@ if (isset($_SESSION['config_file']))
 }
 else
 {
-	$config['config_file']='mysqldumper';
-	$_SESSION['config_file']='mysqldumper';
+	$config['config_file']='myoosdumper';
+	$_SESSION['config_file']='myoosdumper';
 	$config['cron_configurationfile']='myoosdumper.conf.php';
 }
 $config['files']['log']=$config['paths']['log'] . 'mysqldump.log';

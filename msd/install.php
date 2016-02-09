@@ -298,7 +298,7 @@ switch ($phase)
 		break;
 
 	case 2: //
-		echo '<h6>MySQLDumper - ' . $lang['L_CONFBASIC'] . '</h6>';
+		echo '<h6>MyOOS [Dumper] - ' . $lang['L_CONFBASIC'] . '</h6>';
 		$tmp=@file("config.php");
 		$stored=0;
 		for ($i=0; $i < count($tmp); $i++)

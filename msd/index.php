@@ -21,7 +21,7 @@ define('OOS_VALID_MOD', true);
 if (!@ob_start("ob_gzhandler")) @ob_start();
 include ('./inc/functions.php');
 $page=(isset($_GET['page'])) ? $_GET['page'] : 'main.php';
-if (!file_exists("./work/config/mysqldumper.php"))
+if (!file_exists("./work/config/myoosdumper.php"))
 {
 	header("location: install.php");
 	ob_end_flush();
