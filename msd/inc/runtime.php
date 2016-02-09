@@ -22,7 +22,7 @@ error_reporting(E_ALL);
 
 if (function_exists("date_default_timezone_set")) date_default_timezone_set(@date_default_timezone_get());
 //Konstanten
-if (!defined('MSD_VERSION')) define('MSD_VERSION','1.0.0-dev based on MySQLDumper 1.24.4');
+if (!defined('MSD_VERSION')) define('MSD_VERSION','4.2.0-dev based on MySQLDumper 1.24.4');
 if (!defined('MSD_OS')) define('MSD_OS',PHP_OS);
 if (!defined('MSD_OS_EXT')) define('MSD_OS_EXT',@php_uname());
 if (!defined('config') || !is_array($config)) $config=array();
@@ -87,9 +87,8 @@ $config['perlspeed']=10000; //Anzahl der Datensaetze, die in einem Rutsch gelese
 $config['ignore_enable_keys'] = 0;
 
 //Bausteine
-$config['homepage']='http://mysqldumper.net';
-$languagepacks_ref='http://forum.mysqldumper.de/downloads.php?cat=9';
-$stylepacks_ref='http://forum.mysqldumper.de/downloads.php?cat=3';
+$config['homepage']='http://foren.myoos.de/viewforum.php?f=40';
+
 $nl="\n";
 $mysql_commentstring='--';
 

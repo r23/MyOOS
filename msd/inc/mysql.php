@@ -272,7 +272,11 @@ function MSD_mysql_connect($encoding='utf8', $keycheck_off=false, $actual_table=
 	$port=( isset($config['dbport']) && !empty($config['dbport']) ) ? ':' . $config['dbport'] : '';
 	$socket=( isset($config['dbsocket']) && !empty($config['dbsocket']) ) ? ':' . $config['dbsocket'] : '';
 	
-	$config['dbconnection']=mysqli_connect($config['dbhost'] . $port . $socket,$config['dbuser'],$config['dbpass']) or die(SQLError("Error establishing a database connection!", mysqli_error()));
+	$config['dbconnection'] = @mysqli_connect($config['dbhost'] . $port . $socket, $config['dbuser'], $config['dbpass']);
+	
+	if ( mysqli_connect_errno($config['dbconnection']) ) {
+		die(SQLError("Error establishing a database connection!", mysqli_connect_error($config['dbconnection'])));
+	}
 	if (!defined('MSD_MYSQL_VERSION')) GetMySQLVersion();
 
 	if (!isset($config['mysql_standard_character_set']) || $config['mysql_standard_character_set'] == '') get_sql_encodings();
