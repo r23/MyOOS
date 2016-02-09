@@ -1,9 +1,14 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html>
 <head>
-	<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+	<meta charset="utf-8" />
+	<meta name="robots" content="noindex,nofollow" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="cache-control" content="must-revalidate">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>MySqlDumper</title>
+	<title>MyOOS [Dumper]</title>
 	<link rel="stylesheet" type="text/css" href="css/{THEME}/style.css">
 	<script language = "javascript" type = "text/javascript" src = "js/prototype/prototype.js"></script>
 	<script language = "javascript" type = "text/javascript" src = "js/scriptaculous/lib/scriptaculous.js?load=effects"></script>

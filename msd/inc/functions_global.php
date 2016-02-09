@@ -883,11 +883,15 @@ function MSDHeader($kind=0)
 	header('Content-Type: text/html; charset=UTF-8');
 
 	//kind 0=main 1=menu
-	$r='<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'."\n<html>\n<head>\n";
-	$r.='<META HTTP-EQUIV="Pragma" CONTENT="no-cache">'."\n";
+	$r='<!DOCTYPE HTML>'."\n<html>\n<head>\n";
+	$r.='<meta charset="utf-8" />'."\n";
+	$r.='<meta name="robots" content="noindex,nofollow" />'."\n";
+	$r.='<meta http-equiv="X-UA-Compatible" content="IE=Edge">'."\n";
+	$r.='<meta http-equiv="pragma" content="no-cache">'."\n";
+	$r.='<meta http-equiv="expires" content="0">'."\n";
+	$r.='<meta http-equiv="cache-control" content="must-revalidate">'."\n";
 	$r.='<meta http-equiv="Content-Type" content="text/html; charset=utf-8">'."\n";
-
-	$r.='<title>MySqlDumper</title>'."\n";
+	$r.='<title>MyOOS [Dumper]</title>'."\n";
 	$r.='<link rel="stylesheet" type="text/css" href="css/'.$config['theme'].'/style.css">'."\n";
 	$r.='<script language="JavaScript" src="js/script.js" type="text/javascript"></script>'."\n";
 	$r.="</head>\n<body".(($kind==1) ? ' class="menu-frame"' : ' class="content"').'>';
