@@ -98,16 +98,16 @@ function DeleteFilesM($dir, $pattern="*.*")
 	if (substr($dir,-1) != "/") $dir.="/";
 	if (is_dir($dir))
 	{
-		$d=opendir($dir);
-		while ($file=readdir($d))
+		$d=dir($dir);
+		while ($file=$d->read()) 
 		{
-			if (is_file($dir . $file) && preg_match("/^/" . $pattern . "$",$file))
+			if (is_file($dir . $file) && preg_match("/^" . $pattern . "$/",$file))
 			{
 				if (unlink($dir . $file)) $deleted[$file]=true;
 				else $deleted[$file]=false;
 			}
 		}
-		closedir($d);
+		$d->close();
 		return $deleted;
 	}
 }
