@@ -205,7 +205,7 @@ if (isset($_GET['dbid']))
                     $sSql= "ALTER TABLE `".$databases['Name'][$dbid]."`.`".$row['Name']."` ENABLE KEYS";
                     $tmp_res=mysqli_query($sSql);
                 }
-                $res3=mysqli_query('SHOW INDEX FROM `'.$databases['Name'][$dbid]."`.`".$row['Name']."`");
+                $res3=mysqli_query($config['dbconnection'], 'SHOW INDEX FROM `'.$databases['Name'][$dbid]."`.`".$row['Name']."`");
                 while ($row3 = mysqli_fetch_array($res3, MYSQLI_ASSOC))
                 {
                     if ($row3['Comment']=="disabled") {
