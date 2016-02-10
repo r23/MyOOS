@@ -203,7 +203,7 @@ if (isset($_GET['dbid']))
                 if ($enableKeys==$row['Name'] || $enableKeys=="ALL")
                 {
                     $sSql= "ALTER TABLE `".$databases['Name'][$dbid]."`.`".$row['Name']."` ENABLE KEYS";
-                    $tmp_res=mysqli_query($sSql);
+                    $tmp_res=mysqli_query($config['dbconnection'], $sSql);
                 }
                 $res3=mysqli_query($config['dbconnection'], 'SHOW INDEX FROM `'.$databases['Name'][$dbid]."`.`".$row['Name']."`");
                 while ($row3 = mysqli_fetch_array($res3, MYSQLI_ASSOC))
