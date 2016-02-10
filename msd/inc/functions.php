@@ -765,11 +765,11 @@ function db_escape($string)
 	global $config;
 	if (function_exists('mysqli_real_escape_string'))
 	{
-		$string=mysqli_real_escape_string($string,$config['dbconnection']);
+		$string=mysqli_real_escape_string($config['dbconnection'], $string);
 	}
 	elseif (function_exists('mysqli_escape_string'))
 	{
-		$string=mysqli_escape_string($string,$config['dbconnection']);
+		$string=mysqli_escape_string($config['dbconnection'], $string);
 	}
 	else $string=addslashes($string);
 	return $string;
