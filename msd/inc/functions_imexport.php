@@ -31,7 +31,7 @@ function CheckCSVOptions()
 	if (!isset($sql['export']['compressed'])) $sql['export']['compressed']=0;
 	if (!isset($sql['export']['htmlstructure'])) $sql['export']['htmlstructure']=0;
 	if (!isset($sql['export']['xmlstructure'])) $sql['export']['xmlstructure']=0;
-	
+
 	if (!isset($sql['import']['trenn'])) $sql['import']['trenn']=";";
 	if (!isset($sql['import']['enc'])) $sql['import']['enc']="\"";
 	if (!isset($sql['import']['esc'])) $sql['import']['esc']="\\";
@@ -137,7 +137,7 @@ function CSVOutput($str, $last=0)
 				$file=$sql['export']['db'] . ( ( $sql['export']['compressed'] == 1 ) ? ".html.gz" : ".html" );
 			}
 			$mime=( $sql['export']['compressed'] == 0 ) ? "x-type/subtype" : "application/x-gzip";
-			
+
 			header('Content-Disposition: attachment; filename="' . $file . '"');
 			header('Pragma: no-cache');
 			header('Content-Type: ' . $mime);
@@ -146,7 +146,7 @@ function CSVOutput($str, $last=0)
 		}
 		if ($sql['export']['compressed'] == 1) echo gzencode($str);
 		else echo $str;
-	
+
 	}
 }
 
@@ -157,7 +157,7 @@ function DoImport()
 	$zeilen=count($sql['import']['csv']) - $sql['import']['namefirstline'];
 	$sql['import']['first_zeile']=explode($sql['import']['trenn'],$sql['import']['csv'][0]);
 	$importfelder=count($sql['import']['first_zeile']);
-	
+
 	if ($sql['import']['tablecreate'] == 0)
 	{
 		$res=MSD_query("show fields FROM " . $sql['import']['table']);
@@ -208,11 +208,11 @@ function DoImport()
 				$sql['import']['lines_imported']++;
 				$zc="";
 			}
-		
+
 		}
 		$r.=sprintf($lang['L_CSV_FIELDSLINES'],$importfelder,$sql['import']['lines_imported']);
 	}
-	
+
 	$r.='</span>';
 	return $r;
 
@@ -225,8 +225,8 @@ function ImportCreateTable()
 	$sql = "SHOW TABLES FROM $db";
 	$tabellen=MSD_query($sql);
 	// while ($row = mysqli_fetch_row($num_tables))
-	while ($row = mysqli_fetch_row($tabellen))		
-	{	
+	while ($row = mysqli_fetch_row($tabellen))
+	{
 		$tbl[]=strtolower($row[0]);
 	}
 	$i=0;
@@ -252,7 +252,7 @@ function ImportCreateTable()
 	}
 	if ($sql['import']['createindex'] == 1) $create.='PRIMARY KEY (`import_id`) ';
 	else $create=substr($create,0,strlen($create) - 2);
-	
+
 	$create.=') ' . ( ( MSD_NEW_VERSION ) ? 'ENGINE' : 'TYPE' ) . "=MyISAM COMMENT='imported at " . date("l dS of F Y H:i:s A") . "'";
 	$res=mysqli_query($config['dbconnection'], $create) || die(SQLError($create,mysqli_error()));
 	return 1;
@@ -266,7 +266,7 @@ function ExportXML()
 	$t='<?xml version="1.0" encoding="UTF-8" ?>' . "\n" . '<database name="' . $sql['export']['db'] . '">' . "\n";
 	$level++;
 	$time_start=time();
-	
+
 	if (!isset($config['dbconnection'])) MSD_mysql_connect();
 	for ($table=0; $table < count($sql['export']['tables']); $table++)
 	{
@@ -338,9 +338,9 @@ function ExportHTML()
 	$footer="\n\n</body>\n</html>";
 	$content="";
 	$content.='<h1>' . $lang['L_DB'] . ' ' . $sql['export']['db'] . '</h1>';
-	
+
 	$time_start=time();
-	
+
 	if (!isset($config['dbconnection'])) MSD_mysql_connect();
 	for ($table=0; $table < count($sql['export']['tables']); $table++)
 	{
@@ -358,7 +358,7 @@ function ExportHTML()
 			{
 				$row=mysqli_fetch_row($res);
 				$field[$feld]=$row[0];
-				
+
 				if ($feld == 0)
 				{
 					$structure.="<tr class=\"Header\">\n";
@@ -381,7 +381,7 @@ function ExportHTML()
 		}
 		if ($sql['export']['htmlstructure'] == 1) $content.="<h3>Struktur</h3>\n" . $structure;
 		//Daten
-		
+
 
 		$res=MSD_query($dsql);
 		if ($res)
@@ -407,7 +407,7 @@ function ExportHTML()
 				$content.="<tr>\n";
 				for ($i=0; $i < count($row); $i++)
 				{
-					
+
 					$content.='<td class="Object">' . ( ( $row[$i] != "" ) ? $row[$i] : "&nbsp;" ) . "</td>\n";
 				}
 				$content.="</tr>\n";

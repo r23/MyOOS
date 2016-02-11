@@ -44,7 +44,7 @@ $tpl=new MSDTemplate();
 $tpl->set_filenames(array(
 	'show' => 'tpl/home/headnavi.tpl'));
 $tpl->assign_vars(array(
-	'HEADER' => MSDHeader(), 
+	'HEADER' => MSDHeader(),
 	'HEADLINE' => headline('Home')));
 $tpl->pparse('show');
 

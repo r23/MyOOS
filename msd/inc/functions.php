@@ -18,7 +18,7 @@
 
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
-   
+
 if (!function_exists('get_page_parameter')) include ( './inc/functions_global.php' );
 
 if (!function_exists('str_ireplace')) // borrowed from http://www.dscripts.net
@@ -99,7 +99,7 @@ function DeleteFilesM($dir, $pattern="*.*")
 	if (is_dir($dir))
 	{
 		$d=dir($dir);
-		while ($file=$d->read()) 
+		while ($file=$d->read())
 		{
 			if (is_file($dir . $file) && preg_match("/^" . $pattern . "$/",$file))
 			{
@@ -378,7 +378,7 @@ function WriteCronScript($restore_values=false)
 
 	if (!isset($databases['db_selected_index'])) $databases['db_selected_index']=0;
 	if (!isset($databases['command_before_dump'])) $databases['command_before_dump']="";
-	if (!isset($databases['command_after_dump'])) $databases['command_after_dump']="";	
+	if (!isset($databases['command_after_dump'])) $databases['command_after_dump']="";
 	if (!isset($databases['praefix'][$databases['db_selected_index']])) $databases['praefix'][$databases['db_selected_index']]="";
 	if (!isset($databases['db_actual_cronindex'])) $databases['db_actual_cronindex']=$databases['db_selected_index'];
 	if (!isset($config['email_maxsize'])) $config['email_maxsize']=$config['email_maxsize1'] * ( ( $config['email_maxsize2'] == 1 ) ? 1024 : 1024 * 1024 );

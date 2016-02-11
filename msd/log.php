@@ -142,13 +142,13 @@ if (file_exists($lfile))
 if ($r != 2) $out.='</pre>';
 
 $suchen=array(
-			
-			'</html>', 
+
+			'</html>',
 			'</body>'
 );
 $ersetzen=array(
-				
-				'', 
+
+				'',
 				''
 );
 $out=str_replace($suchen,$ersetzen,$out);

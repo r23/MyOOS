@@ -73,7 +73,7 @@ if (isset($msg)) echo $msg;
 
 $numrowsabs=-1;
 $numrows=0;
-// Vorgehensweise - es soll die Summe der Datensaetze ermittelt werden, wenn es kein LIMIT gibt, 
+// Vorgehensweise - es soll die Summe der Datensaetze ermittelt werden, wenn es kein LIMIT gibt,
 // um die Blaettern-Links korrekt anzuzeigen
 $skip_mysql_execution=false;
 if ($sql_to_display_data == 0)
@@ -192,8 +192,8 @@ if ($numrowsabs > 0 && $Anzahl_SQLs <= 1)
 			$tt=$lang['L_NAME'] . ': ' . $fdesc[$temp[$x]['data']->name]['name'] . ' Type: ' . $fdesc[$temp[$x]['data']->name]['type'] . " Max Length: " . $fdesc[$temp[$x]['data']->name]['max_length'] . " Unsigned: " . $fdesc[$temp[$x]['data']->name]['unsigned'] . " zerofill: " . $fdesc[$temp[$x]['data']->name]['zerofill'];
 
 			$pic='<img src="' . $icon['blank'] . '" alt="" width="1" height="1" border="0">';
-			if ( (isset($str->primary_key) && ($str->primary_key == 1)) || (isset($str->unique_key) && ($str->unique_key == 1)) )	
-			
+			if ( (isset($str->primary_key) && ($str->primary_key == 1)) || (isset($str->unique_key) && ($str->unique_key == 1)) )
+
 			{
 				if ($key == -1) $key=$temp[$x]['data']->name;
 				else $key.='|' . $temp[$x]['data']->name;

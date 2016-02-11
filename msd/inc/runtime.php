@@ -16,7 +16,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
- 
+
 error_reporting(E_ALL);
 
 

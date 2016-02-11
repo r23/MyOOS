@@ -117,9 +117,9 @@ function TableComboBox($default='')
 	global $db,$config,$lang,$nl;
 
 	$sql="SHOW TABLES FROM $db";
-	$tabellen=MSD_query($sql);	
+	$tabellen=MSD_query($sql);
 	$s='<option value="" ' . ( ( $default == '' ) ? ' selected="selected"' : '' ) . '>                 </option>' . $nl;
-	while ($row = mysqli_fetch_row($tabellen))		
+	while ($row = mysqli_fetch_row($tabellen))
 	{
 		$t= $row[0];
 		$s.='<option value="`' . $t . '`"' . ( ( $default == '`' . $t . '`' ) ? ' selected="selected"' : '' ) . '>`' . $t . '`</option>' . $nl;
@@ -229,9 +229,9 @@ function DB_Copy($source, $destination, $drop_source=0, $insert_data=1)
 	$SQL_Array.="USE `$destination` ;\n";
 	$sql="SHOW TABLES FROM $source";
 	$tabellen=MSD_query($sql);
-	while ($row = mysqli_fetch_row($tabellen))		
-	{		
-		
+	while ($row = mysqli_fetch_row($tabellen))
+	{
+
 		$table=strtolower($row[0]);
 		$table.='xxxxxxxxxxxxxxxxralf';
 		$sqlt="SHOW CREATE TABLE `$source`.`$table`";
@@ -1103,16 +1103,16 @@ function getPrimaryKeys($db, $table)
 	{
 		//wenn Primaerschluessel
 		if ($row['Key_name'] == "PRIMARY") $keys['name'][]=$row['Column_name'];
-		if ($row['Sub_part'] != null) 
+		if ($row['Sub_part'] != null)
 		{
 			$keys['size'][]=$row['Sub_part'];
-		}	
+		}
 		else
 		{
 			$keys['size'][]='';
 		}
 	}
-	
+
 	return $keys;
 }
 

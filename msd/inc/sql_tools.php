@@ -16,7 +16,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-   
+
 if (!defined('MSD_VERSION')) die('No direct access.');
 get_sql_encodings();
 

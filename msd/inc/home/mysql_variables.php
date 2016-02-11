@@ -81,7 +81,7 @@ switch ($var)
 			}
 			else
 				$wait+=2;
-			
+
 			if ($wait==0)
 			{
 				echo '<p class="success">'.$lang['L_PROCESSKILL1'].$_GET['killid'].' '.$lang['L_PROCESSKILL2'].'</p>';
@@ -90,9 +90,9 @@ switch ($var)
 			{
 				echo '<p class="success">'.$lang['L_PROCESSKILL3'].$wait.$lang['L_PROCESSKILL4'].$_GET['killid'].' '.$lang['L_PROCESSKILL2'].'</p>';
 			}
-		
+
 		}
-		
+
 		$killid=$wait=0;
 		$res=@mysqli_query($config['dbconnection'], "SHOW FULL PROCESSLIST ");
 		if ($res) $numrows=mysqli_num_rows($res);
@@ -124,6 +124,6 @@ switch ($var)
 			<input type="hidden" name="action" value="vars">
 			<input type="hidden" name="var" value="prozesse"></form>';
 		echo '<script language="JavaScript" type="text/javascript">window.setTimeout("document.f.submit();","'.$config['processlist_refresh'].'");</script>';
-		
+
 		break;
 }

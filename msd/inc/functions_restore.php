@@ -276,7 +276,7 @@ function get_sqlbefehl()
 function submit_create_action($sql)
 {
 	global $config;
-	
+
 	//executes a create command
 	$tablename=get_tablename($sql);
 	if (strtoupper(substr($sql,0,16))=='CREATE ALGORITHM')
@@ -319,7 +319,7 @@ function submit_create_action($sql)
 function get_insert_syntax($table)
 {
 	global $config;
-	
+
 	$insert='';
 	$sql='SHOW COLUMNS FROM `'.$table.'`';
 	$res=mysqli_query($config['dbconnection'], $sql);

@@ -16,7 +16,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-   
+
 if (!defined('MSD_VERSION')) die('No direct access.');
 $Sum_Files=$Sum_Size=0;
 $Last_BU=Array();
@@ -46,20 +46,20 @@ $tpl=new MSDTemplate();
 $tpl->set_filenames(array(
 	'show' => 'tpl/home/home.tpl'));
 $tpl->assign_vars(array(
-	'THEME' => $config['theme'], 
-	'MSD_VERSION' => MSD_VERSION, 
-	'OS' => MSD_OS, 
-	'OS_EXT' => MSD_OS_EXT, 
-	'MYSQL_VERSION' => MSD_MYSQL_VERSION, 
-	'PHP_VERSION' => PHP_VERSION, 
-	'MEMORY' => byte_output($config['php_ram']*1024*1024), 
-	'MAX_EXECUTION_TIME' => $config['max_execution_time'], 
-	'PHP_EXTENSIONS' => $config['phpextensions'], 
-	'SERVER_NAME' => $_SERVER['SERVER_NAME'], 
-	'MSD_PATH' => $config['paths']['root'], 
-	'DB' => $databases['db_actual'], 
-	'NR_OF_BACKUP_FILES' => $Sum_Files, 
-	'SIZE_BACKUPS' => byte_output($Sum_Size), 
+	'THEME' => $config['theme'],
+	'MSD_VERSION' => MSD_VERSION,
+	'OS' => MSD_OS,
+	'OS_EXT' => MSD_OS_EXT,
+	'MYSQL_VERSION' => MSD_MYSQL_VERSION,
+	'PHP_VERSION' => PHP_VERSION,
+	'MEMORY' => byte_output($config['php_ram']*1024*1024),
+	'MAX_EXECUTION_TIME' => $config['max_execution_time'],
+	'PHP_EXTENSIONS' => $config['phpextensions'],
+	'SERVER_NAME' => $_SERVER['SERVER_NAME'],
+	'MSD_PATH' => $config['paths']['root'],
+	'DB' => $databases['db_actual'],
+	'NR_OF_BACKUP_FILES' => $Sum_Files,
+	'SIZE_BACKUPS' => byte_output($Sum_Size),
 	'FREE_DISKSPACE' => MD_FreeDiskSpace()));
 if ($directory_warnings>'') $tpl->assign_block_vars('DIRECTORY_WARNINGS',array(
 	'MSG' => $directory_warnings));
@@ -75,7 +75,7 @@ if ($is_htaccess) $tpl->assign_block_vars('HTACCESS_EXISTS',array());
 else
 	$tpl->assign_block_vars('HTACCESS_DOESNT_EXISTS',array());
 if ($Sum_Files>0&&isset($Last_BU[1])) $tpl->assign_block_vars('LAST_BACKUP',array(
-	'LAST_BACKUP_INFO' => $Last_BU[1], 
-	'LAST_BACKUP_LINK' => $config['paths']['backup'].urlencode($Last_BU[0]), 
+	'LAST_BACKUP_INFO' => $Last_BU[1],
+	'LAST_BACKUP_LINK' => $config['paths']['backup'].urlencode($Last_BU[0]),
 	'LAST_BACKUP_NAME' => $Last_BU[0]));
 $tpl->pparse('show');

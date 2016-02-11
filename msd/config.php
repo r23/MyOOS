@@ -28,7 +28,7 @@ $config['dbsocket'] = '';
 // Username
 $config['dbuser'] = 'root';
 //User-Pass. For no Password leave empty
-$config['dbpass'] = 'mysql';
+$config['dbpass'] = '';
 
 //Speed Values between 50 and 1000000
 //use low values if you have bad connection or slow machines
@@ -59,7 +59,7 @@ $config['compression']=1;
 $config['processlist_refresh']=3000;
 
 $config['empty_db_before_restore']=0;
-$config['optimize_tables_beforedump']=1;
+$config['optimize_tables_beforedump']=0;
 $config['stop_with_error']=1;
 
 // For sending a mail after backup set send_mail to 1, otherless set to 0
@@ -92,9 +92,9 @@ $config['ftp_timeout'][1]=30;
 $config['ftp_useSSL'][1]=0;
 $config['ftp_mode'][1]=0;
 $config['ftp_server'][1]='';
-$config['ftp_port'][1]='21'; 
-$config['ftp_user'][1]=''; 
-$config['ftp_pass'][1]=''; 
+$config['ftp_port'][1]='21';
+$config['ftp_user'][1]='';
+$config['ftp_pass'][1]='';
 $config['ftp_dir'][1]='';
 
 $config['ftp_transfer'][2]=0;
@@ -102,10 +102,10 @@ $config['ftp_timeout'][2]=30;
 $config['ftp_useSSL'][2]=0;
 $config['ftp_mode'][2]=0;
 $config['ftp_server'][2]='';
-$config['ftp_port'][2]='21'; 
-$config['ftp_user'][2]=''; 
-$config['ftp_pass'][2]=''; 
-$config['ftp_dir'][2]=''; 
+$config['ftp_port'][2]='21';
+$config['ftp_user'][2]='';
+$config['ftp_pass'][2]='';
+$config['ftp_dir'][2]='';
 
 //Multipart 0=off 1=on
 $config['multi_part']=0;

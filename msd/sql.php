@@ -96,7 +96,7 @@ if (isset($_POST['execsql']))
 	{
 		$sql['sql_statement']=$_POST['tablecombo'];
 		$tablename=ExtractTablenameFromSQL($sql['sql_statement']);
-	
+
 	}
 	if (isset($_POST['sqltextarea'])&&$_POST['sqltextarea']>'') $tablename=ExtractTablenameFromSQL($_POST['sqltextarea']);
 	if ($tablename=='') $tablename=ExtractTablenameFromSQL($sql['sql_statement']);
@@ -124,11 +124,11 @@ if ($sql_to_display_data==1)
 {
 	//nur ein SQL-Statement
 	$limitende=($limitstart+$config['sql_limit']);
-	
+
 	//Darf editiert werden?
 	$no_edit=(strtoupper(substr($sql['sql_statement'],0,6))!="SELECT"||$showtables==1||preg_match('@^((-- |#)[^\n]*\n|/\*.*?\*/)*(UNION|JOIN)@im',$sql['sql_statement']));
 	if ($no_edit) $no_order=true;
-	
+
 	//Darf sortiert werden?
 	$op=strpos(strtoupper($sql['sql_statement'])," ORDER ");
 	if ($op>0)
@@ -217,12 +217,12 @@ if ($search==0&&!$download)
 	echo $aus;
 	$aus='';
 	include ('./inc/sqlbrowser/sqlbox.php');
-	
+
 	if ($mode>''&&$context==0)
 	{
 		if (isset($recordkey)&&$recordkey>'') $rk=urldecode($recordkey);
 		if (isset($_GET['tablename'])) $tablename=$_GET['tablename'];
-		
+
 		if ($mode=='kill'||$mode=='kill_view')
 		{
 			if ($showtables==0)
@@ -242,7 +242,7 @@ if ($search==0&&!$download)
 		}
 		if ($mode=="empty")
 		{
-			
+
 			if ($showtables!=0)
 			{
 				$sqlk="TRUNCATE `$rk`";
@@ -261,7 +261,7 @@ if ($search==0&&!$download)
 				$aus.='<p class="success">'.sprintf($lang['L_SQL_TABLEEMPTIEDKEYS'],$rk).'</p>';
 			}
 		}
-		
+
 		$javascript_switch='<script language="javascript" type="text/javascript">
 function switch_area(textarea)
 {
@@ -271,7 +271,7 @@ function switch_area(textarea)
 	else { t.className="";t.disabled=false;  }
 }
 </script>';
-		
+
 		if ($mode=='edit'||$mode=='searchedit') include ('./inc/sqlbrowser/sql_record_update_inputmask.php');
 		if ($mode=='new') include ('./inc/sqlbrowser/sql_record_insert_inputmask.php');
 	}
@@ -296,7 +296,7 @@ function BrowseInput(el)
 }
 </script>
 <?php
-	
+
 	echo '<br><br><br>';
 	echo MSDFooter();
 	ob_end_flush();
@@ -305,7 +305,7 @@ function BrowseInput(el)
 function FormHiddenParams()
 {
 	global $db,$dbid,$tablename,$context,$limitstart,$order,$orderdir;
-	
+
 	$s='<input type="hidden" name="db" value="'.$db.'">';
 	$s.='<input type="hidden" name="dbid" value="'.$dbid.'">';
 	$s.='<input type="hidden" name="tablename" value="'.$tablename.'">';

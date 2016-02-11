@@ -20,31 +20,31 @@ foreach ($record as $field=>$fieldvalue)
 {
 	$fieldnames.=$field.'|';
 	$tpl->assign_block_vars('ROW',array(
-		'CLASS' => ($x%2) ? 1 : 2, 
-		'FIELD_NAME' => $field, 
-		'FIELD_VALUE' => my_quotes($fieldvalue), 
+		'CLASS' => ($x%2) ? 1 : 2,
+		'FIELD_NAME' => $field,
+		'FIELD_VALUE' => my_quotes($fieldvalue),
 		'FIELD_ID' => correct_post_index($field)));
-	
+
 	if ('YES'==$fields[$field]['null'])
 	{
 		//field is nullable - precheck checkbox if value is null
 		$tpl->assign_block_vars('ROW.IS_NULLABLE',array(
 			'NULL_CHECKED' => is_null($fieldvalue) ? ' checked="checked"' : ''));
 	}
-	
+
 	$type=strtoupper($fields[$field]['type']);
 	if (in_array($type,array(
-		'BLOB', 
+		'BLOB',
 		'TEXT'))) $tpl->assign_block_vars('ROW.IS_TEXTAREA',array());
 	else
 		$tpl->assign_block_vars('ROW.IS_TEXTINPUT',array());
 	$x++;
 }
 $tpl->assign_vars(array(
-	'HIDDEN_FIELDS' => FormHiddenParams(), 
-	'FIELDNAMES' => substr($fieldnames,0,strlen($fieldnames)-1), 
-	'SQL_STATEMENT' => my_quotes($sql['sql_statement']), 
-	'RECORDKEY' => my_quotes($recordkey), 
+	'HIDDEN_FIELDS' => FormHiddenParams(),
+	'FIELDNAMES' => substr($fieldnames,0,strlen($fieldnames)-1),
+	'SQL_STATEMENT' => my_quotes($sql['sql_statement']),
+	'RECORDKEY' => my_quotes($recordkey),
 	'TARGET' => $target));
 
 $tpl->pparse('show');

@@ -1202,7 +1202,7 @@ function get_sql_encodings()
 	$config['mysql_can_change_encoding']=false;
 	if (($v[0]<=4&&$v[1]<1)||$v[0]<=3)
 	{
-		
+
 		// MySQL < 4.1
 		$config['mysql_can_change_encoding']=false;
 		$sqlt='SHOW VARIABLES LIKE \'character_set%\'';

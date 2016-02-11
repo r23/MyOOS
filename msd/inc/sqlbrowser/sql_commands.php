@@ -4,7 +4,7 @@ function nl2null($string)
 {
 	$search=array("\r","\n");
 	$replace=array('','');
-	return trim(str_replace($search,$replace,$string));	
+	return trim(str_replace($search,$replace,$string));
 }
 //SQL-Strings
 echo $aus.='<h4>' . $lang['L_SQL_BEFEHLE'] . ' (' . count($SQL_ARRAY) . ')</h4>';
@@ -30,8 +30,8 @@ if (count($SQL_ARRAY) > 0)
 	{
 		if (isset($_POST['sqlupdate' . $i]))
 		{
-			
-			echo '<tr><td colspan="4"><p class="success">' . $lang['L_SQL_BEFEHLSAVED1'] 
+
+			echo '<tr><td colspan="4"><p class="success">' . $lang['L_SQL_BEFEHLSAVED1']
 			. ' \'' . htmlspecialchars($_POST['sqlname' . $i],ENT_COMPAT ,'UTF-8') . '\' ' . $lang['L_SQL_BEFEHLSAVED3'] . '</p></td></tr>';
 			$SQL_ARRAY[$i]=$_POST['sqlname' . $i] . "|" . nl2null($_POST['sqlstring' . $i]);
 			WriteSQL();
