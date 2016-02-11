@@ -1,4 +1,6 @@
 <div id="content">
+<h3>MyOOS [Dumper] based on MySQLDumper 1.24.4</h3>
+
 <h3>Sobre este proyecto </h3>
 La idea para este proyecto proviene de Daniel Schlichholz.
 <p>En 2004 abrió el foro <a href="http://forum.mysqldumper.de" target="_blank">MySQLDumper</a> e inmediatamente algunos aficionados a la programación se encontraron allí, para escribir y ampliar la versión inicial de los scripts de Daniel.<br>

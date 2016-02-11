@@ -1,4 +1,6 @@
 <div id="content">
+<h3>MyOOS [Dumper] based on MySQLDumper 1.24.4</h3>
+
 <h3>Σχετικά με το εργαλείο</h3>
 Η ιδέα για το εργαλείο αυτό είναι του Daniel Schlichtholz.<p>Το 2004 δημιούργησε ένα φόρουμ με όνομα <a href="http://forum.mysqldumper.de" target="_blank">MySQLDumper</a> και σύντομα, προγραμματιστές που ασχολούνται με νέα σκριπτ, ενίσχυσαν τα σκριπτ του Daniel.<br>Μέσα σε λίγο καιρό το μικρό του προγραμματάκι μετατράπηκε σε ένα σταθερότατο εργαλείο.<p>Εαν έχετε ιδέες για βελτίωση επισκευθείτε το φόρουμ  του MySQLDumper: <a href="http://forum.mysqldumper.de" target="_blank">http://forum.mysqldumper.de</a>.<p>Σας ευχόμαστε ατελείωτα αντίγραφα ασφαλείας με αυτό το εργαλείο.<br><br><h4>Η ομάδα του MySQLDumper</h4>
 <table><tr><td><img src="images/logo.gif" alt="MySQLDumper" border="0"></td><td valign="top">

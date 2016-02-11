@@ -1,3 +1,6 @@
+MyOOS [Dumper] Copyright (c) 2016 - by the MyOOS Development Team.
+
+based on MySQLDumper 1.24.4
 MySqlDumper Copyright (C)2004-2009 Daniel Schlichtholz (admin@mysqldumper.de)
 
 This program is free software; you can redistribute it and/or modify it under 

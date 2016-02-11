@@ -1,4 +1,7 @@
 <div id="content">
+<h3>MyOOS [Dumper] based on MySQLDumper 1.24.4</h3>
+
+
 <h3>Über das Projäkt</h3>
 D Idee für das Projäkt isch vom Daniel Schlichtholz cho.<p>Er hät 2004 das Forum <a href="http://forum.mysqldumper.de" target="_blank">MySQLDumper</a>, eröffnet und scho bald händ sich Hobby-Programmierer, wo neui Skripts schribe und diä vom Daniel erwiteret händ, iigfunde.<br>I kürzischter Ziit isch us däm chline Backupskript es stattlichs Projäkt entschtande.<p>Wänn Du Vorschläg zur Verbesserig häsch, dänn wänd Di as MySQLDumper-Forum <a href="http://forum.mysqldumper.de" target="_blank">http://forum.mysqldumper.de</a>.<p>Mir wünsched Dir vill Vergnüege mit däm Projäkt.<br><p><h4>S MySQLDumper-Team</h4>
 

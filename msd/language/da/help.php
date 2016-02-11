@@ -1,4 +1,6 @@
 <div id="content">
+<h3>MyOOS [Dumper] based on MySQLDumper 1.24.4</h3>
+
 <h3>Om dette projekt</h3>
 Idéen til dette projekt kommer fra Daniel Schlichtholz.<p>I 2004 skabte han et forum kaldet <a href="http://forum.mysqldumper.de" target="_blank">MySQLDumper</a> og programmører af andre programmer supplementerede Daniel's scripts.<br>I løbet af kort tid blomstrede det lille backup-script til et langt større projekt.<p>Hvis du har forslag til forbedringer kan du besøge MySQLDumper-Forum: <a href="http://forum.mysqldumper.de" target="_blank">http://forum.mysqldumper.de</a>.<p>God fornøjelse med at bruge systemet.<br><br><h4>MySQLDumper-Teamet</h4>
 <table><tr><td><img src="images/logo.gif" alt="MySQLDumper" border="0"></td><td valign="top">

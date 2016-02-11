@@ -1,4 +1,6 @@
 <div id="content">
+<h3>MyOOS [Dumper] based on MySQLDumper 1.24.4</h3>
+
 <h3>Về dự án này</h3>
 Ý tưởng cho dự án này là của Daniel Schlichtholz.<p>Năm 2004, ông tạo ra diễn đàn <a href="http://forum.mysqldumper.de" target="_blank">MySQLDumper</a> và sau đó, lập trình những đoạn mã mới, bổ sung đoạn mã của Daniel.<br>Sau một thời gian ngắn, mã nguồn phát triển thành một dự án lớn hơn.<p>Nếu bạn có bất cứ góp ý nào nhằm cải tiến mã nguồn, bạn có thể truy cập vào Diễn đàn MySQLDumper: <a href="http://forum.mysqldumper.de" target="_blank">http://forum.mysqldumper.de</a>.<p>Chúc bạn có những giây phút thú vị.<br><br><h4>The MySQLDumper-Team</h4>
 <table><tr><td><img src="images/logo.gif" alt="MySQLDumper" border="0"></td><td valign="top">
