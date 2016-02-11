@@ -442,7 +442,7 @@ function EmptyDB($dbn)
 	global $config;
 	$t_sql=array();
 	@mysqli_query($config['dbconnection'], 'SET FOREIGN_KEY_CHECKS=0');
-	$res=mysqli_query($config['dbconnection'], 'SHOW TABLE STATUS FROM `'.$dbn.'`') or die('EmptyDB: '.mysqli_error());
+	$res=mysqli_query($config['dbconnection'], 'SHOW TABLE STATUS FROM `'.$dbn.'`') or die('EmptyDB: '.mysqli_error($config['dbconnection']));
 	while ($row=mysqli_fetch_array($res,MYSQLI_ASSOC))
 	{
 		if (substr(strtoupper($row['Comment']),0,4)=='VIEW')
@@ -458,7 +458,7 @@ function EmptyDB($dbn)
 	{
 		for ($i=0; $i<count($t_sql); $i++)
 		{
-			$res=mysqli_query($config['dbconnection'], $t_sql[$i]) or die('EmptyDB-Error: '.mysqli_error());
+			$res=mysqli_query($config['dbconnection'], $t_sql[$i]) or die('EmptyDB-Error: '.mysqli_error($config['dbconnection']));
 		}
 	}
 	@mysqli_query($config['dbconnection'], 'SET FOREIGN_KEY_CHECKS=1');
@@ -1206,7 +1206,7 @@ function get_sql_encodings()
 		// MySQL < 4.1
 		$config['mysql_can_change_encoding']=false;
 		$sqlt='SHOW VARIABLES LIKE \'character_set%\'';
-		$res=MSD_query($sqlt) or die(SQLError($sqlt,mysqli_error()));
+		$res=MSD_query($sqlt) or die(SQLError($sqlt,mysqli_error($config['dbconnection'])));
 		if ($res)
 		{
 			while ($row=mysqli_fetch_row($res))
@@ -1230,7 +1230,7 @@ function get_sql_encodings()
 		// MySQL-Version >= 4.1
 		$config['mysql_can_change_encoding']=true;
 		$sqlt='SHOW CHARACTER SET';
-		$res=MSD_query($sqlt) or die(SQLError($sqlt,mysqli_error()));
+		$res=MSD_query($sqlt) or die(SQLError($sqlt,mysqli_error($config['dbconnection'])));
 
 		if ($res)
 		{
@@ -1242,7 +1242,7 @@ function get_sql_encodings()
 		}
 
 		$sqlt='SHOW VARIABLES LIKE \'character_set_connection\'';
-		$res=MSD_query($sqlt) or die(SQLError($sqlt,mysqli_error()));
+		$res=MSD_query($sqlt) or die(SQLError($sqlt,mysqli_error($config['dbconnection'])));
 
 		if ($res)
 		{

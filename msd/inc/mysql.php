@@ -408,7 +408,7 @@ function getDBInfos()
 	for ($ii=0; $ii < count($databases['multi']); $ii++)
 	{
 		$dump['dbindex']=$flipped[$databases['multi'][$ii]];
-		$tabellen=mysqli_query($config['dbconnection'], 'SHOW TABLE STATUS FROM `' . $databases['Name'][$dump['dbindex']] . '`') or die('getDBInfos: ' . mysqli_error());
+		$tabellen=mysqli_query($config['dbconnection'], 'SHOW TABLE STATUS FROM `' . $databases['Name'][$dump['dbindex']] . '`') or die('getDBInfos: ' . mysqli_error($config['dbconnection']));
 		$num_tables=mysqli_num_rows($tabellen);
 		// Array mit den gewünschten Tabellen zusammenstellen... wenn Präfix angegeben, werden die anderen einfach nicht übernommen
 		if ($num_tables > 0)
@@ -432,7 +432,7 @@ function getDBInfos()
                         $opt = 'OPTIMIZE TABLE `' . $row['Name'] . '`';
                         $res = mysqli_query($config['dbconnection'], 'OPTIMIZE TABLE `' . $row['Name'] . '`');
                         if ($res === false) {
-                            die("Error in ".$opt." -> ".mysqli_error());
+                            die("Error in ".$opt." -> ".mysqli_error($config['dbconnection']));
                         }
                     }
 
@@ -464,7 +464,7 @@ function getDBInfos()
 					$res2=@mysqli_query($config['dbconnection'], $sql_2);
 					if ($res2 === false)
 					{
-						$read_error='(' . mysql_errno() . ') ' . mysqli_error();
+						$read_error='(' . mysql_errno() . ') ' . mysqli_error($config['dbconnection']);
 						SQLError($read_error,$sql_2);
 						WriteLog($read_error);
 						if ($config['stop_with_error'] > 0)

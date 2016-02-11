@@ -31,7 +31,7 @@ for ($i=0; $i<count($databases['Name']); $i++)
 	}
 	if (isset($_POST['kill'.$i]))
 	{
-		$res=mysqli_query($config['dbconnection'], 'DROP DATABASE `'.$databases['Name'][$i].'`') or die(mysqli_error());
+		$res=mysqli_query($config['dbconnection'], 'DROP DATABASE `'.$databases['Name'][$i].'`') or die(mysqli_error($config['dbconnection']));
 		$dba='<p class="green">'.$lang['L_DB'].' '.$databases['Name'][$i].' '.$lang['L_INFO_DELETED'].'</p>';
 		SetDefault();
 		include ($config['files']['parameter']);
@@ -49,7 +49,7 @@ for ($i=0; $i<count($databases['Name']); $i++)
 		if ($tabellen>"")
 		{
 			$query="OPTIMIZE TABLE ".$tabellen;
-			$res=mysqli_query($config['dbconnection'], $query) or die(mysqli_error()."");
+			$res=mysqli_query($config['dbconnection'], $query) or die(mysqli_error($config['dbconnection'])."");
 		}
 		$_GET['dbid']=$i;
 		$dba='<p class="green">'.$lang['L_DB'].' <b>'.$databases['Name'][$i].'</b> '.$lang['L_INFO_OPTIMIZED'].'.</p>';

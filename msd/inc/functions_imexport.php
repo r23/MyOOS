@@ -254,7 +254,7 @@ function ImportCreateTable()
 	else $create=substr($create,0,strlen($create) - 2);
 
 	$create.=') ' . ( ( MSD_NEW_VERSION ) ? 'ENGINE' : 'TYPE' ) . "=MyISAM COMMENT='imported at " . date("l dS of F Y H:i:s A") . "'";
-	$res=mysqli_query($config['dbconnection'], $create) || die(SQLError($create,mysqli_error()));
+	$res=mysqli_query($config['dbconnection'], $create) || die(SQLError($create,mysqli_error($config['dbconnection'])));
 	return 1;
 }
 

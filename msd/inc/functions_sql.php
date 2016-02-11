@@ -514,7 +514,7 @@ function GetCreateTable($db, $tabelle)
 		else return false;
 	}
 	else
-		return mysqli_error();
+		return mysqli_error($config['dbconnection']);
 
 }
 

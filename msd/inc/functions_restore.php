@@ -310,7 +310,7 @@ function submit_create_action($sql)
 	if ($res===false)
 	{
 		// wenn wir hier angekommen sind hat nichts geklappt -> Fehler ausgeben und abbrechen
-		SQLError($sql,mysqli_error());
+		SQLError($sql,mysqli_error($config['dbconnection']));
 		die("<br>Fatal error: Couldn't create table or view `".$tablename."´");
 	}
 	return $tablename;
@@ -336,7 +336,7 @@ function get_insert_syntax($table)
 	{
 		global $restore;
 		v($restore);
-		SQLError($sql,mysqli_error());
+		SQLError($sql,mysqli_error($config['dbconnection']));
 	}
 	return $insert;
 }

@@ -315,8 +315,8 @@ function ExecuteCommand($when)
 
 					if ($result===false)
 					{
-						WriteLog("Error executing Query '$cad[$i]'! MySQL returns: ".trim(mysqli_error()));
-						ErrorLog("Error executing Query '$cad[$i]'!",$databases['Name'][$dump['dbindex']],$cad[$i],mysqli_error(),0);
+						WriteLog("Error executing Query '$cad[$i]'! MySQL returns: ".trim(mysqli_error($config['dbconnection'])));
+						ErrorLog("Error executing Query '$cad[$i]'!",$databases['Name'][$dump['dbindex']],$cad[$i],mysqli_error($config['dbconnection']),0);
 						$dump['errors']++;
 						$out.='<span class="error">Error executing Query '.$cad[$i].'</span>'.$lf;
 					}
