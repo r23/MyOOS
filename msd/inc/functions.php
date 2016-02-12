@@ -339,14 +339,14 @@ function WriteParams($as=0, $restore_values=false)
 
 function escape_specialchars($text)
 {
-	$suchen=ARRAY(
+	$suchen= array (
 
 				'@',
 				'$',
 				'\\\\',
 				'"'
 	);
-	$ersetzen=ARRAY(
+	$ersetzen= array (
 
 					'\@',
 					'\$',

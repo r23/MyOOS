@@ -273,7 +273,7 @@ if (isset($_POST['upload']))
 		{
 			// Extension ermitteln -strrpos f&auml;ngt hinten an und ermittelt somit den letzten Punkt
 			$endung=strrchr($_FILES['upfile']['name'],".");
-			$erlaubt=ARRAY(
+			$erlaubt= array (
 
 			".gz", ".sql");
 			if (!in_array($endung,$erlaubt))

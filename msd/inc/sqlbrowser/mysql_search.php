@@ -2,7 +2,7 @@
 if (!defined('MSD_VERSION')) die('No direct access.');
 //alle Tabellen der aktuellen Datenbank ermitteln und Zugriffs-Array aufbauen
 $sql='SHOW TABLES FROM `'.$db.'`';
-$tables=ARRAY();
+$tables= array ();
 $link=MSD_mysql_connect();
 $res=mysqli_query($link, $sql);
 if (!$res===false)
@@ -108,11 +108,11 @@ function mysql_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzahl
 						unset($feldbedingung);
 						foreach ($suchworte as $suchbegriff)
 						{
-							$suchen=ARRAY(
+							$suchen= array (
 
 								'{FELD}',
 								'{SUCHBEGRIFF}');
-							$ersetzen=ARRAY(
+							$ersetzen= array (
 
 								$feld,
 								$suchbegriff);
@@ -232,11 +232,11 @@ function markiere_suchtreffer($suchbegriff, $suchstring)
 // Ersetzt die Codes letztlich durch die Fontangabe
 function ersetze_suchtreffer($text)
 {
-	$such=ARRAY(
+	$such= array (
 
 		chr(1),
 		chr(2));
-	$ersetzen=ARRAY(
+	$ersetzen= array (
 
 		'<span class="treffer">',
 		'</span>');

@@ -46,7 +46,7 @@ $feldtypen=Array(
 				"ENUM",
 				"SET"
 );
-$feldattribute=ARRAY(
+$feldattribute= array (
 					"",
 					"BINARY",
 					"UNSIGNED",

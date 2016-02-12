@@ -380,7 +380,7 @@ switch ($phase)
 		}
 
 		echo '<h6>' . $lang['L_CREATEDIRS'] . '</h6>';
-		$check_dirs=ARRAY(
+		$check_dirs= array (
 
 							"work/",
 							"work/config/",
