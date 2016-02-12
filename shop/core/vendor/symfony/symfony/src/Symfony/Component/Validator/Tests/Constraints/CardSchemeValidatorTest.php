@@ -13,7 +13,6 @@ namespace Symfony\Component\Validator\Tests\Constraints;
 
 use Symfony\Component\Validator\Constraints\CardScheme;
 use Symfony\Component\Validator\Constraints\CardSchemeValidator;
-use Symfony\Component\Validator\Validation;
 
 class CardSchemeValidatorTest extends AbstractConstraintValidatorTest
 {
@@ -93,7 +92,6 @@ class CardSchemeValidatorTest extends AbstractConstraintValidatorTest
             array('MAESTRO', '6759744069209'),
             array('MAESTRO', '5020507657408074712'),
             array('MAESTRO', '5612559223580173965'),
-            array('MAESTRO', '6759744069209'),
             array('MAESTRO', '6759744069209'),
             array('MAESTRO', '6594371785970435599'),
             array('MASTERCARD', '5555555555554444'),

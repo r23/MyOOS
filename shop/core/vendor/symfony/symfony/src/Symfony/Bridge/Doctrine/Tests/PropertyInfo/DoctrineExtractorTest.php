@@ -26,7 +26,7 @@ class DoctrineExtractorTest extends \PHPUnit_Framework_TestCase
      */
     private $extractor;
 
-    public function setUp()
+    protected function setUp()
     {
         $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__.DIRECTORY_SEPARATOR.'Fixtures'), true);
         $entityManager = EntityManager::create(array('driver' => 'pdo_sqlite'), $config);
@@ -80,5 +80,15 @@ class DoctrineExtractorTest extends \PHPUnit_Framework_TestCase
             array('simpleArray', array(new Type(Type::BUILTIN_TYPE_ARRAY, false, null, true, new Type(Type::BUILTIN_TYPE_INT), new Type(Type::BUILTIN_TYPE_STRING)))),
             array('notMapped', null),
         );
+    }
+
+    public function testGetPropertiesCatchException()
+    {
+        $this->assertNull($this->extractor->getProperties('Not\Exist'));
+    }
+
+    public function testGetTypesCatchException()
+    {
+        $this->assertNull($this->extractor->getTypes('Not\Exist', 'baz'));
     }
 }

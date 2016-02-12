@@ -7,13 +7,13 @@
 
     <doctrine-cache>
         <provider name="my_riak_cache">
-             <riak host="localhost" port="8087">
-            <bucket-name>my_bucket</bucket-name>
-            <bucket-property-list>
-                <allow-multiple>false</allow-multiple>
-                <n-value>1</n-value>
-            </bucket-property-list>
-        </riak>
-         </provider>
+            <riak host="localhost" port="8087">
+                <bucket-name>my_bucket</bucket-name>
+                <bucket-property-list>
+                    <allow-multiple>false</allow-multiple>
+                    <n-value>1</n-value>
+                </bucket-property-list>
+            </riak>
+        </provider>
     </doctrine-cache>
 </srv:container>

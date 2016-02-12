@@ -101,7 +101,7 @@
                             var request = requestStack[i];
 
                             var row = document.createElement('tr');
-                            rows.appendChild(row);
+                            rows.insertBefore(row, rows.firstChild);
 
                             var methodCell = document.createElement('td');
                             if (request.error) {
@@ -188,6 +188,7 @@
                     Sfjs.removeClass(ajaxToolbarPanel, 'sf-toolbar-status-red');
                 } else if (state == 'error') {
                     Sfjs.addClass(ajaxToolbarPanel, 'sf-toolbar-status-red');
+                    Sfjs.removeClass(ajaxToolbarPanel, 'sf-ajax-request-loading');
                 } else {
                     Sfjs.addClass(ajaxToolbarPanel, 'sf-ajax-request-loading');
                 }
@@ -224,7 +225,7 @@
                         path = url.substr({{ (request.schemeAndHttpHost ~ request.basePath)|length }});
                     }
 
-                    if (path.substr(0, 1) === '/' && !path.match(new RegExp({{ excluded_ajax_paths|json_encode|raw }}))) {
+                    if (!path.match(new RegExp({{ excluded_ajax_paths|json_encode|raw }}))) {
                         var stackElement = {
                             loading: true,
                             error: false,

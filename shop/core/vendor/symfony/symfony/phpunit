@@ -27,7 +27,7 @@ if ('phpdbg' === PHP_SAPI) {
     $PHP .= ' -qrr';
 }
 
-$COMPOSER = file_exists($COMPOSER = __DIR__.'/composer.phar') || ($COMPOSER = rtrim('\\' === DIRECTORY_SEPARATOR ? `where.exe composer.phar` : `which composer.phar`))
+$COMPOSER = file_exists($COMPOSER = __DIR__.'/composer.phar') || ($COMPOSER = rtrim('\\' === DIRECTORY_SEPARATOR ? preg_replace('/[\r\n].*/', '', `where.exe composer.phar`) : `which composer.phar`))
     ? $PHP.' '.ProcessUtils::escapeArgument($COMPOSER)
     : 'composer';
 
@@ -53,7 +53,7 @@ if (!file_exists("$PHPUNIT_DIR/phpunit-$PHPUNIT_VERSION/phpunit") || md5_file(__
     chdir("phpunit-$PHPUNIT_VERSION");
     passthru("$COMPOSER remove --no-update symfony/yaml");
     passthru("$COMPOSER require --dev --no-update symfony/phpunit-bridge \">=2.8@dev\"");
-    passthru("$COMPOSER install --prefer-source --no-progress --ansi");
+    passthru("$COMPOSER install --prefer-dist --no-progress --ansi");
     file_put_contents('phpunit', <<<EOPHP
 <?php
 
