@@ -10,52 +10,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>MyOOS [Dumper]</title>
 	<link rel="stylesheet" type="text/css" href="css/{THEME}/style.css">
-	<script language = "javascript" type = "text/javascript" src = "js/prototype/prototype.js"></script>
-	<script language = "javascript" type = "text/javascript" src = "js/scriptaculous/lib/scriptaculous.js?load=effects"></script>
 	<script language = "javascript" type = "text/javascript">
-	/* taken from http://ajaxorized.com/examples/scriptaculous/pastrength/ */
-		var updateStrength = function(pw) {
-			var strength = getStrength(pw);
-			var width = (100/32)*strength;
-			new Effect.Morph('psStrength', {style:'width:'+width+'px', duration:'0.4'}); 
-		}
-			
-		var getStrength = function(passwd) {
-			intScore = 0;
-			if (passwd.match(/[a-z]/)) // [verified] at least one lower case letter
-					{
-					intScore = (intScore+1)
-					} if (passwd.match(/[A-Z]/)) // [verified] at least one upper case letter
-					{
-					intScore = (intScore+5)
-					} // NUMBERS
-						if (passwd.match(/\d+/)) // [verified] at least one number
-						{
-						intScore = (intScore+5)
-						} if (passwd.match(/(\d.*\d.*\d)/)) // [verified] at least three numbers
-						{
-						intScore = (intScore+5)
-						} // SPECIAL CHAR
-						if (passwd.match(/[!,@#$%^&*?_~]/)) // [verified] at least one special character
-						{
-						intScore = (intScore+5)
-						} if (passwd.match(/([!,@#$%^&*?_~].*[!,@#$%^&*?_~])/)) // [verified] at least two special characters
-						{
-						intScore = (intScore+5)
-						} // COMBOS
-						if (passwd.match(/[a-z]/) && passwd.match(/[A-Z]/)) // [verified] both upper and lower case
-						{
-						intScore = (intScore+2)
-						} if (passwd.match(/\d/) && passwd.match(/\D/)) // [verified] both letters and numbers
-						{
-						intScore = (intScore+2)
-						} // [Verified] Upper Letters, Lower Letters, numbers and special characters
-						if (passwd.match(/[a-z]/) && passwd.match(/[A-Z]/) && passwd.match(/\d/) && passwd.match(/[!,@#$%^&*?_~]/))
-						{
-						intScore = (intScore+2)
-						}
-						return intScore;
-			}
+		
+
 			function checkPasswords()
 			{
 				if (document.getElementById('userpass1').value!=document.getElementById('userpass2').value)
@@ -72,22 +29,6 @@
 				float:left;			
 			}
 			
-			#psContainer {
-				height:18px;
-				width:100px;
-				border:none;
-				float:left;	
-				margin:0;
-				background-color:#DDDDDD;
-				cursor: default;
-			}
-			
-			#psStrength {
-				background-image:url('js/strength.jpg');
-				height:18px;
-				width:0px;
-				cursor: default;
-			}
 		</style>	
 </head>
 <body class="content" onload="if (document.forms[0]) document.forms[0].username.focus();">
@@ -106,8 +47,7 @@
 <tr>
 	<td>{L_PASSWORD}:</td>
 	<td>
-		<input type="text" name="userpass1" id="userpass1" value="{USERPASS2}" size="50" class="Formtext" 
-		onkeyup="updateStrength(this.value)">
+		<input type="text" name="userpass1" id="userpass1" value="{USERPASS2}" size="50" class="Formtext">
 	</td>
 </tr>
 <tr>
@@ -119,7 +59,7 @@
 <tr>
 	<td>{L_PASSWORD_STRENGTH}:</td>
 	<td>
-		<div id="psContainer" class="Formtext" style="cursor:default;"><div id = "psStrength"></div></div>
+
 	</td>
 </tr>
 <tr>
