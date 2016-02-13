@@ -76,7 +76,7 @@ class MSDTemplate
 	 * Constructor. Simply sets the root dir.
 	 *
 	 */
-	function MSDTemplate($root=".")
+	public function __construct($root=".")
 	{
 		$this->set_rootdir($root);
 	}
@@ -85,7 +85,7 @@ class MSDTemplate
 	 * Destroys this template object. Should be called when you're done with it, in order
 	 * to clear out the template data so you can load/parse a new template set.
 	 */
-	function destroy()
+	public function destroy()
 	{
 		$this->_tpldata=array();
 	}
@@ -93,7 +93,7 @@ class MSDTemplate
 	/**
 	 * Sets the template root directory for this Template object.
 	 */
-	function set_rootdir($dir)
+	public function set_rootdir($dir)
 	{
 		if (!is_dir($dir))
 		{
@@ -107,7 +107,7 @@ class MSDTemplate
 	 * Sets the template filenames for handles. $filename_array
 	 * should be a hash of handle => filename pairs.
 	 */
-	function set_filenames($filename_array)
+	public function set_filenames($filename_array)
 	{
 		if (!is_array($filename_array))
 		{
@@ -128,7 +128,7 @@ class MSDTemplate
 	 * and run the compiled code. This will print out
 	 * the results of executing the template.
 	 */
-	function pparse($handle)
+	public function pparse($handle)
 	{
 		// Edit DSB: autimatically assign language vars
 		global $lang;
@@ -160,7 +160,7 @@ class MSDTemplate
 	 * Note that all desired assignments to the variables in $handle should be done
 	 * BEFORE calling this function.
 	 */
-	function assign_var_from_handle($varname, $handle)
+	public function assign_var_from_handle($varname, $handle)
 	{
 		if (!$this->loadfile($handle))
 		{
@@ -184,7 +184,7 @@ class MSDTemplate
 	 * variable assignments. Note that this should only be called once per block
 	 * iteration.
 	 */
-	function assign_block_vars($blockname, $vararray)
+	public function assign_block_vars($blockname, $vararray)
 	{
 		if (strstr($blockname,'.'))
 		{
@@ -221,7 +221,7 @@ class MSDTemplate
 	 * Root-level variable assignment. Adds to current assignments, overriding
 	 * any existing variable assignment with the same name.
 	 */
-	function assign_vars($vararray)
+	public function assign_vars($vararray)
 	{
 		global $lang;
 		while (list ($key, $val)=each($vararray))
@@ -236,7 +236,7 @@ class MSDTemplate
 	 * Root-level variable assignment. Adds to current assignments, overriding
 	 * any existing variable assignment with the same name.
 	 */
-	function assign_var($varname, $varval)
+	public function assign_var($varname, $varval)
 	{
 		$this->_tpldata['.'][0][$varname]=$varval;
 
@@ -248,7 +248,7 @@ class MSDTemplate
 	 * be an absolute name, or a name relative to the rootdir for this Template
 	 * object.
 	 */
-	function make_filename($filename)
+	public function make_filename($filename)
 	{
 		// Check if it's an absolute or relative path.
 		/*
@@ -269,7 +269,7 @@ class MSDTemplate
 	 * If not already done, load the file for the given handle and populate
 	 * the uncompiled_code[] hash with its code. Do not compile.
 	 */
-	function loadfile($handle)
+	public function loadfile($handle)
 	{
 		// If the file for this handle is already loaded and compiled, do nothing.
 		if (isset($this->uncompiled_code[$handle]) && !empty($this->uncompiled_code[$handle]))
@@ -303,7 +303,7 @@ class MSDTemplate
 	 * executable, but can be used as part of a variable assignment
 	 * for use in assign_code_from_handle().
 	 */
-	function compile($code, $do_not_echo=false, $retvar='')
+	public function compile($code, $do_not_echo=false, $retvar='')
 	{
 		// replace \ with \\ and then ' with \'.
 		$code=str_replace('\\','\\\\',$code);
@@ -448,7 +448,7 @@ class MSDTemplate
 	 * It's ready to be inserted into an "echo" line in one of the templates.
 	 * NOTE: expects a trailing "." on the namespace.
 	 */
-	function generate_block_varref($namespace, $varname)
+	public function generate_block_varref($namespace, $varname)
 	{
 		// Strip the trailing period.
 		$namespace=substr($namespace,0,strlen($namespace) - 1);
@@ -475,7 +475,7 @@ class MSDTemplate
 	 * If $include_last_iterator is true, then [$_childN_i] will be appended to the form shown above.
 	 * NOTE: does not expect a trailing "." on the blockname.
 	 */
-	function generate_block_data_ref($blockname, $include_last_iterator)
+	public function generate_block_data_ref($blockname, $include_last_iterator)
 	{
 		// Get an array of the blocks involved.
 		$blocks=explode(".",$blockname);
@@ -498,4 +498,3 @@ class MSDTemplate
 	}
 
 }
-
