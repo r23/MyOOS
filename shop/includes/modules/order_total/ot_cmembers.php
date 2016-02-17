@@ -28,7 +28,7 @@
   class ot_cmembers {
     var $title, $output, $enabled = FALSE;
 
-    function ot_cmembers() {
+    public function __construct() {
       global $aLang;
 
       $this->code = 'ot_cmembers';

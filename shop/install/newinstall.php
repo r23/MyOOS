@@ -56,9 +56,6 @@
 
        $dict = NewDataDictionary($db);
 
-       if (!$dict) continue;
-       // $dict->debug = 1;
-
        $sqlarray = $dict->CreateDatabase($dbname);
        $dict->ExecuteSQLArray($sqlarray);
      }

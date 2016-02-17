@@ -23,7 +23,7 @@
     var $code, $title, $description, $icon, $enabled = FALSE;
 
 // class constructor
-    function flat() {
+    public function __construct() {
       global $oOrder, $aLang;
 
       $this->code = 'flat';

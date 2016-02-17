@@ -30,7 +30,9 @@ class tableBlock {
 	var $table_parameters = '';
 	var $table_row_parameters = '';
 	var $table_data_parameters = '';
-
+	
+	public function __construct() {
+    }
 	function tableBlock($contents) {
 		$tableBox_string = '';
 

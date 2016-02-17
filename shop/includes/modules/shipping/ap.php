@@ -45,7 +45,7 @@
     var $code, $title, $description, $icon, $num_ap, $enabled = FALSE;
 
 // class constructor
-    function ap() {
+    public function __construct() {
       global $oOrder, $aLang;
 
       $this->code = 'ap';

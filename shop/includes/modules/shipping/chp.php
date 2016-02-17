@@ -45,7 +45,7 @@
     var $code, $title, $description, $icon, $num_chp, $types, $enabled = FALSE;
 
 // class constructor
-    function chp() {
+    public function __construct() {
       global $oOrder, $aLang;
 
       $this->code = 'chp';

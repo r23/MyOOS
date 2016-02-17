@@ -23,7 +23,7 @@
     var $code, $title, $description, $icon, $enabled = FALSE;
 
 // class constructor
-    function selfpickup() {
+    public function __construct() {
       global $oOrder, $aLang;
 
       $this->code = 'selfpickup';

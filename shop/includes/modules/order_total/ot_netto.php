@@ -22,7 +22,7 @@
   class ot_netto {
     var $title, $output, $enabled = FALSE;
 
-    function ot_netto() {
+    public function __construct() {
       global $aLang;
 
       $this->code = 'ot_netto';

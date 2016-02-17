@@ -22,7 +22,7 @@
   class ot_gv {
     var $title, $output, $enabled = FALSE;
 
-    function ot_gv() {
+    public function __construct() {
       global $aLang;
 
       $this->code = 'ot_gv';

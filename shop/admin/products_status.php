@@ -283,8 +283,8 @@
   if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
     echo '            <td width="25%" valign="top">' . "\n";
 
-    $box = new box;
-    echo $box->infoBox($heading, $contents);
+    # $box = new box();
+    echo $box::infoBox($heading, $contents);
 
     echo '            </td>' . "\n";
   }

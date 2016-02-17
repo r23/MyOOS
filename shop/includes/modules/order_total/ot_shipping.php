@@ -22,7 +22,7 @@
   class ot_shipping {
     var $title, $output, $enabled = FALSE;
 
-    function ot_shipping() {
+    public function __construct() {
       global $aLang;
 
       $this->code = 'ot_shipping';

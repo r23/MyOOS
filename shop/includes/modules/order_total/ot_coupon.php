@@ -22,7 +22,7 @@
   class ot_coupon {
     var $title, $output, $enabled = FALSE;
 
-    function ot_coupon() {
+    public function __construct() {
       global $aLang;
 
       $this->code = 'ot_coupon';

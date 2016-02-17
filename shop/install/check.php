@@ -67,12 +67,12 @@ function oosCheckPHP() {
 ?>
 <table class="content">
 <tr>
-  <td>PHP version >= 5.2.3</td>
-  <td align="left"><?php echo phpversion() < '5.2.3' ? '<b><font color="red">No</font></b>' : '<b><font color="green">Yes</font></b>';?></td>
+  <td>PHP version >= 5.5.9</td>
+  <td align="left"><?php echo phpversion() < '5.5.9' ? '<b><font color="red">No</font></b>' : '<b><font color="green">Yes</font></b>';?></td>
 </tr>
 <tr>
   <td>&nbsp; - MySQL support</td>
-  <td align="left"><?php echo extension_loaded( 'mysql' ) ? '<b><font color="green">Available</font></b>' : '<b><font color="red">Unavailable</font></b>';?>
+  <td align="left"><?php echo extension_loaded( 'mysqli' ) ? '<b><font color="green">Available</font></b>' : '<b><font color="red">Unavailable</font></b>';?>
   </td>
 </tr>
 <tr>

@@ -45,7 +45,7 @@
     var $code, $title, $description, $icon, $num_fedexeu, $types, $enabled = FALSE;
 
 // class constructor
-    function fedexeu() {
+    public function __construct() {
       global $oOrder, $aLang;
 
       $this->code = 'fedexeu';

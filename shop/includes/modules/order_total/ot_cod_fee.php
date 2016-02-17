@@ -39,7 +39,7 @@
   class ot_cod_fee {
     var $title, $output, $enabled = FALSE;
 
-    function ot_cod_fee() {
+    public function __construct() {
       global $aLang;
 
       $this->code = 'ot_cod_fee';

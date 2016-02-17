@@ -105,7 +105,7 @@
     var $code, $title, $description, $num_zones, $enabled = FALSE;
 
 // class constructor
-    function zones() {
+    public function __construct() {
       global $oOrder, $aLang;
 
       $this->code = 'zones';

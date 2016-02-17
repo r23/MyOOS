@@ -45,7 +45,7 @@
     var $code, $title, $description, $enabled = FALSE;
 
 // class constructor
-    function cash() {
+    public function __construct() {
       global $oOrder, $aLang;
 
       $this->code = 'cash';
