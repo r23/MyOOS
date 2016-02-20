@@ -35,18 +35,18 @@
    /**
     *  class constructor
     */
-    function oos_event_down_for_maintenance() {
+    public function __construct() {
 
       $this->name          = PLUGIN_EVENT_DOWN_FOR_MAINTENANCE_NAME;
       $this->description   = PLUGIN_EVENT_DOWN_FOR_MAINTENANCE_DESC;
       $this->uninstallable = TRUE;
-      $this->author        = 'OOS Development Team';
+      $this->author        = 'MyOOS Development Team';
       $this->version       = '1.0';
       $this->requirements  = array(
                                'oos'         => '1.5.0',
                                'smarty'      => '2.6.9',
                                'adodb'       => '4.62',
-                               'php'         => '4.2.0'
+                               'php'         => '5.9.0'
       );
     }
 

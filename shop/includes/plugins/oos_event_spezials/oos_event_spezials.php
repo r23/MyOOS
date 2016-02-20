@@ -35,18 +35,18 @@
    /**
     *  class constructor
     */
-    function oos_event_spezials() {
+    public function __construct() {
 
       $this->name          = PLUGIN_EVENT_SPEZIALS_NAME;
       $this->description   = PLUGIN_EVENT_SPEZIALS_DESC;
       $this->uninstallable = TRUE;
-      $this->author        = 'OOS Development Team';
+      $this->author        = 'MyOOS Development Team';
       $this->version       = '2.0';
       $this->requirements  = array(
                                'oos'         => '1.7.0',
                                'smarty'      => '2.6.9',
                                'adodb'       => '4.62',
-                               'php'         => '4.2.0'
+                               'php'         => '5.9.0'
       );
     }
 

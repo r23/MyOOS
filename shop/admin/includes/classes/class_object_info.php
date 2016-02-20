@@ -22,12 +22,31 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-class objectInfo {
+class objectInfo 
+{
+    /**
+     * @var
+     */
+    protected $key;
 
-	// class constructor
-	public function __construct($aObject) {
+    /**
+     * @param $object_array
+     */
+    function __construct($aObject)
+    {
+        $this->updateObjectInfo($aObject);
+    }
+
+    /**
+     * @param $aObject
+     */
+    function updateObjectInfo($aObject)
+    {
+        if (!is_array($aObject)) return;
+        reset($aObject);
 		foreach ($aObject as $key => $value) {
 			$this->$key = oos_db_prepare_input($value);
 		}
-	}
+    }
 }
+
