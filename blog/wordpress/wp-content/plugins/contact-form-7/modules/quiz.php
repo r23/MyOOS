@@ -147,7 +147,7 @@ add_filter( 'wpcf7_messages', 'wpcf7_quiz_messages' );
 function wpcf7_quiz_messages( $messages ) {
 	return array_merge( $messages, array( 'quiz_answer_not_correct' => array(
 		'description' => __( "Sender doesn't enter the correct answer to the quiz", 'contact-form-7' ),
-		'default' => __( 'Your answer is not correct.', 'contact-form-7' )
+		'default' => __( "The answer to the quiz is incorrect.", 'contact-form-7' )
 	) ) );
 }
 

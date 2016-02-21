@@ -122,6 +122,10 @@
 			}
 		});
 
+		if ('radio' == tagType) {
+			options.push('default:1');
+		}
+
 		options = (options.length > 0) ? options.join(' ') : '';
 
 		var value = '';

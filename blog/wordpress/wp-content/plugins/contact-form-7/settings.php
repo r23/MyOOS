@@ -12,6 +12,7 @@ require_once WPCF7_PLUGIN_DIR . '/includes/mail.php';
 require_once WPCF7_PLUGIN_DIR . '/includes/submission.php';
 require_once WPCF7_PLUGIN_DIR . '/includes/upgrade.php';
 require_once WPCF7_PLUGIN_DIR . '/includes/integration.php';
+require_once WPCF7_PLUGIN_DIR . '/includes/config-validator.php';
 
 if ( is_admin() ) {
 	require_once WPCF7_PLUGIN_DIR . '/admin/admin.php';
@@ -29,7 +30,6 @@ class WPCF7 {
 		self::load_module( 'date' );
 		self::load_module( 'file' );
 		self::load_module( 'flamingo' );
-		self::load_module( 'jetpack' );
 		self::load_module( 'listo' );
 		self::load_module( 'number' );
 		self::load_module( 'quiz' );

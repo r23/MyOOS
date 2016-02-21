@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-01-21 14:09:02+0000\n"
+"PO-Revision-Date: 2016-02-20 08:02:17+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,79 +16,79 @@ msgstr "Vielen Dank fürs Aktualisieren! WordPress %s macht deine Website respon
 
 #. translators: 1: WP_Term class name, WP_Comment class name, WP_Network class
 #. name
-#: wp-admin/about.php:185
+#: wp-admin/about.php:189
 msgid "New %1$s, %2$s, and %3$s objects make interacting with terms, comments, and networks more predictable and intuitive in code."
 msgstr "Neue %1$s, %2$s, und %3$s Objekte machen die Interaktion mit Begriffen, Kommentaren und Netzwerken im Code besser planbar und intuitiv."
 
 #. translators: WP_Comment_Query class name
-#: wp-admin/about.php:178
+#: wp-admin/about.php:182
 msgid "Comment queries now have cache handling to improve performance. New arguments in %s make crafting robust comment queries simpler."
 msgstr "Kommentar-Abfragen haben nun ein Cache-Handling, um die Leistung zu verbessern. Neue Argumente in %s verhelfen dazu Kommentar-Abfragen stabiler und einfacher zu machen."
 
-#: wp-admin/about.php:182
+#: wp-admin/about.php:186
 msgid "Term, comment, and network objects"
 msgstr "Begriff-, Kommentar- und Netzwerk-Objekte"
 
-#: wp-admin/about.php:175
+#: wp-admin/about.php:179
 msgid "Comment query improvements"
 msgstr "Verbesserung der Kommentar-Abfragen"
 
 #. translators: WordPress REST API plugin link
-#: wp-admin/about.php:156
+#: wp-admin/about.php:160
 msgid "Infrastructure is the first part of a multi-stage rollout for the REST API. Inclusion of core endpoints is targeted for an upcoming release. To get a sneak peek of the core endpoints, and for more information on extending the REST API, check out the official %s plugin."
 msgstr "Infrastruktur ist der erste Teil der mehrstufigen Integration der REST API. Die Eingliederung der Kern-Endpunkte ist für ein kommendes Release geplant. Um einen ersten Einblick zu Kern-Endpunkten und weitere Informationen, wie die REST API erweitert werden kann, zu erhalten, sieh dir das offizielle %s Plugin an."
 
-#: wp-admin/about.php:164
+#: wp-admin/about.php:168
 msgid "Term meta"
 msgstr "Metadaten für Taxonomie-Begriffe"
 
 #. translators: 1: add_term_meta() docs link, 2: get_term_meta() docs link, 3:
 #. update_term_meta() docs link
-#: wp-admin/about.php:167
+#: wp-admin/about.php:171
 msgid "Terms now support metadata, just like posts. See %1$s, %2$s, and %3$s for more information."
 msgstr "Taxonomie-Begriffe unterstützen nun, genau wie Beiträge, auch Metadaten. Öffne %1$s, %2$s, und %3$s für weitere Informationen."
 
-#: wp-admin/about.php:139
+#: wp-admin/about.php:143
 msgid "Infrastructure for the REST API has been integrated into core, marking a new era in developing with WordPress. The REST API serves to provide developers with a path forward for building and extending RESTful APIs on top of WordPress."
 msgstr "Eine neue Ära für die Entwicklung mit WordPress markiert die Integration der Infrastruktur für die REST API. Die REST API dient dazu den Weg zu ebnen für das Entwickeln und Erweitern von RESTful APIs auf WordPress Basis."
 
-#: wp-admin/about.php:126
+#: wp-admin/about.php:130
 msgid "In addition to post embeds, WordPress 4.4 also adds support for five new oEmbed providers: Cloudup, Reddit&nbsp;Comments, ReverbNation, Speaker&nbsp;Deck, and VideoPress."
 msgstr "Zusätzlich zum Einbinden von Beiträgen unterstützt WordPress 4.4 fünf weitere oEmbed-Anbieter: Cloudup, Reddit-Kommentare, ReverbNation, Speaker&nbsp;Deck und VideoPress."
 
-#: wp-admin/about.php:137
+#: wp-admin/about.php:141
 msgid "REST API infrastructure"
 msgstr "REST-API-Infrastruktur"
 
-#: wp-admin/about.php:112
+#: wp-admin/about.php:116
 msgid "Now you can embed your posts on other sites, even other WordPress sites. Simply drop a post URL into the editor and see an instant embed preview, complete with the title, excerpt, and featured image if you&#8217;ve set one. We&#8217;ll even include your site icon and links for comments and sharing."
 msgstr "Nun kannst du deine Beiträge auf anderen Websites einbinden, selbst anderen WordPress-Websites. Ziehe einfach die Beitrags-URL in den Editor und du siehst direkt eine Vorschau des eingebetteten Beitrags, komplett mit Titel, Auszug und Beitragsbild, wenn du eines festgelegt hast. Wir fügen sogar dein Website-Icon und Links zum Kommentieren und Teilen ein. "
 
-#: wp-admin/about.php:125
+#: wp-admin/about.php:129
 msgid "Even more embed providers"
 msgstr "Noch mehr oEmbed Anbieter"
 
-#: wp-admin/about.php:111
+#: wp-admin/about.php:115
 msgid "Embed your WordPress content"
 msgstr "Bette deine WordPress-Inhalte ein"
 
-#: wp-admin/about.php:98
+#: wp-admin/about.php:102
 msgid "WordPress now takes a smarter approach to displaying appropriate image sizes on any device, ensuring a perfect fit every time. You don&#8217;t need to do anything to your theme, it just works."
 msgstr "WordPress verfolgt nun einen intelligenteren Ansatz um geeignete Bildgrößen für jedes Endgerät auszuliefern und gewährleistet so, dass sie jederzeit optimal passen. Du brauchst an deinem Theme keine Änderungen vorzunehmen, es funktioniert einfach."
 
-#: wp-admin/about.php:75
+#: wp-admin/about.php:79
 msgid "Twenty Sixteen was built to look great on any device. A fluid grid design, flexible header, fun color schemes, and more, will make your content shine."
 msgstr "Twenty Sixteen wurde entwickelt, um auf jedem Endgerät gut auszusehen. Ein fließendes Raster-Design, flexible Header, pfiffige Farbvorlagen und mehr lassen deinen Inhalt glänzen."
 
-#: wp-admin/about.php:97
+#: wp-admin/about.php:101
 msgid "Responsive images"
 msgstr "Responsive Bilder"
 
-#: wp-admin/about.php:74
+#: wp-admin/about.php:78
 msgid "Our newest default theme, Twenty Sixteen, is a modern take on a classic blog design."
 msgstr "Unser neustes Standardtheme, Twenty Sixteen, ist eine moderne Interpretation eines klassischen Blog-Designs."
 
-#: wp-admin/about.php:67
+#: wp-admin/about.php:71
 msgid "Twenty Sixteen"
 msgstr "Twenty Sixteen"
 
@@ -107,7 +107,7 @@ msgid "(Currently set to: %s)"
 msgstr "(Aktueller Wert: %s)"
 
 #. translators: %s: WordPress version number
-#: wp-admin/about.php:222
+#: wp-admin/about.php:226
 msgid "<strong>Version %s</strong> addressed one security issue."
 msgstr "<strong>Version %s</strong> adressiert ein Sicherheitsproblem."
 
@@ -129,15 +129,15 @@ msgstr "Dein Profilbild kannst du bei <a href=\"%s\">Gravatar</a> ändern."
 msgid "Profile Picture"
 msgstr "Profilbild"
 
-#: wp-admin/about.php:216
+#: wp-admin/about.php:220
 msgid "Security Releases"
 msgstr "Sicherheitsversionen"
 
-#: wp-admin/about.php:219
+#: wp-admin/about.php:223
 msgid "Maintenance and Security Releases"
 msgstr "Wartungs- und Sicherheitsversionen"
 
-#: wp-admin/about.php:213
+#: wp-admin/about.php:217
 msgid "Maintenance Releases"
 msgstr "Wartungsversionen"
 
@@ -1969,7 +1969,7 @@ msgstr "Du kannst den Modus für das ablenkungsfreie Schreiben über das letzte 
 msgid "Log Out Everywhere"
 msgstr "Überall abmelden"
 
-#: wp-admin/about.php:73
+#: wp-admin/about.php:77
 msgid "Introducing Twenty Sixteen"
 msgstr "Einführung in Twenty Sixteen"
 
@@ -2946,14 +2946,6 @@ msgstr "Das bedeutet, dass deine Website entweder offline oder defekt ist. Keine
 msgid "Please check out your site now. It's possible that everything is working. If it says you need to update, you should do so:"
 msgstr "Bitte prüfe deine Website jetzt. Möglicherweise funktioniert alles. Wenn du den Hinweis bekommst, dass du aktualisieren musst, solltest du das machen:"
 
-#: wp-admin/includes/class-wp-upgrader.php:3317 wp-admin/update-core.php:529
-msgid "Keeping your site updated is important for security. It also makes the internet a safer place for you and your readers."
-msgstr "Für die Sicherheit deiner Website ist es wichtig, dass du sie aktuell hältst. Damit machst du auch das Internet für dich und deine Besucher sicherer.  "
-
-#: wp-admin/includes/class-wp-upgrader.php:3311
-msgid "If you experience any issues or need support, the volunteers in the WordPress.org support forums may be able to help."
-msgstr "Wenn Du irgendwelche Fehler feststellst oder Unterstützung benötigst, können dir vielleicht die Freiwilligen im WordPress.org-Supportforum helfen."
-
 #: wp-admin/includes/class-wp-upgrader.php:3326
 msgid "You also have some plugins or themes with updates available. Update them now:"
 msgstr "Es stehen auch für einige deiner Plugins oder Themes Aktualisierungen zur Verfügung. Aktualisiere sie jetzt: "
@@ -3009,6 +3001,14 @@ msgstr "Deinerseits ist nichts weiter zu tun."
 #: wp-admin/includes/class-wp-upgrader.php:3266
 msgid "For more on version %s, see the About WordPress screen:"
 msgstr "Um mehr über Version %s zu erfahren, schau dir die „Über WordPress“-Seite an:"
+
+#: wp-admin/includes/class-wp-upgrader.php:3317 wp-admin/update-core.php:529
+msgid "Keeping your site updated is important for security. It also makes the internet a safer place for you and your readers."
+msgstr "Es ist wichtig deine Webseite auf dem neuesten Stand zu halten. Du hilfst damit das Internet ein Stückchen sicherer zu machen - für dich und deine Benutzer."
+
+#: wp-admin/includes/class-wp-upgrader.php:3311
+msgid "If you experience any issues or need support, the volunteers in the WordPress.org support forums may be able to help."
+msgstr "Wenn Du Fehler feststellst oder Unterstützung benötigst, steht dir das WordPress.org-Supportforum mit seinen freiwilligen Helfern zur Verfügung."
 
 #: wp-admin/includes/class-wp-upgrader.php:1917
 msgid "The translation is up to date."
@@ -4940,7 +4940,7 @@ msgid "Show Toolbar when viewing site"
 msgstr "Werkzeugleiste für mich auf der Website anzeigen"
 
 #. translators: 1: WordPress version number, 2: plural number of bugs.
-#: wp-admin/about.php:227
+#: wp-admin/about.php:231
 msgid "<strong>Version %1$s</strong> addressed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> hat %2$s Fehler behoben."
@@ -4948,7 +4948,7 @@ msgstr[1] "<strong>Version %1$s</strong> hat %2$s Fehler behoben."
 
 #. translators: 1: WordPress version number, 2: plural number of bugs. Singular
 #. security issue.
-#: wp-admin/about.php:231
+#: wp-admin/about.php:235
 msgid "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> behob eine Sicherheitslücke sowie %2$s Fehler."
@@ -4956,14 +4956,14 @@ msgstr[1] "<strong>Version %1$s</strong> behob eine Sicherheitslücke sowie %2$s
 
 #. translators: 1: WordPress version number, 2: plural number of bugs. More
 #. than one security issue.
-#: wp-admin/about.php:53 wp-admin/about.php:235
+#: wp-admin/about.php:53 wp-admin/about.php:57 wp-admin/about.php:239
 msgid "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> behob Sicherheitslücken sowie %2$s Fehler."
 msgstr[1] "<strong>Version %1$s</strong> behob Sicherheitslücken sowie %2$s Fehler."
 
 #. translators: %s: Codex URL
-#: wp-admin/about.php:55 wp-admin/about.php:239
+#: wp-admin/about.php:55 wp-admin/about.php:59 wp-admin/about.php:243
 msgid "For more information, see <a href=\"%s\">the release notes</a>."
 msgstr "Weitere Informationen findest du in den <a href=\"%s\">Veröffentlichtungsmitteilungen</a>."
 
@@ -4971,7 +4971,7 @@ msgstr "Weitere Informationen findest du in den <a href=\"%s\">Veröffentlichtun
 msgid "Welcome to your WordPress Dashboard! This is the screen you will see when you log in to your site, and gives you access to all the site management features of WordPress. You can get help for any screen by clicking the Help tab in the upper corner."
 msgstr "Willkommen in deinem WordPress Dashboard! Diese Seite wird immer angezeigt, wenn Du Dich anmeldest und gibt Dir den Zugang zu allen Einstellungsmöglichkeiten von WordPress. Hilfe bekommst Du auf jeder Seite, indem Du auf die Registerkarte \"Hilfe\" in der oberen rechten Ecke klickst."
 
-#: wp-admin/about.php:212
+#: wp-admin/about.php:216
 msgid "Maintenance Release"
 msgstr "Wartungs-Update"
 
@@ -4979,18 +4979,18 @@ msgstr "Wartungs-Update"
 msgid "What&#8217;s New"
 msgstr "Was gibt's Neues"
 
-#: wp-admin/about.php:215
+#: wp-admin/about.php:219
 msgid "Security Release"
 msgstr "Sicherheitsupdate"
 
-#: wp-admin/about.php:52 wp-admin/about.php:218
+#: wp-admin/about.php:52 wp-admin/about.php:222
 msgid "Maintenance and Security Release"
 msgid_plural "Maintenance and Security Releases"
 msgstr[0] "Wartungs- und Sicherheitsupdate"
 msgstr[1] "Wartungs- und Sicherheitsupdates"
 
 #. translators: %s: WordPress version number
-#: wp-admin/about.php:224
+#: wp-admin/about.php:228
 msgid "<strong>Version %s</strong> addressed some security issues."
 msgstr "<strong>Version %s</strong> behebt einige Sicherheitslücken."
 
@@ -4998,7 +4998,7 @@ msgstr "<strong>Version %s</strong> behebt einige Sicherheitslücken."
 msgid "This screen allows you to choose your permalink structure. You can choose from common settings or create custom URL structures."
 msgstr "Auf dieser Seite kannst du deine gewünschte Permalinkstruktur einstellen. Du kannst entweder aus üblichen Vorlagen wählen oder eine eigene Struktur definieren."
 
-#: wp-admin/about.php:197
+#: wp-admin/about.php:201
 msgid "Return to Updates"
 msgstr "Zurück zu Aktualisierungen"
 
@@ -5296,11 +5296,11 @@ msgstr "Das direkte Einbinden von wp-admin/includes/template.php um add_meta_box
 msgid "Welcome to WordPress %s"
 msgstr "Willkommen bei WordPress %s"
 
-#: wp-admin/about.php:200
+#: wp-admin/about.php:204
 msgid "Go to Dashboard &rarr; Home"
 msgstr "Zum Dashboard &rarr; Home"
 
-#: wp-admin/about.php:197
+#: wp-admin/about.php:201
 msgid "Return to Dashboard &rarr; Updates"
 msgstr "Zum Dashboard  &rarr; Aktualisierungen zurückkehren"
 
@@ -5312,7 +5312,7 @@ msgstr "WordPress wird von einem weltumspannenden Team passionierter Leute entwi
 msgid "Core Developers"
 msgstr "Entwickler"
 
-#: wp-admin/about.php:133
+#: wp-admin/about.php:137
 msgid "Under the Hood"
 msgstr "Unter der Haube"
 
@@ -7501,7 +7501,7 @@ msgstr "Diese Zeitzone ist zurzeit in der Sommerzeit."
 msgid "This timezone does not observe daylight saving time."
 msgstr "In dieser Zeitzone gibt es keine Sommerzeit."
 
-#: wp-admin/about.php:200
+#: wp-admin/about.php:204
 msgid "Go to Dashboard"
 msgstr "Zum Dashboard"
 

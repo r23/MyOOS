@@ -167,17 +167,17 @@ function wpcf7_text_messages( $messages ) {
 	return array_merge( $messages, array(
 		'invalid_email' => array(
 			'description' => __( "Email address that the sender entered is invalid", 'contact-form-7' ),
-			'default' => __( 'Email address seems invalid.', 'contact-form-7' )
+			'default' => __( "The e-mail address entered is invalid.", 'contact-form-7' )
 		),
 
 		'invalid_url' => array(
 			'description' => __( "URL that the sender entered is invalid", 'contact-form-7' ),
-			'default' => __( 'URL seems invalid.', 'contact-form-7' )
+			'default' => __( "The URL is invalid.", 'contact-form-7' )
 		),
 
 		'invalid_tel' => array(
 			'description' => __( "Telephone number that the sender entered is invalid", 'contact-form-7' ),
-			'default' => __( 'Telephone number seems invalid.', 'contact-form-7' )
+			'default' => __( "The telephone number is invalid.", 'contact-form-7' )
 		) ) );
 }
 

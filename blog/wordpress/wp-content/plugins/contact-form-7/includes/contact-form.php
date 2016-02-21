@@ -14,6 +14,7 @@ class WPCF7_ContactForm {
 	private $unit_tag;
 	private $responses_count = 0;
 	private $scanned_form_tags;
+	private $config_validator;
 
 	public static function count() {
 		return self::$found_items;
@@ -654,6 +655,7 @@ class WPCF7_ContactForm {
 		$message = isset( $messages[$status] ) ? $messages[$status] : '';
 
 		if ( $filter ) {
+			$message = wp_strip_all_tags( $message );
 			$message = wpcf7_mail_replace_tags( $message, array( 'html' => true ) );
 			$message = apply_filters( 'wpcf7_display_message', $message, $status );
 		}
@@ -809,6 +811,41 @@ class WPCF7_ContactForm {
 
 		return apply_filters( 'wpcf7_contact_form_shortcode', $shortcode, $args, $this );
 	}
+
+	public function validate_configuration() {
+		if ( ! $this->initial() ) {
+			if ( ! $this->config_validator ) {
+				$this->config_validator = new WPCF7_ConfigValidator( $this );
+			}
+
+			$this->config_validator->validate();
+		}
+	}
+
+	public function get_config_errors() {
+		if ( ! $this->initial() ) {
+			if ( ! $this->config_validator ) {
+				$this->config_validator = new WPCF7_ConfigValidator( $this );
+			}
+
+			return $this->config_validator->get_errors();
+		}
+
+		return array();
+	}
+
+	public function config_error( $section ) {
+		if ( ! $this->initial() ) {
+			if ( ! $this->config_validator ) {
+				$this->config_validator = new WPCF7_ConfigValidator( $this );
+			}
+
+			return $this->config_validator->get_error_message( $section );
+		}
+
+		return '';
+	}
+
 }
 
 function wpcf7_contact_form( $id ) {
