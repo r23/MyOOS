@@ -110,7 +110,6 @@ define('TEXT_PRODUCTS_PRICE', 'Products Price:');
 define('TEXT_PRODUCTS_WEIGHT', 'Products Weight:');
 define('TEXT_PRODUCTS_STATUS', 'Products Status:');
 
-
 define('EMPTY_CATEGORY', 'Empty Category');
 
 define('TEXT_HOW_TO_COPY', 'Copy Method:');
@@ -121,23 +120,29 @@ define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Error: Can not link products in th
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Error: Catalog images directory is not writeable: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
 define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Error: Catalog images directory does not exist: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
 
-define('TEXT_ADD_SLAVE_PRODUCT','Enter in the Product ID to add this product as a slave:');
-define('IMAGE_SLAVE','Slave Products');
-define('TEXT_CURRENT_SLAVE_PRODUCTS','<b>Current Slave products:</b>');
-define('IMAGE_DELETE_SLAVE','Delete this slave product');
+define('TEXT_ADD_SLAVE_PRODUCT', 'Enter in the Product ID to add this product as a slave:');
+define('IMAGE_SLAVE', 'Slave Products');
+define('TEXT_CURRENT_SLAVE_PRODUCTS', 'Current Slave products:');
+define('IMAGE_DELETE_SLAVE', 'Delete this slave product');
 
 // Qty Min/Units and List/Rebates
 // categories.php definitions
-define('CAT_CATEGORY_ID_TEXT','ID # ');
-define('CAT_PRODUCT_ID_TEXT','ID # ');
-define('CAT_ATTRIBUTES_BASE_PRICE_TEXT',' Attribute Base Price: ');
-define('CAT_LIST_PRICE_TEXT','<br /> List: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
-define('CAT_REBATE_PRICE_TEXT','<br /> Rebate: ');
-define('CAT_QUANTITY_MIN_TEXT','<br /> Min: &nbsp;&nbsp;');
-define('CAT_QUANTITY_UNITS_TEXT','<br /> Units: ');
+define('CAT_CATEGORY_ID_TEXT', 'ID # ');
+define('CAT_PRODUCT_ID_TEXT', 'ID # ');
+define('CAT_ATTRIBUTES_BASE_PRICE_TEXT', ' Attribute Base Price: ');
+define('CAT_LIST_PRICE_TEXT', 'List:');
+define('CAT_REBATE_PRICE_TEXT', 'Rebate: ');
+define('CAT_QUANTITY_MIN_TEXT', 'Min:');
+define('CAT_QUANTITY_UNITS_TEXT', 'Units: ');
 
 // Attribute Copy Option
-define('TEXT_COPY_ATTRIBUTES_ONLY','Only used for Duplicate Products ...');
-define('TEXT_COPY_ATTRIBUTES','Copy Product Attribuites to Duplicate?');
-define('TEXT_COPY_ATTRIBUTES_YES','Yes');
-define('TEXT_COPY_ATTRIBUTES_NO','No');
+define('TEXT_COPY_ATTRIBUTES_ONLY', 'Only used for Duplicate Products ...');
+define('TEXT_COPY_ATTRIBUTES', 'Copy Product Attribuites to Duplicate?');
+define('TEXT_COPY_ATTRIBUTES_YES', 'Yes');
+define('TEXT_COPY_ATTRIBUTES_NO', 'No');
+
+define('TEXT_DATA', 'Daten');
+define('TEXT_IMAGES', 'Images');
+define('TEXT_UPLOAD', 'File Upload');
+
+

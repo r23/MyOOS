@@ -118,24 +118,28 @@ define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Fehler: Produkte k&ouml;nnen nicht
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis \'images\' im Katalogverzeichnis ist schreibgesch&uuml;tzt: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
 define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Verzeichnis \'images\' im Katalogverzeichnis ist nicht vorhanden: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
 
-define('TEXT_ADD_SLAVE_PRODUCT','Enter in the Product ID to add this product as a slave:');
-define('IMAGE_SLAVE','Slave Products');
-define('TEXT_CURRENT_SLAVE_PRODUCTS','<b>Current Slave products:</b>');
-define('IMAGE_DELETE_SLAVE','Delete this slave product');
+define('TEXT_ADD_SLAVE_PRODUCT', 'Geben Sie in die Produkt-ID, die Sie als Zubeh&ouml;r / Option hinzuzufügen m&ouml;chten ein:');
+define('IMAGE_SLAVE', 'Produktoptionen');
+define('TEXT_CURRENT_SLAVE_PRODUCTS', 'Aktuelle Produktoptionen:</b>');
+define('IMAGE_DELETE_SLAVE', 'Lösche diese Produktoption');
 
 // Qty Min/Units and List/Rebates
 // categories.php definitions
-define('CAT_CATEGORY_ID_TEXT','ID # ');
-define('CAT_PRODUCT_ID_TEXT','ID # ');
-define('CAT_ATTRIBUTES_BASE_PRICE_TEXT',' Basispreis : ');
-define('CAT_LIST_PRICE_TEXT','<br /> empf. VK.:');
-define('CAT_REBATE_PRICE_TEXT','<br /> Rabate: ');
-define('CAT_QUANTITY_MIN_TEXT','<br /> Mindestbestellmenge:');
-define('CAT_QUANTITY_UNITS_TEXT','<br />Verpackungseinheit: ');
+define('CAT_CATEGORY_ID_TEXT', 'ID # ');
+define('CAT_PRODUCT_ID_TEXT', 'ID # ');
+define('CAT_ATTRIBUTES_BASE_PRICE_TEXT', 'Basispreis : ');
+define('CAT_LIST_PRICE_TEXT',  'empf. VK.:');
+define('CAT_REBATE_PRICE_TEXT', 'Rabate: ');
+define('CAT_QUANTITY_MIN_TEXT', 'Mindestbestellmenge:');
+define('CAT_QUANTITY_UNITS_TEXT', 'Verpackungseinheit: ');
 
 // Attribute Copy Option
-define('TEXT_COPY_ATTRIBUTES_ONLY','Nur Produktinformationen kopieren ...');
-define('TEXT_COPY_ATTRIBUTES','Artikeloptionen kopieren?');
-define('TEXT_COPY_ATTRIBUTES_YES' ,'Ja');
-define('TEXT_COPY_ATTRIBUTES_NO' ,'Nein');
+define('TEXT_COPY_ATTRIBUTES_ONLY', 'Nur Produktinformationen kopieren ...');
+define('TEXT_COPY_ATTRIBUTES', 'Artikeloptionen kopieren?');
+define('TEXT_COPY_ATTRIBUTES_YES', 'Ja');
+define('TEXT_COPY_ATTRIBUTES_NO', 'Nein');
+
+define('TEXT_DATA', 'Daten');
+define('TEXT_IMAGES', 'Bilder');
+define('TEXT_UPLOAD', 'Bilder hochladen');
 
