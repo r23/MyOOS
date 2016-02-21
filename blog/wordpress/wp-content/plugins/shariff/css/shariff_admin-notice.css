@@ -1,0 +1,3 @@
+.shariff_admininfo_cross { float:right; margin-top:6px }
+.shariff_cross_icon { line-height:1; text-align:center; width:20px; text-decoration:none }
+.shariff_cross_icon::before { content:"\00D7"; font-weight:bold; font-size:2em }

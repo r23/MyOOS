@@ -1,0 +1,781 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Shariff Wrapper for Wordpress\n"
+"PO-Revision-Date: 2016-01-18 18:44+0100\n"
+"Last-Translator: JP\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Textdomain-Support: yes\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: JP\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"X-Generator: Poedit 1.8.6\n"
+"Language: fr_FR\n"
+"X-Poedit-SearchPath-0: .\n"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "<p>If you contact us about a problem with the share counts, please <u>always</u> include the information provided in the"
+msgstr "<p>En cas de problème avec les statistiques (share counts), veuillez renseigner les informations demandées"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "<p>The WordPress plugin \"Shariff Wrapper\" has been developed by <a href=\"http://www.datenverwurstungszentrale.com\" target=\"_blank\">3UU</a> and <a href=\"https://www.jplambeck.de\" target=_blank\">JP</a> in order to help protect the privacy of your visitors. It is based on the original Shariff buttons developed by the German computer magazin <a href=\"http://ct.de/shariff\" target=\"_blank\">c't</a> that fullfill the strict data protection laws in Germany. If you need any help with the plugin, take a look at the <a href=\"https://wordpress.org/plugins/shariff/faq/\" target=\"_blank\">Frequently Asked Questions (FAQ)</a> and the <a href=\"https://wordpress.org/support/plugin/shariff\" target=\"_blank\">Support Forum</a>. For up to date news about the plugin you can also follow <a href=\"https://twitter.com/jplambeck\" target=_blank\">@jplambeck</a> on Twitter.</p>"
+msgstr "<p>Le plugin WordPress \"Shariff Wrapper\" a été développé par <a href=\"http://www.datenverwurstungszentrale.com\" target=\"_blank\">3UU</a> et <a href=\"https://www.jplambeck.de\" target=_blank\">JP</a>, afin de protéger la vie privée des visiteurs. Il se base sur le Shariff original, développé par le journal informatique <a href=\"http://ct.de/shariff\" target=\"_blank\">c't</a>, qui respecte strictement les lois allemandes sur la protection des données. En cas de problème ou de questions, veuillez consulter la <a href=\"https://wordpress.org/plugins/shariff/faq/\" target=\"_blank\">Frequently Asked Questions (FAQ)</a> und das <a href=\"https://wordpress.org/support/plugin/shariff\" target=\"_blank\">Support Forum</a>. Pour être au courant des nouveautés concernant le plugin, vous pouvez également suivre <a href=\"https://twitter.com/jplambeck\" target=_blank\">@jplambeck</a> sur Twitter.</p>"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "<p>This is a list of all available options for the <code>[shariff]</code> shortcode:</p>"
+msgstr "<p> Voici une liste de toutes les options disponibles concernant le <code>[shariff]</code> shortcode : </p>"
+
+#. Text in function
+#: shariff.php:1
+msgid "Add Shariff as configured on the plugin options page."
+msgstr "Ajouter le shariff comme configuré sur la page option du plugin."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Add the Shariff buttons <u>after</u> all:"
+msgstr "Ajouter le shariff <u>après</u> : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Add the Shariff buttons <u>before</u> all:"
+msgstr "Ajouter le shariff <u>avant</u> : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Add the post content to the e-mail body."
+msgstr "Ajouter le contenu de l'article dans l'e-mail."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Adds a headline above the Shariff buttons. Basic HTML as well as style and class attributes can be used. To remove a headline set on the plugins options page use headline=\"\"."
+msgstr "Ajouter un titre au dessus du Shariff. Du code HTML basic ainsi que des attributs de style et de classe peuvent être utilisés. Pour supprimer un seul titre, veuillez simplement écrire headline=\"\"."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Advanced"
+msgstr "Options avançées"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Advanced options"
+msgstr "Options avançées"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Alignment of the Shariff buttons in the widget:"
+msgstr "Alignement du Shariff dans la zone Widget : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Alignment of the Shariff buttons:"
+msgstr "Alignement du Shariff : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Backend error."
+msgstr "Erreur du Backend."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "<p>Basic HTML as well as style and class attributes are allowed - e.g. <code>&lt;h3 class=\"shariff_headline\"&gt;Share this post&lt;/h3&gt;</code></p>"
+msgstr "<p>Le code HTML basique ainsi que les attributs de style et de classe sont autorisés - p. ex. <code>&lt;h3 class=\"shariff_headline\"&gt;Partager ce contenu&lt;/h3&gt;</code></p>"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Basic"
+msgstr "Options de base"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Basic options"
+msgstr "Options de base"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "CSS attributes for the container <span style=\"text-decoration: underline;\">around</span> Shariff:"
+msgstr "CSS-Attribute pour le contenant <u>autour</u> du Shariff : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Cache TTL in seconds (60 - 7200):"
+msgstr "Cache-temporaire (TTL) en secondes (60 - 7200) : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Cache directory is not writable or cannot be found."
+msgstr "Le Cache-Verzeichnis ."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Cache directory is writable."
+msgstr "Le répertoire cache n'est pas disponible."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Changes the language of the share buttons."
+msgstr "Modifie la langue du Shariff."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Changes the orientation of the buttons."
+msgstr "Modifie l'orientation du Shariff."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Changes the title to share. Only for special use cases."
+msgstr "Modifie le titre du lien de partage. Seulement pour cas particuliers."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Changes the url to share. Only for special use cases."
+msgstr "Modifie l'url du lien de partage. eulement pour cas particuliers."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Choose image"
+msgstr "Choisissez l'image"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Code:"
+msgstr "Code : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Current share count for "
+msgstr "Nombre de partage pour "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Custom link for the info button:"
+msgstr "Lien personnalisé pour le bouton information : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Default"
+msgstr "Par défaut"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Default image for Pinterest:"
+msgstr "Image par défaut pour Pinterest : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Default sender e-mail address:"
+msgstr "Adresse e-mail par défaut : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Default sender name:"
+msgstr "Expéditeur par défaut : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Description"
+msgstr "Description"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Design"
+msgstr "Design"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Design options"
+msgstr "Option de design"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Determines the default image to share for Pinterest, if no other usable image is found."
+msgstr "Détermine l'image par défaut partagée sur Pinterest, si aucune autre image n'est trouvée."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Determines the main design of the buttons."
+msgstr "Déternine le design principal du Shariff."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Determines which buttons to show and in which order."
+msgstr "Détermine quels boutons montrer et dans quel ordre."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Disable the Shariff buttons on password protected posts."
+msgstr "Désactive le Shariff sur les articles protégés par mot de passe."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Disable the mail form functionality."
+msgstr "Désactive la fonction de mail formulaire."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Disabled"
+msgstr "Désactivé"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Enable share counts (statistic)."
+msgstr "Active les statistiques (share counts)."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Enable the following services in the provided order:"
+msgstr "Active les services suivants dans cet ordre : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Enables share counts on the buttons."
+msgstr "Active les statistiques (share counts) dans le Shariff."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Error"
+msgstr "Erreur"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Example"
+msgstr "Exemple"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Facebook API (ID):"
+msgstr "Facebook API (ID) : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Facebook App ID:"
+msgstr "Facebook App ID : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Facebook App Secret:"
+msgstr "Facebook App Secret : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Facebook:"
+msgstr "Facebook : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Flattr username:"
+msgstr "Flattr-nom d'utilisateur : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Headline above all Shariff buttons:"
+msgstr "Titre au dessus de tous les boutons du Shariff : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Help"
+msgstr "Aide"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Help Section</a> and the "
+msgstr "Page d'aide </a> et dans le "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Mail Form"
+msgstr "Mail formulaire"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Mail form disabled."
+msgstr "Mail formulaire désactivé."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Mail form options"
+msgstr "Options du mail formulaire"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Mailform language:"
+msgstr "Langue du mail formulaire : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Message:"
+msgstr "Message : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "More information in the FAQ."
+msgstr "Plus d'information dans la FAQ."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Name"
+msgstr "Nom"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Not configured"
+msgstr "Non configuré."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "OK"
+msgstr "OK"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Options"
+msgstr "Options"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "PHP-Version 5.4 or better is needed to enable the statistic functionality."
+msgstr "Pour le bon fonctionnement des statistiques, la version > 5.4 du PHP est indispensable."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Pages"
+msgstr "Pages"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Please check your "
+msgstr "Veuillez vérifier vos "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Please share this post:"
+msgstr "Veuillez partager cet article : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Posts"
+msgstr "Articles"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Posts (blog page)"
+msgstr "Articles (pages de blog)"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Reduce button size by 30%."
+msgstr "Réduit la taille du bouton de 30%."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Require sender e-mail address."
+msgstr "Requiert l'e-mail de l'expéditeur."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Select the desired services in the order you want them to be displayed, where the Shariff buttons should be included automatically and if you want the share counts to be shown."
+msgstr "Sélectionez les services souhaités dans l'ordre dans lequel vous souhaitez les afficher,où vous souhaitez que les Shariff soient automatiquement inclus et si vous souhaitez afficher les statistiques (share counts)."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Sets a custom link for the info button."
+msgstr "Mets en place un lien personnalisé pour le bouton information."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Sets the Flattr username."
+msgstr "Mets en place le Flattr-nom d'utilisateur."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Sets the Twitter via tag."
+msgstr "Mets en place Twitter via tag."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Settings"
+msgstr "Options"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Share this post"
+msgstr "Partagez cet article"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Shariff Help"
+msgstr "Aide pour le Shariff"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Shariff button design:"
+msgstr "Design du Shariff : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Shariff button language:"
+msgstr "Langue du Shariff : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Shariff button orientation <b>vertical</b>."
+msgstr "Orientation des boutons du Shariff <b>vertical</b>."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Shariff-Settings</a> - Flattr was selected, but no username was provided! Please enter your <strong>Flattr username</strong> in the shariff options!"
+msgstr "Options du Shariff</a> - Vous avez sélectionné Flattr mais vous n'avez pas fourni de nom d'utilisateur! Veuillez entrer un <b>Flattr-nom d'utilisateur</b> dans les options du Shariff!"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Shariff-Settings</a> - Mail was split into mailform and mailto. Manual shorttags may need to be adjusted accordingly."
+msgstr "Options du Shariff</a> - Le mail a été séparé en <code>mailto</code> et <code>mailform</code>. Des modifications manuelles des shorttags peuvent être requises."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Shariff-Settings</a> - Mailform has been selected as a service, but mail form functionality is disabled!"
+msgstr "Shariff-Einstellungen</a> - <code>mailform</code> a été sélectionné, cependant la fonction de formualaire par mail est déseactivé dans les options!"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Small reduces the size of all buttons by 30%, regardless of theme."
+msgstr "Small réduit la taile de tous les boutons de 30%, indépendemment du design sélectionné."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Statistic:"
+msgstr "Statistiques : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Status"
+msgstr "Statut"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Stretch buttons horizontally to full width."
+msgstr "Etends au maximum les boutons horizontalement."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Support Forum</a>."
+msgstr "Forum d'aide</a>."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "The mail form can be completely disabled, if not needed. Otherwise, it is recommended to configure a default sender e-mail address from <u>your domain</u> that actually exists, to prevent spam filters from blocking the e-mails."
+msgstr "Le formulaire par mail peut être complétement désactivé. Si non, il est recommandé de donner une adresse mail expediteur par défaut de votre <u>propre domaine</u>, afin d'éviter aux e-mails d'être bloqués par le filtre de spam."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "The post featured image or the first image of the post.</div>"
+msgstr "L'illustration de l'article ou la première illustration de l'article.</div>"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "The title of the current post or page.</div>"
+msgstr "Le titre de l'article ou de la page, où vous vous trouvez.</div>"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "The url of the current post or page.</div>"
+msgstr "L'URL de l'article ou de la page, où vous vous trouvez.</div>"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "This configures the advanced options of Shariff regarding specific services. If you are unsure about an option, take a look at the "
+msgstr "Configure les options avancées du Shariff concernant des services particuliers. Si une option ne vous apparait comme certaine, veuillez regarder le "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "This configures the default design of the Shariff buttons. Most options can be overwritten for single posts or pages with the options within the <code>[shariff]</code> shorttag. For more information have a look at the "
+msgstr "configure les options par défaut du design des boutons du Shariff. La plupart des options peuvent être modifiées pour chaque article et pour chaque page grâce au Shorttag <code>[Shariff]</code>. Pour plus d'informations, réferez-vous au "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Title"
+msgstr "Titre"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Tried using the following directory: "
+msgstr "Les répertoires suivants sont actuellement utilisés : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Twitter username for the via tag:"
+msgstr "Nom d'utilisateur Twitter pour le via tag : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Type:"
+msgstr "Format : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Use the pipe sign | (Alt Gr + &lt; or &#8997; + 7) between two or more services."
+msgstr "Utilisez le signe Pipe | (Alt Gr + &lt; or &#8997; + 7) entre deux ou plusieurs services. "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Username for Flattr is missing!"
+msgstr "Nom d'utilisqteur pour Flattr manquant!"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Using the following directory: "
+msgstr "Utilisez le répertoire suivant : "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "auto"
+msgstr "auto"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "center"
+msgstr "centré"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "left"
+msgstr "gauche"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "right"
+msgstr "droite"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "status section</a>! This will help to speed up the process.</p>"
+msgstr "section du statut</a>! Le processus pour trouver une solution sera plus rapide.</p>"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "username"
+msgstr "Nom d'utilisateur"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "If you enjoy our plugin, please consider writing a review about it on "
+msgstr "Si vous aimez notre plugin, merci de donner votre avis sur "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid ". If you want to support us financially, you can donate via "
+msgstr ". Si vous voulez nous soutenir financièrement, vous pouvez faire un don via  "
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "and"
+msgstr "et"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid ". Thank you!"
+msgstr ". Merci!"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "PayPal hosted button ID:"
+msgstr "PayPal hosted button ID:"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Patreon username:"
+msgstr "Nom d'utilisqteur Patreon:"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Bitcoin address:"
+msgstr "Adresse Bitcoin:"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Shariff-Settings</a> - Patreon was selected, but no username was provided! Please enter your <strong>Patreon username</strong> in the shariff options!"
+msgstr "Options du Shariff</a> - Vous avez sélectionné Patreon mais vous n'avez pas fourni de nom d'utilisateur! Veuillez entrer un <b>Patreon-nom d'utilisateur</b> dans les options du Shariff!"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Shariff-Settings</a> - PayPal was selected, but no button ID was provided! Please enter your <strong>Hosted Button ID</strong> in the shariff options!"
+msgstr "Options du Shariff</a> - Vous avez sélectionné PayPal mais vous n'avez pas fourni de button ID! Veuillez entrer un <b>PayPal-Button-ID</b> dans les options du Shariff!"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Shariff-Settings</a> - Bitcoin was selected, but no address was provided! Please enter your <strong>Bitcoin Address</strong> in the shariff options!"
+msgstr "Options du Shariff</a> - Vous avez sélectionné Bitcoin mais vous n'avez pas fourni de adresse! Veuillez entrer un <b>adresse Bitcoin</b> dans les options du Shariff!"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Username for patreon is missing!"
+msgstr "Nom d'utilisqteur pour Patreon manquant!"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Button ID for PayPal is missing!"
+msgstr "Button-ID pour PayPal manquant!"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Address for Bitcoin is missing!"
+msgstr "Adresse pour Bitcoin manquant!"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Sets the Patreon username."
+msgstr "Mets en place le Patreon-nom d'utilisateur."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Sets the PayPal hosted button ID."
+msgstr "Mets en place le PayPal Hosted-Button-ID."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "Sets the bitcoin address."
+msgstr "Mets en place le adresse Bitcoin."
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "bbPress replies"
+msgstr "bbPress réponses"
+
+# @ shariff3UU
+#. Text in function
+#: shariff.php:1
+msgid "The GD Library is not installed on this server. This is only needed for the QR codes, if your are using the bitcoin button."
+msgstr "La bibliothèque GD est pas installé sur ce serveur. Ceci est nécessaire uniquement pour les codes QR, si vous utilisez le bouton de Bitcoin."

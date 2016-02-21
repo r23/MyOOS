@@ -1,0 +1,121 @@
+.shariff code {
+  font-size: 12px !important;
+}
+
+.shariff_status-col {
+  width: 400px;
+}
+
+.shariff_status-col2 {
+  word-wrap: break-word;
+}
+
+.shariff_options-table {
+  display: table;
+  border-spacing: 10px; 
+  margin: -15px 0 -5px -5px;
+  border-collapse: separate;
+}
+
+.shariff_options-row {
+  display: table-row;
+}
+
+.shariff_options-cell {
+  display: table-cell;
+  vertical-align: middle;
+  min-width: 75px;
+}
+
+.shariff_status-table {
+  display: table;
+}
+
+.shariff_status-row {
+  display: table-row;
+}
+
+.shariff_status-main-table {
+  display: table; 
+  border-spacing: 10px; 
+  margin: -10px 0 0 -10px;
+}
+
+.shariff_status-first-cell {
+  display: table-cell;
+  width: 125px;
+}
+
+.shariff_status-cell {
+  display: table-cell;
+}
+
+.shariff_status-disabled {
+  font-weight: bold;
+}
+
+.shariff_status-ok {
+  font-weight: bold;
+  color: green;
+}
+
+.shariff_status-error {
+  font-weight: bold;
+  color: red;
+}
+
+.shariff_shortcode_row_head {
+  display: table-row;
+}
+
+.shariff_shortcode_cell_head {
+  display: table-cell;
+  border: 1px solid;
+  padding: 10px;
+}
+
+.shariff_shortcode_cell_name-option {
+  display: table-cell;
+  border: 1px solid;
+  padding: 10px;
+  width: 100px;
+  font-weight: bold;
+}
+
+.shariff_shortcode_cell_default {
+  display: table-cell;
+  border: 1px solid;
+  padding: 10px;
+  width: 275px;
+  font-weight: bold;
+}
+
+.shariff_shortcode_cell_example {
+  display: table-cell;
+  border: 1px solid;
+  padding: 10px;
+  width: 275px;
+  font-weight: bold;
+}
+
+.shariff_shortcode_cell_description {
+  display: table-cell;
+  border: 1px solid;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.shariff_shortcode_table {
+  display: table;
+  background-color: #fff;
+}
+
+.shariff_shortcode_row {
+  display: table-row;
+}
+
+.shariff_shortcode_cell {
+  display: table-cell;
+  border: 1px solid;
+  padding: 10px;
+}
