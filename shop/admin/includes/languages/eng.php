@@ -244,11 +244,14 @@ define('IMAGE_ANI_SEND_EMAIL', 'Sending E-Mail');
 define('IMAGE_BACK', 'Back');
 define('IMAGE_BACKUP', 'Backup');
 define('BUTTON_CANCEL', 'Cancel');
+define('BUTTON_CANCEL_UPLOAD', 'Cancel upload');
+define('BUTTON_START_UPLOAD', 'Start upload');
+define('BUTTON_ADD_FILES', 'Add files...');
 define('IMAGE_CONFIRM', 'Confirm');
 define('IMAGE_COPY', 'Copy');
 define('IMAGE_COPY_TO', 'Copy To');
 define('IMAGE_DEFINE', 'Define');
-define('IMAGE_DELETE', 'Delete');
+define('BUTTON_DELETE', 'Delete');
 define('BUTTON_EDIT', 'Edit');
 define('IMAGE_EMAIL', 'Email');
 define('IMAGE_FEATURED', 'Featured');
@@ -296,6 +299,8 @@ define('IMAGE_WISHLIST', 'Wishlist');
 
 $aLang['image_new_tax_rate'] = 'New Tax Rate';
 $aLang['image_new_zone'] = 'New Zone';
+
+define('TEXT_ERROR', 'Error');
 
 define('ICON_CROSS', 'False');
 define('ICON_CURRENT_FOLDER', 'Current Folder');

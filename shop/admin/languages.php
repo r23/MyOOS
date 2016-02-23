@@ -564,14 +564,14 @@
 
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $lInfo->name . '</b>');
-      $contents[] = array('align' => 'center', 'text' => '<br />' . (($remove_language) ? '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id . '&action=deleteconfirm') . '">' . oos_button('delete',  IMAGE_DELETE) . '</a>' : '') . ' <a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . (($remove_language) ? '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id . '&action=deleteconfirm') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>' : '') . ' <a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       break;
 
     default:
       if (isset($lInfo) && is_object($lInfo)) {
         $heading[] = array('text' => '<b>' . $lInfo->name . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id . '&action=delete') . '">' . oos_button('delete',  IMAGE_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id . '&action=delete') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_NAME . ' ' . $lInfo->name);
         $contents[] = array('text' => TEXT_INFO_LANGUAGE_ISO_639_2 . ' ' . $lInfo->iso_639_2);
         $contents[] = array('text' => TEXT_INFO_LANGUAGE_ISO_639_1 . ' ' . $lInfo->iso_639_1);

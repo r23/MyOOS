@@ -519,7 +519,7 @@
         $contents = array('form' => oos_draw_form('id', 'edit', $aContents['admin_members'], 'action=member_delete&page=' . $_GET['page'] . '&mID=' . $admin['admin_id'], 'post', FALSE, 'enctype="multipart/form-data"'));
         $contents[] = array('text' => oos_draw_hidden_field('admin_id', $mInfo->admin_id));
         $contents[] = array('align' => 'center', 'text' =>  sprintf(TEXT_INFO_DELETE_INTRO, $mInfo->admin_firstname . ' ' . $mInfo->admin_lastname));
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $_GET['mID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $_GET['mID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       }
       break;
 
@@ -561,7 +561,7 @@
       } else {
         $contents[] = array('text' => oos_draw_hidden_field('set_groups_id', substr($del_groups_prepare, 4)) );
         $contents[] = array('align' => 'center', 'text' => sprintf(TEXT_INFO_DELETE_GROUPS_INTRO, $gInfo->admin_groups_name));
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET['gID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a><br />&nbsp;');
+        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET['gID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a><br />&nbsp;');
       }
       break;
 
@@ -598,7 +598,7 @@
     default:
       if (isset($mInfo) && is_object($mInfo)) {
         $heading[] = array('text' => '<b>&nbsp;' . TEXT_INFO_HEADING_DEFAULT . '</b>');
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->admin_id . '&action=edit_member') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->admin_id . '&action=del_member') . '">' . oos_button('delete',  IMAGE_DELETE) . '</a><br />&nbsp;');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->admin_id . '&action=edit_member') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->admin_id . '&action=del_member') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a><br />&nbsp;');
         $contents[] = array('text' => '&nbsp;<b>' . TEXT_INFO_FULLNAME . '</b><br />&nbsp;' . $mInfo->admin_firstname . ' ' . $mInfo->admin_lastname);
         $contents[] = array('text' => '&nbsp;<b>' . TEXT_INFO_EMAIL . '</b><br />&nbsp;' . $mInfo->admin_email_address);
         $contents[] = array('text' => '&nbsp;<b>' . TEXT_INFO_GROUP . '</b>' . $mInfo->admin_groups_name);
@@ -610,7 +610,7 @@
       } elseif (isset($gInfo) && is_object($gInfo)) {
         $heading[] = array('text' => '<b>&nbsp;' . TEXT_INFO_HEADING_DEFAULT_GROUPS . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['admin_members'], 'gPath=' . $gInfo->admin_groups_id . '&action=define_group') . '">' . oos_button('define', IMAGE_FILE_PERMISSION) . '</a> <a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $gInfo->admin_groups_id . '&action=edit_group') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $gInfo->admin_groups_id . '&action=del_group') . '">' . oos_button('delete',  IMAGE_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['admin_members'], 'gPath=' . $gInfo->admin_groups_id . '&action=define_group') . '">' . oos_button('define', IMAGE_FILE_PERMISSION) . '</a> <a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $gInfo->admin_groups_id . '&action=edit_group') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $gInfo->admin_groups_id . '&action=del_group') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_DEFAULT_GROUPS_INTRO . '<br />&nbsp');
       }
   }

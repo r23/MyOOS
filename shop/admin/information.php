@@ -330,7 +330,7 @@
         $contents[] = array('text' => TEXT_DELETE_INTRO);
         $contents[] = array('text' => '<br /><b>' . $mInfo->information_name . '</b>');
         $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('delete_image', '', true) . ' ' . TEXT_DELETE_IMAGE);
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a href="' . oos_href_link_admin($aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       }
       break;
 
@@ -338,7 +338,7 @@
       if (isset($mInfo) && is_object($mInfo)) {
         $heading[] = array('text' => '<b>' . $mInfo->information_name . '</b>');
         if ($mInfo->information_id > 5) {
-          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=delete') . '">' . oos_button('delete',  IMAGE_DELETE) . '</a>');
+          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=delete') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
         } else {
           $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $_GET['page'] . '&mID=' . $mInfo->information_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a>');
         }

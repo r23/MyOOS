@@ -495,7 +495,6 @@ if ($action == 'new_category' || $action == 'edit_category') {
 			<div class="wrapper wrapper-content">
 				<div class="row">
 					<div class="col-lg-12">	
-					            <!-- The file upload form used as target for the file upload widget-->
 <?php
 	$form_action = ($_GET['cID']) ? 'update_category' : 'insert_category';
 	echo oos_draw_form('fileupload', 'new_category', $aContents['categories'], 'cPath=' . $cPath . (isset($_GET['cID']) ? '&cID=' . $_GET['cID'] : '') . '&action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"');
@@ -601,17 +600,17 @@ if ($action == 'new_category' || $action == 'edit_category') {
                   <div class="col-lg-7">
                      <!-- The fileinput-button span is used to style the file input field as button-->
                      <span class="btn btn-success fileinput-button"><i class="fa fa-fw fa-plus"></i>
-                        <span>Add files...</span>
+                        <span><?php echo BUTTON_ADD_FILES; ?></span>
                         <input type="file" name="files[]" multiple="">
                      </span>
                      <button type="submit" class="btn btn-primary start"><i class="fa fa-fw fa-upload"></i>
-                        <span>Start upload</span>
+                        <span><?php echo BUTTON_START_UPLOAD; ?></span>
                      </button>
                      <button type="reset" class="btn btn-warning cancel"><i class="fa fa-fw fa-times"></i>
-                        <span>Cancel upload</span>
+                        <span><?php echo BUTTON_CANCEL_UPLOAD; ?></span>
                      </button>
                      <button type="button" class="btn btn-danger delete"><i class="fa fa-fw fa-trash"></i>
-                        <span>Delete</span>
+                        <span><?php echo BUTTON_DELETE; ?></span>
                      </button>
                      <!-- The global file processing state-->
                      <span class="fileupload-process"></span>
@@ -650,13 +649,13 @@ if ($action == 'new_category' || $action == 'edit_category') {
                            {% if (!i && !o.options.autoUpload) { %}
                                <button class="btn btn-primary start" disabled>
                                    <em class="fa fa-fw fa-upload"></em>
-                                   <span>Start</span>
+                                   <span><?php echo BUTTON_START_UPLOAD; ?></span>
                                </button>
                            {% } %}
                            {% if (!i) { %}
                                <button class="btn btn-warning cancel">
                                    <em class="fa fa-fw fa-times"></em>
-                                   <span>Cancel</span>
+                                   <span><?php echo BUTTON_CANCEL; ?></span>
                                </button>
                            {% } %}
                        </td>
@@ -683,7 +682,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                                {% } %}
                            </p>
                            {% if (file.error) { %}
-                               <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+                               <div><span class="label label-danger"><?php echo TEXT_ERROR; ?></span> {%=file.error%}</div>
                            {% } %}
                        </td>
                        <td>
@@ -693,12 +692,12 @@ if ($action == 'new_category' || $action == 'edit_category') {
                            {% if (file.deleteUrl) { %}
                                <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
                                    <em class="fa fa-fw fa-trash"></em>
-                                   <span>Delete</span>
+                                   <span><?php echo BUTTON_DELETE; ?></span>
                                </button>
                            {% } else { %}
                                <button class="btn btn-warning cancel">
                                    <em class="fa fa-fw fa-times"></em>
-                                   <span>Cancel</span>
+                                   <span><?php echo BUTTON_CANCEL; ?></span>
                                </button>
                            {% } %}
                        </td>
@@ -1126,7 +1125,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $contents[] = array('text' => '<br /><b>' . $cInfo->categories_name . '</b>');
         if ($cInfo->childs_count > 0) $contents[] = array('text' => '<br />' . sprintf(TEXT_DELETE_WARNING_CHILDS, $cInfo->childs_count));
         if ($cInfo->products_count > 0) $contents[] = array('text' => '<br />' . sprintf(TEXT_DELETE_WARNING_PRODUCTS, $cInfo->products_count));
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
         break;
 
       case 'move_category':
@@ -1158,7 +1157,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $product_categories_string = substr($product_categories_string, 0, -4);
 
         $contents[] = array('text' => '<br />' . $product_categories_string);
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
         break;
 
       case 'move_product':
@@ -1190,7 +1189,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
           if (isset($cInfo) && is_object($cInfo)) { // category info box contents
             $heading[] = array('text' => '<b>' . $cInfo->categories_name . '</b>');
 
-            $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=edit_category') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=delete_category') . '">' . oos_button('delete',  IMAGE_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=move_category') . '">' . oos_button('move', IMAGE_MOVE) . '</a>');
+            $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=edit_category') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=delete_category') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=move_category') . '">' . oos_button('move', IMAGE_MOVE) . '</a>');
             $contents[] = array('text' =>  TEXT_CATEGORIES . ' ' . oos_get_categories_name($cPath) . ' ' . oos_get_categories_name($cID) . '<br />' . TEXT_DATE_ADDED . ' ' . oos_date_short($cInfo->date_added));
             if (oos_is_not_null($cInfo->last_modified)) $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($cInfo->last_modified));
             $contents[] = array('text' => '<br />' . oos_info_image($cInfo->categories_image, $cInfo->categories_name) . '<br />' . $cInfo->categories_image);
@@ -1198,7 +1197,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
           } elseif (isset($pInfo) && is_object($pInfo)) { // product info box contents
             $heading[] = array('text' => '<b>' . $pInfo->products_name . '</b>');
 
-            $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=new_product') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=delete_product') . '">' . oos_button('delete',  IMAGE_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=move_product') . '">' . oos_button('move', IMAGE_MOVE) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=copy_to') . '">' . oos_button('copy_to', IMAGE_COPY_TO) . '</a>');
+            $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=new_product') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=delete_product') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=move_product') . '">' . oos_button('move', IMAGE_MOVE) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=copy_to') . '">' . oos_button('copy_to', IMAGE_COPY_TO) . '</a>');
             $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=slave_products') . '">' . oos_button('slave', IMAGE_SLAVE) . '</a>');
 
             if (defined('MIN_DISPLAY_NEW_SPEZILAS')) {

@@ -121,7 +121,7 @@ define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Verzeichnis 
 define('TEXT_ADD_SLAVE_PRODUCT', 'Geben Sie in die Produkt-ID, die Sie als Zubeh&ouml;r / Option hinzuzufügen m&ouml;chten ein:');
 define('IMAGE_SLAVE', 'Produktoptionen');
 define('TEXT_CURRENT_SLAVE_PRODUCTS', 'Aktuelle Produktoptionen:</b>');
-define('IMAGE_DELETE_SLAVE', 'Lösche diese Produktoption');
+define('BUTTON_DELETE_SLAVE', 'Lösche diese Produktoption');
 
 // Qty Min/Units and List/Rebates
 // categories.php definitions

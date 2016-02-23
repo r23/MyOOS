@@ -248,11 +248,14 @@ define('IMAGE_ANI_SEND_EMAIL', 'eMail versenden');
 define('IMAGE_BACK', 'Zur&uuml;ck');
 define('IMAGE_BACKUP', 'Datensicherung');
 define('BUTTON_CANCEL', 'Abbrechen');
+define('BUTTON_CANCEL_UPLOAD', 'Hochladen abbrechen');
+define('BUTTON_START_UPLOAD', 'Hochladen starten');
+define('BUTTON_ADD_FILES', 'Dateien hinzuf&uuml;gen');
 define('IMAGE_CONFIRM', 'Best&auml;tigen');
 define('IMAGE_COPY', 'Kopieren');
 define('IMAGE_COPY_TO', 'Kopieren nach');
 define('IMAGE_DEFINE', 'Definieren');
-define('IMAGE_DELETE', 'L&ouml;schen');
+define('BUTTON_DELETE', 'L&ouml;schen');
 define('BUTTON_EDIT', 'Bearbeiten');
 define('IMAGE_EMAIL', 'eMail versenden');
 define('IMAGE_FEATURED', 'Top-Angebote');
@@ -302,6 +305,7 @@ define('IMAGE_WISHLIST', 'Wunschzettel');
 $aLang['image_new_tax_rate'] = 'Neuen Steuersatz anlegen';
 $aLang['image_new_zone'] = 'Neues Bundesland einf&uuml;gen';
 
+define('TEXT_ERROR', 'Fehler');
 
 define('ICON_CROSS', 'Falsch');
 define('ICON_CURRENT_FOLDER', 'aktueller Ordner');

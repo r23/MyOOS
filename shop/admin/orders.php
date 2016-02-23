@@ -733,14 +733,14 @@
       $contents = array('form' => oos_draw_form('id', 'orders', $aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO . '<br /><br /><b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>');
       $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('restock') . ' ' . TEXT_INFO_RESTOCK_PRODUCT_QUANTITY);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       break;
 
     default:
       if (isset($oInfo) && is_object($oInfo)) {
         $heading[] = array('text' => '<b>[' . $oInfo->orders_id . ']&nbsp;&nbsp;' . oos_datetime_short($oInfo->date_purchased) . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=delete') . '">' . oos_button('delete',  IMAGE_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=delete') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
         $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['invoice'], 'oID=' . $oInfo->orders_id) . '" TARGET="_blank">' . oos_button('invoice', IMAGE_ORDERS_INVOICE) . '</a> <a href="' . oos_href_link_admin($aContents['packingslip'], 'oID=' . $oInfo->orders_id) . '" TARGET="_blank">' . oos_button('packingslip', IMAGE_ORDERS_PACKINGSLIP) . '</a>');
 
         $contents[] = array('text' => '<br />' . TEXT_DATE_ORDER_CREATED . ' ' . oos_date_short($oInfo->date_purchased));

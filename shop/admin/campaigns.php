@@ -299,14 +299,14 @@
       $contents = array('form' => oos_draw_form('id', 'status', $aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id  . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $oInfo->campaigns_name . '</b>');
-      if ($remove_status) $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+      if ($remove_status) $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       break;
 
     default:
      if (isset($oInfo) && is_object($oInfo)) {
         $heading[] = array('text' => '<b>' . $oInfo->campaigns_name . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id . '&action=delete') . '">' . oos_button('delete', IMAGE_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id . '&action=delete') . '">' . oos_button('delete', BUTTON_DELETE) . '</a>');
 
         $campaigns_inputs_string = '';
         $languages = oos_get_languages();

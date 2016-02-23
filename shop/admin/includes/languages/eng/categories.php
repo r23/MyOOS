@@ -123,7 +123,7 @@ define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Error: Catalog images di
 define('TEXT_ADD_SLAVE_PRODUCT', 'Enter in the Product ID to add this product as a slave:');
 define('IMAGE_SLAVE', 'Slave Products');
 define('TEXT_CURRENT_SLAVE_PRODUCTS', 'Current Slave products:');
-define('IMAGE_DELETE_SLAVE', 'Delete this slave product');
+define('BUTTON_DELETE_SLAVE', 'Delete this slave product');
 
 // Qty Min/Units and List/Rebates
 // categories.php definitions

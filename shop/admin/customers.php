@@ -837,7 +837,7 @@ function check_form() {
       $contents = array('form' => oos_draw_form('id', 'customers', $aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_DELETE_INTRO . '<br /><br /><b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>');
       if ($cInfo->number_of_reviews > 0) $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('delete_reviews', 'on', true) . ' ' . sprintf(TEXT_DELETE_REVIEWS, $cInfo->number_of_reviews));
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       break;
 
     case 'editstatus':
@@ -880,7 +880,7 @@ function check_form() {
       if (isset($cInfo) && is_object($cInfo)) {
         $heading[] = array('text' => '<b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=confirm') . '">' . oos_button('delete',  IMAGE_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], 'cID=' . $cInfo->customers_id) . '">' . oos_button('orders', IMAGE_ORDERS) . '</a> <a href="' . oos_href_link_admin($aContents['mail'], 'selected_box=tools&customer=' . $cInfo->customers_email_address) . '">' . oos_button('email', IMAGE_EMAIL) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=confirm') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], 'cID=' . $cInfo->customers_id) . '">' . oos_button('orders', IMAGE_ORDERS) . '</a> <a href="' . oos_href_link_admin($aContents['mail'], 'selected_box=tools&customer=' . $cInfo->customers_email_address) . '">' . oos_button('email', IMAGE_EMAIL) . '</a>');
         $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_catalog_link($oosCatalogFilename['wishlist'],  'wlid=' . $cInfo->customers_wishlist_link_id) . '">' . oos_button('wishlist', IMAGE_WISHLIST) . '</a> <a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=editstatus') . '">' . oos_button('status', IMAGE_STATUS) . '</a>');       
 
         $manual_infotable = $oostable['manual_info'];

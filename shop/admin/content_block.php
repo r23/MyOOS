@@ -317,14 +317,14 @@
       $contents[] = array('text' => TEXT_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $bInfo->block_name . '</b>');
 
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', IMAGE_DELETE) . ' <a href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $_GET['page'] . '&bID=' . $bInfo->block_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $_GET['page'] . '&bID=' . $bInfo->block_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       break;
 
     default:
       if (isset($bInfo) && is_object($bInfo)) {
         $heading[] = array('text' => '<b>' . $bInfo->block_name . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $_GET['page'] . '&bID=' . $bInfo->block_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $_GET['page'] . '&bID=' . $bInfo->block_id . '&action=delete') . '">' . oos_button('delete',  IMAGE_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $_GET['page'] . '&bID=' . $bInfo->block_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $_GET['page'] . '&bID=' . $bInfo->block_id . '&action=delete') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
         $contents[] = array('text' => '<br />' . TEXT_DATE_ADDED . ' ' . oos_date_short($bInfo->date_added));
         if (oos_is_not_null($bInfo->last_modified)) $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($bInfo->last_modified));
         $contents[] = array('align' => 'center', 'text' => '<br /><table border="0" width="100%" cellspacing="0" cellpadding="0"><tr><td class="infoBoxContent" valign="top"><b>' . TEXT_BLOCK_FUNCTION . ':</b></td><td class="infoBoxContent">' . $bInfo->block_file . '</td></tr><tr><td colspan="2">&nbsp;</td></tr><tr><td class="infoBoxContent" valign="top"><b>' . TEXT_BLOCK_CACHE . ':</b></td><td class="infoBoxContent">' . $bInfo->block_cache . '</td></tr><tr><td colspan="2">&nbsp;</td></tr><tr><td class="infoBoxContent" valign="top"><b>' . TEXT_BLOCK_PAGE . ':</b></td><td class="infoBoxContent">' . oos_info_block_to_page($bInfo->block_id) . '</td></tr></table>');
