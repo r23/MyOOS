@@ -28,41 +28,6 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
  */
 // force UTF-8 Ø
 
-$_zp_graphics_optionhandlers[] = new lib_GD_Options(); // register option handler
-/**
- * Option class for lib-GD
- *
- */
-
-class lib_GD_Options {
-
-	function __construct() {
-
-	}
-
-	/**
-	 * Standard option interface
-	 *
-	 * @return array
-	 */
-	function getOptionsSupported() {
-		if (defined('GD_FREETYPE') && GD_FREETYPE) {
-			return array(gettext('GD TypeFace path') => array('key'	 => 'GD_FreeType_Path', 'type' => OPTION_TYPE_TEXTBOX,
-											'desc' => gettext('Supply the full path to your TrueType fonts.')));
-		} else {
-			return array();
-		}
-	}
-
-	function canLoadMsg() {
-		if (extension_loaded('gd')) {
-			return '';
-		} else {
-			return gettext('The <strong><em>GD</em></strong> extension is not available.');
-		}
-	}
-
-}
 
 if (!function_exists('zp_graphicsLibInfo')) {
 
@@ -74,7 +39,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		$_lib_GD_info = array();
 		$info = gd_info();
 		$_lib_GD_info['Library'] = 'GD';
-		$_lib_GD_info['Library_desc'] = sprintf(gettext('PHP GD library <em>%s</em>'), $info['GD Version']);
+		$_lib_GD_info['Library_desc'] = sprintf('PHP GD library <em>%s</em>', $info['GD Version']);
 		$_lib_GD_info['FreeType'] = $info['FreeType Support'];
 		define('GD_FREETYPE', (bool) $_lib_GD_info['FreeType']);
 		unset($_lib_GD_info['FreeType']);
@@ -87,7 +52,6 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		$_lib_GD_info['JPG'] = ($imgtypes & IMG_JPG) ? 'jpg' : false;
 		$_lib_GD_info['JPEG'] = ($imgtypes & IMG_JPG) ? 'jpg' : false;
 		$_lib_GD_info['PNG'] = ($imgtypes & IMG_PNG) ? 'png' : false;
-		$_lib_GD_info['WBMP'] = ($imgtypes & IMG_WBMP) ? 'jpg' : false;
 		unset($imgtypes);
 		unset($info);
 
@@ -106,8 +70,6 @@ if (!function_exists('zp_graphicsLibInfo')) {
 			switch ($ext) {
 				case 'png':
 					return imagecreatefrompng($imgfile);
-				case 'wbmp':
-					return imagecreatefromwbmp($imgfile);
 				case 'jpeg':
 				case 'jpg':
 					return imagecreatefromjpeg($imgfile);
@@ -125,7 +87,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @param string $filename
 		 * @param int $qual
 		 */
-		function zp_imageOutput($im, $type, $filename = NULL, $qual = 75) {
+		function zp_imageOutput($im, $type, $filename = NULL, $qual = 92) {
 			$qual = max(min($qual, 100), 0);
 			if (getOption('image_interlace')) {
 				imageinterlace($im, true);
