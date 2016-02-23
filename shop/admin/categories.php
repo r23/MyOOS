@@ -23,6 +23,7 @@ require 'includes/main.php';
 
 require 'includes/functions/function_categories.php';
 require 'includes/functions/function_image_resize.php';
+require 'includes/functions/function_gd.php';
 require 'includes/classes/class_currencies.php';
 
 $currencies = new currencies();
