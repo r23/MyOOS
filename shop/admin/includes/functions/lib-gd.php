@@ -501,20 +501,14 @@ if (!function_exists('zp_graphicsLibInfo')) {
 			if (!is_array($_gd_fontlist)) {
 				$_gd_fontlist = array('system' => '');
 				$curdir = getcwd();
-				$basefile = SERVERPATH . '/' . USER_PLUGIN_FOLDER . 'gd_fonts/';
+				$basefile = OOS_ABSOLUTE_PATH . OOS_ADMIN . '/includes/gd_fonts/';
 				if (is_dir($basefile)) {
 					chdir($basefile);
 					$filelist = safe_glob('*.gdf');
 					foreach ($filelist as $file) {
-						$key = filesystemToInternal(str_replace('.gdf', '', $file));
+						$key = filesystemToInternal(preg_replace('/\.gdf/i', '', $file));
 						$_gd_fontlist[$key] = $basefile . '/' . $file;
 					}
-				}
-				chdir($basefile = SERVERPATH . '/' . ZENFOLDER . '/gd_fonts');
-				$filelist = safe_glob('*.gdf');
-				foreach ($filelist as $file) {
-					$key = filesystemToInternal(preg_replace('/\.gdf/i', '', $file));
-					$_gd_fontlist[$key] = $basefile . '/' . $file;
 				}
 				if (GD_FREETYPE) {
 					$basefile = rtrim(getOption('GD_FreeType_Path') . '/');
