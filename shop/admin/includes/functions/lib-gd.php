@@ -1,4 +1,26 @@
 <?php
+/* ----------------------------------------------------------------------
+
+   MyOOS [Shopsystem]
+   http://www.oos-shop.de/
+
+   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   ----------------------------------------------------------------------
+   Based on:
+
+   File: zen_core/lib-GD.php
+   ----------------------------------------------------------------------
+   Zenphoto
+   The *simpler* media website CMS
+   http://www.zenphoto.org
+
+   Copyright (c) 2016 Zenphoto
+   ----------------------------------------------------------------------
+   Released under the GNU General Public License
+   ---------------------------------------------------------------------- */
+
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
 /**
  * library for image handling using the GD library of functions
@@ -644,4 +666,3 @@ if (!function_exists('zp_graphicsLibInfo')) {
 
 	}
 }
-?>
