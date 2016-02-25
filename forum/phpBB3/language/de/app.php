@@ -40,12 +40,12 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 //
 // Some characters you may want to copy&paste:
-// ’ » “ ” …
+// ’ » „ “ — …
 //
 
 $lang = array_merge($lang, array(
 	'CONTROLLER_ARGUMENT_VALUE_MISSING'	=> 'Fehlender Wert für Argument #%1$s: <strong>%3$s</strong> in Klasse <strong>%2$s</strong>',
 	'CONTROLLER_NOT_SPECIFIED'			=> 'Es wurde kein Controller (Steuerungsklasse) definiert.',
 	'CONTROLLER_METHOD_NOT_SPECIFIED'	=> 'Für den Controller (Steuerungsklasse) wurde keine Methode festgelegt.',
-	'CONTROLLER_SERVICE_UNDEFINED'		=> 'Der Dienst für den Controller (Steuerungsklasse) "<strong>%s</strong>" ist nicht in ./config/services.yml definiert.',
+	'CONTROLLER_SERVICE_UNDEFINED'		=> 'Der Dienst für den Controller (Steuerungsklasse) „<strong>%s</strong>“ ist nicht in ./config/services.yml definiert.',
 ));

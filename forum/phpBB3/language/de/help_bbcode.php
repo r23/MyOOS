@@ -76,7 +76,7 @@ $help = array(
 	),
 	array(
 		0 => 'Eine unsortierte Liste erstellen',
-		1 => 'BBCode unterstützt zwei Arten von Listen: unsortierte und sortierte. Sie sind im Wesentlichen identisch zu ihren HTML-Entsprechungen. Eine unsortierte Liste gibt die Elemente deiner Liste hintereinander durch einen Aufzählungspunkt gekennzeichnet aus. Verwende <strong>[list][/list]</strong>, um eine unsortierte Liste zu erstellen und beginne jeden Aufzählungspunkt mit <strong>[*]</strong>. Um zum Beispiel deine Lieblingsfarben aufzulisten, verwende:<br /><br /><strong>[list]</strong><br /><strong>[*]</strong>Rot<br /><strong>[*]</strong>Blau<br /><strong>[*]</strong>Gelb<br /><strong>[/list]</strong><br /><br />Dies würde folgende Liste ergeben:<ul><li>Rot</li><li>Blau</li><li>Gelb</li></ul>',
+		1 => 'BBCode unterstützt zwei Arten von Listen: unsortierte und sortierte. Sie sind im Wesentlichen identisch zu ihren HTML-Entsprechungen. Eine unsortierte Liste gibt die Elemente deiner Liste hintereinander durch einen Aufzählungspunkt gekennzeichnet aus. Verwende <strong>[list][/list]</strong>, um eine unsortierte Liste zu erstellen und beginne jeden Aufzählungspunkt mit <strong>[*]</strong>. Um zum Beispiel deine Lieblingsfarben aufzulisten, verwende:<br /><br /><strong>[list]</strong><br /><strong>[*]</strong>Rot<br /><strong>[*]</strong>Blau<br /><strong>[*]</strong>Gelb<br /><strong>[/list]</strong><br /><br />Dies würde folgende Liste ergeben:<ul><li>Rot</li><li>Blau</li><li>Gelb</li></ul><br />Alternativ kannst du auch den Listenpunkt-Stil definieren: <strong>[list=disc][/list]</strong>, <strong>[list=circle][/list]</strong> oder <strong>[list=square][/list]</strong>.',
 	),
 	array(
 		0 => 'Eine sortierte Liste erstellen',
