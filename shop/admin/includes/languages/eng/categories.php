@@ -19,7 +19,6 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-
 define('HEADING_TITLE', 'Categories / Products');
 define('HEADING_TITLE_SEARCH', 'Search:');
 define('HEADING_TITLE_GOTO', 'Go To:');

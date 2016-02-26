@@ -55,9 +55,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		unset($imgtypes);
 		unset($info);
 
-		if (DEBUG_IMAGE)
-			debugLog("Loading " . $_lib_GD_info['Library']);
-
+		
 		/**
 		 * Takes an image filename and returns a GD Image using the correct function
 		 * for the image's format (imagecreatefrom*). Supports JPEG, GIF, and PNG.
