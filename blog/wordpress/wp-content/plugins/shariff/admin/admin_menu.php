@@ -965,7 +965,7 @@ function shariff3UU_help_section_callback() {
 			echo '<div class="shariff_shortcode_cell">services</div>';
 			echo '<div class="shariff_shortcode_cell">facebook<br>twitter<br>googleplus<br>whatsapp<br>threema<br>pinterest<br>linkedin<br>xing<br>reddit<br>stumbleupon<br>tumblr<br>vk<br>diaspora<br>addthis<br>flattr<br>patreon<br>paypal<br>paypalme<br>bitcoin<br>mailform<br>mailto<br>printer<br>info<br>rss</div>';
 			echo '<div class="shariff_shortcode_cell">twitter|facebook|googleplus|info</div>';
-			echo '<div class="shariff_shortcode_cell">[shariff theme="facebook|twitter|mailform"]</div>';
+			echo '<div class="shariff_shortcode_cell">[shariff services="facebook|twitter|mailform"]</div>';
 			echo '<div class="shariff_shortcode_cell">' . __( 'Determines which buttons to show and in which order.', 'shariff3UU' ) . '</div>';
 		echo '</div>';
 		// backend

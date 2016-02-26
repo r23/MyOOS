@@ -3,7 +3,7 @@
  * Plugin Name: Shariff Wrapper
  * Plugin URI: http://www.3uu.org/plugins.htm
  * Description: This is a wrapper to Shariff. It enables shares with Twitter, Facebook ... on posts, pages and themes with no harm for visitors privacy.
- * Version: 3.4.1
+ * Version: 3.4.2
  * Author: 3UU, JP
  * Author URI: http://www.DatenVerwurstungsZentrale.com/
  * License: http://opensource.org/licenses/MIT
@@ -49,7 +49,7 @@ else {
 function shariff3UU_update() {
 
 	/******************** ADJUST VERSION ********************/
-	$code_version = "3.4.1"; // set code version - needs to be adjusted for every new version!
+	$code_version = "3.4.2"; // set code version - needs to be adjusted for every new version!
 	/******************** ADJUST VERSION ********************/
 
 	// check if the installed version is older than the code version and include updates.php if neccessary
@@ -100,6 +100,24 @@ $allowed_tags = array(
 			'id' => array()
 		),
 	'h3' => array
+		(
+			'class' => array(),
+			'style' => array(),
+			'id' => array()
+		),
+	'h4' => array
+		(
+			'class' => array(),
+			'style' => array(),
+			'id' => array()
+		),
+	'h5' => array
+		(
+			'class' => array(),
+			'style' => array(),
+			'id' => array()
+		),
+	'h6' => array
 		(
 			'class' => array(),
 			'style' => array(),
