@@ -47,21 +47,23 @@
 <tr>
 	<td>{L_PASSWORD}:</td>
 	<td>
-		<input type="text" name="userpass1" id="userpass1" value="{USERPASS2}" size="50" class="Formtext">
+		<input type="password" name="userpass1" id="userpass1" value="{USERPASS2}" size="50" class="Formtext">
 	</td>
 </tr>
 <tr>
 	<td>{L_PASSWORD_REPEAT}:</td>
 	<td>
-		<input type="text" name="userpass2" id="userpass2" value="{USERPASS2}" size="50" class="Formtext">
+		<input type="password" name="userpass2" id="userpass2" value="{USERPASS2}" size="50" class="Formtext">
 	</td>
 </tr>
+<!--
 <tr>
 	<td>{L_PASSWORD_STRENGTH}:</td>
 	<td>
 
 	</td>
 </tr>
+-->
 <tr>
 	<td>{L_ENCRYPTION_TYPE}:</td>
 	<td>
