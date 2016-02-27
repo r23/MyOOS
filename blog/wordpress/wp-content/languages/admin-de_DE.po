@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-02-25 22:53:29+0000\n"
+"PO-Revision-Date: 2016-02-26 16:11:41+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1367,7 +1367,7 @@ msgstr "Du kannst automatisch auf <a href=\"https://codex.wordpress.org/Version_
 #: wp-admin/update-core.php:181
 msgid "<strong>Important:</strong> before updating, please <a href=\"https://codex.wordpress.org/WordPress_Backups\">back up your database and files</a>. For help with updates, visit the <a href=\"https://codex.wordpress.org/Updating_WordPress\">Updating WordPress</a> Codex page."
 msgstr ""
-"<strong>Wichtig</strong>: Bevor du das Update durchführst, lege unbedingt eine Sicherheitskopie deiner Datenbank und der Dateien an!\n"
+"<strong>Wichtig</strong>: Bevor du das Update durchführst, lege unbedingt eine Sicherheitskopie deiner Datenbank und der Dateien an.\n"
 "Eine Anleitung findest du im <a href=\"https://codex.wordpress.org/WordPress_Backups\">offiziellen Codex (engl.)</a>. Weitere Informationen zum Aktualisieren von WordPress erhältst du auf der Seite <a href=\"https://codex.wordpress.org/Updating_WordPress\">Updating WordPress (engl.)</a>."
 
 #: wp-admin/theme-install.php:99
@@ -1425,15 +1425,15 @@ msgstr "<a href=\"https://codex.wordpress.org/Version_%1$s\">WordPress %1$s</a> 
 
 #: wp-admin/install.php:233
 msgid "You cannot install because <a href=\"https://codex.wordpress.org/Version_%1$s\">WordPress %1$s</a> requires PHP version %2$s or higher. You are running version %3$s."
-msgstr "Die Installation kann nicht gestartet werden, da <a href=\"https://codex.wordpress.org/Version_%1$s\">WordPress %1$s</a> mindestens die PHP-Version %2$s benötigt. Deine PHP-Version ist %3$s."
+msgstr "Die Installation kann nicht gestartet werden, da <a href=\"https://codex.wordpress.org/Version_%1$s\">WordPress %1$s</a> mindestens die PHP-Version %2$s voraussetzt. Deine PHP-Version ist %3$s."
 
 #: wp-admin/install.php:235
 msgid "You cannot install because <a href=\"https://codex.wordpress.org/Version_%1$s\">WordPress %1$s</a> requires MySQL version %2$s or higher. You are running version %3$s."
-msgstr "Die Installation kann nicht gestartet werden, da <a href=\"https://codex.wordpress.org/Version_%1$s\">WordPress %1$s</a> mindestens die MySQL-Version %2$s benötigt. Deine MySQL-Version ist %3$s."
+msgstr "Die Installation kann nicht gestartet werden, da <a href=\"https://codex.wordpress.org/Version_%1$s\">WordPress %1$s</a> mindestens die MySQL-Version %2$s voraussetzt. Deine MySQL-Version ist %3$s."
 
 #: wp-admin/widgets.php:79
 msgid "The theme you are currently using isn&#8217;t widget-aware, meaning that it has no sidebars that you are able to change. For information on making your theme widget-aware, please <a href=\"https://codex.wordpress.org/Widgetizing_Themes\">follow these instructions</a>."
-msgstr "Dein aktuell genutztes Theme unterstützt keine Widgets. Das bedeutet, dass es keine Sidebar gibt, die du ändern könntest. Was du machen musst, damit dein Theme Widgets unterstützt, kannst du <a href=\"https://codex.wordpress.org/Widgetizing_Themes\">hier nachlesen</a>."
+msgstr "Dein aktuell genutztes Theme unterstützt keine Widgets. Das bedeutet, dass es keine Seitenleiste gibt, die du ändern könntest. Was du machen musst, damit dein Theme Widgets unterstützt, kannst du <a href=\"https://codex.wordpress.org/Widgetizing_Themes\">hier nachlesen</a>."
 
 #: wp-admin/plugin-editor.php:280 wp-admin/theme-editor.php:279
 msgid "You need to make this file writable before you can save your changes. See <a href=\"https://codex.wordpress.org/Changing_File_Permissions\">the Codex</a> for more information."
@@ -1445,7 +1445,7 @@ msgstr "Wenn du einen Beitrag veröffentlichst, kann WordPress verschiedene Dien
 
 #: wp-admin/options-permalink.php:266
 msgid "If your <code>.htaccess</code> file were <a href=\"https://codex.wordpress.org/Changing_File_Permissions\">writable</a>, we could do this automatically, but it isn&#8217;t so these are the mod_rewrite rules you should have in your <code>.htaccess</code> file. Click in the field and press <kbd>CTRL + a</kbd> to select all."
-msgstr "Wenn deine <code>.htaccess</code>-Datei <a href=\"https://codex.wordpress.org/Changing_File_Permissions\">beschreibbar</a> wäre, könnte WordPress sie automatisch bearbeiten. Das ist nicht der Fall. Darum findest du hier die mod_rewrite-Regeln, die du manuell in deine <code>.htaccess</code>-Datei einfügen musst. Klick in das Feld und verwende <kbd>Strg+A</kbd>, um alles auszuwählen."
+msgstr "Wenn deine <code>.htaccess</code>-Datei <a href=\"https://codex.wordpress.org/Changing_File_Permissions\">beschreibbar</a> wäre, könnte WordPress sie automatisch bearbeiten. Das ist nicht der Fall. Darum findest du hier die mod_rewrite-Regeln, die du manuell in deine <code>.htaccess</code>-Datei einfügen musst. Klicke in das Feld und verwende <kbd>Strg + A</kbd>, um alles auszuwählen."
 
 #: wp-admin/options-permalink.php:254
 msgid "If the root directory of your site were <a href=\"https://codex.wordpress.org/Changing_File_Permissions\">writable</a>, we could do this automatically, but it isn&#8217;t so this is the url rewrite rule you should have in your <code>web.config</code> file. Create a new file, called <code>web.config</code> in the root directory of your site. Click in the field and press <kbd>CTRL + a</kbd> to select all. Then insert this code into the <code>web.config</code> file."
@@ -1465,7 +1465,7 @@ msgstr "https://codex.wordpress.org/Introduction_to_Blogging#Managing_Comments"
 
 #: wp-admin/includes/meta-boxes.php:583
 msgid "Excerpts are optional hand-crafted summaries of your content that can be used in your theme. <a href=\"https://codex.wordpress.org/Excerpt\" target=\"_blank\">Learn more about manual excerpts.</a>"
-msgstr "Ein Auszug ist eine von dir erstellte Zusammenfassung deines Textes. Du kannst <a href=\"https://codex.wordpress.org/Excerpt\" target=\"_blank\">Auszüge in deinem Template verwenden</a>"
+msgstr "Ein Auszug ist eine von dir erstellte Zusammenfassung deines Textes. Du kannst <a href=\"https://codex.wordpress.org/Excerpt\" target=\"_blank\">Auszüge in deinem Template verwenden</a>."
 
 #: wp-admin/includes/options.php:140
 msgid "The <a href=\"https://codex.wordpress.org/Glossary#Character_set\">character encoding</a> of your site (UTF-8 is recommended)"
@@ -1535,7 +1535,7 @@ msgstr "über 1 Million"
 
 #: wp-admin/tools.php:41
 msgid "Press This is a little tool that lets you grab bits of the web and create new posts with ease."
-msgstr "Press This ist ein kleines Werkzeug mit dem du Dinge aus dem Web aufgreifen und daraus ganz einfach neue Beiträge erstellen kannst."
+msgstr "Press This ist ein kleines Werkzeug, mit dem du Dinge aus dem Web aufgreifen und daraus ganz einfach neue Beiträge erstellen kannst."
 
 #: wp-admin/includes/class-wp-media-list-table.php:492
 msgid "Detach"
@@ -6417,10 +6417,6 @@ msgstr "FTP-Benutzername"
 msgid "FTP Password"
 msgstr "FTP-Passwort"
 
-#: wp-admin/widgets.php:68
-msgid "Many themes show some sidebar widgets by default until you edit your sidebars, but they are not automatically displayed in your sidebar management tool. After you make your first widget change, you can re-add the default widgets by adding them from the Available Widgets area."
-msgstr "Viele Themes zeigen bereits von Haus aus bestimmte Widgetähnliche Navigationselemente in den Navigationsbereichen (Sidebar). Diese werden oft deaktivert, sobald du eigene Widgets hinzufügst. Du kannst jedoch einfach die ursprünglich benutzten Widgets erneut hinzufügen."
-
 #: wp-admin/themes.php:299
 msgid "The following themes are installed but incomplete. Themes must have a stylesheet and a template."
 msgstr "Die folgenden Themes sind installiert, aber nicht vollständig. Themes müssen ein Stylesheet und ein Template haben."
@@ -6433,13 +6429,17 @@ msgstr "Du kannst auswählen, was auf deiner Startseite angezeigt werden soll; E
 msgid "When you assign multiple categories or tags to a post, only one can show up in the permalink: the lowest numbered category. This applies if your custom structure includes <code>%category%</code> or <code>%tag%</code>."
 msgstr "Wenn du <code>%category%</code> oder <code>%tag%</code> verwendest, dann beachte folgendes: Wenn einem Beitrag mehrere Kategorien oder Schlagwörter zugewiesen wurden, so erscheint nur eine im Permalink – die Kategorie oder das Schlagwort mit der niedrigsten ID."
 
-#: wp-admin/options-permalink.php:38
-msgid "The Optional fields let you customize the &#8220;category&#8221; and &#8220;tag&#8221; base names that will appear in archive URLs. For example, the page listing all posts in the &#8220;Uncategorized&#8221; category could be <code>/topics/uncategorized</code> instead of <code>/category/uncategorized</code>."
-msgstr "Unter Optional kannst du den Basis-Namen des Kategorie-Archivs (Standard: <code>category</code>) oder Schlagwort-Archivs (Standard: <code>tag</code>) individuell anpassen; quasi den Begriff der dann in Archiv-URLs erscheint. Zum Beispiel würde die Seite, die alle Beiträge der Kategorie &#8222;Allgemein&#8220;  anzeigt, anstatt bisher <code>category/allgemein/</code> stattdessen <code>thema/allgemein</code> sein. Wenn du nichts eingibst, werden die Standardwerte benutzt."
-
 #: wp-admin/options-permalink.php:30
 msgid "If you pick an option other than Plain, your general URL path with structure tags (terms surrounded by <code>%</code>) will also appear in the custom structure field and your path can be further modified there."
 msgstr "Falls du eine andere Struktur als „Einfach“ auswählst, wird der Pfad mit Struktur-Tags (Begriffe umschlossen mit <code>%</code>)  direkt ins Feld „Benutzerdefiniert“ übertragen, damit du sie auf Wunsch noch weiter anpassen kannst."
+
+#: wp-admin/options-permalink.php:38
+msgid "The Optional fields let you customize the &#8220;category&#8221; and &#8220;tag&#8221; base names that will appear in archive URLs. For example, the page listing all posts in the &#8220;Uncategorized&#8221; category could be <code>/topics/uncategorized</code> instead of <code>/category/uncategorized</code>."
+msgstr "Unter Optional kannst du den Basis-Namen des Kategorie-Archivs (Standard: <code>category</code>) oder Schlagwort-Archivs (Standard: <code>tag</code>) individuell anpassen; quasi den Begriff, der dann in Archiv-URLs erscheint. Zum Beispiel würde die Seite, die alle Beiträge der Kategorie &#8222;Allgemein&#8220;  anzeigt, anstatt bisher <code>category/allgemein/</code> stattdessen <code>thema/allgemein</code> sein. Wenn du nichts eingibst, werden die Standardwerte benutzt."
+
+#: wp-admin/widgets.php:68
+msgid "Many themes show some sidebar widgets by default until you edit your sidebars, but they are not automatically displayed in your sidebar management tool. After you make your first widget change, you can re-add the default widgets by adding them from the Available Widgets area."
+msgstr "Viele Themes zeigen bereits von Haus aus bestimmte Widgetähnliche Navigationselemente in den Navigationsbereichen (Seitenleiste). Diese werden oft deaktivert, sobald du eigene Widgets hinzufügst. Du kannst jedoch einfach die ursprünglich benutzten Widgets erneut hinzufügen."
 
 #: wp-admin/widgets.php:60
 msgid "If you want to remove the widget but save its setting for possible future use, just drag it into the Inactive Widgets area. You can add them back anytime from there. This is especially helpful when you switch to a theme with fewer or different widget areas."
@@ -6455,7 +6455,7 @@ msgstr "Du kannst auf dieser Seite einstellen, welche Größe Bilder maximal hab
 
 #: wp-admin/options-general.php:26
 msgid "Most themes display the site title at the top of every page, in the title bar of the browser, and as the identifying name for syndicated feeds. The tagline is also displayed by many themes."
-msgstr "Der Titel der Website ist wichtig, da er zum Beispiel in der Titelleiste des Browsers und auch meist direkt auf der Startseite, sowie in Newsfeeds angezeigt wird. Der Untertitel (eine weitere Beschreibung der Seite) wird ebenfalls von vielen Themes angezeigt. Sowohl Titel als auch Beschreibung sollten im Hinblick auf die Darstellung in Suchmaschinen, sinnvoll gewählt werden."
+msgstr "Der Titel der Website ist wichtig, da er zum Beispiel in der Titelleiste des Browsers und auch meist direkt auf der Startseite sowie in Newsfeeds angezeigt wird. Der Untertitel (eine weitere Beschreibung der Seite) wird ebenfalls von vielen Themes angezeigt. Sowohl Titel als auch Beschreibung sollten im Hinblick auf die Darstellung in Suchmaschinen, sinnvoll gewählt werden."
 
 #: wp-admin/edit-form-advanced.php:463
 msgid "<strong>Order</strong> &mdash; Pages are usually ordered alphabetically, but you can choose your own order by entering a number (1 for first, etc.) in this field."
@@ -6489,12 +6489,6 @@ msgstr "<strong>Trackbacks senden</strong> &mdash; Mittels Trackbacks teilst du 
 msgid "You can use the editor to make changes to any of your plugins&#8217; individual PHP files. Be aware that if you make changes, plugins updates will overwrite your customizations."
 msgstr "Du kannst den Plugin-Editor benutzen, um eigene Änderungen in ein Plugin einzubringen. Beachte aber, dass gemachte Änderungen verloren gehen, wenn du ein Plugin aktualisierst. "
 
-#: wp-admin/link-manager.php:47
-msgid "You can add links here to be displayed on your site, usually using <a href=\"%s\">Widgets</a>. By default, links to several sites in the WordPress community are included as examples."
-msgstr ""
-"Auf dieser Seite kannst du deine Links verwalten und Neue hinzufügen. Die Links kannst du auf deiner Website zum Beispiel mittels eines <a href=\"%s\">Widgets</a> anzeigen lassen. \n"
-"Standardmäßig sind bereits einige Links aus der WordPress Community als Beispiele eingetragen. Du darfst diese aber auch selbstverständlich löschen."
-
 #: wp-admin/link-manager.php:55
 msgid "If you delete a link, it will be removed permanently, as Links do not have a Trash function yet."
 msgstr "Wenn du einen Link löschst, dann wird er dauerhaft entfernt, da es noch keinen Papierkorb für Links gibt."
@@ -6506,6 +6500,12 @@ msgstr "Mitarbeiter können eigene Beiträge schreiben und bearbeiten, sie jedoc
 #: wp-admin/user-new.php:195
 msgid "Administrators have access to all the administration features."
 msgstr "Administratoren haben Zugriff auf alle administrativen Funktionen."
+
+#: wp-admin/link-manager.php:47
+msgid "You can add links here to be displayed on your site, usually using <a href=\"%s\">Widgets</a>. By default, links to several sites in the WordPress community are included as examples."
+msgstr ""
+"Auf dieser Seite kannst du deine Links verwalten und neue hinzufügen. Die Links kannst du auf deiner Website zum Beispiel mittels eines <a href=\"%s\">Widgets</a> anzeigen lassen. \n"
+"Standardmäßig sind bereits einige Links aus der WordPress-Community als Beispiele eingetragen. Du darfst diese aber auch selbstverständlich löschen."
 
 #: wp-admin/custom-background.php:95
 msgid "Don&#8217;t forget to click on the Save Changes button when you are finished."
