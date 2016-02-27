@@ -156,14 +156,26 @@
     return $aContents[$randomize];
   }
 
+/**
+ * Redirect to another page or site
+ *
+ * @param $url
+ */
+function oos_redirect_admin($url) {
+	
+    if ( (strstr($url, "\n") != false) || (strstr($url, "\r") != false) ) {
+		$aContents = oos_get_content();
+		oos_redirect_admin(oos_href_link_admin($aContents['default'], '', 'SSL', false));
+    }
 
-  function oos_redirect_admin($url) {
-    global $logger;
+    if ( strpos($url, '&amp;') !== false ) {
+      $url = str_replace('&amp;', '&', $url);
+    }
 
-    header('Location: ' . $url);
+    header('Location: ' . $url);	
 
     exit;
-  }
+}
 
   function oos_customers_name($customers_id) {
 

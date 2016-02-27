@@ -248,6 +248,7 @@ define('IMAGE_ANI_SEND_EMAIL', 'eMail versenden');
 define('IMAGE_BACK', 'Zur&uuml;ck');
 define('IMAGE_BACKUP', 'Datensicherung');
 define('BUTTON_CANCEL', 'Abbrechen');
+define('BUTTON_UPLOAD_IMAGES', 'Bilder hochladen');
 define('BUTTON_CANCEL_UPLOAD', 'Hochladen abbrechen');
 define('BUTTON_START_UPLOAD', 'Hochladen starten');
 define('BUTTON_ADD_FILES', 'Dateien hinzuf&uuml;gen');

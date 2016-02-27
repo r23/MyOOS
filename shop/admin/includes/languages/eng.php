@@ -244,6 +244,7 @@ define('IMAGE_ANI_SEND_EMAIL', 'Sending E-Mail');
 define('IMAGE_BACK', 'Back');
 define('IMAGE_BACKUP', 'Backup');
 define('BUTTON_CANCEL', 'Cancel');
+define('BUTTON_UPLOAD_IMAGES', 'Upload Images');
 define('BUTTON_CANCEL_UPLOAD', 'Cancel upload');
 define('BUTTON_START_UPLOAD', 'Start upload');
 define('BUTTON_ADD_FILES', 'Add files...');

@@ -38,7 +38,7 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
   * @param $connection
   * @return string
   */
-function oos_href_link_admin($page = '', $parameters = '', $connection = 'SSL') {
+function oos_href_link_admin($page = '', $parameters = '', $connection = 'SSL', $add_session_id = true) {
   
 	$page = oos_output_string($page);
 
@@ -62,7 +62,8 @@ function oos_href_link_admin($page = '', $parameters = '', $connection = 'SSL') 
 	} else {
 		$link = $link . $page . '?' . SID;		
 	}
-
+	
+	
 	while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
 
 	return $link;
@@ -98,11 +99,12 @@ function oos_catalog_link($page = '', $parameters = '', $connection = 'NONSSL') 
 		die('<div class="alert alert-danger" role="alert"><strong>Error!</strong>Unable to determine connection method on a link!<br /><br />Known methods: NONSSL SSL<br /><br />Function used:<br /><br />oos_href_link_admin(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</div>');
     }
 
-	if (oos_is_not_null($parameters)) {
-		$link .= 'index.php?content=' . $page . '&' . oos_output_string($parameters);
-	} else {
+    if ($parameters == '') {
 		$link .= 'index.php?content=' . $page;
+    } else {
+		$link .= 'index.php?content=' . $page . '&' . oos_output_string($parameters);
     }
+
 
     while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
 
@@ -120,20 +122,19 @@ function oos_catalog_link($page = '', $parameters = '', $connection = 'NONSSL') 
   * @param $params
   * @return string
   */
-  function oos_image($src, $alt = '', $width = '', $height = '', $params = '') {
-    $image = '<img src="' . $src . '" border="0" alt="' . $alt . '"';
-    if ($alt) {
-      $image .= ' title=" ' . $alt . ' "';
+function oos_image($src, $alt = '', $width = '', $height = '', $params = '') {
+	$image = '<img src="' . oos_output_string($src) . '" border="0" alt="' . oos_output_string($alt) . '"';
+   
+    if (oos_is_not_null($alt)) {
+      $image .= ' title="' . oos_output_string($alt) . '"';
     }
-    if ($width) {
-      $image .= ' width="' . $width . '"';
+
+    if (oos_is_not_null($width) && oos_is_not_null($height)) {
+      $image .= ' width="' . oos_output_string($width) . '" height="' . oos_output_string($height) . '"';
     }
-    if ($height) {
-      $image .= ' height="' . $height . '"';
-    }
-    if ($params) {
-      $image .= ' ' . $params;
-    }
+
+    if (oos_is_not_null($params)) $image .= ' ' . $params;
+
     $image .= '>';
 
     return $image;

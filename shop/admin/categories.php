@@ -148,7 +148,11 @@ if (!empty($action)) {
               $dbconn->Execute("UPDATE " . $oostable['categories'] . " SET categories_image = '" . $categories_image['name'] . "' WHERE categories_id = '" . oos_db_input($categories_id) . "'");
               oos_get_copy_uploaded_file($categories_image, $image_directory);
             }
-			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories_id));
+			if (isset($_POST['add_image'])) {
+				oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories_id . '&action=' . 'edit_category' . (isset($_POST['tab']) ? '&tab=' . intval($_POST['tab']) : '')));				
+			} else {
+				oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories_id));
+			}
 			break;
 
 		case 'delete_category_confirm':
@@ -497,7 +501,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 				<div class="row">
 					<div class="col-lg-12">	
 <?php
-	$form_action = ($_GET['cID']) ? 'update_category' : 'insert_category';
+	$form_action = (isset($_GET['cID'])) ? 'update_category' : 'insert_category';
 	echo oos_draw_form('fileupload', 'new_category', $aContents['categories'], 'cPath=' . $cPath . (isset($_GET['cID']) ? '&cID=' . $_GET['cID'] : '') . '&action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"');
 		echo oos_draw_hidden_field('categories_date_added', (($cInfo->date_added) ? $cInfo->date_added : date('Y-m-d')));
 		echo oos_draw_hidden_field('parent_id', $cInfo->parent_id);
@@ -511,22 +515,26 @@ if ($action == 'new_category' || $action == 'edit_category') {
                 <div class="col-lg-12">
                     <div class="tabs-container">
                             <ul class="nav nav-tabs">
+							
 <?php
+		if (isset($_GET['tab'])) {
+			$active_tab = oos_db_prepare_input($_GET['tab']);
+		}
 		for ($i=0; $i < count($languages); $i++) {
 ?>									
-                                <li <?php if ($i == 0) echo 'class="active"'; ?>><a data-toggle="tab" href="#tab-<?php echo $i; ?>"><?php echo sprintf($text_new_or_edit, oos_output_generated_category_path($current_category_id)) . '&nbsp;(' . $languages[$i]['name'] . ')&nbsp;'; ?></a></li>
+                                <li <?php if ($i == $active_tab) echo 'class="active"'; ?>><a data-toggle="tab" href="#tab-<?php echo $i; ?>"><?php echo sprintf($text_new_or_edit, oos_output_generated_category_path($current_category_id)) . '&nbsp;(' . $languages[$i]['name'] . ')&nbsp;'; ?></a></li>
 <?php
 		}
 		$nTab = $i;
 ?>
-                                <li class=""><a data-toggle="tab" href="#tab-<?php echo $nTab; ?>"><?php echo TEXT_DATA; ?></a></li>
-                                <li class=""><a data-toggle="tab" href="#tab-<?php echo $nTab+1; ?>"><?php echo TEXT_IMAGES; ?></a></li>
+                                <li <?php if ($nTab == $active_tab) echo 'class="active"'; ?>><a data-toggle="tab" href="#tab-<?php echo $nTab; ?>"><?php echo TEXT_DATA; ?></a></li>
+                                <li <?php if ($nTab+1 == $active_tab) echo 'class="active"'; ?>><a data-toggle="tab" href="#tab-<?php echo $nTab+1; ?>"><?php echo TEXT_IMAGES; ?></a></li>
                             </ul>
                             <div class="tab-content">
 <?php
 		for ($i=0; $i < count($languages); $i++) {
 ?>		  
-                                <div id="tab-<?php echo $i; ?>" class="tab-pane <?php if ($i == 0) echo 'active'; ?>" >
+                                <div id="tab-<?php echo $i; ?>" class="tab-pane <?php if ($i == $active_tab) echo 'active'; ?>" >
                                     <div class="panel-body">
 
                                         <fieldset class="form-horizontal">							
@@ -558,8 +566,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
                                 </div>
 <?php
 		}
-?>								
-                                <div id="tab-<?php echo $nTab; ?>" class="tab-pane">
+?>				
+								<div id="tab-<?php echo $nTab; ?>" class="tab-pane <?php if ($nTab == $active_tab) echo 'active'; ?>">				
                                     <div class="panel-body">
 
 										<fieldset class="form-horizontal">
@@ -586,10 +594,13 @@ if ($action == 'new_category' || $action == 'edit_category') {
                                     </div>
                                 </div>
 
-                                <div id="tab-<?php echo $nTab+1; ?>" class="tab-pane">
+								<div id="tab-<?php echo $nTab+1; ?>" class="tab-pane <?php if ($nTab+1 == $active_tab) echo 'active'; ?>">									
 									<div class="panel-body">
+<?php
+		if (isset($_GET['cID'])) {
+?>
 
-									            <h3><?php echo TEXT_UPLOAD; ?></h3>
+										<h3><?php echo TEXT_UPLOAD; ?></h3>
             <blockquote class="box-placeholder">
                <p>File Upload widget with multiple file selection, drag&amp;drop support, progress bars, validation and preview images, audio and video for jQuery.
                   <br>Supports cross-domain, chunked and resumable file uploads and client-side image resizing.
@@ -712,16 +723,29 @@ if ($action == 'new_category' || $action == 'edit_category') {
                                     </div>
                                 </div>
                             </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>	
-
+						</div>
+					</div>
+				</div>
+			</div>
 		  <?php echo oos_submit_button('save', IMAGE_SAVE);   ?>
-
+<?php
+		} else {
+?>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+					</div>
+				</div>
+			</div>
+<?php	
+		echo oos_draw_hidden_field('add_image', '1');
+		echo oos_draw_hidden_field('tab', $nTab+1);
+		echo oos_submit_button('save', BUTTON_UPLOAD_IMAGES);   
+		}
+?>
  </form>
+
 
 
 
