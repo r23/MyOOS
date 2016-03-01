@@ -106,4 +106,10 @@
   <platform name="wp8">
     <splash src="res/screens/wp8/SplashScreenImage.jpg" width="480" height="800" />
   </platform>
+  <plugin name="cordova-plugin-media" version="2.1.0" />
+  <plugin name="cordova-plugin-file-transfer" version="1.5.0" />
+  <plugin name="cordova-plugin-camera" version="2.1.0" />
+  <plugin name="cordova-plugin-contacts" version="2.0.1" />
+  <plugin name="cordova-plugin-geolocation" version="2.1.0" />
+  <plugin name="cordova-plugin-inappbrowser" version="1.2.1" />
 </widget>
