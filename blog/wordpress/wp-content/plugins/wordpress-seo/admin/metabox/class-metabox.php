@@ -32,7 +32,7 @@ class WPSEO_Metabox extends WPSEO_Meta {
 		add_action( 'admin_init', array( $this, 'translate_meta_boxes' ) );
 		add_action( 'admin_footer', array( $this, 'template_keyword_tab' ) );
 
-		$this->options = WPSEO_Options::get_all();
+		$this->options = WPSEO_Options::get_options( array( 'wpseo', 'wpseo_social' ) );
 
 		// Check if on of the social settings is checked in the options, if so, initialize the social_admin object.
 		if ( $this->options['opengraph'] === true || $this->options['twitter'] === true || $this->options['googleplus'] === true ) {
@@ -69,19 +69,18 @@ class WPSEO_Metabox extends WPSEO_Meta {
 			self::$meta_fields['advanced']['meta-robots-noindex']['description'] = '<p class="error-message">' . __( 'Warning: even though you can set the meta robots setting here, the entire site is set to noindex in the sitewide privacy settings, so these settings won\'t have an effect.', 'wordpress-seo' ) . '</p>';
 		}
 		self::$meta_fields['advanced']['meta-robots-noindex']['options']['0'] = __( 'Default for post type, currently: %s', 'wordpress-seo' );
-		self::$meta_fields['advanced']['meta-robots-noindex']['options']['2'] = __( 'index', 'wordpress-seo' );
-		self::$meta_fields['advanced']['meta-robots-noindex']['options']['1'] = __( 'noindex', 'wordpress-seo' );
+		self::$meta_fields['advanced']['meta-robots-noindex']['options']['2'] = 'index';
+		self::$meta_fields['advanced']['meta-robots-noindex']['options']['1'] = 'noindex';
 
 		self::$meta_fields['advanced']['meta-robots-nofollow']['title']        = __( 'Meta Robots Follow', 'wordpress-seo' );
-		self::$meta_fields['advanced']['meta-robots-nofollow']['options']['0'] = __( 'Follow', 'wordpress-seo' );
-		self::$meta_fields['advanced']['meta-robots-nofollow']['options']['1'] = __( 'Nofollow', 'wordpress-seo' );
+		self::$meta_fields['advanced']['meta-robots-nofollow']['options']['0'] = 'follow';
+		self::$meta_fields['advanced']['meta-robots-nofollow']['options']['1'] = 'nofollow';
 
 		self::$meta_fields['advanced']['meta-robots-adv']['title']                   = __( 'Meta Robots Advanced', 'wordpress-seo' );
 		self::$meta_fields['advanced']['meta-robots-adv']['description']             = __( 'Advanced <code>meta</code> robots settings for this page.', 'wordpress-seo' );
 		self::$meta_fields['advanced']['meta-robots-adv']['options']['-']            = __( 'Site-wide default: %s', 'wordpress-seo' );
 		self::$meta_fields['advanced']['meta-robots-adv']['options']['none']         = __( 'None', 'wordpress-seo' );
 		self::$meta_fields['advanced']['meta-robots-adv']['options']['noodp']        = __( 'NO ODP', 'wordpress-seo' );
-		self::$meta_fields['advanced']['meta-robots-adv']['options']['noydir']       = __( 'NO YDIR', 'wordpress-seo' );
 		self::$meta_fields['advanced']['meta-robots-adv']['options']['noimageindex'] = __( 'No Image Index', 'wordpress-seo' );
 		self::$meta_fields['advanced']['meta-robots-adv']['options']['noarchive']    = __( 'No Archive', 'wordpress-seo' );
 		self::$meta_fields['advanced']['meta-robots-adv']['options']['nosnippet']    = __( 'No Snippet', 'wordpress-seo' );
@@ -109,10 +108,6 @@ class WPSEO_Metabox extends WPSEO_Meta {
 	 * @return  bool        Whether or not the meta box (and associated columns etc) should be hidden
 	 */
 	function is_metabox_hidden( $post_type = null ) {
-		if ( 'attachment' === $post_type ) {
-			return true;
-		}
-
 		if ( ! isset( $post_type ) && ( isset( $GLOBALS['post'] ) && ( is_object( $GLOBALS['post'] ) && isset( $GLOBALS['post']->post_type ) ) ) ) {
 			$post_type = $GLOBALS['post']->post_type;
 		}
@@ -212,15 +207,16 @@ class WPSEO_Metabox extends WPSEO_Meta {
 		$translations = $this->get_scraper_translations();
 
 		return array(
-			'translations'      => $translations,
-			'keyword_usage'     => $this->get_focus_keyword_usage(),
-			'search_url'        => admin_url( 'edit.php?seo_kw_filter={keyword}' ),
-			'post_edit_url'     => admin_url( 'post.php?post={id}&action=edit' ),
-			'base_url'          => $this->get_base_url_for_js(),
-			'title_template'    => WPSEO_Metabox::get_title_template( $post ),
-			'metadesc_template' => WPSEO_Metabox::get_metadesc_template( $post ),
-			'contentTab'        => __( 'Content:' , 'wordpress-seo' ),
-			'locale'            => get_locale(),
+			'translations'        => $translations,
+			'keyword_usage'       => $this->get_focus_keyword_usage(),
+			'search_url'          => admin_url( 'edit.php?seo_kw_filter={keyword}' ),
+			'post_edit_url'       => admin_url( 'post.php?post={id}&action=edit' ),
+			'base_url'            => $this->get_base_url_for_js(),
+			'title_template'      => WPSEO_Metabox::get_title_template( $post ),
+			'metadesc_template'   => WPSEO_Metabox::get_metadesc_template( $post ),
+			'contentTab'          => __( 'Content:' , 'wordpress-seo' ),
+			'metaDescriptionDate' => $this->get_metadesc_date( $post ),
+			'locale'              => get_locale(),
 		);
 	}
 
@@ -288,6 +284,23 @@ class WPSEO_Metabox extends WPSEO_Meta {
 			}
 		}
 		return $metadesc_template;
+	}
+
+	/**
+	 * Determines the date to be displayed in the snippet preview
+	 *
+	 * @param WP_Post $post The metabox post.
+	 *
+	 * @return string
+	 */
+	private function get_metadesc_date( $post ) {
+		$date = '';
+
+		if ( is_a( $post, 'WP_Post' ) && $this->is_show_date_enabled( $post ) ) {
+			$date = date_i18n( 'M j, Y', mysql2date( 'U', $post->post_date ) );
+		}
+
+		return $date;
 	}
 
 	/**
@@ -711,28 +724,29 @@ class WPSEO_Metabox extends WPSEO_Meta {
 				wp_enqueue_media( array( 'post' => get_queried_object_id() ) ); // Enqueue files needed for upload functionality.
 			}
 
-			wp_enqueue_style( 'wp-seo-metabox', plugins_url( 'css/metabox-' . '302' . WPSEO_CSSJS_SUFFIX . '.css', WPSEO_FILE ), array(), WPSEO_VERSION );
-			wp_enqueue_style( 'wp-seo-scoring', plugins_url( 'css/yst_seo_score-' . '302' . WPSEO_CSSJS_SUFFIX . '.css', WPSEO_FILE ), array(), WPSEO_VERSION );
-			wp_enqueue_style( 'wp-seo-snippet', plugins_url( 'css/snippet-' . '307' . WPSEO_CSSJS_SUFFIX . '.css', WPSEO_FILE ), array(), WPSEO_VERSION );
-			wp_enqueue_style( 'yoast-seo', plugins_url( 'css/dist/yoast-seo/yoast-seo-' . '307' . '.min.css', WPSEO_FILE ), array(), WPSEO_VERSION );
+			wp_enqueue_style( 'wp-seo-metabox', plugins_url( 'css/metabox-' . '310' . WPSEO_CSSJS_SUFFIX . '.css', WPSEO_FILE ), array(), WPSEO_VERSION );
+			wp_enqueue_style( 'wp-seo-scoring', plugins_url( 'css/yst_seo_score-' . '310' . WPSEO_CSSJS_SUFFIX . '.css', WPSEO_FILE ), array(), WPSEO_VERSION );
+			wp_enqueue_style( 'wp-seo-snippet', plugins_url( 'css/snippet-' . '310' . WPSEO_CSSJS_SUFFIX . '.css', WPSEO_FILE ), array(), WPSEO_VERSION );
+			wp_enqueue_style( 'yoast-seo', plugins_url( 'css/dist/yoast-seo/yoast-seo-' . '310' . '.min.css', WPSEO_FILE ), array(), WPSEO_VERSION );
 			wp_enqueue_style( 'jquery-qtip', plugins_url( 'css/jquery.qtip' . WPSEO_CSSJS_SUFFIX . '.css', WPSEO_FILE ), array(), '2.2.1' );
 
+			wp_enqueue_script( 'wp-seo-jquery-qtip', plugins_url( 'js/jquery.qtip.min.js', WPSEO_FILE ), array( 'jquery' ), '2.2.1', true );
 			wp_enqueue_script( 'wp-seo-metabox', plugins_url( 'js/wp-seo-metabox-' . '302' . WPSEO_CSSJS_SUFFIX . '.js', WPSEO_FILE ), array(
 				'jquery',
 				'jquery-ui-core',
+				'wp-seo-jquery-qtip',
 			), WPSEO_VERSION );
 
-			wp_enqueue_script( 'wpseo-admin-media', plugins_url( 'js/wp-seo-admin-media-' . '302' . WPSEO_CSSJS_SUFFIX . '.js', WPSEO_FILE ), array(
+			wp_enqueue_script( 'wpseo-admin-media', plugins_url( 'js/wp-seo-admin-media-' . '310' . WPSEO_CSSJS_SUFFIX . '.js', WPSEO_FILE ), array(
 				'jquery',
 				'jquery-ui-core',
 			), WPSEO_VERSION, true );
 
-			wp_enqueue_script( 'yoast-seo', plugins_url( 'js/dist/yoast-seo/yoast-seo-' . '307' . '.min.js', WPSEO_FILE ), null, WPSEO_VERSION, true );
-			wp_enqueue_script( 'wp-seo-post-scraper', plugins_url( 'js/wp-seo-post-scraper-' . '305' . WPSEO_CSSJS_SUFFIX . '.js', WPSEO_FILE ), array( 'yoast-seo' ), WPSEO_VERSION, true );
-			wp_enqueue_script( 'wp-seo-replacevar-plugin', plugins_url( 'js/wp-seo-replacevar-plugin-' . '302' . WPSEO_CSSJS_SUFFIX . '.js', WPSEO_FILE ), array( 'yoast-seo', 'wp-seo-post-scraper' ), WPSEO_VERSION, true );
+			wp_enqueue_script( 'yoast-seo', plugins_url( 'js/dist/yoast-seo/yoast-seo-' . '310' . '.min.js', WPSEO_FILE ), null, WPSEO_VERSION, true );
+			wp_enqueue_script( 'wp-seo-post-scraper', plugins_url( 'js/wp-seo-post-scraper-' . '310' . WPSEO_CSSJS_SUFFIX . '.js', WPSEO_FILE ), array( 'yoast-seo', 'wp-util' ), WPSEO_VERSION, true );
+			wp_enqueue_script( 'wp-seo-replacevar-plugin', plugins_url( 'js/wp-seo-replacevar-plugin-' . '310' . WPSEO_CSSJS_SUFFIX . '.js', WPSEO_FILE ), array( 'yoast-seo', 'wp-seo-post-scraper' ), WPSEO_VERSION, true );
 			wp_enqueue_script( 'wp-seo-shortcode-plugin', plugins_url( 'js/wp-seo-shortcode-plugin-' . '305' . WPSEO_CSSJS_SUFFIX . '.js', WPSEO_FILE ), array( 'yoast-seo', 'wp-seo-post-scraper' ), WPSEO_VERSION, true );
 			wp_enqueue_script( 'jquery-ui-autocomplete' );
-			wp_enqueue_script( 'jquery-qtip', plugins_url( 'js/jquery.qtip.min.js', WPSEO_FILE ), array( 'jquery' ), '2.2.1', true );
 
 			wp_localize_script( 'wpseo-admin-media', 'wpseoMediaL10n', $this->localize_media_script() );
 			wp_localize_script( 'wp-seo-post-scraper', 'wpseoPostScraperL10n', $this->localize_post_scraper_script() );
@@ -741,7 +755,7 @@ class WPSEO_Metabox extends WPSEO_Meta {
 
 			if ( post_type_supports( get_post_type(), 'thumbnail' ) ) {
 				wp_enqueue_style( 'featured-image', plugins_url( 'css/featured-image' . WPSEO_CSSJS_SUFFIX . '.css', WPSEO_FILE ), array(), WPSEO_VERSION );
-				wp_enqueue_script( 'wp-seo-featured-image', plugins_url( 'js/wp-seo-featured-image-' . '302' . WPSEO_CSSJS_SUFFIX . '.js', WPSEO_FILE ), array( 'jquery', 'yoast-seo' ), WPSEO_VERSION, true );
+				wp_enqueue_script( 'wp-seo-featured-image', plugins_url( 'js/wp-seo-featured-image-' . '310' . WPSEO_CSSJS_SUFFIX . '.js', WPSEO_FILE ), array( 'jquery', 'yoast-seo' ), WPSEO_VERSION, true );
 
 				$featured_image_l10 = array( 'featured_image_notice' => __( 'The featured image should be at least 200x200 pixels to be picked up by Facebook and other social media sites.', 'wordpress-seo' ) );
 				wp_localize_script( 'wp-seo-metabox', 'wpseoFeaturedImageL10n', $featured_image_l10 );
@@ -949,6 +963,21 @@ SVG;
 			return json_decode( $file, true );
 		}
 		return array();
+	}
+
+	/**
+	 * Returns whether or not showing the date in the snippet preview is enabled.
+	 *
+	 * @param WP_Post $post The post to retrieve this for.
+	 * @return bool
+	 */
+	private function is_show_date_enabled( $post ) {
+		$post_type = $post->post_type;
+
+		$options = WPSEO_Options::get_option( 'wpseo_titles' );
+		$key = sprintf( 'showdate-%s', $post_type );
+
+		return isset( $options[ $key ] ) && true === $options[ $key ];
 	}
 
 	/********************** DEPRECATED METHODS **********************/

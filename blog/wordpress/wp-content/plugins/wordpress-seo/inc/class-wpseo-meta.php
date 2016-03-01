@@ -180,7 +180,6 @@ class WPSEO_Meta {
 					'-'            => '', // Site-wide default - translation added later.
 					'none'         => '', // Translation added later.
 					'noodp'        => '', // Translation added later.
-					'noydir'       => '', // Translation added later.
 					'noimageindex' => '', // Translation added later.
 					'noarchive'    => '', // Translation added later.
 					'nosnippet'    => '', // Translation added later.
@@ -262,7 +261,7 @@ class WPSEO_Meta {
 	 */
 	public static function init() {
 
-		$options = WPSEO_Options::get_all();
+		$options = WPSEO_Options::get_option( 'wpseo_social' );
 		foreach ( self::$social_networks as $option => $network ) {
 			if ( true === $options[ $option ] ) {
 				foreach ( self::$social_fields as $box => $type ) {
@@ -352,7 +351,7 @@ class WPSEO_Meta {
 
 
 			case 'general':
-				$options = get_option( 'wpseo_titles' );
+				$options = WPSEO_Options::get_option( 'wpseo_titles' );
 				if ( $options['usemetakeywords'] === true ) {
 					/* Adjust the link in the keywords description text string based on the post type */
 					$field_defs['metakeywords']['description'] = sprintf( $field_defs['metakeywords']['description'], '<a target="_blank" href="' . esc_url( admin_url( 'admin.php?page=wpseo_titles#top#post_types' ) ) . '">', '</a>' );
@@ -379,7 +378,7 @@ class WPSEO_Meta {
 			case 'advanced':
 				global $post;
 
-				$options = WPSEO_Options::get_all();
+				$options = WPSEO_Options::get_options( array( 'wpseo', 'wpseo_titles', 'wpseo_internallinks' ) );
 
 				if ( ! current_user_can( 'manage_options' ) && $options['disableadvanced_meta'] ) {
 					return array();
@@ -397,15 +396,12 @@ class WPSEO_Meta {
 				$field_defs['meta-robots-noindex']['options']['0'] = sprintf( $field_defs['meta-robots-noindex']['options']['0'], ( ( isset( $options[ 'noindex-' . $post_type ] ) && $options[ 'noindex-' . $post_type ] === true ) ? 'noindex' : 'index' ) );
 
 				/* Adjust the robots advanced 'site-wide default' text string based on those settings */
-				if ( $options['noodp'] !== false || $options['noydir'] !== false ) {
+				if ( $options['noodp'] !== false ) {
 					$robots_adv = array();
-					foreach ( array( 'noodp', 'noydir' ) as $robot ) {
-						if ( $options[ $robot ] === true ) {
-							// Use translation from field def options - mind that $options and $field_def['options'] keys should be the same!
-							$robots_adv[] = $field_defs['meta-robots-adv']['options'][ $robot ];
-						}
+					if ( $options['noodp'] === true ) {
+						// Use translation from field def options - mind that $options and $field_def['options'] keys should be the same!
+						$robots_adv[] = $field_defs['meta-robots-adv']['options']['noodp'];
 					}
-					unset( $robot );
 					$robots_adv = implode( ', ', $robots_adv );
 				}
 				else {

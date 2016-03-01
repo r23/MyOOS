@@ -14,6 +14,8 @@ class WPSEO_Sitemaps_Admin {
 	function __construct() {
 		add_action( 'transition_post_status', array( $this, 'status_transition' ), 10, 3 );
 		add_action( 'admin_init', array( $this, 'delete_sitemaps' ) );
+
+		WPSEO_Utils::register_cache_clear_option( 'wpseo_xml', '' );
 	}
 
 	/**
@@ -22,7 +24,7 @@ class WPSEO_Sitemaps_Admin {
 	 * @todo issue #561 https://github.com/Yoast/wordpress-seo/issues/561
 	 */
 	function delete_sitemaps() {
-		$options = WPSEO_Options::get_all();
+		$options = WPSEO_Options::get_options( array( 'wpseo', 'wpseo_xml' ) );
 		if ( $options['enablexmlsitemap'] === true ) {
 
 			$file_to_check_for = array(
@@ -66,8 +68,11 @@ class WPSEO_Sitemaps_Admin {
 
 		wp_cache_delete( 'lastpostmodified:gmt:' . $post->post_type, 'timeinfo' ); // #17455.
 
-		$options = WPSEO_Options::get_all();
-		if ( isset( $options[ 'post_types-' . $post->post_type . '-not_in_sitemap' ] ) && $options[ 'post_types-' . $post->post_type . '-not_in_sitemap' ] === true ) {
+		$options = WPSEO_Options::get_options( array( 'wpseo_xml', 'wpseo_titles' ) );
+		if (
+			( isset( $options[ 'post_types-' . $post->post_type . '-not_in_sitemap' ] ) && $options[ 'post_types-' . $post->post_type . '-not_in_sitemap' ] === true )
+			|| ( $post->post_type === 'nav_menu_item' )
+		) {
 			return;
 		}
 
