@@ -236,7 +236,7 @@
         echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="dataTableContent"><?php echo oos_image(OOS_IMAGES . 'icons/folder.gif', ICON_FOLDER) . ' <b>' . ucfirst (substr_replace ($boxes[$i]['admin_boxes_name'], '' , -4)) . '</b>'; ?></td>
+                <td class="dataTableContent"><?php echo '<i class="fa fa-folder text-navy"></i> <b>' . ucfirst (substr_replace ($boxes[$i]['admin_boxes_name'], '' , -4)) . '</b>'; ?></td>
                 <td class="dataTableContent" align="center">
 <?php
       if (isset($cInfo) && is_object($cInfo) && ($_GET['cID'] == $boxes[$i]['admin_boxes_id'])) {

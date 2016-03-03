@@ -739,12 +739,12 @@ if ($action == 'new_category' || $action == 'edit_category') {
 				</div>
 			</div>
 <?php	
-		echo oos_draw_hidden_field('add_image', '1');
-		echo oos_draw_hidden_field('tab', $nTab+1);
-		echo oos_submit_button('save', BUTTON_UPLOAD_IMAGES);   
+			echo oos_draw_hidden_field('add_image', '1');
+			echo oos_draw_hidden_field('tab', $nTab+1);
+			echo oos_submit_button('save', BUTTON_UPLOAD_IMAGES);   
 		}
 ?>
- </form>
+	</form>
 
 
 
@@ -933,7 +933,9 @@ if ($action == 'new_category' || $action == 'edit_category') {
 	
 		<div class="wrapper wrapper-content">
 			<div class="row">
-				<div class="col-lg-12">		
+				<div class="col-lg-12">	
+				
+				
 <table border="0" width="100%" cellspacing="0" cellpadding="2">	
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -989,7 +991,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aContents['categories'], oos_get_path($categories['categories_id'])) . '">' . oos_image(OOS_IMAGES . 'icons/folder.gif', ICON_FOLDER) . '</a>&nbsp;<b>' . ' #' . $categories['categories_id'] . ' ' . $categories['categories_name'] . '</b>'; ?></td>
+                <td class="dataTableContent">&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['categories'], oos_get_path($categories['categories_id'])) . '"><i class="fa fa-folder text-navy"></i></a>&nbsp;<b>' . ' #' . $categories['categories_id'] . ' ' . $categories['categories_name'] . '</b>'; ?></td>
                 <td class="dataTableContent" align="center">&nbsp;</td>
                  <td class="dataTableContent" align="center">
  <?php
@@ -1006,6 +1008,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
       // Move that ADOdb pointer!
       $categories_result->MoveNext();
     }
+
 
     $products_count = 0;
     if (isset($_GET['search'])) {
