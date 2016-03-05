@@ -479,6 +479,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 ?>
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 	<!-- Breadcrumbs //-->
+<?php //	<div class="row wrapper gray-bg page-heading"> ?>
 	<div class="row wrapper gray-bg page-heading">
 		<div class="col-lg-12">
 			<h2><?php echo sprintf($text_new_or_edit, oos_output_generated_category_path($current_category_id)); ?></h2>
@@ -526,9 +527,10 @@ if ($action == 'new_category' || $action == 'edit_category') {
 <?php
 		}
 		$nTab = $i;
+		$nImageTab = $i+1;
 ?>
                                 <li <?php if ($nTab == $active_tab) echo 'class="active"'; ?>><a data-toggle="tab" href="#tab-<?php echo $nTab; ?>"><?php echo TEXT_DATA; ?></a></li>
-                                <li <?php if ($nTab+1 == $active_tab) echo 'class="active"'; ?>><a data-toggle="tab" href="#tab-<?php echo $nTab+1; ?>"><?php echo TEXT_IMAGES; ?></a></li>
+                                <li <?php if ($nImageTab == $active_tab) echo 'class="active"'; ?>><a data-toggle="tab" href="#tab-<?php echo $nImageTab; ?>"><?php echo TEXT_IMAGES; ?></a></li>
                             </ul>
                             <div class="tab-content">
 <?php
@@ -598,14 +600,61 @@ if ($action == 'new_category' || $action == 'edit_category') {
 									<div class="panel-body">
 <?php
 		if (isset($_GET['cID'])) {
+			$aTypes  = array();
+			$imgtypes = ImageTypes();
+			$aTypes['GIF'] = ($imgtypes & IMG_GIF) ? 'gif' : false;
+			$aTypes['JPG'] = ($imgtypes & IMG_JPG) ? 'jpg' : false;
+			$aTypes['JPEG'] = ($imgtypes & IMG_JPG) ? 'jpg' : false;
+			$aTypes['PNG'] = ($imgtypes & IMG_PNG) ? 'png' : false;
+			unset($imgtypes);
 ?>
-
 										<h3><?php echo TEXT_UPLOAD; ?></h3>
-            <blockquote class="box-placeholder">
-               <p>File Upload widget with multiple file selection, drag&amp;drop support, progress bars, validation and preview images, audio and video for jQuery.
-                  <br>Supports cross-domain, chunked and resumable file uploads and client-side image resizing.
-                  <br>Works with any server-side platform (PHP, Python, Ruby on Rails, Java, Node.js, Go etc.) that supports standard HTML form file uploads.</p>
-            </blockquote>
+											<blockquote class="box-placeholder">
+												<p>
+<?php
+				natcasesort($aTypes );
+				$types =  array_keys($aTypes );
+		
+				// todo Zip Upload
+				// $types[] = 'ZIP';
+				natcasesort($types);
+				$upload_extensions = $types;
+				$last = strtoupper(array_pop($types));
+				$s1 = strtoupper(implode(', ', $types));
+				$used = 0;
+
+				printf(TEXT_GRAPHICS_INFO, $s1, $last);
+
+?>
+												</p>
+
+												<div class="alert alert-info" role="alert">
+													<p>
+														<strong><?php echo TEXT_GRAPHICS_NOTE; ?></strong><br>
+<?php
+			if ($last == 'ZIP') {
+				echo TEXT_GRAPHICS_ZIP;
+?>
+			<br>
+<?php
+			}
+			
+			$maxupload = ini_get('upload_max_filesize');
+			$maxpost = ini_get('post_max_size');
+			$maxuploadint = parse_size($maxupload);
+			$maxpostint = parse_size($maxpost);
+			
+			if ($maxuploadint < $maxpostint) {
+				echo sprintf(TEXT_GRAPHICS_MAXIMUM, $maxupload, $maxpost);
+			} else {
+				echo sprintf(TEXT_GRAPHICS_MAX_SIZE, $maxpost);
+			}
+?>
+			<br>
+													</p>
+												</div>
+											</blockquote>
+			
             <br>
                <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload-->
                <div class="row fileupload-buttonbar">
@@ -717,33 +766,33 @@ if ($action == 'new_category' || $action == 'edit_category') {
                {% } %}
             </script>
 
-
-									
-
                                     </div>
-                                </div>
-                            </div>
-						</div>
-					</div>
-				</div>
-			</div>
-		  <?php echo oos_submit_button('save', IMAGE_SAVE);   ?>
 <?php
 		} else {
-?>
-                                    </div>
-                                </div>
-                            </div>
-						</div>
-					</div>
-				</div>
-			</div>
-<?php	
 			echo oos_draw_hidden_field('add_image', '1');
-			echo oos_draw_hidden_field('tab', $nTab+1);
-			echo oos_submit_button('save', BUTTON_UPLOAD_IMAGES);   
-		}
+			echo oos_draw_hidden_field('tab', $nImageTab);
 ?>
+<button class="btn btn-sm btn-primary margin-bottom-100" type="submit"><strong><?php echo BUTTON_UPLOAD_IMAGES; ?></strong></button>
+								</div>
+<?php 
+		}
+?>								
+
+								
+								</div>
+									
+                            </div>
+					</div>
+				</div><!--/col-lg-12-->
+			</div>
+			
+			<div class="row">
+				<div class="col-lg-12">
+					<button class="btn btn-sm btn-primary margin-bottom-20 pull-right" type="submit"><strong><?php echo IMAGE_SAVE; ?></strong></button>
+				</div>
+			</div>			
+			
+		</div>
 	</form>
 
 

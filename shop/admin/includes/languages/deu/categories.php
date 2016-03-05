@@ -118,7 +118,7 @@ define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Fehler: Produkte k&ouml;nnen nicht
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis \'images\' im Katalogverzeichnis ist schreibgesch&uuml;tzt: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
 define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Verzeichnis \'images\' im Katalogverzeichnis ist nicht vorhanden: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
 
-define('TEXT_ADD_SLAVE_PRODUCT', 'Geben Sie in die Produkt-ID, die Sie als Zubeh&ouml;r / Option hinzuzufügen m&ouml;chten ein:');
+define('TEXT_ADD_SLAVE_PRODUCT', 'Geben Sie in die Produkt-ID, die Sie als Zubeh&ouml;r / Option hinzuzuf&uuml;gen m&ouml;chten ein:');
 define('IMAGE_SLAVE', 'Produktoptionen');
 define('TEXT_CURRENT_SLAVE_PRODUCTS', 'Aktuelle Produktoptionen:</b>');
 define('BUTTON_DELETE_SLAVE', 'Lösche diese Produktoption');
@@ -142,4 +142,8 @@ define('TEXT_COPY_ATTRIBUTES_NO', 'Nein');
 define('TEXT_DATA', 'Daten');
 define('TEXT_IMAGES', 'Bilder');
 define('TEXT_UPLOAD', 'Bilder hochladen');
-
+define('TEXT_GRAPHICS_INFO', 'Das webbasierten Hochladen akzeptiert die folgenden Formate: %s, und %s.');
+define('TEXT_GRAPHICS_NOTE', 'Anmerkung:');
+define('TEXT_GRAPHICS_ZIP', 'ZIP-Dateien d&uuml;rfen nur von MyOOS unterst&uuml;tzte Bildformate enthalten.');
+define('TEXT_GRAPHICS_MAXIMUM', 'Die maximale Gr&ouml;&szlig;e pro Hochlade-Vorgang ist <strong>%sB</strong> und die maximale Größe insgesamt <strong>%sB</strong>. Diese sind von <code>upload_max_filesize</code> und <code>post_max_size</code> Ihrer PHP-Konfiguration so vorgegeben.');
+define('TEXT_GRAPHICS_MAX_SIZE', 'Die maximale Größe pro Hochlade-Vorgang ist <strong>%sB</strong>. Dies ist von <code>post_max_size</code> Ihrer PHP-Konfiguration vorgegeben.');

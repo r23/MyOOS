@@ -321,7 +321,6 @@ define('ICON_WARNING', 'Warning');
 
 // constants for use in oos_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Page %s of %d');
-define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> banners)');
 define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> countries)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> customers)');
 define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> currencies)');
@@ -342,8 +341,7 @@ define('TEXT_DISPLAY_NUMBER_OF_TAX_RATES', 'Displaying <b>%d</b> to <b>%d</b> (o
 define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> zones)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS_STATUS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> customers status)');
 define('TEXT_DISPLAY_NUMBER_OF_BLOCKES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> box)');
-define('TEXT_DISPLAY_NUMBER_OF_RSS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b>)');
-define('TEXT_DISPLAY_NUMBER_OF_NEWSFEED_CATEGORIES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> categories)');
+define('TEXT_DISPLAY_NUMBER_OF_PAGE_TYPES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> page types)');
 define('TEXT_DISPLAY_NUMBER_OF_INFORMATION', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> Information)');
 
 

@@ -144,4 +144,8 @@ define('TEXT_DATA', 'Daten');
 define('TEXT_IMAGES', 'Images');
 define('TEXT_UPLOAD', 'File Upload');
 
-
+define('TEXT_GRAPHICS_INFO', 'This web-based upload accepts the file formats: %s, and %s.');
+define('TEXT_GRAPHICS_NOTE', 'Note:');
+define('TEXT_GRAPHICS_ZIP', 'ZIP files must contain only MyOOS supported <em>image</em> types.');
+define('TEXT_GRAPHICS_MAXIMUM', 'The maximum size for any one file is <strong>%sB</strong> and the maximum size for one total upload is <strong>%sB</strong> which are set by your PHP configuration <code>upload_max_filesize</code> and <code>post_max_size</code>.');
+define('TEXT_GRAPHICS_MAX_SIZE', 'The maximum size for your total upload is <strong>%sB</strong> which is set by your PHP configuration <code>post_max_size</code>.');

@@ -37,6 +37,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 	 */
 	if (extension_loaded('gd')) { // only define the functions if we have the proper versions
 		$_lib_GD_info = array();
+		
 		$info = gd_info();
 		$_lib_GD_info['Library'] = 'GD';
 		$_lib_GD_info['Library_desc'] = sprintf('PHP GD library <em>%s</em>', $info['GD Version']);
@@ -47,7 +48,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		define('GD_FREETYPE_SAMPLE_CHARS', strlen('GD_FREETYPE_SAMPLE'));
 		$_gd_freetype_fonts = array(0);
 
-		$imgtypes = imagetypes();
+		$imgtypes = ImageTypes();
 		$_lib_GD_info['GIF'] = ($imgtypes & IMG_GIF) ? 'gif' : false;
 		$_lib_GD_info['JPG'] = ($imgtypes & IMG_JPG) ? 'jpg' : false;
 		$_lib_GD_info['JPEG'] = ($imgtypes & IMG_JPG) ? 'jpg' : false;
