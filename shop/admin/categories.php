@@ -21,6 +21,8 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
+require 'includes/lib/jquery-file-upload/UploadHandler.php';
+
 require 'includes/functions/function_categories.php';
 require 'includes/functions/function_image_resize.php';
 require 'includes/functions/function_gd.php';
@@ -86,22 +88,23 @@ if (!empty($action)) {
 			break;
 
 		case 'insert_category':
-		case 'update_category': 
-			if (isset($_POST['categories_status'])) {
-				$nStatus = 1;
-			} else {
-				$nStatus = 0;
-			}
-
+		case 'update_category':
+			if (isset($_POST['categories_id'])) $categories_id = oos_db_prepare_input($_POST['categories_id']);
+			$nStatus = (isset($_POST['categories_status']) ? 1 : 0);
+			$sort_order = oos_db_prepare_input($_POST['sort_order']);
+/*
 			if ($categories_id == '') {
 				$categories_id = oos_db_prepare_input($_GET['cID']);
 			}
-			$sql_data_array = array('sort_order' => $sort_order);
+*/
+			$sql_data_array = array();
+			$sql_data_array = array('sort_order' => intval($sort_order));
 
 			if ($action == 'insert_category') {
-				$insert_sql_data = array('parent_id' => $current_category_id,
+				$insert_sql_data = array();
+				$insert_sql_data = array('parent_id' => intval($current_category_id),
 										'date_added' => 'now()',
-										'categories_status' => $nStatus);
+										'categories_status' => intval($nStatus));
 
 				$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
@@ -110,7 +113,7 @@ if (!empty($action)) {
 				$categories_id = $dbconn->Insert_ID();
 			} elseif ($action == 'update_category') {
 				$update_sql_data = array('last_modified' => 'now()',
-										'categories_status' => $nStatus);
+										'categories_status' => intval($nStatus));
 
 				$sql_data_array = array_merge($sql_data_array, $update_sql_data);
 
@@ -130,17 +133,18 @@ if (!empty($action)) {
 
 
 				if ($action == 'insert_category') {
-					$insert_sql_data = array('categories_id' => $categories_id,
-											'categories_languages_id' => $languages[$i]['id']);
+					$insert_sql_data = array('categories_id' => intval($categories_id),
+											'categories_languages_id' => intval($languages[$i]['id']));
 
 					$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
 					oos_db_perform($oostable['categories_description'], $sql_data_array);
 				} elseif ($action == 'update_category') {
-					oos_db_perform($oostable['categories_description'], $sql_data_array, 'update', 'categories_id = \'' . $categories_id . '\' and categories_languages_id = \'' . $languages[$i]['id'] . '\'');
+					oos_db_perform($oostable['categories_description'], $sql_data_array, 'update', 'categories_id = \'' . intval($categories_id) . '\' and categories_languages_id = \'' . intval($languages[$i]['id']) . '\'');
 				}
 			}
-
+			
+			$upload_handler = new UploadHandler();
             $categories_image = oos_get_uploaded_file('categories_image');
             $image_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
 
