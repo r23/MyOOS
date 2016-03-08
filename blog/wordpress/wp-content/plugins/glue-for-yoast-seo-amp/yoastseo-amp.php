@@ -9,7 +9,7 @@
  * Plugin Name: Glue for Yoast SEO & AMP
  * Plugin URI:  https://yoast.com/yoast-seo-amp-glue/
  * Description: Makes sure the default WordPress AMP plugin uses the proper Yoast SEO metadata
- * Version:     0.1
+ * Version:     0.2
  * Author:      Joost de Valk
  * Author URI:  https://yoast.com
  */
