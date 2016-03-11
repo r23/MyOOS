@@ -29,7 +29,7 @@
 {elseif (isset($smarty.get.products_id))}
     <table border="0" cellspacing="0" cellpadding="2">
       <tr>
-        <td class="oos-BlockContent"><a href="{html_href_link content=$filename.product_reviews_write products_id=$smarty.get.products_id}">{html_oos_image basedir=$smarty.const.OOS_IMAGES image=box_write_review.gif alt=$lang.image_button_write_review}</a><br>
+        <td class="oos-BlockContent"><a href="{html_href_link content=$filename.product_reviews_write products_id=$smarty.get.products_id}">{$lang.image_button_write_review}</a><br>
         <td class="oos-BlockContent"><a href="{html_href_link content=$filename.product_reviews_write products_id=$smarty.get.products_id}">{$lang.block_reviews_write_review}</a></td>
       </tr>
     </table>
