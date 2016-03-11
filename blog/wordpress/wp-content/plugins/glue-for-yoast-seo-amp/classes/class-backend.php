@@ -103,16 +103,18 @@ if ( ! class_exists( 'YoastSEO_AMP_Backend', false ) ) {
 		}
 
 		/**
+		 * Render a color picker
+		 *
 		 * @param string $var
 		 * @param string $label
 		 */
 		private function color_picker( $var, $label ) {
-			echo '<label class="checkbox" for="', $var, '">', $label, '</label>';
-			echo '<input type="text" name="wpseo_amp[', $var, ']"';
+			echo '<label class="checkbox" for="', esc_attr( $var ), '">', esc_html( $label ), '</label>';
+			echo '<input type="text" name="wpseo_amp[', esc_attr( $var ), ']"';
 			if ( isset( $this->options[ $var ] ) ) {
-				echo ' value="' . $this->options[ $var ] . '"';
+				echo ' value="' . esc_attr( $this->options[ $var ] ) . '"';
 			}
-			echo ' class="yst_colorpicker" id="', $var, '"/>';
+			echo ' class="yst_colorpicker" id="', esc_attr( $var ), '"/>';
 			echo '<br/>';
 		}
 	}

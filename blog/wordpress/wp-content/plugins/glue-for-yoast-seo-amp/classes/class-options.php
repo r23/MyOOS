@@ -18,27 +18,27 @@ if ( ! class_exists( 'YoastSEO_AMP_Options' ) ) {
 
 		/** @var array Option defaults */
 		private $defaults = array(
-			'version' => 1,
-			'amp_site_icon' => '',
-			'default_image' => '',
-			'header-color' => '',
-			'headings-color' => '',
-			'text-color' => '',
-			'meta-color' => '',
-			'link-color' => '',
-			'link-color-hover' => '',
-			'underline' => 'underline',
-			'blockquote-text-color' => '',
-			'blockquote-bg-color' => '',
+			'version'                 => 1,
+			'amp_site_icon'           => '',
+			'default_image'           => '',
+			'header-color'            => '',
+			'headings-color'          => '',
+			'text-color'              => '',
+			'meta-color'              => '',
+			'link-color'              => '',
+			'link-color-hover'        => '',
+			'underline'               => 'underline',
+			'blockquote-text-color'   => '',
+			'blockquote-bg-color'     => '',
 			'blockquote-border-color' => '',
-			'extra-css' => '',
-			'extra-head' => '',
-			'analytics-extra' => '',
+			'extra-css'               => '',
+			'extra-head'              => '',
+			'analytics-extra'         => '',
 		);
 
 		/** @var self Class instance */
 		private static $instance;
-		
+
 		private function __construct() {
 			// Register settings
 			add_action( 'admin_init', array( $this, 'register_settings' ) );
@@ -66,17 +66,14 @@ if ( ! class_exists( 'YoastSEO_AMP_Options' ) ) {
 
 		/**
 		 * Get the options
-		 * 
+		 *
 		 * @return array
 		 */
 		public static function get() {
-			
+
 			$me = self::get_instance();
-			
-			if ( ! isset( $me->options ) ) {
-				$me->fetch_options();
-			}
-			
+			$me->fetch_options();
+
 			return $me->options;
 		}
 
@@ -87,7 +84,7 @@ if ( ! class_exists( 'YoastSEO_AMP_Options' ) ) {
 			if ( ! isset( self::$instance ) ) {
 				self::$instance = new self();
 			}
-			
+
 			return self::$instance;
 		}
 
@@ -95,11 +92,16 @@ if ( ! class_exists( 'YoastSEO_AMP_Options' ) ) {
 		 * Collect options
 		 */
 		private function fetch_options() {
-			
-			$saved_options = get_option( 'wpseo_amp' );
 
-			// Apply defaults.
-			$this->options = wp_parse_args( $saved_options, $this->defaults );
+			if ( isset( $this->options ) ) {
+				$saved_options = $this->options;
+			}
+			else {
+				$saved_options = get_option( 'wpseo_amp' );
+
+				// Apply defaults.
+				$this->options = wp_parse_args( $saved_options, $this->defaults );
+			}
 
 			// Make sure all post types are present.
 			$this->update_post_type_settings();
@@ -115,14 +117,15 @@ if ( ! class_exists( 'YoastSEO_AMP_Options' ) ) {
 		 */
 		private function update_post_type_settings() {
 			$post_type_names = array();
-			$post_types = get_post_types( array( 'public' => true ), 'objects' );
+			$post_types      = get_post_types( array( 'public' => true ), 'objects' );
 
 			if ( is_array( $post_types ) && $post_types !== array() ) {
 				foreach ( $post_types as $post_type ) {
 					if ( ! isset( $this->options[ 'post_types-' . $post_type->name . '-amp' ] ) ) {
 						if ( 'post' === $post_type->name ) {
 							$this->options[ 'post_types-' . $post_type->name . '-amp' ] = 'on';
-						} else {
+						}
+						else {
 							$this->options[ 'post_types-' . $post_type->name . '-amp' ] = 'off';
 						}
 					}
@@ -130,17 +133,6 @@ if ( ! class_exists( 'YoastSEO_AMP_Options' ) ) {
 					$post_type_names[] = $post_type->name;
 				}
 			}
-
-			// Remove missing post types.
-			foreach ( $this->options as $key => $value ) {
-				if ( 0 === strpos( $key, 'post_types' ) ) {
-					$post_type = substr( substr( $key, 11 ), 0, -4 );
-					if ( ! in_array( $post_type, $post_type_names ) ) {
-						unset ( $this->options[ $key ] );
-					}
-				}
-			}
 		}
 	}
-
 }

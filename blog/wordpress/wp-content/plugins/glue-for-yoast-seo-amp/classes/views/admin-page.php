@@ -9,7 +9,6 @@ if ( ! defined( 'WPSEO_VERSION' ) ) {
 $yform = Yoast_Form::get_instance();
 $yform->admin_header( true, 'wpseo_amp', false, 'wpseo_amp_settings' );
 
-// data-default-color="#0a89c0"
 ?>
 
 	<h2 class="nav-tab-wrapper" id="wpseo-tabs">

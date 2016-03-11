@@ -3,5 +3,5 @@ text-align: left;
 }
 
 a, a:active, a:visited {
-text-decoration: <?php echo ( ( $this->options['underline'] ) ? 'none' : 'underline' ); ?>;
+text-decoration: <?php echo ( ( 'underline' === $this->options['underline'] ) ? 'underline' : 'none' ); ?>;
 }

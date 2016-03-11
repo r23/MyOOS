@@ -33,7 +33,7 @@ if ( ! class_exists( 'YoastSEO_AMP_Frontend' ) ) {
 		public function __construct() {
 			$this->set_options();
 
-			add_action( 'wp', array( $this, 'post_types' ) );
+			add_action( 'amp_init', array( $this, 'post_types' ) );
 
 			add_action( 'amp_post_template_css', array( $this, 'additional_css' ) );
 			add_action( 'amp_post_template_head', array( $this, 'extra_head' ) );
@@ -85,8 +85,7 @@ if ( ! class_exists( 'YoastSEO_AMP_Frontend' ) ) {
 
 			$analytics['yst-googleanalytics'] = array(
 				'type'        => 'googleanalytics',
-				'attributes'  => array(
-				),
+				'attributes'  => array(),
 				'config_data' => array(
 					'vars'     => array(
 						'account' => $UA
@@ -110,14 +109,29 @@ if ( ! class_exists( 'YoastSEO_AMP_Frontend' ) ) {
 			$post_types = get_post_types( array( 'public' => true ), 'objects' );
 			if ( is_array( $post_types ) && $post_types !== array() ) {
 				foreach ( $post_types as $pt ) {
+					if ( ! isset( $this->options[ 'post_types-' . $pt->name . '-amp' ] ) ) {
+						continue;
+					}
 					if ( $this->options[ 'post_types-' . $pt->name . '-amp' ] === 'on' ) {
 						add_post_type_support( $pt->name, AMP_QUERY_VAR );
 					}
 					else {
-						remove_post_type_support( $pt->name, AMP_QUERY_VAR );
+						if ( 'post' === $pt->name ) {
+							add_action( 'wp', array( $this, 'disable_amp_for_posts' ) );
+						}
+						else {
+							remove_post_type_support( $pt->name, AMP_QUERY_VAR );
+						}
 					}
 				}
 			}
+		}
+
+		/**
+		 * Disables AMP for posts specifically, run later because of AMP plugin internals
+		 */
+		public function disable_amp_for_posts() {
+			remove_post_type_support( 'post', AMP_QUERY_VAR );
 		}
 
 		/**
@@ -159,7 +173,9 @@ if ( ! class_exists( 'YoastSEO_AMP_Frontend' ) ) {
 				$metadata['description'] = $desc;
 			}
 
-			$metadata['image'] = $this->get_image( $post );
+			$image = isset( $metadata['image'] ) ? $metadata['image'] : null;
+
+			$metadata['image'] = $this->get_image( $post, $image );
 			$metadata['@type'] = $this->get_post_schema_type( $post );
 
 			return $metadata;
@@ -188,7 +204,12 @@ if ( ! class_exists( 'YoastSEO_AMP_Frontend' ) ) {
 
 			echo $css_builder->build();
 
-			echo esc_html( $this->options['extra-css'] );
+			if ( ! empty( $this->options['extra-css'] ) ) {
+				$safe_text = strip_tags($this->options['extra-css']);
+				$safe_text = wp_check_invalid_utf8( $safe_text );
+				$safe_text = _wp_specialchars( $safe_text, ENT_NOQUOTES );
+				echo $safe_text;
+			}
 		}
 
 		/**
@@ -207,7 +228,7 @@ if ( ! class_exists( 'YoastSEO_AMP_Frontend' ) ) {
 
 			do_action( 'wpseo_opengraph' );
 
-			echo strip_tags($this->options['extra-head'], '<link><meta>');
+			echo strip_tags( $this->options['extra-head'], '<link><meta>' );
 		}
 
 		/**
@@ -267,16 +288,20 @@ if ( ! class_exists( 'YoastSEO_AMP_Frontend' ) ) {
 		/**
 		 * Retrieve the Schema.org image for the post
 		 *
-		 * @param WP_Post $post
+		 * @param WP_Post    $post
+		 * @param array|null $image The currently set post image
 		 *
-		 * @return array|false
+		 * @return array
 		 */
-		private function get_image( $post ) {
-			$image = $this->get_image_object( WPSEO_Meta::get_value( 'opengraph-image', $post->ID ) );
+		private function get_image( $post, $image ) {
+			$og_image = $this->get_image_object( WPSEO_Meta::get_value( 'opengraph-image', $post->ID ) );
+			if ( is_array( $og_image ) ) {
+				return $og_image;
+			}
 
 			// Posts without an image fail validation in Google, leading to Search Console errors
 			if ( ! is_array( $image ) && isset( $this->options['default_image'] ) ) {
-				$image = $this->get_image_object( $this->options['default_image'] );
+				return $this->get_image_object( $this->options['default_image'] );
 			}
 
 			return $image;
@@ -301,6 +326,7 @@ if ( ! class_exists( 'YoastSEO_AMP_Frontend' ) ) {
 			 * Filter: 'yoastseo_amp_schema_type' - Allow changing the Schema.org type for the post
 			 *
 			 * @api string $type The Schema.org type for the $post
+			 *
 			 * @param WP_Post $post
 			 */
 			$type = apply_filters( 'yoastseo_amp_schema_type', $type, $post );
