@@ -28,7 +28,7 @@
     $oostable = oosDBGetTables();
 
     $products_statustable = $oostable['products_status'];
-    $products_status = $dbconn->Execute("SELECT products_status_name FROM $products_statustable WHERE products_status_id = '" . $products_status_id . "' AND products_status_languages_id = '" . intval($lang_id)  . "'");
+    $products_status = $dbconn->Execute("SELECT products_status_name FROM $products_statustable WHERE products_status_id = '" . intval($products_status_id) . "' AND products_status_languages_id = '" . intval($lang_id)  . "'");
 
     return $products_status->fields['products_status_name'];
   }
@@ -169,7 +169,7 @@
           <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_ORDERS_STATUS; ?></td>
+                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS_STATUS; ?></td>
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
@@ -210,7 +210,7 @@
               <tr>
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="smallText" valign="top"><?php echo $products_status_split->display_count($products_status_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS_STATUS); ?></td>
+                    <td class="smallText" valign="top"><?php echo $products_status_split->display_count($products_status_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS_STATUS); ?></td>
                     <td class="smallText" align="right"><?php echo $products_status_split->display_links($products_status_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
                   </tr>
                 </table></td>
@@ -221,7 +221,7 @@
   $contents = array();
   switch ($action) {
     case 'new':
-      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_ORDERS_STATUS . '</b>');
+      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_PRODUCTS_STATUS . '</b>');
 
       $contents = array('form' => oos_draw_form('id', 'status', $aContents['products_status'], 'page=' . $_GET['page'] . '&action=insert', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
@@ -232,13 +232,13 @@
         $products_status_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('products_status_name[' . $languages[$i]['id'] . ']');
       }
 
-      $contents[] = array('text' => '<br />' . TEXT_INFO_ORDERS_STATUS_NAME . $products_status_inputs_string);
+      $contents[] = array('text' => '<br />' . TEXT_INFO_PRODUCTS_STATUS_NAME . $products_status_inputs_string);
       $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('insert', BUTTON_INSERT) . ' <a href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $_GET['page']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       break;
 
     case 'edit':
-      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_ORDERS_STATUS . '</b>');
+      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_PRODUCTS_STATUS . '</b>');
 
       $contents = array('form' => oos_draw_form('id', 'status', $aContents['products_status'], 'page=' . $_GET['page'] . '&psID=' . $psInfo->products_status_id  . '&action=save', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
@@ -249,13 +249,13 @@
         $products_status_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('products_status_name[' . $languages[$i]['id'] . ']', oos_get_products_status_name($psInfo->products_status_id, $languages[$i]['id']));
       }
 
-      $contents[] = array('text' => '<br />' . TEXT_INFO_ORDERS_STATUS_NAME . $products_status_inputs_string);
+      $contents[] = array('text' => '<br />' . TEXT_INFO_PRODUCTS_STATUS_NAME . $products_status_inputs_string);
       if (DEFAULT_PRODUTS_STATUS_ID != $psInfo->products_status_id) $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('update', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $_GET['page'] . '&psID=' . $psInfo->products_status_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       break;
 
     case 'delete':
-      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_ORDERS_STATUS . '</b>');
+      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_PRODUCTS_STATUS . '</b>');
 
       $contents = array('form' => oos_draw_form('id', 'status', $aContents['products_status'], 'page=' . $_GET['page'] . '&psID=' . $psInfo->products_status_id  . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
@@ -283,8 +283,8 @@
   if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
     echo '            <td width="25%" valign="top">' . "\n";
 
-    # $box = new box();
-    echo $box::infoBox($heading, $contents);
+	$box = new box;
+	echo $box->infoBox($heading, $contents);
 
     echo '            </td>' . "\n";
   }
