@@ -89,14 +89,13 @@ if (!empty($action)) {
 
 		case 'insert_category':
 		case 'update_category':
-			if (isset($_POST['categories_id'])) $categories_id = oos_db_prepare_input($_POST['categories_id']);
 			$nStatus = (isset($_POST['categories_status']) ? 1 : 0);
 			$sort_order = oos_db_prepare_input($_POST['sort_order']);
-/*
-			if ($categories_id == '') {
+			if (isset($_POST['categories_id'])) $categories_id = oos_db_prepare_input($_POST['categories_id']);
+			if ((isset($_GET['cID'])) && ($categories_id == '')) {
 				$categories_id = oos_db_prepare_input($_GET['cID']);
 			}
-*/
+
 			$sql_data_array = array();
 			$sql_data_array = array('sort_order' => intval($sort_order));
 
@@ -985,25 +984,29 @@ if ($action == 'new_category' || $action == 'edit_category') {
 	<!-- END Breadcrumbs //-->
 	
 		<div class="wrapper wrapper-content">
-			<div class="row">
-				<div class="col-lg-12">	
 				
+			<div class="row">
+				<div class="col-sm-6"></div>
+				<div class="col-sm-6">		
+					<?php echo oos_draw_form('id', 'search', $aContents['categories'], '', 'get', FALSE, 'class="form-inline"'); ?>
+						<div id="DataTables_Table_0_filter" class="dataTables_filter">		
+							<label><?php echo HEADING_TITLE_SEARCH; ?></label>
+							<?php echo oos_draw_input_field('search', $_GET['search']); ?>
+						</div>
+					</form>
+					<?php echo oos_draw_form('id', 'goto', $aContents['categories'], '', 'get', FALSE, 'class="form-inline"'); ?>
+						<div class="dataTables_filter">			
+							<label><?php echo HEADING_TITLE_GOTO; ?></label>
+							<?php echo oos_draw_pull_down_menu('cPath', oos_get_category_tree(), $current_category_id, 'onChange="this.form.submit();"'); ?>
+						</div>							
+					</form>				
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-lg-12">
 				
 <table border="0" width="100%" cellspacing="0" cellpadding="2">	
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-              <tr><?php echo oos_draw_form('id', 'search', $aContents['categories'], '', 'get', FALSE); ?>
-                <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . oos_draw_input_field('search', $_GET['search']); ?></td>
-              </form></tr>
-              <tr><?php echo oos_draw_form('id', 'goto', $aContents['categories'], '', 'get', FALSE); ?>
-                <td class="smallText" align="right"><?php echo HEADING_TITLE_GOTO . ' ' . oos_draw_pull_down_menu('cPath', oos_get_category_tree(), $current_category_id, 'onChange="this.form.submit();"'); ?></td>
-              </form></tr>
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -1049,13 +1052,13 @@ if ($action == 'new_category' || $action == 'edit_category') {
                  <td class="dataTableContent" align="center">
  <?php
        if ($categories['categories_status'] == '1') {
-         echo '<a href="' . oos_href_link_admin($aContents['categories'], 'action=setflag&flag=0&cID=' . $categories['categories_id'] . '&cPath=' . $cPath) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+         echo '<a href="' . oos_href_link_admin($aContents['categories'], 'action=setflag&amp;flag=0&amp;cID=' . $categories['categories_id'] . '&amp;cPath=' . $cPath) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
        } else {
-         echo '<a href="' . oos_href_link_admin($aContents['categories'], 'action=setflag&flag=1&cID=' . $categories['categories_id'] . '&cPath=' . $cPath) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
+         echo '<a href="' . oos_href_link_admin($aContents['categories'], 'action=setflag&amp;flag=1&amp;cID=' . $categories['categories_id'] . '&amp;cPath=' . $cPath) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
        }
 ?></td>
                 <td class="dataTableContent" align="center">&nbsp;<?php echo $categories['sort_order']; ?>&nbsp;</td>
-                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;cID=' . $categories['categories_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -1086,12 +1089,12 @@ if ($action == 'new_category' || $action == 'edit_category') {
       }
 
       if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id) ) {
-        echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=new_product_preview&read=only') . '\'">' . "\n";
+        echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&amp;pID=' . $products['products_id'] . '&amp;action=new_product_preview&read=only') . '\'">' . "\n";
       } else {
-        echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products['products_id']) . '\'">' . "\n";
+        echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;pID=' . $products['products_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=new_product_preview&read=only') . '">' . oos_image(OOS_IMAGES . 'icons/preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . '#' . $products['products_id'] . ' ' . $products['products_name']; ?></td>
+                <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&amp;pID=' . $products['products_id'] . '&amp;action=new_product_preview&read=only') . '">' . oos_image(OOS_IMAGES . 'icons/preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . '#' . $products['products_id'] . ' ' . $products['products_name']; ?></td>
                 <td class="dataTableContent"><?php echo oos_get_manufacturers_name($products['products_id']) ?></td>
                 <td class="dataTableContent" align="center">
 <?php
@@ -1145,24 +1148,24 @@ if ($action == 'new_category' || $action == 'edit_category') {
       $products_result->MoveNext();
     }
 
-    if ($cPath_array) {
-      $cPath_back = '';
-      for($i = 0, $n = count($cPath_array) - 1; $i < $n; $i++) {
-        if ($cPath_back == '') {
-          $cPath_back .= $cPath_array[$i];
-        } else {
-          $cPath_back .= '_' . $cPath_array[$i];
-        }
-      }
+    $cPath_back = '';
+	if (count($cPath_array) > 0) {
+		for ($i = 0, $n = count($cPath_array) - 1; $i < $n; $i++) {
+			if (empty($cPath_back)) {
+				$cPath_back .= $cPath_array[$i];
+			} else {
+				$cPath_back .= '_' . $cPath_array[$i];
+			}
+		}
     }
 
-    $cPath_back = ($cPath_back) ? 'cPath=' . $cPath_back : '';
+    $cPath_back = (oos_is_not_null($cPath_back)) ? 'cPath=' . $cPath_back . '&' : '';	
 ?>
               <tr>
                 <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="smallText"><?php echo TEXT_CATEGORIES . '&nbsp;' . $categories_count . '<br />' . TEXT_PRODUCTS . '&nbsp;' . $products_count; ?></td>
-                    <td align="right" class="smallText"><?php if ($cPath) echo '<a href="' . oos_href_link_admin($aContents['categories'], $cPath_back . '&cID=' . $current_category_id) . '">' . oos_button('back', IMAGE_BACK) . '</a>&nbsp;'; if (!$_GET['search']) echo '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&action=new_category') . '">' . oos_button('newcategorie', IMAGE_NEW_CATEGORY) . '</a>&nbsp;<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&action=new_product') . '">' . oos_button('newprodukt', IMAGE_NEW_PRODUCT) . '</a>'; ?>&nbsp;</td>
+                    <td align="right" class="smallText"><?php if ($cPath) echo '<a href="' . oos_href_link_admin($aContents['categories'], $cPath_back . 'cID=' . $current_category_id) . '">' . oos_button('back', IMAGE_BACK) . '</a>&nbsp;'; if (!$_GET['search']) echo '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&action=new_category') . '">' . oos_button('newcategorie', IMAGE_NEW_CATEGORY) . '</a>&nbsp;<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&action=new_product') . '">' . oos_button('newprodukt', IMAGE_NEW_PRODUCT) . '</a>'; ?>&nbsp;</td>
                   </tr>
                 </table></td>
               </tr>
