@@ -36,7 +36,7 @@
  */
 function smarty_function_html_oos_image($params, &$smarty)
 {
-        require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+	require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
 
     $alt = '';
     $image = '';

@@ -691,26 +691,31 @@ function check_form() {
 			<!-- END Breadcrumbs //-->
 			
 			<div class="wrapper wrapper-content">
+
+				<div class="row">
+					<div class="col-sm-6"></div>
+					<div class="col-sm-6">		
+						<?php echo oos_draw_form('id', 'search', $aContents['customers'], '', 'get', FALSE, 'class="form-inline"'); ?>
+							<div id="DataTables_Table_0_filter" class="dataTables_filter">		
+								<label><?php echo HEADING_TITLE_SEARCH; ?></label>
+								<?php echo oos_draw_input_field('search'); ?>
+							</div>
+						</form>
+						<?php echo oos_draw_form('id', 'status', $aContents['customers'], '', 'get', FALSE, 'class="form-inline"'); ?>
+							<div class="dataTables_filter">			
+								<label><?php echo HEADING_TITLE_STATUS; ?></label>
+								<?php echo oos_draw_pull_down_menu('status', array_merge(array(array('id' => '0', 'text' => TEXT_ALL_CUSTOMERS)), $customers_statuses_array), '0', 'onChange="this.form.submit();"'); ?>
+
+							</div>							
+						</form>				
+					</div>
+				</div>	  
+	
 				<div class="row">
 					<div class="col-lg-12">			
-<!-- body_text //-->
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"></td>
-            <td class="pageHeading" align="right"></td>
-            <td align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-               <tr><?php echo oos_draw_form('id', 'search', $aContents['customers'], '', 'get', FALSE); ?>
-                 <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . oos_draw_input_field('search'); ?></td>
-               </form></tr>
-              <tr><?php echo oos_draw_form('id', 'status', $aContents['customers'], '', 'get', FALSE); ?>
-              <td class="smallText" align="right"><?php echo HEADING_TITLE_STATUS . ' ' . oos_draw_pull_down_menu('status', array_merge(array(array('id' => '0', 'text' => TEXT_ALL_CUSTOMERS)), $customers_statuses_array), '0', 'onChange="this.form.submit();"'); ?></td>
-          </form></tr>
-        </table></td>
-      </tr>
-        </table></td>
-      </tr>
+	
+	<!-- body_text //-->
+	<table border="0" width="100%" cellspacing="0" cellpadding="2">  
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
