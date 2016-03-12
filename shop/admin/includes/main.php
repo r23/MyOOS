@@ -63,11 +63,11 @@ require 'includes/functions/function_kernel.php';
 require_once MYOOS_INCLUDE_PATH . 'includes/functions/function_server.php';
 
 // todo remove
-  if (isset($_POST)) {
-    foreach ($_POST as $key=>$value) {
-      $$key = oos_prepare_input($value);
-    }
-  }
+#  if (isset($_POST)) {
+#    foreach ($_POST as $key=>$value) {
+#      $$key = oos_prepare_input($value);
+#    }
+#  }
 
 require_once MYOOS_INCLUDE_PATH . '/core/lib/Phoenix/Core/Session.php';
 $session = new Phoenix_Session();

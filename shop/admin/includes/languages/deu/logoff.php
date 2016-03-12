@@ -10,7 +10,6 @@
    ----------------------------------------------------------------------
    Based on:
 
-   ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
 
@@ -21,6 +20,6 @@
    
 define('HEADING_TITLE', 'Abmelden');
 define('NAVBAR_TITLE', 'Anmelden');
-define('TEXT_MAIN', 'Sie haben sich vom <b>Redaktionsbereich</b> abgemeldet. Es ist nun sicher den Computer zu verlassen. Klicken Sie "zurck" wenn Sie sich wieder anmelden wollen.');
+define('TEXT_MAIN', 'Sie haben sich vom <b>Redaktionsbereich</b> abgemeldet. Es ist nun sicher den Computer zu verlassen. Klicken Sie "zur&uuml;ck" wenn Sie sich wieder anmelden wollen.');
 define('TEXT_RELOGIN', 'wieder anmelden');
 

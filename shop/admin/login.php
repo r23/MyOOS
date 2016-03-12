@@ -22,16 +22,27 @@ define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
 if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
+	
+    $email_address = oos_prepare_input($_POST['email_address']);
+    $password = oos_prepare_input($_POST['password']);
+	
+    if ( empty( $email_address ) || !is_string( $email_address ) ) {
+        oos_redirect_admin(oos_href_link_admin($aContents['forbiden']));
+    }
+
+    if ( empty( $password ) || !is_string( $password ) ) {
+        oos_redirect_admin(oos_href_link_admin($aContents['forbiden']));
+    }	
 	// Check if email exists
 	$check_admin_result = $dbconn->Execute("SELECT admin_id as login_id, admin_groups_id as login_groups_id, admin_firstname as login_firstname, admin_email_address as login_email_address, admin_password as login_password, admin_modified as login_modified, admin_logdate as login_logdate, admin_lognum as login_lognum FROM " . $oostable['admin'] . " WHERE admin_email_address = '" . oos_db_input($email_address) . "'");
 	if (!$check_admin_result->RecordCount()) {
-		$_GET['login'] = 'fail';
+		$login = 'fail';
 	} else {
  	
 		$check_admin = $check_admin_result->fields;
 		// Check that password is good
 		if (!oos_validate_password($password, $check_admin['login_password'])) {
-			$_GET['login'] = 'fail';
+			$login = 'fail';
 		} else {
 			if (isset($_SESSION['password_forgotten'])) {
 				unset($_SESSION['password_forgotten']);
@@ -50,11 +61,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
                         SET admin_logdate = now(), admin_lognum = admin_lognum+1
                         WHERE admin_id = '" . $_SESSION['login_id'] . "'");
 
-			if (($login_lognum == 0) || !($login_logdate) || ($login_email_address == 'admin@localhost') || ($login_modified == '0000-00-00 00:00:00')) {
-				oos_redirect_admin(oos_href_link_admin($aContents['admin_account']));
-			} else {
-				oos_redirect_admin(oos_href_link_admin($aContents['default']));
-			}
+			oos_redirect_admin(oos_href_link_admin($aContents['default']));
 		}
 	}
 }
@@ -109,7 +116,7 @@ function setFocus() {
 <div id="break"></div>
 
 <?php
-  if (isset($_GET['login']) && $_GET['login'] == 'fail') {
+  if (isset($login) && $login == 'fail') {
 ?>
 	  <p><div align="center" class="smallText"><?php TEXT_LOGIN_ERROR; ?></div></p>
 	  <div id="break"></div>

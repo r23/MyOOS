@@ -18,15 +18,23 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
-  if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
-    $log_times = $_POST['log_times']+1;
-    if ($log_times >= 4) {
-      $_SESSION['password_forgotten'] = 'password';
+if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
+	
+	$log_times = $_POST['log_times']+1;
+	if ($log_times >= 4) {
+		$_SESSION['password_forgotten'] = 'password';
+	}
+
+    $email_address = oos_prepare_input($_POST['email_address']);
+	
+    if ( empty( $email_address ) || !is_string( $email_address ) ) {
+        oos_redirect_admin(oos_href_link_admin($aContents['forbiden']));
     }
 
+	
 // Check if email exists
     $admintable = $oostable['admin'];
     $check_admin_result = $dbconn->Execute("SELECT admin_id as check_id, admin_firstname as check_firstname, admin_lastname as check_lastname, admin_email_address as check_email_address FROM $admintable WHERE admin_email_address = '" . oos_db_input($email_address) . "'");
