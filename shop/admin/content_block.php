@@ -269,7 +269,7 @@
       $block_inputs_string = '';
       $languages = oos_get_languages();
       for ($i = 0, $n = count($languages); $i < $n; $i++) {
-        $block_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('block_name[' . $languages[$i]['id'] . ']');
+        $block_inputs_string .= '<br />' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('block_name[' . $languages[$i]['id'] . ']');
       }
       $contents[] = array('text' => '<br /><b>' . TEXT_BLOCK_NAME . ':</b>' .$block_inputs_string);
       $contents[] = array('text' => '<br /><b>' . TEXT_BLOCK_FUNCTION . ':</b><br />' . oos_draw_input_field('function'));
@@ -293,7 +293,7 @@
       $block_inputs_string = '';
       $languages = oos_get_languages();
       for ($i = 0, $n = count($languages); $i < $n; $i++) {
-        $block_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('block_name[' . $languages[$i]['id'] . ']', oos_get_block_name($bInfo->block_id, $languages[$i]['id']));
+        $block_inputs_string .= '<br />' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('block_name[' . $languages[$i]['id'] . ']', oos_get_block_name($bInfo->block_id, $languages[$i]['id']));
       }
       eval('$value_field = ' . $bInfo->set_function . '"' . htmlspecialchars($bInfo->block_side) . '");');
 

@@ -41,13 +41,23 @@
         break;
 
       case 'insert':
+        $name = oos_db_prepare_input($_POST['name']);
+        $iso_639_2 = oos_db_prepare_input($_POST['iso_639_2']);
+        $iso_639_1 = oos_db_prepare_input($_POST['iso_639_1']);
+        $iso_3166_1 = oos_db_prepare_input($_POST['iso_3166_1']);
+        $sort_order = (int)oos_db_prepare_input($_POST['sort_order']);
+		
         $sql = "INSERT INTO " . $oostable['languages'] . "
                 (name,
                  iso_639_2,
-                 iso_639_1)
+                 iso_639_1,
+				 iso_3166_1,
+				 sort_order)
                  VALUES ('" . oos_db_input($name) . "',
                          '" . oos_db_input($iso_639_2) . "',
-                         '" . oos_db_input($iso_639_1) . "')";
+                         '" . oos_db_input($iso_639_1) . "',
+						 '" . oos_db_input($iso_3166_1) . "',
+						 '" . oos_db_input($sort_order) . "')";
         $dbconn->Execute($sql);
         $insert_id = $dbconn->Insert_ID();
 
@@ -98,7 +108,7 @@
         // categories_images
         $categories_images_result = $dbconn->Execute("SELECT ci.categories_images_id, cid.categories_images_title, cid.categories_images_caption, cid.categories_description
                                           FROM " . $oostable['categories_images'] . " ci LEFT JOIN
-                                               " . $oostable['categories_description'] . " cid
+                                               " . $oostable['categories_images_description'] . " cid
                                              ON ci.categories_images_id = cid.categories_images_id
                                           WHERE cid.categories_images_languages_id = '" . intval($_SESSION['language_id']) . "'");
         while ($categories_images = $categories_images_result->fields) {		
@@ -344,12 +354,19 @@
         break;
 
       case 'save':
+        $name = oos_db_prepare_input($_POST['name']);
+        $iso_639_2 = oos_db_prepare_input($_POST['iso_639_2']);
+        $iso_639_1 = oos_db_prepare_input($_POST['iso_639_1']);
+        $iso_3166_1 = oos_db_prepare_input($_POST['iso_3166_1']);
+        $sort_order = (int)oos_db_prepare_input($_POST['sort_order']);
+		
         $lID = oos_db_prepare_input($_GET['lID']);
 
         $dbconn->Execute("UPDATE " . $oostable['languages'] . "
                       SET name = '" . oos_db_input($name) . "', 
                       iso_639_2 = '" . oos_db_input($iso_639_2) . "',
                       iso_639_1 = '" . oos_db_input($iso_639_1) . "',
+					  iso_3166_1 = '" . oos_db_input($iso_3166_1) . "',
                       sort_order = '" . oos_db_input($sort_order) . "'
                       WHERE languages_id = '" . intval($lID) . "'");
 
@@ -381,7 +398,7 @@
         $dbconn->Execute("DELETE FROM " . $oostable['languages'] . " WHERE languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['block_info'] . " WHERE block_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['categories_description'] . " WHERE categories_languages_id = '" . intval($lID) . "'");
-        $dbconn->Execute("DELETE FROM " . $oostable['categories_images_description'] . " WHERE categories_images_languages_id = '" . intval($lID) . "'");			
+        $dbconn->Execute("DELETE FROM " . $oostable['categories_images_description'] . " WHERE categories_images_languages_id = '" . intval($lID) . "'");	
         $dbconn->Execute("DELETE FROM " . $oostable['coupons_description']  . " WHERE coupon_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['customers_status']  . " WHERE customers_status_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['information_description']  . " WHERE information_languages_id = '" . intval($lID) . "'");
@@ -467,11 +484,12 @@
                 <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_LANGUAGE_NAME; ?></td>
 	        <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_LANGUAGE_ISO_639_2; ?></td>
 	        <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_LANGUAGE_ISO_639_1; ?></td>
+			<td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_LANGUAGE_ISO_3166_1; ?></td>
 	        <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_LANGUAGE_STATUS; ?></td>
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
-  $languages_result_raw = "SELECT languages_id, name, iso_639_2, iso_639_1, status, sort_order 
+  $languages_result_raw = "SELECT languages_id, name, iso_639_2, iso_639_1, iso_3166_1, status, sort_order 
                           FROM " . $oostable['languages'] . "
                           ORDER BY sort_order";
   $languages_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $languages_result_raw, $languages_result_numrows);
@@ -496,6 +514,7 @@
 ?>
                 <td class="dataTableContent" align="center"><?php echo $languages['iso_639_2']; ?></td>
                 <td class="dataTableContent" align="center"><?php echo $languages['iso_639_1']; ?></td>
+				<td class="dataTableContent" align="center"><?php echo $languages['iso_3166_1']; ?></td>
                 <td class="dataTableContent" align="center">
 <?php
   if ($languages['status'] == '1') {
@@ -513,7 +532,7 @@
   }
 ?>
               <tr>
-                <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <td colspan="6"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="smallText" valign="top"><?php echo $languages_split->display_count($languages_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_LANGUAGES); ?></td>
                     <td class="smallText" align="right"><?php echo $languages_split->display_links($languages_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
@@ -543,6 +562,7 @@
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_NAME . '<br />' . oos_draw_input_field('name'));
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_ISO_639_2 . '<br />' . oos_draw_input_field('iso_639_2'));
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_ISO_639_1 . '<br />' . oos_draw_input_field('iso_639_1'));
+	  $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_ISO_3166_1 . '<br />' . oos_draw_input_field('iso_3166_1'));
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('insert', BUTTON_INSERT) . ' <a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $_GET['lID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       break;
 
@@ -554,6 +574,7 @@
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_NAME . '<br />' . oos_draw_input_field('name', $lInfo->name));
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_ISO_639_2 . '<br />' . oos_draw_input_field('iso_639_2', $lInfo->iso_639_2));
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_ISO_639_1 . '<br />' . oos_draw_input_field('iso_639_1', $lInfo->iso_639_1));
+	  $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_ISO_3166_1 . '<br />' . oos_draw_input_field('iso_3166_1', $lInfo->iso_3166_1));
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_SORT_ORDER . '<br />' . oos_draw_input_field('sort_order', $lInfo->sort_order));
       if (DEFAULT_LANGUAGE != $lInfo->iso_639_2 && $lInfo->status == '1' ) $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('update', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
@@ -575,7 +596,8 @@
         $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_NAME . ' ' . $lInfo->name);
         $contents[] = array('text' => TEXT_INFO_LANGUAGE_ISO_639_2 . ' ' . $lInfo->iso_639_2);
         $contents[] = array('text' => TEXT_INFO_LANGUAGE_ISO_639_1 . ' ' . $lInfo->iso_639_1);
-        $contents[] = array('text' => '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $lInfo->iso_639_2 . '.gif', $lInfo->name));
+		$contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_ISO_3166_1 . ' ' . $lInfo->iso_3166_1);
+        $contents[] = array('text' => '<div class="flag flag-icon flag-icon-' . $lInfo->iso_3166_1 . ' width-full"></div>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_DIRECTORY . '<br />' . OOS_SHOP . 'includes/languages/<b>' . $lInfo->iso_639_2 . '</b>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_SORT_ORDER . ' ' . $lInfo->sort_order);
 

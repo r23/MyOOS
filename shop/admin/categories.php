@@ -870,7 +870,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading"><?php echo oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . $cInfo->categories_name; ?></td>
+            <td class="pageHeading"><?php echo oos_flag_icon($languages[$i]) . '&nbsp;' . $cInfo->categories_name; ?></td>
           </tr>		
           <tr>
             <td class="pageHeading">&nbsp;<?php echo $cInfo->categories_heading_title; ?></td>

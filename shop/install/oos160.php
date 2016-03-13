@@ -119,8 +119,6 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, b
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (35, 1, 'My World')") or die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (35, 2, 'My World')") or die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (35, 3, 'My World')") or die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
-# $result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (35, 4, 'Account')") or die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
-# $result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (35, 5, 'Account')") or die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (35, 6, 'My World')") or die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
 
 
@@ -203,6 +201,14 @@ if ($result === false) {
 }
 
 $result = $db->Execute("ALTER TABLE " . $table . " ADD `customers_vat_id_status` TINYINT DEFAULT '0' NOTNULL AFTER `customers_vat_id`");
+if ($result === false) {
+  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} else {
+  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+}
+
+$table = $prefix_table . 'languages';
+$result = $db->Execute("ALTER TABLE " . $table . " ADD `iso_3166_1` VARCHAR(2) NOT NULL AFTER `iso_639_1`");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {

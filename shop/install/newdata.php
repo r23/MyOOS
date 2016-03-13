@@ -689,8 +689,8 @@ echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font
 
 
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (1, 'Deutsch', 'deu', 'de', 1, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (2, 'English', 'eng', 'en', 1, 2)") OR die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, iso_3166_1, status, sort_order) VALUES (1, 'Deutsch', 'deu', 'de', 'de', 1, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, iso_3166_1, status, sort_order) VALUES (2, 'English', 'eng', 'en', 'gb', 1, 2)") OR die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
 
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "languages " . UPDATED .'</font>';

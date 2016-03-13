@@ -278,7 +278,7 @@
       $orders_status_inputs_string = '';
       $languages = oos_get_languages();
       for ($i = 0, $n = count($languages); $i < $n; $i++) {
-        $orders_status_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('orders_status_name[' . $languages[$i]['id'] . ']');
+        $orders_status_inputs_string .= '<br />' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('orders_status_name[' . $languages[$i]['id'] . ']');
       }
 
       $contents[] = array('text' => '<br />' . TEXT_INFO_ORDERS_STATUS_NAME . $orders_status_inputs_string);
@@ -295,7 +295,7 @@
       $orders_status_inputs_string = '';
       $languages = oos_get_languages();
       for ($i = 0, $n = count($languages); $i < $n; $i++) {
-        $orders_status_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('orders_status_name[' . $languages[$i]['id'] . ']', oos_get_orders_status_name($oInfo->orders_status_id, $languages[$i]['id']));
+        $orders_status_inputs_string .= '<br />' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('orders_status_name[' . $languages[$i]['id'] . ']', oos_get_orders_status_name($oInfo->orders_status_id, $languages[$i]['id']));
       }
 
       $contents[] = array('text' => '<br />' . TEXT_INFO_ORDERS_STATUS_NAME . $orders_status_inputs_string);
@@ -321,7 +321,7 @@
         $orders_status_inputs_string = '';
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $orders_status_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_get_orders_status_name($oInfo->orders_status_id, $languages[$i]['id']);
+          $orders_status_inputs_string .= '<br />' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_get_orders_status_name($oInfo->orders_status_id, $languages[$i]['id']);
         }
 
         $contents[] = array('text' => $orders_status_inputs_string);

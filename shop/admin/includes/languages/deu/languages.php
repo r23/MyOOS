@@ -27,15 +27,19 @@ define('TEXT_ALL_LANGUAGES', 'alle Sprachen');
 define('TEXT_ACTIVE_LANGUAGES', 'aktive Sprachen');
 
 define('TABLE_HEADING_LANGUAGE_NAME', 'Name');
-define('TABLE_HEADING_LANGUAGE_ISO_639_2', 'iso 639_2'); 
-define('TABLE_HEADING_LANGUAGE_ISO_639_1', 'iso 639_1');
+define('TABLE_HEADING_LANGUAGE_ISO_639_2', 'ISO 639-2'); 
+define('TABLE_HEADING_LANGUAGE_ISO_639_1', 'ISO 639-1');
+define('TABLE_HEADING_LANGUAGE_ISO_3166_1', 'ISO_3166-1');
+
+
 define('TABLE_HEADING_LANGUAGE_STATUS', 'Status');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
 define('TEXT_INFO_EDIT_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nderungen durch');
 define('TEXT_INFO_LANGUAGE_NAME', 'Name:');
-define('TEXT_INFO_LANGUAGE_ISO_639_2', 'iso 639_2');
-define('TEXT_INFO_LANGUAGE_ISO_639_1', 'iso 639_1');
+define('TEXT_INFO_LANGUAGE_ISO_639_2', 'ISO 639-2'); 
+define('TEXT_INFO_LANGUAGE_ISO_639_1', 'ISO 639-1');
+define('TEXT_INFO_LANGUAGE_ISO_3166_1', 'ISO_3166-1');
 define('TEXT_INFO_LANGUAGE_IMAGE', 'Symbol:');
 define('TEXT_INFO_LANGUAGE_DIRECTORY', 'Verzeichnis:');
 define('TEXT_INFO_LANGUAGE_SORT_ORDER', 'Sortierreihenfolge:');

@@ -555,3 +555,20 @@ function oos_draw_editor_field($name, $wrap, $width, $height, $text = '', $param
 
     return $field;
   }
+
+
+ /**
+  * Output a flag-icon
+  *
+  * @param $name
+  * @param $iso_3166_1
+  */ 
+function oos_flag_icon($aLanguages) {  
+	if ( empty( $aLanguages['name'] ) ) {
+		 return;
+    }
+	if ( empty( $aLanguages['iso_3166_1'] ) ) {
+		 return oos_output_string($name);
+    }
+	return '<div title="' . oos_output_string($aLanguages['name']) . '" class="flag flag-icon flag-icon-' . oos_output_string($aLanguages['iso_3166_1']) . ' width-full"></div>&nbsp;' . oos_output_string($aLanguages['name']) . '&nbsp;';
+}

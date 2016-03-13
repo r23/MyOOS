@@ -494,7 +494,7 @@ function oos_get_languages() {
     $aLanguages = array();
 
     $languagestable = $oostable['languages'];
-    $query = "SELECT languages_id, name, iso_639_2, iso_639_1
+    $query = "SELECT languages_id, name, iso_639_2, iso_639_1, iso_3166_1
               FROM $languagestable
               WHERE status = '1'
               ORDER BY sort_order";
@@ -504,7 +504,8 @@ function oos_get_languages() {
 		$aLanguages[] = array('id' => $languages['languages_id'],
 									'name' => $languages['name'],
 									'iso_639_2' => $languages['iso_639_2'],
-									'iso_639_1' => $languages['iso_639_1']
+									'iso_639_1' => $languages['iso_639_1'],
+									'iso_3166_1' => $languages['iso_3166_1']
 								);
 
 		// Move that ADOdb pointer!

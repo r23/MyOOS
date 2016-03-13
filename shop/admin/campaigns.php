@@ -268,7 +268,7 @@
       $campaigns_inputs_string = '';
       $languages = oos_get_languages();
       for ($i = 0, $n = count($languages); $i < $n; $i++) {
-        $campaigns_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('campaigns_name[' . $languages[$i]['id'] . ']');
+        $campaigns_inputs_string .= '<br />' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('campaigns_name[' . $languages[$i]['id'] . ']');
       }
 
       $contents[] = array('text' => '<br />' . TEXT_INFO_CAMPAIGNS_NAME . $campaigns_inputs_string);
@@ -285,7 +285,7 @@
       $campaigns_inputs_string = '';
       $languages = oos_get_languages();
       for ($i = 0, $n = count($languages); $i < $n; $i++) {
-        $campaigns_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_draw_input_field('campaigns_name[' . $languages[$i]['id'] . ']', oos_get_campaigns_name($oInfo->campaigns_id, $languages[$i]['id']));
+        $campaigns_inputs_string .= '<br />' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('campaigns_name[' . $languages[$i]['id'] . ']', oos_get_campaigns_name($oInfo->campaigns_id, $languages[$i]['id']));
       }
 
       $contents[] = array('text' => '<br />' . TEXT_INFO_CAMPAIGNS_NAME . $campaigns_inputs_string);
@@ -312,7 +312,7 @@
         $languages = oos_get_languages();
 
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $campaigns_inputs_string .= '<br />' . oos_image(OOS_SHOP_IMAGES . 'flags/' . $languages[$i]['iso_639_2'] . '.gif', $languages[$i]['name']) . '&nbsp;' . oos_get_campaigns_name($oInfo->campaigns_id, $languages[$i]['id']);
+          $campaigns_inputs_string .= '<br />' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_get_campaigns_name($oInfo->campaigns_id, $languages[$i]['id']);
         }
 
         $contents[] = array('text' => $campaigns_inputs_string);

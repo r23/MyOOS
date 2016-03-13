@@ -629,6 +629,7 @@ $flds = "
   name C(32) NOTNULL,
   iso_639_2 C(3) NOTNULL,
   iso_639_1 C(2) NOTNULL,
+  iso_3166_1 C(2) NOTNULL,
   status I1 DEFAULT '0',
   sort_order I1 NOTNULL DEFAULT '0'
 ";

@@ -39,7 +39,8 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 
 	<!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
 	<link href="css/plugins/jquery-file-upload/jquery.fileupload.css" rel="stylesheet">
-	
+
+	<link href="assets/plugins/flag-icon/css/flag-icon.css" rel="stylesheet" />	
 	<link rel="stylesheet" href="includes/stylesheet.css" type="text/css" >
 </head>
 <body>
