@@ -673,7 +673,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                      <button type="reset" class="btn btn-warning cancel"><i class="fa fa-fw fa-times"></i>
                         <span><?php echo BUTTON_CANCEL_UPLOAD; ?></span>
                      </button>
-                     <button type="button" class="btn btn-danger delete"><i class="fa fa-fw fa-trash"></i>
+                     <button type="reset" class="btn btn-danger cancel"><i class="fa fa-fw fa-trash"></i>
                         <span><?php echo BUTTON_DELETE; ?></span>
                      </button>
                      <!-- The global file processing state-->
@@ -689,6 +689,17 @@ if ($action == 'new_category' || $action == 'edit_category') {
                      <div class="progress-extended">&nbsp;</div>
                   </div>
                </div>
+			   
+			   
+            <div class="col-lg-5 fileupload-progress fade">
+                <!-- The global progress bar -->
+                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                </div>
+                <!-- The extended global progress state -->
+                <div class="progress-extended">&nbsp;</div>
+            </div>			   
+			   
                <!-- The table listing the files available for upload/download-->
                <table role="presentation" class="table table-striped">
                   <tbody class="files"></tbody>
@@ -710,12 +721,6 @@ if ($action == 'new_category' || $action == 'edit_category') {
                            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
                        </td>
                        <td>
-                           {% if (!i && !o.options.autoUpload) { %}
-                               <button class="btn btn-primary start" disabled>
-                                   <em class="fa fa-fw fa-upload"></em>
-                                   <span><?php echo BUTTON_START_UPLOAD; ?></span>
-                               </button>
-                           {% } %}
                            {% if (!i) { %}
                                <button class="btn btn-warning cancel">
                                    <em class="fa fa-fw fa-times"></em>
@@ -1041,7 +1046,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;cID=' . $categories['categories_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="dataTableContent">&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['categories'], oos_get_path($categories['categories_id'])) . '"><i class="fa fa-folder text-navy"></i></a>&nbsp;<b>' . ' #' . $categories['categories_id'] . ' ' . $categories['categories_name'] . '</b>'; ?></td>
+                <td class="dataTableContent">&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['categories'], oos_get_path($categories['categories_id'])) . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-folder"></i></button></a>&nbsp;<b>' . ' #' . $categories['categories_id'] . ' ' . $categories['categories_name'] . '</b>'; ?></td>
                 <td class="dataTableContent" align="center">&nbsp;</td>
                  <td class="dataTableContent" align="center">
  <?php
@@ -1088,7 +1093,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;pID=' . $products['products_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&amp;pID=' . $products['products_id'] . '&amp;action=new_product_preview&read=only') . '">' . oos_image(OOS_IMAGES . 'icons/preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . '#' . $products['products_id'] . ' ' . $products['products_name']; ?></td>
+                <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&amp;pID=' . $products['products_id'] . '&amp;action=new_product_preview&read=only') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . '#' . $products['products_id'] . ' ' . $products['products_name']; ?></td>
                 <td class="dataTableContent"><?php echo oos_get_manufacturers_name($products['products_id']) ?></td>
                 <td class="dataTableContent" align="center">
 <?php

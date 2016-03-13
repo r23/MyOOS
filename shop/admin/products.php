@@ -643,11 +643,11 @@ function calcBasePriceFactor() {
 <?php
     if (NEW_PRODUCT_PREVIEW == 'true') {
 ?>
-        <td class="main" align="right"><?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))) . oos_submit_button('preview', IMAGE_PREVIEW) . '&nbsp;&nbsp;<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $_GET['pID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>'; ?></td>
+        <td class="main" align="right"><?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))) . oos_submit_button('preview', IMAGE_PREVIEW); ?></td>
 <?php
     } else {
 ?>
-        <td class="main" align="right"><?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))) . oos_submit_button('save', IMAGE_SAVE) . '&nbsp;&nbsp;<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $_GET['pID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>'; ?></td>
+        <td class="main" align="right"><?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))) . oos_submit_button('save', IMAGE_SAVE); ?></td>
 <?php
     }
 ?>
@@ -819,7 +819,7 @@ function calcBasePriceFactor() {
       } else {
         echo oos_submit_button('insert', BUTTON_INSERT);
       }
-      echo '&nbsp;&nbsp;<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $_GET['pID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>';
+
 ?></td>
       </form></tr>
 <?php
