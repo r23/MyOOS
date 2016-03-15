@@ -3,7 +3,7 @@
 Contributors: Braekling
 Requires at least: 4.0
 Tested up to: 4.4.1
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6046779
 Tags: statistics, stats, analytics, piwik, wpmu
 
@@ -15,13 +15,11 @@ This plugin adds a Piwik stats site to your WordPress dashboard. It's also able 
 
 To use this plugin you will need your own Piwik instance. If you do not already have a Piwik setup, you have two simple options: use either [Self-hosted](http://piwik.org/) or [Cloud-hosted](http://piwik.org/hosting/). 
 
-**Requirements:** PHP 5.4 (or higher), WordPress 4.0 (or higher), Piwik 2.9 (or higher; 2.14.1 or higher recommended)
+**Requirements:** PHP 5.4 (or higher), WordPress 4.0 (or higher), Piwik 2.9 (or higher; 2.16 or higher recommended)
  
 **Languages:** English, Albania, Dutch, French, German, Greek, Hungarian, Italian, Portuguese (Brazil). Partially supported: Azerbaijani, Belarusian, Chinese (simplified),  Hindi, Lithuanian, Luxembourgish, Norwegian, Persian, Romanian, Russian, Spanish, Swedish, Turkish, Ukrainian
 
 **Note:** If you vote "It's broken", please tell me about your problem. It's hard to fix a bug I don't know about! ;-)
-
-GitHub: https://github.com/braekling/WP-Piwik
 
 = Shortcodes =
 You can use following shortcodes if activated:
@@ -119,10 +117,16 @@ Add WP-Piwik to your /wp-content/plugins folder and enable it as [Network Plugin
 
 == Changelog ==
 
+= 1.0.7 =
+* Feature: User ID Tracking. Thx to Danw33, see https://github.com/braekling/WP-Piwik/pull/16
+* Feature: Site ID parameter added to opt-out shortcode. Thx to christianhennen, see https://github.com/braekling/WP-Piwik/pull/17
+* Feature: Allow a local config file to affect the proxy script, see https://wordpress.org/support/topic/proxy-config-require-wp-loadphp-path
+* Bugfix: No script tag is not auto-inserted if the tracking code is manually defined.
+
 = 1.0.6 =
 * Language updates
 * Encoding & gettext fixes
-* Better error messages. Thx, to mcguffin, see https://github.com/braekling/WP-Piwik/pull/14
+* Better error messages. Thx to mcguffin, see https://github.com/braekling/WP-Piwik/pull/14
 
 = 1.0.5 =
 * Several language updates.
