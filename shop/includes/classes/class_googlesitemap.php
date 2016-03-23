@@ -271,7 +271,7 @@
 
        $aContents = oos_get_content();
 
-       $sql = "SELECT categories_id as cID, date_added, last_modified as last_mod
+       $sql = "SELECT categories_id as cid, date_added, last_modified as last_mod
                FROM " . $oostable['categories'] . "
                 WHERE categories_status = '1'
                   AND ( access = '0' OR access = '" . intval($nGroupID) . "' )
@@ -283,7 +283,7 @@
          $container = array();
          $number = 0;
          while( $result = $categories_query->fields ) {
-           $location = oos_href_link($aContents['shop'], 'category=' . $this->GetFullcPath($result['cID']), 'NONSSL', false, true);
+           $location = oos_href_link($aContents['shop'], 'category=' . $this->GetFullcPath($result['cid']), 'NONSSL', false, true);
            $lastmod = oos_is_not_null($result['last_mod']) ? $result['last_mod'] : $result['date_added'];
 
            $changefreq = GOOGLE_SITEMAP_CAT_CHANGE_FREQ;
