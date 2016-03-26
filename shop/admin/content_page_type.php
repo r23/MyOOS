@@ -170,7 +170,7 @@
 						<li class="active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
 						</li>
-					</ol>
+					</ol>	
 				</div>
 			</div>
 			<!-- END Breadcrumbs //-->	
@@ -294,7 +294,7 @@
         $page_type_inputs_string = '';
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $page_type_inputs_string .= '<br />' . oos_flag_icon($languages[$i]) . '.gif', $languages[$i]['name']) . '&nbsp;' . oosGetPageTypeName($oInfo->page_type_id, $languages[$i]['id']);
+          $page_type_inputs_string .= '<br />' . oos_flag_icon($languages[$i]) . '&nbsp;' . oosGetPageTypeName($oInfo->page_type_id, $languages[$i]['id']);
         }
 
         $contents[] = array('text' => $page_type_inputs_string);
