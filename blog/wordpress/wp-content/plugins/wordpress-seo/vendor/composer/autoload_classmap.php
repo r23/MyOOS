@@ -76,6 +76,7 @@ return array(
     'WPSEO_Customizer' => $baseDir . '/admin/class-customizer.php',
     'WPSEO_Export' => $baseDir . '/admin/class-export.php',
     'WPSEO_Frontend' => $baseDir . '/frontend/class-frontend.php',
+    'WPSEO_Frontend_Primary_Category' => $baseDir . '/frontend/class-primary-category.php',
     'WPSEO_GSC' => $baseDir . '/admin/google_search_console/class-gsc.php',
     'WPSEO_GSC_Ajax' => $baseDir . '/admin/google_search_console/class-gsc-ajax.php',
     'WPSEO_GSC_Bulk_Action' => $baseDir . '/admin/google_search_console/class-gsc-bulk-action.php',
