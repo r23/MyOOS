@@ -1,10 +1,11 @@
 <?php
 /* ----------------------------------------------------------------------
+   $Id: cron_googlesitemap.php 511 2009-12-28 00:03:48Z r23 $
 
-   MyOOS [Shopsystem]
+   OOS [OSIS Online Shop]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2010 by the OOS Development Team.
    ----------------------------------------------------------------------
    Google XML Sitemap Feed Cron Script
 
@@ -22,11 +23,72 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('OOS_VALID_MOD', 'yes');
-require 'includes/main.php';
+
+/**
+ * Set the error reporting level. Unless you have a special need, E_ALL is a
+ * good level for error reporting.
+ */
+error_reporting(E_ALL);
+// error_reporting(E_ALL & ~E_STRICT);
+   
+//setting basic configuration parameters
+if (function_exists('ini_set')) {
+	ini_set('session.use_trans_sid', 0);
+	ini_set('url_rewriter.tags', '');
+	ini_set('xdebug.show_exception_trace', 0);
+	ini_set('magic_quotes_runtime', 0);
+	// ini_set('display_errors', false);
+}
+
+
+use Symfony\Component\HttpFoundation\Request;
+
+$autoloader = require_once __DIR__ . '/core/vendor/autoload.php';
+$request = Request::createFromGlobals();
+
+define('MYOOS_INCLUDE_PATH', dirname(__FILE__)=='/'?'':dirname(__FILE__));
+
+define('OOS_VALID_MOD', true);
+
+require_once MYOOS_INCLUDE_PATH . '/includes/main.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/lib/snoopy/snoopy-class.php';
+
+class MyOOS_Utilities {
+
+
+    /**
+     * Opens a remote file using  Snoopy
+     * @param $url The URL to open
+     * @param $method get or post
+     * @param $postData An array with key=>value paris
+     * @param $timeout Timeout for the request, by default 10
+     * @return mixed False on error, the body of the response on success
+     */
+    public static function RemoteOpen($url, $method = 'get', $postData = null, $timeout = 10)
+    {
+				
+        $oS = new Snoopy();
+			
+        $oS->read_timeout = $timeout;
+			
+        if ($method == 'get') {
+            $oS->fetch($url);
+        } else {
+            $oS->submit($url,$postData);
+        }
+			
+        if ($oS->status != "200") {
+            trigger_error('Snoopy Web Request failed: Status: ' . $oS->status . "; Content: " . htmlspecialchars($oS->results),E_USER_NOTICE);
+        }
+			
+        return $oS->results;
+	}
+
+}
+
 
 //Settings - changes made here
-define('GOOGLE_SITEMAP_COMPRESS', 'false'); // Option to compress the files
+define('GOOGLE_SITEMAP_COMPRESS', '0'); // Option to compress the files
 
 define('GOOGLE_SITEMAP_PROD_CHANGE_FREQ', 'weekly'); // Option for change frequency of products
 define('GOOGLE_SITEMAP_CAT_CHANGE_FREQ', 'weekly'); // Option for change frequency of categories
@@ -36,60 +98,80 @@ define('GOOGLE_SITEMAP_CAT_CHANGE_FREQ', 'weekly'); // Option for change frequen
 $configurationtable = $oostable['configuration'];
 $sql = "SELECT configuration_value FROM $configurationtable WHERE configuration_key = 'CRON_GOOGLE_RUN'";
 $prevent_result = $dbconn->Execute($sql);
+
 if ($prevent_result->RecordCount() > 0) {
-	$prevent = $prevent_result->fields;
-	if ($prevent['configuration_value'] == date("Ymd")) {
+    $prevent = $prevent_result->fields;
+    if ($prevent['configuration_value'] == date("Ymd")) {
 		die('Halt! Already executed - should not execute more than once a day.');
-	} else {
-		$configurationtable = $oostable['configuration'];
-		$dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . date("Ymd") . "' WHERE configuration_key = 'CRON_GOOGLE_RUN'");
-	}
-} else {
-	$configurationtable = $oostable['configuration'];
-	$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id) VALUES ('CRON_GOOGLE_RUN', '" . date("Ymd") . "', '6')");
+    } 
 }
 
 
-include 'includes/classes/class_googlesitemap.php';
-$oGoogle = new GoogleSitemap;
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_googlesitemap.php';
+
+$oSitemap = new GoogleSitemap;
 
 $submit = true;
 echo '<pre>';
 
-if ($oGoogle->GenerateProductSitemap()){
+if ($oSitemap->GenerateProductSitemap()){
     echo 'Generated Google Product Sitemap Successfully' . "\n\n";
 } else {
     $submit = false;
     echo 'ERROR: Google Product Sitemap Generation FAILED!' . "\n\n";
 }
 
-if ($oGoogle->GenerateCategorySitemap()){
+if ($oSitemap->GenerateCategorySitemap()){
     echo 'Generated Google Category Sitemap Successfully' . "\n\n";
 } else {
     $submit = false;
     echo 'ERROR: Google Category Sitemap Generation FAILED!' . "\n\n";
 }
 
-if ($oGoogle->GenerateSitemapIndex()){
+if ($oSitemap->GenerateSitemapIndex()){
     echo 'Generated Google Sitemap Index Successfully' . "\n\n";
 } else {
     $submit = false;
     echo 'ERROR: Google Sitemap Index Generation FAILED!' . "\n\n";
 }
 
-if ($submit){
-    echo 'CONGRATULATIONS! All files generated successfully.' . "\n\n";
-    echo 'If you have not already submitted the sitemap index to Google click the link below.' . "\n";
-    echo 'Before you do I HIGHLY recommend that you view the XML files to make sure the data is correct.' . "\n\n";
-    echo $oGoogle->GenerateSubmitURL() . "\n\n";
 
-    echo 'Here is your sitemap index: ' .$oGoogle->base_url . 'sitemapindex.xml' . "\n";
-    echo 'Here is your product sitemap: ' . $oGoogle->base_url . 'sitemapproducts.xml' . "\n";
-    echo 'Here is your category sitemap: ' . $oGoogle->base_url . 'sitemapcategories.xml' . "\n";
+if ($submit){
+
+    if ($prevent_result->RecordCount() > 0) {
+        $configurationtable = $oostable['configuration'];
+        $dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . date("Ymd") . "' WHERE configuration_key = 'CRON_GOOGLE_RUN'");
+    } else {
+        $configurationtable = $oostable['configuration'];
+        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id) VALUES ('CRON_GOOGLE_RUN', '" . date("Ymd") . "', '6')");
+    }
+
+    echo 'CONGRATULATIONS! All files generated successfully.' . "\n\n";
+
+    echo 'Here is your sitemap index: ' .$oSitemap->base_url . 'sitemapindex.xml' . "\n";
+    echo 'Here is your product sitemap: ' . $oSitemap->base_url . 'sitemapproducts.xml' . "\n";
+    echo 'Here is your category sitemap: ' . $oSitemap->base_url . 'sitemapcategories.xml' . "\n";
+
+    $pingUrl = $oSitemap->base_url . 'sitemapindex.xml';
+
+    //Ping Google
+    $sPingUrl = "http://www.google.com/webmasters/sitemaps/ping?sitemap=" . urlencode($pingUrl);
+    $pingres = MyOOS_Utilities::RemoteOpen($sPingUrl);
+									  
+    if ($pingres == NULL || $pingres === false) {
+         trigger_error("Failed to ping Google: " . htmlspecialchars(strip_tags($pingres)),E_USER_NOTICE);
+    }
+				
+    //Ping Bing
+    $sPingUrl = "http://www.bing.com/webmaster/ping.aspx?siteMap=" . urlencode($pingUrl);
+    $pingres = MyOOS_Utilities::RemoteOpen($sPingUrl);
+    if ($pingres==NULL || $pingres===false || strpos($pingres,"Thanks for submitting your sitemap")===false) {
+        trigger_error("Failed to ping Bing: " . htmlspecialchars(strip_tags($pingres)),E_USER_NOTICE);
+    }
+	
 } else {
-    print_r($oGoogle->debug);
+    print_r($oSitemap->debug);
 }
 echo '</pre>';
-
-include 'includes/nice_exit.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/nice_exit.php';
 

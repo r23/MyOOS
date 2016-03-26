@@ -34,6 +34,6 @@ define('OOS_PAGE_TYPE_CHECKOUT',  5);
 define('OOS_PAGE_TYPE_ACCOUNT',   6);
 define('OOS_PAGE_TYPE_REVIEWS',   7);
 
-define('MAKE_PASSWORD', 'true'); // OOS create the Password for login; 
+define('MAKE_PASSWORD', 'false'); // OOS create the Password for login; 
 define('LOGIN_FOR_PRICE', 'false');
 

@@ -1,10 +1,5 @@
+Sitemap: sitemapindex.xml
+
 User-agent: *
-Disallow: /admin/
-Disallow: /download/
-Disallow: /includes/
-Disallow: /js/
-Disallow: /media/
-Disallow: /pub/
-Disallow: /themes/
 Disallow: /*PHOENIXSID
 Disallow: /*PHOENIXADMINSID
