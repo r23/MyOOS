@@ -109,10 +109,10 @@ class WPCF7_ConfigValidator {
 		$sender = $sender->replace_tags();
 		$sender = wpcf7_strip_newline( $sender );
 
-		if ( ! $this->test_from_field_syntax( $sender ) ) {
+		if ( ! wpcf7_is_mailbox_list( $sender ) ) {
 			$this->add_error( sprintf( '%s.sender', $template ),
 				self::error_invalid_syntax );
-		} elseif ( ! $this->test_email_in_site_domain( $sender ) ) {
+		} elseif ( ! wpcf7_is_email_in_site_domain( $sender ) ) {
 			$this->add_error( sprintf( '%s.sender', $template ),
 				self::error_email_not_in_site_domain );
 		}
@@ -123,7 +123,7 @@ class WPCF7_ConfigValidator {
 		$recipient = $recipient->replace_tags();
 		$recipient = wpcf7_strip_newline( $recipient );
 
-		if ( ! $this->test_to_field_syntax( $recipient ) ) {
+		if ( ! wpcf7_is_mailbox_list( $recipient ) ) {
 			$this->add_error( sprintf( '%s.recipient', $template ),
 				self::error_invalid_syntax );
 		}
@@ -149,58 +149,6 @@ class WPCF7_ConfigValidator {
 		}
 	}
 
-	public function test_from_field_syntax( $content ) {
-		$content = trim( $content );
-
-		if ( preg_match( '/<(.+)>$/', $content, $matches ) ) {
-			$email = $matches[1];
-		} else {
-			$email = $content;
-		}
-
-		return wpcf7_is_email( $email );
-	}
-
-	public function test_email_in_site_domain( $content ) {
-		if ( wpcf7_is_localhost() ) {
-			return true;
-		}
-
-		$site_domain = strtolower( $_SERVER['SERVER_NAME'] );
-
-		if ( substr( $site_domain, 0, 4 ) == 'www.' ) {
-			$site_domain = substr( $site_domain, 4 );
-		}
-
-		$content = trim( $content );
-
-		if ( preg_match( '/<(.+)>$/', $content, $matches ) ) {
-			$email = strtolower( $matches[1] );
-		} else {
-			$email = strtolower( $content );
-		}
-
-		return ( substr( $email, - strlen( $site_domain ) ) == $site_domain );
-	}
-
-	public function test_to_field_syntax( $content ) {
-		$tos = explode( ',', $content );
-
-		foreach ( $tos as $to ) {
-			$to = trim( $to );
-
-			if ( preg_match( '/<(.+)>$/', $to, $matches ) ) {
-				$to = $matches[1];
-			}
-
-			if ( ! wpcf7_is_email( $to ) ) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
 	public function test_additional_headers_syntax( $content ) {
 		$headers = explode( "\n", $content );
 
@@ -211,7 +159,15 @@ class WPCF7_ConfigValidator {
 				continue;
 			}
 
-			if ( ! preg_match( '/^[0-9A-Za-z-]+:.+$/', $header ) ) {
+			if ( ! preg_match( '/^([0-9A-Za-z-]+):(.+)$/', $header, $matches ) ) {
+				return false;
+			}
+
+			$is_mailbox_list_field = in_array( strtolower( $matches[1] ),
+				array( 'reply-to', 'cc', 'bcc' ) );
+
+			if ( $is_mailbox_list_field
+			&& ! wpcf7_is_mailbox_list( $matches[2] ) ) {
 				return false;
 			}
 		}
@@ -224,6 +180,11 @@ class WPCF7_ConfigValidator {
 
 		if ( ! $messages ) {
 			return;
+		}
+
+		if ( isset( $messages['captcha_not_match'] )
+		&& ! wpcf7_use_really_simple_captcha() ) {
+			unset( $messages['captcha_not_match'] );
 		}
 
 		foreach ( $messages as $key => $message ) {
@@ -297,7 +258,7 @@ class WPCF7_ConfigValidator {
 					$last_item = array_pop( $form_tag->values );
 				}
 
-				if ( $last_item && wpcf7_is_email( $last_item ) ) {
+				if ( $last_item && wpcf7_is_mailbox_list( $last_item ) ) {
 					return $example_email;
 				} else {
 					return $example_text;

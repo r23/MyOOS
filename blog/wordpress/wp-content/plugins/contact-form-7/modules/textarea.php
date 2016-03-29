@@ -101,7 +101,7 @@ function wpcf7_textarea_validation_filter( $result, $tag ) {
 			$maxlength = $minlength = null;
 		}
 
-		$code_units = wpcf7_count_code_units( $value );
+		$code_units = wpcf7_count_code_units( stripslashes( $value ) );
 
 		if ( false !== $code_units ) {
 			if ( $maxlength && $maxlength < $code_units ) {

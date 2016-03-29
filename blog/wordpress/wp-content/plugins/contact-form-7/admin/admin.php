@@ -327,6 +327,8 @@ function wpcf7_admin_bulk_validate_page() {
 	<p><input type="submit" class="button" value="<?php echo esc_attr( $submit_text ); ?>" /></p>
 </form>
 
+<?php echo wpcf7_link( __( 'http://contactform7.com/configuration-validator-faq/', 'contact-form-7' ), __( 'FAQ about Configuration Validator', 'contact-form-7' ) ); ?>
+
 </div>
 <?php
 }
@@ -397,7 +399,14 @@ function wpcf7_admin_updated_message() {
 		$updated_message = __( "Contact form saved.", 'contact-form-7' );
 	} elseif ( 'deleted' == $_REQUEST['message'] ) {
 		$updated_message = __( "Contact form deleted.", 'contact-form-7' );
-	} elseif ( 'validated' == $_REQUEST['message'] ) {
+	}
+
+	if ( ! empty( $updated_message ) ) {
+		echo sprintf( '<div id="message" class="updated notice notice-success is-dismissible"><p>%s</p></div>', esc_html( $updated_message ) );
+		return;
+	}
+
+	if ( 'validated' == $_REQUEST['message'] ) {
 		$bulk_validate = WPCF7::get_option( 'bulk_validate', array() );
 		$count_invalid = isset( $bulk_validate['count_invalid'] )
 			? absint( $bulk_validate['count_invalid'] ) : 0;
@@ -409,13 +418,15 @@ function wpcf7_admin_updated_message() {
 					"Configuration validation completed. %s invalid contact forms were found.",
 					$count_invalid, 'contact-form-7' ),
 				number_format_i18n( $count_invalid ) );
+
+			echo sprintf( '<div id="message" class="notice notice-warning is-dismissible"><p>%s</p></div>', esc_html( $updated_message ) );
 		} else {
 			$updated_message = __( "Configuration validation completed. No invalid contact form was found.", 'contact-form-7' );
-		}
-	}
 
-	if ( ! empty( $updated_message ) ) {
-		echo sprintf( '<div id="message" class="updated notice notice-success is-dismissible"><p>%s</p></div>', esc_html( $updated_message ) );
+			echo sprintf( '<div id="message" class="notice notice-success is-dismissible"><p>%s</p></div>', esc_html( $updated_message ) );
+		}
+
+		return;
 	}
 }
 
@@ -573,7 +584,7 @@ function wpcf7_notice_config_errors() {
 			__( 'http://contactform7.com/configuration-errors/', 'contact-form-7' ),
 			__( 'How to Resolve Configuration Errors', 'contact-form-7' ) );
 
-		echo sprintf( '<div class="notice notice-error is-dismissible"><p>%s &raquo; %s</p></div>', esc_html( $message ), $link );
+		echo sprintf( '<div class="notice notice-warning is-dismissible"><p>%s &raquo; %s</p></div>', esc_html( $message ), $link );
 	}
 }
 

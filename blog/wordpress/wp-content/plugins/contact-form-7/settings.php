@@ -118,18 +118,26 @@ function wpcf7_upgrade() {
 add_action( 'activate_' . WPCF7_PLUGIN_BASENAME, 'wpcf7_install' );
 
 function wpcf7_install() {
-	if ( $opt = get_option( 'wpcf7' ) )
+	if ( $opt = get_option( 'wpcf7' ) ) {
 		return;
+	}
 
 	wpcf7_load_textdomain();
 	wpcf7_register_post_types();
 	wpcf7_upgrade();
 
-	if ( get_posts( array( 'post_type' => 'wpcf7_contact_form' ) ) )
+	if ( get_posts( array( 'post_type' => 'wpcf7_contact_form' ) ) ) {
 		return;
+	}
 
 	$contact_form = WPCF7_ContactForm::get_template( array(
 		'title' => sprintf( __( 'Contact form %d', 'contact-form-7' ), 1 ) ) );
 
 	$contact_form->save();
+
+	WPCF7::update_option( 'bulk_validate', array(
+		'timestamp' => current_time( 'timestamp' ),
+		'version' => WPCF7_VERSION,
+		'count_valid' => 1,
+		'count_invalid' => 0 ) );
 }

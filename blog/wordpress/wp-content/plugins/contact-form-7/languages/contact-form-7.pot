@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contact Form 7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-20 13:50+0900\n"
+"POT-Creation-Date: 2016-03-13 09:12+0900\n"
 "PO-Revision-Date: 2015-05-18 21:49+0900\n"
 "Last-Translator: Takayuki Miyoshi <takayukister@gmail.com>\n"
 "Language-Team: \n"
@@ -49,7 +49,7 @@ msgstr ""
 msgid "Add New"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:46 contact-form-7/admin/admin.php:366
+#: contact-form-7/admin/admin.php:46 contact-form-7/admin/admin.php:368
 msgid "Integration with Other Services"
 msgstr ""
 
@@ -96,159 +96,167 @@ msgstr[0] ""
 msgid "Validate Configuration"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:395
-msgid "Contact form created."
+#: contact-form-7/admin/admin.php:330
+msgid "http://contactform7.com/configuration-validator-faq/"
+msgstr ""
+
+#: contact-form-7/admin/admin.php:330
+msgid "FAQ about Configuration Validator"
 msgstr ""
 
 #: contact-form-7/admin/admin.php:397
-msgid "Contact form saved."
+msgid "Contact form created."
 msgstr ""
 
 #: contact-form-7/admin/admin.php:399
+msgid "Contact form saved."
+msgstr ""
+
+#: contact-form-7/admin/admin.php:401
 msgid "Contact form deleted."
 msgstr ""
 
-#: contact-form-7/admin/admin.php:408
+#: contact-form-7/admin/admin.php:417
 #, php-format
 msgid "Configuration validation completed. An invalid contact form was found."
 msgid_plural ""
 "Configuration validation completed. %s invalid contact forms were found."
 msgstr[0] ""
 
-#: contact-form-7/admin/admin.php:413
+#: contact-form-7/admin/admin.php:424
 msgid "Configuration validation completed. No invalid contact form was found."
 msgstr ""
 
-#: contact-form-7/admin/admin.php:429
+#: contact-form-7/admin/admin.php:440
 msgid "Settings"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:447
+#: contact-form-7/admin/admin.php:458
 #, php-format
 msgid ""
 "<strong>Contact Form 7 %1$s requires WordPress %2$s or higher.</strong> "
 "Please <a href=\"%3$s\">update WordPress</a> first."
 msgstr ""
 
-#: contact-form-7/admin/admin.php:473
+#: contact-form-7/admin/admin.php:484
 msgid "Dismiss"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:478
+#: contact-form-7/admin/admin.php:489
 msgid "Contact Form 7 Needs Your Support"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:479
+#: contact-form-7/admin/admin.php:490
 msgid ""
 "It is hard to continue development and support for this plugin without "
 "contributions from users like you. If you enjoy using Contact Form 7 and "
 "find it useful, please consider making a donation."
 msgstr ""
 
-#: contact-form-7/admin/admin.php:480
+#: contact-form-7/admin/admin.php:491
 msgid "http://contactform7.com/donate/"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:480
+#: contact-form-7/admin/admin.php:491
 msgid "Donate"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:484
+#: contact-form-7/admin/admin.php:495
 msgid "Get Started"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:486
+#: contact-form-7/admin/admin.php:497
 msgid "http://contactform7.com/getting-started-with-contact-form-7/"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:486
+#: contact-form-7/admin/admin.php:497
 msgid "Getting Started with Contact Form 7"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:487
+#: contact-form-7/admin/admin.php:498
 msgid "http://contactform7.com/admin-screen/"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:487
+#: contact-form-7/admin/admin.php:498
 msgid "Admin Screen"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:488
+#: contact-form-7/admin/admin.php:499
 msgid "http://contactform7.com/tag-syntax/"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:488
+#: contact-form-7/admin/admin.php:499
 msgid "How Tags Work"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:489
+#: contact-form-7/admin/admin.php:500
 msgid "http://contactform7.com/setting-up-mail/"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:489
+#: contact-form-7/admin/admin.php:500
 msgid "Setting Up Mail"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:494
+#: contact-form-7/admin/admin.php:505
 msgid "Did You Know?"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:496
+#: contact-form-7/admin/admin.php:507
 msgid "http://contactform7.com/spam-filtering-with-akismet/"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:496
+#: contact-form-7/admin/admin.php:507
 msgid "Spam Filtering with Akismet"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:497
+#: contact-form-7/admin/admin.php:508
 msgid "http://contactform7.com/save-submitted-messages-with-flamingo/"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:497
+#: contact-form-7/admin/admin.php:508
 msgid "Save Messages with Flamingo"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:498
+#: contact-form-7/admin/admin.php:509
 msgid "http://contactform7.com/selectable-recipient-with-pipes/"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:498
+#: contact-form-7/admin/admin.php:509
 msgid "Selectable Recipient with Pipes"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:499
+#: contact-form-7/admin/admin.php:510
 msgid ""
 "http://contactform7.com/tracking-form-submissions-with-google-analytics/"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:499
+#: contact-form-7/admin/admin.php:510
 msgid "Tracking with Google Analytics"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:544
+#: contact-form-7/admin/admin.php:555
 msgid "You are not allowed to edit this contact form."
 msgstr ""
 
-#: contact-form-7/admin/admin.php:567
+#: contact-form-7/admin/admin.php:578
 #, php-format
 msgid "This contact form has a configuration error."
 msgid_plural "This contact form has %s configuration errors."
 msgstr[0] ""
 
-#: contact-form-7/admin/admin.php:573
+#: contact-form-7/admin/admin.php:584
 msgid "http://contactform7.com/configuration-errors/"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:574
+#: contact-form-7/admin/admin.php:585
 msgid "How to Resolve Configuration Errors"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:601
+#: contact-form-7/admin/admin.php:612
 msgid "Validate Contact Form 7 Configuration"
 msgstr ""
 
-#: contact-form-7/admin/admin.php:603
+#: contact-form-7/admin/admin.php:614
 msgid ""
 "Misconfiguration leads to mail delivery failure or other troubles. Validate "
 "your contact forms now."
@@ -344,7 +352,7 @@ msgid "Mail"
 msgstr ""
 
 #: contact-form-7/admin/edit-contact-form.php:188
-#: contact-form-7/admin/includes/editor.php:201
+#: contact-form-7/admin/includes/editor.php:202
 msgid "Messages"
 msgstr ""
 
@@ -354,8 +362,8 @@ msgid "Additional Settings (%d)"
 msgstr ""
 
 #: contact-form-7/admin/edit-contact-form.php:201
-#: contact-form-7/admin/includes/editor.php:233
-#: contact-form-7/admin/includes/editor.php:238
+#: contact-form-7/admin/includes/editor.php:234
+#: contact-form-7/admin/includes/editor.php:239
 msgid "Additional Settings"
 msgstr ""
 
@@ -452,15 +460,15 @@ msgstr ""
 msgid "File Attachments"
 msgstr ""
 
-#: contact-form-7/admin/includes/editor.php:203
+#: contact-form-7/admin/includes/editor.php:204
 msgid "Edit messages used in the following situations."
 msgstr ""
 
-#: contact-form-7/admin/includes/editor.php:232
+#: contact-form-7/admin/includes/editor.php:233
 msgid "http://contactform7.com/additional-settings/"
 msgstr ""
 
-#: contact-form-7/admin/includes/editor.php:234
+#: contact-form-7/admin/includes/editor.php:235
 #, php-format
 msgid "You can add customization code snippets here. For details, see %s."
 msgstr ""
@@ -1445,7 +1453,7 @@ msgid ""
 "%s."
 msgstr ""
 
-#: contact-form-7/settings.php:132
+#: contact-form-7/settings.php:134
 #, php-format
 msgid "Contact form %d"
 msgstr ""
