@@ -11,7 +11,7 @@
  */
 
 // Please update when phpunit needs to be reinstalled with fresh deps:
-// Cache-Id-Version: 2015-11-28 09:05 UTC
+// Cache-Id-Version: 2016-03-25 09:45 UTC
 
 use Symfony\Component\Process\ProcessUtils;
 
@@ -51,14 +51,24 @@ if (!file_exists("$PHPUNIT_DIR/phpunit-$PHPUNIT_VERSION/phpunit") || md5_file(__
     $zip->extractTo(getcwd());
     $zip->close();
     chdir("phpunit-$PHPUNIT_VERSION");
+    passthru("$COMPOSER remove --no-update phpspec/prophecy");
     passthru("$COMPOSER remove --no-update symfony/yaml");
-    passthru("$COMPOSER require --dev --no-update symfony/phpunit-bridge \">=2.8@dev\"");
-    passthru("$COMPOSER install --prefer-dist --no-progress --ansi");
-    file_put_contents('phpunit', <<<EOPHP
+    passthru("$COMPOSER require --dev --no-update symfony/phpunit-bridge \">=3.1@dev\"");
+    passthru("$COMPOSER install --prefer-dist --no-progress --ansi", $exit);
+    if ($exit) {
+        exit($exit);
+    }
+    file_put_contents('phpunit', <<<'EOPHP'
 <?php
 
 define('PHPUNIT_COMPOSER_INSTALL', __DIR__.'/vendor/autoload.php');
-require PHPUNIT_COMPOSER_INSTALL;
+
+$loader = require PHPUNIT_COMPOSER_INSTALL;
+
+if (getenv('SYMFONY_PHPUNIT_OVERLOAD') && file_exists(__DIR__.'/../../src/Symfony/Bridge/PhpUnit')) {
+    $loader->addPsr4('Symfony\\Bridge\\PhpUnit\\', array('src/Symfony/Bridge/PhpUnit'), true);
+}
+unset($loader);
 Symfony\Bridge\PhpUnit\TextUI\Command::main();
 
 EOPHP

@@ -21,18 +21,19 @@
         "symfony/dependency-injection": "~2.3|~3.0",
         "symfony/config": "~2.3|~3.0",
         "symfony/http-kernel": "~2.3|~3.0",
-        "monolog/monolog": "~1.8"
+        "monolog/monolog": "~1.12"
     },
     "require-dev": {
         "symfony/yaml": "~2.3|~3.0",
-        "symfony/console": "~2.3|~3.0"
+        "symfony/console": "~2.3|~3.0",
+        "phpunit/phpunit": "^4.8"
     },
     "autoload": {
         "psr-4": { "Symfony\\Bundle\\MonologBundle\\": "" }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.8.x-dev"
+            "dev-master": "2.9.x-dev"
         }
     }
 }

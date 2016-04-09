@@ -17,6 +17,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\User\User;
@@ -124,10 +127,277 @@ class ControllerTest extends TestCase
 
         return $container;
     }
+
+    public function testIsGranted()
+    {
+        $authorizationChecker = $this->getMock('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
+        $authorizationChecker->expects($this->once())->method('isGranted')->willReturn(true);
+
+        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $container->expects($this->at(0))->method('has')->will($this->returnValue(true));
+        $container->expects($this->at(1))->method('get')->will($this->returnValue($authorizationChecker));
+
+        $controller = new TestController();
+        $controller->setContainer($container);
+
+        $this->assertTrue($controller->isGranted('foo'));
+    }
+
+    /**
+     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     */
+    public function testdenyAccessUnlessGranted()
+    {
+        $authorizationChecker = $this->getMock('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
+        $authorizationChecker->expects($this->once())->method('isGranted')->willReturn(false);
+
+        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $container->expects($this->at(0))->method('has')->will($this->returnValue(true));
+        $container->expects($this->at(1))->method('get')->will($this->returnValue($authorizationChecker));
+
+        $controller = new TestController();
+        $controller->setContainer($container);
+
+        $controller->denyAccessUnlessGranted('foo');
+    }
+
+    public function testRenderViewTwig()
+    {
+        $twig = $this->getMockBuilder('\Twig_Environment')->disableOriginalConstructor()->getMock();
+        $twig->expects($this->once())->method('render')->willReturn('bar');
+
+        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $container->expects($this->at(0))->method('has')->will($this->returnValue(false));
+        $container->expects($this->at(1))->method('has')->will($this->returnValue(true));
+        $container->expects($this->at(2))->method('get')->will($this->returnValue($twig));
+
+        $controller = new TestController();
+        $controller->setContainer($container);
+
+        $this->assertEquals('bar', $controller->renderView('foo'));
+    }
+
+    public function testRenderTwig()
+    {
+        $twig = $this->getMockBuilder('\Twig_Environment')->disableOriginalConstructor()->getMock();
+        $twig->expects($this->once())->method('render')->willReturn('bar');
+
+        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $container->expects($this->at(0))->method('has')->will($this->returnValue(false));
+        $container->expects($this->at(1))->method('has')->will($this->returnValue(true));
+        $container->expects($this->at(2))->method('get')->will($this->returnValue($twig));
+
+        $controller = new TestController();
+        $controller->setContainer($container);
+
+        $this->assertEquals('bar', $controller->render('foo')->getContent());
+    }
+
+    public function testStreamTwig()
+    {
+        $twig = $this->getMockBuilder('\Twig_Environment')->disableOriginalConstructor()->getMock();
+
+        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $container->expects($this->at(0))->method('has')->will($this->returnValue(false));
+        $container->expects($this->at(1))->method('has')->will($this->returnValue(true));
+        $container->expects($this->at(2))->method('get')->will($this->returnValue($twig));
+
+        $controller = new TestController();
+        $controller->setContainer($container);
+
+        $this->assertInstanceOf('Symfony\Component\HttpFoundation\StreamedResponse', $controller->stream('foo'));
+    }
+
+    public function testRedirectToRoute()
+    {
+        $router = $this->getMock('Symfony\Component\Routing\RouterInterface');
+        $router->expects($this->once())->method('generate')->willReturn('/foo');
+
+        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $container->expects($this->at(0))->method('get')->will($this->returnValue($router));
+
+        $controller = new TestController();
+        $controller->setContainer($container);
+        $response = $controller->redirectToRoute('foo');
+
+        $this->assertInstanceOf('Symfony\Component\HttpFoundation\RedirectResponse', $response);
+        $this->assertSame('/foo', $response->getTargetUrl());
+        $this->assertSame(302, $response->getStatusCode());
+    }
+
+    public function testAddFlash()
+    {
+        $flashBag = new FlashBag();
+        $session = $this->getMock('Symfony\Component\HttpFoundation\Session\Session');
+        $session->expects($this->once())->method('getFlashBag')->willReturn($flashBag);
+
+        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $container->expects($this->at(0))->method('has')->will($this->returnValue(true));
+        $container->expects($this->at(1))->method('get')->will($this->returnValue($session));
+
+        $controller = new TestController();
+        $controller->setContainer($container);
+        $controller->addFlash('foo', 'bar');
+
+        $this->assertSame(array('bar'), $flashBag->get('foo'));
+    }
+
+    public function testCreateAccessDeniedException()
+    {
+        $controller = new TestController();
+
+        $this->assertInstanceOf('Symfony\Component\Security\Core\Exception\AccessDeniedException', $controller->createAccessDeniedException());
+    }
+
+    public function testIsCsrfTokenValid()
+    {
+        $tokenManager = $this->getMock('Symfony\Component\Security\Csrf\CsrfTokenManagerInterface');
+        $tokenManager->expects($this->once())->method('isTokenValid')->willReturn(true);
+
+        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $container->expects($this->at(0))->method('has')->will($this->returnValue(true));
+        $container->expects($this->at(1))->method('get')->will($this->returnValue($tokenManager));
+
+        $controller = new TestController();
+        $controller->setContainer($container);
+
+        $this->assertTrue($controller->isCsrfTokenValid('foo', 'bar'));
+    }
+
+    public function testGenerateUrl()
+    {
+        $router = $this->getMock('Symfony\Component\Routing\RouterInterface');
+        $router->expects($this->once())->method('generate')->willReturn('/foo');
+
+        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $container->expects($this->at(0))->method('get')->will($this->returnValue($router));
+
+        $controller = new TestController();
+        $controller->setContainer($container);
+
+        $this->assertEquals('/foo', $controller->generateUrl('foo'));
+    }
+
+    public function testRedirect()
+    {
+        $controller = new TestController();
+        $response = $controller->redirect('http://dunglas.fr', 301);
+
+        $this->assertInstanceOf('Symfony\Component\HttpFoundation\RedirectResponse', $response);
+        $this->assertSame('http://dunglas.fr', $response->getTargetUrl());
+        $this->assertSame(301, $response->getStatusCode());
+    }
+
+    public function testRenderViewTemplating()
+    {
+        $templating = $this->getMock('Symfony\Bundle\FrameworkBundle\Templating\EngineInterface');
+        $templating->expects($this->once())->method('render')->willReturn('bar');
+
+        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $container->expects($this->at(0))->method('has')->willReturn(true);
+        $container->expects($this->at(1))->method('get')->will($this->returnValue($templating));
+
+        $controller = new TestController();
+        $controller->setContainer($container);
+
+        $this->assertEquals('bar', $controller->renderView('foo'));
+    }
+
+    public function testRenderTemplating()
+    {
+        $templating = $this->getMock('Symfony\Bundle\FrameworkBundle\Templating\EngineInterface');
+        $templating->expects($this->once())->method('renderResponse')->willReturn(new Response('bar'));
+
+        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $container->expects($this->at(0))->method('has')->willReturn(true);
+        $container->expects($this->at(1))->method('get')->will($this->returnValue($templating));
+
+        $controller = new TestController();
+        $controller->setContainer($container);
+
+        $this->assertEquals('bar', $controller->render('foo')->getContent());
+    }
+
+    public function testStreamTemplating()
+    {
+        $templating = $this->getMock('Symfony\Component\Routing\RouterInterface');
+
+        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $container->expects($this->at(0))->method('has')->willReturn(true);
+        $container->expects($this->at(1))->method('get')->will($this->returnValue($templating));
+
+        $controller = new TestController();
+        $controller->setContainer($container);
+
+        $this->assertInstanceOf('Symfony\Component\HttpFoundation\StreamedResponse', $controller->stream('foo'));
+    }
+
+    public function testCreateNotFoundException()
+    {
+        $controller = new TestController();
+
+        $this->assertInstanceOf('Symfony\Component\HttpKernel\Exception\NotFoundHttpException', $controller->createNotFoundException());
+    }
+
+    public function testCreateForm()
+    {
+        $form = $this->getMock('Symfony\Component\Form\FormInterface');
+
+        $formFactory = $this->getMock('Symfony\Component\Form\FormFactoryInterface');
+        $formFactory->expects($this->once())->method('create')->willReturn($form);
+
+        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $container->expects($this->at(0))->method('get')->will($this->returnValue($formFactory));
+
+        $controller = new TestController();
+        $controller->setContainer($container);
+
+        $this->assertEquals($form, $controller->createForm('foo'));
+    }
+
+    public function testCreateFormBuilder()
+    {
+        $formBuilder = $this->getMock('Symfony\Component\Form\FormBuilderInterface');
+
+        $formFactory = $this->getMock('Symfony\Component\Form\FormFactoryInterface');
+        $formFactory->expects($this->once())->method('createBuilder')->willReturn($formBuilder);
+
+        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $container->expects($this->at(0))->method('get')->will($this->returnValue($formFactory));
+
+        $controller = new TestController();
+        $controller->setContainer($container);
+
+        $this->assertEquals($formBuilder, $controller->createFormBuilder('foo'));
+    }
+
+    public function testGetDoctrine()
+    {
+        $doctrine = $this->getMock('Doctrine\Common\Persistence\ManagerRegistry');
+
+        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $container->expects($this->at(0))->method('has')->will($this->returnValue(true));
+        $container->expects($this->at(1))->method('get')->will($this->returnValue($doctrine));
+
+        $controller = new TestController();
+        $controller->setContainer($container);
+
+        $this->assertEquals($doctrine, $controller->getDoctrine());
+    }
 }
 
 class TestController extends Controller
 {
+    public function generateUrl($route, $parameters = array(), $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
+    {
+        return parent::generateUrl($route, $parameters, $referenceType);
+    }
+
+    public function redirect($url, $status = 302)
+    {
+        return parent::redirect($url, $status);
+    }
+
     public function forward($controller, array $path = array(), array $query = array())
     {
         return parent::forward($controller, $path, $query);
@@ -136,5 +406,70 @@ class TestController extends Controller
     public function getUser()
     {
         return parent::getUser();
+    }
+
+    public function isGranted($attributes, $object = null)
+    {
+        return parent::isGranted($attributes, $object);
+    }
+
+    public function denyAccessUnlessGranted($attributes, $object = null, $message = 'Access Denied.')
+    {
+        parent::denyAccessUnlessGranted($attributes, $object, $message);
+    }
+
+    public function redirectToRoute($route, array $parameters = array(), $status = 302)
+    {
+        return parent::redirectToRoute($route, $parameters, $status);
+    }
+
+    public function addFlash($type, $message)
+    {
+        parent::addFlash($type, $message);
+    }
+
+    public function isCsrfTokenValid($id, $token)
+    {
+        return parent::isCsrfTokenValid($id, $token);
+    }
+
+    public function renderView($view, array $parameters = array())
+    {
+        return parent::renderView($view, $parameters);
+    }
+
+    public function render($view, array $parameters = array(), Response $response = null)
+    {
+        return parent::render($view, $parameters, $response);
+    }
+
+    public function stream($view, array $parameters = array(), StreamedResponse $response = null)
+    {
+        return parent::stream($view, $parameters, $response);
+    }
+
+    public function createNotFoundException($message = 'Not Found', \Exception $previous = null)
+    {
+        return parent::createNotFoundException($message, $previous);
+    }
+
+    public function createAccessDeniedException($message = 'Access Denied.', \Exception $previous = null)
+    {
+        return parent::createAccessDeniedException($message, $previous);
+    }
+
+    public function createForm($type, $data = null, array $options = array())
+    {
+        return parent::createForm($type, $data, $options);
+    }
+
+    public function createFormBuilder($data = null, array $options = array())
+    {
+        return parent::createFormBuilder($data, $options);
+    }
+
+    public function getDoctrine()
+    {
+        return parent::getDoctrine();
     }
 }

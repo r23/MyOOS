@@ -53,6 +53,11 @@ class MonologExtension extends Extension
             $loader->load('monolog.xml');
             $container->setAlias('logger', 'monolog.logger');
 
+            // always autowire the main logger, require Symfony >= 2.8
+            if (method_exists('Symfony\Component\DependencyInjection\Definition', 'addAutowiringType')) {
+                $container->getDefinition('monolog.logger')->addAutowiringType('Psr\Log\LoggerInterface');
+            }
+
             $handlers = array();
 
             foreach ($config['handlers'] as $name => $handler) {
@@ -124,6 +129,10 @@ class MonologExtension extends Extension
         $handlerId = $this->getHandlerId($name);
         $definition = new Definition(sprintf('%%monolog.handler.%s.class%%', $handler['type']));
         $handler['level'] = $this->levelToMonologConst($handler['level']);
+
+        if ($handler['include_stacktraces']) {
+            $definition->setConfigurator(array('Symfony\\Bundle\\MonologBundle\\MonologBundle', 'includeStacktraces'));
+        }
 
         switch ($handler['type']) {
         case 'service':
@@ -236,11 +245,25 @@ class MonologExtension extends Extension
             } else {
                 // elastica client new definition
                 $elasticaClient = new Definition('%monolog.elastica.client.class%');
+                $elasticaClientArguments = array(
+                    'host' => $handler['elasticsearch']['host'],
+                    'port' => $handler['elasticsearch']['port'],
+                    'transport' => $handler['elasticsearch']['transport'],
+                );
+
+                if (isset($handler['elasticsearch']['user']) && isset($handler['elasticsearch']['password'])) {
+                    $elasticaClientArguments = array_merge(
+                        $elasticaClientArguments,
+                        array(
+                            'headers' => array(
+                                'Authorization ' =>  'Basic ' . base64_encode($handler['elasticsearch']['user'] . ':' . $handler['elasticsearch']['password'])
+                            )
+                        )
+                    );
+                }
+
                 $elasticaClient->setArguments(array(
-                    array(
-                        'host' => $handler['elasticsearch']['host'],
-                        'port' => $handler['elasticsearch']['port'],
-                    ),
+                    $elasticaClientArguments
                 ));
 
                 $clientId = uniqid('monolog.elastica.client.');
@@ -277,6 +300,10 @@ class MonologExtension extends Extension
                 $handler['bubble'],
                 $handler['file_permission'],
             ));
+            $definition->addMethodCall('setFilenameFormat', array(
+                $handler['filename_format'],
+                $handler['date_format'],
+            ));
             break;
 
         case 'fingers_crossed':
@@ -285,7 +312,7 @@ class MonologExtension extends Extension
                 $handler['passthru_level'] = $this->levelToMonologConst($handler['passthru_level']);
             }
             $nestedHandlerId = $this->getHandlerId($handler['handler']);
-            $this->nestedHandlers[] = $nestedHandlerId;
+            $this->markNestedHandler($nestedHandlerId);
 
             if (isset($handler['activation_strategy'])) {
                 $activation = new Reference($handler['activation_strategy']);
@@ -316,7 +343,7 @@ class MonologExtension extends Extension
             }
 
             $nestedHandlerId = $this->getHandlerId($handler['handler']);
-            $this->nestedHandlers[] = $nestedHandlerId;
+            $this->markNestedHandler($nestedHandlerId);
             $minLevelOrList = !empty($handler['accepted_levels']) ? $handler['accepted_levels'] : $handler['min_level'];
 
             $definition->setArguments(array(
@@ -329,7 +356,7 @@ class MonologExtension extends Extension
 
         case 'buffer':
             $nestedHandlerId = $this->getHandlerId($handler['handler']);
-            $this->nestedHandlers[] = $nestedHandlerId;
+            $this->markNestedHandler($nestedHandlerId);
 
             $definition->setArguments(array(
                 new Reference($nestedHandlerId),
@@ -345,7 +372,7 @@ class MonologExtension extends Extension
             $references = array();
             foreach ($handler['members'] as $nestedHandler) {
                 $nestedHandlerId = $this->getHandlerId($nestedHandler);
-                $this->nestedHandlers[] = $nestedHandlerId;
+                $this->markNestedHandler($nestedHandlerId);
                 $references[] = new Reference($nestedHandlerId);
             }
 
@@ -469,6 +496,8 @@ class MonologExtension extends Extension
                 $handler['bubble'],
                 $handler['use_ssl'],
                 $handler['message_format'],
+                !empty($handler['host']) ? $handler['host'] : 'api.hipchat.com',
+                !empty($handler['api_version']) ? $handler['api_version'] : 'v1',
             ));
             break;
 
@@ -517,6 +546,7 @@ class MonologExtension extends Extension
             } else {
                 $client = new Definition('Raven_Client', array(
                     $handler['dsn'],
+                    array('auto_log_stacks' => $handler['auto_log_stacks'])
                 ));
                 $client->setPublic(false);
                 $clientId = 'monolog.raven.client.'.sha1($handler['dsn']);
@@ -547,6 +577,12 @@ class MonologExtension extends Extension
                 $handler['level'],
                 $handler['bubble'],
             ));
+            if (isset($handler['timeout'])) {
+                $definition->addMethodCall('setTimeout', array($handler['timeout']));
+            }
+            if (isset($handler['connection_timeout'])) {
+                $definition->addMethodCall('setConnectionTimeout', array($handler['connection_timeout']));
+            }
             break;
 
         case 'flowdock':
@@ -589,10 +625,16 @@ class MonologExtension extends Extension
                 $handler['bubble'],
             ));
             break;
+        case 'newrelic':
+            $definition->setArguments(array(
+                $handler['level'],
+                $handler['bubble'],
+                $handler['app_name'],
+            ));
+            break;
 
         // Handlers using the constructor of AbstractHandler without adding their own arguments
         case 'browser_console':
-        case 'newrelic':
         case 'test':
         case 'null':
         case 'debug':
@@ -606,12 +648,25 @@ class MonologExtension extends Extension
             throw new \InvalidArgumentException(sprintf('Invalid handler type "%s" given for handler "%s"', $handler['type'], $name));
         }
 
+        if (!empty($handler['nested']) && true === $handler['nested']) {
+            $this->markNestedHandler($handlerId);
+        }
+
         if (!empty($handler['formatter'])) {
             $definition->addMethodCall('setFormatter', array(new Reference($handler['formatter'])));
         }
         $container->setDefinition($handlerId, $definition);
 
         return $handlerId;
+    }
+
+    private function markNestedHandler($nestedHandlerId)
+    {
+        if (in_array($nestedHandlerId, $this->nestedHandlers)) {
+            return;
+        }
+
+        $this->nestedHandlers[] = $nestedHandlerId;
     }
 
     private function getHandlerId($name)
