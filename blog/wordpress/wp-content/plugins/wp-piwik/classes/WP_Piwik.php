@@ -12,7 +12,7 @@ class WP_Piwik {
 	 *
 	 * @var Runtime environment variables
 	 */
-	private static $revisionId = 2016031301, $version = '1.0.7', $blog_id, $pluginBasename = NULL, $logger, $settings, $request;
+	private static $revisionId = 2016040501, $version = '1.0.8', $blog_id, $pluginBasename = NULL, $logger, $settings, $request;
 
 	/**
 	 * Constructor class to configure and register all WP-Piwik components
@@ -287,6 +287,7 @@ class WP_Piwik {
 		}
 		$trackingCode = new WP_Piwik\TrackingCode ( $this );
 		$trackingCode->is404 = (is_404 () && self::$settings->getGlobalOption ( 'track_404' ));
+		$trackingCode->isUsertracking = self::$settings->getGlobalOption ( 'track_user_id' ) != 'disabled';
 		$trackingCode->isSearch = (is_search () && self::$settings->getGlobalOption ( 'track_search' ));
 		self::$logger->log ( 'Add tracking code. Blog ID: ' . self::$blog_id . ' Site ID: ' . self::$settings->getOption ( 'site_id' ) );
 		if ($this->isNetworkMode () && self::$settings->getGlobalOption ( 'track_mode' ) == 'manually') {
@@ -1118,7 +1119,7 @@ class WP_Piwik {
 	 * @param string $newValue
 	 *        	new blog name
 	 */
-	public function onBlogNameChange($oldValue, $newValue) {
+	public function onBlogNameChange($oldValue, $newValue = null) {
 		$this->updatePiwikSite ( self::$settings->getOption ( 'site_id' ) );
 	}
 
@@ -1130,7 +1131,7 @@ class WP_Piwik {
 	 * @param string $newValue
 	 *        	new blog URL
 	 */
-	public function onSiteUrlChange($oldValue, $newValue) {
+	public function onSiteUrlChange($oldValue, $newValue = null) {
 		$this->updatePiwikSite ( self::$settings->getOption ( 'site_id' ) );
 	}
 
@@ -1180,7 +1181,7 @@ class WP_Piwik {
 		$postUrl = get_permalink ( $post->ID );
 		$this->log ( 'Load per post statistics: ' . $postUrl );
 		array (
-				new \WP_Piwik\Widget\Post ( $this, self::$settings, 'post', 'side', 'default', array (
+				new \WP_Piwik\Widget\Post ( $this, self::$settings, array('post', 'page', 'custom_post_type'), 'side', 'default', array (
 						'url' => $postUrl
 				) ),
 				'show'

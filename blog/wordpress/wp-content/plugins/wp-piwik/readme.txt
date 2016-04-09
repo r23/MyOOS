@@ -2,8 +2,8 @@
 
 Contributors: Braekling
 Requires at least: 4.0
-Tested up to: 4.4.1
-Stable tag: 1.0.7
+Tested up to: 4.4.2
+Stable tag: 1.0.8
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6046779
 Tags: statistics, stats, analytics, piwik, wpmu
 
@@ -116,6 +116,12 @@ Add WP-Piwik to your /wp-content/plugins folder and enable it as [Network Plugin
 5. Piwik: Here you'll find your auth token.
 
 == Changelog ==
+
+= 1.0.8 =
+* Feature: Show "per post stats" and the "custom variable meta box" also on page and custom post edit
+* Bugfix: Fixed user tracking (moved the user tracking changes from general modifications to runtime modifications)
+* Bugfix: Fixed namespace error. Thx to thelfensdrfer, see https://github.com/braekling/WP-Piwik/pull/18
+* Bugfix: Warning on blog name change, see https://wordpress.org/support/topic/wp-piwik-triggers-warning-when-changing-blog-name
 
 = 1.0.7 =
 * Feature: User ID Tracking. Thx to Danw33, see https://github.com/braekling/WP-Piwik/pull/16
