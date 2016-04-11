@@ -81,7 +81,7 @@
 ##########
 # Android
 ##########
-- regex: '(?:Android|Adr)[ /](?:[a-z]+ )?(\d+[\.\d]+)'
+- regex: '(?:(?:Orca-)?Android|Adr)[ /](?:[a-z]+ )?(\d+[\.\d]+)'
   name: 'Android'
   version: '$1'
   
@@ -245,6 +245,14 @@
 ##########
 # iOS
 ##########
+- regex: 'CFNetwork/758\.3\.15'
+  name: 'iOS'
+  version: '9.3'
+
+- regex: 'CFNetwork/758\.2\.[78]'
+  name: 'iOS'
+  version: '9.2'
+
 - regex: 'CFNetwork/758\.1\.6'
   name: 'iOS'
   version: '9.1'
@@ -317,12 +325,15 @@
   name: 'iOS'
   version: '4.0'
 
+- regex: 'CFNetwork/467\.12'
+  name: 'iOS'
+  version: '3.2'
+
 - regex: 'CFNetwork/459'
   name: 'iOS'
   version: '3.1'
 
-
-- regex: '(?:CPU OS|iPh(?:one)? OS|iOS)[ _](\d+(?:[_\.]\d+)*)'
+- regex: '(?:CPU OS|iPh(?:one)?[ _]OS|iOS)[ _/](\d+(?:[_\.]\d+)*)'
   name: 'iOS'
   version: '$1'
 
@@ -478,7 +489,7 @@
   version: ''
   
   
-- regex: 'Symbian OS|SymbOS'
+- regex: 'Symbian(?: OS)?|SymbOS'
   name: 'Symbian OS'
   version: ''
   
@@ -657,7 +668,7 @@
 ###########
 # Linux (Generic)
 ###########
-- regex: 'Linux[^a-z]'
+- regex: 'Linux(?:OS)?[^a-z]'
   name: 'GNU/Linux'
   version: ''
 

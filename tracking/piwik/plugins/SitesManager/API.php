@@ -491,6 +491,7 @@ class API extends \Piwik\Plugin\API
      * @param array|string $urls The URLs array must contain at least one URL called the 'main_url' ;
      *                        if several URLs are provided in the array, they will be recorded
      *                        as Alias URLs for this website.
+     *                        When calling API via HTTP specify multiple URLs via `&urls[]=http...&urls[]=http...`.
      * @param int $ecommerce Is Ecommerce Reporting enabled for this website?
      * @param null $siteSearch
      * @param string $searchKeywordParameters Comma separated list of search keyword parameter names
@@ -650,7 +651,9 @@ class API extends \Piwik\Plugin\API
     }
 
     /**
-     * Delete a website from the database, given its Id.
+     * Delete a website from the database, given its Id. The method deletes the actual site as well as some associated
+     * data. However, it does not delete any logs or archives that belong to this website. You can delete logs and
+     * archives for a site manually as described in this FAQ: http://piwik.org/faq/how-to/faq_73/ .
      *
      * Requires Super User access.
      *
@@ -767,7 +770,7 @@ class API extends \Piwik\Plugin\API
      * they won't be duplicated. The 'main_url' of the website won't be affected by this method.
      *
      * @param int $idSite
-     * @param array|string $urls
+     * @param array|string $urls When calling API via HTTP specify multiple URLs via `&urls[]=http...&urls[]=http...`.
      * @return int the number of inserted URLs
      */
     public function addSiteAliasUrls($idSite, $urls)
@@ -1077,6 +1080,7 @@ class API extends \Piwik\Plugin\API
      * @param int $idSite website ID defining the website to edit
      * @param string $siteName website name
      * @param string|array $urls the website URLs
+     *                           When calling API via HTTP specify multiple URLs via `&urls[]=http...&urls[]=http...`.
      * @param int $ecommerce Whether Ecommerce is enabled, 0 or 1
      * @param null|int $siteSearch Whether site search is enabled, 0 or 1
      * @param string $searchKeywordParameters Comma separated list of search keyword parameter names

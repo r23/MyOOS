@@ -122,6 +122,7 @@ abstract class DeviceParserAbstract extends ParserAbstract
         'DC' => 'DoCoMo',
         'DI' => 'Dicam',
         'DL' => 'Dell',
+        'DN' => 'DNS',
         'DM' => 'DMM',
         'DO' => 'Doogee',
         'DV' => 'Doov',
@@ -140,6 +141,7 @@ abstract class DeviceParserAbstract extends ParserAbstract
         'ET' => 'eTouch',
         'EV' => 'Evertek',
         'EZ' => 'Ezze',
+        'FA' => 'Fairphone',
         'FL' => 'Fly',
         'FO' => 'Foxconn',
         'FU' => 'Fujitsu',
@@ -172,6 +174,7 @@ abstract class DeviceParserAbstract extends ParserAbstract
         'IK' => 'iKoMo',
         'IM' => 'i-mate',
         'I1' => 'iOcean',
+        'IW' => 'iNew',
         'IF' => 'Infinix',
         'IN' => 'Innostream',
         'II' => 'Inkti',
@@ -252,10 +255,12 @@ abstract class DeviceParserAbstract extends ParserAbstract
         'PA' => 'Panasonic',
         'PE' => 'PEAQ',
         'PH' => 'Philips',
+        'PI' => 'Pioneer',
         'PL' => 'Polaroid',
         'PM' => 'Palm',
         'PO' => 'phoneOne',
         'PT' => 'Pantech',
+        'PY' => 'Ployer',
         'PV' => 'Point of View',
         'PP' => 'PolyPad',
         'P2' => 'Pomp',
@@ -339,7 +344,6 @@ abstract class DeviceParserAbstract extends ParserAbstract
         'VZ' => 'Vizio',
         'VW' => 'Videoweb',
         'WA' => 'Walton',
-        'WB' => 'Web TV',
         'WE' => 'WellcoM',
         'WY' => 'Wexler',
         'WI' => 'Wiko',
@@ -348,7 +352,6 @@ abstract class DeviceParserAbstract extends ParserAbstract
         'WX' => 'Woxter',
         'XI' => 'Xiaomi',
         'XO' => 'Xolo',
-        'XX' => 'Unknown',
         'YA' => 'Yarvik',
         'YU' => 'Yuandao',
         'YS' => 'Yusun',
@@ -357,6 +360,10 @@ abstract class DeviceParserAbstract extends ParserAbstract
         'ZO' => 'Zonda',
         'ZP' => 'Zopo',
         'ZT' => 'ZTE',
+
+        // legacy brands, might be removed in future versions
+        'WB' => 'Web TV',
+        'XX' => 'Unknown'
     );
 
     public function getDeviceType()
@@ -432,6 +439,17 @@ abstract class DeviceParserAbstract extends ParserAbstract
         return '';
     }
 
+    /**
+     * Sets the useragent to be parsed
+     *
+     * @param string $userAgent
+     */
+    public function setUserAgent($userAgent)
+    {
+        $this->reset();
+        parent::setUserAgent($userAgent);
+    }
+
     public function parse()
     {
         $regexes = $this->getRegexes();
@@ -446,12 +464,14 @@ abstract class DeviceParserAbstract extends ParserAbstract
             return false;
         }
 
-        $brandId = array_search($brand, self::$deviceBrands);
-        if ($brandId === false) {
-            // This Exception should never be thrown. If so a defined brand name is missing in $deviceBrands
-            throw new \Exception("The brand with name '$brand' should be listed in the deviceBrands array."); // @codeCoverageIgnore
+        if ($brand != 'Unknown') {
+            $brandId = array_search($brand, self::$deviceBrands);
+            if ($brandId === false) {
+                // This Exception should never be thrown. If so a defined brand name is missing in $deviceBrands
+                throw new \Exception("The brand with name '$brand' should be listed in the deviceBrands array."); // @codeCoverageIgnore
+            }
+            $this->brand = $brandId;
         }
-        $this->brand = $brandId;
 
         if (isset($regex['device']) && in_array($regex['device'], self::$deviceTypes)) {
             $this->deviceType = self::$deviceTypes[$regex['device']];
@@ -500,5 +520,12 @@ abstract class DeviceParserAbstract extends ParserAbstract
         }
 
         return $model;
+    }
+
+    protected function reset()
+    {
+        $this->deviceType = null;
+        $this->model      = null;
+        $this->brand      = null;
     }
 }

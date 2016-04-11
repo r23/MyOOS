@@ -163,13 +163,8 @@ table.entityTable tr td a:hover {
     .segmentationContainer {
       .submenu {
           li {
-          .font-default(13px, 16px);
-          color: @theme-color-text-light;
-          &:hover {
-              border-color: @color-silver-l80 !important;
-              background:@theme-color-background-base !important;
-              .border-radius(0px);
-          }
+            .font-default(13px, 16px);
+            color: @theme-color-text-light;
           }
       }
     }
@@ -202,9 +197,17 @@ table.entityTable tr td a:hover {
     }
     > ul > li {
       white-space: nowrap;
-      margin-right: 0px;
+      margin-right: 0;
       a {
-        padding-left: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 11px;
+        line-height: 12px;
+        display: inline-block;
+        width: 100%;
+        padding: 11px 19px 10px 0;
+        white-space: nowrap;
+        cursor: pointer;
+        text-transform: uppercase;
       }
       &.sfActive {
         a {

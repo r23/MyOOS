@@ -112,7 +112,7 @@ class OperatingSystem extends ParserAbstract
      * @var array
      */
     protected static $osFamilies = array(
-        'Android'               => array('AND', 'CYN', 'RZD', 'MLD', 'MCD'),
+        'Android'               => array('AND', 'CYN', 'RZD', 'MLD', 'MCD', 'YNS'),
         'AmigaOS'               => array('AMG', 'MOR'),
         'Apple TV'              => array('ATV'),
         'BlackBerry'            => array('BLB', 'QNX'),
@@ -125,7 +125,7 @@ class OperatingSystem extends ParserAbstract
         'IBM'                   => array('OS2'),
         'iOS'                   => array('IOS'),
         'RISC OS'               => array('ROS'),
-        'GNU/Linux'             => array('LIN', 'ARL', 'DEB', 'KNO', 'MIN', 'UBT', 'KBT', 'XBT', 'LBT', 'FED', 'RHT', 'VLN', 'MDR', 'GNT', 'SAB', 'SLW', 'SSE', 'CES', 'BTR', 'YNS', 'SAF'),
+        'GNU/Linux'             => array('LIN', 'ARL', 'DEB', 'KNO', 'MIN', 'UBT', 'KBT', 'XBT', 'LBT', 'FED', 'RHT', 'VLN', 'MDR', 'GNT', 'SAB', 'SLW', 'SSE', 'CES', 'BTR', 'SAF'),
         'Mac'                   => array('MAC'),
         'Mobile Gaming Console' => array('PSP', 'NDS', 'XBX'),
         'Real-time OS'          => array('MTK', 'TDX'),

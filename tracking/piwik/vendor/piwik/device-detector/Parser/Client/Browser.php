@@ -31,6 +31,7 @@ class Browser extends ClientParserAbstract
         '3B' => '360 Browser',
         'AA' => 'Avant Browser',
         'AB' => 'ABrowse',
+        'AF' => 'ANT Fresco',
         'AG' => 'ANTGalio',
         'AM' => 'Amaya',
         'AO' => 'Amigo',
@@ -38,11 +39,13 @@ class Browser extends ClientParserAbstract
         'AR' => 'Arora',
         'AV' => 'Amiga Voyager',
         'AW' => 'Amiga Aweb',
+        'AT' => 'Atomic Web Browser',
         'BB' => 'BlackBerry Browser',
         'BD' => 'Baidu Browser',
         'BS' => 'Baidu Spark',
         'BE' => 'Beonex',
         'BJ' => 'Bunjalloo',
+        'BR' => 'Brave',
         'BX' => 'BrowseX',
         'CA' => 'Camino',
         'CC' => 'Coc Coc',
@@ -62,6 +65,7 @@ class Browser extends ClientParserAbstract
         'DF' => 'Dolphin',
         'DI' => 'Dillo',
         'EL' => 'Elinks',
+        'EB' => 'Element Browser',
         'EP' => 'Epiphany',
         'ES' => 'Espial TV Browser',
         'FB' => 'Firebird',
@@ -69,6 +73,7 @@ class Browser extends ClientParserAbstract
         'FE' => 'Fennec',
         'FF' => 'Firefox',
         'FL' => 'Flock',
+        'FW' => 'Fireweb',
         'FN' => 'Fireweb Navigator',
         'GA' => 'Galeon',
         'GE' => 'Google Earth',
@@ -82,6 +87,7 @@ class Browser extends ClientParserAbstract
         'IM' => 'IE Mobile',
         'IR' => 'Iron',
         'JS' => 'Jasmine',
+        'JI' => 'Jig Browser',
         'KI' => 'Kindle Browser',
         'KM' => 'K-meleon',
         'KO' => 'Konqueror',
@@ -89,7 +95,9 @@ class Browser extends ClientParserAbstract
         'KY' => 'Kylo',
         'KZ' => 'Kazehakase',
         'LB' => 'Liebao',
+        'LG' => 'LG Browser',
         'LI' => 'Links',
+        'LU' => 'LuaKit',
         'LS' => 'Lunascape',
         'LX' => 'Lynx',
         'MB' => 'MicroB',
@@ -118,6 +126,7 @@ class Browser extends ClientParserAbstract
         'OR' => 'Oregano',
         'OV' => 'Openwave Mobile Browser',
         'OW' => 'OmniWeb',
+        'OT' => 'Otter Browser',
         'PL' => 'Palm Blazer',
         'PM' => 'Pale Moon',
         'PR' => 'Palm Pre',
@@ -134,14 +143,18 @@ class Browser extends ClientParserAbstract
         'SE' => 'Sogou Explorer',
         'SF' => 'Safari',
         'SH' => 'Shiira',
+        'SK' => 'Skyfire',
+        'SS' => 'Seraphic Sraf',
         'SL' => 'Sleipnir',
         'SM' => 'SeaMonkey',
         'SN' => 'Snowshoe',
         'SR' => 'Sunrise',
+        'SP' => 'SuperBird',
         'SX' => 'Swiftfox',
         'TZ' => 'Tizen Browser',
         'UC' => 'UC Browser',
         'VI' => 'Vivaldi',
+        'VB' => 'Vision Mobile Browser',
         'WE' => 'WebPositive',
         'WO' => 'wOSBrowser',
         'WT' => 'WeTab Browser',
@@ -159,7 +172,7 @@ class Browser extends ClientParserAbstract
         'BlackBerry Browser' => array('BB'),
         'Baidu'              => array('BD', 'BS'),
         'Amiga'              => array('AV', 'AW'),
-        'Chrome'             => array('CH', 'CC', 'CD', 'CM', 'CI', 'CF', 'CN', 'CR', 'CP', 'IR', 'RM', 'AO', 'VI'),
+        'Chrome'             => array('CH', 'BR', 'CC', 'CD', 'CM', 'CI', 'CF', 'CN', 'CR', 'CP', 'IR', 'RM', 'AO', 'VI'),
         'Firefox'            => array('FF', 'FE', 'SX', 'FB', 'PX', 'MB'),
         'Internet Explorer'  => array('IE', 'IM', 'PS'),
         'Konqueror'          => array('KO'),
@@ -168,6 +181,15 @@ class Browser extends ClientParserAbstract
         'Opera'              => array('OP', 'OM', 'OI', 'ON'),
         'Safari'             => array('SF', 'MF'),
         'Sailfish Browser'   => array('SA')
+    );
+
+    /**
+     * Browsers that are available for mobile devices only
+     *
+     * @var array
+     */
+    protected static $mobileOnlyBrowsers = array(
+        '36', 'PU', 'SK', 'OI'
     );
 
     /**
@@ -190,7 +212,7 @@ class Browser extends ClientParserAbstract
 
 
     /**
-     * @param $browserLabel
+     * @param string $browserLabel
      * @return bool|string If false, "Unknown"
      */
     public static function getBrowserFamily($browserLabel)
@@ -201,6 +223,17 @@ class Browser extends ClientParserAbstract
             }
         }
         return false;
+    }
+
+    /**
+     * Returns if the given browser is mobile only
+     *
+     * @param string $browser  Label or name of browser
+     * @return bool
+     */
+    public static function isMobileOnlyBrowser($browser)
+    {
+        return in_array($browser, self::$mobileOnlyBrowsers) || (in_array($browser, self::$availableBrowsers) && in_array(array_search($browser, self::$availableBrowsers), self::$mobileOnlyBrowsers));
     }
 
     public function parse()
