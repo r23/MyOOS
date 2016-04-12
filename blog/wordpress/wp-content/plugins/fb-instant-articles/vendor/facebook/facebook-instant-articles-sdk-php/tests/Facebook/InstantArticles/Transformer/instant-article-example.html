@@ -1,0 +1,200 @@
+<html>
+  <head>
+    <link rel="canonical" href="http://foo.com/article.html"/>
+    <meta charset="utf-8"/>
+    <meta property="op:generator" content="facebook-instant-articles-sdk-php"/>
+    <meta property="op:generator:version" content="1.0.0"/>
+    <meta property="op:transformer" content="facebook-instant-articles-sdk-php"/>
+    <meta property="op:transformer:version" content="1.0.0"/>
+    <meta property="op:markup_version" content="v1.0"/>
+    <meta property="fb:use_automatic_ad_placement" content="true"/>
+  </head>
+  <body>
+    <article>
+      <header>
+        <figure>
+          <img src="https://jpeg.org/images/jpegls-home.jpg"/>
+          <figcaption><h1>Image Name</h1>Some text on text node<cite>Some caption to the image</cite></figcaption>
+        </figure>
+        <h1>Big Top Title</h1>
+        <h2>Smaller SubTitle</h2>
+        <time class="op-published" datetime="1984-08-14T19:30:00+00:00">August 14th, 7:30pm</time>
+        <time class="op-modified" datetime="2016-02-10T10:00:00+00:00">February 10th, 10:00am</time>
+        <address><a href="#" title="Title of author">Author Name</a>
+          Author more detailed description
+          Even more
+        </address>
+        <address><a href="http://facebook.com/author" rel="facebook">Author in FB</a>
+          Author user in facebook
+        </address>
+        <address><a title="PHP Programmer">Developer</a>
+        </address>
+        <h3 class="op-kicker">Some kicker of this article</h3>
+      </header>
+      <p>Some text to be within a paragraph for testing.</p>
+      <figure data-feedback="fb:likes">
+        <img src="http://mydomain.com/path/to/img.jpg"/>
+        <audio title="audio title" autoplay="autoplay" muted="muted">
+          <source src="http://foo.com/mp3"/>
+        </audio>
+      </figure>
+      <figure data-feedback="fb:comments">
+        <img src="http://mydomain.com/path/to/img.jpg"/>
+        <script type="application/json" class="op-geotag">
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [23.166667, 89.216667]
+            },
+            "properties": {
+              "title": "Jessore, Bangladesh",
+              "radius": 750000,
+              "pivot": true,
+              "style": "satellite",
+            }
+          }
+        </script>
+        <audio title="audio title" autoplay="autoplay" muted="muted">
+          <source src="http://foo.com/mp3"/>
+        </audio>
+      </figure>
+      <figure data-feedback="fb:likes,fb:comments">
+        <img src="https://jpeg.org/images/jpegls-home.jpg"/>
+        <figcaption><h1>Image Name</h1>Some text on text node<cite>Some caption to the image</cite></figcaption>
+      </figure>
+      <p>Other text to be within a second paragraph for testing.</p>
+      <figure class="op-slideshow">
+        <figure>
+          <img src="https://jpeg.org/images/jpegls-home.jpg"/>
+        </figure>
+        <figure>
+          <img src="https://jpeg.org/images/jpegls-home2.jpg"/>
+        </figure>
+        <figure>
+          <img src="https://jpeg.org/images/jpegls-home3.jpg"/>
+        </figure>
+        <figcaption><h1>Image Name</h1>Some text on text node<cite>Some caption to the image</cite></figcaption>
+        <audio title="audio title" autoplay="autoplay" muted="muted">
+          <source src="http://foo.com/mp3"/>
+        </audio>
+      </figure>
+      <ol>
+        <li>First list item</li>
+        <li>One paragraph on the list</li>
+        <li>On the span</li>
+        <li>Text inside div?</li>
+        <li>Other paragraph on the li</li>
+        <li>Last list item</li>
+      </ol>
+      <p>Some text to be within a paragraph for testing.</p>
+      <figure class="op-interactive">
+        <iframe src="http://example.com/custom-interactive" class="column-width" height="60">
+          <h1>Some custom code</h1>
+          <script>alert("test");</script></iframe>
+        <figcaption>This graphic is awesome.</figcaption>
+      </figure>
+      <figure class="op-ad">
+        <iframe src="http://foo.com"></iframe>
+      </figure>
+      <blockquote>Some blockquotes creates <b>magic</b> in an article</blockquote>
+      <figure class="op-map">
+        <script type="application/json" class="op-geotag">
+          {
+            "type": "Feature",
+            "geometry":
+              {
+                "type": "Point",
+                "coordinates": [23.166667, 89.216667]
+              },
+            "properties":
+              {
+                "title": "Jessore, Bangladesh",
+                "radius": 750000,
+                "pivot": true,
+                "style": "satellite",
+              }
+           }
+        </script>
+        <figcaption class="op-vertical-above"><h1 class="op-vertical-above op-center">title for caption</h1><h2 class="op-vertical-below op-right">sub title for caption</h2>
+
+
+        <cite class="op-vertical-center op-left">credit within caption</cite></figcaption>
+        <audio title="audio title" autoplay="autoplay" muted="muted">
+          <source src="http://foo.com/mp3"/>
+        </audio>
+      </figure>
+      <aside>
+        We can be more efficient about where we grow, what we grow, and how we grow.
+        <cite>Fruit Store Company</cite></aside>
+      <p>Other text to be within a second paragraph for testing.</p>
+      <figure class="op-tracker">
+        <iframe>
+          <h1>Some custom code</h1>
+          <script>alert("test");</script></iframe>
+      </figure>
+      <figure class="op-tracker">
+        <iframe>
+          <h1>Tracker with enclosing on the script</h1>
+          <div><script>alert("test");</script></div>
+        </iframe>
+      </figure>
+      <figure class="op-social">
+        <iframe>
+          <h1>Custom code for your social embed</h1>
+          <script>alert("test");</script></iframe>
+      </figure>
+      <figure data-mode="fullscreen" data-feedback="fb:likes,fb:comments">
+        <video data-fb-disable-autoplay="data-fb-disable-autoplay" controls="controls">
+          <source src="http://mydomain.com/path/to/video.mp4" type="video/mp4"/>
+        </video>
+        <figcaption class="op-vertical-below"><h1>Video 1 Title</h1>
+
+          <cite>Attribution Source</cite></figcaption>
+        <script type="application/json" class="op-geotag">
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [ [23.166667, 89.216667], [23.166667, 89.216667] ]
+            },
+            "properties": {
+              "title": "Jessore, Bangladesh",
+              "radius": 750000,
+              "pivot": true,
+              "style": "satellite",
+            }
+          }
+        </script>
+      </figure>
+      <ul class="op-related-articles" title="The related ones in the middle">
+        <li>
+          <a href="http://example.com/article.html"></a>
+        </li>
+        <li data-sponsored="true">
+          <a href="http://example.com/sponsored-article.html"></a>
+        </li>
+        <li>
+          <a href="http://example.com/another-article.html"></a>
+        </li>
+      </ul>
+      <footer>
+        <aside>
+          <p>Some plaintext credits to<a href="http://facebook.com/author" rel="facebook">Author</a></p>
+          <p>Paragraph text as credits</p>
+        </aside>
+        <ul class="op-related-articles" title="The related ones in the footer">
+          <li>
+            <a href="http://example.com/article.html"></a>
+          </li>
+          <li data-sponsored="true">
+            <a href="http://example.com/sponsored-article.html"></a>
+          </li>
+          <li>
+            <a href="http://example.com/another-article.html"></a>
+          </li>
+        </ul>
+      </footer>
+    </article>
+  </body>
+</html>

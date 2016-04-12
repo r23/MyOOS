@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <link rel="canonical" href=""/>
+    <meta charset="utf-8"/>
+    <meta property="op:generator" content="facebook-instant-articles-sdk-php"/>
+    <meta property="op:generator:version" content="1.0.0"/>
+    <meta property="op:transformer" content="facebook-instant-articles-sdk-php"/>
+    <meta property="op:transformer:version" content="1.0.0"/>
+    <meta property="op:markup_version" content="v1.0"/>
+    <meta property="fb:use_automatic_ad_placement" content="true"/>
+  </head>
+  <body>
+    <article>
+      <header>
+        <figure>
+          <img src="http://domain.com/image-header.png"/>
+          <figcaption>Some amazing moment captured by Photographer</figcaption>
+        </figure>
+        <h1>The article title</h1>
+        <h2>Sub Title</h2>
+        <address><a>Author name</a></address>
+      </header>
+      <p>Lorem <b>ipsum</b> dolor sit amet, consectetur adipiscing elit. Sed eu arcu porta, ultrices massa ut, porttitor diam. Integer id auctor augue.</p>
+      <p>Vivamus mattis, sem id consequat dapibus, odio urna fermentum risus, in blandit dolor justo vel ex. Curabitur a neque bibendum, hendrerit sem in, congue lectus.</p>
+      <figure>
+        <img src="http://domain.com/image-body.png"/>
+        <figcaption>Photographer</figcaption>
+      </figure>
+      <p>Curabitur vulputate odio eu justo <i>venenatis</i>, a pretium orci placerat. Nam sed neque quis eros vestibulum mattis. Donec vitae mi egestas, laoreet massa et, fringilla libero.</p>
+    </article>
+  </body>
+</html>
