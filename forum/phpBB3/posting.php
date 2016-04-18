@@ -599,7 +599,7 @@ if ($post_data['post_attachment'] && !$submit && !$refresh && !$preview && $mode
 		WHERE post_msg_id = $post_id
 			AND in_message = 0
 			AND is_orphan = 0
-		ORDER BY filetime DESC";
+		ORDER BY attach_id DESC";
 	$result = $db->sql_query($sql);
 	$message_parser->attachment_data = array_merge($message_parser->attachment_data, $db->sql_fetchrowset($result));
 	$db->sql_freeresult($result);
@@ -1589,6 +1589,9 @@ $message_parser->decode_message($post_data['bbcode_uid']);
 
 if ($generate_quote)
 {
+	// Remove attachment bbcode tags from the quoted message to avoid mixing with the new post attachments if any
+	$message_parser->message = preg_replace('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#uis', '\\2', $message_parser->message);
+
 	if ($config['allow_bbcode'])
 	{
 		$message_parser->message = '[quote=&quot;' . $post_data['quote_username'] . '&quot;]' . censor_text(trim($message_parser->message)) . "[/quote]\n";

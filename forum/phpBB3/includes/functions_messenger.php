@@ -210,9 +210,11 @@ class messenger
 	/**
 	* Set email template to use
 	*/
-	function template($template_file, $template_lang = '', $template_path = '')
+	function template($template_file, $template_lang = '', $template_path = '', $template_dir_prefix = '')
 	{
 		global $config, $phpbb_root_path, $phpEx, $user, $phpbb_extension_manager;
+
+		$template_dir_prefix = (!$template_dir_prefix || $template_dir_prefix[0] === '/') ? $template_dir_prefix : '/' . $template_dir_prefix;
 
 		$this->setup_template();
 
@@ -232,7 +234,7 @@ class messenger
 		if ($template_path)
 		{
 			$template_paths = array(
-				$template_path,
+				$template_path . $template_dir_prefix,
 			);
 		}
 		else
@@ -241,7 +243,7 @@ class messenger
 			$template_path .= $template_lang . '/email';
 
 			$template_paths = array(
-				$template_path,
+				$template_path . $template_dir_prefix,
 			);
 
 			// we can only specify default language fallback when the path is not a custom one for which we
@@ -251,14 +253,14 @@ class messenger
 				$fallback_template_path = (!empty($user->lang_path)) ? $user->lang_path : $phpbb_root_path . 'language/';
 				$fallback_template_path .= basename($config['default_lang']) . '/email';
 
-				$template_paths[] = $fallback_template_path;
+				$template_paths[] = $fallback_template_path . $template_dir_prefix;
 			}
 		}
 
 		$this->set_template_paths(array(
 			array(
 				'name' 		=> $template_lang . '_email',
-				'ext_path' 	=> 'language/' . $template_lang . '/email'
+				'ext_path' 	=> 'language/' . $template_lang . '/email' . $template_dir_prefix,
 			),
 		), $template_paths);
 
@@ -859,6 +861,11 @@ class queue
 				fwrite($fp, "<?php\nif (!defined('IN_PHPBB')) exit;\n\$this->queue_data = unserialize(" . var_export(serialize($this->queue_data), true) . ");\n\n?>");
 				fclose($fp);
 
+				if (function_exists('opcache_invalidate'))
+				{
+					@opcache_invalidate($this->cache_file);
+				}
+
 				phpbb_chmod($this->cache_file, CHMOD_READ | CHMOD_WRITE);
 			}
 		}
@@ -900,6 +907,11 @@ class queue
 		{
 			fwrite($fp, "<?php\nif (!defined('IN_PHPBB')) exit;\n\$this->queue_data = unserialize(" . var_export(serialize($this->data), true) . ");\n\n?>");
 			fclose($fp);
+
+			if (function_exists('opcache_invalidate'))
+			{
+				@opcache_invalidate($this->cache_file);
+			}
 
 			phpbb_chmod($this->cache_file, CHMOD_READ | CHMOD_WRITE);
 

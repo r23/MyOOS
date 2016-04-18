@@ -47,7 +47,7 @@ if (!defined('IN_PHPBB'))
 */
 function gen_sort_selects(&$limit_days, &$sort_by_text, &$sort_days, &$sort_key, &$sort_dir, &$s_limit_days, &$s_sort_key, &$s_sort_dir, &$u_sort_param, $def_st = false, $def_sk = false, $def_sd = false)
 {
-	global $user;
+	global $user, $phpbb_dispatcher;
 
 	$sort_dir_text = array('a' => $user->lang['ASCENDING'], 'd' => $user->lang['DESCENDING']);
 
@@ -105,6 +105,42 @@ function gen_sort_selects(&$limit_days, &$sort_by_text, &$sort_days, &$sort_key,
 
 		$u_sort_param .= ($selected !== $sort_ary['default']) ? ((strlen($u_sort_param)) ? '&amp;' : '') . "{$name}={$selected}" : '';
 	}
+
+	/**
+	 * Run code before generated sort selects are returned
+	 *
+	 * @event core.gen_sort_selects_after
+	 * @var	int      limit_days     Days limit
+	 * @var	array    sort_by_text   Sort by text options
+	 * @var	int      sort_days      Sort by days flag
+	 * @var	string   sort_key       Sort key
+	 * @var	string   sort_dir       Sort dir
+	 * @var	string   s_limit_days   String of days limit
+	 * @var	string   s_sort_key     String of sort key
+	 * @var	string   s_sort_dir     String of sort dir
+	 * @var	string   u_sort_param   Sort URL params
+	 * @var	bool     def_st         Default sort days
+	 * @var	bool     def_sk         Default sort key
+	 * @var	bool     def_sd         Default sort dir
+	 * @var	array    sorts          Sorts
+	 * @since 3.1.9-RC1
+	 */
+	$vars = array(
+		'limit_days',
+		'sort_by_text',
+		'sort_days',
+		'sort_key',
+		'sort_dir',
+		's_limit_days',
+		's_sort_key',
+		's_sort_dir',
+		'u_sort_param',
+		'def_st',
+		'def_sk',
+		'def_sd',
+		'sorts',
+	);
+	extract($phpbb_dispatcher->trigger_event('core.gen_sort_selects_after', compact($vars)));
 
 	return;
 }
@@ -392,7 +428,7 @@ function phpbb_clean_search_string($search_string)
 */
 function decode_message(&$message, $bbcode_uid = '')
 {
-	global $config;
+	global $config, $phpbb_dispatcher;
 
 	if ($bbcode_uid)
 	{
@@ -405,12 +441,38 @@ function decode_message(&$message, $bbcode_uid = '')
 		$replace = array("\n");
 	}
 
+	/**
+	* Use this event to modify the message before it is decoded
+	*
+	* @event core.decode_message_before
+	* @var string	message_text	The message content
+	* @var string	bbcode_uid		The message BBCode UID
+	* @since 3.1.9-RC1
+	*/
+	$message_text = $message;
+	$vars = array('message_text', 'bbcode_uid');
+	extract($phpbb_dispatcher->trigger_event('core.decode_message_before', compact($vars)));
+	$message = $message_text;
+
 	$message = str_replace($match, $replace, $message);
 
 	$match = get_preg_expression('bbcode_htm');
 	$replace = array('\1', '\1', '\2', '\1', '', '');
 
 	$message = preg_replace($match, $replace, $message);
+
+	/**
+	* Use this event to modify the message after it is decoded
+	*
+	* @event core.decode_message_after
+	* @var string	message_text	The message content
+	* @var string	bbcode_uid		The message BBCode UID
+	* @since 3.1.9-RC1
+	*/
+	$message_text = $message;
+	$vars = array('message_text', 'bbcode_uid');
+	extract($phpbb_dispatcher->trigger_event('core.decode_message_after', compact($vars)));
+	$message = $message_text;
 }
 
 /**
@@ -974,17 +1036,8 @@ function parse_attachments($forum_id, &$message, &$attachments, &$update_count, 
 		unset($new_attachment_data);
 	}
 
-	// Sort correctly
-	if ($config['display_order'])
-	{
-		// Ascending sort
-		krsort($attachments);
-	}
-	else
-	{
-		// Descending sort
-		ksort($attachments);
-	}
+	// Make sure attachments are properly ordered
+	ksort($attachments);
 
 	foreach ($attachments as $attachment)
 	{
@@ -1223,8 +1276,6 @@ function parse_attachments($forum_id, &$message, &$attachments, &$update_count, 
 	$attachments = $compiled_attachments;
 	unset($compiled_attachments);
 
-	$tpl_size = sizeof($attachments);
-
 	$unset_tpl = array();
 
 	preg_match_all('#<!\-\- ia([0-9]+) \-\->(.*?)<!\-\- ia\1 \-\->#', $message, $matches, PREG_PATTERN_ORDER);
@@ -1232,8 +1283,7 @@ function parse_attachments($forum_id, &$message, &$attachments, &$update_count, 
 	$replace = array();
 	foreach ($matches[0] as $num => $capture)
 	{
-		// Flip index if we are displaying the reverse way
-		$index = ($config['display_order']) ? ($tpl_size-($matches[1][$num] + 1)) : $matches[1][$num];
+		$index = $matches[1][$num];
 
 		$replace['from'][] = $matches[0][$num];
 		$replace['to'][] = (isset($attachments[$index])) ? $attachments[$index] : sprintf($user->lang['MISSING_INLINE_ATTACHMENT'], $matches[2][array_search($index, $matches[1])]);
@@ -1247,6 +1297,18 @@ function parse_attachments($forum_id, &$message, &$attachments, &$update_count, 
 	}
 
 	$unset_tpl = array_unique($unset_tpl);
+
+	// Sort correctly
+	if ($config['display_order'])
+	{
+		// Ascending sort
+		krsort($attachments);
+	}
+	else
+	{
+		// Descending sort
+		ksort($attachments);
+	}
 
 	// Needed to let not display the inlined attachments at the end of the post again
 	foreach ($unset_tpl as $index)

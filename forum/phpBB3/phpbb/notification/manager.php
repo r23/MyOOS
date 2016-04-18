@@ -186,6 +186,7 @@ class manager
 		if (!$options['count_total'] || $total_count)
 		{
 			$rowset = array();
+			$selected_unread_count = 0;
 
 			// Get the main notifications
 			$sql = 'SELECT n.*, nt.notification_type_name
@@ -200,11 +201,12 @@ class manager
 			while ($row = $this->db->sql_fetchrow($result))
 			{
 				$rowset[$row['notification_id']] = $row;
+				$selected_unread_count += (int) !$row['notification_read'];
 			}
 			$this->db->sql_freeresult($result);
 
 			// Get all unread notifications
-			if ($unread_count && $options['all_unread'] && !empty($rowset))
+			if ($selected_unread_count < $unread_count && $options['all_unread'] && !empty($rowset))
 			{
 				$sql = 'SELECT n.*, nt.notification_type_name
 				FROM ' . $this->notifications_table . ' n, ' . $this->notification_types_table . ' nt
@@ -923,6 +925,8 @@ class manager
 	{
 		$notification_type_ids = $this->cache->get('notification_type_ids');
 
+		$this->db->sql_transaction('begin');
+
 		if ($notification_type_ids === false)
 		{
 			$notification_type_ids = array();
@@ -956,6 +960,8 @@ class manager
 
 			$this->cache->put('notification_type_ids', $notification_type_ids);
 		}
+
+		$this->db->sql_transaction('commit');
 
 		return $notification_type_ids[$notification_type_name];
 	}

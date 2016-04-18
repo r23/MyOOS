@@ -71,7 +71,8 @@ class helper
 	* @param \phpbb\template\template $template Template object
 	* @param \phpbb\user $user User object
 	* @param \phpbb\config\config $config Config object
-	* @param \phpbb\controller\provider $provider Path provider
+	 *
+	 * @param \phpbb\controller\provider $provider Path provider
 	* @param \phpbb\extension\manager $manager Extension manager object
 	* @param \phpbb\symfony_request $symfony_request Symfony Request object
 	* @param \phpbb\request\request_interface $request phpBB request object
@@ -102,12 +103,13 @@ class helper
 	* @param bool $display_online_list Do we display online users list
 	* @param int $item_id Restrict online users to item id
 	* @param string $item Restrict online users to a certain session item, e.g. forum for session_forum_id
+	* @param bool $send_headers Whether headers should be sent by page_header(). Defaults to false for controllers.
 	*
 	* @return Response object containing rendered page
 	*/
-	public function render($template_file, $page_title = '', $status_code = 200, $display_online_list = false, $item_id = 0, $item = 'forum')
+	public function render($template_file, $page_title = '', $status_code = 200, $display_online_list = false, $item_id = 0, $item = 'forum', $send_headers = false)
 	{
-		page_header($page_title, $display_online_list, $item_id, $item);
+		page_header($page_title, $display_online_list, $item_id, $item, $send_headers);
 
 		$this->template->set_filenames(array(
 			'body'	=> $template_file,
@@ -115,7 +117,9 @@ class helper
 
 		page_footer(true, false, false);
 
-		return new Response($this->template->assign_display('body'), $status_code);
+		$headers = !empty($this->user->data['is_bot']) ? array('X-PHPBB-IS-BOT' => 'yes') : array();
+
+		return new Response($this->template->assign_display('body'), $status_code, $headers);
 	}
 
 	/**
@@ -140,6 +144,15 @@ class helper
 		$context = new RequestContext();
 		$context->fromRequest($this->symfony_request);
 
+		if ($this->config['force_server_vars'])
+		{
+			$context->setHost($this->config['server_name']);
+			$context->setScheme(substr($this->config['server_protocol'], 0, -3));
+			$context->setHttpPort($this->config['server_port']);
+			$context->setHttpsPort($this->config['server_port']);
+			$context->setBaseUrl(rtrim($this->config['script_path'], '/'));
+		}
+
 		$script_name = $this->symfony_request->getScriptName();
 		$page_name = substr($script_name, -1, 1) == '/' ? '' : utf8_basename($script_name);
 
@@ -155,7 +168,7 @@ class helper
 		$base_url = str_replace('/' . $page_name, empty($this->config['enable_mod_rewrite']) ? '/app.' . $this->php_ext : '', $base_url);
 
 		// We need to update the base url to move to the directory of the app.php file if the current script is not app.php
-		if ($page_name !== 'app.php')
+		if ($page_name !== 'app.php' && !$this->config['force_server_vars'])
 		{
 			if (empty($this->config['enable_mod_rewrite']))
 			{

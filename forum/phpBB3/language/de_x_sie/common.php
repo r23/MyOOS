@@ -822,7 +822,7 @@ $lang = array_merge($lang, array(
 	'USERS'					=> 'Benutzer',
 	'USE_PERMISSIONS'		=> 'Berechtigungen des Benutzers testen',
 
-	'USER_NEW_PERMISSION_DISALLOWED'	=> 'Leider sind Sie nicht berechtigt, diese Funktion zu nutzen. Sie haben sich vermutlich erst vor kurzem registriert und müssen sich noch mehr im Board beteiligen, damit Sie diese Funktion nutzen können.',
+	'USER_NEW_PERMISSION_DISALLOWED'	=> 'Leider sind Sie nicht berechtigt, diese Funktion zu nutzen. Sie haben sich vermutlich erst vor kurzem registriert und müssen sich noch mehr an Diskussionen im Board beteiligen, damit Sie diese Funktion nutzen können.',
 
 	'VARIANT_DATE_SEPARATOR'	=> ' / ',	// Used in date format dropdown, eg: "Today, 13:37 / 01 Jan 2007, 13:37" ... to join a relative date with calendar date
 	'VIEWED'					=> 'Zugriffe',

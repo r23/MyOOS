@@ -74,14 +74,14 @@ abstract class messenger_base extends \phpbb\notification\method\base
 				continue;
 			}
 
-			$messenger->template($template_dir_prefix . $notification->get_email_template(), $user['user_lang']);
+			$messenger->template($notification->get_email_template(), $user['user_lang'], '', $template_dir_prefix);
 
 			$messenger->set_addresses($user);
 
 			$messenger->assign_vars(array_merge(array(
 				'USERNAME'						=> $user['username'],
 
-				'U_NOTIFICATION_SETTINGS'		=> generate_board_url() . '/ucp.' . $this->php_ext . '?i=ucp_notifications',
+				'U_NOTIFICATION_SETTINGS'		=> generate_board_url() . '/ucp.' . $this->php_ext . '?i=ucp_notifications&amp;mode=notification_options',
 			), $notification->get_email_template_variables()));
 
 			$messenger->send($notify_method);

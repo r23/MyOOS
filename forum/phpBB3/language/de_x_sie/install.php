@@ -94,7 +94,7 @@ $lang = array_merge($lang, array(
 
 	'CONV_ERROR_ATTACH_FTP_DIR'			=> 'Der FTP-Upload für Dateianhänge ist im alten Forum eingeschaltet. Bitte deaktivieren Sie den FTP-Upload und stellen Sie sicher, dass ein gültiges Upload-Verzeichnis angegeben ist. Kopieren Sie dann alle Dateianhänge in dieses neue, aus dem Web zugängliche Verzeichnis. Sobald Sie dies getan haben, können Sie das Konvertierungsprogramm erneut aufrufen.',
 	'CONV_ERROR_CONFIG_EMPTY'			=> 'Es sind keine Konfigurationsinformationen für die Konvertierung verfügbar.',
-	'CONV_ERROR_FORUM_ACCESS'			=> 'Forum-Zugriffsinformationen konnten nicht ausgelesen werden',
+	'CONV_ERROR_FORUM_ACCESS'			=> 'Foren-Berechtigungen konnten nicht ausgelesen werden',
 	'CONV_ERROR_GET_CATEGORIES'			=> 'Kategorien konnten nicht ausgelesen werden',
 	'CONV_ERROR_GET_CONFIG'				=> 'Ihre Boardkonfiguration konnte nicht ausgelesen werden.',
 	'CONV_ERROR_COULD_NOT_READ'			=> 'Konnte nicht auf „%s“ zugreifen / nicht lesen.',

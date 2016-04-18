@@ -116,7 +116,7 @@ $lang = array_merge($lang, array(
 	'HIDE_PROFILE_FIELD'			=> 'Profilfeld verstecken',
 	'HIDE_PROFILE_FIELD_EXPLAIN'	=> 'Versteckt das Feld vor allen Benutzern außer dem Benutzer selbst, Administratoren und Moderatoren, die dieses Feld weiterhin sehen können. Wenn die Anzeige des Felds im persönlichen Bereich deaktiviert ist, kann der Benutzer das Feld weder sehen noch ändern. Es kann dann nur von einem Administrator geändert werden.',
 
-	'INVALID_CHARS_FIELD_IDENT'	=> 'Der Feld-Kennung darf nur aus Kleinbuchstaben von a bis z und _ bestehen.',
+	'INVALID_CHARS_FIELD_IDENT'	=> 'Die Feld-Kennung darf nur aus Kleinbuchstaben von a bis z und _ bestehen.',
 	'INVALID_FIELD_IDENT_LEN'	=> 'Die Feld-Kennung kann maximal 17 Zeichen lang sein.',
 	'ISO_LANGUAGE'				=> 'Sprache [ %s ]',
 
