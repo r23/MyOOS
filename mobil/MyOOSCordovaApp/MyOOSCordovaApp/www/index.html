@@ -1,26 +1,25 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta charset="utf-8" />
-
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
     <!--
-        Passen Sie die Inhaltssicherheitsrichtlinie im META-Tag unten nach Bedarf an. FÃ¼gen Sie "default-src" die Option "unsafe-inline" hinzu, um Inline-JavaScript zu aktivieren.
+        Passen Sie die Inhaltssicherheitsrichtlinie im META-Tag unten nach Bedarf an. Fügen Sie "default-src" die Option "unsafe-inline" hinzu, um Inline-JavaScript zu aktivieren.
         Details finden Sie unter "http://go.microsoft.com/fwlink/?LinkID=617521".
     -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-    <title>MyOOSCordovaApp</title>
-
-    <!-- MyOOSCordovaApp-Verweise -->
-    <link href="css/index.css" rel="stylesheet" />
-</head>
-<body>
-    <p>Hallo, Ihre Anwendung ist bereit!</p>
-
-    <!-- Cordova-Verweis, wird Ihrer App beim Erstellen hinzugefÃ¼gt. -->
-    <script src="cordova.js"></script>
-    <script src="scripts/platformOverrides.js"></script>
-
-    <script src="scripts/index.js"></script>
-</body>
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>MyOOSCordovaApp</title>
+    </head>
+    <body>
+        <div class="app">
+            <p id="deviceready" class="event">Die Verbindung mit dem Gerät wird hergestellt.</p>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+        <script type="text/javascript" src="scripts/index.js"></script>
+    </body>
 </html>

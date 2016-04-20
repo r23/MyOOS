@@ -1,14 +1,14 @@
-﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved.
-// Licensed under the Apache License, Version 2.0. 
-// See http://www.apache.org/licenses/LICENSE-2.0.html.
-// Dynamischer JavaScript-Inhaltsshim für Windows Store-Apps
+﻿// Copyright (c) Microsoft Open Technologies, Inc. Alle Rechte vorbehalten.
+// Lizenziert unter der Apache-Lizenz, Version 2.0. 
+// Siehe "http://www.apache.org/licenses/LICENSE-2.0.html".
+// Shim für dynamischen JavaScript-Inhalt für Windows Store-Apps
 (function () {
 
     if (window.MSApp && MSApp.execUnsafeLocalFunction) {
 
-        // Einige Knoten verfügen über eine "attributes"-Eigenschaft, die die "Node.prototype.attributes"-Eigenschaft widerspiegelt.
-        // Das bedeutet, dass die Attribute des Knotens nicht tatsächlich angezeigt werden (interessanterweise leidet die VS-Debugkonsole
-        //  anscheinend unter dem gleichen Problem).
+        // Einige Knoten weisen eine Eigenschaft "attributes" auf, die eine Schattenkopie der Eigenschaft "Node.prototype.attributes" ist.
+        //  Dies bedeutet, dass die Attribute des Knotens nicht angezeigt werden (interessanterweise scheint für die VS-Debugkonsole
+        //  das gleiche Problem zu gelten).
         //
         var Element_setAttribute = Object.getOwnPropertyDescriptor(Element.prototype, "setAttribute").value;
         var Element_removeAttribute = Object.getOwnPropertyDescriptor(Element.prototype, "removeAttribute").value;
@@ -96,7 +96,7 @@
             function cleanseAttributes(element) {
                 var attributes = getAttributes(element);
                 if (attributes && attributes.length) {
-                    // da die Attributsauflistung live ist und es so einfacher ist, die Umbenennungen in eine Warteschlange einzureihen
+                    // Da die Attributauflistung live ist, ist es einfacher, die umbenannten Elemente in die Warteschlange einzureihen.
                     var events;
                     for (var i = 0, len = attributes.length; i < len; i++) {
                         var attribute = attributes[i];

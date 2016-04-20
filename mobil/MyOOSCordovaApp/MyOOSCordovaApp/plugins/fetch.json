@@ -1,8 +1,16 @@
 {
-    "cordova-plugin-media": {
+    "cordova-plugin-camera": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-media@~2.1.0"
+            "id": "cordova-plugin-camera"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-whitelist": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-whitelist@1"
         },
         "is_top_level": true,
         "variables": {}
@@ -10,41 +18,17 @@
     "cordova-plugin-file-transfer": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-file-transfer@~1.5.0"
+            "id": "cordova-plugin-file-transfer"
         },
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-camera": {
+    "cordova-plugin-file": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-camera@~2.1.0"
+            "id": "cordova-plugin-file"
         },
-        "is_top_level": true,
-        "variables": {}
-    },
-    "cordova-plugin-contacts": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-contacts@~2.0.1"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
-    "cordova-plugin-geolocation": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-geolocation@~2.1.0"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
-    "cordova-plugin-inappbrowser": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-inappbrowser@~1.2.0"
-        },
-        "is_top_level": true,
+        "is_top_level": false,
         "variables": {}
     }
 }
