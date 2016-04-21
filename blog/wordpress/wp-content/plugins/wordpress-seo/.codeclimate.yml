@@ -6,5 +6,5 @@ exclude_paths:
 - "tests/*"
 - "grunt/*"
 - "grunt/**/*"
-- "js/jquery.qtip*"
-- "js/dist/**/*"
+- "inc/wpseo-functions-deprecated.php"
+- "js/dist/*"

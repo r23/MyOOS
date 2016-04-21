@@ -23,6 +23,13 @@ class WPSEO_Admin_Init {
 	private $pagenow;
 
 	/**
+	 * Holds the asset manager.
+	 *
+	 * @var WPSEO_Admin_Asset_Manager
+	 */
+	private $asset_manager;
+
+	/**
 	 * Class constructor
 	 */
 	public function __construct() {
@@ -32,6 +39,8 @@ class WPSEO_Admin_Init {
 
 		$this->pagenow = $GLOBALS['pagenow'];
 
+		$this->asset_manager = new WPSEO_Admin_Asset_Manager();
+
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_dismissible' ) );
 		add_action( 'admin_init', array( $this, 'after_update_notice' ), 15 );
 		add_action( 'admin_init', array( $this, 'tagline_notice' ), 15 );
@@ -39,6 +48,7 @@ class WPSEO_Admin_Init {
 		add_action( 'admin_init', array( $this, 'recalculate_notice' ), 15 );
 		add_action( 'admin_init', array( $this, 'ignore_tour' ) );
 		add_action( 'admin_init', array( $this, 'load_tour' ) );
+		add_action( 'admin_init', array( $this->asset_manager, 'register_assets' ) );
 		add_action( 'admin_init', array( $this, 'show_hook_deprecation_warnings' ) );
 
 		$this->load_meta_boxes();
@@ -53,10 +63,11 @@ class WPSEO_Admin_Init {
 	 */
 	public function enqueue_dismissible() {
 		if ( version_compare( $GLOBALS['wp_version'], '4.2', '<' ) ) {
-			wp_enqueue_style( 'wpseo-dismissible', plugins_url( 'css/wpseo-dismissible' . WPSEO_CSSJS_SUFFIX . '.css', WPSEO_FILE ), array(), WPSEO_VERSION );
-			wp_enqueue_script( 'wpseo-dismissible', plugins_url( 'js/wp-seo-dismissible-' . '310' . WPSEO_CSSJS_SUFFIX . '.js', WPSEO_FILE ), array( 'jquery' ), WPSEO_VERSION, true );
+			$this->asset_manager->enqueue_script( 'dismissable' );
+			$this->asset_manager->enqueue_style( 'dismissable' );
 		}
 	}
+
 	/**
 	 * Redirect first time or just upgraded users to the about screen.
 	 */
@@ -82,8 +93,8 @@ class WPSEO_Admin_Init {
 			);
 
 			$notification_options = array(
-				'type' => 'updated',
-				'id' => 'wpseo-dismiss-about',
+				'type'  => 'updated',
+				'id'    => 'wpseo-dismiss-about',
 				'nonce' => wp_create_nonce( 'wpseo-dismiss-about' ),
 			);
 
@@ -190,7 +201,6 @@ class WPSEO_Admin_Init {
 	 * Shows the notice for recalculating the post. the Notice will only be shown if the user hasn't dismissed it before.
 	 */
 	public function recalculate_notice() {
-
 		// Just a return, because we want to temporary disable this notice (#3998).
 		return;
 
@@ -316,8 +326,8 @@ class WPSEO_Admin_Init {
 				'hook'           => 'wpseo_admin_footer',
 				'glotpress_url'  => 'http://translate.yoast.com/gp/',
 				'glotpress_name' => 'Yoast Translate',
-				'glotpress_logo' => 'http://translate.yoast.com/gp-templates/images/Yoast_Translate.svg',
-				'register_url'   => 'http://translate.yoast.com/gp/projects#utm_source=plugin&utm_medium=promo-box&utm_campaign=wpseo-i18n-promo',
+				'glotpress_logo' => 'https://translate.yoast.com/gp-templates/images/Yoast_Translate.svg',
+				'register_url'   => 'https://translate.yoast.com/gp/projects#utm_source=plugin&utm_medium=promo-box&utm_campaign=wpseo-i18n-promo',
 			)
 		);
 	}
@@ -410,6 +420,4 @@ class WPSEO_Admin_Init {
 	private function dismiss_notice( $notice_name ) {
 		return filter_input( INPUT_GET, $notice_name ) === '1' && wp_verify_nonce( filter_input( INPUT_GET, 'nonce' ), $notice_name );
 	}
-
-
 }
