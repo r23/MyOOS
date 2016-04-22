@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-04-13 07:49:01+0000\n"
+"PO-Revision-Date: 2016-04-21 22:32:40+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2844,29 +2844,9 @@ msgstr "Für Barrierefreiheit geeignet"
 msgid "This is a child theme of %s."
 msgstr "Dies ist ein Child-Theme von %s."
 
-#: wp-admin/themes.php:76
-msgid "Click Customize for the current theme or Live Preview for any other theme to see a live preview"
-msgstr "Klicke beim aktuellen Theme auf Anpassen oder bei den übrigen Themes auf Live-Vorschau, um eine Voransicht zu erhalten."
-
 #: wp-admin/themes.php:77
 msgid "The current theme is displayed highlighted as the first theme."
 msgstr "Das aktuelle Theme wird hervorgehoben als erstes Theme angezeigt."
-
-#: wp-admin/themes.php:74
-msgid "Hover or tap to see Activate and Live Preview buttons"
-msgstr "Die Buttons Aktivieren und Live-Vorschau werden durch Antippen oder Überfahren mit der Maus sichtbar."
-
-#: wp-admin/themes.php:72
-msgid "This screen is used for managing your installed themes. Aside from the default theme(s) included with your WordPress installation, themes are designed and developed by third parties."
-msgstr "Diese Ansicht wird dazu verwendet, deine installierten Gestaltungsvorlagen zu verwalten. Neben Standard-Theme(s), die in deiner WordPress-Installation enthalten sind, werden Themes von Drittanbietern gestaltet und entwickelt."
-
-#: wp-admin/themes.php:75
-msgid "Click on the theme to see the theme name, version, author, description, tags, and the Delete link"
-msgstr "Klicke auf das Theme, um Namen, Version, Autor, Beschreibung, Schlagwörter und den Link zum Löschen anzuzeigen."
-
-#: wp-admin/themes.php:105
-msgid "Tap or hover on any theme then click the Live Preview button to see a live preview of that theme and change theme options in a separate, full-screen view. You can also find a Live Preview button at the bottom of the theme details screen. Any installed theme can be previewed and customized in this way."
-msgstr "Klicke auf oder fahre mit der Maus über ein beliebiges Theme und klicke dann auf Life-Vorschau, um das Themes in einer Vorschau sehen und Anpassungen in einer separaten Vollbildanzeige vornehmen zu können. Du findest die Buttons für eine Live-Vorschau auch am unteren Rand des Bildschirms mit den Theme-Details. Jedes Theme kann auf diese Weise vorher betrachtet und angepasst werden. "
 
 #: wp-admin/themes.php:107
 msgid "When previewing on smaller monitors, you can use the collapse icon at the bottom of the left-hand pane. This will hide the pane, giving you more room to preview your site in the new theme. To bring the pane back, click on the collapse icon again."
@@ -2875,6 +2855,26 @@ msgstr "Bei Vorschau auf kleineren Bildschirmen kannst du das Einklapp-Icon unte
 #: wp-admin/themes.php:106
 msgid "The theme being previewed is fully interactive &mdash; navigate to different pages to see how the theme handles posts, archives, and other page templates. The settings may differ depending on what theme features the theme being previewed supports. To accept the new settings and activate the theme all in one step, click the Save &amp; Activate button above the menu."
 msgstr "Das in der Vorschau angezeigte Theme ist völlig interaktiv &mdash; navigiere zu unterschiedlichen Seiten, um dir anzuschauen, wie das Theme mit Beiträgen, Archiven und anderen Seiten-Templates umgeht. Die Einstellungsmöglichkeiten können je nach Theme abweichen, was davon abhängt, welche Funktionen das gezeigte Theme enthält. Um in einem Schwung die neuen Einstellungen zu übernehmen und das Theme zu aktualisieren, klicke über dem Menü auf den Button &#8222;Speichern &amp; Aktivieren&#8220;."
+
+#: wp-admin/themes.php:105
+msgid "Tap or hover on any theme then click the Live Preview button to see a live preview of that theme and change theme options in a separate, full-screen view. You can also find a Live Preview button at the bottom of the theme details screen. Any installed theme can be previewed and customized in this way."
+msgstr "Klicke auf oder fahre mit der Maus über ein beliebiges Theme und klicke dann auf Live-Vorschau, um das Themes in einer Vorschau sehen und Anpassungen in einer separaten Vollbildanzeige vornehmen zu können. Du findest den Button für eine Live-Vorschau auch am unteren Rand des Bildschirms mit den Theme-Details. Jedes Theme kann auf diese Weise vorher betrachtet und angepasst werden."
+
+#: wp-admin/themes.php:72
+msgid "This screen is used for managing your installed themes. Aside from the default theme(s) included with your WordPress installation, themes are designed and developed by third parties."
+msgstr "Diese Ansicht wird dazu verwendet, deine installierten Gestaltungsvorlagen, die im WordPress Umfeld als Themes bezeichnet werden, zu verwalten. Neben Standard-Theme(s), die in deiner WordPress-Installation enthalten sind, werden Themes meist von Drittanbietern gestaltet und entwickelt."
+
+#: wp-admin/themes.php:74
+msgid "Hover or tap to see Activate and Live Preview buttons"
+msgstr "Durch Antippen oder Überfahren mit der Maus die Buttons &#8222;Aktivieren&#8220; oder &#8222;Live-Vorschau&#8220; sichtbar machen."
+
+#: wp-admin/themes.php:75
+msgid "Click on the theme to see the theme name, version, author, description, tags, and the Delete link"
+msgstr "Auf das Theme klicken, um Name, Version, Autor, Beschreibung, Schlagwörter und den Link zum Löschen anzuzeigen."
+
+#: wp-admin/themes.php:76
+msgid "Click Customize for the current theme or Live Preview for any other theme to see a live preview"
+msgstr "Auf &#8222;Anpassen&#8220; klicken beim aktuellen Theme oder bei den übrigen Themes auf &#8222;Live-Vorschau&#8220;, um eine Voransicht zu erhalten."
 
 #: wp-admin/widgets.php:390
 msgid "To activate a widget drag it to a sidebar or click on it. To deactivate a widget and delete its settings, drag it back."
@@ -3237,10 +3237,6 @@ msgstr "Einige deiner Übersetzungen müssen aktualisiert werden. Warte noch ein
 msgid "Downloading translation from <span class=\"code\">%s</span>&#8230;"
 msgstr "Lädt Übersetzung von <span class=\"code\">%s</span>&#8230; herunter"
 
-#: wp-admin/user-new.php:371
-msgid "Create a brand new user and add them to this site."
-msgstr "Lege einen nagelneuen Nutzer an und füge ihn dieser Website zu."
-
 #: wp-admin/options-discussion.php:144
 msgid "Comment must be manually approved"
 msgstr "muss der Kommentar manuell genehmigt werden."
@@ -3252,6 +3248,10 @@ msgstr "Bei einem Upgrade auf eine neuere Version des selben Themes werden hier 
 #: wp-admin/options-media.php:49
 msgid "The sizes listed below determine the maximum dimensions in pixels to use when adding an image to the Media Library."
 msgstr "Die unten aufgeführten Größen bestimmen die maximalen Abmessungen in Pixel, die beim Hinzufügen von Bildern zur Mediathek verwendet werden."
+
+#: wp-admin/user-new.php:371
+msgid "Create a brand new user and add them to this site."
+msgstr "Lege einen neuen Benutzer an und füge ihn dieser Website hinzu."
 
 #. translators: 1: folder to locate, 2: folder to start searching from
 #: wp-admin/includes/class-wp-filesystem-base.php:256
@@ -3310,10 +3310,6 @@ msgstr "Du musst eine E-Mail-Adresse angeben."
 msgid "Your theme does not natively support menus, but you can use them in sidebars by adding a &#8220;Custom Menu&#8221; widget on the <a href=\"%s\">Widgets</a> screen."
 msgstr "Dein Theme unterstützt von Haus aus keine Menüs, aber du kannst sie in Seitenleisten verwenden, indem du ein Widget für &#8222;benutzerdefinierte Menüs&#8220; im <a href=\"%s\">Widgets Menü</a> hinzufügst."
 
-#: wp-admin/nav-menus.php:539
-msgid "Menus can be displayed in locations defined by your theme, even used in sidebars by adding a &#8220;Custom Menu&#8221; widget on the <a href=\"%1$s\">Widgets</a> screen. If your theme does not support the custom menus feature (the default themes, %2$s and %3$s, do), you can learn about adding this support by following the Documentation link to the side."
-msgstr "Menüs können an in deinem Theme vordefinierten Plätzen angezeigt oder sogar in Seitenleisten verwendet werden, indem du ein Widget für ein &#8222;benutzerdefiniertes Menü&#8220; im <a href=\"%1$s\">Widgets Menü</a> hinzufügst. Wenn dein Theme keine benutzerdefinierten Menüs unterstützt (die Standardthemes %2$s und %3$s tun dies), kannst du über den Link zur Dokumentation erfahren, wie du eine solche Unterstützung hinzufügen kannst."
-
 #: wp-admin/nav-menus.php:562
 msgid "<strong>Clicking the arrow to the right of any menu item</strong> in the editor will reveal a standard group of settings. Additional settings such as link target, CSS classes, link relationships, and link descriptions can be enabled and disabled via the Screen Options tab."
 msgstr "<strong>Durch Anklicken des Pfeils rechts von jedem Menüeintrag</strong> im Editor wird eine Gruppe üblicher Einstellungen eingeblendet. Zusätzliche Einstellungen wie zum Beispiel Link-Ziele, CSS-Klassen, Link-Beziehungen und Link-Beschreibungen können über den Tab &#8222;Ansicht anpassen&#8220; aktiviert und deaktiviert werden."
@@ -3321,6 +3317,10 @@ msgstr "<strong>Durch Anklicken des Pfeils rechts von jedem Menüeintrag</strong
 #: wp-admin/install.php:361
 msgid "Sorry, that isn&#8217;t a valid email address. Email addresses look like <code>username@example.com</code>."
 msgstr "Das ist keine gültige E-Mail-Adresse. E-Mail-Adressen sehen aus wie <code>benutzername@beispiel.de</code>."
+
+#: wp-admin/nav-menus.php:539
+msgid "Menus can be displayed in locations defined by your theme, even used in sidebars by adding a &#8220;Custom Menu&#8221; widget on the <a href=\"%1$s\">Widgets</a> screen. If your theme does not support the custom menus feature (the default themes, %2$s and %3$s, do), you can learn about adding this support by following the Documentation link to the side."
+msgstr "Menüs können in deinem Theme an vordefinierten Plätzen angezeigt oder sogar in Seitenleisten verwendet werden, indem du ein Widget für ein &#8222;benutzerdefiniertes Menü&#8220; im <a href=\"%1$s\">Widgets Menü</a> hinzufügst. Wenn dein Theme keine benutzerdefinierten Menüs unterstützt (die Standard-Themes %2$s und %3$s tun dies), kannst du über den Link zur Dokumentation erfahren, wie du eine solche Unterstützung hinzufügen kannst."
 
 #: wp-admin/includes/edit-tag-messages.php:25
 msgid "Category deleted."
@@ -3631,10 +3631,6 @@ msgstr "Menüs bearbeiten"
 msgid "Editing Menus"
 msgstr "Menüs bearbeiten"
 
-#: wp-admin/nav-menus.php:538
-msgid "This screen is used for managing your custom navigation menus."
-msgstr "Dieser Bereich dient zum Ändern Ihrer individuellen Menüs."
-
 #: wp-admin/nav-menus.php:665
 msgctxt "menu"
 msgid "Use new menu"
@@ -3668,17 +3664,9 @@ msgstr "Um ein neues Menü zu erstellen, anstatt ein bestehendes auszuwählen, <
 msgid "Track %1$s of %2$s."
 msgstr "Track %1$s von %2$s."
 
-#: wp-admin/nav-menus.php:541
-msgid "Create, edit, and delete menus"
-msgstr "Menüs erstellen, bearbeiten und löschen"
-
 #: wp-admin/nav-menus.php:614
 msgid "Manage Locations"
 msgstr "Positionen verwalten"
-
-#: wp-admin/nav-menus.php:542
-msgid "Add, organize, and modify individual menu items"
-msgstr "Einzelne Menüeinträge hinzufügen, anordnen oder ändern"
 
 #: wp-admin/includes/post.php:1616
 msgid "Your latest changes were saved as a revision."
@@ -3687,10 +3675,6 @@ msgstr "Deine letzten Änderungen wurden als Revision gespeichert."
 #: wp-admin/nav-menus.php:561
 msgid "Each custom menu may contain a mix of links to pages, categories, custom URLs or other content types. Menu links are added by selecting items from the expanding boxes in the left-hand column below."
 msgstr "Jedes benutzerdefinierte Menü kann Links zu internen Seiten, Kategorien, externen URLs oder anderen Inhaltstypen enthalten. Menü-Einträge hinzufügen kann man über die Erweiterungs-Boxen in der linken Spalte. "
-
-#: wp-admin/nav-menus.php:566
-msgid "Delete a menu item by <strong>expanding it and clicking the Remove link</strong>"
-msgstr "Entferne einen Menüeintrag, indem du ihn <strong>aufklappst und auf den Entfernen-Link klickst</strong>"
 
 #: wp-admin/nav-menus.php:575
 msgid "To assign menus to one or more theme locations, <strong>select a menu from each location&#8217;s drop down.</strong> When you&#8217;re finished, <strong>click Save Changes</strong>"
@@ -3719,6 +3703,22 @@ msgstr "Du kannst ein Menü einem Menübereich im Theme zuweisen, indem du die <
 #: wp-admin/nav-menus.php:563
 msgid "Add one or several items at once by <strong>selecting the checkbox next to each item and clicking Add to Menu</strong>"
 msgstr "Um einen oder mehrere Einträge auf einmal hinzuzufügen, <strong>markiere die Checkbox neben den Einträgen und klicke auf &#8222;Zum Menü hinzufügen&#8220;</strong>."
+
+#: wp-admin/nav-menus.php:538
+msgid "This screen is used for managing your custom navigation menus."
+msgstr "Hier kannst Du deine individuellen Menüs erstellen, bearbeiten und verwalten."
+
+#: wp-admin/nav-menus.php:541
+msgid "Create, edit, and delete menus"
+msgstr "Menüs erstellen, bearbeiten und löschen."
+
+#: wp-admin/nav-menus.php:542
+msgid "Add, organize, and modify individual menu items"
+msgstr "Einzelne Menüeinträge hinzufügen, anordnen und ändern."
+
+#: wp-admin/nav-menus.php:566
+msgid "Delete a menu item by <strong>expanding it and clicking the Remove link</strong>"
+msgstr "Entferne einen Menüeintrag, indem du ihn <strong>aufklappst und auf den Entfernen-Link klickst</strong>."
 
 #: wp-admin/includes/revision.php:383
 msgid "Restore This Revision"
@@ -3780,13 +3780,13 @@ msgstr "Entwurf erstellt am %1$s um %2$s"
 msgid "Take over"
 msgstr "Übernehmen"
 
-#: wp-admin/post.php:218
-msgid "You cannot move this item to the Trash. %s is currently editing."
-msgstr "Du kannst dieses Element nicht in den Papierkorb verschieben. %s bearbeitet es gerade."
-
 #: wp-admin/includes/misc.php:788
 msgid "%s has taken over and is currently editing."
-msgstr "%s hat übernommen und bearbeitet gerade."
+msgstr "%s hat übernommen und bearbeitet momentan."
+
+#: wp-admin/post.php:218
+msgid "You cannot move this item to the Trash. %s is currently editing."
+msgstr "Dieser Beitrag kann nicht in den Papierkorb verschoben werden, da er momentan von %s bearbeitet wird."
 
 #: wp-admin/nav-menus.php:736
 msgid "or <a href=\"%s\">create a new menu</a>."
@@ -3847,7 +3847,7 @@ msgstr "Für PHP-Dateien kannst du über die Auswahlliste \"Dokumentation:\" Hil
 #: wp-admin/includes/class-wp-posts-list-table.php:905
 #: wp-admin/includes/misc.php:749
 msgid "%s is currently editing"
-msgstr "%s bearbeitet zeitgleich"
+msgstr "%s bearbeitet momentan"
 
 #: wp-admin/edit-form-advanced.php:419
 msgid "You can upload and insert media (images, audio, documents, etc.) by clicking the Add Media button. You can select from the images and files already uploaded to the Media Library, or upload new media to add to your page or post. To create an image gallery, select the images to add and click the &#8220;Create a new gallery&#8221; button."
@@ -4100,25 +4100,9 @@ msgstr "Füge zusätzliche Seiten hinzu"
 msgid "Add a blog post"
 msgstr "Erstelle einen Beitrag"
 
-#: wp-admin/includes/plugin-install.php:306
-msgid "If you have marked plugins as favorites on WordPress.org, you can browse them here."
-msgstr "Wenn du Plugins auf WordPress.org als Favoriten markiert hast, kannst du sie hier durchsuchen."
-
 #: wp-admin/install.php:189 wp-admin/options-reading.php:115
 msgid "Allow search engines to index this site"
 msgstr "Erlaubt Suchmaschinen, diese Website zu indexieren."
-
-#: wp-admin/plugin-install.php:79
-msgid "If you know what you&#8217;re looking for, Search is your best bet. The Search screen has options to search the WordPress.org Plugin Directory for a particular Term, Author, or Tag. You can also search the directory by selecting popular tags. Tags in larger type mean more plugins have been labeled with that tag."
-msgstr "Wenn du weißt, wonach du suchst, dann nutze die Suchfunktion. Die Suchseite bietet Optionen an, um das offizielle Plugin-Verzeichnis auf WordPress.org nach passenden Begriffen, Autoren oder Tags zu durchsuchen. Du kannst das Verzeichnis auch nach beliebten Schlüsselwörtern durchsuchen. "
-
-#: wp-admin/plugin-install.php:81
-msgid "You can also browse a user&#8217;s favorite plugins, by using the Favorites link in the upper left of the screen and entering their WordPress.org username."
-msgstr "Du kannst auch nach Plugin-Favoriten suchen, die angemeldete Benutzer auf WordPress.org angelegt haben. Benutze dazu den Link zu den Favoriten oben links und gib einen Benutzernamen  ein, dessen Favoriten du gerne durchsuchen möchtest."
-
-#: wp-admin/plugin-install.php:82
-msgid "If you want to install a plugin that you&#8217;ve downloaded elsewhere, click the Upload link in the upper left. You will be prompted to upload the .zip package, and once uploaded, you can activate the new plugin."
-msgstr "Möchtest du ein Plugin installieren, das du irgendwo heruntergeladen hast, kannst du es hier hochladen. Im Dateidialog wählst du dann die passende .zip-Datei aus und sobald diese hochgeladen wurde, kannst du das Plugin aktivieren."
 
 #: wp-admin/setup-config.php:186
 msgid "Below you should enter your database connection details. If you&#8217;re not sure about these, contact your host."
@@ -4127,6 +4111,22 @@ msgstr "Hier sollten die Zugangsdaten zu deiner Datenbank eingetragen werden. Im
 #: wp-admin/includes/update-core.php:1222 wp-admin/update-core.php:502
 msgid "Welcome to WordPress %1$s. You will be redirected to the About WordPress screen. If not, click <a href=\"%2$s\">here</a>."
 msgstr "Willkommen bei WordPress %1$s. Du wirst zur Seite „Über WordPress“ weitergeleitet. Falls nicht, klicke <a href=\"%2$s\">hier</a>."
+
+#: wp-admin/plugin-install.php:82
+msgid "If you want to install a plugin that you&#8217;ve downloaded elsewhere, click the Upload link in the upper left. You will be prompted to upload the .zip package, and once uploaded, you can activate the new plugin."
+msgstr "Möchtest du ein Plugin installieren, das du irgendwo heruntergeladen hast, kannst du es hier hochladen. Im Dateidialog wählst du dann die passende zip-Datei aus und sobald diese hochgeladen wurde, kannst du das Plugin aktivieren."
+
+#: wp-admin/plugin-install.php:81
+msgid "You can also browse a user&#8217;s favorite plugins, by using the Favorites link in the upper left of the screen and entering their WordPress.org username."
+msgstr "Du kannst auch nach Plugins, die bestimmte WordPress.org Benutzer favorisiert haben, suchen. Benutze dazu den Link &#8222;Favoriten&#8220; und gib den Benutzernamen ein, dessen Favoriten du gerne anzeigen möchtest."
+
+#: wp-admin/plugin-install.php:79
+msgid "If you know what you&#8217;re looking for, Search is your best bet. The Search screen has options to search the WordPress.org Plugin Directory for a particular Term, Author, or Tag. You can also search the directory by selecting popular tags. Tags in larger type mean more plugins have been labeled with that tag."
+msgstr "Wenn du weißt, wonach du suchst, dann nutze die Suchfunktion. Damit kannst du im offiziellen WordPress.org Plugin-Verzeichnis nach bestimmten Begriffen, Autoren oder (englischen) Schlagwörtern suchen. Du kannst dich auch von der Liste populärer Schlagwörter inspirieren lassen. Die Schlagwörter erscheinen umso größer, je häufiger sie vergeben wurden."
+
+#: wp-admin/includes/plugin-install.php:306
+msgid "If you have marked plugins as favorites on WordPress.org, you can browse them here."
+msgstr "Falls du (oder ein anderes Mitglied) Plugins auf WordPress.org als Favoriten markiert hast, kannst du sie hier durchsuchen."
 
 #: wp-admin/edit-form-advanced.php:405
 msgid "This screen allows you to edit four fields for metadata in a file within the media library."
@@ -4139,7 +4139,7 @@ msgstr "Dieses <a href=\"%1$s\">Child-Theme</a> benötigt das Eltern-Theme %2$s,
 #: wp-admin/includes/class-wp-plugin-install-list-table.php:97
 msgctxt "Plugin Installer"
 msgid "Favorites"
-msgstr "Deine Favoriten"
+msgstr "Favoriten"
 
 #: wp-admin/includes/theme.php:257
 msgid "Flexible Header"
@@ -4925,7 +4925,7 @@ msgstr "Reparieren der %1$s Tabelle fehlgeschlagen. Fehler: %2$s"
 
 #: wp-admin/export.php:48
 msgid "You can export a file of your site&#8217;s content in order to import it into another installation or platform. The export file will be an XML file format called WXR. Posts, pages, comments, custom fields, categories, and tags can be included. You can choose for the WXR file to include only certain posts or pages by setting the dropdown filters to limit the export by category, author, date range by month, or publishing status."
-msgstr "Du kannst die Inhalte deiner Website in eine Datei exportieren, um sie ggf. in eine andere Installation zu importieren. Die Exportdatei wird im XML-Format gespeichert, auch WXR gennant. Beiträge, statische Seiten, Kommentare, benutzerdefinierte Felder, Kategorien und Tags werden exportiert. Du kannst die Inhalte vor dem Export filtern, indem du den Export nach Kategorie, Autor, Datum, Zeiträumen oder Status limitierst."
+msgstr "Die Inhalte deiner Website können in eine Datei exportiert werden, um diese wieder in eine andere Installation zu importieren. Das Format der Exportdatei ist ein spezielles XML-Format, auch WXR (WordPress eXtended Rss) Datei genannt. Beim Export können Beiträge, Seiten, Kommentare, benutzerdefinierte Inhaltstypen, Kategorien und Schlagwörter inkludiert werden. Du kannst die Inhalte der WXR-Datei vorab auch filtern, indem du die Exportdaten z.B. auf Seiten, Beiträge und/oder Medien beschränkst, und diese wiederum durch Kategorie, Autor, Zeitraum oder Status weiter ausselektierst."
 
 #: wp-admin/user-new.php:176
 msgid "New users will receive an email letting them know they&#8217;ve been added as a user for your site. This email will also contain their password. Check the box if you don&#8217;t want the user to receive a welcome email."
@@ -5096,10 +5096,6 @@ msgstr ""
 msgid "Screen Display"
 msgstr "Bildschirmanzeige"
 
-#: wp-admin/upload.php:200
-msgid "Attaching Files"
-msgstr "Dateien anhängen"
-
 #: wp-admin/update-core.php:570
 msgid "How to Update"
 msgstr "Wie aktualisiere ich WordPress?"
@@ -5115,10 +5111,6 @@ msgstr "Bildschirminhalt"
 #: wp-admin/plugin-install.php:77
 msgid "Adding Plugins"
 msgstr "Plugins hinzufügen"
-
-#: wp-admin/user-new.php:195
-msgid "Subscribers can read comments/comment/receive newsletters, etc. but cannot create regular site content."
-msgstr "Abonennten können nur Kommentare lesen und abgeben, aber keine eigenen Inhalte erstellen."
 
 #: wp-admin/user-new.php:193
 msgid "Here is a basic overview of the different user roles and the permissions associated with each one:"
@@ -5144,10 +5136,6 @@ msgstr "Du musst dem neuen Benutzer ein Passwort zuweisen, welches er aber jeder
 msgid "Moderating Comments"
 msgstr "Kommentare moderieren"
 
-#: wp-admin/plugin-install.php:73
-msgid "Plugins hook into WordPress to extend its functionality with custom features. Plugins are developed independently from the core WordPress application by thousands of developers all over the world. All plugins in the official <a href=\"%s\" target=\"_blank\">WordPress.org Plugin Directory</a> are compatible with the license WordPress uses. You can find new plugins to install by searching or browsing the Directory right here in your own Plugins section."
-msgstr "Plugins binden sich in WordPress ein, um neue Funktionen einzubringen. Plugins werden unabhängig von vielen verschiedenen Entwicklern auf der ganzen Welt entwickelt. Alle Plugins im offiziellen <a href=\"%s\" target=\"_blank\">WordPress.org Plugin-Verzeichnis</a> sind kostenlos und sind kompatibel mit der von WordPress verwendeten Lizenz (GPLv2). Du kannst neue Plugins direkt aus deinem WordPress heraus suchen und installieren."
-
 #: wp-admin/edit.php:219
 msgid "When using Bulk Edit, you can change the metadata (categories, author, etc.) for all selected posts at once. To remove a post from the grouping, just click the x next to its name in the Bulk Edit area that appears."
 msgstr "Beim Massenbearbeiten von Beiträgen kannst du für mehrere Beiträge auf einmal z. B. die Kategoriezuordnung, Schlagwörter, Autor, Veröffentlichungsstatus und mehr verändern. Um einen Beitrag nachträglich von der Massenbearbeitung zu entfernen, klicke auf das kleine X-Symbol neben dem Titel."
@@ -5164,10 +5152,6 @@ msgstr "Um einen neuen Benutzer zu deiner Website hinzuzufügen, fülle das Form
 msgid "Once you&#8217;ve saved the download file, you can use the Import function in another WordPress installation to import the content from this site."
 msgstr "Nach dem Speichern der Datei kannst du die Importfunktion einer anderen WordPress-Installation benutzen, um die Inhalte dieser Website zu importieren."
 
-#: wp-admin/user-new.php:197
-msgid "Authors can publish and manage their own posts, and are able to upload files."
-msgstr "Autoren können ihre eigenen Beiträge veröffentlichen und verwalten sowie Dateien hochladen."
-
 #: wp-admin/tools.php:104
 msgid "If you want to convert your categories to tags (or vice versa), use the <a href=\"%s\">Categories and Tags Converter</a> available from the Import screen."
 msgstr "Wenn Du deine Kategorien in Schlagwörter umwandeln willst (oder umgekehrt), benutze den <a href=\"%s\">Kategorie-in-Schlagwort-Konverter</a> der unter Werkzeuge &#8594; Daten importieren verfügbar ist."
@@ -5183,6 +5167,22 @@ msgstr "Auf dieser Seite siehst du all deine Beiträge. Du kannst über &#8222;A
 #: wp-admin/edit.php:218
 msgid "You can also edit or move multiple posts to the trash at once. Select the posts you want to act on using the checkboxes, then select the action you want to take from the Bulk Actions menu and click Apply."
 msgstr "Es können auch mehrere Beiträge auf einmal bearbeitet werden. Markiere dazu die gewünschten Beiträge, wähle im Auswahlmenü &#8222;Aktion wählen&#8220; die gewünschte Aktion und klicke anschließend auf den Button &#8222;Übernehmen&#8220;."
+
+#: wp-admin/upload.php:200
+msgid "Attaching Files"
+msgstr "Dateien verknüpfen"
+
+#: wp-admin/plugin-install.php:73
+msgid "Plugins hook into WordPress to extend its functionality with custom features. Plugins are developed independently from the core WordPress application by thousands of developers all over the world. All plugins in the official <a href=\"%s\" target=\"_blank\">WordPress.org Plugin Directory</a> are compatible with the license WordPress uses. You can find new plugins to install by searching or browsing the Directory right here in your own Plugins section."
+msgstr "Plugins integrieren sich in WordPress, um neue Funktionen einzubringen. Plugins werden unabhängig von vielen verschiedenen Entwicklern auf der ganzen Welt entwickelt. Alle Plugins im offiziellen <a href=\"%s\" target=\"_blank\">WordPress.org Plugin-Verzeichnis</a> sind kostenlos und kompatibel mit der von WordPress verwendeten Lizenz (GPLv2). Du kannst neue Plugins direkt aus WordPress heraus suchen und installieren."
+
+#: wp-admin/user-new.php:195
+msgid "Subscribers can read comments/comment/receive newsletters, etc. but cannot create regular site content."
+msgstr "Abonnenten können nur Kommentare lesen und abgeben, aber keine eigenen Inhalte erstellen."
+
+#: wp-admin/user-new.php:197
+msgid "Authors can publish and manage their own posts, and are able to upload files."
+msgstr "Autoren können ihre eigenen Beiträge veröffentlichen und verwalten, und auch Dateien hochladen."
 
 #: wp-admin/options-permalink.php:187
 msgid "Common Settings"
@@ -5282,10 +5282,6 @@ msgstr "Die Links in der Leiste in der oberen Bildschirmhälfte verbinden das Da
 msgid "In the <strong>Author</strong> column, in addition to the author&#8217;s name, email address, and blog URL, the commenter&#8217;s IP address is shown. Clicking on this link will show you all the comments made from this IP address."
 msgstr "In der Spalte <strong>Autor</strong> werden Daten wie der Name, E-Mail-Adresse, Seiten-Adresse und IP-Adresse des Kommentierenden angezeigt. Klickst du auf die IP-Adresse, siehst du alle Kommentare, die mit dieser IP-Adresse abgegeben wurden."
 
-#: wp-admin/upload.php:202
-msgid "If a media file has not been attached to any content, you will see that in the Uploaded To column, and can click on Attach to launch a small popup that will allow you to search for existing content and attach the file."
-msgstr "Falls eine Datei in keinem Beitrag oder Seite verwendet wird, so wird dies in der Spalte <em>Verwendet in</em> kenntlich gemacht. Mit einem Klick auf <em>Verknüpfen</em> kannst du Beiträge oder Seiten suchen, mit denen du die Datei verknüpfen möchtest."
-
 #: wp-admin/edit-form-advanced.php:385 wp-admin/edit.php:233
 msgid "Pages are similar to posts in that they have a title, body text, and associated metadata, but they are different in that they are not part of the chronological blog stream, kind of like permanent posts. Pages are not categorized or tagged, but can have a hierarchy. You can nest pages under other pages by making one the &#8220;Parent&#8221; of the other, creating a group of pages."
 msgstr "Seiten sind Beiträgen recht ähnlich. Sie haben einen Titel, Inhalt und weitere Metadaten. Sie erscheinen jedoch nicht im chronologischen Ablauf der Beiträge und können auch nicht mit Kategorien und Schlagwörtern verknüpft werden. Dafür können Seiten hierarchisch angeordnet beziehungsweise verschachtelt werden, indem einer Seite &#8222;Eltern&#8220; verpasst werden, also eine andere Seite als übergeordnete Seite festgelegt wird."
@@ -5307,6 +5303,10 @@ msgstr "Du kannst Kommentare auf die gleiche Art und Weise verwalten, wie du es 
 #: wp-admin/edit.php:239
 msgid "Managing pages is very similar to managing posts, and the screens can be customized in the same way."
 msgstr "Seiten zu verwalten ist genauso einfach wie das Verwalten von Beiträgen und du hast ebenso die Möglichkeit, über &#8222;Ansicht anpassen&#8220; die Einstellungen zu ändern."
+
+#: wp-admin/upload.php:202
+msgid "If a media file has not been attached to any content, you will see that in the Uploaded To column, and can click on Attach to launch a small popup that will allow you to search for existing content and attach the file."
+msgstr "Falls eine Datei in keinem Beitrag oder Seite verwendet wird, so wird dies in der Spalte &#8222;Hochgeladen zu&#8220; kenntlich gemacht. Mit einem Klick auf &#8222;Verknüpfen&#8220; kannst du Beiträge oder Seiten suchen, mit denen du die Datei verknüpfen möchtest."
 
 #: wp-admin/link-manager.php:48
 msgid "Links may be separated into Link Categories; these are different than the categories used on your posts."
@@ -6501,15 +6501,15 @@ msgstr "Wenn du einen Link löschst, dann wird er dauerhaft entfernt, da es noch
 msgid "Contributors can write and manage their posts but not publish posts or upload media files."
 msgstr "Mitarbeiter können eigene Beiträge schreiben und bearbeiten, sie jedoch nicht veröffentlichen. Auch dürfen sie keine Dateien hochladen."
 
-#: wp-admin/user-new.php:199
-msgid "Administrators have access to all the administration features."
-msgstr "Administratoren haben Zugriff auf alle administrativen Funktionen."
-
 #: wp-admin/link-manager.php:47
 msgid "You can add links here to be displayed on your site, usually using <a href=\"%s\">Widgets</a>. By default, links to several sites in the WordPress community are included as examples."
 msgstr ""
 "Auf dieser Seite kannst du deine Links verwalten und neue hinzufügen. Die Links kannst du auf deiner Website zum Beispiel mittels eines <a href=\"%s\">Widgets</a> anzeigen lassen. \n"
 "Standardmäßig sind bereits einige Links aus der WordPress-Community als Beispiele eingetragen. Du darfst diese aber auch selbstverständlich löschen."
+
+#: wp-admin/user-new.php:199
+msgid "Administrators have access to all the administration features."
+msgstr "Administratoren haben vollen Zugriff auf alle administrativen Funktionen."
 
 #: wp-admin/edit-form-advanced.php:379
 msgid "You can also create posts with the <a href=\"%s\">Press This bookmarklet</a>."
@@ -6541,7 +6541,7 @@ msgstr "Der Benutzername kann nicht geändert werden. Jedoch können die anderen
 
 #: wp-admin/user-new.php:198
 msgid "Editors can publish posts, manage posts as well as manage other people&#8217;s posts, etc."
-msgstr "Redakteure können Beiträge und Seiten anlegen und veröffentlichen sowie die Beiträge, Seiten etc. von anderen Benutzern verwalten."
+msgstr "Redakteure können Beiträge und Seiten veröffentlichen und verwalten, und auch die Beiträge, Seiten, etc. von anderen Benutzern verwalten."
 
 #: wp-admin/comment.php:45
 msgid "You can edit the information left in a comment if needed. This is often useful when you notice that a commenter has made a typographical error."
@@ -6639,13 +6639,13 @@ msgstr "Attribute"
 msgid "Need help? Use the Help tab in the upper right of your screen."
 msgstr "Benötigst du Hilfe? Klicke auf den Button &#8222;Hilfe&#8220; in der rechten oberen Ecke des Bildschirms."
 
-#: wp-admin/import.php:22
-msgid "This screen lists links to plugins to import data from blogging/content management platforms. Choose the platform you want to import from, and click Install Now when you are prompted in the popup window. If your platform is not listed, click the link to search the plugin directory for other importer plugins to see if there is one for your platform."
-msgstr "Wenn du Beiträge oder Kommentare in anderen Blogsystemen hast, kann WordPress sie importieren. Wähle dazu das System aus und bestätige im darauf folgenden Fenster die Installation des Importers. Falls der von dir benötigte Importer hier nicht aufgeführt ist, kannst du auch im WordPress.org Plugin-Verzeichnis nach einem passenden Importer-Plugin suchen."
-
 #: wp-admin/export.php:49
 msgid "Once generated, your WXR file can be imported by another WordPress site or by another blogging platform able to access this format."
-msgstr "Die generierte WXR-Datei kann in eine beliebige andere WordPress-Installation oder eine Blogging-Plattform importiert werden, die das Format unterstützt."
+msgstr "Die generierte WXR-Datei kann in eine beliebige andere WordPress-Installation oder eine Blogging-Plattform importiert werden, die dieses Format unterstützt. (Beachte bitte, dass diese Export-Funktion kein vollständiges Backup aller Dateien erstellt. Dies kann durch entsprechende Backup Plugins realisiert werden.)"
+
+#: wp-admin/import.php:22
+msgid "This screen lists links to plugins to import data from blogging/content management platforms. Choose the platform you want to import from, and click Install Now when you are prompted in the popup window. If your platform is not listed, click the link to search the plugin directory for other importer plugins to see if there is one for your platform."
+msgstr "Hier findest du eine Liste von Plugins, mit denen du Daten aus anderen Blog- oder CMS-Systemen importieren kannst. Wähle die Plattform, aus der du importieren möchtest und klicke auf &#8222;Installieren&#8220; sobald du in einem Pop-up Fenster dazu aufgefordert wirst. Sollte deine Plattform hier nicht aufgelistet sein, kannst du über das WordPress.org Plugin-Verzeichnis nach einem geeigneten Import-Plugin suchen, um dort hoffentlich etwas für deinen Daten-Import zu finden."
 
 #: wp-admin/link-manager.php:49
 msgid "You can customize the display of this screen using the Screen Options tab and/or the dropdown filters above the links table."
@@ -7041,7 +7041,7 @@ msgstr "Du hast nicht die erforderlichen Rechte, um den Inhalt dieser Website zu
 
 #: wp-admin/import.php:64
 msgid "If you have posts or comments in another system, WordPress can import those into this site. To get started, choose a system to import from below:"
-msgstr "Wenn du Beiträge oder Kommentare in anderen Blogsystemen hast, kann WordPress sie importieren. Wähle dazu unten das System aus, das du importieren möchtest:"
+msgstr "Wenn du Beiträge oder Kommentare in anderen Blogsystemen hast, kann WordPress diese importieren. Wähle dazu unten das System, aus dem du importieren möchtest:"
 
 #: wp-admin/includes/nav-menu.php:326 wp-admin/includes/nav-menu.php:601
 msgid "No items."
@@ -10198,10 +10198,6 @@ msgstr "Das Plugin hat eine unerwartete Ausgabe erzeugt."
 msgid "Could not fully remove the plugin(s) %s."
 msgstr "Das Plugin konnte nicht vollständig entfernt werden: %s."
 
-#: wp-admin/includes/class-wp-media-list-table.php:504
-msgid "(Unattached)"
-msgstr "(Nirgendwo verwendet)"
-
 #: wp-admin/includes/class-wp-media-list-table.php:154
 #: wp-admin/includes/class-wp-media-list-table.php:512
 #: wp-admin/includes/class-wp-media-list-table.php:692
@@ -10697,6 +10693,10 @@ msgstr "Eine weitere %s Website"
 #: wp-admin/includes/plugin-install.php:289
 msgid "Plugin zip file"
 msgstr "Plugin zip-Datei"
+
+#: wp-admin/includes/class-wp-media-list-table.php:504
+msgid "(Unattached)"
+msgstr "(Nicht verknüpft)"
 
 #: wp-admin/includes/ajax-actions.php:1769
 #: wp-admin/includes/class-wp-posts-list-table.php:543
