@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-04-21 22:32:40+0000\n"
+"PO-Revision-Date: 2016-04-23 15:29:29+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -4019,10 +4019,6 @@ msgstr "Jetzt loslegen"
 msgid "Uploaded on: <b>%1$s</b>"
 msgstr "Hochgeladen am: <b>%1$s</b>"
 
-#: wp-admin/includes/plugin-install.php:312 wp-admin/theme-install.php:173
-msgid "Get Favorites"
-msgstr "Favoriten anzeigen"
-
 #: wp-admin/includes/template.php:1256
 msgid "The privacy options group has been removed. Use another settings group."
 msgstr "Die Optionengruppe für die Privatsphäreneinstellungen wurden entfernt. Bitte nutze andere Einstellungsgruppen."
@@ -4127,6 +4123,10 @@ msgstr "Wenn du weißt, wonach du suchst, dann nutze die Suchfunktion. Damit kan
 #: wp-admin/includes/plugin-install.php:306
 msgid "If you have marked plugins as favorites on WordPress.org, you can browse them here."
 msgstr "Falls du (oder ein anderes Mitglied) Plugins auf WordPress.org als Favoriten markiert hast, kannst du sie hier durchsuchen."
+
+#: wp-admin/includes/plugin-install.php:312 wp-admin/theme-install.php:173
+msgid "Get Favorites"
+msgstr "Favoriten auflisten"
 
 #: wp-admin/edit-form-advanced.php:405
 msgid "This screen allows you to edit four fields for metadata in a file within the media library."
@@ -8491,10 +8491,6 @@ msgstr "Das Theme %s konnte nicht vollständig entfernt werden."
 msgid "An automated WordPress update has failed to complete - <a href=\"%s\">please attempt the update again now</a>."
 msgstr "Ein automatisches Update konnte nicht beendet werden – <a href=\"%s\">Bitte starte das Update jetzt erneut</a>."
 
-#: wp-admin/update-core.php:258 wp-admin/update-core.php:268
-msgid "Compatibility with WordPress %1$s: 100%% (according to its author)"
-msgstr "Kompatibilität mit WordPress %1$s: 100%% (laut dem Autor)"
-
 #: wp-admin/maint/repair.php:141
 msgid "Some database problems could not be repaired. Please copy-and-paste the following list of errors to the <a href=\"%s\">WordPress support forums</a> to get additional assistance."
 msgstr "Einige Datenbankprobleme konnten nicht behoben werden. Du kannst anhand der folgenden Fehlerauflistung in den <a href=\"%s\">WordPress Hilfeforen (engl.)</a> oder im <a href=\"http://forum.wpde.org\">WordPress Deutschland Forum</a> nach Hilfe fragen."
@@ -8644,10 +8640,6 @@ msgstr "Plugin-Seite aufrufen"
 #: wp-admin/options-discussion.php:216 wp-admin/options-discussion.php:217
 msgid "Default Avatar"
 msgstr "Standard-Avatar"
-
-#: wp-admin/edit-form-advanced.php:457 wp-admin/options-discussion.php:14
-msgid "Discussion Settings"
-msgstr "Diskussions-Einstellungen"
 
 #: wp-admin/options-writing.php:117
 msgid "To post to WordPress by email you must set up a secret email account with POP3 access. Any mail received at this address will be posted, so it&#8217;s a good idea to keep this address very secret. Here are three random strings you could use: <kbd>%s</kbd>, <kbd>%s</kbd>, <kbd>%s</kbd>."
@@ -8824,6 +8816,14 @@ msgstr "<strong>Fehler</strong>: Bitte gib ein Passwort ein."
 #: wp-admin/includes/theme-install.php:143
 msgid "If you have a theme in a .zip format, you may install it by uploading it here."
 msgstr "Wenn du ein Theme im .zip-Format hast, kannst du es hier hochladen."
+
+#: wp-admin/edit-form-advanced.php:457 wp-admin/options-discussion.php:14
+msgid "Discussion Settings"
+msgstr "Einstellungen &rsaquo; Diskussion"
+
+#: wp-admin/update-core.php:258 wp-admin/update-core.php:268
+msgid "Compatibility with WordPress %1$s: 100%% (according to its author)"
+msgstr "Kompatibilität mit WordPress %1$s: 100%% (laut Autor)"
 
 #: wp-admin/includes/class-wp-upgrader.php:1347
 msgid "Theme installed successfully."

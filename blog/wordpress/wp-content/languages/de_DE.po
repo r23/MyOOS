@@ -564,38 +564,38 @@ msgstr "Veröffentlichter Titel:"
 msgid "Author:"
 msgstr "Autor:"
 
-#: wp-includes/wp-db.php:1538
+#: wp-includes/wp-db.php:1546
 msgid "Are you sure that you have typed the correct hostname?"
 msgstr "Bist du sicher, dass du den Hostnamen richtig eingegeben hast?"
 
-#: wp-includes/wp-db.php:1539 wp-includes/wp-db.php:1642
+#: wp-includes/wp-db.php:1547 wp-includes/wp-db.php:1650
 msgid "Are you sure that the database server is running?"
 msgstr "Bist du sicher, dass der Datenbank-Server läuft?"
 
 #. translators: %s: support forums URL
-#: wp-includes/wp-db.php:1544 wp-includes/wp-db.php:1648
+#: wp-includes/wp-db.php:1552 wp-includes/wp-db.php:1656
 msgid "If you&#8217;re unsure what these terms mean you should probably contact your host. If you still need help you can always visit the <a href=\"%s\">WordPress Support Forums</a>."
 msgstr "Wenn du unsicher bist, was diese Begriffe bedeuten, solltest du lieber deinen Hostinganbieter kontaktieren. Wenn du dann weiterhin Hilfe benötigst, kannst du stets die <a href=\"%s\">WordPress Support Foren</a> besuchen."
 
-#: wp-includes/wp-db.php:1633
+#: wp-includes/wp-db.php:1641
 msgid "Error reconnecting to the database"
 msgstr "Fehler beim erneuten Verbinden mit der Datenbank"
 
-#: wp-includes/wp-db.php:1643
+#: wp-includes/wp-db.php:1651
 msgid "Are you sure that the database server is not under particularly heavy load?"
 msgstr "Bist du sicher, dass der Datenbank-Server nicht überlastet ist?"
 
 #. translators: %s: database host
-#: wp-includes/wp-db.php:1637
+#: wp-includes/wp-db.php:1645
 msgid "This means that we lost contact with the database server at %s. This could mean your host&#8217;s database server is down."
 msgstr "Das bedeutet, dass wir die Verbindung zum Datenbank-Server unter %s verloren haben. Möglicherweise ist der Datenbank-Server deines Hosting-Anbieters derzeit nicht verfügbar."
 
 #. translators: 1: wp-config.php. 2: database host
-#: wp-includes/wp-db.php:1531
+#: wp-includes/wp-db.php:1539
 msgid "This either means that the username and password information in your %1$s file is incorrect or we can&#8217;t contact the database server at %2$s. This could mean your host&#8217;s database server is down."
 msgstr "Das bedeutet entweder, dass die Information über den Benutzernamen und das Passwort in deiner %1$s Datei nicht korrekt ist, oder wir können den Datenbank-Server auf %2$s nicht erreichen. Es könnte sein, dass der Datenbank-Server deines Hosts ausgefallen ist."
 
-#: wp-includes/wp-db.php:1537
+#: wp-includes/wp-db.php:1545
 msgid "Are you sure you have the correct username and password?"
 msgstr "Bist du sicher, dass Benutzername und Passwort stimmen?"
 
@@ -3405,7 +3405,7 @@ msgid "Current header"
 msgstr "Aktuelles Header-Bild"
 
 #: wp-includes/admin-bar.php:145 wp-includes/wp-db.php:1085
-#: wp-includes/wp-db.php:1545 wp-includes/wp-db.php:1649 wp-login.php:789
+#: wp-includes/wp-db.php:1553 wp-includes/wp-db.php:1657 wp-login.php:789
 msgid "https://wordpress.org/support/"
 msgstr "https://de.wordpress.org/hilfe/"
 
@@ -4813,7 +4813,7 @@ msgid "Database Error"
 msgstr "Datenbankfehler"
 
 #: wp-includes/functions.php:3598 wp-includes/ms-load.php:286
-#: wp-includes/wp-db.php:1527
+#: wp-includes/wp-db.php:1535
 msgid "Error establishing a database connection"
 msgstr "Fehler beim Aufbau einer Datenbankverbindung"
 
@@ -7000,7 +7000,7 @@ msgstr "<strong>Fehler:</strong> Bitte gib deine E-Mail-Adresse ein."
 msgid "<strong>ERROR</strong>: The email address isn&#8217;t correct."
 msgstr "<strong>Fehler:</strong> Die E-Mail-Adresse ist ungültig."
 
-#: wp-includes/wp-db.php:3142
+#: wp-includes/wp-db.php:3150
 msgid "<strong>ERROR</strong>: WordPress %1$s requires MySQL %2$s or higher"
 msgstr "<strong>Fehler:</strong> WordPress %1$s benötigt mindestens MySQL %2$s"
 
