@@ -4,11 +4,12 @@ Plugin Name: Really Simple CAPTCHA
 Plugin URI: http://contactform7.com/captcha/
 Description: Really Simple CAPTCHA is a CAPTCHA module intended to be called from other plugins. It is originally created for my Contact Form 7 plugin.
 Author: Takayuki Miyoshi
-Version: 1.8.0.1
 Author URI: http://ideasilo.wordpress.com/
+Text Domain: really-simple-captcha
+Version: 1.9
 */
 
-/*  Copyright 2007-2015 Takayuki Miyoshi (email: takayukister at gmail.com)
+/*  Copyright 2007-2016 Takayuki Miyoshi (email: takayukister at gmail.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,7 +26,7 @@ Author URI: http://ideasilo.wordpress.com/
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-define( 'REALLYSIMPLECAPTCHA_VERSION', '1.8.0.1' );
+define( 'REALLYSIMPLECAPTCHA_VERSION', '1.9' );
 
 class ReallySimpleCaptcha {
 
@@ -68,10 +69,10 @@ class ReallySimpleCaptcha {
 		$this->img_type = 'png';
 
 		/* Mode of temporary image files */
-		$this->file_mode = 0444;
+		$this->file_mode = 0644;
 
 		/* Mode of temporary answer text files */
-		$this->answer_file_mode = 0440;
+		$this->answer_file_mode = 0640;
 	}
 
 	/**
@@ -99,8 +100,9 @@ class ReallySimpleCaptcha {
 	 * @return string|bool The file name of the CAPTCHA image. Return false if temp directory is not available.
 	 */
 	public function generate_image( $prefix, $word ) {
-		if ( ! $this->make_tmp_dir() )
+		if ( ! $this->make_tmp_dir() ) {
 			return false;
+		}
 
 		$this->cleanup();
 
@@ -201,8 +203,9 @@ class ReallySimpleCaptcha {
 			$salt = $code[0];
 			$hash = $code[1];
 
-			if ( hash_hmac( 'md5', $response, $salt ) == $hash )
+			if ( hash_hmac( 'md5', $response, $salt ) == $hash ) {
 				return true;
+			}
 		}
 
 		return false;
@@ -214,15 +217,15 @@ class ReallySimpleCaptcha {
 	 * @param string $prefix File prefix
 	 */
 	public function remove( $prefix ) {
+		$dir = trailingslashit( $this->tmp_dir );
 		$suffixes = array( '.jpeg', '.gif', '.png', '.php', '.txt' );
 
 		foreach ( $suffixes as $suffix ) {
-			$dir = trailingslashit( $this->tmp_dir );
 			$filename = sanitize_file_name( $prefix . $suffix );
 			$file = $this->normalize_path( $dir . $filename );
 
 			if ( @is_file( $file ) ) {
-				unlink( $file );
+				@unlink( $file );
 			}
 		}
 	}
@@ -233,31 +236,42 @@ class ReallySimpleCaptcha {
 	 * @param int $minutes Consider older files than this time as dead files
 	 * @return int|bool The number of removed files. Return false if error occurred.
 	 */
-	public function cleanup( $minutes = 60 ) {
+	public function cleanup( $minutes = 60, $max = 100 ) {
 		$dir = trailingslashit( $this->tmp_dir );
 		$dir = $this->normalize_path( $dir );
 
-		if ( ! @is_dir( $dir ) || ! @is_readable( $dir ) )
+		if ( ! @is_dir( $dir ) || ! @is_readable( $dir ) ) {
 			return false;
+		}
 
 		$is_win = ( 'WIN' === strtoupper( substr( PHP_OS, 0, 3 ) ) );
 
-		if ( ! ( $is_win ? win_is_writable( $dir ) : @is_writable( $dir ) ) )
+		if ( ! ( $is_win ? win_is_writable( $dir ) : @is_writable( $dir ) ) ) {
 			return false;
+		}
 
 		$count = 0;
 
 		if ( $handle = @opendir( $dir ) ) {
 			while ( false !== ( $filename = readdir( $handle ) ) ) {
-				if ( ! preg_match( '/^[0-9]+\.(php|txt|png|gif|jpeg)$/', $filename ) )
+				if ( ! preg_match( '/^[0-9]+\.(php|txt|png|gif|jpeg)$/', $filename ) ) {
 					continue;
+				}
 
 				$file = $this->normalize_path( $dir . $filename );
 
 				$stat = @stat( $file );
 				if ( ( $stat['mtime'] + $minutes * 60 ) < time() ) {
-					@unlink( $file );
+					if ( ! @unlink( $file ) ) {
+						@chmod( $file, 0644 );
+						@unlink( $file );
+					}
+
 					$count += 1;
+				}
+
+				if ( $max <= $count ) {
+					break;
 				}
 			}
 
@@ -276,13 +290,15 @@ class ReallySimpleCaptcha {
 		$dir = trailingslashit( $this->tmp_dir );
 		$dir = $this->normalize_path( $dir );
 
-		if ( ! wp_mkdir_p( $dir ) )
+		if ( ! wp_mkdir_p( $dir ) ) {
 			return false;
+		}
 
 		$htaccess_file = $this->normalize_path( $dir . '.htaccess' );
 
-		if ( file_exists( $htaccess_file ) )
+		if ( file_exists( $htaccess_file ) ) {
 			return true;
+		}
 
 		if ( $handle = @fopen( $htaccess_file, 'w' ) ) {
 			fwrite( $handle, 'Order deny,allow' . "\n" );
@@ -311,5 +327,3 @@ class ReallySimpleCaptcha {
 		return $path;
 	}
 }
-
-?>
