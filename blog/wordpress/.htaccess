@@ -1176,7 +1176,7 @@ Options -Indexes
 	RewriteRule ^wp\-content/uploads/.*\.(?:php[1-6]?|pht|phtml?)$ - [NC,F]
 		
 	# Rules to block unneeded HTTP methods
-	RewriteCond %{REQUEST_METHOD} ^(TRACE|DELETE|TRACK) [NC]
+	RewriteCond %{REQUEST_METHOD} ^(connect|debug|delete|move|put|trace|track) [NC]
 	RewriteRule ^(.*)$ - [F]
 		
 	# Rules to block suspicious URIs
@@ -1192,6 +1192,14 @@ Options -Indexes
 	RewriteCond %{QUERY_STRING} base64_encode.*\(.*\) [NC,OR]
 	RewriteCond %{QUERY_STRING} ^.*(%24&x).* [NC,OR]
 	RewriteCond %{QUERY_STRING} ^.*(127\.0).* [NC,OR]
+	RewriteCond %{QUERY_STRING} (eval\() [NC,OR]
+	RewriteCond %{QUERY_STRING} ([a-z0-9]{2000}) [NC,OR]
+	RewriteCond %{QUERY_STRING} (javascript:)(.*)(;) [NC,OR]
+	RewriteCond %{QUERY_STRING} (GLOBALS|REQUEST)(=|\[|%) [NC,OR]
+	RewriteCond %{QUERY_STRING} (\\|\.\.\.|\.\./|~|`|<|>|\|) [NC,OR]
+	RewriteCond %{QUERY_STRING} (boot\.ini|etc/passwd|self/environ) [NC,OR]
+	RewriteCond %{QUERY_STRING} (thumbs?(_editor|open)?|tim(thumb)?)\.php [NC,OR]
+	RewriteCond %{QUERY_STRING} (\'|\")(.*)(drop|insert|md5|select|union) [NC,OR]
 	RewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]
 	RewriteCond %{QUERY_STRING} ^.*(request|concat|insert|union|declare).* [NC]
 	RewriteCond %{QUERY_STRING} !^loggedout=true
@@ -1207,6 +1215,17 @@ Options -Indexes
 	RewriteCond %{HTTP_REFERER} !^https?://(([^/]+\.)?localhost|jetpack\.wordpress\.com/jetpack-comment)(/|$) [NC]
 	RewriteRule ^.* - [F]	
 </IfModule>
+
+
+# 5G:[WordPress]
+<ifModule mod_rewrite.c>
+	RedirectMatch 403 /\$\&
+	RedirectMatch 403 (?i)/\&(t|title)=
+	RedirectMatch 403 (?i)/\.(bash|git|hg|log|svn|swp|tar)
+	RedirectMatch 403 (?i)/(1|contact|i|index1|iprober|phpinfo|phpspy|product|signup|t|test|timthumb|tz|visit|webshell|wp-signup).php
+	RedirectMatch 403 (?i)/(author-panel|class|database|manage|phpMyAdmin|register|submit-articles|system|usage|webmaster)/?$
+	RedirectMatch 403 (?i)/(=|_mm|cgi|cvs|dbscripts|jsp|rnd|shadow|userfiles)
+</ifModule>
 
 
 # BEGINN CACHIFY
