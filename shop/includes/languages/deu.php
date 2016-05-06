@@ -395,14 +395,13 @@ $aLang['error_products_quantity_invalid'] = 'Fehler: Menge: ';
 $aLang['error_products_quantity_order_units_text'] = '';
 $aLang['error_products_units_invalid'] = 'Fehler: Menge ';
 
-$aLang['error_destination_does_not_exist'] = 'Error: Destination does not exist.';
-$aLang['error_destination_not_writeable'] = 'Error: Destination not writeable.';
-$aLang['error_file_not_saved'] = 'Error: File upload not saved.';
-$aLang['error_filetype_not_allowed'] = 'Error: File upload type not allowed.';
+$aLang['error_destination_does_not_exist'] = 'Fehler: Speicherort existiert nicht.';
+$aLang['error_destination_not_writeable'] = 'Fehler: Speicherort ist nicht beschreibbar.';
+$aLang['error_file_not_saved'] = 'Fehler: Datei wurde nicht gespeichert.';
+$aLang['error_filetype_not_allowed'] =  'Fehler: Dateityp ist nicht erlaubt.';
 $aLang['success_file_saved_successfully'] = 'Erfolg: Datei erfolgreich hochgeladen.';
-$aLang['warning_no_file_uploaded'] = 'Warning: No file uploaded.';
+$aLang['warning_no_file_uploaded'] = 'Warnung: Es wurde keine Datei hochgeladen.';
 $aLang['warning_file_uploads_disabled'] = 'Warning: File uploads are disabled in the php.ini configuration file.';
-
 
 
 $aLang['err404'] = '404 Fehlermeldung';

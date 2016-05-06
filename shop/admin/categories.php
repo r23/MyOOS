@@ -21,12 +21,12 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-require 'includes/lib/jquery-file-upload/UploadHandler.php';
-
 require 'includes/functions/function_categories.php';
 require 'includes/functions/function_image_resize.php';
 require 'includes/functions/function_gd.php';
 require 'includes/classes/class_currencies.php';
+require 'includes/classes/class_upload.php';
+
 
 $currencies = new currencies();
 
@@ -89,6 +89,7 @@ if (!empty($action)) {
 
 		case 'insert_category':
 		case 'update_category':
+		
 			$nStatus = (isset($_POST['categories_status']) ? 1 : 0);
 			$sort_order = oos_db_prepare_input($_POST['sort_order']);
 			if (isset($_POST['categories_id'])) $categories_id = oos_db_prepare_input($_POST['categories_id']);
@@ -151,6 +152,47 @@ if (!empty($action)) {
               $dbconn->Execute("UPDATE " . $oostable['categories'] . " SET categories_image = '" . $categories_image['name'] . "' WHERE categories_id = '" . oos_db_input($categories_id) . "'");
               oos_get_copy_uploaded_file($categories_image, $image_directory);
             }
+			
+        $pi_sort_order = 0;
+        $piArray = array(0);
+
+        foreach ($_FILES as $key => $value) {
+// Update existing large product images
+          if (preg_match('/^products_image_large_([0-9]+)$/', $key, $matches)) {
+            $pi_sort_order++;
+
+            $sql_data_array = array('htmlcontent' => tep_db_prepare_input($_POST['products_image_htmlcontent_' . $matches[1]]),
+                                    'sort_order' => $pi_sort_order);
+
+            $t = new upload($key);
+            $t->set_destination(DIR_FS_CATALOG_IMAGES);
+            if ($t->parse() && $t->save()) {
+              $sql_data_array['image'] = tep_db_prepare_input($t->filename);
+            }
+
+            tep_db_perform(TABLE_PRODUCTS_IMAGES, $sql_data_array, 'update', "products_id = '" . (int)$products_id . "' and id = '" . (int)$matches[1] . "'");
+
+            $piArray[] = (int)$matches[1];
+          } elseif (preg_match('/^products_image_large_new_([0-9]+)$/', $key, $matches)) {
+// Insert new large product images
+            $sql_data_array = array('products_id' => (int)$products_id,
+                                    'htmlcontent' => tep_db_prepare_input($_POST['products_image_htmlcontent_new_' . $matches[1]]));
+
+            $t = new upload($key);
+            $t->set_destination(DIR_FS_CATALOG_IMAGES);
+            if ($t->parse() && $t->save()) {
+              $pi_sort_order++;
+
+              $sql_data_array['image'] = tep_db_prepare_input($t->filename);
+              $sql_data_array['sort_order'] = $pi_sort_order;
+
+              tep_db_perform(TABLE_PRODUCTS_IMAGES, $sql_data_array);
+
+              $piArray[] = tep_db_insert_id();
+            }
+          }
+        }
+			
 			if (isset($_POST['add_image'])) {
 				oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;cID=' . $categories_id . '&amp;action=' . 'edit_category' . (isset($_POST['tab']) ? '&tab=' . intval($_POST['tab']) : '')));				
 			} else {

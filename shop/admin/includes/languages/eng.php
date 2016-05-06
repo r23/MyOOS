@@ -365,24 +365,14 @@ define('TEXT_TOP', 'Top');
 define('ENTRY_TAX_YES','Yes');
 define('ENTRY_TAX_NO','No');
 
+$aLang['error_destination_does_not_exist'] = 'Error: Destination does not exist.';
+$aLang['error_destination_not_writeable'] = 'Error: Destination not writeable.';
+$aLang['error_file_not_saved'] = 'Error: File upload not saved.';
+$aLang['error_filetype_not_allowed'] = 'Error: File upload type not allowed.';
+$aLang['success_file_saved_successfully'] = 'Erfolg: Datei erfolgreich hochgeladen.';
+$aLang['warning_no_file_uploaded'] = 'Warning: No file uploaded.';
+$aLang['warning_file_uploads_disabled'] = 'Warning: File uploads are disabled in the php.ini configuration file.';
 
-// reports box text in includes/boxes/affiliate.php
-define('BOX_HEADING_AFFILIATE', 'Affiliates');
-define('BOX_AFFILIATE_SUMMARY', 'Summary');
-define('BOX_AFFILIATE', 'Affiliates');
-define('BOX_AFFILIATE_PAYMENT', 'Payment');
-define('BOX_AFFILIATE_BANNERS', 'Banners');
-define('BOX_AFFILIATE_CONTACT', 'Contact');
-define('BOX_AFFILIATE_SALES', 'Sales');
-define('BOX_AFFILIATE_CLICKS', 'Clicks');
-
-define ('BOX_HEADING_TICKET','Supporttickets');
-define ('BOX_TICKET_VIEW','Tickets');
-define ('BOX_TEXT_ADMIN','Admins');
-define ('BOX_TEXT_DEPARTMENT','Departments');
-define ('BOX_TEXT_PRIORITY','Priorities');
-define ('BOX_TEXT_REPLY','Replys');
-define ('BOX_TEXT_STATUS','Statuse');
 
 define('BOX_HEADING_GV_ADMIN', 'Vouchers/Coupons');
 define('BOX_GV_ADMIN_QUEUE', 'Gift Voucher Queue');

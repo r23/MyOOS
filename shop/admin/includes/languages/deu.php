@@ -371,23 +371,15 @@ define('TEXT_TOP', 'Top');
 define('ENTRY_YES','ja');
 define('ENTRY_NO','nein');
 
-// reports box text in includes/boxes/affiliate.php
-define('BOX_HEADING_AFFILIATE', 'Partnerprogramm');
-define('BOX_AFFILIATE_SUMMARY', 'Zusammenfassung');
-define('BOX_AFFILIATE', 'Partner');
-define('BOX_AFFILIATE_PAYMENT', 'Provisionszahlungen');
-define('BOX_AFFILIATE_BANNERS', 'Banner');
-define('BOX_AFFILIATE_CONTACT', 'Kontakt');
-define('BOX_AFFILIATE_SALES', 'Partner Verk&auml;ufe');
-define('BOX_AFFILIATE_CLICKS', 'Klicks');
+$aLang['error_destination_does_not_exist'] = 'Fehler: Speicherort existiert nicht.';
+$aLang['error_destination_not_writeable'] = 'Fehler: Speicherort ist nicht beschreibbar.';
+$aLang['error_file_not_saved'] = 'Fehler: Datei wurde nicht gespeichert.';
+$aLang['error_filetype_not_allowed'] =  'Fehler: Dateityp ist nicht erlaubt.';
+$aLang['success_file_saved_successfully'] = 'Erfolg: Datei erfolgreich hochgeladen.';
+$aLang['warning_no_file_uploaded'] = 'Warnung: Es wurde keine Datei hochgeladen.';
+$aLang['warning_file_uploads_disabled'] = 'Warning: File uploads are disabled in the php.ini configuration file.';
 
-define ('BOX_HEADING_TICKET','Supporttickets');
-define ('BOX_TICKET_VIEW','Tickets');
-define ('BOX_TEXT_ADMIN','Admins');
-define ('BOX_TEXT_DEPARTMENT','Departments');
-define ('BOX_TEXT_PRIORITY','Pririt&auml;ten');
-define ('BOX_TEXT_REPLY','Antworten');
-define ('BOX_TEXT_STATUS','Statuse');
+
 
 define('BOX_HEADING_GV_ADMIN', 'Gutscheine');
 define('BOX_GV_ADMIN_QUEUE', 'Gutschein Queue');
