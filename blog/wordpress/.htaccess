@@ -1138,22 +1138,29 @@ Options -Indexes
 #		Deny from all
 #	</IfModule>
 #</files>
-#<IfModule mod_setenvif.c>
-#    <Files xmlrpc.php>
-#        BrowserMatch "Poster" allowed
-#        BrowserMatch "WordPress" allowed
-#        BrowserMatch "Windows Live Writer" allowed
-#        BrowserMatch "wp-iphone" allowed
-#        BrowserMatch "wp-android" allowed
-#        BrowserMatch "wp-windowsphone" allowed
-#
-#        Order Deny,Allow
-#        Deny from All
-#        Allow from env=allowed
-#    </Files>
-#</IfModule>
 
-
+<IfModule mod_setenvif.c>
+    <Files xmlrpc.php>
+        BrowserMatch "Poster" allowed
+        BrowserMatch "WordPress" allowed
+        BrowserMatch "Windows Live Writer" allowed
+        BrowserMatch "wp-iphone" allowed
+        BrowserMatch "wp-android" allowed
+        BrowserMatch "wp-windowsphone" allowed
+		
+		# Apache < 2.3
+		<IfModule !mod_authz_core.c>
+			Order Deny,Allow
+			Deny from All
+			Allow from env=allowed
+		</IfModule>
+		
+		# Apache ≥ 2.3
+		<IfModule mod_authz_core.c>
+			Require env allowed
+		</IfModule>	
+    </Files>
+</IfModule>
 <IfModule mod_rewrite.c>
 	RewriteEngine On
 	RewriteBase /
