@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-05-01 18:17:12+0000\n"
+"PO-Revision-Date: 2016-05-19 09:18:26+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -275,7 +275,7 @@ msgstr "Fehler beim Speichern der neuen E-Mail-Adresse. Bitte versuche es noch e
 #. translators: %s: new email
 #: wp-admin/user-edit.php:403
 msgid "There is a pending change of your email to %s."
-msgstr "Es gibt eine ausstehende Änderung deiner E-Mail an %s."
+msgstr "Eine Änderung deiner E-Mail-Adresse in %s steht noch aus."
 
 #. translators: %s: edit page url
 #: wp-admin/user-new.php:250
@@ -332,7 +332,7 @@ msgstr "%1$s von %2$s"
 #. translators: %s: new admin email
 #: wp-admin/options-general.php:110
 msgid "There is a pending change of the admin email to %s."
-msgstr "Eine Änderung der Administratoren-E-Mail für %s ist noch ausstehend."
+msgstr "Eine Änderung der Administratoren-E-Mail-Adresse in %s steht noch aus."
 
 #. translators: 1: UTC abbreviation, 2: UTC time
 #: wp-admin/options-general.php:158
@@ -341,7 +341,7 @@ msgstr "Weltzeit (%1$s) ist %2$s."
 
 #: wp-admin/index.php:109
 msgid "Dismiss the welcome panel"
-msgstr "Blende das Begrüßungs-Feld aus"
+msgstr "Den Willkommen-Bereich ausblenden"
 
 #. translators: %s: wp-config.php
 #: wp-admin/install.php:253
@@ -4798,7 +4798,7 @@ msgstr "Bis zu der WordPress-Version 3.0, nun Multisite Netzwerk genannt, musste
 
 #: wp-admin/setup-config.php:49
 msgid "Sorry, I need a wp-config-sample.php file to work from. Please re-upload this file to your WordPress installation."
-msgstr "Die wp-config-sample.php-Datei ist erforderlich. Bitte lade sie erneut zu deiner WordPres-Installation hoch."
+msgstr "Die wp-config-sample.php-Datei ist erforderlich. Bitte lade sie erneut zu deiner WordPress-Installation hoch."
 
 #. translators: %s: install.php
 #: wp-admin/setup-config.php:55
@@ -5906,7 +5906,7 @@ msgstr "Mitwirkende"
 #: wp-admin/widgets.php:386
 msgctxt "removing-widget"
 msgid "Deactivate"
-msgstr "Deaktivieren"
+msgstr "Deaktiviere"
 
 #: wp-admin/credits.php:118
 msgid "Cofounder, Project Lead"
