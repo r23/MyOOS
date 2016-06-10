@@ -2,21 +2,21 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-03-13 21:53:48+0000\n"
+"PO-Revision-Date: 2016-04-24 11:46:33+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/1.1.0-alpha\n"
+"X-Generator: GlotPress/2.1.0-alpha\n"
 "Project-Id-Version: Stable (latest release)\n"
 
 #: classes/WP_Piwik/Admin/Settings.php:275
 msgid "Display Name (Not Recommended!)"
-msgstr ""
+msgstr "Öffentlicher Name (Nicht empfohlen!)"
 
 #: classes/WP_Piwik/Admin/Settings.php:276
 msgid "When a user is logged in to WordPress, track their &quot;User ID&quot;. You can select which field from the User's profile is tracked as the &quot;User ID&quot;. When enabled, Tracking based on Email Address is recommended."
-msgstr ""
+msgstr "Tracke die User-ID, wenn ein Benutzer bei WordPress angemeldet ist. Du kannst auswählen, welches Feld des Benutzerprofils als User-ID getracked wird. Das Tracking basierend auf der E-Mail-Adresse wird empfohlen."
 
 #: classes/WP_Piwik/Admin/Settings.php:274
 msgid "Username"
@@ -24,11 +24,11 @@ msgstr "Nutzername"
 
 #: classes/WP_Piwik/Admin/Settings.php:270
 msgid "User ID Tracking"
-msgstr ""
+msgstr "User-ID Tracking"
 
 #: classes/WP_Piwik/Admin/Settings.php:272
 msgid "WP User ID"
-msgstr ""
+msgstr "WP User-ID"
 
 #: classes/WP_Piwik/Admin/Settings.php:273
 msgid "Email Address"
@@ -40,7 +40,7 @@ msgstr "heute"
 
 #: classes/WP_Piwik/Widget.php:248
 msgid "current month"
-msgstr ""
+msgstr "aktueller Monat"
 
 #: classes/WP_Piwik/Widget.php:253
 msgid "last month"
@@ -48,7 +48,7 @@ msgstr "letzter Monat"
 
 #: classes/WP_Piwik/Widget.php:258
 msgid "current week"
-msgstr ""
+msgstr "aktuelle Woche"
 
 #: classes/WP_Piwik/Widget.php:263
 msgid "last week"
@@ -64,7 +64,7 @@ msgstr "die letzten 30 Tage"
 
 #: classes/WP_Piwik/Admin/Settings.php:64
 msgid "WP-Piwik %s was not able to connect to Piwik using your configuration. During connection the following error occured: <br /><code>%s</code>"
-msgstr ""
+msgstr "WP-Piwik %s konnte sich mit den gegebenen Einstellungen nicht mit Piwik verbinden. Während dem Verbindungsversuch ist folgender Fehler aufgetreten: <br /><code>%s</code>"
 
 #: classes/WP_Piwik/Widget/Pages.php:18
 msgid "Page"
@@ -620,7 +620,7 @@ msgstr "Andere"
 msgid "Browsers"
 msgstr "Browser"
 
-#: classes/WP_Piwik/Widget/Chart.php:19 classes/WP_Piwik/Widget/Overview.php:41
+#: classes/WP_Piwik/Widget/Chart.php:19 classes/WP_Piwik/Widget/Overview.php:45
 #: classes/WP_Piwik/Widget/Post.php:37 classes/WP_Piwik/Widget/Visitors.php:17
 msgid "Visitors"
 msgstr "Besucher"
@@ -666,31 +666,31 @@ msgstr "Abspr&uuml;nge"
 msgid "Overview"
 msgstr "&Uuml;bersicht"
 
-#: classes/WP_Piwik/Widget/Overview.php:42 classes/WP_Piwik/Widget/Post.php:38
+#: classes/WP_Piwik/Widget/Overview.php:46 classes/WP_Piwik/Widget/Post.php:38
 msgid "Unique visitors"
 msgstr "Eindeutige Besucher"
 
-#: classes/WP_Piwik/Widget/Overview.php:43 classes/WP_Piwik/Widget/Post.php:39
+#: classes/WP_Piwik/Widget/Overview.php:47 classes/WP_Piwik/Widget/Post.php:39
 msgid "Page views"
 msgstr "Page Views"
 
-#: classes/WP_Piwik/Widget/Overview.php:44 classes/WP_Piwik/Widget/Post.php:40
+#: classes/WP_Piwik/Widget/Overview.php:48 classes/WP_Piwik/Widget/Post.php:40
 msgid "Total time spent"
 msgstr "Verbrachte Zeit"
 
-#: classes/WP_Piwik/Widget/Overview.php:45 classes/WP_Piwik/Widget/Post.php:42
+#: classes/WP_Piwik/Widget/Overview.php:49 classes/WP_Piwik/Widget/Post.php:42
 msgid "Bounce count"
 msgstr "Absprungrate"
 
-#: classes/WP_Piwik/Widget/Overview.php:48 classes/WP_Piwik/Widget/Post.php:41
+#: classes/WP_Piwik/Widget/Overview.php:52 classes/WP_Piwik/Widget/Post.php:41
 msgid "Time/visit"
 msgstr "Zeit/Besuch"
 
-#: classes/WP_Piwik/Widget/Overview.php:48
+#: classes/WP_Piwik/Widget/Overview.php:52
 msgid "Max. page views in one visit"
 msgstr "Max. Seiten/Besuch"
 
-#: classes/WP_Piwik/Widget/Overview.php:49 classes/WP_Piwik/Widget/Post.php:46
+#: classes/WP_Piwik/Widget/Overview.php:53 classes/WP_Piwik/Widget/Post.php:46
 msgid "Shortcut"
 msgstr "Shortcut"
 
@@ -788,7 +788,7 @@ msgstr "%s aktualisiert auf %s."
 msgid "Please validate your configuration"
 msgstr "Bitte &uuml;berpr&uuml;fe Deine Konfiguration"
 
-#: classes/WP_Piwik.php:260 classes/WP_Piwik.php:494
+#: classes/WP_Piwik.php:260 classes/WP_Piwik.php:495
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -796,19 +796,19 @@ msgstr "Einstellungen"
 msgid "Important"
 msgstr "Wichtig"
 
-#: classes/WP_Piwik.php:356 classes/WP_Piwik.php:378
+#: classes/WP_Piwik.php:357 classes/WP_Piwik.php:379
 msgid "Piwik Statistics"
 msgstr "Piwik Statistiken"
 
-#: classes/WP_Piwik.php:466
+#: classes/WP_Piwik.php:467
 msgid "Configure WP-Piwik"
 msgstr "Konfiguriere WP-Piwik"
 
-#: classes/WP_Piwik.php:924
+#: classes/WP_Piwik.php:925
 msgid "An error occured"
 msgstr "Ein Fehler ist aufgetreten"
 
-#: classes/WP_Piwik.php:1197
+#: classes/WP_Piwik.php:1198
 msgid "Cheatin&#8217; uh?"
 msgstr "Schummelst wohl?"
 
@@ -868,7 +868,7 @@ msgstr "Aktiviere Tracking"
 msgid "Expert Settings"
 msgstr "Expertenkonfiguration"
 
-#: classes/WP_Piwik/Admin/Settings.php:89 classes/WP_Piwik.php:924
+#: classes/WP_Piwik/Admin/Settings.php:89 classes/WP_Piwik.php:925
 msgid "Support"
 msgstr "Support"
 

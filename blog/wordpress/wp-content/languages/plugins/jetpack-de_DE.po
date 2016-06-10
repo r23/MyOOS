@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-05-02 18:41:42+0000\n"
+"PO-Revision-Date: 2016-05-02 21:22:22+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -837,7 +837,7 @@ msgstr "Comics-Liste"
 
 #: modules/custom-post-types/nova.php:151
 msgid "Menu item label list navigation"
-msgstr "Listennavigation der Speisekarten-Eintrags Kennzeichnung"
+msgstr "Listennavigation der Speisekarten-Eintrag Label"
 
 #: modules/custom-css/custom-css.php:1293
 msgid "Show all"
@@ -1068,9 +1068,9 @@ msgstr "Erlaube individuellen Administratoren ihre Verbindungen mit  <a href=\"/
 msgid "Protect whitelist"
 msgstr "Protect Positivliste"
 
-#. #-#-#-#-#  tmp-jetpack.pot (Jetpack by WordPress.com 4.0.2)  #-#-#-#-#
+#. #-#-#-#-#  tmp-jetpack.pot (Jetpack by WordPress.com 4.0.3)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  tmp-jetpack.pot (Jetpack by WordPress.com 4.0.2)  #-#-#-#-#
+#. #-#-#-#-#  tmp-jetpack.pot (Jetpack by WordPress.com 4.0.3)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "http://jetpack.com"
 msgstr "http://jetpack.com"
@@ -5470,7 +5470,7 @@ msgstr ""
 #. translators: this is about a food menu
 #: modules/custom-post-types/nova.php:130
 msgid "Menu Item Labels"
-msgstr "Speisekarten-Eintrag Labels"
+msgstr "Labels für Speisen"
 
 #. translators: this is about a food menu
 #: modules/custom-post-types/nova.php:132
@@ -5514,7 +5514,7 @@ msgstr "Neues Label hinzufügen"
 #. translators: this is about a food menu
 #: modules/custom-post-types/nova.php:147
 msgid "New Menu Item Label Name"
-msgstr "Neue Bezeichnung der Speisekarten-Eintrag Kennzeichnung"
+msgstr "Neues Speisekarten-Eintrags-Label"
 
 #: modules/custom-post-types/nova.php:148
 msgid "For example, spicy, favorite, etc. <br /> Separate Labels with commas"
@@ -5550,17 +5550,17 @@ msgstr "Speisekarten-Abschnitte durchsuchen"
 #. translators: this is about a food menu
 #: modules/custom-post-types/nova.php:169
 msgid "All Menu Sections"
-msgstr "Alle Speisekarten-Abschnitte"
+msgstr "Alle Abschnitte"
 
 #. translators: this is about a food menu
 #: modules/custom-post-types/nova.php:171
 msgid "Parent Menu Section"
-msgstr "Übergeordneter Speisekarten-Abschnitt"
+msgstr "Übergeordneter Abschnitt"
 
 #. translators: this is about a food menu
 #: modules/custom-post-types/nova.php:173
 msgid "Parent Menu Section:"
-msgstr "Übergeordneter Speisekarten-Abschnitt:"
+msgstr "Übergeordneter Abschnitt:"
 
 #. translators: this is about a food menu
 #: modules/custom-post-types/nova.php:175
@@ -5580,12 +5580,12 @@ msgstr "Speisekarten-Abschnitt aktualisieren"
 #. translators: this is about a food menu
 #: modules/custom-post-types/nova.php:181
 msgid "Add New Menu Section"
-msgstr "Neuen Speisekarten-Abschnitt hinzufügen"
+msgstr "Neuen Abschnitt hinzufügen"
 
 #. translators: this is about a food menu
 #: modules/custom-post-types/nova.php:183
 msgid "New Menu Sections Name"
-msgstr "Bezeichnung des neuen Speisekarten-Abschnitts"
+msgstr "Neuer Speisekarten-Abschnitts-Name"
 
 #: modules/custom-post-types/nova.php:205
 msgid "Items on your restaurant's menu"
@@ -5690,7 +5690,7 @@ msgstr "Speisekarten-Eintrag-Entwurf aktualisiert. <a target=\"_blank\" href=\"%
 #. translators: this is about a food menu
 #: modules/custom-post-types/nova.php:318
 msgid "Enter the menu item's name here"
-msgstr "Gib den Namen des Speisekarten-Eintrags hier ein"
+msgstr "Gib hier den Namen der Speise ein"
 
 #: modules/custom-post-types/nova.php:333
 #: modules/custom-post-types/nova.php:338
@@ -5716,7 +5716,7 @@ msgstr "Miniaturbild"
 
 #: modules/custom-post-types/nova.php:495
 msgid "Labels"
-msgstr "Kennzeichnungen"
+msgstr "Labels"
 
 #: modules/custom-post-types/nova.php:496
 #: modules/custom-post-types/nova.php:914
@@ -5732,7 +5732,7 @@ msgstr "Reihenfolge"
 #: modules/custom-post-types/nova.php:560
 #: modules/custom-post-types/nova.php:611
 msgid "Save New Order"
-msgstr "Neue Ordnung speichern"
+msgstr "Neue Anordnung speichern"
 
 #: modules/custom-post-types/nova.php:805
 msgid "edit"
@@ -5744,7 +5744,7 @@ msgstr "Allgemein"
 
 #: modules/custom-post-types/nova.php:814
 msgid "Move menu section up"
-msgstr "Menü-Bereich nach oben verschieben"
+msgstr "Speisekarten-Abschnitt nach oben verschieben"
 
 #: modules/custom-post-types/nova.php:814
 msgid "UP"
@@ -5752,7 +5752,7 @@ msgstr "HOCH"
 
 #: modules/custom-post-types/nova.php:816
 msgid "Move menu section down"
-msgstr "Menü-Bereich nach unten verschieben"
+msgstr "Speisekarten-Abschnitt nach unten verschieben"
 
 #: modules/custom-post-types/nova.php:816
 msgid "DOWN"
@@ -5768,7 +5768,7 @@ msgstr "Dem Abschnitt hinzufügen:"
 
 #: modules/custom-post-types/nova.php:915
 msgid "Labels: <small>spicy, favorite, etc. <em>Separate Labels with commas</em></small>"
-msgstr "Labels: <small>scharf, Favorit, usw. <em>Labels werden durch Kommas getrennt</em></small>"
+msgstr "Labels: <small>scharf, mild, vegan, usw. <em>Labels werden durch Kommas getrennt.</em></small>"
 
 #: modules/custom-post-types/nova.php:916
 msgid "Description"
@@ -5780,7 +5780,7 @@ msgstr "Neue Zeile"
 
 #: modules/custom-post-types/nova.php:946
 msgid "Add These New Menu Items"
-msgstr "Diese neuen Speisekarten-Einträge hinzufügen"
+msgstr "Neue Einträge hinzufügen"
 
 #: modules/custom-post-types/nova.php:1033
 #: modules/custom-post-types/nova.php:1052
@@ -7003,7 +7003,7 @@ msgstr "Im Jetpack Plugin ist die aktuellste Version des früheren &#8222;%1$s&#
 msgid "Home"
 msgstr "Startseite"
 
-#. #-#-#-#-#  tmp-jetpack.pot (Jetpack by WordPress.com 4.0.2)  #-#-#-#-#
+#. #-#-#-#-#  tmp-jetpack.pot (Jetpack by WordPress.com 4.0.3)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: class.jetpack.php:3584 class.jetpack.php:3597 class.jetpack.php:4774
 #: views/admin/network-admin-header.php:5
