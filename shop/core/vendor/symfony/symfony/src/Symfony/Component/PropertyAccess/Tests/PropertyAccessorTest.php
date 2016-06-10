@@ -126,6 +126,15 @@ class PropertyAccessorTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('Bernhard', $this->propertyAccessor->getValue(new TestClassMagicGet('Bernhard'), 'magicProperty'));
     }
 
+    public function testGetValueReadsArrayWithMissingIndexForCustomPropertyPath()
+    {
+        $object = new \ArrayObject();
+        $array = array('child' => array('index' => $object));
+
+        $this->assertNull($this->propertyAccessor->getValue($array, '[child][index][foo][bar]'));
+        $this->assertSame(array(), $object->getArrayCopy());
+    }
+
     // https://github.com/symfony/symfony/pull/4450
     public function testGetValueReadsMagicGetThatReturnsConstant()
     {
@@ -233,7 +242,9 @@ class PropertyAccessorTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetValueThrowsExceptionIfNotArrayAccess()
     {
-        $this->propertyAccessor->setValue(new \stdClass(), '[index]', 'Updated');
+        $object = new \stdClass();
+
+        $this->propertyAccessor->setValue($object, '[index]', 'Updated');
     }
 
     public function testSetValueUpdatesMagicSet()
@@ -250,7 +261,9 @@ class PropertyAccessorTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetValueThrowsExceptionIfThereAreMissingParameters()
     {
-        $this->propertyAccessor->setValue(new TestClass('Bernhard'), 'publicAccessorWithMoreRequiredParameters', 'Updated');
+        $object = new TestClass('Bernhard');
+
+        $this->propertyAccessor->setValue($object, 'publicAccessorWithMoreRequiredParameters', 'Updated');
     }
 
     /**
@@ -518,7 +531,9 @@ class PropertyAccessorTest extends \PHPUnit_Framework_TestCase
      */
     public function testThrowTypeError()
     {
-        $this->propertyAccessor->setValue(new TypeHinted(), 'date', 'This is a string, \DateTime expected.');
+        $object = new TypeHinted();
+
+        $this->propertyAccessor->setValue($object, 'date', 'This is a string, \DateTime expected.');
     }
 
     public function testSetTypeHint()
@@ -528,5 +543,15 @@ class PropertyAccessorTest extends \PHPUnit_Framework_TestCase
 
         $this->propertyAccessor->setValue($object, 'date', $date);
         $this->assertSame($date, $object->getDate());
+    }
+
+    public function testArrayNotBeeingOverwritten()
+    {
+        $value = array('value1' => 'foo', 'value2' => 'bar');
+        $object = new TestClass($value);
+
+        $this->propertyAccessor->setValue($object, 'publicAccessor[value2]', 'baz');
+        $this->assertSame('baz', $this->propertyAccessor->getValue($object, 'publicAccessor[value2]'));
+        $this->assertSame(array('value1' => 'foo', 'value2' => 'baz'), $object->getPublicAccessor());
     }
 }

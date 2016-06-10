@@ -103,7 +103,7 @@ class AutowirePassTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Symfony\Component\DependencyInjection\Exception\RuntimeException
-     * @expectedExceptionMessage Unable to autowire argument of type "Symfony\Component\DependencyInjection\Tests\Compiler\CollisionInterface" for the service "a".
+     * @expectedExceptionMessage Unable to autowire argument of type "Symfony\Component\DependencyInjection\Tests\Compiler\CollisionInterface" for the service "a". Multiple services exist for this interface (c1, c2, c3).
      */
     public function testTypeCollision()
     {
@@ -111,6 +111,7 @@ class AutowirePassTest extends \PHPUnit_Framework_TestCase
 
         $container->register('c1', __NAMESPACE__.'\CollisionA');
         $container->register('c2', __NAMESPACE__.'\CollisionB');
+        $container->register('c3', __NAMESPACE__.'\CollisionB');
         $aDefinition = $container->register('a', __NAMESPACE__.'\CannotBeAutowired');
         $aDefinition->setAutowired(true);
 
@@ -120,7 +121,7 @@ class AutowirePassTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Symfony\Component\DependencyInjection\Exception\RuntimeException
-     * @expectedExceptionMessage Unable to autowire argument of type "Symfony\Component\DependencyInjection\Tests\Compiler\Foo" for the service "a".
+     * @expectedExceptionMessage Unable to autowire argument of type "Symfony\Component\DependencyInjection\Tests\Compiler\Foo" for the service "a". Multiple services exist for this class (a1, a2).
      */
     public function testTypeNotGuessable()
     {
@@ -137,7 +138,7 @@ class AutowirePassTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Symfony\Component\DependencyInjection\Exception\RuntimeException
-     * @expectedExceptionMessage Unable to autowire argument of type "Symfony\Component\DependencyInjection\Tests\Compiler\A" for the service "a".
+     * @expectedExceptionMessage Unable to autowire argument of type "Symfony\Component\DependencyInjection\Tests\Compiler\A" for the service "a". Multiple services exist for this class (a1, a2).
      */
     public function testTypeNotGuessableWithSubclass()
     {
@@ -146,6 +147,21 @@ class AutowirePassTest extends \PHPUnit_Framework_TestCase
         $container->register('a1', __NAMESPACE__.'\B');
         $container->register('a2', __NAMESPACE__.'\B');
         $aDefinition = $container->register('a', __NAMESPACE__.'\NotGuessableArgumentForSubclass');
+        $aDefinition->setAutowired(true);
+
+        $pass = new AutowirePass();
+        $pass->process($container);
+    }
+
+    /**
+     * @expectedException \Symfony\Component\DependencyInjection\Exception\RuntimeException
+     * @expectedExceptionMessage Unable to autowire argument of type "Symfony\Component\DependencyInjection\Tests\Compiler\CollisionInterface" for the service "a". No services were found matching this interface and it cannot be auto-registered.
+     */
+    public function testTypeNotGuessableNoServicesFound()
+    {
+        $container = new ContainerBuilder();
+
+        $aDefinition = $container->register('a', __NAMESPACE__.'\CannotBeAutowired');
         $aDefinition->setAutowired(true);
 
         $pass = new AutowirePass();
@@ -262,6 +278,21 @@ class AutowirePassTest extends \PHPUnit_Framework_TestCase
         $container = new ContainerBuilder();
 
         $aDefinition = $container->register('a', __NAMESPACE__.'\BadTypeHintedArgument');
+        $aDefinition->setAutowired(true);
+
+        $pass = new AutowirePass();
+        $pass->process($container);
+    }
+
+    /**
+     * @expectedException \Symfony\Component\DependencyInjection\Exception\RuntimeException
+     * @expectedExceptionMessage Cannot autowire argument 2 for Symfony\Component\DependencyInjection\Tests\Compiler\BadParentTypeHintedArgument because the type-hinted class does not exist (Class Symfony\Component\DependencyInjection\Tests\Compiler\OptionalServiceClass does not exist).
+     */
+    public function testParentClassNotFoundThrowsException()
+    {
+        $container = new ContainerBuilder();
+
+        $aDefinition = $container->register('a', __NAMESPACE__.'\BadParentTypeHintedArgument');
         $aDefinition->setAutowired(true);
 
         $pass = new AutowirePass();
@@ -397,6 +428,54 @@ class AutowirePassTest extends \PHPUnit_Framework_TestCase
             $definition->getArguments()
         );
     }
+
+    /**
+     * @dataProvider getCreateResourceTests
+     */
+    public function testCreateResourceForClass($className, $isEqual)
+    {
+        $startingResource = AutowirePass::createResourceForClass(
+            new \ReflectionClass(__NAMESPACE__.'\ClassForResource')
+        );
+        $newResource = AutowirePass::createResourceForClass(
+            new \ReflectionClass(__NAMESPACE__.'\\'.$className)
+        );
+
+        // hack so the objects don't differ by the class name
+        $startingReflObject = new \ReflectionObject($startingResource);
+        $reflProp = $startingReflObject->getProperty('class');
+        $reflProp->setAccessible(true);
+        $reflProp->setValue($startingResource, __NAMESPACE__.'\\'.$className);
+
+        if ($isEqual) {
+            $this->assertEquals($startingResource, $newResource);
+        } else {
+            $this->assertNotEquals($startingResource, $newResource);
+        }
+    }
+
+    public function getCreateResourceTests()
+    {
+        return array(
+            ['IdenticalClassResource', true],
+            ['ClassChangedConstructorArgs', false],
+        );
+    }
+
+    public function testIgnoreServiceWithClassNotExisting()
+    {
+        $container = new ContainerBuilder();
+
+        $container->register('class_not_exist', __NAMESPACE__.'\OptionalServiceClass');
+
+        $barDefinition = $container->register('bar', __NAMESPACE__.'\Bar');
+        $barDefinition->setAutowired(true);
+
+        $pass = new AutowirePass();
+        $pass->process($container);
+
+        $this->assertTrue($container->hasDefinition('bar'));
+    }
 }
 
 class Foo
@@ -509,6 +588,12 @@ class BadTypeHintedArgument
     {
     }
 }
+class BadParentTypeHintedArgument
+{
+    public function __construct(Dunglas $k, OptionalServiceClass $r)
+    {
+    }
+}
 class NotGuessableArgument
 {
     public function __construct(Foo $k)
@@ -543,6 +628,29 @@ class MultipleArgumentsOptionalScalarLast
 class MultipleArgumentsOptionalScalarNotReallyOptional
 {
     public function __construct(A $a, $foo = 'default_val', Lille $lille)
+    {
+    }
+}
+
+/*
+ * Classes used for testing createResourceForClass
+ */
+class ClassForResource
+{
+    public function __construct($foo, Bar $bar = null)
+    {
+    }
+
+    public function setBar(Bar $bar)
+    {
+    }
+}
+class IdenticalClassResource extends ClassForResource
+{
+}
+class ClassChangedConstructorArgs extends ClassForResource
+{
+    public function __construct($foo, Bar $bar, $baz)
     {
     }
 }

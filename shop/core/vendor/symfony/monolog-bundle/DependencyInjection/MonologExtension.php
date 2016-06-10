@@ -48,10 +48,13 @@ class MonologExtension extends Extension
         $configuration = $this->getConfiguration($configs, $container);
         $config = $this->processConfiguration($configuration, $configs);
 
+
         if (isset($config['handlers'])) {
             $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
             $loader->load('monolog.xml');
             $container->setAlias('logger', 'monolog.logger');
+
+            $container->setParameter('monolog.use_microseconds', $config['use_microseconds']);
 
             // always autowire the main logger, require Symfony >= 2.8
             if (method_exists('Symfony\Component\DependencyInjection\Definition', 'addAutowiringType')) {
@@ -367,6 +370,20 @@ class MonologExtension extends Extension
             ));
             break;
 
+        case 'deduplication':
+            $nestedHandlerId = $this->getHandlerId($handler['handler']);
+            $this->markNestedHandler($nestedHandlerId);
+            $defaultStore = '%kernel.cache_dir%/monolog_dedup_'.sha1($handlerId);
+
+            $definition->setArguments(array(
+                new Reference($nestedHandlerId),
+                isset($handler['store']) ? $handler['store'] : $defaultStore,
+                $handler['deduplication_level'],
+                $handler['time'],
+                $handler['bubble'],
+            ));
+            break;
+
         case 'group':
         case 'whatfailuregroup':
             $references = array();
@@ -557,6 +574,9 @@ class MonologExtension extends Extension
                 $handler['level'],
                 $handler['bubble'],
             ));
+            if (!empty($handler['release'])) {
+                $definition->addMethodCall('setRelease', array($handler['release']));
+            }
             break;
 
         case 'loggly':

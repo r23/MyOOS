@@ -40,7 +40,7 @@ class ReflectionExtractor implements PropertyListExtractorInterface, PropertyTyp
     /**
      * @internal
      *
-     * @var array[]
+     * @var string[]
      */
     public static $arrayMutatorPrefixes = array('add', 'remove');
 
@@ -294,8 +294,6 @@ class ReflectionExtractor implements PropertyListExtractorInterface, PropertyTyp
                 // Return null if the property doesn't exist
             }
         }
-
-        return;
     }
 
     /**

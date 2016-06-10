@@ -77,7 +77,7 @@ Use the <info>--parameters</info> option to display all parameters:
 
   <info>php %command.full_name% --parameters</info>
 
-Display a specific parameter by specifying his name with the <info>--parameter</info> option:
+Display a specific parameter by specifying its name with the <info>--parameter</info> option:
 
   <info>php %command.full_name% --parameter=kernel.debug</info>
 
@@ -93,25 +93,21 @@ EOF
     {
         $io = new SymfonyStyle($input, $output);
         $this->validateInput($input);
+        $object = $this->getContainerBuilder();
 
         if ($input->getOption('parameters')) {
-            $object = $this->getContainerBuilder()->getParameterBag();
+            $object = $object->getParameterBag();
             $options = array();
         } elseif ($parameter = $input->getOption('parameter')) {
-            $object = $this->getContainerBuilder();
             $options = array('parameter' => $parameter);
         } elseif ($input->getOption('tags')) {
-            $object = $this->getContainerBuilder();
             $options = array('group_by' => 'tags', 'show_private' => $input->getOption('show-private'));
         } elseif ($tag = $input->getOption('tag')) {
-            $object = $this->getContainerBuilder();
             $options = array('tag' => $tag, 'show_private' => $input->getOption('show-private'));
         } elseif ($name = $input->getArgument('name')) {
-            $object = $this->getContainerBuilder();
             $name = $this->findProperServiceName($input, $io, $object, $name);
             $options = array('id' => $name);
         } else {
-            $object = $this->getContainerBuilder();
             $options = array('show_private' => $input->getOption('show-private'));
         }
 
@@ -121,8 +117,14 @@ EOF
         $options['output'] = $io;
         $helper->describe($output, $object, $options);
 
-        if (!$input->getArgument('name') && $input->isInteractive()) {
-            $io->comment('To search for a specific service, re-run this command with a search term. (e.g. <comment>debug:container log</comment>)');
+        if (!$input->getArgument('name') && !$input->getOption('tag') && !$input->getOption('parameter') && $input->isInteractive()) {
+            if ($input->getOption('tags')) {
+                $io->comment('To search for a specific tag, re-run this command with a search term. (e.g. <comment>debug:container --tag=form.type</comment>)');
+            } elseif ($input->getOption('parameters')) {
+                $io->comment('To search for a specific parameter, re-run this command with a search term. (e.g. <comment>debug:container --parameter=kernel.debug</comment>)');
+            } else {
+                $io->comment('To search for a specific service, re-run this command with a search term. (e.g. <comment>debug:container log</comment>)');
+            }
         }
     }
 
@@ -192,7 +194,9 @@ EOF
             throw new \InvalidArgumentException(sprintf('No services found that match "%s".', $name));
         }
 
-        return $io->choice('Select one of the following services to display its information', $matchingServices);
+        $default = 1 === count($matchingServices) ? $matchingServices[0] : null;
+
+        return $io->choice('Select one of the following services to display its information', $matchingServices, $default);
     }
 
     private function findServiceIdsContaining(ContainerBuilder $builder, $name)

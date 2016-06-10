@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\PropertyAccess;
 
+use Symfony\Component\Inflector\Inflector;
 use Symfony\Component\PropertyAccess\Exception\AccessException;
 use Symfony\Component\PropertyAccess\Exception\InvalidArgumentException;
 use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
@@ -191,6 +192,7 @@ class PropertyAccessor implements PropertyAccessorInterface
                     if ($propertyPath->isIndex($i)) {
                         if ($overwrite = !isset($zval[self::REF])) {
                             $ref = &$zval[self::REF];
+                            $ref = $zval[self::VALUE];
                         }
                         $this->writeIndex($zval, $property, $value);
                         if ($overwrite) {
@@ -372,10 +374,11 @@ class PropertyAccessor implements PropertyAccessorInterface
                     }
 
                     if ($i + 1 < $propertyPath->getLength()) {
-                        $zval[self::VALUE][$property] = array();
-
                         if (isset($zval[self::REF])) {
+                            $zval[self::VALUE][$property] = array();
                             $zval[self::REF] = $zval[self::VALUE];
+                        } else {
+                            $zval[self::VALUE] = array($property => array());
                         }
                     }
                 }
@@ -680,7 +683,7 @@ class PropertyAccessor implements PropertyAccessorInterface
             $reflClass = new \ReflectionClass($class);
             $access[self::ACCESS_HAS_PROPERTY] = $reflClass->hasProperty($property);
             $camelized = $this->camelize($property);
-            $singulars = (array) StringUtil::singularify($camelized);
+            $singulars = (array) Inflector::singularize($camelized);
 
             if (is_array($value) || $value instanceof \Traversable) {
                 $methods = $this->findAdderAndRemover($reflClass, $singulars);

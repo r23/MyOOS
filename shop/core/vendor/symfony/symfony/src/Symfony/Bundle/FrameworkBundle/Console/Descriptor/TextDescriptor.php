@@ -231,7 +231,6 @@ class TextDescriptor extends Descriptor
                 $alias = $definition;
                 $tableRows[] = array_merge(array($serviceId, sprintf('alias for "%s"', $alias)), $tagsCount ? array_fill(0, $tagsCount, '') : array());
             } else {
-                // we have no information (happens with "service_container")
                 $tableRows[] = array_merge(array($serviceId, get_class($definition)), $tagsCount ? array_fill(0, $tagsCount, '') : array());
             }
         }
@@ -274,6 +273,15 @@ class TextDescriptor extends Descriptor
             $tagInformation = '-';
         }
         $tableRows[] = array('Tags', $tagInformation);
+
+        $calls = $definition->getMethodCalls();
+        if (count($calls) > 0) {
+            $callInformation = [];
+            foreach ($calls as $call) {
+                $callInformation[] = $call[0];
+            }
+            $tableRows[] = array('Calls', implode(', ', $callInformation));
+        }
 
         $tableRows[] = array('Public', $definition->isPublic() ? 'yes' : 'no');
         $tableRows[] = array('Synthetic', $definition->isSynthetic() ? 'yes' : 'no');
@@ -323,7 +331,7 @@ class TextDescriptor extends Descriptor
      */
     protected function describeContainerAlias(Alias $alias, array $options = array())
     {
-        $options['output']->comment(sprintf("This service is an alias for the service <info>%s</info>\n", (string) $alias));
+        $options['output']->comment(sprintf('This service is an alias for the service <info>%s</info>', (string) $alias));
     }
 
     /**

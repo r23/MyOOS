@@ -82,6 +82,20 @@
 
             requestStack = [],
 
+            extractHeaders = function(xhr, stackElement) {
+                /* Here we avoid to call xhr.getResponseHeader in order to */
+                /* prevent polluting the console with CORS security errors */
+                var allHeaders = xhr.getAllResponseHeaders();
+                var ret;
+
+                if (ret = allHeaders.match(/^x-debug-token:\s+(.*)$/im)) {
+                    stackElement.profile = ret[1];
+                }
+                if (ret = allHeaders.match(/^x-debug-token-link:\s+(.*)$/im)) {
+                    stackElement.profilerUrl = ret[1];
+                }
+            },
+
             renderAjaxRequests = function() {
                 var requestCounter = document.querySelectorAll('.sf-toolbar-ajax-requests');
                 if (!requestCounter.length) {
@@ -109,6 +123,19 @@
                             }
                             methodCell.textContent = request.method;
                             row.appendChild(methodCell);
+
+                            var statusCodeCell = document.createElement('td');
+                            var statusCode = document.createElement('span');
+                            if (request.statusCode < 300) {
+                                statusCode.setAttribute('class', 'sf-toolbar-status');
+                            } else if (request.statusCode < 400) {
+                                statusCode.setAttribute('class', 'sf-toolbar-status sf-toolbar-status-yellow');
+                            } else {
+                                statusCode.setAttribute('class', 'sf-toolbar-status sf-toolbar-status-red');
+                            }
+                            statusCode.textContent = request.statusCode || '-';
+                            statusCodeCell.appendChild(statusCode);
+                            row.appendChild(statusCodeCell);
 
                             var pathCell = document.createElement('td');
                             pathCell.className = 'sf-ajax-request-url';
@@ -241,8 +268,8 @@
                                 stackElement.duration = new Date() - stackElement.start;
                                 stackElement.loading = false;
                                 stackElement.error = self.status < 200 || self.status >= 400;
-                                stackElement.profile = self.getResponseHeader("X-Debug-Token");
-                                stackElement.profilerUrl = self.getResponseHeader("X-Debug-Token-Link");
+                                stackElement.statusCode = self.status;
+                                extractHeaders(self, stackElement);
 
                                 Sfjs.renderAjaxRequests();
                             }

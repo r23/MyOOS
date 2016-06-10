@@ -27,20 +27,28 @@ class SymfonyTestsListener extends \PHPUnit_Framework_BaseTestListener
     private $isSkipped = array();
 
     /**
-     * @param array $mockedNamespaces List of namespaces, indexed by mocked features (time-sensitive).
+     * @param array $mockedNamespaces List of namespaces, indexed by mocked features (time-sensitive or dns-sensitive).
      */
     public function __construct(array $mockedNamespaces = array())
     {
+        $warn = false;
         foreach ($mockedNamespaces as $type => $namespaces) {
             if (!is_array($namespaces)) {
                 $namespaces = array($namespaces);
             }
             if (is_int($type)) {
+                // @deprecated BC with v2.8 to v3.0
                 $type = 'time-sensitive';
+                $warn = true;
             }
             if ('time-sensitive' === $type) {
                 foreach ($namespaces as $ns) {
                     ClockMock::register($ns.'\DummyClass');
+                }
+            }
+            if ('dns-sensitive' === $type) {
+                foreach ($namespaces as $ns) {
+                    DnsMock::register($ns.'\DummyClass');
                 }
             }
         }
@@ -48,6 +56,9 @@ class SymfonyTestsListener extends \PHPUnit_Framework_BaseTestListener
             $this->state = -2;
         } else {
             self::$globallyEnabled = true;
+            if ($warn) {
+                echo "Clock-mocked namespaces for SymfonyTestsListener need to be nested in a \"time-sensitive\" key. This will be enforced in Symfony 4.0.\n";
+            }
         }
     }
 
@@ -94,6 +105,9 @@ class SymfonyTestsListener extends \PHPUnit_Framework_BaseTestListener
                         if (in_array('time-sensitive', $groups, true)) {
                             ClockMock::register($test->getName());
                         }
+                        if (in_array('dns-sensitive', $groups, true)) {
+                            DnsMock::register($test->getName());
+                        }
                     }
                 }
             }
@@ -134,6 +148,9 @@ class SymfonyTestsListener extends \PHPUnit_Framework_BaseTestListener
                 ClockMock::register(get_class($test));
                 ClockMock::withClockMock(true);
             }
+            if (in_array('dns-sensitive', $groups, true)) {
+                DnsMock::register(get_class($test));
+            }
         }
     }
 
@@ -144,6 +161,9 @@ class SymfonyTestsListener extends \PHPUnit_Framework_BaseTestListener
 
             if (in_array('time-sensitive', $groups, true)) {
                 ClockMock::withClockMock(false);
+            }
+            if (in_array('dns-sensitive', $groups, true)) {
+                DnsMock::withMockedHosts(array());
             }
         }
     }

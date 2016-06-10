@@ -66,6 +66,10 @@ class SecurityExtension extends Extension
         $loader->load('collectors.xml');
         $loader->load('guard.xml');
 
+        if ($container->hasParameter('kernel.debug') && $container->getParameter('kernel.debug')) {
+            $loader->load('security_debug.xml');
+        }
+
         if (!class_exists('Symfony\Component\ExpressionLanguage\ExpressionLanguage')) {
             $container->removeDefinition('security.expression_language');
             $container->removeDefinition('security.access.expression_voter');

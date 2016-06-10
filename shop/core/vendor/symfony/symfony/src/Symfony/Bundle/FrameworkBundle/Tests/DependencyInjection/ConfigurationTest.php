@@ -92,6 +92,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $processor = new Processor();
         $configuration = new Configuration(true);
+
         $processor->processConfiguration($configuration, array(
             array(
                 'secret' => 's3cr3t',
@@ -107,6 +108,8 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = $processor->processConfiguration($configuration, array(array('assets' => null)));
 
         $defaultConfig = array(
+            'enabled' => true,
+            'version_strategy' => null,
             'version' => null,
             'version_format' => '%%s?%%s',
             'base_path' => '',
@@ -115,6 +118,51 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals($defaultConfig, $config['assets']);
+    }
+
+    /**
+     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     * @expectedExceptionMessage You cannot use both "version_strategy" and "version" at the same time under "assets".
+     */
+    public function testInvalidVersionStrategy()
+    {
+        $processor = new Processor();
+        $configuration = new Configuration(true);
+        $processor->processConfiguration($configuration, array(
+            array(
+                'assets' => array(
+                    'base_urls' => '//example.com',
+                    'version' => 1,
+                    'version_strategy' => 'foo',
+                ),
+            ),
+        ));
+    }
+
+    /**
+     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     * @expectedExceptionMessage  You cannot use both "version_strategy" and "version" at the same time under "assets" packages.
+     */
+    public function testInvalidPackageVersionStrategy()
+    {
+        $processor = new Processor();
+        $configuration = new Configuration(true);
+
+        $processor->processConfiguration($configuration, array(
+            array(
+                'assets' => array(
+                    'base_urls' => '//example.com',
+                    'version' => 1,
+                    'packages' => array(
+                        'foo' => array(
+                            'base_urls' => '//example.com',
+                            'version' => 1,
+                            'version_strategy' => 'foo',
+                        ),
+                    ),
+                ),
+            ),
+        ));
     }
 
     protected static function getBundleDefaultConfig()
@@ -146,6 +194,10 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'only_master_requests' => false,
                 'dsn' => 'file:%kernel.cache_dir%/profiler',
                 'collect' => true,
+                'matcher' => array(
+                    'enabled' => false,
+                    'ips' => array(),
+                ),
             ),
             'translator' => array(
                 'enabled' => false,
@@ -159,6 +211,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'static_method' => array('loadValidatorMetadata'),
                 'translation_domain' => 'validators',
                 'strict_email' => false,
+                'cache' => 'validator.mapping.cache.symfony',
             ),
             'annotations' => array(
                 'cache' => 'file',
@@ -175,6 +228,50 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             ),
             'property_info' => array(
                 'enabled' => false,
+            ),
+            'router' => array(
+                'enabled' => false,
+                'http_port' => 80,
+                'https_port' => 443,
+                'strict_requirements' => true,
+            ),
+            'session' => array(
+                'enabled' => false,
+                'storage_id' => 'session.storage.native',
+                'handler_id' => 'session.handler.native_file',
+                'cookie_httponly' => true,
+                'gc_probability' => 1,
+                'save_path' => '%kernel.cache_dir%/sessions',
+                'metadata_update_threshold' => '0',
+            ),
+            'request' => array(
+                'enabled' => false,
+                'formats' => array(),
+            ),
+            'templating' => array(
+                'enabled' => false,
+                'hinclude_default_template' => null,
+                'form' => array(
+                    'resources' => array('FrameworkBundle:Form'),
+                ),
+                'engines' => array(),
+                'loaders' => array(),
+            ),
+            'assets' => array(
+                'enabled' => false,
+                'version_strategy' => null,
+                'version' => null,
+                'version_format' => '%%s?%%s',
+                'base_path' => '',
+                'base_urls' => array(),
+                'packages' => array(),
+            ),
+            'cache' => array(
+                'pools' => array(),
+                'app' => 'cache.adapter.filesystem',
+                'system' => 'cache.adapter.system',
+                'directory' => '%kernel.cache_dir%/pools',
+                'default_redis_provider' => 'redis://localhost',
             ),
         );
     }

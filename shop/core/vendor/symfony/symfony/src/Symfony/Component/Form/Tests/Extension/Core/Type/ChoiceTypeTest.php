@@ -30,6 +30,20 @@ class ChoiceTypeTest extends \Symfony\Component\Form\Test\TypeTestCase
         'n/a' => '',
     );
 
+    private $booleanChoicesWithNull = array(
+        'Yes' => true,
+        'No' => false,
+        'n/a' => null,
+    );
+
+    private $numericChoicesFlipped = array(
+        0 => 'Bernhard',
+        1 => 'Fabien',
+        2 => 'Kris',
+        3 => 'Jon',
+        4 => 'Roman',
+    );
+
     private $objectChoices;
 
     protected $groupedChoices = array(
@@ -135,6 +149,18 @@ class ChoiceTypeTest extends \Symfony\Component\Form\Test\TypeTestCase
         $this->assertTrue($view->children[2]->vars['checked'], 'Empty value should be pre selected');
     }
 
+    public function testExpandedChoiceListWithBooleanAndNullValues()
+    {
+        $view = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\ChoiceType', null, array(
+            'choices' => $this->booleanChoicesWithNull,
+            'expanded' => true,
+        ))->createView();
+
+        $this->assertFalse($view->children[0]->vars['checked'], 'True value should not be pre selected');
+        $this->assertFalse($view->children[1]->vars['checked'], 'False value should not be pre selected');
+        $this->assertTrue($view->children[2]->vars['checked'], 'Empty value should be pre selected');
+    }
+
     public function testExpandedChoiceListWithScalarValuesAndFalseAsPreSetData()
     {
         $view = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\ChoiceType', false, array(
@@ -146,6 +172,18 @@ class ChoiceTypeTest extends \Symfony\Component\Form\Test\TypeTestCase
         $this->assertSame('0', $view->vars['choices'][1]->value);
         $this->assertTrue($view->children[1]->vars['checked'], 'False value should be pre selected');
         $this->assertFalse($view->children[2]->vars['checked'], 'Empty value should not be pre selected');
+    }
+
+    public function testExpandedChoiceListWithBooleanAndNullValuesAndFalseAsPreSetData()
+    {
+        $view = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\ChoiceType', false, array(
+            'choices' => $this->booleanChoicesWithNull,
+            'expanded' => true,
+        ))->createView();
+
+        $this->assertFalse($view->children[0]->vars['checked'], 'True value should not be pre selected');
+        $this->assertTrue($view->children[1]->vars['checked'], 'False value should be pre selected');
+        $this->assertFalse($view->children[2]->vars['checked'], 'Null value should not be pre selected');
     }
 
     public function testPlaceholderPresentOnNonRequiredExpandedSingleChoice()
@@ -263,7 +301,7 @@ class ChoiceTypeTest extends \Symfony\Component\Form\Test\TypeTestCase
 
         $view = $form->createView();
 
-        $this->assertSame('', $view->vars['value'], 'Value should be empty');
+        $this->assertSame('', $view->vars['value'], 'Value should be an empty string');
         $this->assertSame('1', $view->vars['choices'][0]->value);
         $this->assertSame('0', $view->vars['choices'][1]->value, 'Choice "false" should have "0" as value');
         $this->assertFalse($view->children[1]->vars['checked'], 'Choice "false" should not be selected');
@@ -767,8 +805,8 @@ class ChoiceTypeTest extends \Symfony\Component\Form\Test\TypeTestCase
         $form->submit(null);
 
         $this->assertNull($form->getData());
-        $this->assertNull($form->getViewData());
-        $this->assertEmpty($form->getExtraData());
+        $this->assertSame('', $form->getViewData(), 'View data should always be a string');
+        $this->assertSame(array(), $form->getExtraData(), 'ChoiceType is compound when expanded, extra data should always be an array');
         $this->assertTrue($form->isSynchronized());
 
         $this->assertFalse($form[0]->getData());
@@ -798,8 +836,8 @@ class ChoiceTypeTest extends \Symfony\Component\Form\Test\TypeTestCase
         $form->submit(null);
 
         $this->assertNull($form->getData());
-        $this->assertNull($form->getViewData());
-        $this->assertEmpty($form->getExtraData());
+        $this->assertSame('', $form->getViewData(), 'View data should always be a string');
+        $this->assertSame(array(), $form->getExtraData(), 'ChoiceType is compound when expanded, extra data should always be an array');
         $this->assertTrue($form->isSynchronized());
     }
 
@@ -815,8 +853,8 @@ class ChoiceTypeTest extends \Symfony\Component\Form\Test\TypeTestCase
         $form->submit('');
 
         $this->assertNull($form->getData());
-        $this->assertNull($form->getViewData());
-        $this->assertEmpty($form->getExtraData());
+        $this->assertSame('', $form->getViewData(), 'View data should always be a string');
+        $this->assertSame(array(), $form->getExtraData(), 'ChoiceType is compound when expanded, extra data should always be an array');
         $this->assertTrue($form->isSynchronized());
 
         $this->assertFalse($form[0]->getData());
@@ -846,8 +884,8 @@ class ChoiceTypeTest extends \Symfony\Component\Form\Test\TypeTestCase
         $form->submit('');
 
         $this->assertNull($form->getData());
-        $this->assertNull($form->getViewData());
-        $this->assertEmpty($form->getExtraData());
+        $this->assertSame('', $form->getViewData(), 'View data should always be a string');
+        $this->assertSame(array(), $form->getExtraData(), 'ChoiceType is compound when expanded, extra data should always be an array');
         $this->assertTrue($form->isSynchronized());
     }
 
@@ -863,8 +901,8 @@ class ChoiceTypeTest extends \Symfony\Component\Form\Test\TypeTestCase
         $form->submit(false);
 
         $this->assertNull($form->getData());
-        $this->assertNull($form->getViewData());
-        $this->assertEmpty($form->getExtraData());
+        $this->assertSame('', $form->getViewData(), 'View data should always be a string');
+        $this->assertSame(array(), $form->getExtraData(), 'ChoiceType is compound when expanded, extra data should always be an array');
         $this->assertTrue($form->isSynchronized());
 
         $this->assertFalse($form[0]->getData());
@@ -894,8 +932,8 @@ class ChoiceTypeTest extends \Symfony\Component\Form\Test\TypeTestCase
         $form->submit(false);
 
         $this->assertNull($form->getData());
-        $this->assertNull($form->getViewData());
-        $this->assertEmpty($form->getExtraData());
+        $this->assertSame('', $form->getViewData(), 'View data should always be a string');
+        $this->assertSame(array(), $form->getExtraData(), 'ChoiceType is compound when expanded, extra data should always be an array');
         $this->assertTrue($form->isSynchronized());
     }
 
@@ -911,8 +949,8 @@ class ChoiceTypeTest extends \Symfony\Component\Form\Test\TypeTestCase
         $form->submit(null);
 
         $this->assertNull($form->getData());
-        $this->assertNull($form->getViewData());
-        $this->assertEmpty($form->getExtraData());
+        $this->assertSame('', $form->getViewData(), 'View data should always be a string');
+        $this->assertSame(array(), $form->getExtraData(), 'ChoiceType is compound when expanded, extra data should always be an array');
         $this->assertTrue($form->isSynchronized());
 
         $this->assertTrue($form['placeholder']->getData());
@@ -944,8 +982,8 @@ class ChoiceTypeTest extends \Symfony\Component\Form\Test\TypeTestCase
         $form->submit(null);
 
         $this->assertNull($form->getData());
-        $this->assertNull($form->getViewData());
-        $this->assertEmpty($form->getExtraData());
+        $this->assertSame('', $form->getViewData(), 'View data should always be a string');
+        $this->assertSame(array(), $form->getExtraData(), 'ChoiceType is compound when expanded, extra data should always be an array');
         $this->assertTrue($form->isSynchronized());
     }
 
@@ -961,8 +999,8 @@ class ChoiceTypeTest extends \Symfony\Component\Form\Test\TypeTestCase
         $form->submit('');
 
         $this->assertNull($form->getData());
-        $this->assertNull($form->getViewData());
-        $this->assertEmpty($form->getExtraData());
+        $this->assertSame('', $form->getViewData(), 'View data should always be a string');
+        $this->assertSame(array(), $form->getExtraData(), 'ChoiceType is compound when expanded, extra data should always be an array');
         $this->assertTrue($form->isSynchronized());
 
         $this->assertTrue($form['placeholder']->getData());
@@ -994,8 +1032,8 @@ class ChoiceTypeTest extends \Symfony\Component\Form\Test\TypeTestCase
         $form->submit('');
 
         $this->assertNull($form->getData());
-        $this->assertNull($form->getViewData());
-        $this->assertEmpty($form->getExtraData());
+        $this->assertSame('', $form->getViewData(), 'View data should always be a string');
+        $this->assertSame(array(), $form->getExtraData(), 'ChoiceType is compound when expanded, extra data should always be an array');
         $this->assertTrue($form->isSynchronized());
     }
 
@@ -1011,8 +1049,8 @@ class ChoiceTypeTest extends \Symfony\Component\Form\Test\TypeTestCase
         $form->submit(false);
 
         $this->assertNull($form->getData());
-        $this->assertNull($form->getViewData());
-        $this->assertEmpty($form->getExtraData());
+        $this->assertSame('', $form->getViewData(), 'View data should always be a string');
+        $this->assertSame(array(), $form->getExtraData(), 'ChoiceType is compound when expanded, extra data should always be an array');
         $this->assertTrue($form->isSynchronized());
 
         $this->assertTrue($form['placeholder']->getData());
@@ -1044,8 +1082,8 @@ class ChoiceTypeTest extends \Symfony\Component\Form\Test\TypeTestCase
         $form->submit(false);
 
         $this->assertNull($form->getData());
-        $this->assertNull($form->getViewData());
-        $this->assertEmpty($form->getExtraData());
+        $this->assertSame('', $form->getViewData(), 'View data should always be a string');
+        $this->assertSame(array(), $form->getExtraData(), 'ChoiceType is compound when expanded, extra data should always be an array');
         $this->assertTrue($form->isSynchronized());
     }
 
@@ -1062,7 +1100,7 @@ class ChoiceTypeTest extends \Symfony\Component\Form\Test\TypeTestCase
 
         $form->submit('');
 
-        $this->assertNull($form->getData());
+        $this->assertSame('', $form->getData());
         $this->assertTrue($form->isSynchronized());
 
         $this->assertTrue($form[0]->getData());

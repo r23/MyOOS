@@ -133,6 +133,8 @@ class XmlFileLoader extends FileLoader
     private function parseDefinition(\DOMElement $service, $file)
     {
         if ($alias = $service->getAttribute('alias')) {
+            $this->validateAlias($service, $file);
+
             $public = true;
             if ($publicAttr = $service->getAttribute('public')) {
                 $public = XmlUtils::phpize($publicAttr);
@@ -292,6 +294,10 @@ class XmlFileLoader extends FileLoader
                 if ($services = $this->getChildren($node, 'service')) {
                     $definitions[$id] = array($services[0], $file, false);
                     $services[0]->setAttribute('id', $id);
+
+                    // anonymous services are always private
+                    // we could not use the constant false here, because of XML parsing
+                    $services[0]->setAttribute('public', 'false');
                 }
             }
         }
@@ -302,21 +308,13 @@ class XmlFileLoader extends FileLoader
                 // give it a unique name
                 $id = sprintf('%s_%d', hash('sha256', $file), ++$count);
                 $node->setAttribute('id', $id);
-
-                if ($services = $this->getChildren($node, 'service')) {
-                    $definitions[$id] = array($node, $file, true);
-                    $services[0]->setAttribute('id', $id);
-                }
+                $definitions[$id] = array($node, $file, true);
             }
         }
 
         // resolve definitions
         krsort($definitions);
         foreach ($definitions as $id => list($domElement, $file, $wild)) {
-            // anonymous services are always private
-            // we could not use the constant false here, because of XML parsing
-            $domElement->setAttribute('public', 'false');
-
             if (null !== $definition = $this->parseDefinition($domElement, $file)) {
                 $this->container->setDefinition($id, $definition);
             }
@@ -493,6 +491,27 @@ EOF
         }
 
         return $valid;
+    }
+
+    /**
+     * Validates an alias.
+     *
+     * @param \DOMElement $alias
+     * @param string      $file
+     */
+    private function validateAlias(\DOMElement $alias, $file)
+    {
+        foreach ($alias->attributes as $name => $node) {
+            if (!in_array($name, array('alias', 'id', 'public'))) {
+                @trigger_error(sprintf('Using the attribute "%s" is deprecated for alias definition "%s" in "%s". Allowed attributes are "alias", "id" and "public". The XmlFileLoader will raise an exception in Symfony 4.0, instead of silently ignoring unsupported attributes.', $name, $alias->getAttribute('id'), $file), E_USER_DEPRECATED);
+            }
+        }
+
+        foreach ($alias->childNodes as $child) {
+            if ($child instanceof \DOMElement && $child->namespaceURI === self::NS) {
+                @trigger_error(sprintf('Using the element "%s" is deprecated for alias definition "%s" in "%s". The XmlFileLoader will raise an exception in Symfony 4.0, instead of silently ignoring unsupported elements.', $child->localName, $alias->getAttribute('id'), $file), E_USER_DEPRECATED);
+            }
+        }
     }
 
     /**

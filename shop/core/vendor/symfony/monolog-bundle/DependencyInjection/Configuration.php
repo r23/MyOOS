@@ -14,6 +14,7 @@ namespace Symfony\Bundle\MonologBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use Monolog\Logger;
 
 /**
  * This class contains the configuration information for the bundle
@@ -107,6 +108,13 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
  *   - [bubble]: bool, defaults to true
  *   - [flush_on_overflow]: bool, defaults to false
  *
+ * - deduplication:
+ *   - handler: the wrapper handler's name
+ *   - [store]: The file/path where the deduplication log should be kept, defaults to %kernel.cache_dir%/monolog_dedup_*
+ *   - [deduplication_level]: The minimum logging level for log records to be looked at for deduplication purposes, defaults to ERROR
+ *   - [time]: The period (in seconds) during which duplicate entries should be suppressed after a given log is sent through, defaults to 60
+ *   - [bubble]: bool, defaults to true
+ *
  * - group:
  *   - members: the wrapped handlers by name
  *   - [bubble]: bool, defaults to true
@@ -166,6 +174,7 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
  * - raven:
  *   - dsn: connection string
  *   - client_id: Raven client custom service id (optional)
+ *   - [release]: release number of the application that will be attached to logs, defaults to null
  *   - [level]: level name or int value, defaults to DEBUG
  *   - [bubble]: bool, defaults to true
  *   - [auto_stack_logs]: bool, defaults to false
@@ -273,6 +282,7 @@ class Configuration implements ConfigurationInterface
             ->fixXmlConfig('channel')
             ->fixXmlConfig('handler')
             ->children()
+                ->scalarNode('use_microseconds')->defaultTrue()->end()
                 ->arrayNode('channels')
                     ->canBeUnset()
                     ->prototype('scalar')->end()
@@ -471,11 +481,15 @@ class Configuration implements ConfigurationInterface
                             ->booleanNode('lazy')->defaultValue(true)->end() // swift_mailer
                             ->scalarNode('connection_string')->end() // socket_handler
                             ->scalarNode('timeout')->end() // socket_handler & logentries
+                            ->scalarNode('time')->defaultValue(60)->end() // deduplication
+                            ->scalarNode('deduplication_level')->defaultValue(Logger::ERROR)->end() // deduplication
+                            ->scalarNode('store')->defaultNull()->end() // deduplication
                             ->scalarNode('connection_timeout')->end() // socket_handler & logentries
                             ->booleanNode('persistent')->end() // socket_handler
                             ->scalarNode('dsn')->end() // raven_handler
                             ->scalarNode('client_id')->defaultNull()->end() // raven_handler
                             ->scalarNode('auto_log_stacks')->defaultFalse()->end() // raven_handler
+                            ->scalarNode('release')->defaultNull()->end() // raven_handler
                             ->scalarNode('message_type')->defaultValue(0)->end() // error_log
                             ->arrayNode('tags') // loggly
                                 ->beforeNormalization()

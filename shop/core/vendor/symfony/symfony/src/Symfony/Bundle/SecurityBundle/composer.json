@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": ">=5.5.9",
-        "symfony/security": "~2.8|~3.0",
+        "symfony/security": "~3.1",
         "symfony/http-kernel": "~2.8|~3.0",
         "symfony/polyfill-php70": "~1.0"
     },
@@ -51,7 +51,7 @@
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-            "dev-master": "3.0-dev"
+            "dev-master": "3.1-dev"
         }
     }
 }
