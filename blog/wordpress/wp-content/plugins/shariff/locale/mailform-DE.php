@@ -27,10 +27,10 @@ $mf_mailbody2['DE']	= 'jemanden'; // will be replaced with a name, if provided
 $mf_mailbody3['DE']	= ' empfohlen:';
 
 // e-mail footer
-//72                        123456789012345678901234567890123456789012345678901234567890123456789012
-$mf_footer['DE']	 = "Diese E-Mail wurde ueber das WordPress Plugin \"Shariff Wrapper\" \r\n";
-$mf_footer['DE']	.= "versendet. Es wurde entwickelt, um die Privatsphaere der Webseiten-\r\n";
-$mf_footer['DE']	.= "besucher zu schuetzen. Der Seitenbetreiber hat daher keine Moeglichkeit,\r\n";
+// 72                   123456789012345678901234567890123456789012345678901234567890123456789012
+$mf_footer['DE']	 = "Diese E-Mail wurde ueber das WordPress-Plugin \"Shariff Wrapper\"\r\n";
+$mf_footer['DE']	.= "versendet. Es wurde entwickelt, um die Privatsphaere der\r\n";
+$mf_footer['DE']	.= "Besucher zu schuetzen. Der Seitenbetreiber hat daher keine Moeglichkeit,\r\n";
 $mf_footer['DE']	.= "naehere Angaben zum tatsaechlichen Absender dieser E-Mail zu geben.\r\n";
 
 ?>

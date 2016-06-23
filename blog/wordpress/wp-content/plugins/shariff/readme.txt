@@ -1,39 +1,30 @@
 === Shariff Wrapper ===
 Contributors: 3UU, starguide
-Tags: Facebook, VKontakte, VK, GooglePlus, Twitter, sharebutton, sharing, privacy, social, whatsapp
-Requires at least: 3.0.1
-Tested up to: 4.4
-Stable tag: trunk
+Tags: Shariff, Facebook, Twitter, VKontakte, VK, GooglePlus, WhatsApp, share buttons, sharing, privacy, social
+Requires at least: 4.4
+Tested up to: 4.5
+Stable tag: 4.0.8
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 Donate link: http://folge.link/?bitcoin=1Ritz1iUaLaxuYcXhUCoFhkVRH6GWiMTP
 
-This is a wrapper to Shariff. It enables shares with Twitter, Facebook ... on posts, pages and themes with no harm for visitors privacy.
+The Shariff Wrapper provides share buttons that respect the privacy of your visitors and are compliant to German data protection laws.
 
 == Description ==
 
-The "original" share buttons send data of your visitors to the social
-network sites, even if they do not click on a share button. The
-German computer magazin CT has developed "Shariff" `(/ˈʃɛɹɪf/)` that 
-fullfills the strict data protection laws in Germany. This plugin is a 
-wrapper to this software. It allows you to use it within your posts 
-with the shorttag `[shariff]` and provides all design options of the 
-original code.
+The "original" share buttons automatically transmit data of your visitors to the social network sites as soon as they visit your website. They do not need to click on a share button for this and therefore have no choice, if they want their data to be send. The German computer magazin CT has developed "Shariff" `(/ˈʃɛɹɪf/)` that fullfills the strict data protection laws in Germany. This plugin adapts the Shariff concept and provides an easy to use solution for WordPress. We currently support 22 services like Facebook, Twitter, GooglePlus, Xing, LinkedIn and many more.
 
-For more informations about the Shariff software check out the 
-[GitHub project](https://github.com/heiseonline/shariff) and
-read about the project itself [c’t information page](http://ct.de/shariff) (in German).
+For more informations about the Shariff project check out the original [GitHub project](https://github.com/heiseonline/shariff) and read about the project itself [c’t information page](http://ct.de/shariff) (in German).
 
-You can use this plugin on posts, pages, the main page, product sites and 
-as a widget.
+You can automatically add share buttons to posts, pages, the main blog page, product sites and many more as well as use it as a widget or add the shortcode `[shariff]` manually to your pages or themes.
 
 == Installation ==
 
 1. Upload everything to the `/wp-content/plugins/` directory
 2. Activate the plugin using the plugins menu in WordPress
-3. Use <code>[shariff]</code> anywhere in your post and/or use the admin menu. 
+3. Use <code>[shariff]</code> anywhere in your post and/or use the Shariff settings menu. 
 
-To enable it for all posts please check the options in the admin menu.
+To enable it for all posts please check the options in the plugin settings.
 
 == Screenshots ==
 
@@ -48,28 +39,42 @@ To enable it for all posts please check the options in the admin menu.
 
 == Frequently Asked Questions ==
 
-= Q: Can I use it in my theme? =
-A: Yes. 
-`<?=do_shortcode('[shariff backend="on"]')?>` 
-Backend="on" is an example. You can use all options of the shorttag, but first you should have a look at the widget.
+= Q: Can I use the Shariff buttons in my theme? =
+A: Yes.
+`<?=do_shortcode('[shariff]')?>` 
+You can use all options of the shorttag as described on the help tab in the plugin settings.
+
+= Q: Can I use the total amount of shares in my theme? =
+A: Yes. You can use
+`<?=do_shortcode('[shariff services="totalnumber"]')?>` 
+to simply output the total amount of shares for a post in the loop. It will return the number itself wrapped in a `<span class="shariff-totalnumber"></span>` in order for the shariff.js to update the count. Also only cached data is used, in order to not slow down your site.
+
+= Q: Is there an action hook to use the share counts every time they get updated? =
+A: Yes. You can use
+`function your_awesome_function( $share_counts ) {
+   // $share_counts is an array including all enabled services, the timestamp of the update and the url of the post.
+   // do stuff
+} 
+add_action( 'shariff_share_counts', 'your_awesome_function' );` 
+WARNING: This hook will get called A LOT. So be sure you know what you are doing.
 
 = Q: How can I configure the widget? =
 A: It uses the same options that have been configured on the plugin options page. However, you can put in a shorttag that overwrites the default options. It has the same format as you use in posts. Take a look at the help section of the plugin options page for more information.
 
 = Q: Can I change the options on a single post? =
-A: Yes. If the [shariff...] shortcut is found in a post, it has priority over all settings from the plugin options page.
+A: Yes. If the [shariff] shortcut is found in a post, it has priority over all settings from the plugin options page.
 
 = Q: Why are shares not listed? =
-A: Shariff tries to protect the privacy of your visitors. In order to do this, the statistics have to be requested by your server, so social networks only see a request of your blog server and not from your visitor. However, we do not know, if you want this. Therefore it is not enabled by default.
+A: Shariff tries to protect the privacy of your visitors. In order to do this, the statistics have to be requested by your server, so social networks only see a request of your server and not from your visitor. However, we do not know, if you want this. Therefore it is not enabled by default.
 
 = Q: How can I show the share counts? =
 A: Enable it on the plugin options page in general or add `backend="on"` to the shariff shorttag in your post.
 
 = Q: I still do not see share counts =
-A: Please have a look at the status section of the plugin options page. It states wether share counts are enabled and if there is a problem with the cache directory. Please also keep in mind that the plugin has a minimum refresh time of 60 seconds.
+A: Please have a look at the status tab on the plugin options page. It states wether share counts are enabled and if there is a problem with a service. Please also keep in mind that the plugin has a minimum refresh time of 60 seconds and the each service has their own cache as well.
 
 = Q: Why can't I change the TTL to a smaller / bigger value? =
-A: The time to live (TTL) value determines, if a share count of a post or page gets refreshed when someone visits this specific page / post of your blog. Too small values create too much useless traffic, too high values negate the goal of motivating visitors to also share a post. The value can be adjusted between 60 and 7200 seconds.
+A: The time to live (TTL) value determines, if a share count of a post or page gets refreshed when someone visits this specific page / post of your blog. Too small values create too much useless traffic, too high values negate the goal of motivating visitors to also share a post. The value can be adjusted between 60 and 7200 seconds. Keep in mind, the actual lifespan depends on the age of the post as well.
 
 = Q: I get the Facebook API error message "request limit reached" =
 A: Facebook has a rate limit of 600 requests per 600 seconds per IP address. Especially in shared hosting environments many domains share the same IP address and therefore the same limit. To avoid this you can try to raise the TTL value or provide a Facebook App ID and Secret. Google "facebook app id secret" will provide many guides on how to get these.
@@ -106,30 +111,14 @@ A: Yes, check out the plugin options page.
 A: Do you really know what you want? ;-) However, it is possible. Write anywhere in your post "hideshariff". It will be removed and Shariff will not be added. This will make it compatible with the other plugin "Shariff for Wordpress". You can also use "/hideshariff" to write "hideshariff" in your post.
 
 = Q: What are the differences between these two plugins? =
-A: One is developed by us, one by someone else. ;-) The main difference is that this plugin has a few more options and great support. :-) Neither of the plugins are "official" or directly developed by Heise.
+A: One is developed by us, one by someone else. ;-) The main difference is that this plugin has a few more options and a great support. :-) Neither of the plugins are "official" or directly developed by Heise.
 
 = Q: Does it work with a CDN? =
-A: Yes, but in order for the font-icons to be loaded you have to exclude 
-`​{plugins_dir}/shariff/fonts/*
-{plugins_dir}/shariff/shariff.min.local.css`
-from it (e.g. for W3TC enter this at "Rejected Files").
-
-= Q: But I want shariff.min.local.css on my CDN as well! =
-A: In this case edit your themes style.css to include
-`@font-face {
-    font-family: "shariff3uu";
-    font-style: normal;
-    font-weight: 400;
-    src: url("http://www.EXAMPLE.com/wp-content/plugins/shariff/fonts/shariff3uu.eot") format("embedded-opentype"),
-         url("http://www.EXAMPLE.com/wp-content/plugins/shariff/fonts/shariff3uu.woff") format("woff"),
-         url("http://www.EXAMPLE.com/wp-content/plugins/shariff/fonts/shariff3uu.ttf") format("truetype"),
-         url("http://www.EXAMPLE.com/wp-content/plugins/shariff/fonts/shariff3uu.svg") format("svg");
-}`
-Be sure to replace www.EXAMPLE.com!
+A: Yes.
 
 = Q: Pinterest does not show an image =
 A: You can add media="http://wwww.example.com/yourImage.png"
-within the [shariff...] shorttag or add it in on the plugin options page - of course with the link to your image.
+within the [shariff] shorttag or add it in on the plugin options page - of course with the link to your image.
 
 = Q: Can I set a fixed URL to share? =
 A: You can use the "url" parameter within the shortcode
@@ -150,32 +139,26 @@ A: Please read: https://www.jplambeck.de/twitter-saveoursharecounts/
 
 = EXPERIMENTAL FEATURES =
 
-Features marked as "experimental" in the admin menu are experimental! This means: We think it is a good extension to our plugin that we would like to include in future versions, but we are not sure yet about the best solution that works for all or most people. So please feel free to use and test it and report back to us about it. Experimental features might be removed in an update, if it does not work out. So please pay close attention to our changelog!
+Features marked as "experimental" in the admin menu are experimental! This means: We think it is a good extension to our plugin that we would like to include in a future version, but we are not sure yet about the best solution that works for all or most people. So please feel free to use and test it and report back to us about it. Experimental features might be removed in an update, if it does not work out. So please pay close attention to our changelog!
 
-= Q: What does the external server URL is good for? =
-A: First of all: Usually you do not need it! The Plugin uses the WP host to get all the files, share counts and statistics. However, there are some good reasons to put the backend on another server:
-- avoid requests from you WP server to other servers
-- use a more powerfull server for the statistic
+= Q: What is the external API feature? =
+A: First of all: Usually you do not need it! The plugin requests all share counts itself. However, there are some reasons to put the backend on another server:
+- avoid requests from you WP server to all the social networks
+- use a more powerful server for the statistic
 - use the original backend implementation of Heise or your own solution
 - make your own backend available for more than one WP installation
 But please have in mind that there are also some good reasons not to use external servers:
-- at least one additional DNS lookup and an additional connection is needed
-- you need an additional installation of WP and the plugin or have to create your own implementation of Shariff
-- if it is not your host you will break the privacy protection of your visitors and defeat the purpose of Shariff
-- we CAN NOT provide support for your own implementation
-- some options of the admin menu (backend checks, statistic) will only work on the external server
+- you need an additional installation of WP and the plugin or have to create your own implementation of a Shariff backend
+- some plugin settings (backend checks, statistic, etc.) will only work on the external server
 - you have to use SHARIFF_FRONTENDS as an array with all your frontend domains to enable the backend or find your own solution
+- we CANNOT provide support for your own implementation
 
-= Q: How does the parameter backend-url work with an external server URL set? =
-A: It overrides the URL of the backend to use. So usually it makes no sense to use both.
+= Q: How can I configure the external API? =
+A: In the statistic settings fill in the URL to the API of the external server. For the WordPress installation on the external server you have to create a "constant" called SHARIFF_FRONTENDS to permit other domains to use it. Please have in mind that you have to fill in all subdomains you want to use! The domains must be defined like this:
+`define( 'SHARIFF_FRONTENDS', 'example.com|www.example.com|blog.example.com|another-domain.com' );`
 
-= Q: How to configure the external backend? =
-A: At your WP host fill in the URL of the backend server. You can add it with or without the protocol. So usually `//backend.example.com/wp-content/plugins/shariff/` will do the job. For the WP installation on the external server you have to create an array as a "constant" called SHARIFF_FRONTENDS to permit your WP installations on other domains to use it. Please have in mind that you have to fill in all subdomains you want to use! The domain must be the array key and the values can be empty.
-`static $SHARIFF_FRONTENDS =
-  array('www.example.com'=>'',
-        'example.com'=>'',
-        'blog.example.com'=>'');`
-Please also make sure to set the Access-Control-Allow-Origin header right.
+= Q: What does "Request external API directly." means? =
+A: By default, the browser request the share counts from the server your site is running on. If you have entered an external API your server will then request the counts from this external API instead of fetching them itself. Therefore, the external server will only see the IP from your server and not the one from your visitors. If you check this option, the browser of your visitors will instead directly request the share counts from the external API and therefore reveal their IP address to them. This might be faster, but it is less secure. Please also make sure to set the Access-Control-Allow-Origin header right. If your site is available using https, your external API will need to be reached by https as well. Otherwise the request will get blocked for security reasons. All options and features (e.g. the ranking tab) regarding the statistic will only work on the external server.
 
 = KNOWN BUGS =
 
@@ -189,18 +172,85 @@ fixed in the future - if we have time to spend or you provide us with a lot of "
 
 == Changelog ==
 
+= 4.0.8 =
+- new workaround for sites running PHP 5.2 and older
+
+= 4.0.7 =
+- new option for WordPress installations with REST API not reachable in root
+
+= 4.0.6 =
+- fix error in combination with bbpress
+- fix error on very old PHP versions
+- fix ranking tab
+- minor css improvements
+
+= 4.0.5 =
+- fix mail form link
+- fix xmlns for w3c
+
+= 4.0.4 =
+- removed some remaining wrong text domains for translations
+- minor css fixes
+
+= 4.0.3 =
+- fix mobile services not showing on certain tablets
+- fix type error on totalnumber when cache is empty
+- fix share count requests when WordPress is installed in a subdirectory
+- fix urlencoding of share url, title and media
+- add width and height to SVGs to prevent large initial icons prior to css
+- new classes shariff-buttons and shariff-link added
+- removed local translation files due to switching to wordpress.org language packs
+- minor css resets added
+
+= 4.0.2 =
+- added minor css resets to prevent influence of theme css
+- fixed LinkedIn share link
+
+= 4.0.1 =
+- prevent php warning messages on unsuccessful includes while WP_DEBUG is active
+- change text domain to match plugin slug
+
+= 4.0.0 =
+- complete overhaul of the plugin core
+- buttons now also work without JavaScript
+- icon font has been removed and replaced with SVGs
+- share counts now use the WP REST API
+- share counts now always show the last cached counts prior to updating them
+- fixed duplicated share count requests
+- new ranking tab shows the shares of your last 100 posts
+- new service pocket
+- new option to show the total amount of shares in the headline with %total
+- new option to use the total amount of shares in your theme (see FAQ)
+- new action hook shariff_share_counts (see FAQ)
+- new option to change the priority of the shortcode filter
+- new support for selective refresh introduced in WP 4.5
+- new external API feature replaces the external host option (experimental, see FAQ)
+- new support for SCRIPT_DEBUG
+- css and js files are now only loaded on pages with Shariff buttons
+- improved compatibility with plugin Autoptimize (force scripts in head)
+- improved compatibility with multiple caching plugins
+- all shortcodes are now being stripped from the mail message body
+- fixed potential double sending of mails
+- removed all jQuery dependencies
+- requires at least WordPress 4.4 (only for share counts)
+- we no longer support IE 8 (if it ever worked)
+- updated status tab
+- updated help section
+- minor bug fixes
+- code cleanup
+
 = 3.4.2 =
-- fix share counts on mobile devices with exactly 360px width
-- fix error on the help tab regarding services (thx to Andreas)
+- fixed share counts on mobile devices with exactly 360px width
+- fixed error on the help tab regarding services (thx to Andreas)
 - small css improvements
 - added h4-h6 to the allowed tags for the headline
 
 = 3.4.1 =
 - changed diaspora share url to official one
-- fix css of rss button when using round theme in widget
-- fix accessibility of share button text 
+- fixed css of rss button when using round theme in widget
+- fixed accessibility of share button text 
 - added rssfeed option to help section
-- update to Heise version 1.23.0
+- updated to Heise version 1.23.0
 
 = 3.4.0 =
 - new service rss

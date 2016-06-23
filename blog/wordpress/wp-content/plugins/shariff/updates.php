@@ -194,9 +194,6 @@ if ( isset( $GLOBALS["shariff3UU"]["version"] ) && version_compare( $GLOBALS["sh
 	// disable Twitter backend due to new service OpenShareCount.com
 	$GLOBALS["shariff3UU_statistic"]["disable"]["twitter"] = '1';
 
-	// display update notice
-	$do_admin_notice = true;
-
 	// update version
 	$GLOBALS["shariff3UU"]["version"] = '3.3.0';
 }
@@ -221,22 +218,41 @@ function shariff_removeoldfiles( $directory ) {
 	@rmdir( $directory );
 }
 
-// Migration < v x.x
+// Migration < v 4.0
+if ( isset( $GLOBALS["shariff3UU"]["version"] ) && version_compare( $GLOBALS["shariff3UU"]["version"], '4.0.0' ) == '-1' ) {
+	// admin notice
+	$do_admin_notice = true;
 
+	// set new option share counts, if statistic is enabled
+	if ( isset( $GLOBALS["shariff3UU_statistic"]["backend"] ) ) $GLOBALS["shariff3UU_statistic"]["sharecounts"] = '1';
+
+	// disable share counts if WP version < 4.4
+	if ( version_compare( get_bloginfo('version'), '4.4.0' ) < 1 ) {
+		unset( $GLOBALS["shariff3UU_statistic"]["backend"] );
+	}
+
+	// change button language to WordPress language, if it is set to auto and http_negotiate_language is not available (auto will not work without it)
+	if ( ! isset( $GLOBALS["shariff3UU_design"]["lang"] ) && ! function_exists('http_negotiate_language') ) {
+		$GLOBALS["shariff3UU_design"]["lang"] = substr( get_bloginfo('language'), 0, 2 );
+	}
+
+	// update version
+	$GLOBALS["shariff3UU"]["version"] = '4.0.0';
+}
 
 // future update routines go here!
-
 
 // general tasks we do on every update, like clean up transients and so on
 
 // make sure we have the $wpdb class ready
-if ( ! isset( $wpdb ) ) { global $wpdb; }
+global $wpdb;
 
 // delete user meta entry shariff3UU_ignore_notice to display update message again after an update (check for multisite)
 if ( is_multisite() && $do_admin_notice == true ) {
-	$blogs = $wpdb -> get_results( 'SELECT blog_id FROM {$wpdb->blogs}', ARRAY_A );
+	$current_blog_id = get_current_blog_id();
+	$blogs = $wpdb->get_results( "SELECT blog_id FROM {$wpdb->blogs}", ARRAY_A );
 	if ( $blogs ) {
-		foreach( $blogs as $blog ) {
+		foreach ( $blogs as $blog ) {
 			// switch to each blog
 			switch_to_blog( $blog['blog_id'] );
 			// delete user meta entry shariff3UU_ignore_notice
@@ -244,39 +260,54 @@ if ( is_multisite() && $do_admin_notice == true ) {
 			foreach ( $users as $user ) { 
 				if ( get_user_meta( $user -> ID, 'shariff3UU_ignore_notice', true ) ) { 
 					delete_user_meta( $user -> ID, 'shariff3UU_ignore_notice' ); 
-				} 
-			}
+				}
+			} 
 			// switch back to main
 			restore_current_blog();
 		}
 	}
-}
+} 
 elseif ( $do_admin_notice == true ) {
+	// delete user meta entry shariff3UU_ignore_notice
 	$users = get_users( 'role=administrator' );
 	foreach ( $users as $user ) { 
 		if ( get_user_meta( $user -> ID, 'shariff3UU_ignore_notice', true ) ) { 
 			delete_user_meta( $user -> ID, 'shariff3UU_ignore_notice' ); 
-		} 
+		}
 	}
 }
 
 // purge transients (check for multisite)
 if ( is_multisite() ) {
 	$current_blog_id = get_current_blog_id();
-	$blogs = $wpdb -> get_results('SELECT blog_id FROM { $wpdb -> blogs }', ARRAY_A);
+	$blogs = $wpdb->get_results( "SELECT blog_id FROM {$wpdb->blogs}", ARRAY_A );
 	if ( $blogs ) {
-		foreach( $blogs as $blog ) {
+		foreach ( $blogs as $blog ) {
 			// switch to each blog
 			switch_to_blog( $blog['blog_id'] );
 			// purge transients
-			purge_transients();
+			shariff3UU_purge_transients();
 			// switch back to main
 			restore_current_blog();
 		}
 	}
-} else {
+} 
+else {
 	// purge transients
-	purge_transients();
+	shariff3UU_purge_transients();
+}
+
+// purge all the transients associated with our plugin
+function shariff3UU_purge_transients() {
+	// make sure we have the $wpdb class ready
+	if ( ! isset( $wpdb ) ) { global $wpdb; }
+	// delete transients
+	$sql = 'DELETE FROM ' . $wpdb->options . ' WHERE option_name LIKE "_transient_timeout_shariff%"';
+	$wpdb->query($sql);
+	$sql = 'DELETE FROM ' . $wpdb->options . ' WHERE option_name LIKE "_transient_shariff%"';
+	$wpdb->query($sql);
+	// clear object cache
+	wp_cache_flush();
 }
 
 // set new version

@@ -1,0 +1,293 @@
+/*
+Theme Name: Enfold Child
+Description: A <a href='http://codex.wordpress.org/Child_Themes'>Child Theme</a> for the Enfold Wordpress Theme. If you plan to do a lot of file modifications we recommend to use this Theme instead of the original Theme. Updating wil be much easier then.
+Version: 1.0
+Author: Kriesi
+Author URI: http://www.kriesi.at
+Template: enfold
+*/
+
+
+
+/*Add your own styles here:*/
+
+.avia-menu.av_menu_icon_beside {
+    margin-right: 20px;
+}
+
+.social_bookmarks li {
+    margin: 0 1px;
+}
+
+.entry-content a {
+    font-weight: bold;
+}
+
+#top .flex_column .template-blog .post-title {
+    font-size: 20px;
+}
+
+.image-overlay.overlay-type-extern .image-overlay-inside::before {
+    display: none;
+}
+
+.blog-tags.minor-meta {
+    margin-top: 10px;
+}
+
+.post-entry {
+    margin-bottom: 20px;
+}
+
+.author-extra-border {
+    display:none;
+}
+
+#top .fullsize .related_posts {
+    padding: 0 0 33px;
+}
+
+.post-author-format-type.blog-meta {
+    margin-bottom: 10px !important;
+}
+
+#shariff_mailform legend {
+    font-weight: bold;
+}
+
+.shariff_mailform_headline {
+    margin-bottom: 5px;
+}
+
+.tabcontainer.border_tabs.top_tab.tab_initial_open.tab_initial_open__1 {
+    margin-bottom: 0;
+}
+
+#shariff_mailform textarea {
+    background-color: #fff !important;
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+#shariff_mailform form {
+    margin: 0 !important;
+}
+
+.shariff_mailform {
+    max-width: 1000px;
+    margin: 10px 0;
+}
+
+#shariff_mailform input[type="text"], input[type="email"] {
+    background-color: #fff !important;
+    width: 40% !important;
+}
+
+#shariff_mailform input {
+    display: inline !important;
+    margin-bottom: 0 !important;
+}
+
+.widget.clearfix.widget_nav_menu {
+    padding-bottom: 0;
+}
+
+#socket .copyright {
+    padding-left: 10px;
+}
+
+#socket .social_bookmarks {
+    padding-right: 10px;
+}
+
+#socket {
+    margin-bottom: -3px;
+}
+
+.content, .sidebar {
+    padding-bottom: 0;
+}
+
+#top.single-post .big-preview.single-big a,
+#top.single-post .small-preview {
+pointer-events: none;
+cursor: default;
+}
+
+#jp_main_bg_header {
+    height: 340px;
+    max-height: 340px; 
+}
+
+.avia_textblock a {
+    font-weight: bold;
+}
+
+.shariff a {
+    font-weight: normal !important;
+}
+
+.uebermichimg {
+    margin: 0 -15px 10px 20px !important;
+}
+
+.sharifflogoimg {
+    margin: -35px -20px 2px 20px !important;
+}
+
+.submit:hover {
+    color: #fff !important;
+}
+
+::selection {background: #2d5c88; color: #ffffff;}
+::-moz-selection {background: #2d5c88; color: #ffffff;}
+
+h1 {
+	margin-bottom: 0;
+}
+
+.widgettitle {
+	margin-top: 0 !important;
+}
+
+#wrap_all {
+    background-color: #fff !important;
+}
+
+.container_wrap {
+    border: none;
+}
+
+.widget {
+    padding: 10px 0 5px 0;
+}
+
+.post-date {
+    display: block;
+}
+
+.bg-logo {
+    color: #2d5c88 !important;
+    font-size: 24px;
+    line-height: 60px;
+}
+
+.flex_column .template-blog .post_delimiter {
+    margin: 0 0 20px;
+    padding: 0;
+} 
+
+#header, #header_main {
+	height: 60px;
+}
+
+#advanced_menu_toggle, #advanced_menu_hide {
+    margin-top: -34px;
+}
+
+#mobile-advanced li {
+    background-color: #fff;
+}
+
+#mobile-advanced {
+	min-height: auto !important;
+	padding: 59px 0 0;
+	background-color: #fff;
+}
+
+#advanced_menu_hide {
+    right: 25px;
+    top: 41px;
+}
+
+#advanced_menu_toggle, #advanced_menu_hide {
+    line-height: 42px;
+}
+
+#top .comment-form-url input, #top .comment-form-email input, #top .comment-form-author input {
+    width: auto !important;
+}
+
+#commentform label {
+    left: 10px;
+}
+
+#top .comment-form-url input, #top .comment-form-email input, #top .comment-form-author input {
+    max-width: 100%;
+}
+
+#main {
+    background: transparent url(https://www.jplambeck.de/wp-content/uploads/2015/06/jplambeck_bg_header_m.jpg) top left  no-repeat fixed !important; 
+    background-size: 100% 431px !important;
+    border: none !important;
+}
+
+#header, #header_main {
+    padding: 0 10px;
+}
+
+@media (max-width: 360px) { 
+    .gravatar {
+    	visibility: hidden;
+    	position: absolute;	
+    }
+    .comment_content {
+    	margin: 0;
+	}
+	.responsive #top #wrap_all .container {
+    	max-width: 100%;
+    	width: 100%;
+	}
+}
+@media (max-width: 767px) { 
+    .flex_column.av_one_fourth.no_margin.flex_column_div.avia-builder-el-7.el_after_av_three_fourth.avia-builder-el-last {
+        margin-top: 0 !important;
+    }
+    #shariff_mailform input {
+        width: 100% !important;
+    }
+    #shariff_mailform input[type="text"], input[type="email"] {
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 1024px) { 
+	.responsive #top #wrap_all .container {
+    	max-width: 100%;
+    	width: 100%;
+	}
+    .container {
+        padding: 0;
+    }
+    .uebermichimg {
+        height: 50%;
+        width: 50%;
+    }
+    .sharifflogoimg {
+        height: 50%;
+        width: 50%;
+    }
+}
+
+@media (max-width: 1200px) { 
+	#top .no_margin.av_three_fourth {
+    	width: 70%;
+	}
+	#top .no_margin.av_one_fourth {
+    	width: 30%;
+	}
+}
+
+@media (min-width: 1025px) { 
+    #main {
+        background: transparent url(https://www.jplambeck.de/wp-content/uploads/2015/06/jplambeck_bg_header_l.jpg) top left  no-repeat fixed !important;
+    background-size: 100% 431px !important;
+    }
+}
+
+@media (min-width: 1921px) { 
+    #main {
+        background: transparent url(https://www.jplambeck.de/wp-content/uploads/2015/06/jplambeck_bg_header_xl.jpg) top left  no-repeat fixed !important;
+    background-size: 100% 431px !important;
+    }
+}
