@@ -14,10 +14,10 @@ function shariff_share_counts() {
         // check if an external share count api is set
         var api = containers[c].dataset.backendurl;
         if ( typeof api === "undefined" ) {
-            api = '/wp-json/shariff/v1/share_counts';
+            api = '/wp-json/shariff/v1/share_counts?';
         }
         // build request url
-        var request_url = api + '?url=' + share_url + '&services=' + services + '&timestamp=' + timestamp;
+        var request_url = api + 'url=' + share_url + '&services=' + services + '&timestamp=' + timestamp;
         // check if we have backend services at all
         if ( typeof services !== "undefined" ) {
             // check if the url is already in requests to avoid duplicated requests
@@ -31,7 +31,7 @@ function shariff_share_counts() {
                 });
                 services = service_array.join('|');
                 // update request url
-                request_url = api + '?url=' + share_url + '&services=' + services + '&timestamp=' + timestamp;
+                request_url = api + 'url=' + share_url + '&services=' + services + '&timestamp=' + timestamp;
                 // add to requests
                 requests[ share_url ] = [ share_url, services, timestamp, request_url ];
             }

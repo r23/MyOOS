@@ -3,7 +3,7 @@ Contributors: 3UU, starguide
 Tags: Shariff, Facebook, Twitter, VKontakte, VK, GooglePlus, WhatsApp, share buttons, sharing, privacy, social
 Requires at least: 4.4
 Tested up to: 4.5
-Stable tag: 4.0.8
+Stable tag: 4.1.2
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 Donate link: http://folge.link/?bitcoin=1Ritz1iUaLaxuYcXhUCoFhkVRH6GWiMTP
@@ -171,6 +171,31 @@ fixed in the future - if we have time to spend or you provide us with a lot of "
   rendered.
 
 == Changelog ==
+
+= 4.1.2 =
+- new fallback for share count requests in case pretty permalinks are disabled
+- new filter shariff3UU_render_atts to change options on the fly (thx Ov3rfly)
+- fix share title in cases with html encoded characters
+- fix double counting on ranking tab under certain conditions
+- fix php info notice in admin notices
+
+= 4.1.1 =
+- new option to disable the Shariff buttons outside of the main loop
+- fix Facebook App ID request
+- minor css fix
+
+= 4.1.0 =
+- new design option to set a custom button color for all buttons
+- new design option to set a border radius for the round theme (up to a square)
+- new design option to hide all buttons until the page is fully loaded
+- new mailform option to use a html anchor (again)
+- new statistic option to fill the cache automatically
+- new statistic option to set the amount of posts for the ranking tab
+- new statistic option to use share counts with PHP < 5.4
+- fix preventing buttons from beeing added to excerpts under certain conditions
+- fix urlencoding of share count requests
+- improved handling of wrong or mistyped service entries
+- minor bug fixes
 
 = 4.0.8 =
 - new workaround for sites running PHP 5.2 and older

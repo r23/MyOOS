@@ -1,4 +1,5 @@
 /* Shariff Wrapper */
+.shariff-main { display: block !important; }
 .shariff ul {
   display: flex;
   flex-direction: row;
@@ -19,12 +20,12 @@
 }
 .shariff a {
   position: relative;
-  display: block;
+  display: block !important;
   height: 35px;
   padding: 0;
   box-sizing: border-box;
   border: 0;
-  color: #fff !important;
+  color: #fff;
   text-decoration: none;
   background-image: none !important;
 }
@@ -279,19 +280,14 @@
 }
 .shariff .shariff-button.info {
   width: 35px;
-  background-color: transparent !important;
+  flex: 0 0 auto !important;
 }
 .shariff .buttonsize-small .shariff-button.info { width: 25px; }
 .shariff .buttonsize-small .info a { width: 25px; }
-.shariff .info a:hover { background-color: #efefef !important; }
-.shariff .theme-grey .info a:hover { background-color: #666 !important; }
 .shariff .info .shariff-icon svg {
   display: block;
-  fill: #666;
   margin: auto;
 }
-.shariff .theme-grey .info .shariff-icon svg { fill: #fff; }
-.shariff .theme-white .info .shariff-icon svg { fill: #666; }
 /* media queries */
 @media only screen and (max-width: 360px) {
   .shariff .orientation-horizontal li { width: 35px; }

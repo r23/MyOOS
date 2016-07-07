@@ -310,6 +310,10 @@ function shariff3UU_purge_transients() {
 	wp_cache_flush();
 }
 
+// remove Shriff cron job and add it again if wanted
+wp_clear_scheduled_hook( 'shariff3UU_fill_cache' );
+do_action( 'shariff3UU_save_statistic_options' );
+
 // set new version
 $GLOBALS["shariff3UU"]["version"] = $code_version;
 $GLOBALS["shariff3UU_basic"]["version"] = $code_version;

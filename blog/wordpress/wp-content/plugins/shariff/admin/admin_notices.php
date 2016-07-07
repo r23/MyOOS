@@ -73,7 +73,7 @@ add_action( 'admin_notices', 'shariff3UU_bitcoin_notice' );
 
 // display an info notice if mailform is set as a service, but mail form functionality has been disabled
 function shariff3UU_mail_notice() {
-	if ( isset( $GLOBALS["shariff3UU_mailform"]["disable_mailform"] ) && ( strpos( $GLOBALS["shariff3UU_basic"]["services"], 'mailform' ) !== false ) && isset( $GLOBALS["shariff3UU"]["disable_mailform"] ) && $GLOBALS["shariff3UU"]["disable_mailform"] == '1' && current_user_can( 'manage_options' ) ) {
+	if ( isset( $GLOBALS["shariff3UU_mailform"]["disable_mailform"] ) && ( isset( $GLOBALS["shariff3UU_basic"]["services"] ) && strpos( $GLOBALS["shariff3UU_basic"]["services"], 'mailform' ) !== false ) && isset( $GLOBALS["shariff3UU"]["disable_mailform"] ) && $GLOBALS["shariff3UU"]["disable_mailform"] == '1' && current_user_can( 'manage_options' ) ) {
 		echo "<div class='error'><p>" . __('Please check your ', 'shariff') . "<a href='" . get_bloginfo('wpurl') . "/wp-admin/options-general.php?page=shariff3uu&tab=mailform'>" . __('Shariff-Settings</a> - Mailform has been selected as a service, but mail form functionality is disabled!', 'shariff') . "</span></p></div>";
 	}
 }
