@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-06-21 12:06:44+0000\n"
+"PO-Revision-Date: 2016-07-04 16:11:16+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -929,7 +929,7 @@ msgstr "Du hast eine unlimitierte Lizenz."
 
 #: vendor/yoast/license-manager/class-license-manager.php:181
 msgid "You have used %d/%d activations. "
-msgstr "Du hast  %d/%d Lizenzen aktiviert."
+msgstr "Du hast %d/%d Lizenzen aktiviert."
 
 #: vendor/yoast/license-manager/class-license-manager.php:186
 msgid "<a href=\"%s\">Did you know you can upgrade your license?</a>"
@@ -957,7 +957,7 @@ msgstr "Deine %s Lizenz wurde deaktiviert."
 
 #: vendor/yoast/license-manager/class-license-manager.php:231
 msgid "Failed to deactivate your %s license."
-msgstr "Deaktivierung Deiner %s  Lizenz ist fehlgeschlagen."
+msgstr "Deaktivierung deiner %s Lizenz ist fehlgeschlagen."
 
 #: vendor/yoast/license-manager/class-license-manager.php:267
 msgid "Request error: \"%s\" (%scommon license notices%s)"
@@ -1839,7 +1839,7 @@ msgstr "Die Yoast Plugins tauschen Code untereinander aus, um deine Seite schnel
 #. Yoast
 #: admin/google_search_console/class-gsc-service.php:146
 msgid "%1$s detected you’re using a version of %2$s which is not compatible with %1$s. Please update %2$s to the latest version to use this feature."
-msgstr "%1$s meldet, dass du Version %2$s benutzt, die nicht mit %1$s kompatibel ist. Bitte aktualisiere  %2$s auf die neueste Version, damit du diese Funktion nutzen kannst."
+msgstr "%1$s meldet, dass du Version %2$s benutzt, die nicht mit %1$s kompatibel ist. Bitte aktualisiere %2$s auf die neueste Version, damit du diese Funktion nutzen kannst."
 
 #: admin/google_search_console/class-gsc-table.php:107
 msgid "URL"
@@ -2319,7 +2319,7 @@ msgstr "Spezielle Seiten"
 #. translators: %s expands to <code>noindex, follow</code>
 #: admin/views/tabs/metas/archives.php:59
 msgid "These pages will be %s by default, so they will never show up in search results."
-msgstr "Diese Seiten sind per Vorgabe  %s , damit werden sie in Suchergebnissen nicht angezeigt"
+msgstr "Diese Seiten sind per Vorgabe %s , damit werden sie in Suchergebnissen nicht angezeigt"
 
 #: admin/views/tabs/metas/archives.php:60
 msgid "Search pages"
@@ -2488,7 +2488,7 @@ msgstr "Wenn du nicht den Titel des Beitrages zum Teilen bei %s verwenden möcht
 #. translators: %s expands to the social network's name
 #: admin/class-social-admin.php:36
 msgid "If you don't want to use the meta description for sharing the post on %s but want another description there, write it here."
-msgstr "Wenn du nicht diese Meta-Beschreibung benutzen willst, um diesen Post auf %s zu teilen, aber du  willst eine andere Beschreibung, schreib sie hier rein."
+msgstr "Wenn du diese Meta-Beschreibung nicht benutzen willst, um diesen Post auf %s zu teilen, aber du möchtest eine andere Beschreibung, schreibe sie hier rein."
 
 #. translators: %s expands to the social network's name
 #: admin/class-social-admin.php:38
@@ -2602,7 +2602,7 @@ msgstr "Tab: Webmaster Tools"
 
 #: admin/class-pointers.php:234
 msgid "You can add the verification codes for the different Webmaster Tools programs here. We highly encourage you to check out both Google and Bing&#8217;s Webmaster Tools."
-msgstr "Du kannst hier den Verifizierungscode für die verschiedenen Webmaster Tools  eingeben. Sehr zu empfehlen ist sowohl Google als auch Bing zu nutzen."
+msgstr "Du kannst hier den Verifizierungscode für die verschiedenen Webmaster Tools eingeben. Sehr zu empfehlen ist sowohl Google als auch Bing zu nutzen."
 
 #: admin/class-pointers.php:235
 msgid "Tab: Security"
@@ -2770,7 +2770,7 @@ msgstr "Wir sind am Ende der Tour angekommen. Wenn dir dieses Plugin gefällt, %
 
 #: admin/class-pointers.php:340
 msgid "Thank you for using our plugin and good luck with your SEO!<br/><br/>Best,<br/>Team Yoast - %1$sYoast.com%2$s"
-msgstr "Vielen Dank für die Nutzung unseres Plugins und viel Glück mit deiner SEO!<br/><br/>Liebe Grüße<br/>Team  Yoast - %1$sYoast.com%2$s"
+msgstr "Vielen Dank für die Nutzung unseres Plugins und viel Glück mit deiner SEO!<br/><br/>Liebe Grüße<br/>Team Yoast - %1$sYoast.com%2$s"
 
 #: admin/class-social-facebook.php:113
 msgid "Please make sure both fields are filled."
@@ -2809,7 +2809,7 @@ msgstr "Weitere Informationen %1$sin unserer Wissensdatenbank%2$s."
 #. translators: %1$s and %2$s expand to a link to Facebook Insights
 #: admin/class-social-facebook.php:317
 msgid "To be able to access %1$sFacebook Insights%2$s, you need to add a user here. The name is used for reference only, the ID is used for verification."
-msgstr "Um Zugang zu  %1$sFacebook Insights%2$s zu bekommen muss hier ein Benutzer-Name hinzugefügt werden. Der Name dient nur der Zuordnung, die ID wird benutzt zur Verifikation."
+msgstr "Um Zugang zu %1$sFacebook Insights%2$s zu bekommen muss hier ein Benutzername hinzugefügt werden. Der Name dient nur der Zuordnung, die ID wird benutzt zur Verifikation."
 
 #. translators: %1$s and %2$s expand to a link to the Yoast Knowledge Base
 #: admin/class-social-facebook.php:321
@@ -3024,7 +3024,7 @@ msgstr "Du hast noch den Standard-Wordpress-Slogan, selbst ein leerer ist vermut
 #. %3$s expands to the plugin name
 #: admin/class-admin-init.php:299 admin/class-admin-init.php:348
 msgid "%1$s detected you are using version %2$s of %3$s, please update to the latest version to prevent compatibility issues."
-msgstr "%1$s hat festgestellt, dass du Version  %2$s von %3$s nutzt. Bitte aktualisiere auf die neueste Version, um Fehler zu vermeiden."
+msgstr "%1$s hat festgestellt, dass du Version %2$s von %3$s nutzt. Bitte aktualisiere auf die neueste Version, um Fehler zu vermeiden."
 
 #: admin/class-admin.php:137 admin/class-admin.php:313
 #: admin/class-meta-columns.php:43
