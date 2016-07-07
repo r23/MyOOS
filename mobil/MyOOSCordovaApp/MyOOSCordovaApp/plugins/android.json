@@ -1,0 +1,31 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "io.cordova.myapp37aeb3"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "io.cordova.myapp37aeb3"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "io.cordova.myapp37aeb3"
+        },
+        "cordova-plugin-contacts": {
+            "PACKAGE_NAME": "io.cordova.myapp37aeb3"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "io.cordova.myapp37aeb3"
+        },
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "io.cordova.myapp37aeb3"
+        }
+    }
+}
