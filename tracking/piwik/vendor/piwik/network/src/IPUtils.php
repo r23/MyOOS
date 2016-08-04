@@ -3,7 +3,7 @@
  * Piwik - free/libre analytics platform
  *
  * @link http://piwik.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL v3 or later
  */
 
 namespace Piwik\Network;
@@ -65,7 +65,7 @@ class IPUtils
      * - single IPv6 address, e.g., ::1/128
      * - IPv4 block using CIDR notation, e.g., 192.168.0.0/22 represents the IPv4 addresses from 192.168.0.0 to 192.168.3.255
      * - IPv6 block using CIDR notation, e.g., 2001:DB8::/48 represents the IPv6 addresses from 2001:DB8:0:0:0:0:0:0 to 2001:DB8:0:FFFF:FFFF:FFFF:FFFF:FFFF
-     * - wildcards, e.g., 192.168.0.*
+     * - wildcards, e.g., 192.168.0.* or 2001:DB8:*:*:*:*:*:*
      *
      * @param string $ipRangeString IP address range
      * @return string|null  IP address range in CIDR notation OR null on failure
@@ -77,20 +77,25 @@ class IPUtils
             return null;
         }
 
-        // IPv4 address with wildcards '*'
+        // IP address with wildcards '*'
         if (strpos($ipRangeString, '*') !== false) {
-            if (preg_match('~(^|\.)\*\.\d+(\.|$)~D', $ipRangeString)) {
+            // Disallow prefixed wildcards and anything other than wildcards
+            // and separators (including IPv6 zero groups) after first wildcard
+            if (preg_match('/[^.:]\*|\*.*([^.:*]|::)/', $ipRangeString)) {
                 return null;
             }
 
-            $bits = 32 - 8 * substr_count($ipRangeString, '*');
+            $numWildcards = substr_count($ipRangeString, '*');
             $ipRangeString = str_replace('*', '0', $ipRangeString);
-        }
 
         // CIDR
-        if (($pos = strpos($ipRangeString, '/')) !== false) {
+        } elseif (($pos = strpos($ipRangeString, '/')) !== false) {
             $bits = substr($ipRangeString, $pos + 1);
             $ipRangeString = substr($ipRangeString, 0, $pos);
+
+            if (!is_numeric($bits)) {
+                return null;
+            }
         }
 
         // single IP
@@ -98,8 +103,13 @@ class IPUtils
             return null;
 
         $maxbits = strlen($ip) * 8;
-        if (!isset($bits))
+        if (!isset($bits)) {
             $bits = $maxbits;
+
+            if (isset($numWildcards)) {
+                $bits -= ($maxbits === 32 ? 8 : 16) * $numWildcards;
+            }
+        }
 
         if ($bits < 0 || $bits > $maxbits) {
             return null;

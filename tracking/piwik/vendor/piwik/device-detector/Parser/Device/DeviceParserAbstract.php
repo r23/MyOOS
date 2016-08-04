@@ -140,6 +140,7 @@ abstract class DeviceParserAbstract extends ParserAbstract
         'EN' => 'Eton',
         'ET' => 'eTouch',
         'EV' => 'Evertek',
+        'EX' => 'Explay',
         'EZ' => 'Ezze',
         'FA' => 'Fairphone',
         'FL' => 'Fly',
@@ -477,6 +478,7 @@ abstract class DeviceParserAbstract extends ParserAbstract
             $this->deviceType = self::$deviceTypes[$regex['device']];
         }
 
+        $this->model = '';
         if (isset($regex['model'])) {
             $this->model = $this->buildModel($regex['model'], $matches);
         }

@@ -40,9 +40,9 @@
   name: 'Windows Phone'
   version: ''
 
-- regex: 'Windows CE'
+- regex: 'Windows CE(?: (\d+[\.\d]+))?'
   name: 'Windows CE'
-  version: ''
+  version: '$1'
   
   
 - regex: '(?:IEMobile|Windows Mobile)(?: (\d+[\.\d]+))?'
@@ -87,6 +87,10 @@
   
   
 - regex: 'Android|Silk-Accelerated=[a-z]{4,5}'
+  name: 'Android'
+  version: ''
+
+- regex: 'BeyondPod|AntennaPod|Podkicker|DoggCatcher'
   name: 'Android'
   version: ''
   
@@ -245,6 +249,10 @@
 ##########
 # iOS
 ##########
+- regex: 'CFNetwork/758\.4\.3'
+  name: 'iOS'
+  version: '9.3.2'
+
 - regex: 'CFNetwork/758\.3\.15'
   name: 'iOS'
   version: '9.3'
@@ -341,6 +349,13 @@
   name: 'iOS'
   version: '$1'
 
+- regex: 'Podcasts/(?:[\d\.]+)|Instacast(?:HD)?/(?:\d\.[\d\.abc]+)|Pocket Casts, iOS|Overcast|Castro|Podcat|i[cC]atcher'
+  name: 'iOS'
+  version: ''
+
+- regex: 'iTunes-(iPod|iPad|iPhone)/(?:[\d\.]+)'
+  name: 'iOS'
+  version: ''
 
 
 ##########
@@ -395,7 +410,7 @@
   name: 'Mac'
   version: '$1'
 
-- regex: 'Darwin|Macintosh|Mac_PowerPC|PPC|Mac PowerPC'
+- regex: 'Darwin|Macintosh|Mac_PowerPC|PPC|Mac PowerPC|iMac|MacBook'
   name: 'Mac'
   version: ''
   
@@ -567,8 +582,23 @@
   name: 'WebTV'
   version: '$1'
   
-  
-  
+
+##########
+# Remix OS
+##########
+- regex: 'RemixOS 5.1.1'
+  name: 'Remix OS'
+  version: '1'
+
+- regex: 'RemixOS 6.0'
+  name: 'Remix OS'
+  version: '2'
+
+- regex: 'RemixOS'
+  name: 'Remix OS'
+  version: ''
+
+
 ##########
 # Unix
 ##########

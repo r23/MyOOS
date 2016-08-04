@@ -281,17 +281,17 @@
     },
     {
         "name": "php-di/invoker",
-        "version": "1.2.0",
-        "version_normalized": "1.2.0.0",
+        "version": "1.3.3",
+        "version_normalized": "1.3.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/PHP-DI/Invoker.git",
-            "reference": "9949fff87fcf14e8f2ccfbe36dac1e5921944c48"
+            "reference": "1f4ca63b9abc66109e53b255e465d0ddb5c2e3f7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/PHP-DI/Invoker/zipball/9949fff87fcf14e8f2ccfbe36dac1e5921944c48",
-            "reference": "9949fff87fcf14e8f2ccfbe36dac1e5921944c48",
+            "url": "https://api.github.com/repos/PHP-DI/Invoker/zipball/1f4ca63b9abc66109e53b255e465d0ddb5c2e3f7",
+            "reference": "1f4ca63b9abc66109e53b255e465d0ddb5c2e3f7",
             "shasum": ""
         },
         "require": {
@@ -301,7 +301,7 @@
             "athletic/athletic": "~0.1.8",
             "phpunit/phpunit": "~4.5"
         },
-        "time": "2015-10-22 19:49:23",
+        "time": "2016-07-14 13:09:58",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -429,21 +429,22 @@
         "keywords": [
             "phpdoc",
             "reflection"
-        ]
+        ],
+        "abandoned": "php-di/phpdoc-reader"
     },
     {
         "name": "doctrine/cache",
-        "version": "v1.4.2",
-        "version_normalized": "1.4.2.0",
+        "version": "v1.5.4",
+        "version_normalized": "1.5.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/cache.git",
-            "reference": "8c434000f420ade76a07c64cbe08ca47e5c101ca"
+            "reference": "47cdc76ceb95cc591d9c79a36dc3794975b5d136"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/cache/zipball/8c434000f420ade76a07c64cbe08ca47e5c101ca",
-            "reference": "8c434000f420ade76a07c64cbe08ca47e5c101ca",
+            "url": "https://api.github.com/repos/doctrine/cache/zipball/47cdc76ceb95cc591d9c79a36dc3794975b5d136",
+            "reference": "47cdc76ceb95cc591d9c79a36dc3794975b5d136",
             "shasum": ""
         },
         "require": {
@@ -457,7 +458,7 @@
             "predis/predis": "~1.0",
             "satooshi/php-coveralls": "~0.6"
         },
-        "time": "2015-08-31 12:36:41",
+        "time": "2015-12-19 05:03:47",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -466,8 +467,8 @@
         },
         "installation-source": "dist",
         "autoload": {
-            "psr-0": {
-                "Doctrine\\Common\\Cache\\": "lib/"
+            "psr-4": {
+                "Doctrine\\Common\\Cache\\": "lib/Doctrine/Common/Cache"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -564,17 +565,17 @@
     },
     {
         "name": "piwik/cache",
-        "version": "0.2.6",
-        "version_normalized": "0.2.6.0",
+        "version": "0.2.7",
+        "version_normalized": "0.2.7.0",
         "source": {
             "type": "git",
             "url": "https://github.com/piwik/component-cache.git",
-            "reference": "b8f2d18069c77726862f67d0199896d13073a831"
+            "reference": "7343e8b32da72f6ed50161c9c3b43ef8f5577cd6"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/piwik/component-cache/zipball/b8f2d18069c77726862f67d0199896d13073a831",
-            "reference": "b8f2d18069c77726862f67d0199896d13073a831",
+            "url": "https://api.github.com/repos/piwik/component-cache/zipball/7343e8b32da72f6ed50161c9c3b43ef8f5577cd6",
+            "reference": "7343e8b32da72f6ed50161c9c3b43ef8f5577cd6",
             "shasum": ""
         },
         "require": {
@@ -584,7 +585,7 @@
         "require-dev": {
             "phpunit/phpunit": "~4.0"
         },
-        "time": "2015-09-29 16:50:32",
+        "time": "2016-07-20 23:26:18",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -613,17 +614,17 @@
     },
     {
         "name": "pear/archive_tar",
-        "version": "1.4.1",
-        "version_normalized": "1.4.1.0",
+        "version": "1.4.2",
+        "version_normalized": "1.4.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/pear/Archive_Tar.git",
-            "reference": "fc2937c0e5a2a1c62a378d16394893172f970064"
+            "reference": "bdd47347df76dbaa89227c5e1afd6f6809985b4c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/pear/Archive_Tar/zipball/fc2937c0e5a2a1c62a378d16394893172f970064",
-            "reference": "fc2937c0e5a2a1c62a378d16394893172f970064",
+            "url": "https://api.github.com/repos/pear/Archive_Tar/zipball/bdd47347df76dbaa89227c5e1afd6f6809985b4c",
+            "reference": "bdd47347df76dbaa89227c5e1afd6f6809985b4c",
             "shasum": ""
         },
         "require": {
@@ -638,7 +639,7 @@
             "ext-xz": "lzma2 compression support.",
             "ext-zlib": "Gzip compression support."
         },
-        "time": "2015-08-05 12:31:03",
+        "time": "2016-02-25 10:30:39",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -681,17 +682,17 @@
     },
     {
         "name": "piwik/decompress",
-        "version": "1.1.0",
-        "version_normalized": "1.1.0.0",
+        "version": "1.2.0",
+        "version_normalized": "1.2.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/piwik/component-decompress.git",
-            "reference": "deca40d71d29d6140aad39db007aea82676b7631"
+            "reference": "aa0a13f0ff44f70c736a72dd19ae1bcf400c6932"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/piwik/component-decompress/zipball/deca40d71d29d6140aad39db007aea82676b7631",
-            "reference": "deca40d71d29d6140aad39db007aea82676b7631",
+            "url": "https://api.github.com/repos/piwik/component-decompress/zipball/aa0a13f0ff44f70c736a72dd19ae1bcf400c6932",
+            "reference": "aa0a13f0ff44f70c736a72dd19ae1bcf400c6932",
             "shasum": ""
         },
         "require": {
@@ -701,7 +702,7 @@
         "require-dev": {
             "phpunit/phpunit": "~4.5"
         },
-        "time": "2015-09-22 10:58:19",
+        "time": "2016-07-19 04:13:01",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -768,17 +769,17 @@
     },
     {
         "name": "piwik/device-detector",
-        "version": "3.6.1",
-        "version_normalized": "3.6.1.0",
+        "version": "3.7.1",
+        "version_normalized": "3.7.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/piwik/device-detector.git",
-            "reference": "4f4c2b0ce412fb1b8f679a7c82190783ba697d4c"
+            "reference": "04fddf60bbeb111bad18a9c50dd73f0a314967f2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/piwik/device-detector/zipball/4f4c2b0ce412fb1b8f679a7c82190783ba697d4c",
-            "reference": "4f4c2b0ce412fb1b8f679a7c82190783ba697d4c",
+            "url": "https://api.github.com/repos/piwik/device-detector/zipball/04fddf60bbeb111bad18a9c50dd73f0a314967f2",
+            "reference": "04fddf60bbeb111bad18a9c50dd73f0a314967f2",
             "shasum": ""
         },
         "require": {
@@ -792,7 +793,7 @@
         "suggest": {
             "doctrine/cache": "Can directly be used for caching purpose"
         },
-        "time": "2016-03-31 20:28:09",
+        "time": "2016-08-03 07:11:10",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -856,17 +857,17 @@
     },
     {
         "name": "piwik/network",
-        "version": "0.1.0",
-        "version_normalized": "0.1.0.0",
+        "version": "0.2.0",
+        "version_normalized": "0.2.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/piwik/component-network.git",
-            "reference": "9037fa29509f86767e02ba58a57d4deb1d01a844"
+            "reference": "b270d14d9b4ddc9d63bfee4e85f08899a215ef20"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/piwik/component-network/zipball/9037fa29509f86767e02ba58a57d4deb1d01a844",
-            "reference": "9037fa29509f86767e02ba58a57d4deb1d01a844",
+            "url": "https://api.github.com/repos/piwik/component-network/zipball/b270d14d9b4ddc9d63bfee4e85f08899a215ef20",
+            "reference": "b270d14d9b4ddc9d63bfee4e85f08899a215ef20",
             "shasum": ""
         },
         "require": {
@@ -875,7 +876,7 @@
         "require-dev": {
             "phpunit/phpunit": "~4.0"
         },
-        "time": "2014-10-23 03:30:23",
+        "time": "2016-07-18 04:10:33",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -890,20 +891,20 @@
     },
     {
         "name": "piwik/piwik-php-tracker",
-        "version": "1.0.2",
-        "version_normalized": "1.0.2.0",
+        "version": "1.0.3",
+        "version_normalized": "1.0.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/piwik/piwik-php-tracker.git",
-            "reference": "f026613f8137c014030c96a22491ede5f5f1676b"
+            "reference": "eb4df1e223d4b377d06785c9b5fb3723d16d4465"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/piwik/piwik-php-tracker/zipball/f026613f8137c014030c96a22491ede5f5f1676b",
-            "reference": "f026613f8137c014030c96a22491ede5f5f1676b",
+            "url": "https://api.github.com/repos/piwik/piwik-php-tracker/zipball/eb4df1e223d4b377d06785c9b5fb3723d16d4465",
+            "reference": "eb4df1e223d4b377d06785c9b5fb3723d16d4465",
             "shasum": ""
         },
-        "time": "2016-01-12 21:44:22",
+        "time": "2016-07-13 05:26:45",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -932,20 +933,20 @@
     },
     {
         "name": "piwik/referrer-spam-blacklist",
-        "version": "1.0.8",
-        "version_normalized": "1.0.8.0",
+        "version": "1.0.9",
+        "version_normalized": "1.0.9.0",
         "source": {
             "type": "git",
             "url": "https://github.com/piwik/referrer-spam-blacklist.git",
-            "reference": "665ad115eb85a94210beecb13c57806ff474364f"
+            "reference": "7cce0bed292d148822ebad0eb9a286b04d27f340"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/piwik/referrer-spam-blacklist/zipball/665ad115eb85a94210beecb13c57806ff474364f",
-            "reference": "665ad115eb85a94210beecb13c57806ff474364f",
+            "url": "https://api.github.com/repos/piwik/referrer-spam-blacklist/zipball/7cce0bed292d148822ebad0eb9a286b04d27f340",
+            "reference": "7cce0bed292d148822ebad0eb9a286b04d27f340",
             "shasum": ""
         },
-        "time": "2016-03-22 18:43:29",
+        "time": "2016-07-20 19:55:33",
         "type": "library",
         "installation-source": "dist",
         "notification-url": "https://packagist.org/downloads/",
@@ -956,20 +957,20 @@
     },
     {
         "name": "piwik/searchengine-and-social-list",
-        "version": "1.2.0",
-        "version_normalized": "1.2.0.0",
+        "version": "1.3.0",
+        "version_normalized": "1.3.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/piwik/searchengine-and-social-list.git",
-            "reference": "276e03a2f0dfe1559f57d6e2cba9258305ecdba5"
+            "reference": "e5e09544e99cc1568d50f84ac90d1bf27d7444a0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/piwik/searchengine-and-social-list/zipball/276e03a2f0dfe1559f57d6e2cba9258305ecdba5",
-            "reference": "276e03a2f0dfe1559f57d6e2cba9258305ecdba5",
+            "url": "https://api.github.com/repos/piwik/searchengine-and-social-list/zipball/e5e09544e99cc1568d50f84ac90d1bf27d7444a0",
+            "reference": "e5e09544e99cc1568d50f84ac90d1bf27d7444a0",
             "shasum": ""
         },
-        "time": "2016-02-17 06:55:15",
+        "time": "2016-07-13 17:20:30",
         "type": "library",
         "installation-source": "dist",
         "notification-url": "https://packagist.org/downloads/",
@@ -1020,8 +1021,8 @@
     },
     {
         "name": "symfony/console",
-        "version": "v2.6.11",
-        "version_normalized": "2.6.11.0",
+        "version": "v2.6.13",
+        "version_normalized": "2.6.13.0",
         "target-dir": "Symfony/Component/Console",
         "source": {
             "type": "git",
@@ -1080,8 +1081,8 @@
     },
     {
         "name": "symfony/event-dispatcher",
-        "version": "v2.6.11",
-        "version_normalized": "2.6.11.0",
+        "version": "v2.6.13",
+        "version_normalized": "2.6.13.0",
         "target-dir": "Symfony/Component/EventDispatcher",
         "source": {
             "type": "git",
@@ -1141,17 +1142,17 @@
     },
     {
         "name": "monolog/monolog",
-        "version": "1.17.2",
-        "version_normalized": "1.17.2.0",
+        "version": "1.20.0",
+        "version_normalized": "1.20.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Seldaek/monolog.git",
-            "reference": "bee7f0dc9c3e0b69a6039697533dca1e845c8c24"
+            "reference": "55841909e2bcde01b5318c35f2b74f8ecc86e037"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/bee7f0dc9c3e0b69a6039697533dca1e845c8c24",
-            "reference": "bee7f0dc9c3e0b69a6039697533dca1e845c8c24",
+            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/55841909e2bcde01b5318c35f2b74f8ecc86e037",
+            "reference": "55841909e2bcde01b5318c35f2b74f8ecc86e037",
             "shasum": ""
         },
         "require": {
@@ -1166,13 +1167,13 @@
             "doctrine/couchdb": "~1.0@dev",
             "graylog2/gelf-php": "~1.0",
             "jakub-onderka/php-parallel-lint": "0.9",
+            "php-amqplib/php-amqplib": "~2.4",
             "php-console/php-console": "^3.1.3",
             "phpunit/phpunit": "~4.5",
             "phpunit/phpunit-mock-objects": "2.3.0",
-            "raven/raven": "^0.13",
             "ruflin/elastica": ">=0.90 <3.0",
-            "swiftmailer/swiftmailer": "~5.3",
-            "videlalvaro/php-amqplib": "~2.4"
+            "sentry/sentry": "^0.13",
+            "swiftmailer/swiftmailer": "~5.3"
         },
         "suggest": {
             "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
@@ -1180,17 +1181,18 @@
             "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
             "ext-mongo": "Allow sending log messages to a MongoDB server",
             "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
+            "mongodb/mongodb": "Allow sending log messages to a MongoDB server via PHP Driver",
+            "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
             "php-console/php-console": "Allow sending log messages to Google Chrome",
-            "raven/raven": "Allow sending log messages to a Sentry server",
             "rollbar/rollbar": "Allow sending log messages to Rollbar",
             "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
-            "videlalvaro/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib"
+            "sentry/sentry": "Allow sending log messages to a Sentry server"
         },
-        "time": "2015-10-14 12:51:02",
+        "time": "2016-07-02 14:02:10",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.16.x-dev"
+                "dev-master": "2.0.x-dev"
             }
         },
         "installation-source": "dist",
@@ -1220,8 +1222,8 @@
     },
     {
         "name": "symfony/monolog-bridge",
-        "version": "v2.6.11",
-        "version_normalized": "2.6.11.0",
+        "version": "v2.6.13",
+        "version_normalized": "2.6.13.0",
         "target-dir": "Symfony/Bridge/Monolog",
         "source": {
             "type": "git",
@@ -1389,17 +1391,17 @@
     },
     {
         "name": "twig/twig",
-        "version": "v1.22.3",
-        "version_normalized": "1.22.3.0",
+        "version": "v1.24.1",
+        "version_normalized": "1.24.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/twigphp/Twig.git",
-            "reference": "ebfc36b7e77b0c1175afe30459cf943010245540"
+            "reference": "3566d311a92aae4deec6e48682dc5a4528c4a512"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/twigphp/Twig/zipball/ebfc36b7e77b0c1175afe30459cf943010245540",
-            "reference": "ebfc36b7e77b0c1175afe30459cf943010245540",
+            "url": "https://api.github.com/repos/twigphp/Twig/zipball/3566d311a92aae4deec6e48682dc5a4528c4a512",
+            "reference": "3566d311a92aae4deec6e48682dc5a4528c4a512",
             "shasum": ""
         },
         "require": {
@@ -1409,11 +1411,11 @@
             "symfony/debug": "~2.7",
             "symfony/phpunit-bridge": "~2.7"
         },
-        "time": "2015-10-13 07:07:02",
+        "time": "2016-05-30 09:11:59",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.22-dev"
+                "dev-master": "1.24-dev"
             }
         },
         "installation-source": "dist",

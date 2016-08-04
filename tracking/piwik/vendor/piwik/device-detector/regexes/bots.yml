@@ -183,13 +183,13 @@
 
 - regex: 'BUbiNG'
   name: 'BUbiNG'
-  category: 'crawler'
+  category: 'Crawler'
   url: 'http://law.di.unimi.it/BUbiNG.html'
   producer:
     name: ''
     url: ''
 
-- regex: '(?<!HTC)[ _]Butterfly'
+- regex: '(?<!HTC)[ _]Butterfly/'
   name: 'Butterfly Robot'
   category: 'Search bot'
   url: 'http://labs.topsy.com/butterfly'
@@ -229,6 +229,14 @@
     name: 'CloudFlare'
     url: 'http://www.cloudflare.com'
 
+- regex: 'coccoc/'
+  name: 'Cốc Cốc Bot'
+  url: 'http://help.coccoc.com/'
+  category: 'Search bot'
+  producer:
+    name: 'Cốc Cốc'
+    url: 'http://coccoc.com/'
+
 - regex: 'CommaFeed'
   name: 'CommaFeed'
   url: 'http://www.commafeed.com'
@@ -261,9 +269,9 @@
     name: 'Discovery Engine'
     url: 'http://discoveryengine.com'
 
-- regex: 'Domain Re-Animator Bot'
+- regex: 'Domain Re-Animator Bot|support@domainreanimator.com'
   name: 'Domain Re-Animator Bot'
-  category: 'crawler'
+  category: 'Crawler'
   url: ''
   producer:
     name: 'Domain Re-Animator, LLC'
@@ -365,7 +373,7 @@
     name: ''
     url: ''
 
-- regex: 'Fever'
+- regex: 'Fever/[0-9]'
   name: 'Fever'
   url: 'http://feedafever.com/'
   category: 'Feed Fetcher'
@@ -383,7 +391,7 @@
 
 - regex: 'Gluten Free Crawler'
   name: 'Gluten Free Crawler'
-  category: 'crawler'
+  category: 'Crawler'
   url: 'http://glutenfreepleasure.com/'
   producer:
     name: ''
@@ -447,7 +455,7 @@
 
 - regex: 'ICC-Crawler'
   name: 'ICC-Crawler'
-  category: 'crawler'
+  category: 'Crawler'
   url: 'http://www.nict.go.jp/en/univ-com/plan/crawl.html'
   producer:
     name: ''
@@ -455,7 +463,7 @@
 
 - regex: 'iisbot'
   name: 'IIS Site Analysis'
-  category: 'crawler'
+  category: 'Crawler'
   url: 'http://www.iis.net/iisbot.html'
   producer:
     name: 'Microsoft Corporation'
@@ -471,7 +479,7 @@
 
 - regex: 'larbin'
   name: 'Larbin web crawler'
-  category: 'crawler'
+  category: 'Crawler'
   url: 'http://larbin.sourceforge.net'
   producer:
     name: ''
@@ -684,6 +692,11 @@
     name: 'QueryEye Inc.'
     url: 'http://queryeye.com'
 
+- regex: 'Rainmeter'
+  name: 'Rainmeter'
+  category: 'Crawler'
+  url: 'https://www.rainmeter.net'
+
 - regex: 'redditbot'
   name: 'Reddit Bot'
   category: 'Social Media Agent'
@@ -800,6 +813,14 @@
   producer:
     name: 'SISTRIX GmbH'
     url: 'http://www.sistrix.de'
+
+- regex: 'Slackbot|Slack-ImgProxy'
+  name: 'Slackbot'
+  category: 'Crawler'
+  url: 'https://api.slack.com/robots'
+  producer:
+    name: 'Slack Technologies'
+    url: 'http://slack.com'
 
 - regex: '(Sogou (web|inst|Pic) spider)|New-Sogou-Spider'
   name: 'Sogou Spider'
@@ -1021,15 +1042,23 @@
     name: 'Yahoo! Inc.'
     url: 'http://www.yahoo.com'
 
-- regex: 'Yahoo Link Preview'
-  name: 'Yahoo Link Preview'
+- regex: 'Yahoo Link Preview|Yahoo:LinkExpander:Slingstone'
+  name: 'Yahoo! Link Preview'
   category: 'Crawler'
   url: 'https://help.yahoo.com/kb/mail/yahoo-link-preview-SLN23615.html'
   producer:
     name: 'Yahoo! Inc.'
     url: 'http://www.yahoo.com'
 
-- regex: 'Yandex(Bot|Images|Antivirus|Direct|Blogs|Favicons|ImageResizer|News(links)?|Metrika|\.Gazeta Bot)'
+- regex: 'YahooCacheSystem'
+  name: 'Yahoo! Cache System'
+  category: 'Crawler'
+  url: ''
+  producer:
+    name: 'Yahoo! Inc.'
+    url: 'http://www.yahoo.com'
+
+- regex: 'Yandex(Bot|Images|Antivirus|Direct|Blogs|Favicons|ImageResizer|News(links)?|Metrika|\.Gazeta Bot)|YaDirectFetcher'
   name: 'Yandex Bot'
   category: 'Search bot'
   url: 'http://www.yandex.com/bots'
@@ -1052,6 +1081,11 @@
   producer:
     name: 'NetEase, Inc.'
     url: 'http://corp.163.com'
+
+- regex: 'YOURLS v[0-9]'
+  name: 'Yourls'
+  category: 'Crawler'
+  url: 'http://yourls.org'
 
 - regex: 'YRSpider|YYSpider'
   name: 'Yunyun Bot'
@@ -1133,6 +1167,9 @@
     name: 'Monitor.Us'
     url: 'http://www.monitor.us'
 
+- regex: 'Zao/'
+  name: 'Zao'
+  category: 'Crawler'
 
 - regex: 'lycos'
   name: 'Lycos'
@@ -1185,18 +1222,18 @@
 - regex: 'Server Density Service Monitoring.*'
   name: 'Server Density'
 
-- regex: '(nuhk|TsolCrawler|Yammybot|Openbot|Gulper Web Bot|grub-client|Download Demon|SearchExpress|Microsoft URL Control|borg|altavista|teoma|blitzbot|oegp|furlbot|http%20client|polybot|htdig|mogimogi|larbin|scrubby|searchsight|seekbot|semanticdiscovery|snappy|vortex(?! Build)|zao|zeal|fast-webcrawler|converacrawler|dataparksearch|findlinks|BrowserMob|HttpMonitor|ThumbShotsBot|URL2PNG|ZooShot|GomezA|Catchpoint bot|Google SketchUp|Read%20Later|Minimo|RackspaceBot)'
-  name: 'Bot'
+- regex: '(A6-Indexer|nuhk|TsolCrawler|Yammybot|Openbot|Gulper Web Bot|grub-client|Download Demon|SearchExpress|Microsoft URL Control|borg|altavista|teoma|blitzbot|oegp|furlbot|http%20client|polybot|htdig|mogimogi|larbin|scrubby|searchsight|seekbot|semanticdiscovery|snappy|vortex(?! Build)|zeal|fast-webcrawler|converacrawler|dataparksearch|findlinks|BrowserMob|HttpMonitor|ThumbShotsBot|URL2PNG|ZooShot|GomezA|Catchpoint bot|Google SketchUp|Read%20Later|Minimo|RackspaceBot)'
+  name: 'Generic Bot'
 
 # Generic detections
 
 - regex: 'Nutch'
   name: 'Nutch-based Bot'
-  category: 'crawler'
+  category: 'Crawler'
   url: 'https://nutch.apache.org'
   producer:
     name: 'The Apache Software Foundation'
     url: 'http://www.apache.org/foundation/'
 
-- regex: '[a-z0-9\-_]*((?<!cu)bot|crawler|archiver|transcoder|spider)'
+- regex: '[a-z0-9\-_]*((?<!cu)bot|crawler|archiver|transcoder|spider)([^a-z]|$)'
   name: 'Generic Bot'

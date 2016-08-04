@@ -45,7 +45,7 @@ class Gzip implements DecompressInterface
      */
     public function extract($pathExtracted)
     {
-        $file = gzopen($this->filename, 'r');
+        $file = @gzopen($this->filename, 'r');
 
         if ($file === false) {
             $this->error = "gzopen failed";

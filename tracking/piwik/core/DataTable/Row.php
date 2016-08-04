@@ -461,7 +461,11 @@ class Row implements \ArrayAccess, \IteratorAggregate
 
             $operation = 'sum';
             if (is_array($aggregationOperations) && isset($aggregationOperations[$columnToSumName])) {
-                $operation = strtolower($aggregationOperations[$columnToSumName]);
+                if (is_string($aggregationOperations[$columnToSumName])) {
+                    $operation = strtolower($aggregationOperations[$columnToSumName]);
+                } elseif (is_callable($aggregationOperations[$columnToSumName])) {
+                    $operation = $aggregationOperations[$columnToSumName];
+                }
             }
 
             // max_actions is a core metric that is generated in ArchiveProcess_Day. Therefore, it can be
@@ -473,7 +477,7 @@ class Row implements \ArrayAccess, \IteratorAggregate
                 throw new Exception("Unknown aggregation operation for column $columnToSumName.");
             }
 
-            $newValue = $this->getColumnValuesMerged($operation, $thisColumnValue, $columnToSumValue);
+            $newValue = $this->getColumnValuesMerged($operation, $thisColumnValue, $columnToSumValue, $this, $rowToSum);
 
             $this->setColumn($columnToSumName, $newValue);
         }
@@ -485,7 +489,7 @@ class Row implements \ArrayAccess, \IteratorAggregate
 
     /**
      */
-    private function getColumnValuesMerged($operation, $thisColumnValue, $columnToSumValue)
+    private function getColumnValuesMerged($operation, $thisColumnValue, $columnToSumValue, $thisRow, $rowToSum)
     {
         switch ($operation) {
             case 'skip':
@@ -520,6 +524,10 @@ class Row implements \ArrayAccess, \IteratorAggregate
                 $newValue = $thisColumnValue;
                 break;
             default:
+                if (is_callable($operation)) {
+                    return call_user_func($operation, $thisColumnValue, $columnToSumValue, $thisRow, $rowToSum);
+                }
+
                 throw new Exception("Unknown operation '$operation'.");
         }
         return $newValue;
@@ -548,7 +556,7 @@ class Row implements \ArrayAccess, \IteratorAggregate
                         continue;
                     }
 
-                    $aggregatedMetadata[$columnn] = $this->getColumnValuesMerged($operation, $thisMetadata, $sumMetadata);
+                    $aggregatedMetadata[$columnn] = $this->getColumnValuesMerged($operation, $thisMetadata, $sumMetadata, $this, $rowToSum);
                 }
             }
 

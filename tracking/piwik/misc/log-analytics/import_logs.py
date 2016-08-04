@@ -121,7 +121,11 @@ class BaseFormat(object):
 
     def check_format(self, file):
         line = file.readline()
-        file.seek(0)
+        try:
+            file.seek(0)
+        except IOError:
+            pass
+
         return self.check_format_line(line)
 
     def check_format_line(self, line):
@@ -238,12 +242,20 @@ class W3cExtendedFormat(RegexFormat):
 
         # if we couldn't create a regex, this file does not follow the W3C extended log file format
         if not self.regex:
-            file.seek(0)
+            try:
+                file.seek(0)
+            except IOError:
+                pass
+
             return
 
         first_line = file.readline()
 
-        file.seek(0)
+        try:
+            file.seek(0)
+        except IOError:
+            pass
+
         return self.check_format_line(first_line)
 
     def create_regex(self, file):
@@ -401,6 +413,11 @@ _S3_LOG_FORMAT = (
 _ICECAST2_LOG_FORMAT = ( _NCSA_EXTENDED_LOG_FORMAT +
     '\s+(?P<session_time>\S+)'
 )
+_ELB_LOG_FORMAT = (
+    '(?P<date>[0-9-]+T[0-9:]+)\.\S+\s+\S+\s+(?P<ip>\S+):\d+\s+\S+:\d+\s+\S+\s+(?P<generation_time_secs>\S+)\s+\S+\s+'
+    '(?P<status>\S+)\s+\S+\s+\S+\s+(?P<length>\S+)\s+'
+    '"\S+\s+\w+:\/\/(?P<host>[\w\-\.]*):\d+(?P<path>\/\S*)\s+[^"]+"\s+"(?P<user_agent>[^"]+)"\s+\S+\s+\S+'
+)
 
 FORMATS = {
     'common': RegexFormat('common', _COMMON_LOG_FORMAT),
@@ -413,6 +430,7 @@ FORMATS = {
     'shoutcast': ShoutcastFormat(),
     's3': RegexFormat('s3', _S3_LOG_FORMAT),
     'icecast2': RegexFormat('icecast2', _ICECAST2_LOG_FORMAT),
+    'elb': RegexFormat('elb', _ELB_LOG_FORMAT, '%Y-%m-%dT%H:%M:%S'),
     'nginx_json': JsonFormat('nginx_json'),
 }
 
@@ -531,7 +549,9 @@ class Configuration(object):
         )
         option_parser.add_option(
             '--token-auth', dest='piwik_token_auth',
-            help="Piwik Super User token_auth, 32 characters hexadecimal string, found in Piwik > API",
+            help="Piwik user token_auth, the token_auth is found in Piwik > Settings > API. "
+                 "You must use a token_auth that has at least 'admin' or 'super user' permission. "
+                 "If you use a token_auth for a non admin user, your users' IP addresses will not be tracked properly. "
         )
 
         option_parser.add_option(

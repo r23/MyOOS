@@ -13,7 +13,7 @@ Build status (master branch) [![Build Status](https://travis-ci.org/piwik/piwik-
 
 
 The script will import all standard web server log files, and some files with non-standard formats. The following log formats are supported:
- * all default log formats for: Nginx, Apache, IIS
+ * all default log formats for: Nginx, Apache, IIS, Tomcat
  * all log formats commonly used such as: NCSA Common log format, Extended log format, W3C Extended log files, Nginx JSON
  * log files of some popular Cloud Saas services: Amazon CloudFront logs, Amazon S3 logs
  * streaming media server log files such as: Icecast
@@ -62,9 +62,10 @@ If you wish to track all requests the following command would be used:
 
     python /path/to/piwik/misc/log-analytics/import_logs.py --url=http://mysite/piwik/ --idsite=1234 --recorders=4 --enable-http-errors --enable-http-redirects --enable-static --enable-bots access.log 
 
+
 ### Format Specific Details
 
-* If you are importing Netscaler log files, make sure to specify the **--iis-time-taken-secs** option. Netscaler stores
+* If you are importing Netscaler log files, make sure to specify the `--iis-time-taken-secs` option. Netscaler stores
   the time-taken field in seconds while most other formats use milliseconds. Using this option will ensure that the
   log importer interprets the field correctly.
 
@@ -136,29 +137,32 @@ To improve performance,
 
 This log format can be specified for nginx access logs to capture multiple virtual hosts:
 
-* log_format vhosts '$host $remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent"';
-* access_log /PATH/TO/access.log vhosts;
+* `log_format vhosts '$host $remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent"';`
+* `access_log /PATH/TO/access.log vhosts;`
 
-When executing import_logs.py specify the "common_complete" format.
+When executing import_logs.py, `--log-format-name=common_complete`.
 
 ### How do I import Page Speed Metric from logs?
 
 In Piwik> Actions> Page URLs and Page Title reports, Piwik reports the Avg. generation time, as an indicator of your website speed.
 This metric works by default when using the Javascript tracker, but you can use it with log file as well.
 
-Apache can log the generation time in microseconds using %D in the LogFormat.
+Apache can log the generation time in microseconds using `%D` in the LogFormat.
 This metric can be imported using a custom log format in this script.
-In the command line, add the --log-format-regex parameter that contains the group generation_time_micro.
+In the command line, add the `--log-format-regex` parameter that contains the group `generation_time_micro`.
 
 Here's an example:
+```
 Apache LogFormat "%h %l %u %t \"%r\" %>s %b %D"
 --log-format-regex="(?P<ip>\S+) \S+ \S+ \[(?P<date>.*?) (?P<timezone>.*?)\] \"\S+ (?P<path>.*?) \S+\" (?P<status>\S+) (?P<length>\S+) (?P<generation_time_micro>\S+)"
+```
 
-Note: the group <generation_time_milli> is also available if your server logs generation time in milliseconds rather than microseconds.
+Note: the group `<generation_time_milli>` is also available if your server logs generation time in milliseconds rather than microseconds.
 
 ### How do I setup Nginx to directly imports in Piwik via syslog?
 
 With the syslog patch from http://wiki.nginx.org/3rdPartyModules which is compiled in dotdeb's release, you can log to syslog and imports them live to Piwik.
+
 Path: Nginx -> syslog -> (syslog central server) -> this script -> piwik
 
 You can use any log format that this script can handle, like Apache Combined, and Json format which needs less processing.
@@ -210,7 +214,7 @@ Just needed to configure the best params for import_logs.py :
 #!/bin/sh
 
 exec python /path/to/misc/log-analytics/import_logs.py \
- --url=http://localhost/ --token-auth=<your_auth_token> \
+ --url=http://localhost/ \
  --idsite=1 --recorders=4 --enable-http-errors --enable-http-redirects --enable-static --enable-bots \
  --log-format-name=nginx_json -
 ```
@@ -235,9 +239,9 @@ Aug 31 23:59:59 tt-srv-name www.tt.com: 1.1.1.1 - - [31/Aug/2014:23:59:59 +0200]
 Since apache CustomLog directives can send log data to a script, it is possible to import hits into piwik server-side in real-time rather than processing a logfile each day.
 
 This approach has many advantages, including real-time data being available on your piwik site, using real logs files instead of relying on client-side Javacsript, and not having a surge of CPU/RAM usage during log processing.
-The disadvantage is that if Piwik is unavailable, logging data will be lost. Therefore we recommend to also log into a standard log file. Bear in mind also that apache processes will wait until a request is logged before processing a new request, so if piwik runs slow so does your site: it's therefore important to tune --recorders to the right level.
+The disadvantage is that if Piwik is unavailable, logging data will be lost. Therefore we recommend to also log into a standard log file. Bear in mind also that apache processes will wait until a request is logged before processing a new request, so if piwik runs slow so does your site: it's therefore important to tune `--recorders` to the right level.
 
-##### Basic setup
+##### Basic setup example 
 
 You might have in your main config section:
 
@@ -250,17 +254,28 @@ CustomLog /path/to/logfile myLogFormat
 CustomLog "|/path/to/import_logs.py --option1 --option2 ... -" myLogFormat
 ```
 
-Note: on Debian/Ubuntu, the default configuration defines the vhost_combined format. You
-can use it instead of defining myLogFormat.
+Note: on Debian/Ubuntu, the default configuration defines the `vhost_combined` format. You can use it instead of defining `myLogFormat`. 
+
+Here is another example on Apache defining the custom log:
+```
+LogFormat "%v %h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\"" piwikLogFormat
+
+CustomLog "||/var/www/virtual/test.tld/piwik/htdocs/misc/log-analytics/import_logs.py \
+--debug --enable-http-errors --enable-http-redirects --enable-bots \
+--url=http://piwik.test.tld --output=/var/log/piwik.log --recorders=1 \
+--recorder-max-payload-size=1 --log-format-name=common_complete \
+-" piwikLogFormat
+```
 
 Useful options here are:
 
-* --add-sites-new-hosts (creates new websites in piwik based on %v in the LogFormat)
-* --output=/path/to/piwik.log (puts any output into a log file for reference/debugging later)
-* --recorders=4 (use whatever value seems sensible for you - higher traffic sites will need more recorders to keep up)
-* "-" so it reads straight from /dev/stdin
+* `--add-sites-new-hosts` (creates new websites in piwik based on %v in the LogFormat)
+* `--output=/path/to/piwik.log` (puts any output into a log file for reference/debugging later)
+* `--recorders=4` (use whatever value seems sensible for you - higher traffic sites will need more recorders to keep up)
+* `-` so it reads straight from /dev/stdin
 
 You can have as many CustomLog statements as you like. However, if you define any CustomLog directives within a <VirtualHost> block, all CustomLogs in the main config will be overridden. Therefore if you require custom logging for particular VirtualHosts, it is recommended to use mod_macro to make configuration more maintainable.
+
 
 ##### Advanced setup: Apache vhost, custom logs, automatic website creation
 
@@ -268,7 +283,7 @@ As a rather extreme example of what you can do, here is an apache config with:
 
 * standard logging in the main config area for the majority of VirtualHosts
 * customised logging in a particular virtualhost to change the hostname (for instance, if a particular virtualhost should be logged as if it were a different site)
-* customised logging in another virtualhost which creates new websites in piwik for subsites (e.g. to have domain.com/subsite1 as a whole website in its own right). This requires setting up a custom --log-format-regex to allow "/" in the hostname section (NB the escaping necessary for apache to pass through the regex to piwik properly), and also to have multiple CustomLog directives so the subsite gets logged to both domain.com and domain.com/subsite1 websites in piwik
+* customised logging in another virtualhost which creates new websites in piwik for subsites (e.g. to have domain.com/subsite1 as a whole website in its own right). This requires setting up a custom `--log-format-regex` to allow "/" in the hostname section (NB the escaping necessary for apache to pass through the regex to piwik properly), and also to have multiple CustomLog directives so the subsite gets logged to both domain.com and domain.com/subsite1 websites in piwik
 * we also use mod_rewrite to set environment variables so that if you have multiple subsites with the same format , e.g. /subsite1, /subsite2, etc, you can automatically create a new piwik website for each one without having to configure them manually
 
 NB use of mod_macro to ensure consistency and maintainability
@@ -342,5 +357,5 @@ Use piwiklog %v vhost_common main " "
 ### And that's all !
 
 
-***This documentation is a community effort, feel free to suggest any change via Github Pull request.***
+***This documentation is a community effort, we welcome your pull requests to [improve this documentation](https://github.com/piwik/piwik-log-analytics/edit/master/README.md).***
 
