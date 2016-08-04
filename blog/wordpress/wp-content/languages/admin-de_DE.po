@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-07-02 11:53:27+0000\n"
+"PO-Revision-Date: 2016-07-30 21:42:25+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -553,11 +553,6 @@ msgstr "Wenn du auf den Link des Kategorie- und Schlagwort-Konverters klickst, w
 msgid "Installing themes on Multisite can only be done from the Network Admin section."
 msgstr "In einem Netzwerk können neue Themes nur in der Netzwerkverwaltung installiert werden."
 
-#. translators: 1: user id, 2: user login
-#: wp-admin/users.php:255 wp-admin/users.php:388
-msgid "ID #%1$s: %2$s"
-msgstr "D #%1$s: %2$s"
-
 #: wp-admin/users.php:235
 msgid "Please select an option."
 msgstr "Bitte wähle eine Option"
@@ -585,16 +580,6 @@ msgstr "Neues Passwort wiederholen"
 #. Description of the plugin/theme
 msgid "This is not just a plugin, it symbolizes the hope and enthusiasm of an entire generation summed up in two words sung most famously by Louis Armstrong: Hello, Dolly. When activated you will randomly see a lyric from <cite>Hello, Dolly</cite> in the upper right of your admin screen on every page."
 msgstr "Dies ist nicht nur ein Plugin, es symbolisiert in zwei Worten, gesungen von Louis Amstrong, die Hoffnung und den Enthusiasmus einer ganzen Generation: <cite>Hello, Dolly</cite>. Nach Aktivierung werden im Zufallsprinzip aus dem Liedtext von \"Hello, Dolly\" Zeilen oben rechts im Administrationsbereich angezeigt."
-
-#. translators: 1: user id, 2: user login
-#: wp-admin/users.php:252
-msgid "ID #%1$s: %2$s <strong>The current user will not be deleted.</strong>"
-msgstr "ID #%1$s: %2$s <strong>Der angemeldete User wird nicht gelöscht.</strong>"
-
-#. translators: 1: user id, 2: user login
-#: wp-admin/users.php:382
-msgid "ID #%1$s: %2$s <strong>The current user will not be removed.</strong>"
-msgstr "ID #%1$s: %2$s <strong>Der angemeldete User wird nicht gelöscht.</strong>"
 
 #: wp-admin/tools.php:22
 msgid "Categories have hierarchy, meaning that you can nest sub-categories. Tags do not have hierarchy and cannot be nested. Sometimes people start out using one on their posts, then later realize that the other would work better for their content."
@@ -1397,6 +1382,21 @@ msgstr "Neuer Benutzer erstellt. <a href=\"%s\">Benutzer bearbeiten</a>"
 #: wp-admin/user-edit.php:454
 msgid "Share a little biographical information to fill out your profile. This may be shown publicly."
 msgstr "Teile ein paar biographische Informationen, um dein Profil zu ergänzen. Die Informationen könnten öffentlich sichtbar sein."
+
+#. translators: 1: user id, 2: user login
+#: wp-admin/users.php:255 wp-admin/users.php:388
+msgid "ID #%1$s: %2$s"
+msgstr "ID #%1$s: %2$s"
+
+#. translators: 1: user id, 2: user login
+#: wp-admin/users.php:252
+msgid "ID #%1$s: %2$s <strong>The current user will not be deleted.</strong>"
+msgstr "ID #%1$s: %2$s <strong>Der angemeldete Benutzer wird nicht gelöscht.</strong>"
+
+#. translators: 1: user id, 2: user login
+#: wp-admin/users.php:382
+msgid "ID #%1$s: %2$s <strong>The current user will not be removed.</strong>"
+msgstr "ID #%1$s: %2$s <strong>Der angemeldete Benutzer wird nicht gelöscht.</strong>"
 
 #: wp-admin/options-discussion.php:110
 msgid "Break comments into pages with %1$s top level comments per page and the %2$s page displayed by default"
