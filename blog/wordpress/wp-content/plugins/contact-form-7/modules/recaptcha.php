@@ -249,6 +249,7 @@ function wpcf7_recaptcha_callback_script() {
 
 ?>
 <script type="text/javascript">
+var recaptchaWidgets = [];
 var recaptchaCallback = function() {
 	var forms = document.getElementsByTagName('form');
 	var pattern = /(^|\s)g-recaptcha(\s|$)/;
@@ -260,7 +261,7 @@ var recaptchaCallback = function() {
 			var sitekey = divs[j].getAttribute('data-sitekey');
 
 			if (divs[j].className && divs[j].className.match(pattern) && sitekey) {
-				grecaptcha.render(divs[j], {
+				var widget_id = grecaptcha.render(divs[j], {
 					'sitekey': sitekey,
 					'theme': divs[j].getAttribute('data-theme'),
 					'type': divs[j].getAttribute('data-type'),
@@ -270,6 +271,7 @@ var recaptchaCallback = function() {
 					'expired-callback': divs[j].getAttribute('data-expired-callback')
 				});
 
+				recaptchaWidgets.push(widget_id);
 				break;
 			}
 		}

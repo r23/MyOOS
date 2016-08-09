@@ -296,7 +296,7 @@ function wpcf7_tag_generator_file( $contact_form, $args = '' ) {
 
 /* Warning message */
 
-add_action( 'wpcf7_admin_notices', 'wpcf7_file_display_warning_message' );
+add_action( 'wpcf7_admin_warnings', 'wpcf7_file_display_warning_message' );
 
 function wpcf7_file_display_warning_message() {
 	if ( ! $contact_form = wpcf7_get_current_contact_form() ) {
@@ -316,7 +316,7 @@ function wpcf7_file_display_warning_message() {
 	if ( ! is_dir( $uploads_dir ) || ! wp_is_writable( $uploads_dir ) ) {
 		$message = sprintf( __( 'This contact form contains file uploading fields, but the temporary folder for the files (%s) does not exist or is not writable. You can create the folder or change its permission manually.', 'contact-form-7' ), $uploads_dir );
 
-		echo '<div class="notice notice-error is-dismissible"><p>' . esc_html( $message ) . '</p></div>';
+		echo '<div class="notice notice-warning"><p>' . esc_html( $message ) . '</p></div>';
 	}
 }
 
@@ -362,7 +362,7 @@ function wpcf7_upload_tmp_dir() {
 
 add_action( 'template_redirect', 'wpcf7_cleanup_upload_files', 20 );
 
-function wpcf7_cleanup_upload_files() {
+function wpcf7_cleanup_upload_files( $seconds = 60, $max = 100 ) {
 	if ( is_admin() || 'GET' != $_SERVER['REQUEST_METHOD']
 	|| is_robots() || is_feed() || is_trackback() ) {
 		return;
@@ -374,6 +374,10 @@ function wpcf7_cleanup_upload_files() {
 		return;
 	}
 
+	$seconds = absint( $seconds );
+	$max = absint( $max );
+	$count = 0;
+
 	if ( $handle = @opendir( $dir ) ) {
 		while ( false !== ( $file = readdir( $handle ) ) ) {
 			if ( $file == "." || $file == ".." || $file == ".htaccess" ) {
@@ -382,11 +386,16 @@ function wpcf7_cleanup_upload_files() {
 
 			$mtime = @filemtime( $dir . $file );
 
-			if ( $mtime && time() < $mtime + 60 ) { // less than 60 secs old
+			if ( $mtime && time() < $mtime + $seconds ) { // less than $seconds old
 				continue;
 			}
 
 			wpcf7_rmdir_p( path_join( $dir, $file ) );
+			$count += 1;
+
+			if ( $max <= $count ) {
+				break;
+			}
 		}
 
 		closedir( $handle );

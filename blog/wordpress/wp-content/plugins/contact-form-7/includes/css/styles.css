@@ -76,3 +76,7 @@ div.wpcf7 div.ajax-error {
 div.wpcf7 .placeheld {
 	color: #888;
 }
+
+.wpcf7-recaptcha iframe {
+	margin-bottom: 0;
+}

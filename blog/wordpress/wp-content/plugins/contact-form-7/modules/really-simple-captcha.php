@@ -15,11 +15,13 @@ function wpcf7_add_shortcode_captcha() {
 function wpcf7_captcha_shortcode_handler( $tag ) {
 	$tag = new WPCF7_Shortcode( $tag );
 
-	if ( 'captchac' == $tag->type && ! class_exists( 'ReallySimpleCaptcha' ) )
+	if ( 'captchac' == $tag->type && ! class_exists( 'ReallySimpleCaptcha' ) ) {
 		return '<em>' . __( 'To use CAPTCHA, you need <a href="http://wordpress.org/extend/plugins/really-simple-captcha/">Really Simple CAPTCHA</a> plugin installed.', 'contact-form-7' ) . '</em>';
+	}
 
-	if ( empty( $tag->name ) )
+	if ( empty( $tag->name ) ) {
 		return '';
+	}
 
 	$validation_error = wpcf7_get_validation_error( $tag->name );
 
@@ -41,15 +43,18 @@ function wpcf7_captcha_shortcode_handler( $tag ) {
 
 		$op = array_merge( $op, wpcf7_captchac_options( $tag->options ) );
 
-		if ( ! $filename = wpcf7_generate_captcha( $op ) )
+		if ( ! $filename = wpcf7_generate_captcha( $op ) ) {
 			return '';
+		}
 
 		if ( ! empty( $op['img_size'] ) ) {
-			if ( isset( $op['img_size'][0] ) )
+			if ( isset( $op['img_size'][0] ) ) {
 				$atts['width'] = $op['img_size'][0];
+			}
 
-			if ( isset( $op['img_size'][1] ) )
+			if ( isset( $op['img_size'][1] ) ) {
 				$atts['height'] = $op['img_size'][1];
+			}
 		}
 
 		$atts['alt'] = 'captcha';
@@ -66,8 +71,9 @@ function wpcf7_captcha_shortcode_handler( $tag ) {
 		return $html;
 
 	} elseif ( 'captchar' == $tag->type ) { // CAPTCHA-Response (input)
-		if ( $validation_error )
+		if ( $validation_error ) {
 			$class .= ' wpcf7-not-valid';
+		}
 
 		$atts = array();
 
@@ -83,15 +89,17 @@ function wpcf7_captcha_shortcode_handler( $tag ) {
 		$atts['class'] = $tag->get_class_option( $class );
 		$atts['id'] = $tag->get_id_option();
 		$atts['tabindex'] = $tag->get_option( 'tabindex', 'int', true );
-
+		$atts['autocomplete'] = 'off';
 		$atts['aria-invalid'] = $validation_error ? 'true' : 'false';
 
 		$value = (string) reset( $tag->values );
 
-		if ( wpcf7_is_posted() )
+		if ( wpcf7_is_posted() ) {
 			$value = '';
+		}
 
-		if ( $tag->has_option( 'placeholder' ) || $tag->has_option( 'watermark' ) ) {
+		if ( $tag->has_option( 'placeholder' )
+		|| $tag->has_option( 'watermark' ) ) {
 			$atts['placeholder'] = $value;
 			$value = '';
 		}
@@ -281,7 +289,7 @@ function wpcf7_tag_generator_captcha( $contact_form, $args = '' ) {
 
 /* Warning message */
 
-add_action( 'wpcf7_admin_notices', 'wpcf7_captcha_display_warning_message' );
+add_action( 'wpcf7_admin_warnings', 'wpcf7_captcha_display_warning_message' );
 
 function wpcf7_captcha_display_warning_message() {
 	if ( ! $contact_form = wpcf7_get_current_contact_form() ) {
@@ -305,13 +313,13 @@ function wpcf7_captcha_display_warning_message() {
 	if ( ! is_dir( $uploads_dir ) || ! wp_is_writable( $uploads_dir ) ) {
 		$message = sprintf( __( 'This contact form contains CAPTCHA fields, but the temporary folder for the files (%s) does not exist or is not writable. You can create the folder or change its permission manually.', 'contact-form-7' ), $uploads_dir );
 
-		echo '<div class="notice notice-error is-dismissible"><p>' . esc_html( $message ) . '</p></div>';
+		echo '<div class="notice notice-warning"><p>' . esc_html( $message ) . '</p></div>';
 	}
 
 	if ( ! function_exists( 'imagecreatetruecolor' ) || ! function_exists( 'imagettftext' ) ) {
 		$message = __( 'This contact form contains CAPTCHA fields, but the necessary libraries (GD and FreeType) are not available on your server.', 'contact-form-7' );
 
-		echo '<div class="notice notice-error is-dismissible"><p>' . esc_html( $message ) . '</p></div>';
+		echo '<div class="notice notice-warning"><p>' . esc_html( $message ) . '</p></div>';
 	}
 }
 

@@ -250,8 +250,17 @@ function wpcf7_enctype_value( $enctype ) {
 
 function wpcf7_rmdir_p( $dir ) {
 	if ( is_file( $dir ) ) {
-		@unlink( $dir );
-		return true;
+		if ( ! $result = @unlink( $dir ) ) {
+			$stat = @stat( $dir );
+			$perms = $stat['mode'];
+			@chmod( $dir, $perms | 0200 ); // add write for owner
+
+			if ( ! $result = @unlink( $dir ) ) {
+				@chmod( $dir, $perms );
+			}
+		}
+
+		return $result;
 	}
 
 	if ( ! is_dir( $dir ) ) {

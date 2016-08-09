@@ -43,6 +43,7 @@ function wpcf7_admin_save_button( $post_id ) {
 	}
 ?></h1>
 
+<?php do_action( 'wpcf7_admin_warnings' ); ?>
 <?php do_action( 'wpcf7_admin_notices' ); ?>
 
 <?php
@@ -131,6 +132,10 @@ if ( $post ) :
 	<input type="submit" name="wpcf7-copy" class="copy button" value="<?php echo esc_attr( __( 'Duplicate', 'contact-form-7' ) ); ?>" <?php echo "onclick=\"this.form._wpnonce.value = '$copy_nonce'; this.form.action.value = 'copy'; return true;\""; ?> />
 <?php endif; ?>
 </div><!-- #minor-publishing-actions -->
+
+<div id="misc-publishing-actions">
+<?php do_action( 'wpcf7_admin_misc_pub_section', $post_id ); ?>
+</div><!-- #misc-publishing-actions -->
 
 <div id="major-publishing-actions">
 

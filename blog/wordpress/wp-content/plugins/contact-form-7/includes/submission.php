@@ -284,7 +284,7 @@ class WPCF7_Submission {
 
 	public function remove_uploaded_files() {
 		foreach ( (array) $this->uploaded_files as $name => $path ) {
-			@unlink( $path );
+			wpcf7_rmdir_p( $path );
 			@rmdir( dirname( $path ) ); // remove parent dir if it's removable (empty).
 		}
 	}

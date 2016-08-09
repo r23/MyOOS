@@ -56,10 +56,49 @@ span.shortcode > input {
 	color: #23282d;
 }
 
-div.config-error, span.config-error {
+#misc-publishing-actions .misc-pub-section::before {
+	content: "\f488";
+	-moz-osx-font-smoothing: grayscale;
+	display: inline-block;
+	font: 20px/1 dashicons;
+	left: -1px;
+	padding: 0 2px 0 0;
+	position: relative;
+	text-decoration: none !important;
+	top: 0;
+	vertical-align: top;
+	color: #82878c;
+}
+
+#misc-publishing-actions .misc-pub-section.warning::before {
+	content: "\f534";
+}
+
+#misc-publishing-actions .misc-pub-section.warning a.external {
+	font-style: italic;
+}
+
+div.config-error, span.config-error, ul.config-error {
 	color: #d00;
 	font-style: normal;
 	font-size: 13px;
+}
+
+ul.config-error {
+	margin: 0;
+}
+
+ul.config-error li {
+	padding: 0 4px;
+	margin: 0;
+}
+
+ul.config-error li a.external {
+	font-style: italic;
+}
+
+[data-config-field][aria-invalid="true"] {
+	border-color: #d00;
 }
 
 /*

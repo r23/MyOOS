@@ -19,20 +19,29 @@ class WPCF7_ContactFormTemplate {
 	}
 
 	public static function form() {
-		$template =
-			'<p>' . __( 'Your Name', 'contact-form-7' )
-			. ' ' . __( '(required)', 'contact-form-7' ) . '<br />' . "\n"
-			. '    [text* your-name] </p>' . "\n\n"
-			. '<p>' . __( 'Your Email', 'contact-form-7' )
-			. ' ' . __( '(required)', 'contact-form-7' ) . '<br />' . "\n"
-			. '    [email* your-email] </p>' . "\n\n"
-			. '<p>' . __( 'Subject', 'contact-form-7' ) . '<br />' . "\n"
-			. '    [text your-subject] </p>' . "\n\n"
-			. '<p>' . __( 'Your Message', 'contact-form-7' ) . '<br />' . "\n"
-			. '    [textarea your-message] </p>' . "\n\n"
-			. '<p>[submit "' . __( 'Send', 'contact-form-7' ) . '"]</p>';
+		$template = sprintf(
+			'
+<label> %2$s %1$s
+    [text* your-name] </label>
 
-		return $template;
+<label> %3$s %1$s
+    [email* your-email] </label>
+
+<label> %4$s
+    [text your-subject] </label>
+
+<label> %5$s
+    [textarea your-message] </label>
+
+[submit "%6$s"]',
+			__( '(required)', 'contact-form-7' ),
+			__( 'Your Name', 'contact-form-7' ),
+			__( 'Your Email', 'contact-form-7' ),
+			__( 'Subject', 'contact-form-7' ),
+			__( 'Your Message', 'contact-form-7' ),
+			__( 'Send', 'contact-form-7' ) );
+
+		return trim( $template );
 	}
 
 	public static function mail() {

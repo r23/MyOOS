@@ -1,5 +1,7 @@
 (function($) {
 
+	'use strict';
+
 	if (typeof _wpcf7 == 'undefined' || _wpcf7 === null) {
 		_wpcf7 = {};
 	}
@@ -53,6 +55,34 @@
 			window.getSelection().addRange(range);
 		});
 
+		$('[data-config-field]').each(function() {
+			var section = $(this).attr('data-config-field');
+
+			if (_wpcf7.configErrors[section]) {
+				var $list = $('<ul></ul>').attr({
+					'role': 'alert',
+					'class': 'config-error'
+				});
+
+				$.each(_wpcf7.configErrors[section], function(i, val) {
+					var $li = $('<li></li>').text(val.message);
+
+					if (val.link) {
+						var $link = $('<a></a>').attr({
+							'href': val.link,
+							'class': 'external'
+						}).text(_wpcf7.howToCorrectLink);
+
+						$li = $li.append(' ').append($link);
+					}
+
+					$li.appendTo($list);
+				});
+
+				$(this).after($list).attr({'aria-invalid': 'true'});
+			}
+		});
+
 		$(window).on('beforeunload', function(event) {
 			var changed = false;
 
@@ -61,6 +91,12 @@
 					if (this.defaultChecked != $(this).is(':checked')) {
 						changed = true;
 					}
+				} else if ($(this).is('select')) {
+					$(this).find('option').each(function() {
+						if (this.defaultSelected != $(this).is(':selected')) {
+							changed = true;
+						}
+					});
 				} else {
 					if (this.defaultValue != $(this).val()) {
 						changed = true;

@@ -3,6 +3,7 @@
 require_once WPCF7_PLUGIN_DIR . '/admin/includes/admin-functions.php';
 require_once WPCF7_PLUGIN_DIR . '/admin/includes/help-tabs.php';
 require_once WPCF7_PLUGIN_DIR . '/admin/includes/tag-generator.php';
+require_once WPCF7_PLUGIN_DIR . '/admin/includes/welcome-panel.php';
 
 add_action( 'admin_init', 'wpcf7_admin_init' );
 
@@ -170,12 +171,13 @@ function wpcf7_load_contact_form_admin() {
 				'count_invalid' => 0 );
 
 			foreach ( $contact_forms as $contact_form ) {
-				$contact_form->validate_configuration();
+				$config_validator = new WPCF7_ConfigValidator( $contact_form );
+				$config_validator->validate();
 
-				if ( $contact_form->get_config_errors() ) {
-					$result['count_invalid'] += 1;
-				} else {
+				if ( $config_validator->is_valid() ) {
 					$result['count_valid'] += 1;
+				} else {
+					$result['count_invalid'] += 1;
 				}
 			}
 
@@ -245,10 +247,34 @@ function wpcf7_admin_enqueue_scripts( $hook_suffix ) {
 		array( 'jquery', 'jquery-ui-tabs' ),
 		WPCF7_VERSION, true );
 
-	wp_localize_script( 'wpcf7-admin', '_wpcf7', array(
+	$args = array(
 		'pluginUrl' => wpcf7_plugin_url(),
-		'saveAlert' => __( "The changes you made will be lost if you navigate away from this page.", 'contact-form-7' ),
-		'activeTab' => isset( $_GET['active-tab'] ) ? (int) $_GET['active-tab'] : 0 ) );
+		'saveAlert' => __(
+			"The changes you made will be lost if you navigate away from this page.",
+			'contact-form-7' ),
+		'activeTab' => isset( $_GET['active-tab'] )
+			? (int) $_GET['active-tab'] : 0,
+		'howToCorrectLink' => __( "How to correct this?", 'contact-form-7' ),
+		'configErrors' => array() );
+
+	if ( ( $post = wpcf7_get_current_contact_form() )
+	&& current_user_can( 'wpcf7_edit_contact_form', $post->id() )
+	&& wpcf7_validate_configuration() ) {
+		$config_validator = new WPCF7_ConfigValidator( $post );
+		$error_messages = $config_validator->collect_error_messages();
+
+		foreach ( $error_messages as $section => $errors ) {
+			$args['configErrors'][$section] = array();
+
+			foreach ( $errors as $error ) {
+				$args['configErrors'][$section][] = array(
+					'message' => esc_html( $error['message'] ),
+					'link' => esc_url( $error['link'] ) );
+			}
+		}
+	}
+
+	wp_localize_script( 'wpcf7-admin', '_wpcf7', $args );
 
 	add_thickbox();
 
@@ -293,6 +319,8 @@ function wpcf7_admin_management_page() {
 	}
 ?></h1>
 
+<?php do_action( 'wpcf7_admin_warnings' ); ?>
+<?php wpcf7_welcome_panel(); ?>
 <?php do_action( 'wpcf7_admin_notices' ); ?>
 
 <form method="get" action="">
@@ -367,6 +395,7 @@ function wpcf7_admin_integration_page() {
 
 <h1><?php echo esc_html( __( 'Integration with Other Services', 'contact-form-7' ) ); ?></h1>
 
+<?php do_action( 'wpcf7_admin_warnings' ); ?>
 <?php do_action( 'wpcf7_admin_notices' ); ?>
 
 <?php
@@ -444,7 +473,7 @@ function wpcf7_plugin_action_links( $links, $file ) {
 	return $links;
 }
 
-add_action( 'wpcf7_admin_notices', 'wpcf7_old_wp_version_error', 2 );
+add_action( 'wpcf7_admin_warnings', 'wpcf7_old_wp_version_error' );
 
 function wpcf7_old_wp_version_error() {
 	$wp_version = get_bloginfo( 'version' );
@@ -454,92 +483,13 @@ function wpcf7_old_wp_version_error() {
 	}
 
 ?>
-<div class="notice notice-error is-dismissible">
+<div class="notice notice-warning">
 <p><?php echo sprintf( __( '<strong>Contact Form 7 %1$s requires WordPress %2$s or higher.</strong> Please <a href="%3$s">update WordPress</a> first.', 'contact-form-7' ), WPCF7_VERSION, WPCF7_REQUIRED_WP_VERSION, admin_url( 'update-core.php' ) ); ?></p>
 </div>
 <?php
 }
 
-add_action( 'wpcf7_admin_notices', 'wpcf7_welcome_panel', 4 );
-
-function wpcf7_welcome_panel() {
-	global $plugin_page;
-
-	if ( 'wpcf7' != $plugin_page || ! empty( $_GET['post'] ) ) {
-		return;
-	}
-
-	$classes = 'welcome-panel';
-
-	$vers = (array) get_user_meta( get_current_user_id(),
-		'wpcf7_hide_welcome_panel_on', true );
-
-	if ( wpcf7_version_grep( wpcf7_version( 'only_major=1' ), $vers ) ) {
-		$classes .= ' hidden';
-	}
-
-?>
-<div id="welcome-panel" class="<?php echo esc_attr( $classes ); ?>">
-	<?php wp_nonce_field( 'wpcf7-welcome-panel-nonce', 'welcomepanelnonce', false ); ?>
-	<a class="welcome-panel-close" href="<?php echo esc_url( menu_page_url( 'wpcf7', false ) ); ?>"><?php echo esc_html( __( 'Dismiss', 'contact-form-7' ) ); ?></a>
-
-	<div class="welcome-panel-content">
-		<div class="welcome-panel-column-container">
-			<div class="welcome-panel-column">
-				<h3><?php echo esc_html( __( 'Contact Form 7 Needs Your Support', 'contact-form-7' ) ); ?></h3>
-				<p class="message"><?php echo esc_html( __( "It is hard to continue development and support for this plugin without contributions from users like you. If you enjoy using Contact Form 7 and find it useful, please consider making a donation.", 'contact-form-7' ) ); ?></p>
-				<p><?php echo wpcf7_link( __( 'http://contactform7.com/donate/', 'contact-form-7' ), __( 'Donate', 'contact-form-7' ), array( 'class' => 'button button-primary' ) ); ?></p>
-			</div>
-
-			<div class="welcome-panel-column">
-				<h3><?php echo esc_html( __( 'Get Started', 'contact-form-7' ) ); ?></h3>
-				<ul>
-					<li><?php echo wpcf7_link( __( 'http://contactform7.com/getting-started-with-contact-form-7/', 'contact-form-7' ), __( 'Getting Started with Contact Form 7', 'contact-form-7' ) ); ?></li>
-					<li><?php echo wpcf7_link( __( 'http://contactform7.com/admin-screen/', 'contact-form-7' ), __( 'Admin Screen', 'contact-form-7' ) ); ?></li>
-					<li><?php echo wpcf7_link( __( 'http://contactform7.com/tag-syntax/', 'contact-form-7' ), __( 'How Tags Work', 'contact-form-7' ) ); ?></li>
-					<li><?php echo wpcf7_link( __( 'http://contactform7.com/setting-up-mail/', 'contact-form-7' ), __( 'Setting Up Mail', 'contact-form-7' ) ); ?></li>
-				</ul>
-			</div>
-
-			<div class="welcome-panel-column">
-				<h3><?php echo esc_html( __( 'Did You Know?', 'contact-form-7' ) ); ?></h3>
-				<ul>
-					<li><?php echo wpcf7_link( __( 'http://contactform7.com/spam-filtering-with-akismet/', 'contact-form-7' ), __( 'Spam Filtering with Akismet', 'contact-form-7' ) ); ?></li>
-					<li><?php echo wpcf7_link( __( 'http://contactform7.com/save-submitted-messages-with-flamingo/', 'contact-form-7' ), __( 'Save Messages with Flamingo', 'contact-form-7' ) ); ?></li>
-					<li><?php echo wpcf7_link( __( 'http://contactform7.com/selectable-recipient-with-pipes/', 'contact-form-7' ), __( 'Selectable Recipient with Pipes', 'contact-form-7' ) ); ?></li>
-					<li><?php echo wpcf7_link( __( 'http://contactform7.com/tracking-form-submissions-with-google-analytics/', 'contact-form-7' ), __( 'Tracking with Google Analytics', 'contact-form-7' ) ); ?></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-</div>
-<?php
-}
-
-add_action( 'wp_ajax_wpcf7-update-welcome-panel', 'wpcf7_admin_ajax_welcome_panel' );
-
-function wpcf7_admin_ajax_welcome_panel() {
-	check_ajax_referer( 'wpcf7-welcome-panel-nonce', 'welcomepanelnonce' );
-
-	$vers = get_user_meta( get_current_user_id(),
-		'wpcf7_hide_welcome_panel_on', true );
-
-	if ( empty( $vers ) || ! is_array( $vers ) ) {
-		$vers = array();
-	}
-
-	if ( empty( $_POST['visible'] ) ) {
-		$vers[] = WPCF7_VERSION;
-	}
-
-	$vers = array_unique( $vers );
-
-	update_user_meta( get_current_user_id(), 'wpcf7_hide_welcome_panel_on', $vers );
-
-	wp_die( 1 );
-}
-
-add_action( 'wpcf7_admin_notices', 'wpcf7_not_allowed_to_edit' );
+add_action( 'wpcf7_admin_warnings', 'wpcf7_not_allowed_to_edit' );
 
 function wpcf7_not_allowed_to_edit() {
 	if ( ! $contact_form = wpcf7_get_current_contact_form() ) {
@@ -556,11 +506,11 @@ function wpcf7_not_allowed_to_edit() {
 		'contact-form-7' );
 
 	echo sprintf(
-		'<div class="notice notice-warning is-dismissible"><p>%s</p></div>',
+		'<div class="notice notice-warning"><p>%s</p></div>',
 		esc_html( $message ) );
 }
 
-add_action( 'wpcf7_admin_notices', 'wpcf7_notice_config_errors' );
+add_action( 'wpcf7_admin_misc_pub_section', 'wpcf7_notice_config_errors' );
 
 function wpcf7_notice_config_errors() {
 	if ( ! $contact_form = wpcf7_get_current_contact_form() ) {
@@ -572,23 +522,29 @@ function wpcf7_notice_config_errors() {
 		return;
 	}
 
-	if ( $config_errors = $contact_form->get_config_errors() ) {
+	$config_validator = new WPCF7_ConfigValidator( $contact_form );
+
+	if ( $count_errors = $config_validator->count_errors() ) {
 		$message = sprintf(
 			_n(
-				"This contact form has a configuration error.",
-				"This contact form has %s configuration errors.",
-				count( $config_errors ), 'contact-form-7' ),
-			number_format_i18n( count( $config_errors ) ) );
+				'%s configuration error found',
+				'%s configuration errors found',
+				$count_errors, 'contact-form-7' ),
+			number_format_i18n( $count_errors ) );
 
 		$link = wpcf7_link(
-			__( 'http://contactform7.com/configuration-errors/', 'contact-form-7' ),
-			__( 'How to Resolve Configuration Errors', 'contact-form-7' ) );
+			__( 'http://contactform7.com/configuration-validator-faq/',
+				'contact-form-7' ),
+			__( "What's this?", 'contact-form-7' ),
+			array( 'class' => 'external' ) );
 
-		echo sprintf( '<div class="notice notice-warning is-dismissible"><p>%s &raquo; %s</p></div>', esc_html( $message ), $link );
+		echo sprintf(
+			'<div class="misc-pub-section warning">%1$s<br />%2$s</div>',
+			$message, $link );
 	}
 }
 
-add_action( 'admin_notices', 'wpcf7_notice_bulk_validate_config' );
+add_action( 'wpcf7_admin_warnings', 'wpcf7_notice_bulk_validate_config', 5 );
 
 function wpcf7_notice_bulk_validate_config() {
 	if ( ! wpcf7_validate_configuration()
@@ -613,5 +569,6 @@ function wpcf7_notice_bulk_validate_config() {
 
 	$message = __( "Misconfiguration leads to mail delivery failure or other troubles. Validate your contact forms now.", 'contact-form-7' );
 
-	echo sprintf( '<div class="notice notice-warning is-dismissible"><p>%s &raquo; %s</p></div>', esc_html( $message ), $link );
+	echo sprintf( '<div class="notice notice-warning"><p>%s &raquo; %s</p></div>',
+		esc_html( $message ), $link );
 }

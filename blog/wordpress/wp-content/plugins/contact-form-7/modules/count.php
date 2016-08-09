@@ -18,17 +18,22 @@ function wpcf7_count_shortcode_handler( $tag ) {
 		return '';
 	}
 
-	$target = wpcf7_scan_shortcode( array( 'name' => $tag->name ) );
+	$targets = wpcf7_scan_shortcode( array( 'name' => $tag->name ) );
 	$maxlength = $minlength = null;
 
-	if ( $target ) {
-		$target = new WPCF7_Shortcode( $target[0] );
-		$maxlength = $target->get_maxlength_option();
-		$minlength = $target->get_minlength_option();
+	while ( $targets ) {
+		$target = array_shift( $targets );
+		$target = new WPCF7_Shortcode( $target );
 
-		if ( $maxlength && $minlength && $maxlength < $minlength ) {
-			$maxlength = $minlength = null;
+		if ( 'count' != $target->type ) {
+			$maxlength = $target->get_maxlength_option();
+			$minlength = $target->get_minlength_option();
+			break;
 		}
+	}
+
+	if ( $maxlength && $minlength && $maxlength < $minlength ) {
+		$maxlength = $minlength = null;
 	}
 
 	if ( $tag->has_option( 'down' ) ) {
@@ -53,5 +58,3 @@ function wpcf7_count_shortcode_handler( $tag ) {
 
 	return $html;
 }
-
-?>
