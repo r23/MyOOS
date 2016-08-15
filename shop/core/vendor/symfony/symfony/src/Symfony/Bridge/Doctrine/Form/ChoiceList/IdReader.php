@@ -18,8 +18,6 @@ use Symfony\Component\Form\Exception\RuntimeException;
 /**
  * A utility for reading object IDs.
  *
- * @since  1.0
- *
  * @author Bernhard Schussek <bschussek@gmail.com>
  *
  * @internal This class is meant for internal use only.
@@ -105,9 +103,9 @@ class IdReader
      *
      * This method assumes that the object has a single-column ID.
      *
-     * @param object $object The object.
+     * @param object $object The object
      *
-     * @return mixed The ID value.
+     * @return mixed The ID value
      */
     public function getIdValue($object)
     {
@@ -138,7 +136,7 @@ class IdReader
      *
      * This method assumes that the object has a single-column ID.
      *
-     * @return string The name of the ID field.
+     * @return string The name of the ID field
      */
     public function getIdField()
     {

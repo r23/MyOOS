@@ -30,7 +30,7 @@ class ArrayAdapter implements AdapterInterface, LoggerAwareInterface
 
     /**
      * @param int  $defaultLifetime
-     * @param bool $storeSerialized Disabling serialization can lead to cache corruptions when storing mutable values but increases performance otherwise.
+     * @param bool $storeSerialized Disabling serialization can lead to cache corruptions when storing mutable values but increases performance otherwise
      */
     public function __construct($defaultLifetime = 0, $storeSerialized = true)
     {
@@ -45,7 +45,7 @@ class ArrayAdapter implements AdapterInterface, LoggerAwareInterface
 
                 return $item;
             },
-            $this,
+            null,
             CacheItem::class
         );
     }
@@ -132,9 +132,9 @@ class ArrayAdapter implements AdapterInterface, LoggerAwareInterface
             return false;
         }
         $item = (array) $item;
-        $key = $item[CacheItem::CAST_PREFIX.'key'];
-        $value = $item[CacheItem::CAST_PREFIX.'value'];
-        $expiry = $item[CacheItem::CAST_PREFIX.'expiry'];
+        $key = $item["\0*\0key"];
+        $value = $item["\0*\0value"];
+        $expiry = $item["\0*\0expiry"];
 
         if (null !== $expiry && $expiry <= time()) {
             $this->deleteItem($key);
@@ -150,6 +150,9 @@ class ArrayAdapter implements AdapterInterface, LoggerAwareInterface
 
                 return false;
             }
+        }
+        if (null === $expiry && 0 < $item["\0*\0defaultLifetime"]) {
+            $expiry = time() + $item["\0*\0defaultLifetime"];
         }
 
         $this->values[$key] = $value;

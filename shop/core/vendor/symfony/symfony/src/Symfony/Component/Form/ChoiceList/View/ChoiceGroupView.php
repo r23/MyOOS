@@ -35,7 +35,7 @@ class ChoiceGroupView implements \IteratorAggregate
     /**
      * Creates a new choice group view.
      *
-     * @param string                         $label   The label of the group.
+     * @param string                         $label   The label of the group
      * @param ChoiceGroupView[]|ChoiceView[] $choices The choice views in the
      *                                                group.
      */
@@ -47,6 +47,8 @@ class ChoiceGroupView implements \IteratorAggregate
 
     /**
      * {@inheritdoc}
+     *
+     * @return ChoiceGroupView[]|ChoiceView[]
      */
     public function getIterator()
     {

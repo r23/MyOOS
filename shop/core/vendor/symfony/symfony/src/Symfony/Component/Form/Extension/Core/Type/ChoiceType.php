@@ -31,6 +31,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Extension\Core\EventListener\MergeCollectionListener;
 use Symfony\Component\Form\Extension\Core\DataTransformer\ChoiceToValueTransformer;
 use Symfony\Component\Form\Extension\Core\DataTransformer\ChoicesToValuesTransformer;
+use Symfony\Component\Form\Util\FormUtil;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -90,6 +91,14 @@ class ChoiceType extends AbstractType
             $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
                 $form = $event->getForm();
                 $data = $event->getData();
+
+                if (null === $data) {
+                    $emptyData = $form->getConfig()->getEmptyData();
+
+                    if (false === FormUtil::isEmpty($emptyData) && array() !== $emptyData) {
+                        $data = is_callable($emptyData) ? call_user_func($emptyData, $form, $data) : $emptyData;
+                    }
+                }
 
                 // Convert the submitted data to a string, if scalar, before
                 // casting it to an array
@@ -344,9 +353,9 @@ class ChoiceType extends AbstractType
     /**
      * Adds the sub fields for an expanded choice field.
      *
-     * @param FormBuilderInterface $builder     The form builder.
-     * @param array                $choiceViews The choice view objects.
-     * @param array                $options     The build options.
+     * @param FormBuilderInterface $builder     The form builder
+     * @param array                $choiceViews The choice view objects
+     * @param array                $options     The build options
      */
     private function addSubForms(FormBuilderInterface $builder, array $choiceViews, array $options)
     {

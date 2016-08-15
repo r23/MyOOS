@@ -939,6 +939,30 @@ UPGRADE FROM 2.x to 3.0
  * The `getMatcherDumperInstance()` and `getGeneratorDumperInstance()` methods in the
    `Symfony\Component\Routing\Router` have been changed from `public` to `protected`.
 
+ * Use the constants defined in the UrlGeneratorInterface for the $referenceType argument of the UrlGeneratorInterface::generate method.
+
+   Before:
+
+   ```php
+   // url generated in controller
+   $this->generateUrl('blog_show', array('slug' => 'my-blog-post'), true);
+
+   // url generated in @router service
+   $router->generate('blog_show', array('slug' => 'my-blog-post'), true);
+   ```
+
+   After:
+
+   ```php
+   use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
+   // url generated in controller
+   $this->generateUrl('blog_show', array('slug' => 'my-blog-post'), UrlGeneratorInterface::ABSOLUTE_URL);
+
+   // url generated in @router service
+   $router->generate('blog_show', array('slug' => 'my-blog-post'), UrlGeneratorInterface::ABSOLUTE_URL);
+   ```
+
 ### Security
 
  * The `vote()` method from the `VoterInterface` was changed to now accept arbitrary
@@ -1042,6 +1066,9 @@ UPGRADE FROM 2.x to 3.0
    introduced in 2.8, and move your voting logic to the to the `supports($attribute, $subject)`
    and `voteOnAttribute($attribute, $object, TokenInterface $token)` methods.
 
+ * The `vote()` method from the `VoterInterface` was changed to now accept arbitrary
+   types, and not only objects.
+
  * The `supportsClass` and `supportsAttribute` methods were
    removed from the `VoterInterface` interface.
 
@@ -1083,7 +1110,7 @@ UPGRADE FROM 2.x to 3.0
    }
    ```
 
- * The `AbstractVoter::isGranted()` method have been replaced by `AbstractVoter::voteOnAttribute()`.
+ * The `AbstractVoter::isGranted()` method has been replaced by `Voter::voteOnAttribute()`.
 
    Before:
 
@@ -1102,7 +1129,7 @@ UPGRADE FROM 2.x to 3.0
    After:
 
    ```php
-   class MyVoter extends AbstractVoter
+   class MyVoter extends Voter
    {
        protected function voteOnAttribute($attribute, $object, TokenInterface $token)
        {
@@ -1113,8 +1140,8 @@ UPGRADE FROM 2.x to 3.0
    }
    ```
 
- * The `supportsAttribute()` and `supportsClass()` methods of classes `AuthenticatedVoter`, `ExpressionVoter`
-   and `RoleVoter` have been removed.
+ * The `supportsAttribute()` and `supportsClass()` methods of the `AuthenticatedVoter`, `ExpressionVoter`,
+   and `RoleVoter` classes have been removed.
 
  * The `intention` option was renamed to `csrf_token_id` for all the authentication listeners.
 

@@ -126,7 +126,7 @@ class FrameworkExtension extends Extension
         $this->registerFragmentsConfiguration($config['fragments'], $container, $loader);
         $this->registerTranslatorConfiguration($config['translator'], $container);
         $this->registerProfilerConfiguration($config['profiler'], $container, $loader);
-        $this->registerCacheConfiguration($config['cache'], $container, $loader);
+        $this->registerCacheConfiguration($config['cache'], $container);
 
         if ($this->isConfigEnabled($container, $config['router'])) {
             $this->registerRouterConfiguration($config['router'], $container, $loader);
@@ -822,10 +822,10 @@ class FrameworkExtension extends Extension
 
             if (is_dir($dir = $dirname.'/Resources/config/validation')) {
                 foreach (Finder::create()->files()->in($dir)->name('*.xml') as $file) {
-                    $files[0][] = $file->getRealpath();
+                    $files[0][] = $file->getRealPath();
                 }
                 foreach (Finder::create()->files()->in($dir)->name('*.yml') as $file) {
-                    $files[1][] = $file->getRealpath();
+                    $files[1][] = $file->getRealPath();
                 }
 
                 $container->addResource(new DirectoryResource($dir));
@@ -911,7 +911,7 @@ class FrameworkExtension extends Extension
             // Run after serializer.normalizer.object
             $definition = $container->register('serializer.normalizer.data_uri', DataUriNormalizer::class);
             $definition->setPublic(false);
-            $definition->addTag('serializer.normalizer', ['priority' => -920]);
+            $definition->addTag('serializer.normalizer', array('priority' => -920));
         }
 
         if (class_exists('Symfony\Component\Serializer\Normalizer\DateTimeNormalizer')) {
@@ -965,13 +965,13 @@ class FrameworkExtension extends Extension
 
             if (is_dir($dir = $dirname.'/Resources/config/serialization')) {
                 foreach (Finder::create()->files()->in($dir)->name('*.xml') as $file) {
-                    $definition = new Definition('Symfony\Component\Serializer\Mapping\Loader\XmlFileLoader', array($file->getRealpath()));
+                    $definition = new Definition('Symfony\Component\Serializer\Mapping\Loader\XmlFileLoader', array($file->getRealPath()));
                     $definition->setPublic(false);
 
                     $serializerLoaders[] = $definition;
                 }
                 foreach (Finder::create()->files()->in($dir)->name('*.yml') as $file) {
-                    $definition = new Definition('Symfony\Component\Serializer\Mapping\Loader\YamlFileLoader', array($file->getRealpath()));
+                    $definition = new Definition('Symfony\Component\Serializer\Mapping\Loader\YamlFileLoader', array($file->getRealPath()));
                     $definition->setPublic(false);
 
                     $serializerLoaders[] = $definition;
@@ -1035,7 +1035,7 @@ class FrameworkExtension extends Extension
         }
     }
 
-    private function registerCacheConfiguration(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    private function registerCacheConfiguration(array $config, ContainerBuilder $container)
     {
         $version = substr(str_replace('/', '-', base64_encode(md5(uniqid(mt_rand(), true), true))), 0, -2);
         $container->getDefinition('cache.adapter.apcu')->replaceArgument(2, $version);

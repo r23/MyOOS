@@ -127,17 +127,17 @@
     },
     {
         "name": "twig/twig",
-        "version": "v1.24.0",
-        "version_normalized": "1.24.0.0",
+        "version": "v1.24.1",
+        "version_normalized": "1.24.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/twigphp/Twig.git",
-            "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8"
+            "reference": "3566d311a92aae4deec6e48682dc5a4528c4a512"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/twigphp/Twig/zipball/3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
-            "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
+            "url": "https://api.github.com/repos/twigphp/Twig/zipball/3566d311a92aae4deec6e48682dc5a4528c4a512",
+            "reference": "3566d311a92aae4deec6e48682dc5a4528c4a512",
             "shasum": ""
         },
         "require": {
@@ -147,7 +147,7 @@
             "symfony/debug": "~2.7",
             "symfony/phpunit-bridge": "~2.7"
         },
-        "time": "2016-01-25 21:22:18",
+        "time": "2016-05-30 09:11:59",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -474,17 +474,17 @@
     },
     {
         "name": "symfony/symfony",
-        "version": "v3.1.0",
-        "version_normalized": "3.1.0.0",
+        "version": "v3.1.3",
+        "version_normalized": "3.1.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/symfony.git",
-            "reference": "e71d4713c506686e6cf027af44c97ee5d94c7db4"
+            "reference": "4478f047409028dc6e3ab320590f1247fec7a850"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/symfony/zipball/e71d4713c506686e6cf027af44c97ee5d94c7db4",
-            "reference": "e71d4713c506686e6cf027af44c97ee5d94c7db4",
+            "url": "https://api.github.com/repos/symfony/symfony/zipball/4478f047409028dc6e3ab320590f1247fec7a850",
+            "reference": "4478f047409028dc6e3ab320590f1247fec7a850",
             "shasum": ""
         },
         "require": {
@@ -500,7 +500,8 @@
             "twig/twig": "~1.23|~2.0"
         },
         "conflict": {
-            "phpdocumentor/reflection-docblock": "<3.0"
+            "phpdocumentor/reflection-docblock": "<3.0",
+            "phpdocumentor/type-resolver": "<0.2.0"
         },
         "replace": {
             "symfony/asset": "self.version",
@@ -556,7 +557,7 @@
             "doctrine/dbal": "~2.4",
             "doctrine/doctrine-bundle": "~1.4",
             "doctrine/orm": "~2.4,>=2.4.5",
-            "egulias/email-validator": "~1.2",
+            "egulias/email-validator": "~1.2,>=1.2.1",
             "monolog/monolog": "~1.11",
             "ocramius/proxy-manager": "~0.4|~1.0|~2.0",
             "phpdocumentor/reflection-docblock": "^3.0",
@@ -564,7 +565,7 @@
             "symfony/polyfill-apcu": "~1.1",
             "symfony/security-acl": "~2.8|~3.0"
         },
-        "time": "2016-05-30 07:24:54",
+        "time": "2016-07-30 09:31:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1258,17 +1259,17 @@
     },
     {
         "name": "doctrine/doctrine-bundle",
-        "version": "1.6.2",
-        "version_normalized": "1.6.2.0",
+        "version": "1.6.3",
+        "version_normalized": "1.6.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/DoctrineBundle.git",
-            "reference": "e9c2ccf573b59b7cea566390f34254fed3c20ed9"
+            "reference": "fd51907c6c76acaa8a5234822a4f901c1500afc1"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/e9c2ccf573b59b7cea566390f34254fed3c20ed9",
-            "reference": "e9c2ccf573b59b7cea566390f34254fed3c20ed9",
+            "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/fd51907c6c76acaa8a5234822a4f901c1500afc1",
+            "reference": "fd51907c6c76acaa8a5234822a4f901c1500afc1",
             "shasum": ""
         },
         "require": {
@@ -1285,15 +1286,16 @@
             "phpunit/phpunit": "~4",
             "satooshi/php-coveralls": "~0.6.1",
             "symfony/phpunit-bridge": "~2.7|~3.0",
+            "symfony/property-info": "~2.8|~3.0",
             "symfony/validator": "~2.2|~3.0",
             "symfony/yaml": "~2.2|~3.0",
             "twig/twig": "~1.10"
         },
         "suggest": {
             "doctrine/orm": "The Doctrine ORM integration is optional in the bundle.",
-            "symfony/web-profiler-bundle": "to use the data collector"
+            "symfony/web-profiler-bundle": "To use the data collector."
         },
-        "time": "2016-01-10 17:21:44",
+        "time": "2016-04-21 19:55:56",
         "type": "symfony-bundle",
         "extra": {
             "branch-alias": {
@@ -1572,17 +1574,17 @@
     },
     {
         "name": "sensio/distribution-bundle",
-        "version": "v5.0.6",
-        "version_normalized": "5.0.6.0",
+        "version": "v5.0.7",
+        "version_normalized": "5.0.7.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-            "reference": "ffe306d09c1f2bad721237f63b2169d1b78253d0"
+            "reference": "a9c4723cbdbc6cf7fbfdfde3c639cb1943f0293a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/ffe306d09c1f2bad721237f63b2169d1b78253d0",
-            "reference": "ffe306d09c1f2bad721237f63b2169d1b78253d0",
+            "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/a9c4723cbdbc6cf7fbfdfde3c639cb1943f0293a",
+            "reference": "a9c4723cbdbc6cf7fbfdfde3c639cb1943f0293a",
             "shasum": ""
         },
         "require": {
@@ -1595,7 +1597,7 @@
             "symfony/http-kernel": "~2.3|~3.0",
             "symfony/process": "~2.3|~3.0"
         },
-        "time": "2016-04-25 20:50:31",
+        "time": "2016-06-23 16:11:33",
         "type": "symfony-bundle",
         "extra": {
             "branch-alias": {
@@ -1690,17 +1692,17 @@
     },
     {
         "name": "monolog/monolog",
-        "version": "1.19.0",
-        "version_normalized": "1.19.0.0",
+        "version": "1.20.0",
+        "version_normalized": "1.20.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Seldaek/monolog.git",
-            "reference": "5f56ed5212dc509c8dc8caeba2715732abb32dbf"
+            "reference": "55841909e2bcde01b5318c35f2b74f8ecc86e037"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/5f56ed5212dc509c8dc8caeba2715732abb32dbf",
-            "reference": "5f56ed5212dc509c8dc8caeba2715732abb32dbf",
+            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/55841909e2bcde01b5318c35f2b74f8ecc86e037",
+            "reference": "55841909e2bcde01b5318c35f2b74f8ecc86e037",
             "shasum": ""
         },
         "require": {
@@ -1719,8 +1721,8 @@
             "php-console/php-console": "^3.1.3",
             "phpunit/phpunit": "~4.5",
             "phpunit/phpunit-mock-objects": "2.3.0",
-            "raven/raven": "^0.13",
             "ruflin/elastica": ">=0.90 <3.0",
+            "sentry/sentry": "^0.13",
             "swiftmailer/swiftmailer": "~5.3"
         },
         "suggest": {
@@ -1732,11 +1734,11 @@
             "mongodb/mongodb": "Allow sending log messages to a MongoDB server via PHP Driver",
             "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
             "php-console/php-console": "Allow sending log messages to Google Chrome",
-            "raven/raven": "Allow sending log messages to a Sentry server",
             "rollbar/rollbar": "Allow sending log messages to Rollbar",
-            "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
+            "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
+            "sentry/sentry": "Allow sending log messages to a Sentry server"
         },
-        "time": "2016-04-12 18:29:35",
+        "time": "2016-07-02 14:02:10",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1887,26 +1889,26 @@
     },
     {
         "name": "swiftmailer/swiftmailer",
-        "version": "v5.4.2",
-        "version_normalized": "5.4.2.0",
+        "version": "v5.4.3",
+        "version_normalized": "5.4.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/swiftmailer/swiftmailer.git",
-            "reference": "d8db871a54619458a805229a057ea2af33c753e8"
+            "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/d8db871a54619458a805229a057ea2af33c753e8",
-            "reference": "d8db871a54619458a805229a057ea2af33c753e8",
+            "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
+            "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.3"
         },
         "require-dev": {
-            "mockery/mockery": "~0.9.1,<0.9.4"
+            "mockery/mockery": "~0.9.1"
         },
-        "time": "2016-05-01 08:45:47",
+        "time": "2016-07-08 11:51:25",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2001,17 +2003,17 @@
     },
     {
         "name": "sensio/generator-bundle",
-        "version": "v3.0.6",
-        "version_normalized": "3.0.6.0",
+        "version": "v3.0.7",
+        "version_normalized": "3.0.7.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sensiolabs/SensioGeneratorBundle.git",
-            "reference": "ac91535054d025937d897d78ebb5fc2da5e955a4"
+            "reference": "d1be460925376703a470a3ac6ec034eb7eab3892"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/ac91535054d025937d897d78ebb5fc2da5e955a4",
-            "reference": "ac91535054d025937d897d78ebb5fc2da5e955a4",
+            "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/d1be460925376703a470a3ac6ec034eb7eab3892",
+            "reference": "d1be460925376703a470a3ac6ec034eb7eab3892",
             "shasum": ""
         },
         "require": {
@@ -2025,7 +2027,7 @@
             "symfony/doctrine-bridge": "~2.7|~3.0",
             "twig/twig": "~1.18"
         },
-        "time": "2016-02-26 04:36:01",
+        "time": "2016-06-20 05:58:05",
         "type": "symfony-bundle",
         "extra": {
             "branch-alias": {
@@ -2055,17 +2057,17 @@
     },
     {
         "name": "symfony/phpunit-bridge",
-        "version": "v3.1.0",
-        "version_normalized": "3.1.0.0",
+        "version": "v3.1.3",
+        "version_normalized": "3.1.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/phpunit-bridge.git",
-            "reference": "f5e7cdc9b5cd3f7d9b0228692cd6ec5736c3b074"
+            "reference": "eeb3bf9a195df7552fdda46f4724a9442d157413"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/f5e7cdc9b5cd3f7d9b0228692cd6ec5736c3b074",
-            "reference": "f5e7cdc9b5cd3f7d9b0228692cd6ec5736c3b074",
+            "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/eeb3bf9a195df7552fdda46f4724a9442d157413",
+            "reference": "eeb3bf9a195df7552fdda46f4724a9442d157413",
             "shasum": ""
         },
         "require": {
@@ -2074,7 +2076,7 @@
         "suggest": {
             "symfony/debug": "For tracking deprecated interfaces usages at runtime with DebugClassLoader"
         },
-        "time": "2016-04-12 18:27:47",
+        "time": "2016-06-29 05:42:25",
         "type": "symfony-bridge",
         "extra": {
             "branch-alias": {

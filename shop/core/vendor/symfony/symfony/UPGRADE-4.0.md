@@ -77,18 +77,16 @@ FrameworkBundle
     - `"form.type.submit"`
     - `"form.type.reset"`
 
- * The service `serializer.mapping.cache.apc` has been removed; use
-   `serializer.mapping.cache.doctrine.apc` instead.
-
- * The `framework.serializer.cache` option has been removed. APCu should now
-   be automatically used when available so you can remove this configuration key.
+ * The `framework.serializer.cache` option and the service
+   `serializer.mapping.cache.apc` have been removed. APCu should now
+   be automatically used when available.
 
 HttpKernel
 ----------
 
- * Possibility to pass objects as URI attributes to the ESI and SSI renderers
-   has been removed. The inline fragment renderer should be used with object
-   attributes.
+ * Possibility to pass non-scalar values as URI attributes to the ESI and SSI
+   renderers has been removed. The inline fragment renderer should be used with
+   non-scalar attributes.
 
  * The `ControllerResolver::getArguments()` method has been removed. If you
    have your own `ControllerResolverInterface` implementation, you should

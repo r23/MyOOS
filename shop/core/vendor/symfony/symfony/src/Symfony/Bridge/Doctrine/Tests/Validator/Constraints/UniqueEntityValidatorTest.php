@@ -19,6 +19,8 @@ use Symfony\Bridge\Doctrine\Test\DoctrineTestHelper;
 use Symfony\Bridge\Doctrine\Tests\Fixtures\SingleIntIdEntity;
 use Symfony\Bridge\Doctrine\Tests\Fixtures\DoubleNameEntity;
 use Symfony\Bridge\Doctrine\Tests\Fixtures\AssociationEntity;
+use Symfony\Bridge\Doctrine\Tests\Fixtures\AssociationEntity2;
+use Symfony\Bridge\Doctrine\Tests\Fixtures\SingleIntIdNoToStringEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntityValidator;
 use Symfony\Component\Validator\Tests\Constraints\AbstractConstraintValidatorTest;
@@ -125,9 +127,11 @@ class UniqueEntityValidatorTest extends AbstractConstraintValidatorTest
         $schemaTool = new SchemaTool($em);
         $schemaTool->createSchema(array(
             $em->getClassMetadata('Symfony\Bridge\Doctrine\Tests\Fixtures\SingleIntIdEntity'),
+            $em->getClassMetadata('Symfony\Bridge\Doctrine\Tests\Fixtures\SingleIntIdNoToStringEntity'),
             $em->getClassMetadata('Symfony\Bridge\Doctrine\Tests\Fixtures\DoubleNameEntity'),
             $em->getClassMetadata('Symfony\Bridge\Doctrine\Tests\Fixtures\CompositeIntIdEntity'),
             $em->getClassMetadata('Symfony\Bridge\Doctrine\Tests\Fixtures\AssociationEntity'),
+            $em->getClassMetadata('Symfony\Bridge\Doctrine\Tests\Fixtures\AssociationEntity2'),
         ));
     }
 
@@ -162,6 +166,7 @@ class UniqueEntityValidatorTest extends AbstractConstraintValidatorTest
             ->atPath('property.path.name')
             ->setParameter('{{ value }}', 'Foo')
             ->setInvalidValue('Foo')
+            ->setCode(UniqueEntity::NOT_UNIQUE_ERROR)
             ->assertRaised();
     }
 
@@ -186,6 +191,7 @@ class UniqueEntityValidatorTest extends AbstractConstraintValidatorTest
             ->atPath('property.path.bar')
             ->setParameter('{{ value }}', 'Foo')
             ->setInvalidValue('Foo')
+            ->setCode(UniqueEntity::NOT_UNIQUE_ERROR)
             ->assertRaised();
     }
 
@@ -238,6 +244,7 @@ class UniqueEntityValidatorTest extends AbstractConstraintValidatorTest
             ->atPath('property.path.name')
             ->setParameter('{{ value }}', 'Foo')
             ->setInvalidValue('Foo')
+            ->setCode(UniqueEntity::NOT_UNIQUE_ERROR)
             ->assertRaised();
     }
 
@@ -270,6 +277,7 @@ class UniqueEntityValidatorTest extends AbstractConstraintValidatorTest
             ->atPath('property.path.name2')
             ->setParameter('{{ value }}', 'Bar')
             ->setInvalidValue('Bar')
+            ->setCode(UniqueEntity::NOT_UNIQUE_ERROR)
             ->assertRaised();
     }
 
@@ -403,6 +411,44 @@ class UniqueEntityValidatorTest extends AbstractConstraintValidatorTest
             ->atPath('property.path.single')
             ->setParameter('{{ value }}', $entity1)
             ->setInvalidValue($entity1)
+            ->setCode(UniqueEntity::NOT_UNIQUE_ERROR)
+            ->assertRaised();
+    }
+
+    public function testValidateUniquenessNotToStringEntityWithAssociatedEntity()
+    {
+        $constraint = new UniqueEntity(array(
+            'message' => 'myMessage',
+            'fields' => array('single'),
+            'em' => self::EM_NAME,
+        ));
+
+        $entity1 = new SingleIntIdNoToStringEntity(1, 'foo');
+        $associated = new AssociationEntity2();
+        $associated->single = $entity1;
+        $associated2 = new AssociationEntity2();
+        $associated2->single = $entity1;
+
+        $this->em->persist($entity1);
+        $this->em->persist($associated);
+        $this->em->flush();
+
+        $this->validator->validate($associated, $constraint);
+
+        $this->assertNoViolation();
+
+        $this->em->persist($associated2);
+        $this->em->flush();
+
+        $this->validator->validate($associated2, $constraint);
+
+        $expectedValue = 'Object of class "Symfony\Bridge\Doctrine\Tests\Fixtures\AssociationEntity2" identified by "2"';
+
+        $this->buildViolation('myMessage')
+            ->atPath('property.path.single')
+            ->setParameter('{{ value }}', $expectedValue)
+            ->setInvalidValue($expectedValue)
+            ->setCode(UniqueEntity::NOT_UNIQUE_ERROR)
             ->assertRaised();
     }
 
