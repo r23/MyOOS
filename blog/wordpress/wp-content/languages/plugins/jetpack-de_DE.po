@@ -2,17 +2,13 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-07-29 15:13:40+0000\n"
+"PO-Revision-Date: 2016-08-10 19:14:34+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/2.1.0-alpha\n"
 "Project-Id-Version: Stable (latest release)\n"
-
-#: modules/sso.php:1012
-msgid "Two-Step Authentication is required to access this site. Please visit your <a href=\"%1$s\" target=\"_blank\">Security Settings</a> to configure <a href=\"%2$S\" target=\"_blank\">Two-step Authentication</a> for your account."
-msgstr "Zweistufige Authentifizierung zum Zugriff auf diese Seite notwendig. Passe die <a href=\"%1$s\" target=\"_blank\">Sicherheitseinstellungen</a> deines Kontos bezüglich der <a href=\"%2$s\" target=\"_blank\">Zweistufigen Authentifizierung</a> an."
 
 #: modules/sso.php:1038
 msgid "You already have an account on this site. Please <a href=\"%1$s\">sign in</a> with your username and password and then connect to WordPress.com."
@@ -70,7 +66,7 @@ msgstr "Global"
 
 #: class.jetpack-debugger.php:124
 msgid "Your site did not get a response from our debugging service in the expected timeframe. If you are not experiencing other issues, this could be due to a slow connection between your site and our server."
-msgstr "Die Seite hat innerhalb des erwarteten Zeitrahmens keine Antwort unseres Debugging-Service erhalten. Sollten keine anderen Probleme auftreten, so könnte es sich um eine langsame Verbindung zwischen deiner Seite und unserem Server handeln."
+msgstr "Die Website hat innerhalb des erwarteten Zeitrahmens keine Antwort unseres Debugging-Service erhalten. Sollten keine anderen Probleme auftreten, so könnte es sich um eine langsame Verbindung zwischen deiner Website und unserem Server handeln."
 
 #: class.jetpack-debugger.php:274
 msgid "View Advanced Debug Results"
@@ -262,11 +258,11 @@ msgstr "Mit Benutzername und Passwort anmelden"
 
 #: class.jetpack-network-sites-list-table.php:83
 msgid "Jetpack is not active on this site."
-msgstr "Jetpack ist auf dieser Seite nicht aktiv."
+msgstr "Jetpack ist auf dieser Website nicht aktiv."
 
 #: class.jetpack-network-sites-list-table.php:85
 msgid "Manage Plugins"
-msgstr "Verwalte Plugins"
+msgstr "Plugins verwalten"
 
 #: views/admin/admin-page.php:348
 msgid "Jetpack utilizes the state-of-the-art WordPress.com content delivery network to load your gorgeous images super fast optimized for any device, and it’s completely free."
@@ -2175,7 +2171,7 @@ msgstr "der vergangene Monat"
 
 #: modules/stats.php:786
 msgid "the past quarter"
-msgstr "der vergangene Viertel"
+msgstr "das vergangene Quartal"
 
 #: modules/stats.php:787
 msgid "the past year"
@@ -4809,7 +4805,7 @@ msgstr "Anpassen"
 
 #: modules/custom-post-types/testimonial.php:496
 msgid "Testimonial Archive Featured Image"
-msgstr "Referenzen-Seite Beitragsbild"
+msgstr "Beitragsbild des Referenzen Archivs"
 
 #: modules/custom-post-types/testimonial.php:649
 msgid "Your Testimonial Archive currently has no entries. You can start creating them on your dashboard."
@@ -5112,10 +5108,6 @@ msgid "View Full Site"
 msgstr "Ganze Seite ansehen"
 
 #: modules/minileven/theme/pub/minileven/footer.php:59
-msgid "http://wordpress.org/"
-msgstr "http://wordpress.org/"
-
-#: modules/minileven/theme/pub/minileven/footer.php:59
 msgid "Semantic Personal Publishing Platform"
 msgstr "Semantic Personal Publishing Platform"
 
@@ -5367,14 +5359,6 @@ msgstr "CSS Revisionen"
 #: modules/custom-css/custom-css.php:981
 msgid "CSS Stylesheet Editor"
 msgstr "CSS Stylesheet Editor"
-
-#: modules/custom-css/custom-css.php:999
-msgid ""
-"New to CSS? Start with a <a href=\"http://www.htmldog.com/guides/cssbeginner/\" target=\"_blank\">beginner tutorial</a>. Questions?\n"
-"\t\tAsk in the <a href=\"http://wordpress.org/support/forum/themes-and-templates\" target=\"_blank\">Themes and Templates forum</a>."
-msgstr ""
-"Neu bei CSS? Dann sieh dir ein <a href=\"http://www.htmldog.com/guides/cssbeginner/\" target=\"_blank\">Einsteiger-Tutorial</a> an. Fragen?\n"
-"\t\tStelle sie im <a href=\"http://wordpress.org/support/forum/themes-and-templates\" target=\"_blank\">Forum zu Themes und Vorlagen</a>."
 
 #: modules/custom-css/custom-css.php:1002
 msgid "Note: Custom CSS will be reset when changing themes."
