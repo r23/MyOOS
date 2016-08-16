@@ -3,7 +3,7 @@
  * Plugin Name: Shariff Wrapper
  * Plugin URI: https://de.wordpress.org/plugins/shariff/
  * Description: The Shariff Wrapper provides share buttons that respect the privacy of your visitors and are compliant to the German data protection laws.
- * Version: 4.1.2
+ * Version: 4.2.0
  * Author: Jan-Peter Lambeck & 3UU
  * Author URI: https://de.wordpress.org/plugins/shariff/
  * License: MIT
@@ -26,7 +26,7 @@ $shariff3UU = array_merge( $shariff3UU_basic, $shariff3UU_design, $shariff3UU_ad
 // update function to perform tasks _once_ after an update, based on version number to work for automatic as well as manual updates
 function shariff3UU_update() {
 	/******************** ADJUST VERSION ********************/
-	$code_version = "4.1.2"; // set code version - needs to be adjusted for every new version!
+	$code_version = "4.2.0"; // set code version - needs to be adjusted for every new version!
 	/******************** ADJUST VERSION ********************/
 
 	// get options
@@ -69,6 +69,12 @@ if ( is_admin() ) {
 	include( plugin_dir_path( __FILE__ ) . 'admin/admin_notices.php' );
 }
 
+// waiting for WordPress core to handle the saving of the dismiss click themself
+function shariff3UU_dismiss_update_notice() {
+	update_option( 'shariff3UU_hide_update_notice', 'hide' );
+}
+add_action( 'wp_ajax_shariffdismiss', 'shariff3UU_dismiss_update_notice' );
+
 // add meta links on plugin page
 function shariff3UU_meta_links( $links, $file ) {
 	$plugin = plugin_basename(__FILE__);
@@ -110,7 +116,7 @@ function shariff3UU_share_counts( WP_REST_Request $request ) {
 	$shariff3UU = $GLOBALS["shariff3UU"];
 
 	// parameters
-	$url = urldecode( preg_replace('#^https?://#', '', $request['url'] ) );
+	$url = urldecode( $request['url'] );
 	$services = $request['services'];
 	$timestamp = $request['timestamp'];
 	
@@ -468,6 +474,16 @@ function shariff3UU_excerpt( $content ) {
 }
 add_filter( 'the_excerpt', 'shariff3UU_excerpt' );
 
+// remove hideshariff from content in cases of excerpts or other plain text usages
+function shariff3UU_hideshariff( $content ) {
+	if ( ( strpos( $content, 'hideshariff' ) == true ) ) {
+		// remove the sign
+		$content = str_replace( "hideshariff", "", $content );
+	}
+	return $content;
+}
+add_filter( 'the_content', 'shariff3UU_hideshariff', 999 );
+
 // add mailform to bbpress_replies
 function bbp_add_mailform_to_bbpress_replies() {
 	$content = '';
@@ -628,7 +644,7 @@ function shariff3UU_render( $atts, $content = null ) {
 		// add information for share count request
 		if ( array_key_exists( 'backend', $atts ) && $atts['backend'] == "on" ) {
 			// share url
-			$output .= ' data-url="' . esc_html( urlencode( $share_url ) ) . '"';
+			$output .= ' data-url="' . esc_html( $share_url ) . '"';
 			// timestamp for cache
 			$output .= ' data-timestamp="' . absint( get_the_modified_date( 'U', true ) ) . '"';
 			// add external api if entered
@@ -642,6 +658,10 @@ function shariff3UU_render( $atts, $content = null ) {
 			// elseif pretty permalinks are not activated fall back to manual rest route
 			elseif ( ! get_option('permalink_structure') ) {
 				$output .= ' data-backendurl="?rest_route=/shariff/v1/share_counts&"';
+			}
+			// else use the home url
+			else {
+				$output .= ' data-backendurl="' . rtrim( home_url(), "/" ) . '/wp-json/shariff/v1/share_counts?' . '"';
 			}
 		}
 	$output .= '>';
@@ -748,7 +768,7 @@ function shariff3UU_render( $atts, $content = null ) {
 					$button_text_array = '';
 
 					// build the actual button
-					$output .= '<a href="' . $button_url . '" title="' . $button_title . '" aria-label="' . $button_title . '" role="button" rel="nofollow" class="shariff-link" ';
+					$output .= '<a href="' . $button_url . '" title="' . $button_title . '" aria-label="' . $button_title . '" role="button" rel="noopener noreferrer nofollow" class="shariff-link" ';
 						// same window?
 						if ( ! isset( $same_window ) || isset( $same_window ) && $same_window != '1' ) $output .= 'target="_blank" ';
 						$output .= 'style="background-color:' . $main_color . $border_radius;
@@ -819,7 +839,7 @@ function shariff3UU_render( $atts, $content = null ) {
 
 	// if the service totalnumber is set, just output the total share count
 	if ( array_key_exists( '0', $service_array ) && $service_array['0'] == 'totalnumber' ) {
-		$output = '<span class="shariff" data-services="totalnumber" data-url="' . urlencode( $share_url ) . '"';
+		$output = '<span class="shariff" data-services="totalnumber" data-url="' . $share_url . '"';
 			// add external api
 			if ( isset( $shariff3UU["external_host"] ) && ! empty( $shariff3UU["external_host"] ) && isset( $shariff3UU["external_direct"] ) ) {
 				$output .= ' data-backendurl="' . $shariff3UU["external_host"] . '"';
@@ -851,7 +871,11 @@ function shariff3UU_viewmail( $content ) {
 		return $content;
 	}
 }
-add_filter( 'the_content', 'shariff3UU_viewmail' );
+
+// only add filter if mailform is not disabled
+if ( ! isset( $shariff3UU["disable_mailform"] ) || ( isset( $shariff3UU["disable_mailform"] ) && $shariff3UU["disable_mailform"] != '1' ) ) {
+	add_filter( 'the_content', 'shariff3UU_viewmail' );
+}
 
 // add mailform
 function shariff3UU_addMailForm( $content, $error ) {
@@ -879,7 +903,6 @@ function shariff3UU_addMailForm( $content, $error ) {
 		// if language is set to automatic try geoip
 		// http://datenverwurstungszentrale.com/stadt-und-land-mittels-geoip-ermitteln-268.htm
 		elseif ( function_exists('geoip_country_code_by_name') ) {
-		# if ( WP_DEBUG == TRUE ) echo '<div>Currently using the following country code: ' . geoip_country_code_by_name( $_SERVER["REMOTE_ADDR"] ) . '</div>';
 			switch ( @geoip_country_code_by_name( $_SERVER[REMOTE_ADDR] ) ) {
 				case 'DE': $lang = 'DE';
 				break;
@@ -898,17 +921,6 @@ function shariff3UU_addMailForm( $content, $error ) {
 		elseif ( function_exists('http_negotiate_language') ) {
 			$lang = http_negotiate_language( $available_lang );
 		}
-
-		// sonst per "WP-Plugin GeoIP Detection"
-		// siehe https://wordpress.org/plugins/geoip-detect/
-		// rtzrtz: erstmal raus, weil nicht mit WPMU https://wordpress.org/support/topic/will-this-work-with-multisite-2?replies=6
-		/* 
-		elseif ( function_exists( "geoip_detect2_get_info_from_ip" ) ) {
-			if ( WP_DEBUG == TRUE ) echo '<br>nutze gerade geoip_detect2_get_info_from_ip<br>';
-	      	$record = geoip_detect2_get_info_from_ip( $_SERVER["REMOTE_ADDR"] );
-	    	switch( $record->country->isoCode) { case 'DE': $lang='DE'; break; case 'AT': $lang='DE'; break; case 'CH': $lang='DE'; break; default: $lang='EN'; }
-		}
-		*/
 
 		// include selected language
 		include( plugin_dir_path( __FILE__ ) . '/locale/mailform-' . $lang . '.php' );
@@ -967,11 +979,12 @@ function shariff3UU_addMailForm( $content, $error ) {
 							<p><label for="mailto">' . $mf_rcpt[$lang] . '</label><br>
 							<input type="text" name="mailto" id="mailto" value="' . $mf_content_mailto . '" size="27" placeholder="' . $mf_rcpt_ph[$lang] . '" required>' . $mf_to_error_html . '</p>
 							<p><label for="from">' . $mf_from[$lang] . $mf_optional_text . '</label><br>
-							<input type="email" name="from" if="from" value="' . $mf_content_from . '" size="27" placeholder="' . $mf_from_ph[$lang] . '" ' . $mf_sender_required .'>' . $mf_from_error_html . '</p>
+							<input type="email" name="from" id="from" value="' . $mf_content_from . '" size="27" placeholder="' . $mf_from_ph[$lang] . '" ' . $mf_sender_required .'>' . $mf_from_error_html . '</p>
 							<p><label for="name">' . $mf_name[$lang] . '</label><br>
 							<input type="text" name="sender" id="sender" value="' . $mf_content_sender . '" size="27" placeholder="' . $mf_name_ph[$lang] . '"></p>
 							<p><label for="mail_comment">' . $mf_comment[$lang] . '</label><br>
 							<textarea name="mail_comment" rows="4">' . $mf_content_mail_comment . '</textarea></p>
+							<input type="url" name="url" id="shariff_mailform_url" value="" size="27" placeholder="">
 						</fieldset>
 						<p><input type="submit" class="shariff_mailform_submit" value="' . $mf_send[$lang] . '" /></p>
 						<p>' . $mf_info[$lang] . '</p>
@@ -993,190 +1006,218 @@ function shariff3UU_set_wp_mail_from( $email ) { return sanitize_text_field( $GL
 function sharif3UU_procSentMail( $content ) {
 	// get options
 	$shariff3UU = $GLOBALS["shariff3UU"];
+	
+	// honeypot url input
+	$mailform_url_field = sanitize_text_field( $_REQUEST['url'] );
+	
+	// check if mailform is disabled
+	if ( isset( $shariff3UU["disable_mailform"] ) && $shariff3UU["disable_mailform"] == '1' ) {
+		return $content;
+	}
+	// check if url field has been filled
+	elseif ( ! empty( $mailform_url_field ) ) { 
+		return $content;
+	}
+	else {
+		// get vars from form
+		$mf_nonce           = sanitize_text_field( $_REQUEST['shariff_mf_nonce'] );
+		$mf_content_mailto  = sanitize_text_field( $_REQUEST['mailto'] );
+		$mf_content_from    = sanitize_text_field( $_REQUEST['from'] );
+		$mf_content_sender  = sanitize_text_field( $_REQUEST['sender'] );
+		$mf_lang            = sanitize_text_field( $_REQUEST['lang'] );
 
-	// get vars from form
-	$mf_nonce           = sanitize_text_field( $_REQUEST['shariff_mf_nonce'] );
-	$mf_content_mailto  = sanitize_text_field( $_REQUEST['mailto'] );
-	$mf_content_from    = sanitize_text_field( $_REQUEST['from'] );
-	$mf_content_sender  = sanitize_text_field( $_REQUEST['sender'] );
-	$mf_lang            = sanitize_text_field( $_REQUEST['lang'] );
+		// clean up comments
+		$mf_comment_content = $_REQUEST['mail_comment'] ;
 
-	// clean up comments
-	$mf_comment_content = $_REQUEST['mail_comment'] ;
+		// falls zauberhaft alte Serverkonfiguration, erstmal die Slashes entfernen...
+		if ( get_magic_quotes_gpc() == 1 ) $mf_comment_content = stripslashes( $mf_comment_content );
 
-	// falls zauberhaft alte Serverkonfiguration, erstmal die Slashes entfernen...
-	if ( get_magic_quotes_gpc() == 1 ) $mf_comment_content = stripslashes( $mf_comment_content );
+		// ...denn sonst kan wp_kses den content nicht entschaerfen
+		$mf_comment_content = wp_kses( $mf_comment_content, '', '' );
 
-	// ...denn sonst kan wp_kses den content nicht entschaerfen
-	$mf_comment_content = wp_kses( $mf_comment_content, '', '' );
-
-	// check if nonce is valid
-	if ( isset( $mf_nonce ) && wp_verify_nonce( $mf_nonce, 'shariff3UU_send_mail' ) ) {
-		// prevent double execution
-		$_REQUEST['shariff_mf_nonce'] = '';
-		
-		// field content to prefill forms in case of an error
-		$error['mf_content_mailto']       = $mf_content_mailto;
-		$error['mf_content_from']         = $mf_content_from;
-		$error['mf_content_sender']       = $mf_content_sender;
-		$error['mf_content_mail_comment'] = $mf_comment_content;
-
-		// rate limiter
-		$wait = shariff3UU_limitRemoteUser();
-		if ( $wait > '5') {
-			$error['error'] = '1';
-			$error['wait'] = $wait;
-		}
-		else {		
-			// nicer sender name and address
-			if ( ! empty( $mf_content_sender ) ) {
-				add_filter( 'wp_mail_from_name', 'shariff3UU_set_wp_mail_from_name' );
+		// check if nonce is valid
+		if ( isset( $mf_nonce ) && wp_verify_nonce( $mf_nonce, 'shariff3UU_send_mail' ) ) {
+			// prevent double execution
+			$_REQUEST['shariff_mf_nonce'] = '';
+			
+			// field content to prefill forms in case of an error
+			$error['mf_content_mailto']       = $mf_content_mailto;
+			$error['mf_content_from']         = $mf_content_from;
+			$error['mf_content_sender']       = $mf_content_sender;
+			$error['mf_content_mail_comment'] = $mf_comment_content;
+			
+			// get min wait time
+			if ( isset( $shariff3UU["mailform_wait"] ) ) {
+				$minwait = $shariff3UU["mailform_wait"];
 			}
-			elseif ( ! empty( $mf_content_from ) ) { 
-				add_filter( 'wp_mail_from_name', 'shariff3UU_set2_wp_mail_from_name' );
-			} 
-			elseif ( ! empty( $GLOBALS["shariff3UU_mailform"]["mail_sender_name"] ) ) {
-				add_filter( 'wp_mail_from_name', 'shariff3UU_set3_wp_mail_from_name' );
+			else {
+				$minwait = '5';
 			}
-			else { 
-				add_filter( 'wp_mail_from_name', 'shariff3UU_set4_wp_mail_from_name' ); 
+			
+			// rate limiter
+			$wait = shariff3UU_limitRemoteUser();
+			if ( $wait > $minwait ) {
+				$error['error'] = '1';
+				$error['wait'] = $wait;
 			}
+			else {		
+				// nicer sender name and address
+				if ( ! empty( $mf_content_sender ) ) {
+					add_filter( 'wp_mail_from_name', 'shariff3UU_set_wp_mail_from_name' );
+				}
+				elseif ( ! empty( $mf_content_from ) ) { 
+					add_filter( 'wp_mail_from_name', 'shariff3UU_set2_wp_mail_from_name' );
+				} 
+				elseif ( ! empty( $GLOBALS["shariff3UU_mailform"]["mail_sender_name"] ) ) {
+					add_filter( 'wp_mail_from_name', 'shariff3UU_set3_wp_mail_from_name' );
+				}
+				else { 
+					add_filter( 'wp_mail_from_name', 'shariff3UU_set4_wp_mail_from_name' ); 
+				}
 
-			// Achtung: NICHT die Absenderadresse selber umschreiben!
-			// Das fuehrt bei allen sauber aufgesetzten Absender-MTAs zu Problemen mit SPF und/oder DKIM.
-			 
-			// default sender address
-			if ( ! empty( $shariff3UU["mail_sender_from"] ) ) {
-				add_filter( 'wp_mail_from', 'shariff3UU_set_wp_mail_from' );
-			}
+				// Achtung: NICHT die Absenderadresse selber umschreiben!
+				// Das fuehrt bei allen sauber aufgesetzten Absender-MTAs zu Problemen mit SPF und/oder DKIM.
+				 
+				// default sender address
+				if ( ! empty( $shariff3UU["mail_sender_from"] ) ) {
+					add_filter( 'wp_mail_from', 'shariff3UU_set_wp_mail_from' );
+				}
 
-			// build the array with recipients
-			$arr = explode( ',', $mf_content_mailto );
-			if ( $arr == FALSE ) $arr = array( $mf_content_mailto );
-			// max 5
-			for ( $i = 0; $i < count($arr); $i++ ) {
-				if ( $i == '5' ) break;
-				$tmp_mail = sanitize_email( $arr[$i] );
-				// no need to add invalid stuff to the array
-				if ( is_email( $tmp_mail ) != false ) {
-					$mailto[] = $tmp_mail;
+				// build the array with recipients
+				$arr = explode( ',', $mf_content_mailto );
+				if ( $arr == FALSE ) $arr = array( $mf_content_mailto );
+				// max 5
+				for ( $i = 0; $i < count($arr); $i++ ) {
+					if ( $i == '5' ) break;
+					$tmp_mail = sanitize_email( $arr[$i] );
+					// no need to add invalid stuff to the array
+					if ( is_email( $tmp_mail ) != false ) {
+						$mailto[] = $tmp_mail;
+					}
+				}
+
+				// set langugage from form
+				if ( ! empty( $mf_lang ) ) {
+					$lang = $mf_lang;
+				}
+				else {
+					$lang ='EN';
+				}
+
+				// fallback to EN if a language is not supported by this plugin translations
+				if ( $lang != 'DE' && $lang != 'FR' && $lang != 'IT' ) { $lang = 'EN'; }
+
+				// include selected language
+				include( plugin_dir_path( __FILE__ ) . '/locale/mailform-' . $lang . '.php' );
+
+				$subject = html_entity_decode( get_the_title(), ENT_COMPAT, 'UTF-8' );
+
+				// The following post was suggested to you by
+				$message[ $lang ] = $mf_mailbody1[ $lang ];
+
+				if ( ! empty( $mf_content_sender ) ) {
+					$message[ $lang ] .= $mf_content_sender;
+				}
+				elseif ( ! empty( $mf_content_from ) ) {
+					$message[ $lang ] .= sanitize_text_field( $mf_content_from );
+				}
+				else {
+					// somebody
+					$message[ $lang ] .= $mf_mailbody2[ $lang ];
+				}
+				// :
+				$message[ $lang ] .= $mf_mailbody3[ $lang ];
+
+				$message[ $lang ] .= " \r\n\r\n";
+				$message[ $lang ] .= get_permalink() . "\r\n\r\n";
+
+				// add comment
+				if ( ! empty( $mf_comment_content ) ) {
+					$message[ $lang ] .= $mf_comment_content . "\r\n\r\n";
+				}
+
+				// post content
+				if ( isset( $shariff3UU["mail_add_post_content"] ) && $shariff3UU["mail_add_post_content"] == '1') {
+					// strip all html tags
+					$post_content = wordwrap( strip_tags( get_the_content() ), 72, "\r\n" );
+					// strip all shortcodes
+					$post_content = strip_shortcodes( $post_content );
+					$message[ $lang ] .= $post_content;
+					$message[ $lang ] .= " \r\n";
+				}
+
+				$message[ $lang ] .= "\r\n-- \r\n";
+
+				// mail footer / disclaimer
+				$message[ $lang ] .= $mf_footer[ $lang ];
+
+				// avoid auto-responder
+				$headers = "Precedence: bulk\r\n";
+
+				// if sender address provided, set as return-path, elseif sender required set error
+				if ( ! empty( $mf_content_from ) && is_email( $mf_content_from ) != false ) {
+					$headers .= "Reply-To: <" . $mf_content_from . ">\r\n";
+				}
+				elseif ( isset( $shariff3UU["require_sender"] ) && $shariff3UU["require_sender"] == '1' ) {
+					$error['error'] = '1';
+					$error['from'] = '1';
+				}
+
+				// set error, if no usuable recipient e-mail
+				if ( empty( $mailto['0'] ) ) {
+					$error['error'] = '1';
+					$error['to'] = '1';
 				}
 			}
-
-			// set langugage from form
-			if ( ! empty( $mf_lang ) ) {
-				$lang = $mf_lang;
+			// if we have errors provide the mailform again with error message
+			if ( isset( $error['error'] ) && $error['error'] == '1' ) {
+				$content = shariff3UU_addMailForm( $content, $error );
 			}
+			// if everything is fine, send the e-mail
 			else {
-				$lang ='EN';
-			}
-
-			// fallback to EN if a language is not supported by this plugin translations
-			if ( $lang != 'DE' && $lang != 'FR' && $lang != 'IT' ) { $lang = 'EN'; }
-
-			// include selected language
-			include( plugin_dir_path( __FILE__ ) . '/locale/mailform-' . $lang . '.php' );
-
-			$subject = html_entity_decode( get_the_title(), ENT_COMPAT, 'UTF-8' );
-
-			// The following post was suggested to you by
-			$message[ $lang ] = $mf_mailbody1[ $lang ];
-
-			if ( ! empty( $mf_content_sender ) ) {
-				$message[ $lang ] .= $mf_content_sender;
-			}
-			elseif ( ! empty( $mf_content_from ) ) {
-				$message[ $lang ] .= sanitize_text_field( $mf_content_from );
-			}
-			else {
-				// somebody
-				$message[ $lang ] .= $mf_mailbody2[ $lang ];
-			}
-			// :
-			$message[ $lang ] .= $mf_mailbody3[ $lang ];
-
-			$message[ $lang ] .= " \r\n\r\n";
-			$message[ $lang ] .= get_permalink() . "\r\n\r\n";
-
-			// add comment
-			if ( ! empty( $mf_comment_content ) ) {
-				$message[ $lang ] .= $mf_comment_content . "\r\n\r\n";
-			}
-
-			// post content
-			if ( isset( $shariff3UU["mail_add_post_content"] ) && $shariff3UU["mail_add_post_content"] == '1') {
-				// strip all html tags
-				$post_content = wordwrap( strip_tags( get_the_content() ), 72, "\r\n" );
-				// strip all shortcodes
-				$post_content = strip_shortcodes( $post_content );
-				$message[ $lang ] .= $post_content;
-				$message[ $lang ] .= " \r\n";
-			}
-
-			$message[ $lang ] .= "\r\n-- \r\n";
-
-			// mail footer / disclaimer
-			$message[ $lang ] .= $mf_footer[ $lang ];
-
-			// To-Do: Hinweis auf Robinson-Liste
-
-			// avoid auto-responder
-			$headers = "Precedence: bulk\r\n";
-
-			// if sender address provided, set as return-path, elseif sender required set error
-			if ( ! empty( $mf_content_from ) && is_email( $mf_content_from ) != false ) {
-				$headers .= "Reply-To: <" . $mf_content_from . ">\r\n";
-			}
-			elseif ( isset( $shariff3UU["require_sender"] ) && $shariff3UU["require_sender"] == '1' ) {
-				$error['error'] = '1';
-				$error['from'] = '1';
-			}
-
-			// set error, if no usuable recipient e-mail
-			if ( empty( $mailto['0'] ) ) {
-				$error['error'] = '1';
-				$error['to'] = '1';
+				$mailnotice = '<div id="shariff_mailform" class="shariff_mailform">';
+				// The e-mail was successfully send to:
+				$mailnotice .= '<div class="shariff_mailform_headline">' . $mf_mail_send[ $lang ] . '<a href="' . get_permalink() . '" class="shariff_closeX"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M10 0c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10zM10 18.1c-4.5 0-8.1-3.6-8.1-8.1s3.6-8.1 8.1-8.1 8.1 3.6 8.1 8.1-3.6 8.1-8.1 8.1z"/><path d="M13.1 5l-3.1 3.1-3.1-3.1-1.9 1.9 3.1 3.1-3.1 3.1 1.9 1.9 3.1-3.1 3.1 3.1 1.9-1.9-3.1-3.1 3.1-3.1z"/></svg></a></div>';
+				// send the mail ($mailto in this function is allways an array)
+				foreach ( $mailto as $rcpt ) {
+					wp_mail( $rcpt, $subject, $message["$lang"], $headers ); // the function is available after the hook 'plugins_loaded'
+					$mailnotice .= $rcpt . '<br>';
+				}
+				$mailnotice .= '</div>';
+				// add to content
+				$content = $mailnotice . $content;
 			}
 		}
-		// if we have errors provide the mailform again with error message
-		if ( isset( $error['error'] ) && $error['error'] == '1' ) {
-			$content = shariff3UU_addMailForm( $content, $error );
-		}
-		// if everything is fine, send the e-mail
-		else {
-			$mailnotice = '<div id="shariff_mailform" class="shariff_mailform">';
-			// The e-mail was successfully send to:
-			$mailnotice .= '<div class="shariff_mailform_headline">' . $mf_mail_send[ $lang ] . '<a href="' . get_permalink() . '" class="shariff_closeX"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M10 0c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10zM10 18.1c-4.5 0-8.1-3.6-8.1-8.1s3.6-8.1 8.1-8.1 8.1 3.6 8.1 8.1-3.6 8.1-8.1 8.1z"/><path d="M13.1 5l-3.1 3.1-3.1-3.1-1.9 1.9 3.1 3.1-3.1 3.1 1.9 1.9 3.1-3.1 3.1 3.1 1.9-1.9-3.1-3.1 3.1-3.1z"/></svg></a></div>';
-			// send the mail ($mailto in this function is allways an array)
-			foreach ( $mailto as $rcpt ) {
-				wp_mail( $rcpt, $subject, $message["$lang"], $headers ); // the function is available after the hook 'plugins_loaded'
-				$mailnotice .= $rcpt . '<br>';
-			}
-			$mailnotice .= '</div>';
-			// add to content
-			$content = $mailnotice . $content;
-		}
+		return $content;
 	}
-	return $content;
 }
 
 // set a timeout until new mails are possible
 function shariff3UU_limitRemoteUser() {
 	// options
 	$shariff3UU_mailform = $GLOBALS["shariff3UU_mailform"];
-
+	
 	// rtzrtz: umgeschrieben aus dem DOS-Blocker. Nochmal gruebeln, ob wir das ohne memcache mit der Performance schaffen. Daher auch nur Grundfunktionalitaet.
-	if ( ! isset( $shariff3UU_mailform['REMOTEHOSTS'] ) ) $shariff3UU_mailform['REMOTEHOSTS'] = '';
+	if ( ! isset( $shariff3UU_mailform['REMOTEHOSTS'] ) ) {
+		$shariff3UU_mailform['REMOTEHOSTS'] = '';
+	}
 	$HOSTS = json_decode( $shariff3UU_mailform['REMOTEHOSTS'], true );
 
-	// wartezeit in sekunden
-	$wait = '2';
+	// get wait time
+	if ( isset( $shariff3UU_mailform["mailform_wait"] ) ) {
+		$wait = $shariff3UU_mailform["mailform_wait"];
+	}
+	else {
+		$wait = '5';
+	}
+	
+	// calculate current wait time
 	if ( $HOSTS[$_SERVER['REMOTE_ADDR']]-time()+$wait > 0 ) {
 		if ( $HOSTS[$_SERVER['REMOTE_ADDR']]-time() < 86400 ) {
 			$wait = ($HOSTS[$_SERVER['REMOTE_ADDR']]-time()+$wait)*2;
 		}
 	}
-
+	
 	$HOSTS[$_SERVER['REMOTE_ADDR']] = time()+$wait;
 
 	// etwas Muellentsorgung
@@ -1193,7 +1234,7 @@ function shariff3UU_limitRemoteUser() {
 	$shariff3UU_mailform['REMOTEHOSTS'] = $REMOTEHOSTS;
 
 	// update nur, wenn wir nicht unter heftigen DOS liegen
-	if ( $HOSTS[$_SERVER['REMOTE_ADDR']]-time() < '60' ) {
+	if ( $HOSTS[$_SERVER['REMOTE_ADDR']]-time()-$wait < '60' ) {
 		update_option( 'shariff3UU_mailform', $shariff3UU_mailform );
 	}
 

@@ -2,16 +2,11 @@
 /**
  * Will be included by shariff3UU_update() only if needed. 
  * Put all update task here and feel free to split files per update, but make sure that all "older" updates are checked first.
- * To enable an admin notice please set $do_admin_notice = true; at any point during your update routine.
- * The admin notice needs to be configured in admin_notices.php.
  * At least you must set $GLOBALS["shariff3UU"]["version"] = [YOUR VERSION]; to avoid includes later on.
 */
 
 // prevent direct calls to updates.php
 if ( ! class_exists('WP') ) { die(); }
-
-// default is false, unless it is set to true in one of the update routines
-$do_admin_notice = false;
 
 // Migration < v 1.7
 if ( isset( $GLOBALS["shariff3UU"]["version"] ) && version_compare( $GLOBALS["shariff3UU"]["version"], '1.7' ) == '-1' ) {
@@ -240,42 +235,45 @@ if ( isset( $GLOBALS["shariff3UU"]["version"] ) && version_compare( $GLOBALS["sh
 	$GLOBALS["shariff3UU"]["version"] = '4.0.0';
 }
 
-// future update routines go here!
+// Migration < v 4.2
+if ( isset( $GLOBALS["shariff3UU"]["version"] ) && version_compare( $GLOBALS["shariff3UU"]["version"], '4.2.0' ) == '-1' ) {
+	// make sure we have the $wpdb class ready
+	global $wpdb;
 
-// general tasks we do on every update, like clean up transients and so on
-
-// make sure we have the $wpdb class ready
-global $wpdb;
-
-// delete user meta entry shariff3UU_ignore_notice to display update message again after an update (check for multisite)
-if ( is_multisite() && $do_admin_notice == true ) {
-	$current_blog_id = get_current_blog_id();
-	$blogs = $wpdb->get_results( "SELECT blog_id FROM {$wpdb->blogs}", ARRAY_A );
-	if ( $blogs ) {
-		foreach ( $blogs as $blog ) {
-			// switch to each blog
-			switch_to_blog( $blog['blog_id'] );
-			// delete user meta entry shariff3UU_ignore_notice
-			$users = get_users( 'role=administrator' );
-			foreach ( $users as $user ) { 
-				if ( get_user_meta( $user -> ID, 'shariff3UU_ignore_notice', true ) ) { 
-					delete_user_meta( $user -> ID, 'shariff3UU_ignore_notice' ); 
-				}
-			} 
-			// switch back to main
-			restore_current_blog();
+	// delete user meta entry shariff3UU_ignore_notice to display update message again after an update (check for multisite)
+	if ( is_multisite() ) {
+		$current_blog_id = get_current_blog_id();
+		$blogs = $wpdb->get_results( "SELECT blog_id FROM {$wpdb->blogs}", ARRAY_A );
+		if ( $blogs ) {
+			foreach ( $blogs as $blog ) {
+				// switch to each blog
+				switch_to_blog( $blog['blog_id'] );
+				// delete user meta entry shariff3UU_ignore_notice
+				$users = get_users( 'role=administrator' );
+				foreach ( $users as $user ) { 
+					if ( get_user_meta( $user -> ID, 'shariff3UU_ignore_notice', true ) ) { 
+						delete_user_meta( $user -> ID, 'shariff3UU_ignore_notice' ); 
+					}
+				} 
+				// switch back to main
+				restore_current_blog();
+			}
 		}
-	}
-} 
-elseif ( $do_admin_notice == true ) {
-	// delete user meta entry shariff3UU_ignore_notice
-	$users = get_users( 'role=administrator' );
-	foreach ( $users as $user ) { 
-		if ( get_user_meta( $user -> ID, 'shariff3UU_ignore_notice', true ) ) { 
-			delete_user_meta( $user -> ID, 'shariff3UU_ignore_notice' ); 
+	} 
+	else {
+		// delete user meta entry shariff3UU_ignore_notice
+		$users = get_users( 'role=administrator' );
+		foreach ( $users as $user ) { 
+			if ( get_user_meta( $user -> ID, 'shariff3UU_ignore_notice', true ) ) { 
+				delete_user_meta( $user -> ID, 'shariff3UU_ignore_notice' ); 
+			}
 		}
 	}
 }
+
+// future update routines go here!
+
+// general tasks we do on every update, like clean up transients and so on
 
 // purge transients (check for multisite)
 if ( is_multisite() ) {
@@ -313,6 +311,9 @@ function shariff3UU_purge_transients() {
 // remove Shriff cron job and add it again if wanted
 wp_clear_scheduled_hook( 'shariff3UU_fill_cache' );
 do_action( 'shariff3UU_save_statistic_options' );
+
+// remove hide update notice setting
+delete_option( 'shariff3UU_hide_update_notice' );
 
 // set new version
 $GLOBALS["shariff3UU"]["version"] = $code_version;

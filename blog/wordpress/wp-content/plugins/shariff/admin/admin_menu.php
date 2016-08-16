@@ -1,8 +1,5 @@
 <?php
-/**
- * Will be included in the shariff.php only, when an admin is logged in.
- * Everything reagarding the admin menu was moved to this file.
-*/
+// Will be included in the shariff.php only, when an admin is logged in.
 
 // prevent direct calls to admin_menu.php
 if ( ! class_exists('WP') ) { die(); }
@@ -14,15 +11,16 @@ add_action( 'init', 'shariff_init_locale' );
 
 // scripts and styles for admin pages e.g. info notice
 function shariff3UU_admin_style( $hook ) {
-	// styles for admin notice - needed on _ALL_ admin pages
-	wp_enqueue_style( 'shariff_admin-notice', plugins_url( '../css/shariff_admin-notice.css', __FILE__ ) );
-	// styles and scripts only needed on our plugin options page - no need to load them on _ALL_ admin pages
+	// js for admin notice - needed on _ALL_ admin pages (as long as WordPress does not handle dismiss clicks)
+	wp_enqueue_script( 'shariff_notice', plugins_url( '../js/shariff-notice.js', __FILE__ ), array( 'jquery' ), '1.0', true  );
+	// scripts only needed on our plugin options page - no need to load them on _ALL_ admin pages
 	if ( $hook == 'settings_page_shariff3uu' ) {
-		// styles for our plugin options page
-		wp_enqueue_style( 'shariff_options', plugins_url( '../css/shariff_options.css', __FILE__ ) );
 		// scripts for pinterest default image media uploader
-		wp_enqueue_script( 'jquery' ); // just in case
 		wp_enqueue_media();
+		wp_register_script( 'shariff_mediaupload', plugins_url( '../js/shariff-media.js', __FILE__ ), array( 'jquery' ), '1.0', true  );
+		$translation_array = array( 'choose_image' => __( 'Choose image', 'shariff' ) );
+		wp_localize_script( 'shariff_mediaupload', 'shariff_media', $translation_array );
+		wp_enqueue_script( 'shariff_mediaupload' );
 	}
 }
 add_action( 'admin_enqueue_scripts', 'shariff3UU_admin_style' );
@@ -45,7 +43,7 @@ function shariff3UU_options_init(){
 		'shariff3UU_basic_section_callback', 'basic' );
 
 	// services
-	add_settings_field( 'shariff3UU_text_services', '<div class="shariff_status-col">' . __( 'Enable the following services in the provided order:', 'shariff' ) . '</div>',
+	add_settings_field( 'shariff3UU_text_services', '<div style="width:450px">' . __( 'Enable the following services in the provided order:', 'shariff' ) . '</div>',
 		'shariff3UU_text_services_render', 'basic', 'shariff3UU_basic_section' );
 
 	// add after
@@ -74,7 +72,7 @@ function shariff3UU_options_init(){
 		'shariff3UU_design_section_callback', 'design' );
 
 	// button language
-	add_settings_field( 'shariff3UU_select_language', '<div class="shariff_status-col">' . __( 'Shariff button language:', 'shariff' ) . '</div>',
+	add_settings_field( 'shariff3UU_select_language', '<div style="width:450px">' . __( 'Shariff button language:', 'shariff' ) . '</div>',
 		'shariff3UU_select_language_render', 'design', 'shariff3UU_design_section' );
 
 	// theme
@@ -136,7 +134,7 @@ function shariff3UU_options_init(){
 
 	// info url
 	add_settings_field(
-		'shariff3UU_text_info_url', '<div class="shariff_status-col">' . __( 'Custom link for the info button:', 'shariff' ) . '</div>',
+		'shariff3UU_text_info_url', '<div style="width:450px">' . __( 'Custom link for the info button:', 'shariff' ) . '</div>',
 		'shariff3UU_text_info_url_render', 'advanced', 'shariff3UU_advanced_section' );
 
 	// twitter via
@@ -193,38 +191,43 @@ function shariff3UU_options_init(){
 
 	// disable mailform
 	add_settings_field(
-		'shariff3UU_checkbox_disable_mailform', '<div class="shariff_status-col">' . __( 'Disable the mail form functionality.', 'shariff' ) .'</div>',
+		'shariff3UU_checkbox_disable_mailform', '<div style="width:450px">' . __( 'Disable the mail form functionality.', 'shariff' ) . '</div>',
 		'shariff3UU_checkbox_disable_mailform_render', 'mailform', 'shariff3UU_mailform_section' );
 
 	// require sender e-mail address
 	add_settings_field(
-		'shariff3UU_checkbox_require_sender', '<div class="shariff_status-col">' . __( 'Require sender e-mail address.', 'shariff' ) .'</div>',
+		'shariff3UU_checkbox_require_sender', __( 'Require sender e-mail address.', 'shariff' ),
 		'shariff3UU_checkbox_require_sender_render', 'mailform', 'shariff3UU_mailform_section' );
 
 	// mailform language
 	add_settings_field(
-		'shariff3UU_select_mailform_language', '<div class="shariff_status-col">' . __( 'Mailform language:', 'shariff' ) .'</div>',
+		'shariff3UU_select_mailform_language', __( 'Mailform language:', 'shariff' ),
 		'shariff3UU_select_mailform_language_render', 'mailform', 'shariff3UU_mailform_section' );
 
 	// add content of the post to e-mails
 	add_settings_field(
-		'shariff3UU_checkbox_mail_add_post_content', '<div class="shariff_status-col">' . __( 'Add the post content to the e-mail body.', 'shariff' ) .'</div>',
+		'shariff3UU_checkbox_mail_add_post_content', __( 'Add the post content to the e-mail body.', 'shariff' ),
 		'shariff3UU_checkbox_mail_add_post_content_render', 'mailform', 'shariff3UU_mailform_section' );
 
 	// mail sender name
 	add_settings_field(
-		'shariff3UU_text_mail_sender_name', '<div class="shariff_status-col">' . __( 'Default sender name:', 'shariff' ) .'</div>',
+		'shariff3UU_text_mail_sender_name', __( 'Default sender name:', 'shariff' ),
 		'shariff3UU_text_mail_sender_name_render', 'mailform', 'shariff3UU_mailform_section' );
 
 	// mail sender address
 	add_settings_field(
-		'shariff3UU_text_mail_sender_from', '<div class="shariff_status-col">' . __( 'Default sender e-mail address:', 'shariff' ) .'</div>',
+		'shariff3UU_text_mail_sender_from', __( 'Default sender e-mail address:', 'shariff' ),
 		'shariff3UU_text_mail_sender_from_render', 'mailform', 'shariff3UU_mailform_section' );
 
 	// use anchor
 	add_settings_field(
-		'shariff3UU_checkbox_mailform_anchor', '<div class="shariff_status-col">' . __( 'Use an anchor to jump to the mail form.', 'shariff' ) .'</div>',
+		'shariff3UU_checkbox_mailform_anchor', __( 'Use an anchor to jump to the mail form.', 'shariff' ),
 		'shariff3UU_checkbox_mailform_anchor_render', 'mailform', 'shariff3UU_mailform_section' );
+		
+	// wait timer
+	add_settings_field(
+		'shariff3UU_number_mailform_wait', __( 'Time to wait until the same IP address is allowed to submit the form again (in seconds):', 'shariff' ),
+		'shariff3UU_number_mailform_wait_render', 'mailform', 'shariff3UU_mailform_section' );
 
 	// fifth tab - statistic
 
@@ -236,47 +239,47 @@ function shariff3UU_options_init(){
 		'shariff3UU_statistic_section_callback', 'statistic' );
 
 	// statistic
-	add_settings_field( 'shariff3UU_checkbox_backend', '<div class="shariff_status-col">' . __( 'Enable statistic.', 'shariff' ) .'</div>',
+	add_settings_field( 'shariff3UU_checkbox_backend', '<div style="width:450px">' . __( 'Enable statistic.', 'shariff' ) . '</div>',
 		'shariff3UU_checkbox_backend_render', 'statistic', 'shariff3UU_statistic_section' );
 
 	// share counts
-	add_settings_field( 'shariff3UU_checkbox_sharecounts', '<div class="shariff_status-col">' . __( 'Show share counts on buttons.', 'shariff' ) .'</div>',
+	add_settings_field( 'shariff3UU_checkbox_sharecounts', __( 'Show share counts on buttons.', 'shariff' ),
 		'shariff3UU_checkbox_sharecounts_render', 'statistic', 'shariff3UU_statistic_section' );
 
 	// Facebook App ID
-	add_settings_field( 'shariff3UU_text_fb_id', '<div class="shariff_status-col">' . __( 'Facebook App ID:', 'shariff' ) .'</div>',
+	add_settings_field( 'shariff3UU_text_fb_id', __( 'Facebook App ID:', 'shariff' ),
 		'shariff3UU_text_fb_id_render', 'statistic', 'shariff3UU_statistic_section' );
 
 	// Facebook App Secret
-	add_settings_field( 'shariff3UU_text_fb_secret', '<div class="shariff_status-col">' . __( 'Facebook App Secret:', 'shariff' ) .'</div>',
+	add_settings_field( 'shariff3UU_text_fb_secret', __( 'Facebook App Secret:', 'shariff' ),
 		'shariff3UU_text_fb_secret_render', 'statistic', 'shariff3UU_statistic_section' );
 
 	// autoamtic cache
-	add_settings_field( 'shariff3UU_checkbox_automaticcache', '<div class="shariff_status-col">' . __( 'Fill cache automatically.', 'shariff' ) .'</div>',
+	add_settings_field( 'shariff3UU_checkbox_automaticcache', __( 'Fill cache automatically.', 'shariff' ),
 		'shariff3UU_checkbox_automaticcache_render', 'statistic', 'shariff3UU_statistic_section' );
 
 	// ranking
-	add_settings_field( 'shariff3UU_number_ranking', '<div class="shariff_status-col">' . __( 'Number of posts on ranking tab:', 'shariff' ) .'</div>',
+	add_settings_field( 'shariff3UU_number_ranking', __( 'Number of posts on ranking tab:', 'shariff' ),
 		'shariff3UU_number_ranking_render', 'statistic', 'shariff3UU_statistic_section' );
 
 	// ttl
-	add_settings_field( 'shariff3UU_number_ttl', '<div class="shariff_status-col">' . __( 'Cache TTL in seconds (60 - 7200):', 'shariff' ) .'</div>',
+	add_settings_field( 'shariff3UU_number_ttl', __( 'Cache TTL in seconds (60 - 7200):', 'shariff' ),
 		'shariff3UU_number_ttl_render', 'statistic', 'shariff3UU_statistic_section' );
 
 	// disable services
-	add_settings_field( 'shariff3UU_multiplecheckbox_disable_services', '<div class="shariff_status-col">' . __( 'Disable the following services (share counts only):', 'shariff' ) .'</div>',
+	add_settings_field( 'shariff3UU_multiplecheckbox_disable_services', __( 'Disable the following services (share counts only):', 'shariff' ),
 		'shariff3UU_multiplecheckbox_disable_services_render', 'statistic', 'shariff3UU_statistic_section' );
 
 	// external hosts
-	add_settings_field( 'shariff3UU_text_external_host', '<div class="shariff_status-col">' . __( 'External API for share counts:', 'shariff' ) .'</div>',
+	add_settings_field( 'shariff3UU_text_external_host', __( 'External API for share counts:', 'shariff' ),
 		'shariff3UU_text_external_host_render', 'statistic', 'shariff3UU_statistic_section' );
 		
 	// request external api directly from js
-	add_settings_field( 'shariff3UU_checkbox_external_direct', '<div class="shariff_status-col">' . __( 'Request external API directly.', 'shariff' ) .'</div>',
+	add_settings_field( 'shariff3UU_checkbox_external_direct', __( 'Request external API directly.', 'shariff' ),
 		'shariff3UU_checkbox_external_direct_render', 'statistic', 'shariff3UU_statistic_section' );
 
 	// wp in subfolder and api only reachable there?
-	add_settings_field( 'shariff3UU_checkbox_subapi', '<div class="shariff_status-col">' . __( 'Local API not reachable in root.', 'shariff' ) .'</div>',
+	add_settings_field( 'shariff3UU_checkbox_subapi', __( 'Local API not reachable in root.', 'shariff' ),
 		'shariff3UU_checkbox_subapi_render', 'statistic', 'shariff3UU_statistic_section' );
 
 	// sixth tab - help
@@ -375,6 +378,11 @@ function shariff3UU_mailform_sanitize( $input ) {
 	if ( isset( $input["mail_sender_name"] ) )		$valid["mail_sender_name"]		= sanitize_text_field( $input["mail_sender_name"] );
 	if ( isset( $input["mail_sender_from"] ) && is_email( $input["mail_sender_from"] ) != false ) $valid["mail_sender_from"] = sanitize_email( $input["mail_sender_from"] );
 	if ( isset( $input["mailform_anchor"] ) )		$valid["mailform_anchor"]		= absint( $input["mailform_anchor"] );
+	if ( isset( $input["mailform_wait"] ) )		    $valid["mailform_wait"]		    = absint( $input["mailform_wait"] );
+	
+	// protect users from themselfs
+	if ( isset( $valid["mailform_wait"] ) && $valid["mailform_wait"] < '5' ) $valid["mailform_wait"] = '';
+	elseif ( isset( $valid["mailform_wait"] ) && $valid["mailform_wait"] > '86400' ) $valid["mailform_wait"] = '86400';
 
 	// remove empty elements
 	$valid = array_filter( $valid );
@@ -576,12 +584,12 @@ function shariff3UU_radio_theme_render() {
 	$options = $GLOBALS["shariff3UU_design"];
 	if ( ! isset( $options["theme"] ) ) $options["theme"] = "";
 	$plugins_url = plugins_url();
-	echo '<div class="shariff_options-table">
-	<div class="shariff_options-row"><div class="shariff_options-cell"><input type="radio" name="shariff3UU_design[theme]" value="" ' .      checked( $options["theme"], "", 0 ) .      '>default</div><div class="shariff_options-cell"><img src="' . $plugins_url . '/shariff/pictos/defaultBtns.png"></div></div>
-	<div class="shariff_options-row"><div class="shariff_options-cell"><input type="radio" name="shariff3UU_design[theme]" value="color" ' .  checked( $options["theme"], "color", 0 ) . '>color</div><div class="shariff_options-cell"><img src="' .    $plugins_url . '/shariff/pictos/colorBtns.png"></div></div>
-	<div class="shariff_options-row"><div class="shariff_options-cell"><input type="radio" name="shariff3UU_design[theme]" value="grey" ' .  checked( $options["theme"], "grey", 0 )  . '>grey</div><div class="shariff_options-cell"><img src="' .    $plugins_url . '/shariff/pictos/greyBtns.png"></div></div>
-	<div class="shariff_options-row"><div class="shariff_options-cell"><input type="radio" name="shariff3UU_design[theme]" value="white" ' . checked( $options["theme"], "white", 0 ) . '>white</div><div class="shariff_options-cell"><img src="' .    $plugins_url . '/shariff/pictos/whiteBtns.png"></div></div>
-	<div class="shariff_options-row"><div class="shariff_options-cell"><input type="radio" name="shariff3UU_design[theme]" value="round" ' . checked( $options["theme"], "round", 0 ) . '>round</div><div class="shariff_options-cell"><img src="' .   $plugins_url . '/shariff/pictos/roundBtns.png"></div></div>
+	echo '<div style="display:table;border-spacing:10px;margin:-15px 0 -5px -5px;border-collapse: separate">
+	<div style="display:table-row"><div style="display:table-cell;vertical-align:middle;min-width:75px"><input type="radio" name="shariff3UU_design[theme]" value="" ' .      checked( $options["theme"], "", 0 ) .      '>default</div><div class="shariff_options-cell"><img src="' . $plugins_url . '/shariff/pictos/defaultBtns.png"></div></div>
+	<div style="display:table-row"><div style="display:table-cell;vertical-align:middle;min-width:75px"><input type="radio" name="shariff3UU_design[theme]" value="color" ' .  checked( $options["theme"], "color", 0 ) . '>color</div><div class="shariff_options-cell"><img src="' .    $plugins_url . '/shariff/pictos/colorBtns.png"></div></div>
+	<div style="display:table-row"><div style="display:table-cell;vertical-align:middle;min-width:75px"><input type="radio" name="shariff3UU_design[theme]" value="grey" ' .  checked( $options["theme"], "grey", 0 )  . '>grey</div><div class="shariff_options-cell"><img src="' .    $plugins_url . '/shariff/pictos/greyBtns.png"></div></div>
+	<div style="display:table-row"><div style="display:table-cell;vertical-align:middle;min-width:75px"><input type="radio" name="shariff3UU_design[theme]" value="white" ' . checked( $options["theme"], "white", 0 ) . '>white</div><div class="shariff_options-cell"><img src="' .    $plugins_url . '/shariff/pictos/whiteBtns.png"></div></div>
+	<div style="display:table-row"><div style="display:table-cell;vertical-align:middle;min-width:75px"><input type="radio" name="shariff3UU_design[theme]" value="round" ' . checked( $options["theme"], "round", 0 ) . '>round</div><div class="shariff_options-cell"><img src="' .   $plugins_url . '/shariff/pictos/roundBtns.png"></div></div>
 	</div>';
 }
 
@@ -641,29 +649,25 @@ function shariff3UU_checkbox_vertical_render() {
 	$plugins_url = plugins_url();
 	echo '<input type="checkbox" name="shariff3UU_design[vertical]" ';
 	if ( isset( $GLOBALS["shariff3UU_design"]["vertical"] ) ) echo checked( $GLOBALS["shariff3UU_design"]["vertical"], 1, 0 );
-	echo ' value="1"><img src="'. $plugins_url .'/shariff/pictos/verticalBtns.png" align="top">';
+	echo ' value="1">';
 }
 
 // alignment
 function shariff3UU_radio_align_render() {
 	$options = $GLOBALS['shariff3UU_design'];
 	if ( ! isset( $options['align'] ) ) $options['align'] = 'flex-start';
-	echo '<div class="shariff_options-table"><div class="shariff_options-row">
-	<div class="shariff_options-cell"><input type="radio" name="shariff3UU_design[align]" value="flex-start" ' . checked( $options["align"], "flex-start", 0 ) . '>' . __( "left", "shariff" ) . '</div>
-	<div class="shariff_options-cell"><input type="radio" name="shariff3UU_design[align]" value="center" ' .     checked( $options["align"], "center", 0 )     . '>' . __( "center", "shariff" ) . '</div>
-	<div class="shariff_options-cell"><input type="radio" name="shariff3UU_design[align]" value="flex-end" ' .   checked( $options["align"], "flex-end", 0 )   . '>' . __( "right", "shariff" ) . '</div>
-	</div></div>';
+	echo '<p><input type="radio" name="shariff3UU_design[align]" value="flex-start" ' . checked( $options["align"], "flex-start", 0 ) . '>' . __( "left", "shariff" ) . '</p>';
+	echo '<p><input type="radio" name="shariff3UU_design[align]" value="center" ' .     checked( $options["align"], "center", 0 )     . '>' . __( "center", "shariff" ) . '</p>';
+	echo '<p><input type="radio" name="shariff3UU_design[align]" value="flex-end" ' .   checked( $options["align"], "flex-end", 0 )   . '>' . __( "right", "shariff" ) . '</p>';
 }
 
 // alignment widget
 function shariff3UU_radio_align_widget_render() {
 	$options = $GLOBALS['shariff3UU_design'];
 	if ( ! isset( $options['align_widget'] ) ) $options['align_widget'] = 'flex-start';
-	echo '<div class="shariff_options-table"><div class="shariff_options-row">
-	<div class="shariff_options-cell"><input type="radio" name="shariff3UU_design[align_widget]" value="flex-start" ' . checked( $options["align_widget"], "flex-start", 0 ) . '>' . __( "left", "shariff" ) . '</div>
-	<div class="shariff_options-cell"><input type="radio" name="shariff3UU_design[align_widget]" value="center" ' .     checked( $options["align_widget"], "center", 0 )     . '>' . __( "center", "shariff" ) . '</div>
-	<div class="shariff_options-cell"><input type="radio" name="shariff3UU_design[align_widget]" value="flex-end" ' .   checked( $options["align_widget"], "flex-end", 0 )   . '>' . __( "right", "shariff" ) . '</div>
-	</div></div>';
+	echo '<p><input type="radio" name="shariff3UU_design[align_widget]" value="flex-start" ' . checked( $options["align_widget"], "flex-start", 0 ) . '>' . __( "left", "shariff" ) . '</p>';
+	echo '<p><input type="radio" name="shariff3UU_design[align_widget]" value="center" ' .     checked( $options["align_widget"], "center", 0 )     . '>' . __( "center", "shariff" ) . '</p>';
+	echo '<p><input type="radio" name="shariff3UU_design[align_widget]" value="flex-end" ' .   checked( $options["align_widget"], "flex-end", 0 )   . '>' . __( "right", "shariff" ) . '</p>';
 }
 
 // headline
@@ -806,29 +810,7 @@ function shariff3UU_text_rssfeed_render() {
 function shariff3UU_text_default_pinterest_render() {
 	$options = $GLOBALS["shariff3UU_advanced"];
 	if ( ! isset( $options["default_pinterest"] ) ) $options["default_pinterest"] = '';
-	echo '<div><input type="text" name="shariff3UU_advanced[default_pinterest]" value="' . $options["default_pinterest"] . '" id="image_url" class="regular-text"><input type="button" name="upload-btn" id="upload-btn" class="button-secondary" value="' . __( 'Choose image', 'shariff' ) . '"></div>';
-	echo '<script type="text/javascript">
-	jQuery(document).ready(function($){
-		$("#upload-btn").click(function(e) {
-			e.preventDefault();
-			var image = wp.media({
-				title: "Choose image",
-				// mutiple: true if you want to upload multiple files at once
-				multiple: false
-			}).open()
-			.on("select", function(e){
-				// This will return the selected image from the Media Uploader, the result is an object
-				var uploaded_image = image.state().get("selection").first();
-				// We convert uploaded_image to a JSON object to make accessing it easier
-				// Output to the console uploaded_image
-				console.log(uploaded_image);
-				var image_url = uploaded_image.toJSON().url;
-				// Let"s assign the url value to the input field
-				$("#image_url").val(image_url);
-			});
-		});
-	});
-	</script>';
+	echo '<div><input type="text" name="shariff3UU_advanced[default_pinterest]" value="' . $options["default_pinterest"] . '" id="shariff-image-url" class="regular-text"><input type="button" name="upload-btn" id="shariff-upload-btn" class="button-secondary" value="' . __( 'Choose image', 'shariff' ) . '"></div>';
 }
 
 // shortcodeprio
@@ -923,6 +905,17 @@ function shariff3UU_checkbox_mailform_anchor_render() {
 	echo '<input type="checkbox" name="shariff3UU_mailform[mailform_anchor]" ';
 	if ( isset( $GLOBALS["shariff3UU_mailform"]["mailform_anchor"] ) ) echo checked( $GLOBALS["shariff3UU_mailform"]["mailform_anchor"], 1, 0 );
 	echo ' value="1">';
+}
+
+// wait timer
+function shariff3UU_number_mailform_wait_render() {
+	if ( isset($GLOBALS["shariff3UU_mailform"]["mailform_wait"]) ) { 
+		$mailform_wait = $GLOBALS["shariff3UU_mailform"]["mailform_wait"];
+	} 
+	else { 
+		$mailform_wait = '';
+	}
+	echo '<input type="number" name="shariff3UU_mailform[mailform_wait]" value="'. $mailform_wait .'" maxlength="4" min="5" max="86400" placeholder="5" style="width: 75px">';
 }
 
 // statistic section
@@ -1136,198 +1129,198 @@ function shariff3UU_help_section_callback() {
 		echo __( 'This is a list of all available options for the <code>[shariff]</code> shortcode:', 'shariff' );
 	echo '</p>';
 	// shortcode table
-	echo '<div class="shariff_shortcode_table">';
+	echo '<div style="display:table;background-color:#fff">';
 		// head
-		echo '<div class="shariff_shortcode_row_head">';
-			echo '<div class="shariff_shortcode_cell_name-option">' . __( 'Name', 'shariff' ) . '</div>';
-			echo '<div class="shariff_shortcode_cell_name-option">' . __( 'Options', 'shariff' ) . '</div>';
-			echo '<div class="shariff_shortcode_cell_default">' . __( 'Default', 'shariff' ) . '</div>';
-			echo '<div class="shariff_shortcode_cell_example">' . __( 'Example', 'shariff' ) . '</div>';
-			echo '<div class="shariff_shortcode_cell_description">' . __( 'Description', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px;font-weight:bold">' . __( 'Name', 'shariff' ) . '</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px;font-weight:bold">' . __( 'Options', 'shariff' ) . '</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px;font-weight:bold">' . __( 'Default', 'shariff' ) . '</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px;font-weight:bold">' . __( 'Example', 'shariff' ) . '</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px;font-weight:bold">' . __( 'Description', 'shariff' ) . '</div>';
 		echo '</div>';
 		// services
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">services</div>';
-			echo '<div class="shariff_shortcode_cell">facebook<br>twitter<br>googleplus<br>whatsapp<br>threema<br>pinterest<br>linkedin<br>xing<br>reddit<br>stumbleupon<br>tumblr<br>vk<br>diaspora<br>addthis<br>flattr<br>patreon<br>paypal<br>paypalme<br>bitcoin<br>mailform<br>mailto<br>printer<br>info<br>rss</div>';
-			echo '<div class="shariff_shortcode_cell">twitter|facebook|googleplus|info</div>';
-			echo '<div class="shariff_shortcode_cell">[shariff services="facebook|twitter|mailform"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Determines which buttons to show and in which order.', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">services</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">facebook<br>twitter<br>googleplus<br>whatsapp<br>threema<br>pinterest<br>linkedin<br>xing<br>reddit<br>stumbleupon<br>tumblr<br>vk<br>diaspora<br>addthis<br>flattr<br>patreon<br>paypal<br>paypalme<br>bitcoin<br>mailform<br>mailto<br>printer<br>info<br>rss</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">twitter|facebook|googleplus|info</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff services="facebook|twitter|mailform"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Determines which buttons to show and in which order.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// backend
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">backend</div>';
-			echo '<div class="shariff_shortcode_cell">on<br>off</div>';
-			echo '<div class="shariff_shortcode_cell">off</div>';
-			echo '<div class="shariff_shortcode_cell">[shariff backend="on"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Enables share counts on the buttons.', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">backend</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">on<br>off</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">off</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff backend="on"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Enables share counts on the buttons.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// theme
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">theme</div>';
-			echo '<div class="shariff_shortcode_cell">default<br>color<br>grey<br>white<br>round</div>';
-			echo '<div class="shariff_shortcode_cell">default</div>';
-			echo '<div class="shariff_shortcode_cell">[shariff theme="round"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Determines the main design of the buttons.', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">theme</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">default<br>color<br>grey<br>white<br>round</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">default</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff theme="round"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Determines the main design of the buttons.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// button size
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">buttonsize</div>';
-			echo '<div class="shariff_shortcode_cell">big<br>small</div>';
-			echo '<div class="shariff_shortcode_cell">big</div>';
-			echo '<div class="shariff_shortcode_cell">[shariff buttonsize="small"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Small reduces the size of all buttons by 30%, regardless of theme.', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">buttonsize</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">big<br>small</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">big</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff buttonsize="small"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Small reduces the size of all buttons by 30%, regardless of theme.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// buttonstretch
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">buttonstretch</div>';
-			echo '<div class="shariff_shortcode_cell">0<br>1</div>';
-			echo '<div class="shariff_shortcode_cell">0</div>';
-			echo '<div class="shariff_shortcode_cell">[shariff buttonstretch="1"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Stretch buttons horizontally to full width.', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">buttonstretch</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">0<br>1</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">0</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff buttonstretch="1"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Stretch buttons horizontally to full width.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// borderradius
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">borderradius</div>';
-			echo '<div class="shariff_shortcode_cell">1-50</div>';
-			echo '<div class="shariff_shortcode_cell">50</div>';
-			echo '<div class="shariff_shortcode_cell">[shariff borderradius="1"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Sets the border radius for the round theme. 1 essentially equals a square.', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">borderradius</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">1-50</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">50</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff borderradius="1"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Sets the border radius for the round theme. 1 essentially equals a square.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// maincolor
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">maincolor</div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell">[shariff maincolor="#000"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Sets a custom main color for all buttons (hexadecimal).', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">maincolor</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff maincolor="#000"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Sets a custom main color for all buttons (hexadecimal).', 'shariff' ) . '</div>';
 		echo '</div>';
 		// secondarycolor
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">secondarycolor</div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell">[shariff secondarycolor="#afafaf"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Sets a custom secondary color for all buttons (hexadecimal). The secondary color is, depending on theme, used for hover effects.', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">secondarycolor</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff secondarycolor="#afafaf"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Sets a custom secondary color for all buttons (hexadecimal). The secondary color is, depending on theme, used for hover effects.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// orientation
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">orientation</div>';
-			echo '<div class="shariff_shortcode_cell">horizontal<br>vertical</div>';
-			echo '<div class="shariff_shortcode_cell">horizontal</div>';
-			echo '<div class="shariff_shortcode_cell">[shariff orientation="vertical"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Changes the orientation of the buttons.', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">orientation</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">horizontal<br>vertical</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">horizontal</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff orientation="vertical"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Changes the orientation of the buttons.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// alignment
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">align</div>';
-			echo '<div class="shariff_shortcode_cell">flex-start<br>center<br>flex-end</div>';
-			echo '<div class="shariff_shortcode_cell">flex-start</div>';
-			echo '<div class="shariff_shortcode_cell">[shariff align="center"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Changes the horizontal alignment of the buttons. flex-start means left, center is obvious and flex-end means right.', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">align</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">flex-start<br>center<br>flex-end</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">flex-start</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff align="center"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Changes the horizontal alignment of the buttons. flex-start means left, center is obvious and flex-end means right.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// language
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">language</div>';
-			echo '<div class="shariff_shortcode_cell">da, de, en, es, fi, fr, hr, hu, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sl, sr, sv, tr, zh</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Automatically selected by browser.', 'shariff' ) . '</div>';
-			echo '<div class="shariff_shortcode_cell">[shariff lang="de"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Changes the language of the share buttons.', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">language</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">da, de, en, es, fi, fr, hr, hu, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sl, sr, sv, tr, zh</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Automatically selected by browser.', 'shariff' ) . '</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff lang="de"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Changes the language of the share buttons.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// headline
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">headline</div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell">[shariff headline="&lt;hr style=\'margin:20px 0\'&gt;&lt;p&gt;' . __( 'Please share this post:', 'shariff' ) . '&lt;/p&gt;"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Adds a headline above the Shariff buttons. Basic HTML as well as style and class attributes can be used. To remove a headline set on the plugins options page use headline="".', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">headline</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff headline="&lt;hr style=\'margin:20px 0\'&gt;&lt;p&gt;' . __( 'Please share this post:', 'shariff' ) . '&lt;/p&gt;"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Adds a headline above the Shariff buttons. Basic HTML as well as style and class attributes can be used. To remove a headline set on the plugins options page use headline="".', 'shariff' ) . '</div>';
 		echo '</div>';
 		// twitter_via
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">twitter_via</div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell">[shariff twitter_via="your_twittername"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Sets the Twitter via tag.', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">twitter_via</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff twitter_via="your_twittername"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Sets the Twitter via tag.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// flattruser
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">flattruser</div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell">[shariff flattruser="your_username"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Sets the Flattr username.', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">flattruser</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff flattruser="your_username"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Sets the Flattr username.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// patreonid
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">patreonid</div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell">[shariff patreonid="your_username"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Sets the Patreon username.', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">patreonid</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff patreonid="your_username"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Sets the Patreon username.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// paypalbuttonid
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">paypalbuttonid</div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell">[shariff paypalbuttonid="hosted_button_id"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Sets the PayPal hosted button ID.', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">paypalbuttonid</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff paypalbuttonid="hosted_button_id"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Sets the PayPal hosted button ID.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// paypalmeid
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">paypalmeid</div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell">[shariff paypalmeid="name"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Sets the PayPal.Me ID. Default amount can be added with a / e.g. name/25.', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">paypalmeid</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff paypalmeid="name"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Sets the PayPal.Me ID. Default amount can be added with a / e.g. name/25.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// bitcoinaddress
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">bitcoinaddress</div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell">[shariff bitcoinaddress="bitcoin_address"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Sets the bitcoin address.', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">bitcoinaddress</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff bitcoinaddress="bitcoin_address"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Sets the bitcoin address.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// media
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">media</div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'The post featured image or the first image of the post.</div>', 'shariff' );
-			echo '<div class="shariff_shortcode_cell">[shariff media="http://www.mydomain.com/image.jpg"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Determines the default image to share for Pinterest, if no other usable image is found.', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">media</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'The post featured image or the first image of the post.</div>', 'shariff' );
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff media="http://www.mydomain.com/image.jpg"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Determines the default image to share for Pinterest, if no other usable image is found.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// info_url
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">info_url</div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell">http://ct.de/-2467514</div>';
-			echo '<div class="shariff_shortcode_cell">[shariff info_url="http://www.mydomain.com/shariff-buttons"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Sets a custom link for the info button.', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">info_url</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">http://ct.de/-2467514</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff info_url="http://www.mydomain.com/shariff-buttons"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Sets a custom link for the info button.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// url
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">url</div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'The url of the current post or page.</div>', 'shariff' );
-			echo '<div class="shariff_shortcode_cell">[shariff url="http://www.mydomain.com/somepost"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Changes the url to share. Only for special use cases.', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">url</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'The url of the current post or page.</div>', 'shariff' );
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff url="http://www.mydomain.com/somepost"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Changes the url to share. Only for special use cases.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// title
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">title</div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'The title of the current post or page.</div>', 'shariff' );
-			echo '<div class="shariff_shortcode_cell">[shariff title="' . __( 'My Post Title', 'shariff' ) . '"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Changes the title to share. Only for special use cases.', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">title</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'The title of the current post or page.</div>', 'shariff' );
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff title="' . __( 'My Post Title', 'shariff' ) . '"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Changes the title to share. Only for special use cases.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// rssfeed
-		echo '<div class="shariff_shortcode_row">';
-			echo '<div class="shariff_shortcode_cell">rssfeed</div>';
-			echo '<div class="shariff_shortcode_cell"></div>';
-			echo '<div class="shariff_shortcode_cell">http://www.mydomain.com/feed/rss/</div>';
-			echo '<div class="shariff_shortcode_cell">[shariff rssfeed="http://www.mydomain.com/feed/rss2/"]</div>';
-			echo '<div class="shariff_shortcode_cell">' . __( 'Changes the rss feed url to another feed.', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">rssfeed</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">http://www.mydomain.com/feed/rss/</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff rssfeed="http://www.mydomain.com/feed/rss2/"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Changes the rss feed url to another feed.', 'shariff' ) . '</div>';
 		echo '</div>';
 
 	echo '</div>';
@@ -1340,17 +1333,17 @@ function shariff3UU_status_section_callback() {
 	$shariff3UU = $GLOBALS["shariff3UU"];
 
 	// status table
-	echo '<div class="shariff_status-main-table">';
+	echo '<div style="display:table;border-spacing:10px;margin:-10px 0 0 -10px">';
 
 	// statistic row
-	echo '<div class="shariff_status-row">';
-	echo '<div class="shariff_status-first-cell">' . __( 'Statistic:', 'shariff' ) . '</div>';
+	echo '<div style="display:table-row">';
+	echo '<div style="display:table-cell;width:125px">' . __( 'Statistic:', 'shariff' ) . '</div>';
 
 	// check if statistic is enabled
 	if ( ! isset( $shariff3UU['backend'] ) ) {
 		// statistic disabled message
-		echo '<div class="shariff_status-table">';
-		echo '<div class="shariff_status-row"><div class="shariff_status-cell"><span class="shariff_status-disabled">' . __( 'Disabled', 'shariff' ) . '</span></div></div>';
+		echo '<div style="display:table">';
+		echo '<div style="display:table-row"><div style="display:table-cell;font-weight:bold">' . __( 'Disabled', 'shariff' ) . '</div></div>';
 		echo '</div>';
 		// end statistic row, if statistic is disabled
 		echo '</div>';
@@ -1381,21 +1374,21 @@ function shariff3UU_status_section_callback() {
 		}
 
 		// general statistic status
-		echo '<div class="shariff_status-cell">';
-			echo '<div class="shariff_status-table">';
+		echo '<div style="display:table-cell">';
+			echo '<div style="display:table">';
 			if ( empty( $service_errors ) ) {
-				echo '<div class="shariff_status-row"><div class="shariff_status-cell"><span class="shariff_status-ok">' . __( 'OK', 'shariff' ) . '</span></div></div>';
-				echo '<div class="shariff_status-row"><div class="shariff_status-cell">' . __( 'No error messages.', 'shariff' ) . '</div></div>';
+				echo '<div style="display:table-row"><div style="display:table-cell;font-weight:bold;color:green">' . __( 'OK', 'shariff' ) . '</div></div>';
+				echo '<div style="display:table-row"><div style="display:table-cell">' . __( 'No error messages.', 'shariff' ) . '</div></div>';
 			}
 			elseif ( array_filter( $service_errors ) ) {
-				echo '<div class="shariff_status-row"><div class="shariff_status-cell"><span class="shariff_status-error">' . __( 'Error', 'shariff' ) . '</span></div></div>';
-				echo '<div class="shariff_status-row"><div class="shariff_status-cell">' . __( 'One or more services reported an error.', 'shariff' ) . '</div></div>';				
+				echo '<div style="display:table-row"><div style="display:table-cell;font-weight:bold;color:red">' . __( 'Error', 'shariff' ) . '</div></div>';
+				echo '<div style="display:table-row"><div style="display:table-cell">' . __( 'One or more services reported an error.', 'shariff' ) . '</div></div>';				
 			}
 			else {
-				echo '<div class="shariff_status-row"><div class="shariff_status-cell"><span class="shariff_status-timeout">' . __( 'Timeout', 'shariff' ) . '</span></div></div>';
-				echo '<div class="shariff_status-row"><div class="shariff_status-cell">' . __( 'One or more services didn\'t respond in less than five seconds.', 'shariff' ) . '</div></div>';
+				echo '<div style="display:table-row"><div style="display:table-cell;font-weight:bold;color:orange">' . __( 'Timeout', 'shariff' ) . '</div></div>';
+				echo '<div style="display:table-row"><div style="display:table-cell">' . __( 'One or more services didn\'t respond in less than five seconds.', 'shariff' ) . '</div></div>';
 			}
-			echo '<div class="shariff_status-row"><div class="shariff_status-cell">' . '</div></div>';
+			echo '<div style="display:table-row"><div style="display:table-cell"></div></div>';
 			echo '</div>';
 		echo '</div>';
 
@@ -1405,30 +1398,30 @@ function shariff3UU_status_section_callback() {
 		// output all services
 		foreach( $services as $service ) {
 			// service row
-			echo '<div class="shariff_status-row">';
+			echo '<div style="display:table-row">';
 				echo '<div class="shariff_status-first-cell">' . ucfirst( $service ) . ':</div>';
-				echo '<div class="shariff_status-cell">';
+				echo '<div style="display:table-cell">';
 					echo '<div class="shariff_status-table">';
 					if ( isset ( $shariff3UU["disable"][$service] ) && $shariff3UU["disable"][$service] == '1' ) {
-						echo '<div class="shariff_status-row"><div class="shariff_status-cell"><span class="shariff_status-disabled">' . __( 'Disabled', 'shariff' ) . '</span></div></div>';
+						echo '<div style="display:table-row"><div style="display:table-cell;font-weight:bold">' . __( 'Disabled', 'shariff' ) . '</div></div>';
 					}
 					elseif ( ! array_key_exists( $service, $service_errors ) ) {
-						echo '<div class="shariff_status-row"><div class="shariff_status-cell"><span class="shariff_status-ok">' . __( 'OK', 'shariff' ) . '</span></div></div>';
-						echo '<div class="shariff_status-row"><div class="shariff_status-cell">' . __( 'Share Count:', 'shariff' ) . ' ' . $share_counts[$service] . '</div></div>';
+						echo '<div style="display:table-row"><div style="display:table-cell;font-weight:bold;color:green">' . __( 'OK', 'shariff' ) . '</div></div>';
+						echo '<div style="display:table-row"><div style="display:table-cell">' . __( 'Share Count:', 'shariff' ) . ' ' . $share_counts[$service] . '</div></div>';
 					}
 					elseif ( empty( $service_errors[$service] ) ) {
-						echo '<div class="shariff_status-row"><div class="shariff_status-cell"><span class="shariff_status-timeout">' . __( 'Timeout', 'shariff' ) . '</span></div></div>';
-						echo '<div class="shariff_status-row"><div class="shariff_status-cell">';
+						echo '<div style="display:table-row"><div style="display:table-cell;font-weight:bold;color:orange">' . __( 'Timeout', 'shariff' ) . '</div></div>';
+						echo '<div style="display:table-row"><div style="display:table-cell">';
 							echo __( 'Service didn\'t respond in less than five seconds.', 'shariff' );
 						echo '</div></div>';
 					}
 					else {
-						echo '<div class="shariff_status-row"><div class="shariff_status-cell"><span class="shariff_status-error">' . __( 'Error', 'shariff' ) . '</span></div></div>';
-						echo '<div class="shariff_status-row"><div class="shariff_status-cell">';
+						echo '<div style="display:table-row"><div style="display:table-cell;font-weight:bold;color:red">' . __( 'Error', 'shariff' ) . '</span></div></div>';
+						echo '<div style="display:table-row"><div style="display:table-cell">';
 							echo $service_errors[$service];
 						echo '</div></div>';
 					}
-					echo '<div class="shariff_status-row"><div class="shariff_status-cell">' . '</div></div>';
+					echo '<div style="display:table-row"><div style="display:table-cell"></div></div>';
 					echo '</div>';
 				echo '</div>';
 			echo '</div>';
@@ -1436,23 +1429,23 @@ function shariff3UU_status_section_callback() {
 	}
 
 	// GD needed for QR codes of the Bitcoin links
-	echo '<div class="shariff_status-row">';
-	echo '<div class="shariff_status-cell">' . __( 'GD Library:', 'shariff' ) . '</div>';
+	echo '<div style="display:table-row">';
+	echo '<div style="display:table-cell">' . __( 'GD Library:', 'shariff' ) . '</div>';
 	// working message
 	if ( function_exists( 'gd_info' ) ) {
 		$tmpGDinfo = gd_info();
-		echo '<div class="shariff_status-cell">';
+		echo '<div style="display:table-cell">';
 			echo '<div style="display: table">';
-				echo '<div class="shariff_status-row"><div class="shariff_status-cell"><span class="shariff_status-ok">' . __( 'OK', 'shariff' ) . '</span></div></div>';
-				echo '<div class="shariff_status-row"><div class="shariff_status-cell">Version: ' . $tmpGDinfo["GD Version"] . '</div></div>';
+				echo '<div style="display:table-row"><div style="display:table-cell;font-weight:bold;color:green">' . __( 'OK', 'shariff' ) . '</div></div>';
+				echo '<div style="display:table-row"><div style="display:table-cell">Version: ' . $tmpGDinfo["GD Version"] . '</div></div>';
 			echo '</div>';
 		echo '</div>';
 	}
 	else {
-		echo '<div class="shariff_status-cell">';
+		echo '<div style="display:table-cell">';
 			echo '<div style="display: table">';
-				echo '<div class="shariff_status-row"><div class="shariff_status-cell"><span class="shariff_status-error">' . __( 'Error', 'shariff' ) . '</span></div></div>';
-				echo '<div class="shariff_status-row"><div class="shariff_status-cell">' . __( 'The GD Library is not installed on this server. This is only needed for the QR codes, if your are using the bitcoin button.', 'shariff' ) . '</div></div>';
+				echo '<div style="display:table-row"><div style="display:table-cell;font-weight:bold;color:red">' . __( 'Error', 'shariff' ) . '</div></div>';
+				echo '<div style="display:table-row"><div style="display:table-cell">' . __( 'The GD Library is not installed on this server. This is only needed for the QR codes, if your are using the bitcoin button.', 'shariff' ) . '</div></div>';
 			echo '</div>';
 		echo '</div>';
 	}
@@ -1534,32 +1527,32 @@ function shariff3UU_ranking_section_callback() {
 	}
 	
 	// ranking table
-	echo '<div class="shariff_shortcode_table">';
+	echo '<div style="display:table;background-color:#fff">';
 		// head
-		echo '<div class="shariff_shortcode_row_head">';
-			echo '<div class="shariff_shortcode_cell_description">' . __( 'Rank', 'shariff' ) . '</div>';
-			echo '<div class="shariff_shortcode_cell_description">' . __( 'Post', 'shariff' ) . '</div>';
-			echo '<div class="shariff_shortcode_cell_description" style="text-align:center;">' . __( 'Date', 'shariff' ) . '</div>';
-			echo '<div class="shariff_shortcode_cell_description" style="text-align:center;">' . __( 'Time', 'shariff' ) . '</div>';
-			foreach( $services as $service => $nothing ) echo '<div class="shariff_shortcode_cell_description" style="text-align:center;">' . ucfirst( $service ) . '</div>';
-			echo '<div class="shariff_shortcode_cell_description">' . __( 'Total', 'shariff' ) . '</div>';
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;font-weight:bold;border:1px solid;padding:10px">' . __( 'Rank', 'shariff' ) . '</div>';
+			echo '<div style="display:table-cell;font-weight:bold;border:1px solid;padding:10px">' . __( 'Post', 'shariff' ) . '</div>';
+			echo '<div style="display:table-cell;font-weight:bold;border:1px solid;padding:10px;text-align:center">' . __( 'Date', 'shariff' ) . '</div>';
+			echo '<div style="display:table-cell;font-weight:bold;border:1px solid;padding:10px;text-align:center">' . __( 'Time', 'shariff' ) . '</div>';
+			foreach( $services as $service => $nothing ) echo '<div style="display:table-cell;font-weight:bold;border:1px solid;padding:10px;text-align:center;">' . ucfirst( $service ) . '</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px;font-weight:bold">' . __( 'Total', 'shariff' ) . '</div>';
 		echo '</div>';
 		// posts
 		$rank = '0';
 		foreach( $posts as $post => $value ) {
 			$rank++;
-			echo '<div class="shariff_shortcode_row">';
-				echo '<div class="shariff_shortcode_cell" style="text-align:center;">' . $rank . '</div>';
-				echo '<div class="shariff_shortcode_cell"><a href="' . $value['url'] . '" target="_blank">' . $value['title'] . '</a></div>';
-				echo '<div class="shariff_shortcode_cell">' . mysql2date( 'd.m.Y', $value['post_date'] ) . '</div>';
-				echo '<div class="shariff_shortcode_cell">' . mysql2date( 'H:i', $value['post_date'] ) . '</div>';
+			echo '<div style="display:table-row">';
+				echo '<div style="display:table-cell;border:1px solid;padding:10px;text-align:center">' . $rank . '</div>';
+				echo '<div style="display:table-cell;border:1px solid;padding:10px"><a href="' . $value['url'] . '" target="_blank">' . $value['title'] . '</a></div>';
+				echo '<div style="display:table-cell;border:1px solid;padding:10px">' . mysql2date( 'd.m.Y', $value['post_date'] ) . '</div>';
+				echo '<div style="display:table-cell;border:1px solid;padding:10px">' . mysql2date( 'H:i', $value['post_date'] ) . '</div>';
 				// share counts
 				foreach( $services as $service => $nothing ) {
-					echo '<div class="shariff_shortcode_cell" style="text-align:center;">';
+					echo '<div style="display:table-cell;border:1px solid;padding:10px;text-align:center">';
 						if( isset( $value['share_counts'][$service] ) ) echo $value['share_counts'][$service];
 					echo '</div>';
 				}
-				echo '<div class="shariff_shortcode_cell" style="text-align:center;">';
+				echo '<div style="display:table-cell;border:1px solid;padding:10px;text-align:center">';
 					if ( isset( $value['share_counts']['total'] ) ) echo $value['share_counts']['total'];
 				echo '</div>';
 			echo '</div>';

@@ -262,6 +262,7 @@
 .shariff_closeX svg:hover {
   fill: #c00;
 }
+#shariff_mailform_url { display: none !important; }
 /* missing usernames warning */
 .shariff-warning {
   background-color: red;

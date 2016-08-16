@@ -1,9 +1,9 @@
-=== Shariff Wrapper ===
+﻿=== Shariff Wrapper ===
 Contributors: 3UU, starguide
 Tags: Shariff, Facebook, Twitter, VKontakte, VK, GooglePlus, WhatsApp, share buttons, sharing, privacy, social
 Requires at least: 4.4
-Tested up to: 4.5
-Stable tag: 4.1.2
+Tested up to: 4.6
+Stable tag: 4.2.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 Donate link: http://folge.link/?bitcoin=1Ritz1iUaLaxuYcXhUCoFhkVRH6GWiMTP
@@ -171,6 +171,16 @@ fixed in the future - if we have time to spend or you provide us with a lot of "
   rendered.
 
 == Changelog ==
+
+= 4.2.0 =
+- new option to set the rate limit for sending mails using the mail form
+- added home url as fallback for share count requests
+- added further anti-spam prevention mechanics
+- added noopener and noreferrer to share links
+- fixed double encoding of share count request links
+- updated media uploader request for translation
+- updated handling of admin notices following WordPress core
+- tested and optimized for WordPress 4.6
 
 = 4.1.2 =
 - new fallback for share count requests in case pretty permalinks are disabled
