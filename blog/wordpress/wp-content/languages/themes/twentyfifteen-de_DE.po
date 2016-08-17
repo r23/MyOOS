@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Twenty Fifteen package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-04-07 09:11:48+0000\n"
+"PO-Revision-Date: 2016-04-06 17:40:30+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,46 +10,34 @@ msgstr ""
 "X-Generator: GlotPress/2.1.0-alpha\n"
 "Project-Id-Version: Twenty Fifteen\n"
 
+#. Description of the plugin/theme
+msgid "Our 2015 default theme is clean, blog-focused, and designed for clarity. Twenty Fifteen's simple, straightforward typography is readable on a wide variety of screen sizes, and suitable for multiple languages. We designed it using a mobile-first approach, meaning your content takes center-stage, regardless of whether your visitors arrive by smartphone, tablet, laptop, or desktop computer."
+msgstr "Unser Standard-Theme für 2015 ist reduziert, stellt das Bloggen in den Mittelpunkt und ist auf ein klares Erscheinungsbild ausgerichtet. Twenty Fifteens einfache, gradlinige Typografie lässt sich in verschiedenen Bildschirmauflösungen und zahlreichen Sprachen gut lesen. Wir sind bei unserem Design primär von mobilen Endgeräten ausgegangen, so dass deine Inhalte im Mittelpunkt stehen – ganz gleich, ob deine Besucher die Seiten mit einem Smartphone, Tablet, Laptop oder Desktop-Computer ansehen."
+
+#. Theme Name of the plugin/theme
+msgid "Twenty Fifteen"
+msgstr "Twenty Fifteen"
+
 #. translators: %s: post title
 #: inc/template-tags.php:123
 msgid "Leave a comment<span class=\"screen-reader-text\"> on %s</span>"
 msgstr "Schreibe einen Kommentar<span class=\"screen-reader-text\"> zu %s</span>"
 
-#. Theme URI of the plugin/theme
-msgid "https://wordpress.org/themes/twentyfifteen/"
-msgstr "https://wordpress.org/themes/twentyfifteen/"
-
 #: single.php:37
 msgid "Previous post:"
 msgstr "Vorheriger Beitrag:"
-
-#: single.php:34
-msgid "Next post:"
-msgstr "Nächster Beitrag:"
-
-#: inc/customizer.php:60 inc/customizer.php:76 inc/customizer.php:81
-msgid "Applied to the header on small screens and the sidebar on wide screens."
-msgstr "Das Header-Bild wird bei diesem Theme bei kleinen Bildschirmen (Mobil-Geräte) auf den Header angewandt und bei großen Bildschirmen (Desktop) auf die Seitenleiste."
-
-#: single.php:33
-msgid "Next"
-msgstr "Weiter"
 
 #: single.php:36
 msgid "Previous"
 msgstr "Zurück"
 
-#. Author of the plugin/theme
-msgid "the WordPress team"
-msgstr "dem WordPress-Team"
+#: single.php:34
+msgid "Next post:"
+msgstr "Nächster Beitrag:"
 
-#. Description of the plugin/theme
-msgid "Our 2015 default theme is clean, blog-focused, and designed for clarity. Twenty Fifteen's simple, straightforward typography is readable on a wide variety of screen sizes, and suitable for multiple languages. We designed it using a mobile-first approach, meaning your content takes center-stage, regardless of whether your visitors arrive by smartphone, tablet, laptop, or desktop computer."
-msgstr "Unser Standard-Theme für 2015 ist reduziert, stellt das Bloggen in den Mittelpunkt und ist auf ein klares Erscheinungsbild ausgerichtet. Twenty Fifteens einfache, gradlinige Typografie lässt sich in verschiedenen Bildschirmauflösungen und zahlreichen Sprachen gut lesen. Wir sind bei unserem Design primär von mobilen Endgeräten ausgegangen, so dass deine Inhalte im Mittelpunkt stehen – ganz gleich, ob deine Besucher die Seiten mit einem Smartphone, Tablet, Laptop oder Desktop-Computer ansehen."
-
-#. Theme Name of the plugin/theme
-msgid "Twenty Fifteen"
-msgstr "Twenty Fifteen"
+#: single.php:33
+msgid "Next"
+msgstr "Weiter"
 
 #: search.php:18
 msgid "Search Results for: %s"
@@ -90,17 +78,17 @@ msgctxt "Used before post format."
 msgid "Format"
 msgstr "Format"
 
-#: inc/template-tags.php:26
-msgid "Older Comments"
-msgstr "Ältere Kommentare"
+#: inc/template-tags.php:49
+msgid "Featured"
+msgstr "Hervorgehoben"
 
 #: inc/template-tags.php:30
 msgid "Newer Comments"
 msgstr "Neuere Kommentare"
 
-#: inc/template-tags.php:49
-msgid "Featured"
-msgstr "Hervorgehoben"
+#: inc/template-tags.php:26
+msgid "Older Comments"
+msgstr "Ältere Kommentare"
 
 #: inc/template-tags.php:23
 msgid "Comment navigation"
@@ -118,13 +106,13 @@ msgstr "Violett"
 msgid "Pink"
 msgstr "Pink"
 
-#: inc/customizer.php:161
-msgid "Dark"
-msgstr "Dunkel"
-
 #: inc/customizer.php:172
 msgid "Yellow"
 msgstr "Gelb"
+
+#: inc/customizer.php:161
+msgid "Dark"
+msgstr "Dunkel"
 
 #: inc/customizer.php:150
 msgid "Default"
@@ -134,46 +122,50 @@ msgstr "Standard"
 msgid "Header and Sidebar Background Color"
 msgstr "Header- und Seitenleisten-Hintergrundfarbe"
 
-#: inc/customizer.php:44
-msgid "Base Color Scheme"
-msgstr "Basis-Farbschema"
-
 #: inc/customizer.php:59
 msgid "Header and Sidebar Text Color"
 msgstr "Header- und Seitenleisten-Textfarbe"
 
+#: inc/customizer.php:60 inc/customizer.php:76 inc/customizer.php:81
+msgid "Applied to the header on small screens and the sidebar on wide screens."
+msgstr "Das Header-Bild wird bei diesem Theme bei kleinen Bildschirmen (Mobil-Geräte) auf den Header angewandt und bei großen Bildschirmen (Desktop) auf die Seitenleiste."
+
+#: inc/customizer.php:44
+msgid "Base Color Scheme"
+msgstr "Basis-Farbschema"
+
 #: inc/back-compat.php:37 inc/back-compat.php:47 inc/back-compat.php:60
 msgid "Twenty Fifteen requires at least WordPress version 4.1. You are running version %s. Please upgrade and try again."
 msgstr "Twenty Fifteen erfordert mindestens WordPress in der Version 4.1. Du benutzt Version %s. Bitte aktualisiere dein WordPress und versuche es noch einmal."
-
-#: image.php:24
-msgid "Previous Image"
-msgstr "Vorheriges Bild"
-
-#: image.php:24
-msgid "Next Image"
-msgstr "Nächstes Bild"
 
 #: image.php:84
 msgctxt "Parent post link"
 msgid "<span class=\"meta-nav\">Published in</span><span class=\"post-title\">%title</span>"
 msgstr "<span class=\"meta-nav\">Veröffentlicht in</span><span class=\"post-title\">%title</span>"
 
+#: image.php:24
+msgid "Next Image"
+msgstr "Nächstes Bild"
+
+#: image.php:24
+msgid "Previous Image"
+msgstr "Vorheriges Bild"
+
 #: header.php:45
 msgid "Menu and widgets"
 msgstr "Menü und Widgets"
 
-#: functions.php:269
-msgid "expand child menu"
-msgstr "Untermenü anzeigen"
+#: header.php:26
+msgid "Skip to content"
+msgstr "Springe zum Inhalt"
 
 #: functions.php:270
 msgid "collapse child menu"
 msgstr "Untermenü verbergen"
 
-#: header.php:26
-msgid "Skip to content"
-msgstr "Zum Inhalt springen"
+#: functions.php:269
+msgid "expand child menu"
+msgstr "Untermenü anzeigen"
 
 #. Translators: To add an additional character subset specific to your
 #. language, translate this to 'greek', 'cyrillic', 'devanagari' or
@@ -192,18 +184,18 @@ msgid "on"
 msgstr "on"
 
 #. Translators: If there are characters in your language that are not supported
-#. by Noto Sans, translate this to 'off'. Do not translate into your own
-#. language.
-#: functions.php:175
-msgctxt "Noto Sans font: on or off"
-msgid "on"
-msgstr "on"
-
-#. Translators: If there are characters in your language that are not supported
 #. by Noto Serif, translate this to 'off'. Do not translate into your own
 #. language.
 #: functions.php:183
 msgctxt "Noto Serif font: on or off"
+msgid "on"
+msgstr "on"
+
+#. Translators: If there are characters in your language that are not supported
+#. by Noto Sans, translate this to 'off'. Do not translate into your own
+#. language.
+#: functions.php:175
+msgctxt "Noto Sans font: on or off"
 msgid "on"
 msgstr "on"
 
@@ -215,19 +207,19 @@ msgstr "Widgets hier hinzufügen, um sie in die Seitenleiste einzubauen."
 msgid "Widget Area"
 msgstr "Widgetbereich"
 
-#: functions.php:85
-msgid "Primary Menu"
-msgstr "Primäres Menü"
-
 #: functions.php:86
 msgid "Social Links Menu"
 msgstr "Social-Links-Menü"
+
+#: functions.php:85
+msgid "Primary Menu"
+msgstr "Primäres Menü"
 
 #: footer.php:25
 msgid "Proudly powered by %s"
 msgstr "Stolz präsentiert von %s"
 
-#. #-#-#-#-#  twentyfifteen.pot (Twenty Fifteen 1.5)  #-#-#-#-#
+#. #-#-#-#-#  twentyfifteen.pot (Twenty Fifteen 1.6)  #-#-#-#-#
 #. Author URI of the plugin/theme
 #: footer.php:25
 msgid "https://wordpress.org/"
@@ -243,7 +235,7 @@ msgstr "Entschuldigung, aber zu deinen Suchbegriffen wurde nichts passendes gefu
 
 #: content-none.php:22
 msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
-msgstr "Bereit, deinen ersten Beitrag zu veröffentlichen? <a href=\"%1$s\">Starte hier</a>."
+msgstr "Bereit, um deinen ersten Beitrag zu veröffentlichen? <a href=\"%1$s\">Starte hier</a>."
 
 #: content-none.php:15
 msgid "Nothing Found"
@@ -301,4 +293,12 @@ msgstr "Wie es aussieht, wurde an dieser Stelle nichts gefunden. Möchtest du ei
 
 #: 404.php:17
 msgid "Oops! That page can&rsquo;t be found."
-msgstr "Die Seite konnte leider nicht gefunden werden."
+msgstr "Die Seite konnte nicht gefunden werden."
+
+#. Author of the plugin/theme
+msgid "the WordPress team"
+msgstr "dem WordPress-Team"
+
+#. Theme URI of the plugin/theme
+msgid "https://wordpress.org/themes/twentyfifteen/"
+msgstr "https://wordpress.org/themes/twentyfifteen/"
