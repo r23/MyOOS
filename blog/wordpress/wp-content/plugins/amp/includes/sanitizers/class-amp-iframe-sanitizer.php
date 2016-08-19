@@ -37,23 +37,22 @@ class AMP_Iframe_Sanitizer extends AMP_Base_Sanitizer {
 			$node = $nodes->item( $i );
 			$old_attributes = AMP_DOM_Utils::get_node_attributes_as_assoc_array( $node );
 
-			if ( ! array_key_exists( 'src', $old_attributes ) ) {
+			$new_attributes = $this->filter_attributes( $old_attributes );
+
+			// If the src doesn't exist, remove the node.
+			// This means that it never existed or was invalidated
+			// while filtering attributes above.
+			//
+			// TODO: add a filter to allow for a fallback element in this instance.
+			// See: https://github.com/ampproject/amphtml/issues/2261
+			if ( empty( $new_attributes['src'] ) ) {
 				$node->parentNode->removeChild( $node );
 				continue;
 			}
 
 			$this->did_convert_elements = true;
 
-			$new_attributes = $this->filter_attributes( $old_attributes );
-
-			if ( ! isset( $new_attributes['height'] ) ) {
-				unset( $new_attributes['width'] );
-				$new_attributes['height'] = self::FALLBACK_HEIGHT;
-			}
-
-			if ( ! isset( $new_attributes['width'] ) ) {
-				$new_attributes['layout'] = 'fixed-height';
-			}
+			$new_attributes = $this->enforce_fixed_height( $new_attributes );
 			$new_attributes = $this->enforce_sizes_attribute( $new_attributes );
 
 			$new_node = AMP_DOM_Utils::create_node( $this->dom, 'amp-iframe', $new_attributes );
@@ -84,22 +83,20 @@ class AMP_Iframe_Sanitizer extends AMP_Base_Sanitizer {
 		foreach ( $attributes as $name => $value ) {
 			switch ( $name ) {
 				case 'sandbox':
-				case 'height':
 				case 'class':
 				case 'sizes':
 					$out[ $name ] = $value;
 					break;
 
 				case 'src':
-					$out[ $name ] = set_url_scheme( $value, 'https' );
+					$out[ $name ] = $this->maybe_enforce_https_src( $value, true );
 					break;
 
 				case 'width':
-					if ( $value === '100%' ) {
-						continue;
-					}
-					$out[ $name ] = $value;
+				case 'height':
+					$out[ $name ] = $this->sanitize_dimension( $value, $name );
 					break;
+
 
 				case 'frameborder':
 					if ( '0' !== $value && '1' !== $value ) {

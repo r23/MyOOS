@@ -1,6 +1,8 @@
 <?php
 
 abstract class AMP_Base_Sanitizer {
+	const FALLBACK_HEIGHT = 400;
+
 	protected $DEFAULT_ARGS = array();
 
 	protected $dom;
@@ -20,6 +22,42 @@ abstract class AMP_Base_Sanitizer {
 
 	protected function get_body_node() {
 		return $this->dom->getElementsByTagName( 'body' )->item( 0 );
+	}
+
+	public function sanitize_dimension( $value, $dimension ) {
+		if ( empty( $value ) ) {
+			return $value;
+		}
+
+		if ( false !== filter_var( $value, FILTER_VALIDATE_INT ) ) {
+			return absint( $value );
+		}
+
+		if ( AMP_String_Utils::endswith( $value, 'px' ) ) {
+			return absint( $value );
+		}
+
+		if ( AMP_String_Utils::endswith( $value, '%' ) ) {
+			if ( 'width' === $dimension && isset( $this->args[ 'content_max_width'] ) ) {
+				$percentage = absint( $value ) / 100;
+				return round( $percentage * $this->args[ 'content_max_width'] );
+			}
+		}
+
+		return '';
+	}
+
+	public function enforce_fixed_height( $attributes ) {
+		if ( empty( $attributes['height'] ) ) {
+			unset( $attributes['width'] );
+			$attributes['height'] = self::FALLBACK_HEIGHT;
+		}
+
+		if ( empty( $attributes['width'] ) ) {
+			$attributes['layout'] = 'fixed-height';
+		}
+
+		return $attributes;
 	}
 
 	/**
@@ -53,5 +91,30 @@ abstract class AMP_Base_Sanitizer {
 		} else {
 			$attributes[ $key ] = $value;
 		}
+	}
+
+	/**
+	 * Decide if we should remove a src attribute if https is required.
+	 * If not required, the implementing class may want to try and force https instead.
+	 *
+	 * @param string $src
+	 * @param boolean $force_https
+	 * @return string
+	 */
+	public function maybe_enforce_https_src( $src, $force_https = false ) {
+		$protocol = strtok( $src, ':' );
+		if ( 'https' !== $protocol ) {
+			// Check if https is required
+			if ( isset( $this->args['require_https_src'] ) && true === $this->args['require_https_src'] ) {
+				// Remove the src. Let the implementing class decide what do from here.
+				$src = '';
+			} elseif ( ( ! isset( $this->args['require_https_src'] ) || false === $this->args['require_https_src'] )
+				&& true === $force_https ) {
+				// Don't remove the src, but force https instead
+				$src = set_url_scheme( $src, 'https' );
+			}
+		}
+
+		return $src;
 	}
 }

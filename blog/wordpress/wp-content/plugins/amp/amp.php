@@ -5,7 +5,7 @@
  * Plugin URI: https://github.com/automattic/amp-wp
  * Author: Automattic
  * Author URI: https://automattic.com
- * Version: 0.3.2
+ * Version: 0.3.3
  * Text Domain: amp
  * Domain Path: /languages/
  * License: GPLv2 or later
@@ -17,13 +17,13 @@ define( 'AMP__DIR__', dirname( __FILE__ ) );
 require_once( AMP__DIR__ . '/includes/amp-helper-functions.php' );
 
 register_activation_hook( __FILE__, 'amp_activate' );
-function amp_activate(){
+function amp_activate() {
 	amp_init();
 	flush_rewrite_rules();
 }
 
 register_deactivation_hook( __FILE__, 'amp_deactivate' );
-function amp_deactivate(){
+function amp_deactivate() {
 	flush_rewrite_rules();
 }
 
@@ -42,11 +42,21 @@ function amp_init() {
 	add_rewrite_endpoint( AMP_QUERY_VAR, EP_PERMALINK );
 	add_post_type_support( 'post', AMP_QUERY_VAR );
 
+	add_filter( 'request', 'amp_force_query_var_value' );
 	add_action( 'wp', 'amp_maybe_add_actions' );
 
 	if ( class_exists( 'Jetpack' ) && ! ( defined( 'IS_WPCOM' ) && IS_WPCOM ) ) {
 		require_once( AMP__DIR__ . '/jetpack-helper.php' );
 	}
+}
+
+// Make sure the `amp` query var has an explicit value.
+// Avoids issues when filtering the deprecated `query_string` hook.
+function amp_force_query_var_value( $query_vars ) {
+	if ( isset( $query_vars[ AMP_QUERY_VAR ] ) && '' === $query_vars[ AMP_QUERY_VAR ] ) {
+		$query_vars[ AMP_QUERY_VAR ] = 1;
+	}
+	return $query_vars;
 }
 
 function amp_maybe_add_actions() {
