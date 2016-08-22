@@ -3,7 +3,7 @@
  * Plugin Name: Shariff Wrapper
  * Plugin URI: https://de.wordpress.org/plugins/shariff/
  * Description: The Shariff Wrapper provides share buttons that respect the privacy of your visitors and are compliant to the German data protection laws.
- * Version: 4.2.0
+ * Version: 4.2.1
  * Author: Jan-Peter Lambeck & 3UU
  * Author URI: https://de.wordpress.org/plugins/shariff/
  * License: MIT
@@ -26,7 +26,7 @@ $shariff3UU = array_merge( $shariff3UU_basic, $shariff3UU_design, $shariff3UU_ad
 // update function to perform tasks _once_ after an update, based on version number to work for automatic as well as manual updates
 function shariff3UU_update() {
 	/******************** ADJUST VERSION ********************/
-	$code_version = "4.2.0"; // set code version - needs to be adjusted for every new version!
+	$code_version = "4.2.1"; // set code version - needs to be adjusted for every new version!
 	/******************** ADJUST VERSION ********************/
 
 	// get options
@@ -484,6 +484,14 @@ function shariff3UU_hideshariff( $content ) {
 }
 add_filter( 'the_content', 'shariff3UU_hideshariff', 999 );
 
+// remove shariff from rss feeds
+function shariff3UU_removefromrss( $content ) {
+	$content = preg_replace( '/<div class="shariff\b[^>]*>(.*?)<\/div>/i', '', $content );
+	$content = preg_replace( '/<div class="ShariffSC\b[^>]*>(.*?)<\/div>/i', '', $content );
+	return $content;
+}
+add_filter( 'the_content_feed', 'shariff3UU_removefromrss', 999 );
+
 // add mailform to bbpress_replies
 function bbp_add_mailform_to_bbpress_replies() {
 	$content = '';
@@ -768,7 +776,9 @@ function shariff3UU_render( $atts, $content = null ) {
 					$button_text_array = '';
 
 					// build the actual button
-					$output .= '<a href="' . $button_url . '" title="' . $button_title . '" aria-label="' . $button_title . '" role="button" rel="noopener noreferrer nofollow" class="shariff-link" ';
+					$output .= '<a href="' . $button_url . '" title="' . $button_title . '" aria-label="' . $button_title . '" role="button" rel="';
+						if ( $mobile_only != '1' ) $output .= 'noopener noreferrer ';
+						$output .= 'nofollow" class="shariff-link" ';
 						// same window?
 						if ( ! isset( $same_window ) || isset( $same_window ) && $same_window != '1' ) $output .= 'target="_blank" ';
 						$output .= 'style="background-color:' . $main_color . $border_radius;

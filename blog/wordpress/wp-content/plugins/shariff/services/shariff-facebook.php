@@ -70,16 +70,16 @@ elseif ( isset( $backend ) && $backend == '1' ) {
 	}
 	// otherwise use the normal way
 	else { 
-		$facebook = sanitize_text_field( wp_remote_retrieve_body( wp_remote_get( 'https://graph.facebook.com/fql?q=SELECT%20total_count%20FROM%20link_stat%20WHERE%20url="' . $post_url . '"' ) ) );
+		$facebook = sanitize_text_field( wp_remote_retrieve_body( wp_remote_get( 'https://graph.facebook.com/?id=' . $post_url ) ) );
 		$facebook_json = json_decode( $facebook, true );
 	}
 
 	// store results - use total_count if it exists, otherwise use share_count - ordered based on proximity of occurrence
-	if ( isset( $facebook_json['data'] ) && isset( $facebook_json['data'][0] ) && isset( $facebook_json['data'][0]['total_count'] ) ) {
-		$share_counts['facebook'] = intval( $facebook_json['data'][0]['total_count'] );
-	}
-	elseif ( isset($facebook_json['share'] ) && isset( $facebook_json['share']['share_count'] ) ) {
+	if ( isset( $facebook_json['share'] ) && isset( $facebook_json['share']['share_count'] ) ) {
 		$share_counts['facebook'] = intval( $facebook_json['share']['share_count'] );
+	}
+	elseif ( isset( $facebook_json['data'] ) && isset( $facebook_json['data'][0] ) && isset( $facebook_json['data'][0]['total_count'] ) ) {
+		$share_counts['facebook'] = intval( $facebook_json['data'][0]['total_count'] );
 	}
 	elseif ( isset($facebook_json['data'] ) && isset( $facebook_json['data'][0] ) && isset( $facebook_json['data'][0]['share_count'] ) ) {
 		$share_counts['facebook'] = intval( $facebook_json['data'][0]['share_count'] );

@@ -1,9 +1,9 @@
-﻿=== Shariff Wrapper ===
+=== Shariff Wrapper ===
 Contributors: 3UU, starguide
 Tags: Shariff, Facebook, Twitter, VKontakte, VK, GooglePlus, WhatsApp, share buttons, sharing, privacy, social
 Requires at least: 4.4
 Tested up to: 4.6
-Stable tag: 4.2.0
+Stable tag: 4.2.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 Donate link: http://folge.link/?bitcoin=1Ritz1iUaLaxuYcXhUCoFhkVRH6GWiMTP
@@ -171,6 +171,11 @@ fixed in the future - if we have time to spend or you provide us with a lot of "
   rendered.
 
 == Changelog ==
+
+= 4.2.1 =
+- fix WhatsApp button on Android when using Chrome
+- fix Shariff being added to RSS feeds under certain conditions
+- update to latest Facebook Graph API for share count requests
 
 = 4.2.0 =
 - new option to set the rate limit for sending mails using the mail form

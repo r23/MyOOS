@@ -481,7 +481,7 @@ function shariff3UU_multiplecheckbox_add_after_render() {
 	// add after all excerpts
 	echo '<p><input type="checkbox" name="shariff3UU_basic[add_after][excerpt]" ';
 	if ( isset( $GLOBALS["shariff3UU_basic"]["add_after"]["excerpt"] ) ) echo checked( $GLOBALS["shariff3UU_basic"]["add_after"]["excerpt"], 1, 0 );
-	echo ' value="1">' . __('Excerpt', 'shariff') . '</p>';
+	echo ' value="1">' . __('Excerpts', 'shariff') . '</p>';
 
 	// add after custom post types - choose after which to add
 	$post_types = get_post_types( array( '_builtin' => FALSE ) );
@@ -520,7 +520,7 @@ function shariff3UU_multiplecheckbox_add_before_render() {
 	// Add before all excerpts
 	echo '<p><input type="checkbox" name="shariff3UU_basic[add_before][excerpt]" ';
 	if ( isset( $GLOBALS["shariff3UU_basic"]["add_before"]["excerpt"] ) ) echo checked( $GLOBALS["shariff3UU_basic"]["add_before"]["excerpt"], 1, 0 );
-	echo ' value="1">' . __('Excerpt', 'shariff') . '</p>';
+	echo ' value="1">' . __('Excerpts', 'shariff') . '</p>';
 }
 
 // disable on password protected posts
