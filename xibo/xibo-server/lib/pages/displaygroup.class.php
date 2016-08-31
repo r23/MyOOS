@@ -477,6 +477,9 @@ class displaygroupDAO extends baseDAO
                 {
                     trigger_error($displayGroupObject->GetErrorMessage(), E_USER_ERROR);
                 }
+
+                // Clear the cache for that displayId
+                PDOConnect::getPool()->getItem('display/' . $displayID)->clear();
             }
             else
             {
@@ -493,6 +496,9 @@ class displaygroupDAO extends baseDAO
                 {
                     trigger_error($displayGroupObject->GetErrorMessage(), E_USER_ERROR);
                 }
+
+                // Clear the cache for that displayId
+                PDOConnect::getPool()->getItem('display/' . $displayID)->clear();
             }
         }
         
@@ -882,7 +888,7 @@ class displaygroupDAO extends baseDAO
         // Make sure this file is assigned to this display group
         $link = new LkMediaDisplayGroup($this->db);
         if (!$link->Link($displayGroupId, $mediaId))
-            trigger_error($display->GetErrorMessage(), E_USER_ERROR);
+            trigger_error($link->GetErrorMessage(), E_USER_ERROR);
 
         // Get the "StoredAs" for this media item
         $media = new Media($this->db);
