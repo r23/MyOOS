@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-08-16 15:34:21+0000\n"
+"PO-Revision-Date: 2016-08-24 20:06:41+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -82,9 +82,7 @@ msgstr "%1$s und %2$s"
 #. https://make.wordpress.org/core/2016/07/06/resource-hints-in-4-6/
 #: wp-admin/about.php:132
 msgid "<a href=\"%s\">Resource hints help browsers</a> decide which resources to fetch and preprocess. WordPress 4.6 adds them automatically for your styles and scripts making your site even faster."
-msgstr ""
-"<a href=\"%s\">Resource Hints helfen Browsern</a> zu entscheiden, welche Ressourcen sie abrufen und vorverarbeiten sollen. WordPress 4.6 fügt sie automatisch für deine Styles und Skripte hinzu und macht deine Website so noch schneller.\n"
-" "
+msgstr "<a href=\"%s\">Resource Hints helfen Browsern</a> zu entscheiden, welche Ressourcen sie abrufen und vorverarbeiten sollen. WordPress 4.6 fügt sie automatisch für deine Styles und Skripte hinzu und macht deine Website so noch schneller."
 
 #: wp-admin/about.php:138
 msgid "Robust Requests"
@@ -4155,7 +4153,7 @@ msgstr "Verwalten von <a href=\"%1$s\">Widgets</a> oder <a href=\"%2$s\">Menüs<
 
 #: wp-admin/custom-background.php:93
 msgid "To use a background image, simply upload it or choose an image that has already been uploaded to your Media Library by clicking the &#8220;Choose Image&#8221; button. You can display a single instance of your image, or tile it to fill the screen. You can have your background fixed in place, so your site content moves on top of it, or you can have it scroll with your site."
-msgstr "Um ein Hintergrundbild zu verwenden, lade einfach eines hoch oder wähle ein Bild aus der Mediathek durch Klick auf den &#8222;Bild wählen&#8220;-Button. Du kannst das Bild einzeln anzeigen, es kacheln oder bildschirmfüllend einstellen. Du kannst den Hintergrund auch fixieren, so dass der Inhalt der Website darüber scrollt oder das Bild mit dem Inhalt mitscrollen lassen. "
+msgstr "Um ein Hintergrundbild zu verwenden, lade einfach eins hoch oder wähle ein Bild aus der Mediathek durch Klick auf den &#8222;Bild wählen&#8220;-Button. Du kannst das Bild einzeln anzeigen, es kacheln oder bildschirmfüllend einstellen. Du kannst den Hintergrund auch fixieren, so dass der Inhalt der Website darüber scrollt oder das Bild mit dem Inhalt mitscrollen lassen."
 
 #: wp-admin/custom-header.php:122
 msgid "Don&#8217;t forget to click &#8220;Save Changes&#8221; when you&#8217;re done!"
@@ -4220,7 +4218,7 @@ msgstr "Wähle ein benutzerdefiniertes Header-Bild"
 
 #: wp-admin/custom-background.php:94
 msgid "You can also choose a background color by clicking the Select Color button and either typing in a legitimate HTML hex value, e.g. &#8220;#ff0000&#8221; for red, or by choosing a color using the color picker."
-msgstr "Du kannst die Hintergrundfarbe durch Klicken auf den Button &#8222;Farbe wählen&#8220; auswählen oder einen gültigen HTML Hex-Wert eingeben. Bspw: &#8222;#ff0000&#8220; für Rot oder wähle eine Farbe aus dem Farbwähler"
+msgstr "Du kannst auch eine Hintergrundfarbe auswählen, indem du auf den Button &#8222;Farbe wählen&#8220; klickst und dann einen gültigen HTML Hex-Wert eingibst, wie z.B. &#8222;#ff0000&#8220; für Rot; oder wähle eine Farbe aus der Palette des Farbmischers."
 
 #: wp-admin/custom-header.php:121
 msgid "In the Header Text section of this page, you can choose whether to display this text or hide it. You can also choose a color for the text by clicking the Select Color button and either typing in a legitimate HTML hex value, e.g. &#8220;#ff0000&#8221; for red, or by choosing a color using the color picker."
@@ -5248,8 +5246,8 @@ msgstr "Werkzeugleiste für mich auf der Website anzeigen"
 #: wp-admin/about.php:235
 msgid "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs."
-msgstr[0] "<strong>Version %1$s</strong> behob eine Sicherheitslücke und %2$s Fehler."
-msgstr[1] "<strong>Version %1$s</strong> behob eine Sicherheitslücke und %2$s Fehler."
+msgstr[0] "<strong>Version %1$s</strong> behob ein Sicherheitsproblem und %2$s Fehler."
+msgstr[1] "<strong>Version %1$s</strong> behob ein Sicherheitsproblem und %2$s Fehler."
 
 #. translators: %s: Codex URL
 #: wp-admin/about.php:243
@@ -5261,8 +5259,8 @@ msgstr "Weitere Informationen findest du in den <a href=\"%s\">Veröffentlichtun
 #: wp-admin/about.php:239
 msgid "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs."
-msgstr[0] "<strong>Version %1$s</strong> behob Sicherheitslücken und %2$s Fehler."
-msgstr[1] "<strong>Version %1$s</strong> behob Sicherheitslücken und %2$s Fehler."
+msgstr[0] "<strong>Version %1$s</strong> behob Sicherheitsprobleme und %2$s Fehler."
+msgstr[1] "<strong>Version %1$s</strong> behob Sicherheitsprobleme und %2$s Fehler."
 
 #. translators: 1: WordPress version number, 2: plural number of bugs.
 #: wp-admin/about.php:231
@@ -5294,7 +5292,7 @@ msgstr "Wartungs-Update"
 #. translators: %s: WordPress version number
 #: wp-admin/about.php:228
 msgid "<strong>Version %s</strong> addressed some security issues."
-msgstr "<strong>Version %s</strong> behob einige Sicherheitslücken."
+msgstr "<strong>Version %s</strong> behob einige Sicherheitsprobleme."
 
 #: wp-admin/options-permalink.php:22
 msgid "This screen allows you to choose your permalink structure. You can choose from common settings or create custom URL structures."

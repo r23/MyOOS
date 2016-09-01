@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-08-17 21:27:15+0000\n"
+"PO-Revision-Date: 2016-08-19 17:12:13+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -283,8 +283,8 @@ msgid "bbPress replies"
 msgstr "bbPress Antworten"
 
 #: admin/admin_menu.php:484 admin/admin_menu.php:523
-msgid "Excerpt"
-msgstr "Textauszug (Excerpt)"
+msgid "Excerpts"
+msgstr "Textauszügen (Excerpts)"
 
 #: admin/admin_menu.php:544
 msgid "This configures the default design of the Shariff buttons. Most options can be overwritten for single posts or pages with the options within the <code>[shariff]</code> shorttag. For more information have a look at the "
@@ -664,35 +664,35 @@ msgstr "Einstellungen"
 msgid "Support Forum"
 msgstr "Support-Forum"
 
-#: shariff.php:821
+#: shariff.php:831
 msgid "Username for Flattr is missing!"
 msgstr "Benutzername für Flattr fehlt!"
 
-#: shariff.php:825
+#: shariff.php:835
 msgid "Username for patreon is missing!"
 msgstr "Benutzername für Patreon fehlt!"
 
-#: shariff.php:829
+#: shariff.php:839
 msgid "Button ID for PayPal is missing!"
 msgstr "Button-ID für PayPal fehlt!"
 
-#: shariff.php:833
+#: shariff.php:843
 msgid "PayPal.Me ID is missing!"
 msgstr "PayPal.Me ID fehlt!"
 
-#: shariff.php:837
+#: shariff.php:847
 msgid "Address for Bitcoin is missing!"
 msgstr "Adresse für Bitcoin fehlt!"
 
-#: shariff.php:888
+#: shariff.php:898
 msgid "Mail form disabled."
 msgstr "Mailformular deaktiviert."
 
-#: shariff.php:1252
+#: shariff.php:1262
 msgid "Add Shariff as configured on the plugin options page."
 msgstr "Fügt die Shariff-Buttons mit den Einstellungen aus dem Plugin-Menü ein."
 
-#: shariff.php:1268
+#: shariff.php:1278
 msgid "Title"
 msgstr "Titel"
 
@@ -700,9 +700,9 @@ msgstr "Titel"
 msgid "Shariff Wrapper"
 msgstr "Shariff Wrapper"
 
-#. #-#-#-#-#  tmp-shariff.pot (Shariff Wrapper 4.2.0)  #-#-#-#-#
+#. #-#-#-#-#  tmp-shariff.pot (Shariff Wrapper 4.2.1)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  tmp-shariff.pot (Shariff Wrapper 4.2.0)  #-#-#-#-#
+#. #-#-#-#-#  tmp-shariff.pot (Shariff Wrapper 4.2.1)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "https://de.wordpress.org/plugins/shariff/"
 msgstr "https://de.wordpress.org/plugins/shariff/"
