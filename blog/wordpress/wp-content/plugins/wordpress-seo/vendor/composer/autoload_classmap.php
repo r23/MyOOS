@@ -193,6 +193,8 @@ return array(
     'Yoast_Dashboard_Widget' => $baseDir . '/admin/class-yoast-dashboard-widget.php',
     'Yoast_Dismissable_Notice_Ajax' => $baseDir . '/admin/ajax/class-yoast-dismissable-notice.php',
     'Yoast_Form' => $baseDir . '/admin/class-yoast-form.php',
+    'Yoast_Form_Element' => $baseDir . '/admin/views/interface-yoast-form-element.php',
+    'Yoast_Form_Fieldset' => $baseDir . '/admin/views/class-yoast-form-fieldset.php',
     'Yoast_Input_Select' => $baseDir . '/admin/views/class-yoast-input-select.php',
     'Yoast_License_Manager' => $vendorDir . '/yoast/license-manager/class-license-manager.php',
     'Yoast_Notification' => $baseDir . '/admin/class-yoast-notification.php',
