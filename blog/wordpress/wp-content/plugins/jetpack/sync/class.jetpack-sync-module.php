@@ -8,6 +8,10 @@ abstract class Jetpack_Sync_Module {
 
 	abstract public function name();
 
+	public function get_object_by_id( $object_type, $id ) {
+		return false;
+	}
+
 	// override these to set up listeners and set/reset data/defaults
 	public function init_listeners( $callable ) {
 	}
@@ -103,5 +107,23 @@ abstract class Jetpack_Sync_Module {
 	public function unserialize_meta( $meta ) {
 		$meta->meta_value = maybe_unserialize( $meta->meta_value );
 		return $meta;
+	}
+
+	public function get_objects_by_id( $object_type, $ids ) {
+		if ( empty( $ids ) || empty( $object_type ) ) {
+			return array();
+		}
+
+		$objects = array();
+		foreach( (array) $ids as $id ) {
+			$object = $this->get_object_by_id( $object_type, $id );
+
+			// Only add object if we have the object.
+			if ( $object ) {
+				$objects[ $id ] = $object;
+			}
+		}
+
+		return $objects;
 	}
 }

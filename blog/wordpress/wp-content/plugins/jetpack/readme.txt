@@ -1,7 +1,7 @@
 === Jetpack by WordPress.com ===
 Contributors: automattic, adamkheckler, aduth, akirk, allendav, alternatekev, andy, annezazu, apeatling, azaozz, batmoo, barry, beaulebens, blobaugh, cainm, cena, cfinke, chaselivingston, chellycat, csonnek, danielbachhuber, davoraltman, daniloercoli, designsimply, dllh, drawmyface, dsmart, dzver, ebinnion, eliorivero, enej, eoigal, ethitter, gcorne, georgestephanis, gibrown, goldsounds, hew, hugobaeta, hypertextranch, iammattthomas, iandunn, jacobshere, jblz, jeherve, jenhooks, jenia, jgs, jkudish, jmdodd, Joen, johnjamesjacoby, jshreve, koke, kraftbj, lamdayap, lancewillett, lschuyler, macmanx, martinremy, matt, matveb, mattwiebe, maverick3x6, mcsf, mdawaffe, michael-arestad, migueluy, mikeyarce, mkaz, nancythanki, nickmomrik, obenland, pento, professor44, rachelsquirrel, rdcoll, ryancowles, richardmuscat, richardmtl, roccotripaldi, samhotchkiss, scarstocea, sdquirk, stefmattana, stephdau, tmoorewp, Viper007Bond, westi, yoavf, zinigor
 Tags: WordPress.com, jet pack, comments, contact, gallery, performance, sharing, security, shortcodes, stats, subscriptions, widgets
-Stable tag: 4.2.2
+Stable tag: 4.3
 Requires at least: 4.5
 Tested up to: 4.6
 
@@ -54,7 +54,7 @@ Many of our core features (like Photon, Stats, and Protect) make use of the Word
 
 = I already have a WordPress account, but it's not working. What's going on? =
 
-A WordPress.com account is different to the one you use to log into your self-hosted WordPress. If you can log into http://wordpress.com then you already have a WordPress.com account. If you can't, you can easily create one during Jetpack's connection process.
+A WordPress.com account is different to the one you use to log into your self-hosted WordPress. If you can log into https://wordpress.com then you already have a WordPress.com account. If you can't, you can easily create one during Jetpack's connection process.
 
 = How do I view my stats? =
 
@@ -74,6 +74,14 @@ There are opportunities for developers at all levels to contribute. [Learn more 
 5. Related Posts.
 
 == Changelog ==
+
+= 4.3 =
+
+* Release date: September 6th, 2016
+
+**Exciting Performance and UI Improvements:**
+
+* We have launched the all new React powered interface, a year in the making, designed to give you better control of your favorite Jetpack features.
 
 = 4.2.2 =
 
