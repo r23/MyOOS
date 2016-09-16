@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-08-24 20:06:41+0000\n"
+"PO-Revision-Date: 2016-09-16 08:29:01+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,98 +26,98 @@ msgid "0"
 msgstr "Europe/Berlin"
 
 #. translators: 1: WP_Site_Query, 2: WP_Network_Query
-#: wp-admin/about.php:188
+#: wp-admin/about.php:196
 msgid "Cached and comprehensive site queries improve your network admin experience. The addition of %1$s and %2$s help craft advanced queries with less effort."
 msgstr "Zwischengespeicherte und umfassende Website-Abfragen verbessern deine Erfahrung bei der Netzwerkadministration. Das Hinzufügen von %1$s und %2$s hilft, fortgeschrittene Abfragen mit weniger Aufwand zu erstellen."
 
-#: wp-admin/about.php:181
+#: wp-admin/about.php:189
 msgid "Settings now have an <a href=\"https://make.wordpress.org/core/2016/07/05/customizer-apis-in-4-6-for-setting-validation-and-notifications/\">API for enforcing validation constraints</a>. Likewise, customizer controls now support notifications, which are used to display validation errors instead of failing silently."
 msgstr "Die Einstellungen haben jetzt eine <a href=\"https://make.wordpress.org/core/2016/07/05/customizer-apis-in-4-6-for-setting-validation-and-notifications/\">API zur Durchsetzung von Validierungs-Bedingungen (engl.)</a>. Dadurch unterstützen die Customizer-Eingabefelder jetzt Hinweise, die bei der Validierung zur Fehlerausgabe verwendet werden, statt die Eingabe kommentarlos abzulehnen."
 
-#: wp-admin/about.php:184
+#: wp-admin/about.php:192
 msgid "Multisite, now faster than ever"
 msgstr "Netzwerk-Installation (Multisite), jetzt schneller als je zuvor"
 
-#: wp-admin/about.php:170
+#: wp-admin/about.php:178
 msgid "WordPress will install and use the newest language packs for your plugins and themes as soon as they&#8217;re available from <a href=\"https://translate.wordpress.org/\">WordPress.org&#8217;s community of translators</a>."
 msgstr "WordPress installiert und verwendet die neuesten Sprachpakete für deine Plugins und Themes, sobald sie von den <a href=\"https://translate.wordpress.org/\">Übersetzern der WordPress-Community</a> bereitgestellt werden."
 
-#: wp-admin/about.php:174
+#: wp-admin/about.php:182
 msgid "Masonry 3.3.2, imagesLoaded 3.2.0, MediaElement.js 2.22.0, TinyMCE 4.4.1, and Backbone.js 1.3.3 are bundled."
 msgstr "Masonry 3.3.2, imagesLoaded 3.2.0, MediaElement.js 2.22.0, TinyMCE 4.4.1 und Backbone.js 1.3.3 werden mitgeliefert."
 
-#: wp-admin/about.php:180
+#: wp-admin/about.php:188
 msgid "Customizer APIs for Setting Validation and Notifications"
 msgstr "Customizer APIs zur Einstellungs-Validierung und -Benachrichtigung"
 
 #. translators: %s:
 #. https://make.wordpress.org/core/2016/07/08/enhancing-register_meta-in-4-6/
-#: wp-admin/about.php:163
+#: wp-admin/about.php:171
 msgid "The Meta Registration API <a href=\"%s\">has been expanded</a> to support types, descriptions, and REST API visibility."
 msgstr "Die Meta-Registrierungs-API wurde um die Unterstützung für Typen, Beschreibungen und Sichtbarkeit für die REST-API <a href=\"%s\">erweitert</a>."
 
-#: wp-admin/about.php:169
+#: wp-admin/about.php:177
 msgid "Translations On Demand"
 msgstr "Übersetzungen auf Abruf"
 
 #. translators: 1: WP_Term_Query, 2: WP_Post_Type
-#: wp-admin/about.php:149
+#: wp-admin/about.php:157
 msgid "A new %1$s class adds flexibility to query term information while a new %2$s object makes interacting with post types more predictable."
 msgstr "Eine neue %1$s-Klasse trägt zur Flexibilität bei Abfrage-Informationen bei, während ein neues %2$s-Objekt das Zusammenspiel mit Beitragstypen vorhersehbarer macht."
 
-#: wp-admin/about.php:159
+#: wp-admin/about.php:167
 msgid "Meta Registration API"
 msgstr "Meta-Registrierungs-API"
 
-#: wp-admin/about.php:139
+#: wp-admin/about.php:147
 msgid "The HTTP API now leverages the Requests library, improving HTTP standard support and adding case-insensitive headers, parallel HTTP requests, and support for Internationalized Domain Names."
 msgstr "Die HTTP-API nutzt die Requests Library jetzt zu ihrem Vorteil und verbessert so die Unterstützung des HTTP-Standards, fügt Header unabhängig von Groß- und Kleinschreibung hinzu, erlaubt parallele HTTP-Anfragen und unterstützt internationalisierte Domain-Namen."
 
 #. translators: 1: WP_Term_Query, 2: WP_Post_Type
-#: wp-admin/about.php:144
+#: wp-admin/about.php:152
 msgid "%1$s and %2$s"
 msgstr "%1$s und %2$s"
 
 #. translators: %s:
 #. https://make.wordpress.org/core/2016/07/06/resource-hints-in-4-6/
-#: wp-admin/about.php:132
+#: wp-admin/about.php:140
 msgid "<a href=\"%s\">Resource hints help browsers</a> decide which resources to fetch and preprocess. WordPress 4.6 adds them automatically for your styles and scripts making your site even faster."
 msgstr "<a href=\"%s\">Resource Hints helfen Browsern</a> zu entscheiden, welche Ressourcen sie abrufen und vorverarbeiten sollen. WordPress 4.6 fügt sie automatisch für deine Styles und Skripte hinzu und macht deine Website so noch schneller."
 
-#: wp-admin/about.php:138
+#: wp-admin/about.php:146
 msgid "Robust Requests"
 msgstr "Robuste Anfragen"
 
-#: wp-admin/about.php:117
+#: wp-admin/about.php:125
 msgid "As you type, WordPress saves your content to the browser. Recovering saved content is even easier with WordPress 4.6."
 msgstr "Während du tippst speichert WordPress deinen Inhalt im Browser. Das Wiederherstellen von gespeichertem Inhalt ist mit WordPress 4.6 noch einfacher."
 
-#: wp-admin/about.php:128
+#: wp-admin/about.php:136
 msgid "Resource Hints"
 msgstr "Resource Hints"
 
 #. translators: %s: Home URL appended with 'wordpress.org'
-#: wp-admin/about.php:109
+#: wp-admin/about.php:117
 msgid "Ever accidentally made a link to %s? Now WordPress automatically checks to make sure you didn&#8217;t."
 msgstr "Hast du schonmal versehentlich einen Link zu %s eingegeben? Jetzt prüft WordPress automatisch, damit dir das nicht passiert."
 
-#: wp-admin/about.php:116
+#: wp-admin/about.php:124
 msgid "Content Recovery"
 msgstr "Wiederherstellung von Inhalten"
 
-#: wp-admin/about.php:105
+#: wp-admin/about.php:113
 msgid "Inline Link Checker"
 msgstr "Inline Link Checker"
 
-#: wp-admin/about.php:95
+#: wp-admin/about.php:103
 msgid "The WordPress dashboard now takes advantage of the fonts you already have, making it load faster and letting you feel more at home on whatever device you use."
 msgstr "Das WordPress-Dashboard bedient sich jetzt der Schriftarten, die du bereits hast, wodurch es schneller lädt und dich mehr wie zuhause fühlen lässt, welches Gerät auch immer du benutzt."
 
-#: wp-admin/about.php:70
+#: wp-admin/about.php:78
 msgid "Don&#8217;t lose your place: stay on the same page while you update, install, and delete your plugins and themes."
 msgstr "Lass dich nicht ablenken und bleib auf der gleichen Seite, während du Plugins und Themes aktualisierst, installierst und löschst."
 
-#: wp-admin/about.php:94
+#: wp-admin/about.php:102
 msgid "Native Fonts"
 msgstr "Systemeigene Schriftarten"
 
@@ -125,7 +125,7 @@ msgstr "Systemeigene Schriftarten"
 msgid "Thank you for updating to the latest version. WordPress %s changes a lot behind the scenes to make your WordPress experience even better!"
 msgstr "Danke für die Aktualisierung auf die neueste Version. Bei WordPress %s ändert sich eine Menge hinter den Kulissen, um deine WordPress-Erfahrung noch besser zu machen!"
 
-#: wp-admin/about.php:69
+#: wp-admin/about.php:77
 msgid "Streamlined Updates"
 msgstr "Optimierte Aktualisierungen"
 
@@ -551,11 +551,11 @@ msgstr "Release-Leitung Design"
 msgid "Release Deputy"
 msgstr "Stellvertretende Release-Leitung"
 
-#: wp-admin/about.php:173
+#: wp-admin/about.php:181
 msgid "JavaScript Library Updates"
 msgstr "Aktualisierung der JavaScript-Bibliotheken"
 
-#: wp-admin/about.php:102
+#: wp-admin/about.php:110
 msgid "Editor Improvements"
 msgstr "Verbesserungen am Editor"
 
@@ -1031,7 +1031,7 @@ msgid "(Currently set to: %s)"
 msgstr "(Aktueller Wert: %s)"
 
 #. translators: %s: WordPress version number
-#: wp-admin/about.php:226
+#: wp-admin/about.php:234
 msgid "<strong>Version %s</strong> addressed one security issue."
 msgstr "<strong>Version %s</strong> behob ein Sicherheitsproblem."
 
@@ -1053,15 +1053,15 @@ msgstr "https://de.gravatar.com/"
 msgid "Profile Picture"
 msgstr "Profilbild"
 
-#: wp-admin/about.php:217
+#: wp-admin/about.php:225
 msgid "Maintenance Releases"
 msgstr "Wartungs-Updates"
 
-#: wp-admin/about.php:220
+#: wp-admin/about.php:228
 msgid "Security Releases"
 msgstr "Sicherheits-Updates"
 
-#: wp-admin/about.php:223
+#: wp-admin/about.php:231
 msgid "Maintenance and Security Releases"
 msgstr "Wartungs- und Sicherheits-Updates"
 
@@ -1608,7 +1608,7 @@ msgstr "Beitrags-Vorschau"
 
 #: wp-admin/edit-form-advanced.php:115 wp-admin/edit-form-advanced.php:121
 msgid "Preview page"
-msgstr "Vorschauseite"
+msgstr "Vorschau der Seite"
 
 #: wp-admin/edit-comments.php:159
 msgid "In the <strong>Submitted On</strong> column, the date and time the comment was left on your site appears. Clicking on the date/time link will take you to that comment on your live site."
@@ -5243,27 +5243,27 @@ msgstr "Werkzeugleiste für mich auf der Website anzeigen"
 
 #. translators: 1: WordPress version number, 2: plural number of bugs. Singular
 #. security issue.
-#: wp-admin/about.php:235
+#: wp-admin/about.php:243
 msgid "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> behob ein Sicherheitsproblem und %2$s Fehler."
 msgstr[1] "<strong>Version %1$s</strong> behob ein Sicherheitsproblem und %2$s Fehler."
 
 #. translators: %s: Codex URL
-#: wp-admin/about.php:243
+#: wp-admin/about.php:65 wp-admin/about.php:251
 msgid "For more information, see <a href=\"%s\">the release notes</a>."
 msgstr "Weitere Informationen findest du in den <a href=\"%s\">Veröffentlichtungsmitteilungen</a>."
 
 #. translators: 1: WordPress version number, 2: plural number of bugs. More
 #. than one security issue.
-#: wp-admin/about.php:239
+#: wp-admin/about.php:63 wp-admin/about.php:247
 msgid "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> behob Sicherheitsprobleme und %2$s Fehler."
 msgstr[1] "<strong>Version %1$s</strong> behob Sicherheitsprobleme und %2$s Fehler."
 
 #. translators: 1: WordPress version number, 2: plural number of bugs.
-#: wp-admin/about.php:231
+#: wp-admin/about.php:239
 msgid "<strong>Version %1$s</strong> addressed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> behob %2$s Fehler."
@@ -5273,7 +5273,7 @@ msgstr[1] "<strong>Version %1$s</strong> behob %2$s Fehler."
 msgid "Welcome to your WordPress Dashboard! This is the screen you will see when you log in to your site, and gives you access to all the site management features of WordPress. You can get help for any screen by clicking the Help tab above the screen title."
 msgstr "Willkommen in deinem WordPress-Dashboard! Diese Seite wird immer angezeigt, wenn du dich auf deiner Website anmeldest und gibt dir den Zugang zu allen Einstellungsmöglichkeiten von WordPress. Hilfe bekommst du auf jeder Seite, indem du oberhalb des Seitentitels auf den „Hilfe“-Tab klickst."
 
-#: wp-admin/about.php:222
+#: wp-admin/about.php:62 wp-admin/about.php:230
 msgid "Maintenance and Security Release"
 msgstr "Wartungs- und Sicherheitsupdate"
 
@@ -5281,16 +5281,16 @@ msgstr "Wartungs- und Sicherheitsupdate"
 msgid "What&#8217;s New"
 msgstr "Was gibt's Neues"
 
-#: wp-admin/about.php:219
+#: wp-admin/about.php:227
 msgid "Security Release"
 msgstr "Sicherheitsupdate"
 
-#: wp-admin/about.php:216
+#: wp-admin/about.php:224
 msgid "Maintenance Release"
 msgstr "Wartungs-Update"
 
 #. translators: %s: WordPress version number
-#: wp-admin/about.php:228
+#: wp-admin/about.php:236
 msgid "<strong>Version %s</strong> addressed some security issues."
 msgstr "<strong>Version %s</strong> behob einige Sicherheitsprobleme."
 
@@ -5298,7 +5298,7 @@ msgstr "<strong>Version %s</strong> behob einige Sicherheitsprobleme."
 msgid "This screen allows you to choose your permalink structure. You can choose from common settings or create custom URL structures."
 msgstr "Auf dieser Seite kannst du deine gewünschte Permalinkstruktur einstellen. Du kannst entweder aus üblichen Vorlagen wählen oder eine eigene Struktur definieren."
 
-#: wp-admin/about.php:202
+#: wp-admin/about.php:210
 msgid "Return to Updates"
 msgstr "Zurück zu Aktualisierungen"
 
@@ -5586,11 +5586,11 @@ msgstr "Das direkte Einbinden von wp-admin/includes/template.php, um add_meta_bo
 msgid "Welcome to WordPress %s"
 msgstr "Willkommen bei WordPress %s"
 
-#: wp-admin/about.php:205
+#: wp-admin/about.php:213
 msgid "Go to Dashboard &rarr; Home"
 msgstr "Zum Dashboard &rarr; Home"
 
-#: wp-admin/about.php:202
+#: wp-admin/about.php:210
 msgid "Return to Dashboard &rarr; Updates"
 msgstr "Zum Dashboard  &rarr; Aktualisierungen zurückkehren"
 
@@ -5598,7 +5598,7 @@ msgstr "Zum Dashboard  &rarr; Aktualisierungen zurückkehren"
 msgid "WordPress is created by a worldwide team of passionate individuals."
 msgstr "WordPress wird von einem weltumspannenden Team passionierter Leute entwickelt."
 
-#: wp-admin/about.php:124
+#: wp-admin/about.php:132
 msgid "Under the Hood"
 msgstr "Unter der Haube"
 
@@ -6093,7 +6093,7 @@ msgstr "Übersetzer ins Deutsche: "
 
 #: wp-admin/freedoms.php:41
 msgid "WordPress grows when people like you tell their friends about it, and the thousands of businesses and services that are built on and around WordPress share that fact with their users. We&#8217;re flattered every time someone spreads the good word, just make sure to <a href=\"%s\">check out our trademark guidelines</a> first."
-msgstr "WordPress kann weiter wachsen, wenn Leute wie du ihren Freunden von WordPress erzählen und die tausenden von Firmen und Dienstleistern, die WordPress verwenden, diese Tatsache ihren Besuchern mitteilen. Wir fühlen uns jedes Mal geschmeichelt, wenn jemand die Botschaft von WordPress verbreitet. Beachte jedoch <a href=\"%s\">den Leitfaden zur Verwendung der Marke WordPress (engl.)</a>."
+msgstr "WordPress entwickelt sich weiter, wenn Menschen wie du ihren Freunden davon erzählen, und die tausenden Firmen und Dienstleister, die WordPress einsetzen, diese Tatsache mit ihren Kunden teilen. Wir sind jedes Mal begeistert, wenn jemand etwas Gutes weiterempfiehlt, bitte beachte dabei <a href=\"%s\">den Leitfaden zur Verwendung der Marke WordPress (engl.)</a>."
 
 #: wp-admin/freedoms.php:48
 msgid "Every plugin and theme in WordPress.org&#8217;s directory is 100%% GPL or a similarly free and compatible license, so you can feel safe finding <a href=\"%1$s\">plugins</a> and <a href=\"%2$s\">themes</a> there. If you get a plugin or theme from another source, make sure to <a href=\"%3$s\">ask them if it&#8217;s GPL</a> first. If they don&#8217;t respect the WordPress license, we don&#8217;t recommend them."
@@ -6493,7 +6493,7 @@ msgstr "Erneut prüfen"
 
 #: wp-admin/includes/class-bulk-upgrader-skin.php:40
 msgid "The update process is starting. This process may take a while on some hosts, so please be patient."
-msgstr "Der Updateprozess beginnt. Dies kann eine Weile dauern, hab' bitte etwas Geduld."
+msgstr "Der Updateprozess beginnt. Dies kann eine Weile dauern, hab bitte etwas Geduld."
 
 #: wp-admin/theme-install.php:181
 msgid "Apply Filters"
@@ -7484,7 +7484,7 @@ msgid_plural "Must-Use <span class=\"count\">(%s)</span>"
 msgstr[0] "Obligatorisch <span class=\"count\">(%s)</span>"
 msgstr[1] "Obligatorisch <span class=\"count\">(%s)</span>"
 
-#: wp-admin/about.php:205
+#: wp-admin/about.php:213
 msgid "Go to Dashboard"
 msgstr "Zum Dashboard"
 
@@ -9567,6 +9567,7 @@ msgstr "Zurück zur Theme-Seite"
 
 #: wp-admin/includes/class-file-upload-upgrader.php:60
 #: wp-admin/includes/class-file-upload-upgrader.php:94
+#: wp-admin/includes/class-file-upload-upgrader.php:107
 msgid "Please select a file"
 msgstr "Wähle bitte eine Datei"
 

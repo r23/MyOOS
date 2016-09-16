@@ -149,6 +149,7 @@ class Jetpack_Sync_Defaults {
 		'wp_version'                       => array( 'Jetpack_Sync_Functions', 'wp_version' ),
 		'get_plugins'                      => array( 'Jetpack_Sync_Functions', 'get_plugins' ),
 		'active_modules'                   => array( 'Jetpack', 'get_active_modules' ),
+		'hosting_provider'                 => array( 'Jetpack_Sync_Functions', 'get_hosting_provider' ),
 		'locale'                           => 'get_locale',
 	);
 
@@ -221,6 +222,7 @@ class Jetpack_Sync_Defaults {
 		'esml_socialcount_LAST_UPDATED',
 		'wprss_last_update_items',
 		'wp_automatic_cache',
+		'snapTW',
 	);
 
 	// TODO: move this to server? - these are theme support values

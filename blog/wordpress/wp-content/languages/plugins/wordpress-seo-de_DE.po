@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-09-07 09:31:14+0000\n"
+"PO-Revision-Date: 2016-09-16 09:27:59+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -69,11 +69,11 @@ msgstr "Redirect Manager"
 
 #: admin/pages/licenses.php:131
 msgid "create and manage redirects from within your WordPress install."
-msgstr "erstelle und verwalte Weiterleitungen innerhalb deiner WordPress Installation."
+msgstr "erstelle und verwalte Weiterleitungen innerhalb deiner WordPress-Installation."
 
 #: admin/pages/licenses.php:134
 msgid "Multiple focus keywords"
-msgstr "Multiple Fokus-Keywords"
+msgstr "Mehrere Fokus-Keywords"
 
 #: admin/pages/licenses.php:135
 msgid "optimize a single post for up to 5 keywords."
@@ -135,7 +135,7 @@ msgstr "Team und Mitwirkende"
 #. translators: %1$s expands to Yoast SEO
 #: admin/views/tabs/dashboard/general.php:33
 msgid "Take a look at the people that create %1$s."
-msgstr "Sieh dir an wer an %1$s mitgewirkt hat."
+msgstr "Sieh dir an, wer an %1$s mitgewirkt hat."
 
 #: admin/views/tabs/dashboard/general.php:39
 msgid "View Credits"
@@ -3679,7 +3679,7 @@ msgstr "Die URL, auf die diese Seite weitergeleitet werden soll."
 
 #: admin/class-meta-columns.php:346 admin/metabox/class-metabox.php:165
 msgid "Post is set to noindex."
-msgstr "Der Artikel wird nicht indexiert."
+msgstr "Dieser Artikel wird nicht indexiert."
 
 #: admin/metabox/class-metabox.php:172
 msgid "No focus keyword set."
