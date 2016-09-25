@@ -67,11 +67,13 @@ elseif ( isset( $backend ) && $backend == '1' ) {
 		// use token to get share counts
 		$facebook = sanitize_text_field( wp_remote_retrieve_body( wp_remote_get( 'https://graph.facebook.com/v2.2/?id=' . $post_url . '&' . $fb_token ) ) );
 		$facebook_json = json_decode( $facebook, true );
+		$nofbid = '0';
 	}
 	// otherwise use the normal way
 	else { 
 		$facebook = sanitize_text_field( wp_remote_retrieve_body( wp_remote_get( 'https://graph.facebook.com/?id=' . $post_url ) ) );
 		$facebook_json = json_decode( $facebook, true );
+		$nofbid = '1';
 	}
 
 	// store results - use total_count if it exists, otherwise use share_count - ordered based on proximity of occurrence
@@ -83,6 +85,9 @@ elseif ( isset( $backend ) && $backend == '1' ) {
 	}
 	elseif ( isset($facebook_json['data'] ) && isset( $facebook_json['data'][0] ) && isset( $facebook_json['data'][0]['share_count'] ) ) {
 		$share_counts['facebook'] = intval( $facebook_json['data'][0]['share_count'] );
+	}
+	elseif ( isset( $facebook_json['id'] ) && ! isset( $facebook_json['error'] ) && $nofbid = '1' ) {
+		$share_counts['facebook'] = '0';
 	}
 	// record errors, if enabled (e.g. request from the status tab)
 	elseif ( isset( $record_errors ) && $record_errors == '1' ) {

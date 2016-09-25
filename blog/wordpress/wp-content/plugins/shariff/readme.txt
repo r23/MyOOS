@@ -3,9 +3,9 @@ Contributors: 3UU, starguide
 Tags: Shariff, Facebook, Twitter, VKontakte, VK, GooglePlus, WhatsApp, share buttons, sharing, privacy, social
 Requires at least: 4.4
 Tested up to: 4.6
-Stable tag: 4.2.1
+Stable tag: 4.3.0
 License: MIT
-License URI: http://opensource.org/licenses/MIT
+License URI: http://opensource.org/licenses/mit
 Donate link: http://folge.link/?bitcoin=1Ritz1iUaLaxuYcXhUCoFhkVRH6GWiMTP
 
 The Shariff Wrapper provides share buttons that respect the privacy of your visitors and are compliant to German data protection laws.
@@ -62,7 +62,7 @@ WARNING: This hook will get called A LOT. So be sure you know what you are doing
 A: It uses the same options that have been configured on the plugin options page. However, you can put in a shorttag that overwrites the default options. It has the same format as you use in posts. Take a look at the help section of the plugin options page for more information.
 
 = Q: Can I change the options on a single post? =
-A: Yes. If the [shariff] shortcut is found in a post, it has priority over all settings from the plugin options page.
+A: Yes. You can change all options using the shorttag in the Shariff meta box on the right side of the post edit screen.
 
 = Q: Why are shares not listed? =
 A: Shariff tries to protect the privacy of your visitors. In order to do this, the statistics have to be requested by your server, so social networks only see a request of your server and not from your visitor. However, we do not know, if you want this. Therefore it is not enabled by default.
@@ -71,15 +71,15 @@ A: Shariff tries to protect the privacy of your visitors. In order to do this, t
 A: Enable it on the plugin options page in general or add `backend="on"` to the shariff shorttag in your post.
 
 = Q: I still do not see share counts =
-A: Please have a look at the status tab on the plugin options page. It states wether share counts are enabled and if there is a problem with a service. Please also keep in mind that the plugin has a minimum refresh time of 60 seconds and the each service has their own cache as well.
+A: Please have a look at the status tab on the plugin options page. It states wether share counts are enabled and if there is a problem with a service. Please also keep in mind that the plugin has a minimum refresh time of 60 seconds and that each service has their own cache as well.
 
 = Q: Why can't I change the TTL to a smaller / bigger value? =
 A: The time to live (TTL) value determines, if a share count of a post or page gets refreshed when someone visits this specific page / post of your blog. Too small values create too much useless traffic, too high values negate the goal of motivating visitors to also share a post. The value can be adjusted between 60 and 7200 seconds. Keep in mind, the actual lifespan depends on the age of the post as well.
 
-= Q: I get the Facebook API error message "request limit reached" =
+= Q: I get the Facebook API error message "request limit reached"! =
 A: Facebook has a rate limit of 600 requests per 600 seconds per IP address. Especially in shared hosting environments many domains share the same IP address and therefore the same limit. To avoid this you can try to raise the TTL value or provide a Facebook App ID and Secret. Google "facebook app id secret" will provide many guides on how to get these.
 
-= Q: How can I change the position of all buttons =
+= Q: How can I change the position of all buttons? =
 A: Have a look at the alignment options in the admin menu or checkout the 
 style option.
 
@@ -88,7 +88,7 @@ A: Have a look at the parameters "theme", "orientation" and "buttonsize". They w
 overview. But please be warned: This is a test page! It is possible that you find features that are only provided in the development version. Use it only to get an impression of the design options.
 
 = Q: How can I change the design of a single button? =
-A: If you are a CSS guru please feel free to modify the css file. But of course this is a bad idea, because all changes will be destroyed with the next update! Instead take a look at the style attribute of the shorttag. If you put in any value it will create a DIV container with the ID "ShariffSC" around the buttons. If you are really a CSS guru you will know what does the magic from here on out. ;-)
+A: If you are a CSS guru please feel free to modify the css file. But of course this is a bad idea, because all changes will be destroyed with the next update! Instead take a look at the style and class attribute of the shorttag. If you put in any value it will create a DIV container with the ID "ShariffSC" around the buttons. If you are really a CSS guru you will know what does the magic from here on out. ;-)
 
 = Q: I want the buttons to stay fixed while scrolling! =
 A: No problem. Just use the style attribute to add some CSS to the shorttag. For example in a widget (adjust the width as needed):
@@ -105,18 +105,18 @@ A: Use the headline attribute to add or remove it. For example, you can use the 
 Of course you can use all other options in that shorttag as well.
 
 = Q: Can I add [shariff] on all posts? =
-A: Yes, check out the plugin options page. 
+A: Yes, check out the plugin options. 
 
 = Q: But I want to hide it on a single post! =
-A: Do you really know what you want? ;-) However, it is possible. Write anywhere in your post "hideshariff". It will be removed and Shariff will not be added. This will make it compatible with the other plugin "Shariff for Wordpress". You can also use "/hideshariff" to write "hideshariff" in your post.
+A: Do you really know what you want? ;-) However, it is possible. Write anywhere in your post "hideshariff". It will be removed and Shariff will not be added. You can also use "/hideshariff" to write "hideshariff" in your post. You might also want to take a look at the Shariff meta box on the right side of your post edit screen.
 
-= Q: What are the differences between these two plugins? =
+= Q: What are the differences between the two Shariff plugins? =
 A: One is developed by us, one by someone else. ;-) The main difference is that this plugin has a few more options and a great support. :-) Neither of the plugins are "official" or directly developed by Heise.
 
 = Q: Does it work with a CDN? =
 A: Yes.
 
-= Q: Pinterest does not show an image =
+= Q: Pinterest does not show an image! =
 A: You can add media="http://wwww.example.com/yourImage.png"
 within the [shariff] shorttag or add it in on the plugin options page - of course with the link to your image.
 
@@ -136,6 +136,9 @@ A: Yes, take a look at the Mail Form tab on the plugin options page.
 
 = Q: What happened to the Twitter share counts and what is OpenShareCount? =
 A: Please read: https://www.jplambeck.de/twitter-saveoursharecounts/
+
+= Q: The buttons are not correctly beeing shown on my custom theme! =
+A: Please make sure that wp_footer(); has been added to your theme. For more information please visit: https://codex.wordpress.org/Function_Reference/wp_footer
 
 = EXPERIMENTAL FEATURES =
 
@@ -172,10 +175,29 @@ fixed in the future - if we have time to spend or you provide us with a lot of "
 
 == Changelog ==
 
+= 4.3.0 =
+- new service Odnoklassniki (thanks to rockhit)
+- new meta box allows for individual settings per post or page
+- new option to hide share counts that are zero
+- new option to disable dynamic cache lifespan (not recommended)
+- new option to set the button size to small, medium or large
+- new option to add a custom class to the container around Shariff
+- new option to open links in a popup (thanks to jackennils)
+- new option to use NewShareCount instead of OpenShareCount (Twitter)
+- added timestamp variable to be accessible via shortcode
+- fixed post timestamp for caching under certain conditions
+- fixed Facebook share count error for never crawled pages
+- fixed empty tab after sharing on certain mobile devices
+- fixed custom title attribute (thanks to kschlager)
+- updated Flattr user id for the future (thanks to poetaster)
+- reduced changelog on wordpress.org (thanks to timse201)
+- minor css improvements
+- updated help section
+
 = 4.2.1 =
-- fix WhatsApp button on Android when using Chrome
-- fix Shariff being added to RSS feeds under certain conditions
-- update to latest Facebook Graph API for share count requests
+- fixed WhatsApp button on Android when using Chrome
+- fixed Shariff being added to RSS feeds under certain conditions
+- updated to latest Facebook Graph API for share count requests
 
 = 4.2.0 =
 - new option to set the rate limit for sending mails using the mail form
@@ -190,13 +212,13 @@ fixed in the future - if we have time to spend or you provide us with a lot of "
 = 4.1.2 =
 - new fallback for share count requests in case pretty permalinks are disabled
 - new filter shariff3UU_render_atts to change options on the fly (thx Ov3rfly)
-- fix share title in cases with html encoded characters
-- fix double counting on ranking tab under certain conditions
-- fix php info notice in admin notices
+- fixed share title in cases with html encoded characters
+- fixed double counting on ranking tab under certain conditions
+- fixed php info notice in admin notices
 
 = 4.1.1 =
 - new option to disable the Shariff buttons outside of the main loop
-- fix Facebook App ID request
+- fixed Facebook App ID request
 - minor css fix
 
 = 4.1.0 =
@@ -207,8 +229,8 @@ fixed in the future - if we have time to spend or you provide us with a lot of "
 - new statistic option to fill the cache automatically
 - new statistic option to set the amount of posts for the ranking tab
 - new statistic option to use share counts with PHP < 5.4
-- fix preventing buttons from beeing added to excerpts under certain conditions
-- fix urlencoding of share count requests
+- fixed preventing buttons from beeing added to excerpts under certain conditions
+- fixed urlencoding of share count requests
 - improved handling of wrong or mistyped service entries
 - minor bug fixes
 
@@ -219,25 +241,25 @@ fixed in the future - if we have time to spend or you provide us with a lot of "
 - new option for WordPress installations with REST API not reachable in root
 
 = 4.0.6 =
-- fix error in combination with bbpress
-- fix error on very old PHP versions
-- fix ranking tab
+- fixed an error in combination with bbpress
+- fixed ab error on very old PHP versions
+- fixed ranking tab
 - minor css improvements
 
 = 4.0.5 =
-- fix mail form link
-- fix xmlns for w3c
+- fixed mail form link
+- fixed xmlns for w3c
 
 = 4.0.4 =
 - removed some remaining wrong text domains for translations
 - minor css fixes
 
 = 4.0.3 =
-- fix mobile services not showing on certain tablets
-- fix type error on totalnumber when cache is empty
-- fix share count requests when WordPress is installed in a subdirectory
-- fix urlencoding of share url, title and media
-- add width and height to SVGs to prevent large initial icons prior to css
+- fixed mobile services not showing on certain tablets
+- fixed type error on totalnumber when cache is empty
+- fixed share count requests when WordPress is installed in a subdirectory
+- fixed urlencoding of share url, title and media
+- added width and height to SVGs to prevent large initial icons prior to css
 - new classes shariff-buttons and shariff-link added
 - removed local translation files due to switching to wordpress.org language packs
 - minor css resets added
@@ -248,7 +270,7 @@ fixed in the future - if we have time to spend or you provide us with a lot of "
 
 = 4.0.1 =
 - prevent php warning messages on unsuccessful includes while WP_DEBUG is active
-- change text domain to match plugin slug
+- changed text domain to match plugin slug
 
 = 4.0.0 =
 - complete overhaul of the plugin core
@@ -279,424 +301,4 @@ fixed in the future - if we have time to spend or you provide us with a lot of "
 - minor bug fixes
 - code cleanup
 
-= 3.4.2 =
-- fixed share counts on mobile devices with exactly 360px width
-- fixed error on the help tab regarding services (thx to Andreas)
-- small css improvements
-- added h4-h6 to the allowed tags for the headline
-
-= 3.4.1 =
-- changed diaspora share url to official one
-- fixed css of rss button when using round theme in widget
-- fixed accessibility of share button text 
-- added rssfeed option to help section
-- updated to Heise version 1.23.0
-
-= 3.4.0 =
-- new service rss
-- minor bug fixes
-- update to Heise version 1.22.0
-
-= 3.3.3 =
-- fix anonymous function request for PHP < version 5.3
-
-= 3.3.2 =
-- improve/extend handling of custom post types
-- fix Facebook ID call
-
-= 3.3.1 =
-- fix ttl setting on statistic tab
-- reduce timeout for post requests to five seconds
-
-= 3.3.0 =
-- new option to use an external host for Shariff and the share count backend
-- new share count service OpenShareCount.com for Twitter
-- new settings tab "Statistic" for all options regarding the share counts
-- new settings tab "Status" for all system checks to increase performance
-- new design preview button without Twitter
-- fix counter VK on design round
-- fix Facebook total_count again
-- fix double Twitter share windows under certain conditions
-- reactivate Flattr counts, since they fixed their API
-- purge Shariff transients on update, deactivate and uninstall
-- code cleanup
-- add vk to help section
-- add a known bugs section to the readme
-
-= 3.2.0 =
-- new service VK
-- new share count service VK
-- new dynamic cache lifespan (ttl) based on post / page age (last modified)
-- new option to disable individual services (only share counts)
-- fix Facebook share counts now use total_counts again
-- fix search for custom WP locations
-- backend optimization
-- temporarily disabled the Flattr counts (statistic) due to ongoing problems of the Flattr API
-- fix use of wp_title() is/was deprecated in WP4.4
-
-= 3.1.3 =
-- fix ajax call when a custom permalink structure is used
-
-= 3.1.2 =
-- fix Facebook ID on 32-bit systems
-
-= 3.1.1 =
-- make admin help compatible to the new backend
-
-= 3.1.0 =
-- new option to add buttons before/after the excerpt
-- new service Threema (thanks to medienverbinder)
-- new service Diaspora (thanks to craiq)
-- new service AddThis (thanks to bozana)
-- new share count service AddThis (thanks to bozana)
-- new service PayPal.Me
-- new google icon
-- fix title tag usage in some cases
-- fix rel to data-rel popup
-- fix round buttons in certain themes
-- fix Flattr API to fetch counts again
-- workaround to fix the wrong JSON answer of xing API
-- up to date with Heise code version 1.21.0 2015-11-06
-
-= 3.0.0 =
-- new WP specific statistics backend for share counts
-- new SHARIFF_WP_ROOT_PATH constant for custom wp locations
-- automatic search for custom WP locations (thanks to hirasso)
-- fix timeout issues and a lot of other backend issues
-- deprecated Heise shariff-backend-php
-- deprecated ZendFramework
-- deprecated shariff3uu_cache directory
-- deprecated SHARIFF_BACKEND_TMPDIR constant
-
-= 2.4.3 =
-- fix proxy settings
-- fix PHP error notice caused by a race condition around concurrent requests in Zend_Cache
-- fix PHP notice and error in backend on multisite
-
-= 2.4.2 =
-- fix lang attribute again
-- fix update notice
-
-= 2.4.1 =
-- fix lang attribute
-- nicer support hints about GD lib
-- cleanup readme.txt
-
-= 2.4.0 =
-- ensure compatibility to WordPress 4.3
-- new service Tumblr
-- new service Patreon
-- new service PayPal
-- new service Bitcoin
-- new supporting bbpress
-- new using proxy settings from wp_config (thanks to Shogathu)
-- fix automatic button language
-- fix button language for Facebook
-- fix problems with plugin "Hide Title"
-- fix backend (statistic) for multisite environments
-- fix backend (statistic) if WP_DEBUG is set to true
-- fix language info in help section
-- update to Heise version 1.16.0
-- remove unnesseray guzzle docs
-
-= 2.3.4 =
-- add Italian language to the mailform
-
-= 2.3.3 =
-- fix Pinterest button, if pinit.js is present
-- small css fixes
-
-= 2.3.2 =
-- add French (thanks Charlotte) and Italian (thanks Pier) translations
-- improve screen reader compatibility
-- fix: prefill mail_comment in case of an error
-- fix: do not send more than 1 email as CC. Use a new mail for all recipients.
-- fix: fallback to English at the email form only if language is not supported by this plugin
-- cleanup mf_wait + extend time to wait of robots blocker to 2 sec 
-
-= 2.3.1 =
-- fix facebook api (app id & secret)
-- fix CSS mailform label
-
-= 2.3.0 =
-- redesing of the plugins options page
-- mail form improved (a lot)
-- split mail into mailform and mailto (check your manual shorttags!)
-- new backend status section
-- new option to use Facebook Graph API ID in case of rate limit problems
-- new option to stretch the buttons horizontally
-- new option to add a headline above the Shariff buttons
-- many new button languages
-- new default cache directory
-- fix creation of default cache directory in case it is not month / year based
-- fix url-shorttag-option in widget
-- fix widget mailform link, if pressed twice
-- fix widget mailform on blog page
-- fix responsive flow of buttons in IE
-- fix Twitter: prevent double encoding with text longer than 120 chars
-- update shariff backend to 1.5.0 (Heise)
-- update shariff JS to 1.14.0 (Heise)
-- many more minor improvements
-- code cleanup
-
-= 2.2.4 =
-- security fix
-
-= 2.2.3 =
-- extend blocking of shariff buttons within password protected posts
-
-= 2.2.2 =
-- allow email functionality only if service email is configured within the
-  admin menu as common service for all posts
-
-= 2.2.1 =
-- "fix" fallback to old twitter api again
-
-= 2.2.0 =
-- add option to hide Shariff on password protected posts
-- tested up to WP 4.2.2
-- "fix" fallback to old twitter api if another twitter script is found in order to avoid opening the share window twice
-- share text of the mailto link now is "email"
-- fix typo and cleanup code
-
-= 2.1.2 =
-- fix to make it work with PHP < 5.3 (you should really update your PHP version or change your hoster)
-
-= 2.1.1 =
-- change code because of a error with some PHP versions
-
-= 2.1.0 =
-- replace sender name if a name is provided with the mail form or set in admin menu
-- add option to append the post content to the mail
-- add mail header "Precedence: bulk" to avoid answers of autoresponder
-- fix: rename a function to avoid problems with other plugins
-- improve css
-
-= 2.0.2 =
-- fix: mail URLs must be a real link and not url-encoded
-- hotfix: mail form disabled if not on single post. Avoid the 
-  self destruction by the DOS-checker ;-)
-- cleanup Shariff JS code (mailURL no longer needed)
-
-= 2.0.1 =
-- fix email form method POST
-
-= 2.0.0 =
-- changes to stay compatible to Heise implementation
-- remove obsolet SHARIFF_ALL_POSTS
-- fix some small css attributes (size)
-- code clean up
-
-= 1.9.9 =
-- fix widget bug (wrong share links)
-
-= 1.9.8 =
-- add headers to avoid caching of backend data
-- tested with WP 4.2 beta
-- add option to use on custom pages (e.g. WooCommerce)
-- better handling of pinterest media attribute
-- bugfix: SHARIFF_BACKEND_TMPDIR in backend
-- improve uninstal of cache dir (todo: change to a better named dir)
-- add option to use smaller size buttons
-- fix again target of the mailto-link
-- cleanup code
-
-= 1.9.7 =
-- roll back to stable
-
-= 1.9.6 =
-- now really go back to 1st block in loop at WMPU
-
-= 1.9.5 =
-- nu abba: missing version update 
-
-= 1.9.4 =
-- fix update bug on WPMS
-
-= 1.9.3 =
-- add missing backend files. Last change for this Sunday ;-)
-
-= 1.9.2 =
-- fix stupid bug with the update file :-( Sorry!
-- fix initialisation of REMOTEHOSTS 
-
-= 1.9.1 =
-- merge with original Shariff JS/CSS code version 1.9.3
-- CSS theme default like Heise default again + "add" theme color
-- fix the theme "white"
-- backend now up to date
-- disable WPDebug in backend config
-- improve uninstall (options shariff3UU, shariff3UUversion,
-  widget_shariff) and compatible with multisite installations
-- improve deactivation
-
-= 1.9 =
-- add Flattr
-- improve version control
-- update frensh translations
-- use configuration from admin menu for blank shariff shortcodes
-- own (much smaller) fonts
-
-= 1.8.1 =
-- remove the relativ network-path from service declarations (pinterest,
-  reddit, stumbleupon, xing) because it really makes no sense to change 
-  the protocol within a popup of a secure target to unsecure connections
-  depending on the protocol the page is using
-- change name of jQuery object to avoid conflicts with other plugins/themes
-
-= 1.8 =
-- add options to place Shariff (right/left/center)
-- fix: migration check
-- css optimized
-- use the WP bundled jQuery now (save about 80% bandwidth :-)
-
-= 1.7.1 =
-- optimize css (thanks again to @jplambeck)
-- code cleanup (No more warnings in debug mode. Perhaps ;-)
-- sanitize admin input (thanks again to @jplambeck)
-- set the title attribute to overwrite get_the_title() now supported
-- fix: check SHARIFF_BACKEND_TMPDIR
-- add uninstall script
-
-= 1.7 =
-- CHANGES: if no attributes are configured within a shorttag first try to
-  use the option from admin page. However if there are no services
-  configured use the old defaults of Heise to make it backward compatible
-- add the new service attribut `mailto` to prepare getting the original
-  behavior of the Heise code that provide a email form with `mail`
-- add option to put Shariff on overview page too
-- add internal version tracker to enable better migration options in the
-  future
-- optimized css for the info attribute, added priority to the title
-  attribute over DC.title attribute (thanks again to @jplambeck )
-
-= 1.6.1 =
-- fix: again enable WhatsUp on mobile now also works with Mozilla. Sorry
-  this has not been become part of the main branche. Therefor it was lost 
-  with the last update :-(
-- added .shariff span { color: inherit; } (thanks again to @jplambeck )
-
-= 1.6. =
-- adopted new responsive css code (thanks to @jplambeck )
-- update included fa-fonts
-- fix: descrition "printer" 
-- fix: use WP_CONTENT_URL in admin menu
-
-= 1.5.4 =
-- remove alternativ css with links to external hosters. If do you really
-  want enable breaking privacy plz feel free to code you own css 
-
-= 1.5.3 =
-- hide counter within the theme round 
-
-= 1.5.2 =
-- default backend temp dir now uses wp content dir 
-- updated original shariff JS code
-
-= 1.5.1 =
-- fix: constant had have a wrong declaration check
-
-= 1.5.0 =
-- add option "url" to set a fixed URI for all sites (only in shorttag and
-  widgets) because usually it is not a good idea to manipulate this
-- fix: do not show error in elseif (/tmp check in admin menu) 
-
-= 1.4.4 =
-- add option to force frensh and spanish buttons
-- clean up theme selection
-
-= 1.4.3 =
-- look like wp_enqueue_script has problems with the shariff js code. Now own
-  script link at the end of the site. Should also improve performance ;-)
-
-= 1.4.2 =
-- fix: add the attribute data-title that is needed by the shariff on some
-  themes to render it above the other div containers. 
-- only long PHP-Tags because auf problems with WAMPs
-- some code clean up. Hopefully it will become more robust on WAMP systems.
-
-= 1.4.1 =
-- fixed stupid typo with the SHARIFF_BACKEND_TMP constant
-
-= 1.4.0 =
-- add a DIV container to use positioning with CSS
-- remove long PHP-tags that cause parse problem on Windows
-
-= 1.3.0 =
-- clean up the code
-- add backend options (TTL and temp dir)
-
-= 1.2.7 =
-- fixed: enable WhatsUp on mobile now also works with Mozilla 
-- print button does not open a new window
-- removed min.js make it more readable for own local changes
-
-= 1.2.6 =
-- add print button
-- add default image for pinterest to avoid broken design and giuve a hint
-
-= 1.2.5 =
-- hotfix for pinterest (see FAQ) 
-
-= 1.2.4 =
-- bugfix: widget does not work if SHARIFF_ALL_POSTS is set but not enabled
-  in the admin menu (Please remember, that SHARIFF_ALL_POSTS will be 
-  removed with next major version)
-- add option to add shariff at the begin of a post
-- merge with new original backend for counters
-- add spanish language on buttons; hide whatsup on mobile devices
-  (merge with yanniks code)
-- add reddit
-- add stumbleupon
-
-= 1.2.3 =
-- add round theme to the admin menu
-
-= 1.2.2 =
-- tested with WP 4.1
-- added french language for buttons
-- added theme "round" (round buttons without text but with fixed width)
-
-= 1.2.1 =
-- typos
-
-= 1.2 =
-- add widget support
-
-= create a Stable1.0 tag =
-- no new funtionality to this tag. Only bugfixes!
-
-= 1.1.1 =
-- add french language for the admin menu (thanks Celine ;-)
-- fix backend problem on shared hosting with no writeable tmp dir
-
-= 1.1 =
-- add whatsapp|pinterest|linkedin|xing
-- include latest upstream changes (fix mail etc.)
-- add old default selection of services to make it backward compatible
-
-= 1.0.2 =
-- add German translation to the admin menu (Admin-Menue in Deutsch)
-- code cleanup
-
-= 1.0.1 =
-- add PHP version check (5.4 is needed by the backend option)
-
-= 1.0 =
-- add admin menu page
-- disable the default add on a post if a special formed tag was found
-- add support for the theme attribute
-
-= 0.4 =
-- Include latest upstream changes
-- use get_permalink() to set the parameter data-url
-
-= 0.3 =
-- add support for "hideshariff" 
-- add screenshots
-
-= 0.2 =
-- removed the private update server and changed test domain 
-
-= 0.1 = 
-- initial release
+The complete changelog can be found here: https://plugins.svn.wordpress.org/shariff/trunk/changelog.txt

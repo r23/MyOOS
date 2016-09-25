@@ -1,6 +1,7 @@
 /* Shariff Wrapper */
 .shariff-main { display: block !important; }
 .shariff ul {
+  display: -webkit-flex;
   display: flex;
   flex-direction: row;
   flex-flow: row wrap;
@@ -141,6 +142,29 @@
   padding: 0 !important;
   height: 25px !important;
 }
+/* buttonsize large */
+.shariff .buttonsize-large li { height: 45px !important; }
+.shariff .buttonsize-large a { height: 45px !important; }
+.shariff .buttonsize-large.orientation-vertical li { width: 155px; }
+.shariff .buttonsize-large .shariff-icon svg {
+    width: 40px;
+    height: 28px;
+    padding: 9px 2px;
+}
+.shariff .buttonsize-large .shariff-text,
+.shariff .buttonsize-large .shariff-count {
+  font-size: 14px;
+  line-height: 45px;
+  padding: 0 10px;
+  height: 43px;
+}
+.shariff .buttonsize-large .shariff-text { padding-left: 1px !important; }
+.shariff .buttonsize-large.theme-round li { width: 45px !important; }
+.shariff .buttonsize-large.theme-round a { width: 45px !important; }
+.shariff .buttonsize-large.theme-round .shariff-count {
+  padding: 0 !important;
+  height: 45px !important;
+}
 /* orientation vertical */
 .shariff .orientation-vertical { flex-direction: column; }
 .shariff .orientation-vertical li { width: 135px; }
@@ -253,6 +277,7 @@
   position: absolute;
   right: 0;
   top: 0;
+  width: 20px;
   padding: 2px;
   text-decoration: none;
   box-shadow: none !important;
@@ -285,6 +310,8 @@
 }
 .shariff .buttonsize-small .shariff-button.info { width: 25px; }
 .shariff .buttonsize-small .info a { width: 25px; }
+.shariff .buttonsize-large .shariff-button.info { width: 45px; }
+.shariff .buttonsize-large .info a { width: 45px; }
 .shariff .info .shariff-icon svg {
   display: block;
   margin: auto;
@@ -293,6 +320,7 @@
 @media only screen and (max-width: 360px) {
   .shariff .orientation-horizontal li { width: 35px; }
   .shariff .orientation-horizontal.buttonsize-small li { width: 25px; }
+  .shariff .orientation-horizontal.buttonsize-large li { width: 45px; }
   .shariff .orientation-horizontal .shariff-icon svg { display: block; margin: auto; }
   .shariff .orientation-horizontal .shariff-count { display: none; }
 }
@@ -304,6 +332,7 @@
 @media only screen and (min-width: 768px) {
   .shariff .orientation-horizontal li { width: 130px; }
   .shariff .orientation-horizontal.buttonsize-small li { width: 105px; }
+  .shariff .orientation-horizontal.buttonsize-large li { width: 155px; }
   .shariff .orientation-horizontal li .shariff-text { display: inline; }
 }
 @media only screen and (min-device-width: 1025px) {

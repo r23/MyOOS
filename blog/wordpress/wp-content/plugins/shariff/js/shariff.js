@@ -88,7 +88,7 @@ function shariff_add_share_counts( share_url, data, containers ) {
             var shariff_count = containers[d].getElementsByClassName("shariff-count");
             for ( var s = 0; shariff_count[s]; s++ ) {
                 // add share count, if we have one, and make it visible
-                if ( data !== null && typeof data[shariff_count[s].dataset.service] !== 'undefined' ) {
+                if ( data !== null && typeof data[shariff_count[s].dataset.service] !== 'undefined' && ( typeof containers[d].dataset.hidezero === 'undefined' || ( containers[d].dataset.hidezero == '1' && data[shariff_count[s].dataset.service] > 0 ) ) ) {
                     shariff_count[s].innerHTML = data[shariff_count[s].dataset.service];
                     shariff_count[s].style.opacity = '1';
                 }

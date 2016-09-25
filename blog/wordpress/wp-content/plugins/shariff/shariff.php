@@ -3,7 +3,7 @@
  * Plugin Name: Shariff Wrapper
  * Plugin URI: https://de.wordpress.org/plugins/shariff/
  * Description: The Shariff Wrapper provides share buttons that respect the privacy of your visitors and are compliant to the German data protection laws.
- * Version: 4.2.1
+ * Version: 4.3.0
  * Author: Jan-Peter Lambeck & 3UU
  * Author URI: https://de.wordpress.org/plugins/shariff/
  * License: MIT
@@ -26,7 +26,7 @@ $shariff3UU = array_merge( $shariff3UU_basic, $shariff3UU_design, $shariff3UU_ad
 // update function to perform tasks _once_ after an update, based on version number to work for automatic as well as manual updates
 function shariff3UU_update() {
 	/******************** ADJUST VERSION ********************/
-	$code_version = "4.2.1"; // set code version - needs to be adjusted for every new version!
+	$code_version = "4.3.0"; // set code version - needs to be adjusted for every new version!
 	/******************** ADJUST VERSION ********************/
 
 	// get options
@@ -68,6 +68,16 @@ if ( is_admin() ) {
 	// include admin_notices.php
 	include( plugin_dir_path( __FILE__ ) . 'admin/admin_notices.php' );
 }
+
+// custom meta box
+function shariff3UU_include_metabox() {
+	// check if user is allowed to publish posts
+	if ( current_user_can( 'publish_posts' ) ) {
+		// include admin_metabox.php
+		include( plugin_dir_path( __FILE__ ) . 'admin/admin_metabox.php' );
+	}
+}
+add_action('init','shariff3UU_include_metabox');
 
 // waiting for WordPress core to handle the saving of the dismiss click themself
 function shariff3UU_dismiss_update_notice() {
@@ -167,7 +177,7 @@ function shariff3UU_share_counts( WP_REST_Request $request ) {
 	}
 
 	// adjust ttl based on the post age
-	if ( isset ( $timestamp ) ) {
+	if ( isset ( $timestamp ) && ( ! isset( $shariff3UU["disable_dynamic_cache"] ) || ( isset( $shariff3UU["disable_dynamic_cache"] ) && $shariff3UU["disable_dynamic_cache"] != '1' ) ) ) {
 		// the timestamp represents the last time the post or page was modfied
 		$post_time = intval( $timestamp );
 		$current_time = current_time( 'timestamp', true );
@@ -421,23 +431,27 @@ function shariff3UU_posts( $content ) {
 
 	// type of current post
 	$current_post_type = get_post_type();
-	if ($current_post_type === 'post') $current_post_type = 'posts';
+	if ( $current_post_type === 'post' ) $current_post_type = 'posts';
+	
+	// prevent php warnings in debug mode
+	$add_before = '';
+	$add_after = '';
 
-	// now add shariff
+	// check if shariff should be added automatically (plugin options)
 	if ( ! is_singular() ) {
 		// on blog page
-		if ( isset( $shariff3UU["add_before"]["posts_blogpage"] ) && $shariff3UU["add_before"]["posts_blogpage"] == '1') $content = '[shariff]' . $content;
-		if ( isset( $shariff3UU["add_after"]["posts_blogpage"] ) && $shariff3UU["add_after"]["posts_blogpage"] == '1' ) $content .= '[shariff]';
+		if ( isset( $shariff3UU["add_before"]["posts_blogpage"] ) && $shariff3UU["add_before"]["posts_blogpage"] == '1') $add_before = '1';
+		if ( isset( $shariff3UU["add_after"]["posts_blogpage"] ) && $shariff3UU["add_after"]["posts_blogpage"] == '1' ) $add_after = '1';
 	}
 	elseif ( is_singular( 'post' ) ) {
 		// on single post
-		if ( isset( $shariff3UU["add_before"][$current_post_type] ) && $shariff3UU["add_before"][$current_post_type] == '1' ) $content = '[shariff]' . $content;
-		if ( isset( $shariff3UU["add_after"][$current_post_type] ) && $shariff3UU["add_after"][$current_post_type] == '1' ) $content .= '[shariff]';
+		if ( isset( $shariff3UU["add_before"][$current_post_type] ) && $shariff3UU["add_before"][$current_post_type] == '1' ) $add_before = '1';
+		if ( isset( $shariff3UU["add_after"][$current_post_type] ) && $shariff3UU["add_after"][$current_post_type] == '1' ) $add_after = '1';
 	}
 	elseif ( is_singular( 'page' ) ) {
 		// on pages
-		if ( isset( $shariff3UU["add_before"]["pages"] ) && $shariff3UU["add_before"]["pages"] == '1' ) $content = '[shariff]' . $content;
-		if ( isset( $shariff3UU["add_after"]["pages"] ) && $shariff3UU["add_after"]["pages"] == '1' ) $content .= '[shariff]';
+		if ( isset( $shariff3UU["add_before"]["pages"] ) && $shariff3UU["add_before"]["pages"] == '1' ) $add_before = '1';
+		if ( isset( $shariff3UU["add_after"]["pages"] ) && $shariff3UU["add_after"]["pages"] == '1' ) $add_after = '1';
 	}
 	else {
 		// on custom_post_types
@@ -445,10 +459,19 @@ function shariff3UU_posts( $content ) {
 		if ( is_array( $all_custom_post_types ) ) {
 			$custom_types = array_keys( $all_custom_post_types );
 			// add shariff, if custom type and option checked in the admin menu
-			if ( isset( $shariff3UU['add_after'][$current_post_type] ) && $shariff3UU['add_after'][$current_post_type] == '1' ) $content .= '[shariff]';
+			if ( isset( $shariff3UU['add_after'][$current_post_type] ) && $shariff3UU['add_after'][$current_post_type] == '1' ) $add_after = '1';
 		}
 	}
-
+	
+	// check if buttons are enabled on a single post or page via the meta box
+	if ( get_post_meta( get_the_ID(), 'shariff_metabox_before', true ) ) $add_before = '1';
+	if ( get_post_meta( get_the_ID(), 'shariff_metabox_after', true ) ) $add_after = '1';
+	
+	// add shariff
+	if ( $add_before === '1' ) $content = '[shariff]' . $content;
+	if ( $add_after === '1' ) $content .= '[shariff]';
+	
+	// return content
 	return $content;
 }
 if ( ! isset( $GLOBALS["shariff3UU"]["shortcodeprio"] ) ) $GLOBALS["shariff3UU"]["shortcodeprio"] = '10';
@@ -521,7 +544,7 @@ add_shortcode( 'shariff', 'shariff3UU_render' );
 function shariff3UU_render( $atts, $content = null ) {
 	// get options
 	$shariff3UU = $GLOBALS["shariff3UU"];
-
+	
 	// avoid errors if no attributes are given - instead use the old set of services to make it backward compatible
 	if ( empty( $shariff3UU["services"] ) ) $shariff3UU["services"] = "twitter|facebook|googleplus|info";
 
@@ -532,6 +555,45 @@ function shariff3UU_render( $atts, $content = null ) {
 	if ( isset( $shariff3UU["buttonsize"] ) && $shariff3UU["buttonsize"] == '1' ) $backend_options["buttonsize"] = 'small';
 	if ( empty( $atts ) ) $atts = $backend_options;
 	else $atts = array_merge( $backend_options, $atts );
+	
+	// get meta box shortcode
+	$shariff_metabox_ignore_widget = get_post_meta( get_the_ID(), 'shariff_metabox_ignore_widget', true );
+	
+	// if we are not a widget or if we are a widget and not beeing set to be ignored we add the meta box settings
+	if ( ( ! isset( $atts["widget"] ) || ( isset( $atts["widget"] ) && $atts["widget"] == '1' && $shariff_metabox_ignore_widget != '1' ) ) && $atts["services"] != "total" && $atts["services"] != "totalnumber" ) {
+		// get meta box disable value
+		$shariff3UU_metabox_disable = get_post_meta( get_the_ID(), 'shariff_metabox_disable', true );
+		
+		// if the meta box setting is set to diasbled we stop all further actions
+		if ( $shariff3UU_metabox_disable == '1' ) return;
+
+		// get meta box shortcode
+		$shariff3UU_metabox = get_post_meta( get_the_ID(), 'shariff_metabox', true );
+		
+		// replace shariff with shariffmeta
+		$shariff3UU_metabox = str_replace( '[shariff ', '[shariffmeta ', $shariff3UU_metabox );
+		
+		// get meta box atts
+		do_shortcode( $shariff3UU_metabox );
+		if ( isset( $GLOBALS["shariff3UU"]["metabox"] ) ) {
+			$metabox = $GLOBALS["shariff3UU"]["metabox"];
+		}
+		else {
+			$metabox = '';
+		}
+		
+		// get meta box media attribute
+		$shariff3UU_metabox_media = get_post_meta( get_the_ID(), 'shariff_metabox_media', true );
+		if ( ! empty( $shariff3UU_metabox_media ) ) {
+			$metabox["media"] = $shariff3UU_metabox_media;
+		}
+		
+		// merge with atts array (meta box shortcode overrides all others)
+		if ( ! empty( $metabox ) ) $atts = array_merge( $atts, $metabox );
+		
+		// clear metabox global
+		$GLOBALS["shariff3UU"]["metabox"] = '';
+	}
 
 	// Ov3rfly: make atts configurable from outside, e.g. for language etc.
 	$atts = apply_filters( 'shariff3UU_render_atts', $atts );
@@ -557,6 +619,7 @@ function shariff3UU_render( $atts, $content = null ) {
 	}
 
 	// enqueue share count script (the JS should be loaded at the footer - make sure that wp_footer() is present in your theme!)
+	// if SCRIPT_DEBUG is true, we load the non minified version
 	if ( array_key_exists( 'backend', $atts ) && $atts['backend'] == "on" ) {
 		// if SCRIPT_DEBUG is true, we load the non minified version
 		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG === TRUE ) {
@@ -566,13 +629,25 @@ function shariff3UU_render( $atts, $content = null ) {
 			wp_enqueue_script( 'shariffjs', plugins_url( '/js/shariff.min.js', __FILE__ ), '', $shariff3UU["version"], true );
 		}
 	}
+	
+	// enqueue popup script (the JS should be loaded at the footer - make sure that wp_footer() is present in your theme!)
+	// if SCRIPT_DEBUG is true, we load the non minified version
+	if ( array_key_exists( 'popup', $atts ) && $atts['popup'] == "1" ) {
+		// if SCRIPT_DEBUG is true, we load the non minified version
+		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG === TRUE ) {
+			wp_enqueue_script( 'shariff_popup', plugins_url( '/js/shariff-popup.js', __FILE__ ), '', $shariff3UU["version"], true );
+		}
+		else {
+			wp_enqueue_script( 'shariff_popup', plugins_url( '/js/shariff-popup.min.js', __FILE__ ), '', $shariff3UU["version"], true );
+		}
+	}
 
 	// share url
 	if ( array_key_exists( 'url', $atts ) ) $share_url = urlencode( $atts['url'] );
 	else $share_url = urlencode( get_permalink() );
 
 	// share title
-	if ( array_key_exists( 'title', $atts ) ) $share_title = urlencode( html_entity_decode( get_the_title(), ENT_COMPAT, 'UTF-8' ) );
+	if ( array_key_exists( 'title', $atts ) ) $share_title = urlencode( $atts['title'] );
 	else $share_title = urlencode( html_entity_decode( get_the_title(), ENT_COMPAT, 'UTF-8' ) );
 
 	// set transient name
@@ -589,9 +664,13 @@ function shariff3UU_render( $atts, $content = null ) {
 	// prevent info notices in case debug mode is on
 	$output = '';
 
-	// if we have a style attribute add ShariffSC container including these styles
-	if ( array_key_exists( 'style', $atts ) ) {
-		$output .= '<div class="ShariffSC" style="' . esc_html( $atts['style'] ) . '">';
+	// if we have a custom style attribute or a class add ShariffSC container including these styles
+	if ( array_key_exists( 'style', $atts ) || array_key_exists( 'cssclass', $atts ) ) {
+		$output .= '<div class="ShariffSC';
+		if ( array_key_exists( 'cssclass', $atts ) ) $output .= ' ' . esc_html( $atts['cssclass'] ) . '"';
+		else $output .= '"';
+		if ( array_key_exists( 'style', $atts ) ) $output .= ' style="' . esc_html( $atts['style'] ) . '"';
+		$output .= '>';
 	}
 	
 	// if no language is set, try http_negotiate_language
@@ -630,7 +709,8 @@ function shariff3UU_render( $atts, $content = null ) {
 	);
 
 	// add timestamp for cache
-	if ( array_key_exists( 'timestamp', $atts ) )   $output .= ' data-timestamp="' . absint( get_the_modified_date( 'U', true ) ) . '"';
+	if ( array_key_exists( 'timestamp', $atts ) ) $post_timestamp = $atts['timestamp'];
+	else $post_timestamp = absint( get_the_modified_date( 'U' ) );
 
 	// start output of actual Shariff buttons
 	$output .= '<div class="shariff shariff-main';
@@ -654,7 +734,11 @@ function shariff3UU_render( $atts, $content = null ) {
 			// share url
 			$output .= ' data-url="' . esc_html( $share_url ) . '"';
 			// timestamp for cache
-			$output .= ' data-timestamp="' . absint( get_the_modified_date( 'U', true ) ) . '"';
+			$output .= ' data-timestamp="' . $post_timestamp . '"';
+			// hide share counts when zero
+			if ( isset( $atts['hidezero'] ) && $atts['hidezero'] == '1' ) {
+				$output .= ' data-hidezero="1"';
+			}
 			// add external api if entered
 			if ( isset( $shariff3UU["external_host"] ) && ! empty( $shariff3UU["external_host"] ) && isset( $shariff3UU["external_direct"] ) ) {
 				$output .= ' data-backendurl="' . $shariff3UU["external_host"] . '"';
@@ -691,7 +775,7 @@ function shariff3UU_render( $atts, $content = null ) {
 		else $output .= 'orientation-horizontal ';
 		// size
 		if ( array_key_exists( 'buttonsize', $atts ) )  $output .= 'buttonsize-' . esc_html( $atts['buttonsize'] );
-		else $output .= 'buttonsize-big';
+		else $output .= 'buttonsize-medium';
 	$output .= '">';
 
 	// prevent warnings while debug mode is on
@@ -777,7 +861,7 @@ function shariff3UU_render( $atts, $content = null ) {
 
 					// build the actual button
 					$output .= '<a href="' . $button_url . '" title="' . $button_title . '" aria-label="' . $button_title . '" role="button" rel="';
-						if ( $mobile_only != '1' ) $output .= 'noopener noreferrer ';
+						if ( $mobile_only != '1' ) $output .= 'noopener ';
 						$output .= 'nofollow" class="shariff-link" ';
 						// same window?
 						if ( ! isset( $same_window ) || isset( $same_window ) && $same_window != '1' ) $output .= 'target="_blank" ';
@@ -794,8 +878,8 @@ function shariff3UU_render( $atts, $content = null ) {
 						// share counts?
 						if ( array_key_exists( 'sharecounts', $atts ) && $atts['sharecounts'] == "1" && $backend_available == '1' && ! isset ( $shariff3UU["disable"][ $service ] ) ) {
 							$output .= '<span class="shariff-count" data-service="' . $service . '" style="color:' . $main_color;
-							if ( array_key_exists( $service, $share_counts ) === true && $share_counts[ $service ] !== null && $share_counts[ $service ] !== '-1' ) {
-								$output .= '">' . $share_counts[ $service ];
+							if ( array_key_exists( $service, $share_counts ) === true && $share_counts[ $service ] !== null && $share_counts[ $service ] !== '-1' && ( ! isset( $atts['hidezero'] ) || ( isset( $atts['hidezero'] ) && $atts['hidezero'] != '1' ) || ( isset( $atts['hidezero'] ) && $atts['hidezero'] == '1' && $share_counts[ $service ] > 0 ) ) ) {
+								$output .= '"> ' . $share_counts[ $service ];
 							}
 							else $output .= ';opacity:0">';
 							$output .= '</span>&nbsp;';
@@ -858,6 +942,15 @@ function shariff3UU_render( $atts, $content = null ) {
 	}
 
 	return $output;
+}
+
+// register helper shortcode
+add_shortcode( 'shariffmeta', 'shariff3UU_meta' );
+
+// meta box helper function
+function shariff3UU_meta( $atts, $content = null ) {
+	$GLOBALS["shariff3UU"]["metabox"] = $atts;
+	return;
 }
 
 // prepend mailform if view=mail or send mail if act=sendMail
@@ -1377,8 +1470,8 @@ class ShariffWidget extends WP_Widget {
 			else $media = ' media="' . plugins_url( '/pictos/defaultHint.png', __FILE__ ) . '"';
 		}
 
-		// build shorttag and add url, title and media if necessary
-		$shorttag = substr($shorttag,0,-1) . $page_title . $page_url . $media . ']';
+		// build shorttag and add url, title and media if necessary as well as the widget attribute
+		$shorttag = substr($shorttag,0,-1) . $page_title . $page_url . $media . ' widget="1"]';
 
 		// replace mailform with mailto if on blog page to avoid broken button
 		if ( ! is_singular() ) {

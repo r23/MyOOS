@@ -80,7 +80,7 @@ function shariff3UU_options_init(){
 		'shariff3UU_radio_theme_render', 'design', 'shariff3UU_design_section' );
 
 	// button size
-	add_settings_field( 'shariff3UU_checkbox_buttonsize', __( 'Reduce button size by 30%.', 'shariff' ),
+	add_settings_field( 'shariff3UU_checkbox_buttonsize', __( 'Button size:', 'shariff' ),
 		'shariff3UU_checkbox_buttonsize_render', 'design', 'shariff3UU_design_section' );
 
 	// button stretch
@@ -116,12 +116,20 @@ function shariff3UU_options_init(){
 		'shariff3UU_text_headline_render', 'design', 'shariff3UU_design_section' );
 
 	// custom css
-	add_settings_field( 'shariff3UU_text_style', __( 'CSS attributes for the container <span style="text-decoration: underline;">around</span> Shariff:', 'shariff' ),
+	add_settings_field( 'shariff3UU_text_style', __( 'Custom CSS <u>attributes</u> for the container <u>around</u> Shariff:', 'shariff' ),
 		'shariff3UU_text_style_render', 'design', 'shariff3UU_design_section' );
+		
+	// custom css class
+	add_settings_field( 'shariff3UU_text_cssclass', __( 'Custom CSS <u>class</u> for the container <u>around</u> Shariff:', 'shariff' ),
+		'shariff3UU_text_cssclass_render', 'design', 'shariff3UU_design_section' );
 
 	// hide until css loaded
 	add_settings_field( 'shariff3UU_checkbox_hideuntilcss', __( 'Hide buttons until page is fully loaded.', 'shariff' ),
 		'shariff3UU_checkbox_hideuntilcss_render', 'design', 'shariff3UU_design_section' );
+		
+	// open in popup
+	add_settings_field( 'shariff3UU_checkbox_popup', __( 'Open links in a popup (requires JavaScript).', 'shariff' ),
+		'shariff3UU_checkbox_popup_render', 'design', 'shariff3UU_design_section' );
 
 	// third tab - advanced
 
@@ -245,6 +253,10 @@ function shariff3UU_options_init(){
 	// share counts
 	add_settings_field( 'shariff3UU_checkbox_sharecounts', __( 'Show share counts on buttons.', 'shariff' ),
 		'shariff3UU_checkbox_sharecounts_render', 'statistic', 'shariff3UU_statistic_section' );
+		
+	// hide when zero
+	add_settings_field( 'shariff3UU_checkbox_hidezero', __( 'Hide share counts when they are zero.', 'shariff' ),
+		'shariff3UU_checkbox_hidezero_render', 'statistic', 'shariff3UU_statistic_section' );
 
 	// Facebook App ID
 	add_settings_field( 'shariff3UU_text_fb_id', __( 'Facebook App ID:', 'shariff' ),
@@ -265,7 +277,15 @@ function shariff3UU_options_init(){
 	// ttl
 	add_settings_field( 'shariff3UU_number_ttl', __( 'Cache TTL in seconds (60 - 7200):', 'shariff' ),
 		'shariff3UU_number_ttl_render', 'statistic', 'shariff3UU_statistic_section' );
-
+		
+	// disable dynamic cache lifespan
+	add_settings_field( 'shariff3UU_checkbox_disable_dynamic_cache', __( 'Disable the dynamic cache lifespan (not recommended).', 'shariff' ),
+		'shariff3UU_checkbox_disable_dynamic_cache_render', 'statistic', 'shariff3UU_statistic_section' );
+		
+	// Twitter NewShareCount
+	add_settings_field( 'shariff3UU_checkbox_newsharecount', __( 'Use NewShareCount instead of OpenShareCount for Twitter.', 'shariff' ),
+		'shariff3UU_checkbox_newsharecount_render', 'statistic', 'shariff3UU_statistic_section' );
+	
 	// disable services
 	add_settings_field( 'shariff3UU_multiplecheckbox_disable_services', __( 'Disable the following services (share counts only):', 'shariff' ),
 		'shariff3UU_multiplecheckbox_disable_services_render', 'statistic', 'shariff3UU_statistic_section' );
@@ -326,7 +346,7 @@ function shariff3UU_design_sanitize( $input ) {
 
 	if ( isset( $input["lang"] ) ) 				$valid["lang"] 				= sanitize_text_field( $input["lang"] );
 	if ( isset( $input["theme"] ) ) 			$valid["theme"] 			= sanitize_text_field( $input["theme"] );
-	if ( isset( $input["buttonsize"] ) )		$valid["buttonsize"]		= absint( $input["buttonsize"] );
+	if ( isset( $input["buttonsize"] ) )		$valid["buttonsize"]		= sanitize_text_field( $input["buttonsize"] );
 	if ( isset( $input["buttonstretch"] ) )		$valid["buttonstretch"]		= absint( $input["buttonstretch"] );
 	if ( isset( $input["borderradius"] ) ) 		$valid["borderradius"] 		= absint( $input["borderradius"] );
 	if ( isset( $input["maincolor"] ) ) 		$valid["maincolor"] 		= sanitize_text_field( $input["maincolor"] );
@@ -335,8 +355,10 @@ function shariff3UU_design_sanitize( $input ) {
 	if ( isset( $input["align"] ) ) 			$valid["align"] 			= sanitize_text_field( $input["align"] );
 	if ( isset( $input["align_widget"] ) ) 		$valid["align_widget"] 		= sanitize_text_field( $input["align_widget"] );
 	if ( isset( $input["style"] ) ) 			$valid["style"] 			= sanitize_text_field( $input["style"] );
+	if ( isset( $input["cssclass"] ) ) 			$valid["cssclass"] 			= sanitize_text_field( $input["cssclass"] );
 	if ( isset( $input["headline"] ) ) 			$valid["headline"] 			= wp_kses( $input["headline"], $GLOBALS["allowed_tags"] );
 	if ( isset( $input["hideuntilcss"] ) ) 		$valid["hideuntilcss"] 		= absint( $input["hideuntilcss"] );
+	if ( isset( $input["popup"] ) ) 		    $valid["popup"] 		    = absint( $input["popup"] );
 
 	// remove empty elements
 	$valid = array_filter($valid);
@@ -395,17 +417,20 @@ function shariff3UU_statistic_sanitize( $input ) {
 	// create array
 	$valid = array();
 
-	if ( isset( $input["backend"] ) )          $valid["backend"]        = absint( $input["backend"] );
-	if ( isset( $input["sharecounts"] ) )      $valid["sharecounts"]    = absint( $input["sharecounts"] );
-	if ( isset( $input["ranking"] ) )          $valid["ranking"]        = absint( $input["ranking"] );
-	if ( isset( $input["automaticcache"] ) )   $valid["automaticcache"] = absint( $input["automaticcache"] );
-	if ( isset( $input["fb_id"] ) )            $valid["fb_id"]          = sanitize_text_field( $input["fb_id"] );
-	if ( isset( $input["fb_secret"] ) )        $valid["fb_secret"]      = sanitize_text_field( $input["fb_secret"] );
-	if ( isset( $input["ttl"] ) )              $valid["ttl"]            = absint( $input["ttl"] );
-	if ( isset( $input["disable"] ) )          $valid["disable"]        = sani_arrays( $input["disable"] );
-	if ( isset( $input["external_host"] ) )    $valid["external_host"]  = str_replace( ' ', '', rtrim( esc_url_raw( $input["external_host"], "/" ) ) );
-	if ( isset( $input["external_direct"] ) )  $valid["external_direct"] = absint( $input["external_direct"] );
-	if ( isset( $input["subapi"] ) )           $valid["subapi"]         = absint( $input["subapi"] );
+	if ( isset( $input["backend"] ) )                $valid["backend"]               = absint( $input["backend"] );
+	if ( isset( $input["sharecounts"] ) )            $valid["sharecounts"]           = absint( $input["sharecounts"] );
+	if ( isset( $input["hidezero"] ) )               $valid["hidezero"]              = absint( $input["hidezero"] );
+	if ( isset( $input["ranking"] ) )                $valid["ranking"]               = absint( $input["ranking"] );
+	if ( isset( $input["automaticcache"] ) )         $valid["automaticcache"]        = absint( $input["automaticcache"] );
+	if ( isset( $input["fb_id"] ) )                  $valid["fb_id"]                 = sanitize_text_field( $input["fb_id"] );
+	if ( isset( $input["fb_secret"] ) )              $valid["fb_secret"]             = sanitize_text_field( $input["fb_secret"] );
+	if ( isset( $input["ttl"] ) )                    $valid["ttl"]                   = absint( $input["ttl"] );
+	if ( isset( $input["disable_dynamic_cache"] ) )  $valid["disable_dynamic_cache"] = absint( $input["disable_dynamic_cache"] );
+	if ( isset( $input["newsharecount"] ) )          $valid["newsharecount"]         = absint( $input["newsharecount"] );
+	if ( isset( $input["disable"] ) )                $valid["disable"]               = sani_arrays( $input["disable"] );
+	if ( isset( $input["external_host"] ) )          $valid["external_host"]         = str_replace( ' ', '', rtrim( esc_url_raw( $input["external_host"], "/" ) ) );
+	if ( isset( $input["external_direct"] ) )        $valid["external_direct"]       = absint( $input["external_direct"] );
+	if ( isset( $input["subapi"] ) )                 $valid["subapi"]                = absint( $input["subapi"] );
 
 	// protect users from themselfs
 	if ( isset( $valid["ttl"] ) && $valid["ttl"] < '60' ) $valid["ttl"] = '';
@@ -451,7 +476,7 @@ function shariff3UU_text_services_render() {
 		$services = '';
 	}
 	echo '<input type="text" name="shariff3UU_basic[services]" value="' . esc_html($services) . '" size="75" placeholder="twitter|facebook|googleplus|info">';
-	echo '<p><code>facebook|twitter|googleplus|whatsapp|threema|pinterest|xing|linkedin|reddit|vk|diaspora|stumbleupon</code></p>';
+	echo '<p><code>facebook|twitter|googleplus|whatsapp|threema|pinterest|xing|linkedin|reddit|vk|odnoklassniki|diaspora|stumbleupon</code></p>';
 	echo '<p><code>tumblr|addthis|pocket|flattr|patreon|paypal|paypalme|bitcoin|mailform|mailto|printer|rss|info</code></p>';
 	echo '<p>' . __( 'Use the pipe sign | (Alt Gr + &lt; or &#8997; + 7) between two or more services.', 'shariff' ) . '</p>';
 }
@@ -595,10 +620,11 @@ function shariff3UU_radio_theme_render() {
 
 // button size
 function shariff3UU_checkbox_buttonsize_render() {
-	$plugins_url = plugins_url();
-	echo '<input type="checkbox" name="shariff3UU_design[buttonsize]" ';
-	if ( isset( $GLOBALS["shariff3UU_design"]["buttonsize"] ) ) echo checked( $GLOBALS["shariff3UU_design"]["buttonsize"], 1, 0 );
-	echo ' value="1"><img src="'. $plugins_url .'/shariff/pictos/smallBtns.png" align="middle">';
+	$options = $GLOBALS['shariff3UU_design'];
+	if ( ! isset( $options['buttonsize'] ) ) $options['buttonsize'] = 'medium';
+	echo '<p><input type="radio" name="shariff3UU_design[buttonsize]" value="small" ' . checked( $options["buttonsize"], "small", 0 ) . '>' . __( "small", "shariff" ) . '</p>';
+	echo '<p><input type="radio" name="shariff3UU_design[buttonsize]" value="medium" ' . checked( $options["buttonsize"], "medium", 0 )     . '>' . __( "medium", "shariff" ) . '</p>';
+	echo '<p><input type="radio" name="shariff3UU_design[buttonsize]" value="large" ' . checked( $options["buttonsize"], "large", 0 )   . '>' . __( "large", "shariff" ) . '</p>';
 }
 
 // button stretch
@@ -696,13 +722,31 @@ function shariff3UU_text_style_render() {
 	else {
 		$style = '';
 	}
-	echo '<input type="text" name="shariff3UU_design[style]" value="' . esc_html($style) . '" size="50" placeholder="' . __( "More information in the FAQ.", "shariff" ) . '">';
+	echo '<input type="text" name="shariff3UU_design[style]" value="' . esc_html( $style ) . '" size="50" placeholder="' . __( "More information in the FAQ.", "shariff" ) . '">';
+}
+
+// custom css class
+function shariff3UU_text_cssclass_render() {
+	if ( isset( $GLOBALS["shariff3UU_design"]["cssclass"] ) ) {
+		$cssclass = $GLOBALS["shariff3UU_design"]["cssclass"];
+	}
+	else {
+		$cssclass = '';
+	}
+	echo '<input type="text" name="shariff3UU_design[cssclass]" value="' . esc_html( $cssclass ) . '" size="50" placeholder="' . __( "More information in the FAQ.", "shariff" ) . '">';
 }
 
 // hide until page is fully loaded
 function shariff3UU_checkbox_hideuntilcss_render() {
 	echo '<input type="checkbox" name="shariff3UU_design[hideuntilcss]" ';
 	if ( isset( $GLOBALS["shariff3UU_design"]["hideuntilcss"] ) ) echo checked( $GLOBALS["shariff3UU_design"]["hideuntilcss"], 1, 0 );
+	echo ' value="1">';
+}
+
+// open links in a popup
+function shariff3UU_checkbox_popup_render() {
+	echo '<input type="checkbox" name="shariff3UU_design[popup]" ';
+	if ( isset( $GLOBALS["shariff3UU_design"]["popup"] ) ) echo checked( $GLOBALS["shariff3UU_design"]["popup"], 1, 0 );
 	echo ' value="1">';
 }
 
@@ -959,6 +1003,15 @@ function shariff3UU_checkbox_sharecounts_render() {
 	}
 }
 
+// hide when zero
+function shariff3UU_checkbox_hidezero_render() {
+	echo '<input type="checkbox" name="shariff3UU_statistic[hidezero]" ';
+	if ( isset( $GLOBALS['shariff3UU_statistic']['hidezero'] ) ) {
+		echo checked( $GLOBALS['shariff3UU_statistic']['hidezero'], 1, 0 );
+	}
+	echo ' value="1">';
+}
+
 // ranking
 function shariff3UU_number_ranking_render() {
 	if ( isset($GLOBALS["shariff3UU_statistic"]["ranking"]) ) {
@@ -1012,6 +1065,24 @@ function shariff3UU_number_ttl_render() {
 	echo '<input type="number" name="shariff3UU_statistic[ttl]" value="'. $ttl .'" maxlength="4" min="60" max="7200" placeholder="60" style="width: 75px">';
 }
 
+// disable dynamic cache lifespan
+function shariff3UU_checkbox_disable_dynamic_cache_render() {
+	echo '<input type="checkbox" name="shariff3UU_statistic[disable_dynamic_cache]" ';
+	if ( isset( $GLOBALS['shariff3UU_statistic']['disable_dynamic_cache'] ) ) {
+		echo checked( $GLOBALS['shariff3UU_statistic']['disable_dynamic_cache'], 1, 0 );
+	}
+	echo ' value="1">';
+}
+
+// Twitter NewShareCount
+function shariff3UU_checkbox_newsharecount_render() {
+	echo '<input type="checkbox" name="shariff3UU_statistic[newsharecount]" ';
+	if ( isset( $GLOBALS['shariff3UU_statistic']['newsharecount'] ) ) {
+		echo checked( $GLOBALS['shariff3UU_statistic']['newsharecount'], 1, 0 );
+	}
+	echo ' value="1">';
+}
+
 // disable services
 function shariff3UU_multiplecheckbox_disable_services_render() {
 	// Facebook
@@ -1022,7 +1093,7 @@ function shariff3UU_multiplecheckbox_disable_services_render() {
 	// Twitter
 	echo '<p><input type="checkbox" name="shariff3UU_statistic[disable][twitter]" ';
 	if ( isset( $GLOBALS['shariff3UU_statistic']['disable']['twitter'] ) ) echo checked( $GLOBALS['shariff3UU_statistic']['disable']['twitter'], 1, 0 );
-	echo ' value="1">OpenShareCount (Twitter)</p>';
+	echo ' value="1">Twitter</p>';
 
 	// GooglePlus
 	echo '<p><input type="checkbox" name="shariff3UU_statistic[disable][googleplus]" ';
@@ -1165,10 +1236,10 @@ function shariff3UU_help_section_callback() {
 		// button size
 		echo '<div style="display:table-row">';
 			echo '<div style="display:table-cell;border:1px solid;padding:10px">buttonsize</div>';
-			echo '<div style="display:table-cell;border:1px solid;padding:10px">big<br>small</div>';
-			echo '<div style="display:table-cell;border:1px solid;padding:10px">big</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">small<br>medium<br>large</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">medium</div>';
 			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff buttonsize="small"]</div>';
-			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Small reduces the size of all buttons by 30%, regardless of theme.', 'shariff' ) . '</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Determines the button size regardless of theme choice.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// buttonstretch
 		echo '<div style="display:table-row">';
@@ -1233,6 +1304,22 @@ function shariff3UU_help_section_callback() {
 			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
 			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff headline="&lt;hr style=\'margin:20px 0\'&gt;&lt;p&gt;' . __( 'Please share this post:', 'shariff' ) . '&lt;/p&gt;"]</div>';
 			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Adds a headline above the Shariff buttons. Basic HTML as well as style and class attributes can be used. To remove a headline set on the plugins options page use headline="".', 'shariff' ) . '</div>';
+		echo '</div>';
+		// style
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">style</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff style="margin:20px;"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Adds custom <u>style</u> attributes to the container <u>around</u> Shariff.', 'shariff' ) . '</div>';
+		echo '</div>';
+		// cssclass
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">cssclass</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff class="classname"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Adds a custom <u>class</u> to the container <u>around</u> Shariff.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// twitter_via
 		echo '<div style="display:table-row">';
@@ -1302,7 +1389,7 @@ function shariff3UU_help_section_callback() {
 		echo '<div style="display:table-row">';
 			echo '<div style="display:table-cell;border:1px solid;padding:10px">url</div>';
 			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
-			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'The url of the current post or page.</div>', 'shariff' );
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'The url of the current post or page.', 'shariff' ) . '</div>';
 			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff url="http://www.mydomain.com/somepost"]</div>';
 			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Changes the url to share. Only for special use cases.', 'shariff' ) . '</div>';
 		echo '</div>';
@@ -1310,9 +1397,17 @@ function shariff3UU_help_section_callback() {
 		echo '<div style="display:table-row">';
 			echo '<div style="display:table-cell;border:1px solid;padding:10px">title</div>';
 			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
-			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'The title of the current post or page.</div>', 'shariff' );
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'The title of the current post or page.', 'shariff' ) . '</div>';
 			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff title="' . __( 'My Post Title', 'shariff' ) . '"]</div>';
 			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Changes the title to share. Only for special use cases.', 'shariff' ) . '</div>';
+		echo '</div>';
+		// timestamp
+		echo '<div style="display:table-row">';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">timestamp</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px"></div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'The timestamp of the last modification of the current post or page.', 'shariff' ) . '</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">[shariff timestamp="1473240010"]</div>';
+			echo '<div style="display:table-cell;border:1px solid;padding:10px">' . __( 'Provides the time the current post or page was last modified as a timestamp. Used for determining the dynamic cache lifespan. Only for special use cases.', 'shariff' ) . '</div>';
 		echo '</div>';
 		// rssfeed
 		echo '<div style="display:table-row">';
@@ -1354,7 +1449,7 @@ function shariff3UU_status_section_callback() {
 		$post_url2 = esc_url( get_bloginfo( 'url' ) );
 		
 		// set services
-		$services = array( 'facebook', 'twitter', 'googleplus', 'pinterest', 'linkedin', 'xing', 'reddit', 'stumbleupon', 'tumblr', 'vk', 'addthis', 'flattr' );
+		$services = array( 'facebook', 'twitter', 'googleplus', 'pinterest', 'linkedin', 'xing', 'reddit', 'stumbleupon', 'tumblr', 'vk', 'addthis', 'flattr', 'odnoklassniki' );
 
 		// we only need the backend part
 		$backend = '1';

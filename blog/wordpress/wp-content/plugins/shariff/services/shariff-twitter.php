@@ -63,7 +63,8 @@ if ( isset( $frontend ) && $frontend == '1' ) {
 // backend
 elseif ( isset( $backend ) && $backend == '1' ) {
 	// fetch counts
-	$twitter = sanitize_text_field( wp_remote_retrieve_body( wp_remote_get( 'http://opensharecount.com/count.json?url=' . $post_url ) ) );
+	if ( isset( $shariff3UU['newsharecount'] ) && $shariff3UU['newsharecount'] == '1' ) $twitter = sanitize_text_field( wp_remote_retrieve_body( wp_remote_get( 'http://public.newsharecounts.com/count.json?url=' . $post_url ) ) );
+	else $twitter = sanitize_text_field( wp_remote_retrieve_body( wp_remote_get( 'http://opensharecount.com/count.json?url=' . $post_url ) ) );
 	$twitter_json = json_decode( $twitter, true );
 
 	// store results, if we have some
