@@ -61,7 +61,104 @@ if ( ! class_exists( 'YoastSEO_AMP_Options' ) ) {
 		public function sanitize_options( $options ) {
 			$options['version'] = 1;
 
+			// Sanitize extra CSS field.
+			$extra_css            = strip_tags( $options['extra-css'] );
+			$extra_css            = wp_check_invalid_utf8( $extra_css );
+			$extra_css            = _wp_specialchars( $extra_css, ENT_NOQUOTES );
+			$options['extra-css'] = $extra_css;
+
+			// Only allow meta and link tags in head.
+			$options['extra-head'] = strip_tags( $options['extra-head'], '<link><meta>' );
+
+			$colors = array(
+				'header-color',
+				'headings-color',
+				'text-color',
+				'meta-color',
+				'link-color',
+				'blockquote-text-color',
+				'blockquote-bg-color',
+				'blockquote-border-color',
+			);
+
+			foreach ( $colors as $color ) {
+				$options[ $color ] = $this->sanitize_color( $options[ $color ], '' );
+			}
+
+			// Only allow 'on' or 'off'
+			foreach ( $options as $key => $value ) {
+				if ( 'post_types-' === substr( $key, 0, 11 ) ) {
+					$options[ $key ] = ( $value === 'on' ) ? 'on' : 'off';
+				}
+			}
+
+			$options['analytics-extra'] = $this->sanitize_analytics_code( $options['analytics-extra'] );
+
 			return $options;
+		}
+
+		/**
+		 * Sanitize hexadecimal color
+		 *
+		 * @param string $color   String to test for valid color.
+		 * @param string $default Value the string will get when no color is found.
+		 *
+		 * @return string Color or $default
+		 */
+		private function sanitize_color( $color, $default ) {
+			if ( preg_match( '~^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})$~', $color, $matches ) ) {
+				return $matches[0];
+			}
+
+			return $default;
+		}
+
+		/**
+		 * @param string $source Raw input.
+		 *
+		 * @return string Sanitized code.
+		 */
+		private function sanitize_analytics_code( $source ) {
+
+			$source = trim( $source );
+
+			if ( empty( $source ) ) {
+				return $source;
+			}
+
+			$code = $source;
+
+			// Strip all tags, to verify JSON input.
+			$json        = strip_tags( $code );
+			$parsed_json = json_decode( $json, true );
+
+			// Non-parsable JSON is always bad.
+			if ( is_null( $parsed_json ) ) {
+				return '';
+			}
+
+			$allowed_tags = strip_tags( $code, '<amp-analytics>' );
+
+			// Strip JSON content so we can apply verified script tag.
+			$tag = str_replace( $json, '', $allowed_tags );
+
+			// If the tag doesn't occur in the code, the code is invalid.
+			if ( false === strpos( $allowed_tags, '<amp-analytics' ) ) {
+				return '';
+			}
+
+			$parts = explode( '><', $tag );
+			$parts[0] .= '>';
+			$parts[1] = '<' . $parts[1];
+
+			// Rebuild with script tag and json content.
+			array_splice( $parts, 1, null, array(
+				'<script type="application/json">',
+				trim( $json ),
+				'</script>'
+			) );
+
+			return implode( "\n", $parts );
 		}
 
 		/**
@@ -90,13 +187,12 @@ if ( ! class_exists( 'YoastSEO_AMP_Options' ) ) {
 
 		/**
 		 * Collect options
+		 *
+		 * @SuppressWarnings("PMD.UnusedPrivateMethod")
 		 */
 		private function fetch_options() {
-
-			if ( isset( $this->options ) ) {
-				$saved_options = $this->options;
-			}
-			else {
+			$saved_options = $this->options;
+			if ( ! is_array( $this->options ) ) {
 				$saved_options = get_option( 'wpseo_amp' );
 
 				// Apply defaults.
@@ -117,16 +213,15 @@ if ( ! class_exists( 'YoastSEO_AMP_Options' ) ) {
 		 */
 		private function update_post_type_settings() {
 			$post_type_names = array();
-			$post_types      = get_post_types( array( 'public' => true ), 'objects' );
+
+			$post_types = get_post_types( array( 'public' => true ), 'objects' );
 
 			if ( is_array( $post_types ) && $post_types !== array() ) {
 				foreach ( $post_types as $post_type ) {
 					if ( ! isset( $this->options[ 'post_types-' . $post_type->name . '-amp' ] ) ) {
+						$this->options[ 'post_types-' . $post_type->name . '-amp' ] = 'off';
 						if ( 'post' === $post_type->name ) {
 							$this->options[ 'post_types-' . $post_type->name . '-amp' ] = 'on';
-						}
-						else {
-							$this->options[ 'post_types-' . $post_type->name . '-amp' ] = 'off';
 						}
 					}
 

@@ -108,21 +108,25 @@ if ( ! class_exists( 'YoastSEO_AMP_Frontend' ) ) {
 		public function post_types() {
 			$post_types = get_post_types( array( 'public' => true ), 'objects' );
 			if ( is_array( $post_types ) && $post_types !== array() ) {
-				foreach ( $post_types as $pt ) {
-					if ( ! isset( $this->options[ 'post_types-' . $pt->name . '-amp' ] ) ) {
+				foreach ( $post_types as $post_type ) {
+
+					$post_type_name = $post_type->name;
+
+					if ( ! isset( $this->options[ 'post_types-' . $post_type_name . '-amp' ] ) ) {
 						continue;
 					}
-					if ( $this->options[ 'post_types-' . $pt->name . '-amp' ] === 'on' ) {
-						add_post_type_support( $pt->name, AMP_QUERY_VAR );
+
+					if ( $this->options[ 'post_types-' . $post_type_name . '-amp' ] === 'on' ) {
+						add_post_type_support( $post_type_name, AMP_QUERY_VAR );
+						continue;
 					}
-					else {
-						if ( 'post' === $pt->name ) {
-							add_action( 'wp', array( $this, 'disable_amp_for_posts' ) );
-						}
-						else {
-							remove_post_type_support( $pt->name, AMP_QUERY_VAR );
-						}
+
+					if ( 'post' === $post_type_name ) {
+						add_action( 'wp', array( $this, 'disable_amp_for_posts' ) );
+						continue;
 					}
+
+					remove_post_type_support( $post_type_name, AMP_QUERY_VAR );
 				}
 			}
 		}
@@ -315,11 +319,9 @@ if ( ! class_exists( 'YoastSEO_AMP_Frontend' ) ) {
 		 * @return string
 		 */
 		private function get_post_schema_type( $post ) {
+			$type = 'WebPage';
 			if ( 'post' === $post->post_type ) {
 				$type = 'Article';
-			}
-			else {
-				$type = 'WebPage';
 			}
 
 			/**

@@ -103,10 +103,8 @@ class Yoast_AMP_Blacklist_Sanitizer extends AMP_Base_Sanitizer {
 	private function sanitize_a_attribute( $node, $attribute ) {
 		$attribute_name = strtolower( $attribute->name );
 
-		if ( 'rel' === $attribute_name ) {
-			if ( 'nofollow' !== $attribute->value ) {
-				$node->removeAttribute( $attribute_name );
-			}
+		if ( 'rel' === $attribute_name && 'nofollow' !== $attribute->value ) {
+			$node->removeAttribute( $attribute_name );
 		}
 	}
 
