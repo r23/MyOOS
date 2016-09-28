@@ -77,6 +77,14 @@ div.wpcf7 .placeheld {
 	color: #888;
 }
 
-.wpcf7-recaptcha iframe {
+div.wpcf7 .wpcf7-recaptcha iframe {
 	margin-bottom: 0;
+}
+
+div.wpcf7 input[type="file"] {
+	cursor: pointer;
+}
+
+div.wpcf7 input[type="file"]:disabled {
+	cursor: default;
 }
