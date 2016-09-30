@@ -64,7 +64,7 @@ class ForecastIo extends Module
         
         if ($this->schemaVersion <= 1) {
             // Install
-            $this->InstallModule('Forecast IO', 'Weather forecasting from Forecast IO', 'forms/library.gif', 1, 1, array());
+            $this->InstallModule('Weather', 'Weather Powered by DarkSky', 'forms/library.gif', 1, 1, array());
         }
         else {
             // Update
@@ -483,6 +483,15 @@ class ForecastIo extends Module
             <currentTemplate><![CDATA[' . Kit::GetParam('currentTemplate', _POST, _HTMLSTRING) . ']]></currentTemplate>
             <dailyTemplate><![CDATA[' . Kit::GetParam('dailyTemplate', _POST, _HTMLSTRING) . ']]></dailyTemplate>');
 
+        if ($this->GetOption('useDisplayLocation') == 0) {
+            // Validate Lat/Long
+            if (!$this->isValidLatitude($this->GetOption('latitude')))
+                throw new \InvalidArgumentException(__('The latitude entered is not valid.'));
+
+            if (!$this->isValidLongitude($this->GetOption('longitude')))
+                throw new \InvalidArgumentException(__('The longitude entered is not valid.'));
+        }
+
         // Should have built the media object entirely by this time
         // This saves the Media Object to the Region
         $this->UpdateRegion();
@@ -577,19 +586,36 @@ class ForecastIo extends Module
     private function supportedLanguages()
     {
         return array(
-            array('id' => 'en', 'value' => __('English')),
+            array('id' => 'ar', 'value' => __('Arabic')),
+            array('id' => 'az', 'value' => __('Azerbaijani')),
+            array('id' => 'be', 'value' => __('Belarusian')),
             array('id' => 'bs', 'value' => __('Bosnian')),
+            array('id' => 'cs', 'value' => __('Czech')),
             array('id' => 'de', 'value' => __('German')),
+            array('id' => 'en', 'value' => __('English')),
+            array('id' => 'el', 'value' => __('Greek')),
             array('id' => 'es', 'value' => __('Spanish')),
             array('id' => 'fr', 'value' => __('French')),
+            array('id' => 'hr', 'value' => __('Croatian')),
+            array('id' => 'hu', 'value' => __('Hungarian')),
+            array('id' => 'id', 'value' => __('Indonesian')),
             array('id' => 'it', 'value' => __('Italian')),
+            array('id' => 'is', 'value' => __('Icelandic')),
+            array('id' => 'kw', 'value' => __('Cornish')),
+            array('id' => 'nb', 'value' => __('Norwegian Bokmål')),
             array('id' => 'nl', 'value' => __('Dutch')),
             array('id' => 'pl', 'value' => __('Polish')),
             array('id' => 'pt', 'value' => __('Portuguese')),
             array('id' => 'ru', 'value' => __('Russian')),
+            array('id' => 'sk', 'value' => __('Slovak')),
+            array('id' => 'sr', 'value' => __('Serbian')),
+            array('id' => 'sv', 'value' => __('Swedish')),
             array('id' => 'tet', 'value' => __('Tetum')),
             array('id' => 'tr', 'value' => __('Turkish')),
-            array('id' => 'x-pig-latin', 'value' => __('lgpay Atinlay'))
+            array('id' => 'uk', 'value' => __('Ukrainian')),
+            array('id' => 'x-pig-latin', 'value' => __('lgpay Atinlay')),
+            array('id' => 'zh', 'value' => __('Simplified Chinese')),
+            array('id' => 'zh-tw', 'value' => __('Traditional Chinese'))
         );
     }
 
@@ -651,6 +677,12 @@ class ForecastIo extends Module
         else {
             $defaultLat = $this->GetOption('latitude', $defaultLat);
             $defaultLong = $this->GetOption('longitude', $defaultLong);
+        }
+
+        // Validate lat/long
+        if (!$this->isValidLatitude($defaultLat) || !$this->isValidLongitude($defaultLong)) {
+            Debug::LogEntry('audit', 'Invalid lat/long');
+            return false;
         }
 
         $apiKey = $this->GetSetting('apiKey');
@@ -877,6 +909,24 @@ class ForecastIo extends Module
         // 1 = Valid
         // 2 = Unknown
         return 1;
+    }
+
+    private function isValidLatitude($latitude) {
+        if (!is_numeric($latitude))
+            return false;
+
+        $latitude = doubleval($latitude);
+
+        return ($latitude >= -90 && $latitude <= 90);
+    }
+
+    private function isValidLongitude($longitude) {
+        if (!is_numeric($longitude))
+            return false;
+
+        $longitude = doubleval($longitude);
+
+        return ($longitude >= -180 && $longitude <= 180);
     }
 }
 ?>
