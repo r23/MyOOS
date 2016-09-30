@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-09-16 08:29:01+0000\n"
+"PO-Revision-Date: 2016-09-17 20:12:38+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -5853,7 +5853,7 @@ msgstr "Rollen gewechselt."
 
 #: wp-admin/users.php:457
 msgid "User removed from this site."
-msgstr "Benutzer von diese Website entfernt."
+msgstr "Benutzer von dieser Website entfernt."
 
 #: wp-admin/includes/dashboard.php:428 wp-admin/includes/dashboard.php:430
 #: wp-admin/users.php:503
