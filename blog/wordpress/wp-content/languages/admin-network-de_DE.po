@@ -1,5 +1,5 @@
-# Translation of Network Admin in German
-# This file is distributed under the same license as the Network Admin package.
+# Translation of WordPress - 4.6.x - Administration - Network Admin in German
+# This file is distributed under the same license as the WordPress - 4.6.x - Administration - Network Admin package.
 msgid ""
 msgstr ""
 "PO-Revision-Date: 2016-08-27 18:37:34+0000\n"
@@ -7,8 +7,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.1.0-alpha\n"
-"Project-Id-Version: Network Admin\n"
+"X-Generator: GlotPress/2.3.0-alpha\n"
+"Language: de\n"
+"Project-Id-Version: WordPress - 4.6.x - Administration - Network Admin\n"
 
 #. translators: %s: theme name
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:475
