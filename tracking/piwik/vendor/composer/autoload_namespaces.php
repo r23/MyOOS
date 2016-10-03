@@ -12,7 +12,6 @@ return array(
     'Symfony\\Component\\EventDispatcher\\' => array($vendorDir . '/symfony/event-dispatcher'),
     'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
     'Symfony\\Bridge\\Monolog\\' => array($vendorDir . '/symfony/monolog-bridge'),
-    'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'PhpDocReader' => array($vendorDir . '/mnapoli/phpdocreader/src'),
     'PEAR_' => array($baseDir . '/libs'),
     'PEAR' => array($vendorDir . '/pear/pear_exception'),

@@ -8,6 +8,15 @@
     backlink: 's/{k}'
     charsets:
       - iso-8859-2
+118 700:
+  - 
+    urls:
+      - www.118700.se
+      - foretag.118700.se
+      - webben.118700.se
+    params:
+      - q
+    backlink: 'sok.aspx?q={k}'
 123people:
   - 
     urls:
@@ -74,6 +83,13 @@ Aguea:
     params:
       - q
     backlink: 's.py?q={k}'
+Allaverksamheter:
+  - 
+    urls:
+      - www.allaverksamheter.se
+    params:
+      - What
+    backlink: 'SearchResult.aspx?What={k}'
 Alexa:
   - 
     urls:
@@ -265,6 +281,10 @@ auone:
     params:
       - q
     backlink: '?q={k}'
+    charsets:
+      - utf-8
+      - euc-jp
+      - ms932
 auone Images:
   - 
     urls:
@@ -272,6 +292,10 @@ auone Images:
     params:
       - q
     backlink: '?q={k}'
+    charsets:
+      - utf-8
+      - euc-jp
+      - ms932
 Austronaut:
   - 
     urls:
@@ -319,6 +343,10 @@ Biglobe:
     params:
       - q
     backlink: 'cgi-bin/search-st?q={k}'
+    charsets:
+      - utf-8
+      - euc-jp
+      - ms932
 Biglobe Images:
   - 
     urls:
@@ -553,9 +581,10 @@ Ecosia:
   - 
     urls:
       - ecosia.org
+      - www.ecosia.org
     params:
       - q
-    backlink: 'search.php?q={k}'
+    backlink: 'search?q={k}'
 El Mundo:
   - 
     urls:
@@ -803,6 +832,7 @@ Google:
       - 'gppgle.{}'
       - googel.com
       - 'googel.{}'
+      - com.google.android.googlequicksearchbox
       - search.avg.com
       - isearch.avg.com
     params:
@@ -1230,7 +1260,14 @@ Interia:
     params:
       - q
     backlink: 'szukaj?q={k}'
-Ixquick:
+Isodelen:
+  - 
+    urls:
+      - www.isodelen.se
+    params:
+      - Keywords
+    backlink: 'sokresultat?Keywords={k}'
+IxQuick:
   - 
     urls:
       - ixquick.com
@@ -1250,8 +1287,9 @@ Ixquick:
       - s5-eu4.ixquick.com
     params:
       - query
+    backlink: 'do/asearch?query={k}'
     hiddenkeyword:
-      - '/.*/'
+      - '/do/asearch'
 Jungle Key:
   - 
     urls:
@@ -1296,9 +1334,11 @@ Kensaq:
 Kvasir:
   - 
     urls:
+      - kvasir.no
       - www.kvasir.no
     params:
       - q
+      - search_word
     backlink: 'alle?q={k}'
 La Toile Du Québec (Google):
   - 
@@ -1650,6 +1690,13 @@ Rambler:
       - query
       - words
     backlink: 'search?query={k}'
+Riksdelen:
+  - 
+    urls:
+      - www.riksdelen.se
+    params:
+      - What
+    backlink: 'SearchResult.aspx?What={k}'
 Road Runner:
   - 
     urls:
@@ -1856,11 +1903,15 @@ Sputnik:
     params:
       - q
     backlink: 'search?q={k}'
-Startpage:
+StartPage:
   -
     urls:
       - startpage.com
-    params: []
+      - classic.startpage.com
+      - www.startpage.com
+    params:
+      - query
+    backlink: 'do/asearch?query={k}'
     hiddenkeyword:
       - '/do/asearch'
 Startpagina (Google):
@@ -2245,6 +2296,10 @@ Yahoo! Japan:
       - p
       - vp
     backlink: 'search?p={k}'
+    charsets:
+      - utf-8
+      - euc-jp
+      - ms932
   -
     urls:
       - jp.hao123.com
@@ -2267,6 +2322,10 @@ Yahoo! Japan Images:
     params:
       - p
     backlink: 'search?p={k}'
+    charsets:
+      - utf-8
+      - euc-jp
+      - ms932
 Yahoo! Japan Videos:
   -
     urls:
@@ -2274,6 +2333,10 @@ Yahoo! Japan Videos:
     params:
       - p
     backlink: 'search?p={k}'
+    charsets:
+      - utf-8
+      - euc-jp
+      - ms932
 Yam:
   - 
     urls:
@@ -2287,6 +2350,9 @@ Yandex:
       - yandex.ru
       - yandex.com
       - 'yandex.{}'
+      - 'www.yandex.{}'
+      - 'clck.yandex.{}'
+      - 'm.yandex.{}'
     params:
       - text
     backlink: 'yandsearch?text={k}'

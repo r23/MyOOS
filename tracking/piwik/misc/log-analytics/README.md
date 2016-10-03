@@ -135,12 +135,16 @@ To improve performance,
 
 ### Example Nginx Virtual Host Log Format
 
-This log format can be specified for nginx access logs to capture multiple virtual hosts:
+nginx's default access log is parsed with the `--log-format-name=common_complete` option.
 
-* `log_format vhosts '$host $remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent"';`
-* `access_log /PATH/TO/access.log vhosts;`
+To log multiple virtual hosts in nginx's access log, use the following configuration:
 
-When executing import_logs.py, `--log-format-name=common_complete`.
+```
+log_format vhosts '$host $remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent"';
+access_log /PATH/TO/access.log vhosts;
+```
+
+When executing `import_logs.py`, use `--log-format-name=common_complete`.
 
 ### How do I import Page Speed Metric from logs?
 
@@ -161,7 +165,7 @@ Note: the group `<generation_time_milli>` is also available if your server logs 
 
 ### How do I setup Nginx to directly imports in Piwik via syslog?
 
-With the syslog patch from http://wiki.nginx.org/3rdPartyModules which is compiled in dotdeb's release, you can log to syslog and imports them live to Piwik.
+Since nginx 1.7.1 you can [log to syslog](http://nginx.org/en/docs/syslog.html) and import them live to Piwik.
 
 Path: Nginx -> syslog -> (syslog central server) -> this script -> piwik
 

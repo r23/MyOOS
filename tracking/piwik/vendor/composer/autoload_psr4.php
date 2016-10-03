@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'Piwik\\Plugins\\' => array($baseDir . '/plugins'),
     'Piwik\\Network\\' => array($vendorDir . '/piwik/network/src'),
     'Piwik\\Ini\\' => array($vendorDir . '/piwik/ini/src'),
