@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit3e81ecd39ce01d39abdc6b67ee67c2bb
+class ComposerStaticInit7c437035ac21a2570cfff8ca133afa08
 {
     public static $files = array (
         '04c6c5c2f7095ccf6c481d3e53e1776f' => __DIR__ . '/..' . '/mustangostang/spyc/Spyc.php',
@@ -1985,8 +1985,8 @@ class ComposerStaticInit3e81ecd39ce01d39abdc6b67ee67c2bb
         'Piwik\\Updates\\Updates_2_16_2_rc2' => __DIR__ . '/../..' . '/core/Updates/2.16.2-rc2.php',
         'Piwik\\Updates\\Updates_2_16_3_b1' => __DIR__ . '/../..' . '/core/Updates/2.16.3-b1.php',
         'Piwik\\Updates\\Updates_2_16_3_b2' => __DIR__ . '/../..' . '/core/Updates/2.16.3-b2.php',
-        'Piwik\\Updates\\Updates_2_16_3_b3' => __DIR__ . '/../..' . '/core/Updates/2.16.3-b3.php',
         'Piwik\\Updates\\Updates_2_16_3_rc2' => __DIR__ . '/../..' . '/core/Updates/2.16.3-rc2.php',
+        'Piwik\\Updates\\Updates_2_16_5' => __DIR__ . '/../..' . '/core/Updates/2.16.5.php',
         'Piwik\\Updates\\Updates_2_1_1_b11' => __DIR__ . '/../..' . '/core/Updates/2.1.1-b11.php',
         'Piwik\\Updates\\Updates_2_2_0_b15' => __DIR__ . '/../..' . '/core/Updates/2.2.0-b15.php',
         'Piwik\\Updates\\Updates_2_2_3_b6' => __DIR__ . '/../..' . '/core/Updates/2.2.3-b6.php',
@@ -2577,11 +2577,11 @@ class ComposerStaticInit3e81ecd39ce01d39abdc6b67ee67c2bb
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit3e81ecd39ce01d39abdc6b67ee67c2bb::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit3e81ecd39ce01d39abdc6b67ee67c2bb::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit3e81ecd39ce01d39abdc6b67ee67c2bb::$prefixesPsr0;
-            $loader->fallbackDirsPsr0 = ComposerStaticInit3e81ecd39ce01d39abdc6b67ee67c2bb::$fallbackDirsPsr0;
-            $loader->classMap = ComposerStaticInit3e81ecd39ce01d39abdc6b67ee67c2bb::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7c437035ac21a2570cfff8ca133afa08::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7c437035ac21a2570cfff8ca133afa08::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit7c437035ac21a2570cfff8ca133afa08::$prefixesPsr0;
+            $loader->fallbackDirsPsr0 = ComposerStaticInit7c437035ac21a2570cfff8ca133afa08::$fallbackDirsPsr0;
+            $loader->classMap = ComposerStaticInit7c437035ac21a2570cfff8ca133afa08::$classMap;
 
         }, null, ClassLoader::class);
     }
