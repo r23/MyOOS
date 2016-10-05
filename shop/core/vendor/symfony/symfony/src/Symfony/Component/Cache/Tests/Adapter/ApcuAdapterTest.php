@@ -15,11 +15,14 @@ use Symfony\Component\Cache\Adapter\ApcuAdapter;
 
 class ApcuAdapterTest extends AdapterTestCase
 {
+    protected $skippedTests = array(
+        'testExpiration' => 'Testing expiration slows down the test suite',
+        'testHasItemReturnsFalseWhenDeferredItemIsExpired' => 'Testing expiration slows down the test suite',
+        'testDefaultLifeTime' => 'Testing expiration slows down the test suite',
+    );
+
     public function createCachePool($defaultLifetime = 0)
     {
-        if (defined('HHVM_VERSION')) {
-            $this->skippedTests['testDeferredSaveWithoutCommit'] = 'Fails on HHVM';
-        }
         if (!function_exists('apcu_fetch') || !ini_get('apc.enabled') || ('cli' === PHP_SAPI && !ini_get('apc.enable_cli'))) {
             $this->markTestSkipped('APCu extension is required.');
         }

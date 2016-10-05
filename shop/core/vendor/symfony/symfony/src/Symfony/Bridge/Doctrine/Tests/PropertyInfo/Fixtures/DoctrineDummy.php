@@ -41,7 +41,7 @@ class DoctrineDummy
     public $bar;
 
     /**
-     * @ManyToMany(targetEntity="DoctrineRelation", indexBy="guid")
+     * @ManyToMany(targetEntity="DoctrineRelation", indexBy="rguid")
      */
     protected $indexedBar;
 
@@ -64,6 +64,16 @@ class DoctrineDummy
      * @Column(type="simple_array")
      */
     private $simpleArray;
+
+    /**
+     * @Column(type="float")
+     */
+    private $float;
+
+    /**
+     * @Column(type="decimal", precision=10, scale=2)
+     */
+    private $decimal;
 
     /**
      * @Column(type="boolean")

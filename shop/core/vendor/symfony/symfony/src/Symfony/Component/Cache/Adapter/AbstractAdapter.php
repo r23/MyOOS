@@ -78,7 +78,7 @@ abstract class AbstractAdapter implements AdapterInterface, LoggerAwareInterface
             return $fs;
         }
 
-        $apcu = new ApcuAdapter($namespace, $defaultLifetime / 5, $version);
+        $apcu = new ApcuAdapter($namespace, (int) $defaultLifetime / 5, $version);
         if (null !== $logger) {
             $apcu->setLogger($logger);
         }
@@ -270,9 +270,6 @@ abstract class AbstractAdapter implements AdapterInterface, LoggerAwareInterface
         if (!$item instanceof CacheItem) {
             return false;
         }
-        if ($this->deferred) {
-            $this->commit();
-        }
         $this->deferred[$item->getKey()] = $item;
 
         return $this->commit();
@@ -353,6 +350,33 @@ abstract class AbstractAdapter implements AdapterInterface, LoggerAwareInterface
         }
     }
 
+    /**
+     * Like the native unserialize() function but throws an exception if anything goes wrong.
+     *
+     * @param string $value
+     *
+     * @return mixed
+     *
+     * @throws \Exception
+     */
+    protected static function unserialize($value)
+    {
+        if ('b:0;' === $value) {
+            return false;
+        }
+        $unserializeCallbackHandler = ini_set('unserialize_callback_func', __CLASS__.'::handleUnserializeCallback');
+        try {
+            if (false !== $value = unserialize($value)) {
+                return $value;
+            }
+            throw new \DomainException('Failed to unserialize cached value');
+        } catch (\Error $e) {
+            throw new \ErrorException($e->getMessage(), $e->getCode(), E_ERROR, $e->getFile(), $e->getLine());
+        } finally {
+            ini_set('unserialize_callback_func', $unserializeCallbackHandler);
+        }
+    }
+
     private function getId($key)
     {
         CacheItem::validateKey($key);
@@ -364,13 +388,26 @@ abstract class AbstractAdapter implements AdapterInterface, LoggerAwareInterface
     {
         $f = $this->createCacheItem;
 
-        foreach ($items as $id => $value) {
-            yield $keys[$id] => $f($keys[$id], $value, true);
-            unset($keys[$id]);
+        try {
+            foreach ($items as $id => $value) {
+                $key = $keys[$id];
+                unset($keys[$id]);
+                yield $key => $f($key, $value, true);
+            }
+        } catch (\Exception $e) {
+            CacheItem::log($this->logger, 'Failed to fetch requested items', array('keys' => array_values($keys), 'exception' => $e));
         }
 
         foreach ($keys as $key) {
             yield $key => $f($key, null, false);
         }
+    }
+
+    /**
+     * @internal
+     */
+    public static function handleUnserializeCallback($class)
+    {
+        throw new \DomainException('Class not found: '.$class);
     }
 }

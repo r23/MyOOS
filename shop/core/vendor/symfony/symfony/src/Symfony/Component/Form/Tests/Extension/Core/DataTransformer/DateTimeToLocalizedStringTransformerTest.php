@@ -134,6 +134,23 @@ class DateTimeToLocalizedStringTransformerTest extends DateTimeTestCase
         $this->assertEquals($dateTime->format('d.m.Y, H:i'), $transformer->transform($input));
     }
 
+    public function testReverseTransformWithNoConstructorParameters()
+    {
+        $tz = date_default_timezone_get();
+        date_default_timezone_set('Europe/Rome');
+
+        $transformer = new DateTimeToLocalizedStringTransformer();
+
+        $dateTime = new \DateTime('2010-02-03 04:05');
+
+        $this->assertEquals(
+            $dateTime->format('c'),
+            $transformer->reverseTransform('03.02.2010, 04:05')->format('c')
+        );
+
+        date_default_timezone_set($tz);
+    }
+
     public function testTransformWithDifferentPatterns()
     {
         $transformer = new DateTimeToLocalizedStringTransformer('UTC', 'UTC', \IntlDateFormatter::FULL, \IntlDateFormatter::FULL, \IntlDateFormatter::GREGORIAN, 'MM*yyyy*dd HH|mm|ss');
@@ -225,6 +242,26 @@ class DateTimeToLocalizedStringTransformerTest extends DateTimeTestCase
         $transformer = new DateTimeToLocalizedStringTransformer('UTC', 'UTC', \IntlDateFormatter::FULL, \IntlDateFormatter::FULL, \IntlDateFormatter::GREGORIAN, 'MM*yyyy*dd HH|mm|ss');
 
         $this->assertDateTimeEquals($this->dateTime, $transformer->reverseTransform('02*2010*03 04|05|06'));
+    }
+
+    public function testReverseTransformDateOnlyWithDstIssue()
+    {
+        $transformer = new DateTimeToLocalizedStringTransformer('Europe/Rome', 'Europe/Rome', \IntlDateFormatter::FULL, \IntlDateFormatter::FULL, \IntlDateFormatter::GREGORIAN, 'dd/MM/yyyy');
+
+        $this->assertDateTimeEquals(
+            new \DateTime('1978-05-28', new \DateTimeZone('Europe/Rome')),
+            $transformer->reverseTransform('28/05/1978')
+        );
+    }
+
+    public function testReverseTransformDateOnlyWithDstIssueAndEscapedText()
+    {
+        $transformer = new DateTimeToLocalizedStringTransformer('Europe/Rome', 'Europe/Rome', \IntlDateFormatter::FULL, \IntlDateFormatter::FULL, \IntlDateFormatter::GREGORIAN, "'day': dd 'month': MM 'year': yyyy");
+
+        $this->assertDateTimeEquals(
+            new \DateTime('1978-05-28', new \DateTimeZone('Europe/Rome')),
+            $transformer->reverseTransform('day: 28 month: 05 year: 1978')
+        );
     }
 
     public function testReverseTransformEmpty()

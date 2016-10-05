@@ -69,7 +69,7 @@ class RedisAdapter extends AbstractAdapter
         if (0 !== strpos($dsn, 'redis://')) {
             throw new InvalidArgumentException(sprintf('Invalid Redis DSN: %s does not start with "redis://"', $dsn));
         }
-        $params = preg_replace_callback('#^redis://(?:([^@]*)@)?#', function ($m) use (&$auth) {
+        $params = preg_replace_callback('#^redis://(?:(?:[^:@]*+:)?([^@]*+)@)?#', function ($m) use (&$auth) {
             if (isset($m[1])) {
                 $auth = $m[1];
             }
@@ -134,19 +134,15 @@ class RedisAdapter extends AbstractAdapter
      */
     protected function doFetch(array $ids)
     {
-        $result = array();
-
         if ($ids) {
             $values = $this->redis->mGet($ids);
             $index = 0;
             foreach ($ids as $id) {
                 if ($value = $values[$index++]) {
-                    $result[$id] = unserialize($value);
+                    yield $id => parent::unserialize($value);
                 }
             }
         }
-
-        return $result;
     }
 
     /**
@@ -165,6 +161,7 @@ class RedisAdapter extends AbstractAdapter
         // When using a native Redis cluster, clearing the cache cannot work and always returns false.
         // Clearing the cache should then be done by any other means (e.g. by restarting the cluster).
 
+        $cleared = true;
         $hosts = array($this->redis);
         $evalArgs = array(array($namespace), 0);
 
@@ -181,6 +178,7 @@ class RedisAdapter extends AbstractAdapter
                 return false;
             }
         } elseif ($this->redis instanceof \RedisArray) {
+            $hosts = array();
             foreach ($this->redis->_hosts() as $host) {
                 $hosts[] = $this->redis->_instance($host);
             }
@@ -189,17 +187,35 @@ class RedisAdapter extends AbstractAdapter
         }
         foreach ($hosts as $host) {
             if (!isset($namespace[0])) {
-                $host->flushDb();
-            } else {
+                $cleared = $host->flushDb() && $cleared;
+                continue;
+            }
+
+            $info = $host->info('Server');
+            $info = isset($info['Server']) ? $info['Server'] : $info;
+
+            if (!version_compare($info['redis_version'], '2.8', '>=')) {
                 // As documented in Redis documentation (http://redis.io/commands/keys) using KEYS
                 // can hang your server when it is executed against large databases (millions of items).
-                // Whenever you hit this scale, it is advised to deploy one Redis database per cache pool
-                // instead of using namespaces, so that FLUSHDB is used instead.
-                $host->eval("local keys=redis.call('KEYS',ARGV[1]..'*') for i=1,#keys,5000 do redis.call('DEL',unpack(keys,i,math.min(i+4999,#keys))) end", $evalArgs[0], $evalArgs[1]);
+                // Whenever you hit this scale, you should really consider upgrading to Redis 2.8 or above.
+                $cleared = $host->eval("local keys=redis.call('KEYS',ARGV[1]..'*') for i=1,#keys,5000 do redis.call('DEL',unpack(keys,i,math.min(i+4999,#keys))) end return 1", $evalArgs[0], $evalArgs[1]) && $cleared;
+                continue;
             }
+
+            $cursor = null;
+            do {
+                $keys = $host instanceof \Predis\Client ? $host->scan($cursor, 'MATCH', $namespace.'*', 'COUNT', 1000) : $host->scan($cursor, $namespace.'*', 1000);
+                if (isset($keys[1]) && is_array($keys[1])) {
+                    $cursor = $keys[0];
+                    $keys = $keys[1];
+                }
+                if ($keys) {
+                    $host->del($keys);
+                }
+            } while ($cursor = (int) $cursor);
         }
 
-        return true;
+        return $cleared;
     }
 
     /**

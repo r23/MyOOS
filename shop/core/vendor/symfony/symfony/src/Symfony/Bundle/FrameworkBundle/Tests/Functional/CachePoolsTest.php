@@ -17,6 +17,16 @@ use Symfony\Component\Cache\Exception\InvalidArgumentException;
 
 class CachePoolsTest extends WebTestCase
 {
+    protected function setUp()
+    {
+        $_SERVER['SYMFONY__REDIS_HOST'] = getenv('REDIS_HOST');
+    }
+
+    protected function tearDown()
+    {
+        unset($_SERVER['SYMFONY__REDIS_HOST']);
+    }
+
     public function testCachePools()
     {
         $this->doTestCachePools(array(), FilesystemAdapter::class);
@@ -30,7 +40,7 @@ class CachePoolsTest extends WebTestCase
         try {
             $this->doTestCachePools(array('root_config' => 'redis_config.yml', 'environment' => 'redis_cache'), RedisAdapter::class);
         } catch (\PHPUnit_Framework_Error_Warning $e) {
-            if (0 !== strpos($e->getMessage(), 'unable to connect to 127.0.0.1')) {
+            if (0 !== strpos($e->getMessage(), 'unable to connect to')) {
                 throw $e;
             }
             $this->markTestSkipped($e->getMessage());
@@ -50,7 +60,7 @@ class CachePoolsTest extends WebTestCase
         try {
             $this->doTestCachePools(array('root_config' => 'redis_custom_config.yml', 'environment' => 'custom_redis_cache'), RedisAdapter::class);
         } catch (\PHPUnit_Framework_Error_Warning $e) {
-            if (0 !== strpos($e->getMessage(), 'unable to connect to 127.0.0.1')) {
+            if (0 !== strpos($e->getMessage(), 'unable to connect to')) {
                 throw $e;
             }
             $this->markTestSkipped($e->getMessage());
@@ -62,22 +72,28 @@ class CachePoolsTest extends WebTestCase
         static::bootKernel($options);
         $container = static::$kernel->getContainer();
 
-        $pool = $container->get('cache.test');
-        $this->assertInstanceOf($adapterClass, $pool);
+        $pool1 = $container->get('cache.pool1');
+        $this->assertInstanceOf($adapterClass, $pool1);
 
         $key = 'foobar';
-        $pool->deleteItem($key);
-        $item = $pool->getItem($key);
+        $pool1->deleteItem($key);
+        $item = $pool1->getItem($key);
         $this->assertFalse($item->isHit());
 
         $item->set('baz');
-        $pool->save($item);
-        $item = $pool->getItem($key);
+        $pool1->save($item);
+        $item = $pool1->getItem($key);
         $this->assertTrue($item->isHit());
 
+        $pool2 = $container->get('cache.pool2');
+        $pool2->save($item);
+
         $container->get('cache_clearer')->clear($container->getParameter('kernel.cache_dir'));
-        $item = $pool->getItem($key);
+        $item = $pool1->getItem($key);
         $this->assertFalse($item->isHit());
+
+        $item = $pool2->getItem($key);
+        $this->assertTrue($item->isHit());
     }
 
     protected static function createKernel(array $options = array())

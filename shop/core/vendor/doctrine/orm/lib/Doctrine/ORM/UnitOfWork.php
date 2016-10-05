@@ -2407,17 +2407,8 @@ class UnitOfWork implements PropertyChangedListener
                 $this->commitOrderCalculator->clear();
             }
         } else {
-            $visited = array();
-
-            foreach ($this->identityMap as $className => $entities) {
-                if ($className !== $entityName) {
-                    continue;
-                }
-
-                foreach ($entities as $entity) {
-                    $this->doDetach($entity, $visited, false);
-                }
-            }
+            $this->clearIdentityMapForEntityName($entityName);
+            $this->clearEntityInsertionsForEntityName($entityName);
         }
 
         if ($this->evm->hasListeners(Events::onClear)) {
@@ -3431,8 +3422,6 @@ class UnitOfWork implements PropertyChangedListener
                         );
                         $managedCol->setOwner($managedCopy, $assoc2);
                         $prop->setValue($managedCopy, $managedCol);
-
-                        $this->originalEntityData[spl_object_hash($entity)][$name] = $managedCol;
                     }
 
                     if ($assoc2['isCascadeMerge']) {
@@ -3470,5 +3459,33 @@ class UnitOfWork implements PropertyChangedListener
     public function hydrationComplete()
     {
         $this->hydrationCompleteHandler->hydrationComplete();
+    }
+
+    /**
+     * @param string $entityName
+     */
+    private function clearIdentityMapForEntityName($entityName)
+    {
+        if (! isset($this->identityMap[$entityName])) {
+            return;
+        }
+
+        $visited = [];
+
+        foreach ($this->identityMap[$entityName] as $entity) {
+            $this->doDetach($entity, $visited, false);
+        }
+    }
+
+    /**
+     * @param string $entityName
+     */
+    private function clearEntityInsertionsForEntityName($entityName)
+    {
+        foreach ($this->entityInsertions as $hash => $entity) {
+            if (get_class($entity) === $entityName) {
+                unset($this->entityInsertions[$hash]);
+            }
+        }
     }
 }

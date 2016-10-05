@@ -225,7 +225,7 @@ class InlineTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getReservedIndicators
-     * @expectedException Symfony\Component\Yaml\Exception\ParseException
+     * @expectedException \Symfony\Component\Yaml\Exception\ParseException
      * @expectedExceptionMessage cannot start a plain scalar; you need to quote the scalar.
      */
     public function testParseUnquotedScalarStartingWithReservedIndicator($indicator)
@@ -240,7 +240,7 @@ class InlineTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getScalarIndicators
-     * @expectedException Symfony\Component\Yaml\Exception\ParseException
+     * @expectedException \Symfony\Component\Yaml\Exception\ParseException
      * @expectedExceptionMessage cannot start a plain scalar; you need to quote the scalar.
      */
     public function testParseUnquotedScalarStartingWithScalarIndicator($indicator)
@@ -260,7 +260,7 @@ class InlineTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseUnquotedScalarStartingWithPercentCharacter()
     {
-        ErrorAssert::assertDeprecationsAreTriggered('Not quoting a scalar starting with the "%" indicator character is deprecated since Symfony 3.1 and will throw a ParseException in 4.0.', function () {
+        ErrorAssert::assertDeprecationsAreTriggered('Not quoting the scalar "%foo " starting with the "%" indicator character is deprecated since Symfony 3.1 and will throw a ParseException in 4.0.', function () {
             Inline::parse('{ foo: %foo }');
         });
     }

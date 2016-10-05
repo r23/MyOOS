@@ -162,9 +162,9 @@ class ScriptHandler
         $webDir = $options['symfony-web-dir'];
 
         $symlink = '';
-        if ($options['symfony-assets-install'] == 'symlink') {
+        if ('symlink' == $options['symfony-assets-install']) {
             $symlink = '--symlink ';
-        } elseif ($options['symfony-assets-install'] == 'relative') {
+        } elseif ('relative' == $options['symfony-assets-install']) {
             $symlink = '--symlink --relative ';
         }
 
@@ -216,11 +216,9 @@ class ScriptHandler
         // if the user has already removed the config.php file, do nothing
         // as the file must be removed for production use
         if ($fs->exists($webDir.'/config.php')) {
-            if (!$newDirectoryStructure) {
-                $fs->copy(__DIR__.'/../Resources/skeleton/web/config.php', $webDir.'/config.php', true);
-            } else {
-                $fs->dumpFile($webDir.'/config.php', str_replace('/../app/SymfonyRequirements.php', '/'.$fs->makePathRelative($varDir, $webDir).'SymfonyRequirements.php', file_get_contents(__DIR__.'/../Resources/skeleton/web/config.php')));
-            }
+            $requiredDir = $newDirectoryStructure ? $varDir : $appDir;
+
+            $fs->dumpFile($webDir.'/config.php', str_replace('/../app/SymfonyRequirements.php', '/'.$fs->makePathRelative($requiredDir, $webDir).'SymfonyRequirements.php', file_get_contents(__DIR__.'/../Resources/skeleton/web/config.php')));
         }
     }
 
@@ -254,32 +252,17 @@ class ScriptHandler
             'Symfony\\Component\\HttpFoundation\\FileBag',
             'Symfony\\Component\\HttpFoundation\\ServerBag',
             'Symfony\\Component\\HttpFoundation\\Request',
-            'Symfony\\Component\\HttpFoundation\\Response',
-            'Symfony\\Component\\HttpFoundation\\ResponseHeaderBag',
 
-            'Symfony\\Component\\DependencyInjection\\ContainerAwareInterface',
-            'Symfony\\Component\\DependencyInjection\\Container',
             'Symfony\\Component\\HttpKernel\\Kernel',
             'Symfony\\Component\\ClassLoader\\ClassCollectionLoader',
             'Symfony\\Component\\ClassLoader\\ApcClassLoader',
-            'Symfony\\Component\\HttpKernel\\Bundle\\Bundle',
-            'Symfony\\Component\\Config\\ConfigCache',
-            // cannot be included as commands are discovered based on the path to this class via Reflection
-            //'Symfony\\Bundle\\FrameworkBundle\\FrameworkBundle',
         );
 
-        // introspect the autoloader to get the right file
-        // we cannot use class_exist() here as it would load the class
-        // which won't be included into the cache then.
-        // we know that composer autoloader is first (see bin/build_bootstrap.php)
-        $autoloaders = spl_autoload_functions();
-        if (is_array($autoloaders[0]) && method_exists($autoloaders[0][0], 'findFile') && $autoloaders[0][0]->findFile('Symfony\\Component\\HttpKernel\\DependencyInjection\\ContainerAwareHttpKernel')) {
-            $classes[] = 'Symfony\\Component\\HttpKernel\\DependencyInjection\\ContainerAwareHttpKernel';
+        if (method_exists('Symfony\Component\ClassLoader\ClassCollectionLoader', 'inline')) {
+            ClassCollectionLoader::inline($classes, $file, array());
         } else {
-            $classes[] = 'Symfony\\Component\\HttpKernel\\HttpKernel';
+            ClassCollectionLoader::load($classes, dirname($file), basename($file, '.php.cache'), false, false, '.php.cache');
         }
-
-        ClassCollectionLoader::load($classes, dirname($file), basename($file, '.php.cache'), false, false, '.php.cache');
 
         $bootstrapContent = substr(file_get_contents($file), 5);
 
@@ -393,6 +376,7 @@ EOF;
         $options = array_merge(static::$options, $event->getComposer()->getPackage()->getExtra());
 
         $options['symfony-assets-install'] = getenv('SYMFONY_ASSETS_INSTALL') ?: $options['symfony-assets-install'];
+        $options['symfony-cache-warmup'] = getenv('SYMFONY_CACHE_WARMUP') ?: $options['symfony-cache-warmup'];
 
         $options['process-timeout'] = $event->getComposer()->getConfig()->get('process-timeout');
 
@@ -428,8 +412,8 @@ EOF;
     /**
      * Returns a relative path to the directory that contains the `console` command.
      *
-     * @param Event $event      The command event.
-     * @param string       $actionName The name of the action
+     * @param Event  $event      The command event
+     * @param string $actionName The name of the action
      *
      * @return string|null The path to the console directory, null if not found.
      */

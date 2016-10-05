@@ -285,6 +285,8 @@ class Filesystem
      *
      * @param string $filename Path to the file
      *
+     * @return bool
+     *
      * @throws IOException When windows path is longer than 258 characters
      */
     private function isReadable($filename)
@@ -554,8 +556,7 @@ class Filesystem
             throw new IOException(sprintf('Failed to write file "%s".', $filename), 0, null, $filename);
         }
 
-        // Ignore for filesystems that do not support umask
-        @chmod($tmpFile, 0666);
+        @chmod($tmpFile, 0666 & ~umask());
         $this->rename($tmpFile, $filename, true);
     }
 
