@@ -37,9 +37,11 @@ class AMP_Blacklist_Sanitizer extends AMP_Base_Sanitizer {
 		// Some nodes may contain valid content but are themselves invalid.
 		// Remove the node but preserve the children.
  		if ( 'font' === $node_name ) {
-			$this->replace_node_with_children( $node );
+			$this->replace_node_with_children( $node, $bad_attributes, $bad_protocols );
+			return;
 		} elseif ( 'a' === $node_name && false === $this->validate_a_node( $node ) ) {
-			$this->replace_node_with_children( $node );
+			$this->replace_node_with_children( $node, $bad_attributes, $bad_protocols );
+			return;
 		}
 
 		if ( $node->hasAttributes() ) {
@@ -144,21 +146,28 @@ class AMP_Blacklist_Sanitizer extends AMP_Base_Sanitizer {
 		}
 
 		$valid_protocols = array( 'http', 'https', 'mailto', 'sms', 'tel', 'viber', 'whatsapp' );
+		$special_protocols = array( 'tel', 'sms' ); // these ones don't valid with `filter_var+FILTER_VALIDATE_URL`
 		$protocol = strtok( $href, ':' );
+
 		if ( false === filter_var( $href, FILTER_VALIDATE_URL )
-			|| ! in_array( $protocol, $valid_protocols ) ) {
+			&& ! in_array( $protocol, $special_protocols ) ) {
+			return false;
+		}
+
+		if ( ! in_array( $protocol, $valid_protocols ) ) {
 			return false;
 		}
 
 		return true;
 	}
 
-	private function replace_node_with_children( $node ) {
+	private function replace_node_with_children( $node, $bad_attributes, $bad_protocols ) {
 		// If the node has children and also has a parent node,
 		// clone and re-add all the children just before current node.
 		if ( $node->hasChildNodes() && $node->parentNode ) {
 			foreach ( $node->childNodes as $child_node ) {
 				$new_child = $child_node->cloneNode( true );
+				$this->strip_attributes_recursive( $new_child, $bad_attributes, $bad_protocols );
 				$node->parentNode->insertBefore( $new_child, $node );
 			}
 		}
@@ -208,6 +217,9 @@ class AMP_Blacklist_Sanitizer extends AMP_Base_Sanitizer {
 			'embed',
 			'embedvideo',
 
+			// Other weird ones
+			'comments-count',
+
 			// These are converted into amp-* versions
 			//'img',
 			//'video',
@@ -220,6 +232,9 @@ class AMP_Blacklist_Sanitizer extends AMP_Base_Sanitizer {
 		return $this->merge_defaults_with_args( 'add_blacklisted_attributes', array(
 			'style',
 			'size',
+			'clear',
+			'align',
+			'valign',
 		) );
 	}
 }

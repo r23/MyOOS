@@ -5,7 +5,7 @@
  * Plugin URI: https://github.com/automattic/amp-wp
  * Author: Automattic
  * Author URI: https://automattic.com
- * Version: 0.3.3
+ * Version: 0.4
  * Text Domain: amp
  * Domain Path: /languages/
  * License: GPLv2 or later
@@ -13,17 +13,33 @@
 
 define( 'AMP__FILE__', __FILE__ );
 define( 'AMP__DIR__', dirname( __FILE__ ) );
+define( 'AMP__VERSION', '0.4' );
 
+require_once( AMP__DIR__ . '/back-compat/back-compat.php' );
 require_once( AMP__DIR__ . '/includes/amp-helper-functions.php' );
+require_once( AMP__DIR__ . '/includes/admin/functions.php' );
+require_once( AMP__DIR__ . '/includes/settings/class-amp-customizer-settings.php' );
+require_once( AMP__DIR__ . '/includes/settings/class-amp-customizer-design-settings.php' );
 
 register_activation_hook( __FILE__, 'amp_activate' );
 function amp_activate() {
-	amp_init();
+	if ( ! did_action( 'amp_init' ) ) {
+		amp_init();
+	}
 	flush_rewrite_rules();
 }
 
 register_deactivation_hook( __FILE__, 'amp_deactivate' );
 function amp_deactivate() {
+	// We need to manually remove the amp endpoint
+	global $wp_rewrite;
+	foreach ( $wp_rewrite->endpoints as $index => $endpoint ) {
+		if ( AMP_QUERY_VAR === $endpoint[1] ) {
+			unset( $wp_rewrite->endpoints[ $index ] );
+			break;
+		}
+	}
+
 	flush_rewrite_rules();
 }
 
@@ -114,3 +130,29 @@ function amp_render() {
 	$template->load();
 	exit;
 }
+
+/**
+ * Bootstraps the AMP customizer.
+ *
+ * If the AMP customizer is enabled, initially drop the core widgets and menus panels. If the current
+ * preview page isn't flagged as an AMP template, the core panels will be re-added and the AMP panel
+ * hidden.
+ *
+ * @internal This callback must be hooked before priority 10 on 'plugins_loaded' to properly unhook
+ *           the core panels.
+ *
+ * @since 0.4
+ */
+function _amp_bootstrap_customizer() {
+	/**
+	 * Filter whether to enable the AMP template customizer functionality.
+	 *
+	 * @param bool $enable Whether to enable the AMP customizer. Default true.
+	 */
+	$amp_customizer_enabled = apply_filters( 'amp_customizer_is_enabled', true );
+
+	if ( true === $amp_customizer_enabled ) {
+		amp_init_customizer();
+	}
+}
+add_action( 'plugins_loaded', '_amp_bootstrap_customizer', 9 );
