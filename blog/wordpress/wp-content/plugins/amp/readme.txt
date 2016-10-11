@@ -3,7 +3,7 @@ Contributors: batmoo, joen, automattic, potatomaster
 Tags: amp, mobile
 Requires at least: 4.4
 Tested up to: 4.6
-Stable tag: 0.4
+Stable tag: 0.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,9 +53,16 @@ A wise green Yoda once said, "Patience you must have, my young padawan." We're w
 
 == Changelog ==
 
+= 0.4.1 (2016-10-10 =
+
+- Fix: Don't fire the_content for featured image output
+- Fix: Don't show comment link when disabled and no comments on post (h/t neotrope)
+- Fix: strip `!important` from inline styles (h/t compointdesigner and enriccardonagmailcom)
+
 = 0.4 (2016-10-06) =
 
 - New template: spiffy, shiny, and has the fresh theme smell (props allancole and the Automattic Theme Team).
+- *Warning*: The template update has potential breaking changes. Please see https://wordpress.org/support/topic/v0-4-whats-new-and-possible-breaking-changes/
 - AMP Customizer: Pick your colours and make the template your own (props DrewAPicture and 10up)
 - Fix: support for inline styles (props coreymckrill).
 - Fix: no more fatal errors when tags not supported by post type (props david-binda)

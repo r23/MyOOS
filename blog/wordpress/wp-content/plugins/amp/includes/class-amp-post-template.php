@@ -196,8 +196,16 @@ class AMP_Post_Template {
 			return;
 		}
 
+		$comments_open = comments_open( $this->ID );
+
+		// Don't show link if close and no comments 
+		if ( ! $comments_open
+			&& ! $this->post->comment_count ) {
+			return;
+		}
+
 		$comments_link_url = get_comments_link( $this->ID );
-		$comments_link_text = comments_open( $this->ID )
+		$comments_link_text = $comments_open
 			? __( 'Leave a Comment', 'amp' )
 			: __( 'View Comments', 'amp' );
 
@@ -259,21 +267,16 @@ class AMP_Post_Template {
 
 		$featured_image = get_post( $featured_id );
 
-		remove_filter( 'the_content', 'wpautop' ); // We don't want our image wrapped in a <p>
-		$featured_amp_content = new AMP_Content(
+		list( $sanitized_html ) = AMP_Content_Sanitizer::sanitize(
 			$featured_html,
-			array(),
+			array( 'AMP_Img_Sanitizer' => array() ),
 			array(
-				 'AMP_Img_Sanitizer' => array(),
-			),
-			array(
-				'content_max_width' => $this->get( 'content_max_width' ),
+				'content_max_width' => $this->get( 'content_max_width' )
 			)
 		);
-		add_filter( 'the_content', 'wpautop' );
 
 		$this->add_data_by_key( 'featured_image', array(
-			'amp_html' => $featured_amp_content->get_amp_content(),
+			'amp_html' => $sanitized_html,
 			'caption' => $featured_image->post_excerpt,
 		) );
 	}
