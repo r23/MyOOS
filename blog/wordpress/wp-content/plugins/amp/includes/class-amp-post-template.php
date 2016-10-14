@@ -50,6 +50,8 @@ class AMP_Post_Template {
 			'canonical_url' => get_permalink( $post_id ),
 			'home_url' => home_url(),
 			'blog_name' => get_bloginfo( 'name' ),
+
+			'html_tag_attributes' => array(),
 			'body_class' => '',
 
 			'site_icon_url' => apply_filters( 'amp_site_icon_url', function_exists( 'get_site_icon_url' ) ? get_site_icon_url( self::SITE_ICON_SIZE ) : '' ),
@@ -84,6 +86,7 @@ class AMP_Post_Template {
 		$this->build_post_content();
 		$this->build_post_data();
 		$this->build_customizer_settings();
+		$this->build_html_tag_attributes();
 
 		$this->data = apply_filters( 'amp_post_template_data', $this->data, $this->post );
 	}
@@ -198,7 +201,7 @@ class AMP_Post_Template {
 
 		$comments_open = comments_open( $this->ID );
 
-		// Don't show link if close and no comments 
+		// Don't show link if close and no comments
 		if ( ! $comments_open
 			&& ! $this->post->comment_count ) {
 			return;
@@ -267,7 +270,7 @@ class AMP_Post_Template {
 
 		$featured_image = get_post( $featured_id );
 
-		list( $sanitized_html ) = AMP_Content_Sanitizer::sanitize(
+		list( $sanitized_html, $featured_scripts, $featured_styles ) = AMP_Content_Sanitizer::sanitize(
 			$featured_html,
 			array( 'AMP_Img_Sanitizer' => array() ),
 			array(
@@ -279,6 +282,14 @@ class AMP_Post_Template {
 			'amp_html' => $sanitized_html,
 			'caption' => $featured_image->post_excerpt,
 		) );
+
+		if ( $featured_scripts ) {
+			$this->merge_data_for_key( 'amp_component_scripts', $featured_scripts );
+		}
+
+		if ( $featured_styles ) {
+			$this->add_data_by_key( 'post_amp_styles', $featured_styles );
+		}
 	}
 
 	private function build_customizer_settings() {
@@ -345,6 +356,21 @@ class AMP_Post_Template {
 		}
 
 		return $post_image_meta;
+	}
+
+	private function build_html_tag_attributes() {
+		$attributes = array();
+
+		if ( function_exists( 'is_rtl' ) && is_rtl() ) {
+			$attributes['dir'] = 'rtl';
+		}
+
+		$lang = get_bloginfo( 'language' );
+		if ( $lang ) {
+			$attributes['lang'] = $lang;
+		}
+
+		$this->add_data_by_key( 'html_tag_attributes', $attributes );
 	}
 
 	private function verify_and_include( $file, $template_type ) {
