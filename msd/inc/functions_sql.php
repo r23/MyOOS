@@ -1082,7 +1082,9 @@ function build_where_from_record($data)
 	{
 		$val=str_replace('<span class="treffer">','',$val);
 		$val=str_replace('</span>','',$val);
-		$ret.='`' . $key . '`="' . addslashes($val) . '" AND ';
+		if (!empty($val)){
+			$ret.='`' . $key . '`="' . addslashes($val) . '" AND ';
+		}
 	}
 	$ret=substr($ret,0,-5);
 	return $ret;
