@@ -119,19 +119,29 @@ function user_update_name($old_name, $new_name)
 	global $config, $db, $cache, $phpbb_dispatcher;
 
 	$update_ary = array(
-		FORUMS_TABLE			=> array('forum_last_poster_name'),
-		MODERATOR_CACHE_TABLE	=> array('username'),
-		POSTS_TABLE				=> array('post_username'),
-		TOPICS_TABLE			=> array('topic_first_poster_name', 'topic_last_poster_name'),
+		FORUMS_TABLE			=> array(
+			'forum_last_poster_id'	=> 'forum_last_poster_name',
+		),
+		MODERATOR_CACHE_TABLE	=> array(
+			'user_id'	=> 'username',
+		),
+		POSTS_TABLE				=> array(
+			'poster_id'	=> 'post_username',
+		),
+		TOPICS_TABLE			=> array(
+			'topic_poster'			=> 'topic_first_poster_name',
+			'topic_last_poster_id'	=> 'topic_last_poster_name',
+		),
 	);
 
 	foreach ($update_ary as $table => $field_ary)
 	{
-		foreach ($field_ary as $field)
+		foreach ($field_ary as $id_field => $name_field)
 		{
 			$sql = "UPDATE $table
-				SET $field = '" . $db->sql_escape($new_name) . "'
-				WHERE $field = '" . $db->sql_escape($old_name) . "'";
+				SET $name_field = '" . $db->sql_escape($new_name) . "'
+				WHERE $name_field = '" . $db->sql_escape($old_name) . "'
+					AND $id_field <> " . ANONYMOUS;
 			$db->sql_query($sql);
 		}
 	}
@@ -3076,7 +3086,7 @@ function remove_default_rank($group_id, $user_ids)
 */
 function group_user_attributes($action, $group_id, $user_id_ary = false, $username_ary = false, $group_name = false, $group_attributes = false)
 {
-	global $db, $auth, $phpbb_root_path, $phpEx, $config, $phpbb_container;
+	global $db, $auth, $phpbb_root_path, $phpEx, $config, $phpbb_container, $phpbb_dispatcher;
 
 	// We need both username and user_id info
 	$result = user_get_id_name($user_id_ary, $username_ary);
@@ -3206,6 +3216,28 @@ function group_user_attributes($action, $group_id, $user_id_ary = false, $userna
 			$log = 'LOG_GROUP_DEFAULTS';
 		break;
 	}
+
+	/**
+	* Event to perform additional actions on setting user group attributes
+	*
+	* @event core.user_set_group_attributes
+	* @var	int		group_id			ID of the group
+	* @var	string	group_name			Name of the group
+	* @var	array	user_id_ary			IDs of the users to set group attributes
+	* @var	array	username_ary		Names of the users to set group attributes
+	* @var	array	group_attributes	Group attributes which were changed
+	* @var	string	action				Action to perform over the group members
+	* @since 3.1.10-RC1
+	*/
+	$vars = array(
+		'group_id',
+		'group_name',
+		'user_id_ary',
+		'username_ary',
+		'group_attributes',
+		'action',
+	);
+	extract($phpbb_dispatcher->trigger_event('core.user_set_group_attributes', compact($vars)));
 
 	// Clear permissions cache of relevant users
 	$auth->acl_clear_prefetch($user_id_ary);

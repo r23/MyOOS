@@ -1,6 +1,6 @@
-Deutsche Sprachdateien für phpBB 3.1.9
---------------------------------------
-Stand: 2016-04-16
+Deutsche Sprachdateien für phpBB 3.1.10
+---------------------------------------
+Stand: 2016-09-26
 
 Deutsche Übersetzung durch die Übersetzer-Gruppe von phpBB.de
 Siehe docs/AUTHORS für die aktuellen und die ehemaligen Mitglieder

@@ -573,6 +573,7 @@ $lang = array_merge($lang, array(
 	'SMTP_PORT'						=> 'SMTP-Server-Port',
 	'SMTP_PORT_EXPLAIN'				=> 'Ändere diese Einstellung nur, wenn du weißt, dass dein SMTP-Server einen anderen Port nutzt.',
 	'SMTP_SERVER'					=> 'SMTP-Server-Adresse',
+	'SMTP_SERVER_EXPLAIN'			=> 'Beachte, dass du das Protokoll angeben musst, das dein Server verwendet. Wird SSL verwendet, musst du „ssl://dein.mailserver.tld“ angeben.',
 	'SMTP_SETTINGS'					=> 'SMTP-Einstellungen',
 	'SMTP_USERNAME'					=> 'SMTP-Benutzername',
 	'SMTP_USERNAME_EXPLAIN'			=> 'Gib nur einen Benutzernamen ein, wenn dein SMTP-Server dies erfordert.',

@@ -2,7 +2,7 @@ Subject: Benachrichtigung über neue Antwort — „{FORUM_NAME}“
 
 Guten Tag {USERNAME},
 
-Sie erhalten diese Benachrichtigung, weil Sie das Forum „{FORUM_NAME}“ auf „{SITENAME}“ abonniert haben. Seit Ihrem letzten Besuch wurde in diesem Forum eine neue Antwort auf das Thema „{TOPIC_TITLE}“<!-- IF AUTHOR_NAME !== '' --> von {AUTHOR_NAME}<!-- ENDIF --> erstellt. Sie erhalten keine weitere Benachrichtigung, bis Sie das Thema besucht haben.
+Sie erhalten diese Benachrichtigung, weil Sie das Forum „{FORUM_NAME}“ auf „{SITENAME}“ abonniert haben. Seit Ihrem letzten Besuch wurde in diesem Forum eine neue Antwort auf das Thema „{TOPIC_TITLE}“<!-- IF AUTHOR_NAME != '' --> von {AUTHOR_NAME}<!-- ENDIF --> erstellt. Sie erhalten keine weitere Benachrichtigung, bis Sie das Thema besucht haben.
 
 Sie können sich den ersten noch nicht gelesenen Beitrag ansehen, wenn Sie folgenden Link aufrufen:
 {U_NEWEST_POST}

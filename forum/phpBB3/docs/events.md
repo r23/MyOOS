@@ -343,6 +343,13 @@ acp_posting_buttons_before
 * Since: 3.1.0-b4
 * Purpose: Add content before BBCode posting buttons in the ACP
 
+acp_posting_buttons_custom_tags_before
+===
+* Locations:
+    + adm/style/acp_posting_buttons.html
+* Since: 3.1.10-RC1
+* Purpose: Add content before the custom BBCodes in the ACP
+
 acp_profile_contact_before
 ===
 * Locations:
@@ -843,6 +850,14 @@ mcp_front_latest_unapproved_before
 * Since: 3.1.3-RC1
 * Purpose: Add content before latest unapproved posts list
 
+mcp_move_before
+===
+* Locations:
+    + styles/prosilver/template/mcp_move.html
+    + styles/subsilver2/template/mcp_move.html
+* Since: 3.1.10-RC1
+* Purpose: Add content before move topic/post form
+
 mcp_post_additional_options
 ===
 * Locations:
@@ -866,6 +881,22 @@ mcp_topic_options_before
     + styles/subsilver2/template/mcp_topic.html
 * Since: 3.1.6-RC1
 * Purpose: Add some options (field, checkbox, ...) before the subject field when split a subject
+
+mcp_topic_postrow_post_details_after
+===
+* Locations:
+    + styles/prosilver/template/mcp_topic.html
+    + styles/subsilver2/template/mcp_topic.html
+* Since: 3.1.10-RC1
+* Purpose: Add content after post details in topic moderation
+
+mcp_topic_postrow_post_details_before
+===
+* Locations:
+    + styles/prosilver/template/mcp_topic.html
+    + styles/subsilver2/template/mcp_topic.html
+* Since: 3.1.10-RC1
+* Purpose: Add content before post details in topic moderation
 
 mcp_topic_topic_title_after
 ===
@@ -950,6 +981,14 @@ memberlist_body_username_prepend
 * Since: 3.1.0-a1
 * Purpose: Add information before every username in the memberlist. Works in
 all display modes (leader, group and normal memberlist).
+
+memberlist_email_before
+===
+* Locations:
+    + styles/prosilver/template/memberlist_email.html
+    + styles/subsilver2/template/memberlist_email.html
+* Since: 3.1.10-RC1
+* Purpose: Allow adding customizations before the memberlist_email form.
 
 memberlist_search_fields_after
 ===
@@ -1336,6 +1375,20 @@ overall_header_head_append
 * Since: 3.1.0-a1
 * Purpose: Add asset calls directly before the `</head>` tag
 
+overall_header_headerbar_after
+===
+* Locations:
+    + styles/prosilver/template/overall_header.html
+* Since: 3.1.10-RC1
+* Purpose: Add content at the end of the headerbar
+
+overall_header_headerbar_before
+===
+* Locations:
+    + styles/prosilver/template/overall_header.html
+* Since: 3.1.10-RC1
+* Purpose: Add content at the beginning of the headerbar
+
 overall_header_navbar_before
 ===
 * Locations:
@@ -1487,6 +1540,14 @@ posting_editor_subject_after
 * Since: 3.1.0-a2
 * Purpose: Add field (e.g. textbox) to the posting screen after the subject
 
+posting_editor_subject_append
+===
+* Locations:
+    + styles/prosilver/template/posting_editor.html
+    + styles/subsilver2/template/posting_body.html
+* Since: 3.1.10-RC1
+* Purpose: Add field, text, etc. to the posting after the subject text box
+
 posting_editor_subject_before
 ===
 * Locations:
@@ -1494,6 +1555,14 @@ posting_editor_subject_before
     + styles/subsilver2/template/posting_body.html
 * Since: 3.1.0-a2
 * Purpose: Add field (e.g. textbox) to the posting screen before the subject
+
+posting_editor_subject_prepend
+===
+* Locations:
+    + styles/prosilver/template/posting_editor.html
+    + styles/subsilver2/template/posting_body.html
+* Since: 3.1.10-RC1
+* Purpose: Add field, text, etc. to the posting before the subject text box
 
 posting_editor_submit_buttons
 ===
@@ -1555,6 +1624,22 @@ posting_preview_poll_after
     + styles/subsilver2/template/posting_preview.html
 * Since: 3.1.7-RC1
 * Purpose: Add content after the poll preview block
+
+posting_topic_review_row_post_details_after
+===
+* Locations:
+    + styles/prosilver/template/posting_topic_review.html
+    + styles/subsilver2/template/posting_topic_review.html
+* Since: 3.1.10-RC1
+* Purpose: Add content after post details in topic review
+
+posting_topic_review_row_post_details_before
+===
+* Locations:
+    + styles/prosilver/template/posting_topic_review.html
+    + styles/subsilver2/template/posting_topic_review.html
+* Since: 3.1.10-RC1
+* Purpose: Add content before post details in topic review
 
 posting_topic_title_after
 ===
@@ -1852,6 +1937,18 @@ topiclist_row_append
 * Since: 3.1.0-a1
 * Changed: 3.1.6-RC1 Added event to mcp_forum.html
 * Purpose: Add content into topic rows (inside the elements containing topic titles)
+
+topiclist_row_topic_title_after
+===
+* Locations:
+    + styles/prosilver/template/search_results.html
+    + styles/prosilver/template/viewforum_body.html
+    + styles/prosilver/template/mcp_forum.html
+    + styles/subsilver2/template/search_results.html
+    + styles/subsilver2/template/viewforum_body.html
+    + styles/subsilver2/template/mcp_forum.html
+* Since: 3.1.10-RC1
+* Purpose: Add content into topic rows (after the elements containing the topic titles)
 
 ucp_agreement_terms_after
 ===
@@ -2226,6 +2323,14 @@ viewforum_body_topic_row_prepend
     + styles/subsilver2/template/viewforum_body.html
 * Since: 3.1.7-RC1
 * Purpose: Add content at the end of the topic list item.
+
+viewforum_body_topicrow_row_before
+===
+* Locations:
+    + styles/prosilver/template/viewforum_body.html
+    + styles/subsilver2/template/viewforum_body.html
+* Since: 3.1.10-RC1
+* Purpose: Add content before list of topics.
 
 viewforum_buttons_bottom_before
 ===

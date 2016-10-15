@@ -166,7 +166,7 @@ function send_file_to_browser($attachment, $upload_dir, $category)
 	}
 
 	// Make sure the database record for the filesize is correct
-	if ($size > 0 && $size != $attachment['filesize'])
+	if ($size > 0 && $size != $attachment['filesize'] && strpos($attachment['physical_filename'], 'thumb_') === false)
 	{
 		// Update database record
 		$sql = 'UPDATE ' . ATTACHMENTS_TABLE . '
@@ -284,7 +284,7 @@ function header_filename($file)
 
 	// There be dragons here.
 	// Not many follows the RFC...
-	if (strpos($user_agent, 'MSIE') !== false || strpos($user_agent, 'Safari') !== false || strpos($user_agent, 'Konqueror') !== false)
+	if (strpos($user_agent, 'MSIE') !== false || strpos($user_agent, 'Konqueror') !== false)
 	{
 		return "filename=" . rawurlencode($file);
 	}

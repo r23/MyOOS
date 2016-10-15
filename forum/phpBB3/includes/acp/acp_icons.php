@@ -40,6 +40,10 @@ class acp_icons
 		$action = (isset($_POST['edit'])) ? 'edit' : $action;
 		$action = (isset($_POST['import'])) ? 'import' : $action;
 		$icon_id = request_var('id', 0);
+		$submit = $request->is_set_post('submit', false);
+
+		$form_key = 'acp_icons';
+		add_form_key($form_key);
 
 		$mode = ($mode == 'smilies') ? 'smilies' : 'icons';
 
@@ -325,6 +329,11 @@ class acp_icons
 			case 'create':
 			case 'modify':
 
+				if (!check_form_key($form_key))
+				{
+					trigger_error($user->lang['FORM_INVALID'] . adm_back_link($this->u_action), E_USER_WARNING);
+				}
+
 				// Get items to create/modify
 				$images = (isset($_POST['image'])) ? array_keys(request_var('image', array('' => 0))) : array();
 
@@ -513,6 +522,11 @@ class acp_icons
 				{
 					$order = 0;
 
+					if (!check_form_key($form_key))
+					{
+						trigger_error($user->lang['FORM_INVALID'] . adm_back_link($this->u_action), E_USER_WARNING);
+					}
+
 					if (!($pak_ary = @file($phpbb_root_path . $img_path . '/' . $pak)))
 					{
 						trigger_error($user->lang['PAK_FILE_NOT_READABLE'] . adm_back_link($this->u_action), E_USER_WARNING);
@@ -698,7 +712,7 @@ class acp_icons
 
 				$template->assign_vars(array(
 					'MESSAGE_TITLE'		=> $user->lang['EXPORT_' . $lang],
-					'MESSAGE_TEXT'		=> sprintf($user->lang['EXPORT_' . $lang . '_EXPLAIN'], '<a href="' . $this->u_action . '&amp;action=send">', '</a>'),
+					'MESSAGE_TEXT'		=> sprintf($user->lang['EXPORT_' . $lang . '_EXPLAIN'], '<a href="' . $this->u_action . '&amp;action=send&amp;hash=' . generate_link_hash('acp_icons') . '">', '</a>'),
 
 					'S_USER_NOTICE'		=> true,
 					)
@@ -709,6 +723,11 @@ class acp_icons
 			break;
 
 			case 'send':
+
+				if (!check_link_hash($request->variable('hash', ''), 'acp_icons'))
+				{
+					trigger_error($user->lang['FORM_INVALID'] . adm_back_link($this->u_action), E_USER_WARNING);
+				}
 
 				$sql = "SELECT *
 					FROM $table
@@ -810,6 +829,11 @@ class acp_icons
 
 			case 'move_up':
 			case 'move_down':
+
+				if (!check_link_hash($request->variable('hash', ''), 'acp_icons'))
+				{
+					trigger_error($user->lang['FORM_INVALID'] . adm_back_link($this->u_action), E_USER_WARNING);
+				}
 
 				// Get current order id...
 				$sql = "SELECT {$fields}_order as current_order
@@ -928,8 +952,8 @@ class acp_icons
 				'EMOTION'		=> (isset($row['emotion'])) ? $row['emotion'] : '',
 				'U_EDIT'		=> $this->u_action . '&amp;action=edit&amp;id=' . $row[$fields . '_id'],
 				'U_DELETE'		=> $this->u_action . '&amp;action=delete&amp;id=' . $row[$fields . '_id'],
-				'U_MOVE_UP'		=> $this->u_action . '&amp;action=move_up&amp;id=' . $row[$fields . '_id'] . '&amp;start=' . $pagination_start,
-				'U_MOVE_DOWN'	=> $this->u_action . '&amp;action=move_down&amp;id=' . $row[$fields . '_id'] . '&amp;start=' . $pagination_start,
+				'U_MOVE_UP'		=> $this->u_action . '&amp;action=move_up&amp;id=' . $row[$fields . '_id'] . '&amp;start=' . $pagination_start . '&amp;hash=' . generate_link_hash('acp_icons'),
+				'U_MOVE_DOWN'	=> $this->u_action . '&amp;action=move_down&amp;id=' . $row[$fields . '_id'] . '&amp;start=' . $pagination_start . '&amp;hash=' . generate_link_hash('acp_icons'),
 			));
 
 			if (!$spacer && !$row['display_on_posting'])

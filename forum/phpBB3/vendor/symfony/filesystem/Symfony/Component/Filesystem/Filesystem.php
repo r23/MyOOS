@@ -23,17 +23,17 @@ class Filesystem
     /**
      * Copies a file.
      *
-     * This method only copies the file if the origin file is newer than the target file.
+     * If the target file is older than the origin file, it's always overwritten.
+     * If the target file is newer, it is overwritten only when the
+     * $overwriteNewerFiles option is set to true.
      *
-     * By default, if the target already exists, it is not overridden.
-     *
-     * @param string $originFile The original filename
-     * @param string $targetFile The target filename
-     * @param bool   $override   Whether to override an existing file or not
+     * @param string $originFile          The original filename
+     * @param string $targetFile          The target filename
+     * @param bool   $overwriteNewerFiles If true, target files newer than origin files are overwritten
      *
      * @throws IOException When copy fails
      */
-    public function copy($originFile, $targetFile, $override = false)
+    public function copy($originFile, $targetFile, $overwriteNewerFiles = false)
     {
         if (stream_is_local($originFile) && !is_file($originFile)) {
             throw new IOException(sprintf('Failed to copy %s because file not exists', $originFile));
@@ -42,7 +42,7 @@ class Filesystem
         $this->mkdir(dirname($targetFile));
 
         $doCopy = true;
-        if (!$override && null === parse_url($originFile, PHP_URL_HOST) && is_file($targetFile)) {
+        if (!$overwriteNewerFiles && null === parse_url($originFile, PHP_URL_HOST) && is_file($targetFile)) {
             $doCopy = filemtime($originFile) > filemtime($targetFile);
         }
 
@@ -140,24 +140,27 @@ class Filesystem
      */
     public function remove($files)
     {
-        $files = iterator_to_array($this->toIterator($files));
+        if ($files instanceof \Traversable) {
+            $files = iterator_to_array($files, false);
+        } elseif (!is_array($files)) {
+            $files = array($files);
+        }
         $files = array_reverse($files);
         foreach ($files as $file) {
-            if (@(unlink($file) || rmdir($file))) {
-                continue;
-            }
             if (is_link($file)) {
                 // See https://bugs.php.net/52176
-                $error = error_get_last();
-                throw new IOException(sprintf('Failed to remove symlink "%s": %s.', $file, $error['message']));
+                if (!@(unlink($file) || '\\' !== DIRECTORY_SEPARATOR || rmdir($file)) && file_exists($file)) {
+                    $error = error_get_last();
+                    throw new IOException(sprintf('Failed to remove symlink "%s": %s.', $file, $error['message']));
+                }
             } elseif (is_dir($file)) {
-                $this->remove(new \FilesystemIterator($file));
+                $this->remove(new \FilesystemIterator($file, \FilesystemIterator::CURRENT_AS_PATHNAME | \FilesystemIterator::SKIP_DOTS));
 
-                if (!@rmdir($file)) {
+                if (!@rmdir($file) && file_exists($file)) {
                     $error = error_get_last();
                     throw new IOException(sprintf('Failed to remove directory "%s": %s.', $file, $error['message']));
                 }
-            } elseif (file_exists($file)) {
+            } elseif (!@unlink($file) && file_exists($file)) {
                 $error = error_get_last();
                 throw new IOException(sprintf('Failed to remove file "%s": %s.', $file, $error['message']));
             }

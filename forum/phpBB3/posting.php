@@ -371,7 +371,9 @@ switch ($mode)
 *							NOTE: Should be actual language strings, NOT
 *							language keys.
 * @var	bool	is_authed	Does the user have the required permissions?
+* @var	array	post_data	All post data from database
 * @since 3.1.3-RC1
+* @changed 3.1.10-RC1 Added post_data
 */
 $vars = array(
 	'post_id',
@@ -387,6 +389,7 @@ $vars = array(
 	'mode',
 	'error',
 	'is_authed',
+	'post_data',
 );
 extract($phpbb_dispatcher->trigger_event('core.modify_posting_auth', compact($vars)));
 
@@ -1741,6 +1744,7 @@ $page_data = array(
 	'L_POST_A'					=> $page_title,
 	'L_ICON'					=> ($mode == 'reply' || $mode == 'quote' || ($mode == 'edit' && $post_id != $post_data['topic_first_post_id'])) ? $user->lang['POST_ICON'] : $user->lang['TOPIC_ICON'],
 	'L_MESSAGE_BODY_EXPLAIN'	=> $user->lang('MESSAGE_BODY_EXPLAIN', (int) $config['max_post_chars']),
+	'L_DELETE_POST_PERMANENTLY'	=> $user->lang('DELETE_POST_PERMANENTLY', 1),
 
 	'FORUM_NAME'			=> $post_data['forum_name'],
 	'FORUM_DESC'			=> ($post_data['forum_desc']) ? generate_text_for_display($post_data['forum_desc'], $post_data['forum_desc_uid'], $post_data['forum_desc_bitfield'], $post_data['forum_desc_options']) : '',

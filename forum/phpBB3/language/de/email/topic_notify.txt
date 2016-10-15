@@ -2,7 +2,7 @@ Subject: Benachrichtigung über neue Antwort — „{TOPIC_TITLE}“
 
 Hallo {USERNAME},
 
-du erhältst diese Benachrichtigung, weil du das Thema „{TOPIC_TITLE}“ auf „{SITENAME}“ abonniert hast. Seit deinem letzten Besuch wurde zu diesem Thema eine neue Antwort<!-- IF AUTHOR_NAME !== '' --> von {AUTHOR_NAME}<!-- ENDIF --> erstellt. Du erhältst keine weitere Benachrichtigung, bis du das Thema besucht hast.
+du erhältst diese Benachrichtigung, weil du das Thema „{TOPIC_TITLE}“ auf „{SITENAME}“ abonniert hast. Seit deinem letzten Besuch wurde zu diesem Thema eine neue Antwort<!-- IF AUTHOR_NAME != '' --> von {AUTHOR_NAME}<!-- ENDIF --> erstellt. Du erhältst keine weitere Benachrichtigung, bis du das Thema besucht hast.
 
 Du kannst dir die neuesten Antworten seit deinem letzten Besuch ansehen, wenn du folgenden Link aufrufst:
 {U_NEWEST_POST}
