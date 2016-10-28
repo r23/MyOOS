@@ -12,7 +12,7 @@ class WP_Piwik {
 	 *
 	 * @var Runtime environment variables
 	 */
-	private static $revisionId = 2016090101, $version = '1.0.11', $blog_id, $pluginBasename = NULL, $logger, $settings, $request, $optionsPageId;
+	private static $revisionId = 2016100123, $version = '1.0.12', $blog_id, $pluginBasename = NULL, $logger, $settings, $request, $optionsPageId;
 
 	/**
 	 * Constructor class to configure and register all WP-Piwik components
@@ -490,7 +490,7 @@ class WP_Piwik {
 	 * @return array complete list of plugin meta data
 	 */
 	public function setPluginMeta($links, $file) {
-		if ($file == 'wp-piwik/wp-piwik.php')
+		if ($file == 'wp-piwik/wp-piwik.php' && (!$this->isNetworkMode () || is_network_admin()) )
 			return array_merge ( $links, array (
 					sprintf ( '<a href="%s">%s</a>', self::getSettingsURL (), __ ( 'Settings', 'wp-piwik' ) )
 			) );
