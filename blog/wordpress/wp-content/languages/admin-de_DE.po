@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.6.x - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-10-03 15:05:13+0000\n"
+"PO-Revision-Date: 2016-10-27 22:24:20+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1987,9 +1987,7 @@ msgstr "Du kannst automatisch auf <a href=\"https://codex.wordpress.org/Version_
 
 #: wp-admin/update-core.php:181
 msgid "<strong>Important:</strong> before updating, please <a href=\"https://codex.wordpress.org/WordPress_Backups\">back up your database and files</a>. For help with updates, visit the <a href=\"https://codex.wordpress.org/Updating_WordPress\">Updating WordPress</a> Codex page."
-msgstr ""
-"<strong>Wichtig</strong>: Bevor du das Update durchführst, lege unbedingt eine Sicherheitskopie deiner Datenbank und der Dateien an.\n"
-"Eine Anleitung findest du im <a href=\"https://codex.wordpress.org/WordPress_Backups\">offiziellen Codex (engl.)</a>. Weitere Informationen zum Aktualisieren von WordPress erhältst du auf der Seite <a href=\"https://codex.wordpress.org/Updating_WordPress\">Updating WordPress (engl.)</a>."
+msgstr "<strong>Wichtig:</strong> Bevor du das Update durchführst, lege unbedingt eine Sicherheitskopie deiner Datenbank und Dateien an. Eine Anleitung dazu findest du im <a href=\"https://codex.wordpress.org/WordPress_Backups\">offiziellen Codex (engl.)</a>. Weitere Informationen zum Update von WordPress erhältst du auf der Seite <a href=\"https://codex.wordpress.org/Updating_WordPress\">Updating WordPress (engl.)</a>."
 
 #: wp-admin/theme-install.php:108
 msgid "<a href=\"https://codex.wordpress.org/Using_Themes#Adding_New_Themes\" target=\"_blank\">Documentation on Adding New Themes</a>"
@@ -2266,7 +2264,7 @@ msgstr "d.m.Y G:i:s"
 
 #: wp-admin/tools.php:46
 msgid "Install Press This"
-msgstr "Installiere Press This"
+msgstr "Press This installieren"
 
 #: wp-admin/tools.php:47
 msgid "Bookmarklet"
@@ -2302,7 +2300,7 @@ msgstr "Durch Anklicken des Buttons &#8222;Überall abmelden&#8220; kannst du di
 
 #: wp-admin/update-core.php:422
 msgid "New translations are available."
-msgstr "Es stehen neue Übersetzungen zur Verfügung."
+msgstr "Es sind neue Übersetzungen vorhanden."
 
 #: wp-admin/theme-install.php:309
 msgid "This theme has not been rated yet."
@@ -2717,7 +2715,7 @@ msgstr "Du kannst deine Mediendateien in einem einfachen Raster oder als Liste m
 
 #: wp-admin/upload.php:50
 msgid "All the files you&#8217;ve uploaded are listed in the Media Library, with the most recent uploads listed first."
-msgstr "Alle Dateien, die du hochgeladen hast, werden in der Mediathek aufgelistet, die zuletzt hochgeladenen zuoberst. "
+msgstr "Alle Dateien, die du hochgeladen hast, werden in der Mediathek aufgelistet, die zuletzt hochgeladenen zuoberst."
 
 #: wp-admin/plugin-install.php:91
 msgid "If you just want to get an idea of what&#8217;s available, you can browse Featured and Popular plugins by using the links above the plugins list. These sections rotate regularly."
@@ -3079,7 +3077,7 @@ msgstr "<strong>Themes und Plugins</strong> &ndash; Um einzelne Themes oder Plug
 
 #: wp-admin/update-core.php:552
 msgid "On this screen, you can update to the latest version of WordPress, as well as update your themes, plugins, and translations from the WordPress.org repositories."
-msgstr "In dieser Ansicht kannst du WordPress auf die neueste Version aktualisiere. Deine Themes, Plugins und Übersetzung kannst du hier ebenfalls auf den neuesten Stand bringen."
+msgstr "In dieser Ansicht kannst du WordPress auf die neueste Version aktualisieren. Deine Themes, Plugins und Übersetzungen kannst du hier ebenfalls auf den neuesten Stand bringen."
 
 #: wp-admin/about.php:50
 msgid "Welcome to WordPress&nbsp;%s"
@@ -3554,11 +3552,11 @@ msgstr "<strong>Durch Anklicken des Pfeils rechts von jedem Menüeintrag</strong
 
 #: wp-admin/nav-menus.php:521
 msgid "Menus can be displayed in locations defined by your theme, even used in sidebars by adding a &#8220;Custom Menu&#8221; widget on the <a href=\"%1$s\">Widgets</a> screen. If your theme does not support the custom menus feature (the default themes, %2$s and %3$s, do), you can learn about adding this support by following the Documentation link to the side."
-msgstr "Menüs können in deinem Theme an vordefinierten Stellen angezeigt oder sogar in Seitenleisten verwendet werden, indem du ein Widget für ein &#8222;Individuelles Menü&#8220; im <a href=\"%1$s\">Widgets Menü</a> hinzufügst. Wenn dein Theme keine individuellen Menüs unterstützt (die Standard-Themes %2$s und %3$s tun dies), kannst du über den Link zur Dokumentation erfahren, wie du eine solche Unterstützung hinzufügen kannst."
+msgstr "Menüs können in deinem Theme an vordefinierten Stellen angezeigt oder sogar in Seitenleisten verwendet werden, indem du ein Widget für ein &#8222;Individuelles Menü&#8220; im <a href=\"%1$s\">Widget-Bereich</a> hinzufügst. Wenn dein Theme keine individuellen Menüs unterstützt (die Standard-Themes %2$s und %3$s tun dies), kannst du über den Link zur Dokumentation erfahren, wie du eine solche Unterstützung hinzufügen kannst."
 
 #: wp-admin/nav-menus.php:517
 msgid "Your theme does not natively support menus, but you can use them in sidebars by adding a &#8220;Custom Menu&#8221; widget on the <a href=\"%s\">Widgets</a> screen."
-msgstr "Dein Theme unterstützt von Haus aus keine Menüs, aber du kannst sie in Seitenleisten verwenden, indem du ein Widget für &#8222;individuelle Menüs&#8220; im <a href=\"%s\">Widgets Menü</a> hinzufügst."
+msgstr "Dein Theme unterstützt keine Menüs, aber du kannst sie in Seitenleisten verwenden, indem du ein Widget für &#8222;individuelle Menüs&#8220; im <a href=\"%s\">Widgets-Bereich</a> hinzufügst."
 
 #: wp-admin/install.php:361
 msgid "Sorry, that isn&#8217;t a valid email address. Email addresses look like <code>username@example.com</code>."
@@ -3806,7 +3804,7 @@ msgstr "Plugins erweitern die Funktionalität von WordPress. Du kannst Plugins a
 
 #. Plugin URI of the plugin/theme
 msgid "http://wordpress.org/plugins/hello-dolly/"
-msgstr "http://wordpress.org/plugins/hello-dolly/"
+msgstr "https://de.wordpress.org/plugins/hello-dolly/"
 
 #: wp-admin/includes/class-theme-upgrader.php:70
 msgid "The theme contains no files."
@@ -4211,7 +4209,7 @@ msgstr "Die hochgeladene Datei ist kein gültiges Bild. Bitte erneut versuchen."
 
 #: wp-admin/custom-header.php:592
 msgid "Choose a Custom Header"
-msgstr "Wähle ein benutzerdefiniertes Header-Bild"
+msgstr "Wähle ein eigenes Header-Bild"
 
 #: wp-admin/custom-background.php:280
 msgid "Choose a Background Image"
@@ -4864,7 +4862,7 @@ msgstr "Kommentar hinzufügen"
 
 #. Author URI of the plugin/theme
 msgid "http://ma.tt/"
-msgstr "http://ma.tt/"
+msgstr "https://ma.tt/"
 
 #. Author of the plugin/theme
 msgid "Matt Mullenweg"
@@ -5158,7 +5156,7 @@ msgstr "Reparieren der %1$s Tabelle fehlgeschlagen. Fehler: %2$s"
 
 #: wp-admin/export.php:48
 msgid "You can export a file of your site&#8217;s content in order to import it into another installation or platform. The export file will be an XML file format called WXR. Posts, pages, comments, custom fields, categories, and tags can be included. You can choose for the WXR file to include only certain posts or pages by setting the dropdown filters to limit the export by category, author, date range by month, or publishing status."
-msgstr "Die Inhalte deiner Website können in eine Datei exportiert werden, um diese wieder in eine andere Installation zu importieren. Das Format der Export-Datei ist ein spezielles XML-Format, auch WXR (WordPress eXtended Rss) genannt. Beim Export können Beiträge, Seiten, Kommentare, benutzerdefinierte Inhaltstypen, Kategorien und Schlagwörter inkludiert werden. Du kannst die Inhalte der WXR-Datei vorab auch filtern, indem du die Export-Daten z.B. auf Seiten, Beiträge und/oder Medien beschränkst, und diese wiederum per Kategorie, Autor, Zeitraum oder Status weiter eingrenzt."
+msgstr "Die Inhalte deiner Website können in eine Datei exportiert werden, um diese wieder in eine andere Installation zu importieren. Das Format der Export-Datei ist ein spezielles XML-Format, auch WXR (WordPress eXtended Rss) genannt. Beim Export können Beiträge, Seiten, Kommentare, benutzerdefinierte Felder, Kategorien und Schlagwörter inkludiert werden. Du kannst die Inhalte der WXR-Datei vorab auch filtern, indem du die Export-Daten z.B. auf Seiten, Beiträge und/oder Medien beschränkst, und diese wiederum per Kategorie, Autor, Zeitraum oder Status weiter eingrenzt."
 
 #: wp-admin/user-new.php:176
 msgid "New users will receive an email letting them know they&#8217;ve been added as a user for your site. This email will also contain their password. Check the box if you don&#8217;t want the user to receive a welcome email."
@@ -5499,7 +5497,7 @@ msgstr "Alle über die Oberfläche von WordPress hochgeladenen Dateien werden in
 
 #: wp-admin/upload.php:202
 msgid "If a media file has not been attached to any content, you will see that in the Uploaded To column, and can click on Attach to launch a small popup that will allow you to search for existing content and attach the file."
-msgstr "Falls eine Datei in keinem Beitrag oder Seite verwendet wird, so wird dies in der Spalte &#8222;Hochgeladen zu&#8220; kenntlich gemacht. Mit einem Klick auf &#8222;Verknüpfen&#8220; kannst du Beiträge oder Seiten suchen, mit denen du die Datei verknüpfen möchtest."
+msgstr "Falls eine Datei in keinem Beitrag oder Seite verwendet wird, so wird dies in der Spalte „Hochgeladen zu“ kenntlich gemacht. Mit einem Klick auf „Verknüpfen“ kannst du Beiträge oder Seiten suchen, mit denen du die Datei verknüpfen möchtest."
 
 #: wp-admin/edit.php:240
 msgid "You can also perform the same types of actions, including narrowing the list by using the filters, acting on a page using the action links that appear when you hover over a row, or using the Bulk Actions menu to edit the metadata for multiple pages at once."
@@ -5512,8 +5510,8 @@ msgstr "Seiten zu verwalten ist genauso einfach wie das Verwalten von Beiträgen
 #: wp-admin/upload.php:196
 msgid "Hovering over a row reveals action links: Edit, Delete Permanently, and View. Clicking Edit or on the media file&#8217;s name displays a simple screen to edit that individual file&#8217;s metadata. Clicking Delete Permanently will delete the file from the media library (as well as from any posts to which it is currently attached). View will take you to the display page for that file."
 msgstr ""
-"Bei Mauszeigerkontakt einer Datei in der Liste werden zusätzliche Optionen angezeigt: Bearbeiten, Unwiderruflich löschen und Ansehen.\n"
-"Beim Klick auf „Bearbeiten“ werden die Metadaten der Datei angezeigt und können auch bearbeitet werden. Ein Klick auf „Unwiderruflich löschen“, löscht eine Datei aus der Mediathek und allen Beiträgen, in der sie verwendet wurde. „Ansehen“ öffnet eine Seite auf welcher die Datei angezeigt wird."
+"Bei Mauszeigerkontakt einer Datei in der Liste werden zusätzliche Optionen angezeigt: Bearbeiten, Unwiderruflich löschen und Anschauen.\n"
+"Beim Klick auf „Bearbeiten“ werden die Metadaten der Datei angezeigt und können auch bearbeitet werden. Ein Klick auf „Unwiderruflich löschen“, löscht eine Datei aus der Mediathek und allen Beiträgen, in der sie verwendet wurde. „Anschauen“ öffnet eine Seite, auf welcher die Datei angezeigt wird."
 
 #: wp-admin/link-manager.php:53
 msgid "Deleting Links"
@@ -5925,7 +5923,7 @@ msgstr "Vorsicht:"
 msgid "Update Available <span class=\"count\">(%s)</span>"
 msgid_plural "Update Available <span class=\"count\">(%s)</span>"
 msgstr[0] "Aktualisierung verfügbar <span class=\"count\">(%s)</span>"
-msgstr[1] "Aktualisierungen verfügbar <span class=\"count\">(%s)</span>"
+msgstr[1] "Verfügbare Aktualisierungen <span class=\"count\">(%s)</span>"
 
 #: wp-admin/includes/user.php:62 wp-admin/users.php:113
 msgid "You can&#8217;t give users that role."
@@ -6416,7 +6414,7 @@ msgstr "Wähle, was du exportieren möchtest"
 
 #: wp-admin/export.php:167
 msgid "This will contain all of your posts, pages, comments, custom fields, terms, navigation menus, and custom posts."
-msgstr "Der Export enthält alle Beiträge, Seiten, Kommentare, Benutzerdefinierte Felder, Kategorien, Tags, Navigationsmenüs und benutzerdefinierte Inhaltstypen."
+msgstr "Der Export enthält alle Beiträge, Seiten, Kommentare, Benutzerdefinierte Felder, Kategorien, Tags, Navigationsmenüs und individuelle Inhaltstypen."
 
 #: wp-admin/export.php:191 wp-admin/export.php:233 wp-admin/export.php:265
 msgid "Date range:"
@@ -7107,7 +7105,7 @@ msgstr "Entferne Benutzer von dieser Website"
 
 #: wp-admin/tools.php:42
 msgid "Use Press This to clip text, images and videos from any web page. Then edit and add more straight from Press This before you save or publish it in a post on your site."
-msgstr "Benutze Press This, um Text, Bilder und Videos aus jeder beliebigen Website einzubinden. Dann kannst du es einfach mit Press This bearbeiten und noch etwas hinzufügen, bevor du es speicherst oder als Beitrag veröffentlichst."
+msgstr "Benutze Press This, um Text, Bilder und Videos aus jeder beliebigen Website einzubinden. Damit kannst du diese Inhalte einfach mit Press This bearbeiten und noch etwas hinzufügen, bevor du speicherst oder als Beitrag veröffentlichst."
 
 #: wp-admin/user-edit.php:320 wp-admin/user-edit.php:322
 msgid "&mdash; No role for this site &mdash;"
@@ -7331,7 +7329,7 @@ msgstr "Wichtig:"
 
 #: wp-admin/user-edit.php:331
 msgid "Grant this user super admin privileges for the Network."
-msgstr "Gewähre diesem Benutzer Super-Administratoren-Rechte für das gesamte Netzwerk. "
+msgstr "Gewähre diesem Benutzer Super-Administratoren-Rechte für das gesamte Netzwerk."
 
 #: wp-admin/includes/class-wp-theme-install-list-table.php:278
 #: wp-admin/includes/class-wp-theme-install-list-table.php:401
@@ -7973,7 +7971,7 @@ msgstr "Keine Plugins gefunden."
 msgid "Inactive <span class=\"count\">(%s)</span>"
 msgid_plural "Inactive <span class=\"count\">(%s)</span>"
 msgstr[0] "Inaktiv <span class=\"count\">(%s)</span>"
-msgstr[1] "Inaktive <span class=\"count\">(%s)</span>"
+msgstr[1] "Inaktiv <span class=\"count\">(%s)</span>"
 
 #: wp-admin/includes/class-wp-plugins-list-table.php:419
 msgid "Recently Active <span class=\"count\">(%s)</span>"
@@ -7985,7 +7983,7 @@ msgstr[1] "Kürzlich aktiv <span class=\"count\">(%s)</span>"
 msgid "Active <span class=\"count\">(%s)</span>"
 msgid_plural "Active <span class=\"count\">(%s)</span>"
 msgstr[0] "Aktiviert <span class=\"count\">(%s)</span>"
-msgstr[1] "Aktivierte <span class=\"count\">(%s)</span>"
+msgstr[1] "Aktiviert <span class=\"count\">(%s)</span>"
 
 #: wp-admin/includes/class-wp-plugins-list-table.php:413
 msgctxt "plugins"
@@ -8844,7 +8842,7 @@ msgstr "Theme-Einstellungen"
 
 #: wp-admin/includes/theme.php:249
 msgid "Custom Colors"
-msgstr "Benutzerdefinierte Farben"
+msgstr "Individuelle Farben"
 
 #: wp-admin/includes/theme.php:245 wp-admin/includes/theme.php:301
 msgid "Features"
