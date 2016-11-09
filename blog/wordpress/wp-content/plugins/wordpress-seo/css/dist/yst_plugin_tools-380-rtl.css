@@ -457,7 +457,6 @@ body .yoast-button.dimmed a:focus:before,
 }
 
 .link.yoast-promoblock::after {
-	-webkit-filter: drop-shadow(1px 0 0 #dc5c04);
 	-moz-filter: drop-shadow(1px 0 0 #dc5c04);
 	-ms-filter: drop-shadow(1px 0 0 #dc5c04);
 	-o-filter: drop-shadow(1px 0 0 #dc5c04);
@@ -469,7 +468,6 @@ body .yoast-button.dimmed a:focus:before,
 }
 
 .cta.yoast-promoblock::after {
-	-webkit-filter: drop-shadow(1px 0 0 #dc5c04);
 	-moz-filter: drop-shadow(1px 0 0 #dc5c04);
 	-ms-filter: drop-shadow(1px 0 0 #dc5c04);
 	-o-filter: drop-shadow(1px 0 0 #dc5c04);
@@ -756,7 +754,6 @@ a.promoblock:hover {
 	-ms-transform: translateX(50%);
 	transform: translateX(50%);
 
-	-webkit-filter: drop-shadow(0 1px 0 #a4286a);
 	-moz-filter: drop-shadow(0 1px 0 #a4286a);
 	-ms-filter: drop-shadow(0 1px 0 #a4286a);
 	-o-filter: drop-shadow(0 1px 0 #a4286a);
@@ -1045,19 +1042,23 @@ table.wpseo th {
 	min-width: 800px;
 }
 
-div.wpseo_variable_warning {
+.wpseo-variable-warning-element {
+	border: 1px solid #c62d2d !important;
+}
+
+.wpseo-variable-warning {
+	clear: both;
 	margin: 5px 0 0 0;
 	padding: 5px;
-	color: #dc3232;
+	color: #c62d2d;
 }
 
-input.wpseo_variable_warning,
-textarea.wpseo_variable_warning {
-	border: 1px solid #dc3232;
+.wpseo-variable-warning code {
+	color: #b02828;
 }
 
-.wpseo_variable_warning a {
-	color: #dc3232;
+.wpseo-variable-warning a {
+	color: #c62d2d;
 }
 
 .wpseo_content_wrapper h3 {
@@ -1376,4 +1377,8 @@ body.toplevel_page_wpseo_dashboard .wp-badge {
 
 .wpseo-add-fb-admin-form-wrap .notice span {
 	margin-right: 10px;
+}
+
+.archives-titles-metas-content {
+	padding-top: 1em;
 }
