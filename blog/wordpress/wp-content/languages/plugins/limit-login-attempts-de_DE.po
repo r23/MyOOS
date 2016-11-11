@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Limit Login Attempts - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-10-05 12:22:27+0000\n"
+"PO-Revision-Date: 2016-11-08 09:11:07+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -73,7 +73,7 @@ msgstr "Anmeldungen via Cookies ber&uuml;cksichtigen"
 
 #: limit-login-attempts.php:1061
 msgid "From behind a reversy proxy"
-msgstr "&Uuml;ber einen Reverse Proxy Server"
+msgstr "&Uuml;ber einen Reverse-Proxy-Server"
 
 #: limit-login-attempts.php:1056
 msgid "Direct connection"
@@ -151,11 +151,11 @@ msgstr "Limit Login Attempts Einstellungen"
 
 #: limit-login-attempts.php:1003
 msgid "<strong>Current setting appears to be invalid</strong>. Please make sure it is correct. Further information can be found <a href=\"%s\" title=\"FAQ\">here</a>"
-msgstr "<strong>Die aktuelle Einstellungen scheint ungültig zu sein.</strong> Bitte stelle sicher, dass sie korrekt sind. Weitere Infos zu den Einstellungen findest du <a href=\"%s\" title=\"FAQ\">hier</a>"
+msgstr "<strong>Die aktuellen Einstellungen scheinen ungültig zu sein.</strong> Bitte stelle sicher, dass sie korrekt sind. Weitere Infos zu den Einstellungen findest du <a href=\"%s\" title=\"FAQ\">hier</a>"
 
 #: limit-login-attempts.php:995
 msgid "It appears the site is reached through a proxy server (proxy IP: %s, your IP: %s)"
-msgstr "Der Zugriff auf diese Webseite erfolgt über einen Proxy-Server (IP des Proxy-Servers: %s, Ihre IP: %s)"
+msgstr "Der Zugriff auf diese Webseite erfolgt über einen Proxy-Server (IP des Proxy-Servers: %s – deine IP: %s)"
 
 #: limit-login-attempts.php:993
 msgid "It appears the site is reached directly (from your IP: %s)"
