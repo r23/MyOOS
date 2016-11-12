@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.6.x - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-11-10 22:31:09+0000\n"
+"PO-Revision-Date: 2016-11-11 17:25:01+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1146,7 +1146,7 @@ msgstr "Du bist leider nicht berechtigt, diese Website zu aktualisieren."
 
 #: wp-admin/tools.php:104
 msgid "If you want to convert your categories to tags (or vice versa), use the <a href=\"%s\">Categories and Tags Converter</a> available from the Import screen."
-msgstr "Wenn Du deine Kategorien in Schlagwörter umwandeln willst (oder umgekehrt), benutze den <a href=\"%s\">Kategorie-in-Schlagwort-Konverter</a> der unter Werkzeuge &#8594; Daten importieren verfügbar ist."
+msgstr "Wenn du deine Kategorien in Schlagwörter umwandeln willst (oder umgekehrt), benutze den <a href=\"%s\">Kategorie-in-Schlagwort-Konverter</a> der unter Werkzeuge &#8594; Daten importieren verfügbar ist."
 
 #: wp-admin/tools.php:71
 msgid "Open Press This"
@@ -2885,7 +2885,7 @@ msgstr "Bearbeite dein Menü unten oder <a href=\"%s\">erstelle ein neues Menü<
 #: wp-admin/nav-menus.php:647
 msgctxt "menu"
 msgid "Use new menu"
-msgstr "Neues Menü benutzen"
+msgstr "Neues Menü verwenden"
 
 #: wp-admin/nav-menus.php:641
 msgctxt "menu"
@@ -2922,7 +2922,7 @@ msgstr "<a href=\"https://codex.wordpress.org/Appearance_Menus_Screen\" target=\
 
 #: wp-admin/nav-menus.php:559
 msgid "To add a new menu instead of assigning an existing one, <strong>click the &#8217;Use new menu&#8217; link</strong>. Your new menu will be automatically assigned to that theme location"
-msgstr "Um ein neues Menü zu erstellen, anstatt ein bestehendes auszuwählen, <strong>klicke auf den „Verwende neues Menü“-Link</strong>. Dein neues Menü wird dann automatisch zum gewählten Menü-Bereich deines Themes hinzugefügt."
+msgstr "Um ein neues Menü zu erstellen, anstatt ein bestehendes auszuwählen, <strong>klicke auf den „Neues Menü verwenden“-Link</strong>. Dein neues Menü wird dann automatisch zum gewählten Menü-Bereich deines Themes hinzugefügt."
 
 #: wp-admin/nav-menus.php:558
 msgid "To edit a menu currently assigned to a theme location, <strong>click the adjacent &#8217;Edit&#8217; link</strong>"
@@ -7200,7 +7200,7 @@ msgstr "Suche Kategorien nach Name"
 #: wp-admin/includes/class-wp-press-this.php:929
 #: wp-admin/includes/meta-boxes.php:434 wp-admin/includes/meta-boxes.php:969
 msgid "Add"
-msgstr "Hinzufügen"
+msgstr "Hinzu"
 
 #: wp-admin/includes/class-wp-press-this.php:862
 msgid "Toggle add category"
