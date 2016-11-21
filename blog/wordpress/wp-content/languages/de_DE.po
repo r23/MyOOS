@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.6.x package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-11-10 22:00:48+0000\n"
+"PO-Revision-Date: 2016-11-21 12:29:23+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -732,7 +732,7 @@ msgstr "Beitrags-Feed (<abbr title=\"Really Simple Syndication\">RSS</abbr>)"
 
 #: wp-includes/widgets/class-wp-widget-meta.php:30
 msgid "Login, RSS, &amp; WordPress.org links."
-msgstr "Login-, RSS-, &amp; WordPress.org-Links."
+msgstr "Anmelde-, RSS-, &amp; WordPress.org-Links."
 
 #: wp-includes/widgets/class-wp-widget-links.php:161
 msgid "Number of links to show:"
@@ -6088,7 +6088,7 @@ msgstr "Die URL zum Adminbereich"
 
 #: wp-includes/class-wp-xmlrpc-server.php:436
 msgid "Login Address (URL)"
-msgstr "Login-Adresse (URL)"
+msgstr "Anmeldeadresse (URL)"
 
 #: wp-includes/class-wp-xmlrpc-server.php:431
 msgid "Site Address (URL)"
@@ -6785,23 +6785,23 @@ msgstr "Aktion"
 
 #: wp-includes/class-wp-editor.php:1066
 msgid "Letter"
-msgstr "Buchstabe"
+msgstr "Zeichen"
 
 #: wp-includes/class-wp-editor.php:1065
 msgid "Ctrl + letter:"
-msgstr "Strg + Buchstabe:"
+msgstr "Strg + Zeichen:"
 
 #: wp-includes/class-wp-editor.php:1064
 msgid "Cmd + letter:"
-msgstr "Cmd + Buchstabe:"
+msgstr "Cmd + Zeichen:"
 
 #: wp-includes/class-wp-editor.php:1063
 msgid "Shift + Alt + letter:"
-msgstr "Shift + Alt + Buchstabe:"
+msgstr "Shift + Alt + Zeichen:"
 
 #: wp-includes/class-wp-editor.php:1062
 msgid "Ctrl + Alt + letter:"
-msgstr "Strg + Alt + Buchstabe:"
+msgstr "Strg + Alt + Zeichen:"
 
 #: wp-includes/class-wp-editor.php:1061
 msgid "Elements path"

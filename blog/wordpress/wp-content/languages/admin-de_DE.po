@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.6.x - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-11-11 17:25:01+0000\n"
+"PO-Revision-Date: 2016-11-21 11:16:46+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -585,11 +585,11 @@ msgstr "Profilbild"
 
 #: wp-admin/user-edit.php:454
 msgid "Share a little biographical information to fill out your profile. This may be shown publicly."
-msgstr "Teile ein paar biographische Informationen, um dein Profil zu ergänzen. Die Informationen könnten öffentlich sichtbar sein."
+msgstr "Teile ein paar biografische Informationen, um dein Profil zu ergänzen. Die Informationen könnten öffentlich sichtbar sein."
 
 #: wp-admin/user-edit.php:452
 msgid "Biographical Info"
-msgstr "Biographische Angaben"
+msgstr "Biografische Angaben"
 
 #: wp-admin/user-edit.php:448
 msgid "About the user"
@@ -707,7 +707,7 @@ msgstr "Obligatorisch auszufüllende Eingabefelder werden als solche markiert. D
 
 #: wp-admin/user-edit.php:42
 msgid "You can log out of other devices, such as your phone or a public computer, by clicking the Log Out Everywhere Else button."
-msgstr "Durch Anklicken des Buttons &#8222;Überall abmelden&#8220; kannst du dich von anderen Geräten wie zum Beispiel deinem Smartphone oder einem öffentlich zugänglichen Computer abmelden."
+msgstr "Durch Anklicken des Buttons &#8222;Überall sonst abmelden&#8220; kannst du dich von anderen Geräten wie zum Beispiel deinem Smartphone oder einem öffentlich zugänglichen Computer abmelden."
 
 #: wp-admin/user-edit.php:41
 msgid "Your username cannot be changed, but you can use other fields to enter your real name or a nickname, and change which name to display on your posts."
@@ -1955,7 +1955,7 @@ msgstr "Du findest neue Plugins zur Installation über eine Suche oder Durchblä
 
 #: wp-admin/plugin-install.php:82
 msgid "Plugins hook into WordPress to extend its functionality with custom features. Plugins are developed independently from the core WordPress application by thousands of developers all over the world. All plugins in the official <a href=\"%s\" target=\"_blank\">WordPress Plugin Directory</a> are compatible with the license WordPress uses."
-msgstr "Plugins binden sich über Hooks in WordPress ein, um die Funktionalität von WordPress um individuelle Eigenschaften zu erweitern. Plugins werden unabhängig von der WordPress-Kernanwendung von tausenden Entwicklern auf der ganzen Welt entwickelt. Alle Plugins im offiziellen <a href=\"%s\" target=\"_blank\">WordPress Plugin-Verzeichnis</a> sind mit der Lizenz kompatibel, die WordPress benutzt."
+msgstr "Plugins klinken sich über Hooks in WordPress ein, um die Funktionalität von WordPress um individuelle Eigenschaften zu erweitern. Plugins werden unabhängig vom WordPress-Core von tausenden Personen auf der ganzen Welt entwickelt. Alle Plugins im offiziellen <a href=\"%s\" target=\"_blank\">WordPress Plugin-Verzeichnis</a> sind mit der Lizenz kompatibel, die WordPress benutzt."
 
 #: wp-admin/plugin-install.php:48
 msgid "Add Plugins"
@@ -2701,7 +2701,7 @@ msgstr "Avataranzeige"
 
 #: wp-admin/options-discussion.php:174
 msgid "An avatar is an image that follows you from weblog to weblog appearing beside your name when you comment on avatar enabled sites. Here you can enable the display of avatars for people who comment on your site."
-msgstr "Ein Avatar ist ein Bild, welches neben deinem Namen erscheint, wenn du eine Avatar-fähige Website kommentierst. Hier kannst du das Anzeigen der Avatare von Leuten, die deine Website kommentieren, aktivieren."
+msgstr "Ein Avatar ist ein Bild, das dich von Website zu Website begleitet und neben deinem Namen erscheint, wenn du auf Websites kommentierst, die Avatare unterstützen. Hier kannst du aktivieren, dass von Leuten, die auf deiner Website kommentieren, Avatare angezeigt werden."
 
 #: wp-admin/options-discussion.php:172
 msgid "Avatars"
@@ -3989,7 +3989,7 @@ msgstr "<a href=\"%1$s\">WordPress %2$s</a> ist verfügbar! <a href=\"%3$s\" ari
 
 #: wp-admin/includes/update.php:206
 msgid "Get Version %s"
-msgstr "Version %s downloaden"
+msgstr "Version %s herunterladen"
 
 #: wp-admin/includes/update.php:203
 msgid "You are using a development version (%1$s). Cool! Please <a href=\"%2$s\">stay updated</a>."
@@ -5960,7 +5960,7 @@ msgstr "Nutze WP_Image_Editor::rotate"
 #: wp-admin/includes/image-edit.php:259 wp-admin/includes/image-edit.php:324
 #: wp-admin/includes/image-edit.php:466
 msgid "$image needs to be an WP_Image_Editor object"
-msgstr "$images muss ein WP_Image_Editor Objekt sein"
+msgstr "$image muss ein WP_Image_Editor Objekt sein"
 
 #: wp-admin/includes/image-edit.php:227
 msgid "There are unsaved changes that will be lost. 'OK' to continue, 'Cancel' to return to the Image Editor."
@@ -6104,7 +6104,7 @@ msgstr "Originalgröße %s"
 
 #: wp-admin/includes/image-edit.php:52
 msgid "You can proportionally scale the original image. For best results, scaling should be done before you crop, flip, or rotate. Images can only be scaled down, not up."
-msgstr "Du kannst proportional das Originalbild skalieren. Für das beste Ergebnis sollte die Skalierung fertig sein, bevor du das Bild zuschneidest, spiegelst, oder drehst. Bilder können nur nach unten, nicht nach oben skaliert werden."
+msgstr "Du kannst das Originalbild proportional skalieren. Für das beste Ergebnis sollte die Skalierung gemacht werden, bevor du das Bild zuschneidest, spiegelst oder drehst. Bilder können nur nach unten, nicht nach oben skaliert werden."
 
 #: wp-admin/includes/image-edit.php:50
 msgid "Scale Image Help"
@@ -6294,7 +6294,7 @@ msgstr "Die hochgeladene Datei überschreitet die maximale Größe von <code>upl
 
 #: wp-admin/includes/file.php:87
 msgid "%s Page Template"
-msgstr "%s Seitentemplate"
+msgstr "%s Seiten-Template"
 
 #: wp-admin/includes/file.php:63
 msgid "Popup Comments"
@@ -6542,7 +6542,7 @@ msgstr "Erstelle eine „Über mich“-Seite"
 
 #: wp-admin/includes/dashboard.php:1478
 msgid "Write your first blog post"
-msgstr "Schreib deinen ersten Beitrag"
+msgstr "Schreibe deinen ersten Beitrag"
 
 #: wp-admin/includes/dashboard.php:1476
 msgid "Add a blog post"
@@ -8525,7 +8525,7 @@ msgstr "Entpacken des Pakets&#8230;"
 #: wp-admin/includes/class-plugin-upgrader.php:69
 #: wp-admin/includes/class-theme-upgrader.php:67
 msgid "Downloading install package from <span class=\"code\">%s</span>&#8230;"
-msgstr "Runterladen des Installationspakets von <span class=\"code\">%s</span>&#8230;"
+msgstr "Herunterladen des Installationspakets von <span class=\"code\">%s</span>&#160;&#8230;"
 
 #: wp-admin/includes/class-plugin-upgrader.php:68
 #: wp-admin/includes/class-theme-upgrader.php:66
@@ -8598,7 +8598,7 @@ msgstr "Das Update der Übersetzung ist fehlgeschlagen."
 
 #: wp-admin/includes/class-language-pack-upgrader.php:119
 msgid "Downloading translation from <span class=\"code\">%s</span>&#8230;"
-msgstr "Lädt Übersetzung von <span class=\"code\">%s</span>&#8230; herunter."
+msgstr "Herunterladen der Übersetzung von <span class=\"code\">%s</span>&#160;&#8230;"
 
 #: wp-admin/includes/class-language-pack-upgrader.php:117
 msgid "The translations are up to date."
@@ -8616,7 +8616,7 @@ msgstr "Aktualisiere Übersetzungen für %1$s (%2$s)&#8230;"
 #: wp-admin/includes/class-language-pack-upgrader-skin.php:29
 #: wp-admin/update-core.php:424 wp-admin/update-core.php:717
 msgid "Update Translations"
-msgstr "Aktualisiere Übersetzungen"
+msgstr "Übersetzungen aktualisieren"
 
 #: wp-admin/includes/class-file-upload-upgrader.php:60
 #: wp-admin/includes/class-file-upload-upgrader.php:94
@@ -8659,7 +8659,7 @@ msgstr "Entpacken der aktualisierten Version&#8230;"
 #: wp-admin/includes/class-plugin-upgrader.php:52
 #: wp-admin/includes/class-theme-upgrader.php:51
 msgid "Downloading update from <span class=\"code\">%s</span>&#8230;"
-msgstr "Runterladen der Aktualisierung von <span class=\"code\">%s</span>&#8230;"
+msgstr "Herunterladen der Aktualisierung von <span class=\"code\">%s</span>&#160;&#8230;"
 
 #: wp-admin/includes/class-core-upgrader.php:32
 #: wp-admin/includes/class-language-pack-upgrader.php:118
@@ -9041,7 +9041,7 @@ msgstr "Du hast die Freiheit, das Programm für jeden Anwendungszweck einzusetze
 
 #: wp-admin/freedoms.php:32
 msgid "WordPress is Free and open source software, built by a distributed community of mostly volunteer developers from around the world. WordPress comes with some awesome, worldview-changing rights courtesy of its <a href=\"%s\">license</a>, the GPL."
-msgstr "WordPress ist eine freie, kostenlose und quelloffene (<em>Open Source</em>) Software, programmiert von größtenteils freiwilligen Personen auf der ganzen Welt. WordPress steht unter einer sehr großzügigen und viele Freiheiten gewährenden <a href=\"%s\">Lizenz</a> (engl.), der GPL."
+msgstr "WordPress ist eine freie, kostenlose und quelloffene (<em>Open Source</em>) Software, programmiert von größtenteils freiwilligen Personen auf der ganzen Welt. WordPress steht unter einer sehr großzügigen und viele Freiheiten gewährenden <a href=\"%s\">Lizenz (engl.)</a>, der GPL."
 
 #: wp-admin/export.php:290
 msgid "Download Export File"
@@ -10016,7 +10016,7 @@ msgstr "Einklappen"
 
 #: wp-admin/customize.php:140
 msgid "The Customizer allows you to preview changes to your site before publishing them. You can also navigate to different pages on your site to preview them."
-msgstr "Der Anpassen-Dialog ermöglicht eine Vorschau von Änderungen an deiner Website vor Veröffentlichung. Du kannst auch verschiedene Seiten deiner Website aufrufen, um sie dir in der Vorschau anzusehen."
+msgstr "Der Customizer (Anpassen-Dialog) ermöglicht eine Vorschau der Änderungen an deiner Website vor dem Veröffentlichen. Du kannst auch verschiedene Seiten deiner Website aufrufen, um sie in der Vorschau anzusehen."
 
 #: wp-admin/customize.php:126
 msgid "Close the Customizer and go back to the previous page"
