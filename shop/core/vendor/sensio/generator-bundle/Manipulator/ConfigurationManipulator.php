@@ -11,6 +11,7 @@
 
 namespace Sensio\Bundle\GeneratorBundle\Manipulator;
 
+use Sensio\Bundle\GeneratorBundle\Generator\Generator;
 use Sensio\Bundle\GeneratorBundle\Model\Bundle;
 use Symfony\Component\Yaml\Yaml;
 
@@ -25,8 +26,6 @@ class ConfigurationManipulator extends Manipulator
     private $file;
 
     /**
-     * Constructor.
-     *
      * @param string $file The YAML configuration file path
      */
     public function __construct($file)
@@ -53,11 +52,7 @@ class ConfigurationManipulator extends Manipulator
         $currentContents = file_get_contents($this->file);
         // Don't add same bundle twice
         if (false !== strpos($currentContents, $code)) {
-            throw new \RuntimeException(sprintf(
-                'The %s configuration file from %s is already imported',
-                $bundle->getServicesConfigurationFilename(),
-                $bundle->getName()
-            ));
+            throw new \RuntimeException(sprintf('The %s configuration file from %s is already imported', $bundle->getServicesConfigurationFilename(), $bundle->getName()));
         }
 
         // find the "imports" line and add this at the end of that list
@@ -75,7 +70,7 @@ class ConfigurationManipulator extends Manipulator
 
         $newContents = substr($currentContents, 0, $targetLinebreakPosition)."\n".$code.substr($currentContents, $targetLinebreakPosition);
 
-        if (false === file_put_contents($this->file, $newContents)) {
+        if (false === Generator::dump($this->file, $newContents)) {
             throw new \RuntimeException(sprintf('Could not write file %s ', $this->file));
         }
     }

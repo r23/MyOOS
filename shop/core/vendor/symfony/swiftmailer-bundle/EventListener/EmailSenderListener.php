@@ -13,7 +13,6 @@ namespace Symfony\Bundle\SwiftmailerBundle\EventListener;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\IntrospectableContainerInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -31,12 +30,6 @@ class EmailSenderListener implements EventSubscriberInterface
 
     private $logger;
 
-    /**
-     * Constructor.
-     *
-     * @param ContainerInterface $container A ContainerInterface instance
-     * @param LoggerInterface $logger A LoggerInterface instance
-     */
     public function __construct(ContainerInterface $container, LoggerInterface $logger = null)
     {
         $this->container = $container;
@@ -50,7 +43,7 @@ class EmailSenderListener implements EventSubscriberInterface
         }
         $mailers = array_keys($this->container->getParameter('swiftmailer.mailers'));
         foreach ($mailers as $name) {
-            if ($this->container instanceof IntrospectableContainerInterface ? $this->container->initialized(sprintf('swiftmailer.mailer.%s', $name)) : true) {
+            if (method_exists($this->container, 'initialized') ? $this->container->initialized(sprintf('swiftmailer.mailer.%s', $name)) : true) {
                 if ($this->container->getParameter(sprintf('swiftmailer.mailer.%s.spool.enabled', $name))) {
                     $mailer = $this->container->get(sprintf('swiftmailer.mailer.%s', $name));
                     $transport = $mailer->getTransport();

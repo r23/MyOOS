@@ -74,7 +74,7 @@ class DoctrineEntityGenerator extends Generator
         $entityGenerator = $this->getEntityGenerator();
         if ('annotation' === $format) {
             $entityGenerator->setGenerateAnnotations(true);
-            $class->setPrimaryTable(array('name' => Inflector::tableize($entity)));
+            $class->setPrimaryTable(array('name' => Inflector::tableize(str_replace('\\', '', $entity))));
             $entityCode = $entityGenerator->generateEntityClass($class);
             $mappingPath = $mappingCode = false;
         } else {
@@ -96,12 +96,12 @@ class DoctrineEntityGenerator extends Generator
             $entityCode
         );
 
-        $this->filesystem->mkdir(dirname($entityPath));
-        file_put_contents($entityPath, $entityCode);
+        self::mkdir(dirname($entityPath));
+        self::dump($entityPath, $entityCode);
 
         if ($mappingPath) {
-            $this->filesystem->mkdir(dirname($mappingPath));
-            file_put_contents($mappingPath, $mappingCode);
+            self::mkdir(dirname($mappingPath));
+            self::dump($mappingPath, $mappingCode);
         }
 
         $path = $bundle->getPath().str_repeat('/..', substr_count(get_class($bundle), '\\'));

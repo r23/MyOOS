@@ -36,7 +36,7 @@ class Manipulator
     /**
      * Gets the next token.
      *
-     * @return mixed
+     * @return string|null
      */
     protected function next()
     {
@@ -56,7 +56,7 @@ class Manipulator
      *
      * @param int $nb
      * 
-     * @return mixed
+     * @return string|null
      */
     protected function peek($nb = 1)
     {

@@ -23,11 +23,6 @@ class ControllerGenerator extends Generator
 {
     private $filesystem;
 
-    /**
-     * Constructor.
-     *
-     * @param Filesystem $filesystem A Filesystem instance
-     */
     public function __construct(Filesystem $filesystem)
     {
         $this->filesystem = $filesystem;
@@ -92,7 +87,7 @@ class ControllerGenerator extends Generator
         if (file_exists($file)) {
             $content = file_get_contents($file);
         } elseif (!is_dir($dir = $bundle->getPath().'/Resources/config')) {
-            mkdir($dir);
+            self::mkdir($dir);
         }
 
         $controller = $bundle->getName().':'.$controller.':'.$action['basename'];
@@ -143,7 +138,7 @@ EOT;
                 // edit current file
                 $pointer = strpos($content, 'return');
                 if (!preg_match('/(\$[^ ]*).*?new RouteCollection\(\)/', $content, $collection) || false === $pointer) {
-                    throw new \RunTimeException('Routing.php file is not correct, please initialize RouteCollection.');
+                    throw new \RuntimeException('Routing.php file is not correct, please initialize RouteCollection.');
                 }
 
                 $content = substr($content, 0, $pointer);
@@ -172,10 +167,10 @@ EOT;
             if ($write) {
                 fclose($flink);
             } else {
-                throw new \RunTimeException(sprintf('We cannot write into file "%s", has that file the correct access level?', $file));
+                throw new \RuntimeException(sprintf('We cannot write into file "%s", has that file the correct access level?', $file));
             }
         } else {
-            throw new \RunTimeException(sprintf('Problems with generating file "%s", did you gave write access to that directory?', $file));
+            throw new \RuntimeException(sprintf('Problems with generating file "%s", did you gave write access to that directory?', $file));
         }
     }
 
@@ -196,6 +191,6 @@ EOT;
 
         list($data['bundle'], $data['controller'], $data['template']) = explode(':', $logicalName);
 
-        return ($part ? $data[$part] : $data);
+        return $part ? $data[$part] : $data;
     }
 }
