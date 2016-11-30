@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.6.x - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-11-22 14:22:57+0000\n"
+"PO-Revision-Date: 2016-11-28 14:59:02+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -94,7 +94,7 @@ msgstr "Dein aktuell genutztes Theme unterstützt keine Widgets. Das bedeutet, d
 
 #: wp-admin/widgets.php:74
 msgid "<a href=\"https://codex.wordpress.org/Appearance_Widgets_Screen\" target=\"_blank\">Documentation on Widgets</a>"
-msgstr "<a href=\"https://codex.wordpress.org/Appearance_Widgets_Screen\" target=\"_blank\">Documentation on Widgets (engl.)</a>"
+msgstr "<a href=\"https://codex.wordpress.org/Appearance_Widgets_Screen\" target=\"_blank\">Dokumentation zu Widgets (engl.)</a>"
 
 #: wp-admin/widgets.php:69
 msgid "When changing themes, there is often some variation in the number and setup of widget areas/sidebars and sometimes these conflicts make the transition a bit less smooth. If you changed themes and seem to be missing widgets, scroll down on this screen to the Inactive Widgets area, where all of your widgets and their settings will have been saved."
@@ -879,7 +879,7 @@ msgstr "Die Aktualisierung der Datenbank könnte etwas dauern, bitte hab einen M
 
 #: wp-admin/upgrade.php:97
 msgid "WordPress has been updated! Before we send you on your way, we have to update your database to the newest version."
-msgstr "WordPress wurde aktualisiert! Ehe du dich drauf stürzen kannst, müssen wir nur noch deine Datenbank auf die neueste Version bringen."
+msgstr "WordPress wurde aktualisiert! Ehe du dich drauf stürzen kannst, müssen wir noch deine Datenbank auf die neueste Version bringen."
 
 #: wp-admin/upgrade.php:96
 msgid "Database Update Required"
@@ -895,7 +895,7 @@ msgstr "Keine Aktualisierung notwendig"
 
 #: wp-admin/upgrade.php:64
 msgid "WordPress &rsaquo; Update"
-msgstr "WordPress &rsaquo; Update"
+msgstr "WordPress &rsaquo; Aktualisierung"
 
 #: wp-admin/update.php:264
 msgid "Installing Theme from uploaded file: %s"
@@ -936,7 +936,7 @@ msgstr "Erneut prüfen"
 #. translators: %1 date, %2 time.
 #: wp-admin/update-core.php:601
 msgid "Last checked on %1$s at %2$s."
-msgstr "Zuletzt geprüft am %1$s um %2$s."
+msgstr "Zuletzt überprüft am %1$s um %2$s Uhr."
 
 #: wp-admin/update-core.php:595
 msgid "Please select one or more plugins to update."
@@ -948,7 +948,7 @@ msgstr "Bitte wähle ein oder mehrere Themes, die aktualisiert werden sollen."
 
 #: wp-admin/update-core.php:576
 msgid "<a href=\"https://codex.wordpress.org/Dashboard_Updates_Screen\" target=\"_blank\">Documentation on Updating WordPress</a>"
-msgstr "<a href=\"https://codex.wordpress.org/Dashboard_Updates_Screen\" target=\"_blank\">Documentation on Updating WordPress (engl.)</a>"
+msgstr "<a href=\"https://codex.wordpress.org/Dashboard_Updates_Screen\" target=\"_blank\">Dokumentation zu WordPress Aktualisierungen (engl.)</a>"
 
 #: wp-admin/update-core.php:570
 msgid "How to Update"
@@ -1080,11 +1080,11 @@ msgstr "Du benutzt die aktuelle Version von WordPress."
 
 #: wp-admin/update-core.php:125
 msgid "Hide hidden updates"
-msgstr "Versteckte Updates ausblenden"
+msgstr "Verborgene Aktualisierungen ausblenden"
 
 #: wp-admin/update-core.php:124 wp-admin/update-core.php:136
 msgid "Show hidden updates"
-msgstr "Versteckte Updates anzeigen"
+msgstr "Verborgene Aktualisierungen anzeigen"
 
 #: wp-admin/update-core.php:111
 msgid "You are about to install WordPress %s <strong>in English (US).</strong> There is a chance this update will break your translation. You may prefer to wait for the localized version to be released."
@@ -1092,15 +1092,15 @@ msgstr "Du bist dabei, WordPress %s in <strong>englisch (US)</strong> zu install
 
 #: wp-admin/update-core.php:108
 msgid "This localized version contains both the translation and various other localization fixes. You can skip upgrading if you want to keep your current translation."
-msgstr "Die lokalisierte Version beinhaltet beides, die Übersetzung und verschiedene andere Lokalisationsanpassungen. Du kannst die Aktualisierung abbrechen, wenn du deine momentane Übersetzung beibehalten möchtest."
+msgstr "Diese lokalisierte Version beinhaltet sowohl die Übersetzung als auch diverse andere Lokalisierungsanpassungen. Du kannst die Aktualisierung abbrechen, wenn du deine momentane Übersetzung beibehalten möchtest."
 
 #: wp-admin/update-core.php:105
 msgid "Bring back this update"
-msgstr "Dieses Update wiederbringen"
+msgstr "Diese Aktualisierung wieder einblenden"
 
 #: wp-admin/update-core.php:103
 msgid "Hide this update"
-msgstr "Dieses Update ausblenden"
+msgstr "Diese Aktualisierung ausblenden"
 
 #: wp-admin/update-core.php:81
 msgid "Download %s"
@@ -2027,7 +2027,7 @@ msgstr "Funktionsname&#160;&hellip;"
 
 #: wp-admin/plugin-editor.php:144
 msgid "<a href=\"https://codex.wordpress.org/Writing_a_Plugin\" target=\"_blank\">Documentation on Writing Plugins</a>"
-msgstr "<a href=\"https://codex.wordpress.org/Writing_a_Plugin\" target=\"_blank\">Documentation on Writing Plugins (engl.)</a>"
+msgstr "<a href=\"https://codex.wordpress.org/Writing_a_Plugin\" target=\"_blank\">Dokumentation wie man ein WordPress Plugin schreibt (engl.)</a>"
 
 #: wp-admin/plugin-editor.php:143
 msgid "<a href=\"https://codex.wordpress.org/Plugins_Editor_Screen\" target=\"_blank\">Documentation on Editing Plugins</a>"
@@ -2102,11 +2102,11 @@ msgstr "Wenn du einen Beitrag veröffentlichst, kann WordPress verschiedene Dien
 
 #: wp-admin/options-writing.php:146
 msgid "Default Mail Category"
-msgstr "Standardkategorie für Beiträge per E-Mail"
+msgstr "Standard-Kategorie für Beiträge per E-Mail"
 
 #: wp-admin/options-writing.php:136
 msgid "Login Name"
-msgstr "Login-Name"
+msgstr "Anmeldename"
 
 #: wp-admin/options-writing.php:131
 msgid "Port"
@@ -2135,7 +2135,7 @@ msgstr "Standard-Beitragsformat"
 
 #: wp-admin/options-writing.php:71
 msgid "Default Post Category"
-msgstr "Standardkategorie für Beiträge"
+msgstr "Standard Beitrags-Kategorie"
 
 #: wp-admin/options-writing.php:66
 msgid "WordPress should correct invalidly nested XHTML automatically"
@@ -2159,7 +2159,7 @@ msgstr "Wenn gewünscht, kann WordPress diverse Dienste automatisch beim Veröff
 
 #: wp-admin/options-writing.php:38 wp-admin/options-writing.php:167
 msgid "Update Services"
-msgstr "Update Services"
+msgstr "Update-Services"
 
 #: wp-admin/options-writing.php:30
 msgid "Post via email settings allow you to send your WordPress install an email with the content of your post. You must set up a secret email account with POP3 access to use this, and any mail received at this address will be posted, so it&#8217;s a good idea to keep this address very secret."
@@ -2485,7 +2485,7 @@ msgstr "Woche beginnt am "
 
 #: wp-admin/options-general.php:298
 msgid "<a href=\"https://codex.wordpress.org/Formatting_Date_and_Time\">Documentation on date and time formatting</a>."
-msgstr "<a href=\"https://codex.wordpress.org/Formatting_Date_and_Time\">Documentation on date and time formatting (engl.)</a>"
+msgstr "<a href=\"https://codex.wordpress.org/Formatting_Date_and_Time\">Dokumentation zur  Formatierung von Datum und Uhrzeit (engl.)</a>"
 
 #: wp-admin/options-general.php:293
 msgid "Custom time format:"
@@ -3550,7 +3550,7 @@ msgstr "WordPress installieren"
 
 #: wp-admin/install.php:199 wp-admin/options-reading.php:138
 msgid "It is up to search engines to honor this request."
-msgstr "Es liegt an den Suchmaschinen, diese Anfrage anzunehmen."
+msgstr "Es liegt an den Suchmaschinen, diese Anfrage zu akzeptieren."
 
 #: wp-admin/install.php:192 wp-admin/options-reading.php:118
 msgid "Note: Neither of these options blocks access to your site &mdash; it is up to search engines to honor your request."
@@ -3942,11 +3942,11 @@ msgstr "%s Plugin erfolgreich aktualisiert."
 
 #: wp-admin/includes/update.php:610
 msgid "An automated WordPress update has failed to complete! Please notify the site administrator."
-msgstr "Ein automatisches Update konnte nicht beendet werden! Bitte informiere den Website-Administrator."
+msgstr "Ein automatisches Update konnte nicht beendet werden! Bitte benachrichtige jemand von der Website-Administration."
 
 #: wp-admin/includes/update.php:608
 msgid "An automated WordPress update has failed to complete - <a href=\"%s\">please attempt the update again now</a>."
-msgstr "Ein automatisches Update konnte nicht beendet werden – <a href=\"%s\">Bitte starte das Update jetzt erneut</a>."
+msgstr "Ein automatisches Update konnte nicht beendet werden – <a href=\"%s\">Bitte starte die Aktualisierung jetzt erneut</a>."
 
 #. translators: 1: plugin name, 2: details URL, 3: additional link attributes,
 #. 4: version number
@@ -3957,7 +3957,7 @@ msgstr "Eine neue Version von %1$s ist verfügbar. <a href=\"%2$s\" %3$s>Details
 #. translators: 1: version number, 2: theme name
 #: wp-admin/includes/update.php:278
 msgid "WordPress %1$s running %2$s theme."
-msgstr "WordPress %1$s verwendet Theme %2$s."
+msgstr "WordPress %1$s verwendet das Theme %2$s."
 
 #: wp-admin/includes/update.php:274
 msgid "Latest"
@@ -4005,19 +4005,19 @@ msgstr "Willkommen bei WordPress %1$s. Du wirst zur Seite „Über WordPress“ 
 
 #: wp-admin/includes/update-core.php:1095
 msgid "Upgrading database&#8230;"
-msgstr "Die Datenbank wird aktualisiert&#8230;"
+msgstr "Die Datenbank wird aktualisiert&#160;&hellip;"
 
 #: wp-admin/includes/update-core.php:985
 msgid "There is not enough free disk space to complete the update."
-msgstr "Es gibt nicht genug freien Speicherplatz, um das Update abzuschließen."
+msgstr "Es gibt nicht genug freien Speicherplatz, um die Aktualisierung durchzuführen."
 
 #: wp-admin/includes/update-core.php:942
 msgid "Copying the required files&#8230;"
-msgstr "Kopieren der erforderlichen Dateien&#8230;"
+msgstr "Kopieren der erforderlichen Dateien&#160;&hellip;"
 
 #: wp-admin/includes/update-core.php:882
 msgid "Preparing to install the latest version&#8230;"
-msgstr "Vorbereitung für die Installation der neuesten Version&#8230;"
+msgstr "Vorbereitung für die Installation der neuesten Version&#160;&hellip;"
 
 #: wp-admin/includes/update-core.php:879
 msgid "The update cannot be installed because WordPress %1$s requires MySQL version %2$s or higher. You are running version %3$s."
@@ -4037,7 +4037,7 @@ msgstr "Das Update konnte nicht entpackt werden"
 
 #: wp-admin/includes/update-core.php:824
 msgid "Verifying the unpacked files&#8230;"
-msgstr "Überprüfung der entpackten Dateien&#8230;"
+msgstr "Überprüfung der entpackten Dateien&#160;&hellip;"
 
 #: wp-admin/includes/translation-install.php:23
 msgid "Invalid translation type."
@@ -4475,7 +4475,7 @@ msgstr "Du kannst deine Website weiterhin benutzen, nur wird jede angelegte Subd
 #. translators: %s: asterisk symbol (*)
 #: wp-admin/includes/schema.php:1097
 msgid "To use a subdomain configuration, you must have a wildcard entry in your DNS. This usually means adding a %s hostname record pointing at your web server in your DNS configuration tool."
-msgstr "Um Subdomains für Seitenadressen nutzen zu können, musst du einen Wildcard DNS-Eintrag haben. Dies geschieht üblicherweise durch das Einfügen von %s als Hostname-Eintrag, welcher dann auf deinen Webserver zeigt. Dies musst du im DNS-Konfigurationstool deines Servers bzw. deiner Domain tun."
+msgstr "Um eine Subdomain-Konfiguration nutzen zu können, musst du einen Wildcard DNS-Eintrag haben. Dies geschieht üblicherweise durch das Einfügen von %s als Hostname-Eintrag, welcher dann auf deinen Webserver zeigt. Dies musst du im DNS-Konfigurationstool deines Servers bzw. deiner Domain tun."
 
 #. translators: %s: error message
 #: wp-admin/includes/schema.php:1091
@@ -4485,7 +4485,7 @@ msgstr "Dabei trat eine Fehlermeldung auf: %s"
 #. translators: %s: host name
 #: wp-admin/includes/schema.php:1086
 msgid "The installer attempted to contact a random hostname (%s) on your domain."
-msgstr "Die Subdomain-Installation versuchte, einen zufälligen Hostname (%s) deiner Domain zu kontaktieren."
+msgstr "Die Subdomain-Installation versuchte, einen zufälligen Hostnamen (%s) deiner Domain zu kontaktieren."
 
 #: wp-admin/includes/schema.php:1082
 msgid "Warning! Wildcard DNS may not be configured correctly!"
@@ -5641,7 +5641,7 @@ msgstr "Audio, Video oder eine andere Datei"
 
 #: wp-admin/includes/media.php:2535
 msgid "Image Caption"
-msgstr "Bildbeschreibung"
+msgstr "Bildbeschriftung"
 
 #: wp-admin/includes/media.php:2484
 msgid "Filter &#187;"
@@ -6651,7 +6651,7 @@ msgstr "Dieses Widget benötigt JavaScript."
 
 #: wp-admin/includes/dashboard.php:968
 msgid "Loading&#8230;"
-msgstr "Wird geladen&#8230;"
+msgstr "Wird geladen&#160;&hellip;"
 
 #: wp-admin/includes/dashboard.php:924
 msgid "View more comments"
@@ -6889,12 +6889,12 @@ msgstr "Es wurden keinen Benutzer gefunden."
 #: wp-admin/includes/class-wp-upgrader.php:175
 #: wp-admin/includes/update-core.php:1017
 msgid "Disabling Maintenance mode&#8230;"
-msgstr "Abschalten des Wartungsmodus&#8230;"
+msgstr "Abschalten des Wartungsmodus&#160;&hellip;"
 
 #: wp-admin/includes/class-wp-upgrader.php:174
 #: wp-admin/includes/update-core.php:934
 msgid "Enabling Maintenance mode&#8230;"
-msgstr "Anschalten des Wartungsmodus&#8230; "
+msgstr "Anschalten des Wartungsmodus&#160;&hellip;"
 
 #: wp-admin/includes/class-wp-upgrader.php:171
 msgid "The package could not be installed."
@@ -6916,7 +6916,7 @@ msgstr "Das Paket enthält keine Dateien."
 
 #: wp-admin/includes/class-wp-upgrader.php:167
 msgid "Installing the latest version&#8230;"
-msgstr "Die aktuelle Version wird installiert&#8230;"
+msgstr "Die aktuelle Version wird installiert&#160;&hellip;"
 
 #: wp-admin/includes/class-wp-upgrader.php:166
 msgid "Download failed."
@@ -8427,11 +8427,11 @@ msgstr "Das Eltern-Theme, <strong>%1$s %2$s</strong>, ist momentan installiert."
 #. translators: 1: theme name, 2: version
 #: wp-admin/includes/class-theme-upgrader.php:77
 msgid "Preparing to install <strong>%1$s %2$s</strong>&#8230;"
-msgstr "Vorbereiten der Installation <strong>%1$s %2$s</strong>&#8230;"
+msgstr "Vorbereiten der Installation <strong>%1$s %2$s</strong>&#160;&hellip;"
 
 #: wp-admin/includes/class-theme-upgrader.php:75
 msgid "This theme requires a parent theme. Checking if it is installed&#8230;"
-msgstr "Dieses Theme braucht ein Eltern-Theme. Prüfe, ob es installiert ist&#8230;"
+msgstr "Dieses Theme braucht ein Eltern-Theme. Überprüfung, ob es installiert ist&#160;&hellip;"
 
 #. translators: 1: theme name, 2: version
 #: wp-admin/includes/class-theme-upgrader.php:74
@@ -8452,7 +8452,7 @@ msgstr "Das Theme enthält keine Dateien."
 
 #: wp-admin/includes/class-theme-upgrader.php:69
 msgid "Installing the theme&#8230;"
-msgstr "Das Theme wird installiert&#8230;"
+msgstr "Das Theme wird installiert&#160;&hellip;"
 
 #: wp-admin/includes/class-theme-upgrader.php:56
 msgid "Theme updated successfully."
@@ -8468,7 +8468,7 @@ msgstr "Altes Theme konnte nicht entfernt werden."
 
 #: wp-admin/includes/class-theme-upgrader.php:53
 msgid "Removing the old version of the theme&#8230;"
-msgstr "Entfernung der alten Themeversion&#8230;"
+msgstr "Entfernung der alten Version des Themes&#160;&hellip;"
 
 #: wp-admin/includes/class-theme-upgrader.php:49
 msgid "The theme is at the latest version."
@@ -8515,17 +8515,17 @@ msgstr "Dieses Plugin enthält keinerlei Dateien."
 
 #: wp-admin/includes/class-plugin-upgrader.php:71
 msgid "Installing the plugin&#8230;"
-msgstr "Das Plugin wird installiert&#8230;"
+msgstr "Das Plugin wird installiert&#160;&hellip;"
 
 #: wp-admin/includes/class-plugin-upgrader.php:70
 #: wp-admin/includes/class-theme-upgrader.php:68
 msgid "Unpacking the package&#8230;"
-msgstr "Entpacken des Pakets&#8230;"
+msgstr "Entpacken des Pakets&#160;&hellip;"
 
 #: wp-admin/includes/class-plugin-upgrader.php:69
 #: wp-admin/includes/class-theme-upgrader.php:67
 msgid "Downloading install package from <span class=\"code\">%s</span>&#8230;"
-msgstr "Herunterladen des Installationspakets von <span class=\"code\">%s</span>&#160;&#8230;"
+msgstr "Herunterladen des Installationspakets von <span class=\"code\">%s</span>&#160;&hellip;"
 
 #: wp-admin/includes/class-plugin-upgrader.php:68
 #: wp-admin/includes/class-theme-upgrader.php:66
@@ -8546,7 +8546,7 @@ msgstr "Altes Plugin konnte nicht entfernt werden."
 
 #: wp-admin/includes/class-plugin-upgrader.php:54
 msgid "Removing the old version of the plugin&#8230;"
-msgstr "Die alte Version des Plugins wird entfernt&#8230;"
+msgstr "Entfernung der alten Version des Plugins&#160;&hellip;"
 
 #: wp-admin/includes/class-plugin-upgrader.php:50
 msgid "The plugin is at the latest version."
@@ -8594,11 +8594,11 @@ msgstr "Die Übersetzung wurde erfolgreich aktualisiert."
 
 #: wp-admin/includes/class-language-pack-upgrader.php:121
 msgid "Translation update failed."
-msgstr "Das Update der Übersetzung ist fehlgeschlagen."
+msgstr "Die Aktualisierung der Übersetzung ist fehlgeschlagen."
 
 #: wp-admin/includes/class-language-pack-upgrader.php:119
 msgid "Downloading translation from <span class=\"code\">%s</span>&#8230;"
-msgstr "Herunterladen der Übersetzung von <span class=\"code\">%s</span>&#160;&#8230;"
+msgstr "Herunterladen der Übersetzung von <span class=\"code\">%s</span>&#160;&hellip;"
 
 #: wp-admin/includes/class-language-pack-upgrader.php:117
 msgid "The translations are up to date."
@@ -8611,7 +8611,7 @@ msgstr "Einige Übersetzungen benötigen eine Aktualisierung. Warte noch ein paa
 #: wp-admin/includes/class-language-pack-upgrader-skin.php:47
 #: wp-admin/includes/class-wp-automatic-updater.php:320
 msgid "Updating translations for %1$s (%2$s)&#8230;"
-msgstr "Aktualisiere Übersetzungen für %1$s (%2$s)&#8230;"
+msgstr "Aktualisiere Übersetzungen für %1$s (%2$s)&#160;&hellip;"
 
 #: wp-admin/includes/class-language-pack-upgrader-skin.php:29
 #: wp-admin/update-core.php:424 wp-admin/update-core.php:717
@@ -8629,7 +8629,7 @@ msgstr "Wähle bitte eine Datei"
 #: wp-admin/includes/update-core.php:854 wp-admin/includes/update-core.php:929
 #: wp-admin/includes/update-core.php:952
 msgid "The update cannot be installed because we will be unable to copy some files. This is usually due to inconsistent file permissions."
-msgstr "Das Update konnte nicht installiert werden, da wir einige Dateien nicht kopieren konnten. Dies liegt in der Regel an inkonsistenten Dateiberechtigungen."
+msgstr "Die Aktualisierung konnte nicht installiert werden, da einige Dateien nicht kopiert werden konnten. Dies liegt meist an inkonsistenten Dateiberechtigungen."
 
 #: wp-admin/includes/class-core-upgrader.php:38
 msgid "Due to an error during updating, WordPress has rolled back to your previous version."
@@ -8653,24 +8653,24 @@ msgstr "Dateien konnte nicht kopiert werden."
 #: wp-admin/includes/class-plugin-upgrader.php:53
 #: wp-admin/includes/class-theme-upgrader.php:52
 msgid "Unpacking the update&#8230;"
-msgstr "Entpacken der aktualisierten Version&#8230;"
+msgstr "Entpacken der aktualisierten Version&#160;&hellip;"
 
 #: wp-admin/includes/class-core-upgrader.php:33
 #: wp-admin/includes/class-plugin-upgrader.php:52
 #: wp-admin/includes/class-theme-upgrader.php:51
 msgid "Downloading update from <span class=\"code\">%s</span>&#8230;"
-msgstr "Herunterladen der Aktualisierung von <span class=\"code\">%s</span>&#160;&#8230;"
+msgstr "Herunterladen der Aktualisierung von <span class=\"code\">%s</span>&#160;&hellip;"
 
 #: wp-admin/includes/class-core-upgrader.php:32
 #: wp-admin/includes/class-language-pack-upgrader.php:118
 #: wp-admin/includes/class-plugin-upgrader.php:51
 #: wp-admin/includes/class-theme-upgrader.php:50
 msgid "Update package not available."
-msgstr "Update-Paket nicht verfügbar."
+msgstr "Aktualisierungs-Paket nicht verfügbar."
 
 #: wp-admin/includes/class-core-upgrader.php:31
 msgid "Another update is currently in progress."
-msgstr "Im Moment läuft eine andere Aktualisierung."
+msgstr "Momentan wird eine andere Aktualisierung durchgeführt."
 
 #: wp-admin/includes/class-core-upgrader.php:30
 msgid "WordPress is at the latest version."
@@ -8678,7 +8678,7 @@ msgstr "WordPress ist auf dem neuesten Stand."
 
 #: wp-admin/includes/class-bulk-upgrader-skin.php:47
 msgid "All updates have been completed."
-msgstr "Alle Aktualisierungen sind komplett."
+msgstr "Alle Aktualisierungen wurden vollständig durchgeführt."
 
 #: wp-admin/includes/class-bulk-upgrader-skin.php:46
 msgid "Hide Details"
@@ -8696,7 +8696,7 @@ msgstr "%1$s erfolgreich aktualisiert."
 #. translators: 1: Title of an update
 #: wp-admin/includes/class-bulk-upgrader-skin.php:44
 msgid "The update of %1$s failed."
-msgstr "Das aktualisieren von %1$s schlug fehl."
+msgstr "Die Aktualisierung von %1$s schlug fehl."
 
 #. translators: 1: Title of an update, 2: Error message
 #: wp-admin/includes/class-bulk-upgrader-skin.php:42
@@ -8705,7 +8705,7 @@ msgstr "Beim Aktualisieren von %1$s ist ein Fehler aufgetreten: %2$s"
 
 #: wp-admin/includes/class-bulk-upgrader-skin.php:40
 msgid "The update process is starting. This process may take a while on some hosts, so please be patient."
-msgstr "Der Updateprozess beginnt. Dies kann eine Weile dauern, hab bitte etwas Geduld."
+msgstr "Der Aktualisierungsprozess beginnt. Dies kann eine Weile dauern, hab bitte etwas Geduld."
 
 #: wp-admin/includes/class-bulk-theme-upgrader-skin.php:49
 #: wp-admin/includes/class-theme-installer-skin.php:79

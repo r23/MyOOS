@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.6.x package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-11-21 12:29:23+0000\n"
+"PO-Revision-Date: 2016-11-27 19:09:00+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1019,7 +1019,7 @@ msgstr "Der ausgeschriebene Name darf nicht länger als 50 Zeichen sein."
 
 #: wp-includes/user.php:1432
 msgid "Cannot create a user with an empty login name."
-msgstr "Ohne Benutzername kann kein neuer Benutzer angelegt werden."
+msgstr "Es kann kein neuer Benutzer anlegt werden, wenn der Anmeldename leer ist."
 
 #. translators: 1: display name, 2: user_login
 #: wp-includes/user.php:1093
@@ -1788,7 +1788,7 @@ msgstr "Permalink gespeichert"
 
 #: wp-includes/script-loader.php:551
 msgid "Saving Draft&#8230;"
-msgstr "Entwurf wird gespeichert&#8230;"
+msgstr "Entwurf wird gespeichert&#160;&hellip;"
 
 #: wp-includes/script-loader.php:548
 msgid "Privately Published"
@@ -1922,7 +1922,7 @@ msgstr "Link ausgewählt."
 
 #: wp-includes/script-loader.php:408
 msgid "Hide password"
-msgstr "Passwort verstecken"
+msgstr "Passwort verbergen"
 
 #: wp-includes/script-loader.php:407
 msgid "Show password"
@@ -1930,7 +1930,7 @@ msgstr "Passwort anzeigen"
 
 #: wp-includes/script-loader.php:405
 msgid "Hide"
-msgstr "Verstecken"
+msgstr "Verbergen"
 
 #: wp-includes/script-loader.php:404
 msgid "Show"
@@ -3861,7 +3861,7 @@ msgstr "Bild-CSS-Klasse"
 
 #: wp-includes/media-template.php:991
 msgid "Image Title Attribute"
-msgstr "Bildtitel-Attribut"
+msgstr "Bild title-Attribut"
 
 #: wp-includes/media-template.php:987
 msgid "Advanced Options"
@@ -4018,7 +4018,7 @@ msgstr "Beschreibe dieses Video&#160;&hellip;"
 
 #: wp-includes/media-template.php:478
 msgid "Caption this image&hellip;"
-msgstr "Beschreibe dieses Bild&#160;&hellip; "
+msgstr "Beschrifte dieses Bild&#160;&hellip;"
 
 #: wp-includes/media-template.php:471
 msgid "Deselect"
@@ -7024,7 +7024,7 @@ msgstr "Ausrichtung"
 #: wp-includes/media-template.php:572 wp-includes/media-template.php:830
 #: wp-includes/media-template.php:895
 msgid "Caption"
-msgstr "Bildunterschrift"
+msgstr "Beschriftung"
 
 #: wp-includes/class-wp-editor.php:994 wp-includes/media-template.php:958
 msgid "Width"
