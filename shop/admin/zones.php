@@ -21,11 +21,10 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-
-if (isset($_GET['page']) && is_numeric($_GET['page'])) {
-	$nPage =  intval($_GET['page']);
-} else {
+if (!isset($_GET['page']) || !is_numeric($_GET['page'])) {
 	$nPage = 1; 
+} else {
+	$nPage = intval($_GET['page']);
 }  
   
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
@@ -118,13 +117,14 @@ require 'includes/header.php';
 <?php
   $zonestable = $oostable['zones'];
   $countriestable = $oostable['countries'];
-  $zones_result_raw = "SELECT z.zone_id, c.countries_id, c.countries_name, z.zone_name, z.zone_code, z.zone_country_id 
+  $zones_query_raw = "SELECT z.zone_id, c.countries_id, c.countries_name, z.zone_name, z.zone_code, z.zone_country_id 
                       FROM $zonestable z,
                            $countriestable c
                       WHERE z.zone_country_id = c.countries_id 
                       ORDER BY c.countries_name, z.zone_name";
-  $zones_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $zones_result_raw, $zones_result_numrows);
-  $zones_result = $dbconn->Execute($zones_result_raw);
+  $zones_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $zones_query_raw, $zones_result_numrows);
+  $zones_result = $dbconn->Execute($zones_query_raw);
+   
   while ($zones = $zones_result->fields) {
     if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $zones['zone_id']))) && !isset($cInfo) && (substr($action, 0, 3) != 'new')) {
       $cInfo = new objectInfo($zones);
@@ -146,13 +146,11 @@ require 'includes/header.php';
     $zones_result->MoveNext();
   }
 
-  // Close result set
-  $zones_result->Close();
 ?>
               <tr>
                 <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="smallText" valign="top"><?php echo $zones_split->display_count($zones_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_ZONES); ?></td>
+                    <td class="smallText" valign="top"><?php echo $zones_result_numrows . '- ' . $zones_split->display_count($zones_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_ZONES); ?></td>
                     <td class="smallText" align="right"><?php echo $zones_split->display_links($zones_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
                   </tr>
 <?php

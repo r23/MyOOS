@@ -281,6 +281,7 @@ define('IMAGE_NEW_PRODUCT', 'Neuen Artikel aufnehmen');
 define('IMAGE_NEW_TAX_CLASS', 'Neue Steuerklasse erstellen');
 define('IMAGE_NEW_TAX_RATE', 'Neuen Steuersatz anlegen');
 define('IMAGE_NEW_TAX_ZONE', 'Neue Steuerzone erstellen');
+define('IMAGE_NEW_ZONE', 'Neues Bundesland anlegen');
 define('IMAGE_ORDERS', 'Bestellungen');
 define('IMAGE_ORDERS_INVOICE', 'Rechnung');
 define('IMAGE_ORDERS_PACKINGSLIP', 'Lieferschein');

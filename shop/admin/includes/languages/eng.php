@@ -276,6 +276,7 @@ define('IMAGE_NEW_PRODUCT', 'New Product');
 define('IMAGE_NEW_TAX_CLASS', 'New Tax Class');
 define('IMAGE_NEW_TAX_RATE', 'New Tax Rate');
 define('IMAGE_NEW_TAX_ZONE', 'New Tax Zone');
+define('IMAGE_NEW_ZONE', 'New Zone');
 define('IMAGE_ORDERS', 'Orders');
 define('IMAGE_ORDERS_INVOICE', 'Invoice');
 define('IMAGE_ORDERS_PACKINGSLIP', 'Packing Slip');

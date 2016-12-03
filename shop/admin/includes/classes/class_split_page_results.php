@@ -26,24 +26,29 @@ class splitPageResults {
 
 	public function __construct(&$current_page_number, $max_rows_per_page, &$sql_query, &$query_num_rows) {
 
-		// Get database information
-		$dbconn =& oosDBGetConn();
-
+	
+		if ($max_rows_per_page == 0) $max_rows_per_page = 20;
+		$sql_query = preg_replace("/\n\r|\r\n|\n|\r/", " ", $sql_query);
+	
 		if (empty($current_page_number)) $current_page_number = 1;
+		$current_page_number = (int)$current_page_number;
+		
+		$pos_to = strlen($sql_query);
+		$pos_from = strpos($sql_query, ' FROM', 0);
 
-		$pos_to = strlen($sql_result);
-		$pos_from = strpos($sql_result, ' FROM', 0);
-
-		$pos_group_by = strpos($sql_result, ' GROUP BY', $pos_from);
+		$pos_group_by = strpos($sql_query, ' GROUP BY', $pos_from);
 		if (($pos_group_by < $pos_to) && ($pos_group_by != false)) $pos_to = $pos_group_by;
 
-		$pos_having = strpos($sql_result, ' HAVING', $pos_from);
+		$pos_having = strpos($sql_query, ' HAVING', $pos_from);
 		if (($pos_having < $pos_to) && ($pos_having != false)) $pos_to = $pos_having;
 
-		$pos_order_by = strpos($sql_result, ' ORDER BY', $pos_from);
+		$pos_order_by = strpos($sql_query, ' ORDER BY', $pos_from);
 		if (($pos_order_by < $pos_to) && ($pos_order_by != false)) $pos_to = $pos_order_by;
 
 		$sql = "SELECT count(*) AS total " . substr($sql_query, $pos_from, ($pos_to - $pos_from));
+		
+		// Get database information
+		$dbconn =& oosDBGetConn();
 		$reviews_count = $dbconn->Execute($sql);
         $query_num_rows = $reviews_count->fields['total'];		
 
@@ -110,6 +115,13 @@ class splitPageResults {
 
 
 	public function display_count($query_numrows, $max_rows_per_page, $current_page_number, $text_output) {
+
+		if (empty($current_page_number)) $current_page_number = 1;
+		$current_page_number = (int)$current_page_number;
+		
+		if ($max_rows_per_page == 0) $max_rows_per_page = 20;
+		if ($max_rows_per_page == '') $max_rows_per_page = $query_numrows;
+		
 		$to_num = ($max_rows_per_page * $current_page_number);
 		if ($to_num > $query_numrows) $to_num = $query_numrows;
 		$from_num = ($max_rows_per_page * ($current_page_number - 1));
