@@ -330,7 +330,6 @@ $flds = "
   countries_name C(64) NOTNULL,
   countries_iso_code_2 C(2) NOTNULL,
   countries_iso_code_3 C(3) NOTNULL,
-  countries_moneybookers C(3),
   address_format_id I DEFAULT '0' NOTNULL
 ";
 dosql($table, $flds);

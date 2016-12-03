@@ -259,7 +259,7 @@
       $sql = "SELECT ab.entry_firstname, ab.entry_lastname, ab.entry_company, ab.entry_street_address,
                      ab.entry_suburb, ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name,
                      ab.entry_country_id, c.countries_id, c.countries_name, c.countries_iso_code_2,
-                     c.countries_iso_code_3, c.countries_moneybookers, c.address_format_id, ab.entry_state
+                     c.countries_iso_code_3, c.address_format_id, ab.entry_state
               FROM $address_booktable ab LEFT JOIN
                    $zonestable z
                 ON (ab.entry_zone_id = z.zone_id) LEFT JOIN
@@ -332,7 +332,7 @@
                              'city' => $billing_address['entry_city'],
                              'postcode' => $billing_address['entry_postcode'],
                              'state' => ((oos_is_not_null($billing_address['entry_state'])) ? $billing_address['entry_state'] : $billing_address['zone_name']),
-                             'country' => array('id' => $billing_address['countries_id'], 'title' => $billing_address['countries_name'], 'iso_code_2' => $billing_address['countries_iso_code_2'], 'iso_code_3' => $billing_address['countries_iso_code_3'], 'moneybookers' => $billing_address['countries_moneybookers']),
+                             'country' => array('id' => $billing_address['countries_id'], 'title' => $billing_address['countries_name'], 'iso_code_2' => $billing_address['countries_iso_code_2'], 'iso_code_3' => $billing_address['countries_iso_code_3']),
                              'country_id' => $billing_address['entry_country_id'],
                              'format_id' => $billing_address['address_format_id']);
       $index = 0;

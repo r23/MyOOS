@@ -28,14 +28,14 @@
   if (!empty($action)) {
     switch ($action) {
       case 'insert':
-        $dbconn->Execute("INSERT INTO " . $oostable['countries'] . " (countries_name, countries_iso_code_2, countries_iso_code_3, countries_moneybookers, address_format_id) VALUES ('" . oos_db_input($countries_name) . "', '" . oos_db_input($countries_iso_code_2) . "', '" . oos_db_input($countries_iso_code_3) . "', '" . oos_db_input($countries_moneybookers) . "', '" . oos_db_input($address_format_id) . "')");
+        $dbconn->Execute("INSERT INTO " . $oostable['countries'] . " (countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES ('" . oos_db_input($countries_name) . "', '" . oos_db_input($countries_iso_code_2) . "', '" . oos_db_input($countries_iso_code_3) . "', '" . oos_db_input($address_format_id) . "')");
         oos_redirect_admin(oos_href_link_admin($aContents['countries']));
         break;
 
       case 'save':
         $countries_id = oos_db_prepare_input($_GET['cID']);
 
-        $dbconn->Execute("UPDATE " . $oostable['countries'] . " SET countries_name = '" . oos_db_input($countries_name) . "', countries_iso_code_2 = '" . oos_db_input($countries_iso_code_2) . "', countries_iso_code_3 = '" . oos_db_input($countries_iso_code_3) . "', countries_moneybookers = '" . oos_db_input($countries_moneybookers) . "', address_format_id = '" . oos_db_input($address_format_id) . "' WHERE countries_id = '" . oos_db_input($countries_id) . "'");
+        $dbconn->Execute("UPDATE " . $oostable['countries'] . " SET countries_name = '" . oos_db_input($countries_name) . "', countries_iso_code_2 = '" . oos_db_input($countries_iso_code_2) . "', countries_iso_code_3 = '" . oos_db_input($countries_iso_code_3) . "', address_format_id = '" . oos_db_input($address_format_id) . "' WHERE countries_id = '" . oos_db_input($countries_id) . "'");
         oos_redirect_admin(oos_href_link_admin($aContents['countries'], 'page=' . $_GET['page'] . '&cID=' . $countries_id));
         break;
 
@@ -103,13 +103,9 @@
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
-  $countries_result_raw = "SELECT 
-                              countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, 
-                              countries_moneybookers, address_format_id 
-                          FROM 
-                              " . $oostable['countries'] . " 
-                          ORDER BY
-                              countries_name";
+  $countries_result_raw = "SELECT countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id 
+                          FROM " . $oostable['countries'] . " 
+                          ORDER BY countries_name";
   $countries_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $countries_result_raw, $countries_result_numrows);
   $countries_result = $dbconn->Execute($countries_result_raw);
   while ($countries = $countries_result->fields) {
@@ -126,7 +122,6 @@
                 <td class="dataTableContent"><?php echo $countries['countries_name']; ?></td>
                 <td class="dataTableContent" align="center" width="40"><?php echo $countries['countries_iso_code_2']; ?></td>
                 <td class="dataTableContent" align="center" width="40"><?php echo $countries['countries_iso_code_3']; ?></td>
-                <td class="dataTableContent" align="center" width="40"><?php echo $countries['countries_moneybookers']; ?></td>
                 <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($countries['countries_id'] == $cInfo->countries_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['countries'], 'page=' . $_GET['page'] . '&cID=' . $countries['countries_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
@@ -168,7 +163,6 @@
       $contents[] = array('text' => '<br />' . TEXT_INFO_COUNTRY_NAME . '<br />' . oos_draw_input_field('countries_name'));
       $contents[] = array('text' => '<br />' . TEXT_INFO_COUNTRY_CODE_2 . '<br />' . oos_draw_input_field('countries_iso_code_2'));
       $contents[] = array('text' => '<br />' . TEXT_INFO_COUNTRY_CODE_3 . '<br />' . oos_draw_input_field('countries_iso_code_3'));
-      $contents[] = array('text' => '<br />' . TEXT_INFO_MONEYBOOKERS . '<br />' . oos_draw_input_field('countries_moneybookers'));
       $contents[] = array('text' => '<br />' . TEXT_INFO_ADDRESS_FORMAT . '<br />' . oos_draw_input_field('address_format_id'));
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('insert', BUTTON_INSERT) . '&nbsp;<a href="' . oos_href_link_admin($aContents['countries'], 'page=' . $_GET['page']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       break;
@@ -181,7 +175,6 @@
       $contents[] = array('text' => '<br />' . TEXT_INFO_COUNTRY_NAME . '<br />' . oos_draw_input_field('countries_name', $cInfo->countries_name));
       $contents[] = array('text' => '<br />' . TEXT_INFO_COUNTRY_CODE_2 . '<br />' . oos_draw_input_field('countries_iso_code_2', $cInfo->countries_iso_code_2));
       $contents[] = array('text' => '<br />' . TEXT_INFO_COUNTRY_CODE_3 . '<br />' . oos_draw_input_field('countries_iso_code_3', $cInfo->countries_iso_code_3));
-      $contents[] = array('text' => '<br />' . TEXT_INFO_MONEYBOOKERS . '<br />' . oos_draw_input_field('countries_moneybookers', $cInfo->countries_moneybookers));
       $contents[] = array('text' => '<br />' . TEXT_INFO_ADDRESS_FORMAT . '<br />' . oos_draw_input_field('address_format_id', $cInfo->address_format_id));
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('update', IMAGE_UPDATE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['countries'], 'page=' . $_GET['page'] . '&cID=' . $cInfo->countries_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       break;
@@ -203,7 +196,6 @@
         $contents[] = array('text' => '<br />' . TEXT_INFO_COUNTRY_NAME . '<br />' . $cInfo->countries_name);
         $contents[] = array('text' => '<br />' . TEXT_INFO_COUNTRY_CODE_2 . ' ' . $cInfo->countries_iso_code_2);
         $contents[] = array('text' => '<br />' . TEXT_INFO_COUNTRY_CODE_3 . ' ' . $cInfo->countries_iso_code_3);
-        $contents[] = array('text' => '<br />' . TEXT_INFO_MONEYBOOKERS . ' ' . $cInfo->countries_moneybookers);
         $contents[] = array('text' => '<br />' . TEXT_INFO_ADDRESS_FORMAT . ' ' . $cInfo->address_format_id);
       }
       break;
