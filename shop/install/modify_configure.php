@@ -41,7 +41,7 @@
 // mod_file is general, give it a source file a destination.
 // an array of search patterns (Perl style) and replacement patterns
 // Returns a string which starts with "Err" if there's an error
-function modify_file($src, $dest, $reg_src, $reg_rep) {
+function modify_file($src, $reg_src, $reg_rep) {
     $in = @fopen($src, "r");
     if (!$in) {
       return MODIFY_FILE_1. " $src";
@@ -68,17 +68,6 @@ function modify_file($src, $dest, $reg_src, $reg_rep) {
     }
 
     reset($file_buff1);
-    $out_backup = @fopen($dest, "w");
-
-    if (! $out_backup) {
-      return MODIFY_FILE_2. " $dest";
-    }
-
-    while (list ($bline_num, $buffer) = each ($file_buff1)) {
-        fputs($out_backup,$buffer);
-    }
-
-    fclose($out_backup);
 
     reset($file_buff2);
     $out_original = fopen($src, "w");
@@ -164,7 +153,7 @@ function oosUpdateConfigShop($db_prefs = false) {
     }
     add_src_rep("OOS_ENCODED", '1');
 
-    $ret = modify_file("../includes/configure.php", "../includes/configure-old.php", $reg_src, $reg_rep);
+    $ret = modify_file("../includes/configure.php", $reg_src, $reg_rep);
 
     if (preg_match("/Error/", $ret)) {
         show_error_shop_info();
