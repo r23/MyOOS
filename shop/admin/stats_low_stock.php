@@ -18,10 +18,12 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
-  require 'includes/header.php'; 
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+
+require 'includes/header.php'; 
 ?>
 <div class="wrapper">
 	<!-- Header //-->
@@ -77,7 +79,7 @@
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_QTY_LEFT; ?>&nbsp;</td>
               </tr>
 <?php
-  if (isset($_GET['page']) && ($_GET['page'] > 1)) $rows = $_GET['page'] * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
+  if (isset($nPage) && ($nPage > 1)) $rows = $nPage * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
 
   $productstable = $oostable['products'];
   $products_descriptiontable = $oostable['products_description'];
@@ -89,7 +91,7 @@
                              AND p.products_quantity <= p.products_reorder_level
                            GROUP BY pd.products_id
                            ORDER BY pd.products_name ASC";
-  $products_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $products_result_raw, $products_result_numrows);
+  $products_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $products_result_raw, $products_result_numrows);
   $products_result = $dbconn->Execute($products_result_raw);
   while ($products = $products_result->fields) {
     $rows++;
@@ -98,9 +100,9 @@
       $rows = '0' . $rows;
     }
 ?>
-          <tr class="datatableRow" onmouseover="this.className='datatableRowOver';this.style.cursor='hand'" onmouseout="this.className='datatableRow'" onclick="document.location.href='<?php echo oos_href_link_admin($aContents['products'], 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_viewed'] . '?page=' . $_GET['page'], 'NONSSL'); ?>'">
+          <tr class="datatableRow" onmouseover="this.className='datatableRowOver';this.style.cursor='hand'" onmouseout="this.className='datatableRow'" onclick="document.location.href='<?php echo oos_href_link_admin($aContents['products'], 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_viewed'] . '?page=' . $nPage, 'NONSSL'); ?>'">
             <td align="left" class="smallText">&nbsp;<?php echo $rows; ?>.&nbsp;</td>
-            <td class="smallText">&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_low_stock'] . '?page=' . $_GET['page'], 'NONSSL') . '" class="blacklink">' . $products['products_name'] . '</a>'; ?>&nbsp;</td>
+            <td class="smallText">&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_low_stock'] . '?page=' . $nPage, 'NONSSL') . '" class="blacklink">' . $products['products_name'] . '</a>'; ?>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<?php echo $products['products_quantity']; ?>&nbsp;</td>
           </tr>
 <?php
@@ -116,8 +118,8 @@
           <tr>
             <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="smallText" valign="top"><?php echo $products_split->display_count($products_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?></td>
-                <td class="smallText" align="right"><?php echo $products_split->display_links($products_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?>&nbsp;</td>
+                <td class="smallText" valign="top"><?php echo $products_split->display_count($products_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?></td>
+                <td class="smallText" align="right"><?php echo $products_split->display_links($products_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>

@@ -21,12 +21,7 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-if (!isset($_GET['page']) || !is_numeric($_GET['page'])) {
-	$nPage = 1; 
-} else {
-	$nPage = intval($_GET['page']);
-}  
-  
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
 if (!empty($action)) {
@@ -150,7 +145,7 @@ require 'includes/header.php';
               <tr>
                 <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="smallText" valign="top"><?php echo $zones_result_numrows . '- ' . $zones_split->display_count($zones_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_ZONES); ?></td>
+                    <td class="smallText" valign="top"><?php echo $zones_split->display_count($zones_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_ZONES); ?></td>
                     <td class="smallText" align="right"><?php echo $zones_split->display_links($zones_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
                   </tr>
 <?php

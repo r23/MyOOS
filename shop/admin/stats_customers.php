@@ -18,13 +18,16 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
 
-  require 'includes/classes/class_currencies.php';
-  $currencies = new currencies();
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
-  require 'includes/header.php';
+require 'includes/classes/class_currencies.php';
+$currencies = new currencies();
+
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
+ 
+require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->
@@ -80,7 +83,7 @@
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_TOTAL_PURCHASED; ?>&nbsp;</td>
               </tr>
 <?php
-  if (isset($_GET['page']) && ($_GET['page'] > 1)) $rows = $_GET['page'] * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
+  if (isset($nPage) && ($nPage > 1)) $rows = $nPage * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
   $customerstable = $oostable['customers'];
   $orders_productstable = $oostable['orders_products'];
   $orderstable = $oostable['orders'];
@@ -93,7 +96,7 @@
                            AND o.orders_id = op.orders_id
                          GROUP BY c.customers_firstname, c.customers_lastname
                          ORDER BY ordersum DESC";
-  $customers_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $customers_sql_raw, $customers_result_numrows);
+  $customers_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $customers_sql_raw, $customers_result_numrows);
 // fix counted customers
   $orderstable = $oostable['orders'];
   $customers_result_numrows = $dbconn->Execute("SELECT customers_id
@@ -127,8 +130,8 @@
           <tr>
             <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="smallText" valign="top"><?php echo $customers_split->display_count($customers_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_CUSTOMERS); ?></td>
-                <td class="smallText" align="right"><?php echo $customers_split->display_links($customers_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?>&nbsp;</td>
+                <td class="smallText" valign="top"><?php echo $customers_split->display_count($customers_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_CUSTOMERS); ?></td>
+                <td class="smallText" align="right"><?php echo $customers_split->display_links($customers_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>

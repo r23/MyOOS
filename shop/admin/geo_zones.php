@@ -52,7 +52,11 @@
     return $geo_zone_name;
   }
 
-  $saction = (isset($_GET['saction']) ? $_GET['saction'] : '');
+
+$nsPage = (!isset($_GET['spage']) || !is_numeric($_GET['spage'])) ? 1 : intval($_GET['spage']); 
+$nzPage = (!isset($_GET['zpage']) || !is_numeric($_GET['zpage'])) ? 1 : intval($_GET['zpage']); 
+
+$saction = (isset($_GET['saction']) ? $_GET['saction'] : '');
 
   if (oos_is_not_null($saction)) {
     switch ($saction) {
@@ -65,7 +69,7 @@
         $dbconn->Execute("INSERT INTO $zones_to_geo_zonestable (zone_country_id, zone_id, geo_zone_id, date_added) VALUES ('" . oos_db_input($zone_country_id) . "', '" . oos_db_input($zone_id) . "', '" . oos_db_input($zID) . "', now())");
         $new_subzone_id = $dbconn->Insert_ID();
 
-        oos_redirect_admin(oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $new_subzone_id));
+        oos_redirect_admin(oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $new_subzone_id));
         break;
 
     case 'save_sub':
@@ -77,7 +81,7 @@
         $zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
         $dbconn->Execute("UPDATE $zones_to_geo_zonestable SET geo_zone_id = '" . oos_db_input($zID) . "', zone_country_id = '" . oos_db_input($zone_country_id) . "', zone_id = " . ((oos_db_input($zone_id)) ? "'" . oos_db_input($zone_id) . "'" : 'null') . ", last_modified = now() WHERE association_id = '" . oos_db_input($sID) . "'");
 
-        oos_redirect_admin(oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $_GET['sID']));
+        oos_redirect_admin(oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $_GET['sID']));
         break;
 
     case 'deleteconfirm_sub':
@@ -86,7 +90,7 @@
         $zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
         $dbconn->Execute("DELETE FROM $zones_to_geo_zonestable WHERE association_id = '" . oos_db_input($sID) . "'");
 
-        oos_redirect_admin(oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage']));
+        oos_redirect_admin(oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage));
         break;
     }
   }
@@ -103,7 +107,7 @@
         $dbconn->Execute("INSERT INTO $geo_zonestable (geo_zone_name, geo_zone_description, date_added) VALUES ('" . oos_db_input($geo_zone_name) . "', '" . oos_db_input($geo_zone_description) . "', now())");
         $new_zone_id = $dbconn->Insert_ID();
 
-        oos_redirect_admin(oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $new_zone_id));
+        oos_redirect_admin(oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $new_zone_id));
         break;
 
     case 'save_zone':
@@ -114,7 +118,7 @@
         $geo_zonestable = $oostable['geo_zones'];
         $dbconn->Execute("UPDATE $geo_zonestable SET geo_zone_name = '" . oos_db_input($geo_zone_name) . "', geo_zone_description = '" . oos_db_input($geo_zone_description) . "', last_modified = now() WHERE geo_zone_id = '" . oos_db_input($zID) . "'");
 
-        oos_redirect_admin(oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID']));
+        oos_redirect_admin(oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID']));
         break;
 
     case 'deleteconfirm_zone':
@@ -125,7 +129,7 @@
         $dbconn->Execute("DELETE FROM $geo_zonestable WHERE geo_zone_id = '" . oos_db_input($zID) . "'");
         $dbconn->Execute("DELETE FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . oos_db_input($zID) . "'");
 
-        oos_redirect_admin(oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage']));
+        oos_redirect_admin(oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage));
         break;
     }
   }
@@ -222,7 +226,7 @@ function update_zone(theForm) {
 <?php
     $rows = 0;
     $zones_result_raw = "SELECT a.association_id, a.zone_country_id, c.countries_name, a.zone_id, a.geo_zone_id, a.last_modified, a.date_added, z.zone_name FROM " . $oostable['zones_to_geo_zones'] . " a left join " . $oostable['countries'] . " c on a.zone_country_id = c.countries_id left join " . $oostable['zones'] . " z on a.zone_id = z.zone_id WHERE a.geo_zone_id = " . $_GET['zID'] . " ORDER BY association_id";
-    $zones_split = new splitPageResults($_GET['spage'], MAX_DISPLAY_SEARCH_RESULTS, $zones_result_raw, $zones_result_numrows);
+    $zones_split = new splitPageResults($nsPage, MAX_DISPLAY_SEARCH_RESULTS, $zones_result_raw, $zones_result_numrows);
     $zones_result = $dbconn->Execute($zones_result_raw);
     while ($zones = $zones_result->fields) {
       $rows++;
@@ -230,14 +234,14 @@ function update_zone(theForm) {
         $sInfo = new objectInfo($zones);
       }
       if (isset($sInfo) && is_object($sInfo) && ($zones['association_id'] == $sInfo->association_id)) {
-        echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $sInfo->association_id . '&saction=edit') . '\'">' . "\n";
+        echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $sInfo->association_id . '&saction=edit') . '\'">' . "\n";
       } else {
-        echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $zones['association_id']) . '\'">' . "\n";
+        echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $zones['association_id']) . '\'">' . "\n";
       }
 ?>
                 <td class="dataTableContent"><?php echo (($zones['countries_name']) ? $zones['countries_name'] : TEXT_ALL_COUNTRIES); ?></td>
                 <td class="dataTableContent"><?php echo (($zones['zone_id']) ? $zones['zone_name'] : PLEASE_SELECT); ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($sInfo) && is_object($sInfo) && ($zones['association_id'] == $sInfo->association_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $zones['association_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($sInfo) && is_object($sInfo) && ($zones['association_id'] == $sInfo->association_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $zones['association_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -250,13 +254,13 @@ function update_zone(theForm) {
               <tr>
                 <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="smallText" valign="top"><?php echo $zones_split->display_count($zones_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['spage'], TEXT_DISPLAY_NUMBER_OF_COUNTRIES); ?></td>
-                    <td class="smallText" align="right"><?php echo $zones_split->display_links($zones_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['spage'], 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list', 'spage'); ?></td>
+                    <td class="smallText" valign="top"><?php echo $zones_split->display_count($zones_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nsPage, TEXT_DISPLAY_NUMBER_OF_COUNTRIES); ?></td>
+                    <td class="smallText" align="right"><?php echo $zones_split->display_links($zones_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nsPage, 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list', 'spage'); ?></td>
                   </tr>
                 </table></td>
               </tr>
               <tr>
-                <td align="right" colspan="3"><?php if (empty($saction)) echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID']) . '">' . oos_button('back', IMAGE_BACK) . '</a> <a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $sInfo->association_id . '&saction=new') . '">' . oos_button('insert', BUTTON_INSERT) . '</a>'; ?></td>
+                <td align="right" colspan="3"><?php if (empty($saction)) echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID']) . '">' . oos_button('back', IMAGE_BACK) . '</a> <a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $sInfo->association_id . '&saction=new') . '">' . oos_button('insert', BUTTON_INSERT) . '</a>'; ?></td>
               </tr>
             </table>
 <?php
@@ -272,20 +276,20 @@ function update_zone(theForm) {
     $zones_result_raw = "SELECT geo_zone_id, geo_zone_name, geo_zone_description, last_modified, date_added 
                         FROM $geo_zonestable
                         ORDER BY geo_zone_name";
-    $zones_split = new splitPageResults($_GET['zpage'], MAX_DISPLAY_SEARCH_RESULTS, $zones_result_raw, $zones_result_numrows);
+    $zones_split = new splitPageResults($nzPage, MAX_DISPLAY_SEARCH_RESULTS, $zones_result_raw, $zones_result_numrows);
     $zones_result = $dbconn->Execute($zones_result_raw);
     while ($zones = $zones_result->fields) {
       if ((!isset($_GET['zID']) || (isset($_GET['zID']) && ($_GET['zID'] == $zones['geo_zone_id']))) && !isset($zInfo) && (substr($action, 0, 3) != 'new')) {
         $zInfo = new objectInfo($zones);
       }
       if (isset($zInfo) && is_object($zInfo) && ($zones['geo_zone_id'] == $zInfo->geo_zone_id) ) {
-        echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $zInfo->geo_zone_id . '&action=list') . '\'">' . "\n";
+        echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zInfo->geo_zone_id . '&action=list') . '\'">' . "\n";
       } else {
-        echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $zones['geo_zone_id']) . '\'">' . "\n";
+        echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zones['geo_zone_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $zones['geo_zone_id'] . '&action=list') . '"><i class="fa fa-folder"></i></button></a>&nbsp;' . $zones['geo_zone_name']; ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($zInfo) && is_object($zInfo) && ($zones['geo_zone_id'] == $zInfo->geo_zone_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $zones['geo_zone_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zones['geo_zone_id'] . '&action=list') . '"><i class="fa fa-folder"></i></button></a>&nbsp;' . $zones['geo_zone_name']; ?></td>
+                <td class="dataTableContent" align="right"><?php if (isset($zInfo) && is_object($zInfo) && ($zones['geo_zone_id'] == $zInfo->geo_zone_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zones['geo_zone_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -298,13 +302,13 @@ function update_zone(theForm) {
               <tr>
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="smallText"><?php echo $zones_split->display_count($zones_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['zpage'], TEXT_DISPLAY_NUMBER_OF_TAX_ZONES); ?></td>
-                    <td class="smallText" align="right"><?php echo $zones_split->display_links($zones_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['zpage'], '', 'zpage'); ?></td>
+                    <td class="smallText"><?php echo $zones_split->display_count($zones_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nzPage, TEXT_DISPLAY_NUMBER_OF_TAX_ZONES); ?></td>
+                    <td class="smallText" align="right"><?php echo $zones_split->display_links($zones_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nzPage, '', 'zpage'); ?></td>
                   </tr>
                 </table></td>
               </tr>
               <tr>
-                <td align="right" colspan="2"><?php if (empty($action)) echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $zInfo->geo_zone_id . '&action=new_zone') . '">' . oos_button('insert', BUTTON_INSERT) . '</a>'; ?></td>
+                <td align="right" colspan="2"><?php if (empty($action)) echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zInfo->geo_zone_id . '&action=new_zone') . '">' . oos_button('insert', BUTTON_INSERT) . '</a>'; ?></td>
               </tr>
             </table>
 <?php
@@ -320,37 +324,37 @@ function update_zone(theForm) {
       case 'new':
         $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_SUB_ZONE . '</b>');
 
-        $contents = array('form' => oos_draw_form('id', 'zones', $aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $_GET['sID'] . '&saction=insert_sub', 'post', FALSE));
+        $contents = array('form' => oos_draw_form('id', 'zones', $aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $_GET['sID'] . '&saction=insert_sub', 'post', FALSE));
         $contents[] = array('text' => TEXT_INFO_NEW_SUB_ZONE_INTRO);
         $contents[] = array('text' => '<br />' . TEXT_INFO_COUNTRY . '<br />' . oos_draw_pull_down_menu('zone_country_id', oos_get_countries(TEXT_ALL_COUNTRIES), '', 'onChange="update_zone(this.form);"'));
         $contents[] = array('text' => '<br />' . TEXT_INFO_COUNTRY_ZONE . '<br />' . oos_draw_pull_down_menu('zone_id', oos_prepare_country_zones_pull_down()));
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('insert', BUTTON_INSERT) . ' <a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $_GET['sID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('insert', BUTTON_INSERT) . ' <a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $_GET['sID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
         break;
 
       case 'edit':
         $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_SUB_ZONE . '</b>');
 
-        $contents = array('form' => oos_draw_form('id', 'zones', $aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $sInfo->association_id . '&saction=save_sub', 'post', FALSE));
+        $contents = array('form' => oos_draw_form('id', 'zones', $aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $sInfo->association_id . '&saction=save_sub', 'post', FALSE));
         $contents[] = array('text' => TEXT_INFO_EDIT_SUB_ZONE_INTRO);
         $contents[] = array('text' => '<br />' . TEXT_INFO_COUNTRY . '<br />' . oos_draw_pull_down_menu('zone_country_id', oos_get_countries(TEXT_ALL_COUNTRIES), $sInfo->zone_country_id, 'onChange="update_zone(this.form);"'));
         $contents[] = array('text' => '<br />' . TEXT_INFO_COUNTRY_ZONE . '<br />' . oos_draw_pull_down_menu('zone_id', oos_prepare_country_zones_pull_down($sInfo->zone_country_id), $sInfo->zone_id));
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('update', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $sInfo->association_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('update', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $sInfo->association_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
         break;
 
       case 'delete':
         $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_SUB_ZONE . '</b>');
 
-        $contents = array('form' => oos_draw_form('id', 'zones', $aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $sInfo->association_id . '&saction=deleteconfirm_sub', 'post', FALSE));
+        $contents = array('form' => oos_draw_form('id', 'zones', $aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $sInfo->association_id . '&saction=deleteconfirm_sub', 'post', FALSE));
         $contents[] = array('text' => TEXT_INFO_DELETE_SUB_ZONE_INTRO);
         $contents[] = array('text' => '<br /><b>' . $sInfo->countries_name . '</b>');
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $sInfo->association_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $sInfo->association_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
         break;
 
       default:
         if (isset($sInfo) && is_object($sInfo)) {
           $heading[] = array('text' => '<b>' . $sInfo->countries_name . '</b>');
 
-          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $sInfo->association_id . '&saction=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $sInfo->association_id . '&saction=delete') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
+          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $sInfo->association_id . '&saction=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $sInfo->association_id . '&saction=delete') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
           $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($sInfo->date_added));
           if (oos_is_not_null($sInfo->last_modified)) $contents[] = array('text' => TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($sInfo->last_modified));
         }
@@ -361,37 +365,37 @@ function update_zone(theForm) {
       case 'new_zone':
         $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_ZONE . '</b>');
 
-        $contents = array('form' => oos_draw_form('id', 'zones', $aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=insert_zone', 'post', FALSE));
+        $contents = array('form' => oos_draw_form('id', 'zones', $aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=insert_zone', 'post', FALSE));
         $contents[] = array('text' => TEXT_INFO_NEW_ZONE_INTRO);
         $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_NAME . '<br />' . oos_draw_input_field('geo_zone_name'));
         $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_DESCRIPTION . '<br />' . oos_draw_input_field('geo_zone_description'));
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('insert', BUTTON_INSERT) . ' <a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('insert', BUTTON_INSERT) . ' <a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
         break;
 
       case 'edit_zone':
         $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_ZONE . '</b>');
 
-        $contents = array('form' => oos_draw_form('id', 'zones', $aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $zInfo->geo_zone_id . '&action=save_zone', 'post', FALSE));
+        $contents = array('form' => oos_draw_form('id', 'zones', $aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zInfo->geo_zone_id . '&action=save_zone', 'post', FALSE));
         $contents[] = array('text' => TEXT_INFO_EDIT_ZONE_INTRO);
         $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_NAME . '<br />' . oos_draw_input_field('geo_zone_name', $zInfo->geo_zone_name));
         $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_DESCRIPTION . '<br />' . oos_draw_input_field('geo_zone_description', $zInfo->geo_zone_description));
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('update', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $zInfo->geo_zone_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('update', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zInfo->geo_zone_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
         break;
 
       case 'delete_zone':
         $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_ZONE . '</b>');
 
-        $contents = array('form' => oos_draw_form('id', 'zones', $aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $zInfo->geo_zone_id . '&action=deleteconfirm_zone', 'post', FALSE));
+        $contents = array('form' => oos_draw_form('id', 'zones', $aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zInfo->geo_zone_id . '&action=deleteconfirm_zone', 'post', FALSE));
         $contents[] = array('text' => TEXT_INFO_DELETE_ZONE_INTRO);
         $contents[] = array('text' => '<br /><b>' . $zInfo->geo_zone_name . '</b>');
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $zInfo->geo_zone_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zInfo->geo_zone_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
         break;
 
       default:
         if (isset($zInfo) && is_object($zInfo)) {
           $heading[] = array('text' => '<b>' . $zInfo->geo_zone_name . '</b>');
 
-          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $zInfo->geo_zone_id . '&action=edit_zone') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $_GET['zpage'] . '&zID=' . $zInfo->geo_zone_id . '&action=delete_zone') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
+          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zInfo->geo_zone_id . '&action=edit_zone') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zInfo->geo_zone_id . '&action=delete_zone') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
           $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($zInfo->date_added));
           if (oos_is_not_null($zInfo->last_modified)) $contents[] = array('text' => TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($zInfo->last_modified));
           $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_DESCRIPTION . '<br />' . $zInfo->geo_zone_description);

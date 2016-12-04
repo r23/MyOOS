@@ -22,15 +22,16 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
-  require 'includes/classes/class_currencies.php';
-  $currencies = new currencies();
+require 'includes/classes/class_currencies.php';
+$currencies = new currencies();
 
-  $language = $_SESSION['language'];
+$language = $_SESSION['language'];
 
-  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$action = (isset($_GET['action']) ? $_GET['action'] : '');
 
   switch($action) {
     case 'update_cross':
@@ -192,7 +193,7 @@ td.style.backgroundColor="DFE4F4";
                             WHERE p.products_id = pd.products_id
                               AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'
                            ORDER BY p.products_id asc";
-    $products_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $products_result_raw, $products_result_numrows);
+    $products_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $products_result_raw, $products_result_numrows);
     $products_result = $dbconn->Execute($products_result_raw);
     while ($products = $products_result->fields) {
 ?>
@@ -257,8 +258,8 @@ td.style.backgroundColor="DFE4F4";
     <tr>
       <td colspan="6"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="infoBoxContent">
         <tr>
-          <td class="smallText" valign="top"><?php echo $products_split->display_count($products_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?></td>
-          <td class="smallText" align="right"><?php echo $products_split->display_links($products_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_params(array('page', 'info', 'x', 'y', 'cID', 'action'))); ?></td>
+          <td class="smallText" valign="top"><?php echo $products_split->display_count($products_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?></td>
+          <td class="smallText" align="right"><?php echo $products_split->display_links($products_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_params(array('page', 'info', 'x', 'y', 'cID', 'action'))); ?></td>
         </tr>
       </table></td>
     </tr>
@@ -308,7 +309,7 @@ td.style.backgroundColor="DFE4F4";
                             WHERE p.products_id = pd.products_id
                               AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'
                             ORDER BY p.products_id asc";
-    $products_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $products_result_raw, $products_result_numrows);
+    $products_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $products_result_raw, $products_result_numrows);
     $products_result = $dbconn->Execute($products_result_raw);
     while ($products = $products_result->fields) {
       $products_xselltable = $oostable['products_xsell'];
@@ -334,8 +335,8 @@ td.style.backgroundColor="DFE4F4";
     <tr>
       <td colspan="6"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="infoBoxContent">
         <tr>
-          <td class="smallText" valign="top"><?php echo $products_split->display_count($products_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?></td>
-          <td class="smallText" align="right"><?php echo $products_split->display_links($products_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_params(array('page', 'info', 'x', 'y', 'cID', 'action'))); ?></td>
+          <td class="smallText" valign="top"><?php echo $products_split->display_count($products_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?></td>
+          <td class="smallText" align="right"><?php echo $products_split->display_links($products_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_params(array('page', 'info', 'x', 'y', 'cID', 'action'))); ?></td>
         </tr>
       </table></td>
     </tr>
@@ -390,7 +391,7 @@ td.style.backgroundColor="DFE4F4";
                              AND p.products_id = pd.products_id 
                              AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'
                            ORDER BY x.sort_order asc";
-    $products_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $products_result_raw, $products_result_numrows);
+    $products_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $products_result_raw, $products_result_numrows);
     $sort_order_drop_array = array();
     for ($i = 1; $i <= $products_result_numrows; $i++) {
       $sort_order_drop_array[] = array('id' => $i, 'text' => $i);
@@ -419,8 +420,8 @@ td.style.backgroundColor="DFE4F4";
         <tr>
           <td colspan="6"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="infoBoxContent">
             <tr>
-              <td class="smallText" valign="top"><?php echo $products_split->display_count($products_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?></td>
-              <td class="smallText" align="right"><?php echo $products_split->display_links($products_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_params(array('page', 'info', 'x', 'y', 'cID', 'action'))); ?></td>
+              <td class="smallText" valign="top"><?php echo $products_split->display_count($products_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?></td>
+              <td class="smallText" align="right"><?php echo $products_split->display_links($products_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_params(array('page', 'info', 'x', 'y', 'cID', 'action'))); ?></td>
             </tr>
           </table></td>
         </tr>

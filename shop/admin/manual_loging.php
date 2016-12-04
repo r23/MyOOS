@@ -50,8 +50,8 @@
    All contributions are gladly accepted though Paypal.
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
   function oos_set_login_status($man_info_id, $status) {
 
@@ -68,7 +68,8 @@
     }
   }
 
-  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$action = (isset($_GET['action']) ? $_GET['action'] : '');
 
   if (!empty($action)) {
     switch ($action) {
@@ -134,16 +135,16 @@
               </tr>
 <?php
     $payment_dai_result_raw = "SELECT man_info_id, man_name, status, manual_date_added, manual_last_modified, date_status_change FROM " . $oostable['manual_info'] . "";
-    $payment_dai_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $payment_dai_result_raw, $payment_dai_result_numrows);
+    $payment_dai_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $payment_dai_result_raw, $payment_dai_result_numrows);
     $payment_dai_result = $dbconn->Execute($payment_dai_result_raw);
     while ($palm_doa = $payment_dai_result->fields) {
       if ((!isset($_GET['sID']) || (isset($_GET['sID']) && ($_GET['sID'] == $palm_doa['man_info_id']))) && !isset($sInfo)) {
         $sInfo = new objectInfo($palm_doa);
       }
       if (isset($sInfo) && is_object($sInfo) && ($palm_doa['man_info_id'] == $sInfo->man_info_id) ) {
-        echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $_GET['page'] . '&sID=' . $sInfo->man_info_id . '&action=edit') . '\'">' . "\n";
+        echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $sInfo->man_info_id . '&action=edit') . '\'">' . "\n";
       } else {
-        echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $_GET['page'] . '&sID=' . $palm_doa['man_info_id']) . '\'">' . "\n";
+        echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $palm_doa['man_info_id']) . '\'">' . "\n";
       }
 ?>
                 <td class="dataTableContent" align="left"><?php echo $palm_doa['man_name']; ?></td>
@@ -155,7 +156,7 @@
         echo '&nbsp;<a href="' . oos_href_link_admin($aContents['manual_loging'], 'action=setflag&flag=1&id=' . $palm_doa['man_info_id'], 'NONSSL') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10) . '</a>';
       }
 ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($sInfo) && is_object($sInfo) && ($palm_doa['man_info_id'] == $sInfo->man_info_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $_GET['page'] . '&sID=' . $palm_doa['man_info_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($sInfo) && is_object($sInfo) && ($palm_doa['man_info_id'] == $sInfo->man_info_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $palm_doa['man_info_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
       </tr>
 <?php
     // Move that ADOdb pointer!
@@ -165,7 +166,7 @@
                 <td colspan="4"><table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
                     <td class="smallText" valign="top">&nbsp;</td>
-                    <td class="smallText" align="right"><?php echo $payment_dai_split->display_links($payment_dai_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
+                    <td class="smallText" align="right"><?php echo $payment_dai_split->display_links($payment_dai_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
                   </tr>
 <?php
   if (empty($action)) {
@@ -183,10 +184,10 @@
   switch ($action) {
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_OVERSTOCK . '</b>');
-      $contents = array('form' => oos_draw_form('id', 'palm_daily', $aContents['manual_loging'], 'page=' . $_GET['page'] . '&sID=' . $sInfo->man_info_id . '&action=deleteconfirm', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'palm_daily', $aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $sInfo->man_info_id . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $sInfo->contact_info_name . '</b>');
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $_GET['page'] . '&sID=' . $sInfo->man_info_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $sInfo->man_info_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       break;
     default:
       if (isset($sInfo) && is_object($sInfo)) {

@@ -18,8 +18,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
  /**
   * Remove Order
@@ -85,24 +85,24 @@
   }
 
 
-  require 'includes/classes/class_currencies.php';
-  $currencies = new currencies();
+require 'includes/classes/class_currencies.php';
+$currencies = new currencies();
 
-  $orders_statuses = array();
-  $orders_status_array = array();
-  $orders_statustable = $oostable['orders_status'];
-  $orders_status_result = $dbconn->Execute("SELECT orders_status_id, orders_status_name FROM $orders_statustable WHERE orders_languages_id = '" . intval($_SESSION['language_id']) . "'");
-  while ($orders_status = $orders_status_result->fields) {
+$orders_statuses = array();
+$orders_status_array = array();
+$orders_statustable = $oostable['orders_status'];
+$orders_status_result = $dbconn->Execute("SELECT orders_status_id, orders_status_name FROM $orders_statustable WHERE orders_languages_id = '" . intval($_SESSION['language_id']) . "'");
+while ($orders_status = $orders_status_result->fields) {
     $orders_statuses[] = array('id' => $orders_status['orders_status_id'],
                                'text' => $orders_status['orders_status_name']);
     $orders_status_array[$orders_status['orders_status_id']] = $orders_status['orders_status_name'];
 
     // Move that ADOdb pointer!
     $orders_status_result->MoveNext();
-  }
+}
 
-
-  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$action = (isset($_GET['action']) ? $_GET['action'] : '');
 
   if (!empty($action)) {
     switch ($action) {
@@ -693,7 +693,7 @@
                                   ot.class = 'ot_total'
                            ORDER BY o.orders_id DESC";
     }
-    $orders_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $orders_result_raw, $orders_result_numrows);
+    $orders_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $orders_result_raw, $orders_result_numrows);
     $orders_result = $dbconn->Execute($orders_result_raw);
     while ($orders = $orders_result->fields) {
       if ((!isset($_GET['oID']) || (isset($_GET['oID']) && ($_GET['oID'] == $orders['orders_id']))) && !isset($oInfo)) {
@@ -720,8 +720,8 @@
               <tr>
                 <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="smallText" valign="top"><?php echo $orders_split->display_count($orders_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?></td>
-                    <td class="smallText" align="right"><?php echo $orders_split->display_links($orders_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_params(array('page', 'oID', 'action'))); ?></td>
+                    <td class="smallText" valign="top"><?php echo $orders_split->display_count($orders_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_ORDERS); ?></td>
+                    <td class="smallText" align="right"><?php echo $orders_split->display_links($orders_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_params(array('page', 'oID', 'action'))); ?></td>
                   </tr>
                 </table></td>
               </tr>

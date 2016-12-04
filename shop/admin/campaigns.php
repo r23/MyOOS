@@ -78,8 +78,8 @@
     return $campaigns_array;
   }
 
-
-  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$action = (isset($_GET['action']) ? $_GET['action'] : '');
 
   if (!empty($action)) {
     switch ($action) {
@@ -118,7 +118,7 @@
           $dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . oos_db_input($campaigns_id) . "' WHERE configuration_key = 'DEFAULT_CAMPAIGNS_ID'");
         }
 
-        oos_redirect_admin(oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $campaigns_id));
+        oos_redirect_admin(oos_href_link_admin($aContents['campaigns'], 'page=' . $nPage . '&cID=' . $campaigns_id));
         break;
 
     case 'deleteconfirm':
@@ -134,7 +134,7 @@
         $campaignstable = $oostable['campaigns'];
         $dbconn->Execute("DELETE FROM $campaignstable WHERE campaigns_id = '" . oos_db_input($cID) . "'");
 
-        oos_redirect_admin(oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page']));
+        oos_redirect_admin(oos_href_link_admin($aContents['campaigns'], 'page=' . $nPage));
         break;
 
     case 'delete':
@@ -208,7 +208,7 @@
                            FROM $campaignstable
                            WHERE campaigns_languages_id = '" . intval($_SESSION['language_id']) . "'
                            ORDER BY campaigns_id";
-  $campaigns_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $campaigns_result_raw, $campaigns_result_numrows);
+  $campaigns_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $campaigns_result_raw, $campaigns_result_numrows);
   $campaigns_result = $dbconn->Execute($campaigns_result_raw);
   while ($campaigns = $campaigns_result->fields) {
     if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $campaigns['campaigns_id']))) && !isset($oInfo) && (substr($action, 0, 3) != 'new')) {
@@ -216,9 +216,9 @@
     }
 
     if (isset($oInfo) && is_object($oInfo) && ($campaigns['campaigns_id'] == $oInfo->campaigns_id)) {
-      echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id . '&action=edit') . '\'">' . "\n";
+      echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['campaigns'], 'page=' . $nPage . '&cID=' . $oInfo->campaigns_id . '&action=edit') . '\'">' . "\n";
     } else {
-      echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $campaigns['campaigns_id']) . '\'">' . "\n";
+      echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['campaigns'], 'page=' . $nPage . '&cID=' . $campaigns['campaigns_id']) . '\'">' . "\n";
     }
 
     if (DEFAULT_CAMPAIGNS_ID == $campaigns['campaigns_id']) {
@@ -228,7 +228,7 @@
     }
 ?>
 
-                <td class="dataTableContent" align="right"><?php if (isset($oInfo) && is_object($oInfo) && ($campaigns['campaigns_id'] == $oInfo->campaigns_id)) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $campaigns['campaigns_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($oInfo) && is_object($oInfo) && ($campaigns['campaigns_id'] == $oInfo->campaigns_id)) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $nPage . '&cID=' . $campaigns['campaigns_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -238,14 +238,14 @@
               <tr>
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="smallText" valign="top"><?php echo $campaigns_split->display_count($campaigns_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_CAMPAIGNS); ?></td>
-                    <td class="smallText" align="right"><?php echo $campaigns_split->display_links($campaigns_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
+                    <td class="smallText" valign="top"><?php echo $campaigns_split->display_count($campaigns_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_CAMPAIGNS); ?></td>
+                    <td class="smallText" align="right"><?php echo $campaigns_split->display_links($campaigns_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
                   </tr>
 <?php
     if (empty($action)) {
 ?>
                   <tr>
-                    <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&action=new') . '">' . oos_button('insert', BUTTON_INSERT) . '</a>'; ?></td>
+                    <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $nPage . '&action=new') . '">' . oos_button('insert', BUTTON_INSERT) . '</a>'; ?></td>
                   </tr>
 <?php
   }
@@ -262,7 +262,7 @@
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_CAMPAIGNS . '</b>');
 
-      $contents = array('form' => oos_draw_form('id', 'status', $aContents['campaigns'], 'page=' . $_GET['page'] . '&action=insert', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'status', $aContents['campaigns'], 'page=' . $nPage . '&action=insert', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
 
       $campaigns_inputs_string = '';
@@ -273,13 +273,13 @@
 
       $contents[] = array('text' => '<br />' . TEXT_INFO_CAMPAIGNS_NAME . $campaigns_inputs_string);
       $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('insert', BUTTON_INSERT) . ' <a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('insert', BUTTON_INSERT) . ' <a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $nPage) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       break;
 
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_CAMPAIGNS . '</b>');
 
-      $contents = array('form' => oos_draw_form('id', 'status', $aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id  . '&action=save', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'status', $aContents['campaigns'], 'page=' . $nPage . '&cID=' . $oInfo->campaigns_id  . '&action=save', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
 
       $campaigns_inputs_string = '';
@@ -290,23 +290,23 @@
 
       $contents[] = array('text' => '<br />' . TEXT_INFO_CAMPAIGNS_NAME . $campaigns_inputs_string);
       if (DEFAULT_CAMPAIGNS_ID != $oInfo->campaigns_id) $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('update', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('update', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $nPage . '&cID=' . $oInfo->campaigns_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       break;
 
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_CAMPAIGNS . '</b>');
 
-      $contents = array('form' => oos_draw_form('id', 'status', $aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id  . '&action=deleteconfirm', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'status', $aContents['campaigns'], 'page=' . $nPage . '&cID=' . $oInfo->campaigns_id  . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $oInfo->campaigns_name . '</b>');
-      if ($remove_status) $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+      if ($remove_status) $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $nPage . '&cID=' . $oInfo->campaigns_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       break;
 
     default:
      if (isset($oInfo) && is_object($oInfo)) {
         $heading[] = array('text' => '<b>' . $oInfo->campaigns_name . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $_GET['page'] . '&cID=' . $oInfo->campaigns_id . '&action=delete') . '">' . oos_button('delete', BUTTON_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $nPage . '&cID=' . $oInfo->campaigns_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['campaigns'], 'page=' . $nPage . '&cID=' . $oInfo->campaigns_id . '&action=delete') . '">' . oos_button('delete', BUTTON_DELETE) . '</a>');
 
         $campaigns_inputs_string = '';
         $languages = oos_get_languages();

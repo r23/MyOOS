@@ -18,21 +18,22 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
 // define our coupon functions
-  require 'includes/functions/function_coupon.php';
+require 'includes/functions/function_coupon.php';
 
-  require 'includes/classes/class_currencies.php';
-  $currencies = new currencies();
+require 'includes/classes/class_currencies.php';
+$currencies = new currencies();
 
   if (isset($_GET['selected_box'])) {
     $_GET['action'] = '';
     $_GET['old_action'] = '';
   }
-
-  $action = (isset($_GET['action']) ? $_GET['action'] : ''); 
+  
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$action = (isset($_GET['action']) ? $_GET['action'] : ''); 
 
   if (($action == 'send_email_to_user') && ($_POST['customers_email_address']) && (!$_POST['back_x'])) {
     switch ($_POST['customers_email_address']) {
@@ -293,7 +294,7 @@
     $cc_result_raw = "SELECT * 
                       FROM " . $oostable['coupon_redeem_track'] . " 
                      WHERE coupon_id = '" . $_GET['cID'] . "'";
-    $cc_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $cc_result_raw, $cc_result_numrows);
+    $cc_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $cc_result_raw, $cc_result_numrows);
     $cc_result = $dbconn->Execute($cc_result_raw);
     while ($cc_list = $cc_result->fields) {
       $rows++;
@@ -317,7 +318,7 @@
                 <td class="dataTableContent" align="center"><?php echo $customer['customers_firstname'] . ' ' . $customer['customers_lastname']; ?></td>
                 <td class="dataTableContent" align="center"><?php echo $cc_list['redeem_ip']; ?></td>
                 <td class="dataTableContent" align="center"><?php echo oos_date_short($cc_list['redeem_date']); ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($cc_list['unique_id'] == $cInfo->unique_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'page=' . $_GET['page'] . '&cID=' . $cc_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($cc_list['unique_id'] == $cInfo->unique_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'page=' . $nPage . '&cID=' . $cc_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -969,7 +970,7 @@
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
-    if (isset($_GET['page']) && ($_GET['page'] > 1)) $rows = $_GET['page'] * 20 - 20;
+    if (isset($nPage) && ($nPage > 1)) $rows = $nPage * 20 - 20;
     if ($status != '*') {
       $cc_result_raw = "SELECT 
                            coupon_id, coupon_code, coupon_amount, coupon_type, coupon_start_date,
@@ -990,7 +991,7 @@
                        WHERE 
                            coupon_type != 'G'";
     }
-    $cc_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $cc_result_raw, $cc_result_numrows);
+    $cc_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $cc_result_raw, $cc_result_numrows);
     $cc_result = $dbconn->Execute($cc_result_raw);
     while ($cc_list = $cc_result->fields) {
       $rows++;
@@ -1024,7 +1025,7 @@
 ?>
             &nbsp;</td>
                 <td class="dataTableContent" align="center"><?php echo $cc_list['coupon_code']; ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($cc_list['coupon_id'] == $cInfo->coupon_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'page=' . $_GET['page'] . '&cID=' . $cc_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($cc_list['coupon_id'] == $cInfo->coupon_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'page=' . $nPage . '&cID=' . $cc_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -1038,12 +1039,12 @@
           <tr>
             <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="smallText">&nbsp;<?php echo $cc_split->display_count($cc_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_COUPONS); ?>&nbsp;</td>
-                <td align="right" class="smallText">&nbsp;<?php echo $cc_split->display_links($cc_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?>&nbsp;</td>
+                <td class="smallText">&nbsp;<?php echo $cc_split->display_count($cc_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_COUPONS); ?>&nbsp;</td>
+                <td align="right" class="smallText">&nbsp;<?php echo $cc_split->display_links($cc_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?>&nbsp;</td>
               </tr>
 
               <tr>
-                <td align="right" colspan="2" class="smallText"><?php echo '<a href="' . oos_href_link_admin('coupon_admin.php', 'page=' . $_GET['page'] . '&cID=' . $cInfo->coupon_id . '&action=new') . '">' . oos_button('insert', BUTTON_INSERT) . '</a>'; ?></td>
+                <td align="right" colspan="2" class="smallText"><?php echo '<a href="' . oos_href_link_admin('coupon_admin.php', 'page=' . $nPage . '&cID=' . $cInfo->coupon_id . '&action=new') . '">' . oos_button('insert', BUTTON_INSERT) . '</a>'; ?></td>
               </tr>
             </table></td>
           </tr>

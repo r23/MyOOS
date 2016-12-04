@@ -20,18 +20,19 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
-  require 'includes/functions/function_customer.php';
-  require 'includes/functions/function_coupon.php';
+require 'includes/functions/function_customer.php';
+require 'includes/functions/function_coupon.php';
 
-  require 'includes/classes/class_currencies.php';
-  $currencies = new currencies();
+require 'includes/classes/class_currencies.php';
+$currencies = new currencies();
 
-  $customers_statuses_array = oos_get_customers_statuses();
+$customers_statuses_array = oos_get_customers_statuses();
 
-  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$action = (isset($_GET['action']) ? $_GET['action'] : '');
 
   if (!empty($action)) {
     switch ($action) {
@@ -135,7 +136,7 @@
                  $email_text .= sprintf(EMAIL_PASSWORD_BODY, $newpass);
                  $email_text .= EMAIL_CONTACT;
                  oos_mail($name, $check_customer_values['customers_email_address'], EMAIL_SUBJECT, nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS); 
-                 oos_redirect_admin(oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $_GET['page'] . '&cID=' . $_GET['cID']));
+                 oos_redirect_admin(oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&cID=' . $_GET['cID']));
               }
             }
           }
@@ -752,7 +753,7 @@ function check_form() {
                                   " . $search . "
                              ORDER BY c.customers_lastname,
                                    c.customers_firstname";
-    $customers_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $customers_result_raw, $customers_result_numrows);
+    $customers_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $customers_result_raw, $customers_result_numrows);
     $customers_result = $dbconn->Execute($customers_result_raw);
     while ($customers = $customers_result->fields) {
       $customers_infotable = $oostable['customers_info'];
@@ -796,9 +797,9 @@ function check_form() {
                 <td class="dataTableContent" align="center">
 <?php
       if ($customers['customers_login'] == '1') {
-        echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $_GET['page'] . '&action=setflag&loginflag=0&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+        echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&action=setflag&loginflag=0&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
       } else {
-        echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $_GET['page'] . '&action=setflag&loginflag=1&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
+        echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&action=setflag&loginflag=1&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
       }
 ?>
                 <td class="dataTableContent" align="right"><?php echo oos_date_short($info['date_account_created']); ?></td>
@@ -816,8 +817,8 @@ function check_form() {
               <tr>
                 <td colspan="7"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="smallText" valign="top"><?php echo $customers_split->display_count($customers_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_CUSTOMERS); ?></td>
-                    <td class="smallText" align="right"><?php echo $customers_split->display_links($customers_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], oos_get_all_get_params(array('page', 'info', 'x', 'y', 'cID'))); ?></td>
+                    <td class="smallText" valign="top"><?php echo $customers_split->display_count($customers_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_CUSTOMERS); ?></td>
+                    <td class="smallText" align="right"><?php echo $customers_split->display_links($customers_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_params(array('page', 'info', 'x', 'y', 'cID'))); ?></td>
                   </tr>
 <?php
     if (oos_is_not_null($_GET['search'])) {

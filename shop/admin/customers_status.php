@@ -35,14 +35,15 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
-  require 'includes/functions/function_customer.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
+require 'includes/functions/function_customer.php';
 
-  require 'includes/classes/class_currencies.php';
-  $currencies = new currencies();
+require 'includes/classes/class_currencies.php';
+$currencies = new currencies();
 
-  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$action = (isset($_GET['action']) ? $_GET['action'] : '');
 
   if (!empty($action)) {
     switch ($action) {
@@ -108,7 +109,7 @@
           $dbconn->Execute("UPDATE " . $oostable['configuration'] . " SET configuration_value = '" . oos_db_input($customers_status_id) . "' WHERE configuration_key = 'DEFAULT_CUSTOMERS_STATUS_ID'");
         }
 
-        oos_redirect_admin(oos_href_link_admin($aContents['customers_status'], 'page=' . $_GET['page'] . '&cID=' . $customers_status_id));
+        oos_redirect_admin(oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $customers_status_id));
         break;
 
       case 'deleteconfirm':
@@ -122,7 +123,7 @@
 
         $dbconn->Execute("DELETE FROM " . $oostable['customers_status'] . " WHERE customers_status_id = '" . oos_db_input($cID) . "'");
 
-        oos_redirect_admin(oos_href_link_admin($aContents['customers_status'], 'page=' . $_GET['page']));
+        oos_redirect_admin(oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage));
         break;
 
       case 'delete':
@@ -233,7 +234,7 @@
                                      customers_status_languages_id = '" . intval($_SESSION['language_id']) . "'
                                   ORDER BY
                                      customers_status_id";
-  $customers_status_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $customers_status_result_raw, $customers_status_result_numrows);
+  $customers_status_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $customers_status_result_raw, $customers_status_result_numrows);
   $customers_status_result = $dbconn->Execute($customers_status_result_raw);
   while ($customers_status = $customers_status_result->fields) {
     if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $customers_status['customers_status_id']))) && !isset($cInfo) && (substr($action, 0, 3) != 'new')) {
@@ -241,9 +242,9 @@
     }
 
     if (isset($cInfo) && is_object($cInfo) && ($customers_status['customers_status_id'] == $cInfo->customers_status_id)) {
-      echo '<tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['customers_status'], 'page=' . $_GET['page'] . '&cID=' . $cInfo->customers_status_id . '&action=edit') . '\'">' . "\n";
+      echo '<tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id . '&action=edit') . '\'">' . "\n";
     } else {
-      echo '<tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['customers_status'], 'page=' . $_GET['page'] . '&cID=' . $customers_status['customers_status_id']) . '\'">' . "\n";
+      echo '<tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $customers_status['customers_status_id']) . '\'">' . "\n";
     }
       echo '<td class="dataTableContent" align="left">'    . oos_image(OOS_SHOP_IMAGES . 'icons/' . $customers_status['customers_status_image'] , IMAGE_ICON_INFO) . '</td>';
       if ($customers_status['customers_status_id'] == DEFAULT_CUSTOMERS_STATUS_ID ) {
@@ -279,7 +280,7 @@
       echo "\n";
 
 ?>
-                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($customers_status['customers_status_id'] == $cInfo->customers_status_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $_GET['page'] . '&cID=' . $customers_status['customers_status_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($customers_status['customers_status_id'] == $cInfo->customers_status_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $customers_status['customers_status_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -293,14 +294,14 @@
               <tr>
                 <td colspan="8"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="smallText" valign="top"><?php echo $customers_status_split->display_count($customers_status_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_CUSTOMERS_STATUS); ?></td>
-                    <td class="smallText" align="right"><?php echo $customers_status_split->display_links($customers_status_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
+                    <td class="smallText" valign="top"><?php echo $customers_status_split->display_count($customers_status_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_CUSTOMERS_STATUS); ?></td>
+                    <td class="smallText" align="right"><?php echo $customers_status_split->display_links($customers_status_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
                   </tr>
 <?php
    if (empty($action)) {
 ?>
                   <tr>
-                    <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $_GET['page'] . '&action=new') . '">' . oos_button('insert', BUTTON_INSERT) . '</a>'; ?></td>
+                    <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&action=new') . '">' . oos_button('insert', BUTTON_INSERT) . '</a>'; ?></td>
                   </tr>
 <?php
   }
@@ -315,7 +316,7 @@
   switch ($action) {
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_CUSTOMERS_STATUS . '</b>');
-      $contents = array('form' => oos_draw_form('id', 'status', $aContents['customers_status'], 'page=' . $_GET['page'] . '&action=insert', 'post', FALSE, 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('id', 'status', $aContents['customers_status'], 'page=' . $nPage . '&action=insert', 'post', FALSE, 'enctype="multipart/form-data"'));
       $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
       $customers_status_inputs_string = '';
       $languages = oos_get_languages();
@@ -332,12 +333,12 @@
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_STAFFELPREIS_INTRO . '<br /><b>' . ENTRY_STAFFELPREIS . '</b> ' . oos_draw_pull_down_menu('customers_status_qty_discounts', $customers_status_qty_discounts_array, $cInfo->customers_status_qty_discounts ))  ;
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_PAYMENT_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_PAYMENT . '</b><br /> ' . oos_installed_payment($cInfo->customers_status_payment))  ;
       $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('insert', BUTTON_INSERT) . ' <a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $_GET['page']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('insert', BUTTON_INSERT) . ' <a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       break;
 
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_CUSTOMERS_STATUS . '</b>');
-      $contents = array('form' => oos_draw_form('id', 'status', $aContents['customers_status'], 'page=' . $_GET['page'] . '&cID=' . $cInfo->customers_status_id  .'&action=save', 'post', FALSE, 'enctype="multipart/form-data"'));
+      $contents = array('form' => oos_draw_form('id', 'status', $aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id  .'&action=save', 'post', FALSE, 'enctype="multipart/form-data"'));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
       $customers_status_inputs_string = '';
       $languages = oos_get_languages();
@@ -354,23 +355,23 @@
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_STAFFELPREIS_INTRO . '<br /><b>' . ENTRY_STAFFELPREIS . '</b> ' . oos_draw_pull_down_menu('customers_status_qty_discounts', $customers_status_qty_discounts_array, $cInfo->customers_status_qty_discounts))  ;
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_PAYMENT_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_PAYMENT . '</b><br />'.  oos_installed_payment($cInfo->customers_status_payment));
       if (DEFAULT_CUSTOMERS_STATUS_ID != $cInfo->customers_status_id) $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('update', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $_GET['page'] . '&cID=' . $cInfo->customers_status_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('update', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       break;
 
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_CUSTOMERS_STATUS . '</b>');
 
-      $contents = array('form' => oos_draw_form('id', 'status', $aContents['customers_status'], 'page=' . $_GET['page'] . '&cID=' . $cInfo->customers_status_id  . '&action=deleteconfirm', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'status', $aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id  . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $cInfo->customers_status_name . '</b>');
-      if ($remove_status) $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $_GET['page'] . '&cID=' . $cInfo->customers_status_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+      if ($remove_status) $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       break;
 
     default:
       if (isset($cInfo) && is_object($cInfo)) {
         $heading[] = array('text' => '<b>' . $cInfo->customers_status_name . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $_GET['page'] . '&cID=' . $cInfo->customers_status_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $_GET['page'] . '&cID=' . $cInfo->customers_status_id . '&action=delete') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id . '&action=delete') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
         $customers_status_inputs_string = '';
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
