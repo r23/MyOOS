@@ -14,6 +14,7 @@ class WPCF7_ContactForm {
 	private $unit_tag;
 	private $responses_count = 0;
 	private $scanned_form_tags;
+	private $shortcode_atts = array();
 
 	public static function count() {
 		return self::$found_items;
@@ -101,9 +102,7 @@ class WPCF7_ContactForm {
 			return false;
 		}
 
-		self::$current = $contact_form = new self( $post );
-
-		return $contact_form;
+		return self::$current = new self( $post );
 	}
 
 	private static function get_unit_tag( $id = 0 ) {
@@ -229,6 +228,12 @@ class WPCF7_ContactForm {
 		$this->title = $title;
 	}
 
+	public function shortcode_attr( $name ) {
+		if ( isset( $this->shortcode_atts[$name] ) ) {
+			return (string) $this->shortcode_atts[$name];
+		}
+	}
+
 	// Return true if this form is the same one as currently POSTed.
 	public function is_posted() {
 		if ( ! WPCF7_Submission::get_instance() ) {
@@ -250,6 +255,8 @@ class WPCF7_ContactForm {
 			'html_name' => '',
 			'html_class' => '',
 			'output' => 'form' ) );
+
+		$this->shortcode_atts = $args;
 
 		if ( 'raw_form' == $args['output'] ) {
 			return '<pre class="wpcf7-raw-form"><code>'
@@ -496,28 +503,35 @@ class WPCF7_ContactForm {
 
 	/* Form Elements */
 
-	public function form_do_shortcode() {
-		$manager = WPCF7_ShortcodeManager::get_instance();
+	public function replace_all_form_tags() {
+		$manager = WPCF7_FormTagsManager::get_instance();
 		$form = $this->prop( 'form' );
 
 		if ( WPCF7_AUTOP ) {
-			$form = $manager->normalize_shortcode( $form );
+			$form = $manager->normalize( $form );
 			$form = wpcf7_autop( $form );
 		}
 
-		$form = $manager->do_shortcode( $form );
+		$form = $manager->replace_all( $form );
 		$this->scanned_form_tags = $manager->get_scanned_tags();
 
 		return $form;
 	}
 
-	public function form_scan_shortcode( $cond = null ) {
-		$manager = WPCF7_ShortcodeManager::get_instance();
+	public function form_do_shortcode() {
+		wpcf7_deprecated_function( __METHOD__, '4.6',
+			'WPCF7_ContactForm::replace_all_form_tags' );
+
+		return $this->replace_all_form_tags();
+	}
+
+	public function scan_form_tags( $cond = null ) {
+		$manager = WPCF7_FormTagsManager::get_instance();
 
 		if ( ! empty( $this->scanned_form_tags ) ) {
 			$scanned = $this->scanned_form_tags;
 		} else {
-			$scanned = $manager->scan_shortcode( $this->prop( 'form' ) );
+			$scanned = $manager->scan( $this->prop( 'form' ) );
 			$this->scanned_form_tags = $scanned;
 		}
 
@@ -563,8 +577,16 @@ class WPCF7_ContactForm {
 		return array_values( $scanned );
 	}
 
+	public function form_scan_shortcode( $cond = null ) {
+		wpcf7_deprecated_function( __METHOD__, '4.6',
+			'WPCF7_ContactForm::scan_form_tags' );
+
+		return $this->scan_form_tags( $cond );
+	}
+
 	public function form_elements() {
-		return apply_filters( 'wpcf7_form_elements', $this->form_do_shortcode() );
+		return apply_filters( 'wpcf7_form_elements',
+			$this->replace_all_form_tags() );
 	}
 
 	public function collect_mail_tags( $args = '' ) {
@@ -573,7 +595,7 @@ class WPCF7_ContactForm {
 			'exclude' => array(
 				'acceptance', 'captchac', 'captchar', 'quiz', 'count' ) ) );
 
-		$tags = $this->form_scan_shortcode();
+		$tags = $this->scan_form_tags();
 		$mailtags = array();
 
 		foreach ( (array) $tags as $tag ) {
@@ -674,15 +696,17 @@ class WPCF7_ContactForm {
 	/* Additional settings */
 
 	public function additional_setting( $name, $max = 1 ) {
-		$tmp_settings = (array) explode( "\n", $this->prop( 'additional_settings' ) );
+		$settings = (array) explode( "\n", $this->prop( 'additional_settings' ) );
 
+		$pattern = '/^([a-zA-Z0-9_]+)[\t ]*:(.*)$/';
 		$count = 0;
 		$values = array();
 
-		foreach ( $tmp_settings as $setting ) {
-			if ( preg_match('/^([a-zA-Z0-9_]+)[\t ]*:(.*)$/', $setting, $matches ) ) {
-				if ( $matches[1] != $name )
+		foreach ( $settings as $setting ) {
+			if ( preg_match( $pattern, $setting, $matches ) ) {
+				if ( $matches[1] != $name ) {
 					continue;
+				}
 
 				if ( ! $max || $count < (int) $max ) {
 					$values[] = trim( $matches[2] );
@@ -698,8 +722,9 @@ class WPCF7_ContactForm {
 		$settings = $this->additional_setting( $name, false );
 
 		foreach ( $settings as $setting ) {
-			if ( in_array( $setting, array( 'on', 'true', '1' ) ) )
+			if ( in_array( $setting, array( 'on', 'true', '1' ) ) ) {
 				return true;
+			}
 		}
 
 		return false;
@@ -890,14 +915,6 @@ function wpcf7_get_message( $status ) {
 	return $contact_form->message( $status );
 }
 
-function wpcf7_scan_shortcode( $cond = null ) {
-	if ( ! $contact_form = wpcf7_get_current_contact_form() ) {
-		return array();
-	}
-
-	return $contact_form->form_scan_shortcode( $cond );
-}
-
 function wpcf7_form_controls_class( $type, $default = '' ) {
 	$type = trim( $type );
 	$default = array_filter( explode( ' ', $default ) );
@@ -930,7 +947,7 @@ function wpcf7_contact_form_tag_func( $atts, $content = null, $code = '' ) {
 			'html_id' => '',
 			'html_name' => '',
 			'html_class' => '',
-			'output' => 'form' ), $atts );
+			'output' => 'form' ), $atts, 'wpcf7' );
 
 		$id = (int) $atts['id'];
 		$title = trim( $atts['title'] );

@@ -13,8 +13,9 @@ function wpcf7_autop( $pee, $br = 1 ) {
 	$pee = preg_replace( '!(<' . $allblocks . '[^>]*>)!', "\n$1", $pee );
 	$pee = preg_replace( '!(</' . $allblocks . '>)!', "$1\n\n", $pee );
 
-	/* wpcf7: take care of [response] and [recaptcha] tag */
-	$pee = preg_replace( '!(\[(?:response|recaptcha)[^]]*\])!',
+	/* wpcf7: take care of [response], [recaptcha], and [hidden] tags */
+	$block_hidden_form_tags = '(?:response|recaptcha|hidden)';
+	$pee = preg_replace( '!(\[' . $block_hidden_form_tags . '[^]]*\])!',
 		"\n$1\n\n", $pee );
 
 	$pee = str_replace( array( "\r\n", "\r" ), "\n", $pee ); // cross-platform newlines
@@ -42,10 +43,10 @@ function wpcf7_autop( $pee, $br = 1 ) {
 	$pee = preg_replace( '!<p>\s*(</?' . $allblocks . '[^>]*>)!', "$1", $pee );
 	$pee = preg_replace( '!(</?' . $allblocks . '[^>]*>)\s*</p>!', "$1", $pee );
 
-	/* wpcf7: take care of [response] and [recaptcha] tag */
-	$pee = preg_replace( '!<p>\s*(\[(?:response|recaptcha)[^]]*\])!',
+	/* wpcf7: take care of [response], [recaptcha], and [hidden] tag */
+	$pee = preg_replace( '!<p>\s*(\[' . $block_hidden_form_tags . '[^]]*\])!',
 		"$1", $pee );
-	$pee = preg_replace( '!(\[(?:response|recaptcha)[^]]*\])\s*</p>!',
+	$pee = preg_replace( '!(\[' . $block_hidden_form_tags . '[^]]*\])\s*</p>!',
 		"$1", $pee );
 
 	if ( $br ) {
@@ -82,36 +83,41 @@ function wpcf7_sanitize_query_var( $text ) {
 function wpcf7_strip_quote( $text ) {
 	$text = trim( $text );
 
-	if ( preg_match( '/^"(.*)"$/', $text, $matches ) )
+	if ( preg_match( '/^"(.*)"$/s', $text, $matches ) ) {
 		$text = $matches[1];
-	elseif ( preg_match( "/^'(.*)'$/", $text, $matches ) )
+	} elseif ( preg_match( "/^'(.*)'$/s", $text, $matches ) ) {
 		$text = $matches[1];
+	}
 
 	return $text;
 }
 
 function wpcf7_strip_quote_deep( $arr ) {
-	if ( is_string( $arr ) )
+	if ( is_string( $arr ) ) {
 		return wpcf7_strip_quote( $arr );
+	}
 
 	if ( is_array( $arr ) ) {
 		$result = array();
 
-		foreach ( $arr as $key => $text )
+		foreach ( $arr as $key => $text ) {
 			$result[$key] = wpcf7_strip_quote_deep( $text );
+		}
 
 		return $result;
 	}
 }
 
 function wpcf7_normalize_newline( $text, $to = "\n" ) {
-	if ( ! is_string( $text ) )
+	if ( ! is_string( $text ) ) {
 		return $text;
+	}
 
 	$nls = array( "\r\n", "\r", "\n" );
 
-	if ( ! in_array( $to, $nls ) )
+	if ( ! in_array( $to, $nls ) ) {
 		return $text;
+	}
 
 	return str_replace( $nls, $to, $text );
 }
@@ -120,8 +126,9 @@ function wpcf7_normalize_newline_deep( $arr, $to = "\n" ) {
 	if ( is_array( $arr ) ) {
 		$result = array();
 
-		foreach ( $arr as $key => $text )
+		foreach ( $arr as $key => $text ) {
 			$result[$key] = wpcf7_normalize_newline_deep( $text, $to );
+		}
 
 		return $result;
 	}
@@ -189,8 +196,9 @@ function wpcf7_is_number( $number ) {
 function wpcf7_is_date( $date ) {
 	$result = preg_match( '/^([0-9]{4,})-([0-9]{2})-([0-9]{2})$/', $date, $matches );
 
-	if ( $result )
+	if ( $result ) {
 		$result = checkdate( $matches[2], $matches[3], $matches[1] );
+	}
 
 	return apply_filters( 'wpcf7_is_date', $result, $date );
 }

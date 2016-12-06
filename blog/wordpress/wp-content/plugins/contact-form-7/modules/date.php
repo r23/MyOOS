@@ -4,20 +4,21 @@
 ** 	[date] and [date*]		# Date
 **/
 
-/* Shortcode handler */
+/* form_tag handler */
 
-add_action( 'wpcf7_init', 'wpcf7_add_shortcode_date' );
+add_action( 'wpcf7_init', 'wpcf7_add_form_tag_date' );
 
-function wpcf7_add_shortcode_date() {
-	wpcf7_add_shortcode( array( 'date', 'date*' ),
-		'wpcf7_date_shortcode_handler', true );
+function wpcf7_add_form_tag_date() {
+	wpcf7_add_form_tag( array( 'date', 'date*' ),
+		'wpcf7_date_form_tag_handler', true );
 }
 
-function wpcf7_date_shortcode_handler( $tag ) {
-	$tag = new WPCF7_Shortcode( $tag );
+function wpcf7_date_form_tag_handler( $tag ) {
+	$tag = new WPCF7_FormTag( $tag );
 
-	if ( empty( $tag->name ) )
+	if ( empty( $tag->name ) ) {
 		return '';
+	}
 
 	$validation_error = wpcf7_get_validation_error( $tag->name );
 
@@ -25,8 +26,9 @@ function wpcf7_date_shortcode_handler( $tag ) {
 
 	$class .= ' wpcf7-validates-as-date';
 
-	if ( $validation_error )
+	if ( $validation_error ) {
 		$class .= ' wpcf7-not-valid';
+	}
 
 	$atts = array();
 
@@ -37,11 +39,13 @@ function wpcf7_date_shortcode_handler( $tag ) {
 	$atts['max'] = $tag->get_date_option( 'max' );
 	$atts['step'] = $tag->get_option( 'step', 'int', true );
 
-	if ( $tag->has_option( 'readonly' ) )
+	if ( $tag->has_option( 'readonly' ) ) {
 		$atts['readonly'] = 'readonly';
+	}
 
-	if ( $tag->is_required() )
+	if ( $tag->is_required() ) {
 		$atts['aria-required'] = 'true';
+	}
 
 	$atts['aria-invalid'] = $validation_error ? 'true' : 'false';
 
@@ -82,7 +86,7 @@ add_filter( 'wpcf7_validate_date', 'wpcf7_date_validation_filter', 10, 2 );
 add_filter( 'wpcf7_validate_date*', 'wpcf7_date_validation_filter', 10, 2 );
 
 function wpcf7_date_validation_filter( $result, $tag ) {
-	$tag = new WPCF7_Shortcode( $tag );
+	$tag = new WPCF7_FormTag( $tag );
 
 	$name = $tag->name;
 

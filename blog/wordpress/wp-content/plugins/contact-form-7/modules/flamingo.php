@@ -31,7 +31,7 @@ function wpcf7_flamingo_submit( $contactform, $result ) {
 		return;
 	}
 
-	$fields_senseless = $contactform->form_scan_shortcode(
+	$fields_senseless = $contactform->scan_form_tags(
 		array( 'type' => array( 'captchar', 'quiz', 'acceptance' ) ) );
 
 	$exclude_names = array();
@@ -127,8 +127,9 @@ function wpcf7_flamingo_get_value( $field, $contactform ) {
 }
 
 function wpcf7_flamingo_add_channel( $slug, $name = '' ) {
-	if ( ! class_exists( 'Flamingo_Inbound_Message' ) )
+	if ( ! class_exists( 'Flamingo_Inbound_Message' ) ) {
 		return false;
+	}
 
 	$parent = term_exists( 'contact-form-7',
 		Flamingo_Inbound_Message::channel_taxonomy );
@@ -169,4 +170,31 @@ function wpcf7_flamingo_add_channel( $slug, $name = '' ) {
 	}
 
 	return (int) $channel['term_id'];
+}
+
+add_filter( 'wpcf7_special_mail_tags', 'wpcf7_flamingo_serial_number', 10, 3 );
+
+function wpcf7_flamingo_serial_number( $output, $name, $html ) {
+	if ( '_serial_number' != $name ) {
+		return $output;
+	}
+
+	if ( ! class_exists( 'Flamingo_Inbound_Message' )
+	|| ! method_exists( 'Flamingo_Inbound_Message', 'count' ) ) {
+		return $output;
+	}
+
+	if ( ! $contact_form = WPCF7_ContactForm::get_current() ) {
+		return $output;
+	}
+
+	$channel_id = wpcf7_flamingo_add_channel(
+		$contact_form->name(), $contact_form->title() );
+
+	if ( $channel_id ) {
+		return 1 + (int) Flamingo_Inbound_Message::count(
+			array( 'channel_id' => $channel_id ) );
+	}
+
+	return 0;
 }

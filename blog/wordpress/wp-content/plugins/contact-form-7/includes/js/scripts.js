@@ -15,7 +15,7 @@
 			beforeSubmit: function(arr, $form, options) {
 				$form.wpcf7ClearResponseOutput();
 				$form.find('[aria-invalid]').attr('aria-invalid', 'false');
-				$form.find('img.ajax-loader').css({ visibility: 'visible' });
+				$form.find('.ajax-loader').addClass('is-active');
 				return true;
 			},
 			beforeSerialize: function($form, options) {
@@ -199,11 +199,7 @@
 
 	$.fn.wpcf7AjaxLoader = function() {
 		return this.each(function() {
-			var loader = $('<img class="ajax-loader" />')
-				.attr({ src: _wpcf7.loaderUrl, alt: _wpcf7.sending })
-				.css('visibility', 'hidden');
-
-			$(this).after(loader);
+			$(this).after('<span class="ajax-loader"></span>');
 		});
 	};
 
@@ -394,7 +390,7 @@
 		return this.each(function() {
 			$(this).find('div.wpcf7-response-output').hide().empty().removeClass('wpcf7-mail-sent-ok wpcf7-mail-sent-ng wpcf7-validation-errors wpcf7-spam-blocked').removeAttr('role');
 			$(this).find('span.wpcf7-not-valid-tip').remove();
-			$(this).find('img.ajax-loader').css({ visibility: 'hidden' });
+			$(this).find('.ajax-loader').removeClass('is-active');
 		});
 	};
 

@@ -1,3 +1,18 @@
+#misc-publishing-actions .misc-pub-section::before {
+	right: -1px;
+	padding: 0 0 0 2px;
+}
+
+/*
+ * Tabs
+ */
+#contact-form-editor-tabs {
+	padding: 9px 10px 0 15px;
+}
+
+/*
+ * Form Tab
+ */
 .tag-generator-panel {
 	text-align: right;
 }
@@ -15,6 +30,24 @@
 	float: left;
 }
 
+/*
+ * Mail Tab
+ */
+.contact-form-editor-box-mail span.mailtag {
+	margin: 0 4px 0 0;
+}
+
+/*
+ * Welcome Panel
+ */
+.welcome-panel .welcome-panel-column,
+.welcome-panel .welcome-panel-column:first-child {
+	padding: 0 0 0 2%;
+}
+
+/*
+ * Integration
+ */
 .card {
 	border-left: 1px solid #e5e5e5;
 	border-right: 4px solid #e5e5e5;

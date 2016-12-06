@@ -7,18 +7,18 @@
 ** 	[tel] and [tel*]		# Telephone number
 **/
 
-/* Shortcode handler */
+/* form_tag handler */
 
-add_action( 'wpcf7_init', 'wpcf7_add_shortcode_text' );
+add_action( 'wpcf7_init', 'wpcf7_add_form_tag_text' );
 
-function wpcf7_add_shortcode_text() {
-	wpcf7_add_shortcode(
+function wpcf7_add_form_tag_text() {
+	wpcf7_add_form_tag(
 		array( 'text', 'text*', 'email', 'email*', 'url', 'url*', 'tel', 'tel*' ),
-		'wpcf7_text_shortcode_handler', true );
+		'wpcf7_text_form_tag_handler', true );
 }
 
-function wpcf7_text_shortcode_handler( $tag ) {
-	$tag = new WPCF7_Shortcode( $tag );
+function wpcf7_text_form_tag_handler( $tag ) {
+	$tag = new WPCF7_FormTag( $tag );
 
 	if ( empty( $tag->name ) ) {
 		return '';
@@ -107,7 +107,7 @@ add_filter( 'wpcf7_validate_tel', 'wpcf7_text_validation_filter', 10, 2 );
 add_filter( 'wpcf7_validate_tel*', 'wpcf7_text_validation_filter', 10, 2 );
 
 function wpcf7_text_validation_filter( $result, $tag ) {
-	$tag = new WPCF7_Shortcode( $tag );
+	$tag = new WPCF7_FormTag( $tag );
 
 	$name = $tag->name;
 

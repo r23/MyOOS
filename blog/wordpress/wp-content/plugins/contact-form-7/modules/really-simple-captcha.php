@@ -3,17 +3,17 @@
 ** A base module for [captchac] and [captchar]
 **/
 
-/* Shortcode handler */
+/* form_tag handler */
 
-add_action( 'wpcf7_init', 'wpcf7_add_shortcode_captcha' );
+add_action( 'wpcf7_init', 'wpcf7_add_form_tag_captcha' );
 
-function wpcf7_add_shortcode_captcha() {
-	wpcf7_add_shortcode( array( 'captchac', 'captchar' ),
-		'wpcf7_captcha_shortcode_handler', true );
+function wpcf7_add_form_tag_captcha() {
+	wpcf7_add_form_tag( array( 'captchac', 'captchar' ),
+		'wpcf7_captcha_form_tag_handler', true );
 }
 
-function wpcf7_captcha_shortcode_handler( $tag ) {
-	$tag = new WPCF7_Shortcode( $tag );
+function wpcf7_captcha_form_tag_handler( $tag ) {
+	$tag = new WPCF7_FormTag( $tag );
 
 	if ( 'captchac' == $tag->type && ! class_exists( 'ReallySimpleCaptcha' ) ) {
 		return '<em>' . __( 'To use CAPTCHA, you need <a href="http://wordpress.org/extend/plugins/really-simple-captcha/">Really Simple CAPTCHA</a> plugin installed.', 'contact-form-7' ) . '</em>';
@@ -124,7 +124,7 @@ function wpcf7_captcha_shortcode_handler( $tag ) {
 add_filter( 'wpcf7_validate_captchar', 'wpcf7_captcha_validation_filter', 10, 2 );
 
 function wpcf7_captcha_validation_filter( $result, $tag ) {
-	$tag = new WPCF7_Shortcode( $tag );
+	$tag = new WPCF7_FormTag( $tag );
 
 	$type = $tag->type;
 	$name = $tag->name;
@@ -156,7 +156,7 @@ function wpcf7_captcha_ajax_refill( $items ) {
 	if ( ! is_array( $items ) )
 		return $items;
 
-	$fes = wpcf7_scan_shortcode( array( 'type' => 'captchac' ) );
+	$fes = wpcf7_scan_form_tags( array( 'type' => 'captchac' ) );
 
 	if ( empty( $fes ) )
 		return $items;
@@ -296,7 +296,7 @@ function wpcf7_captcha_display_warning_message() {
 		return;
 	}
 
-	$has_tags = (bool) $contact_form->form_scan_shortcode(
+	$has_tags = (bool) $contact_form->scan_form_tags(
 		array( 'type' => array( 'captchac' ) ) );
 
 	if ( ! $has_tags ) {

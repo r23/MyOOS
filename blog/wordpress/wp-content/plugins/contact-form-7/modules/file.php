@@ -3,17 +3,17 @@
 ** A base module for [file] and [file*]
 **/
 
-/* Shortcode handler */
+/* form_tag handler */
 
-add_action( 'wpcf7_init', 'wpcf7_add_shortcode_file' );
+add_action( 'wpcf7_init', 'wpcf7_add_form_tag_file' );
 
-function wpcf7_add_shortcode_file() {
-	wpcf7_add_shortcode( array( 'file', 'file*' ),
-		'wpcf7_file_shortcode_handler', true );
+function wpcf7_add_form_tag_file() {
+	wpcf7_add_form_tag( array( 'file', 'file*' ),
+		'wpcf7_file_form_tag_handler', true );
 }
 
-function wpcf7_file_shortcode_handler( $tag ) {
-	$tag = new WPCF7_Shortcode( $tag );
+function wpcf7_file_form_tag_handler( $tag ) {
+	$tag = new WPCF7_FormTag( $tag );
 
 	if ( empty( $tag->name ) ) {
 		return '';
@@ -58,7 +58,7 @@ function wpcf7_file_shortcode_handler( $tag ) {
 add_filter( 'wpcf7_form_enctype', 'wpcf7_file_form_enctype_filter' );
 
 function wpcf7_file_form_enctype_filter( $enctype ) {
-	$multipart = (bool) wpcf7_scan_shortcode( array( 'type' => array( 'file', 'file*' ) ) );
+	$multipart = (bool) wpcf7_scan_form_tags( array( 'type' => array( 'file', 'file*' ) ) );
 
 	if ( $multipart ) {
 		$enctype = 'multipart/form-data';
@@ -74,7 +74,7 @@ add_filter( 'wpcf7_validate_file', 'wpcf7_file_validation_filter', 10, 2 );
 add_filter( 'wpcf7_validate_file*', 'wpcf7_file_validation_filter', 10, 2 );
 
 function wpcf7_file_validation_filter( $result, $tag ) {
-	$tag = new WPCF7_Shortcode( $tag );
+	$tag = new WPCF7_FormTag( $tag );
 
 	$name = $tag->name;
 	$id = $tag->get_id_option();
@@ -303,7 +303,7 @@ function wpcf7_file_display_warning_message() {
 		return;
 	}
 
-	$has_tags = (bool) $contact_form->form_scan_shortcode(
+	$has_tags = (bool) $contact_form->scan_form_tags(
 		array( 'type' => array( 'file', 'file*' ) ) );
 
 	if ( ! $has_tags ) {

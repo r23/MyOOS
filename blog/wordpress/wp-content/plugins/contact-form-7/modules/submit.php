@@ -3,16 +3,16 @@
 ** A base module for [submit]
 **/
 
-/* Shortcode handler */
+/* form_tag handler */
 
-add_action( 'wpcf7_init', 'wpcf7_add_shortcode_submit' );
+add_action( 'wpcf7_init', 'wpcf7_add_form_tag_submit' );
 
-function wpcf7_add_shortcode_submit() {
-	wpcf7_add_shortcode( 'submit', 'wpcf7_submit_shortcode_handler' );
+function wpcf7_add_form_tag_submit() {
+	wpcf7_add_form_tag( 'submit', 'wpcf7_submit_form_tag_handler' );
 }
 
-function wpcf7_submit_shortcode_handler( $tag ) {
-	$tag = new WPCF7_Shortcode( $tag );
+function wpcf7_submit_form_tag_handler( $tag ) {
+	$tag = new WPCF7_FormTag( $tag );
 
 	$class = wpcf7_form_controls_class( $tag->type );
 
@@ -24,8 +24,9 @@ function wpcf7_submit_shortcode_handler( $tag ) {
 
 	$value = isset( $tag->values[0] ) ? $tag->values[0] : '';
 
-	if ( empty( $value ) )
+	if ( empty( $value ) ) {
 		$value = __( 'Send', 'contact-form-7' );
+	}
 
 	$atts['type'] = 'submit';
 	$atts['value'] = $value;

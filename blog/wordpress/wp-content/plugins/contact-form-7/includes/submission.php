@@ -74,7 +74,7 @@ class WPCF7_Submission {
 		$posted_data = array_diff_key( $posted_data, array( '_wpnonce' => '' ) );
 		$posted_data = $this->sanitize_posted_data( $posted_data );
 
-		$tags = $this->contact_form->form_scan_shortcode();
+		$tags = $this->contact_form->scan_form_tags();
 
 		foreach ( (array) $tags as $tag ) {
 			if ( empty( $tag['name'] ) ) {
@@ -131,9 +131,7 @@ class WPCF7_Submission {
 		}
 
 		$this->meta = array(
-			'remote_ip' => isset( $_SERVER['REMOTE_ADDR'] )
-				? preg_replace( '/[^0-9a-f.:, ]/', '', $_SERVER['REMOTE_ADDR'] )
-				: '',
+			'remote_ip' => $this->get_remote_ip_addr(),
 			'user_agent' => isset( $_SERVER['HTTP_USER_AGENT'] )
 				? substr( $_SERVER['HTTP_USER_AGENT'], 0, 254 ) : '',
 			'url' => preg_replace( '%(?<!:|/)/.*$%', '',
@@ -174,6 +172,15 @@ class WPCF7_Submission {
 		return $this->status;
 	}
 
+	private function get_remote_ip_addr() {
+		if ( isset( $_SERVER['REMOTE_ADDR'] )
+		&& WP_Http::is_ip_address( $_SERVER['REMOTE_ADDR'] ) ) {
+			return $_SERVER['REMOTE_ADDR'];
+		}
+
+		return '';
+	}
+
 	private function validate() {
 		if ( $this->invalid_fields ) {
 			return false;
@@ -182,7 +189,7 @@ class WPCF7_Submission {
 		require_once WPCF7_PLUGIN_DIR . '/includes/validation.php';
 		$result = new WPCF7_Validation();
 
-		$tags = $this->contact_form->form_scan_shortcode();
+		$tags = $this->contact_form->scan_form_tags();
 
 		foreach ( $tags as $tag ) {
 			$result = apply_filters( 'wpcf7_validate_' . $tag['type'],

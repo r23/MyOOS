@@ -15,24 +15,19 @@ function wpcf7_plugin_url( $path = '' ) {
 }
 
 function wpcf7_upload_dir( $type = false ) {
-	$uploads = wp_upload_dir();
+	$uploads = wp_get_upload_dir();
 
 	$uploads = apply_filters( 'wpcf7_upload_dir', array(
 		'dir' => $uploads['basedir'],
 		'url' => $uploads['baseurl'] ) );
 
-	if ( 'dir' == $type )
+	if ( 'dir' == $type ) {
 		return $uploads['dir'];
-	if ( 'url' == $type )
+	} if ( 'url' == $type ) {
 		return $uploads['url'];
+	}
 
 	return $uploads;
-}
-
-function wpcf7_ajax_loader() {
-	$url = wpcf7_plugin_url( 'images/ajax-loader.gif' );
-
-	return apply_filters( 'wpcf7_ajax_loader', $url );
 }
 
 function wpcf7_verify_nonce( $nonce, $action = -1 ) {
@@ -346,4 +341,16 @@ function wpcf7_count_code_units( $string ) {
 function wpcf7_is_localhost() {
 	$server_name = strtolower( $_SERVER['SERVER_NAME'] );
 	return in_array( $server_name, array( 'localhost', '127.0.0.1' ) );
+}
+
+function wpcf7_deprecated_function( $function, $version, $replacement ) {
+	$trigger_error = apply_filters( 'deprecated_function_trigger_error', true );
+
+	if ( WP_DEBUG && $trigger_error ) {
+		if ( function_exists( '__' ) ) {
+			trigger_error( sprintf( __( '%1$s is <strong>deprecated</strong> since Contact Form 7 version %2$s! Use %3$s instead.', 'contact-form-7' ), $function, $version, $replacement ) );
+		} else {
+			trigger_error( sprintf( '%1$s is <strong>deprecated</strong> since Contact Form 7 version %2$s! Use %3$s instead.', $function, $version, $replacement ) );
+		}
+	}
 }

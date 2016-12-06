@@ -86,9 +86,9 @@ function wpcf7_akismet_submitted_params() {
 			continue;
 		}
 
-		if ( $tags = wpcf7_scan_shortcode( array( 'name' => $key ) ) ) {
+		if ( $tags = wpcf7_scan_form_tags( array( 'name' => $key ) ) ) {
 			$tag = $tags[0];
-			$tag = new WPCF7_Shortcode( $tag );
+			$tag = new WPCF7_FormTag( $tag );
 
 			$akismet = $tag->get_option( 'akismet',
 				'(author|author_email|author_url)', true );
@@ -139,5 +139,3 @@ function wpcf7_akismet_comment_check( $comment ) {
 
 	return apply_filters( 'wpcf7_akismet_comment_check', $spam, $comment );
 }
-
-?>

@@ -3,27 +3,29 @@
 ** A base module for [select] and [select*]
 **/
 
-/* Shortcode handler */
+/* form_tag handler */
 
-add_action( 'wpcf7_init', 'wpcf7_add_shortcode_select' );
+add_action( 'wpcf7_init', 'wpcf7_add_form_tag_select' );
 
-function wpcf7_add_shortcode_select() {
-	wpcf7_add_shortcode( array( 'select', 'select*' ),
-		'wpcf7_select_shortcode_handler', true );
+function wpcf7_add_form_tag_select() {
+	wpcf7_add_form_tag( array( 'select', 'select*' ),
+		'wpcf7_select_form_tag_handler', true );
 }
 
-function wpcf7_select_shortcode_handler( $tag ) {
-	$tag = new WPCF7_Shortcode( $tag );
+function wpcf7_select_form_tag_handler( $tag ) {
+	$tag = new WPCF7_FormTag( $tag );
 
-	if ( empty( $tag->name ) )
+	if ( empty( $tag->name ) ) {
 		return '';
+	}
 
 	$validation_error = wpcf7_get_validation_error( $tag->name );
 
 	$class = wpcf7_form_controls_class( $tag->type );
 
-	if ( $validation_error )
+	if ( $validation_error ) {
 		$class .= ' wpcf7-not-valid';
+	}
 
 	$atts = array();
 
@@ -31,8 +33,9 @@ function wpcf7_select_shortcode_handler( $tag ) {
 	$atts['id'] = $tag->get_id_option();
 	$atts['tabindex'] = $tag->get_option( 'tabindex', 'int', true );
 
-	if ( $tag->is_required() )
+	if ( $tag->is_required() ) {
 		$atts['aria-required'] = 'true';
+	}
 
 	$atts['aria-invalid'] = $validation_error ? 'true' : 'false';
 
@@ -129,7 +132,7 @@ add_filter( 'wpcf7_validate_select', 'wpcf7_select_validation_filter', 10, 2 );
 add_filter( 'wpcf7_validate_select*', 'wpcf7_select_validation_filter', 10, 2 );
 
 function wpcf7_select_validation_filter( $result, $tag ) {
-	$tag = new WPCF7_Shortcode( $tag );
+	$tag = new WPCF7_FormTag( $tag );
 
 	$name = $tag->name;
 

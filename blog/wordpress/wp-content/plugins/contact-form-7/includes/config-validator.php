@@ -175,14 +175,14 @@ class WPCF7_ConfigValidator {
 		$pattern = '%<label(?:[ \t\n]+.*?)?>(.+?)</label>%s';
 
 		if ( preg_match_all( $pattern, $body, $matches ) ) {
-			$manager = WPCF7_ShortcodeManager::get_instance();
+			$manager = WPCF7_FormTagsManager::get_instance();
 
 			foreach ( $matches[1] as $insidelabel ) {
-				$tags = $manager->scan_shortcode( $insidelabel );
+				$tags = $manager->scan( $insidelabel );
 				$fields_count = 0;
 
 				foreach ( $tags as $tag ) {
-					$tag = new WPCF7_Shortcode( $tag );
+					$tag = new WPCF7_FormTag( $tag );
 
 					if ( in_array( $tag->basetype, array( 'checkbox', 'radio' ) ) ) {
 						$fields_count += count( $tag->values );
@@ -362,11 +362,11 @@ class WPCF7_ConfigValidator {
 		$example_text = 'example';
 		$example_blank = '';
 
-		$form_tags = $this->contact_form->form_scan_shortcode(
+		$form_tags = $this->contact_form->scan_form_tags(
 			array( 'name' => $tagname ) );
 
 		if ( $form_tags ) {
-			$form_tag = new WPCF7_Shortcode( $form_tags[0] );
+			$form_tag = new WPCF7_FormTag( $form_tags[0] );
 
 			$is_required = ( $form_tag->is_required() || 'radio' == $form_tag->type );
 

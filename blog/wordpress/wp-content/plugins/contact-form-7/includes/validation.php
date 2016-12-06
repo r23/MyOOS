@@ -12,13 +12,13 @@ class WPCF7_Validation implements ArrayAccess {
 	}
 
 	public function invalidate( $context, $message ) {
-		if ( $context instanceof WPCF7_Shortcode ) {
+		if ( $context instanceof WPCF7_FormTag ) {
 			$tag = $context;
 		} elseif ( is_array( $context ) ) {
-			$tag = new WPCF7_Shortcode( $context );
+			$tag = new WPCF7_FormTag( $context );
 		} elseif ( is_string( $context ) ) {
-			$tags = wpcf7_scan_shortcode( array( 'name' => trim( $context ) ) );
-			$tag = $tags ? new WPCF7_Shortcode( $tags[0] ) : null;
+			$tags = wpcf7_scan_form_tags( array( 'name' => trim( $context ) ) );
+			$tag = $tags ? new WPCF7_FormTag( $tags[0] ) : null;
 		}
 
 		$name = ! empty( $tag ) ? $tag->name : null;
@@ -77,5 +77,3 @@ class WPCF7_Validation implements ArrayAccess {
 	public function offsetUnset( $offset ) {
 	}
 }
-
-?>

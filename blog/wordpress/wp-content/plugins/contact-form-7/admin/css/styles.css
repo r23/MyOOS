@@ -177,7 +177,7 @@ ul.config-error li a.external {
 }
 
 /*
- * Form Panel
+ * Form Tab
  */
 #tag-generator-list a.button {
 	font-size: 12px;
@@ -288,7 +288,7 @@ ul.config-error li a.external {
 }
 
 /*
- * Mail Panel
+ * Mail Tab
  */
 .contact-form-editor-box-mail span.mailtag {
 	display: inline-block;
@@ -303,7 +303,7 @@ ul.config-error li a.external {
 }
 
 /*
- * Messages Panel
+ * Messages Tab
  */
 #messages-panel p.description {
 	margin: 5px 0 10px;
@@ -323,20 +323,40 @@ ul.config-error li a.external {
 /*
  * Welcome Panel
  */
+.welcome-panel .welcome-panel-column,
+.welcome-panel .welcome-panel-column:first-child {
+	width: 48%;
+	padding: 0 2% 0 0;
+	margin: 0 0 1em 0;
+}
+
+@media screen and (max-width: 870px) {
+	.welcome-panel .welcome-panel-column,
+	.welcome-panel .welcome-panel-column:first-child {
+		display: block;
+		float: none;
+		width: 100%;
+	}
+}
+
 .welcome-panel h3 {
 	font-size: 16px;
 	font-weight: 600;
 	line-height: 2.1em;
-	margin: 1.33em 0 0;
+	margin: 1em 0 1.2em;
 }
 
-.welcome-panel p.message {
-	line-height: 1.4em;
-	margin-right: 25px;
+.welcome-panel h3 .dashicons {
+	position: relative;
+	top: -2px;
+	display: inline-block;
+	width: 60px;
+	color: #575757;
+	font-size: 40px;
 }
 
-.welcome-panel li {
-	margin-bottom: 12px;
+.welcome-panel p a {
+	font-weight: bold;
 }
 
 .welcome-panel-close {

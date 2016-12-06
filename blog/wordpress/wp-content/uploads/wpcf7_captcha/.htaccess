@@ -1,0 +1,5 @@
+Order deny,allow
+Deny from all
+<Files ~ "^[0-9A-Za-z]+\.(jpeg|gif|png)$">
+    Allow from all
+</Files>

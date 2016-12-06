@@ -2,9 +2,9 @@
 Contributors: takayukister
 Donate link: http://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
-Requires at least: 4.4
-Tested up to: 4.6.1
-Stable tag: 4.5.1
+Requires at least: 4.5
+Tested up to: 4.7
+Stable tag: 4.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,16 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 == Changelog ==
 
 For more information, see [Releases](http://contactform7.com/category/releases/).
+
+= 4.6 =
+
+* Ajax loader: HTML markup changed to `<span>` to be easily customizable with CSS.
+* Appends a proper header and footer to HTML mail content automatically.
+* `[_serial_number]` special mail-tag.
+* New form-tag type for hidden fields.
+* `default:shortcode_attr` form-tag option.
+* `WPCF7_Shortcode`, `WPCF7_ShortcodeManager`, `wpcf7_add_shortcode()`, `wpcf7_scan_shortcode()`, and some other classes and functions have become deprecated.
+* Removed all language files from the _languages_ folder. Translations have moved to [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/contact-form-7).
 
 = 4.5.1 =
 

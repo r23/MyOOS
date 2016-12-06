@@ -292,20 +292,20 @@ var recaptchaCallback = function() {
 <?php
 }
 
-add_action( 'wpcf7_init', 'wpcf7_recaptcha_add_shortcode_recaptcha' );
+add_action( 'wpcf7_init', 'wpcf7_recaptcha_add_form_tag_recaptcha' );
 
-function wpcf7_recaptcha_add_shortcode_recaptcha() {
+function wpcf7_recaptcha_add_form_tag_recaptcha() {
 	$recaptcha = WPCF7_RECAPTCHA::get_instance();
 
 	if ( $recaptcha->is_active() ) {
-		wpcf7_add_shortcode( 'recaptcha', 'wpcf7_recaptcha_shortcode_handler' );
+		wpcf7_add_form_tag( 'recaptcha', 'wpcf7_recaptcha_form_tag_handler' );
 	}
 }
 
-function wpcf7_recaptcha_shortcode_handler( $tag ) {
+function wpcf7_recaptcha_form_tag_handler( $tag ) {
 	wp_enqueue_script( 'google-recaptcha' );
 
-	$tag = new WPCF7_Shortcode( $tag );
+	$tag = new WPCF7_FormTag( $tag );
 
 	$atts = array();
 
@@ -376,7 +376,7 @@ function wpcf7_recaptcha_check_with_google( $spam ) {
 		return $spam;
 	}
 
-	$tags = $contact_form->form_scan_shortcode( array( 'type' => 'recaptcha' ) );
+	$tags = $contact_form->scan_form_tags( array( 'type' => 'recaptcha' ) );
 
 	if ( empty( $tags ) ) {
 		return $spam;
