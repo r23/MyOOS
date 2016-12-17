@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-12-06 19:54:46+0000\n"
+"PO-Revision-Date: 2016-12-06 20:11:28+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -116,7 +116,7 @@ msgstr "Manchmal bedarf es nur weniger visueller Anpassungen, damit deine Websit
 
 #: wp-admin/about.php:128
 msgid "Many menus for sites contain links to the pages of your site, but what happens when you don&#8217;t have any pages yet? Now you can add new pages while building menus instead of leaving the customizer and abandoning your changes. Once you&#8217;ve published your customizations, you&#8217;ll have new pages ready for you to fill with content."
-msgstr "Viele Menüs von Websites enthalten Links zu darauf enthaltenen Seiten, was passiert aber wenn du noch überhaupt keine Seiten hast? Ab sofort kannst du bei der Menü-Erstellung neue Seiten hinzufügen, ohne dabei den Customizer verlassen zu müssen und deine Änderungen zu verlieren. Sobald du deine Änderungen veröffentlicht hast, stehen die neuen Seiten bereit um von dir mit Inhalten gefüllt zu werden."
+msgstr "Viele Menüs von Websites enthalten Links zu darauf enthaltenen Seiten, was passiert aber, wenn du noch überhaupt keine Seiten hast? Ab sofort kannst du bei der Menü-Erstellung neue Seiten hinzufügen, ohne dabei den Customizer verlassen zu müssen und deine Änderungen zu verlieren. Sobald du deine Änderungen veröffentlicht hast, stehen die neuen Seiten bereit, um von dir mit Inhalten gefüllt zu werden."
 
 #: wp-admin/about.php:126
 msgid "Smoother Menu Building"
