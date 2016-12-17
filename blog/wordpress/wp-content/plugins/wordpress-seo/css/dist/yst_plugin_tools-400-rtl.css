@@ -527,3 +527,11 @@ body.toplevel_page_wpseo_dashboard .wp-badge {
 .yoast-sidebar__spot a {
 	color: #a4286a;
 }
+
+.wpseo-banner__link {
+	display: inline-block;
+}
+
+.wpseo-banner__image {
+	vertical-align: top;
+}
