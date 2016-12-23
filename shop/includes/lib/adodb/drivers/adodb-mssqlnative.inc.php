@@ -1,6 +1,6 @@
 <?php
 /*
-@version   v5.20.8  17-Dec-2016
+@version   v5.20.9  21-Dec-2016
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
 @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
   Released under both BSD license and Lesser GPL library license.
@@ -151,7 +151,7 @@ class ADODB_mssqlnative extends ADOConnection {
 	 */
 	function ServerVersion() {
 		$data = $this->ServerInfo();
-		preg_match('/^\d{2}', $data['version'], $matches);
+		preg_match('/^\d{2}/', $data['version'], $matches);
 		$version = (int)reset($matches);
 
 		// We only support SQL Server 2005 and up
