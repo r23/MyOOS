@@ -96,6 +96,13 @@ class LanguagesManagerTest extends \PHPUnit_Framework_TestCase
 
         if ($translationWriter->wasFiltered()) {
 
+            if (!$translationWriter->hasTranslations()) {
+                $this->markTestSkipped('Translation file errors detected in ' . $language . "...\n"
+                    . "File would be empty after filtering. You may remove it manually to fix this test.\n"
+                );
+                return;
+            }
+
             $translationWriter->saveTemporary();
             $this->markTestSkipped(implode("\n", $translationWriter->getFilterMessages()) . "\n"
                 . 'Translation file errors detected in ' . $language . "...\n"
@@ -144,6 +151,32 @@ class LanguagesManagerTest extends \PHPUnit_Framework_TestCase
             foreach ($pluginTranslations as $key => $pluginTranslation) {
                 $this->assertLessThanOrEqual(1, substr_count($pluginTranslation, '%s'),
                     sprintf('%s.%s must use numbered placeholders instead of multiple %%s', $plugin, $key));
+            }
+        }
+    }
+
+    /**
+     * check all english translations do not contain unescaped % symbols
+     *
+     * @group Plugins
+     * @group numbered2
+     */
+    function testTranslationsUseEscapedPercentSigns()
+    {
+        Cache::flushAll();
+        $translator = StaticContainer::get('Piwik\Translation\Translator');
+        $translator->reset();
+        Translate::loadAllTranslations();
+        $translations = $translator->getAllTranslations();
+        foreach ($translations AS $plugin => $pluginTranslations) {
+            if ($plugin == 'Intl') {
+                continue; // skip generated stuff
+            }
+            foreach ($pluginTranslations as $key => $pluginTranslation) {
+                $pluginTranslation = preg_replace('/(%(?:[1-9]\$)?[a-z])/', '', $pluginTranslation); // remove placeholders
+                $pluginTranslation = str_replace('%%', '', $pluginTranslation); // remove already escaped symbols
+                $this->assertEquals(0, substr_count($pluginTranslation, '%'),
+                    sprintf('%s.%s must use escaped %% symbols', $plugin, $key));
             }
         }
     }

@@ -1,6 +1,5 @@
 {
     "CorePluginsAdmin": {
-        "ActionInstall": "Namesti",
         "ActionUninstall": "Odstrani",
         "Activate": "Omogoči",
         "Activated": "Omogočeno",
@@ -13,7 +12,6 @@
         "PluginsExtendPiwik": "Vtičniki razširjajo Piwik-ovo funkcionalnost.",
         "OncePluginIsInstalledYouMayActivateHere": "Ko je vtičnik enkrat nameščen, ga lahko tukaj aktivirate oziroma deaktivirate.",
         "PluginHomepage": "Spletna stran vtičnika",
-        "PluginKeywords": "Ključne Besede",
         "PluginsManagement": "Urejanje Vtičnikov",
         "Status": "Status",
         "Version": "Različica",

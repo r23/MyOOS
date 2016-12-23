@@ -11,12 +11,18 @@ namespace Piwik\Plugins\Marketplace;
 class Tasks extends \Piwik\Plugin\Tasks
 {
     /**
+     * @var UpdateCommunication
+     */
+    private $updateCommunication;
+
+    /**
      * @var Api\Client
      */
     private $api;
 
-    public function __construct(Api\Client $api)
+    public function __construct(UpdateCommunication $updateCommunication, Api\Client $api)
     {
+        $this->updateCommunication = $updateCommunication;
         $this->api = $api;
     }
 
@@ -33,9 +39,8 @@ class Tasks extends \Piwik\Plugin\Tasks
 
     public function sendNotificationIfUpdatesAvailable()
     {
-        $updateCommunication = new UpdateCommunication();
-        if ($updateCommunication->isEnabled()) {
-            $updateCommunication->sendNotificationIfUpdatesAvailable();
+        if ($this->updateCommunication->isEnabled()) {
+            $this->updateCommunication->sendNotificationIfUpdatesAvailable();
         }
     }
 

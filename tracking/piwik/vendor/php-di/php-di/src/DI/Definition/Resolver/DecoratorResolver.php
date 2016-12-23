@@ -1,17 +1,10 @@
 <?php
-/**
- * PHP-DI
- *
- * @link      http://mnapoli.github.com/PHP-DI/
- * @copyright Matthieu Napoli (http://mnapoli.fr/)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT (see the LICENSE file)
- */
 
 namespace DI\Definition\Resolver;
 
 use DI\Definition\DecoratorDefinition;
-use DI\Definition\Exception\DefinitionException;
 use DI\Definition\Definition;
+use DI\Definition\Exception\DefinitionException;
 use Interop\Container\ContainerInterface;
 
 /**
@@ -54,10 +47,8 @@ class DecoratorResolver implements DefinitionResolver
      *
      * {@inheritdoc}
      */
-    public function resolve(Definition $definition, array $parameters = array())
+    public function resolve(Definition $definition, array $parameters = [])
     {
-        $this->assertIsDecoratorDefinition($definition);
-
         $callable = $definition->getCallable();
 
         if (! is_callable($callable)) {
@@ -88,20 +79,8 @@ class DecoratorResolver implements DefinitionResolver
     /**
      * {@inheritdoc}
      */
-    public function isResolvable(Definition $definition, array $parameters = array())
+    public function isResolvable(Definition $definition, array $parameters = [])
     {
-        $this->assertIsDecoratorDefinition($definition);
-
         return true;
-    }
-
-    private function assertIsDecoratorDefinition(Definition $definition)
-    {
-        if (!$definition instanceof DecoratorDefinition) {
-            throw new \InvalidArgumentException(sprintf(
-                'This definition resolver is only compatible with DecoratorDefinition objects, %s given',
-                get_class($definition)
-            ));
-        }
     }
 }

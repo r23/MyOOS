@@ -159,7 +159,6 @@ var broadcast = {
         } else {
             // start page
             Piwik_Popover.close();
-
             $('.pageWrap #content:not(.admin)').empty();
         }
     },
@@ -173,6 +172,7 @@ var broadcast = {
     },
 
     /**
+     * ONLY USED BY OVERLAY
      * propagateAjax -- update hash values then make ajax calls.
      *    example :
      *       1) <a href="javascript:broadcast.propagateAjax('module=Referrers&action=getKeywords')">View keywords report</a>
@@ -237,6 +237,47 @@ var broadcast = {
     },
 
     /**
+     * propagateAjax -- update hash values then make ajax calls.
+     *    example :
+     *       1) <a href="javascript:broadcast.propagateAjax('module=Referrers&action=getKeywords')">View keywords report</a>
+     *       2) Main menu li also goes through this function.
+     *
+     * Will propagate your new value into the current hash string and make ajax calls.
+     *
+     * NOTE: this method will only make ajax call and replacing main content.
+     *
+     * @param {string} ajaxUrl  querystring with parameters to be updated
+     * @param {boolean} [disableHistory]  the hash change won't be available in the browser history
+     * @return {void}
+     */
+    buildReportingUrl: function (ajaxUrl, disableHistory) {
+
+        // available in global scope
+        var currentHashStr = broadcast.getHash();
+
+        ajaxUrl = ajaxUrl.replace(/^\?|&#/, '');
+
+        var params_vals = ajaxUrl.split("&");
+        for (var i = 0; i < params_vals.length; i++) {
+            currentHashStr = broadcast.updateParamValue(params_vals[i], currentHashStr);
+        }
+
+        // if the module is not 'Goals', we specifically unset the 'idGoal' parameter
+        // this is to ensure that the URLs are clean (and that clicks on graphs work as expected - they are broken with the extra parameter)
+        var action = broadcast.getParamValue('action', currentHashStr);
+        if (action != 'goalReport' && action != 'ecommerceReport' && action != 'products' && action != 'sales') {
+            currentHashStr = broadcast.updateParamValue('idGoal=', currentHashStr);
+        }
+        // unset idDashboard if use doesn't display a dashboard
+        var module = broadcast.getParamValue('module', currentHashStr);
+        if (module != 'Dashboard') {
+            currentHashStr = broadcast.updateParamValue('idDashboard=', currentHashStr);
+        }
+
+        return '#' + currentHashStr;
+    },
+
+    /**
      * propagateNewPage() -- update url value and load new page,
      * Example:
      *         1) We want to update idSite to both search query and hash then reload the page,
@@ -278,6 +319,15 @@ var broadcast = {
             }
         }
 
+        var updatedUrl = new RegExp('&updated=([0-9]+)');
+        var updatedCounter = updatedUrl.exec(currentSearchStr);
+        if (!updatedCounter) {
+            currentSearchStr += '&updated=1';
+        } else {
+            updatedCounter = 1 + parseInt(updatedCounter[1]);
+            currentSearchStr = currentSearchStr.replace(new RegExp('(&updated=[0-9]+)'), '&updated=' + updatedCounter);
+        }
+
         if (strHash && currentHashStr.length != 0) {
             var params_hash_vals = strHash.split("&");
             for (var i = 0; i < params_hash_vals.length; i++) {
@@ -287,6 +337,15 @@ var broadcast = {
 
         // Now load the new page.
         var newUrl = currentSearchStr + currentHashStr;
+
+        var $rootScope = piwikHelper.getAngularDependency('$rootScope');
+        if ($rootScope) {
+            $rootScope.$on('$locationChangeStart', function (event) {
+                if (event) {
+                    event.preventDefault();
+                }
+            })
+        }
 
         if (oldUrl == newUrl) {
             window.location.reload();
@@ -365,9 +424,9 @@ var broadcast = {
      */
     propagateNewPopoverParameter: function (handlerName, value) {
         // init broadcast if not already done (it is required to make popovers work in widgetize mode)
-        broadcast.init(true);
+        //broadcast.init(true);
 
-        var hash = broadcast.getHashFromUrl(window.location.href);
+        var $location = angular.element(document).injector().get('$location');
 
         var popover = '';
         if (handlerName) {
@@ -381,24 +440,14 @@ var broadcast = {
         }
 
         if ('' == value || 'undefined' == typeof value) {
-            var newHash = hash.replace(/(&?popover=.*)/, '');
-        } else if (broadcast.getParamValue('popover', hash)) {
-            var newHash = broadcast.updateParamValue('popover='+popover, hash);
-        } else if (hash && hash != '#') {
-            var newHash = hash + '&popover=' + popover
+            $location.search('popover', '');
         } else {
-            var newHash = '#popover='+popover;
+            $location.search('popover', popover);
         }
 
-        // never use an empty hash, as that might reload the page
-        if ('' == newHash) {
-            newHash = '#';
-        }
-
-        broadcast.forceReload = false;
-        angular.element(document).injector().invoke(function (historyService) {
-            historyService.load(newHash);
-        });
+        setTimeout(function () {
+            angular.element(document).injector().get('$rootScope').$apply();
+        }, 1);
     },
 
     /**
@@ -424,27 +473,6 @@ var broadcast = {
      * @return {Boolean}
      */
     loadAjaxContent: function (urlAjax) {
-        if (typeof piwikMenu !== 'undefined') {
-            // we have to use a $timeout since menu groups are displayed using an angular directive, and on initial
-            // page load, the dropdown will not be completely rendered at this point. using 2 $timeouts (to push
-            // the menu activation logic to the end of the event queue twice), seems to work.
-            angular.element(document).injector().invoke(function ($timeout) {
-                $timeout(function () {
-                    $timeout(function () {
-                        piwikMenu.activateMenu(
-                            broadcast.getParamValue('module', urlAjax),
-                            broadcast.getParamValue('action', urlAjax),
-                            {
-                                idGoal: broadcast.getParamValue('idGoal', urlAjax),
-                                idDashboard: broadcast.getParamValue('idDashboard', urlAjax),
-                                idDimension: broadcast.getParamValue('idDimension', urlAjax)
-                            }
-                        );
-                    });
-                });
-            });
-        }
-
         if(broadcast.getParamValue('module', urlAjax) == 'API') {
             broadcast.lastUrlRequested = null;
             $('#content').html("Loading content from the API and displaying it within Piwik is not allowed.");

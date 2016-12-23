@@ -1,37 +1,15 @@
-{% extends mode is defined and mode == 'user' ? "user.twig" : "admin.twig" %}
-{% import '@Marketplace/macros.twig' as marketplaceMacro %}
+{% extends "admin.twig" %}
+{% import '@CorePluginsAdmin/macros.twig' as pluginsMacro %}
 
 {% set title %}{{ 'Marketplace_Marketplace'|translate }}{% endset %}
 
 {% block content %}
 
-    <div class="marketplace">
+    <div class="marketplace" piwik-marketplace>
 
-        <h2 piwik-enriched-headline feature-name="{{ 'Marketplace_Marketplace'|translate }}">
-            {{ title }}
-        </h2>
-
-        <ul class="nav nav-pills">
-            {% if freePlugins|length %}
-                <li {% if showPlugins and showFree %}class="active"{% endif %}>
-                    <a href="{{ linkTo({'show': 'plugins', 'type': ''}) }}">{{ 'General_Plugins'|translate }}</a>
-                </li>
-            {% endif %}
-
-            {% if paidPlugins|length or showPaid %}
-                <li {% if showPlugins and showPaid %}class="active"{% endif %}>
-                    <a href="{{ linkTo({'show': 'plugins', 'type': 'paid'}) }}">{{ 'Marketplace_PaidPlugins'|translate }}</a>
-                </li>
-            {% endif %}
-
-            {% if themes|length %}
-                <li {% if showThemes %}class="active"{% endif %}>
-                    <a href="{{ linkTo({'show': 'themes', 'type': ''}) }}">{{ 'CorePluginsAdmin_Themes'|translate }}</a>
-                </li>
-            {% endif %}
-        </ul>
-
-        <div class="marketplace-max-width">
+        <div piwik-content-intro>
+            <h2 piwik-enriched-headline feature-name="{{ 'CorePluginsAdmin_Marketplace'|translate }}"
+            >{{ title|e('html_attr') }}</h2>
             <p>
                 {% if not isSuperUser %}
                     {% if showThemes %}
@@ -47,28 +25,62 @@
                     {{ 'Marketplace_InstallingNewPluginViaMarketplaceOrUpload'|translate(('General_Plugins'|translate), '<a href="#" class="uploadPlugin">', ('General_Plugin'|translate), '</a>')|raw }}
                 {% endif %}
             </p>
+
+            {% include '@Marketplace/licenseform.twig' %}
+
+            <div class="ui-confirm" id="installPluginByUpload">
+                <h2>{{ 'Marketplace_TeaserExtendPiwikByUpload'|translate }}</h2>
+
+                <p class="description"> {{ 'Marketplace_AllowedUploadFormats'|translate }} </p>
+
+                <form enctype="multipart/form-data" method="post" id="uploadPluginForm"
+                      action="{{ linkTo({'module':'CorePluginsAdmin', 'action':'uploadPlugin', 'nonce': installNonce}) }}">
+                    <input type="file" name="pluginZip">
+                    <br />
+                    <input class="startUpload btn" type="submit" value="{{ 'Marketplace_UploadZipFile'|translate }}">
+                </form>
+            </div>
+
+            <div class="row marketplaceActions" ng-controller="PiwikMarketplaceController as marketplace">
+                <div piwik-field uicontrol="select" name="plugin_type"
+                     class="col s12 m6 l4"
+                     ng-model="marketplace.pluginType"
+                     ng-change="marketplace.changePluginType()"
+                     title="{{ 'Show'|translate|e('html_attr') }}"
+                     value="{{ pluginType }}"
+                     full-width="true"
+                     options="{{ pluginTypeOptions|json_encode }}">
+                </div>
+
+                <div piwik-field uicontrol="select" name="plugin_sort"
+                     title="{{ 'Sort'|translate|e('html_attr') }}"
+                     value="{{ sort }}"
+                     ng-model="marketplace.pluginSort"
+                     ng-change="marketplace.changePluginSort()"
+                     class="col s12 m6 l4"
+                     full-width="true"
+                     options="{{ pluginSortOptions|json_encode }}">
+                </div>
+
+                {# Hide filters and search for themes because we don't have many of them #}
+                {% if (pluginsToShow|length) > 20 or query %}
+                    <div class="col s12 m12 l4 ">
+                        <form action="{{ linkTo({'sort': ''}) }}" method="post" class="plugin-search">
+                            <div piwik-field uicontrol="text" name="query"
+                                 title="{{ 'General_Search'|translate }} {{ numAvailablePlugins }} {{ 'General_Plugins'|translate|lcfirst }}..."
+                                 value="{{ query }}"
+                                 full-width="true">
+                            </div>
+                            <span class="icon-search" onclick="$('form.plugin-search').submit();"></span>
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
         </div>
-
-        <div class="ui-confirm" id="installPluginByUpload">
-            <h2>{{ 'Marketplace_TeaserExtendPiwikByUpload'|translate }}</h2>
-
-            <p class="description"> {{ 'Marketplace_AllowedUploadFormats'|translate }} </p>
-
-            <form enctype="multipart/form-data" method="post" id="uploadPluginForm"
-                  action="{{ linkTo({'module': 'CorePluginsAdmin', 'action':'uploadPlugin', 'nonce': installNonce}) }}">
-                <input type="file" name="pluginZip">
-                <br />
-                <input class="startUpload" type="submit" value="{{ 'Marketplace_UploadZipFile'|translate }}">
-            </form>
-        </div>
-
-        {% include '@Marketplace/licenseform.twig' %}
-
-        <hr/>
 
         {% include '@Marketplace/plugin-list.twig' %}
 
-        <div class="footer-message text-center">
+        <div class="footer-message center">
             {{ 'Marketplace_DevelopersLearnHowToDevelopPlugins'|translate('<a href="?module=Proxy&action=redirect&url=http://developer.piwik.org/develop" target="_blank">', '</a>')|raw }}
             <br />
             <br />
@@ -78,7 +90,6 @@
             <a rel="noreferrer" href="https://piwik.org/privacy-policy/" target="_blank">Privacy</a> |
             <a rel="noreferrer" href="https://piwik.org/contact/" target="_blank">Contact</a>
         </div>
-
 
     </div>
 

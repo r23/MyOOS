@@ -1,24 +1,17 @@
 <?php
-/**
- * PHP-DI
- *
- * @link      http://php-di.org/
- * @copyright Matthieu Napoli (http://mnapoli.fr/)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT (see the LICENSE file)
- */
 
 namespace DI;
 
-use DI\Definition\ObjectDefinition;
 use DI\Definition\Definition;
 use DI\Definition\FactoryDefinition;
+use DI\Definition\Helper\DefinitionHelper;
 use DI\Definition\InstanceDefinition;
+use DI\Definition\ObjectDefinition;
+use DI\Definition\Resolver\DefinitionResolver;
 use DI\Definition\Resolver\ResolverDispatcher;
 use DI\Definition\Source\CachedDefinitionSource;
 use DI\Definition\Source\DefinitionSource;
 use DI\Definition\Source\MutableDefinitionSource;
-use DI\Definition\Helper\DefinitionHelper;
-use DI\Definition\Resolver\DefinitionResolver;
 use DI\Invoker\DefinitionParameterResolver;
 use DI\Proxy\ProxyFactory;
 use Exception;
@@ -27,6 +20,7 @@ use InvalidArgumentException;
 use Invoker\Invoker;
 use Invoker\ParameterResolver\AssociativeArrayResolver;
 use Invoker\ParameterResolver\Container\TypeHintContainerResolver;
+use Invoker\ParameterResolver\DefaultValueResolver;
 use Invoker\ParameterResolver\NumericArrayResolver;
 use Invoker\ParameterResolver\ResolverChain;
 
@@ -41,7 +35,7 @@ class Container implements ContainerInterface, FactoryInterface, \DI\InvokerInte
      * Map of entries with Singleton scope that are already resolved.
      * @var array
      */
-    private $singletonEntries = array();
+    private $singletonEntries = [];
 
     /**
      * @var DefinitionSource
@@ -57,12 +51,19 @@ class Container implements ContainerInterface, FactoryInterface, \DI\InvokerInte
      * Array of entries being resolved. Used to avoid circular dependencies and infinite loops.
      * @var array
      */
-    private $entriesBeingResolved = array();
+    private $entriesBeingResolved = [];
 
     /**
      * @var \Invoker\InvokerInterface|null
      */
     private $invoker;
+
+    /**
+     * Container that wraps this container. If none, points to $this.
+     *
+     * @var ContainerInterface
+     */
+    private $wrapperContainer;
 
     /**
      * Use the ContainerBuilder to ease constructing the Container.
@@ -78,16 +79,15 @@ class Container implements ContainerInterface, FactoryInterface, \DI\InvokerInte
         ProxyFactory $proxyFactory,
         ContainerInterface $wrapperContainer = null
     ) {
-        $wrapperContainer = $wrapperContainer ?: $this;
+        $this->wrapperContainer = $wrapperContainer ?: $this;
 
         $this->definitionSource = $definitionSource;
-        $this->definitionResolver = new ResolverDispatcher($wrapperContainer, $proxyFactory);
+        $this->definitionResolver = new ResolverDispatcher($this->wrapperContainer, $proxyFactory);
 
         // Auto-register the container
-        $this->singletonEntries['DI\Container'] = $this;
-        $this->singletonEntries['DI\ContainerInterface'] = $this;
-        $this->singletonEntries['DI\FactoryInterface'] = $this;
-        $this->singletonEntries['DI\InvokerInterface'] = $this;
+        $this->singletonEntries[self::class] = $this;
+        $this->singletonEntries[FactoryInterface::class] = $this;
+        $this->singletonEntries[InvokerInterface::class] = $this;
     }
 
     /**
@@ -148,7 +148,7 @@ class Container implements ContainerInterface, FactoryInterface, \DI\InvokerInte
      * @throws NotFoundException No entry found for the given name.
      * @return mixed
      */
-    public function make($name, array $parameters = array())
+    public function make($name, array $parameters = [])
     {
         if (! is_string($name)) {
             throw new InvalidArgumentException(sprintf(
@@ -200,7 +200,7 @@ class Container implements ContainerInterface, FactoryInterface, \DI\InvokerInte
     }
 
     /**
-     * Inject all dependencies on an existing instance
+     * Inject all dependencies on an existing instance.
      *
      * @param object $instance Object to perform injection upon
      * @throws InvalidArgumentException
@@ -233,7 +233,7 @@ class Container implements ContainerInterface, FactoryInterface, \DI\InvokerInte
      *
      * @return mixed Result of the function.
      */
-    public function call($callable, array $parameters = array())
+    public function call($callable, array $parameters = [])
     {
         return $this->getInvoker()->call($callable, $parameters);
     }
@@ -270,7 +270,7 @@ class Container implements ContainerInterface, FactoryInterface, \DI\InvokerInte
      * @throws DependencyException Error while resolving the entry.
      * @return mixed
      */
-    private function resolveDefinition(Definition $definition, array $parameters = array())
+    private function resolveDefinition(Definition $definition, array $parameters = [])
     {
         $entryName = $definition->getName();
 
@@ -312,15 +312,19 @@ class Container implements ContainerInterface, FactoryInterface, \DI\InvokerInte
         $this->definitionSource->addDefinition($definition);
     }
 
+    /**
+     * @return \Invoker\InvokerInterface
+     */
     private function getInvoker()
     {
         if (! $this->invoker) {
-            $parameterResolver = new ResolverChain(array(
+            $parameterResolver = new ResolverChain([
+                new DefinitionParameterResolver($this->definitionResolver),
                 new NumericArrayResolver,
                 new AssociativeArrayResolver,
-                new DefinitionParameterResolver($this->definitionResolver),
-                new TypeHintContainerResolver($this),
-            ));
+                new DefaultValueResolver,
+                new TypeHintContainerResolver($this->wrapperContainer),
+            ]);
 
             $this->invoker = new Invoker($parameterResolver, $this);
         }

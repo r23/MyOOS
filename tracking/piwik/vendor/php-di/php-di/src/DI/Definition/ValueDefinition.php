@@ -1,25 +1,19 @@
 <?php
-/**
- * PHP-DI
- *
- * @link      http://php-di.org/
- * @copyright Matthieu Napoli (http://mnapoli.fr/)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT (see the LICENSE file)
- */
 
 namespace DI\Definition;
 
 use DI\Scope;
+use Interop\Container\ContainerInterface;
 
 /**
  * Definition of a value for dependency injection.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
  */
-class ValueDefinition implements Definition
+class ValueDefinition implements Definition, SelfResolvingDefinition
 {
     /**
-     * Entry name
+     * Entry name.
      * @var string
      */
     private $name;
@@ -63,5 +57,20 @@ class ValueDefinition implements Definition
     public function getValue()
     {
         return $this->value;
+    }
+
+    public function resolve(ContainerInterface $container)
+    {
+        return $this->getValue();
+    }
+
+    public function isResolvable(ContainerInterface $container)
+    {
+        return true;
+    }
+
+    public function __toString()
+    {
+        return sprintf('Value (%s)', var_export($this->value, true));
     }
 }

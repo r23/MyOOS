@@ -26,10 +26,10 @@
  * - Opera 7
  */
 
-/*global JSON2:true */
+/*global JSON_PIWIK:true */
 
-if (typeof JSON2 !== 'object' && typeof window.JSON === 'object' && window.JSON.stringify && window.JSON.parse) {
-    JSON2 = window.JSON;
+if (typeof JSON_PIWIK !== 'object' && typeof window.JSON === 'object' && window.JSON.stringify && window.JSON.parse) {
+    JSON_PIWIK = window.JSON;
 } else {
     (function () {
         // we make sure to not break any site that uses JSON3 as well as we do not know if they run it in conflict mode
@@ -945,14 +945,14 @@ if (typeof JSON2 !== 'object' && typeof window.JSON === 'object' && window.JSON.
          * end JSON
          ************************************************************/
 
-        JSON2 = exports;
+        JSON_PIWIK = exports;
 
     })();
 }
 
 /* startjslint */
 /*jslint browser:true, plusplus:true, vars:true, nomen:true, evil:true, regexp: false, bitwise: true, white: true */
-/*global JSON2 */
+/*global JSON_PIWIK */
 /*global window */
 /*global unescape */
 /*global ActiveXObject */
@@ -970,7 +970,7 @@ if (typeof JSON2 !== 'object' && typeof window.JSON === 'object' && window.JSON.
     getTime, getTimeAlias, setTime, toGMTString, getHours, getMinutes, getSeconds,
     toLowerCase, toUpperCase, charAt, indexOf, lastIndexOf, split, slice,
     onload, src,
-    min, round, random,
+    min, round, random, floor,
     exec,
     res, width, height,
     pdf, qt, realp, wma, dir, fla, java, gears, ag,
@@ -1022,7 +1022,7 @@ if (typeof JSON2 !== 'object' && typeof window.JSON === 'object' && window.JSON.
     isNodeAuthorizedToTriggerInteraction, replaceHrefIfInternalLink, getConfigDownloadExtensions, disableLinkTracking,
     substr, setAnyAttribute, wasContentTargetAttrReplaced, max, abs, childNodes, compareDocumentPosition, body,
     getConfigVisitorCookieTimeout, getRemainingVisitorCookieTimeout, getDomains, getConfigCookiePath,
-    newVisitor, uuid, createTs, visitCount, currentVisitTs, lastVisitTs, lastEcommerceOrderTs,
+    getConfigIdPageView, newVisitor, uuid, createTs, visitCount, currentVisitTs, lastVisitTs, lastEcommerceOrderTs,
      "", "\b", "\t", "\n", "\f", "\r", "\"", "\\", apply, call, charCodeAt, getUTCDate, getUTCFullYear, getUTCHours,
     getUTCMinutes, getUTCMonth, getUTCSeconds, hasOwnProperty, join, lastIndex, length, parse, prototype, push, replace,
     sort, slice, stringify, test, toJSON, toString, valueOf, objectToJSON, addTracker, removeAllAsyncTrackersButFirst
@@ -1031,7 +1031,7 @@ if (typeof JSON2 !== 'object' && typeof window.JSON === 'object' && window.JSON.
 /*members push */
 /*global Piwik:true */
 /*members addPlugin, getTracker, getAsyncTracker, getAsyncTrackers, addTracker, trigger, on, off, retryMissedPluginCalls,
-          DOM, onLoad, onReady*/
+          DOM, onLoad, onReady, JSON */
 /*global Piwik_Overlay_Client */
 /*global AnalyticsTracker:true */
 /*members initialize */
@@ -3079,7 +3079,9 @@ if (typeof window.Piwik !== 'object') {
                 hash = sha1,
 
                 // Domain hash value
-                domainHash;
+                domainHash,
+
+                configIdPageView;
 
             // Document title
             try {
@@ -3611,7 +3613,7 @@ if (typeof window.Piwik !== 'object') {
                     cookie = getCookie(cookieName);
 
                 if (cookie.length) {
-                    cookie = JSON2.parse(cookie);
+                    cookie = JSON_PIWIK.parse(cookie);
 
                     if (isObject(cookie)) {
                         return cookie;
@@ -3639,7 +3641,7 @@ if (typeof window.Piwik !== 'object') {
                 return hash(
                     (navigatorAlias.userAgent || '') +
                     (navigatorAlias.platform || '') +
-                    JSON2.stringify(browserFeatures) +
+                    JSON_PIWIK.stringify(browserFeatures) +
                     (new Date()).getTime() +
                     Math.random()
                 ).slice(0, 16);
@@ -3790,7 +3792,7 @@ if (typeof window.Piwik !== 'object') {
 
                 if (cookie.length) {
                     try {
-                        cookie = JSON2.parse(cookie);
+                        cookie = JSON_PIWIK.parse(cookie);
                         if (isObject(cookie)) {
                             return cookie;
                         }
@@ -3881,6 +3883,19 @@ if (typeof window.Piwik !== 'object') {
              */
             function setSessionCookie() {
                 setCookie(getCookieName('ses'), '*', configSessionCookieTimeout, configCookiePath, configCookieDomain);
+            }
+
+            function generateUniqueId() {
+                var id = '';
+                var chars = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                var charLen = chars.length;
+                var i;
+
+                for (i = 0; i < 6; i++) {
+                    id += chars.charAt(Math.floor(Math.random() * charLen));
+                }
+
+                return id;
             }
 
             /**
@@ -3999,7 +4014,7 @@ if (typeof window.Piwik !== 'object') {
                             purify(referralUrl.slice(0, referralUrlMaxLength))
                         ];
 
-                        setCookie(cookieReferrerName, JSON2.stringify(attributionCookie), configReferralCookieTimeout, configCookiePath, configCookieDomain);
+                        setCookie(cookieReferrerName, JSON_PIWIK.stringify(attributionCookie), configReferralCookieTimeout, configCookiePath, configCookieDomain);
                     }
                 }
 
@@ -4059,14 +4074,14 @@ if (typeof window.Piwik !== 'object') {
 
                 // custom data
                 if (customData) {
-                    request += '&data=' + encodeWrapper(JSON2.stringify(customData));
+                    request += '&data=' + encodeWrapper(JSON_PIWIK.stringify(customData));
                 } else if (configCustomData) {
-                    request += '&data=' + encodeWrapper(JSON2.stringify(configCustomData));
+                    request += '&data=' + encodeWrapper(JSON_PIWIK.stringify(configCustomData));
                 }
 
                 // Custom Variables, scope "page"
                 function appendCustomVariablesToRequest(customVariables, parameterName) {
-                    var customVariablesStringified = JSON2.stringify(customVariables);
+                    var customVariablesStringified = JSON_PIWIK.stringify(customVariables);
                     if (customVariablesStringified.length > 2) {
                         return '&' + parameterName + '=' + encodeWrapper(customVariablesStringified);
                     }
@@ -4093,7 +4108,7 @@ if (typeof window.Piwik !== 'object') {
                     }
 
                     if (configStoreCustomVariablesInCookie) {
-                        setCookie(cookieCustomVariablesName, JSON2.stringify(customVariables), configSessionCookieTimeout, configCookiePath, configCookieDomain);
+                        setCookie(cookieCustomVariablesName, JSON_PIWIK.stringify(customVariables), configSessionCookieTimeout, configCookiePath, configCookieDomain);
                     }
                 }
 
@@ -4105,6 +4120,10 @@ if (typeof window.Piwik !== 'object') {
                         && performanceAlias.timing.requestStart && performanceAlias.timing.responseEnd) {
                         request += '&gt_ms=' + (performanceAlias.timing.responseEnd - performanceAlias.timing.requestStart);
                     }
+                }
+
+                if (configIdPageView) {
+                    request += '&pv_id=' + configIdPageView;
                 }
 
                 // update cookies
@@ -4202,7 +4221,7 @@ if (typeof window.Piwik !== 'object') {
                             items.push(ecommerceItems[sku]);
                         }
                     }
-                    request += '&ec_items=' + encodeWrapper(JSON2.stringify(items));
+                    request += '&ec_items=' + encodeWrapper(JSON_PIWIK.stringify(items));
                 }
                 request = getRequest(request, configCustomData, 'ecommerce', lastEcommerceOrderTs);
                 sendRequest(request, configTrackerPause);
@@ -4229,6 +4248,8 @@ if (typeof window.Piwik !== 'object') {
              * Log the page view / visit
              */
             function logPageView(customTitle, customData, callback) {
+                configIdPageView = generateUniqueId();
+
                 var request = getRequest('action_name=' + encodeWrapper(titleFixup(customTitle || configTitle)), customData, 'log');
 
                 sendRequest(request, configTrackerPause, callback);
@@ -4733,7 +4754,7 @@ if (typeof window.Piwik !== 'object') {
             /*
              * Log the event
              */
-            function logEvent(category, action, name, value, customData)
+            function logEvent(category, action, name, value, customData, callback)
             {
                 // Category and Action are required parameters
                 if (String(category).length === 0 || String(action).length === 0) {
@@ -4745,7 +4766,7 @@ if (typeof window.Piwik !== 'object') {
                         'event'
                     );
 
-                sendRequest(request, configTrackerPause);
+                sendRequest(request, configTrackerPause, callback);
             }
 
             /*
@@ -4783,7 +4804,7 @@ if (typeof window.Piwik !== 'object') {
 
                 var request = getRequest(linkParams, customData, 'link');
 
-                sendRequest(request, (callback ? 0 : configTrackerPause), callback);
+                sendRequest(request, configTrackerPause, callback);
             }
 
             /*
@@ -4973,6 +4994,11 @@ if (typeof window.Piwik !== 'object') {
              * Add click listener to a DOM element
              */
             function addClickListener(element, enable) {
+                var enableType = typeof enable;
+                if (enableType === 'undefined') {
+                    enable = true;
+                }
+
                 addEventListener(element, 'click', clickHandler(enable), false);
 
                 if (enable) {
@@ -5216,6 +5242,9 @@ if (typeof window.Piwik !== 'object') {
             this.getConfigCookiePath = function () {
                 return configCookiePath;
             };
+            this.getConfigIdPageView = function () {
+                return configIdPageView;
+            };
             this.getConfigDownloadExtensions = function () {
                 return configDownloadExtensions;
             };
@@ -5272,7 +5301,7 @@ if (typeof window.Piwik !== 'object') {
              * To access specific data point, you should use the other functions getAttributionReferrer* and getAttributionCampaign*
              *
              * @return array Attribution array, Example use:
-             *   1) Call JSON2.stringify(piwikTracker.getAttributionInfo())
+             *   1) Call JSON_PIWIK.stringify(piwikTracker.getAttributionInfo())
              *   2) Pass this json encoded string to the Tracking API (php or java client): setAttributionInfo()
              */
             this.getAttributionInfo = function () {
@@ -5953,7 +5982,7 @@ if (typeof window.Piwik !== 'object') {
              * When clicked, Piwik will log the click automatically.
              *
              * @param DOMElement element
-             * @param bool enable If true, use pseudo click-handler (middle click + context menu)
+             * @param bool enable If false, do not use pseudo click-handler (middle click + context menu)
              */
             this.addListener = function (element, enable) {
                 addClickListener(element, enable);
@@ -5974,10 +6003,11 @@ if (typeof window.Piwik !== 'object') {
              *
              * @see https://bugs.webkit.org/show_bug.cgi?id=54783
              *
-             * @param bool enable If "true", use pseudo click-handler (treat middle click and open contextmenu as
+             * @param bool enable Defaults to true.
+             *                    * If "true", use pseudo click-handler (treat middle click and open contextmenu as
              *                    left click). A right click (or any click that opens the context menu) on a link
-             *                    will be tracked as clicked even if "Open in new tab" is not selected. If
-             *                    "false" (default), nothing will be tracked on open context menu or middle click.
+             *                    will be tracked as clicked even if "Open in new tab" is not selected.
+             *                    * If "false" (default), nothing will be tracked on open context menu or middle click.
              *                    The context menu is usually opened to open a link / download in a new tab
              *                    therefore you can get more accurate results by treat it as a click but it can lead
              *                    to wrong click numbers.
@@ -6069,18 +6099,25 @@ if (typeof window.Piwik !== 'object') {
                 }
             };
 
-/*<DEBUG>*/
             /**
-             * Clear heartbeat.
+             * Disable heartbeat if it was previously activated.
              */
             this.disableHeartBeatTimer = function () {
                 heartBeatDown();
-                configHeartBeatDelay = null;
+                
+                if (configHeartBeatDelay || heartBeatSetUp) {
+                    if (windowAlias.removeEventListener) {
+                        windowAlias.removeEventListener('focus', heartBeatOnFocus, true);
+                        windowAlias.removeEventListener('blur', heartBeatOnBlur, true);
+                    } else if  (windowAlias.detachEvent) {
+                        windowAlias.detachEvent('onfocus', heartBeatOnFocus);
+                        windowAlias.detachEvent('onblur', heartBeatOnBlur);
+                    }
+                }
 
-                window.removeEventListener('focus', heartBeatOnFocus);
-                window.removeEventListener('blur', heartBeatOnBlur);
+                configHeartBeatDelay = null;
+                heartBeatSetUp = false;
             };
-/*</DEBUG>*/
 
             /**
              * Frame buster
@@ -6375,11 +6412,12 @@ if (typeof window.Piwik !== 'object') {
              * @param string action The Event's Action (Play, Pause, Duration, Add Playlist, Downloaded, Clicked...)
              * @param string name (optional) The Event's object Name (a particular Movie name, or Song name, or File name...)
              * @param float value (optional) The Event's value
+             * @param function callback
              * @param mixed customData
              */
-            this.trackEvent = function (category, action, name, value, customData) {
+            this.trackEvent = function (category, action, name, value, customData, callback) {
                 trackCallback(function () {
-                    logEvent(category, action, name, value, customData);
+                    logEvent(category, action, name, value, customData, callback);
                 });
             };
 
@@ -6417,7 +6455,7 @@ if (typeof window.Piwik !== 'object') {
                 if (!isDefined(category) || !category.length) {
                     category = "";
                 } else if (category instanceof Array) {
-                    category = JSON2.stringify(category);
+                    category = JSON_PIWIK.stringify(category);
                 }
 
                 customVariablesPage[5] = ['_pkc', category];
@@ -6599,6 +6637,8 @@ if (typeof window.Piwik !== 'object') {
 
         Piwik = {
             initialized: false,
+
+            JSON: JSON_PIWIK,
 
             /**
              * DOM Document related methods
@@ -6857,6 +6897,12 @@ if (typeof window.Piwik !== 'object') {
             // we only create an initial tracker if there is a configuration for it via _paq. Otherwise
             // Piwik.getAsyncTrackers() would return unconfigured trackers
             window.Piwik.addTracker();
+        } else {
+            _paq = {push: function (args) {
+                if (console !== undefined && console && console.error) {
+                    console.error('_paq.push() was used but Piwik tracker was not initialized before the piwik.js file was loaded. Make sure to configure the tracker via _paq.push before loading piwik.js. Alternatively, you can create a tracker via Piwik.addTracker() manually and then use _paq.push but it may not fully work as tracker methods may not be executed in the correct order.', args);
+                }
+            }};
         }
     }
 

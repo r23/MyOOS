@@ -13,6 +13,7 @@ use Piwik\Container\StaticContainer;
 use Piwik\Mail;
 use Piwik\Option;
 use Piwik\Piwik;
+use Piwik\Plugins\CoreUpdater\SystemSettings;
 use Piwik\Plugins\UsersManager\API as UsersManagerApi;
 use Piwik\SettingsPiwik;
 
@@ -21,7 +22,15 @@ use Piwik\SettingsPiwik;
  */
 class UpdateCommunication
 {
-    private $enabledOptionName = 'enableUpdateCommunicationPlugins';
+    /**
+     * @var SystemSettings
+     */
+    private $updaterSettings;
+
+    public function __construct(SystemSettings $settings)
+    {
+        $this->updaterSettings = $settings;
+    }
 
     /**
      * Checks whether plugin update notification is enabled or not. If the marketplace is disabled or if update
@@ -31,13 +40,11 @@ class UpdateCommunication
      */
     public function isEnabled()
     {
-        if (!$this->canBeEnabled()) {
+        if (!self::canBeEnabled()) {
             return false;
         }
 
-        $isEnabled = Option::get($this->enabledOptionName);
-
-        return !empty($isEnabled);
+        return $this->updaterSettings->sendPluginUpdateEmail->getValue();
     }
 
     /**
@@ -46,27 +53,11 @@ class UpdateCommunication
      *
      * @return bool
      */
-    public function canBeEnabled()
+    public static function canBeEnabled()
     {
         $isEnabled = Config::getInstance()->General['enable_update_communication'];
 
         return Marketplace::isMarketplaceEnabled() && !empty($isEnabled);
-    }
-
-    /**
-     * Enable plugin update notifications.
-     */
-    public function enable()
-    {
-        Option::set($this->enabledOptionName, 1);
-    }
-
-    /**
-     * Disable plugin update notifications.
-     */
-    public function disable()
-    {
-        Option::set($this->enabledOptionName, 0);
     }
 
     /**

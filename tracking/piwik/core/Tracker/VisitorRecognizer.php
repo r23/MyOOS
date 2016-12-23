@@ -231,7 +231,7 @@ class VisitorRecognizer
             $dimensions = VisitDimension::getAllDimensions();
 
             foreach ($dimensions as $dimension) {
-                if ($dimension->hasImplementedEvent('onExistingVisit')) {
+                if ($dimension->hasImplementedEvent('onExistingVisit') || $dimension->hasImplementedEvent('onAnyGoalConversion')) {
                     $fields[] = $dimension->getColumnName();
                 }
 
@@ -249,7 +249,7 @@ class VisitorRecognizer
              *
              * This event is deprecated, use [Dimensions](http://developer.piwik.org/guides/dimensions) instead.
              *
-             * @deprecated 
+             * @deprecated
              */
             $this->eventDispatcher->postEvent('Tracker.getVisitFieldsToPersist', array(&$fields));
 

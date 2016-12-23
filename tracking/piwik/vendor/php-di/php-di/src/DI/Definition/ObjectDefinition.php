@@ -1,18 +1,12 @@
 <?php
-/**
- * PHP-DI
- *
- * @link      http://php-di.org/
- * @copyright Matthieu Napoli (http://mnapoli.fr/)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT (see the LICENSE file)
- */
 
 namespace DI\Definition;
 
+use DI\Definition\Dumper\ObjectDefinitionDumper;
 use DI\Definition\ObjectDefinition\MethodInjection;
 use DI\Definition\ObjectDefinition\PropertyInjection;
-use DI\Definition\Exception\DefinitionException;
 use DI\Scope;
+use ReflectionClass;
 
 /**
  * Defines how an object can be instantiated.
@@ -22,34 +16,34 @@ use DI\Scope;
 class ObjectDefinition implements Definition, CacheableDefinition, HasSubDefinition
 {
     /**
-     * Entry name (most of the time, same as $classname)
+     * Entry name (most of the time, same as $classname).
      * @var string
      */
     private $name;
 
     /**
-     * Class name (if null, then the class name is $name)
+     * Class name (if null, then the class name is $name).
      * @var string|null
      */
     private $className;
 
     /**
-     * Constructor parameter injection
+     * Constructor parameter injection.
      * @var MethodInjection|null
      */
     private $constructorInjection;
 
     /**
-     * Property injections
+     * Property injections.
      * @var PropertyInjection[]
      */
-    private $propertyInjections = array();
+    private $propertyInjections = [];
 
     /**
-     * Method calls
+     * Method calls.
      * @var MethodInjection[][]
      */
-    private $methodInjections = array();
+    private $methodInjections = [];
 
     /**
      * @var string|null
@@ -57,9 +51,23 @@ class ObjectDefinition implements Definition, CacheableDefinition, HasSubDefinit
     private $scope;
 
     /**
-     * @var boolean|null
+     * @var bool|null
      */
     private $lazy;
+
+    /**
+     * Store if the class exists. Storing it (in cache) avoids recomputing this.
+     *
+     * @var bool
+     */
+    private $classExists;
+
+    /**
+     * Store if the class is instantiable. Storing it (in cache) avoids recomputing this.
+     *
+     * @var bool
+     */
+    private $isInstantiable;
 
     /**
      * @param string $name Class name
@@ -68,7 +76,7 @@ class ObjectDefinition implements Definition, CacheableDefinition, HasSubDefinit
     public function __construct($name, $className = null)
     {
         $this->name = (string) $name;
-        $this->className = $className;
+        $this->setClassName($className);
     }
 
     /**
@@ -80,11 +88,13 @@ class ObjectDefinition implements Definition, CacheableDefinition, HasSubDefinit
     }
 
     /**
-     * @param string $className
+     * @param string|null $className
      */
     public function setClassName($className)
     {
         $this->className = $className;
+
+        $this->updateCache();
     }
 
     /**
@@ -95,6 +105,7 @@ class ObjectDefinition implements Definition, CacheableDefinition, HasSubDefinit
         if ($this->className !== null) {
             return $this->className;
         }
+
         return $this->name;
     }
 
@@ -122,21 +133,18 @@ class ObjectDefinition implements Definition, CacheableDefinition, HasSubDefinit
         return $this->propertyInjections;
     }
 
-    /**
-     * @param string $propertyName
-     * @return PropertyInjection
-     */
-    public function getPropertyInjection($propertyName)
-    {
-        return isset($this->propertyInjections[$propertyName]) ? $this->propertyInjections[$propertyName] : null;
-    }
-
-    /**
-     * @param PropertyInjection $propertyInjection
-     */
     public function addPropertyInjection(PropertyInjection $propertyInjection)
     {
-        $this->propertyInjections[$propertyInjection->getPropertyName()] = $propertyInjection;
+        $className = $propertyInjection->getClassName();
+        if ($className) {
+            // Index with the class name to avoid collisions between parent and
+            // child private properties with the same name
+            $key = $className . '::' . $propertyInjection->getPropertyName();
+        } else {
+            $key = $propertyInjection->getPropertyName();
+        }
+
+        $this->propertyInjections[$key] = $propertyInjection;
     }
 
     /**
@@ -145,10 +153,11 @@ class ObjectDefinition implements Definition, CacheableDefinition, HasSubDefinit
     public function getMethodInjections()
     {
         // Return array leafs
-        $injections = array();
+        $injections = [];
         array_walk_recursive($this->methodInjections, function ($injection) use (&$injections) {
             $injections[] = $injection;
-        });;
+        });
+
         return $injections;
     }
 
@@ -159,7 +168,7 @@ class ObjectDefinition implements Definition, CacheableDefinition, HasSubDefinit
     {
         $method = $methodInjection->getMethodName();
         if (! isset($this->methodInjections[$method])) {
-            $this->methodInjections[$method] = array();
+            $this->methodInjections[$method] = [];
         }
         $this->methodInjections[$method][] = $methodInjection;
     }
@@ -181,7 +190,7 @@ class ObjectDefinition implements Definition, CacheableDefinition, HasSubDefinit
     }
 
     /**
-     * @param boolean|null $lazy
+     * @param bool|null $lazy
      */
     public function setLazy($lazy)
     {
@@ -202,6 +211,22 @@ class ObjectDefinition implements Definition, CacheableDefinition, HasSubDefinit
     }
 
     /**
+     * @return bool
+     */
+    public function classExists()
+    {
+        return $this->classExists;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInstantiable()
+    {
+        return $this->isInstantiable;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getSubDefinitionName()
@@ -214,17 +239,13 @@ class ObjectDefinition implements Definition, CacheableDefinition, HasSubDefinit
      */
     public function setSubDefinition(Definition $definition)
     {
-        if (! $definition instanceof ObjectDefinition) {
-            throw new DefinitionException(sprintf(
-                "Container entry '%s' extends entry '%s' which is not an object",
-                $this->getName(),
-                $definition->getName()
-            ));
+        if (! $definition instanceof self) {
+            return;
         }
 
         // The current prevails
         if ($this->className === null) {
-            $this->className = $definition->className;
+            $this->setClassName($definition->className);
         }
         if ($this->scope === null) {
             $this->scope = $definition->scope;
@@ -243,6 +264,11 @@ class ObjectDefinition implements Definition, CacheableDefinition, HasSubDefinit
         $this->mergeMethodInjections($definition);
     }
 
+    public function __toString()
+    {
+        return (new ObjectDefinitionDumper)->dump($this);
+    }
+
     private function mergeConstructorInjection(ObjectDefinition $definition)
     {
         if ($definition->getConstructorInjection() !== null) {
@@ -258,8 +284,8 @@ class ObjectDefinition implements Definition, CacheableDefinition, HasSubDefinit
 
     private function mergePropertyInjections(ObjectDefinition $definition)
     {
-        foreach ($definition->getPropertyInjections() as $propertyName => $propertyInjection) {
-            if (! array_key_exists($propertyName, $this->propertyInjections)) {
+        foreach ($definition->propertyInjections as $propertyName => $propertyInjection) {
+            if (! isset($this->propertyInjections[$propertyName])) {
                 // Add
                 $this->propertyInjections[$propertyName] = $propertyInjection;
             }
@@ -290,5 +316,21 @@ class ObjectDefinition implements Definition, CacheableDefinition, HasSubDefinit
                 $this->methodInjections[$methodName][$index] = $methodInjection;
             }
         }
+    }
+
+    private function updateCache()
+    {
+        $className = $this->getClassName();
+
+        $this->classExists = class_exists($className) || interface_exists($className);
+
+        if (! $this->classExists) {
+            $this->isInstantiable = false;
+
+            return;
+        }
+
+        $class = new ReflectionClass($className);
+        $this->isInstantiable = $class->isInstantiable();
     }
 }

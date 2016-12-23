@@ -1,19 +1,12 @@
 <?php
-/**
- * PHP-DI
- *
- * @link      http://mnapoli.github.com/PHP-DI/
- * @copyright Matthieu Napoli (http://mnapoli.fr/)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT (see the LICENSE file)
- */
 
 namespace DI\Definition\Resolver;
 
-use DI\Definition\ObjectDefinition;
 use DI\Definition\Definition;
 use DI\Definition\Exception\DefinitionException;
-use DI\Definition\ObjectDefinition\PropertyInjection;
 use DI\Definition\Helper\DefinitionHelper;
+use DI\Definition\ObjectDefinition;
+use DI\Definition\ObjectDefinition\PropertyInjection;
 use DI\DependencyException;
 use DI\Proxy\ProxyFactory;
 use Exception;
@@ -67,10 +60,8 @@ class ObjectCreator implements DefinitionResolver
      *
      * {@inheritdoc}
      */
-    public function resolve(Definition $definition, array $parameters = array())
+    public function resolve(Definition $definition, array $parameters = [])
     {
-        $this->assertIsObjectDefinition($definition);
-
         // Lazy?
         if ($definition->isLazy()) {
             return $this->createProxy($definition, $parameters);
@@ -87,21 +78,13 @@ class ObjectCreator implements DefinitionResolver
      *
      * {@inheritdoc}
      */
-    public function isResolvable(Definition $definition, array $parameters = array())
+    public function isResolvable(Definition $definition, array $parameters = [])
     {
-        $this->assertIsObjectDefinition($definition);
-
-        if (! class_exists($definition->getClassName())) {
-            return false;
-        }
-
-        $classReflection = new ReflectionClass($definition->getClassName());
-
-        return $classReflection->isInstantiable();
+        return $definition->isInstantiable();
     }
 
     /**
-     * Returns a proxy instance
+     * Returns a proxy instance.
      *
      * @param ObjectDefinition $definition
      * @param array           $parameters
@@ -110,14 +93,11 @@ class ObjectCreator implements DefinitionResolver
      */
     private function createProxy(ObjectDefinition $definition, array $parameters)
     {
-        // waiting for PHP 5.4+ support
-        $resolver = $this;
-
         /** @noinspection PhpUnusedParameterInspection */
         $proxy = $this->proxyFactory->createProxy(
             $definition->getClassName(),
-            function (& $wrappedObject, $proxy, $method, $params, & $initializer) use ($resolver, $definition, $parameters) {
-                $wrappedObject = $resolver->createInstance($definition, $parameters);
+            function (& $wrappedObject, $proxy, $method, $params, & $initializer) use ($definition, $parameters) {
+                $wrappedObject = $this->createInstance($definition, $parameters);
                 $initializer = null; // turning off further lazy initialization
                 return true;
             }
@@ -130,21 +110,20 @@ class ObjectCreator implements DefinitionResolver
      * Creates an instance of the class and injects dependencies..
      *
      * @param ObjectDefinition $definition
-     * @param array           $parameters      Optional parameters to use to create the instance.
+     * @param array            $parameters      Optional parameters to use to create the instance.
      *
      * @throws DefinitionException
      * @throws DependencyException
      * @return object
-     *
-     * @todo Make private once PHP-DI supports PHP > 5.4 only
      */
-    public function createInstance(ObjectDefinition $definition, array $parameters)
+    private function createInstance(ObjectDefinition $definition, array $parameters)
     {
         $this->assertClassExists($definition);
 
-        $classReflection = new ReflectionClass($definition->getClassName());
+        $classname = $definition->getClassName();
+        $classReflection = new ReflectionClass($classname);
 
-        $this->assertClassIsInstantiable($definition, $classReflection);
+        $this->assertClassIsInstantiable($definition);
 
         $constructorInjection = $definition->getConstructorInjection();
 
@@ -158,21 +137,29 @@ class ObjectCreator implements DefinitionResolver
             if (count($args) > 0) {
                 $object = $classReflection->newInstanceArgs($args);
             } else {
-                $object = $classReflection->newInstance();
+                $object = new $classname;
             }
 
             $this->injectMethodsAndProperties($object, $definition);
         } catch (NotFoundException $e) {
             throw new DependencyException(sprintf(
-                "Error while injecting dependencies into %s: %s",
+                'Error while injecting dependencies into %s: %s',
                 $classReflection->getName(),
                 $e->getMessage()
             ), 0, $e);
         } catch (DefinitionException $e) {
             throw DefinitionException::create($definition, sprintf(
-                "Entry %s cannot be resolved: %s",
+                'Entry "%s" cannot be resolved: %s',
                 $definition->getName(),
                 $e->getMessage()
+            ));
+        }
+
+        if (! $object) {
+            throw new DependencyException(sprintf(
+                'Entry "%s" cannot be resolved: %s could not be constructed',
+                $definition->getName(),
+                $classReflection->getName()
             ));
         }
 
@@ -207,7 +194,10 @@ class ObjectCreator implements DefinitionResolver
     private function injectProperty($object, PropertyInjection $propertyInjection)
     {
         $propertyName = $propertyInjection->getPropertyName();
-        $property = new ReflectionProperty(get_class($object), $propertyName);
+
+        $className = $propertyInjection->getClassName();
+        $className = $className ?: get_class($object);
+        $property = new ReflectionProperty($className, $propertyName);
 
         $value = $propertyInjection->getValue();
 
@@ -221,7 +211,7 @@ class ObjectCreator implements DefinitionResolver
                 throw $e;
             } catch (Exception $e) {
                 throw new DependencyException(sprintf(
-                    "Error while injecting in %s::%s. %s",
+                    'Error while injecting in %s::%s. %s',
                     get_class($object),
                     $propertyName,
                     $e->getMessage()
@@ -235,36 +225,22 @@ class ObjectCreator implements DefinitionResolver
         $property->setValue($object, $value);
     }
 
-    private function assertIsObjectDefinition(Definition $definition)
-    {
-        if (!$definition instanceof ObjectDefinition) {
-            throw new \InvalidArgumentException(sprintf(
-                'This definition resolver is only compatible with ObjectDefinition objects, %s given',
-                get_class($definition)
-            ));
-        }
-    }
-
     private function assertClassExists(ObjectDefinition $definition)
     {
-        if (!class_exists($definition->getClassName()) && !interface_exists($definition->getClassName())) {
-            throw DefinitionException::create($definition,
-            sprintf(
-                "Entry %s cannot be resolved: class %s doesn't exist",
-                $definition->getName(),
-                $definition->getClassName()
+        if (! $definition->classExists()) {
+            throw DefinitionException::create($definition, sprintf(
+                'Entry "%s" cannot be resolved: the class doesn\'t exist',
+                $definition->getName()
             ));
         }
     }
 
-    private function assertClassIsInstantiable(ObjectDefinition $definition, ReflectionClass $classReflection)
+    private function assertClassIsInstantiable(ObjectDefinition $definition)
     {
-        if (!$classReflection->isInstantiable()) {
-            throw DefinitionException::create($definition,
-            sprintf(
-                "Entry %s cannot be resolved: class %s is not instantiable",
-                $definition->getName(),
-                $definition->getClassName()
+        if (! $definition->isInstantiable()) {
+            throw DefinitionException::create($definition, sprintf(
+                'Entry "%s" cannot be resolved: the class is not instantiable',
+                $definition->getName()
             ));
         }
     }

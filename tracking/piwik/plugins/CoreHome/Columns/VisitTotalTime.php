@@ -18,7 +18,7 @@ use Piwik\Tracker\Visitor;
 class VisitTotalTime extends VisitDimension
 {
     protected $columnName = 'visit_total_time';
-    protected $columnType = 'SMALLINT(5) UNSIGNED NOT NULL';
+    protected $columnType = 'INT(11) UNSIGNED NOT NULL';
 
     protected function configureSegments()
     {
@@ -94,12 +94,6 @@ class VisitTotalTime extends VisitDimension
 
         if ($t < 0) {
             $t = 0;
-        }
-
-        $smallintMysqlLimit = 65534;
-
-        if ($t > $smallintMysqlLimit) {
-            $t = $smallintMysqlLimit;
         }
 
         return $t;

@@ -1,18 +1,19 @@
 <?php
-/**
- * PHP-DI
- *
- * @link      http://mnapoli.github.com/PHP-DI/
- * @copyright Matthieu Napoli (http://mnapoli.fr/)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT (see the LICENSE file)
- */
 
 namespace DI\Definition\Resolver;
 
+use DI\Definition\Definition;
 use DI\Definition\Exception\DefinitionException;
 use DI\Definition\FactoryDefinition;
-use DI\Definition\Definition;
+use DI\Definition\Helper\DefinitionHelper;
+use DI\Invoker\FactoryParameterResolver;
 use Interop\Container\ContainerInterface;
+use Invoker\Exception\NotCallableException;
+use Invoker\Exception\NotEnoughParametersException;
+use Invoker\Invoker;
+use Invoker\ParameterResolver\AssociativeArrayResolver;
+use Invoker\ParameterResolver\NumericArrayResolver;
+use Invoker\ParameterResolver\ResolverChain;
 
 /**
  * Resolves a factory definition to a value.
@@ -28,14 +29,25 @@ class FactoryResolver implements DefinitionResolver
     private $container;
 
     /**
+     * @var Invoker|null
+     */
+    private $invoker;
+
+    /**
+     * @var DefinitionResolver
+     */
+    private $resolver;
+
+    /**
      * The resolver needs a container. This container will be passed to the factory as a parameter
      * so that the factory can access other entries of the container.
      *
      * @param ContainerInterface $container
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, DefinitionResolver $resolver)
     {
         $this->container = $container;
+        $this->resolver = $resolver;
     }
 
     /**
@@ -47,39 +59,73 @@ class FactoryResolver implements DefinitionResolver
      *
      * {@inheritdoc}
      */
-    public function resolve(Definition $definition, array $parameters = array())
+    public function resolve(Definition $definition, array $parameters = [])
     {
-        $this->assertIsFactoryDefinition($definition);
+        if (! $this->invoker) {
+            $parameterResolver = new ResolverChain([
+               new AssociativeArrayResolver,
+               new FactoryParameterResolver($this->container),
+               new NumericArrayResolver,
+            ]);
+
+            $this->invoker = new Invoker($parameterResolver, $this->container);
+        }
 
         $callable = $definition->getCallable();
 
-        if (! is_callable($callable)) {
+        try {
+            $providedParams = [$this->container, $definition];
+            $extraParams = $this->resolveExtraParams($definition->getParameters());
+            $providedParams = array_merge($providedParams, $extraParams);
+
+            return $this->invoker->call($callable, $providedParams);
+        } catch (NotCallableException $e) {
+            // Custom error message to help debugging
+            if (is_string($callable) && class_exists($callable) && method_exists($callable, '__invoke')) {
+                throw new DefinitionException(sprintf(
+                    'Entry "%s" cannot be resolved: factory %s. Invokable classes cannot be automatically resolved if autowiring is disabled on the container, you need to enable autowiring or define the entry manually.',
+                    $definition->getName(),
+                    $e->getMessage()
+                ));
+            }
+
             throw new DefinitionException(sprintf(
-                'The factory definition "%s" is not callable',
-                $definition->getName()
+                'Entry "%s" cannot be resolved: factory %s',
+                $definition->getName(),
+                $e->getMessage()
+            ));
+        } catch (NotEnoughParametersException $e) {
+            throw new DefinitionException(sprintf(
+                'Entry "%s" cannot be resolved: %s',
+                $definition->getName(),
+                $e->getMessage()
             ));
         }
-
-        return call_user_func($callable, $this->container);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function isResolvable(Definition $definition, array $parameters = array())
+    public function isResolvable(Definition $definition, array $parameters = [])
     {
-        $this->assertIsFactoryDefinition($definition);
-
         return true;
     }
 
-    private function assertIsFactoryDefinition(Definition $definition)
+    private function resolveExtraParams(array $params)
     {
-        if (!$definition instanceof FactoryDefinition) {
-            throw new \InvalidArgumentException(sprintf(
-                'This definition resolver is only compatible with FactoryDefinition objects, %s given',
-                get_class($definition)
-            ));
+        $resolved = [];
+        foreach ($params as $key => $value) {
+            if ($value instanceof DefinitionHelper) {
+                // As per ObjectCreator::injectProperty, use '' for an anonymous sub-definition
+                $value = $value->getDefinition('');
+            }
+            if (!$value instanceof Definition) {
+                $resolved[$key] = $value;
+            } else {
+                $resolved[$key] = $this->resolver->resolve($value);
+            }
         }
+
+        return $resolved;
     }
 }

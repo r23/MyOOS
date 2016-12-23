@@ -1,14 +1,8 @@
 <?php
-/**
- * PHP-DI
- *
- * @link      http://php-di.org/
- * @copyright Matthieu Napoli (http://mnapoli.fr/)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT (see the LICENSE file)
- */
 
 namespace DI\Definition;
 
+use DI\Definition\Helper\DefinitionHelper;
 use DI\Scope;
 
 /**
@@ -20,7 +14,7 @@ use DI\Scope;
 class ArrayDefinition implements Definition
 {
     /**
-     * Entry name
+     * Entry name.
      * @var string
      */
     private $name;
@@ -62,5 +56,28 @@ class ArrayDefinition implements Definition
     public function getValues()
     {
         return $this->values;
+    }
+
+    public function __toString()
+    {
+        $str = '[' . PHP_EOL;
+
+        foreach ($this->values as $key => $value) {
+            if (is_string($key)) {
+                $key = "'" . $key . "'";
+            }
+
+            $str .= '    ' . $key . ' => ';
+
+            if ($value instanceof DefinitionHelper) {
+                $str .= str_replace(PHP_EOL, PHP_EOL . '    ', $value->getDefinition(''));
+            } else {
+                $str .= var_export($value, true);
+            }
+
+            $str .= ',' . PHP_EOL;
+        }
+
+        return $str . ']';
     }
 }

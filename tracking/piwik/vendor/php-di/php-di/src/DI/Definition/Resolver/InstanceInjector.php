@@ -1,11 +1,4 @@
 <?php
-/**
- * PHP-DI
- *
- * @link      http://mnapoli.github.com/PHP-DI/
- * @copyright Matthieu Napoli (http://mnapoli.fr/)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT (see the LICENSE file)
- */
 
 namespace DI\Definition\Resolver;
 
@@ -29,15 +22,13 @@ class InstanceInjector extends ObjectCreator
      *
      * {@inheritdoc}
      */
-    public function resolve(Definition $definition, array $parameters = array())
+    public function resolve(Definition $definition, array $parameters = [])
     {
-        $this->assertIsInstanceDefinition($definition);
-
         try {
             $this->injectMethodsAndProperties($definition->getInstance(), $definition->getObjectDefinition());
         } catch (NotFoundException $e) {
             $message = sprintf(
-                "Error while injecting dependencies into %s: %s",
+                'Error while injecting dependencies into %s: %s',
                 get_class($definition->getInstance()),
                 $e->getMessage()
             );
@@ -48,20 +39,8 @@ class InstanceInjector extends ObjectCreator
     /**
      * {@inheritdoc}
      */
-    public function isResolvable(Definition $definition, array $parameters = array())
+    public function isResolvable(Definition $definition, array $parameters = [])
     {
-        $this->assertIsInstanceDefinition($definition);
-
         return true;
-    }
-
-    private function assertIsInstanceDefinition(Definition $definition)
-    {
-        if (!$definition instanceof InstanceDefinition) {
-            throw new \InvalidArgumentException(sprintf(
-                'This definition resolver is only compatible with InstanceDefinition objects, %s given',
-                get_class($definition)
-            ));
-        }
     }
 }

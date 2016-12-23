@@ -1,20 +1,13 @@
 <?php
-/**
- * PHP-DI
- *
- * @link      http://php-di.org/
- * @copyright Matthieu Napoli (http://mnapoli.fr/)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT (see the LICENSE file)
- */
 
 namespace DI\Definition\Source;
 
 use DI\Annotation\Inject;
 use DI\Annotation\Injectable;
-use DI\Definition\ObjectDefinition;
 use DI\Definition\EntryReference;
 use DI\Definition\Exception\AnnotationException;
 use DI\Definition\Exception\DefinitionException;
+use DI\Definition\ObjectDefinition;
 use DI\Definition\ObjectDefinition\MethodInjection;
 use DI\Definition\ObjectDefinition\PropertyInjection;
 use Doctrine\Common\Annotations\AnnotationRegistry;
@@ -47,15 +40,12 @@ class AnnotationReader implements DefinitionSource
      * @var PhpDocReader
      */
     private $phpDocReader;
-    
+
     /**
      * @var bool
      */
     private $ignorePhpDocErrors;
 
-    /**
-     * @param bool $ignorePhpDocErrors
-     */
     public function __construct($ignorePhpDocErrors = false)
     {
         $this->ignorePhpDocErrors = (bool) $ignorePhpDocErrors;
@@ -88,32 +78,29 @@ class AnnotationReader implements DefinitionSource
 
     /**
      * Browse the class properties looking for annotated properties.
-     *
-     * @param ReflectionClass  $reflectionClass
-     * @param ObjectDefinition $objectDefinition
      */
-    private function readProperties(ReflectionClass $reflectionClass, ObjectDefinition $objectDefinition)
+    private function readProperties(ReflectionClass $class, ObjectDefinition $definition)
     {
-        // This will look in all the properties, including those of the parent classes
-        foreach ($reflectionClass->getProperties() as $property) {
-            // Ignore static properties
+        foreach ($class->getProperties() as $property) {
             if ($property->isStatic()) {
                 continue;
             }
+            $this->readProperty($property, $definition);
+        }
 
-            $propertyInjection = $this->getPropertyInjection($property);
-
-            if ($propertyInjection) {
-                $objectDefinition->addPropertyInjection($propertyInjection);
+        // Read also the *private* properties of the parent classes
+        /** @noinspection PhpAssignmentInConditionInspection */
+        while ($class = $class->getParentClass()) {
+            foreach ($class->getProperties(ReflectionProperty::IS_PRIVATE) as $property) {
+                if ($property->isStatic()) {
+                    continue;
+                }
+                $this->readProperty($property, $definition, $class->getName());
             }
         }
     }
 
-    /**
-     * @param ReflectionProperty $property
-     * @return PropertyInjection|null
-     */
-    private function getPropertyInjection(ReflectionProperty $property)
+    private function readProperty(ReflectionProperty $property, ObjectDefinition $definition, $classname = null)
     {
         // Look for @Inject annotation
         /** @var $annotation Inject */
@@ -133,14 +120,13 @@ class AnnotationReader implements DefinitionSource
             ));
         }
 
-        return new PropertyInjection($property->getName(), new EntryReference($entryName));
+        $definition->addPropertyInjection(
+            new PropertyInjection($property->getName(), new EntryReference($entryName), $classname)
+        );
     }
 
     /**
      * Browse the object's methods looking for annotated methods.
-     *
-     * @param ReflectionClass $class
-     * @param ObjectDefinition $objectDefinition
      */
     private function readMethods(ReflectionClass $class, ObjectDefinition $objectDefinition)
     {
@@ -164,9 +150,6 @@ class AnnotationReader implements DefinitionSource
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     private function getMethodInjection(ReflectionMethod $method)
     {
         // Look for @Inject annotation
@@ -181,14 +164,14 @@ class AnnotationReader implements DefinitionSource
                 $e->getMessage()
             ), 0, $e);
         }
-        $annotationParameters = $annotation ? $annotation->getParameters() : array();
+        $annotationParameters = $annotation ? $annotation->getParameters() : [];
 
         // @Inject on constructor is implicit
         if (! ($annotation || $method->isConstructor())) {
             return null;
         }
 
-        $parameters = array();
+        $parameters = [];
         foreach ($method->getParameters() as $index => $parameter) {
             $entryName = $this->getMethodParameter($index, $parameter, $annotationParameters);
 
@@ -241,21 +224,13 @@ class AnnotationReader implements DefinitionSource
      */
     public function getAnnotationReader()
     {
-        if ($this->annotationReader == null) {
+        if ($this->annotationReader === null) {
             AnnotationRegistry::registerAutoloadNamespace('DI\Annotation', __DIR__ . '/../../../');
             $this->annotationReader = new SimpleAnnotationReader();
             $this->annotationReader->addNamespace('DI\Annotation');
         }
 
         return $this->annotationReader;
-    }
-
-    /**
-     * @param Reader $annotationReader The annotation reader
-     */
-    public function setAnnotationReader(Reader $annotationReader)
-    {
-        $this->annotationReader = $annotationReader;
     }
 
     /**

@@ -21,25 +21,19 @@ class Contents extends \Piwik\Plugin
             'Metrics.getDefaultMetricTranslations' => 'addMetricTranslations',
             'Metrics.getDefaultMetricDocumentationTranslations' => 'addMetricDocumentationTranslations',
             'AssetManager.getJavaScriptFiles' => 'getJsFiles',
-            'AssetManager.getStylesheetFiles' => 'getStylesheetFiles',
         );
     }
 
     public function addMetricTranslations(&$translations)
     {
         $translations['nb_impressions']   = 'Contents_Impressions';
-        $translations['nb_interactions']  = 'Contents_Interactions';
+        $translations['nb_interactions']  = 'Contents_ContentInteractions';
         $translations['interaction_rate'] = 'Contents_InteractionRate';
     }
 
     public function getJsFiles(&$jsFiles)
     {
         $jsFiles[] = "plugins/Contents/javascripts/contentsDataTable.js";
-    }
-
-    public function getStylesheetFiles(&$stylesheets)
-    {
-        $stylesheets[] = "plugins/Contents/stylesheets/datatable.less";
     }
 
     public function addMetricDocumentationTranslations(&$translations)

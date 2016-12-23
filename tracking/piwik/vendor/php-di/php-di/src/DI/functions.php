@@ -1,25 +1,18 @@
 <?php
-/**
- * PHP-DI
- *
- * @link      http://php-di.org/
- * @copyright Matthieu Napoli (http://mnapoli.fr/)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT (see the LICENSE file)
- */
 
 namespace DI;
 
 use DI\Definition\EntryReference;
 use DI\Definition\Helper\ArrayDefinitionExtensionHelper;
+use DI\Definition\Helper\EnvironmentVariableDefinitionHelper;
 use DI\Definition\Helper\FactoryDefinitionHelper;
 use DI\Definition\Helper\ObjectDefinitionHelper;
-use DI\Definition\Helper\EnvironmentVariableDefinitionHelper;
-use DI\Definition\Helper\ValueDefinitionHelper;
 use DI\Definition\Helper\StringDefinitionHelper;
+use DI\Definition\Helper\ValueDefinitionHelper;
 
 if (! function_exists('DI\value')) {
     /**
-     * Helper for defining an object.
+     * Helper for defining a value.
      *
      * @param mixed $value
      *
@@ -153,7 +146,7 @@ if (! function_exists('DI\add')) {
     function add($values)
     {
         if (! is_array($values)) {
-            $values = array($values);
+            $values = [$values];
         }
 
         return new ArrayDefinitionExtensionHelper($values);

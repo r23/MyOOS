@@ -52,7 +52,8 @@ class Model
 					log_link_visit_action.server_time as serverTimePretty,
 					log_link_visit_action.time_spent_ref_action as timeSpentRef,
 					log_link_visit_action.idlink_va AS pageId,
-					log_link_visit_action.custom_float
+					log_link_visit_action.custom_float,
+					log_link_visit_action.interaction_position
 					" . $sqlCustomVariables . ",
 					log_action_event_category.name AS eventCategory,
 					log_action_event_action.name as eventAction
@@ -402,7 +403,7 @@ class Model
 
         $orderBy = '';
         if (count($bindIdSites) <= 1) {
-            $orderBy = 'idsite, ';
+            $orderBy = 'idsite ' . $filterSortOrder . ', ';
         }
 
         $orderBy .= "visit_last_action_time " . $filterSortOrder;
@@ -482,12 +483,6 @@ class Model
                 }
             } else {
                 $processedDate = Date::factory($date);
-                if ($date == 'today'
-                    || $date == 'now'
-                    || $processedDate->toString() == Date::factory('now', $currentTimezone)->toString()
-                ) {
-                    $processedDate = $processedDate->subDay(1);
-                }
                 $processedPeriod = Period\Factory::build($period, $processedDate);
             }
             $dateStart = $processedPeriod->getDateStart()->setTimezone($currentTimezone);

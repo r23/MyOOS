@@ -28,14 +28,17 @@ class Marketplace extends \Piwik\Plugin
     {
         $stylesheets[] = "plugins/Marketplace/stylesheets/marketplace.less";
         $stylesheets[] = "plugins/Marketplace/stylesheets/plugin-details.less";
+        $stylesheets[] = "plugins/Marketplace/stylesheets/marketplace-widget.less";
     }
 
     public function getJsFiles(&$jsFiles)
     {
         $jsFiles[] = "libs/bower_components/iframe-resizer/js/iframeResizer.min.js";
 
-        $jsFiles[] = "plugins/Marketplace/javascripts/licensekey.js";
-        $jsFiles[] = "plugins/Marketplace/javascripts/marketplace.js";
+        $jsFiles[] = "plugins/Marketplace/angularjs/plugins/plugin-name.directive.js";
+        $jsFiles[] = "plugins/Marketplace/angularjs/licensekey/licensekey.controller.js";
+        $jsFiles[] = "plugins/Marketplace/angularjs/marketplace/marketplace.controller.js";
+        $jsFiles[] = "plugins/Marketplace/angularjs/marketplace/marketplace.directive.js";
     }
 
     public function getClientSideTranslationKeys(&$translationKeys)

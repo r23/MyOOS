@@ -1,11 +1,4 @@
 <?php
-/**
- * PHP-DI
- *
- * @link      http://mnapoli.github.com/PHP-DI/
- * @copyright Matthieu Napoli (http://mnapoli.fr/)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT (see the LICENSE file)
- */
 
 namespace DI\Definition\Resolver;
 
@@ -30,7 +23,7 @@ interface DefinitionResolver
      *
      * @return mixed Value obtained from the definition.
      */
-    public function resolve(Definition $definition, array $parameters = array());
+    public function resolve(Definition $definition, array $parameters = []);
 
     /**
      * Check if a definition can be resolved.
@@ -40,5 +33,5 @@ interface DefinitionResolver
      *
      * @return bool
      */
-    public function isResolvable(Definition $definition, array $parameters = array());
+    public function isResolvable(Definition $definition, array $parameters = []);
 }

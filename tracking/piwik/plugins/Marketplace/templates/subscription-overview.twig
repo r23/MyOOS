@@ -5,8 +5,9 @@
 
 {% block content %}
 
-    <div class="subscriptionOverview">
-        <h2>{{ 'Marketplace_OverviewPluginSubscriptions'|translate }}</h2>
+    <div piwik-content-block
+         content-title="{{ 'Marketplace_OverviewPluginSubscriptions'|translate|e('html_attr') }}"
+         class="subscriptionOverview">
 
         {% if hasLicenseKey %}
             <p>
@@ -24,7 +25,7 @@
 
             <br />
 
-            <table class="dataTable entityTable">
+            <table piwik-content-table>
                 <thead>
                 <tr>
                     <th>{{ 'General_Name'|translate }}</th>
@@ -84,15 +85,13 @@
                 </tbody>
             </table>
 
-            {% if loginUrl %}
-            <p>
+            <div class="tableActionBar">
                 <a href="{{ linkTo({'module':"Marketplace", 'action':"overview"}) }}"
-                   class="btn btn-lg btn-flat">
+                   class="">
                     <span class="icon-table"></span>
                     {{ 'Marketplace_BrowseMarketplace'|translate }}
                 </a>
-            </p>
-            {% endif %}
+            </div>
 
         {% else %}
             <p>{{ 'Marketplace_OverviewPluginSubscriptionsMissingLicense'|translate('<a href="'~ linkTo({'module':"Marketplace", 'action':"overview"}) ~'">', '</a>')|raw }}</p>

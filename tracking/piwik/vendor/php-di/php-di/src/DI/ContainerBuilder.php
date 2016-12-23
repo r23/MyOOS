@@ -1,20 +1,13 @@
 <?php
-/**
- * PHP-DI
- *
- * @link      http://php-di.org/
- * @copyright Matthieu Napoli (http://mnapoli.fr/)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT (see the LICENSE file)
- */
 
 namespace DI;
 
 use DI\Definition\Source\AnnotationReader;
-use DI\Definition\Source\DefinitionArray;
-use DI\Definition\Source\CachedDefinitionSource;
-use DI\Definition\Source\DefinitionSource;
-use DI\Definition\Source\DefinitionFile;
 use DI\Definition\Source\Autowiring;
+use DI\Definition\Source\CachedDefinitionSource;
+use DI\Definition\Source\DefinitionArray;
+use DI\Definition\Source\DefinitionFile;
+use DI\Definition\Source\DefinitionSource;
 use DI\Definition\Source\SourceChain;
 use DI\Proxy\ProxyFactory;
 use Doctrine\Common\Cache\Cache;
@@ -43,17 +36,17 @@ class ContainerBuilder
     private $containerClass;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $useAutowiring = true;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $useAnnotations = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $ignorePhpDocErrors = false;
 
@@ -64,7 +57,7 @@ class ContainerBuilder
 
     /**
      * If true, write the proxies to disk to improve performances.
-     * @var boolean
+     * @var bool
      */
     private $writeProxiesToFile = false;
 
@@ -83,7 +76,13 @@ class ContainerBuilder
     /**
      * @var DefinitionSource[]
      */
-    private $definitionSources = array();
+    private $definitionSources = [];
+
+    /**
+     * Whether the container has already been built.
+     * @var bool
+     */
+    private $locked = false;
 
     /**
      * Build a container configured for the dev environment.
@@ -93,6 +92,7 @@ class ContainerBuilder
     public static function buildDevContainer()
     {
         $builder = new self();
+
         return $builder->build();
     }
 
@@ -131,6 +131,8 @@ class ContainerBuilder
 
         $proxyFactory = new ProxyFactory($this->writeProxiesToFile, $this->proxyDirectory);
 
+        $this->locked = true;
+
         $containerClass = $this->containerClass;
 
         return new $containerClass($source, $proxyFactory, $this->wrapperContainer);
@@ -141,12 +143,15 @@ class ContainerBuilder
      *
      * Enabled by default.
      *
-     * @param boolean $bool
+     * @param bool $bool
      * @return ContainerBuilder
      */
     public function useAutowiring($bool)
     {
+        $this->ensureNotLocked();
+
         $this->useAutowiring = $bool;
+
         return $this;
     }
 
@@ -155,24 +160,30 @@ class ContainerBuilder
      *
      * Disabled by default.
      *
-     * @param boolean $bool
+     * @param bool $bool
      * @return ContainerBuilder
      */
     public function useAnnotations($bool)
     {
+        $this->ensureNotLocked();
+
         $this->useAnnotations = $bool;
+
         return $this;
     }
 
     /**
-     * Enable or disable ignoring phpdoc errors (non-existent classes in `@param` or `@var`)
-     * 
-     * @param boolean $bool
+     * Enable or disable ignoring phpdoc errors (non-existent classes in `@param` or `@var`).
+     *
+     * @param bool $bool
      * @return ContainerBuilder
      */
     public function ignorePhpDocErrors($bool)
     {
+        $this->ensureNotLocked();
+
         $this->ignorePhpDocErrors = $bool;
+
         return $this;
     }
 
@@ -184,29 +195,33 @@ class ContainerBuilder
      */
     public function setDefinitionCache(Cache $cache)
     {
+        $this->ensureNotLocked();
+
         $this->cache = $cache;
+
         return $this;
     }
 
     /**
-     * Configure the proxy generation
+     * Configure the proxy generation.
      *
      * For dev environment, use writeProxiesToFile(false) (default configuration)
      * For production environment, use writeProxiesToFile(true, 'tmp/proxies')
      *
-     * @param boolean     $writeToFile    If true, write the proxies to disk to improve performances
+     * @param bool     $writeToFile    If true, write the proxies to disk to improve performances
      * @param string|null $proxyDirectory Directory where to write the proxies
-     * @return ContainerBuilder
-     *
      * @throws InvalidArgumentException when writeToFile is set to true and the proxy directory is null
+     * @return ContainerBuilder
      */
     public function writeProxiesToFile($writeToFile, $proxyDirectory = null)
     {
+        $this->ensureNotLocked();
+
         $this->writeProxiesToFile = $writeToFile;
 
         if ($writeToFile && $proxyDirectory === null) {
             throw new InvalidArgumentException(
-                "The proxy directory must be specified if you want to write proxies on disk"
+                'The proxy directory must be specified if you want to write proxies on disk'
             );
         }
         $this->proxyDirectory = $proxyDirectory;
@@ -223,6 +238,8 @@ class ContainerBuilder
      */
     public function wrapContainer(ContainerInterface $otherContainer)
     {
+        $this->ensureNotLocked();
+
         $this->wrapperContainer = $otherContainer;
 
         return $this;
@@ -238,6 +255,8 @@ class ContainerBuilder
      */
     public function addDefinitions($definitions)
     {
+        $this->ensureNotLocked();
+
         if (is_string($definitions)) {
             // File
             $definitions = new DefinitionFile($definitions);
@@ -254,5 +273,12 @@ class ContainerBuilder
         $this->definitionSources[] = $definitions;
 
         return $this;
+    }
+
+    private function ensureNotLocked()
+    {
+        if ($this->locked) {
+            throw new \LogicException('The ContainerBuilder cannot be modified after the container has been built');
+        }
     }
 }

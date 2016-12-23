@@ -14,5 +14,9 @@
         <a href="{{ linkTo({'action': 'installAllPaidPlugins', 'nonce': installNonce}) }}" class="btn">
             {{ 'Marketplace_InstallAllPurchasedPluginsAction'|translate(paidPluginsToInstallAtOnce|length) }}
         </a>
+
+        <a href="{{ linkTo({'rand': random(999999)}) }}" class="btn-flat">
+            Cancel
+        </a>
     </p>
 </div>

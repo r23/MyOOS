@@ -12,12 +12,11 @@ namespace Piwik\Plugins\CoreConsole\Commands;
 use Piwik\Filesystem;
 use Piwik\Plugins\ExamplePlugin\ExamplePlugin;
 use Piwik\Plugin;
-use Symfony\Component\Console\Input\ArrayInput;
+use Piwik\Version;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 
 /**
  */
@@ -52,7 +51,8 @@ class GeneratePlugin extends GeneratePluginBase
             $replace       = array(
                 'ExampleTheme'       => $pluginName,
                 $exampleDescription  => $description,
-                '0.1.0'              => $version
+                '0.1.0'              => $version,
+                '3.0.0-b1'           => Version::VERSION
             );
             $whitelistFiles = array();
 
@@ -62,7 +62,8 @@ class GeneratePlugin extends GeneratePluginBase
             $replace       = array(
                 'ExamplePlugin'      => $pluginName,
                 $exampleDescription  => $description,
-                '0.1.0'              => $version
+                '0.1.0'              => $version,
+                '3.0.0-b1'           => Version::VERSION
             );
             $whitelistFiles = array(
                 '/ExamplePlugin.php',

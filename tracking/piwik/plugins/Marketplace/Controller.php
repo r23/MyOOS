@@ -198,9 +198,6 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         $sort = new Sort();
         $sort = $sort->getSort();
 
-        $purchaseType = new PurchaseType();
-        $type = $purchaseType->getPurchaseType();
-
         $mode = new Mode();
         $mode = $mode->getMode();
 
@@ -212,7 +209,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
 
         $showThemes  = ($show === 'themes');
         $showPlugins = !$showThemes;
-        $showPaid    = ($type === PurchaseType::TYPE_PAID);
+        $showPaid    = ($show === 'premium');
         $showAll    = !$showPaid;
 
         if ($showPlugins && $showPaid) {
@@ -249,6 +246,18 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         $view->showPlugins = $showPlugins;
         $view->showFree = $showAll;
         $view->showPaid = $showPaid;
+        $view->pluginType = $show;
+        $view->pluginTypeOptions = array(
+            'plugins' => Piwik::translate('General_Plugins'),
+            'premium' => Piwik::translate('Marketplace_PaidPlugins'),
+            'themes' => Piwik::translate('CorePluginsAdmin_Themes')
+        );
+        $view->pluginSortOptions = array(
+            Sort::METHOD_LAST_UPDATED => Piwik::translate('Marketplace_SortByLastUpdated'),
+            Sort::METHOD_POPULAR => Piwik::translate('Marketplace_SortByPopular'),
+            Sort::METHOD_NEWEST => Piwik::translate('Marketplace_SortByNewest'),
+            Sort::METHOD_ALPHA => Piwik::translate('Marketplace_SortByAlpha'),
+        );
         $view->mode = $mode;
         $view->query = $query;
         $view->sort = $sort;

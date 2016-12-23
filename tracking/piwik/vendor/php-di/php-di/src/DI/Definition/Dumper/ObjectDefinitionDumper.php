@@ -1,41 +1,27 @@
 <?php
-/**
- * PHP-DI
- *
- * @link      http://php-di.org/
- * @copyright Matthieu Napoli (http://mnapoli.fr/)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT (see the LICENSE file)
- */
 
 namespace DI\Definition\Dumper;
 
+use DI\Definition\EntryReference;
 use DI\Definition\ObjectDefinition;
 use DI\Definition\ObjectDefinition\MethodInjection;
-use DI\Definition\Definition;
-use DI\Definition\EntryReference;
 use ReflectionException;
-use ReflectionMethod;
 
 /**
- * Dumps object definitions.
+ * Dumps object definitions to string for debugging purposes.
  *
  * @since 4.1
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
  */
-class ObjectDefinitionDumper implements DefinitionDumper
+class ObjectDefinitionDumper
 {
     /**
-     * {@inheritdoc}
+     * Returns the definition as string representation.
+     *
+     * @return string
      */
-    public function dump(Definition $definition)
+    public function dump(ObjectDefinition $definition)
     {
-        if (! $definition instanceof ObjectDefinition) {
-            throw new \InvalidArgumentException(sprintf(
-                'This definition dumper is only compatible with ObjectDefinition objects, %s given',
-                get_class($definition)
-            ));
-        }
-
         $className = $definition->getClassName();
         $classExist = class_exists($className) || interface_exists($className);
 
@@ -49,10 +35,10 @@ class ObjectDefinitionDumper implements DefinitionDumper
         $str = sprintf('    class = %s%s', $warning, $className);
 
         // Scope
-        $str .= "\n    scope = " . $definition->getScope();
+        $str .= PHP_EOL . '    scope = ' . $definition->getScope();
 
         // Lazy
-        $str .= "\n    lazy = " . var_export($definition->isLazy(), true);
+        $str .= PHP_EOL . '    lazy = ' . var_export($definition->isLazy(), true);
 
         if ($classExist) {
             // Constructor
@@ -65,7 +51,7 @@ class ObjectDefinitionDumper implements DefinitionDumper
             $str .= $this->dumpMethods($className, $definition);
         }
 
-        return sprintf("Object (\n%s\n)", $str);
+        return sprintf('Object (' . PHP_EOL . '%s' . PHP_EOL . ')', $str);
     }
 
     private function dumpConstructor($className, ObjectDefinition $definition)
@@ -77,7 +63,7 @@ class ObjectDefinitionDumper implements DefinitionDumper
         if ($constructorInjection !== null) {
             $parameters = $this->dumpMethodParameters($className, $constructorInjection);
 
-            $str .= sprintf("\n    __construct(\n        %s\n    )", $parameters);
+            $str .= sprintf(PHP_EOL . '    __construct(' . PHP_EOL . '        %s' . PHP_EOL . '    )', $parameters);
         }
 
         return $str;
@@ -95,7 +81,7 @@ class ObjectDefinitionDumper implements DefinitionDumper
                 $valueStr = var_export($value, true);
             }
 
-            $str .= sprintf("\n    $%s = %s", $propertyInjection->getPropertyName(), $valueStr);
+            $str .= sprintf(PHP_EOL . '    $%s = %s', $propertyInjection->getPropertyName(), $valueStr);
         }
 
         return $str;
@@ -108,7 +94,7 @@ class ObjectDefinitionDumper implements DefinitionDumper
         foreach ($definition->getMethodInjections() as $methodInjection) {
             $parameters = $this->dumpMethodParameters($className, $methodInjection);
 
-            $str .= sprintf("\n    %s(\n        %s\n    )", $methodInjection->getMethodName(), $parameters);
+            $str .= sprintf(PHP_EOL . '    %s(' . PHP_EOL . '        %s' . PHP_EOL . '    )', $methodInjection->getMethodName(), $parameters);
         }
 
         return $str;
@@ -118,11 +104,13 @@ class ObjectDefinitionDumper implements DefinitionDumper
     {
         $methodReflection = new \ReflectionMethod($className, $methodInjection->getMethodName());
 
-        $args = array();
+        $args = [];
+
+        $definitionParameters = $methodInjection->getParameters();
 
         foreach ($methodReflection->getParameters() as $index => $parameter) {
-            if ($methodInjection->hasParameter($index)) {
-                $value = $methodInjection->getParameter($index);
+            if (array_key_exists($index, $definitionParameters)) {
+                $value = $definitionParameters[$index];
 
                 if ($value instanceof EntryReference) {
                     $args[] = sprintf('$%s = get(%s)', $parameter->getName(), $value->getName());

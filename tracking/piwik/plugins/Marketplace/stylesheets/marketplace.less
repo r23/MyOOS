@@ -1,5 +1,37 @@
-#licenseKeyLoading {
-    display: none;
+.subscriptionOverview {
+    .icon-error, .errorMessage {
+        color: #D4291F;
+    }
+
+    .icon-ok {
+        color: #009874;
+    }
+
+    .icon-warning {
+        color: #CA8100;
+    }
+    .subscriptionName,
+    .subscriptionType,
+    .subscriptionStatus {
+        white-space: nowrap;
+    }
+}
+
+.marketplace-paid-intro {
+    .licenseKeyText {
+        min-width: 210px;
+        .form-group {
+            margin-top: 0;
+        }
+    }
+
+    .licenseToolbar {
+        > a, > div:not(.licenseKeyText) {
+            margin-right: 16px;
+            white-space: nowrap;
+        }
+    }
+
 }
 
 #installAllPaidPluginsAtOnce {
@@ -16,37 +48,37 @@
   }
 }
 
-.subscriptionOverview {
-    .subscriptionName,
-    .subscriptionType,
-    .subscriptionStatus {
-        white-space: nowrap;
-    }
-}
-
 .marketplace {
+    .marketplaceActions.row,
+    .pluginListContainer.row {
+        margin: 0 -0.75rem;
+    }
 
     input.btn[disabled] {
         background-color: @theme-color-brand !important;
     }
 
-    .plugin-search {
-        float: right;
-
-        input, button {
-            height: 41px;
-            margin-bottom: 0;
-        }
-        button {
-            font-size: inherit !important; // because the default Piwik button style is crazy
-        }
+    .marketplaceActions {
+        margin-bottom: 0;
     }
 
-    .marketplace-max-width {
-        max-width: 980px;
+    .plugin-search {
+        position: relative;
+        margin-right: 20px;
+        .icon-search {
+            position: absolute;
+            bottom: 32px;
+            right: -16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
     }
 
     .plugin {
+        h3 {
+            word-wrap: break-word;
+        }
         text-align: center;
         .description {
             @line-height: 18px;
@@ -63,10 +95,10 @@
             max-width: 250px;
             width: 100%;
         }
-        .panel-footer {
+        .footer {
             .download.plugin-details {
-                padding-left: 0px;
-                padding-right: 0px;
+                padding-left: 0;
+                padding-right: 0;
             }
         }
         .metadata {
@@ -79,6 +111,7 @@
                 overflow-x: hidden;
                 white-space: nowrap;
                 line-height: 18px;
+                font-size: 13px;
             }
             .update-available {
                 // Code taken from Bootstrap's labels
@@ -96,7 +129,7 @@
                 text-decoration: none;
             }
         }
-        .panel-footer {
+        .footer {
             padding: 12px 40px;
 
             .btn-link.plugin-details {
@@ -112,5 +145,17 @@
 
     .footer-message {
         margin-top:30px;
+    }
+}
+
+
+#installPluginByUpload {
+    .description {
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+    .startUpload {
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 }

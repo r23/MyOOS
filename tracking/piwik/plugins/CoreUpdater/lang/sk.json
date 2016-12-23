@@ -23,7 +23,6 @@
         "HelpMessageIntroductionWhenError": "Vyššie je uvedená hlavná chybová správa, ktorá by mala vysvetliť problém. Ak potrebujete ďalšiu pomoc, tak prosím:",
         "HelpMessageIntroductionWhenWarning": "Aktualizácia je úspešne ukončená, vyskytli sa však problémy. Prečítajte si nasledovné detaily. Ďalšiu pomoc nájdete na:",
         "HighTrafficPiwikServerEnableMaintenance": "Ak natrafíte na zahltený Piwik server, odporúčame %1$s dočasne vypnúť sledovanie návštevníkov a prepnúť Piwik-užívateľské rozhranie do módu údržby %2$s.",
-        "IncompatbilePluginsWillBeDisabledInfo": "Pozn.: niektoré pluginy nie sú kompatibilné s Piwik %s. Budú vypnuté ak aktualizujete:",
         "InstallingTheLatestVersion": "Inštalácia poslednej verzie",
         "LatestBetaRelease": "Posledná beta verzia",
         "LatestStableRelease": "Posledná stabilné vydanie",
@@ -33,7 +32,6 @@
         "MajorUpdateWarning1": "Toto je veľká aktualizácia! Bude to trvať dlhšie ako zvyčajne.",
         "MajorUpdateWarning2": "Nasledujúca rada je obzvlášť dôležitá pre veľké inštalácie.",
         "NoteForLargePiwikInstances": "Dôležité poznámky pre veľké Piwik-inštalácie.",
-        "NoteItIsExpectedThatQueriesFail": "Pozn.: ak vykonáte manuálne tieto dopyty, očakáva sa že niektoré z nich budú prerušené. V tomto prípade jednoducho ignorujte chyby a spustite nasledujúci v zozname.",
         "NotificationClickToUpdatePlugins": "Pre okamžitú aktualizáciu Vášho pluginu kliknite tuto:",
         "NotificationClickToUpdateThemes": "Pre okamžitú aktualizáciu Vášej témy kliknite tuto:",
         "NotificationSubjectAvailableCoreUpdate": "Nový Piwik %s je dostupný",
@@ -70,7 +68,6 @@
         "WarningMessages": "Varovania:",
         "WeAutomaticallyDeactivatedTheFollowingPlugins": "Automaticky sa deaktivovali tieto moduly: %s",
         "YouCanUpgradeAutomaticallyOrDownloadPackage": "Aktualizovať na verziu %s môžete automaticky alebo si stiahnite balíček a nainštalujte ho manuálne:",
-        "YouCouldManuallyExecuteSqlQueries": "Ak nie ste schopný spustiť aktualizáciu z príkazového riadku a ak sa aktualizácia preruší (z dôvodu vypršania času databázy, vypršania času prehliadača alebo akejkoľvek inej záležitosti) , môžete manuálne vykonať SQL dopyty pre aktualizáciu projektu Piwik.",
         "YouMustDownloadPackageOrFixPermissions": "Piwik nie je schopný prepísať Vašu aktuálnu inštaláciu. Môžete buďto opraviť povolenia zložky\/súboru, alebo stiahnuť balík a nainštalovať verziu %s manuálne.",
         "YourDatabaseIsOutOfDate": "Vaša Piwik databáza je zastaralá a musí byť zaktualizovaná, aby ste mohli pokračovať ďalej.",
         "ViewVersionChangelog": "Prezeranie protokolu zmien pre túto verziu:"

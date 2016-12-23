@@ -14,8 +14,6 @@ use Piwik\Piwik;
 use Piwik\Plugins\Marketplace\Marketplace;
 use Piwik\Plugins\Marketplace\Plugins;
 
-/**
- */
 class Menu extends \Piwik\Plugin\Menu
 {
     private $marketplacePlugins;
@@ -55,9 +53,10 @@ class Menu extends \Piwik\Plugin\Menu
         }
 
         if ($hasSuperUserAcess) {
-            $menu->addManageItem(Piwik::translate('General_Plugins') . $pluginsUpdateMessage,
-                                   $this->urlForAction('plugins', array('activated' => '')),
-                                   $order = 4);
+            $menu->addSystemItem(Piwik::translate('General_Plugins') . $pluginsUpdateMessage,
+                $this->urlForAction('plugins', array('activated' => '')),
+                $order = 20);
         }
     }
+
 }

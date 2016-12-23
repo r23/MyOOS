@@ -13,6 +13,7 @@ return array(
     'Piwik\\Decompress\\' => array($vendorDir . '/piwik/decompress/src'),
     'Piwik\\Cache\\' => array($vendorDir . '/piwik/cache/src'),
     'Piwik\\' => array($baseDir . '/core'),
+    'PhpDocReader\\' => array($vendorDir . '/php-di/phpdoc-reader/src/PhpDocReader'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'Invoker\\' => array($vendorDir . '/php-di/invoker/src'),
     'Interop\\Container\\' => array($vendorDir . '/container-interop/container-interop/src/Interop/Container'),

@@ -1,11 +1,4 @@
 <?php
-/**
- * PHP-DI
- *
- * @link      http://mnapoli.github.com/PHP-DI/
- * @copyright Matthieu Napoli (http://mnapoli.fr/)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT (see the LICENSE file)
- */
 
 namespace DI\Definition\Resolver;
 
@@ -44,15 +37,15 @@ class EnvironmentVariableResolver implements DefinitionResolver
      *
      * {@inheritdoc}
      */
-    public function resolve(Definition $definition, array $parameters = array())
+    public function resolve(Definition $definition, array $parameters = [])
     {
-        $this->assertIsEnvironmentVariableDefinition($definition);
-
         $value = call_user_func($this->variableReader, $definition->getVariableName());
 
         if (false !== $value) {
             return $value;
-        } elseif (!$definition->isOptional()) {
+        }
+
+        if (!$definition->isOptional()) {
             throw new DefinitionException(sprintf(
                 "The environment variable '%s' has not been defined",
                 $definition->getVariableName()
@@ -74,21 +67,8 @@ class EnvironmentVariableResolver implements DefinitionResolver
      *
      * {@inheritdoc}
      */
-    public function isResolvable(Definition $definition, array $parameters = array())
+    public function isResolvable(Definition $definition, array $parameters = [])
     {
-        $this->assertIsEnvironmentVariableDefinition($definition);
-
-        return $definition->isOptional()
-            || false !== call_user_func($this->variableReader, $definition->getVariableName());
-    }
-
-    private function assertIsEnvironmentVariableDefinition(Definition $definition)
-    {
-        if (!$definition instanceof EnvironmentVariableDefinition) {
-            throw new \InvalidArgumentException(sprintf(
-                'This definition resolver is only compatible with EnvironmentVariableDefinition objects, %s given',
-                get_class($definition)
-            ));
-        }
+        return true;
     }
 }

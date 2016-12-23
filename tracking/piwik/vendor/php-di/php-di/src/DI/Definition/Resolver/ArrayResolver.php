@@ -1,11 +1,4 @@
 <?php
-/**
- * PHP-DI
- *
- * @link      http://mnapoli.github.com/PHP-DI/
- * @copyright Matthieu Napoli (http://mnapoli.fr/)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT (see the LICENSE file)
- */
 
 namespace DI\Definition\Resolver;
 
@@ -45,39 +38,11 @@ class ArrayResolver implements DefinitionResolver
      *
      * {@inheritdoc}
      */
-    public function resolve(Definition $definition, array $parameters = array())
+    public function resolve(Definition $definition, array $parameters = [])
     {
-        $this->assertIsArrayDefinition($definition);
-
         $values = $definition->getValues();
 
-        $values = $this->resolveNestedDefinitions($definition, $values);
-
-        return $values;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isResolvable(Definition $definition, array $parameters = array())
-    {
-        $this->assertIsArrayDefinition($definition);
-
-        return true;
-    }
-
-    private function assertIsArrayDefinition(Definition $definition)
-    {
-        if (!$definition instanceof ArrayDefinition) {
-            throw new \InvalidArgumentException(sprintf(
-                'This definition resolver is only compatible with ArrayDefinition objects, %s given',
-                get_class($definition)
-            ));
-        }
-    }
-
-    private function resolveNestedDefinitions(ArrayDefinition $definition, array $values)
-    {
+        // Resolve nested definitions
         foreach ($values as $key => $value) {
             if ($value instanceof DefinitionHelper) {
                 $values[$key] = $this->resolveDefinition($value, $definition, $key);
@@ -85,6 +50,14 @@ class ArrayResolver implements DefinitionResolver
         }
 
         return $values;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isResolvable(Definition $definition, array $parameters = [])
+    {
+        return true;
     }
 
     private function resolveDefinition(DefinitionHelper $value, ArrayDefinition $definition, $key)
@@ -95,7 +68,7 @@ class ArrayResolver implements DefinitionResolver
             throw $e;
         } catch (Exception $e) {
             throw new DependencyException(sprintf(
-                "Error while resolving %s[%s]. %s",
+                'Error while resolving %s[%s]. %s',
                 $definition->getName(),
                 $key,
                 $e->getMessage()

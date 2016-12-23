@@ -114,12 +114,11 @@ class Updater
             $this->verifyDecompressedArchive($extractedArchiveDirectory);
             $messages[] = $this->translator->translate('CoreUpdater_VerifyingUnpackedFiles');
 
-            // we need to load the marketplace already here, otherwise it will use the new, updated file in Piwik 3
-
-            // we also need to make sure to create a new instance here as otherwise we would change the "global"
-            // environment, but we only want to change piwik version temporarily for this task here
-
             if (Marketplace::isMarketplaceEnabled()) {
+                // we need to load the marketplace already here, otherwise it will use the new, updated file in Piwik 3
+
+                // we also need to make sure to create a new instance here as otherwise we would change the "global"
+                // environment, but we only want to change piwik version temporarily for this task here
                 $environment = StaticContainer::getContainer()->make('Piwik\Plugins\Marketplace\Environment');
                 $environment->setPiwikVersion($newVersion);
                 /** @var \Piwik\Plugins\Marketplace\Api\Client $marketplaceClient */

@@ -9,7 +9,6 @@
 namespace Piwik\Plugins\UsersManager;
 
 use Exception;
-use Piwik\Db;
 use Piwik\Option;
 use Piwik\Piwik;
 use Piwik\SettingsPiwik;
@@ -23,7 +22,7 @@ class UsersManager extends \Piwik\Plugin
     const PASSWORD_MIN_LENGTH = 6;
 
     /**
-     * @see Piwik\Plugin::registerEvents
+     * @see \Piwik\Plugin::registerEvents
      */
     public function registerEvents()
     {
@@ -56,7 +55,14 @@ class UsersManager extends \Piwik\Plugin
     public function recordAdminUsersInCache(&$attributes, $idSite)
     {
         // add the 'hosts' entry in the website array
-        $users = API::getInstance()->getUsersWithSiteAccess($idSite, 'admin');
+        $model = new Model();
+        $logins = $model->getUsersLoginWithSiteAccess($idSite, 'admin');
+
+        if (empty($logins)) {
+            return;
+        }
+
+        $users = $model->getUsers($logins);
 
         $tokens = array();
         foreach ($users as $user) {
@@ -87,13 +93,16 @@ class UsersManager extends \Piwik\Plugin
     /**
      * Return list of plug-in specific JavaScript files to be imported by the asset manager
      *
-     * @see Piwik\AssetManager
+     * @see \Piwik\AssetManager
      */
     public function getJsFiles(&$jsFiles)
     {
-        $jsFiles[] = "plugins/UsersManager/javascripts/usersManager.js";
-        $jsFiles[] = "plugins/UsersManager/javascripts/usersSettings.js";
-        $jsFiles[] = "plugins/UsersManager/javascripts/giveViewAccess.js";
+        $jsFiles[] = "plugins/UsersManager/angularjs/personal-settings/personal-settings.controller.js";
+        $jsFiles[] = "plugins/UsersManager/angularjs/personal-settings/anonymous-settings.controller.js";
+        $jsFiles[] = "plugins/UsersManager/angularjs/manage-super-user/manage-super-user.controller.js";
+        $jsFiles[] = "plugins/UsersManager/angularjs/manage-user-access/manage-user-access.controller.js";
+        $jsFiles[] = "plugins/UsersManager/angularjs/manage-users/manage-users.controller.js";
+        $jsFiles[] = "plugins/UsersManager/angularjs/give-user-view-access/give-user-view-access.controller.js";
     }
 
     /**

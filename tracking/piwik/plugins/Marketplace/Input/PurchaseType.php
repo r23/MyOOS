@@ -8,8 +8,6 @@
  */
 
 namespace Piwik\Plugins\Marketplace\Input;
-use Piwik\Common;
-use Piwik\Plugins\Marketplace\Consumer;
 
 /**
  */
@@ -18,14 +16,5 @@ class PurchaseType
     const TYPE_FREE = 'free';
     const TYPE_PAID = 'paid';
     const TYPE_ALL  = '';
-    
-    public function getPurchaseType()
-    {
-        $defaultType = static::TYPE_ALL;
-
-        $type = Common::getRequestVar('type', $defaultType, 'string');
-
-        return $type;
-    }
 
 }
