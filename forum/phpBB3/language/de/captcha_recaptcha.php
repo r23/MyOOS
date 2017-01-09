@@ -43,13 +43,13 @@ $lang = array_merge($lang, array(
 	'RECAPTCHA_LANG'				=> 'de',
 	'RECAPTCHA_NOT_AVAILABLE'		=> 'Um reCaptcha nutzen zu können, musst du dir ein Konto auf <a href="http://www.google.com/recaptcha">www.google.com/recaptcha</a> anlegen.',
 	'CAPTCHA_RECAPTCHA'				=> 'reCaptcha',
-	'RECAPTCHA_INCORRECT'			=> 'Der von dir eingegebene Bestätigungscode ist falsch',
+	'RECAPTCHA_INCORRECT'			=> 'Die von dir eingegebene Antwort ist falsch',
+	'RECAPTCHA_NOSCRIPT'			=> 'Bitte aktiviere JavaScript in deinem Browser, um die Aufgabe zu laden.',
 
 	'RECAPTCHA_PUBLIC'				=> 'Öffentlicher reCaptcha-Schlüssel',
 	'RECAPTCHA_PUBLIC_EXPLAIN'		=> 'Dein öffentlicher reCaptcha-Schlüssel. Schlüssel können über <a href="http://www.google.com/recaptcha">www.google.com/recaptcha</a> bezogen werden.',
 	'RECAPTCHA_PRIVATE'				=> 'Privater reCaptcha-Schlüssel',
 	'RECAPTCHA_PRIVATE_EXPLAIN'		=> 'Dein privater reCaptcha-Schlüssel. Schlüssel können über <a href="http://www.google.com/recaptcha">www.google.com/recaptcha</a> bezogen werden.',
 
-	'RECAPTCHA_EXPLAIN'				=> 'Um automatische Eingaben zu unterbinden, musst du den angezeigten Text in das untenstehende Feld eingeben.',
-	'RECAPTCHA_SOCKET_ERROR'		=> 'Bei der Verbindung mit dem reCaptcha-Dienst ist ein Problem aufgetreten: Socket konnte nicht geöffnet werden. Bitte versuche es später erneut.',
+	'RECAPTCHA_EXPLAIN'				=> 'Um automatische Eingaben zu unterbinden, musst du die nachfolgende Aufgabe lösen.',
 ));

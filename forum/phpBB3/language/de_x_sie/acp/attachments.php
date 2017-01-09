@@ -73,9 +73,6 @@ $lang = array_merge($lang, array(
 
 	'CAT_FLASH_FILES'			=> 'Flash-Dateien',
 	'CAT_IMAGES'				=> 'Bilder',
-	'CAT_QUICKTIME_FILES'		=> 'QuickTime-Dateien',
-	'CAT_RM_FILES'				=> 'RealMedia-Dateien',
-	'CAT_WM_FILES'				=> 'Windows Media-Dateien',
 	'CHECK_CONTENT'				=> 'Dateianhänge prüfen',
 	'CHECK_CONTENT_EXPLAIN'		=> 'Manchen Browsern kann ein fehlerhafter MIME-Typ für hochgeladene Dateien vorgetäuscht werden. Diese Option stellt sicher, dass Dateien, die dieses Verhalten provozieren könnten, abgewiesen werden.',
 	'CREATE_GROUP'				=> 'Neue Gruppe erstellen',
@@ -108,9 +105,6 @@ $lang = array_merge($lang, array(
 	'EXT_GROUP_FLASH_FILES'			=> 'Flash-Dateien',
 	'EXT_GROUP_IMAGES'				=> 'Bilder',
 	'EXT_GROUP_PLAIN_TEXT'			=> 'Text-Dateien',
-	'EXT_GROUP_QUICKTIME_MEDIA'		=> 'QuickTime-Dateien',
-	'EXT_GROUP_REAL_MEDIA'			=> 'RealMedia-Dateien',
-	'EXT_GROUP_WINDOWS_MEDIA'		=> 'Windows Media-Dateien',
 
 	'FILES_GONE'			=> 'Einige der Dateianhänge, die Sie zum Löschen ausgewählt haben, existieren nicht. Sie könnten bereits gelöscht worden sein. Dateianhänge, die existierten, wurden gelöscht.',
 	'FILES_STATS_WRONG'		=> 'Ihre Datei-Statistik ist vermutlich fehlerhaft und muss resynchronisiert werden. Derzeitige Werte: Anzahl von Dateianhängen = %1$d, Gesamtgröße der Dateianhänge = %2$s.<br />%3$sDatei-Statistik resynchronisieren%4$s.',

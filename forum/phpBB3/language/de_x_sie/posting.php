@@ -185,8 +185,10 @@ $lang = array_merge($lang, array(
 	'NO_POLL_TITLE'				=> 'Sie müssen einen Umfragentitel angeben.',
 	'NO_POST'					=> 'Die angeforderte Nachricht existiert nicht.',
 	'NO_POST_MODE'				=> 'Kein Eintragsmodus gewählt.',
+	'NO_TEMP_DIR'				=> 'Der temporäre Ordner konnte nicht gefunden werden oder ist nicht beschreibbar.',
 
 	'PARTIAL_UPLOAD'			=> 'Die Datei wurde nur teilweise hochgeladen.',
+	'PHP_UPLOAD_STOPPED'		=> 'Eine PHP-Erweiterung hat den Hochlade-Vorgang unterbrochen.',
 	'PHP_SIZE_NA'				=> 'Der Dateianhang ist zu groß.<br />Die durch PHP in der php.ini festgelegte maximale Größe konnte nicht ermittelt werden.',
 	'PHP_SIZE_OVERRUN'			=> 'Der Dateianhang ist zu groß, er darf maximal %1$d %2$s groß sein.<br />Dieser Wert ist in der php.ini festgelegt und kann nicht überschrieben werden.',
 	'PLACE_INLINE'				=> 'Im Beitrag anzeigen',

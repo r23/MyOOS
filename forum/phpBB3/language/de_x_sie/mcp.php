@@ -138,6 +138,7 @@ $lang = array_merge($lang, array(
 	'LOCK_TOPICS_CONFIRM'		=> 'Sind Sie sich sicher, dass Sie alle ausgewählten Themen sperren möchten?',
 	'LOGS_CURRENT_TOPIC'		=> 'Moderations-Protokoll von Thema:',
 	'LOGIN_EXPLAIN_MCP'			=> 'Um dieses Forum zu moderieren, müssen Sie sich anmelden.',
+	'LOGVIEW_VIEWPOST'			=> 'Beitrag anzeigen',
 	'LOGVIEW_VIEWTOPIC'			=> 'Thema anzeigen',
 	'LOGVIEW_VIEWLOGS'			=> 'Themen-Protokoll anzeigen',
 	'LOGVIEW_VIEWFORUM'			=> 'Forum anzeigen',

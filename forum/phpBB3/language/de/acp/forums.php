@@ -51,7 +51,7 @@ $lang = array_merge($lang, array(
 	'AUTO_PRUNE_SHADOW_DAYS'	=> 'Seit dem Verschieben des Themas vergangene Tage',
 	'AUTO_PRUNE_SHADOW_DAYS_EXPLAIN'	=> 'Die Anzahl der Tage seit dem Verschieben eines Themas, nach denen der Link auf das verschobene Thema im alten Forum gelöscht wird.',
 	'AUTO_PRUNE_SHADOW_FREQ_EXPLAIN'	=> 'Das Intervall, in dem nach automatisch zu löschenden Links zu verschobenen Themen gesucht wird.',
-	
+
 	'CONTINUE'						=> 'Fortsetzen',
 	'COPY_PERMISSIONS'				=> 'Kopiere Berechtigungen von',
 	'COPY_PERMISSIONS_EXPLAIN'		=> 'Um die Konfiguration deines neuen Forums zu erleichtern, kannst du die Berechtigungen eines bestehenden Forums kopieren.',
@@ -150,7 +150,7 @@ $lang = array_merge($lang, array(
 
 	'PARENT_IS_LINK_FORUM'		=> 'Das übergeordnete Forum, das du ausgewählt hast, ist ein Forums-Link. Ein Forums-Link kann keine Unterforen enthalten. Bitte wähle ein Forum oder eine Kategorie als übergeordnetes Forum aus.',
 	'PARENT_NOT_EXIST'			=> 'Übergeordnetes Forum existiert nicht.',
-	'PRUNE_ANNOUNCEMENTS'		=> 'Ankündigungen automatisch löschen',
+	'PRUNE_ANNOUNCEMENTS'		=> 'Bekanntmachungen automatisch löschen',
 	'PRUNE_STICKY'				=> 'Wichtige Themen automatisch löschen',
 	'PRUNE_OLD_POLLS'			=> 'Abgeschlossene Umfragen automatisch löschen',
 	'PRUNE_OLD_POLLS_EXPLAIN'	=> 'Löscht Themen mit Umfragen, in denen im angegebenen Zeitraum keine Abstimmung erfolgte.',

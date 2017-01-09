@@ -123,6 +123,7 @@ $lang = array_merge($lang, array(
 	'ACL_F_POST'		=> 'Kann neue Themen im Forum starten',
 	'ACL_F_STICKY'		=> 'Kann wichtige Themen erstellen',
 	'ACL_F_ANNOUNCE'	=> 'Kann Bekanntmachungen erstellen',
+	'ACL_F_ANNOUNCE_GLOBAL'	=> 'Kann globale Bekanntmachungen erstellen',
 	'ACL_F_REPLY'		=> 'Kann auf Themen antworten',
 	'ACL_F_EDIT'		=> 'Kann eigene Beiträge ändern',
 	'ACL_F_DELETE'		=> 'Kann eigene Beiträge löschen',

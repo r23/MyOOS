@@ -1,6 +1,6 @@
-Deutsche Sprachdateien für phpBB 3.1.10
----------------------------------------
-Stand: 2016-09-26
+Deutsche Sprachdateien für phpBB 3.2.0
+------------------------------------------
+Stand: 2017-01-07
 
 Deutsche Übersetzung durch die Übersetzer-Gruppe von phpBB.de
 Siehe docs/AUTHORS für die aktuellen und die ehemaligen Mitglieder
@@ -43,4 +43,4 @@ deren Beachtung wir dringend empfehlen:
 Fehler
 ------
 Fehler in den deutschen Sprachdateien können unter
-https://www.phpbb.de/go/3.1/sprachdateienfehler gemeldet werden.
+https://www.phpbb.de/go/3.2/sprachdateienfehler gemeldet werden.

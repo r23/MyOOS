@@ -110,6 +110,8 @@ $lang = array_merge($lang, array(
 	'ACP_GROUPS_PERMISSIONS'		=> 'Gruppenrechte',
 	'ACP_GROUPS_POSITION'			=> 'Gruppen-Positionierung verwalten',
 
+	'ACP_HELP_PHPBB'			=> 'Unterstützen Sie phpBB',
+
 	'ACP_ICONS'					=> 'Beitrags-Symbole',
 	'ACP_ICONS_SMILIES'			=> 'Beitrags-Symbole/Smilies',
 	'ACP_INACTIVE_USERS'		=> 'Inaktive Benutzer',
@@ -169,7 +171,6 @@ $lang = array_merge($lang, array(
 	'ACP_SEARCH_SETTINGS'		=> 'Suchfunktion',
 
 	'ACP_SECURITY_SETTINGS'		=> 'Sicherheit',
-	'ACP_SEND_STATISTICS'		=> 'Statistische Daten übermitteln',
 	'ACP_SERVER_CONFIGURATION'	=> 'Server-Konfiguration',
 	'ACP_SERVER_SETTINGS'		=> 'Server und Domain',
 	'ACP_SIGNATURE_SETTINGS'	=> 'Signaturen',
@@ -227,12 +228,26 @@ $lang = array_merge($lang, array(
 
 	'BACK'					=> 'Zurück',
 
+	'CANNOT_CHANGE_FILE_GROUP'	=> 'Die Gruppe einer Datei konnte nicht geändert werden',
+	'CANNOT_CHANGE_FILE_PERMISSIONS'	=> 'Die Berechtigungen einer Datei konnten nicht geändert werden',
+	'CANNOT_COPY_FILES'		=> 'Die Dateien konnten nicht kopiert werden',
+	'CANNOT_CREATE_SYMLINK'	=> 'Eine symbolische Verknüpfung (Symlink) konnte nicht erstellt werden',
+	'CANNOT_DELETE_FILES'	=> 'Eine Datei konnte nicht vom Server gelöscht werden',
+	'CANNOT_DUMP_FILE'		=> 'Eine Datei konnte nicht ausgelesen werden',
+	'CANNOT_MIRROR_DIRECTORY'	=> 'Ein Verzeichnis konnte nicht gespiegelt werden',
+	'CANNOT_RENAME_FILE'	=> 'Eine Datei konnte auf dem Server nicht umbenannt werden',
+	'CANNOT_TOUCH_FILES'	=> 'Es konnte nicht geprüft werden, ob eine Datei existiert',
+
+	'CONTAINER_EXCEPTION' => 'Beim Aufbau des Containers durch phpBB ist wegen einer installierten Erweiterung ein Fehler aufgetreten. Aus diesem Grund wurden alle Erweiterungen vorrübergehend deaktiviert. Bitte versuchen Sie das Problem zu beheben, in dem Sie den Cache des Boards leeren. Alle Erweiterungen werden automatisch wieder aktiviert, sobald der Container-Fehler behoben ist. Wenn das Problem dauerhaft auftritt, besuchen Sie bitte <a href="https://www.phpbb.com/support">phpBB.com (englisch)</a> für Support (<a href="https://www.phpbb.de/go/3.2/supportforum">deutschsprachiger Support auf phpBB.de</a>).',
+	'EXCEPTION' => 'Fehler',
+
 	'COLOUR_SWATCH'			=> 'Websichere Farbpalette',
 	'CONFIG_UPDATED'		=> 'Konfiguration erfolgreich aktualisiert.',
 	'CRON_LOCK_ERROR'		=> 'Konnte Sperre für Cron-Job nicht bekommen.',
 	'CRON_NO_SUCH_TASK'		=> 'Cron-Job „%s“ konnte nicht gefunden werden.',
 	'CRON_NO_TASK'			=> 'Momentan muss kein Cron-Job ausgeführt werden.',
 	'CRON_NO_TASKS'			=> 'Es konnten keine Cron-Jobs gefunden werden.',
+	'CURRENT_VERSION'		=> 'Aktuelle Version',
 
 	'DEACTIVATE'				=> 'Deaktivieren',
 	'DIRECTORY_DOES_NOT_EXIST'	=> 'Der angegebene Pfad „%s“ existiert nicht.',
@@ -258,6 +273,7 @@ $lang = array_merge($lang, array(
 	'IP'					=> 'Benutzer-IP',
 	'IP_HOSTNAME'			=> 'IP-Adressen oder Host-Namen',
 
+	'LATEST_VERSION'		=> 'Neueste Version',
 	'LOAD_NOTIFICATIONS'			=> 'Benachrichtigungen anzeigen',
 	'LOAD_NOTIFICATIONS_EXPLAIN'	=> 'Zeigt die Liste der Benachrichtigungen auf jeder Seite an (üblicherweise in der Kopfzeile).',
 	'LOGGED_IN_AS'			=> 'Sie sind angemeldet als:',
@@ -290,7 +306,9 @@ $lang = array_merge($lang, array(
 	'PERMISSIONS_TRANSFERRED_EXPLAIN'	=> 'Sie haben die Berechtigungen von %1$s übernommen. Sie können das Board mit den Rechten dieses Benutzers testen; Sie können jedoch nicht den Administrations-Bereich benutzen, da Administrations-Rechte nicht übernommen werden. Sie können jederzeit <a href="%2$s"><strong>zu Ihren Berechtigungen zurückkehren</strong></a>.',
 	'PROCEED_TO_ACP'					=> '%sZum Administrations-Bereich%s',
 
+	'RELEASE_ANNOUNCEMENT'				=> 'Bekanntmachung',
 	'REMIND'							=> 'Erinnern',
+	'REPARSE_LOCK_ERROR'				=> 'Ein anderer Prozess ist bereits mit der Verarbeitung beschäftigt.',
 	'RESYNC'							=> 'Synchronisieren',
 
 	'RUNNING_TASK'			=> 'Laufende Jobs: %s.',
@@ -311,6 +329,10 @@ $lang = array_merge($lang, array(
 	'UCP'					=> 'Persönlicher Bereich',
 	'USERNAMES_EXPLAIN'		=> 'Verwenden Sie für jeden Benutzernamen eine neue Zeile.',
 	'USER_CONTROL_PANEL'	=> 'Persönlicher Bereich',
+
+	'UPDATE_NEEDED'			=> 'Die Board-Software ist nicht auf dem neuesten Stand.',
+	'UPDATE_NOT_NEEDED'		=> 'Das Board ist auf dem neuesten Stand.',
+	'UPDATES_AVAILABLE'		=> 'Es sind Aktualisierungen verfügbar:',
 
 	'WARNING'				=> 'Warnung',
 ));
@@ -411,7 +433,7 @@ $lang = array_merge($lang, array(
 
 	'STATISTIC'					=> 'Statistik',
 	'STATISTIC_RESYNC_OPTIONS'	=> 'Resynchronisieren oder Statistiken zurücksetzen',
-	
+
 	'TIMEZONE_INVALID'	=> 'Die ausgewählte Zeitzone ist ungültig.',
 	'TIMEZONE_SELECTED'	=> '(derzeit ausgewählt)',
 	'TOPICS_PER_DAY'	=> 'Themen pro Tag',
@@ -422,6 +444,11 @@ $lang = array_merge($lang, array(
 	'VALUE'						=> 'Wert',
 	'VERSIONCHECK_FAIL'			=> 'Die Informationen über die aktuelle Version konnten nicht abgerufen werden.',
 	'VERSIONCHECK_FORCE_UPDATE'	=> 'Version erneut prüfen',
+	'VERSION_CHECK'				=> 'Versionsprüfung',
+	'VERSION_CHECK_EXPLAIN'		=> 'Prüft, ob die phpBB-Installation aktuell ist.',
+	'VERSION_NOT_UP_TO_DATE_ACP'	=> 'Ihre phpBB-Installation ist nicht aktuell.<br />Unten ist ein Link zur Release-Bekanntmachung, die zusätzliche Informationen und Anweisung für die Aktualisierung enthält.',
+	'VERSION_NOT_UP_TO_DATE_TITLE'	=> 'Ihre phpBB-Installation ist nicht aktuell.',
+	'VERSION_UP_TO_DATE_ACP'	=> 'Ihre phpBB-Installation ist aktuell. Zurzeit sind keine Updates verfügbar.',
 	'VIEW_ADMIN_LOG'			=> 'Administrations-Protokoll anzeigen',
 	'VIEW_INACTIVE_USERS'		=> 'Inaktive Benutzer anzeigen',
 
@@ -454,16 +481,18 @@ $lang = array_merge($lang, array(
 	'USER_IS_INACTIVE'		=> 'Benutzer ist inaktiv',
 ));
 
-// Send statistics page
+// Help support phpBB page
 $lang = array_merge($lang, array(
 	'EXPLAIN_SEND_STATISTICS'	=> 'Bitte übermitteln Sie Informationen über Ihren Server und Ihre Board-Konfiguration für statistische Analysen an phpBB.com. Alle Daten, die Sie selbst oder Ihre Website identifizieren könnten, wurden entfernt — die Daten sind vollkommen <strong>anonym</strong>. Entscheidungen über zukünftige phpBB-Versionen werden auf Basis dieser Daten getroffen. Die statistischen Daten werden öffentlich zur Verfügung gestellt. Die Daten werden auch mit dem PHP-Projekt ausgetauscht, Die Daten werden auch mit dem PHP-Projekt ausgetauscht, das die Programmiersprache betreut, in der phpBB geschrieben ist.',
 	'EXPLAIN_SHOW_STATISTICS'	=> 'Mit der folgenden Schaltfläche können Sie alle Informationen anzeigen, die übermittelt werden.',
 	'DONT_SEND_STATISTICS'		=> 'Kehren Sie zum Administrations-Bereich zurück, wenn Sie keine statistischen Daten an phpBB.com senden möchten.',
 	'GO_ACP_MAIN'				=> 'Zur Startseite des Administrations-Bereichs gehen',
 	'HIDE_STATISTICS'			=> 'Details verbergen',
-	'SEND_STATISTICS'			=> 'Statistische Informationen senden',
+	'SEND_STATISTICS'			=> 'Statistiken senden',
+	'SEND_STATISTICS_LONG'		=> 'Statistische Informationen senden',
 	'SHOW_STATISTICS'			=> 'Details anzeigen',
 	'THANKS_SEND_STATISTICS'	=> 'Vielen Dank für die Übermittlung Ihrer Informationen.',
+	'FAIL_SEND_STATISTICS'		=> 'Die Statistiken konnten nicht gesendet werden',
 ));
 
 // Log Entries
@@ -796,4 +825,5 @@ $lang = array_merge($lang, array(
 	'LOG_EXT_ENABLE'	=> '<strong>Erweiterung aktiviert</strong><br />» %s',
 	'LOG_EXT_DISABLE'	=> '<strong>Erweiterung deaktiviert</strong><br />» %s',
 	'LOG_EXT_PURGE'		=> '<strong>Daten der Erweiterung gelöscht</strong><br />» %s',
+	'LOG_EXT_UPDATE'	=> '<strong>Erweiterung aktualisiert</strong><br />» %s',
 ));

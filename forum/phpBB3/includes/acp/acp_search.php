@@ -50,14 +50,12 @@ class acp_search
 
 	function settings($id, $mode)
 	{
-		global $db, $user, $auth, $template, $cache;
-		global $config, $phpbb_root_path, $phpbb_admin_path, $phpEx;
+		global $user, $template, $phpbb_log, $request;
+		global $config, $phpbb_admin_path, $phpEx;
 
 		$submit = (isset($_POST['submit'])) ? true : false;
-		$form_key = 'acp_search';
-		add_form_key($form_key);
 
-		if ($submit && !check_form_key($form_key))
+		if ($submit && !check_link_hash($request->variable('hash', ''), 'acp_search'))
 		{
 			trigger_error($user->lang['FORM_INVALID'] . adm_back_link($this->u_action), E_USER_WARNING);
 		}
@@ -111,8 +109,8 @@ class acp_search
 		unset($search);
 		unset($error);
 
-		$cfg_array = (isset($_REQUEST['config'])) ? request_var('config', array('' => ''), true) : array();
-		$updated = request_var('updated', false);
+		$cfg_array = (isset($_REQUEST['config'])) ? $request->variable('config', array('' => ''), true) : array();
+		$updated = $request->variable('updated', false);
 
 		foreach ($settings as $config_name => $var_type)
 		{
@@ -140,7 +138,7 @@ class acp_search
 			// only change config if anything was actually changed
 			if ($submit && ($config[$config_name] != $config_value))
 			{
-				set_config($config_name, $config_value);
+				$config->set($config_name, $config_value);
 				$updated = true;
 			}
 		}
@@ -150,7 +148,7 @@ class acp_search
 			$extra_message = '';
 			if ($updated)
 			{
-				add_log('admin', 'LOG_CONFIG_SEARCH');
+				$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_CONFIG_SEARCH');
 			}
 
 			if (isset($cfg_array['search_type']) && in_array($cfg_array['search_type'], $search_types, true) && ($cfg_array['search_type'] != $config['search_type']))
@@ -164,11 +162,11 @@ class acp_search
 					{
 						if (!method_exists($search, 'init') || !($error = $search->init()))
 						{
-							set_config('search_type', $cfg_array['search_type']);
+							$config->set('search_type', $cfg_array['search_type']);
 
 							if (!$updated)
 							{
-								add_log('admin', 'LOG_CONFIG_SEARCH');
+								$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_CONFIG_SEARCH');
 							}
 							$extra_message = '<br />' . $user->lang['SWITCHED_SEARCH_BACKEND'] . '<br /><a href="' . append_sid("{$phpbb_admin_path}index.$phpEx", 'i=search&amp;mode=index') . '">&raquo; ' . $user->lang['GO_TO_SEARCH_INDEX'] . '</a>';
 						}
@@ -233,16 +231,16 @@ class acp_search
 			'S_YES_SEARCH'			=> (bool) $config['load_search'],
 			'S_SETTINGS'			=> true,
 
-			'U_ACTION'				=> $this->u_action)
+			'U_ACTION'				=> $this->u_action . '&amp;hash=' . generate_link_hash('acp_search'))
 		);
 	}
 
 	function index($id, $mode)
 	{
-		global $db, $user, $auth, $template, $cache, $request;
-		global $config, $phpbb_root_path, $phpbb_admin_path, $phpEx;
+		global $db, $user, $template, $phpbb_log, $request;
+		global $config, $phpbb_admin_path, $phpEx;
 
-		$action = request_var('action', '');
+		$action = $request->variable('action', '');
 		$this->state = explode(',', $config['search_indexing_state']);
 
 		if (isset($_POST['cancel']))
@@ -253,10 +251,7 @@ class acp_search
 		}
 		$submit = $request->is_set_post('submit', false);
 
-		$form_key = 'acp_search';
-		add_form_key($form_key);
-
-		if (!check_form_key($form_key) && in_array($action, array('delete', 'create')))
+		if (!check_link_hash($request->variable('hash', ''), 'acp_search') && in_array($action, array('create', 'delete')))
 		{
 			trigger_error($user->lang['FORM_INVALID'] . adm_back_link($this->u_action), E_USER_WARNING);
 		}
@@ -266,7 +261,7 @@ class acp_search
 			switch ($action)
 			{
 				case 'progress_bar':
-					$type = request_var('type', '');
+					$type = $request->variable('type', '');
 					$this->display_progress_bar($type);
 				break;
 
@@ -285,7 +280,7 @@ class acp_search
 
 			if (empty($this->state[0]))
 			{
-				$this->state[0] = request_var('search_type', '');
+				$this->state[0] = $request->variable('search_type', '');
 			}
 
 			$this->search = null;
@@ -310,7 +305,7 @@ class acp_search
 					if (method_exists($this->search, 'delete_index'))
 					{
 						// pass a reference to myself so the $search object can make use of save_state() and attributes
-						if ($error = $this->search->delete_index($this, append_sid("{$phpbb_admin_path}index.$phpEx", "i=$id&mode=$mode&action=delete", false)))
+						if ($error = $this->search->delete_index($this, append_sid("{$phpbb_admin_path}index.$phpEx", "i=$id&mode=$mode&action=delete&hash=" . generate_link_hash('acp_search'), false)))
 						{
 							$this->state = array('');
 							$this->save_state();
@@ -319,8 +314,7 @@ class acp_search
 					}
 					else
 					{
-						$starttime = explode(' ', microtime());
-						$starttime = $starttime[1] + $starttime[0];
+						$starttime = microtime(true);
 						$row_count = 0;
 						while (still_on_time() && $post_counter <= $this->max_post_id)
 						{
@@ -352,10 +346,9 @@ class acp_search
 
 						if ($post_counter <= $this->max_post_id)
 						{
-							$mtime = explode(' ', microtime());
-							$totaltime = $mtime[0] + $mtime[1] - $starttime;
+							$totaltime = microtime(true) - $starttime;
 							$rows_per_second = $row_count / $totaltime;
-							meta_refresh(1, append_sid($this->u_action . '&amp;action=delete&amp;skip_rows=' . $post_counter));
+							meta_refresh(1, append_sid($this->u_action . '&amp;action=delete&amp;skip_rows=' . $post_counter . '&amp;hash=' . generate_link_hash('acp_search')));
 							trigger_error($user->lang('SEARCH_INDEX_DELETE_REDIRECT', (int) $row_count, $post_counter, $rows_per_second));
 						}
 					}
@@ -365,7 +358,7 @@ class acp_search
 					$this->state = array('');
 					$this->save_state();
 
-					add_log('admin', 'LOG_SEARCH_INDEX_REMOVED', $name);
+					$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_SEARCH_INDEX_REMOVED', false, array($name));
 					trigger_error($user->lang['SEARCH_INDEX_REMOVED'] . adm_back_link($this->u_action) . $this->close_popup_js());
 				break;
 
@@ -392,8 +385,7 @@ class acp_search
 						}
 						$db->sql_freeresult($result);
 
-						$starttime = explode(' ', microtime());
-						$starttime = $starttime[1] + $starttime[0];
+						$starttime = microtime(true);
 						$row_count = 0;
 						while (still_on_time() && $post_counter <= $this->max_post_id)
 						{
@@ -442,10 +434,9 @@ class acp_search
 
 						if ($post_counter <= $this->max_post_id)
 						{
-							$mtime = explode(' ', microtime());
-							$totaltime = $mtime[0] + $mtime[1] - $starttime;
+							$totaltime = microtime(true) - $starttime;
 							$rows_per_second = $row_count / $totaltime;
-							meta_refresh(1, append_sid($this->u_action . '&amp;action=create&amp;skip_rows=' . $post_counter));
+							meta_refresh(1, append_sid($this->u_action . '&amp;action=create&amp;skip_rows=' . $post_counter . '&amp;hash=' . generate_link_hash('acp_search')));
 							trigger_error($user->lang('SEARCH_INDEX_CREATE_REDIRECT', (int) $row_count, $post_counter) . $user->lang('SEARCH_INDEX_CREATE_REDIRECT_RATE', $rows_per_second));
 						}
 					}
@@ -455,7 +446,7 @@ class acp_search
 					$this->state = array('');
 					$this->save_state();
 
-					add_log('admin', 'LOG_SEARCH_INDEX_CREATED', $name);
+					$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_SEARCH_INDEX_CREATED', false, array($name));
 					trigger_error($user->lang['SEARCH_INDEX_CREATED'] . adm_back_link($this->u_action) . $this->close_popup_js());
 				break;
 			}
@@ -524,7 +515,7 @@ class acp_search
 
 		$template->assign_vars(array(
 			'S_INDEX'				=> true,
-			'U_ACTION'				=> $this->u_action,
+			'U_ACTION'				=> $this->u_action . '&amp;hash=' . generate_link_hash('acp_search'),
 			'U_PROGRESS_BAR'		=> append_sid("{$phpbb_admin_path}index.$phpEx", "i=$id&amp;mode=$mode&amp;action=progress_bar"),
 			'UA_PROGRESS_BAR'		=> addslashes(append_sid("{$phpbb_admin_path}index.$phpEx", "i=$id&amp;mode=$mode&amp;action=progress_bar")),
 		));
@@ -533,7 +524,7 @@ class acp_search
 		{
 			$template->assign_vars(array(
 				'S_CONTINUE_INDEXING'	=> $this->state[1],
-				'U_CONTINUE_INDEXING'	=> $this->u_action . '&amp;action=' . $this->state[1],
+				'U_CONTINUE_INDEXING'	=> $this->u_action . '&amp;action=' . $this->state[1] . '&amp;hash=' . generate_link_hash('acp_search'),
 				'L_CONTINUE'			=> ($this->state[1] == 'create') ? $user->lang['CONTINUE_INDEXING'] : $user->lang['CONTINUE_DELETING_INDEX'],
 				'L_CONTINUE_EXPLAIN'	=> ($this->state[1] == 'create') ? $user->lang['CONTINUE_INDEXING_EXPLAIN'] : $user->lang['CONTINUE_DELETING_INDEX_EXPLAIN'])
 			);
@@ -571,7 +562,7 @@ class acp_search
 
 	function get_search_types()
 	{
-		global $phpbb_root_path, $phpEx, $phpbb_extension_manager;
+		global $phpbb_extension_manager;
 
 		$finder = $phpbb_extension_manager->get_finder();
 
@@ -597,6 +588,8 @@ class acp_search
 
 	function save_state($state = false)
 	{
+		global $config;
+
 		if ($state)
 		{
 			$this->state = $state;
@@ -604,7 +597,7 @@ class acp_search
 
 		ksort($this->state);
 
-		set_config('search_indexing_state', implode(',', $this->state), true);
+		$config->set('search_indexing_state', implode(',', $this->state), true);
 	}
 
 	/**

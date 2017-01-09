@@ -86,7 +86,7 @@ $lang = array_merge($lang, array(
 	'GROUP_MEMBERS'					=> 'Gruppenmitglieder',
 	'GROUP_MEMBERS_EXPLAIN'			=> 'Dies ist eine Liste aller Mitglieder dieser Benutzergruppe. Sie enthält separate Bereiche für Gruppenleiter, auf Aufnahme wartende Benutzer und derzeitige Gruppenmitglieder. Von hier aus kannst du einstellen, wer Mitglied dieser Gruppe sein soll und mit welchem Status. Um einen Gruppenleiter als normales Mitglied in der Gruppe weiterzuführen, wähle „Leitung entziehen“ an Stelle von „Löschen“. Gleichfalls kannst du „Zum Gruppenleiter ernennen“ verwenden, um ein bestehendes Gruppenmitglied zum Gruppenleiter zu machen.',
 	'GROUP_MESSAGE_LIMIT'			=> 'Limit an Privaten Nachrichten pro Ordner für diese Gruppe',
-	'GROUP_MESSAGE_LIMIT_EXPLAIN'	=> 'Diese Option überschreibt das Limit an Privaten Nachrichten, die ein Gruppenmitglied pro Ordner speichern darf. Das Standardlimit für Benutzer wird verwendet, wenn 0 als Wert eingestellt wird.',
+	'GROUP_MESSAGE_LIMIT_EXPLAIN'	=> 'Diese Option überschreibt das Limit an Privaten Nachrichten, die ein Gruppenmitglied pro Ordner speichern darf. Es greift der maximale Wert aller Gruppen, in denen ein Benutzer Mitglied ist. Das in den Board-Einstellungen festgelegte Standardlimit für Benutzer wird verwendet, wenn 0 als Wert eingestellt wird.',
 	'GROUP_MODS_ADDED'				=> 'Neue Gruppenleiter erfolgreich hinzugefügt.',
 	'GROUP_MODS_DEMOTED'			=> 'Gruppenleiter erfolgreich zu normalen Mitgliedern heruntergestuft.',
 	'GROUP_MODS_PROMOTED'			=> 'Mitglieder erfolgreich zum Gruppenleiter heraufgestuft.',
@@ -95,7 +95,7 @@ $lang = array_merge($lang, array(
 	'GROUP_OPEN'					=> 'Offen',
 	'GROUP_PENDING'					=> 'auf Aufnahme wartende Benutzer',
 	'GROUP_MAX_RECIPIENTS'			=> 'Maximale Anzahl zulässiger Empfänger pro Privater Nachricht',
-	'GROUP_MAX_RECIPIENTS_EXPLAIN'	=> 'Die maximale Anzahl zulässiger Empfänger für eine Private Nachricht. Die Board-Einstellung wird verwendet, wenn 0 als Wert eingestellt wird.',
+	'GROUP_MAX_RECIPIENTS_EXPLAIN'	=> 'Die maximale Anzahl zulässiger Empfänger für eine Private Nachricht. Es greift der maximale Wert aller Gruppen, in denen ein Benutzer Mitglied ist. Die in den Board-Einstellungen festgelegte Standardzahl für Benutzer wird verwendet, wenn 0 als Wert eingestellt wird.',
 	'GROUP_OPTIONS_SAVE'			=> 'Optionen für die Gruppe',
 	'GROUP_PROMOTE'					=> 'Zum Gruppenleiter ernennen',
 	'GROUP_RANK'					=> 'Gruppenrang',
@@ -132,6 +132,8 @@ $lang = array_merge($lang, array(
 	'NO_USERS'					=> 'Du hast keine Benutzer angegeben.',
 	'NO_USERS_ADDED'			=> 'Es wurden keine Benutzer der Gruppe hinzugefügt.',
 	'NO_VALID_USERS'			=> 'Du hast keine Benutzer angegeben, für die dieser Vorgang möglich wäre.',
+
+	'PENDING_MEMBERS'			=> 'Wartend',
 
 	'SELECT_GROUP'				=> 'Gruppe auswählen',
 	'SPECIAL_GROUPS'			=> 'Systemgruppen',

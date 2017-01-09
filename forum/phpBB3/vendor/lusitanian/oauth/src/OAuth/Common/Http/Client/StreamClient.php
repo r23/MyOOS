@@ -39,8 +39,8 @@ class StreamClient extends AbstractClient
             throw new \InvalidArgumentException('No body expected for "GET" request.');
         }
 
-        if (!isset($extraHeaders['Content-type']) && $method === 'POST' && is_array($requestBody)) {
-            $extraHeaders['Content-type'] = 'Content-type: application/x-www-form-urlencoded';
+        if (!isset($extraHeaders['Content-Type']) && $method === 'POST' && is_array($requestBody)) {
+            $extraHeaders['Content-Type'] = 'Content-Type: application/x-www-form-urlencoded';
         }
 
         $host = 'Host: '.$endpoint->getHost();
@@ -65,7 +65,10 @@ class StreamClient extends AbstractClient
         if (false === $response) {
             $lastError = error_get_last();
             if (is_null($lastError)) {
-                throw new TokenResponseException('Failed to request resource.');
+                throw new TokenResponseException(
+                    'Failed to request resource. HTTP Code: ' .
+                    ((isset($http_response_header[0]))?$http_response_header[0]:'No response')
+                );
             }
             throw new TokenResponseException($lastError['message']);
         }

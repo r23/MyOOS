@@ -102,6 +102,7 @@ $lang = array_merge($lang, array(
 	'ALLOW_TOPIC_NOTIFY'		=> 'Abonnieren von Themen erlauben',
 	'BOARD_PM'					=> 'Private Nachrichten',
 	'BOARD_PM_EXPLAIN'			=> 'Aktiviert Private Nachrichten für alle Benutzer.',
+	'ALLOW_BOARD_NOTIFICATIONS' => 'Board-Benachrichtigungen erlauben',
 ));
 
 // Avatar Settings
@@ -352,6 +353,8 @@ $lang = array_merge($lang, array(
 
 	'COOKIE_DOMAIN'				=> 'Cookie-Domain',
 	'COOKIE_NAME'				=> 'Cookie-Name',
+	'COOKIE_NOTICE'				=> 'Cookie-Hinweis',
+	'COOKIE_NOTICE_EXPLAIN'		=> 'Wenn aktiviert, wird den Besuchern deines Boards ein Cookie-Hinweis angezeigt. Dies kann abhängig der in deinem Land geltenden rechtlichen Regelungen, des Inhalts deines Boards und der aktivierten Erweiterungen notwendig sein.',
 	'COOKIE_PATH'				=> 'Cookie-Pfad',
 	'COOKIE_SECURE'				=> 'Sicherer Server',
 	'COOKIE_SECURE_EXPLAIN'		=> 'Falls dein Server über SSL läuft, aktiviere diese Option, ansonsten lass sie deaktiviert. Wenn diese Option aktiviert ist, obwohl der Server nicht über SSL aufgerufen wird, können Fehler bei der Weiterleitung auftreten.',
@@ -537,6 +540,8 @@ $lang = array_merge($lang, array(
 	'REFERRER_VALID_EXPLAIN'		=> 'Wenn aktiviert, wird der Referrer von POST-Anfragen gegen die Einstellungen des Hostnamen/Skript-Pfads geprüft. Dies kann bei Boards zu Problemen führen, die mehrere Domains oder eine externe Anmeldung nutzen.',
 	'TPL_ALLOW_PHP'					=> 'Erlaube PHP in Templates',
 	'TPL_ALLOW_PHP_EXPLAIN'			=> 'Wenn diese Option eingeschaltet ist, werden <code>PHP</code>- und <code>INCLUDEPHP</code>-Anweisungen in Templates erkannt und ausgeführt.',
+	'UPLOAD_CERT_VALID'				=> 'Zertifikat beim Hochladen validieren',
+	'UPLOAD_CERT_VALID_EXPLAIN'		=> 'Wenn diese Option eingeschaltet ist, werden Zertifikate beim Hochladen von Dateien validiert. Dazu ist es erforderlich, dass das CA-Bundel über die Einstellungen <samp>openssl.cafile</samp> oder <samp>curl.cainfo</samp> der php.ini definiert wird.',
 ));
 
 // Email Settings
@@ -561,6 +566,8 @@ $lang = array_merge($lang, array(
 	'EMAIL_SIG_EXPLAIN'				=> 'Dieser Text wird an alle E-Mails angehängt, die das Board versendet.',
 	'ENABLE_EMAIL'					=> 'Aktiviere E-Mail-Funktionalität',
 	'ENABLE_EMAIL_EXPLAIN'			=> 'Wenn dies deaktiviert ist, werden keinerlei E-Mails vom Board versendet. <em>Wenn eine Bestätigung der Registrierung durch den Benutzer oder einen Adminstrator erforderlich sein soll, darf diese Option nicht deaktiviert sein. Ansonsten ist keine Registrierung möglich.</em>',
+	'SEND_TEST_EMAIL'				=> 'Test-Mail senden',
+	'SEND_TEST_EMAIL_EXPLAIN'		=> 'Sendet eine Test-Mail an die in deinem Benutzerkonto hinterlegte Adresse.',
 	'SMTP_AUTH_METHOD'				=> 'Authentifizierungsmethode für SMTP',
 	'SMTP_AUTH_METHOD_EXPLAIN'		=> 'Nur benötigt, wenn ein Benutzername/Passwort eingegeben ist. Frage deinen Webhosting-Provider, falls du nicht sicher bist, welche Methode du wählen sollst.',
 	'SMTP_CRAM_MD5'					=> 'CRAM-MD5',
@@ -577,6 +584,7 @@ $lang = array_merge($lang, array(
 	'SMTP_SETTINGS'					=> 'SMTP-Einstellungen',
 	'SMTP_USERNAME'					=> 'SMTP-Benutzername',
 	'SMTP_USERNAME_EXPLAIN'			=> 'Gib nur einen Benutzernamen ein, wenn dein SMTP-Server dies erfordert.',
+	'TEST_EMAIL_SENT'				=> 'Die Test-Mail wurde gesendet.<br />Falls du sie nicht erhalten solltest, prüfe bitte deine E-Mail-Konfiguration.<br /><br />Wenn du Unterstützung brauchst, besuche die <a href="https://www.phpbb.com/community/">phpBB-Support-Foren (englisch)</a> (<a href="https://www.phpbb.de/go/3.2/supportforum">deutschsprachiges Forum auf phpBB.de</a>).',
 	'USE_SMTP'						=> 'SMTP-Server für E-Mail nutzen',
 	'USE_SMTP_EXPLAIN'				=> 'Wähle „Ja“ aus, wenn du E-Mails über einen SMTP-Server senden möchtest (oder musst), anstatt die PHP-eigene Mail-Funktion zu nutzen.',
 ));

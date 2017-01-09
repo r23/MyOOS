@@ -150,7 +150,7 @@ $lang = array_merge($lang, array(
 
 	'PARENT_IS_LINK_FORUM'		=> 'Das übergeordnete Forum, das Sie ausgewählt haben, ist ein Forums-Link. Ein Forums-Link kann keine Unterforen enthalten. Bitte wählen Sie ein Forum oder eine Kategorie als übergeordnetes Forum aus.',
 	'PARENT_NOT_EXIST'			=> 'Übergeordnetes Forum existiert nicht.',
-	'PRUNE_ANNOUNCEMENTS'		=> 'Ankündigungen automatisch löschen',
+	'PRUNE_ANNOUNCEMENTS'		=> 'Bekanntmachungen automatisch löschen',
 	'PRUNE_STICKY'				=> 'Wichtige Themen automatisch löschen',
 	'PRUNE_OLD_POLLS'			=> 'Abgeschlossene Umfragen automatisch löschen',
 	'PRUNE_OLD_POLLS_EXPLAIN'	=> 'Löscht Themen mit Umfragen, in denen im angegebenen Zeitraum keine Abstimmung erfolgte.',
