@@ -70,6 +70,12 @@ class PiwikTracker
     const CVAR_INDEX_ECOMMERCE_ITEM_NAME = 4;
     const CVAR_INDEX_ECOMMERCE_ITEM_CATEGORY = 5;
 
+    /**
+     * Defines how many categories can be used max when calling addEcommerceItem().
+     * @var int
+     */
+    const MAX_NUM_ECOMMERCE_ITEM_CATEGORIES = 5;
+
     const DEFAULT_COOKIE_PATH = '/';
 
     /**
@@ -105,6 +111,7 @@ class PiwikTracker
         $this->localHour = false;
         $this->localMinute = false;
         $this->localSecond = false;
+        $this->idPageview = false;
 
         $this->idSite = $idSite;
         $this->urlReferrer = !empty($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : false;
@@ -545,9 +552,16 @@ class PiwikTracker
      */
     public function doTrackPageView($documentTitle)
     {
+        $this->generateNewPageviewId();
+
         $url = $this->getUrlTrackPageView($documentTitle);
 
         return $this->sendRequest($url);
+    }
+
+    private function generateNewPageviewId()
+    {
+        $this->idPageview = substr(md5(uniqid(rand(), true)), 0, 6);
     }
 
     /**
@@ -1102,9 +1116,10 @@ class PiwikTracker
      * By default Piwik will track requests for the "current datetime" but this function allows you
      * to track visits in the past. All times are in UTC.
      *
-     * Allowed only for Super User, must be used along with setTokenAuth()
+     * Allowed only for Admin/Super User, must be used along with setTokenAuth()
      * @see setTokenAuth()
-     * @param string $dateTime Date with the format 'Y-m-d H:i:s', or a UNIX timestamp
+     * @param string $dateTime Date with the format 'Y-m-d H:i:s', or a UNIX timestamp. 
+     *               If the datetime is older than one day (default value for tracking_requests_require_authentication_when_custom_timestamp_newer_than), then you must call setTokenAuth() with a valid Admin/Super user token.
      * @return $this
      */
     public function setForceVisitDateTime($dateTime)
@@ -1129,7 +1144,7 @@ class PiwikTracker
     /**
      * Overrides IP address
      *
-     * Allowed only for Super User, must be used along with setTokenAuth()
+     * Allowed only for Admin/Super User, must be used along with setTokenAuth()
      * @see setTokenAuth()
      * @param string $ip IP string, eg. 130.54.2.1
      * @return $this
@@ -1453,6 +1468,29 @@ class PiwikTracker
     }
 
     /**
+     * If a proxy is needed to look up the address of the Piwik site, set it with this
+     * @param string $proxy IP as string, for example "173.234.92.107"
+     * @param int $proxyPort
+     */
+    public function setProxy($proxy, $proxyPort = 80)
+    {
+        $this->proxy = $proxy;
+        $this->proxyPort = $proxyPort;
+    }
+
+    /**
+     * If the proxy IP and the proxy port have been set, with the setProxy() function
+     * returns a string, like "173.234.92.107:80"
+     */
+    private function getProxy()
+    {
+        if (isset($this->proxy) && isset($this->proxyPort)) {
+            return $this->proxy.":".$this->proxyPort;
+        }
+        return null;
+    }
+
+    /**
      * Used in tests to output useful error messages.
      *
      * @ignore
@@ -1482,6 +1520,8 @@ class PiwikTracker
             return true;
         }
 
+        $proxy = $this->getProxy();
+
         if (function_exists('curl_init') && function_exists('curl_exec')) {
             $options = array(
                 CURLOPT_URL => $url,
@@ -1496,6 +1536,10 @@ class PiwikTracker
 
             if (defined('PATH_TO_CERTIFICATES_FILE')) {
                 $options[CURLOPT_CAINFO] = PATH_TO_CERTIFICATES_FILE;
+            }
+
+            if (isset($proxy)) {
+                $options[CURLOPT_PROXY] = $proxy;
             }
 
             switch ($method) {
@@ -1522,26 +1566,30 @@ class PiwikTracker
             if (!empty($response)) {
                 list($header, $content) = explode("\r\n\r\n", $response, $limitCount = 2);
             }
-        } else {
-            if (function_exists('stream_context_create')) {
-                $stream_options = array(
-                    'http' => array(
-                        'method' => $method,
-                        'user_agent' => $this->userAgent,
-                        'header' => "Accept-Language: " . $this->acceptLanguage . "\r\n",
-                        'timeout' => $this->requestTimeout, // PHP 5.2.1
-                    ),
-                );
 
-                // only supports JSON data
-                if (!empty($data)) {
-                    $stream_options['http']['header'] .= "Content-Type: application/json \r\n";
-                    $stream_options['http']['content'] = $data;
-                }
-                $ctx = stream_context_create($stream_options);
-                $response = file_get_contents($url, 0, $ctx);
-                $content = $response;
+        } elseif (function_exists('stream_context_create')) {
+            $stream_options = array(
+                'http' => array(
+                    'method' => $method,
+                    'user_agent' => $this->userAgent,
+                    'header' => "Accept-Language: " . $this->acceptLanguage . "\r\n",
+                    'timeout' => $this->requestTimeout, // PHP 5.2.1
+                ),
+            );
+
+            if (isset($proxy)) {
+                $stream_options['http']['proxy'] = $proxy;
             }
+
+            // only supports JSON data
+            if (!empty($data)) {
+                $stream_options['http']['header'] .= "Content-Type: application/json \r\n";
+                $stream_options['http']['content'] = $data;
+            }
+
+            $ctx = stream_context_create($stream_options);
+            $response = file_get_contents($url, 0, $ctx);
+            $content = $response;
         }
 
         return $content;
@@ -1603,7 +1651,7 @@ class PiwikTracker
                 '&XDEBUG_SESSION_START=' . @urlencode($_GET['XDEBUG_SESSION_START']) : '') .
             (!empty($_GET['KEY']) ? '&KEY=' . @urlencode($_GET['KEY']) : '') .
 
-            // Only allowed for Super User, token_auth required,
+            // Only allowed for Admin/Super User, token_auth required,
             (!empty($this->ip) ? '&cip=' . $this->ip : '') .
             (!empty($this->userId) ? '&uid=' . urlencode($this->userId) : '') .
             (!empty($this->forcedDatetime) ? '&cdt=' . urlencode($this->forcedDatetime) : '') .
@@ -1638,6 +1686,9 @@ class PiwikTracker
             '&urlref=' . urlencode($this->urlReferrer) .
             ((!empty($this->pageCharset) && $this->pageCharset != self::DEFAULT_CHARSET_PARAMETER_VALUES) ?
                 '&cs=' . $this->pageCharset : '') .
+
+            // unique pageview id
+            (!empty($this->idPageview) ? '&pv_id=' . urlencode($this->idPageview) : '') .
 
             // Attribution information, so that Goal conversions are attributed to the right referrer or campaign
             // Campaign name
