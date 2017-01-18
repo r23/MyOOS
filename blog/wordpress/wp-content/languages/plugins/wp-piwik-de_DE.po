@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WP-Piwik - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-11-12 15:59:01+0000\n"
+"PO-Revision-Date: 2017-01-17 09:26:28+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,7 +17,7 @@ msgstr "WP-Piwik %s konnte keine Seiten mit mindestens Lesezugriff holen: <br />
 
 #: classes/WP_Piwik/Admin/Settings.php:305
 msgid "Disable SSL host verification"
-msgstr "Deaktiviere SSL-Host-Prüfung"
+msgstr "SSL-Host-Prüfung deaktivieren."
 
 #: classes/WP_Piwik/Admin/Settings.php:280
 msgid "When a user is logged in to WordPress, track their &quot;User ID&quot;. You can select which field from the User's profile is tracked as the &quot;User ID&quot;. When enabled, Tracking based on Email Address is recommended."
@@ -33,15 +33,15 @@ msgstr "Benutzername"
 
 #: classes/WP_Piwik/Admin/Settings.php:277
 msgid "Email Address"
-msgstr "E-Mail Adresse"
+msgstr "E-Mail-Adresse"
 
 #: classes/WP_Piwik/Admin/Settings.php:276
 msgid "WP User ID"
-msgstr "WP User-ID"
+msgstr "WP-User-ID"
 
 #: classes/WP_Piwik/Admin/Settings.php:274
 msgid "User ID Tracking"
-msgstr "User-ID Tracking"
+msgstr "User-ID-Tracking"
 
 #: classes/WP_Piwik/Widget.php:328
 msgid "last 30 days"
@@ -89,7 +89,7 @@ msgstr "Andr&eacute; Br&auml;kling"
 
 #. Description of the plugin/theme
 msgid "Adds Piwik stats to your dashboard menu and Piwik code to your wordpress header."
-msgstr "Fügt Piwik-Statistiken zu Deinem Dashboard-Menü und den Piwik-Code zu deinem WordPress-Header hinzu."
+msgstr "Fügt Piwik-Statistiken zu deinem Dashboard-Menü und den Piwik-Code zu deinem WordPress-Header hinzu."
 
 #. Plugin URI of the plugin/theme
 msgid "http://wordpress.org/extend/plugins/wp-piwik/"
@@ -103,7 +103,7 @@ msgstr "WP-Piwik"
 msgid "WP-Piwik requires at least PHP 5.3. You are using the deprecated version %s. Please update PHP to use WP-Piwik."
 msgstr "WP-Piwik ben&ouml;tigt mindestens PHP 5.3. Du verwendest die veraltete Version %s. Bitte aktualisiere PHP, um WP-Piwik zu nutzen."
 
-#: classes/WP_Piwik.php:1198
+#: classes/WP_Piwik.php:1200
 msgid "Cheatin&#8217; uh?"
 msgstr "Schummeln, was?"
 
@@ -117,7 +117,7 @@ msgstr "WP-Piwik konfigurieren"
 
 #: classes/WP_Piwik.php:357 classes/WP_Piwik.php:379
 msgid "Piwik Statistics"
-msgstr "Piwik Statistiken"
+msgstr "Piwik-Statistiken"
 
 #: classes/WP_Piwik.php:263
 msgid "Important"
@@ -502,11 +502,11 @@ msgstr "WP-Piwik Support-Forum"
 
 #: classes/WP_Piwik/Admin/Settings.php:571
 msgid "The best place to get help:"
-msgstr "Der beste Platz, um Hilfe zu bekommen:"
+msgstr "Die beste Anlaufstelle für Hilfe:"
 
 #: classes/WP_Piwik/Admin/Settings.php:562
 msgid "Thank <strong>you</strong> for using my plugin. It is the best commendation if my piece of code is really used!"
-msgstr "Vielen Dank an <strong>Dich</strong> f&uuml;r die Nutzung meines Plugins. Es ist das gr&ouml;&szlig;te Lob, wenn mein Code tats&auml;chlich benutzt wird!"
+msgstr "Vielen Dank an <strong>dich</strong> f&uuml;r die Nutzung meines Plugins. Es ist das gr&ouml;&szlig;te Lob, wenn mein Code tats&auml;chlich benutzt wird!"
 
 #: classes/WP_Piwik/Admin/Settings.php:561
 msgid "Thank you very much, all users who send me mails containing criticism, commendation, feature requests and bug reports! You help me to make WP-Piwik much better."
@@ -636,7 +636,7 @@ msgstr "Nicht empfohlen"
 
 #: classes/WP_Piwik/Admin/Settings.php:304
 msgid "Disable SSL peer verification"
-msgstr "SSL Peer-Verifikation deaktivieren"
+msgstr "SSL-Peer-Verifikation deaktivieren"
 
 #: classes/WP_Piwik/Admin/Settings.php:302
 msgid "Connection timeout"
@@ -704,7 +704,7 @@ msgstr "Aktiviere den Heartbeat-Timer, um genauere Besuchszeiten zu erhalten, in
 
 #: classes/WP_Piwik/Admin/Settings.php:272
 msgid "Enable heartbeat timer"
-msgstr "Aktiviere Heartbeat-Timer"
+msgstr "Heartbeat-Timer aktivieren"
 
 #: classes/WP_Piwik/Admin/Settings.php:270
 msgid "Keyword: post name."
@@ -800,7 +800,7 @@ msgstr "Zeige eine Eingabebox für &quot;custom variables&quot; auf der Seite zu
 
 #: classes/WP_Piwik/Admin/Settings.php:239
 msgid "Show custom variables box"
-msgstr "Zeige Custom-Variables-Box"
+msgstr "Custom-Variables-Box anzeigen"
 
 #: classes/WP_Piwik/Admin/Settings.php:237
 msgid "Add a Piwik annotation on each new post."
@@ -824,7 +824,7 @@ msgstr "Nutze Piwiks Site Search Funktion, um interne Suchen zu tracken."
 
 #: classes/WP_Piwik/Admin/Settings.php:233
 msgid "Track search"
-msgstr "Tracke Suchanfragen"
+msgstr "Suchanfragen tracken"
 
 #: classes/WP_Piwik/Admin/Settings.php:231
 #: classes/WP_Piwik/Admin/Settings.php:233
@@ -843,23 +843,23 @@ msgstr "Das Content-Tracking ermöglicht dir, Interaktionen mit dem Inhalt einer
 
 #: classes/WP_Piwik/Admin/Settings.php:230
 msgid "Track only visible content blocks"
-msgstr "Tracke nur sichtbare Content-Bereiche"
+msgstr "Nur sichtbare Content-Bereiche tracken"
 
 #: classes/WP_Piwik/Admin/Settings.php:229
 msgid "Track all content blocks"
-msgstr "Tracke alle Content-Bereiche"
+msgstr "Alle Content-Bereiche tracken"
 
 #: classes/WP_Piwik/Admin/Settings.php:227
 msgid "Enable content tracking"
-msgstr "Aktiviere Content-Tracking"
+msgstr "Content-Tracking aktivieren"
 
 #: classes/WP_Piwik/Admin/Settings.php:225
 msgid "Enable tracking for visitors without JavaScript (not recommended)."
-msgstr "Aktiviere das Tracking für Besucher ohne JavaScript (nicht empfohlen)."
+msgstr "Tracking für Besucher ohne JavaScript aktivieren (nicht empfohlen)."
 
 #: classes/WP_Piwik/Admin/Settings.php:225
 msgid "Add rec parameter to noscript code"
-msgstr "F&uuml;ge rec-Parameter zum noscript Code hinzu"
+msgstr "Den rec-Parameter zum noscript Code hinzufügen."
 
 #: classes/WP_Piwik/Admin/Settings.php:223
 #: classes/WP_Piwik/Admin/Settings.php:225
@@ -872,7 +872,7 @@ msgstr "F&uuml;gt den &lt;noscript&gt;-Code im Footer ein."
 
 #: classes/WP_Piwik/Admin/Settings.php:223
 msgid "Add &lt;noscript&gt;"
-msgstr "F&uuml;ge &lt;noscript&gt; hinzu"
+msgstr "&lt;noscript&gt; hinzufügen"
 
 #: classes/WP_Piwik/Admin/Settings.php:221
 msgid "Noscript code"
@@ -928,7 +928,7 @@ msgstr "Verwende diesen Tracking-Code, um die URL deines Piwik-Servers nicht off
 #: classes/WP_Piwik/Admin/Settings.php:205
 #: classes/WP_Piwik/Admin/Settings.php:210
 msgid "Use proxy script"
-msgstr "Verwende Proxy-Skript"
+msgstr "Proxy-Skript verwenden"
 
 #: classes/WP_Piwik/Admin/Settings.php:205
 msgid "See %sreadme file%s."
@@ -941,7 +941,7 @@ msgstr "Du kannst diesen Tracking-Code w&auml;hlen, um einen minimierten Proxy-C
 #: classes/WP_Piwik/Admin/Settings.php:205
 #: classes/WP_Piwik/Admin/Settings.php:209
 msgid "Use js/index.php"
-msgstr "Nutze js/index.php"
+msgstr "Die Datei js/index.php benutzen"
 
 #: classes/WP_Piwik/Admin/Settings.php:205
 msgid "WP-Piwik will use Piwik's standard tracking code."
@@ -962,11 +962,11 @@ msgstr "Du kannst zwischen vier Tracking-Code-Varianten wählen:"
 
 #: classes/WP_Piwik/Admin/Settings.php:194
 msgid "Enable shortcodes in post or page content."
-msgstr "Aktiviere Shortcodes innerhalb von Artikeln und Seiten."
+msgstr "Shortcodes innerhalb von Artikeln und Seiten aktivieren."
 
 #: classes/WP_Piwik/Admin/Settings.php:194
 msgid "Enable shortcodes"
-msgstr "Aktiviere Shortcodes"
+msgstr "Shortcodes aktivieren"
 
 #: classes/WP_Piwik/Admin/Settings.php:192
 msgid "Plugin name shown in WordPress."
@@ -986,11 +986,11 @@ msgstr "Piwik-Verlinkung"
 
 #: classes/WP_Piwik/Admin/Settings.php:188
 msgid "Show stats about single posts at the post edit admin page."
-msgstr "Zeige Statistiken zu einzelnen Beitr&auml;gen auf der Bearbeiten-Seite."
+msgstr "Statistiken zu einzelnen Beitr&auml;gen auf der Bearbeiten-Seite anzeigen."
 
 #: classes/WP_Piwik/Admin/Settings.php:188
 msgid "Show per post stats"
-msgstr "Zeige Beitrags-Statistiken"
+msgstr "Beitrags-Statistiken anzeigen"
 
 #: classes/WP_Piwik/Admin/Settings.php:186
 msgid "Choose user roles allowed to see the statistics page."
@@ -998,19 +998,19 @@ msgstr "W&auml;hle diejenigen Nutzerrollen, die sich die Statistiken ansehen d&u
 
 #: classes/WP_Piwik/Admin/Settings.php:179
 msgid "Display stats to"
-msgstr "Zeige Statistiken für"
+msgstr "Statistiken anzeigen für"
 
 #: classes/WP_Piwik/Admin/Settings.php:177
 msgid "Display a last 30 days visitor graph on WordPress' toolbar."
-msgstr "Zeige einen Besuchergraph der letzten 30 Tage in der WordPress' Toolbar."
+msgstr "Besuchergraph der letzten 30 Tage in der WordPress-Werkzeugleiste anzeigen."
 
 #: classes/WP_Piwik/Admin/Settings.php:177
 msgid "Show graph on WordPress Toolbar"
-msgstr "Zeige einen Graphen in der WordPress Toolbar"
+msgstr "Graphen in der WordPress-Werkzeugleiste anzeigen"
 
 #: classes/WP_Piwik/Admin/Settings.php:175
 msgid "Enable WP-Piwik dashboard widget &quot;SEO&quot;."
-msgstr "Aktiviere das WP-Piwik Dashboard Widget &quot;SEO&quot;."
+msgstr "WP-Piwik Dashboard-Widget &quot;SEO&quot; aktivieren."
 
 #: classes/WP_Piwik/Admin/Settings.php:175
 msgid "Dashboard SEO"
@@ -1018,7 +1018,7 @@ msgstr "Dashboard SEO"
 
 #: classes/WP_Piwik/Admin/Settings.php:173
 msgid "Enable WP-Piwik dashboard widget &quot;Graph&quot;."
-msgstr "Aktiviere das WP-Piwik Dashboard Widget &quot;Graph&quot;."
+msgstr "WP-Piwik Dashboard Widget &quot;Graph&quot; aktivieren."
 
 #: classes/WP_Piwik/Admin/Settings.php:173
 msgid "Dashboard graph"
@@ -1026,7 +1026,7 @@ msgstr "Dashboard-Graph"
 
 #: classes/WP_Piwik/Admin/Settings.php:171
 msgid "Enable WP-Piwik dashboard widget &quot;Overview&quot;."
-msgstr "Aktiviere das WP-Piwik Dashboard Widget &quot;Übersicht&quot;."
+msgstr "WP-Piwik Dashboard-Widget &quot;Übersicht&quot; aktivieren."
 
 #: classes/WP_Piwik/Admin/Settings.php:170
 msgid "Last 30 days"
@@ -1052,11 +1052,11 @@ msgstr "Langsam!"
 
 #: classes/WP_Piwik/Admin/Settings.php:164
 msgid "Display SEO ranking data on statistics page."
-msgstr "Zeige SEO-Ranking-Daten auf der Statistiken-Seite."
+msgstr "SEO-Ranking-Daten auf der Statistik-Seite anzeigen."
 
 #: classes/WP_Piwik/Admin/Settings.php:164
 msgid "Show SEO data"
-msgstr "Zeige SEO-Daten"
+msgstr "SEO-Daten anzeigen"
 
 #: classes/WP_Piwik/Admin/Settings.php:162
 msgid "Default date shown on statistics page."
@@ -1094,7 +1094,7 @@ msgstr "Piwik Standard-Datum"
 
 #: classes/WP_Piwik/Admin/Settings.php:146
 msgid "Select site"
-msgstr "W&auml;hle die Seite"
+msgstr "Webite auswählen"
 
 #: classes/WP_Piwik/Admin/Settings.php:141
 msgid "Determined site"
@@ -1114,11 +1114,11 @@ msgstr "Siehe %sdie WP-Piwik FAQ%s"
 
 #: classes/WP_Piwik/Admin/Settings.php:122
 msgid "Enter your Piwik auth token here. It is an alphanumerical code like 0a1b2c34d56e78901fa2bc3d45678efa."
-msgstr "Gib hier dein Piwik Auth Token an. Es ist ein alphanumerische Code wie 0a1b2c34d56e78901fa2bc3d45678efa."
+msgstr "Gib hier dein Piwik-Auth-Token an. Dies ist ein alphanumerischer Code wie z.B. 0a1b2c34d56e78901fa2bc3d45678efa."
 
 #: classes/WP_Piwik/Admin/Settings.php:122
 msgid "Auth token"
-msgstr "Auth Token"
+msgstr "Auth-Token"
 
 #: classes/WP_Piwik/Admin/Settings.php:121
 msgid "Enter your Piwik Pro username. It is also part of your URL: http://USERNAME.piwik.pro."
@@ -1222,11 +1222,11 @@ msgstr "Experten-Konfiguration"
 
 #: classes/WP_Piwik/Admin/Settings.php:80
 msgid "Enable Tracking"
-msgstr "Aktiviere Tracking"
+msgstr "Tracking aktivieren"
 
 #: classes/WP_Piwik/Admin/Settings.php:76
 msgid "Show Statistics"
-msgstr "Zeige Statistiken"
+msgstr "Statistiken anzeigen"
 
 #: classes/WP_Piwik/Admin/Settings.php:71
 msgid "Connect to Piwik"

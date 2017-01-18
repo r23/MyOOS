@@ -1,5 +1,5 @@
-# Translation of WordPress - Development - Administration - Network Admin in German
-# This file is distributed under the same license as the WordPress - Development - Administration - Network Admin package.
+# Translation of WordPress - 4.7.x - Administration - Network Admin in German
+# This file is distributed under the same license as the WordPress - 4.7.x - Administration - Network Admin package.
 msgid ""
 msgstr ""
 "PO-Revision-Date: 2016-12-21 20:51:26+0000\n"
@@ -9,7 +9,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/2.3.0-alpha\n"
 "Language: de\n"
-"Project-Id-Version: WordPress - Development - Administration - Network Admin\n"
+"Project-Id-Version: WordPress - 4.7.x - Administration - Network Admin\n"
 
 #: wp-admin/network/index.php:51 wp-admin/network/site-info.php:31
 #: wp-admin/network/site-new.php:30 wp-admin/network/site-settings.php:30
