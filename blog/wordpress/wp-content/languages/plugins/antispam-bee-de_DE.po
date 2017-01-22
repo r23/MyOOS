@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Antispam Bee - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-01-08 03:08:43+0000\n"
+"PO-Revision-Date: 2017-01-21 10:53:15+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,7 +21,7 @@ msgstr "pluginkollektiv"
 
 #. Description of the plugin/theme
 msgid "Easy and extremely productive spam-fighting plugin with many sophisticated solutions. Includes protection again trackback spam."
-msgstr "Simples, äußerst effektives Plugin zur Bekämpfung von Spam-Kommentaren. Datenschutzkonform, funktionsreich und unkompliziert."
+msgstr "Simples und äußerst effektives Antispam-Plugin mit vielen raffinierten Lösungen. Einschließlich Schutz gegen Trackback-Spam und Datenschutzhinweisen."
 
 #. Plugin URI of the plugin/theme
 msgid "https://wordpress.org/plugins/antispam-bee/"
@@ -85,7 +85,7 @@ msgstr "Bei definierten Spamgründen sofort löschen"
 
 #: inc/gui.class.php:295
 msgid "Other types of spam will be deleted immediately"
-msgstr "Spam anderes Typs unterliegt sofortiger Löschung"
+msgstr "Andere Spam-Typen werden sofort gelöscht"
 
 #: inc/gui.class.php:285
 msgid "Limit approval to %s"
@@ -105,7 +105,7 @@ msgstr "Verdachtsgrund-Spalte in der Spam-Übersicht"
 
 #: inc/gui.class.php:265
 msgid "Not save the spam reason"
-msgstr "Spamgrund zum Kommentar nicht speichern"
+msgstr "Spamgrund des Kommentars nicht speichern"
 
 #: inc/gui.class.php:258
 msgid "Notify admins by e-mail about incoming spam"
@@ -121,7 +121,7 @@ msgstr "Markierung als Spam / Aufbewahrung im Blog"
 
 #: inc/gui.class.php:249
 msgid "Mark as spam, do not delete"
-msgstr "Erkannten Spam kennzeichnen, nicht löschen"
+msgstr "Erkannten Spam markieren, nicht löschen"
 
 #: inc/gui.class.php:242
 msgid "Other antispam tools"
@@ -157,7 +157,7 @@ msgstr "Reguläre Ausdrücke anwenden"
 
 #: inc/gui.class.php:206
 msgid "Validity check for used ip address"
-msgstr "Kontrolle auf Gültigkeit verwendeter Kennung"
+msgstr "Gültigkeitsprüfung der verwendeten IP-Adresse"
 
 #: inc/gui.class.php:205
 msgid "Validate the ip address of commenters"
@@ -245,7 +245,7 @@ msgstr "Autor"
 
 #: antispam_bee.php:2199
 msgid "New spam comment on your post"
-msgstr "Neuer Spam zum Artikel"
+msgstr "Neuer Spam-Kommentar zu deinem Beitrag"
 
 #: antispam_bee.php:2192
 msgid "Content removed by Antispam Bee"
