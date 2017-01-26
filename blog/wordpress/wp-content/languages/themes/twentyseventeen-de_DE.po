@@ -1,0 +1,328 @@
+# Translation of Themes - Twenty Seventeen in German
+# This file is distributed under the same license as the Themes - Twenty Seventeen package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2016-12-06 18:48:40+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.0-alpha\n"
+"Language: de\n"
+"Project-Id-Version: Themes - Twenty Seventeen\n"
+
+#. Description of the plugin/theme
+msgid "Twenty Seventeen brings your site to life with header video and immersive featured images. With a focus on business sites, it features multiple sections on the front page as well as widgets, navigation and social menus, a logo, and more. Personalize its asymmetrical grid with a custom color scheme and showcase your multimedia content with post formats. Our default theme for 2017 works great in many languages, for any abilities, and on any device."
+msgstr "Twenty Seventeen bringt Leben in deine Website durch ein Header-Video und beeindruckende Beitragsbilder. Mit einem Fokus auf Business-Websites zeichnet sich die Startseite durch mehrere Inhalts-Abschnitte aus, ebenso wie Widgets, Navigations- und Social-Menüs, einem Logo und vielem mehr. Gestalte das asymmetrische Raster des Themes in eigenen Farben und präsentiere deine multimedialen Inhalte in entsprechenden Beitragsformaten. Unser Standard-Theme für 2017 funktioniert großartig in vielen Sprachen, für jede Anwendergruppe und auf allen Geräten."
+
+#. Theme Name of the plugin/theme
+msgid "Twenty Seventeen"
+msgstr "Twenty Seventeen"
+
+#: template-parts/header/site-branding.php:31
+#: template-parts/navigation/navigation-top.php:20
+msgid "Scroll down to content"
+msgstr "Zum Inhalt nach unten scrollen"
+
+#: functions.php:159
+msgctxt "Theme starter content"
+msgid "Coffee"
+msgstr "Kaffee"
+
+#: functions.php:155
+msgctxt "Theme starter content"
+msgid "Sandwich"
+msgstr "Sandwich"
+
+#: functions.php:151
+msgctxt "Theme starter content"
+msgid "Espresso"
+msgstr "Espresso"
+
+#: inc/custom-header.php:117
+msgid "Pause background video"
+msgstr "Hintergrund-Video pausieren"
+
+#: inc/custom-header.php:116
+msgid "Play background video"
+msgstr "Hintergrund-Video abspielen"
+
+#: inc/template-tags.php:154
+msgid "Front Page Section %1$s Placeholder"
+msgstr "Platzhalter für Startseiten-Abschnitt %1$s"
+
+#: inc/customizer.php:80
+msgid "When the two column layout is assigned, the page title is in one column and content is in the other."
+msgstr "Wenn das Zwei-Spalten-Layout gewählt wird, erscheint der Seitentitel in einer Spalte und der Inhalt in der anderen."
+
+#: single.php:32
+msgid "Next Post"
+msgstr "Nächster Beitrag"
+
+#: index.php:27
+msgid "Posts"
+msgstr "Beiträge"
+
+#: inc/template-tags.php:88
+msgid "Tags"
+msgstr "Schlagwörter"
+
+#: inc/template-tags.php:84
+msgid "Categories"
+msgstr "Kategorien"
+
+#. translators: used between list items, there is a space after the comma
+#: inc/template-tags.php:65
+msgid ", "
+msgstr ", "
+
+#. translators: %s: post date
+#: inc/template-tags.php:51
+msgid "<span class=\"screen-reader-text\">Posted on</span> %s"
+msgstr "<span class=\"screen-reader-text\">Veröffentlicht am</span> %s"
+
+#. translators: %s: post author
+#: inc/template-tags.php:21
+msgid "by %s"
+msgstr "von %s"
+
+#: inc/icon-functions.php:44
+msgid "Please define an SVG icon filename."
+msgstr "Bitte definiere einen SVG-Icon-Dateinamen."
+
+#: inc/icon-functions.php:39
+msgid "Please define default parameters in the form of an array."
+msgstr "Bitte definiere Standard-Parameter in Form eines Arrays."
+
+#: inc/customizer.php:108
+msgid "Select pages to feature in each area from the dropdowns. Add an image to a section by setting a featured image in the page editor. Empty sections will not be displayed."
+msgstr "Wähle die Seiten für jeden Abschnitt über das Drop-down-Menü. Du kannst einem Abschnitt ein Bild hinzufügen, indem du im Editor für die Seite ein Beitragsbild festlegst. Leere Abschnitte werden nicht dargestellt."
+
+#. translators: %d is the front page section number
+#: inc/customizer.php:107
+msgid "Front Page Section %d Content"
+msgstr "Inhalt im Startseiten-Abschnitt %d"
+
+#: inc/customizer.php:83 inc/customizer.php:130
+msgid "Two Column"
+msgstr "Zwei Spalten"
+
+#: inc/customizer.php:82 inc/customizer.php:129
+msgid "One Column"
+msgstr "Eine Spalte"
+
+#: inc/customizer.php:77
+msgid "Page Layout"
+msgstr "Seitenlayout"
+
+#: inc/customizer.php:66
+msgid "Theme Options"
+msgstr "Theme-Optionen"
+
+#: inc/customizer.php:50
+msgid "Custom"
+msgstr "Individuell"
+
+#: inc/customizer.php:48
+msgid "Light"
+msgstr "Hell"
+
+#: inc/customizer.php:46
+msgid "Color Scheme"
+msgstr "Farbschema"
+
+#: inc/custom-header.php:49
+msgid "Default Header Image"
+msgstr "Standard Header-Bild"
+
+#: functions.php:335
+msgid "Footer 2"
+msgstr "Footer 2"
+
+#: functions.php:327 functions.php:337
+msgid "Add widgets here to appear in your footer."
+msgstr "Widgets hier hinzufügen, um sie im Footer anzuzeigen."
+
+#: functions.php:325
+msgid "Footer 1"
+msgstr "Footer 1"
+
+#: functions.php:269
+msgctxt "Libre Franklin font: on or off"
+msgid "on"
+msgstr "on"
+
+#: functions.php:63 functions.php:183
+#: template-parts/navigation/navigation-top.php:12
+msgid "Top Menu"
+msgstr "Oberes Menü"
+
+#: comments.php:60
+msgid "Reply"
+msgstr "Antworten"
+
+#: template-parts/post/content-none.php:27
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgstr "Es sieht so aus, als ob wir nicht das finden konnten, wonach du gesucht hast. Möglicherweise hilft eine Suche."
+
+#: search.php:50
+msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgstr "Es gibt keine passenden Suchergebnisse. Bitte versuche es mit anderen Suchbegriffen."
+
+#: template-parts/post/content-none.php:23
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr "Bereit, deinen ersten Beitrag zu veröffentlichen? <a href=\"%1$s\">Starte hier</a>."
+
+#: search.php:21 template-parts/post/content-none.php:17
+msgid "Nothing Found"
+msgstr "Nichts gefunden"
+
+#: single.php:31
+msgid "Previous Post"
+msgstr "Vorheriger Beitrag"
+
+#: comments.php:66 single.php:31
+msgid "Previous"
+msgstr "Zurück"
+
+#: comments.php:67 single.php:32
+msgid "Next"
+msgstr "Weiter"
+
+#: searchform.php:19
+msgctxt "submit button"
+msgid "Search"
+msgstr "Suche"
+
+#: searchform.php:18
+msgctxt "placeholder"
+msgid "Search &hellip;"
+msgstr "Suche&#160;&hellip;"
+
+#: searchform.php:16
+msgctxt "label"
+msgid "Search for:"
+msgstr "Suche nach:"
+
+#: search.php:19
+msgid "Search Results for: %s"
+msgstr "Suchergebnisse für: %s"
+
+#. translators: %s: Name of current post
+#: functions.php:362 template-parts/page/content-front-page-panels.php:43
+#: template-parts/page/content-front-page.php:44
+#: template-parts/post/content-audio.php:80
+#: template-parts/post/content-gallery.php:66
+#: template-parts/post/content-image.php:56
+#: template-parts/post/content-video.php:78 template-parts/post/content.php:54
+msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr "<span class=\"screen-reader-text\">\"%s\"</span> weiterlesen"
+
+#: inc/customizer.php:49
+msgid "Dark"
+msgstr "Dunkel"
+
+#: inc/back-compat.php:39 inc/back-compat.php:51 inc/back-compat.php:66
+msgid "Twenty Seventeen requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again."
+msgstr "Twenty Sixteen benötigt mindestens WordPress-Version 4.7. Du verwendest Version %s. Bitte aktualisiere und versuche es erneut."
+
+#. translators: %s: Name of current post
+#: inc/template-tags.php:117
+msgid "Edit<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr "<span class=\"screen-reader-text\">&#8222;%s&#8220;</span> bearbeiten"
+
+#: template-parts/page/content-page.php:25
+#: template-parts/post/content-audio.php:85
+#: template-parts/post/content-gallery.php:71
+#: template-parts/post/content-image.php:61
+#: template-parts/post/content-video.php:83 template-parts/post/content.php:59
+msgid "Pages:"
+msgstr "Seiten:"
+
+#: template-parts/navigation/navigation-top.php:13
+msgid "Menu"
+msgstr "Menü"
+
+#: header.php:27
+msgid "Skip to content"
+msgstr "Zum Inhalt springen"
+
+#: functions.php:445
+msgid "Collapse child menu"
+msgstr "Untermenü verbergen"
+
+#: functions.php:444
+msgid "Expand child menu"
+msgstr "Untermenü anzeigen"
+
+#: functions.php:317
+msgid "Add widgets here to appear in your sidebar."
+msgstr "Widgets hier hinzufügen, um sie in die Seitenleiste einzubauen."
+
+#: functions.php:315
+msgid "Sidebar"
+msgstr "Seitenleiste"
+
+#: functions.php:64 functions.php:194
+msgid "Social Links Menu"
+msgstr "Social-Links-Menü"
+
+#: template-parts/footer/site-info.php:13
+msgid "Proudly powered by %s"
+msgstr "Stolz präsentiert von %s"
+
+#. #-#-#-#-#  twentyseventeen.pot (Twenty Seventeen 1.1)  #-#-#-#-#
+#. Author URI of the plugin/theme
+#: template-parts/footer/site-info.php:13
+msgid "https://wordpress.org/"
+msgstr "https://de.wordpress.org/"
+
+#: footer.php:25
+msgid "Footer Social Links Menu"
+msgstr "Social-Links-Menü im Footer"
+
+#: comments.php:75
+msgid "Comments are closed."
+msgstr "Kommentare sind geschlossen."
+
+#. translators: 1: number of comments, 2: post title
+#: comments.php:40
+msgctxt "comments title"
+msgid "%1$s Reply to &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s Replies to &ldquo;%2$s&rdquo;"
+msgstr[0] "%1$s Antwort auf &#8222;%2$s&#8220;"
+msgstr[1] "%1$s Antworten auf &#8222;%2$s&#8220;"
+
+#. translators: %s: post title
+#: comments.php:36
+msgctxt "comments title"
+msgid "One Reply to &ldquo;%s&rdquo;"
+msgstr "Eine Antwort auf &#8222;%s&#8220;"
+
+#: archive.php:47 index.php:52 search.php:45
+msgid "Page"
+msgstr "Seite"
+
+#: 404.php:21
+msgid "Oops! That page can&rsquo;t be found."
+msgstr "Die Seite konnte leider nicht gefunden werden."
+
+#: 404.php:24
+msgid "It looks like nothing was found at this location. Maybe try a search?"
+msgstr "Wie es aussieht, wurde an dieser Stelle nichts gefunden. Möchtest du eine Suche starten?"
+
+#: archive.php:45 index.php:50 search.php:43
+msgid "Previous page"
+msgstr "Vorherige Seite"
+
+#: archive.php:46 index.php:51 search.php:44
+msgid "Next page"
+msgstr "Nächste Seite"
+
+#. Author of the plugin/theme
+msgid "the WordPress team"
+msgstr "dem WordPress-Team"
+
+#. Theme URI of the plugin/theme
+msgid "https://wordpress.org/themes/twentyseventeen/"
+msgstr "https://de.wordpress.org/themes/twentyseventeen/"

@@ -4,7 +4,7 @@
  *
  * @global string $wp_version
  */
-$wp_version = '4.7.1';
+$wp_version = '4.7.2';
 
 /**
  * Holds the WordPress DB revision, increments when changes are made to the WordPress DB schema.
@@ -33,3 +33,5 @@ $required_php_version = '5.2.4';
  * @global string $required_mysql_version
  */
 $required_mysql_version = '5.0';
+
+$wp_local_package = 'de_DE';

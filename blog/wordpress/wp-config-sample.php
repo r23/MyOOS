@@ -26,7 +26,7 @@
 /**   Diese Zugangsdaten bekommst du von deinem Webhoster. **/
 
 /**
- * Ersetze datenbankname_hier_einfuegen mit dem Namen
+ * Ersetze datenbankname_hier_einfuegen
  * mit dem Namen der Datenbank, die du verwenden möchtest.
  */
 define('DB_NAME', 'datenbankname_hier_einfuegen');
@@ -88,7 +88,7 @@ define('NONCE_SALT',       'Füge hier deine Zeichenkette ein');
  * verschiedene WordPress-Installationen betreiben.
  * Bitte verwende nur Zahlen, Buchstaben und Unterstriche!
  */
-$table_prefix  = 'mywp_';
+$table_prefix  = 'wp_';
 
 /**
  * Für Entwickler: Der WordPress-Debug-Modus.
