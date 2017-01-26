@@ -35,18 +35,19 @@ class WPCF7_Mail {
 
 	public function get( $component, $replace_tags = false ) {
 		$use_html = ( $this->use_html && 'body' == $component );
+		$exclude_blank = ( $this->exclude_blank && 'body' == $component );
+
 		$template = $this->template;
 		$component = isset( $template[$component] ) ? $template[$component] : '';
 
 		if ( $replace_tags ) {
-			if ( $use_html ) {
-				$component = $this->replace_tags( $component, true );
+			$component = $this->replace_tags( $component, array(
+				'html' => $use_html,
+				'exclude_blank' => $exclude_blank ) );
 
-				if ( ! preg_match( '%<html[>\s].*</html>%is', $component ) ) {
-					$component = $this->htmlize( $component );
-				}
-			} else {
-				$component = $this->replace_tags( $component );
+			if ( $use_html
+			&& ! preg_match( '%<html[>\s].*</html>%is', $component ) ) {
+				$component = $this->htmlize( $component );
 			}
 		}
 
@@ -110,10 +111,14 @@ class WPCF7_Mail {
 		return wp_mail( $recipient, $subject, $body, $headers, $attachments );
 	}
 
-	public function replace_tags( $content, $html = false ) {
-		$args = array(
-			'html' => $html,
-			'exclude_blank' => $this->exclude_blank );
+	public function replace_tags( $content, $args = '' ) {
+		if ( true === $args ) {
+			$args = array( 'html' => true );
+		}
+
+		$args = wp_parse_args( $args, array(
+			'html' => false,
+			'exclude_blank' => false ) );
 
 		return wpcf7_mail_replace_tags( $content, $args );
 	}

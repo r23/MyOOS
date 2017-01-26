@@ -98,7 +98,7 @@ function wpcf7_textarea_validation_filter( $result, $tag ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );
 	}
 
-	if ( ! empty( $value ) ) {
+	if ( '' !== $value ) {
 		$maxlength = $tag->get_maxlength_option();
 		$minlength = $tag->get_minlength_option();
 

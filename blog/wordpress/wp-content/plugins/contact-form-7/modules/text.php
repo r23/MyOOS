@@ -145,7 +145,7 @@ function wpcf7_text_validation_filter( $result, $tag ) {
 		}
 	}
 
-	if ( ! empty( $value ) ) {
+	if ( '' !== $value ) {
 		$maxlength = $tag->get_maxlength_option();
 		$minlength = $tag->get_minlength_option();
 

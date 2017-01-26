@@ -91,8 +91,9 @@ function wpcf7_file_validation_filter( $result, $tag ) {
 		return $result;
 	}
 
-	if ( ! is_uploaded_file( $file['tmp_name'] ) )
+	if ( ! is_uploaded_file( $file['tmp_name'] ) ) {
 		return $result;
+	}
 
 	$allowed_file_types = array();
 
@@ -124,10 +125,11 @@ function wpcf7_file_validation_filter( $result, $tag ) {
 				if ( ! empty( $matches[2] ) ) {
 					$kbmb = strtolower( $matches[2] );
 
-					if ( 'kb' == $kbmb )
+					if ( 'kb' == $kbmb ) {
 						$allowed_size *= 1024;
-					elseif ( 'mb' == $kbmb )
+					} elseif ( 'mb' == $kbmb ) {
 						$allowed_size *= 1024 * 1024;
+					}
 				}
 
 				break;
@@ -138,8 +140,9 @@ function wpcf7_file_validation_filter( $result, $tag ) {
 	/* File type validation */
 
 	// Default file-type restriction
-	if ( '' == $file_type_pattern )
+	if ( '' == $file_type_pattern ) {
 		$file_type_pattern = 'jpg|jpeg|png|gif|pdf|doc|docx|ppt|pptx|odt|avi|ogg|m4a|mov|mp3|mp4|mpg|wav|wmv';
+	}
 
 	$file_type_pattern = trim( $file_type_pattern, '|' );
 	$file_type_pattern = '(' . $file_type_pattern . ')';
@@ -162,7 +165,7 @@ function wpcf7_file_validation_filter( $result, $tag ) {
 	$uploads_dir = wpcf7_maybe_add_random_dir( $uploads_dir );
 
 	$filename = $file['name'];
-	$filename = wpcf7_canonicalize( $filename );
+	$filename = wpcf7_canonicalize( $filename, 'as-is' );
 	$filename = sanitize_file_name( $filename );
 	$filename = wpcf7_antiscript_file_name( $filename );
 	$filename = wp_unique_filename( $uploads_dir, $filename );

@@ -3,8 +3,8 @@ Contributors: takayukister
 Donate link: http://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 4.5
-Tested up to: 4.7
-Stable tag: 4.6
+Tested up to: 4.7.1
+Stable tag: 4.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,6 +62,13 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 
 For more information, see [Releases](http://contactform7.com/category/releases/).
 
+= 4.6.1 =
+
+* Fixed: "0" input could pass the `minlength` validation.
+* Fixed: `exclude_blank` option was applied to all mail fields, not only to the message body.
+* Fixed: `wpcf7_autop()` incorrectly inserted `<br />` around hidden and block-type form-tags.
+* Fixed: Applying `strtolower()` to uploaded file names was unnecessary and could cause troubles in a non-English environment.
+
 = 4.6 =
 
 * Ajax loader: HTML markup changed to `<span>` to be easily customizable with CSS.
@@ -71,21 +78,3 @@ For more information, see [Releases](http://contactform7.com/category/releases/)
 * `default:shortcode_attr` form-tag option.
 * `WPCF7_Shortcode`, `WPCF7_ShortcodeManager`, `wpcf7_add_shortcode()`, `wpcf7_scan_shortcode()`, and some other classes and functions have become deprecated.
 * Removed all language files from the _languages_ folder. Translations have moved to [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/contact-form-7).
-
-= 4.5.1 =
-
-* Avoids JavaScript strict-mode errors seen with ill-designed themes.
-* Fixed a bug around reCAPTCHA's callback and expired-callback options.
-* Specifies cursor style for file uploading fields.
-* Corrects language tags for locale codes with modifying suffix like '_formal'.
-* Corrects wpcf7_is_rtl() output. Added 5 locales to the RTL locales list.
-* Language Packs: Language files for Portuguese (Brazil) (pt_BR) and Hebrew (he_IL) have been removed.
-
-= 4.5 =
-
-* The default contact form template is revised.
-* reCAPTCHA: Run grecaptcha.reset() after a submission.
-* The autocomplete option for form-tags and wpcf7_form_autocomplete filter hook are introduced to manage autocomplete attribute.
-* The config validator is revised. The wpcf7_config_validator_validate action hook is introduced to allow 3rd-party to cut in.
-* A bug in character count form-tag is fixed.
-* Language Packs: Language files for Danish (da_DK), Polish (pl_PL), and Czech (cs_CZ) have been removed from the plugin package.

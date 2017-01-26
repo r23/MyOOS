@@ -54,11 +54,20 @@ function wpcf7_autop( $pee, $br = 1 ) {
 		$pee = preg_replace_callback( '/<(script|style|textarea).*?<\/\\1>/s', create_function( '$matches', 'return str_replace("\n", "<WPPreserveNewline />", $matches[0]);' ), $pee );
 		$pee = preg_replace( '|(?<!<br />)\s*\n|', "<br />\n", $pee ); // optionally make line breaks
 		$pee = str_replace( '<WPPreserveNewline />', "\n", $pee );
+
+		/* wpcf7: remove extra <br /> just added before [response], [recaptcha], and [hidden] tags */
+		$pee = preg_replace( '!<br />\n(\[' . $block_hidden_form_tags . '[^]]*\])!',
+			"\n$1", $pee );
 	}
+
 	$pee = preg_replace( '!(</?' . $allblocks . '[^>]*>)\s*<br />!', "$1", $pee );
 	$pee = preg_replace( '!<br />(\s*</?(?:p|li|div|dl|dd|dt|th|pre|td|ul|ol)[^>]*>)!', '$1', $pee );
-	if ( strpos( $pee, '<pre' ) !== false )
-		$pee = preg_replace_callback( '!(<pre[^>]*>)(.*?)</pre>!is', 'clean_pre', $pee );
+
+	if ( strpos( $pee, '<pre' ) !== false ) {
+		$pee = preg_replace_callback( '!(<pre[^>]*>)(.*?)</pre>!is',
+			'clean_pre', $pee );
+	}
+
 	$pee = preg_replace( "|\n</p>$|", '</p>', $pee );
 
 	return $pee;
@@ -142,13 +151,18 @@ function wpcf7_strip_newline( $str ) {
 	return trim( $str );
 }
 
-function wpcf7_canonicalize( $text ) {
+function wpcf7_canonicalize( $text, $strto = 'lower' ) {
 	if ( function_exists( 'mb_convert_kana' )
 	&& 'UTF-8' == get_option( 'blog_charset' ) ) {
 		$text = mb_convert_kana( $text, 'asKV', 'UTF-8' );
 	}
 
-	$text = strtolower( $text );
+	if ( 'lower' == $strto ) {
+		$text = strtolower( $text );
+	} elseif ( 'upper' == $strto ) {
+		$text = strtoupper( $text );
+	}
+
 	$text = trim( $text );
 	return $text;
 }
