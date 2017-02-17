@@ -159,33 +159,6 @@
 
 
 
-    public function sendFax(){
-
-      if (is_array($this->modules)) {
-        reset($this->modules);
-        while (list(, $value) = each($this->modules)) {
-          $class = substr($value, 0, strrpos($value, '.'));
-          if ($class == 'ot_order2fax' and $GLOBALS[$class]->enabled) {
-            $GLOBALS[$class]->sendFax();
-          }
-        }
-      }
-    }
-
-    public function sendSMS(){
-
-      if (is_array($this->modules)) {
-        reset($this->modules);
-        while (list(, $value) = each($this->modules)) {
-          $class = substr($value, 0, strrpos($value, '.'));
-          if ($class == 'ot_order2sms' and $GLOBALS[$class]->enabled) {
-            $GLOBALS[$class]->sendSMS();
-          }
-        }
-      }
-    }
-
-
    /**
     * update_credit_account is called in checkout process on a per product basis. It's purpose
     * is to decide whether each product in the cart should add something to a credit account.
