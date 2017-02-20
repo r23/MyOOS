@@ -63,7 +63,7 @@ if (isset($_POST['username']))
 		{
 			// Crypt
 			case 0:
-				$userpass=crypt($userpass1);
+				$userpass=crypt($userpass1, 'rl');
 				break;
 			// MD5
 			case 1:
