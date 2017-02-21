@@ -15,7 +15,7 @@ if ( WPSEO_Utils::is_api_available() ) :
 	<p>
 		<?php
 			/* translators: %1$s expands to Yoast SEO */
-			printf( __( 'Configure %1$s step-by-step.', 'wordpress-seo' ), 'Yoast SEO' );
+			printf( __( 'Need help determining your settings? Configure %1$s step-by-step.', 'wordpress-seo' ), 'Yoast SEO' );
 		?>
 	</p>
 <p>
@@ -26,6 +26,11 @@ if ( WPSEO_Utils::is_api_available() ) :
 	<br/>
 <?php
 endif;
+
+/**
+ * Action: 'wpseo_internal_linking' - Hook to add the internal linking analyze interface to the interface.
+ */
+do_action( 'wpseo_internal_linking' );
 
 echo '<h2>' . esc_html__( 'Credits', 'wordpress-seo' ) . '</h2>';
 ?>
