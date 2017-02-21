@@ -1,10 +1,6 @@
 <?php
-
-
-/* Sicherheitsabfrage */
-if ( ! class_exists('Antispam_Bee') ) {
-	die();
-}
+// Make sure this file is only run from within the WordPress context.
+defined( 'ABSPATH' ) || exit;
 
 
 /**
@@ -17,28 +13,28 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 
 
 	/**
-	* Speicherung der GUI
+	* Save the GUI
 	*
 	* @since   0.1
-	* @change  2.5.2
+	* @change  2.7.0
 	*/
 
 	public static function save_changes()
 	{
-		/* Kein POST? */
+		// No POST?
 		if ( empty($_POST) ) {
-			wp_die(__('Cheatin&#8217; uh?', 'antispam-bee'));
+			wp_die(esc_html__('Cheatin&#8217; uh?', 'antispam-bee'));
 		}
 
-		/* Capability check */
+		// Capability check
 		if ( ! current_user_can('manage_options') ) {
-			wp_die(__('Cheatin&#8217; uh?', 'antispam-bee'));
+			wp_die(esc_html__('Cheatin&#8217; uh?', 'antispam-bee'));
 		}
 
-		/* Referer prüfen */
+		// Check referer
 		check_admin_referer('_antispam_bee__settings_nonce');
-
-		/* Optionen ermitteln */
+    
+		// Determine options
 		$options = array(
 			'flag_spam' 		=> (int)(!empty($_POST['ab_flag_spam'])),
 			'email_notify' 		=> (int)(!empty($_POST['ab_email_notify'])),
@@ -65,30 +61,75 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 
 			'bbcode_check'		=> (int)(!empty($_POST['ab_bbcode_check'])),
 			'gravatar_check'	=> (int)(!empty($_POST['ab_gravatar_check'])),
-			'dnsbl_check'		=> (int)(!empty($_POST['ab_dnsbl_check']))
+			'dnsbl_check'		=> (int)(!empty($_POST['ab_dnsbl_check'])),
+			'country_code' 		=> (int)(!empty($_POST['ab_country_code'])),
+			'country_black'		=> sanitize_text_field( wp_unslash( self::get_key( $_POST, 'ab_country_black' ) ) ),
+			'country_white'		=> sanitize_text_field( wp_unslash( self::get_key( $_POST, 'ab_country_white' ) ) ),
+
+			'translate_api' 	=> (int)(!empty($_POST['ab_translate_api'])),
+			'translate_lang'	=> sanitize_text_field( wp_unslash( self::get_key($_POST, 'ab_translate_lang' ) ) ),
 		);
 
-		/* Keine Tagmenge eingetragen? */
+		foreach( $options['ignore_reasons'] as $key => $val ) {
+			if ( ! isset( self::$defaults['reasons'][ $val ] ) ) {
+				unset( $options['ignore_reasons'][ $key ] );
+			}
+		}
+
+		// No number of days indicated?
 		if ( empty($options['cronjob_interval']) ) {
 			$options['cronjob_enable'] = 0;
 		}
 
-		/* Liste der Spamgründe */
+		// Translate API
+		if ( !empty($options['translate_lang']) ) {
+			if ( !preg_match('/^(de|en|fr|it|es)$/', $options['translate_lang']) ) {
+				$options['translate_lang'] = '';
+			}
+		}
+		if ( empty($options['translate_lang']) ) {
+			$options['translate_api'] = 0;
+		}
+
+		// List of spam reasons
 		if ( empty($options['reasons_enable']) ) {
 			$options['ignore_reasons'] = array();
 		}
 
-		/* Cron stoppen? */
+		// Blacklist clean
+		if ( !empty($options['country_black']) ) {
+			$options['country_black'] = preg_replace(
+				'/[^A-Z ,;]/',
+				'',
+				strtoupper($options['country_black'])
+			);
+		}
+
+		// Whitelist clean
+		if ( !empty($options['country_white']) ) {
+			$options['country_white'] = preg_replace(
+				'/[^A-Z ,;]/',
+				'',
+				strtoupper($options['country_white'])
+			);
+		}
+
+		// Empty lists?
+		if ( empty($options['country_black']) && empty($options['country_white']) ) {
+			$options['country_code'] = 0;
+		}
+
+		// Stop Cron?
 		if ( $options['cronjob_enable'] && !self::get_option('cronjob_enable') ) {
 			self::init_scheduled_hook();
 		} else if ( !$options['cronjob_enable'] && self::get_option('cronjob_enable') ) {
 			self::clear_scheduled_hook();
 		}
 
-		/* Optionen speichern */
+		// Save options
 		self::update_options($options);
 
-		/* Redirect */
+		// Redirect
 		wp_safe_redirect(
 			add_query_arg(
 				array(
@@ -103,28 +144,28 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 
 
 	/**
-	* Generierung eine Selectbox
+	* Generation of a selectbox
 	*
 	* @since   2.4.5
 	* @change  2.4.5
 	*
-	* @param   string  $name      Name der Selectbox
-	* @param   array   $data      Array mit Werten
-	* @param   string  $selected  Selektierter Wert
-	* @return  string  $html      Erzeugtes HTML
+	* @param   string  $name      Name of the Selectbox
+	* @param   array   $data      Array with values
+	* @param   string  $selected  Selected value
+	* @return  string  $html      Generated HTML
 	*/
 
 	private static function _build_select($name, $data, $selected)
 	{
-		/* Start HTML */
+		// Start HTML
 		$html = '<select name="' .$name. '">';
 
-		/* Loop options */
+		// Loop options
 		foreach( $data as $k => $v) {
-			$html .= '<option value="' .esc_attr($k). '" ' .selected($selected, $k, false). '>' .esc_html__($v, 'antispam-bee'). '</option>';
+			$html .= '<option value="' .esc_attr($k). '" ' .selected($selected, $k, false). '>' .esc_html( $v ). '</option>';
 		}
 
-		/* Close HTML */
+		// Close HTML
 		$html .= '</select>';
 
 		return $html;
@@ -132,10 +173,10 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 
 
 	/**
-	* Anzeige der GUI
+	* Display the GUI
 	*
 	* @since   0.1
-	* @change  2.6.4
+	* @change  2.7.0
 	*/
 
 	public static function options_page() { ?>
@@ -150,7 +191,6 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 				<?php wp_nonce_field('_antispam_bee__settings_nonce') ?>
 
 				<?php $options = self::get_options() ?>
-
 				<div class="ab-wrap">
 					<!--[if lt IE 9]>
 						<p class="browsehappy">
@@ -160,75 +200,180 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 
 					<div class="ab-column ab-arrow">
 						<h3 class="icon">
-							<?php esc_html_e('Antispam filter', 'antispam-bee') ?>
+							<?php esc_html_e( 'Antispam filter', 'antispam-bee' ); ?>
 						</h3>
 						<h6>
-							<?php esc_html_e('Filter in the execution order', 'antispam-bee') ?>
+							<?php esc_html_e( 'Filter in the execution order', 'antispam-bee' ); ?>
 						</h6>
 
 						<ul>
 							<li>
 								<input type="checkbox" name="ab_already_commented" id="ab_already_commented" value="1" <?php checked($options['already_commented'], 1) ?> />
 								<label for="ab_already_commented">
-									<?php esc_html_e('Trust approved commenters', 'antispam-bee') ?>
-									<span><?php esc_html_e('Always approve previously approved users', 'antispam-bee') ?></span>
+									<?php esc_html_e( 'Trust approved commenters', 'antispam-bee' ); ?>
+									<span><?php esc_html_e( 'No review of already commented users', 'antispam-bee' ); ?></span>
 								</label>
 							</li>
 
 							<li>
 								<input type="checkbox" name="ab_gravatar_check" id="ab_gravatar_check" value="1" <?php checked($options['gravatar_check'], 1) ?> />
 								<label for="ab_gravatar_check">
-									<?php esc_html_e('Trust commenters with a Gravatar', 'antispam-bee') ?>
-									<span><?php _e('Check if commenter has a Gravatar image', 'antispam-bee') ?></span>
+									<?php esc_html_e( 'Trust commenters with a Gravatar', 'antispam-bee' ); ?>
+									<span><?php $link1 = sprintf(
+										'<a href="%s" target="_blank" rel="noopener noreferrer">',
+											esc_url( __( 'https://github.com/pluginkollektiv/antispam-bee/wiki/en-Documentation#trust-commenters-with-a-gravatar', 'antispam-bee' ),
+											       'https' )
+										);
+									printf(
+										/* translators: 1: opening <a> tag with link to documentation. 2: closing </a> tag */
+										esc_html__( 'Check if commenter has a Gravatar image. Please note the %1$ssprivacy notice%2$s for this option.', 'antispam-bee' ),
+										$link1,
+										'</a>'
+									); ?></span>
 								</label>
 							</li>
 
 							<li>
 								<input type="checkbox" name="ab_time_check" id="ab_time_check" value="1" <?php checked($options['time_check'], 1) ?> />
 								<label for="ab_time_check">
-									<?php esc_html_e('Consider the comment time', 'antispam-bee') ?>
-									<span><?php esc_html_e('Not recommended when using page caching', 'antispam-bee') ?></span>
+									<?php esc_html_e( 'Consider the comment time', 'antispam-bee' ); ?>
+									<span><?php esc_html_e( 'Not recommended when using page caching', 'antispam-bee' ); ?></span>
 								</label>
 							</li>
 
 							<li>
 								<input type="checkbox" name="ab_bbcode_check" id="ab_bbcode_check" value="1" <?php checked($options['bbcode_check'], 1) ?> />
 								<label for="ab_bbcode_check">
-									<?php esc_html_e('BBCode is spam', 'antispam-bee') ?>
-									<span><?php esc_html_e('Review the comment contents for BBCode links', 'antispam-bee') ?></span>
+									<?php esc_html_e( 'BBCode is spam', 'antispam-bee' ); ?>
+									<span><?php esc_html_e( 'Review the comment contents for BBCode links', 'antispam-bee' ); ?></span>
 								</label>
 							</li>
 
 							<li>
 								<input type="checkbox" name="ab_advanced_check" id="ab_advanced_check" value="1" <?php checked($options['advanced_check'], 1) ?> />
 								<label for="ab_advanced_check">
-									<?php esc_html_e('Validate the ip address of commenters', 'antispam-bee') ?>
-									<span><?php esc_html_e('Validity check for used ip address', 'antispam-bee') ?></span>
+									<?php esc_html_e( 'Validate the ip address of commenters', 'antispam-bee' ); ?>
+									<span><?php esc_html_e( 'Validation of the IP address used', 'antispam-bee' ); ?></span>
 								</label>
 							</li>
 
 							<li>
 								<input type="checkbox" name="ab_regexp_check" id="ab_regexp_check" value="1" <?php checked($options['regexp_check'], 1) ?> />
 								<label for="ab_regexp_check">
-									<?php esc_html_e('Use regular expressions', 'antispam-bee') ?>
-									<span><?php _e('Predefined and custom patterns by <a href="https://gist.github.com/4242142" target="_blank">plugin hook</a>', 'antispam-bee') ?></span>
+									<?php esc_html_e( 'Use regular expressions', 'antispam-bee' ); ?>
+									<span><?php esc_html_e( 'Predefined and custom patterns by plugin hook', 'antispam-bee' ); ?></span>
 								</label>
 							</li>
 
 							<li>
 								<input type="checkbox" name="ab_spam_ip" id="ab_spam_ip" value="1" <?php checked($options['spam_ip'], 1) ?> />
 								<label for="ab_spam_ip">
-									<?php esc_html_e('Look in the local spam database', 'antispam-bee') ?>
-									<span><?php esc_html_e('Already marked as spam? Yes? No?', 'antispam-bee') ?></span>
+									<?php esc_html_e( 'Look in the local spam database', 'antispam-bee' ); ?>
+									<span><?php esc_html_e( 'Check for spam data on your own blog', 'antispam-bee' ); ?></span>
 								</label>
 							</li>
 
 							<li>
 								<input type="checkbox" name="ab_dnsbl_check" id="ab_dnsbl_check" value="1" <?php checked($options['dnsbl_check'], 1) ?> />
 								<label for="ab_dnsbl_check">
-									<?php esc_html_e('Use a public antispam database', 'antispam-bee') ?>
-									<span><?php _e('Matching the ip address with <a href="https://dnsbl.tornevall.org" target="_blank">Tornevall</a>', 'antispam-bee') ?></span>
+									<?php esc_html_e( 'Use a public antispam database', 'antispam-bee' ); ?>
+									<span><?php $link2 = sprintf(
+											'<a href="%s" target="_blank" rel="noopener noreferrer">',
+												esc_url( __( 'https://github.com/pluginkollektiv/antispam-bee/wiki/en-Documentation#trust-commenters-with-a-gravatar', 'antispam-bee' ),
+												       'https' )
+										);
+										printf(
+											/* translators: 1: opening <a> tag with link to documentation. 2: closing </a> tag. 3: opening <a> tag with link to documentation. 4: closing </a> tag. */
+											esc_html__( 'Matching the ip address with %1$sStop Forum Spam%2$s. Please note the %3$sprivacy notice%4$s for this option.', 'antispam-bee' ),
+												'<a href="https://www.stopforumspam.com/" target="_blank" rel="noopener noreferrer">',
+												'</a>',
+												$link2,
+												'</a>'
+										);
+										?></span>
 								</label>
+							</li>
+
+							<li>
+								<input type="checkbox" name="ab_country_code" id="ab_country_code" value="1" <?php checked($options['country_code'], 1) ?> />
+								<label for="ab_country_code">
+									<?php esc_html_e('Block comments from specific countries', 'antispam-bee') ?>
+									<span><?php $link1 = sprintf(
+										'<a href="%s" target="_blank" rel="noopener noreferrer">',
+											esc_url( __( 'https://github.com/pluginkollektiv/antispam-bee/wiki/en-Documentation#block-comments-from-specific-countries', 'antispam-bee' ),
+											       'https' )
+										);
+									printf(
+										/* translators: 1: opening <a> tag with link to documentation. 2: closing </a> tag. */
+										esc_html__( 'Filtering the requests depending on country. Please note the %1$sprivacy notice%2$s for this option.', 'antispam-bee' ),
+										$link1, '</a>'
+									); ?></span>
+								</label>
+
+								<ul>
+									<?php $iso_codes_link = sprintf(
+										'<a href="%s" target="_blank" rel="noopener noreferrer">',
+										esc_url( __( 'https://www.iso.org/iso/country_names_and_code_elements', 'antispam-bee' ),
+											'https' )
+										); ?>
+									<li>
+										<textarea name="ab_country_black" id="ab_country_black" class="ab-medium-field code" placeholder="<?php esc_attr_e( 'e.g. BF, SG, YE', 'antispam-bee' ); ?>"><?php echo esc_attr($options['country_black']); ?></textarea>
+										<label for="ab_country_black">
+											<span><?php
+												printf(
+													/* translators: 1: opening <a> tag with link to ISO codes reference. 2: closing </a> tag. */
+													esc_html__( 'Blacklist  %1$sISO Codes%2$s for this option.', 'antispam-bee' ),
+													$iso_codes_link,
+													'</a>' );
+											?></span>
+										</label>
+									</li>
+									<li>
+										<textarea name="ab_country_white" id="ab_country_white" class="ab-medium-field code" placeholder="<?php esc_attr_e( 'e.g. BF, SG, YE', 'antispam-bee' ); ?>"><?php echo esc_attr($options['country_white']); ?></textarea>
+										<label for="ab_country_white">
+											<span><?php
+												printf(
+													/* translators: 1: opening <a> tag with link to ISO codes reference. 2: closing </a> tag. */
+													esc_html__( 'Whitelist  %1$sISO Codes%2$s for this option.', 'antispam-bee' ),
+													$iso_codes_link,
+													'</a>' );
+											?></span>
+										</label>
+									</li>
+								</ul>
+							</li>
+
+							<li>
+								<input type="checkbox" name="ab_translate_api" id="ab_translate_api" value="1" <?php checked($options['translate_api'], 1) ?> />
+								<label for="ab_translate_api">
+									<?php esc_html_e( 'Allow comments only in certain language', 'antispam_bee' ) ?>
+									<span><?php
+										$link1 = sprintf(
+											'<a href="%s" target="_blank" rel="noopener noreferrer">',
+											esc_url( __( 'https://github.com/pluginkollektiv/antispam-bee/wiki/en-Documentation#allow-comments-only-in-certain-language', 'antispam-bee' ),
+												'https' )
+										);
+
+										printf(
+											/* translators: 1: opening <a> tag with link to documentation. 2: closing </a> tag. */
+											esc_html__( 'Detect and approve only the specified language. Please note the %1$sprivacy notice%2$s for this option.', 'antispam-bee' ),
+											$link1,
+											'</a>' );
+										?></span>
+								</label>
+
+								<ul>
+									<li>
+										<select name="ab_translate_lang">
+											<?php foreach( array('de' => 'German', 'en' => 'English', 'fr' => 'French', 'it' => 'Italian', 'es' => 'Spanish') as $k => $v ) { ?>
+												<option <?php selected($options['translate_lang'], $k); ?> value="<?php echo esc_attr($k) ?>"><?php esc_html_e($v, 'antispam_bee') ?></option>
+											<?php } ?>
+										</select>
+										<label for="ab_translate_lang">
+											<?php esc_html_e('Language', 'antispam_bee') ?>
+										</label>
+									</li>
+								</ul>
 							</li>
 						</ul>
 					</div>
@@ -236,71 +381,71 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 
 					<div class="ab-column ab-join">
 						<h3 class="icon advanced">
-							<?php esc_html_e('Advanced', 'antispam-bee') ?>
+							<?php esc_html_e( 'Advanced', 'antispam-bee' ); ?>
 						</h3>
 						<h6>
-							<?php esc_html_e('Other antispam tools', 'antispam-bee') ?>
+							<?php esc_html_e( 'Other antispam tools', 'antispam-bee' ); ?>
 						</h6>
 
 						<ul>
 							<li>
 								<input type="checkbox" name="ab_flag_spam" id="ab_flag_spam" value="1" <?php checked($options['flag_spam'], 1) ?> />
 								<label for="ab_flag_spam">
-									<?php esc_html_e('Mark as spam, do not delete', 'antispam-bee') ?>
-									<span><?php esc_html_e('Keep the spam in my blog.', 'antispam-bee') ?></span>
+									<?php esc_html_e( 'Mark as spam, do not delete', 'antispam-bee' ); ?>
+									<span><?php esc_html_e( 'Keep the spam in my blog.', 'antispam-bee' ); ?></span>
 								</label>
 							</li>
 
-							<li>
+							<li class="ab_flag_spam_child">
 								<input type="checkbox" name="ab_email_notify" id="ab_email_notify" value="1" <?php checked($options['email_notify'], 1) ?> />
 								<label for="ab_email_notify">
-									<?php esc_html_e('Notification by email', 'antispam-bee') ?>
-									<span><?php esc_html_e('Notify admins by e-mail about incoming spam', 'antispam-bee') ?></span>
+									<?php esc_html_e( 'Spam-Notification by email', 'antispam-bee' ); ?>
+									<span><?php esc_html_e( 'Notify admins by e-mail about incoming spam', 'antispam-bee' ); ?></span>
 								</label>
 							</li>
 
-							<li>
+							<li class="ab_flag_spam_child">
 								<input type="checkbox" name="ab_no_notice" id="ab_no_notice" value="1" <?php checked($options['no_notice'], 1) ?> />
 								<label for="ab_no_notice">
-									<?php esc_html_e('Not save the spam reason', 'antispam-bee') ?>
-									<span><?php esc_html_e('Spam reason as table column in the spam overview', 'antispam-bee') ?></span>
+									<?php esc_html_e( 'Do not save the spam reason', 'antispam-bee' ); ?>
+									<span><?php esc_html_e( 'Spam reason as a table column in the spam overview', 'antispam-bee' ); ?></span>
 								</label>
 							</li>
 
-							<li>
+							<li class="ab_flag_spam_child">
 								<input type="checkbox" name="ab_cronjob_enable" id="ab_cronjob_enable" value="1" <?php checked($options['cronjob_enable'], 1) ?> />
-								<label>
+								<label for="ab_cronjob_enable">
 									<?php echo sprintf(
-										esc_html__('Delete existing spam after %s days', 'antispam-bee'),
-										'<input type="text" name="ab_cronjob_interval" value="' .esc_attr($options['cronjob_interval']). '" class="ab-mini-field" />'
+										esc_html__( 'Delete existing spam after %s days', 'antispam-bee' ),
+										'<input type="number" min="0" name="ab_cronjob_interval" value="' .esc_attr($options['cronjob_interval']). '" class="ab-mini-field" />'
 									) ?>
-									<span><?php esc_html_e('Cleaning up the database from old entries', 'antispam-bee') ?></span>
+									<span><?php esc_html_e( 'Cleaning up the database from old entries', 'antispam-bee' ) ?></span>
 								</label>
 							</li>
 
-							<li>
+							<li class="ab_flag_spam_child">
 								<input type="checkbox" name="ab_ignore_filter" id="ab_ignore_filter" value="1" <?php checked($options['ignore_filter'], 1) ?> />
-								<label>
+								<label for="ab_ignore_filter">
 									<?php echo sprintf(
-										esc_html__('Limit approval to %s', 'antispam-bee'),
+										esc_html__( 'Limit approval to %s', 'antispam-bee' ),
 										self::_build_select(
 											'ab_ignore_type',
 											array(
-												1 => 'Comments',
-												2 => 'Pings'
+												1 => esc_attr__( 'Comments', 'antispam-bee' ),
+												2 => esc_attr__( 'Pings', 'antispam-bee' )
 											),
 											$options['ignore_type']
 										)
 									); ?>
-									<span><?php esc_html_e('Other types of spam will be deleted immediately', 'antispam-bee') ?></span>
+									<span><?php esc_html_e( 'Other types of spam will be deleted immediately', 'antispam-bee' ); ?></span>
 								</label>
 							</li>
 
-							<li>
+							<li class="ab_flag_spam_child">
 								<input type="checkbox" name="ab_reasons_enable" id="ab_reasons_enable" value="1" <?php checked($options['reasons_enable'], 1) ?> />
 								<label for="ab_reasons_enable">
-									<?php esc_html_e('Delete comments by spam reasons', 'antispam-bee') ?>
-									<span><?php esc_html_e('For multiple selections press Ctrl/CMD', 'antispam-bee') ?></span>
+									<?php esc_html_e( 'Delete comments by spam reasons', 'antispam-bee' ); ?>
+									<span><?php esc_html_e( 'For multiple selections press Ctrl/CMD', 'antispam-bee' ); ?></span>
 								</label>
 
 								<ul>
@@ -311,7 +456,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 											<?php } ?>
 										</select>
 										<label for="ab_ignore_reasons">
-											<?php esc_html_e('Spam Reason', 'antispam-bee') ?>
+											<?php esc_html_e( 'Spam Reason', 'antispam-bee' ); ?>
 										</label>
 									</li>
 								</ul>
@@ -322,61 +467,62 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 
 					<div class="ab-column ab-diff">
 						<h3 class="icon more">
-							<?php esc_html_e('More', 'antispam-bee') ?>
+							<?php esc_html_e( 'More', 'antispam-bee' ); ?>
 						</h3>
 						<h6>
-							<?php esc_html_e('A few little things', 'antispam-bee') ?>
+							<?php esc_html_e( 'Various options', 'antispam-bee' ); ?>
 						</h6>
 
 						<ul>
 							<li>
 								<input type="checkbox" name="ab_dashboard_chart" id="ab_dashboard_chart" value="1" <?php checked($options['dashboard_chart'], 1) ?> />
 								<label for="ab_dashboard_chart">
-									<?php esc_html_e('Statistics on the dashboard', 'antispam-bee') ?>
-									<span><?php esc_html_e('Daily updates of spam detection rate', 'antispam-bee') ?></span>
+									<?php esc_html_e( 'Generate statistics as a dashboard widget', 'antispam-bee' ); ?>
+									<span><?php esc_html_e( 'Daily updates of spam detection rate', 'antispam-bee' ); ?></span>
 								</label>
 							</li>
 
 							<li>
 								<input type="checkbox" name="ab_dashboard_count" id="ab_dashboard_count" value="1" <?php checked($options['dashboard_count'], 1) ?> />
 								<label for="ab_dashboard_count">
-									<?php esc_html_e('Spam counter on the dashboard', 'antispam-bee') ?>
-									<span><?php esc_html_e('Amount of identified spam comments', 'antispam-bee') ?></span>
+									<?php esc_html_e( 'Spam counter on the dashboard', 'antispam-bee' ); ?>
+									<span><?php esc_html_e( 'Amount of identified spam comments', 'antispam-bee' ); ?></span>
 								</label>
 							</li>
 
 							<li>
 								<input type="checkbox" name="ab_ignore_pings" id="ab_ignore_pings" value="1" <?php checked($options['ignore_pings'], 1) ?> />
 								<label for="ab_ignore_pings">
-									<?php esc_html_e('Do not check trackbacks / pingbacks', 'antispam-bee') ?>
-									<span><?php esc_html_e('No spam check for trackback notifications', 'antispam-bee') ?></span>
+									<?php esc_html_e( 'Do not check trackbacks / pingbacks', 'antispam-bee' ); ?>
+									<span><?php esc_html_e( 'No spam check for link notifications', 'antispam-bee' ); ?></span>
 								</label>
 							</li>
 
 							<li>
 								<input type="checkbox" name="ab_always_allowed" id="ab_always_allowed" value="1" <?php checked($options['always_allowed'], 1) ?> />
 								<label for="ab_always_allowed">
-									<?php esc_html_e('Comment form used outside of posts', 'antispam-bee') ?>
-									<span><?php esc_html_e('Check for comment forms on archive pages', 'antispam-bee') ?></span>
+									<?php esc_html_e( 'Comment form used outside of posts', 'antispam-bee' ); ?>
+									<span><?php esc_html_e( 'Check for comment forms on archive pages', 'antispam-bee' ); ?></span>
 								</label>
 							</li>
 						</ul>
 					</div>
 
-					<div class="ab-column ab-column--service">
-						<?php if ( substr( get_locale(), 0, 3 ) === 'de_' ) { ?>
-							<p>
-								<a href="https://github.com/pluginkollektiv/antispam-bee/wiki/" target="_blank">Dokumentation</a>
-							</p>
-						<?php } ?>
-
+					<div class="ab-column ab-column--submit-service">
 						<p>
-							<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8CH5FPR88QYML" target="_blank">PayPal</a>
+							<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8CH5FPR88QYML" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Donate', 'antispam-bee' ); ?></a>
 						</p>
-					</div>
+						<p>
+							<a href="<?php esc_html_e( 'https://wordpress.org/plugins/antispam-bee/faq/', 'antispam-bee' ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'FAQ', 'antispam-bee' ); ?></a>
+						</p>
+						<p>
+							<a href="https://github.com/pluginkollektiv/antispam-bee/wiki/" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Manual', 'antispam-bee' ); ?></a>
+						</p>
+						<p>
+							<a href="https://wordpress.org/support/plugin/antispam-bee" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Support', 'antispam-bee' ); ?></a>
+						</p>
 
-					<div class="ab-column ab-column--submit">
-						<input type="submit" class="button button-primary" value="<?php _e('Save Changes', 'antispam-bee') ?>" />
+						<input type="submit" class="button button-primary" value="<?php esc_html_e( 'Save Changes', 'antispam-bee' ); ?>" />
 					</div>
 				</div>
 			</form>

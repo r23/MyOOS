@@ -2,11 +2,11 @@ jQuery(document).ready(
 	function($) {
 		function ab_flag_spam() {
 			var $$ = $('#ab_flag_spam'),
-				nextAll = $$.parent('li').nextAll();
+				nextAll = $$.parent('li').nextAll( '.ab_flag_spam_child' );
 
 			nextAll.css(
-				'visibility',
-				( $$.is(':checked') ? 'visible' : 'hidden' )
+				'display',
+				( $$.is(':checked') ? 'list-item' : 'none' )
 			);
 		}
 
