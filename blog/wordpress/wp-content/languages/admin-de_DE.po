@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the WordPress - 4.7.x - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-01-13 16:05:23+0000\n"
+"PO-Revision-Date: 2017-02-18 10:46:11+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.0-alpha\n"
+"X-Generator: GlotPress/2.3.0\n"
 "Language: de\n"
 "Project-Id-Version: WordPress - 4.7.x - Administration\n"
 
@@ -26,115 +26,115 @@ msgctxt "start of week"
 msgid "1"
 msgstr "1"
 
-#: wp-admin/about.php:234
+#: wp-admin/about.php:228
 msgid "Customize changesets make changes in the customizer persistent, like autosave drafts. They also make exciting new features like starter content possible."
 msgstr "Eigene Änderungs-Sets ermöglichen bleibende Änderungen im Customizer, ähnlich wie bei der automatischen Speicherung von Entwürfen. Sie ermöglichen neue Funktionen wie beispielhafte Inhalte für Themes."
 
-#: wp-admin/about.php:233
+#: wp-admin/about.php:227
 msgid "Customize Changesets"
 msgstr "Änderungs-Sets im Customizer"
 
 #. translators: 1: register_setting(), 2:
 #. https://make.wordpress.org/core/2016/10/26/registering-your-settings-in-wordpress-4-7/
-#: wp-admin/about.php:226
+#: wp-admin/about.php:220
 msgid "%1$s <a href=\"%2$s\">has been enhanced</a> to include type, description, and REST API visibility."
 msgstr "%1$s <a href=\"%2$s\">wurde verbessert</a> und beinhaltet nun Typ, Beschreibung und Sichtbarkeit für die REST API."
 
-#: wp-admin/about.php:222
+#: wp-admin/about.php:216
 msgid "Settings Registration API"
 msgstr "Einstellungen-Registrierungs-API"
 
 #. translators: %s:
 #. https://make.wordpress.org/core/2016/09/08/wp_hook-next-generation-actions-and-filters/
-#: wp-admin/about.php:216
+#: wp-admin/about.php:210
 msgid "The code that lies beneath actions and filters has been overhauled and modernized, fixing bugs along the way."
 msgstr "Der Code, der für Aktionen und Filter verantwortlich ist, wurde überarbeitet und modernisiert. Bei der Gelegenheit wurden auch einige Fehler bereinigt."
 
-#: wp-admin/about.php:206
+#: wp-admin/about.php:200
 msgid "List tables, now with more than bulk edit and delete."
 msgstr "Listenansichten bieten nun mehr Optionen als die Mehrfachbearbeitung und das Löschen."
 
-#: wp-admin/about.php:205
+#: wp-admin/about.php:199
 msgid "Custom Bulk Actions"
 msgstr "Individuelle Mehrfachauswahl"
 
 #. translators: %s:
 #. https://make.wordpress.org/core/2016/09/09/new-functions-hooks-and-behaviour-for-theme-developers-in-wordpress-4-7/
-#: wp-admin/about.php:199
+#: wp-admin/about.php:193
 msgid "WordPress 4.7 includes <a href=\"%s\">new functions, hooks, and behavior</a> for theme developers."
 msgstr "WordPress 4.7 beinhaltet <a href=\"%s\">neue Funktionen, Hooks und Verhalten</a> für die Entwicklung von Themes."
 
-#: wp-admin/about.php:195
+#: wp-admin/about.php:189
 msgid "More Theme API Goodies"
 msgstr "Mehr Theme-API-Bonbons"
 
-#: wp-admin/about.php:192
+#: wp-admin/about.php:186
 msgid "By opening up the page template functionality to all post types, theme developers have even more flexibility with the WordPress template hierarchy."
 msgstr "Durch die Ausweitung der Seitentemplate-Funktionalität auf alle Beitragstypen, gibt es jetzt für die Theme-Entwicklung noch mehr Flexibilität mit der Template-Hierarchie von WordPress."
 
-#: wp-admin/about.php:191
+#: wp-admin/about.php:185
 msgid "Post Type Templates"
 msgstr "Templates für Inhaltstypen"
 
 #. translators: %s: smiling face with smiling eyes emoji
-#: wp-admin/about.php:184
+#: wp-admin/about.php:178
 msgid "Even More Developer Happiness %s"
 msgstr "Noch mehr Erfreuliches für Entwickler %s"
 
 #. translators: %s: https://developer.wordpress.org/rest-api/
-#: wp-admin/about.php:172
+#: wp-admin/about.php:166
 msgid "Content endpoints provide machine-readable external access to your WordPress site with a clear, standards-driven interface, paving the way for new and innovative methods of interacting with sites through plugins, themes, apps, and beyond. Ready to get started with development? <a href=\"%s\">Check out the REST API reference.</a>"
 msgstr "Inhalts-Endpunkte bieten externen, maschinenlesbaren Zugriff auf deine WordPress-Website mit einer klaren, standardkonformen Schnittstelle, die den Weg ebnet für neue und innovative Methoden der Interaktion mit Websites, durch Plugins, Themes, Apps und darüber hinaus. Bist du bereit, mit der Entwicklung loszulegen? <a href=\"%s\">Weitere Informationen findest du in der REST-API-Dokumentation.</a>"
 
-#: wp-admin/about.php:167
+#: wp-admin/about.php:161
 msgid "WordPress 4.7 comes with REST API endpoints for posts, comments, terms, users, meta, and settings."
 msgstr "WordPress 4.7 unterstützt REST API Endpunkte für Beiträge, Kommentare, Begriffe, Benutzer, Metadaten und Einstellungen."
 
-#: wp-admin/about.php:166
+#: wp-admin/about.php:160
 msgid "Introducing REST API Content Endpoints"
 msgstr "Erweiterung der REST API um Inhalts-Endpunkte"
 
-#: wp-admin/about.php:159
+#: wp-admin/about.php:153
 msgid "Just because your site is in one language doesn&#8217;t mean that everybody helping manage it prefers that language for their admin. Add more languages to your site and a user language option will show up in your user&#8217;s profiles."
 msgstr "Nur weil deine Website in einer Sprache ist, heißt das noch lange nicht, dass jeder der sie verwaltet, den Administrationsbereich auch in dieser Sprache nutzen möchte. Füge weitere Sprachen zu deiner Website hinzu und es wird eine Option zur Sprachauswahl in den Benutzerprofilen auftauchen."
 
-#: wp-admin/about.php:157
+#: wp-admin/about.php:151
 msgid "Dashboard in your language"
 msgstr "Dashboard in deiner Sprache"
 
-#: wp-admin/about.php:154
+#: wp-admin/about.php:148
 msgid "Managing your document collection is easier with WordPress 4.7. Uploading PDFs will generate thumbnail images so you can more easily distinguish between all your documents."
 msgstr "Die Verwaltung deiner Dokumenten-Sammlung wird mit WordPress 4.7 noch einfacher. Es werden beim Hochladen von PDFs Vorschaubilder erstellt, damit du deine Dokumente noch einfacher unterscheiden kannst."
 
-#: wp-admin/about.php:152
+#: wp-admin/about.php:146
 msgid "PDF Thumbnail Previews"
 msgstr "PDF-Voransichten"
 
-#: wp-admin/about.php:144
+#: wp-admin/about.php:138
 msgid "Sometimes you just need a few visual tweaks to make your site perfect. WordPress 4.7 allows you to add custom CSS and instantly see how your changes affect your site. The live preview allows you to work quickly without page refreshes slowing you down."
 msgstr "Manchmal bedarf es nur weniger visueller Anpassungen, damit deine Website perfekt aussieht. WordPress 4.7 ermöglicht das Hinzufügen von individuellem CSS und du siehst augenblicklich deine Änderungen auf der Website. Die direkte Vorschau ermöglicht dir zügiges Arbeiten, ohne dass ein Neuladen von Seiten dich ausbremst."
 
-#: wp-admin/about.php:139
+#: wp-admin/about.php:133
 msgid "Many menus for sites contain links to the pages of your site, but what happens when you don&#8217;t have any pages yet? Now you can add new pages while building menus instead of leaving the customizer and abandoning your changes. Once you&#8217;ve published your customizations, you&#8217;ll have new pages ready for you to fill with content."
 msgstr "Viele Menüs von Websites enthalten Links zu darauf enthaltenen Seiten, was passiert aber, wenn du noch überhaupt keine Seiten hast? Ab sofort kannst du bei der Menü-Erstellung neue Seiten hinzufügen, ohne dabei den Customizer verlassen zu müssen und deine Änderungen zu verlieren. Sobald du deine Änderungen veröffentlicht hast, stehen die neuen Seiten bereit, um von dir mit Inhalten gefüllt zu werden."
 
-#: wp-admin/about.php:137
+#: wp-admin/about.php:131
 msgid "Smoother Menu Building"
 msgstr "Leichterer Aufbau von Menüs"
 
-#: wp-admin/about.php:131
+#: wp-admin/about.php:125
 msgid "Sometimes a big atmospheric video as a moving header image is just what you need to showcase your wares; go ahead and try it out with Twenty Seventeen. Need some video inspiration? Try searching for sites with video headers available for download and use."
 msgstr "Manchmal ist ein großes, atmosphärisches Video als bewegtes Header-Bild genau das Richtige, um deine Waren zu präsentieren; probier es aus mit Twenty Seventeen. Du findest Inspiration zur Nutzung von Videos, wenn du nach Websites suchst, die gebrauchsfertige Video-Header zum Download und Nutzung anbieten."
 
-#: wp-admin/about.php:119
+#: wp-admin/about.php:115
 msgid "Video Headers"
 msgstr "Video-Header"
 
-#: wp-admin/about.php:116
+#: wp-admin/about.php:112
 msgid "Visible icons appear to show you which parts of your site can be customized while live previewing. Click on a shortcut and get straight to editing. Paired with starter content, getting started with customizing your site is faster than ever."
 msgstr "Die in der Live-Vorschau angezeigten Icons weisen die Teile deiner Website aus, die angepasst werden können. Klicke auf einen davon und beginne direkt mit dem Bearbeiten. Zusammen mit den beispielhaften Inhalten, kannst du somit schneller als jemals zuvor mit dem Anpassen deiner Website beginnen."
 
-#: wp-admin/about.php:104
+#: wp-admin/about.php:102
 msgid "Edit Shortcuts"
 msgstr "Buttons für editierbare Elemente"
 
@@ -1228,7 +1228,7 @@ msgid "Welcome to %s. This is your first post. Edit or delete it, then start blo
 msgstr "Willkommen bei %s. Dies ist dein erster Beitrag. Bearbeite oder lösche ihn und starte mit dem Bloggen!"
 
 #. translators: %s: WordPress version number
-#: wp-admin/about.php:269
+#: wp-admin/about.php:263
 msgid "<strong>Version %s</strong> addressed one security issue."
 msgstr "<strong>Version %s</strong> behob ein Sicherheitsproblem."
 
@@ -1245,15 +1245,15 @@ msgstr "Dein Profilbild kannst du bei <a href=\"%s\">Gravatar</a> ändern."
 msgid "Profile Picture"
 msgstr "Profilbild"
 
-#: wp-admin/about.php:47 wp-admin/about.php:266
+#: wp-admin/about.php:47 wp-admin/about.php:260
 msgid "Maintenance and Security Releases"
 msgstr "Wartungs- und Sicherheits-Updates"
 
-#: wp-admin/about.php:263
+#: wp-admin/about.php:257
 msgid "Security Releases"
 msgstr "Sicherheits-Updates"
 
-#: wp-admin/about.php:260
+#: wp-admin/about.php:254
 msgid "Maintenance Releases"
 msgstr "Wartungs-Updates"
 
@@ -3208,7 +3208,7 @@ msgstr "https://make.wordpress.org/"
 
 #: wp-admin/admin-footer.php:34
 msgid "Thank you for creating with <a href=\"%s\">WordPress</a>."
-msgstr "Danke für das Vertrauen in <a href=\"%s\">WordPress</a>."
+msgstr "Danke für dein Vertrauen in <a href=\"%s\">WordPress</a>."
 
 #: wp-admin/includes/ajax-actions.php:1773
 msgid "Type"
@@ -4661,7 +4661,7 @@ msgstr "Du kannst die Linkkategorien über die Mehrfachauswahl löschen, aber hi
 
 #: wp-admin/edit-tags.php:550
 msgid "Tags can be selectively converted to categories using the <a href=\"%s\">tag to category converter</a>."
-msgstr "Schlagwörter können selektiv mithilfe des <a href=\"%s\">Schlagwort-zu-Kategorie-Konverter</a> in Kategorien umgewandelt werden."
+msgstr "Schlagwörter können selektiv mithilfe des <a href=\"%s\">Schlagwort-zu-Kategorie-Konverters</a> in Kategorien umgewandelt werden."
 
 #. translators: %s: plugin name
 #. translators: %s: theme name
@@ -5374,7 +5374,7 @@ msgid "Contributing Developers"
 msgstr "Mitwirkende an der Entwicklung"
 
 #. translators: 1: WordPress version number, 2: plural number of bugs.
-#: wp-admin/about.php:274
+#: wp-admin/about.php:268
 msgid "<strong>Version %1$s</strong> addressed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> behob %2$s Fehler."
@@ -5382,20 +5382,20 @@ msgstr[1] "<strong>Version %1$s</strong> behob %2$s Fehler."
 
 #. translators: 1: WordPress version number, 2: plural number of bugs. More
 #. than one security issue.
-#: wp-admin/about.php:51 wp-admin/about.php:282
+#: wp-admin/about.php:51 wp-admin/about.php:276
 msgid "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> behob Sicherheitsprobleme und %2$s Fehler."
 msgstr[1] "<strong>Version %1$s</strong> behob Sicherheitsprobleme und %2$s Fehler."
 
 #. translators: %s: Codex URL
-#: wp-admin/about.php:49 wp-admin/about.php:53 wp-admin/about.php:286
+#: wp-admin/about.php:49 wp-admin/about.php:53 wp-admin/about.php:280
 msgid "For more information, see <a href=\"%s\">the release notes</a>."
 msgstr "Weitere Informationen findest du in den <a href=\"%s\">Veröffentlichtungsmitteilungen</a>."
 
 #. translators: 1: WordPress version number, 2: plural number of bugs. Singular
 #. security issue.
-#: wp-admin/about.php:278
+#: wp-admin/about.php:272
 msgid "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> behob ein Sicherheitsproblem und %2$s Fehler."
@@ -5406,15 +5406,15 @@ msgid "Welcome to your WordPress Dashboard! This is the screen you will see when
 msgstr "Willkommen in deinem WordPress-Dashboard! Diese Seite wird immer angezeigt, wenn du dich auf deiner Website anmeldest und gibt dir den Zugang zu allen Einstellungsmöglichkeiten von WordPress. Hilfe bekommst du auf jeder Seite, indem du oberhalb des Seitentitels auf den „Hilfe“-Tab klickst."
 
 #. translators: %s: WordPress version number
-#: wp-admin/about.php:48 wp-admin/about.php:271
+#: wp-admin/about.php:48 wp-admin/about.php:265
 msgid "<strong>Version %s</strong> addressed some security issues."
 msgstr "<strong>Version %s</strong> behob einige Sicherheitsprobleme."
 
-#: wp-admin/about.php:259
+#: wp-admin/about.php:253
 msgid "Maintenance Release"
 msgstr "Wartungs-Update"
 
-#: wp-admin/about.php:262
+#: wp-admin/about.php:256
 msgid "Security Release"
 msgstr "Sicherheits-Update"
 
@@ -5422,7 +5422,7 @@ msgstr "Sicherheits-Update"
 msgid "What&#8217;s New"
 msgstr "Was gibt's Neues"
 
-#: wp-admin/about.php:265
+#: wp-admin/about.php:259
 msgid "Maintenance and Security Release"
 msgstr "Wartungs- und Sicherheits-Update"
 
@@ -5434,7 +5434,7 @@ msgstr "Auf dieser Seite kannst du deine gewünschte Permalinkstruktur einstelle
 msgid "Welcome to WordPress %1$s. <a href=\"%2$s\">Learn more</a>."
 msgstr "Willkommen bei WordPress %1$s. <a href=\"%2$s\">Mehr erfahren</a>."
 
-#: wp-admin/about.php:245
+#: wp-admin/about.php:239
 msgid "Return to Updates"
 msgstr "Zurück zu Aktualisierungen"
 
@@ -5718,11 +5718,11 @@ msgstr "Das direkte Einbinden von wp-admin/includes/template.php, um add_meta_bo
 msgid "Welcome to WordPress %s"
 msgstr "Willkommen bei WordPress %s"
 
-#: wp-admin/about.php:245
+#: wp-admin/about.php:239
 msgid "Return to Dashboard &rarr; Updates"
 msgstr "Zum Dashboard  &rarr; Aktualisierungen zurückkehren"
 
-#: wp-admin/about.php:248
+#: wp-admin/about.php:242
 msgid "Go to Dashboard &rarr; Home"
 msgstr "Zum Dashboard &rarr; Home"
 
@@ -6605,7 +6605,7 @@ msgstr[1] "Oben gehalten <span class=\"count\">(%s)</span>"
 
 #: wp-admin/update-core.php:608
 msgid "Check Again"
-msgstr "Erneut prüfen"
+msgstr "Erneut überprüfen"
 
 #. translators: %1 date, %2 time.
 #: wp-admin/update-core.php:607
@@ -7590,7 +7590,7 @@ msgstr "Zeige alle"
 msgid "Please enter a valid menu name."
 msgstr "Bitte gib einen gültigen Menünamen an."
 
-#: wp-admin/about.php:248
+#: wp-admin/about.php:242
 msgid "Go to Dashboard"
 msgstr "Zum Dashboard"
 
