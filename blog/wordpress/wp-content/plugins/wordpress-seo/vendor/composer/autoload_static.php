@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd4c74bf4dac291cb6f04d4916fbc3af1
+class ComposerStaticInitb302bc72d072431a8a4fd6aae5897830
 {
     public static $prefixesPsr0 = array (
         'x' => 
@@ -96,6 +96,7 @@ class ComposerStaticInitd4c74bf4dac291cb6f04d4916fbc3af1
         'WPSEO_Admin_Pages' => __DIR__ . '/../..' . '/admin/class-config.php',
         'WPSEO_Admin_Stop_Words' => __DIR__ . '/../..' . '/admin/class-stop-words.php',
         'WPSEO_Admin_User_Profile' => __DIR__ . '/../..' . '/admin/class-admin-user-profile.php',
+        'WPSEO_Advanced_Settings' => __DIR__ . '/../..' . '/inc/class-wpseo-advanced-settings.php',
         'WPSEO_Author_Sitemap_Provider' => __DIR__ . '/../..' . '/inc/sitemaps/class-author-sitemap-provider.php',
         'WPSEO_Breadcrumbs' => __DIR__ . '/../..' . '/frontend/class-breadcrumbs.php',
         'WPSEO_Bulk_Description_List_Table' => __DIR__ . '/../..' . '/admin/class-bulk-description-editor-list-table.php',
@@ -154,6 +155,7 @@ class ComposerStaticInitd4c74bf4dac291cb6f04d4916fbc3af1
         'WPSEO_GSC_Issues' => __DIR__ . '/../..' . '/admin/google_search_console/class-gsc-issues.php',
         'WPSEO_GSC_Mapper' => __DIR__ . '/../..' . '/admin/google_search_console/class-gsc-mapper.php',
         'WPSEO_GSC_Marker' => __DIR__ . '/../..' . '/admin/google_search_console/class-gsc-marker.php',
+        'WPSEO_GSC_Modal' => __DIR__ . '/../..' . '/admin/google_search_console/class-gsc-modal.php',
         'WPSEO_GSC_Platform_Tabs' => __DIR__ . '/../..' . '/admin/google_search_console/class-gsc-platform-tabs.php',
         'WPSEO_GSC_Service' => __DIR__ . '/../..' . '/admin/google_search_console/class-gsc-service.php',
         'WPSEO_GSC_Settings' => __DIR__ . '/../..' . '/admin/google_search_console/class-gsc-settings.php',
@@ -285,8 +287,8 @@ class ComposerStaticInitd4c74bf4dac291cb6f04d4916fbc3af1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixesPsr0 = ComposerStaticInitd4c74bf4dac291cb6f04d4916fbc3af1::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitd4c74bf4dac291cb6f04d4916fbc3af1::$classMap;
+            $loader->prefixesPsr0 = ComposerStaticInitb302bc72d072431a8a4fd6aae5897830::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitb302bc72d072431a8a4fd6aae5897830::$classMap;
 
         }, null, ClassLoader::class);
     }
