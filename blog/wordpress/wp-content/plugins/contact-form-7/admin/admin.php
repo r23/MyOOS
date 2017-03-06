@@ -59,8 +59,9 @@ function wpcf7_set_screen_options( $result, $option, $value ) {
 	$wpcf7_screens = array(
 		'cfseven_contact_forms_per_page' );
 
-	if ( in_array( $option, $wpcf7_screens ) )
+	if ( in_array( $option, $wpcf7_screens ) ) {
 		$result = $value;
+	}
 
 	return $result;
 }
@@ -71,18 +72,60 @@ function wpcf7_load_contact_form_admin() {
 	$action = wpcf7_current_action();
 
 	if ( 'save' == $action ) {
-		$id = $_POST['post_ID'];
+		$id = isset( $_POST['post_ID'] ) ? $_POST['post_ID'] : '-1';
 		check_admin_referer( 'wpcf7-save-contact-form_' . $id );
 
-		if ( ! current_user_can( 'wpcf7_edit_contact_form', $id ) )
+		if ( ! current_user_can( 'wpcf7_edit_contact_form', $id ) ) {
 			wp_die( __( 'You are not allowed to edit this item.', 'contact-form-7' ) );
+		}
 
-		$id = wpcf7_save_contact_form( $id );
+		$args = $_REQUEST;
+		$args['id'] = $id;
+
+		$args['title'] = isset( $_POST['post_title'] )
+			? $_POST['post_title'] : null;
+
+		$args['locale'] = isset( $_POST['wpcf7-locale'] )
+			? $_POST['wpcf7-locale'] : null;
+
+		$args['form'] = isset( $_POST['wpcf7-form'] )
+			? $_POST['wpcf7-form'] : '';
+
+		$args['mail'] = isset( $_POST['wpcf7-mail'] )
+			? wpcf7_sanitize_mail( $_POST['wpcf7-mail'] )
+			: array();
+
+		$args['mail_2'] = isset( $_POST['wpcf7-mail-2'] )
+			? wpcf7_sanitize_mail( $_POST['wpcf7-mail-2'] )
+			: array();
+
+		$args['messages'] = isset( $_POST['wpcf7-messages'] )
+			? $_POST['wpcf7-messages'] : array();
+
+		$args['additional_settings'] = isset( $_POST['wpcf7-additional-settings'] )
+			? $_POST['wpcf7-additional-settings'] : '';
+
+		$contact_form = wpcf7_save_contact_form( $args );
+
+		if ( $contact_form && wpcf7_validate_configuration() ) {
+			$config_validator = new WPCF7_ConfigValidator( $contact_form );
+			$config_validator->validate();
+			$config_validator->save();
+		}
 
 		$query = array(
-			'message' => ( -1 == $_POST['post_ID'] ) ? 'created' : 'saved',
-			'post' => $id,
-			'active-tab' => isset( $_POST['active-tab'] ) ? (int) $_POST['active-tab'] : 0 );
+			'post' => $contact_form ? $contact_form->id() : 0,
+			'active-tab' => isset( $_POST['active-tab'] )
+				? (int) $_POST['active-tab'] : 0,
+		);
+
+		if ( ! $contact_form ) {
+			$query['message'] = 'failed';
+		} elseif ( -1 == $id ) {
+			$query['message'] = 'created';
+		} else {
+			$query['message'] = 'saved';
+		}
 
 		$redirect_to = add_query_arg( $query, menu_page_url( 'wpcf7', false ) );
 		wp_safe_redirect( $redirect_to );
@@ -96,8 +139,9 @@ function wpcf7_load_contact_form_admin() {
 
 		check_admin_referer( 'wpcf7-copy-contact-form_' . $id );
 
-		if ( ! current_user_can( 'wpcf7_edit_contact_form', $id ) )
+		if ( ! current_user_can( 'wpcf7_edit_contact_form', $id ) ) {
 			wp_die( __( 'You are not allowed to edit this item.', 'contact-form-7' ) );
+		}
 
 		$query = array();
 
@@ -116,12 +160,13 @@ function wpcf7_load_contact_form_admin() {
 	}
 
 	if ( 'delete' == $action ) {
-		if ( ! empty( $_POST['post_ID'] ) )
+		if ( ! empty( $_POST['post_ID'] ) ) {
 			check_admin_referer( 'wpcf7-delete-contact-form_' . $_POST['post_ID'] );
-		elseif ( ! is_array( $_REQUEST['post'] ) )
+		} elseif ( ! is_array( $_REQUEST['post'] ) ) {
 			check_admin_referer( 'wpcf7-delete-contact-form_' . $_REQUEST['post'] );
-		else
+		} else {
 			check_admin_referer( 'bulk-posts' );
+		}
 
 		$posts = empty( $_POST['post_ID'] )
 			? (array) $_REQUEST['post']
@@ -132,22 +177,26 @@ function wpcf7_load_contact_form_admin() {
 		foreach ( $posts as $post ) {
 			$post = WPCF7_ContactForm::get_instance( $post );
 
-			if ( empty( $post ) )
+			if ( empty( $post ) ) {
 				continue;
+			}
 
-			if ( ! current_user_can( 'wpcf7_delete_contact_form', $post->id() ) )
+			if ( ! current_user_can( 'wpcf7_delete_contact_form', $post->id() ) ) {
 				wp_die( __( 'You are not allowed to delete this item.', 'contact-form-7' ) );
+			}
 
-			if ( ! $post->delete() )
+			if ( ! $post->delete() ) {
 				wp_die( __( 'Error in deleting.', 'contact-form-7' ) );
+			}
 
 			$deleted += 1;
 		}
 
 		$query = array();
 
-		if ( ! empty( $deleted ) )
+		if ( ! empty( $deleted ) ) {
 			$query['message'] = 'deleted';
+		}
 
 		$redirect_to = add_query_arg( $query, menu_page_url( 'wpcf7', false ) );
 
@@ -164,15 +213,18 @@ function wpcf7_load_contact_form_admin() {
 			}
 
 			$contact_forms = WPCF7_ContactForm::find();
+
 			$result = array(
 				'timestamp' => current_time( 'timestamp' ),
 				'version' => WPCF7_VERSION,
 				'count_valid' => 0,
-				'count_invalid' => 0 );
+				'count_invalid' => 0,
+			);
 
 			foreach ( $contact_forms as $contact_form ) {
 				$config_validator = new WPCF7_ConfigValidator( $contact_form );
 				$config_validator->validate();
+				$config_validator->save();
 
 				if ( $config_validator->is_valid() ) {
 					$result['count_valid'] += 1;
@@ -248,30 +300,34 @@ function wpcf7_admin_enqueue_scripts( $hook_suffix ) {
 		WPCF7_VERSION, true );
 
 	$args = array(
+		'apiSettings' => array(
+			'root' => esc_url_raw( get_rest_url() ),
+			'nonce' => ( wp_installing() && ! is_multisite() )
+				? '' : wp_create_nonce( 'wp_rest' ) ),
 		'pluginUrl' => wpcf7_plugin_url(),
 		'saveAlert' => __(
 			"The changes you made will be lost if you navigate away from this page.",
 			'contact-form-7' ),
 		'activeTab' => isset( $_GET['active-tab'] )
 			? (int) $_GET['active-tab'] : 0,
-		'howToCorrectLink' => __( "How to correct this?", 'contact-form-7' ),
-		'configErrors' => array() );
+		'configValidator' => array(
+			'errors' => array(),
+			'howToCorrect' => __( "How to correct this?", 'contact-form-7' ),
+			'oneError' => __( '1 configuration error detected', 'contact-form-7' ),
+			'manyErrors' => __( '%d configuration errors detected', 'contact-form-7' ),
+			'oneErrorInTab' => __( '1 configuration error detected in this tab panel', 'contact-form-7' ),
+			'manyErrorsInTab' => __( '%d configuration errors detected in this tab panel', 'contact-form-7' ),
+			'docUrl' => WPCF7_ConfigValidator::get_doc_link(),
+		),
+	);
 
 	if ( ( $post = wpcf7_get_current_contact_form() )
 	&& current_user_can( 'wpcf7_edit_contact_form', $post->id() )
 	&& wpcf7_validate_configuration() ) {
 		$config_validator = new WPCF7_ConfigValidator( $post );
-		$error_messages = $config_validator->collect_error_messages();
-
-		foreach ( $error_messages as $section => $errors ) {
-			$args['configErrors'][$section] = array();
-
-			foreach ( $errors as $error ) {
-				$args['configErrors'][$section][] = array(
-					'message' => esc_html( $error['message'] ),
-					'link' => esc_url( $error['link'] ) );
-			}
-		}
+		$config_validator->restore();
+		$args['configValidator']['errors'] =
+			$config_validator->collect_error_messages();
 	}
 
 	wp_localize_script( 'wpcf7-admin', '_wpcf7', $args );
@@ -355,7 +411,7 @@ function wpcf7_admin_bulk_validate_page() {
 	<p><input type="submit" class="button" value="<?php echo esc_attr( $submit_text ); ?>" /></p>
 </form>
 
-<?php echo wpcf7_link( __( 'http://contactform7.com/configuration-validator-faq/', 'contact-form-7' ), __( 'FAQ about Configuration Validator', 'contact-form-7' ) ); ?>
+<?php echo wpcf7_link( __( 'https://contactform7.com/configuration-validator-faq/', 'contact-form-7' ), __( 'FAQ about Configuration Validator', 'contact-form-7' ) ); ?>
 
 </div>
 <?php
@@ -431,7 +487,15 @@ function wpcf7_admin_updated_message() {
 	}
 
 	if ( ! empty( $updated_message ) ) {
-		echo sprintf( '<div id="message" class="updated notice notice-success is-dismissible"><p>%s</p></div>', esc_html( $updated_message ) );
+		echo sprintf( '<div id="message" class="notice notice-success is-dismissible"><p>%s</p></div>', esc_html( $updated_message ) );
+		return;
+	}
+
+	if ( 'failed' == $_REQUEST['message'] ) {
+		$updated_message = __( "There was an error saving the contact form.",
+			'contact-form-7' );
+
+		echo sprintf( '<div id="message" class="notice notice-error is-dismissible"><p>%s</p></div>', esc_html( $updated_message ) );
 		return;
 	}
 
@@ -462,8 +526,9 @@ function wpcf7_admin_updated_message() {
 add_filter( 'plugin_action_links', 'wpcf7_plugin_action_links', 10, 2 );
 
 function wpcf7_plugin_action_links( $links, $file ) {
-	if ( $file != WPCF7_PLUGIN_BASENAME )
+	if ( $file != WPCF7_PLUGIN_BASENAME ) {
 		return $links;
+	}
 
 	$settings_link = '<a href="' . menu_page_url( 'wpcf7', false ) . '">'
 		. esc_html( __( 'Settings', 'contact-form-7' ) ) . '</a>';
@@ -508,40 +573,6 @@ function wpcf7_not_allowed_to_edit() {
 	echo sprintf(
 		'<div class="notice notice-warning"><p>%s</p></div>',
 		esc_html( $message ) );
-}
-
-add_action( 'wpcf7_admin_misc_pub_section', 'wpcf7_notice_config_errors' );
-
-function wpcf7_notice_config_errors() {
-	if ( ! $contact_form = wpcf7_get_current_contact_form() ) {
-		return;
-	}
-
-	if ( ! wpcf7_validate_configuration()
-	|| ! current_user_can( 'wpcf7_edit_contact_form', $contact_form->id() ) ) {
-		return;
-	}
-
-	$config_validator = new WPCF7_ConfigValidator( $contact_form );
-
-	if ( $count_errors = $config_validator->count_errors() ) {
-		$message = sprintf(
-			_n(
-				'%s configuration error found',
-				'%s configuration errors found',
-				$count_errors, 'contact-form-7' ),
-			number_format_i18n( $count_errors ) );
-
-		$link = wpcf7_link(
-			__( 'http://contactform7.com/configuration-validator-faq/',
-				'contact-form-7' ),
-			__( "What's this?", 'contact-form-7' ),
-			array( 'class' => 'external' ) );
-
-		echo sprintf(
-			'<div class="misc-pub-section warning">%1$s<br />%2$s</div>',
-			$message, $link );
-	}
 }
 
 add_action( 'wpcf7_admin_warnings', 'wpcf7_notice_bulk_validate_config', 5 );

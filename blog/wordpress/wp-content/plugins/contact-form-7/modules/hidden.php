@@ -3,7 +3,8 @@
 add_action( 'wpcf7_init', 'wpcf7_add_form_tag_hidden' );
 
 function wpcf7_add_form_tag_hidden() {
-	wpcf7_add_form_tag( 'hidden', 'wpcf7_hidden_form_tag_handler', true );
+	wpcf7_add_form_tag( 'hidden',
+		'wpcf7_hidden_form_tag_handler', array( 'name-attr' => true ) );
 }
 
 function wpcf7_hidden_form_tag_handler( $tag ) {

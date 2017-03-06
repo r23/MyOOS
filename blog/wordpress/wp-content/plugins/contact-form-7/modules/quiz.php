@@ -8,7 +8,8 @@
 add_action( 'wpcf7_init', 'wpcf7_add_form_tag_quiz' );
 
 function wpcf7_add_form_tag_quiz() {
-	wpcf7_add_form_tag( 'quiz', 'wpcf7_quiz_form_tag_handler', true );
+	wpcf7_add_form_tag( 'quiz',
+		'wpcf7_quiz_form_tag_handler', array( 'name-attr' => true ) );
 }
 
 function wpcf7_quiz_form_tag_handler( $tag ) {
@@ -171,7 +172,7 @@ function wpcf7_tag_generator_quiz( $contact_form, $args = '' ) {
 
 	$description = __( "Generate a form-tag for a question-answer pair. For more details, see %s.", 'contact-form-7' );
 
-	$desc_link = wpcf7_link( __( 'http://contactform7.com/quiz/', 'contact-form-7' ), __( 'Quiz', 'contact-form-7' ) );
+	$desc_link = wpcf7_link( __( 'https://contactform7.com/quiz/', 'contact-form-7' ), __( 'Quiz', 'contact-form-7' ) );
 
 ?>
 <div class="control-box">

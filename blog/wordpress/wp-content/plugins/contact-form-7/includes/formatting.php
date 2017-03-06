@@ -219,7 +219,16 @@ function wpcf7_is_date( $date ) {
 
 function wpcf7_is_mailbox_list( $mailbox_list ) {
 	if ( ! is_array( $mailbox_list ) ) {
-		$mailbox_list = explode( ',', (string) $mailbox_list );
+		$mailbox_text = (string) $mailbox_list;
+		$mailbox_text = wp_unslash( $mailbox_text );
+
+		$mailbox_text = preg_replace( '/\\\\(?:\"|\')/', 'esc-quote',
+			$mailbox_text );
+
+		$mailbox_text = preg_replace( '/(?:\".*?\"|\'.*?\')/', 'quoted-string',
+			$mailbox_text );
+
+		$mailbox_list = explode( ',', $mailbox_text );
 	}
 
 	$addresses = array();
@@ -314,8 +323,9 @@ function wpcf7_antiscript_file_name( $filename ) {
 	$filename = basename( $filename );
 	$parts = explode( '.', $filename );
 
-	if ( count( $parts ) < 2 )
+	if ( count( $parts ) < 2 ) {
 		return $filename;
+	}
 
 	$script_pattern = '/^(php|phtml|pl|py|rb|cgi|asp|aspx)\d?$/i';
 
@@ -323,16 +333,18 @@ function wpcf7_antiscript_file_name( $filename ) {
 	$extension = array_pop( $parts );
 
 	foreach ( (array) $parts as $part ) {
-		if ( preg_match( $script_pattern, $part ) )
+		if ( preg_match( $script_pattern, $part ) ) {
 			$filename .= '.' . $part . '_';
-		else
+		} else {
 			$filename .= '.' . $part;
+		}
 	}
 
-	if ( preg_match( $script_pattern, $extension ) )
+	if ( preg_match( $script_pattern, $extension ) ) {
 		$filename .= '.' . $extension . '_.txt';
-	else
+	} else {
 		$filename .= '.' . $extension;
+	}
 
 	return $filename;
 }

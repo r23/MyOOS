@@ -24,9 +24,13 @@ class WPCF7_Mail {
 		$this->exclude_blank = ! empty( $template['exclude_blank'] );
 
 		$this->template = wp_parse_args( $template, array(
-			'subject' => '', 'sender' => '', 'body' => '',
-			'recipient' => '', 'additional_headers' => '',
-			'attachments' => '' ) );
+			'subject' => '',
+			'sender' => '',
+			'body' => '',
+			'recipient' => '',
+			'additional_headers' => '',
+			'attachments' => '',
+		) );
 	}
 
 	public function name() {
@@ -43,7 +47,8 @@ class WPCF7_Mail {
 		if ( $replace_tags ) {
 			$component = $this->replace_tags( $component, array(
 				'html' => $use_html,
-				'exclude_blank' => $exclude_blank ) );
+				'exclude_blank' => $exclude_blank,
+			) );
 
 			if ( $use_html
 			&& ! preg_match( '%<html[>\s].*</html>%is', $component ) ) {
@@ -79,7 +84,8 @@ class WPCF7_Mail {
 			'body' => $this->get( 'body', true ),
 			'recipient' => $this->get( 'recipient', true ),
 			'additional_headers' => $this->get( 'additional_headers', true ),
-			'attachments' => $this->attachments() );
+			'attachments' => $this->attachments(),
+		);
 
 		$components = apply_filters( 'wpcf7_mail_components',
 			$components, wpcf7_get_current_contact_form(), $this );
@@ -118,7 +124,8 @@ class WPCF7_Mail {
 
 		$args = wp_parse_args( $args, array(
 			'html' => false,
-			'exclude_blank' => false ) );
+			'exclude_blank' => false,
+		) );
 
 		return wpcf7_mail_replace_tags( $content, $args );
 	}
@@ -162,7 +169,8 @@ class WPCF7_Mail {
 function wpcf7_mail_replace_tags( $content, $args = '' ) {
 	$args = wp_parse_args( $args, array(
 		'html' => false,
-		'exclude_blank' => false ) );
+		'exclude_blank' => false,
+	) );
 
 	if ( is_array( $content ) ) {
 		foreach ( $content as $key => $value ) {
@@ -223,7 +231,8 @@ class WPCF7_MailTaggedText {
 	public function __construct( $content, $args = '' ) {
 		$args = wp_parse_args( $args, array(
 			'html' => false,
-			'callback' => null ) );
+			'callback' => null,
+		) );
 
 		$this->html = (bool) $args['html'];
 

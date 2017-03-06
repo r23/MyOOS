@@ -15,7 +15,8 @@ function wpcf7_l10n() {
 
 	$api = translations_api( 'plugins', array(
 		'slug' => 'contact-form-7',
-		'version' => WPCF7_VERSION ) );
+		'version' => WPCF7_VERSION,
+	) );
 
 	if ( is_wp_error( $api ) || empty( $api['translations'] ) ) {
 		return $l10n;
@@ -45,7 +46,8 @@ function wpcf7_is_rtl( $locale = '' ) {
 		'haz' => 'Hazaragi',
 		'he_IL' => 'Hebrew',
 		'ps' => 'Pashto',
-		'ug_CN' => 'Uighur' );
+		'ug_CN' => 'Uighur',
+	);
 
 	if ( empty( $locale ) && function_exists( 'is_rtl' ) ) {
 		return is_rtl();

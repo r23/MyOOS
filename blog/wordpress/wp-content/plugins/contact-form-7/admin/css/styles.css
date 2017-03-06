@@ -56,32 +56,14 @@ span.shortcode > input {
 	color: #23282d;
 }
 
-#misc-publishing-actions .misc-pub-section::before {
-	content: "\f488";
-	-moz-osx-font-smoothing: grayscale;
-	display: inline-block;
-	font: 20px/1 dashicons;
-	left: -1px;
-	padding: 0 2px 0 0;
-	position: relative;
-	text-decoration: none !important;
-	top: 0;
-	vertical-align: top;
-	color: #82878c;
-}
-
-#misc-publishing-actions .misc-pub-section.warning::before {
-	content: "\f534";
-}
-
-#misc-publishing-actions .misc-pub-section.warning a.external {
-	font-style: italic;
-}
-
 div.config-error, span.config-error, ul.config-error {
-	color: #d00;
+	color: #444;
 	font-style: normal;
 	font-size: 13px;
+}
+
+div.config-error span.dashicons {
+	color: #82878c;
 }
 
 ul.config-error {
@@ -89,12 +71,16 @@ ul.config-error {
 }
 
 ul.config-error li {
+	list-style: disc inside;
 	padding: 0 4px;
 	margin: 0;
 }
 
 ul.config-error li a.external {
-	font-style: italic;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 18px;
+	vertical-align: middle;
 }
 
 [data-config-field][aria-invalid="true"] {
@@ -150,6 +136,16 @@ ul.config-error li a.external {
 
 #contact-form-editor-tabs li a:hover {
 	color: #000;
+}
+
+#contact-form-editor-tabs li a span.dashicons {
+	font-style: normal;
+	padding: 6px 0 4px 4px;
+	color: #82878c;
+}
+
+#contact-form-editor-tabs li.ui-tabs-active a span.dashicons {
+	display: none;
 }
 
 #contact-form-editor .contact-form-editor-panel h2 {
@@ -318,6 +314,10 @@ ul.config-error li a.external {
 
 .fixed .column-shortcode {
 	width: 38%;
+}
+
+.wp-list-table .config-error span.dashicons {
+	color: #82878c;
 }
 
 /*

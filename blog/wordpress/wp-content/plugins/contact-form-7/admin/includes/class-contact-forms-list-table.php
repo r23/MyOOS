@@ -12,7 +12,8 @@ class WPCF7_Contact_Form_List_Table extends WP_List_Table {
 			'title' => __( 'Title', 'contact-form-7' ),
 			'shortcode' => __( 'Shortcode', 'contact-form-7' ),
 			'author' => __( 'Author', 'contact-form-7' ),
-			'date' => __( 'Date', 'contact-form-7' ) );
+			'date' => __( 'Date', 'contact-form-7' ),
+		);
 
 		return $columns;
 	}
@@ -21,7 +22,8 @@ class WPCF7_Contact_Form_List_Table extends WP_List_Table {
 		parent::__construct( array(
 			'singular' => 'post',
 			'plural' => 'posts',
-			'ajax' => false ) );
+			'ajax' => false,
+		) );
 	}
 
 	function prepare_items() {
@@ -34,25 +36,29 @@ class WPCF7_Contact_Form_List_Table extends WP_List_Table {
 			'posts_per_page' => $per_page,
 			'orderby' => 'title',
 			'order' => 'ASC',
-			'offset' => ( $this->get_pagenum() - 1 ) * $per_page );
+			'offset' => ( $this->get_pagenum() - 1 ) * $per_page,
+		);
 
-		if ( ! empty( $_REQUEST['s'] ) )
+		if ( ! empty( $_REQUEST['s'] ) ) {
 			$args['s'] = $_REQUEST['s'];
+		}
 
 		if ( ! empty( $_REQUEST['orderby'] ) ) {
-			if ( 'title' == $_REQUEST['orderby'] )
+			if ( 'title' == $_REQUEST['orderby'] ) {
 				$args['orderby'] = 'title';
-			elseif ( 'author' == $_REQUEST['orderby'] )
+			} elseif ( 'author' == $_REQUEST['orderby'] ) {
 				$args['orderby'] = 'author';
-			elseif ( 'date' == $_REQUEST['orderby'] )
+			} elseif ( 'date' == $_REQUEST['orderby'] ) {
 				$args['orderby'] = 'date';
+			}
 		}
 
 		if ( ! empty( $_REQUEST['order'] ) ) {
-			if ( 'asc' == strtolower( $_REQUEST['order'] ) )
+			if ( 'asc' == strtolower( $_REQUEST['order'] ) ) {
 				$args['order'] = 'ASC';
-			elseif ( 'desc' == strtolower( $_REQUEST['order'] ) )
+			} elseif ( 'desc' == strtolower( $_REQUEST['order'] ) ) {
 				$args['order'] = 'DESC';
+			}
 		}
 
 		$this->items = WPCF7_ContactForm::find( $args );
@@ -63,7 +69,8 @@ class WPCF7_Contact_Form_List_Table extends WP_List_Table {
 		$this->set_pagination_args( array(
 			'total_items' => $total_items,
 			'total_pages' => $total_pages,
-			'per_page' => $per_page ) );
+			'per_page' => $per_page,
+		) );
 	}
 
 	function get_columns() {
@@ -74,14 +81,16 @@ class WPCF7_Contact_Form_List_Table extends WP_List_Table {
 		$columns = array(
 			'title' => array( 'title', true ),
 			'author' => array( 'author', false ),
-			'date' => array( 'date', false ) );
+			'date' => array( 'date', false ),
+		);
 
 		return $columns;
 	}
 
 	function get_bulk_actions() {
 		$actions = array(
-			'delete' => __( 'Delete', 'contact-form-7' ) );
+			'delete' => __( 'Delete', 'contact-form-7' ),
+		);
 
 		return $actions;
 	}
@@ -106,23 +115,25 @@ class WPCF7_Contact_Form_List_Table extends WP_List_Table {
 			esc_url( $edit_link ),
 			esc_attr( sprintf( __( 'Edit &#8220;%s&#8221;', 'contact-form-7' ),
 				$item->title() ) ),
-			esc_html( $item->title() ) );
+			esc_html( $item->title() )
+		);
 
 		$output = sprintf( '<strong>%s</strong>', $output );
 
 		if ( wpcf7_validate_configuration()
 		&& current_user_can( 'wpcf7_edit_contact_form', $item->id() ) ) {
 			$config_validator = new WPCF7_ConfigValidator( $item );
+			$config_validator->restore();
 
 			if ( $count_errors = $config_validator->count_errors() ) {
 				$error_notice = sprintf(
 					_n(
-						'%s configuration error found',
-						'%s configuration errors found',
+						'%s configuration error detected',
+						'%s configuration errors detected',
 						$count_errors, 'contact-form-7' ),
 					number_format_i18n( $count_errors ) );
 				$output .= sprintf(
-					'<div class="config-error">%s</div>',
+					'<div class="config-error"><span class="dashicons dashicons-warning"></span> %s</div>',
 					$error_notice );
 			}
 		}
@@ -140,7 +151,9 @@ class WPCF7_Contact_Form_List_Table extends WP_List_Table {
 			$actions = array_merge( $actions, array(
 				'copy' => sprintf( '<a href="%1$s">%2$s</a>',
 					esc_url( $copy_link ),
-					esc_html( __( 'Duplicate', 'contact-form-7' ) ) ) ) );
+					esc_html( __( 'Duplicate', 'contact-form-7' ) )
+				),
+			) );
 		}
 
 		$output .= $this->row_actions( $actions );
@@ -182,19 +195,24 @@ class WPCF7_Contact_Form_List_Table extends WP_List_Table {
 	function column_date( $item ) {
 		$post = get_post( $item->id() );
 
-		if ( ! $post )
+		if ( ! $post ) {
 			return;
+		}
 
-		$t_time = mysql2date( __( 'Y/m/d g:i:s A', 'contact-form-7' ), $post->post_date, true );
+		$t_time = mysql2date( __( 'Y/m/d g:i:s A', 'contact-form-7' ),
+			$post->post_date, true );
 		$m_time = $post->post_date;
-		$time = mysql2date( 'G', $post->post_date ) - get_option( 'gmt_offset' ) * 3600;
+		$time = mysql2date( 'G', $post->post_date )
+			- get_option( 'gmt_offset' ) * 3600;
 
 		$time_diff = time() - $time;
 
-		if ( $time_diff > 0 && $time_diff < 24*60*60 )
-			$h_time = sprintf( __( '%s ago', 'contact-form-7' ), human_time_diff( $time ) );
-		else
+		if ( $time_diff > 0 && $time_diff < 24*60*60 ) {
+			$h_time = sprintf(
+				__( '%s ago', 'contact-form-7' ), human_time_diff( $time ) );
+		} else {
 			$h_time = mysql2date( __( 'Y/m/d', 'contact-form-7' ), $m_time );
+		}
 
 		return '<abbr title="' . $t_time . '">' . $h_time . '</abbr>';
 	}

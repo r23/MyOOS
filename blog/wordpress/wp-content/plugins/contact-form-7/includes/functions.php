@@ -31,8 +31,9 @@ function wpcf7_upload_dir( $type = false ) {
 }
 
 function wpcf7_verify_nonce( $nonce, $action = -1 ) {
-	if ( substr( wp_hash( $action, 'nonce' ), -12, 10 ) == $nonce )
+	if ( substr( wp_hash( $action, 'nonce' ), -12, 10 ) == $nonce ) {
 		return true;
+	}
 
 	return false;
 }
@@ -68,13 +69,15 @@ function wpcf7_blacklist_check( $target ) {
 }
 
 function wpcf7_array_flatten( $input ) {
-	if ( ! is_array( $input ) )
+	if ( ! is_array( $input ) ) {
 		return array( $input );
+	}
 
 	$output = array();
 
-	foreach ( $input as $value )
+	foreach ( $input as $value ) {
 		$output = array_merge( $output, wpcf7_array_flatten( $value ) );
+	}
 
 	return $output;
 }
@@ -83,8 +86,9 @@ function wpcf7_flat_join( $input ) {
 	$input = wpcf7_array_flatten( $input );
 	$output = array();
 
-	foreach ( (array) $input as $value )
+	foreach ( (array) $input as $value ) {
 		$output[] = trim( (string) $value );
+	}
 
 	return implode( ', ', $output );
 }
@@ -150,7 +154,8 @@ function wpcf7_format_atts( $atts ) {
 function wpcf7_link( $url, $anchor_text, $args = '' ) {
 	$defaults = array(
 		'id' => '',
-		'class' => '' );
+		'class' => '',
+	);
 
 	$args = wp_parse_args( $args, $defaults );
 	$args = array_intersect_key( $args, $defaults );
@@ -228,7 +233,8 @@ function wpcf7_enctype_value( $enctype ) {
 	$valid_enctypes = array(
 		'application/x-www-form-urlencoded',
 		'multipart/form-data',
-		'text/plain' );
+		'text/plain',
+	);
 
 	if ( in_array( $enctype, $valid_enctypes ) ) {
 		return $enctype;

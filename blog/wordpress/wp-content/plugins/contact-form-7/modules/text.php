@@ -14,7 +14,7 @@ add_action( 'wpcf7_init', 'wpcf7_add_form_tag_text' );
 function wpcf7_add_form_tag_text() {
 	wpcf7_add_form_tag(
 		array( 'text', 'text*', 'email', 'email*', 'url', 'url*', 'tel', 'tel*' ),
-		'wpcf7_text_form_tag_handler', true );
+		'wpcf7_text_form_tag_handler', array( 'name-attr' => true ) );
 }
 
 function wpcf7_text_form_tag_handler( $tag ) {
@@ -225,7 +225,7 @@ function wpcf7_tag_generator_text( $contact_form, $args = '' ) {
 		$description = __( "Generate a form-tag for a single-line telephone number input field. For more details, see %s.", 'contact-form-7' );
 	}
 
-	$desc_link = wpcf7_link( __( 'http://contactform7.com/text-fields/', 'contact-form-7' ), __( 'Text Fields', 'contact-form-7' ) );
+	$desc_link = wpcf7_link( __( 'https://contactform7.com/text-fields/', 'contact-form-7' ), __( 'Text Fields', 'contact-form-7' ) );
 
 ?>
 <div class="control-box">
