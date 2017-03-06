@@ -7,7 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.0\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
 "Language: de\n"
 "Project-Id-Version: WordPress - 4.7.x - Administration\n"
 
@@ -26,143 +26,143 @@ msgctxt "start of week"
 msgid "1"
 msgstr "1"
 
-#: wp-admin/about.php:228
+#: wp-admin/about.php:232
 msgid "Customize changesets make changes in the customizer persistent, like autosave drafts. They also make exciting new features like starter content possible."
 msgstr "Eigene Änderungs-Sets ermöglichen bleibende Änderungen im Customizer, ähnlich wie bei der automatischen Speicherung von Entwürfen. Sie ermöglichen neue Funktionen wie beispielhafte Inhalte für Themes."
 
-#: wp-admin/about.php:227
+#: wp-admin/about.php:231
 msgid "Customize Changesets"
 msgstr "Änderungs-Sets im Customizer"
 
 #. translators: 1: register_setting(), 2:
 #. https://make.wordpress.org/core/2016/10/26/registering-your-settings-in-wordpress-4-7/
-#: wp-admin/about.php:220
+#: wp-admin/about.php:224
 msgid "%1$s <a href=\"%2$s\">has been enhanced</a> to include type, description, and REST API visibility."
 msgstr "%1$s <a href=\"%2$s\">wurde verbessert</a> und beinhaltet nun Typ, Beschreibung und Sichtbarkeit für die REST API."
 
-#: wp-admin/about.php:216
+#: wp-admin/about.php:220
 msgid "Settings Registration API"
 msgstr "Einstellungen-Registrierungs-API"
 
 #. translators: %s:
 #. https://make.wordpress.org/core/2016/09/08/wp_hook-next-generation-actions-and-filters/
-#: wp-admin/about.php:210
+#: wp-admin/about.php:214
 msgid "The code that lies beneath actions and filters has been overhauled and modernized, fixing bugs along the way."
 msgstr "Der Code, der für Aktionen und Filter verantwortlich ist, wurde überarbeitet und modernisiert. Bei der Gelegenheit wurden auch einige Fehler bereinigt."
 
-#: wp-admin/about.php:200
+#: wp-admin/about.php:204
 msgid "List tables, now with more than bulk edit and delete."
 msgstr "Listenansichten bieten nun mehr Optionen als die Mehrfachbearbeitung und das Löschen."
 
-#: wp-admin/about.php:199
+#: wp-admin/about.php:203
 msgid "Custom Bulk Actions"
 msgstr "Individuelle Mehrfachauswahl"
 
 #. translators: %s:
 #. https://make.wordpress.org/core/2016/09/09/new-functions-hooks-and-behaviour-for-theme-developers-in-wordpress-4-7/
-#: wp-admin/about.php:193
+#: wp-admin/about.php:197
 msgid "WordPress 4.7 includes <a href=\"%s\">new functions, hooks, and behavior</a> for theme developers."
 msgstr "WordPress 4.7 beinhaltet <a href=\"%s\">neue Funktionen, Hooks und Verhalten</a> für die Entwicklung von Themes."
 
-#: wp-admin/about.php:189
+#: wp-admin/about.php:193
 msgid "More Theme API Goodies"
 msgstr "Mehr Theme-API-Bonbons"
 
-#: wp-admin/about.php:186
+#: wp-admin/about.php:190
 msgid "By opening up the page template functionality to all post types, theme developers have even more flexibility with the WordPress template hierarchy."
 msgstr "Durch die Ausweitung der Seitentemplate-Funktionalität auf alle Beitragstypen, gibt es jetzt für die Theme-Entwicklung noch mehr Flexibilität mit der Template-Hierarchie von WordPress."
 
-#: wp-admin/about.php:185
+#: wp-admin/about.php:189
 msgid "Post Type Templates"
 msgstr "Templates für Inhaltstypen"
 
 #. translators: %s: smiling face with smiling eyes emoji
-#: wp-admin/about.php:178
+#: wp-admin/about.php:182
 msgid "Even More Developer Happiness %s"
 msgstr "Noch mehr Erfreuliches für Entwickler %s"
 
 #. translators: %s: https://developer.wordpress.org/rest-api/
-#: wp-admin/about.php:166
+#: wp-admin/about.php:170
 msgid "Content endpoints provide machine-readable external access to your WordPress site with a clear, standards-driven interface, paving the way for new and innovative methods of interacting with sites through plugins, themes, apps, and beyond. Ready to get started with development? <a href=\"%s\">Check out the REST API reference.</a>"
 msgstr "Inhalts-Endpunkte bieten externen, maschinenlesbaren Zugriff auf deine WordPress-Website mit einer klaren, standardkonformen Schnittstelle, die den Weg ebnet für neue und innovative Methoden der Interaktion mit Websites, durch Plugins, Themes, Apps und darüber hinaus. Bist du bereit, mit der Entwicklung loszulegen? <a href=\"%s\">Weitere Informationen findest du in der REST-API-Dokumentation.</a>"
 
-#: wp-admin/about.php:161
+#: wp-admin/about.php:165
 msgid "WordPress 4.7 comes with REST API endpoints for posts, comments, terms, users, meta, and settings."
 msgstr "WordPress 4.7 unterstützt REST API Endpunkte für Beiträge, Kommentare, Begriffe, Benutzer, Metadaten und Einstellungen."
 
-#: wp-admin/about.php:160
+#: wp-admin/about.php:164
 msgid "Introducing REST API Content Endpoints"
 msgstr "Erweiterung der REST API um Inhalts-Endpunkte"
 
-#: wp-admin/about.php:153
+#: wp-admin/about.php:157
 msgid "Just because your site is in one language doesn&#8217;t mean that everybody helping manage it prefers that language for their admin. Add more languages to your site and a user language option will show up in your user&#8217;s profiles."
 msgstr "Nur weil deine Website in einer Sprache ist, heißt das noch lange nicht, dass jeder der sie verwaltet, den Administrationsbereich auch in dieser Sprache nutzen möchte. Füge weitere Sprachen zu deiner Website hinzu und es wird eine Option zur Sprachauswahl in den Benutzerprofilen auftauchen."
 
-#: wp-admin/about.php:151
+#: wp-admin/about.php:155
 msgid "Dashboard in your language"
 msgstr "Dashboard in deiner Sprache"
 
-#: wp-admin/about.php:148
+#: wp-admin/about.php:152
 msgid "Managing your document collection is easier with WordPress 4.7. Uploading PDFs will generate thumbnail images so you can more easily distinguish between all your documents."
 msgstr "Die Verwaltung deiner Dokumenten-Sammlung wird mit WordPress 4.7 noch einfacher. Es werden beim Hochladen von PDFs Vorschaubilder erstellt, damit du deine Dokumente noch einfacher unterscheiden kannst."
 
-#: wp-admin/about.php:146
+#: wp-admin/about.php:150
 msgid "PDF Thumbnail Previews"
 msgstr "PDF-Voransichten"
 
-#: wp-admin/about.php:138
+#: wp-admin/about.php:142
 msgid "Sometimes you just need a few visual tweaks to make your site perfect. WordPress 4.7 allows you to add custom CSS and instantly see how your changes affect your site. The live preview allows you to work quickly without page refreshes slowing you down."
 msgstr "Manchmal bedarf es nur weniger visueller Anpassungen, damit deine Website perfekt aussieht. WordPress 4.7 ermöglicht das Hinzufügen von individuellem CSS und du siehst augenblicklich deine Änderungen auf der Website. Die direkte Vorschau ermöglicht dir zügiges Arbeiten, ohne dass ein Neuladen von Seiten dich ausbremst."
 
-#: wp-admin/about.php:133
+#: wp-admin/about.php:137
 msgid "Many menus for sites contain links to the pages of your site, but what happens when you don&#8217;t have any pages yet? Now you can add new pages while building menus instead of leaving the customizer and abandoning your changes. Once you&#8217;ve published your customizations, you&#8217;ll have new pages ready for you to fill with content."
 msgstr "Viele Menüs von Websites enthalten Links zu darauf enthaltenen Seiten, was passiert aber, wenn du noch überhaupt keine Seiten hast? Ab sofort kannst du bei der Menü-Erstellung neue Seiten hinzufügen, ohne dabei den Customizer verlassen zu müssen und deine Änderungen zu verlieren. Sobald du deine Änderungen veröffentlicht hast, stehen die neuen Seiten bereit, um von dir mit Inhalten gefüllt zu werden."
 
-#: wp-admin/about.php:131
+#: wp-admin/about.php:135
 msgid "Smoother Menu Building"
 msgstr "Leichterer Aufbau von Menüs"
 
-#: wp-admin/about.php:125
+#: wp-admin/about.php:129
 msgid "Sometimes a big atmospheric video as a moving header image is just what you need to showcase your wares; go ahead and try it out with Twenty Seventeen. Need some video inspiration? Try searching for sites with video headers available for download and use."
 msgstr "Manchmal ist ein großes, atmosphärisches Video als bewegtes Header-Bild genau das Richtige, um deine Waren zu präsentieren; probier es aus mit Twenty Seventeen. Du findest Inspiration zur Nutzung von Videos, wenn du nach Websites suchst, die gebrauchsfertige Video-Header zum Download und Nutzung anbieten."
 
-#: wp-admin/about.php:115
+#: wp-admin/about.php:119
 msgid "Video Headers"
 msgstr "Video-Header"
 
-#: wp-admin/about.php:112
+#: wp-admin/about.php:116
 msgid "Visible icons appear to show you which parts of your site can be customized while live previewing. Click on a shortcut and get straight to editing. Paired with starter content, getting started with customizing your site is faster than ever."
 msgstr "Die in der Live-Vorschau angezeigten Icons weisen die Teile deiner Website aus, die angepasst werden können. Klicke auf einen davon und beginne direkt mit dem Bearbeiten. Zusammen mit den beispielhaften Inhalten, kannst du somit schneller als jemals zuvor mit dem Anpassen deiner Website beginnen."
 
-#: wp-admin/about.php:102
+#: wp-admin/about.php:106
 msgid "Edit Shortcuts"
 msgstr "Buttons für editierbare Elemente"
 
-#: wp-admin/about.php:85
+#: wp-admin/about.php:89
 msgid "To help give you a solid base to build from, individual themes can provide starter content that appears when you go to customize your brand new site. This can range from placing a business information widget in the best location to providing a sample menu with social icon links to a static front page complete with beautiful images. Don&#8217;t worry - nothing new will appear on the live site until you&#8217;re ready to save and publish your initial theme setup."
 msgstr "Um dir eine solide Ausgangsbasis zu bieten, können einzelne Themes beispielhafte Inhalte anbieten, welche angezeigt werden sobald du damit beginnst deine brandneue Website anzupassen. Das kann vom Platzieren eines Widgets mit geschäftlichen Informationen an der idealen Stelle, bis hin zum Bereitstellen eines Beispiel-Menüs mit Social-Icons, das auf eine statische Startseite mit wunderschönen Bildern verlinkt, reichen. Mach dir keine Sorgen - es wird nichts Neues auf deiner laufenden Website auftauchen, solange du nicht die erste Einrichtung deines Themes mit Speichern und Veröffentlichen abgeschlossen hast. "
 
-#: wp-admin/about.php:84
+#: wp-admin/about.php:88
 msgid "Theme Starter Content"
 msgstr "Beispielhafte Theme-Inhalte"
 
-#: wp-admin/about.php:79
+#: wp-admin/about.php:83
 msgid "WordPress 4.7 adds new features to the customizer to help take you through the initial setup of a theme, with non-destructive live previews of all your changes in one uninterrupted workflow."
 msgstr "WordPress 4.7 bietet neue Funktionen im Customizer, die dir bei der Ersteinrichtung eines Themes helfen. Du bekommst die Möglichkeit, all deine Änderungen direkt in einer Live-Vorschau anzusehen, bevor sie gespeichert werden, sodass sich ein ungestörter Arbeitsablauf ergibt."
 
-#: wp-admin/about.php:78
+#: wp-admin/about.php:82
 msgid "Your Site, Your Way"
 msgstr "Deine Website, auf deine Art"
 
-#: wp-admin/about.php:72
+#: wp-admin/about.php:76
 msgid "Twenty Seventeen focuses on business sites and features a customizable front page with multiple sections. Personalize it with widgets, navigation, social menus, a logo, custom colors, and more. Our default theme for 2017 works great in many languages, on any device, and for a wide range of users."
 msgstr "Twenty Seventeen konzentriert sich auf Websites für Unternehmen und unterstützt eine individualisierbare Startseite mit mehreren Abschnitten. Personalisiere sie mit Widgets, Navigation, Social-Menüs, einem Logo, individuellen Farben und mehr. Unser Standard-Theme für 2017 läuft in vielen Sprachen, auf jedem Gerät und für ein breites Nutzerspektrum."
 
-#: wp-admin/about.php:66
+#: wp-admin/about.php:70
 msgid "A brand new default theme brings your site to life with immersive featured images and video headers."
 msgstr "Ein brandneues Standardtheme erweckt deine Website mit beeindruckenden Beitragsbildern und Video-Headern zum Leben."
 
-#: wp-admin/about.php:65
+#: wp-admin/about.php:69
 msgid "Presenting Twenty Seventeen"
 msgstr "Vorstellung von Twenty Seventeen"
 
@@ -273,7 +273,7 @@ msgstr "Du bist leider nicht berechtigt, Dateien an Beiträge anzuhängen."
 
 #: wp-admin/freedoms.php:45 wp-admin/includes/plugin-install.php:235
 #: wp-admin/includes/plugin-install.php:599 wp-admin/plugin-install.php:82
-#: wp-admin/plugins.php:392
+#: wp-admin/plugins.php:400
 msgid "https://wordpress.org/plugins/"
 msgstr "https://de.wordpress.org/plugins/"
 
@@ -312,7 +312,7 @@ msgstr "Original"
 #: wp-admin/options-media.php:35 wp-admin/options-permalink.php:46
 #: wp-admin/options-reading.php:39 wp-admin/options-writing.php:46
 #: wp-admin/plugin-editor.php:157 wp-admin/plugin-install.php:99
-#: wp-admin/plugins.php:410 wp-admin/revision.php:121
+#: wp-admin/plugins.php:418 wp-admin/revision.php:121
 #: wp-admin/theme-editor.php:43 wp-admin/theme-install.php:115
 #: wp-admin/themes.php:119 wp-admin/tools.php:29 wp-admin/update-core.php:576
 #: wp-admin/upload.php:67 wp-admin/upload.php:211 wp-admin/user-edit.php:56
@@ -411,7 +411,7 @@ msgctxt "plugin"
 msgid "%s was successfully deleted."
 msgstr "%s wurde erfolgreich gelöscht."
 
-#: wp-admin/plugins.php:388
+#: wp-admin/plugins.php:396
 msgid "The search for installed plugins will search for terms in their name, description, or author."
 msgstr "Die Suche nach installierte Plugins beinhaltet die Suche in deren Namen, Beschreibung oder Autor."
 
@@ -910,13 +910,13 @@ msgid "The name of the database you want to use with WordPress."
 msgstr "Der Name der Datenbank, die du für WordPress verwenden möchtest."
 
 #. translators: 1: plugin name, 2: plugin author
-#: wp-admin/plugins.php:310
+#: wp-admin/plugins.php:318
 msgctxt "plugin"
 msgid "%1$s by %2$s"
 msgstr "%1$s von %2$s"
 
 #. translators: 1: plugin name, 2: plugin author
-#: wp-admin/plugins.php:306
+#: wp-admin/plugins.php:314
 msgid "%1$s by %2$s (will also <strong>delete its data</strong>)"
 msgstr "%1$s von %2$s (es werden auch <strong>alle zugehörigen Daten gelöscht</strong>)"
 
@@ -1228,7 +1228,7 @@ msgid "Welcome to %s. This is your first post. Edit or delete it, then start blo
 msgstr "Willkommen bei %s. Dies ist dein erster Beitrag. Bearbeite oder lösche ihn und starte mit dem Bloggen!"
 
 #. translators: %s: WordPress version number
-#: wp-admin/about.php:263
+#: wp-admin/about.php:267
 msgid "<strong>Version %s</strong> addressed one security issue."
 msgstr "<strong>Version %s</strong> behob ein Sicherheitsproblem."
 
@@ -1245,15 +1245,15 @@ msgstr "Dein Profilbild kannst du bei <a href=\"%s\">Gravatar</a> ändern."
 msgid "Profile Picture"
 msgstr "Profilbild"
 
-#: wp-admin/about.php:47 wp-admin/about.php:260
+#: wp-admin/about.php:47 wp-admin/about.php:264
 msgid "Maintenance and Security Releases"
 msgstr "Wartungs- und Sicherheits-Updates"
 
-#: wp-admin/about.php:257
+#: wp-admin/about.php:261
 msgid "Security Releases"
 msgstr "Sicherheits-Updates"
 
-#: wp-admin/about.php:254
+#: wp-admin/about.php:258
 msgid "Maintenance Releases"
 msgstr "Wartungs-Updates"
 
@@ -1453,23 +1453,23 @@ msgstr "Themesliste filtern"
 msgid "%s files"
 msgstr "%s Dateien"
 
-#: wp-admin/plugins.php:490
+#: wp-admin/plugins.php:498
 msgid "All selected plugins are up to date."
 msgstr "Alle ausgewählten Plugins sind aktuell."
 
-#: wp-admin/plugins.php:473
+#: wp-admin/plugins.php:481
 msgid "The selected plugin has been <strong>deleted</strong>."
 msgstr "Das ausgewählte Plugin wurde <strong>gelöscht</strong>."
 
-#: wp-admin/plugin-install.php:105 wp-admin/plugins.php:416
+#: wp-admin/plugin-install.php:105 wp-admin/plugins.php:424
 msgid "Plugins list"
 msgstr "Pluginliste"
 
-#: wp-admin/plugin-install.php:104 wp-admin/plugins.php:415
+#: wp-admin/plugin-install.php:104 wp-admin/plugins.php:423
 msgid "Plugins list navigation"
 msgstr "Navigation der Pluginliste"
 
-#: wp-admin/plugin-install.php:103 wp-admin/plugins.php:414
+#: wp-admin/plugin-install.php:103 wp-admin/plugins.php:422
 msgid "Filter plugins list"
 msgstr "Plugin-Liste filtern"
 
@@ -1648,7 +1648,7 @@ msgstr "Navigation der Elementliste"
 msgid "Filter items list"
 msgstr "Liste mit Filtern"
 
-#: wp-admin/includes/class-wp-press-this.php:1521
+#: wp-admin/includes/class-wp-press-this.php:1526
 msgid "Saving&hellip;"
 msgstr "Speichere&#160;&hellip;"
 
@@ -1938,7 +1938,7 @@ msgstr[1] "%s Beiträge von diesem Autor"
 msgid "Live Preview &#8220;%s&#8221;"
 msgstr "Live-Vorschau &#8222;%s&#8220;"
 
-#: wp-admin/includes/class-wp-press-this.php:1524
+#: wp-admin/includes/class-wp-press-this.php:1529
 msgid "More actions"
 msgstr "Weitere Aktionen"
 
@@ -2188,7 +2188,7 @@ msgstr "<a href=\"https://codex.wordpress.org/Editing_Files\">Dokumentation zu D
 msgid "<a href=\"https://codex.wordpress.org/Template_Tags\">Documentation on Template Tags</a>"
 msgstr "<a href=\"https://codex.wordpress.org/Template_Tags\">Dokumentation zu Vorlagen Schlagwörter (engl.)</a>"
 
-#: wp-admin/plugins.php:409
+#: wp-admin/plugins.php:417
 msgid "<a href=\"https://codex.wordpress.org/Managing_Plugins#Plugin_Management\">Documentation on Managing Plugins</a>"
 msgstr "<a href=\"https://codex.wordpress.org/Managing_Plugins#Plugin_Management\">Dokumentation zu Plugins (engl.)</a>"
 
@@ -2267,7 +2267,7 @@ msgstr "https://codex.wordpress.org/Introduction_to_Blogging#Managing_Comments"
 msgid "The <a href=\"https://codex.wordpress.org/Glossary#Character_set\">character encoding</a> of your site (UTF-8 is recommended)"
 msgstr "Die <a href=\"https://codex.wordpress.org/Glossary#Character_set\">Zeichencodierung</a> deiner Website (UTF-8 wird empfohlen)"
 
-#: wp-admin/includes/class-wp-press-this.php:1529
+#: wp-admin/includes/class-wp-press-this.php:1534
 msgid "Standard Editor"
 msgstr "Standard-Editor"
 
@@ -2367,7 +2367,7 @@ msgstr "Ein Beitrag wurde nicht aktualisiert, da er von jemandem bearbeitet wird
 msgid "1 page not updated, somebody is editing it."
 msgstr "Eine Seite wurde nicht aktualisiert, da sie gerade von jemandem bearbeitet wird."
 
-#: wp-admin/plugins.php:296
+#: wp-admin/plugins.php:304
 msgid "These plugins may be active on other sites in the network."
 msgstr "Diese Plugins könnten auf anderen Websites innerhalb des Netzwerks aktiv sein."
 
@@ -2379,15 +2379,15 @@ msgid_plural "%s items"
 msgstr[0] "%s Eintrag"
 msgstr[1] "%s Einträge"
 
-#: wp-admin/plugins.php:298
+#: wp-admin/plugins.php:306
 msgid "You are about to remove the following plugins:"
 msgstr "Du bist dabei, folgende Plugins zu entfernen:"
 
-#: wp-admin/plugins.php:294
+#: wp-admin/plugins.php:302
 msgid "Delete Plugins"
 msgstr "Plugins löschen"
 
-#: wp-admin/includes/class-wp-press-this.php:1363
+#: wp-admin/includes/class-wp-press-this.php:1367
 msgid "Hide post options"
 msgstr "Beitragsoptionen verbergen"
 
@@ -2516,59 +2516,59 @@ msgstr "Diese Kategorie kann nicht hinzugefügt werden. Bitte ändere den Namen 
 msgid "Error while adding the category. Please try again later."
 msgstr "Fehler beim Hinzufügen der Kategorie. Bitte versuche es später noch einmal."
 
-#: wp-admin/includes/class-wp-press-this.php:883
+#: wp-admin/includes/class-wp-press-this.php:887
 msgid "Toggle add category"
 msgstr "Kategorie hinzufügen aktivieren/deaktivieren"
 
-#: wp-admin/includes/class-wp-press-this.php:908
+#: wp-admin/includes/class-wp-press-this.php:912
 msgid "Search categories by name"
 msgstr "Suche Kategorien nach Name"
 
-#: wp-admin/includes/class-wp-press-this.php:910
+#: wp-admin/includes/class-wp-press-this.php:914
 msgid "Search categories"
 msgstr "Suche Kategorien"
 
-#: wp-admin/includes/class-wp-press-this.php:1162
+#: wp-admin/includes/class-wp-press-this.php:1166
 msgctxt "Used in Press This to indicate where the content comes from."
 msgid "Source:"
 msgstr "Quelle:"
 
-#: wp-admin/includes/class-wp-press-this.php:1361
+#: wp-admin/includes/class-wp-press-this.php:1365
 msgid "Show post options"
 msgstr "Zeige Beitragsoptionen"
 
-#: wp-admin/includes/class-wp-press-this.php:1268
+#: wp-admin/includes/class-wp-press-this.php:1272
 msgid "Press This!"
 msgstr "Press This!"
 
-#: wp-admin/includes/class-wp-press-this.php:1369
+#: wp-admin/includes/class-wp-press-this.php:1373
 msgid "Scan site for content"
 msgstr "Website nach Inhalten scannen"
 
-#: wp-admin/includes/class-wp-press-this.php:1370
+#: wp-admin/includes/class-wp-press-this.php:1374
 msgid "Enter a URL to scan"
 msgstr "Gib eine URL zum Scannen ein"
 
-#: wp-admin/includes/class-wp-press-this.php:1371
+#: wp-admin/includes/class-wp-press-this.php:1375
 msgid "Scan"
 msgstr "Scannen"
 
-#: wp-admin/includes/class-wp-press-this.php:1397
+#: wp-admin/includes/class-wp-press-this.php:1402
 msgid "You should upgrade <a href=\"%s\" target=\"_blank\">your bookmarklet</a> to the latest version!"
 msgstr "Du solltest <a href=\"%s\" target=\"_blank\">dein Bookmarklet</a> auf die neueste Version aktualisieren."
 
-#: wp-admin/includes/class-wp-press-this.php:1406
-#: wp-admin/includes/class-wp-press-this.php:1407
+#: wp-admin/includes/class-wp-press-this.php:1411
+#: wp-admin/includes/class-wp-press-this.php:1412
 msgid "Post title"
 msgstr "Beitragstitel"
 
-#: wp-admin/includes/class-wp-press-this.php:1411
+#: wp-admin/includes/class-wp-press-this.php:1416
 msgid "Suggested media"
 msgstr "Vorgeschlagene Medien"
 
-#: wp-admin/includes/class-wp-press-this.php:1478
-#: wp-admin/includes/class-wp-press-this.php:1489
-#: wp-admin/includes/class-wp-press-this.php:1500
+#: wp-admin/includes/class-wp-press-this.php:1483
+#: wp-admin/includes/class-wp-press-this.php:1494
+#: wp-admin/includes/class-wp-press-this.php:1505
 msgid "Back to post options"
 msgstr "Zurück zu Beitragsoptionen"
 
@@ -5299,7 +5299,7 @@ msgstr "Die Inhalte deiner Website können in eine Datei exportiert werden, um d
 msgid "New users will receive an email letting them know they&#8217;ve been added as a user for your site. This email will also contain their password. Check the box if you don&#8217;t want the user to receive a welcome email."
 msgstr "Neue Benutzer erhalten eine E-Mail, um sie wissen zu lassen, dass sie als Benutzer deiner Website hinzugefügt wurden. Diese E-Mail wird auch ihr Passwort beinhalten. Aktiviere das Kontrollkästchen, wenn du nicht willst, dass eine Willkommens-Nachricht verschickt wird."
 
-#: wp-admin/plugins.php:443
+#: wp-admin/plugins.php:451
 msgid "The plugin generated %d characters of <strong>unexpected output</strong> during activation. If you notice &#8220;headers already sent&#8221; messages, problems with syndication feeds or other issues, try deactivating or removing this plugin."
 msgstr "Das Plugin verursachte %d Zeichen <strong>unerwartete Ausgabe</strong> während der Aktivierung. Solltest du Fehlermeldungen wie &#8222;headers already sent&#8220;, Probleme mit der Syndizierung der Feeds oder andere Fehler erhalten, versuche, das Plugin zu deaktivieren oder zu löschen."
 
@@ -5374,7 +5374,7 @@ msgid "Contributing Developers"
 msgstr "Mitwirkende an der Entwicklung"
 
 #. translators: 1: WordPress version number, 2: plural number of bugs.
-#: wp-admin/about.php:268
+#: wp-admin/about.php:272
 msgid "<strong>Version %1$s</strong> addressed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> behob %2$s Fehler."
@@ -5382,20 +5382,21 @@ msgstr[1] "<strong>Version %1$s</strong> behob %2$s Fehler."
 
 #. translators: 1: WordPress version number, 2: plural number of bugs. More
 #. than one security issue.
-#: wp-admin/about.php:51 wp-admin/about.php:276
+#: wp-admin/about.php:48 wp-admin/about.php:55 wp-admin/about.php:280
 msgid "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> behob Sicherheitsprobleme und %2$s Fehler."
 msgstr[1] "<strong>Version %1$s</strong> behob Sicherheitsprobleme und %2$s Fehler."
 
 #. translators: %s: Codex URL
-#: wp-admin/about.php:49 wp-admin/about.php:53 wp-admin/about.php:280
+#: wp-admin/about.php:50 wp-admin/about.php:53 wp-admin/about.php:57
+#: wp-admin/about.php:284
 msgid "For more information, see <a href=\"%s\">the release notes</a>."
 msgstr "Weitere Informationen findest du in den <a href=\"%s\">Veröffentlichtungsmitteilungen</a>."
 
 #. translators: 1: WordPress version number, 2: plural number of bugs. Singular
 #. security issue.
-#: wp-admin/about.php:272
+#: wp-admin/about.php:276
 msgid "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> behob ein Sicherheitsproblem und %2$s Fehler."
@@ -5406,15 +5407,15 @@ msgid "Welcome to your WordPress Dashboard! This is the screen you will see when
 msgstr "Willkommen in deinem WordPress-Dashboard! Diese Seite wird immer angezeigt, wenn du dich auf deiner Website anmeldest und gibt dir den Zugang zu allen Einstellungsmöglichkeiten von WordPress. Hilfe bekommst du auf jeder Seite, indem du oberhalb des Seitentitels auf den „Hilfe“-Tab klickst."
 
 #. translators: %s: WordPress version number
-#: wp-admin/about.php:48 wp-admin/about.php:265
+#: wp-admin/about.php:52 wp-admin/about.php:269
 msgid "<strong>Version %s</strong> addressed some security issues."
 msgstr "<strong>Version %s</strong> behob einige Sicherheitsprobleme."
 
-#: wp-admin/about.php:253
+#: wp-admin/about.php:257
 msgid "Maintenance Release"
 msgstr "Wartungs-Update"
 
-#: wp-admin/about.php:256
+#: wp-admin/about.php:260
 msgid "Security Release"
 msgstr "Sicherheits-Update"
 
@@ -5422,7 +5423,7 @@ msgstr "Sicherheits-Update"
 msgid "What&#8217;s New"
 msgstr "Was gibt's Neues"
 
-#: wp-admin/about.php:259
+#: wp-admin/about.php:263
 msgid "Maintenance and Security Release"
 msgstr "Wartungs- und Sicherheits-Update"
 
@@ -5434,7 +5435,7 @@ msgstr "Auf dieser Seite kannst du deine gewünschte Permalinkstruktur einstelle
 msgid "Welcome to WordPress %1$s. <a href=\"%2$s\">Learn more</a>."
 msgstr "Willkommen bei WordPress %1$s. <a href=\"%2$s\">Mehr erfahren</a>."
 
-#: wp-admin/about.php:239
+#: wp-admin/about.php:243
 msgid "Return to Updates"
 msgstr "Zurück zu Aktualisierungen"
 
@@ -5442,7 +5443,7 @@ msgstr "Zurück zu Aktualisierungen"
 msgid "You can upload media files here without creating a post first. This allows you to upload files to use with posts and pages later and/or to get a web link for a particular file that you can share. There are three options for uploading files:"
 msgstr "Du kannst hier Dateien hochladen, ohne vorher einen Beitrag zu erstellen. Dies ermöglicht dir, Dateien hochzuladen, um sie später in Beiträgen oder Seiten zu verwenden bzw. um einen Link für eine bestimmte Datei zu erhalten, den du dann teilen kannst. Zum Hochladen von Dateien stehen dir drei Möglichkeiten zur Verfügung:"
 
-#: wp-admin/plugins.php:397
+#: wp-admin/plugins.php:405
 msgid "Troubleshooting"
 msgstr "Problembehandlung"
 
@@ -5718,11 +5719,11 @@ msgstr "Das direkte Einbinden von wp-admin/includes/template.php, um add_meta_bo
 msgid "Welcome to WordPress %s"
 msgstr "Willkommen bei WordPress %s"
 
-#: wp-admin/about.php:239
+#: wp-admin/about.php:243
 msgid "Return to Dashboard &rarr; Updates"
 msgstr "Zum Dashboard  &rarr; Aktualisierungen zurückkehren"
 
-#: wp-admin/about.php:242
+#: wp-admin/about.php:246
 msgid "Go to Dashboard &rarr; Home"
 msgstr "Zum Dashboard &rarr; Home"
 
@@ -5873,7 +5874,7 @@ msgstr "FEHLER: Du antwortest auf einen Kommentar zu einem Entwurf."
 #: wp-admin/options-general.php:39 wp-admin/options-media.php:28
 #: wp-admin/options-permalink.php:20 wp-admin/options-reading.php:22
 #: wp-admin/options-writing.php:20 wp-admin/plugin-editor.php:143
-#: wp-admin/plugin-install.php:80 wp-admin/plugins.php:385
+#: wp-admin/plugin-install.php:80 wp-admin/plugins.php:393
 #: wp-admin/revision.php:115 wp-admin/theme-editor.php:25
 #: wp-admin/theme-install.php:98 wp-admin/themes.php:82
 #: wp-admin/update-core.php:556 wp-admin/upload.php:48 wp-admin/upload.php:189
@@ -5950,7 +5951,7 @@ msgstr "Neu hinzufügen"
 #: wp-admin/options-media.php:33 wp-admin/options-permalink.php:43
 #: wp-admin/options-reading.php:37 wp-admin/options-writing.php:44
 #: wp-admin/plugin-editor.php:154 wp-admin/plugin-install.php:97
-#: wp-admin/plugins.php:408 wp-admin/revision.php:119
+#: wp-admin/plugins.php:416 wp-admin/revision.php:119
 #: wp-admin/theme-editor.php:38 wp-admin/theme-install.php:113
 #: wp-admin/themes.php:117 wp-admin/tools.php:27 wp-admin/update-core.php:574
 #: wp-admin/upload.php:65 wp-admin/upload.php:209 wp-admin/user-edit.php:54
@@ -6052,7 +6053,7 @@ msgstr "Editor"
 msgid "Add New User"
 msgstr "Neuen Benutzer hinzufügen"
 
-#: wp-admin/comment.php:149 wp-admin/plugins.php:290 wp-admin/plugins.php:296
+#: wp-admin/comment.php:149 wp-admin/plugins.php:298 wp-admin/plugins.php:304
 #: wp-admin/theme-editor.php:272
 msgid "Caution:"
 msgstr "Vorsicht:"
@@ -6144,7 +6145,7 @@ msgstr ""
 msgid "Featured Images"
 msgstr "Beitragsbilder"
 
-#: wp-admin/includes/class-wp-press-this.php:841
+#: wp-admin/includes/class-wp-press-this.php:845
 #: wp-admin/includes/meta-boxes.php:385 wp-admin/includes/theme.php:263
 msgid "Post Formats"
 msgstr "Beitragsformate"
@@ -6195,7 +6196,7 @@ msgid "You can find additional themes for your site by using the Theme Browser/I
 msgstr "Hier kannst du zusätzliche Themes für deine Website finden, indem du den Theme-Browser dieser Ansicht nutzt. Es werden hier die Themes aus dem <a href=\"%s\">WordPress Theme-Verzeichnis</a> angezeigt, zum Durchstöbern und Installieren. Alle Themes wurden von Dritten designt und entwickelt, sind kostenlos und kompatibel mit der von WordPress genutzten Lizenz (GPL)."
 
 #. translators: %s: WordPress Plugin Directory URL
-#: wp-admin/plugins.php:391
+#: wp-admin/plugins.php:399
 msgid "If you would like to see more plugins to choose from, click on the &#8220;Add New&#8221; button and you will be able to browse or search for additional plugins from the <a href=\"%s\">WordPress Plugin Directory</a>. Plugins in the WordPress Plugin Directory are designed and developed by third parties, and are compatible with the license WordPress uses. Oh, and they&#8217;re free!"
 msgstr "Falls du weitere Plugins installieren möchtest, kannst du auf den Button &#8222;Neu Hinzufügen&#8220; klicken, um Plugins im <a href=\"%s\">WordPress Plugin-Verzeichnis</a> zu suchen. Alle Plugins wurden von Dritten designt und entwickelt und sind kompatibel, mit der von WordPress genutzten Lizenz (GPL). Ach ja, und sie sind auch noch kostenlos!"
 
@@ -6364,11 +6365,11 @@ msgstr "%1$s von %2$s"
 msgid "%s Page Template"
 msgstr "%s Seiten-Template"
 
-#: wp-admin/includes/ajax-actions.php:3783 wp-admin/plugins.php:441
+#: wp-admin/includes/ajax-actions.php:3783 wp-admin/plugins.php:449
 msgid "You cannot delete a plugin while it is active on the main site."
 msgstr "Du kannst ein Plugin nicht löschen, so lange es noch auf der Haupt-Website aktiv ist."
 
-#: wp-admin/plugins.php:290
+#: wp-admin/plugins.php:298
 msgid "This plugin may be active on other sites in the network."
 msgstr "Dieses Plugin könnte noch auf anderen Seiten dieses Netzwerks aktiv sein."
 
@@ -6971,7 +6972,7 @@ msgstr "Wähle zuerst in der Auswahlbox das zu bearbeitende Plugin und klicke da
 msgid "You can customize the display of this screen using the Screen Options tab and/or the dropdown filters above the links table."
 msgstr "Du kannst über den Tab &#8222;Ansicht anpassen&#8220; die Darstellung anpassen und auch diverse Auswahlfilter anwenden, die direkt über der Tabelle mit den Links angezeigt werden."
 
-#: wp-admin/plugins.php:399
+#: wp-admin/plugins.php:407
 msgid "Most of the time, plugins play nicely with the core of WordPress and with other plugins. Sometimes, though, a plugin&#8217;s code will get in the way of another plugin, causing compatibility issues. If your site starts doing strange things, this may be the problem. Try deactivating all your plugins and re-activating them in various combinations until you isolate which one(s) caused the issue."
 msgstr ""
 "Die meisten Plugins arbeiten hervorragend mit WordPress und anderen Plugins zusammen. Es kann jedoch passieren, dass ein Plugin Probleme unterschiedlicher Ausprägung verursachen kann. Wenn du sowas beobachtest, solltest du das zuletzt aktivierte Plugin deaktivieren. Manchmal ist es auch ratsam, testweise alle Plugins zu deaktivieren und schrittweise wieder zu reaktivieren und genau zu beobachten, ob die Probleme wieder auftreten.\n"
@@ -7139,7 +7140,7 @@ msgstr "Über &#8222;Ansicht anpassen&#8220; kannst du Spalten aus- oder einblen
 msgid "You can refine the list to show only posts in a specific category or from a specific month by using the dropdown menus above the posts list. Click the Filter button after making your selection. You also can refine the list by clicking on the post author, category or tag in the posts list."
 msgstr "Es ist auch möglich, nur die Beiträge einer bestimmten Kategorie, eines bestimmten Monats oder eines bestimmten Autors anzeigen zu lassen. Nutze hierfür die Dropdown-Auswahlmenüs über der Beitragsliste und wähle dann &#8222;Auswahl einschränken&#8220; oder klicke direkt auf einen Autor oder Kategorie-Namen innerhalb der Liste."
 
-#: wp-admin/plugins.php:526
+#: wp-admin/plugins.php:534
 msgid "Search Installed Plugins"
 msgstr "Installierte Plugins suchen"
 
@@ -7590,7 +7591,7 @@ msgstr "Zeige alle"
 msgid "Please enter a valid menu name."
 msgstr "Bitte gib einen gültigen Menünamen an."
 
-#: wp-admin/about.php:242
+#: wp-admin/about.php:246
 msgid "Go to Dashboard"
 msgstr "Zum Dashboard"
 
@@ -7604,19 +7605,19 @@ msgstr[1] "Obligatorisch <span class=\"count\">(%s)</span>"
 msgid "Inactive:"
 msgstr "Inaktiv:"
 
-#: wp-admin/plugins.php:330
+#: wp-admin/plugins.php:338
 msgid "Yes, delete these files and data"
 msgstr "Ja, lösche diese Dateien und Daten"
 
-#: wp-admin/plugins.php:317
+#: wp-admin/plugins.php:325
 msgid "Are you sure you wish to delete these files and data?"
 msgstr "Bist du sicher, dass du diese Dateien und Daten löschen möchtest?"
 
-#: wp-admin/plugins.php:288
+#: wp-admin/plugins.php:296
 msgid "Delete Plugin"
 msgstr "Plugin löschen"
 
-#: wp-admin/plugins.php:292
+#: wp-admin/plugins.php:300
 msgid "You are about to remove the following plugin:"
 msgstr "Du bist dabei, das folgende Plugin zu entfernen:"
 
@@ -8103,57 +8104,57 @@ msgstr "Plugin-Seite aufrufen"
 msgid "Network Deactivate"
 msgstr "Für das gesamte Netzwerk deaktivieren"
 
-#: wp-admin/plugins.php:488
+#: wp-admin/plugins.php:496
 msgid "Selected plugins <strong>deactivated</strong>."
 msgstr "Ausgewählte Plugins wurden <strong>deaktiviert</strong>."
 
-#: wp-admin/plugins.php:486
+#: wp-admin/plugins.php:494
 msgid "Plugin <strong>deactivated</strong>."
 msgstr "Plugin <strong>deaktiviert</strong>."
 
-#: wp-admin/plugins.php:484
+#: wp-admin/plugins.php:492
 msgid "Selected plugins <strong>activated</strong>."
 msgstr "Ausgewählte Plugins wurden <strong>aktiviert</strong>."
 
-#: wp-admin/plugins.php:482
+#: wp-admin/plugins.php:490
 msgid "Plugin <strong>activated</strong>."
 msgstr "Plugin <strong>aktiviert</strong>."
 
-#: wp-admin/plugins.php:475
+#: wp-admin/plugins.php:483
 msgid "The selected plugins have been <strong>deleted</strong>."
 msgstr "Die ausgewählten Plugins wurden <strong>gelöscht</strong>."
 
-#: wp-admin/plugins.php:467
+#: wp-admin/plugins.php:475
 msgid "Plugin could not be deleted due to an error: %s"
 msgstr "Das Plugin konnte aufgrund eines Fehlers nicht gelöscht werden: %s"
 
-#: wp-admin/plugins.php:445
+#: wp-admin/plugins.php:453
 msgid "Plugin could not be activated because it triggered a <strong>fatal error</strong>."
 msgstr "Das Plugin kann nicht aktiviert werden, da es einen <strong>fatalen Fehler</strong> erzeugt."
 
 #. translators: 1: plugin file 2: error message
-#: wp-admin/plugins.php:430
+#: wp-admin/plugins.php:438
 msgid "The plugin %1$s has been <strong>deactivated</strong> due to an error: %2$s"
 msgstr "Das Plugin %1$s wurde in Folge eines Fehlers <strong>deaktiviert</strong>: %2$s"
 
 #. translators: WP_PLUGIN_DIR constant value
-#: wp-admin/plugins.php:402
+#: wp-admin/plugins.php:410
 msgid "If something goes wrong with a plugin and you can&#8217;t use WordPress, delete or rename that file in the %s directory and it will be automatically deactivated."
 msgstr "Wenn etwas mit einem Plugin falsch läuft und du WordPress nicht mehr einwandfrei benutzen kannst, dann benenne das Plugin im Verzeichnis %s um oder lösche es. Dadurch wird es automatisch deaktiviert."
 
-#: wp-admin/plugins.php:387
+#: wp-admin/plugins.php:395
 msgid "Plugins extend and expand the functionality of WordPress. Once a plugin is installed, you may activate it or deactivate it here."
 msgstr "Plugins vergrößern und erweitern den Funktionsumfang von WordPress. Sobald ein Plugin installiert ist, kannst du es auf dieser Seite aktivieren oder auch wieder deaktivieren."
 
-#: wp-admin/plugins.php:336
+#: wp-admin/plugins.php:344
 msgid "No, return me to the plugin list"
 msgstr "Nein. Zurück zur Pluginliste"
 
-#: wp-admin/plugins.php:330
+#: wp-admin/plugins.php:338
 msgid "Yes, delete these files"
 msgstr "Ja, diese Dateien löschen"
 
-#: wp-admin/plugins.php:319
+#: wp-admin/plugins.php:327
 msgid "Are you sure you wish to delete these files?"
 msgstr "Bist du sicher, dass du diese Dateien löschen möchtest?"
 
@@ -8667,7 +8668,7 @@ msgid "Profile"
 msgstr "Profil"
 
 #. translators: add new plugin
-#: wp-admin/menu.php:208 wp-admin/plugins.php:496
+#: wp-admin/menu.php:208 wp-admin/plugins.php:504
 msgctxt "plugin"
 msgid "Add New"
 msgstr "Installieren"
@@ -10098,7 +10099,7 @@ msgstr "Kommentar zurückweisen"
 msgid "Approve this comment"
 msgstr "Diesen Kommentar genehmigen"
 
-#: wp-admin/includes/class-wp-press-this.php:1520
+#: wp-admin/includes/class-wp-press-this.php:1525
 #: wp-admin/includes/meta-boxes.php:269 wp-admin/includes/meta-boxes.php:270
 msgid "Submit for Review"
 msgstr "Zur Revision vorlegen"
