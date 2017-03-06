@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitba404845c3f5174b5668a8020bc84efc
+class ComposerStaticInit20ff934879dc9cc9ba188eacbf6d9208
 {
     public static $files = array (
         '04c6c5c2f7095ccf6c481d3e53e1776f' => __DIR__ . '/..' . '/mustangostang/spyc/Spyc.php',
@@ -461,6 +461,9 @@ class ComposerStaticInitba404845c3f5174b5668a8020bc84efc
         'Monolog\\Handler\\RotatingFileHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/RotatingFileHandler.php',
         'Monolog\\Handler\\SamplingHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/SamplingHandler.php',
         'Monolog\\Handler\\SlackHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/SlackHandler.php',
+        'Monolog\\Handler\\SlackWebhookHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/SlackWebhookHandler.php',
+        'Monolog\\Handler\\Slack\\SlackRecord' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/Slack/SlackRecord.php',
+        'Monolog\\Handler\\SlackbotHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/SlackbotHandler.php',
         'Monolog\\Handler\\SocketHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/SocketHandler.php',
         'Monolog\\Handler\\StreamHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/StreamHandler.php',
         'Monolog\\Handler\\SwiftMailerHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/SwiftMailerHandler.php',
@@ -476,6 +479,7 @@ class ComposerStaticInitba404845c3f5174b5668a8020bc84efc
         'Monolog\\Processor\\MemoryPeakUsageProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/MemoryPeakUsageProcessor.php',
         'Monolog\\Processor\\MemoryProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/MemoryProcessor.php',
         'Monolog\\Processor\\MemoryUsageProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/MemoryUsageProcessor.php',
+        'Monolog\\Processor\\MercurialProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/MercurialProcessor.php',
         'Monolog\\Processor\\ProcessIdProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/ProcessIdProcessor.php',
         'Monolog\\Processor\\PsrLogMessageProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/PsrLogMessageProcessor.php',
         'Monolog\\Processor\\TagProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/TagProcessor.php',
@@ -1534,6 +1538,7 @@ class ComposerStaticInitba404845c3f5174b5668a8020bc84efc
         'Piwik\\Plugins\\MobileMessaging\\ReportRenderer\\ReportRendererException' => __DIR__ . '/../..' . '/plugins/MobileMessaging/ReportRenderer/ReportRendererException.php',
         'Piwik\\Plugins\\MobileMessaging\\ReportRenderer\\Sms' => __DIR__ . '/../..' . '/plugins/MobileMessaging/ReportRenderer/Sms.php',
         'Piwik\\Plugins\\MobileMessaging\\SMSProvider' => __DIR__ . '/../..' . '/plugins/MobileMessaging/SMSProvider.php',
+        'Piwik\\Plugins\\MobileMessaging\\SMSProvider\\ASPSMS' => __DIR__ . '/../..' . '/plugins/MobileMessaging/SMSProvider/ASPSMS.php',
         'Piwik\\Plugins\\MobileMessaging\\SMSProvider\\Clockwork' => __DIR__ . '/../..' . '/plugins/MobileMessaging/SMSProvider/Clockwork.php',
         'Piwik\\Plugins\\MobileMessaging\\SMSProvider\\Development' => __DIR__ . '/../..' . '/plugins/MobileMessaging/SMSProvider/Development.php',
         'Piwik\\Plugins\\MobileMessaging\\SMSProvider\\StubbedProvider' => __DIR__ . '/../..' . '/plugins/MobileMessaging/SMSProvider/StubbedProvider.php',
@@ -1788,6 +1793,7 @@ class ComposerStaticInitba404845c3f5174b5668a8020bc84efc
         'Piwik\\Plugins\\UserCountry\\tests\\APITest' => __DIR__ . '/../..' . '/plugins/UserCountry/tests/Integration/APITest.php',
         'Piwik\\Plugins\\UserCountry\\tests\\Integration\\VisitorGeolocatorTest' => __DIR__ . '/../..' . '/plugins/UserCountry/tests/Integration/VisitorGeolocatorTest.php',
         'Piwik\\Plugins\\UserCountry\\tests\\System\\AttributeHistoricalDataWithLocationsTest' => __DIR__ . '/../..' . '/plugins/UserCountry/tests/System/AttributeHistoricalDataWithLocationsTest.php',
+        'Piwik\\Plugins\\UserCountry\\tests\\System\\StaticApiTest' => __DIR__ . '/../..' . '/plugins/UserCountry/tests/System/StaticAPITest.php',
         'Piwik\\Plugins\\UserCountry\\tests\\Unit\\Piwik_UserCountry_GeoIPAutoUpdater_publictest' => __DIR__ . '/../..' . '/plugins/UserCountry/tests/Unit/UserCountryTest.php',
         'Piwik\\Plugins\\UserCountry\\tests\\Unit\\UserCountryTest' => __DIR__ . '/../..' . '/plugins/UserCountry/tests/Unit/UserCountryTest.php',
         'Piwik\\Plugins\\UserId\\API' => __DIR__ . '/../..' . '/plugins/UserId/API.php',
@@ -2329,6 +2335,7 @@ class ComposerStaticInitba404845c3f5174b5668a8020bc84efc
         'Twig_Extension_Sandbox' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Extension/Sandbox.php',
         'Twig_Extension_Staging' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Extension/Staging.php',
         'Twig_Extension_StringLoader' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Extension/StringLoader.php',
+        'Twig_FactoryRuntimeLoader' => __DIR__ . '/..' . '/twig/twig/lib/Twig/FactoryRuntimeLoader.php',
         'Twig_FileExtensionEscapingStrategy' => __DIR__ . '/..' . '/twig/twig/lib/Twig/FileExtensionEscapingStrategy.php',
         'Twig_Filter' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Filter.php',
         'Twig_FilterCallableInterface' => __DIR__ . '/..' . '/twig/twig/lib/Twig/FilterCallableInterface.php',
@@ -2436,6 +2443,7 @@ class ComposerStaticInitba404845c3f5174b5668a8020bc84efc
         'Twig_Node_SetTemp' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Node/SetTemp.php',
         'Twig_Node_Spaceless' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Node/Spaceless.php',
         'Twig_Node_Text' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Node/Text.php',
+        'Twig_Node_With' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Node/With.php',
         'Twig_Parser' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Parser.php',
         'Twig_ParserInterface' => __DIR__ . '/..' . '/twig/twig/lib/Twig/ParserInterface.php',
         'Twig_Profiler_Dumper_Blackfire' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Profiler/Dumper/Blackfire.php',
@@ -2445,17 +2453,23 @@ class ComposerStaticInitba404845c3f5174b5668a8020bc84efc
         'Twig_Profiler_Node_EnterProfile' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Profiler/Node/EnterProfile.php',
         'Twig_Profiler_Node_LeaveProfile' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Profiler/Node/LeaveProfile.php',
         'Twig_Profiler_Profile' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Profiler/Profile.php',
+        'Twig_RuntimeLoaderInterface' => __DIR__ . '/..' . '/twig/twig/lib/Twig/RuntimeLoaderInterface.php',
         'Twig_Sandbox_SecurityError' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Sandbox/SecurityError.php',
         'Twig_Sandbox_SecurityNotAllowedFilterError' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Sandbox/SecurityNotAllowedFilterError.php',
         'Twig_Sandbox_SecurityNotAllowedFunctionError' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Sandbox/SecurityNotAllowedFunctionError.php',
+        'Twig_Sandbox_SecurityNotAllowedMethodError' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Sandbox/SecurityNotAllowedMethodError.php',
+        'Twig_Sandbox_SecurityNotAllowedPropertyError' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Sandbox/SecurityNotAllowedPropertyError.php',
         'Twig_Sandbox_SecurityNotAllowedTagError' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Sandbox/SecurityNotAllowedTagError.php',
         'Twig_Sandbox_SecurityPolicy' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Sandbox/SecurityPolicy.php',
         'Twig_Sandbox_SecurityPolicyInterface' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Sandbox/SecurityPolicyInterface.php',
         'Twig_SimpleFilter' => __DIR__ . '/..' . '/twig/twig/lib/Twig/SimpleFilter.php',
         'Twig_SimpleFunction' => __DIR__ . '/..' . '/twig/twig/lib/Twig/SimpleFunction.php',
         'Twig_SimpleTest' => __DIR__ . '/..' . '/twig/twig/lib/Twig/SimpleTest.php',
+        'Twig_Source' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Source.php',
+        'Twig_SourceContextLoaderInterface' => __DIR__ . '/..' . '/twig/twig/lib/Twig/SourceContextLoaderInterface.php',
         'Twig_Template' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Template.php',
         'Twig_TemplateInterface' => __DIR__ . '/..' . '/twig/twig/lib/Twig/TemplateInterface.php',
+        'Twig_TemplateWrapper' => __DIR__ . '/..' . '/twig/twig/lib/Twig/TemplateWrapper.php',
         'Twig_Test' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Test.php',
         'Twig_TestCallableInterface' => __DIR__ . '/..' . '/twig/twig/lib/Twig/TestCallableInterface.php',
         'Twig_TestInterface' => __DIR__ . '/..' . '/twig/twig/lib/Twig/TestInterface.php',
@@ -2486,6 +2500,7 @@ class ComposerStaticInitba404845c3f5174b5668a8020bc84efc
         'Twig_TokenParser_Set' => __DIR__ . '/..' . '/twig/twig/lib/Twig/TokenParser/Set.php',
         'Twig_TokenParser_Spaceless' => __DIR__ . '/..' . '/twig/twig/lib/Twig/TokenParser/Spaceless.php',
         'Twig_TokenParser_Use' => __DIR__ . '/..' . '/twig/twig/lib/Twig/TokenParser/Use.php',
+        'Twig_TokenParser_With' => __DIR__ . '/..' . '/twig/twig/lib/Twig/TokenParser/With.php',
         'Twig_TokenStream' => __DIR__ . '/..' . '/twig/twig/lib/Twig/TokenStream.php',
         'Twig_Util_DeprecationCollector' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Util/DeprecationCollector.php',
         'Twig_Util_TemplateDirIterator' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Util/TemplateDirIterator.php',
@@ -2692,11 +2707,11 @@ class ComposerStaticInitba404845c3f5174b5668a8020bc84efc
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitba404845c3f5174b5668a8020bc84efc::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitba404845c3f5174b5668a8020bc84efc::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitba404845c3f5174b5668a8020bc84efc::$prefixesPsr0;
-            $loader->fallbackDirsPsr0 = ComposerStaticInitba404845c3f5174b5668a8020bc84efc::$fallbackDirsPsr0;
-            $loader->classMap = ComposerStaticInitba404845c3f5174b5668a8020bc84efc::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit20ff934879dc9cc9ba188eacbf6d9208::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit20ff934879dc9cc9ba188eacbf6d9208::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit20ff934879dc9cc9ba188eacbf6d9208::$prefixesPsr0;
+            $loader->fallbackDirsPsr0 = ComposerStaticInit20ff934879dc9cc9ba188eacbf6d9208::$fallbackDirsPsr0;
+            $loader->classMap = ComposerStaticInit20ff934879dc9cc9ba188eacbf6d9208::$classMap;
 
         }, null, ClassLoader::class);
     }

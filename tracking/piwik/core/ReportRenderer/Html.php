@@ -9,10 +9,15 @@
 namespace Piwik\ReportRenderer;
 
 use Piwik\Piwik;
+use Piwik\Plugin;
 use Piwik\Plugins\API\API;
+use Piwik\Plugins\CoreAdminHome\CustomLogo;
 use Piwik\ReportRenderer;
 use Piwik\SettingsPiwik;
+use Piwik\Site;
+use Piwik\Date;
 use Piwik\View;
+use Piwik\Plugins\ScheduledReports\ScheduledReports;
 
 /**
  * HTML report renderer
@@ -82,6 +87,7 @@ class Html extends ReportRenderer
     private function epilogue()
     {
         $view = new View('@CoreHome/ReportRenderer/_htmlReportFooter');
+        $view->hasWhiteLabel = Plugin\Manager::getInstance()->isPluginLoaded('WhiteLabel');
         $this->rendering .= $view->render();
     }
 
@@ -90,10 +96,24 @@ class Html extends ReportRenderer
         $frontPageView = new View('@CoreHome/ReportRenderer/_htmlReportHeader');
         $this->assignCommonParameters($frontPageView);
 
+        $period = $this->report['period'];
+
+        $periods = ScheduledReports::getPeriodToFrequencyAsAdjective();
+        $frontPageView->assign("period", $periods[$period]);
         $frontPageView->assign("reportTitle", $reportTitle);
         $frontPageView->assign("prettyDate", $prettyDate);
         $frontPageView->assign("description", $description);
         $frontPageView->assign("reportMetadata", $reportMetadata);
+        $frontPageView->assign("websiteName", Site::getNameFor($this->idSite));
+        $frontPageView->assign("idSite", $this->idSite);
+        $frontPageView->assign("period", $period);
+
+        $customLogo = new CustomLogo();
+        $frontPageView->assign("isCustomLogo", $customLogo->isEnabled() && CustomLogo::hasUserLogo());
+        $frontPageView->assign("logoHeader", $customLogo->getHeaderLogoUrl($pathOnly = false));
+
+        $date = Date::now()->setTimezone(Site::getTimezoneFor($this->idSite))->toString();
+        $frontPageView->assign("date", $date);
 
         // segment
         $displaySegment = ($segment != null);

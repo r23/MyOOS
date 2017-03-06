@@ -65,6 +65,7 @@
         "Segments": "セグメント",
         "OneClickUpdateNotPossibleAsMultiServerEnvironment": "複数のサーバーでPiwikを使用しているため、ワンクリック更新は利用できません。続行するには、%1$s から最新バージョンをダウンロードしてください。",
         "AdblockIsMaybeUsed": "広告ブロッカーを使用している場合には、Piwik が問題なく動作することを確認するために、このサイトでそれを無効にしてください。",
-        "ChangeCurrentWebsite": "ウェブサイトを選ぶ　現在選択されているWebサイト：%s"
+        "ChangeCurrentWebsite": "ウェブサイトを選ぶ　現在選択されているWebサイト：%s",
+        "LeadingAnalyticsPlatformRespectsYourPrivacy": "あなたのプライバシーを尊重するオープンな分析プラットフォームです。"
     }
 }
