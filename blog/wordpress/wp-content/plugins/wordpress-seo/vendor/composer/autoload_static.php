@@ -4,8 +4,12 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb302bc72d072431a8a4fd6aae5897830
+class ComposerStaticInita3d06d5a79ce3cd78e693012cc788f4a
 {
+    public static $files = array (
+        '995b589e693a50f54393aa31ee1c3763' => __DIR__ . '/..' . '/yoast/whip/src/facades/wordpress.php',
+    );
+
     public static $prefixesPsr0 = array (
         'x' => 
         array (
@@ -225,6 +229,7 @@ class ComposerStaticInitb302bc72d072431a8a4fd6aae5897830
         'WPSEO_Replace_Vars' => __DIR__ . '/../..' . '/inc/class-wpseo-replace-vars.php',
         'WPSEO_Rewrite' => __DIR__ . '/../..' . '/inc/class-rewrite.php',
         'WPSEO_Shortcode_Filter' => __DIR__ . '/../..' . '/admin/ajax/class-shortcode-filter.php',
+        'WPSEO_Shortlinker' => __DIR__ . '/../..' . '/inc/class-wpseo-shortlinker.php',
         'WPSEO_Sitemap_Cache_Data' => __DIR__ . '/../..' . '/inc/sitemaps/class-sitemap-cache-data.php',
         'WPSEO_Sitemap_Cache_Data_Interface' => __DIR__ . '/../..' . '/inc/sitemaps/interface-sitemap-cache-data.php',
         'WPSEO_Sitemap_Image_Parser' => __DIR__ . '/../..' . '/inc/sitemaps/class-sitemap-image-parser.php',
@@ -253,6 +258,26 @@ class ComposerStaticInitb302bc72d072431a8a4fd6aae5897830
         'WPSEO_Twitter' => __DIR__ . '/../..' . '/frontend/class-twitter.php',
         'WPSEO_Upgrade' => __DIR__ . '/../..' . '/inc/class-upgrade.php',
         'WPSEO_Utils' => __DIR__ . '/../..' . '/inc/class-wpseo-utils.php',
+        'Whip_BasicMessage' => __DIR__ . '/..' . '/yoast/whip/src/messages/Whip_BasicMessage.php',
+        'Whip_Configuration' => __DIR__ . '/..' . '/yoast/whip/src/Whip_Configuration.php',
+        'Whip_EmptyProperty' => __DIR__ . '/..' . '/yoast/whip/src/exceptions/Whip_EmptyProperty.php',
+        'Whip_Host' => __DIR__ . '/..' . '/yoast/whip/src/Whip_Host.php',
+        'Whip_HostMessage' => __DIR__ . '/..' . '/yoast/whip/src/messages/Whip_HostMessage.php',
+        'Whip_InvalidOperatorType' => __DIR__ . '/..' . '/yoast/whip/src/exceptions/Whip_InvalidOperatorType.php',
+        'Whip_InvalidType' => __DIR__ . '/..' . '/yoast/whip/src/exceptions/Whip_InvalidType.php',
+        'Whip_InvalidVersionComparisonString' => __DIR__ . '/..' . '/yoast/whip/src/exceptions/Whip_InvalidVersionComparisonString.php',
+        'Whip_InvalidVersionRequirementMessage' => __DIR__ . '/..' . '/yoast/whip/src/messages/Whip_InvalidVersionRequirementMessage.php',
+        'Whip_Message' => __DIR__ . '/..' . '/yoast/whip/src/interfaces/Whip_Message.php',
+        'Whip_MessageFormatter' => __DIR__ . '/..' . '/yoast/whip/src/Whip_MessageFormatter.php',
+        'Whip_MessagePresenter' => __DIR__ . '/..' . '/yoast/whip/src/interfaces/Whip_MessagePresenter.php',
+        'Whip_MessagesManager' => __DIR__ . '/..' . '/yoast/whip/src/Whip_MessagesManager.php',
+        'Whip_NullMessage' => __DIR__ . '/..' . '/yoast/whip/src/messages/Whip_NullMessage.php',
+        'Whip_Requirement' => __DIR__ . '/..' . '/yoast/whip/src/interfaces/Whip_Requirement.php',
+        'Whip_RequirementsChecker' => __DIR__ . '/..' . '/yoast/whip/src/Whip_RequirementsChecker.php',
+        'Whip_UpgradePhpMessage' => __DIR__ . '/..' . '/yoast/whip/src/messages/Whip_UpgradePhpMessage.php',
+        'Whip_VersionDetector' => __DIR__ . '/..' . '/yoast/whip/src/interfaces/Whip_VersionDetector.php',
+        'Whip_VersionRequirement' => __DIR__ . '/..' . '/yoast/whip/src/Whip_VersionRequirement.php',
+        'Whip_WPMessagePresenter' => __DIR__ . '/..' . '/yoast/whip/src/presenters/Whip_WPMessagePresenter.php',
         'Yoast_API_Request' => __DIR__ . '/..' . '/yoast/license-manager/class-api-request.php',
         'Yoast_Alerts' => __DIR__ . '/../..' . '/admin/class-yoast-alerts.php',
         'Yoast_Api_Libs' => __DIR__ . '/..' . '/yoast/api-libs/class-api-libs.php',
@@ -287,8 +312,8 @@ class ComposerStaticInitb302bc72d072431a8a4fd6aae5897830
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixesPsr0 = ComposerStaticInitb302bc72d072431a8a4fd6aae5897830::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitb302bc72d072431a8a4fd6aae5897830::$classMap;
+            $loader->prefixesPsr0 = ComposerStaticInita3d06d5a79ce3cd78e693012cc788f4a::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInita3d06d5a79ce3cd78e693012cc788f4a::$classMap;
 
         }, null, ClassLoader::class);
     }
