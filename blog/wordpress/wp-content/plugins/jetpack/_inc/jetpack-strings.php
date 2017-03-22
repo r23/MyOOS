@@ -131,11 +131,11 @@ __( "Security Scanning", "jetpack" ), // _inc/client/at-a-glance/scan.jsx:29
 __( "{{a}}Activate Site Verification{{/a}} to verify your site and increase ranking with Google, Bing, and Pinterest.", "jetpack" ), // _inc/client/at-a-glance/site-verification.jsx:43
 __( "Site Verification Tools are active. Ensure your site is verified with Google, Bing, and Pinterest for more accurate indexing and ranking. {{a}}Verify now{{/a}}", "jetpack" ), // _inc/client/at-a-glance/site-verification.jsx:27
 __( "Site Verification Tools", "jetpack" ), // _inc/client/at-a-glance/site-verification.jsx:21
-__( "By activating ads, you agree to the Automattic Ads {{link}}Terms of Service{{/link}}.", "jetpack" ), // _inc/client/engagement/index.jsx:276
-__( "View your earnings", "jetpack" ), // _inc/client/engagement/index.jsx:251
-__( "View your {{a}}Email Followers{{/a}}", "jetpack" ), // _inc/client/engagement/index.jsx:232
-__( "View {{a}}All Stats{{/a}}", "jetpack" ), // _inc/client/engagement/index.jsx:217
-__( "Learn More", "jetpack" ), // _inc/client/engagement/index.jsx:210
+__( "By activating ads, you agree to the Automattic Ads {{link}}Terms of Service{{/link}}.", "jetpack" ), // _inc/client/engagement/index.jsx:279
+__( "View your earnings", "jetpack" ), // _inc/client/engagement/index.jsx:254
+__( "View your {{a}}Email Followers{{/a}}", "jetpack" ), // _inc/client/engagement/index.jsx:235
+__( "View {{a}}All Stats{{/a}}", "jetpack" ), // _inc/client/engagement/index.jsx:220
+__( "Learn More", "jetpack" ), // _inc/client/engagement/index.jsx:213
 __( "Paid", "jetpack" ), // _inc/client/engagement/index.jsx:158
 __( "Unavailable in Dev Mode", "jetpack" ), // _inc/client/engagement/index.jsx:128
 __( "Your site must be accessible by search engines for this feature to work properly. You can change this in {{a}}Reading Settings{{/a}}.", "jetpack" ), // _inc/client/engagement/index.jsx:55
@@ -279,14 +279,14 @@ __( "Something happened while loading stats. Please try again later or {{a}}view
 __( "Click to view detailed stats.", "jetpack" ), // _inc/client/at-a-glance/stats/index.jsx:92
 __( "Views: %(numberOfViews)s", "jetpack" ), // _inc/client/at-a-glance/stats/index.jsx:90
 __( "Week of %(date)s", "jetpack" ), // _inc/client/at-a-glance/stats/index.jsx:74
-__( "Paid", "jetpack" ), // _inc/client/components/dash-item/index.jsx:98
-__( "Active", "jetpack" ), // _inc/client/components/dash-item/index.jsx:87
-__( "Updates Needed", "jetpack" ), // _inc/client/components/dash-item/index.jsx:81
 __( "Connect Jetpack", "jetpack" ), // _inc/client/components/connect-button/index.jsx:101
 __( "Disconnect Jetpack", "jetpack" ), // _inc/client/components/connect-button/index.jsx:86
 __( "Do you really want to disconnect your site from WordPress.com?", "jetpack" ), // _inc/client/components/connect-button/index.jsx:71
 __( "Link to WordPress.com", "jetpack" ), // _inc/client/components/connect-button/index.jsx:65
 __( "Unlink me from WordPress.com", "jetpack" ), // _inc/client/components/connect-button/index.jsx:48
+__( "Paid", "jetpack" ), // _inc/client/components/dash-item/index.jsx:98
+__( "Active", "jetpack" ), // _inc/client/components/dash-item/index.jsx:87
+__( "Updates Needed", "jetpack" ), // _inc/client/components/dash-item/index.jsx:81
 _x( "Settings", "Noun. Displayed to screen readers.", "jetpack" ), // _inc/client/components/dash-section-header/index.jsx:43
 _x( "Privacy", "Shorthand for Privacy Policy.", "jetpack" ), // _inc/client/components/footer/index.jsx:126
 __( "Automattic's Privacy Policy", "jetpack" ), // _inc/client/components/footer/index.jsx:124

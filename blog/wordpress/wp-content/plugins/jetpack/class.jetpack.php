@@ -335,7 +335,7 @@ class Jetpack {
 			list( $version ) = explode( ':', Jetpack_Options::get_option( 'version' ) );
 			if ( JETPACK__VERSION != $version ) {
 
-				// Check which active modules actually exist and remove others from active_modules list
+				// check which active modules actually exist and remove others from active_modules list
 				$unfiltered_modules = Jetpack::get_active_modules();
 				$modules = array_filter( $unfiltered_modules, array( 'Jetpack', 'is_module' ) );
 				if ( array_diff( $unfiltered_modules, $modules ) ) {
@@ -349,8 +349,40 @@ class Jetpack {
 					Jetpack_Options::delete_option( 'identity_crisis_whitelist' );
 				}
 
-				Jetpack::maybe_set_version_option();
+				// Make sure Markdown for posts gets turned back on
+				if ( ! get_option( 'wpcom_publish_posts_with_markdown' ) ) {
+					update_option( 'wpcom_publish_posts_with_markdown', true );
+				}
+
+				if ( did_action( 'wp_loaded' ) ) {
+					self::upgrade_on_load();
+				} else {
+					add_action(
+						'wp_loaded',
+						array( __CLASS__, 'upgrade_on_load' )
+					);
+				}
 			}
+		}
+	}
+
+	/**
+	 * Runs upgrade routines that need to have modules loaded.
+	 */
+	static function upgrade_on_load() {
+
+		// Not attempting any upgrades if jetpack_modules_loaded did not fire.
+		// This can happen in case Jetpack has been just upgraded and is
+		// being initialized late during the page load. In this case we wait
+		// until the next proper admin page load with Jetpack active.
+		if ( ! did_action( 'jetpack_modules_loaded' ) ) {
+			return;
+		}
+
+		Jetpack::maybe_set_version_option();
+
+		if ( class_exists( 'Jetpack_Widget_Conditions' ) ) {
+			Jetpack_Widget_Conditions::migrate_post_type_rules();
 		}
 	}
 
