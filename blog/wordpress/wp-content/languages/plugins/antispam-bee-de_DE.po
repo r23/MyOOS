@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Plugins - Antispam Bee - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-02-14 12:39:24+0000\n"
+"PO-Revision-Date: 2017-03-19 06:30:47+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.0-alpha\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Antispam Bee - Stable (latest release)\n"
 
@@ -209,7 +209,7 @@ msgstr "Überwachung des Formulars auf Archivseiten"
 
 #: inc/gui.class.php:504
 msgid "Comment form used outside of posts"
-msgstr "Kommentarformular auf Archivseiten"
+msgstr "Kommentarformular wird außerhalb von Beiträgen verwendet"
 
 #: inc/gui.class.php:496
 msgid "Do not check trackbacks / pingbacks"
@@ -265,7 +265,7 @@ msgstr "Spamgrund des Kommentars nicht speichern"
 
 #: inc/gui.class.php:403
 msgid "Notify admins by e-mail about incoming spam"
-msgstr "Versand der Benachrichtigung an den Admin"
+msgstr "E-Mail-Benachrichtigung an den Admin bei erkanntem Spam"
 
 #: inc/gui.class.php:395
 msgid "Keep the spam in my blog."
@@ -381,7 +381,7 @@ msgstr "Inhalt von Antispam Bee entfernt"
 
 #: antispam_bee.php:2420
 msgid "Comment marked as spam"
-msgstr "Spam-Benachrichtigung"
+msgstr "Kommentar als Spam markiert"
 
 #: antispam_bee.php:824
 msgid "No data available."

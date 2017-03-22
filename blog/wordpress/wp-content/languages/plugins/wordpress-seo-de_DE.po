@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-02-28 10:10:11+0000\n"
+"PO-Revision-Date: 2017-03-17 16:17:16+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,14 @@ msgstr ""
 "X-Generator: GlotPress/2.4.0-alpha\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Yoast SEO - Stable (latest release)\n"
+
+#. Translators: %1$s opens a link to a Yoast article about stop words, %2$s
+#. closes the link
+#: languages/yoast-seo-js.php:69
+msgid "The focus keyword contains a stop word. This may or may not be wise depending on the circumstances. %1$sLearn more about the stop words%2$s."
+msgid_plural "The focus keyword contains %3$d stop words. This may or may not be wise depending on the circumstances. %1$sLearn more about the stop words%2$s."
+msgstr[0] "Das Focus Keyword enthält ein Stoppwort. Dies kann sich unter Umständen negativ auswirken. %1$sMehr über Stoppwörter lernen%2$s."
+msgstr[1] "Das Focus Keyword enthält %3$d Stoppwörter. Dies kann sich unter Umständen negativ auswirken. %1$sMehr über Stoppwörter lernen%2$s."
 
 #: admin/views/tabs/advanced/rss.php:33 inc/class-wpseo-replace-vars.php:1031
 msgid "Variable"
@@ -2148,6 +2156,22 @@ msgstr "Deine Lizenz ist abgelaufen. Du musst <a href=\"%s\">Deine Lizenz verlä
 #: vendor/yoast/license-manager/class-license-manager.php:637
 msgid "You've reached your activation limit. You must <a href=\"%s\">upgrade your license</a> to use it on this site."
 msgstr "Du hast das Limit Deiner Aktivierungen erreicht. Du musst <a href=\"%s\">Deine Lizenz erweitern</a> um sie auf dieser Seite nutzen zu können."
+
+#: vendor/yoast/license-manager/class-license-manager.php:616
+msgid "<a href=\"%s\">Your license is expiring in %d day, would you like to extend it?</a> "
+msgid_plural "<a href=\"%s\">Your license is expiring in %d days, would you like to extend it?</a> "
+msgstr[0] "<a href=\"%s\">Deine Lizenz läuft in %d Tag ab. Möchtest Du sie verlängern?</a>"
+msgstr[1] "<a href=\"%s\">Deine Lizenz läuft in %d Tagen ab. Möchtest Du sie verlängern?</a>"
+
+#: vendor/yoast/license-manager/class-license-manager.php:610
+msgid "<a href=\"%s\">Did you know you can upgrade your license?</a> "
+msgstr "<a href=\"%s\">Wusstest Du, dass Du Deine Lizenz erweitern kannst?</a>"
+
+#: vendor/yoast/license-manager/class-license-manager.php:605
+msgid "You have used %d/%d activation. "
+msgid_plural "You have used %d/%d activations. "
+msgstr[0] "Du hast  %d/%d Lizenz aktiviert."
+msgstr[1] "Du hast  %d/%d Lizenzen aktiviert."
 
 #: vendor/yoast/license-manager/class-license-manager.php:603
 msgid "You have an unlimited license. "
