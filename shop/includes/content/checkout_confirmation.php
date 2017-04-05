@@ -102,8 +102,7 @@ if (!isset($_SESSION['customer_id'])) {
     $credit_covers = $order_total_modules->pre_confirmation_check();
   }
 
-
-  if ( (is_array($payment_modules->modules)) && (count($payment_modules->modules) > 1) && (!is_object($$_SESSION['payment'])) && (!$credit_covers) ) {
+  if ( ($_SESSION['payment'] == '' || !is_object(${$_SESSION['payment']}) ) && $credit_covers === FALSE) {
     oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode(decode($aLang['error_no_payment_module_selected'])), 'SSL'));
   }
 

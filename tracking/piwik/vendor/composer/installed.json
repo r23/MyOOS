@@ -1233,6 +1233,75 @@
         "homepage": "https://symfony.com"
     },
     {
+        "name": "szymach/c-pchart",
+        "version": "2.0.4",
+        "version_normalized": "2.0.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/szymach/c-pchart.git",
+            "reference": "ed1a876c907c0610eae72592e563e1792e2d455a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/szymach/c-pchart/zipball/ed1a876c907c0610eae72592e563e1792e2d455a",
+            "reference": "ed1a876c907c0610eae72592e563e1792e2d455a",
+            "shasum": ""
+        },
+        "require": {
+            "ext-gd": "*",
+            "php": ">=5.4"
+        },
+        "require-dev": {
+            "behat/behat": "^3.3",
+            "behat/mink": "^1.7",
+            "behat/mink-goutte-driver": "^1.2",
+            "bossa/phpspec2-expect": "^1.0",
+            "sensiolabs/behat-page-object-extension": "^2.0",
+            "squizlabs/php_codesniffer": "^2.8"
+        },
+        "time": "2017-03-08T22:32:31+00:00",
+        "type": "project",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "CpChart\\": "src/"
+            },
+            "files": [
+                "src/Resources/data/constants.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Jean-Damien Pogolotti",
+                "homepage": "http://www.pchart.net",
+                "role": "Creator of the original pChart library"
+            },
+            {
+                "name": "Piotr Szymaszek",
+                "homepage": "https://github.com/szymach",
+                "role": "Developer of the CpChart wrapper package"
+            }
+        ],
+        "description": "Port of \"pChart\" library into PHP 5",
+        "homepage": "https://github.com/szymach/c-pchart",
+        "keywords": [
+            "CpChart",
+            "c-pChart",
+            "charts",
+            "pchart",
+            "statistics"
+        ]
+    },
+    {
         "name": "tecnickcom/tcpdf",
         "version": "6.2.12",
         "version_normalized": "6.2.12.0",

@@ -20,5 +20,6 @@ return array(
     'Doctrine\\Common\\Cache\\' => array($vendorDir . '/doctrine/cache/lib/Doctrine/Common/Cache'),
     'DeviceDetector\\' => array($vendorDir . '/piwik/device-detector'),
     'DI\\' => array($vendorDir . '/php-di/php-di/src/DI'),
+    'CpChart\\' => array($vendorDir . '/szymach/c-pchart/src'),
     'Composer\\Semver\\' => array($vendorDir . '/composer/semver/src'),
 );

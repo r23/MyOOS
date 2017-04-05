@@ -12,10 +12,10 @@ use Exception;
 use Piwik\API\Request;
 use Piwik\Archive\DataTableFactory;
 use Piwik\Common;
+use Piwik\DataTable\Map;
 use Piwik\Filesystem;
 use Piwik\Period;
 use Piwik\Piwik;
-use Piwik\Plugins\ImageGraph\StaticGraph;
 use Piwik\SettingsServer;
 use Piwik\Translate;
 
@@ -263,7 +263,7 @@ class API extends \Piwik\Plugin\API
                 case StaticGraph::GRAPH_TYPE_BASIC_PIE:
 
                     if (count($ordinateColumns) > 1) {
-                        // pChart doesn't support multiple series on pie charts
+                        // CpChart doesn't support multiple series on pie charts
                         throw new Exception("Pie charts do not currently support multiple series");
                     }
 
@@ -385,7 +385,7 @@ class API extends \Piwik\Plugin\API
             $hasData = false;
             $hasNonZeroValue = false;
 
-            if (!$isMultiplePeriod) {
+            if (!$isMultiplePeriod || !($reportData instanceof Map)) {
                 $reportMetadata = $processedReport['reportMetadata']->getRows();
 
                 $i = 0;

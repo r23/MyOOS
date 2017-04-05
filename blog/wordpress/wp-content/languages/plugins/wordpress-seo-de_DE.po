@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-03-17 16:17:16+0000\n"
+"PO-Revision-Date: 2017-03-28 21:30:12+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,48 @@ msgstr ""
 "X-Generator: GlotPress/2.4.0-alpha\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Yoast SEO - Stable (latest release)\n"
+
+#: vendor/yoast/whip/src/messages/Whip_UpgradePhpMessage.php:44
+msgid "Can't update? Ask your host!"
+msgstr "Aktualisieren nicht möglich? Fragen Sie Ihren Webhoster!"
+
+#: vendor/yoast/whip/src/messages/Whip_UpgradePhpMessage.php:34
+msgid "To which version should I update?"
+msgstr "Zu welcher Version sollte ich updaten?"
+
+#: vendor/yoast/whip/src/messages/Whip_HostMessage.php:54
+msgid "A message from %1$s"
+msgstr "Eine Nachricht von %1$s"
+
+#: admin/metabox/class-metabox-add-keyword-tab.php:38
+msgid "24/7 support"
+msgstr "24/7 Support"
+
+#: admin/class-yoast-form.php:121
+msgid "Save changes"
+msgstr "Änderungen speichern"
+
+#: admin/class-help-center.php:69
+msgid "Social media preview: Facebook & Twitter"
+msgstr "Social Media Vorschau: Facebook & Twitter"
+
+#: admin/banner/class-admin-banner-sidebar.php:98
+#: admin/class-help-center.php:70
+#: admin/metabox/class-metabox-add-keyword-tab.php:39
+msgid "No ads!"
+msgstr "Keine Werbung!"
+
+#: admin/banner/class-admin-banner-sidebar.php:97
+msgid "24/7 Support"
+msgstr "24/7 Support"
+
+#: admin/banner/class-admin-banner-sidebar.php:96
+msgid "Facebook & Twitter"
+msgstr "Facebook & Twitter"
+
+#: admin/banner/class-admin-banner-sidebar.php:96
+msgid "Social media preview"
+msgstr "Social Media Vorschau"
 
 #. Translators: %1$s opens a link to a Yoast article about stop words, %2$s
 #. closes the link
@@ -27,11 +69,17 @@ msgstr "Variable"
 msgid "Available variables"
 msgstr "Verfügbare Variablen"
 
-#: admin/class-admin.php:646
+#. translators: %1$s will be a link to a review explanation page. Text between
+#. %2$s and %3$s will be a link to an SEO copywriting course page.
+#: admin/config-ui/fields/class-field-upsell-site-review.php:19
+msgid "If you want more help creating awesome content, check out our %2$sSEO copywriting course%3$s. Do you want to know all about the features of the plugin, consider doing our %1$s!"
+msgstr "Wenn du Hilfe brauchst, um tollen Content zu schreiben, schau dir unseren %2$sSEO Copywriting Kurs%3$s an. Wenn du alles über die Funktionen des Plugins wissen möchtest, nimm an unserem %1$s teil!"
+
+#: admin/class-admin.php:648
 msgid "Scroll to see the table content."
 msgstr "Scrollen um den Tabellen-Inhalt zu sehen."
 
-#: admin/banner/class-admin-banner-sidebar.php:339
+#: admin/banner/class-admin-banner-sidebar.php:357
 msgid "Take the online Technical SEO Training course and learn essential technical SEO-concepts!"
 msgstr "Nimm am Online-Kurs „Technical SEO Training“ teil und lerne essentielle technische SEO-Konzepte!"
 
@@ -294,7 +342,7 @@ msgstr "Stattdessen JavaScript benutzen."
 msgid "Select redirect"
 msgstr "Umleitung auswählen"
 
-#: admin/banner/class-admin-banner-sidebar.php:329
+#: admin/banner/class-admin-banner-sidebar.php:347
 msgid "Take the online Site Structure Training course and learn how to structure your website!"
 msgstr "Nimm am Online-Kurs „Site Structure Training“ teil und lerne wie du deine Website strukturierst!"
 
@@ -564,8 +612,11 @@ msgstr "Nächster Schritt"
 msgid "Export settings"
 msgstr "Export-Einstellungen"
 
+#. translators: %s expands to Yoast SEO Premium
 #. translators: %s expands to Yoast SEO Premium.
-#: admin/metabox/class-metabox.php:482
+#. translators: %s expands to Yoast SEO Premium.
+#: admin/banner/class-admin-banner-sidebar.php:101
+#: admin/class-premium-popup.php:70 admin/metabox/class-metabox.php:482
 #: admin/taxonomy/class-taxonomy-metabox.php:274
 msgid "Get %s now!"
 msgstr "Hol dir %s jetzt!"
@@ -606,14 +657,13 @@ msgstr "Uns ist aufgefallen, dass Du %1$s bereits seit einiger Zeit verwendest; 
 
 #. translators: %1$s expands to Yoast SEO for WordPress Training, %2$s to Yoast
 #. SEO for WordPress.
-#: admin/banner/class-admin-banner-sidebar.php:296
-#: admin/class-yoast-form.php:619
+#: admin/banner/class-admin-banner-sidebar.php:314
 msgid "Take the %1$s course and become a certified %2$s expert!"
 msgstr "Nimm am %s-Kurs teil und werde ein zertifizierter %2$s-Experte!"
 
 #. translators: %1$s expands to a link start tag to the Yoast Services page,
 #. %2$s is the link closing tag.
-#: admin/banner/class-admin-banner-sidebar.php:272
+#: admin/banner/class-admin-banner-sidebar.php:290
 msgid "Do you want to get a grip on your own SEO-strategy? Learn all about it in one of %1$sour courses%2$s."
 msgstr "Du willst Deine SEO-Strategie selbst umsetzen und in den Griff bekommen? Lerne alles in einem %1$sunserer Kurse%2$s."
 
@@ -623,57 +673,36 @@ msgid "%s &rsaquo; Configuration Wizard"
 msgstr "%s &rsaquo;-Einrichtungsassistent"
 
 #. translators: %1$s expands to Yoast WooCommerce SEO.
-#: admin/banner/class-admin-banner-sidebar.php:220
-#: admin/class-yoast-form.php:689
+#: admin/banner/class-admin-banner-sidebar.php:238
 msgid "Buy the %1$s plugin now and optimize your shop today to improve your product promotion!"
 msgstr "Kaufe jetzt das %1$s Plugin und optimiere noch heute Deinen Shop durch eine verbesserte Vermarktung Deiner Produkte!"
 
 #. translators: %1$s expands to a link start tag to the Yoast plugin page, %2$s
 #. is the link closing tag.
-#: admin/banner/class-admin-banner-sidebar.php:189
+#: admin/banner/class-admin-banner-sidebar.php:207
 msgid "Take your SEO to the next level and outrank your competition with our %1$sSEO plugins%2$s."
 msgstr "Bringe Deine SEO auf das nächste Level und übertreffe Deine Wettbewerber mit unseren %1$sSEO Plugins%2$s."
 
 #. translators: %1$s expands to Yoast SEO Premium.
-#: admin/banner/class-admin-banner-sidebar.php:139
-#: admin/class-yoast-form.php:585
+#: admin/banner/class-admin-banner-sidebar.php:157
 msgid "Let our experts set up your %1$s plugin!"
 msgstr "Lass unsere Experten dein %1$s Plugin einrichten!"
 
 #. translators: %1$s expands to a link start tag to the Yoast Services page,
 #. %2$s to Yoast, %3$s is the link closing tag.
-#: admin/banner/class-admin-banner-sidebar.php:124
+#: admin/banner/class-admin-banner-sidebar.php:142
 msgid "Do you want to know how to improve your rankings? %1$sLet team %2$s help you!%3$s"
 msgstr "Willst Du wissen wie sich Dein Ranking verbessern lässt? %1$sLass Dir vom Team %2$s helfen!%3$s"
 
-#. translators: %1$s expands to a link start tag to the Yoast plugin page, %2$s
-#. is the link closing tag
-#: admin/banner/class-admin-banner-sidebar.php:90
-msgid "Want to get the most out of your SEO-strategy? %1$sGo premium!%2$s."
-msgstr "Willst Du alles aus Deiner SEO-Strategie herausholen? %1$sWechsel zu Premium!%2$s."
-
-#: admin/banner/class-admin-banner-sidebar.php:319
+#: admin/banner/class-admin-banner-sidebar.php:337
 msgid "Take the online Keyword Research Training course and learn how to rank with your keywords!"
 msgstr "Nimm am Online-Kurs für die Keyword-Suche teil und lerne, wie du mit deinen Schlüsselwörtern besser gefunden wirst."
 
-#: admin/banner/class-admin-banner-sidebar.php:267
+#: admin/banner/class-admin-banner-sidebar.php:285
 msgid "Courses"
 msgstr "Kurse"
 
-#. translators: %1$s expands to Yoast SEO, %2$s to a link start tag to the
-#. Yoast plugin page, %3$s is the link closing tag.
-#: admin/class-yoast-form.php:642
-msgid "Extend your %1$s plugin with our %2$sSEO plugins%3$s."
-msgstr "Erweitere dein %1$s Plugin mit unseren %2$sSEO Plugins%3$s."
-
-#. translators: %1$s expands to a link start tag to the Yoast Services page,
-#. %2$s to Yoast, %3$s is the link closing tag.
-#: admin/class-yoast-form.php:560
-msgid "Don't want to dive into SEO yourself? %1$sLet team %2$s help you!%3$s"
-msgstr "Du willst dich selbst nicht um das SEO kümmern. %1$sLass dir vom Team %2$s helfen!%3$s"
-
-#: admin/banner/class-admin-banner-sidebar.php:119
-#: admin/class-yoast-form.php:557
+#: admin/banner/class-admin-banner-sidebar.php:137
 msgid "Services"
 msgstr "Leistungen"
 
@@ -699,7 +728,7 @@ msgstr "%1$s zu %2$s"
 
 #. translators: %s: '%%term_title%%' variable used in titles and meta's
 #. template that's not compatible with the given template
-#: admin/class-help-center.php:197
+#: admin/class-help-center.php:203
 msgid "Warning: the variable %s cannot be used in this template. See the help center for more info."
 msgstr "Warnung: Die Variable %s kann in diesem Template nicht genutzt werden. Schau ins Hilfe-Center für weitere Informationen."
 
@@ -1050,7 +1079,7 @@ msgid "Note that links to archives might be still output by your theme and you w
 msgstr "Beachte, dass Links zu Archiven möglicherweise von deinem Theme ausgegeben werden und du diese separat entfernen musst."
 
 #: admin/views/tabs/dashboard/general.php:46
-msgid "View Credits"
+msgid "View credits"
 msgstr "Zeige Mitwirkende"
 
 #. translators: %1$s expands to Yoast SEO
@@ -1068,71 +1097,71 @@ msgid "Default for this taxonomy type, currently: %s"
 msgstr "Standard für diesen Klassifizierungs-Typ, derzeit: %s"
 
 #. translators: %1$s expands to Yoast SEO extensions
-#: admin/pages/licenses.php:182
+#: admin/pages/licenses.php:179
 msgid "%1$s to optimize your site even further"
 msgstr "%1$s um deine Website noch weiter zu optimieren."
 
 #. translators: %1$s expands to Yoast SEO
-#: admin/pages/licenses.php:177
+#: admin/pages/licenses.php:174
 msgid "%1$s extensions"
 msgstr "%1$s Extensions"
 
-#: admin/pages/licenses.php:169
+#: admin/pages/licenses.php:166
 msgid "Comes with our 30-day no questions asked money back guarantee"
 msgstr "Enthält eine 30-Tage-Geld-Zurück-Garantie – ohne Rückfragen."
 
 #. translators: Text between %1$s and %2$s will only be shown to screen
 #. readers. %3$s expands to the product name.
-#: admin/pages/licenses.php:162 admin/pages/licenses.php:216
+#: admin/pages/licenses.php:159 admin/pages/licenses.php:213
 msgid "More information %1$sabout %3$s%2$s"
 msgstr "Mehr Informationen %1$süber %3$s%2$s"
 
 #. translators: $1$s expands to Yoast SEO Premium
-#: admin/pages/licenses.php:155
+#: admin/pages/licenses.php:152
 msgid "Buy %1$s"
 msgstr "Kaufe %1$s"
 
-#: admin/pages/licenses.php:151 admin/pages/licenses.php:204
+#: admin/pages/licenses.php:148 admin/pages/licenses.php:201
 msgid "Installed"
 msgstr "Installiert"
 
-#: admin/pages/licenses.php:146
+#: admin/pages/licenses.php:143
 msgid "gain access to our 24/7 support team."
 msgstr "Erhalte Zugang zu unserem Support Team, das rund um die Uhr für dich da ist."
 
-#: admin/metabox/class-metabox.php:478 admin/pages/licenses.php:145
+#: admin/metabox/class-metabox.php:478 admin/pages/licenses.php:142
 #: admin/taxonomy/class-taxonomy-metabox.php:270
 msgid "Premium support"
 msgstr "Premium Support"
 
-#: admin/pages/licenses.php:142
+#: admin/pages/licenses.php:139
 msgid "check what your Facebook or Twitter post will look like."
 msgstr "prüfe, wie deine Facebook oder Twitter Beiträge aussehen könnten."
 
-#: admin/pages/licenses.php:141
+#: admin/pages/licenses.php:138
 msgid "Social previews"
 msgstr "Social Vorschau"
 
-#: admin/pages/licenses.php:138
+#: admin/pages/licenses.php:135
 msgid "optimize a single post for up to 5 keywords."
 msgstr "optimiere einen einzelnen Beitrag mit bis zu 5 Keywords"
 
-#: admin/metabox/class-metabox.php:474 admin/pages/licenses.php:137
+#: admin/metabox/class-metabox.php:474 admin/pages/licenses.php:134
 #: admin/taxonomy/class-taxonomy-metabox.php:266
 msgid "Multiple focus keywords"
 msgstr "Multiple Fokus-Keywords"
 
-#: admin/pages/licenses.php:134
+#: admin/pages/licenses.php:131
 msgid "create and manage redirects from within your WordPress install."
 msgstr "Erstelle und verwalte Weiterleitungen innerhalb deiner WordPress-Installation."
 
-#: admin/metabox/class-metabox.php:472 admin/pages/licenses.php:133
+#: admin/metabox/class-metabox.php:472 admin/pages/licenses.php:130
 #: admin/taxonomy/class-taxonomy-metabox.php:264
 msgid "Redirect manager"
 msgstr "Redirect Manager"
 
 #. translators: %1$s expands to Yoast SEO Premium
-#: admin/pages/licenses.php:128
+#: admin/pages/licenses.php:125
 msgid "%1$s, take your optimization to the next level!"
 msgstr "%1$s, bringe deine Optimierung auf die nächste Stufe!"
 
@@ -1202,7 +1231,7 @@ msgid "Crawl issues list navigation"
 msgstr "Crawl Problemliste Navigation"
 
 #. translators: %d: number of knowledge base search results found.
-#: admin/class-help-center.php:201
+#: admin/class-help-center.php:207
 msgid "Number of search results: %d"
 msgstr "Anzahl der Suchergebnisse: %d"
 
@@ -1219,11 +1248,11 @@ msgstr "Filtere nach Beitragstyp"
 msgid "Show All Post Types"
 msgstr "Zeige alle Beitragstypen"
 
-#: admin/banner/class-admin-banner-sidebar.php:85 admin/class-admin.php:243
+#: admin/class-admin.php:245
 msgid "Premium"
 msgstr "Premium"
 
-#: admin/class-admin.php:224 admin/metabox/class-metabox.php:437
+#: admin/class-admin.php:226 admin/metabox/class-metabox.php:437
 #: admin/taxonomy/class-taxonomy-metabox.php:229
 #: inc/wpseo-non-ajax-functions.php:312
 msgid "Go Premium"
@@ -1326,6 +1355,7 @@ msgid "Security setting"
 msgstr "Sicherheits-Einstellungen"
 
 #: admin/views/tabs/dashboard/general.php:50
+#: admin/views/tabs/dashboard/general.php:62
 msgid "Restore default settings"
 msgstr "Standard-Einstellungen wiederherstellen"
 
@@ -1362,28 +1392,28 @@ msgstr "Gib den Autorisierungscode von Google ein und klicke auf \"Authentifizie
 msgid "To allow %1$s to fetch your %2$s information, please enter your Google Authorization Code. Clicking the button below will open a new window."
 msgstr "Damit %1$s auf deine %2$s Informationen zugreifen darf, gib bitte Deinen Google Authentifizierungs-Code ein. Nach dem Anklicken des Buttons öffnet sich ein neues Fenster."
 
-#: admin/class-help-center.php:213
+#: admin/class-help-center.php:219
 msgid "Knowledge base article"
 msgstr "Artikel der Wissensdatenbank"
 
-#: admin/class-help-center.php:212
+#: admin/class-help-center.php:218
 msgid "Open the knowledge base article in a new window or read it in the iframe below"
 msgstr "Öffne die Artikel der Wissensdatenbank in einem neuen Fenster oder lies diese im iFrame unten."
 
-#: admin/class-help-center.php:210
+#: admin/class-help-center.php:216
 msgid "Back to search results"
 msgstr "Zurück zu den Suchergebnissen"
 
-#: admin/class-help-center.php:205
+#: admin/class-help-center.php:211
 msgid "Search results"
 msgstr "Suchergebnisse"
 
-#: admin/class-admin.php:645
+#: admin/class-admin.php:647
 msgid "Yoast SEO video tutorial"
 msgstr "Yoast SEO Video Tutorial"
 
 #. translators: %s: number of notifications
-#: admin/class-admin.php:147 inc/wpseo-non-ajax-functions.php:88
+#: admin/class-admin.php:149 inc/wpseo-non-ajax-functions.php:88
 msgid "%s notification"
 msgid_plural "%s notifications"
 msgstr[0] "%s Benachrichtigung"
@@ -1511,42 +1541,27 @@ msgid "Keyword:"
 msgstr "Keyword:"
 
 #. translators: %1$s expands to Yoast News SEO.
-#: admin/banner/class-admin-banner-sidebar.php:251
-#: admin/class-yoast-form.php:721
+#: admin/banner/class-admin-banner-sidebar.php:269
 msgid "Buy the %1$s plugin now and start optimizing to get your site featured in Google News!"
 msgstr "Kaufe jetzt das %1$s Plugin und beginne direkt mit dem Optimieren deiner Website um bei Google News besser gefunden zu werden!"
 
 #. translators: %1$s expands to Yoast Local SEO.
-#: admin/banner/class-admin-banner-sidebar.php:235
-#: admin/class-yoast-form.php:705
+#: admin/banner/class-admin-banner-sidebar.php:253
 msgid "Buy the %1$s plugin now to improve your site&#8217;s Local SEO and ranking in Google Maps!"
 msgstr "Kaufe jetzt das %1$s Plugin um deine Website für die regionale Suche zu optimieren und das Ranking in Google Maps!"
 
 #. translators: %1$s expands to Yoast Video SEO.
-#: admin/banner/class-admin-banner-sidebar.php:204
-#: admin/class-yoast-form.php:673
+#: admin/banner/class-admin-banner-sidebar.php:222
 msgid "Buy the %1$s plugin now and optimize your videos for video search results and social media!"
 msgstr "Kaufe jetzt das %1$s Plugin und optimiere deine Videos für die Video-Suchergebnisse und Social Media!"
 
-#. translators: %1$s expands to Yoast SEO Premium.
-#: admin/banner/class-admin-banner-sidebar.php:104
-#: admin/class-yoast-form.php:658
-msgid "Buy the %1$s plugin now and get access to extra features and 24/7 support!"
-msgstr "Kaufe jetzt das %1$s Plugin und erhalte Zugriff auf extra Funktionen und 24/7 Support!"
-
-#: admin/banner/class-admin-banner-sidebar.php:284
-#: admin/class-yoast-form.php:607
+#: admin/banner/class-admin-banner-sidebar.php:302
 msgid "Take the online Basic SEO Training course and learn the fundamentals of SEO!"
 msgstr "Nimm am Basic SEO Training Online-Kurs teil und lerne die Grundlagen der SEO!"
 
-#: admin/banner/class-admin-banner-sidebar.php:309
-#: admin/class-yoast-form.php:597
+#: admin/banner/class-admin-banner-sidebar.php:327
 msgid "Take the online SEO Copywriting Training course and learn how to write awesome copy that ranks!"
 msgstr "Nimm online am SEO Copywriting Training teil und lerne, wie du einen hervorragenden Text schreibst, der gut rankt."
-
-#: admin/class-yoast-form.php:573
-msgid "Order a Website Review and we will tell you what to improve to attract more visitors!"
-msgstr "Fordere eine Website-Überprüfung an und wir erklären dir, mit welchen Verbesserungen du mehr Besucher anziehst."
 
 #: admin/class-meta-columns.php:174
 msgid "Filter by SEO Score"
@@ -1556,19 +1571,13 @@ msgstr "Filtere nach SEO-Wert"
 msgid "Meta description not set."
 msgstr "Meta Description nicht gesetzt."
 
-#: admin/class-help-center.php:96 admin/views/partial-help-center-video.php:16
+#: admin/class-help-center.php:102 admin/views/partial-help-center-video.php:16
 msgid "Video tutorial"
 msgstr "Video-Tutorial"
 
-#: admin/class-help-center.php:70
+#: admin/class-help-center.php:76
 msgid "Email support"
 msgstr "E-Mail-Support"
-
-#. translators: %1$s: expands to 'Yoast SEO Premium', %2$s: links to Yoast SEO
-#. Premium plugin page.
-#: admin/class-help-center.php:63
-msgid "To be able to contact our support team, you need %1$s. You can buy the plugin, including one year of support, updates and upgrades, on %2$s."
-msgstr "Um unser Support Team zu kontaktieren, brauchst du %1$s. Du kannst das Plugin für %2$s kaufen – inklusive einem Jahr Support sowie Zugriff auf Updates und Upgrades."
 
 #. translators: %s: expands to 'Yoast SEO Premium'.
 #: admin/class-help-center.php:61
@@ -1579,35 +1588,35 @@ msgstr "E-Mail-Support ist ein %s-Feature"
 msgid "Knowledge base"
 msgstr "Wissensdatenbank"
 
-#: admin/class-help-center.php:211
+#: admin/class-help-center.php:217
 msgid "Open"
 msgstr "Offen"
 
-#: admin/class-help-center.php:209
+#: admin/class-help-center.php:215
 msgid "Back"
 msgstr "Zurück"
 
-#: admin/class-help-center.php:208
+#: admin/class-help-center.php:214
 msgid "search"
 msgstr "suche"
 
-#: admin/class-help-center.php:207
+#: admin/class-help-center.php:213
 msgid "Loading..."
 msgstr "Lade..."
 
-#: admin/class-help-center.php:206
+#: admin/class-help-center.php:212
 msgid "Something went wrong. Please try again later."
 msgstr "Etwas ist schiefgelaufen. Bitte versuche es später erneut."
 
-#: admin/class-help-center.php:203
+#: admin/class-help-center.php:209
 msgid "Search the Yoast knowledge base"
 msgstr "Durchsuche die Yoast Wissensdatenbank"
 
-#: admin/class-help-center.php:202
+#: admin/class-help-center.php:208
 msgid "No results found."
 msgstr "Keine Ergebnisse gefunden."
 
-#: admin/class-admin.php:150 admin/class-admin.php:260
+#: admin/class-admin.php:152 admin/class-admin.php:262
 #: admin/pages/dashboard.php:58 inc/wpseo-non-ajax-functions.php:268
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -1666,27 +1675,22 @@ msgid "Webmaster Tools verification"
 msgstr "Webmaster-Tools-Verifizierung"
 
 #. translators: %s expands to Yoast SEO for WordPress
-#: admin/views/partial-help-center-video.php:46
+#: admin/views/partial-help-center-video.php:45
 msgid "Enroll in the %s training &raquo;"
 msgstr "Schreibe dich ins %s Training ein &raquo;"
 
 #. translators: %$1s expands to Yoast SEO
-#: admin/views/partial-help-center-video.php:43
+#: admin/views/partial-help-center-video.php:42
 msgid "Follow our %1$s for WordPress training and become a certified %1$s Expert!"
 msgstr "Folge unserem %1$s für WordPress-Training und werde ein zertifizierter %1$s-Experte!"
 
 #. translators: %s expands to Yoast SEO.
-#: admin/views/partial-help-center-video.php:41
+#: admin/views/partial-help-center-video.php:40
 msgid "Want to be a %s Expert?"
 msgstr "Wärst du gern %s-Experte?"
 
-#. translators: %s expands to Yoast SEO Premium
-#: admin/views/partial-help-center-video.php:29
-msgid "If you buy %s you'll get access to our support team and bonus features!"
-msgstr "Wenn du %s kaufst, bekommst du Zugang zu unserem Support-Team und Bonus-Funktionen!"
-
 #: admin/views/partial-help-center-video.php:27
-msgid "Need more help?"
+msgid "Need some help?"
 msgstr "Brauchst Du mehr Hilfe?"
 
 #: admin/metabox/class-metabox.php:81
@@ -1704,9 +1708,8 @@ msgstr "Zeige Informationen über die Inhaltsanalyse"
 msgid "Show information about the snippet editor"
 msgstr "Zeige Informationen über den Snippet-Editor."
 
-#. translators: %s expands to Yoast SEO Premium
 #. translators: %s expands to the product name
-#: admin/class-premium-popup.php:70 admin/pages/licenses.php:209
+#: admin/pages/licenses.php:206
 msgid "Buy %s"
 msgstr "Kaufe %s"
 
@@ -1734,7 +1737,7 @@ msgstr "Zeige Informationen über Fehler in der Kategorie 'Nicht gefunden'"
 msgid "Show information about errors in category 'Access Denied'"
 msgstr "Zeige Informationen über Fehler der Kategorie 'Zugang verweigert'"
 
-#: admin/class-help-center.php:123
+#: admin/class-help-center.php:129
 #: admin/views/partial-settings-tab-video.php:19
 msgid "Help center"
 msgstr "Hilfecenter"
@@ -1873,7 +1876,7 @@ msgstr "Erweiterter Bereich der %1$s Metabox"
 msgid "Enabled"
 msgstr "Aktiviert"
 
-#: admin/class-admin.php:687 admin/class-yoast-form.php:301
+#: admin/class-admin.php:689 admin/class-yoast-form.php:301
 #: admin/views/tabs/dashboard/features.php:64
 #: admin/views/tabs/dashboard/security.php:16
 #: admin/views/tabs/metas/archives.php:28
@@ -1961,22 +1964,7 @@ msgstr "Add-ons"
 msgid "Snippet editor"
 msgstr "Code-Schnipsel-Editor"
 
-#. translators: %s expands to Yoast SEO Premium
-#: admin/views/partial-help-center-video.php:32
-msgid "Get %s &raquo;"
-msgstr "Kaufe %s &raquo;"
-
-#. translators: %1$s: expands to 'Yoast SEO Premium', %2$s: links to Yoast SEO
-#. Premium plugin page.
-#: admin/metabox/class-metabox-add-keyword-tab.php:33
-msgid "To be able to add and analyze multiple keywords for a post or page you need %1$s. You can buy the plugin, including one year of support, updates and upgrades, on %2$s."
-msgstr "Um mehrere Schlüsselwörter zu einem Beitrag oder einer Seite hinzuzufügen und zu analysieren, benötigst du %1$s. Du kannst das Plugin inklusive einem Jahr Support, Updates und Upgrades auf %2$s kaufen."
-
-#: admin/metabox/class-metabox-add-keyword-tab.php:31
-msgid "Multiple focus keywords is a %s feature"
-msgstr "Die Verwendung von mehrfachen Fokus-Keyword ist ein %s Feature"
-
-#: admin/metabox/class-metabox-add-keyword-tab.php:26
+#: admin/metabox/class-metabox-add-keyword-tab.php:24
 msgid "Add keyword"
 msgstr "Schlagwort hinzufügen"
 
@@ -3298,12 +3286,12 @@ msgstr "Artikeltypen"
 msgid "Homepage"
 msgstr "Homepage"
 
-#: admin/pages/licenses.php:235
+#: admin/pages/licenses.php:232
 msgid "This is where you would enter the license keys for one of our premium plugins, should you activate one."
 msgstr "Hier könntest du den Lizenz-Code für eines unserer Premium-Plugins eingeben, solltest du eines aktivieren."
 
 #. translators: %1$s expands to Yoast SEO
-#: admin/pages/licenses.php:111
+#: admin/pages/licenses.php:108
 msgid "%1$s Extensions"
 msgstr "%1$s Erweiterungen"
 
@@ -3346,11 +3334,11 @@ msgid "Your name"
 msgstr "Dein Name"
 
 #: admin/views/tabs/dashboard/knowledge-graph.php:43
-msgid "Company Logo"
+msgid "Company logo"
 msgstr "Firmenlogo"
 
 #: admin/views/tabs/dashboard/knowledge-graph.php:42
-msgid "Company Name"
+msgid "Company name"
 msgstr "Firmenname"
 
 #: admin/config-ui/fields/class-field-company-or-person.php:20
@@ -3403,24 +3391,20 @@ msgstr "Bist Du sicher, dass Du deine SEO-Einstellungen zurücksetzen möchtest?
 msgid "If you want to restore a site to the default %s settings, press this button."
 msgstr "Wenn du die Webseite auf die Standard Einstellung von %s zurücksetzen willst, klicke auf diesen Button."
 
-#: admin/views/tabs/dashboard/general.php:62
-msgid "Restore Default Settings"
-msgstr "Standardeinstellungen wiederherstellen"
-
 #: admin/pages/dashboard.php:64
 msgid "Security"
 msgstr "Sicherheit"
 
 #: admin/pages/dashboard.php:63
-msgid "Webmaster Tools"
+msgid "Webmaster tools"
 msgstr "Webmaster Tools"
 
 #: admin/pages/dashboard.php:61
-msgid "Your Info"
+msgid "Your info"
 msgstr "Über Dich"
 
 #: admin/pages/dashboard.php:61
-msgid "Company Info"
+msgid "Company info"
 msgstr "Über das Unternehmen"
 
 #: admin/class-admin-init.php:197
@@ -3526,7 +3510,7 @@ msgstr "Der %1$s Datensatz wurde entfernt. Wenn Du die Daten erhalten willst mus
 msgid "Crawl errors per page"
 msgstr "Crawl-Fehler pro Seite"
 
-#: admin/class-help-center.php:204
+#: admin/class-help-center.php:210
 #: admin/google_search_console/class-gsc.php:133
 msgid "Search"
 msgstr "Suchen"
@@ -3656,11 +3640,11 @@ msgid "Upload Image"
 msgstr "Bild hochladen"
 
 #. translators: %1$s expands to Yoast SEO Premium
-#: admin/banner/class-admin-banner-sidebar.php:360
+#: admin/banner/class-admin-banner-sidebar.php:378
 msgid "Upgrade to %1$s &raquo;"
 msgstr "Auf %1$s &raquo; erweitern"
 
-#: admin/banner/class-admin-banner-sidebar.php:354
+#: admin/banner/class-admin-banner-sidebar.php:372
 msgid "Remove these ads?"
 msgstr "Diese Anzeigen entfernen?"
 
@@ -3801,7 +3785,7 @@ msgstr "Deine Eingabe enthält ungültige Zeichen. Bitte achte darauf, dass beid
 msgid "Please make sure both fields are filled."
 msgstr "Bitte achte darauf, dass beide Felder ausgefüllt sind."
 
-#: admin/pages/licenses.php:116
+#: admin/pages/licenses.php:113
 msgid "Licenses"
 msgstr "Lizenzen"
 
@@ -3835,25 +3819,25 @@ msgstr "Weiter"
 msgid "Close"
 msgstr "Schließen"
 
-#. translators: %1$s expands to Yoast SEO
-#: admin/class-plugin-conflict.php:149
+#. translators: %1$s expands to Yoast SEO.
+#: admin/class-plugin-conflict.php:155
 msgid "Configure %1$s's XML Sitemap settings"
 msgstr "Konfigurieren der %1$s XML-Verzeichniseinstellungen"
 
 #. translators: %1$s expands to Yoast SEO, %2$s: 'Google XML Sitemaps' plugin
-#. name of possibly conflicting plugin with regard to the creation of sitemaps
-#: admin/class-plugin-conflict.php:145
+#. name of possibly conflicting plugin with regard to the creation of sitemaps.
+#: admin/class-plugin-conflict.php:151
 msgid "Both %1$s and %2$s can create XML sitemaps. Having two XML sitemaps is not beneficial for search engines, yet might slow down your site."
 msgstr "Sowohl %1$s als auch %2$s generieren XML-Sitemaps. Zwei Sitemaps haben jedoch keinen Vorteil für Suchmaschinen und könnten deine Seite sogar verlangsamen."
 
-#. translators: %1$s expands to Yoast SEO
-#: admin/class-plugin-conflict.php:137
+#. translators: %1$s expands to Yoast SEO.
+#: admin/class-plugin-conflict.php:143
 msgid "Configure %1$s's OpenGraph settings"
 msgstr "Konfigurieren der %1$s OpenGraph-Einstellungen"
 
 #. translators: %1$s expands to Yoast SEO, %2%s: 'Facebook' plugin name of
-#. possibly conflicting plugin with regard to creating OpenGraph output
-#: admin/class-plugin-conflict.php:133
+#. possibly conflicting plugin with regard to creating OpenGraph output.
+#: admin/class-plugin-conflict.php:139
 msgid "Both %1$s and %2$s create OpenGraph output, which might make Facebook, Twitter, LinkedIn and other social networks use the wrong texts and images when your pages are being shared."
 msgstr "Sowohl %1$s als auch %2$s erzeugen OpenGraph Code, was dazu führen könnte, dass Facebook, Twitter, LinkedIn und andere soziale Netzwerke die falschen Texte und Bilder beim Teilen der Seiten verwenden."
 
@@ -4413,27 +4397,27 @@ msgstr "Existierende Yoast Meta Beschreibung"
 msgid "a,about,above,after,again,against,all,am,an,and,any,are,as,at,be,because,been,before,being,below,between,both,but,by,could,did,do,does,doing,down,during,each,few,for,from,further,had,has,have,having,he,he'd,he'll,he's,her,here,here's,hers,herself,him,himself,his,how,how's,i,i'd,i'll,i'm,i've,if,in,into,is,it,it's,its,itself,let's,me,more,most,my,myself,nor,of,on,once,only,or,other,ought,our,ours,ourselves,out,over,own,same,she,she'd,she'll,she's,should,so,some,such,than,that,that's,the,their,theirs,them,themselves,then,there,there's,these,they,they'd,they'll,they're,they've,this,those,through,to,too,under,until,up,very,was,we,we'd,we'll,we're,we've,were,what,what's,when,when's,where,where's,which,while,who,who's,whom,why,why's,with,would,you,you'd,you'll,you're,you've,your,yours,yourself,yourselves"
 msgstr "aber, als, am, an, auch, auf, aus, bei, bin, bis, bist, da, dadurch, daher, darum, das, daß, dass, dein, deine, dem, den, der, des, dessen, deshalb, die, dies, dieser, dieses, doch, dort, du, durch, ein, eine, einem, einen, einer, eines, er, es, euer, eure, für, hatte, hatten, hattest, hattet, hier, hinter, ich, ihr, ihre, im, in, ist, ja, jede, jedem, jeden, jeder, jedes, jener, jenes, jetzt, kann, kannst, können, könnt, machen, mein, meine, mit, muß, mußt, musst, müssen, müßt, nach, nachdem, nein, nicht, nun, oder, seid, sein, seine, sich, sie, sind, soll, sollen, sollst, sollt, sonst, soweit, sowie, und, unser, unsere, unter, vom, von, vor, wann, warum, was, weiter, weitere, wenn, wer, werde, werden, werdet, weshalb, wie, wieder, wieso, wir, wird, wirst, wo, woher, wohin, zu, zum, zur, über"
 
-#: admin/class-admin.php:521
+#: admin/class-admin.php:523
 msgid "Facebook profile URL"
 msgstr "URL des Facebook Profils"
 
-#: admin/class-admin.php:519
+#: admin/class-admin.php:521
 msgid "Twitter username (without @)"
 msgstr "Twitter Benutzername (ohne @)"
 
-#: admin/class-admin.php:517 admin/pages/social.php:20
+#: admin/class-admin.php:519 admin/pages/social.php:20
 msgid "Google+"
 msgstr "Google+"
 
-#: admin/class-admin.php:480
+#: admin/class-admin.php:482
 msgid "FAQ"
 msgstr "FAQ"
 
-#: admin/class-admin.php:476
+#: admin/class-admin.php:478
 msgid "Premium Support"
 msgstr "Premium Unterstützung"
 
-#: admin/class-admin.php:464
+#: admin/class-admin.php:466
 #: admin/google_search_console/class-gsc-platform-tabs.php:40
 #: admin/taxonomy/class-taxonomy-metabox.php:147
 #: admin/taxonomy/class-taxonomy-metabox.php:155
@@ -4451,83 +4435,83 @@ msgstr "Geh bitte zu %1$sEinstellungen \"Lesen\"%2$s und entferne den Haken bei 
 msgid "Huge SEO Issue: You're blocking access to robots."
 msgstr "Wichtiges SEO-Problem: Du blockierst den Zugriff von Suchmaschinen."
 
-#: admin/class-admin.php:428
+#: admin/class-admin.php:430
 msgid "Posts"
 msgstr "Beiträge"
 
-#: admin/class-admin.php:348
+#: admin/class-admin.php:350
 msgid "Edit Files"
 msgstr "Dateien editieren"
 
-#: admin/class-admin.php:342 admin/pages/network.php:93
+#: admin/class-admin.php:344 admin/pages/network.php:93
 msgid "MultiSite Settings"
 msgstr "Netzwerk-Einstellungen"
 
-#: admin/class-admin.php:328 admin/class-admin.php:329 admin/pages/metas.php:61
+#: admin/class-admin.php:330 admin/class-admin.php:331 admin/pages/metas.php:61
 #: admin/pages/metas.php:63
 msgid "Advanced Variables"
 msgstr "Erweiterte Variablen"
 
-#: admin/class-admin.php:320 admin/class-admin.php:321 admin/pages/metas.php:53
+#: admin/class-admin.php:322 admin/class-admin.php:323 admin/pages/metas.php:53
 #: admin/pages/metas.php:55
 msgid "Basic Variables"
 msgstr "Grundvariablen"
 
-#: admin/class-admin.php:313 admin/pages/metas.php:47
+#: admin/class-admin.php:315 admin/pages/metas.php:47
 msgid "Note that not all variables can be used in every template."
 msgstr "Bitte beachte, dass nicht alle Variablen in jedem Template genutzt werden können."
 
 #. translators: %1$s expands to Yoast SEO.
-#: admin/class-admin.php:311 admin/pages/metas.php:45
+#: admin/class-admin.php:313 admin/pages/metas.php:45
 msgid "The title &amp; metas settings for %1$s are made up of variables that are replaced by specific values from the page when the page is displayed. The tabs on the left explain the available variables."
 msgstr "Die Titel &amp; Meta Einstellungen für WordPress SEO bestehen aus Variablen, die durch spezielle Inhalte der Seite ersetzt werden, wenn die Website dargestellt wird. Die Reiter auf der linken Seite erklären die verfügbaren Variablen."
 
-#: admin/class-admin.php:307 admin/class-admin.php:308 admin/pages/metas.php:40
+#: admin/class-admin.php:309 admin/class-admin.php:310 admin/pages/metas.php:40
 #: admin/pages/metas.php:42
 msgid "Template explanation"
 msgstr "Erläuterung der Vorlage"
 
-#: admin/class-admin.php:301
+#: admin/class-admin.php:303
 msgid "Why Google won't display the right page title"
 msgstr "Warum Google nicht den richtigen Seitentitel anzeigt"
 
-#: admin/class-admin.php:300
+#: admin/class-admin.php:302
 msgid "Title optimization"
 msgstr "Optimierung des Titels"
 
-#: admin/class-admin.php:299
+#: admin/class-admin.php:301
 msgid "For more information:"
 msgstr "Mehr Informationen:"
 
-#: admin/class-admin.php:162 admin/pages/dashboard.php:59
+#: admin/class-admin.php:164 admin/pages/dashboard.php:59
 #: admin/pages/metas.php:20 admin/pages/xml-sitemaps.php:30
 msgid "General"
 msgstr "Allgemein"
 
-#: admin/banner/class-admin-banner-sidebar.php:184 admin/class-admin.php:355
-#: admin/class-yoast-form.php:639 admin/pages/licenses.php:115
+#: admin/banner/class-admin-banner-sidebar.php:202 admin/class-admin.php:357
+#: admin/pages/licenses.php:112
 msgid "Extensions"
 msgstr "Erweiterungen"
 
-#: admin/class-admin.php:215 inc/wpseo-non-ajax-functions.php:306
+#: admin/class-admin.php:217 inc/wpseo-non-ajax-functions.php:306
 msgid "Search Console"
 msgstr "Suchkonsole"
 
-#: admin/class-admin.php:206 inc/wpseo-non-ajax-functions.php:299
+#: admin/class-admin.php:208 inc/wpseo-non-ajax-functions.php:299
 msgid "Tools"
 msgstr "Werkzeuge"
 
-#: admin/class-admin.php:197 admin/metabox/class-metabox.php:412
+#: admin/class-admin.php:199 admin/metabox/class-metabox.php:412
 #: admin/metabox/class-metabox.php:420 admin/metabox/class-metabox.php:423
 #: inc/wpseo-non-ajax-functions.php:293
 msgid "Advanced"
 msgstr "Fortgeschritten"
 
-#: admin/class-admin.php:188 inc/wpseo-non-ajax-functions.php:287
+#: admin/class-admin.php:190 inc/wpseo-non-ajax-functions.php:287
 msgid "XML Sitemaps"
 msgstr "XML-Sitemaps"
 
-#: admin/class-admin.php:179 admin/class-social-admin.php:114
+#: admin/class-admin.php:181 admin/class-social-admin.php:114
 #: admin/class-social-admin.php:117
 #: admin/taxonomy/class-taxonomy-metabox.php:212
 #: admin/taxonomy/class-taxonomy-metabox.php:215
@@ -4535,11 +4519,11 @@ msgstr "XML-Sitemaps"
 msgid "Social"
 msgstr "Social"
 
-#: admin/class-admin.php:171 inc/wpseo-non-ajax-functions.php:275
+#: admin/class-admin.php:173 inc/wpseo-non-ajax-functions.php:275
 msgid "Titles &amp; Metas"
 msgstr "Titel &amp; Metas"
 
-#: admin/class-admin.php:150 admin/class-admin.php:342
+#: admin/class-admin.php:152 admin/class-admin.php:344
 #: admin/class-meta-columns.php:61
 #: admin/formatter/class-metabox-formatter.php:72
 #: admin/taxonomy/class-taxonomy-columns.php:51

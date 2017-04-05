@@ -4,11 +4,12 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit20ff934879dc9cc9ba188eacbf6d9208
+class ComposerStaticInit72bebfa167725527c1784dc38cee7ea2
 {
     public static $files = array (
         '04c6c5c2f7095ccf6c481d3e53e1776f' => __DIR__ . '/..' . '/mustangostang/spyc/Spyc.php',
         'bbf73f3db644d3dced353b837903e74c' => __DIR__ . '/..' . '/php-di/php-di/src/DI/functions.php',
+        '6dcc7fc6910472564e7b11f0b5d852b5' => __DIR__ . '/..' . '/szymach/c-pchart/src/Resources/data/constants.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -40,6 +41,7 @@ class ComposerStaticInit20ff934879dc9cc9ba188eacbf6d9208
         ),
         'C' => 
         array (
+            'CpChart\\' => 8,
             'Composer\\Semver\\' => 16,
         ),
     );
@@ -100,6 +102,10 @@ class ComposerStaticInit20ff934879dc9cc9ba188eacbf6d9208
         'DI\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-di/php-di/src/DI',
+        ),
+        'CpChart\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/szymach/c-pchart/src',
         ),
         'Composer\\Semver\\' => 
         array (
@@ -197,6 +203,34 @@ class ComposerStaticInit20ff934879dc9cc9ba188eacbf6d9208
         'Composer\\Semver\\Semver' => __DIR__ . '/..' . '/composer/semver/src/Semver.php',
         'Composer\\Semver\\VersionParser' => __DIR__ . '/..' . '/composer/semver/src/VersionParser.php',
         'Console_Getopt' => __DIR__ . '/..' . '/pear/console_getopt/Console/Getopt.php',
+        'CpChart\\Behat\\Context\\BrowserContext' => __DIR__ . '/..' . '/szymach/c-pchart/src/Behat/Context/BrowserContext.php',
+        'CpChart\\Behat\\Context\\DataContext' => __DIR__ . '/..' . '/szymach/c-pchart/src/Behat/Context/DataContext.php',
+        'CpChart\\Behat\\Context\\DirectoryContext' => __DIR__ . '/..' . '/szymach/c-pchart/src/Behat/Context/DirectoryContext.php',
+        'CpChart\\Behat\\Context\\DrawContext' => __DIR__ . '/..' . '/szymach/c-pchart/src/Behat/Context/DrawContext.php',
+        'CpChart\\Behat\\Context\\MinkAwarePageContext' => __DIR__ . '/..' . '/szymach/c-pchart/src/Behat/Context/MinkAwarePageContext.php',
+        'CpChart\\Behat\\Fixtures\\FixtureGenerator' => __DIR__ . '/..' . '/szymach/c-pchart/src/Behat/Fixtures/FixtureGenerator.php',
+        'CpChart\\Behat\\Page\\Index' => __DIR__ . '/..' . '/szymach/c-pchart/src/Behat/Page/Index.php',
+        'CpChart\\Chart\\Barcode128' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Barcode128.php',
+        'CpChart\\Chart\\Barcode39' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Barcode39.php',
+        'CpChart\\Chart\\BaseDraw' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/BaseDraw.php',
+        'CpChart\\Chart\\Bubble' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Bubble.php',
+        'CpChart\\Chart\\Cache' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Cache.php',
+        'CpChart\\Chart\\Data' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Data.php',
+        'CpChart\\Chart\\Draw' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Draw.php',
+        'CpChart\\Chart\\Image' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Image.php',
+        'CpChart\\Chart\\Indicator' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Indicator.php',
+        'CpChart\\Chart\\Pie' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Pie.php',
+        'CpChart\\Chart\\Radar' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Radar.php',
+        'CpChart\\Chart\\Scatter' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Scatter.php',
+        'CpChart\\Chart\\Split' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Split.php',
+        'CpChart\\Chart\\Spring' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Spring.php',
+        'CpChart\\Chart\\Stock' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Stock.php',
+        'CpChart\\Chart\\Surface' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Surface.php',
+        'CpChart\\Exception\\ChartIsAMethodException' => __DIR__ . '/..' . '/szymach/c-pchart/src/Exception/ChartIsAMethodException.php',
+        'CpChart\\Exception\\FactoryException' => __DIR__ . '/..' . '/szymach/c-pchart/src/Exception/FactoryException.php',
+        'CpChart\\Exception\\IncorrectBarcodeNumberException' => __DIR__ . '/..' . '/szymach/c-pchart/src/Exception/IncorrectBarcodeNumberException.php',
+        'CpChart\\Exception\\NotSupportedChartException' => __DIR__ . '/..' . '/szymach/c-pchart/src/Exception/NotSupportedChartException.php',
+        'CpChart\\Factory\\Factory' => __DIR__ . '/..' . '/szymach/c-pchart/src/Factory/Factory.php',
         'DI\\Annotation\\Inject' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Annotation/Inject.php',
         'DI\\Annotation\\Injectable' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Annotation/Injectable.php',
         'DI\\Cache\\ArrayCache' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Cache/ArrayCache.php',
@@ -638,6 +672,7 @@ class ComposerStaticInit20ff934879dc9cc9ba188eacbf6d9208
         'Piwik\\DataTable\\Filter\\PrependSegment' => __DIR__ . '/../..' . '/core/DataTable/Filter/PrependSegment.php',
         'Piwik\\DataTable\\Filter\\PrependValueToMetadata' => __DIR__ . '/../..' . '/core/DataTable/Filter/PrependValueToMetadata.php',
         'Piwik\\DataTable\\Filter\\RangeCheck' => __DIR__ . '/../..' . '/core/DataTable/Filter/RangeCheck.php',
+        'Piwik\\DataTable\\Filter\\RemoveSubtables' => __DIR__ . '/../..' . '/core/DataTable/Filter/RemoveSubtables.php',
         'Piwik\\DataTable\\Filter\\ReplaceColumnNames' => __DIR__ . '/../..' . '/core/DataTable/Filter/ReplaceColumnNames.php',
         'Piwik\\DataTable\\Filter\\ReplaceSummaryRowLabel' => __DIR__ . '/../..' . '/core/DataTable/Filter/ReplaceSummaryRowLabel.php',
         'Piwik\\DataTable\\Filter\\SafeDecodeLabel' => __DIR__ . '/../..' . '/core/DataTable/Filter/SafeDecodeLabel.php',
@@ -2707,11 +2742,11 @@ class ComposerStaticInit20ff934879dc9cc9ba188eacbf6d9208
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit20ff934879dc9cc9ba188eacbf6d9208::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit20ff934879dc9cc9ba188eacbf6d9208::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit20ff934879dc9cc9ba188eacbf6d9208::$prefixesPsr0;
-            $loader->fallbackDirsPsr0 = ComposerStaticInit20ff934879dc9cc9ba188eacbf6d9208::$fallbackDirsPsr0;
-            $loader->classMap = ComposerStaticInit20ff934879dc9cc9ba188eacbf6d9208::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit72bebfa167725527c1784dc38cee7ea2::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit72bebfa167725527c1784dc38cee7ea2::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit72bebfa167725527c1784dc38cee7ea2::$prefixesPsr0;
+            $loader->fallbackDirsPsr0 = ComposerStaticInit72bebfa167725527c1784dc38cee7ea2::$fallbackDirsPsr0;
+            $loader->classMap = ComposerStaticInit72bebfa167725527c1784dc38cee7ea2::$classMap;
 
         }, null, ClassLoader::class);
     }
