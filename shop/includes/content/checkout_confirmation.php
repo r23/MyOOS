@@ -71,7 +71,7 @@ if (!isset($_SESSION['shipping'])) {
 // if conditions are not accepted, redirect the customer to the payment method selection page
 if ( (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') && (empty($_POST['gv_redeem_code'])) ) {
 	if ($_POST['conditions'] == FALSE) {
-		oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode(decode($aLang['error_conditions_not_accepted'])), 'SSL', true, false));
+		$oMessage->add_session('checkout_payment', $aLang['error_conditions_not_accepted'], 'error')
 	}
 }
 
@@ -109,12 +109,17 @@ if (isset($_SESSION['cot_gv'])) {
 }
 
 if ( ($_SESSION['payment'] == '' || !is_object(${$_SESSION['payment']}) ) && $credit_covers === FALSE) {
-	oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode(decode($aLang['error_no_payment_module_selected'])), 'SSL'));
+	$oMessage->add_session('checkout_payment', $aLang['error_no_payment_module_selected'], 'error');
 }
 
 if (is_array($payment_modules->modules)) {
 	$payment_modules->pre_confirmation_check();
 }
+
+if ($oMessage->size('checkout_payment') > 0) {
+	oos_redirect(oos_href_link($aContents['checkout_payment'], '', 'SSL'));
+}
+
 
 // load the selected shipping module
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';

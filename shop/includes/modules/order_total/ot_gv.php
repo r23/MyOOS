@@ -192,53 +192,56 @@
     }
 
     function collect_posts() {
-      global $oCurrencies, $coupon_no, $aLang;
+		global $oCurrencies, $oMessage, $coupon_no, $aLang;
 
-      // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
 
-      $aContents = oos_get_content();
+		$aContents = oos_get_content();
 
-      if ($_POST['gv_redeem_code']) {
+		if ($_POST['gv_redeem_code']) {
 
-        $couponstable = $oostable['coupons'];
-        $gv_query = $dbconn->Execute("SELECT coupon_id, coupon_type, coupon_amount FROM $couponstable WHERE coupon_code = '" . oos_db_input($_POST['gv_redeem_code']) . "'");
-        $gv_result = $gv_query->fields;
-        if ($gv_query->RecordCount() != 0) {
+			$couponstable = $oostable['coupons'];
+			$gv_query = $dbconn->Execute("SELECT coupon_id, coupon_type, coupon_amount FROM $couponstable WHERE coupon_code = '" . oos_db_input($_POST['gv_redeem_code']) . "'");
+			$gv_result = $gv_query->fields;
+			if ($gv_query->RecordCount() != 0) {
 
-          $coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
-          $redeem_query = $dbconn->Execute("SELECT * FROM $coupon_redeem_tracktable WHERE coupon_id = '" . $gv_result['coupon_id'] . "'");
-          if ( ($redeem_query->RecordCount() != 0) && ($gv_result['coupon_type'] == 'G') ) {
-            oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode(decode($aLang['error_no_invalid_redeem_gv'])), 'SSL'));
-          }
-        }
-        if ($gv_result['coupon_type'] == 'G') {
-          $gv_amount = $gv_result['coupon_amount'];
-          // Things to set
-          // ip address of claimant
-          // customer id of claimant
-          // date 
-          // redemption flag
-          // now update customer account with gv_amount
+				$coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
+				$redeem_query = $dbconn->Execute("SELECT * FROM $coupon_redeem_tracktable WHERE coupon_id = '" . $gv_result['coupon_id'] . "'");
+				if ( ($redeem_query->RecordCount() != 0) && ($gv_result['coupon_type'] == 'G') ) {
+					$oMessage->add_session('checkout_payment', $aLang['error_no_invalid_redeem_gv'], 'error');
+					oos_redirect(oos_href_link($aContents['checkout_payment'], '', 'SSL'));			  
+				}
+			}
+			
+			if ($gv_result['coupon_type'] == 'G') {
+				$gv_amount = $gv_result['coupon_amount'];
+				// Things to set
+				// ip address of claimant
+				// customer id of claimant
+				// date 
+				// redemption flag
+				// now update customer account with gv_amount
 
-          $coupon_gv_customertable = $oostable['coupon_gv_customer'];
-          $gv_amount_query = $dbconn->Execute("SELECT amount FROM $coupon_gv_customertable WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'");
-          $customer_gv = FALSE;
-          $total_gv_amount = $gv_amount;
-          if ($gv_amount_result = $gv_amount_query->fields) {
-            $total_gv_amount = $gv_amount_result['amount'] + $gv_amount;
-            $customer_gv = TRUE;
-          }
+				$coupon_gv_customertable = $oostable['coupon_gv_customer'];
+				$gv_amount_query = $dbconn->Execute("SELECT amount FROM $coupon_gv_customertable WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'");
+				$customer_gv = FALSE;
+				$total_gv_amount = $gv_amount;
+		  
+				if ($gv_amount_result = $gv_amount_query->fields) {
+					$total_gv_amount = $gv_amount_result['amount'] + $gv_amount;
+					$customer_gv = TRUE;
+				}
 
-          $couponstable = $oostable['coupons'];
-          $gv_update = $dbconn->Execute("UPDATE $couponstable
+				$couponstable = $oostable['coupons'];
+				$gv_update = $dbconn->Execute("UPDATE $couponstable
                                          SET coupon_active = 'N' 
                                          WHERE coupon_id = '" . $gv_result['coupon_id'] . "'");
-          $remote_addr = oos_server_get_remote();
+				$remote_addr = oos_server_get_remote();
 
-          $coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
-          $gv_redeem = $dbconn->Execute("INSERT INTO  $coupon_redeem_tracktable
+				$coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
+				$gv_redeem = $dbconn->Execute("INSERT INTO  $coupon_redeem_tracktable
                                         (coupon_id,
                                          customer_id,
                                          redeem_date,
@@ -246,24 +249,34 @@
                                                             '" . intval($_SESSION['customer_id']) . "',
                                                             now(),
                                                             '" . oos_db_input($remote_addr) . "')");
-          if ($customer_gv) {
-            $coupon_gv_customertable = $oostable['coupon_gv_customer'];
-            // already has gv_amount so update
-            $gv_update = $dbconn->Execute("UPDATE $coupon_gv_customertable
+				if ($customer_gv) {
+					$coupon_gv_customertable = $oostable['coupon_gv_customer'];
+					// already has gv_amount so update
+					$gv_update = $dbconn->Execute("UPDATE $coupon_gv_customertable
                                            SET amount = '" . $total_gv_amount . "'
                                            WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'");
-          } else {
-            // no gv_amount so insert
-            $coupon_gv_customertable = $oostable['coupon_gv_customer'];
-            $gv_insert = $dbconn->Execute("INSERT INTO $coupon_gv_customertable
+				} else {
+					// no gv_amount so insert
+					$coupon_gv_customertable = $oostable['coupon_gv_customer'];
+					$gv_insert = $dbconn->Execute("INSERT INTO $coupon_gv_customertable
                                            (customer_id,
                                             amount) VALUES ('" . intval($_SESSION['customer_id']) . "',
                                                             '" . $total_gv_amount . "')");
-          }
-          oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode($aLang['error_redeemed_amount'] . $oCurrencies->format($gv_amount)), 'SSL'));
-       }
-     }
-     if ($_POST['submit_redeem_x'] && $gv['coupon_type'] == 'G') oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode(decode($aLang['error_no_redeem_code'])), 'SSL'));
+				}
+				$oMessage->add_session('checkout_payment', $aLang['error_redeemed_amount'] . $oCurrencies->format($gv_amount), 'error');
+				oos_redirect(oos_href_link($aContents['checkout_payment'], '', 'SSL'));
+			}
+		}
+	 
+	 
+		if ($_POST['submit_redeem_x'] && $gv['coupon_type'] == 'G'){
+			$oMessage->add_session('checkout_payment', $aLang['error_no_redeem_code'], 'error');
+		}
+	 
+		if ($oMessage->size('checkout_payment') > 0) {
+			oos_redirect(oos_href_link($aContents['checkout_payment'], '', 'SSL'));
+		}	 
+	 
    }
 
     function calculate_credit($amount) {

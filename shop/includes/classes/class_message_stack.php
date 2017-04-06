@@ -25,67 +25,65 @@
    if ($oMessage->size > 0) echo $oMessage->output();
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  class messageStack {
+class messageStack {
 
-    public function __construct() {
-      global $messageToStack;
+	public function __construct() {
 
-      $this->messages = array();
+		$this->messages = array();
 
-      if (isset($_SESSION['messageToStack'])) {
-        $messageToStack = $_SESSION['messageToStack'];
-        for ($i=0, $n=count($messageToStack); $i<$n; $i++) {
-          $this->add($messageToStack[$i]['class'], $messageToStack[$i]['text'], $messageToStack[$i]['type']);
-        }
-        unset($_SESSION['messageToStack']);
-      }
+		if (isset($_SESSION['messageToStack'])) {
+			$messageToStack = $_SESSION['messageToStack'];
+			for ($i=0, $n=count($messageToStack); $i<$n; $i++) {
+				$this->add($messageToStack[$i]['class'], $messageToStack[$i]['text'], $messageToStack[$i]['type']);
+			}
+			unset($_SESSION['messageToStack']);
+		}
     }
 
 // class methods
     public function add($class, $message, $type = 'error') {
-      $this->messages[] = array('class' => $class, 'type' => $type, 'text' => $message);
+		$this->messages[] = array('class' => $class, 'type' => $type, 'text' => $message);
     }
 
     public function add_session($class, $message, $type = 'error') {
-
-      if (!isset($_SESSION['messageToStack'])) {
-        $messageToStack = array();
-      } else {
-        $messageToStack = $_SESSION['messageToStack'];
-      }
-
-      $messageToStack[] = array('class' => $class, 'text' => $message, 'type' => $type);
-      $_SESSION['messageToStack'] = $messageToStack;
-      $this->add($class, $message, $type);
+		$messageToStack = array();
+		if (isset($_SESSION['messageToStack']) && is_array($_SESSION['messageToStack'])) {
+			$messageToStack = $_SESSION['messageToStack'];
+		}  
+	  
+	  
+		$messageToStack[] = array('class' => $class, 'text' => $message, 'type' => $type);
+		$_SESSION['messageToStack'] = $messageToStack;
+		$this->add($class, $message, $type);
     }
 
     public function reset() {
-      $this->messages = array();
+		$this->messages = array();
     }
 
     public function output($class) {
-      $output = array();
-      for ($i=0, $n=count($this->messages); $i<$n; $i++) {
-        if ($this->messages[$i]['class'] == $class) {
-          $output[] = $this->messages[$i];
-        }
-      }
+		$output = array();
+		for ($i=0, $n=count($this->messages); $i<$n; $i++) {
+			if ($this->messages[$i]['class'] == $class) {
+				$output[] = $this->messages[$i];
+			}
+		}
 
-      return $output;
+		return $output;
     }
 
     public function size($class) {
-      $count = 0;
+		$count = 0;
 
-      for ($i=0, $n=count($this->messages); $i<$n; $i++) {
-        if ($this->messages[$i]['class'] == $class) {
-          $count++;
-        }
-      }
+		for ($i=0, $n=count($this->messages); $i<$n; $i++) {
+			if ($this->messages[$i]['class'] == $class) {
+				$count++;
+			}
+		}
 
-      return $count;
-    }
-  }
+		return $count;
+	}
+}
