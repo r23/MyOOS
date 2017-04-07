@@ -11,16 +11,19 @@
 
 namespace Symfony\Bundle\SecurityBundle\Tests\DependencyInjection;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\SecurityExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-abstract class CompleteConfigurationTest extends \PHPUnit_Framework_TestCase
+abstract class CompleteConfigurationTest extends TestCase
 {
     private static $containerCache = array();
 
-    abstract protected function loadFromFile(ContainerBuilder $container, $file);
+    abstract protected function getLoader(ContainerBuilder $container);
+
+    abstract protected function getFileExtension();
 
     public function testRolesHierarchy()
     {
@@ -63,14 +66,81 @@ abstract class CompleteConfigurationTest extends \PHPUnit_Framework_TestCase
     public function testFirewalls()
     {
         $container = $this->getContainer('container1');
-
         $arguments = $container->getDefinition('security.firewall.map')->getArguments();
         $listeners = array();
+        $configs = array();
         foreach (array_keys($arguments[1]) as $contextId) {
             $contextDef = $container->getDefinition($contextId);
             $arguments = $contextDef->getArguments();
-            $listeners[] = array_map(function ($ref) { return (string) $ref; }, $arguments['index_0']);
+            $listeners[] = array_map('strval', $arguments['index_0']);
+
+            $configDef = $container->getDefinition((string) $arguments['index_2']);
+            $configs[] = array_values($configDef->getArguments());
         }
+
+        $this->assertEquals(array(
+            array(
+                'simple',
+                'security.user_checker',
+                'security.request_matcher.707b20193d4cb9f2718114abcbebb32af48f948484fc166a03482f49bf14f25e271f72c7',
+                false,
+            ),
+            array(
+                'secure',
+                'security.user_checker',
+                null,
+                true,
+                true,
+                'security.user.provider.concrete.default',
+                null,
+                'security.authentication.form_entry_point.secure',
+                null,
+                null,
+                array(
+                    'logout',
+                    'switch_user',
+                    'x509',
+                    'remote_user',
+                    'form_login',
+                    'http_basic',
+                    'http_digest',
+                    'remember_me',
+                    'anonymous',
+                ),
+            ),
+            array(
+                'host',
+                'security.user_checker',
+                'security.request_matcher.dda8b565689ad8509623ee68fb2c639cd81cd4cb339d60edbaf7d67d30e6aa09bd8c63c3',
+                true,
+                false,
+                'security.user.provider.concrete.default',
+                'host',
+                'security.authentication.basic_entry_point.host',
+                null,
+                null,
+                array(
+                    'http_basic',
+                    'anonymous',
+                ),
+            ),
+            array(
+                'with_user_checker',
+                'app.user_checker',
+                null,
+                true,
+                false,
+                'security.user.provider.concrete.default',
+                'with_user_checker',
+                'security.authentication.basic_entry_point.with_user_checker',
+                null,
+                null,
+                array(
+                    'http_basic',
+                    'anonymous',
+                ),
+            ),
+        ), $configs);
 
         $this->assertEquals(array(
             array(),
@@ -165,7 +235,7 @@ abstract class CompleteConfigurationTest extends \PHPUnit_Framework_TestCase
                 );
             } elseif (3 === $i) {
                 $this->assertEquals('IS_AUTHENTICATED_ANONYMOUSLY', $attributes[0]);
-                $expression = $container->getDefinition($attributes[1])->getArgument(0);
+                $expression = $container->getDefinition((string) $attributes[1])->getArgument(0);
                 $this->assertEquals("token.getUsername() matches '/^admin/'", $expression);
             }
         }
@@ -191,12 +261,22 @@ abstract class CompleteConfigurationTest extends \PHPUnit_Framework_TestCase
                 'arguments' => array(false),
             ),
             'JMS\FooBundle\Entity\User2' => array(
-                'class' => 'Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder',
-                'arguments' => array('sha1', false, 5),
+                'algorithm' => 'sha1',
+                'encode_as_base64' => false,
+                'iterations' => 5,
+                'hash_algorithm' => 'sha512',
+                'key_length' => 40,
+                'ignore_case' => false,
+                'cost' => 13,
             ),
             'JMS\FooBundle\Entity\User3' => array(
-                'class' => 'Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder',
-                'arguments' => array('md5', true, 5000),
+                'algorithm' => 'md5',
+                'hash_algorithm' => 'sha512',
+                'key_length' => 40,
+                'ignore_case' => false,
+                'encode_as_base64' => true,
+                'iterations' => 5000,
+                'cost' => 13,
             ),
             'JMS\FooBundle\Entity\User4' => new Reference('security.encoder.foo'),
             'JMS\FooBundle\Entity\User5' => array(
@@ -257,6 +337,8 @@ abstract class CompleteConfigurationTest extends \PHPUnit_Framework_TestCase
 
     protected function getContainer($file)
     {
+        $file = $file.'.'.$this->getFileExtension();
+
         if (isset(self::$containerCache[$file])) {
             return self::$containerCache[$file];
         }
@@ -266,7 +348,7 @@ abstract class CompleteConfigurationTest extends \PHPUnit_Framework_TestCase
 
         $bundle = new SecurityBundle();
         $bundle->build($container); // Attach all default factories
-        $this->loadFromFile($container, $file);
+        $this->getLoader($container)->load($file);
 
         $container->getCompilerPassConfig()->setOptimizationPasses(array());
         $container->getCompilerPassConfig()->setRemovingPasses(array());

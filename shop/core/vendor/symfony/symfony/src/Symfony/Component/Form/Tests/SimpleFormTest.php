@@ -313,6 +313,10 @@ class SimpleFormTest extends AbstractFormTest
         $this->assertTrue($form->isValid());
     }
 
+    /**
+     * @group legacy
+     * @expectedDeprecation Call Form::isValid() with an unsubmitted form %s.
+     */
     public function testNotValidIfNotSubmitted()
     {
         $this->assertFalse($this->form->isValid());
@@ -513,6 +517,22 @@ class SimpleFormTest extends AbstractFormTest
         $this->assertSame('default', $form->getData());
     }
 
+    public function testPreSetDataChangesDataIfDataIsLocked()
+    {
+        $config = new FormConfigBuilder('name', null, $this->dispatcher);
+        $config
+            ->setData('default')
+            ->setDataLocked(true)
+            ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+                $event->setData('foobar');
+            });
+        $form = new Form($config);
+
+        $this->assertSame('foobar', $form->getData());
+        $this->assertSame('foobar', $form->getNormData());
+        $this->assertSame('foobar', $form->getViewData());
+    }
+
     public function testSubmitConvertsEmptyToNullIfNoTransformer()
     {
         $form = $this->getBuilder()->getForm();
@@ -684,8 +704,8 @@ class SimpleFormTest extends AbstractFormTest
 
     public function testCreateView()
     {
-        $type = $this->getMock('Symfony\Component\Form\ResolvedFormTypeInterface');
-        $view = $this->getMock('Symfony\Component\Form\FormView');
+        $type = $this->getMockBuilder('Symfony\Component\Form\ResolvedFormTypeInterface')->getMock();
+        $view = $this->getMockBuilder('Symfony\Component\Form\FormView')->getMock();
         $form = $this->getBuilder()->setType($type)->getForm();
 
         $type->expects($this->once())
@@ -698,10 +718,10 @@ class SimpleFormTest extends AbstractFormTest
 
     public function testCreateViewWithParent()
     {
-        $type = $this->getMock('Symfony\Component\Form\ResolvedFormTypeInterface');
-        $view = $this->getMock('Symfony\Component\Form\FormView');
-        $parentForm = $this->getMock('Symfony\Component\Form\Test\FormInterface');
-        $parentView = $this->getMock('Symfony\Component\Form\FormView');
+        $type = $this->getMockBuilder('Symfony\Component\Form\ResolvedFormTypeInterface')->getMock();
+        $view = $this->getMockBuilder('Symfony\Component\Form\FormView')->getMock();
+        $parentForm = $this->getMockBuilder('Symfony\Component\Form\Test\FormInterface')->getMock();
+        $parentView = $this->getMockBuilder('Symfony\Component\Form\FormView')->getMock();
         $form = $this->getBuilder()->setType($type)->getForm();
         $form->setParent($parentForm);
 
@@ -719,9 +739,9 @@ class SimpleFormTest extends AbstractFormTest
 
     public function testCreateViewWithExplicitParent()
     {
-        $type = $this->getMock('Symfony\Component\Form\ResolvedFormTypeInterface');
-        $view = $this->getMock('Symfony\Component\Form\FormView');
-        $parentView = $this->getMock('Symfony\Component\Form\FormView');
+        $type = $this->getMockBuilder('Symfony\Component\Form\ResolvedFormTypeInterface')->getMock();
+        $view = $this->getMockBuilder('Symfony\Component\Form\FormView')->getMock();
+        $parentView = $this->getMockBuilder('Symfony\Component\Form\FormView')->getMock();
         $form = $this->getBuilder()->setType($type)->getForm();
 
         $type->expects($this->once())
@@ -846,7 +866,7 @@ class SimpleFormTest extends AbstractFormTest
 
     public function testViewDataMayBeArrayAccessIfDataClassIsNull()
     {
-        $arrayAccess = $this->getMock('\ArrayAccess');
+        $arrayAccess = $this->getMockBuilder('\ArrayAccess')->getMock();
         $config = new FormConfigBuilder('name', null, $this->dispatcher);
         $config->addViewTransformer(new FixedDataTransformer(array(
             '' => '',
@@ -876,6 +896,7 @@ class SimpleFormTest extends AbstractFormTest
 
     /**
      * @expectedException \Symfony\Component\Form\Exception\RuntimeException
+     * @expectedExceptionMessage A cycle was detected. Listeners to the PRE_SET_DATA event must not call setData(). You should call setData() on the FormEvent object instead.
      */
     public function testSetDataCannotInvokeItself()
     {
@@ -891,10 +912,11 @@ class SimpleFormTest extends AbstractFormTest
 
     public function testSubmittingWrongDataIsIgnored()
     {
+        $called = 0;
+
         $child = $this->getBuilder('child', $this->dispatcher);
-        $child->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
-            // child form doesn't receive the wrong data that is submitted on parent
-            $this->assertNull($event->getData());
+        $child->addEventListener(FormEvents::PRE_SUBMIT, function () use (&$called) {
+            ++$called;
         });
 
         $parent = $this->getBuilder('parent', new EventDispatcher())
@@ -904,11 +926,13 @@ class SimpleFormTest extends AbstractFormTest
             ->getForm();
 
         $parent->submit('not-an-array');
+
+        $this->assertSame(0, $called, 'PRE_SUBMIT event listeners are not called for wrong data');
     }
 
     public function testHandleRequestForwardsToRequestHandler()
     {
-        $handler = $this->getMock('Symfony\Component\Form\RequestHandlerInterface');
+        $handler = $this->getMockBuilder('Symfony\Component\Form\RequestHandlerInterface')->getMock();
 
         $form = $this->getBuilder()
             ->setRequestHandler($handler)
@@ -1006,20 +1030,23 @@ class SimpleFormTest extends AbstractFormTest
 
     public function testSubmitIsNeverFiredIfInheritData()
     {
+        $called = 0;
         $form = $this->getBuilder()
-            ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
-                $this->fail('The SUBMIT event should not be fired');
+            ->addEventListener(FormEvents::SUBMIT, function () use (&$called) {
+                ++$called;
             })
             ->setInheritData(true)
             ->getForm();
 
         $form->submit('foo');
+
+        $this->assertSame(0, $called, 'The SUBMIT event is not fired when data are inherited from the parent form');
     }
 
     public function testInitializeSetsDefaultData()
     {
         $config = $this->getBuilder()->setData('DEFAULT')->getFormConfig();
-        $form = $this->getMock('Symfony\Component\Form\Form', array('setData'), array($config));
+        $form = $this->getMockBuilder('Symfony\Component\Form\Form')->setMethods(array('setData'))->setConstructorArgs(array($config))->getMock();
 
         $form->expects($this->once())
             ->method('setData')
@@ -1040,6 +1067,51 @@ class SimpleFormTest extends AbstractFormTest
         $child->setParent($parent);
 
         $child->initialize();
+    }
+
+    /**
+     * @expectedException \Symfony\Component\Form\Exception\RuntimeException
+     * @expectedExceptionMessage A cycle was detected. Listeners to the PRE_SET_DATA event must not call getData() if the form data has not already been set. You should call getData() on the FormEvent object instead.
+     */
+    public function testCannotCallGetDataInPreSetDataListenerIfDataHasNotAlreadyBeenSet()
+    {
+        $config = new FormConfigBuilder('name', 'stdClass', $this->dispatcher);
+        $config->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $event->getForm()->getData();
+        });
+        $form = new Form($config);
+
+        $form->setData('foo');
+    }
+
+    /**
+     * @expectedException \Symfony\Component\Form\Exception\RuntimeException
+     * @expectedExceptionMessage A cycle was detected. Listeners to the PRE_SET_DATA event must not call getNormData() if the form data has not already been set.
+     */
+    public function testCannotCallGetNormDataInPreSetDataListener()
+    {
+        $config = new FormConfigBuilder('name', 'stdClass', $this->dispatcher);
+        $config->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $event->getForm()->getNormData();
+        });
+        $form = new Form($config);
+
+        $form->setData('foo');
+    }
+
+    /**
+     * @expectedException \Symfony\Component\Form\Exception\RuntimeException
+     * @expectedExceptionMessage A cycle was detected. Listeners to the PRE_SET_DATA event must not call getViewData() if the form data has not already been set.
+     */
+    public function testCannotCallGetViewDataInPreSetDataListener()
+    {
+        $config = new FormConfigBuilder('name', 'stdClass', $this->dispatcher);
+        $config->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $event->getForm()->getViewData();
+        });
+        $form = new Form($config);
+
+        $form->setData('foo');
     }
 
     protected function createForm()

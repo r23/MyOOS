@@ -15,13 +15,20 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\DBAL\Types\Type;
 use Symfony\Bridge\Doctrine\Test\DoctrineTestHelper;
 use Symfony\Bridge\Doctrine\Test\TestRepositoryFactory;
+use Symfony\Bridge\Doctrine\Tests\Fixtures\Employee;
+use Symfony\Bridge\Doctrine\Tests\Fixtures\Person;
+use Symfony\Bridge\Doctrine\Tests\Fixtures\CompositeObjectNoToStringIdEntity;
 use Symfony\Bridge\Doctrine\Tests\Fixtures\SingleIntIdEntity;
 use Symfony\Bridge\Doctrine\Tests\Fixtures\DoubleNameEntity;
+use Symfony\Bridge\Doctrine\Tests\Fixtures\DoubleNullableNameEntity;
 use Symfony\Bridge\Doctrine\Tests\Fixtures\AssociationEntity;
 use Symfony\Bridge\Doctrine\Tests\Fixtures\AssociationEntity2;
 use Symfony\Bridge\Doctrine\Tests\Fixtures\SingleIntIdNoToStringEntity;
+use Symfony\Bridge\Doctrine\Tests\Fixtures\SingleIntIdStringWrapperNameEntity;
+use Symfony\Bridge\Doctrine\Tests\Fixtures\Type\StringWrapper;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntityValidator;
 use Symfony\Component\Validator\Tests\Constraints\AbstractConstraintValidatorTest;
@@ -29,6 +36,8 @@ use Doctrine\ORM\Tools\SchemaTool;
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
+ *
+ * @todo use ConstraintValidatorTestCase when symfony/validator ~3.2 is required.
  */
 class UniqueEntityValidatorTest extends AbstractConstraintValidatorTest
 {
@@ -58,6 +67,10 @@ class UniqueEntityValidatorTest extends AbstractConstraintValidatorTest
         $config = DoctrineTestHelper::createTestConfiguration();
         $config->setRepositoryFactory($this->repositoryFactory);
 
+        if (!Type::hasType('string_wrapper')) {
+            Type::addType('string_wrapper', 'Symfony\Bridge\Doctrine\Tests\Fixtures\Type\StringWrapperType');
+        }
+
         $this->em = DoctrineTestHelper::createTestEntityManager($config);
         $this->registry = $this->createRegistryMock($this->em);
         $this->createSchema($this->em);
@@ -67,7 +80,7 @@ class UniqueEntityValidatorTest extends AbstractConstraintValidatorTest
 
     protected function createRegistryMock(ObjectManager $em = null)
     {
-        $registry = $this->getMock('Doctrine\Common\Persistence\ManagerRegistry');
+        $registry = $this->getMockBuilder('Doctrine\Common\Persistence\ManagerRegistry')->getMock();
         $registry->expects($this->any())
                  ->method('getManager')
                  ->with($this->equalTo(self::EM_NAME))
@@ -96,7 +109,7 @@ class UniqueEntityValidatorTest extends AbstractConstraintValidatorTest
              ->will($this->returnValue($repositoryMock))
         ;
 
-        $classMetadata = $this->getMock('Doctrine\Common\Persistence\Mapping\ClassMetadata');
+        $classMetadata = $this->getMockBuilder('Doctrine\Common\Persistence\Mapping\ClassMetadata')->getMock();
         $classMetadata
             ->expects($this->any())
             ->method('hasField')
@@ -137,9 +150,14 @@ class UniqueEntityValidatorTest extends AbstractConstraintValidatorTest
             $em->getClassMetadata('Symfony\Bridge\Doctrine\Tests\Fixtures\SingleIntIdEntity'),
             $em->getClassMetadata('Symfony\Bridge\Doctrine\Tests\Fixtures\SingleIntIdNoToStringEntity'),
             $em->getClassMetadata('Symfony\Bridge\Doctrine\Tests\Fixtures\DoubleNameEntity'),
+            $em->getClassMetadata('Symfony\Bridge\Doctrine\Tests\Fixtures\DoubleNullableNameEntity'),
             $em->getClassMetadata('Symfony\Bridge\Doctrine\Tests\Fixtures\CompositeIntIdEntity'),
             $em->getClassMetadata('Symfony\Bridge\Doctrine\Tests\Fixtures\AssociationEntity'),
             $em->getClassMetadata('Symfony\Bridge\Doctrine\Tests\Fixtures\AssociationEntity2'),
+            $em->getClassMetadata('Symfony\Bridge\Doctrine\Tests\Fixtures\Person'),
+            $em->getClassMetadata('Symfony\Bridge\Doctrine\Tests\Fixtures\Employee'),
+            $em->getClassMetadata('Symfony\Bridge\Doctrine\Tests\Fixtures\CompositeObjectNoToStringIdEntity'),
+            $em->getClassMetadata('Symfony\Bridge\Doctrine\Tests\Fixtures\SingleIntIdStringWrapperNameEntity'),
         ));
     }
 
@@ -173,7 +191,7 @@ class UniqueEntityValidatorTest extends AbstractConstraintValidatorTest
         $this->buildViolation('myMessage')
             ->atPath('property.path.name')
             ->setParameter('{{ value }}', '"Foo"')
-            ->setInvalidValue('Foo')
+            ->setInvalidValue($entity2)
             ->setCode(UniqueEntity::NOT_UNIQUE_ERROR)
             ->assertRaised();
     }
@@ -198,7 +216,7 @@ class UniqueEntityValidatorTest extends AbstractConstraintValidatorTest
         $this->buildViolation('myMessage')
             ->atPath('property.path.bar')
             ->setParameter('{{ value }}', '"Foo"')
-            ->setInvalidValue('Foo')
+            ->setInvalidValue($entity2)
             ->setCode(UniqueEntity::NOT_UNIQUE_ERROR)
             ->assertRaised();
     }
@@ -223,7 +241,7 @@ class UniqueEntityValidatorTest extends AbstractConstraintValidatorTest
         $this->assertNoViolation();
     }
 
-    public function testValidateUniquenessWithIgnoreNull()
+    public function testValidateUniquenessWithIgnoreNullDisabled()
     {
         $constraint = new UniqueEntity(array(
             'message' => 'myMessage',
@@ -254,6 +272,51 @@ class UniqueEntityValidatorTest extends AbstractConstraintValidatorTest
             ->setInvalidValue('Foo')
             ->setCode(UniqueEntity::NOT_UNIQUE_ERROR)
             ->assertRaised();
+    }
+
+    /**
+     * @expectedException \Symfony\Component\Validator\Exception\ConstraintDefinitionException
+     */
+    public function testAllConfiguredFieldsAreCheckedOfBeingMappedByDoctrineWithIgnoreNullEnabled()
+    {
+        $constraint = new UniqueEntity(array(
+            'message' => 'myMessage',
+            'fields' => array('name', 'name2'),
+            'em' => self::EM_NAME,
+            'ignoreNull' => true,
+        ));
+
+        $entity1 = new SingleIntIdEntity(1, null);
+
+        $this->validator->validate($entity1, $constraint);
+    }
+
+    public function testNoValidationIfFirstFieldIsNullAndNullValuesAreIgnored()
+    {
+        $constraint = new UniqueEntity(array(
+            'message' => 'myMessage',
+            'fields' => array('name', 'name2'),
+            'em' => self::EM_NAME,
+            'ignoreNull' => true,
+        ));
+
+        $entity1 = new DoubleNullableNameEntity(1, null, 'Foo');
+        $entity2 = new DoubleNullableNameEntity(2, null, 'Foo');
+
+        $this->validator->validate($entity1, $constraint);
+
+        $this->assertNoViolation();
+
+        $this->em->persist($entity1);
+        $this->em->flush();
+
+        $this->validator->validate($entity1, $constraint);
+
+        $this->assertNoViolation();
+
+        $this->validator->validate($entity2, $constraint);
+
+        $this->assertNoViolation();
     }
 
     public function testValidateUniquenessWithValidCustomErrorPath()
@@ -417,7 +480,7 @@ class UniqueEntityValidatorTest extends AbstractConstraintValidatorTest
 
         $this->buildViolation('myMessage')
             ->atPath('property.path.single')
-            ->setParameter('{{ value }}', $entity1)
+            ->setParameter('{{ value }}', 'object("Symfony\Bridge\Doctrine\Tests\Fixtures\SingleIntIdEntity") identified by (id => 1)')
             ->setInvalidValue($entity1)
             ->setCode(UniqueEntity::NOT_UNIQUE_ERROR)
             ->assertRaised();
@@ -450,12 +513,12 @@ class UniqueEntityValidatorTest extends AbstractConstraintValidatorTest
 
         $this->validator->validate($associated2, $constraint);
 
-        $expectedValue = 'Object of class "Symfony\Bridge\Doctrine\Tests\Fixtures\AssociationEntity2" identified by "2"';
+        $expectedValue = 'object("Symfony\Bridge\Doctrine\Tests\Fixtures\SingleIntIdNoToStringEntity") identified by (id => 1)';
 
         $this->buildViolation('myMessage')
             ->atPath('property.path.single')
-            ->setParameter('{{ value }}', '"'.$expectedValue.'"')
-            ->setInvalidValue($expectedValue)
+            ->setParameter('{{ value }}', $expectedValue)
+            ->setInvalidValue($entity1)
             ->setCode(UniqueEntity::NOT_UNIQUE_ERROR)
             ->assertRaised();
     }
@@ -560,5 +623,116 @@ class UniqueEntityValidatorTest extends AbstractConstraintValidatorTest
         $entity = new SingleIntIdEntity(1, null);
 
         $this->validator->validate($entity, $constraint);
+    }
+
+    public function testValidateInheritanceUniqueness()
+    {
+        $constraint = new UniqueEntity(array(
+            'message' => 'myMessage',
+            'fields' => array('name'),
+            'em' => self::EM_NAME,
+            'entityClass' => 'Symfony\Bridge\Doctrine\Tests\Fixtures\Person',
+        ));
+
+        $entity1 = new Person(1, 'Foo');
+        $entity2 = new Employee(2, 'Foo');
+
+        $this->validator->validate($entity1, $constraint);
+
+        $this->assertNoViolation();
+
+        $this->em->persist($entity1);
+        $this->em->flush();
+
+        $this->validator->validate($entity1, $constraint);
+
+        $this->assertNoViolation();
+
+        $this->validator->validate($entity2, $constraint);
+
+        $this->buildViolation('myMessage')
+            ->atPath('property.path.name')
+            ->setInvalidValue('Foo')
+            ->setCode('23bd9dbf-6b9b-41cd-a99e-4844bcf3077f')
+            ->setParameters(array('{{ value }}' => '"Foo"'))
+            ->assertRaised();
+    }
+
+    /**
+     * @expectedException \Symfony\Component\Validator\Exception\ConstraintDefinitionException
+     * @expectedExceptionMessage The "Symfony\Bridge\Doctrine\Tests\Fixtures\SingleStringIdEntity" entity repository does not support the "Symfony\Bridge\Doctrine\Tests\Fixtures\Person" entity. The entity should be an instance of or extend "Symfony\Bridge\Doctrine\Tests\Fixtures\SingleStringIdEntity".
+     */
+    public function testInvalidateRepositoryForInheritance()
+    {
+        $constraint = new UniqueEntity(array(
+            'message' => 'myMessage',
+            'fields' => array('name'),
+            'em' => self::EM_NAME,
+            'entityClass' => 'Symfony\Bridge\Doctrine\Tests\Fixtures\SingleStringIdEntity',
+        ));
+
+        $entity = new Person(1, 'Foo');
+        $this->validator->validate($entity, $constraint);
+    }
+
+    public function testValidateUniquenessWithCompositeObjectNoToStringIdEntity()
+    {
+        $constraint = new UniqueEntity(array(
+            'message' => 'myMessage',
+            'fields' => array('objectOne', 'objectTwo'),
+            'em' => self::EM_NAME,
+        ));
+
+        $objectOne = new SingleIntIdNoToStringEntity(1, 'foo');
+        $objectTwo = new SingleIntIdNoToStringEntity(2, 'bar');
+
+        $this->em->persist($objectOne);
+        $this->em->persist($objectTwo);
+        $this->em->flush();
+
+        $entity = new CompositeObjectNoToStringIdEntity($objectOne, $objectTwo);
+
+        $this->em->persist($entity);
+        $this->em->flush();
+
+        $newEntity = new CompositeObjectNoToStringIdEntity($objectOne, $objectTwo);
+
+        $this->validator->validate($newEntity, $constraint);
+
+        $expectedValue = 'object("Symfony\Bridge\Doctrine\Tests\Fixtures\SingleIntIdNoToStringEntity") identified by (id => 1)';
+
+        $this->buildViolation('myMessage')
+            ->atPath('property.path.objectOne')
+            ->setParameter('{{ value }}', $expectedValue)
+            ->setInvalidValue($objectOne)
+            ->setCode(UniqueEntity::NOT_UNIQUE_ERROR)
+            ->assertRaised();
+    }
+
+    public function testValidateUniquenessWithCustomDoctrineTypeValue()
+    {
+        $constraint = new UniqueEntity(array(
+            'message' => 'myMessage',
+            'fields' => array('name'),
+            'em' => self::EM_NAME,
+        ));
+
+        $existingEntity = new SingleIntIdStringWrapperNameEntity(1, new StringWrapper('foo'));
+
+        $this->em->persist($existingEntity);
+        $this->em->flush();
+
+        $newEntity = new SingleIntIdStringWrapperNameEntity(2, new StringWrapper('foo'));
+
+        $this->validator->validate($newEntity, $constraint);
+
+        $expectedValue = 'object("Symfony\Bridge\Doctrine\Tests\Fixtures\Type\StringWrapper")';
+
+        $this->buildViolation('myMessage')
+            ->atPath('property.path.name')
+            ->setParameter('{{ value }}', $expectedValue)
+            ->setInvalidValue($existingEntity->name)
+            ->setCode(UniqueEntity::NOT_UNIQUE_ERROR)
+            ->assertRaised();
     }
 }

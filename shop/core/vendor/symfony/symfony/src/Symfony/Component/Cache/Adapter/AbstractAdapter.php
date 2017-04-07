@@ -16,6 +16,7 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Cache\CacheItem;
+use Symfony\Component\Cache\Exception\InvalidArgumentException;
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>
@@ -24,14 +25,25 @@ abstract class AbstractAdapter implements AdapterInterface, LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
+    private static $apcuSupported;
+    private static $phpFilesSupported;
+
     private $namespace;
     private $deferred = array();
     private $createCacheItem;
     private $mergeByLifetime;
 
+    /**
+     * @var int|null The maximum length to enforce for identifiers or null when no limit applies
+     */
+    protected $maxIdLength;
+
     protected function __construct($namespace = '', $defaultLifetime = 0)
     {
-        $this->namespace = '' === $namespace ? '' : $this->getId($namespace);
+        $this->namespace = '' === $namespace ? '' : $this->getId($namespace).':';
+        if (null !== $this->maxIdLength && strlen($namespace) > $this->maxIdLength - 24) {
+            throw new InvalidArgumentException(sprintf('Namespace must be %d chars max, %d given ("%s")', $this->maxIdLength - 24, strlen($namespace), $namespace));
+        }
         $this->createCacheItem = \Closure::bind(
             function ($key, $value, $isHit) use ($defaultLifetime) {
                 $item = new CacheItem();
@@ -70,11 +82,28 @@ abstract class AbstractAdapter implements AdapterInterface, LoggerAwareInterface
 
     public static function createSystemCache($namespace, $defaultLifetime, $version, $directory, LoggerInterface $logger = null)
     {
+        if (null === self::$apcuSupported) {
+            self::$apcuSupported = ApcuAdapter::isSupported();
+        }
+
+        if (!self::$apcuSupported && null === self::$phpFilesSupported) {
+            self::$phpFilesSupported = PhpFilesAdapter::isSupported();
+        }
+
+        if (self::$phpFilesSupported) {
+            $opcache = new PhpFilesAdapter($namespace, $defaultLifetime, $directory);
+            if (null !== $logger) {
+                $opcache->setLogger($logger);
+            }
+
+            return $opcache;
+        }
+
         $fs = new FilesystemAdapter($namespace, $defaultLifetime, $directory);
         if (null !== $logger) {
             $fs->setLogger($logger);
         }
-        if (!ApcuAdapter::isSupported()) {
+        if (!self::$apcuSupported) {
             return $fs;
         }
 
@@ -381,7 +410,14 @@ abstract class AbstractAdapter implements AdapterInterface, LoggerAwareInterface
     {
         CacheItem::validateKey($key);
 
-        return $this->namespace.$key;
+        if (null === $this->maxIdLength) {
+            return $this->namespace.$key;
+        }
+        if (strlen($id = $this->namespace.$key) > $this->maxIdLength) {
+            $id = $this->namespace.substr_replace(base64_encode(hash('sha256', $key, true)), ':', -22);
+        }
+
+        return $id;
     }
 
     private function generateItems($items, &$keys)

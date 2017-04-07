@@ -11,9 +11,10 @@
 
 namespace Symfony\Bridge\Twig\Tests\Node;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\Twig\Node\FormThemeNode;
 
-class FormThemeTest extends \PHPUnit_Framework_TestCase
+class FormThemeTest extends TestCase
 {
     public function testConstructor()
     {
@@ -41,11 +42,11 @@ class FormThemeTest extends \PHPUnit_Framework_TestCase
 
         $node = new FormThemeNode($form, $resources, 0);
 
-        $compiler = new \Twig_Compiler(new \Twig_Environment($this->getMock('Twig_LoaderInterface')));
+        $compiler = new \Twig_Compiler(new \Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock()));
 
         $this->assertEquals(
             sprintf(
-                '$this->env->getExtension(\'Symfony\Bridge\Twig\Extension\FormExtension\')->renderer->setTheme(%s, array(0 => "tpl1", 1 => "tpl2"));',
+                '$this->env->getRuntime(\'Symfony\Bridge\Twig\Form\TwigRenderer\')->setTheme(%s, array(0 => "tpl1", 1 => "tpl2"));',
                 $this->getVariableGetter('form')
              ),
             trim($compiler->compile($node)->getSource())
@@ -57,7 +58,7 @@ class FormThemeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             sprintf(
-                '$this->env->getExtension(\'Symfony\Bridge\Twig\Extension\FormExtension\')->renderer->setTheme(%s, "tpl1");',
+                '$this->env->getRuntime(\'Symfony\Bridge\Twig\Form\TwigRenderer\')->setTheme(%s, "tpl1");',
                 $this->getVariableGetter('form')
              ),
             trim($compiler->compile($node)->getSource())

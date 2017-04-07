@@ -1,6 +1,64 @@
 UPGRADE FROM 3.x to 4.0
 =======================
 
+Console
+-------
+
+ * Setting unknown style options is not supported anymore and throws an
+   exception.
+
+ * The `QuestionHelper::setInputStream()` method is removed. Use
+   `StreamableInputInterface::setStream()` or `CommandTester::setInputs()`
+   instead.
+
+   Before:
+
+   ```php
+   $input = new ArrayInput();
+
+   $questionHelper->setInputStream($stream);
+   $questionHelper->ask($input, $output, $question);
+   ```
+
+   After:
+
+   ```php
+   $input = new ArrayInput();
+   $input->setStream($stream);
+
+   $questionHelper->ask($input, $output, $question);
+   ```
+
+   Before:
+
+   ```php
+   $commandTester = new CommandTester($command);
+
+   $stream = fopen('php://memory', 'r+', false);
+   fputs($stream, "AppBundle\nYes");
+   rewind($stream);
+
+   $command->getHelper('question')->setInputStream($stream);
+
+   $commandTester->execute();
+   ```
+
+   After:
+
+   ```php
+   $commandTester = new CommandTester($command);
+
+   $commandTester->setInputs(array('AppBundle', 'Yes'));
+
+   $commandTester->execute();
+   ```
+
+Debug
+-----
+
+ * `FlattenException::getTrace()` now returns additional type descriptions
+   `integer` and `float`.
+
 DependencyInjection
 -------------------
 
@@ -8,6 +66,22 @@ DependencyInjection
    exception.
 
  * Using unsupported options to configure service aliases raises an exception.
+
+ * Setting or unsetting a private service with the `Container::set()` method is
+   no longer supported. Only public services can be set or unset.
+
+ * Checking the existence of a private service with the `Container::has()`
+   method is no longer supported and will return `false`.
+
+ * Requesting a private service with the `Container::get()` method is no longer
+   supported.
+
+ExpressionLanguage
+----------
+
+ * The ability to pass a `ParserCacheInterface` instance to the `ExpressionLanguage`
+   class has been removed. You should use the `CacheItemPoolInterface` interface
+   instead.
 
 Form
 ----
@@ -38,6 +112,25 @@ Form
 
  * Caching of the loaded `ChoiceListInterface` in the `LazyChoiceList` has been removed,
    it must be cached in the `ChoiceLoaderInterface` implementation instead.
+
+ * Calling `isValid()` on a `Form` instance before submitting it is not supported
+   anymore and raises an exception.
+
+   Before:
+
+   ```php
+   if ($form->isValid()) {
+       // ...
+   }
+   ```
+
+   After:
+
+   ```php
+   if ($form->isSubmitted() && $form->isValid()) {
+       // ...
+   }
+   ```
 
 FrameworkBundle
 ---------------
@@ -77,9 +170,35 @@ FrameworkBundle
     - `"form.type.submit"`
     - `"form.type.reset"`
 
- * The `framework.serializer.cache` option and the service
-   `serializer.mapping.cache.apc` have been removed. APCu should now
-   be automatically used when available.
+ * The `framework.serializer.cache` option and the services
+   `serializer.mapping.cache.apc` and `serializer.mapping.cache.doctrine.apc`
+   have been removed. APCu should now be automatically used when available.
+
+HttpFoundation
+---------------
+
+ * Extending the following methods of `Response`
+   is no longer possible (these methods are now `final`):
+
+    - `setDate`/`getDate`
+    - `setExpires`/`getExpires`
+    - `setLastModified`/`getLastModified`
+    - `setProtocolVersion`/`getProtocolVersion`
+    - `setStatusCode`/`getStatusCode`
+    - `setCharset`/`getCharset`
+    - `setPrivate`/`setPublic`
+    - `getAge`
+    - `getMaxAge`/`setMaxAge`
+    - `setSharedMaxAge`
+    - `getTtl`/`setTtl`
+    - `setClientTtl`
+    - `getEtag`/`setEtag`
+    - `hasVary`/`getVary`/`setVary`
+    - `isInvalid`/`isSuccessful`/`isRedirection`/`isClientError`/`isServerError`
+    - `isOk`/`isForbidden`/`isNotFound`/`isRedirect`/`isEmpty`
+
+ * The ability to check only for cacheable HTTP methods using `Request::isMethodSafe()` is
+   not supported anymore, use `Request::isMethodCacheable()` instead.
 
 HttpKernel
 ----------
@@ -92,20 +211,100 @@ HttpKernel
    have your own `ControllerResolverInterface` implementation, you should
    inject an `ArgumentResolverInterface` instance.
 
+ * The `DataCollector::varToString()` method has been removed in favor of `cloneVar()`.
+
 Serializer
 ----------
 
  * The ability to pass a Doctrine `Cache` instance to the `ClassMetadataFactory`
    class has been removed. You should use the `CacheClassMetadataFactory` class
    instead.
+   
+ * Not defining the 6th argument `$format = null` of the
+   `AbstractNormalizer::instantiateObject()` method when overriding it is not
+   supported anymore.
 
 Translation
 -----------
 
  * Removed the backup feature from the file dumper classes.
 
+TwigBridge
+----------
+
+ * Removed the possibility to inject the Form `TwigRenderer` into the `FormExtension`.
+   Upgrade Twig to `^1.30`, inject the `Twig_Environment` into the `TwigRendererEngine` and load
+   the `TwigRenderer` using the `Twig_FactoryRuntimeLoader` instead.
+
+   Before:
+
+   ```php
+   use Symfony\Bridge\Twig\Extension\FormExtension;
+   use Symfony\Bridge\Twig\Form\TwigRenderer;
+   use Symfony\Bridge\Twig\Form\TwigRendererEngine;
+
+   // ...
+   $rendererEngine = new TwigRendererEngine(array('form_div_layout.html.twig'));
+   $rendererEngine->setEnvironment($twig);
+   $twig->addExtension(new FormExtension(new TwigRenderer($rendererEngine, $csrfTokenManager)));
+   ```
+
+   After:
+
+   ```php
+   $rendererEngine = new TwigRendererEngine(array('form_div_layout.html.twig'), $twig);
+   $twig->addRuntimeLoader(new \Twig_FactoryRuntimeLoader(array(
+       TwigRenderer::class => function () use ($rendererEngine, $csrfTokenManager) {
+           return new TwigRenderer($rendererEngine, $csrfTokenManager);
+       },
+   )));
+   $twig->addExtension(new FormExtension());
+   ```
+
+ * Removed the `TwigRendererEngineInterface` interface.
+
+Validator
+---------
+
+ * The `DateTimeValidator::PATTERN` constant was removed.
+
+ * `Tests\Constraints\AbstractConstraintValidatorTest` has been removed in
+   favor of `Test\ConstraintValidatorTestCase`.
+
+   Before:
+
+   ```php
+   // ...
+   use Symfony\Component\Validator\Tests\Constraints\AbstractConstraintValidatorTest;
+
+   class MyCustomValidatorTest extends AbstractConstraintValidatorTest
+   {
+       // ...
+   }
+   ```
+
+   After:
+
+   ```php
+   // ...
+   use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
+
+   class MyCustomValidatorTest extends ConstraintValidatorTestCase
+   {
+       // ...
+   }
+   ```
+   
+ * The default value of the strict option of the `Choice` Constraint has been
+   changed to `true` as of 4.0. If you need the previous behaviour ensure to 
+   set the option to `false`.
+
 Yaml
 ----
+
+ * Mappings with a colon (`:`) that is not followed by a whitespace are not
+   supported anymore and lead to a `ParseException`(e.g. `foo:bar` must be
+   `foo: bar`).
 
  * Starting an unquoted string with `%` leads to a `ParseException`.
 
@@ -190,7 +389,4 @@ Yaml
  * The `!!php/object` tag to indicate dumped PHP objects was removed in favor of
    the `!php/object` tag.
 
-Validator
----------
-
- * The `DateTimeValidator::PATTERN` constant was removed.
+ * Duplicate mapping keys lead to a `ParseException`.

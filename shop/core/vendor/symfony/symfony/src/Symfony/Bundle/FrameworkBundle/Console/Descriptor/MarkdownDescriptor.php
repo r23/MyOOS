@@ -179,20 +179,13 @@ class MarkdownDescriptor extends Descriptor
             ."\n".'- Public: '.($definition->isPublic() ? 'yes' : 'no')
             ."\n".'- Synthetic: '.($definition->isSynthetic() ? 'yes' : 'no')
             ."\n".'- Lazy: '.($definition->isLazy() ? 'yes' : 'no')
+            ."\n".'- Shared: '.($definition->isShared() ? 'yes' : 'no')
+            ."\n".'- Abstract: '.($definition->isAbstract() ? 'yes' : 'no')
+            ."\n".'- Autowired: '.($definition->isAutowired() ? 'yes' : 'no')
         ;
 
-        if (method_exists($definition, 'isShared')) {
-            $output .= "\n".'- Shared: '.($definition->isShared() ? 'yes' : 'no');
-        }
-
-        $output .= "\n".'- Abstract: '.($definition->isAbstract() ? 'yes' : 'no');
-
-        if (method_exists($definition, 'isAutowired')) {
-            $output .= "\n".'- Autowired: '.($definition->isAutowired() ? 'yes' : 'no');
-
-            foreach ($definition->getAutowiringTypes() as $autowiringType) {
-                $output .= "\n".'- Autowiring Type: `'.$autowiringType.'`';
-            }
+        foreach ($definition->getAutowiringTypes() as $autowiringType) {
+            $output .= "\n".'- Autowiring Type: `'.$autowiringType.'`';
         }
 
         if ($definition->getFile()) {
@@ -230,7 +223,7 @@ class MarkdownDescriptor extends Descriptor
             }
         }
 
-        $this->write(isset($options['id']) ? sprintf("%s\n%s\n\n%s\n", $options['id'], str_repeat('~', strlen($options['id'])), $output) : $output);
+        $this->write(isset($options['id']) ? sprintf("### %s\n\n%s\n", $options['id'], $output) : $output);
     }
 
     /**
@@ -241,7 +234,7 @@ class MarkdownDescriptor extends Descriptor
         $output = '- Service: `'.$alias.'`'
             ."\n".'- Public: '.($alias->isPublic() ? 'yes' : 'no');
 
-        $this->write(isset($options['id']) ? sprintf("%s\n%s\n\n%s\n", $options['id'], str_repeat('~', strlen($options['id'])), $output) : $output);
+        $this->write(isset($options['id']) ? sprintf("### %s\n\n%s\n", $options['id'], $output) : $output);
     }
 
     /**
@@ -356,7 +349,7 @@ class MarkdownDescriptor extends Descriptor
      */
     private function formatRouterConfig(array $array)
     {
-        if (!count($array)) {
+        if (!$array) {
             return 'NONE';
         }
 

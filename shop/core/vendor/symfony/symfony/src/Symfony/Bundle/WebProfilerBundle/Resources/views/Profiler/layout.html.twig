@@ -39,7 +39,7 @@
                                     {%- else -%}
                                             {{ redirect_route }}
                                     {%- endif %}
-                                    (<a href="{{ path('_profiler', { token: redirect.token }) }}">{{ redirect.token }}</a>)
+                                    (<a href="{{ path('_profiler', { token: redirect.token, panel: request.query.get('panel', 'request') }) }}">{{ redirect.token }}</a>)
                                 </dd>
                             </dl>
                         {%- endif %}
@@ -94,7 +94,7 @@
             <div id="sidebar">
                 <div id="sidebar-shortcuts">
                     <div class="shortcuts">
-                        <a href="#" class="visible-small" onclick="Sfjs.toggleClass(document.getElementById('sidebar'), 'expanded'); return false;">
+                        <a href="#" id="sidebarShortcutsMenu" class="visible-small">
                             <span class="icon">{{ include('@WebProfiler/Icon/menu.svg') }}</span>
                         </a>
 
@@ -113,9 +113,11 @@
                     <ul id="menu-profiler">
                         {% for name, template in templates %}
                             {% set menu -%}
-                                {% with { collector: profile.getcollector(name), profiler_markup_version: profiler_markup_version } %}
-                                    {{ block('menu', template) }}
-                                {% endwith %}
+                                {%- if block('menu', template) is defined -%}
+                                    {% with { collector: profile.getcollector(name), profiler_markup_version: profiler_markup_version } %}
+                                        {{- block('menu', template) -}}
+                                    {% endwith %}
+                                {%- endif -%}
                             {%- endset %}
                             {% if menu is not empty %}
                                 <li class="{{ name }} {{ name == panel ? 'selected' : '' }}">
@@ -128,4 +130,12 @@
             </div>
         </div>
     </div>
+    <script>
+        (function () {
+            Sfjs.addEventListener(document.getElementById('sidebarShortcutsMenu'), 'click', function (event) {
+                event.preventDefault();
+                Sfjs.toggleClass(document.getElementById('sidebar'), 'expanded');
+            })
+        }())
+    </script>
 {% endblock %}

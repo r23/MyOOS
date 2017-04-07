@@ -11,6 +11,7 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Templating\Helper;
 
+use Symfony\Component\HttpKernel\Debug\FileLinkFormatter;
 use Symfony\Component\Templating\Helper\Helper;
 
 /**
@@ -27,9 +28,9 @@ class CodeHelper extends Helper
     /**
      * Constructor.
      *
-     * @param string $fileLinkFormat The format for links to source files
-     * @param string $rootDir        The project root directory
-     * @param string $charset        The charset
+     * @param string|FileLinkFormatter $fileLinkFormat The format for links to source files
+     * @param string                   $rootDir        The project root directory
+     * @param string                   $charset        The charset
      */
     public function __construct($fileLinkFormat, $rootDir, $charset)
     {
@@ -132,7 +133,7 @@ class CodeHelper extends Helper
             $code = @highlight_file($file, true);
             // remove main code/span tags
             $code = preg_replace('#^<code.*?>\s*<span.*?>(.*)</span>\s*</code>#s', '\\1', $code);
-            $content = preg_split('#<br />#', $code);
+            $content = explode('<br />', $code);
 
             $lines = array();
             for ($i = max($line - 3, 1), $max = min($line + 3, count($content)); $i <= $max; ++$i) {
@@ -185,8 +186,8 @@ class CodeHelper extends Helper
      */
     public function getFileLink($file, $line)
     {
-        if ($this->fileLinkFormat && is_file($file)) {
-            return strtr($this->fileLinkFormat, array('%f' => $file, '%l' => $line));
+        if ($fmt = $this->fileLinkFormat) {
+            return is_string($fmt) ? strtr($fmt, array('%f' => $file, '%l' => $line)) : $fmt->format($file, $line);
         }
 
         return false;

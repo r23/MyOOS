@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\PropertyAccess;
 
+use Psr\Cache\CacheItemPoolInterface;
+
 /**
  * A configurable builder to create a PropertyAccessor.
  *
@@ -29,9 +31,14 @@ class PropertyAccessorBuilder
     private $throwExceptionOnInvalidIndex = false;
 
     /**
+     * @var CacheItemPoolInterface|null
+     */
+    private $cacheItemPool;
+
+    /**
      * Enables the use of "__call" by the PropertyAccessor.
      *
-     * @return PropertyAccessorBuilder The builder object
+     * @return $this
      */
     public function enableMagicCall()
     {
@@ -43,7 +50,7 @@ class PropertyAccessorBuilder
     /**
      * Disables the use of "__call" by the PropertyAccessor.
      *
-     * @return PropertyAccessorBuilder The builder object
+     * @return $this
      */
     public function disableMagicCall()
     {
@@ -66,7 +73,7 @@ class PropertyAccessorBuilder
      * This has no influence on writing non-existing indices with PropertyAccessorInterface::setValue()
      * which are always created on-the-fly.
      *
-     * @return PropertyAccessorBuilder The builder object
+     * @return $this
      */
     public function enableExceptionOnInvalidIndex()
     {
@@ -80,7 +87,7 @@ class PropertyAccessorBuilder
      *
      * Instead, null is returned when calling PropertyAccessorInterface::getValue() on a non-existing index.
      *
-     * @return PropertyAccessorBuilder The builder object
+     * @return $this
      */
     public function disableExceptionOnInvalidIndex()
     {
@@ -98,12 +105,36 @@ class PropertyAccessorBuilder
     }
 
     /**
+     * Sets a cache system.
+     *
+     * @param CacheItemPoolInterface|null $cacheItemPool
+     *
+     * @return PropertyAccessorBuilder The builder object
+     */
+    public function setCacheItemPool(CacheItemPoolInterface $cacheItemPool = null)
+    {
+        $this->cacheItemPool = $cacheItemPool;
+
+        return $this;
+    }
+
+    /**
+     * Gets the used cache system.
+     *
+     * @return CacheItemPoolInterface|null
+     */
+    public function getCacheItemPool()
+    {
+        return $this->cacheItemPool;
+    }
+
+    /**
      * Builds and returns a new PropertyAccessor object.
      *
      * @return PropertyAccessorInterface The built PropertyAccessor
      */
     public function getPropertyAccessor()
     {
-        return new PropertyAccessor($this->magicCall, $this->throwExceptionOnInvalidIndex);
+        return new PropertyAccessor($this->magicCall, $this->throwExceptionOnInvalidIndex, $this->cacheItemPool);
     }
 }

@@ -11,11 +11,12 @@
 
 namespace Symfony\Component\Security\Core\Tests\Authorization\Voter;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authorization\Voter\RoleVoter;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Role\Role;
 
-class RoleVoterTest extends \PHPUnit_Framework_TestCase
+class RoleVoterTest extends TestCase
 {
     /**
      * @dataProvider getVoteTests
@@ -50,7 +51,7 @@ class RoleVoterTest extends \PHPUnit_Framework_TestCase
         foreach ($roles as $i => $role) {
             $roles[$i] = new Role($role);
         }
-        $token = $this->getMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
+        $token = $this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\TokenInterface')->getMock();
         $token->expects($this->once())
               ->method('getRoles')
               ->will($this->returnValue($roles));

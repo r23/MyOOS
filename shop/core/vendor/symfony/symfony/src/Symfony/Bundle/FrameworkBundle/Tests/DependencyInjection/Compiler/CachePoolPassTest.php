@@ -11,13 +11,14 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Tests\DependencyInjection\Compiler;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\CachePoolPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Reference;
 
-class CachePoolPassTest extends \PHPUnit_Framework_TestCase
+class CachePoolPassTest extends TestCase
 {
     private $cachePoolPass;
 
@@ -29,6 +30,10 @@ class CachePoolPassTest extends \PHPUnit_Framework_TestCase
     public function testNamespaceArgumentIsReplaced()
     {
         $container = new ContainerBuilder();
+        $container->setParameter('kernel.debug', false);
+        $container->setParameter('kernel.name', 'app');
+        $container->setParameter('kernel.environment', 'prod');
+        $container->setParameter('kernel.root_dir', 'foo');
         $adapter = new Definition();
         $adapter->setAbstract(true);
         $adapter->addTag('cache.pool');
@@ -41,12 +46,16 @@ class CachePoolPassTest extends \PHPUnit_Framework_TestCase
 
         $this->cachePoolPass->process($container);
 
-        $this->assertSame('kRFqMp5odS', $cachePool->getArgument(0));
+        $this->assertSame('D07rhFx97S', $cachePool->getArgument(0));
     }
 
     public function testArgsAreReplaced()
     {
         $container = new ContainerBuilder();
+        $container->setParameter('kernel.debug', false);
+        $container->setParameter('kernel.name', 'app');
+        $container->setParameter('kernel.environment', 'prod');
+        $container->setParameter('cache.prefix.seed', 'foo');
         $cachePool = new Definition();
         $cachePool->addTag('cache.pool', array(
             'provider' => 'foobar',
@@ -61,7 +70,7 @@ class CachePoolPassTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(Reference::class, $cachePool->getArgument(0));
         $this->assertSame('foobar', (string) $cachePool->getArgument(0));
-        $this->assertSame('kRFqMp5odS', $cachePool->getArgument(1));
+        $this->assertSame('itantF+pIq', $cachePool->getArgument(1));
         $this->assertSame(3, $cachePool->getArgument(2));
     }
 
@@ -72,6 +81,10 @@ class CachePoolPassTest extends \PHPUnit_Framework_TestCase
     public function testThrowsExceptionWhenCachePoolTagHasUnknownAttributes()
     {
         $container = new ContainerBuilder();
+        $container->setParameter('kernel.debug', false);
+        $container->setParameter('kernel.name', 'app');
+        $container->setParameter('kernel.environment', 'prod');
+        $container->setParameter('kernel.root_dir', 'foo');
         $adapter = new Definition();
         $adapter->setAbstract(true);
         $adapter->addTag('cache.pool');

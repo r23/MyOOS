@@ -11,10 +11,11 @@
 
 namespace Symfony\Component\DependencyInjection\Tests\Compiler;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Compiler\AutoAliasServicePass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class AutoAliasServicePassTest extends \PHPUnit_Framework_TestCase
+class AutoAliasServicePassTest extends TestCase
 {
     /**
      * @expectedException \Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException
@@ -57,7 +58,6 @@ class AutoAliasServicePassTest extends \PHPUnit_Framework_TestCase
         $pass->process($container);
 
         $this->assertEquals('Symfony\Component\DependencyInjection\Tests\Compiler\ServiceClassDefault', $container->getDefinition('example')->getClass());
-        $this->assertInstanceOf('Symfony\Component\DependencyInjection\Tests\Compiler\ServiceClassDefault', $container->get('example'));
     }
 
     public function testProcessWithExistingAlias()
@@ -75,7 +75,7 @@ class AutoAliasServicePassTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($container->hasAlias('example'));
         $this->assertEquals('mysql.example', $container->getAlias('example'));
-        $this->assertInstanceOf('Symfony\Component\DependencyInjection\Tests\Compiler\ServiceClassMysql', $container->get('example'));
+        $this->assertSame('Symfony\Component\DependencyInjection\Tests\Compiler\ServiceClassMysql', $container->getDefinition('mysql.example')->getClass());
     }
 
     public function testProcessWithManualAlias()
@@ -86,7 +86,7 @@ class AutoAliasServicePassTest extends \PHPUnit_Framework_TestCase
           ->addTag('auto_alias', array('format' => '%existing%.example'));
 
         $container->register('mysql.example', 'Symfony\Component\DependencyInjection\Tests\Compiler\ServiceClassMysql');
-        $container->register('mariadb.example', 'Symfony\Component\DependencyInjection\Tests\Compiler\ServiceClassMariadb');
+        $container->register('mariadb.example', 'Symfony\Component\DependencyInjection\Tests\Compiler\ServiceClassMariaDb');
         $container->setAlias('example', 'mariadb.example');
         $container->setParameter('existing', 'mysql');
 
@@ -95,7 +95,7 @@ class AutoAliasServicePassTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($container->hasAlias('example'));
         $this->assertEquals('mariadb.example', $container->getAlias('example'));
-        $this->assertInstanceOf('Symfony\Component\DependencyInjection\Tests\Compiler\ServiceClassMariaDb', $container->get('example'));
+        $this->assertSame('Symfony\Component\DependencyInjection\Tests\Compiler\ServiceClassMariaDb', $container->getDefinition('mariadb.example')->getClass());
     }
 }
 

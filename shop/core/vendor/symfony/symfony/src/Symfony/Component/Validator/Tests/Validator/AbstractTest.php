@@ -12,6 +12,7 @@
 namespace Symfony\Component\Validator\Tests\Validator;
 
 use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\GroupSequence;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Traverse;
@@ -602,8 +603,8 @@ abstract class AbstractTest extends AbstractValidatorTest
         $entity->initialized = false;
 
         // prepare initializers that set "initialized" to true
-        $initializer1 = $this->getMock('Symfony\\Component\\Validator\\ObjectInitializerInterface');
-        $initializer2 = $this->getMock('Symfony\\Component\\Validator\\ObjectInitializerInterface');
+        $initializer1 = $this->getMockBuilder('Symfony\\Component\\Validator\\ObjectInitializerInterface')->getMock();
+        $initializer2 = $this->getMockBuilder('Symfony\\Component\\Validator\\ObjectInitializerInterface')->getMock();
 
         $initializer1->expects($this->once())
             ->method('initialize')
@@ -647,6 +648,24 @@ abstract class AbstractTest extends AbstractValidatorTest
     {
         $constraint = new FailingConstraint();
         $violations = $this->validate('Foobar', $constraint);
+
+        $this->assertCount(1, $violations);
+        $this->assertSame($constraint, $violations[0]->getConstraint());
+    }
+
+    public function testCollectionConstraitViolationHasCorrectContext()
+    {
+        $data = array(
+            'foo' => 'fooValue',
+        );
+
+        // Missing field must not be the first in the collection validation
+        $constraint = new Collection(array(
+            'foo' => new NotNull(),
+            'bar' => new NotNull(),
+        ));
+
+        $violations = $this->validate($data, $constraint);
 
         $this->assertCount(1, $violations);
         $this->assertSame($constraint, $violations[0]->getConstraint());

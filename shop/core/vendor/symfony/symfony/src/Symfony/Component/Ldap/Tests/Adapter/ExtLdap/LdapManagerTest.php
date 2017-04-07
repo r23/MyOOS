@@ -15,6 +15,7 @@ use Symfony\Component\Ldap\Adapter\ExtLdap\Adapter;
 use Symfony\Component\Ldap\Adapter\ExtLdap\Collection;
 use Symfony\Component\Ldap\Entry;
 use Symfony\Component\Ldap\Exception\LdapException;
+use Symfony\Component\Ldap\Exception\NotBoundException;
 
 /**
  * @requires extension ldap
@@ -58,7 +59,7 @@ class LdapManagerTest extends LdapTestCase
      */
     public function testLdapAddInvalidEntry()
     {
-        $this->setExpectedException(LdapException::class);
+        $this->{method_exists($this, $_ = 'expectException') ? $_ : 'setExpectedException'}(LdapException::class);
         $this->executeSearchQuery(1);
 
         // The entry is missing a subject name
@@ -96,6 +97,39 @@ class LdapManagerTest extends LdapTestCase
         $result = $this->executeSearchQuery(1);
         $entry = $result[0];
         $this->assertNull($entry->getAttribute('email'));
+    }
+
+    /**
+     * @group functional
+     */
+    public function testLdapUnboundAdd()
+    {
+        $this->adapter = new Adapter($this->getLdapConfig());
+        $this->{method_exists($this, $_ = 'expectException') ? $_ : 'setExpectedException'}(NotBoundException::class);
+        $em = $this->adapter->getEntryManager();
+        $em->add(new Entry(''));
+    }
+
+    /**
+     * @group functional
+     */
+    public function testLdapUnboundRemove()
+    {
+        $this->adapter = new Adapter($this->getLdapConfig());
+        $this->{method_exists($this, $_ = 'expectException') ? $_ : 'setExpectedException'}(NotBoundException::class);
+        $em = $this->adapter->getEntryManager();
+        $em->remove(new Entry(''));
+    }
+
+    /**
+     * @group functional
+     */
+    public function testLdapUnboundUpdate()
+    {
+        $this->adapter = new Adapter($this->getLdapConfig());
+        $this->{method_exists($this, $_ = 'expectException') ? $_ : 'setExpectedException'}(NotBoundException::class);
+        $em = $this->adapter->getEntryManager();
+        $em->update(new Entry(''));
     }
 
     /**

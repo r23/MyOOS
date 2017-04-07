@@ -17,6 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>
@@ -28,13 +29,12 @@ class CachePoolPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $namespaceSuffix = '';
-
-        foreach (array('name', 'root_dir', 'environment', 'debug') as $key) {
-            if ($container->hasParameter('kernel.'.$key)) {
-                $namespaceSuffix .= '.'.$container->getParameter('kernel.'.$key);
-            }
+        if ($container->hasParameter('cache.prefix.seed')) {
+            $seed = '.'.$container->getParameterBag()->resolveValue($container->getParameter('cache.prefix.seed'));
+        } else {
+            $seed = '_'.$container->getParameter('kernel.root_dir');
         }
+        $seed .= '.'.$container->getParameter('kernel.name').'.'.$container->getParameter('kernel.environment');
 
         $attributes = array(
             'provider',
@@ -53,10 +53,13 @@ class CachePoolPass implements CompilerPassInterface
                 }
             }
             if (!isset($tags[0]['namespace'])) {
-                $tags[0]['namespace'] = $this->getNamespace($namespaceSuffix, $id);
+                $tags[0]['namespace'] = $this->getNamespace($seed, $id);
             }
             if (isset($tags[0]['clearer'])) {
-                $clearer = $container->getDefinition($tags[0]['clearer']);
+                $clearer = $tags[0]['clearer'];
+                while ($container->hasAlias($clearer)) {
+                    $clearer = (string) $container->getAlias($clearer);
+                }
             } else {
                 $clearer = null;
             }
@@ -73,18 +76,18 @@ class CachePoolPass implements CompilerPassInterface
                 unset($tags[0][$attr]);
             }
             if (!empty($tags[0])) {
-                throw new \InvalidArgumentException(sprintf('Invalid "cache.pool" tag for service "%s": accepted attributes are "clearer", "provider", "namespace" and "default_lifetime", found "%s".', $id, implode('", "', array_keys($tags[0]))));
+                throw new InvalidArgumentException(sprintf('Invalid "cache.pool" tag for service "%s": accepted attributes are "clearer", "provider", "namespace" and "default_lifetime", found "%s".', $id, implode('", "', array_keys($tags[0]))));
             }
 
             if (null !== $clearer) {
-                $clearer->addMethodCall('addPool', array(new Reference($id)));
+                $pool->addTag('cache.pool', array('clearer' => $clearer));
             }
         }
     }
 
-    private function getNamespace($namespaceSuffix, $id)
+    private function getNamespace($seed, $id)
     {
-        return substr(str_replace('/', '-', base64_encode(hash('sha256', $id.$namespaceSuffix, true))), 0, 10);
+        return substr(str_replace('/', '-', base64_encode(hash('sha256', $id.$seed, true))), 0, 10);
     }
 
     /**
@@ -92,7 +95,9 @@ class CachePoolPass implements CompilerPassInterface
      */
     public static function getServiceProvider(ContainerBuilder $container, $name)
     {
-        if (0 === strpos($name, 'redis://')) {
+        $container->resolveEnvPlaceholders($name, null, $usedEnvs);
+
+        if (0 === strpos($name, 'redis://') || $usedEnvs) {
             $dsn = $name;
 
             if (!$container->hasDefinition($name = md5($dsn))) {

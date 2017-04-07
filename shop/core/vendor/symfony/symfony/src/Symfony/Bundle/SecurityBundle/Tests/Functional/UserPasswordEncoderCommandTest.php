@@ -129,7 +129,12 @@ class UserPasswordEncoderCommandTest extends WebTestCase
 
     public function testEncodePasswordNoConfigForGivenUserClass()
     {
-        $this->setExpectedException('\RuntimeException', 'No encoder has been configured for account "Foo\Bar\User".');
+        if (method_exists($this, 'expectException')) {
+            $this->expectException('\RuntimeException');
+            $this->expectExceptionMessage('No encoder has been configured for account "Foo\Bar\User".');
+        } else {
+            $this->setExpectedException('\RuntimeException', 'No encoder has been configured for account "Foo\Bar\User".');
+        }
 
         $this->passwordEncoderCommandTester->execute(array(
             'command' => 'security:encode-password',
@@ -140,11 +145,11 @@ class UserPasswordEncoderCommandTest extends WebTestCase
 
     protected function setUp()
     {
+        putenv('COLUMNS='.(119 + strlen(PHP_EOL)));
         $kernel = $this->createKernel(array('test_case' => 'PasswordEncode'));
         $kernel->boot();
 
         $application = new Application($kernel);
-        $application->setTerminalDimensions(119 + strlen(PHP_EOL), 80);
 
         $application->add(new UserPasswordEncoderCommand());
         $passwordEncoderCommand = $application->find('security:encode-password');

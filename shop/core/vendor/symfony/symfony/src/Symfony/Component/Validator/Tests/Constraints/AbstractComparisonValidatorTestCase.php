@@ -13,6 +13,7 @@ namespace Symfony\Component\Validator\Tests\Constraints;
 
 use Symfony\Component\Intl\Util\IntlTestHelper;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 class ComparisonTest_Class
 {
@@ -32,7 +33,7 @@ class ComparisonTest_Class
 /**
  * @author Daniel Holmes <daniel@danielholmes.org>
  */
-abstract class AbstractComparisonValidatorTestCase extends AbstractConstraintValidatorTest
+abstract class AbstractComparisonValidatorTestCase extends ConstraintValidatorTestCase
 {
     protected static function addPhp5Dot5Comparisons(array $comparisons)
     {
@@ -124,7 +125,7 @@ abstract class AbstractComparisonValidatorTestCase extends AbstractConstraintVal
         // Conversion of dates to string differs between ICU versions
         // Make sure we have the correct version loaded
         if ($dirtyValue instanceof \DateTime || $dirtyValue instanceof \DateTimeInterface) {
-            IntlTestHelper::requireIntl($this);
+            IntlTestHelper::requireIntl($this, '57.1');
         }
 
         $constraint = $this->createConstraint(array('value' => $comparedValue));

@@ -11,17 +11,18 @@
 
 namespace Symfony\Bridge\Twig\Tests\Extension;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\Twig\Extension\RoutingExtension;
 
-class RoutingExtensionTest extends \PHPUnit_Framework_TestCase
+class RoutingExtensionTest extends TestCase
 {
     /**
      * @dataProvider getEscapingTemplates
      */
     public function testEscaping($template, $mustBeEscaped)
     {
-        $twig = new \Twig_Environment($this->getMock('Twig_LoaderInterface'), array('debug' => true, 'cache' => false, 'autoescape' => 'html', 'optimizations' => 0));
-        $twig->addExtension(new RoutingExtension($this->getMock('Symfony\Component\Routing\Generator\UrlGeneratorInterface')));
+        $twig = new \Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock(), array('debug' => true, 'cache' => false, 'autoescape' => 'html', 'optimizations' => 0));
+        $twig->addExtension(new RoutingExtension($this->getMockBuilder('Symfony\Component\Routing\Generator\UrlGeneratorInterface')->getMock()));
 
         $nodes = $twig->parse($twig->tokenize(new \Twig_Source($template, '')));
 

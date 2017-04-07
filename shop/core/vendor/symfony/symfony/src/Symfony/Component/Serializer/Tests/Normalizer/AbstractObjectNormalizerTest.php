@@ -11,9 +11,10 @@
 
 namespace Symfony\Component\Serializer\Tests\Normalizer;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
-class AbstractObjectNormalizerTest extends \PHPUnit_Framework_TestCase
+class AbstractObjectNormalizerTest extends TestCase
 {
     public function testDenormalize()
     {
@@ -23,6 +24,19 @@ class AbstractObjectNormalizerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('foo', $normalizedData->foo);
         $this->assertNull($normalizedData->bar);
         $this->assertSame('baz', $normalizedData->baz);
+    }
+
+    /**
+     * @group legacy
+     */
+    public function testInstantiateObjectDenormalizer()
+    {
+        $data = array('foo' => 'foo', 'bar' => 'bar', 'baz' => 'baz');
+        $class = __NAMESPACE__.'\Dummy';
+        $context = array();
+
+        $normalizer = new AbstractObjectNormalizerDummy();
+        $normalizer->instantiateObject($data, $class, $context, new \ReflectionClass($class), array());
     }
 }
 
@@ -44,6 +58,11 @@ class AbstractObjectNormalizerDummy extends AbstractObjectNormalizer
     protected function isAllowedAttribute($classOrObject, $attribute, $format = null, array $context = array())
     {
         return in_array($attribute, array('foo', 'baz'));
+    }
+
+    public function instantiateObject(array &$data, $class, array &$context, \ReflectionClass $reflectionClass, $allowedAttributes, $format = null)
+    {
+        return parent::instantiateObject($data, $class, $context, $reflectionClass, $allowedAttributes, $format);
     }
 }
 

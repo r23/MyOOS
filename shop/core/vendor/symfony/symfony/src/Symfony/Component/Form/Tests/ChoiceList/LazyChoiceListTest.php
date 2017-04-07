@@ -11,13 +11,14 @@
 
 namespace Symfony\Component\Form\Tests\ChoiceList;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\ChoiceList\LazyChoiceList;
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class LazyChoiceListTest extends \PHPUnit_Framework_TestCase
+class LazyChoiceListTest extends TestCase
 {
     /**
      * @var LazyChoiceList
@@ -38,8 +39,8 @@ class LazyChoiceListTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->loadedList = $this->getMock('Symfony\Component\Form\ChoiceList\ChoiceListInterface');
-        $this->loader = $this->getMock('Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface');
+        $this->loadedList = $this->getMockBuilder('Symfony\Component\Form\ChoiceList\ChoiceListInterface')->getMock();
+        $this->loader = $this->getMockBuilder('Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface')->getMock();
         $this->value = function () {};
         $this->list = new LazyChoiceList($this->loader, $this->value);
     }

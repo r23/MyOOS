@@ -11,13 +11,14 @@
 
 namespace Symfony\Component\DependencyInjection\Tests\Compiler;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\Compiler\CheckCircularReferencesPass;
 use Symfony\Component\DependencyInjection\Compiler\AnalyzeServiceReferencesPass;
 use Symfony\Component\DependencyInjection\Compiler\Compiler;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class CheckCircularReferencesPassTest extends \PHPUnit_Framework_TestCase
+class CheckCircularReferencesPassTest extends TestCase
 {
     /**
      * @expectedException \Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException
@@ -113,6 +114,8 @@ class CheckCircularReferencesPassTest extends \PHPUnit_Framework_TestCase
         $container->register('b')->addMethodCall('setA', array(new Reference('a')));
 
         $this->process($container);
+
+        $this->addToAssertionCount(1);
     }
 
     protected function process(ContainerBuilder $container)

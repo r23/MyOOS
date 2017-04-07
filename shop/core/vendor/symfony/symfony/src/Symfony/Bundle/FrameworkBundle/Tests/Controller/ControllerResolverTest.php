@@ -143,7 +143,12 @@ class ControllerResolverTest extends BaseControllerResolverTest
     {
         // All this logic needs to be duplicated, since calling parent::testGetControllerOnNonUndefinedFunction will override the expected excetion and not use the regex
         $resolver = $this->createControllerResolver();
-        $this->setExpectedExceptionRegExp($exceptionName, $exceptionMessage);
+        if (method_exists($this, 'expectException')) {
+            $this->expectException($exceptionName);
+            $this->expectExceptionMessageRegExp($exceptionMessage);
+        } else {
+            $this->setExpectedExceptionRegExp($exceptionName, $exceptionMessage);
+        }
 
         $request = Request::create('/');
         $request->attributes->set('_controller', $controller);
@@ -179,12 +184,12 @@ class ControllerResolverTest extends BaseControllerResolverTest
 
     protected function createMockParser()
     {
-        return $this->getMock('Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser', array(), array(), '', false);
+        return $this->getMockBuilder('Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser')->disableOriginalConstructor()->getMock();
     }
 
     protected function createMockContainer()
     {
-        return $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        return $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerInterface')->getMock();
     }
 }
 

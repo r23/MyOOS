@@ -11,11 +11,12 @@
 
 namespace Symfony\Component\Security\Core\Tests\Authorization;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManager;
 use Symfony\Component\Security\Core\Authorization\DebugAccessDecisionManager;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
-class DebugAccessDecisionManagerTest extends \PHPUnit_Framework_TestCase
+class DebugAccessDecisionManagerTest extends TestCase
 {
     /**
      * @dataProvider provideObjectsAndLogs
@@ -23,7 +24,7 @@ class DebugAccessDecisionManagerTest extends \PHPUnit_Framework_TestCase
     public function testDecideLog($expectedLog, $object)
     {
         $adm = new DebugAccessDecisionManager(new AccessDecisionManager());
-        $adm->decide($this->getMock(TokenInterface::class), array('ATTRIBUTE_1'), $object);
+        $adm->decide($this->getMockBuilder(TokenInterface::class)->getMock(), array('ATTRIBUTE_1'), $object);
 
         $this->assertSame($expectedLog, $adm->getDecisionLog());
     }
@@ -32,12 +33,12 @@ class DebugAccessDecisionManagerTest extends \PHPUnit_Framework_TestCase
     {
         $object = new \stdClass();
 
-        yield array(array(array('attributes' => array('ATTRIBUTE_1'), 'object' => 'NULL', 'result' => false)), null);
-        yield array(array(array('attributes' => array('ATTRIBUTE_1'), 'object' => 'boolean (true)', 'result' => false)), true);
-        yield array(array(array('attributes' => array('ATTRIBUTE_1'), 'object' => 'string (jolie string)', 'result' => false)), 'jolie string');
-        yield array(array(array('attributes' => array('ATTRIBUTE_1'), 'object' => 'integer (12345)', 'result' => false)), 12345);
-        yield array(array(array('attributes' => array('ATTRIBUTE_1'), 'object' => 'resource', 'result' => false)), fopen(__FILE__, 'r'));
-        yield array(array(array('attributes' => array('ATTRIBUTE_1'), 'object' => 'array', 'result' => false)), array());
-        yield array(array(array('attributes' => array('ATTRIBUTE_1'), 'object' => sprintf('stdClass (object hash: %s)', spl_object_hash($object)), 'result' => false)), $object);
+        yield array(array(array('attributes' => array('ATTRIBUTE_1'), 'object' => null, 'result' => false)), null);
+        yield array(array(array('attributes' => array('ATTRIBUTE_1'), 'object' => true, 'result' => false)), true);
+        yield array(array(array('attributes' => array('ATTRIBUTE_1'), 'object' => 'jolie string', 'result' => false)), 'jolie string');
+        yield array(array(array('attributes' => array('ATTRIBUTE_1'), 'object' => 12345, 'result' => false)), 12345);
+        yield array(array(array('attributes' => array('ATTRIBUTE_1'), 'object' => $x = fopen(__FILE__, 'r'), 'result' => false)), $x);
+        yield array(array(array('attributes' => array('ATTRIBUTE_1'), 'object' => $x = array(), 'result' => false)), $x);
+        yield array(array(array('attributes' => array('ATTRIBUTE_1'), 'object' => $object, 'result' => false)), $object);
     }
 }

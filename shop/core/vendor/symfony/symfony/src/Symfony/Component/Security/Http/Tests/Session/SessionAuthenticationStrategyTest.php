@@ -11,9 +11,10 @@
 
 namespace Symfony\Component\Security\Http\Tests\Session;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Http\Session\SessionAuthenticationStrategy;
 
-class SessionAuthenticationStrategyTest extends \PHPUnit_Framework_TestCase
+class SessionAuthenticationStrategyTest extends TestCase
 {
     public function testSessionIsNotChanged()
     {
@@ -39,7 +40,7 @@ class SessionAuthenticationStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function testSessionIsMigrated()
     {
-        $session = $this->getMock('Symfony\Component\HttpFoundation\Session\SessionInterface');
+        $session = $this->getMockBuilder('Symfony\Component\HttpFoundation\Session\SessionInterface')->getMock();
         $session->expects($this->once())->method('migrate')->with($this->equalTo(true));
 
         $strategy = new SessionAuthenticationStrategy(SessionAuthenticationStrategy::MIGRATE);
@@ -48,7 +49,7 @@ class SessionAuthenticationStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function testSessionIsInvalidated()
     {
-        $session = $this->getMock('Symfony\Component\HttpFoundation\Session\SessionInterface');
+        $session = $this->getMockBuilder('Symfony\Component\HttpFoundation\Session\SessionInterface')->getMock();
         $session->expects($this->once())->method('invalidate');
 
         $strategy = new SessionAuthenticationStrategy(SessionAuthenticationStrategy::INVALIDATE);
@@ -57,7 +58,7 @@ class SessionAuthenticationStrategyTest extends \PHPUnit_Framework_TestCase
 
     private function getRequest($session = null)
     {
-        $request = $this->getMock('Symfony\Component\HttpFoundation\Request');
+        $request = $this->getMockBuilder('Symfony\Component\HttpFoundation\Request')->getMock();
 
         if (null !== $session) {
             $request->expects($this->any())->method('getSession')->will($this->returnValue($session));
@@ -68,6 +69,6 @@ class SessionAuthenticationStrategyTest extends \PHPUnit_Framework_TestCase
 
     private function getToken()
     {
-        return $this->getMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
+        return $this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\TokenInterface')->getMock();
     }
 }

@@ -12,6 +12,8 @@
 namespace Symfony\Bridge\Doctrine\Validator\Constraints;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Common\Persistence\Mapping\ClassMetadata;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
@@ -79,16 +81,24 @@ class UniqueEntityValidator extends ConstraintValidator
         /* @var $class \Doctrine\Common\Persistence\Mapping\ClassMetadata */
 
         $criteria = array();
+        $hasNullValue = false;
+
         foreach ($fields as $fieldName) {
             if (!$class->hasField($fieldName) && !$class->hasAssociation($fieldName)) {
                 throw new ConstraintDefinitionException(sprintf('The field "%s" is not mapped by Doctrine, so it cannot be validated for uniqueness.', $fieldName));
             }
 
-            $criteria[$fieldName] = $class->reflFields[$fieldName]->getValue($entity);
+            $fieldValue = $class->reflFields[$fieldName]->getValue($entity);
 
-            if ($constraint->ignoreNull && null === $criteria[$fieldName]) {
-                return;
+            if (null === $fieldValue) {
+                $hasNullValue = true;
             }
+
+            if ($constraint->ignoreNull && null === $fieldValue) {
+                continue;
+            }
+
+            $criteria[$fieldName] = $fieldValue;
 
             if (null !== $criteria[$fieldName] && $class->hasAssociation($fieldName)) {
                 /* Ensure the Proxy is initialized before using reflection to
@@ -99,7 +109,32 @@ class UniqueEntityValidator extends ConstraintValidator
             }
         }
 
-        $repository = $em->getRepository(get_class($entity));
+        // validation doesn't fail if one of the fields is null and if null values should be ignored
+        if ($hasNullValue && $constraint->ignoreNull) {
+            return;
+        }
+
+        // skip validation if there are no criteria (this can happen when the
+        // "ignoreNull" option is enabled and fields to be checked are null
+        if (empty($criteria)) {
+            return;
+        }
+
+        if (null !== $constraint->entityClass) {
+            /* Retrieve repository from given entity name.
+             * We ensure the retrieved repository can handle the entity
+             * by checking the entity is the same, or subclass of the supported entity.
+             */
+            $repository = $em->getRepository($constraint->entityClass);
+            $supportedClass = $repository->getClassName();
+
+            if (!$entity instanceof $supportedClass) {
+                throw new ConstraintDefinitionException(sprintf('The "%s" entity repository does not support the "%s" entity. The entity should be an instance of or extend "%s".', $constraint->entityClass, $class->getName(), $supportedClass));
+            }
+        } else {
+            $repository = $em->getRepository(get_class($entity));
+        }
+
         $result = $repository->{$constraint->repositoryMethod}($criteria);
 
         if ($result instanceof \IteratorAggregate) {
@@ -127,15 +162,47 @@ class UniqueEntityValidator extends ConstraintValidator
         $errorPath = null !== $constraint->errorPath ? $constraint->errorPath : $fields[0];
         $invalidValue = isset($criteria[$errorPath]) ? $criteria[$errorPath] : $criteria[$fields[0]];
 
-        if (is_object($invalidValue) && !method_exists($invalidValue, '__toString')) {
-            $invalidValue = sprintf('Object of class "%s" identified by "%s"', get_class($entity), implode(', ', $class->getIdentifierValues($entity)));
-        }
-
         $this->context->buildViolation($constraint->message)
             ->atPath($errorPath)
-            ->setParameter('{{ value }}', $this->formatValue($invalidValue, static::OBJECT_TO_STRING | static::PRETTY_DATE))
+            ->setParameter('{{ value }}', $this->formatWithIdentifiers($em, $class, $invalidValue))
             ->setInvalidValue($invalidValue)
             ->setCode(UniqueEntity::NOT_UNIQUE_ERROR)
             ->addViolation();
+    }
+
+    private function formatWithIdentifiers(ObjectManager $em, ClassMetadata $class, $value)
+    {
+        if (!is_object($value) || $value instanceof \DateTimeInterface) {
+            return $this->formatValue($value, self::PRETTY_DATE);
+        }
+
+        if ($class->getName() !== $idClass = get_class($value)) {
+            // non unique value might be a composite PK that consists of other entity objects
+            if ($em->getMetadataFactory()->hasMetadataFor($idClass)) {
+                $identifiers = $em->getClassMetadata($idClass)->getIdentifierValues($value);
+            } else {
+                // this case might happen if the non unique column has a custom doctrine type and its value is an object
+                // in which case we cannot get any identifiers for it
+                $identifiers = array();
+            }
+        } else {
+            $identifiers = $class->getIdentifierValues($value);
+        }
+
+        if (!$identifiers) {
+            return sprintf('object("%s")', $idClass);
+        }
+
+        array_walk($identifiers, function (&$id, $field) {
+            if (!is_object($id) || $id instanceof \DateTimeInterface) {
+                $idAsString = $this->formatValue($id, self::PRETTY_DATE);
+            } else {
+                $idAsString = sprintf('object("%s")', get_class($id));
+            }
+
+            $id = sprintf('%s => %s', $field, $idAsString);
+        });
+
+        return sprintf('object("%s") identified by (%s)', $idClass, implode(', ', $identifiers));
     }
 }

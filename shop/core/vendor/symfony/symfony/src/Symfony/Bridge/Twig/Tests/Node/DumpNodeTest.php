@@ -11,15 +11,16 @@
 
 namespace Symfony\Bridge\Twig\Tests\Node;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\Twig\Node\DumpNode;
 
-class DumpNodeTest extends \PHPUnit_Framework_TestCase
+class DumpNodeTest extends TestCase
 {
     public function testNoVar()
     {
         $node = new DumpNode('bar', null, 7);
 
-        $env = new \Twig_Environment($this->getMock('Twig_LoaderInterface'));
+        $env = new \Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock());
         $compiler = new \Twig_Compiler($env);
 
         $expected = <<<'EOTXT'
@@ -43,7 +44,7 @@ EOTXT;
     {
         $node = new DumpNode('bar', null, 7);
 
-        $env = new \Twig_Environment($this->getMock('Twig_LoaderInterface'));
+        $env = new \Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock());
         $compiler = new \Twig_Compiler($env);
 
         $expected = <<<'EOTXT'
@@ -70,7 +71,7 @@ EOTXT;
         ));
         $node = new DumpNode('bar', $vars, 7);
 
-        $env = new \Twig_Environment($this->getMock('Twig_LoaderInterface'));
+        $env = new \Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock());
         $compiler = new \Twig_Compiler($env);
 
         $expected = <<<'EOTXT'
@@ -98,7 +99,7 @@ EOTXT;
         ));
         $node = new DumpNode('bar', $vars, 7);
 
-        $env = new \Twig_Environment($this->getMock('Twig_LoaderInterface'));
+        $env = new \Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock());
         $compiler = new \Twig_Compiler($env);
 
         $expected = <<<'EOTXT'

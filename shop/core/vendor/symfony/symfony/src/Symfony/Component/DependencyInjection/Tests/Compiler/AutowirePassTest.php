@@ -11,14 +11,16 @@
 
 namespace Symfony\Component\DependencyInjection\Tests\Compiler;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Compiler\AutowirePass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\Tests\Fixtures\includes\FooVariadic;
 
 /**
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-class AutowirePassTest extends \PHPUnit_Framework_TestCase
+class AutowirePassTest extends TestCase
 {
     public function testProcess()
     {
@@ -33,6 +35,23 @@ class AutowirePassTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(1, $container->getDefinition('bar')->getArguments());
         $this->assertEquals('foo', (string) $container->getDefinition('bar')->getArgument(0));
+    }
+
+    /**
+     * @requires PHP 5.6
+     */
+    public function testProcessVariadic()
+    {
+        $container = new ContainerBuilder();
+        $container->register('foo', Foo::class);
+        $definition = $container->register('fooVariadic', FooVariadic::class);
+        $definition->setAutowired(true);
+
+        $pass = new AutowirePass();
+        $pass->process($container);
+
+        $this->assertCount(1, $container->getDefinition('fooVariadic')->getArguments());
+        $this->assertEquals('foo', (string) $container->getDefinition('fooVariadic')->getArgument(0));
     }
 
     public function testProcessAutowireParent()
@@ -173,7 +192,8 @@ class AutowirePassTest extends \PHPUnit_Framework_TestCase
         $container = new ContainerBuilder();
 
         $container->register('a1', __NAMESPACE__.'\Foo');
-        $container->register('a2', __NAMESPACE__.'\Foo')->addAutowiringType(__NAMESPACE__.'\Foo');
+        $container->register('a2', __NAMESPACE__.'\Foo');
+        $container->register('a3', __NAMESPACE__.'\Foo')->addAutowiringType(__NAMESPACE__.'\Foo');
         $aDefinition = $container->register('a', __NAMESPACE__.'\NotGuessableArgument');
         $aDefinition->setAutowired(true);
 
@@ -181,7 +201,7 @@ class AutowirePassTest extends \PHPUnit_Framework_TestCase
         $pass->process($container);
 
         $this->assertCount(1, $container->getDefinition('a')->getArguments());
-        $this->assertEquals('a2', (string) $container->getDefinition('a')->getArgument(0));
+        $this->assertEquals('a3', (string) $container->getDefinition('a')->getArgument(0));
     }
 
     public function testWithTypeSet()
@@ -213,13 +233,13 @@ class AutowirePassTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $container->getDefinition('coop_tilleuls')->getArguments());
         $this->assertEquals('autowired.symfony\component\dependencyinjection\tests\compiler\dunglas', $container->getDefinition('coop_tilleuls')->getArgument(0));
 
-        $dunglasDefinition = $container->getDefinition('autowired.symfony\component\dependencyinjection\tests\compiler\dunglas');
+        $dunglasDefinition = $container->getDefinition('autowired.Symfony\Component\DependencyInjection\Tests\Compiler\Dunglas');
         $this->assertEquals(__NAMESPACE__.'\Dunglas', $dunglasDefinition->getClass());
         $this->assertFalse($dunglasDefinition->isPublic());
         $this->assertCount(1, $dunglasDefinition->getArguments());
         $this->assertEquals('autowired.symfony\component\dependencyinjection\tests\compiler\lille', $dunglasDefinition->getArgument(0));
 
-        $lilleDefinition = $container->getDefinition('autowired.symfony\component\dependencyinjection\tests\compiler\lille');
+        $lilleDefinition = $container->getDefinition('autowired.Symfony\Component\DependencyInjection\Tests\Compiler\Lille');
         $this->assertEquals(__NAMESPACE__.'\Lille', $lilleDefinition->getClass());
     }
 
@@ -420,10 +440,6 @@ class AutowirePassTest extends \PHPUnit_Framework_TestCase
             array(
                 new Reference('a'),
                 new Reference('lille'),
-                // third arg shouldn't *need* to be passed
-                // but that's hard to "pull of" with autowiring, so
-                // this assumes passing the default val is ok
-                'some_val',
             ),
             $definition->getArguments()
         );
@@ -475,6 +491,46 @@ class AutowirePassTest extends \PHPUnit_Framework_TestCase
         $pass->process($container);
 
         $this->assertTrue($container->hasDefinition('bar'));
+    }
+
+    public function testEmptyStringIsKept()
+    {
+        $container = new ContainerBuilder();
+
+        $container->register('a', __NAMESPACE__.'\A');
+        $container->register('lille', __NAMESPACE__.'\Lille');
+        $container->register('foo', __NAMESPACE__.'\MultipleArgumentsOptionalScalar')
+            ->setAutowired(true)
+            ->setArguments(array('', ''));
+
+        $pass = new AutowirePass();
+        $pass->process($container);
+
+        $this->assertEquals(array(new Reference('a'), '', new Reference('lille')), $container->getDefinition('foo')->getArguments());
+    }
+
+    public function provideAutodiscoveredAutowiringOrder()
+    {
+        return array(
+            array('CannotBeAutowiredForwardOrder'),
+            array('CannotBeAutowiredReverseOrder'),
+        );
+    }
+
+    /**
+     * @expectedException \Symfony\Component\DependencyInjection\Exception\RuntimeException
+     * @expectedExceptionMessage Service "a" can use either autowiring or a factory, not both.
+     */
+    public function testWithFactory()
+    {
+        $container = new ContainerBuilder();
+
+        $container->register('a', __NAMESPACE__.'\A')
+            ->setFactory('foo')
+            ->setAutowired(true);
+
+        $pass = new AutowirePass();
+        $pass->process($container);
     }
 }
 
@@ -553,6 +609,20 @@ class CollisionB implements CollisionInterface
 class CannotBeAutowired
 {
     public function __construct(CollisionInterface $collision)
+    {
+    }
+}
+
+class CannotBeAutowiredForwardOrder
+{
+    public function __construct(CollisionA $a, CollisionInterface $b, CollisionB $c)
+    {
+    }
+}
+
+class CannotBeAutowiredReverseOrder
+{
+    public function __construct(CollisionA $a, CollisionB $c, CollisionInterface $b)
     {
     }
 }

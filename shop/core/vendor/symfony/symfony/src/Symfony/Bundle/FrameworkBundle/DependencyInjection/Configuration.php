@@ -11,6 +11,7 @@
 
 namespace Symfony\Bundle\FrameworkBundle\DependencyInjection;
 
+use Doctrine\Common\Annotations\Annotation;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -103,6 +104,7 @@ class Configuration implements ConfigurationInterface
         $this->addSsiSection($rootNode);
         $this->addFragmentsSection($rootNode);
         $this->addProfilerSection($rootNode);
+        $this->addWorkflowSection($rootNode);
         $this->addRouterSection($rootNode);
         $this->addSessionSection($rootNode);
         $this->addRequestSection($rootNode);
@@ -115,6 +117,7 @@ class Configuration implements ConfigurationInterface
         $this->addPropertyAccessSection($rootNode);
         $this->addPropertyInfoSection($rootNode);
         $this->addCacheSection($rootNode);
+        $this->addPhpErrorsSection($rootNode);
 
         return $treeBuilder;
     }
@@ -217,6 +220,130 @@ class Configuration implements ConfigurationInterface
                                 ->arrayNode('ips')
                                     ->beforeNormalization()->ifString()->then(function ($v) { return array($v); })->end()
                                     ->prototype('scalar')->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    private function addWorkflowSection(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+            ->fixXmlConfig('workflow')
+            ->children()
+                ->arrayNode('workflows')
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')
+                        ->fixXmlConfig('support')
+                        ->fixXmlConfig('place')
+                        ->fixXmlConfig('transition')
+                        ->children()
+                            ->enumNode('type')
+                                ->values(array('workflow', 'state_machine'))
+                                ->defaultValue('workflow')
+                            ->end()
+                            ->arrayNode('marking_store')
+                                ->fixXmlConfig('argument')
+                                ->children()
+                                    ->enumNode('type')
+                                        ->values(array('multiple_state', 'single_state'))
+                                    ->end()
+                                    ->arrayNode('arguments')
+                                        ->beforeNormalization()
+                                            ->ifString()
+                                            ->then(function ($v) { return array($v); })
+                                        ->end()
+                                        ->requiresAtLeastOneElement()
+                                        ->prototype('scalar')
+                                        ->end()
+                                    ->end()
+                                    ->scalarNode('service')
+                                        ->cannotBeEmpty()
+                                    ->end()
+                                ->end()
+                                ->validate()
+                                    ->ifTrue(function ($v) { return isset($v['type']) && isset($v['service']); })
+                                    ->thenInvalid('"type" and "service" cannot be used together.')
+                                ->end()
+                                ->validate()
+                                    ->ifTrue(function ($v) { return !empty($v['arguments']) && isset($v['service']); })
+                                    ->thenInvalid('"arguments" and "service" cannot be used together.')
+                                ->end()
+                            ->end()
+                            ->arrayNode('supports')
+                                ->isRequired()
+                                ->beforeNormalization()
+                                    ->ifString()
+                                    ->then(function ($v) { return array($v); })
+                                ->end()
+                                ->prototype('scalar')
+                                    ->cannotBeEmpty()
+                                    ->validate()
+                                        ->ifTrue(function ($v) { return !class_exists($v); })
+                                        ->thenInvalid('The supported class %s does not exist.')
+                                    ->end()
+                                ->end()
+                            ->end()
+                            ->scalarNode('initial_place')->defaultNull()->end()
+                            ->arrayNode('places')
+                                ->isRequired()
+                                ->requiresAtLeastOneElement()
+                                ->prototype('scalar')
+                                    ->cannotBeEmpty()
+                                ->end()
+                            ->end()
+                            ->arrayNode('transitions')
+                                ->beforeNormalization()
+                                    ->always()
+                                    ->then(function ($transitions) {
+                                        // It's an indexed array, we let the validation occurs
+                                        if (isset($transitions[0])) {
+                                            return $transitions;
+                                        }
+
+                                        foreach ($transitions as $name => $transition) {
+                                            if (array_key_exists('name', $transition)) {
+                                                continue;
+                                            }
+                                            $transition['name'] = $name;
+                                            $transitions[$name] = $transition;
+                                        }
+
+                                        return $transitions;
+                                    })
+                                ->end()
+                                ->isRequired()
+                                ->requiresAtLeastOneElement()
+                                ->prototype('array')
+                                    ->children()
+                                        ->scalarNode('name')
+                                            ->isRequired()
+                                            ->cannotBeEmpty()
+                                        ->end()
+                                        ->arrayNode('from')
+                                            ->beforeNormalization()
+                                                ->ifString()
+                                                ->then(function ($v) { return array($v); })
+                                            ->end()
+                                            ->requiresAtLeastOneElement()
+                                            ->prototype('scalar')
+                                                ->cannotBeEmpty()
+                                            ->end()
+                                        ->end()
+                                        ->arrayNode('to')
+                                            ->beforeNormalization()
+                                                ->ifString()
+                                                ->then(function ($v) { return array($v); })
+                                            ->end()
+                                            ->requiresAtLeastOneElement()
+                                            ->prototype('scalar')
+                                                ->cannotBeEmpty()
+                                            ->end()
+                                        ->end()
+                                    ->end()
                                 ->end()
                             ->end()
                         ->end()
@@ -473,7 +600,7 @@ class Configuration implements ConfigurationInterface
                     ->info('validation configuration')
                     ->canBeEnabled()
                     ->children()
-                        ->scalarNode('cache')->defaultValue('validator.mapping.cache.symfony')->end()
+                        ->scalarNode('cache')->end()
                         ->booleanNode('enable_annotations')->defaultFalse()->end()
                         ->arrayNode('static_method')
                             ->defaultValue(array('loadValidatorMetadata'))
@@ -498,9 +625,9 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->arrayNode('annotations')
                     ->info('annotation configuration')
-                    ->addDefaultsIfNotSet()
+                    ->{class_exists(Annotation::class) ? 'canBeDisabled' : 'canBeEnabled'}()
                     ->children()
-                        ->scalarNode('cache')->defaultValue('file')->end()
+                        ->scalarNode('cache')->defaultValue('php_array')->end()
                         ->scalarNode('file_cache_dir')->defaultValue('%kernel.cache_dir%/annotations')->end()
                         ->booleanNode('debug')->defaultValue($this->debug)->end()
                     ->end()
@@ -563,6 +690,10 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->fixXmlConfig('pool')
                     ->children()
+                        ->scalarNode('prefix_seed')
+                            ->info('Used to namespace cache keys when using several apps with the same shared backend')
+                            ->example('my-application-name')
+                        ->end()
                         ->scalarNode('app')
                             ->info('App related cache pools configuration')
                             ->defaultValue('cache.adapter.filesystem')
@@ -592,6 +723,30 @@ class Configuration implements ConfigurationInterface
                                 ->ifTrue(function ($v) { return isset($v['cache.app']) || isset($v['cache.system']); })
                                 ->thenInvalid('"cache.app" and "cache.system" are reserved names')
                             ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    private function addPhpErrorsSection(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('php_errors')
+                    ->info('PHP errors handling configuration')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->booleanNode('log')
+                            ->info('Use the app logger instead of the PHP logger for logging PHP errors.')
+                            ->defaultValue($this->debug)
+                            ->treatNullLike($this->debug)
+                        ->end()
+                        ->booleanNode('throw')
+                            ->info('Throw PHP errors as \ErrorException instances.')
+                            ->defaultValue($this->debug)
+                            ->treatNullLike($this->debug)
                         ->end()
                     ->end()
                 ->end()

@@ -12,6 +12,7 @@
 namespace Symfony\Component\Serializer\Tests\Normalizer;
 
 use Doctrine\Common\Annotations\AnnotationReader;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
@@ -32,7 +33,7 @@ use Symfony\Component\Serializer\Tests\Fixtures\GroupDummy;
 /**
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-class ObjectNormalizerTest extends \PHPUnit_Framework_TestCase
+class ObjectNormalizerTest extends TestCase
 {
     /**
      * @var ObjectNormalizer
@@ -45,7 +46,7 @@ class ObjectNormalizerTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->serializer = $this->getMock(__NAMESPACE__.'\ObjectSerializerNormalizer');
+        $this->serializer = $this->getMockBuilder(__NAMESPACE__.'\ObjectSerializerNormalizer')->getMock();
         $this->normalizer = new ObjectNormalizer();
         $this->normalizer->setSerializer($this->serializer);
     }
@@ -157,6 +158,49 @@ class ObjectNormalizerTest extends \PHPUnit_Framework_TestCase
         $obj = $this->normalizer->denormalize($data, __NAMESPACE__.'\ObjectConstructorDummy', 'any');
         $this->assertEquals('foo', $obj->getFoo());
         $this->assertEquals('bar', $obj->bar);
+    }
+
+    public function testConstructorWithObjectTypeHintDenormalize()
+    {
+        $data = array(
+            'id' => 10,
+            'inner' => array(
+                'foo' => 'oof',
+                'bar' => 'rab',
+            ),
+        );
+
+        $normalizer = new ObjectNormalizer();
+        $serializer = new Serializer(array($normalizer));
+        $normalizer->setSerializer($serializer);
+
+        $obj = $normalizer->denormalize($data, DummyWithConstructorObject::class);
+        $this->assertInstanceOf(DummyWithConstructorObject::class, $obj);
+        $this->assertEquals(10, $obj->getId());
+        $this->assertInstanceOf(ObjectInner::class, $obj->getInner());
+        $this->assertEquals('oof', $obj->getInner()->foo);
+        $this->assertEquals('rab', $obj->getInner()->bar);
+    }
+
+    /**
+     * @expectedException \Symfony\Component\Serializer\Exception\RuntimeException
+     * @expectedExceptionMessage Could not determine the class of the parameter "unknown".
+     */
+    public function testConstructorWithUnknownObjectTypeHintDenormalize()
+    {
+        $data = array(
+            'id' => 10,
+            'unknown' => array(
+                'foo' => 'oof',
+                'bar' => 'rab',
+            ),
+        );
+
+        $normalizer = new ObjectNormalizer();
+        $serializer = new Serializer(array($normalizer));
+        $normalizer->setSerializer($serializer);
+
+        $normalizer->denormalize($data, DummyWithConstructorInexistingObject::class);
     }
 
     public function testGroupsNormalize()
@@ -394,7 +438,7 @@ class ObjectNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testUnableToNormalizeObjectAttribute()
     {
-        $serializer = $this->getMock('Symfony\Component\Serializer\SerializerInterface');
+        $serializer = $this->getMockBuilder('Symfony\Component\Serializer\SerializerInterface')->getMock();
         $this->normalizer->setSerializer($serializer);
 
         $obj = new ObjectDummy();
@@ -537,11 +581,21 @@ class ObjectNormalizerTest extends \PHPUnit_Framework_TestCase
             'inners' => array(array('foo' => 1), array('foo' => 2)),
         ), ObjectOuter::class);
 
-        $this->assertEquals('foo', $obj->getInner()->foo);
-        $this->assertEquals('bar', $obj->getInner()->bar);
-        $this->assertEquals('1988-01-21', $obj->getDate()->format('Y-m-d'));
-        $this->assertEquals(1, $obj->getInners()[0]->foo);
-        $this->assertEquals(2, $obj->getInners()[1]->foo);
+        $this->assertSame('foo', $obj->getInner()->foo);
+        $this->assertSame('bar', $obj->getInner()->bar);
+        $this->assertSame('1988-01-21', $obj->getDate()->format('Y-m-d'));
+        $this->assertSame(1, $obj->getInners()[0]->foo);
+        $this->assertSame(2, $obj->getInners()[1]->foo);
+    }
+
+    public function testAcceptJsonNumber()
+    {
+        $extractor = new PropertyInfoExtractor(array(), array(new PhpDocExtractor(), new ReflectionExtractor()));
+        $normalizer = new ObjectNormalizer(null, null, null, $extractor);
+        $serializer = new Serializer(array(new ArrayDenormalizer(), new DateTimeNormalizer(), $normalizer));
+
+        $this->assertSame(10.0, $serializer->denormalize(array('number' => 10), JsonNumber::class, 'json')->number);
+        $this->assertSame(10.0, $serializer->denormalize(array('number' => 10), JsonNumber::class, 'jsonld')->number);
     }
 
     /**
@@ -819,4 +873,41 @@ class FormatAndContextAwareNormalizer extends ObjectNormalizer
 
         return false;
     }
+}
+
+class DummyWithConstructorObject
+{
+    private $id;
+    private $inner;
+
+    public function __construct($id, ObjectInner $inner)
+    {
+        $this->id = $id;
+        $this->inner = $inner;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getInner()
+    {
+        return $this->inner;
+    }
+}
+
+class DummyWithConstructorInexistingObject
+{
+    public function __construct($id, Unknown $unknown)
+    {
+    }
+}
+
+class JsonNumber
+{
+    /**
+     * @var float
+     */
+    public $number;
 }

@@ -25,6 +25,7 @@ final class CacheItem implements CacheItemInterface
     protected $isHit;
     protected $expiry;
     protected $defaultLifetime;
+    protected $tags = array();
     protected $innerItem;
     protected $poolHash;
 
@@ -97,11 +98,44 @@ final class CacheItem implements CacheItemInterface
     }
 
     /**
+     * Adds a tag to a cache item.
+     *
+     * @param string|string[] $tags A tag or array of tags
+     *
+     * @return static
+     *
+     * @throws InvalidArgumentException When $tag is not valid
+     */
+    public function tag($tags)
+    {
+        if (!is_array($tags)) {
+            $tags = array($tags);
+        }
+        foreach ($tags as $tag) {
+            if (!is_string($tag)) {
+                throw new InvalidArgumentException(sprintf('Cache tag must be string, "%s" given', is_object($tag) ? get_class($tag) : gettype($tag)));
+            }
+            if (isset($this->tags[$tag])) {
+                continue;
+            }
+            if (!isset($tag[0])) {
+                throw new InvalidArgumentException('Cache tag length must be greater than zero');
+            }
+            if (false !== strpbrk($tag, '{}()/\@:')) {
+                throw new InvalidArgumentException(sprintf('Cache tag "%s" contains reserved characters {}()/\@:', $tag));
+            }
+            $this->tags[$tag] = $tag;
+        }
+
+        return $this;
+    }
+
+    /**
      * Validates a cache key according to PSR-6.
      *
      * @param string $key The key to validate
      *
-     * @throws InvalidArgumentException When $key is not valid.
+     * @throws InvalidArgumentException When $key is not valid
      */
     public static function validateKey($key)
     {
@@ -111,7 +145,7 @@ final class CacheItem implements CacheItemInterface
         if (!isset($key[0])) {
             throw new InvalidArgumentException('Cache key length must be greater than zero');
         }
-        if (isset($key[strcspn($key, '{}()/\@:')])) {
+        if (false !== strpbrk($key, '{}()/\@:')) {
             throw new InvalidArgumentException(sprintf('Cache key "%s" contains reserved characters {}()/\@:', $key));
         }
     }

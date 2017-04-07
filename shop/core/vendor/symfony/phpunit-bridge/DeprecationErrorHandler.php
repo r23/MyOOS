@@ -69,7 +69,7 @@ class DeprecationErrorHandler
         );
         $deprecationHandler = function ($type, $msg, $file, $line, $context) use (&$deprecations, $getMode) {
             $mode = $getMode();
-            if (E_USER_DEPRECATED !== $type || DeprecationErrorHandler::MODE_DISABLED === $mode) {
+            if ((E_USER_DEPRECATED !== $type && E_DEPRECATED !== $type) || DeprecationErrorHandler::MODE_DISABLED === $mode) {
                 return \PHPUnit_Util_ErrorHandler::handleError($type, $msg, $file, $line, $context);
             }
 
@@ -141,7 +141,7 @@ class DeprecationErrorHandler
                     return "\x1B[{$color}m{$str}\x1B[0m";
                 };
             } else {
-                $colorize = function ($str) {return $str;};
+                $colorize = function ($str) { return $str; };
             }
             register_shutdown_function(function () use ($getMode, &$deprecations, $deprecationHandler, $colorize) {
                 $mode = $getMode();
@@ -152,7 +152,7 @@ class DeprecationErrorHandler
                 restore_error_handler();
 
                 if (DeprecationErrorHandler::MODE_WEAK === $mode) {
-                    $colorize = function ($str) {return $str;};
+                    $colorize = function ($str) { return $str; };
                 }
                 if ($currErrorHandler !== $deprecationHandler) {
                     echo "\n", $colorize('THE ERROR HANDLER HAS CHANGED!', true), "\n";

@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Form\Tests\ChoiceList\Factory;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 use Symfony\Component\Form\ChoiceList\Factory\DefaultChoiceListFactory;
@@ -19,7 +20,7 @@ use Symfony\Component\Form\ChoiceList\View\ChoiceGroupView;
 use Symfony\Component\Form\ChoiceList\View\ChoiceListView;
 use Symfony\Component\Form\ChoiceList\View\ChoiceView;
 
-class DefaultChoiceListFactoryTest extends \PHPUnit_Framework_TestCase
+class DefaultChoiceListFactoryTest extends TestCase
 {
     private $obj1;
 
@@ -193,7 +194,7 @@ class DefaultChoiceListFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateFromLoader()
     {
-        $loader = $this->getMock('Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface');
+        $loader = $this->getMockBuilder('Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface')->getMock();
 
         $list = $this->factory->createListFromLoader($loader);
 
@@ -202,7 +203,7 @@ class DefaultChoiceListFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateFromLoaderWithValues()
     {
-        $loader = $this->getMock('Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface');
+        $loader = $this->getMockBuilder('Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface')->getMock();
 
         $value = function () {};
         $list = $this->factory->createListFromLoader($loader, $value);

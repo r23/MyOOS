@@ -21,6 +21,7 @@ use Symfony\Component\DependencyInjection\Exception\RuntimeException;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Parser as YamlParser;
+use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\ExpressionLanguage\Expression;
 
 /**
@@ -109,7 +110,7 @@ class YamlFileLoader extends FileLoader
      * @param array  $content
      * @param string $file
      */
-    private function parseImports($content, $file)
+    private function parseImports(array $content, $file)
     {
         if (!isset($content['imports'])) {
             return;
@@ -136,7 +137,7 @@ class YamlFileLoader extends FileLoader
      * @param array  $content
      * @param string $file
      */
-    private function parseDefinitions($content, $file)
+    private function parseDefinitions(array $content, $file)
     {
         if (!isset($content['services'])) {
             return;
@@ -154,9 +155,9 @@ class YamlFileLoader extends FileLoader
     /**
      * Parses a definition.
      *
-     * @param string $id
-     * @param array  $service
-     * @param string $file
+     * @param string       $id
+     * @param array|string $service
+     * @param string       $file
      *
      * @throws InvalidArgumentException When tags are invalid
      */
@@ -222,16 +223,7 @@ class YamlFileLoader extends FileLoader
         }
 
         if (isset($service['factory'])) {
-            if (is_string($service['factory'])) {
-                if (strpos($service['factory'], ':') !== false && strpos($service['factory'], '::') === false) {
-                    $parts = explode(':', $service['factory']);
-                    $definition->setFactory(array($this->resolveServices('@'.$parts[0]), $parts[1]));
-                } else {
-                    $definition->setFactory($service['factory']);
-                }
-            } else {
-                $definition->setFactory(array($this->resolveServices($service['factory'][0]), $service['factory'][1]));
-            }
+            $definition->setFactory($this->parseCallable($service['factory'], 'factory', $id, $file));
         }
 
         if (isset($service['file'])) {
@@ -247,11 +239,7 @@ class YamlFileLoader extends FileLoader
         }
 
         if (isset($service['configurator'])) {
-            if (is_string($service['configurator'])) {
-                $definition->setConfigurator($service['configurator']);
-            } else {
-                $definition->setConfigurator(array($this->resolveServices($service['configurator'][0]), $service['configurator'][1]));
-            }
+            $definition->setConfigurator($this->parseCallable($service['configurator'], 'configurator', $id, $file));
         }
 
         if (isset($service['calls'])) {
@@ -339,6 +327,45 @@ class YamlFileLoader extends FileLoader
     }
 
     /**
+     * Parses a callable.
+     *
+     * @param string|array $callable  A callable
+     * @param string       $parameter A parameter (e.g. 'factory' or 'configurator')
+     * @param string       $id        A service identifier
+     * @param string       $file      A parsed file
+     *
+     * @throws InvalidArgumentException When errors are occuried
+     *
+     * @return string|array A parsed callable
+     */
+    private function parseCallable($callable, $parameter, $id, $file)
+    {
+        if (is_string($callable)) {
+            if ('' !== $callable && '@' === $callable[0]) {
+                throw new InvalidArgumentException(sprintf('The value of the "%s" option for the "%s" service must be the id of the service without the "@" prefix (replace "%s" with "%s").', $parameter, $id, $callable, substr($callable, 1)));
+            }
+
+            if (false !== strpos($callable, ':') && false === strpos($callable, '::')) {
+                $parts = explode(':', $callable);
+
+                return array($this->resolveServices('@'.$parts[0]), $parts[1]);
+            }
+
+            return $callable;
+        }
+
+        if (is_array($callable)) {
+            if (isset($callable[0]) && isset($callable[1])) {
+                return array($this->resolveServices($callable[0]), $callable[1]);
+            }
+
+            throw new InvalidArgumentException(sprintf('Parameter "%s" must contain an array with two elements for service "%s" in %s. Check your YAML syntax.', $parameter, $id, $file));
+        }
+
+        throw new InvalidArgumentException(sprintf('Parameter "%s" must be a string or an array for service "%s" in %s. Check your YAML syntax.', $parameter, $id, $file));
+    }
+
+    /**
      * Loads a YAML file.
      *
      * @param string $file
@@ -358,7 +385,7 @@ class YamlFileLoader extends FileLoader
         }
 
         if (!file_exists($file)) {
-            throw new InvalidArgumentException(sprintf('The service file "%s" is not valid.', $file));
+            throw new InvalidArgumentException(sprintf('The file "%s" does not exist.', $file));
         }
 
         if (null === $this->yamlParser) {
@@ -366,7 +393,7 @@ class YamlFileLoader extends FileLoader
         }
 
         try {
-            $configuration = $this->yamlParser->parse(file_get_contents($file));
+            $configuration = $this->yamlParser->parse(file_get_contents($file), Yaml::PARSE_CONSTANT);
         } catch (ParseException $e) {
             throw new InvalidArgumentException(sprintf('The file "%s" does not contain valid YAML.', $file), 0, $e);
         }
@@ -441,13 +468,10 @@ class YamlFileLoader extends FileLoader
 
             if ('=' === substr($value, -1)) {
                 $value = substr($value, 0, -1);
-                $strict = false;
-            } else {
-                $strict = true;
             }
 
             if (null !== $invalidBehavior) {
-                $value = new Reference($value, $invalidBehavior, $strict);
+                $value = new Reference($value, $invalidBehavior);
             }
         }
 
@@ -459,7 +483,7 @@ class YamlFileLoader extends FileLoader
      *
      * @param array $content
      */
-    private function loadFromExtensions($content)
+    private function loadFromExtensions(array $content)
     {
         foreach ($content as $namespace => $values) {
             if (in_array($namespace, array('imports', 'parameters', 'services'))) {

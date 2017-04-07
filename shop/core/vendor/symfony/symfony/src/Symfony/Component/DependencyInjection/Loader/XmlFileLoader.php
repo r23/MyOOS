@@ -182,7 +182,7 @@ class XmlFileLoader extends FileLoader
                 if (isset($factoryService[0])) {
                     $class = $this->parseDefinition($factoryService[0], $file);
                 } elseif ($childService = $factory->getAttribute('service')) {
-                    $class = new Reference($childService, ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, false);
+                    $class = new Reference($childService, ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE);
                 } else {
                     $class = $factory->getAttribute('class');
                 }
@@ -201,7 +201,7 @@ class XmlFileLoader extends FileLoader
                 if (isset($configuratorService[0])) {
                     $class = $this->parseDefinition($configuratorService[0], $file);
                 } elseif ($childService = $configurator->getAttribute('service')) {
-                    $class = new Reference($childService, ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, false);
+                    $class = new Reference($childService, ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE);
                 } else {
                     $class = $configurator->getAttribute('class');
                 }
@@ -346,21 +346,22 @@ class XmlFileLoader extends FileLoader
                 $arg->setAttribute('key', $arg->getAttribute('name'));
             }
 
-            if (!$arg->hasAttribute('key')) {
-                $key = !$arguments ? 0 : max(array_keys($arguments)) + 1;
-            } else {
-                $key = $arg->getAttribute('key');
-            }
-
-            // parameter keys are case insensitive
-            if ('parameter' == $name && $lowercase) {
-                $key = strtolower($key);
-            }
-
             // this is used by DefinitionDecorator to overwrite a specific
             // argument of the parent definition
             if ($arg->hasAttribute('index')) {
                 $key = 'index_'.$arg->getAttribute('index');
+            } elseif (!$arg->hasAttribute('key')) {
+                // Append an empty argument, then fetch its key to overwrite it later
+                $arguments[] = null;
+                $keys = array_keys($arguments);
+                $key = array_pop($keys);
+            } else {
+                $key = $arg->getAttribute('key');
+
+                // parameter keys are case insensitive
+                if ('parameter' == $name && $lowercase) {
+                    $key = strtolower($key);
+                }
             }
 
             switch ($arg->getAttribute('type')) {
@@ -373,13 +374,7 @@ class XmlFileLoader extends FileLoader
                         $invalidBehavior = ContainerInterface::NULL_ON_INVALID_REFERENCE;
                     }
 
-                    if ($strict = $arg->getAttribute('strict')) {
-                        $strict = XmlUtils::phpize($strict);
-                    } else {
-                        $strict = true;
-                    }
-
-                    $arguments[$key] = new Reference($arg->getAttribute('id'), $invalidBehavior, $strict);
+                    $arguments[$key] = new Reference($arg->getAttribute('id'), $invalidBehavior);
                     break;
                 case 'expression':
                     $arguments[$key] = new Expression($arg->nodeValue);
