@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -126,6 +126,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
 $shipping_modules = new shipping($_SESSION['shipping']);
 
 
+
 // Stock Check
 $any_out_of_stock = FALSE;
 if (STOCK_CHECK == 'true') {
@@ -176,16 +177,16 @@ if (is_array($payment_modules->modules)) {
 	}
 }
 
+if (is_array($payment_modules->modules)) {
+	$payment_modules_process_button =  $payment_modules->process_button();
+}
+
 if (isset(${$_SESSION['payment']}->form_action_url)) {
 	$form_action_url = ${$_SESSION['payment']}->form_action_url;
 } else {
 	$form_action_url = oos_href_link($aContents['checkout_process'], '', 'SSL');
 }
 $smarty->assign('form_action_url', $form_action_url);
-
-if (is_array($payment_modules->modules)) {
-	$payment_modules_process_button =  $payment_modules->process_button();
-}
 
 $smarty->assign('payment_modules_process_button', $payment_modules_process_button);
 $smarty->assign('order', $oOrder);
