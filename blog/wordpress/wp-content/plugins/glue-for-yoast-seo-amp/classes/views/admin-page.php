@@ -26,6 +26,10 @@ $yform->admin_header( true, 'wpseo_amp', false, 'wpseo_amp_settings' );
 			<?php
 
 			$post_types = apply_filters( 'wpseo_sitemaps_supported_post_types', get_post_types( array( 'public' => true ), 'objects' ) );
+
+			// Allow specific AMP post type overrides, especially needed for Page support.
+			$post_types = apply_filters( 'wpseo_amp_supported_post_types', $post_types );
+
 			if ( is_array( $post_types ) && $post_types !== array() ) {
 				foreach ( $post_types as $pt ) {
 					$yform->toggle_switch(
@@ -38,12 +42,15 @@ $yform->admin_header( true, 'wpseo_amp', false, 'wpseo_amp_settings' );
 					);
 				}
 			}
-			?>
 
-			<br>
-			<strong><?php echo esc_html( __( 'Please note:', 'wordpress-seo' ) ); ?></strong>
-			<?php echo esc_html( __( 'Currently pages are not supported by the AMP plugin.', 'wordpress-seo' ) ); ?>
-			<?php echo esc_html( __( 'We still show this option to be able to provide functionality when the AMP plugin implements support for them.', 'wordpress-seo' ) ); ?>
+			if ( ! post_type_supports( 'page', AMP_QUERY_VAR ) ):
+				?>
+                <br>
+                <strong><?php echo esc_html( __( 'Please note:', 'wordpress-seo' ) ); ?></strong>
+				<?php echo esc_html( __( 'Currently pages are not supported by the AMP plugin.', 'wordpress-seo' ) ); ?>
+				<?php
+			endif;
+			?>
 			</p>
 		</div>
 

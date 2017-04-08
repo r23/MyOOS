@@ -20,9 +20,7 @@ class Yoast_AMP_Blacklist_Sanitizer extends AMP_Base_Sanitizer {
 	 * The actual sanitization function
 	 */
 	public function sanitize() {
-		$blacklisted_tags = $this->get_blacklisted_tags();
 		$body             = $this->get_body_node();
-		$this->strip_tags( $body, $blacklisted_tags );
 		$this->strip_attributes_recursive( $body );
 	}
 
@@ -45,9 +43,6 @@ class Yoast_AMP_Blacklist_Sanitizer extends AMP_Base_Sanitizer {
 				switch ( $node_name ) {
 					case 'a':
 						$this->sanitize_a_attribute( $node, $attribute );
-						break;
-					case 'img':
-						$this->sanitize_img_attribute( $node, $attribute );
 						break;
 					case 'pre':
 						$this->sanitize_pre_attribute( $node, $attribute );
@@ -149,29 +144,6 @@ class Yoast_AMP_Blacklist_Sanitizer extends AMP_Base_Sanitizer {
 		if ( in_array( $attribute_name, array( 'border', 'cellspacing', 'cellpadding', 'summary' ) ) ) {
 			$node->removeAttribute( $attribute_name );
 		}
-	}
-
-	/**
-	 * Sanitize img tag attributes
-	 *
-	 * @param DOMNode $node
-	 * @param object $attribute
-	 */
-	private function sanitize_img_attribute( $node, $attribute ) {
-		$attribute_name = strtolower( $attribute->name );
-
-		if ( 'rel' === $attribute_name ) {
-			$node->removeAttribute( $attribute_name );
-		}
-	}
-
-	/**
-	 * Makes sure the following tags are removed
-	 */
-	private function get_blacklisted_tags() {
-		return array(
-			'embed',
-		);
 	}
 
 }

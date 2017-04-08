@@ -74,7 +74,15 @@ if ( ! class_exists( 'YoastSEO_AMP_Frontend' ) ) {
 		 * @return array
 		 */
 		public function analytics( $analytics ) {
-			if ( isset( $this->options['analytics-extra'] ) && ! empty( $this->options['analytics-extra'] ) ) {
+			// If Monster Insights is outputting analytics, don't do anything.
+			if ( ! empty( $analytics['monsterinsights-googleanalytics'] ) ) {
+				// Clear analytics-extra options because Monster Insights is taking care of everything.
+				$this->options['analytics-extra'] = '';
+
+				return $analytics;
+			}
+
+			if ( ! empty( $this->options['analytics-extra'] ) ) {
 				return $analytics;
 			}
 
@@ -116,6 +124,11 @@ if ( ! class_exists( 'YoastSEO_AMP_Frontend' ) ) {
 						continue;
 					}
 
+					// If AMP page support is not present, don't allow enabling it here.
+					if ( 'page' === $post_type_name && ! post_type_supports( 'page', AMP_QUERY_VAR ) ) {
+						continue;
+					}
+
 					if ( $this->options[ 'post_types-' . $post_type_name . '-amp' ] === 'on' ) {
 						add_post_type_support( $post_type_name, AMP_QUERY_VAR );
 						continue;
@@ -147,6 +160,7 @@ if ( ! class_exists( 'YoastSEO_AMP_Frontend' ) ) {
 		 */
 		public function fix_amp_post_data( $data ) {
 			$data['canonical_url'] = $this->front->canonical( false );
+
 			if ( ! empty( $this->options['amp_site_icon'] ) ) {
 				$data['site_icon_url'] = $this->options['amp_site_icon'];
 			}
@@ -162,7 +176,7 @@ if ( ! class_exists( 'YoastSEO_AMP_Frontend' ) ) {
 		/**
 		 * Fix the AMP metadata for a post
 		 *
-		 * @param array $metadata
+		 * @param array   $metadata
 		 * @param WP_Post $post
 		 *
 		 * @return array
@@ -189,27 +203,28 @@ if ( ! class_exists( 'YoastSEO_AMP_Frontend' ) ) {
 		 * Add additional CSS to the AMP output
 		 */
 		public function additional_css() {
-
 			require 'views/additional-css.php';
 
+			$selectors = $this->get_class_selectors();
+
 			$css_builder = new YoastSEO_AMP_CSS_Builder();
-			$css_builder->add_option( 'header-color', 'nav.amp-wp-title-bar', 'background' );
-			$css_builder->add_option( 'headings-color', '.amp-wp-title, h2, h3, h4', 'color' );
-			$css_builder->add_option( 'text-color', '.amp-wp-content', 'color' );
+			$css_builder->add_option( 'header-color', $selectors[ 'header-color' ], 'background' );
+			$css_builder->add_option( 'headings-color', $selectors[ 'headings-color' ], 'color' );
+			$css_builder->add_option( 'text-color', $selectors[ 'text-color' ], 'color' );
 
-			$css_builder->add_option( 'blockquote-bg-color', '.amp-wp-content blockquote', 'background-color' );
-			$css_builder->add_option( 'blockquote-border-color', '.amp-wp-content blockquote', 'border-color' );
-			$css_builder->add_option( 'blockquote-text-color', '.amp-wp-content blockquote', 'color' );
+			$css_builder->add_option( 'blockquote-bg-color', $selectors[ 'blockquote-bg-color' ], 'background-color' );
+			$css_builder->add_option( 'blockquote-border-color', $selectors[ 'blockquote-border-color' ], 'border-color' );
+			$css_builder->add_option( 'blockquote-text-color', $selectors[ 'blockquote-text-color' ], 'color' );
 
-			$css_builder->add_option( 'link-color', 'a, a:active, a:visited', 'color' );
-			$css_builder->add_option( 'link-color-hover', 'a:hover, a:focus', 'color' );
+			$css_builder->add_option( 'link-color', $selectors[ 'link-color' ], 'color' );
+			$css_builder->add_option( 'link-color-hover', $selectors[ 'link-color-hover' ], 'color' );
 
-			$css_builder->add_option( 'meta-color', '.amp-wp-meta li, .amp-wp-meta li a', 'color' );
+			$css_builder->add_option( 'meta-color', $selectors[ 'meta-color' ], 'color' );
 
 			echo $css_builder->build();
 
 			if ( ! empty( $this->options['extra-css'] ) ) {
-				$safe_text = strip_tags($this->options['extra-css']);
+				$safe_text = strip_tags( $this->options['extra-css'] );
 				$safe_text = wp_check_invalid_utf8( $safe_text );
 				$safe_text = _wp_specialchars( $safe_text, ENT_NOQUOTES );
 				echo $safe_text;
@@ -263,8 +278,8 @@ if ( ! class_exists( 'YoastSEO_AMP_Frontend' ) ) {
 		/**
 		 * Builds an image object array from an image URL
 		 *
-		 * @param string $image_url
-		 * @param string|array $size Optional. Image size. Accepts any valid image size, or an array of width
+		 * @param string       $image_url      Image URL to build URL for.
+		 * @param string|array $size           Optional. Image size. Accepts any valid image size, or an array of width
 		 *                                     and height values in pixels (in that order). Default 'full'.
 		 *
 		 * @return array|false
@@ -292,8 +307,8 @@ if ( ! class_exists( 'YoastSEO_AMP_Frontend' ) ) {
 		/**
 		 * Retrieve the Schema.org image for the post
 		 *
-		 * @param WP_Post    $post
-		 * @param array|null $image The currently set post image
+		 * @param WP_Post    $post  Post to retrieve the data for.
+		 * @param array|null $image The currently set post image.
 		 *
 		 * @return array
 		 */
@@ -334,6 +349,43 @@ if ( ! class_exists( 'YoastSEO_AMP_Frontend' ) ) {
 			$type = apply_filters( 'yoastseo_amp_schema_type', $type, $post );
 
 			return $type;
+		}
+
+		/**
+		 * Gets version dependent class names
+		 *
+		 * @return array
+		 */
+		private function get_class_selectors() {
+			$selectors = array(
+				'header-color'   => 'nav.amp-wp-title-bar',
+				'headings-color' => '.amp-wp-title, h2, h3, h4',
+				'text-color'     => '.amp-wp-content',
+
+				'blockquote-bg-color'     => '.amp-wp-content blockquote',
+				'blockquote-border-color' => '.amp-wp-content blockquote',
+				'blockquote-text-color'   => '.amp-wp-content blockquote',
+
+				'link-color'       => 'a, a:active, a:visited',
+				'link-color-hover' => 'a:hover, a:focus',
+
+				'meta-color' => '.amp-wp-meta li, .amp-wp-meta li a',
+			);
+
+			// CSS classnames have been changed in version 0.4.0.
+			if ( version_compare( AMP__VERSION, '0.4.0', '>=' ) ) {
+				$selectors_v4 = array(
+					'header-color'            => 'header.amp-wp-header, html',
+					'text-color'              => 'div.amp-wp-article',
+					'blockquote-bg-color'     => '.amp-wp-article-content blockquote',
+					'blockquote-border-color' => '.amp-wp-article-content blockquote',
+					'blockquote-text-color'   => '.amp-wp-article-content blockquote',
+					'meta-color'              => '.amp-wp-meta, .amp-wp-meta a',
+				);
+				$selectors    = array_merge( $selectors, $selectors_v4 );
+			}
+
+			return $selectors;
 		}
 	}
 }

@@ -28,6 +28,23 @@ if ( ! class_exists( 'YoastSEO_AMP_Backend', false ) ) {
 
 			// Register AMP admin page as a Yoast SEO admin page
 			add_filter( 'wpseo_admin_pages', array( $this, 'add_admin_pages' ) );
+
+			add_filter( 'wpseo_amp_supported_post_types', array( $this, 'remove_page_post_type' ) );
+		}
+
+		/**
+		 * Filters out page post-type if not enabled in the AMP plugin.
+		 *
+		 * @param array $post_types Post types enabled for AMP support.
+		 *
+		 * @return array
+		 */
+		public function remove_page_post_type( $post_types ) {
+			if ( ! post_type_supports( 'page', AMP_QUERY_VAR ) ) {
+				unset( $post_types[ 'page' ] );
+			}
+
+			return $post_types;
 		}
 
 		/**

@@ -1,9 +1,9 @@
 === Glue for Yoast SEO & AMP ===
 Contributors: joostdevalk
 Tags: AMP, SEO
-Requires at least: 4.2
-Tested up to: 4.6
-Stable tag: 0.3.3
+Requires at least: 4.6
+Tested up to: 4.7.3
+Stable tag: 0.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,10 +34,28 @@ To change your AMP page design, go to SEO -> AMP, and look at the design tab.
 
 == Changelog ==
 
+= 0.4.2 =
+* Bugfixes:
+    * Reverts the canonical removal.
+
+= 0.4.1 =
+* Bugfixes:
+    * Fix styling of design tab.
+
+= 0.4.0 =
+* Bugfixes:
+    * Removed page from post-type list to avoid unwanted canonical link.
+
+* Enhancements:
+    * Removed canonical feature because it is being handled by the AMP plugin.
+    * Removed sanitizations which are already being done by the AMP plugin.
+    * Added a check for Monster Insights analytics implementation and disables our implementation if present.
+    * Added class selector implementation for AMP 0.4.x compatibility.
+
 = 0.3.3 =
 * Bugfixes:
-    * Fixes bug where AMP was only activated for the first post type in the list
-    * Made sure that the function is not declared multiple times
+    * Fixes bug where AMP was only activated for the first post type in the list.
+    * Made sure that the function is not declared multiple times.
 
 = 0.3.2 =
 * Bugfixes:
