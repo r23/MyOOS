@@ -1,0 +1,16 @@
+{
+  "chmod": "0755",
+  "files": [
+    "LICENSE"
+  ],
+  "finder": [
+    {
+      "name": "*.php",
+      "exclude": ["tests"],
+      "in": "vendor"
+    }
+  ],
+  "main": "index.php",
+  "output": "/home/vagrant/xmr.phar",
+  "stub": true
+}

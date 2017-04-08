@@ -1,0 +1,31 @@
+{
+  "name": "xibosignage/xibo-xmr",
+  "description": "Xibo Message Relay",
+  "keywords": [
+    "xibo",
+    "digital signage",
+    "spring signage"
+  ],
+  "homepage": "http://xibo.org.uk",
+  "license": "AGPLv3 or later",
+  "authors": [
+    {
+      "name": "Daniel Garner",
+      "homepage": "https://github.com/dasgarner"
+    },
+    {
+      "name": "Spring Signage Ltd",
+      "homepage": "http://springsignage.com"
+    },
+    {
+      "name": "Xibo Contributors",
+      "homepage": "https://github.com/xibosignage/xibo/tree/master/contributors"
+    }
+  ],
+  "bin": ["bin/xmr.phar"],
+  "require": {
+    "php": ">=5.5",
+    "monolog/monolog": "^1.17",
+    "react/zmq": "^0.3.0"
+  }
+}
