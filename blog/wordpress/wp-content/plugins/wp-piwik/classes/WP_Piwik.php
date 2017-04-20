@@ -12,7 +12,7 @@ class WP_Piwik {
 	 *
 	 * @var Runtime environment variables
 	 */
-	private static $revisionId = 2016120301, $version = '1.0.14', $blog_id, $pluginBasename = NULL, $logger, $settings, $request, $optionsPageId;
+	private static $revisionId = 2017041901, $version = '1.0.15', $blog_id, $pluginBasename = NULL, $logger, $settings, $request, $optionsPageId;
 
 	/**
 	 * Constructor class to configure and register all WP-Piwik components
@@ -166,11 +166,18 @@ class WP_Piwik {
 						'addFeedTracking'
 				) );
 			}
-			if ($this->isAddFeedCampaign ())
+			if ($this->isAddFeedCampaign ()) {
 				add_filter ( 'post_link', array (
 						$this,
 						'addFeedCampaign'
 				) );
+			}
+			if ($this->isCrossDomainLinkingEnabled ()) {
+				add_filter ( 'wp_redirect', array (
+					$this,
+					'forwardCrossDomainVisitorId'
+				) );
+			}
 		}
 	}
 
@@ -530,11 +537,15 @@ class WP_Piwik {
 			$title = the_title ( null, null, false );
 			$posturl = get_permalink ( $post->ID );
 			$urlref = get_bloginfo ( 'rss2_url' );
-			$url = self::$settings->getGlobalOption ( 'piwik_url' );
-			if (substr ( $url, - 10, 10 ) == '/index.php')
-				$url = str_replace ( '/index.php', '/piwik.php', $url );
-			else
-				$url .= 'piwik.php';
+			if (self::$settings->getGlobalOption ( 'track_mode' ) == 'proxy')
+			    $url = plugins_url ( 'wp-piwik' ) . '/proxy/piwik.php';
+            else {
+                $url = self::$settings->getGlobalOption ( 'piwik_url' );
+                if (substr($url, -10, 10) == '/index.php')
+                    $url = str_replace('/index.php', '/piwik.php', $url);
+                else
+                    $url .= 'piwik.php';
+            }
 			$trackingImage = $url . '?idsite=' . self::$settings->getOption ( 'site_id' ) . '&amp;rec=1&amp;url=' . urlencode ( $posturl ) . '&amp;action_name=' . urlencode ( $title ) . '&amp;urlref=' . urlencode ( $urlref );
 			$content .= '<img src="' . $trackingImage . '" style="border:0;width:0;height:0" width="0" height="0" alt="" />';
 		}
@@ -556,6 +567,27 @@ class WP_Piwik {
 			$permalink .= $sep . 'pk_campaign=' . urlencode ( self::$settings->getGlobalOption ( 'track_feed_campaign' ) ) . '&pk_kwd=' . urlencode ( $post->post_name );
 		}
 		return $permalink;
+	}
+
+	/**
+	 * Forwards the cross domain parameter pk_vid if the URL parameter is set and a user is about to be redirected.
+     * When another website links to WooCommerce with a pk_vid parameter, and WooCommerce redirects the user to another
+     * URL, the pk_vid parameter would get lost and the visitorId would later not be applied by the tracking code
+     * due to the lost pk_vid URL parameter. If the URL parameter is set, we make sure to forward this parameter.
+	 *
+	 * @param string $location
+	 *
+	 * @return string location extended by pk_vid URL parameter if the URL parameter is set
+	 */
+	public function forwardCrossDomainVisitorId($location) {
+
+		if (!empty($_GET['pk_vid'])
+			&& preg_match('/^[a-zA-Z0-9]{24,48}$/', $_GET['pk_vid'])) {
+			// currently, the pk_vid parameter is 32 characters long, but it may vary over time.
+			$location = add_query_arg( 'pk_vid', $_GET['pk_vid'], $location );
+		}
+
+		return $location;
 	}
 
 	/**
@@ -697,6 +729,15 @@ class WP_Piwik {
 	 */
 	private function isAddFeedCampaign() {
 		return self::$settings->getGlobalOption ( 'track_feed_addcampaign' );
+	}
+
+	/**
+	 * Check if feed permalinks get a campaign parameter
+	 *
+	 * @return boolean Add campaign parameter to feed permalinks?
+	 */
+	private function isCrossDomainLinkingEnabled() {
+		return self::$settings->getGlobalOption ( 'track_crossdomain_linking' );
 	}
 
 	/**
@@ -1097,7 +1138,8 @@ class WP_Piwik {
 				'idSite' => $siteId,
 				'mergeSubdomains' => self::$settings->getGlobalOption ( 'track_across' ) ? 1 : 0,
 				'mergeAliasUrls' => self::$settings->getGlobalOption ( 'track_across_alias' ) ? 1 : 0,
-				'disableCookies' => self::$settings->getGlobalOption ( 'disable_cookies' ) ? 1 : 0
+				'disableCookies' => self::$settings->getGlobalOption ( 'disable_cookies' ) ? 1 : 0,
+				'crossDomain' => self::$settings->getGlobalOption ( 'track_crossdomain_linking' ) ? 1 : 0
 			) );
 		$code = $this->request ( $id );
 		if (is_array($code) && isset($code['value']))

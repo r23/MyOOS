@@ -1,9 +1,9 @@
-=== WP-Piwik ===
+﻿=== WP-Piwik ===
 
 Contributors: Braekling
 Requires at least: 4.0
-Tested up to: 4.6.1
-Stable tag: 1.0.14
+Tested up to: 4.7.3
+Stable tag: 1.0.15
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6046779
 Tags: piwik, tracking, statistics, stats, analytics
 
@@ -11,15 +11,25 @@ This plugin adds a Piwik stats site to your WordPress or WordPress multisite das
 
 == Description ==
 
-This plugin adds a Piwik stats site to your WordPress dashboard. It's also able to add the Piwik tracking code to your blog.
+This plugin uses the Piwik API to show your Piwik statistics in your WordPress dashboard. It's also able to add the Piwik tracking code to your blog and to do some modifications to the tracking code. Additionally, WP-Piwik supports WordPress networks and manages multiple sites and their tracking codes.
 
 To use this plugin you will need your own Piwik instance. If you do not already have a Piwik setup, you have two simple options: use either [Self-hosted](http://piwik.org/) or [Cloud-hosted](http://piwik.org/hosting/).
 
-**Requirements:** PHP 5.4 (or higher)/PHP 7.0 (or higher), WordPress 4.0 (or higher), Piwik 2.16 (or higher)
+**Requirements:** PHP 7.0 (or higher), WordPress 4.0 (or higher), Piwik 3.0 (or higher)
  
 **Languages:** English, Albanian, Chinese, Dutch, French, German, Greek, Hungarian, Italian, Polish, Portuguese (Brazil). Partially supported: Azerbaijani, Belarusian, Hindi, Lithuanian, Luxembourgish, Norwegian, Persian, Romanian, Russian, Spanish, Swedish, Turkish, Ukrainian
 
 **Note:** If you vote "It's broken", please tell me about your problem. It's hard to fix a bug I don't know about! ;-)
+
+= What is Piwik? =
+
+[youtube https://youtu.be/OslfF_EH81g]
+[Learn more.](https://piwik.org/what-is-piwik/)
+
+= First steps =
+- Learn how to install your own Piwik instance: [Requirements](https://piwik.org/docs/requirements/), [Installation](https://piwik.org/docs/installation-optimization/).
+- If you need support about Piwik, please have a look at the [Piwik forums](https://forum.piwik.org/).
+- Finally, you can start [setting up WP-Piwik](https://piwik.org/blog/2015/05/wordpress-integration-wp-piwik-1-0/).
 
 = Shortcodes =
 You can use following shortcodes if activated:
@@ -30,17 +40,17 @@ Shows overview table like WP-Piwik's overview dashboard. See Piwik API documenta
     [wp-piwik module="opt-out" language="en" width="100%" height="200px"]
 Shows the Piwik opt-out Iframe. You can change the Iframe's language by the language attribute (e.g. de for German language) and its width and height using the corresponding attributes.
 
-	[wp-piwik module="post" range="last30" key="sum_daily_nb_uniq_visitors"]
+    [wp-piwik module="post" range="last30" key="sum_daily_nb_uniq_visitors"]
 Shows the chosen keys value related to the current post. You can define a range (format: lastN, previousN or YYYY-MM-DD,YYYY-MM-DD) and the desired value's key (e.g., sum_daily_nb_uniq_visitors, nb_visits or nb_hits - for details see Piwik's API method Actions.getPageUrl using a range).
 
-	[wp-piwik]
+    [wp-piwik]
 is equal to *[wp-piwik module="overview" title="" period="day" date="yesterday"]*.
 
 = Credits =
 
 * Graphs powered by [jqPlot](http://www.jqplot.com/) (GPL 2.0 and MIT) and and [jQuery Sparklines](http://omnipotent.net/jquery.sparkline/) (New BSD License).
 * All translators at the [Transifex translation community](https://www.transifex.com/projects/p/wp-piwik/).
-* Donations: Marco L., Rolf W., Tobias U., Lars K., Donna F., Kevin D., Ramos S., Thomas M., John C., Andreas G., Ben M., Myra R. I., Carlos U. R.-S., Oleg I., M. N., Daniel K., James L., Jochen K., Cyril P., Thomas K., Patrik K., Zach, Sebastian W., Peakkom, Patrik K., Kati K., Helmut O., Valerie S., Jochen D., Atlas R., the Piwik team itself, and all people flattering this.
+* Donations: Marco L., Rolf W., Tobias U., Lars K., Donna F., Kevin D., Ramos S., Thomas M., John C., Andreas G., Ben M., Myra R. I., Carlos U. R.-S., Oleg I., M. N., Daniel K., James L., Jochen K., Cyril P., Thomas K., Patrik K., Zach, Sebastian W., Peakkom, Patrik K., Kati K., Helmut O., Valerie S., Jochen D., Atlas R., Harald W., Jan M., the Piwik team itself, and all people flattering this.
 * All users who send me mails containing criticism, commendation, feature requests and bug reports - you help me to make WP-Piwik much better!
 
 Thank you all!
@@ -51,7 +61,7 @@ Thank you all!
 
 To use this plugin you will need your own Piwik instance. If you do not already have a Piwik setup, you have two simple options: use either [Self-hosted](http://piwik.org/) or [Cloud-hosted](http://piwik.org/hosting/). 
 
-As soon as Piwik works, you'll be able to configure WP-Piwik: The Piwik URL is the same URL you use to access your Piwik, e.g. for the demo site: http://demo.piwik.org. The auth token is some kind of a secret password, which allows WP-Piwik to get the necessary data from Piwik. To get your auth token, log in to Piwik, click at your user name (top right) and click at "API" (left sidebar menu).
+As soon as Piwik works, you'll be able to configure WP-Piwik: The Piwik URL is the same URL you use to access your Piwik, e.g. for the demo site: http://demo.piwik.org. The auth token is some kind of a secret password, which allows WP-Piwik to get the necessary data from Piwik. To get your auth token, log in to Piwik, click at the preferences gear icon (top right) and click at "API" (left sidebar menu, near the bottom).
 
 You can get a more detailed description here: https://piwik.org/blog/2015/05/wordpress-integration-wp-piwik-1-0/
 
@@ -64,6 +74,14 @@ The response output contains...
 * **bool(false)** and **HTTP/1.1 404 Not Found**: The Piwik URL is wrong. Try to copy & paste the URL you use to access Piwik itself via browser.
 * **bool(false)** and no further HTTP response code: The Piwik server does not respond. Very often, this is caused by firewall or mod_security settings. Check your server logfiles to get further information. If you aren’t sure about this, please contact your web hoster for support.
 
+= Overview shortcode shows no unique visitors using a yearly range. =
+
+See [Piwik FAQ](http://piwik.org/faq/how-to/#faq_113).
+
+= Tracking does not work on HostGator! =
+
+Try to enable the "avoid mod_security" option (WP-Piwik settings, Tracking tab) or create a mod_security whitelist.
+
 = Can I contribute to WP-Piwik as a translator? =
 
 You like to contribute to WP-Piwik translations? Please use the [Transifex translation community](https://www.transifex.com/projects/p/wp-piwik/).
@@ -73,19 +91,6 @@ Of course, I will add missing languages if requested, and I will also upload the
 If you can't (or don not want to) use transifex, you can also translate languages/wp-piwik.pot delivered with WP-Piwik.
 
 Thank you very much! :-)
-
-= Why does WP-Piwik require a newer PHP version than WordPress? =
-
-WP-Piwik requires a working Piwik instance which requires a higher PHP version, too. Furthermore, please have a look at the [official PHP Unsupported Branches page](http://php.net/eol.php). Even if your software still works with PHP 5.2, the PHP team stopped to deliver **security** patches in January 2011. Even PHP 5.3 does not get security patches anymore (end of life date was August 2014).
-
-
-= Tracking does not work on HostGator! =
-
-Try to enable the "avoid mod_security" option (WP-Piwik settings, Tracking tab) or create a mod_security whitelist.
-
-= Overview shortcode shows no unique visitors using a yearly range. =
-
-See [Piwik FAQ](http://piwik.org/faq/how-to/#faq_113).
 
 == Installation ==
 
@@ -126,6 +131,13 @@ Add WP-Piwik to your /wp-content/plugins folder and enable it as [Network Plugin
 5. Piwik: Here you'll find your auth token.
 
 == Changelog ==
+
+= 1.0.15 =
+* Allow to modify the tracked user ID using the filter "wp-piwik_tracking_user_id"
+* Bugfix: Output of "post" shortcode was incorrectly placed, see https://wordpress.org/support/topic/post-shortcode-values-are-incorrectly-placed/
+* Bugfix: Usage of WP_PROXY_BYPASS_HOSTS, see https://wordpress.org/support/topic/bug-considering-wp_proxy_bypass_hosts-in-proxy-setups/
+* Bugfix: Proxy script did not work with cURL, see https://github.com/braekling/WP-Piwik/issues/48
+* Bugfix: RSS feed tracking did not use proxy URL
 
 = 1.0.14 =
 * Action "wp-piwik_site_created" was extended by a site ID parameter, so it will deliver the Piwik site ID of the created site
