@@ -9,7 +9,7 @@
 * Domain Path: /lang
 * License:     GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
-* Version:     2.7.0
+* Version:     2.7.1
 */
 
 /*
@@ -50,6 +50,7 @@ class Antispam_Bee {
 	private static $_base;
 	private static $_salt;
 	private static $_reason;
+	private static $_current_post_id;
 
 
 	/**
@@ -229,6 +230,14 @@ class Antispam_Bee {
 
 		// Frontend
 		} else {
+			add_action(
+				'wp',
+				array(
+					__CLASS__,
+					'populate_post_id'
+				)
+			);
+
 			add_action(
 				'template_redirect',
 				array(
@@ -1288,18 +1297,19 @@ class Antispam_Bee {
 			$init_time_field = '';
 		}
 
-		$output = '<textarea ' . $matches['before1'] . $matches['before2'] . $matches['before3'];
+		$output = '<textarea autocomplete="nope" ' . $matches['before1'] . $matches['before2'] . $matches['before3'];
 
 		$id_script = '';
 		if ( ! empty( $matches['id1'] ) || ! empty( $matches['id2'] ) ) {
-			$output .= 'id="' . self::get_secret_id_for_post( get_the_ID() ) . '" ';
-			$id_script = '<script type="text/javascript">document.getElementById("comment").setAttribute( "id", "' . esc_js( md5( time() ) ) . '" );document.getElementById("' . esc_js( self::get_secret_id_for_post( get_the_ID() ) ) . '").setAttribute( "id", "comment" );</script>';
+			$output .= 'id="' . self::get_secret_id_for_post( self::$_current_post_id ) . '" ';
+			$id_script = '<script type="text/javascript">document.getElementById("comment").setAttribute( "id", "' . esc_js( md5( time() ) ) . '" );document.getElementById("' . esc_js( self::get_secret_id_for_post( self::$_current_post_id ) ) . '").setAttribute( "id", "comment" );</script>';
 		}
 
-		$output .= ' name="' . esc_attr( self::get_secret_name_for_post( get_the_ID() ) ) . '" ';
+		$output .= ' name="' . esc_attr( self::get_secret_name_for_post( self::$_current_post_id ) ) . '" ';
 		$output .= $matches['between1'] . $matches['between2'] . $matches['between3'];
 		$output .= $matches['after'] . '>';
-		$output .= '</textarea><textarea id="comment" aria-hidden="true" name="comment" style="width:10px !important;position:absolute !important;left:-10000000px !important"></textarea>';
+		$output .= '</textarea><textarea id="comment" aria-hidden="true" name="comment" autocomplete="nope" style="clip:rect(1px, 1px, 1px, 1px);position:absolute !important;white-space:nowrap;height:1px;width:1px;overflow:hidden;" tabindex="-1"></textarea>';
+
 		$output .= $id_script;
 		$output .= $init_time_field;
 
@@ -2369,6 +2379,20 @@ class Antispam_Bee {
 		);
 	}
 
+	/**
+	 * Get the current post ID.
+	 *
+	 * @since   2.7.1
+	 *
+	 * @param   integer  $comment_id  Comment ID
+	 */
+	public static function populate_post_id() {
+
+		if ( null === self::$_current_post_id ) {
+			self::$_current_post_id = get_the_ID();
+		}
+	}
+
 
 	/**
 	*Send notification via e-mail
@@ -2601,7 +2625,7 @@ class Antispam_Bee {
 	 */
 	public static function get_secret_name_for_post( $post_id ) {
 
-		$secret = substr( sha1( md5( self::$_salt . get_the_title( (int) $post_id ) ) ), 0, 10 );
+		$secret = substr( sha1( md5( self::$_salt . (int) $post_id ) ), 0, 10 );
 
 		/**
 		 * Filters the secret for a post, which is used in the textarea name attribute.
@@ -2626,7 +2650,7 @@ class Antispam_Bee {
 	 */
 	public static function get_secret_id_for_post( $post_id ) {
 
-		$secret = substr( sha1( md5( 'comment-id' . self::$_salt . get_the_title( (int) $post_id ) ) ), 0, 10 );
+		$secret = substr( sha1( md5( 'comment-id' . self::$_salt . (int) $post_id ) ), 0, 10 );
 
 		/**
 		 * Filters the secret for a post, which is used in the textarea id attribute.

@@ -3,8 +3,8 @@
 * Tags:              anti-spam, antispam, block spam, comment, comments, comment spam, pingback, prevention, protect, protection, spam, spam filter, trackback
 * Donate link:       https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8CH5FPR88QYML
 * Requires at least: 3.8
-* Tested up to:      4.7.2
-* Stable tag:        2.7.0
+* Tested up to:      4.7
+* Stable tag:        2.7.1
 * License:           GPLv2 or later
 * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,14 @@ A complete documentation is available in the [GitHub repository Wiki](https://gi
 
 ## Changelog ##
 
+### 2.7.1 ###
+   * Fixes an incompatibility with Chrome autofill
+   * Fixes some incompatibilities with other plugins/themes where the comment field was left empty
+   * Support for RTL
+   * Solve some translation/language issues
+   * A new filter to add languages to the language check
+   * For more details see https://github.com/pluginkollektiv/antispam-bee/milestone/6?closed=1
+
 ### 2.7.0 ###
    * Country check is back again (thanks to Sergej Müller for his amazing work and the service page)
    * Improved Honeypot
@@ -151,6 +159,11 @@ A complete documentation is available in the [GitHub repository Wiki](https://gi
    * Spam reason as a column in the table with spam comments
 
 For the complete changelog, check out our [GitHub repository](https://github.com/pluginkollektiv/antispam-bee).
+
+== Upgrade Notice ==
+
+= 2.7.1 =
+This update changes the actual markup of your comment fields. Please make sure that you flush your caches after the plugin was updated!
 
 ## Screenshots ##
 1. Antispam Bee settings

@@ -83,7 +83,9 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 
 		// Translate API
 		if ( !empty($options['translate_lang']) ) {
-			if ( !preg_match('/^(de|en|fr|it|es)$/', $options['translate_lang']) ) {
+			$lang = self::get_allowed_translate_languages();
+			$lang = array_keys( $lang );
+			if ( ! in_array( $options['translate_lang'], $lang, true ) ) {
 				$options['translate_lang'] = '';
 			}
 		}
@@ -226,7 +228,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 										);
 									printf(
 										/* translators: 1: opening <a> tag with link to documentation. 2: closing </a> tag */
-										esc_html__( 'Check if commenter has a Gravatar image. Please note the %1$ssprivacy notice%2$s for this option.', 'antispam-bee' ),
+										esc_html__( 'Check if commenter has a Gravatar image. Please note the %1$sprivacy notice%2$s for this option.', 'antispam-bee' ),
 										$link1,
 										'</a>'
 									); ?></span>
@@ -279,7 +281,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 									<?php esc_html_e( 'Use a public antispam database', 'antispam-bee' ); ?>
 									<span><?php $link2 = sprintf(
 											'<a href="%s" target="_blank" rel="noopener noreferrer">',
-												esc_url( __( 'https://github.com/pluginkollektiv/antispam-bee/wiki/en-Documentation#trust-commenters-with-a-gravatar', 'antispam-bee' ),
+												esc_url( __( 'https://github.com/pluginkollektiv/antispam-bee/wiki/en-Documentation#use-a-public-antispam-database', 'antispam-bee' ),
 												       'https' )
 										);
 										printf(
@@ -346,7 +348,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 							<li>
 								<input type="checkbox" name="ab_translate_api" id="ab_translate_api" value="1" <?php checked($options['translate_api'], 1) ?> />
 								<label for="ab_translate_api">
-									<?php esc_html_e( 'Allow comments only in certain language', 'antispam_bee' ) ?>
+									<?php esc_html_e( 'Allow comments only in certain language', 'antispam-bee' ) ?>
 									<span><?php
 										$link1 = sprintf(
 											'<a href="%s" target="_blank" rel="noopener noreferrer">',
@@ -365,12 +367,14 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 								<ul>
 									<li>
 										<select name="ab_translate_lang">
-											<?php foreach( array('de' => 'German', 'en' => 'English', 'fr' => 'French', 'it' => 'Italian', 'es' => 'Spanish') as $k => $v ) { ?>
-												<option <?php selected($options['translate_lang'], $k); ?> value="<?php echo esc_attr($k) ?>"><?php esc_html_e($v, 'antispam_bee') ?></option>
+											<?php
+											$lang = self::get_allowed_translate_languages();
+											foreach( $lang as $k => $v ) { ?>
+												<option <?php selected( $options['translate_lang'], $k ); ?> value="<?php echo esc_attr( $k ); ?>"><?php echo esc_html( $v ); ?></option>
 											<?php } ?>
 										</select>
 										<label for="ab_translate_lang">
-											<?php esc_html_e('Language', 'antispam_bee') ?>
+											<?php esc_html_e('Language', 'antispam-bee') ?>
 										</label>
 									</li>
 								</ul>
@@ -528,4 +532,30 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 			</form>
 		</div>
 	<?php }
+
+	/**
+	 * Get the languages, which are selectable to restrict the comment language to.
+	 *
+	 * @since 2.7.1
+	 * @return array $lang
+	 */
+	private static function get_allowed_translate_languages() {
+
+		$lang = array(
+			'de' => __( 'German', 'antispam-bee' ),
+			'en' => __( 'English', 'antispam-bee' ),
+			'fr' => __( 'French', 'antispam-bee' ),
+			'it' => __( 'Italian', 'antispam-bee' ),
+			'es' => __( 'Spanish', 'antispam-bee' ),
+		);
+
+		/**
+		 * Filter the possible languages for the language spam test
+		 *
+		 * @since 2.7.1
+		 * @param (array) $lang The languages
+		 * @return (array)
+		 */
+		return apply_filters( 'ab_get_allowed_translate_languages', $lang );
+	}
 }
