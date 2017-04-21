@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Antispam Bee - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-04-20 09:55:56+0000\n"
+"PO-Revision-Date: 2017-04-20 19:05:02+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -33,7 +33,7 @@ msgstr "Deutsch"
 
 #: inc/gui.class.php:284
 msgid "https://github.com/pluginkollektiv/antispam-bee/wiki/en-Documentation#use-a-public-antispam-database"
-msgstr "https://github.com/pluginkollektiv/antispam-bee/wiki/en-Documentation#use-a-public-antispam-database"
+msgstr "https://github.com/pluginkollektiv/antispam-bee/wiki/de-Dokumentation#%C3%96ffentliche-spamdatenbank-ber%C3%BCcksichtigen"
 
 #: inc/gui.class.php:523
 msgid "Manual"

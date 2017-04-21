@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Akismet - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-02-23 17:31:00+0000\n"
+"PO-Revision-Date: 2017-03-09 16:12:54+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -72,6 +72,10 @@ msgstr "Hast du bereits einen Schlüssel? Gib ihn hier ein."
 #: views/start.php:67
 msgid "Sign up with a different email address"
 msgstr "Registriere dich mit einer anderen E-Mail-Adresse"
+
+#: views/start.php:69
+msgid "Choose this option to use Akismet independently of your Jetpack connection."
+msgstr "Verwende diese Option, um Akismet unabhängig von deiner Jetpack Verbindung zu nutzen."
 
 #: views/notice.php:79
 msgid "You don&#8217;t have an Akismet plan."

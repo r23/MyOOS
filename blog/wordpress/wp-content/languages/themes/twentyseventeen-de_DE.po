@@ -211,10 +211,10 @@ msgstr "Suchergebnisse für: %s"
 #. translators: %s: Name of current post
 #: functions.php:362 template-parts/page/content-front-page-panels.php:43
 #: template-parts/page/content-front-page.php:44
-#: template-parts/post/content-audio.php:80
-#: template-parts/post/content-gallery.php:66
-#: template-parts/post/content-image.php:56
-#: template-parts/post/content-video.php:78 template-parts/post/content.php:54
+#: template-parts/post/content-audio.php:82
+#: template-parts/post/content-gallery.php:68
+#: template-parts/post/content-image.php:58
+#: template-parts/post/content-video.php:80 template-parts/post/content.php:56
 msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr "<span class=\"screen-reader-text\">\"%s\"</span> weiterlesen"
 
@@ -232,10 +232,10 @@ msgid "Edit<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr "<span class=\"screen-reader-text\">&#8222;%s&#8220;</span> bearbeiten"
 
 #: template-parts/page/content-page.php:25
-#: template-parts/post/content-audio.php:85
-#: template-parts/post/content-gallery.php:71
-#: template-parts/post/content-image.php:61
-#: template-parts/post/content-video.php:83 template-parts/post/content.php:59
+#: template-parts/post/content-audio.php:87
+#: template-parts/post/content-gallery.php:73
+#: template-parts/post/content-image.php:63
+#: template-parts/post/content-video.php:85 template-parts/post/content.php:61
 msgid "Pages:"
 msgstr "Seiten:"
 
@@ -271,7 +271,7 @@ msgstr "Social-Links-Menü"
 msgid "Proudly powered by %s"
 msgstr "Stolz präsentiert von %s"
 
-#. #-#-#-#-#  twentyseventeen.pot (Twenty Seventeen 1.1)  #-#-#-#-#
+#. #-#-#-#-#  twentyseventeen.pot (Twenty Seventeen 1.2)  #-#-#-#-#
 #. Author URI of the plugin/theme
 #: template-parts/footer/site-info.php:13
 msgid "https://wordpress.org/"
