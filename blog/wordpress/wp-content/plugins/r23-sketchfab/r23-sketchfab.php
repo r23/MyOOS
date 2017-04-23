@@ -1,13 +1,13 @@
 <?php
 /*
 	Plugin Name: R23 Sketchfab Plugin
-	Version: 1.0.0.
+	Version: 1.0.1.
 	Plugin URI: https://blog.r23.de/wordpress/wordpress-plugins/
 	Description: Display Sketchfab models to wordpress.
 	Author: r23 Team.
 	Author URI: https://blog.r23.de/
 	Text Domain: sketchfab-plugin
-	Domain Path: languages/
+	Domain Path: /languages
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
@@ -39,7 +39,8 @@ if ( !defined( 'ABSPATH' ) ){
 
 /* Konstanten */
 define('R23_SKETCHFAB_DIR', dirname(__FILE__));
-define('R23_SKETCHFAB_PLUGIN_DOMAIN', 'sketchfab');
+define('R23_SKETCHFAB_TEXTDOMAIN', 'sketchfab-plugin');
+define('R23_SKETCHFAB_L10N_DIR', dirname(plugin_basename( __FILE__ )) . '/languages/');
 
 if ( ! class_exists( 'R23_panel_shortcode', false ) ) {
 
@@ -162,13 +163,17 @@ if ( ! class_exists( 'R23_panel_shortcode', false ) ) {
 
 // Load translations
 function sketchfab_load_plugin_textdomain() {
-	load_plugin_textdomain( R23_SKETCHFAB_PLUGIN_DOMAIN, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	$locale = apply_filters( 'plugin_locale', get_locale(), R23_SKETCHFAB_TEXTDOMAIN );
+	// wp-content/languages/plugin-name/plugin-name-de_DE.mo
+	load_textdomain( R23_SKETCHFAB_TEXTDOMAIN, trailingslashit( WP_LANG_DIR ) . R23_SKETCHFAB_TEXTDOMAIN . '/' . R23_SKETCHFAB_TEXTDOMAIN . '-' . $locale . '.mo' );
+	// wp-content/plugins/plugin-name/languages/plugin-name-de_DE.mo
+	load_plugin_textdomain( R23_SKETCHFAB_TEXTDOMAIN, false, R23_SKETCHFAB_L10N_DIR );
 }
-add_action( 'init', 'sketchfab_load_plugin_textdomain' );  
-  
-  
-
-
+add_action( 'init', 'sketchfab_load_plugin_textdomain' ); 
+	
+	
+	
+	
 // Add settings menu to Wordpress
 if ( is_admin() ){ // admin actions
 	add_action( 'admin_menu', 'sketchfab_create_menu' );
@@ -178,7 +183,7 @@ if ( is_admin() ){ // admin actions
 
 function sketchfab_create_menu() {
 	  
-	$plugin_menu_title = __('Sketchfab Plugin Settings', R23_SKETCHFAB_PLUGIN_DOMAIN);
+	$plugin_menu_title = __('Sketchfab Plugin Settings', R23_SKETCHFAB_TEXTDOMAIN);
 	// Create top-level menu
 	add_menu_page($plugin_menu_title, 'Sketchfab', 'administrator',
       __FILE__, 'sketchfab_settings_page', plugins_url('/images/sketchfab-menu-icon.png', __FILE__));
@@ -199,31 +204,31 @@ function register_settings() { // whitelist options
 function sketchfab_settings_page() {
 ?>
   <div class="wrap">
-  <h2>R23 Sketchfab Plugin</h2>
+  <h2><?php echo __('R23 Sketchfab Plugin', R23_SKETCHFAB_TEXTDOMAIN); ?></h2>
 
   <form method="post" action="options.php">
     <?php settings_fields( 'settings-group' ); ?>
     
-    <h3>Default settings</h3>
+    <h3><?php echo __('Default settings', R23_SKETCHFAB_TEXTDOMAIN); ?></h3>
     <table class="form-table">
       <tr valign="top">
-        <th scope="row">Width</th>
+        <th scope="row"><?php echo __('Width', R23_SKETCHFAB_TEXTDOMAIN); ?></th>
         <td><input type="text" name="sketchfab-width" value="<?php echo get_option('sketchfab-width'); ?>" /> px</td>
       </tr>
       <tr valign="top">
-        <th scope="row">Height</th>
+        <th scope="row"><?php echo __('Height', R23_SKETCHFAB_TEXTDOMAIN); ?></th>
         <td><input type="text" name="sketchfab-height" value="<?php echo get_option('sketchfab-height'); ?>" /> px</td>
       </tr>
       <tr valign="top">
-        <th scope="row">Autospin</th>
+        <th scope="row"><?php echo __('Autospin', R23_SKETCHFAB_TEXTDOMAIN); ?></th>
         <td><input type="text" name="sketchfab-autospin" value="<?php echo get_option('sketchfab-autospin'); ?>" /></td>
       </tr>
       <tr valign="top">
-        <th scope="row">Autostart</th>
+        <th scope="row"><?php echo __('Autostart', R23_SKETCHFAB_TEXTDOMAIN); ?></th>
         <td><input type="checkbox" name="sketchfab-autostart" value="1" <?php checked(get_option('sketchfab-autostart'), 1); ?>/></td>
       </tr>
       <tr valign="top">
-        <th scope="row">Preload</th>
+        <th scope="row"><?php echo __('Preload', R23_SKETCHFAB_TEXTDOMAIN); ?></th>
         <td><input type="checkbox" name="sketchfab-preload" value="1" <?php checked(get_option('sketchfab-preload'), 1); ?>/></td>
       </tr>
 
