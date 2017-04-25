@@ -101,7 +101,7 @@ if ( ! class_exists( 'R23_panel_shortcode', false ) ) {
 */			
 			$output = '<!-- / R23 Sketchfab Plugin https://blog.r23.de/wordpress/wordpress-plugins/ -->';
 			$output .= '<div class="sketchfab-embed-wrapper">';
-			$output .= '<iframe width="' . $height . '" height="' . $width .'" ';
+			$output .= '<iframe width="' . $width . '" height="' . $height .'" ';
 			$output .= 'src="https://sketchfab.com/models/'.$id.'/embed?';
 			$output .= 'autospin='.$spin.'&amp;autostart='.$start.'&amp;preload='.$preload.'" ';
 			$output .= 'frameborder="0" allowvr allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" onmousewheel=""></iframe>';	
