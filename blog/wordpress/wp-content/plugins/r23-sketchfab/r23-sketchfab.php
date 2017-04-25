@@ -1,7 +1,7 @@
 <?php
 /*
 	Plugin Name: R23 Sketchfab Plugin
-	Version: 1.0.1.
+	Version: 1.0.2.
 	Plugin URI: https://blog.r23.de/wordpress/wordpress-plugins/
 	Description: Display Sketchfab models to wordpress.
 	Author: r23 Team.

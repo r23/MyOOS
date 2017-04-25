@@ -3,7 +3,7 @@
 		
 		init : function(ed, url){
 			ed.addButton('sketchfab', {
-				title : 'X3DOM 3D models Viewers',
+				title : 'R23 Sketchfab',
 				onclick : function() {
 					var ed = tinyMCE.activeEditor;
 					ed.focus();
