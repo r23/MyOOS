@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitfcd4149ae779ace07774f6f7392b5843
+class ComposerStaticInit277da096d3c04f10ee45ce79227db81d
 {
     public static $files = array (
         '995b589e693a50f54393aa31ee1c3763' => __DIR__ . '/..' . '/yoast/whip/src/facades/wordpress.php',
@@ -319,8 +319,8 @@ class ComposerStaticInitfcd4149ae779ace07774f6f7392b5843
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixesPsr0 = ComposerStaticInitfcd4149ae779ace07774f6f7392b5843::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitfcd4149ae779ace07774f6f7392b5843::$classMap;
+            $loader->prefixesPsr0 = ComposerStaticInit277da096d3c04f10ee45ce79227db81d::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit277da096d3c04f10ee45ce79227db81d::$classMap;
 
         }, null, ClassLoader::class);
     }
