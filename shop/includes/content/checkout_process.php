@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -350,10 +350,10 @@ if (!isset($_SESSION['customer_id'])) {
   $email_order .= "\n" . $aLang['email_text_billing_address'] . "\n" .
                   $aLang['email_separator'] . "\n" .
                   oos_address_label($_SESSION['customer_id'], $_SESSION['billto'], 0, '', "\n") . "\n\n";
-  if (is_object($$_SESSION['payment'])) {
+  if (is_object(${$_SESSION['payment']})) {
     $email_order .= $aLang['email_text_payment_method'] . "\n" .
                     $aLang['email_separator'] . "\n";
-    $payment_class = $$_SESSION['payment'];
+    $payment_class = ${$_SESSION['payment']};
     $email_order .= $payment_class->title . "\n\n";
     if ($payment_class->email_footer) { 
       $email_order .= $payment_class->email_footer . "\n\n";
