@@ -166,6 +166,11 @@ class Jetpack_Subscriptions {
 			return false;
 		}
 
+		// Only posts are currently supported
+		if ( $post->post_type !== 'post' ) {
+			return false;
+		}
+
 		/**
 		 * Array of categories that will never trigger subscription emails.
 		 *
@@ -201,7 +206,6 @@ class Jetpack_Subscriptions {
 		if ( ! empty( $only_these_categories ) && ! in_category( $only_these_categories, $post->ID ) ) {
 			$should_email = false;
 		}
-
 
 		return $should_email;
 	}
@@ -1043,8 +1047,16 @@ add_shortcode( 'jetpack_subscription_form', 'jetpack_do_subscription_form' );
 add_shortcode( 'blog_subscription_form', 'jetpack_do_subscription_form' );
 
 function jetpack_do_subscription_form( $instance ) {
+	if ( empty( $instance ) || ! is_array( $instance ) ) {
+		$instance = array();
+	}
 	$instance['show_subscribers_total'] = empty( $instance['show_subscribers_total'] ) ? false : true;
-	$instance = shortcode_atts( Jetpack_Subscriptions_Widget::defaults(), $instance, 'jetpack_subscription_form' );
+
+	$instance = shortcode_atts(
+		Jetpack_Subscriptions_Widget::defaults(),
+		$instance,
+		'jetpack_subscription_form'
+	);
 	$args = array(
 		'before_widget' => sprintf( '<div class="%s">', 'jetpack_subscription_widget' ),
 	);
