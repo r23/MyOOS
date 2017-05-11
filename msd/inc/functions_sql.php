@@ -233,7 +233,6 @@ function DB_Copy($source, $destination, $drop_source=0, $insert_data=1)
 	{
 
 		$table=strtolower($row[0]);
-		$table.='xxxxxxxxxxxxxxxxralf';
 		$sqlt="SHOW CREATE TABLE `$source`.`$table`";
 		$res=MSD_query($sqlt);
 		if ($res)
