@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit72bebfa167725527c1784dc38cee7ea2
+class ComposerStaticInitdd9431b6396746796a720a01446968a5
 {
     public static $files = array (
         '04c6c5c2f7095ccf6c481d3e53e1776f' => __DIR__ . '/..' . '/mustangostang/spyc/Spyc.php',
@@ -1036,6 +1036,7 @@ class ComposerStaticInit72bebfa167725527c1784dc38cee7ea2
         'Piwik\\Plugins\\CoreHome\\DataTableRowAction\\RowEvolution' => __DIR__ . '/../..' . '/plugins/CoreHome/DataTableRowAction/RowEvolution.php',
         'Piwik\\Plugins\\CoreHome\\Menu' => __DIR__ . '/../..' . '/plugins/CoreHome/Menu.php',
         'Piwik\\Plugins\\CoreHome\\Segment' => __DIR__ . '/../..' . '/plugins/CoreHome/Segment.php',
+        'Piwik\\Plugins\\CoreHome\\SystemSummary\\Item' => __DIR__ . '/../..' . '/plugins/CoreHome/SystemSummary/Item.php',
         'Piwik\\Plugins\\CoreHome\\Tracker\\LogTable\\Action' => __DIR__ . '/../..' . '/plugins/CoreHome/Tracker/LogTable/Action.php',
         'Piwik\\Plugins\\CoreHome\\Tracker\\LogTable\\Conversion' => __DIR__ . '/../..' . '/plugins/CoreHome/Tracker/LogTable/Conversion.php',
         'Piwik\\Plugins\\CoreHome\\Tracker\\LogTable\\ConversionItem' => __DIR__ . '/../..' . '/plugins/CoreHome/Tracker/LogTable/ConversionItem.php',
@@ -1724,7 +1725,6 @@ class ComposerStaticInit72bebfa167725527c1784dc38cee7ea2
         'Piwik\\Plugins\\SEO\\Metric\\Aggregator' => __DIR__ . '/../..' . '/plugins/SEO/Metric/Aggregator.php',
         'Piwik\\Plugins\\SEO\\Metric\\Alexa' => __DIR__ . '/../..' . '/plugins/SEO/Metric/Alexa.php',
         'Piwik\\Plugins\\SEO\\Metric\\Bing' => __DIR__ . '/../..' . '/plugins/SEO/Metric/Bing.php',
-        'Piwik\\Plugins\\SEO\\Metric\\Dmoz' => __DIR__ . '/../..' . '/plugins/SEO/Metric/Dmoz.php',
         'Piwik\\Plugins\\SEO\\Metric\\DomainAge' => __DIR__ . '/../..' . '/plugins/SEO/Metric/DomainAge.php',
         'Piwik\\Plugins\\SEO\\Metric\\Google' => __DIR__ . '/../..' . '/plugins/SEO/Metric/Google.php',
         'Piwik\\Plugins\\SEO\\Metric\\Metric' => __DIR__ . '/../..' . '/plugins/SEO/Metric/Metric.php',
@@ -2742,11 +2742,11 @@ class ComposerStaticInit72bebfa167725527c1784dc38cee7ea2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit72bebfa167725527c1784dc38cee7ea2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit72bebfa167725527c1784dc38cee7ea2::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit72bebfa167725527c1784dc38cee7ea2::$prefixesPsr0;
-            $loader->fallbackDirsPsr0 = ComposerStaticInit72bebfa167725527c1784dc38cee7ea2::$fallbackDirsPsr0;
-            $loader->classMap = ComposerStaticInit72bebfa167725527c1784dc38cee7ea2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitdd9431b6396746796a720a01446968a5::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitdd9431b6396746796a720a01446968a5::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitdd9431b6396746796a720a01446968a5::$prefixesPsr0;
+            $loader->fallbackDirsPsr0 = ComposerStaticInitdd9431b6396746796a720a01446968a5::$fallbackDirsPsr0;
+            $loader->classMap = ComposerStaticInitdd9431b6396746796a720a01446968a5::$classMap;
 
         }, null, ClassLoader::class);
     }
