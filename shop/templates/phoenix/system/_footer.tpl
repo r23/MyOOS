@@ -94,8 +94,9 @@
 
 <!-- HTML5 shim and Respond.js IE support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
-    <script src="js/plugin/respond.js"></script>
-    <script src="js/plugin/html5shiv.js"></script>
+	<script src="{$theme}/crossbrowserjs/html5shiv.js"></script>
+	<script src="{$theme}/crossbrowserjs/respond.min.js"></script>
+	<script src="{$theme}/crossbrowserjs/excanvas.min.js"></script>
 <![endif]-->
 
 </body>
