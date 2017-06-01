@@ -43,7 +43,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>51098719-6de7-478d-977a-df647b7497fb</ProjectGuid>
+    <ProjectGuid>40c42e9a-a0d2-4747-831c-a45c3d6230a8</ProjectGuid>
   </PropertyGroup>
   <ItemGroup>
     <ProjectCapability Include="UseFileGlobs" />
