@@ -323,8 +323,6 @@ class WPCF7_ConfigValidator {
 				$fields_count = 0;
 
 				foreach ( $tags as $tag ) {
-					$tag = new WPCF7_FormTag( $tag );
-
 					$is_multiple_controls_container = wpcf7_form_tag_supports(
 						$tag->type, 'multiple-controls-container' );
 

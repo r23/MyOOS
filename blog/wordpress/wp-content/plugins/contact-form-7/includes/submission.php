@@ -71,7 +71,8 @@ class WPCF7_Submission {
 
 	private function setup_posted_data() {
 		$posted_data = (array) $_POST;
-		$posted_data = array_diff_key( $posted_data, array( '_wpnonce' => '' ) );
+		$posted_data = array_diff_key(
+			$posted_data, array( '_wpcf7_nonce' => '' ) );
 		$posted_data = $this->sanitize_posted_data( $posted_data );
 
 		$tags = $this->contact_form->scan_form_tags();
@@ -134,11 +135,12 @@ class WPCF7_Submission {
 			'remote_ip' => $this->get_remote_ip_addr(),
 			'user_agent' => isset( $_SERVER['HTTP_USER_AGENT'] )
 				? substr( $_SERVER['HTTP_USER_AGENT'], 0, 254 ) : '',
-			'url' => preg_replace( '%(?<!:|/)/.*$%', '',
-				untrailingslashit( home_url() ) ) . wpcf7_get_request_uri(),
+			'url' => $this->get_request_url(),
 			'timestamp' => current_time( 'timestamp' ),
 			'unit_tag' =>
 				isset( $_POST['_wpcf7_unit_tag'] ) ? $_POST['_wpcf7_unit_tag'] : '',
+			'container_post_id' => isset( $_POST['_wpcf7_container_post'] )
+				? (int) $_POST['_wpcf7_container_post'] : 0,
 		);
 
 		$contact_form = $this->contact_form;
@@ -180,6 +182,25 @@ class WPCF7_Submission {
 		}
 
 		return '';
+	}
+
+	private function get_request_url() {
+		$home_url = untrailingslashit( home_url() );
+
+		if ( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] )
+		&& 'XMLHttpRequest' == $_SERVER['HTTP_X_REQUESTED_WITH'] ) {
+			$referer = isset( $_SERVER['HTTP_REFERER'] )
+				? trim( $_SERVER['HTTP_REFERER'] ) : '';
+
+			if ( $referer && 0 === strpos( $referer, $home_url ) ) {
+				return esc_url_raw( $referer );
+			}
+		}
+
+		$url = preg_replace( '%(?<!:|/)/.*$%', '', $home_url )
+			. wpcf7_get_request_uri();
+
+		return $url;
 	}
 
 	private function validate() {
@@ -229,7 +250,8 @@ class WPCF7_Submission {
 	}
 
 	private function verify_nonce() {
-		return wpcf7_verify_nonce( $_POST['_wpnonce'], $this->contact_form->id() );
+		return wpcf7_verify_nonce(
+			$_POST['_wpcf7_nonce'], $this->contact_form->id() );
 	}
 
 	private function blacklist_check() {

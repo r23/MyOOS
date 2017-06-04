@@ -1,34 +1,31 @@
 <?php
 /*
 Plugin Name: Really Simple CAPTCHA
-Plugin URI: http://contactform7.com/captcha/
+Plugin URI: https://contactform7.com/captcha/
 Description: Really Simple CAPTCHA is a CAPTCHA module intended to be called from other plugins. It is originally created for my Contact Form 7 plugin.
 Author: Takayuki Miyoshi
-Author URI: http://ideasilo.wordpress.com/
+Author URI: https://ideasilo.wordpress.com/
 Text Domain: really-simple-captcha
-Version: 1.9
+Version: 2.0
 */
 
-/*  Copyright 2007-2016 Takayuki Miyoshi (email: takayukister at gmail.com)
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
-
-define( 'REALLYSIMPLECAPTCHA_VERSION', '1.9' );
+define( 'REALLYSIMPLECAPTCHA_VERSION', '2.0' );
 
 class ReallySimpleCaptcha {
+
+	public $chars;
+	public $char_length;
+	public $fonts;
+	public $tmp_dir;
+	public $img_size;
+	public $bg;
+	public $fg;
+	public $base;
+	public $font_size;
+	public $font_char_width;
+	public $img_type;
+	public $file_mode;
+	public $answer_file_mode;
 
 	public function __construct() {
 		/* Characters available in images */
@@ -42,7 +39,8 @@ class ReallySimpleCaptcha {
 			dirname( __FILE__ ) . '/gentium/GenBkBasR.ttf',
 			dirname( __FILE__ ) . '/gentium/GenBkBasI.ttf',
 			dirname( __FILE__ ) . '/gentium/GenBkBasBI.ttf',
-			dirname( __FILE__ ) . '/gentium/GenBkBasB.ttf' );
+			dirname( __FILE__ ) . '/gentium/GenBkBasB.ttf',
+		);
 
 		/* Directory temporary keeping CAPTCHA images and corresponding text files */
 		$this->tmp_dir = path_join( dirname( __FILE__ ), 'tmp' );
@@ -145,7 +143,7 @@ class ReallySimpleCaptcha {
 			}
 
 			imagedestroy( $im );
-			@chmod( $file, $this->file_mode );
+			chmod( $file, $this->file_mode );
 		}
 
 		$this->generate_answer_file( $prefix, $word );
@@ -164,18 +162,16 @@ class ReallySimpleCaptcha {
 		$answer_file = $dir . sanitize_file_name( $prefix . '.txt' );
 		$answer_file = $this->normalize_path( $answer_file );
 
-		if ( $fh = @fopen( $answer_file, 'w' ) ) {
+		if ( $fh = fopen( $answer_file, 'w' ) ) {
 			$word = strtoupper( $word );
 			$salt = wp_generate_password( 64 );
 			$hash = hash_hmac( 'md5', $word, $salt );
-
 			$code = $salt . '|' . $hash;
-
 			fwrite( $fh, $code );
 			fclose( $fh );
 		}
 
-		@chmod( $answer_file, $this->answer_file_mode );
+		chmod( $answer_file, $this->answer_file_mode );
 	}
 
 	/**
@@ -197,9 +193,8 @@ class ReallySimpleCaptcha {
 		$filename = sanitize_file_name( $prefix . '.txt' );
 		$file = $this->normalize_path( $dir . $filename );
 
-		if ( @is_readable( $file ) && ( $code = file_get_contents( $file ) ) ) {
+		if ( is_readable( $file ) && ( $code = file_get_contents( $file ) ) ) {
 			$code = explode( '|', $code, 2 );
-
 			$salt = $code[0];
 			$hash = $code[1];
 
@@ -224,8 +219,8 @@ class ReallySimpleCaptcha {
 			$filename = sanitize_file_name( $prefix . $suffix );
 			$file = $this->normalize_path( $dir . $filename );
 
-			if ( @is_file( $file ) ) {
-				@unlink( $file );
+			if ( is_file( $file ) ) {
+				unlink( $file );
 			}
 		}
 	}
@@ -240,31 +235,31 @@ class ReallySimpleCaptcha {
 		$dir = trailingslashit( $this->tmp_dir );
 		$dir = $this->normalize_path( $dir );
 
-		if ( ! @is_dir( $dir ) || ! @is_readable( $dir ) ) {
+		if ( ! is_dir( $dir ) || ! is_readable( $dir ) ) {
 			return false;
 		}
 
 		$is_win = ( 'WIN' === strtoupper( substr( PHP_OS, 0, 3 ) ) );
 
-		if ( ! ( $is_win ? win_is_writable( $dir ) : @is_writable( $dir ) ) ) {
+		if ( ! ( $is_win ? win_is_writable( $dir ) : is_writable( $dir ) ) ) {
 			return false;
 		}
 
 		$count = 0;
 
-		if ( $handle = @opendir( $dir ) ) {
+		if ( $handle = opendir( $dir ) ) {
 			while ( false !== ( $filename = readdir( $handle ) ) ) {
 				if ( ! preg_match( '/^[0-9]+\.(php|txt|png|gif|jpeg)$/', $filename ) ) {
 					continue;
 				}
 
 				$file = $this->normalize_path( $dir . $filename );
+				$stat = stat( $file );
 
-				$stat = @stat( $file );
 				if ( ( $stat['mtime'] + $minutes * 60 ) < time() ) {
-					if ( ! @unlink( $file ) ) {
-						@chmod( $file, 0644 );
-						@unlink( $file );
+					if ( ! unlink( $file ) ) {
+						chmod( $file, 0644 );
+						unlink( $file );
 					}
 
 					$count += 1;
@@ -300,7 +295,7 @@ class ReallySimpleCaptcha {
 			return true;
 		}
 
-		if ( $handle = @fopen( $htaccess_file, 'w' ) ) {
+		if ( $handle = fopen( $htaccess_file, 'w' ) ) {
 			fwrite( $handle, 'Order deny,allow' . "\n" );
 			fwrite( $handle, 'Deny from all' . "\n" );
 			fwrite( $handle, '<Files ~ "^[0-9A-Za-z]+\\.(jpeg|gif|png)$">' . "\n" );

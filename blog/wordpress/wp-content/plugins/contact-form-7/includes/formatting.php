@@ -14,7 +14,12 @@ function wpcf7_autop( $pee, $br = 1 ) {
 	$pee = preg_replace( '!(</' . $allblocks . '>)!', "$1\n\n", $pee );
 
 	/* wpcf7: take care of [response], [recaptcha], and [hidden] tags */
-	$block_hidden_form_tags = '(?:response|recaptcha|hidden)';
+	$form_tags_manager = WPCF7_FormTagsManager::get_instance();
+	$block_hidden_form_tags = $form_tags_manager->collect_tag_types(
+		array( 'display-block', 'display-hidden' ) );
+	$block_hidden_form_tags = sprintf( '(?:%s)',
+		implode( '|', $block_hidden_form_tags ) );
+
 	$pee = preg_replace( '!(\[' . $block_hidden_form_tags . '[^]]*\])!',
 		"\n$1\n\n", $pee );
 

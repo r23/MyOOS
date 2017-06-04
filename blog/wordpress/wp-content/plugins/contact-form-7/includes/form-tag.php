@@ -1,6 +1,6 @@
 <?php
 
-class WPCF7_FormTag {
+class WPCF7_FormTag implements ArrayAccess {
 
 	public $type;
 	public $basetype;
@@ -13,10 +13,12 @@ class WPCF7_FormTag {
 	public $attr = '';
 	public $content = '';
 
-	public function __construct( $tag ) {
-		foreach ( $tag as $key => $value ) {
-			if ( property_exists( __CLASS__, $key ) ) {
-				$this->{$key} = $value;
+	public function __construct( $tag = array() ) {
+		if ( is_array( $tag ) || $tag instanceof self ) {
+			foreach ( $tag as $key => $value ) {
+				if ( property_exists( __CLASS__, $key ) ) {
+					$this->{$key} = $value;
+				}
 			}
 		}
 	}
@@ -318,5 +320,26 @@ class WPCF7_FormTag {
 		}
 
 		return $result;
+	}
+
+	public function offsetSet( $offset, $value ) {
+		if ( property_exists( __CLASS__, $offset ) ) {
+			$this->{$offset} = $value;
+		}
+	}
+
+	public function offsetGet( $offset ) {
+		if ( property_exists( __CLASS__, $offset ) ) {
+			return $this->{$offset};
+		}
+
+		return null;
+	}
+
+	public function offsetExists( $offset ) {
+		return property_exists( __CLASS__, $offset );
+	}
+
+	public function offsetUnset( $offset ) {
 	}
 }

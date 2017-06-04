@@ -2,11 +2,11 @@
 Contributors: takayukister
 Donate link: https://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
-Requires at least: 4.6
-Tested up to: 4.7.2
-Stable tag: 4.7
+Requires at least: 4.7
+Tested up to: 4.8
+Stable tag: 4.8
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Just another contact form plugin. Simple but flexible.
 
@@ -62,6 +62,16 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 
 For more information, see [Releases](https://contactform7.com/category/releases/).
 
+= 4.8 =
+
+* Stopped using jquery.form.js.
+* Added custom REST API endpoints for Ajax form submissions.
+* WPCF7_FormTag class implements ArrayAccess interface.
+* WPCF7_FormTagsManager::filter() filters form-tags based on features they support.
+* New form-tag features: do-not-store, display-block, and display-hidden
+* Removed inappropriate content from h1 headings.
+* Added the support of size:invisible option to the reCAPTCHA form-tag.
+
 = 4.7 =
 
 * Added REST API custom endpoints to manipulate contact form data.
@@ -70,20 +80,3 @@ For more information, see [Releases](https://contactform7.com/category/releases/
 * New action hook: `wpcf7_after_flamingo`.
 * Added `size` option to `select` and `select*` form-tag types.
 * Made it possible to use the 3rd parameter of `wpcf7_add_form_tag()` to specify "features" of the form-tag type.
-
-= 4.6.1 =
-
-* Fixed: "0" input could pass the `minlength` validation.
-* Fixed: `exclude_blank` option was applied to all mail fields, not only to the message body.
-* Fixed: `wpcf7_autop()` incorrectly inserted `<br />` around hidden and block-type form-tags.
-* Fixed: Applying `strtolower()` to uploaded file names was unnecessary and could cause troubles in a non-English environment.
-
-= 4.6 =
-
-* Ajax loader: HTML markup changed to `<span>` to be easily customizable with CSS.
-* Appends a proper header and footer to HTML mail content automatically.
-* `[_serial_number]` special mail-tag.
-* New form-tag type for hidden fields.
-* `default:shortcode_attr` form-tag option.
-* `WPCF7_Shortcode`, `WPCF7_ShortcodeManager`, `wpcf7_add_shortcode()`, `wpcf7_scan_shortcode()`, and some other classes and functions have become deprecated.
-* Removed all language files from the _languages_ folder. Translations have moved to [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/contact-form-7).

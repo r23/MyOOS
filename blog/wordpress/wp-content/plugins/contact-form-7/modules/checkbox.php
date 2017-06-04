@@ -9,15 +9,16 @@ add_action( 'wpcf7_init', 'wpcf7_add_form_tag_checkbox' );
 
 function wpcf7_add_form_tag_checkbox() {
 	wpcf7_add_form_tag( array( 'checkbox', 'checkbox*', 'radio' ),
-		'wpcf7_checkbox_form_tag_handler', array(
+		'wpcf7_checkbox_form_tag_handler',
+		array(
 			'name-attr' => true,
 			'selectable-values' => true,
-		 	'multiple-controls-container' => true ) );
+			'multiple-controls-container' => true,
+		)
+	);
 }
 
 function wpcf7_checkbox_form_tag_handler( $tag ) {
-	$tag = new WPCF7_FormTag( $tag );
-
 	if ( empty( $tag->name ) ) {
 		return '';
 	}
@@ -114,17 +115,19 @@ function wpcf7_checkbox_form_tag_handler( $tag ) {
 			$checked = in_array( $key + 1, (array) $defaults );
 		}
 
-		if ( isset( $labels[$key] ) )
+		if ( isset( $labels[$key] ) ) {
 			$label = $labels[$key];
-		else
+		} else {
 			$label = $value;
+		}
 
 		$item_atts = array(
 			'type' => $tag->basetype,
 			'name' => $tag->name . ( $multiple ? '[]' : '' ),
 			'value' => $value,
 			'checked' => $checked ? 'checked' : '',
-			'tabindex' => $tabindex ? $tabindex : '' );
+			'tabindex' => $tabindex ? $tabindex : '',
+		);
 
 		$item_atts = wpcf7_format_atts( $item_atts );
 
@@ -138,11 +141,13 @@ function wpcf7_checkbox_form_tag_handler( $tag ) {
 				esc_html( $label ), $item_atts );
 		}
 
-		if ( $use_label_element )
+		if ( $use_label_element ) {
 			$item = '<label>' . $item . '</label>';
+		}
 
-		if ( false !== $tabindex )
+		if ( false !== $tabindex ) {
 			$tabindex += 1;
+		}
 
 		$count += 1;
 
@@ -160,7 +165,8 @@ function wpcf7_checkbox_form_tag_handler( $tag ) {
 				$free_text_atts = array(
 					'name' => $free_text_name,
 					'class' => 'wpcf7-free-text',
-					'tabindex' => $tabindex ? $tabindex : '' );
+					'tabindex' => $tabindex ? $tabindex : '',
+				);
 
 				if ( wpcf7_is_posted() && isset( $_POST[$free_text_name] ) ) {
 					$free_text_atts['value'] = wp_unslash(
@@ -196,8 +202,6 @@ add_filter( 'wpcf7_validate_checkbox*', 'wpcf7_checkbox_validation_filter', 10, 
 add_filter( 'wpcf7_validate_radio', 'wpcf7_checkbox_validation_filter', 10, 2 );
 
 function wpcf7_checkbox_validation_filter( $result, $tag ) {
-	$tag = new WPCF7_FormTag( $tag );
-
 	$type = $tag->type;
 	$name = $tag->name;
 
@@ -224,8 +228,6 @@ function wpcf7_checkbox_posted_data( $posted_data ) {
 	}
 
 	foreach ( $tags as $tag ) {
-		$tag = new WPCF7_FormTag( $tag );
-
 		if ( ! isset( $posted_data[$tag->name] ) ) {
 			continue;
 		}

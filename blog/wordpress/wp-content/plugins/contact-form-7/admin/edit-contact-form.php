@@ -31,17 +31,23 @@ function wpcf7_admin_save_button( $post_id ) {
 
 ?><div class="wrap">
 
-<h1><?php
+<h1 class="wp-heading-inline"><?php
 	if ( $post->initial() ) {
 		echo esc_html( __( 'Add New Contact Form', 'contact-form-7' ) );
 	} else {
 		echo esc_html( __( 'Edit Contact Form', 'contact-form-7' ) );
-
-		if ( current_user_can( 'wpcf7_edit_contact_forms' ) ) {
-			echo ' <a href="' . esc_url( menu_page_url( 'wpcf7-new', false ) ) . '" class="add-new-h2">' . esc_html( __( 'Add New', 'contact-form-7' ) ) . '</a>';
-		}
 	}
 ?></h1>
+
+<?php
+	if ( ! $post->initial() && current_user_can( 'wpcf7_edit_contact_forms' ) ) {
+		echo sprintf( '<a href="%1$s" class="add-new-h2">%2$s</a>',
+			esc_url( menu_page_url( 'wpcf7-new', false ) ),
+			esc_html( __( 'Add New', 'contact-form-7' ) ) );
+	}
+?>
+
+<hr class="wp-header-end">
 
 <?php do_action( 'wpcf7_admin_warnings' ); ?>
 <?php do_action( 'wpcf7_admin_notices' ); ?>

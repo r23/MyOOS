@@ -399,38 +399,33 @@ function wpcf7_special_mail_tag( $output, $name, $html ) {
 	}
 
 	if ( '_post_' == substr( $name, 0, 6 ) ) {
-		$unit_tag = $submission->get_meta( 'unit_tag' );
+		$post_id = (int) $submission->get_meta( 'container_post_id' );
 
-		if ( $unit_tag
-		&& preg_match( '/^wpcf7-f(\d+)-p(\d+)-o(\d+)$/', $unit_tag, $matches ) ) {
-			$post_id = absint( $matches[2] );
+		if ( $post = get_post( $post_id ) ) {
+			if ( '_post_id' == $name ) {
+				return (string) $post->ID;
+			}
 
-			if ( $post = get_post( $post_id ) ) {
-				if ( '_post_id' == $name ) {
-					return (string) $post->ID;
-				}
+			if ( '_post_name' == $name ) {
+				return $post->post_name;
+			}
 
-				if ( '_post_name' == $name ) {
-					return $post->post_name;
-				}
+			if ( '_post_title' == $name ) {
+				return $html ? esc_html( $post->post_title ) : $post->post_title;
+			}
 
-				if ( '_post_title' == $name ) {
-					return $html ? esc_html( $post->post_title ) : $post->post_title;
-				}
+			if ( '_post_url' == $name ) {
+				return get_permalink( $post->ID );
+			}
 
-				if ( '_post_url' == $name ) {
-					return get_permalink( $post->ID );
-				}
+			$user = new WP_User( $post->post_author );
 
-				$user = new WP_User( $post->post_author );
+			if ( '_post_author' == $name ) {
+				return $user->display_name;
+			}
 
-				if ( '_post_author' == $name ) {
-					return $user->display_name;
-				}
-
-				if ( '_post_author_email' == $name ) {
-					return $user->user_email;
-				}
+			if ( '_post_author_email' == $name ) {
+				return $user->user_email;
 			}
 		}
 

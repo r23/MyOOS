@@ -13,8 +13,6 @@ function wpcf7_add_form_tag_textarea() {
 }
 
 function wpcf7_textarea_form_tag_handler( $tag ) {
-	$tag = new WPCF7_FormTag( $tag );
-
 	if ( empty( $tag->name ) ) {
 		return '';
 	}
@@ -87,8 +85,6 @@ add_filter( 'wpcf7_validate_textarea', 'wpcf7_textarea_validation_filter', 10, 2
 add_filter( 'wpcf7_validate_textarea*', 'wpcf7_textarea_validation_filter', 10, 2 );
 
 function wpcf7_textarea_validation_filter( $result, $tag ) {
-	$tag = new WPCF7_FormTag( $tag );
-
 	$type = $tag->type;
 	$name = $tag->name;
 

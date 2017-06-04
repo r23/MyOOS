@@ -12,8 +12,6 @@ function wpcf7_add_form_tag_submit() {
 }
 
 function wpcf7_submit_form_tag_handler( $tag ) {
-	$tag = new WPCF7_FormTag( $tag );
-
 	$class = wpcf7_form_controls_class( $tag->type );
 
 	$atts = array();

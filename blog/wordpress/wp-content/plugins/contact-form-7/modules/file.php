@@ -13,8 +13,6 @@ function wpcf7_add_form_tag_file() {
 }
 
 function wpcf7_file_form_tag_handler( $tag ) {
-	$tag = new WPCF7_FormTag( $tag );
-
 	if ( empty( $tag->name ) ) {
 		return '';
 	}
@@ -74,8 +72,6 @@ add_filter( 'wpcf7_validate_file', 'wpcf7_file_validation_filter', 10, 2 );
 add_filter( 'wpcf7_validate_file*', 'wpcf7_file_validation_filter', 10, 2 );
 
 function wpcf7_file_validation_filter( $result, $tag ) {
-	$tag = new WPCF7_FormTag( $tag );
-
 	$name = $tag->name;
 	$id = $tag->get_id_option();
 

@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	if ( typeof _wpcf7 === 'undefined' || _wpcf7 === null ) {
+	if ( typeof wpcf7 === 'undefined' || wpcf7 === null ) {
 		return;
 	}
 
@@ -25,7 +25,7 @@
 		} );
 
 		$( '#contact-form-editor' ).tabs( {
-			active: _wpcf7.activeTab,
+			active: wpcf7.activeTab,
 			activate: function( event, ui ) {
 				$( '#active-tab' ).val( ui.newTab.index() );
 			}
@@ -77,14 +77,14 @@
 
 			$.ajax( {
 				method: 'POST',
-				url: _wpcf7.apiSettings.root +
+				url: wpcf7.apiSettings.root +
 					'contact-form-7/v1/contact-forms/' + postId,
 				beforeSend: function( xhr ) {
-					xhr.setRequestHeader( 'X-WP-Nonce', _wpcf7.apiSettings.nonce );
+					xhr.setRequestHeader( 'X-WP-Nonce', wpcf7.apiSettings.nonce );
 				},
 				data: data
 			} ).done( function( response ) {
-				_wpcf7.configValidator.errors = response.config_errors;
+				wpcf7.configValidator.errors = response.config_errors;
 				$.wpcf7UpdateConfigErrors();
 			} );
 		} );
@@ -111,8 +111,8 @@
 			} );
 
 			if ( changed ) {
-				event.returnValue = _wpcf7.saveAlert;
-				return _wpcf7.saveAlert;
+				event.returnValue = wpcf7.saveAlert;
+				return wpcf7.saveAlert;
 			}
 		} );
 
@@ -140,7 +140,7 @@
 	};
 
 	$.wpcf7UpdateConfigErrors = function() {
-		var errors = _wpcf7.configValidator.errors;
+		var errors = wpcf7.configValidator.errors;
 		var errorCount = {
 			total: 0,
 		};
@@ -166,7 +166,7 @@
 							'class': 'external dashicons dashicons-external'
 						} ).append( $( '<span></span>' ).attr( {
 							'class': 'screen-reader-text'
-						} ).text( _wpcf7.configValidator.howToCorrect ) );
+						} ).text( wpcf7.configValidator.howToCorrect ) );
 
 						$li = $li.append( ' ' ).append( $link );
 					}
@@ -212,11 +212,11 @@
 					.append( '<span class="dashicons dashicons-warning"></span> ' );
 
 				if ( 1 < errorCount[tab] ) {
-					var manyErrorsInTab = _wpcf7.configValidator.manyErrorsInTab
+					var manyErrorsInTab = wpcf7.configValidator.manyErrorsInTab
 						.replace( '%d', errorCount[tab] );
 					$tabPanelError.append( manyErrorsInTab );
 				} else {
-					$tabPanelError.append( _wpcf7.configValidator.oneErrorInTab );
+					$tabPanelError.append( wpcf7.configValidator.oneErrorInTab );
 				}
 			}
 		} );
@@ -231,18 +231,18 @@
 
 			if ( 1 < errorCount.total ) {
 				$warning.append(
-					_wpcf7.configValidator.manyErrors.replace( '%d', errorCount.total )
+					wpcf7.configValidator.manyErrors.replace( '%d', errorCount.total )
 				);
 			} else {
-				$warning.append( _wpcf7.configValidator.oneError );
+				$warning.append( wpcf7.configValidator.oneError );
 			}
 
 			var $link = $( '<a></a>' ).attr( {
-				'href': _wpcf7.configValidator.docUrl,
+				'href': wpcf7.configValidator.docUrl,
 				'class': 'external dashicons dashicons-external'
 			} ).append( $( '<span></span>' ).attr( {
 				'class': 'screen-reader-text'
-			} ).text( _wpcf7.configValidator.howToCorrect ) );
+			} ).text( wpcf7.configValidator.howToCorrect ) );
 
 			$warning.append( ' ' ).append( $link );
 

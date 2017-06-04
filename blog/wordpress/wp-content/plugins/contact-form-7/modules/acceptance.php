@@ -9,12 +9,15 @@ add_action( 'wpcf7_init', 'wpcf7_add_form_tag_acceptance' );
 
 function wpcf7_add_form_tag_acceptance() {
 	wpcf7_add_form_tag( 'acceptance',
-		'wpcf7_acceptance_form_tag_handler', array( 'name-attr' => true ) );
+		'wpcf7_acceptance_form_tag_handler',
+		array(
+			'name-attr' => true,
+			'do-not-store' => true,
+		)
+	);
 }
 
 function wpcf7_acceptance_form_tag_handler( $tag ) {
-	$tag = new WPCF7_FormTag( $tag );
-
 	if ( empty( $tag->name ) ) {
 		return '';
 	}
@@ -66,8 +69,6 @@ function wpcf7_acceptance_validation_filter( $result, $tag ) {
 		return $result;
 	}
 
-	$tag = new WPCF7_FormTag( $tag );
-
 	$name = $tag->name;
 	$value = ( ! empty( $_POST[$name] ) ? 1 : 0 );
 
@@ -86,8 +87,9 @@ function wpcf7_acceptance_validation_filter( $result, $tag ) {
 add_filter( 'wpcf7_acceptance', 'wpcf7_acceptance_filter' );
 
 function wpcf7_acceptance_filter( $accepted ) {
-	if ( ! $accepted )
+	if ( ! $accepted ) {
 		return $accepted;
+	}
 
 	$fes = wpcf7_scan_form_tags( array( 'type' => 'acceptance' ) );
 
@@ -95,15 +97,17 @@ function wpcf7_acceptance_filter( $accepted ) {
 		$name = $fe['name'];
 		$options = (array) $fe['options'];
 
-		if ( empty( $name ) )
+		if ( empty( $name ) ) {
 			continue;
+		}
 
 		$value = ( ! empty( $_POST[$name] ) ? 1 : 0 );
 
 		$invert = (bool) preg_grep( '%^invert$%', $options );
 
-		if ( $invert && $value || ! $invert && ! $value )
+		if ( $invert && $value || ! $invert && ! $value ) {
 			$accepted = false;
+		}
 	}
 
 	return $accepted;
@@ -112,15 +116,17 @@ function wpcf7_acceptance_filter( $accepted ) {
 add_filter( 'wpcf7_form_class_attr', 'wpcf7_acceptance_form_class_attr' );
 
 function wpcf7_acceptance_form_class_attr( $class ) {
-	if ( wpcf7_acceptance_as_validation() )
+	if ( wpcf7_acceptance_as_validation() ) {
 		return $class . ' wpcf7-acceptance-as-validation';
+	}
 
 	return $class;
 }
 
 function wpcf7_acceptance_as_validation() {
-	if ( ! $contact_form = wpcf7_get_current_contact_form() )
+	if ( ! $contact_form = wpcf7_get_current_contact_form() ) {
 		return false;
+	}
 
 	return $contact_form->is_true( 'acceptance_as_validation' );
 }
