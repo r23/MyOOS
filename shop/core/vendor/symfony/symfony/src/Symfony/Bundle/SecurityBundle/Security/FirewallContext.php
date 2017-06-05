@@ -37,8 +37,23 @@ class FirewallContext
         return $this->config;
     }
 
+    /**
+     * @deprecated since version 3.3, will be removed in 4.0. Use {@link getListeners()} and/or {@link getExceptionListener()} instead.
+     */
     public function getContext()
     {
-        return array($this->listeners, $this->exceptionListener);
+        @trigger_error(sprintf('Method %s() is deprecated since version 3.3 and will be removed in 4.0. Use %s::getListeners/getExceptionListener() instead.', __METHOD__, __CLASS__), E_USER_DEPRECATED);
+
+        return array($this->getListeners(), $this->getExceptionListener());
+    }
+
+    public function getListeners()
+    {
+        return $this->listeners;
+    }
+
+    public function getExceptionListener()
+    {
+        return $this->exceptionListener;
     }
 }

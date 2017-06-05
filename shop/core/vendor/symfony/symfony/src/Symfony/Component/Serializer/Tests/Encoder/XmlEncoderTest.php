@@ -144,6 +144,28 @@ class XmlEncoderTest extends TestCase
         $this->assertSame($expected, $this->encoder->encode($array, 'xml', $context));
     }
 
+    public function testEncodeRemovingEmptyTags()
+    {
+        $array = array('person' => array('firstname' => 'Peter', 'lastname' => null));
+
+        $expected = '<?xml version="1.0"?>'."\n".
+            '<response><person><firstname>Peter</firstname></person></response>'."\n";
+
+        $context = array('remove_empty_tags' => true);
+
+        $this->assertSame($expected, $this->encoder->encode($array, 'xml', $context));
+    }
+
+    public function testEncodeNotRemovingEmptyTags()
+    {
+        $array = array('person' => array('firstname' => 'Peter', 'lastname' => null));
+
+        $expected = '<?xml version="1.0"?>'."\n".
+            '<response><person><firstname>Peter</firstname><lastname/></person></response>'."\n";
+
+        $this->assertSame($expected, $this->encoder->encode($array, 'xml'));
+    }
+
     public function testContext()
     {
         $array = array('person' => array('name' => 'George Abitbol'));
@@ -220,6 +242,46 @@ XML;
             '<response>foo</response>'."\n";
 
         $this->assertEquals('foo', $this->encoder->decode($source, 'xml'));
+    }
+
+    public function testDecodeBigDigitAttributes()
+    {
+        $source = <<<XML
+<?xml version="1.0"?>
+<document index="182077241760011681341821060401202210011000045913000000017100">Name</document>
+XML;
+
+        $this->assertSame(array('@index' => 182077241760011681341821060401202210011000045913000000017100, '#' => 'Name'), $this->encoder->decode($source, 'xml'));
+    }
+
+    public function testDecodeNegativeIntAttribute()
+    {
+        $source = <<<XML
+<?xml version="1.0"?>
+<document index="-1234">Name</document>
+XML;
+
+        $this->assertSame(array('@index' => -1234, '#' => 'Name'), $this->encoder->decode($source, 'xml'));
+    }
+
+    public function testDecodeFloatAttribute()
+    {
+        $source = <<<XML
+<?xml version="1.0"?>
+<document index="-12.11">Name</document>
+XML;
+
+        $this->assertSame(array('@index' => -12.11, '#' => 'Name'), $this->encoder->decode($source, 'xml'));
+    }
+
+    public function testDecodeNegativeFloatAttribute()
+    {
+        $source = <<<XML
+<?xml version="1.0"?>
+<document index="-12.11">Name</document>
+XML;
+
+        $this->assertSame(array('@index' => -12.11, '#' => 'Name'), $this->encoder->decode($source, 'xml'));
     }
 
     public function testEncode()

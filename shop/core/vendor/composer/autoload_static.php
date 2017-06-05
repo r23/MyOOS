@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitca9b62b4cc87fdd42c5e10d4aacba5a4
+class ComposerStaticInitd4849226115abda7ab30f774b9a062bd
 {
     public static $files = array (
         '92c8763cd6170fce6fcfe7e26b4e8c10' => __DIR__ . '/..' . '/symfony/phpunit-bridge/bootstrap.php',
@@ -45,7 +45,10 @@ class ComposerStaticInitca9b62b4cc87fdd42c5e10d4aacba5a4
         ),
         'P' => 
         array (
+            'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
+            'Psr\\Link\\' => 9,
+            'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
         ),
         'M' => 
@@ -55,6 +58,10 @@ class ComposerStaticInitca9b62b4cc87fdd42c5e10d4aacba5a4
         'I' => 
         array (
             'Incenteev\\ParameterHandler\\' => 27,
+        ),
+        'F' => 
+        array (
+            'Fig\\Link\\' => 9,
         ),
         'D' => 
         array (
@@ -143,9 +150,21 @@ class ComposerStaticInitca9b62b4cc87fdd42c5e10d4aacba5a4
         array (
             0 => __DIR__ . '/..' . '/sensio/distribution-bundle',
         ),
+        'Psr\\SimpleCache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
+        ),
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+        'Psr\\Link\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/link/src',
+        ),
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
         ),
         'Psr\\Cache\\' => 
         array (
@@ -158,6 +177,10 @@ class ComposerStaticInitca9b62b4cc87fdd42c5e10d4aacba5a4
         'Incenteev\\ParameterHandler\\' => 
         array (
             0 => __DIR__ . '/..' . '/incenteev/composer-parameter-handler',
+        ),
+        'Fig\\Link\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/fig/link-util/src',
         ),
         'Doctrine\\Instantiator\\' => 
         array (
@@ -252,11 +275,11 @@ class ComposerStaticInitca9b62b4cc87fdd42c5e10d4aacba5a4
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitca9b62b4cc87fdd42c5e10d4aacba5a4::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitca9b62b4cc87fdd42c5e10d4aacba5a4::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInitca9b62b4cc87fdd42c5e10d4aacba5a4::$fallbackDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitca9b62b4cc87fdd42c5e10d4aacba5a4::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitca9b62b4cc87fdd42c5e10d4aacba5a4::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd4849226115abda7ab30f774b9a062bd::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd4849226115abda7ab30f774b9a062bd::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInitd4849226115abda7ab30f774b9a062bd::$fallbackDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitd4849226115abda7ab30f774b9a062bd::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitd4849226115abda7ab30f774b9a062bd::$classMap;
 
         }, null, ClassLoader::class);
     }

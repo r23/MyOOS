@@ -16,10 +16,12 @@ use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
+use Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface;
 use Symfony\Component\Security\Core\Role\RoleInterface;
 use Symfony\Component\Security\Http\Logout\LogoutUrlGenerator;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
-use Symfony\Component\Security\Core\Authorization\DebugAccessDecisionManager;
+use Symfony\Component\Security\Core\Authorization\TraceableAccessDecisionManager;
+use Symfony\Component\VarDumper\Caster\ClassStub;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Symfony\Component\Security\Http\FirewallMapInterface;
 use Symfony\Bundle\SecurityBundle\Security\FirewallMap;
@@ -29,13 +31,14 @@ use Symfony\Bundle\SecurityBundle\Security\FirewallMap;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class SecurityDataCollector extends DataCollector
+class SecurityDataCollector extends DataCollector implements LateDataCollectorInterface
 {
     private $tokenStorage;
     private $roleHierarchy;
     private $logoutUrlGenerator;
     private $accessDecisionManager;
     private $firewallMap;
+    private $hasVarDumper;
 
     /**
      * Constructor.
@@ -53,6 +56,7 @@ class SecurityDataCollector extends DataCollector
         $this->logoutUrlGenerator = $logoutUrlGenerator;
         $this->accessDecisionManager = $accessDecisionManager;
         $this->firewallMap = $firewallMap;
+        $this->hasVarDumper = class_exists(ClassStub::class);
     }
 
     /**
@@ -109,28 +113,23 @@ class SecurityDataCollector extends DataCollector
             $this->data = array(
                 'enabled' => true,
                 'authenticated' => $token->isAuthenticated(),
-                'token' => $this->cloneVar($token),
-                'token_class' => get_class($token),
+                'token' => $token,
+                'token_class' => $this->hasVarDumper ? new ClassStub(get_class($token)) : get_class($token),
                 'logout_url' => $logoutUrl,
                 'user' => $token->getUsername(),
-                'roles' => $this->cloneVar(array_map(function (RoleInterface $role) { return $role->getRole(); }, $assignedRoles)),
-                'inherited_roles' => $this->cloneVar(array_map(function (RoleInterface $role) { return $role->getRole(); }, $inheritedRoles)),
+                'roles' => array_map(function (RoleInterface $role) { return $role->getRole(); }, $assignedRoles),
+                'inherited_roles' => array_map(function (RoleInterface $role) { return $role->getRole(); }, $inheritedRoles),
                 'supports_role_hierarchy' => null !== $this->roleHierarchy,
             );
         }
 
         // collect voters and access decision manager information
-        if ($this->accessDecisionManager instanceof DebugAccessDecisionManager) {
-            $this->data['access_decision_log'] = array_map(function ($decision) {
-                $decision['object'] = $this->cloneVar($decision['object']);
-
-                return $decision;
-            }, $this->accessDecisionManager->getDecisionLog());
-
+        if ($this->accessDecisionManager instanceof TraceableAccessDecisionManager) {
+            $this->data['access_decision_log'] = $this->accessDecisionManager->getDecisionLog();
             $this->data['voter_strategy'] = $this->accessDecisionManager->getStrategy();
 
             foreach ($this->accessDecisionManager->getVoters() as $voter) {
-                $this->data['voters'][] = get_class($voter);
+                $this->data['voters'][] = $this->hasVarDumper ? new ClassStub(get_class($voter)) : get_class($voter);
             }
         } else {
             $this->data['access_decision_log'] = array();
@@ -155,10 +154,15 @@ class SecurityDataCollector extends DataCollector
                     'access_denied_handler' => $firewallConfig->getAccessDeniedHandler(),
                     'access_denied_url' => $firewallConfig->getAccessDeniedUrl(),
                     'user_checker' => $firewallConfig->getUserChecker(),
-                    'listeners' => $this->cloneVar($firewallConfig->getListeners()),
+                    'listeners' => $firewallConfig->getListeners(),
                 );
             }
         }
+    }
+
+    public function lateCollect()
+    {
+        $this->data = $this->cloneVar($this->data);
     }
 
     /**

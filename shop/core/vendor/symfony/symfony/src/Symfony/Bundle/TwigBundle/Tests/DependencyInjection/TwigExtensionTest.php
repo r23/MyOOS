@@ -244,11 +244,11 @@ class TwigExtensionTest extends TestCase
         $container->compile();
 
         $loader = $container->getDefinition('twig.runtime_loader');
-        $args = $loader->getArgument(1);
+        $args = $container->getDefinition((string) $loader->getArgument(0))->getArgument(0);
         $this->assertArrayHasKey('Symfony\Bridge\Twig\Form\TwigRenderer', $args);
         $this->assertArrayHasKey('FooClass', $args);
-        $this->assertContains('twig.form.renderer', $args);
-        $this->assertContains('foo', $args);
+        $this->assertEquals('twig.form.renderer', $args['Symfony\Bridge\Twig\Form\TwigRenderer']->getValues()[0]);
+        $this->assertEquals('foo', $args['FooClass']->getValues()[0]);
     }
 
     private function createContainer()
@@ -256,6 +256,7 @@ class TwigExtensionTest extends TestCase
         $container = new ContainerBuilder(new ParameterBag(array(
             'kernel.cache_dir' => __DIR__,
             'kernel.root_dir' => __DIR__.'/Fixtures',
+            'kernel.project_dir' => __DIR__,
             'kernel.charset' => 'UTF-8',
             'kernel.debug' => false,
             'kernel.bundles' => array(

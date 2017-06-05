@@ -54,7 +54,7 @@ abstract class Descriptor implements DescriptorInterface
                 $this->describeContainerTags($object, $options);
                 break;
             case $object instanceof ContainerBuilder && isset($options['id']):
-                $this->describeContainerService($this->resolveServiceDefinition($object, $options['id']), $options);
+                $this->describeContainerService($this->resolveServiceDefinition($object, $options['id']), $options, $object);
                 break;
             case $object instanceof ContainerBuilder && isset($options['parameter']):
                 $this->describeContainerParameter($object->resolveEnvPlaceholders($object->getParameter($options['parameter'])), $options);
@@ -140,8 +140,9 @@ abstract class Descriptor implements DescriptorInterface
      *
      * @param Definition|Alias|object $service
      * @param array                   $options
+     * @param ContainerBuilder|null   $builder
      */
-    abstract protected function describeContainerService($service, array $options = array());
+    abstract protected function describeContainerService($service, array $options = array(), ContainerBuilder $builder = null);
 
     /**
      * Describes container services.
@@ -165,10 +166,11 @@ abstract class Descriptor implements DescriptorInterface
     /**
      * Describes a service alias.
      *
-     * @param Alias $alias
-     * @param array $options
+     * @param Alias                 $alias
+     * @param array                 $options
+     * @param ContainerBuilder|null $builder
      */
-    abstract protected function describeContainerAlias(Alias $alias, array $options = array());
+    abstract protected function describeContainerAlias(Alias $alias, array $options = array(), ContainerBuilder $builder = null);
 
     /**
      * Describes a container parameter.
@@ -256,10 +258,6 @@ abstract class Descriptor implements DescriptorInterface
             return $builder->getAlias($serviceId);
         }
 
-        if ('service_container' === $serviceId) {
-            return $builder;
-        }
-
         // the service has been injected in some special way, just return the service
         return $builder->get($serviceId);
     }
@@ -308,5 +306,16 @@ abstract class Descriptor implements DescriptorInterface
         asort($serviceIds);
 
         return $serviceIds;
+    }
+
+    protected function formatClosure(\Closure $closure)
+    {
+        $r = new \ReflectionFunction($closure);
+
+        if (preg_match('#^/\*\* @closure-proxy ([^: ]++)::([^: ]++) \*/$#', $r->getDocComment(), $m)) {
+            return sprintf('%s::%s', $m[1], $m[2]);
+        }
+
+        return 'closure';
     }
 }

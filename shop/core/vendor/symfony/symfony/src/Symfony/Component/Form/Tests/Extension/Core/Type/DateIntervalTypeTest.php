@@ -13,6 +13,7 @@ namespace Symfony\Component\Form\Tests\Extension\Core\Type;
 
 use Symfony\Component\Form\Extension\Core\Type\DateIntervalType;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormInterface;
 
 class DateIntervalTypeTest extends BaseTypeTest
 {
@@ -195,7 +196,7 @@ class DateIntervalTypeTest extends BaseTypeTest
     {
         // Throws an exception if "data_class" option is not explicitly set
         // to null in the type
-        $this->factory->create(static::TESTED_TYPE, new \DateInterval('P0Y'));
+        $this->assertInstanceOf(FormInterface::class, $this->factory->create(static::TESTED_TYPE, new \DateInterval('P0Y')));
     }
 
     public function testPassDefaultPlaceholderToViewIfNotRequired()
@@ -350,6 +351,55 @@ class DateIntervalTypeTest extends BaseTypeTest
         ));
 
         $this->assertFalse($form->get('invert')->getConfig()->getOption('required'));
+    }
+
+    public function testCanChangeTimeFieldsLabels()
+    {
+        $form = $this->factory->create(
+            static::TESTED_TYPE,
+            null,
+            array(
+                'required' => true,
+                'with_invert' => true,
+                'with_hours' => true,
+                'with_minutes' => true,
+                'with_seconds' => true,
+                'labels' => array(
+                    'invert' => 'form.trans.invert',
+                    'years' => 'form.trans.years',
+                    'months' => 'form.trans.months',
+                    'days' => 'form.trans.days',
+                    'hours' => 'form.trans.hours',
+                    'minutes' => 'form.trans.minutes',
+                    'seconds' => 'form.trans.seconds',
+                ),
+            )
+        );
+
+        $view = $form->createView();
+        $this->assertSame('form.trans.invert', $view['invert']->vars['label']);
+        $this->assertSame('form.trans.years', $view['years']->vars['label']);
+        $this->assertSame('form.trans.months', $view['months']->vars['label']);
+        $this->assertSame('form.trans.days', $view['days']->vars['label']);
+        $this->assertSame('form.trans.hours', $view['hours']->vars['label']);
+        $this->assertSame('form.trans.minutes', $view['minutes']->vars['label']);
+        $this->assertSame('form.trans.seconds', $view['seconds']->vars['label']);
+    }
+
+    public function testInvertDefaultLabel()
+    {
+        $form = $this->factory->create(static::TESTED_TYPE, null, array('with_invert' => true));
+
+        $view = $form->createView();
+        $this->assertSame('Negative interval', $view['invert']->vars['label']);
+
+        $form = $this->factory->create(static::TESTED_TYPE, null, array(
+            'with_invert' => true,
+            'labels' => array('invert' => null),
+        ));
+
+        $view = $form->createView();
+        $this->assertSame('Negative interval', $view['invert']->vars['label']);
     }
 
     public function testSubmitNull($expected = null, $norm = null, $view = null)

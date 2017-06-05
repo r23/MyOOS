@@ -1,7 +1,10 @@
 <?php
 
 require_once __DIR__.'/../includes/classes.php';
+require_once __DIR__.'/../includes/foo.php';
 
+use Symfony\Component\DependencyInjection\Argument\ClosureProxyArgument;
+use Symfony\Component\DependencyInjection\Argument\IteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -128,6 +131,18 @@ $container
 $container
     ->register('factory_service_simple', 'Bar')
     ->setFactory(array(new Reference('factory_simple'), 'getInstance'))
+;
+$container
+    ->register('lazy_context', 'LazyContext')
+    ->setArguments(array(new IteratorArgument(array('k1' => new Reference('foo.baz'), 'k2' => new Reference('service_container'))), new IteratorArgument(array())))
+;
+$container
+    ->register('lazy_context_ignore_invalid_ref', 'LazyContext')
+    ->setArguments(array(new IteratorArgument(array(new Reference('foo.baz'), new Reference('invalid', ContainerInterface::IGNORE_ON_INVALID_REFERENCE))), new IteratorArgument(array())))
+;
+$container
+    ->register('closure_proxy', 'BarClass')
+    ->setArguments(array(new ClosureProxyArgument('closure_proxy', 'getBaz')))
 ;
 
 return $container;

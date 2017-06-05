@@ -67,7 +67,7 @@ class FullTransformer
             'k' => new Hour2401Transformer(),
             'm' => new MinuteTransformer(),
             's' => new SecondTransformer(),
-            'z' => new TimeZoneTransformer(),
+            'z' => new TimezoneTransformer(),
         );
     }
 
@@ -133,7 +133,7 @@ class FullTransformer
      * @param \DateTime $dateTime A configured DateTime object to use to perform the date calculation
      * @param string    $value    String to convert to a time value
      *
-     * @return int The corresponding Unix timestamp
+     * @return int|false The corresponding Unix timestamp
      *
      * @throws \InvalidArgumentException When the value can not be matched with pattern
      */

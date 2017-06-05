@@ -82,7 +82,11 @@ EOT
         $targetArg = rtrim($input->getArgument('target'), '/');
 
         if (!is_dir($targetArg)) {
-            throw new \InvalidArgumentException(sprintf('The target directory "%s" does not exist.', $input->getArgument('target')));
+            $targetArg = $this->getContainer()->getParameter('kernel.project_dir').'/'.$targetArg;
+
+            if (!is_dir($targetArg)) {
+                throw new \InvalidArgumentException(sprintf('The target directory "%s" does not exist.', $input->getArgument('target')));
+            }
         }
 
         $this->filesystem = $this->getContainer()->get('filesystem');

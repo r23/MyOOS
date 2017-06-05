@@ -21,6 +21,8 @@ use Symfony\Component\PropertyInfo\Type;
  * Extracts data using the reflection API.
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
+ *
+ * @final since version 3.3
  */
 class ReflectionExtractor implements PropertyListExtractorInterface, PropertyTypeExtractorInterface, PropertyAccessExtractorInterface
 {
@@ -68,7 +70,7 @@ class ReflectionExtractor implements PropertyListExtractorInterface, PropertyTyp
         $properties = array();
         foreach ($reflectionProperties as $reflectionProperty) {
             if ($reflectionProperty->isPublic()) {
-                $properties[$reflectionProperty->name] = true;
+                $properties[$reflectionProperty->name] = $reflectionProperty->name;
             }
         }
 
@@ -84,10 +86,10 @@ class ReflectionExtractor implements PropertyListExtractorInterface, PropertyTyp
             if (!$reflectionClass->hasProperty($propertyName) && !preg_match('/^[A-Z]{2,}/', $propertyName)) {
                 $propertyName = lcfirst($propertyName);
             }
-            $properties[$propertyName] = true;
+            $properties[$propertyName] = $propertyName;
         }
 
-        return array_keys($properties);
+        return array_values($properties);
     }
 
     /**

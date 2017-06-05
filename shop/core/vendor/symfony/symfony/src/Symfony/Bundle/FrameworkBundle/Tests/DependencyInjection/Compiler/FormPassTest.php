@@ -19,6 +19,8 @@ use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\Form\AbstractType;
 
 /**
+ * @group legacy
+ *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 class FormPassTest extends TestCase
@@ -179,7 +181,7 @@ class FormPassTest extends TestCase
     /**
      * @dataProvider privateTaggedServicesProvider
      */
-    public function testPrivateTaggedServices($id, $tagName, $expectedExceptionMessage)
+    public function testPrivateTaggedServices($id, $tagName)
     {
         $container = new ContainerBuilder();
         $container->addCompilerPass(new FormPass());
@@ -193,24 +195,18 @@ class FormPassTest extends TestCase
         ));
 
         $container->setDefinition('form.extension', $extDefinition);
-        $container->register($id, 'stdClass')->setPublic(false)->addTag($tagName);
-
-        if (method_exists($this, 'expectException')) {
-            $this->expectException('InvalidArgumentException');
-            $this->expectExceptionMessage($expectedExceptionMessage);
-        } else {
-            $this->setExpectedException('InvalidArgumentException', $expectedExceptionMessage);
-        }
+        $container->register($id, 'stdClass')->setPublic(false)->addTag($tagName, array('extended_type' => 'Foo'));
 
         $container->compile();
+        $this->assertTrue($container->getDefinition($id)->isPublic());
     }
 
     public function privateTaggedServicesProvider()
     {
         return array(
-            array('my.type', 'form.type', 'The service "my.type" must be public as form types are lazy-loaded'),
-            array('my.type_extension', 'form.type_extension', 'The service "my.type_extension" must be public as form type extensions are lazy-loaded'),
-            array('my.guesser', 'form.type_guesser', 'The service "my.guesser" must be public as form type guessers are lazy-loaded'),
+            array('my.type', 'form.type'),
+            array('my.type_extension', 'form.type_extension'),
+            array('my.guesser', 'form.type_guesser'),
         );
     }
 }
