@@ -103,4 +103,10 @@
     <splash src="res/screens/windows/SplashScreen.scale-240.png" width="1152" height="1920" />
     <splash src="res/screens/windows/SplashScreenPhone.scale-240.png" width="1152" height="1920" />
   </platform>
+  <plugin name="cordova-plugin-battery-status" spec="~1.2.4" />
+  <plugin name="cordova-plugin-camera" spec="~2.4.1" />
+  <plugin name="cordova-plugin-crosswalk-webview" spec="~2.1.0" />
+  <plugin name="cordova-plugin-file-transfer" spec="~1.6.3" />
+  <plugin name="cordova-plugin-file" spec="~4.3.3" />
+  <plugin name="cordova-plugin-vibration" spec="~2.1.5" />
 </widget>
