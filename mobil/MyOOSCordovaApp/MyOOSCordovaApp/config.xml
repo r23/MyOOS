@@ -109,4 +109,5 @@
   <plugin name="cordova-plugin-file-transfer" spec="~1.6.3" />
   <plugin name="cordova-plugin-file" spec="~4.3.3" />
   <plugin name="cordova-plugin-vibration" spec="~2.1.5" />
+  <plugin name="cordova-plugin-compat" spec="~1.1.0" />
 </widget>

@@ -5,8 +5,8 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Tags: SEO, XML sitemap, Google Search Console, Content analysis, Readability
 Requires at least: 4.6
-Tested up to: 4.7
-Stable tag: 4.8
+Tested up to: 4.8
+Stable tag: 4.9
 
 Improve your WordPress SEO: Write better content and have a fully optimized WordPress site using the Yoast SEO plugin.
 
@@ -124,6 +124,21 @@ You'll find answers to many of your questions on [kb.yoast.com](https://kb.yoast
 
 == Changelog ==
 
+= 4.9.0 =
+
+Release Date: June 7th, 2017
+
+* Bugfixes
+	* Fixes a bug where there were certain assessments missing when switching to cornerstone content.
+	* Fixes a bug where the configuration wizard button was visible for users who didn't have enough rights to access the configuration wizard.
+	* Fixes a bug where the column `ID` was ambiguous, causing an SQL error.
+	* Fixes a bug where the category URL in the sitemap was encoded twice.
+	* Fixes a bug where an old upgrade notice is not removed.
+
+* Enhancements
+	* Removes the noodp advanced robots meta value as it is no longer used.
+	* Loads the translations only when the configuration wizard endpoint is called, instead of every time `rest_api_init` is called.
+
 = 4.8.0 =
 
 Release Date: May 23rd, 2017
@@ -134,26 +149,6 @@ Release Date: May 23rd, 2017
 * Enhancements
 	* Optimizes the way the cornerstone flag is saved.
 	* Analyzes the content using cornerstone assessors when a post or page is cornerstone content.
-
-= 4.7.1 =
-
-Release Date: May 9th, 2017
-
-* Bugfixes
-	* Fixes a bug where the analysis wouldn't work on Internet Explorer.
-
-= 4.7.0 =
-
-Release Date: May 2nd, 2017
-
-* Enhancements
-	* Adds transition words for Italian.
-	* Adds a new check in the analysis for the presence of at least one internal link.
-
-* Bugfixes
-	* Fixes a bug where the `_yst_is_cornerstone` meta value was not prefixed, causing some themes/plugins to output this meta value.
-	* Fixes a bug where style and script elements were parsed for the prominent words.
-	* Fixes a bug where the cursor pointer was in front of the metabox.
 
 = Earlier versions =
 

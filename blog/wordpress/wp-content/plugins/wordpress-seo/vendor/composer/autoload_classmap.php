@@ -126,6 +126,7 @@ return array(
     'WPSEO_Configuration_Service' => $baseDir . '/admin/config-ui/class-configuration-service.php',
     'WPSEO_Configuration_Storage' => $baseDir . '/admin/config-ui/class-configuration-storage.php',
     'WPSEO_Configuration_Structure' => $baseDir . '/admin/config-ui/class-configuration-structure.php',
+    'WPSEO_Configuration_Translations' => $baseDir . '/admin/config-ui/class-configuration-translations.php',
     'WPSEO_Cornerstone' => $baseDir . '/admin/class-cornerstone.php',
     'WPSEO_Cornerstone_Field' => $baseDir . '/admin/class-cornerstone-field.php',
     'WPSEO_Cornerstone_Filter' => $baseDir . '/admin/class-cornerstone-filter.php',
