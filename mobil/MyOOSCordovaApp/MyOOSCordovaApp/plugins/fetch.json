@@ -1,8 +1,8 @@
 {
-    "cordova-plugin-battery-status": {
+    "com-intel-security-cordova-plugin": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-battery-status"
+            "id": "com-intel-security-cordova-plugin"
         },
         "is_top_level": true,
         "variables": {}
@@ -15,18 +15,10 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-compat": {
+    "cordova-plugin-contacts": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-compat"
-        },
-        "is_top_level": false,
-        "variables": {}
-    },
-    "cordova-plugin-crosswalk-webview": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-crosswalk-webview@2.1.0"
+            "id": "cordova-plugin-contacts"
         },
         "is_top_level": true,
         "variables": {}
@@ -39,18 +31,34 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-file": {
+    "cordova-plugin-geolocation": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-file"
+            "id": "cordova-plugin-geolocation"
         },
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-vibration": {
+    "cordova-plugin-media": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-vibration"
+            "id": "cordova-plugin-media@3.0.1"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-battery-status": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-battery-status"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-dialogs": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-dialogs"
         },
         "is_top_level": true,
         "variables": {}

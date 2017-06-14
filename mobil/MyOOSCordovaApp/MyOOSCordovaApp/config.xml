@@ -1,13 +1,10 @@
 <?xml version="1.0"?>
-<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="io.cordova.myapp560287" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="de-DE">
+<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="io.cordova.myapp3e3e79" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="de-DE">
   <name>MyOOSCordovaApp</name>
   <description>Ein leeres Projekt, das Apache Cordova verwendet, damit Sie eine App für mehrere mobile Plattformen erstellen können: Android, iOS und die universelle Windows-Plattform.</description>
   <author href="http://cordova.io" email="dev@cordova.apache.org">Ihr Name hier</author>
+  <vs:is-from-base-template>true</vs:is-from-base-template>
   <vs:template-name>BlankJS</vs:template-name>
-  <vs:toolsetVersion>6.3.1</vs:toolsetVersion>
-  <engine name="android" spec="5.2.1" />
-  <engine name="ios" spec="4.2.0" />
-  <engine name="windows" spec="4.4.2" />
   <content src="index.html" />
   <access origin="*" />
   <preference name="SplashScreen" value="screen" />
@@ -103,11 +100,16 @@
     <splash src="res/screens/windows/SplashScreen.scale-240.png" width="1152" height="1920" />
     <splash src="res/screens/windows/SplashScreenPhone.scale-240.png" width="1152" height="1920" />
   </platform>
-  <plugin name="cordova-plugin-battery-status" spec="~1.2.4" />
+  <vs:toolsetVersion>6.3.1</vs:toolsetVersion>
+  <engine name="android" spec="5.2.1" />
+  <engine name="ios" spec="4.2.0" />
+  <engine name="windows" spec="4.4.2" />
+  <plugin name="com-intel-security-cordova-plugin" spec="~2.0.3" />
   <plugin name="cordova-plugin-camera" spec="~2.4.1" />
-  <plugin name="cordova-plugin-crosswalk-webview" spec="~2.1.0" />
+  <plugin name="cordova-plugin-contacts" spec="~2.3.1" />
   <plugin name="cordova-plugin-file-transfer" spec="~1.6.3" />
-  <plugin name="cordova-plugin-file" spec="~4.3.3" />
-  <plugin name="cordova-plugin-vibration" spec="~2.1.5" />
-  <plugin name="cordova-plugin-compat" spec="~1.1.0" />
+  <plugin name="cordova-plugin-geolocation" spec="~2.4.3" />
+  <plugin name="cordova-plugin-media" spec="~3.0.1" />
+  <plugin name="cordova-plugin-battery-status" spec="~1.2.4" />
+  <plugin name="cordova-plugin-dialogs" spec="~1.3.3" />
 </widget>
