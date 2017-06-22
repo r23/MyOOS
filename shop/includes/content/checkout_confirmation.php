@@ -71,7 +71,7 @@ if (!isset($_SESSION['shipping'])) {
 // if conditions are not accepted, redirect the customer to the payment method selection page
 if ( (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') && (empty($_POST['gv_redeem_code'])) ) {
 	if ($_POST['conditions'] == FALSE) {
-		$oMessage->add_session('checkout_payment', $aLang['error_conditions_not_accepted'], 'error')
+		$oMessage->add_session('checkout_payment', $aLang['error_conditions_not_accepted'], 'error');
 	}
 }
 
@@ -172,7 +172,7 @@ if (MODULE_ORDER_TOTAL_INSTALLED) {
 }
 
 if (is_array($payment_modules->modules)) {
-	if ($confirmation = $payment_modules->confirmation()) {
+	if ($confirmation == $payment_modules->confirmation()) {
 		$smarty->assign('confirmation', $confirmation);
 	}
 }

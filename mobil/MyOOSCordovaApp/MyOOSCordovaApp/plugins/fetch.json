@@ -1,8 +1,16 @@
 {
-    "com-intel-security-cordova-plugin": {
+    "cordova-plugin-compat": {
         "source": {
             "type": "registry",
-            "id": "com-intel-security-cordova-plugin"
+            "id": "cordova-plugin-compat"
+        },
+        "is_top_level": false,
+        "variables": {}
+    },
+    "cordova-plugin-whitelist": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-whitelist@1"
         },
         "is_top_level": true,
         "variables": {}
@@ -10,7 +18,7 @@
     "cordova-plugin-camera": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-camera"
+            "id": "cordova-plugin-camera@~2.4.1"
         },
         "is_top_level": true,
         "variables": {}
@@ -18,7 +26,23 @@
     "cordova-plugin-contacts": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-contacts"
+            "id": "cordova-plugin-contacts@~2.3.1"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-splashscreen": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-splashscreen@~4.0.3"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-file": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-file@~4.3.3"
         },
         "is_top_level": true,
         "variables": {}
@@ -26,7 +50,7 @@
     "cordova-plugin-file-transfer": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-file-transfer"
+            "id": "cordova-plugin-file-transfer@~1.6.3"
         },
         "is_top_level": true,
         "variables": {}
@@ -34,31 +58,7 @@
     "cordova-plugin-geolocation": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-geolocation"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
-    "cordova-plugin-media": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-media@3.0.1"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
-    "cordova-plugin-battery-status": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-battery-status"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
-    "cordova-plugin-dialogs": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-dialogs"
+            "id": "cordova-plugin-geolocation@~2.4.3"
         },
         "is_top_level": true,
         "variables": {}
