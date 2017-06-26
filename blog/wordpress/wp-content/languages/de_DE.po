@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.8.x package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-06-07 20:48:55+0000\n"
+"PO-Revision-Date: 2017-06-23 06:41:10+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -321,10 +321,6 @@ msgctxt "plugin"
 msgid "Install %s now"
 msgstr "%s jetzt installieren"
 
-#: wp-includes/widgets/class-wp-widget-media-video.php:27
-msgid "Displays a video from the media library or from YouTube, Vimeo, or another provider."
-msgstr "Zeigt ein Video aus der Mediathek oder von YouTube, Vimeo, oder einem anderen Anbieter."
-
 #. translators: placeholder is URL to media library
 #: wp-includes/widgets/class-wp-widget-media-image.php:38
 msgid "We can&#8217;t find that image. Check your <a href=\"%s\">media library</a> and make sure it wasn&#8217;t deleted."
@@ -360,6 +356,10 @@ msgid "Audio Widget (%d)"
 msgid_plural "Audio Widget (%d)"
 msgstr[0] "Audio-Widget (%d)"
 msgstr[1] "Audio-Widgets (%d)"
+
+#: wp-includes/widgets/class-wp-widget-media-video.php:27
+msgid "Displays a video from the media library or from YouTube, Vimeo, or another provider."
+msgstr "Zeigt ein Video aus der Mediathek oder von YouTube, Vimeo oder einem anderen Anbieter."
 
 #: wp-includes/script-loader.php:648
 msgctxt "plugin"
@@ -880,7 +880,7 @@ msgstr "Archive"
 #: wp-includes/theme.php:2084
 msgctxt "Theme starter content"
 msgid "This is an example of a homepage section. Homepage sections can be any page other than the homepage itself, including the page that shows your latest blog posts."
-msgstr "Hier ist als Beispiel ein Abschnitt deiner Startseite. Ein Startseiten-Abschnitt kann jede Seite sein; ausgenommen der Startseite selbst, aber einschließlich der Seite, die deine neuesten Blog-Beiträge zeigt."
+msgstr "Hier ist als Beispiel ein Abschnitt deiner Startseite. Ein Startseiten-Abschnitt kann jede Seite sein; ausgenommen die Startseite selbst, aber einschließlich der Seite, die deine neuesten Blog-Beiträge zeigt."
 
 #: wp-includes/theme.php:2078
 msgctxt "Theme starter content"
@@ -2191,10 +2191,6 @@ msgstr "Benutzername oder E-Mail-Adresse"
 msgid "Site title."
 msgstr "Website-Titel."
 
-#: wp-includes/media.php:3531
-msgid "Search media items..."
-msgstr "Medien suchen&nbsp;&hellip;"
-
 #: wp-includes/link-template.php:2534
 msgctxt "previous set of posts"
 msgid "Previous"
@@ -2204,6 +2200,10 @@ msgstr "Vorherige"
 msgctxt "next set of posts"
 msgid "Next"
 msgstr "Nächste"
+
+#: wp-includes/media.php:3531
+msgid "Search media items..."
+msgstr "Medien suchen&#160;&hellip;"
 
 #: wp-includes/customize/class-wp-customize-selective-refresh.php:207
 msgid "Click to edit this element."
@@ -2333,19 +2333,19 @@ msgstr "Ungültiger Wert für Wiederholung des Hintergrunds."
 msgid "Invalid value for background attachment."
 msgstr "Ungültiger Wert für Anhang des Hintergrunds."
 
+#: wp-includes/class-wp-customize-manager.php:4217
+msgid "Learn more about CSS"
+msgstr "Mehr über CSS erfahren (engl.)"
+
 #: wp-includes/class-wp-customize-manager.php:4225
 msgid ""
 "You can add your own CSS here.\n"
 "\n"
 "Click the help icon above to learn more."
 msgstr ""
-"Hier kannst du dein eigenes CSS einfügen.\n"
+"Füge deinen eigenen CSS-Code nach diesem Kommentar hinter dem abschließenden Schrägstrich ein. \n"
 "\n"
-"Klicke auf das Hilfe-Symbol oben, um mehr zu lernen."
-
-#: wp-includes/class-wp-customize-manager.php:4217
-msgid "Learn more about CSS"
-msgstr "Lerne mehr über CSS (engl.)"
+"Klicke auf das Hilfe-Symbol oben, um mehr zu erfahren."
 
 #: wp-includes/class-wp-customize-manager.php:4117
 msgid "Original"

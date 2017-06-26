@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.8.x - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-06-07 20:55:13+0000\n"
+"PO-Revision-Date: 2017-06-23 12:43:20+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -165,7 +165,7 @@ msgstr "Momentan gibt es keine Veranstaltungen in der Nähe von %1$s. Möchtest 
 #. translators: %s is a placeholder for the name of a city.
 #: wp-admin/includes/dashboard.php:1211
 msgid "Attend an upcoming event near %s."
-msgstr "An einer zukünftigen Veranstaltung in der Nähe von %s teilnehmen."
+msgstr "Besuche eine Veranstaltung in der Nähe von %s:"
 
 #. translators: Replace with a city related to your locale. Test that it
 #. matches the expected location and has upcoming events before including it.
@@ -225,6 +225,10 @@ msgstr "Noch mehr Erfreuliches für Entwickler %s"
 #: wp-admin/users.php:167 wp-admin/users.php:207
 msgid "Sorry, you are not allowed to delete users."
 msgstr "Du bist leider nicht berechtigt, Benutzer zu löschen."
+
+#: wp-admin/user-new.php:23 wp-admin/user-new.php:117
+msgid "Sorry, you are not allowed to create users."
+msgstr "Du bist leider nicht berechtigt, Benutzer zu erstellen."
 
 #: wp-admin/customize.php:163
 msgid "The Customizer allows you to preview changes to your site before publishing them. You can navigate to different pages on your site within the preview. Edit shortcuts are shown for some editable elements."
@@ -297,7 +301,7 @@ msgstr "Das derzeitige Header-Bild"
 
 #: wp-admin/includes/plugin-install.php:288
 msgid "Search plugins..."
-msgstr "Plugins durchsuchen &hellip;"
+msgstr "Plugins durchsuchen&#160;&hellip;"
 
 #: wp-admin/includes/meta-boxes.php:111
 msgid "Set status"
@@ -379,7 +383,7 @@ msgstr "%s Aktualisierung fehlgeschlagen."
 
 #: wp-admin/includes/class-wp-plugins-list-table.php:370
 msgid "Search installed plugins..."
-msgstr "Suche installierte Plugins &hellip;"
+msgstr "Suche installierte Plugins&#160;&hellip;"
 
 #: wp-admin/plugin-install.php:83
 msgid "You can find new plugins to install by searching or browsing the directory right here in your own Plugins section."
@@ -466,9 +470,9 @@ msgstr "Die Suche nach installierte Plugins beinhaltet die Suche in deren Namen,
 msgid "Custom Logo"
 msgstr "Individuelles Logo"
 
-#: wp-admin/user-new.php:23 wp-admin/user-new.php:117
-msgid "Sorry, you are not allowed to create users."
-msgstr "Du bist leider nicht berechtigt, Benutzer zu erstellen."
+#: wp-admin/users.php:317 wp-admin/users.php:348
+msgid "Sorry, you are not allowed to remove users."
+msgstr "Du bist leider nicht berechtigt, Benutzer zu löschen."
 
 #: wp-admin/user-new.php:16 wp-admin/user-new.php:56
 msgid "Sorry, you are not allowed to add users to this network."
@@ -660,10 +664,6 @@ msgstr "Das wird den aktuellen Editor-Inhalt mit dem Inhalt der letzten gespeich
 #: wp-admin/includes/template.php:1523
 msgid "Close media attachment panel"
 msgstr "„Medien hinzufügen“-Bedienfeld schließen"
-
-#: wp-admin/users.php:317 wp-admin/users.php:348
-msgid "Sorry, you are not allowed to remove users."
-msgstr "Du bist leider nicht berechtigt, Benutzer zu entfernen."
 
 #: wp-admin/includes/ms.php:1096
 msgid "Info"
@@ -4373,7 +4373,7 @@ msgstr "Dateien hinzufügen"
 
 #: wp-admin/edit-form-advanced.php:356
 msgid "The title field and the big Post Editing Area are fixed in place, but you can reposition all the other boxes using drag and drop. You can also minimize or expand them by clicking the title bar of each box. Use the Screen Options tab to unhide more boxes (Excerpt, Send Trackbacks, Custom Fields, Discussion, Slug, Author) or to choose a 1- or 2-column layout for this screen."
-msgstr "Das Titel Feld und das große Feld für den Inhalt sind fest positioniert, aber alle anderen Boxen können per Drag &#38; Drop neu angeordnet werden. Du kannst diese auch minimieren oder maximieren durch Klicken auf die Titelleiste jeder Box. Nutze &#8222;Ansicht anpassen&#8220;, um weitere Boxen zu aktivieren oder deaktivieren (Ausschnitt, Trackbacks senden, benutzerdefinierte Felder, Diskussionen, Slug und Autor) oder wähle das 1- oder 2-Spalten Layout für diese Ansicht."
+msgstr "Das Titelfeld und das große Feld für den Inhalt sind fest positioniert, aber alle anderen Boxen können per Drag &#38; Drop neu angeordnet werden. Du kannst diese auch minimieren oder maximieren durch Klicken auf die Titelleiste jeder Box. Nutze &#8222;Ansicht anpassen&#8220;, um weitere Boxen zu aktivieren oder deaktivieren (Ausschnitt, Trackbacks senden, benutzerdefinierte Felder, Diskussionen, Titelform und Autor) oder wähle das 1- oder 2-Spalten-Layout für diese Ansicht."
 
 #: wp-admin/custom-header.php:122
 msgid "Don&#8217;t forget to click &#8220;Save Changes&#8221; when you&#8217;re done!"
@@ -8300,7 +8300,7 @@ msgstr "Blogseiten zeigen maximal"
 
 #: wp-admin/options-reading.php:87
 msgid "<strong>Warning:</strong> these pages should not be the same!"
-msgstr "<strong>Achtung:</strong> diese Seiten sollten nicht gleich sein!"
+msgstr "<strong>Warnung:</strong> Diese Seiten sollten nicht gleich sein!"
 
 #: wp-admin/options-reading.php:84
 msgid "Posts page: %s"
