@@ -1,10 +1,10 @@
-{include file="phoenix/system/_header.tpl"}
+{include file="phoenix/system/_header.html"}
 
-{include file="phoenix/system/_breadcrumbs.tpl"}
+{include file="phoenix/system/_breadcrumbs.html"}
 
 {if $message}
     {foreach $message as $info}
-        {include file="phoenix/system/_message.tpl"}
+        {include file="phoenix/system/_message.html"}
     {/foreach}
 {/if}
 <!-- body //-->
@@ -69,7 +69,7 @@
 </table>
 
 {if $smarty.const.NEWSLETTER eq true}
-	{include file="phoenix/system/_newsletter.tpl"}
+	{include file="phoenix/system/_newsletter.html"}
 {/if}
 
-{include file="phoenix/system/_footer.tpl"}
+{include file="phoenix/system/_footer.html"}

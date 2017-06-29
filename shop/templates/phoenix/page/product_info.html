@@ -1,10 +1,10 @@
-{include file="phoenix/system/_header.tpl"}
+{include file="phoenix/system/_header.html"}
 
-{include file="phoenix/system/_breadcrumbs.tpl"}
+{include file="phoenix/system/_breadcrumbs.html"}
 
 {if $message}
     {foreach $message as $info}
-        {include file="phoenix/system/_message.tpl"}
+        {include file="phoenix/system/_message.html"}
     {/foreach}
 {/if}
 <!-- body //-->
@@ -190,4 +190,4 @@ document.write('<a href="javascript:popupWindow(\'{html_href_link content=$filen
   </tr>
 </table>
 <!-- body_eof //-->
-{include file="phoenix/system/_footer.tpl"}
+{include file="phoenix/system/_footer.html"}
