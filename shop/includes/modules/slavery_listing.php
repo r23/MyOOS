@@ -248,23 +248,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
                  $order_min = number_format($listing['products_quantity_order_min']);
                }
 
-               if (PRODUCT_LISTING_WITH_QTY == 'true') {
-                 if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
-                 $lc_text = '<form name="buy_slave" action="' . OOS_HTTP_SERVER . OOS_SHOP . 'index.php" method="post">';
-                 $lc_text .= '<input type="hidden" name="action" value="buy_slave">';
-                 $lc_text .= '<input type="hidden" name="slave_id" value="' . $listing['products_id'] .'">';
-                 $lc_text .= '<input type="hidden" name="content" value="' . $sContent .'">';
-                 $lc_text .= '<input type="hidden" name="category" value="' . $sCategory .'">';
-                 $lc_text .= '<input type="hidden" name="products_id" value="' . $nProductsID .'">';
-                 $lc_text .= oos_draw_hidden_field($session->getName(), $session->getId());
-                 $lc_text .= oos_get_all_as_hidden_field(array('action'));
-                 $lc_text .= $aLang['products_order_qty_text'];
-                 $lc_text .= ' <input type="text" name="cart_quantity" value="' . $order_min . '" size="3" /><br />';
-                 $lc_text .= oos_image_submit('buy_now.gif', $aLang['text_buy'] . $listing['products_name'] . $aLang['text_now']);
-                 $lc_text .= '</form>';
-               } else {
-                 $lc_text = '<a href="' . oos_href_link($sContent, $all_get_listing . 'action=buy_slave&amp;slave_id=' . $listing['products_id'] . '&amp;cart_quantity=' . $order_min ) . '">' . oos_image_button('buy_now.gif', $aLang['text_buy'] . $listing['products_name'] . $aLang['text_now']) . '</a>&nbsp;';
-               }
+               $lc_text = '<a href="' . oos_href_link($sContent, $all_get_listing . 'action=buy_slave&amp;slave_id=' . $listing['products_id'] . '&amp;cart_quantity=' . $order_min ) . '">' . oos_image_button('buy_now.gif', $aLang['text_buy'] . $listing['products_name'] . $aLang['text_now']) . '</a>&nbsp;';
 
             } else {
               $lc_text = '&nbsp;';

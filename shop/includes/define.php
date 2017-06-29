@@ -21,7 +21,6 @@ define('WARN_CONFIG_WRITEABLE', 'true');
 define('WARN_DOWNLOAD_DIRECTORY_NOT_READABLE', 'true');
 
 define('DECIMAL_CART_QUANTITY', 'false');
-define('PRODUCT_LISTING_WITH_QTY', 'true');
 
 define('UNITS_DELIMITER', '&nbsp;/&nbsp;');
 define('ACCOUNT_COMPANY_VAT_ID_CHECK', 'true');

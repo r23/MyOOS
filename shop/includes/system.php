@@ -68,10 +68,10 @@ $smarty->assign(
 		'filename'		=> $aContents,
 		'page_file'		=> $sContent,
 
-		'request_type'		=> $request_type,
+		'request_type'	=> $request_type,
 
 		'theme_set'		=> $sTheme,
-		'theme_image'		=> 'themes/' . $sTheme . '/images',
+		'theme_image'	=> 'themes/' . $sTheme . '/images',
 		'theme'			=> 'themes/' . $sTheme,
 
 		'lang'			=> $aLang,
@@ -116,7 +116,7 @@ if (isset($_SESSION)) {
 $smarty->assign(
 	array(
 		'mySystem'              => $aSystem,
-		'cart_show_total'	=> $cart_show_total,
+		'cart_show_total'		=> $cart_show_total,
 		'cart_count_contents'	=> $cart_count_contents
 	)
 );
