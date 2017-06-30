@@ -40,7 +40,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_order_history.php';
 
   $aTemplate['page'] = $sTheme . '/page/account_order_history.html';
-  $aTemplate['pagination'] = $sTheme . '/system/_pagination.tpl';
+  $aTemplate['pagination'] = $sTheme . '/system/_pagination.htm';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
   $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;

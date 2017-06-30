@@ -350,7 +350,7 @@ if ($error == 1) {
     $listing_sql = $select_str . $from_str . $where_str . $order_str;
 
     $aTemplate['page'] = $sTheme . '/page/advanced_search_result.html';
-    $aTemplate['pagination'] = $sTheme . '/system/_pagination.tpl';
+    $aTemplate['pagination'] = $sTheme . '/system/_pagination.htm';
 
     $nPageType = OOS_PAGE_TYPE_CATALOG;
 	$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;

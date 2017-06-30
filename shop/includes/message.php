@@ -87,21 +87,21 @@ if (isset($_SESSION)) {
 		$aInfoMessage[] = array('type' => 'success',
 					'title' => $aLang['success'],
 					'text' => (string)$_SESSION['success_message']);
-		$_SESSION['success_message'] = '';
+		unset($_SESSION['success_message']);
 	}
 	
 	if (isset($_SESSION['error_message']) && !empty($_SESSION['error_message'])) {
 		$aInfoMessage[] = array('type' => 'danger',
 					'title' => $aLang['danger'],
 					'text' => (string)$_SESSION['error_message']);
-		$_SESSION['error_message'] = '';
+		unset($_SESSION['error_message']);
 	}		
 	
 	if (isset($_SESSION['error_cart_msg']) && !empty($_SESSION['error_cart_msg'])) {
 		$aInfoMessage[] = array('type' => 'danger',
 					'title' => $aLang['danger'],
 					'text' => (string)$_SESSION['error_cart_msg']);
-		$_SESSION['error_cart_msg'] = '';
+		unset($_SESSION['error_cart_msg']);
 	}	
 }
 

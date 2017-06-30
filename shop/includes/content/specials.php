@@ -29,7 +29,7 @@
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_specials.php';
 
   $aTemplate['page'] = $sTheme . '/products/specials.html';
-  $aTemplate['pagination'] = $sTheme . '/system/_pagination.tpl';
+  $aTemplate['pagination'] = $sTheme . '/system/_pagination.htm';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
   $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;

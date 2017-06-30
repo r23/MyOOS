@@ -178,7 +178,7 @@ if ($category_depth == 'nested') {
 } elseif ($category_depth == 'products' || (isset($_GET['manufacturers_id']) && !empty($_GET['manufacturers_id']))) {
 
     $aTemplate['page'] = $sTheme . '/page/shop_products.html';
-    $aTemplate['pagination'] = $sTheme . '/system/_pagination.tpl';
+    $aTemplate['pagination'] = $sTheme . '/system/_pagination.htm';
 
     $nPageType = OOS_PAGE_TYPE_CATALOG;
 	$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;

@@ -135,7 +135,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
   $oBreadcrumb->add($customer. $aLang['navbar_title'], oos_href_link($aContents['wishlist']));
 
   $aTemplate['page'] = $sTheme . '/page/wishlist.html';
-  $aTemplate['pagination'] = $sTheme . '/system/_pagination.tpl';
+  $aTemplate['pagination'] = $sTheme . '/system/_pagination.htm';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
   $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;

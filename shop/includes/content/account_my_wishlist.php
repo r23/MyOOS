@@ -152,7 +152,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
   $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['account_my_wishlist']));
 
   $aTemplate['page'] = $sTheme . '/page/my_wishlist.html';
-  $aTemplate['pagination'] = $sTheme . '/system/_pagination.tpl';
+  $aTemplate['pagination'] = $sTheme . '/system/_pagination.htm';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;
   $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;

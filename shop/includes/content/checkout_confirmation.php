@@ -55,7 +55,7 @@ if (isset($_POST['payment'])) $_SESSION['payment'] = oos_db_prepare_input($_POST
 
 if ( (isset($_POST['comments'])) && (empty($_POST['comments'])) ) {
 	$_SESSION['comments'] = '';
-} else if (oos_is_not_null($_POST['comments'])) {
+} elseif (oos_is_not_null($_POST['comments'])) {
 	$_SESSION['comments'] = oos_db_prepare_input($_POST['comments']);
 }
 

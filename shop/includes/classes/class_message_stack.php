@@ -33,8 +33,8 @@ class messageStack {
 	public function __construct() {
 
 		$this->messages = array();
-
-		if (isset($_SESSION['messageToStack'])) {
+		
+		if (isset($_SESSION) && isset($_SESSION['messageToStack'])) {
 			$messageToStack = $_SESSION['messageToStack'];
 			for ($i=0, $n=count($messageToStack); $i<$n; $i++) {
 				$this->add($messageToStack[$i]['class'], $messageToStack[$i]['text'], $messageToStack[$i]['type']);

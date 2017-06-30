@@ -133,11 +133,11 @@ $session->setName('PHOENIXSID');
 $sSid = $session->getName();
 // set the session ID if it exists
 if (isset($_POST[$sSid]) && !empty($_POST[$sSid])){
-   $session->start();
+	$session->start();
 } elseif (isset($_COOKIE[$sSid])) {
 	$session->start();
 } elseif (isset($_GET[$sSid]) && !empty($_GET[$sSid])) {
-   $session->start();
+	$session->start();
 }
 
 // Cross-Site Scripting attack defense
