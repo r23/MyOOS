@@ -92,12 +92,23 @@
 <script type="text/javascript" src="js/jquery/jquery-migrate.min.js"></script>
 <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
 
+<script src="{$theme}/js/shop.app.js"></script>
+{literal}
+	<script>
+		jQuery(document).ready(function() {
+			App.init();
+		});
+	</script>
+{/literal}
+
 <!-- HTML5 shim and Respond.js IE support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
 	<script src="{$theme}/crossbrowserjs/html5shiv.js"></script>
 	<script src="{$theme}/crossbrowserjs/respond.min.js"></script>
 	<script src="{$theme}/crossbrowserjs/excanvas.min.js"></script>
 <![endif]-->
+
+
 
 </body>
 </html>

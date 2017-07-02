@@ -49,25 +49,28 @@
 
 	<!-- start header -->
 	<header>
-    <div class="header header-static">
+	<div class="header header-static">
+        <!-- TOPBAR -->
         <div class="topbar">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <!-- Topbar Navigation -->
-                        <ul class="list-inline left-topbar">
-							<li><a href="{html_href_link content=$filename.account connection=SSL}">{$lang.header_title_my_account}</a></li>
-							<li><a href="{html_href_link content=$filename.shopping_cart}">{$lang.header_title_cart_contents}</a></li>
-							<li><a href="{html_href_link content=$filename.checkout_payment connection=SSL}">{$lang.header_title_checkout}</a></li>
-						{if (isset($smarty.session.customer_id)) }
-							<li><a href="{html_href_link content=$filename.logoff connection=SSL}">{$lang.header_title_logoff}</a></li>
-						{else}
-							<li><a href="{html_href_link content=$filename.login connection=SSL}">{$lang.header_title_login}</a></li>
-						{/if}						
-                        </ul>  
-                    </div>
-                    <div class="col-sm-6">
-                        <ul class="right-topbar pull-right">
+				<div class="search-open">
+					<div class="container">
+						<form action="{html_href_link content=$filename.advanced_search_result}" method="get">
+						{if $mySystem.sed}
+							<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+							<input type="hidden" name="formid" value="{$mySystem.formid}">
+						{/if}
+							<input type="hidden" name="content" value="{$filename.advanced_search_result}">				
+							<input type="text" name="keywords" class="form-control" placeholder="{$lang.text_search}">
+						</form>
+						<div class="search-close"><i class="fa fa-plus-circle"></i></div>
+					</div>
+				</div>		
+		
+			<div class="container">
+				<div class="row">		
+					<div class="col-md-6">
+						<ul class="left-topbar list-inline">
+							<li class="hidden-xs"><a href="{html_href_link content=$filename.contact_us}">{$lang.block_service_contact}</a></li>					
 						{if $currency_block eq 'true'}
                             <li>
                                 <a>{$lang.header_select_currencies}: ({$currency})</a>
@@ -105,9 +108,44 @@
                             </li>
 						{/if}							
                         </ul>
-                    </div>
-                </div>
-            </div><!--end container-->
+                    </div>	
+					<div class="col-md-6">
+						<ul class="right-topbar list-inline pull-right">
+							<li class="account-login"><span>
+							{if (isset($smarty.session.customer_id)) }
+								<a href="{html_href_link content=$filename.logoff connection=SSL}">{$lang.header_title_logoff}</a>
+							{else}
+								<a href="{html_href_link content=$filename.login connection=SSL}">{$lang.header_title_login}</a>
+							{/if}
+							</span></li>
+							<li><i class="search fa fa-search search-button"></i></li>
+							<li class="dropdown cart-dropdown">
+								<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-shopping-cart"></i> {$cart_show_total}</a>
+								<ul class="dropdown-menu dropdown-menu-right">
+								{if $cart_count_contents > 0}
+									<div class="subtotal">
+										<div class="overflow-h margin-bottom-10">
+											<span>{$lang.sub_title_sub_total}</span>
+											<span class="pull-right subtotal-cost">{$cart_show_total}</span>
+										</div>
+									<div class="row">
+										<div class="col-xs-6">
+											<a href="{html_href_link content=$filename.shopping_cart}" class="btn-u btn-brd btn-brd-hover btn-u-sea-shop btn-block">{$lang.header_title_cart_contents}</a>
+										</div>
+										<div class="col-xs-6">
+											<a href="shop-ui-add-to-cart.html" class="btn-u btn-u-sea-shop btn-block">{$lang.header_title_checkout}</a>
+										</div>
+									</div>
+							</div>													
+								{else}
+									<li>{$lang.block_shopping_cart_empty}</li>
+								{/if}
+								</ul>
+							</li>
+						</ul>
+					</div>						
+				</div>
+			</div>    
         </div>
         <!-- navbar -->
         <div class="navbar navbar-default mega-menu" role="navigation">
@@ -131,3 +169,6 @@
     </div>
 	</header>
 	<!-- end header -->
+
+	
+	

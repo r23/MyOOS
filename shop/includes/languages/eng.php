@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -66,7 +66,7 @@ $aLang['welcome_msg_title'] = '';
 $aLang['danger'] = 'Oh snap! You got an error!';
 $aLang['warning'] = 'Warning!';
 
-//text in oos_temp/templates/your theme/system/user_navigation.html
+// theme/system/_header.html
 $aLang['header_title_create_account'] = 'Create an Account';
 $aLang['header_title_my_account'] = 'My Account';
 $aLang['header_title_cart_contents'] = 'Cart Contents';
@@ -74,11 +74,15 @@ $aLang['header_title_checkout'] = 'Checkout';
 $aLang['header_title_top'] = 'Top';
 $aLang['header_title_logoff'] = 'Log Off';
 $aLang['header_title_login'] = 'Log In';
+$aLang['header_title_contact'] = 'Kontakt';
+$aLang['header_title_whats_new'] = 'What\'s New?';
 $aLang['header_select_language'] = 'Your Language';
 $aLang['header_select_currencies'] = 'Currency';
 
-$aLang['header_title_whats_new'] = 'What\'s New?';
+$aLang['sub_title_total'] = 'Total:';
+
 $aLang['block_heading_specials'] = 'Specials';
+
 
 // footer text in includes/oos_footer.php
 $aLang['footer_text_requests_since'] = 'requests since';

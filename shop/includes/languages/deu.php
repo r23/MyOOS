@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -60,7 +60,7 @@ $aLang['danger'] = 'Oh nein! Es ist ein Fehler aufgetreten!';
 $aLang['warning'] = 'Warnung!';
 
 
-//text in oos_temp/templates/oos/system/user_navigation.html
+// theme/system/_header.html
 $aLang['header_title_create_account'] = 'Neues Konto';
 $aLang['header_title_my_account'] = 'Mein Konto';
 $aLang['header_title_cart_contents'] = 'Warenkorb';
@@ -68,9 +68,13 @@ $aLang['header_title_checkout'] = 'Kasse';
 $aLang['header_title_top'] = 'Startseite';
 $aLang['header_title_logoff'] = 'Abmelden';
 $aLang['header_title_login'] = 'Anmelden';
+$aLang['header_title_contact'] = 'Kontakt';
 $aLang['header_title_whats_new'] = 'Neue Produkte';
 $aLang['header_select_language'] = 'Ihre Sprache';
 $aLang['header_select_currencies'] = 'Währung';
+
+$aLang['sub_title_total'] = 'Summe:';
+
 
 $aLang['block_heading_specials'] = 'Angebote';
 
