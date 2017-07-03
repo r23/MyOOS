@@ -155,23 +155,6 @@ function oos_href_link($page = '', $parameters = '', $connection = 'NONSSL', $ad
   }
 
 
- /**
-  * Output a function button in the selected language
-  *
-  * @param $image
-  * @param $alt
-  * @param $parameters
-  * @return string
-  */
-  function oos_image_button($image, $alt = '', $parameters = '') {
-
-    $sTheme = oos_var_prep_for_os($_SESSION['theme']);
-    $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
-
-    return oos_image('themes/' . $sTheme . '/images/buttons/' . $sLanguage . '/' . $image, $alt, '', '', $parameters);
-  }
-
-
   /**
    * The HTML form submit button wrapper function
    * Outputs a button in the selected language
