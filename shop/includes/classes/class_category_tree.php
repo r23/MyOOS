@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -21,8 +21,8 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  class oosCategoryTree {
-    var $root_category_id = 0,
+class oosCategoryTree {
+	var $root_category_id = 0,
         $max_level = 0,
         $data = array(),
         $root_start_string = '',
@@ -42,15 +42,14 @@
         $cpath_start_string = '',
         $cpath_end_string = '',
         $show_category_product_count = FALSE,
-        $show_image_folder = FALSE,
         $category_product_count_start_string = '&nbsp;(',
         $category_product_count_end_string = ')';
 
-    public function __construct() {
+	public function __construct() {
 
-      if (SHOW_COUNTS == 'true') {
-        $this->show_category_product_count = TRUE;
-      }
+		if (SHOW_COUNTS == 'true') {
+			$this->show_category_product_count = TRUE;
+		}
 
       // Get database information
       $dbconn =& oosDBGetConn();
@@ -123,16 +122,6 @@
           }
 
           $result .= str_repeat($this->spacer_string, $this->spacer_multiplier * $level);
-
-          if ($this->show_image_folder === TRUE) {
-            $result .= $sLink;
-            if (in_array($category_id, $this->cpath_array)) {
-              $result .= oos_image_folder('current_folder.png', $category['name']);
-            } else {
-              $result .= oos_image_folder('folder.png', $category['name']);
-            }
-            $result .= '</a>&nbsp;';
-          }
 
           $result .= $sLink;
 
@@ -353,14 +342,6 @@
         $this->show_category_product_count = TRUE;
       } else {
         $this->show_category_product_count = FALSE;
-      }
-    }
-
-    public function setShowImageFolder($show_image_folder) {
-      if ($show_image_folder === TRUE) {
-        $this->show_image_folder = TRUE;
-      } else {
-        $this->show_image_folder = FALSE;
       }
     }
 

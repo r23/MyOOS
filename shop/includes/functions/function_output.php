@@ -155,20 +155,6 @@ function oos_href_link($page = '', $parameters = '', $connection = 'NONSSL', $ad
   }
 
 
- /**
-  * Output a folder image
-  *
-  * @param $image
-  * @param $alt
-  * @param $parameters
-  * @return string
-  */
-  function oos_image_folder($image, $alt = '', $parameters = '') {
-
-     $sTheme = oos_var_prep_for_os($_SESSION['theme']);
-     return oos_image('themes/' . $sTheme . '/images/icons/' . $image, $alt, '', '', $parameters);
-  }
-
 
  /**
   * Output a separator either through whitespace, or with an image
