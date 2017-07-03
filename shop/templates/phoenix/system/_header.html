@@ -2,6 +2,8 @@
 <html lang="{$smarty.const.LANG}">
 <head>
 <meta charset="utf-8" />
+<meta name="Language" content="{$meta_language}" />
+<meta name="Content-Language" content="{$meta_content_language}">
 <title>{$pagetitle}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />	
 <meta name="description" content="{$meta_description}" />
@@ -11,12 +13,6 @@
 	OF THE GNU GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
 *}
 <meta name="Generator" content="{$smarty.const.OOS_FULL_NAME} - {$smarty.const.OOS_HOME}  All rights reserved.">
-{*
-	END OF COPYRIGHT
-*}
-<meta name="Language" content="{$smarty.session.languages_name}" />
-<meta name="Content-Language" content="{$smarty.session.iso_639_1}">
-<meta name="resource-type" content="document" />
 <meta name="creation" content="{$smarty.now|date_format:"%a,%d %b %Y"}" />	
 {assign var='robots' value=$robots|default:'index,follow,noodp,noydir'}
 <meta name="robots" content="{$robots}" />

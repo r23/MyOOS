@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -33,9 +33,6 @@ if ($debug == 1) {
 
 // object register
 $smarty->assignByRef("oEvent", $oEvent);
-
-// object register
-#  $smarty->register_object("cart", $_SESSION['cart'],array('count_contents', 'get_products'));
 
 // cache_id
 $sCacheID			= $sTheme . '|block|' . $sLanguage;
@@ -77,12 +74,16 @@ $smarty->assign(
 		'lang'			=> $aLang,
 		'language'		=> $sLanguage,
 		'currency'		=> $sCurrency,
-		
-		'pagetitle'		=> $sPagetitle,
-		'meta_description'	=> $sDescription
-)
+
+	
+		'pagetitle'				=> $sPagetitle,
+		'meta_description'		=> $sDescription,
+		'meta_language' 		=> $oLang->language['name'],
+		'meta_content_language' => $oLang->language['iso_639_1']
+	)
+
 );
- 
+
 $smarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
 
 
