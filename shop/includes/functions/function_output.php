@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -153,25 +153,6 @@ function oos_href_link($page = '', $parameters = '', $connection = 'NONSSL', $ad
 
     return $image;
   }
-
-
-  /**
-   * The HTML form submit button wrapper function
-   * Outputs a button in the selected language
-   *
-   * @param $image
-   * @param $alt
-   * @param $parameters
-   * @return string
-   */
-   function oos_image_submit($image, $alt = '', $parameters = '') {
-
-     $sTheme = oos_var_prep_for_os($_SESSION['theme']);
-     $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
-
-     return '<input type="image" src="' . 'themes/' . $sTheme . '/images/buttons/' . $sLanguage . '/' . $image .'" alt="'.$alt.'" border="0" '.$parameters.' />';
-   }
-
 
 
  /**
