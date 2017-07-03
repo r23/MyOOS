@@ -289,31 +289,6 @@ function oos_draw_hidden_field($name, $value = '', $parameters = '')
 
 
 
- /**
-  * Return all GET variables, except those passed as a parameter
-  *
-  */
-  function oos_get_all_as_hidden_field($aExclude = '') {
-
-    if (!is_array($aExclude)) $aExclude = array();
-
-    $sField = '';
-    if (is_array($_GET) && (count($_GET) > 0)) {
-      reset($_GET);
-      while (list($sKey, $sValue) = each($_GET)) {
-        if (!empty($sValue)) {
-          if ( ($sKey != $session->getName()) && ($sKey != 'error') && ($sKey != 'p') && ($sKey != 'rewrite') && ($sKey != 'c') && ($sKey != 'm') &&  ($sKey != 'content') && ($sKey != 'index.php') && ($sKey != 'history_back') && (!in_array($sKey, $aExclude)) && ($sKey != 'x') && ($sKey != 'y') ) {
-            $sField = '<input type="hidden" name="' . oos_output_string($sKey) . '"';
-            $sField .= ' value="' . oos_output_string($sValue) . '" />';
-          }
-        }
-      }
-    }
-	
-    return $sField;
-  }
-
-
 /**
  * Output a form pull down menu
  *
