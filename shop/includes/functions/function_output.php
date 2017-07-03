@@ -157,19 +157,6 @@ function oos_href_link($page = '', $parameters = '', $connection = 'NONSSL', $ad
 
 
  /**
-  * Output a separator either through whitespace, or with an image
-  *
-  * @param $height
-  * @param $width
-  * @param $image
-  */
-  function oos_black_line($width = '100%', $height = '1', $image = 'black.gif') {
-    return oos_image(OOS_IMAGES . $image, '', $width, $height);
-  }
-
-
-
- /**
   * Output a form input field
   *
   * @param $name

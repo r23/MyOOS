@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -56,7 +56,7 @@
   $shopping_cart_detail .= '    <td align="right" class="tableHeading">' . $aLang['table_heading_total'] . '</td>' . "\n" .
        '  </tr>' . "\n" .
        '  <tr>' . "\n" .
-       '    <td colspan="' . $colspan . '">' . oos_black_line() . '</td>' . "\n" .
+       '    <td colspan="' . $colspan . '">&nbsp;</td>' . "\n" .
        '  </tr>' . "\n";
 
   for ($i=0, $n=count($products); $i<$n; $i++) {
