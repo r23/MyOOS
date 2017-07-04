@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -169,9 +169,6 @@ define('MAX_DISPLAY_BESTSELLERS_DESC', 'Maximum number of best sellers to displa
 
 define('MAX_DISPLAY_ALSO_PURCHASED_TITLE', 'Also Purchased');
 define('MAX_DISPLAY_ALSO_PURCHASED_DESC', 'Maximum number of products to display in the \'This Customer Also Purchased\' block');
-
-define('MAX_DISPLAY_PRODUCTS_IN_ORDER_HISTORY_BOX_TITLE', 'Customer Order History-Block');
-define('MAX_DISPLAY_PRODUCTS_IN_ORDER_HISTORY_BOX_DESC', 'Maximum number of products to display in the customer order history block');
 
 define('MAX_DISPLAY_ORDER_HISTORY_TITLE', 'Order History');
 define('MAX_DISPLAY_ORDER_HISTORY_DESC', 'Maximum number of orders to display in the order history page');
