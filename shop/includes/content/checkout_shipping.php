@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -211,27 +211,27 @@ if (!isset($_SESSION['customer_id'])) {
     $smarty->assign('campaigns_radios', $dbconn->getAssoc($campaigns_sql));
   }
 
-  // assign Smarty variables;
-  $smarty->assign(
-      array(
-          'breadcrumb'    => $oBreadcrumb->trail(),
-          'heading_title' => $aLang['heading_title'],
-		'robots'		=> 'noindex,nofollow,noodp,noydir',
+// assign Smarty variables;
+$smarty->assign(
+	array(
+		'breadcrumb'		=> $oBreadcrumb->trail(),
+		'heading_title'		=> $aLang['heading_title'],
+		'robots'			=> 'noindex,nofollow,noodp,noydir',
+		'checkout_active'	=> 1,
+		
+		'sess_method'       => $sess_method,
 
-          'sess_method'       => $sess_method,
+		'counts_shipping_modules' => oos_count_shipping_modules(),
+		'quotes'                  => $quotes,
 
-          'counts_shipping_modules' => oos_count_shipping_modules(),
-          'quotes'                  => $quotes,
-
-          'free_shipping'                 => $free_shipping,
-          'oos_free_shipping_description' => sprintf($aLang['free_shipping_description'], $oCurrencies->format(MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER))
-      )
-  );
+		'free_shipping'                 => $free_shipping,
+		'oos_free_shipping_description' => sprintf($aLang['free_shipping_description'], $oCurrencies->format(MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER))
+	)
+);
 
 
-  // JavaScript
-  $smarty->assign('popup_window', 'checkout_shipping.js');
-
+// JavaScript
+$smarty->assign('popup_window', 'checkout_shipping.js');
 
 // display the template
 $smarty->display($aTemplate['page']);

@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -75,13 +75,14 @@ if (!isset($_SESSION['customer_id'])) {
   }
 
 // assign Smarty variables;
-  $smarty->assign(
-      array(
-          'breadcrumb'    	=> $oBreadcrumb->trail(),
-          'heading_title' 	=> $aLang['heading_title'],
-		  'robots'			=> 'noindex,nofollow,noodp,noydir'
-      )
-  );
+$smarty->assign(
+	array(
+		'breadcrumb'    	=> $oBreadcrumb->trail(),
+		'heading_title' 	=> $aLang['heading_title'],
+		'robots'			=> 'noindex,nofollow,noodp,noydir',
+		'account_active'	=> 1
+	)
+);
 
   $smarty->assign('order', $oOrder);
   $smarty->assign('currencies', $oCurrencies);

@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -311,6 +311,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php'
             'heading_title' => $aLang['heading_title'],
 			'robots'		=> 'noindex,nofollow,noodp,noydir',
 
+			'account_active'	=> 1,
             'email_address'     => $email_address,
             'show_password'     => $show_password
 

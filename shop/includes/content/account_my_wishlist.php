@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -164,21 +164,22 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
   }
 
 // assign Smarty variables;
-  $smarty->assign(
-       array(
-           'breadcrumb' 	=> $oBreadcrumb->trail(),
-           'heading_title' 	=> $aLang['heading_title'],
-		   'robots'			=> 'noindex,nofollow,noodp,noydir',
+$smarty->assign(
+	array(
+		'breadcrumb' 	=> $oBreadcrumb->trail(),
+		'heading_title' 	=> $aLang['heading_title'],
+		'robots'			=> 'noindex,nofollow,noodp,noydir',
 
-           'page_split' => $wishlist_split->display_count($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, $nPage, $aLang['text_display_number_of_wishlist']),
-           'display_links' => $wishlist_split->display_links($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
-           'numrows' => $wishlist_numrows,
+		'account_active'	=> 1,
+		'page_split' => $wishlist_split->display_count($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, $nPage, $aLang['text_display_number_of_wishlist']),
+		'display_links' => $wishlist_split->display_links($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
+		'numrows' => $wishlist_numrows,
 
-           'wishlist_array' => $aWishlist
-       )
-  );
-  $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination']));
+		'wishlist_array' => $aWishlist
+	)
+);
 
+$smarty->assign('pagination', $smarty->fetch($aTemplate['pagination']));
 
-  // display the template
+// display the template
 $smarty->display($aTemplate['page']);

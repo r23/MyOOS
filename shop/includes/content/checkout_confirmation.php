@@ -158,11 +158,12 @@ if (!isset($option)) {
 
 // assign Smarty variables;
 $smarty->assign(
-		array(
-			'breadcrumb' => $oBreadcrumb->trail(),
-			'heading_title' => $aLang['heading_title'],
-			'robots'		=> 'noindex,nofollow,noodp,noydir',
-		)
+	array(
+		'breadcrumb' => $oBreadcrumb->trail(),
+		'heading_title' => $aLang['heading_title'],
+		'robots'		=> 'noindex,nofollow,noodp,noydir',
+		'checkout_active' => 1
+	)
 );
 
 if (MODULE_ORDER_TOTAL_INSTALLED) {

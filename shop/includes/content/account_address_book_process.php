@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -262,35 +262,38 @@ if ($_SESSION['navigation']->snapshot['content'] != $aContents['account_address_
   }
 
 // assign Smarty variables;
-  $smarty->assign(
-      array(
-          'breadcrumb' => $oBreadcrumb->trail(),
+$smarty->assign(
+	array(
+		'breadcrumb' => $oBreadcrumb->trail(),
 
-          'back_link'      => $back_link,
-          'entry_id'       => $entry_id,
-          'process'        => $process,
+			
+		'back_link'      => $back_link,
+		'entry_id'       => $entry_id,
+		'process'        => $process,
 
-          'oos_js'         => $javascript
-      )
-  );
+		'oos_js'         => $javascript
+	)
+);
 
-  if (isset($_GET['action']) && $_GET['action'] == 'modify') {
-    $smarty->assign(
-        array(
+if (isset($_GET['action']) && $_GET['action'] == 'modify') {
+	$smarty->assign(
+		array(
             'heading_title' => $aLang['heading_title_modify_entry']
         )
     );
-  } else {
-    $smarty->assign(
-        array(
-            'heading_title' => $aLang['heading_title_add_entry']
-        )
-    );
-  }
+} else {
+	$smarty->assign(
+		array(
+			'heading_title' => $aLang['heading_title_add_entry']
+		)
+	);
+}
 
-  $smarty->assign(
-      array(
+$smarty->assign(
+	array(
 		'robots'			=> 'noindex,nofollow,noodp,noydir',
+		'account_active'	=> 1,
+		
           'gender'         => $gender,
           'firstname'      => $firstname,
           'lastname'       => $lastname,

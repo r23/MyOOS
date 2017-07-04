@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -117,16 +117,17 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
     require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
   }
 
-  // assign Smarty variables;
-  $smarty->assign(
-      array(
-          'breadcrumb'         => $oBreadcrumb->trail(),
-          'heading_title'      => $aLang['heading_title'],
-		  'robots'			=> 'noindex,nofollow,noodp,noydir',
+// assign Smarty variables;
+$smarty->assign(
+	array(
+		'breadcrumb'		=> $oBreadcrumb->trail(),
+		'heading_title'		=> $aLang['heading_title'],
+		'robots'			=> 'noindex,nofollow,noodp,noydir',
+		'account_active'	=> 1,
 
-          'oos_address_book_array' => $aAddressBook
-      )
-  );
+		'oos_address_book_array' => $aAddressBook
+	)
+);
 
 
   // display the template

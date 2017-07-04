@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -21,7 +21,7 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-if ($debug == '1') {
+if ($debug == 1) {
 	echo '<pre>';
 	print_r($_SESSION);
 	echo '<br />';
@@ -36,7 +36,9 @@ if (isset($_SESSION)) {
 	if (isset($_SESSION['new_products_id_in_cart'])) {
 		unset($_SESSION['new_products_id_in_cart']);
 	}
-	$_SESSION['error_cart_msg'] = '';
+	if (isset($_SESSION['error_cart_msg'])) {
+		unset($_SESSION['error_cart_msg']);
+	}
 }
 
 

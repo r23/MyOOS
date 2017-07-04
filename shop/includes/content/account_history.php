@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -96,20 +96,21 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
   }
 
 // assign Smarty variables;
-  $smarty->assign(
-      array(
-          'breadcrumb'		=> $oBreadcrumb->trail(),
-          'heading_title'	=> $aLang['heading_title'],
-		  'robots'			=> 'noindex,nofollow,noodp,noydir',
+$smarty->assign(
+	array(
+		'breadcrumb'		=> $oBreadcrumb->trail(),
+		'heading_title'	=> $aLang['heading_title'],
+		'robots'			=> 'noindex,nofollow,noodp,noydir',
 
-          'page_split'    => $history_split->display_count($history_numrows, MAX_DISPLAY_ORDER_HISTORY, $nPage, $aLang['text_display_number_of_orders']),
-          'display_links' => $history_split->display_links($history_numrows, MAX_DISPLAY_ORDER_HISTORY, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
-          'numrows'  => $history_numrows,
+		'account_active'	=> 1,
+		'page_split'    => $history_split->display_count($history_numrows, MAX_DISPLAY_ORDER_HISTORY, $nPage, $aLang['text_display_number_of_orders']),
+		'display_links' => $history_split->display_links($history_numrows, MAX_DISPLAY_ORDER_HISTORY, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
+		'numrows'  => $history_numrows,
 
-          'oos_history_array' => $aHistory
-      )
-  );
+		'oos_history_array' => $aHistory
+	)
+);
 
 
-  // display the template
+// display the template
 $smarty->display($aTemplate['page']);

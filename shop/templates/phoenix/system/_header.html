@@ -5,7 +5,9 @@
 <meta name="Language" content="{$meta_language}" />
 <meta name="Content-Language" content="{$meta_content_language}">
 <title>{$pagetitle}</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />	
+<!-- mobile settings -->
+<meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->	
 <meta name="description" content="{$meta_description}" />
 <meta name="author" content="{$smarty.const.OOS_META_AUTHOR}" />
 {*
@@ -124,15 +126,15 @@
 											<span>{$lang.sub_title_sub_total}</span>
 											<span class="pull-right subtotal-cost">{$cart_show_total}</span>
 										</div>
-									<div class="row">
-										<div class="col-xs-6">
-											<a href="{html_href_link content=$filename.shopping_cart}" class="btn-u btn-brd btn-brd-hover btn-u-sea-shop btn-block">{$lang.header_title_cart_contents}</a>
+										<div class="row">
+											<div class="col-xs-6">
+												<a href="{html_href_link content=$filename.shopping_cart}" class="btn-u btn-brd btn-brd-hover btn-u-sea-shop btn-block" role="button">{$lang.header_title_cart_contents}</a>
+											</div>
+											<div class="col-xs-6">
+												<a href="{html_href_link content=$filename.checkout_shipping connection=SSL}" class="btn-u btn-u-sea-shop btn-block" role="button">{$lang.header_title_checkout}</a>
+											</div>
 										</div>
-										<div class="col-xs-6">
-											<a href="shop-ui-add-to-cart.html" class="btn-u btn-u-sea-shop btn-block">{$lang.header_title_checkout}</a>
-										</div>
-									</div>
-							</div>													
+									</div>													
 								{else}
 									<li>{$lang.block_shopping_cart_empty}</li>
 								{/if}
@@ -142,29 +144,61 @@
 					</div>						
 				</div>
 			</div>    
-        </div>
+        </div>	
         <!-- navbar -->
-        <div class="navbar navbar-default mega-menu" role="navigation">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="{html_href_link content=$filename.main}">
-                        <img id="logo-header" src="{$theme_image}/logo.gif" alt="{$smarty.const.STORE_NAME}" title="{$smarty.const.STORE_NAME}">
-                    </a>
+		<nav class="navbar navbar-main navbar-default" role="navigation">
+			<div class="container">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>			
+					<a class="navbar-brand" href="{html_href_link content=$filename.main}">
+						<img id="logo-header" src="{$theme_image}/logo.png" alt="{$smarty.const.STORE_NAME}" title="{$smarty.const.STORE_NAME}">
+					</a>					
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse navbar-responsive-collapse">            
+					<ul class="nav navbar-nav navbar-right">
+						<li {if $home_activei}class="active"{/if}>
+							<a href="{html_href_link content=$filename.main}">{$lang.header_title_top}</a>
+						</li>
+						<li {if $login_active}class="active"{/if}>
+						{if (isset($smarty.session.customer_id)) }
+							<a href="{html_href_link content=$filename.logoff connection=SSL}">{$lang.header_title_logoff}</a>
+						{else}
+							<a href="{html_href_link content=$filename.login connection=SSL}">{$lang.header_title_login}</a>
+						{/if}
+						</li>
+						<li class="dropdown {if $account_active}active{/if}">
+							<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{$lang.header_title_my_account}</a>
+								<ul class="dropdown-menu dropdown-menu-right">
+									<li><a href="{html_href_link content=$filename.account connection=SSL}">{$lang.login_block_my_account}</a></li>
+									<li><a href="{html_href_link content=$filename.account_edit connection=SSL}">{$lang.login_block_account_edit}</a></li>
+									<li><a href="{html_href_link content=$filename.account_history oos_get='page=1' connection=SSL}">{$lang.login_block_account_history}</a></li>
+									<li><a href="{html_href_link content=$filename.account_order_history oos_get='page=1' connection=SSL}">{$lang.login_block_order_history}</a></li>
+									<li><a href="{html_href_link content=$filename.account_address_book connection=SSL}">{$lang.login_block_address_book}</a></li>
+								{if $oEvent->installed_plugin('notify')}
+									<li><a href="{html_href_link content=$filename.product_notifications connection=SSL}">{$lang.login_block_product_notifications}</a></li>
+								{/if}
 					
-                </div>
-            </div>    
-        </div>            
-        <!-- end navbar -->
-    </div>
+							</ul>
+						</li>
+						<li {if $cart_active}class="active"{/if}>
+							<a href="{html_href_link content=$filename.shopping_cart}">{$lang.header_title_cart_contents}</a>
+						</li>
+						<li {if $checkout_active}class="active"{/if}>
+							<a href="{html_href_link content=$filename.checkout_shipping connection=SSL}">{$lang.header_title_checkout}</a>
+						</li>
+					</ul>
+				</div><!-- /.navbar-collapse -->
+			</div>
+		</nav>
+		<!-- end navbar -->	
+	</div>
 	</header>
 	<!-- end header -->
-
-	
-	

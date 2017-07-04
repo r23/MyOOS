@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -132,20 +132,21 @@ if ( $session->hasStarted() === FALSE ) $session->start();
     $products_notify .= $aLang['text_see_orders'] . '<br /><br />' . $aLang['text_contact_store_owner'];
   }
 
-  // assign Smarty variables;
-  $smarty->assign(
-      array(
-          'breadcrumb'    => $oBreadcrumb->trail(),
-          'heading_title' => $aLang['heading_title'],
-		  'robots'		=> 'noindex,nofollow,noodp,noydir',
+// assign Smarty variables;
+$smarty->assign(
+	array(
+		'breadcrumb'		=> $oBreadcrumb->trail(),
+		'heading_title'		=> $aLang['heading_title'],
+		'robots'			=> 'noindex,nofollow,noodp,noydir',
+		'checkout_active'	=> 1,
 
-          'products_notify' => $products_notify
-      )
-  );
+		'products_notify'	=> $products_notify
+	)
+);
 
-  $smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
+$smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
 
 
-  // display the template
+// display the template
 $smarty->display($aTemplate['page']);
 

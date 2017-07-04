@@ -60,6 +60,15 @@ if (isset($_GET['products_id'])) {
 if (empty($sPagetitle)) $sPagetitle = OOS_META_TITLE;
 if (empty($sDescription)) $sDescription = OOS_META_DESCRIPTION;
 
+if (isset($_SESSION)) {
+	$sMetaCcontentLanguage = $_SESSION['iso_639_1'];
+	$sMetaLanguage = $_SESSION['languages_name'];
+} else {
+	$sMetaCcontentLanguage = $oLang->language['iso_639_1'];
+	$sMetaLanguage = $oLang->language['name'];		
+}
+
+
 $smarty->assign(
 	array(
 		'filename'		=> $aContents,
@@ -78,8 +87,8 @@ $smarty->assign(
 	
 		'pagetitle'				=> $sPagetitle,
 		'meta_description'		=> $sDescription,
-		'meta_language' 		=> $oLang->language['name'],
-		'meta_content_language' => $oLang->language['iso_639_1']
+		'meta_language' 		=> $sMetaLanguage,
+		'meta_content_language' => $sMetaCcontentLanguage
 	)
 
 );

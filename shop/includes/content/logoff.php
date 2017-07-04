@@ -75,6 +75,7 @@ $smarty->assign(
 		'breadcrumb'	=> $oBreadcrumb->trail(),
 		'heading_title' => $aLang['heading_title'],
 		'robots'		=> 'noindex,follow,noodp,noydir',
+		'login_active'	=> 1,		
 		'canonical'		=> $sCanonical
 	)
 );

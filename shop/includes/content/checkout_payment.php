@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -137,14 +137,15 @@ if (isset($_SESSION['cart']->cartID) && isset($_SESSION['cartID'])) {
     require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
   }
 
-  // assign Smarty variables;
-  $smarty->assign(
-      array(
-          'breadcrumb' => $oBreadcrumb->trail(),
-          'heading_title' => $aLang['heading_title'],
-		  'robots'		=> 'noindex,nofollow,noodp,noydir'
-      )
-  );
+// assign Smarty variables;
+$smarty->assign(
+	array(
+		'breadcrumb' => $oBreadcrumb->trail(),
+		'heading_title' => $aLang['heading_title'],
+		'robots'		=> 'noindex,nofollow,noodp,noydir',
+		'checkout_active' => 1
+	)
+);
 
   if (isset($_GET['payment_error']) && is_object(${$_GET['payment_error']}) && ($error = ${$_GET['payment_error']}->get_error())) {
     $smarty->assign(

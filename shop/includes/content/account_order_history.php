@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -142,32 +142,30 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
     // assign Smarty variables;
     $smarty->assign(
         array(
-           'page_split'          => $order_history_split->display_count($order_history_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, $aLang['text_display_number_of_products']),
-           'display_links'       => $order_history_split->display_links($order_history_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
-           'numrows'        => $order_history_numrows,
+			'page_split'		=> $order_history_split->display_count($order_history_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, $aLang['text_display_number_of_products']),
+			'display_links'		=> $order_history_split->display_links($order_history_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
+			'numrows'        	=> $order_history_numrows,
 
-           'products_image_box'      => SMALL_IMAGE_WIDTH + 10,
-           'oos_order_history_array' => $order_history_array
+			'products_image_box'		=> SMALL_IMAGE_WIDTH + 10,
+			'oos_order_history_array'	=> $order_history_array
        )
     );
   }
 
-  // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['account_order_history']));
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['account_order_history']));
 
+// assign Smarty variables;
+$smarty->assign(
+	array(
+		'breadcrumb'		=> $oBreadcrumb->trail(),
+		'heading_title'	=> $aLang['heading_title'],
+		'robots'			=> 'noindex,nofollow,noodp,noydir',
+		'account_active'	=> 1,
+	)
+);
 
-  // assign Smarty variables;
-  $smarty->assign(
-      array(
-         'breadcrumb'		=> $oBreadcrumb->trail(),
-         'heading_title'	=> $aLang['heading_title'],
-		 'robots'			=> 'noindex,nofollow,noodp,noydir'
-     )
-  );
-
-
-  $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination']));
+$smarty->assign('pagination', $smarty->fetch($aTemplate['pagination']));
 
 // display the template
 $smarty->display($aTemplate['page']);
-

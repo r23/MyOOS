@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -292,37 +292,38 @@ if (!isset($_SESSION['customer_id'])) {
     require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
   }
 
-  // assign Smarty variables;
-  $smarty->assign(
-      array(
-          'breadcrumb' => $oBreadcrumb->trail(),
-          'heading_title' => $aLang['heading_title'],
+// assign Smarty variables;
+$smarty->assign(
+	array(
+		'breadcrumb' => $oBreadcrumb->trail(),
+		'heading_title' => $aLang['heading_title'],
 		'robots'		=> 'noindex,nofollow,noodp,noydir',
+		'checkout_active' => 1,
 
-          'process' => $process,
-          'addresses_count' => $addresses_count,
+		'process' => $process,
+		'addresses_count' => $addresses_count,
 
-          'gender' => $gender,
-          'firstname' => $firstname,
-          'lastname' => $lastname,
-          'company' => $company,
-          'street_address' => $street_address,
-          'suburb' => $suburb,
-          'postcode' => $postcode,
-          'city' => $city,
-          'country' => $country,
+		'gender' => $gender,
+		'firstname' => $firstname,
+		'lastname' => $lastname,
+		'company' => $company,
+		'street_address' => $street_address,
+		'suburb' => $suburb,
+		'postcode' => $postcode,
+		'city' => $city,
+		'country' => $country,
 
-          'gender_error' => $gender_error,
-          'firstname_error' => $firstname_error,
-          'lastname_error' => $lastname_error,
-          'street_address_error' => $street_address_error,
-          'post_code_error' => $post_code_error,
-          'city_error' => $city_error,
-          'state_error' => $state_error,
-          'state_has_zones' => $state_has_zones,
-          'country_error' => $country_error
-      )
-  );
+		'gender_error' => $gender_error,
+		'firstname_error' => $firstname_error,
+		'lastname_error' => $lastname_error,
+		'street_address_error' => $street_address_error,
+		'post_code_error' => $post_code_error,
+		'city_error' => $city_error,
+		'state_error' => $state_error,
+		'state_has_zones' => $state_has_zones,
+		'country_error' => $country_error
+	)
+);
 
   // JavaScript
   $smarty->assign('oos_js', $javascript);
