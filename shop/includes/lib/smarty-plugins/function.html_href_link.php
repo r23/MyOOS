@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -79,9 +79,9 @@ function smarty_function_html_href_link($params, &$smarty)
           break;
        }
     }
-
-    if (empty($content) && ($debug == 'false') )  {
-       throw new SmartyException("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
+	
+    if (empty($content) && ($debug == 1) )  {
+		throw new SmartyException("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
     }
 
     if (isset($addentry_id)) {
