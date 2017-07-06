@@ -648,58 +648,6 @@
         ]
     },
     {
-        "name": "xibosignage/xibo-xmr",
-        "version": "0.2",
-        "version_normalized": "0.2.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/xibosignage/xibo-xmr.git",
-            "reference": "175a02b7cb95d946bfb781a1d54be5505a5ed74a"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/xibosignage/xibo-xmr/zipball/175a02b7cb95d946bfb781a1d54be5505a5ed74a",
-            "reference": "175a02b7cb95d946bfb781a1d54be5505a5ed74a",
-            "shasum": ""
-        },
-        "require": {
-            "monolog/monolog": "^1.17",
-            "php": ">=5.5",
-            "react/zmq": "^0.3.0"
-        },
-        "time": "2016-04-21 08:56:42",
-        "bin": [
-            "bin/xmr.phar"
-        ],
-        "type": "library",
-        "installation-source": "dist",
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "AGPLv3 or later"
-        ],
-        "authors": [
-            {
-                "name": "Daniel Garner",
-                "homepage": "https://github.com/dasgarner"
-            },
-            {
-                "name": "Spring Signage Ltd",
-                "homepage": "http://springsignage.com"
-            },
-            {
-                "name": "Xibo Contributors",
-                "homepage": "https://github.com/xibosignage/xibo/tree/master/contributors"
-            }
-        ],
-        "description": "Xibo Message Relay",
-        "homepage": "http://xibo.org.uk",
-        "keywords": [
-            "digital signage",
-            "spring signage",
-            "xibo"
-        ]
-    },
-    {
         "name": "respect/validation",
         "version": "0.9.8",
         "version_normalized": "0.9.8.0",
@@ -3094,59 +3042,56 @@
         "description": "PHPMailer is a full-featured email creation and transfer class for PHP"
     },
     {
-        "name": "xibosignage/oauth2-xibo-cms",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "name": "xibosignage/xibo-xmr",
+        "version": "0.3",
+        "version_normalized": "0.3.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/PeterMis/oauth2-xibo-cms.git",
-            "reference": "e5e5fa23ec944748dc2450cd48a237d236419c53"
+            "url": "https://github.com/xibosignage/xibo-xmr.git",
+            "reference": "ead342d4a6890ebd65889a736c87dbffd57705a2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/PeterMis/oauth2-xibo-cms/zipball/e5e5fa23ec944748dc2450cd48a237d236419c53",
-            "reference": "e5e5fa23ec944748dc2450cd48a237d236419c53",
+            "url": "https://api.github.com/repos/xibosignage/xibo-xmr/zipball/ead342d4a6890ebd65889a736c87dbffd57705a2",
+            "reference": "ead342d4a6890ebd65889a736c87dbffd57705a2",
             "shasum": ""
         },
         "require": {
-            "league/oauth2-client": "~1",
-            "php": ">=5.4.0"
+            "monolog/monolog": "^1.17",
+            "php": ">=5.5",
+            "react/zmq": "^0.3.0"
         },
-        "time": "2017-02-16 14:28:04",
+        "time": "2017-01-13 15:11:16",
+        "bin": [
+            "bin/xmr.phar"
+        ],
         "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "psr-4": {
-                "Xibo\\OAuth2\\Client\\": "src/"
-            }
-        },
+        "installation-source": "dist",
+        "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "MIT"
+            "AGPLv3 or later"
         ],
         "authors": [
             {
+                "name": "Daniel Garner",
+                "homepage": "https://github.com/dasgarner"
+            },
+            {
                 "name": "Spring Signage Ltd",
-                "homepage": "https://springsignage.com"
+                "homepage": "http://springsignage.com"
+            },
+            {
+                "name": "Xibo Contributors",
+                "homepage": "https://github.com/xibosignage/xibo/tree/master/contributors"
             }
         ],
-        "description": "A Xibo CMS provider for league/oauth2-client",
+        "description": "Xibo Message Relay",
         "homepage": "http://xibo.org.uk",
         "keywords": [
-            "authentication",
-            "authorization",
-            "client",
-            "identity",
-            "idp",
-            "oauth",
-            "oauth2",
-            "single sign on",
-            "sso",
-            "xibo",
-            "xibo cms"
-        ],
-        "support": {
-            "source": "https://github.com/PeterMis/oauth2-xibo-cms/tree/master"
-        }
+            "digital signage",
+            "spring signage",
+            "xibo"
+        ]
     },
     {
         "name": "doctrine/inflector",
@@ -3216,5 +3161,60 @@
             "singularize",
             "string"
         ]
+    },
+    {
+        "name": "xibosignage/oauth2-xibo-cms",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/PeterMis/oauth2-xibo-cms.git",
+            "reference": "6a8d2ca2f4dbc191e7b377c9c9a691ff887ae6f6"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/PeterMis/oauth2-xibo-cms/zipball/6a8d2ca2f4dbc191e7b377c9c9a691ff887ae6f6",
+            "reference": "6a8d2ca2f4dbc191e7b377c9c9a691ff887ae6f6",
+            "shasum": ""
+        },
+        "require": {
+            "league/oauth2-client": "~1",
+            "php": ">=5.4.0"
+        },
+        "time": "2017-05-03 15:07:16",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Xibo\\OAuth2\\Client\\": "src/"
+            }
+        },
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Spring Signage Ltd",
+                "homepage": "https://springsignage.com"
+            }
+        ],
+        "description": "A Xibo CMS provider for league/oauth2-client",
+        "homepage": "http://xibo.org.uk",
+        "keywords": [
+            "authentication",
+            "authorization",
+            "client",
+            "identity",
+            "idp",
+            "oauth",
+            "oauth2",
+            "single sign on",
+            "sso",
+            "xibo",
+            "xibo cms"
+        ],
+        "support": {
+            "source": "https://github.com/PeterMis/oauth2-xibo-cms/tree/master"
+        }
     }
 ]

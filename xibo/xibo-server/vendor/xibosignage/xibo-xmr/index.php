@@ -2,8 +2,8 @@
 <?php
 /*
  * Spring Signage Ltd - http://www.springsignage.com
- * Copyright (C) 2015 Spring Signage Ltd
- * (listen.php)
+ * Copyright (C) 2015-2017 Spring Signage Ltd
+ * (index.php)
  *
 sequenceDiagram
 Player->> CMS: Register
@@ -56,8 +56,20 @@ try {
     $responder = $context->getSocket(ZMQ::SOCKET_REP);
     $responder->bind($config->listenOn);
 
+    // Set RESP socket options
+    if (isset($config->ipv6RespSupport) && $config->ipv6RespSupport === true) {
+        $log->debug('RESP MQ Setting socket option for IPv6 to TRUE');
+        $responder->setSockOpt(\ZMQ::SOCKOPT_IPV6, true);
+    }
+
     // Pub socket for messages to Players (subs)
     $publisher = $context->getSocket(ZMQ::SOCKET_PUB);
+
+    // Set PUB socket options
+    if (isset($config->ipv6PubSupport) && $config->ipv6PubSupport === true) {
+        $log->debug('Pub MQ Setting socket option for IPv6 to TRUE');
+        $publisher->setSockOpt(\ZMQ::SOCKOPT_IPV6, true);
+    }
 
     foreach ($config->pubOn as $pubOn) {
         $log->info(sprintf('Bind to %s for Publish.', $pubOn));
