@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-06-08 07:39:46+0000\n"
+"PO-Revision-Date: 2017-07-03 09:24:47+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,6 +20,11 @@ msgstr "Diese Seite hat %1$s interne Links."
 #: admin/metabox/class-metabox-add-keyword-tab.php:35
 msgid "Other benefits of %s for you:"
 msgstr "Andere Vorteile von %s für dich:"
+
+#. translators: %s expands to 'Yoast SEO'.
+#: admin/config-ui/components/class-component-configuration-choices.php:57
+msgid "Let us set up %s for you"
+msgstr "Lass uns %s für dich aufsetzen"
 
 #. translators: %s expands to 'Yoast SEO'.
 #: admin/config-ui/components/class-component-configuration-choices.php:36
