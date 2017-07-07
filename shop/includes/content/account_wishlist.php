@@ -37,7 +37,7 @@ $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
 
 // split-page-results
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
-require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_my_wishlist.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_wishlist.php';
 
   $customers_wishlisttable = $oostable['customers_wishlist'];
   $wishlist_result_raw = "SELECT products_id, customers_wishlist_date_added
@@ -149,9 +149,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
   $wishlist_result->Close();
 
   // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['account_my_wishlist']));
+  $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['account_wishlist']));
 
-  $aTemplate['page'] = $sTheme . '/page/my_wishlist.html';
+  $aTemplate['page'] = $sTheme . '/page/account_wishlist.html';
   $aTemplate['pagination'] = $sTheme . '/system/_pagination.html';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;

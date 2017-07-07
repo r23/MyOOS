@@ -118,7 +118,9 @@ $aLang['block_shopping_cart_empty'] = '0 items';
 $aLang['block_notifications_notify'] = 'Notify me of updates to <strong>%s</strong>';
 $aLang['block_notifications_notify_remove'] = 'Do not notify me of updates to <strong>%s</strong>';
 
-// wishlist block text in tempalate/your theme/block/wishlist.html
+// wishlist 
+$aLang['button_wishlist'] = 'Wishlist';
+$aLang['block_wishlist'] = 'Wishlist';
 $aLang['block_wishlist_empty'] = 'You have no items on your Wishlist';
 
 // manufacturer block text in tempalate/your theme/block/

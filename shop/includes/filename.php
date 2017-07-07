@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -32,7 +32,7 @@ $aContents['account_history'] = $prefix_filename . 'account_history';
 $aContents['account_history_info'] = $prefix_filename . 'account_history_info';
 $aContents['account_address_book'] = $prefix_filename . 'account_address_book';
 $aContents['account_address_book_process'] = $prefix_filename . 'account_address_book_process';
-$aContents['account_my_wishlist'] = $prefix_filename . 'account_my_wishlist';
+$aContents['account_wishlist'] = $prefix_filename . 'account_wishlist';
 $aContents['account_order_history'] = $prefix_filename . 'account_order_history';
 
 //admin

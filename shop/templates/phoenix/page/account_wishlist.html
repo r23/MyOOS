@@ -7,7 +7,23 @@
         {include file="phoenix/system/_message.html"}
     {/foreach}
 {/if}
-<!-- body //-->
+<!-- start content -->
+<section class="mainContent clearfix userProfile">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="btn-group" role="group" aria-label="...">
+					<a href="{html_href_link content=$filename.account connection=SSL}" class="btn btn-default" role="button"><i class="fa fa-th" aria-hidden="true"></i>{$lang.login_block_my_account}</a>
+					<a href="{html_href_link content=$filename.account_edit connection=SSL}" class="btn btn-default" role="button"><i class="fa fa-user" aria-hidden="true"></i>{$lang.login_block_account_edit}</a>
+					<a href="{html_href_link content=$filename.account_address_book connection=SSL}" class="btn btn-default" role="button"><i class="fa fa-map-marker" aria-hidden="true"></i>{$lang.button_address_book}</a>
+					<a href="{html_href_link content=$filename.account_history oos_get='page=1' connection=SSL}" class="btn btn-default" role="button"><i class="fa fa-list" aria-hidden="true"></i>{$lang.button_history}</a>
+					<a href="{html_href_link content=$filename.account_wishlist oos_get='page=1' connection=SSL}" class="btn btn-default  active" role="button"><i class="fa fa-gift" aria-hidden="true"></i>{$lang.button_wishlist}</a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="innerWrapper">
 <table width="870" border="0" align="center" cellspacing="0" cellpadding="0">
   <tr>
     <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
@@ -120,5 +136,11 @@
     </table></td>
   </tr>
 </table>
-<!-- body_eof //-->
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
 {include file="phoenix/system/_footer.html"}

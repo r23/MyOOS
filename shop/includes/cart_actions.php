@@ -164,7 +164,7 @@ switch ($action) {
                                                                     . $dbconn->qstr($value) . ")");
               }
             }
-            oos_redirect(oos_href_link($aContents['account_my_wishlist']));
+            oos_redirect(oos_href_link($aContents['account_wishlist']));
           }
         } else {
 
@@ -234,7 +234,7 @@ switch ($action) {
                                                                     . $dbconn->qstr($_SESSION['customer_wishlist_link_id']) . ','
                                                                     . $dbconn->qstr($wishlist_products_id) . ','
                                                                     . $dbconn->qstr(date('Ymd')) . ")");
-         oos_redirect(oos_href_link($aContents['account_my_wishlist']));
+         oos_redirect(oos_href_link($aContents['account_wishlist']));
        }
       break;
 

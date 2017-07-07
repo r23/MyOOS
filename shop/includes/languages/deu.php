@@ -112,7 +112,9 @@ $aLang['block_shopping_cart_empty'] = '0 Produkte';
 $aLang['block_notifications_notify'] = 'Benachrichtigen Sie mich über Aktuelles zum Artikel <strong>%s</strong>';
 $aLang['block_notifications_notify_remove'] = 'Benachrichtigen Sie mich nicht mehr zum Artikel <strong>%s</strong>';
 
-// wishlist block text in tempalate/your theme/block/wishlist.html
+// wishlist 
+$aLang['button_wishlist'] = 'Merkliste';
+$aLang['block_wishlist'] = 'Merkliste';
 $aLang['block_wishlist_empty'] = 'Sie haben keine Produkte auf Ihrem Merkzettel';
 
 // manufacturer box text
