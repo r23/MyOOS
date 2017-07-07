@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -350,7 +350,7 @@ if ($error == 1) {
     $listing_sql = $select_str . $from_str . $where_str . $order_str;
 
     $aTemplate['page'] = $sTheme . '/page/advanced_search_result.html';
-    $aTemplate['pagination'] = $sTheme . '/system/_pagination.htm';
+    $aTemplate['pagination'] = $sTheme . '/system/_pagination.html';
 
     $nPageType = OOS_PAGE_TYPE_CATALOG;
 	$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
