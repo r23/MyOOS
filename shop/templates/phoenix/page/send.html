@@ -26,7 +26,7 @@
         <td class="main"><img src="{$theme_image}/heading/man_on_board.gif" border="0" alt="{$heading_title}" width="175" height="198" align="left">{$lang.text_success}<br><br>gv {$id1}</td>
       </tr>
       <tr>
-        <td align="right"><br><a href="{html_href_link content=$filename.main}">{html_image_button image="continue.gif" alt=$lang.image_button_continue}</a></td>
+        <td align="right"><br><a href="{html_href_link content=$filename.main}">{html_image_button image="continue.gif" alt=$lang.button_continue}</a></td>
       </tr>
   {/if}
 
@@ -53,8 +53,8 @@
       <input type="hidden" name="send_name" value="{$send_name}"><input type="hidden" name="to_name" value="{$to_name}"><input type="hidden" name="email" value="{$email}"><input type="hidden" name="amount" value="{$gv_amount}"><input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}"><input type="hidden" name="message" value="{$message}">
 
           <tr>
-            <td class="main">{html_image_submit image="back.gif" alt=$lang.image_button_back name="back"}</td>
-            <td align="right"><br>{html_image_submit image="send.gif" alt=$lang.image_button_continue}</td>
+            <td class="main">{html_image_submit image="back.gif" alt=$lang.button_back name="back"}</td>
+            <td align="right"><br>{html_image_submit image="send.gif" alt=$lang.button_continue}</td>
           </tr>
         </table></form></td>
       </tr>
@@ -86,10 +86,10 @@
         <table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
   {if $back_link != '' }
-            <td class="main"><a href="{$back_link}">{html_image_button image="back.gif" alt=$lang.image_button_back}</a></td>
+            <td class="main"><a href="{$back_link}">{html_image_button image="back.gif" alt=$lang.button_back}</a></td>
 
   {/if}
-             <td class="main" align="right">{html_image_submit image="continue.gif" alt=$lang.image_button_continue}</td>
+             <td class="main" align="right">{html_image_submit image="continue.gif" alt=$lang.button_continue}</td>
           </tr>
         </table></form></td>
       </tr>
