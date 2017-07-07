@@ -63,6 +63,7 @@ $aKeys = array('EMAIL_FROM',
                'MAX_DISPLAY_PRODUCTS_IN_ORDER_HISTORY_BOX'
                'MAX_DISPLAY_MANUFACTURERS_IN_A_LIST',
                'MAX_MANUFACTURERS_LIST',
+			   'MAX_DISPLAY_WISHLIST_BOX',
                'MAX_DISPLAY_MANUFACTURER_NAME_LEN');
 
 $db->Execute("DELETE FROM " . $table . " WHERE configuration_key in ('" . implode("', '", $aKeys) . "')");
