@@ -170,11 +170,6 @@ $aLang['text_email_active_error'] = 'Es ist ein Fehler aufgetreten, Ihre E-Mail-
 $aLang['text_email_del'] = 'Ihre E-Mail-Adresse wurde aus unserer Newsletterdatenbank gelöscht.';
 $aLang['text_email_del_error'] = 'Es ist ein Fehler aufgetreten, Ihre E-Mail-Adresse wurde nicht gelöscht!';
 
-//myworld
-$aLang['text_date_account_created'] = 'Zugang erstellt am:';
-$aLang['text_yourstore'] = 'Ihre persönliche Seite';
-$aLang['edit_yourimage'] = 'Bild bearbeiten';
-
 //footer
 $aLang['get_in_touch_with_us'] = $sServer . ' entdecken';
 $aLang['header_title_service'] = 'Shop Service';

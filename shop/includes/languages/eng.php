@@ -176,11 +176,6 @@ $aLang['text_email_del'] = 'Your e-mail address was deleted successfully from ou
 $aLang['text_email_del_error'] = 'An Error occured, your e-mail address has not been removed from our database!';
 
 
-//myworld
-$aLang['text_date_account_created'] = 'Account Created:';
-$aLang['text_yourstore'] = 'Your Participation';
-$aLang['edit_yourimage'] = 'Your Image';
-
 // footer
 $aLang['get_in_touch_with_us'] = 'Get in touch with us';
 $aLang['header_title_service'] = 'Shop service';
