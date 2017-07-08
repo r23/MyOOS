@@ -179,8 +179,8 @@
 								<ul class="dropdown-menu dropdown-menu-right">
 									<li><a href="{html_href_link content=$filename.account connection=SSL}">{$lang.login_block_my_account}</a></li>
 									<li><a href="{html_href_link content=$filename.account_edit connection=SSL}">{$lang.login_block_account_edit}</a></li>
-									<li><a href="{html_href_link content=$filename.account_history oos_get='page=1' connection=SSL}">{$lang.login_block_account_history}</a></li>
-									<li><a href="{html_href_link content=$filename.account_order_history oos_get='page=1' connection=SSL}">{$lang.login_block_order_history}</a></li>
+									<li><a href="{html_href_link content=$filename.account_history page=1 connection=SSL}">{$lang.login_block_account_history}</a></li>
+									<li><a href="{html_href_link content=$filename.account_order_history page=1 connection=SSL}">{$lang.login_block_order_history}</a></li>
 									<li><a href="{html_href_link content=$filename.account_address_book connection=SSL}">{$lang.login_block_address_book}</a></li>
 								{if $oEvent->installed_plugin('notify')}
 									<li><a href="{html_href_link content=$filename.product_notifications connection=SSL}">{$lang.login_block_product_notifications}</a></li>

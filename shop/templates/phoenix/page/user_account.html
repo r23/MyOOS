@@ -18,8 +18,8 @@
 					<a href="{html_href_link content=$filename.account connection=SSL}" class="btn btn-default active" role="button"><i class="fa fa-th" aria-hidden="true"></i>{$lang.login_block_my_account}</a>
 					<a href="{html_href_link content=$filename.account_edit connection=SSL}" class="btn btn-default" role="button"><i class="fa fa-user" aria-hidden="true"></i>{$lang.login_block_account_edit}</a>
 					<a href="{html_href_link content=$filename.account_address_book connection=SSL}" class="btn btn-default" role="button"><i class="fa fa-map-marker" aria-hidden="true"></i>{$lang.button_address_book}</a>
-					<a href="{html_href_link content=$filename.account_history oos_get='page=1' connection=SSL}" class="btn btn-default" role="button"><i class="fa fa-list" aria-hidden="true"></i>{$lang.button_history}</a>
-					<a href="{html_href_link content=$filename.account_wishlist oos_get='page=1' connection=SSL}" class="btn btn-default" role="button"><i class="fa fa-gift" aria-hidden="true"></i>{$lang.button_wishlist}</a>
+					<a href="{html_href_link content=$filename.account_history page=1 connection=SSL}" class="btn btn-default" role="button"><i class="fa fa-list" aria-hidden="true"></i>{$lang.button_history}</a>
+					<a href="{html_href_link content=$filename.account_wishlist page=1 connection=SSL}" class="btn btn-default" role="button"><i class="fa fa-gift" aria-hidden="true"></i>{$lang.button_wishlist}</a>
 				</div>
 			</div>
 		</div>
@@ -29,8 +29,8 @@
 					<ul class="list-inline">
 						<li><a href="{html_href_link content=$filename.account connection=SSL}" class="btn btn-default btn-lg" role="button"><i class="fa fa-user" aria-hidden="true"></i>{$lang.button_account}</a></li>			
 						<li><a href="{html_href_link content=$filename.account_edit connection=SSL}" class="btn btn-default btn-lg"	role="button"><i class="fa fa-map-marker" aria-hidden="true"></i>{$lang.login_block_account_edit}</a></li>		
-						<li><a href="{html_href_link content=$filename.account_history oos_get='page=1' connection=SSL}" class="btn btn-default btn-lg"><i class="fa fa-list" aria-hidden="true"></i>{$lang.button_history}</a></li>
-						<li><a href="{html_href_link content=$filename.account_wishlist oos_get='page=1' connection=SSL}" class="btn btn-default btn-lg"><i class="fa fa-gift" aria-hidden="true"></i>{$lang.button_wishlist}</a></li>
+						<li><a href="{html_href_link content=$filename.account_history page=1 connection=SSL}" class="btn btn-default btn-lg"><i class="fa fa-list" aria-hidden="true"></i>{$lang.button_history}</a></li>
+						<li><a href="{html_href_link content=$filename.account_wishlist page=1 connection=SSL}" class="btn btn-default btn-lg"><i class="fa fa-gift" aria-hidden="true"></i>{$lang.button_wishlist}</a></li>
 					{if $oEvent->installed_plugin('notify')}
 						<li><a href="{html_href_link content=$filename.product_notifications connection=SSL}" class="btn btn-default btn-lg"><i class="fa fa-plus-circle" aria-hidden="true"></i>{$lang.button_notifications}</a></li>
 					{/if}				  
