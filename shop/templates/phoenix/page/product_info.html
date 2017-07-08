@@ -7,14 +7,6 @@
         {include file="phoenix/system/_message.html"}
     {/foreach}
 {/if}
-<!-- body //-->
-<table width="870" border="0" align="center" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
-
-    </table></td>
-    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-    <td width="100%" valign="top">
 	
 <form name="cart_quantity" action="{html_get_link}" method="post" enctype="multipart/form-data">
 <input type="hidden" name="action" value="add_product">
@@ -182,12 +174,5 @@ document.write('<a href="javascript:popupWindow(\'{html_href_link content=$filen
 </tr>
 {/if}
 </table>
-</td>
-    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
 
-    </table></td>
-  </tr>
-</table>
-<!-- body_eof //-->
 {include file="phoenix/system/_footer.html"}
