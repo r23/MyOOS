@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -21,14 +21,14 @@
    ---------------------------------------------------------------------- */
 
 $aLang['navbar_title_1'] = 'Ihr Konto';
-$aLang['navbar_title_2'] = 'Folgende Eintr&auml;ge verbinden wir z.Z. mit Ihrem Konto:';
-$aLang['heading_title'] = 'Ihr Adressbuch:';
+$aLang['navbar_title_2'] = 'Folgende Einträge verbinden wir z.Z. mit Ihrem Konto:';
+$aLang['heading_title'] = 'Ihr Adressbuch';
 
 $aLang['table_heading_number'] = 'Nr.';
 $aLang['table_heading_name'] = 'Name';
 $aLang['table_heading_location'] = 'Wohnort';
 
-$aLang['text_no_entries_in_address_book'] = 'Sie haben noch keine Eintr&auml;ge in Ihrem Adressbuch!';
-$aLang['text_maximum_entries'] = '<font color="#ff0000"><strong>Hinweis:</strong></font> Ihnen stehen %s Adressbucheintr&auml;ge zur Verf&uuml;gung!';
-$aLang['text_maximum_entries_reached'] = '<font color="#ff0000"><strong>ACHTUNG:</strong></font> Sie haben die maximale Anzahl (%s) an Adressbucheintr&auml;gen erreicht!';
+$aLang['text_no_entries_in_address_book'] = 'Sie haben noch keine Einträge in Ihrem Adressbuch!';
+$aLang['text_maximum_entries'] = '<font color="#ff0000"><strong>Hinweis:</strong></font> Ihnen stehen %s Adressbucheinträge zur Verf&uuml;gung!';
+$aLang['text_maximum_entries_reached'] = '<font color="#ff0000"><strong>ACHTUNG:</strong></font> Sie haben die maximale Anzahl (%s) an Adressbucheinträgen erreicht!';
 

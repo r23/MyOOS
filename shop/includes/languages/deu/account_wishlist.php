@@ -25,7 +25,5 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-$aLang['navbar_title'] = 'Meine Merkliste';
-$aLang['heading_title'] = 'Meine Merkliste';
-
-
+$aLang['navbar_title'] = 'Ihre Merkliste';
+$aLang['heading_title'] = 'Ihre Merkliste';

@@ -24,13 +24,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="innerWrapper">
-<table width="870" border="0" align="center" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
 
-    </table></td>
-    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-    <td width="100%" valign="top">
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td>{$oosPageHeading}</td>
@@ -121,6 +115,12 @@
           </tr>
           <tr>
      {/if}
+{sectionelse}
+	<div class="alert alert-info alert-dismissible" role="alert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		{$lang.block_wishlist_empty}
+	</div> 
+	 	 
 {/section}
           </tr>
         </table></td>
@@ -129,13 +129,7 @@
   {$pagination}
 {/if}
     </table>
-</td>
-    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
 
-    </table></td>
-  </tr>
-</table>
 
 				</div>
 			</div>

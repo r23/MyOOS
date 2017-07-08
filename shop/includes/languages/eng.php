@@ -302,6 +302,7 @@ $aLang['prevnext_button_prev'] = '&lt;&lt;&nbsp;Prev';
 $aLang['prevnext_button_next'] = 'Next&nbsp;&gt;&gt;';
 $aLang['prevnext_button_last'] = 'LAST&gt;&gt;';
 
+$aLang['button_account'] = 'Profil';
 $aLang['button_add_address'] = 'Add Address';
 $aLang['button_address_book'] = 'Address Book';
 $aLang['button_back'] = 'Back';

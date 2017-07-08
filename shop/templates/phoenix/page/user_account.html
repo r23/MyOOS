@@ -26,14 +26,16 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="innerWrapper">
+					<ul class="list-inline">
+						<li><a href="{html_href_link content=$filename.account connection=SSL}" class="btn btn-default btn-lg" role="button"><i class="fa fa-user" aria-hidden="true"></i>{$lang.button_account}</a></li>			
+						<li><a href="{html_href_link content=$filename.account_edit connection=SSL}" class="btn btn-default btn-lg"	role="button"><i class="fa fa-map-marker" aria-hidden="true"></i>{$lang.login_block_account_edit}</a></li>		
+						<li><a href="{html_href_link content=$filename.account_history oos_get='page=1' connection=SSL}" class="btn btn-default btn-lg"><i class="fa fa-list" aria-hidden="true"></i>{$lang.button_history}</a></li>
+						<li><a href="{html_href_link content=$filename.account_wishlist oos_get='page=1' connection=SSL}" class="btn btn-default btn-lg"><i class="fa fa-gift" aria-hidden="true"></i>{$lang.button_wishlist}</a></li>
+					{if $oEvent->installed_plugin('notify')}
+						<li><a href="{html_href_link content=$filename.product_notifications connection=SSL}" class="btn btn-default btn-lg"><i class="fa fa-plus-circle" aria-hidden="true"></i>{$lang.button_notifications}</a></li>
+					{/if}				  
+					</ul>
 
-
-<table width="870" border="0" align="center" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
-    </table></td>
-    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-    <td width="100%" valign="top">
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td>{$oosPageHeading}</td>
@@ -190,29 +192,8 @@
  </table>
         </td>
       </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td align="center" class="main"><a href="{html_href_link content=$filename.account_address_book connection=SSL}">{html_image_button image="address_book.gif" alt=$lang.button_address_book}</a></td>
-            <td align="center" class="main"><a href="{html_href_link content=$filename.account_history connection=SSL}">{html_image_button image="history.gif" alt=$lang.button_history}</a></td>
-{if $oEvent->installed_plugin('notify')}
-            <td align="center" class="main"><a href="{html_href_link content=$filename.product_notifications connection=SSL}">{html_image_button image="notifications.gif" alt=$lang.button_notifications}</a></td>
-{/if}
-            <td align="center" class="main"><a href="{html_href_link content=$filename.account_edit connection=SSL}">{html_image_button image="edit_account.gif" alt=$lang.button_edit_account}</a></td>
-          </tr>
-        </table></td>
-      </tr>
     </table>
-</td>
-    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
 
-    </table></td>
-  </tr>
-</table>
 
 				</div>
 			</div>
