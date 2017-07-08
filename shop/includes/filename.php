@@ -95,7 +95,6 @@ $aContents['logoff'] = $prefix_filename . 'logoff';
 $aContents['password_forgotten'] = $prefix_filename . 'password_forgotten';
 $aContents['product_notifications'] = $prefix_filename . 'product_notifications';
 $aContents['yourstore'] = $prefix_filename . 'yourstore';
-$aContents['customers_image'] = $prefix_filename . 'customers_image';
 
 //checkout
 $aContents['checkout_confirmation'] = $prefix_filename . 'checkout_confirmation';
