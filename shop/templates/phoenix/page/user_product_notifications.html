@@ -8,22 +8,26 @@
     {/foreach}
 {/if}
 
-<!-- body //-->
-<table width="870" border="0" align="center" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
+<!-- start content -->
+<section class="mainContent clearfix userProfile">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="btn-group" role="group" aria-label="...">
+					<a href="{html_href_link content=$filename.account connection=SSL}" class="btn btn-default" role="button"><i class="fa fa-th" aria-hidden="true"></i>{$lang.login_block_my_account}</a>
+					<a href="{html_href_link content=$filename.account_edit connection=SSL}" class="btn btn-default" role="button"><i class="fa fa-user" aria-hidden="true"></i>{$lang.login_block_account_edit}</a>
+					<a href="{html_href_link content=$filename.account_address_book connection=SSL}" class="btn btn-default" role="button"><i class="fa fa-map-marker" aria-hidden="true"></i>{$lang.button_address_book}</a>
+					<a href="{html_href_link content=$filename.account_history page=1 connection=SSL}" class="btn btn-default active" role="button"><i class="fa fa-list" aria-hidden="true"></i>{$lang.button_history}</a>
+					<a href="{html_href_link content=$filename.account_wishlist page=1 connection=SSL}" class="btn btn-default" role="button"><i class="fa fa-gift" aria-hidden="true"></i>{$lang.button_wishlist}</a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="innerWrapper">
 
-    </table></td>
-    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-    <td width="100%" valign="top">
 
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td>{$oosPageHeading}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -126,24 +130,16 @@
           </tr>
           </form>
 {/if}
-          <tr>
-            <td height="10"></td>
-          </tr>
-          <tr>
-            <td align="right" class="smallText"><a href="{html_href_link content=$filename.account connection=SSL}">{html_image_button image="back.gif" alt=$lang.button_back}</a></td>
-          </tr>
         </table></td>
       </tr>
     </table>
 
-	
-</td>
-    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
 
-    </table></td>
-  </tr>
-</table>
-<!-- body_eof //-->
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 	
 {include file="phoenix/system/_footer.html"}
