@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -19,22 +19,20 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if ($oEvent->installed_plugin('customer_must_login')) return FALSE;
+$whats_new_block = 'false';
 
-  $whats_new_block = 'false';
-
-  $productstable = $oostable['products'];
-  $query = "SELECT products_id, products_image, products_tax_class_id, products_units_id, products_price,
+$productstable = $oostable['products'];
+$query = "SELECT products_id, products_image, products_tax_class_id, products_units_id, products_price,
                    products_base_price, products_base_unit, products_discount_allowed
             FROM $productstable
             WHERE products_status >= '1'
             ORDER BY products_date_added DESC";
-  if ($random_product = oos_random_select($query, MAX_RANDOM_SELECT_NEW)) {
+if ($random_product = oos_random_select($query, MAX_RANDOM_SELECT_NEW)) {
 
-    $whats_new_block = 'true';
+	$whats_new_block = 'true';
 
     $random_product['products_name'] = oos_get_products_name($random_product['products_id']);
     $whats_new_product_price = '';
@@ -73,7 +71,7 @@
             'block_heading_whats_new' => $block_heading
         )
     );
-  }
-  $smarty->assign('whats_new_block', $whats_new_block);
+}
 
+$smarty->assign('whats_new_block', $whats_new_block);
 

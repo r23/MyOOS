@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -18,14 +18,13 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if (!$oEvent->installed_plugin('notify')) return FALSE;
 
-  $notifications_block = 'false';
+$notifications_block = 'false';
 
-  if (isset($_GET['products_id'])) {
+if (isset($_GET['products_id'])) {
     if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
     $notifications_block = 'true';
 
@@ -56,8 +55,8 @@
             'block_heading_notifications' => $block_heading
         )
     );
-  }
+}
 
-  $smarty->assign('notifications_block', $notifications_block);
+$smarty->assign('notifications_block', $notifications_block);
 
 

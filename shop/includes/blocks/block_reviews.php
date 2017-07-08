@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -18,19 +18,19 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if (!$oEvent->installed_plugin('reviews')) return FALSE;
+if (!$oEvent->installed_plugin('reviews')) return FALSE;
 
-  if ($sContent != $aContents['product_reviews_write']) {
-    $reviews_block = 'true';
+if ($sContent != $aContents['product_reviews_write']) {
+	$reviews_block = 'true';
 
-    $reviewstable  = $oostable['reviews'];
-    $productstable = $oostable['products'];
-    $reviews_descriptiontable  = $oostable['reviews_description'];
-    $products_descriptiontable = $oostable['products_description'];
-    $random_select = "SELECT r.reviews_id, r.reviews_rating,
+	$reviewstable  = $oostable['reviews'];
+	$productstable = $oostable['products'];
+	$reviews_descriptiontable  = $oostable['reviews_description'];
+	$products_descriptiontable = $oostable['products_description'];
+	$random_select = "SELECT r.reviews_id, r.reviews_rating,
                              substring(rd.reviews_text, 1, 60) AS reviews_text,
                              p.products_id, p.products_image, pd.products_name
                       FROM $reviewstable r,
@@ -43,19 +43,19 @@
                         AND rd.reviews_languages_id = '" . intval($nLanguageID) . "'
                         AND p.products_id = pd.products_id
                         AND pd.products_languages_id = '" . intval($nLanguageID) . "'";
-    if (isset($_GET['products_id'])) {
-      if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
-      $random_select .= " AND p.products_id = '" . intval($nProductsID) . "'";
-    }
-    $random_select .= " ORDER BY r.reviews_id DESC";
-    $random_product = oos_random_select($random_select, MAX_RANDOM_SELECT_REVIEWS);
+	if (isset($_GET['products_id'])) {
+		if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
+		$random_select .= " AND p.products_id = '" . intval($nProductsID) . "'";
+	}
+	$random_select .= " ORDER BY r.reviews_id DESC";
+	$random_product = oos_random_select($random_select, MAX_RANDOM_SELECT_REVIEWS);
 
-    $smarty->assign(
-        array(
+	$smarty->assign(
+		array(
             'block_heading_reviews' => $block_heading,
             'random_product' => $random_product
-        )
-     );
-  }
+		)
+	);
+}
 
 
