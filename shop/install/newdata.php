@@ -209,7 +209,6 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (27, 'sidebar', 1, 'information', 'system', 1, 27, 0, " . $db->DBTimeStamp($today) . ",  NULL, 'oos_block_select_option(array(\'left\', \'sidebar\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
 
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (30, 'sidebar', 0, 'newsletter', 'system', 1, 30, 0, " . $db->DBTimeStamp($today) . ",  NULL, 'oos_block_select_option(array(\'left\', \'sidebar\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (31, 'sidebar', 1, 'products_xsell', 'xsell_products', 1, 31, 0, " . $db->DBTimeStamp($today) . ",  NULL, 'oos_block_select_option(array(\'left\', \'sidebar\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
 
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "block " . UPDATED .'</font>';
@@ -262,20 +261,6 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, b
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (23, 1, 'Bewertungen')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (23, 2, 'Reviews')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
 
-// 24 News reviews
-
-// 25 Newsfeed
-// 26 Customers Info 
-
-// 29 Google Translato
-
-
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (31, 1, '&Auml;hnliche Produkte')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (31, 2, 'Family Products')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
-
-// 32 Templates
-// 33 Skype
-// 34 Add 
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "block_info " . UPDATED .'</font>';
 
@@ -370,9 +355,6 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "block_to_page_type (blo
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_to_page_type (block_id, page_type_id) VALUES (27, 5)") OR die ("<b>".NOTUPDATED . $prefix_table . "block_to_page_type</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_to_page_type (block_id, page_type_id) VALUES (27, 6)") OR die ("<b>".NOTUPDATED . $prefix_table . "block_to_page_type</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_to_page_type (block_id, page_type_id) VALUES (27, 7)") OR die ("<b>".NOTUPDATED . $prefix_table . "block_to_page_type</b>");
-
-
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_to_page_type (block_id, page_type_id) VALUES (31, 9)") OR die ("<b>".NOTUPDATED . $prefix_table . "block_to_page_type</b>");
 
 
 
