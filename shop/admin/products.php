@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -506,9 +506,8 @@ function calcBasePriceFactor() {
             <td class="main"><?php echo TEXT_PRODUCTS_PRICE; ?></td>
             <td class="main">
 <?php
-   $oosPrice = $pInfo->products_price; 
-   $oosPrice = round($oosPrice,TAX_DECIMAL_PLACES);
-   echo '&nbsp;' . oos_draw_input_field('products_price', $oosPrice);
+	$sPrice = number_format($pInfo->products_price, TAX_DECIMAL_PLACES, '.', '');
+	echo '&nbsp;' . oos_draw_input_field('products_price', $sPrice);
 ?>
       </td>
     </tr>
@@ -516,9 +515,8 @@ function calcBasePriceFactor() {
             <td class="main"><?php echo TEXT_PRODUCTS_LIST_PRICE; ?></td>
             <td class="main">
 <?php
-   $oosPriceList = $pInfo->products_price_list; 
-   $oosPriceList = round($oosPriceList,TAX_DECIMAL_PLACES);
-   echo '&nbsp;' . oos_draw_input_field('products_price_list', $oosPriceList);
+	$sPriceList = number_format($pInfo->products_price_list, TAX_DECIMAL_PLACES, '.', '');
+	echo '&nbsp;' . oos_draw_input_field('products_price_list', $sPriceList);
 ?> 
             </td>
           </tr>
@@ -596,19 +594,15 @@ function calcBasePriceFactor() {
                  <tr>
                    <td class="main" align="center" width="75"><?php echo TEXT_DISCOUNTS_QTY; ?><br /><?php echo TEXT_DISCOUNTS_PRICE; ?></td>
  <?php
-   $oosDiscount1 = $pInfo->products_discount1;
-   $oosDiscount2 = $pInfo->products_discount2;
-   $oosDiscount3 = $pInfo->products_discount3;
-   $oosDiscount4 = $pInfo->products_discount4;
-   $oosDiscount1 = round($oosDiscount1,TAX_DECIMAL_PLACES);
-   $oosDiscount2 = round($oosDiscount2,TAX_DECIMAL_PLACES);
-   $oosDiscount3 = round($oosDiscount3,TAX_DECIMAL_PLACES);
-   $oosDiscount4 = round($oosDiscount4,TAX_DECIMAL_PLACES);
+   $sDiscount1 = number_format($pInfo->products_discount1, TAX_DECIMAL_PLACES, '.', '');
+   $sDiscount2 = number_format($pInfo->products_discount2, TAX_DECIMAL_PLACES, '.', '');
+   $sDiscount3 = number_format($pInfo->products_discount3, TAX_DECIMAL_PLACES, '.', '');
+   $sDiscount4 = number_format($pInfo->products_discount4, TAX_DECIMAL_PLACES, '.', '');
  ?>
-                   <td class="main" width="75"><?php echo oos_draw_input_field('products_discount1_qty', $pInfo->products_discount1_qty, 'size="10"'); ?><br /><?php echo oos_draw_input_field('products_discount1', $oosDiscount1, 'size="10"'); ?></td>
-                   <td class="main" width="75"><?php echo oos_draw_input_field('products_discount2_qty', $pInfo->products_discount2_qty, 'size="10"'); ?><br /><?php echo oos_draw_input_field('products_discount2', $oosDiscount2, 'size="10"'); ?></td>
-                   <td class="main" width="75"><?php echo oos_draw_input_field('products_discount3_qty', $pInfo->products_discount3_qty, 'size="10"'); ?><br /><?php echo oos_draw_input_field('products_discount3', $oosDiscount3, 'size="10"'); ?></td>
-                   <td class="main" width="75"><?php echo oos_draw_input_field('products_discount4_qty', $pInfo->products_discount4_qty, 'size="10"'); ?><br /><?php echo oos_draw_input_field('products_discount4', $oosDiscount4, 'size="10"'); ?></td>
+                   <td class="main" width="75"><?php echo oos_draw_input_field('products_discount1_qty', $pInfo->products_discount1_qty, 'size="10"'); ?><br /><?php echo oos_draw_input_field('products_discount1', $sDiscount1, 'size="10"'); ?></td>
+                   <td class="main" width="75"><?php echo oos_draw_input_field('products_discount2_qty', $pInfo->products_discount2_qty, 'size="10"'); ?><br /><?php echo oos_draw_input_field('products_discount2', $sDiscount2, 'size="10"'); ?></td>
+                   <td class="main" width="75"><?php echo oos_draw_input_field('products_discount3_qty', $pInfo->products_discount3_qty, 'size="10"'); ?><br /><?php echo oos_draw_input_field('products_discount3', $sDiscount3, 'size="10"'); ?></td>
+                   <td class="main" width="75"><?php echo oos_draw_input_field('products_discount4_qty', $pInfo->products_discount4_qty, 'size="10"'); ?><br /><?php echo oos_draw_input_field('products_discount4', $sDiscount4, 'size="10"'); ?></td>
                   </tr>
                </table>
             </td>

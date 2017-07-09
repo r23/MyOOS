@@ -289,9 +289,9 @@ function oos_draw_input_field($name, $value = '', $parameters = '', $required = 
 			$value = stripslashes($_POST[$name]);
 		}
 	}
-    if (oos_is_not_null($value)) {
+  #  if (oos_is_not_null($value)) {
 		$field .= ' value="' . oos_output_string($value) . '"';
-    }
+ #   }
     if ($required) $field .= ' required';	
 
     if (oos_is_not_null($parameters)) {

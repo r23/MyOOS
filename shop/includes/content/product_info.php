@@ -138,8 +138,6 @@ if (!$product_info_result->RecordCount()) {
           $info_base_product_special_price = $oCurrencies->display_price($info_product_special_price * $product_info['products_base_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
         }
       }
-
-
 	  
     // assign Smarty variables;
     $smarty->assign(
@@ -157,7 +155,6 @@ if (!$product_info_result->RecordCount()) {
       $info_product_price_list = $oCurrencies->display_price($product_info['products_price_list'], oos_get_tax_rate($product_info['products_tax_class_id']));
       $smarty->assign('info_product_price_list', $info_product_price_list);
     }
-
 
     if ($oEvent->installed_plugin('reviews')) {
       $reviewstable = $oostable['reviews'];
@@ -231,6 +228,7 @@ if (!$product_info_result->RecordCount()) {
 */
     $smarty->setCaching(false);
 }
+
 
 // display the template
 $smarty->display($aTemplate['page']);

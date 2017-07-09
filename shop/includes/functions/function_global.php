@@ -113,7 +113,7 @@ function oos_is_not_null($value) {
 			return FALSE;
 		}
 	} else {
-		if ( (is_string($value) || is_int($value)) && ($value != '') && ($value != 'NULL') && (strlen(trim($value)) > 0)) {
+		if ( is_string($value) &&  ($value != '') && (strtolower($value) != 'null') && (strlen(trim($value)) > 0)) {		
 			return TRUE;
 		} else {
 			return FALSE;

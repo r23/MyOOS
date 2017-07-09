@@ -9,10 +9,10 @@
 {/if}
 	
 <form name="cart_quantity" action="{html_get_link}" method="post" enctype="multipart/form-data">
-<input type="hidden" name="action" value="add_product">
-<input type="hidden" name="content" value="{$page_file}">
+	<input type="hidden" name="action" value="add_product">
+	<input type="hidden" name="content" value="{$page_file}">
 {if $smarty.get.edit}
-<input type="hidden" name="edit_product" value="{$smarty.get.products_id}">
+	<input type="hidden" name="edit_product" value="{$smarty.get.products_id}">
 {/if}
 {if $mySystem.sed}
     <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
@@ -34,10 +34,11 @@
          <tr>
            <td class="main">{$product_info.products_description|stripslashes}
 <br>
+{literal}
 <script language="javascript"><!--
 document.write('<a href="javascript:void window.open(\'{html_href_link content=$filename.popup_print products_id=$product_info.products_id}\', \'win2\', \'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no\');" title="{$lang.icon_button_print}">{html_js_icon image="print.gif" alt=$lang.icon_button_print}</a>');
 //--></script>
-
+{/literal}
     </td>
     <td align="right" valign="top" class="smallText">
 {if $product_info.products_image != '' }
@@ -46,12 +47,14 @@ document.write('<a href="javascript:void window.open(\'{html_href_link content=$
     <br><br><a href="{$smarty.const.OOS_IMAGES}{$smarty.const.OOS_POPUP_IMAGES}{$product_info.products_image}" rel="lightbox" title= {$product_info.products_name} >{html_js_icon image="zoom.gif" alt=$lang.icon_button_zoom}{$lang.text_click_to_enlarge}</a>
 
   {else}
+  {literal}
 <script language="javascript"><!--
 document.write('<a href="javascript:popupWindow(\'{html_href_link content=$filename.popup_image pID=$product_info.products_id image=0}\')">{html_oos_image basedir=$smarty.const.OOS_IMAGES image=$product_info.products_image alt=$product_info.products_name|escape:"quotes" width=$smarty.const.SMALL_IMAGE_WIDTH height=$smarty.const.SMALL_IMAGE_HEIGHT hspace=5 vspace=5}<br>{$lang.text_click_to_enlarge}</a>');
 //--></script>
 <noscript>
  {html_oos_image basedir=$smarty.const.OOS_IMAGES image=$product_info.products_image alt=$product_info.products_name width=$smarty.const.SMALL_IMAGE_WIDTH height=$smarty.const.SMALL_IMAGE_HEIGHT hspace=5 vspace=5}<br>
 </noscript>
+{/literal}
   {/if}
 {/if}
 

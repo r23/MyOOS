@@ -1333,9 +1333,23 @@ if ($action == 'new_category' || $action == 'edit_category') {
             $oosPrice = $pInfo->products_price;
             $oosPriceList = $pInfo->products_price_list;
 
-            $oosPrice = round($oosPrice,TAX_DECIMAL_PLACES);
-            $oosPriceList = round($oosPriceList,TAX_DECIMAL_PLACES);
+            if ($_GET['read'] == 'only' || $action != 'new_product_preview'){
+              $oosPriceNetto = round($oosPrice,TAX_DECIMAL_PLACES);
+              $oosPriceListNetto = round($oosPriceList,TAX_DECIMAL_PLACES);
+              $tax_result = $dbconn->Execute("SELECT tax_rate FROM " . $oostable['tax_rates'] . " WHERE tax_class_id = '" . $pInfo->products_tax_class_id . "' ");
+              $tax = $tax_result->fields;
+              $oosPrice = ($oosPrice*($tax[tax_rate]+100)/100);
+              $oosPriceList = ($oosPriceList*($tax[tax_rate]+100)/100);
 
+              if (isset($specials) && is_array($specials)) {
+                $oosSpecialsPriceNetto = round($specials['specials_new_products_price'],TAX_DECIMAL_PLACES);
+                $oosSpecialsPrice = round(($specials['specials_new_products_price']*($tax[tax_rate]+100)/100),TAX_DECIMAL_PLACES);
+              }
+            }			
+			
+            $oosPrice = round($oosPrice,TAX_DECIMAL_PLACES);
+            $oosPriceList = round($oosPriceList,TAX_DECIMAL_PLACES);			
+			
             if (isset($specials) && is_array($specials)) {
               $contents[] = array('text' => '<br /><b>' . TEXT_PRODUCTS_PRICE_INFO . '</b> <span class="oldPrice">' . $currencies->format($oosPrice) . '</span> - ' . TEXT_TAX_INFO . '<span class="oldPrice">' . $currencies->format($oosPriceNetto) . '</span>');
               $contents[] = array('text' => '<b>' . TEXT_PRODUCTS_PRICE_INFO . '</b> <span class="specialPrice">' . $currencies->format($oosSpecialsPrice) . '</span> - ' . TEXT_TAX_INFO . '<span class="specialPrice">' . $currencies->format($oosSpecialsPriceNetto) . '</span>');
