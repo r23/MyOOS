@@ -30,7 +30,6 @@ if (!$prefix_filename == '') $prefix_filename =$prefix_filename . '_';
 $aContents['admin_account'] = $prefix_filename . 'admin_account.php';
 $aContents['admin_files'] = $prefix_filename . 'admin_files.php';
 $aContents['admin_members'] = $prefix_filename . 'admin_members.php';
-$aContents['campaigns'] = $prefix_filename . 'campaigns.php';
 $aContents['catalog_product_info'] = $prefix_filename . 'product_info.php';
 $aContents['categories'] = $prefix_filename . 'categories.php';
 $aContents['configuration'] = $prefix_filename . 'configuration.php';

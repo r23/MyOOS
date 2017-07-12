@@ -34,7 +34,6 @@ $aLang['title_please_select'] = 'Please Select';
 $aLang['text_enter_shipping_information'] = 'This is currently the only shipping method available to use on this order.';
 
 $aLang['table_heading_comments'] = 'Add Comments About Your Order';
-$aLang['table_heading_campaigns'] = 'How you came to us?';
 
 $aLang['title_continue_checkout_procedure'] = 'Continue Checkout Procedure';
 $aLang['text_continue_checkout_procedure'] = 'to select the preferred payment method.';

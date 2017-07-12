@@ -19,8 +19,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 // start the session
 if ( $session->hasStarted() === FALSE ) $session->start();  
@@ -36,9 +36,10 @@ if (!isset($_SESSION['customer_id'])) {
 }
 
 // if there is nothing in the customers cart, redirect them to the shopping cart page
-  if ($_SESSION['cart']->count_contents() < 1) {
+if ($_SESSION['cart']->count_contents() < 1) {
     oos_redirect(oos_href_link($aContents['shopping_cart']));
-  }
+}
+
 
 // check for maximum order
   if ($_SESSION['cart']->show_total() > 0) {
@@ -77,6 +78,7 @@ if (!isset($_SESSION['customer_id'])) {
 // register a random ID in the session to check throughout the checkout procedure
 // against alterations in the shopping cart contents
   $_SESSION['cartID'] = $_SESSION['cart']->cartID;
+  
 
 // if the order contains only virtual products, forward the customer to the billing page as
 // a shipping address is not needed
@@ -126,10 +128,6 @@ if (!isset($_SESSION['customer_id'])) {
       $_SESSION['comments'] = '';
     } else if (oos_is_not_null($_POST['comments'])) {
       $_SESSION['comments'] = oos_db_prepare_input($_POST['comments']);
-    }
-
-    if (isset($_POST['campaign_id']) && is_numeric($_POST['campaign_id'])) {
-      $_SESSION['campaigns_id'] = intval($_POST['campaign_id']);
     }
 
     if ( (oos_count_shipping_modules() > 0) || ($free_shipping == TRUE) ) {
@@ -191,25 +189,7 @@ if (!isset($_SESSION['customer_id'])) {
     require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
   }
 
-  $campaignstable = $oostable['campaigns'];
-  $sql = "SELECT campaigns_id FROM $campaignstable WHERE campaigns_languages_id = '" . intval($_SESSION['language_id']) . "'";
-  $campaigns_result = $dbconn->Execute($sql);
-  if ($campaigns_result->RecordCount()) {
-    $smarty->assign('campaigns', 'true');
 
-    if (isset($_SESSION['campaigns_id']) && is_numeric($_SESSION['campaigns_id'])) {
-      $smarty->assign('campaigns_id', $_SESSION['campaigns_id']);
-    } else {
-      $smarty->assign('campaigns_id', DEFAULT_CAMPAIGNS_ID);
-    }
-
-    $campaignstable = $oostable['campaigns'];
-    $campaigns_sql = "SELECT campaigns_id, campaigns_name
-                      FROM $campaignstable
-                      WHERE campaigns_languages_id = '" . intval($_SESSION['language_id']) . "'
-                      ORDER BY campaigns_id";
-    $smarty->assign('campaigns_radios', $dbconn->getAssoc($campaigns_sql));
-  }
 
 // assign Smarty variables;
 $smarty->assign(

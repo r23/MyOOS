@@ -49,11 +49,6 @@ $aBlocks[] = array(
 			'link' => oos_admin_files_boxes('orders_status', 'selected_box=customers')
 		),
 		array(
-			'code' => $aContents['campaigns'],			
-			'title' => BOX_CAMPAIGNS,
-			'link' => oos_admin_files_boxes('campaigns', 'selected_box=customers')
-		),
-		array(
 			'code' => $aContents['manual_loging'],	
 			'title' => BOX_ADMIN_LOGIN,
 			'link' => oos_admin_files_boxes('manual_loging', 'selected_box=customers')

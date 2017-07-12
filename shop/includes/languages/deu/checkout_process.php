@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -23,7 +23,6 @@ $aLang['email_text_subject'] = 'Bestellung';
 $aLang['email_text_order_number'] = 'Bestellnummer:';
 $aLang['email_text_invoice_url'] = 'Detailierte Bestellbersicht:';
 $aLang['email_text_date_ordered'] = 'Bestelldatum:';
-$aLang['email_text_campaigns'] = 'Wie wurden Sie auf uns aufmerksam?';
 $aLang['email_text_products'] = 'Artikel';
 $aLang['email_text_subtotal'] = 'Zwischensumme:';
 $aLang['email_text_tax'] = 'MwSt.';

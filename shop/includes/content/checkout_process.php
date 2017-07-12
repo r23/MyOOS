@@ -115,7 +115,6 @@ if (!isset($_SESSION['customer_id'])) {
                           'cc_expires' => $oOrder->info['cc_expires'],
                           'date_purchased' => 'now()',
                           'last_modified' => 'now()',
-                          'campaigns' => $_SESSION['campaigns_id'],
                           'orders_status' => $oOrder->info['order_status'],
                           'currency' => $oOrder->info['currency'],
                           'currency_value' => $oOrder->info['currency_value'],
@@ -324,13 +323,6 @@ if (!isset($_SESSION['customer_id'])) {
   if ($oOrder->info['comments']) {
     $email_order .= oosDBOutput($oOrder->info['comments']) . "\n\n";
   }
-
-  if (isset($_SESSION['campaigns_id'])) {
-    $email_order .= $aLang['email_separator'] . "\n" .
-                    $aLang['email_text_campaigns'] . "\n" .
-                    oos_get_campaigns_name($_SESSION['campaigns_id']) . "\n\n";
-  }
-
 
   $email_order .= $aLang['email_text_products'] . "\n" .
                   $aLang['email_separator'] . "\n" .

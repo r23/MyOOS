@@ -7,20 +7,54 @@
         {include file="phoenix/system/_message.html"}
     {/foreach}
 {/if}
-<!-- body //-->
-<form name="checkout_address" action="{html_get_link connection=SSL}" method="post">
+
+
+<!-- MAIN CONTENT SECTION -->
+<section class="mainContent clearfix stepsWrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="innerWrapper clearfix stepsPage">
+					<div class="row progress-wizard" style="border-bottom:0;">
+
+						<div class="col-xs-3 progress-wizard-step complete">
+							<div class="text-center progress-wizard-stepnum">{$lang.checkout_bar_delivery}</div>
+							<div class="progress"><div class="progress-bar"></div></div>
+							<a href="{html_href_link modul=$modules.checkout file=$filename.checkout_shipping connection=SSL}" class="progress-wizard-dot"></a>
+						</div>
+	  
+				  
+						<div class="col-xs-3 progress-wizard-step disabled">
+							<div class="text-center progress-wizard-stepnum">{$lang.checkout_bar_payment}</div>
+							<div class="progress"><div class="progress-bar"></div></div>
+							<div class="progress-wizard-dot"></div>
+						</div>
+
+						<div class="col-xs-3 progress-wizard-step disabled">
+							<div class="text-center progress-wizard-stepnum">{$lang.checkout_bar_confirmation}</div>
+							<div class="progress"><div class="progress-bar"></div></div>
+							<div class="progress-wizard-dot"></div>
+						</div>
+
+						<div class="col-xs-3 progress-wizard-step disabled">
+							<div class="text-center progress-wizard-stepnum">{$lang.checkout_bar_finished}</div>
+							<div class="progress"><div class="progress-bar"></div></div>
+							<div class="progress-wizard-dot"></div>
+						</div>
+					</div>
+            
+<form name="checkout_address" action="{html_get_link connection=SSL}" method="POST" role="form">
 	<input type="hidden" name="content" value="{$filename.checkout_shipping}">
 {if $mySystem.sed}
     <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 	<input type="hidden" name="formid" value="{$mySystem.formid}">
 {/if}
-
-<input type="hidden" name="action" value="process"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<input type="hidden" name="action" value="process">
+			
+				
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td>{$oosPageHeading}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -40,7 +74,7 @@
                   <tr>
                     <td class="main" align="center" valign="top"><strong>{$lang.title_shipping_address}</strong><br><img src="{$theme_image}/arrow_south_east.gif" border="0" alt=" " width="50" height="31"></td>
                     <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                    <td class="main" valign="top">{oos_address_label customers_id=$smarty.session.customer_id address_id=$smarty.session.sendto}</td>
+                    <td class="main" valign="top">oos_address_label customers_id=$smarty.session.customer_id address_id=$smarty.session.sendto</td>
                     <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
                   </tr>
                 </table></td>
@@ -172,30 +206,6 @@
         </table></td>
       </tr>
 
-{if $campaigns eq 'true'}
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><strong>{$lang.table_heading_campaigns}</strong></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
-          <tr class="oos-BoxContents">
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-{oos_radios name="campaign_id" options=$campaigns_radios selected=$campaigns_id}
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-{/if}
-      <tr>
-        <td height="10"></td>
-      </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
           <tr class="oos-BoxContents">
@@ -210,36 +220,20 @@
           </tr>
         </table></td>
       </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td width="25%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-              <tr>
-                <td width="50%" align="right"><img src="{$theme_image}/checkout_bullet.gif" border="0" alt=" " width="11" height="11"></td>
-                <td width="50%"><img src="{$theme_image}/pixel_silver.gif" border="0" alt=" " width="100%" height="1"></td>
-              </tr>
-            </table></td>
-            <td width="25%"><img src="{$theme_image}/pixel_silver.gif" border="0" alt=" " width="100%" height="1"></td>
-            <td width="25%"><img src="{$theme_image}/pixel_silver.gif" border="0" alt=" " width="100%" height="1"></td>
-            <td width="25%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-              <tr>
-                <td width="50%"><img src="{$theme_image}/pixel_silver.gif" border="0" alt=" " width="100%" height="1"></td>
-                <td width="50%"><img src="{$theme_image}/pixel_silver.gif" border="0" alt=" " width="1" height="5"></td>
-              </tr>
-            </table></td>
-          </tr>
-          <tr>
-            <td align="center" width="25%" class="checkoutBarCurrent">{$lang.checkout_bar_delivery}</td>
-            <td align="center" width="25%" class="checkoutBarTo">{$lang.checkout_bar_payment}</td>
-            <td align="center" width="25%" class="checkoutBarTo">{$lang.checkout_bar_confirmation}</td>
-            <td align="center" width="25%" class="checkoutBarTo">{$lang.checkout_bar_finished}</td>
-          </tr>
-        </table></td>
-      </tr>
     </table>
-    </form>
-<!-- body_eof //-->
+						<div class="col-xs-12">
+							<div class="well well-lg clearfix">
+								<ul class="pager">
+									<li class="next"><button class="btn btn-primary-filled pull-right" type="submit">{$lang.button_continue} <i class="fa fa-arrow-circle-right"></i></button></li>
+								</ul>
+							</div>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
 {include file="phoenix/system/_footer.html"}

@@ -593,31 +593,6 @@ function oos_redirect($sUrl) {
 
 
  /**
-  * Return Campaign Name
-  *
-  * @param $campaigns_id
-  * @param $language
-  * @return string
-  */
-  function oos_get_campaigns_name($campaigns_id) {
-
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
-
-    $campaignstable = $oostable['campaigns'];
-    $query = "SELECT campaigns_name
-              FROM $campaignstable
-              WHERE campaigns_id = '" . intval($campaigns_id) . "'
-                AND campaigns_languages_id = '" . intval($_SESSION['language_id']) . "'";
-    $campaigns_name = $dbconn->GetOne($query);
-
-    return $campaigns_name;
-  }
-
-
-
- /**
   * Returns the tax rate for a zone / class
   *
   * @param $class_id

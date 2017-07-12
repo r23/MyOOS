@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -34,7 +34,6 @@ $aLang['title_please_select'] = 'Please Select';
 $aLang['text_enter_payment_information'] = 'This is currently the only payment method available to use on this order.';
 
 $aLang['table_heading_comments'] = 'Add Comments About Your Order';
-$aLang['table_heading_campaigns'] = 'How you came to us?';
 
 $aLang['title_continue_checkout_procedure'] = 'Continue Checkout Procedure';
 $aLang['text_continue_checkout_procedure'] = 'to confirm this order.';

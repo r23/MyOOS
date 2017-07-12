@@ -66,7 +66,7 @@ define('ENTRY_SHIPPING_ADDRESS', 'Shipping Address:');
 define('ENTRY_BILLING_ADDRESS', 'Billing Address:');
 define('ENTRY_ORDER_NUMBER', 'Order #');
 define('ENTRY_ORDER_DATE', 'Order Date & Time');
-define('ENTRY_CAMPAIGNS', 'How you came to us?');
+
 define('ENTRY_PAYMENT_METHOD', 'Payment Method:');
 define('ENTRY_CREDIT_CARD_TYPE', 'Credit Card Type:');
 define('ENTRY_CREDIT_CARD_OWNER', 'Credit Card Owner:');

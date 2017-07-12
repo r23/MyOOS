@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -132,7 +132,6 @@ define('BOX_HEADING_CUSTOMERS', 'Customers');
 define('BOX_CUSTOMERS_CUSTOMERS', 'Customers');
 define('BOX_CUSTOMERS_ORDERS', 'Orders');
 define('BOX_ORDERS_STATUS', 'Orders Status');
-define('BOX_CAMPAIGNS', 'Campaigns');
 define('BOX_ADMIN_LOGIN', 'Admin login');
 
 // taxes box text in includes/boxes/taxes.php

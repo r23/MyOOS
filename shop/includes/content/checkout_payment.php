@@ -164,26 +164,6 @@ $smarty->assign(
   );
 
 
-  $campaignstable = $oostable['campaigns'];
-  $sql = "SELECT campaigns_id FROM $campaignstable WHERE campaigns_languages_id = '" . intval($_SESSION['language_id']) . "'";
-  $campaigns_result = $dbconn->Execute($sql);
-  if ($campaigns_result->RecordCount()) {
-    $smarty->assign('campaigns', 'true');
-
-    if (isset($_SESSION['campaigns_id']) && is_numeric($_SESSION['campaigns_id'])) {
-      $smarty->assign('campaigns_id', $_SESSION['campaigns_id']);
-    } else {
-      $smarty->assign('campaigns_id', DEFAULT_CAMPAIGNS_ID);
-    }
-
-    $campaignstable = $oostable['campaigns'];
-    $campaigns_sql = "SELECT campaigns_id, campaigns_name
-                      FROM $campaignstable
-                      WHERE campaigns_languages_id = '" . intval($_SESSION['language_id']) . "'
-                      ORDER BY campaigns_id";
-    $smarty->assign('campaigns_radios', $dbconn->getAssoc($campaigns_sql));
-  }
-
   // JavaScript
   $smarty->assign('oos_js', $javascript);
 

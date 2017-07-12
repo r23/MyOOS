@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team
    ----------------------------------------------------------------------
    Based on:
 
@@ -42,19 +42,6 @@ function idxsql($idxname, $table, $idxflds) {
    $sqlarray = $dict->CreateIndexSQL($idxname, $table, $idxflds);
    $dict->ExecuteSQLArray($sqlarray);
 }
-
-$table = $prefix_table . 'campaigns';
-$flds = "
-   campaigns_id I DEFAULT '0' NOTNULL PRIMARY,
-   campaigns_languages_id I NOTNULL DEFAULT '1' PRIMARY,
-   campaigns_name C(32) NOTNULL
-";
-dosql($table, $flds);
-
-
-$idxname = 'idx_campaigns_name';
-$idxflds = 'campaigns_name';
-idxsql($idxname, $table, $idxflds);
 
 
 $table = $prefix_table . 'products_units';

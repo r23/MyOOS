@@ -59,10 +59,6 @@ if ( (isset($_POST['comments'])) && (empty($_POST['comments'])) ) {
 	$_SESSION['comments'] = oos_db_prepare_input($_POST['comments']);
 }
 
-if (isset($_POST['campaign_id']) && is_numeric($_POST['campaign_id'])) {
-	$_SESSION['campaigns_id'] = intval($_POST['campaign_id']);
-}
-
 // if no shipping method has been selected, redirect the customer to the shipping method selection page
 if (!isset($_SESSION['shipping'])) {
 	oos_redirect(oos_href_link($aContents['checkout_shipping'], '', 'SSL'));

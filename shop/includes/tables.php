@@ -39,7 +39,6 @@ $oostable['banktransfer_blz'] = $prefix_table . 'banktransfer_blz';
 $oostable['block'] = $prefix_table . 'block';
 $oostable['block_info'] = $prefix_table . 'block_info';
 $oostable['block_to_page_type'] = $prefix_table . 'block_to_page_type';
-$oostable['campaigns'] = $prefix_table . 'campaigns';
 $oostable['categories'] = $prefix_table . 'categories';
 $oostable['categories_description'] = $prefix_table . 'categories_description';
 $oostable['categories_images'] = $prefix_table . 'categories_images';

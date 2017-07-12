@@ -62,7 +62,7 @@
                      billing_company, billing_street_address, billing_suburb, billing_city,
                      billing_postcode, billing_state, billing_country, billing_address_format_id,
                      payment_method, cc_type, cc_owner, cc_number, cc_expires, currency, currency_value,
-                     date_purchased, campaigns, orders_status, last_modified
+                     date_purchased, orders_status, last_modified
               FROM $orderstable
               WHERE orders_id = '" . intval($order_id) . "'";
       $order = $dbconn->GetRow($sql);
@@ -95,14 +95,6 @@
                 AND orders_languages_id = '" .  intval($nLanguageID) . "'";
       $orders_status_name = $dbconn->GetOne($sql);
 
-      $campaignstable = $oostable['campaigns'];
-      $sql = "SELECT campaigns_name
-              FROM $campaignstable
-              WHERE campaigns_id = '" . $order['campaigns'] . "'
-                AND campaigns_languages_id = '" . intval($nLanguageID) . "'";
-      $campaigns_name = $dbconn->GetOne($sql);
-
-
       $this->info = array('currency' => $order['currency'],
                           'currency_value' => $order['currency_value'],
                           'payment_method' => $order['payment_method'],
@@ -111,7 +103,6 @@
                           'cc_number' => $order['cc_number'],
                           'cc_expires' => $order['cc_expires'],
                           'date_purchased' => $order['date_purchased'],
-                          'campaigns' =>  $campaigns_name,
                           'orders_status' => $orders_status_name,
                           'last_modified' => $order['last_modified'],
                           'total' => strip_tags($order_total_text),
@@ -272,7 +263,6 @@
       $class =& $_SESSION['payment'];
 
       $this->info = array('order_status' => DEFAULT_ORDERS_STATUS_ID,
-                          'campaigns' => $_SESSION['campaigns_id'],
                           'currency' => $_SESSION['currency'],
                           'currency_value' => $oCurrencies->currencies[$_SESSION['currency']]['value'],
                           'payment_method' => $GLOBALS[$class]->title,

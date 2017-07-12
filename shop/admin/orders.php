@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -345,10 +345,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
           <tr>
             <td class="main"><b><?php echo ENTRY_ORDER_DATE; ?></b></td>
             <td class="main"><?php echo oos_datetime_short($order->info['date_purchased']); ?></td>
-          <tr>
-          <tr>
-            <td class="main"><b><?php echo ENTRY_CAMPAIGNS; ?></b></td>
-            <td class="main"><?php echo $order->info['campaigns']; ?></td>
           <tr>
           <tr>
             <td class="main"><b><?php echo ENTRY_PAYMENT_METHOD; ?></b></td>

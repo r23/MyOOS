@@ -66,7 +66,6 @@ define('ENTRY_SHIPPING_ADDRESS', 'Versandadresse:');
 define('ENTRY_BILLING_ADDRESS', 'Rechnungsadresse:');
 define('ENTRY_ORDER_NUMBER', 'Bestellnummer');
 define('ENTRY_ORDER_DATE', 'Bestelldatum');
-define('ENTRY_CAMPAIGNS', 'Aufmerksam geworden:');
 
 define('ENTRY_PAYMENT_METHOD', 'Zahlungsweise:');
 define('ENTRY_CREDIT_CARD_TYPE', 'Kreditkartentyp:');
