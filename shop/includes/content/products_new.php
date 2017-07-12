@@ -34,7 +34,7 @@ $nPageType = OOS_PAGE_TYPE_CATALOG;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
-$sGroup = trim($_SESSION['user']->group['text']);
+$sGroup = trim($aUser['text']);
 $nContentCacheID = $sTheme . '|products_new|' . $nPage. '|' . $sGroup . '|' . $sLanguage;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';

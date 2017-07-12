@@ -1,48 +1,3 @@
-{include file="phoenix/system/_header.html"}
-
-{include file="phoenix/system/_breadcrumbs.html"}
-
-{if $message}
-    {foreach $message as $info}
-        {include file="phoenix/system/_message.html"}
-    {/foreach}
-{/if}
-
-
-<!-- MAIN CONTENT SECTION -->
-<section class="mainContent clearfix stepsWrapper">
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="innerWrapper clearfix stepsPage">
-					<div class="row progress-wizard" style="border-bottom:0;">
-
-						<div class="col-xs-3 progress-wizard-step complete">
-							<div class="text-center progress-wizard-stepnum">{$lang.checkout_bar_delivery}</div>
-							<div class="progress"><div class="progress-bar"></div></div>
-							<a href="{html_href_link modul=$modules.checkout file=$filename.checkout_shipping connection=SSL}" class="progress-wizard-dot"></a>
-						</div>
-	  
-				  
-						<div class="col-xs-3 progress-wizard-step disabled">
-							<div class="text-center progress-wizard-stepnum">{$lang.checkout_bar_payment}</div>
-							<div class="progress"><div class="progress-bar"></div></div>
-							<div class="progress-wizard-dot"></div>
-						</div>
-
-						<div class="col-xs-3 progress-wizard-step disabled">
-							<div class="text-center progress-wizard-stepnum">{$lang.checkout_bar_confirmation}</div>
-							<div class="progress"><div class="progress-bar"></div></div>
-							<div class="progress-wizard-dot"></div>
-						</div>
-
-						<div class="col-xs-3 progress-wizard-step disabled">
-							<div class="text-center progress-wizard-stepnum">{$lang.checkout_bar_finished}</div>
-							<div class="progress"><div class="progress-bar"></div></div>
-							<div class="progress-wizard-dot"></div>
-						</div>
-					</div>
-
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
 {if $smarty.const.ACCOUNT_GENDER eq 'true'}
   <tr>
@@ -194,18 +149,3 @@
     </td>
   </tr>
 </table>
-						<div class="col-xs-12">
-							<div class="well well-lg clearfix">
-								<ul class="pager">
-									<li class="next"><button class="btn btn-primary-filled pull-right" type="submit">{$lang.button_continue} <i class="fa fa-arrow-circle-right"></i></button></li>
-								</ul>
-							</div>
-						</div>
-
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<!-- body_eof //-->
-{include file="phoenix/system/_footer.html"}

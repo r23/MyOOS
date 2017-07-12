@@ -8,8 +8,6 @@
     {/foreach}
 {/if}
 
-
-<!-- MAIN CONTENT SECTION -->
 <section class="mainContent clearfix stepsWrapper">
 	<div class="container">
 		<div class="row">
@@ -159,7 +157,7 @@
             {if ( ($smarty.section.i.total > 1) || ($smarty.section.n.total > 1) ) }
                     <td class="main">{oos_cost price=$quotes[i].methods[n].cost tax=$quotes[i].tax}</td>
                {if $quotes[i].methods[n].id eq $sess_method }
-                    <td class="main" align="right"><input type="radio" name="shipping" value="{$quotes[i].id}_{$quotes[i].methods[n].id}" CHECKED></td>
+                    <td class="main" align="right"><input type="radio" name="shipping" value="{$quotes[i].id}_{$quotes[i].methods[n].id}" checked="checked"></td>
                {else}
                    <td class="main" align="right"><input type="radio" name="shipping" value="{$quotes[i].id}_{$quotes[i].methods[n].id}"></td>
                {/if}

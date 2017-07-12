@@ -7,7 +7,13 @@
         {include file="phoenix/system/_message.html"}
     {/foreach}
 {/if}
-<!-- body //-->
+
+<section class="mainContent clearfix">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="innerWrapper clearfix">
+
    <form name="advanced_search" action="{html_get_link}" method="get" onSubmit="return check_form(this);">
    <input type="hidden" name="content" value="{$filename.advanced_search_result}">
 {if $mySystem.sed}
@@ -128,5 +134,10 @@
     </table>
     </form>
 
-<!-- body_eof //-->
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
 {include file="phoenix/system/_footer.html"}

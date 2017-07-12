@@ -7,7 +7,40 @@
         {include file="phoenix/system/_message.html"}
     {/foreach}
 {/if}
-<!-- body //-->
+
+<section class="mainContent clearfix stepsWrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="innerWrapper clearfix stepsPage">
+					<div class="row progress-wizard" style="border-bottom:0;">
+
+						<div class="col-xs-3 progress-wizard-step complete">
+							<div class="text-center progress-wizard-stepnum">{$lang.checkout_bar_delivery}</div>
+							<div class="progress"><div class="progress-bar"></div></div>
+							<a href="{html_href_link modul=$modules.checkout file=$filename.checkout_shipping connection=SSL}" class="progress-wizard-dot"></a>
+						</div>
+	  
+				  
+						<div class="col-xs-3 progress-wizard-step disabled">
+							<div class="text-center progress-wizard-stepnum">{$lang.checkout_bar_payment}</div>
+							<div class="progress"><div class="progress-bar"></div></div>
+							<div class="progress-wizard-dot"></div>
+						</div>
+
+						<div class="col-xs-3 progress-wizard-step disabled">
+							<div class="text-center progress-wizard-stepnum">{$lang.checkout_bar_confirmation}</div>
+							<div class="progress"><div class="progress-bar"></div></div>
+							<div class="progress-wizard-dot"></div>
+						</div>
+
+						<div class="col-xs-3 progress-wizard-step disabled">
+							<div class="text-center progress-wizard-stepnum">{$lang.checkout_bar_finished}</div>
+							<div class="progress"><div class="progress-bar"></div></div>
+							<div class="progress-wizard-dot"></div>
+						</div>
+					</div>
+					
     <form name="order" action="{html_href_link content=$filename.checkout_success action=update connection=SSL}" method="post">
 {if $mySystem.sed}
     <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
@@ -37,34 +70,8 @@
       <tr>
         <td height="10"></td>
       </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td width="25%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-              <tr>
-                <td width="50%" align="right"><img src="{$theme_image}/pixel_silver.gif" border="0" alt=" " width="1" height="5"></td>
-                <td width="50%"><img src="{$theme_image}/pixel_silver.gif" border="0" alt=" " width="100%" height="1"></td>
-              </tr>
-            </table></td>
-            <td width="25%"><img src="{$theme_image}/pixel_silver.gif" border="0" alt=" " width="100%" height="1"></td>
-            <td width="25%"><img src="{$theme_image}/pixel_silver.gif" border="0" alt=" " width="100%" height="1"></td>
-            <td width="25%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-              <tr>
-                <td width="50%"><img src="{$theme_image}/pixel_silver.gif" border="0" alt=" " width="100%" height="1"></td>
-                <td width="50%"><img src="{$theme_image}/checkout_bullet.gif" border="0" alt=" " width="11" height="11"></td>
-              </tr>
-            </table></td>
-          </tr>
-          <tr>
-            <td align="center" width="25%" class="checkoutBarFrom">{$lang.checkout_bar_delivery}</td>
-            <td align="center" width="25%" class="checkoutBarFrom">{$lang.checkout_bar_payment}</td>
-            <td align="center" width="25%" class="checkoutBarFrom">{$lang.checkout_bar_confirmation}</td>
-            <td align="center" width="25%" class="checkoutBarCurrent">{$lang.checkout_bar_finished}</td>
-          </tr>
-        </table></td>
-      </tr>
+
     </table>
     </form>
 
-<!-- body_eof //-->
 {include file="phoenix/system/_footer.html"}

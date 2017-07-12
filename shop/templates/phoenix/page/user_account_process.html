@@ -23,7 +23,7 @@
             <td class="main">&nbsp;{$lang.entry_gender}</td>
             <td class="main">&nbsp;
   {if $gender_error eq 'true'}
-      <input type="radio" name="gender" value="m" CHECKED>&nbsp;&nbsp;{$lang.male}&nbsp;&nbsp;<input type="radio" name="gender" value="f">&nbsp;&nbsp;{$lang.female}&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_info_text}</font></small></td>
+      <input type="radio" name="gender" value="m" checked="checked">&nbsp;&nbsp;{$lang.male}&nbsp;&nbsp;<input type="radio" name="gender" value="f">&nbsp;&nbsp;{$lang.female}&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_info_text}</font></small></td>
   {else}
     {if $gender eq 'm' }
       {$lang.male}

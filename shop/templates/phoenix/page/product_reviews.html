@@ -8,6 +8,12 @@
     {/foreach}
 {/if}
 
+<section class="mainContent clearfix">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="innerWrapper clearfix">
+
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td>{$oosPageHeading}</td>
@@ -59,6 +65,11 @@
       </tr>
     </table>
 
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
 {if $smarty.const.NEWSLETTER eq true}
 	{include file="phoenix/system/_newsletter.html"}
