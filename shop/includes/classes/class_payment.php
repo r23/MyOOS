@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -98,7 +98,7 @@
         $js = '<script language="javascript"><!-- ' . "\n" .
               'public function check_form() {' . "\n" .
               '  var error = 0;' . "\n" .
-              '  var error_message = "' . decode($aLang['js_error']) . '";' . "\n" .
+              '  var error_message = "' . $aLang['js_error'] . '";' . "\n" .
               '  var payment_value = null;' . "\n" .
               '  if (document.checkout_payment.payment.length) {' . "\n" .
               '    for (var i=0; i<document.checkout_payment.payment.length; i++) {' . "\n" .

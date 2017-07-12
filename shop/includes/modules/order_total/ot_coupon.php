@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -119,7 +119,7 @@
       if ($coupon_result['coupon_type'] != 'G') {
 
         if ($coupon_query->RecordCount() == 0) {
-          oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode(decode($aLang['error_no_invalid_redeem_coupon'])), 'SSL'));
+          oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode($aLang['error_no_invalid_redeem_coupon']), 'SSL'));
         }
 
         $couponstable = $oostable['coupons'];
@@ -129,7 +129,7 @@
                 AND   coupon_code= '" . oos_db_input($_POST['gv_redeem_code']) . "'";
         $date_query = $dbconn->Execute($sql);
         if ($date_query->RecordCount() == 0) {
-          oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode(decode($aLang['error_invalid_startdate_coupon'])), 'SSL'));
+          oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode($aLang['error_invalid_startdate_coupon']), 'SSL'));
         }
 
         $couponstable = $oostable['coupons'];
@@ -139,7 +139,7 @@
                 AND   coupon_code= '" . oos_db_input($_POST['gv_redeem_code']) . "'";
         $date_query = $dbconn->Execute($sql);
         if ($date_query->RecordCount() == 0) {
-          oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode(decode($aLang['error_invalid_finisdate_coupon'])), 'SSL'));
+          oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode($aLang['error_invalid_finisdate_coupon']), 'SSL'));
         }
 
         $coupon_redeem_tracktable = $oostable['coupon_redeem_track'];

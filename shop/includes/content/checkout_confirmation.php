@@ -138,8 +138,8 @@ if (STOCK_CHECK == 'true') {
 }
 
 // links breadcrumb
-$oBreadcrumb->add(decode($aLang['navbar_title_1']), oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
-$oBreadcrumb->add(decode($aLang['navbar_title_2']));
+$oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
+$oBreadcrumb->add($aLang['navbar_title_2']);
 
 $aTemplate['page'] = $sTheme . '/page/checkout_confirmation.html';
 
