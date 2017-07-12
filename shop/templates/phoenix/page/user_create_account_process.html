@@ -8,15 +8,11 @@
     {/foreach}
 {/if}
 
-
-<!-- body //-->
-<table width="870" border="0" align="center" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
-
-    </table></td>
-    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-    <td width="100%" valign="top">
+<section class="mainContent clearfix">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="innerWrapper clearfix">
 
    <form name="account_edit" action="{html_href_link content=$filename.create_account_process connection=SSL}" method="post" onSubmit="return check_form();">
  {if $mySystem.sed}
@@ -47,13 +43,13 @@
           </tr>
         </table></td>
       </tr>
-    </table></form>
-</td>
-    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-    <td width="150" valign="top"><table border="0" width="150" cellspacing="0" cellpadding="2">
+    </table>
+	
+	</form>
 
-    </table></td>
-  </tr>
-</table>
-<!-- body_eof //-->
+				</div>
+			</div>
+		</div>
+	</div>
+</section>	
 {include file="phoenix/system/_footer.html"}

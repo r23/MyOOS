@@ -8,6 +8,12 @@
     {/foreach}
 {/if}
 
+<section class="mainContent clearfix">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="innerWrapper clearfix">
+
 {if $snapshot > 0 }
 <div class="alert alert-danger" role="alert">
   <a href="#" class="alert-link">...</a>
@@ -38,14 +44,11 @@
 {include file="phoenix/modules/user_account_details.html"}
         </td>
       </tr>
-      <tr>
-        <td align="right" class="main"><br>{html_image_submit image="continue.gif" alt=$lang.button_continue}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
     </table>
     </form>
-
-<!-- body_eof //-->
+				</div>
+			</div>
+		</div>
+	</div>
+</section>	
 {include file="phoenix/system/_footer.html"}
