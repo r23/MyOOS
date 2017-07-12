@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -58,7 +58,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
           break;
 
         case 'PRODUCT_LIST_PRICE':
-          if ($_SESSION['user']->group['show_price'] != 1) {
+          if ($aUser['show_price'] != 1) {
             $lc_text = '';
           } else {
             $lc_text = $aLang['table_heading_price'];
@@ -82,7 +82,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
           break;
 
         case 'PRODUCT_SLAVE_BUY_NOW':
-          if ($_SESSION['user']->group['show_price'] != 1) {
+          if ($aUser['show_price'] != 1) {
             $lc_text='';
           } else {
             $lc_text = $aLang['table_heading_buy_now'];
@@ -240,7 +240,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
 
             case 'PRODUCT_SLAVE_BUY_NOW':
             $lc_align = 'right';
-            if ($_SESSION['user']->group['show_price'] == 1) {
+            if ($aUser['show_price'] == 1) {
 
                if (DECIMAL_CART_QUANTITY == 'true') {
                  $order_min = number_format($listing['products_quantity_order_min'], 2);

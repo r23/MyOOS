@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -78,7 +78,7 @@
 
             $options .= '<input type="text" name ="id[' . TEXT_PREFIX . $products_options_name['products_options_id'] . ']" size="' . $products_options_name['products_options_length'] .'" maxlength="' . $products_options_name['products_options_length'] . '" value="' .  $_SESSION['cart']->contents[$sProductsId]['attributes_values'][$products_options_name['products_options_id']] .'">' . $products_options_name['products_options_comment'];
             if ($products_attribs_array['options_values_price'] > '0') {
-              if ($_SESSION['user']->group['show_price'] == 1 ) {
+              if ($aUser['show_price'] == 1 ) {
                 if ($info_product_discount != 0 ) {
                   $options .= '(' . $products_attribs_array['price_prefix'] . $oCurrencies->display_price($products_attribs_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) . ' -' . number_format($info_product_discount, 2) . '% )';
                 } else {
@@ -124,7 +124,7 @@
               $options .= $products_options_name['products_options_comment'];
 
               if ($products_attribs_array['options_values_price'] > '0') {
-                if ($_SESSION['user']->group['show_price'] == 1 ) {
+                if ($aUser['show_price'] == 1 ) {
                   if ($info_product_discount != 0 ) {
                     $options .= ' (' . $products_options_array['price_prefix'] . $oCurrencies->display_price($products_options_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) . ' -' . number_format($info_product_discount, 2) . '% )&nbsp';
                   } else {
@@ -171,7 +171,7 @@
             $options .= $products_options_name['products_options_comment'];
 
             if ($products_attribs_array['options_values_price'] > '0') {
-              if ($_SESSION['user']->group['show_price'] == 1 ) {
+              if ($aUser['show_price'] == 1 ) {
                 if ($info_product_discount != 0 ) {
                   $options .= ' (' . $products_attribs_array['price_prefix'] . $oCurrencies->display_price($products_attribs_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) . ' -' . number_format($info_product_discount, 2) . '% )&nbsp';
                 } else {
@@ -198,7 +198,7 @@
             $options .= ':&nbsp;';
 
             if ($products_attribs_array['options_values_price'] > '0') {
-              if ($_SESSION['user']->group['show_price'] == 1 ) {
+              if ($aUser['show_price'] == 1 ) {
                 if ($info_product_discount != 0 ) {
                   $options .= ' (' . $products_attribs_array['price_prefix'] . $oCurrencies->display_price($products_attribs_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) . ' -' . number_format($info_product_discount, 2) . '% )&nbsp';
                 } else {
@@ -234,7 +234,7 @@
               $products_options_array[] = array('id' => $products_options['products_options_values_id'], 'text' => $products_options['products_options_values_name']);
 
               if ($products_options['options_values_price'] > '0') {
-                if ($_SESSION['user']->group['show_price'] == 1 ) {
+                if ($aUser['show_price'] == 1 ) {
                   if ($info_product_discount != 0 ) {
                     $products_options_array[count($products_options_array)-1]['text'] .= ' (' . $products_options['price_prefix'] . $oCurrencies->display_price($products_options['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) . ' -' . number_format($info_product_discount, 2) . '% )&nbsp';
                   } else {

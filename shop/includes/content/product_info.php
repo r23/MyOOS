@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -167,7 +167,7 @@ if (!$product_info_result->RecordCount()) {
 
     $discounts_price = 'false';
     if ( (oos_empty($info_special_price)) && ( ($product_info['products_discount4_qty'] > 0 || $product_info['products_discount3_qty'] > 0 || $product_info['products_discount2_qty'] > 0 || $product_info['products_discount1_qty'] > 0 )) ){
-      if ( ($_SESSION['user']->group['show_price'] == 1 ) && ($_SESSION['user']->group['qty_discounts'] == 1) ) {
+      if ( ($aUser['show_price'] == 1 ) && ($aUser['qty_discounts'] == 1) ) {
         $discounts_price = 'true';
         require_once MYOOS_INCLUDE_PATH . '/includes/modules/discounts_price.php';
 

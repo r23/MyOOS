@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -83,13 +83,13 @@
     }
 
 	public function display_price($products_price, $products_tax, $quantity = 1) {
-		global $oEvent, $aLang;
+		global $oEvent, $aUser, $aLang;
 
 		if ($oEvent->installed_plugin('down_for_maintenance')) {
 			return $aLang['down_for_maintenance_no_prices_display'];
 		}
 		
-		if ( LOGIN_FOR_PRICE == 'true' && ($_SESSION['user']->group['show_price'] != 1) ) {
+		if ( LOGIN_FOR_PRICE == 'true' && ($aUser['show_price'] != 1) ) {
 			return $aLang['no_login_no_prices_display'];
 		}
 		

@@ -755,20 +755,22 @@ function oos_get_tax_description($class_id, $country_id, $zone_id) {
 }
 
 
- /**
-  * Add tax to a products price
-  *
-  * @param $price
-  * @param $tax
-  */
-  function oos_add_tax($price, $tax) {
-
-    if( ($_SESSION['user']->group['show_price_tax'] == 1) && ($tax > 0) ) {
-      return $price + oos_calculate_tax($price, $tax);
+/**
+ * Add tax to a products price
+ *
+ * @param $price
+ * @param $tax
+ */
+function oos_add_tax($price, $tax) {
+	global $aUser;
+	
+  
+    if( ($aUser['price_with_tax'] == 1) && ($tax > 0) ) {
+		return $price + oos_calculate_tax($price, $tax);
     } else {
-      return $price;
+		return $price;
     }
-  }
+}
 
 
 /**
@@ -808,7 +810,7 @@ function oos_round($number, $precision) {
   function oos_get_categories($aCategories = '', $parent_id = '0', $indent = '') {
 
     $parent_id = oos_db_prepare_input($parent_id);
-    $nGroupID = isset($_SESSION['user']) ? $_SESSION['user']->group['id']+0 : 1;
+    $nGroupID = isset($_SESSION['user']) ? $_SESSION['user']->group['id']+0 : DEFAULT_CUSTOMERS_STATUS_ID;
 
     if (!is_array($aCategories)) $aCategories = array();
 

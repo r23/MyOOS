@@ -53,7 +53,7 @@
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main">{html_image_submit image="update_cart.gif" alt=$lang.button_update_cart}</td>
-            <td align="right" class="main">{if $smarty.session.member->group.show_price eq 1 }<a href="{html_href_link content=$filename.checkout_shipping connection=SSL}">{html_image_button image="checkout.gif" alt=$lang.button_continue}</a>{/if}</td>
+            <td align="right" class="main">{if $myUser.show_price eq 1 }<a href="{html_href_link content=$filename.checkout_shipping connection=SSL}">{html_image_button image="checkout.gif" alt=$lang.button_continue}</a>{/if}</td>
           </tr>
         </table></form></td>
          </table>

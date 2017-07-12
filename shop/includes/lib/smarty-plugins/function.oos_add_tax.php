@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -37,7 +37,7 @@
 
 function smarty_function_oos_add_tax($params, &$smarty)
 {
-    global $oCurrencies;
+    global $oCurrencies, $aUser;
     
         require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
     
@@ -45,7 +45,7 @@ function smarty_function_oos_add_tax($params, &$smarty)
       $$_key = smarty_function_escape_special_chars($_val);
     }
     
-    if ($_SESSION['user']->group['show_price_tax'] == 1) {
+    if ($aUser['price_with_tax'] == 1) {
       return round($price, $oCurrencies->currencies[DEFAULT_CURRENCY]['decimal_places']) + oos_calculate_tax($price, $tax);
     } else {
       return round($price, $oCurrencies->currencies[DEFAULT_CURRENCY]['decimal_places']);

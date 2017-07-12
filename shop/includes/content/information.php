@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -27,7 +27,7 @@ $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
   
 $nInformationsID = isset($_GET[information_id]) ? $_GET[information_id]+0 : 1;
-$sGroup = trim($_SESSION['user']->group['text']);
+$sGroup = trim($aUser['text']);
 $nContentCacheID = $sTheme . '|info|' . $sGroup . '|information|' . $nInformationsID . '|' . $sLanguage;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';

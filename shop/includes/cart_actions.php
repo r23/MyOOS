@@ -168,11 +168,14 @@ switch ($action) {
           }
         } else {
 
-          if (DECIMAL_CART_QUANTITY == 'true') {
-            $_POST['cart_quantity'] = str_replace(',', '.', $_POST['cart_quantity']);
-            $cart_quantity = oos_prepare_input($_POST['cart_quantity']);
-          }
+			$cart_quantity = oos_prepare_input($_POST['cart_quantity']);
+		
+			if (DECIMAL_CART_QUANTITY == 'true') {
+				$cart_quantity = str_replace(',', '.', $cart_quantity);
+			}
 
+		  
+		  
           if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
 
             $cart_qty = $_SESSION['cart']->get_quantity(oos_get_uprid($_POST['products_id'], $real_ids));

@@ -109,7 +109,8 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			if (ACCOUNT_VAT_ID == 'true') $_SESSION['customers_vat_id_status'] = $check_customer['customers_vat_id_status'];
 
 			$_SESSION['user']->restore_group();
-
+			$aUser = isset($_SESSION['user']) ? $_SESSION['user']->group : $oUser->group;
+			
 			$customers_infotable = $oostable['customers_info'];
 			$dbconn->Execute("UPDATE $customers_infotable
 								SET customers_info_date_of_last_logon = now(),

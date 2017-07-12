@@ -42,7 +42,7 @@
        </tr>
        <tr>
          <td valign="bottom" class="smallText" nowrap="nowrap">
-{if $smarty.session.member->group.show_price eq 1 }
+{if $myUser.show_price eq 1 }
   {if (!empty($wishlist_array[i].special_price))}
      <s>{$wishlist_array[i].product_price}</s><br>
      <span class="special_price">{$wishlist_array[i].product_special_price}</span>
@@ -61,7 +61,7 @@
         </tr>
         <tr>
           <td valign="top" colspan="3" class="smallText">
-{if $smarty.session.member->group.show_price eq 1 }
+{if $myUser.show_price eq 1 }
   {if $wishlist_array[i].products_base_price != 1}
     <span class="smallText">{$lang.text_products_base_price}: </span>
     {if (!empty($wishlist_array[i].special_price))}

@@ -49,7 +49,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/review
   $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
   $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
-  $sGroup = trim($_SESSION['user']->group['text']);
+  $sGroup = trim($aUser['text']);
   $nContentCacheID = $sTheme . '|products|reviews|' . $nPage. '|' . $sGroup . '|' . $sLanguage;
 
   require_once MYOOS_INCLUDE_PATH . '/includes/system.php';

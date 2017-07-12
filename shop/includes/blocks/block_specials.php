@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -50,7 +50,7 @@
       $specials_random_base_product_price = '';
       $specials_random_base_product_special_price = '';
 
-      if ($_SESSION['user']->group['show_price'] == 1 ) {
+      if ($aUser['show_price'] == 1 ) {
         $specials_random_product_price = $oCurrencies->display_price($specials_random_product['products_price'], oos_get_tax_rate($specials_random_product['products_tax_class_id']));    
         $specials_random_product_special_price = $oCurrencies->display_price($specials_random_product['specials_new_products_price'], oos_get_tax_rate($specials_random_product['products_tax_class_id']));
 

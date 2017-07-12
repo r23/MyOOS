@@ -83,7 +83,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_output.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_encoded.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_coupon.php';
 
-// initialize the logger class
+// initialize 
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_user.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_products_history.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shopping_cart.php';
@@ -242,8 +242,14 @@ if ( $session->hasStarted() === TRUE ) {
 		$session->expire();
 		oos_redirect(oos_link($aContents['login'], '', 'SSL'));
 	}	
+} else {
+	$oUser = new oosUser();
+	$oUser->anonymous();
 }
 
+$aUser = array();
+$aUser = isset($_SESSION['user']) ? $_SESSION['user']->group : $oUser->group;
+		
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_plugin_event.php';
 $oEvent = new plugin_event;
 $oEvent->getInstance();

@@ -43,7 +43,7 @@
           <tr>
             <td class="main"><a href="{html_href_link content=$filename.product_reviews products_id=$smarty.get.products_id}">{html_image_button image="back.gif" alt=$lang.button_back}</a></td>
             <td align="right" class="main">
-{if $smarty.session.member->group.show_price eq 1 }
+{if $myUser.show_price eq 1 }
   <a href="{html_href_link content=$filename.main action=buy_now products_id=$smarty.get.products_id}">{html_image_button image="in_cart.gif" alt=$lang.button_in_cart}</a>
 {else}
   <a href="{html_href_link content=$filename.login connection=SSL}">{html_image_button image="sign_in.gif" alt=$lang.button_login}</a>

@@ -470,7 +470,7 @@
     }
 
     public function calculate() {
-      global $oCurrencies;
+      global $aUser, $oCurrencies;
 
       $this->total_virtual = 0; // Gift Voucher System
       $this->weight_virtual = 0;
@@ -501,7 +501,7 @@
 
           $prid = $product['products_id'];
           $products_tax = oos_get_tax_rate($product['products_tax_class_id']);
-          if ($_SESSION['user']->group['qty_discounts'] == 1) {
+          if ($aUser['qty_discounts'] == 1) {
             $products_price = $this->products_price_actual($prid, $product['products_price'], $nQuantity);
           } else {
             $products_price = $product['products_price'];
@@ -603,7 +603,8 @@
     }
 
     public function get_products() {
-
+      global $aUser;
+	
       if (!is_array($this->contents)) return FALSE;
 
       // Get database information
@@ -628,7 +629,7 @@
         $products_result = $dbconn->Execute($sql);
         if ($products = $products_result->fields) {
           $prid = $products['products_id'];
-          if ($_SESSION['user']->group['qty_discounts'] == 1) {
+          if ($aUser['qty_discounts'] == 1) {
             $products_price = $this->products_price_actual($prid, $products['products_price'], $nQuantity);
           } else {
             $products_price = $products['products_price'];

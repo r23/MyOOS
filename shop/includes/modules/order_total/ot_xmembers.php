@@ -29,7 +29,7 @@
     var $title, $output, $enabled = FALSE;
 
     public function __construct() {
-      global $aLang;
+      global $aLang, $aUser;
 
       $this->code = 'ot_xmembers';
       $this->title = $aLang['module_xmembers_title'];
@@ -38,20 +38,20 @@
       $this->sort_order = (defined('MODULE_XMEMBERS_SORT_ORDER') ? MODULE_XMEMBERS_SORT_ORDER : null);
       $this->include_shipping = (defined('MODULE_XMEMBERS_INC_SHIPPING') ? MODULE_XMEMBERS_INC_SHIPPING : null);
       $this->include_tax = (defined('MODULE_XMEMBERS_INC_TAX') ? MODULE_XMEMBERS_INC_TAX : null);
-      $this->percentage = $_SESSION['user']->group['ot_discount'];
-      $this->minimum = $_SESSION['user']->group['ot_minimum'];
+      $this->percentage = $aUser['ot_discount'];
+      $this->minimum = $aUser['ot_minimum'];
       $this->calculate_tax = (defined('MODULE_XMEMBERS_CALC_TAX') ? MODULE_XMEMBERS_CALC_TAX : null);
 
       $this->output = array();
     }
 
     function process() {
-      global $oOrder, $oCurrencies;
+      global $oOrder, $aUser, $oCurrencies;
 
       $od_amount = $this->calculate_credit($this->get_order_total());
       if ($od_amount>0) {
         $this->deduction = $od_amount;
-        $this->output[] = array('title' => '<span class="otDiscount">- ' . $this->title . ' ('. number_format($_SESSION['user']->group['ot_discount'], 2) .'%):</span>',
+        $this->output[] = array('title' => '<span class="otDiscount">- ' . $this->title . ' ('. number_format($aUser['ot_discount'], 2) .'%):</span>',
                                 'text' => '<strong><span class="otDiscount">' . $oCurrencies->format($od_amount) . '</span></strong>',
                                 'value' => $od_amount);
         $oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
@@ -60,12 +60,12 @@
 
 
   function calculate_credit($amount) {
-    global $oOrder;
+    global $oOrder, $aUser;
 
     $od_amount=0;
     $od_pc = $this->percentage;
     if ($amount > $this->minimum) {
-      if ($_SESSION['user']->group['ot_discount_flag'] == '1') {  // Calculate tax reduction if necessary
+      if ($aUser['ot_discount_flag'] == '1') {  // Calculate tax reduction if necessary
         if ($this->calculate_tax == 'true') {  // Calculate main tax reduction
           $tod_amount = round($oOrder->info['tax']*10)/10*$od_pc/100;
           $oOrder->info['tax'] = $oOrder->info['tax'] - $tod_amount; // Calculate tax group deductions

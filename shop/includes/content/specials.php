@@ -34,7 +34,7 @@
   $nPageType = OOS_PAGE_TYPE_CATALOG;
   $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
   
-  $sGroup = trim($_SESSION['user']->group['text']);
+  $sGroup = trim($aUser['text']);
   $nPage = isset($_GET[page]) ? $_GET[page]+0 : 1;
   $nContentCacheID = $sTheme . '|info|' . $sGroup . '|spezials|' . $nPage . '|' . $sLanguage;
 

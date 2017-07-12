@@ -62,7 +62,7 @@ if ($category_depth == 'nested') {
 	$nPageType = OOS_PAGE_TYPE_CATALOG;
 	$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
-	$sGroup = trim($_SESSION['user']->group['text']);
+	$sGroup = trim($aUser['text']);
 	$sContentCacheID = $sTheme . '|shop|nested|' . intval($nCurrentCategoryID) . '|' . $sCategory . '|' . $sGroup . '|' . $sLanguage;
 
 	require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
@@ -187,7 +187,7 @@ if ($category_depth == 'nested') {
     $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
     $nFilterID = intval($_GET['filter_id']) ? $_GET['filter_id']+0 : 0;
     $sSort = oos_var_prep_for_os($_GET['sort']);
-    $sGroup = trim($_SESSION['user']->group['text']);
+    $sGroup = trim($aUser['text']);
     $sContentCacheID = $sTheme . '|shop|products|' . intval($nCurrentCategoryID) . '|' . $sCategory . '|' . $nManufacturersID . '|' . $nPage . '|' . $nFilterID . '|' . $sGroup . '|' . $sLanguage;
 	
     require_once MYOOS_INCLUDE_PATH . '/includes/system.php';

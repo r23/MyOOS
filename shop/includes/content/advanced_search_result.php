@@ -180,7 +180,7 @@ if ($error == 1) {
                           IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
                           IF(s.status, s.specials_new_products_price, p.products_price) AS final_price ";
 
-    if ( ($_SESSION['user']->group['show_price_tax'] == 1) && ( (isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($_GET['pto']) && oos_is_not_null($_GET['pto']))) ) {
+    if ( ($aUser['price_with_tax'] == 1) && ( (isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($_GET['pto']) && oos_is_not_null($_GET['pto']))) ) {
       $select_str .= ", SUM(tr.tax_rate) AS tax_rate ";
     }
 
@@ -188,7 +188,7 @@ if ($error == 1) {
                       " . $oostable['manufacturers'] . " m using(manufacturers_id) LEFT JOIN
                       " . $oostable['specials'] . " s ON p.products_id = s.products_id";
 
-    if ( ($_SESSION['user']->group['show_price_tax'] == 1) && ( (isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($_GET['pto']) && oos_is_not_null($_GET['pto']))) ) {
+    if ( ($aUser['price_with_tax'] == 1) && ( (isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($_GET['pto']) && oos_is_not_null($_GET['pto']))) ) {
 	
 	$nCountry_id = STORE_COUNTRY;
 	$nZone_id = STORE_ZONE;
@@ -287,7 +287,7 @@ if ($error == 1) {
       $pto = oos_var_prep_for_os($_GET['pto'] / $rate);
     }
 
-    if ($_SESSION['user']->group['show_price_tax'] == 1) {
+    if ($aUser['price_with_tax'] == 1) {
       if ($pfrom) $where_str .= " AND (IF(s.status, s.specials_new_products_price, p.products_price) * if(gz.geo_zone_id is null, 1, 1 + (tr.tax_rate / 100) ) >= " . oos_db_input($pfrom) . ")";
       if ($pto)   $where_str .= " AND (IF(s.status, s.specials_new_products_price, p.products_price) * if(gz.geo_zone_id is null, 1, 1 + (tr.tax_rate / 100) ) <= " . oos_db_input($pto) . ")";
     } else {
@@ -295,7 +295,7 @@ if ($error == 1) {
       if ($pto)   $where_str .= " AND (IF(s.status, s.specials_new_products_price, p.products_price) <= " . oos_db_input($pto) . ")";
     }
 
-    if ( ($_SESSION['user']->group['show_price_tax'] == 1) && ((isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($_GET['pto']) && oos_is_not_null($_GET['pto']))) ) {
+    if ( ($aUser['price_with_tax'] == 1) && ((isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($_GET['pto']) && oos_is_not_null($_GET['pto']))) ) {
       $where_str .= " GROUP BY p.products_id, tr.tax_priority";
     }
 

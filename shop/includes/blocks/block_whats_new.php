@@ -42,7 +42,7 @@ if ($random_product = oos_random_select($query, MAX_RANDOM_SELECT_NEW)) {
     $whats_new_base_product_special_price = '';
     $whats_new_special_price = '';
 
-    if ($_SESSION['user']->group['show_price'] == 1 ) {
+    if ($aUser['show_price'] == 1 ) {
       $whats_new_special_price = oos_get_products_special_price($random_product['products_id']);
       $whats_new_product_price = $oCurrencies->display_price($random_product['products_price'], oos_get_tax_rate($random_product['products_tax_class_id']));
 

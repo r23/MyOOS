@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -35,10 +35,10 @@
     }
 
     function process() {
-      global $oOrder, $oCurrencies, $aLang;
+      global $oOrder, $oCurrencies, $aUser, $aLang;
 
       reset($oOrder->info['tax_groups']);
-      if ($_SESSION['user']->group['show_price_tax'] == 1) {
+      if ($aUser['price_with_tax'] == 1) {
         $info = $aLang['module_order_total_included_tax'];
       } else {
         $info = $aLang['module_order_total_ex_tax'];

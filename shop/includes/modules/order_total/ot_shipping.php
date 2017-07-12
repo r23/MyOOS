@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -35,7 +35,7 @@
     }
 
     function process() {
-      global $oOrder, $oCurrencies;
+      global $oOrder, $oCurrencies, $aUser;
 
       if (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') {
         switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
@@ -64,7 +64,7 @@
           $shipping_tax_description = oos_get_tax_rate($GLOBALS[$module]->tax_class, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
 
           $tax = oos_calculate_tax($oOrder->info['shipping_cost'], $shipping_tax);
-          if ($_SESSION['user']->group['show_price_tax'] == 1)  $oOrder->info['shipping_cost'] += $tax;
+          if ($aUser['price_with_tax'] == 1)  $oOrder->info['shipping_cost'] += $tax;
 
           $oOrder->info['tax'] += $tax;
           $oOrder->info['tax_groups']["$shipping_tax_description"] += $tax;
