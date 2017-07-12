@@ -1060,6 +1060,7 @@ function oos_round($number, $precision) {
   }
 
   function oos_count_payment_modules() {
+
     return oos_count_modules($_SESSION['user']->group['payment']);
   }
 
@@ -1076,8 +1077,7 @@ function oos_round($number, $precision) {
  * @param array $aTranslate An array containing the characters to parse
  * @access public
  */
-function oos_output_string($sStr, $aTranslate = null)
-{
+function oos_output_string($sStr, $aTranslate = null) {
 
     if (empty($aTranslate)) {
         $aTranslate = array('"' => '&quot;');
@@ -1199,18 +1199,18 @@ function oos_output_string($sStr, $aTranslate = null)
   }
 
 
- /**
-  * Strip non-alpha & non-numeric except ._-:
-  *
-  * @param $sStr
-  * @return string
-  */
-  function oos_strip_all ($sStr) {
-    $sStr =& trim($sStr);
-    $sStr =& strtolower($sStr);
+/**
+ * Strip non-alpha & non-numeric except ._-:
+ *
+ * @param $sStr
+ * @return string
+ */
+function oos_strip_all ($sStr) {
+	$sStr = trim($sStr);
+    $sStr = strtolower($sStr);
 
     return preg_match("/[^[:alnum:]._-]/", "", $sStr);
-  }
+}
 
 
 /**

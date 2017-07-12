@@ -169,7 +169,7 @@ function oos_href_link($page = '', $parameters = '', $connection = 'NONSSL', $ad
   function oos_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = TRUE) {
 
     $field = '<input type="' . oos_output_string($type) . '" name="' . oos_output_string($name) . '"';
-echo $field;
+
     if ( ($reinsert_value == TRUE) && ( (isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name])) ) ) {
 		if (isset($_GET[$name]) && is_string($_GET[$name])) {
 			$value = stripslashes($_GET[$name]);

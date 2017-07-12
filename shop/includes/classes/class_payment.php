@@ -28,10 +28,10 @@
 
 // class constructor
 	public function __construct($module = '') {
-      global $aLang;
+      global $aUser, $aLang;
 
-      if (defined('MODULE_PAYMENT_INSTALLED') && oos_is_not_null($_SESSION['user']->group['payment'])) {
-        $this->modules = explode(';', $_SESSION['user']->group['payment']);
+      if (defined('MODULE_PAYMENT_INSTALLED') && oos_is_not_null($aUser['payment'])) {
+        $this->modules = explode(';', $aUser['payment']);
 
         $include_modules = array();
 
@@ -48,6 +48,7 @@
         }
 
         $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
+
         for ($i=0, $n=sizeof($include_modules); $i<$n; $i++) {
           include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/payment/' . $include_modules[$i]['file'];
           include_once MYOOS_INCLUDE_PATH . '/includes/modules/payment/' . $include_modules[$i]['file'];

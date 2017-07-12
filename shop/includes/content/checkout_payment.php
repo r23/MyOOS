@@ -38,7 +38,7 @@ if (!isset($_SESSION['customer_id'])) {
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
 
-if (oos_empty($_SESSION['user']->group['payment'])) {
+if (oos_empty($aUser['payment'])) {
     oos_redirect(oos_href_link($aContents['403']));
 }
 
