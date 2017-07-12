@@ -90,5 +90,10 @@ class DoctrineDummy
      */
     private $customFoo;
 
+    /**
+     * @Column(type="bigint")
+     */
+    private $bigint;
+
     public $notMapped;
 }

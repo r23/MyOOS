@@ -32,7 +32,7 @@ class TwigExtensionTest extends TestCase
         $container->loadFromExtension('twig', array());
         $this->compileContainer($container);
 
-        $this->assertEquals('Twig_Environment', $container->getDefinition('twig')->getClass(), '->load() loads the twig.xml file');
+        $this->assertEquals('Twig\Environment', $container->getDefinition('twig')->getClass(), '->load() loads the twig.xml file');
 
         $this->assertContains('form_div_layout.html.twig', $container->getParameter('twig.form.resources'), '->load() includes default template for form resources');
 
@@ -53,7 +53,7 @@ class TwigExtensionTest extends TestCase
         $this->loadFromFile($container, 'full', $format);
         $this->compileContainer($container);
 
-        $this->assertEquals('Twig_Environment', $container->getDefinition('twig')->getClass(), '->load() loads the twig.xml file');
+        $this->assertEquals('Twig\Environment', $container->getDefinition('twig')->getClass(), '->load() loads the twig.xml file');
 
         // Form resources
         $resources = $container->getParameter('twig.form.resources');
@@ -136,9 +136,10 @@ class TwigExtensionTest extends TestCase
 
         $calls = $container->getDefinition('twig')->getMethodCalls();
         foreach (array_slice($calls, 2) as $call) {
-            list($name, $value) = each($globals);
-            $this->assertEquals($name, $call[1][0]);
-            $this->assertSame($value, $call[1][1]);
+            $this->assertEquals(key($globals), $call[1][0]);
+            $this->assertSame(current($globals), $call[1][1]);
+
+            next($globals);
         }
     }
 

@@ -19,7 +19,7 @@
         "php": ">=5.5.9",
         "doctrine/common": "~2.4",
         "fig/link-util": "^1.0",
-        "twig/twig": "~1.32|~2.2",
+        "twig/twig": "~1.34|~2.4",
         "psr/cache": "~1.0",
         "psr/container": "^1.0",
         "psr/link": "^1.0",
@@ -115,7 +115,6 @@
             "Symfony\\Bridge\\Doctrine\\": "src/Symfony/Bridge/Doctrine/",
             "Symfony\\Bridge\\Monolog\\": "src/Symfony/Bridge/Monolog/",
             "Symfony\\Bridge\\ProxyManager\\": "src/Symfony/Bridge/ProxyManager/",
-            "Symfony\\Bridge\\Swiftmailer\\": "src/Symfony/Bridge/Swiftmailer/",
             "Symfony\\Bridge\\Twig\\": "src/Symfony/Bridge/Twig/",
             "Symfony\\Bundle\\": "src/Symfony/Bundle/",
             "Symfony\\Component\\": "src/Symfony/Component/"

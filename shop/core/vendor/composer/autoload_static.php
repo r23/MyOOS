@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd4849226115abda7ab30f774b9a062bd
+class ComposerStaticInit253c735a91f0009939ab46dbb591aa79
 {
     public static $files = array (
         '92c8763cd6170fce6fcfe7e26b4e8c10' => __DIR__ . '/..' . '/symfony/phpunit-bridge/bootstrap.php',
@@ -21,6 +21,7 @@ class ComposerStaticInitd4849226115abda7ab30f774b9a062bd
     public static $prefixLengthsPsr4 = array (
         'T' => 
         array (
+            'Twig\\' => 5,
             'Tests\\' => 6,
         ),
         'S' => 
@@ -34,7 +35,6 @@ class ComposerStaticInitd4849226115abda7ab30f774b9a062bd
             'Symfony\\Bundle\\MonologBundle\\' => 29,
             'Symfony\\Bundle\\' => 15,
             'Symfony\\Bridge\\Twig\\' => 20,
-            'Symfony\\Bridge\\Swiftmailer\\' => 27,
             'Symfony\\Bridge\\ProxyManager\\' => 28,
             'Symfony\\Bridge\\PhpUnit\\' => 23,
             'Symfony\\Bridge\\Monolog\\' => 23,
@@ -75,9 +75,17 @@ class ComposerStaticInitd4849226115abda7ab30f774b9a062bd
         array (
             'Composer\\CaBundle\\' => 18,
         ),
+        'A' => 
+        array (
+            'AppBundle\\' => 10,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Twig\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/twig/twig/src',
+        ),
         'Tests\\' => 
         array (
             0 => __DIR__ . '/../..' . '/tests',
@@ -117,10 +125,6 @@ class ComposerStaticInitd4849226115abda7ab30f774b9a062bd
         'Symfony\\Bridge\\Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Bridge/Twig',
-        ),
-        'Symfony\\Bridge\\Swiftmailer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Bridge/Swiftmailer',
         ),
         'Symfony\\Bridge\\ProxyManager\\' => 
         array (
@@ -206,10 +210,10 @@ class ComposerStaticInitd4849226115abda7ab30f774b9a062bd
         array (
             0 => __DIR__ . '/..' . '/composer/ca-bundle/src',
         ),
-    );
-
-    public static $fallbackDirsPsr4 = array (
-        0 => __DIR__ . '/../..' . '/src',
+        'AppBundle\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/AppBundle',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -275,11 +279,10 @@ class ComposerStaticInitd4849226115abda7ab30f774b9a062bd
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd4849226115abda7ab30f774b9a062bd::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd4849226115abda7ab30f774b9a062bd::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInitd4849226115abda7ab30f774b9a062bd::$fallbackDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitd4849226115abda7ab30f774b9a062bd::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitd4849226115abda7ab30f774b9a062bd::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit253c735a91f0009939ab46dbb591aa79::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit253c735a91f0009939ab46dbb591aa79::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit253c735a91f0009939ab46dbb591aa79::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit253c735a91f0009939ab46dbb591aa79::$classMap;
 
         }, null, ClassLoader::class);
     }

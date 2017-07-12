@@ -12,6 +12,7 @@
 namespace Symfony\Component\Cache\Traits;
 
 use Predis\Connection\Factory;
+use Predis\Connection\Aggregate\ClusterInterface;
 use Predis\Connection\Aggregate\PredisCluster;
 use Predis\Connection\Aggregate\RedisCluster;
 use Predis\Response\Status;
@@ -90,6 +91,11 @@ trait RedisTrait
             $params['dbindex'] = $m[1];
             $params['path'] = substr($params['path'], 0, -strlen($m[0]));
         }
+        if (isset($params['host'])) {
+            $scheme = 'tcp';
+        } else {
+            $scheme = 'unix';
+        }
         $params += array(
             'host' => isset($params['host']) ? $params['host'] : $params['path'],
             'port' => isset($params['host']) ? 6379 : null,
@@ -120,7 +126,7 @@ trait RedisTrait
                 throw new InvalidArgumentException(sprintf('Redis connection failed (%s): %s', $e, $dsn));
             }
         } elseif (is_a($class, \Predis\Client::class, true)) {
-            $params['scheme'] = isset($params['host']) ? 'tcp' : 'unix';
+            $params['scheme'] = $scheme;
             $params['database'] = $params['dbindex'] ?: null;
             $params['password'] = $auth;
             $redis = new $class((new Factory())->create($params));
@@ -279,7 +285,7 @@ trait RedisTrait
     {
         $ids = array();
 
-        if ($this->redis instanceof \Predis\Client) {
+        if ($this->redis instanceof \Predis\Client && !$this->redis->getConnection() instanceof ClusterInterface) {
             $results = $this->redis->pipeline(function ($redis) use ($generator, &$ids) {
                 foreach ($generator() as $command => $args) {
                     call_user_func_array(array($redis, $command), $args);
@@ -303,9 +309,10 @@ trait RedisTrait
             foreach ($results as $k => list($h, $c)) {
                 $results[$k] = $connections[$h][$c];
             }
-        } elseif ($this->redis instanceof \RedisCluster) {
-            // phpredis doesn't support pipelining with RedisCluster
+        } elseif ($this->redis instanceof \RedisCluster || ($this->redis instanceof \Predis\Client && $this->redis->getConnection() instanceof ClusterInterface)) {
+            // phpredis & predis don't support pipelining with RedisCluster
             // see https://github.com/phpredis/phpredis/blob/develop/cluster.markdown#pipelining
+            // see https://github.com/nrk/predis/issues/267#issuecomment-123781423
             $results = array();
             foreach ($generator() as $command => $args) {
                 $results[] = call_user_func_array(array($this->redis, $command), $args);

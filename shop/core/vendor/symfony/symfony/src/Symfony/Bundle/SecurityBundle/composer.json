@@ -18,7 +18,7 @@
     "require": {
         "php": ">=5.5.9",
         "symfony/security": "~3.3",
-        "symfony/dependency-injection": "~3.3-beta2",
+        "symfony/dependency-injection": "~3.3",
         "symfony/http-kernel": "~3.3",
         "symfony/polyfill-php70": "~1.0"
     },
@@ -41,7 +41,7 @@
         "symfony/yaml": "~2.8|~3.0",
         "symfony/expression-language": "~2.8|~3.0",
         "doctrine/doctrine-bundle": "~1.4",
-        "twig/twig": "~1.28|~2.0"
+        "twig/twig": "~1.34|~2.4"
     },
     "conflict": {
         "symfony/var-dumper": "<3.3"

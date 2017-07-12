@@ -83,7 +83,6 @@ class ExceptionCaster
     public static function castSilencedErrorContext(SilencedErrorContext $e, array $a, Stub $stub, $isNested)
     {
         $sPrefix = "\0".SilencedErrorContext::class."\0";
-        $xPrefix = "\0Exception\0";
 
         if (!isset($a[$s = $sPrefix.'severity'])) {
             return $a;
@@ -93,12 +92,17 @@ class ExceptionCaster
             $a[$s] = new ConstStub(self::$errorTypes[$a[$s]], $a[$s]);
         }
 
-        $trace = array(
+        $trace = array(array(
             'file' => $a[$sPrefix.'file'],
             'line' => $a[$sPrefix.'line'],
-        );
-        unset($a[$sPrefix.'file'], $a[$sPrefix.'line']);
-        $a[Caster::PREFIX_VIRTUAL.'trace'] = new TraceStub(array($trace));
+        ));
+
+        if (isset($a[$sPrefix.'trace'])) {
+            $trace = array_merge($trace, $a[$sPrefix.'trace']);
+        }
+
+        unset($a[$sPrefix.'file'], $a[$sPrefix.'line'], $a[$sPrefix.'trace']);
+        $a[Caster::PREFIX_VIRTUAL.'trace'] = new TraceStub($trace);
 
         return $a;
     }
@@ -198,7 +202,7 @@ class ExceptionCaster
                 $ellipsis = isset($ellipsis['ellipsis']) ? $ellipsis['ellipsis'] : 0;
 
                 if (file_exists($f['file']) && 0 <= self::$srcContext) {
-                    if (!empty($f['class']) && is_subclass_of($f['class'], 'Twig_Template') && method_exists($f['class'], 'getDebugInfo')) {
+                    if (!empty($f['class']) && (is_subclass_of($f['class'], 'Twig\Template') || is_subclass_of($f['class'], 'Twig_Template')) && method_exists($f['class'], 'getDebugInfo')) {
                         $template = isset($f['object']) ? $f['object'] : unserialize(sprintf('O:%d:"%s":0:{}', strlen($f['class']), $f['class']));
 
                         $ellipsis = 0;

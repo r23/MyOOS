@@ -15,7 +15,6 @@ use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\VarDumper\Caster\ClassStub;
-use Symfony\Component\VarDumper\Cloner\VarCloner;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
@@ -30,8 +29,7 @@ class WrappedListener
     private $dispatcher;
     private $pretty;
     private $stub;
-
-    private static $cloner;
+    private static $hasClassStub;
 
     public function __construct($listener, $name, Stopwatch $stopwatch, EventDispatcherInterface $dispatcher = null)
     {
@@ -46,13 +44,7 @@ class WrappedListener
             $this->name = is_object($listener[0]) ? get_class($listener[0]) : $listener[0];
             $this->pretty = $this->name.'::'.$listener[1];
         } elseif ($listener instanceof \Closure) {
-            $r = new \ReflectionFunction($listener);
-            if (preg_match('#^/\*\* @closure-proxy ([^: ]++)::([^: ]++) \*/$#', $r->getDocComment(), $m)) {
-                $this->name = $m[1];
-                $this->pretty = $m[1].'::'.$m[2];
-            } else {
-                $this->pretty = $this->name = 'closure';
-            }
+            $this->pretty = $this->name = 'closure';
         } elseif (is_string($listener)) {
             $this->pretty = $this->name = $listener;
         } else {
@@ -64,8 +56,8 @@ class WrappedListener
             $this->name = $name;
         }
 
-        if (null === self::$cloner) {
-            self::$cloner = class_exists(ClassStub::class) ? new VarCloner() : false;
+        if (null === self::$hasClassStub) {
+            self::$hasClassStub = class_exists(ClassStub::class);
         }
     }
 
@@ -92,7 +84,7 @@ class WrappedListener
     public function getInfo($eventName)
     {
         if (null === $this->stub) {
-            $this->stub = false === self::$cloner ? $this->pretty.'()' : new ClassStub($this->pretty.'()', $this->listener);
+            $this->stub = self::$hasClassStub ? new ClassStub($this->pretty.'()', $this->listener) : $this->pretty.'()';
         }
 
         return array(

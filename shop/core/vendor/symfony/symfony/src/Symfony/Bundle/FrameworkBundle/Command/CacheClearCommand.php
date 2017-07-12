@@ -77,7 +77,11 @@ EOF
         if ($input->getOption('no-warmup')) {
             $filesystem->rename($realCacheDir, $oldCacheDir);
         } else {
-            @trigger_error('Calling cache:clear without the --no-warmup option is deprecated since version 3.3. Cache warmup should be done with the cache:warmup command instead.', E_USER_DEPRECATED);
+            $warning = 'Calling cache:clear without the --no-warmup option is deprecated since version 3.3. Cache warmup should be done with the cache:warmup command instead.';
+
+            @trigger_error($warning, E_USER_DEPRECATED);
+
+            $io->warning($warning);
 
             $this->warmupCache($input, $output, $realCacheDir, $oldCacheDir);
         }
@@ -158,7 +162,7 @@ EOF
         $safeTempKernel = str_replace('\\', '\\\\', get_class($tempKernel));
         $realKernelFQN = get_class($realKernel);
 
-        foreach (Finder::create()->files()->name('*.meta')->in($warmupDir) as $file) {
+        foreach (Finder::create()->files()->depth('<3')->name('*.meta')->in($warmupDir) as $file) {
             file_put_contents($file, preg_replace(
                 '/(C\:\d+\:)"'.$safeTempKernel.'"/',
                 sprintf('$1"%s"', $realKernelFQN),
@@ -170,14 +174,16 @@ EOF
         $search = array($warmupDir, str_replace('\\', '\\\\', $warmupDir));
         $replace = str_replace('\\', '/', $realCacheDir);
         foreach (Finder::create()->files()->in($warmupDir) as $file) {
-            $content = str_replace($search, $replace, file_get_contents($file));
-            file_put_contents($file, $content);
+            $content = str_replace($search, $replace, file_get_contents($file), $count);
+            if ($count) {
+                file_put_contents($file, $content);
+            }
         }
 
         // fix references to container's class
         $tempContainerClass = get_class($tempKernel->getContainer());
         $realContainerClass = get_class($realKernel->getContainer());
-        foreach (Finder::create()->files()->name($tempContainerClass.'*')->in($warmupDir) as $file) {
+        foreach (Finder::create()->files()->depth('<2')->name($tempContainerClass.'*')->in($warmupDir) as $file) {
             $content = str_replace($tempContainerClass, $realContainerClass, file_get_contents($file));
             file_put_contents($file, $content);
             rename($file, str_replace(DIRECTORY_SEPARATOR.$tempContainerClass, DIRECTORY_SEPARATOR.$realContainerClass, $file));
