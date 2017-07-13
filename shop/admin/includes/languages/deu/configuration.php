@@ -82,9 +82,6 @@ define('TAX_DECIMAL_PLACES_DESC', 'Anzahl der Dezimalstellen der Steuer');
 define('DISPLAY_PRICE_WITH_TAX_TITLE', 'Preise inkl. Steuer');
 define('DISPLAY_PRICE_WITH_TAX_DESC', 'Preise incl. Steuer anzeigen (true) oder die Steuer dem Gesamtbetrag hinzurechnen (false)');
 
-define('DISPLAY_CONDITIONS_ON_CHECKOUT_TITLE', 'Unterzeichnen der AGB');
-define('DISPLAY_CONDITIONS_ON_CHECKOUT_DESC', 'Im Bestellvorgang Ihre Allgemeine Gesch&auml;fts- und Lieferbedingungen anzeigen, bevor fortgefahren werden kann.');
-
 define('PRODUCTS_OPTIONS_SORT_BY_PRICE_TITLE', 'Sortierung Produktoptionen');
 define('PRODUCTS_OPTIONS_SORT_BY_PRICE_DESC', 'M&ouml;chten Sie die Produktopionen nach Preisen sortieren?');
 

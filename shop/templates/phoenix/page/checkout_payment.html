@@ -215,31 +215,6 @@
         </table></td>
       </tr>
 
-{if $smarty.const.DISPLAY_CONDITIONS_ON_CHECKOUT eq 'true'}
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><strong>{$lang.heading_conditions_information}</strong></td>
-          </tr>
-        </table></td>
-      </tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
-          <tr class="oos-BoxContents">
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="main" valign="top"><input type="checkbox" name="conditions" id="1"></td>
-                <td class="main" onClick="javascript:document.getElementById('1').checked= !document.getElementById('1').checked;">{$lang.text_conditions_confirm}</td>
-                <td class="main" align="right"><a href="{$condition_link}" target="_blank"><strong>{$lang.text_conditions_download}</strong></a></td>
-                <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-              </tr>
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-{/if}
       <tr>
         <td height="10"></td>
       </tr>

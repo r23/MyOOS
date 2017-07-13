@@ -211,7 +211,6 @@ $aLang['js_error_no_payment_module_selected'] = '* Please select a payment metho
 $aLang['js_error_submitted'] = 'This form has already been submitted. Please press Ok and wait for this process to be completed.';
 
 $aLang['error_no_payment_module_selected'] = 'Please select a payment method for your order.';
-$aLang['error_conditions_not_accepted'] = 'If you do not accept our conditions, we cannot process your order!';
 
 $aLang['category_company'] = 'Company Details';
 $aLang['category_personal'] = 'Your Personal Details';

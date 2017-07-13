@@ -64,13 +64,6 @@ if (!isset($_SESSION['shipping'])) {
 	oos_redirect(oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
 }
 
-// if conditions are not accepted, redirect the customer to the payment method selection page
-if ( (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') && (empty($_POST['gv_redeem_code'])) ) {
-	if ($_POST['conditions'] == FALSE) {
-		$oMessage->add_session('checkout_payment', $aLang['error_conditions_not_accepted'], 'error');
-	}
-}
-
 
 // load the selected payment module
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_payment.php';

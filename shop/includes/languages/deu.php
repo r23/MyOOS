@@ -205,8 +205,6 @@ $aLang['js_error_no_payment_module_selected'] = '* Bitte wählen Sie eine Zahlun
 $aLang['js_error_submitted'] = 'Diese Seite wurde bereits bestätigt. Betätigen Sie bitte OK und warten bis der Prozess durchgeführt wurde.';
 
 $aLang['error_no_payment_module_selected'] = 'Bitte wählen Sie eine Zahlungsweise für Ihre Bestellung.';
-$aLang['error_conditions_not_accepted'] = 'Sofern Sie unsere AGB\'s nicht akzeptieren, können wir Ihre Bestellung bedauerlicherweise nicht entgegen nehmen!';
-
 
 $aLang['category_company'] = 'Firmendaten';
 $aLang['category_personal'] = 'Ihre persönlichen Daten';
