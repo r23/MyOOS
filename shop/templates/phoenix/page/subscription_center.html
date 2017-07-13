@@ -28,7 +28,7 @@
 {/if}
       <tr>
         <td>
-<form name="subscription_center" method="post" action="{html_href_link content=$filename.subscription_center action=process connection=SSL}">
+<form name="subscription_center" action="{html_href_link content=$filename.subscription_center action=process connection=SSL}" method="POST" role="form">
 		
 {if $mySystem.sed}
     <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">

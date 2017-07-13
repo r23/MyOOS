@@ -29,7 +29,7 @@
           <tr>
 {section name=i loop=$wishlist_array}
       <td width="50%">
-<form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=frend_wishlist_add_product}" method="post">
+<form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=frend_wishlist_add_product}" method="POST" role="form">
 
 {if $mySystem.sed}
     <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">

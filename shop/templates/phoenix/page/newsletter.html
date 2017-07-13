@@ -30,7 +30,7 @@
 				<div class="sign-form">
 			  <h3 class="first-child">{$lang.heading_title}</h3>
 			  <hr>
-				<form role="form" name="subscribe" action="{html_get_link connection=SSL}" method="post">
+				<form role="form" name="subscribe" action="{html_get_link connection=SSL}" method="POST" role="form">
 					{if $mySystem.sed}
 						<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 					{/if}

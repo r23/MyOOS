@@ -55,7 +55,7 @@
           <tr>
             <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="100%" height="20"></td>
           </tr>
-          <form name="global" method="post" action="{html_href_link content=$filename.product_notifications action=global_notify connection=SSL}">
+          <form name="global" action="{html_href_link content=$filename.product_notifications action=global_notify connection=SSL}" method="POST" role="form">
           <tr>
             <td class="main"><input type="checkbox" name="global" value="enable" checked="checked">{$lang.text_enable_global_notifications}</td>
           </tr>
@@ -85,7 +85,7 @@
           <tr>
             <td height="10"></td>
           </tr>
-          <form name="global" method="post" action="{html_href_link content=$filename.product_notifications action=global_notify connection=SSL}">
+          <form name="global" action="{html_href_link content=$filename.product_notifications action=global_notify connection=SSL}" method="POST" role="form">
           <tr>
             <td class="main"><input type="checkbox" name="global" value="enable">{$lang.text_enable_global_notifications}</td>
           </tr>
@@ -111,7 +111,7 @@
           <tr>
             <td height="10"></td>
           </tr>
-          <form name="notifications" method="post" action="{html_href_link content=$filename.product_notifications action=update_notifications connection=SSL}">
+          <form name="notifications" action="{html_href_link content=$filename.product_notifications action=update_notifications connection=SSL}" method="POST" role="form">
 {if $mySystem.sed}
     <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 	<input type="hidden" name="formid" value="{$mySystem.formid}">

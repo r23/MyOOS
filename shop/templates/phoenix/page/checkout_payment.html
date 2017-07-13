@@ -41,7 +41,7 @@
 						</div>
 					</div>
 					
-<form name="checkout_payment" action="{html_get_link connection=SSL}" method="post" onsubmit="return check_form();">
+<form name="checkout_payment" action="{html_get_link connection=SSL}" method="POST" role="form" onSubmit="return check_form();">
 	<input type="hidden" name="content" value="{$filename.checkout_confirmation}">
 {if $mySystem.sed}
     <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">

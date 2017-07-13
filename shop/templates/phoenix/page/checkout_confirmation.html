@@ -226,7 +226,7 @@
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td align="right" class="main">
-        <form name="checkout_confirmation" action="{$form_action_url}" method="post">
+        <form name="checkout_confirmation" action="{$form_action_url}" method="POST" role="form">
 {if $mySystem.sed}
     <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 	<input type="hidden" name="formid" value="{$mySystem.formid}">

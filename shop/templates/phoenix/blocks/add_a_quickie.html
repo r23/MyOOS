@@ -8,7 +8,7 @@
 	</div>
 </div>
 
-    <form name="quick_add" method="post" action="{html_href_link content=$page_file oos_get=$get_params action=add_a_quickie}">
+    <form name="quick_add" method="POST" action="{html_href_link content=$page_file oos_get=$get_params action=add_a_quickie}" role="form">
 {if $mySystem.sed}
     <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 	<input type="hidden" name="formid" value="{$mySystem.formid}">

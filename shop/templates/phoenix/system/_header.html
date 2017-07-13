@@ -52,7 +52,7 @@
         <div class="topbar">
 				<div class="search-open">
 					<div class="container">
-						<form action="{html_href_link content=$filename.advanced_search_result}" method="get">
+						<form action="{html_href_link content=$filename.advanced_search_result}" method="GET" role="form">
 						{if $mySystem.sed}
 							<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 							<input type="hidden" name="formid" value="{$mySystem.formid}">

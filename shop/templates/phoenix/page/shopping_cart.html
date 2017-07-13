@@ -16,7 +16,7 @@
 
 {if $cart_count_contents gt 0 }
 
-	<form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=update_product}" method="post">
+	<form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=update_product}" method="POST" role="form">
 	{if $mySystem.sed}
 		<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 		<input type="hidden" name="formid" value="{$mySystem.formid}">

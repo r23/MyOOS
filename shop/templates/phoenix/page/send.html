@@ -32,7 +32,7 @@
 
   {if $smarty.get.action eq 'send' && $error eq 'false'}
       <tr>
-        <td><form action="{html_href_link content=$filename.gv_send action=process}" method="post">
+        <td><form action="{html_href_link content=$filename.gv_send action=process}" method="POST" role="form">
 {if $mySystem.sed}
     <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 	<input type="hidden" name="formid" value="{$mySystem.formid}">
@@ -63,7 +63,7 @@
         <td class="main">{$lang.heading_text}</td>
       </tr>
       <tr>
-        <td><form action="{html_href_link content=$filename.gv_send action=send}" method="post">
+        <td><form action="{html_href_link content=$filename.gv_send action=send}" method="POST" role="form">
 {if $mySystem.sed}
     <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 	<input type="hidden" name="formid" value="{$mySystem.formid}">

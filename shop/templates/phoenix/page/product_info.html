@@ -8,7 +8,7 @@
     {/foreach}
 {/if}
 	
-<form name="cart_quantity" action="{html_get_link}" method="post" enctype="multipart/form-data">
+<form name="cart_quantity" action="{html_get_link}" method="POST" role="form" enctype="multipart/form-data">
 	<input type="hidden" name="action" value="add_product">
 	<input type="hidden" name="content" value="{$page_file}">
 {if $smarty.get.edit}
