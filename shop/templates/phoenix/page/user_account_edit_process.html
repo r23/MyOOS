@@ -34,7 +34,7 @@
     <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
     <td width="100%" valign="top">
 
-    <form name="account_edit" action="{html_href_link content=$filename.account_edit_process connection=SSL}"method="POST" role="form" onSubmit="return check_form();">
+    <form name="account_edit" action="{html_href_link content=$filename.account_edit_process connection=SSL}" method="POST" role="form" onSubmit="return check_form();">
 {if $mySystem.sed}
     <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 	<input type="hidden" name="formid" value="{$mySystem.formid}">

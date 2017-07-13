@@ -41,7 +41,7 @@
 						</div>
 					</div>
 
-    <form name="checkout_address" action="{html_href_link content=$filename.checkout_payment_address connection=SSL}"method="POST" role="form" onSubmit="return check_form();">
+    <form name="checkout_address" action="{html_href_link content=$filename.checkout_payment_address connection=SSL}" method="POST" role="form" onSubmit="return check_form();">
 {if $mySystem.sed}
     <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 	<input type="hidden" name="formid" value="{$mySystem.formid}">
