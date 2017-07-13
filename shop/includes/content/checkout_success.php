@@ -96,7 +96,6 @@ if ( $session->hasStarted() === FALSE ) $session->start();
   }
 
   $aTemplate['page'] = $sTheme . '/page/checkout_success.html';
-  $aTemplate['page_heading'] = $sTheme . '/page/checkout_success_page_heading.html';
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
   $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
@@ -143,9 +142,6 @@ $smarty->assign(
 		'products_notify'	=> $products_notify
 	)
 );
-
-$smarty->assign('oosPageHeading', $smarty->fetch($aTemplate['page_heading']));
-
 
 // display the template
 $smarty->display($aTemplate['page']);

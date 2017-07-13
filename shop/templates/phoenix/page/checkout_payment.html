@@ -15,14 +15,14 @@
 				<div class="innerWrapper clearfix stepsPage">
 					<div class="row progress-wizard" style="border-bottom:0;">
 
-						<div class="col-xs-3 progress-wizard-step complete">
+						<div class="col-xs-3 progress-wizard-step complete fullBar">
 							<div class="text-center progress-wizard-stepnum">{$lang.checkout_bar_delivery}</div>
 							<div class="progress"><div class="progress-bar"></div></div>
-							<a href="{html_href_link modul=$modules.checkout file=$filename.checkout_shipping connection=SSL}" class="progress-wizard-dot"></a>
+							<a href="{html_href_link content=$filename.checkout_shipping connection=SSL}" class="progress-wizard-dot"></a>
 						</div>
 	  
 				  
-						<div class="col-xs-3 progress-wizard-step disabled">
+						<div class="col-xs-3 progress-wizard-step active">
 							<div class="text-center progress-wizard-stepnum">{$lang.checkout_bar_payment}</div>
 							<div class="progress"><div class="progress-bar"></div></div>
 							<div class="progress-wizard-dot"></div>
@@ -93,7 +93,7 @@
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                <td class="main" width="50%" valign="top">{$lang.text_selected_billing_destination}<br><br><a href="{html_href_link content=$filename.checkout_payment_address connection=SSL}">{html_image_button image="change_address.gif" alt=$lang.button_change_address}</a></td>
+                <td class="main" width="50%" valign="top">{$lang.text_selected_billing_destination}<br><br><a href="{html_href_link content=$filename.checkout_payment_address connection=SSL}">{$lang.button_change_address}</a></td>
                 <td align="right" width="50%" valign="top"><table border="0" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="main" align="center" valign="top"><strong>{$lang.title_billing_address}</strong><br><img src="{$theme_image}/arrow_south_east.gif" border="0" alt=" " width="50" height="31"></td>
@@ -263,6 +263,7 @@
 						<div class="col-xs-12">
 							<div class="well well-lg clearfix">
 								<ul class="pager">
+									<li class="previous"><a href="{html_href_link content=$filename.checkout_shipping connection=SSL}">{$lang.button_back}</a></li>
 									<li class="next"><button class="btn btn-primary-filled pull-right" type="submit">{$lang.button_continue} <i class="fa fa-arrow-circle-right"></i></button></li>
 								</ul>
 							</div>

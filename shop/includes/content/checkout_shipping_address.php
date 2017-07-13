@@ -281,7 +281,7 @@ if (!isset($_SESSION['customer_id'])) {
   $javascript = ob_get_contents();
   ob_end_clean();
 
-  $aTemplate['page'] = $sTheme . '/page/shipping_address.html';
+  $aTemplate['page'] = $sTheme . '/page/checkout_shipping_address.html';
 
   $nPageType = OOS_PAGE_TYPE_CHECKOUT;
   $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;

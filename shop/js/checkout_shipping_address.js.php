@@ -55,7 +55,7 @@ function rowOutEffect(object) {
 
 function check_form() {
   var error = 0;
-  var error_message = "<?php echo decode($aLang['js_error']); ?>";
+  var error_message = "<?php echo $aLang['js_error']; ?>";
 
   var firstname = document.checkout_address.firstname.value;
   var lastname = document.checkout_address.lastname.value;
@@ -73,7 +73,7 @@ function check_form() {
   if (document.checkout_address.elements['gender'].type != "hidden") {
     if (document.checkout_address.gender[0].checked || document.checkout_address.gender[1].checked) {
     } else {
-      error_message = error_message + "<?php echo decode($aLang['js_gender']); ?>";
+      error_message = error_message + "<?php echo $aLang['js_gender']; ?>";
       error = 1;
     }
   }
@@ -81,34 +81,34 @@ function check_form() {
   }
 ?>
   if (firstname == "" || firstname.length < <?php echo ENTRY_FIRST_NAME_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo decode($aLang['js_first_name']); ?>";
+    error_message = error_message + "<?php echo $aLang['js_first_name']; ?>";
     error = 1;
   }
 
   if (lastname == "" || lastname.length < <?php echo ENTRY_LAST_NAME_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo decode($aLang['js_last_name']); ?>";
+    error_message = error_message + "<?php echo $aLang['js_last_name']; ?>";
     error = 1;
   }
 
   if (street_address == "" || street_address.length < <?php echo ENTRY_STREET_ADDRESS_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo decode($aLang['js_address']); ?>";
+    error_message = error_message + "<?php echo $aLang['js_address']; ?>";
     error = 1;
   }
 
   if (postcode == "" || postcode.length < <?php echo ENTRY_POSTCODE_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo decode($aLang['js_post_code']); ?>";
+    error_message = error_message + "<?php echo $aLang['js_post_code']; ?>";
     error = 1;
   }
 
   if (city == "" || city.length < <?php echo ENTRY_CITY_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo decode($aLang['js_city']); ?>";
+    error_message = error_message + "<?php echo $aLang['js_city']; ?>";
     error = 1;
   }
 <?php
   if (ACCOUNT_STATE == 'true') {
 ?>
   if (document.checkout_address.state.value == "" || document.checkout_address.state.length < <?php echo ENTRY_STATE_MIN_LENGTH; ?> ) {
-     error_message = error_message + "<?php echo decode($aLang['js_state']); ?>";
+     error_message = error_message + "<?php echo $aLang['js_state']; ?>";
      error = 1;
   }
 <?php
@@ -116,7 +116,7 @@ function check_form() {
 ?>
 
   if (document.checkout_address.country.value == 0) {
-    error_message = error_message + "<?php echo decode($aLang['js_country']); ?>";
+    error_message = error_message + "<?php echo $aLang['js_country']; ?>";
     error = 1;
   }
 

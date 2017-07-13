@@ -171,7 +171,7 @@
         if ($coupon_result['coupon_minimum_order']>0) $coupon_amount .= 'on orders greater than ' .  $coupon_result['coupon_minimum_order'];
         $_SESSION['cc_id'] = $coupon_result['coupon_id'];
       }
-      if ($_POST['submit_redeem_coupon_x'] && !$_POST['gv_redeem_code']) oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode(decode($aLang['error_no_invalid_redeem_coupon'])), 'SSL'));
+      if ($_POST['submit_redeem_coupon_x'] && !$_POST['gv_redeem_code']) oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode($aLang['error_no_invalid_redeem_coupon']), 'SSL'));
     }
   }
 
