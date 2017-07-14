@@ -21,9 +21,16 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/search_advanced_result.php';
-require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_search.php';
+if ( (isset($_GET['keywords']) && empty($_GET['keywords'])) &&
+	(isset($_GET['dfrom']) && (empty($_GET['dfrom']) || ($_GET['dfrom'] == DOB_FORMAT_STRING))) &&
+	(isset($_GET['dto']) && (empty($_GET['dto']) || ($_GET['dto'] == DOB_FORMAT_STRING))) &&
+	(isset($_GET['pfrom']) && !is_numeric($_GET['pfrom'])) &&
+	(isset($_GET['pto']) && !is_numeric($_GET['pto'])) ) {
 
+	oos_redirect(oos_href_link($aContents['advanced_search'], 'errorno=' . $errorno));
+
+} else {
+	  
 $keywords = $_GET['keywords'] = isset($_GET['keywords']) && !empty($_GET['keywords']) ? stripslashes(trim(urldecode($_GET['keywords']))) : false;
 $search_in_description = $_GET['search_in_description'] = isset($_GET['search_in_description']) && is_numeric($_GET['search_in_description']) ? (int)$_GET['search_in_description'] : 0;
 $categories_id = $_GET['categories_id'] = isset($_GET['categories_id']) && is_numeric($_GET['categories_id']) ? (int)$_GET['categories_id'] : false;
@@ -38,14 +45,6 @@ $dto = $_GET['dto'] = isset($_GET['dto']) && !empty($_GET['dto']) ? stripslashes
   $error = 0; // reset error flag to false
   $errorno = 0;
 
-  if ( (isset($_GET['keywords']) && empty($_GET['keywords'])) &&
-       (isset($_GET['dfrom']) && (empty($_GET['dfrom']) || ($_GET['dfrom'] == DOB_FORMAT_STRING))) &&
-       (isset($_GET['dto']) && (empty($_GET['dto']) || ($_GET['dto'] == DOB_FORMAT_STRING))) &&
-       (isset($_GET['pfrom']) && empty($_GET['pfrom'])) &&
-       (isset($_GET['pto']) && empty($_GET['pto'])) ) {
-    $errorno += 1;
-    $error = 1;
-  }
 
   $dfrom_to_check = (($_GET['dfrom'] == DOB_FORMAT_STRING) ? '' : $_GET['dfrom']);
   $dto_to_check = (($_GET['dto'] == DOB_FORMAT_STRING) ? '' : $_GET['dto']);
@@ -101,6 +100,7 @@ $dto = $_GET['dto'] = isset($_GET['dto']) && !empty($_GET['dto']) ? stripslashes
     }
   }
 
+}
   
 if ($error == 1) {
 	oos_redirect(oos_href_link($aContents['advanced_search'], 'errorno=' . $errorno . '&' . oos_get_all_get_parameters()));

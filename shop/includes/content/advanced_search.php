@@ -21,7 +21,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  function oos_get_manufacturers($aManufacturers = '') {
+  function oos_get_manufacturers() {
 
     if (!is_array($aManufacturers)) $aManufacturers = array();
 

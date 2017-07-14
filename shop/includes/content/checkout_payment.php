@@ -147,14 +147,7 @@ $smarty->assign(
 	)
 );
 
-  if (isset($_GET['payment_error']) && is_object(${$_GET['payment_error']}) && ($error = ${$_GET['payment_error']}->get_error())) {
-    $smarty->assign(
-        array(
-            'oos_payment_error' => 'true',
-            'error' => $error
-        )
-    );
-  }
+
   $smarty->assign('condition_link', $condition_link);
   $smarty->assign(
       array(

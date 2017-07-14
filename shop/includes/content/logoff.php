@@ -53,6 +53,7 @@ if (ACCOUNT_VAT_ID == 'true') {
 
 $_SESSION['cart']->reset(); 
 $_SESSION['user']->anonymous();
+$aUser = $oUser->group;
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title']);
