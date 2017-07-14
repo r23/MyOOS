@@ -22,8 +22,8 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_process.php';
-  require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_process.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 
 // start the session
 if ( $session->hasStarted() === FALSE ) $session->start();  
@@ -38,47 +38,47 @@ if (!isset($_SESSION['customer_id'])) {
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
 
-  if (!isset($_SESSION['sendto'])) {
-    oos_redirect(oos_href_link($aContents['checkout_payment'], '', 'SSL'));
-  }
+if (!isset($_SESSION['shipping']) || !isset($_SESSION['sendto'])) {
+	oos_redirect(oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
+}
 
-  if ( (oos_is_not_null(MODULE_PAYMENT_INSTALLED)) && (!isset($_SESSION['payment'])) ) {
-    oos_redirect(oos_href_link($aContents['checkout_payment'], '', 'SSL'));
-  }
+if ( (oos_is_not_null(MODULE_PAYMENT_INSTALLED)) && (!isset($_SESSION['payment'])) ) {
+	oos_redirect(oos_href_link($aContents['checkout_payment'], '', 'SSL'));
+}
 
 // avoid hack attempts during the checkout procedure by checking the internal cartID
-  if (isset($_SESSION['cart']->cartID) && isset($_SESSION['cartID'])) {
-    if ($_SESSION['cart']->cartID != $_SESSION['cartID']) {
-      oos_redirect(oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
-    }
-  }
+if (isset($_SESSION['cart']->cartID) && isset($_SESSION['cartID'])) {
+	if ($_SESSION['cart']->cartID != $_SESSION['cartID']) {
+		oos_redirect(oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
+	}
+}
 
 // load selected payment module
-  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_payment.php';
-  $payment_modules = new payment($_SESSION['payment']);
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_payment.php';
+$payment_modules = new payment($_SESSION['payment']);
 
 // load the selected shipping module
-  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
-  $shipping_modules = new shipping($_SESSION['shipping']);
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
+$shipping_modules = new shipping($_SESSION['shipping']);
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
-  $oOrder = new order;
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
+$oOrder = new order;
 
-  if ( (isset($_SESSION['shipping'])) && ($_SESSION['shipping']['id'] == 'free_free')) {
-    if ( ($oOrder->info['total'] - $oOrder->info['shipping_cost']) < MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER ) {
-      oos_redirect(oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
-    }
-  }
+if ( (isset($_SESSION['shipping'])) && ($_SESSION['shipping']['id'] == 'free_free')) {
+	if ( ($oOrder->info['total'] - $oOrder->info['shipping_cost']) < MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER ) {
+		oos_redirect(oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
+	}
+}
 
 // load the before_process function from the payment modules
-  $payment_modules->before_process();
+$payment_modules->before_process();
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order_total.php';
-  $order_total_modules = new order_total;
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order_total.php';
+$order_total_modules = new order_total;
 
-  $order_totals = $order_total_modules->process();
+$order_totals = $order_total_modules->process();
 
-  $sql_data_array = array('customers_id' => $_SESSION['customer_id'],
+$sql_data_array = array('customers_id' => $_SESSION['customer_id'],
                           'customers_name' => $oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'],
                           'customers_company' => $oOrder->customer['company'],
                           'customers_street_address' => $oOrder->customer['street_address'],
@@ -120,9 +120,10 @@ if (!isset($_SESSION['customer_id'])) {
                           'currency_value' => $oOrder->info['currency_value'],
                           'orders_language' => $_SESSION['language']);
 
-  oos_db_perform($oostable['orders'], $sql_data_array);
-  $insert_id = $dbconn->Insert_ID();
-  for ($i=0, $n=count($order_totals); $i<$n; $i++) {
+oos_db_perform($oostable['orders'], $sql_data_array);
+$insert_id = $dbconn->Insert_ID();
+
+for ($i=0, $n=count($order_totals); $i<$n; $i++) {
     $sql_data_array = array('orders_id' => $insert_id,
                             'title' => $order_totals[$i]['title'],
                             'text' => $order_totals[$i]['text'],
@@ -130,69 +131,70 @@ if (!isset($_SESSION['customer_id'])) {
                             'class' => $order_totals[$i]['code'],
                             'sort_order' => $order_totals[$i]['sort_order']);
     oos_db_perform($oostable['orders_total'], $sql_data_array);
-  }
+}
 
-  $customer_notification = ($oEvent->installed_plugin('reviews')) ? '1' : '0';
-  $sql_data_array = array('orders_id' => $insert_id,
+$customer_notification = ($oEvent->installed_plugin('mail')) ? '1' : '0';
+$sql_data_array = array('orders_id' => $insert_id,
                           'orders_status_id' => $oOrder->info['order_status'],
                           'date_added' => 'now()',
                           'customer_notified' => $customer_notification,
                           'comments' => $oOrder->info['comments']);
-  oos_db_perform($oostable['orders_status_history'], $sql_data_array);
+oos_db_perform($oostable['orders_status_history'], $sql_data_array);
 
 // initialized for the email confirmation
-  $products_ordered = '';
-  $subtotal = 0;
-  $total_tax = 0;
+$products_ordered = '';
+$subtotal = 0;
+$total_tax = 0;
 
-  for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
-    // Stock Update - Joao Correia
-    if (STOCK_LIMITED == 'true') {
-      if (DOWNLOAD_ENABLED == 'true') {
-        $productstable = $oostable['products'];
-        $products_attributestable = $oostable['products_attributes'];
-        $products_attributes_downloadtable = $oostable['products_attributes_download'];
-        $stock_result_raw = "SELECT products_quantity, pad.products_attributes_filename 
+for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
+	// Stock Update - Joao Correia
+	if (STOCK_LIMITED == 'true') {
+		if (DOWNLOAD_ENABLED == 'true') {
+			$productstable = $oostable['products'];
+			$products_attributestable = $oostable['products_attributes'];
+			$products_attributes_downloadtable = $oostable['products_attributes_download'];
+			$stock_result_raw = "SELECT products_quantity, pad.products_attributes_filename 
                              FROM $productstable p LEFT JOIN 
                                   $products_attributestable pa ON p.products_id = pa.products_id LEFT JOIN 
                                   $products_attributes_downloadtable pad ON pa.products_attributes_id = pad.products_attributes_id
                              WHERE p.products_id = '" . intval(oos_get_product_id($oOrder->products[$i]['id'])) . "'";
-        // Will work with only one option for downloadable products
-        // otherwise, we have to build the query dynamically with a loop
-        $products_attributes = $oOrder->products[$i]['attributes'];
-        if (is_array($products_attributes)) {
-          $stock_result_raw .= " AND pa.options_id = '" . intval($products_attributes[0]['option_id']) . "' AND pa.options_values_id = '" . intval($products_attributes[0]['value_id']) . "'";
-        }
-        $stock_result = $dbconn->Execute($stock_result_raw);
-      } else {
-        $productstable = $oostable['products'];
-        $sql = "SELECT products_quantity
-                FROM $productstable
-                WHERE products_id = '" . intval(oos_get_product_id($oOrder->products[$i]['id'])) . "'";
-        $stock_result = $dbconn->Execute($sql);
-      }
-      if ($stock_result->RecordCount() > 0) {
-        $stock_values = $stock_result->fields;
-        // do not decrement quantities if products_attributes_filename exists
-        if ((DOWNLOAD_ENABLED != 'true') || (!$stock_values['products_attributes_filename'])) {
-          $stock_left = $stock_values['products_quantity'] - $oOrder->products[$i]['qty'];
-        } else {
-          $stock_left = $stock_values['products_quantity'];
-        }
-        $productstable = $oostable['products'];
-        $dbconn->Execute("UPDATE $productstable
-                          SET products_quantity = '" . oos_db_input($stock_left) . "'
-                          WHERE products_id = '" . intval(oos_get_product_id($oOrder->products[$i]['id'])) . "'");
-        if ($stock_left < 1) {
-          $productstable = $oostable['products'];
-          $dbconn->Execute("UPDATE $productstable
+			// Will work with only one option for downloadable products
+			// otherwise, we have to build the query dynamically with a loop
+			$products_attributes = $oOrder->products[$i]['attributes'];
+			if (is_array($products_attributes)) {
+				$stock_result_raw .= " AND pa.options_id = '" . intval($products_attributes[0]['option_id']) . "' AND pa.options_values_id = '" . intval($products_attributes[0]['value_id']) . "'";
+			}
+			$stock_result = $dbconn->Execute($stock_result_raw);
+		} else {
+			$productstable = $oostable['products'];
+			$sql = "SELECT products_quantity
+					FROM $productstable
+					WHERE products_id = '" . intval(oos_get_product_id($oOrder->products[$i]['id'])) . "'";
+			$stock_result = $dbconn->Execute($sql);
+		}
+		
+		if ($stock_result->RecordCount() > 0) {
+			$stock_values = $stock_result->fields;
+			// do not decrement quantities if products_attributes_filename exists
+			if ((DOWNLOAD_ENABLED != 'true') || (!$stock_values['products_attributes_filename'])) {
+				$stock_left = $stock_values['products_quantity'] - $oOrder->products[$i]['qty'];
+			} else {
+				$stock_left = $stock_values['products_quantity'];
+			}
+			$productstable = $oostable['products'];
+			$dbconn->Execute("UPDATE $productstable
+							SET products_quantity = '" . oos_db_input($stock_left) . "'
+							WHERE products_id = '" . intval(oos_get_product_id($oOrder->products[$i]['id'])) . "'");
+			if ($stock_left < 1) {
+				$productstable = $oostable['products'];
+				$dbconn->Execute("UPDATE $productstable
                         SET products_status = '0' 
                         WHERE products_id = '" . intval(oos_get_product_id($oOrder->products[$i]['id'])) . "'");
-        }
-      }
-    }
+			}
+		}
+	}
 
-// Update products_ordered (for bestsellers list)
+	// Update products_ordered (for bestsellers list)
     $productstable = $oostable['products'];
     $dbconn->Execute("UPDATE $productstable
                   SET products_ordered = products_ordered + " . sprintf('%d', intval($oOrder->products[$i]['qty'])) . " 
@@ -209,8 +211,12 @@ if (!isset($_SESSION['customer_id'])) {
                             'products_quantity' => $oOrder->products[$i]['qty']);
     oos_db_perform($oostable['orders_products'], $sql_data_array);
     $order_products_id = $dbconn->Insert_ID();
-    $order_total_modules->update_credit_account($i);//ICW ADDED FOR CREDIT CLASS SYSTEM
-//------insert customer choosen option to order--------
+	
+	//ICW ADDED FOR CREDIT CLASS SYSTEM
+    $order_total_modules->update_credit_account($i);
+	
+	
+	//------insert customer choosen option to order--------
     $attributes_exist = '0';
     $products_ordered_attributes = '';
     if (isset($oOrder->products[$i]['attributes'])) {
@@ -351,48 +357,30 @@ if (!isset($_SESSION['customer_id'])) {
       $email_order .= $payment_class->email_footer . "\n\n";
     }
   }
-  if (!isset($_SESSION['man_key'])) {
-    oos_mail($oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], $oOrder->customer['email_address'], $aLang['email_text_subject'], nl2br($email_order), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
-  }
+  
+if (!isset($_SESSION['man_key'])) {
+	oos_mail($oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], $oOrder->customer['email_address'], $aLang['email_text_subject'], nl2br($email_order), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+}
 
 // send emails to other people
-  if (SEND_EXTRA_ORDER_EMAILS_TO != '') {
-    if (SEND_BANKINFO_TO_ADMIN == 'true') {
-      if ($_POST['banktransfer_fax'] != "on"){
-        $email_order .= "\n";
-        $email_order .= "Kontoinhaber: ". $banktransfer_owner . "\n";
-        $email_order .= "BLZ:          ". $banktransfer_blz . "\n";
-        $email_order .= "Konto:        ". $banktransfer_number . "\n";
-        $email_order .= "Bank:         ". $banktransfer_bankname . "\n";
-
-        if ($_POST['banktransfer_status'] == 0 || $_POST['banktransfer_status'] == 2){
-          $email_order .= "Puerfstatus:   OK\r\n";
-        } else {
-          $email_order .= "Puerfstatus:   Es ist ein Problem aufgetreten, bitte beobachten!\r\n";
-        }
-      } else {
-        $email_order .= "\n";
-        $email_order .= "Kontodaten werden per Fax bestaetigt!\n";
-      }
-    }
+if (SEND_EXTRA_ORDER_EMAILS_TO != '') {
     oos_mail('', SEND_EXTRA_ORDER_EMAILS_TO, $aLang['email_text_subject'], nl2br($email_order), $oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], $oOrder->customer['email_address'], true);
-  }
+}
 
 
 // load the after_process function from the payment modules
-  $payment_modules->after_process();
+$payment_modules->after_process();
 
-  $_SESSION['cart']->reset(true);
+$_SESSION['cart']->reset(true);
 
 // unregister session variables used during checkout
-  unset($_SESSION['sendto']);
-  unset($_SESSION['billto']);
-  unset($_SESSION['shipping']);
-  unset($_SESSION['payment']);
-  unset($_SESSION['comments']);
+unset($_SESSION['sendto']);
+unset($_SESSION['billto']);
+unset($_SESSION['shipping']);
+unset($_SESSION['payment']);
+unset($_SESSION['comments']);
 
-  $order_total_modules->clear_posts();
+$order_total_modules->clear_posts();
 
-  oos_redirect(oos_href_link($aContents['checkout_success'], '', 'SSL'));
-
+oos_redirect(oos_href_link($aContents['checkout_success'], '', 'SSL'));
 

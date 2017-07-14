@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -15,9 +15,6 @@ define('PLUGIN_EVENT_MAIL_DESC', 'Verschicke E-Mails');
 
 define('SEND_EXTRA_ORDER_EMAILS_TO_TITLE', 'Zus&auml;tzliche Bestellbest&auml;tigung per Mail senden');
 define('SEND_EXTRA_ORDER_EMAILS_TO_DESC', 'Sendet zus&auml;tzliche Bestellbenachrichtigungen an folgende E-Mail Adresse, in diesem Format: Name 1 &lt;email@adresse1&gt;');
-
-define('SEND_BANKINFO_TO_ADMIN_TITLE', 'Bankinfo per Mail');
-define('SEND_BANKINFO_TO_ADMIN_DESC', 'M&ouml;chten Sie die Bankdaten aus dem Lastschriftverfahren mit der E-Mail erhalten?');
 
 define('EMAIL_TRANSPORT_TITLE', 'E-Mail Versandmethode');
 define('EMAIL_TRANSPORT_DESC', 'Definiert, ob dieser Server eine lokale Verbindung zu sendmail oder eine SMTP-Verbindung &uuml;ber TCP/IP benutzt. Bei Servern, die unter Windows oder MacOS laufen sollte SMTP eingetragen werden.');

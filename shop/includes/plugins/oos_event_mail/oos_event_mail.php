@@ -67,7 +67,6 @@
 
       $configurationtable = $oostable['configuration'];
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SEND_EXTRA_ORDER_EMAILS_TO', '', 6, 1, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SEND_BANKINFO_TO_ADMIN', 'false', 6, 2, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('EMAIL_TRANSPORT', 'mail', 6, 3, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'mail\', \'sendmail\', \'smtp\'),')");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('EMAIL_LINEFEED', 'LF', 6, 4, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'LF\', \'CRLF\'),')");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('EMAIL_USE_HTML', 'false', 6, 5, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')");
@@ -94,7 +93,7 @@
     }
 
     function config_item() {
-      return array('SEND_EXTRA_ORDER_EMAILS_TO', 'SEND_BANKINFO_TO_ADMIN', 'EMAIL_TRANSPORT', 'EMAIL_LINEFEED', 'EMAIL_USE_HTML', 'ENTRY_EMAIL_ADDRESS_CHECK', 'OOS_SMTPAUTH', 'OOS_SMTPUSER', 'OOS_SMTPPASS', 'OOS_SMTPHOST', 'OOS_SENDMAIL');
+      return array('SEND_EXTRA_ORDER_EMAILS_TO', 'EMAIL_TRANSPORT', 'EMAIL_LINEFEED', 'EMAIL_USE_HTML', 'ENTRY_EMAIL_ADDRESS_CHECK', 'OOS_SMTPAUTH', 'OOS_SMTPUSER', 'OOS_SMTPPASS', 'OOS_SMTPHOST', 'OOS_SENDMAIL');
     }
   }
 
