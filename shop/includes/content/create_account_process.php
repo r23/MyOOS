@@ -185,9 +185,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php'
   }
 
   if (CUSTOMER_NOT_LOGIN == 'false') {
-    if (MAKE_PASSWORD == 'true') {
-      $password = oos_create_random_value(ENTRY_PASSWORD_MIN_LENGTH);
-    } else {
       $passlen = strlen($password);
       if ($passlen < ENTRY_PASSWORD_MIN_LENGTH) {
         $error = TRUE;
@@ -200,7 +197,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php'
         $error = TRUE;
         $password_error = 'true';
       }
-    }
   }
 
   $customerstable = $oostable['customers'];
@@ -218,7 +214,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php'
   if ($error == TRUE) {
 
     $processed = TRUE;
-    if ((CUSTOMER_NOT_LOGIN == 'true') or (MAKE_PASSWORD == 'true')) {
+    if (CUSTOMER_NOT_LOGIN == 'true') {
       $show_password = FALSE;
     } else {
       $show_password = 'true';
@@ -518,9 +514,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php'
                        "\n\n";
       }
     }
-    if (MAKE_PASSWORD == 'true') {
-      $email_text .= sprintf($aLang['email_password'], $password) . "\n\n";
-    }
+
     $email_text .= $aLang['email_text'] . $aLang['email_contact'] . $aLang['email_warning'] . $aLang['email_disclaimer'];
 
     oos_mail($name, $email_address, $aLang['email_subject'], nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '3');

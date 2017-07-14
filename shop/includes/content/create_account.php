@@ -68,7 +68,7 @@ $smarty->assign(
 $smarty->assign('account', $account);
 $smarty->assign('email_address', $email_address);
 
-if ((CUSTOMER_NOT_LOGIN == 'true') or (MAKE_PASSWORD == 'true')) {
+if (CUSTOMER_NOT_LOGIN == 'true') {
 	$show_password = 'false';
 } else {
 	$show_password = 'true';
