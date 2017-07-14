@@ -6,7 +6,7 @@ License URI: http://www.gnu.org/licenses/gpl.html
 Tags: SEO, XML sitemap, Google Search Console, Content analysis, Readability
 Requires at least: 4.6
 Tested up to: 4.8
-Stable tag: 5.0.1
+Stable tag: 5.0.2
 
 Improve your WordPress SEO: Write better content and have a fully optimized WordPress site using the Yoast SEO plugin.
 
@@ -124,11 +124,20 @@ You'll find answers to many of your questions on [kb.yoast.com](https://kb.yoast
 
 == Changelog ==
 
+= 5.0.2 =
+
+Release Date: July 13th, 2017
+
+* Only load babel polyfill if it hasn't been loaded by another plugin yet.
+* Adds a feature toggle to disable the link counter tool & link columns.
+* Fixes a compatibility issue with WordPress 4.6.
+* Fixes an issue where the link columns would disappear after quick-editing a post.
+
 = 5.0.1 =
 
 Release Date: July 6th, 2017
 
-* Fixes a fatal error that could occur when trying to save a post that has `<a>`-tags with invalid URLs in it.
+* Fixes a fatal error that could occur when trying to save a post that <a>-tags with invalid URLs in them.
 
 = 5.0.0 =
 

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5b99c0c3045843969cc3eb7766a56822
+class ComposerStaticInit4d82a14529f8610245307ff41cf146cf
 {
     public static $files = array (
         '995b589e693a50f54393aa31ee1c3763' => __DIR__ . '/..' . '/yoast/whip/src/facades/wordpress.php',
@@ -188,6 +188,7 @@ class ComposerStaticInit5b99c0c3045843969cc3eb7766a56822
         'WPSEO_Installation' => __DIR__ . '/../..' . '/inc/class-wpseo-installation.php',
         'WPSEO_JSON_LD' => __DIR__ . '/../..' . '/frontend/class-json-ld.php',
         'WPSEO_Link' => __DIR__ . '/../..' . '/admin/links/class-link.php',
+        'WPSEO_Link_Cleanup_Transient' => __DIR__ . '/../..' . '/admin/links/class-link-cleanup-transient.php',
         'WPSEO_Link_Column_Count' => __DIR__ . '/../..' . '/admin/links/class-link-column-count.php',
         'WPSEO_Link_Columns' => __DIR__ . '/../..' . '/admin/links/class-link-columns.php',
         'WPSEO_Link_Compatibility_Notifier' => __DIR__ . '/../..' . '/admin/links/class-link-compatibility-notifier.php',
@@ -347,8 +348,8 @@ class ComposerStaticInit5b99c0c3045843969cc3eb7766a56822
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixesPsr0 = ComposerStaticInit5b99c0c3045843969cc3eb7766a56822::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit5b99c0c3045843969cc3eb7766a56822::$classMap;
+            $loader->prefixesPsr0 = ComposerStaticInit4d82a14529f8610245307ff41cf146cf::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit4d82a14529f8610245307ff41cf146cf::$classMap;
 
         }, null, ClassLoader::class);
     }

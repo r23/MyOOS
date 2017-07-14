@@ -166,6 +166,7 @@ return array(
     'WPSEO_Installation' => $baseDir . '/inc/class-wpseo-installation.php',
     'WPSEO_JSON_LD' => $baseDir . '/frontend/class-json-ld.php',
     'WPSEO_Link' => $baseDir . '/admin/links/class-link.php',
+    'WPSEO_Link_Cleanup_Transient' => $baseDir . '/admin/links/class-link-cleanup-transient.php',
     'WPSEO_Link_Column_Count' => $baseDir . '/admin/links/class-link-column-count.php',
     'WPSEO_Link_Columns' => $baseDir . '/admin/links/class-link-columns.php',
     'WPSEO_Link_Compatibility_Notifier' => $baseDir . '/admin/links/class-link-compatibility-notifier.php',
