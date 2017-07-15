@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
 define('MODULE_ORDER_TOTAL_COUPON_STATUS_TITLE', 'Wert anzeigen');
-define('MODULE_ORDER_TOTAL_COUPON_STATUS_DESC', 'M&ouml;chten Sie den Wert des Rabatt Kupons anzeigen?');
+define('MODULE_ORDER_TOTAL_COUPON_STATUS_DESC', 'Möchten Sie den Wert des Rabatt Kupons anzeigen?');
 
 define('MODULE_ORDER_TOTAL_COUPON_SORT_ORDER_TITLE', 'Sortierreihenfolge');
 define('MODULE_ORDER_TOTAL_COUPON_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kleinste Ziffer wird zuerst angezeigt.');
@@ -44,14 +44,14 @@ $aLang['module_order_total_coupon_description'] = 'Rabatt Kupon';
 $aLang['shipping_not_included'] = ' [Versand nicht enthalten]';
 $aLang['tax_not_included'] = ' [MwSt. nicht enthalten]';
 $aLang['module_order_total_coupon_user_prompt'] = '';
-$aLang['error_no_invalid_redeem_coupon'] = 'Ung&uuml;ltiger Gutscheincode';
-$aLang['error_invalid_startdate_coupon'] = 'Dieser Gutschein ist noch nicht verf&uuml;gbar';
-$aLang['error_invalid_finisdate_coupon'] = 'Dieser Gutschein ist nicht mehr g&uuml;ltig';
+$aLang['error_no_invalid_redeem_coupon'] = 'Ungültiger Gutscheincode';
+$aLang['error_invalid_startdate_coupon'] = 'Dieser Gutschein ist noch nicht verfügbar';
+$aLang['error_invalid_finisdate_coupon'] = 'Dieser Gutschein ist nicht mehr gültig';
 $aLang['error_invalid_uses_coupon'] = 'Dieser Gutschein kann nur ';
 $aLang['times'] = ' mal benutzt werden.';
 $aLang['error_invalid_uses_user_coupon'] = 'Die maximale Nutzung dieses Gutscheines wurde erreicht.'; 
-$aLang['redeemed_coupon'] = 'ein Gutschein &uuml;ber ';
-$aLang['redeemed_min_order'] = 'f&uuml;r Waren &uuml;ber ';
-$aLang['redeemed_restrictions'] = ' [Artikel / Kategorie Einschr&auml;nkungen]';
+$aLang['redeemed_coupon'] = 'ein Gutschein über ';
+$aLang['redeemed_min_order'] = 'für Waren über ';
+$aLang['redeemed_restrictions'] = ' [Artikel / Kategorie Einschränkungen]';
 $aLang['text_enter_coupon_code'] = 'Gutscheincode&nbsp;&nbsp;';
 

@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -35,7 +35,7 @@ define('TABLE_HEADING_LANGUAGE_ISO_3166_1', 'ISO_3166-1');
 define('TABLE_HEADING_LANGUAGE_STATUS', 'Status');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
-define('TEXT_INFO_EDIT_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nderungen durch');
+define('TEXT_INFO_EDIT_INTRO', 'Bitte führen Sie alle notwendigen Änderungen durch');
 define('TEXT_INFO_LANGUAGE_NAME', 'Name:');
 define('TEXT_INFO_LANGUAGE_ISO_639_2', 'ISO 639-2'); 
 define('TEXT_INFO_LANGUAGE_ISO_639_1', 'ISO 639-1');
@@ -44,10 +44,10 @@ define('TEXT_INFO_LANGUAGE_IMAGE', 'Symbol:');
 define('TEXT_INFO_LANGUAGE_DIRECTORY', 'Verzeichnis:');
 define('TEXT_INFO_LANGUAGE_SORT_ORDER', 'Sortierreihenfolge:');
 define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie die neue Sprache mit allen relevanten Daten ein');
-define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie die Sprache l&ouml;schen m&ouml;chten?');
+define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie die Sprache löschen möchten?');
 define('TEXT_INFO_HEADING_NEW_LANGUAGE', 'Neue Sprache');
 define('TEXT_INFO_HEADING_EDIT_LANGUAGE', 'Sprache bearbeiten');
-define('TEXT_INFO_HEADING_DELETE_LANGUAGE', 'Sprache l&ouml;schen');
+define('TEXT_INFO_HEADING_DELETE_LANGUAGE', 'Sprache löschen');
 
-define('ERROR_REMOVE_DEFAULT_LANGUAGE', 'Fehler: Die Standardsprache darf nicht gel&ouml;scht werden. Bitte definieren Sie eine neue Standardsprache und wiederholen Sie den Vorgang.');
+define('ERROR_REMOVE_DEFAULT_LANGUAGE', 'Fehler: Die Standardsprache darf nicht gelöscht werden. Bitte definieren Sie eine neue Standardsprache und wiederholen Sie den Vorgang.');
 

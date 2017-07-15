@@ -138,10 +138,10 @@ define('BOX_ADMIN_LOGIN', 'Admin login');
 // taxes box text in includes/boxes/taxes.php
 define('BOX_HEADING_LOCATION_AND_TAXES', 'Land / Steuer');
 define('BOX_TAXES_COUNTRIES', 'Land');
-define('BOX_TAXES_ZONES', 'Bundesl&auml;nder');
+define('BOX_TAXES_ZONES', 'Bundesländer');
 define('BOX_TAXES_GEO_ZONES', 'Steuerzonen');
 define('BOX_TAXES_TAX_CLASSES', 'Steuerklassen');
-define('BOX_TAXES_TAX_RATES', 'Steuers&auml;tze');
+define('BOX_TAXES_TAX_RATES', 'Steuersätze');
 
 // reports box text in includes/boxes/reports.php
 define('BOX_HEADING_REPORTS', 'Berichte');
@@ -166,8 +166,8 @@ define('BOX_HEADING_ADMINISTRATORS', 'Administrators');
 define('BOX_ADMINISTRATORS_SETUP', 'Set Up');
 
 // localizaion box text in includes/boxes/localization.php
-define('BOX_HEADING_LOCALIZATION', 'Sprachen/W&auml;hrungen');
-define('BOX_LOCALIZATION_CURRENCIES', 'W&auml;hrungen');
+define('BOX_HEADING_LOCALIZATION', 'Sprachen/Währungen');
+define('BOX_LOCALIZATION_CURRENCIES', 'Währungen');
 define('BOX_LOCALIZATION_LANGUAGES', 'Sprachen');
 define('BOX_LOCALIZATION_CUSTOMERS_STATUS', 'Kundengruppen');
 
@@ -239,19 +239,19 @@ define('ENTRY_NEWSLETTER', 'Rundschreiben:');
 define('ENTRY_NEWSLETTER_YES', 'abonniert');
 define('ENTRY_NEWSLETTER_NO', 'nicht abonniert');
 define('ENTRY_PASSWORD', 'Passwort:');
-define('ENTRY_PASSWORD_CONFIRMATION', 'Passwortbest&auml;tigung:');
+define('ENTRY_PASSWORD_CONFIRMATION', 'Passwortbestätigung:');
 define('PASSWORD_HIDDEN', '--VERSTECKT--');
 
 // images
 define('IMAGE_ANI_SEND_EMAIL', 'eMail versenden');
-define('IMAGE_BACK', 'Zur&uuml;ck');
+define('IMAGE_BACK', 'Zurück');
 define('IMAGE_BACKUP', 'Datensicherung');
 define('BUTTON_CANCEL', 'Abbrechen');
 define('BUTTON_UPLOAD_IMAGES', 'Bilder hochladen');
 define('BUTTON_CANCEL_UPLOAD', 'Hochladen abbrechen');
 define('BUTTON_START_UPLOAD', 'Hochladen starten');
-define('BUTTON_ADD_FILES', 'Dateien hinzuf&uuml;gen');
-define('IMAGE_CONFIRM', 'Best&auml;tigen');
+define('BUTTON_ADD_FILES', 'Dateien hinzufügen');
+define('IMAGE_CONFIRM', 'Bestätigen');
 define('IMAGE_COPY', 'Kopieren');
 define('IMAGE_COPY_TO', 'Kopieren nach');
 define('IMAGE_DEFINE', 'Definieren');
@@ -265,13 +265,13 @@ define('IMAGE_ICON_STATUS_GREEN_LIGHT', 'aktivieren');
 define('IMAGE_ICON_STATUS_RED', 'inaktiv');
 define('IMAGE_ICON_STATUS_RED_LIGHT', 'deaktivieren');
 define('IMAGE_ICON_INFO', 'Information');
-define('BUTTON_INSERT', 'Einf&uuml;gen');
+define('BUTTON_INSERT', 'Einfügen');
 define('IMAGE_LOCK', 'Sperren');
 define('IMAGE_LOGIN', 'Shop Login');
 define('IMAGE_MOVE', 'Verschieben');
 define('IMAGE_NEW_CATEGORY', 'Neue Kategorie erstellen');
 define('IMAGE_NEW_COUNTRY', 'Neues Land aufnehmen');
-define('IMAGE_NEW_CURRENCY', 'Neue W&auml;hrung einf&uuml;gen');
+define('IMAGE_NEW_CURRENCY', 'Neue Währung einfügen');
 define('IMAGE_NEW_FILE', 'Neue Datei');
 define('IMAGE_NEW_FOLDER', 'Neues Verzeichnis');
 define('IMAGE_NEW_LANGUAGE', 'Neue Sprache anlegen');
@@ -288,11 +288,11 @@ define('IMAGE_ORDERS_WEBPRINTER', 'WebPrinter');
 define('IMAGE_PLUGINS_INSTALL', 'Plugins Installieren');
 define('IMAGE_PLUGINS_REMOVE', 'Plugins Entfernen');
 define('IMAGE_PREVIEW', 'Vorschau');
-define('IMAGE_RESET', 'Zur&uuml;cksetzen');
-define('IMAGE_RESTORE', 'Zur&uuml;cksichern');
+define('IMAGE_RESET', 'Zurücksetzen');
+define('IMAGE_RESTORE', 'Zurücksichern');
 define('IMAGE_SAVE', 'Speichern');
 define('IMAGE_SEARCH', 'Suchen');
-define('IMAGE_SELECT', 'Ausw&auml;hlen');
+define('IMAGE_SELECT', 'Auswählen');
 define('IMAGE_SEND', 'Versenden');
 define('IMAGE_SEND_EMAIL', 'eMail versenden');
 define('IMAGE_SPECIALS', 'Sonderangebot');
@@ -304,7 +304,7 @@ define('IMAGE_UPLOAD', 'Hochladen');
 define('IMAGE_WISHLIST', 'Wunschzettel');
 
 $aLang['image_new_tax_rate'] = 'Neuen Steuersatz anlegen';
-$aLang['image_new_zone'] = 'Neues Bundesland einf&uuml;gen';
+$aLang['image_new_zone'] = 'Neues Bundesland einfügen';
 
 define('TEXT_ERROR', 'Fehler');
 
@@ -326,9 +326,9 @@ define('ICON_WARNING', 'Warnung');
 
 // constants for use in oos_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Seite %s von %d');
-define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> L&auml;ndern)');
+define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Ländern)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Kunden)');
-define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> W&auml;hrungen)');
+define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Währungen)');
 define('TEXT_DISPLAY_NUMBER_OF_HTTP_REFERERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> HTTP Referers)');
 define('TEXT_DISPLAY_NUMBER_OF_LANGUAGES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Sprachen)');
 define('TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Herstellern)');
@@ -343,8 +343,8 @@ define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Angezeigt werden <b>%d</b> bis <b>%d</
 define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Sonderangeboten)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_CLASSES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Steuerklassen)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_ZONES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Steuerzonen)');
-define('TEXT_DISPLAY_NUMBER_OF_TAX_RATES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Steuers&auml;tzen)');
-define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Bundesl&auml;ndern)');
+define('TEXT_DISPLAY_NUMBER_OF_TAX_RATES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Steuersätzen)');
+define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Bundesländern)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS_STATUS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Kundengruppen)');
 define('TEXT_DISPLAY_NUMBER_OF_BLOCKES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Boxen)');
 
@@ -359,8 +359,8 @@ define('TEXT_DEFAULT', 'Standard');
 define('TEXT_SET_DEFAULT', 'als Standard definieren');
 define('TEXT_FIELD_REQUIRED', '&nbsp;<span class="fieldRequired">* erforderlich</span>');
 
-define('ERROR_NO_DEFAULT_CURRENCY_DEFINED', 'Fehler: Es wurde keine Standardw&auml;hrung definiert. Bitte definieren Sie unter Adminstration -> Sprachen/W&auml;hrungen -> W&auml;hrungen eine Standardw&auml;hrung.');
-define('ERROR_USER_FOR_THIS_PAGE', 'Fehler: Sie haben f&uuml;r diesen Bereich keine Zugangsrechte.');
+define('ERROR_NO_DEFAULT_CURRENCY_DEFINED', 'Fehler: Es wurde keine Standardwährung definiert. Bitte definieren Sie unter Adminstration -> Sprachen/Währungen -> Währungen eine Standardwährung.');
+define('ERROR_USER_FOR_THIS_PAGE', 'Fehler: Sie haben für diesen Bereich keine Zugangsrechte.');
 
 define('TEXT_INFO_USER_NAME', 'UserName:');
 define('TEXT_INFO_PASSWORD', 'Password:');
@@ -392,7 +392,7 @@ define('IMAGE_RELEASE', 'Gutschein einl&ouml;sen');
 
 define('_JANUARY', 'Januar');
 define('_FEBRUARY', 'Februar');
-define('_MARCH', 'M&auml;rz');
+define('_MARCH', 'März');
 define('_APRIL', 'April');
 define('_MAY', 'Mai');
 define('_JUNE', 'Juni');

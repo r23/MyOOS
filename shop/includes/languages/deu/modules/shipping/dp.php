@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -20,16 +20,16 @@
    ---------------------------------------------------------------------- */
 
 define('MODULE_SHIPPING_DP_STATUS_TITLE', 'Deutsche Post WorldNet');
-define('MODULE_SHIPPING_DP_STATUS_DESC', 'Wollen Sie den Versand &uuml;ber die deutsche Post anbieten?');
+define('MODULE_SHIPPING_DP_STATUS_DESC', 'Wollen Sie den Versand über die deutsche Post anbieten?');
 
-define('MODULE_SHIPPING_DP_HANDLING_TITLE', 'Handling Geb&uuml;hr');
-define('MODULE_SHIPPING_DP_HANDLING_DESC', 'Bearbeitungsgeb&uuml;hr f&uuml;r diese Versandart in Euro');
+define('MODULE_SHIPPING_DP_HANDLING_TITLE', 'Handling Gebühr');
+define('MODULE_SHIPPING_DP_HANDLING_DESC', 'Bearbeitungsgebühr für diese Versandart in Euro');
 
 define('MODULE_SHIPPING_DP_TAX_CLASS_TITLE', 'Steuersatz');
-define('MODULE_SHIPPING_DP_TAX_CLASS_DESC', 'W&uuml;hlen Sie den MwSt.-Satz f&uuml;r diese Versandart aus.');
+define('MODULE_SHIPPING_DP_TAX_CLASS_DESC', 'Wühlen Sie den MwSt.-Satz für diese Versandart aus.');
 
 define('MODULE_SHIPPING_DP_ZONE_TITLE', 'Versand Zone');
-define('MODULE_SHIPPING_DP_ZONE_DESC', 'Geben Sie <strong>einzeln</strong> die Zonen an, in welche ein Versand m&ouml;glich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
+define('MODULE_SHIPPING_DP_ZONE_DESC', 'Geben Sie <strong>einzeln</strong> die Zonen an, in welche ein Versand möglich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
 
 define('MODULE_SHIPPING_DP_SORT_ORDER_TITLE', 'Reihenfolge der Anzeige');
 define('MODULE_SHIPPING_DP_SORT_ORDER_DESC', 'Niedrigste wird zuerst angezeigt.');
@@ -75,6 +75,6 @@ $aLang['module_shipping_dp_text_title'] = 'DHL';
 $aLang['module_shipping_dp_text_description'] = 'DHL - Weltweites Versandmodul';
 $aLang['module_shipping_dp_text_way'] = 'Versand nach';
 $aLang['module_shipping_dp_text_units'] = 'kg';
-$aLang['module_shipping_dp_invalid_zone'] = 'Es ist leider kein Versand in dieses Land m&ouml;glich';
-$aLang['module_shipping_dp_undefined_rate'] = 'Die Versandkosten k&ouml;nnen im Moment nicht errechnet werden';
+$aLang['module_shipping_dp_invalid_zone'] = 'Es ist leider kein Versand in dieses Land möglich';
+$aLang['module_shipping_dp_undefined_rate'] = 'Die Versandkosten können im Moment nicht errechnet werden';
 

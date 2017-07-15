@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -20,6 +20,6 @@
    
 define('HEADING_TITLE', 'Abmelden');
 define('NAVBAR_TITLE', 'Anmelden');
-define('TEXT_MAIN', 'Sie haben sich vom <b>Redaktionsbereich</b> abgemeldet. Es ist nun sicher den Computer zu verlassen. Klicken Sie "zur&uuml;ck" wenn Sie sich wieder anmelden wollen.');
+define('TEXT_MAIN', 'Sie haben sich vom <b>Redaktionsbereich</b> abgemeldet. Es ist nun sicher den Computer zu verlassen. Klicken Sie "zurück" wenn Sie sich wieder anmelden wollen.');
 define('TEXT_RELOGIN', 'wieder anmelden');
 

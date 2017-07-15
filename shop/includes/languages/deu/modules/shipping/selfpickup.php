@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -20,15 +20,15 @@
    ---------------------------------------------------------------------- */
 
 define('MODULE_SHIPPING_SELFPICKUP_STATUS_TITLE', 'Selbstabholung aktivieren');
-define('MODULE_SHIPPING_SELFPICKUP_STATUS_DESC', 'M&ouml;chten Sie Selbstabholung anbieten?');
+define('MODULE_SHIPPING_SELFPICKUP_STATUS_DESC', 'Möchten Sie Selbstabholung anbieten?');
 
 define('MODULE_SHIPPING_SELFPICKUP_ZONE_TITLE', 'Erlaubte Versandzonen');
-define('MODULE_SHIPPING_SELFPICKUP_ZONE_DESC', 'Geben Sie <strong>einzeln</strong> die Zonen an, in welche ein Versand m&ouml;glich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
+define('MODULE_SHIPPING_SELFPICKUP_ZONE_DESC', 'Geben Sie <strong>einzeln</strong> die Zonen an, in welche ein Versand möglich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
 
 define('MODULE_SHIPPING_SELFPICKUP_SORT_ORDER_TITLE', 'Sortierreihenfolge');
 define('MODULE_SHIPPING_SELFPICKUP_SORT_ORDER_DESC', 'Reihenfolge der Anzeige');
 
 $aLang['module_shipping_selfpickup_text_title'] = 'Selbstabholung';
-$aLang['module_shipping_selfpickup_text_description'] = 'Selbstabholung der Ware in unserer Gesch&auml;ftsstelle.';
-$aLang['module_shipping_selfpickup_text_way'] = 'Selbstabholung der Ware in unserer Gesch&auml;ftsstelle.';
+$aLang['module_shipping_selfpickup_text_description'] = 'Selbstabholung der Ware in unserer Geschäftsstelle.';
+$aLang['module_shipping_selfpickup_text_way'] = 'Selbstabholung der Ware in unserer Geschäftsstelle.';
 

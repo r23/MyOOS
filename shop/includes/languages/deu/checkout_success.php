@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -26,13 +26,13 @@ $aLang['navbar_title_2'] = 'Erfolg';
 $aLang['heading_title'] = 'Vielen Dank!';
 
 $aLang['text_success'] = 'Ihre Bestellung ist eingegangen und wird bearbeitet! Die Lieferung erfolgt innerhalb von ca. 2-5 Werktagen.';
-$aLang['text_notify_products'] = 'Bitte benachrichtigen Sie mich &uuml;ber Aktuelles zu folgenden Produkten:';
-$aLang['text_see_orders'] = 'Sie k&ouml;nnen Ihre Bestellung(en) auf der Seite <a href="' . oos_href_link($aContents['account'], '', 'SSL') . '"><u>\'Ihr Konto\'</a></u> jederzeit einsehen und sich dort auch Ihre <a href="' . oos_href_link($aContents['account_history'], '', 'SSL') . '"><u>\'Bestell&uuml;bersicht\'</u></a> anzeigen lassen.';
-$aLang['text_contact_store_owner'] = 'Falls Sie Fragen bez&uuml;glich Ihrer Bestellung haben, wenden Sie sich an unseren <a href="' . oos_href_link($aContents['contact_us']) . '"><u>Vertrieb</u></a>.';
-$aLang['text_thanks_for_shopping'] = 'Wir danken Ihnen f&uuml;r Ihren Online-Einkauf!';
+$aLang['text_notify_products'] = 'Bitte benachrichtigen Sie mich über Aktuelles zu folgenden Produkten:';
+$aLang['text_see_orders'] = 'Sie können Ihre Bestellung(en) auf der Seite <a href="' . oos_href_link($aContents['account'], '', 'SSL') . '"><u>\'Ihr Konto\'</a></u> jederzeit einsehen und sich dort auch Ihre <a href="' . oos_href_link($aContents['account_history'], '', 'SSL') . '"><u>\'Bestellübersicht\'</u></a> anzeigen lassen.';
+$aLang['text_contact_store_owner'] = 'Falls Sie Fragen bezüglich Ihrer Bestellung haben, wenden Sie sich an unseren <a href="' . oos_href_link($aContents['contact_us']) . '"><u>Vertrieb</u></a>.';
+$aLang['text_thanks_for_shopping'] = 'Wir danken Ihnen für Ihren Online-Einkauf!';
 
-$aLang['table_heading_download_date'] = 'herunterladen m&ouml;glich bis:';
+$aLang['table_heading_download_date'] = 'herunterladen möglich bis:';
 $aLang['table_heading_download_count'] = 'max. Anz. Downloads';
 $aLang['heading_download'] = 'Artikel herunterladen:';
-$aLang['footer_download'] = 'Sie k&ouml;nnen Ihre Artikel auch sp&auml;ter unter \'%s\' herunterladen';
+$aLang['footer_download'] = 'Sie können Ihre Artikel auch später unter \'%s\' herunterladen';
 

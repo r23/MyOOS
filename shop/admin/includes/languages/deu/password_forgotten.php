@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -21,8 +21,8 @@
    ---------------------------------------------------------------------- */
 
 define('ADMIN_PASSWORD_SUBJECT', STORE_NAME . ' - Ihr neues Passwort.');
-define('ADMIN_EMAIL_TEXT', '&Uumlber die Adresse ' . oos_server_get_var('REMOTE_ADDR') . ' haben wir eine Anfrage zur Passworterneuerung erhalten.' . "\n\n" . 'Ihr neues Passwort f&uuml;r \'' . STORE_NAME . '\' lautet ab sofort:' . "\n\n" . '   %s' . "\n\n");
+define('ADMIN_EMAIL_TEXT', '&Uumlber die Adresse ' . oos_server_get_var('REMOTE_ADDR') . ' haben wir eine Anfrage zur Passworterneuerung erhalten.' . "\n\n" . 'Ihr neues Passwort für \'' . STORE_NAME . '\' lautet ab sofort:' . "\n\n" . '   %s' . "\n\n");
 
 define('HEADING_PASSWORD_FORGOTTEN', 'Passwort vergessen');
-define('TEXT_PASSWORD_INFO', 'Bitte geben Sie Ihren Vornamen und Ihre E-Mail Adresse ein und klicken Sie auf Passwort senden. <br />In K&uuml;rze erhalten Sie ein neues Passwort. Verwenden Sie dieses Passwort, um sich anzumelden.');
+define('TEXT_PASSWORD_INFO', 'Bitte geben Sie Ihren Vornamen und Ihre E-Mail Adresse ein und klicken Sie auf Passwort senden. <br />In Kürze erhalten Sie ein neues Passwort. Verwenden Sie dieses Passwort, um sich anzumelden.');
 

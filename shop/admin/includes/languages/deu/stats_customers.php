@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -20,7 +20,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('HEADING_TITLE', 'Kunden mit den h&ouml;chsten Ums&auml;tzen');
+define('HEADING_TITLE', 'Kunden mit den höchsten Umsätzen');
 
 define('TABLE_HEADING_NUMBER', 'Nr.');
 define('TABLE_HEADING_CUSTOMERS', 'Kunde');

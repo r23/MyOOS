@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -27,7 +27,7 @@
 
 
 $aLang['navbar_title'] = 'Konto erstellen';
-$aLang['heading_title'] = 'Die pers&ouml;nlichen Daten';
+$aLang['heading_title'] = 'Die persönlichen Daten';
 $aLang['TEXT_ORIGIN_LOGIN'] = '<font color="#FF0000"><small><strong>ACHTUNG:</strong></font></small> Wenn Sie bereits ein Konto besitzen, so melden Sie sich bitte <a href="%s"><u><strong>hier</strong></u></a> an.';
 
 

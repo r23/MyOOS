@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -25,14 +25,14 @@ define('HEADING_TITLE', 'Steuerklassen');
 define('TABLE_HEADING_TAX_CLASSES', 'Steuerklassen');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
-define('TEXT_INFO_EDIT_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nderungen durch');
+define('TEXT_INFO_EDIT_INTRO', 'Bitte führen Sie alle notwendigen Änderungen durch');
 define('TEXT_INFO_CLASS_TITLE', 'Name der Steuerklasse:');
 define('TEXT_INFO_CLASS_DESCRIPTION', 'Beschreibung:');
-define('TEXT_INFO_DATE_ADDED', 'hinzugef&uuml;gt am:');
-define('TEXT_INFO_LAST_MODIFIED', 'letzte &Auml;nderung:');
+define('TEXT_INFO_DATE_ADDED', 'hinzugefügt am:');
+define('TEXT_INFO_LAST_MODIFIED', 'letzte Änderung:');
 define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie die neue Steuerklasse mit allen relevanten Daten ein');
-define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Steuerklasse l&ouml;schen m&ouml;chten?');
+define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Steuerklasse löschen möchten?');
 define('TEXT_INFO_HEADING_NEW_TAX_CLASS', 'neue Steuerklasse');
 define('TEXT_INFO_HEADING_EDIT_TAX_CLASS', 'Steuerklasse bearbeiten');
-define('TEXT_INFO_HEADING_DELETE_TAX_CLASS', 'Steuerklasse l&ouml;schen');
+define('TEXT_INFO_HEADING_DELETE_TAX_CLASS', 'Steuerklasse löschen');
 

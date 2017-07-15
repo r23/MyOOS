@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -28,7 +28,7 @@ define('MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. 
 define('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_TITLE', 'Versandkostenfrei erlauben');
 define('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_DESC', 'Versandkostenfreie Lieferung erlauben?');
 
-define('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER_TITLE', 'Versandkostenfrei f&uuml;r Bestellungen ab');
+define('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER_TITLE', 'Versandkostenfrei für Bestellungen ab');
 define('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER_DESC', 'Versandkostenfrei ab einem Bestellwert von:');
 
 define('MODULE_ORDER_TOTAL_SHIPPING_DESTINATION_TITLE', 'Versandkostenfrei nach Zonen');
@@ -38,5 +38,5 @@ $aLang['module_order_total_shipping_title'] = 'Versandkosten';
 $aLang['module_order_total_shipping_description'] = 'Versandkosten einer Bestellung';
 
 $aLang['free_shipping_title'] = 'Versandkostenfrei';
-$aLang['free_shipping_description'] = 'Versandkostenfrei bei einem Bestellwert &uuml;ber %s';
+$aLang['free_shipping_description'] = 'Versandkostenfrei bei einem Bestellwert über %s';
 

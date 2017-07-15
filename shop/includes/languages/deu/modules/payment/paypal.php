@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
 
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -20,19 +20,19 @@
    ---------------------------------------------------------------------- */
 
 define('MODULE_PAYMENT_PAYPAL_STATUS_TITLE', 'PayPal Modul aktivieren');
-define('MODULE_PAYMENT_PAYPAL_STATUS_DESC', 'M&ouml;chten Sie Zahlungen per PayPal akzeptieren?');
+define('MODULE_PAYMENT_PAYPAL_STATUS_DESC', 'Möchten Sie Zahlungen per PayPal akzeptieren?');
 
 define('MODULE_PAYMENT_PAYPAL_ID_TITLE', 'eMail Adresse');
-define('MODULE_PAYMENT_PAYPAL_ID_DESC', 'eMail Adresse, welche f&uuml;r PayPal verwendet wird.');
+define('MODULE_PAYMENT_PAYPAL_ID_DESC', 'eMail Adresse, welche für PayPal verwendet wird.');
 
-define('MODULE_PAYMENT_PAYPAL_CURRENCY_TITLE', 'Transaktionsw&auml;hrung');
-define('MODULE_PAYMENT_PAYPAL_CURRENCY_DESC', 'W&auml;hrung, welche f&uuml;r Kreditkartentransaktionen verwendet wird.');
+define('MODULE_PAYMENT_PAYPAL_CURRENCY_TITLE', 'Transaktionswährung');
+define('MODULE_PAYMENT_PAYPAL_CURRENCY_DESC', 'Währung, welche für Kreditkartentransaktionen verwendet wird.');
 
 define('MODULE_PAYMENT_PAYPAL_SORT_ORDER_TITLE', 'Anzeigereihenfolge');
 define('MODULE_PAYMENT_PAYPAL_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kleinste Ziffer wird zuerst angezeigt.');
 
 define('MODULE_PAYMENT_PAYPAL_ZONE_TITLE', 'Zahlungszone');
-define('MODULE_PAYMENT_PAYPAL_ZONE_DESC', 'Wenn eine Zone ausgew&auml;hlt ist, gilt die Zahlungsmethode nur f&uuml;r diese Zone.');
+define('MODULE_PAYMENT_PAYPAL_ZONE_DESC', 'Wenn eine Zone ausgewählt ist, gilt die Zahlungsmethode nur für diese Zone.');
 
 define('MODULE_PAYMENT_PAYPAL_ORDER_STATUS_ID_TITLE', 'Bestellstatus festlegen');
 define('MODULE_PAYMENT_PAYPAL_ORDER_STATUS_ID_DESC', 'Bestellungen, welche mit diesem Modul gemacht werden, auf diesen Status setzen.');

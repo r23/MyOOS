@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -22,5 +22,5 @@
 
 $aLang['heading_title'] = 'Abmeldung';
 $aLang['navbar_title'] = 'Abmeldung';
-$aLang['text_main'] = 'Sie wurden soeben sicher abgemeldet, so dass niemand mehr Ihre Daten einsehen kann.<br /><br />Ihr Warenkorb wurde zwischengespeichert und steht Ihnen nach der n&auml;chsten Anmeldung wieder zur Verf&uuml;gung.';
+$aLang['text_main'] = 'Sie wurden soeben sicher abgemeldet, so dass niemand mehr Ihre Daten einsehen kann.<br /><br />Ihr Warenkorb wurde zwischengespeichert und steht Ihnen nach der nächsten Anmeldung wieder zur Verfügung.';
 

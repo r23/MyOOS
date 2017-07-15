@@ -23,9 +23,9 @@ define('TABLE_HEADING_CONFIGURATION_TITLE', 'Name');
 define('TABLE_HEADING_CONFIGURATION_VALUE', 'Wert');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
-define('TEXT_INFO_EDIT_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nderungen durch');
-define('TEXT_INFO_DATE_ADDED', 'hinzugef&uuml;gt am:');
-define('TEXT_INFO_LAST_MODIFIED', 'letzte &Auml;nderung:');
+define('TEXT_INFO_EDIT_INTRO', 'Bitte führen Sie alle notwendigen Änderungen durch');
+define('TEXT_INFO_DATE_ADDED', 'hinzugefügt am:');
+define('TEXT_INFO_LAST_MODIFIED', 'letzte Änderung:');
 
 
 define('STORE_NAME_TITLE', 'Shop Name');
@@ -67,11 +67,11 @@ define('EXPECTED_PRODUCTS_SORT_DESC', 'Sortierreihenfolge, die im \'erwartete Pr
 define('EXPECTED_PRODUCTS_FIELD_TITLE', 'Sortierspalte erwartete Produkte');
 define('EXPECTED_PRODUCTS_FIELD_DESC', 'Die Spalte, nach der im \'erwartete Produkte\'-Block sortiert wird.');
 
-define('USE_DEFAULT_LANGUAGE_CURRENCY_TITLE', 'W&auml;hrung automatisch wechseln');
-define('USE_DEFAULT_LANGUAGE_CURRENCY_DESC', 'Wechselt automatisch die W&auml;hrung anhand der eingestellten Sprache');
+define('USE_DEFAULT_LANGUAGE_CURRENCY_TITLE', 'Währung automatisch wechseln');
+define('USE_DEFAULT_LANGUAGE_CURRENCY_DESC', 'Wechselt automatisch die Währung anhand der eingestellten Sprache');
 
-define('ADVANCED_SEARCH_DEFAULT_OPERATOR_TITLE', 'Standardoperator f&uuml;r Suchfunktionen');
-define('ADVANCED_SEARCH_DEFAULT_OPERATOR_DESC', 'Die Standardverkn&uuml;pfung, mit der mehrere Suchbegriffe verkn&uuml;pft werden');
+define('ADVANCED_SEARCH_DEFAULT_OPERATOR_TITLE', 'Standardoperator für Suchfunktionen');
+define('ADVANCED_SEARCH_DEFAULT_OPERATOR_DESC', 'Die Standardverknüpfung, mit der mehrere Suchbegriffe verknüpft werden');
 
 define('STORE_NAME_ADDRESS_TITLE', 'Adressinformationen des Shops');
 define('STORE_NAME_ADDRESS_DESC', 'Die Kontaktinformationen des Shops, welche sowohl in Dokumenten als auch Online ausgegeben werden');
@@ -83,46 +83,46 @@ define('DISPLAY_PRICE_WITH_TAX_TITLE', 'Preise inkl. Steuer');
 define('DISPLAY_PRICE_WITH_TAX_DESC', 'Preise incl. Steuer anzeigen (true) oder die Steuer dem Gesamtbetrag hinzurechnen (false)');
 
 define('PRODUCTS_OPTIONS_SORT_BY_PRICE_TITLE', 'Sortierung Produktoptionen');
-define('PRODUCTS_OPTIONS_SORT_BY_PRICE_DESC', 'M&ouml;chten Sie die Produktopionen nach Preisen sortieren?');
+define('PRODUCTS_OPTIONS_SORT_BY_PRICE_DESC', 'Möchten Sie die Produktopionen nach Preisen sortieren?');
 
 define('ENTRY_FIRST_NAME_MIN_LENGTH_TITLE', 'Vorname');
-define('ENTRY_FIRST_NAME_MIN_LENGTH_DESC', 'Mindestl&auml;nge des Vornames');
+define('ENTRY_FIRST_NAME_MIN_LENGTH_DESC', 'Mindestlänge des Vornames');
 
 define('ENTRY_LAST_NAME_MIN_LENGTH_TITLE', 'Nachname');
-define('ENTRY_LAST_NAME_MIN_LENGTH_DESC', 'Mindestl&auml;nge des Nachnames');
+define('ENTRY_LAST_NAME_MIN_LENGTH_DESC', 'Mindestlänge des Nachnames');
 
 define('ENTRY_DOB_MIN_LENGTH_TITLE', 'Geburtsdatum');
-define('ENTRY_DOB_MIN_LENGTH_DESC', 'Mindestl&auml;nge des Geburtsdatums');
+define('ENTRY_DOB_MIN_LENGTH_DESC', 'Mindestlänge des Geburtsdatums');
 
 define('ENTRY_EMAIL_ADDRESS_MIN_LENGTH_TITLE', 'E-Mail Adresse');
-define('ENTRY_EMAIL_ADDRESS_MIN_LENGTH_DESC', 'Mindestl&auml;nge der E-Mail Adresse');
+define('ENTRY_EMAIL_ADDRESS_MIN_LENGTH_DESC', 'Mindestlänge der E-Mail Adresse');
 
 define('ENTRY_STREET_ADDRESS_MIN_LENGTH_TITLE', 'Strasse');
-define('ENTRY_STREET_ADDRESS_MIN_LENGTH_DESC', 'Mindestl&auml;nge des Strassennamens');
+define('ENTRY_STREET_ADDRESS_MIN_LENGTH_DESC', 'Mindestlänge des Strassennamens');
 
 define('ENTRY_COMPANY_LENGTH_TITLE', 'Firma');
-define('ENTRY_COMPANY_LENGTH_DESC', 'Mindestl&auml;nge des Firmennames');
+define('ENTRY_COMPANY_LENGTH_DESC', 'Mindestlänge des Firmennames');
 
 define('ENTRY_POSTCODE_MIN_LENGTH_TITLE', 'Postleitzahl');
-define('ENTRY_POSTCODE_MIN_LENGTH_DESC', 'Mindestl&auml;nge der Postleitzahl');
+define('ENTRY_POSTCODE_MIN_LENGTH_DESC', 'Mindestlänge der Postleitzahl');
 
 define('ENTRY_CITY_MIN_LENGTH_TITLE', 'Stadt');
-define('ENTRY_CITY_MIN_LENGTH_DESC', 'Mindestl&auml;nge des Namens der Stadt');
+define('ENTRY_CITY_MIN_LENGTH_DESC', 'Mindestlänge des Namens der Stadt');
 
 define('ENTRY_STATE_MIN_LENGTH_TITLE', 'Bundesland');
-define('ENTRY_STATE_MIN_LENGTH_DESC', 'Mindestl&auml;nge des Namens des Bundeslandes');
+define('ENTRY_STATE_MIN_LENGTH_DESC', 'Mindestlänge des Namens des Bundeslandes');
 
 define('ENTRY_TELEPHONE_MIN_LENGTH_TITLE', 'Telefonnummer');
-define('ENTRY_TELEPHONE_MIN_LENGTH_DESC', 'Mindestl&auml;nge der Telefonnummer');
+define('ENTRY_TELEPHONE_MIN_LENGTH_DESC', 'Mindestlänge der Telefonnummer');
 
 define('ENTRY_PASSWORD_MIN_LENGTH_TITLE', 'Passwort');
-define('ENTRY_PASSWORD_MIN_LENGTH_DESC', 'Mindestl&auml;nge des Passworts');
+define('ENTRY_PASSWORD_MIN_LENGTH_DESC', 'Mindestlänge des Passworts');
 
-define('CC_OWNER_MIN_LENGTH_TITLE', 'Name Kreditkarteneigent&uuml;mer');
-define('CC_OWNER_MIN_LENGTH_DESC', 'Mindestl&auml;nge des Names vom Kreditkarteneigent&uuml;mer');
+define('CC_OWNER_MIN_LENGTH_TITLE', 'Name Kreditkarteneigentümer');
+define('CC_OWNER_MIN_LENGTH_DESC', 'Mindestlänge des Names vom Kreditkarteneigentümer');
 
 define('CC_NUMBER_MIN_LENGTH_TITLE', 'Kreditkartennummer');
-define('CC_NUMBER_MIN_LENGTH_DESC', 'Mindestl&auml;nge der Kreditkartennummer');
+define('CC_NUMBER_MIN_LENGTH_DESC', 'Mindestlänge der Kreditkartennummer');
 
 define('MIN_DISPLAY_BESTSELLERS_TITLE', 'Verkaufsschlager');
 define('MIN_DISPLAY_BESTSELLERS_DESC', 'Minimale Anzahl der Verkaufsschlager, die angezeigt werden.');
@@ -133,8 +133,8 @@ define('MIN_DISPLAY_ALSO_PURCHASED_DESC', 'Minimale Anzahl von Produkten, die im
 define('MIN_DISPLAY_XSELL_PRODUCTS_TITLE', 'Produkt-Empfehlungen');
 define('MIN_DISPLAY_XSELL_PRODUCTS_DESC', 'Minimale Anzahl von Produkten, die im \'Produkt-Empfehlungen\'-Block angezeigt werden.');
 
-define('MAX_ADDRESS_BOOK_ENTRIES_TITLE', 'Anzahl Adressbucheintr&auml;ge');
-define('MAX_ADDRESS_BOOK_ENTRIES_DESC', 'Maximale Anzahl von Adressbucheintr&auml;gen, die ein Kunde besitzen darf.');
+define('MAX_ADDRESS_BOOK_ENTRIES_TITLE', 'Anzahl Adressbucheinträge');
+define('MAX_ADDRESS_BOOK_ENTRIES_DESC', 'Maximale Anzahl von Adressbucheinträgen, die ein Kunde besitzen darf.');
 
 define('MAX_DISPLAY_SEARCH_RESULTS_TITLE', 'Anzahl Suchergebnisse');
 define('MAX_DISPLAY_SEARCH_RESULTS_DESC', 'Maximal Anzahl der Artikel, die als Suchergebnis angezeigt werden.');
@@ -148,11 +148,11 @@ define('MAX_DISPLAY_NEW_PRODUCTS_DESC', 'Maximale Anzahl von neuen Produkten, di
 define('MAX_DISPLAY_UPCOMING_PRODUCTS_TITLE', 'Erwartete Produkte');
 define('MAX_DISPLAY_UPCOMING_PRODUCTS_DESC', 'Maximale Anzahl der erwarteten Produkte, die angezeigt werden.');
 
-define('MAX_RANDOM_SELECT_NEW_TITLE', 'Zuf&auml;llige Produktanzeigen');
+define('MAX_RANDOM_SELECT_NEW_TITLE', 'Zufällige Produktanzeigen');
 define('MAX_RANDOM_SELECT_NEW_DESC', 'Die Menge der neuen Produkte, aus denen per Zufall ein Produkt angezeigt wird');
 
 define('MAX_DISPLAY_PRODUCTS_NEW_TITLE', 'Anzahl neue Produkte');
-define('MAX_DISPLAY_PRODUCTS_NEW_DESC', 'Anzahl der neuen Produkte, die in der &Uuml;bersicht der neuen Produkte maximal angezeigt werden');
+define('MAX_DISPLAY_PRODUCTS_NEW_DESC', 'Anzahl der neuen Produkte, die in der Übersicht der neuen Produkte maximal angezeigt werden');
 
 define('MAX_DISPLAY_BESTSELLERS_TITLE', 'Verkaufsschlager');
 define('MAX_DISPLAY_BESTSELLERS_DESC', 'Maximale Anzahl der anzuzeigenden Verkaufsschlager');
@@ -160,8 +160,8 @@ define('MAX_DISPLAY_BESTSELLERS_DESC', 'Maximale Anzahl der anzuzeigenden Verkau
 define('MAX_DISPLAY_ALSO_PURCHASED_TITLE', 'Kunden kauften auch');
 define('MAX_DISPLAY_ALSO_PURCHASED_DESC', 'Maximale Anzahl von Produkten die im \'Kunden kauften auch\'-Block angezeigt werden');
 
-define('MAX_DISPLAY_ORDER_HISTORY_TITLE', 'Anzahl Bestellungen im Bestell&uuml;bersicht-Block');
-define('MAX_DISPLAY_ORDER_HISTORY_DESC', 'Maximale Anzahl von Bestellungen im Bestell&uuml;bersichts-Block');
+define('MAX_DISPLAY_ORDER_HISTORY_TITLE', 'Anzahl Bestellungen im Bestellübersicht-Block');
+define('MAX_DISPLAY_ORDER_HISTORY_DESC', 'Maximale Anzahl von Bestellungen im Bestellübersichts-Block');
 
 define('MAX_DISPLAY_XSELL_PRODUCTS_TITLE', 'Produkt-Empfehlungen');
 define('MAX_DISPLAY_XSELL_PRODUCTS_DESC', 'Maximale Anzahl von Produkten, die im \'Produkt-Empfehlungen\'-Block angezeigt werden');
@@ -170,29 +170,29 @@ define('MAX_DISPLAY_WISHLIST_PRODUCTS_TITLE', 'Wunschzettel');
 define('MAX_DISPLAY_WISHLIST_PRODUCTS_DESC', 'Maximale Anzahl von Produkten auf der Wunschzettel-Seite');
 
 
-define('MAX_DISPLAY_PRODUCTS_IN_PRODUCTS_HISTORY_BOX_TITLE', 'Anzahl der k&uuml;rzlich besuchten Produkte');
-define('MAX_DISPLAY_PRODUCTS_IN_PRODUCTS_HISTORY_BOX_DESC', 'Maximale Anzahl von Produkten, die im \'Products History\'-Block angezeigt werden. Dies sind die Produkte, die sich der Shopbesucher k&uuml;rzlich angesehen hat.');
+define('MAX_DISPLAY_PRODUCTS_IN_PRODUCTS_HISTORY_BOX_TITLE', 'Anzahl der kürzlich besuchten Produkte');
+define('MAX_DISPLAY_PRODUCTS_IN_PRODUCTS_HISTORY_BOX_DESC', 'Maximale Anzahl von Produkten, die im \'Products History\'-Block angezeigt werden. Dies sind die Produkte, die sich der Shopbesucher kürzlich angesehen hat.');
 
 define('SMALL_IMAGE_WIDTH_TITLE', 'Breite kleine Bilder');
 define('SMALL_IMAGE_WIDTH_DESC', 'Die Breite von kleinen Bildern in Pixeln');
 
-define('SMALL_IMAGE_HEIGHT_TITLE', 'H&ouml;he kleine Bilder');
-define('SMALL_IMAGE_HEIGHT_DESC', 'Die H&ouml;he von kleinen Bildern in Pixeln');
+define('SMALL_IMAGE_HEIGHT_TITLE', 'Höhe kleine Bilder');
+define('SMALL_IMAGE_HEIGHT_DESC', 'Die Höhe von kleinen Bildern in Pixeln');
 
 define('SUBCATEGORY_IMAGE_WIDTH_TITLE', 'Breite Unterkategorie-Bilder');
 define('SUBCATEGORY_IMAGE_WIDTH_DESC', 'Die Breite von Unterkategorie-Bildern in Pixeln');
 
-define('SUBCATEGORY_IMAGE_HEIGHT_TITLE', 'H&ouml;he Unterkategorie-Bilder');
-define('SUBCATEGORY_IMAGE_HEIGHT_DESC', 'Die H&ouml;he von Unterkategorie-Bildern in Pixeln');
+define('SUBCATEGORY_IMAGE_HEIGHT_TITLE', 'Höhe Unterkategorie-Bilder');
+define('SUBCATEGORY_IMAGE_HEIGHT_DESC', 'Die Höhe von Unterkategorie-Bildern in Pixeln');
 
-define('CONFIG_CALCULATE_IMAGE_SIZE_TITLE', 'Berechnen der Bildgr&ouml;sse');
-define('CONFIG_CALCULATE_IMAGE_SIZE_DESC', 'Soll die Bildgr&ouml;sse berechnet werden?');
+define('CONFIG_CALCULATE_IMAGE_SIZE_TITLE', 'Berechnen der Bildgrösse');
+define('CONFIG_CALCULATE_IMAGE_SIZE_DESC', 'Soll die Bildgrösse berechnet werden?');
 
 define('IMAGE_REQUIRED_TITLE', 'Bild erforderlich');
 define('IMAGE_REQUIRED_DESC', 'Einschalten, um tote Links zu Bildern darzustellen. Hilfreich bei der Entwicklung.');
 
 define('CUSTOMER_NOT_LOGIN_TITLE', 'Zugangsberechtigung');
-define('CUSTOMER_NOT_LOGIN_DESC', 'Die Zugangsberechtigung wird durch den Administrator nach Pr&uuml;fung der Kundendaten erteilt');
+define('CUSTOMER_NOT_LOGIN_DESC', 'Die Zugangsberechtigung wird durch den Administrator nach Prüfung der Kundendaten erteilt');
 
 define('SEND_CUSTOMER_EDIT_EMAILS_TITLE', 'Kundendaten per Mail');
 define('SEND_CUSTOMER_EDIT_EMAILS_DESC', 'Die Kundendaten werden per E-Mail an den Shopbetreiber versandt');
@@ -201,16 +201,16 @@ define('DEFAULT_MAX_ORDER_TITLE', 'Kundenkredit');
 define('DEFAULT_MAX_ORDER_DESC', 'Maximaler Wert einer Bestellung');
 
 define('ACCOUNT_GENDER_TITLE', 'Anrede');
-define('ACCOUNT_GENDER_DESC', 'Die Anrede wird angezeigt und als Eingabe zwingend gefordert, wenn auf \'true\' gesetzt wird. Sonst wird es als nicht als Eingabem&ouml;glichkeit angezeigt.');
+define('ACCOUNT_GENDER_DESC', 'Die Anrede wird angezeigt und als Eingabe zwingend gefordert, wenn auf \'true\' gesetzt wird. Sonst wird es als nicht als Eingabemöglichkeit angezeigt.');
 
 define('ACCOUNT_DOB_TITLE', 'Geburtsdatum');
-define('ACCOUNT_DOB_DESC', 'Das Gebutsdatum wird als Eingabe zwingend gefordert, wenn auf \'true\' gesetzt wird. Sonst wird es als nicht als Eingabem&ouml;glichkeit angezeigt.');
+define('ACCOUNT_DOB_DESC', 'Das Gebutsdatum wird als Eingabe zwingend gefordert, wenn auf \'true\' gesetzt wird. Sonst wird es als nicht als Eingabemöglichkeit angezeigt.');
 
 define('ACCOUNT_NUMBER_TITLE', 'Kundennummer');
-define('ACCOUNT_NUMBER_DESC', 'Verwaltung von eigenen Kundenummern, wenn auf \'true\' gesetzt wird. Sonst wird es als nicht als Eingabem&ouml;glichkeit angezeigt. Die Eingabe ist nicht zwingend notwendig.');
+define('ACCOUNT_NUMBER_DESC', 'Verwaltung von eigenen Kundenummern, wenn auf \'true\' gesetzt wird. Sonst wird es als nicht als Eingabemöglichkeit angezeigt. Die Eingabe ist nicht zwingend notwendig.');
 
 define('ACCOUNT_COMPANY_TITLE', 'Firmenname');
-define('ACCOUNT_COMPANY_DESC', 'Ein Firmenname f&uuml;r gewerbliche Kunden kann eingegeben werden. Die Eingabe ist nicht zwingend notwendig.');
+define('ACCOUNT_COMPANY_DESC', 'Ein Firmenname für gewerbliche Kunden kann eingegeben werden. Die Eingabe ist nicht zwingend notwendig.');
 
 define('ACCOUNT_OWNER_TITLE', 'Inhaber');
 define('ACCOUNT_OWNER_DESC', 'Der Inhaber der Firmen bei gewerblichen Kunden kann eingegeben werden. Die Eingabe ist nicht zwingend notwendig.');
@@ -223,77 +223,77 @@ define('ACCOUNT_SUBURB_TITLE', 'Stadtteil');
 define('ACCOUNT_SUBURB_DESC', 'Stadtteil wird angezeigt und kann eingegeben werden. Eine Eingabe ist nicht zwingend notwendig.');
 
 define('ACCOUNT_STATE_TITLE', 'Bundesland');
-define('ACCOUNT_STATE_DESC', 'Die Anzeige und Eingabe des Bundeslandes wird erm&ouml;glicht. Die Eingabe ist bei Anzeige zwingend notwendig.');
+define('ACCOUNT_STATE_DESC', 'Die Anzeige und Eingabe des Bundeslandes wird ermöglicht. Die Eingabe ist bei Anzeige zwingend notwendig.');
 
 define('NEWSLETTER_TITLE', 'Newsletter');
-define('NEWSLETTER_DESC', 'M&ouml;chten Sie einen Newsletter anbieten?');
+define('NEWSLETTER_DESC', 'Möchten Sie einen Newsletter anbieten?');
 
 define('PRODUCTS_NOTIFICATIONS_TITLE', 'Produkt-Meldungen');
-define('PRODUCTS_NOTIFICATIONS_DESC', 'M&ouml;chten Sie Produkt-Meldungen per Mail anbieten?');
+define('PRODUCTS_NOTIFICATIONS_DESC', 'Möchten Sie Produkt-Meldungen per Mail anbieten?');
 
-define('STORE_ORIGIN_COUNTRY_TITLE', 'L&auml;ndercode');
-define('STORE_ORIGIN_COUNTRY_DESC', 'Eingabe des &quot;ISO 3166&quot;-L&auml;ndercodes des Shops, der im Versandbereich benutzt werden soll. Zum Finden Ihres L&auml;ndercodes besuchen Sie die <a href="http://www.din.de/gremien/nas/nabd/iso3166ma/codlstp1/index.html" target="_blank">ISO 3166');
+define('STORE_ORIGIN_COUNTRY_TITLE', 'Ländercode');
+define('STORE_ORIGIN_COUNTRY_DESC', 'Eingabe des &quot;ISO 3166&quot;-Ländercodes des Shops, der im Versandbereich benutzt werden soll. Zum Finden Ihres Ländercodes besuchen Sie die <a href="http://www.din.de/gremien/nas/nabd/iso3166ma/codlstp1/index.html" target="_blank">ISO 3166');
 
 define('STORE_ORIGIN_ZIP_TITLE', 'Postleitzahl');
 define('STORE_ORIGIN_ZIP_DESC', 'Eingabe der Postleitzahl des Shops, die im Versandbereich benutzt werden soll.');
 
 define('SHIPPING_MAX_WEIGHT_TITLE', 'Maximales Gewicht einer Bestellung');
-define('SHIPPING_MAX_WEIGHT_DESC', 'Versandunternehmen haben ein H&ouml;chstgewicht f&uuml;r einzelne Pakete. Dies hier ist ein Wert, der f&uuml;r alle Unternehmen gleicherma&szlig;en gilt.');
+define('SHIPPING_MAX_WEIGHT_DESC', 'Versandunternehmen haben ein Höchstgewicht für einzelne Pakete. Dies hier ist ein Wert, der für alle Unternehmen gleicherma&szlig;en gilt.');
 
 define('SHIPPING_BOX_WEIGHT_TITLE', 'Gewicht der Verpackung.');
 define('SHIPPING_BOX_WEIGHT_DESC', 'Wie hoch ist im Schnitt das Gewicht der Verpackung eines kleinen bis mittleren Paketes?');
 
-define('SHIPPING_BOX_PADDING_TITLE', 'Prozentuale Mehrkosten f&uuml;r schwerere Pakete.');
-define('SHIPPING_BOX_PADDING_DESC', 'Prozentuale Mehrkosten f&uuml;r schwerere Pakete. F&uuml;r 10% einfach 10 eingeben.');
+define('SHIPPING_BOX_PADDING_TITLE', 'Prozentuale Mehrkosten für schwerere Pakete.');
+define('SHIPPING_BOX_PADDING_DESC', 'Prozentuale Mehrkosten für schwerere Pakete. Für 10% einfach 10 eingeben.');
 
 define('PRODUCT_LIST_IMAGE_TITLE', 'Artikelbild anzeigen');
-define('PRODUCT_LIST_IMAGE_DESC', 'M&ouml;chten Sie ein Artikelbild anzeigen?');
+define('PRODUCT_LIST_IMAGE_DESC', 'Möchten Sie ein Artikelbild anzeigen?');
 
 define('PRODUCT_LIST_MANUFACTURER_TITLE', 'Artikelhersteller anzeigen');
-define('PRODUCT_LIST_MANUFACTURER_DESC', 'M&ouml;chten Sie den Hersteller des Artikels anzeigen?');
+define('PRODUCT_LIST_MANUFACTURER_DESC', 'Möchten Sie den Hersteller des Artikels anzeigen?');
 
 define('PRODUCT_LIST_MODEL_TITLE', 'Artikelmodell anzeigen');
-define('PRODUCT_LIST_MODEL_DESC', 'M&ouml;chten Sie das Artikelmodell anzeigen?');
+define('PRODUCT_LIST_MODEL_DESC', 'Möchten Sie das Artikelmodell anzeigen?');
 
 define('PRODUCT_LIST_NAME_TITLE', 'Artikelname anzeigen');
-define('PRODUCT_LIST_NAME_DESC', 'M&ouml;chten Sie den Artikelnamen anzeigen?');
+define('PRODUCT_LIST_NAME_DESC', 'Möchten Sie den Artikelnamen anzeigen?');
 
 define('PRODUCT_LIST_UVP_TITLE', 'empfohlenen Verkaufspreis anzeigen');
-define('PRODUCT_LIST_UVP_DESC', 'M&ouml;chten Sie den empfohlenen Verkaufspreis anzeigen?');
+define('PRODUCT_LIST_UVP_DESC', 'Möchten Sie den empfohlenen Verkaufspreis anzeigen?');
 
 define('PRODUCT_LIST_PRICE_TITLE', 'Artikelpreis anzeigen');
-define('PRODUCT_LIST_PRICE_DESC', 'M&ouml;chten Sie den Artikelpreis anzeigen?');
+define('PRODUCT_LIST_PRICE_DESC', 'Möchten Sie den Artikelpreis anzeigen?');
 
 define('PRODUCT_LIST_QUANTITY_TITLE', 'Artikelanzahl anzeigen');
-define('PRODUCT_LIST_QUANTITY_DESC', 'M&ouml;chten Sie die Anzahl der vorhandenen Artikel anzeigen?');
+define('PRODUCT_LIST_QUANTITY_DESC', 'Möchten Sie die Anzahl der vorhandenen Artikel anzeigen?');
 
 define('PRODUCT_LIST_WEIGHT_TITLE', 'Artikelgewicht anzeigen');
-define('PRODUCT_LIST_WEIGHT_DESC', 'M&ouml;chten Sie das Artikelgewicht anzeigen?');
+define('PRODUCT_LIST_WEIGHT_DESC', 'Möchten Sie das Artikelgewicht anzeigen?');
 
 define('PRODUCT_LIST_BUY_NOW_TITLE', 'Jetzt Kaufen anzeigen');
-define('PRODUCT_LIST_BUY_NOW_DESC', 'M&ouml;chten Sie den \'Jetzt Kaufen\' Button anzeigen?');
+define('PRODUCT_LIST_BUY_NOW_DESC', 'Möchten Sie den \'Jetzt Kaufen\' Button anzeigen?');
 
 define('PRODUCT_LIST_SORT_ORDER_TITLE', 'Display Product Sort Order');
 define('PRODUCT_LIST_SORT_ORDER_DESC', 'Do you want to display the Product Sort Order column?');
 
-define('STOCK_CHECK_TITLE', 'Bestandspr&uuml;fung');
-define('STOCK_CHECK_DESC', 'Soll der Shop eine Bestandspr&uuml;fung durchf&uuml;hren?');
+define('STOCK_CHECK_TITLE', 'Bestandsprüfung');
+define('STOCK_CHECK_DESC', 'Soll der Shop eine Bestandsprüfung durchführen?');
 
 define('STOCK_LIMITED_TITLE', 'Lagerbestand aktualisieren');
 define('STOCK_LIMITED_DESC', 'Soll der Shop nach einem Kauf den Artikel vom Bestand abziehen?');
 
 define('STOCK_ALLOW_CHECKOUT_TITLE', 'Kaufen erlauben');
-define('STOCK_ALLOW_CHECKOUT_DESC', 'Darf ein Kunde die Kaufabwicklung auch abschlie&szlig;en, wenn er Artikel gekauft hat, die nicht mehr vorr&auml;tig sind?');
+define('STOCK_ALLOW_CHECKOUT_DESC', 'Darf ein Kunde die Kaufabwicklung auch abschlie&szlig;en, wenn er Artikel gekauft hat, die nicht mehr vorrätig sind?');
 
 define('STOCK_MARK_PRODUCT_OUT_OF_STOCK_TITLE', 'Produktmarkierung, wenn nicht auf Lager');
-define('STOCK_MARK_PRODUCT_OUT_OF_STOCK_DESC', 'Kennzeichnung f&uuml;r Produkte, die nicht mehr vorr&auml;tig sind');
+define('STOCK_MARK_PRODUCT_OUT_OF_STOCK_DESC', 'Kennzeichnung für Produkte, die nicht mehr vorrätig sind');
 
 
 define('STOCK_REORDER_LEVEL_TITLE', 'Unterschrittene Mengen im Lagerbestand');
 define('STOCK_REORDER_LEVEL_DESC', 'Ab diesem Bestand erfolgt eine Meldung an den Administrator');
 
 define('STORE_PAGE_PARSE_TIME_TITLE', 'Speichere die Erstellungszeit einer Seite');
-define('STORE_PAGE_PARSE_TIME_DESC', 'Die Zeit, die der Server zur Erstellung der Seite ben&ouml;tigt, wird gespeichert.');
+define('STORE_PAGE_PARSE_TIME_DESC', 'Die Zeit, die der Server zur Erstellung der Seite benötigt, wird gespeichert.');
 
 define('STORE_PAGE_PARSE_TIME_LOG_TITLE', 'Ziel der Protokolldatei');
 define('STORE_PAGE_PARSE_TIME_LOG_DESC', 'Verzeichnis und Dateiname der Datei, in der die Seitenerstellungszeiten gespeichert werden.');
@@ -302,22 +302,22 @@ define('STORE_PARSE_DATE_TIME_FORMAT_TITLE', 'Datumsformat der Protokolldatei');
 define('STORE_PARSE_DATE_TIME_FORMAT_DESC', 'Format von Datum und Uhrzeit.');
 
 define('DISPLAY_PAGE_PARSE_TIME_TITLE', 'Anzeige der Erstellungszeit einer Seite');
-define('DISPLAY_PAGE_PARSE_TIME_DESC', 'Die Erstellungszeit einer Seite ist f&uuml;r den Besucher des Shops sichtbar. (\'Speichere die Erstellungszeit einer Seite\' mu&szlig; aktiviert sein.)');
+define('DISPLAY_PAGE_PARSE_TIME_DESC', 'Die Erstellungszeit einer Seite ist für den Besucher des Shops sichtbar. (\'Speichere die Erstellungszeit einer Seite\' mu&szlig; aktiviert sein.)');
 
 define('USE_CACHE_TITLE', 'Benutze Cache');
 define('USE_CACHE_DESC', 'Soll die Seite zwischengespeichert werden?');
 
-define('DOWNLOAD_ENABLED_TITLE', 'Erm&ouml;gliche Download');
-define('DOWNLOAD_ENABLED_DESC', 'Aktiviert die Shop-Funktionen, die es erm&ouml;glichen Datei herunterzuladen.');
+define('DOWNLOAD_ENABLED_TITLE', 'Ermögliche Download');
+define('DOWNLOAD_ENABLED_DESC', 'Aktiviert die Shop-Funktionen, die es ermöglichen Datei herunterzuladen.');
 
 define('DOWNLOAD_BY_REDIRECT_TITLE', 'Download by redirect');
 define('DOWNLOAD_BY_REDIRECT_DESC', 'Use browser redirection for download. Disable on non-Unix systems.');
 
 define('DOWNLOAD_MAX_DAYS_TITLE', 'Ablaufzeit (Tage)');
-define('DOWNLOAD_MAX_DAYS_DESC', 'Setzt die Anzahl der Tage, nach denen der Link ung&uuml;ltig wird. 0 hei&szlig;t immer g&uuml;tig.');
+define('DOWNLOAD_MAX_DAYS_DESC', 'Setzt die Anzahl der Tage, nach denen der Link ungültig wird. 0 hei&szlig;t immer gütig.');
 
 define('DOWNLOAD_MAX_COUNT_TITLE', 'Maximale Anzahl der Downloads');
-define('DOWNLOAD_MAX_COUNT_DESC', 'Setzt die maximal m&ouml;gliche Anzahl der Downloads, 0 hei&szlig;t dass kein Download erlaubt ist.');
+define('DOWNLOAD_MAX_COUNT_DESC', 'Setzt die maximal mögliche Anzahl der Downloads, 0 hei&szlig;t dass kein Download erlaubt ist.');
 
 define('DOWNLOADS_CONTROLLER_ON_HOLD_MSG_TITLE', 'Downloads Controller Download on hold message');
 define('DOWNLOADS_CONTROLLER_ON_HOLD_MSG_DESC', 'Downloads Controller Download on hold message');
@@ -325,8 +325,8 @@ define('DOWNLOADS_CONTROLLER_ON_HOLD_MSG_DESC', 'Downloads Controller Download o
 define('DOWNLOADS_CONTROLLER_ORDERS_STATUS_TITLE', 'Downloads Controller Order Status Value');
 define('DOWNLOADS_CONTROLLER_ORDERS_STATUS_DESC', 'Downloads Controller Order Status Value - Default=2');
 
-define('PDF_DATA_SHEET_TITLE', 'Erm&ouml;gliche PDF-Prospekt');
-define('PDF_DATA_SHEET_DESC', 'M&ouml;chten Sie die Produktinformationen als PDF-Datei zum download anbieten?');
+define('PDF_DATA_SHEET_TITLE', 'Ermögliche PDF-Prospekt');
+define('PDF_DATA_SHEET_DESC', 'Möchten Sie die Produktinformationen als PDF-Datei zum download anbieten?');
 
 define('HEADER_COLOR_TABLE_TITLE', 'Farbe: Prospektkopf-Tabelle');
 define('HEADER_COLOR_TABLE_DESC', 'Farbe in R, G, B, Werten (Beispiel: 230,230,230)');
@@ -338,100 +338,100 @@ define('FOOTER_CELL_BG_COLOR_TITLE', 'Hintergundfarbe: Prospektfuss');
 define('FOOTER_CELL_BG_COLOR_DESC', 'Farbe in R, G, B, Werten (Beispiel: 210,210,210)');
 
 define('SHOW_BACKGROUND_TITLE', 'Hintergrund');
-define('SHOW_BACKGROUND_DESC', 'M&ouml;chten Sie die Hintergrundfarbe angezeigen?');
+define('SHOW_BACKGROUND_DESC', 'Möchten Sie die Hintergrundfarbe angezeigen?');
 
 define('PAGE_BG_COLOR_TITLE', 'Hintergundfarbe: Prospekt');
 define('PAGE_BG_COLOR_DESC', 'Farbe in R, G, B, Werten (Beispiel: 250,250,250)');
 
 define('SHOW_WATERMARK_TITLE', 'Wasserzeichen');
-define('SHOW_WATERMARK_DESC', 'M&ouml;chten Sie Ihren Firmenname als Wasserzeichen angezeigen?');
+define('SHOW_WATERMARK_DESC', 'Möchten Sie Ihren Firmenname als Wasserzeichen angezeigen?');
 
 define('PAGE_WATERMARK_COLOR_TITLE', 'Wasserzeichenfarbe');
 define('PAGE_WATERMARK_COLOR_DESC', 'Farbe in R, G, B, Werten (Beispiel: 236,245,255)');
 
 define('PDF_IMAGE_KEEP_PROPORTIONS_TITLE', 'Produktbilder');
-define('PDF_IMAGE_KEEP_PROPORTIONS_DESC', 'M&ouml;chten Sie die maximale bzw. minimale Produktgr&ouml;sse verwenden?');
+define('PDF_IMAGE_KEEP_PROPORTIONS_DESC', 'Möchten Sie die maximale bzw. minimale Produktgrösse verwenden?');
 
 define('MAX_IMAGE_WIDTH_TITLE', 'Breite der Produktbilder');
 define('MAX_IMAGE_WIDTH_DESC', 'max. Breite in mm der Produktbilder');
 
-define('MAX_IMAGE_HEIGHT_TITLE', 'H&ouml;he der Produktbilder');
-define('MAX_IMAGE_HEIGHT_DESC', 'max. H&ouml;he in mm der Produktbilder');
+define('MAX_IMAGE_HEIGHT_TITLE', 'Höhe der Produktbilder');
+define('MAX_IMAGE_HEIGHT_DESC', 'max. Höhe in mm der Produktbilder');
 
 define('PDF_TO_MM_FACTOR_TITLE', 'Faktor');
 define('PDF_TO_MM_FACTOR_DESC', 'Produktbilder');
 
 define('SHOW_PATH_TITLE', 'Kategoriename');
-define('SHOW_PATH_DESC', 'M&ouml;chten Sie den Kategorienamen anzeigen?');
+define('SHOW_PATH_DESC', 'Möchten Sie den Kategorienamen anzeigen?');
 
 define('SHOW_IMAGES_TITLE', 'Produktbild');
-define('SHOW_IMAGES_DESC', 'M&ouml;chten Sie das Produktbild anzeigen?');
+define('SHOW_IMAGES_DESC', 'Möchten Sie das Produktbild anzeigen?');
 
 define('SHOW_NAME_TITLE', 'Produktname');
-define('SHOW_NAME_DESC', 'M&ouml;chten Sie den Produktnamen in der Beschreibung anzeigen?');
+define('SHOW_NAME_DESC', 'Möchten Sie den Produktnamen in der Beschreibung anzeigen?');
 
 define('SHOW_MODEL_TITLE', 'Bestellnummer');
-define('SHOW_MODEL_DESC', 'M&ouml;chten Sie die Bestellnummer anzeigen?');
+define('SHOW_MODEL_DESC', 'Möchten Sie die Bestellnummer anzeigen?');
 
 define('SHOW_DESCRIPTION_TITLE', 'Produktbeschreibung');
-define('SHOW_DESCRIPTION_DESC', 'M&ouml;chten Sie die Produktbeschreibung anzeigen?');
+define('SHOW_DESCRIPTION_DESC', 'Möchten Sie die Produktbeschreibung anzeigen?');
 
 define('SHOW_MANUFACTURER_TITLE', 'Hersteller');
-define('SHOW_MANUFACTURER_DESC', 'M&ouml;chten Sie den Hersteller anzeigen?');
+define('SHOW_MANUFACTURER_DESC', 'Möchten Sie den Hersteller anzeigen?');
 
 define('SHOW_PRICE_TITLE', 'Produktpreis');
-define('SHOW_PRICE_DESC', 'M&ouml;chten Sie den Produktpreis anzeigen?');
+define('SHOW_PRICE_DESC', 'Möchten Sie den Produktpreis anzeigen?');
 
 define('SHOW_SPECIALS_PRICE_TITLE', 'Sonderangebote');
-define('SHOW_SPECIALS_PRICE_DESC', 'M&ouml;chten Sie den Angebotspreis anzeigen?');
+define('SHOW_SPECIALS_PRICE_DESC', 'Möchten Sie den Angebotspreis anzeigen?');
 
 define('SHOW_SPECIALS_PRICE_EXPIRES_TITLE', 'Datum Sonderangebote');
-define('SHOW_SPECIALS_PRICE_EXPIRES_DESC', 'M&ouml;chten Sie das G&uuml;ltigkeitsdatum der Angebotspreise anzeigen?');
+define('SHOW_SPECIALS_PRICE_EXPIRES_DESC', 'Möchten Sie das Gültigkeitsdatum der Angebotspreise anzeigen?');
 
 define('SHOW_TAX_CLASS_ID_TITLE', 'Steuersatz');
-define('SHOW_TAX_CLASS_ID_DESC', 'M&ouml;chten Sie den Steuersatz anzeigen?');
+define('SHOW_TAX_CLASS_ID_DESC', 'Möchten Sie den Steuersatz anzeigen?');
 
 define('SHOW_OPTIONS_TITLE', 'Produktoptionen');
-define('SHOW_OPTIONS_DESC', 'M&ouml;chten Sie die Produktoptionen anzeigen?');
+define('SHOW_OPTIONS_DESC', 'Möchten Sie die Produktoptionen anzeigen?');
 
 define('SHOW_OPTIONS_PRICE_TITLE', 'Preis der Produktoptionen');
-define('SHOW_OPTIONS_PRICE_DESC', 'M&ouml;chten Sie die Preise der Produktoptionen anzeigen?');
+define('SHOW_OPTIONS_PRICE_DESC', 'Möchten Sie die Preise der Produktoptionen anzeigen?');
 
-define('SECURITY_CODE_LENGTH_TITLE', 'Einl&ouml;sungscode');
-define('SECURITY_CODE_LENGTH_DESC', 'Setzt die L&auml;nge des Einl&ouml;ngscodes, je l&auml;nger dieser ist, desto sicherer ist er.');
+define('SECURITY_CODE_LENGTH_TITLE', 'Einlösungscode');
+define('SECURITY_CODE_LENGTH_DESC', 'Setzt die Länge des Einlöngscodes, je länger dieser ist, desto sicherer ist er.');
 
 define('NEW_SIGNUP_GIFT_VOUCHER_AMOUNT_TITLE', 'Neukunden Gutschein');
-define('NEW_SIGNUP_GIFT_VOUCHER_AMOUNT_DESC', 'Setzt die H&ouml;he des Gutscheines, den ein Neukunde geschenkt bekommt fest. Feld leer lassen, wenn Neukunden kein \'Begr&uuml;&szlig;ungsgeschenk\' bekommen sollen.');
+define('NEW_SIGNUP_GIFT_VOUCHER_AMOUNT_DESC', 'Setzt die Höhe des Gutscheines, den ein Neukunde geschenkt bekommt fest. Feld leer lassen, wenn Neukunden kein \'Begrü&szlig;ungsgeschenk\' bekommen sollen.');
 
 define('NEW_SIGNUP_DISCOUNT_COUPON_TITLE', 'Coupon-ID');
-define('NEW_SIGNUP_DISCOUNT_COUPON_DESC', 'Dies ist die Coupon-ID, die ein Neukunde per E-Mail erh&auml;lt. Ist keine ID gesetzt, wird keine E-Mail verschickt.');
+define('NEW_SIGNUP_DISCOUNT_COUPON_DESC', 'Dies ist die Coupon-ID, die ein Neukunde per E-Mail erhält. Ist keine ID gesetzt, wird keine E-Mail verschickt.');
 
 define('STORE_TEMPLATES_TITLE', 'Layout Vorlage');
 define('STORE_TEMPLATES_DESC', 'Shop Templates');
 
 define('SHOW_DATE_ADDED_AVAILABLE_TITLE', 'Produkt - Datum');
-define('SHOW_DATE_ADDED_AVAILABLE_DESC', 'M&ouml;chten Sie im Shop das Datum von der Aufnahme des Produktes zeigen?');
+define('SHOW_DATE_ADDED_AVAILABLE_DESC', 'Möchten Sie im Shop das Datum von der Aufnahme des Produktes zeigen?');
 
 define('SHOW_COUNTS_TITLE', 'Artikelanzahl hinter den Kategorienamen');
 define('SHOW_COUNTS_DESC', 'Anzeigen, wieviele Produkte in jeder Kategorie vorhanden sind');
 
 define('DISPLAY_CART_TITLE', 'Warenkorb anzeigen');
-define('DISPLAY_CART_DESC', 'Zeigt den Warenkorb an, nachdem diesem ein Produkt hinzugef&uuml;gt wurde');
+define('DISPLAY_CART_DESC', 'Zeigt den Warenkorb an, nachdem diesem ein Produkt hinzugefügt wurde');
 
 define('SHOW_PRODUCTS_MODEL_TITLE', 'Navigation mit Bestellnummer');
-define('SHOW_PRODUCTS_MODEL_DESC', 'M&ouml;chten Sie die auf der Produkt-Informations-Seite die Bestellnummer in der Navation anzeigen?');
+define('SHOW_PRODUCTS_MODEL_DESC', 'Möchten Sie die auf der Produkt-Informations-Seite die Bestellnummer in der Navation anzeigen?');
 
 define('OOS_SMALL_IMAGE_WIDTH_TITLE', 'Breite kleine Bilder');
 define('OOS_SMALL_IMAGE_WIDTH_DESC', 'Die Breite von kleinen Bildern in Pixeln');
 
-define('OOS_SMALL_IMAGE_HEIGHT_TITLE', 'H&ouml;he kleine Bilder');
-define('OOS_SMALL_IMAGE_HEIGHT_DESC', 'Die H&ouml;he von kleinen Bildern in Pixeln');
+define('OOS_SMALL_IMAGE_HEIGHT_TITLE', 'Höhe kleine Bilder');
+define('OOS_SMALL_IMAGE_HEIGHT_DESC', 'Die Höhe von kleinen Bildern in Pixeln');
 
 define('OOS_BIGIMAGE_WIDTH_TITLE', 'Breite grosses Bild');
 define('OOS_BIGIMAGE_WIDTH_DESC', 'Breite vom grossen Bild in Pixel');
 
-define('OOS_BIGIMAGE_HEIGHT_TITLE', 'H&ouml;he grosses Bild');
-define('OOS_BIGIMAGE_HEIGHT_DESC', 'H&ouml;he vom grossen Bild in Pixel');
+define('OOS_BIGIMAGE_HEIGHT_TITLE', 'Höhe grosses Bild');
+define('OOS_BIGIMAGE_HEIGHT_DESC', 'Höhe vom grossen Bild in Pixel');
 
 define('OOS_META_TITLE_TITLE', 'Shop Titel');
 define('OOS_META_TITLE_DESC', 'Der Titel');
@@ -440,7 +440,7 @@ define('OOS_META_DESCRIPTION_TITLE', 'Beschreibung');
 define('OOS_META_DESCRIPTION_DESC', 'Die Beschreibung Ihres Shop(max. 250 Zeichen)');
 
 define('OOS_META_KEYWORDS_TITLE', 'Suchworte');
-define('OOS_META_KEYWORDS_DESC', 'Geben Sie hier Ihre Schl&uuml;sselw&ouml;rter(durch Komma getrennt) ein(max. 250 Zeichen)');
+define('OOS_META_KEYWORDS_DESC', 'Geben Sie hier Ihre Schlüsselwörter(durch Komma getrennt) ein(max. 250 Zeichen)');
 
 define('OOS_META_PAGE_TOPIC_TITLE', 'Thema');
 define('OOS_META_PAGE_TOPIC_DESC', 'Das Thema Ihres Shop');
@@ -455,7 +455,7 @@ define('OOS_META_COPYRIGHT_TITLE', 'Copyright');
 define('OOS_META_COPYRIGHT_DESC', 'Der Entwickler des Shop');
 
 define('OOS_META_PAGE_TYPE_TITLE', 'Seitentyp');
-define('OOS_META_PAGE_TYPE_DESC', 'Typ der Internetpr&auml;senz');
+define('OOS_META_PAGE_TYPE_DESC', 'Typ der Internetpräsenz');
 
 define('OOS_META_PUBLISHER_TITLE', 'Herausgeber');
 define('OOS_META_PUBLISHER_DESC', 'Der Herausgeber');
@@ -463,8 +463,8 @@ define('OOS_META_PUBLISHER_DESC', 'Der Herausgeber');
 define('OOS_META_ROBOTS_TITLE', 'Indizierung');
 define('OOS_META_ROBOTS_DESC', 'Typ der Indizierung');
 
-define('OOS_META_EXPIRES_TITLE', 'G&uuml;ltigkeitsdauer');
-define('OOS_META_EXPIRES_DESC', 'Angebot verf&auml;llt am:( 0 f&uuml;r h&auml;ufig ge&auml;nderte Sites)');
+define('OOS_META_EXPIRES_TITLE', 'Gültigkeitsdauer');
+define('OOS_META_EXPIRES_DESC', 'Angebot verfällt am:( 0 für häufig geänderte Sites)');
 
 define('OOS_META_PAGE_PRAGMA_TITLE', 'Proxy Caching');
 define('OOS_META_PAGE_PRAGMA_DESC', 'Ihr Shop soll von Proxys zwischengespeichert werden?');
@@ -473,17 +473,17 @@ define('OOS_META_REVISIT_AFTER_TITLE', 'Wiederbesuchen nach');
 define('OOS_META_REVISIT_AFTER_DESC', 'Wann soll die Suchmaschine Ihre Seite wiederbesuchen?');
 
 define('OOS_META_PRODUKT_TITLE', 'Pflege im Artikel');
-define('OOS_META_PRODUKT_DESC', 'M&ouml;chten Sie Keywords und Description f&uuml;r jeden Artikel pflegen?');
+define('OOS_META_PRODUKT_DESC', 'Möchten Sie Keywords und Description für jeden Artikel pflegen?');
 
 define('OOS_META_INDEX_PAGE_TITLE', 'Index Seite erzeugen');
-define('OOS_META_INDEX_PAGE_DESC', 'M&ouml;chten Sie eine Index-Seite mit allen Artikeln f&uuml;r Suchmaschinen erzeugen?');
+define('OOS_META_INDEX_PAGE_DESC', 'Möchten Sie eine Index-Seite mit allen Artikeln für Suchmaschinen erzeugen?');
 
-define('OOS_META_INDEX_PATH_TITLE', 'Pfad f&uuml;r IndexSeite');
-define('OOS_META_INDEX_PATH_DESC', 'Die Datei f&uuml;r die Suchmaschinen soll in diesem Shop-Verzeichnis gespeichert werden.');
+define('OOS_META_INDEX_PATH_TITLE', 'Pfad für IndexSeite');
+define('OOS_META_INDEX_PATH_DESC', 'Die Datei für die Suchmaschinen soll in diesem Shop-Verzeichnis gespeichert werden.');
 
 
 define('ENABLE_SPIDER_FRIENDLY_LINKS_TITLE', 'Spider-frundliche Links');
-define('ENABLE_SPIDER_FRIENDLY_LINKS_DESC', 'Erm&ouml;gliche Spider-freundliche Links (empfohlen). ACHTUNG: Es sind ggf. &Auml;nderungen in der Konfiguration des Webservers notwendig!');
+define('ENABLE_SPIDER_FRIENDLY_LINKS_DESC', 'Ermögliche Spider-freundliche Links (empfohlen). ACHTUNG: Es sind ggf. Änderungen in der Konfiguration des Webservers notwendig!');
 
 define('OOS_SPAW_TITLE', 'SPAW PHP WYSIWYG Editor');
 define('OOS_SPAW_DESC', 'SPAW PHP WYSIWYG bei der Datenerfassung verwenden?');

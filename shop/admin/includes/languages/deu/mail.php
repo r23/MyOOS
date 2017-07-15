@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -25,12 +25,12 @@ define('HEADING_TITLE', 'eMail an Kunden versenden');
 define('TEXT_CUSTOMER', 'Kunde:');
 define('TEXT_SUBJECT', 'Betreff:');
 define('TEXT_MESSAGE', 'Nachricht:');
-define('TEXT_SELECT_CUSTOMER', 'Kunden ausw&auml;hlen');
+define('TEXT_SELECT_CUSTOMER', 'Kunden auswählen');
 define('TEXT_ALL_CUSTOMERS', 'Alle Kunden');
 define('TEXT_NEWSLETTER_CUSTOMERS', 'An alle Newsletter-Abonnenten');
 
 define('NOTICE_EMAIL_SENT_TO', 'Hinweis: eMail wurde versendet an: %s');
-define('ERROR_NO_CUSTOMER_SELECTED', 'Fehler: Es wurde kein Kunde ausgew&auml;hlt.');
+define('ERROR_NO_CUSTOMER_SELECTED', 'Fehler: Es wurde kein Kunde ausgewählt.');
 
 define('TEXT_FROM_NAME', 'Absender Name:');
 define('TEXT_FROM_MAIL', 'Absender eMail:');

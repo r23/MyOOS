@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -21,8 +21,8 @@
    ---------------------------------------------------------------------- */
 
 $aLang['navbar_title_1'] = 'Ihr Konto';
-$aLang['navbar_title_2'] = 'Ihre pers&ouml;nliche Daten &auml;ndern';
-$aLang['heading_title'] = 'Ihre pers&ouml;nliche Daten &auml;ndern:';
+$aLang['navbar_title_2'] = 'Ihre persönliche Daten ändern';
+$aLang['heading_title'] = 'Ihre persönliche Daten ändern:';
 
 $aLang['OWNER_EMAIL_SUBJECT'] = 'Neue Kundedaten';
 $aLang['OWNER_EMAIL_DATE'] = 'Datum:';

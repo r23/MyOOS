@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -23,7 +23,7 @@
 $aLang['navbar_title_1'] = 'Ihr Konto';
 $aLang['navbar_title_2'] = 'Adressbuch';
 $aLang['navbar_title_add_entry'] = 'Neuer Eintrag';
-$aLang['navbar_title_modify_entry'] = 'Eintrag &auml;ndern';
+$aLang['navbar_title_modify_entry'] = 'Eintrag ändern';
 $aLang['heading_title_add_entry'] = 'Adressbuch: Neuer Eintrag';
-$aLang['heading_title_modify_entry'] = 'Adressbuch: Eintrag &auml;ndern';
+$aLang['heading_title_modify_entry'] = 'Adressbuch: Eintrag ändern';
 

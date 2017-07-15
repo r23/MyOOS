@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -20,7 +20,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('HEADING_TITLE', 'Option w&auml;hlen ...');
+define('HEADING_TITLE', 'Option wählen ...');
 
 define('BOX_TITLE_ORDERS', 'Bestellungen');
 define('BOX_TITLE_STATISTICS', 'Statistik');

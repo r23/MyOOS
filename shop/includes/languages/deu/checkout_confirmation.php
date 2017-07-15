@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -21,7 +21,7 @@
    ---------------------------------------------------------------------- */
 
 $aLang['navbar_title_1'] = 'Kasse';
-$aLang['navbar_title_2'] = 'Best&auml;tigung';
+$aLang['navbar_title_2'] = 'Bestätigung';
 
 $aLang['heading_title'] = 'Bestellung aufgeben:';
 
@@ -39,5 +39,5 @@ $aLang['heading_order_comments'] = 'Anmerkung zu Ihrer Bestellung';
 $aLang['text_edit'] = 'Bearbeiten';
 
 $aLang['heading_conditions_information'] = 'Widerrufsrecht nach dem Fernabsatzgesetz';
-$aLang['heading_conditions_text'] = 'F&uuml;gen Sie hier Ihren Text zum Widerrufsrecht ein.';
+$aLang['heading_conditions_text'] = 'Fügen Sie hier Ihren Text zum Widerrufsrecht ein.';
 

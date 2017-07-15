@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -41,8 +41,8 @@ define('TABLE_TEXT_MAX_COUNT', 'Maximale Anzahl zum Herunterladen:');
 define('TEXT_TAX_INFO', 'Netto:');
 define('MAX_ROW_LISTS_OPTIONS', 10);
 
-define('TEXT_WARNING_OF_DELETE', 'Mit dieser Option sind Artikel, sowie Optionsmerkmale verbunden - L&ouml;schen wird nicht empfohlen.');
-define('TEXT_OK_TO_DELETE', 'Mit dieser Option sind keine Artikel, sowie Optionsmerkmale verbunden - Sie kann gel&ouml;scht werden.');
+define('TEXT_WARNING_OF_DELETE', 'Mit dieser Option sind Artikel, sowie Optionsmerkmale verbunden - Löschen wird nicht empfohlen.');
+define('TEXT_OK_TO_DELETE', 'Mit dieser Option sind keine Artikel, sowie Optionsmerkmale verbunden - Sie kann gelöscht werden.');
 define('TEXT_OPTION_ID', 'Options ID');
 define('TEXT_OPTION_NAME', 'Optionsname');
 

@@ -199,7 +199,7 @@ define('IMAGE_REQUIRED_TITLE', 'Image Required');
 define('IMAGE_REQUIRED_DESC', 'Enable to display broken images. Good for development.');
 
 define('CUSTOMER_NOT_LOGIN_TITLE', 'Zugangsberechtigung');
-define('CUSTOMER_NOT_LOGIN_DESC', 'Die Zugangsberechtigung wird durch den Administrator nach Pr&uuml;fung der Kundendaten erteilt');
+define('CUSTOMER_NOT_LOGIN_DESC', 'Die Zugangsberechtigung wird durch den Administrator nach Prüfung der Kundendaten erteilt');
 
 define('SEND_CUSTOMER_EDIT_EMAILS_TITLE', 'Kundendaten per Mail');
 define('SEND_CUSTOMER_EDIT_EMAILS_DESC', 'Die Kundendaten werden an den Shopbetreiber per eMail gesandt');
@@ -392,7 +392,7 @@ define('SHOW_SPECIALS_PRICE_TITLE', 'Sonderangebote');
 define('SHOW_SPECIALS_PRICE_DESC', 'M&ouml;chten Sie den Angebotspreis anzeigen?');
 
 define('SHOW_SPECIALS_PRICE_EXPIRES_TITLE', 'Datum Sonderangebote');
-define('SHOW_SPECIALS_PRICE_EXPIRES_DESC', 'M&ouml;chten Sie das G&uuml;ltigkeitsdatum der Angebotspreise anzeigen?');
+define('SHOW_SPECIALS_PRICE_EXPIRES_DESC', 'M&ouml;chten Sie das Gültigkeitsdatum der Angebotspreise anzeigen?');
 
 define('SHOW_TAX_CLASS_ID_TITLE', 'Steuersatz');
 define('SHOW_TAX_CLASS_ID_DESC', 'M&ouml;chten Sie den Steuersatz anzeigen?');
@@ -446,7 +446,7 @@ define('OOS_META_DESCRIPTION_TITLE', 'Beschreibung');
 define('OOS_META_DESCRIPTION_DESC', 'Die Beschreibung Ihres Shop(max. 250 Zeichen)');
 
 define('OOS_META_KEYWORDS_TITLE', 'Suchworte');
-define('OOS_META_KEYWORDS_DESC', 'Geben Sie hier Ihre Schl&uuml;sselw&ouml;rter(durch Komma getrennt) ein(max. 250 Zeichen)');
+define('OOS_META_KEYWORDS_DESC', 'Geben Sie hier Ihre Schlüsselw&ouml;rter(durch Komma getrennt) ein(max. 250 Zeichen)');
 
 define('OOS_META_PAGE_TOPIC_TITLE', 'Thema');
 define('OOS_META_PAGE_TOPIC_DESC', 'Das Thema Ihres Shop');
@@ -461,7 +461,7 @@ define('OOS_META_COPYRIGHT_TITLE', 'Copyright');
 define('OOS_META_COPYRIGHT_DESC', 'Der Entwickler des Shop');
 
 define('OOS_META_PAGE_TYPE_TITLE', 'Seitentyp');
-define('OOS_META_PAGE_TYPE_DESC', 'Typ der Internetpr&auml;senz');
+define('OOS_META_PAGE_TYPE_DESC', 'Typ der Internetpräsenz');
 
 define('OOS_META_PUBLISHER_TITLE', 'Herausgeber');
 define('OOS_META_PUBLISHER_DESC', 'Der Herausgeber');
@@ -469,8 +469,8 @@ define('OOS_META_PUBLISHER_DESC', 'Der Herausgeber');
 define('OOS_META_ROBOTS_TITLE', 'Indizierung');
 define('OOS_META_ROBOTS_DESC', 'Typ der Indizierung');
 
-define('OOS_META_EXPIRES_TITLE', 'G&uuml;ltigkeitsdauer');
-define('OOS_META_EXPIRES_DESC', 'Angebot verf&auml;llt am:( 0 f&uuml;r h&auml;ufig ge&auml;nderte Sites)');
+define('OOS_META_EXPIRES_TITLE', 'Gültigkeitsdauer');
+define('OOS_META_EXPIRES_DESC', 'Angebot verfällt am:( 0 für häufig geänderte Sites)');
 
 define('OOS_META_PAGE_PRAGMA_TITLE', 'Proxy Caching');
 define('OOS_META_PAGE_PRAGMA_DESC', 'Ihr Shop soll von Proxys zwischengespeichert werden?');
@@ -479,10 +479,10 @@ define('OOS_META_REVISIT_AFTER_TITLE', 'Wiederbesuchen nach');
 define('OOS_META_REVISIT_AFTER_DESC', 'Wann soll die Suchmaschine Ihre Seite wiederbesuchen?');
 
 define('OOS_META_PRODUKT_TITLE', 'Pflege im Artikel');
-define('OOS_META_PRODUKT_DESC', 'M&ouml;chten Sie Keywords und Description f&uuml;r jeden Artikel pflegen?');
+define('OOS_META_PRODUKT_DESC', 'M&ouml;chten Sie Keywords und Description für jeden Artikel pflegen?');
 
 define('OOS_META_INDEX_PAGE_TITLE', 'Index Seite erzeugen');
-define('OOS_META_INDEX_PAGE_DESC', 'M&ouml;chten Sie eine Index-Seite mit allen Artikeln f&uuml;r Suchmaschinen erzeugen?');
+define('OOS_META_INDEX_PAGE_DESC', 'M&ouml;chten Sie eine Index-Seite mit allen Artikeln für Suchmaschinen erzeugen?');
 
 define('OOS_META_INDEX_PATH_TITLE', 'Path to IndexSite');
 define('OOS_META_INDEX_PATH_DESC', 'Path to store File for Spider');

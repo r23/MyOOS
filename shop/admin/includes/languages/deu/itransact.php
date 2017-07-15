@@ -6,7 +6,7 @@
    http://www.oos-shop.de/
    
    
-   Copyright (c) 2003 - 2016 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -20,8 +20,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('HEADING_TITLE', '&Ouml;ffnen Sie die Transaction Systemsteuerung');
-define('SUB_BAR_TITLE', 'Klicken Sie auf das Bild unten.  Sie ben&ouml;tigen Ihr Gateway ID und Passwort.');
+define('HEADING_TITLE', 'Öffnen Sie die Transaction Systemsteuerung');
+define('SUB_BAR_TITLE', 'Klicken Sie auf das Bild unten.  Sie benötigen Ihr Gateway ID und Passwort.');
 
 define('CPANEL_URL', 'https://secure.itransact.com/support/login.html');
 define('CPANEL_URL_NAME', 'ctrlpan');

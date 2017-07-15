@@ -26,16 +26,16 @@ $aLang['navbar_title_2'] = 'Versandinformationen';
 $aLang['heading_title'] = 'Versandinformationen';
 
 $aLang['table_heading_shipping_address'] = 'Versandadresse';
-$aLang['text_choose_shipping_destination'] = 'Bitte w&auml;hlen Sie aus Ihrem Adressbuch die gew&uuml;nschte Versandadresse f&uuml;r Ihre Bestellung aus.';
+$aLang['text_choose_shipping_destination'] = 'Bitte wählen Sie aus Ihrem Adressbuch die gewünschte Versandadresse für Ihre Bestellung aus.';
 $aLang['title_shipping_address'] = 'Versandadresse:';
 
 $aLang['table_heading_shipping_method'] = 'Versandart';
-$aLang['text_choose_shipping_method'] = 'Bitte w&auml;hlen Sie die gew&uuml;nschte Versandart f&uuml;r Ihre Bestellung aus.';
-$aLang['title_please_select'] = 'Bitte w&auml;hlen Sie';
+$aLang['text_choose_shipping_method'] = 'Bitte wählen Sie die gewünschte Versandart für Ihre Bestellung aus.';
+$aLang['title_please_select'] = 'Bitte wählen Sie';
 $aLang['text_enter_shipping_information'] = 'Zur Zeit bieten wir Ihnen nur eine Versandart an.';
 
-$aLang['table_heading_comments'] = 'F&uuml;gen Sie hier Ihre Anmerkungen zu dieser Bestellung ein';
+$aLang['table_heading_comments'] = 'Fügen Sie hier Ihre Anmerkungen zu dieser Bestellung ein';
 
 $aLang['title_continue_checkout_procedure'] = 'Fortsetzung des Bestellvorganges';
-$aLang['text_continue_checkout_procedure'] = 'zur Auswahl der gew&uuml;nschten Zahlungsweise.';
+$aLang['text_continue_checkout_procedure'] = 'zur Auswahl der gewünschten Zahlungsweise.';
 
