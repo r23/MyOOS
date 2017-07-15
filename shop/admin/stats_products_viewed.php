@@ -152,7 +152,7 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
 	</section>
 	<!-- Page footer //-->
 	<footer>
-		<span>&copy; 2016 - <a href="http://www.oos-shop.de/" target="_blank">MyOOS [Shopsystem]</a></span>
+		<span>&copy; 2017 - <a href="http://www.oos-shop.de/" target="_blank">MyOOS [Shopsystem]</a></span>
 	</footer>
 </div>
 
