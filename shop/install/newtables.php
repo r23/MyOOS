@@ -586,7 +586,6 @@ dosql($table, $flds);
 $table = $prefix_table . 'information';
 $flds = "
   information_id I NOTNULL AUTO PRIMARY,
-  information_image C(64) NULL,
   sort_order I1,
   date_added T,
   last_modified T,
@@ -599,7 +598,6 @@ $table = $prefix_table . 'information_description';
 $flds = "
   information_id I NOTNULL PRIMARY,
   information_languages_id I NOTNULL DEFAULT '1' PRIMARY,
-  information_url C(255) NOTNULL,
   information_name C(64) NULL,
   information_heading_title C(64) NULL,
   information_description X

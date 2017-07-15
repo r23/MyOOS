@@ -7,7 +7,13 @@
         {include file="phoenix/system/_message.html"}
     {/foreach}
 {/if}
-	
+
+<section class="mainContent clearfix">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="innerWrapper clearfix">
+				
 <form name="cart_quantity" action="{html_get_link}" method="POST" role="form" enctype="multipart/form-data">
 	<input type="hidden" name="action" value="add_product">
 	<input type="hidden" name="content" value="{$page_file}">
@@ -37,9 +43,10 @@
     </td>
     <td align="right" valign="top" class="smallText">
 {if $product_info.products_image != '' }
+[$product_info.products_image}
   {if $smarty.const.LIGHTBOX eq 'true'}
     <a href="{$smarty.const.OOS_IMAGES}{$smarty.const.OOS_POPUP_IMAGES}{$product_info.products_image}" rel="lightbox" title= {$product_info.products_name} ><img src="{$smarty.const.OOS_IMAGES}{$product_info.products_image}" alt={$product_info.products_name|escape:"quotes"} border="0"></a><br>
-    <br><br><a href="{$smarty.const.OOS_IMAGES}{$smarty.const.OOS_POPUP_IMAGES}{$product_info.products_image}" rel="lightbox" title= {$product_info.products_name} >{html_js_icon image="zoom.gif" alt=$lang.icon_button_zoom}{$lang.text_click_to_enlarge}</a>
+    <br><br><a href="{$smarty.const.OOS_IMAGES}{$smarty.const.OOS_POPUP_IMAGES}{$product_info.products_image}" rel="lightbox" title= {$product_info.products_name} >zoom.gif{$lang.text_click_to_enlarge}</a>
   {/if}
 {/if}
 
@@ -159,5 +166,15 @@
 </tr>
 
 </table>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{if $smarty.const.NEWSLETTER eq true}
+	{include file="phoenix/system/_newsletter.html"}
+{/if}
 
 {include file="phoenix/system/_footer.html"}

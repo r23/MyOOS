@@ -154,6 +154,7 @@ if ($aUser['show_price'] == 1) {
 	}
 }
 
+$sPAngV .= sprintf($aLang['text_shipping'], oos_href_link($aContents['information'], 'information_id=5'));
 
 $smarty->assign(
 	array(

@@ -43,9 +43,8 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
     $informationtable = $oostable['information'];
     $information_descriptiontable = $oostable['information_description'];
-    $sql = "SELECT i.information_id, i.information_image, id.information_name,
-                   id.information_description, id.information_heading_title,
-                   id.information_url
+    $sql = "SELECT i.information_id, id.information_name,
+                   id.information_description, id.information_heading_title
             FROM $informationtable i,
                  $information_descriptiontable id
             WHERE i.information_id = '" . intval($nInformationsID) . "'
@@ -62,7 +61,6 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
         array(
             'breadcrumb'    => $oBreadcrumb->trail(),
             'heading_title' => $information['information_heading_title'],
-            'heading_image' => $information['information_image'],
             'canonical'     => $sCanonical,
 			
             'informations'       => $information,

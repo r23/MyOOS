@@ -260,7 +260,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
                  $order_min = number_format($listing['products_quantity_order_min']);
                }
 
-               $lc_text = '<a href="' . oos_href_link($sContent, $all_get_listing . 'action=buy_now&amp;products_id=' . $listing['products_id'] . '&amp;cart_quantity=' . $order_min ) . ' class="btn btn-primary-filled" role="button"><i class="fa fa-shopping-cart"></i> ' . $aLang['text_now']) . '</a>&nbsp;';
+               $lc_text = '<a href="' . oos_href_link($sContent, $all_get_listing . 'action=buy_now&amp;products_id=' . $listing['products_id'] . '&amp;cart_quantity=' . $order_min ) . ' class="btn btn-primary-filled" role="button"><i class="fa fa-shopping-cart"></i> ' . $aLang['text_now'] . '</a>&nbsp;';
 
             } else {
               $lc_text = '&nbsp;';

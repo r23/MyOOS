@@ -37,29 +37,6 @@
   }
 
 
-  function oos_get_informations_url($informations_id, $lang_id = '') {
-
-    if (!$lang_id) $lang_id = $_SESSION['language_id'];
-
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
-
-    $information_descriptiontable = $oostable['information_description'];
-    $query = "SELECT information_url
-              FROM " . $information_descriptiontable . "
-              WHERE information_id = '" . intval($informations_id) . "'
-                AND information_languages_id = '" . intval($lang_id) . "'";
-    $result = $dbconn->Execute($query);
-
-    $information_url = $result->fields['information_url'];
-
-    // Close result set
-    $result->Close();
-
-    return $information_url;
-  }
-
 
   function oos_get_informations_description($informations_id, $lang_id = '') {
 
